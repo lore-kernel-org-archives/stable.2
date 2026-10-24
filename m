@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792831662;
-	b=k3cJw4IiVI81oCi1hDasfqf8ZRQdga9dd4CgXAhLOJmOAIRs8iZMJ37/0BWh4sucj+Bl
-	 39gkj5Fi1a53efZViQ3obf5yik4Ppisd2R0q7R6RcY3B6dPyLpC9AY6P5Lc1foCnDN6HU
-	 9cDyBPT4V21BIC36Q4JmvjxVuzrIs8bBksQATCJkZA5TMSTnxVy1zhxQr1T481+9db6DX
-	 FJgNnspjUItb2/UC+i/qIKYiNqs3mOxrw/7UFsH7I6r6J56/atXPbxjfl3rhzSeRIHIr/
-	 +oaXh/WWZJVtUPM3FbDh+aHovpKIVjUVpn5GtvCyf5ua1C5+5QAf14O42tWNixJ+NbQ==
+	t=1792832241;
+	b=YfebqEupstzp8AnIq8vwII+J44A5JgOkLMLozPmGVJC0ntTo5P2syUtgi3PJ10mSlLdq
+	 JSkHOP3zMwXo/vHlAMz/8Vy6vbWDLGG0U6Z3BJheUSwhrzfwIxp4s1XzYdT5wLEjUDHlC
+	 8Ep1Y7O8Kp7HaCgwe3jl6pj3i6nZOnH76CJsG/e9s+ooRVKe7ob4695SHbnBq0qjPqDHa
+	 l3Mn2dmlcuqhuOphKALl7uNv2hq9TqpDqAD0nPR4CBVUjEZlGzJ4wNI235DMsyFmQwZo/
+	 bIHFRyYvX+UnQydt7qT7uF0w5pIQZE+HMhIfm32NPgyCl1o+vIE0GVFgcAFUP3F8DUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792831662;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8pjWJ7MxhiXzcGQKA8H10bDbnfInh/RbZKPKduHuA1U=;
-	b=w+Jg6ZPryR0GzrTsR0z/Zv0OAvs5/M329uhD8cy1wEKJxbmZL8pkpxzVGU4+brxLhdlA
-	 mFGubkD/NqUSYdo5DKkkI/rdFSX0RxnjNFJ/zcRePV+o71hoinCfEacZ/IOh43U3zqaUZ
-	 s3TsVNny223hhnKH7APEHv25e/Tr2Zylx8p5vKucsKsdG0Spm2dIXqZO6HVxc518JvPDs
-	 WNcAaUx+WYXerV4vRSu7Ri2TPsWAmvwRkVjyl7q/kLpZt8z+LK7GW2ShBLMV39s26Fe/8
-	 c2lJCJfZS1xeVuB0YYCqPljR9pRAQLlq8FGTvC3mcq5dTmitPpEcXkYy9WN/5kIu93w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832241;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=x4ZcKIyU7Xf/BXbd/bIsPdLNYiGuJ/uLWVv2h1exWHE=;
+	b=waXNjiKios6BdX9jxVXjs288YSIhFZaWDaFR0hSWDqSfBSeZhB0NqZNfk7R8Dk2fQ9O5
+	 SfyxiCrEyrSfJ0GsfAaEqxzRqJHN6bAY0khRwDBYY0zGZJJRsNHiXPwB6np44iNVhOgbv
+	 Mr0dlreE09k8rhXdAEWPkYnbUEtaLzXWSQDuoevevnQGgQbKiv0n2a62qr1P8xZ7gLIGR
+	 RczmEyqLNvfkuFHKhtOOiDkuou4X3kwBC565v4HeTseOBmczpzRT4sIXwYZZdQZUOz4MY
+	 PXM54fxjDocQqRm1fd9GJOEMvZZL2zO+SoX2WrAaPgb4bJEMEu5PhlCWcxfNTCs5MdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FPHYZ1s4;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="TIcaSO/g";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9FC606A31A;
-	Sat, 24 Oct 2026 08:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676EC606A31E;
+	Sat, 24 Oct 2026 08:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FPHYZ1s4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BD81F01825;
-	Sat, 24 Oct 2026 08:47:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TIcaSO/g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D14E1F01825;
+	Sat, 24 Oct 2026 08:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792831661;
-	bh=8pjWJ7MxhiXzcGQKA8H10bDbnfInh/RbZKPKduHuA1U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FPHYZ1s4QJbr4v6RAqXkTXmwMQiSPFtAjF9pjrNkcDrPPN8LyCM3RLzoLK0FsGhmr
-	 w8I82K+xvP+2Vm2dhqd3gY1PrMSWZyPfDFBT4eNqfaPzlEHQisKNsBz3v2yHeM31fm
-	 OO/QaLHwTgdFKycOATf+R7lUkTzWcohv6z8KaBAw=
-Date: Sat, 24 Oct 2026 01:47:40 -0700
+	d=linux-foundation.org; s=korg; t=1792832241;
+	bh=x4ZcKIyU7Xf/BXbd/bIsPdLNYiGuJ/uLWVv2h1exWHE=;
+	h=Date:To:From:Subject;
+	b=TIcaSO/gEApELU/tY5cfpB00OomEhw4+QTmdcFhOp26YlJHx4pxm2ofxK9jA5gea/
+	 DuCgc/Cxn3LCFP+UrLrLxo9cJyTXv/ECy3CMlwZq8htH62rlicnvdn+A2TV9lNqcl1
+	 TdCQbysM7xCSNlaRhN7Yn0Yvu1/shP/XiSa3CAIw=
+Date: Sat, 24 Oct 2026 01:57:20 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,rppt@kernel.org,riel@surriel.com,pfalcato@suse.de,peterx@redhat.com,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mgorman@techsingularity.net,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,jannh@google.com,david@kernel.org,agl@us.ibm.com,josef@toxicpanda.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-To: Vishal Badole <Vishal.Badole@amd.com>
-Cc: <tglx@kernel.org>, <linux-kernel@vger.kernel.org>, <bp@alien8.de>,
- <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
- <tim.c.chen@linux.intel.com>, <dan.liang@intel.com>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v4] lib/group_cpus: Snapshot cluster masks to keep
- grouping hotplug invariant
-Message-Id: <20261024014740.3701054aa2f412748b985de2@linux-foundation.org>
-In-Reply-To: <20260826171537.4167367-1-Vishal.Badole@amd.com>
-References: <20260826171537.4167367-1-Vishal.Badole@amd.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: [merged mm-stable] mm-hugetlb-fix-use-after-free-of-a-new-anon-folio.patch removed from -mm tree
+Message-Id: <20261024085721.2D14E1F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,81 +48,119 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Wed, 26 Aug 2026 22:45:37 +0530 Vishal Badole <Vishal.Badole@amd.com> wrote:
-
-> group_cpus_evenly() builds the managed-IRQ affinity spread used by
-> multi-queue devices such as NVMe. That spread is meant to be a property
-> of the static CPU topology: it walks cpu_present_mask and then
-> cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-> including CPUs that are offline at the time. A driver depends on that
-> partition staying stable across re-computation - the CPUs a queue is
-> given at probe must still describe the same queue after the device is
-> later reset and its affinity recomputed.
-> 
-> On an AMD system that stability breaks across an s2idle cycle. With CPUs
-> 3-11 offlined and only CPUs 0-2 left online, the machine is suspended to
-> s2idle and resumed. The NVMe controller uses the simple-suspend quirk, so
-> resume fully re-initialises it and recomputes the affinity spread. The
-> system then hangs for roughly two minutes and stays sluggish afterwards,
-> the controller only making progress through its command-timeout poll:
-> 
->   nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
->   nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
-> 
-> QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-> was recomputed. "completion polled" means the commands did finish in
-> hardware, but their interrupts were never delivered to a CPU that was
-> watching the queue, so nothing reaped them until the timeout fired.
-> 
-> It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-> cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-> which lists only the cluster siblings that are online when it is called.
-> The resulting partition therefore depends on the transient online mask
-> rather than on the topology alone. Recomputed on resume while the non-boot
-> CPUs are still offline, it no longer matches the boot-time partition, and a
-> queue is left with an affinity that does not cover the CPU it is meant to
-> serve once that CPU comes back online. The dependence is on the online
-> mask, not on any AMD-specific behaviour, so the same stall is reproducible
-> on Intel platforms as well.
-> 
-> Make the cluster grouping depend on the complete cluster topology rather
-> than on whichever CPUs happen to be online. Snapshot the cluster masks
-> once while every present CPU is online and reuse that view for every
-> later spread. Every spread then groups from the same masks, so the
-> partition computed when the controller is reset matches the one computed
-> at probe and each queue's IRQ still covers the CPUs it serves. If the
-> snapshot was never taken, the cluster path is skipped and the plain
-> present/possible spread is used.
-
-I fed this into my evolving AI reviewbot and it had a few things to
-say:
 
 
-The snapshot helps when the first affinity spread is computed with all
-present CPUs online, but I don't think it guarantees the invariant
-claimed in the changelog.
+The quilt patch titled
+     Subject: mm/hugetlb: fix use-after-free of a new anon folio
+has been removed from the -mm tree.  Its filename was
+     mm-hugetlb-fix-use-after-free-of-a-new-anon-folio.patch
 
-If the first spread happens while some present CPUs are offline,
-capture_cluster_snapshot() declines to run and we use plain grouping.
-When those CPUs come online a later spread captures the clusters and
-changes the grouping algorithm. For clusters {0,2} and {1,3}, two IRQ
-groups can change from {0,1}/{2,3} to {0,2}/{1,3}.
+This patch was dropped because it was merged into the mm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Also, even after the snapshot, grp_spread_init_one() still consults
-live topology_sibling_cpumask(). x86 CPU offlining changes these masks.
-On an L2 cluster containing multiple SMT cores, assigning multiple
-IRQ groups inside that cluster can therefore change across hotplug.
+------------------------------------------------------
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: mm/hugetlb: fix use-after-free of a new anon folio
+Date: Thu, 15 Oct 2026 18:07:08 +0200
 
-There's also a new failure mode: if the first snapshot allocation or
-cpus_read_trylock() fails, we use plain grouping, then switch to
-cluster grouping after a subsequent successful capture. I can produce
-different masks this way with all CPUs remaining online.
+For a fault in a private mapping with nothing in the page cache,
+hugetlb_no_page() allocates a folio, locks it and maps it.  The folio has
+one reference, which belongs to the page table entry from then on.  After
+dropping the page table lock the function still sets the migratable flag
+of the folio and unlocks it.
 
-I've verified the mask differences in reduced GCC and Clang models,
-not in a kernel/NVMe reproducer. Can we make the entire assignment
-independent of online sibling masks and avoid switching algorithms
-after an affinity spread has already been handed to a device?
+Whoever zaps the entry in between frees the folio.  The fault holds the
+fault mutex and the lock of the vma.  MADV_DONTNEED and the first unmap of
+a hole punch, hugetlb_vmdelete_list(), do not take the fault mutex, and a
+private vma only has a lock if it owns a reservation map: not with
+MAP_NORESERVE, and not in the child after fork().
+
+Then the flag is set in, and folio_unlock() is called on, a folio that is
+free or has a new owner.  A surplus page goes back to the page allocator
+while it is locked:
+
+  BUG: Bad page state in process init  pfn:108e00
+  flags: 0x200000000000059(locked|uptodate|dirty|head|node=0|zone=2)
+  page dumped because: PAGE_FLAGS_CHECK_AT_FREE flag(s) set
+
+A page of the pool can be given to the next user, of any file, who locks
+it and loses the lock to the late folio_unlock():
+
+  kernel BUG at mm/filemap.c:1532!
+   hugetlb_no_page+0x111b/0x23e0
+   hugetlb_fault+0x3a9/0x14a0
+
+An unprivileged process is enough: threads that write to a MAP_PRIVATE |
+MAP_NORESERVE hugetlb mapping, threads that call MADV_DONTNEED on it, and
+one that takes the freed pages for another file.
+
+Until commit 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more
+pmd sharing synchronization") the fault held i_mmap_rwsem for reading,
+which everybody who zaps takes for writing.  The lock that commit
+bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs") gave
+to private vmas closed the window again, but only for those with a
+reservation map.
+
+Be done with the folio before the page table lock is dropped, as
+hugetlb_wp() is with its copy.  The function already unlocks page cache
+folios under that lock.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david@kernel.org: simplify+move comment]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-2-42796911043b@kernel.org
+Fixes: 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more pmd sharing synchronization")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/hugetlb.c |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+--- a/mm/hugetlb.c~mm-hugetlb-fix-use-after-free-of-a-new-anon-folio
++++ a/mm/hugetlb.c
+@@ -5991,8 +5991,6 @@ static vm_fault_t hugetlb_no_page(struct
+ 		ret = hugetlb_wp(vmf);
+ 	}
+ 
+-	spin_unlock(vmf->ptl);
+-
+ 	/*
+ 	 * Only set hugetlb_migratable in newly allocated pages.  Existing pages
+ 	 * found in the pagecache may not have hugetlb_migratable if they have
+@@ -6003,6 +6001,12 @@ static vm_fault_t hugetlb_no_page(struct
+ 
+ 	if (folio_locked)
+ 		folio_unlock(folio);
++
++	/*
++	 * Hold the PTL until we're done with the folio: the page table owns the
++	 * folio reference now.
++	 */
++	spin_unlock(vmf->ptl);
+ out:
+ 	hugetlb_vma_unlock_read(vma);
+ 
+_
+
+Patches currently in -mm which might be from josef@toxicpanda.com are
+
+
