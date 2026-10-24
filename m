@@ -1,105 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792820275;
-	b=aVH9WzXpS92TAT/DFh4zrQ4/iZIALPwi34WQHHuWOvMcfYxIWr8NgpApcJFk7LDOAytU
-	 jAQU6HvsCrIkEBq9PP7CUdlaOhDYSxUFS4q8Ws5a9yd6pTAOuvc69zhrNkAT5ncN1BTxM
-	 L1gO/1CYJiE9NypdcS+iMQ7g/t8+aKUiGG1dzrYs2QBxagK7198DameCJ+c07WoSmHP4D
-	 /wMYlFRcQ7Bb4hnzrBjKzuGS8xtNDuA25HHJw2EU2JP8scNPRCx4IdXjo4iboOt9xufGN
-	 siaIUo3oAYWcpZgSYqwq1LdAlWEo7IDAx4qpMcj8i9HSmt2ODCcFO+CY+6pw+UD+55Q==
+	t=1792820836;
+	b=bcA+HjVYLWa0RZYHQYQp90ItwCkrlPmIOlUJ0pc6FIRWSVdkApwsZz7CCIHbuAjUBtt3
+	 41fVKbn1wSro1sukZ0I4nfKZbuCLP57a4VNJsv8N3KxTmP+AxjuV2FcKRuGN3YkF+OS3N
+	 o/VVMp0ziGgGUv//JQx3xZlLD+tsPuFIhLF39tOH03v8XeUAS597w8cg8kizoYL8EwsGy
+	 ka8IiTCtWeTFow/0mPs/5RUz2vpPmzquBOc+Smt/32k009rOq35DzV622UZyocaaj9yP6
+	 O6qjAysUjhSvyGsdv/4TD2DvrVufYnC0xoidFJXVY5/Q2OUV9M0uayvgKshigE32USg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792820275;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792820836;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=u1kTAV7kZo1f8uJ6uI/HfVvkXNhvmCW79ofPzPlPbAo=;
-	b=FLbRjrfzzNCG0BAXIXDUyGnrIxCZLk49f2HGaj36TV/HiwhTuX0VyI6ChmkRxmkvNfFB
-	 Oo5IM3gQheAwXEL0ZuViT6Ro9pzNicWeuxxiJPzXV3ojAzFO19pxcTXnIEo+Nk0imncvZ
-	 SKMbl0fdDCI9oSc6KhXF+rM6oDEfHYMW/zlwvA3I8IaRzHK9e7SBpjAe/QLn/bDBxDun+
-	 BBXQbcq0+cet7MygURj365XaFU7s56bDw5rp9gltdBfVoVQxWVdbT9Ql0dAYWoT9S4MNp
-	 +ntZZ9kW9jTt9YLlNm+V2RIoUiLcoC5oUZrWQiz35+gxVOsKsNjxe1iOhfuOqH8BgTQ==
+	bh=JVRdE/3Jnet+h8SyIDy0Hc/nWbQ9iRRU6k7zkm9yJs4=;
+	b=TeUZEBKc7s5+k4tV8A6GNP+WUQw24YWgh2J0IVRigsaCOSFQd65jcXScVGiQDSHIymve
+	 msXYZu9c+VDU4Cai75k2O2Drqu0QwlILWzjLgU2sqE+KBRoi3jzI9wHPdOlLU2LkJsPcU
+	 gPwwrxlwI+JNQUouR3m0buIPOo1C3CtAUW02VcEeVUY3wPo3tdWl9ef4EY35DBikiXiqk
+	 ykos9gwEijKnol0KufbUQLl0dZIu7NIFsn8pPKvQ/wHEhEnxzbJTMlpKLUHY4asEfvMIH
+	 Lq9yV44S2tqUoLzpQ7Jk0DRjwph5/rrv7rUoBEBvW0iCY8618yww13TUNofJssAW11g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h1a+XbhN;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yuw4ixgJ;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AB4606A322
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70AB4606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2033D606A31D
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:47:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2033D606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h1a+XbhN
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9e53d011eso11088075ad.1
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 22:37:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yuw4ixgJ
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so8186245e9.3
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 22:47:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792820275; x=1793425075; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792820833; x=1793425633; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u1kTAV7kZo1f8uJ6uI/HfVvkXNhvmCW79ofPzPlPbAo=;
-        b=h1a+XbhNiXuyFkU+0t2jFqYMiNtEXXQFk5rvbir0hcCw8wNQwmpDF2fagg8+MO2Ks7
-         coevx42zyrC6qgu3d0gUcyhBvhLOCrfk7Uw2gTjcxTDRORo0QTnkggrw9N2ov70fCead
-         PUNjDRCC+v0Ehdd3P6adiFOrhqpvWayQWbBhA9phXu/FJCUEfm87bIdFrO4PWFjU9zVS
-         2GVF8DKavMhy+/zr+W1V8lk+1vCt21osfUUTmWLAoNG6QcqRDTaVqRjupurhuTt7nrMb
-         VQRvFkdxpB8GppY8BO2IQ7VGFKvCrjpimzKGisBKSZt0/kPHAcp8enhgowlo4V+2bs+q
-         GM+Q==
+        bh=JVRdE/3Jnet+h8SyIDy0Hc/nWbQ9iRRU6k7zkm9yJs4=;
+        b=Yuw4ixgJc6bzy2bcfbKthETR1aV1KVTchu3ycgR7/NVAXtHhd80u0bNyC3XZmU5Q9a
+         7nFiaAO0SGPvpxkbtFvr78kqPDoSRpZv2OEHpVI02E2vHo7FxiTuzkjPayNJtmPZqWPu
+         GBfVz7OixWqhoxpGPbjn/yKao1ZNgwJfR/BZz7I9T9WJQL3q6LTUJnlN0xQHRHvcS+WO
+         SSVrq+yFdxDUZiy8dppA4CwpQhMpykb7hlaaWmamK3wFMyzjbNpwSAcTcx1ydkZYBmW1
+         PCp9BnH1oKZKB3XpPCVEwsM2E+ahQikbxi5VLFV1ZVihHYexv6mQuxAXi5DF7PfLP560
+         Uv4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792820275; x=1793425075;
+        d=1e100.net; s=20260707; t=1792820833; x=1793425633;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u1kTAV7kZo1f8uJ6uI/HfVvkXNhvmCW79ofPzPlPbAo=;
-        b=uYw8djXNUKPulXdp+2xgyzwQ3mRuMlRwbu9uev+PvnsWRex7KhUyt4w4caRnElNKl3
-         d/ucxM2TZ0kyE8L8B1Psk2Rs88M3e/v3T/vx/2B9+t/okYOiUXePErMxFmH3T2VPzOc7
-         VUZDf3kboXGwUejBztIN+QQBU5hre3JE3pCLAOp+BeNs7pgVKS9k+KGVN8HQgfazkGH1
-         e8/KYCi6PnNLIqAdRm3VbDIXy55XetdrZR8EEEk631Od7kmfBZm/DiWoE6xjOVTTxzSA
-         Rb0HgNxoYxQP6dpqOj3LIOkBUyfZqfTFIbIWeRsOfFkpA/xZ8cuP23RvP8c2XQrOgeLa
-         K1xg==
-X-Forwarded-Encrypted: i=1; AKwUvBx2v3/jQ7aPn17uQTtNpBcE1oqnC0hpcGFO41sr0YBoMh5CYLvoZneNYWTjlT5edP8FGZqeC+M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOOSJ6Dbf+lKo/MwKLn4720pgoMOf2QW98pMdw5P0GVCFMHMoV
-	sor4edS3quyFdvGoH4pXEfg00PArxAxhlhJtyJ1laxSjT8QaRl9wZv/0
-X-Gm-Gg: AYBFou0B9sRYTGVe2FhI6zRKcuZf4bL0PPypG6F0+eCMuOb2lelhVVF+L29lUrP1kit
-	3aOCuH+lYxU4RK5SRx8I50/YroFf+1HiA5rmQdWZdFOkwAqJYcvf3U2AEmeXNZSt7WA8NYXeFO+
-	s40lr1CGy3R6hZl/qyyinFDKWwYUhmF82A7xWNrKDKtamA1eLTJM1IAkF/0l/JOzVyutUBQZAca
-	mU4ndMjgmXdCZv3DJmW6kosocLKYh6xsjs84oCPuKiTQoglO0uVLvXDvS9M6XiBRGkr7JmKSAOJ
-	pKzl8AAn9Yl3KP9VR740PyHybZgsUQvU5PbfQybwtmyqKQHpWduvmriQCCaFIxqF8EvGIONQTkK
-	HM6XB7010zoZlnEwJissGaLKjaaQ2QJNU07obkh0iDfr+rziAG+i4VbI51b5D3KtlyS5j5ScAYp
-	HVAYYMOUfXp5sKY6O2eT5Z1ZZkFEN2MBIAWjPvymbtwMMXjcOqvJD0VbcMsHaJSVpiSIZG1MaV/
-	4BDjav/6yNuMuXxGViZruU5YvRSn5tbP7ER3Y/0Rf4LzIyF7NfE0cnbWDA02LnsePVyt+QDCnDE
-	XA==
-X-Received: by 2002:a17:903:1a0d:b0:2e9:4f73:83d1 with SMTP id d9443c01a7336-2ea9c674e67mr10386525ad.22.1792820274840;
-        Fri, 23 Oct 2026 22:37:54 -0700 (PDT)
-Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a2676sm2692485ad.50.2026.10.23.22.37.48
+        bh=JVRdE/3Jnet+h8SyIDy0Hc/nWbQ9iRRU6k7zkm9yJs4=;
+        b=RCugk8G2FXQ6WCza1pvCxGRekpefk1HwOws5fukJqj1926GTE1Ne/KPKxr4I3wdLG7
+         UFNqCkLlhaoCW9LEpCw//DmU9QLx5LDUJCzydMT6OId2licW/BSD4Fgi0Ru7zkYxjzOB
+         ssWbV186s3zjoEpCy4K6dpaV1VOmQgmmr2y0SWagA5P822hcj3QBRN1ANfdjvFHGrgCP
+         HuPN2PMKyREcsSBzkd0OdCyLFnm17+J5r031VLd4T/Tv3RWb5d/UGEVzuLqs2v1+/HYk
+         X5lreyD5DAC1Q/HSckgrPt7hy3HpkL6ZIMZbLwmPf8+uNBv9zX7gYRAVpw7j2phJd8zA
+         PB1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxrFXrs26Iimp3AONh1hzeWuY+nMLLkV55jlKRprhTtvn/zucm0J2l7m6BzNR59MjIitQ9nGuI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBtk1bw4m0VkM1W6Q2kd9OAKfTtc+2OABkYzeLULRBcPJMe2aZ
+	LN5O25or9Lxg3eqxS/QZvCUkO2kvT9SHHCvSGbczc0tNDOa9HktQWvez
+X-Gm-Gg: AYBFou3LAr/TNcpOJJd1P6jMfLLCMwsJ9Ib5agSZ8O5qnaTvOY8uW2S0+sFBczaE6no
+	ekYWMYsdISMqWgeG2CTz/cJDFQOOYnLBrEdXSOhrwTrU8cj6TqDAA4IkbykBefywImr1F+1mi11
+	ZlJkEsgvJqWp+37pQpSfOZ8FNABqmdwOBuCyI5vC7BkZF18Iv/J4MmSsCRDLxSm7YMP3zAmV61S
+	ufe8ro24VoTEz+2aMRArT1RtOjfTByYjBEjWgOm0rAnehUvgpO+7PrBZLxC4UvAK8cTF75Fvup0
+	YAVgqSR0sn5skLdQv4ATMQ10+dEtSsfijc5RSg52YWZSwWhounxEZWAeNWVIBnViOgbunjmLk8Q
+	XtrHW3N+tMUiSLedwFr/8wlEuZdMdbSZS25bKH3/6fTjy0OYOJjThfquKohUeeBH9wTkHpYKeaN
+	ki2MGY9sCWuLrNpDLLVacG1lUC5GZJ7LqHtRueO/ItBoKb8iH0UhDwpttqGI9bMuCPzxJ35e+tS
+	1YJn+sqkW33Q4AI523ym5VBIMDBKkmcYuXby1f9tT7xHKcx4SkvpOw53CdD2W01+7d0FMOfUOMX
+	TPeozUwc21V1nJGkDIVAz9wozdJCQptxVXAIHgmIgiiGKnM/U8sk
+X-Received: by 2002:a05:600c:8b72:b0:4a1:e11f:b2d5 with SMTP id 5b1f17b1804b1-4a35ac3948emr13955165e9.2.1792820833100;
+        Fri, 23 Oct 2026 22:47:13 -0700 (PDT)
+Received: from Sheldon ([185.4.35.110])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a00e1b0sm25917465e9.3.2026.10.23.22.47.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 22:37:53 -0700 (PDT)
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: edumazet@kernel.org,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	martin.lau@linux.dev,
-	john.fastabend@gmail.com,
-	weiwan@google.com,
-	sd@queasysnail.net,
-	jiayuan.chen@linux.dev,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 2/2] inet: restore refcount ordering for established lookups
-Date: Sat, 24 Oct 2026 14:37:13 +0900
-Message-ID: <20261024053720.1147022-3-imv4bel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261024053720.1147022-1-imv4bel@gmail.com>
-References: <20261024053720.1147022-1-imv4bel@gmail.com>
+        Fri, 23 Oct 2026 22:47:12 -0700 (PDT)
+From: Victor Carreras <vicajilau@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lukas Wunner <lukas@wunner.de>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-acpi@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Victor Carreras <vicajilau@gmail.com>
+Subject: [PATCH v2] ACPI: x86: Disable wakeup on MSI MS-1592 and MS-1594 dGPU root port
+Date: Sat, 24 Oct 2026 07:47:11 +0200
+Message-ID: <20261024054711.21587-1-vicajilau@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <179272791966.20251.3697951431087014523@gmail.com>
+References: <179272791966.20251.3697951431087014523@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,128 +106,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
-of refcount_t"), default builds implemented refcount_inc_not_zero() using
-atomic_add_unless(), which provided full memory ordering on success. The
-commit removed that ordering on weakly ordered architectures, allowing
-validation in established lookups to be reordered before a successful
-reference acquisition.
+On MSI Summit E16 Flip A12UCT (motherboard MS-1592, BIOS E1592IMS.111)
+and MSI Prestige 16 Studio A13VE / Summit E16 Flip A13VET (motherboard
+MS-1594, BIOS E1594IMS.115), the I2C touchpad (ELAN0305:00, 04F3:31FD)
+permanently stops generating interrupts as soon as the discrete NVIDIA
+GPU (0000:01:00.0) and its parent PCIe Root Port (0000:00:06.0,
+\_SB.PC00.PEG0) enter D3cold.
 
-Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
-lookups. Use refcount_set_release() when setting refcounts in the SYN
-cookie, TCP Fast Open, request migration, and TIME_WAIT paths. Keep the
-existing TIME_WAIT smp_wmb(), which separately orders the refcount store
-before ehash publication.
+In the platform's SSDT (MSI_NB / AdlP_Rvp), \_SB.PC00.PEG0 sets its wake
+GPIO (WAKG) from the BIOS NVS variable P1WP, which erroneously points to
+GPP_A20 (INTC1055:00 pin 62) -- the GPIO interrupt line wired to the
+touchpad.
 
-Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
+During boot, \_SB.PC00.PEG0.PON() calls \_SB.SHPO(WAKG, One), setting
+PAD_CFG0_GPP_A20.GPIROUTSCI = 0 and HostSwOwn = 1 so the OS GPIO driver
+owns the pin. However, when the root port runtime-suspends to D3cold,
+Linux enables ACPI wakeup via \_SB.PC00.PEG0._DSW(1, 0, 3), which sets
+WKEN = 1. Subsequent evaluation of \_SB.PC00.PEG0.PXP._OFF -> POFF()
+executes:
+
+  If (CondRefOf (WAKG))
+  {
+      If (((WAKG != Zero) && WKEN))
+      {
+          \_SB.SHPO (WAKG, Zero)
+      }
+  }
+
+This switches GPP_A20 ownership to ACPI GPE mode (HostSwOwn = 0,
+GPIROUTSCI = 1), silencing the touchpad interrupt until the dGPU wakes
+back up to D0. Under Windows, _DSW is not armed for S0 D3cold on this
+root port, leaving WKEN = 0 so POFF() powers off the dGPU (\PIN.OFF(PWRG))
+without touching GPP_A20.
+
+Add a PCI quirk in drivers/acpi/x86/utils.c for boards MS-1592 and
+MS-1594 on root port 0000:00:06.0 (8086:464d on 12th Gen Alder Lake-P
+and 8086:a74d on 13th Gen Raptor Lake-P/H) to disable wakeup capability.
+This keeps WKEN = 0 so the root port and dGPU still reach D3cold
+normally while leaving GPP_A20 owned by the GPIO driver.
+
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220725
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Victor Carreras <vicajilau@gmail.com>
 ---
- net/ipv4/inet_connection_sock.c | 6 +++---
- net/ipv4/inet_hashtables.c      | 2 +-
- net/ipv4/inet_timewait_sock.c   | 2 +-
- net/ipv4/syncookies.c           | 2 +-
- net/ipv4/tcp_fastopen.c         | 2 +-
- net/ipv6/inet6_hashtables.c     | 2 +-
- 6 files changed, 8 insertions(+), 8 deletions(-)
+Changes in v2:
+- Move the quirk from drivers/pci/quirks.c to drivers/acpi/x86/utils.c
+  as it is x86-specific (Lukas Wunner).
+- Drop clearing adev->wakeup.flags.valid in the final fixup so ACPI
+  power resource dependent tracking between pci_acpi_setup() and
+  pci_acpi_cleanup() remains balanced.
+- Link to v1: https://lore.kernel.org/r/179272791966.20251.3697951431087014523@gmail.com
 
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index bd0bad96c93c3..837cb91e5b173 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -1056,8 +1056,8 @@ static void reqsk_timer_handler(struct timer_list *t)
- 		 * hold another count to prevent use-after-free and
- 		 * call reqsk_put() just before return.
- 		 */
--		refcount_set(&nreq->rsk_refcnt, 2 + 1);
- 		timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
-+		refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
- 		reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, req);
- 
- 		req = nreq;
-@@ -1441,7 +1441,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
- 				goto child_put;
- 			}
- 
--			refcount_set(&nreq->rsk_refcnt, 1);
-+			refcount_set_release(&nreq->rsk_refcnt, 1);
- 			if (inet_csk_reqsk_queue_add(sk, nreq, child)) {
- 				__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQSUCCESS);
- 				reqsk_migrate_reset(req);
-@@ -1494,7 +1494,7 @@ void inet_csk_listen_stop(struct sock *sk)
- 		if (nsk) {
- 			nreq = inet_reqsk_clone(req, nsk);
- 			if (nreq) {
--				refcount_set(&nreq->rsk_refcnt, 1);
-+				refcount_set_release(&nreq->rsk_refcnt, 1);
- 
- 				rcu_read_lock();
- 				if (inet_csk_reqsk_queue_add(nsk, nreq, child)) {
-diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-index 58d54965036a2..7ffa9171d6de1 100644
---- a/net/ipv4/inet_hashtables.c
-+++ b/net/ipv4/inet_hashtables.c
-@@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct net *net,
- 		if (sk->sk_hash != hash)
- 			continue;
- 		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
--			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
- 				goto out;
- 			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
- 				     !inet_match(net, sk, acookie, ports, dif,
-diff --git a/net/ipv4/inet_timewait_sock.c b/net/ipv4/inet_timewait_sock.c
-index d4c781a0667fe..88ea3a101849a 100644
---- a/net/ipv4/inet_timewait_sock.c
-+++ b/net/ipv4/inet_timewait_sock.c
-@@ -141,7 +141,7 @@ void inet_twsk_hashdance_schedule(struct inet_timewait_sock *tw,
- 	 * Also note that after this point, we lost our implicit reference
- 	 * so we are not allowed to use tw anymore.
+ drivers/acpi/x86/utils.c | 47 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+
+diff --git a/drivers/acpi/x86/utils.c b/drivers/acpi/x86/utils.c
+index 4189516..84a6ca7 100644
+--- a/drivers/acpi/x86/utils.c
++++ b/drivers/acpi/x86/utils.c
+@@ -665,3 +665,50 @@ void __init acpi_proc_quirk_mwait_check(void)
  	 */
--	refcount_set(&tw->tw_refcnt, 3);
-+	refcount_set_release(&tw->tw_refcnt, 3);
- 
- 	/* Ensure tw_refcnt has been set before tw is published.
- 	 * smp_wmb() provides the necessary memory barrier to enforce this
-diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 6440305615378..4b2d2713653b7 100644
---- a/net/ipv4/syncookies.c
-+++ b/net/ipv4/syncookies.c
-@@ -205,7 +205,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
- 	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
- 						 NULL, &own_req, NULL);
- 	if (child) {
--		refcount_set(&req->rsk_refcnt, 1);
-+		refcount_set_release(&req->rsk_refcnt, 1);
- 		sock_rps_save_rxhash(child, skb);
- 
- 		if (rsk_drop_req(req)) {
-diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-index 471c78be55137..e40477b6b5549 100644
---- a/net/ipv4/tcp_fastopen.c
-+++ b/net/ipv4/tcp_fastopen.c
-@@ -364,7 +364,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
- 	tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
- 			     req->timeout, false);
- 
--	refcount_set(&req->rsk_refcnt, 2);
-+	refcount_set_release(&req->rsk_refcnt, 2);
- 
- 	sk_mark_napi_id_set(child, skb);
- 
-diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
-index aa5fa1dd062f7..1eea584d80df8 100644
---- a/net/ipv6/inet6_hashtables.c
-+++ b/net/ipv6/inet6_hashtables.c
-@@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct net *net,
- 			continue;
- 		if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))
- 			continue;
--		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+		if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
- 			goto out;
- 
- 		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
+ 	dmi_check_system(acpi_proc_quirk_mwait_dmi_table);
+ }
++
++/*
++ * On MSI Summit E16 Flip A12UCT (board MS-1592) and MSI Prestige 16 Studio
++ * A13VE / Summit E16 Flip A13VET (board MS-1594), the BIOS SSDT (MSI_NB /
++ * AdlP_Rvp) assigns the touchpad's GPIO interrupt pin (GPP_A20) as the PCIe
++ * wake GPIO (WAKG / P1WP) for the dGPU root port (\_SB.PC00.PEG0, 0000:00:06.0).
++ *
++ * When ACPI wakeup is armed on this root port via _DSW (setting WKEN = 1),
++ * subsequent D3cold transitions (\_SB.PC00.PEG0.PXP._OFF -> POFF) call
++ * \_SB.SHPO(WAKG, Zero), switching GPP_A20 ownership from GPIO driver mode
++ * to ACPI GPE mode and permanently freezing the I2C touchpad (ELAN0305:00).
++ *
++ * Disable wakeup on this root port so _DSW is not armed and WKEN remains zero
++ * during D3cold transitions.
++ */
++static const struct dmi_system_id msi_peg0_no_wakeup_dmi_table[] = {
++	{
++		.ident = "MSI MS-1592",
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "Micro-Star International Co., Ltd."),
++			DMI_MATCH(DMI_BOARD_NAME, "MS-1592"),
++		},
++	},
++	{
++		.ident = "MSI MS-1594",
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "Micro-Star International Co., Ltd."),
++			DMI_MATCH(DMI_BOARD_NAME, "MS-1594"),
++		},
++	},
++	{}
++};
++
++static void quirk_msi_peg0_no_wakeup(struct pci_dev *dev)
++{
++	if (pci_dev_id(dev) != PCI_DEVID(0, PCI_DEVFN(6, 0)))
++		return;
++
++	if (!dmi_check_system(msi_peg0_no_wakeup_dmi_table))
++		return;
++
++	pci_info(dev, FW_BUG "Disabling ACPI wakeup to avoid touchpad GPIO (GPP_A20) takeover in D3cold\n");
++	device_wakeup_disable(&dev->dev);
++	device_set_wakeup_capable(&dev->dev, false);
++}
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x464d, quirk_msi_peg0_no_wakeup);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0xa74d, quirk_msi_peg0_no_wakeup);
 -- 
-2.43.0
+2.55.0
 
