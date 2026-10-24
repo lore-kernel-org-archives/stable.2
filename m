@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792844859;
-	b=qPYRBeXMQWV63Z1j/8fVMAylHjaEGSwL2g0lUjWBf5dT6fsENDpLlV7NpYnVQXxLwwW2
-	 UHG897KhTM37tHZHf3l+E910nQxiyLnc8AQOP1wImM/Ng86jpRwfghxlA4+aASXUEKM4X
-	 hXL3TWX/lAYguETuM6Ggh7jRE8O8tGvo6RFFg8i4KZt11lwLi0Su/tdAYjbLTA2xwQvEZ
-	 4gRucFvzvGHl9CM9UEHFp0GH1oPSfzSC0LsXMqY1A8An5YpenY4jPzMjnlHjBB10Qh91Z
-	 xuwOPKhNUIblvq2hp960yr+iIZQ4vS8zCtGuBZ0LpstWcBTX1hjuryL0RIr4a8MjEQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pa/1V+GO9rou0gVbCQu+AiBiS7eZ3WU8igP5ouCt7qE=;
-	b=4deEcmcudcC5+Zx9sh9Ab/fcmuqPYb7FZ70P2lQOyaLpbG4RjWxnBj4TwbtpY/+jN2tN
-	 pJd5lKqgxTHROVPo8BTcykEQd7WssYtcbR7QEI4A8XkjqstWKBKfqlgM7MrVvdYGIse7a
-	 Ddn+Hw/KBy6eQYTbbIvpgU79Y1x1NeEvpVofci4DKAPlF66IiLpQXcpjonDhoR1vJvPF/
-	 39/YScKC5IciS3AwIaJTYOUl3JoYpY8e5erxSux3RWHq60CaGz8hwXBCtWX/IzMXyTM4w
-	 CzIRERK0O2Xcljv4V8mc5SLWDZEHd0ZY2ODH8F/ODKPbL5Vyh2YueOFFfOHLMCzOfPg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MQnxro0o;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792845648;
+	b=MgTTL+ihFx8EiPvE8X0KlXtBXdDzJFft7qKKrjBPj1p0AcQpgcme0JRxKBjpOi9zYCcq
+	 MhodJarMAneRugeOLXblIGIhr1M8bSgs1LBXe5DTgzV2Y62EVOCAP9cshOFefj8JUMQkn
+	 GqdV9xZ0tdBCEZTCmULTke7dFTDEhRh51wCb/vEU6ZMSJZzdypG1/xFL/0tYAEA6Oqcr5
+	 FR53bRISvulNrlS0+b1kR9mJ4X7ijhmCcUTTnf4lEqMOh9pIjVQrcBpgNp2DW0+3SLnKW
+	 31Y3/of8PGd1MxPVo5v0P+nguyJenSs0pc+k8XiBNUXUzJmMkaNgxeEfYrwDRjM+RHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792845648;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
+	b=o2aIftJKRGpJPWi6mBljIJt+3v85eYJ1cg3/e7PqkiRrsLwUyvrJdngEAhk4oGDq3l0d
+	 G3rMh2znvn/8SAdkBwnUsdvgHfHIfYe/i0kNY1XQ3IlY/i4YvHH3+8t9pkH3PTwmoTZk0
+	 oiQfSNLZZFPB7PrEu4QBEfnZ/Y1B617SOyWPoKy6RtS2K2O6AZnBq8ROi9oDjyg9Neqbc
+	 C/ToFRyK7uUsroVsqAzfSIq3XRFLoM5a1VrsHR41c+NgesqiKTaiSkUMUJFaITG75nN0s
+	 JPOrE8tAWCgx7uBSnIskLydls5jVeDvJyj2oLV/yAmT7F8CkiI7yGRPLW7aR5XixaVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1IFp77E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E338F606A31D;
+	Sat, 24 Oct 2026 12:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1IFp77E
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792845647;
+	b=wC3oAdy0laok08FTaAMJwjR++zoelTRj9hnSvPuj7VT69cJJJg1Pi1pGoo618VhvbOzH
+	 PzK4+sWM4MeCXIWbdH+8/PhZ9seXb3oO9O8AmoOVHwIc5UhtGJpuxNYHi/B8VHcbjSFwG
+	 2n+56gtACiLKOavexxSCdEzjuxH8n7gXtuP65Li31bMzMDkw/tiJhVhB5rZfqaC1Qbu7p
+	 z3KGJ0QtHn5TzGEM1DIYi8MFgYsUwyIelR2wHCIbLh/1PJWdr3ASVwxfAWbDC0mfAhIKu
+	 u1dHGb+M6BcFLBRliqIR3EIPK7GzZTwRI+zEDKI5D0+dE4Xs43p6+Y176g88rEWeRuA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792845647;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
+	b=nNAYadCHNhv4BPn7VndOf0z24aSGtsar4XQhRLaDngTsXF+NkMslSUwPekEn1BQlgNYJ
+	 c31lg1zf8Ea31XTp+00VwwWQUp+qpYuiU2DnbCmkfIe5O6H1E+96tClUvi5PiOJP6EvII
+	 exK8gAOqJUownfbfH9l3PEoInfROGx/+Z/z1Q+L4lXi9jTMcknyRRxtrUQ3k3krYrumgo
+	 /GrcFCAnUwfnjIE4SEgkwEMNnSDe8jarQ5bV5Abca1ExbOYCG061+f/Yl0H7FvYa0iXyJ
+	 Vcbpoenn/s0O1HRXfqchVtitEyTh+llWt5LDhxFcdFxVIPiQqJvs3Qz+bMynKtdPDYA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D91606A323
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 12:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D91606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MQnxro0o
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15dd124bbe7so226888c88.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792844858; x=1793449658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pa/1V+GO9rou0gVbCQu+AiBiS7eZ3WU8igP5ouCt7qE=;
-        b=MQnxro0oGBthFhUK5Vksh2mi/1+JKRy3rIclsnydZaqg9cfKaRJWINRWCptpU2L55D
-         s96kJT27co2uwN1DZsEKQjaqCI+Xhq++n+P+QCLZq7Bd4Y1HOHlY0jI/CESjQB4dpS/A
-         qTvDbzw9ctQs78NHb8O4UcYQn39TnM90GxJjntjsXN+vhJai09WJC93eKPMozXdgRZPE
-         01mbaUmusv9Iu/OZbFdN14T07/EndkDf/PQOc/pIWe86OK8B8RHAYtFgz+aZ42BSaVU/
-         NjE1trbsebev2C+VM6uUuaSFziR+cxMgCJCSusKpQVOX1TcQySuYWmukvLqJd3TqSpp9
-         MkCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792844858; x=1793449658;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pa/1V+GO9rou0gVbCQu+AiBiS7eZ3WU8igP5ouCt7qE=;
-        b=b+rbg//ELtf1zFTA2dlDcZ80gDCz+3kNggwsK13BaFGK0/Xs4c6lND77TtoZVX7EcB
-         bjB1jQUmvMYdlk3xaQCBVtVIi6wq9YdHUh2xVCiXFbnrvZhaMjKw0lrvNufe+twnHJfN
-         nKxPBCnn7vQSICr4M2k4gOUlVuNaMbszbcwa06yquxxIiz0NZf4gEqlbgjq4mmV2ZWy3
-         wHTZBG6CKZarWPaubeEU0REb95l6PYsYMrrTkwNCObBOHw2k/9+ZuoA51yDdebQTNOEO
-         NSz1mtj9OEHX/FHWdnsWOU+oonpzfO8kmxvMdbmM+PhYDbbcnnMdsxkyyxMuvv1mkV2y
-         Yzog==
-X-Gm-Message-State: AFq9FYIU6ccllqm7y5I5Q/Nc7BGwHE7XgbmlaW5kaHwSHsbswlehBhTb
-	SrQIqA/BCIBLZw+rge+BO9zoRZkRm5ZYWwTr6UbVPtZ6QIjGNb34qo0wCNIpwrJTIoM=
-X-Gm-Gg: AYBFou1wwuACe+1W3ARXf+cDiqe30vAmsZiXrCwPv/L6ALtK0l+IeSIfe9ZYZX1mLZC
-	NJafrPswqlzpg02TWpCuN+YDM2A8uTIrXnqp9DH3zsRc5GIjluxfOfBj+zlimHK26e9vrx4FdIC
-	Si5+KkgmDtA4Steqmi56Vy46ITP6cg2nDB6H2DTSbcakau2HTakYZrj/qjHZGzmZp4LpD79Ssl8
-	t0pMATZ+7mpEeMFVMUpUKHoeynqp8Cm184Nx6asjzQryRRsiaHLTDAT18H56iIfwZSN3oWC+NDc
-	5+G2j17nrHx/Zap6mtvEYPtJ/l9xLhVrWdAGVs5U3OhPOh6sWED8ezg3PLlIG72gHaaM8NaR7iZ
-	DGVEpsOXniyx65W0VpSqTiily3xjvP2bFikoIexWJLrc9dW0ntUqaplkbYzmyrX/h6bmeAY/XxP
-	i53prA1odMSfCEbqT1DQoeYAjbLNFvw+Uk31MKzDckEuiN9qCQtb20ge7KD3iPojJWTkDFquBsw
-	AhIP3ary/dnukSkvgGNuJ2Amwjwu6/DiF1VKOJn5FDkMPxl+KktIN1I9++XkPKawfPvjmQzJ8qa
-	A8GFtb3/5CNx0RVBCfqLlA3Noki6vU9skeQA1LilMwXX4SJfu3rp9SbuuCjKMSP3tZONs3Be0NK
-	D4rI46OeNiNW5n5oC97f6C/MwZOt08pil3R5XBZ7PdqMY+RZtzRFycbBMkYB5X26qfudQJu80ED
-	Tr/1ZTyrkqKtZQYqQ16mehonZxc5ki669IddT2EnXwR61Bhz1EHDM6OdJO
-X-Received: by 2002:a05:7022:8d:b0:199:7dff:f9cc with SMTP id a92af1059eb24-1997e002523mr2647656c88.42.1792844857710;
-        Sat, 24 Oct 2026 05:27:37 -0700 (PDT)
-Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm6119705c88.19.2026.10.24.05.27.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 05:27:37 -0700 (PDT)
-From: Ting-Han Hou <ue081723@gmail.com>
-To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 5.10.y] net: gso: limit recursive IP-in-IP segmentation
-Date: Sat, 24 Oct 2026 20:27:31 +0800
-Message-ID: <20261024122731.685-1-ue081723@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026100308-enquirer-overlabor-d9db@gregkh>
-References: <2026100308-enquirer-overlabor-d9db@gregkh>
+	by smtp.kernel.org (Postfix) with ESMTPS id E39EA1F01825;
+	Sat, 24 Oct 2026 12:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792845647;
+	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=i1IFp77Ea/uX+05A78KwTlGF6HAJt/jebeJdWosrIY2mZ8lOFiXjuYpCja2XHJ+yn
+	 RHAv0clhu1wTtyoiaC9ieRqIgyubYAZeUHUlqIUoZ13pxBQlHa8JtzFaCNEWrFKt1+
+	 gyYKP0W0f6HawUwcF+QRcmG7rdzVqei28uvdoY97IACSRaYNyr+6/5QW3knWuIRqOs
+	 YhoQzFaYjOQj+ntoBES/1N5kdPWMnaiYzVYls7CGUlh/WlfeS4RvZcPTFIPIao5+Ph
+	 p9ISH1D7zQtQNlYPk8WyrUDGc/BiF0EhrOCjdBB4HxY4I8JEYWzR1zEyKYeVnSh7m0
+	 qRemOuNm+sLdw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 40B43447E0;
+	Sat, 24 Oct 2026 12:40:46 +0000 (UTC)
+From: Franck Baur via B4 Relay <devnull+franck.baur.67.gmail.com@kernel.org>
+Date: Sat, 24 Oct 2026 14:40:44 +0200
+Subject: [PATCH net v2] net: jme: keep RX MAC clock enabled for WoL
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,165 +82,197 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEun3GoC/x3MSQqAMAxA0atI1gZqHPEq4sIhakSrtHUA8e4Wl
+ 2/x/wOWjbCFMnjA8ClWNu1BYQDd1OiRUXpvIEVZpCjBeWW8tgVPQnu0qzhUAyd9W+RUpDH4bjc
+ 8yP0/K9DsoH7fD1/+LzhoAAAA
+X-Change-ID: 20261024-jme-wol-v2-submit-0fe4db872853
+To: Guo-Fu Tseng <cooldavid@cooldavid.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Franck Baur <franck.baur.67@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792845645; l=5786;
+ i=franck.baur.67@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=22BEaH8HKwqaRYpioIznd0XJzULoDFALusQ6AsH9C08=;
+ b=ZJnzMfzAMFTzgHH4A3FnhMapPYhdQxqyABK8rFksQxXAcuFVv9VoCG9l0x0s1YybjRphadpWQ
+ EVce2go1QqjBMS/eXK2VLwXChANNDPLiOIuw8dOYpn45If7urHk0wnz
+X-Developer-Key: i=franck.baur.67@gmail.com; a=ed25519;
+ pk=jhUaI4DVBj7JgOebLvsUGOrgJCBubeK6gqDJjxIqtZ4=
+X-Endpoint-Received: by B4 Relay for franck.baur.67@gmail.com/20261024 with
+ auth_id=1302
+X-Original-From: Franck Baur <franck.baur.67@gmail.com>
+Reply-To: franck.baur.67@gmail.com
+Content-Transfer-Encoding: 7bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+From: Franck Baur <franck.baur.67@gmail.com>
 
-[ Upstream commit 006c8b834aed8b02bd8fb9fb05e9e7ead37d1763 ]
+On the JMicron JMC250 revision 03, the MAC reset performed during
+suspend leaves GPREG1_RXCLKOFF set. Although the driver enables Magic
+Packet detection, the gated RX MAC clock prevents wake-up from ACPI S3.
 
-IP-in-IP GSO can re-enter inet_gso_segment() or ipv6_gso_segment()
-for each nested IP header. encap_level tracks header bytes, not callback
-depth, so a deep chain can exhaust the kernel stack. Making
-inet_gso_segment() stackable introduced unbounded IPv4 nesting; IPIP
-GSO/TSO later made the path reachable. The IPv6 stackable path was
-introduced separately and uses the same guard.
+Keep the RX MAC clock enabled while WoL is armed. Restore the gated
+clock state immediately after disabling WoL during resume, preserving
+the RX engine initialization ordering.
 
-Count IPv4 and IPv6 GSO handler entries in skb_gso_cb, initialized once
-per top-level GSO operation and preserved across GRE/UDP context changes.
-Use the existing IP_TUNNEL_RECURSION_LIMIT for both handlers. The first
-five entries pass, and the sixth returns -EINVAL before dispatching
-another GSO callback.
+Prevent concurrent link-change work from gating the clock again after
+WoL has been armed. Quiesce interrupt-driven link-change scheduling,
+synchronize pending interrupts, and cancel outstanding link-change
+work before programming WoL in suspend and shutdown paths.
 
-Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
+Restore the deferred processing state before requesting link
+reinitialization on resume.
+
+Tested on an ASUS K42JE with JMC250 [197b:0250] rev 03 using a
+Debian 6.12.111 kernel and an externally built module. ACPI S3 wake
+with a Magic Packet completed in 19 seconds, while a control without
+a Magic Packet resumed through the RTC alarm after 123 seconds.
+Ethernet and SSH recovered after resume.
+
+S4 and S5 wake behaviour has not been validated with this revision.
+
+Fixes: 854a2e7c331a ("jme: Safer MAC processor reset sequence")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/cover.1790157745.git.zihanx@nebusec.ai/
 Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260924051521.32568-2-zihanx@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Ting-Han: this tree predates include/net/gso.h and net/core/gso.c, so
-  the skb_gso_cb change and gso_recursion_inc_test() go into
-  include/linux/skbuff.h and the reset into __skb_gso_segment() in
-  net/core/dev.c. IP_TUNNEL_RECURSION_LIMIT was added upstream by
-  6f1a9140ecda ("net: add xmit recursion limit to tunnel xmit
-  functions"), which is not in this tree, so define it (same value, 5)
-  in ip_tunnels.h ]
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+Signed-off-by: Franck Baur <franck.baur.67@gmail.com>
 ---
-Tested on top of v5.10.272. The patch also applies on top of the
-current 5.10 queue (stable-queue fa04d3db75), with an 8 line offset in
-skbuff.h.
+Changes in v2:
+- Restore RX MAC clock gating when WoL is disabled on resume, before
+  reinitializing the RX engine.
+- Prevent new interrupt-driven link-change work during suspend and
+  shutdown, and drain pending work before arming WoL.
+- Restore deferred processing before requesting link reinitialization.
+- Validate Magic Packet wake from ACPI S3 on a JMC250 rev 03,
+  including an RTC-only control test.
+- Link to v1:
+  https://lore.kernel.org/r/20261011-jme-wol-submit-v1-1-9cc033e259e4@gmail.com/
 
-x86_64 defconfig + kvm_guest.config with KASAN, PROVE_LOCKING,
-DEBUG_ATOMIC_SLEEP, DEBUG_LIST and UBSAN, built with and without the
-patch and booted in QEMU/KVM. The guest sends 32 MiB of TCP over a
-veth pair, over one ipip tunnel, over one ip6ip6 tunnel and over ipip
-in ipip, with tx-ipxip4/6-segmentation turned off on the veth pair so
-that the tunnel GSO packets are segmented in software. With and
-without the patch all data arrives intact, there are no drops or
-kernel warnings, and kprobes show two inet_gso_segment() or
-ipv6_gso_segment() calls per __skb_gso_segment() call in the tunnel
-cases, so these packets reach a count of 2 in the new check. No new
-W=1 or sparse warnings in the changed .c files.
+The full kernel allyesconfig and allmodconfig builds have not been
+completed. The JME driver object builds with W=1 under both
+configurations. The full allyesconfig build was limited by host
+memory during vmlinux.o processing. S4 has not been tested, and S5
+wake remains unconfirmed with this revision.
+---
+ drivers/net/ethernet/jme.c | 37 ++++++++++++++++++++++++++++++++-----
+ drivers/net/ethernet/jme.h |  1 +
+ 2 files changed, 33 insertions(+), 5 deletions(-)
 
-Not tested: the deep nesting reproducer from the upstream report, so
-the -EINVAL path itself was not exercised.
-
-Tool use: this backport was prepared with an LLM coding assistant
-(Claude Code with Claude Opus 5.5), asked to backport 006c8b834aed to
-the stable trees it failed to apply to and to test it. It resolved
-the conflicts, wrote the note in the changelog and this text, wrote
-the test scripts and the guest init, and ran the builds and QEMU tests
-above. I reviewed the patch and the test results before sending.
-
- include/linux/skbuff.h   | 8 ++++++++
- include/net/ip_tunnels.h | 3 +++
- net/core/dev.c           | 1 +
- net/ipv4/af_inet.c       | 3 +++
- net/ipv6/ip6_offload.c   | 4 ++++
- 5 files changed, 19 insertions(+)
-
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 0a7b1a7f1ae10..4f830c4813eb6 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -4492,10 +4492,18 @@ struct skb_gso_cb {
- 	int	encap_level;
- 	__wsum	csum;
- 	__u16	csum_start;
-+	/* Number of IPv4/IPv6 GSO handler entries for this packet. */
-+	u8	recursion_counter;
+diff --git a/drivers/net/ethernet/jme.c b/drivers/net/ethernet/jme.c
+index 25ec5f757c6828a5f5241340bf3fb01d8e0aa3e9..acb4d41f56e1002c0a34a253be20c780ad9b062f 100644
+--- a/drivers/net/ethernet/jme.c
++++ b/drivers/net/ethernet/jme.c
+@@ -1502,7 +1502,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
+ 		 * all other events are ignored
+ 		 */
+ 		jwrite32(jme, JME_IEVE, intrstat);
+-		schedule_work(&jme->linkch_task);
++		if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
++			schedule_work(&jme->linkch_task);
+ 		goto out_reenable;
+ 	}
+ 
+@@ -1546,7 +1547,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
+ 	/*
+ 	 * Re-enable interrupt
+ 	 */
+-	jwrite32f(jme, JME_IENS, INTR_ENABLE);
++	if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
++		jwrite32f(jme, JME_IENS, INTR_ENABLE);
+ }
+ 
+ static irqreturn_t
+@@ -1892,6 +1894,7 @@ jme_powersave_phy(struct jme_adapter *jme)
+ 		jme_set_100m_half(jme);
+ 		if (jme->reg_pmcs & (PMCS_LFEN | PMCS_LREN))
+ 			jme_wait_link(jme);
++		jme_mac_rxclk_on(jme);
+ 		jme_clear_pm_enable_wol(jme);
+ 	} else {
+ 		jme_phy_off(jme);
+@@ -3158,6 +3161,21 @@ jme_shutdown(struct pci_dev *pdev)
+ 	struct net_device *netdev = pci_get_drvdata(pdev);
+ 	struct jme_adapter *jme = netdev_priv(netdev);
+ 
++	if (netif_running(netdev)) {
++		set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
++		netif_device_detach(netdev);
++		netif_stop_queue(netdev);
++		jme_stop_irq(jme);
++		synchronize_irq(pdev->irq);
++		jme_stop_irq(jme);
++		cancel_work_sync(&jme->linkch_task);
++		tasklet_disable(&jme->pcc_task);
++		napi_disable(&jme->napi);
++		tasklet_disable(&jme->txclean_task);
++		tasklet_disable(&jme->rxclean_task);
++		tasklet_disable(&jme->rxempty_task);
++	}
++
+ 	jme_powersave_phy(jme);
+ 	pci_pme_active(pdev, true);
+ }
+@@ -3172,11 +3190,16 @@ jme_suspend(struct device *dev)
+ 	if (!netif_running(netdev))
+ 		return 0;
+ 
+-	atomic_dec(&jme->link_changing);
+-
++	set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
+ 	netif_device_detach(netdev);
+ 	netif_stop_queue(netdev);
+ 	jme_stop_irq(jme);
++	synchronize_irq(jme->pdev->irq);
++	jme_stop_irq(jme);
++	cancel_work_sync(&jme->linkch_task);
++	tasklet_disable(&jme->pcc_task);
++	napi_disable(&jme->napi);
++	atomic_dec(&jme->link_changing);
+ 
+ 	tasklet_disable(&jme->txclean_task);
+ 	tasklet_disable(&jme->rxclean_task);
+@@ -3215,6 +3238,7 @@ jme_resume(struct device *dev)
+ 		return 0;
+ 
+ 	jme_clear_pm_disable_wol(jme);
++	jme_mac_rxclk_off(jme);
+ 	jme_phy_on(jme);
+ 	if (test_bit(JME_FLAG_SSET, &jme->flags))
+ 		jme_set_link_ksettings(netdev, &jme->old_cmd);
+@@ -3226,8 +3250,11 @@ jme_resume(struct device *dev)
+ 
+ 	atomic_inc(&jme->link_changing);
+ 
+-	jme_reset_link(jme);
++	napi_enable(&jme->napi);
++	tasklet_enable(&jme->pcc_task);
++	clear_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
+ 
++	jme_reset_link(jme);
+ 	jme_start_irq(jme);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/jme.h b/drivers/net/ethernet/jme.h
+index 860494ff37144da9dc25d3105ecabb77072077b0..ec5dfddf7322730a316a4900026a88e479f8a8a1 100644
+--- a/drivers/net/ethernet/jme.h
++++ b/drivers/net/ethernet/jme.h
+@@ -450,6 +450,7 @@ enum jme_flags_bits {
+ 	JME_FLAG_SSET		= 2,
+ 	JME_FLAG_POLL		= 5,
+ 	JME_FLAG_SHUTDOWN	= 6,
++	JME_FLAG_WOL_QUIESCE	= 7,
  };
- #define SKB_GSO_CB_OFFSET	32
- #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_OFFSET))
  
-+static inline bool gso_recursion_inc_test(struct sk_buff *skb,
-+					  unsigned int limit)
-+{
-+	return ++SKB_GSO_CB(skb)->recursion_counter > limit;
-+}
-+
- static inline int skb_tnl_header_len(const struct sk_buff *inner_skb)
- {
- 	return (skb_mac_header(inner_skb) - inner_skb->head) -
-diff --git a/include/net/ip_tunnels.h b/include/net/ip_tunnels.h
-index fa81285ab723f..cbfb33f2225f2 100644
---- a/include/net/ip_tunnels.h
-+++ b/include/net/ip_tunnels.h
-@@ -24,6 +24,9 @@
- #include <net/ip6_route.h>
- #endif
- 
-+/* Maximum nesting depth for recursive IP tunnel processing */
-+#define IP_TUNNEL_RECURSION_LIMIT	5
-+
- /* Keep error state on tunnel for 30 sec */
- #define IPTUNNEL_ERR_TIMEO	(30*HZ)
- 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 4fcc2857c7db0..b39f31890fce2 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -3415,6 +3415,7 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
- 
- 	SKB_GSO_CB(skb)->mac_offset = skb_headroom(skb);
- 	SKB_GSO_CB(skb)->encap_level = 0;
-+	SKB_GSO_CB(skb)->recursion_counter = 0;
- 
- 	skb_reset_mac_header(skb);
- 	skb_reset_mac_len(skb);
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index b4b791888e320..221f58e5fc15d 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -1351,6 +1351,9 @@ struct sk_buff *inet_gso_segment(struct sk_buff *skb,
- 	int id;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_recursion_inc_test(skb,
-+					   IP_TUNNEL_RECURSION_LIMIT)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*iph))))
- 		goto out;
-diff --git a/net/ipv6/ip6_offload.c b/net/ipv6/ip6_offload.c
-index c145be2fd6e42..bc04c4bffae95 100644
---- a/net/ipv6/ip6_offload.c
-+++ b/net/ipv6/ip6_offload.c
-@@ -15,6 +15,7 @@
- #include <net/inet_common.h>
- #include <net/tcp.h>
- #include <net/udp.h>
-+#include <net/ip_tunnels.h>
- 
- #include "ip6_offload.h"
- 
-@@ -86,6 +87,9 @@ static struct sk_buff *ipv6_gso_segment(struct sk_buff *skb,
- 	bool gso_partial;
- 
- 	skb_reset_network_header(skb);
-+	if (unlikely(gso_recursion_inc_test(skb,
-+					   IP_TUNNEL_RECURSION_LIMIT)))
-+		goto out;
- 	nhoff = skb_network_header(skb) - skb_mac_header(skb);
- 	if (unlikely(!pskb_may_pull(skb, sizeof(*ipv6h))))
- 		goto out;
+ #define TX_TIMEOUT		(5 * HZ)
 
-base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: 20261024-jme-wol-v2-submit-0fe4db872853
+
+Best regards,
 -- 
-2.53.0
+Franck Baur <franck.baur.67@gmail.com>
+
 
