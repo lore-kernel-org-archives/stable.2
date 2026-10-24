@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792863569;
-	b=lH7yTqNyNHx84fiNIDY+25bzEVRp3HKWb4Q5qlByDSYRP/BKRVdVKnu51gmY9+ExSXoi
-	 UmmdPOpBx8sKQ8+d74AJyLft/QVDavXCA3ASQIRRe8svLvht9lC74x/PIJZdZllu5Cfd6
-	 VWVavcSUU0qeL6Fj1k4WItCjoF/VFtrRLwTUhiH9+QBXTQStus90HWS5KUHEjFIs/7gwH
-	 aHmA+iKqEkYZOLa+fuaYrdMwHTNVyECI8K2yItV3opsDOaRmk5lw/jOGLFuQY/8gQg872
-	 NnFxvL+DE19vXkVQ2TWxdvFNQCVaUn0i8n89/kHmX6U8uJvgV3Rag7/zjOXf4S61Gtw==
+	t=1792863575;
+	b=pSQODq7Ew8eN7N1Dj3KW8Q6hfrQPI7HRHtUvO8jWCwschXiAdWI2trnxh4n1TOQRaGzv
+	 UhIR96i5ie/p8L5x1Za1Sk4h8ifnsQpq/j6stkUebDqfMvTLT3TeqBMKOsa5MB0S0t3Qb
+	 G4AH3gSz5a/3EUr1F38YVe1t0MfGsosHs+pa0XJJOyWYDeoMqMoMDjkto4bgDRADg9XkJ
+	 u+Rj7H04diBYL+hMl2Bp4mj9K3FphYYHhxPbfHqPWj9+6TZnfWIq5+GeFqmge4fEewEYj
+	 xT5DnoRnPhkpgPFM7WZTs2sPnnMmVsSVMJA+OxGt7L0KWxFdJHqWyOw+MvxckDwiqTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792863569;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792863575;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=bDe8hIXqTDCWibJgI/VwpsTRyzLy+UtS32+Ph4OdA+g=;
-	b=4QbG1/Ytcdj+cwXqKhDVqLBd2mVlclXVzR4KnqXKO++LSWPsWaZA4N5pSEf7cJDoR23u
-	 Wn+HQX/VoxW3GJxlcyM1vr0/k3YpkH+/+jhEwfgGbu/dq1KAapnH0jPa93nwGXBgy4O1g
-	 +XItUaXu6fgXCoCqmgU+HAt/5IoCzEbo1sM/MomTgM53VrdIC7SG+YmvsQwfOn+guwAAb
-	 abAdqAuy1g3LiAaJxKzybA/nfHShO19Z1NCzoav9V4/0n77eDlMsZMyCWHvziXSjvOjIc
-	 A4HTXimDtb8OLIQ6ZPKaUhW/tV9vlcyBTHcK+NBH+zd6r3SYE+fUx7B3Br1Kb2o2+gg==
+	bh=dOYFw+rnLSNm3IoDGQR/cUouyy2ZPftlN5E3fvK9T7U=;
+	b=l7oVcO6RZaRbpPYkLtHr9FBb7XTV+w6CL/TSzmDVdzVvu+P37QSyolhtBQJDcxX27qph
+	 LSjYlgkSdMHZEjephziijSs+c2l1PathVQoWIlVfgylemtvKZM52Y9tXK8A3iyiikHb2E
+	 spT5ENe/4wRmlTgqQ9Ivl1JVGA7SHZa22q7vt2iMI71fJLXDqeVOALuxfYzV3+E/JVF81
+	 1++83/j7aCI1ndnwV/RY176iwjhbH0pyx638nxVWSf4TJhYr+hX1V7w1/IeV2FM8uP6xd
+	 poMMQZkBCi1kfQ8LIHnqqvywMhULfaL3JdyqkGKIsQrXJH66sGN8bAB96P0V7SeK8fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0b7rn1N+;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xyJ4I7tH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7715B606A320;
-	Sat, 24 Oct 2026 17:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D250B606A326;
+	Sat, 24 Oct 2026 17:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0b7rn1N+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40D31F01825;
-	Sat, 24 Oct 2026 17:39:28 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xyJ4I7tH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9481F01825;
+	Sat, 24 Oct 2026 17:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792863569;
-	bh=bDe8hIXqTDCWibJgI/VwpsTRyzLy+UtS32+Ph4OdA+g=;
+	d=linux-foundation.org; s=korg; t=1792863574;
+	bh=dOYFw+rnLSNm3IoDGQR/cUouyy2ZPftlN5E3fvK9T7U=;
 	h=Date:To:From:Subject;
-	b=0b7rn1N+HN2lDDJyIEJRtpVrQ6lQyiHSdIdkE/8wrydjdNnkCCuyMeaSst7qrv82t
-	 o9MFPnacPrjK2RP5w/3nUH4YLamhsPhqxA2IQl+8rxGqYR55qoS0d3kU0lSJNgxY8B
-	 cJ7mfT4mi3OGDTDF4TGRvwO0Tl4/cuKjW8sSN8zQ=
-Date: Sat, 24 Oct 2026 10:39:28 -0700
+	b=xyJ4I7tH1XCVrnX1+gQb8OUR3o0AU0jP6FLvQ1WxEv4LIVljIz0vhECeTIzh2gKT3
+	 4I/V29AdchvcPUN9TuoNk6tBGkBnIYBbmh1nPhqiDBB0u08D4uN4zTG1SktCWFbYXY
+	 6zkTV3pPdBL+OMHvB768E3B3udxIUzwJfhbYI2L0=
+Date: Sat, 24 Oct 2026 10:39:34 -0700
 To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
 	jlbec@evilplan.org,heming.zhao@suse.com,joseph.qi@linux.alibaba.com,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-find-the-xattr-entry-again-after-converting-a-block-to-a-bucket.patch added to mm-nonmm-unstable branch
-Message-Id: <20261024173928.F40D31F01825@smtp.kernel.org>
+Subject: + ocfs2-do-not-read-the-entry-array-of-an-empty-xattr-block.patch added to mm-nonmm-unstable branch
+Message-Id: <20261024173934.9E9481F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,12 +53,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: ocfs2: find the xattr entry again after converting a block to a bucket
+     Subject: ocfs2: do not read the entry array of an empty xattr block
 has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-find-the-xattr-entry-again-after-converting-a-block-to-a-bucket.patch
+     ocfs2-do-not-read-the-entry-array-of-an-empty-xattr-block.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-find-the-xattr-entry-again-after-converting-a-block-to-a-bucket.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-do-not-read-the-entry-array-of-an-empty-xattr-block.patch
 
 This patch will later appear in the mm-nonmm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -77,49 +77,39 @@ and is updated there most days
 
 ------------------------------------------------------
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: ocfs2: find the xattr entry again after converting a block to a bucket
-Date: Sat, 24 Oct 2026 23:10:09 +0800
+Subject: ocfs2: do not read the entry array of an empty xattr block
+Date: Sat, 24 Oct 2026 23:10:12 +0800
 
-ocfs2_xattr_create_index_block() turns a non-indexed xattr block into a
-tree by copying it into a bucket, and the copy sorts the entries: a
-block holds them in insertion order, a bucket by name hash.
-ocfs2_xattr_update_xattr_search() nevertheless relocates the caller's
-search by the index the entry had in the block, so unless the two orders
-agreed it points at an unrelated entry, and nothing between there and
-the write compares that entry's name with the one being set.
+ocfs2_cp_xattr_block_to_bucket() sizes the name and value area it has to
+carry over from the block's last entry, so an empty block makes it read
+xh_entries[-1].  That lands on the header, where xe_name_offset overlaps
+xh_name_value_len, and block storage never maintains that field, so it
+reads as 0 and the copy runs from the header to the end of the block.
 
-Setting an xattr whose new value no longer fits the block arrives here
-with xs->not_found clear.  The block gave up because
-ocfs2_xa_block_can_reuse() wants an exact namevalue size match, while
-ocfs2_xa_bucket_can_reuse() only wants an entry at least as large as the
-new one, so the bucket accepts a pair the block rejected and the update
-lands on whichever entry the sort left at that index.  Equal padded name
-lengths get that other attribute's value replaced in place and its name
-left alone, so setxattr returns success while the attribute asked for
-keeps its old value.  A longer one trips ocfs2_xa_reuse_entry()'s
-BUG_ON, and a shorter one is refused by the bucket as well, so
-ocfs2_xa_prepare_entry() wipes the entry and writes the new name over
-it, leaving xe_name_hash describing a name that is no longer there.
+The bucket that comes out has xh_count 0 but a name_value_len of
+blocksize less the header, and a matching xh_free_start that claims
+those bytes are in use -- nearly the whole bucket with the common 4K
+block size -- while the last block of the bucket holds a copy of the old
+block's bytes.  Nothing but a trace event reads xh_name_value_len, the
+copied bytes came from the same inode and were wiped before the entry
+was removed, and ocfs2_defrag_xattr_bucket() recomputes xh_free_start,
+so this corrupts the header rather than leaking anything.
 
-Find the entry again by the name being set, matching the type as well.
-The copy carries every entry and every name over unchanged, and (type,
-name) pairs are unique within a block, so the match is exact.  The type
-matters because the handlers strip their prefix before calling
-ocfs2_xattr_set(), so user.foo and trusted.foo share a stored name, a
-stored length and a hash, and both can sit in the same block.
+Leave the bucket empty instead, carrying over the hash the block was
+keyed by, since ocfs2_add_new_xattr_bucket() and
+ocfs2_xattr_bucket_find() both read xh_entries[0] of an empty bucket.
+That read is the exception ocfs2_xa_remove_entry() documents rather than
+a new out of bounds access.
 
-The name has to come from xi rather than from xs->here: a failed set can
-remove the entry xs->here names, and only the "growing" caller sets
-ctxt->set_abort, which is what stops the conversion.  Scan every entry
-rather than narrowing on the hash the way ocfs2_find_xe_in_bucket()
-does, since an existing entry keeps the hash it was stored under, which
-a kernel that sign-extended the name bytes made different from the one
-computed now.  An empty result means the entry did not survive the
-failed set and this has become an insert; leaving xs->here alone would
-keep it pointing into the block, which is rewritten as a tree root
-before the caller reads it again.
+A block reaches the conversion empty when truncating an external value
+back fails partway through: the "reusing" and "overwriting" callers of
+ocfs2_xa_cleanup_value_truncate() remove the entry without setting
+ctxt->set_abort, so ocfs2_xattr_block_set() sees a plain -ENOSPC and
+converts.  The "growing" caller does set it, and the block form makes a
+single attempt with no defragment and retry in between, so that is the
+only route here.
 
-Link: https://lore.kernel.org/20261024151012.1059683-4-joseph.qi@linux.alibaba.com
+Link: https://lore.kernel.org/20261024151012.1059683-7-joseph.qi@linux.alibaba.com
 Fixes: 012255961c9e ("ocfs2: Enable xattr set in index btree")
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
@@ -129,108 +119,33 @@ Cc: Joel Becker <jlbec@evilplan.org>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/xattr.c |   54 ++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 44 insertions(+), 10 deletions(-)
+ fs/ocfs2/xattr.c |   15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
---- a/fs/ocfs2/xattr.c~ocfs2-find-the-xattr-entry-again-after-converting-a-block-to-a-bucket
+--- a/fs/ocfs2/xattr.c~ocfs2-do-not-read-the-entry-array-of-an-empty-xattr-block
 +++ a/fs/ocfs2/xattr.c
-@@ -275,6 +275,7 @@ static int ocfs2_xattr_tree_list_index_b
- 					size_t buffer_size);
+@@ -4705,6 +4705,21 @@ static void ocfs2_cp_xattr_block_to_buck
+ 		memset(bucket_block(bucket, i), 0, blocksize);
  
- static int ocfs2_xattr_create_index_block(struct inode *inode,
-+					  struct ocfs2_xattr_info *xi,
- 					  struct ocfs2_xattr_search *xs,
- 					  struct ocfs2_xattr_set_ctxt *ctxt);
- 
-@@ -3375,7 +3376,7 @@ static int ocfs2_xattr_block_set(struct
- 		else if ((ret != -ENOSPC) || ctxt->set_abort)
- 			goto end;
- 		else {
--			ret = ocfs2_xattr_create_index_block(inode, xs, ctxt);
-+			ret = ocfs2_xattr_create_index_block(inode, xi, xs, ctxt);
- 			if (ret)
- 				goto end;
- 		}
-@@ -4749,13 +4750,10 @@ static void ocfs2_cp_xattr_block_to_buck
-  * real place of the xattr.
-  */
- static void ocfs2_xattr_update_xattr_search(struct inode *inode,
--					    struct ocfs2_xattr_search *xs,
--					    struct buffer_head *old_bh)
-+					    struct ocfs2_xattr_info *xi,
-+					    struct ocfs2_xattr_search *xs)
- {
--	char *buf = old_bh->b_data;
--	struct ocfs2_xattr_block *old_xb = (struct ocfs2_xattr_block *)buf;
--	struct ocfs2_xattr_header *old_xh = &old_xb->xb_attrs.xb_header;
--	int i;
-+	int i, count;
- 
- 	xs->header = bucket_xh(xs->bucket);
- 	xs->base = bucket_block(xs->bucket, 0);
-@@ -4764,8 +4762,43 @@ static void ocfs2_xattr_update_xattr_sea
- 	if (xs->not_found)
- 		return;
- 
--	i = xs->here - old_xh->xh_entries;
--	xs->here = &xs->header->xh_entries[i];
-+	/*
-+	 * A block holds its entries in insertion order while a bucket holds
-+	 * them by name hash, so ocfs2_cp_xattr_block_to_bucket() sorted the
-+	 * copies and the index this entry had in the block no longer says
-+	 * where it is.  It copied every entry and every name unchanged, and
-+	 * (type, name) pairs are unique within a block, so find it again by
-+	 * name.
-+	 *
-+	 * Search for the name being set, not for the name xs->here carries.
-+	 * A failed set may have removed that entry, and ocfs2_xa_remove_entry()
-+	 * then memmoves its successor into the slot.  Comparing every entry
-+	 * rather than narrowing on the hash also finds an entry stored under
-+	 * the legacy signed hash, which ocfs2_find_xe_in_bucket() would skip.
+ 	/*
++	 * An empty block has no names or values to carry over, and the
++	 * xh_entries[count - 1] below would be xh_entries[-1].  Leave the
++	 * bucket empty, but carry over the hash ocfs2_xa_remove_entry() left
++	 * in the block's xh_entries[0] so that the bucket still holds the key
++	 * it is looked up by.
 +	 */
-+	count = le16_to_cpu(xs->header->xh_count);
-+	for (i = 0; i < count; i++) {
-+		struct ocfs2_xattr_entry *xe = &xs->header->xh_entries[i];
-+
-+		if (ocfs2_xattr_get_type(xe) != xi->xi_name_index)
-+			continue;
-+		if (xe->xe_name_len != xi->xi_name_len)
-+			continue;
-+		if (!memcmp(xs->base + le16_to_cpu(xe->xe_name_offset),
-+			    xi->xi_name, xi->xi_name_len)) {
-+			xs->here = xe;
-+			return;
-+		}
++	if (!count) {
++		xh->xh_num_buckets = cpu_to_le16(1);
++		xh->xh_free_start = cpu_to_le16(OCFS2_XATTR_BUCKET_SIZE);
++		xh->xh_entries[0].xe_name_hash =
++			xb_xh->xh_entries[0].xe_name_hash;
++		return;
 +	}
 +
 +	/*
-+	 * The entry did not survive the failed set, so this has become an
-+	 * insert.  Point xs->here back inside the bucket: it still refers to
-+	 * the block being converted, which is about to be rewritten as a tree
-+	 * root.
-+	 */
-+	xs->not_found = -ENODATA;
-+	xs->here = xs->header->xh_entries;
- }
- 
- /*
-@@ -4773,6 +4806,7 @@ static void ocfs2_xattr_update_xattr_sea
-  * is allocated and the xattr block header is rewritten.
-  */
- static int ocfs2_xattr_create_index_block(struct inode *inode,
-+					  struct ocfs2_xattr_info *xi,
- 					  struct ocfs2_xattr_search *xs,
- 					  struct ocfs2_xattr_set_ctxt *ctxt)
- {
-@@ -4834,7 +4868,7 @@ static int ocfs2_xattr_create_index_bloc
- 	ocfs2_cp_xattr_block_to_bucket(inode, xb_bh, xs->bucket);
- 	ocfs2_xattr_bucket_journal_dirty(handle, xs->bucket);
- 
--	ocfs2_xattr_update_xattr_search(inode, xs, xb_bh);
-+	ocfs2_xattr_update_xattr_search(inode, xi, xs);
- 
- 	/* Change from ocfs2_xattr_header to ocfs2_xattr_tree_root */
- 	memset(&xb->xb_attrs, 0, inode->i_sb->s_blocksize -
+ 	 * Since the xe_name_offset is based on ocfs2_xattr_header,
+ 	 * there is a offset change corresponding to the change of
+ 	 * ocfs2_xattr_header's position.
 _
 
 Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
