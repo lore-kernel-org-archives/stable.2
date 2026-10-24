@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832539;
-	b=2MNIxwBT0Stjsp7+GfEy93eCU21WzmUa9yCToFk5O6TPrXgKfhVo/zLHAMvtQLBjyLja
-	 P+N7V+0sX54EbXI64KwncDQREkCBedCxq4bhSpgYZ1z85JsOkCv2EszVKFRUB32hHfa0V
-	 YdReLFq8591tfXujMdY39iAWC5OTgRWGtFbBxPRFdSLexja6Uzf7RBg16YQl0oZCvQ0iK
-	 ynmH/rhHlMidOsBlF5Bdpuaj0tS0rNGQERbfYXhiO/tlVORT5CeqAwpWTyntk6fhD3AnN
-	 tF49XIF4wm4H+7QTJcZMI66QyzsZOLTla2J39BOUqFg2WFLpqAp5+JmixaD9X24KHiA==
+	t=1792832540;
+	b=d+et/KjNYijWdL/tSPUHtb8j5GiW7pJum8FD6RNUVyHeFwNdjYjUYnp2+UVRkPUw/d03
+	 VvC0XMX+EmyC+Fdd0SqWPPPOJ0eAiMr0N6kG3sxeQS1k//EzZ6zCLv9DL19UREfbNbNJa
+	 9sJ95neDeFH7UXj4eFo+EdeOx8RGHii26oQED/FRPk34WW7ca4Lmoi3U/2P68TNsLSm2S
+	 OVyNKhxR0XUGQiXBfXtK4N8M7GR2T6bqVxLZlALjE3eqELyweBYVQaV+4zwZG6KmLye7J
+	 aHLpRad/JVIq2q92j+zGVyH6JVEsdHTU5g7RjwRAh3ZA4c3Jcc5BYlS0lH5ADwhphIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832540;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=68M4FMENKnpLDuXzMIWRSsZ5vWP+TYWCgvIOLu60dtk=;
-	b=3zvmzNjRI5H4W26GdnY8TEHULu5rUXGzfnMfFs0GnBem7gNYrr6SFDELOVwON9tKFjw2
-	 Spd7oPAKn+ehiGFFTis/EnMTFMC8npaWbKZ3///Lj2xFoDZ3ZypzA9PMdW2z7r2dSGRJq
-	 U0r8xDmN3aD1CbjwDEiAQuwM2zAdN8/76o1ZWvf4cabfmfm122B0x7rTq/QXk28CNncs6
-	 F92n5IgNka/fGK9yOLAkNrG1o3sOW1O2w4AhXdtf2DAPQOpwNGLWUBINbRYUDQcWXLYXX
-	 UTPYM5s+pTygYvwKR0lV6BnrF4UI7bJOrmT8KV02aFroISrTipLqBDZjqutRNg0DzQA==
+	bh=nTfx94I1o9vkdnJ7Y3U90PChafj4BQd0BrAfcL5K4xI=;
+	b=0xG94t/W7+ZsQ9OUvlb8O6ruvOe++IyHfLJ8gVb9bqJzFnwJ42J2pjANHR96cc5JY4BO
+	 krz+uCJqRnih1TQX+VX/K6zVMJwTzxF5Y8q3IcPPy2FI2ApOgnnOSEFkEE/2YxjnzniWI
+	 y26EXa1MieJIy/g8JfNBgrq7SddM45tRFlsc5eowEK6txOQVRk6ykVRWSB2Q6OoObS/eN
+	 z7QuWugpDV+wa3lKutzjHRpDoxBpOrUV50dqSnBhKKujZiynABlwTTiRzqcrbTkmIAAq8
+	 /JrBbOdCS8J6zIjpYixlZcm0vaKLgAOd3dpV9Tca6Tyk5sjH2gKBWugxww+yjPLCnjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pXksDHxz;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ySMdYjsr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA4C606A323;
-	Sat, 24 Oct 2026 09:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAFF606A31F;
+	Sat, 24 Oct 2026 09:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pXksDHxz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9B51F031E2;
-	Sat, 24 Oct 2026 09:02:18 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ySMdYjsr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE8E1F01825;
+	Sat, 24 Oct 2026 09:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832538;
-	bh=68M4FMENKnpLDuXzMIWRSsZ5vWP+TYWCgvIOLu60dtk=;
+	d=linux-foundation.org; s=korg; t=1792832540;
+	bh=nTfx94I1o9vkdnJ7Y3U90PChafj4BQd0BrAfcL5K4xI=;
 	h=Date:To:From:Subject;
-	b=pXksDHxzvPQoImDkHg0ShqONsAepCPz2VAjsTPYrqMh8nc+ViYkTXUL5Wg+XME6sT
-	 jowUny+6yqwDVFj3C53zizP9xCLw3OD36zc4PmQJOBJN9QxIm2ekkvLKhqxkUS85Xs
-	 hsEk6bZDRRTmTy8a/ed7u4JA7Yum7xIeQuRXrFpU=
-Date: Sat, 24 Oct 2026 02:02:18 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	b=ySMdYjsrLrW6p83xrwxREJmVeMXr2m+3oIQ9qO/pAGvVLTvz3ly5+XA8PJP+tAYsE
+	 MZNfEnwa+6S/qvQ6sDncmogtcsV8fuMYkhpRKkBIntwmvU8mYLBiyCamp5XwMoRsgu
+	 FQPAUUEY7/ms0LoERgIoCUoVUZTJFuGRFFRPtJbs=
+Date: Sat, 24 Oct 2026 02:02:19 -0700
+To: mm-commits@vger.kernel.org,wangruikang@iscas.ac.cn,tongtiangen@huawei.com,stable@vger.kernel.org,paul.walmsley@sifive.com,pasha.tatashin@soleen.com,palmer@dabbelt.com,guoyaxing@bosc.ac.cn,david@kernel.org,aou@eecs.berkeley.edu,alex@ghiti.fr,cuiyunhui@bytedance.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch removed from -mm tree
-Message-Id: <20261024090218.CC9B51F031E2@smtp.kernel.org>
+Subject: [merged mm-stable] riscv-mm-exclude-invalid-thp-pmds-from-page-table-check.patch removed from -mm tree
+Message-Id: <20261024090219.DCE8E1F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,154 +51,84 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/damon/core: filter out damos address filter-split failed region
+     Subject: riscv: mm: exclude invalid THP PMDs from page table check
 has been removed from the -mm tree.  Its filename was
-     mm-damon-core-filter-out-damos-address-filter-split-failed-region.patch
+     riscv-mm-exclude-invalid-thp-pmds-from-page-table-check.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: filter out damos address filter-split failed region
-Date: Mon, 19 Oct 2026 17:41:18 -0700
+From: Yunhui Cui <cuiyunhui@bytedance.com>
+Subject: riscv: mm: exclude invalid THP PMDs from page table check
+Date: Sat, 23 May 2026 12:20:52 +0800
 
-When an address type DAMOS filter is configured, DAMOS tries to split the
-region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+RISC-V THP splitting uses a temporary invalid PMD state where
+pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
+_PAGE_LEAF set so the MM code can still recognize the PMD as a THP split
+in-progress entry.
 
-The issue only rarely happens under extreme memory pressure.  No crash or
-leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that the
-user has excluded via address filter could be a surprise depending on the
-use case.  It is only theoretical.  No such real case is found yet.
+That temporary state no longer describes a user-accessible mapping, but
+page_table_check currently treats it as one because the RISC-V PMD
+user-accessibility test only checks whether the PMD is a leaf and has user
+permissions.
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
+As a result, when a PMD-sized anonymous THP is split during a COW fault,
+page_table_check can account the invalid intermediate PMD as a live PMD
+mapping, and then account the replacement PTE mappings again when the
+split installs the PTE table.  This leaves stale PMD accounting behind and
+later triggers page_table_check failures such as a non-zero anon_map_count
+when the folio is freed.
 
-The issue was discovered [1] by sashiko.
+Fix this by tightening pmd_user_accessible_page() so PMD page-table-check
+accounting only considers leaf PMDs that still carry either _PAGE_PRESENT
+or _PAGE_PROT_NONE.  This preserves the THP split semantics required by
+the MM code while preventing page_table_check from treating invalid split
+PMDs as live user mappings.
 
-Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
-Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Signed-off-by: SJ Park <sj@kernel.org>
+With CONFIG_PAGE_TABLE_CHECK=y and CONFIG_PAGE_TABLE_CHECK_ENFORCED=y,
+tools/testing/selftests/mm/cow completes successfully on RISC-V after this
+change.
+
+Link: https://lore.kernel.org/20260523042052.35476-1-cuiyunhui@bytedance.com
+Fixes: 3fee229a8eb9 ("riscv/mm: enable ARCH_SUPPORTS_PAGE_TABLE_CHECK")
+Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # 6.6.x
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>
+Cc: tongtiangen <tongtiangen@huawei.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Vivian Wang <wangruikang@iscas.ac.cn>
+Cc: Yaxing Guo <guoyaxing@bosc.ac.cn>
+Cc: <stable@vger.kernel.org>
 ---
 
- mm/damon/core.c             |   16 ++++++++++++----
- mm/damon/tests/core-kunit.h |   11 ++++++-----
- 2 files changed, 18 insertions(+), 9 deletions(-)
+ arch/riscv/include/asm/pgtable.h |    9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
---- a/mm/damon/core.c~mm-damon-core-filter-out-damos-address-filter-split-failed-region
-+++ a/mm/damon/core.c
-@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct dam
+--- a/arch/riscv/include/asm/pgtable.h~riscv-mm-exclude-invalid-thp-pmds-from-page-table-check
++++ a/arch/riscv/include/asm/pgtable.h
+@@ -989,7 +989,14 @@ static inline bool pte_user_accessible_p
  
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_region_sz)
-+		unsigned long min_region_sz, int *err)
+ static inline bool pmd_user_accessible_page(struct mm_struct *mm, unsigned long addr, pmd_t pmd)
  {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end, wsum;
+-	return pmd_leaf(pmd) && pmd_user(pmd);
++	/*
++	 * page_table_check() must ignore THP split invalidation entries created by
++	 * pmd_mkinvalid(). These retain _PAGE_LEAF so pmd_present()/pmd_leaf() stay
++	 * true during the split, but they no longer describe a user-accessible
++	 * mapping once both _PAGE_PRESENT and _PAGE_PROT_NONE are cleared.
++	 */
++	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE)) &&
++		(pmd_val(pmd) & _PAGE_LEAF) && pmd_user(pmd);
+ }
  
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct da
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			*err = damon_split_region_at(t, r,
-+					start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	s->core_filters_allowed = false;
- 	damos_for_each_core_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_region_sz, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
---- a/mm/damon/tests/core-kunit.h~mm-damon-core-filter-out-damos-address-filter-split-failed-region
-+++ a/mm/damon/tests/core-kunit.h
-@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
+ static inline bool pud_user_accessible_page(struct mm_struct *mm, unsigned long addr, pud_t pud)
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from cuiyunhui@bytedance.com are
 
 
