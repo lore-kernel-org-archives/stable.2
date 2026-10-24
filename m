@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792855684;
-	b=eUGvK9YjfR/78iperJ0B5mJscFx8iM1qmhgb0dXb36lQtYMe4hHcqp0FMAi6M/KSqcPq
-	 yErp/0OF0Gd0zk0qgJVyVhWNzgNopdKa0jP+p7jZl+7N8HxdaSzCmeIfDuGjpN2T68u82
-	 eLvUCVrw2gcf2N6sDp2yAOjsWLvwih8h7XTZhiGC9py42lqSqv1B4e2ExiFgwtcJrngrs
-	 UfUMJ0MMGMWWJS6dXcPtif5TpHCywO0qJYdRM9xXXbjtmRhQlg6acTHQT1GErKD0+nWqR
-	 1WwfhcfTVwKzwX/5ZBM/UvCHSul2AkboT7IbApMWBrfGeh/KzlartZDBRFvTPPlOxdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792855684;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=uKJ4KOECymSbQFCzAxwhODQQk3xEPDqheddn974Jz9Y=;
-	b=IvGoipCyo2A16U6DfggjY9wMhrDXSI6ccYPJ5NHI8qQ4Xc47BdHgGlJkpIBnWtKhe4Sl
-	 zTRSCuUBN77wdJlgUUvB8UlJaKBtE07kZv1PYBJThQ+Ih6RTTjW9grvWRHlZPM7hjwzul
-	 3YI31iWFBhKN1rK5qBFHufxWKJumokQd/iYBbrgwdW6l1obc7yCSvmMbFYZYn+v3ousOD
-	 Xt3Aa325xnrJPOGVmzLUP+PJqB9sTJyJ58p4qyRpWZIOgDBZDKUvw20KHBQ3XcVhedGrd
-	 qXtd5Gsb0PWRPWHtv1K4MVOM3ZUvbvgLWqFaoD08Ck5gyYvTd1IcCwESAXz4btY4YnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=njDF0ZwQ;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792856347;
+	b=zNthm2nBfki4pdngnBAJhrMn9fRdr7g3hxRkHRZsdUCIRTvFgsGv0GdDVtRXASESqbEX
+	 gdgHdT51fS4ta+XyyRD/g618nH5GLgl9KP/2bX721aKtoku4znPW/N2TWIJEAm8LfY8Hc
+	 KFkul2xci1T4ie8Mu4HD1nyDY1fQKpq9kx2DFbnudg8aCndvwBr3BalRUBgmk4rc/4zNh
+	 KQRBCjNKBNKi+adfrlEYTLrHA2irl2gjmfMSJQYfPoCNTC/+tJeOW7WNhTPT1dYbIgYkj
+	 TVhwnsb6AjeAKivmuYOCKMHldIU+TcCXH+idSgDh37uPysQIR4LMGja0LsDqVIQJtcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792856347;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vK5pr9uyYz2jsZwQQgWCPkEz3CYe2XwtN4i5/OMooOs=;
+	b=q/IHOtYapagIBXhx0SoXOYPxubT2TuaENvPIl5CRnlcWFD4fRwYUCVcsWMz8QeEoRG+2
+	 +3txHGWFWIGlhL1t3vtwfH5c4LBYFOYd9+f2xu4CHl6i3FD/dEVdz3dYBLn/KfGkUNmH8
+	 94yYQORsJu4vmhXBU3QlWUGmQJu07EP1h3wpVdGB2wLNGuDwRP5xzrd8Z7MRyKUnB151P
+	 liu/oSZlUL2qpgYqepj/CMiugD96XIC+Twdjj+hgHRG2ycwyeHALElr1pKlc2/+xpcbfm
+	 sLbHX4O1Njp9U1mv0IQTOtPgFF8XfvpLhsk2dUhZjoL2umQG2Fue/7jI67Eq526NCFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DhHBvhwd;
+	arc=fail smtp.remote-ip=74.125.224.49
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDCD606A31D;
-	Sat, 24 Oct 2026 15:28:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDCD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCED606A31B
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 15:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBCED606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=njDF0ZwQ
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792855677; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=uKJ4KOECymSbQFCzAxwhODQQk3xEPDqheddn974Jz9Y=;
-	b=njDF0ZwQRYn6yhwb3q20cv3MT2bWDrg1DZQ4sCB7NCu+T/LyDUxXC9F75gHhzUYUmCW+ZhONCZUBWmQsO+Z+X9hWMN2YJJxaBbvF0i74mm3tkOf/suAEx36l2F0n8r2hAxYmNal7r3pTKtDACxam6pHnEn93APWf1M65h3+UmQI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R371e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XDOTpQI_1792855675;
-Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDOTpQI_1792855675 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 24 Oct 2026 23:27:56 +0800
-Message-ID: <5b2e0676-da77-49b6-8015-8613d4fcd6cd@linux.alibaba.com>
-Date: Sat, 24 Oct 2026 23:27:54 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DhHBvhwd
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6740e7ae219so1706840d50.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 08:39:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792856346; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FiGRTNiKCsUE7qKMZi36G04I7FyXHJZKwU8d1Myjlp5ro04bXYMSuT2sPrM6RsLsT/
+         eIpgDUEFaOKZXhjelIkikXlSaUSCWpCy57LLyW3BgSjqsxgBhcD0bXHQmC+fohyIraRI
+         yDvvWyIoG8kuUmtw+8hh/g9ksy7qkWUnl622vME7c53y+gcVtew/vEiYzr9pjfjBvx9F
+         IlyLDhMKpTNRzQTLndLHPeMNP6vg8Eo7ORklAfl6zKXSGcNxmoHK6G6uRJfCJ1qPDb48
+         +KGS0XrufHSx2uROeRrLrQqyytBUWqzpqNotHmL84S3I0zoCAziz4Bv8sAqSd9CBeqWp
+         hdYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vK5pr9uyYz2jsZwQQgWCPkEz3CYe2XwtN4i5/OMooOs=;
+        fh=TzaWcNOAcEP7sgfpe+RZhre8Gqqn048M4Ht5c3F7Gvs=;
+        b=jjN5PGEVGWf+70DOgd1Xkf+C5ejtKDyjkyFFAx5c+VtFgmRNlF9kuh7JEBPQzfUIIb
+         7opv6Bq2BNTMa/XbUfs1VBlOXgGs/y902ghxWhfv6TmdSqfZYBR9A7bKaTMleknfbpGp
+         uK9G48QT4pYmtCo7s6jkPWnuNWCreChp7TMjpvKjEamhNvjaalJghqiMuYMQe9OYuGaa
+         q0bFgGGp5R9v7mUBDru1Sc7Sua0Sa6kH+kT+mIp7iNXxF6k4JIbpd8880y4DiHDq9Is0
+         8/sBTQak5MQSIHh2cRbDpIpZSwB0F0aBuw3I2NnCJg6JynxWEuz9AwYF9FDoWoWMtunh
+         E7Tg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792856346; x=1793461146; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vK5pr9uyYz2jsZwQQgWCPkEz3CYe2XwtN4i5/OMooOs=;
+        b=DhHBvhwd2VBdGFg7LEvt+Ab8YuLjqGuhb7V7AnAadBRBVpAzqKcq8TvHE9lLXlK/Hr
+         ruKtZgu+23KmXQy66OvqY3JniW3MgfiDipyOHprnHTb2sb0oZ1Yxh29zAstQ0okE1u3F
+         VNhPOCcqtDcJulV4uniSIb/ZbXJyXXqfyoYD3UjK4+H6G39mB0kelM9R+fB8zlcU1ltO
+         Ub7jg4v+GfkuqBFs2dlguA4H6hXAx3jJ0/WzmNcR7waAgZoJ8zlBuBO7asw6tKYhVMNu
+         flKBLWItJJ1pwgoPD9GTKA7YzaND/uE7FToLxrdds4/44wGMgtPXB4uGG9NBssqSt3+T
+         SF4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792856346; x=1793461146;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vK5pr9uyYz2jsZwQQgWCPkEz3CYe2XwtN4i5/OMooOs=;
+        b=uDf7Lgagm6jQ1gZgMSTM6HEjw6NCji4gF/TosgCbX81HvJwia1kw6JROhpRXXjojmK
+         gqwM6nDgWP1gGGRyXf2NHzpirXz1avVz1jQvU98ezR39bw7rjdeTZqnmRme4lFJsXx5D
+         u9sWGeJrn849HbPscQABFKHJ1HkScLf5Pe57aXa29rNBLfiosCqEvXxCrkVEeL7R1CEr
+         zCBBhzXrnMZDzuwTJFMGEgMv8HDNdII56gEL9dY4XA/wqi67CEW9BrpFOGLpdMaqv1vV
+         vNX1+fh9U0UmrxAufEfraXyjjmPOXAEW61lW1GLD1vTVRtGcXUwypTGLGjq4n6M6fC//
+         5qfg==
+X-Forwarded-Encrypted: i=1; AKwUvBxHfma42FnUnWl/Y2nYmEFhhHrB8/aqXMB2KXgDAZO6g41dt/pQfNcJNXggIuBqog8wWcaRkjk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJR0n7ilFXkCSM+WmlN3OmXfIBt9UUF84EPUIHmlFBzdT+uxorP
+	YAZSDbB7Vr7b91DoVfcaQkCZjbL1wRGLdnnvlBkp4t83NQZjGGw+o3HUcUMiIPFLBLNRNQUycc4
+	EXUzZTSuPv88ENZOAE4YZ8yNUQHoliR0=
+X-Gm-Gg: AYBFou2UGrcnz7lNe546yaBgkvGZAvEpXa4GxhwLwbYrM83Co1PjBXK/Kz57Cbp3qak
+	Zy25S9VP3ilwdwfYMESa2LNUQSs3iGCbvkbPZKeQG6cos0CPEA2yV3vnI0zVhhhO12Dnef5UFq/
+	JwE/Zqu7jTOEGfN3XTWOFzh2Ho+Bj46DGwLt3wHazqnO7P1QC9PPWU8md5B+EC4c6BiKDmbkFs8
+	Tj/K+NsNk5Qn6rs0F5j5/nqHyu0RMYRH2q3R/EMmXJcLU8q64Ej2n/V35/3XB5h4R0Bg2L8qGrK
+	tz2HGIZNVjD9AITJenM2rp9XyOq1S99+zZPBVj1QFp0f7N31VJIpf1hvW73sbuAwVnfaOD9ZR58
+	GBVcTAhtZqRzKs7uO8+oWXfeMjmJ9Jmh2HGFdTLI=
+X-Received: by 2002:a05:690e:4193:b0:67a:3417:1747 with SMTP id
+ 956f58d0204a3-67a454179demr1093499d50.106.1792856345704; Sat, 24 Oct 2026
+ 08:39:05 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,214 +104,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ocfs2/heartbeat: serialize concurrent writes to a
- region's dev attribute
-To: Eklavya Singh <eklavyasingh2106@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Heming Zhao <heming.zhao@suse.com>,
- Deepanshu Kartikey <kartikey406@gmail.com>, Cen Zhang <zzzccc427@gmail.com>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
- <20261020212339.46591-1-eklavyasingh2106@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261020212339.46591-1-eklavyasingh2106@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com>
+ <31b48648-c157-49f1-94d5-d1b927bae1c9@linux.alibaba.com>
+In-Reply-To: <31b48648-c157-49f1-94d5-d1b927bae1c9@linux.alibaba.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Sat, 24 Oct 2026 23:38:54 +0800
+X-Gm-Features: AclHuK-pel6d6vEds-ViiTQ9UC2ScVH00hRCkn1-aVXEOr3Df3HDB0eQcYBlZ5E
+Message-ID: <CAFRLqsWiioFrCmXjzmrFaRBNH8b_JryTgwdPrLie4AF1GbKsKw@mail.gmail.com>
+Subject: Re: [PATCH v4] ocfs2: cache the mount context for dentry lock callbacks
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Joseph,
 
+Joseph Qi <joseph.qi@linux.alibaba.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8823=
+=E6=97=A5=E5=91=A8=E4=BA=94 15:09=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Don't see any difference between your v2 sent before.
+> BTW, it seems v3 is also missing.
+>
+> Thanks,
+> Joseph
+>
 
-On 10/21/26 5:23 AM, Eklavya Singh wrote:
-> o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-> is already started, but nothing stops two writers from doing that at
-> the same time. configfs only serializes writes through the same open
-> file, so two processes that each open the dev attribute can both get
-> past the check:
-> 
->   A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
->   B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
->   A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
->   B: start fails, fput(NULL)
-> 
-> Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-> so the error paths can free the slot data twice.
-> 
-> syzbot hit the fput(NULL) with an unbound loop device, where every
-> start fails with -EIO. With four threads doing the same thing on a
-> KASAN kernel I get both crashes within a second:
-> 
->   BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
->   BUG: kernel NULL pointer dereference, address: 0000000000000158
-> 
-> Add a mutex to the region and hold it in dev_store(), in the
-> block_bytes, start_block and blocks stores, and in dev_show(), since
-> they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-> takes the mutex in a small wrapper rather than with guard(). The mutex
-> is dropped while dev_store() waits for the heartbeat to become steady,
-> which takes seconds, so a read of dev doesn't stall behind a start.
-> hr_bdev_file is already set at that point, so other writers still get
-> -EINVAL, and the cleanup after the wait retakes the mutex.
-> 
-> With the patch the same test ran for 10 minutes with lockdep on and
-> nothing was reported. So did a second one, with a working loop device,
-> that interrupts starts during the wait while other threads read and
-> write the attributes.
-> 
-> Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+Sorry for the confusion. I rechecked the early inode accesses you
+pointed out in your v2 review:
+https://lore.kernel.org/ocfs2-devel/018d8feb-2e63-4a73-ba36-10a5f94f3341@li=
+nux.alibaba.com/
 
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+My understanding is that these accesses have the following lifetime
+protection:
 
-> ---
-> Changes in v3:
-> - rebase onto linux-next
-> - drop hr_dev_mutex while waiting for the heartbeat to become steady,
->   so a read of dev that races a start no longer blocks (Joseph)
-> - name the four attributes in the hr_dev_mutex comment and assert the
->   mutex is held in __o2hb_region_dev_store() (Joseph)
-> 
-> Changes in v2:
-> - take the mutex in a wrapper around dev_store() instead of with
->   guard(), since dev_store() uses goto for its cleanup
-> 
-> Deepanshu Kartikey [1] and Cen Zhang [2] have posted patches for the
-> same race, and they conflict with this one. This version also takes
-> the mutex in dev_show(), which otherwise can read hr_bdev_file while a
-> failed start is dropping it.
-> 
-> [1] https://lore.kernel.org/all/20261020085100.8819-1-kartikey406@gmail.com/
-> [2] https://lore.kernel.org/all/pm-ocfs2-objects-candidate-0077-v7-34980443ec254b2a1ffc@gmail.com/
-> 
-> v2: https://lore.kernel.org/all/20261019072936.2279-1-eklavyasingh2106@gmail.com/
-> v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
-> 
->  fs/ocfs2/cluster/heartbeat.c | 40 ++++++++++++++++++++++++++++++------
->  1 file changed, 34 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-> index b45adc3..7a18e71 100644
-> --- a/fs/ocfs2/cluster/heartbeat.c
-> +++ b/fs/ocfs2/cluster/heartbeat.c
-> @@ -269,6 +269,8 @@ struct o2hb_region {
->  	struct list_head	hr_handler_list;
->  	/* Serializes timeout arming against failed-start and teardown. */
->  	struct mutex		hr_arming_mutex;
-> +	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
-> +	struct mutex		hr_dev_mutex;
->  	bool			hr_stopping;
->  
->  	/* last hb status, 0 for success, other value for error. */
-> @@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
->  	unsigned long block_bytes;
->  	unsigned int block_bits;
->  
-> +	guard(mutex)(&reg->hr_dev_mutex);
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
->  	char *p = (char *)page;
->  	ssize_t ret;
->  
-> +	guard(mutex)(&reg->hr_dev_mutex);
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
->  	char *p = (char *)page;
->  	int ret;
->  
-> +	guard(mutex)(&reg->hr_dev_mutex);
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
->  
->  static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
->  {
-> +	struct o2hb_region *reg = to_o2hb_region(item);
->  	unsigned int ret = 0;
->  
-> -	if (to_o2hb_region(item)->hr_bdev_file)
-> -		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-> +	guard(mutex)(&reg->hr_dev_mutex);
-> +	if (reg->hr_bdev_file)
-> +		ret = sprintf(page, "%pg\n", reg_bdev(reg));
->  
->  	return ret;
->  }
-> @@ -1872,11 +1879,9 @@ out:
->   * this is acting as commit; we set up all of hr_bdev_file and hr_task or
->   * nothing
->   */
-> -static ssize_t o2hb_region_dev_store(struct config_item *item,
-> -				     const char *page,
-> -				     size_t count)
-> +static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-> +				       const char *page, size_t count)
->  {
-> -	struct o2hb_region *reg = to_o2hb_region(item);
->  	struct task_struct *hb_task;
->  	long fd;
->  	int sectsize;
-> @@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
->  	ssize_t ret = -EINVAL;
->  	int live_threshold;
->  
-> +	lockdep_assert_held(&reg->hr_dev_mutex);
-> +
->  	if (reg->hr_bdev_file)
->  		return -EINVAL;
->  
-> @@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
->  
->  	wake_up_process(hb_task);
->  
-> +	/*
-> +	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
-> +	 * hr_bdev_file is already set, so other writers still get -EINVAL.
-> +	 */
-> +	mutex_unlock(&reg->hr_dev_mutex);
->  	ret = wait_event_interruptible(o2hb_steady_queue,
->  				atomic_read(&reg->hr_steady_iterations) == 0 ||
->  				reg->hr_node_deleted);
-> +	mutex_lock(&reg->hr_dev_mutex);
->  	if (ret) {
->  		atomic_set(&reg->hr_steady_iterations, 0);
->  		reg->hr_aborted_start = 1;
-> @@ -2041,6 +2054,20 @@ out:
->  	return ret;
->  }
->  
-> +static ssize_t o2hb_region_dev_store(struct config_item *item,
-> +				     const char *page,
-> +				     size_t count)
-> +{
-> +	struct o2hb_region *reg = to_o2hb_region(item);
-> +	ssize_t ret;
-> +
-> +	mutex_lock(&reg->hr_dev_mutex);
-> +	ret = __o2hb_region_dev_store(reg, page, count);
-> +	mutex_unlock(&reg->hr_dev_mutex);
-> +
-> +	return ret;
-> +}
-> +
->  static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
->  {
->  	struct o2hb_region *reg = to_o2hb_region(item);
-> @@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
->  
->  	INIT_LIST_HEAD(&reg->hr_all_item);
->  	mutex_init(&reg->hr_arming_mutex);
-> +	mutex_init(&reg->hr_dev_mutex);
->  	reg->hr_stopping = true;
->  	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
->  	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+- ocfs2_dentry_iput() keeps the VFS inode reference until after
+  ocfs2_dentry_lock_put() returns. Lock teardown waits for QUEUED to
+  clear if the worker is already running. The rename path likewise
+  keeps the source dentry/inode alive while dropping the old dentry
+  lock.
+- A final put from ocfs2_dentry_post_unlock() runs synchronously on
+  the same downconvert thread as the worker. Recursive processing
+  from ocfs2_mark_lockres_freeing() sets FREEING before entering
+  ocfs2_process_blocked_lock(), so the worker is skipped.
 
+Thus the early access does not rely on the later extra-reference
+check. A zero dl_count can still coexist with a live VFS inode
+reference, and MAYBE_ORPHANED still needs to be set on that path for
+local orphan cleanup.
+
+The asynchronous DLM callbacks can overlap the final post-unlock
+iput(), which is the separate lifetime window addressed by caching
+osb.
+
+I incorrectly moved the orphan marking past the extra-reference
+check in v3. I reverted that change in v4, whose code is identical
+to v2.
+
+Does this analysis miss any path that could drop the last inode
+reference while the worker can still access it?
+
+Best regards,
+Cen Zhang
