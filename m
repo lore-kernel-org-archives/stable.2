@@ -1,58 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792872683;
-	b=cWra4+Lr2ZeW5jlwkfKwBqBpPt1RJ1LDwGxAb6PiKtOXGBLVnHiaFzGgBPPkwRDgGnUd
-	 1UARsnQxpTY94Q9CiwzD49cFojD1QozaxwtF+Xa/DxhxyAyw6P8egeqR4LAGyaZaD755L
-	 CpZJHOubRjv/nuVF+Uhv4v9APtjPLVZV6Mo4GOuR5ArX8BJkKtxrDKX5Hz2axqmih8d/D
-	 rlPmU+k8cDCgzscPszqGDAqu1xqCog9HpFStdMG8ybCOp5b6Zk3e+BQ+ohuKl6Hugfg10
-	 MWv7xJHal9Kcv0isxG05LdUASyhtkO85MSN9eg5DRmqw244ctXFaVXURa593LBWjwaw==
+	t=1792872686;
+	b=cAbMPqYRoi0EeEBjJ9eR9wKpd3PKXFyb/egz/ddjewf571aNQwSTh6Kyy/E+NtXjr/sm
+	 PFagh03THnw6EDb97vZgbHKrKRg0S1c3IoE1NrW4dzp21F05eYoiLF0jrwR4lXkVPVrNA
+	 GAf1y7WEEspcB54pIDPAXMvUDwYY0g6fgKoo39WHkXKCFcaxdG2oWCUpGqtH7boFOABYN
+	 5APA36V7YRRYfx1/0/aYvpnXJHIjJ5zuajvUOLZTLyRts9EEzbfaXbBljgzpTVfaWjxaT
+	 wAjwyS/aIYIBNRZFxtQIGesqGShqGtqn/sOo0Haedv29QeVGHBMLOURJCKZuMMqGP5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792872683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792872686;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1QAkdRsJVKTlKiztU9TqAk4OE9mbK+2pCFzT+fsIDG0=;
-	b=QLc7FsJNDqwcDNqSWQTjgFZbP1hd/QjEiO+NubRyZjsTv79XTZtR+NXP991ZaZWjiSZL
-	 dyQFY8LLvGaoTdcVMhEbDAkXEYX0LdV8UETuaVgO7DWbyn+RCG7iEht7bGZ6DxI1D66N0
-	 2E3tWnZo4mQoK1tq7vplfz/7waYE+qEz4rx9wAsB3eTN63V12k20/ZYsXI12rROhZNZkX
-	 Ng23+adew9cNj4Da/kgC91Gvf5KKxeg4PrCjF0sCluzg3fQsO5rQCn8S8tdEpywNC4qXj
-	 8XMOcD/q99v8Nowlf2b10/WJ+jNLhr/pUt/tFdf4W6buZ3vFpDWeFx2AS1X+hlvA0+w==
+	bh=V+GbDgbvhCLiJhFgeMPopzEBGnYrvYydXPPXHjCneQo=;
+	b=dgOaZQ9fAfWFMCZ6PN3kcWMcQ8AK0D9WAnhtLElAM7RsPA0epmQm8iIGgQU2A4L1M/xo
+	 9kbsNDywe2bTyOG7c11OV5ugVLQDkwaf4CQQyxw08Z1ovUUSRVkElO6WeLiG1THKzA8NK
+	 ILiK/ontSwg/vjE5UQQTH+yXeBdGtE59NDs6CH/B2BZaPc+Dv0XHS/+nC5Km7SGsC08n9
+	 8+ioYWdTaYouCH9GRKiN0hI6NYf9STTLG7grlnFm2U/ZsCpFy0yE+EH7FUxMXNkbycMUh
+	 cmibQyVNy74RhCEc9WgHbJNjYHgCU7LhvfrXX6JNgpDQIgLwtwp7a+BSzj3HS9ZhQqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRdJUrEG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gc1YLwT1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996AB606A31F;
-	Sat, 24 Oct 2026 20:11:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C44606A31B
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 20:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRdJUrEG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71CAF1F01829;
-	Sat, 24 Oct 2026 20:11:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gc1YLwT1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B59F1F01825;
+	Sat, 24 Oct 2026 20:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792872683;
-	bh=1QAkdRsJVKTlKiztU9TqAk4OE9mbK+2pCFzT+fsIDG0=;
+	s=k20260515; t=1792872685;
+	bh=V+GbDgbvhCLiJhFgeMPopzEBGnYrvYydXPPXHjCneQo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KRdJUrEGh8VDXSkrQT3EkvmRHG1bULOYrQnqvSX3ix9PnGGa1PSC+OBmgFS38ueRz
-	 mywtFnUgHzb8ZFpF5AfkqzeqjCYsZ614eN5S+8Qk99z/bNZPqIl3vlHTTs2azoo5+X
-	 lZ7xWrxPYb//Aki3iaNAGDn6F4GdnaAAcMgRaieGLxyGBXNvNstdunCpPOOmDmm9o4
-	 pg4amm5tq2+qCvjYI9BdCrAgoyOR9S95tPXDDAyqn/XGz9WsZZEP9wdp5425t+wY9I
-	 wE6uW/CxeOjA7NJjvTISkRn/bzuQTHrmvj4OyUYsm33V2wGj0EakTFjEiHayNokU6I
-	 IKstvZbUE9xnA==
+	b=Gc1YLwT1ML6DwtoIJfbiEjLDTxCL+dW2btp0zqzoI81szZTvO5yFEdUidhHsaaPTK
+	 G2/K780mhhFlynQDdLiLgdHKOWs7U68TioQPHJRJXr0bN2fLf8tXFhdFKSJ/3CF/jC
+	 BoP2RLqX+Gmp7/uA/dkHudtJ8cSx2EPtaAaajs2l0QPtIm1GGl+VCO1mvulKg9nPGZ
+	 1jjvbKvgEqWnmWp1AKsn1Tp5iDPDh5p9Xj0NEGlVjtqqP6dieSjPC5fNCFg5hJTjq4
+	 +CuxSz8I6MBj66+Mb7AAieq3SN4XlyHZPWI6s4KblicMtlIWsbCXR22kmYsTMeBP0x
+	 sHIJqdQKYlk5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	kuniyu@amazon.com,
-	lee@kernel.org,
-	netdev@vger.kernel.org,
-	Rodrigo Zaiden <rodrigo.zaiden@canonical.com>,
-	Tamir Awad <security@auth.ink>
-Subject: Re: [PATCH 5.15.y] af_unix: Clear oob_skb in scan_inflight()
-Date: Sat, 24 Oct 2026 16:11:00 -0400
-Message-ID: <2026-10-24-1-daily-reply-0002-af-unix-oob-skb-5-15@kernel.org>
+	Usama Arif <usama.arif@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ting-Han Hou <ue081723@gmail.com>
+Subject: Re: [PATCH 6.1.y] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
+Date: Sat, 24 Oct 2026 16:11:01 -0400
+Message-ID: <2026-10-24-1-daily-reply-0003-mm-huge-memory-pmd-dirty-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <7fa31470-872a-4fb8-9c8f-51dce38e9190@auth.ink>
-References: <7fa31470-872a-4fb8-9c8f-51dce38e9190@auth.ink>
+In-Reply-To: <20261024083834.466-1-ue081723@gmail.com>
+References: <20261024083834.466-1-ue081723@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,16 +77,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This resends Kuniyuki Iwashima's March 2025 fix for the old GC. The
-> code diff is unchanged.
->
-> @@ -102,13 +102,14 @@ static void scan_inflight(struct sock *x, void
-> (*func)(struct unix_sock *),
+> zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
+> file case, but not the dirty bit.  The pte path does propagate it, in
+> zap_present_folio_ptes() and so does the pmd split path, in
+> __split_huge_pmd_locked().
 
-The patch is whitespace-mangled and does not apply: the indentation is
-non-breaking spaces instead of tabs, blank context lines lost their leading
-space, and the @@ line above is hard-wrapped, so git am fails with a corrupt
-patch.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
