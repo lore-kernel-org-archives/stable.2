@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792862691;
-	b=kzlW7NRikV0vaph5Qh5i+Fo8hQm/skp/xwIE0/RLUTtjj8Auy1sdeRqY8j57taDSlHyY
-	 GZN1bPugVi/1t/YE4ofVr8N61anYiL6g844i1T2cs1H4p4VFkkS8fRt+v+SqBJYJufA6O
-	 f0OhKx+TEjbeWLg2PNypp/J18NVG++89ThE3HkuPXOj94zxwxaX5h+YE5QX81E1xodLYt
-	 fCMv3gCLrrT5fdT1NeHr0MpEHue9pjc1wK1fjgV6QW7GTO55xXGj3Aw52vNmPatxPP0HX
-	 1iE07BNE7bEKLtdZo1jUccK8g+FoEZewX2Jg/GW/WQgS/qrLekaD3iayB2gBJrkpwrw==
+	t=1792862822;
+	b=SwxUwv+sF6DB0r1QyQWXZFEJ6lRs9K0JZrqeVSBKQ7/Zkie+MQIT0X2e4lgot1CaGoBR
+	 97Iwhqjnv6OUvrjXuHMxwoCpR3Si3yrNsSoTuUCejO6p0lJhJiBrW0/zu7WWraJJZkWO/
+	 AN8PjxSYFZWluicTy/9Uas7PqSAQn42MkT6PD61CZBZNV+O7cx+CYYi4i91VCPW4d2fe6
+	 xLPIRQU9QkbJTQBL6e7O4x0kbkLYRLL2u6r3CPU7dssqvkoI2hiN0icUbe5V6gP71foXg
+	 XDz9nH9xa2Pbv1Hpoju5tIkOjjHzQ0kY1SpwFVKFrwVIU6Ra6ucO8GxFc0s8Pkjl5jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862691;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Nx2Z0xhq704i0xpgzn1CCJZTCQQtkIFfSMDswotsH8U=;
-	b=0HaZD8GVyBzZ0VnkGPkvLz4BHLcDkIhQvTwo9Kl2IRL9GYZztcRWEv/riFxEvorB+KVE
-	 8nMRiGtXGaXp9pb8rYXzM9EEnZOsQAJngYQLtMV5RLaSQUJZ+umwR8hqeCeplG1Lx95zP
-	 fo7MPpkmiMrLScQm7lYLbGlkWg0x5h7qoE1+7PLZVlWLvxrcnJ50OdWmGMsVlGH3JiqkP
-	 /I/Rp8LQW2M8zLAQCXcrM9z97GIhyrNHHRF4tZT1RB6Zua8y5VzqKQJiy9/kO5zfvGMcW
-	 AgTM232cFUZHcZ/58RClJmZgmInFeZFMjv73gqovc1cBTdInJrfvlpWfT3a27b3wACQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862822;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kEYtLwxZwrV359NviA74b+mH4aeRVHvNjyPhEsl/qZ8=;
+	b=PazA2mP53NjthsKKVQLrcA7uiqa5C/0WGEEaSvxgnoVPx41LJdnaJAsSUlFaEbjZfaSd
+	 jgKzauduRzXTPVoRNskrvqmDim7iXa317qcAaEdXqpmdaTah2KYHuGQs2Iw3bXougtrDz
+	 5vBBqDQPhLlwjxx25TG45xzmpHHZh5nxmbHlHo64GxAvZdOq2y13rklGbx83QxCfS5kR0
+	 NH+DUEJtlz5fYiVwn7jtDcXlIv9Sj5O3jhHBAs4RtB5UwKF1pO164ihYk+OZuFNIuLUe0
+	 X6B+6L6P5g1UiVEYM5dKluWOO6HD1LZu8/ji2/NdcuuW9cvIzMu+wsTVz5EEhNczobw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=A8le0I4W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SLGzCCFX;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7185D606A31D;
-	Sat, 24 Oct 2026 17:24:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41414606A31D
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 17:27:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41414606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=A8le0I4W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB681F031E5;
-	Sat, 24 Oct 2026 17:24:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SLGzCCFX
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso13813455e9.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:27:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792862689;
-	bh=Nx2Z0xhq704i0xpgzn1CCJZTCQQtkIFfSMDswotsH8U=;
-	h=Date:To:From:Subject;
-	b=A8le0I4Wm7Qz6lmPQ8CeRQIGKBIOTRUa+A2t8ulOjinWG4NdJhIA/400VcEfNmMG9
-	 v651aegXJSkBoCFsb9VrCbrgLmz4qKE7dpyGxbMBxy33vabaIo6EynmuuYlpnjZtSD
-	 DfibsidxyGSfc0NTiobOZy/LpBrwmcHcodu2I3Ow=
-Date: Sat, 24 Oct 2026 10:24:49 -0700
-To: mm-commits@vger.kernel.org,zzzccc427@gmail.com,
-	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,stable@vger.kernel.org,
-	mark@fasheh.com,kartikey406@gmail.com,joseph.qi@linux.alibaba.com,
-	jlbec@evilplan.org,heming.zhao@suse.com,eklavyasingh2106@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch added to mm-nonmm-unstable branch
-Message-Id: <20261024172449.CDB681F031E5@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1792862820; x=1793467620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kEYtLwxZwrV359NviA74b+mH4aeRVHvNjyPhEsl/qZ8=;
+        b=SLGzCCFXwEzIPp0HYrwFsmH1nScgGkoGYiTu2ZDnCmgW1A76aweYx34KZTSjMDJ677
+         luC7x5od955083hP9Iiu49BX3y5ihxgWXuQO042HOd79UUdV0zmTm6YFyw6lqeJZvGhe
+         BAjA0qfFBKYZqZiK96CR+v0g942HSiEKj5tpP1WNgRXIPcCuh20/VClnVLR7tZK1ANpR
+         XQzFGeqmJoRUF8rvDYC+gBqzSqb11ErCI91seBMYrlEysiZh8MF5YxNKrt5V/5vH+Ud4
+         FI7FrJhahEx1wQI/KW2P4x3JlDqTyhWv8a2vJROBw8ouoGWnNpg57LSWvTK6wDVMUiZj
+         i1xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792862820; x=1793467620;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kEYtLwxZwrV359NviA74b+mH4aeRVHvNjyPhEsl/qZ8=;
+        b=CyAvWYXm4Xk5Ou7Ky9YpMiAMNLAwIDAkvdT8IVqH9TFAQsc+iI9Mt68/Slwn12QAcn
+         ajmQp1HiUHNy+ivwBiZT89453woM8h7H15N2UTYzl3W5A1iDdMEWc27qAfdU+vDNu6nz
+         EhTlulhDf3ygKm7ncFkoRYYNEaY1jX8xgp21OF8hj7GINTLWVOMDmgWjZSC2yB4a6LpC
+         H+s+vtB+rN5s5DpiFRAxwWEufa+oPfGVUEG+nW/z6XFcrmDQJZqJFtDfQ0ZZv+boY6E6
+         MS8ubwhkqVBtkLfwMj71aWNOto9AdlRJeYZGyWk+N6Q+cMYNEqdxsW4rLEDxgaFCAdR6
+         9NUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxiFYKWfuSEg1iqGu2Ylx6os5PIjlBujDHeYfQCKL/4vdfVVLb0RxMt6sWd47MhFpwfHuWKzBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNEG9MN7nVGa8HGQ0SYplYdh4vdxcnutUuG6hW6Zu6AekxLveD
+	s3Blwj+eAx9Ey/oJb8bdWwmYOKPEdo5fGBq9KHJ7GUviNudba3/WhwSY
+X-Gm-Gg: AYBFou00LPU9biXECfOHuLJEeFDD1lrlUEMqaQ2bT6JKD4ZGUK3YedRWQAQbKBr9ymc
+	R4ZNGYSktGCfJVGQv7XZ45PJbawEcf7VAkgH6MGC0JsrNStxQEeej7R5Pwz2eZSIsZL0evn+NZn
+	x2+hTsyfUXDd3j0kbCa5+hRf/dWKxte6EWeCL/yxWdKfo5zMEG/RWZe+zuTjnWTtd5zdmeHZX9y
+	dHi8hyxk+UmOQTz3hy8rSAg07rB3BL8SSQ8feycNsbdATZ502I2WYCTGx4R+OZauOko0HRY1sUw
+	2xJ0WgJTGOcKkLIVI4oOBVF31B0TBgZlAOI/sEl+oM3uv0GOvev3kvpkFfrIl/NTsTkIY9oR8TD
+	215OssVvfMDB52e84nRuTQOMV0J0jegDxvTBSSqcVOiQiVjXDL0jZMh/etimW0KtfQ7uxi6wbyX
+	EI69RqHq7Ng65K9qIL4mrs6G+dhuTZQdLBN3qHHty5hoc9qfvwXE1EcseIpQ51kxR1ykaxXREk1
+	EjLdKVmrhTTevvDR1eNfDlBYOXwZKesB4Yty3V4j7i9nJpqLwsGn0TJQVrH6MgfC4vmtlCXjaVI
+	3h8Mpmi62mXperfeWMXl1O4kShQL2vUn
+X-Received: by 2002:a05:600c:c173:b0:4a2:191f:7cbd with SMTP id 5b1f17b1804b1-4a35ac8bbd5mr40436765e9.11.1792862819430;
+        Sat, 24 Oct 2026 10:26:59 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fc1207sm52573855e9.1.2026.10.24.10.26.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 10:26:59 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: jorge.lopez2@hp.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: andriy.shevchenko@linux.intel.com,
+	linux@weissschuh.net,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	meatuni001@gmail.com
+Subject: [PATCH v7] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
+Date: Sat, 24 Oct 2026 22:26:41 +0500
+Message-ID: <20261024172641.19424-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,210 +100,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The input is copied with kstrdup(), which stops at the first NUL, but
+the full write size is passed to hp_enforce_single_line_input(). With
+an embedded NUL the helper reads, and can write one byte, past the
+copy. Use strnchrnul() so the scan stops at the first NUL, and return
+-EINVAL for a NUL or newline before the last byte.
 
-The patch titled
-     Subject: ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
+Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+followed by 4093 bytes of "B" to current_password 100 times returns
+-EINVAL every time, without reading into the heap.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
-Subject: ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
-Date: Wed, 21 Oct 2026 02:53:39 +0530
-
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
-
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
-
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
-
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
-
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
-
-Add a mutex to the region and hold it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-takes the mutex in a small wrapper rather than with guard(). The mutex
-is dropped while dev_store() waits for the heartbeat to become steady,
-which takes seconds, so a read of dev doesn't stall behind a start.
-hr_bdev_file is already set at that point, so other writers still get
--EINVAL, and the cleanup after the wait retakes the mutex.
-
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported. So did a second one, with a working loop device,
-that interrupts starts during the wait while other threads read and
-write the attributes.
-
-Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
+Changes in v7:
+ - Use strnchrnul() instead of a separate NUL check (Andy)
+ - Drop the trailing comments
 
- fs/ocfs2/cluster/heartbeat.c |   40 ++++++++++++++++++++++++++++-----
- 1 file changed, 34 insertions(+), 6 deletions(-)
+Changes in v6:
+ - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
 
---- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute
-+++ a/fs/ocfs2/cluster/heartbeat.c
-@@ -269,6 +269,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
- 
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_s
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_s
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(
- 	char *p = (char *)page;
- 	int ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+Changes in v5:
+ - Limit the scan to the string instead of copying the input past its
+   first NUL (Ilpo)
+
+v6: https://lore.kernel.org/all/20261016025352.230535-1-meatuni001@gmail.com/
+v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gmail.com/
+
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 876fc35d035b..8873d91bc235 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -162,12 +162,12 @@ int hp_enforce_single_line_input(char *buf, size_t count)
  {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
+ 	char *p;
  
--	if (to_o2hb_region(item)->hr_bdev_file)
--		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev_file)
-+		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+-	p = memchr(buf, '\n', count);
++	p = strnchrnul(buf, count, '\n');
  
- 	return ret;
+ 	if (p == buf + count - 1)
+-		*p = '\0'; /* strip trailing newline */
+-	else if (p)
+-		return -EINVAL;  /* enforce single line input */
++		*p = '\0';
++	else if (p < buf + count - 1)
++		return -EINVAL;
+ 
+ 	return 0;
  }
-@@ -1872,11 +1879,9 @@ out:
-  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
-  * nothing
-  */
--static ssize_t o2hb_region_dev_store(struct config_item *item,
--				     const char *page,
--				     size_t count)
-+static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-+				       const char *page, size_t count)
- {
--	struct o2hb_region *reg = to_o2hb_region(item);
- 	struct task_struct *hb_task;
- 	long fd;
- 	int sectsize;
-@@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(str
- 	ssize_t ret = -EINVAL;
- 	int live_threshold;
- 
-+	lockdep_assert_held(&reg->hr_dev_mutex);
-+
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(str
- 
- 	wake_up_process(hb_task);
- 
-+	/*
-+	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
-+	 * hr_bdev_file is already set, so other writers still get -EINVAL.
-+	 */
-+	mutex_unlock(&reg->hr_dev_mutex);
- 	ret = wait_event_interruptible(o2hb_steady_queue,
- 				atomic_read(&reg->hr_steady_iterations) == 0 ||
- 				reg->hr_node_deleted);
-+	mutex_lock(&reg->hr_dev_mutex);
- 	if (ret) {
- 		atomic_set(&reg->hr_steady_iterations, 0);
- 		reg->hr_aborted_start = 1;
-@@ -2041,6 +2054,20 @@ out:
- 	return ret;
- }
- 
-+static ssize_t o2hb_region_dev_store(struct config_item *item,
-+				     const char *page,
-+				     size_t count)
-+{
-+	struct o2hb_region *reg = to_o2hb_region(item);
-+	ssize_t ret;
-+
-+	mutex_lock(&reg->hr_dev_mutex);
-+	ret = __o2hb_region_dev_store(reg, page, count);
-+	mutex_unlock(&reg->hr_dev_mutex);
-+
-+	return ret;
-+}
-+
- static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
- {
- 	struct o2hb_region *reg = to_o2hb_region(item);
-@@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbea
- 
- 	INIT_LIST_HEAD(&reg->hr_all_item);
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
-_
 
-Patches currently in -mm which might be from eklavyasingh2106@gmail.com are
-
-ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
+base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
+-- 
+2.56.0
 
