@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792831139;
-	b=aFryE7kz269xVxynBOA4bolxDVQ+/s9gmonlG76tmdPzAw7LFFBUc1ArNlAtNk1FnL1t
-	 /EnvLcpGhqSP89YMgY7asufHwE6uTAHu5XhPp5dcA4WlcxvdxR492yVoXZjoUPwwK8rwp
-	 AJuVBFhbr15sPy9Fm6ESGvpn8T6Cgh7ZoEmZ72hLPRdRnJc6rxZnJNtdwMAkyvqcQhQah
-	 ShUQlR8PkE0LITsnGUb5vOn0TOLglOC0phJvDFTvihuNoGFUIuEr2VkF+iqoeaBaNtpOw
-	 rhWW2zKgaIkmjGWonBzYp5gbriXXbP2Xiamag8Rh2zYuoAsPLH60GQDtXGnxaK98rGA==
+	t=1792831149;
+	b=UFxzpdOoB6kPj5x7/E0q7rkKyCW/Q6R38IkddnX0T/jH+GELxZJr7V94tH3i7fVzoKAB
+	 RoSnjr77gHLec7IRFaStj0t7s5bcBDQMyIrsscBWrxr8NOmzfRk86ETX+6emw4pgSRmKX
+	 GFWbIEUWc1J0deAvK9HrwLN4YHX5CirSPiaNIe3+dfhTVn+xN4YCQR8Lns33TkdnIeQDc
+	 +yW7gWddhFF6d72l3kzIk5yj96YO49vYy9C8ub887xZ8mFDn5C7lWiI/CLFKYsSxmy3+t
+	 svzwgsgfy15WlflthFr+eA+cLgFlxlHhhVlFQdkBgI84dS4KZBmiNB7JlKea6NTaHZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792831139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792831149;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=s4cLW+mj2CRQgx4QZSLLIuYW3Zy846HNKAh0LPOyz9A=;
-	b=FVJxQcUlyLs06HNS9MSUC4E2IP5000WKSIS5O5p9eG0wYUqtnje8RiHv6Ci3jiuO/4bb
-	 gBC/orxnSrJLvYdeAk6teD+Y/EQrgOJ2ApAPfq4aRo+3xT8FSC01Og8n3oOsIwSNt9E3I
-	 6cXM+oYHMsYOQmAKL/4KMzLhyXX0eDsAfAGKb5HlhfYMijKeQiZw/K1f8PaaiG3hVQd5p
-	 +akPlhmMjsF0AuebXY082y/32gmmWoofMoEI5tcluf+l5uTpD4YE5waRC/YrRfrwpdQwC
-	 w534EDBIiMMT3ljWNe4zcMnqxO58Qvu2p89vk/VFxIflLffJ3rWsOs4zOBqPZMeWtbw==
+	bh=XuZYyPIpPfET6wo4kPmM2WOsWM2aeFyFoCKMG4TitDg=;
+	b=RuClQLCU1c2lQBzuvLfl01zV4fO8SVv5FJ4DLTXfwARlrtipYaolJn2bzMmu15r1iTDb
+	 8tfMdSRWBaM4xy+0nzHR1LZSwUpE+a6Kx6iAYQMNY0G6fp/tob2qEkq0TWlefQxfFbo70
+	 gjVEhGu9DByR/lYkLHBCvtkl2pKH+woRtlopZWfEnynR0pl7XaVf94a4A9QY+1kPwDzLe
+	 AgwkXbgJtmLnyPlMwo+hcKW1DCbr8ei+bwlB/jVhqsor0FpiiZs8eMTtJwqGZl8WgjEY9
+	 Q2OipuLW550c+4R07wrbUK7eS6C/BppJ316sR2a3nUV1KhN9Nfg92wu9TGgLULxL4Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bc5LHj51;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L21KeWPX;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06585606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 08:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06585606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D12F606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 08:39:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D12F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bc5LHj51
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so1171342a91.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:38:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L21KeWPX
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e5fb79ce82so10260035ad.0
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:39:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792831138; x=1793435938; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792831148; x=1793435948; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s4cLW+mj2CRQgx4QZSLLIuYW3Zy846HNKAh0LPOyz9A=;
-        b=bc5LHj51bpwXSf+LVspR3J1a68Tyhz7v9oaGy9hh6zYPXytsOtWq+sivEd79DhS9Q2
-         gT69sgdRmBCTwzg5W7hCG+6Pm+jZx6YRbsN4sCTK6V7rZUVEIVrlhMcRPigCP2wv75cF
-         kG4nmTDdkJ36wXLl14RS/kM7K3m8UwqfDLM31Wrl79AhkCmSk7u7z8amKJda08rA2R5U
-         17puwcZHRE1vlcrppMeKvl8y+noor3lYOCOegsx4RHeis+ESZuqyIskiOKseAvQ2RMZf
-         AsTiBe9OALkvgTwXI99P/JWFmWKAZDaMb8TEbk17HUdoFK88vKvPua3z5DuFRCQ+/0vR
-         oOsg==
+        bh=XuZYyPIpPfET6wo4kPmM2WOsWM2aeFyFoCKMG4TitDg=;
+        b=L21KeWPXh1D41fhLAtxD93QTJW8APqsfcI1afmHID0PC/1oao1sBqpbLTkjrNn6bCu
+         UUMdIyFZKI59jxH2sFLIDdrLydpN1HVj6Jd1kC5XJ3PmMWjrc1Vjkql7wx60gFM/t0Iy
+         iK0wnoS47Px7XdSdjx9nj2QvgFYVz0AJo5yl0wc7B3zRDdcV4L++RuAn2uf/SPHnTFFI
+         p/pbCM6mz9RiDuRfl3IOg271c9I3CZZ+g3lq+pUO+JHdqR9fodzNbDGb+/o4cscfH0T+
+         HFVwkAoR3vHifPC16mg5OQcBw4LQ7cUdsWCZXx9BJIOlM3jkQrCFxT8vAmoYoVDlQaNZ
+         TLtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792831138; x=1793435938;
+        d=1e100.net; s=20260707; t=1792831148; x=1793435948;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s4cLW+mj2CRQgx4QZSLLIuYW3Zy846HNKAh0LPOyz9A=;
-        b=s8dXx7+l+6dvasF3inrQ/u5VKKgU8SM9DwoMuho4jcheyuXTxlpHde2IOU8lMpeIW9
-         mXj7eAgCXf8/0UHlWtoD1J/DoHE2xlNDWCWTXrjqEyUBykwgc0Lx5nezuUlVaCZWu604
-         yyM4hsfxGpEr3PdqNxgvyQ4aKaUBXYb5riH0fJ7yjYfPIClUDkVeDHehiDFotfjeivfK
-         unvoXEljCtTDiqPzlj2Phg1BngAV0i3t4WCEAUZYtwliituXPMj6mqCdDkP9f/DOg6te
-         H1L4gElSwaSTrxsFqfE67KbEiVKXhl/2b1tgBPj00xS8GuTOGthl8EbV4NF+7Kr1olO8
-         o1YA==
-X-Gm-Message-State: AFq9FYJnq+bFzIl0fNFFox6QV6883X5HnLptkXmOzWnOax6XYoosRyw3
-	QwPez2ZERHtxPpqJKchCKcIi/DeNTjCf1Uvd/B0z/JbtGZ20PyR1iDzNLeqzIxMG
-X-Gm-Gg: AYBFou2vnlsyynZgy0QtjZm9mFOI1zv/WOUpZdEScX+h0qCR97EwG9GfjZukaeyjZpr
-	s+XHyM3cBxPgx9gW2PsLsAKt8jxdaKwj+e4jTOg7iuQr1Z1Mr5qIZWrDGcbjUSGsduo979TGguY
-	84GOr+FqZJlDj8K0QJ6KFzFY0V2+R/zspMThwkl7C0h/zkBhAIEUNAIq0pCqZPbs/sNgGp3UyCM
-	tFEScFKH5dyguNQD7Iv93whn6aeLm15btCBsJLdWjeiVpinyrQIUE3rcCNhIYstb5qhK7nyNIbT
-	8yRjkc7iIMrZxgB4GMey0je4GOnjNO7wuBK3NsKFhGzxzNUTQUohfVtmH+IAc4xJxhYuuQjOcky
-	Ia/8DHBSx8Nk8F3+abn8m3f9A0Z3JPE2l/2ADKItgJAY/YbST5WF9ndos0kRJjXB5zdowG7M4sk
-	4b8WqdIt9C+yadrIcYO9/flMCxQRDJy16ZdLaw8WRkYSCvVfHDDNQuQBrnuvm3BQuB0hSYhNPEe
-	WDLr7laF6iRexEcMffFEilXoLfUkmzsOtoa9v8Cgs9P8tJ2/6iQFbfFWPQfp80GvYsaAWANM7IJ
-	OgFR7vgOjCTPG5Ltu0dxMO/aVJ3AYDzUoGNci2R/OWEpF3CoSC3RYxeROFP6blEHhTDut5kOlE/
-	6VFmXA9CL33KAy/arrsEApbCc15wC0VruY55ufUPLOMzJ7vQ8w5kluMFt/1L3tfr4M8lSfEVz2m
-	Qk0ReanmL/EijFlbRAhoep2lLsCjAFWoh3l61RpzvDdNnPHEYxaCdZ7LCt
-X-Received: by 2002:a17:90a:dfcc:b0:3ac:d79f:8229 with SMTP id 98e67ed59e1d1-3adeafc6fe1mr1422055a91.61.1792831138351;
-        Sat, 24 Oct 2026 01:38:58 -0700 (PDT)
+        bh=XuZYyPIpPfET6wo4kPmM2WOsWM2aeFyFoCKMG4TitDg=;
+        b=MV96gW1R84m28VbU9nXUrn/9dAzR1hKwjdPHuW41SfygAa9+/YFfMmUOkjIh8Xqy3F
+         a7Bgz+cs0zE8xli9MEdX8IBPJdgimTJm5yO8Z1uW+zaxR6+JSa4tR7MheLV7RQf9Gt+f
+         zWgFGudD8TcDcGGUa1mCXg1drM0gd47Uoka+zeNk+Ek621s33u5uJxJ7Af72K2JyvQo4
+         cNaeDCY80SDzLGEdy4TBj5kOqVUODKWzPDy9zecd/4p+vKR2sM1mEaEc/ohjBaLMnBOg
+         suppcqWBTI4j3IeYK2WMtFDvsNpxdBkT2SAmderx58ij9LA6cNP/LazZiZVlCfxFVPFK
+         dZ1g==
+X-Gm-Message-State: AFq9FYL9H0GRS2yu62DKEMtA8ffrF2EY720+6Af6/LQ33qHUdOouZ6z5
+	jm/rcrro0zDAZygPeudLVe44BGywCmKOXWVdxpmcnnmTROj4lSH+Cz27tJQoqLhr/Rg=
+X-Gm-Gg: AYBFou0X+ayRLPYqYgUJMJ0x9Y8ugR1PRZvXkkM118Eo0l94pQvIbdk4zP3Ar+YA68D
+	GHK8Ia6V+AjxllXr0aTIHAQqWwX9WaTx+lit9Am3qWnrbGtAB/ssVfCyPvUS0w8NfR+OTnp1fOa
+	E+AsLZRe9ZlrGIVSZ2iffPOX8Bw1czp1i+YOdPQthdN7lx/GAb8UhHst15N+R4l/8jQbdxIpZnS
+	bdeL8HobNMv45fyiimXqtI4BwzE9raBYh1WHjClLTS6bppVvDgCBSkLumXfRU1z6s3SX8+J+XJX
+	eTlTdb4+pM1fohTANRy3nyR8hB7eASgLwh6X41WUDIizwL63KtjXkmVfqML0nYh9MXh/5V8I9U2
+	o4LYdslFHzBf4+emcx+6AEgexhL6Nv+Cn/6F562ySWuuU6MR8z+ikcKP1SW0wqTGHkOm7q2gGTY
+	7cxat5MBSgg1MUr9WWFuKxKZuLgJicK/5+jrJEn3y9VcVTdhxvghi02jPO/s2l+C4TINshsW+j+
+	ZdtEVw/u3/5nMdSOti5T4ckwiaGwKd/sNf6UCzMa4VeV6Wcvzc1Ez2LYQUna1v4vzCmRCk/kxc0
+	1qa729jG1SANDy03zAXFo4UHNxA5lE/YukPslhoMcp/XDEcvFL9LQWsfYCipnnaHAqfAHhCOyaJ
+	TxUyoFy35N2dm3jrT06nixjBT5b8BV+nsuqhlqtGdp19Esx0eb70Pit+83Ubccx3RX37avPBjNo
+	33p0+fEGEdv6QPcW2gCEehxCbjnydRFf1oVNWQcBEZz+PlFgOnH3pHHWf6bV9cGxOJ19fVFPDeh
+	lTPqQ==
+X-Received: by 2002:a17:902:ecca:b0:2e9:64b9:a333 with SMTP id d9443c01a7336-2ea9c6c22a3mr12466055ad.19.1792831147795;
+        Sat, 24 Oct 2026 01:39:07 -0700 (PDT)
 Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32f70sm2191251a91.1.2026.10.24.01.38.54
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a15d6sm3821105ad.46.2026.10.24.01.39.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 01:38:58 -0700 (PDT)
+        Sat, 24 Oct 2026 01:39:07 -0700 (PDT)
 From: Ting-Han Hou <ue081723@gmail.com>
 To: stable@vger.kernel.org
 Cc: Usama Arif <usama.arif@linux.dev>,
@@ -98,12 +99,12 @@ Cc: Usama Arif <usama.arif@linux.dev>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 5.15.y] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
-Date: Sat, 24 Oct 2026 16:38:48 +0800
-Message-ID: <20261024083848.496-1-ue081723@gmail.com>
+Subject: [PATCH 5.10.y] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
+Date: Sat, 24 Oct 2026 16:38:57 +0800
+Message-ID: <20261024083857.520-1-ue081723@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090849-unrivaled-active-a82e@gregkh>
-References: <2026090849-unrivaled-active-a82e@gregkh>
+In-Reply-To: <2026090850-matchbox-foil-749a@gregkh>
+References: <2026090850-matchbox-foil-749a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -192,7 +193,7 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Assisted-by: LLM
 Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
-Tested on v5.15.223 (x86_64, QEMU/KVM, swap on virtio-blk) with the
+Tested on v5.10.272 (x86_64, QEMU/KVM, swap on virtio-blk) with the
 reproducer described in the changelog: tmpfs mounted huge=within_size,
 read-fault a 16MB MAP_SHARED mapping (ShmemPmdMapped: 16384 kB), write
 a pattern through it, munmap, force reclaim of the memcg through
@@ -207,10 +208,10 @@ sparse warnings in mm/huge_memory.c.
  1 file changed, 3 insertions(+)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 5dad4b6ec6d63..cd44744724d0a 100644
+index ecbd84a4a97b0..f6fd1d3527b68 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -1642,6 +1642,9 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+@@ -1719,6 +1719,9 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
  			if (arch_needs_pgtable_deposit())
  				zap_deposited_table(tlb->mm, pmd);
  			add_mm_counter(tlb->mm, mm_counter_file(page), -HPAGE_PMD_NR);
