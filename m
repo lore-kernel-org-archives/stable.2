@@ -1,89 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792821023;
-	b=E+3OoFtVWpYIokdqcHjHMafQVMa2E+xjHd6x6ax6E6HP7WKx6CyXjeBEWZaN2OCK7Vl0
-	 nKY9npqof7LDErn/TXrk5w0VejObnp3IgwiJpREuQyMdBwcoh2BiU1bDy1VfReDyRIEzW
-	 I8JV55cNMjcuaOkbR9E5zGoqzczV7NBSu9f8QplLQUaXnYEyLtQjyR7I+1AxVuI+/mK/M
-	 acpFJhKuxxJAiWRsROr6/M0RWfs9wH9OhGQDr0h+z4I8ECnSaAVwhAJ+oX6Aj7fmA67zp
-	 C1SwjdXjr9qSaS75tullx1XEa7ftInoYI5WWRRjGmhl37BA1dcb3SBNGe+aOXh+bwmw==
+	t=1792821026;
+	b=yuqsAE2nfkuMhFxysh9UYP2lJIMwqr2j8B273wTmWRk5lGueecd1O333eS6dDFHtJMlf
+	 dBAOJnJ2jCpBiL+MAYyM96yCDqaDFrs++CRKYUYWXiAS4zxn/1zMBlMuUqYLgODHj0mJO
+	 ZhIPuF+6k2tWJfFGWYUbzmeAjKoDpMcdaGFcDiyv6qZCPfebpf3S/ACoGHNvRsiATNPZz
+	 IrLk9lyFal4n6lTwoTMZnwXNKp9b1KRsHAFNrqk5/RsGLrICdwAy8GlRW5Wuiq+xD+vxB
+	 E2RU251not/7fMWpjDMIBdkYIpdUMh97gcNZd2ppAlsMPA1qbvxiMrfMvv7ht/Wt6aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792821023;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=XEq7BJISvWrYZRawdSztbA3abkuHTD/bmyAUQoKx548=;
-	b=hu4+4djZneBdJJGvmSaiaDYR9dCQRI+PuONpWaGK1GC+1rM99nQ4QJ9uBPxRw0tEBfYK
-	 UNjA6OR9YKyV0w1yZ3MzjPdf6vKXmze7aFVsWi3HBhNVyBBuWAL66DceyIHP6FDJbZ0NA
-	 HF/CwiVFw8m1+oKmzAmbhrL6nCY4TU3PjV+GfeQERmv3x2oKmmKsbTzNuBZIBwlTE7CKj
-	 QXm2wZMRjXWdq1Z9xfNLcJXMelyfbDaeZE2k/WFryiRbZhEe4HYGug8nU6fX4zd6Gtmlj
-	 sSiPpy7rH3NfJ4+WI2R93Ajjwc7ax0Yn6n3/dahOSJeGWP5KttmbaHM+MZJHMXM+HBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792821026;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=4eeCO3rC80X62fcq/OXH4080ngr+dUvjk6HNy82lOk4=;
+	b=1+5AsmKA5dZp3NZk4DB4VYkJVNeu9r+wpAyEiUCeiR3QXyXh3K1olN9zCOrFMHYUScEv
+	 H+FKW3z4rm2pxTd0D2VSoKb4xQedNblxdorbPrvKAopqva+7yOq2eMq0KGDAr30ggIkye
+	 8lnoJND3N+xnlWUOizJgDL71WViUXXB+k31mNy0Of+/oON92QKmtg2ybGbHZpzT13uSkH
+	 IzE088QS3IU1m3wOPXTyBrQRVQfJGGPGduPd39PGjZJFDWy+CG7pHSgpeR4zQVFZFXZ7o
+	 0lyQaSEL3KTT2cchH/6C5kSFftsca0giEEqP6J5D8rw2lfpbLgYYX8ungs5yaGGNXGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ljsoYV7l;
-	arc=none smtp.remote-ip=209.85.210.53
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Xf/73uos";
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263D5606A31D
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:50:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 263D5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF3E606A323;
+	Sat, 24 Oct 2026 05:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF3E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ljsoYV7l
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-84a248254f4so989496a34.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 22:50:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792821021; x=1793425821; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XEq7BJISvWrYZRawdSztbA3abkuHTD/bmyAUQoKx548=;
-        b=ljsoYV7l95fh24Ei7MO1YbariBg9iLmsVp2HPUfYBhsZrTPhaLU58Qq9KAxUn+udIM
-         4ygWHM4GsqWhCWu5HJeteywZ3teCPktoKSSH/bDTzIkx9bTFOAJtJbZ1PdEStNRY/RSC
-         tnnjI8fnsJhfdlJ/i8J+nuVYrWY76U15kLWoEQyfouKZu54XlMRibjp3zUtEeIIytDs9
-         5MLYB0uyZuTvYJa6jMjHlx943H31nKTUuQZszQ6n9CaeqsQomxUsDptpYGAqBV+8bkmG
-         y9pwXXLQCVU+yNZBJS4nGxdL/dkmPLVWZ4enlSIIXrn4MMx2XCAED02JfhNnhoDPmBjc
-         uwwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792821021; x=1793425821;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=XEq7BJISvWrYZRawdSztbA3abkuHTD/bmyAUQoKx548=;
-        b=kP8WBvRes0tEpIh9METgwpNIIQMAvKU7wUVyAxp85CTFGvKmk/ewUQHFzqtuAIq+b6
-         pmeQOavZlZiu8OxEa8eUFK+8XfHo6HGUoOKl7TDOvq4ijw8iqQS3CCF6RWo9rCUC5AvI
-         BAgkHxArWqclJNjqFcCmInyxE2DrVjEBOJMfOaetO5fty6gjRjdp7uCO5Qu+5YrHc6iT
-         lmE45ygQXqw1/uv1C/kcpRIcqsZiSGkSy8muWJEBTvd+KRgHZLwLrMfYeRdt+pB3eAe8
-         pcdY0zrPqpwAkLR/XFZIYihxs4p60WAM6/fnNejd5GD0Wxtq7BzE/8ywTmpQRSeigwCO
-         BG8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw8+MJ7pWrMs1k3JXQzD6K7grum99jXWX7V9X2o6SrEP0Yd0nLhSA3r0tTPHjIWf43AzOZM+8Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLP8NxPqcAe78vgj8wEGn11d4yPan9ePGK52RWIEv/B23DDJbZ
-	kZNPpBcVd6ecov9rCw/7CZe8epO5w/dNL68m64JC5K84LdEmS0HHmdUX
-X-Gm-Gg: AYBFou3MNiWPlT4aJD8E2hhoH38AtxMa7m6MxehtbkAUFjcQNZYhy8u3RYLRYUUtkIF
-	zqeRc6QVF9oDDn2/hC69nZbHhv0XcPGwFQ1Fq7FbHMS2kJdQaUBYgzhN/xyf59ecFzhbWRkwUdz
-	7VDtY1E4ZsFTDohrEOTw9jpAaJJ88L2Q6TDEviUh96G/hWdkqf7wvZJQSgTOGYZtjol+OYFICux
-	KFX7sBGP7mcVMSLzeR4nceCF2d8ldesB28eHJK4zd2cOTefSWOjRELG4MDTZpy4UcvpTdHn2fYP
-	grcqvjxZBD5v06yxizmamcaZDXnDxR/BhtJtAqmr4fvtlw/0i8MYN/oAN8hCE39KjFZeRJ+GUsK
-	nTVfTd4FHDPazg2yyDTGXfsM/OTot06rMOhlHKMqRVa3+owcFJw3lds02CKnb0Ra6G43cOFDdsX
-	XUNvrtiQ5Y7Mn3ZAbMRKB+ebYv4LNMO0FXCyboc7P70Lc8r1JGA59KJXN/M5xykPV2EzflUvPn7
-	BKfQYgUU9gzKXo2fzuaE9ukiqQztLsDM7itt+d3Ye50KGd6VCkCXRs5RdQ4fYWoYrbD2Jp7wmYc
-	dK2Yaq62SN8Sz+gDyUcIlmDOxsRaYS+lFV32ZfV+SzK4P1ovfRjNXICq1PbxVOrZxlvIGanJw6s
-	Rv+XXrYXk6JU2Is8OVhVJVOWpQf1WUXD6BxcmaVLa6tDj2/2xupv46lQxMVvSekhrmX+9pi76fu
-	/2sGQKCYmcUVIY2noSAu+DaqYA
-X-Received: by 2002:a05:6830:4408:b0:821:c01c:2ec3 with SMTP id 46e09a7af769-850f81696eamr1208809a34.0.1792821021056;
-        Fri, 23 Oct 2026 22:50:21 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fc002444sm1460625a34.23.2026.10.23.22.50.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 22:50:20 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 23:50:17 -0600
-Subject: [PATCH] serial: 8250_dw: preserve BUSY-safe fractional divisor
- programming
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Xf/73uos
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=4eeCO3rC80X62fcq/OXH4080ngr+dUvjk6HNy82lOk4=;
+	b=Xf/73uosj8Kq/DH1BxCXNhWCXU3rUmi6dvy+F4UR+//GnUxXRVVkSMOnvSU47J
+	ykUxAm7a14ANlDG8oJeRVHtjw5Jo/Ri+cFB+l4Cr08agz3NaFKid0tQoV0nPOvFx
+	7RSzvZwRQRb1uEkQbWYsHfoZtNZreI+JHU9jUxAhUv1vk=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCX95oGR9xqGesABw--.21036S2;
+	Sat, 24 Oct 2026 13:50:00 +0800 (CST)
+From: Wu Enqiang <janussss@163.com>
+To: luzmaximilian@gmail.com
+Cc: platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	chris@nilk.net,
+	Wu Enqiang <janussss@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] surface: aggregator: propagate -EPROBE_DEFER from ssam_irq_setup()
+Date: Sat, 24 Oct 2026 13:49:21 +0800
+Message-ID: <20261024054921.48209-1-janussss@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261003044844.63157-1-janussss@163.com>
+References: <20261003044844.63157-1-janussss@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,97 +65,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAxEr1J5jUUSlCpwFcQiH5caQYqSUIqq3
- p0EFl680czzCpkSU4ZTt0KimTNPsYLcdeBHG6+EHCqDEqqXQh0wv9yDC7aZvaNRWmB4Y+A6nRL
- OEvUge3OkILQ1UDXPRAMvvxfny5+r40a+NG9rOJsJXbLRjy0q5bOvh5GWAtv2BY04vRCjAAAA
-X-Change-ID: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Raul E Rangel <rrangel@chromium.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgCX95oGR9xqGesABw--.21036S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGF1UuF1fKw4xXF1kAw4xJFb_yoW5urykpa
+	95GF43Xr98JF1rGanYgw1xuFWrtw1kArW0gF4kWrnru3s8XryfZryjgFy3W3ZxCrW8XFyY
+	vFn5X3W8CFyDAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRHlkcUUUUU=
+X-CM-SenderInfo: 5mdq32xvvvqiywtou0bp/xtbC3gmlD2rcRwmk1wAA32
 
-dw8250_probe() installs a divisor setter that makes the UART idle and
-checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
-fractional-divisor support, it replaces that setter with the library's
-callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
-bypassing the divisor setter's idle sequence and DLAB readback.
+gpiod_get() can fail with -EPROBE_DEFER when the GPIO controller
+providing the "ssam_wakeup-int" GPIO has not been probed yet. The
+current error path falls back to fwnode_irq_get(), which returns
+-EINVAL because this device only declares GPIO resources. The probe
+then fails hard and is never retried.
 
-If the LCR update fails to set DLAB, the subsequent divisor writes can
-reach TX and IER instead of DLL and DLH.
+This has been reported across various Surface devices since v6.12,
+including the Pro 6 and Pro 9 that were used to reproduce it. With
+the SSAM controller down, dependent ACPI devices, e.g. the battery
+with its _DEP on the SAN node, are never enumerated and battery
+status is missing.
 
-Install the BUSY-safe setter after hardware discovery and extend it to
-write DLF when fractional divisors are supported. Program both divisor
-fields only after DLAB has been confirmed, retaining the fractional
-divisor calculation selected by dw8250_setup_port().
+Use gpiod_get_optional() and propagate errors to the caller so that
+probing is deferred until the GPIO controller becomes available. Only
+when no wakeup GPIO is described at all, fall back to fwnode_irq_get().
 
-Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Fixes: b27622f13172 ("platform/surface: Add OF support")
+Reported-by: Chris Simpson <chris@nilk.net>
+Link: https://lore.kernel.org/platform-driver-x86/d0bb21cc-6d3c-4526-8204-2511da51a6ac@nilk.net
+Link: https://github.com/linux-surface/linux-surface/issues/2219
+Tested-by: Chris Simpson <chris@nilk.net>
+Tested-by: Wu Enqiang <janussss@163.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Wu Enqiang <janussss@163.com>
 ---
-Previously included in the DMA cancellation series v4:
-https://lore.kernel.org/r/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
-
-Changes in DMA cancellation v4:
-- Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
-  discovery, writing DLF and DLL/DLH only after confirming DLAB.
-- Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
+v2:
+ * Per Ilpo's comment, pass any gpiod_get_optional() error on directly
+   instead of special-casing -EPROBE_DEFER; keep the fwnode_irq_get()
+   fallback only for the "no GPIO described" (NULL) case. Suggested by
+   Ilpo Järvinen and matching the variant Chris Simpson tested on a
+   Surface Pro 9.
+ * Add missing final period (Ilpo Järvinen).
+ * Use full name in Signed-off-by (Ilpo Järvinen).
+ * Add Reported-by/Tested-by for Chris Simpson, and Fixes:/Cc: stable
+   for the v6.12 regression he identified.
+ * Note the reports span various Surface devices (linux-surface
+   #2219, #1645, #2064, #2039); the Pro 6/Pro 9 are just the ones
+   used to reproduce.
+ * Tested on a Surface Pro 6: probe no longer fails with the -EINVAL
+   "failed to setup IRQ" in dmesg, and battery plus dependent ACPI
+   devices are enumerated again.
 ---
- drivers/tty/serial/8250/8250_dw.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/platform/surface/aggregator/controller.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index eca02e8bd6d1..7b7dfad583fe 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -190,6 +190,7 @@ static int dw8250_idle_enter(struct uart_port *p)
- static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
- 			       unsigned int quot, unsigned int quot_frac)
- {
-+	struct dw8250_port_data *pd = p->private_data;
- 	struct uart_8250_port *up = up_to_u8250p(p);
- 	int ret;
+diff --git a/drivers/platform/surface/aggregator/controller.c b/drivers/platform/surface/aggregator/controller.c
+index 6a8430cb9..8846d22c6 100644
+--- a/drivers/platform/surface/aggregator/controller.c
++++ b/drivers/platform/surface/aggregator/controller.c
+@@ -2753,12 +2753,20 @@ int ssam_irq_setup(struct ssam_controller *ctrl)
+ 	 */
+ 	const int irqf = IRQF_ONESHOT | IRQF_TRIGGER_RISING | IRQF_NO_AUTOEN;
  
-@@ -201,6 +202,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
- 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
- 		goto idle_failed;
- 
-+	if (pd->dlf_size)
-+		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
- 	serial_dl_write(up, quot);
- 	serial_port_out(p, UART_LCR, up->lcr);
- 
-@@ -651,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
- 
- 	p->set_ldisc	= dw8250_set_ldisc;
- 	p->set_termios	= dw8250_set_termios;
--	p->set_divisor	= dw8250_set_divisor;
- 
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
-@@ -768,6 +770,9 @@ static int dw8250_probe(struct platform_device *pdev)
- 	if (!data->skip_autocfg)
- 		dw8250_setup_port(p);
- 
-+	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
-+	p->set_divisor = dw8250_set_divisor;
+-	gpiod = gpiod_get(dev, "ssam_wakeup-int", GPIOD_ASIS);
+-	if (IS_ERR(gpiod)) {
+-		irq = fwnode_irq_get(dev_fwnode(dev), 0);
+-	} else {
++	/*
++	 * Only fall back to the fwnode IRQ if no wakeup GPIO is described
++	 * at all. Any other error, in particular -EPROBE_DEFER while the
++	 * GPIO controller has not been registered yet, must reach the probe.
++	 */
++	gpiod = gpiod_get_optional(dev, "ssam_wakeup-int", GPIOD_ASIS);
++	if (IS_ERR(gpiod))
++		return PTR_ERR(gpiod);
 +
- 	/* If we have a valid fifosize, try hooking up DMA */
- 	if (p->fifosize) {
- 		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
-
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
++	if (gpiod) {
+ 		irq = gpiod_to_irq(gpiod);
+ 		gpiod_put(gpiod);
++	} else {
++		irq = fwnode_irq_get(dev_fwnode(dev), 0);
+ 	}
+ 
+ 	if (irq < 0)
+-- 
+2.55.0
 
