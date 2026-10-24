@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832350;
-	b=mCMkiUDHBPDeM7puYSfN5+5+0NVsw3GoLmX0k3QFVB+qbpD+DelwYHnNRYDrP1bX+S6t
-	 nSkH7iwTmNLwLnFhJtMRbhmvZdsSjwe7QSFJbSKbIAHrEqZuuOdQYOtZCedoJ5x7lvR7T
-	 qUVoItIOPOEWH14GYaWZt596iJRCrYfjncD7g8bHJ700aEIGeD9AvDcZd3mBqBJLN4pHT
-	 1JdQvuH0GP1HpF1/JsPxA4eKkcGiq7oOM/zHbTCj1TaiUhibYRH/aXtPhY80qW7MHUULL
-	 PMkoBpE9hvPwQsMemEoi4hMjAruSaIYlROjwGYRHVZho/RRC+q6uUaPLZKxYXk2Xk0w==
+	t=1792832462;
+	b=JASpINpIzR1EQij27sBdd0YXUwA6iJSJu8/CjDvhUO+hP4wnlImqCMVHwWF50LsckVCC
+	 zhM5Aa4QKFRTZ8pCF1Uqq1MqUXf0eIdhNmBj+qysC2imWf33lCcLMJxhqXSOYEISLyjKs
+	 xpv8kc2fACXbV2hRPAkWzi1V2tKP13gwSzzQX4Cwt1kY0V07oZTwdRjEQySBe1VI9TIaD
+	 4qMalTz5YgK7QAFTyDn4gJJj5OHiLaHfN4nTR4RPy6ey7QfHh4m2wahv4NNOp7UZztHTz
+	 qdN7MZ9ZPj8JdYoB2grYgc+9NgiClMTZgU8sdys+7bQtFzK8FswoytxSPrEjSIqmgpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832462;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=F10QTamX4UWdDNJ4eVwBQod6ppbYJuWkbE5nX8JBEmo=;
-	b=DzaTeKtLJiRXSIFos2dt6XVZ+zXD1Y/MK15vK1LbCjfT2uNX3pqHpKblWC+nPU9le4Sv
-	 lc4Xw4QRRdZMcK04DJYbyPLsDNjuf8nOpUXQfTQjc5Wjj+WcMgZWBa/MNAxJWNF4FpkjU
-	 YstjvxHCdwbX3mw3YtYUrCE3l4rha7jy2S7YKFz9iZzYl2lKDsd3C3hgJI2SNJXw9H5ej
-	 5H6P+a4wmnYqN+LaSCAtQZav6ml6h3LzMTODk58kbBj9+UyPLutBgrLx/ZKdM1X3vhkPP
-	 utV9HCZJkbdZKo7SqgINlggs3EHURhPFkZPJGs08H8IiWz1ksVrUM9ExHv+HadN2JHw==
+	bh=Capku4Z+t0oRzQxYnwD7223dAUoKEKRrLcaiPdofoVE=;
+	b=EOqg2Kj78c68jvqjGb1co/+3s2Efe3y6GjrpulWgTZCez/duZsTOajprdl1nPIbTqWKC
+	 O2Q4PZrTZVOjcvYn4GqJUydCAOiFJ4Y81xa+pz17xoDu3YLfjd+g4wUKJaCWL3ryNrEUo
+	 Swa+mH8qEbPAYSIOUHxaTeYYsdIXMP95xprfvCWLaQAO9lN0O3xPTM1SJFf/gm8QsU0S6
+	 atslabFdO8IEwfeoJt2boKUIv1Q09gzKfuF6d2wDBlM9GayYgC9igV6BN0hlRJ2FY0cse
+	 h6G+o2hugi61fpzfAr2sLittmHyoEhKOL6Yw3eYyLdwxVzLcvoU1kqYWj/X4yqerjVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cGoBxhea;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1KWW5BdO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00426606A31A;
-	Sat, 24 Oct 2026 08:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94AE606A31B;
+	Sat, 24 Oct 2026 09:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cGoBxhea
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD98D1F01828;
-	Sat, 24 Oct 2026 08:59:09 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1KWW5BdO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E251F01825;
+	Sat, 24 Oct 2026 09:01:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832349;
-	bh=F10QTamX4UWdDNJ4eVwBQod6ppbYJuWkbE5nX8JBEmo=;
+	d=linux-foundation.org; s=korg; t=1792832461;
+	bh=Capku4Z+t0oRzQxYnwD7223dAUoKEKRrLcaiPdofoVE=;
 	h=Date:To:From:Subject;
-	b=cGoBxheacieLthK/D4XrZECDO3A0ne+VN28nsvR+BdE3cu/ywO0X34Dz46zvMp7q0
-	 34x+op7s01/5BtSc9xuBqdb6C/aGSQ7UotDsUNn9Jl9QWEF4U4n/shn6xk8TjlRLXK
-	 kM/gYHGc4Dlh6JDKdzdSedWUcNMTkxgZZ1LMB+t8=
-Date: Sat, 24 Oct 2026 01:59:09 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,riel@redhat.com,ngocthang2710.1999@gmail.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,benh@kernel.crashing.org,a.p.zijlstra@chello.nl,david@kernel.org,akpm@linux-foundation.org
+	b=1KWW5BdO8YJ3FRwqfLZfx8WO5CvumvKKehublOkKOVIOvjK/xI7D+AOutC7gdJ/66
+	 23+dGFw7ZQKJTeMEPQUcfOPFjW+Vz1bIyYUYDNxvjKY0PAKVmZiI6g9/yBc6y1zWMF
+	 aGgBaeVXm0iwQub86BKlQ7XvJnv3T2Ag4tfAxCRs=
+Date: Sat, 24 Oct 2026 02:01:01 -0700
+To: mm-commits@vger.kernel.org,vivek.kasireddy@intel.com,stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,hughd@google.com,david@kernel.org,baolin.wang@linux.alibaba.com,lihongfu@kylinos.cn,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch removed from -mm tree
-Message-Id: <20261024085909.BD98D1F01828@smtp.kernel.org>
+Subject: [merged mm-stable] mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths.patch removed from -mm tree
+Message-Id: <20261024090101.A3E251F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,109 +51,135 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
+     Subject: mm/memfd: fix hugetlb reservation accounting in error paths
 has been removed from the -mm tree.  Its filename was
-     mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch
+     mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
-Date: Tue, 13 Oct 2026 13:41:24 +0200
+From: Hongfu Li <lihongfu@kylinos.cn>
+Subject: mm/memfd: fix hugetlb reservation accounting in error paths
+Date: Thu, 3 Sep 2026 11:01:34 +0800
 
-generic_access_phys() can end up getting called on CoW PFNMAP mappings,
-resulting in it trying to ioremap anonymous folios, which especially
-the x86 code doesn't enjoy, and which is in general just odd/wrong.
+If hugetlb_add_to_page_cache() in memfd_alloc_folio() fails with -EEXIST,
+a concurrent fault has already instantiated the folio in the page cache,
+and the reservation now belongs to that folio.  Calling
+hugetlb_unreserve_pages() in that case incorrectly removes the region
+backing the cached folio and releases one reservation more than it should,
+leaving that folio in the page cache with no region recording it.
 
-E.g., with a CoW mapping of a PCI BAR:
+That leaves resv_huge_pages one page short until that folio is removed
+from the page cache, so available_huge_pages() reports a page that is not
+actually free and the pool can grant one reservation more than it can
+back.  Applications using hugetlb memfds can then fail to allocate or
+fault in a page they already reserved.  They see -ENOMEM or -ENOSPC from
+the allocation or fault path even though the reservation and
+HugePages_Free still look healthy.
 
-ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
-  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
-  Call Trace:
-   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
-   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
-   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
-   mem_rw+0x2a1/0x670 fs/proc/base.c:912
+So hold the hugetlb fault mutex from hugetlb_reserve_pages() until the
+error-path unreserve completes to make the reserve, allocate and
+instantiate steps atomic against concurrent faults.  With the mutex held
+from the start, a concurrent fault can no longer consume the reservation
+between reserve and allocate/instantiate.  If a fault completed before the
+mutex was taken, it has already added the region for that index, so
+hugetlb_reserve_pages() returns 0 and the error path leaves the region in
+place.
 
-But more generically, we should disallow access to anything that looks
-like ordinary RAM in the system: including allocating memory (e.g.,
-alloc_pages) and mapping them in a VM_PFNMAP.
-
-For pages with an online memmap, allow only pages marked as reserved
-(PageReserved). This also includes memblock allocations, however,
-distinguishing them from other MMIO is tricky, and nobody should really
-be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
-do not care about).
-
-So only allow access if there is no online memmap, or if the pages are
-marked reserved. Reject other pages with -EINVAL.
-
-Note that, just like other pfn_to_online_page() users, we won't care about
-concurrent memory offlining; mapping memory that can concurrently get
-offlined is highly dubious.
-
-Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
-Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://lore.kernel.org/20260927094757.31665-1-hongfu.li@linux.dev
+Link: https://lore.kernel.org/20260903030134.7407-1-hongfu.li@linux.dev
+Fixes: 717cf9357325 ("mm/memfd: reserve hugetlb folios before allocation")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
-Cc: Rik van Riel <riel@redhat.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/memory.c |   14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ mm/memfd.c |   31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
---- a/mm/memory.c~mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys
-+++ a/mm/memory.c
-@@ -7129,6 +7129,7 @@ int generic_access_phys(struct vm_area_s
- 	resource_size_t phys_addr;
- 	pgprot_t prot = __pgprot(0);
- 	void __iomem *maddr;
-+	struct page *page;
- 	int offset = offset_in_page(addr);
- 	int ret = -EINVAL;
- 	bool writable;
-@@ -7143,6 +7144,19 @@ int generic_access_phys(struct vm_area_s
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
+--- a/mm/memfd.c~mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths
++++ a/mm/memfd.c
+@@ -82,22 +82,31 @@ struct folio *memfd_alloc_folio(struct f
+ 		struct hstate *h = hstate_file(memfd);
+ 		int err = -ENOMEM;
+ 		long nr_resv;
++		u32 hash;
+ 
+ 		gfp_mask = htlb_alloc_mask(h);
+ 		gfp_mask &= ~(__GFP_HIGHMEM | __GFP_MOVABLE);
+ 		idx >>= huge_page_order(h);
+ 
++		/*
++		 * Serialize hugepage allocation and instantiation to prevent
++		 * races with concurrent allocations, as required by all other
++		 * callers of hugetlb_add_to_page_cache().
++		 */
++		hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
++		mutex_lock(&hugetlb_fault_mutex_table[hash]);
 +
-+	/*
-+	 * Reject anything that looks like ordinary RAM, including anonymous
-+	 * folios in CoW mappings or allocated kernel memory. Note that we
-+	 * cannot distinguish memblock allocations from non-RAM reliably, so
-+	 * we cannot easily reject them here.
-+	 */
-+	page = pfn_to_online_page(args.pfn);
-+	if (page && !PageReserved(page)) {
-+		follow_pfnmap_end(&args);
-+		return -EINVAL;
-+	}
-+
- 	prot = args.pgprot;
- 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
- 	writable = args.writable;
+ 		nr_resv = hugetlb_reserve_pages(inode, idx, idx + 1, NULL, EMPTY_VMA_FLAGS);
+-		if (nr_resv < 0)
+-			return ERR_PTR(nr_resv);
++		if (nr_resv < 0) {
++			err = nr_resv;
++			goto out_unlock;
++		}
+ 
+ 		folio = alloc_hugetlb_folio_reserve(h,
+ 						    numa_node_id(),
+ 						    NULL,
+ 						    gfp_mask);
+ 		if (folio) {
+-			u32 hash;
+-
+ 			/*
+ 			 * Zero the folio to prevent information leaks to userspace.
+ 			 * Use folio_zero_user() which is optimized for huge/gigantic
+@@ -112,20 +121,9 @@ struct folio *memfd_alloc_folio(struct f
+ 			 */
+ 			__folio_mark_uptodate(folio);
+ 
+-			/*
+-			 * Serialize hugepage allocation and instantiation to prevent
+-			 * races with concurrent allocations, as required by all other
+-			 * callers of hugetlb_add_to_page_cache().
+-			 */
+-			hash = hugetlb_fault_mutex_hash(memfd->f_mapping, idx);
+-			mutex_lock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			err = hugetlb_add_to_page_cache(folio,
+ 							memfd->f_mapping,
+ 							idx);
+-
+-			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+-
+ 			if (err) {
+ 				folio_put(folio);
+ 				goto err_unresv;
+@@ -133,11 +131,14 @@ struct folio *memfd_alloc_folio(struct f
+ 
+ 			hugetlb_set_folio_subpool(folio, subpool_inode(inode));
+ 			folio_unlock(folio);
++			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 			return folio;
+ 		}
+ err_unresv:
+ 		if (nr_resv > 0)
+ 			hugetlb_unreserve_pages(inode, idx, idx + 1, 0);
++out_unlock:
++		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+ 		return ERR_PTR(err);
+ 	}
+ #endif
 _
 
-Patches currently in -mm which might be from david@kernel.org are
+Patches currently in -mm which might be from lihongfu@kylinos.cn are
 
-mm-fix-address-wraparound-when-scanning-large-folio-ptes.patch
-mm-hugetlb-disable-pmd-sharing-for-uffd-missing-mode.patch
-mm-vma-write-lock-source-vma-before-duplicating-it-in-__split_vma.patch
-mm-madvise-preserve-vma_softdirty_bit-when-changing-anonymous-names.patch
 
