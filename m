@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792831130;
-	b=x6okf8UPSxYDakO0enkjL0STX9JYSgT/+81SvriHs4gEiiPBK3RFQtapwryAgv62Dru1
-	 Si3qXc+352ETmWi2FnSVkyyPYYJDPrhhSUvX+m5VPBVw1B/vHItJvNxspd7w9AQ1MUCkA
-	 jAh3l1kza/hDWzBdivSYwQHsEVUAi6xoabhkRJYNlVjA39el2aPI2H6QFBalxNR+JGAJt
-	 tk3dr0kBSz6m9weGBQH9iQoAzCPjtS63UUmFgUoiyokeSQzC3dggTy53k7CVR1uaxslXK
-	 6fJNIW/BJVqHFxYYcIiBsKw69PlbgAJSL/KlLX9grl5Hwu8lq519gCDpj+Jj2fCM3wQ==
+	t=1792831139;
+	b=aFryE7kz269xVxynBOA4bolxDVQ+/s9gmonlG76tmdPzAw7LFFBUc1ArNlAtNk1FnL1t
+	 /EnvLcpGhqSP89YMgY7asufHwE6uTAHu5XhPp5dcA4WlcxvdxR492yVoXZjoUPwwK8rwp
+	 AJuVBFhbr15sPy9Fm6ESGvpn8T6Cgh7ZoEmZ72hLPRdRnJc6rxZnJNtdwMAkyvqcQhQah
+	 ShUQlR8PkE0LITsnGUb5vOn0TOLglOC0phJvDFTvihuNoGFUIuEr2VkF+iqoeaBaNtpOw
+	 rhWW2zKgaIkmjGWonBzYp5gbriXXbP2Xiamag8Rh2zYuoAsPLH60GQDtXGnxaK98rGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792831130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792831139;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4jSE5cJwe816eE39Je/l7NKnetM6+WNJKDUOcIMuwm4=;
-	b=vs4TBLy1UFYQOjqg2BaypBngfuAMX0Q4/V8aBbOajoS8OiFiPAE3DB7ZRF2sgTJhmEoc
-	 SXCNCOeuPioUCcM9xSmenuzH2FhoyCFFPUCYlTN1pr1YX1I+mz2yxnaOf3H7/lOx1RraS
-	 veiZvPHmZM7ajZeNfJL7KgJ/lgXHdHOno0ULwrLGRTG2VQV7kOS9tBjSj4kBeaHJgHOhs
-	 cxltv+qCEfTbK1StzKRw8eMQ+pP+WYJA5lak9V4ECOrE24fPxWEy/M0gerhTnEyB76ogX
-	 eEWT2oGK4ASZdJGB3VmyfW0lm/rrmDbTbD+u5pzXUjATiKE+xJYTTyEHdyTEfEXTNvg==
+	bh=s4cLW+mj2CRQgx4QZSLLIuYW3Zy846HNKAh0LPOyz9A=;
+	b=FVJxQcUlyLs06HNS9MSUC4E2IP5000WKSIS5O5p9eG0wYUqtnje8RiHv6Ci3jiuO/4bb
+	 gBC/orxnSrJLvYdeAk6teD+Y/EQrgOJ2ApAPfq4aRo+3xT8FSC01Og8n3oOsIwSNt9E3I
+	 6cXM+oYHMsYOQmAKL/4KMzLhyXX0eDsAfAGKb5HlhfYMijKeQiZw/K1f8PaaiG3hVQd5p
+	 +akPlhmMjsF0AuebXY082y/32gmmWoofMoEI5tcluf+l5uTpD4YE5waRC/YrRfrwpdQwC
+	 w534EDBIiMMT3ljWNe4zcMnqxO58Qvu2p89vk/VFxIflLffJ3rWsOs4zOBqPZMeWtbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZAIH8DNn;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bc5LHj51;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3769606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 08:38:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3769606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06585606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 08:38:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06585606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZAIH8DNn
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1c9879395so530067a12.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:38:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bc5LHj51
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so1171342a91.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:38:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792831129; x=1793435929; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792831138; x=1793435938; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4jSE5cJwe816eE39Je/l7NKnetM6+WNJKDUOcIMuwm4=;
-        b=ZAIH8DNnTB+UB3pSmX9Jabs4KrHgbqwBlFa3E7C1FqF75DRJcFg0vqmvIyGGyKX9ag
-         CTzUX92fUV60/2LyEG3ug88NUbzqJ9DXYpFQp024w+jWuLpDZ39AW+IXOK4THZltyqSb
-         p3GOmCGGCyRXNlivKyKKUDSa2r/otoMo/108AXc8a547X2KTsfvu4c4vtI5HtRkVEpaq
-         X2X87lyeeVzeZckXUU/MDko8oZR/nzqjECEWQmQ32TQLi9Jf5G+zmHDU5uFkNYddhpcd
-         vQiA6kPf3ZtLQxgNm25Tp+qi3iFmc38Fk/s3gs+hZGUZaS2xcq4jlLURW4PH7SVAnB49
-         yLOw==
+        bh=s4cLW+mj2CRQgx4QZSLLIuYW3Zy846HNKAh0LPOyz9A=;
+        b=bc5LHj51bpwXSf+LVspR3J1a68Tyhz7v9oaGy9hh6zYPXytsOtWq+sivEd79DhS9Q2
+         gT69sgdRmBCTwzg5W7hCG+6Pm+jZx6YRbsN4sCTK6V7rZUVEIVrlhMcRPigCP2wv75cF
+         kG4nmTDdkJ36wXLl14RS/kM7K3m8UwqfDLM31Wrl79AhkCmSk7u7z8amKJda08rA2R5U
+         17puwcZHRE1vlcrppMeKvl8y+noor3lYOCOegsx4RHeis+ESZuqyIskiOKseAvQ2RMZf
+         AsTiBe9OALkvgTwXI99P/JWFmWKAZDaMb8TEbk17HUdoFK88vKvPua3z5DuFRCQ+/0vR
+         oOsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792831129; x=1793435929;
+        d=1e100.net; s=20260707; t=1792831138; x=1793435938;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4jSE5cJwe816eE39Je/l7NKnetM6+WNJKDUOcIMuwm4=;
-        b=WDf3TqhtjWVAMFlnGpuihJLTIg2d9oGcRQ0aaLof3FKnicAwLgueH6o6vXhFN+Ses6
-         KrcAm2BMYDCjM5zsGgrFjBaosFmKNxdidmr3HUXKzh1NtaolvyqpWRmc6z1CoHo6Arso
-         VxDF60TRjpbZdUTngdTIBdZVJZ6jBL9052zfqg3DbtwG5WJrQm5iz8BDsUU05ft76T1O
-         sQTNbb3aOUAMOfy/pZ3i1+gpwgxts/JduKh3eCLnkDLoz5pts4IZtt+GEm5OPxH3BTrb
-         365zYJ6levfCbw6XrS1q0VAO8asUSsPe7RiF0C69Oxa0itDiPBXLjQcyN7LfjFPehXHW
-         pJpQ==
-X-Gm-Message-State: AFq9FYJV9rWnexxrTdEJuefYIxvF9Wc7ONtMECA3rbBcXTvw2XX+gqmA
-	AGoeTUGnwjoNMLeVjgGcz21xeIn7BvgK9q3XZrLlJu3jxQ2iGpfo3a/Hnji6KyA6ZVk=
-X-Gm-Gg: AYBFou0KT219s+yRSENQvHiFyGSOh38ZrtD7rXpTYAB0a+WjRBaIjLqBeQLKhkd7a/Q
-	Ii1/wr/FiO5OTwRLc92snFNE5aPP65FMECdv9uLAWG+On5Y67nwpOXaCqgdsXseJzo81VO7APS7
-	vHOclNs9WAcsexQVhVgKlHi0XyuCidAkbEi2cMbJofytLaQCf42MS7qbIunB56soyF+kzKUlKBS
-	2O3FgZWdXuiPdXGwL9Dk1B6zeQR4v2QSX02AI3vMwL3DxH1wlVBBSn8z68wgfx2yR74Fpbo6JPZ
-	wACJnxRtayCvRbIqwU9cHHygF3mWI7IymLS6AhumD3ZMMLOA8mRPljGXO1L4SuTE/Z1HRaJMJfH
-	X8rlrI4sngSqn91M8nvQH5w3hki1YOOnt5k71OJ4DV2FcBKL/LqpmeHSMnW6D/vIBsgYAt5JVeb
-	wnCLYRo6oT9yoRuxWCJU+zSonSU1ya9red5gYCADiUdZ/r8hH/nkr9R/o9cYQzc0dbll9pC4VWk
-	EzZZ+jLdla3mmEocFu10+nblTXeOz2ONWCfKcDZBM0v+MDoD6U1wZ9Zhznh6R9fFukyi2ForWpy
-	qbCUJgAL0PIV5qpwhzWSgjCA03xaoCrkRo+vnyYNT7oqpNdpCeMAw0srO3+qT4Uerm4ZSKTS502
-	0ZRHz0Bzb91vu7VKaeOae8+9eqYMQ69y1QzFY8RZGnIBQFGCECAUbNTcTcgQBKjlT6/XFu1KIEb
-	5ccaUSrE9yBocmClMQECwlpHKfPUrPnxknirKM8DiZ2fq7VFHPuui/LV5n
-X-Received: by 2002:a17:90b:4cd1:b0:3a8:1943:cb7a with SMTP id 98e67ed59e1d1-3adead44808mr1244833a91.18.1792831129084;
-        Sat, 24 Oct 2026 01:38:49 -0700 (PDT)
+        bh=s4cLW+mj2CRQgx4QZSLLIuYW3Zy846HNKAh0LPOyz9A=;
+        b=s8dXx7+l+6dvasF3inrQ/u5VKKgU8SM9DwoMuho4jcheyuXTxlpHde2IOU8lMpeIW9
+         mXj7eAgCXf8/0UHlWtoD1J/DoHE2xlNDWCWTXrjqEyUBykwgc0Lx5nezuUlVaCZWu604
+         yyM4hsfxGpEr3PdqNxgvyQ4aKaUBXYb5riH0fJ7yjYfPIClUDkVeDHehiDFotfjeivfK
+         unvoXEljCtTDiqPzlj2Phg1BngAV0i3t4WCEAUZYtwliituXPMj6mqCdDkP9f/DOg6te
+         H1L4gElSwaSTrxsFqfE67KbEiVKXhl/2b1tgBPj00xS8GuTOGthl8EbV4NF+7Kr1olO8
+         o1YA==
+X-Gm-Message-State: AFq9FYJnq+bFzIl0fNFFox6QV6883X5HnLptkXmOzWnOax6XYoosRyw3
+	QwPez2ZERHtxPpqJKchCKcIi/DeNTjCf1Uvd/B0z/JbtGZ20PyR1iDzNLeqzIxMG
+X-Gm-Gg: AYBFou2vnlsyynZgy0QtjZm9mFOI1zv/WOUpZdEScX+h0qCR97EwG9GfjZukaeyjZpr
+	s+XHyM3cBxPgx9gW2PsLsAKt8jxdaKwj+e4jTOg7iuQr1Z1Mr5qIZWrDGcbjUSGsduo979TGguY
+	84GOr+FqZJlDj8K0QJ6KFzFY0V2+R/zspMThwkl7C0h/zkBhAIEUNAIq0pCqZPbs/sNgGp3UyCM
+	tFEScFKH5dyguNQD7Iv93whn6aeLm15btCBsJLdWjeiVpinyrQIUE3rcCNhIYstb5qhK7nyNIbT
+	8yRjkc7iIMrZxgB4GMey0je4GOnjNO7wuBK3NsKFhGzxzNUTQUohfVtmH+IAc4xJxhYuuQjOcky
+	Ia/8DHBSx8Nk8F3+abn8m3f9A0Z3JPE2l/2ADKItgJAY/YbST5WF9ndos0kRJjXB5zdowG7M4sk
+	4b8WqdIt9C+yadrIcYO9/flMCxQRDJy16ZdLaw8WRkYSCvVfHDDNQuQBrnuvm3BQuB0hSYhNPEe
+	WDLr7laF6iRexEcMffFEilXoLfUkmzsOtoa9v8Cgs9P8tJ2/6iQFbfFWPQfp80GvYsaAWANM7IJ
+	OgFR7vgOjCTPG5Ltu0dxMO/aVJ3AYDzUoGNci2R/OWEpF3CoSC3RYxeROFP6blEHhTDut5kOlE/
+	6VFmXA9CL33KAy/arrsEApbCc15wC0VruY55ufUPLOMzJ7vQ8w5kluMFt/1L3tfr4M8lSfEVz2m
+	Qk0ReanmL/EijFlbRAhoep2lLsCjAFWoh3l61RpzvDdNnPHEYxaCdZ7LCt
+X-Received: by 2002:a17:90a:dfcc:b0:3ac:d79f:8229 with SMTP id 98e67ed59e1d1-3adeafc6fe1mr1422055a91.61.1792831138351;
+        Sat, 24 Oct 2026 01:38:58 -0700 (PDT)
 Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb819729sm2225200a91.0.2026.10.24.01.38.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32f70sm2191251a91.1.2026.10.24.01.38.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 01:38:48 -0700 (PDT)
+        Sat, 24 Oct 2026 01:38:58 -0700 (PDT)
 From: Ting-Han Hou <ue081723@gmail.com>
 To: stable@vger.kernel.org
 Cc: Usama Arif <usama.arif@linux.dev>,
@@ -98,12 +98,12 @@ Cc: Usama Arif <usama.arif@linux.dev>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
-Date: Sat, 24 Oct 2026 16:38:34 +0800
-Message-ID: <20261024083834.466-1-ue081723@gmail.com>
+Subject: [PATCH 5.15.y] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
+Date: Sat, 24 Oct 2026 16:38:48 +0800
+Message-ID: <20261024083848.496-1-ue081723@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090848-observer-disrupt-ef38@gregkh>
-References: <2026090848-observer-disrupt-ef38@gregkh>
+In-Reply-To: <2026090849-unrivaled-active-a82e@gregkh>
+References: <2026090849-unrivaled-active-a82e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -187,11 +187,12 @@ Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 [ Ting-Han: zap_huge_pmd_folio() does not exist in this tree; the file
   branch is open-coded in zap_huge_pmd(), so transfer the dirty bit
-  there, as the 6.6.y backport does ]
+  there. This tree has no folio_mark_dirty(), so use set_page_dirty()
+  on the head page, as zap_pte_range() does for dirty ptes ]
 Assisted-by: LLM
 Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
-Tested on v6.1.190 (x86_64, QEMU/KVM, swap on virtio-blk) with the
+Tested on v5.15.223 (x86_64, QEMU/KVM, swap on virtio-blk) with the
 reproducer described in the changelog: tmpfs mounted huge=within_size,
 read-fault a 16MB MAP_SHARED mapping (ShmemPmdMapped: 16384 kB), write
 a pattern through it, munmap, force reclaim of the memcg through
@@ -206,16 +207,16 @@ sparse warnings in mm/huge_memory.c.
  1 file changed, 3 insertions(+)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 483cdc373a20c..06bdc218100c4 100644
+index 5dad4b6ec6d63..cd44744724d0a 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -1701,6 +1701,9 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+@@ -1642,6 +1642,9 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
  			if (arch_needs_pgtable_deposit())
  				zap_deposited_table(tlb->mm, pmd);
  			add_mm_counter(tlb->mm, mm_counter_file(page), -HPAGE_PMD_NR);
 +
 +			if (pmd_present(orig_pmd) && pmd_dirty(orig_pmd))
-+				folio_mark_dirty(page_folio(page));
++				set_page_dirty(page);
  		}
  
  		spin_unlock(ptl);
