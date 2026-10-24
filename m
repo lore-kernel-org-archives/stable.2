@@ -1,101 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792865169;
-	b=tehcsiiXmJcSft5+AgXMGxn8lVas4FEsYMXgPDdG4x7yhQtT2zxNQWKD0KdQE/62ac6O
-	 V71hLQ7ibRAkMYYmdR9LV6e2wcvvu2OTrXYhZv5YjL0HYxQKAi5U/U4X3YNhGApP3UA9w
-	 aSOESjMjp9GsHBMmKBpTEjVD8AwZv6NULssZLpFPu6kT2uuycPFwL1w5+MnWMij33wKE0
-	 T8ABBICy/saK3EicCtTXy0xHC8xTCwsgz4W5eRuJkBxgwNxFdyR4U8xJf4gqVb9O93iyW
-	 /AUdtycT9l78Y38rEW2EPhxSZp72h/mE8o6kNA95zEf1pxAH7D50lyOgTwqIa8w8mHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792865169;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lPG44ydHfbZv48mg+W6n0PmTi2ySUzCmeSRTbHzbT3k=;
-	b=jeOpRZlXdqianwa05Ay4HjbfP2NSDMvc5UnQWT+7KhQpEqb6KMSOzBVp5MXQCXoznNsx
-	 dUUNrDFB2nO9quqLxZt1UYoAZXKfznVPF70m1jPNfeOTjerdCYZzflNBNLbz215n35d9T
-	 hiuz82qcTN14ICobHu+AZX0pQaLZ5ncA9WSjqO10LtjVPf8jUaa6oO4msXyEJCDoEFLI3
-	 nUGDy2Joqbb3g4eOkanrZ+AtA4xyGt8J0eyd9c5bGG0IFhwRzRllkbnrZZ3Cty+HCmU/c
-	 JC8JfKdTR3v62UsLSdyujq4f69xWjO9df7K/8ZGua+mV27LAihoVYMy6ZS0DKLqqpTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hJyH0Pvu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792865287;
+	b=UYfqIusyxPW4V1cBqhJrPlHNUa0GK1iBh11O+L9DBhNPvqgeB2kXD7tJIQBpdLG11urW
+	 +jy/TrS1T8qUvSCgWHllMktTlODYiXYI+vR6T5RWdY7vFYjzNbsD30JtswLaKe52Lrses
+	 zzLuOnvBzWvRJnR5J8B+eVBAkdgqVa3KSM2ZBqquO9uv5/PGtUg1+801ZognN6bviHrv2
+	 YKINJlcg4js9CjItTTlm3GPSYrEZwa4cQJZW3VTRAeO5deufbq3/innFNLwWFluB0cCzP
+	 WT25vN0ycWNChd5vip3EajycFPDWZKOY2y2dYWmqTt9oSneZ1xFTylX55kvwaEMALWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792865287;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
+	 References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NtTMYowKSIMORjnfblyRGEyXj0hFDGCq0XehGYYzyDk=;
+	b=BxBNF1Ggpd0U0BpHnDP0SyV5goJ6PPBs34v4QmZUJ1ZxZqP/mhQo7bz3WebYdF2tUxva
+	 v70ARfz9nyMn+G7WKPYkVhgGF1QY8mgU7cLCFrA+/hAuWhY4oLn22kYuqJLV1CZjBmViD
+	 qwbhJ3SCkrOHGB1ND7Jtn+mU18f05i2usZwjPzYiSUX1occf6uOeMamDRxPeCcnOz9It5
+	 1ee2iXur8XqutZROob+qcGeE2BtEeZaNBeV86IuNdL/pLfxvra5eLoVqZfCJY5UM9ZEyi
+	 XtDgWgJHhEL/7/xAgV6xgqd4ECXr7RF3AYO/4Jn5a8yzgAPonIk0Vfbik1fHEp3HFOw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=ayJ4jhHE;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tKAUVvoy;
+	arc=none smtp.remote-ip=202.12.124.147
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A12606A31D
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 18:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3A12606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F5E606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 18:08:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37F5E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hJyH0Pvu
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c34bff61551so255139066b.2
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 11:06:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792865167; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I6dfGIj3W1YNDJj/SXMDaECsoFnG1L1+mve2PjvwqItl+qrzFE4owb0Q0/OBoply/R
-         vYr78uhUvFpJ9cQoQ6HwU7a2OsvXx7gjaGhMObilAMP6Uyo4AnqpdNxxIodL1Eup04Qq
-         2OROYrbbzG5m580SgCSZJdWv/SXdh3uxK9jMA0iRuc766UAk4i+EP3Wj6n6Y8Y+r7cvt
-         Emvak+AjaoftTZAJI0bkvBCzbLMkmRCuj+bKnGt6Thi3iF6V/tnNXhMx0f+OoUgfQtM1
-         zUWIHFXnCUGpBdst8Gz/4g5BtfQNDiU2yzMC51NjXYaAlap17c+TDwn7VPPr4zT4p3hF
-         z6sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lPG44ydHfbZv48mg+W6n0PmTi2ySUzCmeSRTbHzbT3k=;
-        fh=0aX016f4KuR3ieGOstdYVvn2fJ2DKqgnnC4JWAr3US8=;
-        b=hASftMpu5ALf1h+zl+cdjLTF4MfZ2Z2MqUdhgVX3IEzcuNNQuf/2mqM2znJPpf7C7C
-         6Sx516zUm6DDAxvmbSeyKSpANv+hxwNRrzJ3rhFhzKBRrolYDm3mUt4cyWMjdsTktnvU
-         s8SJB3w2Bbo5pZPV3AyuJxPlcn1nwO+E4NTFUN3VRKY6tVyjBRCJQAxeIUgd5nFBiBwu
-         2LOuOdUN307KLh5mKY4x7nQ0l7vIUjmG7ieFUlaH0ZMJD/LkJ9bmKUzucrJSCVQkFfto
-         PFW6/STdBy1/lJj/nT7Yy0e9GEFT84+sbuHOrQOyJy8LgrTQttxFXgNHvweRz/n4k4h1
-         dPoA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792865167; x=1793469967; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lPG44ydHfbZv48mg+W6n0PmTi2ySUzCmeSRTbHzbT3k=;
-        b=hJyH0PvugVb7vJNbOSoFSxa6zVPMprVBIUroubynC1lIsGBcHVYPmYXpKw9GJoaTJb
-         g847IYIRZ/pK0cA7eYB69sD5X45yHth7cFTNFYMF2JM2zOQ019bLsbhwuL4gl5TJcPMY
-         x4FSpwugGRe6ubcc+x6Toe45ev5Lc7N4n7QdbJWt1RrKyC5Fvf2EP3MDDoyDI57xCFwA
-         UV5joMBqyHXnnlBrUyBoAMF97kQv+iYCK94YJnm+4LlAofRAUesdapcWJ7NAX5qB7L3E
-         0n9o22HF72igY+teSD7fAxBSGcL1UM0XwTEFbev0a7xV2QAcPIbzL2Uo50V4FicGysab
-         6qDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792865167; x=1793469967;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lPG44ydHfbZv48mg+W6n0PmTi2ySUzCmeSRTbHzbT3k=;
-        b=FSspCH381Jzm33aEtERDlAyJv/++OqyoPg34P3wCQi276+3VAtcCJXOxtCSEZ0sYuc
-         3iD1qkxSNHnenuYbnizEe3nYPbSTTjzXkbIMga+uCUVGZ5Ws+MUI89CzjnzPTpENeAUd
-         8cNgkWDXwnI554nTJ7DCgdX+UnxPD99L2Q6VZcNS78QTSxYwgfVywf2fibXqvB3EXeMs
-         TfxtvXLk8Ec3MJnYQn2Gw7zZTqHcNFHvWp+PR7SAcDlg/8/OrIAsG9AxpOMWtE9zZZxY
-         pANpUUtzxERQSMOX4XmrUnt8IHbQsYIb6lrzXyP1qKbF7wg5GF9jCks1OuwmwH8nwNlm
-         KHZw==
-X-Forwarded-Encrypted: i=1; AKwUvBxy8JUj2Jjsl7cIRQXLAlqE5KB/HOYWExP+BmJwUThAdoSnBd4gNddPdd8W7r8+G7/Bu71aw5A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8yHOGiLmPWnU+BaIsxe8O/VsNT5qXcy3XEIl+YYac6UoE2iXa
-	afFA46UaBf1VReGfl/gACiHucbeXMoSMA8DnunONT/zlMSdaCOxtrtP6qqxxQOgR0E2FFNSm1D5
-	YYWDWbZbyf39GPtD/XeDjws7/RArJmIE=
-X-Gm-Gg: AYBFou0pJhAnA2YyqV+ZzxGCNWWHKOcow6jpp1+nqT94PoSfC+B9mxJrnY9wpeH7vRV
-	aGU6U9vCUPi80K7j7vIq4aJAoruB0J1332YmgZAE1lviFM103rr+wA24rgUGeTu+VAGiPliB3i0
-	tZZmNRNqJziHl3gw4ITAa3Q4RSDshLvfg4R+iSHdbnR3H0MEOBbF8yzMrYam3MgsZ/FowZ9H7tG
-	8vyRMGMyko8J/8rZgN+yVczQ6OKdkQtwCyILbARez0HbM4Bycmk5gvNKqS/MIx3y9fBxvO3pkkG
-	b3W2i1+WavfQxGRjYPuPwkOhE0YuMrPCcDJTAIL3ifUFiXHkY2i2ASAu1Np5xqFE0V0W2ybDzz9
-	Dfqmcymf0MiFSe+5Vhx9xQM0Y9roeCuOoMG9l25th5WeCDxGTKvdwfWTm2gQ2/AQgRbSN/r/Moy
-	zgVdxBpoM2dYz+pzybks7D
-X-Received: by 2002:a17:907:3da0:b0:c3f:98d4:dfe2 with SMTP id
- a640c23a62f3a-c46bde25765mr313652666b.18.1792865166843; Sat, 24 Oct 2026
- 11:06:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=ayJ4jhHE;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tKAUVvoy
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 9F21F1D00115
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 14:08:06 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Sat, 24 Oct 2026 14:08:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792865286;
+	 x=1792951686; bh=NtTMYowKSIMORjnfblyRGEyXj0hFDGCq0XehGYYzyDk=; b=
+	ayJ4jhHEJAHrgzGUkGMl0TvUcl6L17Mu0X8pxbRgnOxV3PjjZ49AjDMpzNvnOF7+
+	NBoSnE1PtMUdG3mTx4GkL+Rj3eIWWQl8mHTLmfLA2riqwMkz7HuEBn+XqA5lR8lK
+	/uH4n8VDFi/04vXsKfN/nLauD2hu3C5UbNNYXUY6IQw06t8nnI1hsLAaajZSty3b
+	/Qogg6PkVsarXJDbDa6xgkkPPO9sN702fy5Th167qKu+Jnsf7kurZ84k96AD59YK
+	X+GkQU2c9OvhoqQ5Otvek1K0sLYMIoWkCH8p3x2PWL4OFfr4QZdUrIEDYbAv5Y7e
+	ZUYxdN4A5ALqi3TlfdlK0Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792865286; x=
+	1792951686; bh=NtTMYowKSIMORjnfblyRGEyXj0hFDGCq0XehGYYzyDk=; b=t
+	KAUVvoyIn+C7qpsPlWKUtAWUafkkGc+Axhg7Uoou6Qo3RqJ4Ae9INpf+RAwdnWlI
+	LXduPD7T/SrLS9WQU47iG7HAxMc6aMHx2ldjjM+5CHnYmqUjNZsd53U/OQZkq0GG
+	c+lj0XcP/JFag5/cmLqhACSz3kNE5cWyqi7vdq+VGs933O8CAp0srpkOTvNd9G9u
+	naQg1FtZFTvrem+lDTY2hbMQSZitc1zb8evVO6aJSlWdL1whemta3m9g0EzIKoEd
+	Xnp0o2iWHbftuQ0Q1GG/ZKFw83ECjTBfDODlACxPn+f9xQJkbuzCCZYMvI/ryLeV
+	W6HBH6+axDF8bjTDlpImg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792865286; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:naV65hK9tFq0QDen1GPiBKKtuXQlsZoo5qGzhSItE6EaNF5
+	jzOrYauQjk7gDbJ93K/V4uEJfUYazLuG3a2f232FuQwk8UvAe8tQ5fTeZj70ZRRX
+	yANm4cMXTj39CS0RRBzSUpwpxoPSRvfvZmIityBpAZIZc5QepX22OlTpP6088o2A
+	I1AwNozdY4PqlPtiaY1cq2CWRjusGbIirYlpr0zy0I2ZEhkYOS2irVJs6lv4TI5B
+	A8ccQozgj4tKTeezx1qC+bseqHhC0EKf3AX8I1sgPRsjT9lH9NJTN7XjaJti7Vcl
+	LfUuQmjsuXMw8gbscUg6K40eiSKbzP47VVhGOIQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:g8d1SrDpkB7jFw1yVSxo1IHVwGPdxGif6JDacDKKV7c=:m7M8EwyUOl8ghFICT+o3uF8kldXOlLzyZO7zAE8a5XI=;
+X-ME-Sender: <xms:BfTcak997IVkCQBPfnV54n_kMjVlcAXqU9z4J-Ol5o7fEp0FAZOktg>
+    <xme:BfTcaomjHWEB4q7g5e7J23YIVcMJKz1k1hb1viT9_traXPZYuAjiepXdHv2-1BxoM
+    eo8IgFFYb5yniN98gUCVhHQQaJTjrmpl3SZoE9Wr7k1r1jiXzYcV3CS>
+X-ME-Received: <xmr:BfTcalie65NZxHZ5PMXOP5TsxLKCd6X53h6BxpPj3ZmHQ5g1-xh4M4XmKAsMxYBeJstJVGspAEI_SNhQ4rTrOIN_gKnhpQXY>
+X-ME-Proxy-Cause: dmFkZTGCqH1U0fUyPYkYXCdWJpBt4Z9n+7HApp/XAxf2t172zYJ4sracn/P78U5r4VmMLD
+    EobjwBoomajwoxxNIBNaNXhy/0bVfBocAUao5qQ/9DcmZhx2LhjLdoBVOYiTpnDtunHJpE
+    LO1zvnf2Crm9730d4QgEcARhyR1oHpDXWNoiMZF3TLxRj3RP8VCWSsGFkYRttGR6AXmBOh
+    lj4Ncmpb0j/IjrijolQfh4dH+iI7Ptg66rSDFsYMQIR4mOCJfU3ZjcD71DXRoU4cxlUePk
+    5rqiF8E3EAqApE8/HTkI3GFtnAHfukY0XmG951lqQGKQPPfCMzEk7yprrZJATQyIlPiZA2
+    zXyRvJUwHW5b1iJmWAL9bRMuzS0l4fSKfrAsdILtKzrhnIlAfK4ZpTUtut8/5Rm0ZSdfpF
+    6P7RIzucL4nMWVCPmk2aRLxkwD6YSFugDmwgpqHELPfU8kkTn2VpM2P8ohJMZyL8cTQzez
+    yCpnrSkGOcnYF12bZRfi+X4hZ7zj/Mh5TzoT5KUSK943X8YIdbAJLqVK5tW9gwNUo42BP/
+    Jz5e9W8729g9Qb3/3bL/5aFzSDYyYaPWZfeTanppsBqOSexCL2hQ1jn1w1tu6jU4Ls1jUe
+    zd1Oc3AVI8EgKPY7TkYoFsBokMwokCJj3x5jSDcFeFzyQ1v5UMfQT/y8irfw
+X-ME-Proxy: <xmx:BfTcaoZlKEiEyRftZQxgra7xREaitfk-0OGQ1RqOM9B64tzKx6tsjg>
+    <xmx:BfTcahFXXUuvLasybUVhHywGN7xt_IFnzE4ZJtsrDfpbvbdIE1CmFQ>
+    <xmx:BfTcatbu_rQl_NTTgQr9YtzNLMbHJJw0KsV_3rBH6sr7StqVCdU4FQ>
+    <xmx:BfTcaq0WMuZ0-I-zuS0DniuwzQ89K_sV3WflWE_mWbzjdGeGWgMA-Q>
+    <xmx:BvTcajSAJPJSZaRnY6Dz_afdyaJkP9JjzoJttMVKymOqFjp-6JV9CYH0>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 24 Oct 2026 14:08:03 -0400 (EDT)
+Message-ID: <c2227d20-c533-47ad-8446-aa0838f7c0be@pobox.com>
+Date: Sat, 24 Oct 2026 11:08:02 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,58 +119,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016025352.230535-1-meatuni001@gmail.com> <29c3e4a2-9d6a-60cf-d06d-85152a40a703@linux.intel.com>
- <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com>
- <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com> <273be4cc-ad7d-cdcd-de25-8d1439bed3e3@linux.intel.com>
-In-Reply-To: <273be4cc-ad7d-cdcd-de25-8d1439bed3e3@linux.intel.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Sat, 24 Oct 2026 23:05:54 +0500
-X-Gm-Features: AclHuK8PFwnTEGocukzPDuOlDq-fzoGEr02g0x88KN8IXdmfzdiI_JHU5c7rfq4
-Message-ID: <CADqcGB=z3_mQ77Wk3E9tWMYyCaQ2hCno99kgPKH8ZrP9EFKY5Q@mail.gmail.com>
-Subject: Re: [PATCH v6] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: "Barry K. Nathan" <barryn@pobox.com>
+Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261024064731.125251200@linuxfoundation.org>
+ <a65e25c3-b1ea-4b8b-bf3b-c5de0d069b22@pobox.com>
+Content-Language: en-US
+In-Reply-To: <a65e25c3-b1ea-4b8b-bf3b-c5de0d069b22@pobox.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Andy, Ilpo,
+On 10/24/26 7:32 AM, Barry K. Nathan wrote:
+> On 10/23/26 11:59 PM, Greg Kroah-Hartman wrote:
+>> This is the start of the stable review cycle for the 7.2.13 release.
+>> There are 243 patches in this series, all will be posted as a response
+>> to this one.  If anyone has any issues with these being applied, please
+>> let me know.
+>>
+>> Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
+>> Anything received after that time might be too late.
+>>
+>> The whole patch series can be found in one patch at:
+>>     https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc2.gz
+>> or in the git tree and branch at:
+>>     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+>> and the diffstat can be found below.
+>>
+>> thanks,
+>>
+>> greg k-h
+> 
+> With 7.2.13-rc2, each time I go through a suspend/wake cycle on my Lenovo
+> ThinkPad T14 Gen 1, the following line appears in dmesg:
+> 
+> (NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
+> 
+> This is new and appears to be a regression, and it is 100% reproducible.
+> It does not occur with 7.3.0, 7.2.12, or 6.18.59-rc1. I will start
+> bisecting it shortly after I send this email.
+> 
+> In case it's relevant, my ThinkPad T14 Gen 1 has an Intel Core i5-10310U
+> CPU (Comet Lake-U), and it's running an up-to-date Debian trixie.
 
-Thanks for the review. I switched to strnchrnul() as Andy suggested and
-posted v7:
-https://lore.kernel.org/all/20261024172641.19424-1-meatuni001@gmail.com/
+It bisected down to these two patches:
 
-Thanks
-Muhammad
+fs-add-umh-argument-to-struct-kernel_clone_args.patch
+fs-stop-sharing-fs_struct-between-init_task-and-pid-1.patch
 
-On Wed, Oct 21, 2026 at 2:41=E2=80=AFPM Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
->
-> On Wed, 21 Oct 2026, Ilpo J=C3=A4rvinen wrote:
->
-> > On Wed, 21 Oct 2026, Muhammad Bilal wrote:
-> >
-> > > Hi Ilpo,
-> > >
-> > > > Why use n variant?
-> > > strnlen() keeps the read within count, which is the size of buf as fa=
-r
-> > > as this helper knows, so it does not depend on the caller NUL
-> > > terminating the buffer. Both current callers pass a kstrdup() copy, s=
-o
-> > > strlen() works too. I can switch to it in v7 if you prefer.
-> >
-> > As the contract here is the input must be a string, I don't see any nee=
-d
-> > to limit the length with n variant so I do prefer strlen(). Also, we kn=
-ow
-> > that it should not be longer than count anyway.
->
-> I only now notice Andy's comments which seem better suggestion in general=
-.
->
-> --
->  i.
+That is, with all of the patches prior to fs-add-umh... the bug does not
+reproduce. With fs-add-umh... the 7.2.13-rc1 boot problem happens, and
+adding fs-stop-sharing... fixes the boot problem, but now I have the
+new message when suspending.
+
+dmesg context before and after the new message (should've included this
+in my previous email, sorry):
+
+[   55.793416] PM: suspend entry (deep)
+[   55.825734] Filesystems sync: 0.032 seconds
+[   55.825812] (NULL device *): Direct firmware load for i915/kbl_dmc_ver1_04.bin failed with error -2
+[   55.826364] Freezing user space processes
+[   55.827740] Freezing user space processes completed (elapsed 0.001 seconds)
+[   55.827744] OOM killer disabled.
+[   55.827745] Freezing remaining freezable tasks
+[   55.828885] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+[   55.828941] printk: Suspending console(s) (use no_console_suspend to debug)
+
+Except for the new "(NULL device [...] error -2" message, all of the
+others are the messages that normally appear when suspending.
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
