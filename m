@@ -1,121 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792825565;
-	b=JfCXgWdsa0tpvqA/d8OCNXSaMTVY4KSPmbL7Seo7u5SrPCHvs+uaeLTia1vI/q/Zni08
-	 XOAYL2eFlcUOzhD6GvODKJ2T2riCNGPiobPUbRZcrPH8y//otUHWmcr0BVOEU+oOc5V2Q
-	 abEnnMlr7p30TS8rSN/mjq5ifBCsa0RxrzS8EsYtxk+5na6rB6UUX3lDU+hS0nW2gKwnv
-	 SOz8/Ysk02rsxPXTUXeRanXZQzkz99l0rcREaG4n50avgppe2ZzJ4FdfcWztGgrNPc8y0
-	 DdDstVKKMjfeAu/WeJhd6Ce9BuzEtRdykTBjvoc/cd/zbuRfb8aKbHXqSsRL0hrAWow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792825565;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792825990;
+	b=ecf5g5tO+qD8EnTj3uVH54nDpAvI7KZfxwSqgYDju4aqFFgR/rzDdwRlUmn/quhsmvPR
+	 vjqLiKttRwiB4Ist/fGiN50hv8r0koxdm7XGi9DeqAx72u4JS0nEcQd+rHQpn1hmP2hsi
+	 B9ulbZed3KpSePSy07m7xqui9hJ46Nl9XNqs/eZRYnXQk8k4E+USbm2Ua6si6+i7YSe85
+	 V3Pkk/5jAaPYX84SAjiHTRvp7y40a2Ze170TvGk6nr+GP/JsAQ41fNTB8YFDQygX+/glH
+	 oZ0Lyn/i8FIAZ0HtR+XQRDsxTRBbTbPCbokyqzJyJCiBGIP++OpW0O3dPbLp+pUYRrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792825990;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
-	b=Y9doDFFnaTW7HbvGrMS6P2uOpJcvGBN5iVhoHgViA4YNHoD3gSY7bWfV73HsRmwinvO1
-	 vSgvjXb9ALIPiVmQbMHY00zQQbfaAegFLmgAqbDqsNvRUURMDbCKc0lvUMjLaSkwwlMeH
-	 Gc4OZtYPWzE70yAgztC/1jqtjfDdbEUXeMguc4YEb8716wK7OZQLCT4bhy5O07yiB4hZx
-	 y8m/U2H9HLgg+TLtJku4ZWfJFeUm52sa0y3dpFnT9ueP6xp2lsTZ9lu5eDxOmdRQuwmqz
-	 ZLRW2OZAfLLABDY0U8/mOCtJPdqA66tsg1O5/0Bf+RFMCCs/UoQ5DGq8O3b1CH3BHaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JJ2SrZ8t;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VI0sC5Pk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=vvVgDb84+ZH4mGzuu/NhPjeDNR0l9LEuFpIELpyf8Yk=;
+	b=U4kYQStrgChUEVRj/mVlsTCyMzD4IgwX2Lv0zQvjsiFR5lHg7DEwBZQ2eUh7rFAGLNXl
+	 AW5BGJhhoyx20xJrDczpIpA9aRawNeeLMZNvBqmlXjngAX2+3hM5vc3T8j6xyno2EYfzo
+	 OIHl9NcJCbxyODvxKQJpEwtxr1JSxYbpOS2iO6wGdi78zqWH2SQfuSWe1RRhAEZya/Hsp
+	 nRSddWWFjoFcBMp4BL4RKLhED6rHqTCHZeJp/N+3CIgvYotIjrzTE0um+aYS7e7Pj+pY+
+	 sT1XzZfKXGhdzqtaO/cari503F8UtwkIlurhUztdJgKfdvNrEUELIp9rIl+5IfABKow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gaaCZKW9;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1B6606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 07:06:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D1B6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C887606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 07:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C887606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JJ2SrZ8t;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VI0sC5Pk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792825563;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
-	b=JJ2SrZ8tHjiD+4a4EVkGa1iS+liDwFTBCMR17Llq4wjzCmqIlWEHf/xbhQDwae84tO/Su/
-	ITlJC0OKVlzX7RVS8xJZ8JblaCf2Fjz8iGvyl6tUGwexDiu214J/Abftl9YN1c3q3wIKW+
-	D3E5Ny83yNSJLiwIvu/pi9/+R4bXuD0=
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-258-zlttvS06OTacAqYbvJKepA-1; Sat, 24 Oct 2026 03:06:02 -0400
-X-MC-Unique: zlttvS06OTacAqYbvJKepA-1
-X-Mimecast-MFC-AGG-ID: zlttvS06OTacAqYbvJKepA_1792825561
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3580c07911eso4544134eec.0
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 00:06:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792825561; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Tkbe+WBpdIU98GdTOR5zIqwWtpv+ZWUbvEoNjW+dov+kxUyTLdSHdCQ2ZXVEEMEMu1
-         Mfmr8emLsiolyRGtXeD6uQR+BmErR9N3XwG3A2WKKHVpezW6g2oDqJFKGHGqrXfn08R1
-         N/be85zljNscsEhJLi4FzHvqK56MOTweFh5IqBvHzp/1Kl0VL4P5tB93SvPJFkK0/RcV
-         D1NSK/DMXhE2OpkiVFrx9UbOy0v6NYmQ4lIzUl6s8fnLIDXYj2XhkGHNZII2vhM7zSQf
-         SlijaKCmDY4w0rG1cbolXLN0ScL6bO6puqAkzTTOr/mD8pi+dfMJWcYNWV7OJ+6Wzsv4
-         +P/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
-        fh=u7GJSJ7rg5VuaEyYrM9BGXSSvs9fWkTGrf9m3qzfb8s=;
-        b=B0xVORjYrC1lpx4PfsrkIz95SPxyyhPCZ8bmFkQT/yg65o07vNRfM6/PMkKs54LgX5
-         LyiGCWWYhdTZ2TzNApE6AKJpt/lAxHzXRL6hT8ZvENFmrhgWlfXa8cPfx0Cu8m10ybUr
-         xy6QWGr69BQLLVevIoFHfzVArZPcyEYcEico8gkKJQ4Vq8/ub57kDY24nbI3OEzaM8iO
-         7px5VU/Q4TMgtZXk04w1QgKx1KnJvQ6OiwQDeYZxUA5W4LC3Fxn5xu9+I0MgvKurm4Ey
-         lxqv2qGvNZ38wVFGIt9B4PgPKm/kEI5HM2NCi2Z4AlPuiiwssw/tbhVz6z7id4nVi8u6
-         9OJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gaaCZKW9
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so640112a12.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 00:13:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792825561; x=1793430361; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
-        b=VI0sC5PkHr6yKoBsfWvmw1q15lUhtPLbRjHBiuIHOHMQnk8XgipowikfYIDZcLeA++
-         RiNRGn9WF52/jBJyaBFin/D1ZsiS/EYIKMznxoMBs0jxxMdSngruoWmdJT8ylcobANK9
-         p8bVbuMe9lugVXkcy8+p94b0hYmbH0FKyg89A2u/HHzElHqiNT/4bQVt7Yx22HFbMxW9
-         yGNoRgf5SaU95Ubydzm7ZLDplv8hZBg0tp+eF4qqIdqH/Ols6XAlly+WM83Ndzu9GydX
-         MVf/CCM7fcF8FDsfcgWcg4S1IvcrJ8YV2X9Ra0xbYNM1zx62VGHM/btZAnlD23eOJG+o
-         Ui9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792825561; x=1793430361;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792825989; x=1793430789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oqxBdCmRUh/o3pj/13O6zevxwBIO3ke0ZjDeWjPvwqM=;
-        b=viaGBgfXNkIjjllIuPK4DYsiCWUTo5HPRn6pxDI/XAnBIcQb3ayRmaMrMzrqX8NLP1
-         4YSCu6fX7I2ApyvYKzlLJNMRIPaz0HYNQ7JL7rK0CDLU12KgSuKlZaN6M6pXXfYOBozY
-         KU/6GAAaeDQ0N/yRckny+JBflhIvohXAObp0TIG5KMfrHpyWqOSGGgwLw5IeGLQXB/4c
-         /69yFHZrpboi2uHnra67WKVAbyfgTuumZoTNIN6w9BSbzjOVyHs43nzyMk2VDTFYy9b8
-         7Cz6w5CWMLpCuCZ3sIG8IeUE2BxS0ySJvu3H93WIiryuwR6N6x0pE26zEVTaeXRIychM
-         qQAw==
-X-Forwarded-Encrypted: i=1; AKwUvByVDCJKw3WU583yx5olU/Fqyrnd89780XJQ/puGXtlhA7Ytjdrt4SWodzgfrm0f0log6JYMEp0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbX/a37aQr4u1i1KqlJA38k5cavKagCXOz98+SGlQreaW7CoSr
-	q9wkUFeHUQ6KGE8Q/BpsxCYKgRcJdGWbYP/T1/+rXYvsO19tIMmFTzm3IWVpUc9O574dadPYOGu
-	+QUkD4PN5Vg5CNe3DWFw19XUdII0+UYVyA8cLEOD5MqK5/Gp/5NiJxLNkaWzZVmG1QSFiNDx29w
-	SmpNfrd1+pG+VVABZ3gVYEK3+O9OkH7woU
-X-Gm-Gg: AYBFou23ZqADysSq5TkG9VAydou93PaPuFuKW7uACbguCbLVvzkQ8gVzoNXHlziLRqK
-	umY1YvgUyqjAe7nVTeS+vq8Dc8jTCPca+6eIx0aT8k1gfZUIGN+XwN0w3j0PFys/U2T4Z0L0jzl
-	YYdQMBp+X3jUvEtBZidh4iXU2lCn9FojY2KFBqTAdSJCKJbnknoK2v4vY02pkniEK0bpnv9lCjK
-	x3klDDqQgLuE47y
-X-Received: by 2002:a05:7022:f90e:b0:165:aced:1fde with SMTP id a92af1059eb24-1991b421e8dmr1507386c88.0.1792825560739;
-        Sat, 24 Oct 2026 00:06:00 -0700 (PDT)
-X-Received: by 2002:a05:7022:f90e:b0:165:aced:1fde with SMTP id
- a92af1059eb24-1991b421e8dmr1507363c88.0.1792825560145; Sat, 24 Oct 2026
- 00:06:00 -0700 (PDT)
+        bh=vvVgDb84+ZH4mGzuu/NhPjeDNR0l9LEuFpIELpyf8Yk=;
+        b=gaaCZKW97VyVrU/UyqRFDCtRPkmeVHzomoYOSsaSLwy9qc1oyKdXLDd2xNt9iRiBrm
+         jqYJlin3hbz/1w0/aFEwX6+jsw8fhFlndilXsXCXmpTi6v99GUKpU6r1zwKe9DBofW9C
+         jZXE1bnCoHNLiKq2JXbHDVHQ+U7fNH6piDeQrDCXDnDLzenNUNC4zSn2V3JZkQxD4kL8
+         gqhud9Pr3E6yLkmb1+kyoMrftn7P1e0+Keh1aOLv0jROV+YtlW+ck9V/5IptxIjLmSUU
+         tNz2VbP9G+Tb7Qa6O5deJtcsWeqD5FbVBif3UG9NlOYJTC6gk7b4t203EYBJCkgPHqEu
+         E0Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792825989; x=1793430789;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vvVgDb84+ZH4mGzuu/NhPjeDNR0l9LEuFpIELpyf8Yk=;
+        b=QXeEBzhM/5wwUkEvMozPZYNtx15PCsoLvWROkZbvwrKgD/VYHhyGpx3tbpM+LR7hoR
+         lmqDr2BlMbwkmC2kTesabWe2ene8ILipinV+e2verIPt3tVoLI7mq+l7V3Np1hmRSByF
+         eWIvbF72yUsm2cNI28zmJyGVidi5fLG+amM9dFvsqnsb2imWKcfk+qVqIf0Hr55vGLs3
+         +hQaTHgaXcW+9z4YdQVBCC0bs8byrVocTpAwxqo4IkELnBx3uHCJg8v7NVh28I+FpxF3
+         8nih5QzZXd4KTvBUGJ5yWiv45oiw16LYzDstEcBQHUDp9axjrHTBWO2IHvC2Fbk444Ww
+         JxHQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVO12A8LT9itraM7ea0Trpsy/BQj8DPSZJy6IDGN6qJgwCmssiV6DgHIZse8jAIbLJS0n+6Ns=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtA/YmljvlSD99tUBqMw/yGbO6RGlqQBI6+yoX3YMllU8wdBOR
+	nRdt02mxEf1CwnVnxtTxrckdRYbGfiaFmuL2EfBhvCjzg2DiKOenQISbRysrvDiCf4o=
+X-Gm-Gg: AYBFou1CRU6+8FkdOWImCpV2Yax7L3Se7OYeAQrvl6cCcwgg4X3EmZ2BK6rMq0rDYdo
+	Zgq/zmM3cJpl+JkUIyPBYajDHzqRa3yv+X3mAK/y3hOJBYf6EqbBh8z9FkUQiY4LA1yMekvVs3O
+	FALKI3ujvXWSOD+Om17w6PQCgootpvQnZ+aNXLQr0u7p8L8o2+Y7bqvoieqmFrqi2uAXXFXUO3u
+	R/ifJU9SJ403tsaTyO6S379490r9rQSgpp99lOQXBMjYkoQq2pSqE6SAkDmaBHsl0KCitLgpWuO
+	s3gK1n0fgHvQMdQLwTQv9pv22IKJmEAUASeujh0DiHJQFikRE55sVRjEtRDig0diFQed9LKtkcF
+	CX20o1b9ui2qiHD0bEGVPUylGwV4wHj+++GuTFxsOd06cMGPHENYk7+CrLPYvy7rs2itTVJ18gK
+	SDAIHohUk3io8idmi8kjhSnXocrAvWy6B9Fw1MJ4HExYcXi6A8l1n5YzneP5l8/LFVeYv7jV5Fl
+	X/nPkt9g54JG2gdsZmrxer6TP5Y8tDa+xh1Pu1lQ9KTWKOSfdhpf6qljvrKLnK6xNdqN3BzskxJ
+X-Received: by 2002:a17:90b:4acf:b0:3ac:9e76:aa93 with SMTP id 98e67ed59e1d1-3adea0b1206mr1026779a91.7.1792825988773;
+        Sat, 24 Oct 2026 00:13:08 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6af0dsm1895499a91.5.2026.10.24.00.12.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 00:13:08 -0700 (PDT)
+Message-ID: <abcaabca-d99e-4bf2-b31b-5e96e7accd29@gmail.com>
+Date: Sat, 24 Oct 2026 15:12:35 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -125,146 +91,188 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-nouveau-gsp-irqdest-v1-1-5dd6131faa14@sudmix.de>
-In-Reply-To: <20261023-nouveau-gsp-irqdest-v1-1-5dd6131faa14@sudmix.de>
-From: David Airlie <airlied@redhat.com>
-Date: Sat, 24 Oct 2026 17:05:48 +1000
-X-Gm-Features: AclHuK-0XItFovw3G1bBVKRVCBplwABReOzmq7h2Qp7p5fFLlK5pknGM07AUT98
-Message-ID: <CAMwc25pyuJxHJnziCvorWvFb5awsgn9RZeYQ8GXpQ3Vzs7ro6A@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau/gsp: only handle GSP interrupts routed to the host
-To: joe@sudmix.de
-Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Ben Skeggs <bskeggs@nvidia.com>, dri-devel@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ext4: do not advance i_size on a buffered write that
+ copied nothing
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
+ ritesh.list@gmail.com, yi.zhang@huawei.com, yi.zhang@huaweicloud.com,
+ dave.hansen@linux.intel.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261023172532.3271348-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <20261023172532.3271348-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 7:38=E2=80=AFPM Joe Finzel via B4 Relay
-<devnull+joe.sudmix.de@kernel.org> wrote:
->
-> From: Joe Finzel <joe@sudmix.de>
->
-> The GSP's interrupt handler takes every pending interrupt the RISC-V
-> IRQMASK enables as its own, without looking at IRQDEST, which says
-> whether an interrupt goes to the host or to the GSP itself. One that
-> belongs to GSP-RM, pending when the host's handler runs for the message
-> queue, is reported as unknown, cleared and masked off with IRQMCLR,
-> taking it away from the firmware:
->
->   nouveau 0000:01:00.0: gsp: intr 00040000
->
-> NVIDIA's driver reads the interrupts routed to the host as
-> IRQSTAT & IRQMASK & IRQDEST (kflcnRiscvReadIntrStatus_TU102() and
-> _GA102()). Do the same, with IRQDEST from NVIDIA's register headers
-> next to IRQMASK on each falcon.
->
-> Seen once in a few boots on an RTX 3070 Ti (GA104, GSP-RM 570.144),
-> before the login prompt. There IRQMASK reads 0x01049042 and IRQDEST
-> 0x01000040: 0x00040000 is enabled but routed to the GSP.
->
-> Fixes: 830531e94712 ("drm/nouveau/gsp/r535: add interrupt handling")
+On 10/24/2026 1:25 AM, Hengyu Liang wrote:
+> Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+> made generic_perform_write() call ->write_begin() and ->write_end()
+> before it finds out that the source buffer cannot be read.  In that
+> case ->write_end() is called with copied == 0.
+> 
+> However, ext4_write_end(), ext4_journalled_write_end() and
+> ext4_da_do_write_end() set i_size to pos + copied without checking
+> copied.  As of now, a buffered write() past EOF that fails with EFAULT
+> grows the file to the write offset, and the new size can reach the
+> disk.
+> 
+> The issue can be reproduced on an ext4 mount with:
+> 
+>      char *p = mmap(NULL, 4096, PROT_NONE,
+>                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>      int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+>      pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+>      fstat(fd, &st);
+> 
+> Before that commit, the result is st_size = 0.
+> After it, the result is st_size = 1048576.
+> 
+> This patch will leave i_size alone when nothing was copied, as
+> ext4_write_inline_data_end() already does.  The delalloc path does not
+> trim after a failed write, so when such a write reaches past i_size,
+> it also drops the folio and the delayed blocks that ->write_begin()
+> set up there.  Otherwise that folio stays dirty past EOF and writeback
+> never cleans it.
+
+I feel the last sentence isn't quite accurate. Dirty folio past
+EOF will be cleaned up during writeback. In mpage_process_page_bufs(),
+when lblk >= blocks, if 1) there are no blocks to map, it will
+directly call mpage_submit_folio(), which clears the dirty flag on
+the folio, and then mpage_submit_folio() will shorten the writeback
+length, so that ext4_bio_write_folio() will also clear the dirty
+flag on the corresponding bh; if 2) there are blocks to map, then
+after the required block allocation is done, it will likewise call
+mpage_submit_folio() and do similar cleanup. Am I missing something?
+
+> 
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Joe Finzel <joe@sudmix.de>
-
-This seems very reasonable.
-
-
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 > ---
->  drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h  | 1 +
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c       | 1 +
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c       | 1 +
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 4 +++-
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c       | 1 +
->  5 files changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h b/drive=
-rs/gpu/drm/nouveau/include/nvkm/engine/falcon.h
-> index 341f133dc38..eb8adaf07fe 100644
-> --- a/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
-> +++ b/drivers/gpu/drm/nouveau/include/nvkm/engine/falcon.h
-> @@ -63,6 +63,7 @@ struct nvkm_falcon_func {
->         int (*select)(struct nvkm_falcon *);
->         u32 addr2;
->         u32 riscv_irqmask;
-> +       u32 riscv_irqdest;
->         bool reset_pmc;
->         int (*reset_eng)(struct nvkm_falcon *);
->         int (*reset_prep)(struct nvkm_falcon *);
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c b/drivers/gp=
-u/drm/nouveau/nvkm/subdev/gsp/ga100.c
-> index d5126fe39d2..10e2813a016 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c
-> @@ -27,6 +27,7 @@ ga100_gsp_flcn =3D {
->         .enable =3D gm200_flcn_enable,
->         .addr2 =3D 0x1000,
->         .riscv_irqmask =3D 0x2b4,
-> +       .riscv_irqdest =3D 0x2b8,
->         .reset_eng =3D gp102_flcn_reset_eng,
->         .reset_wait_mem_scrubbing =3D gm200_flcn_reset_wait_mem_scrubbing=
-,
->         .bind_inst =3D gm200_flcn_bind_inst,
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c b/drivers/gp=
-u/drm/nouveau/nvkm/subdev/gsp/ga102.c
-> index b6b3eb6f4c0..96fa26fa612 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga102.c
-> @@ -140,6 +140,7 @@ ga102_gsp_flcn =3D {
->         .select =3D ga102_flcn_select,
->         .addr2 =3D 0x1000,
->         .riscv_irqmask =3D 0x528,
-> +       .riscv_irqdest =3D 0x52c,
->         .reset_eng =3D gp102_flcn_reset_eng,
->         .reset_prep =3D ga102_flcn_reset_prep,
->         .reset_wait_mem_scrubbing =3D ga102_flcn_reset_wait_mem_scrubbing=
-,
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> index 94925f1590e..463e463db24 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-> @@ -64,7 +64,9 @@ r535_gsp_intr(struct nvkm_inth *inth)
->         u32 intr =3D nvkm_falcon_rd32(&gsp->falcon, 0x0008);
->         u32 inte =3D nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->add=
-r2 +
->                                                   gsp->falcon.func->riscv=
-_irqmask);
-> -       u32 stat =3D intr & inte;
-> +       u32 dest =3D nvkm_falcon_rd32(&gsp->falcon, gsp->falcon.func->add=
-r2 +
-> +                                                 gsp->falcon.func->riscv=
-_irqdest);
-> +       u32 stat =3D intr & inte & dest;
->
->         if (!stat) {
->                 nvkm_debug(subdev, "inte %08x %08x\n", intr, inte);
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c b/drivers/gp=
-u/drm/nouveau/nvkm/subdev/gsp/tu102.c
-> index 11a37963bd4..823532758af 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c
-> @@ -420,6 +420,7 @@ tu102_gsp_flcn =3D {
->         .enable =3D gm200_flcn_enable,
->         .addr2 =3D 0x1000,
->         .riscv_irqmask =3D 0x2b4,
-> +       .riscv_irqdest =3D 0x2b8,
->         .reset_eng =3D gp102_flcn_reset_eng,
->         .reset_wait_mem_scrubbing =3D gm200_flcn_reset_wait_mem_scrubbing=
-,
->         .bind_inst =3D gm200_flcn_bind_inst,
->
-> ---
-> base-commit: fb26cf4f1df40a462ea65552a3fbcc8cfafab523
-> change-id: 20261023-nouveau-gsp-irqdest-a0819d1eda96
->
-> Best regards,
-> --
-> Joe Finzel <joe@sudmix.de>
->
->
+> Changes in v2:
+> - Rebase onto the ext4 dev branch.
+> - Also trim when a failed write starts before EOF and ends past it
+>    (pos + len > old_size), as suggested by Zhang Yi.
+> - Keep the Fixes tag and the new helper, as discussed on v1.
+> - v1: https://lore.kernel.org/r/20261009044656.1993196-1-hengyul@cs.unc.edu
+> 
+> Tested in KVM with KASAN: the reproducer above and failed writes around
+> EOF on delalloc, nodelalloc, bigalloc and 1k block filesystems.
+> e2fsck -fn reports no errors.
+> 
+>   fs/ext4/inode.c | 42 +++++++++++++++++++++++++++++++++++-------
+>   1 file changed, 35 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 6ede3644a738..e96321ce17d2 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+>   	 * it's important to update i_size while still holding folio lock:
+>   	 * page writeout could otherwise come in and zero beyond i_size.
+>   	 *
+> +	 * If nothing was copied (e.g. the source buffer was unreadable), do
+> +	 * not move i_size up to pos.
+> +	 *
+>   	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+>   	 * blocks are being written past EOF, so skip the i_size update.
+>   	 */
+> -	if (!verity)
+> +	if (copied && !verity)
+>   		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+>   	folio_unlock(folio);
+>   	folio_put(folio);
+>   
+> -	if (old_size < pos && !verity)
+> +	if (copied && old_size < pos && !verity)
+>   		pagecache_isize_extended(inode, old_size, pos);
+>   
+>   	/*
+> @@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+>   		if (!partial)
+>   			folio_mark_uptodate(folio);
+>   	}
+> -	if (!verity)
+> +	if (copied && !verity)
+>   		size_changed = ext4_update_inode_size(inode, pos + copied);
+>   	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+>   	folio_unlock(folio);
+>   	folio_put(folio);
+>   
+> -	if (old_size < pos && !verity)
+> +	if (copied && old_size < pos && !verity)
+>   		pagecache_isize_extended(inode, old_size, pos);
+>   
+>   	if (size_changed) {
+> @@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+>   	return 1;
+>   }
+>   
+> +/*
+> + * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
+> + * reserved delayed blocks, so drop the page cache and the delayed extents
+> + * beyond i_size and leave the blocks that are allocated there alone.
+> + */
+> +static void ext4_da_truncate_failed_write(struct inode *inode)
+> +{
+> +	struct address_space *mapping = inode->i_mapping;
+> +	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
+> +
+> +	filemap_invalidate_lock(mapping);
+> +	truncate_inode_pages(mapping, inode->i_size);
+> +	down_write(&EXT4_I(inode)->i_data_sem);
+> +	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
+> +	up_write(&EXT4_I(inode)->i_data_sem);
+> +	filemap_invalidate_unlock(mapping);
+> +}
+> +
+>   static int ext4_da_do_write_end(struct address_space *mapping,
+>   			loff_t pos, unsigned len, unsigned copied,
+>   			struct folio *folio)
+> @@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+>   	 * checked, we need to update i_disksize here as certain
+>   	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+>   	 */
+> -	if (new_i_size > inode->i_size) {
+> +	if (copied && new_i_size > inode->i_size) {
+>   		unsigned long end;
+>   
+>   		i_size_write(inode, new_i_size);
+>   		end = offset_in_folio(folio, new_i_size - 1);
+> -		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
+> +		if (ext4_da_should_update_i_disksize(folio, end)) {
+>   			ext4_update_i_disksize(inode, new_i_size);
+>   			disksize_changed = true;
+>   		}
+> @@ -3400,9 +3421,16 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+>   	folio_unlock(folio);
+>   	folio_put(folio);
+>   
+> -	if (pos > old_size)
+> +	if (copied && pos > old_size)
+>   		pagecache_isize_extended(inode, old_size, pos);
+>   
+> +	/*
+> +	 * A write reaching past i_size that copied nothing leaves i_size
+> +	 * alone, so trim what ->write_begin() set up beyond it.
+> +	 */
+> +	if (!copied && pos + len > old_size)
+
+Why do you keep the '!copied' condition? AFAICT, if copied is non-zero
+but less than len, the excess delalloc extent allocate by
+ext4_da_write_begin() should still be cleaned up.
+
+Thanks,
+Yi.
+
+> +		ext4_da_truncate_failed_write(inode);
+> +
+>   	if (!disksize_changed)
+>   		return copied;
+>   
+> 
+> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
 
