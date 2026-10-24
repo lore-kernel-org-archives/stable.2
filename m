@@ -1,80 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.227.220.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792857669;
-	b=OdPTK1ConNt6q0PESntsUq9YjRdh6M86nVqz2wuL2YszLxrUe1s6+wWK6dMnCwtaM4JM
-	 A3lYO/UDHP5AIqRIAmPzYCRaBS5ZMDqECA4zU2Dv3MMGWKA9rXvYA0hSY7TsInmXrfQ5z
-	 PhBzEajlYRDUZuiv2OIttADEHft/cMrGRHA6dJKe17HXiKTWqfvUJoewhlPmNAzQPwrra
-	 LEuptp3YWes4zN3sWhL2mwKW8sYv+bSsdRa0RogwMhffYCym1j+l9SSytWKbqIJ1R1hwP
-	 7KTts5dDblHyyKOtAh0X1xSD/eDqPgLwvgGDauCy+B4URAUFiVFOl70vGAYZHagCTEw==
+	t=1792857664;
+	b=CVsajrYH7AmUFUq+YwwCCTrDMIzzusUT7hYtl5NEVsaR2bxVeySj9Mn7zsCq6cwFdOzq
+	 WV+sp/iM0nFND/KSKSPDQQz/TMBPvDp9uV849HhykqFb/kRZV9bvVvv4XI7y4oWcFGBVA
+	 Er0QEpmH1ABv0eNwpO6xJXPT4okZwWNZNxj72gBNXGyxCGVejuVAm8SXmEZimBxeR1foH
+	 RRDS0nEc4NQbEn3UTPmIkkwtTJxHMUTTavT8g5y2a2/J7XcfiYq0BUrBMw/n98V0UW89y
+	 mPt5jhZ8dx+YDbIjROnPy04tVtaksQBfYUzcNOYINw30bpL2UzgpNFHAUvmh7ILM6Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792857669;
-	h=DMARC-Filter:Date:DKIM-Signature:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=9VUWNDXDLWI22LfuE127DRMY8CKNuNe10EKH85xtJTk=;
-	b=s9BEH9S5vI5Lz6F3FmjdJi7bdpYvn0uxrykXBRDouc0ID8qOuYkkOmsYiXm2D0Av4QHz
-	 f1zf56I+RRThIxn8lAPDsyki78RW0nJU6ifTWFqpZhGA4/zuFdFgAXsADYRVYYFSqi/Tq
-	 CpKADL11ozDQ0qTxAgTDku75DY+SZNKzACp047/yQO8HJscDku295lQ4Ip8afIpAHyLeH
-	 BpX9gQgdCd7X5OuT8t5G0mq2owUZvWt2SBJDxb8uoWwGondl3kxzUbRmmVZLEJBmWY4Uc
-	 h9hI15uYkHZhkYBHpON1kCu81vBnuvUnKl0qyvxqPd3ZbatfirFz8zv8n69tmtQm+KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792857664;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:In-Reply-To:Subject:Date:
+	 Content-Transfer-Encoding:Content-Type:User-Agent:To:
+	 X-Lms-Return-Path:References:Cc:Mime-Version:X-Original-From:From;
+	bh=vSkKqqPrcRVk3BVNulEaeACxkD/BbD3EQ9kOWBnKbIk=;
+	b=I9VG+HtP0JDExIZypf9x+BAkfP+oIgvh8isVxW9NcYI2N3DBUZwnEPWKIQRybREEcujE
+	 2scu3/auGWyHQY2Wf1QjNTkHybQvXgqlItpJI1NVPmG6vkLL1r328HpybitwWQYcqWukB
+	 rxqQXn6YtrIGTFCa+6il9pacJ8uERLdYMOrQJK7I4d1YMPc9i5vjqdIKPixKiLk35w8Ix
+	 2PLqO4jnPtbPBb9Xh4YnIF+dtmQOtsEZ/+5+o87fAGdY3T5aiYC6DofgHf7Ja7ZsFTsEa
+	 ez3+PXbpS8ru5OuC+95BL6cVKVUjSu1cHQjCqSC4tL4RUkJaFudvGLxpHKOO/l0OMzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mareichelt.com;
-	spf=pass smtp.mailfrom=mareichelt.com;
-	dkim=pass header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=Lk13lX6P;
-	arc=none smtp.remote-ip=91.227.220.155
-Received: from mail.antaris-organics.com (mail.antaris-organics.com [91.227.220.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Y8nqlMG6;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426C4606A31E;
-	Sat, 24 Oct 2026 16:01:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 426C4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mareichelt.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mareichelt.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1AF606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 16:01:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE1AF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mareichelt.com header.i=@mareichelt.com header.a=rsa-sha256 header.s=202107 header.b=Lk13lX6P
-Date: Sat, 24 Oct 2026 18:01:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mareichelt.com;
-	s=202107; t=1792857661;
-	bh=9VUWNDXDLWI22LfuE127DRMY8CKNuNe10EKH85xtJTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:date:
-	 author:from:to:subject:message-id:in-reply-to:references:
-	 mail-followup-to:openpgp:mime-version:content-type:
-	 content-transfer-encoding:author:from:subject:date:to:cc:
-	 resent-author:resent-date:resent-from:resent-sender:resent-to:
-	 resent-cc:resent-reply-to:resent-message-id:in-reply-to:references:
-	 mime-version:content-type:content-transfer-encoding:
-	 content-disposition:content-id:content-description:message-id:
-	 mail-followup-to:openpgp;
-	b=Lk13lX6Peb3CVxp31jW/R8xFQ3uESvBFrzfXKqYsrd9zO3mqjoHttPawGAyf7cw0F
-	 3U9bkGrhNm+etlfr1Cax+JG/i0RNFL2hKcEamFn/Sznuu5tdFrSoA+skbGfYalmczy
-	 CTdnUjzTgQe4hTKKa1uIXwhlvTNfyRJFMFSFposzTR9oLvb7tjCpz0DNHSkIuf+1gb
-	 nDH2YibxLyOAD9tIEvEGJyCegL2DsnngKgVER2kdN3h+qmsRfIzY1WJIwbkhP3Wq7G
-	 bh3PQBpFMhys4HuNmkloi84bMSWIzwy57OicKqgOYqOFGmPJ2fcttMow5nBKRVSWjs
-	 QuDKwF+sPJ4ng==
-From: Markus Reichelt <lkt+2023@mareichelt.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
-Message-ID: <20261024160100.GA4792@pc21.mareichelt.com>
-Mail-Followup-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-References: <20261024064731.125251200@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=Y8nqlMG6
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792857657; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=vSkKqqPrcRVk3BVNulEaeACxkD/BbD3EQ9kOWBnKbIk=;
+ b=Y8nqlMG6xNk4CE50/o38uj+s9sIqVf8QCKM01PwMWpWmoxt9f3f48NdTZ8IhCJaMhNe0yI
+ Degyuq0fWnZ+aqXwVdYnczcV/8uG34ZMqBkG7uLfASajhr2bQEvwkS9XRyp0Crpnnki6fq
+ zXYlmXEDd9+zSfLSQ7X36bf3kBOk1CNP6agH4tIF0NPwBslNf1wpC22S2ySwuHDBmv7NTv
+ KCkkEWXtHtomxwyFrZonIdeTUH2gVaD7AMmrED3Jl+Pn1Yoe397kVdoFYXfRTSEy96L4o+
+ k2/SRf5q5nIew3oI1ciQp3CGUYNJ9AYgrx0JLQK5XWc1KYZq+IT/BBtaffFS5Q==
+Message-Id: <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
+In-Reply-To: <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
+Date: Sun, 25 Oct 2026 00:00:33 +0800
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+To: "David Hildenbrand (Arm)" <david@kernel.org>, <catalin.marinas@arm.com>, 
+	<will@kernel.org>, "Ryan Roberts" <Ryan.Roberts@arm.com>
+X-Lms-Return-Path: <lba+26adcd637+d0c240+vger.kernel.org+zhaogongyi@bytedance.com>
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org> <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com> <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
+Cc: <dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
+	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
+	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
+	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>, 
+	<mhocko@suse.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,23 +69,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024064731.125251200@linuxfoundation.org>
+Mime-Version: 1.0
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
 
-* Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-
-> This is the start of the stable review cycle for the 7.2.13 release.
-> There are 243 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 10/24/26 4:55 AM, David Hildenbrand (Arm) wrote:
 > 
-> Responses should be made by Mon, 26 Oct 2026 06:46:54 +0000.
-> Anything received after that time might be too late.
+> Hi,
+> 
+> sorry for the late reply.
+> 
+> If we have the spare PTE bit, why shouldn't we just use it?
+> 
+> It will make batching over PTEs faster. And we care about that for present PTEs.
+> 
+> So I don't quite see why the stable fix couldn't just do it right away? Do you
+> have a prototype that shows that it would require significant code changes?
+> 
 
-7.2.13-rc2 compiles on x86_64 (Xeon E5-1620 v2, Slackware64-15.0),
-and boots & runs on x86_64 (AMD Ryzen 5 7520U, Slackware64-current).
-No regressions observed during boot & my custom tests.
+Hi David,
 
-Tested-by: Markus Reichelt <lkt+2023@mareichelt.com>
+I tried a small prototype that keeps PTE_CONT on present-invalid PTEs.
+It leaves contpte_set_ptes() unchanged and makes contpte_try_unfold()
+recognize pte_present(pte) && pte_cont(pte), instead of checking only
+pte_valid_cont(pte).
+
+With this change, the guard-marker reproducer passed 100 iterations
+in an arm64 QEMU/KVM guest running a KASAN-enabled kernel. The fork
+and PMD-split probes passed five runs each, with no warnings or KASAN
+reports. In the earlier A/B test, the unmodified kernel failed on the
+first guard-marker iteration.
+
+The prototype makes the reported reproducer pass with a small change
+while retaining PTE_CONT. I therefore cannot point to evidence that
+fixing this failure requires significant code changes.
+
+Thanks,
+Gongyi
