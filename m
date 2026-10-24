@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792858545;
-	b=kZsOGFnTRk49/vw8Ge4fnjx2EhrE5QUA0V/ji9arHYp+p0fdC5iDKJs/y+CKjsgLVZgt
-	 5rVT8fFjZt1h0fUgtNxvFeRkiIcihXC1bLzdAWUQByqlfGpohYjWrJH3PkiQeIP8t5tqn
-	 Dq4RYd5Rr2G+2uwk1Mf6z/eyqF6GneaoqZiAnUAUPfUzyE3tAJyGPjOTZSTRmSE2GgZDX
-	 9AK3uV5n2fCBTztW5MvgHQm38cjzmLIWz/CZccIoMqZs0IhMv76+HCt5uaSlCLVG0yEdg
-	 3y7RiJzYiyZBTCIt/MKeGfxS2Lp9ERLduDQQCC/jluaySp5QGAiwnycDK2Gir3s77FQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792858545;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792858716;
+	b=eGMZOAOUG9l742LNvR1GEA84ylGbTPRlC1z0Nh0vRinxp9iGjV8I3DCX2KixHjxKTzGw
+	 ZiHMocRRKIiCv+/aQBogTth7ut3ULrWOJaTE4ofrQgud7UWzo1KDEC6Gn5zCdy3HKmV1e
+	 zF4ncFfC3vITJKDH6eN09IeZbGd1IRUZxmvB8ktFHzotBszxY1S+8EYgE7v5+WVKjm11B
+	 lCs6b1j3UsFRK9LQd4Z1V0u6JVyl9GT3VgC6EJVRytUJy8Yhsf0KcHXVBkB7ERoc/S2w7
+	 yCl2a6n2BtQq7cBwHUoClc4UzX2+3R758LdxS0O3Jm7X4ZwDGUmJDTUpWJOi9xcnIuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792858716;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sWPRyWlGaMNiQpJpvF0wXPtyt8f20HZGodlR95AlKmA=;
-	b=M5RjCw8cfW43TDmESIw3LKC4tcwknyQw0cgypODx5Eb7/Q6ASEGSlerNMlDvhpYPyjYd
-	 o9NlKFZSIo3tKnxDM57WndeWaiC/gOoZtdwLnn97flc7uqxMMXnSqsfWLMGQxJ/6cHjuj
-	 mkHDcMejL9WABWdF24Vv9StwrwozEMwkJVU6Tj9FqlQJ9aMtaxgV2rzbH5xeYTo5rlzZC
-	 ANC6SKuLQpm7c1IQyQICz1wHEK57e3TMPJus5P1QpDWzXA/lnNs+lTdqRLPcLBkkFz9Jg
-	 wi7vftBYbOpwJQ8l+r1Dipz/Hm3GxOIBEPLH+p71leQrHkWG4rTNL+1X6l0NeeZWtkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+	b=MPe7hPN21kmoBamhy9fZv/hmeoCTf3uP1DZ5E0fTIXjs5/ybqSaGLR6H2O1XkfJgt01w
+	 JuJk+hypDw5+e2CYk36aZTZfAPAZSpnDEm+KGUqAhtmMKkWuWaZ8hBOoqwzbwDOLIPnZN
+	 xO4fRBajLYAV2koY8dGUO36vtThNu4AhPbPie5gU5SHp6ZTfsWQ4w9Tqvn2B9wccC0rc4
+	 R1DEIXxp9UXuYaIukGMjSwLtPB33Dgn4lW3CpK/aLiQMhpWkW87Dg3Z8GZC3cuXvEYRWo
+	 vrblZjNjyanenSgyIbcTsUZzjlI9N0DZXxSp1R0ekEmtO1UbaKRK7cjKLCB85yh5eIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D0BLdy5H;
-	arc=none smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="OlXmPG5/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC24F606A322
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 16:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC24F606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C2A606A31E
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 16:18:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1C2A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D0BLdy5H
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a9787a156eso14578991fa.3
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:15:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OlXmPG5/
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ad98c3fb15so14612537b3.2
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:18:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792858715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aUMq7V1KnnHvA71Cpv79CF1VfQ3PwJg3WSuJl8x06JDKBs/QIA29vp4068g8KVUNFn
+         En29nHtJ9mtc9/qWxGmE0jrlf1BKWBAXJWZUxubxPV/eAaVMlH3yyUQEfCYekcR8srub
+         OD4p5L7PqR/MVyMn2GZstIYKNm+IdZXdqXxS2ymG219to2E7xuV0N1ifXDNOvArqKxTy
+         dn+NarNcS/6WbV6uxIJsws1pC1UCg9sLum2iRJI0xlnLYL2T9raWyvtBSOlBJUanonMF
+         MAkGsso7Nn2zlZyyW08AFpied3jfy0xfbv8UwB13hBbEICNNzgsbukNwFzG3q2ONr9di
+         eLuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+        fh=uL7kQe0Ej20I3JKhjIDqzLy0eOpiOV1RQmbQ5YX9Asc=;
+        b=nH+Jn9hkth7oJV+NUWiFCLImNJyEtFrOkSYGaFMyd/3LOIErOaQLUxihpMKm41i5Xy
+         OF7QZaXJc72yKT4+wPeNn+hNgJWsaIU7vEe8aWZGlbyLLS7Q8ZnQuRnm7p8VI49Pwguw
+         t+S7lMv3ghGrDL/6bf3caQPcx3HkC78WmOvn6R6/gdtLQLjtbCGi4zWGXE6jjCiOPF1S
+         et5HxV/ppkhcqhpob4McUhHqlsZoS/IGQfOK+bXqO9r7gkErX3JAeloLCbPKPy9PceCC
+         e8MEt2SexoWk7r/LolC17LhBtYsRqQkPhv2TgPWLd3FKKtSO9MM+EJ83SjNYb9ALzISQ
+         F5xg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792858543; x=1793463343; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sWPRyWlGaMNiQpJpvF0wXPtyt8f20HZGodlR95AlKmA=;
-        b=D0BLdy5HYV45c9qpPXBdOUZmb20eOXzBkqmnKBAfshAYG5diu6bzXGW2wOGtOHPasg
-         K391NmMWxtLMR0Nj5375zWZlkUi/iau/lbUdl9OVQAK4UrQXLD1J9EOg0S1VnrYddamM
-         S1ScwKaYBUgkGTQg4gwWzb26CrZfju/eA9+250EOFqWv69auZrCFU3GlXw+NVQIl7mCf
-         aQIHWVKT3hrQvRKbPEi9FSdfLk8NnhVWaOsI/NhLvLd2Kg97GV3pKosR7BlBZLNxUNEd
-         0Y2u19i1yNxC7zzBsW6u0DJzSRx4whP/2vRBLP4riAyZZjVowNf1y1bAI/BGon3HU6Xp
-         pVRQ==
+        d=gmail.com; s=20251104; t=1792858715; x=1793463515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+        b=OlXmPG5/sAKCL9I7yq00rAKjJUqs3lDGX6LAWPM12qMwvE2TwWLZuI969q24e+XN1k
+         okGi8kuf7C7X1w1YRSajRzcFwtGWzOX9xA1fFTRPkhgYsldF6gr3b6gvx6a3cIxQ/B59
+         lp1n0/CGsCt/bH5jPOj8/0TUUwS8ZBdoxdHSxBLFdu7foJ+9oIObAIxnEJKwMBtQcrQa
+         wpkjXGXs6G3EdtIgwBH6QoTi4BUgaqfAfwTSU9JUU7arFcVL4yIGlwlA7gU+DUNbP3PL
+         Jpqr9c4DkhdW9sOEsWXVxIe39Dzcs6d/K6m6dS0DlnzrqTVjLbISPmBlpUO+QWTw0kNP
+         YjAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792858543; x=1793463343;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sWPRyWlGaMNiQpJpvF0wXPtyt8f20HZGodlR95AlKmA=;
-        b=ufWOjo1lc2p79t/xT2S2QuVB+8TG50zSX0zsyMU0VrAvzfJqIHCaeLy5oXTs7jUBmV
-         eCA16w+Di8bKvIwwuAweHaxV68eTw47W1E9NnC93KOuTpsEeJwm3im9Ehq7IX1A/4nmK
-         oQzgw+sLUuwgfBV0mpgo8SGcanDK4v1tv7oJMVDDKBuRw0D6YK1crzF5pxRL5GwaacNv
-         lYNoXe8RPKCIFihSjqY1onTSYGs6ozMAWU3ZFocw0oybVQxAj9e8jxUEG1+oKm6GJAbM
-         4mX2wWCOOqKI1eJQrz+fcxfKdBxOwZQeAfJjqSPsF3qbO+DU8lK6ofLZMunL0NAnGzfb
-         iYZw==
-X-Forwarded-Encrypted: i=1; AKwUvBw3fNn+enAlXs9NJ+Aq4lNsY35+inKGJr2/8qSKZzEaPRNF3VcwV12GqQGjGKE5tJ/EbOCM+oY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5IaKXc2ISzEZw6nkxwJ2A164/fe21zGSyCwYkrCV705fOSl/v
-	BJD4GcPI+Knux0s378sx0/zI8SnWSn0Dx7Ltf2hTM7HJY/mjGB6zXwxO
-X-Gm-Gg: AYBFou2O6yvYKK3fscGImMM4M07+RAEPhmJxJ3nn2MoURq8bQNivDMk3sQXlG0m6eD3
-	+b4ZudTWloUmkYtIyKu3HEtPGSjv9+316+kmL1UvQSCfl5tib3YiBF8G8lN+z/wSJ4Rl3O05s/R
-	lkKg9VCf5NliE5lqVjSglqTTV/Jpgvye2XglIj+xFPGCXw84VAL8BilPCimj0jWfHpTFFPrkvMZ
-	qmKYLazRXk6pTOUme1S7HB4W1JDrd162QpwzddTb1wfX2Rt0WNKfQeTaztbLQps5DOJjq/baybf
-	h3bv7/XUYB52jgbxruepBAe5uKSLn2bkbxGDiq2XjBFr2KCJekcX+Z/t2IwuWzmaNFlnyks9jX2
-	VKpJ2o5tIP25f0+bu2FI5WoghNEZ35uLT+1YFXle8I0Nq3oHaHeke3QMl5FoKR6bn9fZNXts8qI
-	M0Knha3Kh/W1gCZBKhNYOh9426Y+uScYxpU4+0Kfc546dfgO5u8g0KbitozqdCLt2w+CsnWEMYX
-	9yxA40LyrmfjKDO550wUB6vrOqrVvRoq60UK+IUl3VyjAs3gwREXIQV1CMWqQDkPrVla7ett94U
-	AVZrZo4Ak4cALdWAm+8iVV45xXSDugq5dyxWnVFXeXLcjqXiWt/2yb62ChsY
-X-Received: by 2002:a05:651c:211c:b0:3a6:553d:cb1c with SMTP id 38308e7fff4ca-3ac6fceb510mr5573981fa.12.1792858542702;
-        Sat, 24 Oct 2026 09:15:42 -0700 (PDT)
-Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a493b6sm5645121fa.37.2026.10.24.09.15.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 09:15:42 -0700 (PDT)
-From: Igor Putko <igorpetindev@gmail.com>
-To: Mike Snitzer <snitzer@kernel.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Igor Putko <igorpetindev@gmail.com>
-Subject: [PATCH] dm snap: fix use-after-free when origin and COW devices match
-Date: Sat, 24 Oct 2026 19:14:59 +0300
-Message-ID: <20261024161459.5539-1-igorpetindev@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1792858715; x=1793463515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wJl7a+8EQ6zIyPMzXI0QdmBaUpy3gczzvc67bhOuxfw=;
+        b=gA3yu210zPhJz8rr+KLMOXvaXsW7l+aumro+VoMIKL4GRsnXM4lKG5ri/RTG1b98OD
+         lQTX8mHemIet7h5qxzS/xL9BsoTpps4GVSd1chGTaejgh4nq1eSc8dd1KahMFYTG03R1
+         VqHN3XNZJbBFGc0v9fs5dengGeSqMFIMahEJ/vllzYApNOlvEw0+APXi4ZemFSyD85xH
+         TdDZu2Ww3diLLBUdMRYfQfYOhE9RxAN9UzZgTOIgH41vQ5Qw6uAIU4BwA5d0+3jvT5FM
+         4fzMs7NL2y2fkR2QYe0gumkbEAxmUEqw7L3NrV77SfUVSXirQvzFx9amwmQP0Fbrzou4
+         n9TQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOBpi5QGMrIaHuZ5PbuLF68lEkTlhiJXPPqXGvvqAeeXekOSCpXRQTGai+RbRw8pF3tW+6nCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxW+FQMVdgcHAcO3J6A++kYFYVfe9yybxt0N5Qhg+eyRibOpuX
+	C53+LJeCU6+Ug28ZnXoUt9V8Mq9OInSnb06RnVirTp2AZ1LKdPEmy4cXcucI1OmkYQaJleqmtgr
+	/ZTNzA4un8ucPEWxwuxVLfZExT2qzPJU=
+X-Gm-Gg: AYBFou2o5ZjqFnHFpcO4/kUIbi1OvjZ0CfLhqMi0dYvV4MOpObAOPnbEfNRPX0Ac5wJ
+	+3xArSKc95qEKnQ3tEuqCtgyjcjpdxOeixwxIH9/4vxq3MleP1Dr9ojaGC+JmIZv+65oXWbd+Dl
+	Y2Gibtc8V9x/jw8+8wLMHbf7/TKmFNA0jYD90ww4EeY67vIgdscCXikONdJmlDrtYrBiy4x3Kkk
+	Xg+zNQ7t3gYad5VsH1HBXqc1ZEARHvTmUypFtY4qVU2PiuUDzjF3P2oYCDhfRzpXAIwP18OBQby
+	vo/ZGhPZYYPVvqP8dLQr88NITYXl3hhvdeol7yfSu5yx0XEN5zXFQ4/PlSbrDyNchnpbpzHH3fF
+	Wu4DT4MLw4uNJPPeeAEodOlpQXuh9qwlpZzyqR6q+
+X-Received: by 2002:a05:690c:89:b0:8b0:e13c:2854 with SMTP id
+ 00721157ae682-8b1669e55a4mr18271807b3.5.1792858714927; Sat, 24 Oct 2026
+ 09:18:34 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,79 +104,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <pm-ocfs2-objects-candidate-0087-v5-4888399e71ae6d93613f@gmail.com>
+ <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
+In-Reply-To: <1868bdad-cad5-4cec-8d76-af6f3cd92479@linux.alibaba.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Sun, 25 Oct 2026 00:18:22 +0800
+X-Gm-Features: AclHuK_VfC0_HAFy2LMxdYARoi52mIFRU4CCMwSsyLqo5xk4mZaw1sLNyRN_7E8
+Message-ID: <CAFRLqsUXK3rX6-uM3+2cMmSCPYMz9WxNGRXh7zG1+1YhNxTjgg@mail.gmail.com>
+Subject: Re: [PATCH] ocfs2: wait for filecheck kobject release after a failed add
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com, 
+	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When snapshot_ctr() parses target arguments where both origin and COW
-paths resolve to the same underlying block device, a slab-use-after-free
-occurs.
+Hi, Joseph
 
-The origin device is acquired first with origin_mode (e.g. BLK_OPEN_READ
-or BLK_OPEN_WRITE). When opening the COW device with dm_table_get_mode()
-(typically BLK_OPEN_READ | BLK_OPEN_WRITE), dm_get_device() sees that
-the device is already in the table list and calls upgrade_mode() because
-the requested mode is broader than the existing one.
+Joseph Qi <joseph.qi@linux.alibaba.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8824=
+=E6=97=A5=E5=91=A8=E5=85=AD 23:49=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Why not name the owner directly to ocfs2_super?
 
-upgrade_mode() opens a new table_device, points dd->dm_dev to it, and
-calls dm_put_table_device() on the previous one. Since the refcount drops
-to zero, the old table_device is freed. However, s->origin still holds a
-pointer to that freed table_device. The subsequent check:
+Thanks. I've updated the comment in v2.
 
-    if (s->cow->bdev && s->cow->bdev == s->origin->bdev)
+> And "delayed release" is only accurate under CONFIG_DEBUG_KOBJECT_RELEASE=
+.
+>
 
-dereferences s->origin->bdev, tripping a KASAN slab-use-after-free read.
-Furthermore, under the bad_store error path, dm_put_device(ti, s->origin)
-fails to find s->origin in ti->table->devices because dd->dm_dev was
-replaced, leaking the device reference count.
+The delayed-cleanup scenario in the commit message is also
+explicitly scoped to CONFIG_DEBUG_KOBJECT_RELEASE.
 
-Fix this by resolving cow_path to a dev_t via dm_devt_from_path() and
-verifying that it does not match s->origin->bdev->bd_dev before calling
-dm_get_device() for the COW device.
-
-Fixes: 26110d5afe81 ("dm-snap: simplify the origin_dev == cow_dev check in snapshot_ctr")
-Reported-by: syzbot+8e6fc64255334ccf3ab3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8e6fc64255334ccf3ab3
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
----
- drivers/md/dm-snap.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 7c3725e4ac54..4a7c04c780d1 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -1232,6 +1232,7 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	int i;
- 	int r = -EINVAL;
- 	char *origin_path, *cow_path;
-+	dev_t cow_dev;
- 	unsigned int args_used, num_flush_bios = 1;
- 	blk_mode_t origin_mode = BLK_OPEN_READ;
- 
-@@ -1274,15 +1275,21 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	argv++;
- 	argc--;
- 
--	r = dm_get_device(ti, cow_path, dm_table_get_mode(ti->table), &s->cow);
-+	r = dm_devt_from_path(cow_path, &cow_dev);
- 	if (r) {
- 		ti->error = "Cannot get COW device";
- 		goto bad_cow;
- 	}
--	if (s->cow->bdev && s->cow->bdev == s->origin->bdev) {
-+	if (cow_dev == s->origin->bdev->bd_dev) {
- 		ti->error = "COW device cannot be the same as origin device";
- 		r = -EINVAL;
--		goto bad_store;
-+		goto bad_cow;
-+	}
-+
-+	r = dm_get_device(ti, cow_path, dm_table_get_mode(ti->table), &s->cow);
-+	if (r) {
-+		ti->error = "Cannot get COW device";
-+		goto bad_cow;
- 	}
- 
- 	r = dm_exception_store_create(ti, argc, argv, s, &args_used, &s->store);
--- 
-2.47.3
-
+> Thanks,
+> Joseph
+>
+Best regards,
+Cen Zhang
