@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792819974;
-	b=XO2nFSYLTsbSo3v8Iai0TJfQjeT5Yq9KSwyBvabaHSBJLhsgqzjbMWnafQAHxt0eAQMO
-	 xFzAE6cBspR4HK9birTzfEhn4XurS6LnTWrr7POXikHbV8Tr73JmyvgCSEFmIbzsCRX4Y
-	 A4Z9vutp5tj3uP7QaLsTSopmyH5PoL1E/SjsHd1m9KovtENHCZ3dQmCSWmpHQ4ZCCN92W
-	 PUBg8I1HoAISs07Qu5XmGDame+dKVroJ2gfX9hI2vxdRp062rHeSnq+1aTye5+DW8vbTZ
-	 WBzsBl3pzxPJYy6WorYHud2ybagfhgHu+COznQVhj7GyYNQ/wdfSoz5SCJq2sjLhf+Q==
+	t=1792820033;
+	b=symjGwCrL36tWouk1tIMFIa2GUsKyyvd15LRZTgFGQkle7vzkP+XxvWYHlP7VP93Bx9O
+	 iSlxhY5IMQ2YQgW8wR8D9GVeO0C8HJjaTTlkSv5Qxure/ze4qlccVZveNDytzlOi9mn2g
+	 jAKYrDQsu4KB1+GgpQDhJqhfcAlVzIMYBd4kQMtzm85YI7ylvk6ELOAkAGiKZE4Ykqcxb
+	 7lVEm+MpTwJjoLrf9eRDwKX5FzZCcRieImhYF50Kuu3xniR1Jl94IwpXDYKKwqjqSOS8p
+	 ClhoGKwRvYQNtYAQCETDXrm4cwVgHO5JjhXtuNEmKEaVAoEVUEuMRbrHFiJTYSVHV/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792819974;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jZHFuBoh3O8SvdWvlL7mEgQWiQcN8okpZlrSpdY258o=;
-	b=i9+8+XiHv0mF3CjXHofMkQe1MkydisUGxDS9aUqqN44E2MFuD6aKAxjXtAYruqhkgluv
-	 YcPzQ/7D4sji5tVdnuHYTBDXsf68sHCWO2yxV7BgIr9spGWe6ZKxVsApRut+DQH7cXuy2
-	 qJphP6cLtzOv2iqOBhXxM+Y3cZ2M7sGLHq6SeBL6BbseLJ39s14zqaVRDZj6vhF+SCo3D
-	 EfENyPIwOU6Un+3NzCtmCkelgglP81rCbGOPf6xHjIYxuk0vzBKIovsLsAzN7XKpSElOE
-	 +HsykXu7mIWGh10Xgj7gXwHWj8tBCBosoQqPeCpz61Za1S6Mv9JkbryuFgnLnrPvzWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792820033;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bD4W43pUpXqutJS8BdTi6cNfD5w9bG7qp9SO761d/FM=;
+	b=OA2eMQDeXXTILDuLL4V8mYf4lSwQjmqKW8NRfZKAP6O8MaEgIvFZCk+oFg/Nen/WOLq7
+	 vcUDgH7CIPOhnFAT/8pIDcKYMUr9pmL3hLjyArOGpRB0m13BGllnM4ev+xWBsRNiFryZR
+	 XrRJ+iIYK+q0pkVXHEq7zTNrnMDloDDd1gZzljlbvnVYa2uy1GQS4x3wRywkpqYEReolz
+	 8p7Ntk3i754dpbOf2/CBxebW9HZnrsJK1GeJ1SQCKnwdqSMqzR8e98pY/gpY1mnC46IL9
+	 Sl2qTrk8ZkEYSQ0+Me1MwLnICxVIpcwKqWtueE6S0j9DcvCD1juonU6tFW5SoIFW7kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aksZiEgy;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jj7imCxL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D55606A331;
-	Sat, 24 Oct 2026 05:32:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57925606A32A;
+	Sat, 24 Oct 2026 05:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aksZiEgy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925C61F01825;
-	Sat, 24 Oct 2026 05:32:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792819974;
-	bh=jZHFuBoh3O8SvdWvlL7mEgQWiQcN8okpZlrSpdY258o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aksZiEgyHKSbd31vCh540tOm5q6v6AsQMCd1mWZIdK7W4rti5Q+P7DzE811VpsP9m
-	 SWbrTkhC9jIesYRProuV98r/2BAZfLDX1otBVJrk4r5QVSOcjL9a0YOA9Ge8xEa/fd
-	 AhPKd56cddMtHBnFXsFZrma/XMowwRHhVHyJT1RQ=
-Date: Sat, 24 Oct 2026 07:32:51 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: Salvatore Bonaccorso <carnil@debian.org>,
-	Pavel Machek <pavel@nabladev.com>,
-	"stable # v4 . 9+" <stable@vger.kernel.org>,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
-Message-ID: <2026102452-upstream-plod-9ed4@gregkh>
-References: <20261023163713.816071858@linuxfoundation.org>
- <atvHKoRHHjKV4l8A@duo.ucw.cz>
- <atvS68GhCvmAphrQ@eldamar.lan>
- <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jj7imCxL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9681F01829;
+	Sat, 24 Oct 2026 05:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792820033;
+	bh=bD4W43pUpXqutJS8BdTi6cNfD5w9bG7qp9SO761d/FM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jj7imCxL/O2GcEZ6WAJ2fvkEkHX/X98ciZQtykNn3xUJflybmBO/Fmqph0y2S7MRo
+	 BwytBJZ2Lyic/envHpJqoguzNSwUyfYaUHhPZpZ1IYp7Tv9Cy/NAaezxTS/P39AiqA
+	 PB/OxnWHFrW0BB1qhvb2JNJ7YoBokrnB/4fJI0RM=
+Date: Fri, 23 Oct 2026 22:33:52 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Samarth Narang <samarth.colleges@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Peter Xu <peterx@redhat.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Lance
+ Yang <lance.yang@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
+Message-Id: <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
+In-Reply-To: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+References: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,81 +58,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 03:44:07PM -0700, Florian Fainelli wrote:
-> On 10/23/26 14:34, Salvatore Bonaccorso wrote:
-> > Hi,
-> > 
-> > On Fri, Oct 23, 2026 at 10:44:26PM +0200, Pavel Machek wrote:
-> > > Hi!
-> > > 
-> > > > This is the start of the stable review cycle for the 7.2.13 release.
-> > > > There are 242 patches in this series, all will be posted as a response
-> > > > to this one.  If anyone has any issues with these being applied, please
-> > > > let me know.
-> > > 
-> > > Either something went very wrong with our testing, or this fails on
-> > > all our targets. 6.18.59-rc1 does not seem to have those widespread
-> > > failures.
-> > > 
-> > > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2982452623
-> > > 
-> > > Example failure is:
-> > > 
-> > > I'll look some more to try to figure out what is going on there.
-> > > 
-> > > Best regards,
-> > > 
-> > > 								Pavel
-> > > 
-> > > 
-> > > [    1.238864] Yama: becoming mindful.
-> > > L426[    1.238864] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
-> > > L427[    1.238864] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
-> > > L428[    1.238864] VFS: Finished mounting rootfs on nullfs
-> > > L431[    1.238864] BUG: kernel NULL pointer dereference, address: 000000000000002c
-> > > L436[    1.238864] #PF: supervisor write access in kernel mode
-> > > L437[    1.238864] #PF: error_code(0x0002) - not-present page
-> > > L438[    1.238864] PGD 0 P4D 0
-> > > L441[    1.238864] Oops: Oops: 0002 [#1] SMP PTI
-> > > L446[    1.238864] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S                  7.2.13-rc1+ #1 PREEMPT(lazy)
-> > > L447[    1.238864] Tainted: [S]=CPU_OUT_OF_SPEC
-> > > L448[    1.238864] Hardware name: SIEMENS AG SIMATIC IPC227E/A5E42630598, BIOS V20.01.11 03/15/2018
-> > > L449[    1.238864] RIP: 0010:rest_init+0x33/0xd0
-> > > L450[    1.238864] Code: 34 ff ba 00 02 00 00 31 f6 48 c7 c7 70 a2 e6 b2 e8 52 d3 28 ff 89 c3 e8 bb 2d 34 ff 89 df 48 c7 c6 80 db 85 b3 e8 9d d7 2b ff <81> 48 2c 00 00 00 04 65 8b 15 63 6e 45 01 48 89 c7 89 d0 c1 ea 06
-> > > L451[    1.238864] RSP: 0000:ffffffffb3803ee0 EFLAGS: 00010246
-> > > L452[    1.238864] RAX: 0000000000000000 RBX: 00000000ffffffea RCX: 0000000000000000
-> > > L453[    1.238864] RDX: 0000000000000000 RSI: ffffffffffffffea RDI: ffffffffffffffea
-> > > L454[    1.238864] RBP: ffff8cf23ffed080 R08: ffffffffb385db88 R09: ffffffffb385db80
-> > > L455[    1.238864] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8cf23ffed0ab
-> > > L456[    1.238864] R13: 0000000000000000 R14: ffffffffb380c040 R15: 00000000b43e8000
-> > > L457[    1.238864] FS:  0000000000000000(0000) GS:ffff8cf287953000(0000) knlGS:0000000000000000
-> > > L458[    1.238864] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > L459[    1.238864] CR2: 000000000000002c CR3: 000000000d630000 CR4: 00000000001006f0
-> > > L460[    1.238864] Call Trace:
-> > > L461[    1.238864]  <TASK>
-> > > L462[    1.238864]  start_kernel+0x7a2/0x7b0
-> > > L463[    1.238864]  x86_64_start_reservations+0x24/0x30
-> > > L464[    1.238864]  x86_64_start_kernel+0xcd/0xd0
-> > > L465[    1.238864]  common_startup_64+0x13e/0x158
-> > > L466[    1.238864]  </TASK>
-> > > L467[    1.238864] Modules linked in:
-> > > L468[    1.238864] CR2: 000000000000002c
-> > > L469[    1.238864] ---[ end trace 0000000000000000 ]---
-> > > L470[    1.238864] RIP: 0010:rest_init+0x33/0xd0
-> > 
-> > Same here indepently, but not yet bisected.
+On Wed, 21 Oct 2026 11:21:57 -0700 Samarth Narang <samarth.colleges@gmail.com> wrote:
+
+> replace_page() maps the KSM page with a PTE built from scratch, so the
+> soft-dirty bit of the PTE it replaces is lost. A page written since
+> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
+> a soft-dirty based dumper treats it as unchanged.
 > 
-> Same here as well, bisected down to: a0c935bd1f76 ("fs: add umh argument to
-> struct kernel_clone_args"), it looks like we need to cherry-pick
-> 14adbd5341aa ("fs: stop sharing fs_struct between init_task and pid 1"),
-> with that I can boot a kernel.
+> Copy the soft-dirty bit from the original PTE to the new PTE.
 
-Thanks for the bisection, I'll go queue that up now and push out a -rc2
-soon.
+Thanks.  My LLM review thing says:
 
-greg k-h
+: There's a separate, pre-existing problem with the KSM zero-page
+: path which is worth pointing out.
+: 
+: When use_zero_pages is enabled, replace_page() constructs the
+: replacement PTE using:
+: 
+:     newpte = pte_mkdirty(pte_mkspecial(pfn_pte(...)));
+: 
+: The dirty bit is deliberately set so that KSM can distinguish its
+: own zero-page mappings from ordinary zero-page mappings. However,
+: on x86, pte_mkdirty() sets both _PAGE_DIRTY and _PAGE_SOFT_DIRTY.
+: 
+: Consequently, a process can clear its soft-dirty bits through
+: /proc/PID/clear_refs, perform no further writes, and subsequently
+: have a page marked soft-dirty simply because KSM merged an all-zero
+: page. Userspace then sees bit 55 set in /proc/PID/pagemap even though
+: the page hasn't been modified since tracking was reset.
+: 
+: Your patch doesn't introduce this problem, but it doesn't fix it
+: either. The new pte_soft_dirty(orig_pte) check cannot help in the
+: zero-page case because pte_mkdirty() has already set the bit in
+: newpte.
+: 
+: I don't think this should hold up v3. Losing soft-dirty when merging
+: ordinary pages is a more serious problem, since it can cause
+: incremental checkpointing to miss modified pages. The zero-page
+: case instead produces false positives, causing unnecessary copying.
+: 
+: It would be worth addressing separately, preserving KSM's internal
+: zero-page marker without manufacturing a soft-dirty indication.
+
