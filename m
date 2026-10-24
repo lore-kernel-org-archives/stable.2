@@ -1,98 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792835685;
-	b=vJLWphEgLkFrXzqFI5GavACqNo3q+lmyT2G6q08StOtMggZqR8uI+cy2V2ml38yWLN7M
-	 cZpyds9gMWXGSW9ckxWs1UkJYbpEGB5VsIGutsqBqn2X++aEKAdGTwsxhun1EM64oi57Z
-	 aiPt/KgB1Df/2jcwqMLkQGqKe0f7m2MqqlgqiwN47QakOkplQvQ5Mh9OkVKUrVvmEu8qT
-	 pUXMtHWMidqTptWrU0J8yYDvodQUkpRa0UH22uC3okSy72ZsKTToNjCzgRFQ88lAetY8t
-	 SGZhBClDY0/iS9JwBBbK/8AomXF9UWmPjsCM8zkToymFTlaX4YQu3ahTac97Ej7Y/uw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792835685;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
-	b=DgCmQjp5j6w62KD5XXkLYSjXT3HwiT8FPxDNQjHocG5X1vK9Pr/+dfc5bblB/jdtxQII
-	 ltWkQ6ZxnuUBgweUZ+3acZ7Glk6X5ipw9ZxIilOTYnWP5yH5Uarf37T2O5xI/CL9H6CE5
-	 CKgxtxBfDFHmNql7xlC/d8WBI2amLLVNEk10jSaNP4dZWo/c/h2PtIt5MdS9ycOkbM85b
-	 22UVmb3PSFgkhUEV+OHjxLiHdIbswnOSzNoJ5KAv0OJdwPE00yomv6yPuK7chSJ+WeALw
-	 eZGqzpCvTzqDNzsETz6eYi9p2EjUDU7OpA+c93sT/xTS8UC1rUQiwo1Nn/TrBPgcq9w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=xYuLJUtj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792837826;
+	b=cTHKrG29qscBqhysiv7Ql+Ycz/CAanQmGtAsDaFEDN5VRxqH6Bx95FYgHwwckS+wWkxT
+	 9zf9RvtjWwyKi8gqZm/OYmgT4SDB5LCtWQl/3NMysfPxNaPtyetGguV6e1MfDRKBk0Dni
+	 KbY1zZohji9OjDZqYUuN0TLNFBdsVn8Qg4f9ubJ9od7fYdnOzcvLuW9FVgyH6RYWq17fr
+	 NwHuqKO5opzDzW8V40AMxAy0IN4bkb23M0k7wTueRDB+ic7QAKcABkGzApDJhDkGOLwyI
+	 UjGjEcBRmnlbMXzvaLxkLTOpsMgXlWkRiSkjn3gVqN6EJ8nJPXcHAdlHMyIvCcT99JQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792837826;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/wVlxKd4PkmwhXBNUJ7fMa3qr0NTWTnVoH3SdzxVHFs=;
+	b=PHXbwOVSOucXumP6buvwP3EBPfsl5vTbp+bArzWgwPix0JU2aSKfWMLdylSTM5QeOp0m
+	 JrG2Q8RML6rck7Pp43FXP6tWG1EhCWPgrx052b9px4g81wdhpeeveLlopc8yINhOovSaS
+	 iSkkr0ls+hH9N1HsjTutFNPJNS3aqH6cRAaqgz6YgD5NO0TFuw0FvPiRL+fyQIiAhcXkD
+	 IU3xr788BbhMLmOzKfUtay9e/4xJ/lFtL7kGvvKaDmx9xLOP8+erQ/IbX3D3cIKmFW2/Q
+	 uizkmIlvH3/OG/F8vwz7e7uPZTAzU4bmnCaCbOux6PceT1Bvu0yckMg17PgQgeJ+YdQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JR4Hm3zr;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DzzHCrAO;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B041606A31E
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B041606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1305606A31D
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:30:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1305606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=xYuLJUtj
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so1194639a12.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:54:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792835684; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bbA1fXALxLZTp8Hqwa0kTO31dLoVtAWRbyOFvWD/3+YjtdWj95EnRWNhP0Iuico5wf
-         cFui48A7Oy4O5NXbyMEEAuwkw4KKmBa5peyDeIe9d6NP+V+w5j4As6BGV8LjWMdVh3tA
-         1mzAMp5dCey4aTdQPP3gWaQrBRQY/Qdl6FOJ3SlYkIxAyv8Mz3od7dcIibF3i3/JdRBI
-         S1nVLYttPPdRjL1sU0pfntlnwHRRIbA7Cd29bM/iwEIkOxKVv35J1cunUFFNHvNaErlZ
-         vFoRkzFfSotvjnZLmxRrUs8YXm6I4Ek358xhOckHkp+GpxoUd/vXCgPyM2dk7IkI6bys
-         LFjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
-        fh=7rX9aX2ysdJ7ftXSGNaGBXXnSwF/YB9V+ZcF20WcfRE=;
-        b=KRFlKkZE+mqSBkrZMytxMxIQUcTWIqe9gzwaYSObdIvoX6m4oxI8u2kuAWeBbwvKHB
-         A7pXpuwS2RtpjTpgqh3iUyzoHMNFUkjHL3AnVh4Jx84vpr4A4ZG9Ha1Bpu3VpY3etcPU
-         hQFdQPQSRWokyNWETYM4Gt3i93aBFq50DKyDOWNwENncb7b7WfydVTwmZr+TtQuqPLo8
-         M48NaFdC29unBERumo/cq7QziRcdDWsVLtczvk2tG0kNKhP0OS7NapTPJOT+NA0SQFAZ
-         sTDx/UI05dQBN1Kr4TIusyGdUPx76AgGoBwtUFuhg1BnOeeHwmNfM7A3re3Z+p9fYj21
-         AlkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JR4Hm3zr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DzzHCrAO
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69O8obtb3828800
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:30:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=/wVlxKd4PkmwhXBNUJ7fMa
+	3qr0NTWTnVoH3SdzxVHFs=; b=JR4Hm3zrxlzl2KROHpnuo/Y+G+xQY+Rh91SDxh
+	ON4UdTwTEdaqJo9iJhSEbsGUlpGIbY4BuOplsSdlaKfUjrBRDh/MsilEspyGibnn
+	mxm/tnTSi9buCG6ZktCy/Bovfn6T69LLChKI/WW0N4xZSoVs4fsrvQGscgr7O4wC
+	hz+Xz9p7GHUdM7xI/Dzyb4MKTPYdOwEdD9GrSF6y3vG9NUHCrF8meBfKP7g2m2uU
+	4X5u41o4jum14bv0E5/llNPLeTVVoKPsdgWMGLSC0XO1YZqi2x433tWiTAgeyQRI
+	xTsMeiItdEBRC1FOz9ru9KgfikouDDoiEV6FNMkAUCpqu/ww==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgnuk8kcw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:30:24 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-18b5ee75447so6376319c88.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 03:30:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792835684; x=1793440484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
-        b=xYuLJUtjK7ChZW8JwqJRH//MAhrs4S+v2TQtv/Lhw8WgAaK7+KSJumkA3m+X5PiId6
-         uExYt+M9I+AQu1K306CriByd9pLvjJBxsXxWOpIBkKJkscDxEuWG3jvUZuD4qfMr5qIk
-         VoW5emT13A6ywa2xvsda9FgrnmkgBR7lbybCk=
+        d=oss.qualcomm.com; s=google; t=1792837824; x=1793442624; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/wVlxKd4PkmwhXBNUJ7fMa3qr0NTWTnVoH3SdzxVHFs=;
+        b=DzzHCrAO+wWJ9hl3A5fYeXoASNYXjYMfuiSYwyipIuX2XjjkWba5XHXufvad2eus9o
+         6IKLtnCgbBddgkktNkNKKzYoNcs0Mgq9PMXRSYcSM08eFur9NOO7n/Fgj8uBxzP9VRrm
+         6k/qJtNWqnNwB9bZx5qd0dfUfs4mre4PYTSd+Twp+p+RnH0P0DqStDSMoUv9nsuILfLt
+         Zwaaqq5SDaqzdZcj1Re7UlnYDKZfv1xMLxE0sCZ07xWVOU1S0SxUcdbMA2gOthX940OD
+         eSYQTgjZlejz//UT/2NN3r6AJxGyeSozWOJwTYIHCttcTPis8iZekjEaSsB7uXNs+Uzg
+         eZtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792835684; x=1793440484;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jSHUqM6sVNj4KA+FGbxHG4caWaVLve4l4npIRz/orKk=;
-        b=JIEGQYveyogTRoC5W+Z50oP/IDwc0ZDRqKvGl7T4+eZH3sSW7bmbDxMXqwogqBtk/2
-         UrCJ0vVq5PqUcp75ymupN27JO48ERlih2rWgtSm9xTW6INU5q/e945shthjJLVdSTQnd
-         v2cosnIJgKFAuqNgqUSd4ul9uoDJf1/y3P5xNC4P/JK3DXmcXyHMrj6Zto2xDwlq0b5s
-         8WW/nIFNqr9ZOrkpFqH0kJ/rJ7MYl04NI3uTP8kn7hwgMwu7bOYlpBfCwgD3YwjY8Snz
-         bOf3BscBUCnC2eJPTSvYAmEiyv/o2Nrn3inyd6tzEoXzjf3X28gW67NHZkJW56tS/15q
-         Xg3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwpeDx24dz6bwQL/xtdgdXbo2k41XUHc63repAt4YYpMJODhJ0srTiFSgUOukhg8/ts5kmkzt4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKp67NdenV8qfG/GBZaZoWHLDWE+OvMhMHsvFEDo2IAdbpoEZCW
-	gZiC5s5nTIl8CHiJbQo3CMfrFs9jUPkW9PJxFBF0u7TnID9GqboQBHQihE85aHhlGnejjAGq3vm
-	rJtI7WJ/d0kWkBK+kDF7Ggt7HgI4UJqAhNbrWHlKpkFWhpJvRF9w=
-X-Gm-Gg: AYBFou17U03/yveGARJfAodfU9esWubxZN/YbZAeidNjSyb8sk6XdD9KHuWKZJWG0OE
-	F7X5GTs9B7AIkdT8aFYrTZOid8KdKl7HgGm3dlCG17u5RLk9Jn72o7f5ERP5UKeFRNlsSHidu5g
-	ys0HhJ3NZEpos+izcThLHLGd0+KaxA5C4qEYNYWhlrJbrz3xtgidygtZbvoWcMn2q7bMdeTR553
-	bhlG6XAU9A3T++pTgvJ/e1eg5EwDfvkrbMRYcMBnqOkrs7wCLe/s449qPkRpHhi7zm6M8aqIL5/
-	oTPn3LxISgTssrzaKrGcJ0NVYB8VC676MX+MxEZ4/k6GfZKbKTjTyHWSo2Rw/wsaszEnEBWScmt
-	tYQ7gj/AfAjVcxtrUl28o/DRvOVXAZwhAmil26EIxUl36MYLEnnsdiKsC9GBEls1ouzGenqr4mR
-	hzM4CDNmFW8XW8meE=
-X-Received: by 2002:a17:90b:57cd:b0:3ab:884b:65a9 with SMTP id
- 98e67ed59e1d1-3adeae9c162mr1503965a91.25.1792835683692; Sat, 24 Oct 2026
- 02:54:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792837824; x=1793442624;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/wVlxKd4PkmwhXBNUJ7fMa3qr0NTWTnVoH3SdzxVHFs=;
+        b=gTnntlJB44IxQT0b7CsYrNOwg4g3WMVLRNJepkALZteoZ4npWlQzFaclR/qqis8QyR
+         IRd/Oh1VYCCk4twvQnQbebz4gVtTzTNZjE6wvSdPr8TuBQY3lZCzRYnxXHHMNrUtcJH9
+         WB4bmuwW22Ee9OBROdhYaxu5k1WBYr6qVIlw4YOi/wIW6XBfX0rYj/KIS/IbDneakMRG
+         rbRRnQ+xIe13NCSJLGHIAxGWw0tA3FYLSm0flUgj3ORIyB4SCgQJ4PLH+JpsJGS6/fbx
+         mfCBP5sFKXaVlnmtYk/mZrxZnhSJOqoBOhh0XXmWpl4lOekdpEwe63+WID/4rVNqziQ2
+         L12w==
+X-Forwarded-Encrypted: i=1; AKwUvBwPB46zGjnpsQ60zhYW7UgHMlLaU2fcJRsQo0p0zm1uLOXlLWwo4tLVX4BwFo7e3Rx3yz6G5Ec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbRtbvAV6061r3CPFchnH+qSbnYKhpHQBirh3O6K0p+/o1PCA4
+	yJQZzyf8sy4bPTz4K2ra0/IheAeYlrJkDvVWu/ypFjkHn4ZBOiQIc7mIXhpczsSHN1HAVmvVgjN
+	9TVVOydlflvc+G8f2poYp4M/Zrx2dcsRNgj0wgXUiv6IIYyWTV7p6z4/Htfhf5bLtyJU=
+X-Gm-Gg: AYBFou3P9mnDo/bfLmRhR9YjGk7+mBvmO2Tt9vjfFQG8Ia/yVOYz3qtPnNYdy1K9fC9
+	BYj0TRJIRKtfPGbHTg+AsgBaEkcCqVPknREd/1n48sll3mZ7mNTzd4YDibcX9Uj58EdcY8+TgCO
+	PXPc2u0NyTIEsgtEzo+/i1560myUz8ObkuNArbN/UOZxwmAmVieXZ3/5yCY5lDG/Ff2nXPzOZ6w
+	pItI30QXiOAXe+CXhXYt/swQ7KWmIrkyC532xSGvEh1uyAuvPng50bYFfAcH3bHz3888t1KL/Ur
+	f/ua4U6ugk48FZyHqYjpVsZcjxI717/0YC1LB9xSS1UQHB6c8i7b3mzj4fZZm1ZZmC8ZorhbSr3
+	3OlmX5pDlewtUvmE4JdiVQYw=
+X-Received: by 2002:a05:7022:e806:b0:145:287:ce91 with SMTP id a92af1059eb24-19935625d41mr2734517c88.14.1792837823969;
+        Sat, 24 Oct 2026 03:30:23 -0700 (PDT)
+X-Received: by 2002:a05:7022:e806:b0:145:287:ce91 with SMTP id a92af1059eb24-19935625d41mr2734484c88.14.1792837823386;
+        Sat, 24 Oct 2026 03:30:23 -0700 (PDT)
+Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d5a10csm6009441c88.1.2026.10.24.03.30.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 03:30:22 -0700 (PDT)
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: [PATCH 0/8] drm/msm: Assorted fixes - October
+Date: Sat, 24 Oct 2026 16:00:06 +0530
+Message-Id: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,188 +114,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
- <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
- <CAM0EoMmwNCHVNW0=Z_JWX_ZcT5Y1po1GRVScddOsevEvL8D-6w@mail.gmail.com>
- <willemdebruijn.kernel.30ca6285209f7@gmail.com> <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
-In-Reply-To: <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sat, 24 Oct 2026 05:54:32 -0400
-X-Gm-Features: AclHuK8x6YsYN68U8TrqczucCZRfN0vZR36J_wmmtKQG0gjq4OLQPKHjLwQKBEk
-Message-ID: <CAM0EoM=9GxDCHzpJF_bqcoh+7KZY6E=ZmOiMp7kfVK3bHZDppw@mail.gmail.com>
-Subject: Re: [PATCH net v2 2/6] net/sched: act_mpls: pull the inner Ethernet
- header after POP
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Martin Varghese <martin.varghese@nokia.com>, 
-	Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
-	John Hurley <john.hurley@netronome.com>, Willem de Bruijn <willemb@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK6I3GoC/y2MQQ6CMBREr9L8tT+h1YDlKoZFLYN2Qav9xZAQ7
+ m4jLt9M3ttIkAOEerVRxidISLGCPinyTxcf4DBWJtOYVjfmwk4k5YKRp7BCOPnCerJXDWvRdh1
+ V8ZXxO6t3Gw7OeC+1XY6R7k7APs1zKL2KWAv/+2ca9v0LYIEbl5UAAAA=
+X-Change-ID: 20261024-assorted-fixes-oct-1f981e99e677
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jordan Crouse <jordan@cosmicpenguin.net>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Luben Tuikov <ltuikov89@gmail.com>,
+        Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>, stable@vger.kernel.org,
+        kernel test robot <lkp@intel.com>,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792837816; l=1607;
+ i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
+ bh=DyAgCOzQ7jVke1cRXj/xTsJaF/hpi2aekJSSNzd4H64=;
+ b=eu3K02JLEDdzVu5Op//bUgPkD+OTgh73R+Jfv3KQZyWrr6XdtUexLwemhR2MynagjAeyPluZt
+ ymCt0lsJwx2AGx3D4eD5EXwFhu8lHy0I9Lhp7eUEkpOJtwiJhFqc9nI
+X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
+ pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
+X-Authority-Analysis: v=2.4 cv=Z8Z5j3RA c=1 sm=1 tr=0 ts=6adc88c0 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=HoIANuw4g2egeWD1xvoA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-ORIG-GUID: Ow50iA-ynpRG5agizGSf3nhp6pTlnECi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX1THYLi9UJLbn
+ jh/+mUEJphx03vEc/GAWND9Y5YH5mNQReWfW15RcrTRd12vggid8dcmjS2MM6S5hs9zzmTedUII
+ jYCR/qR56HT5CilIRqImcvJNG9btgTnVPCal/o2j8r5Rl3ZEuDjAkI3f4zJXwJd02zhqx+0/+Qn
+ 9MdItSyhnD7eh9WL33H1L0zFM69fABE7iQjZU6KvrwQvBSt0obsqVKMjWohw1BtPiQlMAlK2GXn
+ eh1RHeYA6dGWzC72WzoqKX58g2FU7loRQMLGkAvgnZaPTX3gY9Sx10QzgaA3QJr5Dq0O0rTf9ux
+ 5XrTSbe24i1dekLkqAUx5b8oysC6klV5Zlh/2mchw+DkZ0tKDHU58dve8u0poiT888GRq44qCqb
+ 3XpN/26+b1lWNGvil/2PQQm3HJ2CZNxgnv2uW8LdoHW/advxrpejwUBTFxZb0YmNUoGPIKrzQ0q
+ QAM7H3mOhP6GcqLtcLA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX2AeBmi/uwi9f
+ YOQoD72e9PQHygIpCnvg22O8OsDFIllNn/3nyyv46S9Sg0cCiMsCCYMzT9UL6Xj280SrChMQsW2
+ pkgHG9PLpMdm5tMYmPEJDRsOPMyCIPo=
+X-Proofpoint-GUID: Ow50iA-ynpRG5agizGSf3nhp6pTlnECi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-24_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1011 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240041
 
-On Fri, Oct 23, 2026 at 7:46=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> . On Fri, Oct 23, 2026 at 6:50=E2=80=AFPM Willem de Bruijn
-> <willemdebruijn.kernel@gmail.com> wrote:
-> >
-> > Jamal Hadi Salim wrote:
-> > > On Fri, Oct 23, 2026 at 12:09=E2=80=AFPM Willem de Bruijn
-> > > <willemdebruijn.kernel@gmail.com> wrote:
-> > > >
-> > > > Jamal Hadi Salim wrote:
-> > > > > The issue:
-> > > > > act_mpls POP can leave the inner Ethernet header in a page fragme=
-nt after
-> > > > > skb_mpls_pop(), either on an L3 device (mac_len =3D=3D 0) or chai=
-ned after
-> > > > > act_vlan POP_ETH.  A following eth_type_trans() can then BUG in
-> > > > > __skb_pull().
-> > > > >
-> > > > > The Fix:
-> > > > > After the pop, if the original MAC header is shorter than ETH_HLE=
-N, pull
-> > > > > the inner Ethernet header into the linear area and drop only when
-> > > > > pskb_may_pull(skb, ETH_HLEN) fails.  skb_mpls_pop() does nothing =
-when the
-> > > > > skb was not MPLS, so no separate state is needed.
-> > > > >
-> > > > > Conditions to recreate the bug:
-> > > > > - egress tc filter on lo: action vlan pop_eth action mpls pop
-> > > > >   (chained), or on an L3 device where mac_len =3D=3D 0.
-> > > > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a no=
-n-linear
-> > > > >   eth / mpls / inner-eth frame.
-> > > > > - The inner header is in page frags; a following eth_type_trans()=
- can BUG
-> > > > >   in __skb_pull().
-> > > > >
-> > > > > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation actions t=
-o TC")
-> > > > > Reported-by: Vega <vega@nebusec.ai>
-> > > > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb=
-7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
-> > > > > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYeeW0Fk_GK6ekR4=
-xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com/
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
-> > > > > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-> > > > > Suggested-by: Eric Dumazet <edumazet@kernel.org>
-> > > > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> > > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > > > > ---
-> > > > >  net/sched/act_mpls.c | 2 ++
-> > > > >  1 file changed, 2 insertions(+)
-> > > > >
-> > > > > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
-> > > > > index 4ea8b2e08c3a..5363bca892fb 100644
-> > > > > --- a/net/sched/act_mpls.c
-> > > > > +++ b/net/sched/act_mpls.c
-> > > > > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct sk_bu=
-ff *skb,
-> > > > >               if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
-> > > > >                                skb->dev && skb->dev->type =3D=3D =
-ARPHRD_ETHER))
-> > > > >                       goto drop;
-> > > > > +             if (mac_len < ETH_HLEN && !pskb_may_pull(skb, ETH_H=
-LEN))
-> > > > > +                     goto drop;
-> > > >
-> > > > Is this first condition needed?
-> > > >
-> > >
-> > > That was me conjecturing from Eric saying in v1 "...the check can onl=
-y
-> > > matter when the original MAC header is short.."
-> > > Since i have to send a v3 (Thanks Eric;->) I will remove it
-> > >
-> > > > More importantly, can it hide a bug?
-> > > >
-> > >
-> > > What kind of bug?
-> >
-> > Two kinds. One, if original mac_len is larger, gets popped and the
-> > resultant packet is still too short for ETH_HLEN afterwards.
-> >
-> > But this can probably not happen, as skb_mpls_pop only pops one MPLS
-> > tag.
-> >
-> > What this patch tries to ensure is that the subsequent Ethernet
-> > header is linear.
-> >
-> > The second potential bug is this assumption that after the MPLS tag
-> > lies an Ethernet header. Is that a valid assumption? Or could we drop
-> > a valid packet with smaller header.
-> >
->
-> tbh, I was thinking more about skb frags earlier.
-> You are right only ETH_P_TEB promises an inner Ethernet header; for
-> other inner protocols the pull is wrong, so I=E2=80=99ll check for
-> p->tcfm_proto =3D=3D htons(ETH_P_TEB). I didnt have this check in the
-> current fix - good you responded before i sent out.
->
-> 1/6 (act_vlan POP_ETH) has a similar unconditional
-> pskb_may_pull(ETH_HLEN). A brute approach is also to check for TEB:
->
->       if (skb->protocol =3D=3D htons(ETH_P_TEB) &&  !pskb_may_pull(skb, E=
-TH_HLEN))
->                 goto drop;
->
-> Note: skb_eth_pop() only removes the outer ethernet header but does
-> not change skb->protocol
->
+Few assorted fixes for drm-msm driver lying in my stack.
 
-I am going to send it without this 1/6 change - it just doesn't feel
-like good taste. I will add a comment in the changes to say i
-considered it but decided not to. I also spent time eyeballing the
-code, i dont think there's a potential way to craft a packet that will
-hit the perceived issue. In any case the 24 hour embargo lifts in a
-few hours so i am not posting yet.
+Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+---
+Akhil P Oommen (4):
+      drm/msm/a6xx: Check BX dependency vote index
+      drm/msm/a6xx: Reset preemption records across suspend
+      drm/msm/a6xx: Request CLX enable from secure world
+      drm/msm/a8xx: Add AQE firmware to Adreno X2-90 GPU
 
-cheers,
-jamal
+Jie Zhang (4):
+      drm/msm/a6xx: Fix GMU shutdown idle check
+      drm/msm/a6xx: Fix stale boot up BW vote
+      drm/msm/devfreq: Record idle_time at GPU idle onset
+      drm/msm: Fix sched_prio inversion within a ring
 
-> thoughts?
->
-> cheers,
-> jamal
->
-> > My LLM raised similar points and says it better than I could:
-> >
-> >   1. Missing protocol check: tcf_mpls_act handles popping MPLS to arbit=
-rary inner protocols (ETH_P_IP, ETH_P_IPV6, ETH_P_MPLS_UC, ETH_P_TEB).
-> >   Requiring ETH_HLEN (14 bytes) unconditionally when mac_len < ETH_HLEN=
- drops valid non-Ethernet packets shorter than 14 bytes (e.g. popping
-> >   an outer label to reveal a 4-byte inner label stack entry on an L3 pa=
-th or after pop_eth). Pulling ETH_HLEN only applies when popping to
-> >   Ethernet / TEB (p->tcfm_proto =3D=3D htons(ETH_P_TEB)), exactly as do=
-ne in patch 5 for Open vSwitch (pop_mpls).
-> >   2. Gating on mac_len < ETH_HLEN: mac_len here is the pre-pop outer MA=
-C length. pskb_may_pull is already a no-op if the linear buffer is
-> >   sufficient; gating on pre-pop mac_len is unnecessary and risks skippi=
-ng the pull when mac_len >=3D ETH_HLEN even if the revealed header is in
-> >   fragments.
-> >   3. Downstream metadata invariant: Popping to ETH_P_TEB exposes an inn=
-er Ethernet header at skb->data, but skb_mpls_pop leaves skb->mac_len
-> >   at 0 and resets the network header to 0 (skb_network_offset(skb) =3D=
-=3D 0). Downstream actions such as act_mirred (with patch 3's
-> >   skb_network_offset(skb) < dev->min_header_len check) will treat the p=
-acket as headerless and drop it, causing regressions in L2VPN
-> >   forwarding (tc_mpls_l2vpn.sh). When popping to TEB, the L2 MAC header=
- boundaries (mac_len and network header offset) need to be properly
-> >   established.
-> >   =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-> >   ### Summary of comments:
-> >
-> >   =E2=80=A2 Patch 2/6: Missing inner protocol check (p->tcfm_proto =3D=
-=3D htons(ETH_P_TEB)) before pulling ETH_HLEN; drops non-Ethernet payloads =
-< 14
-> >   bytes.
-> >   =E2=80=A2 Patch 2/6: Unsound pre-pop mac_len < ETH_HLEN gate.
-> >   =E2=80=A2 Patch 2/6: Incomplete header bookkeeping (mac_len and netwo=
-rk header offset) on TEB pop breaks subsequent redirect actions (act_mirred=
-).*
-> >
-> >
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c             | 31 ++++++++++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h             |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c             |  2 ++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h             |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c             |  2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c         | 37 +++++++++++++----------
+ drivers/gpu/drm/msm/adreno/a8xx_catalog.c         |  1 +
+ drivers/gpu/drm/msm/adreno/a8xx_preempt.c         | 11 +++++--
+ drivers/gpu/drm/msm/msm_gpu.h                     | 24 ++++++---------
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c             |  3 +-
+ drivers/gpu/drm/msm/msm_submitqueue.c             |  2 +-
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |  1 +
+ 12 files changed, 73 insertions(+), 43 deletions(-)
+---
+base-commit: 77cb3534193b758eaecd662a610a3a1bffde43ed
+change-id: 20261024-assorted-fixes-oct-1f981e99e677
+
+Best regards,
+-- 
+Akhil P Oommen <akhilpo@oss.qualcomm.com>
+
