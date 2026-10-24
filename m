@@ -1,52 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=87.76.132.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792873922;
-	b=PlnPs2yBrI+W8tak9h5SP1IKM74wUly7Ev4vzS7a5fnQssQO+WHhPCg2p2TyV4zMvGO7
-	 V4IgASYDdtxWKKd19/bW8eRsqxqAkA3DTQUVMfdlcooqLaa+6KhWlWog3Nj64x2tKwnhC
-	 diy3cDR+/5AWkvlZCly6746pWe/lQHiasdkmfefandevfpy/WIGSLuX9vYcIWKCNAv0Yj
-	 qadk/SvCX41p9TxMx0GHI+wD27yR5ZIoGpE8jQyR5UB9rtoeJuNZDzCAZ+jQckvHgJVN7
-	 mAhRXT/+SL5W57lNsAf659U4p9OgmDPqGez142VAU+T0C3RckK5JVtD9pit5n3Z/bbw==
+	t=1792875324;
+	b=eW+51H9wcBBCRuPced6q+7M8dL1TRTCCfp4DIL7FO5BbjWQZR1KT0FIpbFNKsVr849Kq
+	 3L4Rs2fJUC818I0S39HD77/rMgahalaLNMPOD+rKbmQBj9caztFWWLPlHGl+KQEGSCDBR
+	 V0Az3AZIyiisXsvkq5kUAwO15pmNXABcNCcKQpMZ3lmHooRb14bsJSlZDtU3w8j/ofKx1
+	 h0vlJaMhMgfCmpoXSnzu4HSRna6mUC0DVEVEUnFRHn/LvlCq3lB0XVsakLVMy4kZuHHwk
+	 KVLQ0rseGv708f20fKl03AUZ/3gmS8+eO6GbABwbzmfmJh8SgqtYm4XSVumbBhW6L6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792873922;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=l5wct3Hd9t4FUGB6vvm9V0pCMWIstiYpUK0gbi+P1wI=;
-	b=m1j+VhUR7HImW0u3D/7V6fjDCW0RDZJCxXjHyFmBwUfJjHcCjtMf4LsrHRYI29YZfCmR
-	 C0K5L5gbtwIPH84yAxfw2ZOQI11X78O032HI0Y4vSYsxMTbXrCFOUQQ4BytV2x4k1olNL
-	 GpU3BvnINWFREvpAOPisWwSvQP/dHnOzErFREDgsU5ceI5OhtUcdaXYyCDw1L5TvUJ0Ln
-	 CX+RkmcafKUbFENwWk3jZUe+rL/Ih4PHRpwXNOJ7+ppVyMublERycPZrdZhg8A5puU9l2
-	 /wjNPXXzaqum0FkV3RnF4apArJFW9QLxhPyWUlmFscnyH5PA0oE++2ReKlufQt+l00A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792875324;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ve8WmCW8F4Rw5XzULuSdxjLcAQpU0NBVvl/d4u+KnPs=;
+	b=ee81M5PvdoU7KUKJdPDfZnSARluAo9rZS2PSBGp83OnLtUJ9u5H5miJx3vXrBrDzXO9a
+	 n13V74MfDfwZaKYIZhFWw3bB6bvBV3X2LExqQdtreVgtEgl2lKHnbJy5SJQJdIEke+ssQ
+	 rnkis94rmdjXOUwnb2+452k5NxHRXp3PxkRRiyjtE/uuqLtfsmucOWQ+ISjJqoPZEOEyQ
+	 3KxOv1ESDP0POiFHHTPFKSk9wqadhc3fZ5CodGiim2oES51C7P5xAf+sG9AuZJzfXH9gV
+	 qQjUtowGQrAkSnbp97Gcg+gb0u6wbb6ha+tiQ8G+8bpL6nmB2pbdA+ZMcycmnPinQhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auth.ink;
-	spf=pass smtp.mailfrom=auth.ink;
-	dkim=pass header.d=auth.ink header.i=@auth.ink header.a=rsa-sha256 header.s=dkim header.b=BP7KOaVI;
-	arc=none smtp.remote-ip=87.76.132.165
-Received: from mail.netskyway.net (mail.netskyway.net [87.76.132.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="K0MCJq2/";
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D403606A31A;
-	Sat, 24 Oct 2026 20:32:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D403606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auth.ink
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auth.ink
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C4C606A31D
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 20:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C4C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=auth.ink header.i=@auth.ink header.a=rsa-sha256 header.s=dkim header.b=BP7KOaVI
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 82E7D3001AF;
-	Sat, 24 Oct 2026 17:31:46 -0300 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=auth.ink; s=dkim;
-	t=1792873909; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-language:in-reply-to:references;
-	bh=l5wct3Hd9t4FUGB6vvm9V0pCMWIstiYpUK0gbi+P1wI=;
-	b=BP7KOaVIGjsPXCPhhE3SUK8qaN6aEGgHuH/eeCjJEouo5Hdw2py1BaNczUIQIFRSGrMoT5
-	qEXDj7NsNMBMuUJfjKd7EI9tPef3eh7lg9R4yrlUjPF2SY/P2v/Lf54vm2gjki0d4rVjJ7
-	+IsnWjR8vaaBezMzmA2IZgmMYZZKWLak2PsDf4z82lJp3jasi8q9/U9b2h+AM9P0p8BQ67
-	m+E2zIal3pA0l0nfQYKTIMrlQNmGj5MDme713gw8z5QcSU5yvRDO8SvG/qlJcuNzucLdrz
-	2wUjx89zmy0m2N5kDy0uccUDWR8bYliaiQl2VxzZicRiHldjviNCYEPKI0X+Fg==
-Content-Type: multipart/mixed; boundary="------------Z18eoA5frGGVDyYc07TlEKcV"
-Message-ID: <1685aeee-c65d-4a8f-9bfe-607e13e114a9@auth.ink>
-Date: Sat, 24 Oct 2026 23:31:46 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K0MCJq2/
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1019758f8f.2
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 13:55:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792875323; x=1793480123; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ve8WmCW8F4Rw5XzULuSdxjLcAQpU0NBVvl/d4u+KnPs=;
+        b=K0MCJq2/or0s7v2cajYcC2plDUEAn1Ls2wm9tPSUUvWHqWvOe4XkO2yECI5t3bZbgf
+         Dq4zmbMVpC1vZrhWnQ6Tuow+OhdHM5ExgOD95+F3y/+s6FDY43iu91Ei9Ly384RdLgjy
+         Ro7scsjfFb9ljlQG0NvDvGATM3EdKD+QH5GJi+h0/bThDPNP9un/8wEMYuh1jxAwvKhB
+         kauemy80VsUMMHiX97iR9Dmym9pQGya9zO/ngXTbEzHVl/g9undO8jaClzAANC8bkeae
+         VvHeH7UjqsuBkZbTfcW4TPIxAFvJtAi5MWPmOCv0CqfF5rwRUUxOHpzHBN/RyXO4OhrG
+         PRTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792875323; x=1793480123;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ve8WmCW8F4Rw5XzULuSdxjLcAQpU0NBVvl/d4u+KnPs=;
+        b=R6Wg8asw4L802p2vf5Pj9UuPIgsb027gHO1d6EDXFPuaj8DRjUSlS2HOU+K09a/ZDS
+         apxEDNkV5lZy9ci3Yo9lRkpffE7noI+sFpYTVBvBxBey5yZAbdKTkbbQaTXC2FfVjfPQ
+         cARy/kIj7l0JHGZu+Qi5c+hncdPaZKPFyRzxfd07yTZXKQJvo3zxe43KpoYbxxan7SYC
+         Nn53/ISIjkVtgzpc8dspKAYKPFWH2lAIPV/L9YJDqBlhADFL1HPfBJwd9SzdmT0XZK/S
+         VmhvzIU+XurtYXtmX2woRfTY59/ckXYars6jNjfzoHp9k78Nfl84wqtXMPOENSjMOGJB
+         ZJ8A==
+X-Forwarded-Encrypted: i=1; AKwUvBztwIWp2O/BtbjXh29KxK3XXKfay2bP5UAr3Qq7xDEy7985VtZWcz7cnD4nQknI+NkowWFxOUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfZeiniener8GsyxSmEOfYSK/wFMSvdefPFHAM2WBxY1XKMzTB
+	+amE/ZvNSpTWoTBJ5SZzXNVaNyJBge1wk2z9reVWkU4j3tRF3KP+fGU=
+X-Gm-Gg: AYBFou0r1RITuvbBPIds5AgrfsWZHEipc1C1vfKzKBYyyytdfdQ3rSt8DROP5tuG8qc
+	uJqgvyitidXGcrF2YoaZx4vBX8DBGEjcIS4e/AtUmgFvsaFEjer8izTDg9+lGdTpWJNStIxoooR
+	798yMKuPsI8duhtOfmNPxZ1gI5JpPYD3tkb9AoDAjj6nuzd/SWUzxsdybOzFvm6/rBUSrZAAwiU
+	7+KywnJB6ufNkX+aD9lQ7xGs6PBwhMWLSU9XldxrkaA66jV5lExRvi95Tj3t8cwOlE4HpAE/bbT
+	I3BEHTvqZ+A8faGreTej7Zx1Tm+fs26v7g0IjBaX+/G/h3jqr2fWx/6fMNac4zJ/x+46MewIcVX
+	dyjPoZPIu9qBL/92LVbksczlykqBpehwCXPMb0fiYyEA+i0zcSEkm5fQShVBQCVuKdvvlmf7wv9
+	qiPwHhldJak8c6NsXI1IxCqNFxAJQ24sA7WtWQjW3DHaKRqmjUR2gGcN5kA5nzjXFw4OvAMgsHD
+	4ELe5zYl6XMUI9x7wJxmVYgBhzcUGDfVRN3Eox0aqCrpw==
+X-Received: by 2002:a05:600c:198e:b0:4a2:84c:52f3 with SMTP id 5b1f17b1804b1-4a35ac9d1c2mr50560545e9.6.1792875322481;
+        Sat, 24 Oct 2026 13:55:22 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4ba7sm6202889f8f.33.2026.10.24.13.55.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 13:55:21 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Hans de Goede <hdegoede@redhat.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Anssi Hannula <anssi.hannula@iki.fi>,
+	Matthew Garrett <mjg59@srcf.ucam.org>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] platform/x86: hp-wmi: validate WMI return buffer length
+Date: Sat, 24 Oct 2026 20:55:19 +0000
+Message-ID: <20261024205519.4029617-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,92 +98,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Tamir Awad <security@auth.ink>
-Subject: Re: [PATCH 5.15.y] af_unix: Clear oob_skb in scan_inflight()
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Cc: lee@kernel.org, netdev@vger.kernel.org,
- Rodrigo Zaiden <rodrigo.zaiden@canonical.com>, kuniyu@amazon.com
-References: <7fa31470-872a-4fb8-9c8f-51dce38e9190@auth.ink>
- <2026-10-24-1-daily-reply-0002-af-unix-oob-skb-5-15@kernel.org>
-Content-Language: en-US
-In-Reply-To: <2026-10-24-1-daily-reply-0002-af-unix-oob-skb-5-15@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------Z18eoA5frGGVDyYc07TlEKcV
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Tristan Madani <tristan@talencesecurity.com>
 
-i sent the patch as a file, Thanks for letting me know.
+hp_wmi_perform_query() casts the WMI return buffer to struct
+bios_return without first checking that the buffer is large enough.
+If firmware returns a buffer shorter than sizeof(struct bios_return),
+the subsequent subtraction on buffer.length underflows, causing
+memcpy to copy a near-maximal number of bytes and crash the kernel.
 
-On 24/10/2026 23:11, Sasha Levin wrote:
->> This resends Kuniyuki Iwashima's March 2025 fix for the old GC. The
->> code diff is unchanged.
->>
->> @@ -102,13 +102,14 @@ static void scan_inflight(struct sock *x, void
->> (*func)(struct unix_sock *),
-> The patch is whitespace-mangled and does not apply: the indentation is
-> non-breaking spaces instead of tabs, blank context lines lost their leading
-> space, and the @@ line above is hard-wrapped, so git am fails with a corrupt
-> patch.
->
---------------Z18eoA5frGGVDyYc07TlEKcV
-Content-Type: text/plain; charset=UTF-8; name="af_unix-5.15.y-patch.txt"
-Content-Disposition: attachment; filename="af_unix-5.15.y-patch.txt"
-Content-Transfer-Encoding: base64
+Add a buffer length check before accessing the return data, matching
+the validation already present in the sibling hp-bioscfg driver.
 
-RnJvbSA1OGY3ZjBjZjk0OTVkNGI3NGNmZjgwMTViZDYwOWE3ZTU5NDcxOGM1IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBLdW5peXVraSBJd2FzaGltYSA8a3VuaXl1QGFtYXpv
-bi5jb20+CkRhdGU6IE1vbiwgMyBNYXIgMjAyNSAxOTowMTo0OSAtMDgwMApTdWJqZWN0OiBb
-UEFUQ0ggNS4xNS55XSBhZl91bml4OiBDbGVhciBvb2Jfc2tiIGluIHNjYW5faW5mbGlnaHQo
-KQoKdW5peF9nYygpIGFjY2Vzc2VzIG9vYl9za2IgYWZ0ZXIgZHJvcHBpbmcgc2tfcmVjZWl2
-ZV9xdWV1ZS5sb2NrLiBUaGlzCmNhbiByYWNlIHdpdGggcXVldWVfb29iKCkuIENsZWFyIG9v
-Yl9za2IgaW4gc2Nhbl9pbmZsaWdodCgpIHdoaWxlIHRoZQpsb2NrIGlzIGhlbGQuCgpUaGlz
-IHJlc2VuZHMgS3VuaXl1a2kgSXdhc2hpbWEncyBNYXJjaCAyMDI1IGZpeCBmb3IgdGhlIG9s
-ZCBHQy4gVGhlCmNvZGUgZGlmZiBpcyB1bmNoYW5nZWQuCgpPbiA1LjE1LjIyMywgdGhlIHJl
-cHJvZHVjZXIgcGFuaWNrZWQgdGhyZWUgdW5wYXRjaGVkIFFFTVUgZ3Vlc3RzLiBUaHJlZQpw
-YXRjaGVkIGd1ZXN0cyBjb21wbGV0ZWQgOCwwMDAgcm91bmRzIGVhY2ggd2l0aG91dCBhIGtl
-cm5lbCB3YXJuaW5nLgpCb3RoIGJ1aWxkcyB1c2VkIHRoZSBzYW1lIGNvbmZpZyBhbmQgZ3Vl
-c3QgaW1hZ2UuIEFuIGluc3RydW1lbnRlZCBydW4KdHJhY2VkIHRoZSBoYXJuZXNzJ3MgZmFp
-bGVkIHJhY2luZyBzZW5kcyB0byBFUElQRSBhbmQgRUNPTk5SRVNFVCBhbmQKY29uZmlybWVk
-IGFsbCA4LDAwMCBpdGVyYXRpb25zIHJlYWNoZWQgdGhlIHJhY2UuCgpGaXhlczogMzE0MDAx
-ZjBiZjkyICgiYWZfdW5peDogQWRkIE9PQiBzdXBwb3J0IikKTGluazogaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvYWxsLzIwMjUwMzA0MDMwMTQ5LjgyMjY1LTEta3VuaXl1QGFtYXpvbi5j
-b20vClJlcG9ydGVkLWJ5OiBMZWkgTHUgPGxsZmFtc2VjQGdtYWlsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogS3VuaXl1a2kgSXdhc2hpbWEgPGt1bml5dUBhbWF6b24uY29tPgpTaWduZWQtb2Zm
-LWJ5OiBUYW1pciBBd2FkIDxzZWN1cml0eUBhdXRoLmluaz4KLS0tCiBuZXQvdW5peC9nYXJi
-YWdlLmMgfCAyMCArKysrKysrKysrLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDEwIGlu
-c2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL25ldC91bml4L2dh
-cmJhZ2UuYyBiL25ldC91bml4L2dhcmJhZ2UuYwppbmRleCBkMmZjNzk1Li5hNzMzZDBkIDEw
-MDY0NAotLS0gYS9uZXQvdW5peC9nYXJiYWdlLmMKKysrIGIvbmV0L3VuaXgvZ2FyYmFnZS5j
-CkBAIC0xMDIsMTMgKzEwMiwxNCBAQCBzdGF0aWMgdm9pZCBzY2FuX2luZmxpZ2h0KHN0cnVj
-dCBzb2NrICp4LCB2b2lkICgqZnVuYykoc3RydWN0IHVuaXhfc29jayAqKSwKIAkJCS8qIFBy
-b2Nlc3MgdGhlIGRlc2NyaXB0b3JzIG9mIHRoaXMgc29ja2V0ICovCiAJCQlpbnQgbmZkID0g
-VU5JWENCKHNrYikuZnAtPmNvdW50OwogCQkJc3RydWN0IGZpbGUgKipmcCA9IFVOSVhDQihz
-a2IpLmZwLT5mcDsKKwkJCXN0cnVjdCB1bml4X3NvY2sgKnU7CiAKIAkJCXdoaWxlIChuZmQt
-LSkgewogCQkJCS8qIEdldCB0aGUgc29ja2V0IHRoZSBmZCBtYXRjaGVzIGlmIGl0IGluZGVl
-ZCBkb2VzIHNvICovCiAJCQkJc3RydWN0IHNvY2sgKnNrID0gdW5peF9nZXRfc29ja2V0KCpm
-cCsrKTsKIAogCQkJCWlmIChzaykgewotCQkJCQlzdHJ1Y3QgdW5peF9zb2NrICp1ID0gdW5p
-eF9zayhzayk7CisJCQkJCXUgPSB1bml4X3NrKHNrKTsKIAogCQkJCQkvKiBJZ25vcmUgbm9u
-LWNhbmRpZGF0ZXMsIHRoZXkgY291bGQKIAkJCQkJICogaGF2ZSBiZWVuIGFkZGVkIHRvIHRo
-ZSBxdWV1ZXMgYWZ0ZXIKQEAgLTEyMiw2ICsxMjMsMTMgQEAgc3RhdGljIHZvaWQgc2Nhbl9p
-bmZsaWdodChzdHJ1Y3Qgc29jayAqeCwgdm9pZCAoKmZ1bmMpKHN0cnVjdCB1bml4X3NvY2sg
-KiksCiAJCQkJfQogCQkJfQogCQkJaWYgKGhpdCAmJiBoaXRsaXN0ICE9IE5VTEwpIHsKKyNp
-ZiBJU19FTkFCTEVEKENPTkZJR19BRl9VTklYX09PQikKKwkJCQl1ID0gdW5peF9zayh4KTsK
-KwkJCQlpZiAodS0+b29iX3NrYikgeworCQkJCQlXQVJOX09OX09OQ0Uoc2tiX3VucmVmKHUt
-Pm9vYl9za2IpKTsKKwkJCQkJdS0+b29iX3NrYiA9IE5VTEw7CisJCQkJfQorI2VuZGlmCiAJ
-CQkJX19za2JfdW5saW5rKHNrYiwgJngtPnNrX3JlY2VpdmVfcXVldWUpOwogCQkJCV9fc2ti
-X3F1ZXVlX3RhaWwoaGl0bGlzdCwgc2tiKTsKIAkJCX0KQEAgLTI5OSwxNyArMzA3LDkgQEAg
-dm9pZCB1bml4X2djKHZvaWQpCiAJICogd2hpY2ggYXJlIGNyZWF0aW5nIHRoZSBjeWNsZShz
-KS4KIAkgKi8KIAlza2JfcXVldWVfaGVhZF9pbml0KCZoaXRsaXN0KTsKLQlsaXN0X2Zvcl9l
-YWNoX2VudHJ5KHUsICZnY19jYW5kaWRhdGVzLCBsaW5rKSB7CisJbGlzdF9mb3JfZWFjaF9l
-bnRyeSh1LCAmZ2NfY2FuZGlkYXRlcywgbGluaykKIAkJc2Nhbl9jaGlsZHJlbigmdS0+c2ss
-IGluY19pbmZsaWdodCwgJmhpdGxpc3QpOwogCi0jaWYgSVNfRU5BQkxFRChDT05GSUdfQUZf
-VU5JWF9PT0IpCi0JCWlmICh1LT5vb2Jfc2tiKSB7Ci0JCQlrZnJlZV9za2IodS0+b29iX3Nr
-Yik7Ci0JCQl1LT5vb2Jfc2tiID0gTlVMTDsKLQkJfQotI2VuZGlmCi0JfQotCiAJLyogbm90
-X2N5Y2xlX2xpc3QgY29udGFpbnMgdGhvc2Ugc29ja2V0cyB3aGljaCBkbyBub3QgbWFrZSB1
-cCBhCiAJICogY3ljbGUuICBSZXN0b3JlIHRoZXNlIHRvIHRoZSBpbmZsaWdodCBsaXN0Lgog
-CSAqLwotLSAKMi41Ni4wLndpbmRvd3MuMgoK
+Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/platform/x86/hp/hp-wmi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
---------------Z18eoA5frGGVDyYc07TlEKcV--
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 615b4cf6fc451..81c0acc874f8e 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -697,6 +697,13 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 		goto out_free;
+ 	}
+ 
++	if (obj->buffer.length < sizeof(*bios_return)) {
++		pr_warn("query 0x%x returned undersized buffer (%u < %zu)\n",
++			query, obj->buffer.length, sizeof(*bios_return));
++		ret = -EINVAL;
++		goto out_free;
++	}
++
+ 	bios_return = (struct bios_return *)obj->buffer.pointer;
+ 	ret = bios_return->return_code;
+ 
+-- 
+2.47.3
+
