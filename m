@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793029590;
-	b=aVabjMLclIOF1Aox5syV6sTFs90TDfcH9zWNyxowFBHhuIBKL+HuzbF0N2CaTsRvHb2I
-	 WnANsyGPnojoNLFJ3hTbvQ6Zu0p0+Kc/ps8p6802ElbroOMlUvRXDxP+gzB5ouU4fXjbE
-	 g5gn5C5OV4XORC4yUUFsgpLfEsNQn28MNYnzX0q0BFjoietigLO0ROqn80MvKH34BeOWM
-	 qEQOeqkDb5cba0oxgmtYLiigM2cA+6htPQG2MRytjxRT6zOuEyzy3D3M/Brv/GBJdEnPA
-	 lGTNWOOS8wcWJWjLhlNars4i+EH55bCKD56AzlzUjJIeEtBXAWanubiKousJ062SX8Q==
+	b=pDpfuArWIfvAwIM67XKPc/W2JUfIMo/sSP8x94WpRUhgWv8baoD1Dsjx0QlVeOWKklmE
+	 Tq2IjdVMNHNdtF1au4f8BM3qNXyuVfrD1sXXfVvCZK6+ZVDJvVUav1LI0Y9FQMir21c15
+	 hwb/mZvBccJU3Q8Z6mcNDdT/5Vz9JWSQNaf0OK4KitbY8tzrh8tYB/r8hLv+eW/7/sjTV
+	 1t5EZ8SmfOsBLjxDSYkJ2Do/D9TIO2MJA3UkxHX55B98+nslnh6UVfkq/N7mThI38Fx2K
+	 Q1r132exYLpHd/V1K/S8CvUVhoBzqIjA459d94NUMyfQhH7mHmSLvr13JAp/ueD8K8A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793029590;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nByaPGifWhdymgTv0l+Yl389VEYp9ZKjAN6bLOnaRG0=;
-	b=FJbDhETX1uCgzq1r3FCWd1amxfEmI3SkXw9ZPMpjB5UKT3xL7GGyAAviEkvn3PHY8bZr
-	 FgUgqUE+czAmDQwILwcHe4hZQI9CUshByZm2+GAd6COq7steI9d8JLkLC1pJJhoXc9kLa
-	 2/AkqJBMY2xy0HCT5vCbkPevc5+8r36lBW0CnIrlTnBU/bCOC/nIvgBqsvGzHmfIc02z4
-	 D90jUB6uc4T9n5Lj58qNWtUvmkjg+fTqvL0cPab7pLsG0lRmW3VFvC1SFehf4H0XWO+Vt
-	 np+mp2lf2tyGoggjuN55N7MRKi+71hdjxHz420IGUtAGUNkl1NlWrTAzVEK5pEiZXrQ==
+	bh=ypy55PQIRY/Gie/kAEltN807fD7sUXsm8MivRuhOtp0=;
+	b=ZoD5zP9VK2h36Tlq7aDue+qH4uPnj3Lo4XhDDgYSx2Ki0jX1FIJi79jYXVq6oV6FCoN8
+	 Vr7NdbNIC+FLAl+DTa13Qa93F6awT7OEbmgV3Qy/2YeLHH/AuhcPboJYY9adcnPiuwVrx
+	 hR8N1COXMrA63f89DUtiHeoC81z44DNdNHcrHrtHgtZMzX+3jIzswbMs8mwmD/HHQj4Tn
+	 smuG8JNV+hKfGGuscLaeQtyr0wX9cYuV6X8Hqx0yzi7J4kA6gyqS2vm3g0nVGbt/v/FG4
+	 DZ39mgBqgFalA54/NPVO84kGiKYuyAz6V6C5ASwg9T7jE0z+LXtgzBOEY/4GzsqSbEQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BGPMJO+m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxkyZSMw;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18AF606A328
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:46:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66456606A321
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BGPMJO+m
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxkyZSMw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793029589;
-	b=kXgsud4fJj1SFJUKGh3IDcrQuunMzk3wRvivES/bSlNRm6d6z+AzAfBILv+V6K0MEDDj
-	 Y/bvucdbQhTEOeKoj7Y6xxTAGqzTF7W/O0VPJvPYeWDam/fP5PCs0ooWuGqyY83vJgecw
-	 RhquU2mJZqON7bDEk1kTYVuY/Vu9lshgBMdwwO3n755g+mlTcTj1tDj2b3oHhxLtd+uTb
-	 ji8lPTnOyKoEavmhEyi2JMrd3Xo9jEOYJsceBF29Z/7eMtyRdQKEMmTeAFmXzS+TykmGc
-	 U0+iAc3N/lJQJDsZ+r/dEaJKPRAeg7NMbchzt6lpdkGo4tbHIzk5M9cnAzZIn8Q7TEA==
+	t=1793029590;
+	b=bHWDoVTyot6lav2YnPBuJqiGioEnFWEtz2xnJM4Ohrv7qn6ZwXz/OMMWMU2fDExJu+a/
+	 FZN8AkDw95KpsX0Tvv9rmu7sldPoNG9Gzwp5zL4iB/H0lNXM9tS40AvuUFhKBP4jLjWMB
+	 IvRnC7PZbxg/HYNYQWl4tNVI97Uhg1qzNq6zqI67Xcbn8N0bxodiFDT0rU+cnfMXMf04/
+	 +JFd0NnI115lDp+tUy2zSR6+v4Mu+D0cNofGG1Lv2+fljvX7IBCueCNtwEA/MfMzghU33
+	 I1OqdaxLmYBlq0YxQETKqTDQSMJqtMf7zRYDHdGzgtyCYaW2JJViqlw8AFXQkXh5j5A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793029589;
+	c=relaxed/relaxed; t=1793029590;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nByaPGifWhdymgTv0l+Yl389VEYp9ZKjAN6bLOnaRG0=;
-	b=NZUcvd3KvTYOH0Hb8VyGlGMGpOxQ1w5lI2ARoQHpzgZHxTYFOmVrT+kBFsVwp2q1tars
-	 tp5g3gzcGpEEIiGt8hLdSJhlGBPpC6hJdVAMpPLqEdKecVUE6+/aevhT+4+B/mpDpgTk8
-	 CcnWd8UEjcUlhKqyB3GHsHGT6XZz53t7BUbKGmxEWbVPtCmJNjyCARn5DI6JoKpcAHI27
-	 BJsZBSNeVkf2u7/S321RECxp/NzuK4DvxDzq5pQX9ZSWLNgsJ5fI3Nk5NTzCo1czhzdXH
-	 v3OdqX7inGEDzHyFL4di6fJb1Y+Wb88opX5ACBUPX7ClDN1uyzIRwHMj4mwds4hJKsw==
+	bh=ypy55PQIRY/Gie/kAEltN807fD7sUXsm8MivRuhOtp0=;
+	b=pnpLceg9osSJy1i20ijmJs242xomQMYpk/tlyxaCFeU2UVD5+Zj3SVgIdaMEYYldH4VC
+	 CEBVzWQ0i3rzvrNhDVmO/YDOa/eiFUs99Iu7yAhVsk3ynIeq/STuW0rlBhA5hJlfkpAuq
+	 u7nmdK2nMNRxaVnmx56zVE9eSsokvqW5gDDTMkWHZQ7wpz3bBzd1UCpEK6Mv/6GlKWq97
+	 FDRARQoUO+GvBimlDo8YSVq9ddd9XysvPlHDdzy/2EVoJd/EcwfupWG248w5ITM/UF3w3
+	 HUSFD04z3LmGxFOhuPxBOABt7OwvOGngh6rsQNRdKDqk05xMsFZLkQ2ZtSJ2Vft3gfQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0A0C41F031E3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 100991F031E4;
 	Mon, 26 Oct 2026 15:46:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793029589;
-	bh=nByaPGifWhdymgTv0l+Yl389VEYp9ZKjAN6bLOnaRG0=;
+	s=k20260515; t=1793029590;
+	bh=ypy55PQIRY/Gie/kAEltN807fD7sUXsm8MivRuhOtp0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BGPMJO+mPq+KWQptfZ0eFm72ZXPZ6ZisHruSX2K4jXboNbOm941x4lDodeZ1qh0Zk
-	 alNqFZ/xwxadfHpA4ushtRlPr+Sc51HFhghnkdJvGQWx5GRt1QwvcmXU+bPE/ewO7u
-	 HtMPKFNBkYHdpfkfMWzDk4VR0ug0+WDimdRhtQYQejUnDCecc8EODhGxkEh2WhM/Dr
-	 K9BX6luVQW54Y7VZQvTlIu+JYWkadaTnWC6HpmCfw2jsyAjxshSIhSMaCGW99KR6ta
-	 IKs+tt3J0QHH4SL2yRkzXzTUP/y6ZKA4/I0QwPN1nr9IxjSt74Ossf7QjnwlJjvQC9
-	 FoWIP8v6z+2fQ==
+	b=TxkyZSMwP+xTp3M0/BTClMBB2EMsh57X1al07sxuUgxyckLMsZaCFfvI6SSKFtUOb
+	 X1g34FbfT4cDUsxBQLF0YAuq5dfbKnvHFGM0T2LBUwcfeNCXtHGel//2wN6fFhiMnv
+	 VeSOXVgYS32NDUiez5/KV4SzUgbyA125z/peen2d8PskXoZcT8rwUkpmCcHZvwiKHi
+	 GRwUuvybsJuoM/KICV4ZEAAstwApQRyCejdnMhw86Pdd7b9d/ejeMU6voO2lFFuGIW
+	 b8L+diseAEPlsCuNFKREZg07p5ZHHYNc1A9wAx/9V49alwr5nGXhJSpOqR9lozz7B4
+	 O1T/VhJVnoAbw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 704FF44D51;
+	by lkml.kernel.org (Postfix) with ESMTP id 80D1144D61;
 	Mon, 26 Oct 2026 15:46:28 +0000 (UTC)
 From: Leno Hou via B4 Relay <devnull+lenohou.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 13:35:03 +0800
-Subject: [PATCH PATCH 6.12 1/2] mm/vmscan: wake up flushers conditionally
- to avoid cgroup OOM
+Date: Sat, 24 Oct 2026 13:35:04 +0800
+Subject: [PATCH PATCH 6.12 2/2] mm: vmscan: fix dirty folios throttling on
+ cgroup v1 for MGLRU
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,20 +84,26 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-fix-mglru-v6-6-v2-v1-1-8c9b40f9fc24@gmail.com>
+Message-Id: <20261024-fix-mglru-v6-6-v2-v1-2-8c9b40f9fc24@gmail.com>
 References: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
 In-Reply-To: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
 To: stable@vger.kernel.org
-Cc: Leno Hou <lenohou@gmail.com>, Wei Xu <weixugc@google.com>, 
- Zeng Jingxiang <linuszeng@tencent.com>, Kairui Song <kasong@tencent.com>, 
- Chris Li <chrisl@kernel.org>, "T.J. Mercier" <tjmercier@google.com>, 
- Yu Zhao <yuzhao@google.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Leno Hou <lenohou@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
+ Wei Xu <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792820120; l=5683;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792820120; l=3276;
  i=lenohou@gmail.com; s=20260311; h=from:subject:message-id;
- bh=nKAzG19+qMzUxs7SJjNjH/nBPOniYdoxadIdZNRaLLU=;
- b=hs5esTyf1IUbt08zd7+Sw38VRY1s12/NwQfFxT+xddn4b5GK084d27pabGqpQQsTCd2zzXIM+
- xLNYwoog8NdDaGeZT9Se+vWZLD6WbW46zAaHKvoER0DoWvRC/qA5ZiF
+ bh=JnVRp/o3pn75fe9dOg9lgs8yva4bEL6E9tCoeF7HgKg=;
+ b=Nx1C3LDTRC0lBwysYQHdw6QqeacDi+EolkMCy1P48+P2rKgJNUYORm4e7888i2pVBYUBx2NoP
+ PVzhUyWz+mTCGkoMUqTEnDCqyg8PfKAYVZtC2VWnIH2v+83R60To2fZ
 X-Developer-Key: i=lenohou@gmail.com; a=ed25519;
  pk=8AVHXYurzu1kOGjk9rwvxovwSCynBkv2QAcOvSIe1rw=
 X-Endpoint-Received: by B4 Relay for lenohou@gmail.com/20260311 with
@@ -108,160 +114,77 @@ Content-Transfer-Encoding: 7bit
 
 From: Leno Hou <lenohou@gmail.com>
 
-[ Upstream commit 1bc542c6a0d1444559ab75823a89a94d244bf933 ]
+[ Upstream commit 13b6b620910436c29dea398382e83c9499fd13e4 ]
 
-Commit 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle")
-removed the opportunity to wake up flushers during the MGLRU page
-reclamation process can lead to an increased likelihood of triggering OOM
-when encountering many dirty pages during reclamation on MGLRU.
+The balance_dirty_pages() won't do the dirty folios throttling on
+cgroupv1.  See commit 9badce000e2c ("cgroup, writeback: don't enable
+cgroup writeback on traditional hierarchies").
 
-This leads to premature OOM if there are too many dirty pages in cgroup:
-Killed
+Moreover, after commit 6b0dfabb3555 ("fs: Remove aops->writepage"), we no
+longer attempt to write back filesystem folios through reclaim.
 
-dd invoked oom-killer: gfp_mask=0x101cca(GFP_HIGHUSER_MOVABLE|__GFP_WRITE),
-order=0, oom_score_adj=0
+On large memory systems, the flusher may not be able to write back quickly
+enough.  Consequently, MGLRU will encounter many folios that are already
+under writeback.  Since we cannot reclaim these dirty folios, the system
+may run out of memory and trigger the OOM killer.
 
-Call Trace:
-<TASK>
-dump_stack_lvl+0x5f/0x80
-dump_stack+0x14/0x20
-dump_header+0x46/0x1b0
-oom_kill_process+0x104/0x220
-out_of_memory+0x112/0x5a0
-mem_cgroup_out_of_memory+0x13b/0x150
-try_charge_memcg+0x44f/0x5c0
-charge_memcg+0x34/0x50
-__mem_cgroup_charge+0x31/0x90
-filemap_add_folio+0x4b/0xf0
-__filemap_get_folio+0x1a4/0x5b0
-? srso_return_thunk+0x5/0x5f
-? __block_commit_write+0x82/0xb0
-ext4_da_write_begin+0xe5/0x270
-generic_perform_write+0x134/0x2b0
-ext4_buffered_write_iter+0x57/0xd0
-ext4_file_write_iter+0x76/0x7d0
-? selinux_file_permission+0x119/0x150
-? srso_return_thunk+0x5/0x5f
-? srso_return_thunk+0x5/0x5f
-vfs_write+0x30c/0x440
-ksys_write+0x65/0xe0
-__x64_sys_write+0x1e/0x30
-x64_sys_call+0x11c2/0x1d50
-do_syscall_64+0x47/0x110
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Hence, for cgroup v1, let's throttle reclaim after waking up the flusher,
+which is similar to commit 81a70c21d917 ("mm/cgroup/reclaim: fix dirty
+pages throttling on cgroup v1"), to avoid unnecessary OOM.
 
-memory: usage 308224kB, limit 308224kB, failcnt 2589
-swap: usage 0kB, limit 9007199254740988kB, failcnt 0
+The following test program can easily reproduce the OOM issue.  With this
+patch applied, the test passes successfully.
 
-...
-file_dirty 303247360
-file_writeback 0
-...
+$mkdir /sys/fs/cgroup/memory/test
+$echo 256M > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
+$echo $$ > /sys/fs/cgroup/memory/test/cgroup.procs
+$dd if=/dev/zero of=/mnt/data.bin bs=1M count=800
 
-oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=test,
-mems_allowed=0,oom_memcg=/test,task_memcg=/test,task=dd,pid=4404,uid=0
-Memory cgroup out of memory: Killed process 4404 (dd) total-vm:10512kB,
-anon-rss:1152kB, file-rss:1824kB, shmem-rss:0kB, UID:0 pgtables:76kB
-oom_score_adj:0
-
-The flusher wake up was removed to decrease SSD wearing, but if we are
-seeing all dirty folios at the tail of an LRU, not waking up the flusher
-could lead to thrashing easily.  So wake it up when a memcg is about to
-OOM due to dirty caches.
-
-I did run the build kernel test[1] on V6, with -j16 1G memcg on my local
-branch:
-
-Without the patch(10 times):
-user 1449.394
-system 368.78 372.58 363.03 362.31 360.84 372.70 368.72 364.94 373.51
-366.58 (avg 367.399)
-real 164.883
-
-With the V6 patch(10 times):
-user 1447.525
-system 360.87 360.63 372.39 364.09 368.49 365.15 359.93 362.04 359.72
-354.60 (avg 362.79)
-real 164.514
-
-Test results show that this patch has about 1% performance improvement,
-which should be caused by noise.
-
-Link: https://lkml.kernel.org/r/20241026115714.1437435-1-jingxiangzeng.cas@gmail.com
-Link: https://lore.kernel.org/all/CACePvbV4L-gRN9UKKuUnksfVJjOTq_5Sti2-e=pb_w51kucLKQ@mail.gmail.com/ [1]
-Fixes: 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle")
-Suggested-by: Wei Xu <weixugc@google.com>
-Signed-off-by: Zeng Jingxiang <linuszeng@tencent.com>
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Wei Xu <weixugc@google.com>
-Tested-by: Chris Li <chrisl@kernel.org>
-Cc: T.J. Mercier <tjmercier@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
+Link: https://lore.kernel.org/3445af0f09e8ca945492e052e82594f8c4f2e2f6.1774606060.git.baolin.wang@linux.alibaba.com
+Fixes: ac35a4902374 ("mm: multi-gen LRU: minimal implementation")
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Leno Hou <lenohou@gmail.com>
 ---
- mm/vmscan.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ mm/vmscan.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 4197e10a27b6..a165f685216d 100644
+index a165f685216d..43b808e4e9f2 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -4913,6 +4913,7 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		       int tier_idx)
- {
- 	bool success;
-+	bool dirty, writeback;
- 	int gen = folio_lru_gen(folio);
- 	int type = folio_is_file_lru(folio);
- 	int zone = folio_zonenum(folio);
-@@ -4961,9 +4962,17 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		return true;
- 	}
- 
-+	dirty = folio_test_dirty(folio);
-+	writeback = folio_test_writeback(folio);
-+	if (type == LRU_GEN_FILE && dirty) {
-+		sc->nr.file_taken += delta;
-+		if (!writeback)
-+			sc->nr.unqueued_dirty += delta;
-+	}
+@@ -5431,8 +5431,22 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
+ 	 *  If too many file cache in the coldest generation can't be evicted
+ 	 *  due to being dirty, wake up the flusher.
+ 	 */
+-	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken)
++	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken) {
++		struct pglist_data *pgdat = lruvec_pgdat(lruvec);
 +
- 	/* waiting for writeback */
--	if (folio_test_locked(folio) || folio_test_writeback(folio) ||
--	    (type == LRU_GEN_FILE && folio_test_dirty(folio))) {
-+	if (folio_test_locked(folio) || writeback ||
-+	    (type == LRU_GEN_FILE && dirty)) {
- 		gen = folio_inc_gen(lruvec, folio, true);
- 		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
- 		return true;
-@@ -5075,6 +5084,8 @@ static int scan_folios(struct lruvec *lruvec, struct scan_control *sc,
- 	__count_memcg_events(memcg, PGREFILL, sorted);
- 	__count_vm_events(PGSCAN_ANON + type, isolated);
- 
-+	if (type == LRU_GEN_FILE)
-+		sc->nr.file_taken += isolated;
- 	/*
- 	 * There might not be eligible folios due to reclaim_idx. Check the
- 	 * remaining to prevent livelock if it's not making progress.
-@@ -5203,6 +5214,7 @@ static int evict_folios(struct lruvec *lruvec, struct scan_control *sc, int swap
- 		return scanned;
- retry:
- 	reclaimed = shrink_folio_list(&list, pgdat, sc, &stat, false);
-+	sc->nr.unqueued_dirty += stat.nr_unqueued_dirty;
- 	sc->nr_reclaimed += reclaimed;
- 
- 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
-@@ -5415,6 +5427,12 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 		cond_resched();
- 	}
- 
-+	/*
-+	 *  If too many file cache in the coldest generation can't be evicted
-+	 *  due to being dirty, wake up the flusher.
-+	 */
-+	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken)
-+		wakeup_flusher_threads(WB_REASON_VMSCAN);
+ 		wakeup_flusher_threads(WB_REASON_VMSCAN);
++		/*
++		 * For cgroupv1 dirty throttling is achieved by waking up
++		 * the kernel flusher here and later waiting on folios
++		 * which are in writeback to finish (see shrink_folio_list()).
++		 * 
++		 * Flusher may not be able to issue writeback quickly
++		 * enough for cgroupv1 writeback throttling to work
++		 * on a large system.
++		 */
++		if (!writeback_throttling_sane(sc))
++			reclaim_throttle(pgdat, VMSCAN_THROTTLE_WRITEBACK);
++	}
  	/* whether this lruvec should be rotated */
  	return nr_to_scan < 0;
  }
