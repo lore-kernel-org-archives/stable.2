@@ -1,98 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792806787;
-	b=jb+h7HiVrcIwxNBAyXwg701fdSGnhWTmrSGQ7w9/ObJWGUTr7qHYoJOlljYmyu6yoD3U
-	 otA4tTF5gtQathYiXc5BEXNyghbaqWmNxY2vpr5dnnUd5TNp5Dk9o2S0MgYQvdVbDfH/L
-	 uQgKw1hWbOSYP5OfkRzXAZojaqv/x86epwugGgAiJ4Sdh8buEHiZJhmACv4ZqKSQmVT3z
-	 AlpjHMn7J696FGKbifYqiV54vO19tQ+YIUZLMQiCTcKLeRHks8pCykIsL3KMX/7Rl0qff
-	 OHOMWDQ3AhaKBAkRNa4Ad2ZHMhogV+6ZsASrNVJDpcta1GvKQ7JcZjFFJEdi0VGINDw==
+	t=1792806943;
+	b=TLKX2pQL8rRmDV/UEWiFAhi1q8xG0NXHlYQnRKj4BKnL8Jt6RDl+g1CcFkcuB1UXi91R
+	 Wh8Krq5RuxTwq4iSOIr/DUYesAMAr4SjnAlf1U9Fjdw93sC8CBDgvnJgnJElqGJgdn7Bp
+	 w343g+S+PkzPPUANwL5Dt0EymRdJe9hMQjP2SiRNdMRgcdEwx7wnJ0New1/stbtgvO5S9
+	 zeEbUWb6yQNQHuaa/hgTgarjhY7rmjbekI7IUFxRB590Flpqqvu4OyVEHbVdJn50Zqxm0
+	 0JrIdWTap4YiNAPKH3RDa/6cVU4bkO7/noM8S4n2jYBDsI5xdUUtABreTWHnIu9A79w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792806787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806943;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
-	b=2kfEe7w0N+p/ZNv+AE1lK50oZccX/KTXw9jld2uje/bTSTQLZCp0hUbFvxIUObUVaSk4
-	 +Xvz1fGW3/0dNOYhiQJKIgZ53VptvSh5kVv6OKPr7ttbgo/mEmcq/59FvvNILg4fAVznp
-	 uKDviRWvK9TgJTAVXpNfot+2gcMvJqXgddutHDdM/TunyL/F71EEQ3xmXHa9q93Z6PUVd
-	 k8KR1BGyuLORmSYjFsu+8Iwe658RBB8I5asoPSYcD5/wO4yvXy+a5cYiD9ujaURmlDqu7
-	 GcsaiuK7bXD6m3rUZTz+Yke7OkEzQEklNfu1xXWzW2b26E1ioflenG9Fs7Pm522TMUA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
+	b=h8fTjtULtXq2A9o+sLBfb8NMXBS1y4mHqABTNJEWpnWaO+8VHHZYBea/UTCVj6mV6kwa
+	 GBbP1+1gmEIQMzejuuB5TmPaYyZeezJSUCHunQAV4ob5IRrzFjVFhrZIJGWGvaaYj5U/n
+	 ZoO3TQ04R1hjBUU3dt7Q4T93XmgX/7o7IlzDE3XVowudVw07OqrniAbAdAInkF61ZQHBY
+	 89a8CQ0EBD69HrCKlosgRKv5RQtAIfQIsGklZhyHIyR8qWlZap7ECXKNFvbXj+YX+Vc8E
+	 myot/BptoQ6NFsjEdKQ1Kg//MIxmAcRQDru+mfV2dhm/2l5Df+lLgM7BXmryXufCB1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Nlbsh4UO;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDED606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:53:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DDED606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF84606A31B
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:55:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CF84606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93cb9e9405fso69144685a.2
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:53:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Nlbsh4UO
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso2581294c88.0
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:55:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792806786; x=1793411586; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
-        b=qJuEGuiiTo4qSSJz7+E1oluEgXCF5Q7bIkPpU+mVQJxKqdJQl0qn99fQARIHEz0SLf
-         7Zq/R5fGJcEoYsDfI4rKiSj6X2gKELccAr9cvephMMb6R69nQL5BERqC1sdoe72MomTI
-         nfJ1+BFPu8ya8iOaDBmS1HPMjKmwWP2cYv7U3FUlsTJBHFsyo/cnHwyxD57v1QJAf1uF
-         EL9xd+P4nRtom4L07elrIoZWOPmB5+/hTi9vtr8wIVbw5rafwGWXAek60zJP3O4vNzkR
-         w+j52awfLN3pFwyE80YIl7wuJOP4FQqA6jyPp/b4f+bgLReMowERYR/DpctJgX5Jj/lp
-         Vi6A==
+        d=google.com; s=20251104; t=1792806942; x=1793411742; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
+        b=Nlbsh4UOoFahNOoAuPj9v5HGS1pWjjXyDelKFUfWeIl/2wsq76INs9hLZSw1vRPHLP
+         PHUdbHiAcP2EYgQl4gowcoeh7tvDjvjksgmM+ACgDSdPeLJRQMeW3G91mctym84XiPkp
+         JzJ5un+AD4vb/0YTZJiG5tVFwR+9NDlSIjvFrlTVIgvG+OJ5SZm2pYyeJ5oxZZyhp/vT
+         LALC5IojEVkKlPHfITvWrT2nHkhC7Gr1KxKdfDlE2TYa0aehuG8PZbdyXOcD14zoPhIj
+         JZ2hhzqAyZKvtNSmrxziWKv3L3VM0mNhlyCsk7dPIEfBTmjF3wrUMk+RpuAyICwQkqmf
+         Lnpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792806786; x=1793411586;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792806942; x=1793411742;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
-        b=njj6O1KkSqoxfvjKiDQf7sE2MIlqKwGdPZgyzXZ1osIfpkjQfwVaP+7NEY1x/9Th3M
-         JyloQfUxHcYXObyLo1YLtwjJ1Fa5J68ScZ4lMFPvc1XesH0bFHxwijLWmcKDld8Fvkdw
-         lDINsTBGxYWovkh6H8TYTmkN4h3PpsAhEm2e6DJStdxAArpyYsxN2In6cTiqi3EaFrOc
-         FxldtLAH8Ob2H7zX4696sT1UJ8oivL13uYmDugpGRhWuQnqlYIyiiDzFtKtLs5zh1rqN
-         VwH/o45TVZAsOqm5uhcG1HsQ/lXTNZlkq8RSeO/uuQHXMXul1HtfERx+otTqlJYfKpHm
-         TqdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBydzet3dVrSqWHfKBHsaXvyun1CemhDiJoMY/7xuGgaPZZYTOt4YxwjuDI7GzezKqSVOC8f3qQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs8Mc+hlB7pGW+vlVTe6Syh/oCvhlDcNSnzfQFarIVVaPwh2C5
-	jJeP+0v1GImq9DjcXaHfw1HEkxtHl5RWdrfsRxBoqjeGOFls7QnwowrvN8OImOIQFA==
-X-Gm-Gg: AYBFou3J/wOyD8uiWNPD/7qke4onIlfRCLduJBhvTNWdfhDGiMFmCCD/iFQOOms/495
-	i6vFHFUzeL/JioQ0aW3mxG5gxkk3fFjfzRi7oPkJITiusBP34aNsTEN7sWAJy07b+ypZ23FfRpo
-	TobT7tY29mpuEd3fEyq4HHUUkI6IfR8+39zN62kMlyqZU5BsjuWq8OE2yDixk9+LYzeCd/jxRBZ
-	iN7/FXJHDO3XUqYCUPC43wjf+GAhsGTemkKiJgMFknKYmMfcT6Xpy0ZXLeZjd9gDEz9qDsialGf
-	86EGAgZXxCqmtW+8hSTvBz5lsgFxVmPsYCpPXJbqK6wtXAg/Va/YnmKOcXwECb/lJqvI0k+A7hv
-	nIaFZRNABfCWYun72H+g8umw1JkYpiT5PL+eaZ8uFj1C01Z2ZpflrbmCJHfN++VXS6Fh0Svr2iS
-	v5JJlugeVbnP0kimgi8F/lyrDTikgaVHmZaXx1CxJbsvn4lbiGeav9dcLrEPtsKUqS55/SyC+FN
-	Pb4XJ/qFJr+nAcU63PAsB95N6k1ydazD82+oQTEEOtsexujHqtFx4OSK5yMJ/8/J7EE2Q6UCfuv
-	pw==
-X-Received: by 2002:a05:620a:271d:b0:93e:ad16:9590 with SMTP id af79cd13be357-940ef94e80fmr107135785a.36.1792806786139;
-        Fri, 23 Oct 2026 18:53:06 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f06672d6sm62365285a.12.2026.10.23.18.53.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 18:53:05 -0700 (PDT)
-Date: Fri, 23 Oct 2026 21:53:02 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: IgorpetinDev <igorpetindev@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: core: hcd: cancel giveback work synchronously on
- stop
-Message-ID: <d95ba108-30f2-4c86-a47a-2b842b8cb25a@rowland.harvard.edu>
-References: <20261023174015.54793-1-igorpetindev@gmail.com>
- <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
- <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
+        bh=NgwkcAh7G7TyRAJ1hK5wESY+6h2tjx7+XcYt+feArG0=;
+        b=BpKexVUy+74gyEQh+kmfQ4PAvnQH3TsB/AkQr0MfLfbTnm7XZ3QyluWXVv1OcgehgZ
+         HXRADhSTx54e0DVLLUdv1fwr8oFHHHYHC0lI4AJMhiWWuEvo18/aywg/F8CUHIkCgh4p
+         IfbuD0G91Qf9lMsfBwFA0tm3X6d7HbznorZ6Nb/Ejy+NahqaXsSbD/4Tz9rhSgXGTRdu
+         Xv1lp5woeQo4zzfa2hegKxgPqTBRuyIBlABTm0LRkSYKcywebrr14/TiVaravC4T1oNv
+         +fyp02JygCPaDGOsCV6OiRM0XgrrUFe1NTizax3/gT5sgAYY0Eii6ylOF9PJP5D7vsG0
+         aa7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAZcABd7dlPPZ+Qe5OixhBNPv/SJcB+4LbvoeNCbfqrEOW0qtB8U9ONzPJhyRShNnJV4oicIQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXz7LtggFedDusOe/WD/6ZTFuCC2MU+TKgBxkd9dmWeqoSUxgy
+	WqjvvCyTM+MPgBSt14j8XknKdUHPTzoG7uItyMukq/16FSCQZtrQj9n7+V8PA3GUwpBZSSLp/vv
+	v/aimUsodpGb0MJK4ZyXdk0+f/w==
+X-Received: from dybta14.prod.google.com ([2002:a05:7301:6f0e:b0:368:2c6d:de10])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:e990:b0:197:b597:c441 with SMTP id a92af1059eb24-1993f3f1820mr1399557c88.47.1792806941376;
+ Fri, 23 Oct 2026 18:55:41 -0700 (PDT)
+Date: Sat, 24 Oct 2026 01:55:40 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,40 +75,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261024015540.538758-1-almasrymina@google.com>
+Subject: [PATCH v1] vfio/pci: pass FAULT_FLAG_WRITE to vmf_insert_pfn_pmd/pud()
+From: Mina Almasry <almasrymina@google.com>
+To: Alex Williamson <alex@shazbot.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Peter Xu <peterx@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 23, 2026 at 10:31:27PM +0300, IgorpetinDev wrote:
-> Hi Alan,
-> 
-> Thanks for looking at the patch.
-> 
-> I think the bot caused some confusion by talking about stranded URBs.
-> There are actually no pending URBs left on the list at all. The driver
-> properly killed all of them.
-> The issue is a race inside usb_giveback_urb_bh itself. The function
-> usb_kill_urb() unblocks as soon as __usb_hcd_giveback_urb() drops
-> use_count and wakes the waitqueue. The caller immediately wakes up,
-> finishes removal, and frees struct usb_hcd via usb_put_hcd().
-> 
-> Meanwhile, the worker thread on the other CPU is still running the
-> tail of usb_giveback_urb_bh(). Right after __usb_hcd_giveback_urb()
-> returns, it tries to access bh->completing_ep, bh->lock, and
-> bh->running. Because bh is embedded directly inside struct usb_hcd,
-> this access hits already freed memory.
+vfio_pci_vmf_insert_pfn() unconditionally passes write=false to
+vmf_insert_pfn_pmd() and vmf_insert_pfn_pud().
 
-Okay, now I understand your concern.
+In insert_pmd() and insert_pud(), write=false skips marking newly
+inserted PMD/PUD entries dirty/young via pmd_mkyoung(pmd_mkdirty()) and
+maybe_pmd_mkwrite(). Furthermore, when vma_wants_writenotify() is active
+on a shared writable VMA (for example, after CLEAR_REFS_SOFT_DIRTY
+clears VM_SOFTDIRTY and calls vma_set_page_prot()), vm_page_prot is
+downgraded to read-only so insert_pmd()/insert_pud() with write=false
+installs a write-protected huge PMD/PUD. Subsequent write faults enter
+wp_huge_pmd() or wp_huge_pud(), which invoke vma->vm_ops->huge_fault()
+to upgrade the entry in place. Because vfio_pci_vmf_insert_pfn() passes
+write=false, insert_pmd() and insert_pud() see !pmd_none(*pmd) with
+!write, do nothing, and return VM_FAULT_NOPAGE without setting the write
+bit or splitting the huge page, causing an infinite write page-fault
+loop.
 
-> So all URBs are already completed and bh->head is empty, but the
-> teardown path still needs to wait for the worker thread to fully exit
-> before the HCD structure gets freed.
-> Would calling flush_work() on both BH work items be the better way to
-> synchronize this without the concern raised by the bot?
+Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
+dirty and writable.
 
-Yes, I think it would.  After all, it's just good form to flush or 
-cancel a work item before deallocating it, if you can't prove that it 
-must already be idle.
+Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+Cc: stable@vger.kernel.org
+Cc: Ankit Agrawal <ankita@nvidia.com>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+---
+ drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Alan Stern
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index fcbb2da860e2..204d959086e9 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 				   unsigned long pfn,
+ 				   unsigned int order)
+ {
++	bool write = vmf->flags & FAULT_FLAG_WRITE;
++
+ 	lockdep_assert_held_read(&vdev->memory_lock);
+ 
+ 	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
+@@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+ 
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
+-		return vmf_insert_pfn_pmd(vmf, pfn, false);
++		return vmf_insert_pfn_pmd(vmf, pfn, write);
+ 
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
+-		return vmf_insert_pfn_pud(vmf, pfn, false);
++		return vmf_insert_pfn_pud(vmf, pfn, write);
+ 
+ 	return VM_FAULT_FALLBACK;
+ }
+
+base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
+-- 
+2.56.0.257.gf7497c7d27-goog
+
