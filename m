@@ -1,114 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792860427;
-	b=dsO4v09sPzAgPDOsfuX8ZrGpIGPCFa1bOKmqULAD83DOQp2mUdjxzAhQ4A4X9lXE+34y
-	 UugAyW/EnNaDUj4poNCEjj0kzpvL3tdCRDiYvE1O6GULZK4WwbtOw0dzJu7pk6M6sRypK
-	 Bm8hbtVdqcbJ//xWcapXVSaOdV4wQH8/7C/N8lazY3tfG2JrRn9zfr8nyuWIDn712moiD
-	 3853MWFXSM530qvVah14NSpInrugBbjMNxC7GM2xZk70SjtxoWHgLduzaIl/VtVRl5AU6
-	 7SWIrzeUVsRtQhbnQveD5K59HfHHhl2f3sfg2LxoExR52pLZf949a2oNtcTFn4bOPFA==
+	t=1792861464;
+	b=F7cp6OI/hzEFhSJeqmsP7Xa7EKQT5HO6oQ+BQ5mWu8xSMIHrZ4z7NGrWs7PA7Jv5nHWk
+	 QtQHnFW5hZXEeu2grZStP3itwY6zWkQsrhv7wzcpCNAPNv+ljftNjGCorOXm9FAFHwfjE
+	 dI0yOWvN3BYhiui6cSrcmjNPDsvcz5lWJGXi31BmXFSfkQg+jzb0QUQGHcRY6IZht5+HC
+	 C+Kfz75LPRv2xQrUiGEp1y9IOE6gWM6jWWM2QwuOerersDi4LiGQiMm5YVJU1qECAB2W9
+	 wsIzddeXZZagbrwzamOJHyuMckqSFX+PnYDRvyrd9bm2Zl4A3jZ4DitNAH7ovJBCspQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792860427;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=g3jJ/aniX5kGUGfAlghqlj05kG4xZJjBRp+ULqjc2Gw=;
-	b=XI+xg0Av6dKH2QIixoACNoB6+kSuhHxTrqzPnSijB6qh+sD5A+4GY+a51C/S9WBzo3KZ
-	 bquOB4ujhykRwKsiiqdpC8KFp/pbRiVa+nlAoWwLQfoRK1CIWocgVowLhS+jo+j9EBLZH
-	 +lzoNzAIQxV5ofxeOvAGRL7c9kovdskbFXdzKrkqv7ckv4d3+elsPU7POqsubTbrPx5nq
-	 8ZL78eGzlnQ8ukFTG/QRPhtFlZ/rf3sKyzu0Skf+3hms00uISxBJVrw7l10B6SyNPQGhU
-	 yAHzOpF4V/pA1qtk16YtoYhSJNSiTjBP7dFQhOkmx55vh0hPoRkesJdi+OA89xhfybg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792861464;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=liL9s3OOZysVhjqCpf+L1Cp9m5KqZk+Ut2WGL7E2egU=;
+	b=28ZkI+XDURVyaAUgAfd3wZydMN1ye4aAQgDOhvBdwHK7E/CtktOGlShmLDj/4y0IiYRh
+	 1Xq1x6iaokZQU73oFdgWlxT4h3Dvi3SrXZYLp/4MTvqNmel4Qb0lwICoYad1Qx3mueCtQ
+	 DJZPzpISLj2z3PLqOz2LDdLS7W8lQhZtsBrpeSj3gq5lEMOosirYENfq3l5FycsMilcyz
+	 ZFE0h1e8NhnQtO3ApsoUnzT/InWZXbzXW1pbjA+MqXZG5TvEioERGmCmmGzI7TtyE7Gg+
+	 WJjOhjj8dD5D4MynUsCSCyYSDa7AbrASW5FELvIDK6Vi3kKzR7/3ZCoj37C1qapdr1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=temperror header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JYk8KFES;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y9rEqULr;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hjlJwtbm;
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B479606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 16:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B479606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F310606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 17:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F310606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JYk8KFES;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y9rEqULr
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 38C3814000F1
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 12:47:00 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Sat, 24 Oct 2026 12:47:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1792860420; x=1792946820; bh=g3
-	jJ/aniX5kGUGfAlghqlj05kG4xZJjBRp+ULqjc2Gw=; b=JYk8KFESW9t3uw6qBy
-	hI/PwK8AqQ6yFbUahVBIP3PjU6CXfJXb9WPnV7uu3tF2oOc7h19sWTe5Vn+uepxK
-	+g3XKFjl/uh6IbtXhJ8v+WLl9sO9rkqghmOBYePhoMfUDLgb6tu0Fcz8YfzGUi5k
-	ziD0/WwbVb2b9zlbSTkqjOIYf9M8KEtVsoh+smN8WaE0HQ7zeUwfHYD53fYR6s0I
-	0PwWW8IxsZ8lqDoWOK8GQr0QvIiDvoAjtuBuurVixNJIC7rBFgkQrdkCSiSmSdPO
-	q8dV620jP+99WrraFbAvTMLJpzKu0oMX17uE9kiP1YJWYRdKPh7gyMrNhc0ZjHaF
-	BtgA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792860420; x=1792946820; bh=g3jJ/aniX5kGUGfAlghqlj05kG4x
-	ZJjBRp+ULqjc2Gw=; b=Y9rEqULrYK0Ug1f0iANDinyqNxnGSkCXSHIU9Na5/SGv
-	z1d/4jjs6CEFnUvsiqHefkTjD6j2SYY/sLClTWH9/7stLnstl5XAx2ZLwy1Zz6k0
-	/VvthJlQckvYmlCVr4s6VGuFW08jjsJ1Up088kzVdOnVgMHpr1QmAZ4Ap3Yd9+fm
-	ijPs0g4CG4WJ/k0MDQLESaAJIkIQanAoVnQHYYcK8JJ19QKKXjFvm2UpNN3hxsun
-	dlEqKRFno179Vav2JEllVqisjGqd7I9Doq5eh9k1vkrAy6VEiORQCKhceeISDzoX
-	EARnXgPaCEoAmnFHGQ4Jp5i0GdWTeqZK21vuWiLcww==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792860420; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:MYPsjWfQUvXudVlV/8LS3r1W+eqjvqGiTpu3+1yWjv2DeNH
-	ZsYiPB+sgjPNnceCpQyshLUnU2r0M001fb+8bBaUVQwEzDbnSXoZZErQoQ7ps42m
-	2UEZTK9hxbtnvtK4IG8vfKghnpBGtpZGVYq+aaasDA9+LRglVlsRtuHL/gQ1Nc13
-	6bD9JY43ol34/1EdkOcAlIyY06r+y2gWpn9gVR6k2Iy3H8AAfqFHobpTepJ+PlsQ
-	WC7jYDoZCxQEyVa395L8mf8zOcblxYpjw77gNJ8PyqbaC33y2swaQn9muLjoHFWT
-	aOIASwKuljFklPyGh3ZkodBAyrxLNv0kganLK0w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:2V7vfyQFvagtebhP31LBhTs9FJNOAs1HcL4UqvhRpTM=:ETcdozBN6Ckqw0KqFUtuQqq3PRcymZDjEiff/o5nYy0=;
-X-ME-Sender: <xms:A-Hcar0r6yysYVq4VsjiXryZ_6TyMiEWaA9aZBHCj05-Y05FhOCy5A>
-    <xme:A-Hcal9AjpiUGToQub6dA0TsiPl28k7m08W1LQ83cTjPDiUyUch4W4uX3HgynSXbC
-    WBkKFhcAccel-uIt6RSVNQZ-25WJBwC4sH_Z4t8imkVjScvaKKUvspM>
-X-ME-Received: <xmr:A-Hcao7dxUubB5i9BBbMeatKL7vDhjgPQcYgYPk1VWx8j9RqA6-nAE8JiZGjNIoTkCkAP9-t9Iy38NglR5VORSsbHx22Gv39fdA>
-X-ME-Proxy-Cause: dmFkZTE2M4sKdu9IXP/yF3S2UenmF60GkjF+Ba+YLrK8eiTG1IZ0LHx4YFF6nwNNknF+Ep
-    eH6JdyxLINrYvBw10zwWot8XIez8Ww9JXjzi05CRq++lBGhIgidceLLn2R2kBm+4TYOneJ
-    5oTwS+2icLsbqK4lfMCd0uHS24aq8DV3cnbKS0aGN/ueBLbqwfR1cv+uG2P8lZtrv8QPqe
-    75I6yUWPgsWW3qjQeHwOMmI7RWsN8FSHRL50sDQUEjzvY3NsK5CLJg9yPLnXJgothjgsim
-    IGsq9sq7Tm9qis4lOMZW8QkDZK25JtmRCKhRAZHMOM2mpk10CcdfE5Gh50pUj6VCjHtSGE
-    OFYS/yjRyCTH1Xjyrmtgwg9Mex9izuo8T0Gq3FCIABEdUg9FykWtfgqDv2e2qO6Tbmvg4a
-    4hAAcB+D5/uYG3Kv/hicQzMiFpf3Xl3V8ceoUmvfGNxReB1sjI+nKj+144QvT6wG3xrnEx
-    X9rlM/R4BoduovaQx78Hux9xbMN/kTQmJLtbdWDYenkMOGw/dkBtOA5xwcXeF7FtWleW4u
-    QPTF+cu8kO6kp7ewtcfvGT08hrs4dUFlCFcImonrekEdWxfDC3xEvgfSp1a8U+ibuDDgnV
-    6Us8lyERJO8hmpRrSTEbIFiVwoP1XtQZzcIWbbMVFQdFkYbL8r8K3j9SiqMw
-X-ME-Proxy: <xmx:A-HcaltUZihd2XSitSQx6i3qr3NlO1ywXrvEUTOVK7HviKr8eIyluw>
-    <xmx:A-Hcai3mkJl3njrqHBGha5El-MFmX2LT8yHO2ap3coAQkVFvHJKaIA>
-    <xmx:A-HcamqsqPv9AiBaHy0eY7Pv-dq21IXoHF6KXxitCMvJ2bSGv9JpWQ>
-    <xmx:A-HcaqI7-9WUj_BL0uKpSjBbdMYOwkNXveqrHixaHuZ9omAUbxUMpA>
-    <xmx:BOHcajZTGZnP-bB7RKe24vnLYd-WAnXMVMIsx8QeVe8fG1jO23e_MRAq>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 12:46:59 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Date: Sat, 24 Oct 2026 18:46:54 +0200
-Subject: [PATCH] PCI: apple: Avoid PERST# deassertion through gpiod
- initialization
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hjlJwtbm
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-537548b811aso8266041cf.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792861462; x=1793466262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=liL9s3OOZysVhjqCpf+L1Cp9m5KqZk+Ut2WGL7E2egU=;
+        b=hjlJwtbmHchJtyzdan970kA17Un7oxYq8/9Noasmq9qAybX7aCdsF+FsDf1Vyn2kXY
+         kYOEtsTrZYiO1npfi4vA9wMVYnb3LiFTvCt0jayupi1vdjSGU7pVFMm+Q2p5XXxqPkv0
+         6I5p82Ly5zpcJKX4lqhrZ0APv64wiDrPF/OuiX5NaAou6NuArSAUfd96+/T8CW5GwGb1
+         8oh17dK/3RE1hhLFwabbXNafAi53bs6ZFrN2rG98mtvPzevsmWzOySVRBcL6A3Ug9AT0
+         sZK4p2skd7a0GQahbcCHxG+obdjFbWb28QXvhjS3Dc/hG3mZgp+hf3xIuS+NHrcDUrZu
+         /LJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792861462; x=1793466262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=liL9s3OOZysVhjqCpf+L1Cp9m5KqZk+Ut2WGL7E2egU=;
+        b=SJhrywjk/0K6/bZu5GdPcJSvy8/S+wRarEZclVQ02z1PD2hFDn8rl72z/UuVo0YryO
+         kgG3VAOiRkA+Q/TA7NT2cY7qLywleeAuRfZI7qlm3Q7MiiBpozJ87MhryfPgmDGSIVN6
+         PTNAVdLnhe95a8Ga7Rl+zGb5rvXm1vnZ4THIKOqOufvQvQrVsbAS8yQQeHq+fJcnFINW
+         fvcSwSvQc3ckyugVt7/MA9jwlImLbnYJZU+j2LXbT9DdYKsdxzMuaFh9zPVGX9JeiinX
+         0/Hp76y9VgfqFfgPQrYUjfbTPyTwBgFozB0FVEPYmwMVbt4q09PVWGLVYXiZxnfjiglW
+         Uhyw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSShERyoRJT5IOnrUtAr6fMv5BvlRzn1IApjG3DDyr4pFeHyADSIj1LpaoS6Z/AnZQiAgQJUI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAneq6wzEJuICQBrpRrIRgKaTUayolnOx50k0SKspGidreKgC+
+	MClRYMsVKCXx2dyH0xXgp0iF3aAAFJWmIY+g7I7C6ibrS+Caw9sJ/vAdTxvv8gtn5Ck=
+X-Gm-Gg: AYBFou1EHaeuc4/9RaBuaOtRPXig9pi+kKtcqO9dx7wChYuANgf0aeovBIBCRUE9vop
+	8dCsLW+0zZWXqhJ2L5woKAbPaHxyfOsla6YpuXBEP+XOEVY+RvVjwYGJArjwpr5E10JBOX36m1u
+	oKN6D1SkKfVDJYDISa7CRgSgZ9BVHIONDPZVlmTGjpG/ElzNsDlnEclsJrZvzuDRJtyps83BMrY
+	yjrF5xV76OHWG8d3BGlI3GFOAIFXcXqHoPihDyfGynZ3439q+zCc0HVfMjM4FG61laXBC3loxmv
+	3ecO04NS8v8KZj/WwrksW15IsIaYToVsrB2X4Ml60jtSb9+PIroU7w1obr+KhPr8yCDVssOicTa
+	vmisET9aqha9RvSysq918zUIuM3MvRtwplHPYF1+SW/MpTY4JdhLvV9qVivcnPkHZX2RaoyJ0nl
+	9S1U8Yg/MXFdCuOSI5nKBuU9qukX8h3Qc19JU+68LVlDmpxzewFJ6XqJ0TtNZeRQ8kPhM+gkZMJ
+	+PlIefbZKt3rc2bk0kafZuBeuEBPRvZ11BlDPl2ByAdtYw28vbzHlPCMjoX++Hux1ctNMKDqRCe
+	nel3jfE4hq8nNrzEWDmIj6Moadi5a+03pPobuN8FLg==
+X-Received: by 2002:a05:622a:5291:b0:536:119e:1767 with SMTP id d75a77b69052e-5383b605700mr29740511cf.65.1792861462021;
+        Sat, 24 Oct 2026 10:04:22 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c5273sm19020701cf.9.2026.10.24.10.04.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 10:04:21 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	gourry@gourry.net,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	honggyu.kim@sk.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mempolicy: recompute automatic interleave weights on memory hotplug
+Date: Sat, 24 Oct 2026 13:04:15 -0400
+Message-ID: <20261024170415.4121901-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -118,71 +103,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-pcie-apple-perst-gpiod-init-v1-1-f92f30f205ef@jannau.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrDIBAF0KuEWXfAiLjIVUoXVn/TD8EMGkoh5
- O6VLt/mndLRiC7LdErDh517HZhvk+R3qiuUZVi883F2PqhlQpPZBjW0fuhq3Iuy8tBndB4IJac
- QZQzW8OL3v98f1/UDTf31o20AAAA=
-X-Change-ID: 20261024-pcie-apple-perst-gpiod-init-b602ee4dca46
-To: Marc Zyngier <maz@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1647; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=ETcdozBN6Ckqw0KqFUtuQqq3PRcymZDjEiff/o5nYy0=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw7Dxm1Ik9o8zt8jm1keLr0xsfkaz5HXXJyZe5qvJon1
- xbUOnVWRykLgxgXg6yYIkuS9ssOhtU1ijG1D8Jg5rAygQxh4OIUgIkov2ZkuLGuT2y5Ce+7bx2/
- HF2yjNnXrGM/PjNrVbeBW1RC5pENhxn+Jx20r7/y4aVR4fzkD6uqmkUmbbrVszkjsTXzLH/i0Rc
- xXAA=
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Transfer-Encoding: 8bit
 
-Commit 87620512681a ("PCI: apple: Fix PERST# polarity") switched the
-PERST# polarity by annotaing its GPIO as active low in the device tree
-via [1]. It missed to update gpiod_get()'s flags to GPIOD_OUT_HIGH
-resulting in deasserting PERST# through gpiod initialization.
-The Aquantia AQC113 10GB ethernet device used in some Apple silicon
-desktop does not finish link training with this additional PERST#
-deassert before the usual PERST# dance.
+In auto mode, weighted interleave derives each node's weight from its
+bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
+node's bandwidth once, when the node first gains memory, and nothing
+else on the hotplug path recomputes the weights.
 
-Link: https://lore.kernel.org/linux-pci/20211123180636.80558-1-maz@kernel.org/ [1]
-Fixes: 87620512681a ("PCI: apple: Fix PERST# polarity")
+When a node loses its memory, the other nodes keep weights computed
+with its bandwidth until another node reports. If one does while the
+node is away, the reduction skips the node and resets its weight to 1,
+which it keeps once its memory returns.
+
+With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
+nodes 4 and 5, weighted_interleave/nodeN reads:
+
+  event             node 0-3   node 4   node 5
+  node 4 online         7         3        -
+  node 4 removed        7         -        -
+  node 5 online         7         -        1
+  node 4 back           7         1        1
+
+Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
+6, 3 and 1.
+
+Recompute the weights from the recorded bandwidth whenever a node gains
+its first memory or loses its last.
+
+mempolicy_set_node_perf() now only records the bandwidth and calls the
+same helper, so the bandwidth is kept even if allocating the new weights
+fails. wi_state_lock is dropped between the two steps, which should be
+safe because the helper reads node_bw_table and the mode under the lock,
+so a racing writer only makes it work from newer state.
+
+With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
+node 4 is back.
+
+Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
 Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
-This issue affects only a single PCIe devices of the handful of built-in
-devices integrated in Apple silicon devices. It is usually hidden by
-u-boot's initialisation of PCIe devices.
----
- drivers/pci/controller/pcie-apple.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
+ 1 file changed, 38 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
-index c2cffc0659f4..a7f327803060 100644
---- a/drivers/pci/controller/pcie-apple.c
-+++ b/drivers/pci/controller/pcie-apple.c
-@@ -562,7 +562,7 @@ static int apple_pcie_setup_port(struct apple_pcie *pcie,
- 	int ret, i;
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 0884c629670d..ffb293a4cc56 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
+ 		new_iw[nid] /= iw_gcd;
+ }
  
- 	reset = devm_fwnode_gpiod_get(pcie->dev, of_fwnode_handle(np), "reset",
--				      GPIOD_OUT_LOW, "PERST#");
-+				      GPIOD_OUT_HIGH, "PERST#");
- 	if (IS_ERR(reset))
- 		return PTR_ERR(reset);
++/* Recompute the weights from node_bw_table, unless they were set manually */
++static int wi_state_refresh(void)
++{
++	struct weighted_interleave_state *new_wi_state, *old_wi_state;
++	int i;
++
++	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
++	if (!new_wi_state)
++		return -ENOMEM;
++	new_wi_state->mode_auto = true;
++	for (i = 0; i < nr_node_ids; i++)
++		new_wi_state->iw_table[i] = 1;
++
++	mutex_lock(&wi_state_lock);
++	old_wi_state = rcu_dereference_protected(wi_state,
++					lockdep_is_held(&wi_state_lock));
++	/* NULL wi_state assumes auto=true */
++	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
++		mutex_unlock(&wi_state_lock);
++		kfree(new_wi_state);
++		return 0;
++	}
++	reduce_interleave_weights(node_bw_table, new_wi_state->iw_table);
++	rcu_assign_pointer(wi_state, new_wi_state);
++	mutex_unlock(&wi_state_lock);
++	wi_state_retire(old_wi_state);
++	return 0;
++}
++
+ int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+ {
+-	struct weighted_interleave_state *new_wi_state, *old_wi_state = NULL;
+ 	unsigned int *old_bw, *new_bw;
+ 	unsigned int bw_val;
+-	int i;
  
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261024-pcie-apple-perst-gpiod-init-b602ee4dca46
-
-Best regards,
+ 	bw_val = min(coords->read_bandwidth, coords->write_bandwidth);
+ 	new_bw = kcalloc(nr_node_ids, sizeof(unsigned int), GFP_KERNEL);
+ 	if (!new_bw)
+ 		return -ENOMEM;
+ 
+-	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
+-	if (!new_wi_state) {
+-		kfree(new_bw);
+-		return -ENOMEM;
+-	}
+-	new_wi_state->mode_auto = true;
+-	for (i = 0; i < nr_node_ids; i++)
+-		new_wi_state->iw_table[i] = 1;
+-
+ 	/*
+ 	 * Update bandwidth info, even in manual mode. That way, when switching
+ 	 * to auto mode in the future, iw_table can be overwritten using
+@@ -271,25 +289,10 @@ int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+ 		memcpy(new_bw, old_bw, nr_node_ids * sizeof(*old_bw));
+ 	new_bw[node] = bw_val;
+ 	node_bw_table = new_bw;
+-
+-	old_wi_state = rcu_dereference_protected(wi_state,
+-					lockdep_is_held(&wi_state_lock));
+-	if (old_wi_state && !old_wi_state->mode_auto) {
+-		/* Manual mode; skip reducing weights and updating wi_state */
+-		mutex_unlock(&wi_state_lock);
+-		kfree(new_wi_state);
+-		goto out;
+-	}
+-
+-	/* NULL wi_state assumes auto=true; reduce weights and update wi_state*/
+-	reduce_interleave_weights(new_bw, new_wi_state->iw_table);
+-	rcu_assign_pointer(wi_state, new_wi_state);
+-
+ 	mutex_unlock(&wi_state_lock);
+-	wi_state_retire(old_wi_state);
+-out:
++
+ 	kfree(old_bw);
+-	return 0;
++	return wi_state_refresh();
+ }
+ 
+ /**
+@@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
+ 	case NODE_REMOVED_LAST_MEMORY:
+ 		sysfs_wi_node_delete(nid);
+ 		break;
++	default:
++		return NOTIFY_OK;
+ 	}
+ 
++	/*
++	 * HMAT and CXL report a node's bandwidth only when it first gains
++	 * memory, so recompute the weights whenever N_MEMORY changes.
++	 */
++	wi_state_refresh();
+ 	return NOTIFY_OK;
+ }
+ 
 -- 
-Janne Grunau <j@jannau.net>
+2.56.0
 
