@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792872697;
-	b=gBIbGjDOD+GYCCJILTW05qtuyp4u1Ih2EcitQG9b6z0fp2LTou7th+zz9lpKA81UCtqf
-	 QjQY1jeNWwRTYRq2JuQWgxanBigHWpSmvbacMcoCibR/0ZEP7w6wzNain/mz69dCGbqFG
-	 vFubhInQEeRjKUEdNQ5DiQQSU0lJhMBzdnBrw61Hf/rBi5jiROqapVcl5pvOeZHNWBZgd
-	 ekl0q4ZuG+aqqHyBTBSJWusBI8/t3JIbuh4fLivUOKr0YZqLJHI5zvRRHv6Sp4AdoE99S
-	 bJ5PnTscCbxHGSZHOrMHFwg4zV2sEn2OZiwPsMKBWr16dGS3lfxMG8RSRUi4fgiM2fw==
+	t=1792872698;
+	b=cAqPz9HRnb8JjFe+nSn8FM8qM9sBVawYyd6AldEbPSFB1ZM1buAeiLPFZNMQRG3A0OMS
+	 wAv/OujTq+jAd27n2WJHgTuwGRw+qxpC+w2G9nvLKWwh0LrWId6Bx75qHv2Qob6JPxMpz
+	 Ds5K4A5KpwmGRtykL2X3UdtVYEIYIxo1bHuaDE/HRELLMEzGYd2fJsBk2CCIb6Sb18YeI
+	 cGGzJyIpUCkP0lScgJQQjf7JVNT/7Ei8DPBycADhn47mye3nZzL+38ZPEhz+c5/rMXDWF
+	 RWKVxsKAY7LDUNDHIxKjgx2ojlPO3Qt/e8AA828sZiPecRuPyQ2vzxkZoW6mk1tEkWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792872697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792872698;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mMIEVoAwh93h4ClXvRNbxxyxNgwNFPgmnZjBQorLvmk=;
-	b=0GZeidkWHFIcvseE2LDtJU7Dm41Egsh21vOk4ewMJtoTsOSjeVhjVUtfzvOtwlxvM2Fy
-	 kPqvapqlVyTJu46nDXgOCCF5I+sVbLuoWR20azBQta1Hn14XENVG42lIrOAcY6+2GKxP9
-	 5uZ102RyFBQAho2ZMBvgKIBvw34D72JKRx+GVDOnBOGHiY6RHwkbnq6fzBVyIVR0aRItM
-	 k5jDz3SHGdVdNQMxfo0s/ZFbb8lF8nZTdojlnjSCIBvPtFtpqRYy+0s/X0BXlFn5zQhO2
-	 ShKQgeI1NVTK57FifXpIGTyXuTMNie9s6v8rdmBpJd9EfVbWaLoPRKJGeYAaQwDgCDg==
+	bh=u0Ww+ebOZdeRaxZe9bJb7g9jpmRhKt5mafZdeyrbEbk=;
+	b=Jo0fMc0b1EKmmHUe0ZWKzPA6p7xhMPtoNWFvtyluFuztAs3GrFGJGJAefzQtgPdYZCuy
+	 H5cxDKRw0lxcDISom4lQhvBU+RdsGXq22FSLqAfb+dnLNImD9QIDSnuG6O6DlsOlC1gZ0
+	 5OfwvL2RtC8BYcI6dDKHG7jt7YSqxtw80dTXWMeqDCoYxc/qyccNyt0LSjm9A3OF8j6P1
+	 OSf/PWl/niy+ocZmTHHeitAm98fm3wwXRulMRTu+QRpZL/0M0SnqhubvL1b998G4ynAc9
+	 2E69SUZmNBgbGDK2d3Mm2nui534CkGnTyU82CHqkER7lQzU1pqURqhbVtQ9q3/oVmkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STn+IRd8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jq/ECZ4K";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD23606A321
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 20:11:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EA4606A32F
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 20:11:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STn+IRd8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C44E1F031E2;
-	Sat, 24 Oct 2026 20:11:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jq/ECZ4K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865911F01828;
+	Sat, 24 Oct 2026 20:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792872696;
-	bh=mMIEVoAwh93h4ClXvRNbxxyxNgwNFPgmnZjBQorLvmk=;
+	s=k20260515; t=1792872698;
+	bh=u0Ww+ebOZdeRaxZe9bJb7g9jpmRhKt5mafZdeyrbEbk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=STn+IRd8KN6rP4CeuXIB6DSbrlqa6qKsGMxT3XO5H+mCB4ieZb/V0UK1cL7q+tRLG
-	 T7T5NCdE0nscbvELvC61UNho3SyFRbpYI8Nt1o545czf6Ym5VdC2CdYGZfBzYIEYcL
-	 loEn2s0VGk3VywuwDYl8WvvzBVeaA8ZDWvIFIwuxkH8OER/AI7UiZFgLU8oDyqKjU1
-	 6IpK54AIv9Xhw1uVGLctM/uN44bGzaqXNKTLnC2iAuRWhLZAL25bDD9tJqaemdWSjM
-	 1Adp9Pw3vX0Mf8efRxvUNfMbG8kpS5+BjdzpUTLEWBvn4T3DMyJMWdX3V5X/LQvAB/
-	 fYZI1Y905FIYw==
+	b=Jq/ECZ4KhN9ptsS0aty42zz4SVeitR2ZfX2m2Ss+FGJ7X8N+IxNe6vXi8LUIGBLkD
+	 ydCLaPxOJwgFbH+KjRCNHP071T+g7mccgY5Ef3kYOq7qYQexopC6nZwsj7IhYNojqw
+	 21won6OrxBxLa8A94wfNsC1cmVTPIlypNvHeqtYNltyr4BHbtfExAbIvhPxRGUSpu8
+	 eLvsXyOQd/9lNyVBnjjaCYK5PLr7+0gk2HTHmXLQRitFxBBBN6dMJM+Xby6LSqB+hL
+	 VCaa7MGtJElDjShiVD6mvdTKrDAQq2Hw/wl0yvoLPE4l7aRoYnGpmqvHxWvUZXGemp
+	 4jrEV0PaTzqGg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Ting-Han Hou <ue081723@gmail.com>
-Subject: Re: [PATCH 6.1.y] net: gso: limit recursive IP-in-IP segmentation
-Date: Sat, 24 Oct 2026 16:11:09 -0400
-Message-ID: <2026-10-24-1-daily-reply-0011-gso-ipip-recursion-6-1-bounce@kernel.org>
+	Jay Vosburgh <j.vosburgh@gmail.com>,
+	Andy Gospodarek <andy@greyhouse.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
+Subject: Re: [PATCH 5.15.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
+Date: Sat, 24 Oct 2026 16:11:11 -0400
+Message-ID: <2026-10-24-1-daily-reply-0013-bonding-xmit-broadcast-5-15-bounce@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024122720.641-1-ue081723@gmail.com>
-References: <20261024122720.641-1-ue081723@gmail.com>
+In-Reply-To: <20261024124929.5350-1-steffen.pfendtner@kernelscan.io>
+References: <20261024124929.5350-1-steffen.pfendtner@kernelscan.io>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,21 +63,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Tested on top of v6.1.190 plus the whole current 6.1 queue
-> (stable-queue fa04d3db75, applied with quilt). It needs the queued
-> backport of 6f1a9140ecda ("net: add xmit recursion limit to tunnel
-> xmit functions") for IP_TUNNEL_RECURSION_LIMIT, which v6.1.190 and
-> 6.1.191-rc1 do not have yet.
+> [ Backport to 5.15.y: bond_xmit_broadcast() here walks the slave list,
+>   not a slave array, so there is no array index or slaves_count to
+>   compare. Count the list entries instead and compare against a
+>   READ_ONCE() snapshot of bond->slave_cnt taken before the loop. The two
+>   can match on at most one iteration, so the original skb is consumed at
+>   most once even if the list changes during the RCU walk; if a slave
+>   goes away mid-walk, the original skb is freed at the end as before. ]
 
-That backport of 6f1a9140ecda ("net: add xmit recursion limit to tunnel xmit
-functions") is no longer in the 6.1 queue, so IP_TUNNEL_RECURSION_LIMIT is not
-declared and this patch fails to build:
-
-  net/ipv6/ip6_offload.c:92: error: 'IP_TUNNEL_RECURSION_LIMIT' undeclared
-
-How was this tested against the current queue?
-
-Please make sure that what you send it actually tested, this is not ok...
+This does not bound the walk. It still iterates the live slave list, because
+5.15 does not have the all_slaves array walk from ce7a381697cb ("net: bonding:
+add broadcast_neighbor option for 802.3ad") that upstream indexes into, and
+the running index is only compared against the slave_cnt snapshot. If
+bond_enslave() links a slave before it increments slave_cnt, or a slave is
+appended mid-walk, the loop reaches the else branch after the original skb
+has been used and skb_clone()s it. That is the same use-after-free, on a
+path the old bond_is_last_slave() code handled.
 
 -- 
 Thanks,
