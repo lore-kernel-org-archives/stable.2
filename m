@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792814332;
-	b=NgKlZncJ9lsknhhVARbBBBON5a9LVWpXN82OdUbCPpXs4hawjgPKxazTS0eSAmdj+hyP
-	 CICKvrqgDFp5ZoWTS6Q+ToucM7UOcHVkJ5PZ2XeO2zNtWg7fWMIBkdtEbYaArlq1Onokh
-	 FUbs0jVEMGm5SRaDeQrPgmNUXHZtH+BGInbdGCyDWrqBYMhs4h7Ou+I+PHSpGavQDYpb3
-	 yFV5zpoLhn0T3HhZnNWbiaB2I0hnLjD4yNpgoswJKvmNxmCunmaIWbOvrPcKv9z3aDsB+
-	 yB7B8RHpuG+I9IlS7Eqlansxl2JIUGSlccJQIEsRv5zQNCAq5w1YglWjF2Xom8wDRjg==
+	t=1792819974;
+	b=XO2nFSYLTsbSo3v8Iai0TJfQjeT5Yq9KSwyBvabaHSBJLhsgqzjbMWnafQAHxt0eAQMO
+	 xFzAE6cBspR4HK9birTzfEhn4XurS6LnTWrr7POXikHbV8Tr73JmyvgCSEFmIbzsCRX4Y
+	 A4Z9vutp5tj3uP7QaLsTSopmyH5PoL1E/SjsHd1m9KovtENHCZ3dQmCSWmpHQ4ZCCN92W
+	 PUBg8I1HoAISs07Qu5XmGDame+dKVroJ2gfX9hI2vxdRp062rHeSnq+1aTye5+DW8vbTZ
+	 WBzsBl3pzxPJYy6WorYHud2ybagfhgHu+COznQVhj7GyYNQ/wdfSoz5SCJq2sjLhf+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792814332;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/TAhzN/YLBIG6aPWEjTy99TQtInx/DdY7lqJKqusaWw=;
-	b=2L8P5hMD4nPHlZlZITdxRLlYWOQ4Zyx4JleNb90GgN7M4CvtxN9qPMd1m9Z0z4TXfnAs
-	 jLAwQ9MqV5RLE39vNGL2FQq2s9RV4BoGiEuaSGhg3P+BLJ0iCpnh3Tz3rS1fqB3yHUwiM
-	 I4A5sXXkYnci5jURthhZw+TQWUffBo+sq1upq2fWabjAfGYEPz7hfusatxDsrwpxPq8qe
-	 +6Yc25xKGu8i7oSfP+j5czmMh7tBtu+YL/OS/IYbvItCq/2YOnRUNDmiWu5BanRgrtyCG
-	 Z6tpWMEsOk3x6XPQnVcvyoLTV6+SS+7+x7qH1Ryui5cVtnJRgF2gYnxL7xgwt0cS4aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792819974;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jZHFuBoh3O8SvdWvlL7mEgQWiQcN8okpZlrSpdY258o=;
+	b=i9+8+XiHv0mF3CjXHofMkQe1MkydisUGxDS9aUqqN44E2MFuD6aKAxjXtAYruqhkgluv
+	 YcPzQ/7D4sji5tVdnuHYTBDXsf68sHCWO2yxV7BgIr9spGWe6ZKxVsApRut+DQH7cXuy2
+	 qJphP6cLtzOv2iqOBhXxM+Y3cZ2M7sGLHq6SeBL6BbseLJ39s14zqaVRDZj6vhF+SCo3D
+	 EfENyPIwOU6Un+3NzCtmCkelgglP81rCbGOPf6xHjIYxuk0vzBKIovsLsAzN7XKpSElOE
+	 +HsykXu7mIWGh10Xgj7gXwHWj8tBCBosoQqPeCpz61Za1S6Mv9JkbryuFgnLnrPvzWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWJG+GPV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aksZiEgy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78351606A31A;
-	Sat, 24 Oct 2026 03:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D55606A331;
+	Sat, 24 Oct 2026 05:32:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWJG+GPV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907F01F01825;
-	Sat, 24 Oct 2026 03:58:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792814332;
-	bh=/TAhzN/YLBIG6aPWEjTy99TQtInx/DdY7lqJKqusaWw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cWJG+GPVyGHbH0lXVME6Goec0UjUwPgdXlk6IH3p+sdb20WwRwtEJcLdVB57J3CBI
-	 xarv7kmZ0/NHLBMVrwxjM8fq8MUtWSJZGQ+E2v46EjHmY7APFx3YTQ64HsGkr66/df
-	 xQzUr5LiGhCT8Z/PyDs4/HaM/FwwPpi7mK+rcZiuwh8ZjQbnBPAuTlTvjT/mVa7pQA
-	 Io7CjapFF4zw09eZFuigPCnJjGvMU/JcnDPjZUCtfLGqUbttaNj+9EZbDSSkvfYR/A
-	 dC6OBZ+BbMWnDOxfuj2PrbQDNva7b5FXu0UUQcCdQNjy2itBDqRQsVx+G57qouwWoy
-	 mb93q9RWVyL1w==
-Subject: Re: [PATCH v6 03/13] can: peak_usb: sort ctrlmode_supported flags
-From: netdev-bot+sashiko@kernel.org
-To: s.grosjean@peak-system.fr
-Cc: mkl@pengutronix.de, mailhol@kernel.org, wg@grandegger.com,
- error27@gmail.com, lukas.magel@posteo.net, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sat, 24 Oct 2026 03:58:51 +0000
-Message-ID: <179281433115.3130.15136732593858786026@kernel.org>
-In-Reply-To:
- <20261022-canfd_check_channel_idx-v6-3-197704231551@peak-system.fr>
-References:
- <20261022-canfd_check_channel_idx-v6-3-197704231551@peak-system.fr>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aksZiEgy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925C61F01825;
+	Sat, 24 Oct 2026 05:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792819974;
+	bh=jZHFuBoh3O8SvdWvlL7mEgQWiQcN8okpZlrSpdY258o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aksZiEgyHKSbd31vCh540tOm5q6v6AsQMCd1mWZIdK7W4rti5Q+P7DzE811VpsP9m
+	 SWbrTkhC9jIesYRProuV98r/2BAZfLDX1otBVJrk4r5QVSOcjL9a0YOA9Ge8xEa/fd
+	 AhPKd56cddMtHBnFXsFZrma/XMowwRHhVHyJT1RQ=
+Date: Sat, 24 Oct 2026 07:32:51 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Salvatore Bonaccorso <carnil@debian.org>,
+	Pavel Machek <pavel@nabladev.com>,
+	"stable # v4 . 9+" <stable@vger.kernel.org>,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
+Message-ID: <2026102452-upstream-plod-9ed4@gregkh>
+References: <20261023163713.816071858@linuxfoundation.org>
+ <atvHKoRHHjKV4l8A@duo.ucw.cz>
+ <atvS68GhCvmAphrQ@eldamar.lan>
+ <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,68 +64,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Fri, Oct 23, 2026 at 03:44:07PM -0700, Florian Fainelli wrote:
+> On 10/23/26 14:34, Salvatore Bonaccorso wrote:
+> > Hi,
+> > 
+> > On Fri, Oct 23, 2026 at 10:44:26PM +0200, Pavel Machek wrote:
+> > > Hi!
+> > > 
+> > > > This is the start of the stable review cycle for the 7.2.13 release.
+> > > > There are 242 patches in this series, all will be posted as a response
+> > > > to this one.  If anyone has any issues with these being applied, please
+> > > > let me know.
+> > > 
+> > > Either something went very wrong with our testing, or this fails on
+> > > all our targets. 6.18.59-rc1 does not seem to have those widespread
+> > > failures.
+> > > 
+> > > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2982452623
+> > > 
+> > > Example failure is:
+> > > 
+> > > I'll look some more to try to figure out what is going on there.
+> > > 
+> > > Best regards,
+> > > 
+> > > 								Pavel
+> > > 
+> > > 
+> > > [    1.238864] Yama: becoming mindful.
+> > > L426[    1.238864] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> > > L427[    1.238864] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> > > L428[    1.238864] VFS: Finished mounting rootfs on nullfs
+> > > L431[    1.238864] BUG: kernel NULL pointer dereference, address: 000000000000002c
+> > > L436[    1.238864] #PF: supervisor write access in kernel mode
+> > > L437[    1.238864] #PF: error_code(0x0002) - not-present page
+> > > L438[    1.238864] PGD 0 P4D 0
+> > > L441[    1.238864] Oops: Oops: 0002 [#1] SMP PTI
+> > > L446[    1.238864] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G S                  7.2.13-rc1+ #1 PREEMPT(lazy)
+> > > L447[    1.238864] Tainted: [S]=CPU_OUT_OF_SPEC
+> > > L448[    1.238864] Hardware name: SIEMENS AG SIMATIC IPC227E/A5E42630598, BIOS V20.01.11 03/15/2018
+> > > L449[    1.238864] RIP: 0010:rest_init+0x33/0xd0
+> > > L450[    1.238864] Code: 34 ff ba 00 02 00 00 31 f6 48 c7 c7 70 a2 e6 b2 e8 52 d3 28 ff 89 c3 e8 bb 2d 34 ff 89 df 48 c7 c6 80 db 85 b3 e8 9d d7 2b ff <81> 48 2c 00 00 00 04 65 8b 15 63 6e 45 01 48 89 c7 89 d0 c1 ea 06
+> > > L451[    1.238864] RSP: 0000:ffffffffb3803ee0 EFLAGS: 00010246
+> > > L452[    1.238864] RAX: 0000000000000000 RBX: 00000000ffffffea RCX: 0000000000000000
+> > > L453[    1.238864] RDX: 0000000000000000 RSI: ffffffffffffffea RDI: ffffffffffffffea
+> > > L454[    1.238864] RBP: ffff8cf23ffed080 R08: ffffffffb385db88 R09: ffffffffb385db80
+> > > L455[    1.238864] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8cf23ffed0ab
+> > > L456[    1.238864] R13: 0000000000000000 R14: ffffffffb380c040 R15: 00000000b43e8000
+> > > L457[    1.238864] FS:  0000000000000000(0000) GS:ffff8cf287953000(0000) knlGS:0000000000000000
+> > > L458[    1.238864] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > L459[    1.238864] CR2: 000000000000002c CR3: 000000000d630000 CR4: 00000000001006f0
+> > > L460[    1.238864] Call Trace:
+> > > L461[    1.238864]  <TASK>
+> > > L462[    1.238864]  start_kernel+0x7a2/0x7b0
+> > > L463[    1.238864]  x86_64_start_reservations+0x24/0x30
+> > > L464[    1.238864]  x86_64_start_kernel+0xcd/0xd0
+> > > L465[    1.238864]  common_startup_64+0x13e/0x158
+> > > L466[    1.238864]  </TASK>
+> > > L467[    1.238864] Modules linked in:
+> > > L468[    1.238864] CR2: 000000000000002c
+> > > L469[    1.238864] ---[ end trace 0000000000000000 ]---
+> > > L470[    1.238864] RIP: 0010:rest_init+0x33/0xd0
+> > 
+> > Same here indepently, but not yet bisected.
+> 
+> Same here as well, bisected down to: a0c935bd1f76 ("fs: add umh argument to
+> struct kernel_clone_args"), it looks like we need to cherry-pick
+> 14adbd5341aa ("fs: stop sharing fs_struct between init_task and pid 1"),
+> with that I can boot a kernel.
 
-Low priority / nit picks for your consideration:
+Thanks for the bisection, I'll go queue that up now and push out a -rc2
+soon.
 
-- [Low] The commit message says the patch orders the CAN_CTRLMODE_* flags
-  in ctrlmode_supported by numerical value.
-
---
-
-can: peak_usb: sort ctrlmode_supported flags
-
-This commit reorders the CAN_CTRLMODE_* flags in the static
-ctrlmode_supported initializers of the peak_usb adapters so that they
-follow their numerical values. It is described as a cosmetic change with
-no behavior change.
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> index 785224e00c4e9..169c00d93463c 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> @@ -1016,7 +1016,8 @@ const struct peak_usb_adapter pcan_usb = {
->  	.name = "PCAN-USB",
->  	.device_id = PCAN_USB_PRODUCT_ID,
->  	.ctrl_count = 1,
-> -	.ctrlmode_supported = CAN_CTRLMODE_3_SAMPLES | CAN_CTRLMODE_LISTENONLY |
-> +	.ctrlmode_supported = CAN_CTRLMODE_LISTENONLY |
-> +			      CAN_CTRLMODE_3_SAMPLES |
->  			      CAN_CTRLMODE_CC_LEN8_DLC,
-
-[Severity: Low]
-This isn't a bug, but the runtime ctrlmode_supported update in
-pcan_usb_init() in the same file was not reordered:
-
-drivers/net/can/usb/peak_usb/pcan_usb.c:pcan_usb_init() {
-    ...
-	if (dev->device_rev >= 41) {
-		struct can_priv *priv = netdev_priv(dev->netdev);
-
-		priv->ctrlmode_supported |= CAN_CTRLMODE_ONE_SHOT |
-					    CAN_CTRLMODE_LOOPBACK;
-    ...
-}
-
-CAN_CTRLMODE_LOOPBACK is 0x01 and CAN_CTRLMODE_ONE_SHOT is 0x08, so by
-the ordering described in the commit message LOOPBACK would come first.
-
-The commit message says:
-
-  "Order the CAN_CTRLMODE_* flags in ctrlmode_supported according to
-  their numerical values."
-
-It doesn't limit this to the static initializers. Should this line be
-reordered too, for consistency? No later patch in the series appears to
-change it.
-
-As the commit message says, the resulting bitmask is identical either
-way.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-canfd_check_channel_idx-v6-0-197704231551%40peak-system.fr
+greg k-h
