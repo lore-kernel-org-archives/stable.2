@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792840181;
-	b=Mcu3qpYajXezhwbx/2aGu32eaY4noMKU1VUsHsh5VFwAE5NeRAeNA70Mc0lijhjJajde
-	 zUm0NDtmxooW1c7JnI5U0EzMvmrRBCu7vi/286HsxQzV0nMIwD6tsfDc8GXAl3gcc/6ZT
-	 Zjk9fUgmJup094VgLVgFWV/IJK05ulfQfdK0Iaf81ePZig3CwPM6b3Lp5sPWHpO9z/0xn
-	 gvu5oKeevUD6pFzai4q7DI6APhLQb8N6DZlTMd0NlWHToO8zkpBHStCty3lTJmb0nV2Zu
-	 GYdsos9QSkZEadvnKJAhX7FWv9R4cJI+52V9j1+jxq0XBTTNw1kOtEwP86tlM74Hr3Q==
+	t=1792840489;
+	b=cgOY9kymD3treggoCBR5kZndheIDlKaoJoMeKLL4e0kl+Yv3lgL+sLx7k65A9FEbLp/W
+	 2sE3OXibcBvsmBn2SFeb50bngY4Xx0qon2UtrXl/cSdRy0RWqoEFbAMVypCY7/QVElwYE
+	 +ivibpEf/77AMVkjsfHMzDCT0OY+6uJzL36LbCFtcxv71sUFUzq7xmSaY5SkTCrCIMqrQ
+	 mGn+fiHOpAwRfzZ++M2q9wHenZxBwla+cPYlD9KISudKmVxV4kqihbkiouvW42jpchNo9
+	 GpGoA6tdKD/k5g2+WxaFhH4xpQkbp3QhCRpoH127sGWHZwA9OoVHEdGjcZcPWTnryrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792840181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792840489;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
 	 UI-OutboundReport;
-	bh=UPAv9d1T+NKBfd7KTcOtP0zpC8MhO7AiTIoJ2ie3NwQ=;
-	b=lzHZDTZg31TEXZZWuykeeTUmf1zL3UgH9bmKPPsCCJpMN9btdKOex83Q08bVKFglAXF4
-	 eRHWoPgIuzNHkLLFm/v2wK92MQblZbNxjKGcs3prdv/pejstU0BF7g3mDklwy71+yjuFs
-	 qyPLN0mx2qcpk19TN0c/OyREwbstSMq6dO26sqZpUTSNHhnQB9oCPAZPkUtWUJLUZU5o5
-	 CrAtBpYbQzMp1wWc+s/9E8AGybRWsPxxLO/xI77LsbKfbukph/bVRsFGRIitlXnTMmQmJ
-	 3Pmq7sCpIzxoYnK2ubpbT+wbH3RpVSQqM0ALjqCScKE5LnmVGXPatrwUv+mEo6548aw==
+	bh=0wnwhBBpOzdqMsUIaIUutpRF6KdHwLi1ULdqncAFHjE=;
+	b=3oiFuEe9KdQl5Gmuvvn8kpGcTH2WlmCCNeCXFybD2Y2v1bZxHcC8H+CQh6khK/Atzypo
+	 lfjfA1q2vfGpOtf2aSVPG9LNZQK13u7uZpUhp0BzJuZuaiuD6a4VaDYdwuPL6PdsvL7uD
+	 fw9JhtMBcIDX/DlT033zPxqRb++cxbtLEdUbNrRmJc2Es7QlTBgezzxXJvOl3LjrBoqp+
+	 tpTfattVyATTX+ypsZnvGCsFzZQNQJFq/di3f4tJtDRVSWaGrDwK8keORlmf0pzlKDW/u
+	 neIkugE79xYgFEm9VZ3Ru7ouR/0CJIjRtPmfgBXh/MUzIxXj+dsLHVIVWpZ/e1Ljlvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelscan.io;
 	spf=pass smtp.mailfrom=kernelscan.io;
@@ -25,22 +25,22 @@ Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D34606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 11:09:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07D34606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC70606A31A;
+	Sat, 24 Oct 2026 11:14:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC70606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelscan.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelscan.io
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
- [213.165.67.97]) with ESMTPSA (Nemesis) id 1MP2zs-1wvL6m1Ymy-00IylD; Sat, 24
- Oct 2026 13:09:32 +0200
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue010
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1MjjSt-1wshkU2Qgd-00dtlW; Sat, 24
+ Oct 2026 13:14:29 +0200
 From: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
 To: stable@vger.kernel.org
-Cc: Ido Schimmel <idosch@nvidia.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	bridge@lists.linux.dev
-Subject: [PATCH 5.15.y] bridge: mcast: Fix use-after-free during router port configuration
-Date: Sat, 24 Oct 2026 13:09:29 +0200
-Message-ID: <20261024110929.47253-1-steffen.pfendtner@kernelscan.io>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	netfilter-devel@vger.kernel.org
+Subject: [PATCH 5.15.y] netfilter: nf_tables: unconditionally bump set->nelems before insertion
+Date: Sat, 24 Oct 2026 13:14:25 +0200
+Message-ID: <20261024111425.50052-1-steffen.pfendtner@kernelscan.io>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,249 +52,163 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:otaAU5hrSZhT4ov8L45qmn8yQsdWFSOngRrUbxxsTuESDzsQMuF
- BegP62/vZlgB3A0foR7j95cDUKzqy1ov4nCCMGIjg1/BnX7wLxhQNj1i7cM4G95u2Ed4AKT
- H/yVmYsxpgc9Y/v0uldwNEtMasuXv9nMczAVvijZBHKJGwVVawMggG+BaYJTZmHJF/NS84h
- 49wL83P+nt00q/F13dacQ==
+X-Provags-ID: V03:K1:MIzE5JaVKNdQjPoLoYDvGbzgEoQuTScFeYlEnFSOb2B6k0T+ABP
+ DwXGXJFfNRAV+bsqAm5DjK9blzYIsh+DF8CYTIdHDUXmqGHFiwKNAW0UC2PRur0EVyjT/uf
+ OVPH8F/yNlnDia0hDH5bN9Ba5GRPf4pFmxzkm24nEtWLGkBJ2Np039O+0Vu3mkHDvzveNDQ
+ kHRl/f1bqCvvNc3Otw1Wg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:c0hNBqVZAsE=;+vT9BBDwLhd3dh+yYtq1o9sErgL
- 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
- grGQYsmlVDKIMOC6eHxa2LUppZMZg==
+UI-OutboundReport: notjunk:1;M01:P0:HjtgxPqmLgI=;WWcLUxJ8SOMFJh0qG2Wq5RnNzE1
+ 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
+ dXZUai3
 
-From: Ido Schimmel <idosch@nvidia.com>
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-[ Upstream commit 7544f3f5b0b58c396f374d060898b5939da31709 ]
+[ Upstream commit def602e498a4f951da95c95b1b8ce8ae68aa733a ]
 
-The bridge maintains a global list of ports behind which a multicast
-router resides. The list is consulted during forwarding to ensure
-multicast packets are forwarded to these ports even if the ports are not
-member in the matching MDB entry.
+In case that the set is full, a new element gets published then removed
+without waiting for the RCU grace period, while RCU reader can be
+walking over it already.
 
-When per-VLAN multicast snooping is enabled, the per-port multicast
-context is disabled on each port and the port is removed from the global
-router port list:
+To address this issue, add the element transaction even if set is full,
+but toggle the set_full flag to report -ENFILE so the abort path safely
+unwinds the set to its previous state.
 
- # ip link add name br1 up type bridge vlan_filtering 1 mcast_snooping 1
- # ip link add name dummy1 up master br1 type dummy
- # ip link set dev dummy1 type bridge_slave mcast_router 2
- $ bridge -d mdb show | grep router
- router ports on br1: dummy1
- # ip link set dev br1 type bridge mcast_vlan_snooping 1
- $ bridge -d mdb show | grep router
+As for element updates, decrement set->nelems to restore it.
 
-However, the port can be re-added to the global list even when per-VLAN
-multicast snooping is enabled:
+A simpler fix is to call synchronize_rcu() in the error path.
+However, with a large batch adding elements to already maxed-out set,
+this could cause noticeable slowdown of such batches.
 
- # ip link set dev dummy1 type bridge_slave mcast_router 0
- # ip link set dev dummy1 type bridge_slave mcast_router 2
- $ bridge -d mdb show | grep router
- router ports on br1: dummy1
-
-Since commit 4b30ae9adb04 ("net: bridge: mcast: re-implement
-br_multicast_{enable, disable}_port functions"), when per-VLAN multicast
-snooping is enabled, multicast disablement on a port will disable the
-per-{port, VLAN} multicast contexts and not the per-port one. As a
-result, a port will remain in the global router port list even after it
-is deleted. This will lead to a use-after-free [1] when the list is
-traversed (when adding a new port to the list, for example):
-
- # ip link del dev dummy1
- # ip link add name dummy2 up master br1 type dummy
- # ip link set dev dummy2 type bridge_slave mcast_router 2
-
-Similarly, stale entries can also be found in the per-VLAN router port
-list. When per-VLAN multicast snooping is disabled, the per-{port, VLAN}
-contexts are disabled on each port and the port is removed from the
-per-VLAN router port list:
-
- # ip link add name br1 up type bridge vlan_filtering 1 mcast_snooping 1 mcast_vlan_snooping 1
- # ip link add name dummy1 up master br1 type dummy
- # bridge vlan add vid 2 dev dummy1
- # bridge vlan global set vid 2 dev br1 mcast_snooping 1
- # bridge vlan set vid 2 dev dummy1 mcast_router 2
- $ bridge vlan global show dev br1 vid 2 | grep router
-       router ports: dummy1
- # ip link set dev br1 type bridge mcast_vlan_snooping 0
- $ bridge vlan global show dev br1 vid 2 | grep router
-
-However, the port can be re-added to the per-VLAN list even when
-per-VLAN multicast snooping is disabled:
-
- # bridge vlan set vid 2 dev dummy1 mcast_router 0
- # bridge vlan set vid 2 dev dummy1 mcast_router 2
- $ bridge vlan global show dev br1 vid 2 | grep router
-       router ports: dummy1
-
-When the VLAN is deleted from the port, the per-{port, VLAN} multicast
-context will not be disabled since multicast snooping is not enabled
-on the VLAN. As a result, the port will remain in the per-VLAN router
-port list even after it is no longer member in the VLAN. This will lead
-to a use-after-free [2] when the list is traversed (when adding a new
-port to the list, for example):
-
- # ip link add name dummy2 up master br1 type dummy
- # bridge vlan add vid 2 dev dummy2
- # bridge vlan del vid 2 dev dummy1
- # bridge vlan set vid 2 dev dummy2 mcast_router 2
-
-Fix these issues by removing the port from the relevant (global or
-per-VLAN) router port list in br_multicast_port_ctx_deinit(). The
-function is invoked during port deletion with the per-port multicast
-context and during VLAN deletion with the per-{port, VLAN} multicast
-context.
-
-Note that deleting the multicast router timer is not enough as it only
-takes care of the temporary multicast router states (1 or 3) and not the
-permanent one (2).
-
-[1]
-BUG: KASAN: slab-out-of-bounds in br_multicast_add_router.part.0+0x3f1/0x560
-Write of size 8 at addr ffff888004a67328 by task ip/384
-[...]
-Call Trace:
- <TASK>
- dump_stack_lvl+0x6f/0xa0
- print_address_description.constprop.0+0x6f/0x350
- print_report+0x108/0x205
- kasan_report+0xdf/0x110
- br_multicast_add_router.part.0+0x3f1/0x560
- br_multicast_set_port_router+0x74e/0xac0
- br_setport+0xa55/0x1870
- br_port_slave_changelink+0x95/0x120
- __rtnl_newlink+0x5e8/0xa40
- rtnl_newlink+0x627/0xb00
- rtnetlink_rcv_msg+0x6fb/0xb70
- netlink_rcv_skb+0x11f/0x350
- netlink_unicast+0x426/0x710
- netlink_sendmsg+0x75a/0xc20
- __sock_sendmsg+0xc1/0x150
- ____sys_sendmsg+0x5aa/0x7b0
- ___sys_sendmsg+0xfc/0x180
- __sys_sendmsg+0x124/0x1c0
- do_syscall_64+0xbb/0x360
- entry_SYSCALL_64_after_hwframe+0x4b/0x53
-
-[2]
-BUG: KASAN: slab-use-after-free in br_multicast_add_router.part.0+0x378/0x560
-Read of size 8 at addr ffff888009f00840 by task bridge/391
-[...]
-Call Trace:
- <TASK>
- dump_stack_lvl+0x6f/0xa0
- print_address_description.constprop.0+0x6f/0x350
- print_report+0x108/0x205
- kasan_report+0xdf/0x110
- br_multicast_add_router.part.0+0x378/0x560
- br_multicast_set_port_router+0x6f9/0xac0
- br_vlan_process_options+0x8b6/0x1430
- br_vlan_rtm_process_one+0x605/0xa30
- br_vlan_rtm_process+0x396/0x4c0
- rtnetlink_rcv_msg+0x2f7/0xb70
- netlink_rcv_skb+0x11f/0x350
- netlink_unicast+0x426/0x710
- netlink_sendmsg+0x75a/0xc20
- __sock_sendmsg+0xc1/0x150
- ____sys_sendmsg+0x5aa/0x7b0
- ___sys_sendmsg+0xfc/0x180
- __sys_sendmsg+0x124/0x1c0
- do_syscall_64+0xbb/0x360
- entry_SYSCALL_64_after_hwframe+0x4b/0x53
-
-Fixes: 2796d846d74a ("net: bridge: vlan: convert mcast router global option to per-vlan entry")
-Fixes: 4b30ae9adb04 ("net: bridge: mcast: re-implement br_multicast_{enable, disable}_port functions")
-Reported-by: syzbot+7bfa4b72c6a5da128d32@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/684c18bd.a00a0220.279073.000b.GAE@google.com/T/
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20250619182228.1656906-1-idosch@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Backport to 5.15.y: resolved a context conflict in
-  br_multicast_port_ctx_deinit() where mainline uses the post-6.15
-  timer_delete_sync() name; 5.15 still spells it del_timer_sync().
-  The three rport-del helpers already exist in 5.15 (since 4b30ae9adb04),
-  so the fix applies unchanged otherwise. ]
+Fixes: 35d0ac9070ef ("netfilter: nf_tables: fix set->nelems counting with no NLM_F_EXCL")
+Reported-by: Inseo An <y0un9sa@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+[ Backport to 5.15.y: 5.15 has no nft_set_maxsize() helper (introduced by
+  8d738c1869f6 "netfilter: nf_tables: fix set size with rbtree backend",
+  not in 5.15), so the per-set ceiling is inlined using 5.15's own
+  accounting: max = set->size + set->ndeact, and the element is only
+  counted when set->size is non-zero (unlimited sets are untracked, as
+  before). The matching atomic_dec() on the error path is guarded the
+  same way. The update-path hunk from the upstream commit does not apply:
+  5.15 has no in-place element-update path here. ]
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
 ---
-The 6.1.y backport of this fix is already in the stable queue; this is the
-5.15.y counterpart. The only conflict was the timer_delete_sync() rename.
+Not a clean cherry-pick, please see the bracketed backport note: 5.15
+lacks nft_set_maxsize(), so the ceiling is inlined using 5.15's existing
+accounting. A review of the adaptation from the netfilter side would be
+appreciated.
 
-Build-tested on arm64, and boot-tested under QEMU with KASAN: bridge
-multicast router-port configuration (global and per-VLAN, including port
-and VLAN deletion followed by re-adding a router port) works as before,
-with no KASAN reports.
+Build-tested on arm64, and boot-tested under QEMU with KASAN: the set size
+limit is still enforced (ENFILE), element counts stay correct across
+delete/re-add and flush, unlimited sets are unaffected, no KASAN reports.
 
- net/bridge/br_multicast.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ net/netfilter/nf_tables_api.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
-index a91c133ce296..cc832477f290 100644
---- a/net/bridge/br_multicast.c
-+++ b/net/bridge/br_multicast.c
-@@ -1859,10 +1859,19 @@ void br_multicast_port_ctx_init(struct net_bridge_port *port,
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index b5273255b738..70f28038d1ad 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -6255,6 +6255,7 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+ 	struct nft_data_desc desc;
+ 	enum nft_registers dreg;
+ 	struct nft_trans *trans;
++	bool set_full = false;
+ 	u64 timeout;
+ 	u64 expiration;
+ 	int err, i;
+@@ -6541,10 +6542,18 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+ 	if (err < 0)
+ 		goto err_elem_expr;
  
- void br_multicast_port_ctx_deinit(struct net_bridge_mcast_port *pmctx)
- {
-+	struct net_bridge *br = pmctx->port->br;
-+	bool del = false;
++	if (!(flags & NFT_SET_ELEM_CATCHALL) && set->size) {
++		unsigned int max = set->size + set->ndeact, nelems;
 +
- #if IS_ENABLED(CONFIG_IPV6)
- 	del_timer_sync(&pmctx->ip6_mc_router_timer);
- #endif
- 	del_timer_sync(&pmctx->ip4_mc_router_timer);
++		nelems = atomic_inc_return(&set->nelems);
++		if (nelems > max)
++			set_full = true;
++	}
 +
-+	spin_lock_bh(&br->multicast_lock);
-+	del |= br_ip6_multicast_rport_del(pmctx);
-+	del |= br_ip4_multicast_rport_del(pmctx);
-+	br_multicast_rport_del_notify(pmctx, del);
-+	spin_unlock_bh(&br->multicast_lock);
- }
+ 	trans = nft_trans_elem_alloc(ctx, NFT_MSG_NEWSETELEM, set);
+ 	if (trans == NULL) {
+ 		err = -ENOMEM;
+-		goto err_elem_expr;
++		goto err_set_size;
+ 	}
  
- int br_multicast_add_port(struct net_bridge_port *port)
+ 	ext->genmask = nft_genmask_cur(ctx->net);
+@@ -6576,20 +6585,16 @@ static int nft_add_set_elem(struct nft_ctx *ctx, struct nft_set *set,
+ 		goto err_element_clash;
+ 	}
+ 
+-	if (!(flags & NFT_SET_ELEM_CATCHALL) && set->size &&
+-	    !atomic_add_unless(&set->nelems, 1, set->size + set->ndeact)) {
+-		err = -ENFILE;
+-		goto err_set_full;
+-	}
+-
+ 	nft_trans_elem(trans) = elem;
+ 	nft_trans_commit_list_add_tail(ctx->net, trans);
+-	return 0;
+ 
+-err_set_full:
+-	nft_setelem_remove(ctx->net, set, &elem);
++	return set_full ? -ENFILE : 0;
++
+ err_element_clash:
+ 	kfree(trans);
++err_set_size:
++	if (!(flags & NFT_SET_ELEM_CATCHALL) && set->size)
++		atomic_dec(&set->nelems);
+ err_elem_expr:
+ 	nf_tables_set_elem_destroy(ctx, set, elem.priv);
+ err_parse_data:
 -- 
 2.50.1 (Apple Git-155)
 
