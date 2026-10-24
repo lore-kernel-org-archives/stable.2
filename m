@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792805627;
-	b=dEO5KiKIGYMTmNejrLQP6Dbie7r4GZLtzvpOO+wRsr3huykXAIoqmUHN18jLJpnmplN2
-	 AUfQx8YPIYKS3y1h7FtoF/zet0yUa3Ththp1JT3ALd3BcN7e66yssnv5PrxeBQn3/8dPP
-	 3VhYG4UoxBSeL+Bbk+5lWzIFnbzYF1THnXEhYq/Hq8Xkx7XfQo/pxcFvXtRHktyJZQP2V
-	 SJq6mHPgHMr0XE0pA7lWCMSLXNPcFp8YMR4psqxbujV5/o14pO11i0w9RlmKE2xl6bNpa
-	 H630lAfMZTS/DqGp2f3FweKZoC3LswISZz2fUnpNs6fBvQHNi9+tmhayCAHvZCIsWKQ==
+	t=1792806787;
+	b=jb+h7HiVrcIwxNBAyXwg701fdSGnhWTmrSGQ7w9/ObJWGUTr7qHYoJOlljYmyu6yoD3U
+	 otA4tTF5gtQathYiXc5BEXNyghbaqWmNxY2vpr5dnnUd5TNp5Dk9o2S0MgYQvdVbDfH/L
+	 uQgKw1hWbOSYP5OfkRzXAZojaqv/x86epwugGgAiJ4Sdh8buEHiZJhmACv4ZqKSQmVT3z
+	 AlpjHMn7J696FGKbifYqiV54vO19tQ+YIUZLMQiCTcKLeRHks8pCykIsL3KMX/7Rl0qff
+	 OHOMWDQ3AhaKBAkRNa4Ad2ZHMhogV+6ZsASrNVJDpcta1GvKQ7JcZjFFJEdi0VGINDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792805627;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=U20DJXdLZgpHltsupjTkKgbtDLL46fdvXL7lze6YrJk=;
-	b=H+mk5ukm4Tv9SoKq7yUPhgOtTY0mjUvxk6tC3Yt/oy5EVcp5GVgTZjcdAAWtgg5uR4l4
-	 HZRYuIba7sCHH63VuXjUdQq3hNu9DCsXwTu363TOqKpRGU8Au586RgbYQXQkuwfcPSxVy
-	 SUfI2FqOaKm7eulbZWyke/zibosyY+LMn0ITTMzx6HooiuLehnuN0yYnDgGzGrGmw3fdA
-	 MzetS32tVXG8CyBsC58ErnGj01Tj5rVM9Gi29DIfe2vulZkltiOu0R535OjKEvN101oKg
-	 VgB0mNGJ3XrOtPRyiV15aoD+FXBeocb19LBTOTaFpMM9VmW0fTlqHSb940rLchTBVqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806787;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
+	b=2kfEe7w0N+p/ZNv+AE1lK50oZccX/KTXw9jld2uje/bTSTQLZCp0hUbFvxIUObUVaSk4
+	 +Xvz1fGW3/0dNOYhiQJKIgZ53VptvSh5kVv6OKPr7ttbgo/mEmcq/59FvvNILg4fAVznp
+	 uKDviRWvK9TgJTAVXpNfot+2gcMvJqXgddutHDdM/TunyL/F71EEQ3xmXHa9q93Z6PUVd
+	 k8KR1BGyuLORmSYjFsu+8Iwe658RBB8I5asoPSYcD5/wO4yvXy+a5cYiD9ujaURmlDqu7
+	 GcsaiuK7bXD6m3rUZTz+Yke7OkEzQEklNfu1xXWzW2b26E1ioflenG9Fs7Pm522TMUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=empyreal.works;
-	spf=pass smtp.mailfrom=empyreal.works;
-	dkim=pass header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=LIwHqmqw;
-	arc=none smtp.remote-ip=109.224.244.119
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331D1606A31A;
-	Sat, 24 Oct 2026 01:33:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 331D1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDED606A31B
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DDED606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=empyreal.works header.i=@empyreal.works header.a=rsa-sha256 header.s=protonmail2 header.b=LIwHqmqw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1792805623; x=1793064823;
-	bh=U20DJXdLZgpHltsupjTkKgbtDLL46fdvXL7lze6YrJk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=LIwHqmqwPpPjGD78UxeXLJiJ3iKRFjbdhrr2nzUR5+enicE02l2RdkMM1qaZ/TaOb
-	 QOfS03bsZTSKBoNIuWFnImgoxfy/7ACRuA44nxmd27dawksNnd8jLdpYKPNBSP2Of3
-	 pg+5pr1+rSKH2XGDVBSSHUZrqdMWrT2Vrzg91hJa4ac1td6h3AuvZRer0GIeM0SDlc
-	 3sK1CRJmyrssT/yWDqjT4rfcjrPmTD0LN3wJJksgN/AXcTkTqoTKM0t1VsJutvpo3n
-	 3KNu4pCD7h0iJgv+V1A9uxZo6sGyiGQqhhYmmOiu1goMaZNAxIpji9TskIvCFydsm0
-	 ucPBt91ueKwRQ==
-Date: Sat, 24 Oct 2026 01:33:38 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
-Subject: [PATCH v3 1/2] drm/amd/display: keep custom brightness curve in userspace domain
-Message-ID: <ba2699e51bc48bc673e3bac85a6788734d61cc92.1792805565.git.arc@empyreal.works>
-In-Reply-To: <cover.1792805565.git.arc@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works> <cover.1788388049.git.arc@empyreal.works> <cover.1792805565.git.arc@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 6ea466e04b99f6b5a3b9b9af7bea70f55c6c35b8
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=qJuEGuii
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93cb9e9405fso69144685a.2
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:53:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792806786; x=1793411586; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
+        b=qJuEGuiiTo4qSSJz7+E1oluEgXCF5Q7bIkPpU+mVQJxKqdJQl0qn99fQARIHEz0SLf
+         7Zq/R5fGJcEoYsDfI4rKiSj6X2gKELccAr9cvephMMb6R69nQL5BERqC1sdoe72MomTI
+         nfJ1+BFPu8ya8iOaDBmS1HPMjKmwWP2cYv7U3FUlsTJBHFsyo/cnHwyxD57v1QJAf1uF
+         EL9xd+P4nRtom4L07elrIoZWOPmB5+/hTi9vtr8wIVbw5rafwGWXAek60zJP3O4vNzkR
+         w+j52awfLN3pFwyE80YIl7wuJOP4FQqA6jyPp/b4f+bgLReMowERYR/DpctJgX5Jj/lp
+         Vi6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792806786; x=1793411586;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PwIJbRJBmxhNvtVEYVBcszZ+9KTP/NlP4a7yp3L2Bd0=;
+        b=njj6O1KkSqoxfvjKiDQf7sE2MIlqKwGdPZgyzXZ1osIfpkjQfwVaP+7NEY1x/9Th3M
+         JyloQfUxHcYXObyLo1YLtwjJ1Fa5J68ScZ4lMFPvc1XesH0bFHxwijLWmcKDld8Fvkdw
+         lDINsTBGxYWovkh6H8TYTmkN4h3PpsAhEm2e6DJStdxAArpyYsxN2In6cTiqi3EaFrOc
+         FxldtLAH8Ob2H7zX4696sT1UJ8oivL13uYmDugpGRhWuQnqlYIyiiDzFtKtLs5zh1rqN
+         VwH/o45TVZAsOqm5uhcG1HsQ/lXTNZlkq8RSeO/uuQHXMXul1HtfERx+otTqlJYfKpHm
+         TqdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBydzet3dVrSqWHfKBHsaXvyun1CemhDiJoMY/7xuGgaPZZYTOt4YxwjuDI7GzezKqSVOC8f3qQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIs8Mc+hlB7pGW+vlVTe6Syh/oCvhlDcNSnzfQFarIVVaPwh2C5
+	jJeP+0v1GImq9DjcXaHfw1HEkxtHl5RWdrfsRxBoqjeGOFls7QnwowrvN8OImOIQFA==
+X-Gm-Gg: AYBFou3J/wOyD8uiWNPD/7qke4onIlfRCLduJBhvTNWdfhDGiMFmCCD/iFQOOms/495
+	i6vFHFUzeL/JioQ0aW3mxG5gxkk3fFjfzRi7oPkJITiusBP34aNsTEN7sWAJy07b+ypZ23FfRpo
+	TobT7tY29mpuEd3fEyq4HHUUkI6IfR8+39zN62kMlyqZU5BsjuWq8OE2yDixk9+LYzeCd/jxRBZ
+	iN7/FXJHDO3XUqYCUPC43wjf+GAhsGTemkKiJgMFknKYmMfcT6Xpy0ZXLeZjd9gDEz9qDsialGf
+	86EGAgZXxCqmtW+8hSTvBz5lsgFxVmPsYCpPXJbqK6wtXAg/Va/YnmKOcXwECb/lJqvI0k+A7hv
+	nIaFZRNABfCWYun72H+g8umw1JkYpiT5PL+eaZ8uFj1C01Z2ZpflrbmCJHfN++VXS6Fh0Svr2iS
+	v5JJlugeVbnP0kimgi8F/lyrDTikgaVHmZaXx1CxJbsvn4lbiGeav9dcLrEPtsKUqS55/SyC+FN
+	Pb4XJ/qFJr+nAcU63PAsB95N6k1ydazD82+oQTEEOtsexujHqtFx4OSK5yMJ/8/J7EE2Q6UCfuv
+	pw==
+X-Received: by 2002:a05:620a:271d:b0:93e:ad16:9590 with SMTP id af79cd13be357-940ef94e80fmr107135785a.36.1792806786139;
+        Fri, 23 Oct 2026 18:53:06 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f06672d6sm62365285a.12.2026.10.23.18.53.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 18:53:05 -0700 (PDT)
+Date: Fri, 23 Oct 2026 21:53:02 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: IgorpetinDev <igorpetindev@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: core: hcd: cancel giveback work synchronously on
+ stop
+Message-ID: <d95ba108-30f2-4c86-a47a-2b842b8cb25a@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+ <e16930d5-375d-4d61-9e37-94dc9a83ba64@rowland.harvard.edu>
+ <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,241 +102,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAG21Q80vg9LdTRmFMC4aq7j=uEPWpEFNr3+1MLLUw_UU_cjd1Q@mail.gmail.com>
 
-convert_brightness_from_user() expects convert_custom_brightness() to
-reshape a value in the userspace [0..max] domain before the caller maps
-it once into the firmware [min..max] domain.
+On Fri, Oct 23, 2026 at 10:31:27PM +0300, IgorpetinDev wrote:
+> Hi Alan,
+> 
+> Thanks for looking at the patch.
+> 
+> I think the bot caused some confusion by talking about stranded URBs.
+> There are actually no pending URBs left on the list at all. The driver
+> properly killed all of them.
+> The issue is a race inside usb_giveback_urb_bh itself. The function
+> usb_kill_urb() unblocks as soon as __usb_hcd_giveback_urb() drops
+> use_count and wakes the waitqueue. The caller immediately wakes up,
+> finishes removal, and frees struct usb_hcd via usb_put_hcd().
+> 
+> Meanwhile, the worker thread on the other CPU is still running the
+> tail of usb_giveback_urb_bh(). Right after __usb_hcd_giveback_urb()
+> returns, it tries to access bh->completing_ep, bh->lock, and
+> bh->running. Because bh is embedded directly inside struct usb_hcd,
+> this access hits already freed memory.
 
-Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
-userspace") instead made convert_custom_brightness() call
-scale_fw_to_input(min, max, ...). That helper adds min and scales by the
-firmware span, entering the firmware domain before the caller applies
-the same span and minimum again.
+Okay, now I understand your concern.
 
-With the default PWM range, min is 3084 and max is 65535. A zero request
-through any custom curve consequently returns 6023 instead of 3084, so
-the darkest 2939 firmware levels are unreachable. AUX panels with a
-custom curve lose their lowest levels the same way.
+> So all URBs are already completed and bh->head is empty, but the
+> teardown path still needs to wait for the worker thread to fully exit
+> before the HCD structure gets freed.
+> Would calling flush_work() on both BH work items be the better way to
+> synchronize this without the concern raised by the bot?
 
-Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
-inverse of scale_input_to_fw(), and the caller remains the sole owner of
-the userspace-to-firmware conversion. The linear path is unchanged.
+Yes, I think it would.  After all, it's just good form to flush or 
+cancel a work item before deallocating it, if you can't prove that it 
+must already be idle.
 
-Since commit "drm/amd/display: map PWM brightness through custom
-backlight curve", PWM panels no longer reach this helper. AUX panels
-still do through convert_brightness_from_user(), and stable kernels
-predating the power module still use it on PWM panels.
-
-Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
-full range") fixed the corresponding input-side domain error. This
-completes the output side of the same conversion.
-
-Source and arithmetic analysis identified the duplicate domain
-conversion. KUnit coverage for a non-zero firmware minimum is added
-separately.
-
-Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to user=
-space")
-Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale c=
-ustom brightness curve from full range
-Cc: stable@vger.kernel.org # 6.17.x
-Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop t=
-he header and test hunks
-Assisted-by: LLM
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
- .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
- 3 files changed, 22 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 27546febf..cd8be50bb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -122,10 +122,10 @@ static inline u32 scale_input_to_fw(int max, u64 inpu=
-t)
- =09return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
- }
-=20
--/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
--static inline u32 scale_fw_to_input(int min, int max, u64 input)
-+/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace=
- [0..max]. */
-+static inline u32 scale_fw_to_input(int max, u64 input)
- {
--=09return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_L=
-EVEL);
-+=09return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
- }
-=20
- static u32 backlight_signal_to_luminance(const struct amdgpu_dm_backlight_=
-caps *caps,
-@@ -192,8 +192,7 @@ static u32 convert_brightness_to_millipercent(const str=
-uct amdgpu_dm_backlight_c
-=20
- STATIC_IFN_KUNIT
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
-,
--=09=09=09       unsigned int min, unsigned int max,
--=09=09=09       uint32_t *user_brightness)
-+=09=09=09       unsigned int max, uint32_t *user_brightness)
- {
- =09u32 brightness =3D scale_input_to_fw(max, *user_brightness);
- =09u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
-@@ -251,7 +250,7 @@ void convert_custom_brightness(const struct amdgpu_dm_b=
-acklight_caps *caps,
- =09=09=09=09=09=09    (brightness - lower_signal),
- =09=09=09=09=09=09    upper_signal - lower_signal);
- scale:
--=09*user_brightness =3D scale_fw_to_input(min, max,
-+=09*user_brightness =3D scale_fw_to_input(max,
- =09=09=09=09=09     DIV_ROUND_CLOSEST(lum * brightness, 101));
- }
-=20
-@@ -266,7 +265,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm=
-_backlight_caps *caps,
- =09if (!get_brightness_range(caps, &min, &max))
- =09=09return brightness;
-=20
--=09convert_custom_brightness(caps, min, max, &brightness);
-+=09convert_custom_brightness(caps, max, &brightness);
-=20
- =09/* Rescale 0..max to min..max */
- =09return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 9ad888d3a..32ba2f8ef 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -68,8 +68,7 @@ ssize_t panel_power_savings_store(struct device *device,
- int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- =09=09=09 unsigned int *min, unsigned int *max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
-,
--=09=09=09       unsigned int min, unsigned int max,
--=09=09=09       uint32_t *user_brightness);
-+=09=09=09       unsigned int max, uint32_t *user_brightness);
- u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *ca=
-ps,
- =09=09=09=09 uint32_t brightness);
- u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
-,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
-test.c
-index 5221050de..5ff074497 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-@@ -1054,7 +1054,7 @@ static void dm_test_custom_brightness_no_data_points(=
-struct kunit *test)
-=20
- =09caps.data_points =3D 0;
-=20
--=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+=09convert_custom_brightness(&caps, 65535, &brightness);
-=20
- =09/* No data points =E2=86=92 no-op */
- =09KUNIT_EXPECT_EQ(test, brightness, saved);
-@@ -1078,7 +1078,7 @@ static void dm_test_custom_brightness_debug_mask_disa=
-bles(struct kunit *test)
- =09/* Set the disable flag */
- =09amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_=
-CUSTOM_BRIGHTNESS_CURVE);
-=20
--=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+=09convert_custom_brightness(&caps, 65535, &brightness);
-=20
- =09/* Should be no-op due to debug mask */
- =09KUNIT_EXPECT_EQ(test, brightness, saved);
-@@ -1121,14 +1121,14 @@ static void dm_test_custom_brightness_exact_match(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 32896;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * Exact match: lum=3D50, brightness_scaled=3D128
--=09 * result =3D scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101=
-))
--=09 *        =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
--=09 *        =3D scale_fw_to_input(0, 65535, 63)
--=09 *        =3D 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
-+=09 * result =3D scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
-+=09 *        =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
-+=09 *        =3D scale_fw_to_input(65535, 63)
-+=09 *        =3D DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
- =09 */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32896);
- =09KUNIT_EXPECT_TRUE(test, brightness < 32896);
-@@ -1167,13 +1167,13 @@ static void dm_test_custom_brightness_below_first(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 12850;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * Below first data point: lum =3D DIV_ROUND_CLOSEST(40 * 50, 100) =3D =
-20
--=09 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
--=09 *      =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
--=09 *      =3D scale_fw_to_input(0, 65535, 10)
-+=09 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-+=09 *      =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
-+=09 *      =3D scale_fw_to_input(65535, 10)
- =09 * The output should be significantly less than input.
- =09 */
- =09KUNIT_EXPECT_TRUE(test, brightness < 12850);
-@@ -1211,7 +1211,7 @@ static void dm_test_custom_brightness_interpolation(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 32125;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * The function should interpolate between data points and produce
-@@ -1254,7 +1254,7 @@ static void dm_test_custom_brightness_above_last(stru=
-ct kunit *test)
- =09 */
- =09brightness =3D 56533;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/* Output should differ from input (remapped via curve) */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 56533);
-@@ -1292,7 +1292,7 @@ static void dm_test_custom_brightness_single_data_poi=
-nt(struct kunit *test)
- =09 */
- =09brightness =3D 16448;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09KUNIT_EXPECT_TRUE(test, brightness < 16448);
-=20
-@@ -1330,7 +1330,7 @@ static void dm_test_custom_brightness_lower_lum_zero(=
-struct kunit *test)
- =09 */
- =09brightness =3D 32125;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/* Should remap; result should differ from input */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32125);
---=20
-2.56.0
-
-
+Alan Stern
