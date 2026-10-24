@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792877944;
-	b=Sm6Ol7n3+6CsUY4qepVmYKW53+WLWlPj0TBEGXd7tWayE+l6QJRGpjtpm1pwNuJx/gY1
-	 ZPi48ERAhuMsxf5AMKk4MXQ0McbbAw/treiO8EjdVcDLnq+ttBKRsYIGoHvH5iaAXBV5q
-	 PCB8pWPc0F8IDGfuNy8m7hPnw8pdXcd9+5ULzLt0l9DN4BRx2cdwFSts1VJMoUxbPtlNS
-	 v+H0ZDmbviTMO10E+lrt03HrEwVI48OdAqYO1yXf7qHlRky00XIieumpSk6MHu5SRfvci
-	 9LYvTnXuANfub41VUv1oqFepr3XSqWumzKipY8MoHywkg0fEomm5YW7ThjvrieETcQA==
+	t=1792878269;
+	b=IMJZicxwq2cIuLtfYEQcctJn1psFuDzlrxpchdwwEZVZyOTTDUpdihr2gTW17YZuN1Ph
+	 xqYpVuexso/URvGtTjEdj2LxmQzrpEiTE9jRt32VQq7YChOiIjBDCcZJXQwuzgzvyKrfo
+	 KiJfWUbx7k1kqMydUzyvOPaLFCZlLZH4su8Bast990NE9bZ/8fI7ZcUTpancsjbnML6Iu
+	 xhhyeJDRV7OJUw2LcbQWEkIrVViKR86GNFgiRrpR2NOnyYfltB5snPiA+pytBr7S+u7Lb
+	 jcZDeyN+uVvc7X9Yh3GiFYv2NSfSX20JUlq9bUpqYk1o0avUfifiNwLDkDhpNAXKa4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792877944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792878269;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=MWhF1KWrf55vCpf16EXuustcrkVB/1ZS8QurJvWheCo=;
-	b=Xy74OCEiXGYR/RGOcqphR4Mscl48WUdnbq+mBloawox7PiUryT5r1mZFtFlntqzej3jY
-	 AcCcuBNlYQChDQq1I8+Ef4avZ3bwnn5FzQva7E/6q3Uhf0G+bU7pRhxt8HMYqvLBpJV8u
-	 KV0A7rGe68imr+NFyP9/W+yZjFQ3s0U5vRnyIb2jq5Kox4c35PA16Vrf8j5SxvBD/zgdw
-	 iUnJpelOeMPZJjGB3SSttBCjZ1go2Sp5XnvwXOXcBy72vQqo5K4BpE54yBlrdZ4Qk+ZkA
-	 8lds4ago+tqD3Xj3az3/bGJkaH+ZsQ2mELInjYp+1oocRl/yn4hyl4eVBkJenX8wFLw==
+	bh=o9dLc90NOwCQ8gMqbMbmGkdZs1HGcCbm5itPdWqDFhg=;
+	b=DT75h+NTSGcj5LxCcFz0kyUtIjhahhpymGsVJ3EIu+b9ZP2Su6K24zX5Q+NRwu2fAMK5
+	 jQWCZhKdwwbZgSj5Gr0fldq68DJNdxvTuIcLXFTykLT35RfCnKxJLX9Jsu2D2xIY/nxRo
+	 qNMAj/TKqh+2Ohg5GROApQuFjIBBVULkRG47FPmmffQXG1M/tipBcBCiP8S5i0eVcMiRl
+	 jTQRr9y0A4BKdgdU/OZMFIZ2BRX/XxQUWxiI9NpGSOFFc7J8EmbBsZ5+D30z8ToaSumzl
+	 V1Hd+IjFJSAIOE248jwr1aWPnrNoL5NLWHeohVjTyq8ocC6N1jh4bZsz+PFCQeRtU/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gS6r+YXC;
-	arc=none smtp.remote-ip=209.85.222.52
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3vnlwLJ;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93B6606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 21:39:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B93B6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61659606A31F
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 21:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61659606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gS6r+YXC
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-98c6e050c5dso974834241.0
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 14:39:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3vnlwLJ
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48dee593f18so1426846f8f.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 14:44:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792877942; x=1793482742; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792878267; x=1793483067; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MWhF1KWrf55vCpf16EXuustcrkVB/1ZS8QurJvWheCo=;
-        b=gS6r+YXCZjw4fHLITryR3Gklt2m0L6X8j1EbqX+DvixHBTUurcoh7fSmTx017YUFJd
-         PBvFHiRiauhfDG8NqGSKOgbo+Bb5UfzP5VLNkDjgWLRLbxX/ChtlSUgDzJh4pW0XrHGN
-         MiNUV3RXEsqkNSrcrDmV2uMUM3xyPTw12XI4vwYS2LXxOaWzzEkdxjNSB1asqxe17sN3
-         KGPQLGHU4naPIDlZk+K3P9SilETLT11fPQu4ZyI71qTioMhyWOM2XnnwlLJUFbRd1HSX
-         08OSUyMLN0BpDVnMqzen5AhyPgvgf9yfuMDs6Pji6tdUnp2yuOUOcNGGVVGDcbZ9EKTg
-         JBPg==
+        bh=o9dLc90NOwCQ8gMqbMbmGkdZs1HGcCbm5itPdWqDFhg=;
+        b=F3vnlwLJxSQs9B3MUogpQhfEkXeXwkfpVfAWgu+HUDrbEJUoobOTEajYZL3MD1Mj6W
+         7H31hNMbpYjyFA6tSGXQb/dnF3t9hxppaTNI9cOb8bH72RH+qC+D305nJ99gdGHxiM6m
+         7OdCr4cclSTxb7xyDh3ZoUjxxx1Qk/grC0gv31SMkskBqaYENar9XhQbvJ5HkM1p74XT
+         4AQrpYYpujsXPCCJiZztRrM/x3ANtV+HZvcyRtb8gqPThL+hH4hTLj5ZJrReTXvjA2u0
+         t3VPV5P/WpRaYt6YSgoOD4DSpCDW0FpCNUzQhFIZ6bA3ScTkUrJrsLyTYf7NoAOLZzTW
+         Tchw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792877942; x=1793482742;
+        d=1e100.net; s=20260707; t=1792878267; x=1793483067;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MWhF1KWrf55vCpf16EXuustcrkVB/1ZS8QurJvWheCo=;
-        b=hR9nOReMY4lT1CrAu7xJQuclahWWNDWU+T4LA5R536Ttv1SyBTk182iB1XF56hRhdW
-         G2oqjKU/r6/8gjKzV8KYn5NbabgNvPK1oulKxrNUC0AxmW9R92UkZlkWKFr9C1vGzo1g
-         4XrXzAYYpMkV6VAG1PEmLyRj3EWLxVq/Fae6e6cXn0bhA08WsqwnubJEWYfvVnvLKYSO
-         17s2ZMGDwjaO9LEU6bUIV2Ek2g8Idxf8iEfYHT96Q2J7a0NmIz9RYRkmB0T6sjfXfr9B
-         HWw/O/BT3aVgTvFCjgw01PTb0OZyUdQvWbVH+AhRZAxEf4P5vluK3j47n8/SqB9mULzE
-         YGhw==
-X-Forwarded-Encrypted: i=1; AKwUvByViSvYGDc4sMbEWQtKABpNDGqlyw95lPPjqhktc46/SwZl7YwqfYfbTeY3hdgd+gawL+Teyfk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK46y1S8xArc9P03yQvqNe1uxRCvKi9pdMSEnwvhwVW1pY4T/6R
-	fJagu6x8oE8JRmO1zfIdKtiDYhb+plo9/CnSJbdPBiXkd/X6DgluvlTf
-X-Gm-Gg: AYBFou39fsUgGYh4A+o/inMysFk2ccTK6POlKNOmN3S4gU3XC+QO1rVCrnpRUM3EYhF
-	ijuoa4XJHQ21P+JmijCJRhEwe06bDZ4GUdrxLQxoblBoQL/q4W0fQxW3dQoIfxPj+ixUvb6cwHX
-	qXL0scjm8chOTj6X7uhVJ7TZX9Ch/CDQBQwu/DyXEZXbRySmBbEE6buyzqRPjd3T3fFodlzpUoW
-	jqbBACvxSHS2JVNk9wSTN8ik6AMYtYJmprdw9oj7KaPafx4ALhX8icbg4iviCJyVmcdR1n8CZ3j
-	Aiu9a/dEPAYjBozV9kOyxuQdDWNn4wpNFiOur4jqzD0zdaST6aIe+oGyTXLHthWqSiNVXY68le3
-	GAxVnTVIrVAtOFD26PglEV55yXtBRUqvyonf7+orx4dnwxIuGq9arM5zaUYM1puGe/XSFNBWPd7
-	7jNPKbti/GPNgpmFgFU9uzyDJL/LMTwjRHeMciqQc7f1kI/FrqcJSuHkJQ0YuIylZwOsG21iC3v
-	wPZTOcgfh8wSBeKvjQw2rwf7+ebWipGu7qyo5dIf+062caOUfDO7Ol0O5ihHP+X
-X-Received: by 2002:a05:6102:b10:b0:7cc:2712:cb0b with SMTP id ada2fe7eead31-7ce5cd41502mr969522137.17.1792877942564;
-        Sat, 24 Oct 2026 14:39:02 -0700 (PDT)
-Received: from bridge.. ([2804:14d:ba6b:8339:de12:7640:de42:74c])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e23b13csm3128627137.8.2026.10.24.14.38.57
+        bh=o9dLc90NOwCQ8gMqbMbmGkdZs1HGcCbm5itPdWqDFhg=;
+        b=Wk75zvOWWvzTYMInOP6vDTWqmr0XZDyiH6ymhk8R5uhdWtnT0pWLBFvCxAKfIJxlw0
+         Qe/Ec0Hbw5/Wt0Z1r7WsQOsCzghKdSmHrWhTw4JnJFWxQp5CEhEsaFFHhvk+ZrUeUooX
+         LD8lc91vyNyit6aO0Vb86DIqGwyLcBoC3BuB5j7ZJzaDCBT2hWj4EFxs2B9ZkRh12vIR
+         MVAwDWTGmwg3n8pjMd/6AfafyyLeayuCSPo0TTYqPX9EmyI/9cNt/J45pko0aksHz+hT
+         Kw5ubglYrbG1vrNZ0qqZ9PHHd7iXKFtLXi4hvwO/r8ZTHPkMoJSdkfdvPI/puAmRxjoF
+         pgeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxU5Z4i0ToN3waJZwrcJpgI24iGtS3ecMrqFyf0W3p43N9IX45HrpsS3HrpdRxPFxrFvgy0QA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnkwJHsSfVlXpCsOzE8pfCxILHUorF7bB8W+fZc3uD69jfYlZM
+	C6A7T+PqqhYsP03QtHAxi+2c5ojuQHZA4Tg07dlfJaJ4Q2jsVcALHp18
+X-Gm-Gg: AYBFou1JImVyPSLN+3QGIr+HGW2xB3YxcFo4Yjz8GNnaRY2W37e+0O5CGm3YTznvCpk
+	oef4SVsY0x998Q6VLpvOZi3imafOtB7FNEaAWiVQKfE02fe5LHVsHxBgm2V7UW8oCh/qbMbOwuW
+	lT2lLfKapvxTJ0yjJ0JxyVWGHV0pztfhCTEEABVsc4RbkKaV3IP1GlOurcN2ObYVdkERfrfdI4U
+	DbFlGYe92p0x/Ce3QKiu7RwOswYItiuVkkHlpsLsixBrMm2jpGGr4M2LUYjTbBN3rXqasChMz1Y
+	XEno3QOGJSZnSjIcPQcz1cJPblP2Tic5BZ7Tmq6ReqbMtecWxTLgjszogj35RcSPnZW7yd4zHdX
+	r6ULHVBTkH3jNl9VuqRmZc9iu99E6D6Nz5cD4n149w21aU3x/ZB5+GPXevBiwmxgzT5sexsZEdK
+	/CKug8DyUxWWCAcjLvP737mlqEuD9eYl3PdLzomJ0Aqqy+D06++jDrxXHGQ0IzSTnG8/r+vL+pl
+	3WU6mHJ7FlpLsZRed71vc4FKWgHFoqpo7/yUwL8Lcl3hsCvJYeSsuHrJiV844+3SIZYIMeCYN8O
+	Qrzi720n0lOqWOtAlLnoA42HXImOQixqq/pMj4zp
+X-Received: by 2002:a5d:4743:0:b0:48d:f249:82c3 with SMTP id ffacd0b85a97d-48e3eb8b816mr3059620f8f.30.1792878267110;
+        Sat, 24 Oct 2026 14:44:27 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3c5bsm6981411f8f.9.2026.10.24.14.44.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 14:39:01 -0700 (PDT)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	sgogte@purestorage.com,
-	mgurtovoy@nvidia.com,
-	israelr@nvidia.com,
-	wagi@kernel.org,
+        Sat, 24 Oct 2026 14:44:26 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Ariana Lazar <ariana.lazar@microchip.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+	David Carlier <devnexen@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] nvme-rdma: fix NULL metadata_sgl dereference with T10-PI
-Date: Sat, 24 Oct 2026 18:37:37 -0300
-Message-ID: <20261024213737.506824-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] iio: dac: mcp47feb02: reject out-of-range raw values
+Date: Sat, 24 Oct 2026 22:44:23 +0100
+Message-ID: <20261024214423.865635-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,53 +102,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
-and startup") the I/O tag set is allocated before the I/O queues.
-nvme_rdma_init_request() only sets req->metadata_sgl if
-queue->pi_support is set, but pi_support is only set later by
-nvme_rdma_alloc_queue(), so every I/O request is left with a NULL
-metadata_sgl.
+mcp47feb02_write_raw() writes the user supplied raw value to the DAC
+register without checking it against the chip resolution. The parts
+are 8, 10 or 12 bit, and the bits above the resolution are not
+implemented, so writing 300 to out_voltage0_raw on an 8-bit part sets
+the output to code 44 instead of failing, and -1 is written as 0xffff.
 
-With an RDMA device that supports integrity and a namespace formatted
-with protection information, nvme_rdma_dma_map_req() then dereferences
-the NULL pointer on the first integrity I/O, already during the
-namespace scan when there is more than one I/O queue.
+The out-of-range value is also cached in dac_data, so it is written
+back on resume and stored to EEPROM by store_eeprom.
 
-Queues that a later reconnect adds for the first time have the same
-problem.
+Return -EINVAL for values outside [0, 2^resolution - 1].
 
-Check queue_idx and the controller's max_integrity_segments instead,
-which is what nvme_rdma_alloc_queue() derives pi_support from.
+Found by code inspection. Build tested with W=1 (=m and =y) only;
+no hardware was available for runtime testing.
 
-Fixes: 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation and startup")
+Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Assisted-by: LLM
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
-Based on nvme-7.4 (aaedcff90148); also applies to mainline and v7.3.
+ drivers/iio/dac/mcp47feb02-core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Found by code reading while looking at the same reorder in nvme-tcp.
-Without PI-capable hardware (only mlx5 supports it) I could not
-reproduce the oops. On rxe in QEMU, a debug print showed every I/O
-request initialized before its queue was allocated, and with the patch
-connect, I/O and a reconnect growing the queues from 2 to 4 still work.
-A Tested-by from someone with ConnectX and a PI namespace is welcome.
-
- drivers/nvme/host/rdma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 5b9b540693b5..07216890f75c 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -313,7 +313,7 @@ static int nvme_rdma_init_request(struct blk_mq_tag_set *set,
- 		return -ENOMEM;
+diff --git a/drivers/iio/dac/mcp47feb02-core.c b/drivers/iio/dac/mcp47feb02-core.c
+index 88bffbab0854..1a0e80b5db87 100644
+--- a/drivers/iio/dac/mcp47feb02-core.c
++++ b/drivers/iio/dac/mcp47feb02-core.c
+@@ -696,6 +696,9 @@ static int mcp47feb02_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec
  
- 	/* metadata nvme_rdma_sgl struct is located after command's data SGL */
--	if (queue->pi_support)
-+	if (queue_idx && ctrl->ctrl.max_integrity_segments)
- 		req->metadata_sgl = (void *)nvme_req(rq) +
- 			sizeof(struct nvme_rdma_request) +
- 			NVME_RDMA_DATA_SGL_SIZE;
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
++		if (val < 0 || val >= BIT(data->chip_features->resolution))
++			return -EINVAL;
++
+ 		ret = regmap_write(data->regmap, REG_ADDR(ch->address), val);
+ 		if (ret)
+ 			return ret;
 -- 
-2.43.0
+2.55.0
 
