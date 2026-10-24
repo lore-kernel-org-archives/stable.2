@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792845648;
-	b=MgTTL+ihFx8EiPvE8X0KlXtBXdDzJFft7qKKrjBPj1p0AcQpgcme0JRxKBjpOi9zYCcq
-	 MhodJarMAneRugeOLXblIGIhr1M8bSgs1LBXe5DTgzV2Y62EVOCAP9cshOFefj8JUMQkn
-	 GqdV9xZ0tdBCEZTCmULTke7dFTDEhRh51wCb/vEU6ZMSJZzdypG1/xFL/0tYAEA6Oqcr5
-	 FR53bRISvulNrlS0+b1kR9mJ4X7ijhmCcUTTnf4lEqMOh9pIjVQrcBpgNp2DW0+3SLnKW
-	 31Y3/of8PGd1MxPVo5v0P+nguyJenSs0pc+k8XiBNUXUzJmMkaNgxeEfYrwDRjM+RHA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792845648;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
-	b=o2aIftJKRGpJPWi6mBljIJt+3v85eYJ1cg3/e7PqkiRrsLwUyvrJdngEAhk4oGDq3l0d
-	 G3rMh2znvn/8SAdkBwnUsdvgHfHIfYe/i0kNY1XQ3IlY/i4YvHH3+8t9pkH3PTwmoTZk0
-	 oiQfSNLZZFPB7PrEu4QBEfnZ/Y1B617SOyWPoKy6RtS2K2O6AZnBq8ROi9oDjyg9Neqbc
-	 C/ToFRyK7uUsroVsqAzfSIq3XRFLoM5a1VrsHR41c+NgesqiKTaiSkUMUJFaITG75nN0s
-	 JPOrE8tAWCgx7uBSnIskLydls5jVeDvJyj2oLV/yAmT7F8CkiI7yGRPLW7aR5XixaVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1IFp77E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792846173;
+	b=Jl0pQmV7GgrprtLTQTwDbKq1wHYBYPf3kt5saZasL5AfbvpmSVQAX9E96PDAOf/KwX+c
+	 SLtMx18H+DB+XVd76ucxzefGpZMo5OnNe+fPPjJ4qDeTfdp6IlQcKuoCrrNAIOX9f06I6
+	 ivT/lCYTqJD8cVF/v07OaI7nwNzGQHk/bYXGGYplFpPTsz4XIPC3AQ5zFn1bdf3mu9ZPF
+	 8aU7A0twVev7s5Cfuxq83lIUH0ctrzuA6M6kDMl40x85pDI1qEAPz0CPLCAx1fFm7sSwR
+	 Jyqs5sB7OKih3Yh1btxOO6Rj/KLqld1kxTbR/TtbfUU906GSoPIWFjz46Uw1mwKG5mQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792846173;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=K8+g1Op14X/DIIeHZSUobv7PPw2ftCu7rm2cQlrW2Aw=;
+	b=4uRake9LZNrmRWI62f4jVQpvIohnIJB+emQYd4rSWsNSPQaYhpyJiOXIrrAYZP0LBlcd
+	 qEPHbgBx3fEui5ieh0kO2SrjnvZvTBI7Y7jg+GlgwRCOGIUiOtMGXMYmMsisATP+PG2qC
+	 lNFzyD48yERuusuwBXngO7uMtiSw0inh8U+Hzo5IeBOzT7aTkk6vUSv64x6aWmYTZMbF2
+	 sdx/lzbSHY22Qt5Bw/nfnUErRpkYjZyBbg9Uug2gmYEloru+I+9ASGVF4YIISkgFbFpgj
+	 78JJqvtjICoun4IF12aQHuUYh84bxc1gtdlEoMeoVTnmmZ3EAstjFiGmOhXWQ4PGoHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kernelscan.io;
+	spf=pass smtp.mailfrom=kernelscan.io;
+	arc=none smtp.remote-ip=212.227.126.131
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E338F606A31D;
-	Sat, 24 Oct 2026 12:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1IFp77E
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792845647;
-	b=wC3oAdy0laok08FTaAMJwjR++zoelTRj9hnSvPuj7VT69cJJJg1Pi1pGoo618VhvbOzH
-	 PzK4+sWM4MeCXIWbdH+8/PhZ9seXb3oO9O8AmoOVHwIc5UhtGJpuxNYHi/B8VHcbjSFwG
-	 2n+56gtACiLKOavexxSCdEzjuxH8n7gXtuP65Li31bMzMDkw/tiJhVhB5rZfqaC1Qbu7p
-	 z3KGJ0QtHn5TzGEM1DIYi8MFgYsUwyIelR2wHCIbLh/1PJWdr3ASVwxfAWbDC0mfAhIKu
-	 u1dHGb+M6BcFLBRliqIR3EIPK7GzZTwRI+zEDKI5D0+dE4Xs43p6+Y176g88rEWeRuA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792845647;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
-	b=nNAYadCHNhv4BPn7VndOf0z24aSGtsar4XQhRLaDngTsXF+NkMslSUwPekEn1BQlgNYJ
-	 c31lg1zf8Ea31XTp+00VwwWQUp+qpYuiU2DnbCmkfIe5O6H1E+96tClUvi5PiOJP6EvII
-	 exK8gAOqJUownfbfH9l3PEoInfROGx/+Z/z1Q+L4lXi9jTMcknyRRxtrUQ3k3krYrumgo
-	 /GrcFCAnUwfnjIE4SEgkwEMNnSDe8jarQ5bV5Abca1ExbOYCG061+f/Yl0H7FvYa0iXyJ
-	 Vcbpoenn/s0O1HRXfqchVtitEyTh+llWt5LDhxFcdFxVIPiQqJvs3Qz+bMynKtdPDYA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E39EA1F01825;
-	Sat, 24 Oct 2026 12:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792845647;
-	bh=Upi3zmD/rWYkaCGgRdYvqTn63AvximpHuQpwCpboks8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=i1IFp77Ea/uX+05A78KwTlGF6HAJt/jebeJdWosrIY2mZ8lOFiXjuYpCja2XHJ+yn
-	 RHAv0clhu1wTtyoiaC9ieRqIgyubYAZeUHUlqIUoZ13pxBQlHa8JtzFaCNEWrFKt1+
-	 gyYKP0W0f6HawUwcF+QRcmG7rdzVqei28uvdoY97IACSRaYNyr+6/5QW3knWuIRqOs
-	 YhoQzFaYjOQj+ntoBES/1N5kdPWMnaiYzVYls7CGUlh/WlfeS4RvZcPTFIPIao5+Ph
-	 p9ISH1D7zQtQNlYPk8WyrUDGc/BiF0EhrOCjdBB4HxY4I8JEYWzR1zEyKYeVnSh7m0
-	 qRemOuNm+sLdw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 40B43447E0;
-	Sat, 24 Oct 2026 12:40:46 +0000 (UTC)
-From: Franck Baur via B4 Relay <devnull+franck.baur.67.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 14:40:44 +0200
-Subject: [PATCH net v2] net: jme: keep RX MAC clock enabled for WoL
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D1D606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 12:49:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D1D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelscan.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelscan.io
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1M2gt5-1xI7Xy3ftn-0068XL; Sat, 24
+ Oct 2026 14:49:29 +0200
+From: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
+To: stable@vger.kernel.org
+Cc: Jay Vosburgh <j.vosburgh@gmail.com>,
+	Andy Gospodarek <andy@greyhouse.net>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.15.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
+Date: Sat, 24 Oct 2026 14:49:29 +0200
+Message-ID: <20261024124929.5350-1-steffen.pfendtner@kernelscan.io>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,197 +51,175 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEun3GoC/x3MSQqAMAxA0atI1gZqHPEq4sIhakSrtHUA8e4Wl
- 2/x/wOWjbCFMnjA8ClWNu1BYQDd1OiRUXpvIEVZpCjBeWW8tgVPQnu0qzhUAyd9W+RUpDH4bjc
- 8yP0/K9DsoH7fD1/+LzhoAAAA
-X-Change-ID: 20261024-jme-wol-v2-submit-0fe4db872853
-To: Guo-Fu Tseng <cooldavid@cooldavid.org>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Franck Baur <franck.baur.67@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792845645; l=5786;
- i=franck.baur.67@gmail.com; s=20261024; h=from:subject:message-id;
- bh=22BEaH8HKwqaRYpioIznd0XJzULoDFALusQ6AsH9C08=;
- b=ZJnzMfzAMFTzgHH4A3FnhMapPYhdQxqyABK8rFksQxXAcuFVv9VoCG9l0x0s1YybjRphadpWQ
- EVce2go1QqjBMS/eXK2VLwXChANNDPLiOIuw8dOYpn45If7urHk0wnz
-X-Developer-Key: i=franck.baur.67@gmail.com; a=ed25519;
- pk=jhUaI4DVBj7JgOebLvsUGOrgJCBubeK6gqDJjxIqtZ4=
-X-Endpoint-Received: by B4 Relay for franck.baur.67@gmail.com/20261024 with
- auth_id=1302
-X-Original-From: Franck Baur <franck.baur.67@gmail.com>
-Reply-To: franck.baur.67@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:YOYeLuMCYQ37ZuG1Lt/Qbd+igSPY06ajGufwxEIbeEEWPfMr7Po
+ +ZkkMfJ2hbS3B3GE6cIxiawnezUPtPXPdMMv/BilZEALwJD9RLau+RJ2EVv1ss1Y3uzcQrM
+ 01MnYmAeW80Gr68UyTHW5UrCW57u8g2dk07oghKsvo/+mUjZsm+0X5yUTVFNxsorqksZiGo
+ 4ZQ1FHIWSymAea+Ia/jxw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:ywQis6GEVsI=;2Ed5rwbiB5q3Sq9jBCnmd2+Hcg9
+ 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
 
-From: Franck Baur <franck.baur.67@gmail.com>
+From: Xiang Mei <xmei5@asu.edu>
 
-On the JMicron JMC250 revision 03, the MAC reset performed during
-suspend leaves GPREG1_RXCLKOFF set. Although the driver enables Magic
-Packet detection, the gated RX MAC clock prevents wake-up from ACPI S3.
+[ Upstream commit 2884bf72fb8f03409e423397319205de48adca16 ]
 
-Keep the RX MAC clock enabled while WoL is armed. Restore the gated
-clock state immediately after disabling WoL during resume, preserving
-the RX engine initialization ordering.
+bond_xmit_broadcast() reuses the original skb for the last slave
+(determined by bond_is_last_slave()) and clones it for others.
+Concurrent slave enslave/release can mutate the slave list during
+RCU-protected iteration, changing which slave is "last" mid-loop.
+This causes the original skb to be double-consumed (double-freed).
 
-Prevent concurrent link-change work from gating the clock again after
-WoL has been armed. Quiesce interrupt-driven link-change scheduling,
-synchronize pending interrupts, and cancel outstanding link-change
-work before programming WoL in suspend and shutdown paths.
+Replace the racy bond_is_last_slave() check with a simple index
+comparison (i + 1 == slaves_count) against the pre-snapshot slave
+count taken via READ_ONCE() before the loop.  This preserves the
+zero-copy optimization for the last slave while making the "last"
+determination stable against concurrent list mutations.
 
-Restore the deferred processing state before requesting link
-reinitialization on resume.
+The UAF can trigger the following crash:
 
-Tested on an ASUS K42JE with JMC250 [197b:0250] rev 03 using a
-Debian 6.12.111 kernel and an externally built module. ACPI S3 wake
-with a Magic Packet completed in 19 seconds, while a control without
-a Magic Packet resumed through the RTC alarm after 123 seconds.
-Ethernet and SSH recovered after resume.
+==================================================================
+BUG: KASAN: slab-use-after-free in skb_clone
+Read of size 8 at addr ffff888100ef8d40 by task exploit/147
 
-S4 and S5 wake behaviour has not been validated with this revision.
+CPU: 1 UID: 0 PID: 147 Comm: exploit Not tainted 7.0.0-rc3+ #4 PREEMPTLAZY
+Call Trace:
+ <TASK>
+ dump_stack_lvl (lib/dump_stack.c:123)
+ print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
+ kasan_report (mm/kasan/report.c:597)
+ skb_clone (include/linux/skbuff.h:1724 include/linux/skbuff.h:1792 include/linux/skbuff.h:3396 net/core/skbuff.c:2108)
+ bond_xmit_broadcast (drivers/net/bonding/bond_main.c:5334)
+ bond_start_xmit (drivers/net/bonding/bond_main.c:5567 drivers/net/bonding/bond_main.c:5593)
+ dev_hard_start_xmit (include/linux/netdevice.h:5325 include/linux/netdevice.h:5334 net/core/dev.c:3871 net/core/dev.c:3887)
+ __dev_queue_xmit (include/linux/netdevice.h:3601 net/core/dev.c:4838)
+ ip6_finish_output2 (include/net/neighbour.h:540 include/net/neighbour.h:554 net/ipv6/ip6_output.c:136)
+ ip6_finish_output (net/ipv6/ip6_output.c:208 net/ipv6/ip6_output.c:219)
+ ip6_output (net/ipv6/ip6_output.c:250)
+ ip6_send_skb (net/ipv6/ip6_output.c:1985)
+ udp_v6_send_skb (net/ipv6/udp.c:1442)
+ udpv6_sendmsg (net/ipv6/udp.c:1733)
+ __sys_sendto (net/socket.c:730 net/socket.c:742 net/socket.c:2206)
+ __x64_sys_sendto (net/socket.c:2209)
+ do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
+ entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+ </TASK>
 
-Fixes: 854a2e7c331a ("jme: Safer MAC processor reset sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Franck Baur <franck.baur.67@gmail.com>
+Allocated by task 147:
+
+Freed by task 147:
+
+The buggy address belongs to the object at ffff888100ef8c80
+ which belongs to the cache skbuff_head_cache of size 224
+The buggy address is located 192 bytes inside of
+ freed 224-byte region [ffff888100ef8c80, ffff888100ef8d60)
+
+Memory state around the buggy address:
+ ffff888100ef8c00: fb fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888100ef8c80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888100ef8d00: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                                                    ^
+ ffff888100ef8d80: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+ ffff888100ef8e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+Fixes: 4e5bd03ae346 ("net: bonding: fix bond_xmit_broadcast return value error bug")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Link: https://patch.msgid.link/20260326075553.3960562-1-xmei5@asu.edu
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ Backport to 5.15.y: bond_xmit_broadcast() here walks the slave list,
+  not a slave array, so there is no array index or slaves_count to
+  compare. Count the list entries instead and compare against a
+  READ_ONCE() snapshot of bond->slave_cnt taken before the loop. The two
+  can match on at most one iteration, so the original skb is consumed at
+  most once even if the list changes during the RCU walk; if a slave
+  goes away mid-walk, the original skb is freed at the end as before. ]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
 ---
-Changes in v2:
-- Restore RX MAC clock gating when WoL is disabled on resume, before
-  reinitializing the RX engine.
-- Prevent new interrupt-driven link-change work during suspend and
-  shutdown, and drain pending work before arming WoL.
-- Restore deferred processing before requesting link reinitialization.
-- Validate Magic Packet wake from ACPI S3 on a JMC250 rev 03,
-  including an RTC-only control test.
-- Link to v1:
-  https://lore.kernel.org/r/20261011-jme-wol-submit-v1-1-9cc033e259e4@gmail.com/
+Not a clean cherry-pick (see the bracketed note): 5.15's
+bond_xmit_broadcast() walks the slave list rather than an array, so the
+"last slave" test counts list position against a READ_ONCE() snapshot of
+bond->slave_cnt taken before the loop, instead of the array index the
+upstream commit uses. Please review this adaptation closely.
 
-The full kernel allyesconfig and allmodconfig builds have not been
-completed. The JME driver object builds with W=1 under both
-configurations. The full allyesconfig build was limited by host
-memory during vmlinux.o processing. S4 has not been tested, and S5
-wake remains unconfirmed with this revision.
----
- drivers/net/ethernet/jme.c | 37 ++++++++++++++++++++++++++++++++-----
- drivers/net/ethernet/jme.h |  1 +
- 2 files changed, 33 insertions(+), 5 deletions(-)
+Build-tested on arm64; boot-tested under QEMU with KASAN: a broadcast
+bond transmitting while slaves are enslaved/released shows no
+double-free or KASAN report.
 
-diff --git a/drivers/net/ethernet/jme.c b/drivers/net/ethernet/jme.c
-index 25ec5f757c6828a5f5241340bf3fb01d8e0aa3e9..acb4d41f56e1002c0a34a253be20c780ad9b062f 100644
---- a/drivers/net/ethernet/jme.c
-+++ b/drivers/net/ethernet/jme.c
-@@ -1502,7 +1502,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
- 		 * all other events are ignored
- 		 */
- 		jwrite32(jme, JME_IEVE, intrstat);
--		schedule_work(&jme->linkch_task);
-+		if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
-+			schedule_work(&jme->linkch_task);
- 		goto out_reenable;
- 	}
- 
-@@ -1546,7 +1547,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
- 	/*
- 	 * Re-enable interrupt
- 	 */
--	jwrite32f(jme, JME_IENS, INTR_ENABLE);
-+	if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
-+		jwrite32f(jme, JME_IENS, INTR_ENABLE);
- }
- 
- static irqreturn_t
-@@ -1892,6 +1894,7 @@ jme_powersave_phy(struct jme_adapter *jme)
- 		jme_set_100m_half(jme);
- 		if (jme->reg_pmcs & (PMCS_LFEN | PMCS_LREN))
- 			jme_wait_link(jme);
-+		jme_mac_rxclk_on(jme);
- 		jme_clear_pm_enable_wol(jme);
- 	} else {
- 		jme_phy_off(jme);
-@@ -3158,6 +3161,21 @@ jme_shutdown(struct pci_dev *pdev)
- 	struct net_device *netdev = pci_get_drvdata(pdev);
- 	struct jme_adapter *jme = netdev_priv(netdev);
- 
-+	if (netif_running(netdev)) {
-+		set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
-+		netif_device_detach(netdev);
-+		netif_stop_queue(netdev);
-+		jme_stop_irq(jme);
-+		synchronize_irq(pdev->irq);
-+		jme_stop_irq(jme);
-+		cancel_work_sync(&jme->linkch_task);
-+		tasklet_disable(&jme->pcc_task);
-+		napi_disable(&jme->napi);
-+		tasklet_disable(&jme->txclean_task);
-+		tasklet_disable(&jme->rxclean_task);
-+		tasklet_disable(&jme->rxempty_task);
-+	}
-+
- 	jme_powersave_phy(jme);
- 	pci_pme_active(pdev, true);
- }
-@@ -3172,11 +3190,16 @@ jme_suspend(struct device *dev)
- 	if (!netif_running(netdev))
- 		return 0;
- 
--	atomic_dec(&jme->link_changing);
--
-+	set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
- 	netif_device_detach(netdev);
- 	netif_stop_queue(netdev);
- 	jme_stop_irq(jme);
-+	synchronize_irq(jme->pdev->irq);
-+	jme_stop_irq(jme);
-+	cancel_work_sync(&jme->linkch_task);
-+	tasklet_disable(&jme->pcc_task);
-+	napi_disable(&jme->napi);
-+	atomic_dec(&jme->link_changing);
- 
- 	tasklet_disable(&jme->txclean_task);
- 	tasklet_disable(&jme->rxclean_task);
-@@ -3215,6 +3238,7 @@ jme_resume(struct device *dev)
- 		return 0;
- 
- 	jme_clear_pm_disable_wol(jme);
-+	jme_mac_rxclk_off(jme);
- 	jme_phy_on(jme);
- 	if (test_bit(JME_FLAG_SSET, &jme->flags))
- 		jme_set_link_ksettings(netdev, &jme->old_cmd);
-@@ -3226,8 +3250,11 @@ jme_resume(struct device *dev)
- 
- 	atomic_inc(&jme->link_changing);
- 
--	jme_reset_link(jme);
-+	napi_enable(&jme->napi);
-+	tasklet_enable(&jme->pcc_task);
-+	clear_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
- 
-+	jme_reset_link(jme);
- 	jme_start_irq(jme);
- 
- 	return 0;
-diff --git a/drivers/net/ethernet/jme.h b/drivers/net/ethernet/jme.h
-index 860494ff37144da9dc25d3105ecabb77072077b0..ec5dfddf7322730a316a4900026a88e479f8a8a1 100644
---- a/drivers/net/ethernet/jme.h
-+++ b/drivers/net/ethernet/jme.h
-@@ -450,6 +450,7 @@ enum jme_flags_bits {
- 	JME_FLAG_SSET		= 2,
- 	JME_FLAG_POLL		= 5,
- 	JME_FLAG_SHUTDOWN	= 6,
-+	JME_FLAG_WOL_QUIESCE	= 7,
- };
- 
- #define TX_TIMEOUT		(5 * HZ)
+ drivers/net/bonding/bond_main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
----
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-change-id: 20261024-jme-wol-v2-submit-0fe4db872853
-
-Best regards,
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index b74732d2924b..249b80ae20fe 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -4919,14 +4919,17 @@ static netdev_tx_t bond_xmit_broadcast(struct sk_buff *skb,
+ 	struct list_head *iter;
+ 	bool xmit_suc = false;
+ 	bool skb_used = false;
++	int slaves_count, i = 0;
+ 
++	slaves_count = READ_ONCE(bond->slave_cnt);
+ 	bond_for_each_slave_rcu(bond, slave, iter) {
+ 		struct sk_buff *skb2;
+ 
++		i++;
+ 		if (!(bond_slave_is_up(slave) && slave->link == BOND_LINK_UP))
+ 			continue;
+ 
+-		if (bond_is_last_slave(bond, slave)) {
++		if (i == slaves_count) {
+ 			skb2 = skb;
+ 			skb_used = true;
+ 		} else {
 -- 
-Franck Baur <franck.baur.67@gmail.com>
-
+2.50.1 (Apple Git-155)
 
