@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832240;
-	b=un6YfWTTfozQAR2Cffv7s1FVmQ3k4DB1MnTkeFgapvCd3zr7FzEDFVn6auH/6x/gqMTk
-	 QbkiUr82GNY/dYpqPJSQ5WgqmT/I9TbA1z58p4TgG9W1wN5WsU7a5hdbbjWfzeBikGCBs
-	 m6+kpTCfagBGNoPm29obCLs/Ypxtgco9UyYzJMxFkLgRbVs0unUSK/LhwzaMM+4j5qGFT
-	 iSQcgIsLk9RopOQDwFaf2evMhmBGUzuQQiQGDM6vjVlGWzt8v28YGCNryoyoSTB50Lc8S
-	 20Dg46bucoFYfJ6bIGl7AZ0Bk3VWS0bpLuMNyRpoUEPvkNbwFUovu8+VX6jbzM7oqtQ==
+	t=1792832252;
+	b=XN+LyyimAUIa0NTwkrO5G8xc8yAKbh70kHJQIo4eEcE954bCgVGJxw1piNnHIA2WdrNZ
+	 5V+Cn35YuhXOfdH+GIke9ZT4aNmRLw5AyROkZs+5fSjdF9Fs+KzSvlpAk7viyzYf8CFSQ
+	 opqBVnooVv5rdp7gXXtBO7KL7ZWX6dIYLsUyrZztGu6gxQHnTqGiaYJR8QpP6dk+ukOOX
+	 +Hg5yJE9KmjC0nlivCzuY7uU91JhA57dVOSM+ZrEj46Za1zelMfBgSfHedO+OrvuldYJm
+	 lyS1mdB674Ryf+jO+7ovfvjG+/SxgLMuPfcWi0toUeNahfpGHecVLXoKz58opsnAu2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832240;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832252;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=q6H6iv88V981j6004o/1rbfZ1x8Cbo2Yw3FXFWJYlPM=;
-	b=EONK4SLW+eziiI6JzNa1tCPHCbtRMY+6hQW2UwUmWn+w/HzeFxcWWkcJBGYIilxnpBVj
-	 Ekwvt0vn6dhldflZFxKPxHXo0KAtG19rG9qDdG17vGuDsg41YijuSUGNM9d5rNNE+KSeX
-	 1w9PF/MXe3YQOFcjADgLaYYk9XlW4ZyjVf6hZXiQ0+h9Twrep6TQQ8PfKwlEOHSsNF0an
-	 sm2wdFcVsE3hpdIAYAIG2cVjjzew/21GXwkpMhBRd0mGsOvE2u8xYMBwVT6nmBchoaJJS
-	 5SLy5RLap///phFFQMKL8+7LOo1GHmL1gc9Kz1P7Y/wZB1lfswBes8bMTjYtWEoAz0g==
+	bh=N4P1wRsPk6z03CGu1uFIKWHcd8WO6NAOx2OypwL4Z1A=;
+	b=2uHxWws61zQ/imxQiBURfAC4HclbUhsEbaJ+xr34QGZKyA3DVmuHGmDrbfV9HHmRlsoe
+	 XSc9MQGi9hHaD4LrRYGJIMBaHE7biKVR9qi/qeEbSvvhH22dlVOszDv2mP5YhYedf5Ofc
+	 3nnqkkteLLpQvmi4Ea9U6GZwnQRUzc/zxqKxI7NFeSCpAifJnsPa5vCsUsqJ4mWzrU5B5
+	 02DQv6we+/Tqt6tBrEUkWspHR/fe0a120pCF8NfMraN7rSq9gthrnlr1agD8eDrJpTe13
+	 Un7ZaxPryC/+GnuM0ff2YGbwHIWJM0JnZLWOOk2zLxAeZerKS8MdFG4pSgvSsT51Kgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vnJr5IJy;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="fXVa2Q4/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F8E606A31A;
-	Sat, 24 Oct 2026 08:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB40606A324;
+	Sat, 24 Oct 2026 08:57:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vnJr5IJy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9BD1F01825;
-	Sat, 24 Oct 2026 08:57:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fXVa2Q4/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC801F01825;
+	Sat, 24 Oct 2026 08:57:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832240;
-	bh=q6H6iv88V981j6004o/1rbfZ1x8Cbo2Yw3FXFWJYlPM=;
+	d=linux-foundation.org; s=korg; t=1792832251;
+	bh=N4P1wRsPk6z03CGu1uFIKWHcd8WO6NAOx2OypwL4Z1A=;
 	h=Date:To:From:Subject;
-	b=vnJr5IJyWk1AR7bhljwIPnqvaqnoxtz8jSH0ni9IT5krxLV6dAIhS0aHw9ZARmrDW
-	 ig9Pl7cP3vZrHSsL7GApj13pIbpvYGadgmYrVT7Qa5wOPHe/zUe/5vndfKbtxXHMeH
-	 M1uB36UJxrEYESzvIIZoDfkrkvuDgTgzOpA2HD+o=
-Date: Sat, 24 Oct 2026 01:57:19 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,rppt@kernel.org,riel@surriel.com,pfalcato@suse.de,peterx@redhat.com,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mgorman@techsingularity.net,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,jannh@google.com,david@kernel.org,azpijr@gmail.com,agl@us.ibm.com,josef@toxicpanda.com,akpm@linux-foundation.org
+	b=fXVa2Q4/my5jd+yXF1i9t8x7PrSW3TxxKenRk7Dndj0exomMDPLUPpZsTqrET2Yxg
+	 xtq5+ByWx2ZU82lI7Zwo10YWbQQPE1lOxY8A5zZlqSRx7Qp0UURtzHywOuGoP4VOPA
+	 c1BPiivDbHoAPvuD7tDeEIoZPWMUyc4GvakD46+4=
+Date: Sat, 24 Oct 2026 01:57:31 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,rppt@kernel.org,riel@surriel.com,pfalcato@suse.de,peterx@redhat.com,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mgorman@techsingularity.net,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,josef@toxicpanda.com,jannh@google.com,agl@us.ibm.com,david@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-vma-dont-leak-the-commit-charge-on-mmap-failure.patch removed from -mm tree
-Message-Id: <20261024085719.EB9BD1F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-hugetlb-tolerate-uffd_wp-markers-outside-uffd-wp-vmas.patch removed from -mm tree
+Message-Id: <20261024085731.8AC801F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,95 +51,36 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/vma: don't leak the commit charge on mmap failure
+     Subject: mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
 has been removed from the -mm tree.  Its filename was
-     mm-vma-dont-leak-the-commit-charge-on-mmap-failure.patch
+     mm-hugetlb-tolerate-uffd_wp-markers-outside-uffd-wp-vmas.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Josef Bacik <josef@toxicpanda.com>
-Subject: mm/vma: don't leak the commit charge on mmap failure
-Date: Thu, 15 Oct 2026 18:07:07 +0200
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
+Date: Thu, 15 Oct 2026 18:07:14 +0200
 
-Patch series "mm: various (urgent?) fixes", v1.
+UFFD PTE bit handling is a bit like swiss cheese, in particular with
+recently added RWP mode. Having uffd-wp markers outside uffd-wp VMAs
+already confused this code in the past and resulted in uffd-pte bits
+confusing other code later.
 
-Here are various MM fixes.  The majority was reported by Josef at
-Anthrophic, the remainder was found while reviewing/overhauling them.
+Let's play safe and just ignore these markers in hugetlb_no_page(), not
+silently propagating the uffd-wp PTE bit.
 
-Two issues/fixes reported are not included, as we are discussing
-(better) alternatives on the list already.
-
-I left most of the original commit messages as schloppy as they are: I
-don't particularly care as long as the code is in good shape and as long
-as they are not actively wrong.  But I (and Mike) could not be stopped
-from overhauling at least some of them.
-
-While I don't think there is anything too critical in here, I think this
-is a good opportunity to see how fast we can get pre-screened/pre-reviewed
-fixes upstream that might be security-related.
-
-The majority are hugetlb + uffd issues, that are not actually that
-relevant for most installations.  But all things that should just get
-fixed.  Some uffd fixes need proper follow ups to fix some more of the
-root causes of leftover UFFD PTE bits (or proof that there are none
-remaining).
-
-
-This patch (of 10):
-
-When an accountable mapping replaces existing mappings (MAP_FIXED),
-__mmap_setup() only charges the difference between the size of the new
-mapping and the VM_ACCOUNT pages it replaces. It then zeroes
-vms->nr_accounted so that unmapping the old VMAs does not return their
-charge, which now backs the new mapping.
-
-If the operation fails after that point, the error path returns
-map->charged, i.e. only the difference. By then vms_clean_up_area() has
-zapped the page tables and closed the old VMAs, so
-vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
-finishes the unmap with vms_complete_munmap_vmas(), which uncharges
-vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
-never created, and the charge of the old ones is never returned, not
-even when the process exits.
-
-No privilege is needed to hit this, only a file whose mmap hook fails,
-for example a socket (sock_no_mmap() returns -ENODEV):
-
-	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
-	     socket_fd, 0);
-
-Every iteration adds len to Committed_AS for good. With
-vm.overcommit_memory=2 this lets any user make all further accountable
-allocations in the system fail with -ENOMEM.
-
-Once the new mapping has taken over the charge of the mappings it
-replaces, it owns the charge for all of its pages. Record that in
-map->charged, so that the error path returns all of it.
-
-A failure in __mmap_setup() itself is not affected: it happens before
-the charge is taken over and the old VMAs are reattached with their
-charge intact.
-
-Original fix generated by an LLM and sent in private by Josef.
-
-[david@kernel.org: call variable "uncharged" and make it const, adjust/simplify comments]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-1-42796911043b@kernel.org
-Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-8-42796911043b@kernel.org
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Muchun Song <muchun.song@linux.dev>
 Cc: Oscar Salvador <osalvador@suse.de>
 Cc: Miaohe Lin <linmiaohe@huawei.com>
@@ -150,38 +91,34 @@ Cc: Rik van Riel <riel@surriel.com>
 Cc: Peter Xu <peterx@redhat.com>
 Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/vma.c |   11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ mm/hugetlb.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
---- a/mm/vma.c~mm-vma-dont-leak-the-commit-charge-on-mmap-failure
-+++ a/mm/vma.c
-@@ -2577,14 +2577,17 @@ static int __mmap_setup(struct mmap_stat
+--- a/mm/hugetlb.c~mm-hugetlb-tolerate-uffd_wp-markers-outside-uffd-wp-vmas
++++ a/mm/hugetlb.c
+@@ -5981,8 +5981,11 @@ static vm_fault_t hugetlb_no_page(struct
+ 	/*
+ 	 * If this pte was previously wr-protected, keep it wr-protected even
+ 	 * if populated.
++	 *
++	 * TODO: fix all cases where uffd-wp markers remain in VMAs that are no
++	 * longer registered with uffd.
+ 	 */
+-	if (unlikely(pte_is_uffd_wp_marker(vmf->orig_pte)))
++	if (unlikely(userfaultfd_wp(vma) && pte_is_uffd_wp_marker(vmf->orig_pte)))
+ 		new_pte = huge_pte_mkuffd(new_pte);
+ 	set_huge_pte_at(mm, vmf->address, vmf->pte, new_pte, huge_page_size(h));
  
- 	/* Private writable mapping: check memory availability. */
- 	if (accountable_mapping(map)) {
--		map->charged = map->pglen;
--		map->charged -= vms->nr_accounted;
--		if (map->charged) {
--			error = security_vm_enough_memory_mm(map->mm, map->charged);
-+		const unsigned long uncharged = map->pglen - vms->nr_accounted;
-+
-+		/* Charge only what's not already charged by mappings we replace. */
-+		if (uncharged) {
-+			error = security_vm_enough_memory_mm(map->mm, uncharged);
- 			if (error)
- 				return error;
- 		}
- 
-+		/* Our new mapping owns the entire charge now. */
-+		map->charged = map->pglen;
- 		vms->nr_accounted = 0;
- 		vma_flags_set(&map->vma_flags, VMA_ACCOUNT_BIT);
- 	}
 _
 
-Patches currently in -mm which might be from josef@toxicpanda.com are
+Patches currently in -mm which might be from david@kernel.org are
 
+mm-fix-address-wraparound-when-scanning-large-folio-ptes.patch
+mm-hugetlb-disable-pmd-sharing-for-uffd-missing-mode.patch
+mm-vma-write-lock-source-vma-before-duplicating-it-in-__split_vma.patch
+mm-madvise-preserve-vma_softdirty_bit-when-changing-anonymous-names.patch
 
