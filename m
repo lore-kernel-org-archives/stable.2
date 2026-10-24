@@ -1,170 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.10
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792844505;
-	b=VQLK9yy1WOP4ouersKSiOlUB2kMKXD4rUIVjqE/OnpquTTOcF3rRvtJfgxfpZJt9L6Iy
-	 61+881VILjwM++VoVDgtBgABAo3k1edKZHE2jsnT9ZwAFHZBf9a+mhvaJ4StuquDyyUSO
-	 cI3e9ISI16rrlsF+P+QSXiXYIVWw7KTjaAW5uiPk9Usa82xmfwfr9Uvt60PGvTfhnOfcT
-	 TLptgPlv+z397mRcY83Vimzx14Hrm1bGFwJyFeGHsMzas3EbB4yWDTpA1A0ijsg0VFi1R
-	 WmyCbRyD7pXw9Q5Xmh6FXdQi0vK3SHdNKBjmGli+WG+FdM+nGrWwz9bcpV0DsPcwLnQ==
+	t=1792844761;
+	b=j/4hf8P1VBibLPaJ70s7ZUpvPIo3sBwPmWs2E/agZZHW+7FzQi1ijLcMpagdtqgZ+M72
+	 cSpv4KWEaYFNRafrsLScvBU10FKn8RELcr7ZIyBJMb0SoLKx7cypx+O7Qlh2XDDlPHiGY
+	 pnCSoh8h7FJ5n/QLusA+vw3yclZ1WHV8ld5AqZrQdfdUnGL1TB5K9VrrNARLrmCkpDESK
+	 XowUwCI9iW1LyLcyAr6K2HpO2jc7u6SY3jwdAQec86BIJIt2iX2MIOqDAasKSST3FXzgR
+	 poH04/8vejP+X3TaeFcAsKTBg9UR/9LV+HM2JsKrkO9JeYL7AInz+Wr4g4kmccx9bWw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844505;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Hyl5+lDZqnN5PTRLGAgGuKcIgPNcV2DQrwDC9MAalaQ=;
-	b=AuP/y5nM9lPZwnqxl4+NgDdtUnVtotvoSwzpqHu63sLmCIpqq0XnmTvK7Q4UvCSeobMM
-	 9UKEDkz0XUhONcBZ9kGAwx2o2aoEqZhty9TMTJ2ckbCRja5XK1T4pWvtikOdB8Q3ihX50
-	 WwXL8bAKjQyMZsEk+wqDd+L2p6X8GtBQnGWZFizSZvJTuqx92PBU8y24mLKKpNXav0hrh
-	 0QTzCAUM6lj5Gh1P74a5OThPtW+pL9000Wv8XYTMn1jZ0MQyu+vVzexLbXrPos0GOXZ5E
-	 yeVkcW/j5Riwx8MB+hOxNNuPYxgqAyd8+W5PX5hJL0n1dwSKjKR3s/LXfhsEqw3RwlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844761;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xF3nK2266GrESEfhk2mCS++Di1L2yhOWpJ1GfRqj+4M=;
+	b=Ygs6dOh2tSybV9ii+qTCryxRCRUqPqdVfyolbkFP6oLW9n3ozAB1a6tUkjTqPgGAOGDy
+	 jaFJNyHCZeWIlvzZXEXkRizYNDE5Awy0zXW2KXFpl6nhC+O0E37vmAzmwafL/e3mB58uM
+	 P+HkQZILbp/56Z2KJDpM/FzMPh3nYO6Xkl7vEsxs9G2Dq2jIf6aKeaWhCiX8ouF+Ajdfc
+	 PcH+Ml3hG6zTopqIvsPxY7EtrzcvlAHrpOkQT6R7VrPo7y03DGVVhMw2q+ufLIAJOy4Gw
+	 t+YGEZ8JBsIW9Vj1Z9IEfjbBw5YzMUBkar+Hl42usja+CQq+Kfhlb13Eib15peIDRZg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=halRmGou;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.10
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012010.outbound.protection.outlook.com [52.103.23.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZaVWNVws;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441DB606A32A;
-	Sat, 24 Oct 2026 12:21:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 441DB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17C460A2620
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 12:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F17C460A2620
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=halRmGou
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AopElePuodRH9MBQtfiNSaNd6Dy5NjchCAkfW+38zsuTqgVoRmxDI1LPIqXpnDwnnOusfBi7plUtxhnVt48pHFDMxJls8bke5+izdO8WC5EXXvWs6bwxcYqicRlaqhBXJOOegnBDSlby2I7XksLtNKbJiCLoeWZQiO6CzoowLrqq44LAp+PPe9mKaz3J0saDU54SuUrdQ9JLGQmSFDU9SangHD5Kzg5hSN6JbzNzv69/+QHmMb+bh8XxrR7w2l2ujHK+DFeMN9303gQzEaQuPHCuXT/I7agGu0fX0XqWwZ+AYUYb/TzmQRumtBQZOOS+J/0pTb/4TprsB8iEN7ecPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=Hyl5+lDZqnN5PTRLGAgGuKcIgPNcV2DQrwDC9MAalaQ=;
- b=vlXOtF6pZ9oCd6K7J38seRk6Nw0X79OYvRV+qSjXaYxl7Kwm0QkZ8L16bPMt2GtfKG5eKhnWS27lNgw8shN2ImSK7F2ram0tjNYky6IHRj6pe71FaXXUU+Kl0X0UFNMbtMeMSfJbLQSciMKGF6yN2Hn26qagGvO6e9z02ngwtIWojBWaOUiKN2BDIKV6VGsfFOva9DmkgT1leMbbBhWTZoHrPH4t+MBSmJ7NzhVcdzsOvvfMjKFZMuB0iA+05p/V0m+U131DaSQJpwy97+qvUlZXtpjyEU6z3hPNOmaD7mjz/SRPSK7oEyp1A5Gar+ZGcbAJ9Ojq4MpGTbWHkngGVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hyl5+lDZqnN5PTRLGAgGuKcIgPNcV2DQrwDC9MAalaQ=;
- b=halRmGouvSIG9hyWBP9Ky0hEZSJZviQZvUbUyA58dKtMBDZF5KoKmNhkiuE75rh9Ip53vs90Cx3ZvIfA3hlJTErTueLDpsdoKZpu/OYX5QPp7peMZ9Q2YDYrnO2FTHC80SmVjm6qcrgVez5IVDmVf2qelHNcFp6oGjHcCuvMHOPnPzJbBbWD/TR0ddCZbz9j0zcmK1D7l85EgPSWPn63Uj8xnQQu/nRcJXlV8jamDJfONyzlrTM+hQ2WFglTxCbxfHPvBWVF7Qcgte0U5iXUPvBTUzUCPKzf3rkH1+lFnZVzRRrRmu/zf2SqfVokB8iEthIEEqHTsYTiUZNKKrj5Ng==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by PH7PR05MB9058.namprd05.prod.outlook.com
- (2603:10b6:510:1fe::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Sat, 24 Oct
- 2026 12:21:42 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0546.017; Sat, 24 Oct 2026
- 12:21:42 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, Manfred Spraul
-	<manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, "Eric W .
- Biederman" <ebiederm@xmission.com>
-CC: Yingjie Wang <x-professor@outlook.com>, Vasily Averin
-	<vasily.averin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt
-	<shakeel.butt@linux.dev>, =?utf-8?B?TWljaGFsIEtvdXRuw70=?=
-	<mkoutny@suse.com>, Michal Hocko <mhocko@suse.com>, Alejandro Colomar
-	<alx@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [PATCH v3 2/3] ipc/sem: reject negative SEMOPM values
-Thread-Topic: [PATCH v3 2/3] ipc/sem: reject negative SEMOPM values
-Thread-Index: AQHdY7I6LntOHf/t90O3n+4uwtcljQ==
-Date: Sat, 24 Oct 2026 12:21:42 +0000
-Message-ID:
- <c2c9cb6d741fd9290c835679f9c209b147f74f64.1792808260.git.x-professor@outlook.com>
-References: <cover.1792808260.git.x-professor@outlook.com>
-In-Reply-To: <cover.1792808260.git.x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|PH7PR05MB9058:EE_
-x-ms-office365-filtering-correlation-id: 10381183-8c44-49e6-f7ab-08df31c95cf3
-x-microsoft-antispam:
- BCL:0;ARA:14566002|19110799012|12121999013|8060799015|8062599012|31061999003|25010399006|4140399003|24021099003|38102599003|15080799012|41001999006|24121999003|22091999003|12091999003|1602099012|40105399003|53005399003|10035399007|26121999007|102099032|440099028|3412199025|4302099013|1710799026;
-x-microsoft-antispam-message-info:
- =?utf-8?B?U1VDSzBkbU5XQmh3c3MyZ3psSnlHZU45QmwwalJHQjBGM0RBWnM5YmVRL0dh?=
- =?utf-8?B?TzBJSnE2cTlBRkt3c2FRSGh1UmpVTXZ4U2o5VkpFditqeWRvQVUyc3NzdGpK?=
- =?utf-8?B?L1JmaTZ5cUZ5dVB5U0J3akRVd1dFZmZWV3BieHNrdVlxRW5WdTNydnJRVHcx?=
- =?utf-8?B?NzU0YkNjdktjclMyKzJMUEdrMFl3OUxzNWw2enZnU3hEdnBQV3JKM2NiVEUw?=
- =?utf-8?B?RHpWU3NNNnV3a3lXUWQ4L3hrckZHOWw2SlQzVWhBTTJlMjFJYWJyT3Bndjlv?=
- =?utf-8?B?ME1URzFXVkNoMDBJVk82T1B6T0Rna3NQU2pZdXVkODFrRmpHdzhZY0ZpVngy?=
- =?utf-8?B?VlNZYXFXS1dNT2xlNngyZW82RTNweXlMdm15bHNoMEZiYmJUTTdrREFjY3FE?=
- =?utf-8?B?SFl3RzNGQkhxK1FvOWx1VGFqYXAyd1drWjZDYk5qcEIvWDFDTlRYOFZKd084?=
- =?utf-8?B?NkVzYktsSzh2R2Urc2s4T3dRU1JVZzFYb2Y0aFFlbjRoYzRTZUtITFNzREsr?=
- =?utf-8?B?MDRxSGZqbTh2aFdQRFVEZ0ZpM1JrU0taQ3hTcjBkUUtRQ1ZPZE5aTVk5aE8y?=
- =?utf-8?B?TDFZR3g2dEZDRTBzVWZ3RXEvd1g4a0hXUTVlbTRBaXpXVmxROXh3NGZCOEhw?=
- =?utf-8?B?VmlIeG5FMUxRZEJIQXZqUGE5QWdpRHdJRlJqeDN4L3lIeHBUdE56ellmQTUv?=
- =?utf-8?B?dlVlMnlhQlcyQUQ3dzNGaXhML3ZEYlFEallGZkN1bmo0d2swRGVTeTBONFFi?=
- =?utf-8?B?Zm5pUEcwN2d5WFBjQVhMdCtoVWc2SUhjMmpLL2pxaitqekhYaXdFaDRZVXkz?=
- =?utf-8?B?OVJBaUlpNEFMNzd2YW5kVy8xNHMveUtIOXZYTnhZUHJuOFBqQ3k2bjk1LzZr?=
- =?utf-8?B?M2UzY0h2UWZvT21MM2ZWTzMzVjNuczBXeC9GSG0vTWdKa2ErVWFGMksvVDRJ?=
- =?utf-8?B?aXdLbXdibHZ5YzdpWlRjdUs4allCYVIrdXdJdGdSdk40RytUNWduWFpaMU9m?=
- =?utf-8?B?OUVUc2taSUZPbjRpN3dveVVZUlVLMEpNSGhzWkNWbnhzd2lXQ1RKcm9hTnRY?=
- =?utf-8?B?ZldaYUNWZ0JQVVVsTGptOTFTZkdzRW1xa0NqbHZJNDJwWFErNmd4STRqU3M2?=
- =?utf-8?B?T3RMak5lbjB6S09SWElyR0VMd1VuTk10cXZ6T0FmUjdCL0Y2aHZNUXNrWjRn?=
- =?utf-8?B?S0hkZUY5NVBkTG5lUkF4OE1KM0wwTGlmZ2UydytkRTg5dE1qR1NUWmxSRk80?=
- =?utf-8?B?SGN6MTJTS2l0aStYRlptamFGQk9yNm5IbkZKTTZhc0d4VjVmWlZndVdJY3lv?=
- =?utf-8?B?eTdhVWI5K0svSGtGTlFyL280Y0hMMmhXQzFreUFuSytvaWpTRll5RnBybzYw?=
- =?utf-8?B?cEZaUG0rTWdGaG5kaXVvYkZ5YlY2dlAzOXg5ZmVrVmdDdVF0UHV5a2dOa0lz?=
- =?utf-8?B?RFdJOHVlV0Mvb1BtdWN0UHd3bW1mR1l0RFdKTGtuQlpiRmgvcTBtYXdEU25n?=
- =?utf-8?B?UzJGK3R5ai9FS1Y3Wkw4TExScG9ZR2NndlZuN2RnNkozenJWZkp5Z3JvTmJO?=
- =?utf-8?B?UnBjZWZUL0kvcUhxRStGOHEzZ21oZmU4Y1VBYSt0RkYwb1JlbVo3dGdHeEZj?=
- =?utf-8?Q?NdnIISmA8C/8npkIStlqr2rp17mNXV1RLrf89dLgBxVs=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dFNjUzc2alFaTHVabGxsK1ZqMDBXYW5Rek01UnFlYUhFSkZPS0VtKzdMYjNX?=
- =?utf-8?B?R1lLdzdWbmxuenVvakFwdEMweFRWbklJbkc3S21TMUlpZG1yYlpNcFJqNitS?=
- =?utf-8?B?eEIxQndPelIvT2k0ZXk5MDVjdGNMWnhWQkQzT3lHUnJROTlwMllHMEJZQzJJ?=
- =?utf-8?B?b1d2S0J5RTVzSGkwb1F2SGxvMUExaGYzR0twSmNTaGloM1JXNlg4RFk0Rk5k?=
- =?utf-8?B?eks2UGQzc0JhSzU3Z1l3alZxaHNOU1NreDU1ZlN1ZGwrS2F6SEttc21rMjNr?=
- =?utf-8?B?TjZaK2luVCtqak95Zy9xbVRFTEcyTkhUSDNhbmZ3eGRTWEFKK1pZOXBnb05w?=
- =?utf-8?B?Njhsb25IM3YxYmNlUEJyR3Q1K3hqVXFoc2IvQjJaZUtkTXJydVdkTWRCeUpM?=
- =?utf-8?B?bG1xc0xvaGpkR3FFeXRVbllwSjh5OFRSdDBWWlpCTjRnNm1BQjkvV0wzWCtl?=
- =?utf-8?B?bFZnQm5vYXVRVTRqRi9kcmRwNGJZNStQWnl4RFdocWIzNzY0TUlvTlZ5MU5q?=
- =?utf-8?B?ZTZ3VzhKRlJJQU1hMWdCd0wzZmJkajdBVmJSRnl1QkcrVHpSM2dTWDlic3Vh?=
- =?utf-8?B?a1FoYUozbm9EeGZjTXQ4TUFrc3VpNzdhbDljR2xtTE1rMGtXeUFtTnd2WEg0?=
- =?utf-8?B?T0d0endTaFlqWFFMNGxzSVcvZUNGcGlBdzUzL3dXTHlZNVVDM203Y1lXY2Vw?=
- =?utf-8?B?blcxK0NhOWJ4c0JmcklkaDNVcTdzMiswc3FoZ0NwL1p5TWpmaUJPTno1QUhn?=
- =?utf-8?B?WTZlRGxSQkpPS1p1WFAycHdGWkVkOWFMUG5RL0UvTWplL0Vma28xL0gzeWNX?=
- =?utf-8?B?aTNNVGhOeStDQlA4UGZ0RWNSb1lEdytZeElocU1kT0xwTXEva2hoWE8xNkV4?=
- =?utf-8?B?cUJQSnJKVUc2b3dzcG5WSllCM1BhMG1jb1RnaE5NUEg0dG1JM0IwbTNlWXhw?=
- =?utf-8?B?VFU2S3ZINUI5RkVJajg4angxYUFMVG1xK1BKYVJRMXd1ODh0VEU4M2hrbWpz?=
- =?utf-8?B?TmFTc1JkMnU4U2RkYWwrZXlYWE40RlBINmx3MitBakNkNVg2NGNHSjhESFo4?=
- =?utf-8?B?N0gxZnNkdlBIK0RSb1hYdk9mWm0vMGpLNzNETGRnOTBaNHI4a2tURXQyVlVj?=
- =?utf-8?B?bUVwaEJmOXd3SzF2a0tPRUtsOTBnZ0w0VkJzZkhkL2c2cVFZN1dQd3Bxc2tz?=
- =?utf-8?B?WVNXWEhMSy9ZTEZMelB5R3krbm10elhuQ1pjWURuRkpaSDU5VEpWOWtrSTlV?=
- =?utf-8?B?Zm9UYXFpaTNMdVJJdStFaVhHdlNQWjgvTU5qaTJNZmdZcUgwVjhWUTRuL2to?=
- =?utf-8?B?bU1uQzRCaGcxbVR6UjQwLzZ2UmdBa283cU1BWGtwR3MxSHFZaTBpZGVTQzZI?=
- =?utf-8?B?c00wUDFTRmNwamFmZFgyOExjM2tiUE9pN2VtVVRia2NXQU9OSWFiajZXNnpj?=
- =?utf-8?B?WFhVWmFKNDFHUnY0Tng0T0RESFZaQjltSVB4aXQ5UitzaCtpL05qa3J6Nmc3?=
- =?utf-8?B?b2VUbTMrZGNpTi96dFZlQ3AwL0hid3JxaHpUQnJSL2VrNzAzblFjZVdxRjUz?=
- =?utf-8?B?dlV0WGc5RGhkRGpFZFF6b0lIakppU3JseUZtZVprdHU2aVFYSDl4cU9kVW84?=
- =?utf-8?B?b2xJZlJ1cVdZT0FRa3Z0d25vMlFXL1VwaTMvZEt1SFhjSWpZbFFMcjNObEQ4?=
- =?utf-8?B?M1lreEtOOUpGcXgxWGd6SEtQRTdOaFlPOFgzRE5iaEpZZDIyeVNtcmpOUTdr?=
- =?utf-8?B?aXk0NkJudHdLVXhJNGFrYjNSY2pWUHZKQVI5NkQrSnRpb21XRVdtMUc0K2g5?=
- =?utf-8?B?elljYWJ6SUJSNzJBSTVPVVF0V09SbkNsRGthUGw4YkRhRkJEVEFJOXUvUXlB?=
- =?utf-8?Q?jGtsSOu+Kovv6?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZaVWNVws
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1583647e87.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 05:26:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792844759; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pJXAJ49I2tXclcVeWKTSgpGprgjquirKazSOf+MN73OVyBS22mVSlufWWxA/v1xo2O
+         NBkfOkndNmTumQZMy/B8ve9j64pUPicBx/KnguYmYeWLxNSS2Iw+XoaAtK4tpQ3Qh+oo
+         PV8DTwaEqaapbVndPoUEH6B6BPXw6BuXmTVe8+mnE8KVz5i8CsQDwwRfTWaXDoH2hCCT
+         Nl3xu1v9jqOtELrqTTIqtgmfYSy21EX2E4zjo7XVTkx1SU4sK6NsJ6wOub7A7yRCwHs5
+         0LEbGCSIIMQzZYsNdeMAvuVVsBJWj9q4gORSYcflXcGn6mfoEXFTpkki1uvpehIiM0rD
+         ZTjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xF3nK2266GrESEfhk2mCS++Di1L2yhOWpJ1GfRqj+4M=;
+        fh=s/rYgcUDGZzZAId8S4WbwgeOo7Y6FU1pag2zzW/j8Kw=;
+        b=KmoDABC+UEjPS6JxzmBX4uE6DJhUbbEMYAQdrq8shDc0ojmJzOaGMDuoom+rLBWxSv
+         6wKEFCAku8SVnL7fzdrK+utu/BZ4vNpVE7Ir2odnQxjlhoQbYkbfxBiWlBL0TdqPGv2V
+         GgfOZo6q6wjV6R242xWrOhV3WUH3IT7wFGK2u/QBAGntZ+AAeANGv8xtzLmRZgZ6n0eJ
+         quG/1OwMbvRG+FCOOJLBifMQOioMox0YjhuyiNE2C/gR/vGEx2si00u+Zn6iXkv36+0/
+         4WjMWlnc1b8CDHIfMI8XueSkf+T6T2L+B26req34H6gIM7E5QHCOwd17VmhFmGES4vlh
+         83XA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792844759; x=1793449559; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xF3nK2266GrESEfhk2mCS++Di1L2yhOWpJ1GfRqj+4M=;
+        b=ZaVWNVwsn2jDCv1fiE1xt7rHVMSix2n8thz/LMie/1AcLvHWr5+WSPjU9dCAaAe3uY
+         ad2zcTLw/zkZSRJve02ZvWYLmSK2UD8rCjhM5opKeeJV/+yHJk6pBGYpJx5KK2MNqaFW
+         wnkUfxgb1Uj6ipV/5hnUaCArU0WKGbLsPVil+l7qv8zOkDLFZCJq4ZbXgFdR4jysjMp9
+         exzqPZ5P7Ej2tk5Pr/bxPEQ3p1S2gPOaJYRnblu3OYj9Ofx9uK9585nJ173Sn1d9FNzO
+         9d6dVnEyNMH+uBFctqkaWPROpM2Vs45PJoOmvy01Vn/tTkt3rLcGxJXJCDsXlo6XFo4M
+         uiVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792844759; x=1793449559;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xF3nK2266GrESEfhk2mCS++Di1L2yhOWpJ1GfRqj+4M=;
+        b=hEGWwILubS5HCcDaqsfwhM39PZtEpnXPK5o5v1ebEMPx0DDEEq8kZemO/JsrnrHNd8
+         XbbsH+SsExteoGbpiBK+elWN6tilQVc3Ao2hHC1TfRPAwOIo9qHFzJn8hhCLraS8i73Y
+         TDO3vBMWIRFAsiVdSdSf2d/ErR54mBUpMiTAX8p84FR3yY+tWChgGpBaMROav55XHMCV
+         0HRgk+qi3IuhpWdivHn/PTjlleABfrDE/PT7CGk1nL/L1aJVq/XGCMeBc8X6IMjpkaNa
+         vGoOqR9MiaFm4lE2lUNn/+wAxVNPkVwlF3rO1kHKVt6hGs5jw8QvJmJKuXACzToSHNYa
+         royA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXf4Yd9IXnP5oMp0sqTHe7tvlJiqZXm/9wM8UWg6+ius69VapcU08K73A78hYR72Nwqv1UdRI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKX3a6K8TbQVbIwMDtlkFVUsGWX80G95tnOTXUxX+hsCzWv6S98
+	y4aHbPPkbhy7yNb6xc+FiJ7XspcM6GFWuf0NM8oBHEGVzucx9zziIkmxzDqGw5MDETahlsaaKxz
+	jKDkLA0e65Hnx36NH2jZC1840zFKsoFM=
+X-Gm-Gg: AYBFou2afxZkr3z5QzCGXkTZcDda82vovKAuc0wVUEZ1NuexIKPVPwDmgx1Brxld3qp
+	YmDgWAHP/S0SgYvm5PmWgf1mzFMDKaQYGLBsj3IxxMnfYw8BCQ8MZcd4qve0mppgMSdXYXXnPbu
+	dmk1iyGUnSH9bAhsK8l+lV7uidSPjldNly2yISQblfOUWhJzUpaALvtxVBm9felAOcyfjuhXM/D
+	SzcwFYhwSxtT09AUGXPBTuWox4uH6Sl1UbnH9NczIFnB6+ZJCe7mMQ2+95+NNQn2gcyXr/iGtfn
+	HOh5lWeUw02DbzBoo/JFIf1MsOsjzaId0Q3iGDvHKlVm0Pa1m1XI2Q/yU03Bqz5w3Qr9GVGMrh4
+	M6n2dYhQTVj8G5U7aLHznxOQypsu0/0pNahljwAb2GTOaYkI+Y51oaRQpPl5L0d1ASXDFXHCQXL
+	P+sfBjXaa5A3ACwGpB56SJG27zLRHcDimr25hobm0yYzkQq2WKKXY=
+X-Received: by 2002:a05:6512:3091:b0:5b8:f0d9:98cd with SMTP id
+ 2adb3069b0e04-5bfb71ea41cmr688298e87.58.1792844758718; Sat, 24 Oct 2026
+ 05:25:58 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -174,102 +105,487 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10381183-8c44-49e6-f7ab-08df31c95cf3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Oct 2026 12:21:42.7006
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR05MB9058
+References: <20261024091256.17918-1-testwrzwrz@gmail.com>
+In-Reply-To: <20261024091256.17918-1-testwrzwrz@gmail.com>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Sat, 24 Oct 2026 20:25:20 +0800
+X-Gm-Features: AclHuK99q20jG-ayaS9KssZ6Z-Od3CB6VIOCQBzGSydJ8acKu28CCk7z-t7ILtM
+Message-ID: <CAL+tcoDkDV+2RFUadAvSxqxGpiBEd8TN9wJzrKVYySachGXjnQ@mail.gmail.com>
+Subject: Re: [PATCH net] xsk: defer software checksum until the skb is complete
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, netdev@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-VGhlIFNFTU9QTSBmaWVsZCBoYXMgYmVlbiBzdG9yZWQgYXMgYW4gaW50IHdoaWxlIHNlbW9wKCkg
-cmVjZWl2ZXMgYW4KdW5zaWduZWQgb3BlcmF0aW9uIGNvdW50IHNpbmNlIHRoZSBiZWdpbm5pbmcg
-b2YgR2l0IGhpc3RvcnkuIEEgbmVnYXRpdmUKU0VNT1BNIGFjY2VwdGVkIGJ5IHByb2NfZG9pbnR2
-ZWMoKSBpcyBjb252ZXJ0ZWQgdG8gYSBsYXJnZSB1bnNpZ25lZCB2YWx1ZQppbiB0aGUgY29tcGFy
-aXNvbiwgZGVmZWF0aW5nIHRoZSBpbnRlbmRlZCBvcGVyYXRpb24tY291bnQgbGltaXQuCgpDb21t
-aXQgNTBlYzQ5OWI5YTQzICgic3lzY3RsOiBhbGxvdyBjaGFuZ2Ugc3lzdGVtIHYgaXBjIHN5c2N0
-bHMgaW5zaWRlIGlwYwpuYW1lc3BhY2UiKSBtYWRlIGtlcm5lbC5zZW0gd3JpdGFibGUgYnkgSVBD
-IG5hbWVzcGFjZSBvd25lcnMgd2l0aG91dApjYXBhYmlsaXRpZXMgaW4gdGhlIGluaXRpYWwgdXNl
-ciBuYW1lc3BhY2UuCgpQYXJzZSB3cml0ZXMgYWdhaW5zdCBhIHRlbXBvcmFyeSBjb3B5IGFuZCB2
-YWxpZGF0ZSBTRU1PUE0gYW5kIFNFTU1OSQpiZWZvcmUgY2hhbmdpbmcgdGhlIGxpdmUgc2V0dGlu
-Z3MuIEhvbGQgYSBwZXItbmFtZXNwYWNlIG11dGV4IGZyb20gdGhlCnNuYXBzaG90IHRocm91Z2gg
-cHVibGljYXRpb24gc28gY29uY3VycmVudCBzeXNjdGwgd3JpdGVycyBjYW5ub3QgcHVibGlzaApz
-dGFsZSB2YWx1ZXMgZm9yIGZpZWxkcyB0aGV5IGRpZCBub3Qgc3VwcGx5LiBBY2Nlc3MgdGhlIGxp
-dmUgZmllbGRzIHdpdGgKUkVBRF9PTkNFKCkgYW5kIFdSSVRFX09OQ0UoKSwgcHJlc2VydmluZyB0
-aGUgcGVyLWZpZWxkIGFjY2VzcyBzZW1hbnRpY3Mgb2YKcHJvY19kb2ludHZlYygpLiBSZWFkIHJl
-cXVlc3RzIGNvbnRpbnVlIHRvIHVzZSBwcm9jX2RvaW50dmVjKCkgZGlyZWN0bHkuCgpGYWlsZWQg
-d3JpdGVzIGxlYXZlIHRoZSBsaXZlIHNldHRpbmdzIHVuY2hhbmdlZC4gU3VjY2Vzc2Z1bCBwYXJ0
-aWFsIHdyaXRlcwpjaGFuZ2Ugb25seSB0aGUgc3VwcGxpZWQgZmllbGRzIHJlbGF0aXZlIHRvIHRo
-ZSBsYXRlc3QgbG9ja2VkIHNuYXBzaG90LgpUaGUgd3JpdGVyIG11dGV4IHJldGFpbnMgdGhlIGV4
-aXN0aW5nIHBlci1maWVsZCB2aXNpYmlsaXR5IGZvciByZWFkZXJzLgoKS2VlcCB6ZXJvIGFuZCBw
-b3NpdGl2ZSBTRU1PUE0gdmFsdWVzIHZhbGlkLiBaZXJvIGNvbnRpbnVlcyB0byByZWplY3QgZXZl
-cnkKbm9uLWVtcHR5IHNlbW9wKCkgcmVxdWVzdC4KClN1Z2dlc3RlZC1ieTogQW5kcmV3IE1vcnRv
-biA8YWtwbUBsaW51eC1mb3VuZGF0aW9uLm9yZz4KTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvci8yMDI2MTAxNjE1NTkwNS4yYTY1OWI3YmI3ZDYxZjMzNDY3YTMyNjNAbGludXgtZm91bmRh
-dGlvbi5vcmcKTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci81MWM5M2MxOS1mMWRkLTQ1
-NWYtODY5OC02YjFlZTMwZWI2MzBAY29sb3JmdWxsaWZlLmNvbQpGaXhlczogMWRhMTc3ZTRjM2Y0
-ICgiTGludXgtMi42LjEyLXJjMiIpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1v
-ZmYtYnk6IFlpbmdqaWUgV2FuZyA8eC1wcm9mZXNzb3JAb3V0bG9vay5jb20+ClJldmlld2VkLWJ5
-OiBNYW5mcmVkIFNwcmF1bCA8bWFuZnJlZEBjb2xvcmZ1bGxpZmUuY29tPgotLS0KIGluY2x1ZGUv
-bGludXgvaXBjX25hbWVzcGFjZS5oIHwgIDMgKysrCiBpcGMvaXBjX3N5c2N0bC5jICAgICAgICAg
-ICAgICB8IDM1ICsrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tCiBpcGMvc2VtLmMg
-ICAgICAgICAgICAgICAgICAgICB8ICAxICsKIGlwYy91dGlsLmggICAgICAgICAgICAgICAgICAg
-IHwgIDkgLS0tLS0tLS0tCiA0IGZpbGVzIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDE4IGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvaXBjX25hbWVzcGFjZS5oIGIv
-aW5jbHVkZS9saW51eC9pcGNfbmFtZXNwYWNlLmgKaW5kZXggMTJmYWNhMjliYmI5Yy4uYzA2NTY4
-Y2NmY2E4OCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9saW51eC9pcGNfbmFtZXNwYWNlLmgKKysrIGIv
-aW5jbHVkZS9saW51eC9pcGNfbmFtZXNwYWNlLmgKQEAgLTQsNiArNCw3IEBACiAKICNpbmNsdWRl
-IDxsaW51eC9lcnIuaD4KICNpbmNsdWRlIDxsaW51eC9pZHIuaD4KKyNpbmNsdWRlIDxsaW51eC9t
-dXRleC5oPgogI2luY2x1ZGUgPGxpbnV4L3J3c2VtLmg+CiAjaW5jbHVkZSA8bGludXgvbm90aWZp
-ZXIuaD4KICNpbmNsdWRlIDxsaW51eC9uc3Byb3h5Lmg+CkBAIC0zMSw2ICszMiw4IEBAIHN0cnVj
-dCBpcGNfaWRzIHsKIHN0cnVjdCBpcGNfbmFtZXNwYWNlIHsKIAlzdHJ1Y3QgaXBjX2lkcwlpZHNb
-M107CiAKKwkvKiBTZXJpYWxpemUga2VybmVsLnNlbSB3cml0ZXJzLiAqLworCXN0cnVjdCBtdXRl
-eAlzZW1fY3Rsc19tdXRleDsKIAlpbnQJCXNlbV9jdGxzWzRdOwogCWludAkJdXNlZF9zZW1zOwog
-CmRpZmYgLS1naXQgYS9pcGMvaXBjX3N5c2N0bC5jIGIvaXBjL2lwY19zeXNjdGwuYwppbmRleCBk
-MDM4ZDk0NDI1N2Y2Li5hMDVlMjhlNjdjMzA1IDEwMDY0NAotLS0gYS9pcGMvaXBjX3N5c2N0bC5j
-CisrKyBiL2lwYy9pcGNfc3lzY3RsLmMKQEAgLTUxLDIxICs1MSwzOCBAQCBzdGF0aWMgaW50IHBy
-b2NfaXBjX2F1dG9fbXNnbW5pKGNvbnN0IHN0cnVjdCBjdGxfdGFibGUgKnRhYmxlLCBpbnQgd3Jp
-dGUsCiBzdGF0aWMgaW50IHByb2NfaXBjX3NlbV9kb2ludHZlYyhjb25zdCBzdHJ1Y3QgY3RsX3Rh
-YmxlICp0YWJsZSwgaW50IHdyaXRlLAogCXZvaWQgKmJ1ZmZlciwgc2l6ZV90ICpsZW5wLCBsb2Zm
-X3QgKnBwb3MpCiB7CisJc3RydWN0IGN0bF90YWJsZSBpcGNfdGFibGU7CiAJc3RydWN0IGlwY19u
-YW1lc3BhY2UgKm5zID0KIAkJY29udGFpbmVyX29mKHRhYmxlLT5kYXRhLCBzdHJ1Y3QgaXBjX25h
-bWVzcGFjZSwgc2VtX2N0bHMpOwotCWludCByZXQsIHNlbW1uaTsKKwlpbnQgc2VtX2N0bHNbQVJS
-QVlfU0laRShucy0+c2VtX2N0bHMpXTsKKwlzaXplX3QgaTsKKwlpbnQgcmV0OworCisJaWYgKCF3
-cml0ZSkKKwkJcmV0dXJuIHByb2NfZG9pbnR2ZWModGFibGUsIHdyaXRlLCBidWZmZXIsIGxlbnAs
-IHBwb3MpOwogCi0Jc2VtbW5pID0gbnMtPnNlbV9jdGxzWzNdOwotCXJldCA9IHByb2NfZG9pbnR2
-ZWModGFibGUsIHdyaXRlLCBidWZmZXIsIGxlbnAsIHBwb3MpOworCW11dGV4X2xvY2soJm5zLT5z
-ZW1fY3Rsc19tdXRleCk7CisJZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUoc2VtX2N0bHMpOyBp
-KyspCisJCXNlbV9jdGxzW2ldID0gUkVBRF9PTkNFKG5zLT5zZW1fY3Rsc1tpXSk7CiAKLQlpZiAo
-IXJldCkKLQkJcmV0ID0gc2VtX2NoZWNrX3NlbW1uaShucyk7CisJbWVtY3B5KCZpcGNfdGFibGUs
-IHRhYmxlLCBzaXplb2YoaXBjX3RhYmxlKSk7CisJaXBjX3RhYmxlLmRhdGEgPSBzZW1fY3RsczsK
-IAotCS8qCi0JICogUmVzZXQgdGhlIHNlbW1uaSB2YWx1ZSBpZiBhbiBlcnJvciBoYXBwZW5zLgot
-CSAqLworCXJldCA9IHByb2NfZG9pbnR2ZWMoJmlwY190YWJsZSwgd3JpdGUsIGJ1ZmZlciwgbGVu
-cCwgcHBvcyk7CiAJaWYgKHJldCkKLQkJbnMtPnNlbV9jdGxzWzNdID0gc2VtbW5pOworCQlnb3Rv
-IG91dF91bmxvY2s7CisKKwlpZiAoc2VtX2N0bHNbMl0gPCAwIHx8CisJICAgIHNlbV9jdGxzWzNd
-IDwgMCB8fCBzZW1fY3Rsc1szXSA+IGlwY19tbmkpIHsKKwkJcmV0ID0gLUVSQU5HRTsKKwkJZ290
-byBvdXRfdW5sb2NrOworCX0KKworCWZvciAoaSA9IDA7IGkgPCBBUlJBWV9TSVpFKHNlbV9jdGxz
-KTsgaSsrKQorCQlXUklURV9PTkNFKG5zLT5zZW1fY3Rsc1tpXSwgc2VtX2N0bHNbaV0pOworCitv
-dXRfdW5sb2NrOgorCW11dGV4X3VubG9jaygmbnMtPnNlbV9jdGxzX211dGV4KTsKIAlyZXR1cm4g
-cmV0OwogfQogCmRpZmYgLS1naXQgYS9pcGMvc2VtLmMgYi9pcGMvc2VtLmMKaW5kZXggYThjOTgw
-NzE3NTUyMC4uMGY3ZDMyYzEyOTkzZiAxMDA2NDQKLS0tIGEvaXBjL3NlbS5jCisrKyBiL2lwYy9z
-ZW0uYwpAQCAtMjQ5LDYgKzI0OSw3IEBAIHN0YXRpYyBpbnQgc3lzdmlwY19zZW1fcHJvY19zaG93
-KHN0cnVjdCBzZXFfZmlsZSAqcywgdm9pZCAqaXQpOwogCiB2b2lkIHNlbV9pbml0X25zKHN0cnVj
-dCBpcGNfbmFtZXNwYWNlICpucykKIHsKKwltdXRleF9pbml0KCZucy0+c2VtX2N0bHNfbXV0ZXgp
-OwogCW5zLT5zY19zZW1tc2wgPSBTRU1NU0w7CiAJbnMtPnNjX3NlbW1ucyA9IFNFTU1OUzsKIAlu
-cy0+c2Nfc2Vtb3BtID0gU0VNT1BNOwpkaWZmIC0tZ2l0IGEvaXBjL3V0aWwuaCBiL2lwYy91dGls
-LmgKaW5kZXggYTU1ZDZjZWJlNmQzYi4uNTFiNGVmYTNkNmRiMCAxMDA2NDQKLS0tIGEvaXBjL3V0
-aWwuaAorKysgYi9pcGMvdXRpbC5oCkBAIC0yNDUsMTUgKzI0NSw2IEBAIGludCBpcGNnZXQoc3Ry
-dWN0IGlwY19uYW1lc3BhY2UgKm5zLCBzdHJ1Y3QgaXBjX2lkcyAqaWRzLAogdm9pZCBmcmVlX2lw
-Y3Moc3RydWN0IGlwY19uYW1lc3BhY2UgKm5zLCBzdHJ1Y3QgaXBjX2lkcyAqaWRzLAogCQl2b2lk
-ICgqZnJlZSkoc3RydWN0IGlwY19uYW1lc3BhY2UgKiwgc3RydWN0IGtlcm5faXBjX3Blcm0gKikp
-OwogCi1zdGF0aWMgaW5saW5lIGludCBzZW1fY2hlY2tfc2VtbW5pKHN0cnVjdCBpcGNfbmFtZXNw
-YWNlICpucykgewotCS8qCi0JICogQ2hlY2sgc2VtbW5pIHJhbmdlIFswLCBpcGNfbW5pXQotCSAq
-IHNlbW1uaSBpcyB0aGUgbGFzdCBlbGVtZW50IG9mIHNlbV9jdGxzWzRdIGFycmF5Ci0JICovCi0J
-cmV0dXJuICgobnMtPnNlbV9jdGxzWzNdIDwgMCkgfHwgKG5zLT5zZW1fY3Rsc1szXSA+IGlwY19t
-bmkpKQotCQk/IC1FUkFOR0UgOiAwOwotfQotCiAjaWZkZWYgQ09ORklHX0NPTVBBVAogI2luY2x1
-ZGUgPGxpbnV4L2NvbXBhdC5oPgogc3RydWN0IGNvbXBhdF9pcGNfcGVybSB7Ci0tIAoyLjQzLjAK
-Cg==
+On Sat, Oct 24, 2026 at 5:13=E2=80=AFPM Rongzheng Wang <testwrzwrz@gmail.co=
+m> wrote:
+>
+> When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
+> calls skb_checksum_help() while only the first descriptor has been added =
+to
+> the skb. The checksum therefore covers just the first fragment, and
+> skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
+> fragments are never included in the checksum.
+>
+> Move the software checksum calculation to the point where the last
+> descriptor has been added to the skb.
+>
+> On a checksum failure the packet is now dropped instead of being returned
+> to the application for a retry. This path is not reachable with the
+> existing metadata validation, but the behavior change is intentional.
+>
+> Add a selftest that sends the same packet as a single descriptor and as t=
+wo
+> descriptors, verifies the expected UDP checksum, and compares the frames
+> captured on the peer.
+>
+> Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
+> ---
+>  net/xdp/xsk.c                                 |  25 +-
+>  .../selftests/bpf/prog_tests/xdp_metadata.c   | 299 ++++++++++++++++++
+>  2 files changed, 316 insertions(+), 8 deletions(-)
+>
+> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+> index 33475b180ea6..845ae6bde987 100644
+> --- a/net/xdp/xsk.c
+> +++ b/net/xdp/xsk.c
+> @@ -1011,14 +1011,6 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
+oid *buffer,
+>                 skb->csum_start =3D hr + csum_start;
+>                 skb->csum_offset =3D csum_offset;
+>                 skb->ip_summed =3D CHECKSUM_PARTIAL;
+> -
+> -               if (unlikely(pool->tx_sw_csum)) {
+> -                       int err;
+> -
+> -                       err =3D skb_checksum_help(skb);
+> -                       if (err)
+> -                               return err;
+> -               }
+>         }
+>
+>         if (flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
+> @@ -1030,6 +1022,14 @@ static int xsk_skb_metadata(struct sk_buff *skb, v=
+oid *buffer,
+>         return 0;
+>  }
+>
+> +static int xsk_skb_sw_csum(struct sk_buff *skb, struct xsk_buff_pool *po=
+ol)
+> +{
+> +       if (!pool->tx_sw_csum || skb->ip_summed !=3D CHECKSUM_PARTIAL)
+> +               return 0;
+> +
+> +       return skb_checksum_help(skb);
+> +}
+> +
+>  static struct sk_buff *xsk_build_skb_zerocopy(struct xdp_sock *xs,
+>                                               struct xdp_desc *desc)
+>  {
+> @@ -1270,6 +1270,15 @@ static int __xsk_generic_xmit(struct sock *sk)
+>                         continue;
+>                 }
+>
+> +               if (!xp_mb_desc(&desc)) {
+> +                       err =3D xsk_skb_sw_csum(skb, xs->pool);
+> +                       if (unlikely(err)) {
+> +                               xskq_cons_release(xs->tx);
+> +                               xsk_drop_skb(skb);
+> +                               goto out;
+> +                       }
+> +               }
+> +
+>                 xskq_cons_release(xs->tx);
+>
+>                 if (xp_mb_desc(&desc)) {
+
+How about adjusting the _position_ like this:
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 33475b180ea6..f7ee72b4681b 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -1275,6 +1275,12 @@ static int __xsk_generic_xmit(struct sock *sk)
+                if (xp_mb_desc(&desc)) {
+                        xs->skb =3D skb;
+                        continue;
++               } else {
++                       err =3D xsk_skb_sw_csum(skb, xs->pool);
++                       if (unlikely(err)) {
++                               xsk_drop_skb(skb);
++                               goto out;
++                       }
+                }
+
+                err =3D __dev_direct_xmit(skb, xs->queue_id);
+?
+
+In terms of the error handling, is it correct to drop this skb? And
+reading through the error cases in skb_checksum_help(), we never have
+the chance to hit any of them at this point? Please double check that.
+
+Another thing is you're adding this to the hot path. I would add
+unlikely or something similar to remove the impact on generic xmit.
+
+> diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c b/tool=
+s/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> index 5c31054ad4a4..21a11300076a 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+
+Please separate this test from the patch as a 2/2 patch then.
+
+Try to reuse the interfaces that we have and integrate it into the
+existing selftests instead of reinventing the wheel from scratch.
+
+Thanks,
+Jason
+
+> @@ -6,9 +6,12 @@
+>  #include "xdp_metadata.h"
+>  #include "xsk.h"
+>
+> +#include <arpa/inet.h>
+>  #include <bpf/btf.h>
+>  #include <linux/errqueue.h>
+> +#include <linux/if_ether.h>
+>  #include <linux/if_link.h>
+> +#include <linux/if_packet.h>
+>  #include <linux/net_tstamp.h>
+>  #include <netinet/udp.h>
+>  #include <sys/mman.h>
+> @@ -38,6 +41,22 @@
+>  #define TX_MAC "00:00:00:00:00:01"
+>  #define RX_MAC "00:00:00:00:00:02"
+>
+> +#define MB_TX_NAME "mb_tx0"
+> +#define MB_RX_NAME "mb_rx0"
+> +#define MB_NETNS_NAME "xdp_mb_csum"
+> +#define MB_UMEM_NUM 4
+> +#define MB_UMEM_FRAME_SIZE XSK_UMEM__DEFAULT_FRAME_SIZE
+> +#define MB_UMEM_SIZE (MB_UMEM_FRAME_SIZE * MB_UMEM_NUM)
+> +#define MB_METADATA_LEN sizeof(struct xsk_tx_metadata)
+> +#define MB_PAYLOAD_LEN 128
+> +#define MB_SPLIT_LEN 64
+> +#define MB_PKT_LEN (sizeof(struct ethhdr) + sizeof(struct iphdr) + \
+> +                   sizeof(struct udphdr) + MB_PAYLOAD_LEN)
+> +#define MB_TX_ADDR "10.1.0.1"
+> +#define MB_RX_ADDR "10.1.0.2"
+> +#define MB_SOURCE_PORT 1234
+> +#define MB_DEST_PORT 8080
+> +
+>  #define VLAN_ID 59
+>  #define VLAN_PROTO "802.1Q"
+>  #define VLAN_PID htons(ETH_P_8021Q)
+> @@ -543,3 +562,283 @@ void test_xdp_metadata(void)
+>         SYS_NOFAIL("ip netns del " RX_NETNS_NAME);
+>         SYS_NOFAIL("ip netns del " TX_NETNS_NAME);
+>  }
+> +
+> +static int open_xsk_mb(int ifindex, struct xsk *xsk)
+> +{
+> +       const struct xsk_socket_config socket_config =3D {
+> +               .rx_size =3D XSK_RING_PROD__DEFAULT_NUM_DESCS,
+> +               .tx_size =3D XSK_RING_PROD__DEFAULT_NUM_DESCS,
+> +               .bind_flags =3D XDP_COPY | XDP_USE_SG,
+> +       };
+> +       const struct xsk_umem_config umem_config =3D {
+> +               .fill_size =3D XSK_RING_PROD__DEFAULT_NUM_DESCS,
+> +               .comp_size =3D XSK_RING_CONS__DEFAULT_NUM_DESCS,
+> +               .frame_size =3D MB_UMEM_FRAME_SIZE,
+> +               .flags =3D XDP_UMEM_UNALIGNED_CHUNK_FLAG | XDP_UMEM_TX_SW=
+_CSUM |
+> +                        XDP_UMEM_TX_METADATA_LEN,
+> +               .tx_metadata_len =3D sizeof(struct xsk_tx_metadata),
+> +       };
+> +       int ret;
+> +
+> +       xsk->umem_area =3D mmap(NULL, MB_UMEM_SIZE, PROT_READ | PROT_WRIT=
+E,
+> +                             MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE=
+, -1, 0);
+> +       if (!ASSERT_NEQ(xsk->umem_area, MAP_FAILED, "mmap"))
+> +               return -1;
+> +
+> +       ret =3D xsk_umem__create(&xsk->umem, xsk->umem_area, MB_UMEM_SIZE=
+,
+> +                              &xsk->fill, &xsk->comp, &umem_config);
+> +       if (!ASSERT_OK(ret, "xsk_umem__create"))
+> +               return ret;
+> +
+> +       ret =3D xsk_socket__create(&xsk->socket, ifindex, QUEUE_ID, xsk->=
+umem,
+> +                                &xsk->rx, &xsk->tx, &socket_config);
+> +       if (!ASSERT_OK(ret, "xsk_socket__create"))
+> +               return ret;
+> +
+> +       return 0;
+> +}
+> +
+> +static void close_xsk_mb(struct xsk *xsk)
+> +{
+> +       if (xsk->socket)
+> +               xsk_socket__delete(xsk->socket);
+> +       if (xsk->umem)
+> +               xsk_umem__delete(xsk->umem);
+> +       if (xsk->umem_area && xsk->umem_area !=3D MAP_FAILED)
+> +               munmap(xsk->umem_area, MB_UMEM_SIZE);
+> +}
+> +
+> +static __sum16 mb_build_packet(u8 *pkt)
+> +{
+> +       struct ethhdr *eth =3D (void *)pkt;
+> +       struct iphdr *iph =3D (void *)(eth + 1);
+> +       struct udphdr *udph =3D (void *)(iph + 1);
+> +       __sum16 expected;
+> +
+> +       memset(pkt, 0, MB_PKT_LEN);
+> +       memcpy(eth->h_dest, RX_MAC, ETH_ALEN);
+> +       memcpy(eth->h_source, TX_MAC, ETH_ALEN);
+> +       eth->h_proto =3D htons(ETH_P_IP);
+> +
+> +       iph->version =3D 4;
+> +       iph->ihl =3D 5;
+> +       iph->tot_len =3D htons((u16)(MB_PKT_LEN - sizeof(*eth)));
+> +       iph->id =3D htons(1);
+> +       iph->ttl =3D 64;
+> +       iph->protocol =3D IPPROTO_UDP;
+> +       iph->saddr =3D inet_addr(MB_TX_ADDR);
+> +       iph->daddr =3D inet_addr(MB_RX_ADDR);
+> +       iph->check =3D build_ip_csum(iph);
+> +
+> +       udph->source =3D htons(MB_SOURCE_PORT);
+> +       udph->dest =3D htons(MB_DEST_PORT);
+> +       udph->len =3D htons((u16)(sizeof(*udph) + MB_PAYLOAD_LEN));
+> +       memset(udph + 1, 0xaa, MB_PAYLOAD_LEN);
+> +
+> +       expected =3D build_udp_v4_csum(iph, udph);
+> +       udph->check =3D ~csum_tcpudp_magic(iph->saddr, iph->daddr,
+> +                                        ntohs(udph->len), IPPROTO_UDP, 0=
+);
+> +       return expected;
+> +}
+> +
+> +static int mb_send_packet(struct xsk *xsk, const u8 *pkt, bool split)
+> +{
+> +       struct xsk_tx_metadata *meta;
+> +       struct xdp_desc *tx_desc;
+> +       u32 idx, num =3D split ? 2 : 1;
+> +       u8 *frame;
+> +       int ret;
+> +
+> +       ret =3D xsk_ring_prod__reserve(&xsk->tx, num, &idx);
+> +       if (!ASSERT_EQ(ret, num, "xsk_ring_prod__reserve"))
+> +               return -1;
+> +
+> +       if (split) {
+> +               frame =3D xsk_umem__get_data(xsk->umem_area, MB_UMEM_FRAM=
+E_SIZE);
+> +               meta =3D (struct xsk_tx_metadata *)frame;
+> +               memcpy(frame + MB_METADATA_LEN, pkt, MB_SPLIT_LEN);
+> +
+> +               tx_desc =3D xsk_ring_prod__tx_desc(&xsk->tx, idx);
+> +               tx_desc->addr =3D MB_UMEM_FRAME_SIZE + MB_METADATA_LEN;
+> +               tx_desc->len =3D MB_SPLIT_LEN;
+> +               tx_desc->options =3D XDP_TX_METADATA | XDP_PKT_CONTD;
+> +
+> +               frame =3D xsk_umem__get_data(xsk->umem_area,
+> +                                          2 * MB_UMEM_FRAME_SIZE);
+> +               memcpy(frame + MB_METADATA_LEN, pkt + MB_SPLIT_LEN,
+> +                      MB_PKT_LEN - MB_SPLIT_LEN);
+> +
+> +               tx_desc =3D xsk_ring_prod__tx_desc(&xsk->tx, idx + 1);
+> +               tx_desc->addr =3D 2 * MB_UMEM_FRAME_SIZE + MB_METADATA_LE=
+N;
+> +               tx_desc->len =3D (u32)(MB_PKT_LEN - MB_SPLIT_LEN);
+> +               tx_desc->options =3D 0;
+> +       } else {
+> +               frame =3D xsk_umem__get_data(xsk->umem_area, 0);
+> +               meta =3D (struct xsk_tx_metadata *)frame;
+> +               memcpy(frame + MB_METADATA_LEN, pkt, MB_PKT_LEN);
+> +
+> +               tx_desc =3D xsk_ring_prod__tx_desc(&xsk->tx, idx);
+> +               tx_desc->addr =3D MB_METADATA_LEN;
+> +               tx_desc->len =3D (u32)MB_PKT_LEN;
+> +               tx_desc->options =3D XDP_TX_METADATA;
+> +       }
+> +
+> +       memset(meta, 0, sizeof(*meta));
+> +       meta->flags =3D XDP_TXMD_FLAGS_CHECKSUM;
+> +       meta->request.csum_start =3D (u16)(sizeof(struct ethhdr) + sizeof=
+(struct iphdr));
+> +       meta->request.csum_offset =3D (u16)offsetof(struct udphdr, check)=
+;
+> +
+> +       xsk_ring_prod__submit(&xsk->tx, num);
+> +
+> +       ret =3D sendto(xsk_socket__fd(xsk->socket), NULL, 0, MSG_DONTWAIT=
+,
+> +                    NULL, 0);
+> +       if (!ASSERT_GE(ret, 0, "sendto"))
+> +               return -1;
+> +
+> +       return 0;
+> +}
+> +
+> +static int mb_wait_completion(struct xsk *xsk, u32 num)
+> +{
+> +       struct pollfd pfd =3D {
+> +               .fd =3D xsk_socket__fd(xsk->socket),
+> +               .events =3D POLLOUT,
+> +       };
+> +       u32 idx;
+> +       int ret, i;
+> +
+> +       for (i =3D 0; i < 100; i++) {
+> +               ret =3D xsk_ring_cons__peek(&xsk->comp, num, &idx);
+> +               if (ret =3D=3D num) {
+> +                       xsk_ring_cons__release(&xsk->comp, num);
+> +                       return 0;
+> +               }
+> +               poll(&pfd, 1, 1);
+> +       }
+> +
+> +       return -1;
+> +}
+> +
+> +static int mb_recv_packet(int fd, u8 *buf, size_t len)
+> +{
+> +       struct sockaddr_ll sll;
+> +       socklen_t sll_len;
+> +       struct pollfd pfd =3D {
+> +               .fd =3D fd,
+> +               .events =3D POLLIN,
+> +       };
+> +       struct ethhdr *eth;
+> +       struct iphdr *iph;
+> +       struct udphdr *udph;
+> +       int ret;
+> +
+> +       for (;;) {
+> +               ret =3D poll(&pfd, 1, 1000);
+> +               if (ret <=3D 0)
+> +                       return -1;
+> +
+> +               sll_len =3D sizeof(sll);
+> +               ret =3D recvfrom(fd, buf, len, 0, (struct sockaddr *)&sll=
+,
+> +                              &sll_len);
+> +               if (ret < 0)
+> +                       return -1;
+> +               if (ret < (int)(sizeof(*eth) + sizeof(*iph) + sizeof(*udp=
+h)))
+> +                       continue;
+> +
+> +               eth =3D (void *)buf;
+> +               if (eth->h_proto !=3D htons(ETH_P_IP))
+> +                       continue;
+> +               iph =3D (void *)(eth + 1);
+> +               if (iph->protocol !=3D IPPROTO_UDP)
+> +                       continue;
+> +               udph =3D (void *)(iph + 1);
+> +               if (udph->dest !=3D htons(MB_DEST_PORT))
+> +                       continue;
+> +
+> +               return ret;
+> +       }
+> +}
+> +
+> +void test_xdp_metadata_mb_csum(void)
+> +{
+> +       struct nstoken *tok =3D NULL;
+> +       struct sockaddr_ll sll =3D {};
+> +       struct udphdr *single_udp;
+> +       struct udphdr *multi_udp;
+> +       __sum16 expected_csum;
+> +       u8 pkt[MB_PKT_LEN];
+> +       u8 single[MB_PKT_LEN];
+> +       u8 multi[MB_PKT_LEN];
+> +       struct xsk xsk =3D {};
+> +       int tx_ifindex, rx_ifindex;
+> +       int pkt_fd =3D -1;
+> +       int single_len;
+> +       int multi_len;
+> +       int ret;
+> +
+> +       SYS_NOFAIL("ip netns del " MB_NETNS_NAME);
+> +       SYS(out, "ip netns add " MB_NETNS_NAME);
+> +       tok =3D open_netns(MB_NETNS_NAME);
+> +       if (!ASSERT_OK_PTR(tok, "setns"))
+> +               goto out;
+> +
+> +       SYS(out, "ip link add " MB_TX_NAME " type veth peer name " MB_RX_=
+NAME);
+> +       SYS(out, "ip link set dev " MB_TX_NAME " up");
+> +       SYS(out, "ip link set dev " MB_RX_NAME " up");
+> +
+> +       tx_ifindex =3D if_nametoindex(MB_TX_NAME);
+> +       rx_ifindex =3D if_nametoindex(MB_RX_NAME);
+> +       if (!ASSERT_NEQ(tx_ifindex, 0, "if_nametoindex(tx)") ||
+> +           !ASSERT_NEQ(rx_ifindex, 0, "if_nametoindex(rx)"))
+> +               goto out;
+> +
+> +       ret =3D open_xsk_mb(tx_ifindex, &xsk);
+> +       if (!ASSERT_OK(ret, "open_xsk_mb"))
+> +               goto out;
+> +
+> +       pkt_fd =3D socket(AF_PACKET, SOCK_RAW | SOCK_CLOEXEC, htons(ETH_P=
+_ALL));
+> +       if (!ASSERT_GE(pkt_fd, 0, "socket(AF_PACKET)"))
+> +               goto out;
+> +
+> +       sll.sll_family =3D AF_PACKET;
+> +       sll.sll_protocol =3D htons(ETH_P_ALL);
+> +       sll.sll_ifindex =3D rx_ifindex;
+> +       if (!ASSERT_OK(bind(pkt_fd, (struct sockaddr *)&sll, sizeof(sll))=
+,
+> +                      "bind(AF_PACKET)"))
+> +               goto out;
+> +
+> +       expected_csum =3D mb_build_packet(pkt);
+> +
+> +       if (!ASSERT_OK(mb_send_packet(&xsk, pkt, false), "send single"))
+> +               goto out;
+> +       single_len =3D mb_recv_packet(pkt_fd, single, sizeof(single));
+> +       if (!ASSERT_EQ(single_len, (int)MB_PKT_LEN, "recv single"))
+> +               goto out;
+> +       single_udp =3D (void *)(single + sizeof(struct ethhdr) + sizeof(s=
+truct iphdr));
+> +       if (!ASSERT_EQ(single_udp->check, expected_csum, "single checksum=
+"))
+> +               goto out;
+> +       if (!ASSERT_OK(mb_wait_completion(&xsk, 1), "complete single"))
+> +               goto out;
+> +
+> +       if (!ASSERT_OK(mb_send_packet(&xsk, pkt, true), "send multi"))
+> +               goto out;
+> +       multi_len =3D mb_recv_packet(pkt_fd, multi, sizeof(multi));
+> +       if (!ASSERT_EQ(multi_len, (int)MB_PKT_LEN, "recv multi"))
+> +               goto out;
+> +       multi_udp =3D (void *)(multi + sizeof(struct ethhdr) + sizeof(str=
+uct iphdr));
+> +       if (!ASSERT_EQ(multi_udp->check, expected_csum, "multi checksum")=
+)
+> +               goto out;
+> +       if (!ASSERT_OK(mb_wait_completion(&xsk, 2), "complete multi"))
+> +               goto out;
+> +
+> +       ASSERT_EQ(memcmp(single, multi, MB_PKT_LEN), 0,
+> +                 "single and multi-buffer packets differ");
+> +
+> +out:
+> +       if (pkt_fd >=3D 0)
+> +               close(pkt_fd);
+> +       close_xsk_mb(&xsk);
+> +       if (tok)
+> +               close_netns(tok);
+> +       SYS_NOFAIL("ip netns del " MB_NETNS_NAME);
+> +}
+> --
+> 2.39.5 (Apple Git-154)
+>
+>
