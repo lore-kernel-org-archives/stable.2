@@ -1,46 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792846175;
-	b=zcr3gobuEz8Z9swz0z6IOChzJPc9YS+g2yeCeaI3VX4BkkbJn76XAqBkP9gfGon3E013
-	 T+29j7/xV9Su3pq1mwjd5f90qGy+AuFHOL4qtdGhHXtJ5YHTQvo2WmpfnDXybTMeB8IXD
-	 BGtHC55xaIKyDdvms3Jgi/j9nfUjNgT/sj6y27whyWuOMJY7x5bBE0U1ov80b+QlsMNf3
-	 50/KJzv3myi5q+5nWYlYuVyqNomHLg1l1sHMLxNRLeq5I5Z12oS9kEaHydM9anQMqWO6u
-	 JN8QlLeg7A0wrhns75Ui1ogamAZgQZnBhY7d9l7bGlJMI+N6QvN9go8PfdFvWcho2eA==
+	b=vJb0KI/UUjbQNWcR/tJnBOx1N1Km6Av+047D5bXPgk9RwPjeF+DDl8ZW+61mAiNivSzE
+	 kNqPUAFeDvFMNuF1HwhZwuMsuXlVl4M0FayWoLDZ3JiwbFqPb/4HvpLdvHrFc5j09QdbT
+	 fvaSVUhTrcIdYfyHcTE2tMjCJEi6Hzj8SAx4Jl36x5CjHI3p+w/7+Rtqm7k6w47WaZE9v
+	 GameeuZiwoK2uNauq4+GjnBIT+PKJKB5AnB01YQ5myE/GVs0sUYBfraoyZaerNpxq7bBL
+	 3Cy9zxwLi3hLNn/HpvHmKYWf7yBYiJxqtOzrJjw0LUzUVV/956p/MYo4rhDQTc5JQgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792846175;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
 	 UI-OutboundReport;
-	bh=Lp8+hS4P4IBqivKXmiImtgF1gbjF6bKeKIU99a5ytAo=;
-	b=npLPyiFjhWU2btme5sULn3aXx2S3kGJOgc8seql2FKTIWPVVM9Me/uK1puCzM+X2AmVI
-	 CxFxWGCsYfDpE4tlihWXt6uUW6cVYj2qtsVaYHOErTb3GHjH6WOsVOfOXh8VcBDgnT6rH
-	 coYVt6cKbz04tRs38/LWX3zmdfcFqr4gDbDxP+gksX5oWYSfQHu4hX7AgucqhtHaaHcYV
-	 PYO7VwfwH+KXM7UVh9Ws4PP6+cschA4w2b55HdtQDzq/emfKWZ7Pn7WBo1q3hJaFcadcL
-	 F/OmeOAgNyQsI+gKtG86CnncrYzJG0ufyPHMMGBl2LeVeJzDnmI41eLHfodCuxmoo4A==
+	bh=p/2AV0saPMIDHKLYTyhSdSQh5/dWISaZKv1R2XF9dIY=;
+	b=nngajfM+XPRovZ486IaFWN3ts6Kek0YrvcFY2jShMqktYqpOYTi3kWchDLgcLbreHWQt
+	 IIrfxrA20umaNpdjvRMFOczcN/pEJeJ2MYD1NUhhlKOBPkm8SecodlhrZfrw2Z7lJzLNJ
+	 vGzwhZAIT2TrV3+UKdn+5qdb4TuAWwiEa8yoBJ6g2dphtyckh1vhNKxVCrLJbrulihXXo
+	 mWUFpIrQ2/GHvCfl4JBwP8Vt9EyBZhykxnekJe/CMGc25s+6QwLf15pwFngwQJEdG8bsq
+	 xPbuMNrvDMF7O9rzq5ZYfQNqWojNH9Ov/cgbvEN8ZzW7bKfuCZ6Ig7cx1IgcAIn/hww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelscan.io;
 	spf=pass smtp.mailfrom=kernelscan.io;
-	arc=none smtp.remote-ip=212.227.126.131
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+	arc=none smtp.remote-ip=212.227.126.134
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29559606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348CE606A31F;
 	Sat, 24 Oct 2026 12:49:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29559606A31A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 348CE606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelscan.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelscan.io
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
- [213.165.67.97]) with ESMTPSA (Nemesis) id 1M9Wqa-1xF7XM0voK-008bIt; Sat, 24
- Oct 2026 14:49:32 +0200
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue010
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1M8yPu-1xFflk4AXG-00CH5q; Sat, 24
+ Oct 2026 14:49:31 +0200
 From: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
 To: stable@vger.kernel.org
 Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
 	Florian Westphal <fw@strlen.de>,
 	netfilter-devel@vger.kernel.org
-Subject: [PATCH 5.10.y] netfilter: nf_tables: release flowtable after rcu grace period on error
-Date: Sat, 24 Oct 2026 14:49:31 +0200
-Message-ID: <20261024124931.5443-1-steffen.pfendtner@kernelscan.io>
+Subject: [PATCH 5.10.y] netfilter: nf_tables: fix use-after-free in nf_tables_addchain()
+Date: Sat, 24 Oct 2026 14:49:30 +0200
+Message-ID: <20261024124930.5397-1-steffen.pfendtner@kernelscan.io>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,115 +52,129 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:95NGEPfXKfW8O5uyrtjL42PJE+wysClETBTDjqLKhhm3ClC7NOs
- JbNybnvZp3QGLY0k9P8gSnmkA6BQ42BWRw+hnKyH0ZgphqyNC19WprPPqfkEs5HkLGL4TLX
- yPwaYhqQdr/rSburW+5FPuZpX++GeGvZto1f4/d70Ieff030bDO4NwK/fQHVAoVuYwYA6eE
- YmPARkmkHP4pr9B3WUxiA==
+X-Provags-ID: V03:K1:soROOQMCtV0twiHiIORA0Tu5YlTbNhzAdWhKBfn6t84A/eUpPF0
+ EUw8flaWeomZ98x4amOj3ZmvqIqQazS6/OZ6Tbc74ABD7DmcnWe1cLNDGoa6jduwbWLMqzs
+ Dch/dZKIVOecy+BEvoNcvkkpc+PgxM4ir8rYjZytu7ysZC2Vo+lH9h0iIEi1AcRyKKTt/d5
+ tpqOx0YGEgvje0IsG29bA==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:6bHX6ZM4GMU=;6IBkQNMM1KqD0UpHqoWJ4v4oDaH
- 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
- ffDoiOy7pF+vJvivT3/6cJKdRNpmA==
+UI-OutboundReport: notjunk:1;M01:P0:Z9mC28rEyCI=;D5/E2R0rDemuE08C71I+JkZ0fV1
+ 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
+ +yG+XSG
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+From: Inseo An <y0un9sa@gmail.com>
 
-[ Upstream commit d73f4b53aaaea4c95f245e491aa5eeb8a21874ce ]
+[ Upstream commit 71e99ee20fc3f662555118cf1159443250647533 ]
 
-Call synchronize_rcu() after unregistering the hooks from error path,
-since a hook that already refers to this flowtable can be already
-registered, exposing this flowtable to packet path and nfnetlink_hook
-control plane.
+nf_tables_addchain() publishes the chain to table->chains via
+list_add_tail_rcu() (in nft_chain_add()) before registering hooks.
+If nf_tables_register_hook() then fails, the error path calls
+nft_chain_del() (list_del_rcu()) followed by nf_tables_chain_destroy()
+with no RCU grace period in between.
 
-This error path is rare, it should only happen by reaching the maximum
-number hooks or by failing to set up to hardware offload, just call
-synchronize_rcu().
+This creates two use-after-free conditions:
 
-There is a check for already used device hooks by different flowtable
-that could result in EEXIST at this late stage. The hook parser can be
-updated to perform this check earlier to this error path really becomes
-rarely exercised.
+ 1) Control-plane: nf_tables_dump_chains() traverses table->chains
+    under rcu_read_lock(). A concurrent dump can still be walking
+    the chain when the error path frees it.
 
-Uncovered by KASAN reported as use-after-free from nfnetlink_hook path
-when dumping hooks.
+ 2) Packet path: for NFPROTO_INET, nf_register_net_hook() briefly
+    installs the IPv4 hook before IPv6 registration fails.  Packets
+    entering nft_do_chain() via the transient IPv4 hook can still be
+    dereferencing chain->blob_gen_X when the error path frees the
+    chain.
 
-Fixes: 3b49e2e94e6e ("netfilter: nf_tables: add flow table netlink frontend")
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Add synchronize_rcu() between nft_chain_del() and the chain destroy
+so that all RCU readers -- both dump threads and in-flight packet
+evaluation -- have finished before the chain is freed.
+
+Fixes: 91c7b38dc9f0 ("netfilter: nf_tables: use new transaction infrastructure to handle chain")
+Signed-off-by: Inseo An <y0un9sa@gmail.com>
 Signed-off-by: Florian Westphal <fw@strlen.de>
-[ Backport to 5.10.y: 5.10 registers the flowtable hooks before the
-  transaction is allocated and has no err_flowtable_hooks label. As in
-  the 5.15.y backport of this fix, call synchronize_rcu() in the
-  nft_register_flowtable_net_hooks() failure branch, before the hooks
-  and the flowtable are released. ]
+[ Backport to 5.10.y: 5.10 lacks d472e9853d7b ("netfilter: nf_tables:
+  register hooks last when adding new chain/flowtable"), so the hooks are
+  registered before the chain is added to table->chains and there is no
+  err_register_hook label. A failing nf_tables_register_hook() can still
+  have exposed the chain to the packet path through a transiently
+  registered hook (the IPv4 hook of an inet chain when the IPv6 hook
+  fails to register), so call synchronize_rcu() before the chain is
+  destroyed on that path. This mirrors how the 5.15.y backport of
+  d73f4b53aaae handles the same situation for flowtables. ]
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
 ---
-Not a clean cherry-pick (see the bracketed note): resolved the same way
-as the 5.15.y backport already in the stable queue -- synchronize_rcu()
-in the nft_register_flowtable_net_hooks() failure branch.
+Not a clean cherry-pick (see the bracketed note): 5.15 registers the
+chain hook before adding the chain and has no err_register_hook label,
+so the synchronize_rcu() is placed in the hook-registration failure
+branch. A review from the netfilter side would be welcome.
 
-Build-tested on arm64; boot-tested under QEMU with KASAN: flowtable
-create/delete and the failure path run without KASAN reports.
+Build-tested on arm64; boot-tested under QEMU with KASAN: nf_tables
+chain add/list/delete across families works, ruleset flush is clean,
+no KASAN reports.
 
- net/netfilter/nf_tables_api.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/netfilter/nf_tables_api.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 63592c73a7a1..95a03b01014e 100644
+index 63592c73a7a1..9862a34010d0 100644
 --- a/net/netfilter/nf_tables_api.c
 +++ b/net/netfilter/nf_tables_api.c
-@@ -7296,6 +7296,7 @@ static int nf_tables_newflowtable(struct net *net, struct sock *nlsk,
- 					       &flowtable->hook_list,
- 					       flowtable);
- 	if (err < 0) {
+@@ -2341,8 +2341,10 @@ static int nf_tables_addchain(struct nft_ctx *ctx, u8 family, u8 genmask,
+ 	rcu_assign_pointer(chain->rules_gen_1, rules);
+ 
+ 	err = nf_tables_register_hook(net, table, chain);
+-	if (err < 0)
++	if (err < 0) {
 +		synchronize_rcu();
- 		nft_flowtable_hooks_destroy(&flowtable->hook_list);
- 		goto err4;
- 	}
+ 		goto err_destroy_chain;
++	}
+ 
+ 	if (!nft_use_inc(&table->use)) {
+ 		err = -EMFILE;
 -- 
 2.50.1 (Apple Git-155)
 
