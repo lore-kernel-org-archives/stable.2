@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792838650;
-	b=H/oObs1xaFNTWHInVq1F32oT4Si93sfo5aZDN/WivfeSVvWMipIAquNIaTPDFUJprwOp
-	 PpjKgQ0yFI/XxsLXrGVjFebB3DTluLVGoJ6ne7exYJ2OAFiaoPOB8qyfqv9jU+Rfv4605
-	 xSJrHuMzxBwUXy4lQAePJ3VMyafQOJ+WQxzPere0WSsEXk01O3LAPv36skVkk14MvTJMT
-	 xBlKFj363xYD2EqkXMJ2H/Pr3e1dNd94y/8IHgxSOjog4heBYCiwmecForzq2Pqb6g+cb
-	 tiq2m+JR7ZuTi1QvDppBHiMrE4o/Rb5LU0PGTvDM6/zZjAS6kIPl0knDzMk2X25KvrQ==
+	t=1792838671;
+	b=ZBN0KMMiu4+J1CO1uDIDrgi5vtK0TZnKINKgu0zfC/TXn+HrLo4UlGvC7djRyJskAocY
+	 lqHd6PjjkHMvZiuknaGrmJZsTHEE3AqudOEMSCNBbk2JoxQ6FYfBmVlMKGg4JpIn4Zx7i
+	 AfdCYJxMMo4FqdPEp6OLSLuCVTuyerGv9ArkXDmcd/W7DA+v8/G8W9d1SUvgaDEQ5sdlp
+	 6xLjvbfB2p99vl2SyR4Ch6w17rMI22Ltf2v+lZm0C6WLrFK48k3gf8ml3wgz/bP19FhRW
+	 xovRY7JGARGDDuPWxtXQyYOmA40RZQDEgwNglTCrgSxBJWpNMxB9tDHZ2974VvGEZ6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792838650;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=g1lBsOByITyOomjH9IC5HsDwOCpARxp+TMH1j0ATMaw=;
-	b=hQKtuEpy6YpSbQCoGkaNpo3Pi1s60mXHsJhCi5mS7tGlZ00ubJnpGCa161V0vp6IGdGE
-	 IkjuDADRaQUL7yoHGSN4/dwjwJeg4pO1UQ6AIZgdHB4bHxUn1p9ENCTQgzAesMfeDx95c
-	 7OdqJUO+H4q9NUigbaee1vRHWiItihXCqitOqr73rbblWbYu2XdwQ0F8Mq2CJBhmC6iy9
-	 5rqY3m+/B4aj5zH9rWX/ME2MooaFqf9W/jx2F5n2bQRYqiN9EI9/Ake11mUhiDwO3TY5A
-	 d7TekaHUuWDv1VFAdmybV9GbOF+pFDndXMxl3uv9688V1zkYw+Hr/CceDFxUyxs5dpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838671;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=cP4QIQsJrDFe00ukZI5ghLcu5/zmP+CrOQ2Y1+X9TAI=;
+	b=fzlU+1AQuVFfAb7UfvL4kFcVSGA6XTaeU3WKsn94TZo0m9vcvrqeHXI/xUIvYH89umxL
+	 hnpCCv26U/B94xwUiDd1ikR5swiWnzSEvB/6GIBEq1STy/Yulj5rFireC/7tlC6OqKz5y
+	 N3cx6LM1bPnSejsrgZmSxLumspyVfxBjr+GAn10YKEa+f+8A5Pke9k5d3lu6n0gdp/5Kw
+	 gXZT2gp754Vt49y4WrXZYlkNhMB34D92wqv96060zK7KpvgGEGe6BY6cmoGp8Yv4qcBjD
+	 5WtK47BD0Bn+xNXyn5IBovZ+0vG8irgGHd4VLM+Yyyz1HyChNiQKD6tCZA0raxbldbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LXynNLz0;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+DJkps9;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0738606A31A;
-	Sat, 24 Oct 2026 10:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0738606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4CF606A31A;
+	Sat, 24 Oct 2026 10:44:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C4CF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LXynNLz0
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792838639; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=g1lBsOByITyOomjH9IC5HsDwOCpARxp+TMH1j0ATMaw=;
-	b=LXynNLz0P/Y5QqQNrifheoZPbxOl7M92N5U/dhr+VEHPe2SPdDU4Uswr0bpEDzYXMPg9jmCUNjnbBTPn5jTWImUlaKQHa+ZofSrHrn/NVbHH0QqqezpG521SzGXUPPnzGrF1N9squdFxI9w4HBxG5fDhvdeAOlv1arw6/S/i/xc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R641e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XDO1Nnr_1792838631;
-Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDO1Nnr_1792838631 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 24 Oct 2026 18:43:58 +0800
-From: Baokun Li <libaokun@linux.alibaba.com>
-To: linux-fscrypt@vger.kernel.org
-Cc: ebiggers@kernel.org,
-	tytso@mit.edu,
-	jaegeuk@kernel.org,
-	libaokun@linux.alibaba.com,
-	stable@vger.kernel.org
-Subject: [PATCH v4] fscrypt: Fix missing barrier in fscrypt_find_mode_key()
-Date: Sat, 24 Oct 2026 18:43:50 +0800
-Message-ID: <20261024104350.2257313-1-libaokun@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+DJkps9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792838670; x=1824374670;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TE+an+keRkU9QPvmaNWoK8GFR78TtYIwI4t/FxzwmYo=;
+  b=L+DJkps9Pyz8W20fZ4pyj5aUu7rc9788FI5gKZFLK/rTyLACOgTkIltW
+   LgWPr6Mi2ACk8CWHubQDkPQoDbr0OhWbUYWvb6gRQvPvMhrqBFj/ecOp4
+   m3I1+Dh/35t+z3S2P53pXm/ovg9ClYSIvySs5C+RsFQkFygcD+saxgJ1Z
+   uIHNNcgGXMr06+lWaplb41ZQ2va0S2ptST6xsfesMbzZ+JgH7PZvGnqlf
+   grfdkE3GETZ6zCxwciCRIqIYO5t+mPmszj+umRQwuw1ZQJCDyYNyQDDCl
+   g1ylcf2RUv9kyXU8Bfu/SXDZVRueRvgTrlDNk+2/bitsH1SFfWTk2S8RF
+   g==;
+X-CSE-ConnectionGUID: iEMTucg1Saa0uMeri+PXew==
+X-CSE-MsgGUID: azLjltajSCK4q3jWmVFdiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1453841"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1453841"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:44:30 -0700
+X-CSE-ConnectionGUID: u5rblvWGQjiDufgMHdjsgA==
+X-CSE-MsgGUID: UYPyOwUbR4G2HOZsvvcXLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="5600527"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:44:27 -0700
+Date: Sat, 24 Oct 2026 13:44:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, stable@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: proximity: sx9324: fix out-of-bounds read of
+ scan period table
+Message-ID: <atyMCCJsBDPdgl2Q@ashevche-desk.local>
+References: <20261023192700.221344-1-kapoorarnav43@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,86 +82,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023192700.221344-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-fscrypt_find_mode_key() walks an RCU list and hands out a per-mode
-key without an acquire:
+On Sat, Oct 24, 2026 at 12:56:51AM +0530, Arnav Kapoor wrote:
+> The scan period of the SX9324 is selected by the 5 bit wide
+> SX9324_REG_GNRL_CTRL0_SCANPERIOD field, so it has 32 possible values.
+> sx9324_scan_period_table[] however only has 16 entries, it was copied
+> over from the SX9310 driver where the field is only 4 bits wide.
+> 
+> sx9324_wait_for_sample() indexes the table with the raw field value, so
+> all the codes from 16 to 31 read past the end of the array. The default
+> value of the register is SX9324_REG_GNRL_CTRL0_SCANPERIOD_100MS (0x16,
+> i.e. 22), so the out-of-bounds read happens with the default
+> configuration of the device. It is only avoided when the device has an
+> interrupt line, as the wait is only done in the polling case.
+> 
+> The value read is then used as the duration of an msleep() call, so the
+> sensor is polled with a completely random delay.
+> 
+> Fill the table with the scan periods of all 32 codes, which are the
+> periods documented for the corresponding sx9324_samp_freq_table[]
+> entries, and add a static assertion to keep both tables in sync.
 
-  setup task
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  setup_per_mode_enc_key()
-   ├─ fscrypt_prepare_key()
-   │  └─ fscrypt_prepare_inline_crypt_key()
-   │     └─ blk_crypto_start_using_key()
-   │        └─ blk_crypto_fallback_start_using_mode()
-   │           ├─ init profile, keyslots, tfms[]
-   │           └─ smp_store_release(tfms_inited[mode])  # init order
-   └─ list_add_tail_rcu(&new_node->link, ...)  # release -> finder
+...
 
-  finding task (later submits the I/O itself)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  fscrypt_find_mode_key()
-   ├─ list_for_each_entry_rcu(node, ...)
-   └─ return &node->key                 # no acquire, chain breaks
-  ...
-  blk_crypto_fallback_bio_prep()        # WRITE path
-   ├─ tfms_inited[mode]                 # addr-dep, reads true
-   ├─ blk_crypto_fallback_profile       # no dependency
-   ├─ blk_crypto_keyslots               # no dependency
-   └─ slotp->tfms[mode]                 # no dependency
+> +/*
+> + * The scan period of the SX9324 is selected by the 5 bit wide
 
-RCU publishes the node and the key reachable from it, so
-tfms_inited[mode] reads true through the address dependency.  The
-independent fallback globals are not covered by it and can be read as
-uninitialized.
+5-bit
 
-On a weakly ordered machine, a WRITE bio can crash in
-blk_crypto_get_keyslot() or crypto_sync_skcipher_setkey().
+> + * SX9324_REG_GNRL_CTRL0_SCANPERIOD field. The values below are the scan
+> + * periods in ms of the corresponding sx9324_samp_freq_table[] entries.
+> + */
+>  static const unsigned int sx9324_scan_period_table[] = {
+> -	2,   15,  30,  45,   60,   90,	 120,  200,
+> -	400, 600, 800, 1000, 2000, 3000, 4000, 5000,
+> +	1, 2, 4, 6, 8, 10, 14, 18,			/* 0x00 - 0x07 */
+> +	22, 26, 30, 34, 38, 42, 46, 50,			/* 0x08 - 0x0f */
+> +	56, 62, 68, 74, 80, 90, 100, 200,		/* 0x10 - 0x17 */
+> +	300, 400, 600, 800, 1000, 2000, 3000, 4000,	/* 0x18 - 0x1f */
+>  };
 
-Other tasks reach the key through fscrypt_inode_info's
-cmpxchg_release()/smp_load_acquire(), which is already ordered after
-the list walk; only the finding task's own later I/O was not.
+Haven't checked if this is part of any ABI. Otherwise LGTM,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Fix this by upgrading the control dependency to an acquire with
-smp_acquire__after_ctrl_dep() once a matching entry has been found.
-
-Fixes: dd015b566d50 ("fscrypt: Fix key setup in edge case with multiple data unit sizes")
-Cc: stable@vger.kernel.org
-Suggested-by: Eric Biggers <ebiggers@kernel.org>
-Link: https://lore.kernel.org/r/20261014161153.GC322435@quark
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
----
-Changes since v3:
- * Update commit message and comments as suggested by Eric.
-
-v3: https://patch.msgid.link/20261023160747.1382973-1-libaokun@linux.alibaba.com
-
- fs/crypto/keysetup.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 892044ebcaca..a77b889d7578 100644
---- a/fs/crypto/keysetup.c
-+++ b/fs/crypto/keysetup.c
-@@ -205,8 +205,14 @@ fscrypt_find_mode_key(struct fscrypt_master_key *mk, u8 hkdf_context,
- 		if (node->hkdf_context == hkdf_context &&
- 		    node->mode_num == mode_num &&
- 		    node->data_unit_bits == ci->ci_data_unit_bits &&
--		    fscrypt_is_key_prepared(&node->key, ci))
-+		    fscrypt_is_key_prepared(&node->key, ci)) {
-+			/*
-+			 * Upgrade the RCU dereference to a full ACQUIRE, so
-+			 * that blk-crypto global state is seen as initialized.
-+			 */
-+			smp_acquire__after_ctrl_dep();
- 			return &node->key;
-+		}
- 	}
- 	return NULL;
- }
-
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
 -- 
-2.43.7
+With Best Regards,
+Andy Shevchenko
+
 
