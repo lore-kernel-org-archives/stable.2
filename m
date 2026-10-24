@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832467;
-	b=JZ77WbP11E+NI+0/pQWS8WMKPQL+C0bQjZgE0Ekhl5AGCW0ChrVAvY70jnZu/VN0Tx48
-	 HLN+HW65wi4+TNOfllf8AMjpaZMzbBM50AUXdpjqWH11TV4ebMBdgiJaDQfSVi07ZzFSi
-	 Bi7O9vtZNpipxVl/aUiPBugxa/Tvrm4MtDlktsUj/ucpJkVhOpDh3IzIpHNIzsGJyEyX0
-	 499HoUT8WmA5IK05P5np0rHVV3nmQw2/IcWLCUlurZopgfwzyBRBRZl5E6vNbrZrQdHAk
-	 r8J2Cx9Cq1nHVq6QWdquktXUNONXrBkAtkJXlXzlSWH3lVW4xTFT/823AQ9zBF2UEzw==
+	t=1792832476;
+	b=1FIa/dY7+QKVfX3VFCvjkpid0cABGRwid1Vfy17OpUZb1NQa7dx4slYFZtlTLR7sDDlh
+	 RfD6Cyfhsqt5kGycBW9JsKVgTY2KoGGzHjj+8GKdnI4Wm8LVC0+g34LDc8f3uaWBJMaOM
+	 npJW2XCOSZ5YSKZGxbD6dOSKRpmqlwp3CBw4oQbkYgCZPGfvlzBcz/nOjGfXk6siEHir3
+	 Eu9EYHzar0lFBRkHNztFqisZch83rV8ZaIjnXmcNqIWqUZvqFfqfU2sxg0FPaHpfY8M+M
+	 uXWqnyMSZ6DGSccpcA90KdgyhLgX1UioDodTM72fh1BZmqOON+iosIFX8cm7OpRhdWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832476;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=337xbWffVZGKdi/djWAmhdNf/sZVVOmRIgfvaCqBBK4=;
-	b=KhjAMMvtoOJpRanNFLYZwz+JQTq2Z6W6Z21NMongU/whdBsPwgbSEbcZ+I5m+T05rOoE
-	 o4qLLyvR6Dx5g0q7s/oAY8g2SygKN9NU7++Cb+hDOkUCBlSPXZtZAkmd4I2U5a3lyTfmt
-	 RmpnsWiNAPc+ih5W8dSQuVCuvGdh7DIgYhdsPidDhGNAXABXVeq4CL76+K7mLb3Hd3+Kk
-	 qysNVLP/w9A1Qpo3gLjzHmSQIr2Yj8lSyJIRBNeFXRnTANeTZMyLFFW5jDPSeJbiJMcvt
-	 ESucOhtVRxLX4jT3DIrBZPCi/L675YHgxpqPI3pcrtEj+SvXzdwaNq0wwApSPeQtaXA==
+	bh=ACXwuWR/zeV4c4E/6MIaCnBpzQn8iM5l1n0j+7DsSlM=;
+	b=nOe9Rc4xCdcKJFFi8PzBTNgcYRibZiz/6rTkFj3CcELStTWU95a3+4oRChe6KMFtLjt+
+	 3rxIw4v0jY/k3oblBy+2tyotpM11NllQDTu7FMY7c4lQdd+Hf+sCh7us06yw5KAOewavC
+	 SK9M041DbtqV/KUfWPqKDDJAYE+brceM7MpzzrGgduFdEoLT3Bgi7LiNeCGozCE0HMS8y
+	 HQD/gooR8ftVshxEzGkORaYNfu7xZuS+fzvXJEy5T52IAgD6xlHuYZl3zbz8cd9c5p9/m
+	 7FH9p92C3FoR9rzviH9qKCCrzs9k7Ok+3GtkYUk3p0frdE5zlx50m4ngCXi2aPzXkVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="rhj8rK/t";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a9ASz6de;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE59606A322;
-	Sat, 24 Oct 2026 09:01:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDF9606A31E;
+	Sat, 24 Oct 2026 09:01:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rhj8rK/t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676E11F01828;
-	Sat, 24 Oct 2026 09:01:07 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a9ASz6de
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190C81F01825;
+	Sat, 24 Oct 2026 09:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832467;
-	bh=337xbWffVZGKdi/djWAmhdNf/sZVVOmRIgfvaCqBBK4=;
+	d=linux-foundation.org; s=korg; t=1792832476;
+	bh=ACXwuWR/zeV4c4E/6MIaCnBpzQn8iM5l1n0j+7DsSlM=;
 	h=Date:To:From:Subject;
-	b=rhj8rK/tZ9kqKmDNFYUkQdA4FY5KNCqsqpGizvonodHSHl8uL331u5ojJiN4v79PL
-	 kPg6mr9zwmlMctZ7THOob1eYV2LWUAX/xzydTnmXvihBomMHIIh3n4fTpM4AFGLPX2
-	 ByEYuN4AZC0J9uv8p2MRnCxMoauBeku8NmoaKh8A=
-Date: Sat, 24 Oct 2026 02:01:07 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,riel@surriel.com,malhyuk97@gmail.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kylebot@openai.com,jannh@google.com,harry@kernel.org,david@kernel.org,ziy@nvidia.com,akpm@linux-foundation.org
+	b=a9ASz6deywtUr0l0y2Bp1eHk3KMru3q5jor1yQCXRpxaTgTLPlFkPcvhV8Z7gbuUh
+	 iGEXihxJs9vxn6KZ3F2IB4MN0N7LYKR3YxqxuFHvcIB0ooEJlKqlWaWhjJTINEmoLz
+	 UViy5PujRZyMTPIB6B1qYc/2JW7HMQ9aElwU4lVg=
+Date: Sat, 24 Oct 2026 02:01:15 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,lokeshgidra@google.com,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,kylebot@openai.com,david@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-rmap-dont-discard-lazyfree-thps-at-pmd-level.patch removed from -mm tree
-Message-Id: <20261024090107.676E11F01828@smtp.kernel.org>
+Subject: [merged mm-stable] mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings.patch removed from -mm tree
+Message-Id: <20261024090116.190C81F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,106 +51,160 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/rmap: don't discard lazyfree THPs at PMD level
+     Subject: mm/userfaultfd: only allocate anon_vma in CoW mappings
 has been removed from the -mm tree.  Its filename was
-     mm-rmap-dont-discard-lazyfree-thps-at-pmd-level.patch
+     mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Zi Yan <ziy@nvidia.com>
-Subject: mm/rmap: don't discard lazyfree THPs at PMD level
-Date: Mon, 12 Oct 2026 22:20:16 -0400
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: mm/userfaultfd: only allocate anon_vma in CoW mappings
+Date: Wed, 14 Oct 2026 13:53:11 +0200
 
-__discard_anon_folio_pmd_locked() clears a lazyfree THP's PMD before it
-determines whether the folio can be discarded, and restores it if the
-folio is dirty or has extra references.  It is done under only the PMD
-lock and the anon_vma read lock inside try_to_unmap_one() and no mmap lock
-is held.  The temporarily none PMD causes UAF.
+find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
+are not CoW mappings, which is wrong.
 
-A parallel munmap() or mremap() is supposed to serialize with it on the
-PMD lock, but zap_pmd_range() (called by munmap()) and move_page_tables()
-(called by mremap()) do not take the lock when they see the temporarily
-none PMD and skip the PMD.  There is no more page table walk after the
-none PMD is restored:
+If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
+VM_MAYSHARE) and lack VM_MAYWRITE.
 
-- munmap(): free_pgtables() waits in unlink_anon_vmas() for the anon_vma
-  lock, then free_pmd_range() drops the restored PMD as bad without
-  removing the rmap, so the folio keeps a stale mapcount.
+While uffd later rejects such mappings (uffd registration requires
+VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
+still wrongly allocates an anon vma before it validates the vma.
 
-- whole-VMA MREMAP_DONTUNMAP: dontunmap_complete() unlinks the source VMA
-  from its anon_vma while the restored PMD still maps the folio.
+This in turn later confuses copy_page_range()->vma_needs_copy() such
+that we end up calling copy_hugetlb_page_range() with ranges that
+actually do not contain *any* per-pagetable information that would
+require copying, which is the basis for PMD-table sharing in the first
+place.
 
-- plain mremap(): the THP is not moved but unmapped, so the THP's data is
-  lost.
+copy_hugetlb_page_range() should not have to worry about shared
+PMD tables at all: it doesn't make any sense to copy page tables that are
+shared, as they can be fully recreated later. Ending up in the function
+with shareable page tables is the real issue.
 
-In the first two cases, the folio stays mapped, but no VMA that maps it is
-linked to its anon_vma.  When the anon_vma is freed, it is still reachable
-when one rmap walks the folio.  Racing lazyfree reclaim against
-MREMAP_DONTUNMAP as an unprivileged user reproduces a KASAN use-after-free
-in folio_lock_anon_vma_read() as reported in the Closes link.
+If a destination PMD table is shared in copy_hugetlb_page_range(), it
+might get concurrently unshared as we are not holding relevant
+locks, resulting in us using a page table that is no longer mapped and
+possibly freed after calling:
 
-One solution is to use an invalidated PMD instead of a cleared one until
-the discard is committed, but it needs arch fixes first.
-1. GUP-fast still follows an invalidated PMD on riscv, LoongArch and s390.
-2. sparc64 miscounts thp_pte_count when an invalidated PMD is set again or
-   cleared.
+	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
 
-To keep the fix simple for backport, stop discarding lazyfree THPs at PMD
-level instead. try_to_unmap_one() splits the PMD and discards the folio at
-PTE level.
+To fix it, do not allocate an anon_vma in non-CoW mappings and add a
+safety guard to copy_hugetlb_page_range(), making sure that we never
+end up messing with shared PMD tables in there.
 
-unmap_huge_pmd_locked() and __discard_anon_folio_pmd_locked() are left in
-place, unused, to minimize this fix for backport and the invalidated PMD
-approach is planned as a follow-up series to use them again.
+Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
+operations") we would always validate the VMA before allocating an
+anon_vma, and consequently never wrongly allocate an anon_vma.
 
-Link: https://lore.kernel.org/20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com
-Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-Signed-off-by: Zi Yan <ziy@nvidia.com>
+As uffd_lock_vma() is part of the same lookup machinery and
+also contains a misleading VM_SHARED check, change that one as well
+directly for consistency.
+
+A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+lock in copy_hugetlb_page_range() entirely. Further, the usage of
+VM_SHARED in userfaultfd code should be cleaned up later to focus on
+CoW vs. non-CoW mappings.
+
+Link: https://lore.kernel.org/20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org
+Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reported-by: Kyle Zeng <kylebot@openai.com>
-Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
-Reviewed-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: JongHyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-  Link: https://lore.kernel.org/CADQRuqvXQ=YE=7T3oR66vTxE33pi=ygEeZKPTOU=cALZL0Figw@mail.gmail.com
-Assisted-by: LLM
-Cc: Rik van Riel <riel@surriel.com>
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Tested-by: Kyle Zeng <kylebot@openai.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Lokesh Gidra <lokeshgidra@google.com>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/rmap.c |   11 -----------
- 1 file changed, 11 deletions(-)
+ mm/hugetlb.c     |   24 ++++++++++++------------
+ mm/userfaultfd.c |    5 ++---
+ 2 files changed, 14 insertions(+), 15 deletions(-)
 
---- a/mm/rmap.c~mm-rmap-dont-discard-lazyfree-thps-at-pmd-level
-+++ a/mm/rmap.c
-@@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct foli
+--- a/mm/hugetlb.c~mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings
++++ a/mm/hugetlb.c
+@@ -4973,10 +4973,11 @@ int copy_hugetlb_page_range(struct mm_st
+ 		raw_write_seqcount_begin(&src->write_protect_seq);
+ 	} else {
+ 		/*
+-		 * For shared mappings the vma lock must be held before
+-		 * calling hugetlb_walk() in the src vma. Otherwise, the
+-		 * returned ptep could go away if part of a shared pmd and
+-		 * another thread calls huge_pmd_unshare.
++		 * Shared mappings only need copying when we could have
++		 * information stored in page tables (e.g., userfaultfd PTE
++		 * bits or markers), which is incompatible with PMD sharing.
++		 * Still take the hugetlb VMA lock for now to satisfy
++		 * hugetlb_walk()'s locking requirements.
+ 		 */
+ 		hugetlb_vma_lock_read(src_vma);
+ 	}
+@@ -4984,6 +4985,13 @@ int copy_hugetlb_page_range(struct mm_st
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
+ 		spinlock_t *src_ptl, *dst_ptl;
++
++		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
++				 want_pmd_share(dst_vma, addr))) {
++			ret = -EINVAL;
++			break;
++		}
++
+ 		src_pte = hugetlb_walk(src_vma, addr, sz);
+ 		if (!src_pte) {
+ 			addr |= last_addr_mask;
+@@ -4995,14 +5003,6 @@ int copy_hugetlb_page_range(struct mm_st
+ 			break;
  		}
  
- 		if (!pvmw.pte) {
--			if (folio_test_lazyfree(folio)) {
--				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
--					goto walk_done;
--				/*
--				 * unmap_huge_pmd_locked has either already marked
--				 * the folio as swap-backed or decided to retain it
--				 * due to GUP or speculative references.
--				 */
--				goto walk_abort;
--			}
+-#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
+-		/* If the pagetables are shared, there is nothing to do */
+-		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
+-			addr |= last_addr_mask;
+-			continue;
+-		}
+-#endif
 -
- 			if (flags & TTU_SPLIT_HUGE_PMD) {
- 				/*
- 				 * We temporarily have to drop the PTL and
+ 		dst_ptl = huge_pte_lock(h, dst, dst_pte);
+ 		src_ptl = huge_pte_lockptr(h, src, src_pte);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+--- a/mm/userfaultfd.c~mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings
++++ a/mm/userfaultfd.c
+@@ -115,8 +115,7 @@ struct vm_area_struct *find_vma_and_prep
+ 	vma = vma_lookup(mm, addr);
+ 	if (!vma)
+ 		vma = ERR_PTR(-ENOENT);
+-	else if (!(vma->vm_flags & VM_SHARED) &&
+-		 unlikely(anon_vma_prepare(vma)))
++	else if (vma_is_cow_mapping(vma) && unlikely(anon_vma_prepare(vma)))
+ 		vma = ERR_PTR(-ENOMEM);
+ 
+ 	return vma;
+@@ -145,7 +144,7 @@ static struct vm_area_struct *uffd_lock_
+ 		 * We know we're going to need an anon rmap, so check that
+ 		 * early.
+ 		 */
+-		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma_has_anon_rmap(vma)))
++		if (vma_is_cow_mapping(vma) && unlikely(!vma_has_anon_rmap(vma)))
+ 			vma_end_read(vma);
+ 		else
+ 			return vma;
 _
 
-Patches currently in -mm which might be from ziy@nvidia.com are
+Patches currently in -mm which might be from david@kernel.org are
 
+mm-fix-address-wraparound-when-scanning-large-folio-ptes.patch
+mm-hugetlb-disable-pmd-sharing-for-uffd-missing-mode.patch
+mm-vma-write-lock-source-vma-before-duplicating-it-in-__split_vma.patch
+mm-madvise-preserve-vma_softdirty_bit-when-changing-anonymous-names.patch
 
