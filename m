@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792838326;
-	b=PzKyPkqeum4/JHp1S8HjArowg6MTeq3mpS5cX1GF/QQGfNDbCWxi2g+brxBa+vGcQynW
-	 eiS9VQmadgTPi+lDdnOIGHKEA6cCrOe1VVYU4W07YxM2psEdojA9XWJR3TcOBi/6Nrjvp
-	 ahZbCoULWhITPU84do/aeCZnBhD9odesz9l2WIbgeyuN6Rnr154kQ/yyVoMiOHLvk9xQz
-	 Pm6rPQ7ijEfIUdQxEmMW7wUpjHdJ5SK3HzGneLwPo4UCW2SXR2YiJr4CU60JyK8J410Vp
-	 4T2eGPscW6O6gzobwVEJEO8A6RO7mc4S9SsQTP69o97cQnKOLmZKwaFDK+xNEo4DhDg==
+	t=1792838324;
+	b=HoQNukWmKRfE2AWsBxnpBGfapO86jVVI1+NljyIz/h9Eg2YQfA2UYw7GBiDo5Yc4ENBt
+	 KZIwmpm7ila1TtFicWRnuqcBkj1okRJrRSzHfpysk0//80HJvVdXiu7fqv/ghFE3vMo+y
+	 Vels0CQVW+lXYYK53F3EZ1K/QIIJUogqqDhPS0Z7FjpYJzwwsto/K/oBRTTCgtb3ymUPt
+	 i9AYAcONzb9B9pbcol/ARJowQWIovGp96Iipxyfd5Goub4PnMUbZXt0LRaTvd3VypRDWr
+	 sbIJ+CGkUrks8QINtApPTmZE7ZSfohj8EhGunDpyxzWK5kLVvgkXU7U9IL4Fr/9QYBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792838326;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yWwT+kP05w2NBKJwPtdQDFBE6/jAoeiFgQsCR3SGh/Q=;
-	b=Q0tNLidZVUBc9A8S2GMLuLwEbd1gSWjIHHM+gm0iPJ0OahBphxuQ29YpM0G4QhQ/ez7d
-	 dx8KF51iDfBhxfBJx6uYLRnAuw/gJYTGPAiOZmaPfYr+CPS9AE3rllUFv7cP/87EioiZI
-	 GqRR6NZP8t8a0HQD9MXyKiJ9lz/aA24QAhAENuwN9l0ZEFZQbSzAqnVnd6HxtIFuHX9zN
-	 TMMaysAvQrpoZBtYEx6VSg9KqXt/H9pASmYWpz2te4iOqS5tZiPeAeKaHp2BoRfvyNxot
-	 t2pTPXlU9nXM87wpjMT1gZ7n1k5uMsc8SHRdl4Fl73jvaJ5QTJ3/qHq56vGJJSnX2Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838324;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ov5AiThtgjN27LwC+mIjyYFYu6KfFe86cDXxpqcFlaw=;
+	b=aZF2zOWVU2jWOUznN30/SAdFNKvqJ0EAJukqX86joIs6CLILy3IJ6DYEXxDV+CeetCgP
+	 O12IJfMJLYFx3AVAUnbLMa8Bm/s1g6nDvbcOSvWUHwQbUsiud1yhclTJvIhz5g/kAmo0R
+	 ZBaSBBmAa8e+o95Rr6YBaye1S4ae4HFaaA/vshI9Gc78XVwJKbjOIuBI+i7oeHRVEuqXc
+	 1zi9Zfo1xz3hVRN1z6owAdTIZDruph2a8yrzjoTffBO/x7uzP4YMn+DoXc8uZc0Xdy1iF
+	 pThd2suc2ac9Q1NVE5qvsPtWHnoMrC9hV+tB7CDveVnHNxqm4ffnyCJFzqD+66mTqJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpKWtfHY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heSTl5AS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC13606A31D;
-	Sat, 24 Oct 2026 10:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpKWtfHY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0B11F01829;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41BA606A321;
 	Sat, 24 Oct 2026 10:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heSTl5AS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84ACF1F01825;
+	Sat, 24 Oct 2026 10:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792838325;
-	bh=yWwT+kP05w2NBKJwPtdQDFBE6/jAoeiFgQsCR3SGh/Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MpKWtfHYawCai2OgwdZgrBkDMmO61mHxOZ7xqChZbDTl8Fzsu38yv6kveM41//Wiy
-	 XQPCLAPjWP4s4YKl1Iw4Vv8MPMdHYWUlQLb9rAEkarvHRHRBxnsiBdnyofnT7Y5RqG
-	 XVouVVAYmZd7sOOAka3A8f1+8JN3yVVgZngM5XoXEynKGpPnN+ckgoqYebx7qeaoW6
-	 5m2JWx/k4+QyELVfEE81xAP/FJz7x48qjiM7JsJqORx0XDjV3zFxaxqc/DhTDEZtyU
-	 xgJMcHdmdpDeXg1raJXM/uHL5TzlsY32ZQP16WQ3orNY+w0HapwPuhW+18NrxNBvBW
-	 r8RYQzXLfY0JA==
+	s=k20260515; t=1792838323;
+	bh=ov5AiThtgjN27LwC+mIjyYFYu6KfFe86cDXxpqcFlaw=;
+	h=From:Subject:Date:To:Cc;
+	b=heSTl5ASwoi8LETsrPpQAeiq4r6rhHoImnivo5u9ogY5wyfmiVkfENblfl+rE7rQc
+	 x8RmrtglpdD+en/bbeNDwM7n4FCPd5ok0AbAaNeqYa+/98KSOX6ECQd4PJO2NmdoZF
+	 p/VX4/5rTeeIpqQiLaiGdbXii0R030QpG5t3hBwXF5GXoAIRT9rDTAM6vVg9MrjJ28
+	 Yqld0YvLyIoB2SMvs4G//QEoZPU3MMSkhktmNGOwYM2dCxmo1jhMbXQmGmA95QNguN
+	 aXWZAw+F/T+eqALjfvOxUjy2DSYbnowpk5s6/O+wtywcRkg/53VF/2yfigp+29l9TM
+	 H+yWOzNo8ZwQg==
 From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 24 Oct 2026 12:38:27 +0200
-Subject: [PATCH 1/7] proc: don't let an entry below /proc/<pid>/net be a
- mountpoint
+Subject: [PATCH 0/7] proc: block mounts below /proc/<pid>/net and on the
+ links into /proc/self
+Date: Sat, 24 Oct 2026 12:38:26 +0200
+Message-Id: <20261024-work-procfs-fixes-v1-0-46b03c3a8fac@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,257 +56,170 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-work-procfs-fixes-v1-1-46b03c3a8fac@kernel.org>
-References: <20261024-work-procfs-fixes-v1-0-46b03c3a8fac@kernel.org>
-In-Reply-To: <20261024-work-procfs-fixes-v1-0-46b03c3a8fac@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSw6DMAxEr4K8riUSRRT1KlUXSTDFrZogm34kx
+ N1J6PLNzJsVlIRJ4dKsIPRh5ZwKmFMDcfLpTshDYbCt7UxrHX6zPHGWHEfFkX+k2AdrfDeYs3M
+ 9FG8WOoqiXW9/1nd4UFzqUV0Er4RBfIpTjV5eFxLYth0lSdwsjgAAAA==
+X-Change-ID: 20261024-work-procfs-fixes-8b21a6d17448
 To: linux-fsdevel@vger.kernel.org
 Cc: linux-afs@lists.infradead.org, linux-nfs@vger.kernel.org, 
  Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
  Aleksa Sarai <cyphar@cyphar.com>, Chris Mason <mason@kernel.org>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7492; i=brauner@kernel.org;
- h=from:subject:message-id; bh=e+uwrBNgPx9bcNUPhir+thevzEAZ1nCjrVmGPoEc4hA=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd6Vq303DNatNZTatcyyMv+xtPZfO+OmX9+tOpUx7Md
- rU/ybShp6OUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi77UZ/iceE9PqbTSZ/5x1
- yeGXO6K0Ga3rdF+9vnt/bcnEzsD7d/4z/M9yPXIuhcticV3U6vfhLVN/WehO3hHXIbP/kZTQP+n
- Ss0wA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7474; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=Dr3PNZ8G+Hu7egBMCK6LPlUx7/kcTHfAcZL5dUGWHbM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd6Vr3yO7xjwzZXbuu762WeuKzZcuZe2HP74udCTbd3
+ Wj+JudfbUcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEphgyMtz6ovLL+N7Zl69j
+ zNteq12awH30W7VMfNmfn3e1zYxv22xh+F/xV9zDgc+56vdz/ls/2MsmLkw/WZY6u1Wbse+kVNM
+ +WXYA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-proc_net_d_revalidate() always returns 0 so that a dentry below
-/proc/<pid>/net is never reused after setns(). So lookup_fast() will end
-up calling d_invalidate(), which unhashes the dentry and detaches every
-mount on it, in every mount namespace; including locked mounts.
+In Linux 6.12 I stopped allowing mounts on the entries below
+/proc/<pid>/fd/, /proc/<pid>/fdinfo/ and /proc/<pid>/map_files/ (cf.
+[1]). This extends that to two more groups of entries:
 
-Then lookup_slow() creates a new dentry for the same entry. So a mount
-on /proc/<pid>/net/dev succeeds and goes away with the first lookup of
-the name by anybody with search permission on the directory. Given it's
-0555 that's everyone's grandma. A mask on such a name hides nothing as
-the repro below shows.
+(1) Everything below /proc/<pid>/net/.
 
-Treat those entries like I did fd/, fdinfo/ and map_files/ and refuse to
-mount on them in the first place. It's nonsensical theater otherwise:
+    proc_net_d_revalidate() fails on every lookup since 1fde6f21d90f
+    ("proc: fix /proc/net/* after setns(2)"). lookup_fast() answers that
+    with d_invalidate() which detaches every mount on the dentry. That
+    affects every mount namespace and includes locked mounts.
 
-  procnet net/dev stat
+    So a mask on /proc/<pid>/net/dev goes away the first time anybody
+    looks the name up. The directory is 0555 so anybody really means
+    anybody. This is reproducible with a container that masks
+    /proc/<pid>/net/dev with a locked bind mount and a stat() by nobody
+    in the initial namespaces makes the real file show up again. So it's
+    pointless.
 
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * procnet: cover an entry of /proc/<pid>/ with a bind mount, lock the mount,
-   * then look the name up.
-   *
-   * The first task stays alive, <pid> is its pid. The "container" task has its
-   * own mount namespace. There it binds a mask on /proc/<pid>/<name>. It drops to
-   * uid 1000 and enters a new user namespace with a new mount namespace, so that
-   * the mask is locked. Then one task looks the name up:
-   *
-   *   stat    the container calls stat() on the name
-   *   umount  the container calls umount2(MNT_DETACH) on the name
-   *   nobody  a task with uid 65534 in the first namespaces calls stat()
-   *
-   * The container lists its mounts before and after (that does not look the
-   * name up) and then reads the name. MASK is fine. Anything else means that
-   * the lookup uncovered the entry.
-   *
-   * usage: procnet <name> stat|umount|nobody
-   *   name "status" is the control, "net/dev" is a file below net, "net/stat" is
-   *   a directory below net
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <sched.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <time.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/prctl.h>
-  #include <sys/stat.h>
-  #include <sys/wait.h>
+    A mount that can't stick is better refused than taken away. I also
+    have a version that makes proc_net_d_revalidate() check the network
+    namespace instead so mounts there stick. But I think that's
+    bullsh*t. It would make mounts on the net entries of other processes
+    stick as well and the few users that try to mount there fail today
+    anyway (see below).
 
-  #define WORK "/run/pn"
+(2) The links into /proc/self: /proc/self, /proc/thread-self,
+    /proc/mounts, /proc/net and the afs and nfs links below /proc/fs/.
 
-  static char target[128];
+    These resolve to a different directory for every process. A mount
+    on the link itself is crossed by every lookup through it in that
+    mount namespace, so it redirects all processes at once. Mounting
+    through the links keeps working and lands on the caller's own entry
+    as before.
 
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
+What I really wanted was to block mounting on anything below
+/proc/<pid>/. That was the big hammer I mentioned in [1] years ago. We
+can't... I did a pretty exhaustive survey of who mounts on the entries
+below /proc/<pid>/ or on the links into it:
 
-  static void write_str(const char *path, const char *s, int flags)
-  {
-  	int fd = open(path, O_WRONLY | flags, 0644);
+- GitHub code search and regex searches on Sourcegraph
+- Debian Code Search over unstable
+- the systemd units of every binary package in Debian 11, 12, 13 and
+  sid, Ubuntu 22.04, 24.04 and 26.04, Fedora 43 and 44, CentOS Stream
+  10, openSUSE Leap 16 and Tumbleweed and Arch
+- clones of 46 container runtimes and orchestrators, the sandboxes
+  (systemd, bubblewrap, flatpak, firejail, snapd, nsjail, minijail,
+  Chromium and Firefox), Android and the rooting tools on top of it,
+  and the AppArmor and SELinux policies
+- detection rules, issue trackers, lore, LWN and the Q&A sites
 
-  	if (fd < 0 || write(fd, s, strlen(s)) < 0)
-  		die(path);
-  	close(fd);
-  }
+The legitimate users all mount on entries of the process that does the
+mount:
 
-  /* list the mounts below /proc without a lookup of the target */
-  static void mounts(const char *when)
-  {
-  	char line[512];
-  	FILE *f = fopen("/proc/self/mountinfo", "r");
-  	int n = 0;
+(1) systemd units that list /proc/self/... in ReadOnlyPaths=,
+    ReadWritePaths= or ReadWriteDirectories=. systemd resolves
+    /proc/self in the child of the service and binds the entry onto
+    itself before it execs the service. If the mount fails the unit
+    fails with 226/NAMESPACE and the "-" prefix doesn't help. That's
+    netdata in Debian 11 and 12 and Ubuntu 22.04 and 24.04, opendht in
+    Debian 12 and sid, Ubuntu 24.04 and Arch, accountsservice 22.x in
+    Debian 12 and Ubuntu 22.04, OpenSearch 3, wazuh-indexer, TrueNAS
+    SCALE, OONI's backend and the JupyterHub systemdspawner example. Of
+    the 731 unit files on GitHub that name a /proc path in one of these
+    directives 53 name an entry of the service itself.
 
-  	if (!f)
-  		die("mountinfo");
-  	while (fgets(line, sizeof(line), f)) {
-  		if (!strstr(line, " /proc/"))
-  			continue;
-  		printf("container: %s: mount: %s", when, line);
-  		n++;
-  	}
-  	fclose(f);
-  	if (!n)
-  		printf("container: %s: nothing is mounted below /proc\n", when);
-  }
+(2) systemd's make_filesystem() binds /dev/null over /proc/self/mounts
+    before it execs mkfs.btrfs so that it doesn't refuse a device whose
+    other partitions are mounted. systemd-repart, systemd-homed and
+    systemd-makefs use that.
 
-  static void show(const char *when, int isdir)
-  {
-  	char buf[48] = "";
-  	int fd;
+(3) mkosi binds a fake /proc/self/mountinfo for grub-bios-setup.
 
-  	if (isdir) {
-  		struct dirent *de;
-  		DIR *d = opendir(target);
-  		int hit = 0;
+(4) runc applies maskedPaths such as /proc/1/environ from the
+    container's init when a config asks for it, bwrap does the same
+    from its pid 1, firejail hides the name of its pid 1 and clampdown
+    masks /proc/1/mem.
 
-  		if (!d) {
-  			printf("container: %s: opendir(%s) = %s\n", when, target, strerror(errno));
-  			return;
-  		}
-  		printf("container: %s: readdir(%s) =", when, target);
-  		while ((de = readdir(d))) {
-  			if (de->d_name[0] == '.')
-  				continue;
-  			printf(" %s", de->d_name);
-  			hit |= strcmp(de->d_name, "MASK");
-  		}
-  		closedir(d);
-  		printf("%s\n", hit ? "   <-- HIT" : "");
-  		return;
-  	}
-  	fd = open(target, O_RDONLY);
-  	if (fd < 0) {
-  		printf("container: %s: open(%s) = %s\n", when, target, strerror(errno));
-  		return;
-  	}
-  	if (read(fd, buf, sizeof(buf) - 1) < 0)
-  		die("read");
-  	close(fd);
-  	if (strchr(buf, '\n'))
-  		*strchr(buf, '\n') = 0;
-  	printf("container: %s: read(%s) = \"%s\"%s\n", when, target, buf,
-  	       strncmp(buf, "MASK", 4) ? "   <-- HIT" : "");
-  }
+(5) Shell scripts that mount on /proc/$$/... and then exec, e.g.,
+    luci-app-shadowrt on OpenWrt.
 
-  int main(int argc, char **argv)
-  {
-  	const char *name = argc > 1 ? argv[1] : "net/dev";
-  	const char *op = argc > 2 ? argv[2] : "stat";
-  	int isdir = !strcmp(name, "net/stat");
-  	int to_host[2], to_cont[2];
-  	struct stat st;
-  	pid_t pid;
-  	char c;
+(6) Tests in systemd, elogind, LXC, libpathrs and bun.
 
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	snprintf(target, sizeof(target), "/proc/%d/%s", getpid(), name);
-  	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	mkdir(WORK, 0755);
-  	if (mount("W", WORK, "tmpfs", 0, NULL))
-  		die("mount W");
-  	write_str(WORK "/mask", "MASK", O_CREAT);
-  	mkdir(WORK "/maskdir", 0755);
-  	write_str(WORK "/maskdir/MASK", "MASK", O_CREAT);
-  	if (pipe(to_host) || pipe(to_cont))
-  		die("pipe");
+Fedora's SELinux policy even grants fsadm_t and init_t the permission to
+mount over their own entries because of (1) and (2). Sad, very sad...
 
-  	pid = fork();
-  	if (pid < 0)
-  		die("fork");
-  	if (!pid) {
-  		if (unshare(CLONE_NEWNS))
-  			die("container unshare");
-  		if (mount(isdir ? WORK "/maskdir" : WORK "/mask", target, NULL, MS_BIND, NULL)) {
-  			printf("container: bind the mask on %s: %s\n", target, strerror(errno));
-  			exit(0);
-  		}
-  		printf("container: bind the mask on %s: ok\n", target);
-  		if (setgid(1000) || setuid(1000) || prctl(PR_SET_DUMPABLE, 1))
-  			die("setuid");
-  		/* lock the mount: a new user namespace with a copy of the tree */
-  		if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
-  			die("container userns");
-  		write_str("/proc/self/setgroups", "deny", 0);
-  		write_str("/proc/self/uid_map", "0 1000 1", 0);
-  		write_str("/proc/self/gid_map", "0 1000 1", 0);
-  		mounts("before");
-  		errno = 0;
-  		if (!strcmp(op, "stat")) {
-  			stat(target, &st);
-  			printf("container: stat(%s): %s\n", target, strerror(errno));
-  		} else if (!strcmp(op, "umount")) {
-  			umount2(target, MNT_DETACH);
-  			printf("container: umount2(%s, MNT_DETACH): %s\n", target, strerror(errno));
-  		} else if (write(to_host[1], "g", 1) != 1 || read(to_cont[0], &c, 1) != 1) {
-  			die("sync");
-  		}
-  		mounts("after");
-  		show("after", isdir);
-  		exit(0);
-  	}
-  	close(to_host[1]);
-  	if (read(to_host[0], &c, 1) == 1) {
-  		pid_t p2 = fork();
+Everything else I found is malware or offensive tooling:
 
-  		if (!p2) {
-  			if (setgid(65534) || setuid(65534))
-  				die("setuid");
-  			errno = 0;
-  			stat(target, &st);
-  			printf("nobody: uid %u: stat(%s): %s\n", getuid(), target, strerror(errno));
-  			exit(0);
-  		}
-  		waitpid(p2, NULL, 0);
-  		if (write(to_cont[1], "g", 1) != 1)
-  			die("sync");
-  	}
-  	waitpid(pid, NULL, 0);
-  	return 0;
-  }
+Hiding a process by mounting over /proc/<pid> is catalogued as MITRE
+ATT&CK T1564.013 and used in the wild by TeamTNT, Commando Cat, the KONO
+DIO DA miner, KV-botnet, UNC2891 and kbotne. hackshell and emp3r0r ship
+it and Elastic's endpoint rule kills any process that does it.
 
-Fixes: 1fde6f21d90f ("proc: fix /proc/net/* after setns(2)")
-Cc: <stable@vger.kernel.org>
+So blocking all of /proc/<pid>/ would break units in released
+distributions and systemd itself. A rule that only lets a process
+mount on its own entries, and on a directory only a bind of itself,
+keeps (1) to (4) working, except for a few bwrap sandboxes that put a
+tmpfs over directories like /proc/1/task, and stops all of the attacks.
+I have that as well but it's not really a fix so we can delay it.
+
+The remaining entries of a process only fail pid_revalidate() once the
+task is gone and proc_flush_pid() invalidates them when it is reaped.
+Their mounts go away together with the task and nothing gets revealed.
+
+Nothing I found mounts on the links themselves and crun even has a
+test that expects it to fail. The handful of units that mask entries
+below /proc/<pid>/net/, e.g., Algo VPN's ReadOnlyPaths=/proc/net/pfkey
+for strongswan, already fail today.
+
+systemd's own lookup invalidates the dentry before it can bind onto it.
+With this series they fail the same way. Apart from tests in libpathrs
+and securejoin that had to be adapted the only fallout from the 6.12
+change we found is one small project that handed libmount's new mount
+api a /proc/self/fd/N target that move_mount() doesn't follow without
+MOVE_MOUNT_T_SYMLINKS. Ubuntu even backported the 6.12 change to their
+22.04 and 24.04 kernels this year.
+
+Nuke this crap.
+
+[1]: https://lore.kernel.org/r/20240806-work-procfs-v1-0-fb04e1d09f0c@kernel.org
+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/proc/generic.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Christian Brauner (7):
+      proc: don't let an entry below /proc/<pid>/net be a mountpoint
+      proc: don't let /proc/self and /proc/thread-self be mountpoints
+      proc: don't let /proc/mounts and /proc/net be mountpoints
+      afs: create /proc/fs/afs with proc_self_symlink()
+      nfs: create the /proc/fs/nfsfs links with proc_self_symlink()
+      proc: explain which entries can't be mountpoints
+      selftests/proc: test which entries can't be mountpoints
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 2b1971da4a85..4c3fcaf68ef4 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -256,9 +256,10 @@ struct dentry *proc_lookup_de(struct inode *dir, struct dentry *dentry,
- 		inode = proc_get_inode(dir->i_sb, de);
- 		if (!inode)
- 			return ERR_PTR(-ENOMEM);
-+		/* never reused and so never a mountpoint for long */
- 		if (de->flags & PROC_ENTRY_FORCE_LOOKUP)
--			return d_splice_alias_ops(inode, dentry,
--						  &proc_net_dentry_ops);
-+			return proc_splice_unmountable(inode, dentry,
-+						       &proc_net_dentry_ops);
- 		return d_splice_alias_ops(inode, dentry,
- 					  &proc_misc_dentry_ops);
- 	}
-
--- 
-2.53.0
+ fs/afs/main.c                                   |   2 +-
+ fs/nfs/client.c                                 |   4 +-
+ fs/proc/generic.c                               |  31 ++++-
+ fs/proc/internal.h                              |  18 ++-
+ fs/proc/proc_net.c                              |   2 +-
+ fs/proc/root.c                                  |   2 +-
+ fs/proc/self.c                                  |   2 +
+ fs/proc/thread_self.c                           |   2 +
+ include/linux/proc_fs.h                         |   5 +
+ tools/testing/selftests/proc/.gitignore         |   1 +
+ tools/testing/selftests/proc/Makefile           |   1 +
+ tools/testing/selftests/proc/proc-unmountable.c | 150 ++++++++++++++++++++++++
+ 12 files changed, 208 insertions(+), 12 deletions(-)
+---
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+change-id: 20261024-work-procfs-fixes-8b21a6d17448
 
