@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832250;
-	b=0l3e3rZXkZSYfHDsEnLHJRhHUi1aWG89+Bzvn/MRDVScETpwK8OV1fWUfaEqL41OqnNd
-	 TiwAYCzDdPz6evahTSBv1Px6cnis1GJCR1raDQ43d5mJV0IYofyQdzFk9b8rUqm29lcz/
-	 gbbHPjFEsb8KTuyF8F0G1yu8atrMSEUFkyJc+N422/d0kqbjsAXCKdfuefx9hygsl0VPv
-	 4j7L5yUj88cjOPpLvNMX3Og4/Xaao/shReUU/oOO8hg11f7LaAI7rcqe3j3Pl4k9jRYat
-	 Fv+t1BORAPlCbZlCKfPIFEa6cEbM1bpVCkV2YJdZBZbcd7BPggy+zw8C1kLBnPbT8eA==
+	t=1792832255;
+	b=qlAJa3m1NZOOb0AY3XnUtXq7bd8waRJQbvcPDrZbsSGTGtrDCqN0OAY8He1i8Cy+kh9g
+	 3npMzqy1N1K9FdRXNnx0ns1TSlkQ+4WpM3+updOl06O3QiTDO05UUU2qxvzv0OE+y2DDS
+	 1CEcJoFZOwGiwDLqYJVd89DKXB82hD2W7WQK0dyjNqrNg8Nh2YU7sMMHqlWjPyQR9US5w
+	 dG+gTjxDSYgR3DcdvJyJN6pYIgvkg+cDwv8oLkKSgRgAUBGd2o7POaWD5zaFaZHFuYZat
+	 FBLcpklSb/UQgc9fajLU+w3WJTqTiKLL67hNDZxNDQNNXKsu29nT/LtJE4k1I9H4t1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832250;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832255;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=c62GIyb0zH8DVvKA4a462Yi/RXSvLI77Xr1xKoFKZbE=;
-	b=ghEGPaG1DMwrj01Wp6FkBri3RAht75FdOFqth0YAs94/brZDdiJIoGImlJ/eRfBps2uY
-	 CVJrIdAawRsjMml2Ww33Zh6N5dYgarTZ5oKlKMcty0Bmjvqqv6BY1yRwkwevQzImFdgb2
-	 IUgEImrOV5tbZWWCXz3L5Dhye4r7Tly8wH+u6UXBsNPF2zdCITYwfCgnyl+pwxsS8nDwM
-	 SON+nhtu8MDnrlFmFUBunJkAn7BfppIFYDP2iwvaukK60T+BGdV+j8gw3xe7B/vuDfruu
-	 cXST+PPAsu63aIrtjg1Ktt/F4BWkVQuaBYD00T1rGxMy1BmFfBvk5KJPlws8OLvki4g==
+	bh=NZuv4/OTNpEOHYy6SxrI2wWMhpUhlu5gxzWTCn874rI=;
+	b=BTMFHWymlhegG/8OEnlMzqqUFpauHbPhnSB3sdkzUYXpV34+nv9egLsFNkn5CUpHZy7b
+	 JckKvG5sdK1ZSKEgIDhkxENOHVeT++/OeC5EDM1PdHgDh4cN2eci0TYTzRaF7Y0AWFW72
+	 BdO/Y4jZ4RvvxA/OXFjN0Zuni7viePXJy8UWC8pZe7JczMz0cgL8u7zPCk1eJAOT+oNno
+	 GYRtLF6TeozpTdVw/tInAQdWtRjRHxa4nioKLf1A8Kmhl7UwAjFkB8HWr3O8B/5yAVXsK
+	 29W7TZCzq7HGcaVC65bmuZSBLm2XXQwj7b/FVL+NrQDfmV2aDXcKLmRuKPx7MAIxBsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YwkNRBiT;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GGgOod4c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC1A606A31B;
-	Sat, 24 Oct 2026 08:57:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3A3606A320;
+	Sat, 24 Oct 2026 08:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YwkNRBiT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37D91F01825;
-	Sat, 24 Oct 2026 08:57:29 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GGgOod4c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C8051F01825;
+	Sat, 24 Oct 2026 08:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832249;
-	bh=c62GIyb0zH8DVvKA4a462Yi/RXSvLI77Xr1xKoFKZbE=;
+	d=linux-foundation.org; s=korg; t=1792832255;
+	bh=NZuv4/OTNpEOHYy6SxrI2wWMhpUhlu5gxzWTCn874rI=;
 	h=Date:To:From:Subject;
-	b=YwkNRBiTsnMBTQXhdOgHguhuCT3L1IkIKjC9Tcz6953zXfZKbDGjtGBR6nCRPmgf2
-	 eInlW0u1Wk7DxNijAYeRxgohD9ARYw/M798MzRC5dJ7FwmXoAARnyZhzGlrxdDijKX
-	 zQeM2dz4ji34wbBKopRHnuFrF7hTHK2AfLeUNlmQ=
-Date: Sat, 24 Oct 2026 01:57:29 -0700
+	b=GGgOod4cWI9ZBJqcYD3mRC+buugjfQe2k0k1xmUQLgARc8A4Yg6dE4/TQaidV3tu7
+	 R+Pv6riMyOAwTWA0FefRkbRNFAKnL/n27CCV70Xqb0HYJMNJMoItyvli12NckLO/nw
+	 6wcvTeBVzusJoK58AfZ8Y2GKiXbBKt2cFHag7FZo=
+Date: Sat, 24 Oct 2026 01:57:34 -0700
 To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,rppt@kernel.org,riel@surriel.com,pfalcato@suse.de,peterx@redhat.com,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mgorman@techsingularity.net,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,josef@toxicpanda.com,jannh@google.com,agl@us.ibm.com,david@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-hugetlb-tolerate-uffd-bits-set-without-uffd-for-prot_none-ptes.patch removed from -mm tree
-Message-Id: <20261024085729.C37D91F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma.patch removed from -mm tree
+Message-Id: <20261024085735.1C8051F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,40 +51,40 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
+     Subject: mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
 has been removed from the -mm tree.  Its filename was
-     mm-hugetlb-tolerate-uffd-bits-set-without-uffd-for-prot_none-ptes.patch
+     mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
-Date: Thu, 15 Oct 2026 18:07:13 +0200
+Subject: mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
+Date: Thu, 15 Oct 2026 18:07:16 +0200
 
-The whole uffd handling when a VMA is unregistered from UFFD is shaky:
-there are still some scenarios where we might have stale uffd PTE bits
-in VMAs no longer registered for UFFD, which confuses other code.
+In case we fail to move the page tables, for example, because we fail
+to allocate a page table, we actually keep the old VMA.
 
-Let's just tolerate that for now and simply clear the PTE bit. Add a
-TODO to really clean up any uffd leftovers when unregistering a VMA from
-userfaultfd.
+Calling fixup_hugetlb_reservations() on the old VMA is wrong. Fix it
+by just calling it on the VMA that will be removed.
 
-The handling is now more similar to what we have in handle_pte_fault().
+The user-visible impact is that the VMA loses its reservations, meaning
+that the existing reservations get stranded (leaked) and new hugetlb folios
+that are getting allocated in the VMA cannot make use of the
+reservations, failing these allocations.
 
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-7-42796911043b@kernel.org
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-10-42796911043b@kernel.org
+Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
 Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muchun Song <muchun.song@linux.dev>
 Cc: Oscar Salvador <osalvador@suse.de>
 Cc: Miaohe Lin <linmiaohe@huawei.com>
 Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
@@ -92,39 +92,26 @@ Cc: Adam Litke <agl@us.ibm.com>
 Cc: Mel Gorman <mgorman@techsingularity.net>
 Cc: Rik van Riel <riel@surriel.com>
 Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Mike Rapoport <rppt@kernel.org>
 Cc: Josef Bacik <josef@toxicpanda.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/hugetlb.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/mremap.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/hugetlb.c~mm-hugetlb-tolerate-uffd-bits-set-without-uffd-for-prot_none-ptes
-+++ a/mm/hugetlb.c
-@@ -6169,16 +6169,20 @@ vm_fault_t hugetlb_fault(struct mm_struc
- 	 * NUMA hinting), so let normal hugetlb fault handling proceed.
- 	 */
- 	if (pte_protnone(vmf.orig_pte) && vma_is_accessible(vma) &&
--	    userfaultfd_rwp(vma) && huge_pte_uffd(vmf.orig_pte)) {
-+	    huge_pte_uffd(vmf.orig_pte)) {
- 		spinlock_t *ptl;
- 		pte_t pte;
+--- a/mm/mremap.c~mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma
++++ a/mm/mremap.c
+@@ -1345,7 +1345,7 @@ static int copy_vma_and_data(struct vma_
+ 		mremap_userfaultfd_prep(new_vma, vrm->uf);
+ 	}
  
- 		/* Sync: drop hugetlb locks before blocking in handle_userfault() */
--		if (!userfaultfd_rwp_async(vma))
-+		if (userfaultfd_rwp(vma) && !userfaultfd_rwp_async(vma))
- 			return hugetlb_handle_userfault(&vmf, mapping, VM_UFFD_RWP);
+-	fixup_hugetlb_reservations(vma);
++	fixup_hugetlb_reservations(vrm->vma);
  
- 		ptl = huge_pte_lock(h, mm, vmf.pte);
- 		pte = huge_ptep_get(mm, vmf.address, vmf.pte);
-+		/*
-+		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
-+		 * are no longer registered with uffd.
-+		 */
- 		if (pte_protnone(pte) && huge_pte_uffd(pte)) {
- 			unsigned int shift = huge_page_shift(h);
- 
+ 	*new_vma_ptr = new_vma;
+ 	return err;
 _
 
 Patches currently in -mm which might be from david@kernel.org are
