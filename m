@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792862822;
-	b=SwxUwv+sF6DB0r1QyQWXZFEJ6lRs9K0JZrqeVSBKQ7/Zkie+MQIT0X2e4lgot1CaGoBR
-	 97Iwhqjnv6OUvrjXuHMxwoCpR3Si3yrNsSoTuUCejO6p0lJhJiBrW0/zu7WWraJJZkWO/
-	 AN8PjxSYFZWluicTy/9Uas7PqSAQn42MkT6PD61CZBZNV+O7cx+CYYi4i91VCPW4d2fe6
-	 xLPIRQU9QkbJTQBL6e7O4x0kbkLYRLL2u6r3CPU7dssqvkoI2hiN0icUbe5V6gP71foXg
-	 XDz9nH9xa2Pbv1Hpoju5tIkOjjHzQ0kY1SpwFVKFrwVIU6Ra6ucO8GxFc0s8Pkjl5jw==
+	t=1792863567;
+	b=nThFV/6l2WTKtTFsFeiK/f+M5GZHq9/NSID40Rg2Hb8/Yq9879deKHsjHHolh1nukD1O
+	 tIsfzF9sf6LHsf03k+1ljYFviEdxfKIeor8wwJNw0BUuD+lSssCHzbljqgWKx9aP3uqHM
+	 pR+SRgCwVr4SeJP6WSBJj1DaO7I6nX8Gl4Bu09iB1Ykw7j9KPePL1ICQAtfNcjE7peWPF
+	 bZsaG21Bn54rU388H3IOczalxNriUgI8i43TBlA0SYDLiQY1SvioGkS8XQaDYcXGjOSFP
+	 B+bmM5+mJwYqc7uyzNPcGRtuTZiplhgD1GnX6F6b/hwlqEdZ1tvo1rEh3kqk4xBbblQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792862822;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kEYtLwxZwrV359NviA74b+mH4aeRVHvNjyPhEsl/qZ8=;
-	b=PazA2mP53NjthsKKVQLrcA7uiqa5C/0WGEEaSvxgnoVPx41LJdnaJAsSUlFaEbjZfaSd
-	 jgKzauduRzXTPVoRNskrvqmDim7iXa317qcAaEdXqpmdaTah2KYHuGQs2Iw3bXougtrDz
-	 5vBBqDQPhLlwjxx25TG45xzmpHHZh5nxmbHlHo64GxAvZdOq2y13rklGbx83QxCfS5kR0
-	 NH+DUEJtlz5fYiVwn7jtDcXlIv9Sj5O3jhHBAs4RtB5UwKF1pO164ihYk+OZuFNIuLUe0
-	 X6B+6L6P5g1UiVEYM5dKluWOO6HD1LZu8/ji2/NdcuuW9cvIzMu+wsTVz5EEhNczobw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792863567;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=24VTtpU7Dzzd34erVhqVjh/Bp+5rAfJG7FTQknYCtpk=;
+	b=Y6FIWtd1NQUhOMsBUr3hxY35QcH0T4avQRcSrGWHWMxg3wrxC4+l/elHYBJhF0bIBxze
+	 eOleIfXag1Ar65hZkYAYLt4SEcA/7Zg9QrRcwsL0zilyk4iu4u4jIgSspWhmDjOn9goWE
+	 ZSNt7XnthcY5fpqjOxpTT0JrMQbNWXdR1aQQxmZAZYuWxi9LfUe0aBV3t+1cE0gBW6d3/
+	 X1+izOqkOL5LidGkZMm0uNSo3MNFEWfU4+4h7JV8xmRXZepklclCznjfWCCtFaeCAxx+6
+	 cq6sZq3c0MK/LxtIqhnENA9tp0zLA61wiRJ2cm9uens2EDm+k03G14yXO9gL6qy9Axw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SLGzCCFX;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ZRuvTnqr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41414606A31D
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 17:27:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41414606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5D6606A31A;
+	Sat, 24 Oct 2026 17:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SLGzCCFX
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso13813455e9.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:27:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ZRuvTnqr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A201F01825;
+	Sat, 24 Oct 2026 17:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792862820; x=1793467620; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kEYtLwxZwrV359NviA74b+mH4aeRVHvNjyPhEsl/qZ8=;
-        b=SLGzCCFXwEzIPp0HYrwFsmH1nScgGkoGYiTu2ZDnCmgW1A76aweYx34KZTSjMDJ677
-         luC7x5od955083hP9Iiu49BX3y5ihxgWXuQO042HOd79UUdV0zmTm6YFyw6lqeJZvGhe
-         BAjA0qfFBKYZqZiK96CR+v0g942HSiEKj5tpP1WNgRXIPcCuh20/VClnVLR7tZK1ANpR
-         XQzFGeqmJoRUF8rvDYC+gBqzSqb11ErCI91seBMYrlEysiZh8MF5YxNKrt5V/5vH+Ud4
-         FI7FrJhahEx1wQI/KW2P4x3JlDqTyhWv8a2vJROBw8ouoGWnNpg57LSWvTK6wDVMUiZj
-         i1xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792862820; x=1793467620;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kEYtLwxZwrV359NviA74b+mH4aeRVHvNjyPhEsl/qZ8=;
-        b=CyAvWYXm4Xk5Ou7Ky9YpMiAMNLAwIDAkvdT8IVqH9TFAQsc+iI9Mt68/Slwn12QAcn
-         ajmQp1HiUHNy+ivwBiZT89453woM8h7H15N2UTYzl3W5A1iDdMEWc27qAfdU+vDNu6nz
-         EhTlulhDf3ygKm7ncFkoRYYNEaY1jX8xgp21OF8hj7GINTLWVOMDmgWjZSC2yB4a6LpC
-         H+s+vtB+rN5s5DpiFRAxwWEufa+oPfGVUEG+nW/z6XFcrmDQJZqJFtDfQ0ZZv+boY6E6
-         MS8ubwhkqVBtkLfwMj71aWNOto9AdlRJeYZGyWk+N6Q+cMYNEqdxsW4rLEDxgaFCAdR6
-         9NUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxiFYKWfuSEg1iqGu2Ylx6os5PIjlBujDHeYfQCKL/4vdfVVLb0RxMt6sWd47MhFpwfHuWKzBk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNEG9MN7nVGa8HGQ0SYplYdh4vdxcnutUuG6hW6Zu6AekxLveD
-	s3Blwj+eAx9Ey/oJb8bdWwmYOKPEdo5fGBq9KHJ7GUviNudba3/WhwSY
-X-Gm-Gg: AYBFou00LPU9biXECfOHuLJEeFDD1lrlUEMqaQ2bT6JKD4ZGUK3YedRWQAQbKBr9ymc
-	R4ZNGYSktGCfJVGQv7XZ45PJbawEcf7VAkgH6MGC0JsrNStxQEeej7R5Pwz2eZSIsZL0evn+NZn
-	x2+hTsyfUXDd3j0kbCa5+hRf/dWKxte6EWeCL/yxWdKfo5zMEG/RWZe+zuTjnWTtd5zdmeHZX9y
-	dHi8hyxk+UmOQTz3hy8rSAg07rB3BL8SSQ8feycNsbdATZ502I2WYCTGx4R+OZauOko0HRY1sUw
-	2xJ0WgJTGOcKkLIVI4oOBVF31B0TBgZlAOI/sEl+oM3uv0GOvev3kvpkFfrIl/NTsTkIY9oR8TD
-	215OssVvfMDB52e84nRuTQOMV0J0jegDxvTBSSqcVOiQiVjXDL0jZMh/etimW0KtfQ7uxi6wbyX
-	EI69RqHq7Ng65K9qIL4mrs6G+dhuTZQdLBN3qHHty5hoc9qfvwXE1EcseIpQ51kxR1ykaxXREk1
-	EjLdKVmrhTTevvDR1eNfDlBYOXwZKesB4Yty3V4j7i9nJpqLwsGn0TJQVrH6MgfC4vmtlCXjaVI
-	3h8Mpmi62mXperfeWMXl1O4kShQL2vUn
-X-Received: by 2002:a05:600c:c173:b0:4a2:191f:7cbd with SMTP id 5b1f17b1804b1-4a35ac8bbd5mr40436765e9.11.1792862819430;
-        Sat, 24 Oct 2026 10:26:59 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fc1207sm52573855e9.1.2026.10.24.10.26.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 10:26:59 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: jorge.lopez2@hp.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: andriy.shevchenko@linux.intel.com,
-	linux@weissschuh.net,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	meatuni001@gmail.com
-Subject: [PATCH v7] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
-Date: Sat, 24 Oct 2026 22:26:41 +0500
-Message-ID: <20261024172641.19424-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	d=linux-foundation.org; s=korg; t=1792863567;
+	bh=24VTtpU7Dzzd34erVhqVjh/Bp+5rAfJG7FTQknYCtpk=;
+	h=Date:To:From:Subject;
+	b=ZRuvTnqrl1a8ACjOdeBnuaB4+VtJv9XIYoZxLVTO0uhzx6rzK8ERRZ+M/2a4efJUu
+	 N5fjX+frOgsJjMLW+v7nbie0yEbYMFsi7JKplffRHcHnxbEhewpzy0NtQP9Y9uatjG
+	 +TOSqCM/83LvU04KeKdDf0q3x5GQLFLZB/7RHTY0=
+Date: Sat, 24 Oct 2026 10:39:26 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
+	jlbec@evilplan.org,heming.zhao@suse.com,joseph.qi@linux.alibaba.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-find-the-xattr-entry-again-after-defragmenting-a-bucket.patch added to mm-nonmm-unstable branch
+Message-Id: <20261024173927.16A201F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,66 +50,132 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The input is copied with kstrdup(), which stops at the first NUL, but
-the full write size is passed to hp_enforce_single_line_input(). With
-an embedded NUL the helper reads, and can write one byte, past the
-copy. Use strnchrnul() so the scan stops at the first NUL, and return
--EINVAL for a NUL or newline before the last byte.
 
-Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-followed by 4093 bytes of "B" to current_password 100 times returns
--EINVAL every time, without reading into the heap.
+The patch titled
+     Subject: ocfs2: find the xattr entry again after defragmenting a bucket
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-find-the-xattr-entry-again-after-defragmenting-a-bucket.patch
 
-Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-Cc: stable@vger.kernel.org
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-find-the-xattr-entry-again-after-defragmenting-a-bucket.patch
+
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: find the xattr entry again after defragmenting a bucket
+Date: Sat, 24 Oct 2026 23:10:08 +0800
+
+ocfs2_xattr_set_entry_bucket() hands loc.xl_entry to ocfs2_xa_set() twice:
+once for the bucket as it stands, and, if that reports -ENOSPC, once more
+after ocfs2_defrag_xattr_bucket() has packed the name/value pairs down.
+
+Defragmenting ends by sorting the entry array on xe_name_hash.  Buckets
+are kept sorted, so the sort only permutes entries that share a hash, but
+lib/sort.c is an unstable heapsort and it does permute them.  loc.xl_entry
+is an address inside xh_entries[], so afterwards it denotes whichever
+entry landed in that slot rather than the one the search found.
+
+The second ocfs2_xa_set() then works on the wrong entry.  Nothing on that
+path compares the entry's name with xi->xi_name, so what happens depends
+on how the two entries compare in size: ocfs2_xa_reuse_entry() trips its
+BUG_ON() when the padded name sizes differ, and otherwise the new value is
+written into the neighbouring attribute's value slot while the attribute
+being set is left untouched.  setxattr() reports success either way.
+
+Remember the entry's hash before defragmenting and look the entry up
+again afterwards, the way ocfs2_xattr_bucket_find() does.  An entry that
+cannot be found again means the bucket no longer holds what the search
+found, so fail with -EFSCORRUPTED rather than writing through the stale
+pointer.
+
+Link: https://lore.kernel.org/20261024151012.1059683-3-joseph.qi@linux.alibaba.com
+Fixes: 012255961c9e ("ocfs2: Enable xattr set in index btree")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org>
 ---
-Changes in v7:
- - Use strnchrnul() instead of a separate NUL check (Andy)
- - Drop the trailing comments
 
-Changes in v6:
- - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
+ fs/ocfs2/xattr.c |   30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-Changes in v5:
- - Limit the scan to the string instead of copying the input past its
-   first NUL (Ilpo)
-
-v6: https://lore.kernel.org/all/20261016025352.230535-1-meatuni001@gmail.com/
-v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gmail.com/
-
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 876fc35d035b..8873d91bc235 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -162,12 +162,12 @@ int hp_enforce_single_line_input(char *buf, size_t count)
+--- a/fs/ocfs2/xattr.c~ocfs2-find-the-xattr-entry-again-after-defragmenting-a-bucket
++++ a/fs/ocfs2/xattr.c
+@@ -6052,13 +6052,18 @@ static int ocfs2_xattr_set_entry_bucket(
+ 					struct ocfs2_xattr_search *xs,
+ 					struct ocfs2_xattr_set_ctxt *ctxt)
  {
- 	char *p;
+-	int ret;
++	int ret, found = 0;
++	u16 xe_index;
++	u32 name_hash;
+ 	struct ocfs2_xa_loc loc;
  
--	p = memchr(buf, '\n', count);
-+	p = strnchrnul(buf, count, '\n');
+ 	trace_ocfs2_xattr_set_entry_bucket(xi->xi_name);
  
- 	if (p == buf + count - 1)
--		*p = '\0'; /* strip trailing newline */
--	else if (p)
--		return -EINVAL;  /* enforce single line input */
-+		*p = '\0';
-+	else if (p < buf + count - 1)
-+		return -EINVAL;
+ 	ocfs2_init_xattr_bucket_xa_loc(&loc, xs->bucket,
+ 				       xs->not_found ? NULL : xs->here);
++	/* Defragmenting below may move this entry, so remember its hash. */
++	name_hash = loc.xl_entry ? le32_to_cpu(loc.xl_entry->xe_name_hash) : 0;
++
+ 	ret = ocfs2_xa_set(&loc, xi, ctxt);
+ 	if (!ret) {
+ 		xs->here = loc.xl_entry;
+@@ -6077,6 +6082,29 @@ static int ocfs2_xattr_set_entry_bucket(
+ 		goto out;
+ 	}
  
- 	return 0;
- }
++	/*
++	 * ocfs2_defrag_xattr_bucket() sorts the entries by name hash and
++	 * lib/sort.c is not stable, so entries sharing a hash may have traded
++	 * slots.  Look the entry up again before writing through it.
++	 */
++	if (loc.xl_entry) {
++		ret = ocfs2_find_xe_in_bucket(inode, xs->bucket,
++					      xi->xi_name_index, xi->xi_name,
++					      name_hash, &xe_index, &found);
++		if (ret) {
++			mlog_errno(ret);
++			goto out;
++		}
++		if (!found) {
++			mlog(ML_ERROR, "xattr entry not found in bucket %llu after defrag\n",
++			     (unsigned long long)bucket_blkno(xs->bucket));
++			ret = -EFSCORRUPTED;
++			goto out;
++		}
++		loc.xl_entry = &bucket_xh(xs->bucket)->xh_entries[xe_index];
++		xs->here = loc.xl_entry;
++	}
++
+ 	ret = ocfs2_xa_set(&loc, xi, ctxt);
+ 	if (!ret) {
+ 		xs->here = loc.xl_entry;
+_
 
-base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
--- 
-2.56.0
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
+
+ocfs2-read-the-xattr-entry-hash-before-defragmenting-the-bucket.patch
+ocfs2-find-the-xattr-entry-again-after-defragmenting-a-bucket.patch
+ocfs2-find-the-xattr-entry-again-after-converting-a-block-to-a-bucket.patch
+ocfs2-do-not-read-the-entry-array-of-an-empty-xattr-bucket.patch
+ocfs2-do-not-index-before-the-entry-array-when-dividing-an-empty-bucket.patch
+ocfs2-do-not-read-the-entry-array-of-an-empty-xattr-block.patch
 
