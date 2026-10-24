@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792814334;
-	b=Dow+X7tPfqvg7GFzuTFo5SaC4SmLpaZO7ltJqpzEtdwnh8CBAu7MQ8BNo1nAIDyYdW5W
-	 zPIJK0+BGv47hQDZCeiRBHOk20DMsSon9Vpsq6h1FoaCTPwN68sfMnpvOOSICXmY74OUA
-	 XaTWsois3D/Hl8UwNQNjPRXnGOUF13odbnii9dphaprCToHFHx8nNUQIyrP4Z1xHWKe3B
-	 GqfXd59i193S7SiLTjG4ZctIjAgKsCXJCAlQyDWH5pszJ2sL6A3DxmO8rEZRdD6kjjYul
-	 Fe/Fqi1iiUE0fPgd7x7IgBptJyve6XrHUWrtyEBFEGd20ArAB9QNIP2ua4RglMFu0Kw==
+	t=1792814335;
+	b=PoJQ1JLl0nfMYh9lB5jWNVZ15/QnaJM5k3jiLdcun35n6M7QA73kV8x0pAytFJo6fNZH
+	 EgNSbw66vtMQqMhyRBdKR6WrJhtUTTdvIegk5jhfXLJelyvMsfICFAuWwp8QLyv0Tmw8W
+	 8I6tvsIpIv8cHAZfcqKiOQZhE7we9casY2G91bnofH1+oZ6f5cZacyKcsnIEStuiHcPTz
+	 MQezPypCUM4zs3PEjs2JHRajOO+cqMmuH5SPqXwATeGebed4q+lNmFlOw5MNdGzQKOT95
+	 ntUjsJo0gVAtf3ZE+q9rK4UisnG3D5459JZXJERhcULM6j6XHcQpDCKV03TPL7/0i9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792814334;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792814335;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=Clro7WDG4KT0INDinVZ33ttbuJ91LAtBbiQ6xrtq6IM=;
-	b=ZXIneLBvQxNrcAlGJcSb6nlaUYiskC8E9Vmx9eUHoi/Hc3oqF6lV8LUDho5W/i7ILv+Z
-	 ffom2GI+z7In5GLKkODtnrdkF3YBmrEDapJ6FtWjw8p4pd9PwICyeZLtVX6yKpi4ADeuq
-	 TV6mVHvfNE8WPFMUzH5SWJ6MyDiTrK+lw3itbhFl9mBRMFZEkefG7mG5t2IhbUTQ9V3fD
-	 J8QVFjUaN4GmNQfHR9eaJUn31t7hrmOh1j/uHHE9g0fJyKDEeJSYBJKVmC3uwIbgQ6cqw
-	 V9jgD+qxMMRF9V3A/TK++Qgp1AEQSl4zmAk7+04E245WJXyLl1rCQbHE94JPp50vlkQ==
+	bh=xb0kY8mG929k7bWSkiX0xS9sat/I2UuhmeFbU3YCROU=;
+	b=kIaoZGyj62KD1iElzkanN+8+nKYJgAI/zgqXtx02RpcmXGsVtTQXfbnqEk1qnH/LQXtb
+	 rogOpFbgbA/JIgvy/j2EyLAgtBJ2PsLq53DqQbP5ZMUnZGRafRkQTTO5r7Kci2pL7tSVI
+	 RPt1f3U4/oZi1gRL9DuVowqIbVZkWwIsWSS/tO28m6yHZ2vBbQ+WoKr+OjOGJKi92drCY
+	 W5MzwJHd0TcqbqXHx4hpdWCZ0SHaI5Du4TgLk08/Uh7pbRdQJUanidLjH59j7PDSw1YKe
+	 +HV96S4szgFyWyLkHvBw5hej1mdG+FWKiUC8f6cqANzHljZWX7BCCVp2GxhVi2QTy0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GrqCY1/Y";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U38NS/YL";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A842606A329;
-	Sat, 24 Oct 2026 03:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98964606A321;
+	Sat, 24 Oct 2026 03:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GrqCY1/Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EA51F01825;
-	Sat, 24 Oct 2026 03:58:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U38NS/YL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B251F01825;
+	Sat, 24 Oct 2026 03:58:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792814334;
-	bh=Clro7WDG4KT0INDinVZ33ttbuJ91LAtBbiQ6xrtq6IM=;
+	s=k20260515; t=1792814335;
+	bh=xb0kY8mG929k7bWSkiX0xS9sat/I2UuhmeFbU3YCROU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GrqCY1/YWHEs78RmUkXM0yLQiFkrTMIOm+XbsCFshZgqvBrkgSeVv5jDlIDhUV6vW
-	 /r5BU7oDz/Y8gC/DwyFsdy6xzOXECzoTj6LpVhHNv7NW5uVkPO6yfrBoxVtchiZVfs
-	 z7jYC1YRq5KcbTgJ6Fm7SQ9zQDrPWU7iU4fq4iTrdtknsrd+6pbY2OI4BldFLNbYV5
-	 C3y9OZGcSRKs+gPrwQYYmdE/5bknI4zXeaKdryIpw4Xd3h+YpO2km4ULw3iUB1SGjl
-	 Yfbfr2zs9SOhOpvx9KvYcDk6HWP1nFhX64Xy0EmF6stBVT7KjKAqWbGTFUNynvL+Cp
-	 p9bXFrw0Y74Xg==
-Subject: Re: [PATCH v6 08/13] can: peak_usb: reject records for unset channels
- in PCAN-USB Pro
+	b=U38NS/YL1lzHaoCqIGEk476Xr4vWAkA+GpSHyb3kn+EfVG3d0/X0kLDoOyDuC5TEN
+	 cl/OZu3rxLaGqWWiHY9GqeURBLUs304eTi3UOZ+Hpsp1PsERSgPO/obJPvrK3xeNw8
+	 KCmHsHNqn17cC3RlV9cLqydCvUbPonMoiZAeNdWztcAoWFeYoLPeBc7d4TSbixxHGz
+	 1mHaLAowO8K5aYeHc9ol0fkF13VYKN77806pZaP9T1cNc3oAYgcpBbV4s2FtMt+V7K
+	 +RnUZL0G98JJZ/69uaTLJfkhYZFRATcgCw2DOXs/cYBb1tooPl0lMd9aPBuT0daB7i
+	 R4vlPYxiXaqaA==
+Subject: Re: [PATCH v6 09/13] can: peak_usb: register the netdevs only once
+ all channels are set up
 From: netdev-bot+sashiko@kernel.org
 To: s.grosjean@peak-system.fr
 Cc: mkl@pengutronix.de, mailhol@kernel.org, wg@grandegger.com,
  error27@gmail.com, lukas.magel@posteo.net, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sat, 24 Oct 2026 03:58:53 +0000
-Message-ID: <179281433330.3130.2295013111859378415@kernel.org>
+Date: Sat, 24 Oct 2026 03:58:54 +0000
+Message-ID: <179281433446.3130.6290059781976829176@kernel.org>
 In-Reply-To:
- <20261022-canfd_check_channel_idx-v6-8-197704231551@peak-system.fr>
+ <20261022-canfd_check_channel_idx-v6-9-197704231551@peak-system.fr>
 References:
- <20261022-canfd_check_channel_idx-v6-8-197704231551@peak-system.fr>
-X-sashiko-severity: Medium
+ <20261022-canfd_check_channel_idx-v6-9-197704231551@peak-system.fr>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -66,184 +66,207 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In pcan_usb_pro_decode_buf(), a record for a channel whose
-  usb_if->dev[] slot is NULL now makes…
+- [Low] The patch only half-converts probe-time logging.
 
 Pre-existing issues:
-- [High] Use-after-free in the probe error path of peak_usb_create_dev().
-- [High] NULL pointer dereference when a channel is opened before
-  dev_init().
+- [High] This problem wasn't introduced by this patch, but the PCAN-USB
+  private restart timer (struct pcan_usb::restart_timer, inside the…
+- [Medium] This problem wasn't introduced by this patch, but the
+  mechanism is real.
 
 --
 
-can: peak_usb: reject records for unset channels in PCAN-USB Pro
+can: peak_usb: register the netdevs only once all channels are set up
 
-This commit makes the PCAN-USB Pro record decoders reject a record when
-the channel's usb_if->dev[] slot is still NULL. It also clears the slot in
-pcan_usb_pro_free(). Slots are now published with smp_store_release() and
-read with READ_ONCE().
+This moves register_candev() out of peak_usb_create_dev() and into
+peak_usb_probe(). The netdevs of an interface are now registered only
+after dev_init(), dev_set_bus() and dev_get_can_channel_id() have run for
+every channel. peak_usb_disconnect() only unregisters netdevs flagged with
+the new PCAN_USB_STATE_REGISTERED bit.
 
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-> index cbc23953ce610..151c5ea2859be 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-> @@ -543,7 +543,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
->  	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
->  		return -EINVAL;
+> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> index 6a5ecb10c4f30..8a0a132983c44 100644
+> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
+> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> @@ -390,9 +390,12 @@ static int pcan_usb_get_can_channel_id(struct peak_usb_device *dev, u32 *can_ch_
+>  	int err;
 >  
-> -	dev = usb_if->dev[ctrl_idx];
-> +	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
-> +
-> +	/* reject records for a channel that is not (or no longer) set up */
-> +	if (!dev)
-> +		return -EINVAL;
+>  	err = pcan_usb_wait_rsp(dev, PCAN_USB_CMD_DEVID, PCAN_USB_GET, args);
+> +	/* explicit use of dev_xxx() instead of netdev_xxx() here: this is
+> +	 * also called during probe, before the netdev is registered.
+> +	 */
+>  	if (err)
+> -		netdev_err(dev->netdev, "getting can channel id failure: %d\n", err);
+> -
+> +		dev_err(dev->netdev->dev.parent,
+> +			"getting can channel id failure: %d\n", err);
+>  	else
+>  		*can_ch_id = args[0];
 
-[Severity: Medium]
-Should an empty slot be treated as an error here? The commit message
-describes this as an expected window: channel 0's RX is running before
-channel 1 has been initialized.
+[Severity: Low]
+Should the helpers on this same path be converted as well?
+pcan_usb_wait_rsp() and pcan_usb_send_cmd() still log with
+netdev_err(dev->netdev, ...):
 
-A negative return makes pcan_usb_pro_decode_buf() jump to fail and stop
-parsing the URB:
-
-pcan_usb_pro_decode_buf() {
+pcan_usb_wait_rsp() {
     ...
-		case PCAN_USBPRO_RXRTR:
-			err = pcan_usb_pro_handle_canmsg(usb_if, &pr->rx_msg);
-			if (err < 0)
-				goto fail;
-    ...
-fail:
 	if (err)
-		pcan_dump_mem("received msg",
-			      urb->transfer_buffer, urb->actual_length);
+		netdev_err(dev->netdev,
+			"waiting rsp f=0x%x n=0x%x failure: %d\n", f, n, err);
+    ...
 }
 
-Both channels share the same bulk-in endpoint. Wouldn't that drop every
-record that follows the channel 1 record in the same transfer? That
-includes channel 0 CAN frames, channel 0 status records and RXTS
-calibration records.
+dev_init(), dev_set_bus(dev, 0) and dev_get_can_channel_id() now all run
+before register_candev(). At that point the netdev name is still the
+"can%d" template and reg_state is NETREG_UNINITIALIZED. These messages
+therefore print with an "(unnamed net_device) (uninitialized)" prefix. On
+PCAN-USB, one failed channel id read now prints one such netdev_err()
+followed by this dev_err().
 
-The non-zero return also makes peak_usb_read_bulk_callback() dump the
-buffer a second time:
+The other adapters have the same problem in their command helpers, which
+are reached from dev_init(), dev_set_bus() and dev_get_can_channel_id()
+during probe:
 
-			err = dev->adapter->dev_decode_buf(dev, urb);
-			if (err)
-				pcan_dump_mem("received usb message",
-					      urb->transfer_buffer,
-					      urb->transfer_buffer_length);
+- pcan_usb_pro_send_cmd(), pcan_usb_pro_wait_rsp() and
+  pcan_usb_pro_send_req() in pcan_usb_pro.c
+- pcan_usb_fd_send_cmd() in pcan_usb_fd.c
 
-Neither dump is rate limited, and both run from URB completion context.
+The new lbl_disconnect path in peak_usb_probe() has a similar issue.
+peak_usb_disconnect() copies netdev->name and logs "%s removed" for
+channels that were created but never registered, so it prints a literal
+"can%d removed".
 
-Would it work better to skip just this record and go on to the next one?
-The same applies to the -EINVAL return added to
-pcan_usb_pro_handle_error().
-
-Two later commits in the series seem to resolve this.
-
-"can: peak_usb: register the netdevs only once all channels are set up"
-makes this branch unreachable while RX is running.
-
-"can: peak_usb: dump undecodable URBs once and rate limit decode errors"
-removes the dump in pcan_usb_pro_decode_buf() and rate limits the one in
-the callback.
-
-At this commit, though, the window is still there.
+> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+> index 49d2c01b8ef7e..ea6c28f3ed0b9 100644
+> --- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
+> +++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
 
 [ ... ]
 
-> @@ -933,7 +943,8 @@ static int pcan_usb_pro_init(struct peak_usb_device *dev)
->  	}
+> @@ -1081,7 +1063,8 @@ static void peak_usb_disconnect(struct usb_interface *intf)
+>  		dev_prev_siblings = dev->prev_siblings;
+>  		strscpy(name, netdev->name, IFNAMSIZ);
 >  
->  	pdev->usb_if = usb_if;
-> -	usb_if->dev[dev->ctrl_idx] = dev;
-> +	/* publish dev to the decoders */
-> +	smp_store_release(&usb_if->dev[dev->ctrl_idx], dev);
+> -		unregister_candev(netdev);
+> +		if (test_bit(PCAN_USB_STATE_REGISTERED, &dev->state))
+> +			unregister_candev(netdev);
+>  
+>  		kfree(dev->cmd_buf);
+>  		dev->next_siblings = NULL;
 
 [Severity: High]
-This is a pre-existing issue, but pdev->usb_if is only assigned here,
-after the netdev has already been registered. In peak_usb_create_dev():
+This isn't a bug introduced by this patch, but can the PCAN-USB restart
+timer fire after free_candev() in this loop?
 
-	set_bit(PCAN_USB_STATE_CONNECTED, &dev->state);
+struct pcan_usb::restart_timer sits in the netdev private area. It is set
+up in pcan_usb_init(). It is armed by pcan_usb_restart_pending(), the
+completion handler of the unanchored restart URB that
+pcan_usb_restart_async() submits:
+
+pcan_usb_restart_pending() {
+	/* the PCAN-USB needs time to restart */
+	mod_timer(&pdev->restart_timer,
+			jiffies + msecs_to_jiffies(PCAN_USB_STARTUP_TIMEOUT));
 	...
-	err = register_candev(netdev);
-	...
-	if (dev->adapter->dev_init) {
-		err = dev->adapter->dev_init(dev);
+}
 
-pcan_usb_pro_init() also issues several synchronous USB requests on
-channel 0 before it gets to this assignment.
+This handler ignores urb->status, so a URB flushed during unplug or unbind
+still arms the timer.
 
-If canX is configured and opened in that window, can
-peak_usb_ndo_open()->...->pcan_usb_pro_start() dereference a NULL usb_if?
+Nothing cancels it:
 
-	if (pdev->usb_if->dev_opened_count == 0) {
+- pcan_usb.c has no timer_delete_sync() or timer_shutdown_sync() on
+  restart_timer.
+- The PCAN-USB adapter has no dev_stop, dev_free or dev_exit callback.
+- close_candev() only cancels priv->restart_work.
 
-RX completions in the same window would also reach
-pcan_usb_pro_decode_buf() with a NULL usb_if. The handlers do
-READ_ONCE(usb_if->dev[ctrl_idx]) before the new check, so the added NULL
-check on dev does not cover this case.
+Suppose a restart has happened (restart-ms auto-restart after bus-off, or a
+manual "ip link set canX type can restart"). This sequence can then free
+the memory that holds the queued timer_list:
 
-The later commit "can: peak_usb: register the netdevs only once all
-channels are set up" seems to fix this. It registers the netdevs in
-peak_usb_probe() only after every channel's dev_init() and dev_set_bus()
-have succeeded, and its commit message names this dereference.
+peak_usb_disconnect()
+    unregister_candev()
+        peak_usb_ndo_stop()
+    free_candev()
 
-> @@ -981,6 +992,9 @@ static void pcan_usb_pro_exit(struct peak_usb_device *dev)
->   */
->  static void pcan_usb_pro_free(struct peak_usb_device *dev)
->  {
-> +	/* clear this channel's slot: dev is going to be freed */
-> +	WRITE_ONCE(pcan_usb_pro_dev_if(dev)->dev[dev->ctrl_idx], NULL);
+When the timer expires, pcan_usb_restart()->peak_usb_restart_complete()
+writes dev->can.state and calls netif_wake_queue() on the freed netdev.
+
+[ ... ]
+
+> @@ -1116,13 +1100,40 @@ static int peak_usb_probe(struct usb_interface *intf,
+>  
+>  	for (i = 0; i < peak_usb_adapter->ctrl_count; i++) {
+>  		err = peak_usb_create_dev(peak_usb_adapter, intf, i);
+> +		if (err)
+> +			goto lbl_disconnect;
+> +	}
 > +
->  	/* last device: can free pcan_usb_pro_interface object now */
->  	if (!dev->prev_siblings && !dev->next_siblings)
->  		kfree(pcan_usb_pro_dev_if(dev));
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can this kfree() cause a
-use-after-free on the probe error path in peak_usb_create_dev()?
+[ ... ]
 
-adap_dev_free:
-	peak_usb_stop_rx(dev->prev_siblings);
+> +	for (; dev; dev = dev->next_siblings) {
+> +		err = register_candev(dev->netdev);
+>  		if (err) {
+> -			/* deregister already created devices */
+> -			peak_usb_disconnect(intf);
+> -			break;
+> +			dev_err(&intf->dev, "couldn't register CAN device: %d\n",
+> +				err);
+> +			goto lbl_disconnect;
+>  		}
 
-	if (dev->adapter->dev_free)
-		dev->adapter->dev_free(dev);
+[Severity: Medium]
+This is a pre-existing issue, but take a multi-channel adapter (PCAN-USB
+Pro, or a two-channel PCAN-USB FD). Channel 0 is registered and opened by
+userspace, and then register_candev() fails for channel 1. What state is
+the hardware left in?
 
-lbl_unregister_candev:
-	unregister_candev(netdev);
+The commit message says:
 
-For channel 0, dev->prev_siblings is NULL, so no RX gets stopped. Then
-pcan_usb_pro_free() frees the shared pcan_usb_pro_interface before the
-netdev is unregistered.
+  Since no netdev can be opened during probe anymore, there is no RX to
+  stop when probing a channel fails.
 
-Suppose can0 was opened between register_candev() and a failing
-dev_set_bus(dev, 0). unregister_candev()->...->pcan_usb_pro_stop() would
-then read and decrement dev_opened_count in freed memory:
+That doesn't quite hold inside this loop. Channel 0 can already be open,
+through peak_usb_ndo_open()->dev_start()->dev_set_bus(dev, 1), before
+channel 1's registration fails. RX is still stopped by peak_usb_stop_rx()
+in peak_usb_disconnect(), so that part works.
 
-	if (pdev->usb_if->dev_opened_count == 1)
-		pcan_usb_pro_set_ts(dev, 0);
+However, peak_usb_disconnect() calls peak_usb_stop_rx() first, and that
+clears PCAN_USB_STATE_CONNECTED on every sibling:
 
-	pdev->usb_if->dev_opened_count--;
+peak_usb_stop_rx() {
+	rtnl_lock();
+	for (d = dev; d; d = d->prev_siblings)
+		clear_bit(PCAN_USB_STATE_CONNECTED, &d->state);
+	rtnl_unlock();
+	...
+}
 
-Channel 0's own RX URBs were never poisoned, so they could also complete
-into pcan_usb_pro_decode_buf() with the freed usb_if.
+Next, unregister_candev(ch0)->peak_usb_ndo_stop() calls dev_stop() and
+dev_set_bus(dev, 0). Once CONNECTED is clear, pcan_usb_fd_send_cmd() and
+pcan_usb_pro_send_cmd() return 0 without sending anything:
 
-The WRITE_ONCE() added here runs before the kfree(), so it is fine by
-itself. The later commit "can: peak_usb: register the netdevs only once
-all channels are set up" removes register_candev() from
-peak_usb_create_dev(), and its commit message names this use-after-free.
+	if (!test_bit(PCAN_USB_STATE_CONNECTED, &dev->state))
+		return 0;
+
+dev_exit() (pcan_usb_fd_exit() or pcan_usb_pro_exit()) is the only place
+that sends bus off, LED off, calibration off and drv_loaded(0). It is only
+called from peak_usb_do_device_exit(), at module unload.
+
+Does this leave the still-attached adapter bus-on on the opened channel?
+Calibration messages would stay enabled, and the firmware would still
+believe a driver is loaded.
+
+The same ordering existed before this patch. A failure on channel 1 also
+unwound through peak_usb_disconnect() after channel 0 might already have
+been opened.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-canfd_check_channel_idx-v6-0-197704231551%40peak-system.fr
