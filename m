@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792872698;
-	b=cAqPz9HRnb8JjFe+nSn8FM8qM9sBVawYyd6AldEbPSFB1ZM1buAeiLPFZNMQRG3A0OMS
-	 wAv/OujTq+jAd27n2WJHgTuwGRw+qxpC+w2G9nvLKWwh0LrWId6Bx75qHv2Qob6JPxMpz
-	 Ds5K4A5KpwmGRtykL2X3UdtVYEIYIxo1bHuaDE/HRELLMEzGYd2fJsBk2CCIb6Sb18YeI
-	 cGGzJyIpUCkP0lScgJQQjf7JVNT/7Ei8DPBycADhn47mye3nZzL+38ZPEhz+c5/rMXDWF
-	 RWKVxsKAY7LDUNDHIxKjgx2ojlPO3Qt/e8AA828sZiPecRuPyQ2vzxkZoW6mk1tEkWQ==
+	t=1792872700;
+	b=cwTwhBasLllAlrHFRAIawVIZiT0KaR8gDfXEMZpxRO63KffkObceiAAAwLKhJbRWkwUg
+	 kP50iiUWRGO05U9oeEZw3KsPwcgCMFHhps+QAcbLgbOW05llqZzrZ+ZWx5+3VNYlAFogr
+	 iP+nof4U0jg5cYPeeYRb9GTK1282hvLD3GGmVDlOy8XyRH9DmPJhFXLDK522LGVHjMfRt
+	 buncxQ7HOGBvKaN640YS5DAhXDnuWyeX3W3sLhxbvoZs3hnOYSOxFhMAksKvF5Pgb9xZ0
+	 azS6hqHwTdVQT6ZF6gOybazQ2zn42Ib7/tj50yHTNv4Ccr0EyY/5/07o3wqgg+PcY+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792872698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792872700;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=u0Ww+ebOZdeRaxZe9bJb7g9jpmRhKt5mafZdeyrbEbk=;
-	b=Jo0fMc0b1EKmmHUe0ZWKzPA6p7xhMPtoNWFvtyluFuztAs3GrFGJGJAefzQtgPdYZCuy
-	 H5cxDKRw0lxcDISom4lQhvBU+RdsGXq22FSLqAfb+dnLNImD9QIDSnuG6O6DlsOlC1gZ0
-	 5OfwvL2RtC8BYcI6dDKHG7jt7YSqxtw80dTXWMeqDCoYxc/qyccNyt0LSjm9A3OF8j6P1
-	 OSf/PWl/niy+ocZmTHHeitAm98fm3wwXRulMRTu+QRpZL/0M0SnqhubvL1b998G4ynAc9
-	 2E69SUZmNBgbGDK2d3Mm2nui534CkGnTyU82CHqkER7lQzU1pqURqhbVtQ9q3/oVmkg==
+	bh=6wOFlCbTF75z81bE70PcvQC938lPSXNjRFI10kk0L1Y=;
+	b=opRiuOH3TH+5fzq2u7z3HbUAFySE9wXP2vKcxFtZu5U7ggXJM5yXV8JObiNnoNLi9bSA
+	 q+aV8U12g1FtPM9d8DaafH3CJlbwKGZT3vHdT7W264rxhp7puodGcXHkBGVf8qoI6uV1f
+	 HcxyP2QIxLobZqmebpLzA53wDT7dGPvw3NJhwsi3PTe/XBCdSNzrFWkG7yU3E5hKm4KLT
+	 mJCWAdA3U/4xN34thxz2DhJJpWyYFoVlBwhCnvA6cRvahN6DqTyDObsB7wpLelUSAvjO+
+	 iltPkrTDrICNcO3P9rpL80SPMDFCEmO3KZRcBNSkDc+0QoXi2XKTlSWrsrO3Ku7RgKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jq/ECZ4K";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5CAVdk0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EA4606A32F
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 20:11:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D90C606A31F;
+	Sat, 24 Oct 2026 20:11:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jq/ECZ4K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865911F01828;
-	Sat, 24 Oct 2026 20:11:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5CAVdk0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61C2A1F031E1;
+	Sat, 24 Oct 2026 20:11:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792872698;
-	bh=u0Ww+ebOZdeRaxZe9bJb7g9jpmRhKt5mafZdeyrbEbk=;
+	s=k20260515; t=1792872700;
+	bh=6wOFlCbTF75z81bE70PcvQC938lPSXNjRFI10kk0L1Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jq/ECZ4KhN9ptsS0aty42zz4SVeitR2ZfX2m2Ss+FGJ7X8N+IxNe6vXi8LUIGBLkD
-	 ydCLaPxOJwgFbH+KjRCNHP071T+g7mccgY5Ef3kYOq7qYQexopC6nZwsj7IhYNojqw
-	 21won6OrxBxLa8A94wfNsC1cmVTPIlypNvHeqtYNltyr4BHbtfExAbIvhPxRGUSpu8
-	 eLvsXyOQd/9lNyVBnjjaCYK5PLr7+0gk2HTHmXLQRitFxBBBN6dMJM+Xby6LSqB+hL
-	 VCaa7MGtJElDjShiVD6mvdTKrDAQq2Hw/wl0yvoLPE4l7aRoYnGpmqvHxWvUZXGemp
-	 4jrEV0PaTzqGg==
+	b=S5CAVdk0e7Bl2DQaWzUi0YPh0mA/v89hfXGFgU5h5yWoNY2of+D8MnJ7fytreYVQE
+	 ix+qmAm2FybMBNuSWPrPs4ubLwGy/bo8yOnu3M3XftUg89yI895gPonCuiyI7B8eFC
+	 cS0UO9f2P5sT7+CUd4qaIq9X3jBmYMTH6Jo/nPkX6hf3n6Qwm7enSFiJyeu/tP4z3N
+	 zm7OMTNPmRVz4T0kRBN3cNYVjwZ1l8K2caOIPqIZ6qsG99M3jYBgwJtLN28PBNtAWK
+	 M/Bkzjcj5xpHAPkZs1eETmiRreT5NJoHUQRbl7OoROdlMmko/tQWP6HDkCqTazekiv
+	 d8e4NN0oBVsSQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jay Vosburgh <j.vosburgh@gmail.com>,
-	Andy Gospodarek <andy@greyhouse.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
-Subject: Re: [PATCH 5.15.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
-Date: Sat, 24 Oct 2026 16:11:11 -0400
-Message-ID: <2026-10-24-1-daily-reply-0013-bonding-xmit-broadcast-5-15-bounce@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Michal Kubiak <michal.kubiak@intel.com>,
+	Alexander Nowlin <alexander.nowlin@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>
+Subject: Re: [PATCH 6.18 158/621] ice: drop page splitting and recycling
+Date: Sat, 24 Oct 2026 16:11:13 -0400
+Message-ID: <2026-10-24-1-daily-reply-0016-ice-xdp-rxq-frag-size-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024124929.5350-1-steffen.pfendtner@kernelscan.io>
-References: <20261024124929.5350-1-steffen.pfendtner@kernelscan.io>
+In-Reply-To: <atsythEG2rkGdc6Z@pcnci.linuxbox.cz>
+References: <atsythEG2rkGdc6Z@pcnci.linuxbox.cz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,22 +67,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Backport to 5.15.y: bond_xmit_broadcast() here walks the slave list,
->   not a slave array, so there is no array index or slaves_count to
->   compare. Count the list entries instead and compare against a
->   READ_ONCE() snapshot of bond->slave_cnt taken before the loop. The two
->   can match on at most one iteration, so the original skb is consumed at
->   most once even if the list changes during the RCU walk; if a slave
->   goes away mid-walk, the original skb is freed at the end as before. ]
+> 02852b47c706 ("ice: fix rxq info registering in mbuf packets")
+> e142dc4ef0f4 ("ice: change XDP RxQ frag_size from DMA write length to xdp.frame_sz")
+>
+> That leaves 6.18 without the XDP frag_size fix (the fifth one above). Could
+> someone from Intel send an adapted [PATCH 6.18.y] of it for the 6.18 Rx code,
+> without Page Pool?
 
-This does not bound the walk. It still iterates the live slave list, because
-5.15 does not have the all_slaves array walk from ce7a381697cb ("net: bonding:
-add broadcast_neighbor option for 802.3ad") that upstream indexes into, and
-the running index is only compared against the slave_cnt snapshot. If
-bond_enslave() links a slave before it increments slave_cnt, or a slave is
-appended mid-walk, the loop reaches the else branch after the original skb
-has been used and skb_clone()s it. That is the same use-after-free, on a
-path the old bond_is_last_slave() code handled.
+With the full Page Pool conversion back in the 6.18 queue, no adapted patch
+is needed. Queued the two XDP RxQ fixes quoted above for 6.18 as well, thanks.
 
 -- 
 Thanks,
