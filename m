@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792839444;
-	b=WtL5tf6gYUxIQYNtEqlovpV2Q/7gZSIa3qICA6BZUrAIREH+0CjvFrhBAGgIbfgj9IEz
-	 puvejZzIrth37FDN7RHn2/wFTIPY7s4RSk5f437pcGG+VLcma0g2sCz+Vl9xQ9RoNliH/
-	 XsDzAGnC/3mXl1pH+JNjpHoXxxVA6KUEJblSR5Vt50lIBn1URf7hZ+wD6ACTnzOGcjw1l
-	 GXAOV8WS8Zy3d0HicpIjyJY4tw6ZzGKmN6VZig2+wyc0wuFuH8zrsTsAF3gDRWk+Z1ECn
-	 7+pzbayqkAue7wY8vMSeXscJLrmDgNFXLYN/yOLPTN8qVp7Yojv6CtfNCy2VLTugf0w==
+	t=1792839447;
+	b=TFwF4RrzlMLv3M24p9Z632Mlp+Umd5xWFfeTgk5pKNH0/psQpVaYdsvmzMcRZLWTfPYr
+	 UAwnfA/8MhVRL6zYZNvFOm+7LdH4c0KtXwzZ/zA+yeRBajeMP/KSHmqSd9Ne9kBXrPTzA
+	 hgOXYbVUV8aPPnhW/5JYe5Hcrdmseqo2qZBfaR+5TGLeiI6ZIY1LraU6Oe7WF2y+OBzvC
+	 7xG9iowMfiaX5topZqsQW0+qY+X8teuG+K55JRHTXapo6aRN1QBdWTLEYF3HjDFiZMQII
+	 Sy2LaSZy1ohd9aTzSYpmWo5uhQNgllQUh3Vp4wcbRZeSdckmqgpknnsipv1Qck15obg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792839444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792839447;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fDoOd/huNso3Qjc7us4cwB4PnjlswnbSJ2MQY2Ura/4=;
-	b=1Qm88gImdaYhAA7SI2yCEaM319r+e68VmqO7FAZWH2loNqiXetJWWPobj4eUo2hqdvbE
-	 7PGtadKAJPjkuDoy/kjftHVqpDc1yBCEtn8WuPfJmGuDZNQpVpA3KMcC3TnjY4D9v2cVQ
-	 r1bQGUTwcX25f5HokzAr7lxgZb7Xnedo7iG0QL5V7lxf+0IMvXHFq/ayZUxAS8NgfUVz9
-	 9nVA5HL3zOGcDe/8Jv0GzjVA6JPc5GxBobxceghfCjmIAdw/Z5ixrfcUlhQD4Xetwdb60
-	 0fCNcIKN7HXEuB31Xl4YUC/LRkp9tcQElXrHUo/gB/HbXl/Am9xU0nFBSnbxiKLu4aA==
+	bh=7CvZjphlLYyviRYRDAzTkF165UvtFroVZsLD8Snn5uo=;
+	b=cVtx95NnZs4PERO9LPjafThiunZ/ipiq00kGr32jLJjiDDSIA0Klhh/pOPxt3q5uaThp
+	 DRECfSd3MAvy9hNGoI09yLnv0jJVEukb7bco5ESXAKUuEkMHM/Xt1gab2Nlpej5K1JGEd
+	 g52tMs8AjTVtm0i5wh8Cf8JGlOzjLbQeq3/FTkiZBSICJVHLw97Aq9p3wMM1R/D2GVj2K
+	 oj/OjZWQBEo0zEgC+gdtAKZst72k82rwy9jxmlSDV79H8R9ai+pWU6V115hj+XAgvRkIz
+	 XXW5GGFzcKsmN/p7GHHUO0L2pA8p83Bh70MYKshbaWyqkf4WH65qfQeq2rjjlTT0jXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Z0w4XDg6;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAqxQnp3;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C6C606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C6C606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3519A606A31D
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 10:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3519A606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Z0w4XDg6
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso816716a91.2
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 03:57:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAqxQnp3
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so2010307a91.2
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 03:57:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792839442; x=1793444242; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792839447; x=1793444247; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fDoOd/huNso3Qjc7us4cwB4PnjlswnbSJ2MQY2Ura/4=;
-        b=Z0w4XDg63tUvVcepZZ35k3b7yKxs71R9cdho5OPsKtDVTWmsoEpFCGymEeHp2keFsm
-         80Ns0AI5HjL2Cewk/K9KUrH2Z5DRGh9dvY2XMf6dIiOde4x2yER/yubqCDJyHYJcC25t
-         TZgs0QS1T5Jf6H5gmuWbRcGzLwVQyb1y6XpgmCEfj2zbRwMPghhlKDTtApa4BaR1HuGL
-         p6dLSNZqiapHpI2hixHFrFyLeC+vb0Hnzk7V1MfiPA8N7T6iGePbzk1TCVLS+2YyZ/G4
-         g37R47BTEaBeDHwPqGTMnISxcJemxdhkofNqAGVDN5EPcnyIe1fPXDFDYuingDKrFuOk
-         /7OA==
+        bh=7CvZjphlLYyviRYRDAzTkF165UvtFroVZsLD8Snn5uo=;
+        b=iAqxQnp3AQBKM1cGnvIzCGVwNnsmGET6EuG8ExmkDqmq47YbAMrsWNY16I6KlZ6jw+
+         iQ6C14TlApJAsDeoBOFfsG1FoHW6/esAZcLJX9dd+YQ8o8MaYpDbJ4jukHj34vyJV6+y
+         gcdwJe3yDze+D1oKSVgvPya23KgVj3VlfbLd1VTAoaLbV8jhDYsRPdxSqsc8WdMEVowq
+         ve4Gxa1QP50MChxu/m1KIhADJ4Xi/BFK80Z3AKv453nDFkd+paU3X3CzYx+MW4+0kyIv
+         KtE2xV+SCSimCpOB4Y1GR7LVOYyCyMLjUQNwWZwvceoriVPAC8KYBv9+tEyvRe10h81u
+         9eLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792839442; x=1793444242;
+        d=1e100.net; s=20260707; t=1792839447; x=1793444247;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fDoOd/huNso3Qjc7us4cwB4PnjlswnbSJ2MQY2Ura/4=;
-        b=yfvb3VTSlTg4aierDWOQ+T1GMuc4yg8zOs5pk/UNnRoVJ9b/WP187K+c/9ohXnY8YI
-         vmSx7YybsbItj7IhWd7BQzAle9NPla2W79NeqOid34QD8vTO2UTrOFtHRKrRL3Vuj3Zq
-         f6t/6J4nvH70S6F77N08rXIjFStRS+sZPTsh4ICQPWxJCw76CsYvvNM3+J7pi+66UHQJ
-         QQmc/nvJ8mGYNEq/koNdRqiSFVoAeWM26wDS+6ashUyc6k+WZDgHa1LMndhAEXJ3Atn2
-         qW3S2xh+xYOS72vIrirPSx2wDFB1SL9HIT2N78Bfa7bDbLuz1p31QLoGwUYhgJeu1+FX
-         diew==
-X-Gm-Message-State: AFq9FYIX1gxnYrsclaiXvk5u3bH8SObyup3ge3fV/wiyVMHk8KDHaQ6f
-	/cLF62rXNna0Vd739aVQA9lYtusDZieyvBxlyFosKBtzFCEULTMJkHUUQirLK7eDaiY=
-X-Gm-Gg: AYBFou1ugiGlozzcHBVdNur/dHvT6Tdnhflxm3PLaGcWMP5m4GeYqkYSFv4mArUBJQ8
-	r7yjZV+QrQfWQjFD/O52x7UuSeBFN2/xzXrGm7gcJ8X93Qdngpw2mFITgKdGccY5Cd0I3I182YT
-	Y3jkc/MwQpF9L4SKrKZUoOVD0jziafKlctbbjaP5VvV3xLp6sqhVn2kbkfasOllb8ZnwfuEL7+E
-	7cfUaS8T19V3V6wSListenZKn8sqWBZg+59QYt/cYxCqFMysXlG+EAdo61MPUf5dvpBGLIe0amx
-	z3ahn7xvX0trudh4fr2I3KiUBjaiSCNm0YepwVDBWHO/HFwrg0F3/Brj8QS+rC59r1vXcCEO/2X
-	V2MrdJnvFAe7p4Y/FFoh3DFTG7DFus3f0TCVdTzEAXpCYbCNi9V7NKehUMnIvvTLdbgXGolN8Xw
-	kZQ9kF+cqPQAmbJnXV2KzNKekPRCEM1UypGsSBjTwZOXIbujd7lMdDRp7MoNbDeTYxyTRHLapyJ
-	22nvJDWfX3NPQZl9bNsjZ/8H6WR/WdID7eFC+cmxtHZ97nFk/k3tt7UQVHx2okPdPU3W4aeChNp
-	OHaPJsWZdnWCL6wrsEcA9XVraLinnFrfqUWBOh+dFzgGwJwFRczzJDEWe53/czKWzhj3EXZDBcK
-	xtAOw+GnLXPPcTBD+UQNoLuq7j+rIwmup6RHs62QrZYZkZd/c9S+cLVgfBQAIDtCGTqPmidmjj9
-	r2ZQhnetmTTQkzqoEMpR1FdNddOM9fOd6OBvBO3YFdZAxvDX3FiKCD+DLI
-X-Received: by 2002:a17:90b:5647:b0:39e:6a7e:ee18 with SMTP id 98e67ed59e1d1-3adeae8342bmr1401579a91.36.1792839442246;
-        Sat, 24 Oct 2026 03:57:22 -0700 (PDT)
+        bh=7CvZjphlLYyviRYRDAzTkF165UvtFroVZsLD8Snn5uo=;
+        b=p7/6CUcZA+UR0SMTrXsV/FsGv8UO0q5Tj+8MOaR12w92apTkY6/2slRFtmP60cMfJy
+         oKNnshv2y4kZZHJpDpU16XSmH2oKGK8uqNeeyzaMhqGBKlBHwPAJu5PsdWXqWVqxAi9w
+         lgNF/+3jDSuzcUOgsBNRpRKYV2O6FyMXYoU0NXE9l46DEgV/XVj0y/KQjKHCJY7kf0je
+         Y5CQOP79MiPa+P+2w3A95iqJqSOvUHJhHaBilvCqMVUpH4wZXgxSqg10X7Q4kWchgb5V
+         9AI+ZTrmsUYosjuFsdV+VZjqJ/Sw62XPzjGTU6wgoYwc09ERSDEPKPQAtHu/q3fYSpVj
+         WEWw==
+X-Gm-Message-State: AFq9FYL0sutNIuYLN4ztGnfIfwHmq2TGbbBmqpsh3y0leHyvmp+NyU3t
+	n7ozk9dGMYGweMexrgAUBb6/6L0vqdXrJuR/GVzNxcqy0D+9XD69e5UTdemT90XzF88=
+X-Gm-Gg: AYBFou1WolFsTCix1tDka3H6UUDwEiFJAvL+mswj1nN7+OqzkFjVv9CHabVLFWRxClO
+	a3ouNplGfP7KzlXpJMB34OY0tplfb1nrIFDJE061lwL+6HGtQlXSjJ2AVw/U/kgE9OQJIfghyHD
+	P6VkxFlKQ8r72ms7dpWsmq19KQ63Y9VYmok/B1/IYq5+XUB+mF8ZQTZwJJcyxscErnpldm2b0Go
+	roEwqAjR8pCKwNyP+LS/EnxT+BbDBenqnr+2qZNu7VT7ivgJP1+sV8vgSqYOX5umA71paS3Ql+a
+	jOOYOAzNNhuV1PZAuVLWadf9rpCBOXJr6r4skZHcRLl/LdHmdZrrKhLKyJ7ynPjmCoEoKIFme7/
+	VlIxl9NAYEZX5bwlTNvzoEutkBkBpbrZEf4TQDBknyeiw/9xBJ6hodbew+r8VU30xBAkSrcm6Ed
+	ICzOdfr2cwa69O5jYDOVYltKIXyxFXYGZz4ZGB3W2vCKw9bL83wEv50B7UiWg/1z5sF4u93NPZF
+	Wo48NCg38tzZoPcdv1lOsITtpR/FKESdvpPaE9FOAHidqgB+QCvNSCGpUAjpct0Zi8I7umfNrCr
+	oLxJNdOjjWXkhgXLU8Y2rlu8dbqmZEO38NMozQZIlJfJIsj26GWWrBgaC8+HmmYaH1uNgvyDHqL
+	/xfW8WcCaYKRjwXpazNmzHF9o2vf8U6sQfBDw4/TTYifDcFVcwVj3cjIQvHbe3Ofky7xQrD8yv7
+	Et7GuUsoSAGWWn9FkocZ9XP1Rs4VIiLWhYN6er3dhssj2x9B8gCt6lw4LQ
+X-Received: by 2002:a17:90b:4ad0:b0:3ab:d26b:c2e9 with SMTP id 98e67ed59e1d1-3adead26b38mr1613976a91.33.1792839446604;
+        Sat, 24 Oct 2026 03:57:26 -0700 (PDT)
 Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6946dsm2565666a91.4.2026.10.24.03.57.19
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe6946dsm2565666a91.4.2026.10.24.03.57.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 03:57:21 -0700 (PDT)
+        Sat, 24 Oct 2026 03:57:26 -0700 (PDT)
 From: Ting-Han Hou <ue081723@gmail.com>
 To: stable@vger.kernel.org
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -91,10 +91,13 @@ Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-acpi@vger.kernel.org,
 	regressions@lists.linux.dev,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Subject: [PATCH 6.18.y 1/3] ACPI: scan: Register platform devices for fixed event buttons
-Date: Sat, 24 Oct 2026 18:57:08 +0800
-Message-ID: <20261024105710.593-2-ue081723@gmail.com>
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Julien <julien82453@gmail.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH 6.18.y 2/3] ACPI: scan: Avoid registering platform devices with resource overlaps
+Date: Sat, 24 Oct 2026 18:57:09 +0800
+Message-ID: <20261024105710.593-3-ue081723@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261024105710.593-1-ue081723@gmail.com>
 References: <2026102308-twisting-bazooka-12b5@gregkh>
@@ -112,127 +115,104 @@ Content-Transfer-Encoding: 8bit
 
 From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-[ Upstream commit ab06eb9204010c61e754bf4e71ee6f554584714d ]
+commit f234fdaae1cad8c39265e7ca0a14633076ec7154 upstream.
 
-On platforms using ACPI, power and sleep buttons may be so called "fixed
-event devices" in which case they are hooked up directly to the Fixed
-Events register in the platform via dedicated lines and there are no
-corresponding device objects in the ACPI namespace.  Nevertheless, in
-Linux they get corresponding struct acpi_device objects with special
-device IDs, either LNXPWRBN or LNXSLPBN, which are then used for driver
-binding in a ususal way.
+If acpi_dev_get_resources() returns overlapping I/O or memory resources,
+the subsequent registration of a platform device will fail with -EBUSY
+due to a resource conflict.  This is reported to happen on Acer Aspire
+ES1-572 [1].
 
-However, the function creating those struct acpi_device objects for
-"fixed event device" buttons, acpi_bus_scan_fixed(), does not register
-platform devices for them, unlike the generic code handling device
-enumeration based on the ACPI namespace.  Consequently, if an ACPI power
-or sleep button is represented by a device object in the ACPI namespace,
-it will get a corresponding platform device, but if it is a "fixed event
-device", it will not get one, which is inconsistent and prevents the
-ACPI power button driver from being converted into a platform driver.
+Avoid that by adjusting resources returned by acpi_dev_get_resources()
+to eliminate partial overlaps between them.
 
-For the sake of consistency and to allow the ACPI power button driver to
-become a platform one going forward, modify acpi_bus_scan_fixed() to
-register platform devices for "fixed event device" buttons and update
-ACPI platform device registration code to work with non-device ACPI
-object types, so it can handle the buttons in question.
+This has not been regarded as necessary before because putting
+overlapping resources into the _CRS of one device is really pointless,
+but now that the issue has been reported to actually happen in the
+field, it needs to be done.
 
-No intentional functional impact.
-
+Fixes: ab06eb920401 ("ACPI: scan: Register platform devices for fixed event buttons")
+Fixes: 48fe2cddc85c ("tpm_crb: Convert ACPI driver to a platform one")
+Reported-by: Julien <julien82453@gmail.com>
+Tested-by: Julien <julien82453@gmail.com>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Closes: https://lore.kernel.org/linux-integrity/CAJOGg3z6LJPDsdPNBxajgy8_wQxfhYBRxe4EiurZf3kPU5A5Bw@mail.gmail.com/ [1]
+Cc: All applicable <stable@vger.kernel.org>
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/3731144.R56niFO833@rafael.j.wysocki
-[ Ting-Han: 52d864019636 ("ACPI: button: Convert the driver to a platform
-  one") was backported to 6.18.57 as a dependency of fe80251152fe
-  ("ACPI: button: Fix ACPI GPE handler leak during removal") without this
-  prerequisite, so fixed event power buttons (LNXPWRBN, e.g. on QEMU q35)
-  have no platform device and are no longer bound to any driver. ]
+[ rjw: Tweaked the new message ]
+Link: https://patch.msgid.link/12955541.O9o76ZdvQC@rafael.j.wysocki
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
- drivers/acpi/acpi_platform.c | 38 ++++++++++++++++++++----------------
- drivers/acpi/scan.c          |  4 ++++
- 2 files changed, 25 insertions(+), 17 deletions(-)
+ drivers/acpi/acpi_platform.c | 39 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 37 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/acpi/acpi_platform.c b/drivers/acpi/acpi_platform.c
-index 48d15dd78..52c8d602f 100644
+index 52c8d602f..abdd8893e 100644
 --- a/drivers/acpi/acpi_platform.c
 +++ b/drivers/acpi/acpi_platform.c
-@@ -114,10 +114,8 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
- 	struct platform_device *pdev = NULL;
- 	struct platform_device_info pdevinfo;
- 	const struct acpi_device_id *match;
--	struct resource_entry *rentry;
--	struct list_head resource_list;
- 	struct resource *resources = NULL;
--	int count;
-+	int count = 0;
+@@ -12,6 +12,7 @@
+ #include <linux/bits.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
++#include <linux/ioport.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/dma-mapping.h>
+@@ -71,6 +72,36 @@ static struct notifier_block acpi_platform_notifier = {
+ 	.notifier_call = acpi_platform_device_remove_notify,
+ };
  
- 	/* If the ACPI node already has a physical device attached, skip it. */
- 	if (adev->physical_node_count)
-@@ -137,22 +135,28 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
- 		}
- 	}
- 
--	INIT_LIST_HEAD(&resource_list);
--	count = acpi_dev_get_resources(adev, &resource_list, NULL, NULL);
--	if (count < 0)
--		return NULL;
--	if (count > 0) {
--		resources = kcalloc(count, sizeof(*resources), GFP_KERNEL);
--		if (!resources) {
-+	if (adev->device_type == ACPI_BUS_TYPE_DEVICE) {
-+		struct list_head resource_list = LIST_HEAD_INIT(resource_list);
++static unsigned int acpi_platform_adjust_resources(struct acpi_device *adev,
++						   struct resource *new_res,
++						   struct resource *resources,
++						   unsigned int count)
++{
++	unsigned int i;
 +
-+		count = acpi_dev_get_resources(adev, &resource_list, NULL, NULL);
-+		if (count < 0)
-+			return ERR_PTR(-ENODATA);
++	if (!(new_res->flags & (IORESOURCE_IO | IORESOURCE_MEM)))
++		return count;
 +
-+		if (count > 0) {
-+			struct resource_entry *rentry;
++	for (i = 0; i < count; ) {
++		struct resource *res = &resources[i];
 +
-+			resources = kcalloc(count, sizeof(*resources), GFP_KERNEL);
-+			if (!resources) {
-+				acpi_dev_free_resource_list(&resource_list);
-+				return ERR_PTR(-ENOMEM);
-+			}
-+			count = 0;
-+			list_for_each_entry(rentry, &resource_list, node)
-+				acpi_platform_fill_resource(adev, rentry->res,
-+							    &resources[count++]);
++		if (resource_type(new_res) != resource_type(res) ||
++		    !resource_union(new_res, res, new_res)) {
++			i++;
++			continue;
++		}
 +
- 			acpi_dev_free_resource_list(&resource_list);
--			return ERR_PTR(-ENOMEM);
- 		}
--		count = 0;
--		list_for_each_entry(rentry, &resource_list, node)
--			acpi_platform_fill_resource(adev, rentry->res,
--						    &resources[count++]);
++		dev_info(&adev->dev, "%pR expanded due to overlap\n", new_res);
++		/*
++		 * Eliminate the previously processed resource that overlapped
++		 * with the new one because it is not necessary any more.
++		 */
++		memmove(res, res + 1, (--count - i) * sizeof(*res));
++	}
++
++	return count;
++}
++
+ static void acpi_platform_fill_resource(struct acpi_device *adev,
+ 	const struct resource *src, struct resource *dest)
+ {
+@@ -151,10 +182,14 @@ struct platform_device *acpi_create_platform_device(struct acpi_device *adev,
+ 				return ERR_PTR(-ENOMEM);
+ 			}
+ 			count = 0;
+-			list_for_each_entry(rentry, &resource_list, node)
++			list_for_each_entry(rentry, &resource_list, node) {
++				count = acpi_platform_adjust_resources(adev,
++								       rentry->res,
++								       resources,
++								       count);
+ 				acpi_platform_fill_resource(adev, rentry->res,
+ 							    &resources[count++]);
 -
--		acpi_dev_free_resource_list(&resource_list);
- 	}
- 
- 	memset(&pdevinfo, 0, sizeof(pdevinfo));
-diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 7f9dd2704..c382bed50 100644
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -2644,6 +2644,8 @@ static void acpi_bus_scan_fixed(void)
- 				device_init_wakeup(&adev->dev, true);
- 			else
- 				dev_dbg(&adev->dev, "No driver\n");
-+
-+			acpi_default_enumeration(adev);
++			}
+ 			acpi_dev_free_resource_list(&resource_list);
  		}
  	}
- 
-@@ -2656,6 +2658,8 @@ static void acpi_bus_scan_fixed(void)
- 			adev->flags.match_driver = true;
- 			if (device_attach(&adev->dev) < 0)
- 				dev_dbg(&adev->dev, "No driver\n");
-+
-+			acpi_default_enumeration(adev);
- 		}
- 	}
- }
 -- 
 2.53.0
 
