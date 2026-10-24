@@ -1,95 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793029677;
-	b=SBheaY9g0sLfiPg4ffyOfQUHMzGmHuUCOekk+73TF1zyaviCEubajFecsDB6/+Kpc5DE
-	 mMvUjdMmDZMQ5g8Ae8WpUZJAVwkqCS7M0aborxN/UJlw6OSN5Ho/ZXE0Z3w+6XqNnDXs0
-	 9Ke8NbO0RsEQslKa++B+nEK8+/VB9VxtRcVjW4osSBE95z0ODxvToHKmcZXjsXLf1xC69
-	 j6d8Tt/oRYl1AqSfud2jqim8yRc8zfXoaRw96IIpP7vRJHGxbsVJtsyLUycC/Eo4pOeU7
-	 PIuuHj65gbOMQ0sZ9wM2/G7/hgYy9dmWgkyIi9NazVgaKbURzQZK9sksRhFbIr3S1cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029677;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=35uD3sVJLZUeRHcPV8RyOPRby60btWRa2sdjDc5SOss=;
-	b=rDG+YuBUYyvCOzdBuuWz29wROwl06nzAnGt4uqy4IuJRFG0HBIkDCLe9r8e8RqhFxZLf
-	 DvEcsoc3uf0H2mi/KlD9iZ0L+aZcRNpPQn6toMzWpVmKybrx2awPP2uFY883TkUvaTLAf
-	 Bv6VHmpQtk273ZC4x3SWKXNNjhJZtI7xF3uD7HP137EqCMWbzgJ7XVGw48ei90saPVB//
-	 H3y0gsVhF8Db/pfBN9KArGCKNhz6MfGjNMWcymQ5EJGBOgfLIOf9rn7oJ2ZvEmTGMVVwt
-	 cDMqHQnyL9RkKXS5eHVunliT+WYnVpIUxSVDqEsvzgVhwuZpbg7+plE/rk91JoZh/qQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=byeEQHUb;
-	arc=none smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793029702;
+	b=2/w99kJWvk1uK4QF3+IDisw7o3pgFEMzBUciUO/Vo1cO7PWNDM0WcwYxSlvZsE5MfmnJ
+	 oUJUUq5oA/BuN95X9trBPn39MzXPelwo3tWlKHA7RSxtmOgIktD/QSsj+Rm0I2lO++Uw4
+	 YZTpWEjkYiUSQ+gYrPbLRO+/9JiPmqNpincH7hfwHcvuB4/g1Gz5qtNzpW0AJ6WDQTTMn
+	 x+L34L6wv7I63wGYa3TtN52+bVQIyquZXtJM10MtIZAFHYElxGAOIo3snrF5VsoWDBsfW
+	 8OyzEdDmNtGiIze9LKW5mr7GaiK7uN0HsWdidb+G/mLx3apglOQmIRURzypvlicfRJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029702;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=a3Ye9mFb7l6D+kBdJ+R5ToGzjjZYmuGyh5Co4IecQd4=;
+	b=XnZQEkhERfvKnUuB7TXQ0wVEHJySCQ/VSjRvYSJY1E6VMqhhhKWl1CbYb2vak52A3988
+	 TyxvpFn1gcgkHaIbzd5TN2CtvxzziTRg3NsayzZCDenFB9u32SXIUORfJ4yCZhxHpbq8Y
+	 LdkHVCxalQkWrcBLnELFaXIgCQhTlBa/5ILmQlHQsVkkAubcrSz3BhB0Cx5XeIRqWInPR
+	 IIleBSN3hlH0WpKN0IGT5IoFjbsPp6UDy5L73XRu7D+3xGvx6wwGf8WjhUajEH4Fq0xUm
+	 TAw/YN2wxcRGzvbA4Sj6pZQVeYs1yhOvy/ooQwK0IZfH9CEpTGhSM2qpcZFcvjSBpwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nq9ENChn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A4F606A31F
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nq9ENChn
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793029702;
+	b=OFxrG8hN5RsnNuI/6tlLdBci1Y6o4/t3hCytKG6ajBE+IvfxgC/nzRN1Op3d8f1U+wLJ
+	 FzS/r1lLmpMza01y8utYlr/wchUtFNORxlZ8Yuc182jTDEuiYsEKwek6vNLkgOniTGOl4
+	 BpDYNgvyt3K4NAff4tZWRO2YOyQHwf8ElcxncoOwHWhPxfqlXkp4iPNhhNLVE5Lqs5939
+	 twuhKV45tgdCtBQv1jO5SMkRYfezxZnE/V5v/9jqrZ9cvOE4mOWu+4OH6j4C0ppBv33lK
+	 C2P8UW2VyiJedEsofMGlSDpFp7/GRyuwR0FfmVlJLk2HHRor48DJe0s647eusqGn7+g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793029702;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=a3Ye9mFb7l6D+kBdJ+R5ToGzjjZYmuGyh5Co4IecQd4=;
+	b=2vEQnJPBtfRPovTaBJUOSqnbG7wruQLIUPcAuiSfylf9mLRs1MKpWPq5VXUJlqt0q+a0
+	 6u8J4CCfJNv69TPwB6COnSYxpeAKl23pU4pQ6LXZEJRhiA47Jwq8OjXuD41JnSnHwhHwA
+	 9qMrUYorhBKun8+uvBKRTDJemGPU108v/Zgy4olWVcYIjt30jNZ0H3xNNMj4sbt3DBC/t
+	 SeI7RH7+h13PqnLZeUFjw2YAmIL1nZPLs2b7JgKa7b+Hco+ElO+I99MACgdP3Gw9zT8hQ
+	 0mT/dZWDc0BSgdKTLJyND1DxPGinMcr5dkym16PSpYJDlK64pMgz+r5o8AIzHQyu/bw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CC9606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72CC9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=byeEQHUb
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917997ab0d9so34715176d6.3
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:47:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793029670; x=1793634470; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=35uD3sVJLZUeRHcPV8RyOPRby60btWRa2sdjDc5SOss=;
-        b=byeEQHUb9OieTIHdICY6bBwgtkoir/eSMZRVgp0AgET5gmLTzKoGnbdPTANdmvWh0x
-         R/w21WuGyFo3i0Wn8ZRzJcbCzbVowwmFMUFcY9tthfzKWmDvvFE4vC3vDAj76ccxPUrU
-         QjOeAPjy+HI3uU8nNAGddmdjUVXhMF60qe5SGvsHvO5fimwTxVuQAWTnT2bP6Ox7HGVE
-         wgNWlkJrBQ4MJ7/3aSElBcfFX7WzqjY/OY8DdVFQaZd1ghqVk9n2w9EiCzNi0qQzg9IM
-         /03JYdoZuMiqgGa9xspW9dHEXKBLJsycQp32/ZQuXaBq2pTeurr7DG3rO3sBJMu7JDXW
-         wVPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793029670; x=1793634470;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=35uD3sVJLZUeRHcPV8RyOPRby60btWRa2sdjDc5SOss=;
-        b=O7b4bDiA4ExpLkLLTTgFed52w/HR4cN1miMN4nAIKNvC/3WAeFILeUnbZpZcIdLuhy
-         tvMEqe/Hrt+4w/kY3VHNCFkpUwyf/0pgGvuYu3YrC+djhUrI/JrroFPSQn7/mTsTe8lo
-         +KCPLQUAASJZLhqq6tqCoJRXL2qDS/R54OKFGP8Cod8o1DkPQ7DBjhUqeGn9cHe7FLcY
-         kwzQWp7BghAYG9A88oFSjNPFmS/K36bqJ1zjInyI4xnSt1XzGyymdJ4Yj25aYMIAd8Yp
-         Fr183gLw1hfQOR8oVczvKm9x/vxy0v7BpcFormR/4h5R3ueFwEXLe5Jscc1fP6M4vyst
-         Xj/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxZYEsP3Gz5/VIcKkr3LcnomrBQ//HyWI65+eMI7CWYJDpTSNVvt+iZLXb6BtzofoNyLD/vdFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/TrN+Wk4BDNcC8auubnfmVVt95PEG1crxNxCireszBLbNBVhc
-	KGMwwkBCHXh/8IPR1p4LqIsig7rVFjU8GLbcuu7ELbF6tAV4JYfAK8t8PShAiFq91pA=
-X-Gm-Gg: AYBFou0euIo2b8Vg15HTFAlUCSsu2VLiPwVg3X8DlBNMJSaitmYqG4dH7asP9lwLFMB
-	ZnuzzqjFd9zjSfYg9bBOSP+RNYroDK2uDtN9u+NvWOIHWJB53uoJgIzDInN7s5cxTub4MbpAi53
-	/qdngCWgrKzK15WH5CGy0TrhrHOxsOf9DvrFgnupKeNbJjY2ct82nte9UJn5YE+/eybxy2R/+KY
-	oCwwfHloU7a3uJuQjigY+U32RV0CE6IIZLJd+2WLRV8oJup3dYYjaTXvQXiTCIqfj22DkIdal7q
-	X+RG+VgXWlhknPwrYlQjdmkXqoncztbv3z3oMj9yI+XM703hJPP1ZNteZNbmrdfdY2XEG1XRCr6
-	B1nNO5L0agaS2CsPMA8W9bGTFbf/vr38jGHfSPF+PKkRu6a6g1hAyMa+DvOfBtD7XbMKppFNrWe
-	c5nXsRvrLPYvolVaqaSl0H6bqztAW7dZUwCBxxVgzQ/QqPT2CNFaJlGzNiSsRsDj+Y9dMyx7VWm
-	iyGjNQughFAaXvCghwt4Ldwneg6jHO2BOiYa7mRIllLmZdVgoFEaY5wL7QMJYPjEWwyOGI52V2k
-	QD2okNaZEVMdLLRirABq+cHLW06wWc+BdhtL
-X-Received: by 2002:a05:620a:4515:b0:93e:48fc:aa85 with SMTP id af79cd13be357-940ef9571aamr1034017685a.43.1793029670123;
-        Mon, 26 Oct 2026 08:47:50 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f066731esm719609385a.9.2026.10.26.08.47.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:47:48 -0700 (PDT)
-Date: Mon, 26 Oct 2026 11:47:46 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
-	ying.huang@linux.alibaba.com, honggyu.kim@sk.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on
- memory hotplug
-Message-ID: <at91WFlW96PH-a8A@gourry-fedora-PF4VCD3F>
-References: <20261024170415.4121901-1-gourry@gourry.net>
- <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 7279A1F01825;
+	Mon, 26 Oct 2026 15:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793029702;
+	bh=a3Ye9mFb7l6D+kBdJ+R5ToGzjjZYmuGyh5Co4IecQd4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=nq9ENChn9SQwOXy8QmScu57CkxMpPoplT14SmU6vlC77z9558rRmJI9X5aLT/xe00
+	 KV3kX3NZGY7jcnxAXUmyPgLiFBrjyHPB7m98sPQTwri8QHxHbvahWJM3syS7CSgUcA
+	 s4M7gmBWA0VkkopwHHCIylTZ0zUy5Kxo9FTKQm9aHsmfxxvqYyKSGHfLkEAyeCtp88
+	 rfztBLqgeg78HXQjeLX5DsQolGPNP3rJpst1PPp5U+FClC0oZZJQMK7kQtvV/4tXPN
+	 jzwdAjiNLLNAiA1SGSOzxfmhNp4txLyH0FPYJl7GSs7OpJa52+ZpTJG2i8FlwwNFg/
+	 50mrm5s280dzg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E4DD644D5B;
+	Mon, 26 Oct 2026 15:48:20 +0000 (UTC)
+From: Leno Hou via B4 Relay <devnull+lenohou.gmail.com@kernel.org>
+Subject: [PATCH 6.6 v2 0/2] mm: vmscan: fix dirty folios throttling on
+ cgroup v1 for MGLRU
+Date: Sat, 24 Oct 2026 13:37:24 +0800
+Message-Id: <20261024-fix-mglru-v6-6-v2-v2-0-6ca69ba6e9ae@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,57 +84,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NPQ+CMBRF/wp5s4+0tangpHFxdHAzDFAKPMOHa
+ aHREP67BXfHm3vuuTM4Y8k4OEYzWOPJ0dCHIHYR6Cbva4NUhgyCCcWZkFjRG7u6tRN6hQq9wDI
+ pdFpKnuz1AcLuZU2ANucDbuf75RqpWEH2q9xUPI0eV+cKN+TGwX62f8+3yZ8rz5FhotNCsiqtt
+ JCnusupjfXQQbYsyxc2lMWFzwAAAA==
+X-Change-ID: 20261024-fix-mglru-v6-6-v2-d8bc9d4183c7
+To: stable@vger.kernel.org
+Cc: Leno Hou <lenohou@gmail.com>, Wei Xu <weixugc@google.com>, 
+ Zeng Jingxiang <linuszeng@tencent.com>, Kairui Song <kasong@tencent.com>, 
+ Chris Li <chrisl@kernel.org>, "T.J. Mercier" <tjmercier@google.com>, 
+ Yu Zhao <yuzhao@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
+ Yuanchu Xie <yuanchu@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792820248; l=1953;
+ i=lenohou@gmail.com; s=20260311; h=from:subject:message-id;
+ bh=wiZH6EVRwOnlRNo/NR8UbS+l5zDK/ZcJVhP21ClK39A=;
+ b=ZGFg42OPIZfhyJigfHjgwxQ/nUqvy1DR+EVehQetAL/Niv952Bzc+JW9rpl2Uq2ZxTHfhXEVB
+ +f6amc7smXBBdbgn+jbYhFvXHQ8TRE+z/MKez7Q76Cfc7g9lLj6XQci
+X-Developer-Key: i=lenohou@gmail.com; a=ed25519;
+ pk=8AVHXYurzu1kOGjk9rwvxovwSCynBkv2QAcOvSIe1rw=
+X-Endpoint-Received: by B4 Relay for lenohou@gmail.com/20260311 with
+ auth_id=674
+X-Original-From: Leno Hou <lenohou@gmail.com>
+Reply-To: lenohou@gmail.com
 
-On Mon, Oct 26, 2026 at 12:19:21PM +0100, David Hildenbrand (Arm) wrote:
-> > +/* Recompute the weights from node_bw_table, unless they were set manually */
-> > +static int wi_state_refresh(void)
-> > +{
-> > +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
-> > +	int i;
-> > +
-> > +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
-> > +	if (!new_wi_state)
-> > +		return -ENOMEM;
-> > +	new_wi_state->mode_auto = true;
-> > +	for (i = 0; i < nr_node_ids; i++)
-> > +		new_wi_state->iw_table[i] = 1;
-> > +
-> > +	mutex_lock(&wi_state_lock);
-> > +	old_wi_state = rcu_dereference_protected(wi_state,
-> > +					lockdep_is_held(&wi_state_lock));
-> > +	/* NULL wi_state assumes auto=true */
-> > +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
-> 
-> 
-> I was confused about the node_bw_table check at first. Maybe
-> 
-> /*
->  * We can get hotplug events before any BW data was recorded.
->  * ...
->  */
-> 
+The series backports the following upstream commits:
 
-I went back and forth on whether to do the mutex in or outside this
-function, but ultimately decided inside is just better structurally.
+1. 1bc542c6a0d1 ("mm/vmscan: wake up flushers conditionally to avoid cgroup OOM")
+2. 13b6b6209104 ("mm: vmscan: fix dirty folios throttling on cgroup v1 for MGLRU")
 
-But yes, this comment seems warranted in this case.
+Patch 1 wakes up flushers conditionally when a memcg is about to OOM due
+to dirty caches.  It restores the flusher wakeup that was removed by
+14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle").
 
-> > +	/*
-> > +	 * HMAT and CXL report a node's bandwidth only when it first gains
-> > +	 * memory, so recompute the weights whenever N_MEMORY changes.
-> > +	 */
-> > +	wi_state_refresh();
-> 
-> If the function fails, should we at least pr_warn_once() ?
->
+Patch 2 handles cgroup v1, where balance_dirty_pages() does not throttle
+dirty folios.  See 9badce000e2c ("cgroup, writeback: don't enable cgroup
+writeback on traditional hierarchies").  After 6b0dfabb3555 ("fs: Remove
+aops->writepage"), reclaim no longer writes back filesystem folios
+directly.  On large memory systems, the flusher may not be able to write
+back quickly enough, leaving many folios already under writeback.  Since
+MGLRU cannot reclaim these dirty folios, the system may run out of memory
+and trigger the OOM killer.  Patch 2 throttles reclaim after waking up
+the flusher for cgroup v1, similar to 81a70c21d917
+("mm/cgroup/reclaim: fix dirty pages throttling on cgroup v1").
 
-The only failure state is -ENOMEM, wasn't sure that was worth warning
-on.  I actually debated whether to just make this a void function.
+Signed-off-by: Leno Hou <lenohou@gmail.com>
+---
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://patch.msgid.link/20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com
 
-I don't have a strong feeling here, but happy to add a warn if you
-prefer it.
+Changes in v2:
+- Link to v1: https://patch.msgid.link/20261024-linux-6-1-y-v1-0-cf381365f30b@gmail.com
 
-~Gregory
+---
+Leno Hou (2):
+      mm/vmscan: wake up flushers conditionally to avoid cgroup OOM
+      mm: vmscan: fix dirty folios throttling on cgroup v1 for MGLRU
+
+ mm/vmscan.c | 36 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
+---
+base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
+change-id: 20261024-fix-mglru-v6-6-v2-d8bc9d4183c7
+
+Best regards,
+--  
+Leno Hou <lenohou@gmail.com>
+
+
