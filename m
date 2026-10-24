@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792832538;
-	b=y8+r3m7tzw9XSZ7vnl3tWvacXkCZ2qe+LPboUBff4LLZAhFDlao+XEFmmQp6b+4yKon+
-	 TrHJinYeRIgaNA2jYFNl1jw5t0LDYx8190pd33ZNJguXAwebMA08I1t4c5sWBlfPPqA8o
-	 ek0hrp7za74aMe3kLitRY+VLbxwLJFuavPex0LLZJBKzllxD2KaZ4hIaAl+pyAKpt/0xU
-	 wtfAUTL6zDIrZLEH48kBRm7yxc45mi7gPAupTi/Hoqxz6AkR2hoLf0dCBdnsidn5eefQq
-	 mbf6SuTh/Ucg0G3bcDdqOLaV+4odEK8aw391Dg2Oaj5Orbdy9rirE/N6aUz54WHNGlQ==
+	t=1792832534;
+	b=eGmDDK5T0OjCrfWPTg3fXVCZtEvHYiVlHvM3g6BNKorVo6Tc95Jk9wQ0KhmWqpvZznHU
+	 c18E6vP3Njhgy/EUaVztTv3tIIEVRI+QkKZhfgoihyv60x0K45ly3ck+k7e8sxUR5eugL
+	 LvqDJdSs2y+d3rcuZjFLOTOSlyGe2DRq7cO5pC+pA0gwn3+7XFaPBbHnICRw8qtOV15Hy
+	 O8N2Q8m7ak4ajS7950RT1U3mFfEkJcnc1kMNR80c6hfZw6O7nXsC8wqLdihcDK+eeUd8C
+	 qKIUC1GPjsHCyXjio1CExDyreKEmPvlPuGsHUE20p3lpYx2NGvo/lrEoCm6r1lccrWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792832538;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792832534;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=gAsP5gtCLYqP7yWzios0wBdxc68jHD/QOc1Ds0GWkZk=;
-	b=dz2nn/d1ptEKr4b370iw6E9LBNB3KlNBsKg45p8/lUCjgHcmOzCjHuo3aaF2LlU8BMVI
-	 aAFoS4j/FlOcLf+GrvNMrSFKU5TRIdtNJo9swuRS4QZboHNLsUiYRTVkcOkBRAW0GpwUd
-	 b0CeBILLZa3pz8A2OY5MFtZqkezj05Y+aUimvB2uHD5aHYoMnIkbDryGxK44B9V/1UzPu
-	 w15LAzUpKuwzrPPU3mNYl6RBwL2gBGtNBz3h6Tp7zFsAM1A0f1RBq4rlPR6Z2O6pWc5us
-	 JxHbxKjk+jt/PL0a6RjUtzeSqBnYxt5ClcUwrwXTMYjI4i/igMZpJacgeQWuABKLy9w==
+	bh=JQ9apkM488aWZ7OkJDRzzYXo46s6ZLCL7Z2hMXJ30iw=;
+	b=SZXAusxnRF7MVsmOkV8rpxlQBGp4AFZPB5yLvvFfYczhw5HeWESm9/00HwdBFj5pjt9i
+	 AgCc2dRHf+4bosz9LrZIx+MrGqApyvwUYpHkZhHig8UTbsgDzqp9mm9LI4GodtrztvU4w
+	 T2TGctqBM+PO0BcVsCP5slxWbU9tJxboSt8CsO0omnwugIFGv8n6bcVW4A4iaOYlvlrls
+	 cj4q75B76nUmcnO1Lb1Ki9XN3vp+GRNkILHlAxp/fQ+GomMzQ4KtymyKwtGmtoM3O87Va
+	 krjnJNoWlkTJWhMcah6bYnpTCnjgN85jzkD16z6HmgrO9dng0BQTrhnib1EaXifAQ1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SXrdVcGd;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=coVnMWQF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F5B606A31D;
-	Sat, 24 Oct 2026 09:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE49606A31F;
+	Sat, 24 Oct 2026 09:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SXrdVcGd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC29A1F01825;
-	Sat, 24 Oct 2026 09:02:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=coVnMWQF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A5B1F01825;
+	Sat, 24 Oct 2026 09:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792832537;
-	bh=gAsP5gtCLYqP7yWzios0wBdxc68jHD/QOc1Ds0GWkZk=;
+	d=linux-foundation.org; s=korg; t=1792832533;
+	bh=JQ9apkM488aWZ7OkJDRzzYXo46s6ZLCL7Z2hMXJ30iw=;
 	h=Date:To:From:Subject;
-	b=SXrdVcGd7xC0H4Qtenr9FWhu+tyVU/3KR8xyNc5HispnI65OqH7CbSniZXeYXWy4w
-	 Xt9VjXw92XbU3ee01yUOrN2qhB3PtykSYuc45hX+JXrkWLAY7MufHkVic4tHs3dS0U
-	 AFjt316Ka12o2LyLEFUDChWJvPqRgkJvgkEA5nN0=
-Date: Sat, 24 Oct 2026 02:02:17 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,usama.anjum@arm.com,stable@vger.kernel.org,pfalcato@suse.de,ljs@kernel.org,liam@infradead.org,jannh@google.com,ngocquy0700@gmail.com,akpm@linux-foundation.org
+	b=coVnMWQFSuAjuwC1rbhCUCZ2hE/3EM0lIECqHF23KT3WcbEDYRtuQt38eomoyn4OU
+	 35sQQoJ7rp05nHg96rsJC+bgCn7RWkulHwjWFR55AGjozgeL0a3FWDJjha2pnR/l1d
+	 HUQfQVsslvi21j48m9mQENSGmelBZyg1TeqKDAaA=
+Date: Sat, 24 Oct 2026 02:02:13 -0700
+To: mm-commits@vger.kernel.org,xueyuan.chen21@gmail.com,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,nickolai@csail.mit.edu,liam@infradead.org,jannh@google.com,ljs@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan.patch removed from -mm tree
-Message-Id: <20261024090217.BC29A1F01825@smtp.kernel.org>
+Subject: [merged mm-stable] mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch removed from -mm tree
+Message-Id: <20261024090213.97A5B1F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,96 +51,115 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
+     Subject: mm/mremap: populate calculated fields in vrm state correctly
 has been removed from the -mm tree.  Its filename was
-     fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan.patch
+     mm-mremap-populate-calculated-fields-in-vrm-state-correctly.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Ngoc Quy <ngocquy0700@gmail.com>
-Subject: fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
-Date: Wed, 14 Oct 2026 16:55:40 +0700
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/mremap: populate calculated fields in vrm state correctly
+Date: Mon, 19 Oct 2026 15:28:27 +0100
 
-The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
-/proc/<pid>/pagemap without holding a reference to mm_users.
+Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+introduced the vma_remap_struct helper to pass state sanely through
+mremap() logic.
 
-proc_mem_open() deliberately grabs only mm_count, so a consumer that
-touches the address space has to call mmget_not_zero() first.  Every other
-consumer in this file does -- m_start(), do_procmap_query(),
-show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does not.
+Part of this state is vrm->delta - equal to the absolute difference between
+vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
+respectively).
 
-Without that reference the target can reach exit_mmap() concurrently, and
-exit_mmap() calls unmap_vmas() while holding mmap_lock only for reading,
-which does not exclude the scanner.  For ordinary VMAs this is harmless,
-as free_pgtables() and remove_vma() run afterwards under mmap_write_lock. 
-A shared hugetlb VMA is different: __hugetlb_zap_end() frees the VMA's
-hugetlb_vma_lock inside the read-locked phase.
+This value is used to correctly charge accounted VMAs.
 
-walk_hugetlb_range() can therefore load vma->vm_private_data, have the
-lock freed underneath it, and then down_read() a freed rw_semaphore.  The
-load happens before the freeing side clears the pointer, so this is a
-use-after-free and not a NULL dereference.  Any unprivileged user can
-reach it with no huge pages configured, as hugetlb_reserve_pages()
-allocates the lock before the VM_NORESERVE early return.
+When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
+having performed the shrink of the VMA first, prior to any potential move
+(e.g.  MREMAP_FIXED | MREMAP_MAYMOVE specified).
 
-Pin mm_users across the scan, the way the other consumers do.  mmput()
-from the exiting task can then no longer reach exit_mmap() while a walk is
-in progress.
+However it does not recalculate vrm->delta, which results in incorrectly
+overcharging the VMA when both moving and shrinking a VMA.
 
-[akpm@linux-foundation.org: remove unneeded & undesirable test for !mm]
-Link: https://lore.kernel.org/20261014095540.3261469-1-ngocquy0700@gmail.com
-Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-Signed-off-by: Ngoc Quy <ngocquy0700@gmail.com>
+The charge leaks to Committed_AS globally, meaning a mischievous user can
+cause allocations to fail across the system in strict overcommit mode.
+
+Resolve the issue by abstracting the update of vrm->delta to
+vrm_populate_calculated() and invoking this from mremap_to() when
+vrm->old_len is changed.
+
+Additionally, update vrm->remap_type whose value depends on vrm->delta. 
+The field is not read again after the shrink, but it is the logically
+correct thing to do and protects against future changes which break this.
+
+Link: https://lore.kernel.org/20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org
+Fixes: d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-5
+Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Closes: https://lore.kernel.org/all/20261017233527.797191-1-nickolai@csail.mit.edu/
+Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/proc/task_mmu.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ mm/mremap.c |   17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-pin-mm_users-in-do_pagemap_scan
-+++ a/fs/proc/task_mmu.c
-@@ -3120,15 +3120,18 @@ static long do_pagemap_scan(struct mm_st
- 	size_t n_ranges_out = 0;
- 	int ret;
- 
-+	if (!mmget_not_zero(mm))
-+		return -ESRCH;
-+
- 	ret = pagemap_scan_get_args(&p.arg, uarg);
- 	if (ret)
--		return ret;
-+		goto out_mmput;
- 
- 	p.masks_of_interest = p.arg.category_mask | p.arg.category_anyof_mask |
- 			      p.arg.return_mask;
- 	ret = pagemap_scan_init_bounce_buffer(&p);
- 	if (ret)
--		return ret;
-+		goto out_mmput;
- 
- 	for (walk_start = p.arg.start; walk_start < p.arg.end;
- 			walk_start = p.arg.walk_end) {
-@@ -3183,6 +3186,8 @@ static long do_pagemap_scan(struct mm_st
- 		ret = -EFAULT;
- 
- 	kfree(p.vec_buf);
-+out_mmput:
-+	mmput(mm);
- 	return ret;
+--- a/mm/mremap.c~mm-mremap-populate-calculated-fields-in-vrm-state-correctly
++++ a/mm/mremap.c
+@@ -887,12 +887,6 @@ again:
+ 	return pmc_progress(pmc);
  }
  
+-/* Set vrm->delta to the difference in VMA size specified by user. */
+-static void vrm_set_delta(struct vma_remap_struct *vrm)
+-{
+-	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
+-}
+-
+ /* Determine what kind of remap this is - shrink, expand or no resize at all. */
+ static enum mremap_type vrm_remap_type(struct vma_remap_struct *vrm)
+ {
+@@ -905,6 +899,13 @@ static enum mremap_type vrm_remap_type(s
+ 	return MREMAP_EXPAND;
+ }
+ 
++/* Populate calculated fields. */
++static void vrm_populate_calculated(struct vma_remap_struct *vrm)
++{
++	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
++	vrm->remap_type = vrm_remap_type(vrm);
++}
++
+ /*
+  * When moving a VMA to vrm->new_adr, does this result in the new and old VMAs
+  * overlapping?
+@@ -1523,6 +1524,7 @@ static unsigned long mremap_to(struct vm
+ 
+ 		/* Set up for the move now shrink has been executed. */
+ 		vrm->old_len = vrm->new_len;
++		vrm_populate_calculated(vrm);
+ 	}
+ 
+ 	/* MREMAP_DONTUNMAP expands by old_len since old_len == new_len */
+@@ -1795,8 +1797,7 @@ static int check_prep_vma(struct vma_rem
+ 	if (vma_is_hugetlb(vma) && !align_hugetlb(vrm))
+ 		return -EINVAL;
+ 
+-	vrm_set_delta(vrm);
+-	vrm->remap_type = vrm_remap_type(vrm);
++	vrm_populate_calculated(vrm);
+ 	/* For convenience, we set new_addr even if VMA won't move. */
+ 	if (!vrm_implies_new_addr(vrm))
+ 		vrm->new_addr = addr;
 _
 
-Patches currently in -mm which might be from ngocquy0700@gmail.com are
+Patches currently in -mm which might be from ljs@kernel.org are
 
+mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
+mm-do-not-unintentionally-overwrite-atomic-vma-flags.patch
+mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags.patch
 
