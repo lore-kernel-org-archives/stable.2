@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833952;
-	b=SgUYmDGciUofWn1YM2dg9Z+mYhQfj/LgirAAT8haRM3uehODJNIsgrRWxGlm2+E0lQGW
-	 pVHPFrhe+ITQCqJTouli92HSXcm/sH7GfHslk/K3ZsTjodtG9XU10f1iZs6R0+ndnQe7G
-	 EDXa6Q3VEr0D2/P3SIw5p+dYZVEvqEeK3eNhy6ClIVZyesGKMwdvR+3yOq1DUVIRHUenc
-	 Ro7PTo9mOnJucls9GQa1HFW9cKp3JtU1+YNlkheDcW7WnW9+z10pXcoYNgE+lfGlNxX74
-	 uzWZAn4XoybE3uHFjbG4UnCn8j4oD7wlKTGho7dvsi/Hg6/YiXOGWLW4hEp0LKsTKFw==
+	t=1792834221;
+	b=4wD4DmGo9RAcTx/7sG0xtIyAcl7Ji5+ET9IDXEoYCdrbNfKtpJSNRIp0HbmYTrLIxu/a
+	 zGMPlIqZqu2FNOScRuVx2nOR9Ma5zsKZL9abWFWc+OMgzfZAaPkTa3XpgooQ9qXDRDWxO
+	 vyXJfz5HnzlQpwEVjQSU26ud9qKoshhrmsykZ1/xyhvBysJSCcw2KqQuRVXhJUeURRZ+4
+	 8lnFM8/MzValU9ygBSsmZHKzZGSag7bsqcCEDVJFT+o+DeTFJrX7Q017ik7gJZfGm+crr
+	 D+V3eRs8jnRIYGQijgVeH9mQENxKtflqnpfw+urlcFZREXl4jIHvOQsg0uqLtm3jSWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834221;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3nhKWaJ5D+aOCAZvNBWBLJ3p5M4hCjWtJQgkUM/vpx0=;
-	b=k6vxb7dBWiIduTNSYgL6cWs3/y9CEhIxd3Z3GxeS92WVYChvLmdcMOxDacYDCNOd5hzy
-	 k5I7Hia5VQSyIurjoDnW6oPNYmmLhiEoRraO1j4DJsxkFrhYlOjWl4bHJXGVe3BBSg/zE
-	 Ls5lTeh7n7nQn+hXhyiSw30HgkenRBUfpunp1FyA48nGg0QD8TgcRTu5LQsulv/F3F5LW
-	 Djd9NEeSADB2QATV0j3qTkhObtxs3f+sNnLb+3kpSAZCGIyfApe9usvLGRvlWOGZOgV8k
-	 Ozi3Av9kr3KyXS/0aY5D1w7PQBtxit0PxJg5XbDl7aqlpOodkxi2K4BYMETQ/5NABnw==
+	bh=T/uGr9O5F7z9D4gBA52zJiYNaYbWI1NRoXexG5R5ETM=;
+	b=ylxNQEF1RL2B3wNDd6QqxFQoiuAQd9bd6JANeP6CKDgo4mwKIItJw8AJrqS+aBz+VCp3
+	 jw9YLX/8jlF96bzc852TNX59QJxfOqGaIIi6gl6CoWS6yQ9iSOV4BnI5ZvOfVCSiki0MC
+	 5cSklAzWWgpzB+LNnS4cPG4OlUrh+/UY0yqN7Vjtt8UFKAWAbtffij8BJSx1NedMjGX/C
+	 3M1sn3gdoD0q2gjW8zOW2Q5X5BGASAEvHSExD+wkpzYJv1MZWYjFIj8VWEoBMPadapCEg
+	 yCQPtvoIN5EpABeBDZBRkEm2BqIvX8Jamncz/U8ZjEitykWbbjzVh0E6xu5bM/e+0iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kgN4gfDg;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YtgVCBXS;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57C1606A31A
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C57C1606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4999C606A31D
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:30:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4999C606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kgN4gfDg
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e831e86ebfso9635215ad.1
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:25:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YtgVCBXS
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso604839a12.2
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:30:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792833951; x=1793438751; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3nhKWaJ5D+aOCAZvNBWBLJ3p5M4hCjWtJQgkUM/vpx0=;
-        b=kgN4gfDg9n0s1aPOB2JQR06ZJxbegNNjnQ392ZReYj6CUIKnIGDKx/oWtUtAABPffZ
-         nG0koz/vtrHVRIVXFTIMsvhbPOUMoRwodOPMPPtiJXMIxKAgHpmUj6mkx8Ivq3AyfKsW
-         120PRgiEWrZoONHKEDXSBs7nFJhhZBzmhXQ2DgdEWLGgl9woM0PmSBZ+lPSCGMbl/W+T
-         gmWmvUFbzkOe6FH4hQhC+ydrsP1xvaBZMGQefnAAqksH7E6OFI+2iTzu/a/MgZKn+yH+
-         mO34bD8NodyBUiI8rNlGEGzyWWjgMWNNtZvMG00yawpk7mEqzdd7y1elczTqo05018Mj
-         N8PA==
+        d=gmail.com; s=20251104; t=1792834220; x=1793439020; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T/uGr9O5F7z9D4gBA52zJiYNaYbWI1NRoXexG5R5ETM=;
+        b=YtgVCBXSUeVcu8Mqv7J5aUu2nXj3G0PBC8eaw6IEYZbYR7toBD03RGII2GHcevewBc
+         uXSyjYy5oPmaYloGbnWwwG+1sAPv8l0xVLdGUPO7PCxTdlvM4MRy4sACFVDhRR1g+Lrh
+         6jcBf3IYdDe7ounKGQ+ZyL0iDvqPbUMkpyZfzNEWh1NgmatpeKW4YXvhE4m3BLnCL81f
+         euAlYL37fvC3VSc1e7PHCnwVSaTcJv0H8AjKwAzSEtBbOysjDdFULIs70a3bGTWmF0ne
+         m13LCDXUO0x0qrWH3/PVgXfCjZShU3lclP9biOLLPHmNEmjMG/IzwISZ51CDES475xJN
+         pqLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792833951; x=1793438751;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3nhKWaJ5D+aOCAZvNBWBLJ3p5M4hCjWtJQgkUM/vpx0=;
-        b=N56y15P3fekXo5BFbScKrZtHICrfKQcXl3873NBFRfwQ7obybZyoafxC+SrA6B63iU
-         u9QcuyCiKi1goKw+CC6jkhoZunSssUAoJNu45e/WIIgDYw9LfJ/w4uQPNnpWThMANXFZ
-         44zxSgYnzYf5RrxN0siyTlp11w80LFxHRvbdt8DUSW5ZGgAHAmKDaoe/kHYSCDdCIRxW
-         kJdLbXWUxAzwA5fL8lXCCjOZZTyZQUk3ROCtmGasn9G8A91o4IVbuUxoNBDIeAwlJxcA
-         /ZZ3CwFf1XUe0pTRS8LgurfKFzWVEcU4noRb/mHrJ5kCTNUxdGe3Ns21YJO+FsJOCrZS
-         pkmg==
-X-Gm-Message-State: AFq9FYIZbcEUos4gyBsfGFrpb78s3J8mrIyXZcYmChwBEj6A9y6TtY/u
-	9m/WOFPXc0g23MX/HakQFHeg7POBGqSelouuymM+1Ltaj/C03M8FAG9vbknb3Q==
-X-Gm-Gg: AYBFou2GqJr8HdPDcCkn60TdevfQLMgabN40Y8ESXtQBnVxy9+8UhXFDVc8aef3b2zA
-	8KJTJ8OH3Kj4uGlHqMI6PoWslzA1wAkTRRkkNz8wvSsgE/LA1674MeyF0F4LPNjLKJKptBRJ/vr
-	OhAzSILVQiyLwk9LRsjO49wL4H7gkr3Dee9YVcTZqqeUs7XRn6YwjrMc69cKVVspqiZJbAq/VKG
-	7pYV+tAuG9iV6HHmSkwLdTTRR8N9aDHZkHsEr0n8628fhxl5o3FhvKuAzMfrxxYai/S3NKARIMl
-	0lA6efDN6IyhDfhb4OyCd7oVhSNkmQfVOMjYXlZJIBXW9ZAlQMJWxR75N1+N+v9bdvLA9TdiUYJ
-	B4q1AWk/jk/j2R1meTKrdXUVh4Xi8Ce6DhPbOqDXo8kYQQWWRBXPINdmxnpiSFvgAYNjVIFrbMZ
-	/8YhPSWtoaRaqf1ANejZnpfxKk2/sl7f2sWrEjB4v1GdqRIzEAT5/xzN5aNbvZeiCIQbwN6ObLg
-	2fvDccW6784PnScbFoot0lmhY2toVYKD2+Oq84y5eJNYAjHAZi1IWzuwj7oTYhZqo9EQtTHFrTK
-	Qt4YoMgtx7NwoWNWuLCPdy7OnEwVbJXLBAu4PE0t3TrMwAg=
-X-Received: by 2002:a17:90b:5290:b0:3aa:fc22:8aad with SMTP id 98e67ed59e1d1-3adeae86217mr1366513a91.54.1792833951066;
-        Sat, 24 Oct 2026 02:25:51 -0700 (PDT)
-Received: from eric-hp.. (36-226-42-202.dynamic-ip.hinet.net. [36.226.42.202])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb24a83sm2304846a91.17.2026.10.24.02.25.46
+        d=1e100.net; s=20260707; t=1792834220; x=1793439020;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T/uGr9O5F7z9D4gBA52zJiYNaYbWI1NRoXexG5R5ETM=;
+        b=Mr8PLsBR1N+T5Fvrl2eKf22chQCcWS8TBeUmYe9htrdDx/KhMhs+kMtfzCqh5NG1g7
+         ltZcYiKg2mDLCes8vR/Ek1EPPLmj5PjKtS1GuLEOGPVA6k0efH+1cERIpINUhnRft38g
+         iYq6N+XaFBYl3zRwskaMlf2q5XoEGq3WgO4fPTyAVqTUEHUsIS6KZZXK0aQUeUPW/SY6
+         +2+NXsLyIyUwk437GxrcusA6uD/GNInPfiqb3QpH6kjJKMR3Qt1JFMMwSx6TabZzLNwO
+         JwYXc9znZehBbDO83KEN1v8OsqWvihOqs1nZM2GtC6h22hIZDfyUAWCStwvoht0PhdmV
+         wdvA==
+X-Gm-Message-State: AFq9FYJSGqB5tcURrwKJo9QrLcpo5wgd4KTreQR34MSxnrZDsOVYa//R
+	oHwH97yeolq4y2g5dBF6JY7Pk9OOID/2SdHQ52PhoR9qMEVCfPMuEyvR4KfM/FpNQDA=
+X-Gm-Gg: AYBFou3PQ79rfYAne9UxqEOJXk6wjRXnscHNaM5O/VBJee2LDSDe5Pn4qJ9k62KQHKb
+	dTcj1Lpb0ul13pSeO8ke1/eVOc6Nh3oV3FwlVLHwIridrv/bpbRCszcZZbhi6Uv0Yi1EX6DV7+l
+	dCGq06dwztRTsCb/MHk3DgFebi0ZQrhUx3WhpGSh5yGgBJ0JSB4mVWDPi7yEVYn5jqWBitARM2N
+	yR/uMKylgumJKbjlIeNKcHAwi5PfCbJm3Kw4VEXW6lU16zJzHf8LeiwxbdS6k0DEL1afyeDZ1ez
+	lIXVWLUdg5ztF1+cXJ+Umw6lkdKUu0FJ14Bp6TU6t2Slg1wwgQjemSMvz+BimWjwlSHG9HBhsGe
+	iTZtVffUlmF2w1rrZCXsrH01xIpQweUP2nwNY6rEhlukvOloIn76yKmRtiLw6v+M80Lc1RIb44D
+	aui48nLj/tJ0wI2Et/DtlAh/AmSF4IGjulvUxFfKm+hzMrpXBItfQvwipSJsJQEr2viwjccjto9
+	n37P36VXd6DaRD+Bie4iiOTCHqcWvy/CQi2i3BSNE+KOuoiQzXUhbzeT3cKMpcSzQer3X6m7PCO
+	O4AkHrJfnUQQvP16Qen0KS+xsPIrsb2C1e2gWejxQhI+Vw8+kxh2eiW3aVivGkaKnDqPV9yX9Et
+	j2drcMgIbdjPHqp1dms2qgVqUW4Bb41Y8gEQeUqdhvjtafJdI2gcJ+0d/YeGns5+XCBfHTKLl8Y
+	MJDH1NRLks9ORW+njaXjb4QupqvpdX93nvh0SCvrcXI4/0GQqswyBFKxWs
+X-Received: by 2002:a17:90b:4d09:b0:3ac:8ee5:e007 with SMTP id 98e67ed59e1d1-3adeaae619cmr1148374a91.20.1792834220445;
+        Sat, 24 Oct 2026 02:30:20 -0700 (PDT)
+Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9af32085sm4345075ad.2.2026.10.24.02.30.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:25:50 -0700 (PDT)
-From: Cheng-Yang Chou <yphbchou0911@gmail.com>
+        Sat, 24 Oct 2026 02:30:19 -0700 (PDT)
+From: Ting-Han Hou <ue081723@gmail.com>
 To: stable@vger.kernel.org
-Cc: Kuba Piecuch <jpiecuch@google.com>,
-	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
-	Andrea Righi <arighi@nvidia.com>,
-	Tejun Heo <tj@kernel.org>,
-	Cheng-Yang Chou <yphbchou0911@gmail.com>
-Subject: [PATCH 7.2.y] sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks off DSQs
-Date: Sat, 24 Oct 2026 17:25:13 +0800
-Message-ID: <20261024092515.22657-1-yphbchou0911@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <2026102109-rejoice-reboot-d810@gregkh>
-References: <2026102109-rejoice-reboot-d810@gregkh>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chris J Arges <carges@cloudflare.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Weiming Shi <bestswngs@gmail.com>,
+	netdev@vger.kernel.org
+Subject: Request: follow-up fixes for "net: add xmit recursion limit to tunnel xmit functions" in 6.6.y and 6.1.y
+Date: Sat, 24 Oct 2026 17:30:10 +0800
+Message-ID: <20261024093010.485-1-ue081723@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,77 +100,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Kuba Piecuch <jpiecuch@google.com>
+Hi Greg, Sasha,
 
-A task can be found on a non-local DSQ while the CPU which dispatched it
-is still running ops.dequeue() and hasn't cleared SCX_OPSS_DISPATCHING.
-The DSQ consume and move paths don't wait for the dispatch to finish and
-can operate on the task concurrently with the dispatcher.
+6f1a9140ecda ("net: add xmit recursion limit to tunnel xmit
+functions") was backported to 6.6.y in 6.6.160 and is currently in
+queue-6.1, but two upstream follow-up fixes for it were not. Please
+consider queueing:
 
-Call scx_wait_dispatching() in scx_move_local_task_to_local_dsq(),
-unlink_dsq_and_switch_rq_lock() and move_task_between_dsqs() before they
-operate on the task. In scx_move_local_task_to_local_dsq(), wait before
-scx_resolve_local_dsq() as it may update p->scx.flags.
+For 6.6.y:
 
-Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
-Fixes: cb86607ada73 ("sched_ext: Don't run ops.dequeue() with a DSQ lock held")
-Cc: stable@vger.kernel.org # v7.1+
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-(cherry picked from commit 2935062be77113c1c4565ca9d0c72180449aafee)
-[ Inlined scx_wait_dispatching(), which 7.2.y doesn't have, into
-  move_local_task_to_local_dsq(), unlink_dsq_and_lock_src_rq() and
-  move_task_between_dsqs(), as was done for the reenqueue paths in
-  7.2.y. 7.2.y has no scx_resolve_local_dsq(), so
-  move_local_task_to_local_dsq() waits before linking the task. ]
-Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
----
- kernel/sched/ext/ext.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+  c38b8f5f791e ("net: prevent NULL deref in ip[6]tunnel_xmit()")
+  77facb35227c ("net: increase IP_TUNNEL_RECURSION_LIMIT to 5")
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 8d4992e7e012..8d595c6c9c20 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2288,6 +2288,8 @@ static void move_local_task_to_local_dsq(struct scx_sched *sch,
- 	lockdep_assert_rq_held(dst_rq);
- 
- 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
-+	if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+		wait_ops_state(p, SCX_OPSS_DISPATCHING);
- 
- 	if (enq_flags & (SCX_ENQ_HEAD | SCX_ENQ_PREEMPT))
- 		list_add(&p->scx.dsq_list.node, &dst_dsq->list);
-@@ -2458,8 +2460,13 @@ static bool unlink_dsq_and_lock_src_rq(struct task_struct *p,
- 	raw_spin_rq_lock(src_rq);
- 
- 	/* task_rq couldn't have changed if we're still the holding cpu */
--	return likely(p->scx.holding_cpu == cpu) &&
--		!WARN_ON_ONCE(src_rq != task_rq(p));
-+	if (likely(p->scx.holding_cpu == cpu) && !WARN_ON_ONCE(src_rq != task_rq(p))) {
-+		if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+			wait_ops_state(p, SCX_OPSS_DISPATCHING);
-+		return true;
-+	}
-+
-+	return false;
- }
- 
- static bool consume_remote_task(struct rq *this_rq,
-@@ -2507,6 +2514,9 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
- 	lockdep_assert_held(&src_dsq->lock);
- 	lockdep_assert_rq_held(src_rq);
- 
-+	if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+		wait_ops_state(p, SCX_OPSS_DISPATCHING);
-+
- 	if (dst_dsq->id == SCX_DSQ_LOCAL) {
- 		dst_rq = container_of(dst_dsq, struct rq, scx.local_dsq);
- 		if (src_rq != dst_rq &&
--- 
-2.56.0
+For 6.1.y (on top of the queued 6f1a9140ecda backport):
 
+  77facb35227c ("net: increase IP_TUNNEL_RECURSION_LIMIT to 5")
+
+The queued 6.1 backport of 6f1a9140ecda already includes the
+"if (dev)" check from c38b8f5f791e, so only the limit change is
+missing there.
+
+Why:
+
+- 77facb35227c: with a limit of 4, setups with multiple tunnel
+  layers and MPLS lwtunnel routing drop legitimate packets with
+  "Dead loop on virtual device ..." even though there is no loop.
+  6.6.160 now has this regression, and 6.1 will get it with the
+  queued backport. Upstream raised the limit to 5; it is in 6.12.83,
+  6.18.24 and 6.19.14.
+
+- c38b8f5f791e: iptunnel_xmit() and ip6tunnel_xmit() can be called
+  with dev == NULL (e.g. SCTP and TIPC over UDP), and the new
+  recursion check dereferences dev when the limit is hit. It is in
+  6.12.78, 6.18.19 and 6.19.9.
+
+Both commits cherry-pick cleanly onto v6.6.160, and 77facb35227c
+cherry-picks cleanly onto v6.1.190 plus queue-6.1 (stable-queue
+fa04d3db75). I build-tested the affected objects (ip_tunnel_core,
+ip_tunnel, ip6_tunnel, ip6_udp_tunnel, the GRE/IPIP/SIT, VXLAN,
+Geneve, bareudp and GTP drivers, SCTP and TIPC UDP media) with W=1
+on both trees, with no new warnings. I did not do runtime testing.
+
+I noticed the gap while checking which stable trees carry
+77facb35227c.
+
+Thanks,
+Ting-Han Hou
