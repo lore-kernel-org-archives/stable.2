@@ -1,73 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792834776;
-	b=IG69JlVCLFqMJycKd4ab73DS9i1uUAa7ivkoa3/VCilHpMeLg5JkzlX19dKtkwMt3+P2
-	 e+P/FF3iC9Gz6iuw8igntKXKozgqi+X9yu1hksFAMXJVQRSg8iXKXaMbe/6ZVXbd4cCDP
-	 uXbozQdIPFDCN+1Yb1j/t8XXdZGhIrUoH1Yz6RWtGauMQ2waa0hyy+aqCK821E3uFQRIq
-	 h9m535IKOADyXSf71h8k3DPP4ewGbunPZ+uNsgb4+AlJ1VoznuQcvApcu3RHdbQ3aHmNZ
-	 E/qRrVTJWn2lDpE7Ko/vII0+qI33cFztjJs7VM/RYfCnCDfYD4e9t31PiyU7WjjD/Cg==
+	t=1792835398;
+	b=Wke6yg5s6LDA6M6/nSzxnPJsTUkYN2cbliP3+ebnl8tEFS9GZGAJGxC22RechewN3Wn+
+	 f6/Fi1MeT3MxIz/o/GpXyP5BLEXKAO2BxmYaxJR1GuI8T9gC54YkaafK2ghYXFB9cur36
+	 m220UgF3VRmghFRfXgV3g/4EjsWTENVT53m1VtxzmiU0JPnJ9tvWd538yXw2xRTZ276dp
+	 6+SOm3VLRpRNYjF4J2TPy2cKczeiOTln5kGVO7O7kpIJPVNMdgCToxWG6mQfZmL8aBKBE
+	 W6wk9gwaaalmEffYi4H+luouEm3bE6piFFGfxlyFoEdLZp+RrJSy4ovYWBstX3pwfvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834776;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=O89UOOPnVMoSsKkuPgNRDvLTn0CPrNMbUrG+HZR8wHA=;
-	b=RvrzhxeA5bAhwmNfZ8CpIggaiYltGeS5XcORpZOZRb/ePrIOpRRcgvEQuMYdjXXn3w5B
-	 VSOWgdWuIRWWCuGx8KJeNN8IdwPLI/A+cC1HoeAO+PTlj8uH8xfXJJeHapyQeiNB6BPck
-	 sLtas6u3+D1H9CinumXzWjjPXIdTX+bsstuhrGCh8T1a5BF5j851Atuunff1f2VoUbguZ
-	 LJk+zW+jAkiaBdGIKC2u2lO0iEByPdthDnetDzU5vMlj2HxaqI6zl/B42GVGCA4NH09Ni
-	 MjScWLmi8cc+pTtju3z3anqeUUfnGDEIcBBSKBOHE6SaodoM4mnUiBLObG0wmswQUpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792835398;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lwTdMqGia9yq5liIBK1rZlrWrNJYW5LvcryWEtwkQtk=;
+	b=IPzmMj0EWDR0isRG4fh9RQhI68+L4MzjjluzHZMTcV9kLrk0oIqW2SDKf9lZLqZPCM/8
+	 h7b7z0jHsVL/Sf9Sdj11FBWcL1fFPSC1FJosn4YnSaPyhxgIfKodqNrUVEQfPdssy9Nls
+	 j7ISgMd9DBCIH8Oxya20TsH89kNDDgzQLLD4zdx2HM6K/IEOFnAKNKQZ85k3RZ4DXWneo
+	 YnN5anjWI0LI6P34DrTjhxLl7hMrF/9fJr7pR2scEBwZeY/27OxdIUpGdXQy4g7ZnX50o
+	 SZ8y30uSyWG+Q4f0JsHqUWQJzVaE2ozXvPUM5qfzkVR7WzMt3kc7qJk44Xv2b7RLVNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=fgfrc6iP;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NrnPw9R5;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE99606A31D;
-	Sat, 24 Oct 2026 09:39:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE99606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45B2606A31A
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 09:49:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45B2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=fgfrc6iP
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=O89UOOPnVMoSsKkuPgNRDvLTn0CPrNMbUrG+HZR8wHA=; b=fgfrc6iPA5zc+4jaXI372puHxK
-	z7qe0tUU549j9ynt+Qlivf5ECjJFh63G2qO+9zLvwU2FBNxG1zHvlk5d/ZEabBQnx+iqcX3Yph3FL
-	Vh5fT5C9QyNhCkSPHzyRfUKm+aQoPwqc3qs+oopzxuuDjS9QfZJe0Ke13kfHnNY3fltCQQd/KDGWO
-	1qxDUM7FxLtHqgirvaJX30jgxEtwRR01QO9Nln72PqwpozDVRBuuCzgubjm7CwezFfYmjYNk1w3sB
-	4o7k+JHLPQYv+L9cjmtWlHgct0Mzr4qe6bIeZA5JyTS7rD4RtXxJy/iUrmG2NW2iax95jkZk1S0Ze
-	S6pj9t9A==;
-Received: from [151.115.150.205] (port=36518 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xKYDo-0000000FNZU-2Trt;
-	Sat, 24 Oct 2026 11:39:27 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/2] ima: discard modsig when detached data cannot be supplied
-Date: Sat, 24 Oct 2026 09:39:17 +0000
-Message-ID: <20261024093918.2929374-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261024093918.2929374-1-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261024093918.2929374-1-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NrnPw9R5
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3549077eec.0
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:49:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792835397; x=1793440197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lwTdMqGia9yq5liIBK1rZlrWrNJYW5LvcryWEtwkQtk=;
+        b=NrnPw9R55yeg8Jd0Iww0nTeSzJ8kHn9uCgfLJfsazObHw4puq4xhR2lo+jZPDDrqEB
+         gPXsljPb63ehYiAc6zcmMPGWcOzfO2gqRo0dR0ndvYlWMDv3aNtMS/O2K9EHNyC2J95r
+         3Yne5rxTEaGM2fM2T31C1/E9fJn+U9+i2tEEUc9sE7HC+WMtGbmFy0ubYMtw8uh18+6f
+         UdeSHtwXndrZf4JDKMA8Wiq3Mmc3ogNBGxAOJ8vLndm79efT/YxobKpz7rRtQ8Wmw/1z
+         nevdx9BrxXPLbFI1a5xCSb/uaXAgtHkAeloVCpCC++IFpoKJSXyf1bT0xuXwtkolWei9
+         dD9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792835397; x=1793440197;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lwTdMqGia9yq5liIBK1rZlrWrNJYW5LvcryWEtwkQtk=;
+        b=vYLScCqII/VW4ccSWX/ec86cxe86+3td1ByjKhEtZeOpDDdSz77wDdvbp1EuRdv9xi
+         YA8DaA/LPsoWelp4RZc88sJnc5hNSUuKSoSTEKe3IIbwysKwhrLW6UduIwBZomnchyA7
+         UBJeMHpJXFKoP3c/Dsgg+QZZdftWC/3H1pSRw6NV6AY8tSsdtnH7wxc5bSSMIIrqEm0V
+         ZnqnXdcNNN3oTUY/EQxtdS2fvqax/S5ePX6FT/5whv7+O9mW2MD2W5qezDen/WVjoaXJ
+         jWJwTrWh3HCDHkHfUEWZHEpND/17XnVfNvM55lnZlvXwFJZtDcXyq1/G2yehc0R6qDH1
+         1rJw==
+X-Gm-Message-State: AFq9FYI+W7nzpVVmuNgSww0v8fdZQKGSfK4lunswBvLcnO87VXkzBQht
+	jKVbDmyGta18YM+2Q7PPqZgeRUCYG8XqilVeXecSpwz6fLNIwe/t1s0Kea+tmY9J9Oo=
+X-Gm-Gg: AYBFou0x5VBlJ4p+MSnhP4s5p4NDPHU3PLQVNChaIuFZJNNKmwYWDzkRHThKUO9P7zA
+	rw47584sr2/Pz1e9r2j7sI/2+HnPHyfGx3kCQY1Eju/ceAdgxoXBU5hY84RmWy+iRVLKhB2jDGf
+	rieBTX3SDC5Mqr7qyq//atck2RcM4RsN2k6vxjtOeLDaWJQe7eSADyoJaD5U5wJeshaT9LbgydA
+	f2/93MnwpPe7S+7ng6+Wgs8hTi7BjEnQmF3+9kwStyr+WTBj62vqjhxAwzS8JcoyHSnRkfIXYwa
+	Y4ENEm1qUDDQjLs5f8OqdILThywwDgXzfki+b5grrXk1rhuIHDmrB8YaD5DyXFawDxA51B1/E6Q
+	5GlyI0rYUMYCt4AC51kCWuOEilcRLPfDeVb4wgpFyO91K0wK+xLFhGJ4HjQpir7etQPctSXump4
+	nc2eUkIzmRkS00Sa3lOa7cHRWa1x/Lv1AlypgnBkz9/jOfZPIKMSeVj3yAixe8YHQhR3OCrfh2m
+	9POac19r7Usw8irR/x3vCm1mKyhwFa7Rm4hSXVZYnj/2CIz2AZjVcJ5/UAKtnDU2IR2adMCz9B1
+	IvnmTPDXu10XvzLz3TssK/5WoD5nGgvfkQOjQqhk9lfVz+VVfT2ovLlITZ/4YdFWkSeZhnu9LzW
+	s3tInLgJqGOCfIo59juIOEsymgvPpQyknlvjyAQhyFbjJOScFsKKNmIX5J+8g0XPqn16aygoJHe
+	xv5GLuyJAI/o0I0PKs0fIGl03lJPnO8Dk8AYDI/G2DrTH04XsQzgQhvqgjOci0wZFE20xxkLOEr
+	QCi5A==
+X-Received: by 2002:a05:7022:2229:b0:185:5a96:ef59 with SMTP id a92af1059eb24-1993f8c2973mr3355990c88.34.1792835396786;
+        Sat, 24 Oct 2026 02:49:56 -0700 (PDT)
+Received: from desktophank.localdomain (111-242-220-176.dynamic-ip.hinet.net. [111.242.220.176])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a37c88aasm4985963c88.23.2026.10.24.02.49.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 02:49:56 -0700 (PDT)
+From: Ting-Han Hou <ue081723@gmail.com>
+To: stable@vger.kernel.org
+Cc: David Carlier <devnexen@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.6.y] gtp: disable BH before calling udp_tunnel_xmit_skb()
+Date: Sat, 24 Oct 2026 17:49:49 +0800
+Message-ID: <20261024094949.793-1-ue081723@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,182 +99,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-ima_collect_modsig() supplies the file contents to the parsed PKCS#7
-message as detached data. If the message already contains embedded data,
-pkcs7_supply_detached_data() returns -EINVAL, but IMA ignores the error.
-ima_modsig_verify() then verifies the embedded data instead of the file
-being appraised.
+From: David Carlier <devnexen@gmail.com>
 
-Make ima_collect_modsig() report whether the file data was supplied,
-and discard the modsig if it was not.
+[ Upstream commit 5638504a2aa9e1b9d72af9060df1a160cce2d379 ]
 
-Fixes: 15588227e086 ("ima: Collect modsig")
+gtp_genl_send_echo_req() runs as a generic netlink doit handler in
+process context with BH not disabled. It calls udp_tunnel_xmit_skb(),
+which eventually invokes iptunnel_xmit() — that uses __this_cpu_inc/dec
+on softnet_data.xmit.recursion to track the tunnel xmit recursion level.
+
+Without local_bh_disable(), the task may migrate between
+dev_xmit_recursion_inc() and dev_xmit_recursion_dec(), breaking the
+per-CPU counter pairing. The result is stale or negative recursion
+levels that can later produce false-positive
+SKB_DROP_REASON_RECURSION_LIMIT drops on either CPU.
+
+The other udp_tunnel_xmit_skb() call sites in gtp.c are unaffected:
+the data path runs under ndo_start_xmit and the echo response handlers
+run from the UDP encap rx softirq, both with BH already disabled.
+
+Fix it by disabling BH around the udp_tunnel_xmit_skb() call, mirroring
+commit 2cd7e6971fc2 ("sctp: disable BH before calling
+udp_tunnel_xmit_skb()").
+
+Fixes: 6f1a9140ecda ("net: add xmit recursion limit to tunnel xmit functions")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Link: https://patch.msgid.link/20260417055408.4667-1-devnexen@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Ting-Han: this tree does not have commit e3411e326fa4 ("net: ipv4: Add a
+  flags argument to iptunnel_xmit(), udp_tunnel_xmit_skb()") or commit
+  1bec9d0c0046 ("ipv4: Convert ->flowi4_tos to dscp_t."), so the
+  udp_tunnel_xmit_skb() call differs in context; the change is the same ]
+Assisted-by: LLM
+Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
- Documentation/security/IMA-templates.rst  |  3 ++-
- security/integrity/ima/ima.h              |  7 ++++---
- security/integrity/ima/ima_api.c          | 10 +++++++---
- security/integrity/ima/ima_main.c         |  2 +-
- security/integrity/ima/ima_modsig.c       | 10 ++++++++--
- security/integrity/ima/ima_template_lib.c |  4 ++--
- 6 files changed, 24 insertions(+), 12 deletions(-)
+6f1a9140ecda ("net: add xmit recursion limit to tunnel xmit functions")
+is in 6.6.160, so the per-CPU recursion counter it added is used from
+this process-context path there too.
 
-diff --git a/Documentation/security/IMA-templates.rst b/Documentation/security/IMA-templates.rst
-index 15b4add314fc9..de7a3dfee33db 100644
---- a/Documentation/security/IMA-templates.rst
-+++ b/Documentation/security/IMA-templates.rst
-@@ -69,7 +69,8 @@ descriptors by adding their identifier to the format string
-    algorithm (field format: <hash algo>:digest);
-  - 'd-ngv2': same as d-ng, but prefixed with the "ima" or "verity" digest type
-    (field format: <digest type>:<hash algo>:digest);
-- - 'd-modsig': the digest of the event without the appended modsig;
-+ - 'd-modsig': the digest of the event without the appended modsig, empty
-+   when no signature digest can be exported;
-  - 'n-ng': the name of the event, without size limitations;
-  - 'sig': the file signature, based on either the file's/fsverity's digest[1],
-    or the EVM portable signature, if 'security.ima' contains a file hash.
-diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
-index b502854f28ee7..6280d7ec23326 100644
---- a/security/integrity/ima/ima.h
-+++ b/security/integrity/ima/ima.h
-@@ -431,7 +431,7 @@ int ima_get_action(const struct mnt_idmap *idmap, struct inode *inode,
- int ima_must_measure(struct inode *inode, int mask, enum ima_hooks func);
- int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 			    void *buf, loff_t size, enum hash_algo algo,
--			    struct modsig *modsig);
-+			    struct modsig **modsig);
- void ima_store_measurement(struct ima_iint_cache *iint, struct file *file,
- 			   const unsigned char *filename,
- 			   struct evm_ima_xattr_data *xattr_value,
-@@ -559,7 +559,7 @@ static inline void __init init_ima_appraise_lsm(const struct lsm_id *lsmid)
- #ifdef CONFIG_IMA_APPRAISE_MODSIG
- int ima_read_modsig(enum ima_hooks func, const void *buf, loff_t buf_len,
- 		    struct modsig **modsig);
--void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size);
-+bool ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size);
- int ima_get_modsig_digest(const struct modsig *modsig, enum hash_algo *algo,
- 			  const u8 **digest, u32 *digest_size);
- int ima_get_raw_modsig(const struct modsig *modsig, const void **data,
-@@ -572,9 +572,10 @@ static inline int ima_read_modsig(enum ima_hooks func, const void *buf,
- 	return -EOPNOTSUPP;
- }
- 
--static inline void ima_collect_modsig(struct modsig *modsig, const void *buf,
-+static inline bool ima_collect_modsig(struct modsig *modsig, const void *buf,
- 				      loff_t size)
- {
-+	return false;
- }
- 
- static inline int ima_get_modsig_digest(const struct modsig *modsig,
-diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
-index 45701f04ba62f..7859c9d1a27f5 100644
---- a/security/integrity/ima/ima_api.c
-+++ b/security/integrity/ima/ima_api.c
-@@ -235,6 +235,8 @@ static bool ima_get_verity_digest(struct ima_iint_cache *iint,
-  *
-  * Calculate the file hash, if it doesn't already exist,
-  * storing the measurement and i_version in the iint.
-+ * If modsig is provided, discard it when detached data cannot be supplied
-+ * so ordinary measurement and xattr appraisal can proceed.
-  *
-  * Must be called with iint->mutex held.
-  *
-@@ -242,7 +244,7 @@ static bool ima_get_verity_digest(struct ima_iint_cache *iint,
-  */
- int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 			    void *buf, loff_t size, enum hash_algo algo,
--			    struct modsig *modsig)
-+			    struct modsig **modsig)
- {
- 	const char *audit_cause = "failed";
- 	struct inode *inode = file_inode(file);
-@@ -262,8 +264,10 @@ int ima_collect_measurement(struct ima_iint_cache *iint, struct file *file,
- 	 * the file digest without collecting the modsig in a previous
- 	 * measurement rule.
- 	 */
--	if (modsig)
--		ima_collect_modsig(modsig, buf, size);
-+	if (modsig && *modsig && !ima_collect_modsig(*modsig, buf, size)) {
-+		ima_free_modsig(*modsig);
-+		*modsig = NULL;
-+	}
- 
- 	if (iint->flags & IMA_COLLECTED)
- 		goto out;
-diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-index fed80da3ee096..336e17ec4f7a3 100644
---- a/security/integrity/ima/ima_main.c
-+++ b/security/integrity/ima/ima_main.c
-@@ -422,7 +422,7 @@ static int process_measurement(struct file *file, const struct cred *cred,
- 
- 	hash_algo = ima_get_hash_algo(xattr_value, xattr_len);
- 
--	rc = ima_collect_measurement(iint, file, buf, size, hash_algo, modsig);
-+	rc = ima_collect_measurement(iint, file, buf, size, hash_algo, &modsig);
- 	if (rc != 0 && rc != -EBADF && rc != -EINVAL)
- 		goto out_locked;
- 
-diff --git a/security/integrity/ima/ima_modsig.c b/security/integrity/ima/ima_modsig.c
-index 632c746fd81e4..e640a9a53508e 100644
---- a/security/integrity/ima/ima_modsig.c
-+++ b/security/integrity/ima/ima_modsig.c
-@@ -96,8 +96,12 @@ int ima_read_modsig(enum ima_hooks func, const void *buf, loff_t buf_len,
-  * Since the modsig is part of the file contents, the hash used in its signature
-  * isn't the same one ordinarily calculated by IMA. Therefore PKCS7 code
-  * calculates a separate one for signature verification.
-+ *
-+ * Digest export is best-effort; not all signatures expose a single digest.
-+ *
-+ * Return: true if the file data was supplied, false otherwise.
-  */
--void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
-+bool ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
- {
- 	int rc;
- 
-@@ -109,11 +113,13 @@ void ima_collect_modsig(struct modsig *modsig, const void *buf, loff_t size)
- 		sizeof(struct module_signature);
- 	rc = pkcs7_supply_detached_data(modsig->pkcs7_msg, buf, size);
- 	if (rc)
--		return;
-+		return false;
- 
- 	/* Ask the PKCS7 code to calculate the file hash. */
- 	rc = pkcs7_get_digest(modsig->pkcs7_msg, &modsig->digest,
- 			      &modsig->digest_size, &modsig->hash_algo);
-+
-+	return true;
- }
- 
- int ima_modsig_verify(struct key *keyring, const struct modsig *modsig)
-diff --git a/security/integrity/ima/ima_template_lib.c b/security/integrity/ima/ima_template_lib.c
-index 9bd80ca1159a2..585cd59f00a2e 100644
---- a/security/integrity/ima/ima_template_lib.c
-+++ b/security/integrity/ima/ima_template_lib.c
-@@ -478,8 +478,8 @@ int ima_eventdigest_modsig_init(struct ima_event_data *event_data,
- 		if (rc)
- 			return rc;
- 		else if (hash_algo == HASH_ALGO__LAST || cur_digestsize == 0)
--			/* There was some error collecting the digest. */
--			return -EINVAL;
-+			/* Keep the ordinary measurement without an exported digest. */
-+			return 0;
+Build-tested on v6.6.160 (x86_64, gcc 15.2, CONFIG_GTP=m): no new W=1
+or sparse warnings in drivers/net/gtp.c. Not runtime-tested: I could
+not find an existing tool that sends GTP_CMD_ECHOREQ (libgtpnl does not
+use it), so the echo request path itself was not exercised.
+
+ drivers/net/gtp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index f0ee46d3c873e..39515aba86e68 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -1827,6 +1827,7 @@ static int gtp_genl_send_echo_req(struct sk_buff *skb, struct genl_info *info)
+ 		return -ENODEV;
  	}
  
- 	return ima_eventdigest_init_common(cur_digest, cur_digestsize,
++	local_bh_disable();
+ 	udp_tunnel_xmit_skb(rt, sk, skb_to_send,
+ 			    fl4.saddr, fl4.daddr,
+ 			    fl4.flowi4_tos,
+@@ -1836,6 +1837,7 @@ static int gtp_genl_send_echo_req(struct sk_buff *skb, struct genl_info *info)
+ 			    !net_eq(sock_net(sk),
+ 				    dev_net(gtp->dev)),
+ 			    false);
++	local_bh_enable();
+ 	return 0;
+ }
+ 
 -- 
-2.47.3
+2.53.0
 
