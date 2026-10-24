@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792804908;
-	b=Kw6DBLPxWfXVfmZ0hdNnFd7ZkyxWFeGzRkP5ZPIv0DPFEI9NU2XVpxf9GeV3jN42hXUe
-	 D0Wz6kFrDnrMyrkKOsWAtPY09602liiSN54blRQIS5VVJH3I6Ks+/WhnM9lwTixh5/dr8
-	 nRZZsU28Cbqv5bq5KJSxYnUFxSJxrYJmBnegMqQuiH2ahBUUyHIDCSTyqzpSOQf6BpK94
-	 r6IJyWxTe42wuhqpIDgrAvPR/O7cgjOYDkNC4NaZW8SnBVJY2kCVh+IS1O5Sx1KSBQSJD
-	 UO9lpnSuUbm2YDzAzJ+tpomjrOaIR64MfkHa4FMaejM2EGGb3YE9DCG69hzh29b9lWQ==
+	t=1792804956;
+	b=CHbAIX5cZhE6E3lUwG30do0B3dvlikKAmxKaVRbHqCpDMnu7wtl0d1sUKahJevNgFOdh
+	 oWWOk7NQJViH5WkHobIK01eJot8YTxZ8Yu8I7bfaTg/K5qIW8+YpzvLLkaRVJPOLnpW9g
+	 dT4iIcQEH8G5+Cp57+7fm0FXcKOxZKMnaX1tsebsITTkfbyjbdLVJft6xrJIGJpf7oHPw
+	 AoR++p5528SfcntTPeFZKQz+3QHCIt+4n9FIBEE5f5hFaY3YPH6uG1Qs2dnTos1/Ihom4
+	 Z+c5FgKRG1tVteIwjJNJMo7AbtU7JapYLG0CF4KaQLj+RdTOKjKyRd5q4kZO+FvBoqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792804908;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+1pFIlfxPdgrE17LxWPeou9jlG9PtRn+Bk4wjcL2E4U=;
-	b=4RjhN17UJ3TMcm+YjqCN9wjLhalKPb8aL/hNahYb+u/yQRgmGjy5c8PXORKvvhjH+9NQ
-	 z44kHVvpXs02LkpGjzdjTTG0tLN+CWUpqUMgFmURvTc8uxiDCby+u7rLnXgj0pRSzTqN/
-	 7Raa0oPYJsG2AVU1ZWeREaFUijRm3U7/08+AtM54FPp98EVBKdlxgCPrzyTuBi25nlVtD
-	 GQujnTDHLyxjX6yEiLO6hasPUExHTkaQZsNFGKu/M2pmgumafx1ftZebMxui4JoDSwoTt
-	 7iLCR6Tn086nCmMlkOMr94t5FMG6Ef4k6ssettVeP1pzciXUI66pi5au4G3kPRP2OVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792804956;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wYR2M2iVhPBLmlpr1xOyUZypnHKQt/AYQu7IBgbQBZU=;
+	b=HEtCKC/x0jr7Drr0mRoa00yBBYCEB++RnxDA0lZmX+pWyu6+YqDKcxbVMcsbwZLqRGfB
+	 CjL6+OM1QoGU3zsaXJWTrJBtZjmO1rOHRc4cR0mCSl/T9a2E8+dRIg4GsWv8Moc5XMoOL
+	 gKwL6Uor3BpEaYPB8ZIskd6xh/CsOlL4D+1+5K24fkeCMQVcKqBWznv4YoVvIC3dY86ZO
+	 OJUBZCAJIDG4BARAwfc35hNcsNPLISjg1jJM57i2ra55BpqW9vboofVVh04f0cQ5wYGoF
+	 SPubuGZDC9x2lNJ/jL0yE1ND21IcfGJGu+KN3eJCYwu7GJ0aVEfYQvNT8aqy/dkfzJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=oWSGdFib;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B025dT8I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D657606A31B
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 01:21:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D657606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D645C606A31A;
+	Sat, 24 Oct 2026 01:22:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=oWSGdFib
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48dc202a60eso716126f8f.3
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 18:21:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1792804907; x=1793409707; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+1pFIlfxPdgrE17LxWPeou9jlG9PtRn+Bk4wjcL2E4U=;
-        b=oWSGdFib3uUaQyYoDruz8ZbgvJ6ZPVPFpEseRpF5LDMBnKx4Tqix9anmcaTrdQ/Z73
-         rr/ybL5tJPla9lQx3l+ONTW2/PZ3fgQtgumhY1OuNuX4/cs/yhFUJe0zUmk33XZUpLfz
-         MmT1XJS1FwVGsGmxz4yMGAaNRsG9y2X6vVMpnjV3EvXbtgxibLuFjsZcizch6Edwct6X
-         UQE8Ooj5Iyo/N1HlATKPNAAAC5D+9eRIO01k6DiLB9O8gSQDu7QgkakqLxjW8+Yh+1CU
-         JQhazLgUa8FxcP5rFEX7xtbpK0iYz/J7NSyGfYp2KKnq2ZUsRVWox85FpUKTyGkSbHgL
-         Dzfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792804907; x=1793409707;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+1pFIlfxPdgrE17LxWPeou9jlG9PtRn+Bk4wjcL2E4U=;
-        b=UzSwhKgiTufLH5DfEmi4joWYgVrRTMKtuQmH8WW8GdhxFYk2u4M0Pa6w4HGIc0ty2D
-         KC6YNAqoVybX6SUKNs0ZjkW5jfwfrZQ6JA5Y12SO8xEak7YNgFguEAGSN+2T28qITOW8
-         ipv5BfeXALRhqhZFrAQYBs2iTFWcCvKZ5pA/BArr5AncCqEzsFCHFUlHt3TMYtol4ZPA
-         X4abRRJi9uuYgYRGq/ZDvsDn59Qa6/IXpL7rQuW+8XX5X8tlvyeYFYoVOfOU45VHN6y2
-         0tGUQnOanVI9GyMK4jZmcevC5PQGEJOdiV2pfmRz/fYAEc85AZOUAi+/KWo9jNxO9vcZ
-         lUKw==
-X-Forwarded-Encrypted: i=1; AKwUvByKCTruLxyngaQwRipFqHw1caQoHrRkkMbIJbPjDG68NGEQTts8RV2FELaC7fJaoj/PnqjQJVs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhOLmMYKkRvWRFe9RDfWUYbkXosQFpcWemh55wFU+sqAtxBalx
-	vFkMD7AtpKWaon4NCPFZG3U9VaihBFvziaxhDpzsyq4rVnUQOvDVLek=
-X-Gm-Gg: AYBFou0WkwTdhxk/7Cue4YYV/bc+mddnvfwfm9aaIetESaOTFgnUfz4eRzUwzO6oOUq
-	GisZIdK0vzo5pv8r3e4cll505ssPromhhue0vrKWfeLFpkCFYlcqge/jrlgJoOqx2Qj+Yo+zTix
-	//+HhcTYIvaMeetgwdIEwsgltD22GfP2Dkjl7wvIQXFGE5kyQ4iFAjQb0RJjUa3tkz7mCVlNALT
-	+yIFdYekZ2ks5RpRVNExtF75DRl5UJMW0MIexyj4fYiH5V+YVAyKfaWOGn1EWAvdwggCIPz3jsf
-	OtGtVLBiwTuJDRFCQ31U8gm2iLxrusEYozANKaPTT9Ys9i64dcI6kZFhBf6rYe5Qc9yrpt2zl8l
-	HXFuajqalQPlvYeNbFGAQOaBBNfPqf22faPRbG3lzzQg9oQBxMseXcm/wngwyEpu4u2BKROo+sf
-	Tg2ZLDCGVvEzT074WabzuGt8gOHYDCptQQIRAY/pmn30Frj/SD6X1J7VhovMYYaarVDmMhGrpuw
-	vpvHbdRYhsBYa1ZtZqT0FgBXVxZ25MjeX6Q8EG5LUPhZ74Kmhg6O+WaVKbsAqCjj2ruqoK/E+FT
-	Vc0dYInQOhNd+TD6rqTlqieyJqKJsM+7
-X-Received: by 2002:a05:6000:2990:20b0:48e:2bf4:e7f1 with SMTP id ffacd0b85a97d-48e3eb924c5mr625887f8f.39.1792804906661;
-        Fri, 23 Oct 2026 18:21:46 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ac6b7.dip0.t-ipconnect.de. [91.42.198.183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4d8dsm1343707f8f.36.2026.10.23.18.21.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 18:21:46 -0700 (PDT)
-Message-ID: <bd58565b-d6b8-4736-a745-bcac9ac89e0e@googlemail.com>
-Date: Sat, 24 Oct 2026 03:21:37 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B025dT8I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC7C1F01825;
+	Sat, 24 Oct 2026 01:22:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792804955;
+	bh=wYR2M2iVhPBLmlpr1xOyUZypnHKQt/AYQu7IBgbQBZU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=B025dT8IqnKo9J9ah00/inNxyi1JmmsDJJJ84SWS51C1yg2CHTP2TJ9S3DJ9/6Vn/
+	 RQmLnqeHRn1yeUpspA5wQAgRVT9y1tNjL1JUW8CuEDzDK/JROD6+0inGu7yUMuiuFg
+	 uk2qy+x7R2Y9P0ug92ptKFpmEd1YiZNGS2cCJ9qpN7oAo4G/+S6opzTkpb6ho7bnpa
+	 A+mwAdsN1WsteR72rOzaIFWayrfMoQntkqSDKZLoQTgRxNAu/b3lAzylySiKi7+bB/
+	 mPRUP/sbknkQuYdtSxDm3xpAyGogKgZ4KZDnZ5aIf39MgYzeOyawsS0CXYX6h2dNOH
+	 A46vVSWT75AXg==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon/core: reset watermark wait state on each iteration
+Date: Fri, 23 Oct 2026 18:22:27 -0700
+Message-ID: <20261024012228.88920-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179277129124.2.16132047926074873101.damon-empty-schemes@gmail.com>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,54 +62,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.2 000/242] 7.2.13-rc1 review
-To: "Barry K. Nathan" <barryn@pobox.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Pavel Machek <pavel@nabladev.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "stable # v4 . 9+" <stable@vger.kernel.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261023163713.816071858@linuxfoundation.org>
- <atvHKoRHHjKV4l8A@duo.ucw.cz> <atvS68GhCvmAphrQ@eldamar.lan>
- <7540e723-054e-43a2-859d-616010fc7bea@gmail.com>
- <d2810142-fd45-485d-b325-f6d494690747@pobox.com>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <d2810142-fd45-485d-b325-f6d494690747@pobox.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 24.10.2026 um 01:42 schrieb Barry K. Nathan:
-> On 10/23/26 3:44 PM, Florian Fainelli wrote:
->> Same here as well, bisected down to: a0c935bd1f76 ("fs: add umh argument to struct kernel_clone_args"), it looks like 
->> we need to cherry-pick 14adbd5341aa ("fs: stop sharing fs_struct between init_task and pid 1"), with that I can boot a 
->> kernel.
+On Sat, 24 Oct 2026 00:01:31 +0800 Aveline Noir <jm5905938@gmail.com> wrote:
+
+> Found while reviewing the DAMON source code that if an online commit 
+> removes all schemes while kdamond is waiting for watermark activation,
+> the scheme loop becomes empty but min_wait_time keeps the previous 
+> positive value.  kdamond then keeps sleeping instead of resuming 
+> monitoring without schemes.
 > 
-> I'm experiencing the same problem as everyone else on 7.2.13-rc1, and
-> I can confirm that cherry-picking 14adbd5341aa fixes booting for me too
-> (tested on both amd64 and arm64).
+> Initialize min_wait_time and init_wait_time on each loop iteration so
+> the wait is calculated from the current schemes and an empty scheme
+> list resumes monitoring.
 
-I see the same boot failure on my 2-socket Ivy Bridge Xeon E5-2697v2 server, and I confirm that applying 14adbd5341aa 
-("fs: stop sharing fs_struct between init_task and pid 1") on top of 7.2.13-rc1 fixes the issue for me, too.
+Nice catch and fix, thank you Aveline!
 
-The kernel then boots and everything seems to work normal.
+> 
+> Fixes: 6e74d2bf5a26 ("mm/damon/core: add a new callback for watermarks checks")
 
-Beste Grüße,
-Peter Schneider
+But, this is a preparational patch for online commit support, right?  Shouldn't
+the Fixes: be the commit that enabled online commit?
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+Also, this bug seems nasty to me.  Users could work around the issue without
+restarting DAMON only by installing a scheme that has watermarks that activates
+DAMON again, and then removing the scheme again.  I think it deserves to add
+this to commit message and Cc stable@.
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Cc: <stable@vger.kernel.org> # 5.19.x
+
+> Assisted-by: LLM
+> Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+> ---
+> An x86-64 KVM test using free-memory watermarks reproduced the stall
+> with nr_schemes=0 followed by commit.  The same test resumed monitoring
+> with this fix.  DAMON KUnit and selftests all passed.
+
+Thank you for keep adding this useful test results.
+
+Assuming you agree to above suggestions, I applied  this patch to
+damon/next [1] tree after applying my suggestions like below.  We are in the
+middle of the merge window.
+It may better to let mm.git maintainer (Andrew Morton) take time for pull
+request works, rather than adding more changes that are not really urgent.  I
+understand this series is not really urgent.  Hence, Andrew might not add this
+patch until next -rc1 release.  In the case, I will request adding this to
+mm.git after the next -rc1 release.  So, no action from your side is needed for
+now.  Let me know if you find anything I missed, or disagree to the suggestions
+or the urgency judgement.
+
+Changes to the patch file that I made:
+
+'''
+@@ -8,6 +8,10 @@ the scheme loop becomes empty but min_wait_time keeps the previous
+ positive value.  kdamond then keeps sleeping instead of resuming
+ monitoring without schemes.
+
++The way to wake up the kdamond again without DAMON is bit complicated.
++Install a scheme having watermarks that can activate the kdamond again,
++and remove the scheme again.  Doable but cumbersome and complicated.
++
+ Initialize min_wait_time and init_wait_time on each loop iteration so
+ the wait is calculated from the current schemes and an empty scheme
+ list resumes monitoring.
+@@ -15,11 +19,15 @@ list resumes monitoring.
+ /* TODO: move below to commentary */
+ Changes from v1
+ - v1: https://lore.kernel.org/179277129124.2.16132047926074873101.damon-empty-schemes@gmail.com
+-- None.
++- Collect R-b: from SJ.
++- Add how to work around the problem.
++- Update Fixes: and add Cc: stable@.
+
+-Fixes: 6e74d2bf5a26 ("mm/damon/core: add a new callback for watermarks checks")
++Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
++Cc: <stable@vger.kernel.org> # 5.19.x
+ Assisted-by: LLM
+ Signed-off-by: Aveline Noir <jm5905938@gmail.com>
++Reviewed-by: SJ Park <sj@kernel.org>
+ Signed-off-by: SJ Park <sj@kernel.org>
+'''
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
