@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792809656;
-	b=25rUR5ojw01w8GSU7bdSBW5sjiy5yIBNzyU+lSiI83v5oEbT+mJpFfJNvj4yyIHmL+Ye
-	 DXeTiLHvrtk/4SPSRSHMomqiRa0TBrGTXFpeUIWK0wHoobVJD7IcufCTiBkdbG0FxfB7G
-	 7L1WCCci90pCzc52TyuQqugLtEDGPuYvLjGLlkg36ayG9wQX/JY86JzIdReNOl9UbRyDO
-	 qg3IJN1hkhkHZ4aLVzbOJspu1gFwHou6vQ2yAEIeP+t1FjIBEV43ttUQQOMUQYapq1n9S
-	 3DcKqTlVfn7qZ9FB762CsZzUVvnqWCuPDLl9FueY1RsNin4kI4cq+XmJLDUR6mP38KQ==
+	t=1792809659;
+	b=HnSyIRGMVZxH918nhs98jEjzSO5lRmRVDhOfjA4i7lWTNjHQV5ouC+wRzH4V8l83jfnN
+	 weuQmsYX+cbkhkIkl5IrcZbzRQGgVMTaZCw/epoIGFSfchIuoZdjt2W1jQ2ZpzOBZ74Vr
+	 Kh51G2PJTRpGBcc1qGW0UBFdIGeXbxVzIHEBBYqgF4wkNoJrAg+u3b8wS5YKpIVsjDoet
+	 2FFF/OQ2WEB/7IGdyGOiOFZpK0HrZiEVgONfhLx+/lj0nzbK9ammFrC6c8UkeAJ6HweCp
+	 ylTvQ4tmzL4rkPxyLhqQz2C72znwaxsySRaQG5bZ1V6jrvvMGd4aKVqwl0g0O97P00Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792809656;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792809659;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=d4mvKHVg0u9lhgOXNdg3AlX0ucHCymbdGcE+4K43yLg=;
-	b=ZfUk4kyX7UgfaSvrai9w7SSwt4QqZa2R4dsk6Ox7YP+VTKJA2EZ6tzrArq3w6cTLpXy5
-	 bHL9MSWSDtyJJ7ruQqvOLbLDAhgh18AAvZ9bmDkKMBt0ifFZFtgy5DvyW6/3MBBNcXn5M
-	 cIzB0WV8+1s3gUgBRB+RDqID+V4o8+X6EC1pDS7J2LzHvhH1ndZIVkPFliYgCSps0nQT7
-	 jkOSgm2LgUZGpZlyGAoV7djpzxt71NsfTxfUgzyvAvO59/zV4At9OijHFnfaWGPjvw3re
-	 RLVh6olt/7qr1kFS2szn83YKIpqgVVXzei6BWybs1V1wZ5NJjh+o3uh4GjAPELN5ILA==
+	bh=dyxLFL3v3aOd1FtHeGOANRa81M315sVflTjGuyXXt9k=;
+	b=pIqmL/uZoGhnN/HPbSwGRcGLaJ7bnWckzVsnbL17zJce0HktiQ39E81pWmXZo2NcFKIF
+	 gjowu6vJeYqo0vSgFw4svJHM95LwDVo5/vnX2Awyue/PeB29COGubVRnSOmFiNLAwP6d1
+	 z7xUdaJSTcfAZRp9PcwagOS3oLVHsioC9/7B61kf0C+L/pk8+OnMQtvxxujFaL89dH7fh
+	 Ejn31nt7cxezAlysbiWPMY/41t/yUiNmMy1ysy3iTWbQ8C24o76+5pD0UWkM+plO8TeEN
+	 QAqblyeta5s7ATcgYQtl4l8R2UkhzVLHEm6wwbWesPoRKAnPC+GAQ1H9cGy8xOKRe5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ovwbUIQu;
-	arc=none smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b1jx1KTN;
+	arc=none smtp.remote-ip=209.85.219.46
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4EA606A333
-	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:40:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B4EA606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528D9606A31B
+	for <stable@vger.kernel.org>; Sat, 24 Oct 2026 02:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528D9606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ovwbUIQu
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91ba702cceaso17412356d6.0
-        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:40:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=b1jx1KTN
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91b9e758c50so18845216d6.1
+        for <stable@vger.kernel.org>; Fri, 23 Oct 2026 19:40:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792809655; x=1793414455; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792809658; x=1793414458; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d4mvKHVg0u9lhgOXNdg3AlX0ucHCymbdGcE+4K43yLg=;
-        b=ovwbUIQulR/trzGPUe6AcLFuBGKSStkt+G9NV0x/7+h8nj3ReutjCibybUc6ZFjQHm
-         lfBVGmkk5rWNBMNKWK5v0A5IOxiDq5ULKr6rKEBivFivT3xDaR2Ye/NBC6e0A5QJd7GX
-         8zGnXlUgwunCf9VHNAT/nroUrPc1lGIm9inioB1hh+++u6OMboobvWKF0vfY8sJKDBn1
-         ZgXiIex0X3gA6h40TSXVieXjR2yvvJITRE4YI3uHR9rfqlY0WDR7eSrGwXZd/T89JUSv
-         1PpaI3mnE3HWO5RAarekm8tthS5t1YXfowWa2XuQDaOpoQLuaaO5oTpIK/O9sZwkullo
-         13wA==
+        bh=dyxLFL3v3aOd1FtHeGOANRa81M315sVflTjGuyXXt9k=;
+        b=b1jx1KTNxpYtk0D26oCx4jhvPEk0vYhRmZpnl5znUQg3qNFXmRrBjJntRKJJkfCVd1
+         2FUP06UB8zo808hn+ke+HEmT7VKYpChDPP4k25cPQqi3apwjTmsXZLyIDzjo3atPyzKv
+         t+5oLTjVY4ZQbtq+fpS8jBEfXV/SL7vMIMNhNnBn4BKwC59MO0zyA28u1heY1u5bpY0B
+         Wc4qiqBYIUTmpfOrrx/lbiUihMi9lZnExf45fzvqXsIPXEkXWn90UgAGC1wn68+cP0Rm
+         0QWgpcYEc+7/0FuxPVsPe92Mjk8lqo9J8OdFoXhFgOOJZj6BJAhykZ42RJcld0v0MZru
+         JOBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792809655; x=1793414455;
+        d=1e100.net; s=20260707; t=1792809658; x=1793414458;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d4mvKHVg0u9lhgOXNdg3AlX0ucHCymbdGcE+4K43yLg=;
-        b=yhR4qTaztqWv+TreFZWYOtOGb17gXDuWAFcEqEwg/zYEMmb/yLYxHGz/F9iRCfXoVZ
-         oywjNfHjxJ489gOVxMuLaqPHtTev0PxsMeZ38+KVv6snvr/Njazq/O3iQwU8bDhXymiZ
-         UJKew1zdv/3A4qQ9UZhUXmZCnxOV2OYfTswt7e1wzLnQr5pjSYPd5GNLz6SHN+OzbQHg
-         8wiiKqZ0A2nR0KnutkRzY2JhmZ6MOR7edPGLk4i9sMvvFavw8T9RvAfqKjA0zoqy/JXi
-         LI5LdQd/92bmaOU0uAmXavFjF7eATDEAX1d/UTQDifspuxymVmxZmF2zhtre7NGvd7aP
-         RWew==
-X-Forwarded-Encrypted: i=1; AKwUvBxEJ87FkjcoZ0CRhV9812x1fGYCFP1jwIFkaU8YkYNk5U8cmfehuN9M3Ab7LuGYaP9QYLZGd88=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAJtrs36oXaGzSETHGXritTGH1jQEqcQxg0+zE4RAcCey7P/pi
-	OEpF80dzk1gxdYlive+21hyhIY9bLSu6gpZmFqZtNXs2bETk86i07aAOT8gvpOcrsA==
-X-Gm-Gg: AYBFou3GqVcVP3hpWrxd9csaZEZLG0MCxB9fZ8X1EiSGJJvum19lH6QGZGGjo2Gr65E
-	rv9TDCrDNqyAg0vRzqgobyz/FMRyUKqk/cuJFOiQ0H+1efnFLeJ4sXTNpvAIMm6ouM6d9rxD0qu
-	1RiQZ0bby5KRT054QmX1KeU6uT6IkgmXzU1DVis/nbh6JGVromo/WoOK/KAEnONsiah9W2Azt0M
-	MkgdV4iYXL0do5BzpZDNCe00Zs7Mv5mPcgNBSTdDi+fw8OkyinJDqopk4IjEaRzFcFjTmLFDgZW
-	uhcFuYR3cuz0UicxtRVnfmwhh5kmOloL1CNW0xaQV3bu55Z91+rZhh19kCBn5kGO2wzvAm3zJIk
-	8IB7VuL4tw6nev6a+esF8ah5ljSkq10GB8tH0LElVfAmH3BPjwzlhyJez9ZuF/0tpXZS7b06oAi
-	ra8gHK7jGrHgM7ddedp96qCDM7RcaNpHy+aBZjuo87r9xh2k3yAnjAbl0w9fuyW/oUQRU7G9a69
-	i86yIGQfck3h0smaOuhwucyasGcj69ba7QUFh1tp2U6oEidhqRR5KGZGRx3UzPWPGEgRixRtpWy
-	Afr9bbr39v4OX6STZpGzpr/Zmde15V1steTYN5Etnm13vA7+doKtlYzgTzJyUFoSMiOaN5znGsF
-	W7e3W9x521g==
-X-Received: by 2002:a05:6214:ca9:b0:91c:1a4e:425 with SMTP id 6a1803df08f44-91c48e75052mr14414866d6.56.1792809655265;
-        Fri, 23 Oct 2026 19:40:55 -0700 (PDT)
+        bh=dyxLFL3v3aOd1FtHeGOANRa81M315sVflTjGuyXXt9k=;
+        b=19Nm1g7jo1lvrG2th6y9R/v2AMqBQ6HvnAKRubY/fSlVfKfepF/yiggVJIupnekMgD
+         h8upFhlybsED2oZOk+Z0X99rLxkKYNCoRsVA4pt9yw9guguEX1oh4bbIAhvsZPRDM8TG
+         kxJmv8SWSlnhT9/lNPuxgy9Zu4/1NxbeypmtCmreBn2kQOvNJBvprYFqWfQU8qXnncIe
+         XFpK0Sp9H813WfVGLyCSzXNLUi07LSnEfFR9o1nH6dG8XpKYozXv+0GMBGYyuLR07yhk
+         vxOkyYcSBlOy4dYLUOvFW9rHJ+vFZZubK8oEwMpU/UNOQUa5djqGeRMy1JkthlIbEhVo
+         MRvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJR9dDeFHxtbOx9Aig4wMEZ1Z5AIxSzpxFsLcUhb21kVFzBiE0HkoaSbEQMNcWB2H9Upe2Vpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZszn031ZrujyhDZbQm3iLV6XIfIjcuPmYQBtXfxjugteirEdz
+	BbXdVgApBqytabzGkbSwCHu2t0SL5JRSrlJNLF47eVKU2br8uILxpZ0=
+X-Gm-Gg: AYBFou2js5MhMKMJjNGR2+iioPJPFjAtSNRm72O+M9NtcaGQr5UE0agFFLlFl5AQLXF
+	rQo9myPJcmKL5BW08zP6o/BZugAWGYTjVcmA88j7bEycYjTWGn194RO8gzuCy1VZKq1oBR0d8Dp
+	Zw0jpPXYxod1jxkDszbUKE7+NtIEuA7LV/JYa1q+khRSWyyt2QKyd4dvWPt7yNtBfcmHgFhAyhQ
+	uVgBLDbP8uaXLTypUGriAI0GUx1F0GpAc62tOEgyfqga+FlI4aRD0JSdC9B3x3X7Y5amJCiU3Ib
+	nTL9FDunvl4syFdaEzq766EJ9Hwou4XG4Y/LuhXEoNcp8u/8WMXfed2S6PpZBVZREkBdWS4p3eu
+	fbyOYgx+q0r4eFpVyWIKMbNm286wu46ZUmQ0r7h6QvbhKpk+54PsFssi4djs7rmyypkKb1i+vcR
+	db9RvXRKaWkjfORcng12oYHlnKjmqmW21CDfh/lxhG0yGs00K7o9cMgzWQE1y6ycoUsz+px1Zo7
+	Awwo9Z71869mcZIYKh3Z9tY1kognJlt3TDwfgHwgycSMotXtT0cx7kd3cgJ8X91thMylFNe8zNo
+	lS1sAITKWYi0GN6QQnIcVjmO/ISBmxGF6A2moAR90evTqVZqXqcsjKFs+vcloaYTR5owxKwmrV5
+	CPmVKJiSvAHI=
+X-Received: by 2002:a05:6214:d62:b0:917:a7a5:af08 with SMTP id 6a1803df08f44-91c48f16f2bmr13423826d6.25.1792809658336;
+        Fri, 23 Oct 2026 19:40:58 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c48feca9bsm7203526d6.39.2026.10.23.19.40.54
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c48feca9bsm7203526d6.39.2026.10.23.19.40.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 19:40:54 -0700 (PDT)
+        Fri, 23 Oct 2026 19:40:55 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
@@ -89,11 +89,10 @@ Cc: Bryan O'Donoghue <bod@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: [PATCH v5 1/2] media: venus: hfi: disable IRQ before freeing HFI device
-Date: Fri, 23 Oct 2026 22:40:50 -0400
-Message-ID: <20261023223635.3c895c4752c4-2-mhun512@gmail.com>
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v5 2/2] media: venus: disable recovery work before HFI teardown
+Date: Fri, 23 Oct 2026 22:40:51 -0400
+Message-ID: <20261023223635.3c895c4752c4-3-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261023223635.3c895c4752c4-1-mhun512@gmail.com>
 References: <20261023223635.3c895c4752c4-1-mhun512@gmail.com>
@@ -108,42 +107,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-venus_hfi_destroy() frees hdev and its interface queues before disabling
-the IRQ. A handler that already loaded core->priv can therefore access
-freed state even after core->priv is cleared.
+venus_remove() cancels core->work while the IRQ can still schedule it.
+A later IRQ can requeue recovery work, which may access HFI state after
+it has been freed.
 
-Move disable_irq() before clearing core->priv and releasing HFI state so
-both the hard and threaded handlers have completed before teardown.
+Use disable_delayed_work_sync() at the start of remove to drain recovery
+and prevent further IRQ or worker requeues. Drain the work before
+disabling the IRQ so recovery can finish completion waits that depend
+on IRQs.
 
-Fixes: d96d3f30c0f2 ("[media] media: venus: hfi: add Venus HFI files")
+Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260612103333.5585D1F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260730153912.BAC5E1F00A3D@smtp.kernel.org/
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/venus/hfi_venus.c | 2 +-
+ drivers/media/platform/qcom/venus/core.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
-index bd82066bb6e77f68ac3fe1440a8b5429ad62a192..e7e4e78a186adaa7fd80deeb094ed53d54f27ba6 100644
---- a/drivers/media/platform/qcom/venus/hfi_venus.c
-+++ b/drivers/media/platform/qcom/venus/hfi_venus.c
-@@ -1689,11 +1689,11 @@ void venus_hfi_destroy(struct venus_core *core)
- {
- 	struct venus_hfi_device *hdev = to_hfi_priv(core);
+diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
+index 7087af32060f1ed4190bf9f5d4a58cf88dad537d..6e495bc046913b46c926a498c062a6b55c6f7b64 100644
+--- a/drivers/media/platform/qcom/venus/core.c
++++ b/drivers/media/platform/qcom/venus/core.c
+@@ -596,7 +596,7 @@ static void venus_remove(struct platform_device *pdev)
+ 	struct device *dev = core->dev;
+ 	int ret;
  
-+	disable_irq(core->irq);
- 	core->priv = NULL;
- 	venus_interface_queues_release(hdev);
- 	mutex_destroy(&hdev->lock);
- 	kfree(hdev);
--	disable_irq(core->irq);
- 	core->ops = NULL;
- }
+-	cancel_delayed_work_sync(&core->work);
++	disable_delayed_work_sync(&core->work);
+ 	ret = pm_runtime_get_sync(dev);
+ 	WARN_ON(ret < 0);
  
 -- 
 2.53.0
