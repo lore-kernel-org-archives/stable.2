@@ -1,49 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792925005;
-	b=PnTJobqHqe5eKHHMtLx6UnzGU/Zgv/0Te175RKd/9NZdBtI2DQXi6Dee4tEwWDXq3bbP
-	 QTogIneMjeLZKVmlNocsTvu48jqXrYtkx30sUp1G981ipiWn9E0lPnZdKb970cx0CD1zb
-	 Ur8IGN7KznAIxL+XYZKdoVGf73nOVM18BEwm1PdbadlZLNuH5B1H3NuPyGkXOuNAou73m
-	 i92sXX/D6CFMfkN4wxkShYdXjiJNAAr2rnn5KA3BNUcLd+O3yf62M40LI79wx+sLGfXVH
-	 N3pP+5AC1BiAeNqCB82cKlimv7rtgCWMuSqHKt43rywXuB72FlqMDHlNTFw9zpIBUog==
+	t=1792925395;
+	b=fcMP7L9zDsaTAxO+lrT3so5TyyAOV+VWbEOMNlpBVRa63moFZEeU7bxURd6+AI+l+OdI
+	 r0R8dkORImzdhzVg5HSBYNjzaIyv5KJgBUKmUs1nzHr8sj2kuY2oFTv4lG6ribJvJBnbn
+	 X5U/JfwKTo+DmxgF3xQVn1u7/LSNuGPcd2+7ptzLr2elpXlTGdVZeKEUtEUix5O7C+qAL
+	 eNDbGMi5/VV26B/7Xpev6iejJLWAOe2+zePXhJLZDEbF2fDKURXmCgr8oLLkSpUidhR80
+	 DsUwUIsQMZlt4je9jn1Q72y9T986H7KzNUcpEAFDepUL5F2Y+oRmo4A/X7YppoBgS/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792925005;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xffbGi4hUQ429LW9ZUeZF1+LfMimB5aeJ4CZmOxEQtg=;
-	b=2FomABTQ7TdfdXNcEo954zTxhTp4Antpz/ezg7hVQ0UmRtL4r8ojX9ewG84nCB5EcZHy
-	 Eo0RHIFtwA2oq7UeuhgpTtCQekPVlWTNGtJwF19pn1SBDcWwi7aXfRmghZj1JwtRHq3Ph
-	 UKVTS6B7pR/UMAnY0scdJ/z1JplK78ztHuYi0oYWTxkgXnjm5OOgk0/W50m/qfqrPArQ/
-	 Co4NOc8qG3sXGPxNzfd0VY4OZFLZkdloVydopzKei49InyCKQQHcgQrVPmIUptgrvcvgo
-	 EgXfOCH6ggz0nu3RjzLaWhZH1p62lh9xpGW33e+HBgOGORwhTZ+F7m5SL7E2O2sZ55A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792925395;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7JSyZw8IlAUawccxS8oDgVXImKxbTAY0ZCG5l352BOA=;
+	b=YHvgKN9p/QRzuI3RUOOKCgBnSXMIrsyzW/mipiRfYkSGaGTmaFliQZjetx5Dx5eG6+Uj
+	 8qtdDQhkQkDYX49LV+8eqbWwYSABM43P5xekC3DVp6VaffYiE5DrpiTn+BFkrg3W78m6L
+	 Q3DYco6fvmJSLXDQsyT8Ya/XXm5nMAqIHZDMiGLV/Aq9IOU4H7yopH5CFedgh60RRpW4j
+	 Bq1G8auPTXi2o/WpJn8Ysc0JBAtPO+RtDVWLqigjwmpvsOWTAejWIjlrJq2wtbqBWpGEc
+	 yjUcr00FJdQ9lawDgi3O2UTI8cey0C2MXNpMo5wZnXjlBWHV3aBIC8EXS4hk/MuDAfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C3CZxphp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="ft8/267K";
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300CB606A31A;
-	Sun, 25 Oct 2026 10:43:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D8E606A31B;
+	Sun, 25 Oct 2026 10:49:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6D8E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C3CZxphp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E301F01825;
-	Sun, 25 Oct 2026 10:43:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792925004;
-	bh=xffbGi4hUQ429LW9ZUeZF1+LfMimB5aeJ4CZmOxEQtg=;
-	h=From:Date:Subject:To:Cc;
-	b=C3CZxphpHiOCi2irZ9t1RK88ap4g9olyDyjP3uYu0WM9d4OtT/espqfINf9Qx9H0w
-	 313KkH1e9aBAT4z5/YiL7r+OgR2LN+V3kkQkJmKnG14ol71LD5d3wQc8EqiPTY2llh
-	 rZgtXvymLvCLLs9aYG6U10xFzbDSIWk+h3XxNGSRVeQzdBhm+ALKdkcHYbSFv2cgJK
-	 7O3IZJkaX7rCajaIYqmJMt72m+c8jqpIkYC4GSwpM9jUj+hIORpPHW0v+jOBPrO96y
-	 mNbEgIEKNB/L2LvX8QbkwFcIMH+BKhehktcis66kajgbLrAnig320ne26MAlUoLO3v
-	 9JJHzlklOpcZA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sun, 25 Oct 2026 11:43:15 +0100
-Subject: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ft8/267K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792925394; x=1824461394;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Rt5BEY7DwxcNCG/AAfpdZnZc2Khftj/I/zbWxZry5XY=;
+  b=ft8/267KabzBwRNH1iLUrT7DKqfUPTM0zm6oBudj+uoU/29XpNzws9R/
+   RiuHY8t9Xrrr+5HMhGPhNAe/1ZaHBBqNWBd75hk4uKDg+/7Pvq0a6ihoT
+   CYF0ImVdakUBi/OLz48to9ev1QAy2l3XgGs6m3vFQHehlBtYZM3eJenaQ
+   EozcrkWzit94MZ2IdXS2yBQbfv45tY11+2I5cMEGH7hnzIhuVpUEOOxXS
+   9Vok7LF2ghn3LJrFH4Vzhjf/gn3ZMQtxUtdCZ2Zzs+4x3TEYv4WKBBvy6
+   ugEmbz98MvMM3AVWsdVQIHmox9mMv1WqfXQiW26TNxWDVZLbtOOxD0o7F
+   A==;
+X-CSE-ConnectionGUID: dbCem85MT3yuhGf6FW1hNQ==
+X-CSE-MsgGUID: HtmCVHebRDCZ2/URso4QmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11945"; a="1501274"
+X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
+   d="scan'208";a="1501274"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 03:49:53 -0700
+X-CSE-ConnectionGUID: JYgqJlDmQu+LqbHMhBjFnA==
+X-CSE-MsgGUID: URc1XrjISym5V9UmBj1B9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,177,1787036400"; 
+   d="scan'208";a="4005441"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa002.jf.intel.com with ESMTP; 25 Oct 2026 03:49:51 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKvnQ-00000000UjS-1aE7;
+	Sun, 25 Oct 2026 10:49:48 +0000
+Date: Sun, 25 Oct 2026 18:49:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tristan Madani <tristmd@gmail.com>, Even Xu <even.xu@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Xinpeng Sun <xinpeng.sun@intel.com>,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH] HID: intel-thc-hid: validate ACPI buffer length before
+ use
+Message-ID: <202610251809.9IHSydrI-lkp@intel.com>
+References: <20261024205850.4051206-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,280 +87,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAELd3WoC/yXMQQqEMBAF0atIrw3EgDJ4FRFJ4p+xBTWkVQTx7
- mZ0+RZVJwkiQ6jOTorYWXiZE4o8Iz/Y+QfFfTIZbapCm1IFxG6fbDfZIMrDOg33qXRfUkpCxJe
- PZ9e0r2VzI/z6f9B13TxBo45wAAAA
-X-Change-ID: 20261025-per_vma_maps-ceab0eb860d5
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Suren Baghdasaryan <surenb@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10280; i=david@kernel.org;
- h=from:subject:message-id; bh=My3G5nJK6ccCcdRGF+U6MrgVdMR5IQxU02L9thUNN84=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu3nXbJ9p91kJ2zh89bk89RpcgXWuHB4vcWb4XH278N
- OvOqfaJHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExkvycjQ3PZsS+LV/MaNYZk
- feftblJeqCX68JJ8pVtN1/JbDl+XODH8D9tr5BR9rudPnmzwvjdB+ux3cz+GFM5bcfrDow9K9w2
- 2MgEA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024205850.4051206-1-tristmd@gmail.com>
 
-Reading /proc/PID/maps under per-VMA locks can skip continuously mapped
-address ranges during concurrent VMA splits or merges. This violates the
-guarantee in Documentation/filesystems/proc.rst:
+Hi Tristan,
 
-  "If there is something at a given vaddr during the entirety of the
-   life of the smaps/maps walk, there will be some output for it."
+kernel test robot noticed the following build warnings:
 
-lock_next_vma() reuses a tree iterator across calls under RCU. The iterator
-remembers the range of its last entry. When its node is replaced,
-mas_next_slot() walks the tree again at the last index of that range, then
-advances past the entry containing that index. If VMA boundaries changed,
-this can skip a range that has not been reported:
+[auto build test WARNING on hid/for-next]
+[also build test WARNING on linus/master v7.3 next-20261023]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
- - A lookup finds [A, C), then mprotect() splits it into [A, B) and [B, C)
-   before vma_start_read() locks the first VMA. The reader reports [A, B),
-   but the iterator still covers [A, C). The next call starts from B yet
-   advances past C, omitting [B, C).
+url:    https://github.com/intel-lab-lkp/linux/commits/Tristan-Madani/HID-intel-thc-hid-validate-ACPI-buffer-length-before-use/20261024-205850
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
+patch link:    https://lore.kernel.org/r/20261024205850.4051206-1-tristmd%40gmail.com
+patch subject: [PATCH] HID: intel-thc-hid: validate ACPI buffer length before use
+config: x86_64-randconfig-1003-20261025 (https://download.01.org/0day-ci/archive/20261025/202610251809.9IHSydrI-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261025/202610251809.9IHSydrI-lkp@intel.com/reproduce)
 
- - The reader reports [A, B) and unlocks it. A concurrent mprotect() then
-   merges it with [B, C). On the next call, the iterator resumes at B - 1,
-   which now belongs to [A, C), and advances past C. Again, [B, C) is lost.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610251809.9IHSydrI-lkp@intel.com/
 
-Checking the mmap_lock sequence only within the next call misses writers
-that completed before that call began. Also, a NULL result is currently
-accepted without validation, so a race can terminate the walk early.
+All warnings (new ones prefixed by >>):
 
-Even a fresh lookup can skip a mapping. Suppose it finds a gap before
-[B, C). A writer inserts an adjacent VMA at the end of that gap, then
-merges it into [B, C), replacing the node. The lookup resumes at the old
-gap's last index, now inside the merged VMA, and steps past it. The
-original [B, C) remains mapped throughout. Repeating the forward lookup
-is insufficient: another merge can make it skip the same mapping again,
-returning the same later VMA or NULL.
-
-The fresh-lookup race also affects /proc/PID/smaps, numa_maps and
-smaps_rollup. Resetting the iterator after gathering each VMA's statistics
-does not prevent a merge during the next lookup. Fixing lock_next_vma()
-also prevents omitted entries and incomplete rollup statistics.
-
-Keep a saved sequence in the proc maps locking context and validate it
-before each lookup with mmap_lock_speculate_retry(). If it is even (no
-pending writer) and still matches, reuse both the iterator and the saved
-sequence. Otherwise, restart at from_addr and sample the current sequence
-before looking up the VMA. Only refresh the sample when resetting the
-iterator, so a writer between validation and the lookup cannot go
-undetected.
-
-The smp_rmb() in mmap_lock_speculate_retry() orders the previous lookup
-before rereading the sequence. It pairs with smp_wmb() in
-do_raw_write_seqcount_begin(), which separates the sequence increment in
-mmap_write_lock() from subsequent tree updates.
-
-Validate detected gaps (from_addr < vma->vm_start) and NULL from
-vma_next() against the sequence. If there were concurrent writes, use
-mas_walk() to check if the writer could have interfered with the range
-of interest. If the range is not empty, something interfered concurrently
-so we retry under mmap_lock. Checking for empty ranges avoids taking the
-mmap_lock just because an unrelated writer changed the sequence.
-
-Original fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
-Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-I neither understood nor liked the original LLM generated fix that was
-provided to me, and I (and codex) think it was incomplete. So I tried to
-come up with a better fix that avoids additional fallbacks to the mmap_lock
-while trying to keep it simple.
-
-I won't claim that I am now an expert on the code, or that this is the
-most elegant fix. It is quite complicated what we built ... too
-complicated. So if this goes into the wrong direction I'll be happy
-if someone else wants to take over ;)
-
-I reproduced the races with /proc/PID/maps, and with this patch they are
-resolved. I did not manage to reproduce the races with the new
-smaps/smaps_rollup, but the races are slightly different and harder to
-trigger.
-
-There is the issue with seqcount overflows that Lorenzo is tackling. It
-probably interacts here as well? Likely, but that's an independent issue
-to resolve.
----
- fs/proc/internal.h        |  1 +
- fs/proc/task_mmu.c        |  6 +++--
- include/linux/mmap_lock.h |  5 ++--
- mm/mmap_lock.c            | 58 +++++++++++++++++++++++++++++++++++------------
- 4 files changed, 51 insertions(+), 19 deletions(-)
-
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index df873df9afc56..f3e846b574d79 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -386,6 +386,7 @@ struct mem_size_stats;
- struct proc_maps_locking_ctx {
- 	struct mm_struct *mm;
- 	bool mmap_locked;
-+	unsigned int mm_wr_seq;
- 	struct vm_area_struct *locked_vma;
- };
- 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index ee9fc2fd2b2fe..dc3adcffb6d9c 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -148,6 +148,7 @@ static void reset_lock_ctx(struct proc_maps_locking_ctx *lock_ctx)
- {
- 	lock_ctx->locked_vma = NULL;
- 	lock_ctx->mmap_locked = false;
-+	lock_ctx->mm_wr_seq = UINT_MAX;
- }
- 
- static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
-@@ -160,7 +161,8 @@ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
- 		return vma_next(&priv->iter);
- 
- 	unlock_ctx_vma(lock_ctx);
--	vma = lock_next_vma(lock_ctx->mm, &priv->iter, last_pos);
-+	vma = lock_next_vma(lock_ctx->mm, &priv->iter, last_pos,
-+			    &lock_ctx->mm_wr_seq);
- 	if (!IS_ERR_OR_NULL(vma))
- 		lock_ctx->locked_vma = vma;
- 
-@@ -523,7 +525,7 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
- 	unlock_ctx_vma(lock_ctx);
- 	rcu_read_lock();
- 	vma_iter_init(&vmi, mm, addr);
--	vma = lock_next_vma(mm, &vmi, addr);
-+	vma = lock_next_vma(mm, &vmi, addr, &lock_ctx->mm_wr_seq);
- 	rcu_read_unlock();
- 
- 	if (!vma)
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 28e3696ce9ff3..e33d15ce6a876 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -511,12 +511,13 @@ struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
-  * Locks next vma pointed by the iterator. Confirms the locked vma has not
-  * been modified and will retry under mmap_lock protection if modification
-  * was detected. Should be called from read RCU section.
-+ * *last_seq must initially be odd and is kept across calls.
-  * Returns either a valid locked VMA, NULL if no more VMAs or -EINTR if the
-  * process was interrupted.
-  */
- struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *iter,
--				     unsigned long address);
-+		struct vma_iterator *vmi, unsigned long from_addr,
-+		unsigned int *last_seq);
- 
- static inline void vma_assert_can_modify(struct vm_area_struct *vma)
- {
-diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
-index 2f94ee0fdee2a..0f3a4e0c5520d 100644
---- a/mm/mmap_lock.c
-+++ b/mm/mmap_lock.c
-@@ -400,21 +400,50 @@ static struct vm_area_struct *lock_next_vma_under_mmap_lock(struct mm_struct *mm
- 	return vma;
- }
- 
-+static bool vma_range_is_empty(struct mm_struct *mm, unsigned long start,
-+		unsigned long last)
-+{
-+	MA_STATE(mas, &mm->mm_mt, start, start);
-+
-+	return !mas_walk(&mas) && mas.last >= last;
-+}
-+
- struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *vmi,
--				     unsigned long from_addr)
-+		struct vma_iterator *vmi, unsigned long from_addr,
-+		unsigned int *last_seq)
- {
- 	struct vm_area_struct *vma;
--	unsigned int mm_wr_seq;
- 	bool mmap_unlocked;
- 
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "no rcu read lock held");
- retry:
--	/* Start mmap_lock speculation in case we need to verify the vma later */
--	mmap_unlocked = mmap_lock_speculate_try_begin(mm, &mm_wr_seq);
-+	/*
-+	 * Restart by address if a writer could have changed the cached range.
-+	 * The retry check's smp_rmb() orders the previous lookup before reading
-+	 * the sequence and pairs with smp_wmb() in do_raw_write_seqcount_begin().
-+	 *
-+	 * The vma_range_is_empty() checks below avoid unnecessary mmap_lock
-+	 * fallbacks.
-+	 */
-+	mmap_unlocked = !(*last_seq & 1);
-+	if (!mmap_unlocked || mmap_lock_speculate_retry(mm, *last_seq)) {
-+		vma_iter_set(vmi, from_addr);
-+		mmap_unlocked = mmap_lock_speculate_try_begin(mm, last_seq);
-+	}
-+
- 	vma = vma_next(vmi);
--	if (!vma)
--		return NULL;
-+	if (!vma) {
-+		/*
-+		 * There is no reason to fallback if there really isn't anything
-+		 * in the remaining range.
-+		 */
-+		if ((mmap_unlocked && !mmap_lock_speculate_retry(mm, *last_seq)) ||
-+		    vma_range_is_empty(mm, from_addr, ULONG_MAX))
-+			return NULL;
-+
-+		rcu_read_unlock();
-+		goto fallback;
-+	}
- 
- 	vma = vma_start_read(mm, vma);
- 	if (IS_ERR_OR_NULL(vma)) {
-@@ -442,15 +471,14 @@ struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
- 	 * it was not shrunk after we found it and another vma has not been
- 	 * installed ahead of it. Otherwise we might observe a gap that should
- 	 * not be there.
-+	 *
-+	 * If speculation fails, avoid taking the mmap_lock when a direct lookup
-+	 * confirms that the gap is empty.
- 	 */
--	if (from_addr < vma->vm_start) {
--		/* Verify only if the address space might have changed since vma lookup. */
--		if (!mmap_unlocked || mmap_lock_speculate_retry(mm, mm_wr_seq)) {
--			vma_iter_set(vmi, from_addr);
--			if (vma != vma_next(vmi))
--				goto fallback_unlock;
--		}
--	}
-+	if (from_addr < vma->vm_start &&
-+	    (!mmap_unlocked || mmap_lock_speculate_retry(mm, *last_seq)) &&
-+	    !vma_range_is_empty(mm, from_addr, vma->vm_start - 1))
-+		goto fallback_unlock;
- 
- 	return vma;
- 
-
----
-
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-
-change-id: 20261025-per_vma_maps-ceab0eb860d5
+>> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:66 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsm_property'
+>> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:109 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsd_property'
+>> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:66 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsm_property'
+>> Warning: drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c:109 function parameter 'buf_size' not described in 'quicki2c_acpi_get_dsd_property'
+--
+>> Warning: drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c:85 function parameter 'buf_size' not described in 'thc_acpi_get_property'
+>> Warning: drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c:85 function parameter 'buf_size' not described in 'thc_acpi_get_property'
 
 --
-
-Cheers,
-
-David
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
