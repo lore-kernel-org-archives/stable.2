@@ -1,50 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792918053;
-	b=jsXnvwVUBArb/TW1tbgMk/VcYGX9UoWJx/Fyba0Juxb3+49qsWwCLT34il7VMCP9l1LN
-	 uhQy0zhUR0zA2hqraRRZPHVLnZB7c5ya5LRwvR0ULmoNTJ/R1EYkOPOWudPRzFqLZm4ck
-	 HfHL6KyP/KarPJtoweNE3kiTigKf2xu4x7yG2tEsHOQFw53taLzoocKbhGlh/Hb44Yb3S
-	 f7WHqXtcyWxF9KVUJsdHjvqBx3XGDc/UgYFg+e1NGFyHGQLEaPFMLUW+jmpODlcr2VCDh
-	 6ESvdrw3raaFklq+pn4U4y+0/POMnG8CPilWAq69oBJ3e118TMCt1kL+03yTShZGpsA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792918053;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=YzwpBMMqrS4/XdfV+MvYVyS8ZMKplxOS4Xa9LypSppA=;
-	b=EYzAZB6u/peIx0XtRwj4S8UEqC/SnzmDZ73vA3gpjZ3hSRHoF0IJ4lon/cYNQGpyLzDM
-	 Z2Ig+LRNRaKVSZZ7m9lYUOGRIwJ0K5U8sD/tWFbySTgeGj+2ua4t+d+2gaca4m3aMJOrg
-	 UEhzqSoITBhBoENhstNpCTII+XWN7OpiTbPL6zNAaiy7Rc6VkaZsl9FwNEfUsdxXBpquW
-	 F4CHzL7kebDA/T/Htk7yg5xF9VtLSzZa2Yh78X5cu1gPGBRq8T2yC7VBvwnAVzW8o2vs3
-	 a66yCUd+iPvCGmGpezWZPxhCmqRv1FHa6BOHRMvcanKv7Z3C0H/5LpcU6IIrImqiKQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelscan.io;
-	spf=pass smtp.mailfrom=kernelscan.io;
-	arc=none smtp.remote-ip=212.227.126.130
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792918568;
+	b=wCVA0YfcSDUINtpyjMzaIAKOEKYrsnU8pzbbBfnUvFTmmeIQ+J8PwBQQxdOohS7jV2mc
+	 C0NE9j0E09PZOyZZhgeXxT9/nhoPeHj5bQJPETHyX0fqqVZh5ohhd5tWtCDIoO2nvp57R
+	 wI1+Fu2w0I7tEcOtoErF7rortw/aX+NGsDKuSkB5nqU5mr1Gc7J+gIBdjJecW2AHqEe0P
+	 z2lszZ+vsB3lAWavxqbh34pELTfyfJFxOWGrRsmAQjkUyAyqwXYz7bnLgxf+AMZ5N7Fc0
+	 Bd0Cjv0vBhk4yE4Qb53cfCJ80gVHud9B9a5LjDU6FLVkAROFw0x3GWYrb4pJBBCin4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792918568;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=KAWo+wtNpZOYjs7XLX4+xbKqtyKgnfAjF4Rv0X11cZw=;
+	b=Ypdrwdeasz+7OBGL2tAgm3cLl/z+Eps/oaDQI10mz9AeUkFIkJ8ayPBY+8FMBWlqQSjW
+	 V0QHYqnaNDADjgujwXYWk9HnU1Vb4tSDK5USZ7KdFV4/T1hKkdRfpGCysP6HY6xjd/cEq
+	 rg4xurkFZL+ssCtBfMPzqru6Ltw7Elu/e9xo1Tb60G2Vc/szEexG+c4ikJhFeT5CMKeKR
+	 8mL7pqjFESIV+H1S3icE0rBjlREYFpAKRC237kA9XmI5BzhJ0NV/06z2Xg+kUfG6M8WrH
+	 edLgJAl/dNMAQwToOi9LWyHjxTpFfE+j4gZz+hxyU0/l4a0eJWzKT9j8hqIs0IbExTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=mi05lP3G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E81A606A31B
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 08:47:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E81A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelscan.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelscan.io
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue010
- [213.165.67.97]) with ESMTPSA (Nemesis) id 1MPXta-1wzOlM1f74-00SqEi; Sun, 25
- Oct 2026 09:47:30 +0100
-From: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Jay Vosburgh <j.vosburgh@gmail.com>,
-	Andy Gospodarek <andy@greyhouse.net>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH v2 5.15.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
-Date: Sun, 25 Oct 2026 09:47:25 +0100
-Message-ID: <20261025084725.84254-1-steffen.pfendtner@kernelscan.io>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <2026-10-24-1-daily-reply-0013-bonding-xmit-broadcast-5-15-bounce@kernel.org>
-References: <2026-10-24-1-daily-reply-0013-bonding-xmit-broadcast-5-15-bounce@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D0C606A31B
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 08:56:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80D0C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=mi05lP3G
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so1150752a12.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 01:56:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792918567; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rVvsrEoQ6v1/133LSlIYxmvpbLRUWtJmz12UHybDGKLRxoazS4Jb/mYC21R35nkwdr
+         tcvA5GC/rGfw1K81WyxqQ+8DCinZLNrlht+m8qVONsspjxYosuKmT0MZB4tz1U+K2/ap
+         iRMGFFpmsJ9gCSrb9hHc7Bef9yaaAPNzNrIFg4ZyFzuT5uYYXLo9dAfh+knrN9yI4ItD
+         1sUu2Rtx+tuuDA7sOpj9sPRwia1RjuKKYqpDgB98973oia2BfjgC7vn0mJJKT4kuiB8O
+         6JScq4nRc0FlST3kdBJxDVILsDfNjiZworyePRutxHWg5ApY4qhcvwqzioWM07KaBGmC
+         pQMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KAWo+wtNpZOYjs7XLX4+xbKqtyKgnfAjF4Rv0X11cZw=;
+        fh=7nMeXjaakYS3g+apMbSBVREb8S0rFNT6fXXUpzkDfmg=;
+        b=Zp4TV7GdIPSv2IEUvWyRVF6KBGpIiVlejZMIFdvK9wg9l6qgU8uG00MaTwxnaGW72n
+         1C9Fc1L/qC++bPp7nIH5GKQca/Ao3QaJYHi/FHpCXpmE6daGagmAg8q8qN0QNvuISyfs
+         wggy7RhNPkurrWoZ82QOr1jEyABE1VdeLJYTBE/035DwM++F9mi316ITYn4xmuocHMGE
+         cKXVnNwnLMjlLFBH7ht0/NDET/CtlgmRIuA88xuMwGK70ENIpqcJ8pCcxosD7e+/mb1J
+         tbxvuOcLhVZ77wBl+w4BIwqvISjPRqXCOYkcwmKlLNRCjeCHAPg1zPbrsi9n0OuS+WMo
+         eYWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1792918567; x=1793523367; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KAWo+wtNpZOYjs7XLX4+xbKqtyKgnfAjF4Rv0X11cZw=;
+        b=mi05lP3GpYLdTOXHFSZx440AR9EZif9K/sR71vpfrZw10gO003EZpj7eZM8pCSuEMI
+         CdEvSp55VnFp0RdnW1Eg60KgDqkRdse3OjAlE4f6yTRy8XS2grhxxmqqj+/FOxHJyy1k
+         RiqFqc2/k9qOfnk18SGgMoyDle5frgqKr2O9s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792918567; x=1793523367;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KAWo+wtNpZOYjs7XLX4+xbKqtyKgnfAjF4Rv0X11cZw=;
+        b=COFNjoMdrXlWW0SnGOcdk4YhzjSTNJ25drptAYzETjV2HuJShfM960XF91xwii68IN
+         tp1HPbEsEjZbwsZrWRzWpWOgC3P0qdmoIZSZbRxv7nygCX2qVZsf7m1nE3FbT419jBrn
+         2H1PINSOxjIZn7uuQgARlgY0Ng+QOfdTyC3j6O8EYk+HGkU51/Gwkd9AdiMzmdvtC4p4
+         dpjgNfI2tzDzUkKYFvEgSyPRlJyqqrXn3aWGS4hOdw2uzPfT7cdIUjyjVgO99beIhFbN
+         aSq/hyBQU/wxt5GQnzIgaZeNSBN8uVpaakkELd/pE5MZOCsxVcsqAERi0e0fS0K41l35
+         c/dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwICh/vnuZ5v1bcqrPkVD2VTFxrAsK7mpfndCbXyYRkBBCTTmZvvDQTgQt47lwwBpodYuwdGDU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKm56I2+1S1x4SLnQcaZ7NA32qX5xyDwcgDwG143adUFwLSCTuF
+	ARGpVoQvU0Fcs7ZZFBPr+Egc6JI5J/3bPNRkQ8OILe7LZ1qn6ffm1HBCziqfFwp4QgHrH+LxJG8
+	FO4MqU8HsduINmrHvj6qUjKcr7fr+8tKHHIWGk34A
+X-Gm-Gg: AYBFou1QZOJ6+R0HjV6RQkO2b/8788fO5ZUIAQd234whVEbeDaybF4tLKIbekUVjyd+
+	oh+dsyRi6wzujg7uQ9fFvQqBSbOffra8uZTsD8YdxPDd2evVk/owWVJKqt/2o4GoJB327H50sJ9
+	ctd4nFLIXdsStHi8D7cVEfWS+bqhgI9DtFgUEf5FdT2kL0iCGOUpJzGCemBnhX5Xv7zwyE/+3sQ
+	b0mpvpWeym30md463PZpGeCa8qTdfiUTKDxw2g8RXczfH/N2Vk6fKB5HLuqrSQmswA/03+ygzQs
+	KgEpNBxF+orNFtB4Ap8WeK4vN8bhFVbD784TtUGm+a8Jb2CUvpKdKp0NfWMrmnWe6RzRiU4cpeD
+	xfv/yMFfhrn9+t+nrQO/7/PGqWrgFel/okHUxXLRjEM7ctXNYr4NkEhfg1qrgHOD2siZduQgPmr
+	GwoKufzgi9/mF4p+Ovb6XO31HC8gE9mR+AB99B
+X-Received: by 2002:a05:6a20:3c8e:b0:3e2:3ce:4ebd with SMTP id
+ adf61e73a8af0-3e7cd58c8ffmr3635755637.49.1792918566745; Sun, 25 Oct 2026
+ 01:56:06 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,210 +102,187 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:z4YJ/UKclBmZOpHGzZviP0zGMtdMAHhhwStnDEm7bYFgR6XZlIu
- e6x37yf776oFuREe/T6L8lGxU5FDBCl5QjZtx3jU2kSwEcO8umNzg18c+YSonyDS4Pd1FlX
- FSfgM/Av3HJ9KVt6oL/2AGnnv7+lcBC4BhWhf6DpjusLAa0gZp1DSb6PlH6TlYuQkbJzfGY
- +yf9HVsoZ/5EYwJZRaoFw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:SeXdyQlSmX4=;wO8hXV9D9QOTUghsGcYfhcdlE3n
- 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
- kXmm1wb2A+meyp1uR8I/SqDx7oQw==
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
+ <CAM0EoMmwNCHVNW0=Z_JWX_ZcT5Y1po1GRVScddOsevEvL8D-6w@mail.gmail.com>
+ <willemdebruijn.kernel.30ca6285209f7@gmail.com> <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
+ <CAM0EoM=9GxDCHzpJF_bqcoh+7KZY6E=ZmOiMp7kfVK3bHZDppw@mail.gmail.com> <willemdebruijn.kernel.eb29d53899f1@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.eb29d53899f1@gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sun, 25 Oct 2026 04:55:54 -0400
+X-Gm-Features: AclHuK99nqdl0ku1cQx0dq1jsmNpklmHQLpCQExJVZpP5q9dm1lvzAJpxrv8jM0
+Message-ID: <CAM0EoMnQWjN24gBye1kZdcJUJgXDPDy-=dM+NQ6dqCny7O851g@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/6] net/sched: act_mpls: pull the inner Ethernet
+ header after POP
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Martin Varghese <martin.varghese@nokia.com>, 
+	Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	John Hurley <john.hurley@netronome.com>, Willem de Bruijn <willemb@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Xiang Mei <xmei5@asu.edu>
+On Sat, Oct 24, 2026 at 12:14=E2=80=AFPM Willem de Bruijn
+<willemdebruijn.kernel@gmail.com> wrote:
+>
+> Jamal Hadi Salim wrote:
+> > On Fri, Oct 23, 2026 at 7:46=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.=
+com> wrote:
+> > >
+> > > . On Fri, Oct 23, 2026 at 6:50=E2=80=AFPM Willem de Bruijn
+> > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > >
+> > > > Jamal Hadi Salim wrote:
+> > > > > On Fri, Oct 23, 2026 at 12:09=E2=80=AFPM Willem de Bruijn
+> > > > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > > > >
+> > > > > > Jamal Hadi Salim wrote:
+> > > > > > > The issue:
+> > > > > > > act_mpls POP can leave the inner Ethernet header in a page fr=
+agment after
+> > > > > > > skb_mpls_pop(), either on an L3 device (mac_len =3D=3D 0) or =
+chained after
+> > > > > > > act_vlan POP_ETH.  A following eth_type_trans() can then BUG =
+in
+> > > > > > > __skb_pull().
+> > > > > > >
+> > > > > > > The Fix:
+> > > > > > > After the pop, if the original MAC header is shorter than ETH=
+_HLEN, pull
+> > > > > > > the inner Ethernet header into the linear area and drop only =
+when
+> > > > > > > pskb_may_pull(skb, ETH_HLEN) fails.  skb_mpls_pop() does noth=
+ing when the
+> > > > > > > skb was not MPLS, so no separate state is needed.
+> > > > > > >
+> > > > > > > Conditions to recreate the bug:
+> > > > > > > - egress tc filter on lo: action vlan pop_eth action mpls pop
+> > > > > > >   (chained), or on an L3 device where mac_len =3D=3D 0.
+> > > > > > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and =
+a non-linear
+> > > > > > >   eth / mpls / inner-eth frame.
+> > > > > > > - The inner header is in page frags; a following eth_type_tra=
+ns() can BUG
+> > > > > > >   in __skb_pull().
+> > > > > > >
+> > > > > > > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation actio=
+ns to TC")
+> > > > > > > Reported-by: Vega <vega@nebusec.ai>
+> > > > > > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c=
+54fb7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
+> > > > > > > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYeeW0Fk_GK6=
+ekR4xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com/
+> > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> > > > > > > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.c=
+om>
+> > > > > > > Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> > > > > > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > > > > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > > > > > > ---
+> > > > > > >  net/sched/act_mpls.c | 2 ++
+> > > > > > >  1 file changed, 2 insertions(+)
+> > > > > > >
+> > > > > > > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
+> > > > > > > index 4ea8b2e08c3a..5363bca892fb 100644
+> > > > > > > --- a/net/sched/act_mpls.c
+> > > > > > > +++ b/net/sched/act_mpls.c
+> > > > > > > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct s=
+k_buff *skb,
+> > > > > > >               if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
+> > > > > > >                                skb->dev && skb->dev->type =3D=
+=3D ARPHRD_ETHER))
+> > > > > > >                       goto drop;
+> > > > > > > +             if (mac_len < ETH_HLEN && !pskb_may_pull(skb, E=
+TH_HLEN))
+> > > > > > > +                     goto drop;
+> > > > > >
+> > > > > > Is this first condition needed?
+> > > > > >
+> > > > >
+> > > > > That was me conjecturing from Eric saying in v1 "...the check can=
+ only
+> > > > > matter when the original MAC header is short.."
+> > > > > Since i have to send a v3 (Thanks Eric;->) I will remove it
+> > > > >
+> > > > > > More importantly, can it hide a bug?
+> > > > > >
+> > > > >
+> > > > > What kind of bug?
+> > > >
+> > > > Two kinds. One, if original mac_len is larger, gets popped and the
+> > > > resultant packet is still too short for ETH_HLEN afterwards.
+> > > >
+> > > > But this can probably not happen, as skb_mpls_pop only pops one MPL=
+S
+> > > > tag.
+> > > >
+> > > > What this patch tries to ensure is that the subsequent Ethernet
+> > > > header is linear.
+> > > >
+> > > > The second potential bug is this assumption that after the MPLS tag
+> > > > lies an Ethernet header. Is that a valid assumption? Or could we dr=
+op
+> > > > a valid packet with smaller header.
+> > > >
+> > >
+> > > tbh, I was thinking more about skb frags earlier.
+> > > You are right only ETH_P_TEB promises an inner Ethernet header; for
+> > > other inner protocols the pull is wrong, so I=E2=80=99ll check for
+> > > p->tcfm_proto =3D=3D htons(ETH_P_TEB). I didnt have this check in the
+> > > current fix - good you responded before i sent out.
+> > >
+> > > 1/6 (act_vlan POP_ETH) has a similar unconditional
+> > > pskb_may_pull(ETH_HLEN). A brute approach is also to check for TEB:
+> > >
+> > >       if (skb->protocol =3D=3D htons(ETH_P_TEB) &&  !pskb_may_pull(sk=
+b, ETH_HLEN))
+> > >                 goto drop;
+> > >
+> > > Note: skb_eth_pop() only removes the outer ethernet header but does
+> > > not change skb->protocol
+> > >
+> >
+> > I am going to send it without this 1/6 change - it just doesn't feel
+> > like good taste. I will add a comment in the changes to say i
+> > considered it but decided not to. I also spent time eyeballing the
+> > code, i dont think there's a potential way to craft a packet that will
+> > hit the perceived issue. In any case the 24 hour embargo lifts in a
+> > few hours so i am not posting yet.
+> >
+> > cheers,
+> > jamal
+> >
+> > > thoughts?
+>
+> I'm actually a little confused why the tc layer has to anticipate the
+> needs of downstream code and pull headers here.
+>
+> That directly lead to this guessing of what may be the next header,
+> such as Ethernet. Which may often be correct, but not always.
+>
+> All protocol parsing code itself should already be robust and call
+> pskb_may_pull where it is needed. Sounds like there are some targets
+> post TC where that is not true *and* we think there are too many to
+> update those targets directly, rather than this transformation logic
+> that exposes them to unpulled packets?
 
-[ Upstream commit 2884bf72fb8f03409e423397319205de48adca16 ]
+Not "too many updates" rather the main motivation here (which i kinda
+empathize with) is pushback from Eric that you have to "fix at the
+producer" to avoid performance degradation at the "consumer". i.e
+rather fix the vlan action than have loopback vet as in the original
+patch  (and you just witnessed him stand up and push back on tun for
+that same reason ;->).
+IOW, we are anticipating so that eth type transfer doesnt bug out
+(_for ethernet headers_) when invoked at the downstream consumer
+(loopback etc). Essentially it is a game of whack-a-mole until the
+next bug or malicious use shows up.
+Generally, policing intoxicated drivers from getting on the autobahn
+isn't the best philosophy; it's better to complement that with a
+"driver beware, you may encounter drunks" warning but that would slow
+down the fast car on the autobahn ;->
 
-bond_xmit_broadcast() reuses the original skb for the last slave
-(determined by bond_is_last_slave()) and clones it for others.
-Concurrent slave enslave/release can mutate the slave list during
-RCU-protected iteration, changing which slave is "last" mid-loop.
-This causes the original skb to be double-consumed (double-freed).
-
-Replace the racy bond_is_last_slave() check with a simple index
-comparison (i + 1 == slaves_count) against the pre-snapshot slave
-count taken via READ_ONCE() before the loop.  This preserves the
-zero-copy optimization for the last slave while making the "last"
-determination stable against concurrent list mutations.
-
-The UAF can trigger the following crash:
-
-==================================================================
-BUG: KASAN: slab-use-after-free in skb_clone
-Read of size 8 at addr ffff888100ef8d40 by task exploit/147
-
-CPU: 1 UID: 0 PID: 147 Comm: exploit Not tainted 7.0.0-rc3+ #4 PREEMPTLAZY
-Call Trace:
- <TASK>
- dump_stack_lvl (lib/dump_stack.c:123)
- print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
- kasan_report (mm/kasan/report.c:597)
- skb_clone (include/linux/skbuff.h:1724 include/linux/skbuff.h:1792 include/linux/skbuff.h:3396 net/core/skbuff.c:2108)
- bond_xmit_broadcast (drivers/net/bonding/bond_main.c:5334)
- bond_start_xmit (drivers/net/bonding/bond_main.c:5567 drivers/net/bonding/bond_main.c:5593)
- dev_hard_start_xmit (include/linux/netdevice.h:5325 include/linux/netdevice.h:5334 net/core/dev.c:3871 net/core/dev.c:3887)
- __dev_queue_xmit (include/linux/netdevice.h:3601 net/core/dev.c:4838)
- ip6_finish_output2 (include/net/neighbour.h:540 include/net/neighbour.h:554 net/ipv6/ip6_output.c:136)
- ip6_finish_output (net/ipv6/ip6_output.c:208 net/ipv6/ip6_output.c:219)
- ip6_output (net/ipv6/ip6_output.c:250)
- ip6_send_skb (net/ipv6/ip6_output.c:1985)
- udp_v6_send_skb (net/ipv6/udp.c:1442)
- udpv6_sendmsg (net/ipv6/udp.c:1733)
- __sys_sendto (net/socket.c:730 net/socket.c:742 net/socket.c:2206)
- __x64_sys_sendto (net/socket.c:2209)
- do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
- entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
- </TASK>
-
-Allocated by task 147:
-
-Freed by task 147:
-
-The buggy address belongs to the object at ffff888100ef8c80
- which belongs to the cache skbuff_head_cache of size 224
-The buggy address is located 192 bytes inside of
- freed 224-byte region [ffff888100ef8c80, ffff888100ef8d60)
-
-Memory state around the buggy address:
- ffff888100ef8c00: fb fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc
- ffff888100ef8c80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888100ef8d00: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                                    ^
- ffff888100ef8d80: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
- ffff888100ef8e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-Fixes: 4e5bd03ae346 ("net: bonding: fix bond_xmit_broadcast return value error bug")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Link: https://patch.msgid.link/20260326075553.3960562-1-xmei5@asu.edu
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Backport to 5.15.y: 5.15's bond_xmit_broadcast() walks the live slave
-  list, not the all_slaves array upstream indexes into (that walk came
-  with ce7a381697cb "net: bonding: add broadcast_neighbor option for
-  802.3ad"), so there is no index/count pair that stays consistent
-  while the list changes. Instead of choosing the "last" slave up
-  front, defer it: clone the skb for each up slave as the next one is
-  found, and transmit the original skb to the last up slave seen only
-  after the walk has finished. The original skb is consumed exactly
-  once and not touched afterwards, however the list changes during
-  the RCU walk; slave pointers stay valid under rcu_read_lock() since
-  __bond_release_one() does synchronize_rcu() before freeing. ]
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
----
-v2: v1 compared a running list index against a READ_ONCE() snapshot of
-bond->slave_cnt, which does not bound the walk: bond_enslave() links the
-new slave into the list before it increments slave_cnt, so a walk in
-that window (or one that sees a slave appended mid-walk) hands the
-original skb out and then skb_clone()s it on the next slave (Sasha).
-The upstream index check relies on the all_slaves array walk from
-ce7a381697cb, which 5.15 does not have, and pulling in that feature
-plus its follow-up e0caeb24f538 seemed too much for 5.15. v2 instead
-defers the original skb until the list walk is over, see the bracketed
-note. Happy to send the 3-patch variant (ce7a381697cb + e0caeb24f538 +
-this fix, as in 6.1.y) instead if that is preferred.
-
-Build-tested on arm64 (W=1) on top of queue-5.15. Boot-tested under QEMU
-with KASAN: several CPUs flood broadcasts through a broadcast-mode bond
-while slaves are enslaved and released in a tight loop; no KASAN report,
-and afterwards every up slave transmits every broadcast.
-
- drivers/net/bonding/bond_main.c | 27 ++++++++++++++-------------
- 1 file changed, 14 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index b74732d2924b..12dc1d3c6e2b 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -4915,35 +4915,36 @@ static netdev_tx_t bond_xmit_broadcast(struct sk_buff *skb,
- 				       struct net_device *bond_dev)
- {
- 	struct bonding *bond = netdev_priv(bond_dev);
--	struct slave *slave = NULL;
-+	struct slave *slave = NULL, *last = NULL;
- 	struct list_head *iter;
- 	bool xmit_suc = false;
--	bool skb_used = false;
- 
-+	/* The slave list can change under us during the RCU walk, so which
-+	 * slave is "last" is only known once the walk is over: clone for
-+	 * every up slave but the last one seen, then hand the original skb
-+	 * to that one after the loop.
-+	 */
- 	bond_for_each_slave_rcu(bond, slave, iter) {
- 		struct sk_buff *skb2;
- 
- 		if (!(bond_slave_is_up(slave) && slave->link == BOND_LINK_UP))
- 			continue;
- 
--		if (bond_is_last_slave(bond, slave)) {
--			skb2 = skb;
--			skb_used = true;
--		} else {
-+		if (last) {
- 			skb2 = skb_clone(skb, GFP_ATOMIC);
--			if (!skb2) {
-+			if (!skb2)
- 				net_err_ratelimited("%s: Error: %s: skb_clone() failed\n",
- 						    bond_dev->name, __func__);
--				continue;
--			}
-+			else if (bond_dev_queue_xmit(bond, skb2, last->dev) == NETDEV_TX_OK)
-+				xmit_suc = true;
- 		}
--
--		if (bond_dev_queue_xmit(bond, skb2, slave->dev) == NETDEV_TX_OK)
--			xmit_suc = true;
-+		last = slave;
- 	}
- 
--	if (!skb_used)
-+	if (!last)
- 		dev_kfree_skb_any(skb);
-+	else if (bond_dev_queue_xmit(bond, skb, last->dev) == NETDEV_TX_OK)
-+		xmit_suc = true;
- 
- 	if (xmit_suc)
- 		return NETDEV_TX_OK;
--- 
-2.39.5
-
+cheers,
+jamal
