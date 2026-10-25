@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952990;
-	b=knk3eqRzdLK5T7flyPcDwnH/C4rrlYW5PTYgMrwkQ6CYSmNa85SBw6/lbTIO8EKc2dGc
-	 pyHXm1ky1coWdznL9hJRhjGBBmlqwohFPMCc7F/ebx84cDramBJvLSFC7fruDmWPtld6Z
-	 IGQuUkHy36yqEX/6nHQrtOzwndQciT+pTpEUv9NYMMmnxo7v2rg3wZThGCd3GVM6Z9gqZ
-	 bCRRjDF6GT7I2LLAusQ/ey6ZciIIxhNL5TJU9iaZqUtFACLWbyXiVl5ZkgBox11wp86wi
-	 Lwq7v7rajqK+51bcZV9aGGJGN45PAJZkG65axFPXVh/lO4vMfBnzVcJFqeN5gm4rpyA==
+	t=1792952985;
+	b=g/i5EdGtUi7jDi8ipZZRsJup7hUVRRqB1LpcgnKe/ZgBuXNGJSVfezjaPbkH3VrBnwfL
+	 IcjlaVhoaBPVhQbUREZzSdOoVbplfTOpgvkkIAKPZUfLDCH/EDrQWNAHnxhNhjsZHFhpL
+	 h6+20+k+JZSQVHzLYOeWlKuIDCHYGoT+NXvPQtDlFQ+Wno95zVmWXLOCv9k2Y8BDVrKAx
+	 LuaBjh6jMAOQi+4ed8AEYaAHQlkQeWPaEj2euEFV+qOd30WoQYPTR9wD5rWEGTCdAkBkv
+	 ZgsqAz41kvNs3BSZ0hLTnGZSu3JEAFpGwYSlgsH8nEPOEr51PFD64qkwwTJFh5T9p9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952985;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=lVd5+YIpZRZ9srRM38HUZhphNHJ8MrugQ9WKD9A3pC0=;
-	b=2/tYMF6G5a40pIF6p5J8BsToFwTEZAYx2FKGNViH6dqYeP2QFcnEgLaYi4fkJqbAhBmv
-	 W2vKxk01qcx48/Gila+ZnwNYCikHbrqFYwLIwleP6DyP7rsn3zVR529zTzDITSTWmFCYE
-	 O9OrlswSwiyHd5WdD4OxvEsYcYf58gYE9CXaA66lZTlXIhfoUECx372iPCrlLM4Xa+Ijc
-	 fw/tlEYjKNsinoK3BCKHWJCRo6BTiBid7DreiAEhJqDNPtil+FBSIwLopTEJqP8Kh3DS5
-	 Y1iLjz7vMz63aemOcV3vexPL3v9Lbz1fYcypzQFrP3y13IhUWNFUrmjKvB6dOMmJXjQ==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=0ViJzLMdjNwSjsUaA4gnJdS3+jHjilI1Xx8EQmtZsBo=;
+	b=4MMmRvgz+76RQSM6/fbcg3IgfNG8Q79Y3EAP/dqJ8mszbJ6jYKsYVhT1pdpxlvxg2pec
+	 um0J63dkktCznZJali8+zb74yzxNQ5hogy/HVtI/VIADmDltVWyrhvOkfiYRhPShZhxkF
+	 0QL3ftnLifKDtRJKwXf5jNqAeb0chEqqH8XrkX3LTvbDPBgFzSGEoHS9HnqCjiVI/4Ga6
+	 23bgUfUmurlQNBlcpKNjElAbiRkA2j9qSz7TAskYALcLFUReiCikm+aVqCYVfphk08J5G
+	 s0c1Pp8owJUoAXLThV36aQA0Irlie37kQ9U4d30FRehfAomfDN0pcCRMgPFDhxZtyvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oHxVPat5;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=icSy9Y9Y;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64D2606A31F
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A64D2606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F010606A31B
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:29:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F010606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oHxVPat5
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so14802615e9.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 11:29:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=icSy9Y9Y
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so2389818f8f.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 11:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792952988; x=1793557788; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lVd5+YIpZRZ9srRM38HUZhphNHJ8MrugQ9WKD9A3pC0=;
-        b=oHxVPat5bjbLKGMUYB16oqlsUm26HDldeAfuK/vg1wzG7yu2moRUuj0VDuZ8y3d1/+
-         pfCnRvPMWmBqaDT3rz+oJTDyUf8JexK+2d9tATmkw2TIF4IuQpFvkr8mL/t/ZntCG524
-         WRISs0WslGmjSQxXU+jMXmxWWHAp7ZmI7y3yzloA15P791hbEShWUClIQcF3NKWVE6JS
-         gpe7WC7IRpLEUKxvs0w6J36Bb0vnxH7mfpLu9pGtcanohpAWtqH18CohXBBw2lXlLlTR
-         21cRv96PqEZp7AqJzKTasLTOZZI/qcdNPfEk6LAyPaSt+AaBd2qVUUwpbUFDOHZifyBJ
-         hxZQ==
+        d=gmail.com; s=20251104; t=1792952984; x=1793557784; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0ViJzLMdjNwSjsUaA4gnJdS3+jHjilI1Xx8EQmtZsBo=;
+        b=icSy9Y9YJ04aGQdKdAOrjwcthPXedZz8fp5YPu4eDeg7MeYZGdW5Jmq1rLomS7e3P5
+         LGVtFtjkrwWrHkmEZAkNUSw8oas7Wf1OtIjYbqyJpoHHrxZ1cOmALIrwVKT0/bqAu4HV
+         YsVe8DP7CWvFzQEo3+5RazKTsniwxYD0GTWzmDytlWc8nrflINzmNP/E6NirbuSFOrQH
+         7882gkXQYmFw5Ao5FhVlm8CjXUW3JSF0o4LfntlvnPkMX4uxzrc+i1eNr6pep7mtTOMn
+         96IPUvk5+QZgmHa2VA4wy3nY8/LzEkwKkvcFsLgnIhiArEkYhAmnrvBk+zzrCV7Grobz
+         5oVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792952988; x=1793557788;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lVd5+YIpZRZ9srRM38HUZhphNHJ8MrugQ9WKD9A3pC0=;
-        b=eJvyxSZlsbTgWScbqaxKKkMD5j5lrst4nVNeSB08e4RVyXiq6hZzA0CWeKCZjVKlCb
-         no478VI4b/gJIybq1PfVmom4kcoDPDhXArwe888lwSmOEW0DLO/HfE/G3gdt8OsMbK9t
-         XY4oP3z7NH3aYf6i33re632zAqw8rUCYyl5U6+w+uwaISOrjqGoylHuTrJSO8PEKxJlI
-         vilIpnsFDirZ3J5jSXE6aO+g3uPnQp1E1ig+C/3Hbd3w/QN+be8ODrQp12Sl/Xkg9DWt
-         75/am8uU805HCs+wIi3zHGJJUrdsz8GDOwyVn50Tcb9VJb+FvBTWuOupnMGAJzgrb0rJ
-         1h6w==
-X-Forwarded-Encrypted: i=1; AKwUvByiMJQm4aI6usK0aGjGRanmZkPekTsMXkTrswR6MhiSnCFL0bdZb0ur1U0tTfXelkPtLgz/ZbY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIh9Bf6cdf/cGwKm2Ezx9W4BZo9LGv2itKokA0B8K3FBQqt+OLX
-	6rzJDUKB3TD9+eukE7dXWQTJpcEvyNHEX6LIMm1E3sASsZwsBg/Akjhn09vAdvbsl0Y=
-X-Gm-Gg: AYBFou2j+TJFTGDKVXn4Rb4DrmViGTHftTCo7LBU4xX4ew+ipLalGWptlxtT/XssFcc
-	jLM5s51Ow/z1pOQptYG5f5AkJGIFY9BpSMsKuW8LtY1PeOBLE++t7X8+aN5llABntQeOm9wwatQ
-	lpELwvYtPB6jCdIDUWPPqyz4G8T0X0mlq6iVfKAiXE7Qmg7LGRWDWAV8VUHursQ0rxwN0whHMPr
-	1gp1oVbIBs8xoXMgvgMZcR22ClElrZH14R5t30pJpN3VLGJDxaVT2ygTTW16rGo2qQNvzUzQ83g
-	+odk3gxu+/k1rwr3dsh5z+W241Fa1tXK7gb8nPAKTesLjm3cPDcXVZo6tbiaMjpB4wmoJSi8kZa
-	B5j2ZiF6Oh0nFtbHov3qfb0HooOXEvmWDDWQ1Y2+vfhBow29f4RU1XyojjbAltng6MoIRL0p7kA
-	bdx7bq3rWEAD4r1eTU25tG9w1YcklsYuozW2mQi72cHkEw7zRNt9VZdjVBUWsAG7gT8WICRlnYN
-	4RUahaCG1jPGYsfWELrhCpcHxEN4LzWq3xeez8q6GbDSHT6r1LDQlY=
-X-Received: by 2002:a05:600c:1f94:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a35acbcaf1mr81227785e9.30.1792952988059;
-        Sun, 25 Oct 2026 11:29:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792952984; x=1793557784;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0ViJzLMdjNwSjsUaA4gnJdS3+jHjilI1Xx8EQmtZsBo=;
+        b=HVR854J6UdpC5GsPq0jqy/4dIKXNKN1DqhMLbgTmSQHiElDppDg3hFzpOF3qEAxuXy
+         0Rox8X2GiezYH4yFBl47nWOGKrV+AAeiomPE/V9nokxsnj9W5bVZE6af0TWNobfj9hZJ
+         OMmqGsNokliGG3QX/CxNnSVTBBunSOLD2syEwZvMnHikSonwWMYEFj8Yl1Zj6XBZX+ma
+         lOrHBc8SBQN1hZM2UaLPh80Ayra7EmXiojfvouKopihEobXs7K+hMN4EVP1ve6K0SOec
+         XpFpwk9FI6azIN3uAeYBEqDeRUgR05TMNUyDzfC8ND6XArelHld0Z3Ae+iScRAOHe2Uk
+         JnYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrT5TQfaUZV+/26pYTu6KznoYonIxJoNVG0blAKw/reDHaYf4QBIwGrsqvMDOl9v/T2xK/qz4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRXAzPGrN1csvALGNjaFiwzvegwV/GgH0q1MQoiuAGg6A0rdoc
+	BoXVTSl2woFlmEcLBsFanGEWdZ87444fYAI2FKUwisY2ik94jpgErZ9b
+X-Gm-Gg: AYBFou0pJ/XbhXNKcbnJtptbLY5yx01jxpQxensk/TsXXrmfr5PNlglM15EM4qBIOEt
+	T0oZhVKqjeZFNn0A27pK1Qjoo/Sb0ZR9zWhnl1X3PJ7HaEe7X6KgUGuMecATFAsjdFpwJQbAk0J
+	1rWohgmdZBeP8q/4fKDQVUa5RcYq2UaBYuV0lPHzvvfFyjjIDzRWk5bt8MbsjPdomks+ebVFMih
+	pOXyJ0ey7IyqFa1GkEBn0yadsQSAqd20mvLAgHp6Ef3ljLePbUgC+dCUtRf8BA67NvnOkiYhDra
+	3m3PmwCL/L9fx6AsD5l98c8mM5i7W4GGiEd4BZM1FEDjtvYKMmPmSLDWZFDg/A9pGXt8twwbPuh
+	xaRNH/B4ZAotxE//52LeYl2b7rpg7m0EYBQkrF362JNVrICKfGKTc95UvnyqQ2i4Pi2sKwxw3s7
+	fH8qEjg/He8F7mAZhZvyywNNIyYy+vAeDrtdEcYqeilFWhB4cJfoempNYQB52BnczDP1YxJpiGt
+	ZUV82MgNJO24GmkWUFuYlo19nhBRNw3C8VyZRzG9tPQiqNC0nCt2Q==
+X-Received: by 2002:a05:600c:3e14:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a35ae8806amr89044655e9.8.1792952983503;
+        Sun, 25 Oct 2026 11:29:43 -0700 (PDT)
 Received: from [127.0.1.1] ([85.105.252.11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2e8f25sm138255175e9.14.2026.10.25.11.29.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2e8f25sm138255175e9.14.2026.10.25.11.29.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:29:47 -0700 (PDT)
+        Sun, 25 Oct 2026 11:29:43 -0700 (PDT)
 From: Bartu Alev <bartualev@gmail.com>
-Date: Sun, 25 Oct 2026 21:29:36 +0300
-Subject: [PATCH 1/2] platform/x86: asus-wmi: clamp keyboard brightness
- hotkey updates
+Subject: [PATCH 0/2] platform/x86: asus-wmi: fix and unify keyboard
+ brightness key handling
+Date: Sun, 25 Oct 2026 21:29:35 +0300
+Message-Id: <20261025-b4-asus-kbd-fixes-v1-0-fa4dcf7d2a69@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,9 +93,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-b4-asus-kbd-fixes-v1-1-fa4dcf7d2a69@gmail.com>
-References: <20261025-b4-asus-kbd-fixes-v1-0-fa4dcf7d2a69@gmail.com>
-In-Reply-To: <20261025-b4-asus-kbd-fixes-v1-0-fa4dcf7d2a69@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4auEWXcgSatpexXpwiRTnRZUMipC8
+ O6Ndvnx+F8GocQk8FQZEq0sPA4F5qIg9O3QEXIsBqttbbSt0N+wlUXw6yO+eSPBOji6uruuHs5
+ D6aZE51Cy5vW3LP5DYT6OYN9/8CK9MXUAAAA=
+X-Change-ID: 20261025-b4-asus-kbd-fixes-6c7e3780597b
 To: Corentin Chary <corentin.chary@gmail.com>, 
  "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
  Hans de Goede <hansg@kernel.org>, 
@@ -107,72 +108,37 @@ Cc: Denis Benato <benato.denis96@gmail.com>,
  Bartu Alev <bartualev@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Brightness hotkeys (NOTIFY_KBD_BRTUP and NOTIFY_KBD_BRTDWN) pass an
-incremented or decremented level into kbd_led_set_by_kbd(). The driver
-assumes the new level stays within valid bounds before queuing work to
-update the hardware register:
+The WMI hotkey path and the HID event path in asus-wmi step the
+keyboard backlight with two separate copies of the same arithmetic, and
+the two copies disagree. The WMI copy stores the new level without
+clamping it, so holding brightness-down at zero drives the cached level
+one step below zero per keypress, the "value >= 0" apply check then
+drops every following transition, and the hardware-changed notification
+hands the wrapped negative to userspace as 4294967294+. Pressing
+brightness-up at maximum reports 4, above max_brightness.
 
-   scoped_guard(spinlock_irqsave, &asus_ref.lock) {
-      asus->kbd_led_wk = value;
-      asus->kbd_led_notify = true;
-   }
+The first patch fixes the bounds on its own, so stable trees can pick
+it up without the rest of the series. The second patch removes the
+duplication: both paths now step through one shared helper that reads,
+computes, and writes the level inside a single hold of asus_ref.lock.
 
-Unlike asus_hid_event(), kbd_led_set_by_kbd() never clamps this value.
-Pressing brightness-down while the backlight is already off stores -1
-in asus->kbd_led_wk. Subsequent presses decrement the counter further
-(-2, -3, and so on). When kbd_led_update_all() runs, its "value >= 0"
-check drops the work item, leaving the hardware state untouched while
-clearing asus->kbd_led_notify.
+With the series applied the level stays
+within [0, ASUS_EV_MAX_BRIGHTNESS] on every transition and userspace
+sees no wrapped or out-of-range values.
 
-Userspace listeners receive the unclamped value through
-led_classdev_notify_brightness_hw_changed(). Because that interface takes
-an unsigned int, the negative integer wraps to 4294967295, returning
--ENODATA to sysfs readers. The keyboard remains unresponsive to upward
-brightness hotkeys until the user presses brightness-up enough times to
-cancel every negative decrement. At maximum brightness, brightness-up
-leaks 4 to userspace, which exceeds max_brightness (3).
-
-Clamp the input in kbd_led_set_by_kbd() to [0, ASUS_EV_MAX_BRIGHTNESS].
-In kbd_led_update_all(), refresh the local value from asus->kbd_led_wk
-under asus_ref.lock before notifying userspace, so coalesced work items
-emit the clamped state instead of the initial snapshot. Stable trees
-need this because negative values break sysfs reporting and make the
-brightness hotkeys appear dead until the counter climbs back to zero.
-
-Fixes: 7525566abd360 ("platform/x86: asus-wmi: add keyboard brightness event handler")
-Cc: stable@vger.kernel.org
-Cc: Antheas Kapenekakis <lkml@antheas.dev>
 Signed-off-by: Bartu Alev <bartualev@gmail.com>
 ---
- drivers/platform/x86/asus-wmi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Bartu Alev (2):
+      platform/x86: asus-wmi: clamp keyboard brightness hotkey updates
+      platform/x86: asus-wmi: unify WMI and HID keyboard brightness stepping
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index b33ebdb21aa21..2478361b9b531 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -1807,8 +1807,10 @@ static void kbd_led_update_all(struct work_struct *work)
- 	if (value >= 0)
- 		do_kbd_led_set(&asus->kbd_led, value);
- 	if (notify) {
--		scoped_guard(spinlock_irqsave, &asus_ref.lock)
-+		scoped_guard(spinlock_irqsave, &asus_ref.lock) {
- 			asus->kbd_led_notify = false;
-+			value = asus->kbd_led_wk;
-+		}
- 		led_classdev_notify_brightness_hw_changed(&asus->kbd_led, value);
- 	}
- }
-@@ -1961,7 +1963,7 @@ static int kbd_led_set(struct led_classdev *led_cdev, enum led_brightness value)
- static void kbd_led_set_by_kbd(struct asus_wmi *asus, enum led_brightness value)
- {
- 	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
--		asus->kbd_led_wk = value;
-+		asus->kbd_led_wk = clamp_val(value, 0, ASUS_EV_MAX_BRIGHTNESS);
- 		asus->kbd_led_notify = true;
- 	}
- 	queue_work(asus->led_workqueue, &asus->kbd_led_work);
+ drivers/platform/x86/asus-wmi.c | 79 +++++++++++++++++++++--------------------
+ 1 file changed, 40 insertions(+), 39 deletions(-)
+---
+base-commit: 9d3475065167197742b0882aff21cf8e78393277
+change-id: 20261025-b4-asus-kbd-fixes-6c7e3780597b
 
--- 
-2.56.0
+Best regards,
+--  
+Bartu Alev <bartualev@gmail.com>
 
