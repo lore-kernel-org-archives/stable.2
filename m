@@ -1,75 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792892099;
-	b=39PMlprral/wouCYj+HEA+rFdAD5ghbbM4Y1VhV11v3uWE38vrsO2ykfgM/bPln8GxMy
-	 6LW76o2oTnAz3IHxS+YhtUnfBlNaueFYXZZJ0l8uhwXWpCmQ63bAUvmIFzBXp3ANP9Tkr
-	 jiE7i7UrOB2ylmzgB2TLGe9Mn9VaF7tgeut/EdqiZE+uX53+2R7j6JWNmUWMK5dAaWe6E
-	 136Q76StcdIejQ6RtFk0ZFUP0AFzWFM3tZ1u8MRmh+TZOpxwy8ygpozLElzZDkAOOap1H
-	 ShwbzGVZlQIoofrBJqiTC052mS2T752jgH9n8ZMW4Pir+0t4bn/bQnPChsH5BmylcFQ==
+	t=1792892286;
+	b=S/aB3jnZWdkvSMDymIgFF+E3km+wAyMcSq+Zp2VeXNKsSGk0jaDeaBCahXYnkiqZThNn
+	 EragC399gI+4mSeljH+KxW2oFIYA/lJeWktQQOQnU0sBW7TR03CgtWKCQPTuD3jz0s5V0
+	 m8Z6c81ULwvJXbwsPJtFwLII/SqMz7JePBFdlCvDV1TfaZvSKI+6WzY+VgTZFXtduqbdg
+	 J0XQRBzhsa6CjPPjupQ2Z2A+8a9GJTAc5ihXLFAqtjUUjTlGn35EoPow1XR3AwKKflmr4
+	 t+IQRtva8AezkCf+pdGTCoYWOPjgycVGk0GO8X5dB/jBILFFh4Awp6zd+dAr5yXzaDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792892099;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792892286;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=BP/T5caNyFQqrbvx80KyGJgS3Pl0WpQ0WItoit3D5n4=;
-	b=axrtedkHnck5nHPCPuPnFmgwDd36K2LnDyxf60Znmgxp00c7v8hk1p/2LsbhmIN6g6Jb
-	 4E3r7iDGY79ODQEwXqP7Dy42EQhFB6gQG94f88Q+FFAeGCvEG3YgsRr5gAjWMY5sdb0Le
-	 bsdsw2FhnOdF9Rvb0CeOw44H24cOouyHJvdtAlrfFoOZfqni0aW9AuUFqSe1IacGpSc85
-	 HbnnhM2i3W5NzO6TxtaljFKBzcrcCW+H7Dfl0UqYbZXctwkzdD6hUC3o33rirHrDM+Zjc
-	 qWILvDlE8KGTrFlPB+sH2epx6IEsLJvw5qr4Jm2pWLud7W1DlaoR/MMOPMGC/FlV6qA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=u8h1InsNpeC2AlWGNl5I9ntcUmNs0bzik5YkhmDqhCQ=;
+	b=YbGi+fGxyJbMAj3WMJWmAzA8/JAMTszHuoROHvJ2Zyrrnkdk8zcbw/kbV9ofJ5xvMrr2
+	 lSROQ0ZjbAotcQ5MHkQsT8SqG5t1tA5d3b/QwagOQ8E/ErzN5/BWXNPv1w2HAjQVXbfrt
+	 W8XZDPgXF2oshbWyU5NkWEnhNKdUIgv5DH3bGWXbYChiyYrFrYbyzKo8xEMy8o8h+fkD2
+	 Vphw6sljuL6+t9D53lFPLseYltSW7yiBt6ZlFEysjSNbXRgDxaAqc1YDaIa67mSI2d5YT
+	 hI+ZYoS7bSIAVpyKWNLvb1UTWuDXHOwdn+Kq5nYTbV6gut9HoYFqKnGQpclHZwsUwQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dEzswU2F;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=sEGEkAsT;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03F5606A336
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 01:34:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03F5606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF33606A31E
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 01:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF33606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dEzswU2F
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3aaf955db5fso3192825a91.0
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 18:34:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=sEGEkAsT
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36681e85e87so1426796eec.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 18:38:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792892098; x=1793496898; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BP/T5caNyFQqrbvx80KyGJgS3Pl0WpQ0WItoit3D5n4=;
-        b=dEzswU2Fcsi1HV/1C1T/dd4ptCo42oLxLfLaX5mdu4t50ngB7DU/MikWO9wmPQj6hH
-         wDUjsaOuZILakJWz6SJ3xNZCNmaVOroWsYUI0BdPbphSAX4n5KQs2LEcJzxhbWG/vmg/
-         JsaGpOiIsL68Yedj1JC3z2zz5qupKclpqFwpYMmmbVLaSjFk18tmQ/jScKl4xe2CLsFA
-         eU+M6DvthyaXWW+EldMi2NBn1+nYccZERagA7tSuxh5bnXFk8m69l/JToSc7HbFV4eHp
-         UctyADqbeG7sOpmRZAm98fcpI53RaKdQ4FyL6pbMHXBTEbA1fnu7Mi4VbAoQYn3SqQNH
-         tamA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792892284; x=1793497084; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u8h1InsNpeC2AlWGNl5I9ntcUmNs0bzik5YkhmDqhCQ=;
+        b=sEGEkAsTpgfmX82g11PV76q1y7ztdsbuImZnA2R0xNogWSBJjygohuxHaAvHrR5h4t
+         MIjSvtpCEnNm7+2UUXIBZ+gmfNImcsjx1SEKy6y3PK18adPKmvvRmeJ9zllhdHjO+1/q
+         njtdixJEtnfxjw1SdO+rSCevSSHExE0Q/TCKvrXXbBgsjYcAJGmDjrmU/totlJei9AV2
+         NJydQzHgb16+Sman8eEjuNjMtMkqer46DIgBoMmbiRPBrVWiJ8flj7Q+EKdjAOAqOB73
+         c9YDNartU+E6io5F3XtQR6ODJmWLZ0Nhe//6KM5ot91kyRbukwdAxh0u4okw7spJD2H1
+         blfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792892098; x=1793496898;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792892284; x=1793497084;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BP/T5caNyFQqrbvx80KyGJgS3Pl0WpQ0WItoit3D5n4=;
-        b=fjHR2OEVE1ZqCCLJT7p7yUgu0tifGO4a5sGsCvgk8aO+tvkm9OG3h4EoVvK8pNfUNZ
-         XlL5P+M37Y+sPHuurjABMmyY4hKQCnJ8MsvIP19woMepcsvxs5IYxA8T+wB0gvDOmWbs
-         wP0aqE4HdvQdaFwE4TBpV9sQ6cQ83vdfwwWlRZNf/hNGWFPEV/yq960TImECrNCKVp1U
-         KRnrWn1MOqUEsUxqEOHOoMc05xA9uvE41LnobNCQzqvePc0yl+sNhKn3nDwS0RnX8Sdi
-         D0Qaz63JIzgzac6akQe8GwVk+IGeSI4pq9EPKfxnQAPuNEvEdbge1B5gibVG+2IO+B53
-         G7Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBwQxXqHdySnde5bE0RmNZLBr2gJbPVcMjMD+4yvoXa3mMJdYYc2WmkILl4TCgmMFkVMHqZ6OoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVg5TSqsH4vU3flefA1e2H4Q2gTyfgjcXpywIEX8YbQISm8NO1
-	cxwo4tyelD01agkQrDfXNLD5OydqG7bjHB8vt1Yxhpv5LZKCl51G6gQ89GUoBVG/XdzAiWzFFmD
-	e1RhXOTb3daQ6uO0bBQjKEQ==
-X-Received: from pjvf5.prod.google.com ([2002:a17:90a:da85:b0:3ac:16a7:52de])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3b8f:b0:3ac:450a:f9d4 with SMTP id 98e67ed59e1d1-3adeb16364bmr3012759a91.64.1792892097936;
- Sat, 24 Oct 2026 18:34:57 -0700 (PDT)
-Date: Sun, 25 Oct 2026 09:34:46 +0800
-In-Reply-To: <20261025013446.345974-1-stanleyjhu@google.com>
+        bh=u8h1InsNpeC2AlWGNl5I9ntcUmNs0bzik5YkhmDqhCQ=;
+        b=Ia0hDnNNH5Rbl55w2KssaLuu/9icwOJZCuCxqJDTUdgduse/dUCetXBC0jQPggjRgj
+         HnQlJaBY2wRl0u6XhgIKvJVyu5x+ZVpdkIBFcGJQ0KTgmH/HIZ1CiAiDYBZ1HcARGZyC
+         vFv2O7w8jeX2vdYsVec7Ij5RpPd1ZcGp4a8v5PdOvfoRyj1ad4kW8Hsz7s1okItc2Bgn
+         4VhcRUCmOV5dEX46L3Q+hM1yeIKwSaCkeX7NeqGdn6Ek1MgaSALRPqfG4AbthRpmFs3G
+         T6kcHnS5J+hRtguSHjeKuyKGk2h05VJKKKgZDjRd370NJLfUeawPsHeYrzhIY4fmz+u8
+         e4eA==
+X-Forwarded-Encrypted: i=1; AKwUvBycKtQ5kdRODjNFwQkHRh0uIikKWOTWPoNy+vUpJdGNar/irCUIGEk6f93CaIUSAOwvTf2YpRc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF8Jh9/JydPYDT6aCIHMc/aIv10FJkEt+mWfZjY77NGTFgwK/Z
+	RvATGPo0TVJr3hirSyCoq80OWu+6yW0aTCJaCy3WAxO/CC+3Jizt+Bd4tqm9NIWEY5I=
+X-Gm-Gg: AYBFou34iYqcbEAWyPZIQ/pLh+y6K0UhAK8c9A9MIdz8CF4JatamwczNV5G+b0SP62I
+	PeCweQws5X4Zqmev29BAmadT4BxnBLHWOcOMSn+2e+6pHRF3pAAelR9i4K2/VoLj1aCN7F+IALY
+	1HOG+TeWngWn1LDcvtYiSqHu5y3qeXuVnGrHAJyhPG+V1fkciBR5YZjq0prI83CSJn8zzpKhQh6
+	B6225JEQrLNDXxA2KlxKhdF6quSoFX/moSgXZCdPVE0nQ+3XPkQKDouHI8NXkZZdE79S/cX2TIS
+	FKGePlzQimDVW7ybcgerqp0S4lxvt9rqSpQXFeuk+7XddzWKGLT9E1+CgUFEMiSk/lZCsbS64p8
+	fHdcNd9zFGY4kDA6rdYtNVPWvBKrioMWArrNWg67nGHNNOOP8TK1iT5Z2rrSy2ROMeTj2NQrXkN
+	vdnhNCCZfT6KD3Bkf7tKe2aEYRUraZM/kZg0ErkLQGFY4R73brxJDTRHFYOQiH+nmy/YLdcR6oS
+	klGXUsz1+HelwW21PHFM6jSKvsaXsDMKaPb4RFiTJwrWMRXrgsDaE94L8j6XbCCEEAHXxxfdkQE
+	6ngxL0bzCGpd6VNzIkoYTR8hzQ4nhXcfs2KaoJ4NDy67D6D9mtpeEROQaSg581N7vg==
+X-Received: by 2002:a05:693c:820d:b0:366:bcf9:1807 with SMTP id 5a478bee46e88-369e84dd76amr5254349eec.36.1792892283556;
+        Sat, 24 Oct 2026 18:38:03 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:dba3:be57:a674:a67f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8dbaa42sm13724329eec.21.2026.10.24.18.38.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 18:38:03 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v5 0/3] RDMA/srpt: fix the descriptor table checks and the context counters
+Date: Sun, 25 Oct 2026 10:37:45 +0900
+Message-ID: <20261025013748.3755639-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,103 +98,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261025013446.345974-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025013446.345974-6-stanleyjhu@google.com>
-Subject: [PATCH 5/5] scsi: ufs: hwmon, debugfs: Propagate runtime PM resume errors
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	Peter Wang <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-ufs_hwmon_read(), ufs_hwmon_write(), and ufs_debugfs_get_user_access()
-ignore the return value of ufshcd_rpm_get_sync():
+The first two patches bound initiator supplied descriptor data, and the
+third widens the counters that hold what the first one admits.
 
-1. A hwmon sensor access, a debugfs exception-event write, or a debugfs
-   TX equalization retrain request runs when W-LUN runtime resume
-   fails, when power.runtime_error is set, or when W-LUN runtime PM is
-   disabled while suspended.
-2. ufshcd_rpm_get_sync() fails with a negative errno while leaving the
-   device unresumed.
-3. The caller still issues temperature or exception-event query UPIUs,
-   or retrains TX equalization, on the suspended target.
+A 510 entry table fits in the default 8276 byte IU when the additional CDB
+is empty, so the bound accepts it and the counters then have to hold it.
+With only the bound, a conforming command carrying 256 or more descriptors
+still wraps n_rw_ctx and leaks every context it allocated. With only the
+wider counters, a command that sets ADDITIONAL CDB LENGTH to its maximum
+still walks a descriptor table that runs past the receive buffer.
 
-Convert all three call sites to ufshcd_rpm_resume_and_get() and release
-hba->host_sem before returning the error, ahead of
-__acquire(ufs_debugfs) in ufs_debugfs_get_user_access(). This covers
-ee_usr_mask_set(), ufs_debugfs_restart_ee(), and ufs_tx_eq_ctrl_write(),
-which all use ufs_debugfs_get_user_access().
+The first fix dates from the driver's merge and the other two from the
+conversion to the generic RDMA READ/WRITE API, which is why they are split.
 
-Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for wlun")
-Fixes: e88e2d32200a ("scsi: ufs: core: Probe for temperature notification support")
-Fixes: adbabdcf0db0 ("scsi: ufs: core: Add support to retrain TX Equalization via debugfs")
-Cc: stable@vger.kernel.org # needs "scsi: ufs: core: Introduce ufshcd_rpm_resume_and_get() helper"
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- drivers/ufs/core/ufs-debugfs.c |  8 +++++++-
- drivers/ufs/core/ufs-hwmon.c   | 12 ++++++++++--
- 2 files changed, 17 insertions(+), 3 deletions(-)
+Changes since v4, all in 1/3 and all from Bart's review.
 
-diff --git a/drivers/ufs/core/ufs-debugfs.c b/drivers/ufs/core/ufs-debugfs.c
-index 9f83628f3e2c..44a1a9692324 100644
---- a/drivers/ufs/core/ufs-debugfs.c
-+++ b/drivers/ufs/core/ufs-debugfs.c
-@@ -70,12 +70,18 @@ token_context_lock(ufs_debugfs);
- static int ufs_debugfs_get_user_access(struct ufs_hba *hba)
- 	__cond_acquires(0, ufs_debugfs)
- {
-+	int err;
-+
- 	down(&hba->host_sem);
- 	if (!ufshcd_is_user_access_allowed(hba)) {
- 		up(&hba->host_sem);
- 		return -EBUSY;
- 	}
--	ufshcd_rpm_get_sync(hba);
-+	err = ufshcd_rpm_resume_and_get(hba);
-+	if (err) {
-+		up(&hba->host_sem);
-+		return err;
-+	}
- 	__acquire(ufs_debugfs);
- 	return 0;
- }
-diff --git a/drivers/ufs/core/ufs-hwmon.c b/drivers/ufs/core/ufs-hwmon.c
-index aa0b60a0ee8a..2b9673d92573 100644
---- a/drivers/ufs/core/ufs-hwmon.c
-+++ b/drivers/ufs/core/ufs-hwmon.c
-@@ -61,7 +61,11 @@ static int ufs_hwmon_read(struct device *dev, enum hwmon_sensor_types type, u32
- 		return -EBUSY;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	err = ufshcd_rpm_resume_and_get(hba);
-+	if (err) {
-+		up(&hba->host_sem);
-+		return err;
-+	}
- 
- 	switch (attr) {
- 	case hwmon_temp_enable:
-@@ -113,7 +117,11 @@ static int ufs_hwmon_write(struct device *dev, enum hwmon_sensor_types type, u32
- 		return -EBUSY;
- 	}
- 
--	ufshcd_rpm_get_sync(hba);
-+	err = ufshcd_rpm_resume_and_get(hba);
-+	if (err) {
-+		up(&hba->host_sem);
-+		return err;
-+	}
- 
- 	if (val == 1)
- 		err = ufshcd_update_ee_usr_mask(hba, MASK_EE_URGENT_TEMP, 0);
+The span check now uses struct_size(idb, desc_list, nbufs) rather than an
+open-coded sizeof and multiplication, and the size_t casts are gone. nbufs
+is at most 510 by the time the span is computed, because the existing count
+check runs first, so struct_size() cannot saturate.
+
+nbufs == 0 is refused explicitly. Bart and Sashiko both pointed out that a
+table_desc.len below one descriptor still got through while the v4 commit
+message claimed otherwise, so the check is there now and the message
+describes what the code does.
+
+2/3 is new, and it has not been reviewed yet. While working out why
+nbufs == 0 reaches ib_post_send() I read the rest of srpt_alloc_rw_ctxs()
+and found that a descriptor length of zero is not checked either. It
+reaches target_alloc_sgl(), which has no length check of its own, and ends
+in sg_init_marker() indexing a zero entry table at nents - 1, which is
+unsigned, so the write lands far outside any allocation. DIRECT requests
+are affected as well as INDIRECT tables, so the check sits in the shared
+loop, and the patch carries its own Fixes tag.
+
+3/3 is unchanged and carries Bart's Reviewed-by.
+
+Link: https://lore.kernel.org/linux-rdma/20261024162852.3528224-1-yhlee@isslab.korea.ac.kr
+
+Yehyeong Lee (3):
+  RDMA/srpt: bound the indirect descriptor table to the IU
+  RDMA/srpt: reject zero-length buffer descriptors
+  RDMA/srpt: widen the indirect RDMA context counters
+
+ drivers/infiniband/ulp/srpt/ib_srpt.c | 21 ++++++++++++++++++++-
+ drivers/infiniband/ulp/srpt/ib_srpt.h |  4 ++--
+ 2 files changed, 22 insertions(+), 3 deletions(-)
+
+
+base-commit: 6fba331225f5040e93d0947d1027e9712238291f
 -- 
-2.56.0.307.g5fe7bd680c-goog
+2.43.0
 
