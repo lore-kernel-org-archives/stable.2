@@ -1,87 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792954881;
-	b=vPwbMzU2xfHqRUWVJn/dhy2avvlEPpYtA60kn13gNV6eyDFR5M7DYmcjDZaIDAla3awN
-	 1eElwbHL8poM0W7bfvQqlqRW7Epha3XS1RxS4oXbzW5jLigu7xVYEnLH935dX7QZfHJAP
-	 L3lyjKBiyCgqYAmH826mPy2agBnOEeAJ5x0g+xvdjy13m7A675E/Q8h+Inv3pwGiH1OAV
-	 7g2TG4Tbe2AmYOPK7y2Xx31DJdOB6FwQvjVgLHflXOY7pSr1Z6Fy1dD4P8XT2K+8D/Xps
-	 letuujCxMRURMUeoCo9jgkPwf4iI1V2tj0enqlHH3s0BA7/eGVVHoVsE0l/W9dYAtDw==
+	t=1792955942;
+	b=S/LYFLxAFV9r15/K7yRrSx7U/8bnq3e+p8+0VcGfdKY6WLVAilApMaQeXg0At58/DQL8
+	 K0j40uz+i2jEkIZTsRpLtkc6BB3zuk/rDuldCg845s9hsZInT9CchbCuVxc4PWLzzHWiP
+	 LtpoomySNP2VhHNwaerW/GgwTZnrfd3QpQUGFrtpcFaK8zlw/XaqkGuJKrT49TJbawA7b
+	 0xCJ/QX3TIajjSfYx0RwsZJ+tuOZFuYZRnifQ1ocPsprBbHENUn1qGEeoyZATCaRy+DQe
+	 XuspKCrIBqvFPab4zoNiCSyVMYjITYj4S+lDdN+gkRPxivXRtVUCZHQ/aA3v0g/i2Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792954881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792955942;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eep4GL9DCocomrU+bxRgX8heWYBDGizJAyovtrxi+A4=;
-	b=V933qgrgrh2B3hCFSNXIhiTAeQ/gzeZyRmSVilRHjxImO72EoxLtGUJ1FQ3ulcHztAR+
-	 LASgqfNOJKD3xCE7ltzoTcAhfZq0L3YBtlGitejxoC67+PGEf85umiyNN2sEwZcYNEEuZ
-	 C0m1OajLTxMzGEyTNSZVFDcVVJGJsymw4htV3xpom4isyoDJwb9ZAx1V2OiieZilKdhEz
-	 3kEyz3ZjyHtVR/4eVgydYZkwZOengXY6pUyG/vD8++kHC7wpOuaVjcjVnMQmUn8ZQrbFW
-	 OJHqim36aArjOl6YWyW5F3ZkqySDUUmKc2KjbwUGDur5ZWk4hRv6WohfMOB4fh5xgWg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Sender:Message-ID:Date:
+	 MIME-Version:User-Agent:Content-Language:To:From:Subject:Autocrypt:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Byu/Ivu2c/RQxf7NoTMxN/pvEQ2Ryga8K2B0J0WdHLg=;
+	b=hNNK/OW2EsJDCZerxcgl6sBRjbOuaNTDtnUnxXweK3XjWm0g0ZGLehi9ljDbODURb01I
+	 EJwXSJqMUSxPPSOqLs79rbeoTIeiWXiVx5pe6VqUdLKsy7miIzP3IZnIjeuMMv9VRoJlZ
+	 tuTBYLJvKU20BBjOvSLmSsAnNPzzNKO+atpVE1l99m7/OdGRr5vZ3LvdsFt3pNvL6vmap
+	 fzAbBrcYKJaYPIdNrawwdTahyHBBXrIa+5hmlBOk18H3VpwktOWMXnUF24wR8r3l/uyok
+	 h8Fe0aiYktpn3UPnCqnW2r8x6v13sjX4ttFcl7NQY+T9nVzSZoUrTqP2K4fCrhhxzZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=roeck-us.net;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dgMd37vl;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LH4HKIAq;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8849606A31A
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 19:01:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8849606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C27606A31F
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 19:19:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C27606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dgMd37vl
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so1309022f8f.3
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 12:01:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LH4HKIAq
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so1180631a91.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 12:19:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792954879; x=1793559679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eep4GL9DCocomrU+bxRgX8heWYBDGizJAyovtrxi+A4=;
-        b=dgMd37vlDpgRiIoYeaa8X5rQX7VWdgW3VUzIzDctagQ5lK23CkVWnctd50Zbyg2lNk
-         KUjOU3cedefVLJU3ermhwNQlbmkvuJlFB10AYs2BDe6W4ngbANr3txO3gjaAW37Lf9h3
-         yl6zlF2KgPsTeqFo9S7t4eWQdALhNFZDil85qXUhvsgrKvH1v6zMiCSUq3W6aksbgBiJ
-         +sPbDrbE3q7+SibdYnjgF9B6yMPuerGvpyhChqrIWD3XxfeHSEPUQ99z+zTbYE+qBiGo
-         Fia0jEdb96EH6x3+vPTVVdpfB5V7cJq7L8MnHuGswbBAORU5b3oInu0nPL2CX7KWc6a0
-         VtTA==
+        d=gmail.com; s=20251104; t=1792955942; x=1793560742; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:autocrypt:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id:sender
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Byu/Ivu2c/RQxf7NoTMxN/pvEQ2Ryga8K2B0J0WdHLg=;
+        b=LH4HKIAq454DMkN8kSv0tkEn9xxcxcTgd+1RD3rzi+LVJ+JIHhmN5APLQ2qeOX9Y1+
+         A2ikD5jD/Xwn240gmnW1fFkgYMPwcRlH0BvKQlf6eT2guHs8JDP3NXgoUZuf8VHDRE9g
+         OzOqai3e1cxE390XkqXg/MUQBgXwETteJz7ydewtXGtUL3/Zl8nGOSVeLMjg/jDy3i9X
+         O2w4OXOpFVPWlzQ02RvLZKeCCDI2YiqyAtynpl5Y2uQMVFjyLks92v5k7lyWUa5BKzsH
+         wYgiVAXWAK8M7+4swsFnPDq+OIDUA/YHXaTbVk1ccKbsyo41GpPQ2G28upANRBZp4Uv4
+         IYvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792954879; x=1793559679;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eep4GL9DCocomrU+bxRgX8heWYBDGizJAyovtrxi+A4=;
-        b=TuPUKn696VQ+eXuig7uIi68W2RwMWlzTqPdGV2YYk/Z4KRTwUr6I74UP3boSh20Zgx
-         RrXIPDEXWtWUoAEMgyzkg1AkHI8fOg6naJuSA8jnnjUI+oFLtYI0aCdi8bix7J04k6UB
-         Rhv4C3AR/6zyyimEwRf9nWjtpmh2d5P6PUQf86mcekNq9AeuPeF+MJQLtJ4eZRPAPAwU
-         Agv0ZcN3hfV+O1tnmg68Kfx/NdDFL2UPNY+91DAFCzgIu7rDwbu0PpJbH3h5XEdb/0Gi
-         7N/Dk8ca53l/7xyPntMvSYpWz74w9OLWJUMEbQycVw9P22WIuyj7Z8Qbpf6f2/XWTqUr
-         HHyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQGgi2kD/668nRuid5q04Asz9SAvTFzypxK/CFU+PpWwGGi6BDwJFqM0BQDJvgNU3OEHSiNI8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0J5pUs98P8cKfjux2fHXpmqlRYo+ZnitgzinxxCon/K3fSS3R
-	LfsDccLuPVB8fF+uHM1v94XcgcvnY1dSZ1+rxZOfcw/UFTmX7kf3CefFbP11Me3WT+A=
-X-Gm-Gg: AYBFou3Yk4YSPeYbT3H+QkH5Wz4nx+RhM5Gsy3EyBTiCAknk2GoZH+/wizWu1l2EYc2
-	ykKY8VVMnf/5ohLWQQkfeUQLC3qX9JsARJyVdla3Hzj6uoTqFu7ibZIOEVYm995vbeHhN/1AOI3
-	dYf9xdrVcIkPza87eqXpThlp9bsxaE5RFVzdUCOmk55yD3+afOd7EeortglgRKi16hosW9C2eQz
-	mb8BfQvWAQm5LS8LXI0YHSiLFptoq/CEikNKZ00NBUKX4X1DZX+f2g6z6vIT+rWgtwO+kWufJo7
-	GocGNLtlcSb9Wy5rnY1K9hEp9PsS20IkO/1i+UeNTQcftOeCPNskLF1NiD6llwiiiPgPPOuv27I
-	VseeO10T76zdNFQgTSICY86y9fum601H8cxUqpB0fVXEBXTVbAQvaP8mf79wWTnhWBnI0rNdFcW
-	Ky0pGrmNSN0E4SyDH6XqjeWknPuBwUg1aatP2uYBxyjD4vTBn2mfiodkF1ETfwH3aCGmckNdMJ1
-	4Yd2PulRybL2XN05Tf30gpOgiK/2Dp26t6OCgIAdFIzDAXp9FQ=
-X-Received: by 2002:a05:6000:310e:b0:48e:4300:c6d8 with SMTP id ffacd0b85a97d-48e4300c7aamr8195528f8f.35.1792954878913;
-        Sun, 25 Oct 2026 12:01:18 -0700 (PDT)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3bcdsm10026651f8f.13.2026.10.25.12.01.16
+        d=1e100.net; s=20260707; t=1792955942; x=1793560742;
+        h=content-transfer-encoding:content-type:cc:autocrypt:subject:from:to
+         :content-language:user-agent:mime-version:date:message-id:sender
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Byu/Ivu2c/RQxf7NoTMxN/pvEQ2Ryga8K2B0J0WdHLg=;
+        b=AMFIIPL6j4SGpEnq2RhghvRAVKXKaBePoB/IUKqSOcJaVL/IyVRdl5dHuTQ2CnmPYd
+         1FS7nprEwlKCINl1pUHjR64QoVOJiJaV6ysfih07OQKr/tGY3D/foGdSzR2UlvMhQL+q
+         HnHc4M3GR5yA6teL7Oe6gcnFrB4wnR/mTAp1Zw7R4C6H7e7uLfrFx39unf5PryEyGyTL
+         OfKX4JpDjjW5VQ9lbaYLXKSeCFqhLYAEmAV+6Ga0Q72Sm8hCukkmdMqtwMiS7avWWjYV
+         A31o/eDWMWMbXFL4htFSGgzubomv4RfKTisgiiQhzRoJSNjYWnpLLFv6Xdjz2tUbfSdk
+         8mhw==
+X-Gm-Message-State: AFq9FYLW7XCodkdFU6vr1vMXQCAgsGtfOPzWjQObgvD7gNkXOItONXUz
+	eUNMlRXyYLGTPOW/IvELLM0HT8p6+sPDOTgXGOw+xEtWBWh7RNBuG7QZq2rmLg==
+X-Gm-Gg: AYBFou1p3e0j+RbIy3ndU5RMgeUl9bpo0J36sjJ/iw9YJ7onzhpd2mDXBl1OvUX/DS6
+	88lr392Afavq1hVC1do+Rf6Bb6XrbU4OmbllNPPVb8pEpw/DZ3JX5mlBXgQrJ5rYvsJ6pXatOVk
+	soM/sH35iqW4cLdOH7i7KRbrD7WhFCsF/VThZsER9+SmNZUrDep+188Cr13bzc8WmVqjONXBgpC
+	1JxAiVtzMp+ZEm1NN89iCnXPbXA5iZa4uCqgLR0eHefwyWtckxI7w0r0qndp7u01AgSU5Ya+/xh
+	ItUnX8ew7LgHtAU67x0rXDnA1lS/NOinEOvOF4JSBSOWpZZ2syLBBl5REJ9awuqudLLupUG13gN
+	nzH4yE3n7qHDTFWP7ckshdSt8KLoKbhOYPmFUCdwaVSvLVS/e0foqgu+HI/IBHHiW0D0YS82NGO
+	guU6Xg/ij3E1LYf/n3pGiQxRd6Rb1v7b4ZaT0NMnz+vqEl0IMxoW9sZD6COHzjRM26brtUeR5l7
+	F7t3h+JOhNdJ/O0HdgAnQgJkhmhGWS6K6zEtlcc2tM/2mXxe1DbbiAZlfVCo+n2t4/CMOBjT0Ip
+	Z3HgAvR9MvTBvOfUlOzP3NxBCMU8Zg==
+X-Received: by 2002:a17:90b:2646:b0:3ac:9a03:20bc with SMTP id 98e67ed59e1d1-3adeae6db08mr4191584a91.47.1792955941713;
+        Sun, 25 Oct 2026 12:19:01 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaca7casm5711641a91.4.2026.10.25.12.19.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 25 Oct 2026 12:01:17 -0700 (PDT)
-Message-ID: <533c4ef7-e008-4439-be40-1aa2a074dfd8@gmail.com>
-Date: Sun, 25 Oct 2026 20:01:16 +0100
+        Sun, 25 Oct 2026 12:19:00 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <49da816c-8082-46f1-bb12-f0d6187bb06a@roeck-us.net>
+Date: Sun, 25 Oct 2026 12:18:59 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,49 +91,121 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Suren Baghdasaryan <surenb@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
 Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+To: stable <stable@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Tinyconfig build failures in v6.6.y and v6.12.y due to "srcu: Use
+ irq_work to start GP in tiny SRCU"
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+Cc: Joel Fernandes <joelagnelf@nvidia.com>, rcu@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/25/26 11:43 AM, David Hildenbrand (Arm) wrote:
-[snip]
+Hi,
 
-> Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-> Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
-> Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
+I see lots of tinyconfig build failures in v6.6.y and v6.12.y.
+Current release candidates are also affected.
 
-PROCMAP_QUERY does the same fresh lookup, shouldn't d9d1c2d81797
-("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks") be
-here as well? (commit tracked down by an LLM)
+Example from v6.12.y:
 
-[snip]
+Building csky:tinyconfig ... failed
+--------------
+Error log:
+/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: kernel/rcu/srcutiny.o: in function `cleanup_srcu_struct':
+srcutiny.c:(.text+0x2a): undefined reference to `irq_work_sync'
+/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: kernel/rcu/srcutiny.o: in function `srcu_gp_start_if_needed':
+srcutiny.c:(.text+0x60): undefined reference to `irq_work_queue'
+/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: kernel/rcu/srcutiny.o: in function `start_poll_synchronize_srcu':
+srcutiny.c:(.text+0xb8): undefined reference to `irq_work_sync'
+/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: srcutiny.c:(.text+0xc8): undefined reference to `irq_work_queue'
+make[3]: *** [scripts/Makefile.vmlinux:34: vmlinux] Error 1
 
-> There is the issue with seqcount overflows that Lorenzo is tackling. It
-> probably interacts here as well? Likely, but that's an independent issue
-> to resolve.
+Bisect points to commit 58dd6e92725f ("srcu: Use irq_work to start GP in tiny SRCU")
+in v6.12.y. Reverting this commit fixes the problem.
 
-the saved seq is reset on every m_start() and query, so a wrap would
-need 2^31 write locks inside one read() or ioctl, I don't think it
-matters in practice :)
+Problem is that IRQ_WORK is not enabled with tinyconfig in v6.6.y
+and v6.12.y. In later kernels it is enabled due to the unrelated
+commit af92793e52c3a ("slab: Introduce kmalloc_nolock() and
+kfree_nolock().") which adds "select IRQ_WORK" to "config SLUB".
 
-I tested it on x86_64 in qemu with KASAN, lockdep and DEBUG_VM on top of
-mm-unstable, the maps holes I hit there are gone. Also, the code LGTM:
+Adding "select IRQ_WORK" to "config TINY_SRCU" also fixes the build
+problem, but I don't know if that is an acceptable / desirable solution.
+If so, it should probably be added to the mainline kernel since the code
+only builds there accidentally. I'll leave that up to RCU and stable
+release maintainers to decide.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Bisect log is attached for reference.
 
--- 
-cheers,
-jose a. p-a
+Thanks,
+Guenter
+
+---
+# bad: [9fb48106e91d81010e61a7fa0b09aa6081ff1a2f] Linux 6.12.114-rc2
+# good: [7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e] Linux 6.12.113
+git bisect start 'HEAD' 'v6.12.113'
+# bad: [fbf5bbbfe00526982e83b55a3aebed9096503646] netfs: Clean up some whitespace in trace header
+git bisect bad fbf5bbbfe00526982e83b55a3aebed9096503646
+# good: [27d90b6cd0a460f1f3a9678ef45312b803a0ccb5] mpls: Add mpls_route_input().
+git bisect good 27d90b6cd0a460f1f3a9678ef45312b803a0ccb5
+# bad: [86baeb912a990effd375019875fcf39fdabf56b5] net: phonet: do not BUG_ON() in pn_socket_autobind() on failed bind
+git bisect bad 86baeb912a990effd375019875fcf39fdabf56b5
+# bad: [78543c82d93b6bb10c7d6527138b7c99ecb2c2c3] net: stmmac: fix oops when split header is enabled
+git bisect bad 78543c82d93b6bb10c7d6527138b7c99ecb2c2c3
+# bad: [5c95382ad671b086e361c5bb94678754512bfc59] media: chips-media: wave5: Fix Null reference while testing fluster
+git bisect bad 5c95382ad671b086e361c5bb94678754512bfc59
+# good: [4e2cee549890df21dc0d06f9bbc2df98e8dbc60b] irqwork: Move data struct to a types header
+git bisect good 4e2cee549890df21dc0d06f9bbc2df98e8dbc60b
+# bad: [568deb5ecc2624ea189ecda36162962725bd6827] wifi: iwlwifi: fix 22000 series SMEM parsing
+git bisect bad 568deb5ecc2624ea189ecda36162962725bd6827
+# bad: [d0b39dc7649b68bdeaa17c71c76d58eab59a35c7] btrfs: fix zero size inode with non-zero size after log replay
+git bisect bad d0b39dc7649b68bdeaa17c71c76d58eab59a35c7
+# bad: [7dabc9bec015ccad262d8cc37e8c00328f555691] btrfs: tree-log: don't use token set/get accessors in fill_inode_item(
+)
+git bisect bad 7dabc9bec015ccad262d8cc37e8c00328f555691
+# bad: [58dd6e92725f9afc375ccb11d3ef04fab0a4b4af] srcu: Use irq_work to start GP in tiny SRCU
+git bisect bad 58dd6e92725f9afc375ccb11d3ef04fab0a4b4af
+# first bad commit: [58dd6e92725f9afc375ccb11d3ef04fab0a4b4af] srcu: Use irq_work to start GP in tiny SRCU
+
