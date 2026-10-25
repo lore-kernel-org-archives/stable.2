@@ -1,76 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792957957;
-	b=iwcu8RgjimcxFUfqe4l2RgddXO7pcpvRWiGNf+ichk5ARpdbhYYcsLx1iy3BhCt2v/R7
-	 R2KfgKy1MPLjgE1Iez9fL/L5bAW0sRHWWxawHYwyZ8ilkXqA7Xkeo3rU7LItSAL4ugQRt
-	 7WnQ3r9UWDZVT4bNl7Pag8MGhwDcdzsWTyvW8Fhd8C77H3L4xb2fReSAp8mCTP2MH6c86
-	 OixKbuM4n1k7pl5iJgA1Q2/4XFRyNNMmL74Rjz5bntz1DGCnHFdnRR7BDMUWijM84PPkG
-	 4Z8XuAwk2bBkC9KWbC1JIcEXHlfQYHJ7Uboj8tficZN/QnTMIfffWKl8T1g3uVHcdXQ==
+	t=1792959531;
+	b=aGfhtaASOaoYDMPHjJcNUOkOWLqqo44IzBrFw+2qcEMuO5UMMGJhdFffR23M7ZwghiCO
+	 rFvKXMz9KZxNZQvJ7/pNUXFCyeTKCCpM3pbpCuDwRoFS4n5QnJh73Xdf0nrZxLkK9XmOG
+	 sGx/ZM8Qi+kwRgE+T17WASaG6CfIikOUrII/v+TpKmfmO9scIZa31LckYO34IRWytHPR2
+	 r6n9aRfe/TT8a3e9jz4VF1GRKX1OLrX7wtBw96nBTvwP0pSt7QnYVIPNcGxmR7ukmS2rb
+	 N8X1RzC+mYQlxX4QTw80pupaGS7AMhr9E/i395rwsibvdW7WkOJZVwdqbklbgR6DgkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792957957;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=phNHyna0u7LX1lVWmmLhmAYjf4k2mLRW1J3H+0fjjJs=;
-	b=R6PiuU600LdBR7avWbAxMUlmLdialDzHdPWlq4deBBwKdDm7sDPnfgsUSm85FkGzQf+f
-	 vB9Ua98tKcJ+EMwvGbdieEmOSR03MGPo25V52bB59Zw044AdXPkgJuMnYDDQrr2LRsw0D
-	 4TmQ3zrtsfqNjMx0/G4NKGTijUZtvrSnXdgVlHGtL9Uy7WGU4aVWCP2nZfvBVx+Y1B8tM
-	 zjDzkuJNuGO275sRb/mJP/KxckYeaZERDnC8dr7vK3lR2G+js3qCjRiENt+V55nLZeJwD
-	 BVwMTWQJMcsxTruzNpKfL0S+o4jaGfwRft3MYbWAdr4tw9iPFHY+K1A/K1OP9flXHHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959531;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=3WngVMz2hu0pYsOnMfvKGBql1YtI6BFCAaqsx3coqmY=;
+	b=UM1vp5r7ag2wEf5jBnUvdGcySyuJTCgXtO6rRY274MjJSbcnPnRi30RHOoWZ7fCuN4RH
+	 S3FNIjPmcSOeOzvdtTh9+VJdRolhD1Ex6obkYrFrzBJFdU0ePr4iEiR40B9xU8lTTywMM
+	 lM3hFwDIHCjUuf7mJ8MoaXs1mGHf6YTWlmVPe3n3y5V4V3451kYmdGpQrQnjzRscyPdS3
+	 rtkyST/QHLtE31UnX3IjfHM5L4XIxO/K2SYHiaKI3brL9ijIiwDElzeaQoLKJEhhEyHjT
+	 jCVaOrRMwcTitoNt9yo9REzAWnEz1t94VJ+3CBPzFVTJLr1fP/PbwD7MY4wXOfEc+Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W7V8IHiw;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="NSuRj//z";
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F527606A31A;
-	Sun, 25 Oct 2026 19:52:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F527606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11648606A31B;
+	Sun, 25 Oct 2026 20:18:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11648606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W7V8IHiw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792957957; x=1824493957;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qBwv+wPUM4FN0ctAG5SZcloMYd4fYBZyh+tCuPCnIk0=;
-  b=W7V8IHiwk3bBFdubAc1ID4zLhCLRLZwtUT1VDoiHU+Bo+HAMZc3pc0KU
-   Q9K1eqAUwyv2RkxP459b+5Oj9SPv8VPOdEkPySnwqyVEGRm5MpB2ehpbP
-   VUd9Wv68LG99hnXXmxQf/lfiwEXgux9+Nrv54nPWIF6O//K8ckg9Vfz3V
-   UNyGA7TGw8lULp2wNMlERc+34y7fh8fg4y9HBYXqFyradevf3mrR00H7o
-   jl4tghz84XpjgsQHa1XEVnya60XidFR2o4yM0A0NmWRt/G1UKGAIXQeeG
-   b1i2YT2E+9oMd7fcwpSWMxUqB5ZgB1pN3mFLZP+c4+zeBZLROwkf5P1OV
-   Q==;
-X-CSE-ConnectionGUID: 1TduCIkpSjmstLpMMBTo+Q==
-X-CSE-MsgGUID: 3AluGXc5SpW1mNfudAkIDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1533469"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1533469"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:52:36 -0700
-X-CSE-ConnectionGUID: 7E3+Zwn8TUayQpI4TO0L6g==
-X-CSE-MsgGUID: 9D+HxSH9TIybHSEEXSv5nQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4464161"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 12:52:34 -0700
-Date: Sun, 25 Oct 2026 21:52:31 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: jorge.lopez2@hp.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
-	linux@weissschuh.net, platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v7] platform/x86: hp-bioscfg: fix heap OOB in
- hp_enforce_single_line_input()
-Message-ID: <at5d__q_RzGad7zt@ashevche-desk.local>
-References: <20261024172641.19424-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=NSuRj//z
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jCSkt6YXvzMlMn;
+	Sun, 25 Oct 2026 21:18:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792959526;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3WngVMz2hu0pYsOnMfvKGBql1YtI6BFCAaqsx3coqmY=;
+	b=NSuRj//zVir8M2K4kua1ptN1SsmDqaH/zH6ZGkpEZifufH8cpYNp4fOEqypDcpbcQ5uiXP
+	W5OrH+/fu5a3XqF+a1/Wxdrs2d3lYHw6BB2M6NFVRGE4haLfqNNw+eq2Fs6XRxx3R+9oNj
+	xxC3IP5TL/okeIwHlBtJHs1XWxU5puM9DKu5TC+ujJ4iaBUlKmP98Cl5FaJ91u3q2v9Fs/
+	JS5ynUthUC7KBPUblqZxbeEJx5bpkXq54Yy07P0P1SUHDI0TVYBg2pkLVwhuvVw8URT+ai
+	XHxPWH0K45yZwDIVirlzb6uawMXoYuxO6MYG3WqLYY7UhAFUP5/7LR9VUVngOQ==
+Date: Sun, 25 Oct 2026 21:18:45 +0100
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+Message-ID: <at5j5efaqgB_JFgx@bb-82jq>
+References: <20261025125805.309934791@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,32 +71,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261024172641.19424-1-meatuni001@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
+X-MBO-RS-META: m4msyzkou6zgf1t49ac53om7pax7m86t
+X-MBO-RS-ID: 576413d78debe3925bc
 
-On Sat, Oct 24, 2026 at 10:26:41PM +0500, Muhammad Bilal wrote:
-> The input is copied with kstrdup(), which stops at the first NUL, but
-> the full write size is passed to hp_enforce_single_line_input(). With
-> an embedded NUL the helper reads, and can write one byte, past the
-> copy. Use strnchrnul() so the scan stops at the first NUL, and return
-> -EINVAL for a NUL or newline before the last byte.
-> 
-> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-> followed by 4093 bytes of "B" to current_password 100 times returns
-> -EINVAL every time, without reading into the heap.
+On Sun, Oct 25, 2026 at 01:58:45PM +0100, Greg Kroah-Hartman wrote:
 
-...
+>This is the start of the stable review cycle for the 7.2.13 release.
+>There are 231 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
->  - Drop the trailing comments
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
 
-Why? At least The first one has the same meaning as before, what's wrong with
-the second one?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
