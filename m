@@ -1,57 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792966688;
-	b=HTq6XtQ18tdVtolnY6Oyxjbj5L2U9RNpUeFbnTEb9BT22Z4XUc52YUmbfi0pzcx0jR/m
-	 +t2uQbTmatr5TAHcKPtyls/IMrhUUR3JeshF0L3DL3Qfp2HLQDV2eey7a9L06FTHqI9Rh
-	 6dYMU6FKAJ8vIy4KeGS1l++KOX2Wq7tkirS5/SheMhLpjRW+i/lokU446srO9CGGjI4Vg
-	 3s4nYqtyFl8Xzl9pDlipaU+4hQXVuQGjnM1linj/N1gHZTn9CglYa5iC9zY11iKrdZiTQ
-	 BFwwBY0a0DShTaIi46BWaStGR78mXEbHvtK5UtjTNOtCj7arzi6u9jvj6wbelQHpiXw==
+	t=1792966946;
+	b=FN6UA0qLMed7plxVbwqGq2vzOkO6M86HJqVHHuBdKt/7a+W2i/pBU4ehksJWl7WYVdHD
+	 2V67qJLBD58FdTKqRgY1khX3sJ6ZcZVoChMzkjGCzjoDuLuOqx7kB31FIXIZJVBuyjaqn
+	 DvGiRHB58+eh0Clh6nwDHkYgrtya42RTrFxvlOCfolLIYDfSkFl28BW8u0xdUlVEF9QqQ
+	 D4Ufhzmx7RURbpa2oXvidn1o7CyG6xTMhdtbPKM5uRpS79/dQ6v3YsR+NALCeSJfBTKD3
+	 HGz+7gIKv6no3+fwBghbf8wj5AR+HcwEyHPtPP196tivkXeRL47gnKtHTyQkhfw4BnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792966688;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792966946;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=MacUxvjp/ZyVsp7L+6WsiqrbR9Yvhn5rX+cxazDxsVc=;
-	b=oTHV8zKH2RJnshG8cYvGbOiEgFroj0Tm6XOAt3RlpoD0tRqWVI+SYXxWBq5GPYgGNEpc
-	 4HsnSG+iz9XDOJetI0OgjR6XCADVx/4OyA+1WC/tnvIgWpB65Vy7uCbPPIzwdjas07L9O
-	 CVxOvT5lD5GUMZVKV3FN7DYxgziBxD9suTxKER8M+j6qFiIlqOer/OoeItCvFoX1lSFgS
-	 o/abXf2cuO56qsmaWFYnPnwRvGNWk8ZU5T9dcC+trWoqjD0Ub0snh/gho7PUxddUqIIWE
-	 hAkSM5KdZ1qBAEgyA950J00iPH2PmzjiJa6v+f9cXzONnRA4ctSO9GqbqjoBJEMvaDA==
+	bh=JHklEn30wJDLqR8cfRWebRp9vStY4nLqfgGh3NzvKog=;
+	b=bx4zP2SxgGSubTaV1BMHPCB5hhf+oWBUWn3u19ggPCvZG3bhh9NEwHn/DBwLFjm//df8
+	 eQE5pNPtrGRnT7JmmsUF2ZiXJptFqSa+dccjKYCZBT+RblYGrwMzLqqQjdNee73xFDuSM
+	 EYIGeLOXa4eR5hZv65P8Tth/EDE9XXv8uqqbdIcOV4p2hdCYBGVh6hCYRIHSdV3vo/Vfi
+	 EZdvdTFWqGRnKBBRdIOtU3hmIOjJnZmocxCUwaeXQnHIphkSxZ7aWUbhORYhhhRQswIMI
+	 k9iTBV+tF77HfV9IwstINB0dqswYNrMwfED2puYEowE6KVB2Fczoh2cbdgWOKXkakTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBm7rv6O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XaS8sTxH;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E6F606A31A;
-	Sun, 25 Oct 2026 22:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0018C606A31A
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0018C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBm7rv6O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303651F01825;
-	Sun, 25 Oct 2026 22:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792966687;
-	bh=MacUxvjp/ZyVsp7L+6WsiqrbR9Yvhn5rX+cxazDxsVc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dBm7rv6O1X+IGCP1geOO5pKCVTLaWEXmAuw/NVH+7MCusTD6CDCNKNu42Qu3tnYB2
-	 6vh79543ojjI+jGbRTtiy8ngfbok3atQBjrMxPiHvsNYh3DMnT8OskEwtLChP4wYla
-	 gQwG1Nziuc7oV0GB/eWFw2hjbiebhwE1+yqOni9WnWabIiRon9e5z6L+JSGFzZw5ki
-	 OqUD2CHJ6QqOyEVsxsM31m0SA+FrFVivkm2Y1NCo5XRHXYLHvGnROc1yLymwo8+Brl
-	 /xJ58aI59IDpcoD9399KVI8ievdqw7iTrvOSXefG4DfRqpYcgay1hl5pDG2Wsr6t+a
-	 QqRXXY6ZE15bg==
-Date: Sun, 25 Oct 2026 22:18:01 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: imu: inv_mpu6050: validate ACPI object types
- in asus_acpi_get_sensor_info()
-Message-ID: <20261025221801.1dc4a7eb@jic23-hlaptop>
-In-Reply-To: <20261025180323.3641477-2-tristan@talencesecurity.com>
-References: <20261025180323.3641477-1-tristan@talencesecurity.com>
-	<20261025180323.3641477-2-tristan@talencesecurity.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XaS8sTxH
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso22360665e9.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 15:22:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792966944; x=1793571744; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JHklEn30wJDLqR8cfRWebRp9vStY4nLqfgGh3NzvKog=;
+        b=XaS8sTxHo2+xHpwCMV1K0GQnO6/WX4opGfkaK7URg32qnlsMedOETS1m/jGTCniFZm
+         Z4r/jlNUV3FVT38K+somkS0q80z5VRVbH0TV3tUkRo/gSjspQuOOrZ6JQO5jdYNANgev
+         0EmfP8A9arvxFjvD9pRn4ijJDRyuMZYxSC501Qz7D5F6tGvyB77kQXOhn7qNf1Gw5CoS
+         o5T2GNO9wbYKXh5yLDxTnqApxkDPj0gIqgdoE0RPmz0N7LV+uV2ZpxCz/nVQ3NYpq2CK
+         vaYzr9rBeC16R8SL0/RAHGyGD3twD0dJosB+bfSJsIb53VQWoch+AZznGlZjodIg+hyG
+         ocYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792966944; x=1793571744;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JHklEn30wJDLqR8cfRWebRp9vStY4nLqfgGh3NzvKog=;
+        b=BpNQ0oKAY8J9Gxf2loQOT0mhF3PyeSBg/+K+pDhNpCjMKQLGhc2s0TwoYlXrwiHfga
+         mrSgyvo3cq9u5iddeDsDDOjMcX7m3c6clnFHZ+dbl1lRHO2NnYQItVzQwyCgWddRaE+v
+         /a4xmtJxtVGH2jtMiThNo/tE3LaIh/aXeTNXEzhD25Vg1ycfLCGp8vE2j6vXNx5OXrmj
+         GbNr/bHIj3u9VIsXrynLHPZQlty0DTVuYTe6LZyxC5yAOkHI/LaN7y4uNnq/0qKAug6K
+         5D4KV4d4nY51r1VSZZMa+TGMphXuMZglI7gD/JrnuE10E5Tfg9hvp6m+e3h0UQIXzjIr
+         dPmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByGACLVVwF+xZfX2S+wL2J3feojKGQyVee7VQx0N/MrYyhEB3vNEjdildGA+1yyb5Tt6em9ElA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXBGnoERvuZPGIrrUQ03nvvwgOtxVC98UDb40bATYW+WYUZ/kB
+	3vgHi8lMQYWqKwywEv+D4rmqaTmy9dAan4hH7VQM7u5xy11yvIhZaHOYwnwC
+X-Gm-Gg: AYBFou2wNLFlvPYT61LDv40yhityeR7WfC88J7waKSD/QwyIAC3Z7E2tItAWecIiQHW
+	2tDILVPKDH+V1HvhLXVcoWSevJTEFXu59BhmK1vsgwQIwuwh4LujSMsFsLay/QvQDXX84+db+Se
+	KfvMpoxr73roIidLDH0JoL2f4U+2x1kx6xzN/VaNxuTfDIDw5OD26eRifttCecGtMHoPI0XSP3m
+	rEmqCa4m6/TvEgGD8KZHt5Ha98Us7rvofaR8yp6bj1qVlBw8PQOaqSCQqbbp88o8Ww4EHip2MHW
+	SLCSqjPJVm5eJXoYZHvgZiGUVtm+6RLZDpHfuUvOu2AGYw7vuZeCD0tfGZ0oJMUeB60u8MJRHgN
+	6D6HYwOT7KA+LLO3IAG2vKICvy4u8EjdE+DnNx6aR1XPsG+KIZXn02vUKF0DT3jnYEtBMsP1RZs
+	ZIzaVYs7e9cQFih+56BQf/ocBw6FE8pqQzco+HdUPUyS1DOZ/J+B2rX5SEZ7+L/dqZhKo4Aiktn
+	G7KkX2r6aPld9xaaa0TF/7nX3BoN7OqzgvVYA==
+X-Received: by 2002:a05:600c:8518:b0:4a1:a49e:a925 with SMTP id 5b1f17b1804b1-4a35acebf0bmr87766305e9.35.1792966944266;
+        Sun, 25 Oct 2026 15:22:24 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3da7sm13306612f8f.20.2026.10.25.15.22.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 15:22:23 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: andrea.mayer@uniroma2.it,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	david.lebrun@uclouvain.be,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace teardown
+Date: Sun, 25 Oct 2026 22:22:22 +0000
+Message-ID: <20261025222222.1064464-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179278529389.3327.1530536500905686255@kernel.org>
+References: <179278529389.3327.1530536500905686255@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,56 +106,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026 18:03:23 +0000
-Tristan Madani <tristmd@gmail.com> wrote:
-
-> asus_acpi_get_sensor_info() iterates through a nested ACPI package
-> structure without checking types at either level.  The outer object
-> returned by acpi_evaluate_object() and each inner element must be
-> validated as ACPI_TYPE_PACKAGE before accessing their package.count
-> and package.elements members.
-> 
-> Add type checks at both levels of the package iteration.
-> 
-> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> index 460792ed27e03..81fe1d96365b4 100644
-> --- a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> +++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> @@ -57,11 +57,17 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
->  		return -ENODEV;
->  
->  	cpm = buffer.pointer;
-> +	if (cpm->type != ACPI_TYPE_PACKAGE) {
-> +		kfree(buffer.pointer);
-> +		return -EINVAL;
-> +	}
-
-Similar to previous for this one. I think we can just used the
-typed call to get it in the first place.
-
->  	for (i = 0; i < cpm->package.count; ++i) {
->  		union acpi_object *elem;
->  		int j;
->  
->  		elem = &cpm->package.elements[i];
-> +		if (elem->type != ACPI_TYPE_PACKAGE)
-> +			continue;
->  		for (j = 0; j < elem->package.count; ++j) {
->  			union acpi_object *sub_elem;
-Whilst here the ACPI_FREE() thing probably applies as it did
-in the previous patch.
-
-Jonathan
-
->  
-
+Found by manual code inspection while auditing RCU lifetime
+patterns in the seg6 subsystem.  The issue is theoretical --
+found by reading the source, not triggered in production.
