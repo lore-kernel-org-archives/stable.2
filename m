@@ -1,73 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792913338;
-	b=ljZ7fjkfNaVByrRApserBhkfOULxjrCDn75IT8jzuxZJcPU/qL3Sna7ETvSXLGKGs0pJ
-	 T75YwEB2Cq6bIlbAh3XEOGrYW1q4jW1ESwlwv/8L6JblJOJFrwniXJV9jNXPHWAMZy5yS
-	 KBmspbfr3GKwDwmKDcQ2f6SOKp2tOxC8MAZIhd1tR0y3HhXMqbEaT/0xIBthc39KkYdqZ
-	 Kb0E10JJfPn9JOuQ7kXjpsS8yuOHBKKuyoayriRUuymcm0j3z8lVOfdfq4Vn0sD/EAx61
-	 W51y6nRHnxS6LrTCoo9p/E/8VESfDhpHTkxkYBy8kRh6yzxV1obz2IvzykKhGZRp86Q==
+	t=1792913898;
+	b=Hc4HsjYRf/SbbI1ExCh2we4BJM4mAdMUwzX8Tvfw4A02sro/DHRRl5WPzh9XYKzesTWf
+	 T26wPjhwWzA0NHOVkCFuqEB6w0SfvTdrbdTzc765jAvXP98yYnbhG8/GfUeVvJW1FDwRG
+	 9rMmNPAJB7A2Db2qfhmOuSHVNHvHj4RLcW7oavOM5bC/+cGHfv0hNn5i54ji3T/RbDLnV
+	 rBGgf4xsmqYzPGk9xRTnV4x2fu2MR8sBEKsYp12ReEydpa4ubKwERa0LrjW4yCn6bHvsy
+	 9HCB4wuIeD5PT2IH6p0Q5pRtAMGcmo23jyq5KvTJxlYRneJprM3+lbr9Adk0mqYHLIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792913338;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=XXMvtFSdUEGKs/5q/+ure9deVaQh3l258VCaXu3OrvE=;
-	b=r7nRDrf8GnnHG6AQH9MaLsIvOBqtlYJtcDZLXl0Hoinpk5US06hNsAoR0CHrMKC0K3B5
-	 1LygDA4uNKjJChwWRCTxfUIqJTmw47XR90B7jyf8Qgmxr4tnSPU77HhFfHSBhhS2T/M0z
-	 AWQpVGglzp0f1GNam3/KeGR1oc1JzyZCygQkw//VmlIAoT7aRUdjd0XuTiYMsKdP/mFBs
-	 gKUoYjdTFA3j6IWms8Jsuy8u+62KfjYFuNf8KeR0SyiuNgRgg2o/NWK9fd5yD5kQcF1vM
-	 DVbLsP3z04eCJQYDZjK+W4g/hUULwWcDs4SzbqQa70R2ONJavRELBWVSqjsfjMbK+MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792913898;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=qDksTMI7Q2vrt5sUJIBiWWP7Ncj+R+k+fqZL0nlAVnA=;
+	b=zzhxwkzL/WnuGNRMUzfPPQucDhRbUVkyv2JEaeQ3mzdouHt1VTILt2Z32N28ptbegUaZ
+	 2hOc5ol6mXOPttZcz1iuk2DLnf9EO0ud89qOmdbEz5aqkPo3KV3z+VQE1Zpi4sDyCex5o
+	 UNvzvrNPRSF0f2flJYzvQytXBp+vewAP62PJDQOMvOgJW/C1ClapcXo7xjG4WhvAm65/G
+	 kONRAXxaWlTeJqqOJsq8rhg+1f6dpuG3612t593FCtrASJ6SpweTULECJE5s4OzQolwtZ
+	 +hi+YeydjZQkYaMDnjbRCdTv9Vglv/hMT9SyW/w0DEhVZ4XylTABMthw6cEprJ7mpSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Xr+2Y3Zw;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63CE0606A31D;
-	Sun, 25 Oct 2026 07:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63CE0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=online.de;
+	spf=pass smtp.mailfrom=online.de;
+	dkim=pass header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=bn860dGQ;
+	arc=none smtp.remote-ip=217.72.192.75
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6419F606A31A;
+	Sun, 25 Oct 2026 07:38:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6419F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Xr+2Y3Zw
-Received: from kali.mshome.net (unknown [4.213.232.20])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C1FB520B7166;
-	Sun, 25 Oct 2026 00:28:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C1FB520B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792913322;
-	bh=XXMvtFSdUEGKs/5q/+ure9deVaQh3l258VCaXu3OrvE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Xr+2Y3ZwicqDZ44huF2KOxEFTUEyf+8oEmbSKzkYePzPW30itQP7l+INQrkDnmFjM
-	 ILb7LMzmBikQapVxUT97X6ItsqaJKEGATeRGTwDE1xIz+BkOHaw5lXtz+J98qpnQb2
-	 658OodSdmQk3jNWpjGnpQmrfRVuOyzrl1wb+j9zo=
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	weh@microsoft.com,
-	kotaranov@microsoft.com,
-	horms@kernel.org,
-	ernis@linux.microsoft.com,
-	gargaditya@linux.microsoft.com,
-	mawasthi@linux.microsoft.com,
-	sahilchandna@linux.microsoft.com,
-	kees+treewide@kernel.org,
-	schakrabarti@linux.microsoft.com,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH net] net: mana: Avoid waiting on dead HWC after device reset
-Date: Sun, 25 Oct 2026 02:28:36 -0500
-Message-ID: <20261025072838.1991785-1-sahilchandna@linux.microsoft.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=bn860dGQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=online.de;
+	s=s42582890; t=1792913870; x=1793518670; i=cito@online.de;
+	bh=qDksTMI7Q2vrt5sUJIBiWWP7Ncj+R+k+fqZL0nlAVnA=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=bn860dGQdTFTW4Yukf8zC4zBxqc24zCtM6FaUKQ0SX2XBkr02l0M/vHn3IasBIHB
+	 7XnVzeqc7OxXCASBc50aVtrormxIn8IO8+MMJ4h/e3ARbqzw3Ac5mR8VdHb7cAeX6
+	 JUERkI4nXYPqK+I8Mxs/PdGkxeJ/6wbUOUDyZR/OeaGuT+793ooOhzUI5GgtrwToT
+	 lvSqexZxcurWgFYYiLIqe6P2qRqFhC8BxrHpp9VM83S0aqKICWFmkxY/NdBz1kbF6
+	 O+AwgMi8fJHtx70BOIsYPCzvbBSgWCOH43XkQdDlXbvW6HyFBr/3SYBN7zM4Dihi5
+	 /7J2bSogZ6gje30Oxg==
+X-UI-Sender-Class: 6003b46c-3fee-4677-9b8b-2b628d989298
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [212.227.15.183]) with ESMTPSA (Nemesis) id 1MEmEf-1xNJeX3IXD-002wD1; Sun, 25
+ Oct 2026 08:37:50 +0100
+Message-ID: <3bc2cf5d-6cd2-49ae-91e2-ed3af96362f2@online.de>
+Date: Sun, 25 Oct 2026 08:37:49 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,310 +63,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth:
+ btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working
+ on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Marcel Holtmann <marcel@holtmann.org>,
+ Salvatore Bonaccorso <carnil@debian.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Erik Brangs <erik.brangs@gmx.de>, benh@debian.org, stable@vger.kernel.org,
+ regressions@lists.linux.dev, linux-bluetooth@vger.kernel.org,
+ 1149377@bugs.debian.org
+References: <8aa88f3e-2dd7-4bfe-a0f3-e5ecbbade84f@leemhuis.info>
+ <2026-10-24-1-daily-reply-0001-bluetooth-asus-rtl8761cu-firmware@kernel.org>
+ <2026102508-thicket-duration-c971@gregkh>
+ <6299a7bd-a934-41b2-95f9-d68056551714@leemhuis.info>
+Content-Language: en-US
+From: Christoph Zwerschke <cito@online.de>
+In-Reply-To: <6299a7bd-a934-41b2-95f9-d68056551714@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:2fhjPZOR/ZFlzzmWClBm38W8b35oj3iqamAHBiPlrR6xdmL3Lt4
+ LC94OqbU2ffqRjWOwHhY8XC97a7rjdbfiqfPx/AHz8Vz6AzTEzM1eaBG0A6q+YudMzmy2ve
+ TBkIN/xTy1gb+fO0u1gzcw0DcZlT0wEZTI5Iq3qolrI3GjDf7oP4UuK7PMeM2lvq/Wv3whE
+ z3AGwZB1ZqhnYvxQQK9zw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:D6hZEqoX4EA=;ewhZCI5H0RVZZEgpF4frABKoZGO
+ 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
+ umcuDlpcIeDxZdaeK4CzQ==
 
-After device reset is issued due to TX drain timeout in
-mana_dealloc_queues(), hardware channel (HWC) state is non-functional.
-However, the driver continues to issue HWC commands (mana_disable_vport_rx,
-mana_fence_rqs, mana_destroy_wq_obj) which will each wait for a
-completion that never arrives.
+On 25.10.26 07:27, Thorsten Leemhuis wrote:
+> Feels wrong to me, as
+> Documentation/driver-api/firmware/firmware-usage-guidelines.rst says
+> "Users switching to a newer kernel should *not* have to install newer
+> firmware files to keep their hardware working.". So what those three
+> commits did in mainline even there could be considered a
+> mistake/regression. No worries, mistakes happen. And reverting it now in
+> mainline would do more damage than good. But overall it feels wrong to
+> bring that mistake over to older stable series.
+Hi Thorsten, all,
 
-The first such command (MANA_CONFIG_VPORT_RX) blocks for the full
-hwc_timeout (60s as set by the firmware on the tested system), after
-which the timeout is reduced to 1ms for subsequent commands. This
-causes the calling thread to hold the RTNL lock for over 180 seconds
-(120s TX drain + 60s HWC timeout), triggering hung task warnings and
-blocking all other networking operations on the system.
+I can confirm the analysis: with the two ID entries, btusb hands both
+adapters to btrtl, which, with 4a23ce935f74 ("Bluetooth: btrtl: Add
+the support for RTL8761CUV"), requires rtl_bt/rtl8761cu_fw.bin and
+aborts the setup if the file is missing.
 
-Fix this by:
-1. Replacing the sleep-based TX drain with a CQE polling approach:
-   disable NAPI per queue, do a final synchronous poll to collect
-   any remaining completions, free uncompleted SKBs, and reset the
-   device only if sends remain unacknowledged. The device is reset
-   at most once per call, and not at all if an earlier reset already
-   marked the HWC dead. This eliminates the 120s sleep entirely.
-2. Setting hwc_dead flag after a successful device reset.
-3. Checking hwc_timeout and hwc_dead flag in mana_hwc_send_request()
-   before posting the WQE and returning -ETIMEDOUT immediately
-   without submitting commands to hardware that cannot respond.
-4. Skipping mana_fence_rqs() and the SHM channel teardown handshake
-   once hwc_dead is set.
+The original commit messages of my two ID commits, 980084de4d9b
+("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU") and
+6f0624b4427e ("Bluetooth: btusb: Add ASUS USB-BT600 for Realtek
+8761CU"), say that without the entries the controllers are
+"non-functional". I had concluded that from earlier experiments
+where things did not work as expected, and I wrongly blamed that
+on the firmware not being loaded. In fact the adapters work fine
+on their ROM firmware; the problems had other causes. It seems
+that when I prepared the patches in July, I did not properly test
+the adapters without the entries, and I tested the patches only on
+7.1, where btrtl already supports the RTL8761CU.
 
-Fixes: a7dfeda6fdec ("net: mana: Fix MANA VF unload when hardware is unresponsive")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dipayaan Roy <dipayanroy@linux.microsoft.com>
-Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
----
- .../net/ethernet/microsoft/mana/gdma_main.c   |   4 +-
- .../net/ethernet/microsoft/mana/gdma_pci.c    |   2 +-
- .../net/ethernet/microsoft/mana/hw_channel.c  |  32 ++++--
- drivers/net/ethernet/microsoft/mana/mana_en.c | 102 +++++++++++++-----
- include/net/mana/hw_channel.h                 |   1 +
- 5 files changed, 107 insertions(+), 34 deletions(-)
+What I should have done: test the unpatched adapters first, test the
+stable trees the patches would reach, and consider systems without
+rtl8761cu_fw.bin. As it is, the patches made things worse, first in
+the trees without the btrtl commit and now for everyone with older
+firmware. I'm sorry for the trouble this has caused, especially to
+Ralf, Erik, and the stable and Debian maintainers.
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index 8c915e008784..b249752ce828 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -153,7 +153,9 @@ bool mana_need_log(struct gdma_context *gc, int err)
- 		return true;
+I have now tested more thoroughly, with both adapters (BT540
+0b05:1bef, BT600 0b05:1d70), re-plugging before each case, using
+linux-firmware 20261019 with the rtl8761cu files hidden or present.
+Kernels were CachyOS 7.3.0 and 6.18.55, with btusb built from the
+v7.3 and v6.18.55 sources, with and without the ID entries:
 
- 	hwc = gc->hwc.driver_data;
--	if (hwc && hwc->hwc_timeout == 0)
-+	if (hwc &&
-+	    (READ_ONCE(hwc->hwc_timeout) == 0 ||
-+	     READ_ONCE(hwc->hwc_dead)))
- 		return false;
+- 7.3 and 6.18.55, IDs present, firmware hidden: "firmware file
+   rtl_bt/rtl8761cu_fw not found", no controller (as Erik reported).
+- 7.3 and 6.18.55, both ID entries removed (i.e. the two ID commits
+   reverted, the btrtl commit kept), firmware hidden: no btrtl
+   involvement, the adapters run on ROM firmware (lmp_subver 0x8761),
+   A2DP works.
+- 7.3, ID entries removed, firmware present: same, ROM firmware, A2DP
+   works.
 
- 	return true;
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_pci.c b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-index ed8925296c8a..3995e4ab4c96 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-@@ -102,7 +102,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
- 	}
+Regarding your concern that a revert in mainline would do more damage
+than good: on 7.3 I also compared both variants (with and without the
+ID entries) with the BT600 for HFP and LE Audio (BlueZ 5.87, PipeWire
+1.6.10). mSBC is negotiated and used even without the wide-band-speech
+flag, and I found no difference between ROM and loaded firmware. So
+for these two adapters I could not find any damage from reverting the
+ID entries in mainline. Of course this does not rule out that the
+loaded firmware contains fixes or improvements that my tests did not
+cover.
 
- 	/* HWC is not responding in this case, so don't wait */
--	hwc->hwc_timeout = 0;
-+	WRITE_ONCE(hwc->hwc_timeout, 0);
+For these two adapters, the btrtl commit 4a23ce935f74 (RTL8761CUV
+support in btrtl) does not need to be reverted: without the ID
+entries, they never reach btrtl (no "RTL:" lines at all in the logs).
+What reverting it would mean for other RTL8761CU devices, e.g. with
+Realtek's own vendor ID, I cannot say.
 
- 	dev_info(&pdev->dev, "MANA reset cycle start\n");
+Not tested: 6.12, other RTL8761CU devices, HFP and LE Audio on 6.18,
+and older audio stacks that might evaluate the wide-band-speech flag.
 
-diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-index 3bca4b683134..c9337f49fbe1 100644
---- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-@@ -192,7 +192,7 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
+If it helps, I can send reverts of 980084de4d9b and 6f0624b4427e
+(on top of bluetooth.git master, with Cc: stable). Alternatively,
+btrtl could fall back to the ROM firmware when rtl8761cu_fw.bin
+is missing.
 
- 		switch (type) {
- 		case HWC_DATA_CFG_HWC_TIMEOUT:
--			hwc->hwc_timeout = val;
-+			WRITE_ONCE(hwc->hwc_timeout, val);
- 			break;
-
- 		case HWC_DATA_HW_LINK_CONNECT:
-@@ -819,7 +819,12 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
- 	 * non-zero, the HWC worked and we should tear down the HWC here.
- 	 */
- 	if (gc->max_num_cqs > 0) {
--		mana_smc_teardown_hwc(&gc->shm_channel, false);
-+		if (READ_ONCE(hwc->hwc_dead))
-+			dev_warn(hwc->dev,
-+				 "HWC unavailable, skip SHM teardown handshake\n");
-+		else
-+			mana_smc_teardown_hwc(&gc->shm_channel, false);
-+
- 		gc->max_num_cqs = 0;
- 	}
-
-@@ -862,6 +867,7 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	u32 dest_vrcq;
- 	u32 dest_vrq;
- 	u32 command;
-+	u32 timeout = 0;
- 	u16 msg_id;
- 	int err;
-
-@@ -897,6 +903,17 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	dest_vrq = hwc->dest_vrq_id;
- 	dest_vrcq = hwc->dest_vrcq_id;
-
-+	/* If the HWC is unavailable (e.g. hwc_timeout was set to 0 or
-+	 * hwc_dead set after device reset), do not post the WQE: the
-+	 * hardware cannot respond, so fail fast instead of waiting out
-+	 * the full timeout.
-+	 */
-+	timeout = READ_ONCE(hwc->hwc_timeout);
-+	if (timeout == 0 || READ_ONCE(hwc->hwc_dead)) {
-+		err = -ETIMEDOUT;
-+		goto out;
-+	}
-+
- 	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
- 	if (err) {
- 		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
-@@ -904,14 +921,13 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	}
-
- 	if (!wait_for_completion_timeout(&ctx->comp_event,
--					 (msecs_to_jiffies(hwc->hwc_timeout)))) {
--		if (hwc->hwc_timeout != 0)
--			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
--				command, hwc->hwc_timeout);
-+					 (msecs_to_jiffies(timeout)))) {
-+		dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
-+			command, timeout);
-
- 		/* Reduce further waiting if HWC no response */
--		if (hwc->hwc_timeout > 1)
--			hwc->hwc_timeout = 1;
-+		if (READ_ONCE(hwc->hwc_timeout) > 1)
-+			WRITE_ONCE(hwc->hwc_timeout, 1);
-
- 		err = -ETIMEDOUT;
- 		goto out;
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 6b7c027e497e..00885d21a9af 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -3753,16 +3753,19 @@ int mana_attach(struct net_device *ndev)
- static int mana_dealloc_queues(struct net_device *ndev)
- {
- 	struct mana_port_context *apc = netdev_priv(ndev);
--	unsigned long timeout = jiffies + 120 * HZ;
- 	struct gdma_dev *gd = apc->ac->gdma_dev;
-+	struct hw_channel_context *hwc;
-+	bool trigger_flr = false;
-+	int flr_pending, i, err;
- 	struct mana_txq *txq;
- 	struct sk_buff *skb;
--	int i, err;
--	u32 tsleep;
-+	u32 flr_txq_id = 0;
-
- 	if (apc->port_is_up)
- 		return -EINVAL;
-
-+	hwc = gd->gdma_context->hwc.driver_data;
-+
- 	if (apc->rxqs)
- 		mana_chn_setxdp(apc, NULL);
-
-@@ -3774,42 +3777,92 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 	 * a txq because it may not timely see apc->port_is_up being cleared
- 	 * to false, but it doesn't matter since mana_start_xmit() drops any
- 	 * new packets due to apc->port_is_up being false.
--	 *
--	 * Drain all the in-flight TX packets.
--	 * A timeout of 120 seconds for all the queues is used.
--	 * This will break the while loop when h/w is not responding.
--	 * This value of 120 has been decided here considering max
--	 * number of queues.
-+	 * Drain the in-flight TX completions for each queue. TX is already
-+	 * stopped, so pending_sends can no longer grow. For each queue,
-+	 * disable NAPI so it cannot run at the same time as this drain,
-+	 * then process all completions still in the CQ. If some are still
-+	 * missing after that, the hardware is not responding: reset device
-+	 * and stop waiting on the now-unavailable HWC.
- 	 */
-
- 	if (apc->tx_qp) {
- 		for (i = 0; i < apc->num_queues; i++) {
-+			struct mana_cq *tx_cq;
-+			struct napi_struct *napi;
-+			int pending;
-+
-+			if (!apc->tx_qp[i])
-+				continue;
-+
-+			tx_cq = &apc->tx_qp[i]->tx_cq;
- 			txq = &apc->tx_qp[i]->txq;
--			tsleep = 1000;
--			while (atomic_read(&txq->pending_sends) > 0 &&
--			       time_before(jiffies, timeout)) {
--				usleep_range(tsleep, tsleep + 1000);
--				tsleep <<= 1;
-+			napi = &tx_cq->napi;
-+
-+			if (txq->napi_initialized) {
-+				/* Stop the NAPI poll so it cannot run
-+				 * concurrently with the synchronous drain.
-+				 */
-+				napi_synchronize(napi);
-+				napi_disable_locked(napi);
-+				cancel_work_sync(&tx_cq->dim.work);
-+
-+				/* Reap all TX completions currently in the CQ.
-+				 * A zero budget frees skbs via the non-NAPI
-+				 * path, which is required outside softirq.
-+				 */
-+				tx_cq->budget = 0;
-+				do {
-+					tx_cq->work_done = 0;
-+					mana_poll_tx_cq(tx_cq);
-+				} while (tx_cq->work_done);
- 			}
--			if (atomic_read(&txq->pending_sends)) {
--				err = mana_gd_dev_reset(gd->gdma_context);
--				if (err) {
--					netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
--						   err,
--					    atomic_read(&txq->pending_sends),
--					    txq->gdma_txq_id);
--				}
--				break;
-+
-+			pending = atomic_read(&txq->pending_sends);
-+			if (!trigger_flr && pending > 0) {
-+				trigger_flr = true;
-+				flr_txq_id = txq->gdma_txq_id;
-+				flr_pending = pending;
- 			}
- 		}
-
-+		if (trigger_flr && !(hwc && hwc->hwc_dead)) {
-+			/* Completions never arrived: the device is
-+			 * unresponsive. Issue device reset and
-+			 * mark the HWC dead so subsequent HWC commands
-+			 * fail fast instead of each waiting the full
-+			 * hwc_timeout.
-+			 */
-+			err = mana_gd_dev_reset(gd->gdma_context);
-+			if (err)
-+				netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
-+					   err,
-+					   flr_pending,
-+					   flr_txq_id);
-+			else if (hwc)
-+				WRITE_ONCE(hwc->hwc_dead, true);
-+		}
-+
- 		for (i = 0; i < apc->num_queues; i++) {
-+			struct napi_struct *napi;
-+			struct mana_cq *tx_cq;
-+
-+			if (!apc->tx_qp[i])
-+				continue;
-+
-+			tx_cq = &apc->tx_qp[i]->tx_cq;
-+			napi = &tx_cq->napi;
-+
- 			txq = &apc->tx_qp[i]->txq;
- 			while ((skb = skb_dequeue(&txq->pending_skbs))) {
- 				mana_unmap_skb(skb, apc);
- 				dev_kfree_skb_any(skb);
- 			}
- 			atomic_set(&txq->pending_sends, 0);
-+
-+			if (txq->napi_initialized) {
-+				netif_napi_del_locked(napi);
-+				txq->napi_initialized = false;
-+			}
- 		}
- 	}
-
-@@ -3822,7 +3875,8 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 	if (err && mana_en_need_log(apc, err))
- 		netdev_err(ndev, "Failed to disable vPort: %d\n", err);
-
--	mana_fence_rqs(apc);
-+	if (!(hwc && hwc->hwc_dead))
-+		mana_fence_rqs(apc);
-
- 	/* Even in err case, still need to cleanup the vPort */
- 	mana_destroy_rxqs(apc);
-diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
-index 1ab2d66c891e..0bc222c32244 100644
---- a/include/net/mana/hw_channel.h
-+++ b/include/net/mana/hw_channel.h
-@@ -179,6 +179,7 @@ struct hw_channel_context {
- 	struct gdma_dev *gdma_dev;
- 	struct device *dev;
-
-+	bool hwc_dead;
- 	u16 num_inflight_msg;
- 	u32 max_req_msg_size;
-
---
-2.53.0
-
+Thanks,
+Christoph
