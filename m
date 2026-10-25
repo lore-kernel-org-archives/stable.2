@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792970594;
-	b=i0aBHiXW8MQQgJtEPyft9gB+UA3BiUj01uKmmIVy4L9CYmL9fCVi7jr4D8nEi1vxSiRD
-	 kAtdpe+/Hkqpz1nI6X0z4GqZjDwUZ49QC0RAwbZGYieJnWA8RKTSp0JC40xvW6nHryOp9
-	 4NC+252JdxYTyRq96biw8oUfXZzRUqJ4eWrPZ0kGasju2OhzHtbNxH6arvI8c2f8OEoUy
-	 DVpCgKJyfRdr54z1LAUZ/i4KqRg2SpDmLGFMUCtVtC0bId8AU341qrwadfQYZwIf6ofK6
-	 RSvoSdIk90oRs4rpw87y8TUZB5Flz+wbF+YE182ai4FExX51fudefIB7TUTcmlJFJbw==
+	t=1792970869;
+	b=k8lSRiXRg8EQ+nD7l8PkYFdmmgV9sJPANC9SYKGrbys3qIhnQCniI2Hs9rtVJ1HG2N0J
+	 SBMcPFxjb4VfTRfURk2dUihP6+WlrZwcehC3JW1WgW67Fl5kp/fN028L2gsQE4XScVLwt
+	 K1KbeS+EAL75t2LXXvb2Zi9+AndE96Z2xMPg7dfS6rLWZw43wBuKO1reL9GHRChCsFHlw
+	 IShgXtwunyZHAdVLDC773Lr0iSf/87Hal7rfjhKXI9yJsQeVq/lTJeMKXibnsJfr3dVVP
+	 /mvwy2Q0dUAOMjYGTIax78JIxqlyC9VMN2bKAYw8UoU07Twtn7Ctq51nksHVnk26iKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792970594;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rbxeXuBz0HfqP0KO9f4xM0kuKsTU2zW3nybw3gTAZ8k=;
-	b=dwMTM2dBzrab23+Ka8Xii5cOJdtrUEwZlop67c4Wa6ae1oYRo72KJxruTvkrf3CsDEyg
-	 KkvPTW8MF+kHgNECbdLogGhivTUWMrtv1BcTJO7iC09SkV8ayVP8ipiBD9txMo2oIsBOY
-	 7ku5+UQWF4qC2OfwDSPoibnf5PXf1RBB44eGOhnJtmV7/tfC3d2a+Rc59SZT8R9wgSHE8
-	 OiGAT4AvgELrvUWAFDgEJLO6UWgBT/i48u2lrS1cpxYPsWe1ylicLF6SKEf6jRIY2rqzw
-	 Ele1YWlzTDvdRJ2cZ5NjZrbSKEmdYOn921DlgJZ5c1LidwOwSwbzglvkZZ/zsQG76/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792970869;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=749F1kNMvONRb00QECAoqsVJNtCXAyhqfBI03/TRF+Q=;
+	b=zDHN7axJXe4HpNdvlmf+PX0mN0fUo/bApr9+RwLJQ9AFK+mtRhXg9KXW6kl2dlQKlqz2
+	 wAxdHSsa5WYWQWwLv4PU29OqqI8e/0VJiI4IWxwuzPTfGnRjWktGzblGfG0qFsmVgYs52
+	 V5enuH0O8eRAInEyRL9UhkzKs6hEN/J+UJd/Vq1xNR3Nrx32e/TRTeasYBUi//O4rKsAU
+	 PRYSJ10ibcfvA3CWfYsq+g2sP1Qa3n3tEH2+Ti48nIGaQctd/vIGW5IGv/Xlc9aspoG46
+	 /cO2UMqLIFs/gCPspoQVd/DfrCPXaB7As5Q0v2VZKzKR3AD+HdPymiwDW+vc+RaFTIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wis4iWFU;
-	arc=none smtp.remote-ip=74.125.82.195
-Received: from mail-dy1-f195.google.com (mail-dy1-f195.google.com [74.125.82.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZaigJSZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CDB606A31A
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CDB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE74C606A31A;
+	Sun, 25 Oct 2026 23:27:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wis4iWFU
-Received: by mail-dy1-f195.google.com with SMTP id 5a478bee46e88-35829219da8so4374214eec.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 16:23:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792970593; x=1793575393; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rbxeXuBz0HfqP0KO9f4xM0kuKsTU2zW3nybw3gTAZ8k=;
-        b=Wis4iWFUKqony/2nLAbnNxcXFaNVTFQODKiBbbtoENDWsu32+aupxpQjJD9UUG+NuR
-         Oghoo9542qR6F65e17KWCS2HHrQSzM4OXo7iQBna3zw90l0IxaZXHG8W5H/3kBaOzo6O
-         DUhGgX+di58mLwtx/Gzk71vykUIRgLzuOft1b+MqLFfDJV5GZ/9xflpbFaa1n37kh+q+
-         fl8gdjfea50eIgCwd288k80V7W4qLnrzXUjYtDikkS3vgzwoqnmB+/msDR0jVXxVc4Kc
-         5fhzOFxvwlHZR9aYDYYUibvLs/XoP9f+BxRfr896ek65JJiIi1fHrHd9UxclX6ZoSCH7
-         FqBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792970593; x=1793575393;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rbxeXuBz0HfqP0KO9f4xM0kuKsTU2zW3nybw3gTAZ8k=;
-        b=IEyQMttLwOPzohaGr2dZtilmN0QoK8TtmZHChyZl/6Mo0PWDoUhfQ0v2sTBVpQjdGf
-         uO7a06CmswltrSZaWatZU9mA4JPxDCn53bF1loXqZcGqBx/J4ZE8zmdHdK+GHnUexysv
-         v8Mb8HGLszY5ChMy2m0g/jTvogSS8WGQEKt0KJF0Bjm/lxuLCQPavr7+iApPiuQ/lbg9
-         M91cfNQUBkhxbYPMAGVgs7GbPxvo3HNnxlS0QFlrk0avZ4glfoIxEIrktJ1bIvg+maU/
-         jhhE88hf+ENzDk0zPC14jbAfOi5Nh+4TDJ8q2X9uuNAg65nzKCDbRvCJbA0mKtp0DzMX
-         xvYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsVjBygYj1w/1b9dmrmrahw1Jm6f6+v5akhwMs7hTSCdsmqDjcdTUzKKVmDRjpm2yrwOC3LFs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZlAXJZr1EQC1BlGzzYOt7GyU5v7KREFpwDdLBLqZxj5YZ7cqm
-	/OTmrE2eK4EAr6HEEklw3uYmTB2OqzlNx3JdzuPueDoSVUAhAEKOs8ry
-X-Gm-Gg: AYBFou0RldG8lGOWRTXVREYwDsZLDhBwMP08X/C7SX8E1YjgmlJlqXHFC9g+yLFd99V
-	x4uUSydjVPdVCoeIkzBG55/Z3CnxkEIrBoHw9afroGcSMLUpQM7D3RsiL4dNGo8VODJ5O0+ZF+9
-	JHLtICaTxFoge22uhMu5MKtR6ozIoUE8eQow3kncZtkoF1IuKiUA8iTut4/KeTl1++MAb1KzMpv
-	UaTCMBJ7Jh1UA5P1YQls11ZTACF4dODozlkK4m948dwR5PgfiIpawouV4Nk0p6XWGG+lu/oq6E8
-	LfLOHbJ13VabUSx/OQYXUFS53L0N+idjB/Rya/H15TUOs5CnOBEJQLPcpdpJytfx8LxdhsyyT03
-	S1a6YheOlttuxl1gGhOpyP4uUudc2hRXtSTOekYVZFADBOTWXl63vglyF0d9I6S0wIJjSVrLyKn
-	JC/fRgBR1L4I381tkXHXHWD250RQLYrosXX2oEyXGSbdq3SRVyq5kHLSDQJsO1u2/tPaiWb9sN7
-	giVnF4fVGIYZw+LDDt7uaxpVyy+kp8kSRCHe4jzITCJGoo8wC3xFvUhe8Zr063sEm2c1gpSoT5z
-	8Q9B8oM=
-X-Received: by 2002:a05:701a:c919:b0:187:5a5f:3b27 with SMTP id a92af1059eb24-19935be804amr6867724c88.17.1792970593173;
-        Sun, 25 Oct 2026 16:23:13 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2eefbsm20118741c88.7.2026.10.25.16.23.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 16:23:12 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] inotify: do not coalesce events with different rename cookies
-Date: Sun, 25 Oct 2026 23:22:51 +0000
-Message-ID: <20261025232251.58252-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZaigJSZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C081F01825;
+	Sun, 25 Oct 2026 23:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792970868;
+	bh=749F1kNMvONRb00QECAoqsVJNtCXAyhqfBI03/TRF+Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jZaigJSZwL7yGLaLiqgMfXUpeXaWekbhNHRqoHeQY4Vp0sG8lH8VJwO4QCsu/bV39
+	 MevoG+esrRiIHwiwRVoQeDX08/+NmXYcQxoSnck04aKhAAx8W7Q4I4pD+Rs0nsnxgl
+	 rm5a4H18XiVBmnFE+RSQJEKeHf/esvQ0bxW9KjWOaSK+ifut5acrNlxY9mR2pM2+4F
+	 LTYl4z7NsoMV7XpdOpNfxXZBI1AlhKWyJQzpqtm+BgenDyQjzkt9Yo/jZQZTrCKEXy
+	 rZ8I54cmR+/cjCIdK0s3yi8v/v4RuMM1wEB744OlcJCGaAyF8viaYaJck2b2mhgKxx
+	 O3VJfq8NeiuPA==
+Date: Sun, 25 Oct 2026 16:27:46 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-crypto@vger.kernel.org,
+	Yuqi Xu <xuyuqiabc@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] wifi: mac80211: Fix cryptographic MAC comparison
+ to be constant-time
+Message-ID: <20261025232746.GB148998@quark>
+References: <20261025210032.134911-1-ebiggers@kernel.org>
+ <676effaff715929da980158820833c18a3a2845c.camel@sipsolutions.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,43 +58,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <676effaff715929da980158820833c18a3a2845c.camel@sipsolutions.net>
 
-inotify compares the mask, watch descriptor and name when coalescing
-adjacent unread events, but ignores their rename cookies. Distinct
-renames can therefore lose an event even with IN_ALL_EVENTS.
+On Sun, Oct 25, 2026 at 10:37:47PM +0100, Johannes Berg wrote:
+> On Sun, 2026-10-25 at 14:00 -0700, Eric Biggers wrote:
+> > To prevent timing attacks, the comparison of cryptographic message
+> > authentication codes (MACs) needs to have data-independent timing.
+> > Replace the memcmp() with the correct function, crypto_memneq().
+> > 
+> > Fixes: 39404feee691 ("mac80211: FILS AEAD protection for station mode association frames")
+> > Cc: stable@vger.kernel.org
+> > 
+> 
+> I'll apply this if you either come up with an actual attack, or stop
+> pretending it's a bug.
 
-For example, prepare two files in an unwatched staging directory and
-rename each onto the same pathname in a watched destination directory
-before reading the events. Only the first IN_MOVED_TO event is retained,
-although the two renames have different cookies. Similarly, coalescing
-distinct IN_MOVED_FROM events can discard the cookie needed to match a
-subsequent IN_MOVED_TO event.
+I don't have time to set up a system using IEEE 802.11ai and try to
+exploit this to forge a frame, sorry.  Especially when we fix timing
+bugs like this all the time.  Realistically, these types of bugs are
+usually hard to exploit (e.g., involving sending a lot of packets and
+doing statistical analysis) and can be the topic of a research paper.
+But that doesn't mean they don't exist or aren't obvious bugs.
 
-The original inotify implementation compared cookies before coalescing.
-The fsnotify conversion lost this comparison. Compare sync_cookie as well
-to preserve distinct rename events, while retaining coalescing for
-ordinary events with zero cookies.
+You can find more details about such bugs at external sources such as
+https://blog.canutethegreat.com/index.php/2026/10/04/timing-side-channels-constant-time-comparison/
+A memcmp of HMAC values (16 bytes, which coincidentally is the same
+length here) was also exploited in the Xbox 360 to install arbitrary
+code.  That example is covered in cryptography textbooks.
 
-Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/notify/inotify/inotify_fsnotify.c | 1 +
- 1 file changed, 1 insertion(+)
+The use of AES-SIV here does seem to remove some flexibility for the
+attacker over a MAC by itself, due to the synthetic IV.  But that gets
+defeated by frames with zero-length ciphertexts, as far as I can tell,
+which can still include arbitrary IEs as associated data in addr[4].
 
-diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
-index 7c326ec2e8a8..6456d9c0e408 100644
---- a/fs/notify/inotify/inotify_fsnotify.c
-+++ b/fs/notify/inotify/inotify_fsnotify.c
-@@ -40,6 +40,7 @@ static bool event_compare(struct fsnotify_event *old_fsn,
- 		return false;
- 	if ((old->mask == new->mask) &&
- 	    (old->wd == new->wd) &&
-+	    (old->sync_cookie == new->sync_cookie) &&
- 	    (old->name_len == new->name_len) &&
- 	    (!old->name_len || !strcmp(old->name, new->name)))
- 		return true;
--- 
-2.43.0
+Understood that you don't want to fix this bug now, though you've
+accepted similar fixes in the past such as 98c67d187db7.  It will still
+need to be fixed at some point anyway unless this code is dropped.
+Perhaps you could consider at least applying it without the tags for
+now, and we can consider the stable backport separately later.
 
+- Eric
