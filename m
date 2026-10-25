@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971006;
-	b=r4iTXDBKMPEth2UEeRMWCI7WEulz0xWf3uzN8Uhv+5tOf2VuPbNSNanrj5v8jImDq5Kw
-	 KOYfKxn6LQeUJ6Pe56W/XjTxVt/YrEk+rTMvy1R9AIYsH0JAN/DKmWWbdiX+QEuWJv3gA
-	 jigigzafpZn3Pufejri+KBqVb0uUHJ64nrSi6682dkM7wrVUEwOyRZofjI/WpvxoQgMwO
-	 SfiPApOKlW6Rx3J7876m4Xclfw1/AP90Lb8pWN9MeEhnugpKfX/TGi8hPy+XH9Q7r7Eyz
-	 qBS8JIPYZl2B23rHVlWykUQWr7FZCojNn5odsyf8w9j8smYVbgmvaydIrKALIWTLpUQ==
+	t=1792971008;
+	b=2CDRwRXJ9gzrJgD+yKT9epOaWiYZkrpx1JkNprK0YQgU8bQAZacMv/4P9+YXcEeAG7k/
+	 jqV+I+RYDb6nFk3EtPKE3L/aR4MgAHLJEXvsEXnh6EWwGkfoJVfMGMN51n11pJPVHy2YV
+	 Q6Y9WemuYG/6Scur0LuPHwrF6ZSjE+HO+YvIHd1JSFybxujtZYzVrWF31JYYhsCes/RTO
+	 o76fTj0odqD/TbQpBwrSbtjMtVVg5bGELcOnjDM+HF57H+q+codjp08JJm28Xt/8AFuc7
+	 S+zR33kXK1pw0DE/8K6MRSn9YI5lVmOD1Af0xefCQj5CFsZTavYAiZ8UXwILwXl4PWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971008;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sWx6l1uH67lmRdxqqC1BqRd2rIEg3mHZHVhaXIsbxyw=;
-	b=B4lq8MrfnAH3T///q+Gb19NYolQGvGcDsyCppUWSO4+mxf5apdj4uNtFufrIR56hrEDw
-	 DZn3tCEM6iGJ9DoVgEI3lxNyHnxHB07VkHzvSkphr/l23wC6mlx2w7X3eZY15FOcpLVId
-	 /yUrE19bMSWkvbK1Ea0r1EFz5YwxtVI2ARNoPZUHfc0JXvyTYtiU6UtuJdeVPahiQNbaq
-	 pgyW/rtfmybHCivt+UiMUSmi8P8aiZY0JxjPHe66BNplAjnUcfehSjBvR6EjCc7I2D3vu
-	 W/oKAu6TXBt+k0ywTp/saPRrNmss6zMIEhVLalt8hBC3uMsfGXOhc4EWZgxeHoR3V8Q==
+	bh=xqwNDiGNGVMb06w9MvuNqYvE23SPSrcXfCHBvDH87xo=;
+	b=bpQk2TyqZ/p3ar+2XLGIx5i+BJLZVEvO33jH+dnGRf1prCtcSap/g6e7nK0mlpDwEVI2
+	 TX9X+/Ahn3vdwjyjYZQIEYGYXy8aGWPeMqGlhS+VcO/p2lmMiV2czS3pH6GYS99NkCTJh
+	 R+RQrHGPkWmEdJ0sJU5p9NX2SRbnZ6O+pCJ2S+uwnmSN9wBQGHgNyrFtSbc5TbvWpjpP9
+	 LGIF0RXG24K67gcVQCKfaHJV+sim0Y/SCWRbBnFw0SOJsc7PeLKXkWaGlIJO10lIx6N9T
+	 tsc2XQyf33cWVumYHPO5Eb/uv/gmmkaWuUuhCnRdGulRXo+bKL0lPQGryvYSueqx3/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/n6M6Ga";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+Ok+46R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D18B606A329
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90606606A329;
+	Sun, 25 Oct 2026 23:30:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/n6M6Ga
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47DA1F031E2;
-	Sun, 25 Oct 2026 23:30:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+Ok+46R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A579A1F01828;
+	Sun, 25 Oct 2026 23:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971006;
-	bh=sWx6l1uH67lmRdxqqC1BqRd2rIEg3mHZHVhaXIsbxyw=;
+	s=k20260515; t=1792971008;
+	bh=xqwNDiGNGVMb06w9MvuNqYvE23SPSrcXfCHBvDH87xo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X/n6M6Gak7qTGuZ0sZGYSKvc2PxcFkoGCnKt7+53wtrwPR7J6riwEySx7xxnOK2qg
-	 sApWJT9kXgrYRi4WQZGO39X5F/PkGhEpPEu6KY4J3dHQzF/mpp4OEP9hB4HmzbedBX
-	 42hhQB1z0+hbyQMSlu9rzd/IjPlDIRiBwgRb910FFI9SxZk6wju/bgver+aREj5THD
-	 RIaJR17CIm9/Ehdp7HcK4oYmFNV0DLxnC7+rHKnq901Ve70ycNlYpIkIB6/N2XHn1P
-	 sqZYSHaCK5RASMIR3fsYzbNBaL9jp+JugYxdbGibVMPRd/D2mVpIsDdTplj3E0dl9/
-	 KcmvkdkXLMg6A==
+	b=d+Ok+46RUylWLeGT9ONmOZKEMm1soS5MIj1AWbGIFMNbzUICDah6oqmIyBDGMvBoh
+	 mUhKLI2ehobFGWS7JsunE7P7IURwdroRrJaKP5mfsIuYlYRSMCThSkjng4pFHsWaOn
+	 CSTkPyOfcp2bDGIwfUMPrKdp788xZ3cqUdo9lvzzhcXFQ5mQEdtYRP5VBoiZWlFNj8
+	 i6drcVdrBz+/lMKOJTMwc8KHz77PtzX4u+f7KFa3LoMqd7n3OoAAkElEK0UVgHB6Nu
+	 M9sRoakPoOTApN83luQ/egHkqd+twyw67H3cuEUGBebAyWY5UHLK7+BjTgPIp4PT8H
+	 UDe8qbSpdKMfw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	JongHyuk Kim <malhyuk97@gmail.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	linux-mm@kvack.org
-Subject: Re: Please backport aedf2efd1897 ("mm/pagewalk: fix stale walk->action escaping walk_pmd_range()") to 6.12.y
-Date: Sun, 25 Oct 2026 19:29:52 -0400
-Message-ID: <2026-10-25-1-daily-reply-0006-pagewalk-stale-action-6-12@kernel.org>
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	netfilter-devel@vger.kernel.org,
+	Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
+Subject: Re: [PATCH v2 5.10.y 0/2] netfilter: nf_tables: unconditionally bump set->nelems before insertion
+Date: Sun, 25 Oct 2026 19:29:54 -0400
+Message-ID: <2026-10-25-1-daily-reply-0008-nft-set-nelems-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025054505.1448278-1-malhyuk97@gmail.com>
-References: <20261025054505.1448278-1-malhyuk97@gmail.com>
+In-Reply-To: <20261025153224.42044-1-steffen.pfendtner@kernelscan.io>
+References: <20261025153224.42044-1-steffen.pfendtner@kernelscan.io>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +63,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider aedf2efd1897 ("mm/pagewalk: fix stale walk->action escaping
-> walk_pmd_range()") for 6.12.y.
+> This is the 5.10.y backport of def602e498a4 ("netfilter: nf_tables:
+> unconditionally bump set->nelems before insertion"), now with its
+> prerequisite d4b7f29eb85c ("netfilter: nf_tables: always increment set
+> element count") as patch 1, as in 6.1.y and as in the 5.15.y v2.
 
-Queued for 6.12, thanks.
+Queued the series for 5.10, thanks.
 
 -- 
 Thanks,
