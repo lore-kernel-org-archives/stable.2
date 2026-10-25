@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.194
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792948313;
-	b=i6TBZZFT2zQlWfz6zhOTE8FXdT4dsoddlFF7uWSpbe+2ex/DoGvXuL0cprpSPK8UelKU
-	 +vK//UCvrR6mf+IoBQpl1qsF2WAhc8nHq2G6iVvIevLeVm8nI4BmddUKV6on0PH3235jY
-	 LVJCfUDRVpTeCbKtSeZaRj7ODmT+I8VLa8hWd8KztN2bQyInRoZZJix8o1EHC6g+2TpPP
-	 JcIkDyD8P4YeuoUnws8RdLun5IWRcqXEnRebXvQ9tjolv6F4Vj7mGedkw1bdIFRHD8exB
-	 H+VcG6uiWgXbxaN/IC9r1rhwHKrkHfGG+fgSY4NX9Az4jyTfJTiKve5oJxighnNgIsA==
+	t=1792948478;
+	b=z3p4LQHyuEoDzQhgQg2Sh/l/DvR6uWmzwkR4n6OE6cGmKTSjMsOq3dLSes5q0DxpDe4z
+	 7qD5Nx319T9jntnuGlO4dzGjNXkQKxQRonImMA288k3zhrzoEe4bcRq/1bGExXJ90E4wH
+	 MaHC0xtNc/zSbwoKChp1XAzkVSpyHBULl7zG83abYaUpBj6JZlZ61uMafQGkEonM2fwiZ
+	 gCDGZf3asMLvFIdZtGZNDxAQsj1ManKFevvnl1QjR08sVG7n25zzisedr33auu+GnAjVs
+	 LGv8jstutvjpxUke9ZSYngcUr4+FtdG/O3Ggcw5puZuL2fIy0v9VLzjMSUr+ae0B65g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792948313;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792948478;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kaazuBYoFlNi01fHJWSjX0ZrC024FOWcAqZVtF/rwIM=;
-	b=HRV1k8FOTln587KIk7IohHaRLoqCR8b5Yz94FhVMVQvL4bFB0AmJdR4Ot0NnmAGhYjVJ
-	 h9SeuqkGhBLaKSIvtZKpVcdViRMAJrR7lwg2znidqdcXa3VM7Q2uDHHAekonzQEZfhnGE
-	 zUgxMOrlJ5wdJYOi/Rq1MC/yx1K+Awnhv01eQoUL4WX/dAM82OcWxqJmlgcuNL/Zgo2Zm
-	 2KK/ZbXOcUrEm6tQm4rF9IyqJ1WtAikB6waIWpaaRb3kD2++edBDRpXqaSpcr8Q3g0rGz
-	 5wMrmtiB+CLdqdMXFSTiRheTC7ytpTq0ybvo2X6taFl3UneTEdoOYELhlQ5KCqoKnHA==
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=sEy0j/RTCNKSx/ZED7H6UZ0ZuCG3MgcRugWXcsq/UZc=;
+	b=FWtD9O6i8hFgTirXjDDqtIl/HJpDKAyUa4EUmZInwLR2Xq5cLrPEuj9ip2lE6QnJaHeg
+	 ELbzrt567HP0g9WN6FZr6rf4V9SQdnd72+UsXvnvPI/qTl0kvzAjkaKeYY5KEZRUNlqAH
+	 pQ1Siy3pPOu1YVpHmvPlEq0GA2DNgtzo4+3qellEwWQwekJKJOQToJomtjonuOmg/ALkr
+	 PMts+GwKudxPX6B2dmWZIVHjrUeCPhFUDv5B620Ny5d+6MMBMoe7YlSAYBOp2GIGWF7e0
+	 fWa1jWLt7iJ8N2Ymhcq3eocAM/7MoPsmtWgKeHTIfUQgrTTV5uyo3hgO8exdXFG16eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d1crgSwR;
-	arc=none smtp.remote-ip=74.125.82.194
-Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com [74.125.82.194])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OaUxUWvv;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EBA606A31B
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 17:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65EBA606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FA1606A31A
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 17:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13FA1606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d1crgSwR
-Received: by mail-dy1-f194.google.com with SMTP id 5a478bee46e88-35943f55c06so3132843eec.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 10:11:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OaUxUWvv
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so13018385e9.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 10:14:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792948311; x=1793553111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kaazuBYoFlNi01fHJWSjX0ZrC024FOWcAqZVtF/rwIM=;
-        b=d1crgSwRNAX8pcAiY9hJctAMXtQlVms7wbaULTZ21mEbK4effAqJ0lIajzsC9XpvQt
-         Fr7ujXbZ9AyfVmQQRCObEMTHTLQ/Gj3VvN80mGyjsahf5b1lgQ5Jdlmq8Rddh4rqCdN+
-         ATsStbP9vZCv/Y+zm73kbrEvXmn/7SA99GWNkcs7lf5stwtkU+wLrfNu6zGIxdNclhJi
-         hn685tJayEUUAl57b3vKbtNiRocD63gBcpZvD424L22laZ1FOQb0Flq+wK98ZRo/YHVU
-         nyys2UNgMCmT/j+uz1mWoN0tByIjFNCx6UxzNGGH64uB/FqzKEgW7RxlvpiVPvzUXG3I
-         pQog==
+        d=gmail.com; s=20251104; t=1792948476; x=1793553276; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sEy0j/RTCNKSx/ZED7H6UZ0ZuCG3MgcRugWXcsq/UZc=;
+        b=OaUxUWvvo96I0gbBBTVJGCTiDFWTjFtq4JmfXzwKTGchYPQNikYA+cXnZtbEGsnV4s
+         8b7n7Qtd6NJmMDJ8zW3QmTyQ8pFzpOPBiNen61a6/SXRbG9GRxqnOIR26buIC1nk63Jg
+         N6bXPWFNvSeyhMZGzqhXMjAgM0tPvgDdIRjPvhM53IyoVxIP3cf+IuT0UkbALIvJGIAS
+         +cTUXRYsmvUwgNqVtD7g4AT9x3eDodedjrglFufRNsCL1GplIHWbwLFBHgCOrZlShSAv
+         3zbLNPX0C7VJagGB88xDJRCwUWpdD5Kp/3E4QCm4fI5HffAxw0VHfLHXCyAHZ7WhS79Q
+         b0qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792948311; x=1793553111;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kaazuBYoFlNi01fHJWSjX0ZrC024FOWcAqZVtF/rwIM=;
-        b=Sem5xboR1CGSjDahcUBrn1AA/5g5gKgRC1/FIxnm3yNPcG9gwGbknW1A34qzmUxu+E
-         irx9H5WoY8DWWnLzc9IYIDEbRYOk7MOS3qmQxEjTJ9O1vBObOaspuBo2VOZHT0XHpuXL
-         6EZeV2+qSrpUsFUCF4xRAee1yGXE0FOVML/tkO3yRmii2mrIwkSsMQD3Xj3WXolzo0zA
-         03ViMUpfcyrJOG/vraTbR4LxU1PvXRRNGXW86oqVXJ99qv5aeRQyL+Y2DF+Fv7qz0WuT
-         83el03XGyX6lt8+3lu6jRdGWj8nlBTQnP37F5SJZiCHiBmmp/FIAohWQ36G0xo7Ub/sl
-         Lc3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxnv2CTikkkdNHW3KYzSAgS1/SeHVe342doVw0CzU+axq2CnNCdH/uN5wWWblH7euXNpyyd2gY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvMAhtV1FXQN+p9HmnFRWsGERgs9NLFPGqMYZ8L4q9EQ7Kw4Ha
-	C3GysUtl0Mr9Mf1+ZJ32/pd23ICTVUvBdhfZgE8OPHgwp24qMOuhNyso
-X-Gm-Gg: AYBFou39BfjB0DLmqJ5xbeHBIj5WPZ1Rd/1LK68YOgaxjK+wTH3E6aPFxljxpeL1sBH
-	E3FLBhIKd4LhUkby/vpJiTEcGbqA9n2zOvPIsWZl8X5qFELAFyrqOVALkHh+D/2/Ztb1+P4v6nH
-	NOJMybz7XqZxnwi4Z56PHZZGojVdE2g4w9xiVBXllx3SMqyRI1U/3mV1hMueJCqryDEx7mR6JTY
-	9R2eVkdQKnGCS+LrDHRuF4z/26Oo8HOZT/x+h2WhQrIUMijUa7KooZ9eorjyaPuNyuoxtR3JZwx
-	dMK8ZbKr4TNH//nvasYK7sRGStjGcL8XVdRdhT1lgKIlU54B9GmoADt5lVM3lRmTwqk78RPplf7
-	NPEMJMxp104h727o3gAGkt4SPb264uRvOmgUNEyvBnlSWA+altaDMBgeMUnr+S3I6WUtxVQZuuO
-	rs3DGJWAHMdu8y28gzqXOmkwPv+tkPKYhRmVhd8XNwuM4StJzvC7TwLqj56UO+PfXjGNZUnh/j3
-	1g1muYzSgtDUr6f6nC5MPfntE6eBaQlqgRESvxzDWcX/VqZWkiZ7sfoDPbhXU+PyotAi7a1zprt
-	QXSPx53VGVpNShzhWQvTKIbpY0NYeQ==
-X-Received: by 2002:a05:693c:88ca:b0:366:6c79:212b with SMTP id 5a478bee46e88-369e85043a7mr5516718eec.25.1792948311310;
-        Sun, 25 Oct 2026 10:11:51 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8c576ebsm17670582eec.3.2026.10.25.10.11.45
+        d=1e100.net; s=20260707; t=1792948476; x=1793553276;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sEy0j/RTCNKSx/ZED7H6UZ0ZuCG3MgcRugWXcsq/UZc=;
+        b=sQbWu8PcT5Sm3BxtRvBqKOZ7wG0bw/w2JqSxr5fU2puFoVpRxGJIrWJLn2ZPXyqgaH
+         p1PzHEExjMfUj1bOiRieQUtOt79BIvyRZqGFUl7EUo9YYSrvpuss0/DqgME+j5aUMdEf
+         lBMpra26Q4RYpgtRADFUY5U/ihhAMp7UM5boBNNqfLDXVBV52plDTi26h7O5k1QQcK5p
+         cmyB6OT6MGrfGW6K7HSs5+Tg5qWUzjLPu91Hdpdc9efV+7mMDR+ekJqhkoWnoABQAdex
+         /bp5G8SBFu6+y452GcQJCQ3CjTGJD8NIkMkdHx9+8IX/GwqBe2cpKwzOYnRfixlZOwY0
+         /hjA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8u5mG2p0QXnNF+zUhxJUJmi1ER/uhHU7Zv/chevnysOPdne8PmyI2YXtYh3ZO1iUBWIAIBb4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7K4hW1Tom+VttyPbRmnBwU25Lo2Tdm8RBtDsbPAvk6JeYfAP1
+	LTuQAaxJqdA59X6nBDZFlLKuIMZ52colMvsLmTWZ3G9wupT3fsL4dE9A
+X-Gm-Gg: AYBFou2azgV2QxP/VeHPGd5FX/GDPBQJjvjYcq5lUgWCdHmq9cwB4i/siJb3DyKG5Y0
+	eW3Lw4LhVf3Py0ZH0Zy+lEopILUzv8QsIR8e6Ff7HqE5SagMdTbzKYK/nnC8P/+xIA+ifIpjcem
+	cyT34aHS/lK2vLs8PMZI2YX1HxD1dSz/bwow76fXijXwl9SDcd8iO+2AD6YQ/hrr4gqYSB2ytDt
+	QEekbzVfQf6Uhl4KaW0NIi2EdtLVQVkKWI+W7U1Vr8ZiOAzO28Q76Of14gLTR2hthSWkm9nwO+6
+	jqDl7GTsCNnRD8cZJaS7Zj3u9aTGPMb6OZnJGMp8gcL9cl5n6GAiXOg7wjT8yb8NWOwjVzEk8jF
+	ezCnvuo294NPGHDME0n82oY+xMl0WEe0k6fc/O3ytLIgTChCnmnJ8x/aVJVorVVdDNCAJhvYEEU
+	6Z9EZ7FBrpHS8WCgpZRsJSH3gMej1L0hJ2Hqu8HM32BPwYyT3kE726Mu7LGijC7/grMxvTCmAVz
+	iHFrFsbDhYmwFlB1q288uHx6P4xX4/qdER8Nvig6ReR9xxpOgQ3YQt7fVG35FXTGM0reQ==
+X-Received: by 2002:a05:600c:3155:b0:4a2:1cc:6551 with SMTP id 5b1f17b1804b1-4a35accc591mr91899325e9.35.1792948476454;
+        Sun, 25 Oct 2026 10:14:36 -0700 (PDT)
+Received: from timur-max.localnet ([62.245.128.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a56992dsm126575185e9.6.2026.10.25.10.14.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 10:11:46 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	akpm@linux-foundation.org,
-	dave.hansen@linux.intel.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] libfs: do not extend i_size when no data was copied
-Date: Sun, 25 Oct 2026 17:11:30 +0000
-Message-ID: <20261025171130.16115-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 25 Oct 2026 10:14:36 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: qchcio@gmail.com, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ stable@vger.kernel.org, Brad Drury <drury.brad@gmail.com>
+Subject:
+ Re: [PATCH v2 1/3] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+Date: Sun, 25 Oct 2026 18:14:35 +0100
+Message-ID: <oVwVffbwQ9mrJnRml_R8-Q@gmail.com>
+In-Reply-To: <20261022073638.724414-1-drury.brad@gmail.com>
+References:
+ <20261015095713.20560-1-qchcio@gmail.com>
+ <20261015095713.20560-2-qchcio@gmail.com>
+ <20261022073638.724414-1-drury.brad@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,42 +101,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-simple_write_end() updates i_size to pos + copied even when copied is
-zero. A failed buffered write past EOF can therefore extend a ramfs file
-without writing any data.
+On 2026. okt=C3=B3ber 22., cs=C3=BCt=C3=B6rt=C3=B6k 9:36:38 k=C3=B6z=C3=A9p=
+=2Deur=C3=B3pai t=C3=A9li id=C5=91 Brad Drury=20
+wrote:
+> One thing I noticed: on 2 of the 4 resumes, about a second after
+> resume, vce_v1_0_stop() logged:
+>=20
+>   amdgpu 0000:01:00.0: VCE busy: VCE_STATUS=3D0x2, SRBM_STATUS2=3D0x80
+>=20
+> VCE encode worked straight afterwards, so it doesn't seem to break
+> anything.
 
-Since prefaulting was moved to the slow write path, this is reproducible
-with a one-byte pwrite() at offset 4096 into an empty ramfs file using an
-unreadable source buffer. The call fails with EFAULT but leaves the file
-size at 4096. generic_perform_write() calls ->write_end() with copied == 0
-before trying to fault in the source buffer.
+The following patch should fix that:
+"drm/amdgpu/vce1: Fix checking whether VCE1 is idle"
+https://lists.freedesktop.org/archives/amd-gfx/2026-October/154367.html
 
-Only extend i_size when data was copied. Keep the existing folio handling
-so that zero-progress retries and successful writes retain their current
-behavior.
+Best regards,
+Timur
 
-Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/libfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 8e2cc627bc7f..d889a4a14f41 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -1007,7 +1007,7 @@ static int simple_write_end(const struct kiocb *iocb,
- 	 * No need to use i_size_read() here, the i_size
- 	 * cannot change under us because we hold the i_rwsem.
- 	 */
--	if (last_pos > inode->i_size)
-+	if (copied && last_pos > inode->i_size)
- 		i_size_write(inode, last_pos);
- 
- 	folio_mark_dirty(folio);
--- 
-2.43.0
 
