@@ -1,76 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792964842;
-	b=OgAuX+8Vim7HSYPPdyyUOsWUXesDX0f/ajEG+zyxe5bik7x6mNHRy5b7lGcW6bFdxYPG
-	 tcErxPUE218mL6lsijfi9HV1/9/Cw3MPVa7LzszDhF50vzQf5SsEJYsWRA1lISBbWRcVw
-	 fh/tWrhAMuizN+UUqAq5uaEeN7t+dnoVieIubQ6yMrMqLsm8yAGm81CrM/ZwZnqLDIWgG
-	 zZXAKOXVjjx8xfm6dCgX2ZgyuUDbUB/pKpyi2XQgDx1gRNtAowoRmMRMQYcPkTrU1kU+h
-	 y54uxO10B4htUGFMxW+rvxr3igJL6BEaLe1b2J0idXoDdfH2Q6o0hOarbUtOUxisf6A==
+	t=1792964843;
+	b=ceF+gSb78Y85o1b0SYKwWwKq18z8ZXRG1rk2g+sSbJqmb084TV4CE5cyauB6m5aE/Vy2
+	 CNve+psuk1QZZ7hAxY+2btG32N796/0KbPjWIeR4ftr/DXBWsZmI5HV5CnLE4NmEP9ASR
+	 mn5+3ZhB6eleDAE6Kcb4QfcD+CI6J2OTDbH4kCj1yitsJ4SC+VW0LhncG+KZpNmuqirD+
+	 HktUNsssj+b6uME8e3LK5pC+5a6OFb6pUsEOAtNrRLiPmpG5GjxVqDbOisoILWjuyZuxG
+	 0IGI9Iw3RRFC7WXQTmLBCDjH8Pqn/4CP/NXtVUoBbOzEdFv+NBmP1cBkKqZeqOOI7CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792964842;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792964843;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=T+ITjdvCOkHuMDbhDF/DyLg8tYNRLR+eOzIsCAUj6UE=;
-	b=LQZ5N3f4HWYIcGGr7KRE4bz8Sp5SW9xg9MKuZ726ZLKdvGUz6BAwjrszSay1wAvXn0rL
-	 IebtETSLWVy3d/W2j0vrvYDlfuVaRxvHFqubLfU/OwSRLLf8bcveLmLRymgj3ZwyuTljW
-	 zSiyPn2VHGi1WuxxU8y1brxzD7NWDrTm2aa53zdOWFiLye7ghcsf1ZhzLBRs+UfZi3oIY
-	 zJSQcP42Y3QeVfdjiS7Fc7Uec6nfl5wdJTV9w3b3Vv9lvkRkWeUU6TataZSBLxy6/6o6M
-	 ocFJCy+jg04FrpVZJPhsU3xrP5N1b+YaCwuYhX3hqRRpTCXdmCRPWee8XtGJXFaTHBw==
+	bh=i9B7tXH2AzrLW0vuwkVrMR3kkLydQ1d8KYQRN5oSqWU=;
+	b=UuJ1akCPXOYJcL9iH1HbAK8vtjHLViSXYk4rInuP/GEJMgGTpCVM6/tplDutn1vx573Z
+	 jIfMsJ/X4D/kb8oh8eEkkMn5vqc1jHvWMBsGZtPIS3rRrSUS817q5uy64w8Mh/P0y+Min
+	 ehoj0Hvh/SgatiTfFwkYHfuMOBQiuUnv7G7p5yXOBSOK271ZR3E5HpnzxRiDcNRKHAdkw
+	 SUHNtqbuD3RHdmAuwJQWwddxIOQX7WGpxB+PNERoW96kim1E1XyvcjOtDkGeXKnadVQp9
+	 UbLuBxQdLzCW4WgYh2fAitmrXqOj3haGpdAnzZ622KHrsHopAXkhH90iD1bRGOhHzeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Q2Ph5IjB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zcMLyGB4;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HgFGxxou;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8+E1ZHZp;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F02606A31B;
-	Sun, 25 Oct 2026 21:47:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18F02606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65886606A336;
+	Sun, 25 Oct 2026 21:47:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65886606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Q2Ph5IjB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=zcMLyGB4
-Date: Sun, 25 Oct 2026 21:47:10 -0000
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HgFGxxou;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8+E1ZHZp
+Date: Sun, 25 Oct 2026 21:47:18 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792964832;
+	s=2020; t=1792964839;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T+ITjdvCOkHuMDbhDF/DyLg8tYNRLR+eOzIsCAUj6UE=;
-	b=Q2Ph5IjB1Z8cfW5sIaCIJzTd0EISmZvGV5Ff8H8u0kYw1yxBiEfXhgvY7uqUfvFBI19eZV
-	4MznrLn7ZJVdtJw5cclQGU9iDCNPPXM/G7E88QWa0CSjO4RRbMmp6w485CLAS4OlvcSVL3
-	HpaTOLbJFscXe57blHzsH4wwfbZny75Isb1gtM1/8bFZSeyqbeDkbWzTTixjChougFltP5
-	CI7vyxdEgCP5gzDYmemomcfe0XwJUGDIOwEK5SeH2ROzc1o5PHYJM0PnFFH1nZHNsk967B
-	pygYE1n6Tx+74kVAtL01fngMrLxANfKLg9JFvai/dgoi4592Vyeh7wsdDM/c2A==
+	bh=i9B7tXH2AzrLW0vuwkVrMR3kkLydQ1d8KYQRN5oSqWU=;
+	b=HgFGxxouUocHuPzP3US//33HzqlqYwPeZPeh3OkKi30s5rZ+9GB73po2QNrL723dkRpd9Z
+	MO5z2NluhErzB/WBy01A0QSOMOSRkHMTk4ZozZJvWI6Q4KzOO3/dM3Uh6kHY5bqiMp6NOR
+	P9mzzT/zKIKPtsrtHK8r3h/0Xre5cviuvS/pzTk6w3IZqHh0Q6qUs5UQJgSpOs7PkiEXhD
+	h4UoLryuQVGwPuCA0XGTJbYT25i4//xer2tUztD62Z7htsPT1rhxWXJPJo9+rpcui6vGvU
+	oiSQSLC88wUryoMAb6cwSOiK9M3Dy/bTGUyV9BX9/310HdC7NwJb9RUAaCZ+cw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792964832;
+	s=2020e; t=1792964839;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=T+ITjdvCOkHuMDbhDF/DyLg8tYNRLR+eOzIsCAUj6UE=;
-	b=zcMLyGB4qi/EThDaY5KgZM5GfVDlRkkXHYr7Dv06hvDHqwkb9wkUBCzogLwiPLwQ4A6JXb
-	BtOamr/UHwRKpqBA==
-From: "tip-bot2 for Peng Wang" <tip-bot2@linutronix.de>
+	bh=i9B7tXH2AzrLW0vuwkVrMR3kkLydQ1d8KYQRN5oSqWU=;
+	b=8+E1ZHZpz1XTL3WmjusUBMgqVLHqmonayNBycAHg/RVwmF2l6Nfg3ZwPHg02Ss3t/hUvVu
+	3KLdDlBfk+uP84Bg==
+From: "tip-bot2 for Hungyu Lin" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/urgent] tick/nohz: Reevaluate the tick for kicks flushed
- outside hardirq
-Cc: Frederic Weisbecker <frederic@kernel.org>,
- He Rongguang <herongguang@linux.alibaba.com>,
- Peng Wang <peng_wang@linux.alibaba.com>, Thomas Gleixner <tglx@kernel.org>,
+Subject:
+ [tip: timers/urgent] posix-timers: Accept NULL clock_getres() output in stubs
+Cc: Hungyu Lin <dennylin0707@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
  stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261023145101.8217-1-peng_wang@linux.alibaba.com>
-References: <20261023145101.8217-1-peng_wang@linux.alibaba.com>
+In-Reply-To: <20261020161121.85042-1-dennylin0707@gmail.com>
+References: <20261020161121.85042-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,7 +78,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179296483052.4109677.11660675165338211997.tip-bot2@tip-bot2>
+Message-ID: <179296483844.4109677.8357415934692809026.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -90,67 +88,56 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the timers/urgent branch of tip:
 
-Commit-ID:     e389ae428847a2e6a3b698b5967df68ccf90361c
-Gitweb:        https://git.kernel.org/tip/e389ae428847a2e6a3b698b5967df68ccf9=
-0361c
-Author:        Peng Wang <peng_wang@linux.alibaba.com>
-AuthorDate:    Fri, 23 Oct 2026 22:51:00 +08:00
+Commit-ID:     5b819071e4346256c4edbae5cc2095dff25694fc
+Gitweb:        https://git.kernel.org/tip/5b819071e4346256c4edbae5cc2095dff25=
+694fc
+Author:        Hungyu Lin <dennylin0707@gmail.com>
+AuthorDate:    Tue, 20 Oct 2026 16:11:21=20
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Sun, 25 Oct 2026 22:43:19 +01:00
 
-tick/nohz: Reevaluate the tick for kicks flushed outside hardirq
+posix-timers: Accept NULL clock_getres() output in stubs
 
-The nohz full kick relies on interrupt exit to reevaluate the
-tick. However, a remote kick can also be flushed from task context without
-an interrupt exit guaranteed to follow. If a tick dependency is set or an
-earlier timer is queued after the idle-exit reevaluation, the required tick
-update can be delayed until another interrupt.
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-Reevaluate the tick directly from the callback outside hardirq context.
-Keep the existing interrupt exit handling for hardirq callbacks. The
-offline flush remains harmless because tick_sched_timer_dying() has already
-cleared TS_FLAG_NOHZ.
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
-Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
-Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/set=
+time/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261023145101.8217-1-peng_wang@linux.alibaba.=
-com
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
 ---
- kernel/time/tick-sched.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index 6c3fea3..baa3ac9 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -400,9 +400,21 @@ static bool can_stop_full_tick(int cpu, struct tick_sche=
-d *ts)
- 	return true;
- }
-=20
-+static void tick_nohz_full_update_tick(struct tick_sched *ts);
-+
- static void nohz_full_kick_func(struct irq_work *work)
- {
--	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
-+	struct tick_sched *ts =3D this_cpu_ptr(&tick_cpu_sched);
-+
-+	if (WARN_ON_ONCE(!tick_nohz_full_cpu(smp_processor_id())))
-+		return;
-+
-+	/* Task-context flushes may not be followed by an IRQ exit. */
-+	if (!in_hardirq()) {
-+		if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
-+			return;
-+		tick_nohz_full_update_tick(ts);
-+	}
- }
-=20
- static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =3D
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 9b6fcb8..5a27335 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock,=
+ struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clo=
+ck,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
