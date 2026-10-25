@@ -1,58 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946911;
-	b=LGWqMrrgz61fnk7LecLAqwhfqcq0DmuO7bvnsUrVlkMdF2FPh9MwrHAIjPoJUzeXVc1x
-	 uOdNTXFJCAYgPIlp1zNvsNULAarjxBqVjpfkYh1xSrlG4E1wqobsaGOwj8pUJnaKeeoDK
-	 2BavResMVA3UZczx4wc11ipIC01wJaZmWtrXqr/oQG5yOHgignRbJOAgELR9ghTX9qxYT
-	 UwbxD0WmMz4c4zqkFJHInKMvbBpTd+t5Z7wEd5gKQpIvLDUvqppDszCb9hy6eRAAOVkoS
-	 V+nphxHuca/DglClA27AvfCyTKMrMofR2O7W/AbJHec4MI6Jzbzy8LUpx9LKp1KnVIg==
+	t=1792946972;
+	b=fDyV5qD3Ka8I0o+LI1jgmzWLdAB4WL/Q2ZcytQjpHFE7T2u4hNwIl6Z06N6TLo48UA1L
+	 fUjB9v8mGZgk1WLWcKSFFMyp0ush9EZO2ELzcVlSgZ9kruDSIf3XtZoaSatCjnqzA7Yvw
+	 lkJweURz4VZ5+k26oLB+ci5/daXde597L520IW3WfNwhAmspXo0O8pzCoY+zM2vaylDp5
+	 kkzlcPO9Tl48+SDN2uSErNwkkP5sQ0VPZj0+VtqYA9TBWBzr92gicNcF17WgXRGYx5TXB
+	 hDcgoJvqZfu/BWCyvEWSqUN+eNmTHZF4DKK8zZ1lPQNazkebDP5KLSrVOmHS+X92HpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946911;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HjEsKHyDFKj7HHX5WZLrUS4CLP7wbTWvbErAlhp6Z7k=;
-	b=j6EkwK2BFrx/sMNJeDnY3JgAqZymRVCICPaI73TfXgRSrLJ4grexFyK9ZlPGOqhfeH6k
-	 MRMkPVwpG9AfZgd1xwELwvpc0tls3cGGwC7t2A7P7vJElWTyWRWBnea3UbUzyKeqzqS38
-	 mQUzUBZbccHIx/UvsSa7izrrs2xho7GdhqGozazf8on3BDcHfbd+ccGBA0Njsk+B6xYWr
-	 JMibBVDYlI0sugi65Xoy/xhDadIP4Kln0EsCaNsZMb3VUrrZuCCIPer59GmnE50vETB+/
-	 k+Qjd7FYvpSh4zmx0nc1R4dL/2fjUKsgMwf1wfAya/V441mlSUrPmQ5BzOotZ9HyK9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946972;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=kiEDcVPC9CUY5PdVhOrC2cHXjmPllkxAo3sNOTeLLIY=;
+	b=XlRs/hElkmrli5nyrsOWMiaLhohpVJicrfp9i0zR01Okc3R1fz0RQMcOk3vEFvH0XmoI
+	 mbo5hxsofjNENxLglzvdzqWQG7g4UnYgbbTmTZtZoQxJqN0Ojuns2SbAoUPQN/PlHWJO1
+	 qd0+Rwst1NqCgBn5t4mbYaut2z7RWjGJB2L1k3kM6fO1A2kW9IJJpMjdU8E5eM4QLQ6lC
+	 HWp+wjZ5zWqScv3YjBzYwvAVwv0UaOYNlbYPGeZEcn+URkIRW3FfGHDXo9bp+tJ3BEo4C
+	 h6bo8DWZDpnMkc8P0Rjd5dWJpGzvBVs+fmKomYWWEdlpIPVaacXJH6cGM+Y5qbyramQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD8B2bWH;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a26MWLSQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EB9606A327;
-	Sun, 25 Oct 2026 16:48:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F7E606A31A;
+	Sun, 25 Oct 2026 16:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD8B2bWH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14711F01829;
-	Sun, 25 Oct 2026 16:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792946902;
-	bh=HjEsKHyDFKj7HHX5WZLrUS4CLP7wbTWvbErAlhp6Z7k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iD8B2bWHqgzjI/FQKlqUb/8hW2GaTV5hN/GUwnLZ3KLp1erPD0njJHPkCkyN297ny
-	 zW2XJC+SMYZO2ojUSZ6bCd1dToZAJ0EpeuAECGZVh5jgaAt/XkfseZtVkpZ/w7hdPc
-	 PCJWnva3sBiqz2Unh2MVFhliRQ8r+T/14pScXimM7+yq7L1gYHuAhknT07LrmUl5pe
-	 0LSfP98oYntPL0DoZM5Vy0jZALZGdjOphx51lhSGHMoq3dGQH7nFmfdO9nGGmDmaFa
-	 jyc14QAtpnPF24hh2R8nbM2kFxdMxE/DyIH5x8Jcv9m1ucgXN/IeCLec4M/FevsF1b
-	 vuA7SPvhkOgrw==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Jiayuan Chen <jiayuan.chen@shopee.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 3/3] mm/damon/core: move static variable rotation to damon_ctx
-Date: Sun, 25 Oct 2026 09:48:06 -0700
-Message-ID: <20261025164808.152048-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261025164808.152048-1-sj@kernel.org>
-References: <20261025164808.152048-1-sj@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a26MWLSQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8221F01825;
+	Sun, 25 Oct 2026 16:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792946971;
+	bh=kiEDcVPC9CUY5PdVhOrC2cHXjmPllkxAo3sNOTeLLIY=;
+	h=Date:To:From:Subject;
+	b=a26MWLSQok3LWHoPuHKhMisIw0hLb1pSULesmDl+IhvBo6FonzV7ZBsCWreUHEPRk
+	 yjiZD7xwi9aiPe15RPVnMqR9DZMhNZlTXezU2S2Qpi1m2XFkUSmsBzdMQjYKE92nqT
+	 xDhOFXiJ8uRqA61HaTkB2uXS2+x/R1YeWg8eA6jQ=
+Date: Sun, 25 Oct 2026 09:49:30 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,usama.anjum@arm.com,
+	stable@vger.kernel.org,pfalcato@suse.de,mirq-linux@rere.qmqm.pl,
+	ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,
+	avagin@gmail.com,arnd@arndb.de,hengyul@cs.unc.edu,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + fs-proc-task_mmu-return-enotty-for-unknown-pagemap-ioctls.patch added to mm-unstable branch
+Message-Id: <20261025164931.3C8221F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,64 +51,108 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-damon_split_some_reigons() uses a static variable, rotation, to remember
-how many times it was called.  It is again used to determine fair
-selection of regions to split.  Since it is a static variable, it can be
-indeterministic and therefore less fair.
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort and indeterministic monitoring accuracy could be slightly
-more indeterministic when multiple kdamonds are used in parallel.
+The patch titled
+     Subject: fs/proc/task_mmu: return -ENOTTY for unknown pagemap ioctls
+has been added to the -mm mm-unstable branch.  Its filename is
+     fs-proc-task_mmu-return-enotty-for-unknown-pagemap-ioctls.patch
 
-Fix the problem by moving the static variable into the damon_ctx struct.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-task_mmu-return-enotty-for-unknown-pagemap-ioctls.patch
 
-Fixes: 1a582e6e0174 ("mm/damon/core: split a fraction of regions when nr_regions exceeds max/2")
-Cc: <stable@vger.kernel.org> # 7.3.x
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Signed-off-by: SJ Park <sj@kernel.org>
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Hengyu Liang <hengyul@cs.unc.edu>
+Subject: fs/proc/task_mmu: return -ENOTTY for unknown pagemap ioctls
+Date: Fri, 23 Oct 2026 14:13:00 -0400
+
+Commit 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and
+optionally clear info about PTEs") made do_pagemap_cmd() the ioctl
+handler of /proc/<pid>/pagemap.
+
+However, do_pagemap_cmd() returns -EINVAL for every command other than
+PAGEMAP_SCAN. Before that commit, pagemap had no ioctl handler, and
+the VFS returned -ENOTTY for these commands. As of now, they fail with
+EINVAL, so tcgetattr() and isatty() on pagemap report EINVAL instead
+of ENOTTY.
+
+The issue can be reproduced with a simple C program:
+
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <termios.h>
+
+    int main(void)
+    {
+            struct termios t;
+            int fd = open("/proc/self/pagemap", O_RDONLY);
+
+            if (tcgetattr(fd, &t) < 0)
+                    perror("tcgetattr");
+            return 0;
+    }
+
+Before that commit, the result is:
+
+    tcgetattr: Inappropriate ioctl for device
+
+After that commit, the result is:
+
+    tcgetattr: Invalid argument
+
+This patch will return -ENOIOCTLCMD for unknown commands, as
+procfs_procmap_ioctl() in the same file does, so that the VFS turns it
+into -ENOTTY.
+
+Link: https://lore.kernel.org/20261023181300.3366487-1-hengyul@cs.unc.edu
+Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Andrei Vagin <avagin@gmail.com>
+Cc: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: <stable@vger.kernel.org>
 ---
- include/linux/damon.h | 5 +++++
- mm/damon/core.c       | 5 +++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index cb6a50032a1eb..380f9cf6ddd82 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -963,6 +963,11 @@ struct damon_ctx {
- 	 * for more details.
- 	 */
- 	unsigned long last_nr_regions;
-+	/*
-+	 * number of damon_split_some_regions() invocations for this context.
-+	 * Read damon_split_some_regions() for more details.
-+	 */
-+	unsigned long region_split_rotation;
- };
+ fs/proc/task_mmu.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/fs/proc/task_mmu.c~fs-proc-task_mmu-return-enotty-for-unknown-pagemap-ioctls
++++ a/fs/proc/task_mmu.c
+@@ -3201,7 +3201,7 @@ static long do_pagemap_cmd(struct file *
+ 		return do_pagemap_scan(mm, arg);
  
- /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 09722257ce736..73b571b429cb3 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3753,12 +3753,13 @@ static void damon_split_regions_of(struct damon_ctx *ctx,
- static void damon_split_some_regions(struct damon_ctx *ctx,
- 				     unsigned long split_step)
- {
--	static unsigned long rotation;
- 	struct damon_target *t;
- 	struct damon_region *r, *next;
--	unsigned long offset = rotation++ % split_step;
-+	unsigned long offset;
- 	unsigned long idx = 0;
+ 	default:
+-		return -EINVAL;
++		return -ENOIOCTLCMD;
+ 	}
+ }
  
-+	offset = ctx->region_split_rotation++ % split_step;
-+
- 	damon_for_each_target(t, ctx) {
- 		damon_for_each_region_safe(r, next, t) {
- 			unsigned long sz_region, sz_sub;
--- 
-2.47.3
+_
+
+Patches currently in -mm which might be from hengyul@cs.unc.edu are
+
+fs-proc-task_mmu-return-enotty-for-unknown-pagemap-ioctls.patch
+
