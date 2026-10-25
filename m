@@ -1,97 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792917915;
-	b=TqM9XOrW0isK+7xLgCNIC8bSBTK+CYw/93R4ag32oyXFwVTlSY8EhHCa04aDGsWuJpTE
-	 zZ9yIm3jrcu5+vk2p8Z/Eu3j0WxhotOe2MImpG03tqBJ59NGerSEnwzSSzlAHxRc6dX5F
-	 oqWGOmfaGui2CzwkNr2DaVBcDGUSOT1TnNoXtctEoCYMl/w/+YILcK+qWXL9XGaBefKMB
-	 5fi1+c8kvDFHtqFSpArnos/sAFFLjAQK5e+jFgtJQP6YknNks4dKTxHX3mcVEZyWXnlxl
-	 UPlQ4hYLnsG12WGEu2+4JM42l/daS4uvtC/0I9T2lioAVi6ZARWnEY69/xl3g/+fM8A==
+	t=1792917917;
+	b=NIntE1CiXdV9E4Y1Rg9r0t7ruDkH5vxWn48SizJkdJV+sRpAgndknEmUcu/iGNnHEbDD
+	 EIcQXB1l49jse9CXBkUyFLlWdwW1C+IjO+u37F5mcmSMitLSUo2/UhYR6MB0bpL9uPop3
+	 7vaJJtKscYCH554AB/xLnl5izQpT6wZ6ZoKIWP3zkj3u9JA7raXWOaPp29bOYXf8ENzWX
+	 61YU6P6Ck+fwIyMWhckxjKjsIe/nzQKB+5xYtjfnrhhn+IWZNmLFdhXSBLkfEm3xkTXcW
+	 B+WWhXNKgIDlkMSdoSFQ7TevBCSO7RVXAIGAitt4BsQZCG5HBrRanQcJCg937qiPuHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792917915;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1d5mUWdvk774lKl2QnImU1luPbD//SI7ZRpbSPmcqww=;
-	b=U4owG6dTxK83HUBUKFTGntW+5ygps9yw7DuPeweJ43rtde6mipxdd59xq2iB1jmBGC7V
-	 fNu+b52xAsjJ8KxXA/DmmxYJVPL5wvENYtkQFT+EQzTL8seT/iBUuXCCWdEHXrxjqHcQA
-	 la1iklGYgL/fT82/UPJLpN7Zx5K572mYuZcNQIHW4IJofIFxOJ4dBTVr+DWH1qC2c8cCt
-	 euF1rcfWErFyvglcUVChhtuo3DXAPDAghg+5sNAu+UsieDDMrxx+hN8xZpZs3NX7++WFt
-	 PG0Op3LZEBJhl4Bw17R6n089irMV3V5sx7Z4Wp+aYJd6oI8ogE4SOENJFXphriYXtMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792917917;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=VhZfVcQygCMC0ZHdNZny2y1fLz3444mS/i8C+iIKAzg=;
+	b=b2jaBMqwWjhVGBF5VOl0gb49pl6APm0WMI8T0FurHYxvqwvmkVe2HboehjMeOlQu4Ht2
+	 VoAfJgNBMa1HhD6GLTBYzldvxtzRQF1jytBwi31Sosn0mFc+k7XAIFI1OjG43YRvHqW9B
+	 SVlNje8d+3veb4WrQQk5OCIBlAI9q7ttM0/fCDOYuQgSa9VsAOzr7gBp7sfsiLaUjfmBc
+	 EK9m60/0GwDFu5GISJU5EzWsuThoGgdCM+IBgST4UYsxzgc5XoGpYf/Whq3hsMd8yny9v
+	 ibeeJYn5qgr8cs7sNErhSMzLCC23x45tVPlpWAh6G56GUXhWOCXhAAeRwpVc7DJubBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BwBNUJPA;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kernelscan.io;
+	spf=pass smtp.mailfrom=kernelscan.io;
+	arc=none smtp.remote-ip=212.227.126.130
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975DC606A321
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 08:45:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 975DC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BwBNUJPA
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so1642265e9.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 01:45:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792917913; x=1793522713; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1d5mUWdvk774lKl2QnImU1luPbD//SI7ZRpbSPmcqww=;
-        b=BwBNUJPAn8EirOOv0LA2XGMGZoYIK0tC4puvCdA+BS6/VTgfMNClPjk6LuwgqPbinh
-         xrmHONcG3ywNDuWrxBHUkOnoehYpXF4pTEbeebOPjEfrkiJPpy31OgjWFGAxiBHS6dhn
-         hl1iVWyd5iHADrNbZeFo++tyWxl9e+ogaQVYiiKswmGGLmZUgQb1HNoxSi9RIrMIC/XT
-         Z9tV9yjBtiP2M8frEoVsjoBrz6YN6uUq9jwemF1XGs1zqVFj4kfWyC2E7AY24UYlYadX
-         rk7Xh/T9KmLXqYrKBGQujXBbzqUNLz4OfdS1//vAcxqbFkFEu9EZhgjla0GCxEXPXU1D
-         9AoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792917913; x=1793522713;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1d5mUWdvk774lKl2QnImU1luPbD//SI7ZRpbSPmcqww=;
-        b=OTgNF1Qs8EbZKr4+UaFZHpltENMcKVVekl6+WqSJ3t2MkM0I1gmP6NbBzVV3YqMB98
-         n4fzPfhk1ZMy7ZqyuDtc9EO8rhBI17uI3kM78HXbNIbprBvjsK3/6BJo+X6PsTV7YhYW
-         u5KZu0ulfPr/TvBeHM6MuMc+NMKAPd90PUzX254f3B5XJ0g7tcq1KJ+rfDLq3AS8KX9M
-         8VQ3Y+RJboXKxmDtRMgSyQSqSCI2NVBeYJ4DYkSKVyM4q5kkvOh2wEX6sY34DCUyYk2n
-         +jKMk8ftETVdqE8TQRkiRSemuHh+/J0Oh0sH/0Bh4QF9+QuZhZqXvXwkFHXJ2vDBjl/3
-         wz1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxDOeYkJov0Ad8tS0EZ3SmF5i2Dy56EgVPMWwNYkEx5ZJyywZr60lwTtEtOqqq3YNmf9j/dgKg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMWAneaM00ctL9Gxf+07LjX/gsZMVanUp9iDPy2OHHkCjuICQ2
-	64on6IOMV/oTRR1SxR0wZf0sTkVjHEGXNtnAw/4Yd9n2/YfoiS1qSvCM
-X-Gm-Gg: AYBFou33T8U8X73gTKc1kP3VOdevRwH7nTo93YkderYFWWkMnGQRQIlMyOZ1a6Dffzg
-	Izb0QnskhxaaGdrSwuCXko5n62pVCvfmO2hgCt8K0WHzMweUPAyLBsF37rBwYa4S7/q5aTlwjHM
-	cKNHfh2vQ0/PHK1LWxbYEVnzC0RLssRcVuPFVwKwSQ699vGFz9N+WnRjD8ClDuZA5Kf7Rm1KkdH
-	U6Jugd1b8FJe8IJuUF+SxWUVWLzU1T+JhMSBVQ3byfdCvTihANadubjteMZ3W1GhcWkw0RsCKbl
-	Wen1NtWJZd3aqmMmDg1Q+DNC2IzlR2KA9HPWRMbt81FfDUCYrucGqezgmxjqE/3tEBN8biJjN5S
-	Q4W3iyri8oFNiWvbfYkK1aSoZwiHCFWn8sJS4ZLw3W6eIOgMYZscOewYEtFzIMNx0f7WRjinpFJ
-	6ijRN4mF4Ggb8bXZaphwTJTqtzr9pwusp9Sa6jsd28YzzSjqRbrWUQ70CkildDRFKPd7O3HRGtD
-	WaXpb0dsYHc2IbGCb+EYG3S8tTbqMJDZhaJby8B/bLvsnn617GvJeYMG7IBpmtXxV0GU8v8Qwop
-	E1pHasAA3hEWSsQkN1HkPuSwyN5dM80HU3/8C1rCxdj+JpOix7JVHNkEQ5xf2+SlRLDfW89RiLc
-	FgXeyEBxQ/ejAtA6KQOAgaHK0bKV43aLUPtcWgPS/iv9uA82s2jmAtc6dq7ljqYudSHeJy90te1
-	HyWjo5Ooa78FGoGk8SfeLlBpseMT7KxZhnnsqAErQbMIAcGro2AFDG8yNIq3CljYYpn8CJuGISG
-	+WR/B7J68Qq0uabzciY8rAkXmRbUYuKr8ksV0C34/JhzCPFpPsEFHfwHAvTVNlYDrJ4tQEsWHSS
-	mBCXENsyCOU=
-X-Received: by 2002:a05:600c:4e87:b0:4a2:994:5750 with SMTP id 5b1f17b1804b1-4a35acbbbdamr59352085e9.32.1792917912666;
-        Sun, 25 Oct 2026 01:45:12 -0700 (PDT)
-Received: from albatros (ip-091-065-217-039.vkd74.pools.vodafone-ip.de. [91.65.217.39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ae28sm111484945e9.2.2026.10.25.01.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 01:45:12 -0700 (PDT)
-From: Erhan Bilgili <erhan.bilgili@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Jack.Xiao@amd.com,
-	Erhan Bilgili <erhan.bilgili@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix DC scanout position handling
-Date: Sun, 25 Oct 2026 09:45:06 +0100
-Message-ID: <20261025084506.62881-1-erhan.bilgili@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB5B606A326
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 08:45:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DB5B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelscan.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelscan.io
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
+ [213.165.67.97]) with ESMTPSA (Nemesis) id 1MRVy9-1wxThw2ROf-00KuIz; Sun, 25
+ Oct 2026 09:45:09 +0100
+From: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Jay Vosburgh <j.vosburgh@gmail.com>,
+	Andy Gospodarek <andy@greyhouse.net>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH v2 5.10.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
+Date: Sun, 25 Oct 2026 09:45:05 +0100
+Message-ID: <20261025084505.83046-1-steffen.pfendtner@kernelscan.io>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261024124932.5507-1-steffen.pfendtner@kernelscan.io>
+References: <20261024124932.5507-1-steffen.pfendtner@kernelscan.io>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,58 +55,203 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:R9dWAYPKqkq6wdhDwjuYVlYdh9JknLTyFktWZNSX5d651mrQOCp
+ UrXWLZ5Zm/7wGwBN6AIn8AcuWV5tAG/0IaaiDKGs/+BVFVEc/VtSt4plFesKD8fzFz2NqY7
+ /uCvB0YEC8zUhbBnEuFQrdjoolSSFQCU0xE2vRUqm+l+n8yzAZgCauixTOb/z30BlHtjtaL
+ E2ebHPUMT8pQoetfM5pWw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Jt5uGXuqEnk=;pXCh6uPFcR+mI+hR7LmVAUI/PwZ
+ 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
+ 4d/1w6y/NHHynGP+atyDaVPori+g==
 
-dm_crtc_get_scanoutpos() packs decoded DC positions and blanking
-boundaries into u32 words, shifting the second value by 16 bits.
+From: Xiang Mei <xmei5@asu.edu>
 
-VRR extends vertical blanking without changing the line clock. For
-example, a 4K240 mode with vtotal=2250 spans about 9000 lines per
-refresh at 60 Hz, exceeding the 13 bit range within a 48-240 Hz VRR
-range.
+[ Upstream commit 2884bf72fb8f03409e423397319205de48adca16 ]
 
-The 13 bit mask truncates positions above 8191, causing early VRR
-timestamps and missed vblank count adjustments.
+bond_xmit_broadcast() reuses the original skb for the last slave
+(determined by bond_is_last_slave()) and clones it for others.
+Concurrent slave enslave/release can mutate the slave list during
+RCU-protected iteration, changing which slave is "last" mid-loop.
+This causes the original skb to be double-consumed (double-freed).
 
-Fixes: e806208dc1da ("drm/amd/display: Fix slow FPS.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Erhan Bilgili <erhan.bilgili@gmail.com>
+Replace the racy bond_is_last_slave() check with a simple index
+comparison (i + 1 == slaves_count) against the pre-snapshot slave
+count taken via READ_ONCE() before the loop.  This preserves the
+zero-copy optimization for the last slave while making the "last"
+determination stable against concurrent list mutations.
+
+The UAF can trigger the following crash:
+
+==================================================================
+BUG: KASAN: slab-use-after-free in skb_clone
+Read of size 8 at addr ffff888100ef8d40 by task exploit/147
+
+CPU: 1 UID: 0 PID: 147 Comm: exploit Not tainted 7.0.0-rc3+ #4 PREEMPTLAZY
+Call Trace:
+ <TASK>
+ dump_stack_lvl (lib/dump_stack.c:123)
+ print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
+ kasan_report (mm/kasan/report.c:597)
+ skb_clone (include/linux/skbuff.h:1724 include/linux/skbuff.h:1792 include/linux/skbuff.h:3396 net/core/skbuff.c:2108)
+ bond_xmit_broadcast (drivers/net/bonding/bond_main.c:5334)
+ bond_start_xmit (drivers/net/bonding/bond_main.c:5567 drivers/net/bonding/bond_main.c:5593)
+ dev_hard_start_xmit (include/linux/netdevice.h:5325 include/linux/netdevice.h:5334 net/core/dev.c:3871 net/core/dev.c:3887)
+ __dev_queue_xmit (include/linux/netdevice.h:3601 net/core/dev.c:4838)
+ ip6_finish_output2 (include/net/neighbour.h:540 include/net/neighbour.h:554 net/ipv6/ip6_output.c:136)
+ ip6_finish_output (net/ipv6/ip6_output.c:208 net/ipv6/ip6_output.c:219)
+ ip6_output (net/ipv6/ip6_output.c:250)
+ ip6_send_skb (net/ipv6/ip6_output.c:1985)
+ udp_v6_send_skb (net/ipv6/udp.c:1442)
+ udpv6_sendmsg (net/ipv6/udp.c:1733)
+ __sys_sendto (net/socket.c:730 net/socket.c:742 net/socket.c:2206)
+ __x64_sys_sendto (net/socket.c:2209)
+ do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
+ entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+ </TASK>
+
+Allocated by task 147:
+
+Freed by task 147:
+
+The buggy address belongs to the object at ffff888100ef8c80
+ which belongs to the cache skbuff_head_cache of size 224
+The buggy address is located 192 bytes inside of
+ freed 224-byte region [ffff888100ef8c80, ffff888100ef8d60)
+
+Memory state around the buggy address:
+ ffff888100ef8c00: fb fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888100ef8c80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888100ef8d00: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                                                    ^
+ ffff888100ef8d80: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+ ffff888100ef8e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+Fixes: 4e5bd03ae346 ("net: bonding: fix bond_xmit_broadcast return value error bug")
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Link: https://patch.msgid.link/20260326075553.3960562-1-xmei5@asu.edu
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ Backport to 5.10.y: 5.10's bond_xmit_broadcast() walks the live slave
+  list, not the all_slaves array upstream indexes into (that walk came
+  with ce7a381697cb "net: bonding: add broadcast_neighbor option for
+  802.3ad"), so there is no index/count pair that stays consistent
+  while the list changes. Instead of choosing the "last" slave up
+  front, defer it: clone the skb for each up slave as the next one is
+  found, and transmit the original skb to the last up slave seen only
+  after the walk has finished. The original skb is consumed exactly
+  once and not touched afterwards, however the list changes during
+  the RCU walk; slave pointers stay valid under rcu_read_lock() since
+  __bond_release_one() does synchronize_rcu() before freeing. ]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+v2: v1 had the same flaw Sasha found in the 5.15.y version (a list
+index compared against a slave_cnt snapshot does not bound the walk,
+since bond_enslave() links the slave before it bumps slave_cnt). v2
+uses the same approach as the 5.15.y v2: defer the original skb until
+the list walk is over, see the bracketed note.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 0a8dd7241750..f78c82ba7f70 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1767,6 +1767,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 	bool in_vbl = true;
+Build-tested on arm64 (W=1) on top of queue-5.10. Boot-tested under QEMU
+with KASAN: several CPUs flood broadcasts through a broadcast-mode bond
+while slaves are enslaved and released in a tight loop; no KASAN report,
+and afterwards every up slave transmits every broadcast.
+
+ drivers/net/bonding/bond_main.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index e977fd528d75..ec712fdeaa4c 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -4607,35 +4607,36 @@ static netdev_tx_t bond_xmit_broadcast(struct sk_buff *skb,
+ 				       struct net_device *bond_dev)
+ {
+ 	struct bonding *bond = netdev_priv(bond_dev);
+-	struct slave *slave = NULL;
++	struct slave *slave = NULL, *last = NULL;
+ 	struct list_head *iter;
+ 	bool xmit_suc = false;
+-	bool skb_used = false;
  
- 	struct amdgpu_device *adev = drm_to_adev(dev);
-+	/* DC packs decoded values into 16 bit fields. */
-+	const u32 scanout_mask = adev->dc_enabled ? 0xffff : 0x1fff;
++	/* The slave list can change under us during the RCU walk, so which
++	 * slave is "last" is only known once the walk is over: clone for
++	 * every up slave but the last one seen, then hand the original skb
++	 * to that one after the loop.
++	 */
+ 	bond_for_each_slave_rcu(bond, slave, iter) {
+ 		struct sk_buff *skb2;
  
- 	/* preempt_disable_rt() should go right here in PREEMPT_RT patchset. */
+ 		if (!(bond_slave_is_up(slave) && slave->link == BOND_LINK_UP))
+ 			continue;
  
-@@ -1784,15 +1786,15 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
+-		if (bond_is_last_slave(bond, slave)) {
+-			skb2 = skb;
+-			skb_used = true;
+-		} else {
++		if (last) {
+ 			skb2 = skb_clone(skb, GFP_ATOMIC);
+-			if (!skb2) {
++			if (!skb2)
+ 				net_err_ratelimited("%s: Error: %s: skb_clone() failed\n",
+ 						    bond_dev->name, __func__);
+-				continue;
+-			}
++			else if (bond_dev_queue_xmit(bond, skb2, last->dev) == NETDEV_TX_OK)
++				xmit_suc = true;
+ 		}
+-
+-		if (bond_dev_queue_xmit(bond, skb2, slave->dev) == NETDEV_TX_OK)
+-			xmit_suc = true;
++		last = slave;
+ 	}
  
- 	/* Decode into vertical and horizontal scanout position. */
--	*vpos = position & 0x1fff;
--	*hpos = (position >> 16) & 0x1fff;
-+	*vpos = position & scanout_mask;
-+	*hpos = (position >> 16) & scanout_mask;
+-	if (!skb_used)
++	if (!last)
+ 		dev_kfree_skb_any(skb);
++	else if (bond_dev_queue_xmit(bond, skb, last->dev) == NETDEV_TX_OK)
++		xmit_suc = true;
  
- 	/* Valid vblank area boundaries from gpu retrieved? */
- 	if (vbl > 0) {
- 		/* Yes: Decode. */
- 		ret |= DRM_SCANOUTPOS_ACCURATE;
--		vbl_start = vbl & 0x1fff;
--		vbl_end = (vbl >> 16) & 0x1fff;
-+		vbl_start = vbl & scanout_mask;
-+		vbl_end = (vbl >> 16) & scanout_mask;
- 	} else {
- 		/* No: Fake something reasonable which gives at least ok results. */
- 		vbl_start = mode->crtc_vdisplay;
+ 	if (xmit_suc)
+ 		return NETDEV_TX_OK;
 -- 
-2.56.0
+2.39.5
 
