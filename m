@@ -1,66 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792921661;
-	b=dQqmQD2187Xh+7s8DS3NdVlUKaAbJpkqg+hqxeyq9rvwGywHNXmMtDjyx0YT0lko50zw
-	 O0It6IWqWaM8BAl0B2Qq3fBhKQt1XAqJoqcu/DHJOUYgzw7Dc7DpY3AGpF77vBDKmpfXq
-	 MkwVGEikpgrIbb28SlyrSXQ/Mn2kbfWch+2fds4OW6O5TWggND3DWB4ZaAJ03SAHl4UqM
-	 4AtWs/t9Sy695/eU6nlmKM/luD8GrEh+uyJyfErhkB59mY7G8pI6ax8jHSecnn6fwYv6w
-	 HZGhtT3cf6RF7LipJ+hqJ7AmTwXpVEHe8bhcOZbgx9PxJnRJVKMvPOHyEeo9OR1DScg==
+	t=1792922382;
+	b=BbxYCbhzFtC80yH5fJmuaTcpfPOp4zS13Nv4GPPAHX/P5UCQyHujJd8vt+wT3NPgT5T7
+	 aQikCRwQAx1vZDNlpR9uoOp7okJYdnA7Z/mvfiTalB1AF6WdNq16oHsfJF0eU5sS+wUTU
+	 AJEixF1ajWHcMEs/GoePm8TOMJQCe/aUYZGa0GDkaRl26ckIOTQiayIcwCtR4ZLkbpIrH
+	 ui00qxXVXRnG2GWByYbeWp1iIE+plgqrcKO0TLWKm00WeyoRcZBCREdEHInWmD7kRFPcA
+	 riTZAP98HP/JFsMfrZJMTJnSxKCTdrlJVhaYFi0CgAmmtzA0cpB3BdyLChXUcKVl4GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792921661;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=6wMi+VRMdXtwGgWeYPr3fgIuVKDrKzKxvHBThVIJSgE=;
-	b=jlsGuiqy7uAytuEBSOYtHjagOu1Cer9xr+uwacSt7Bul6a4HYGO4qK2P1L+CHzgiUADl
-	 zYl96CZJWzEkB1nzIO6IiTjbqSN7+bplOFBfzXhZFLj2JtWepXtbG9meyt8WSI9Jt6767
-	 +UcjpSKLIRZk595kj2gTiaS3jKGsai0VwgnLVmbq1YxZ+KvcPUBeKC8ciCju7ayyaqsgo
-	 xKR5YBUd+xoSn6jUA4kMjqT0swcjp7eSZl0Hk7O7c3DHjfkFoFPAkP6Sub+xqOMVWvorJ
-	 Rpwy47dse6ADaQ+IaGR3/1LzZ5TgGDKb4yk3jsAeBS4oYJP06fe8VJ0nvMs1iCXMdAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792922382;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=xIQqI/QjyZL4p06+WdD3fxaMN1wfhh85wLBF3MVo7TE=;
+	b=VbFNAkOB8voMeVRQ0rGQGvA3rvxT+m45eKLJITAMqvsdP/fbGIDPQrtcyJmW6DDboHxw
+	 h2odSgGsx8kSsruxbKpHhTvzVm1Apcj2oi8yNfieE7gJQAeBgu7m0G6wPBMh7ksfrwucj
+	 ZeOc3QBJdQfSJw2AYEYwTQWlRu2RB1qFptNq9BUfSE/NanS0k2YDNEMC6MBiUpZttRwHP
+	 oD+dBNslEstO4wLDO21+RrR6mqgrd153MN5P4zGVQttgD9hhIJymJ8/mLSzTOhj+GrsOH
+	 YmnxDp+7kM6FMTNarK+88W7QrgOwvpnK/ID4hvmD6g/iHEOwQg73pxbfJR3PZGmx3dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="S/bnQUUq";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHelLjlJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F7E606A31A;
-	Sun, 25 Oct 2026 09:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F7E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237E0606A31B;
+	Sun, 25 Oct 2026 09:59:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S/bnQUUq
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D97D2493;
-	Sun, 25 Oct 2026 10:45:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792921522;
-	bh=gaeNNxYSwdfO6+h2u4lvwXbi37LKCI3h3I6UXVoiu3g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S/bnQUUqMktsQwHkzY2NAfgTGltXt1OtYw3ryd5rkvGvg0soJFQw+El6kTtmwsX85
-	 itHwM1Vyaqz7iMqHz4d4A0iVtBTYsZZ9Cn4WqR2cDqcQDUdGIuqqPK4xy6Ih3RarBB
-	 GlkkoES43hQ4dntbJIagc0mVrKxAXvJ9hsluWq2w=
-Message-ID: <c76885d0057833361d0f5d5ad0c62dec@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Aristo Chen <aristo.chen@canonical.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Guoniu Zhou <guoniu.zhou@nxp.com>,
- Christian Hemp <c.hemp@phytec.de>, Jacopo Mondi <jacopo@jmondi.org>,
- Stefan Riedmueller <s.riedmueller@phytec.de>, linux-media@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Aristo Chen <aristo.chen@canonical.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] media: nxp: imx8-isi: Register the media device only once
-Date: Sun, 25 Oct 2026 11:46:49 +0200
-In-Reply-To: <20261025082419.199021-1-aristo.chen@canonical.com>
-References:  <20261025082419.199021-1-aristo.chen@canonical.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHelLjlJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963631F01825;
+	Sun, 25 Oct 2026 09:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792922381;
+	bh=xIQqI/QjyZL4p06+WdD3fxaMN1wfhh85wLBF3MVo7TE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YHelLjlJOUyt2KQNA0QZuzFedX4B3jR+xiUPlRQn2HpQxsFQIKVZ9DhW5qYi3xIx8
+	 a2Qr4wDR3dbT7aPbzk+E1edyGAW6YJ05jaoWaheuOwSmZyHtE1ilf/mx4PmKeeWs96
+	 TIPfhmRazGKTWUrroCBOqbkQZez8JUyiikAtOV4IA0L0jJkrQD/G9kKEn5mmPbnT+i
+	 hQe2fjvpoNYEynim4BcIxOr7rkkGoQzUCKwWbmfLg+vVo78JlCpCi+uKurGpUxIxYN
+	 g7kpgYyK9t+rWWbhzlrCPECmSmkO+b6RUAhQSEh7NaLjj2brTOH7hRT+/hcfDEfcHp
+	 JZcIzT4qED8Uw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xKv0s-00000006w0l-3p5c;
+	Sun, 25 Oct 2026 09:59:39 +0000
+Date: Sun, 25 Oct 2026 09:59:38 +0000
+Message-ID: <86a4o2yub9.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Janne Grunau <j@jannau.net>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,	Krzysztof =?UTF-8?B?V2ls?=
+ =?UTF-8?B?Y3p5xYRza2k=?= <kwilczynski@kernel.org>,	Manivannan Sadhasivam
+ <mani@kernel.org>,	Rob Herring <robh@kernel.org>,	Bjorn Helgaas
+ <bhelgaas@google.com>,	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-pci@vger.kernel.org,	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] PCI: apple: Avoid PERST# deassertion through gpiod initialization
+In-Reply-To: <20261024-pcie-apple-perst-gpiod-init-v1-1-f92f30f205ef@jannau.net>
+References: <20261024-pcie-apple-perst-gpiod-init-v1-1-f92f30f205ef@jannau.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,108 +71,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: j@jannau.net, lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, bhelgaas@google.com, luca.ceresoli@bootlin.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hello,
-
-This is an automated reply.
-
-You have sent a patch that appears to have been generated by an LLM. The
-commit message and/or code show little to no real understanding of the
-changes being proposed.
-
-Such patches require a large amount of work to review. They rely on the
-maintainer to propose - and often even implement - a proper design. The
-probability that the author will learn from the experience to improve
-their future contributions is close to zero.
-
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your patch has been rejected.
-
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of the patch by
-feeding this reply to an LLM will only result in your e-mails being
-ignored.
-
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
-
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
-
-Thank you,
-
-Laurent's mail bot
-
-On Sun, 25 Oct 2026 08:24:18 +0000, Aristo Chen <aristo.chen@canonical.com> w=
-rote:
-> The v4l2-async framework calls the notifier .complete() operation every
-> time the last missing subdev gets bound. This happens again each time a
-> remote subdev is unbound and bound again, for instance when the sensor
-> driver is unbound and rebound through sysfs.
->=20
-> mxc_isi_async_notifier_complete() calls media_device_register()
-> unconditionally. Each call allocates and registers a new media devnode
-> and overwrites mdev->devnode, so every rebind creates an additional
-> /dev/mediaN for the same media device, and leaks the previous devnode
-> and its minor number. As media_device_unregister() only unregisters
-> the most recent devnode, the older ones also stay registered after the
-> ISI is removed, and ioctls on them dereference the freed media_device.
->=20
-> On an i.MX93 board with an AP1302 ISP, every unbind/bind cycle of the
-> AP1302 driver adds one /dev/mediaN: after three binds, /dev/media0,
-> /dev/media1 and /dev/media2 all expose the same media graph.
->=20
-> Register the media device only if it isn't registered yet. Keep the
-> v4l2_device_register_subdev_nodes() call unconditional, as it has to
-> create the device nodes of the rebound subdevs, and it already skips
-> the subdevs that have one.
->=20
-> The issue was found while debugging an unbind crash in the AP1302
-> driver of the NXP BSP kernel. An AI coding assistant helped to find
-> it, and wrote this fix and its changelog.
->=20
-> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+On Sat, 24 Oct 2026 17:46:54 +0100,
+Janne Grunau <j@jannau.net> wrote:
+> 
+> Commit 87620512681a ("PCI: apple: Fix PERST# polarity") switched the
+> PERST# polarity by annotaing its GPIO as active low in the device tree
+> via [1]. It missed to update gpiod_get()'s flags to GPIOD_OUT_HIGH
+> resulting in deasserting PERST# through gpiod initialization.
+> The Aquantia AQC113 10GB ethernet device used in some Apple silicon
+> desktop does not finish link training with this additional PERST#
+> deassert before the usual PERST# dance.
+> 
+> Link: https://lore.kernel.org/linux-pci/20211123180636.80558-1-maz@kernel.org/ [1]
+> Fixes: 87620512681a ("PCI: apple: Fix PERST# polarity")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
+> Signed-off-by: Janne Grunau <j@jannau.net>
 > ---
-> Tested on an i.MX93 FRDM board running the NXP BSP kernel
-> (lf-6.18.20-2.0.0), whose mxc_isi_async_notifier_complete() is identical
-> to mainline, with the AP1302 driver from the same BSP plus a local fix
-> that makes it possible to unbind it:
->=20
-> - Without this patch, three unbind/bind cycles of the AP1302 driver
->   left /dev/media0, /dev/media1 and /dev/media2.
-> - With this patch, after each of three unbind/bind cycles only
->   /dev/media0 exists, and media-ctl -p on it shows the rebound AP1302
->   and sensor entities. No kernel warnings.
->=20
-> Not tested: the ISI removal path, where the stale devnodes would be
-> dereferenced. Build-tested on top of 330517c63aa9 with W=3D1, no new
-> warnings; sparse was not run.
->=20
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/=
-media/platform/nxp/imx8-isi/imx8-isi-core.c
-> index 0ae5f35e017c..82a03742405d 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> @@ -90,6 +90,10 @@ static int mxc_isi_async_notifier_complete(struct v4l2_a=
-sync_notifier *notifier)
->  		return ret;
->  	}
-> =20
-> +	/* .complete() is called again every time a subdev gets rebound. */
-> +	if (media_devnode_is_registered(isi->media_dev.devnode))
-> +		return 0;
-> +
->  	return media_device_register(&isi->media_dev);
->  }
-> =20
->=20
-> base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
+> This issue affects only a single PCIe devices of the handful of built-in
+> devices integrated in Apple silicon devices. It is usually hidden by
+> u-boot's initialisation of PCIe devices.
+> ---
+>  drivers/pci/controller/pcie-apple.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+> index c2cffc0659f4..a7f327803060 100644
+> --- a/drivers/pci/controller/pcie-apple.c
+> +++ b/drivers/pci/controller/pcie-apple.c
+> @@ -562,7 +562,7 @@ static int apple_pcie_setup_port(struct apple_pcie *pcie,
+>  	int ret, i;
+>  
+>  	reset = devm_fwnode_gpiod_get(pcie->dev, of_fwnode_handle(np), "reset",
+> -				      GPIOD_OUT_LOW, "PERST#");
+> +				      GPIOD_OUT_HIGH, "PERST#");
+>  	if (IS_ERR(reset))
+>  		return PTR_ERR(reset);
+>  
+> 
+
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
