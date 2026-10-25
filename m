@@ -1,47 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792894883;
-	b=hK2THx4lFA6AUYKPLm28trdvAEqrN7Ir6CYTaafoSMMXEPrez0+m0YM8fxvN+uByslkr
-	 Rlsq7X6t4/scn4BxWaprZFe4J3eLrKp0dwuFuwoXyDzs1fWRbX8Aqp56H+y/5KSM80iCJ
-	 04I6vmvnHkNZ6S8zHdj8DOJJ75A8C3t7jILnfvJVsI3INNoz+MOea+ZEDeBBIh7zFJt4F
-	 W0PTdZyN7EmucgRRu3nUahCbWQluNk3pYbDE/08rob8RwYu9MAAbiMjIgf09kSP1avGV6
-	 i+neNzVeL+ugXH35UJLoI5W3CWMIghjx5aAKF4S9V+Rd/vvmGkpUqE7wU+teVytWGOg==
+	t=1792895242;
+	b=fpe2Z8CrsaJ9R5KvAHYlHKwbgDamwsjRuUPv6eYCvB+LsljAQceER9/TqqYLUxgiFL3h
+	 vs9KlpWutj5tDbHeDWSa7rFpVxUq+vYNaNymKxeXD6F0feQTLrsJwrhesgGRrSm7i0e9i
+	 RuDESecstUSIh3ss4R3gLvbDo9gt2om1C80onDeTvDnkwda/UOS2w0fGXhFkTYW0rszGr
+	 OCr9wLT9P04a8PqeRQV0E1zJFzxHeNPZcP5q22DBGf7jo7BCf8E98BrAnZJlB8Evv2MaU
+	 kyv5aGnKXX7tDQt3NdUg5P6qQUmvXCzoao3ApCb7KeuDfacs4OKm3jWofKcGa3WiBJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792894883;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792895242;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tk1nNKvu4gh+/6cQpDYde1nK+SUWzRQlVwuGvyxxZfc=;
-	b=0KHlcVGkIi67pgo+ZLnrZ2U5xKPGz6m7xk/VbSC7jlkXD1XesppDvElFy6LZANqISs5W
-	 1Jp6vQqMFP5VolDBzkXQXIq35ykGNczsAmpX0dL2CBL91ZWkgQHf7JDFhE4r93U5j8Bes
-	 WaWSp8VnNMJOI46luwHjY6FsDnjq7dHSvlJ/CUc4Nx2o9pDPI3Q5YWIiGBUCQHJZutalp
-	 Q4clTt/jX9LSmQUgAMlYc6jhm01Wypm5AvThqnjEEPP8BwqfleeJb0Wkl2MeVwBHxzs3K
-	 F5vX2qhuIft2xPJDYaBGJYkVNPkfxZFqYK/2sM9JAUXyCnhTFy8aVuRZb7PRTZZ0vTg==
+	bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
+	b=3pc5b+Afy0cOJ1dRKfx/RNy7yImhPzkD4GS+p4SVZvBHVA1A8KDyxAfIi/MbUWGLsELg
+	 JZ6u87Z8jOvtw/D/A/I5OB25t0GXXG/XBXOY5FtcBHHQVhiBU/rdTouRhupqS4zTIbzLl
+	 wdYmnN+WU9MH4usv5GNFhTZAN3Ew1UscjU8gbuhYG61ECE2mNljMirzEN5Gdp8I+iG83U
+	 fB12GkMU0mIy2sOlwVQxVhLecU3K1rQdc9Rd0O5ec8Z7jHhgHQUMY0QSaT+JS7JZmEIaL
+	 PbRyqMo6pBdhnoaioveHG2XVV3lNywvgaAI47Um16rpvn210gGAmKXopbm2KdgDuICg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSka3LFL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RaXn1+ak;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735AB606A32E;
-	Sun, 25 Oct 2026 02:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9988606A31B
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 02:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9988606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSka3LFL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA401F01825;
-	Sun, 25 Oct 2026 02:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792894883;
-	bh=tk1nNKvu4gh+/6cQpDYde1nK+SUWzRQlVwuGvyxxZfc=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=OSka3LFLmkiQLqEa70/pTPQS9idWYgbeWk/LwcTeJ35OvI+2DknedSsgSj1VD6DP+
-	 8WTrtbdgwG4TlzkuQmQV4fhpLk7/tgW2c8AFM5YpmbqM4SzEYQLDs68Ea2jOecQjse
-	 YIymUt3ygNuxu6M3+glYkMqwOncXIZGcR17WvKaDFnb523mKiuAxYQWHBoPXmQuXgb
-	 Af9Q6csQyf5AnzEX6rndObQsxAEIXhnt8vz9poR5suZo6DRBK7hCzTCG0bN5xchi4T
-	 wjZCJzSHM3+OqVrKIoqfjFJE8aQzbE5qxiNTQswDSSRzpAzZOGCFbNi3EJipYx7ph7
-	 dOqtTXu00gAzg==
-Message-ID: <22cd38be-5f6e-45e6-8042-9ad091089192@kernel.org>
-Date: Sun, 25 Oct 2026 10:21:20 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RaXn1+ak
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso1270181a12.1
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 19:27:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792895241; x=1793500041; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
+        b=RaXn1+akRAg/67j9inzsGfdYM4IjBVcMsg1U1Ef8LmhifXBuKl0E7FMZdagML6aWjE
+         5qdq112ofBvQVY8tjaSUL74pF1Wp2c6pok4LvL0e8Bt9B4XI2NBPNkceIAwG+EZoengE
+         dDsLsEeQF1yDZkv9uwn+oN2wOCGxuHAjbILMRPgCXYDJvnn2/EXsGJGwvbpCj1cE6fqN
+         T+1D7o+V7nHc/QMOn9BvWMdCjkFBeXESL9iaL1lFGRBOxFBhf8LicHyROAEH8bEO4P7e
+         LS/r8yHRKAwP50hv4Une7jh7Xq3Ze40M5tGBjQnJUGxRgpfC9WPsr2Z1phNP0AU39U00
+         kGfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792895241; x=1793500041;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
+        b=iL6/ZJKBngPwD9KSEDgf+gzYg/+jNKhYiV/NfzkB8RJUPZOs1UdUvgfCue45EdCPUQ
+         v7dt9FvNlWR68o8Sxd4J/sLcDsqfWxf/7lF8x2gcbIubIJ4kKaFGgCXA8xOgJzrNKLTC
+         12t8b6/Ez7QGHCWpe1G+L37tZyCYi4iVM28JNgekQuthBDWoM82TEc+Ta7I19ELGLcbE
+         391bsF8jPX1cZ7+PL8hH9WHZQjHFR+BNoshbE1IrnJQR3Gdyot6+b/v0VvdJ0EPI4mg7
+         n7QcAOMjvcpqYgTavLQ3wW6Uum2MVDAiiARatbDdrzNgv6IkXjujH+Yq8GZJdH728+2D
+         u1Pw==
+X-Forwarded-Encrypted: i=1; AKwUvByvbW3TAyL05yTIq1hYhgTg/Ct348eZQxFcB1GK4jxtZdvz1E/0Q6fXgx1L9Mto40BX6nLmnZU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhjghjgamzRd9+zhTpQAG+Yf49PlfZdh65jzXFrhKVdwSUm2Ro
+	b02i1i5D37LtEJ4vF01Kol2RbrJ4ak+D4wVM56J4sUi5X8F/T3gfUWVUdbhRTiVNx3I=
+X-Gm-Gg: AYBFou0oPD9/gJr3Tdweedgkr+bOBWvsxVQA8eFuL9xzPl3AWsw3yAQUw7b2Q5QgTNY
+	RsIG9TGnUz+GvTVFEpgDQR4tLeqNglViCwsc/1T/tYCmHm+PFyuJ+cwIszXnWgg8xaiQQA0wsDu
+	U41kyMwbuYDA+SBSPakBgTnAIUlG6aHd+8Q4weski7p26qkrQZnKvlj25mwcdO8O8CEpZi3URnQ
+	n80Fk5ux2ZSAXawImwpLiYFO9JjBrD989ccpJmsfaF8M0ZNJ8qsn4PKmGhdDobK4+0VOkQzcJgQ
+	EDFdF744zHe9FhUPnxKlHDEJPs+tVWZck+3Ba9Rio6jPQ0hAbNn37nURO/jyS6LUHloBcuPZ6iN
+	RKJVZRuX2zt8hxohcGVvQEzNat6uZnunUVI1iwK3wB1cYl9WvOgwePk87R3rN+enswK2BEDND1X
+	pl4lkYw10mPtanusTiI8NizIAOuh77TtFFnEQOJGmOYQvUEl/jVNLleG+lpbWgkLmWuRw9x2BZU
+	rESgCoCranBUyZG1cVrBz02IAeQskI9THpixZ/KkdM9YDCBeUm0q0DWeeIxFYRyX+ygvoeDAdrq
+	1oc2+xQ=
+X-Received: by 2002:a17:90b:3143:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3adeafd27aamr2667251a91.52.1792895240980;
+        Sat, 24 Oct 2026 19:27:20 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:6216:1250::1d3:c4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebad6306sm3064944a91.2.2026.10.24.19.27.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 19:27:19 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	stable@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>,
+	Guoxiong Yan <yanguoxiong@huawei.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: rc: ir-hix5hd2: set up device data before requesting the IRQ
+Date: Sun, 25 Oct 2026 10:27:02 +0800
+Message-ID: <20261025022706.1905466-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,42 +99,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, LKML <linux-kernel@vger.kernel.org>,
- YoungWoo Rim <xsapiens75@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] erofs: hold real inodes for shared files
-To: Gao Xiang <xiang@kernel.org>, linux-erofs@lists.ozlabs.org
-References: <20261024192028.53932-1-xiang@kernel.org>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261024192028.53932-1-xiang@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/25/26 03:20, Gao Xiang wrote:
-> EROFS page cache sharing uses shared inodes. However, a mmaped VMA
-> keeps the shared file even after the corresponding fd is closed, while
-> currently the real inode is never held by any reference associated
-> with the shared file.
-> 
-> As a result, the real inode could be evicted and removed from the
-> shared inode's list while the page fault can still invoke on the
-> shared inode's address space, which causes no candidate is
-> successfully acquired by erofs_real_inode().
-> 
-> Fix this by simply keeping the original inode in the shared backing
-> file's private data.
-> 
-> Also replace confusing "readinode"/"rf" names with "sf" (sharedfile)
-> to unify the terms as well as nullify realinode in erofs_real_inode()
-> to avoid returning an uninitialized pointer.
-> 
-> Fixes: 5ef3208e3be5 ("erofs: introduce the page cache share feature")
-> Reported-by: YoungWoo Rim <xsapiens75@gmail.com>
-> Closes: https://lore.kernel.org/r/atzSVuvqYKgmvDmO@MacBookPro
-> Cc: stable@vger.kernel.org # 7.0+
-> Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
+The hix5hd2 IR interrupt handler passes priv->rdev to the
+ir_raw_event_*() helpers, which dereference it immediately, and
+devm_request_irq() unmasks the line as soon as it is called, so the
+handler can run before probe() returns.
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+hix5hd2_ir_probe() has requested the IRQ before assigning priv->rdev
+since the driver was introduced, so an interrupt already pending when
+the line is requested, e.g. decoded symbols left by the boot firmware,
+would pass a NULL rc_dev to ir_raw_event_store().
 
-Thanks,
+On Hi3716CV200 the handler ran 8 ms after the device was bound and took
+a NULL-pointer fault in ir_raw_event_store() from interrupt context; on
+Hi3798MV200H the same fault killed every boot 25 s into startup.
+
+Request the IRQ only after the device data is set up.
+
+The same ordering was fixed for talitos in commit 666d66df2525 ("crypto:
+talitos - init tasklets before requesting IRQs") and for bgmac in commit
+ac1f6e58cb77 ("net: bgmac: enable interrupts only after NAPI is ready").
+
+Fixes: a84fcdaa9058 ("[media] rc: Introduce hix5hd2 IR transmitter driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/media/rc/ir-hix5hd2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/rc/ir-hix5hd2.c b/drivers/media/rc/ir-hix5hd2.c
+index 1b061e4a3dcf..c3b984a0c2e4 100644
+--- a/drivers/media/rc/ir-hix5hd2.c
++++ b/drivers/media/rc/ir-hix5hd2.c
+@@ -316,6 +316,10 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto clkerr;
+ 
++	priv->rdev = rdev;
++	priv->dev = dev;
++	platform_set_drvdata(pdev, priv);
++
+ 	if (devm_request_irq(dev, priv->irq, hix5hd2_ir_rx_interrupt,
+ 			     0, pdev->name, priv) < 0) {
+ 		dev_err(dev, "IRQ %d register failed\n", priv->irq);
+@@ -323,10 +327,6 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
+ 		goto regerr;
+ 	}
+ 
+-	priv->rdev = rdev;
+-	priv->dev = dev;
+-	platform_set_drvdata(pdev, priv);
+-
+ 	return ret;
+ 
+ regerr:
+-- 
+2.53.0
+
