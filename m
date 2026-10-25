@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792901038;
-	b=TBcJidEnjeNSxO8iXseXo8iCcYs1OD8XRTwR0LEIc0qwFs/p5fR9gtZyKWYr65oy/QPE
-	 in5OrAiHG6lPT45Fm8juS4qHJFI2/RImy6oep0qs5/Mkb3B3rcawNFN8C6YrYBgReKaJL
-	 TYMWHHf2eUoUy9nLeiOqDNTU/j5Ye2zdlljFCufeSz5+L46n8dXKX0UksvGii8xrd8EeR
-	 9Zz1ot3EWw1r/PQtQQBt+ZwId7m/FJvWuV4HR48saOxKqRycRwB6UL6SF68aa2x3lTW4P
-	 tCBlU0FOYjxp+FalwJiZDHK5ZMmwbw9bvjdROq6rUM8Vem9AUGWOQ2yzM4ZytLwCpIA==
+	t=1792901040;
+	b=OOo7teKWoLmIj5acnTUCqB1ZICDHThta3cWN7am4uhK4g+fBfvnQDgOE5Qe1CXXgBxrw
+	 8QzZ78A/tmSIASZymiMOZAYWSJu9obe0/PT78GtLAyg+wrMvd6Sq1Fm/2qSit6MS1aSZS
+	 VWt+1uv53a80ux/lcSDoutvGTPlcnEVMdccTrseQAb+U8A0Z0GpQeD3r8QPNNv/VrBPQL
+	 +NEiIWBAOGignBNalGy035K3nL5foe0AJ6k/5T7YTpS/YRt3aW3ZcK5lCDHjp5sIDh7Ud
+	 pPbfU7LfAmYnPy5lTbGJlOH0Wfrw5Khv+CDZ+iZb5K36xaeT4fbro1wZV9Y/DZHBBlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792901038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792901040;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=xEK3ziTLDp3P8qge4qM9WyluMbHgJ78J74M7q1KfX+g=;
-	b=ql+UXpOYtcYE/NMb4/ApPQSE4ESh5AkfiNJfSwPTrcx3AbofEGe07Q80GIOIEvo8kwze
-	 fw/Q0mKabo9s2+AgCePAtGww1G3h1LT/4FxdU4G39pCiT85xKp9EtObD7FOhwQhkXmM9V
-	 CMm/1hmRHiT+s1uU7gv33wdT6vjKEvmSr2GsClG+WkYFMYrxELv8Kvez605sgICudKUch
-	 muqkBIps9dFCO7eAaVQzxvYDV+QDETTurh5SGaTd5Uo5GRLlRFZkX9A86+3pCsC8hqLj5
-	 JM237wq4flB/KIGcz/Vqwr7xcU6PsMYEfQ6WWytXpuz8o4TVnBcQy+cLfqNIhj4bFeA==
+	bh=yV3DnlCa7cPKCYr05NihlpKIAyZk2yGPkehULISRMaE=;
+	b=MHrtmKvl3+mjukexyitE2r+LE7ihVDj34SkmlGk4nLzqTDoIJ1US1zvz3NHgKqiKFXXR
+	 PzLDo28hWmmgMMbFO9H0mRgQ7NgGXTE2oPBWQipFnRD1r/E9VTbklgLdYH+qq6vqwvPSx
+	 UuS8aoM89Z2Jz/0LDD0HD83xJZFZ6a5NLVNSVvhoALHqVrVAZiLvj2WWz9MhC0GngfZUx
+	 6XunBn9/uA4t0QNafUg+HbHQBfLf3uqlN7Zl8KOJH/Puul/Ys2rgz/B3nRdsoWGFVOn7Y
+	 9V9SzBGHhXC+79mSjK7yeLxRwIh6zMQpMEqmukcTo94LnaWuv1IZ5vVODuAOn3k3+HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ok6l2rWJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aoKmTUfG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8576F606A32A;
-	Sun, 25 Oct 2026 04:03:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EAE606A31D;
+	Sun, 25 Oct 2026 04:04:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ok6l2rWJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53221F01828;
-	Sun, 25 Oct 2026 04:03:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aoKmTUfG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4CA1F01828;
+	Sun, 25 Oct 2026 04:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792901038;
-	bh=xEK3ziTLDp3P8qge4qM9WyluMbHgJ78J74M7q1KfX+g=;
+	s=k20260515; t=1792901040;
+	bh=yV3DnlCa7cPKCYr05NihlpKIAyZk2yGPkehULISRMaE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Ok6l2rWJVN763KuLiWOpbogWXmbC0yHCZNPDjsjpbqx6JvhB8HwXyEIY93vUyG0oH
-	 42Y3yCqXRffw7cDb1bMOSowrBCEQBFXRNE+EYxynThrXmVxpjhHm7od9YLEJb5uKum
-	 rHZHNVdihscgpp6kHkSd03q2d5GJ9h5/i7IWvOCgxRlR16Wdbs7jQj4qHOmQG6Fu5K
-	 /16kvpvSDXkUH+vx/ep7+5MEwfcXL+d490vX4cZdlEhIIRXHX7lUDfLb8NasG+9yiW
-	 //tdbrbBVAu/CzxiM3NxCtgiBiQNJCsxv3G6Ve7ScXR/Ri4/VrqLWwW2dIsjCwplgq
-	 9qbylHg5lh7Ow==
+	b=aoKmTUfGZoHx4Gm4woJ4O0GZPAUVdRHSHnNCmOVQQkwGFHzTsPnTITWuXty5x4P6E
+	 PpsGQ40Js2irxkqSC2aMAe+auQ2QCrC5Sux3monelvI3HtZVqdTiPbOqD8pdTQHQqW
+	 Hl6mz/L3xqdpuH/kZTstM9LR4BLBpLmHYXBdxaag+SYID1F5V+mw/xMBD2dJO8AqKr
+	 Wt8ztIK2W/fTlnpGbyickkvqOmFZ/0DtTqP2KmBDC7WsnXnLCbmOodbGsvykZADXMi
+	 7SrNbHCvo4LZCsiOcsHCfwrzxJ8h7d3T0NprVOnZcHu0yn0euCdARFPm4CA3uWSO7P
+	 yrt7m7LegDlTg==
 Subject:
- Re: [PATCH net v6 3/6] nfc: nci: uart: quiesce callbacks during teardown
+ Re: [PATCH net v6 6/6] nfc: nfcmrvl: stop firmware work before unregistering
 From: netdev-bot+sashiko@kernel.org
 To: shubham@octane.security
 Cc: netdev@vger.kernel.org, david@ixit.cz, oe-linux-nfc@lists.linux.dev,
  gio@octane.security, stable@vger.kernel.org, kuba@kernel.org
-Date: Sun, 25 Oct 2026 04:03:57 +0000
-Message-ID: <179290103732.3134.18298634182061634234@kernel.org>
-In-Reply-To: <20261021032443.44412-4-shubham@octane.security>
-References: <20261021032443.44412-4-shubham@octane.security>
-X-sashiko-severity: Medium
+Date: Sun, 25 Oct 2026 04:03:59 +0000
+Message-ID: <179290103922.3134.7272004019340679673@kernel.org>
+In-Reply-To: <20261021032443.44412-7-shubham@octane.security>
+References: <20261021032443.44412-7-shubham@octane.security>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -63,10 +63,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (3) · Medium: 2 · Low: 1
+Critical: 0 · High: 1 (1) · Medium: 1 (2) · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -74,274 +74,264 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] When nci_uart_tty_close() tears down an NCI UART whose NCI
-  device is up, the NFC controller (NFCC) is left running in whatever RF…
-- [Medium] Baseline decision: fixed later in the series.
-- [Low] Baseline decision: not a bug in practice.
+- [High] Teardown can leave ndev->cmd_timer armed after the NCI device is
+  freed.
+- [Medium] The new order (nfcmrvl_fw_dnld_abort() before
+  nci_unregister_device()) can leak an NCI command skb.
 
 Pre-existing issues:
-- [High] Pre-existing problem, not introduced by this patch: during a
-  Marvell firmware download, the UART peer (NFCC) controls a 16-bit…
-- [High] Pre-existing problem, not introduced by this patch: the Marvell
-  firmware download copies from the firmware image at a peer-advanced…
-- [High] Baseline decision: pre-existing and fixed later in the series.
+- [High] This problem wasn't introduced by this patch, but
+  process_state_fw_dnld(), which the reworked fw_dnld_rx_work() still…
+- [Medium] This problem wasn't introduced by this patch, but nfcmrvl
+  reports firmware download failures to the NFC core as negative errno…
+- [Medium] This problem wasn't introduced by this patch, but
+  nfcmrvl_fw_dnld_start() sets fw_dnld->active = true and then calls…
 
 --
 
-nfc: nci: uart: quiesce callbacks during teardown
+nfc: nfcmrvl: stop firmware work before unregistering
 
-This patch adds a tx_lock and a CLOSING transmit state. Together they
-serialize nci_uart_tx_wakeup() and nci_uart_write_work() against teardown.
-It also adds nci_uart_rx_stop() and nci_uart_tx_stop(), which stop the
-generic receive and transmit callbacks before the transport close operation
-runs. The Marvell UART transport gets a new nci_quiesce hook that stops
-these callbacks and clears its back-pointers before private state is
-released.
+This commit adds active and stopping states, protected by a new rx_lock,
+to fence the firmware receive entry points. It moves timeout completion
+into a work item on the firmware workqueue and processes one rx frame per
+work invocation. It also calls nfcmrvl_fw_dnld_abort() before
+nci_unregister_device(), so firmware work is drained while the NCI
+workqueues still exist.
 
-> diff --git a/drivers/nfc/nfcmrvl/main.c b/drivers/nfc/nfcmrvl/main.c
-> index 6efa832191172..baf4c781ee6b6 100644
-> --- a/drivers/nfc/nfcmrvl/main.c
-> +++ b/drivers/nfc/nfcmrvl/main.c
-
-[ ... ]
-
-> @@ -181,6 +183,9 @@ void nfcmrvl_nci_unregister_dev(struct nfcmrvl_private *priv)
->  	struct nci_dev *ndev = priv->ndev;
+> diff --git a/drivers/nfc/nfcmrvl/fw_dnld.c b/drivers/nfc/nfcmrvl/fw_dnld.c
+> index 8b9d5257320dc..d3dec74a333d3 100644
+> --- a/drivers/nfc/nfcmrvl/fw_dnld.c
+> +++ b/drivers/nfc/nfcmrvl/fw_dnld.c
+> @@ -92,11 +92,29 @@ static struct sk_buff *alloc_lc_skb(struct nfcmrvl_private *priv, uint8_t plen)
 >  
->  	nci_unregister_device(ndev);
-> +	if (priv->if_ops->nci_quiesce)
-> +		priv->if_ops->nci_quiesce(priv);
-> +
->  	if (priv->ndev->nfc_dev->fw_download_in_progress)
->  		nfcmrvl_fw_dnld_abort(priv);
->  
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this teardown race with
-a firmware download timeout callback that is already running?
-
-fw_dnld_over() only waits for the timer if it is still pending:
-
-drivers/nfc/nfcmrvl/fw_dnld.c:fw_dnld_over() {
-    ...
-	if (timer_pending(&priv->fw_dnld.timer))
-		timer_delete_sync(&priv->fw_dnld.timer);
-    ...
-}
-
-If fw_dnld_timeout() is already executing, timer_pending() returns false
-and nothing waits for it. nfcmrvl_nci_unregister_dev() then continues to:
-
-	nci_free_device(ndev);
-	kfree(priv);
-
-The callback may still be using priv and priv->ndev at that point.
-
-A later patch in this series, "nfc: nfcmrvl: stop firmware work before
-unregistering", appears to fix this. With it, fw_dnld_timeout() only queues
-timeout_work, and nfcmrvl_fw_dnld_abort() calls timer_shutdown_sync() and
-cancel_work_sync(&timeout_work) before nci_unregister_device().
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. While
-looking at the firmware download teardown here: can a UART peer make
-process_state_fw_dnld() overflow out_skb?
-
-In SUBSTATE_WAIT_COMMAND, any length is accepted as long as its complement
-matches (for example len = 0xFFFF with comp = 0x0000). It is then stored
-with no upper bound:
-
-drivers/nfc/nfcmrvl/fw_dnld.c:process_state_fw_dnld() {
-    ...
-		priv->fw_dnld.chunk_len = len;
-    ...
-}
-
-In SUBSTATE_WAIT_ACK_CREDIT, the skb comes from alloc_lc_skb(), which takes
-a uint8_t plen, so it holds at most 255 payload bytes. skb_put_data() then
-uses the full chunk_len:
-
-			out_skb = alloc_lc_skb(priv, priv->fw_dnld.chunk_len);
-			if (!out_skb)
-				return -ENOMEM;
-			skb_put_data(out_skb,
-				     ((uint8_t *)priv->fw_dnld.fw->data) + priv->fw_dnld.offset,
-				     priv->fw_dnld.chunk_len);
-
-With chunk_len = 65535, would skb_put() reach skb_over_panic() and BUG()?
-
-This is reachable once a CAP_NET_ADMIN user starts NFC_CMD_FW_DOWNLOAD. The
-lengths come from the device or from a pty-backed peer.
-
-[Severity: High]
-This is also a pre-existing issue, not one introduced by this patch. Does
-anything in process_state_fw_dnld() bound priv->fw_dnld.offset against
-priv->fw_dnld.fw->size?
-
-SUBSTATE_WAIT_DATA_CREDIT advances the offset by the length the peer
-chose:
-
-		priv->fw_dnld.offset += priv->fw_dnld.chunk_len;
-
-SUBSTATE_WAIT_ACK_CREDIT then copies from that offset using the
-skb_put_data() call quoted above. Neither step checks offset + chunk_len
-against fw->size.
-
-Suppose a peer keeps asking for chunks of 255 bytes or less and sends the
-expected credit notifications. Can offset then move past the end of the
-firmware image? If so, the kernel would read memory beyond fw->data and
-send it to the peer in NCI data frames, or fault on an unmapped page.
-
-[ ... ]
-
-> diff --git a/net/nfc/nci/uart.c b/net/nfc/nci/uart.c
-> index fb9ed281f62c3..aa24e1f572d9d 100644
-> --- a/net/nfc/nci/uart.c
-> +++ b/net/nfc/nci/uart.c
-
-[ ... ]
-
-> @@ -64,24 +65,61 @@ static inline int nci_uart_queue_empty(struct nci_uart *nu)
->  
->  static int nci_uart_tx_wakeup(struct nci_uart *nu)
+>  static void fw_dnld_over(struct nfcmrvl_private *priv, u32 error)
 >  {
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&nu->tx_lock, flags);
-> +	if (test_bit(NCI_UART_CLOSING, &nu->tx_state) ||
-> +	    !test_bit_acquire(NCI_UART_READY, &nu->flags))
-> +		goto unlock;
-
-[Severity: Medium]
-Can this READY check leave a frame stuck in nu->tx_q?
-
-When READY is not set yet, the kick is dropped without setting
-NCI_UART_TX_WAKEUP or recording that work is pending. nci_uart_set_ready()
-also does not check tx_q when it publishes READY.
-
-For Marvell, nci_register_device() runs from inside ops.open(), before
-READY is set:
-
-nci_uart_set_driver()
-    nu->ops.open(nu)
-        nfcmrvl_nci_uart_open()
-            nfcmrvl_nci_register_dev()
-                nci_register_device()
-    nci_uart_set_ready(nu)
-
-If NFC_CMD_DEV_UP arrives in that window, nci_uart_send() queues
-CORE_RESET into nu->tx_q, but write_work is never scheduled. Would
-nci_open_device() then time out, and would the stale CORE_RESET go out
-ahead of the next command that kicks the worker?
-
-Before this patch, the same window scheduled write_work and could
-dereference a NULL nu->drv_data in nfcmrvl_nci_uart_tx_start(), so this is
-still better than that crash.
-
-A later patch in this series, "nfc: nfcmrvl: publish UART state before
-registration", calls nci_uart_set_ready() before nci_register_device(),
-which closes this window.
 
 [ ... ]
 
-> @@ -99,14 +137,50 @@ static void nci_uart_write_work(struct work_struct *work)
->  		kfree_skb(skb);
+> +	if (fw_dnld->fw) {
+> +		release_firmware(fw_dnld->fw);
+> +		fw_dnld->fw = NULL;
+> +		fw_dnld->header = NULL;
+> +		fw_dnld->binary_config = NULL;
 >  	}
 >  
-> -	if (test_bit(NCI_UART_TX_WAKEUP, &nu->tx_state))
-> +	spin_lock_irqsave(&nu->tx_lock, flags);
-> +	if (test_bit(NCI_UART_CLOSING, &nu->tx_state)) {
-> +		clear_bit(NCI_UART_SENDING, &nu->tx_state);
-> +		clear_bit(NCI_UART_TX_WAKEUP, &nu->tx_state);
-> +		spin_unlock_irqrestore(&nu->tx_lock, flags);
-> +		return;
-> +	}
+>  	atomic_set(&priv->ndev->cmd_cnt, 0);
+> @@ -104,8 +122,7 @@ static void fw_dnld_over(struct nfcmrvl_private *priv, u32 error)
+>  	if (timer_pending(&priv->ndev->cmd_timer))
+>  		timer_delete_sync(&priv->ndev->cmd_timer);
+>  
 
-[Severity: Low]
-This might not matter in practice. This early return skips ops.tx_done()
-even though ops.tx_start() already ran in this pass.
+[Severity: High]
+Can ndev->cmd_timer still be armed when nci_free_device() frees ndev?
 
-With Marvell break_control, nfcmrvl_nci_uart_tx_start() calls
-break_ctl(tty, 0) and nfcmrvl_nci_uart_tx_done() calls break_ctl(tty, -1).
-If teardown hits the worker mid-burst, the line is left with BREAK
-de-asserted. If it hits between bursts, BREAK stays asserted. Is that
-difference intended?
+Suppose fw_dnld_rx_work() has queued two commands back to back. Then
+nci_cmd_work() has sent the first one (cmd_cnt is 0 and cmd_timer is
+armed), and the second skb is still on ndev->cmd_q.
 
-The ldisc is being detached here, and a full tty close clears break during
-serial shutdown, so the practical effect may be limited.
+If nci_cmd_timer() has already been detached for expiry when
+fw_dnld_over() runs, timer_pending() returns false and the sync delete is
+skipped:
+
+fw_dnld_over()
+    atomic_set(&priv->ndev->cmd_cnt, 0);
+    if (timer_pending(&priv->ndev->cmd_timer))   /* false */
+
+nci_cmd_timer()   /* delayed callback */
+    atomic_set(&ndev->cmd_cnt, 1);
+    queue_work(ndev->cmd_wq, &ndev->cmd_work);
+
+Suppose that queue_work() happens after the flush in the !NCI_UP branch
+of nci_close_device():
+
+nci_close_device()
+    flush_workqueue(ndev->cmd_wq);
+    timer_delete_sync(&ndev->cmd_timer);   /* waits only for the callback */
+
+nci_cmd_work()
+    skb = skb_dequeue(&ndev->cmd_q);
+    ...
+    nci_send_frame(ndev, skb);
+    mod_timer(&ndev->cmd_timer,
+              jiffies + msecs_to_jiffies(NCI_CMD_TIMEOUT));
+
+destroy_workqueue(ndev->cmd_wq) waits for cmd_work, but it does not
+cancel the timer.
+
+Before this patch, nfcmrvl_fw_dnld_abort() ran after
+nci_unregister_device(). The timer_pending()/timer_delete_sync() pair in
+fw_dnld_over() then removed a re-armed cmd_timer. With this patch, the
+second abort from nfcmrvl_fw_dnld_deinit() returns early because active
+is already false, so nothing deletes the timer.
+
+Would the timer then fire on the kfree()d ndev, calling atomic_set() on
+ndev->cmd_cnt and queue_work() on the destroyed cmd_wq? The window is
+narrow, but nothing seems to prevent it, for example with PREEMPT_RT timer
+threads or vCPU preemption.
+
+Should the shutdown also purge leftover firmware commands on ndev->cmd_q,
+or delete cmd_timer unconditionally?
 
 [ ... ]
 
-> @@ -208,26 +279,24 @@ static void nci_uart_tty_close(struct tty_struct *tty)
->  {
->  	struct nci_uart *nu = tty->disc_data;
+> @@ -114,7 +131,7 @@ static void fw_dnld_over(struct nfcmrvl_private *priv, u32 error)
+>  		nfcmrvl_chip_halt(priv);
+>  	}
 >  
-> -	/* Detach from the tty */
-> -	tty->disc_data = NULL;
-> -
->  	if (!nu)
->  		return;
->  
-> +	tty->disc_data = NULL;
-> +
->  	if (test_bit(NCI_UART_DRIVER_SET, &nu->flags)) {
-> -		kfree_skb(nu->tx_skb);
-> -		kfree_skb(nu->rx_skb);
-> +		nci_uart_rx_stop(nu);
-> +		nci_uart_tx_stop(nu);
-> +		nu->ops.close(nu);
+> -	nfc_fw_download_done(priv->ndev->nfc_dev, priv->fw_dnld.name, error);
+> +	nfc_fw_download_done(priv->ndev->nfc_dev, name, error);
 
 [Severity: Medium]
-Does this leave the NFC controller running in its last RF state after
-teardown?
+This isn't a bug introduced by this patch, but is the sign of error
+right here?
 
-nci_uart_tx_stop() sets NCI_UART_CLOSING and cancels write_work before
-nu->ops.close() runs. As a result, nci_uart_tx_wakeup() refuses every frame
-sent during:
+The kernel-doc for nfc_fw_download_done() describes @result as "The
+positive value of a standard errno value". nfc_genl_fw_download_done()
+then passes it unchanged to userspace via nla_put_u32() in
+NFC_ATTR_FIRMWARE_DOWNLOAD_STATUS.
 
-nu->ops.close()
-    nfcmrvl_nci_unregister_dev()
-        nci_unregister_device()
-            nci_close_device()
+fw_dnld_over() gets -ETIMEDOUT from fw_dnld_timeout_work(), -EHOSTDOWN
+from nfcmrvl_fw_dnld_abort(), and negative process_state_*() return
+values from fw_dnld_rx_work(). Userspace therefore sees 0xFFFFFF92 or
+0xFFFFFF90 instead of 110 or 112. The "%d" in the nfc_info() message
+hides this in the log.
 
-This patch depends on the earlier series patch "nfc: nci: skip controller
-reset while unregistering", which already skips the reset in
-nci_close_device():
+Other drivers negate the value first, for example
+nxp_nci_fw_work_complete():
 
-	if (!test_bit(NCI_UNREG, &ndev->flags)) {
-		atomic_set(&ndev->cmd_cnt, 1);
-		set_bit(NCI_INIT, &ndev->flags);
-		__nci_request(ndev, nci_reset_req, (void *)0,
-			      msecs_to_jiffies(NCI_RESET_TIMEOUT));
+    nfc_fw_download_done(info->ndev->nfc_dev, fw_info->name, (u32) -result);
 
-Before the series, write_work was only cancelled at the end of
-nci_uart_tty_close(), so the CORE_RESET was still written to the UART and
-only the response was lost. Now no command reaches the controller during
-unregister.
+pn544_hci_i2c_fw_work_complete() does the same.
 
-The Marvell path does not halt the controller some other way either:
+This patch rewrites this call and adds new paths into fw_dnld_over().
+Could it pass -error here?
 
-  - nfcmrvl_nci_close() only calls if_ops->nci_close, which does nothing
-    for UART.
-  - nfcmrvl_uart_nci_quiesce() only clears software state.
-  - nfcmrvl_chip_halt() is only called from fw_dnld_over() on error, which
-    only happens while a firmware download is in progress, and it also
-    needs a reset GPIO.
+[ ... ]
 
-So an NFCC that was polling with the RF field on, or in listen/card
-emulation mode, would stay that way with no host driver until it is
-re-attached (nci_open_device() sends CORE_RESET then) or power-cycled.
+> @@ -404,53 +434,64 @@ static void fw_dnld_rx_work(struct work_struct *work)
 
-The commit message says:
+[ ... ]
 
-    The preceding change skips the unregister-time controller
-    reset because the TTY core cannot deliver its response after line
-    discipline close starts.
+> +	case STATE_FW_DNLD:
+> +		ret = process_state_fw_dnld(priv, skb);
+> +		break;
 
-That explains why the response is lost. Could the commit message also
-explain why it is acceptable that the reset command itself is no longer
-sent, or could the controller be quiesced some other way before TX is
-shut off?
+[Severity: High]
+This is a pre-existing issue, but process_state_fw_dnld(), which still
+gets its frames from here, trusts the 16-bit chunk length from the
+controller. In SUBSTATE_WAIT_COMMAND, the only check is the complement:
+
+    len = get_unaligned_le16(skb->data);
+    ...
+    if (((~len) & 0xFFFF) != comp_len) {
+    ...
+    priv->fw_dnld.chunk_len = len;
+
+Then in SUBSTATE_WAIT_ACK_CREDIT:
+
+    out_skb = alloc_lc_skb(priv, priv->fw_dnld.chunk_len);
+    ...
+    skb_put_data(out_skb,
+                 ((uint8_t *)priv->fw_dnld.fw->data) + priv->fw_dnld.offset,
+                 priv->fw_dnld.chunk_len);
+
+alloc_lc_skb() takes uint8_t plen. With len = 0xFF00 and complement
+0x00FF, the skb is sized for NCI_DATA_HDR_SIZE + 0. Would skb_put_data()
+with the full 0xFF00 then hit skb_over_panic()?
+
+SUBSTATE_WAIT_DATA_CREDIT also does this with no check against fw->size:
+
+    priv->fw_dnld.offset += priv->fw_dnld.chunk_len;
+
+Could a controller that keeps repeating command/credit cycles with
+chunk_len <= 255 make skb_put_data() read past the end of the firmware
+image, and send that memory back to the device?
+
+The I2C, SPI and UART PHYs set support_fw_dnld, so they can reach this.
+
+[ ... ]
+
+> @@ -546,8 +628,19 @@ int nfcmrvl_fw_dnld_start(struct nci_dev *ndev, const char *firmware_name)
+>  
+>  	/* First, reset the chip */
+>  	priv->fw_dnld.state = STATE_RESET;
+> +
+> +	spin_lock_irqsave(&fw_dnld->rx_lock, flags);
+> +	fw_dnld->active = true;
+> +	spin_unlock_irqrestore(&fw_dnld->rx_lock, flags);
+> +
+>  	nfcmrvl_chip_reset(priv);
+>  
+> +	spin_lock_irqsave(&fw_dnld->rx_lock, flags);
+> +	if (fw_dnld->active)
+> +		mod_timer(&fw_dnld->timer,
+> +			  jiffies + msecs_to_jiffies(FW_DNLD_TIMEOUT));
+> +	spin_unlock_irqrestore(&fw_dnld->rx_lock, flags);
+
+[Severity: Medium]
+This is a pre-existing issue, but what happens to the reset line if the
+download fails while nfcmrvl_chip_reset() is sleeping?
+
+active is set before the reset pulse, so nfcmrvl_fw_dnld_recv_frame()
+accepts frames during the usleep_range(5000, 10000) in
+nfcmrvl_chip_reset(). A frame that isn't CORE_RESET_NTF makes
+process_state_reset() return -EINVAL. That could be stale transport data,
+or a misbehaving or pty-backed controller:
+
+fw_dnld_rx_work()
+    process_state_reset()        /* -EINVAL */
+    fw_dnld_over()
+        nfcmrvl_chip_halt()      /* reset_gpio = 1 */
+        nfc_fw_download_done()
+
+nfcmrvl_fw_dnld_start() resumes
+    nfcmrvl_chip_reset()
+        gpiod_set_value(priv->config.reset_gpio, 0);
+
+Doesn't this take the chip back out of reset after userspace has already
+been told the download failed? The chip's CORE_RESET_NTF would then be
+dropped, because fw_download_in_progress is clear.
+
+The new "if (fw_dnld->active)" check before mod_timer() covers completion
+during the reset for the timer, but not for the reset GPIO.
+
+[ ... ]
+
+> diff --git a/drivers/nfc/nfcmrvl/main.c b/drivers/nfc/nfcmrvl/main.c
+> index 27fadd64155e1..86cf653962535 100644
+> --- a/drivers/nfc/nfcmrvl/main.c
+> +++ b/drivers/nfc/nfcmrvl/main.c
+> @@ -185,13 +185,12 @@ void nfcmrvl_nci_unregister_dev(struct nfcmrvl_private *priv)
+>  {
+>  	struct nci_dev *ndev = priv->ndev;
+>  
+> +	nfcmrvl_fw_dnld_abort(priv);
+>  	nci_unregister_device(ndev);
+
+[Severity: Medium]
+Can this new ordering leak an NCI command skb left on ndev->cmd_q?
+
+fw_dnld_rx_work()->process_state_*()->nci_send_cmd() puts an skb on
+ndev->cmd_q and queues ndev->cmd_work on ndev->cmd_wq.
+cancel_work_sync(&fw_dnld->rx_work) in nfcmrvl_fw_dnld_abort() does not
+wait for that cmd_work. fw_dnld_over() then does:
+
+    atomic_set(&priv->ndev->cmd_cnt, 0);
+
+If cmd_work runs after that, nci_cmd_work() sees cmd_cnt == 0 and leaves
+the skb on the queue:
+
+    if (atomic_read(&ndev->cmd_cnt)) {
+        skb = skb_dequeue(&ndev->cmd_q);
+
+NCI_UP is clear during a firmware download, so nci_close_device() takes
+the !NCI_UP branch. That branch only flushes cmd_wq and deletes the
+timers, without purging cmd_q. nci_free_device() doesn't purge cmd_q
+either, so the skb is lost when ndev is freed.
+
+Before this patch, the abort ran after nci_unregister_device(). The
+cmd_wq flush then ran with cmd_cnt still 1 from
+nfcmrvl_fw_dnld_recv_frame(), so the queued command was consumed.
 
 [ ... ]
 
