@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007672;
-	b=yCIpNUcZuTUT8jSDjwxGD6K4Ok5T1QUMGN0MRdLs9uf/iQA7HahQjtBun7+rMytujUHp
-	 sUG/YrQX89ZmUPABcw88CS3I31yrmaOc3z1Wfg5RN3gvKkdTr+sz5//1hQKtCVW48SruD
-	 +umIp8HqsjrZSDYJzh+ShZQdI+aYjjwrCPyS0MipO4XVIFQsb5tMQMJpqdCwwGZe6bkCd
-	 JNbLOADgpDuHyiNjXZu3vfXrFkuFvG3UrhIdySqfUHeVXcUMsTnWTkDNEolP+Vfr9y0u0
-	 EqUV6VkPDUz9NJsrlMqZYtRKJnfF9bL9JL1PVILLYfr6KsYN/trBo3XiRqTu6FrCVyA==
+	t=1793007669;
+	b=xHb8wVVLyMLPvA2YIP6Yc/0q/zLPgN91uPNWRZ9FBa63YucYwb6aeUpEt+25aIOB+EZu
+	 weYKxgOtGiWaa0K38L41K0nFi2+s8TtqL6vU7qXW8qlDhVV4xPiRrQJ9mzUOfcw1QEb+E
+	 ok5wLk8QqWZ5IjCZfWJXKsWMpPoQf9d4YxkE2ihTuw3weQeqsBCiXlRznSHkruju7/JnA
+	 U9LNYuwLh32FTQ/wAcBlOW2Hg/B2LXcv2vrOMuG4loXgd/d+oJua93Vn8m6p718TisaOA
+	 DBnVy375Cpk116Z/OLi/h80/cQGy7Ae/+X424UbfBikvzpCInHBtJsq22aHx+DEeHRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007669;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=REIzglI+UokdSSqST5CDOezePfcdiVtDX4vr1iybjIw=;
-	b=aSEEE/efCuoythz066gKYl90EqQtGBB6AIErFiUh7RDQ4nVufNxX6hiR9CPKNz4Aoh5H
-	 9yJdKlcjz2CIgoWX6IlyztE+TarOWltQns0B6VWOMZh0rrT3sh2H5cV6jRiZ+EUx+IX9h
-	 XvHxUPD7I08P98hXMuogobmBPiYJfEvGPmIwGe74YJBX7yDqcxcOSuQxwawj8VqaRd3r4
-	 +Oo/41zB0/01UQfgdi8zQHU2DlLpivS1cxtiKLdYkeHUzPVWR8kT1Jvpx/6iNVeayMyer
-	 fmQcMO7B69iuIfxcM0YpfrmU/hp0ZVY/gMo83KE/eLAC/2YgjHexF4N9gN2cinOjxWg==
+	bh=+02ILXuK9KfO91BQX+g4W7G7YIbtI1+HIEbgN+bzPNs=;
+	b=CVGJ24cD5ddTS7X+d5u6CFxVyVbfLDycOUDtEHLo3v1nAaMRjJyvUbYRObeYr2uAn/Hn
+	 /lo94eziMreAcSZTWo6IamAAATyZLuO3O2VlN2T00FYRRG8RyhJ5W4Fg8zxlB/oauJYo5
+	 DfYpQmQciuY0kUIyN4Djbl8WbCJlOrwBIRWgcWURrNHPtU6DwC+iu3JhVBsdtzafBIrNr
+	 7zTQHRhY2U/EuFfZAmX1Vcoqp86tb3NQrmUPGuKpsiphI/KVzR9tf0vjg1mDOqHf3rsHX
+	 JDoQeUylfpAPtGfvWKVGoJB9sUu8tmRt804TBS4LyKjrW/O9hKwv653OO4B7QEhJ7Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QiSloQfr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4kVC4DG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CF460A2609;
-	Mon, 26 Oct 2026 09:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QiSloQfr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D665E1F01829;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81433606A32C;
 	Mon, 26 Oct 2026 09:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4kVC4DG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55651F01825;
+	Mon, 26 Oct 2026 09:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007672;
-	bh=REIzglI+UokdSSqST5CDOezePfcdiVtDX4vr1iybjIw=;
+	s=k20260515; t=1793007669;
+	bh=+02ILXuK9KfO91BQX+g4W7G7YIbtI1+HIEbgN+bzPNs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QiSloQfro7y48xGi4gcFNCghKwpJoJ0tKGbEHTBRyyphetxebruHsVADA4ArSYXur
-	 8hVsrDaMZUzgAXNsEMae6m8qD0JSY0GeC9mYZUYW3HBpFztHdb0544QYlbPpTVaWzz
-	 7YBcsNT66LipxPoZ6bopJ4Pqe7irxDLQa6Eq96Wu1HSvlTlrWu1hy4ZackBV5OnSf6
-	 KprOyE0ZVhA0yNVB5Sf8yMQwprTqDaGr5QY56YIcRQXyBpcIBhbRXjjW6aG03+v3Vl
-	 4TcpefDK8jjvxK8uoAnrWkCx+40PxsMvF6jOFIiLFWiYcSz5nnu/hIm1g3ecCB/m8G
-	 2thglL7zp4u8g==
-Message-ID: <d1d58902-cb44-415d-8063-6b3ab054cc99@kernel.org>
-Date: Sun, 25 Oct 2026 13:36:27 +0100
+	b=B4kVC4DGdBI0nHvQd38JB3xiE9r0i4N3qGwuJUEdjHaOsRrrDZWTPYEJgHeU9YP9E
+	 x5UEkksaPWu3fLn9gKPRdq9+DlZLl0tmGoNyWUTZOpghl1JA3iJtkPbRWENoHMLND0
+	 8xydXSGcQL+2c4pEPRs5A5JdLRoUtySK0dNJxK8+ahLXPcv+8QCPc5omQkBWFUtcxY
+	 vA7PKr/GgjLz8qst218EKOSDbH04nxpTs0Dx06ndguB6lpIkRNDlWswaSwXP9c+WET
+	 C/MpOG0Myr+GqyGXVQ3kAUP5tjXu3f0N0sDBYOpKbf1s3bAHMKbcHbpeeWxIZKOy/I
+	 oC0Y/U9Fj1mgA==
+Message-ID: <d39e7c09-7098-4563-b5fc-dc90982facee@kernel.org>
+Date: Sun, 25 Oct 2026 13:36:12 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,13 +53,14 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
-To: Samarth Narang <samarth.colleges@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Samarth Narang <samarth.colleges@gmail.com>
 Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
  Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Lance Yang <lance.yang@linux.dev>,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+ <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -106,50 +107,28 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+In-Reply-To: <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/21/26 20:21, Samarth Narang wrote:
-> replace_page() maps the KSM page with a PTE built from scratch, so the
-> soft-dirty bit of the PTE it replaces is lost. A page written since
-> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
-> a soft-dirty based dumper treats it as unchanged.
+On 10/24/26 07:33, Andrew Morton wrote:
+> On Wed, 21 Oct 2026 11:21:57 -0700 Samarth Narang <samarth.colleges@gmail.com> wrote:
 > 
-> Copy the soft-dirty bit from the original PTE to the new PTE.
+>> replace_page() maps the KSM page with a PTE built from scratch, so the
+>> soft-dirty bit of the PTE it replaces is lost. A page written since
+>> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
+>> a soft-dirty based dumper treats it as unchanged.
+>>
+>> Copy the soft-dirty bit from the original PTE to the new PTE.
 > 
-> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-> ---
+> Thanks.  My LLM review thing says:
 > 
-> Notes:
->     v2: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
->     
->     Changes since v2:
->     - Keep only the soft-dirty fix, as David suggested; Lance will be handling
->       the uffd-wp/RWP part.
->     - Fixes tag reduced to the soft-dirty commit.
->     - Dropped the Tested-by tag, since the patch changed.
-> 
->  mm/ksm.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index dbfb8f98b189..910a1307ac9f 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
->  		dec_mm_counter(mm, MM_ANONPAGES);
->  	}
->  
-> +	/* Preserve soft-dirty when replacing the page. */
-> +	if (pte_soft_dirty(orig_pte))
-> +		newpte = pte_mksoft_dirty(newpte);
-> +
+> : There's a separate, pre-existing problem with the KSM zero-page
+> : path which is worth pointing out.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cool, more AI schlop.
+
+TL;dr Sashiko raised this before and I commented why we don't care IIRC.
 
 -- 
 Cheers,
