@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971003;
-	b=DCQiXweiTGERiSsGsSEhMH6etIfrX7qkHqUc+iEijJXV10i7AkiqAK4H2xH+CFaRCejb
-	 X31M5VEKG6oVljAmB41YwG2Vbn1HLpsnSR4JZfH4AvWutSHGFoPctWPYKZ23qk4R8PF7l
-	 /12R5PRmx8bV+T1pWbbDLF9fOxMoKa3Rwu0PUX+YmOdoMpwdRf3/jI3kZKOQ0kZ3Dk3gt
-	 v31XL05pr7Seeta8V2FbsINp/kanpCaQ6E/gfsFWaQ/7ijGv0qng2hObt+MwNPOMRUz+u
-	 t9Evr1b3NbNeK7OgvvKryt7MzZOJVc2BvIeAi910zjVoF9gc3h4WTdQLfRMOpuswI3g==
+	t=1792971004;
+	b=nUs+KLGZs849edwfz589O+Ms8KylRiBrOhJkL6oGngWZqB9pqsYQvnqQ+6vOakITzml1
+	 Ca8YGdmkdmRpFBCfxI+tKKEcofVyQI/fV6b0fKncgCv6vZrAfG8905OIwlIGlS8BRs5br
+	 E682/eSuZhHgYMUoOLhRu/mO5rDpwTRJhRXHEwhtDvoqSEjNzQvifGC18L4W47PNI9Acd
+	 Jp4r3kyL8P5Ff4ta6GuJQubYzbmTFMZR1rCcwmMNh7FF2yTs6gRz4QoU6AoRuVp8Z694d
+	 yHGsdHyOzxVyDEl/M+rfuv02YVv/uN9PQNjRAHd77h1v4bpP6jsneaB3kq9MaqASMLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971004;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1p9GvmdqaJ/2jVCTd0uLxqCS1aIuvSbf6zTG4PdIbAo=;
-	b=Km7NljnBEqtFm1/dtDl19q2vcC023FZAuH+IeQIC6YPDNrd/1ZIW5jlDX1sXiE31i4I9
-	 qE6EnOPRVKF2vfnQ7+kFwSazwWd0UiNEj+ynDuNM0l4Cd1BVwD2p2yuOhIhbAkb47wleg
-	 iQYNbhryU8TiS+T8HfFELXVBgUnh9wMHQAeln8C/BywfQiVnQsGx2wfiFOLZSs0g/T9Gg
-	 IJcN/O0j57HyoUvpkjS5GIpPVPzMO/+I1ZQDh5PWviu6qI2DqmNE5xXx1/IyhNMjSrHPm
-	 Xj0cu6rLfDDthYqSgWvcXgbBDTRHyIvudJXr51Mrg+GzenJhI0D8Nrmx31HuE7b0F6w==
+	bh=E5YQoaj5YHm1eYEazSEM5pfLF2ybdrxOAMvKmHrv13U=;
+	b=Gr4hXM5Bjt+Qt8OK/iIpTo0mliWIrnPsNUxw7FyZgOwVJQiU+BRYML8kADNEImdSZr2x
+	 ZadKwLq8VOOGZocNrG5tk/9IY9Z2wezTqvvM6Rkacih5Q+JhWEtNdZTQzsqD5jPF9qWJp
+	 SsdxlHlGDW9RHmg9uqIHorzPiZk74sNWYWT1KT4N8dnk9gSIXgb4mNmF1jwOw84G/m9Y5
+	 PmaV0nQD/z4SctCjfDB6poginfd9DfciMs3W0TIq9oEG8ioN7GJPuWgUOKWX88HVuVxZy
+	 dTpYVseb8DDTdZJKF/26IXWBp9sKCuUNvqB9Lo+UWm81Fu40r8NIzQ1EQ1jD1akrFUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MT2IzcAJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiZQD0dO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C42606A330
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:30:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E6606A327;
+	Sun, 25 Oct 2026 23:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MT2IzcAJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6A41F01825;
-	Sun, 25 Oct 2026 23:30:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiZQD0dO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA8A1F031E2;
+	Sun, 25 Oct 2026 23:30:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971002;
-	bh=1p9GvmdqaJ/2jVCTd0uLxqCS1aIuvSbf6zTG4PdIbAo=;
+	s=k20260515; t=1792971004;
+	bh=E5YQoaj5YHm1eYEazSEM5pfLF2ybdrxOAMvKmHrv13U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MT2IzcAJM4SW5LCcLYS3STwcdc/SN7ga+5XJ5yBe/ge5n2AmDxnt2xR1dGUkGU3eL
-	 kYzTmVuSllcpPtLcJMI+0qIrT8eJNqw1y8GTZ/w3uGIiHODuW3M/Jxzabc1IrSRpab
-	 /FeAO58hNVFNZQPvJzpNBaYEuhHVw/ZqCxKXDXMzNwPR8NoGt2lMHy1W/aKdWsaZSc
-	 Fx/QvO6htLt3dPrx4nFuPsF7Y0P+WvFlblCJ2LGPs6k91JeyDdvddXKSULMTiqHwAX
-	 KyTPNC//Es2cHyVdsOpcOdcK3bg9P4VIj3YVL1IapH0I26CUchdOb80pytg8oR1RrY
-	 0KBGIUQ4tHCbg==
+	b=aiZQD0dOYn048Dt5kIdHgZN4+KsVtKW3DNbW92Gy7LWFVxoweBBae7ZkSuxKWZLnl
+	 Vy8ht/HWaJjrCzfwImn8XGM3G1XXSCaI6jdMcbfPeyyMFDRx2bHebW5SKNEhKhTaW+
+	 m0C4+V0/hk7EBqHBt+vdcaOIisX1YZk2iPgvu8dA3Ijw1vTP1z4t2heheQA9rVAD2n
+	 E0FBpPiLvxkIthsFu2baIad4uhsKq8xxvk6zc0AlnTK+VHufrQI/BQwwNm9o3IpDY9
+	 rjXU1MJk2GsvstBb9Xy/ELdH6t1Uva+7d+cbEZzCEkDtCykmuqVE8baPGqzr4TVe3m
+	 9v0/vuqnhfN3w==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Christoph Zwerschke <cito@online.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Salvatore Bonaccorso <carnil@debian.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Erik Brangs <erik.brangs@gmx.de>,
+	benh@debian.org,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-bluetooth@vger.kernel.org,
+	1149377@bugs.debian.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jay Vosburgh <j.vosburgh@gmail.com>,
-	Andy Gospodarek <andy@greyhouse.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
-Subject: Re: [PATCH v2 5.10.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
-Date: Sun, 25 Oct 2026 19:29:49 -0400
-Message-ID: <2026-10-25-1-daily-reply-0003-bonding-xmit-broadcast-5-10@kernel.org>
+	Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
+Date: Sun, 25 Oct 2026 19:29:50 -0400
+Message-ID: <2026-10-25-1-daily-reply-0004-bluetooth-asus-rtl8761cu-hold@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025084505.83046-1-steffen.pfendtner@kernelscan.io>
-References: <20261025084505.83046-1-steffen.pfendtner@kernelscan.io>
+In-Reply-To: <bdafa01c-f75a-41fa-a264-407400a2cd81@leemhuis.info>
+References: <bdafa01c-f75a-41fa-a264-407400a2cd81@leemhuis.info>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,12 +70,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> found, and transmit the original skb to the last up slave seen only
-> after the walk has finished. The original skb is consumed exactly
-> once and not touched afterwards, however the list changes during
-> the RCU walk;
+> > If it helps, I can send reverts of 980084de4d9b and 6f0624b4427e
+> > (on top of bluetooth.git master, with Cc: stable). Alternatively,
+> > btrtl could fall back to the ROM firmware when rtl8761cu_fw.bin
+> > is missing.
+> I didn't see any regression reports for 7.x releases about those
+> changes, [...] So I'm still inclined to say: leave everything as it is
+> in mainline to avoid any risk and revert only the backports of those
+> two in 6.18.y and 6.12.y.
 
-Queued for 5.10, thanks.
+Yup, that would be appreciated.
 
 -- 
 Thanks,
