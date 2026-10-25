@@ -1,62 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952867;
-	b=lNnlZj0n7gfhH52GdIOpISB8WVKUa7HEyvvz2ISHymQA3i/frX+30hR2zuzYZdGR/57g
-	 7C/4TM+t1O14VlwH2ZR6G8FkzWpCx+gvRE140P0T9AVE3LWzggZ1QDeRId0KpIvHChKfl
-	 5oeHwiusuM9YSLlbmd7vy/7mwqnM39Vv64T7K+AJrTr9Lqb+kdgWvkOIWz0vmvAmFF06+
-	 4E4P7UNRgT3vxv6LU2fYYYhYtNRugx4uzQR+h/jlIe39gFFKzqWTy5M4dqBPQfz613wrf
-	 kCuRpImY+tj+C+5QfsPJVhmLO+s+oKzoUzp+cewi6UcyO395bjQH8IBKqqU6bSIrqtg==
+	t=1792952990;
+	b=knk3eqRzdLK5T7flyPcDwnH/C4rrlYW5PTYgMrwkQ6CYSmNa85SBw6/lbTIO8EKc2dGc
+	 pyHXm1ky1coWdznL9hJRhjGBBmlqwohFPMCc7F/ebx84cDramBJvLSFC7fruDmWPtld6Z
+	 IGQuUkHy36yqEX/6nHQrtOzwndQciT+pTpEUv9NYMMmnxo7v2rg3wZThGCd3GVM6Z9gqZ
+	 bCRRjDF6GT7I2LLAusQ/ey6ZciIIxhNL5TJU9iaZqUtFACLWbyXiVl5ZkgBox11wp86wi
+	 Lwq7v7rajqK+51bcZV9aGGJGN45PAJZkG65axFPXVh/lO4vMfBnzVcJFqeN5gm4rpyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952867;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Mh5dFoOMS3PFvBK0c6CVtn5720vChxrpeNVPd+FGBTw=;
-	b=h5LWmxmZ7YqjB4PjYscEDZH+U7Rpb7AZEF9S8Un29ReOUkpoxw0ynnnAKl/W6XYcrPx1
-	 w03RX8kjMV1qPL1DY63AHuKNO+g4QREZF3rJeCrBtwFfbEZm7AEx6pofP4fo3L/TCgnJh
-	 X6vlN+3xj8/3MKZ5CDjxO3eH8qfbH5yMiG2JNjZ3mNrPGSQDgrJDbb3v4xVMVvpyr//qt
-	 huT1A87nvh2jwBOKJIPO0sG0kpMVWn+mNY2cG9QqJI8t8Hr6vZnb4PIK8e4wviT1OpgiJ
-	 RwqjkCUCN5Ya96ER+TN7780EfCRSN9pQNY5Nrc0MmdN6zHAQNHs8Aw6LCB086ytGNhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952990;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=lVd5+YIpZRZ9srRM38HUZhphNHJ8MrugQ9WKD9A3pC0=;
+	b=2/tYMF6G5a40pIF6p5J8BsToFwTEZAYx2FKGNViH6dqYeP2QFcnEgLaYi4fkJqbAhBmv
+	 W2vKxk01qcx48/Gila+ZnwNYCikHbrqFYwLIwleP6DyP7rsn3zVR529zTzDITSTWmFCYE
+	 O9OrlswSwiyHd5WdD4OxvEsYcYf58gYE9CXaA66lZTlXIhfoUECx372iPCrlLM4Xa+Ijc
+	 fw/tlEYjKNsinoK3BCKHWJCRo6BTiBid7DreiAEhJqDNPtil+FBSIwLopTEJqP8Kh3DS5
+	 Y1iLjz7vMz63aemOcV3vexPL3v9Lbz1fYcypzQFrP3y13IhUWNFUrmjKvB6dOMmJXjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqfjWbHb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oHxVPat5;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6C9606A31A;
-	Sun, 25 Oct 2026 18:27:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64D2606A31F
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:29:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A64D2606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqfjWbHb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2F41F01825;
-	Sun, 25 Oct 2026 18:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792952867;
-	bh=Mh5dFoOMS3PFvBK0c6CVtn5720vChxrpeNVPd+FGBTw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PqfjWbHbp7LQUfC2jTCzoRsSeoj7+ifstqWaZaHf/+8weXcVAiJ4VFoabyKPPIVYW
-	 cscO90qDX/JqMl7Q2al3fURaXwW9kPEeh+4rusMim8eHv/JmV8qpzXtNhEOKkYX+jv
-	 5lDA82BIhjiRtZGoOzcLoWHenFSOXX7UqxOtRRjIVLF36XuEJ7e8pQQuagKneF235c
-	 bbbTxq/HC5ZPP02BbTMP6U+SrL0yreb4l5FZC6ByayyDKsRgvAcUv7tApD5Z/SuxO5
-	 9BpTSPYESiaGyqnJJbDxUx3NOlRNBZltBSS4eIRDInxuKVOokG2U3J6CzUvL5md1vv
-	 UK3JuzYMVnHyw==
-Subject: Re: [PATCH] net/smc: reject CDC messages after connection teardown
-From: netdev-bot+sashiko@kernel.org
-To: bestswngs@gmail.com
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ubraun@linux.ibm.com,
- kgraul@linux.ibm.com, linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xmei5@asu.edu,
- stable@vger.kernel.org
-Date: Sun, 25 Oct 2026 18:27:45 +0000
-Message-ID: <179295286564.3134.7940509551259167742@kernel.org>
-In-Reply-To: <20261021171256.166870-2-bestswngs@gmail.com>
-References: <20261021171256.166870-2-bestswngs@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oHxVPat5
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so14802615e9.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 11:29:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792952988; x=1793557788; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lVd5+YIpZRZ9srRM38HUZhphNHJ8MrugQ9WKD9A3pC0=;
+        b=oHxVPat5bjbLKGMUYB16oqlsUm26HDldeAfuK/vg1wzG7yu2moRUuj0VDuZ8y3d1/+
+         pfCnRvPMWmBqaDT3rz+oJTDyUf8JexK+2d9tATmkw2TIF4IuQpFvkr8mL/t/ZntCG524
+         WRISs0WslGmjSQxXU+jMXmxWWHAp7ZmI7y3yzloA15P791hbEShWUClIQcF3NKWVE6JS
+         gpe7WC7IRpLEUKxvs0w6J36Bb0vnxH7mfpLu9pGtcanohpAWtqH18CohXBBw2lXlLlTR
+         21cRv96PqEZp7AqJzKTasLTOZZI/qcdNPfEk6LAyPaSt+AaBd2qVUUwpbUFDOHZifyBJ
+         hxZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792952988; x=1793557788;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lVd5+YIpZRZ9srRM38HUZhphNHJ8MrugQ9WKD9A3pC0=;
+        b=eJvyxSZlsbTgWScbqaxKKkMD5j5lrst4nVNeSB08e4RVyXiq6hZzA0CWeKCZjVKlCb
+         no478VI4b/gJIybq1PfVmom4kcoDPDhXArwe888lwSmOEW0DLO/HfE/G3gdt8OsMbK9t
+         XY4oP3z7NH3aYf6i33re632zAqw8rUCYyl5U6+w+uwaISOrjqGoylHuTrJSO8PEKxJlI
+         vilIpnsFDirZ3J5jSXE6aO+g3uPnQp1E1ig+C/3Hbd3w/QN+be8ODrQp12Sl/Xkg9DWt
+         75/am8uU805HCs+wIi3zHGJJUrdsz8GDOwyVn50Tcb9VJb+FvBTWuOupnMGAJzgrb0rJ
+         1h6w==
+X-Forwarded-Encrypted: i=1; AKwUvByiMJQm4aI6usK0aGjGRanmZkPekTsMXkTrswR6MhiSnCFL0bdZb0ur1U0tTfXelkPtLgz/ZbY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh9Bf6cdf/cGwKm2Ezx9W4BZo9LGv2itKokA0B8K3FBQqt+OLX
+	6rzJDUKB3TD9+eukE7dXWQTJpcEvyNHEX6LIMm1E3sASsZwsBg/Akjhn09vAdvbsl0Y=
+X-Gm-Gg: AYBFou2j+TJFTGDKVXn4Rb4DrmViGTHftTCo7LBU4xX4ew+ipLalGWptlxtT/XssFcc
+	jLM5s51Ow/z1pOQptYG5f5AkJGIFY9BpSMsKuW8LtY1PeOBLE++t7X8+aN5llABntQeOm9wwatQ
+	lpELwvYtPB6jCdIDUWPPqyz4G8T0X0mlq6iVfKAiXE7Qmg7LGRWDWAV8VUHursQ0rxwN0whHMPr
+	1gp1oVbIBs8xoXMgvgMZcR22ClElrZH14R5t30pJpN3VLGJDxaVT2ygTTW16rGo2qQNvzUzQ83g
+	+odk3gxu+/k1rwr3dsh5z+W241Fa1tXK7gb8nPAKTesLjm3cPDcXVZo6tbiaMjpB4wmoJSi8kZa
+	B5j2ZiF6Oh0nFtbHov3qfb0HooOXEvmWDDWQ1Y2+vfhBow29f4RU1XyojjbAltng6MoIRL0p7kA
+	bdx7bq3rWEAD4r1eTU25tG9w1YcklsYuozW2mQi72cHkEw7zRNt9VZdjVBUWsAG7gT8WICRlnYN
+	4RUahaCG1jPGYsfWELrhCpcHxEN4LzWq3xeez8q6GbDSHT6r1LDQlY=
+X-Received: by 2002:a05:600c:1f94:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a35acbcaf1mr81227785e9.30.1792952988059;
+        Sun, 25 Oct 2026 11:29:48 -0700 (PDT)
+Received: from [127.0.1.1] ([85.105.252.11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2e8f25sm138255175e9.14.2026.10.25.11.29.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 11:29:47 -0700 (PDT)
+From: Bartu Alev <bartualev@gmail.com>
+Date: Sun, 25 Oct 2026 21:29:36 +0300
+Subject: [PATCH 1/2] platform/x86: asus-wmi: clamp keyboard brightness
+ hotkey updates
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,181 +91,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261025-b4-asus-kbd-fixes-v1-1-fa4dcf7d2a69@gmail.com>
+References: <20261025-b4-asus-kbd-fixes-v1-0-fa4dcf7d2a69@gmail.com>
+In-Reply-To: <20261025-b4-asus-kbd-fixes-v1-0-fa4dcf7d2a69@gmail.com>
+To: Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Antheas Kapenekakis <lkml@antheas.dev>, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: Denis Benato <benato.denis96@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bartu Alev <bartualev@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Brightness hotkeys (NOTIFY_KBD_BRTUP and NOTIFY_KBD_BRTDWN) pass an
+incremented or decremented level into kbd_led_set_by_kbd(). The driver
+assumes the new level stays within valid bounds before queuing work to
+update the hardware register:
 
-Critical: 0 · High: 1 · Medium: 0 (2) · Low: 0
+   scoped_guard(spinlock_irqsave, &asus_ref.lock) {
+      asus->kbd_led_wk = value;
+      asus->kbd_led_notify = true;
+   }
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Unlike asus_hid_event(), kbd_led_set_by_kbd() never clamps this value.
+Pressing brightness-down while the backlight is already off stores -1
+in asus->kbd_led_wk. Subsequent presses decrement the counter further
+(-2, -3, and so on). When kbd_led_update_all() runs, its "value >= 0"
+check drops the work item, leaving the hardware state untouched while
+clearing asus->kbd_led_notify.
 
-- [High] The fix is incomplete, so the use-after-free it targets can
-  still happen.
+Userspace listeners receive the unclamped value through
+led_classdev_notify_brightness_hw_changed(). Because that interface takes
+an unsigned int, the negative integer wraps to 4294967295, returning
+-ENODATA to sysfs readers. The keyboard remains unresponsive to upward
+brightness hotkeys until the user presses brightness-up enough times to
+cancel every negative decrement. At maximum brightness, brightness-up
+leaks 4 to userspace, which exceeds max_brightness (3).
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  smc_cdc_rx_handler() has a second post-lookup branch that the new…
-- [Medium] This problem wasn't introduced by this patch, but
-  smc_conn_free() (net/smc/smc_core.c:1279-1280) calls…
+Clamp the input in kbd_led_set_by_kbd() to [0, ASUS_EV_MAX_BRIGHTNESS].
+In kbd_led_update_all(), refresh the local value from asus->kbd_led_wk
+under asus_ref.lock before notifying userspace, so coalesced work items
+emit the clamped state instead of the initial snapshot. Stable trees
+need this because negative values break sysfs reporting and make the
+brightness hotkeys appear dead until the counter climbs back to zero.
 
---
+Fixes: 7525566abd360 ("platform/x86: asus-wmi: add keyboard brightness event handler")
+Cc: stable@vger.kernel.org
+Cc: Antheas Kapenekakis <lkml@antheas.dev>
+Signed-off-by: Bartu Alev <bartualev@gmail.com>
+---
+ drivers/platform/x86/asus-wmi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-net/smc: reject CDC messages after connection teardown
-
-This patch adds a conn->freed check in smc_cdc_msg_recv() after
-bh_lock_sock(). The goal is to discard CDC messages that passed the
-connection lookup before close(2) tore the connection down. That avoids a
-use-after-free of a registration-failed RMB descriptor released by
-smc_conn_free().
-
-> diff --git a/net/smc/smc_cdc.c b/net/smc/smc_cdc.c
-> index 32d6d03df3214..499a2473b79b4 100644
-> --- a/net/smc/smc_cdc.c
-> +++ b/net/smc/smc_cdc.c
-> @@ -428,7 +428,8 @@ static void smc_cdc_msg_recv(struct smc_sock *smc, struct smc_cdc_msg *cdc)
->  {
->  	sock_hold(&smc->sk);
->  	bh_lock_sock(&smc->sk);
-> -	smc_cdc_msg_recv_action(smc, cdc);
-> +	if (!smc->conn.freed)
-> +		smc_cdc_msg_recv_action(smc, cdc);
-
-[Severity: High]
-Does this check serialize against smc_conn_free()?
-
-bh_lock_sock() only takes sk->sk_lock.slock. The close path calls
-smc_conn_free() while it owns the socket through lock_sock().
-lock_sock_nested() sets sk_lock.owned and then drops slock, or it takes
-the cmpxchg fast path. Either way, the owner does not hold slock while
-smc_conn_free() runs, and smc_conn_free() never takes slock itself.
-
-The sock_owned_by_user() branch already in smc_cdc_msg_recv_action() also
-shows that this tasklet is expected to run while a process owns the socket.
-
-On SMC-R, could this sequence still happen?
-
-CPU0 (smc_wr_rx tasklet)
-smc_cdc_rx_handler()
-  smc_lgr_find_conn()
-  read_unlock_bh(&lgr->conns_lock)
-  smc_cdc_msg_recv()
-    bh_lock_sock()          /* slock is free */
-    if (!smc->conn.freed)   /* sees 0 */
-      smc_cdc_msg_recv_action()
-
-CPU1 (close, owns the socket via lock_sock())
-smc_release()->__smc_release()->smc_conn_free()
-  conn->freed = 1;
-  smc_cdc_wait_pend_tx_wr()        /* only waits for TX */
-  cancel_work_sync(&conn->abort_work)
-  smc_buf_unuse()->smcr_buf_unuse()->smc_buf_free()
-    /* is_reg_err rmb_desc is kfree()d */
-
-CPU0
-smc_cdc_msg_recv_action()
-  smc_curs_diff(conn->rmb_desc->len, ...)
-
-That last read is the same one shown in the KASAN report. If urgent data is
-present, smc_cdc_handle_urg_data_arrival() also reads
-conn->rmb_desc->cpu_addr.
-
-smc_lgr_unregister_conn() takes write_lock_bh(&lgr->conns_lock). However,
-it runs after smc_buf_unuse() and only waits for the lookup section. The
-tasklet's sock_hold() keeps the smc_sock alive, but it does not protect
-rmb_desc.
-
-On SMC-D, tasklet_kill(&conn->rx_tsklet) in smc_conn_free() drains RX
-processing. There does not seem to be an equivalent on SMC-R.
-
-conn->freed is also written and read without a shared lock, and without
-READ_ONCE()/WRITE_ONCE().
-
-The commit message says:
-
-    Both smc_conn_free() and CDC message processing run under the socket lock.
-
-Is that accurate, given that the two sides use different parts of the
-socket lock?
-
-One option is for smc_conn_free() on SMC-R to set conn->freed under
-bh_lock_sock() / spin_lock_bh(&sk->sk_lock.slock) before it releases any
-buffers. A tasklet that already saw freed == 0 would then finish first.
-Another option is to wait for in-flight RX processing before rmb_desc is
-freed. Would either of these work?
-
->  	bh_unlock_sock(&smc->sk);
->  	sock_put(&smc->sk); /* no free sk in softirq-context */
->  }
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch.
-smc_cdc_rx_handler() has a second path after the lookup that the new check
-does not cover:
-
-net/smc/smc_cdc.c:smc_cdc_rx_handler() {
-    ...
-	sock_hold(&smc->sk);
-	read_unlock_bh(&lgr->conns_lock);
-
-	if (cdc->prod_flags.failover_validation) {
-		smc_cdc_msg_validate(smc, cdc, link);
-		goto out;
-	}
-    ...
-}
-
-smc_cdc_msg_validate() runs without the socket lock and without a
-conn->freed check. If the seqno sent by the peer makes diff < 0, it does
-this:
-
-	conn->lnk = link;
-	spin_unlock_bh(&conn->send_lock);
-	sock_hold(&smc->sk); /* sock_put in abort_work */
-	if (!queue_work(smc_close_wq, &conn->abort_work))
-
-Suppose the lookup lands while smc_conn_free() is inside smc_buf_unuse().
-That is after cancel_work_sync(&conn->abort_work) and before
-smc_lgr_unregister_conn(), and smc_buf_unuse() can sleep in the LLC
-delete-rkey flow. Can abort_work then be queued after it was already
-cancelled?
-
-If so, smc_conn_abort_work()->smc_conn_kill() reads conn->lgr->is_smcd with
-no freed check. By then smc_conn_free() has dropped the connection's lgr
-and link references through smc_lgr_put() and smcr_link_put(), and
-conn->lgr is never cleared. Could this be a use-after-free of the link
-group if the link group is torn down at the same time?
-
-The conn->lnk = link assignment also takes no reference with
-smcr_link_hold(). Could it race with smcr_link_put(conn->lnk) in
-smc_conn_free() and drop the reference on the wrong link?
-
-The commit message says "Discard messages which passed the lookup before
-teardown", but only the smc_cdc_msg_recv() path does that.
-
-[Severity: Medium]
-This is also a pre-existing issue and was not introduced by this patch.
-smc_conn_free() ignores the return value of cancel_work_sync():
-
-net/smc/smc_core.c:smc_conn_free() {
-    ...
-		smc_cdc_wait_pend_tx_wr(conn);
-		if (current_work() != &conn->abort_work)
-			cancel_work_sync(&conn->abort_work);
-    ...
-}
-
-smc_cdc_msg_validate() calls sock_hold() before it queues abort_work. The
-only matching sock_put() is in smc_conn_abort_work():
-
-	sock_put(&smc->sk); /* sock_hold done by schedulers of abort_work */
-
-If abort_work is still pending when smc_conn_free() cancels it, the callback
-never runs. Does that leak the smc_sock reference taken in
-smc_cdc_msg_validate(), so the socket is never freed?
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index b33ebdb21aa21..2478361b9b531 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -1807,8 +1807,10 @@ static void kbd_led_update_all(struct work_struct *work)
+ 	if (value >= 0)
+ 		do_kbd_led_set(&asus->kbd_led, value);
+ 	if (notify) {
+-		scoped_guard(spinlock_irqsave, &asus_ref.lock)
++		scoped_guard(spinlock_irqsave, &asus_ref.lock) {
+ 			asus->kbd_led_notify = false;
++			value = asus->kbd_led_wk;
++		}
+ 		led_classdev_notify_brightness_hw_changed(&asus->kbd_led, value);
+ 	}
+ }
+@@ -1961,7 +1963,7 @@ static int kbd_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+ static void kbd_led_set_by_kbd(struct asus_wmi *asus, enum led_brightness value)
+ {
+ 	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
+-		asus->kbd_led_wk = value;
++		asus->kbd_led_wk = clamp_val(value, 0, ASUS_EV_MAX_BRIGHTNESS);
+ 		asus->kbd_led_notify = true;
+ 	}
+ 	queue_work(asus->led_workqueue, &asus->kbd_led_work);
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021171256.166870-2-bestswngs%40gmail.com
+2.56.0
+
