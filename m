@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952135;
-	b=BjO3adE4HPlHjK1vFXI0bW4sciuCQ1Dw4Utpy5ppNTXBfNKi+ZSe23K8tz+dXZxbqxRx
-	 jIWFk4mWmbftN8E5+oWYxVrJWRC7CoYS1zTc9aNDub29inHyd/2+xZbhdKBe4/EHpqZdg
-	 1rnLT7hZfG+hwfRuhRF1tBtQ8757DTHeAxTVpZQeakp2QHq2x/74LRH+ILbqJfbETWQv+
-	 RDt6DThb7TzuU7LfaCs1hILFaXdsRditVrJc3aNqVGJRRNHNZ+pWe+K5nGijymmyHsgWH
-	 v7MH2QlDoTAEOmF/0oefOSzaKMRxV0Tfxj23EpIVsxUkOyni3XHoUZQaWZ+0LGxbLLg==
+	t=1792952377;
+	b=2oOKNP4H79YhyASZlzITdHrQkRrXJbrxUEmZ91edezb6TNepxwYUwoFDxgbjddptQsL+
+	 hWUntmT6JMUXpgrlSYzM6oW1VmTTh/rbR20ijU9iGfuhRw2ImcOIwRREezXSc6mQ5Yx5q
+	 gTfjHZA4NAkMNJ2m9lfL4E1hzkaG1pT5dazslgrCGoBUpGJIPyefo7p9f28fct3+Z/fSv
+	 2kH9BPJ03fxbJAf7ccQGderYjtI9Tp5QhPQGTF23KUDHwmOMQ1BesreVz8/w831BHj9f/
+	 QN+d1C9rXRXOupUobj4gPcL0D1fS7Efi9ax6z5sroMw5GvBo3Q4dEvf3jgD849/VBTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952377;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=04oWWzfIpYNAPZyDmdd+igxHJmbJK3/MT7SSmprnQO0=;
-	b=QlmLoztoYlT39873XeAyYIBcrh7Vnn8uHffHDfWkHBowI3Qo/+POvunU9odJTzBpUuWv
-	 MM6Wsx77iARAldeqr0jsUGhbbvTtZl4OwS83ZW3HVmPLYjLcIGmOhdiHIqEb+8JXtGqp9
-	 C+bdIjEk62F5j/TKeT4Lmk0PJ3n6ZIKTY5GLZeMBm2dllSHM/0yuh8n+1syxq7xpi5+45
-	 H0uvdRjsId6uD4FPGlYwl4+FsVwvuLeXYmiES4MDYJSIpv06EumBtrlGYlKNhtR2pwUYG
-	 TeKLL3fjVvFc4GrMlYUBJQby0OqlN0XrIu3z5LOJqWUcfLfqIiy9IniRyMRnQR4bQSg==
+	bh=xHkFulZhzfdcytD8jcm7yE8C0cb0+bXKg5xNAHor0g0=;
+	b=TjPWbLQxYbQTqmsD6hftoANwz4gZKMHLMc7clCYBnku85FBwgKQzx4t9c/aAGFtOAZvC
+	 WcdMxBN38I2xk1QDrEf9t1NYUdm2ybCXG6ioFeiMelLYfRTBnuzQ+tAhV/3Djs/hcAT7e
+	 jrmmJx2nd3M2QZoyFR9ifOBRsEVRYoMqpbXj3bj2D6jqHfJ31GQyzGpmQkrfJ4r/ldl2/
+	 RAT4OWojrGcyD5SCGOrbV0HvHMnZfsLmot7xo/x8ulOAD9rleowhPCDVwj9yI/6SNroeJ
+	 2+nBp/DHd5UikZ8muOqPRQO6ouO0WrcBGmVKrQlkqwIb8eMHwCbDnsWZHftyI4EYgkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ItefY2w7;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c3D17ued;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E28606A31D
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E28606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDF8606A31A
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:19:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDDF8606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ItefY2w7
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afbd2c386so1318248f8f.3
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 11:15:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c3D17ued
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so2441695e9.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 11:19:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792952133; x=1793556933; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792952375; x=1793557175; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=04oWWzfIpYNAPZyDmdd+igxHJmbJK3/MT7SSmprnQO0=;
-        b=ItefY2w77k/Kqn+lPWITcS5PXxUcOwecuNSjmwxQxuuPVK1Dk1Uzf7RgqufcqAlpj+
-         Y5DQS5qS1u8yBmkgfZc4TRTeK/zv9x9fVCOXuEES3AeuXaHZ/erTJpXyKEEmRIMIRpxZ
-         h1bYSRj+NM15ERmDza9UiiLvIuZ1OBcdiMNKoZz6l6cV7JgU91rCTsHOLirTiypNZCYM
-         VdrhcTfuGkh+6/l0NogEc6ETClwPKjDrE7tjJiJ4fZYQdjLYswnKXUl4lMHtKkzpBlMf
-         VFKLpkAvw1F4tzXLq14o74rRXMru+0AWVg7lMzmrDLSX1yxDCuFVTlrsJlJ81kkYmuIj
-         HJuQ==
+        bh=xHkFulZhzfdcytD8jcm7yE8C0cb0+bXKg5xNAHor0g0=;
+        b=c3D17uedB/11KdUwEGzKp59eVMgf3RY2OyN+Q0UK0ghWGfxp/v3Z8S2trNNM8sTub2
+         /rXLNxmQ21QLKtnif7yjDkKDyyEaDBczbapqUnbrhi9nlvocrChT7laHS4wHqoOwEI3g
+         Q/EUXL6NTVpWjocnKxsFTGCKX5jb4ko8BRyeB9v3YBSut5ij0P0vINLMywww3mczSmAN
+         uSfpjcQWwLr9j9ZfvdoDYtyUua+3cMVu3xVXVshS4VQ/JZvBQcn5fWMBZBreUC4TgwRh
+         l+3bRVhId6ErXkmQVD80gjzKfcrb6XQpDcypAQt2TOm4SJ0u+NZ5fzC7ZhOZgUMezeck
+         g2QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792952133; x=1793556933;
+        d=1e100.net; s=20260707; t=1792952375; x=1793557175;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=04oWWzfIpYNAPZyDmdd+igxHJmbJK3/MT7SSmprnQO0=;
-        b=Vq8sr9iqnbMHy9gP8fgnMWYw7mjGLFr/BeHZpm3NFERgICIAqrhsowHkzf3fm9JwvD
-         6JVIN2Bh+choN7lTdNnMaehtIkprNlbFxhnIyrdEeb7uaOIie9FN4A2BTtUy59dPSWSR
-         /kzopY67Kt6SiFYoz/j8zLMZ89J22iLgzemt7SF99WD9sj8riJZUGEVc/0VlALxQXwgU
-         Tckb4ac5R1OdERMY5QwVpb1I+pK91Z2Zm24Rq4b/i4Cc49rz2XG5VjoPO7yeOGMgI7RG
-         aXIEcK3Kd9WXUcVGnqsdOPPvVnwwiKTHqgC6zxnIW94KuYCnV+kXCzKhxt+nO+P+Kvak
-         To3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwqPXgR0Gl+GNDtzg4nV3cbq1TyMsEOAmppDo/UXkbsDWzIqQXxKnEBbAbYvRdHoKLtj4oXoOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMZj/Xr8tsLMS3YxCCLZR8albFf29wABWV01phiIl3wWovOd8i
-	J2GvPWMPiVR7kSo0ABd8HsUEoSd6+HTlOqWh6kL8h5vB2q7RWiElRPw=
-X-Gm-Gg: AYBFou3o1UKNJl8jTaVvwbfPTglTjRIBl+YKD5U546Rc9n3fb1NQeiuMWjDXKsjjxW2
-	hv57eYPHzHNhUnn2R9F/zvsixv3YRMDs/Noqj2yZmnjmR6rtsRbzIcMUq/TbZ8nj1fZhsdYEZF7
-	jMLIMJQZGlGtKu4w0FuaJFQS01xs3rnzoBM/gwZTShs2MaM0iwmnTqOazYEQDblqEGfswM6i/TR
-	bhKUyKXe4VxNnIBml7+RFKhSW7kObErdxyAazTLY5FHItlvNumj02GJl1ZOtO6zrtJPy8Os+1v/
-	EqqvhHmW8x2nvQZEnOpA3/NlTwEMrGtQ/Ox6fUKveWKtBAGi0/p3qoU96MBoOhk7EUdSQgHqIzZ
-	00T3+Ndqezl+bSIlspy5HhQwo4fO6AJt9I2y83i74+YWNGonXqugooM16+V7QqFV9KU/lBzQOVl
-	MRD60lMMrfhAgrq4uRD6H80XgRnTULD65hFBrsGFY7VMIdM3fIBd+PWIZXFiMZSV4qn+kIL3kl6
-	GhGUHctgdDVImQYND3NQlByW0IJKHZ6ybQ+lw==
-X-Received: by 2002:a05:600c:4704:b0:4a2:967:dfb8 with SMTP id 5b1f17b1804b1-4a35acb115cmr88717975e9.20.1792952133411;
-        Sun, 25 Oct 2026 11:15:33 -0700 (PDT)
+        bh=xHkFulZhzfdcytD8jcm7yE8C0cb0+bXKg5xNAHor0g0=;
+        b=hYmEVpcWoiNrWIf1YUZ7Bsxu6cnC+1l0QjQfpFf/EdDVEA6RgxQbhkvDE1ihE1WfY+
+         XfvB6uNkM4JB/UgK7d8Sp0UrzT3K9HDl9srNDSPlE2AIYO4Kyhb5m5mtYJ15KwaXDYtl
+         RHdhTWVLJjJhekIrExM1POjfmSzNc1OAcoTMMSNJLaM3HZ/oxLos0oIMDkqMvmOsiF5j
+         EP+mdg2zKXL8okLbVYPNToNo6jQ1bCC6qk2/VGxN6Gcw+9QGfx/6GQho9EhHyZ/ErklY
+         N5ldI+Tj0pbsZiw1Iz9m6Owvaa4yLIaqhj+TovV4mKGJz6bridKfsSnDqC/g7Jzd1Bk2
+         Xqqw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1qHbHo568ONvij77zQcOMkV9w86cQXHS7wj/8L80AhxsCNbAoY5JcqEIQfwK1qVwVUlWI04w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHrBVxPOUlXfFUgaOtdvldnr3YhqmEfeYQxzOyEG6Ko7McdBMS
+	USIB+uHO0BVbufAjJauWRo4zFsMoq0xlEkqHrdtoRc5H/RfunZeC+hzCXlzQ
+X-Gm-Gg: AYBFou2/jQ0yjGQcg+o/Czk/qb4G6bEkygDQWZgLw1hM65Ght7+cbsw5mKr3RILPl3P
+	IgOuqnnsM3BL4c1YUMZk1LRyxtbIZIedSenavzxZd6BXfOfhfj2aG0Aml0+9KkIQSBhj82bcG43
+	4m8rj1HCB9g2j0wrqY8AP1dOFrfZrIDrOf5pE7F4vMjOm/OtWOchWDjlCY/pUOBtM13tWcG/QqJ
+	C3CZgkljcqGqcG7GYH/ZeSAtdkEM0VvTiefGp5cNHWyOM+PbKMbsUVbHhSZ+AEZHAHwLIaI7nyD
+	6YQB18lgx0szBjHFeOOO9p5bCysvBKudbSAycWevob4PLc+CkRomDoM84Bcih6cx/D2cSEPaBpq
+	x4JfDD4XrjCoYPKnQxbfid4UQh3805IVj7wVJkDDUeYNHuhYkPPzX4xcS/85YeiB19J3WLgwtHc
+	IMkey2CgjJZ7rd/Q91vsH33oAuYKPDhKbPnCPFHrMXmgnv38gD04nP1PiB8Wy5n1s07md2t83RS
+	JxKqshVf8+BbA5aY8NSwvdrFBBcHrVP+XT1Yy4=
+X-Received: by 2002:a05:600c:8b2c:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4a35acaa6d1mr86565045e9.27.1792952375238;
+        Sun, 25 Oct 2026 11:19:35 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a59d998sm143804225e9.15.2026.10.25.11.15.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2c0458sm136103515e9.11.2026.10.25.11.19.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:15:32 -0700 (PDT)
+        Sun, 25 Oct 2026 11:19:34 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
 To: linux-wireless@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	jeff.chen_1@nxp.com
-Subject: [PATCH wireless] wifi: nxpwifi: validate scan response TLV sizes before indexed access
-Date: Sun, 25 Oct 2026 18:15:31 +0000
-Message-ID: <20261025181531.3744345-1-tristan@talencesecurity.com>
+	ajay.kathat@microchip.com,
+	claudiu.beznea@tuxon.dev
+Subject: [PATCH wireless] wifi: wilc1000: zero-pad SDIO write buffer to block-aligned length
+Date: Sun, 25 Oct 2026 18:19:33 +0000
+Message-ID: <20261025181933.3775301-1-tristan@talencesecurity.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,72 +98,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The scan response handler indexes into TSF and channel-band TLV arrays
-using a loop counter derived from the number of BSS entries, but never
-checks whether the TLV data is large enough. A firmware response with
-fewer TLV entries than BSS entries leads to reads past the TLV buffer.
+wilc_sdio_write() rounds up the transfer size to 4 bytes via
+ALIGN(size, 4) before passing the buffer to the SDIO controller. When
+the original size is not 4-byte aligned, the trailing bytes after the
+payload are whatever data happens to occupy that memory, and they get
+transmitted to the wireless device firmware.
 
-Add bounds checks that verify each indexed access falls within the
-TLV data length before dereferencing. Initialize chan_band to NULL and
-fw_tsf to zero at the start of each iteration so that a short TLV does
-not leave stale values from the previous BSS entry. Gate the
-neighbor-discovery branch on chan_band being non-NULL to prevent
-dereferencing an uninitialized pointer when the bounds check rejects
-the current entry.
+Zero-pad the trailing bytes before the alignment so that no stale data
+is sent over the SDIO bus.
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Fixes: c5c77ba18ea6 ("staging: wilc1000: Add SDIO/SPI 802.11 driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/net/wireless/nxp/nxpwifi/scan.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/net/wireless/microchip/wilc1000/sdio.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
-index 67d7ff2f10c59..304113b24e5cf 100644
---- a/drivers/net/wireless/nxp/nxpwifi/scan.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
-@@ -1993,23 +1993,36 @@ int nxpwifi_ret_802_11_scan(struct nxpwifi_private *priv,
+diff --git a/drivers/net/wireless/microchip/wilc1000/sdio.c b/drivers/net/wireless/microchip/wilc1000/sdio.c
+index 67dea1360f0a8..1a8c7ffcba496 100644
+--- a/drivers/net/wireless/microchip/wilc1000/sdio.c
++++ b/drivers/net/wireless/microchip/wilc1000/sdio.c
+@@ -441,6 +441,8 @@ static int wilc_sdio_write(struct wilc *wilc, u32 addr, u8 *buf, u32 size)
+ 		cmd.address = WILC_SDIO_F1_DATA_REG;
  	}
  
- 	for (idx = 0; idx < scan_rsp->number_of_sets && bytes_left; idx++) {
-+		chan_band = NULL;
-+		fw_tsf = 0;
- 		/*
- 		 * If a TSF TLV is present, save its TSF value in fw_tsf. This
- 		 * is the firmware TSF at the time the beacon or probe response
- 		 * was received.
- 		 */
- 		if (tsf_tlv)
--			memcpy(&fw_tsf, &tsf_tlv->tsf_data[idx * TSF_DATA_SIZE],
--			       sizeof(fw_tsf));
-+			if ((idx + 1) * TSF_DATA_SIZE <=
-+			    le16_to_cpu(tsf_tlv->header.len))
-+				memcpy(&fw_tsf,
-+				       &tsf_tlv->tsf_data[idx *
-+							  TSF_DATA_SIZE],
-+				       sizeof(fw_tsf));
- 
- 		if (chan_band_tlv) {
--			chan_band = &chan_band_tlv->chan_band_param[idx];
--			radio_type = &chan_band->radio_type;
-+			if ((idx + 1) * sizeof(*chan_band) <=
-+			    le16_to_cpu(chan_band_tlv->header.len)) {
-+				chan_band =
-+					&chan_band_tlv->chan_band_param[idx];
-+				radio_type = &chan_band->radio_type;
-+			} else {
-+				chan_band = NULL;
-+				radio_type = NULL;
-+			}
- 		} else {
- 			radio_type = NULL;
- 		}
- 
--		if (chan_band_tlv && adapter->nd_info) {
-+		if (chan_band && chan_band_tlv && adapter->nd_info) {
- 			adapter->nd_info->matches[idx] =
- 				kzalloc(sizeof(*pmatch) + sizeof(u32),
- 					GFP_ATOMIC);
++	if (size & 3)
++		memset(buf + size, 0, ALIGN(size, 4) - size);
+ 	size = ALIGN(size, 4);
+ 	nblk = size / block_size;
+ 	nleft = size % block_size;
 -- 
 2.47.3
 
