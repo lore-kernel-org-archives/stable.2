@@ -1,95 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946820;
-	b=Tk6NICtdeClDm6b/+nspL/i3nM6T3B6Lfc2d7HZIh+CYw36TVrAEwtjAcIh3aq27RHxl
-	 qE/4BG8VBAojJITFLMLltcn64yQlY5Oj63KK3GaEXCSmGCrqKl3R/GZ0SszxVtnFLVwZm
-	 mYzD92DYTrcA5qc0uzSoxM2v4Kbb3Zyx4GB6m0Uq59sLjE5QgF9+DjCpA1EwM1i5BTtQW
-	 QNYab8pKHdvGYhsDZN6dv4GyfQ17KaK7Ddi5lfg9j1pHuYwvTAsYLKEJzI7tvS8Dgiz8y
-	 qawpSkRjgUmRsSVuhjalkg5Ay4L8vmfjiwlFiNE8eL+BX2+KKAHSmHu1r1cHOrKutFg==
+	t=1792946901;
+	b=zB7BVuCHIzmw0KOpHiZ7tUQAtYkkxOGmWMZUm9JT4+gyQ7f7a1pUsuwULQ2FhRxhMdkm
+	 92+UjVsJYdT8EqNLGH63DKYO5pxDTs33RTrFmBpE0iM7jUxZ0pbSZth66CSjFJQzLwS0N
+	 cCkjKD5VYZsCIqPMfhkYfC8/1sUEVNQ9BuLkAgk+9ZM04GV8KdISGGB/Nfw2PgCtOW2zH
+	 HwWOS6D481iYlInQpaDxuEaUYfEs8hPzNA72e/EZotkurL0mj/Gywr6fD1q7np1KQ37ZU
+	 n2hKk8AexEb8MGqg3+CdEBXpg0c0SUb7dc5c5EPXXLe0DH5oWkko9Qw9i0wYaqwLC+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OfgFlzGjw1v4HVRSf59nbvbgqbjgCU9X1s1eTDVI2XE=;
-	b=LO7/37KwjoyKWjVP3zybpeIgDHujZ0pihuerNvOe0CbE/lV1rAfN7YEeQQjSkXEBxaV3
-	 EZCnebhbOfq4JaXdWnecFk4j3AKru2aXchPZwsCBxMOgQjY3WnMiST+bV7kId93LWQWyY
-	 EP2SK9fnPan5egCT/UHasxbyM2AYMMco5uEsJOqHiAvmNMNCV53vS9AfWJjF7iQjRJWvr
-	 /WQtXbvJQXfm675YWr9WDfOniT92B1/WgREAMrFmx6OHYFDA3tocQMd5zCi/mpONYOJNw
-	 T6JPhhp3iEN0NNmVhwCb2qeRk950n+JhsHaLup+fnxk0sD+iS3RXIyL/u7RvM+eWmpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946901;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=nr+YoPGEHm8Q3JHJ6w69GvnBfQfVrjXNL0RTKjfdlF8=;
+	b=d2xHp+1VGHDxLznQb7Vflz2Bo1u7Ujb/eINNva/c2IxJJ+jh88kcH9dpaUYZWU4txlis
+	 /QF8pC5espvFAiWhQuRyk0nu0O67q8yvZCOf+rBTTZTUX3AJFFlkiSmZwtO145JPepwp8
+	 /z5lx196yBxptlLppWbKlUwn/HgAUTwlGVrOVl9vQ49lDA31CcfMzDUFizNsDkZJZ/Q1L
+	 wCAyhreDCPioK/MfpK4O7XGiTDDhVeQZzWA3FAB9LiTw/v2PnqcrjLjuphFuQu6x5oftv
+	 VWQvCFUM3Gmq9V8S7Fb+qu2ugk4wy81Tch8M4qB+1GzocdH5HmVt+6m1+URrk/wGsKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VCv791va;
-	arc=none smtp.remote-ip=74.125.82.193
-Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij1vhXas;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B84606A323
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 16:46:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B84606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AFE606A325;
+	Sun, 25 Oct 2026 16:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VCv791va
-Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-35d0be18c71so3945445eec.1
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 09:46:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792946819; x=1793551619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OfgFlzGjw1v4HVRSf59nbvbgqbjgCU9X1s1eTDVI2XE=;
-        b=VCv791va/DDx6T+0REGuHSoMALzbLBPo/HVx/Vrqkf7FavqhzQVkwz8+nFbWw36Tuf
-         wbxmpvQNqrAcylPxj5mODVndmgHb6OejeUqgQIsCfR/Co2uNij4Hy4dWhrCCgzU0uaBN
-         j+zLwqFzgAB/A74IVd7Kluoc+1/KT9SkaIMkAFhvc+wpIm7uNhLZXkSU1+iybMFgI+fD
-         DGAdV9InLzXxDFiOOY1zJeB5rCjMTIU0UGi0ORRyidPIeMxyTS5qGDqfFAb5uDHqb2Zh
-         gPjY8fwspN4TWKgEphlzFigXt2nsme8tjW3MtI3IKNAeKpdhMqJ2uAYtkKlbTSkKwc7W
-         aE7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792946819; x=1793551619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OfgFlzGjw1v4HVRSf59nbvbgqbjgCU9X1s1eTDVI2XE=;
-        b=MYVrjtbN6aQ8qYRoFs3jSaIRtyQ50npka51YzRkoJZcZT/lRjXQfSOf99MVYulflxw
-         9xGHbIrX9iFaMH949GUONgGAK76+mdUhlt/ikzEU/a/Nnjl0eUwTWjX1hClTNTi9c8oc
-         RLDx2w1eW/NBTB2ca6TIm32P1ffcEy1/OLWSO243UTct5tDmtEdSkNoFQyjGIZjgMTdR
-         CehgwXUbD/Xqms+k0BmromKApss05D3qVkUjTrKR5QNUmxI7cBLN08gzeVF/kLOF69BO
-         AX3v/4GEuvITthVwsLLK3ZRPvo7ow+N18//QZBh0JYrQConNiLbh73Ra8Hi9ZD5HQQCn
-         JwAQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFNxfbVAK7wvyhUKMJcbkTpJTn0FkesCYIm+s4LU5ol7G5kjLJdgATqH5lfxPzzWgAbRnrSrs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIt+3ylB639thokyNJYc6/NNEpehMrffVtoaILKB4tkqzqWfxZa
-	qDzih3iiGy6slJuD4gMkRzVa/2akz2aP2VUIiGDSHvwT1kK5bpVMkh5X
-X-Gm-Gg: AYBFou0lTD1FesFKdF5mtmdLXO+e4qo4R/uShQHo+iZ9jRBZf+0m8yyN1aC9zVXBko/
-	r+ba80RXOBNShTDdI1PLLcrn97WDj1QS/BXSG+ns1RJqyz8kF+5hu+etJn/q0oymT7Wcng6vgl1
-	aQaFBVH/1IeDHGlxgLFGcQbSbBdUqpjGsBiJ61AAupQB0gawInJSJxN8L4gzJv+PNE0VLe6tOC+
-	24QS2iTAOLBdhNUDhCh3oGnkd5G1yjizr5h3cfolXhpYGle0QvlSt3eLdQz2rerfomb9fyKTFl6
-	8Me1oun44yn055L/sffj0j8WUPWej7A5g+Zn8d2JUbCQONADbvLVKpEuOoZX3qIBYZoEw+zpEG1
-	oWeTDGoQTuR0N8z4TXsyivyIiVnI7D5ahy8E2MkQ2oIvqubK4fampbu4LyOFHAdOK/DNR+qzUP2
-	98n55q3PJ9SGlTbnxhVoZ8LmmXFONuWm1k6RyWng0dXJMNxvnUd+ib1MAzDrvMKqOtkFpa2l4OR
-	p65kGng1sqpLZcB7KovcIHRCdamOGVxIzpJNg24T13m7wxHw1BjOqijDTjwPGEfzC3aZfse5qsH
-	2+iAHFY=
-X-Received: by 2002:a05:7022:439f:b0:155:734:9cc9 with SMTP id a92af1059eb24-19935be7f99mr9441348c88.16.1792946818717;
-        Sun, 25 Oct 2026 09:46:58 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0d98660sm18320531c88.9.2026.10.25.09.46.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:46:58 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: hughd@google.com
-Cc: baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	dave.hansen@linux.intel.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij1vhXas
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30A31F031E0;
+	Sun, 25 Oct 2026 16:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792946901;
+	bh=nr+YoPGEHm8Q3JHJ6w69GvnBfQfVrjXNL0RTKjfdlF8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ij1vhXasNxw5M3NroJhpbMcVS7tHPfS6CrxKjKAo4XXYhO7PkpF2dmMn0QDbVWBZ7
+	 uHUszc3RYcsfQtZGco6SJ9gr93j9Ca4ktIDU9y5OeRyQQUWlVJ3uTTuKWFbMsejqsW
+	 XWIbH72CDPWzKvy9woIo4kb1zxavklgubYljz/VvJ0ckxOuNnl2+UFNFBzMQtreqpK
+	 kqStRonGrVO1PDERbzM4cLLs2jsKnHNl77X4gW6zXYO7CPlEUs+2HJnIrqp2svKG7Q
+	 F3DAULHZlQguqaqijUKSh4cZVFtpUl0v2eDVKlyvmMBn6OH9hb80dEFKeijKiIWyyx
+	 VKJSly+gW2KGA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] shmem: do not extend i_size when no data was copied
-Date: Sun, 25 Oct 2026 16:46:19 +0000
-Message-ID: <20261025164619.89992-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Fernand Sieber <sieberf@amazon.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 2/3] mm/damon/core: move static variable last_nr_regions to damon_ctx
+Date: Sun, 25 Oct 2026 09:48:05 -0700
+Message-ID: <20261025164808.152048-3-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261025164808.152048-1-sj@kernel.org>
+References: <20261025164808.152048-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,40 +65,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-shmem_write_end() advances i_size to pos + copied even when copied is
-zero. A buffered write past EOF can therefore extend a tmpfs file
-without writing any data.
+kdamond_split_regions() uses a static variable last_nr_regions, to infer
+if the region boundaries are too stable.  If it looks too stable, it
+does a more aggressive region split because it might be a fake stability
+coming from non-aggressive split.  Because the variable is static, the
+inference can be racy and wrong when multiple kdamonds are running in
+parallel.
 
-Moving prefaulting to the slow write path makes this easy to reproduce:
-a one-byte pwrite() at offset 4096 into an empty memfd, with an unreadable
-source buffer, fails with EFAULT but leaves the file size at 4096.
-generic_perform_write() calls ->write_end() with copied == 0 before
-trying to fault in the source buffer.
+The user impact is not critical.  No crash, no leak.  DAMON's
+best-effort monitoring accuracy can be degraded when multiple kdamonds
+are used in parallel and the workload has certain access patterns. Still
+it is a bug that is better to fix.
 
-Only extend i_size when data was copied. Leave the existing folio
-handling unchanged so successful writes, retries and preallocated
-pages retain their current behavior.
+Move the variable into the damon_ctx struct to fix the problem.
 
-Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
+Cc: <stable@vger.kernel.org> # 5.15.x
+Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/shmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/damon.h | 5 +++++
+ mm/damon/core.c       | 5 ++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index d97fc32e7c94..55287c370c73 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -3487,7 +3487,7 @@ shmem_write_end(const struct kiocb *iocb, struct address_space *mapping,
- {
- 	struct inode *inode = mapping->host;
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 63050eb2206a0..cb6a50032a1eb 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -958,6 +958,11 @@ struct damon_ctx {
  
--	if (pos + copied > inode->i_size)
-+	if (copied && pos + copied > inode->i_size)
- 		i_size_write(inode, pos + copied);
+ 	/* @rnd_state:	Per-ctx PRNG state for damon_rand(). */
+ 	struct rnd_state rnd_state;
++	/*
++	 * number of regions after last merge.  Read kdamond_split_regions()
++	 * for more details.
++	 */
++	unsigned long last_nr_regions;
+ };
  
- 	if (!folio_test_uptodate(folio)) {
+ /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index eb1fcdabc0075..09722257ce736 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3795,7 +3795,6 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+ 	struct damon_target *t;
+ 	unsigned long nr_regions = 0;
+ 	unsigned long max_nr_regions = ctx->attrs.max_nr_regions;
+-	static unsigned long last_nr_regions;
+ 	int nr_subregions = 2;
+ 
+ 	damon_for_each_target(t, ctx)
+@@ -3811,7 +3810,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+ 	}
+ 
+ 	/* Maybe the middle of the region has different access frequency */
+-	if (last_nr_regions == nr_regions &&
++	if (ctx->last_nr_regions == nr_regions &&
+ 			nr_regions < max_nr_regions / 3)
+ 		nr_subregions = 3;
+ 
+@@ -3820,7 +3819,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+ 				       ctx->min_region_sz);
+ 
+ done:
+-	last_nr_regions = nr_regions;
++	ctx->last_nr_regions = nr_regions;
+ }
+ 
+ /*
 -- 
-2.43.0
-
+2.47.3
