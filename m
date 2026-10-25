@@ -1,97 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792963143;
-	b=rkXOlsooqFxk7xzCG/Iz+n/qdoBigN9Xp2jTxZRjD9QzUZhKn/ungNOeZgCdOG1DyLZ+
-	 zaHqW7u/+zZOjQxN2qNn+yAjah8WJkzLIuVw5y0tkad9yoKnceMlow8g2lzh9+YZmakjK
-	 jmcOJsRu8cCehS1zwnrvk6w78sMr/WIQQNRulIAZfxZw/sv2NNmdmYXIDqdsRQ0PUMPDV
-	 dIkgdaAY9neLII9pz2J90detICcAFdniBluZ5/f1O0l1Id+qdNLK+VQcxE4BmqXVTEUu6
-	 h2IBSyOst4CCM1P1BcBxvki2DnsNvuYz5uW6WRJVERcYcuAlLxXm75ZURviep/d1OZA==
+	t=1792963535;
+	b=J0Aar18L/rgBLYq2Tutq9kbIgceN2pQ1ZFTZM8iQ0GOjmEKt/566PgHD9RfUIDx1AgYT
+	 fAn7aavszjbXtqgeTFZAR9uPaKvLXSr7d2uJH1lAahslfXBmC9tKKDZSY8frw7w+aXu9+
+	 riiZb1V6dbaTxUvDwWRablYaBAvvEX4DcwKQsb0G4I2QhZtu1vhhdDWyw8/d+o7d1jg3w
+	 lzCqne8C49K+e17If5HZUWYgangUISINbccUGuzRRIlb8teydBcAsd/JKvnX0KuFA7Hs0
+	 CMaGGBAJl4mGTSIUkAX7PCeWYx7BDMSoqM9/0XIAb7cCd0B2uK6IVQ6SA6D0dEi5wLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792963143;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FXGhUdMYFe84Q2exJIrjjzOzKvQUZFwJp2fh0+1LvJE=;
-	b=332380JDfhWD4IXAAasxKz6i9GnCuNIEOnKJ8CSelEHXUZP1hdEsjwKWCA7XyKcxRdgR
-	 Lb4LIAcz6XeJ2kkvj57ZL3HYqVSg2ExM/3vgodXVpEtTSVAlItg5gElH9M++otJ7Btd6r
-	 sj6lMwkrfuZqesKllQU4PZkGNLuyEzeh9+pqXoA7JtLyQprBdV8e+CwChLk/+VuwihLZ/
-	 7jVCzQjdcOhFCWD2NnkZYyaIlLzKBgeCm1waHlOy7bl61xJYIRW5DflKx7ZJ/uBadIj7Y
-	 XXBuZ2fADciH1RdewwrZ+Tgi6RDh6+jkULVgQWDHQDCSTaoHkKR4UB3lggwJhq16Wmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792963535;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=t+BqxG3HVAhoGJrM70de7f096CHmRv9KEclC9Qj+gN8=;
+	b=1DkYzgfCEU8r3yAY67kJ3w6KxvrvcY5llzV+T5Jf2jmRKKmQ/TdCwdjABhFTbzDgb0YF
+	 32S/OKJccD8ZphFRCuMeITlRdO57yVNfpguKIEQzFS988Z0LJ07yIaGknUYQQ3COqJMpZ
+	 mpzbzgKZMZ6imEHru4rxq9iC5BQx2Mfa6Qa+7e5ezShnokKokb8qgbR8ZW3vdC71Jp6DJ
+	 EzqDnX1rK41cyt+eTbAhDHA8eQtxsGliLJG62zm/rkvEeMOOpIPAMe1/fwGcy3GX2WUgS
+	 /T84+zATH0s317E69RhCSoWsRibKKzU5u0UVt+xyeTzgoXWop0qLldou3nx+8C5LQvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qWvS9mht;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zu9cvyLb;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FA2606A31A
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 21:19:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FA2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D025E606A31A;
+	Sun, 25 Oct 2026 21:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D025E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qWvS9mht
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a210470b49so18795625e9.2
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 14:19:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792963141; x=1793567941; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FXGhUdMYFe84Q2exJIrjjzOzKvQUZFwJp2fh0+1LvJE=;
-        b=qWvS9mhtmyvByJDIHURYFkr/5eqn7i7qDZO2PVNtr0S9vOYi2ETj1lu6AY5XwBDA+5
-         o0qgEhlJtFSMQGxXaH/Pe4i40Y02+d+26euInPYWFKl2BMV1zwyjD6tN6q/Z8wy4AEZD
-         aw1JLpK94Yu6U4N24cH4l+o8kAAtZAZjAeAAXWzbjxNyy2J2Z5mp9UHyyVT6e/Nk1EmQ
-         pzRTvRmtjguPq8FCdDvMPX5ljOcyq78kjH8QysSH5v/yhNjm4qD8KhbnV45/jmwD3X6q
-         zUNJNJdFA3BYNaRPdm2zUWgq0ECjb5TxMZ4bQK8MN9rRCBVjf4pYXkCBHP8WhTtq8lLJ
-         D49g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792963141; x=1793567941;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FXGhUdMYFe84Q2exJIrjjzOzKvQUZFwJp2fh0+1LvJE=;
-        b=mW6idCynXtx+JgWOcrpA7pu8H3/Tcov1jJwDQD8RSfwGNEXt6RDFuOJW0V+b9Qu7Dp
-         XZ5c1U4p/L/XV64WkKOCtcdbh5LhYm4NKffgkpfY+tzk9Xy2WWRKuM9ihPnxOvPRG1ud
-         bUVCUlr+1z7D6JtTCn5GlUJ3v0rpIPkcRIratYrtUzXAYRwC9vho/tR9qmNoqfkwuwMP
-         lPZheEYFLp9mN+AC8fGEyVg9WeNij806oALEC63O/7UFtrZumGYtI+uW8xQdBkt8tODr
-         kUgnLg8Oe8ltJp5x52Od0UsK9bJmYYehFUXLhJzdrp4rO+O8rKNaVJ+vWQAk3dgjsgn4
-         eC2g==
-X-Forwarded-Encrypted: i=1; AKwUvByajpE6Z13nJPqsmJcsIzLhrSl4EAIoS9+pzWYqJpVjHkX6qnMI777GF6t4pM5u9Ndpv0km6rQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKc5yrZ/kFVfSCAeQAwNXaICuwvBHVGmA9/u4sDBOxjdi9CwXtn
-	+6HBPpzIeY+E5YInIn1+cFJCzuxLqlrhMXsokGlvmks2Hw34CtgigXqG
-X-Gm-Gg: AYBFou27o5/18IVrbycs40MStkgrtRlzJ6yKxXl9y7UlSf+lc7a0b5JJKu47q+z0wXF
-	SWZED9kHqV5QDNr4cmykva5gZAHBEOve0WxKVxz38+hezziXvuAuAdTqiqNXp3/iExosUnU35gH
-	kDYZoqJjmmV8HQi8DeeCSTY5cqw0YpahM/3XyqwYlvb74XkzSeSUUZRFg7MCHRy7vHOOCB5N/EA
-	eq1eCKOAzwIu+QxLpYOSqDLN/C95GV1LpZs/5s5rfJIrVNLsvNT8oYnIICVcrbzy5GYFnI6DcGx
-	O52vn27n3lVSgn4T6t6Z8iGnsYX2fJxPI0T6AEVNqGu9lb8v6PhbFvKDXltjAv5LEyYuFeCtRzb
-	pPS2yc5UksKS+hrA4wqzPgeUvr+W2c8ofMmcbsTOTDwwr3dmI0ofOUeqLTgZTvnvzDD2Nxl6sOc
-	TaHZZkRyQnT8WMqzNI8F43YPDWPM4uY9EqKjmdm7isveBNCaTS7gEvDrqNSVGA//m8kgxxdHb8x
-	2rCkTGe+PPxBgni8RYFOgrDSQpTeVOhBGp+29X9b2V9ZmeRu3sOcMYkcvnDrgX3fct3CWh01P4V
-	QImOKh8buFsmFaL1z0XpruZLtRDHYJB5RApRXqu4
-X-Received: by 2002:a05:600c:34c8:b0:4a1:d675:b031 with SMTP id 5b1f17b1804b1-4a35ac99ba8mr99928915e9.6.1792963140806;
-        Sun, 25 Oct 2026 14:19:00 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3932sm13228574f8f.18.2026.10.25.14.18.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 14:19:00 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Ariana Lazar <ariana.lazar@microchip.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zu9cvyLb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792963534; x=1824499534;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=83xQ812e9QnDEp/bpxz3IoBuNXtilkJbm2j+50bJfvw=;
+  b=Zu9cvyLbKuSqkX+hx1d7VjsEMREW72inlcw9u71wOmeGwsmGaQj7yloB
+   Kab75GKvpwTEMNnNYTkm05QUNpbMtyJLpSzdroT1GWJLg7qqobIwLp+KM
+   cmYDXTJ7MUvUM2bBaEBlXtYGKiueVv8PU8ij1OSoRrldzhSL2ZbmNZX8m
+   Nyzz4GEva6OQapOr5tYi99ScQHDb3Rlz7dyM0cA4yj5K68AerukoWKkQ6
+   cbOUB+T4+iQrY7Eb61P9S1CvU36/D+kLwSzt/hqh4HdXkwuM1U7Nqgr7S
+   TefSgtD3iTAkoJIzHADTI/E12d5OaS7kk5rbar2Po/QFVvXj1uK+F4ZXA
+   g==;
+X-CSE-ConnectionGUID: lux6lmiQSSifmWw5Qjd7bA==
+X-CSE-MsgGUID: JYLOEmGoS32CSBfI4bXQkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1535769"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1535769"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 14:25:33 -0700
+X-CSE-ConnectionGUID: hVurh8aYSreJIMi1XleQbw==
+X-CSE-MsgGUID: kNdkUle1TN2IvX2H4ppgrQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4498849"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 14:25:31 -0700
+Date: Sun, 25 Oct 2026 23:25:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: David CARLIER <devnexen@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Ariana Lazar <ariana.lazar@microchip.com>,
 	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iio: dac: mcp47feb02: reject out-of-range raw values
-Date: Sun, 25 Oct 2026 21:18:56 +0000
-Message-ID: <20261025211856.256491-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: dac: mcp47feb02: reject out-of-range raw values
+Message-ID: <at5zx4M5Hj5qms3s@ashevche-desk.local>
+References: <20261024214423.865635-1-devnexen@gmail.com>
+ <at5ogu8JaXFbQpHg@ashevche-desk.local>
+ <CA+XhMqx5jusLqo8G2XCY9gy_P=3-jAwTacgzrR4XFyjpagi8dA@mail.gmail.com>
+ <at5vkvXrFNw-0xxq@ashevche-desk.local>
+ <CA+XhMqzZZyN80nP2ER3jyTsM9UC2xMRLiqdCsAtp+K=hDbqtQg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,52 +86,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+XhMqzZZyN80nP2ER3jyTsM9UC2xMRLiqdCsAtp+K=hDbqtQg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-mcp47feb02_write_raw() writes the user supplied raw value to the DAC
-register without checking it against the chip resolution. The parts
-are 8, 10 or 12 bit, and the bits above the resolution are not
-implemented, so writing 300 to out_voltage0_raw on an 8-bit part sets
-the output to code 44 instead of failing, and -1 is written as 0xffff.
+On Sun, Oct 25, 2026 at 09:11:16PM +0000, David CARLIER wrote:
+> On Sun, 25 Oct 2026 at 21:07, Andy Shevchenko <andriy.shevchenko@intel.com>
+> wrote:
+> > On Sun, Oct 25, 2026 at 08:50:16PM +0000, David CARLIER wrote:
+> > > On Sun, 25 Oct 2026 at 20:37, Andy Shevchenko <andriy.shevchenko@intel.com>
+> > > wrote:
+> > > > On Sat, Oct 24, 2026 at 10:44:23PM +0100, David Carlier wrote:
 
-The out-of-range value is also cached in dac_data, so it is written
-back on resume and stored to EEPROM by store_eeprom.
+...
 
-Return -EINVAL for values outside [0, 2^resolution - 1].
+> > > > > +                     return -EINVAL;
+> > > >
+> > > > Not sure about this error code. Do other IIO drivers use same in the
+> > > > similar situation?
+> > >
+> > > Yes other drivers for every out-of-range check IIO_CHAN_INFO_RAW.
+> >
+> > No doubts. But I asked a different question. Can you answer it?
+> 
+> I meant in this case the other drivers -EINVAL.
 
-Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
-Cc: stable@vger.kernel.org
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-Found by LLM-assisted code inspection, reviewed and verified by hand.
-Build tested with W=1 (=m and =y) only; no hardware was available for
-runtime testing.
+OK, thanks for confirming!
 
-v2:
-- Use GENMASK() for the upper bound so it is safe up to 32 bits (Andy)
-- Drop the Assisted-by tag, removed from the docs in 1e035297ffda (Joshua)
-- Move the testing note below the --- (Joshua)
-
-v1: https://lore.kernel.org/all/20261024214423.865635-1-devnexen@gmail.com/
----
- drivers/iio/dac/mcp47feb02-core.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/iio/dac/mcp47feb02-core.c b/drivers/iio/dac/mcp47feb02-core.c
-index 88bffbab0854..b5a2ac4a2e67 100644
---- a/drivers/iio/dac/mcp47feb02-core.c
-+++ b/drivers/iio/dac/mcp47feb02-core.c
-@@ -696,6 +696,9 @@ static int mcp47feb02_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
-+		if (val < 0 || val > GENMASK(data->chip_features->resolution - 1, 0))
-+			return -EINVAL;
-+
- 		ret = regmap_write(data->regmap, REG_ADDR(ch->address), val);
- 		if (ret)
- 			return ret;
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
