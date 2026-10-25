@@ -1,104 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792967321;
-	b=ea4zk0/+CUeN+j/r+FEQQrdGDMZK4sFvXQJg7/rtPrTv0k5GpCwao+21WaYxZEjdi3qr
-	 Wl5YNli6UaiJ/+LmoO7OCOMypV1xZ2+XVnMO5zr1uLmhC+DfEJZXHeuMlfetugqiPcEes
-	 VDTX4bpejGtc0Urw7RfqvI25H819aazoBFhupwlqoX/iUpWcWBx1/FCcxG+5YKAk1OQmo
-	 7yYnjAZbFIXobVCBdmHmjlWbj8YXCDI7ukTxH3F4rcmxiAeQ3Nzd9sO87e4NMxiggEzJy
-	 tq5C0JDoFja6gDSwHdVxBBISIRLmHnj7vi/PyMKYr5szyPq2vxUHzAb18Ew38EyQv0g==
+	t=1792967576;
+	b=lpVwM/TeyvYFNhq1igFwvTynvSM3XNYQv+VisnrCwk7k4HtV5g8Ek7wQO/M7t/U1Id0K
+	 HigPTlyBkE1oCFfosr6uA0DwFxaN0zfgHNgsXmbF83BEYKPacLLfQuo0Wq+qE/RSVYnkP
+	 sZGHC44Sgtp5XEUge804LDRu3EJet/QzvR1DfO+0mhqbjInZ1l8ogOEVhSLjO/+Rr0Ar1
+	 j/eKa5kqkyHzFJwIzEGOmbGjQVXjWVTWXzxNl+glQSFDUzNd3MDGeOIW1lD7gpIqNCzGj
+	 IgPAMh8FaDny8Z6ltDCHxzeLOUVU3/8AcBc5c4gldwV53WiCn+SmRffkOEE5ZgvYKgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792967321;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792967576;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8L/Gu1pYNU3sPwhJxM4LxaVvBFBaLA26Mp5J8JHh3DQ=;
-	b=fxPBVwJKSzsCHeihr66NHtuyv0i2/bCncajGpR8vQWECz1+/k/M7MsI/Q737KQyKDQmQ
-	 d9zg/ZeM+zGbbwOO+MfjUCxJdgf0i+eBYBF6KQm1E/uarhBcUWm65FMMHpFR9dJkRRWsF
-	 AZYRjHxTii85QsgIUQvw423l1SR+u+RB5rDN7CcpHIq7zq+5XqFCCGzRpOz99d+fioFP/
-	 DeloGzP/8L2MeIJsocfCFuk0I/+96z8y7hFWAxegDbGNQv3d91fa5Z7m0WhemM6rpcaTS
-	 IMpRFkYhmmdJfis/rCK1Xkhc7STCOSCOIo89klhP7UBpcx5vcJbwxlASRFqikAbsVTg==
+	bh=f0CD2JTVPSKVQ8ahg/uzbIr8a3vhy8fPw66NRM5eXd8=;
+	b=sH2YMgtiulAuZsOruePlA0jSI69rmPl+h/jA97DxzNyeGnR2kEqpVQRQpRJ9aExGqEiK
+	 y0hSS3S8nyICIAMbytzYuf6UvKluaIMyAPz41SvilNuvqFBVxl7Mbg3rBdXwqMtv0dOSM
+	 O8oTGjB4x9pQ7jtsCQncf9Coe9xqLYZNtROefehuWwWRQC98Q4fKqZt5yQpMB1ylutXsj
+	 IiV7I1Ft+3FS/FBFI08QgLEnkQYbJ2Ec4bRAFZeFS3ZSih1xC0OqoteSXyvngsdXwHXam
+	 WwWztSEiAF5jKfxiNn0O4HnLVYDVGTgA1oafsOxXU0xG1EPN384QT59D/3MYIeHv3XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p2BGQp6s;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dfDtwcBH;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BF9606A31B
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:28:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3BF9606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F67D606A31B
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:32:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F67D606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p2BGQp6s
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a214af2076so16376805e9.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 15:28:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dfDtwcBH
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so1589138eec.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 15:32:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792967319; x=1793572119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8L/Gu1pYNU3sPwhJxM4LxaVvBFBaLA26Mp5J8JHh3DQ=;
-        b=p2BGQp6sRxjFIlt739uBkYlEfeLM4fL+afRAJwBssN/Zdn1xFqC+02PZ0ltikYuQM8
-         wk9BBbPXX4/IZp+60zkCLQek/ez1LVnjayMA0ohiKnPYIZ2e4kGudNuO6diBICKum4kD
-         hubsXoJ+iccN7zROVh3nOeFKebEdXp0hWaZ8Y1sJ/ThuPgNdQu6TdOAmkmabfgGb+TQZ
-         434/6jSWS0dtTrlb7GdIIQDvqurz5PGVv0P/o9er2H0WWy7QrxXZ/E4FoFodYX768HnA
-         zPRHfYUOdgDcCpm1bW+lyRgqrbOmJuwvzfRTf6NT0q1SXwWoxNvCyuhzjd8peBhC0WKN
-         RZkA==
+        d=gmail.com; s=20251104; t=1792967575; x=1793572375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f0CD2JTVPSKVQ8ahg/uzbIr8a3vhy8fPw66NRM5eXd8=;
+        b=dfDtwcBHat6xDooPW5SkCB74KG8g9hnfX7NXJxMoZmGNkmPkV1IvA4zCYjlguG420M
+         AqANLvUkrUVviRy6TEc2TZ/1a0yP2sV6Q9BR3hr4bT7GFdpva49ZrYNMSuDy8zTnzUVE
+         xPel8ucoQ/l2Ku9ze4NRxCb9NSMLa1yLF56H8bjf9XLtlh4fYnZ6rAzm367Lvk/slooh
+         pPzjsyuTh3d2mWQdRRPwueZmFRE+ERJwRWN+/Kf9UrWm4qNPqFAIIntoIIu9O3eh4hWx
+         7UGE+vqoJGYvX57uym85BqGcZ8aYt28Uo/5SOF2x1C2kcC6iqqt+OfdmIg0EfSsMpNxF
+         EeZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792967319; x=1793572119;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8L/Gu1pYNU3sPwhJxM4LxaVvBFBaLA26Mp5J8JHh3DQ=;
-        b=hgN+JyaoRxdDSSLrfFX6HgA4a8IUuJgvSnQkKF1dMWjP0ZL244FRBML3adKO6QWSN0
-         6PEcSSkb0EL2GcZNWMDu8F0RlC6p3DHrcCtXnh/3GnPr8eK+ZKnMwWp77rCkRrDmnbE1
-         R2Fts3U8y17CoQYY8eC5D7j7Ag1Ze+/So4Fq255WmoPJPVeltNu9AtabXKZjxVWpXCbd
-         mVHnf8OwrdrOrCGR2T5iH7QG3x8E8gKCg//5OwurOJ7jT5TL6p77eQUlso0C4FmgEMm3
-         QQwxZ5uXixQzecpl0RNUSTqBhEPmQJ1e8WZX2etC259PlHoLFHl0yhohmbaQKlX1hHhT
-         ykow==
-X-Forwarded-Encrypted: i=1; AKwUvBzI82EixlqwlbMM9hOfjm8PxDsu1TxCxmMcm5mp4BtJbzoBqqcwz1y4IW0IKqKf+ZYU1u+tt/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcztLthW9sV7VapSUNFmKBRsAuMyxddbNwvytdgq75cxcfh+MF
-	ivLp/ZGKwJYEiLhtn0af1l1HX13FV0Q75USMKwlOeluKL+etZO1cjpM=
-X-Gm-Gg: AYBFou3EAzlEOHD59iBQf1P9ij6XHqar/JAkrdzNodDFcWggcaFQD16pICy8FrVH7cB
-	gSNhMzXhkvzAV/rmp/yw8BKNkwBEFzjFiPzfjMgGoMujsmsMRDTBe8reS9H1W6+pSSNoT1L4QXz
-	xPtmnmUwKRw6MRyRdccbeXycN0t/bRApQwFDIOAD+4wxbabv2R+9N4vol5ylbIN7YT3xTfAGcoG
-	NLPK9RYZL1tXOZSQQHWjEwnz0/x7y6nz5c4h2UBACA5WHh5jZoI2qkKZKqZQln9Hlkby0vtIEv5
-	Du3E279zlVGJSP9HY8C0CIsxbfXt7PGu2OK9i8onS9zCWe0v5mw/QH3+b2oqxm0Y5r0lfabg9Pr
-	l74cWLgtdKcMb2y16g65xRAXXvey0UFDJiddL6KALWnhgvJLq6xLFs9u8tsrDaX13iWtWiarc+C
-	qRlq8+uRI/JxCBOlmJ8I0IRgrYhTAdx2vPPWIbdr+xJXw8F4nI0lxdacr/o8Ro486WPzxawxifB
-	3X4BLZr5XsAoENnh4hFVmqrXs51PCqkqXN6wg==
-X-Received: by 2002:a05:600c:1987:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a35ac3a777mr91598165e9.1.1792967319382;
-        Sun, 25 Oct 2026 15:28:39 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a59d998sm156357385e9.15.2026.10.25.15.28.38
+        d=1e100.net; s=20260707; t=1792967575; x=1793572375;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f0CD2JTVPSKVQ8ahg/uzbIr8a3vhy8fPw66NRM5eXd8=;
+        b=YDkp2kYvGwjE1co/uL9F8TDkAF8SAvPGGxagMBBzg/XuBvbYyc3mN0e+zGVF9gsScW
+         bkDwe1SGkyX5YJZSLQLkttxVtkCWNpW5dUApMgB2vr9h399jRRWTqqXR+La9Ys2IAtZq
+         NtawuFcEvUHVVn5JC8cnETLRL3r4PHyyKDBVj1Ne83rRuyp9Z9+LpmTO5ZbpOUrDFCEc
+         IJh9ME6ewNjOJnwZyjU0H6zG7I+fmfcAPsAUc4CapKCRWtCjvBo2L8UVWutFSLEF0EiI
+         musCIfDwBvhOwCL7cgDoYNxgt86qJPQx/NsMqf9GQXG7evMmnvXuK4Zye6TlOykE0TPj
+         8E5g==
+X-Forwarded-Encrypted: i=1; AKwUvByIUtWMY00EdZitB+rrIZcZNZ/vs8wFTRyplU7gRZm54qKnt5ltvWkpcoDQ20JWo6gI8eSDm/w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUxx8TAnzoPUK5VAIIu01oFEOxRHUWQD3fOknQIJfyk7Iac5RJ
+	SUOWXTYQT82gVpqdpp2Cc2ox0dUNpzTn8ik6LDGJmtakHRTamYCmvuSX
+X-Gm-Gg: AYBFou0JvZSXwwfMHJzsp+DUHPigSsW90h7mHo4fIjkCdEyfweFUWpIIjYWvpQF6lDt
+	hvKP7LuPftj6jZVnaVFieoT8tIXo9tnZri4bRDR+zy9f0lj9AmLiO/+oFo1oiReFbU+wqTmeDTb
+	/RLYn2peJqPOrT6CSb8qwvrJLhSvkmSa0rgYlLx6GoXaqa88DaXK3bQ+8+40SRYRBTBBp/XYwQz
+	B12GcoRvWxxW7yFh0N8plLaQttMFnHBjZQ9ssgIlywL3A4yVPdQOOeh2Yw84wnx9tb2gmVwxw50
+	p7kHWYhz5NrKG8XwADAU12/60NwLmCyaE9/kejIfHOebwlUCmjAeDBR5m2hcJkhf5fsZgQIw5Xp
+	S+QqV+dpf6OjT56OE8jdSS9FWGDPtOQhhQxUcdiWY34KbaFoDiIRw3Q9uEKQ/1h5nu56bMoj/eA
+	CwW6ON7XNefeqzD1Ygl8NKZX18afX22r+piiX0IKDoP00kYxc70z/qkdrj9ou6f/bOMhYK96azI
+	SJ8ibzo8vNP4gRdjA7jULwEaCzzEVrytfrFAd90xJ43xz++c5IVcClIM638+5VbSGJ3JjfcA5Ew
+	i2oq24U=
+X-Received: by 2002:a05:7300:fb01:b0:351:4a80:d94c with SMTP id 5a478bee46e88-369e862a0d5mr7633319eec.21.1792967574632;
+        Sun, 25 Oct 2026 15:32:54 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a026e04a0sm1943471eec.1.2026.10.25.15.32.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 15:28:38 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linville@tuxdriver.com,
-	sameo@linux.intel.com,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: llcp: use timer_shutdown_sync to prevent timer rearm
-Date: Sun, 25 Oct 2026 22:28:38 +0000
-Message-ID: <20261025222838.1096455-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <179278531637.3327.11947058101101849130@kernel.org>
-References: <179278531637.3327.11947058101101849130@kernel.org>
+        Sun, 25 Oct 2026 15:32:54 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org
+Cc: ziy@nvidia.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	andreyknvl@gmail.com,
+	catalin.marinas@arm.com,
+	vincenzo.frascino@arm.com,
+	khalid.aziz@oracle.com,
+	odys.yuan@gmail.com,
+	sashiko-bot@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] mm/migrate: untag addresses when querying page nodes
+Date: Sun, 25 Oct 2026 22:32:26 +0000
+Message-ID: <20261025223226.33740-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,9 +110,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Found by manual code inspection while auditing timer lifecycle
-patterns in the NFC LLCP subsystem.  The issue is theoretical --
-found by reading the source, not triggered in production.
+When move_pages() is used with nodes == NULL, do_pages_stat_array()
+passes each page address directly to vma_lookup(). A valid tagged address
+therefore fails the VMA lookup and gets -EFAULT in its status entry,
+instead of the node reported for the corresponding untagged address.
+
+The tagged address ABI permits these pointers, and the migration path
+already removes their tags. Apply the target mm's untagging rules to
+the query path as well, while holding its mmap read lock.
+
+Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ mm/migrate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 7e3a81f06974..994c78782a54 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2461,7 +2461,7 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+ 	mmap_read_lock(mm);
+ 
+ 	for (i = 0; i < nr_pages; i++) {
+-		unsigned long addr = (unsigned long)(*pages);
++		unsigned long addr = (unsigned long)untagged_addr_remote(mm, *pages);
+ 		struct vm_area_struct *vma;
+ 		struct folio_walk fw;
+ 		struct folio *folio;
+-- 
+2.43.0
+
