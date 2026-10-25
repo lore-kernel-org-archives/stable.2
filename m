@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971011;
-	b=jop9PTjJtOvSK5x9/TBGinaUAsITtuN+R42jziJ5oBkN07ZzeJ0qdzD7b8BjNdkjFPx1
-	 kKi8Vv7PpY91E6Dca7RCxYnyHxdlWQbcYMweeHa5aBxRgF9tkzUFItDD/E8V+BBUaVpK9
-	 eb1KLXT2crNJv+ZcMNtVuGRg+O2hpnhCxFRjzxkZ7kCanwn26+JPSeNLWtaRDGm5zmwF9
-	 9rivdp4As3xx+uZ9M/dS6rFOV2rST6pB7k38oazZthq107JYK5XUdi7DfBBPDoG/mBAGz
-	 Kcl5JyK7fMARErtdY1Sn/T9EApK70eg9Oi0HRVFqrglgB7si52YgtC3KCTYN+SrJ4cw==
+	t=1792971611;
+	b=f7PzfEiKWOlK5VRQHCZFJxzYwmCN59FbzEnBLZhESczD3g0AtHZ/NRaSxD3DavMabwmU
+	 nY0AqO6tmX4ILOgXp2YNPV9HhAwaApweOibdWT/u3gsZaERsQ/ikyt2UTfpJjekU1RtFk
+	 1MfNk7BLNA1uoxy4wEJFfC4StJuakT5UW0f0MVl1p4Ez143Ut/4gAtVq+MNA33vM08qJl
+	 RJpqZRUimE/PhiSP2JsaKT2SBJqgSvCD/kZZfAED1V5+s9MMiZitDuyXs9s59dl/Ax9xm
+	 xhDz20AwhrglkOwJw9iCZmkuBJbuzngyZH/2epSicChzhIKPSBfQrFPW/Sd51zvdFrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971011;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IgHIB6FOcL0bCiYPaegMhdluu/k3cOQL1TguKu3CfbA=;
-	b=dH4ejUbrHNUev0ZRrfGBUeDn6VaU4ejrR+DP7X0m9kk5JdG8v8Qd3HabcCY9Vv1Nbzes
-	 zhj2BH/5E0AxN9CYzMrxT2fY7q7n7s4gBnDDWAHm5Px1GidbKyp+6BJzY9lMIeku3Ti6E
-	 iYwOh1nhDK0j+ywc54dbQ50IZCfVrwYkeRduaMLv2iGAlh58Lon9V4xc78X26PcIHLbiD
-	 DMlweBL4UxFMfROV50Nh6MdDEFDLCP5PdbwatkgPJLtRgcMkCHBdVaP4d+NuJ8tOOk8yW
-	 EMJElnnS3g9aabbIDKsOTOVPTNjmYx9LVfANEGqOfakZfEiTlsYBp5yeLojPe34sCvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971611;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=epWr+W8bCz61q+78D5mdjQT/Hj6fT8zsD/SUvbjRTeI=;
+	b=kkgsCINwGq9zPRVW/h9kvgg8FtXTDT283MvrngC/Li5QU9ijLz0GNPJRpgEiuUgedrxE
+	 0bEpYYe++bT/LFPns3DuEy5Ab6bqZF1HrxJBN1gEBygmfGItuLZaM1mOOlJI7+bG8Okgw
+	 vHKNzvbuwFqXJDQ0kKfVY7ZRAhb3AwjvEdLzwVNUclzjDAXIdouhNYWr+ftPJRRT+H5AB
+	 GMkAMiGx9Lo7RZG7Ej6QNXYdm+MwhHmDYeoLVPGd3zCCDvXW9iHqVZu12ncHtzV5Wngtx
+	 VuL9W65N3TfUl9nPZ5qBDzc204J8zZvy50xhHoqzOvgHZTRGcHbIR0N9kkzwKh26wUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RsKPsTZX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlwWVDG6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCA1606A31A;
-	Sun, 25 Oct 2026 23:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8306C606A31A;
+	Sun, 25 Oct 2026 23:40:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RsKPsTZX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452381F031E3;
-	Sun, 25 Oct 2026 23:30:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlwWVDG6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98B01F01825;
+	Sun, 25 Oct 2026 23:40:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971011;
-	bh=IgHIB6FOcL0bCiYPaegMhdluu/k3cOQL1TguKu3CfbA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RsKPsTZXjG3XXKmYD9MfedxVJxvR1k+Bngrc8JlS7vFSfL05vAecigviHGlboP0fh
-	 bWrvygLpdpuSlX1T4yW5JHZGUSn0nQm+uM+nxqdvo/AiyTLhOGoSpm+e/wI4VCUuOy
-	 4J5+Plg/tB9Dr4QM8orhdzhNlkNS7FJ4BVrfPY2o1lslo7xZgWlpw+c5V9NQGD5DX2
-	 JzjDJVqks/pk10gpOSQRNW3APUEx9JqBnkVPRKNEsx+uLTGI7iiYghuLaOL6OWHdTr
-	 3x9uaxDSLSwfIzAVjLyfkCnjMWMBepRrweTG5+/4ccYJZNwaQM2FNiHIWNym7IWLuM
-	 BjVrNu3BTHMLQ==
-From: Sasha Levin <sashal@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
+	s=k20260515; t=1792971611;
+	bh=epWr+W8bCz61q+78D5mdjQT/Hj6fT8zsD/SUvbjRTeI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hlwWVDG6p1yTfssRf1GsQhmSRljzd1wTfThvZCUyQjKFxChI8yf8+RqsgI7ygCaYn
+	 6xXTx939I2Q2H0iohVy8CWWlQiAtGSqDTUyaK639eaTODttJy6Xxd/2g5y4uEPAtLV
+	 qBk2IM88g8/OYm2xSNgO0eMsaO99silqz7cQXpnRL+bqCWUnevyi/TREEpgA3DVnTG
+	 H4amnAVwYbohDcua73Of2Px3KD/Ch1bVPZ+jQxu+9P+/5eCO5Zq2jM3BUFWsVbMMux
+	 9SJfOs/a+Ldk+7WU5Hbjd7FkUd63uHuXcl/SpGXF+yLly5fcsfLVyrF6FNy/stV+O9
+	 J3FaWKWC3w0ZQ==
+Date: Sun, 25 Oct 2026 16:40:09 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [RFC PATCH 7.3.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Sun, 25 Oct 2026 19:29:57 -0400
-Message-ID: <2026-10-25-1-daily-reply-0011-damon-zero-target-value-decline@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025171526.157414-1-sj@kernel.org>
-References: <20261025171526.157414-1-sj@kernel.org>
+Subject: Re: [PATCH] tpm: Check return value of crypto_kpp_set_secret()
+Message-ID: <20261025234009.GC148998@quark>
+References: <20261025211119.138277-1-ebiggers@kernel.org>
+ <at5-ve5Ap7Oyp1Fo@kernel.org>
+ <20261025224723.GA148998@quark>
+ <at6MlY1kpfa01tr4@kernel.org>
+ <at6QqYWELUtDqUUT@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,21 +62,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at6QqYWELUtDqUUT@kernel.org>
 
-> Notes for stable kernel porting.  The upstream commit doesn't have
-> Fixes: and therefore not ported to stable kernels.  It turned out it
-> fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-> goals user input to DAMOS") which was merged into v6.8.  The user impact
-> is a race condition that can result in divide-by-zero.  Hence backport.
+On Mon, Oct 26, 2026 at 01:28:41AM +0200, Jarkko Sakkinen wrote:
+> I'm not sure if it already is but if it isn't, probably also at
+> linux-integrity turning on Sashiko would make sense.
 
-The older trees don't need this one. The callers in 7.2, 6.18 and 6.12
-already reject a zero target_value (7.2 also has 06befa61c427
-("mm/damon/lru_sort: error out for >10000 active_mem_bp") and a16fd3ad9d89
-("samples/damon/mtier: error out for zero quota goal target values")), the
-commit has no Fixes: or Cc: stable, and it is patch 1/3 of a series whose
-patches 2 and 3 remove those caller-side checks.
+Sashiko currently has monitoring enabled for linux-integrity, but not
+email replies
+(https://github.com/sashiko-dev/sashiko/blob/main/projects/linux/mailing_lists.toml#L45).
 
--- 
-Thanks,
-Sasha
+(Note: this particular patch was Cc'ed to linux-crypto, which does have
+Sashiko email replies enabled.  So Sashiko would have replied if it had
+found an issue anyway.)
+
+I definitely would support enabling email replies on linux-integrity
+(for issues found only), like a lot of other lists already do:
+
+   ["linux-integrity@vger.kernel.org"]
+   reply_to = ["author", "list", "recipients"]         
+
+If the maintainers of security/integrity/ would ack that, I can open a
+pull request to the Sashiko GitHub repo that changes it.  Or someone
+else can go ahead and do it if they want.
+
+- Eric
