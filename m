@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946901;
-	b=AFN8yiN0lnpbp5Xv+o66DL2ZVT/kFJKkKJKXRAQ+9C2p1Sasz90eAvTPk+o4UDIpQtYR
-	 pAx4iQvK06TgeFvzOz089FlpjMW8E8OliPnF4Q1eyaqPnTcOvCcsjcJsimuV7b0utlNYF
-	 J9GH7gu888PLERoVhQXy31NId42I0KT2NFEDhs7ZPS8tnvUdRwdIf7E+SpV2XPfTHKyJ6
-	 S6/oE7N0OkJ+KgrkZ9bsnqXDaJpz0e1/sq3dB4x3teT/XBi3h0IifrAVWQoFjpRhS3hYU
-	 y41420m3kzG1PUDvmQGmG9w1hDrspNw8+q+lZaauDnZgu1WLHZ5ML9XbOdXh8lFwMsA==
+	t=1792946911;
+	b=LGWqMrrgz61fnk7LecLAqwhfqcq0DmuO7bvnsUrVlkMdF2FPh9MwrHAIjPoJUzeXVc1x
+	 uOdNTXFJCAYgPIlp1zNvsNULAarjxBqVjpfkYh1xSrlG4E1wqobsaGOwj8pUJnaKeeoDK
+	 2BavResMVA3UZczx4wc11ipIC01wJaZmWtrXqr/oQG5yOHgignRbJOAgELR9ghTX9qxYT
+	 UwbxD0WmMz4c4zqkFJHInKMvbBpTd+t5Z7wEd5gKQpIvLDUvqppDszCb9hy6eRAAOVkoS
+	 V+nphxHuca/DglClA27AvfCyTKMrMofR2O7W/AbJHec4MI6Jzbzy8LUpx9LKp1KnVIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946911;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aV53s/thMev0qSzH+ayYeyKX09O6kEW4ly1bV0/xJfs=;
-	b=33zFA/MQU9znGPLNCoMg5ZBR51j8OyRqrXunE8TQqRIbRzyxykJzInNYcBgO4dRi/Odp
-	 LPbQp9dVpnOWCCC1E/wiF4BEKGzlHDJcGi69uuQN6X1Jj++0r+MA7+/gaFSaRbDODMaQG
-	 T6xEJQLnDTg+FrRb64eBcULIx4/qPkzzBZoyvqkxUAjLyv9sfiu/rXYBK9bZM51+dKZcg
-	 XlZbXv7faoLtsOJ8sCPXPuZxr5zmgfnsIgDWA1KRGUSjhKPQqe/0vrj/Shc0QxccdSl5x
-	 2IQrxPxF5a/rfeFBYxvR7KmefVPDal+YJkg0NkdMO21BmCwV7wUG0uOIUpp85TFgNDw==
+	bh=HjEsKHyDFKj7HHX5WZLrUS4CLP7wbTWvbErAlhp6Z7k=;
+	b=j6EkwK2BFrx/sMNJeDnY3JgAqZymRVCICPaI73TfXgRSrLJ4grexFyK9ZlPGOqhfeH6k
+	 MRMkPVwpG9AfZgd1xwELwvpc0tls3cGGwC7t2A7P7vJElWTyWRWBnea3UbUzyKeqzqS38
+	 mQUzUBZbccHIx/UvsSa7izrrs2xho7GdhqGozazf8on3BDcHfbd+ccGBA0Njsk+B6xYWr
+	 JMibBVDYlI0sugi65Xoy/xhDadIP4Kln0EsCaNsZMb3VUrrZuCCIPer59GmnE50vETB+/
+	 k+Qjd7FYvpSh4zmx0nc1R4dL/2fjUKsgMwf1wfAya/V441mlSUrPmQ5BzOotZ9HyK9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIe4dQ9q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD8B2bWH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB8F606A31B;
-	Sun, 25 Oct 2026 16:48:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EB9606A327;
+	Sun, 25 Oct 2026 16:48:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIe4dQ9q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6C91F01829;
-	Sun, 25 Oct 2026 16:48:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD8B2bWH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14711F01829;
+	Sun, 25 Oct 2026 16:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792946900;
-	bh=aV53s/thMev0qSzH+ayYeyKX09O6kEW4ly1bV0/xJfs=;
+	s=k20260515; t=1792946902;
+	bh=HjEsKHyDFKj7HHX5WZLrUS4CLP7wbTWvbErAlhp6Z7k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JIe4dQ9qRQgWpsb/mRrXjKCjVVbAKxbT6CyYHEfHil+iMfY9QDQpl4SnqHqhXa3ZN
-	 d7Pjd5laCwnvrJFS3zP5mPQL9NVXYkisr6Z4fJD8UW11XmKAlkrlNjzgKCR3DwdmlP
-	 d8Tw/x4VxMpdNL5pMz06JQetUNROL7/E+wYHHsqt0g0OZ4xivpDk7u2C/bD7cFoqk1
-	 WU1JwW8YyN1Of8fiPpEyAJvjXi6sjsh3RNu2ZuP4GxQSWCCmi0yQ5lfqUYSoasHI2E
-	 ljrX4OISIStTzZfidTBBU94ItWf/q3DP0E7911YIJYRowJL+fJl2Tj1aDXPpgkbr5Q
-	 yXt7XVHdPRgQQ==
+	b=iD8B2bWHqgzjI/FQKlqUb/8hW2GaTV5hN/GUwnLZ3KLp1erPD0njJHPkCkyN297ny
+	 zW2XJC+SMYZO2ojUSZ6bCd1dToZAJ0EpeuAECGZVh5jgaAt/XkfseZtVkpZ/w7hdPc
+	 PCJWnva3sBiqz2Unh2MVFhliRQ8r+T/14pScXimM7+yq7L1gYHuAhknT07LrmUl5pe
+	 0LSfP98oYntPL0DoZM5Vy0jZALZGdjOphx51lhSGHMoq3dGQH7nFmfdO9nGGmDmaFa
+	 jyc14QAtpnPF24hh2R8nbM2kFxdMxE/DyIH5x8Jcv9m1ucgXN/IeCLec4M/FevsF1b
+	 vuA7SPvhkOgrw==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
+	Jiayuan Chen <jiayuan.chen@shopee.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 1/3] mm/damon/sysfs-schemes: hold damon_sysfs_lock in target_metric_store()
-Date: Sun, 25 Oct 2026 09:48:04 -0700
-Message-ID: <20261025164808.152048-2-sj@kernel.org>
+Subject: [PATCH 3/3] mm/damon/core: move static variable rotation to damon_ctx
+Date: Sun, 25 Oct 2026 09:48:06 -0700
+Message-ID: <20261025164808.152048-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261025164808.152048-1-sj@kernel.org>
 References: <20261025164808.152048-1-sj@kernel.org>
@@ -63,64 +64,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_sysfs_add_quota_score() reads damos_sysfs_quota_goal->metric
-twice, once to set damos_quota_goal->metric to the value, and once again
-to set the metric-dependent damos_quota_goal unions based on the value.
+damon_split_some_reigons() uses a static variable, rotation, to remember
+how many times it was called.  It is again used to determine fair
+selection of regions to split.  Since it is a static variable, it can be
+indeterministic and therefore less fair.
 
-target_metrics_score() can update damos_sysfs_quota_goal->metric between
-the two reads.  This time-of-check to time-of-use (toctou) race can make
-the union fields incorrectly set.  The incorrect damos_quota_goal will
-be passed to the core layer and make DAMOS incorrectly behave.
+The user impact is not critical.  No crash, no leak.  DAMON's
+best-effort and indeterministic monitoring accuracy could be slightly
+more indeterministic when multiple kdamonds are used in parallel.
 
-Users could reproduce the race by writing a new value to the
-target_metric sysfs file while DAMON is starting, or online parameters
-update is ongoing.  The issue will only rarely happen in the real use
-cases.  It requires sysfs write permission.  The race window is short.
-Sane users wouldn't do such writes while DAMON enablement and/or online
-parameters update is ongoing.
+Fix the problem by moving the static variable into the damon_ctx struct.
 
-The user impact is not very critical.  The race is not easy to
-unintentionally trigger.  No leak or crash happens.  Nonetheless, DAMOS
-could be unexpectedly more or less aggressive and does not achieve the
-auto-tune goal.  Because of the nature of races, investigating will be
-difficult.  Users can control the impact from unexpected aggressiveness
-using additional quotas and resolve the issue in runtime by
-re-installing the quota goal, though.
-
-Avoid the race by protecting damos_sysfs_quota_goal->metric write in
-target_metric_store() with damon_sysfs_lock.  Because
-damon_sysfs_add_quota_score() is called while holding the same lock, the
-race is removed.
-
-The issue was discovered as a part of a bug report [1] from Sashiko,
-which is partially outdated.  In more detail, the Sashiko report [1] was
-mainly for an outdated bug [2].  But it was also mentioning the issue of
-this patch as a similar class bug.
-
-[1] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[2] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
-
-Fixes: 85fcf0ffc460 ("mm/damon/sysfs-schemes: connect damos_quota_goal nid with core layer")
-Cc: <stable@vger.kernel.org> # 6.16.x
+Fixes: 1a582e6e0174 ("mm/damon/core: split a fraction of regions when nr_regions exceeds max/2")
+Cc: <stable@vger.kernel.org> # 7.3.x
+Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 3 +++
- 1 file changed, 3 insertions(+)
+ include/linux/damon.h | 5 +++++
+ mm/damon/core.c       | 5 +++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 8f083611741fd..637f1bd0c950b 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -1310,7 +1310,10 @@ static ssize_t target_metric_store(struct kobject *kobj,
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index cb6a50032a1eb..380f9cf6ddd82 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -963,6 +963,11 @@ struct damon_ctx {
+ 	 * for more details.
+ 	 */
+ 	unsigned long last_nr_regions;
++	/*
++	 * number of damon_split_some_regions() invocations for this context.
++	 * Read damon_split_some_regions() for more details.
++	 */
++	unsigned long region_split_rotation;
+ };
  
- 		metric_name = &damos_sysfs_qgoal_metric_names[i];
- 		if (sysfs_streq(buf, metric_name->name)) {
-+			if (!mutex_trylock(&damon_sysfs_lock))
-+				return -EBUSY;
- 			goal->metric = metric_name->metric;
-+			mutex_unlock(&damon_sysfs_lock);
- 			return count;
- 		}
- 	}
+ /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 09722257ce736..73b571b429cb3 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3753,12 +3753,13 @@ static void damon_split_regions_of(struct damon_ctx *ctx,
+ static void damon_split_some_regions(struct damon_ctx *ctx,
+ 				     unsigned long split_step)
+ {
+-	static unsigned long rotation;
+ 	struct damon_target *t;
+ 	struct damon_region *r, *next;
+-	unsigned long offset = rotation++ % split_step;
++	unsigned long offset;
+ 	unsigned long idx = 0;
+ 
++	offset = ctx->region_split_rotation++ % split_step;
++
+ 	damon_for_each_target(t, ctx) {
+ 		damon_for_each_region_safe(r, next, t) {
+ 			unsigned long sz_region, sz_sub;
 -- 
 2.47.3
