@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792962457;
-	b=wxZq4SL/TY9GWQSIgtAgLzuaijvOrS8eXruw2dQXvgGPP784SW1bWYynHMwpX6f6L1oG
-	 7BPv+QtLVE9jL278qLs8ayuDCJbcW8610O7vFy4ScZswobGalbub3EG54TT28WGyvSkg7
-	 k778xdOUWlX2DTPSKEL96hKuOID6HvuTWrcuaOcvj7Vl+r1eo4aNsFNob0EM/ctO39tSv
-	 SzjZ6GH4njJi+KvLx+O+GFlmNHXOdT1SSugePOmYQLsQ7dqZprThdVkGb4cGHy8IhNKSW
-	 9sJy5PBZ9pRojo0sdLzJdIw72z09kvazUgSTY5aCxOOXL3iqkkVVyyu5gvMhjYlW5iw==
+	t=1792962781;
+	b=2dgTeIA4Q6C63Ar9R4vTtkt4hpSh7g/R5cUMNON8zrRXelL/aENMTBKHc7aozpCtlMYy
+	 mVHl7kDXZcuC7Zb05AvXXPevk4FVPehsZmBb1lLsTGaq+WNjZtoK+5F2xcdcaDJh8Pk/c
+	 F2H3xyn/mm9eJ2onyGsXsnUCwOudJUBGvld+7PpP7LFjk0R5+rub5WHlwC+zLgba942MG
+	 8LnNA3f+81ZaRKbffCdH7SEU+11xh3tbl5wb9OyM3AfZurY0SU5rR0volzkFGiKJ6DXdL
+	 AK5vJyWnLJIHYTpFT3w4je6nSrAbPOqAqRxsT8XPyc2u9lqxpChBbrONjis8nRn1mgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792962457;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=oQ1jy5NHZSKUkQZrbFs9Md2chhaAL2EFHqeXKzzHcug=;
-	b=J+JYvLXizBSf3/wCTQMYsOMwrpMg1CGO7Pr8RtNcGuSszXidBOXL3AA3wFJO4YFZ+43f
-	 4WtiQCFRzX6Sv/Gb+9UnA+EqQtyviQIABEfvjLRG6gCeCR2vHtrR0WNBpGQ6GIjwJPxTp
-	 2lOCK9XVOcbJHDdp9NjT1O+MpS0BfWSWgXE3rrsGaRCG8nnSH6Tt3Ub2dp3oQJUeytebj
-	 Cf7owvKnkmcRp2JDFlZ3dliihY01H43TaczVYeZvCAXE2MSZYstCZ5pSIMLPvrr/t1r67
-	 uj6FQqOk/AFiy7kGnxE0t6OGVd2ZBFGSF4wb/xJtT7izOWy3enBzeptSIMHwb+/77VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792962781;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mUa32GQ7mZ4BJLOWdMWsKmD7PZePHSIH7PdJ14EI5oU=;
+	b=GjeKWJUX/kFYDtWBhJ3NbgJxUrq3Pcwf0xqGfk8wwQlYjJqEf1aSWJqJmYSYO1OVL/52
+	 xknk2/0liTc+50kUBC2qCLdludMXggAU+08W0AlmiwGykKfiYUqnyYeVhNtmyp+sU4SuO
+	 ds5bd4psRwq4jpPKDr2toPQz7XaErdS6szrrdy6IL3rUlhS2rNlIRYgJSSat/4s5P+yoQ
+	 KiRilrH2HKAur9ujddb+q3RRnKsJfGTudtIcrNDaIG7PmPNlBtWMDPBk2x4oyoaXoeo8b
+	 Gz7oOW2Jn8Yy9PDEjjFR0JY0CjoBSiuM24v1B+R7knap+bj1WIFhERfZ7PEXuotIn+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MnQWIUyj;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jb6aORsx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430E8606A31A;
-	Sun, 25 Oct 2026 21:07:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 430E8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FEE606A31A;
+	Sun, 25 Oct 2026 21:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MnQWIUyj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792962456; x=1824498456;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ddWQxm6Atu+dpnsKbez0pegjNrnEQpsq06K3nYaoOOs=;
-  b=MnQWIUyjyVWPoJ14cc1uo+QsRNZuWXSUZExjbI8ncoJwTVh3fN7l3t77
-   /9trM23NRUwBW4ilNLalC/KzaIre/BcxUpiZjhCR3siQX+fit41ImgWwn
-   CvKDGP7ZHXgBsyRGl5LMjRi4zY1M/Lgh+w6a6A0zMB4GFn9WiLOs7Faqk
-   JPArFl5X6lQyuUQBrzG1mQ4dqwnoBYMfM/KJ5GiV0xHKFGfDsktJXCxAj
-   mBtxwNcdiNf5zGzmv9ZYLnpGGgMvGvfCX98D19gSUPnttLqcGfIwwTasT
-   WI9qs7iQKGfOmH5qTrA9vDUL9wvfxVGGncMv+3XjCDBu/iatjWNQYuuVW
-   w==;
-X-CSE-ConnectionGUID: 0sLYVXVLR7+5J76z5Mkp6A==
-X-CSE-MsgGUID: pBZgMK/CSRyrMD/QwP7QDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1514109"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1514109"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 14:07:35 -0700
-X-CSE-ConnectionGUID: sgMveGRQTQOhuTPzd0cSRw==
-X-CSE-MsgGUID: qQ9NNatxSFWhJWZNFvpeNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4496870"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 14:07:32 -0700
-Date: Sun, 25 Oct 2026 23:07:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Ariana Lazar <ariana.lazar@microchip.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: dac: mcp47feb02: reject out-of-range raw values
-Message-ID: <at5vkvXrFNw-0xxq@ashevche-desk.local>
-References: <20261024214423.865635-1-devnexen@gmail.com>
- <at5ogu8JaXFbQpHg@ashevche-desk.local>
- <CA+XhMqx5jusLqo8G2XCY9gy_P=3-jAwTacgzrR4XFyjpagi8dA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jb6aORsx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E9E1F01825;
+	Sun, 25 Oct 2026 21:13:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792962780;
+	bh=mUa32GQ7mZ4BJLOWdMWsKmD7PZePHSIH7PdJ14EI5oU=;
+	h=From:To:Cc:Subject:Date;
+	b=Jb6aORsxYZ44zg+/Mp6nXU0Kz8ZhlMJOQG+pKhcB+PIopid+GvmsHsYs8GB2KemRB
+	 wbz1aKsli1WZuox23PgIsVktCg8utm0B0Rze8XIvrfxXIf+QuESPfbPHjmlBLOmwMW
+	 7r+qas50cQzAws6tjOF0Byi1yCC0dcEdQoa7PwB+h8DmpxsSZ2qmEhJeA8OdPYMUVj
+	 lgspy9e6zKNn8NURsuoVB2cL0VAqRrAryK3iyxKf7phcTtoVGP1ogr9thTFHxgzVtf
+	 rGGJ6ee7hsFyF+bs22Fy8A/38HU5wTZwEJFP/jnrrEbRJYsOOs1Z8HLIX8TaqZmhmN
+	 n7TpeEja51VhA==
+From: Eric Biggers <ebiggers@kernel.org>
+To: Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: linux-integrity@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] tpm: Check return value of crypto_kpp_set_secret()
+Date: Sun, 25 Oct 2026 14:11:19 -0700
+Message-ID: <20261025211119.138277-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,38 +61,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+XhMqx5jusLqo8G2XCY9gy_P=3-jAwTacgzrR4XFyjpagi8dA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 08:50:16PM +0000, David CARLIER wrote:
-> On Sun, 25 Oct 2026 at 20:37, Andy Shevchenko <andriy.shevchenko@intel.com>
-> wrote:
-> > On Sat, Oct 24, 2026 at 10:44:23PM +0100, David Carlier wrote:
+crypto_kpp_set_secret() can fail, for example if the kernel is booted
+with fips=1 and the broken-by-design FIPS RNG used for ECC private key
+generation doesn't feel like generating random bytes at the moment.
+Check for error, cancelling the TPM session creation rather than
+proceeding with a zero or uninitialized private key.
 
-...
+Fixes: 699e3efd6c64 ("tpm: Add HMAC session start and end functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ drivers/char/tpm/tpm2-sessions.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> > >       case IIO_CHAN_INFO_RAW:
-> > > +             if (val < 0 || val >= BIT(data->chip_features->resolution))
-> >
-> > If resolution is 32, this will suck. (Yes, this is a bit theoretical case.)
-> >
-> 
-> Hmm true.
-> 
-> > > +                     return -EINVAL;
-> >
-> > Not sure about this error code. Do other IIO drivers use same in the
-> > similar situation?
-> 
-> Yes other drivers for every out-of-range check IIO_CHAN_INFO_RAW.
+diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+index ca1e2bf424e14..2aaaad69760dc 100644
+--- a/drivers/char/tpm/tpm2-sessions.c
++++ b/drivers/char/tpm/tpm2-sessions.c
+@@ -527,7 +527,9 @@ static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
+ 	}
+ 	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
+ 	/* this generates a random private key */
+-	crypto_kpp_set_secret(kpp, encoded_key, buf_len);
++	rc = crypto_kpp_set_secret(kpp, encoded_key, buf_len);
++	if (rc)
++		goto err_free_kpp;
+ 
+ 	/* salt is now the public point of this private key */
+ 	req = kpp_request_alloc(kpp, GFP_KERNEL);
 
-No doubts. But I asked a different question. Can you answer it?
-
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
