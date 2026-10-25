@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792908558;
-	b=XKCOqddK8+dXzNEHA0YK5uRb/6MjDtJt3qJ32w9PM/czjqRmT2sebqRY+/pYlgRGPkx1
-	 BC8QnPsS7+ksO0OS2GsMYmDw2ICP8BPS1gZ4y29kIlAKtiN/laz1muFkn9mUD1T6aQPnV
-	 qzn4oaJbTaRmOGsA7Qxl1OK5EBaoWVM4pKOxsiNQS6ZlSQ/TTh39Nq4eb6y3BoUS27LCh
-	 6DW1mQX+6o7sW616eeVQTZWmjkJIDT0vo0QihhVRZ+U206NKmEMdpBmmNJuuGjrrS53vp
-	 28I9GL2my/0ahd1TpFDuAHJGpGdUTwoqTudw/UzH+QIvWur5Ob7gJw9IAKibuNTPc4g==
+	t=1792908560;
+	b=HV1VMPGu/i7ivx1DyzJ9WTtU5/cSs3oEJxJbTXNglwihaes9IS/mgzkBrNZQyh1eSbWu
+	 KJBMZva5Cmlr4EXZsGA0+FuvbCA+Q5r3mKu4csjZQH9KUuZV3pdm1f0f2cFe0OpGdWYqR
+	 7wtsRWXYEC/O8wv3xP68acwpCauTgbcmvobWY33HaRrT6n7cOdzTdFMKIsS8mRUaNCB23
+	 ujoWQ5Fzgm1SBJvph74yvoZfa4NK5wP7cy9Lhl0JWNKsPwzqWKanacWYg+XGDZJVhrXrN
+	 Cw0iAwn+XQLVUtKstEzJ+fRONR2q8u6dlhoynU8IC3uF8/s65O/Lb9LOa0pmhz6S1Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792908558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792908560;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:Mime-Version:X-Mailer:Message-ID:
 	 Subject:From:To:Cc:Content-Type;
-	bh=Sfzi/7/w3SaIV07IDVIi4Dx7aYnputtbbmUJJqGHnco=;
-	b=UCA6Z/SuJdoVFi7Jj4lnI334YTH/gjVQyMhfrZ86gS2Mv+Iw4ZbvTBdfw3oe7iIeur49
-	 YGeuKS4Uccs851ugkSxRK3XAZS4mr8rGHQ0pJjMtUPyoltiDgGlzlroG3d5NwDTsmHDb9
-	 lGhqheL0Ad6TIMmy3IE/rD89o/TjadcH6lPZWx4M5wBnrOqDIp49W+8dIxvU+VDlfZvJO
-	 u2NDkgYaHblyuRGSE/qTcYn26VUMqttwAv1YlMc6ys5e8QBMXUImFAgMBJ4d8KNjzWwpD
-	 U1KSGO3a0ymUgmAtkaAAuuWn/ZQvO1ONHf367hnh704aVQ19jxl9oSiXku6ahM6i5Jg==
+	bh=qeUMpNqQBStSNfqyBRVjN9HQTsZd3UWa9wvYloWX57c=;
+	b=pMFbJSibPnQ7M2k6lWMP2/zOIwToWb5wdWT/wx3cl9ZqOjmdt4f3LMusi7sKC7sO5XxW
+	 RVMOxdQROPvIvu9f4CTF1dKUJ4DUjp9u/571BVIm5gKh6gnESx1HPeYeuJiOKoEeQakCl
+	 qm8qTYDhdVDP7eDhsyZ9oMxcrPeSEnMCJORvVKN9tV22odVZugu1tUDGeUEzzLGadYX8M
+	 JyyPyZhxTJFPmfecqZvqGVtf7bzba6W3RZG5eB6UOtheQUk/s/45eu1PjqMHWFUMEtb+H
+	 DLWDvz70yCyqAusuVKesBhqlef0/2Ekcumn0WToGDXojnos3OyY8txgbGPM4BKUYlCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QrixxMzW;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cyJxxtu1;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B81606A31B
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 06:09:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99B81606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD67A606A31A
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 06:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD67A606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QrixxMzW
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e93f266d20so34299405ad.3
-        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 23:09:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cyJxxtu1
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-887c99013edso1153899b3a.3
+        for <stable@vger.kernel.org>; Sat, 24 Oct 2026 23:09:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792908557; x=1793513357; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792908559; x=1793513359; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sfzi/7/w3SaIV07IDVIi4Dx7aYnputtbbmUJJqGHnco=;
-        b=QrixxMzWiF1a1hD6Qmd2sQp4ufgavYBOYMWNIcXVTbpJS6uZFRsfRBUZWbongdMTvM
-         4PkuqKXjp4bZdIJh4o+dIQSJ5RiYuLIwz/Pg5xhHvlNzjsC1thjlYgb3uVzyUvQUk3qQ
-         +CjJ0nhr/auvCqbXIiDLjOXU+H/yq3kbNSaBMA00NW0TvqCGBGJ7FJ5q2jPz81w8fIL4
-         acb32Acpi5HwM+TfYEfuoTlbHTl06O85izEC47HpQxiZ4SDvRUzZdz8kI8Z4GfUlKH/p
-         ZgPw9kq8dGbYemm8H5p6FjZrrsdChFQNa+XlEw/wqZzfH3cBVH8ZqSYOOGhzLfbFZgPn
-         6XpA==
+        bh=qeUMpNqQBStSNfqyBRVjN9HQTsZd3UWa9wvYloWX57c=;
+        b=cyJxxtu1QnICklMMvTHCPHeova6j1k+EHGC388ZqJWy/nDZ7ZtiUDR+sk5O2g3HNWX
+         2ovttGDpaRwgeWgMVPSet49sozXkMOGB/DLpcJJGJIKNwIQFClI4oLo5vXp4u4RidUPT
+         FnT86OtWn7HxFXlDKuVK9YpOTbgP6CGatm0TE3Y2eg81ULL5zXF3Anl3L2VGfYyznomU
+         n+GWoNOixHBJE+8FIpHqpfN4Ry9vAGKyoURLUorFOtTL9vmRdAK/xIsUu0nMb7bGKE72
+         UDiKs8UDaSDRGUq82p1Q06nLZFWbvlyr/rPltO7wBW6eT9kS3N9Or8Z/VR+eQsBtAAwo
+         owVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792908557; x=1793513357;
+        d=1e100.net; s=20260707; t=1792908559; x=1793513359;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sfzi/7/w3SaIV07IDVIi4Dx7aYnputtbbmUJJqGHnco=;
-        b=YApsrEvfdwH8rAHKiPA4gTXPranx9jhvXHcxIMOM/Jxbl+hQbfUT6fFRXj15IFf+RB
-         Hy9UjjXOJUw9/QlBFSLvGyFK1sHzVkzAIglK6CnPu3Ipb9hiQy9LV+3Sg0nv+VD9fee3
-         zErixSleGsv0kNmMvZtpQ/iuR5alr6y6g/K/UcsTEp05vUMp5n7Xj8iemZhXJsP5v5JD
-         c/X2pjZylAYX0Fqhq+h+SJRC8aPwt5q33yR+hhIxINe+d9VSPpBg/I7MwAlz4S81x8EA
-         fD9VMVO5ZoHuhljFE1Ml/CGKHaYkLuca3/y1JBFBpAMcbv4xzQ9YwRHMwU3l4tBGNMUC
-         8esw==
-X-Gm-Message-State: AFq9FYII5cQVkonlrHG3H4+Lzs35oQ6pmF6eVJ8BKY2yjuzxm+fXxFWe
-	cJu5sMhNawubZVkqB2sMveRAu7O0vop8cXbiH7Kk/4rspo+YRQk3RB0zg+DhS8D6OmrpQrGTD3z
-	i5YzfAKeBxL5NfaukTBeu8MKRT6YfCtWYWkLc7CBHghgzMmZ870zgN/8+P3aF9yTChnThi1njpJ
-	/Ou+USN16V+0dUYlssBpm3Nxh4ZFwi+XA77SqOKpEpZuf3/sbK9Nrq8w1MTQ==
-X-Received: from plblv3.prod.google.com ([2002:a17:903:2a83:b0:2e9:314a:fcc8])
+        bh=qeUMpNqQBStSNfqyBRVjN9HQTsZd3UWa9wvYloWX57c=;
+        b=c56STHPMzowwy5K7rXIRNu+Nj/hnRW1ZVvJt2Y6QrKjCrUtB9/P3IxRwZRhDaH3MMw
+         oF8CMq321YACLWJriS2RFo/rxbJnssKGZW13lIB/Hu2S8iVAOr/gSrbxHLc9zBQCY5Xk
+         UltXc+1OtsUwMG68SdtYhlnewqevCi9wlJTD+YFgOX4mdQsiLApNC3h+PWadmEgjhfB3
+         vi6g1Gu6EHqnITYBC7Nxp00PW6BT2ZHHURkXFsS/LqZljg01uKve3qELSM7S3LmKDuWZ
+         MC7wA6p4MNWYULR9L7DOvALO420A1DR/faJjqPaXy9QxUyplx1w2CWm2alIl//x+7b+1
+         fTmA==
+X-Gm-Message-State: AFq9FYLHteWTlNNbvQPIo8DsRvFLzGnn8LwgM0aKRQWvuwiS3vFPlO0w
+	AjOMHsBQ4FVMnCVhd3eLfBzrpW3Qvsa4mFbilu5e8uAWDG/IFhl486f/RfGInBG1lMmIfQUYsjI
+	sk9Au404bsRZkqqRHEMGhhlzpXzF5SqQz0Clw7FBPuxgj6sXHFVvHlkuS9tyERUtjpM57YDAcNU
+	hAs0WT/q47/HFTjRrqsI14rlu68mvq5+mk8e1Hg6rlvly3gm+0Li1+MkvF0g==
+X-Received: from pffj12-n1.prod.google.com ([2002:a05:6a00:c2cc:10b0:89f:ee93:28a6])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2cb:b0:2e9:4bf3:37a5 with SMTP id d9443c01a7336-2ea9c864accmr31076525ad.58.1792908556694;
- Sat, 24 Oct 2026 23:09:16 -0700 (PDT)
-Date: Sun, 25 Oct 2026 14:09:14 +0800
+ 2002:a05:6a21:4e0b:b0:3dd:a009:3182 with SMTP id adf61e73a8af0-3e7bfe01629mr2958768637.42.1792908558838;
+ Sat, 24 Oct 2026 23:09:18 -0700 (PDT)
+Date: Sun, 25 Oct 2026 14:09:17 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,8 +77,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261025060914.1652636-1-stanleyjhu@google.com>
-Subject: [PATCH 6.18.y] block: avoid potential deadlock on zone revalidation failure
+Message-ID: <20261025060917.1652827-1-stanleyjhu@google.com>
+Subject: [PATCH 6.12.y] block: avoid potential deadlock on zone revalidation failure
 From: Stanley Jhu <stanleyjhu@google.com>
 To: stable@vger.kernel.org
 Cc: Damien Le Moal <dlemoal@kernel.org>, linux-block@vger.kernel.org
@@ -189,7 +189,7 @@ Reviewed-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Hannes Reinecke <hare@kernel.org>
 Link: https://patch.msgid.link/20260701082155.1369996-1-dlemoal@kernel.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ stanleyjhu: 6.18.y has no zone write plug kthread worker and does not
+[ stanleyjhu: 6.12.y has no zone write plug kthread worker and does not
   use WQ_PERCPU, so only the workqueue part applies:
   disk_alloc_zone_resources() reuses an existing workqueue,
   disk_free_zone_resources() drains it instead of destroying it, and
@@ -206,10 +206,10 @@ The upstream commit has a misspelled Cc: stable address
  3 files changed, 30 insertions(+), 13 deletions(-)
 
 diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 5c16cf96b97c..a7d3d2e002da 100644
+index e3d6e7a18868..d6f7e487bfe5 100644
 --- a/block/blk-zoned.c
 +++ b/block/blk-zoned.c
-@@ -1413,11 +1413,20 @@ static int disk_alloc_zone_resources(struct gendisk *disk,
+@@ -1408,11 +1408,20 @@ static int disk_alloc_zone_resources(struct gendisk *disk,
  	if (!disk->zone_wplugs_pool)
  		goto free_hash;
  
@@ -235,7 +235,7 @@ index 5c16cf96b97c..a7d3d2e002da 100644
  
  	return 0;
  
-@@ -1474,15 +1483,13 @@ static unsigned int disk_set_conv_zones_bitmap(struct gendisk *disk,
+@@ -1469,15 +1478,13 @@ static unsigned int disk_set_conv_zones_bitmap(struct gendisk *disk,
  	return nr_conv_zones;
  }
  
@@ -254,7 +254,7 @@ index 5c16cf96b97c..a7d3d2e002da 100644
  
  	disk_destroy_zone_wplugs_hash_table(disk);
  
-@@ -1501,6 +1508,16 @@ void disk_free_zone_resources(struct gendisk *disk)
+@@ -1496,6 +1503,16 @@ void disk_free_zone_resources(struct gendisk *disk)
  	disk->nr_zones = 0;
  }
  
@@ -272,10 +272,10 @@ index 5c16cf96b97c..a7d3d2e002da 100644
  {
  	/*
 diff --git a/block/blk.h b/block/blk.h
-index 2810b4d086e6..179662b86899 100644
+index b3a7e518d799..4500ba33dc7a 100644
 --- a/block/blk.h
 +++ b/block/blk.h
-@@ -499,7 +499,7 @@ static inline void ioc_clear_queue(struct request_queue *q)
+@@ -489,7 +489,7 @@ static inline struct bio *blk_queue_bounce(struct bio *bio,
  
  #ifdef CONFIG_BLK_DEV_ZONED
  void disk_init_zone_resources(struct gendisk *disk);
@@ -284,7 +284,7 @@ index 2810b4d086e6..179662b86899 100644
  static inline bool bio_zone_write_plugging(struct bio *bio)
  {
  	return bio_flagged(bio, BIO_ZONE_WRITE_PLUGGING);
-@@ -552,7 +552,7 @@ int blkdev_zone_mgmt_ioctl(struct block_device *bdev, blk_mode_t mode,
+@@ -550,7 +550,7 @@ int blkdev_zone_mgmt_ioctl(struct block_device *bdev, blk_mode_t mode,
  static inline void disk_init_zone_resources(struct gendisk *disk)
  {
  }
@@ -294,10 +294,10 @@ index 2810b4d086e6..179662b86899 100644
  }
  static inline bool bio_zone_write_plugging(struct bio *bio)
 diff --git a/block/genhd.c b/block/genhd.c
-index bbcfbd1a363c..6ba0e22ce9df 100644
+index f4f18ca70aa0..4063ee78c27b 100644
 --- a/block/genhd.c
 +++ b/block/genhd.c
-@@ -1308,7 +1308,7 @@ static void disk_release(struct device *dev)
+@@ -1219,7 +1219,7 @@ static void disk_release(struct device *dev)
  
  	disk_release_events(disk);
  	kfree(disk->random);
@@ -305,7 +305,7 @@ index bbcfbd1a363c..6ba0e22ce9df 100644
 +	disk_release_zone_resources(disk);
  	xa_destroy(&disk->part_tbl);
  
- 	kobject_put(&disk->queue_kobj);
+ 	disk->queue->disk = NULL;
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
