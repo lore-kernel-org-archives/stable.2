@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971001;
-	b=cAM2oa9jccAbw0uqh+MrcYtNccLjgqUUmrp+W7kfuEZcAsERWj8pgy6RwMf+fmtJavY1
-	 zWbS/dABEPgqkcMuKr3DzyNjWgBlXzzYIZURXCNBPfYad6gR0yo4uJakYBKUZgyUM33e5
-	 ZeEVBcBs/mbpSNHmTOQajhqc3zC82js6y/WxI4UoLcAcet6LOaZr/3BT9cvuat5meWNmp
-	 EVsl5zT7QtV7at74Be/S5TTa20whbJ4LNtecF0EHzA+oGmhhHx7jG4sdoskzs01dtrSzu
-	 ZxvqvMkl4DVnjmtcPzJqqTNmj2Y1E4qBBbjNBfMiZ/90USHWHrjShP3oaeUpHLfivKA==
+	t=1792971006;
+	b=r4iTXDBKMPEth2UEeRMWCI7WEulz0xWf3uzN8Uhv+5tOf2VuPbNSNanrj5v8jImDq5Kw
+	 KOYfKxn6LQeUJ6Pe56W/XjTxVt/YrEk+rTMvy1R9AIYsH0JAN/DKmWWbdiX+QEuWJv3gA
+	 jigigzafpZn3Pufejri+KBqVb0uUHJ64nrSi6682dkM7wrVUEwOyRZofjI/WpvxoQgMwO
+	 SfiPApOKlW6Rx3J7876m4Xclfw1/AP90Lb8pWN9MeEhnugpKfX/TGi8hPy+XH9Q7r7Eyz
+	 qBS8JIPYZl2B23rHVlWykUQWr7FZCojNn5odsyf8w9j8smYVbgmvaydIrKALIWTLpUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971006;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oPk+13ymX4PLpE74C8jqcYTF39AF1P9MBCFW7zQagVk=;
-	b=IOIFiXM8sg4vY47i5YMmjh2uJJj8iZB6jJVcDx6G0OyLiGktDgWnsgj1DHuLQQiR5om8
-	 KM9NsWX8gXi+TBtCQwKp9T/1b4IjcNiwlnjQGU6ufDn0vE6WSihZidlmpHQxyRycXA6gl
-	 AF5lof80XChenqyfxFiWBwiu+jV4AgNdKJnfPqQ3qDI4SWaYSq0CmNGfjrcw+zj7P49s2
-	 BN+9UUwJmnLknR2CoBtO9Mb8iz7mErTYkCXJOxe4ZdUSFBFS+NnDm3qxtwHApZFVfNxX3
-	 lbJPbAwg3U+jWiUz2gsEV8UZh5tKw6EzCRRqHYez7X6VF+u2Ranp/5pE3xJ4T30b7pA==
+	bh=sWx6l1uH67lmRdxqqC1BqRd2rIEg3mHZHVhaXIsbxyw=;
+	b=B4lq8MrfnAH3T///q+Gb19NYolQGvGcDsyCppUWSO4+mxf5apdj4uNtFufrIR56hrEDw
+	 DZn3tCEM6iGJ9DoVgEI3lxNyHnxHB07VkHzvSkphr/l23wC6mlx2w7X3eZY15FOcpLVId
+	 /yUrE19bMSWkvbK1Ea0r1EFz5YwxtVI2ARNoPZUHfc0JXvyTYtiU6UtuJdeVPahiQNbaq
+	 pgyW/rtfmybHCivt+UiMUSmi8P8aiZY0JxjPHe66BNplAjnUcfehSjBvR6EjCc7I2D3vu
+	 W/oKAu6TXBt+k0ywTp/saPRrNmss6zMIEhVLalt8hBC3uMsfGXOhc4EWZgxeHoR3V8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bs+RFZ+S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X/n6M6Ga";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530F0606A31F;
-	Sun, 25 Oct 2026 23:30:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D18B606A329
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bs+RFZ+S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6551F01825;
-	Sun, 25 Oct 2026 23:29:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X/n6M6Ga
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47DA1F031E2;
+	Sun, 25 Oct 2026 23:30:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971000;
-	bh=oPk+13ymX4PLpE74C8jqcYTF39AF1P9MBCFW7zQagVk=;
+	s=k20260515; t=1792971006;
+	bh=sWx6l1uH67lmRdxqqC1BqRd2rIEg3mHZHVhaXIsbxyw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bs+RFZ+SHyompnFdVCzQa9b7oot7zr8einZ6n4LLoXrXjKwDneXTnf0/BY9HK80rS
-	 K4EulxgrMpYnmJCrDDY2cRdDnB3gA2w59p2c7i7UscPHqHxBDObE0dPdBuW4aUSHf1
-	 Zt6vGvnmmP5w7KahsFq34qo++lxtHfrVhvq9OLg4JkpEshoNsItTGAVIE7JFbeE70t
-	 5AezGdUTT2Q+oQyRSAMmQg7ylwxIHqCE0ssloaiAcFhgpHZoSATpxTwaVkubvUjF6z
-	 HDPgUGTQqh2ttytqqqlMMUh4JCdm6rXnBGU5QgRNWM2PwI/UX+tJbQdPKf8IgfZdDt
-	 YLOYAPoJFSIhA==
+	b=X/n6M6Gak7qTGuZ0sZGYSKvc2PxcFkoGCnKt7+53wtrwPR7J6riwEySx7xxnOK2qg
+	 sApWJT9kXgrYRi4WQZGO39X5F/PkGhEpPEu6KY4J3dHQzF/mpp4OEP9hB4HmzbedBX
+	 42hhQB1z0+hbyQMSlu9rzd/IjPlDIRiBwgRb910FFI9SxZk6wju/bgver+aREj5THD
+	 RIaJR17CIm9/Ehdp7HcK4oYmFNV0DLxnC7+rHKnq901Ve70ycNlYpIkIB6/N2XHn1P
+	 sqZYSHaCK5RASMIR3fsYzbNBaL9jp+JugYxdbGibVMPRd/D2mVpIsDdTplj3E0dl9/
+	 KcmvkdkXLMg6A==
 From: Sasha Levin <sashal@kernel.org>
-To: Bernard Pidoux <bernard.f6bvp@gmail.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	kuba@kernel.org,
-	linux-hams@vger.kernel.org
-Subject: Re: [stable request] ROSE memory-safety fixes for 7.0.y and earlier (merged out-of-tree in linux-netdev/mod-orphan)
-Date: Sun, 25 Oct 2026 19:29:47 -0400
-Message-ID: <2026-10-25-1-daily-reply-0001-rose-ax25-netrom-suite@kernel.org>
+	JongHyuk Kim <malhyuk97@gmail.com>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	linux-mm@kvack.org
+Subject: Re: Please backport aedf2efd1897 ("mm/pagewalk: fix stale walk->action escaping walk_pmd_range()") to 6.12.y
+Date: Sun, 25 Oct 2026 19:29:52 -0400
+Message-ID: <2026-10-25-1-daily-reply-0006-pagewalk-stale-action-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAFAa3YByGZdwFd-krYza5VMXR35-Lv7x0A=2OWi5TdSzZ8TM6g@mail.gmail.com>
-References: <CAFAa3YByGZdwFd-krYza5VMXR35-Lv7x0A=2OWi5TdSzZ8TM6g@mail.gmail.com>
+In-Reply-To: <20261025054505.1448278-1-malhyuk97@gmail.com>
+References: <20261025054505.1448278-1-malhyuk97@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,12 +65,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> v2 of 16/26 is attached for 6.12.y and 6.18.y. The loop now tests
-> what skb_dequeue() returns:
->
->     while (ax25->va != nr && (skb = skb_dequeue(&ax25->ack_queue)) != NULL) {
+> Please consider aedf2efd1897 ("mm/pagewalk: fix stale walk->action escaping
+> walk_pmd_range()") for 6.12.y.
 
-Queued the series for 6.18 and 6.12, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
