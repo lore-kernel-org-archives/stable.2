@@ -1,72 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792922790;
-	b=gTY7VRU9wzM7eCrJIg5+8gtgaYWsG51dFaKw6aRlv0L44dOVJQoY1L1QP8vYxDwYMysE
-	 ghKFXzJH5FskOKoii7p8ZfsOU6TAp+f8bpgsjCbKWwSYx+Mp2vU67BanBaSX7I/KNoR4l
-	 nkRwGJYe+gQ9fWqNyymShdAcMx/hBH+1oUgco5W74P+1pZCtaBPWj92GHo0yChBGsEB69
-	 q90AxJk2kOGcTAnuId6+1zU/+g+4Ln2lcfalGD143xsvNYrHBc0usQt9UlDUkuiDOooKA
-	 bRmdOWA+30resbHSvq4gCsn7ACGuU6gwV6M4wG61sNRey61uGDjbcZywlS+OqqKIByw==
+	t=1792923433;
+	b=15ghybBwIELWf8/i1TFbAp0FDeNlb2tCzc3lc4tO0haW2AF7ot4FTPEQOIScXqw8xZep
+	 ljvDedVyGoFXnlOZ2YMwS7AkeLbqaQz1KfWs1D7yAcpAiQwMyjw1djZqLhxGmYBOvDaFF
+	 QuHxRhcpPTYviixmwOzlSHS4AFtWNa1DoRWlSnz5Sx9V5nB9WDkMdvsXwWOCI/2jmQgOU
+	 nIJoIyZq8dUnjt/PYucM+DAdToiAEjtYGc9RndWrSTSOOo4M+da1wie0IjJhvfPFoBneD
+	 z8Uoc3p/pF84uhTVwEkG8nDQq4TZ15kZm3AluM+G7bMAzCgRMlf7TQHRKGwc51N9FdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792922790;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=5souycdnBZ9IV2vplJ3bvYy32huqmL1ipFvgvvIj55U=;
-	b=2B3X3/VokozVyJQPc7j/zbtuik80JJch/gM6sl+zGsh5UL9jZHHbJXbnC0PA9LtBUu+s
-	 RGbSLHGqFp6DrDX6cg8MaF1sRiNpiO69VTnmuO1uxWz46X0tNW7fhWWo2pqEfl5IpHG0H
-	 eUqN5mbhStcYfT17BX01hpdPqpA2mAHmJ40wMSap0AYfa20mFDx+Z8cVEVrvAVEZ6auxw
-	 S/MW1p5gkW/tV/IfXJNW6fPQy89F3SnWu4SZoWPedHzGjWvVFXJyNLN4zTKqW8rBNNeGs
-	 ATSGsNbMYMzP7mHdtIVFcKbJcmrmcVqKtfnVecwOkK3MMOVwdAxUKoJXegaD3hnk/aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792923433;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=p55qrhCyb8bxNriwh0vS71dSvlmsqPiAx/g1ELCZR1w=;
+	b=PtlIv12Fifd9YCtfS6Vl+lxzY+fwXdubFOZ75K/4G62dsZXmMDHHcIOlx5jiVlavth8k
+	 fxuzY+qE3pdkof0RqelD5bOokhQbEvWKqrT88Vl995eT2hWOqJk+Q4Ywis742yqD5+aCC
+	 op0H5kpQta7CmONsGg9SymLyIQVRdFgnyRbQ3mn0VBNWNNZGbg19RYMMwbZeFzrHwWBWZ
+	 byBr98dVpwKmPLBnZRUzvTBa7OBh8AgGPCE+HUFDVQqBbLjKYuZM+z7AiTTOYnI3hsea0
+	 9k7BSI7Gp2h3LwaUFrzMFULqdTYyZe71ccGunbAl17IAz0ifsU2ZIRih4dKDCq02wmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	arc=none smtp.remote-ip=188.68.63.166
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.166])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dicwZ0eT;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E48606A31D;
-	Sun, 25 Oct 2026 10:06:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E48606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4jCC895c6cz4MN9;
-	Sun, 25 Oct 2026 11:06:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1792922777;
-	bh=3aQ12F0IFj9FckHCR7dd+o88DcnN4eUS2qsUv25bOyo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eO63OWKdux1MfF7RYROATQ0e/h4rLj7u0P62fuI7gnfw2tNzLDI5AIpj8caHblLTZ
-	 ZWMxC/AaAUOSIpMh2ngXekE5NmbjTyyxOrKLAv4CSzzCrl8bK1rpXiotAp+QlmcCwb
-	 jPHtKZuyrGlL1hH7aCmncCdcE68D3ri3pZlwBvkQv7LUrZhsHFdAznjqap9h+Y9Rmy
-	 rSWG7uLyn8WvsD3sz/Q+MlD7v29mX1F/R+IoiEdJkHgQBa13vI86bbv5GXYbwiMttA
-	 mPIw3VtNsSfZTxnzDluV2RycoWoehK7toyNYhgejUrjvVXFYukJ61+kKTUTB4ODRR9
-	 lXYiNn7sAHmOQ==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4jCC894wLYz4Lhj;
-	Sun, 25 Oct 2026 11:06:17 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jCC8857qXz8tkf;
-	Sun, 25 Oct 2026 11:06:16 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id D2E775F9FD;
-	Sun, 25 Oct 2026 11:06:11 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <be2e5dc3-d41a-4277-b881-1591cc89d026@leemhuis.info>
-Date: Sun, 25 Oct 2026 11:06:11 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67B6606A31D
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 10:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A67B6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dicwZ0eT
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1274202f8f.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 03:17:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792923431; x=1793528231; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p55qrhCyb8bxNriwh0vS71dSvlmsqPiAx/g1ELCZR1w=;
+        b=dicwZ0eT7zq6YUUFB94I/WXO5NSlGex+hWh0GEVXR44ffPnN3MbpD/WEElftVxleU+
+         DOuh7AXK1KJcOgKI15DQCk8hylTYjJ4XHQqisS06cXDne10O0kaP5JgNcOsa6u5DLnMw
+         IjZnTxtx/fRmOW7Mx+POEbJH6h5nffujIGdqSYpBm9K8MraGb7luDjNM3rggiyynruVl
+         LPyFfYk05E3DaN4m4U3AUwPYRUfyiohPyN7tV1Lq4TJ8ZCr4JYPaoaSstlLTh4s1vIKV
+         iGQn+IFoGseKl5dEZyWX5pFIFpjda3YXAGpFMSctygoAk23DtAaJ5nPJ8A13vYsuPCc4
+         6DMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792923431; x=1793528231;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p55qrhCyb8bxNriwh0vS71dSvlmsqPiAx/g1ELCZR1w=;
+        b=cutrXCNgEqiTqCB/rizdioaAC//Mh3KasxvcfOgIgNCz5XdFISA35v7r7c2rM2CXIx
+         HgdeK3x7Tlgly2z+0q17OPHJZDh/aXFbEvlQfGn/fwToQnv8GnnXW5muOk6WOZukhDjL
+         TS1lovBgimjp7A+vG6ewNz9XZCfkpLirbZfbSnF2lpCj4n5xh1wVb2HV7PcvQGESNJax
+         /EfDm/a31/w8XqFuDVLtxFvU6tPwXcXeQ0jqYeP8E2Y8X+fNi1ZtMNRjZ6TOSxJ6m6vN
+         x/9oep6PbVD6+xCT0GPORX/CGq/0eUtydSMDfr7dy3fIynYLl2683VFKDBir6BYpToKA
+         4wlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLqoagB925DChx1qJbn5oYVFpihtgQDYEM7BLuuIul0ckcQuQqUpogJzJBP89Ge/mVE5Z89/4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJajSJpt9bJzRnN2cMhEa3qowaH1ZpTnoJZtLTOvo+ObZ2suDee
+	N1jcHzbMv+OIcJNR7/xs88Ap34W17v/NnIRRFS3PCg2bthof4y3kXQAg
+X-Gm-Gg: AYBFou1yjeJBUExiIzeHC2y0vyDL8omGKC84WcoGvv5ov72Dz+KDftXoq9a5bxLYID8
+	AobS42yvsUw66srNkzqTYw6pYQd7WUnjiVxjp8HRHg6rYWi+lKW2Ul+7AOwvliCfaZ2y6bgTEt0
+	RpSSj5Np6Yez4TPlDNguqiEF0nzEncqXi1AD4vMUNnFUcySJbmmFCbEhpN2R4O7PpW9Txed1+4T
+	NCO0xZcSeODjEf+V98GbymTA8YGItipj1G9KYlAOhK/CQmOlEz5xnC7xPUh5z0H9/IYL/wEqyKR
+	IrYD8ij/teiaoOkf7VCKs6dspIfRr5PpMf8NROBMf3Bs336Ei3mWMvYIp0wdx55zZPyEP50HYIa
+	FkiQyFaDymDEe4I5J5lGSKGdWt9uZ8/8gVozGEPkByFTXBI2x5xzq0jWOPtmXt/1D2SVAfqKUiX
+	xK+4mDTYMPmtd96VoIz9Z+BG2j2j5Vg6aXwWQeMKRPJtTHobY+6LzR99ER3uUeL73AYTU858B5p
+	avprnBsUZXQmz2kHSRa0oT6QfolGtjhORAguLGX1wYH4E6axQcgMB0TV2ATt1CeD5WOpEWMdZLP
+	84z+giXM1v8gDiAktYpZpNiEPOv7pv8x9VVtoQf/6mSCxlUT7lOk8Q4ez47cA1sMKGp6rU9z0SH
+	A9YaMTIwrHsBiY89wgkX11CVJlgK9qh4vfrwTc1pej1bx75r0dJmcweGpZaq7ROWHw+P71f8H/1
+	2YqctTgYxswdkA
+X-Received: by 2002:a5d:588f:0:b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-48e3ed08f76mr7079445f8f.8.1792923430870;
+        Sun, 25 Oct 2026 03:17:10 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm9068776f8f.59.2026.10.25.03.17.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 03:17:10 -0700 (PDT)
+Date: Sun, 25 Oct 2026 11:17:08 +0100
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Ariana Lazar
+ <ariana.lazar@microchip.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: dac: mcp47feb02: reject out-of-range raw values
+Message-ID: <20261025111708.233f7fb8@systembl0wer>
+In-Reply-To: <20261024214423.865635-1-devnexen@gmail.com>
+References: <20261024214423.865635-1-devnexen@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,47 +103,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] mac80211_hwsim: CCMP frames dropped on fast-xmit
- (WARNING in ccmp_encrypt_skb, net/mac80211/wpa.c:462)
-To: =?UTF-8?Q?Lo=C3=AFc_KASSEL?= <loic.kassel@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
- Sai Pratyusha Magam <sai.magam@oss.qualcomm.com>,
- Rohan Dutta <quic_drohan@quicinc.com>, linux-wireless@vger.kernel.org,
- regressions@lists.linux.dev, Felix Fietkau <nbd@nbd.name>,
- stable@vger.kernel.org
-References: 
- <CAAzpgGfrHpQZQ8iaH5fqZHzk5tTx39+jGvGkVXxhYFkp-A_bQg@mail.gmail.com>
- <CAAzpgGeAaOjPdiVOmeY7xZqEymyh4BfhESwAvTzczvqj+YuNHw@mail.gmail.com>
- <CAAzpgGddO8H3EVb-WhXEeiCeoV97NuV0G22UZcHmyi0QZLwcMg@mail.gmail.com>
- <c49badd916f72b505cce70ff68df6ab2e776654c.camel@sipsolutions.net>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <c49badd916f72b505cce70ff68df6ab2e776654c.camel@sipsolutions.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179292277230.1432116.12511863575846824075@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: D2E775F9FD
-X-NC-CID: vYbI2wax3aYOA5cr5Bvjs9lD9Hkqen/7GW5ob5aWpm0NvVlY/lw=
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/23/26 20:10, Johannes Berg wrote:
-> On Fri, 2026-10-23 at 20:08 +0200, Loïc KASSEL wrote:
->>
->> 6832075ed4ef has no Fixes: tag, so as far as I can tell it will not be
->> picked up for stable. The problem was introduced in 7.1 by a536be923191
->> ("wifi: mac80211: Fix AAD/Nonce computation for management frames with
->> MLO"), which made mac80211_hwsim encrypt CCMP/GCMP frames itself, so
->> 7.1, 7.2 and 7.3 are affected. Could it be considered for stable ?
+On Sat, 24 Oct 2026 22:44:23 +0100
+David Carlier <devnexen@gmail.com> wrote:
+
+> mcp47feb02_write_raw() writes the user supplied raw value to the DAC
+> register without checking it against the chip resolution. The parts
+> are 8, 10 or 12 bit, and the bits above the resolution are not
+> implemented, so writing 300 to out_voltage0_raw on an 8-bit part sets
+> the output to code 44 instead of failing, and -1 is written as 0xffff.
 > 
-> It's hwsim only, I'm not considering that for stable at all.
-Loïc: you could ask the stable team to pick this up for 7.3.y if it's
-important for you (7.2 is soon EOL, so unlikely to be worth it); just
-ensure it's obvious you tested it; if problems arise you might be asked
-to fix them though, unless they happen in mainline, too.
+> The out-of-range value is also cached in dac_data, so it is written
+> back on resume and stored to EEPROM by store_eeprom.
+> 
+> Return -EINVAL for values outside [0, 2^resolution - 1].
+> 
+> Found by code inspection. Build tested with W=1 (=m and =y) only;
+> no hardware was available for runtime testing.
 
-https://docs.kernel.org/process/stable-kernel-rules.html
+This should go under the ---.
 
-Ciao, Thorsten
+> Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
 
+This tag has been deprecated.
+
+Otherwise LGTM.
+
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+-- 
+Kind regards,
+Joshua Crofts
