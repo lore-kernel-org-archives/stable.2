@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792970925;
-	b=G19vOtxj1HuCSsO/ZOFyCXSO1BQcDbZkP/Z99Gc3RmHIN+kvHCcQWqQfPxyMI7zh8+TU
-	 uKQ/2VD/UNJnutpOguSprtg0PL9nQ6P3+jqGCRquAexwVxiUMVXxMfBpDTDEuk7z9tFBM
-	 LOKjuuFAQ3D7UArXl4ie8OmVbJkWPJsU8l+dgH1izVPVDtBKmcyOyaPUeu2aak9NxU1a1
-	 0phd3PcCSxh1B3WWRrgpGrcwXjMCaaKoL7gR/Bf9vtjWC/pNMwGW0etJJzTge6WR2zVUd
-	 +sqsaWg5+HFT0fAoUfa7FV3N8BrUdA6xrpij250DkXzxa3cZkp3mOZiCKZFwMlpbtKQ==
+	t=1792971002;
+	b=ndSUwR1oFA3f56vQY9hOdytnFPj5jH6jLvIgZ8VDO2+7cfIQ2mNq7gKGNj6LrMLMRP4+
+	 zsd4W/z+A3MHINUHMsnep71E1DSGkQTevaiU/kIFfFsEdibD+YmgAWK/dTU9IW5emk7wH
+	 H3+h8YC3+P4caIsxCMO0ZErCdowBbjRMc1l7RSrF5NEPxaxWqlz0mbH5qQght3ntfVeMe
+	 hmnbKw66izYvvVKHqloRVf84DVcA6IeQDVThv0LKSUCdrud/N903bk+wjMYnkosxQZg0S
+	 StUzVUKfESzpctOq9a592ESQP6usePMcz/KxtIa2WS9ss/zP7XSYtAsgq/GBAFu4+vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792970925;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iEFI99ZyRARrz+clfOCd9HOuHHG5pJ8vfkDQ7OOdfSo=;
-	b=Jerp4rKiYfX+SZr2zLPDYiRI8z9gCTHydeENwLehIp7pCLAuTYQdiThxX3eSoW9eVrRw
-	 l3PRlWLBJJ79gyWsfUIk1qphuMgr8KzlL0baO9eCZh2efw5yX4XJtkTch3t3netSQo7Mj
-	 LMHNyRenyskYchaGmrTteur3r6mod3k6idtVxXCeF+9YX7vI0uYTDtQMknou5aoBJ9ILe
-	 8QoeiMdyE2VkESwT4K0exiJp09+pir/ePLoaJz1nXd3Bp+rVJHxVZ9HfJSkntoK06aYSo
-	 Zek8l2/Zr5V4SwyuaY85l60C+LOL2ti1Vey8dLBhfOb2I80owB2RnQd/sdhmQyRJodA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792971002;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=RzQ8NbXm2CkWF1LYmRhNVZOjQUNBJaQfPUBS5cLWn0E=;
+	b=wW+nqP2dP4OZMEC2cSOjF06uzik7azfGTRYXnVdXcheQjC0HgiHf7jpnNwAt95hqoQP/
+	 TKTycrhU20GPsfa4x23iflDNexCcxc9GhL9K1tN6yFzHgZzfzKFwbBo4BilZc4tyMHULJ
+	 rEKwsznZJNG/B2yBaGtXvCGu5Wmp37y1AIbs9ZYepElDlO8C0Hgamjr+Xg3wLZaIVEtYc
+	 J+dj9UTC6HAZi37qERS0xZYNSM/jDmjQrm/IzfxsZd3qf284RK/EZ/gV2PW81sAwIrvPS
+	 2Ow0B7WaOWW8lVwHQN+fUMJeWOHG6lIM9RYfYklbNWQsyALjPILVDfI+HTedFChAr1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9sK3mpQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBj7Usn9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 712D0606A31A;
-	Sun, 25 Oct 2026 23:28:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11405606A31D
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9sK3mpQ
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6F7BD1F01825;
-	Sun, 25 Oct 2026 23:28:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBj7Usn9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3C61F031E0;
+	Sun, 25 Oct 2026 23:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792970925;
-	bh=iEFI99ZyRARrz+clfOCd9HOuHHG5pJ8vfkDQ7OOdfSo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d9sK3mpQsKcEaXApFMwJIPwqCQE4dCIlv8zM+5Jajz71RXH/7OVSjeoTSpu149hSx
-	 zNNb05tZGEm3EMqefMWzkaqf8gSha0Cs6H8UsNCa1rpuATeaJJcJLe5/7rKu387820
-	 mg1p4GEUSeKwehMWx/B0zckxM/NO7c/c39LHFHRia+LStyQWE4dR3zD9IIPZ7yeDq0
-	 7eIR010xxbrhbVwDn6GuIo2TqK8fcWKKaxpsvretOyKwS/A61P2w0jcpnzzORugtRz
-	 uih8UQ2BF+YmPxyUlqc7Wx2nbFOpBG78DBL5dnPltoHHYHqyNoUaR/P8g1kEdb6a8O
-	 yQjX6erBxolmA==
-Date: Mon, 26 Oct 2026 01:28:41 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: Check return value of crypto_kpp_set_secret()
-Message-ID: <at6QqYWELUtDqUUT@kernel.org>
-References: <20261025211119.138277-1-ebiggers@kernel.org>
- <at5-ve5Ap7Oyp1Fo@kernel.org>
- <20261025224723.GA148998@quark>
- <at6MlY1kpfa01tr4@kernel.org>
+	s=k20260515; t=1792971001;
+	bh=RzQ8NbXm2CkWF1LYmRhNVZOjQUNBJaQfPUBS5cLWn0E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QBj7Usn9EDdaOuM3oZ63inZ6sCG63563OSWQrEyPUl2bFzCvoGf0U/XLcMprYBE6i
+	 CVX/zVbsXYaDWS1PrA6hYE7ny4hessvbDEj6fNKlIJI3LIpEMjRZZKumc1ucNxB6GR
+	 EODaKv4O+60ZQNalrtlXWx4nXtV044ZJ+EAwsmfAfqOpM6IAdgMpCu5ERvfYBEkmUI
+	 sG9nmIDoL2L0BRIb8nFX1wol5k2PeOFM+yX5bmflwNWf0Oh6jqqMTnUNtS4ZT+gzYp
+	 qx3ZKL8OZ1tnFzSQXit/kE1XHZjp5LhfWEjzsRG9gxGGXCDB7u7Dj/7EP7PdVmi3oN
+	 uIA3+3ImNB6Dg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Jay Vosburgh <j.vosburgh@gmail.com>,
+	Andy Gospodarek <andy@greyhouse.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Steffen Pfendtner <steffen.pfendtner@kernelscan.io>
+Subject: Re: [PATCH v2 5.15.y] net: bonding: fix use-after-free in bond_xmit_broadcast()
+Date: Sun, 25 Oct 2026 19:29:48 -0400
+Message-ID: <2026-10-25-1-daily-reply-0002-bonding-xmit-broadcast-5-15@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261025084725.84254-1-steffen.pfendtner@kernelscan.io>
+References: <20261025084725.84254-1-steffen.pfendtner@kernelscan.io>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,71 +61,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at6MlY1kpfa01tr4@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 01:11:21AM +0200, Jarkko Sakkinen wrote:
-> On Sun, Oct 25, 2026 at 03:47:23PM -0700, Eric Biggers wrote:
-> > On Mon, Oct 26, 2026 at 12:12:13AM +0200, Jarkko Sakkinen wrote:
-> > > On Sun, Oct 25, 2026 at 02:11:19PM -0700, Eric Biggers wrote:
-> > > > crypto_kpp_set_secret() can fail, for example if the kernel is booted
-> > > > with fips=1 and the broken-by-design FIPS RNG used for ECC private key
-> > > > generation doesn't feel like generating random bytes at the moment.
-> > > > Check for error, cancelling the TPM session creation rather than
-> > > > proceeding with a zero or uninitialized private key.
-> > > > 
-> > > > Fixes: 699e3efd6c64 ("tpm: Add HMAC session start and end functions")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> > > > ---
-> > > >  drivers/char/tpm/tpm2-sessions.c | 4 +++-
-> > > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-> > > > index ca1e2bf424e14..2aaaad69760dc 100644
-> > > > --- a/drivers/char/tpm/tpm2-sessions.c
-> > > > +++ b/drivers/char/tpm/tpm2-sessions.c
-> > > > @@ -527,7 +527,9 @@ static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
-> > > >  	}
-> > > >  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
-> > > >  	/* this generates a random private key */
-> > > 
-> > > Could you delete this comment while at it? It's not helping with
-> > > anything.
-> > > 
-> > > > -	crypto_kpp_set_secret(kpp, encoded_key, buf_len);
-> > > > +	rc = crypto_kpp_set_secret(kpp, encoded_key, buf_len);
-> > > > +	if (rc)
-> > > > +		goto err_free_kpp;
-> > > >  
-> > > >  	/* salt is now the public point of this private key */
-> > > >  	req = kpp_request_alloc(kpp, GFP_KERNEL);
-> > > > 
-> > 
-> > I actually think the comment is helpful, because of how unreadable the
-> > crypto_kpp API is.  It's generating a private key, but to request that,
-> > crypto_kpp apparently requires that an empty key be encoded into a byte
-> > string.  Then that key is "set", which actually generates a new key.
-> > 
-> > In comparison, the Curve25519 equivalent is
-> > curve25519_generate_secret(), which is clearly named and also always
-> > succeeds.  At some point we need to fix the ECDH API...
-> 
-> Ah, right it gets zero filled echd. I've not consciously thought this
-> detail before, thanks :-)
-> 
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > 
-> > - Eric
-> 
-> tpm2-sessions overall would need some refurbishing work now that also
-> Matthew's hibernate patches depend on it. I have to take a serious
-> look at it some point.
+> Happy to send the 3-patch variant (ce7a381697cb + e0caeb24f538 +
+> this fix, as in 6.1.y) instead if that is preferred.
 
-I'll apply this after Linus has accepted/rejected my TPM pull request.
+Queued for 5.15, thanks. The v2 as sent is fine, no need for the 3-patch
+variant.
 
-I'm not sure if it already is but if it isn't, probably also at
-linux-integrity turning on Sashiko would make sense.
-
-Br, Jarkko
+-- 
+Thanks,
+Sasha
