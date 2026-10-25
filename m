@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792972075;
-	b=ihWq8USvS1DQzjc1EMXPBpFpdjJSe5zlu2PyeJYVrx4RhcOb8aYDDFYG0oBnIAtT85XT
-	 bMJWKjZiOuJ3AYdaZIZEiAeW/MVSl0kzIiBiYh/TkB/XHlEgnlJdD5nm+1Xpl7aCg6N49
-	 r1++CGzhMzi+I/WpOY/BO1gvFfcZwY6MTkII+55AQksmMP9e2TGWfGrNXOinNzWx5pgAF
-	 dX8Vl28LwU5bMoSKaL3+wNTeOh5ku+10xgYY2putQKBFw9zCuAQmBIAImPE0AAWueOixp
-	 H2CX5RzjfrThV41yPFC6DTtnWOaggfq8A9blzEWt/lHmzD3TNqB+fuElD5Sg/FwT+EQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972075;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2yg3jmdq2UHiiRRzD0ZbP28dzxHUaJul0GWd80ON/y0=;
-	b=sRZ5EOre46bvRxp4xeVN4vt5ztlIIsynS8RagWt11o0CtX1FlxU55jMthc6Q2VoRLjzH
-	 G6fQYnJhBI9F2vQNEgUZ7tRs1xILmsIUNbPqMy4R9VcLfY0L/j2W4+eVcTwbkMA72+DL5
-	 kckfyQjvQY8Zr081Ysv6kXY1U3Jq4LiimEMry4qPjrWPSLtZDpsUBj1fP/IPlzQV/mETP
-	 gArVe05AFjsIRJSBoQ6vYKmP/04szfthSajhktfEwHrIfZW7L5XJQXNbGm+uAig9bBuF3
-	 +0lj37d8v7Bj4GutEkD7ggtXuGPX2ZryAyxsgom/2e9Ml00Zq13/ibkN5OSAl4llCyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8ldsg1V;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78971606A31A;
-	Sun, 25 Oct 2026 23:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8ldsg1V
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792972075;
-	b=F9XP6Zkd1ihxON3Hfrwzts12Jt7ND5V5IIhgK20AU603F60PxaoT7vLgfmV2Ez1dnaKV
-	 RrJxG5X9HiskngyTnBETsIrpItpBDFjVL0I5WK9n0V4+WT9YINRAn11PUFEZBoiVeD11g
-	 XtZ1MoaIfS1xSC3VTdWxdRkvDo+ie255/h8oZVXnOgEJvgy9fgae+OUhBW9qzO509bln4
-	 g32+pt6C/0Nhok0yv4CgQiE/KYv9tMo9Udxr2707/PGCxCt1WQjv2TsDiQWamqNyNiURK
-	 hJ06/0M+AMqQjkcXZFUSnLhZZSbppfWf1yRyRY9ZOrFkuxrYTo9ZDlYypskXOt0Ae3A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792972075;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=2yg3jmdq2UHiiRRzD0ZbP28dzxHUaJul0GWd80ON/y0=;
-	b=utNxcrPThO0B3oaj4PLGGXhY59ImtKyxzwWE6f6moKRj/zEOneQoqRroMGlxP02j8tO7
-	 5VUONbjLpDe0VU4+nIjw/U2QHCkDgW1q8u4k7N3b2yTVFfBlISZnOpdDhUZ9bkExwnKcX
-	 eh58Gr4JmxUv2vLI6z5a+W82I+sBS1jGb+PXKHHVZCwG6mfDjgif7Qvl5fAqKHWoi9FuH
-	 S4S6fZjVUbsqRT9przfN48NqdQuqSpBV5Xg98+cdjFim/+vMjzI4Phef4eBDdZUEfvpEu
-	 fpx/7cYnvVMb0ZZXa5AXeipOYDxFbfVpeQzr1NSSgNtg/H0yEZEFwxjB+/tBObNZbVw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792972407;
+	b=Uzqbt8YFC9n7N0NXAZwPD88arr+RacjBB4MoI60V7587eEOoYveeiyuBCwuI0oGz/T9x
+	 zPOQWsdCJy+xeyubJAtksYCGRCKqKCHy05xcWKzwhYe0Nf4Vuoo4OjqRb4CxXu4Rrf543
+	 6dKFOwF8Nw3ohyNKlCyXU5RsLnDAE1MeijhVvZhFIe4saG06PRUqhkY7Fgoczv85/8TB7
+	 5klySAhZQD7zoS9ZtNeXxPgqW16S3SNhsJi+7Pr47DVXxp+E5R9kz2k0/kJ0iQfIJsccX
+	 V/mKyiilOI/IungFjTz3z40/fhks8I44QdF552I4fHn2xjwnFVPjEmqLRyg9++mlA3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972407;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=aiCTcLVNNQHE4aAyTH5dme7V0R329uEB7Wip49f/PvA=;
+	b=pfWPfWD4mM6ODKYDWSL4Ml+CF7LhM4w/+qn4L3M9n97mG3Oc0Uc1dzgWD2sodPiqI8O1
+	 tppvPHZM21ORR/Wsqjy7NUP1xsud8uTRU/bFU5VIQBRisql8Jcn3FUAcjwSvGNBjEB9tC
+	 y372LDHJpa/NCo/cvfDcYaOCC6Xa0OZi0pawZWxMNe/XrSWc+whyhjt+kpLpqnf5SE9BX
+	 Rv4ta1CUKIiVOQKAbKccF21KLvY+ZrwDHlneoMI7gS3O9uNRi4WxpeIE6jS/VebxXpWnl
+	 OWEILklkny5rKB48GskAnSL5XP0utx3xtKZi5RvniGZSuLo9Dnutw7aD1ehG4kfwUXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nWNw7IK+;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 71FDA1F01825;
-	Sun, 25 Oct 2026 23:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792972074;
-	bh=2yg3jmdq2UHiiRRzD0ZbP28dzxHUaJul0GWd80ON/y0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=U8ldsg1VpBe6PBqoOxP25Dc/M1+TTkRVWb3AOHl9SvCJb7eG1lu8Pllkd1pVhebJd
-	 WfTY2iBPqEgLfVTVMSonIwHhWwOnVw4Lfx0vdTzTW5ITxusaWmB1xaFmZj/ETItqpr
-	 0+19Ti2vLy+ohA2SKBWz/M/nw+m42tKzIoHedue9EKHc2COd4dEYavkC2amR0ufzCm
-	 so63BvCttyc94uY/YkxaX+evzzYvl8qui1TdB5ADD9T8g+LWsN8QrcygLbUuKf17PT
-	 0zaFm39nOSCD7fl6C/EM3JlISJZiEWVZwch1+PlXZYN8G7bVmLdIriEt68Heq72Fe5
-	 TOCeoZE+/6EYw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E4D7644B1F;
-	Sun, 25 Oct 2026 23:47:53 +0000 (UTC)
-From: Ihor Urazov via B4 Relay <devnull+z0rc3r.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 01:47:52 +0200
-Subject: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8 G2i
- 14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D799606A320
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:53:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D799606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nWNw7IK+
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so4106600eec.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 16:53:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792972405; x=1793577205; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aiCTcLVNNQHE4aAyTH5dme7V0R329uEB7Wip49f/PvA=;
+        b=nWNw7IK+zikswfzU/M8lVz42nN7qO6hhm//Vjpapx8sERHe2mWiWDwjavwzWUm03Ya
+         //iaXtCf7gpq10WItPr8G5O2A+utyPbz6HrjUGb+agQX+2glsRmkc5HLEuQy+OFrhVxG
+         +YMQ8OuVHmkMhT5XZ8mVpySvDiHSQERRiCEn4nv9tkieE0nSvroGvCPqGaG4AodtyRoH
+         9rO/KkpDOK9KhLTqrtFUCJ+wx/Cg7Nc2zXs6P2kuYHDUkDrMqWyXaeKgF1D+yB+kezqT
+         mfWfYjFKGKIimOfuP6qnasIVAYOjyj3F87kXGBaUWpwMZinQxtiEYB2r5o29rbaqN54n
+         pxxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792972405; x=1793577205;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=aiCTcLVNNQHE4aAyTH5dme7V0R329uEB7Wip49f/PvA=;
+        b=jJJUpdaVFVg7BPd4zUTTgNCD/CatpB7HdxXOr5q/Elt5HgiRpd/O6uNqTIdfSu2sQu
+         ujMBMtux+Xst/qv/vpY+Z4MOEhUG+l04pq/58iWHvAVFwXRtzuveiVWbnGFC1tv8xphA
+         ZhoBdK/gXQSSLON9l3azQxJOF+Q0chN1/+7YvWixB8oEdKgxIDWJz/BTmFlPipFiUE61
+         xfVKp7FksOBxkDOTOVt4lVCUXo+Yt+s5afPovZ/ZWFV8ClwN40zeRDAQKW5yvR5wLtdf
+         PgnVDHzt3eUNupMQkXKMjEN/qRqo3uF3mZVrerRpgq2cM3ArNA2SG6yQj3mrfKF3gsAT
+         7sbA==
+X-Forwarded-Encrypted: i=1; AKwUvByXUztXLAHdVsoDSuFULCt2Bi1tUuoLN743lDCQznhNq7S17eHE2mdw6GW5lZyO7/xkYkANN1A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDfXkhzAWecL642kKjUFIMMKTlWOYEq+5/ENLOBpvqJbnV+kEL
+	h/a/3cOptCjD9aAZ+ED2w0kAyEutWGy0aY0tg4479Kh2jJ2Uqq/r4l4V
+X-Gm-Gg: AYBFou1r0mpG200XNKhpm0veJzRkywa4lQLkw4WKF4vd9XsMcssIYf+b0plnMyD0gTZ
+	6Mp9g9PEF3V7cRZSeBc8b9aXgvXJDU11Z8EyCGkIkq0oRm+H+2UGplf9A8ghhvZqW4K0rNQ572a
+	K6DdU842DVmexk4v+ZCNsx9P18K+1FOGb0v1233oIWAjsSss7M7Orbx1sh5sqK+BO6LDqOGr2l3
+	9FM+HhMgRYtbR4FZMqO5UcipXCFsk6S4tcZtPByQua6VqcAp/mfuDQhM2I/Tb7v5SfRryPLfdz7
+	T9qVbk0qn5z/g2ElrW1zglQcAtI87NJMppX8MF9kUNMs4mU3A/odNoW0A2I+2cNZYEwDPijVefL
+	jajLdXl1kdYiCkmnO3jzAvbxqICsS7uivmbCvZqwvcYvKGXPOWj6RbLb0HXrm6Y/svsIb+VMxaf
+	ijniuMKnfLulv5KbWzOgbb9nyQBkddR18TgzP1Qeie5zWviH27OCHyKqLtGmcgoUBjxSjmlk+ad
+	+ysCBk2H4F060Cr50gZfUTf/B927Nmuz8bZ5YPEQqfHsvNjdflWZJ4yM9WuLiT2ixlupsEMyPev
+	F6UAqT+wmLKPoNOSVvpUrNe8Kkrd75uKMHbcUo8fiTbCMblx9dcDF7+UDBtva/f9SZLslQ==
+X-Received: by 2002:a05:693c:88d0:20b0:358:f678:46b6 with SMTP id 5a478bee46e88-369e84aba20mr7713939eec.22.1792972404664;
+        Sun, 25 Oct 2026 16:53:24 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daa3a8sm24732751eec.16.2026.10.25.16.53.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 16:53:24 -0700 (PDT)
+Date: Mon, 26 Oct 2026 08:53:19 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: netdev-bot+sashiko@kernel.org, edumazet@kernel.org
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	martin.lau@linux.dev, john.fastabend@gmail.com, weiwan@google.com,
+	sd@queasysnail.net, jiayuan.chen@linux.dev, netdev@vger.kernel.org,
+	stable@vger.kernel.org, imv4bel@gmail.com
+Subject: Re: [PATCH net v3 2/2] inet: restore refcount ordering for
+ established lookups
+Message-ID: <at6Wb77B_ok5UiSr@v4bel>
+References: <20261024053720.1147022-3-imv4bel@gmail.com>
+ <179290682873.3134.10437749263853370498@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,141 +102,295 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-ucsi-hp-zbook-8-g2i-v1-1-91002e9ef073@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrB3QkIbSqxQXJpnqWEgko6UYc
- ndTu3iLb/H+DEKJSeDRZEj0YeEYKvq2ATePYSJkXw2qU6avw90J47ziYWN84x0nxai1NqM1dCO
- voT7XRC/+XtXn8LfsdiG3/VJQygnhDZjkdwAAAA==
-X-Change-ID: 20261026-ucsi-hp-zbook-8-g2i-4446ab6e5ed4
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Francesco Orro <ncesco@interstellar.eu>, 
- Ihor Urazov <z0rc3r@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4018; i=z0rc3r@gmail.com;
- h=from:subject:message-id;
- bh=xe4U+KYh11Pj1uxmd73sL6TM+I5I1Id6YUmQWliU7IU=;
- b=owGbwMvMwCWmab25vPXFu0bG02pJDFn3pmoetTq2h5Mn6++0gi3vWS4yafMwFz+yfshrcrrji
- eWRLSfNO0pZGMS4GGTFFFn69xnwaguZijN9sXkDM4eVCWQIAxenAEyk9xUjw44Xd3VrqxdJuX+K
- sjZh3mOnl65VFv1g052feftPXTmrvYXhN/uZwiQLz+ZPl7er8/BO7bv21TJrRiAro+7+GVtYOa9
- t5gAA
-X-Developer-Key: i=z0rc3r@gmail.com; a=openpgp;
- fpr=F7D877ECBB274E704A31F3AC5D006BEB7252F7F2
-X-Endpoint-Received: by B4 Relay for z0rc3r@gmail.com/default with
- auth_id=1320
-X-Original-From: Ihor Urazov <z0rc3r@gmail.com>
-Reply-To: z0rc3r@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179290682873.3134.10437749263853370498@kernel.org>
 
-From: Ihor Urazov <z0rc3r@gmail.com>
+On Sun, Oct 25, 2026 at 05:40:28AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 · Medium: 0 (1) · Low: 4
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] inet_twsk_purge() (net/ipv4/inet_timewait_sock.c) was left
+>   unconverted, so the fix is incomplete.
+> - [Low] The patch carries 'Cc: stable@vger.kernel.org' and 'Fixes:
+>   fb041bb7c0a9' (v5.5), but the fix depends on…
+> - [Low] Commit message accuracy.
+> - [Low] Several converted sites do not follow refcount_set_release()'s
+>   kernel-doc contract: 'This function should be called only after new…
+> - [Low] In reqsk_timer_handler() the patch moves
+>   timer_setup(&nreq->rsk_timer, ...) ahead of the refcount store, and…
+> 
+> Pre-existing issues:
+> - [Medium] Same ordering bug in MPTCP token lookups.
+> 
+> --
+> 
+> inet: restore refcount ordering for established lookups
+> 
+> This patch makes the IPv4 and IPv6 established hash lookups use
+> refcount_inc_not_zero_acquire(). It also converts refcount_set() to
+> refcount_set_release() in the SYN cookie, TCP Fast Open, request
+> migration and TIME_WAIT paths. The goal is to bring back ordering that
+> was lost when fb041bb7c0a9 made refcount_inc_not_zero() relaxed on
+> success.
+> 
+> > inet: restore refcount ordering for established lookups
+> >
+> > Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
+> > of refcount_t"), default builds implemented refcount_inc_not_zero() using
+> > atomic_add_unless(), which provided full memory ordering on success. The
+> > commit removed that ordering on weakly ordered architectures, allowing
+> > validation in established lookups to be reordered before a successful
+> > reference acquisition.
+> >
+> > Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
+> > lookups. Use refcount_set_release() when setting refcounts in the SYN
+> > cookie, TCP Fast Open, request migration, and TIME_WAIT paths. Keep the
+> > existing TIME_WAIT smp_wmb(), which separately orders the refcount store
+> > before ehash publication.
+> 
+> [Severity: Low]
+> Is "restore" accurate for the refcount_set_release() hunks?
+> 
+> fb041bb7c0a9 only changed the reader side. The !REFCOUNT_FULL
+> refcount_inc_not_zero() went from atomic_add_unless() to a relaxed
+> cmpxchg loop. refcount_set() was a plain atomic_set() both before and
+> after that commit.
+> 
+> So the six conversions add writer-side ordering that never existed. They
+> don't restore it. The six are in tcp_get_cookie_sock(),
+> tcp_fastopen_create_child(), reqsk_timer_handler(),
+> inet_csk_complete_hashdance(), inet_csk_listen_stop() and
+> inet_twsk_hashdance_schedule().
+> 
+> The changes themselves look justified. A stale reader using acquire
+> ordering has to see the pprev = NULL from sk_node_init() and the new tuple
+> fields before the new refcount. Otherwise it could match an unhashed
+> syncookie, TFO or migrated req.
+> 
+> Could the changelog explain this? It could also say how recycled request
+> sock slab memory makes these unhashed reqs reachable at all.
+> 
+> sk_clone_lock() and sock_init_data() already have an smp_wmb() before
+> their refcount_set(), so leaving those two alone looks right.
+> 
+> > Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
+> > Cc: stable@vger.kernel.org
+> 
+> [Severity: Low]
+> refcount_inc_not_zero_acquire() and refcount_set_release() were added by
+> 7f8ceea0c58039 ("refcount: provide ops for cases when object's memory can
+> be reused"). That commit is in v6.15 and not in v6.14.
+> 
+> The Fixes: tag points to v5.5. Without that prerequisite, none of the
+> touched files will build in the 5.10, 5.15, 6.1, 6.6 and 6.12 stable
+> trees.
+> 
+> Should the stable tag carry a prerequisite annotation, for example:
+> 
+> Cc: stable@vger.kernel.org # needs 7f8ceea0c580 ("refcount: provide ops ...")
+> 
+> Or is a fallback planned for older trees?
+> 
+> > diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+> > index 01ecd98a2b501..8faef6c38b364 100644
+> > --- a/net/ipv4/inet_connection_sock.c
+> > +++ b/net/ipv4/inet_connection_sock.c
+> > @@ -1060,8 +1060,8 @@ static void reqsk_timer_handler(struct timer_list *t)
+> >  		 * hold another count to prevent use-after-free and
+> >  		 * call reqsk_put() just before return.
+> >  		 */
+> > -		refcount_set(&nreq->rsk_refcnt, 2 + 1);
+> >  		timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
+> > +		refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
+> 
+> [Severity: Low]
+> This isn't a bug, but timer_setup() now runs before the refcount store,
+> and the changelog doesn't mention the move.
+> 
+> It follows from the refcount_set_release() kernel-doc, which wants
+> initialisation done before the release. nreq is still private at this
+> point. A short note in the commit message would be enough.
+> 
+> >  		reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, req);
+> >  
+> >  		req = nreq;
+> 
+> [ ... ]
+> 
+> > diff --git a/net/ipv4/inet_timewait_sock.c b/net/ipv4/inet_timewait_sock.c
+> > index a1d86026aefb0..5c1bff5a6d4d8 100644
+> > --- a/net/ipv4/inet_timewait_sock.c
+> > +++ b/net/ipv4/inet_timewait_sock.c
+> > @@ -143,7 +143,7 @@ void inet_twsk_hashdance_schedule(struct inet_timewait_sock *tw,
+> >  	 * Also note that after this point, we lost our implicit reference
+> >  	 * so we are not allowed to use tw anymore.
+> >  	 */
+> > -	refcount_set(&tw->tw_refcnt, 3);
+> > +	refcount_set_release(&tw->tw_refcnt, 3);
+> 
+> [Severity: High]
+> Is the fix complete without also converting inet_twsk_purge() in this
+> same file?
+> 
+> It walks the same ehash chains locklessly under rcu_read_lock(). It
+> handles the same SLAB_TYPESAFE_BY_RCU TIME_WAIT and request socks, and it
+> still uses the relaxed variant:
+> 
+> net/ipv4/inet_timewait_sock.c:inet_twsk_purge() {
+>     ...
+> 			if (check_net(sock_net(sk)))
+> 				continue;
+> 
+> 			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> 				continue;
+> 
+> 			if (check_net(sock_net(sk))) {
+> 				sock_gen_put(sk);
+> 				goto restart;
+> 			}
+>     ...
+> 				inet_csk_reqsk_queue_drop_and_put(req->rsk_listener,
+> 								  req);
+>     ...
+> }
+> 
+> The release store added here only helps readers that pair it with an
+> acquire. __refcount_add_not_zero() uses atomic_try_cmpxchg_relaxed(). On
+> arm64 or POWER, the second check_net() and the later req->rsk_listener
+> load can therefore be satisfied before the CAS.
+> 
+> Can this sequence happen?
+> 
+> CPU0, in tcp_sk_exit_batch()->tcp_twsk_purge()->inet_twsk_purge() for
+> dying netns D:
+>   sees socket X in D, and the first check_net() is false
+> 
+> CPU1:
+>   X is freed
+>   the slot is reused for a new TIME_WAIT or request sock in live netns L
+>   the new sock is initialised, gets refcount_set_release(), and is hashed
+> 
+> CPU0:
+>   refcount_inc_not_zero() succeeds on the new object
+>   the reordered second check_net() still reads D
+>   inet_twsk_deschedule_put() or inet_csk_reqsk_queue_drop_and_put() runs
+> 
+> That tears down a TIME_WAIT or pending request sock that belongs to the
+> live netns L.
+> 
+> req->rsk_listener could also be read stale. It would then be the old
+> occupant's listener, which may already be released, and
+> inet_csk_reqsk_queue_drop() would update that listener's accept queue
+> counters.
+> 
+> An unprivileged user can trigger netns exit through user namespaces. A
+> remote peer can create TIME_WAIT and request socks in L.
+> 
+> Should inet_twsk_purge() use refcount_inc_not_zero_acquire() too?
 
-The HP ZBook 8 G2i 14 (board 8ED9) exposes a working UCSI ACPI PPM, but
-its UCSI VERSION field reads zero until the first command completes.
-ucsi_register() rejects a zero version with -ENODEV, so no Type-C ports
-are registered.
+I will include this change in v4.
 
-The firmware's _DSM READ function (2) is a stub. The mailbox VERSION
-field is written only by the EC response handler, after a command
-completes, after which it reads 0x0100 (UCSI 1.0). The mailbox is
-48 bytes with 16-byte MESSAGE_IN/MESSAGE_OUT fields, the UCSI 1.x
-layout, and _DSM function 5 is not implemented.
+> 
+> [ ... ]
+> 
+> > diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+> > index 471c78be55137..e40477b6b5549 100644
+> > --- a/net/ipv4/tcp_fastopen.c
+> > +++ b/net/ipv4/tcp_fastopen.c
+> > @@ -364,7 +364,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
+> >  	tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
+> >  			     req->timeout, false);
+> >  
+> > -	refcount_set(&req->rsk_refcnt, 2);
+> > +	refcount_set_release(&req->rsk_refcnt, 2);
+> 
+> [Severity: Low]
+> The kernel-doc for refcount_set_release() says:
+> 
+>  * This function should be called only after new object is fully initialized.
+>  * After this call the object should be considered visible to other tasks
+> 
+> Later in tcp_fastopen_create_child(), req is still written after the
+> release store:
+> 
+> 	tcp_rsk(req)->rcv_nxt = tp->rcv_nxt;
+> 
+> The other converted sites have the same ordering:
+> 
+>   tcp_get_cookie_sock(), inet_csk_complete_hashdance() and
+>   inet_csk_listen_stop() do the release before
+>   inet_csk_reqsk_queue_add(), which writes req->sk and req->dl_next.
+> 
+>   reqsk_timer_handler() does the release before req->num_timeout++, the
+>   accecn_fail_mode update and mod_timer() on nreq. nreq is then hashed
+>   by inet_ehash_insert().
+> 
+> For the reqs that are never hashed, hlist_nulls_unhashed_lockless()
+> rejects stale established lookups, because sk_node_init() runs before the
+> release. So the practical exposure seems limited to minor fields such as
+> num_timeout on the migrated nreq.
+> 
+> These stores had no ordering at all before this patch, so nothing
+> regresses.
+> 
+> Could the release stores move after the last initialising write? If not,
+> a comment could explain why the later writes are fine.
+> 
+> > diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
+> > index aa5fa1dd062f7..1eea584d80df8 100644
+> > --- a/net/ipv6/inet6_hashtables.c
+> > +++ b/net/ipv6/inet6_hashtables.c
+> > @@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct net *net,
+> >  			continue;
+> >  		if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))
+> >  			continue;
+> > -		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> > +		if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
+> >  			goto out;
+> 
+> [Severity: Medium]
+> This is a pre-existing issue and was not introduced by this patch, but
+> the MPTCP token lookups seem to have the same pattern.
+> 
+> mptcp_token_get_sock() in net/mptcp/token.c re-validates after a relaxed
+> increment:
+> 
+> 	if (!refcount_inc_not_zero(&sk->sk_refcnt))
+> 		goto not_found;
+> 
+> 	if (READ_ONCE(msk->token) != token ||
+> 	    !net_eq(sock_net(sk), net)) {
+> 
+> mptcp_token_iter_next() does the same thing with its net_eq() check.
+> 
+> mptcp_prot sets SLAB_TYPESAFE_BY_RCU for msk objects. For that reason,
+> mptcp_subflow_reqsk_clone() in net/mptcp/subflow.c already uses
+> refcount_inc_not_zero_acquire().
+> 
+> On weakly ordered CPUs, can these lookups return a recycled msk from
+> another connection or netns?
+> 
+> For MP_JOIN, the later HMAC check would fail and cause a spurious reset.
+> Through the diag iterator, an msk from another netns could be dumped.
+> 
+> MPTCP was merged in v5.6, after fb041bb7c0a9. These sites never had the
+> fully ordered behaviour, and they are outside what this patch covers.
+> Would a separate fix for them make sense?
 
-Add a DMI-specific read_version for this board that substitutes the
-version the firmware itself reports, UCSI 1.0, only when VERSION reads
-zero. A non-zero firmware version is used as is.
+I had already identified the MPTCP issue. To simplify review and 
+backporting, I will address it separately in a later patch rather than 
+include it in this series.
 
-The same firmware defect on the HP ZBook Fury G1i 16 was discussed in
-"[RFC PATCH] usb: typec: ucsi: acpi: bootstrap PPM on HP systems with
-empty _DSM func 2" [1]. The defect was reported to HP as case
-5166176673.
-
-Tested on an HP ZBook 8 G2i 14 with BIOS Y70 01.02.08, from a fresh
-boot where VERSION reads zero: three connectors register, the PD
-contract and alternate modes of a Thunderbolt dock are reported, and
-its DisplayPort output stays up across the PPM reset in ucsi_init().
-Dock unplug/replug and s2idle suspend/resume update the connector
-state without errors.
-
-Link: https://lore.kernel.org/linux-usb/f3M_fpjtt8FxDqGKcA84vqXmRbKzCBfpCrIK4-jCWvIscER51zkD8qD8FYpz75qZw51rMDRSkUyYlrBvLvdM8CGRY2l8TFVvr4MC1LdTzbc=@interstellar.eu/ [1]
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-Cc: stable@vger.kernel.org
-Cc: Francesco Orro <ncesco@interstellar.eu>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ihor Urazov <z0rc3r@gmail.com>
----
-Hi Heikki,
-
-on the Fury G1i RFC you asked for the actual UCSI version instead of a
-guess. On this board the firmware itself reports 0x0100 once the first
-command completes (read back from the mailbox), and the mailbox layout and
-missing _DSM function 5 rule out 2.x. HP has been asked to report it from
-boot, case 5166176673.
----
- drivers/usb/typec/ucsi/ucsi_acpi.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 5697ccc24ec3..2421a92ecb0e 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -148,6 +148,34 @@ static const struct ucsi_operations ucsi_acer_ops = {
- 	.async_control = ucsi_acpi_async_control
- };
- 
-+static int ucsi_hp_read_version(struct ucsi *ucsi, u16 *version)
-+{
-+	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
-+	int ret;
-+
-+	ret = ucsi_acpi_read_version(ucsi, version);
-+	if (ret)
-+		return ret;
-+
-+	/* Firmware fills in VERSION (1.0) only after the first command completes */
-+	if (!*version) {
-+		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
-+		*version = UCSI_VERSION_1_0;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct ucsi_operations ucsi_hp_ops = {
-+	.read_version = ucsi_hp_read_version,
-+	.read_cci = ucsi_acpi_read_cci,
-+	.poll_cci = ucsi_acpi_poll_cci,
-+	.read_message_in = ucsi_acpi_read_message_in,
-+	.write_message_out = ucsi_acpi_write_message_out,
-+	.sync_control = ucsi_sync_control_common,
-+	.async_control = ucsi_acpi_async_control
-+};
-+
- static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
- 				  void *val, size_t len, void *msg_out,
- 				  size_t msg_out_size)
-@@ -196,6 +224,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 		},
- 		.driver_data = (void *)&ucsi_acer_ops,
- 	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8ED9"),
-+		},
-+		.driver_data = (void *)&ucsi_hp_ops,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
-
----
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-change-id: 20261026-ucsi-hp-zbook-8-g2i-4446ab6e5ed4
-
-Best regards,
---  
-Ihor Urazov <z0rc3r@gmail.com>
-
-
+> 
+> -- 
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261024053720.1147022-1-imv4bel%40gmail.com
