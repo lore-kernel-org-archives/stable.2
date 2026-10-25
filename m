@@ -1,56 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792969882;
-	b=ngxT/qjyewTqPX63S1UpvZ3A0sINshOb44Ii1yfyhSZYNyTSSmw0jcxQEj5Dk0FevJK3
-	 s4cL9uvbdqED3ucOdc84B2DRB7ifUeXbcP7WsUrEC8t7/Xx3HbtO01KXLYs3lpGHUO8q6
-	 mwoqk7MTw3SEi1yMjkbdcj5I19j0P/hq0tyd+MM0oWqYvyAFscxhIvDpDOf+ak1FGaYDV
-	 KDeIzv/+kHCX3bX7W3lu7rRY55JNG96KCOpwr/hB/1zKmsPXFc9zOOqEH9zvTBL3YNiZ8
-	 EHmv8xU5jgJgBsQjdEUrsP+ZrfoppcLVlfDo2d+DC7Sc+rNo9I93MD2R+E4mRsBkC3g==
+	t=1792970594;
+	b=i0aBHiXW8MQQgJtEPyft9gB+UA3BiUj01uKmmIVy4L9CYmL9fCVi7jr4D8nEi1vxSiRD
+	 kAtdpe+/Hkqpz1nI6X0z4GqZjDwUZ49QC0RAwbZGYieJnWA8RKTSp0JC40xvW6nHryOp9
+	 4NC+252JdxYTyRq96biw8oUfXZzRUqJ4eWrPZ0kGasju2OhzHtbNxH6arvI8c2f8OEoUy
+	 DVpCgKJyfRdr54z1LAUZ/i4KqRg2SpDmLGFMUCtVtC0bId8AU341qrwadfQYZwIf6ofK6
+	 RSvoSdIk90oRs4rpw87y8TUZB5Flz+wbF+YE182ai4FExX51fudefIB7TUTcmlJFJbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792969882;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0mj2zpi7nl9gHfUwiUkIgugH9tcLboPqPYujRbCemh8=;
-	b=04gtYOJAtkOtdcNhSLuylUNPb3aVPWs3z53PdTz0lOZ4/Vj4TEEaQOSoFNYlzTjpKeJy
-	 KMUjpF2zDecpJBu/aetcgkRPBHwlypr/DmFpwVuSF5QS+2/x1+Sq0uzYkv/fHB3QCKwWH
-	 /28Sv7xQ6yAiscs4iWnFysemQ1SLpAi+xUF2xhkQCPr8oi3s8ffVcwu/CdGFnT9A6i14X
-	 1u/vRxQFqqse1rEp6rOZOLHYcXUlCA7E30e/gBY3K3Ll949wXh3JuzmX5kpcG9pCP3VkE
-	 3yWE6JLuabZFOBwwH6h/9/W2c/R5f7J1GXrFZACqyoQbSe0LfyHPLzXsVx2IB8cU8Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792970594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rbxeXuBz0HfqP0KO9f4xM0kuKsTU2zW3nybw3gTAZ8k=;
+	b=dwMTM2dBzrab23+Ka8Xii5cOJdtrUEwZlop67c4Wa6ae1oYRo72KJxruTvkrf3CsDEyg
+	 KkvPTW8MF+kHgNECbdLogGhivTUWMrtv1BcTJO7iC09SkV8ayVP8ipiBD9txMo2oIsBOY
+	 7ku5+UQWF4qC2OfwDSPoibnf5PXf1RBB44eGOhnJtmV7/tfC3d2a+Rc59SZT8R9wgSHE8
+	 OiGAT4AvgELrvUWAFDgEJLO6UWgBT/i48u2lrS1cpxYPsWe1ylicLF6SKEf6jRIY2rqzw
+	 Ele1YWlzTDvdRJ2cZ5NjZrbSKEmdYOn921DlgJZ5c1LidwOwSwbzglvkZZ/zsQG76/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vg+jdHAW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wis4iWFU;
+	arc=none smtp.remote-ip=74.125.82.195
+Received: from mail-dy1-f195.google.com (mail-dy1-f195.google.com [74.125.82.195])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B887E606A31A;
-	Sun, 25 Oct 2026 23:11:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CDB606A31A
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CDB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vg+jdHAW
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C81D21F01825;
-	Sun, 25 Oct 2026 23:11:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792969881;
-	bh=0mj2zpi7nl9gHfUwiUkIgugH9tcLboPqPYujRbCemh8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vg+jdHAWMm6vROjT53RLVbAdfrAABddwxxUPPyaL2POhVJsXiXdKXuhgMohox0Ts7
-	 TygZvhEDtMsorfUro/VNzflmVXI1Tt3EylVoR9k2KWgISKBbhcaZwWV8MLF9oNq5MN
-	 v5jcu7BOhNt3IdCHACaoaYEU9bSF0PyLbU2PUQ37uUVJFm1UrPHJ+dqbaVJstDhadi
-	 bPkmiW3JMOBxs3QmtezyjCaUnitvfQsIn7Q4mi/rWL0XAUGVc9HAEhah/JaO/m8IWd
-	 PN0SLhEPkYHDwlQ4te7GkwXg98YLAdEXPp2hJ7c0lRrgtoqaRZH7wGIYwD8iVgv6yq
-	 BYFZshtS7BgAg==
-Date: Mon, 26 Oct 2026 01:11:17 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: Check return value of crypto_kpp_set_secret()
-Message-ID: <at6MlY1kpfa01tr4@kernel.org>
-References: <20261025211119.138277-1-ebiggers@kernel.org>
- <at5-ve5Ap7Oyp1Fo@kernel.org>
- <20261025224723.GA148998@quark>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wis4iWFU
+Received: by mail-dy1-f195.google.com with SMTP id 5a478bee46e88-35829219da8so4374214eec.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 16:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792970593; x=1793575393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rbxeXuBz0HfqP0KO9f4xM0kuKsTU2zW3nybw3gTAZ8k=;
+        b=Wis4iWFUKqony/2nLAbnNxcXFaNVTFQODKiBbbtoENDWsu32+aupxpQjJD9UUG+NuR
+         Oghoo9542qR6F65e17KWCS2HHrQSzM4OXo7iQBna3zw90l0IxaZXHG8W5H/3kBaOzo6O
+         DUhGgX+di58mLwtx/Gzk71vykUIRgLzuOft1b+MqLFfDJV5GZ/9xflpbFaa1n37kh+q+
+         fl8gdjfea50eIgCwd288k80V7W4qLnrzXUjYtDikkS3vgzwoqnmB+/msDR0jVXxVc4Kc
+         5fhzOFxvwlHZR9aYDYYUibvLs/XoP9f+BxRfr896ek65JJiIi1fHrHd9UxclX6ZoSCH7
+         FqBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792970593; x=1793575393;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rbxeXuBz0HfqP0KO9f4xM0kuKsTU2zW3nybw3gTAZ8k=;
+        b=IEyQMttLwOPzohaGr2dZtilmN0QoK8TtmZHChyZl/6Mo0PWDoUhfQ0v2sTBVpQjdGf
+         uO7a06CmswltrSZaWatZU9mA4JPxDCn53bF1loXqZcGqBx/J4ZE8zmdHdK+GHnUexysv
+         v8Mb8HGLszY5ChMy2m0g/jTvogSS8WGQEKt0KJF0Bjm/lxuLCQPavr7+iApPiuQ/lbg9
+         M91cfNQUBkhxbYPMAGVgs7GbPxvo3HNnxlS0QFlrk0avZ4glfoIxEIrktJ1bIvg+maU/
+         jhhE88hf+ENzDk0zPC14jbAfOi5Nh+4TDJ8q2X9uuNAg65nzKCDbRvCJbA0mKtp0DzMX
+         xvYw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsVjBygYj1w/1b9dmrmrahw1Jm6f6+v5akhwMs7hTSCdsmqDjcdTUzKKVmDRjpm2yrwOC3LFs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZlAXJZr1EQC1BlGzzYOt7GyU5v7KREFpwDdLBLqZxj5YZ7cqm
+	/OTmrE2eK4EAr6HEEklw3uYmTB2OqzlNx3JdzuPueDoSVUAhAEKOs8ry
+X-Gm-Gg: AYBFou0RldG8lGOWRTXVREYwDsZLDhBwMP08X/C7SX8E1YjgmlJlqXHFC9g+yLFd99V
+	x4uUSydjVPdVCoeIkzBG55/Z3CnxkEIrBoHw9afroGcSMLUpQM7D3RsiL4dNGo8VODJ5O0+ZF+9
+	JHLtICaTxFoge22uhMu5MKtR6ozIoUE8eQow3kncZtkoF1IuKiUA8iTut4/KeTl1++MAb1KzMpv
+	UaTCMBJ7Jh1UA5P1YQls11ZTACF4dODozlkK4m948dwR5PgfiIpawouV4Nk0p6XWGG+lu/oq6E8
+	LfLOHbJ13VabUSx/OQYXUFS53L0N+idjB/Rya/H15TUOs5CnOBEJQLPcpdpJytfx8LxdhsyyT03
+	S1a6YheOlttuxl1gGhOpyP4uUudc2hRXtSTOekYVZFADBOTWXl63vglyF0d9I6S0wIJjSVrLyKn
+	JC/fRgBR1L4I381tkXHXHWD250RQLYrosXX2oEyXGSbdq3SRVyq5kHLSDQJsO1u2/tPaiWb9sN7
+	giVnF4fVGIYZw+LDDt7uaxpVyy+kp8kSRCHe4jzITCJGoo8wC3xFvUhe8Zr063sEm2c1gpSoT5z
+	8Q9B8oM=
+X-Received: by 2002:a05:701a:c919:b0:187:5a5f:3b27 with SMTP id a92af1059eb24-19935be804amr6867724c88.17.1792970593173;
+        Sun, 25 Oct 2026 16:23:13 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2eefbsm20118741c88.7.2026.10.25.16.23.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 16:23:12 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH] inotify: do not coalesce events with different rename cookies
+Date: Sun, 25 Oct 2026 23:22:51 +0000
+Message-ID: <20261025232251.58252-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,65 +97,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025224723.GA148998@quark>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 03:47:23PM -0700, Eric Biggers wrote:
-> On Mon, Oct 26, 2026 at 12:12:13AM +0200, Jarkko Sakkinen wrote:
-> > On Sun, Oct 25, 2026 at 02:11:19PM -0700, Eric Biggers wrote:
-> > > crypto_kpp_set_secret() can fail, for example if the kernel is booted
-> > > with fips=1 and the broken-by-design FIPS RNG used for ECC private key
-> > > generation doesn't feel like generating random bytes at the moment.
-> > > Check for error, cancelling the TPM session creation rather than
-> > > proceeding with a zero or uninitialized private key.
-> > > 
-> > > Fixes: 699e3efd6c64 ("tpm: Add HMAC session start and end functions")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> > > ---
-> > >  drivers/char/tpm/tpm2-sessions.c | 4 +++-
-> > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-> > > index ca1e2bf424e14..2aaaad69760dc 100644
-> > > --- a/drivers/char/tpm/tpm2-sessions.c
-> > > +++ b/drivers/char/tpm/tpm2-sessions.c
-> > > @@ -527,7 +527,9 @@ static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
-> > >  	}
-> > >  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
-> > >  	/* this generates a random private key */
-> > 
-> > Could you delete this comment while at it? It's not helping with
-> > anything.
-> > 
-> > > -	crypto_kpp_set_secret(kpp, encoded_key, buf_len);
-> > > +	rc = crypto_kpp_set_secret(kpp, encoded_key, buf_len);
-> > > +	if (rc)
-> > > +		goto err_free_kpp;
-> > >  
-> > >  	/* salt is now the public point of this private key */
-> > >  	req = kpp_request_alloc(kpp, GFP_KERNEL);
-> > > 
-> 
-> I actually think the comment is helpful, because of how unreadable the
-> crypto_kpp API is.  It's generating a private key, but to request that,
-> crypto_kpp apparently requires that an empty key be encoded into a byte
-> string.  Then that key is "set", which actually generates a new key.
-> 
-> In comparison, the Curve25519 equivalent is
-> curve25519_generate_secret(), which is clearly named and also always
-> succeeds.  At some point we need to fix the ECDH API...
+inotify compares the mask, watch descriptor and name when coalescing
+adjacent unread events, but ignores their rename cookies. Distinct
+renames can therefore lose an event even with IN_ALL_EVENTS.
 
-Ah, right it gets zero filled echd. I've not consciously thought this
-detail before, thanks :-)
+For example, prepare two files in an unwatched staging directory and
+rename each onto the same pathname in a watched destination directory
+before reading the events. Only the first IN_MOVED_TO event is retained,
+although the two renames have different cookies. Similarly, coalescing
+distinct IN_MOVED_FROM events can discard the cookie needed to match a
+subsequent IN_MOVED_TO event.
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> 
-> - Eric
+The original inotify implementation compared cookies before coalescing.
+The fsnotify conversion lost this comparison. Compare sync_cookie as well
+to preserve distinct rename events, while retaining coalescing for
+ordinary events with zero cookies.
 
-tpm2-sessions overall would need some refurbishing work now that also
-Matthew's hibernate patches depend on it. I have to take a serious
-look at it some point.
+Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/notify/inotify/inotify_fsnotify.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Br, Jarkko
+diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
+index 7c326ec2e8a8..6456d9c0e408 100644
+--- a/fs/notify/inotify/inotify_fsnotify.c
++++ b/fs/notify/inotify/inotify_fsnotify.c
+@@ -40,6 +40,7 @@ static bool event_compare(struct fsnotify_event *old_fsn,
+ 		return false;
+ 	if ((old->mask == new->mask) &&
+ 	    (old->wd == new->wd) &&
++	    (old->sync_cookie == new->sync_cookie) &&
+ 	    (old->name_len == new->name_len) &&
+ 	    (!old->name_len || !strcmp(old->name, new->name)))
+ 		return true;
+-- 
+2.43.0
+
