@@ -1,86 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792955942;
-	b=S/LYFLxAFV9r15/K7yRrSx7U/8bnq3e+p8+0VcGfdKY6WLVAilApMaQeXg0At58/DQL8
-	 K0j40uz+i2jEkIZTsRpLtkc6BB3zuk/rDuldCg845s9hsZInT9CchbCuVxc4PWLzzHWiP
-	 LtpoomySNP2VhHNwaerW/GgwTZnrfd3QpQUGFrtpcFaK8zlw/XaqkGuJKrT49TJbawA7b
-	 0xCJ/QX3TIajjSfYx0RwsZJ+tuOZFuYZRnifQ1ocPsprBbHENUn1qGEeoyZATCaRy+DQe
-	 XuspKCrIBqvFPab4zoNiCSyVMYjITYj4S+lDdN+gkRPxivXRtVUCZHQ/aA3v0g/i2Gg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792955942;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792957017;
+	b=SuoCByig7BBcOy91eTwdVw5fLTSvC3u/z/j1lwr/jIXc0Y9S1HmAmbT/WIe1nSDTZWvh
+	 IONSNxOTxp8Zd6uLZ+1aNKjA3rR5fykUvLfnfnDQMsIUKIYHqjrij4o1wYPNPEFIL1QPI
+	 Z4bR3DvF6lzElUkr2DO67DWRhpJigaP0Q37ODjx+gagK+dtK1Ko44iu+m6hRVZAm6vSsd
+	 IpOg/MNyOStTwGHAropjK73iEiRSfFk6WiGsdBNzyeUBQni1N1Kll2yvPwlBMCjcjWN9k
+	 tA0jx4RVrE1PLvBFSFFkvyoaOGGkxLimCz09MTNWaW3b4CPTtOB9PICPY9lgNCeSbSg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792957017;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Sender:Message-ID:Date:
-	 MIME-Version:User-Agent:Content-Language:To:From:Subject:Autocrypt:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Byu/Ivu2c/RQxf7NoTMxN/pvEQ2Ryga8K2B0J0WdHLg=;
-	b=hNNK/OW2EsJDCZerxcgl6sBRjbOuaNTDtnUnxXweK3XjWm0g0ZGLehi9ljDbODURb01I
-	 EJwXSJqMUSxPPSOqLs79rbeoTIeiWXiVx5pe6VqUdLKsy7miIzP3IZnIjeuMMv9VRoJlZ
-	 tuTBYLJvKU20BBjOvSLmSsAnNPzzNKO+atpVE1l99m7/OdGRr5vZ3LvdsFt3pNvL6vmap
-	 fzAbBrcYKJaYPIdNrawwdTahyHBBXrIa+5hmlBOk18H3VpwktOWMXnUF24wR8r3l/uyok
-	 h8Fe0aiYktpn3UPnCqnW2r8x6v13sjX4ttFcl7NQY+T9nVzSZoUrTqP2K4fCrhhxzZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LH4HKIAq;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FkyWJop/mb6aNzKVDcPYdXhzK9QyO4mdZuzhtZY4mdI=;
+	b=4wB5Ihq3mq9InA/+7LYci+uJq5yvQVXF+e0W7rA9ytbNfSxtZnnhC4F67WaaaKwrE5bA
+	 FqlFXVzFDCqi8n3yjG4AXviBqz0yPztImZDH72V7j2rvDfltJrrz+O+EaLpG2eep9vpaC
+	 vdf+wOgdrlUIu6h4jB8Ghr5MFRE/rxkhjgWAS4v6YzO7PZcVUF7ImvmmG71sn0OcDAxaZ
+	 OaGK91wcyFSl76VxXDxUMyZA2jIWrDu4uKAnJ+txHswm9xpm1HjWCb2IUiySgB7X/MXk/
+	 MvkSF3FrTnjyXyx/hiurK0RDcbEg74cdR+v0D0EtRY2na7vEGWJJf/6pCJ9B6J13wfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=KVJ4PHU5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C27606A31F
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 19:19:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C27606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1008F606A322
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 19:36:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1008F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LH4HKIAq
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so1180631a91.1
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 12:19:02 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=KVJ4PHU5
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so1634357a12.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 12:36:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792957016; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QN55sKe/z/fuyr4p9W25qjOXfynlEaVBhMnsMeLLTBj5IbymLQZqT+Jn+klvtrm5e4
+         ZqZaUkYzMeG87yixsvTj45iEZKlmg4XAwNEoXA+gbPLzV9Di1iQSHuOK/eUNlTy4FJ2G
+         0B0/N7ZhWxNo3iFTsh9hsa/onlaHfJWPNy7Nfzldo3W/Ahh66MXU309ZiDN6ckEzfAen
+         8cn9+5aquvCJILTkOXF1lBXpkaAMdHo/HpnQ+nu4q5whZugbLeSCsY9qCFwrfvyjtuKN
+         q8q1oRxfPX2+7giiC9KtZE0n/TP/nY6ngw9qoPibmXhUlcEtha3MwLXAWI5VcEoYp7GI
+         Tfvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FkyWJop/mb6aNzKVDcPYdXhzK9QyO4mdZuzhtZY4mdI=;
+        fh=WgaBUMQ9QG/UHe9LhBfnkM9qS0mLUZ+4/ngXQPBAiGg=;
+        b=EfOd9HO1qD4W1YJ48PYVf8E+IkDg7zHZ7Wy0FeGAemiCQyts+aUn9h/NNpKyxAN5NT
+         +wu/ghEpCPzuwaEs1EbHatRhdYXI46HmSVVbchxadqU6WZWU9dTiTpWoYOliAWdwCGD1
+         y1OBOOisaN5Y7VVQ+BtM+uXLqR7nbCjictQxV3zjz6n/wjrYuRU8T3v+kimWxoZIS5Ln
+         UvhhpBsRIoyKvTXALZMR/23N6Xabjml7jaZC7fnOUaCU3RDyu++ZOv6yE04NIvcDXUYt
+         DRqAWLjYneqMHGHq0t7ntxJWZpmlqJ1dY4KdKl1QQgh55oGcLKaXQVb1CE547Gg1K0h7
+         QFaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792955942; x=1793560742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:sender
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Byu/Ivu2c/RQxf7NoTMxN/pvEQ2Ryga8K2B0J0WdHLg=;
-        b=LH4HKIAq454DMkN8kSv0tkEn9xxcxcTgd+1RD3rzi+LVJ+JIHhmN5APLQ2qeOX9Y1+
-         A2ikD5jD/Xwn240gmnW1fFkgYMPwcRlH0BvKQlf6eT2guHs8JDP3NXgoUZuf8VHDRE9g
-         OzOqai3e1cxE390XkqXg/MUQBgXwETteJz7ydewtXGtUL3/Zl8nGOSVeLMjg/jDy3i9X
-         O2w4OXOpFVPWlzQ02RvLZKeCCDI2YiqyAtynpl5Y2uQMVFjyLks92v5k7lyWUa5BKzsH
-         wYgiVAXWAK8M7+4swsFnPDq+OIDUA/YHXaTbVk1ccKbsyo41GpPQ2G28upANRBZp4Uv4
-         IYvA==
+        d=mojatatu.com; s=google; t=1792957016; x=1793561816; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FkyWJop/mb6aNzKVDcPYdXhzK9QyO4mdZuzhtZY4mdI=;
+        b=KVJ4PHU5vclDEllxKdUmcoG1GqiWFjjx6slq7Q+fgMaUXlfGR/7jPd1XpK9fuFbitB
+         sH4rwQ/IzQgA4yw4Cc+lgBvXs5keE1YrZ6uGa+AwX2f6qYfSCGHcYW0q0ZwdjQxN3wue
+         AI7uq+vVmuFY7zIKv2lu3TMeYl79xNLKXnvvM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792955942; x=1793560742;
-        h=content-transfer-encoding:content-type:cc:autocrypt:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:sender
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Byu/Ivu2c/RQxf7NoTMxN/pvEQ2Ryga8K2B0J0WdHLg=;
-        b=AMFIIPL6j4SGpEnq2RhghvRAVKXKaBePoB/IUKqSOcJaVL/IyVRdl5dHuTQ2CnmPYd
-         1FS7nprEwlKCINl1pUHjR64QoVOJiJaV6ysfih07OQKr/tGY3D/foGdSzR2UlvMhQL+q
-         HnHc4M3GR5yA6teL7Oe6gcnFrB4wnR/mTAp1Zw7R4C6H7e7uLfrFx39unf5PryEyGyTL
-         OfKX4JpDjjW5VQ9lbaYLXKSeCFqhLYAEmAV+6Ga0Q72Sm8hCukkmdMqtwMiS7avWWjYV
-         A31o/eDWMWMbXFL4htFSGgzubomv4RfKTisgiiQhzRoJSNjYWnpLLFv6Xdjz2tUbfSdk
-         8mhw==
-X-Gm-Message-State: AFq9FYLW7XCodkdFU6vr1vMXQCAgsGtfOPzWjQObgvD7gNkXOItONXUz
-	eUNMlRXyYLGTPOW/IvELLM0HT8p6+sPDOTgXGOw+xEtWBWh7RNBuG7QZq2rmLg==
-X-Gm-Gg: AYBFou1p3e0j+RbIy3ndU5RMgeUl9bpo0J36sjJ/iw9YJ7onzhpd2mDXBl1OvUX/DS6
-	88lr392Afavq1hVC1do+Rf6Bb6XrbU4OmbllNPPVb8pEpw/DZ3JX5mlBXgQrJ5rYvsJ6pXatOVk
-	soM/sH35iqW4cLdOH7i7KRbrD7WhFCsF/VThZsER9+SmNZUrDep+188Cr13bzc8WmVqjONXBgpC
-	1JxAiVtzMp+ZEm1NN89iCnXPbXA5iZa4uCqgLR0eHefwyWtckxI7w0r0qndp7u01AgSU5Ya+/xh
-	ItUnX8ew7LgHtAU67x0rXDnA1lS/NOinEOvOF4JSBSOWpZZ2syLBBl5REJ9awuqudLLupUG13gN
-	nzH4yE3n7qHDTFWP7ckshdSt8KLoKbhOYPmFUCdwaVSvLVS/e0foqgu+HI/IBHHiW0D0YS82NGO
-	guU6Xg/ij3E1LYf/n3pGiQxRd6Rb1v7b4ZaT0NMnz+vqEl0IMxoW9sZD6COHzjRM26brtUeR5l7
-	F7t3h+JOhNdJ/O0HdgAnQgJkhmhGWS6K6zEtlcc2tM/2mXxe1DbbiAZlfVCo+n2t4/CMOBjT0Ip
-	Z3HgAvR9MvTBvOfUlOzP3NxBCMU8Zg==
-X-Received: by 2002:a17:90b:2646:b0:3ac:9a03:20bc with SMTP id 98e67ed59e1d1-3adeae6db08mr4191584a91.47.1792955941713;
-        Sun, 25 Oct 2026 12:19:01 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaca7casm5711641a91.4.2026.10.25.12.19.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 25 Oct 2026 12:19:00 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <49da816c-8082-46f1-bb12-f0d6187bb06a@roeck-us.net>
-Date: Sun, 25 Oct 2026 12:18:59 -0700
+        d=1e100.net; s=20260707; t=1792957016; x=1793561816;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FkyWJop/mb6aNzKVDcPYdXhzK9QyO4mdZuzhtZY4mdI=;
+        b=i2m0bMdEWGils1NbDpJd9wQNb1z2FpPcZ/btyN8JcfN1NuB1X0CRPetAIgTPn/DDSS
+         djUcmaLVBJE7rJynp5Gni3yyYIy6bC5sgQTR/b3+dUV1YUjS9nwBKmeWrLuHlCfxFfVB
+         4mAT7+6/n/xWPLnvlihxbE2ZgwpqnlLVM0mwkZ3O9BtA9AedIFQ/nG3RMqcU4KyMrSuE
+         Lr5dT2WvAqYcscPoMoJbfeFCfBMFha8S/mEzII8Em08PW55PSID+Tu1gkN0Jy/B65oYn
+         SEhhVEot9cvMhnESGHo6T/HMgzKDj5jFbD0XCKa/nc9n8Td8flVjWVGMeQmvlO59W8ei
+         6dYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzLI3Kb8ChZbetaEdsN0IhE9XRYcWBGIohU06YWHO6aYQlzVX6arwf4qZg79AnoZj9Mh0ChT0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF1x1476Ivxh7cYoobrm2VCBeZR7A1Z8G1zIoaPWMEExJ5HPn2
+	XFX0jb4obsCigtBBDg8GGpwEXKjwpSA5xI3eBzwauD7fzVIJ8zAJezYCnRi2A/k3HcWBvjReNrF
+	y4sKbEMQXoFHovs4ZPd5jXJeyEBgkkftiUndgvxnQ
+X-Gm-Gg: AYBFou1YB7x/Uc2GfjreCuz84H8sit6i22Yl70xm5GuAeRnfxx2flLAJXCbuwrYp6c4
+	j+x5+ponSDk8uR68pDsnZk7TUw0o8/+FfXN7O4SpWo4Lx9UmAytQ/anMzyXvmhOFY62PjCFuV7g
+	nD4Hz14MvOquBo33+UF06jcoy/b4TSLdzlC/uBUWLLb17qK1xcyAaKGhfGbDM5/LkgOFRGGnLuW
+	Vc5668GN23ACCbawSzpOmqd4L/NVW4aVs1fte1KrP6gUzf298c8HcfUO/byWpFFxktlFZ3kfFra
+	/QD2idmOSB/UQvP6pMvBSkSfBDXsEk/g0wUide/QzS5JghBialgSUoSa2nMiK4jDvZUDF8oM46i
+	wj8r1YboeiwvsdqfyHYaS5QRDy8dBxlL5IFYhN8WmWaKX9t9lf9WQasIUX9k8HJpVsCglzdHED4
+	9wNxhW7oCOS65zPiRHOP9Ftfe80aiEFgO42UhW
+X-Received: by 2002:a05:6a21:1f81:b0:3e1:8a96:7bbb with SMTP id
+ adf61e73a8af0-3e7cd589540mr3601401637.51.1792957016189; Sun, 25 Oct 2026
+ 12:36:56 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,122 +102,204 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: stable <stable@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Tinyconfig build failures in v6.6.y and v6.12.y due to "srcu: Use
- irq_work to start GP in tiny SRCU"
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-Cc: Joel Fernandes <joelagnelf@nvidia.com>, rcu@vger.kernel.org
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
+ <CAM0EoMmwNCHVNW0=Z_JWX_ZcT5Y1po1GRVScddOsevEvL8D-6w@mail.gmail.com>
+ <willemdebruijn.kernel.30ca6285209f7@gmail.com> <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
+ <CAM0EoM=9GxDCHzpJF_bqcoh+7KZY6E=ZmOiMp7kfVK3bHZDppw@mail.gmail.com>
+ <willemdebruijn.kernel.eb29d53899f1@gmail.com> <CAM0EoMnQWjN24gBye1kZdcJUJgXDPDy-=dM+NQ6dqCny7O851g@mail.gmail.com>
+In-Reply-To: <CAM0EoMnQWjN24gBye1kZdcJUJgXDPDy-=dM+NQ6dqCny7O851g@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sun, 25 Oct 2026 15:36:44 -0400
+X-Gm-Features: AclHuK-NxE2mgpKUo3Y9YUuL_YsnS-HsIKDDI_Fsw6pAyCpGI6Tw3uu0tHMMLXI
+Message-ID: <CAM0EoMnj7pkfGUg=VFjpbU7AGw7ysD_tQOeuUu==YEc9rfQJ0w@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/6] net/sched: act_mpls: pull the inner Ethernet
+ header after POP
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Martin Varghese <martin.varghese@nokia.com>, 
+	Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	John Hurley <john.hurley@netronome.com>, Willem de Bruijn <willemb@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Sun, Oct 25, 2026 at 4:55=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> On Sat, Oct 24, 2026 at 12:14=E2=80=AFPM Willem de Bruijn
+> <willemdebruijn.kernel@gmail.com> wrote:
+> >
+> > Jamal Hadi Salim wrote:
+> > > On Fri, Oct 23, 2026 at 7:46=E2=80=AFPM Jamal Hadi Salim <jhs@mojatat=
+u.com> wrote:
+> > > >
+> > > > . On Fri, Oct 23, 2026 at 6:50=E2=80=AFPM Willem de Bruijn
+> > > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > > >
+> > > > > Jamal Hadi Salim wrote:
+> > > > > > On Fri, Oct 23, 2026 at 12:09=E2=80=AFPM Willem de Bruijn
+> > > > > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > > > > >
+> > > > > > > Jamal Hadi Salim wrote:
+> > > > > > > > The issue:
+> > > > > > > > act_mpls POP can leave the inner Ethernet header in a page =
+fragment after
+> > > > > > > > skb_mpls_pop(), either on an L3 device (mac_len =3D=3D 0) o=
+r chained after
+> > > > > > > > act_vlan POP_ETH.  A following eth_type_trans() can then BU=
+G in
+> > > > > > > > __skb_pull().
+> > > > > > > >
+> > > > > > > > The Fix:
+> > > > > > > > After the pop, if the original MAC header is shorter than E=
+TH_HLEN, pull
+> > > > > > > > the inner Ethernet header into the linear area and drop onl=
+y when
+> > > > > > > > pskb_may_pull(skb, ETH_HLEN) fails.  skb_mpls_pop() does no=
+thing when the
+> > > > > > > > skb was not MPLS, so no separate state is needed.
+> > > > > > > >
+> > > > > > > > Conditions to recreate the bug:
+> > > > > > > > - egress tc filter on lo: action vlan pop_eth action mpls p=
+op
+> > > > > > > >   (chained), or on an L3 device where mac_len =3D=3D 0.
+> > > > > > > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, an=
+d a non-linear
+> > > > > > > >   eth / mpls / inner-eth frame.
+> > > > > > > > - The inner header is in page frags; a following eth_type_t=
+rans() can BUG
+> > > > > > > >   in __skb_pull().
+> > > > > > > >
+> > > > > > > > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation act=
+ions to TC")
+> > > > > > > > Reported-by: Vega <vega@nebusec.ai>
+> > > > > > > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f=
+7c54fb7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
+> > > > > > > > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYeeW0Fk_G=
+K6ekR4xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com/
+> > > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> > > > > > > > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail=
+.com>
+> > > > > > > > Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> > > > > > > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > > > > > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > > > > > > > ---
+> > > > > > > >  net/sched/act_mpls.c | 2 ++
+> > > > > > > >  1 file changed, 2 insertions(+)
+> > > > > > > >
+> > > > > > > > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
+> > > > > > > > index 4ea8b2e08c3a..5363bca892fb 100644
+> > > > > > > > --- a/net/sched/act_mpls.c
+> > > > > > > > +++ b/net/sched/act_mpls.c
+> > > > > > > > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(struct=
+ sk_buff *skb,
+> > > > > > > >               if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
+> > > > > > > >                                skb->dev && skb->dev->type =
+=3D=3D ARPHRD_ETHER))
+> > > > > > > >                       goto drop;
+> > > > > > > > +             if (mac_len < ETH_HLEN && !pskb_may_pull(skb,=
+ ETH_HLEN))
+> > > > > > > > +                     goto drop;
+> > > > > > >
+> > > > > > > Is this first condition needed?
+> > > > > > >
+> > > > > >
+> > > > > > That was me conjecturing from Eric saying in v1 "...the check c=
+an only
+> > > > > > matter when the original MAC header is short.."
+> > > > > > Since i have to send a v3 (Thanks Eric;->) I will remove it
+> > > > > >
+> > > > > > > More importantly, can it hide a bug?
+> > > > > > >
+> > > > > >
+> > > > > > What kind of bug?
+> > > > >
+> > > > > Two kinds. One, if original mac_len is larger, gets popped and th=
+e
+> > > > > resultant packet is still too short for ETH_HLEN afterwards.
+> > > > >
+> > > > > But this can probably not happen, as skb_mpls_pop only pops one M=
+PLS
+> > > > > tag.
+> > > > >
+> > > > > What this patch tries to ensure is that the subsequent Ethernet
+> > > > > header is linear.
+> > > > >
+> > > > > The second potential bug is this assumption that after the MPLS t=
+ag
+> > > > > lies an Ethernet header. Is that a valid assumption? Or could we =
+drop
+> > > > > a valid packet with smaller header.
+> > > > >
+> > > >
+> > > > tbh, I was thinking more about skb frags earlier.
+> > > > You are right only ETH_P_TEB promises an inner Ethernet header; for
+> > > > other inner protocols the pull is wrong, so I=E2=80=99ll check for
+> > > > p->tcfm_proto =3D=3D htons(ETH_P_TEB). I didnt have this check in t=
+he
+> > > > current fix - good you responded before i sent out.
+> > > >
+> > > > 1/6 (act_vlan POP_ETH) has a similar unconditional
+> > > > pskb_may_pull(ETH_HLEN). A brute approach is also to check for TEB:
+> > > >
+> > > >       if (skb->protocol =3D=3D htons(ETH_P_TEB) &&  !pskb_may_pull(=
+skb, ETH_HLEN))
+> > > >                 goto drop;
+> > > >
+> > > > Note: skb_eth_pop() only removes the outer ethernet header but does
+> > > > not change skb->protocol
+> > > >
+> > >
+> > > I am going to send it without this 1/6 change - it just doesn't feel
+> > > like good taste. I will add a comment in the changes to say i
+> > > considered it but decided not to. I also spent time eyeballing the
+> > > code, i dont think there's a potential way to craft a packet that wil=
+l
+> > > hit the perceived issue. In any case the 24 hour embargo lifts in a
+> > > few hours so i am not posting yet.
+> > >
+> > > cheers,
+> > > jamal
+> > >
+> > > > thoughts?
+> >
+> > I'm actually a little confused why the tc layer has to anticipate the
+> > needs of downstream code and pull headers here.
+> >
+> > That directly lead to this guessing of what may be the next header,
+> > such as Ethernet. Which may often be correct, but not always.
+> >
+> > All protocol parsing code itself should already be robust and call
+> > pskb_may_pull where it is needed. Sounds like there are some targets
+> > post TC where that is not true *and* we think there are too many to
+> > update those targets directly, rather than this transformation logic
+> > that exposes them to unpulled packets?
+>
+> Not "too many updates" rather the main motivation here (which i kinda
+> empathize with) is pushback from Eric that you have to "fix at the
+> producer" to avoid performance degradation at the "consumer". i.e
+> rather fix the vlan action than have loopback vet as in the original
+> patch  (and you just witnessed him stand up and push back on tun for
+> that same reason ;->).
+> IOW, we are anticipating so that eth type transfer doesnt bug out
+> (_for ethernet headers_) when invoked at the downstream consumer
+> (loopback etc). Essentially it is a game of whack-a-mole until the
+> next bug or malicious use shows up.
+> Generally, policing intoxicated drivers from getting on the autobahn
+> isn't the best philosophy; it's better to complement that with a
+> "driver beware, you may encounter drunks" warning but that would slow
+> down the fast car on the autobahn ;->
 
-I see lots of tinyconfig build failures in v6.6.y and v6.12.y.
-Current release candidates are also affected.
+Actually the more i think about this the more i am concluding just
+fixing the producers wont be sufficient (Eric!).
+If i have an incompetent or malicious ebpf program it could do
+whatever it wants.. I am going to try something with ebpf.
 
-Example from v6.12.y:
+cheers,
+jamal
 
-Building csky:tinyconfig ... failed
---------------
-Error log:
-/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: kernel/rcu/srcutiny.o: in function `cleanup_srcu_struct':
-srcutiny.c:(.text+0x2a): undefined reference to `irq_work_sync'
-/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: kernel/rcu/srcutiny.o: in function `srcu_gp_start_if_needed':
-srcutiny.c:(.text+0x60): undefined reference to `irq_work_queue'
-/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: kernel/rcu/srcutiny.o: in function `start_poll_synchronize_srcu':
-srcutiny.c:(.text+0xb8): undefined reference to `irq_work_sync'
-/opt/kernel/gcc-14.4.0-2.47-nolibc/csky-linux/bin/csky-linux-ld: srcutiny.c:(.text+0xc8): undefined reference to `irq_work_queue'
-make[3]: *** [scripts/Makefile.vmlinux:34: vmlinux] Error 1
-
-Bisect points to commit 58dd6e92725f ("srcu: Use irq_work to start GP in tiny SRCU")
-in v6.12.y. Reverting this commit fixes the problem.
-
-Problem is that IRQ_WORK is not enabled with tinyconfig in v6.6.y
-and v6.12.y. In later kernels it is enabled due to the unrelated
-commit af92793e52c3a ("slab: Introduce kmalloc_nolock() and
-kfree_nolock().") which adds "select IRQ_WORK" to "config SLUB".
-
-Adding "select IRQ_WORK" to "config TINY_SRCU" also fixes the build
-problem, but I don't know if that is an acceptable / desirable solution.
-If so, it should probably be added to the mainline kernel since the code
-only builds there accidentally. I'll leave that up to RCU and stable
-release maintainers to decide.
-
-Bisect log is attached for reference.
-
-Thanks,
-Guenter
-
----
-# bad: [9fb48106e91d81010e61a7fa0b09aa6081ff1a2f] Linux 6.12.114-rc2
-# good: [7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e] Linux 6.12.113
-git bisect start 'HEAD' 'v6.12.113'
-# bad: [fbf5bbbfe00526982e83b55a3aebed9096503646] netfs: Clean up some whitespace in trace header
-git bisect bad fbf5bbbfe00526982e83b55a3aebed9096503646
-# good: [27d90b6cd0a460f1f3a9678ef45312b803a0ccb5] mpls: Add mpls_route_input().
-git bisect good 27d90b6cd0a460f1f3a9678ef45312b803a0ccb5
-# bad: [86baeb912a990effd375019875fcf39fdabf56b5] net: phonet: do not BUG_ON() in pn_socket_autobind() on failed bind
-git bisect bad 86baeb912a990effd375019875fcf39fdabf56b5
-# bad: [78543c82d93b6bb10c7d6527138b7c99ecb2c2c3] net: stmmac: fix oops when split header is enabled
-git bisect bad 78543c82d93b6bb10c7d6527138b7c99ecb2c2c3
-# bad: [5c95382ad671b086e361c5bb94678754512bfc59] media: chips-media: wave5: Fix Null reference while testing fluster
-git bisect bad 5c95382ad671b086e361c5bb94678754512bfc59
-# good: [4e2cee549890df21dc0d06f9bbc2df98e8dbc60b] irqwork: Move data struct to a types header
-git bisect good 4e2cee549890df21dc0d06f9bbc2df98e8dbc60b
-# bad: [568deb5ecc2624ea189ecda36162962725bd6827] wifi: iwlwifi: fix 22000 series SMEM parsing
-git bisect bad 568deb5ecc2624ea189ecda36162962725bd6827
-# bad: [d0b39dc7649b68bdeaa17c71c76d58eab59a35c7] btrfs: fix zero size inode with non-zero size after log replay
-git bisect bad d0b39dc7649b68bdeaa17c71c76d58eab59a35c7
-# bad: [7dabc9bec015ccad262d8cc37e8c00328f555691] btrfs: tree-log: don't use token set/get accessors in fill_inode_item(
-)
-git bisect bad 7dabc9bec015ccad262d8cc37e8c00328f555691
-# bad: [58dd6e92725f9afc375ccb11d3ef04fab0a4b4af] srcu: Use irq_work to start GP in tiny SRCU
-git bisect bad 58dd6e92725f9afc375ccb11d3ef04fab0a4b4af
-# first bad commit: [58dd6e92725f9afc375ccb11d3ef04fab0a4b4af] srcu: Use irq_work to start GP in tiny SRCU
-
+> cheers,
+> jamal
