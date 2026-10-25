@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792932114;
-	b=saQ3/7oaGxLMgTDWr+51yqRUOyq7KPpzQTr9EFOjY0u73/xMk9CQGhzsI2UPZ8C+pAzW
-	 J8LVvmaVJ0ePrXJoAeUEPDq0wmBLhRg3kv7crSD4t3f3zzjfO3Xpis92ap5tlh5f5GIxR
-	 Fl7E7r/4JAsTfOgE8YZs+ffhDcDD8zKgLfE217CT46XI/arz89dJx+nQSsNCpT9Zj3fnr
-	 g2qbYejTzLWCT8B0s7REsmd7BQJte1DfhVKC3INXZbC6APMOpwddWsPDECoZWcpfJLQza
-	 JpEYhFCh1j/amKd08YSSIOPgzoiyGEKZ8Vs0OZ8H98duaX7y6DIGPubzI3P9hZb546w==
+	t=1792932107;
+	b=B1UbnPPgXqkDpBepiV+4hSu8jgmq1OSxRnZLKzbz4r4zIbPbgvz728N5upt5AJxbb7nX
+	 bZf/6zT8pZpO/JK2zBOF3qvVcvQVSOPqqerhrx/bsvtGUFvhpB68nSVzhtB0EguVRnCaA
+	 9jb9FU5apfBSjBD4umFeuwcuofQ/kBI+1bTxYq0WsdqSaZzy4oxgkmf7qUJyxIDjwlbcg
+	 g8+ZV0tHlu+r1gpirY4nSpyl8O5OtxRQYKcpOnyH6LJiX70YkcDSP2Xe7bAd4P2VGhdPs
+	 Q8HlC5juhEQchScJteqD3tNW/iXKFn3cQOx5KpA2e3fWMgnUhhNyrFf82AMD96JOz5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792932114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792932107;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=ZUrqx1rvvs6o+dee+0TNtCMY/5xlNRoKRO5LvvKhg7Y=;
-	b=STm1uk6V7alc+lN9jLcK8TaFhGz6YtIFDP132FoS74Rcwng33U60RFiV/sQcNKMjQGdi
-	 D3DBOBxEgMAKJtsOlGGGXf+WiUCZqamHesZ/AWROx8OWi8fIIIa5Lui6pp/PDpz1g748U
-	 v33CfXQPbDUCrxyCNN+RwENNvBkacOLbY1eP9KsnmxysORGUkRhdrGbLrd6Mx5DXX6ucB
-	 Iz/ndyqRRvm7sTrXFO+BhRZ9wCeFvNERAY/d3xB6oC+K87JsZuVEMIxqcgZI6IXhF/PPg
-	 /rymDaxOT2MfHPu7dBpjIE2ir0KME/Cwks2mA3gecnwAc3WDoh5irOIyACpyAOryJ/g==
+	bh=TTMfSnuvvxIs+38X9pj7jTo4dpEjpC8oCgiQEVSo0Xs=;
+	b=FMIOCLAKPuwowXQMnl3QTXktYnp6Z5mXGNPnhmVgds07NxXvYyylImCjeKC+zP7+eyMp
+	 0Xa1paR9rayoySJ2EIibahiiBxi1p0TIl2c+V6VgbsE4F2ZZN3+LF4GjfXrbsXeLxBTUG
+	 z5vpKX+w+zf8nca65wWyW8HLo4dV4fCuY6t/q1xssi8exy3Xmvf56/pFiHP+2u2ERUt+M
+	 +745cae6tYHZi4OaAhc1nw57o4hCcpghBC2KGZfutme4uib60nhA9su6B6If6ivmP6KH9
+	 lluh4F4AgDrskCpzAnLFTcbN2GXOCLnsicsksiOpayOizqsOfJ6AuX9AfagXr91GiFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CgjBCxH1;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="aAJGW/1j";
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542AC606A329;
-	Sun, 25 Oct 2026 12:41:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 542AC606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B3C606A324;
+	Sun, 25 Oct 2026 12:41:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2B3C606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CgjBCxH1
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aAJGW/1j
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ZU
-	rqx1rvvs6o+dee+0TNtCMY/5xlNRoKRO5LvvKhg7Y=; b=CgjBCxH1/Oc2JfWhDS
-	OQiL4Vxzt2QEj/wPgkFG6ex2R86k2uIkiMSHUCroN3mB+1wYgE4ah2i1rBjQOzOm
-	6+SezCV1pMmuInJE/CwGhkp/RAqFQqytW6Y8gOd96VvTzU+USTWFcxIafIybCW6L
-	4MyFYZpDx6kxlWFJq9jdt2esQ=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TT
+	MfSnuvvxIs+38X9pj7jTo4dpEjpC8oCgiQEVSo0Xs=; b=aAJGW/1jJtDI1Frnoh
+	y2EVJgy/GJHKMI05TE35BgOdC9FiVuVd7ZT6vfkQekaApXk1w7Dd463TUGeYcX4T
+	vgIF2icbZCeFXyMwfjS7SKKupiaS1HDgPzLrjM04RSP9m3lJ2owesQEXPQzj2D7X
+	negtvlZdGaLCekkb+nOpnvPyo=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnvTzs+N1qxJALCA--.54355S4;
-	Sun, 25 Oct 2026 20:41:21 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDnvTzs+N1qxJALCA--.54355S6;
+	Sun, 25 Oct 2026 20:41:22 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>,
-	Eric Biggers <ebiggers@google.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
+To: Carlos Maiolino <cem@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 2/5] f2fs: drain in-flight DIO before buffered writes
-Date: Sun, 25 Oct 2026 20:41:11 +0800
-Message-Id: <20261025124115.3178287-3-yaojiale02@163.com>
+Subject: [PATCH 4/5] xfs: drain in-flight DIO before zoned buffered writes
+Date: Sun, 25 Oct 2026 20:41:13 +0800
+Message-Id: <20261025124115.3178287-5-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261025124115.3178287-1-yaojiale02@163.com>
 References: <20261025124115.3178287-1-yaojiale02@163.com>
@@ -66,70 +65,45 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnvTzs+N1qxJALCA--.54355S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrWDGr4rXw1DZF13CF48JFb_yoW8CFykpF
-	9xKa45ur97JrZrWrn7Ga1UZ34FgFykJrWfWryUX3WIvw1DGw4Yq3WIyF1a9F1rtFy7Jw42
-	gan09FyDW3yjyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joUDJUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BGMxmrd+PEPUwAA3J
+X-CM-TRANSID:PigvCgDnvTzs+N1qxJALCA--.54355S6
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GFykJr18XFyfKFyUtr18Xwb_yoWkZFX_W3
+	yvvry8Xw45Ga17X3WxAF1FvrZ5Ja1fJFn3Z345tF4Skw18J3sakr9xJrnxKr17ua43Wrs8
+	Cw4kXr10qr9rujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU05l1DUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BKMxmrd+PIPYAAA36
 
-An asynchronous iomap direct write can remain in flight after the inode
-lock is released. A buffered write can then dirty page cache before the
-direct write completes its post-I/O invalidation, causing the
-invalidation to fail and record -EIO in the mapping error sequence.
+Buffered writes to zoned realtime files hold XFS_IOLOCK_EXCL, but direct
+I/O submitted earlier while holding the lock shared can still be active.
+The buffered write can dirty page cache before the asynchronous direct
+write completes its post-I/O invalidation, causing an invalidation failure
+and a mapping error.
 
-The pre-write checks can also zero post-EOF page cache while an earlier
-direct write is still active.
+Use the buffered-write DIO drain after acquiring XFS_IOLOCK_EXCL and
+before the zoned write checks can touch page cache. Preserve NOWAIT
+semantics by returning -EAGAIN when a wait would be needed.
 
-Wait for in-flight DIO before post-EOF page-cache operations and before
-buffered writes. Return -EAGAIN for a NOWAIT write that would need the
-blocking post-EOF operation.
-
-Fixes: a1e09b03e6f5 ("f2fs: use iomap for direct I/O")
+Fixes: 2e2383405824 ("xfs: implement direct writes to zoned RT devices")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- fs/f2fs/file.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ fs/xfs/xfs_file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 0c759cc99054..d3d0ebf2f6c3 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -5328,6 +5328,7 @@ static ssize_t f2fs_write_checks(struct kiocb *iocb, struct iov_iter *from)
- {
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file_inode(file);
-+	loff_t end_pos;
- 	ssize_t count;
- 	int err;
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index aa7cf51b5843..96a11af8e71a 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -1121,6 +1121,10 @@ xfs_file_buffered_write_zoned(
+ 	if (ret)
+ 		goto out_unreserve;
  
-@@ -5345,8 +5346,14 @@ static ssize_t f2fs_write_checks(struct kiocb *iocb, struct iov_iter *from)
- 	if (err)
- 		return err;
- 
--	err = f2fs_zero_post_eof_page(inode,
--		iocb->ki_pos + iov_iter_count(from), true, true);
-+	end_pos = iocb->ki_pos + iov_iter_count(from);
-+	if (end_pos > i_size_read(inode)) {
-+		if (iocb->ki_flags & IOCB_NOWAIT)
-+			return -EAGAIN;
-+		inode_dio_wait(inode);
-+	}
++	ret = xfs_file_buffered_write_dio_wait(iocb);
++	if (ret)
++		goto out_unlock;
 +
-+	err = f2fs_zero_post_eof_page(inode, end_pos, true, true);
- 	if (err)
- 		return err;
- 	return count;
-@@ -5436,6 +5443,8 @@ static ssize_t f2fs_buffered_write_iter(struct kiocb *iocb,
- 	if (iocb->ki_flags & IOCB_NOWAIT)
- 		return -EOPNOTSUPP;
- 
-+	inode_dio_wait(inode);
-+
- 	ret = generic_perform_write(iocb, from);
- 
- 	if (ret > 0) {
+ 	ret = xfs_file_write_checks(iocb, from, &iolock, &ac);
+ 	if (ret)
+ 		goto out_unlock;
 -- 
 2.34.1
 
