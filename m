@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792931241;
-	b=FQqpWIZ7NzYIeFpP2NB7jUren1eYHOOzjKcF84wqI0bbqXnzo6yXXXrXzz7/c+rmZr5x
-	 dHZxxuOvatAG7KrZnfyQOBBaPDlVEZWC3R4Oog+bRpQXRt7HPSdtM7oqarismMl5aqppf
-	 4LviSCPi1Vf9st/1baJSinuvEpyXvjQyMQ8G4soaCardbdns17gcLijnQ+gbddSChCIb8
-	 OS83MS+eFITMX6ORZmoP831iCH7Wi0ObjQN8ZcmacbflBxw3EHGGwOoQ1HFt/MIJ5ImJM
-	 Oqi3WenknXa0sXg1n9RW0qSyQChDXysycM5FcgoKzEC/a/Hg8bJQAtTfQQMlw2twjwA==
+	t=1792931719;
+	b=qVHbUQRI4Glnd1PoIVeo53yoUw+H3PCSWxkINtFGKQhZgLI2581eL+jBNcKC5dsNV1dz
+	 S8ZQKFxfCDUwvSk3+roqeXSnGDTMYIsWSVfbOSGtT0TBI6TOeFD4eTJzdDyNfsuQIpSv9
+	 7SaaHTmIxdmQeqx/G0eFtNKux4D4oD0M+K+EObt7swINXvVZQ75iVkDiJg+quTyFOfILZ
+	 o5A/pUZz1gZLD7Wwcm8Dj63intyMuw3ZGUBBH8WtfvTZ7jSHGe83cPH10jFgzVToovmd3
+	 UzUhau6QJpDKQyUNMoDbYyrNTCs8MHXe5hLEDfUAtjgRBxpnTEv7YfsyUc0eAf8Ns4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792931241;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=HaTBAqVWN8l8NtR7a+7TI1wWGP43M5MdEGvYDuOrNEM=;
-	b=I9YJi6sR4XrcmBALQIvnen4t628dHYvoC511kz8AoIkGvSqsbV06loQV5CQ5hWhxVF8a
-	 8suLollAeh/o61r5LerBfLNOpBiXToF+61symj1oVNvuepduf+f7juRoPD2r3WRAcZL/m
-	 WZipQNBZ0AgFh2ZWcMrEZeK41YOdfVmVaUOf37uIa+efSN7qyJYXJQ8Xk2BbhQliHExn9
-	 2d8/EAbGy4YhI99znHAVfZg+GNlAF/POpiv/fdYK+b9s0waifcdGbr8MUMTrxy4GP08YS
-	 MWxcsjfNdgCSPlKv2x1fCY3TrjhBTQ0b9xlYueHEYtg+irb2su48lNXISt6yVTzNbHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792931719;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=oBuC068MUwpWG5fByXD4atUYxCsnN+0yKtSP2Vaiqro=;
+	b=shnJ7fvaJbb/9BSAB7I6l6KD5uWhMti6Yz8nind2wwZwjJT7XdfHwEB7xzVEShQtgrE4
+	 NNLXuz9ujLv1vLMyIPooP7C0B89TQ6czbRTp5jO/OepsAtwB3ZRItcKdZIcpzl3ETOIUD
+	 spICg2ekrcyxfvgKsCOeInvGGWEMvjOsZjNktgYXkKGW0nMMmKoLRdEUAgXH/he7mLG8h
+	 /mN3TjMxG9pRPnO4GPMkUNnSDjOr0gKMZ9sF1FjQSOPzZ5CcNFmJnFh09va0S9vn6gMsp
+	 09qjje3UcMkn1/OMRoKmQQgb5zrVW9wFKQqGwuABUn3j/yKedeY+iw7znpvJSFqWk8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSfRzNkS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20686606A31A;
-	Sun, 25 Oct 2026 12:27:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSfRzNkS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F7D1F01825;
-	Sun, 25 Oct 2026 12:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792931240;
-	bh=HaTBAqVWN8l8NtR7a+7TI1wWGP43M5MdEGvYDuOrNEM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RSfRzNkS5OrYf0rLyP1zaSUtfu/gFWTbT/0lMEwe1VYf2BhKJRdNLA5olY49WdKaK
-	 sBz9VPxODFMuevQ9+Ao+S/Cb2oVrE1UwnssGu9JUAAQyoJ017NnzqUyLDoPeligL1y
-	 DejPsCJNHfDMNHLmeFRoZMJYzvyBWqw1EqS77tsnS/r0MJ6FGGTz3yMWvb9BhezC0I
-	 hg44SVxZO8r14F1A0N5MAu32/pxf6oYBdUp0F3ZZJgLqJ2YoTn0dlJIurmOrNGZTqw
-	 tNk7KfjRq6Ji0B7tg/0p2xefJGM8b1+6g+Oa1OMplQTvumZwtf8tPn2j+/1MRSglIN
-	 tkyiqAjDTWdHw==
-Subject: Re: [PATCH net v4] net/sched: clamp skb->queue_mapping before
- indexing the tx queue
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, hawk@kernel.org, daniel@iogearbox.net,
- sashiko-bot@kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 25 Oct 2026 12:27:19 +0000
-Message-ID: <179293123940.3134.1149128679923234677@kernel.org>
-In-Reply-To: <QDISC-MD1X.v4.r0.20261021042722-1@mojatatu.com>
-References: <QDISC-MD1X.v4.r0.20261021042722-1@mojatatu.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC4B606A31B;
+	Sun, 25 Oct 2026 12:35:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BC4B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jCGRq3HQbzKn84;
+	Sun, 25 Oct 2026 13:35:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792931703;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oBuC068MUwpWG5fByXD4atUYxCsnN+0yKtSP2Vaiqro=;
+	b=XjSvr+4SWWPY9WhYWldhLZeCf5v9+7+QYJ9TEsThQdibTYZh7F8KVlID1eRl5rdVVXK+kq
+	7sEkdUVP4bNzx6VIJkmKaIQ/DC2608LP9MNf0yRMyiVhXtJMHuAx8rZsEJesl1bgVCQcTL
+	i0yE6Ej2/eaBVVOqjzQiBmbJqd2eemoTW9TIwnv8qHqXMwNzuwEspAVZoHf5Y+fsSkvtRD
+	0KyiOyoSL6NCQ9+FQI8jFrd74aX9RXIeJx3xJmE6lV4Xt462OEYW5MkeRKyH6ISKTvOfV3
+	FpMGzMAIBWLjwdeQBc3YvxFe7+U3dgA8LQYDDYIr630D/9FF7lR0YBVA93MocA==
+Date: Sun, 25 Oct 2026 13:35:00 +0100
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/243] 7.2.13-rc2 review
+Message-ID: <at3xpGSor_VQBC9Q@bb-82jq>
+References: <20261024064731.125251200@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,158 +68,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261024064731.125251200@linuxfoundation.org>
+X-MBO-RS-META: bh4cjay8u7dkqhxo7fp3anfkur1w3orr
+X-MBO-RS-ID: 0f742de3b2c5a8e70cf
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sat, Oct 24, 2026 at 08:59:39AM +0200, Greg Kroah-Hartman wrote:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+>This is the start of the stable review cycle for the 7.2.13 release.
+>There are 243 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+QEMU tests pass: Build and boot tested for x86_64, i386, arm64, and riscv
+across multiple configurations.
+But on Lenovo IdeaPad, AMD Ryzen 7 5800H, it breaks firmware loading.
 
-- [High] Incomplete fix: the patch re-caps a queue_mapping stored by tc
-  BPF only at dequeue time, in dequeue_skb(), __skb_dequeue_bad_txq()…
-- [Low] For TCQ_F_ONETXQUEUE qdiscs, qdisc_cap_skb_tx_queue() overwrites
-  every skb's queue_mapping with q->dev_queue's index, including valid…
 
---
+7.2.13-rc2 stable-rc (broken):
+   Linux bb-82jq 7.2.13-rc2-localconfig+ #37 SMP PREEMPT_DYNAMIC 2026-10-25T10:58:13Z x86_64 GNU/Linux
+   [    4.115429] faux_driver regulatory: Direct firmware load for regulatory.db failed with error -2
+   [    4.247951] nvidia 0000:01:00.0: Direct firmware load for nvidia/610.57.04/gsp_ga10x.bin failed with error -2
+   [    4.293594] mt7921e 0000:04:00.0: Direct firmware load for mediatek/WIFI_RAM_CODE_MT7961_1.bin failed with error -2
+   [    5.270053] bluetooth hci0: Direct firmware load for mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin failed with error -2
+   [    5.270059] Bluetooth: hci0: Failed to set up firmware (-2)
+   [    5.285865] mt7921e 0000:04:00.0: hardware init failed
+   [    6.777226] r8169 0000:03:00.0: Unable to load firmware rtl_nic/rtl8168h-2.fw (-2)
 
-net/sched: clamp skb->queue_mapping before indexing the tx queue
+   dmesg: https://benni.tech/pub/2026-10-25-354214524bc50442-linux_7.2.13-rc2_dmesg.out
 
-This patch re-caps skb->queue_mapping in the qdisc dequeue path
-(dequeue_skb(), __skb_dequeue_bad_txq() and the bulk helpers). The goal is
-to stop a tc BPF store made after netdev_core_pick_tx() from indexing past
-dev->_tx[]. For TCQ_F_ONETXQUEUE qdiscs the mapping is pinned to
-q->dev_queue; for other qdiscs it goes through netdev_cap_txqueue().
+7.2.12 stable (working):
+   Linux bb-82jq 7.2.12-localconfig #15 SMP PREEMPT_DYNAMIC 2026-10-25T11:34:55Z x86_64 GNU/Linux
+   [    4.187538] r8169 0000:03:00.0 eth0: RTL8168h/8111h, 90:2e:16:f4:c1:ac, XID 541, IRQ 99
+   [    4.317243] mt7921e 0000:04:00.0: HW/SW Version: 0x8a108a10, Build Time: 20260224110909a
+   [    4.329703] mt7921e 0000:04:00.0: WM Firmware Version: ____010000, Build Time: 20260224110949
+   [    5.209980] Bluetooth: hci0: HW/SW Version: 0x008a008a, Build Time: 20260224111243
+   [    5.363124] Bluetooth: hci0: Device setup in 152450 usecs
 
-Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v2.20260924072708%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v3.r0.20261015165943-1%40mojatatu.com
-Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
+   dmesg: https://benni.tech/pub/2026-10-25-741af2903c635793-linux_7.2.12-stable_dmesg.out
 
-> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-> index 6f6a6f0d5eb0d..fdd070840cb55 100644
-> --- a/net/sched/sch_generic.c
-> +++ b/net/sched/sch_generic.c
-> @@ -96,9 +96,37 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
->  
->  #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
->  
-> +/* A tc BPF program may change skb->queue_mapping after the tx queue
-> + * was picked, so re-cap it before use. A TCQ_F_ONETXQUEUE qdisc is
-> + * bound to a single tx queue, so pin the mapping to q->dev_queue.
-> + */
-> +static u16 qdisc_cap_skb_tx_queue(struct Qdisc *q, struct sk_buff *skb)
-> +{
-> +	u16 queue = skb_get_queue_mapping(skb);
-> +	struct net_device *dev = qdisc_dev(q);
-> +	u16 capped;
-> +
-> +	if (q->flags & TCQ_F_ONETXQUEUE)
-> +		capped = q->dev_queue - netdev_get_tx_queue(dev, 0);
 
-[Severity: Low]
-This isn't a memory safety issue, and the commit message does describe
-the pinning. Should the change in steering behaviour still be called out
-for stable users?
+The firmware files on my system exist:
+-rw-r--r-- 1 root root   382295 14. Aug 17:40 /lib/firmware/mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin.zst
+-rw-r--r-- 1 root root    48310 14. Aug 17:40 /lib/firmware/mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin.zst
+-rw-r--r-- 1 root root   359887 14. Aug 17:40 /lib/firmware/mediatek/WIFI_RAM_CODE_MT7961_1.bin.zst
+-rw-r--r-- 1 root root 84310168  3. Aug 19:30 /lib/firmware/nvidia/610.57.04/gsp_ga10x.bin
+-rw-r--r-- 1 root root     6380 31. Mai 10:41 /lib/firmware/regulatory.db
+-rw-r--r-- 1 root root      762 14. Aug 17:40 /lib/firmware/rtl_nic/rtl8168h-2.fw.zst
 
-For TCQ_F_ONETXQUEUE qdiscs, this overwrites every skb's queue_mapping
-with the index of q->dev_queue. That includes valid in-range values set
-by a filter on a per-queue child, for example in tcf_skbedit_act():
+Regards,
+Benjamin Boortz <bennib@mailbox.org>
 
-	if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
-	    skb->dev->real_num_tx_queues > params->queue_mapping) {
-
-Before this patch, qdisc_restart() used skb_get_tx_queue() and honoured
-an in-range mapping on the head skb. Under mq, mqprio, htb offload or
-taprio offload children on multiqueue devices, that steering is now
-silently replaced with the child's own queue.
-
-The pre-patch try_bulk_dequeue_skb() already sent followers under the
-head's tx lock whatever their mapping was. The TCQ_F_ONETXQUEUE comment
-in include/net/sch_generic.h also documents the invariant being restored.
-
-However, Documentation/networking/tc-queue-filters.rst describes
-"skbedit queue_mapping $tx_qid" without saying where the filter has to
-sit. Would a note there help?
-
-> +	else
-> +		capped = netdev_cap_txqueue(dev, queue);
-
-[ ... ]
-
-> @@ -322,6 +358,8 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
->  	skb = q->dequeue(q);
->  	if (skb) {
->  bulk:
-> +		/* cap the head; the bulk helpers cap every appended element */
-> +		qdisc_cap_skb_tx_queue(q, skb);
-
-[Severity: High]
-This caps the mapping at dequeue time. Can the same BPF-stored value
-still reach a consumer on the enqueue side that uses it as an array
-index?
-
-taprio_enqueue() in net/sched/sch_taprio.c indexes q->qdiscs[], which
-has dev->num_tx_queues entries, without a bounds check:
-
-net/sched/sch_taprio.c:taprio_enqueue() {
-    ...
-	queue = skb_get_queue_mapping(skb);
-
-	child = q->qdiscs[queue];
-	if (unlikely(child == &noop_qdisc))
-    ...
-}
-
-This path looks reachable with software-mode taprio as the root:
-
-  - taprio_attach() installs the taprio root on every tx queue
-  - a prio child is grafted onto a taprio class
-  - a cls_bpf filter on that prio stores a large
-    __sk_buff->queue_mapping (bpf_convert_ctx_access() only rejects
-    values >= NO_QUEUE_MAPPING)
-  - a duplicating netem sits on one of the prio bands
-
-netem_enqueue() clones the skb, and __copy_skb_header() copies
-queue_mapping. It then re-enqueues the clone at the root:
-
-net/sched/sch_netem.c:netem_enqueue() {
-    ...
-	if (skb2) {
-		struct Qdisc *rootq = qdisc_root_bh(sch);
-
-		skb2->tc_depth++; /* prevent duplicating a dup... */
-		rootq->enqueue(skb2, rootq, to_free);
-    ...
-}
-
-netem inherits its dev_queue from prio, and taprio is grafted on every
-tx queue, so rootq is the taprio root. That gives:
-
-netem_enqueue()
-  taprio_enqueue()
-    child = q->qdiscs[queue]   /* out of bounds */
-    taprio_enqueue_one()
-      qdisc_enqueue()          /* calls child->enqueue */
-
-All of this runs before dequeue_skb(), so the new cap never sees the
-clone.
-
-Commit ea4d4b5dddb5 cited this taprio_enqueue() out-of-bounds access. It
-left the "tc BPF program attached to a transmit qdisc" store path for a
-separate followup.
-
-Does closing that case need a check on the store or enqueue side, or in
-taprio_enqueue() itself?
-
->  		if (qdisc_may_bulk(q))
->  			try_bulk_dequeue_skb(q, skb, txq, packets, budget);
->  		else
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v4.r0.20261021042722-1%40mojatatu.com
