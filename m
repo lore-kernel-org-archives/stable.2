@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792949082;
-	b=bH9N/mvC6Fxza7Inp+TSRR3fsSQ9h0pz83CokP2ygPo7UpTSlKMQh4JW/HJDEB/1MbHr
-	 lTnBrlqbYE/eODWgkH8f8RVhd8kKuto98nyd096IR7QRldIB25yRqjVDnMiRgOnuprLOP
-	 82VnNZivd2Jpnm+e9KyDU7H41lnNBZYKMXAw/1ZtNHeUvfzL7RIhSMJy1AC278bK0IXmU
-	 kEO8Scftv4KaL8VOzpJgow/YDzkkqdRD6WwKrWTiRszFuDBqqlziAI0wNFirIZJA+NY8Q
-	 5H3x4Tb+1wgPeuQoFFwYb56ulR/USBJD8OfW9ieZc68i0bRr0GBPN2r+83jW5H1Gqyg==
+	t=1792949240;
+	b=SHj9A+CyEzqiGZCsAuhmF8Grv95NIi5z6SnkPSeTOsFftw3lAN11+iwoK+Q6LUwXNKBZ
+	 nvGj4o4vcjTY+f6orBPCkRuQfOIPet+bfLrBy/KTfNIjPC6S9FnOIkzsGApDohRmekFfZ
+	 B1gI5Ij5QAeQ5ZQfM4fdEdWY+miGn0a4N5P+LAkZyFBZAMLqDmoR6l8XpEddkoYC/A7k5
+	 65xkEp23N0jituhjijMz0Bbx4vkI9PJoSKUhpoKCZIVKWH3/fF+4uFOT0yrRvBvRsy6WG
+	 Bgw8W9E3C0yxuemcDvw5Y3O6T5TY5F/6NJFmYVYZOpv4R3J1QjDXQjXwtpX/0zwPM2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792949082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792949240;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Nkyq5l5Ghq356yzBoCQoLTfgpUWLS8pHN4Yf4mmGPPY=;
-	b=P1X6zkluvDluIqSaidL90nrEw81UohkK0TbeUzT0vHfNfKFWeehyHJOMCeZE9r8pSphg
-	 qYh7KqKgPkxjkJ8aJaXgONN6nhmeFxQVwYKyXxm4hmdgxNlQkdecZIu9lj4fVt7QJIa6w
-	 KyJgtzpnM0yrT+7l4LbNoH2OVyc+aNznEiQuBy98e/QB+jvHdSHuk7s8xkl2DLe9w+6cY
-	 oDg52xRPOEErY3d+y/44hynrYO+IzUfQ15UGndpbDFg+JNkNV95yh5pD3uqfpWjxm93el
-	 XTc3P3OGZhHYWbN+F1Ss/VBEawe5iBEML9HD/szQQRG6IJIpd4H8Tf50dJHKzxtghFw==
+	bh=uOoKQ2PnkH09Vk1jw7K1oh5n4BU041veL5ZwyfeSI9g=;
+	b=1zQouGOAmfc+AhpJYbQ572035rk5SYH6HalCnHxoqk7PloTcWsBF+/y++kaLLRAhB9OW
+	 sBgR/v4D3+IRYxVVUACI4qHLxNOzfrg/KflDcHeYVi/z6Ixiq9OzLU/ozJYZitYawLhw6
+	 BR6IEb/V6+UPad/DeA0k+alW1e4w07Y9EflGK1+ki1VuM3Zvr81KXixvnRu7oZujapw8B
+	 W+oYmrRfAnuZmqX/8/4iGV0NFUDhcAtCjTCmsRhf9wZg+tf7sbljot5XtIymjr1foXHrX
+	 yn4R81SAv/XjdB/mkiVYXN86OmsJJoxO6ot0++RXTHvux78zEbL48BJ/C15BtaWV1mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRuk66ln;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKbdKhtl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A823606A31A;
-	Sun, 25 Oct 2026 17:24:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCE3606A31A;
+	Sun, 25 Oct 2026 17:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRuk66ln
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D951F01825;
-	Sun, 25 Oct 2026 17:24:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKbdKhtl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC121F01825;
+	Sun, 25 Oct 2026 17:27:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792949082;
-	bh=Nkyq5l5Ghq356yzBoCQoLTfgpUWLS8pHN4Yf4mmGPPY=;
+	s=k20260515; t=1792949239;
+	bh=uOoKQ2PnkH09Vk1jw7K1oh5n4BU041veL5ZwyfeSI9g=;
 	h=From:To:Cc:Subject:Date;
-	b=HRuk66lnQ323DJ5rahzb6qhwxDGn6mSnG/OoMieII1aNcbThS8GTGdhLTWrMRwnHE
-	 jyNNoBGOE67u6yYAPu6VzYdJLoOlkJG/GkCT21fg0Bt5bV/XcZq8Sx3bhmXa6+oGMD
-	 kDzVMGAhpkkIj9e1nKkws1Lz1Gk+LEz9z0GRDh/lEvNybeG8VQ+r3CbijM0ZhKppYH
-	 P9Cdd0dhVEgRz1hsmzXhwo2kNh8xhyDBcbM+EIZpiYTau95GgtpIjAdqp3Wpb3WC9b
-	 2zAXuHxg80A09TjU+nt/ThqpAZwveIpWQjb/xKZVq5B/U3WnpTz+FVXDUpAr6SS+N8
-	 oitVY8v1hQbSg==
+	b=LKbdKhtlyoXURqlHoGmzBroiGrBMDMwQO1Q9HBle3p+cQ765zXSLB2jNShjsJ5ykb
+	 N10s504jTVCUf4j+0yDuodsW8/2mDeb7BAzowMIQcOo7lCzbVhf5VBSKelePNmpO+p
+	 5Rs16+C1rzGZ50gNvBXCwwHzeZBWKnmYEZctC5hF/0CJUf7lL/e6GBS3no8v5VxUs2
+	 EBC9QhmAPQHktZ/2ASugUX9625olkz8QfRHdWMAFVZFsdSxhXQfNLp3k8iFswsOjSL
+	 HF0oxKb2vyt2QN1VsBNaidu+ax5pfO7ZNVnJh6ha2A47FpgMdRbC8pvOLXBiZgV/CF
+	 kYfb5EgoFAAAQ==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -47,9 +47,9 @@ Cc: SJ Park <sj@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	stable@vger.kernel.org
-Subject: [RFC PATCH 7.2.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Sun, 25 Oct 2026 10:24:33 -0700
-Message-ID: <20261025172434.161597-1-sj@kernel.org>
+Subject: [RFC PATCH 6.18.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Sun, 25 Oct 2026 10:27:10 -0700
+Message-ID: <20261025172712.164385-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -119,10 +119,10 @@ Signed-off-by: SJ Park <sj@kernel.org>
  1 file changed, 16 insertions(+), 6 deletions(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 40714c69d1b18..0aefaef46d655 100644
+index 4e6e3d7d0a5c0..8fa788b0d709c 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -999,15 +999,18 @@ static void damos_commit_quota_goal_union(
+@@ -807,15 +807,18 @@ static void damos_commit_quota_goal_union(
  	}
  }
  
@@ -142,7 +142,7 @@ index 40714c69d1b18..0aefaef46d655 100644
  }
  
  /**
-@@ -1025,14 +1028,17 @@ static void damos_commit_quota_goal(
+@@ -833,14 +836,17 @@ static void damos_commit_quota_goal(
  int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
  {
  	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
@@ -164,7 +164,7 @@ index 40714c69d1b18..0aefaef46d655 100644
  	}
  	damos_for_each_quota_goal_safe(src_goal, next, src) {
  		if (j++ < i)
-@@ -1041,7 +1047,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+@@ -849,7 +855,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
  				src_goal->metric, src_goal->target_value);
  		if (!new_goal)
  			return -ENOMEM;
@@ -178,6 +178,6 @@ index 40714c69d1b18..0aefaef46d655 100644
  	}
  	return 0;
 
-base-commit: cc9de5d4b5ab6459f5774946aa3195ad51236fa8
+base-commit: 2926d88bb7fc4608fd942453d929c39e4e5ec006
 -- 
 2.47.3
