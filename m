@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792961139;
-	b=WUmfKhKeLUqMi65sQaHm0AW5bmQtcFzPbKBi+W/795EIMMZbZT/iyvnPeikKAyLuHrCf
-	 Tah7slzDV35CxPRDd2r2N5wwzau1+VbmcwvLzRat9QSPyahDIY3rDzm5NZq0G+mhR5hSX
-	 yvVVEdsefwLN8TlDC19G1j+1f1r741Ub3I6ZUYanunyrKVLjp15Uae17Z+ZqbPza5wf/E
-	 bjpJ+79JjctAPNZpNDwcNJBy5PDGMk+FstZMIidYpra1apx+4eTe/JnE7ATpSpTykXmWA
-	 mXbCyEiJk4RHKEUSSVYDYA9qjjlq0yPaKekrTEfb9//gaFwoxWy8UOcRPlffN3NqSmw==
+	t=1792961390;
+	b=2usjkZuGAlImkbP/MmbxGdGT07V5u6HrpQElRZnl3u1oPB9V/jJDyzgd91Okvf+PRyAO
+	 xIXEz+sUPDBGZbKtjXjqvgm0LOtH/aFAT1kQMZ001whqNP1MX+6KECdER1NB+w+tsEf3D
+	 e+45fAF7M5Zmc792fpoy1aPCSMFCBaIw1NQfR/Y+/GstVEq0Lv1fFB+GqYUS1v9rIvlwz
+	 Hrdnsa2FxjJEAJSPuQPogjM5N9j6hG2Zz4S1CjKRu3gVjao9ndkp/Kgc3frbc8OIdurMW
+	 gTBXiTeo4k6zgxbpxR7Fjtrv7Pm33X5ZfIzYlITZq7qznUw1Er7ee4zZSue8j056fEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792961139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792961390;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=9ynOepXHL/8dv5MR32+GlROxxwXybPjSYd9AdFHCLkY=;
-	b=zhjjT5QprdwioEl8nNyRZqqsY+/wX8tUSFte1sHQqcqD3kTljWhq/XZ4JpqJs/rht9v9
-	 iotJUEM619ShUAPBl65NVTPoDbzHafXF3WJM/T7nbUcHBg5wUYW+7edX8jSiIc5pRr37m
-	 OlAj1OWQ0UuOIeR38uJju8Rdz9sOFb6M293wP/Bo8GDn4+6Esz6DTNZuv4aBw2FntVMLQ
-	 C+bW8QSGKDDE8UVU+fbEUyVLysasJHiKTDACjoYyzMPjyh2e4LMHe2v2yhWHWjsmObSVj
-	 a9ET6htB3sUVAnrD1EwmffyqO1mErkLgkkGRS6Gb4be+UQNLOPOi9j1Aew1pcbrhonA==
+	bh=YriLpqrjrZmfB+xvcDA9gJWwkDiRX4+T7vg5RgUigrE=;
+	b=eTbwg9+fIB8axmmyMEbT0a7EvRoE2qOcCzKr5MkviRyCaB3EKxlyKbRUbUAq1ptYTP0W
+	 QRsL/7NLD4Pk1Fns5mnEFkFhkrW+SzqG7vWBbpH+OoLT2oaEoTJypNd/lh9ck9xuC2rco
+	 b9PacvTy9HoeEVT1+qQQlyCCqrSgOCIRfdVSHUj2aroFY0yLWuUPYfXVC1/P8Hug8pB8n
+	 rQkkp+it+Y5HQQB2MBIK15urYlfw6PY4xIXCIy7IarZTZC+F1Bq1rsjYoNJJd2Tyx+o3w
+	 Z+3OhHHd0U3XgsSnRruHs0+mD+9qHmEwLdOIUAOwU6+0rBZlk8ssxquJxvU8Ph7sDcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mNVWqk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ratw+LN6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A7E606A31A;
-	Sun, 25 Oct 2026 20:45:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9629C606A31A;
+	Sun, 25 Oct 2026 20:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mNVWqk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E6D1F01825;
-	Sun, 25 Oct 2026 20:45:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ratw+LN6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD4F51F01825;
+	Sun, 25 Oct 2026 20:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792961138;
-	bh=9ynOepXHL/8dv5MR32+GlROxxwXybPjSYd9AdFHCLkY=;
+	s=k20260515; t=1792961390;
+	bh=YriLpqrjrZmfB+xvcDA9gJWwkDiRX4+T7vg5RgUigrE=;
 	h=From:To:Cc:Subject:Date;
-	b=S5mNVWqkAcdLDRboNQIV8cdqH5qxiVE/j6YCovkSFgkjqLF7FG2qkoJo0nxcgL0Vf
-	 J90UaBaHEBx2j9V0ofiA1HiJhNs2xv+7fKxIt3xGEE3VoEstz7Oo+m8O0w+lpvwTUi
-	 UNRkvCZ5Gv2UYEplVGLtKokgokNyoMT7ROekLVIMp4DBBwf3c9Szq7AZE2aLI7P9TO
-	 mWDyStaaktQOalV9AcUyjNFpPM2qszfG1iH17zuhnaKlQgI/HW8qb9Z5WxDsqsqLzo
-	 SAtURp56TtPE8Uc4Ucnho8Mzns6/CaFYcySAUxiif7Prn+v7OnNyGYZFms6Xhbk01p
-	 S23BQCLg9zQQQ==
+	b=Ratw+LN6WSQrMxSFfkmRUZbqKXQMhepXEi5IicxhSDL3VDyji7s6MAHtNUBRMm374
+	 fc1D3X+ers1xVUlohRJrRphPWhPbqLgB+kUUeLZ47Smnmrt/XqPQlYguie0RP1JLm4
+	 MGgb1Bnx88kM+vD3DX2oRZc5WYIsoDswy4Z6MKIwfEJhUQH5pNeWkqyZoY4CT4QNYI
+	 R8BVU84wAfphhTvX2pj2N6Ne04khNObfAbJCGHjU6Tac587Mmk5b0KGMJfkO9jZ9nc
+	 hXiVPe9BgL3YAkkMBPMDO0h1Uhay3C+3eNIz1UirTJlXasj4sNY7tFHDjm1z2RP6kJ
+	 OYBRuaom7Jmgg==
 From: Eric Biggers <ebiggers@kernel.org>
 To: fsverity@lists.linux.dev
-Cc: linux-security-module@vger.kernel.org,
-	Fan Wu <wufan@kernel.org>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
+Cc: linux-ext4@vger.kernel.org,
+	linux-btrfs@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
 	Eric Biggers <ebiggers@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] fsverity: Tell LSMs about signature only after verity is enabled
-Date: Sun, 25 Oct 2026 13:45:34 -0700
-Message-ID: <20261025204534.122506-1-ebiggers@kernel.org>
+Subject: [PATCH] fsverity: Set S_VERITY only after rollback is no longer possible
+Date: Sun, 25 Oct 2026 13:48:07 -0700
+Message-ID: <20261025204807.122875-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,173 +61,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FS_IOC_ENABLE_VERITY calls security_inode_setintegrity() before verity
-has finished being enabled.  That's broken because enabling verity can
-still fail at that point, e.g. due to insufficient xattr space.
+Commit f77f281b6118 ("fsverity: use a hashtable to find the
+fsverity_info") changed the implementation of FS_IOC_ENABLE_VERITY to
+make concurrent reads start going through fsverity verification slightly
+earlier than they did before.
 
-Afterwards, arbitrary contents can be written to the file, which doesn't
-actually have verity enabled.  The in-core inode stays the same, so the
-LSM considers it to have verity enabled with a valid signature.  (Or
-rather, in the case of IPE, which is the only LSM that implements
-security_inode_setintegrity(), it also checks IS_VERITY(), which can be
-bypassed by enabling verity with no signature after the file writes.)
+Instead of it happening when enable_verity() calls fsverity_set_info(),
+it now happens when ->end_enable_verity() sets S_VERITY.
 
-Fix this by moving the call to security_inode_setintegrity() out of
-fsverity_verify_signature() and into a new function that is called from
-the appropriate places.
+However, ext4 and btrfs can roll back verity after they set S_VERITY,
+causing a use-after-free.
 
-Fixes: 7c373e4f1445 ("fsverity: expose verified fsverity built-in signatures to LSMs")
+Fix that by making ext4 and btrfs set S_VERITY only after rollback is no
+longer possible.  On failure, don't roll back S_VERITY, but do roll back
+the filesystem-specific verity flag.
+
+Also update enable_verity() to handle any future instances of this bug
+more safely by warning and *not* freeing the fsverity_info.
+
+Finally, tweak some comments.  Clarify one, and move information from
+another to its proper place in the comment for ->end_enable_verity().
+
+Fixes: f77f281b6118 ("fsverity: use a hashtable to find the fsverity_info")
 Cc: stable@vger.kernel.org
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- fs/verity/enable.c           |  8 ++++++
- fs/verity/fsverity_private.h |  8 ++++++
- fs/verity/open.c             |  9 ++++++
- fs/verity/signature.c        | 55 ++++++++++++++++++++++++++----------
- 4 files changed, 65 insertions(+), 15 deletions(-)
+ fs/btrfs/verity.c        |  7 ++++---
+ fs/ext4/verity.c         |  4 +++-
+ fs/verity/enable.c       | 12 +++++-------
+ include/linux/fsverity.h | 12 +++++++-----
+ 4 files changed, 19 insertions(+), 16 deletions(-)
 
+diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+index ccfa2ef97e504..b34d2247cf84e 100644
+--- a/fs/btrfs/verity.c
++++ b/fs/btrfs/verity.c
+@@ -483,8 +483,6 @@ static int rollback_verity(struct btrfs_inode *inode)
+ 			inode->vfs_inode.i_ino);
+ 		goto out;
+ 	}
+-	inode->ro_flags &= ~BTRFS_INODE_RO_VERITY;
+-	btrfs_sync_inode_flags_to_i_flags(inode);
+ 	ret = btrfs_update_inode(trans, inode);
+ 	if (unlikely(ret)) {
+ 		btrfs_abort_transaction(trans, ret);
+@@ -549,16 +547,19 @@ static int finish_verity(struct btrfs_inode *inode, const void *desc,
+ 	if (IS_ERR(trans))
+ 		return PTR_ERR(trans);
+ 	inode->ro_flags |= BTRFS_INODE_RO_VERITY;
+-	btrfs_sync_inode_flags_to_i_flags(inode);
+ 	ret = btrfs_update_inode(trans, inode);
+ 	if (ret)
+ 		goto end_trans;
+ 	ret = del_orphan(trans, inode);
+ 	if (ret)
+ 		goto end_trans;
++	/* Now that rollback is no longer possible, set S_VERITY. */
++	btrfs_sync_inode_flags_to_i_flags(inode);
+ 	clear_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
+ 	btrfs_set_fs_compat_ro(root->fs_info, VERITY);
+ end_trans:
++	if (ret)
++		inode->ro_flags &= ~BTRFS_INODE_RO_VERITY;
+ 	btrfs_end_transaction(trans);
+ 	return ret;
+ 
+diff --git a/fs/ext4/verity.c b/fs/ext4/verity.c
+index ac5c133f55292..56fe3e5b33e06 100644
+--- a/fs/ext4/verity.c
++++ b/fs/ext4/verity.c
+@@ -216,17 +216,19 @@ static int ext4_end_enable_verity(struct file *filp, const void *desc,
+ 		goto stop_and_cleanup;
+ 
+ 	ext4_set_inode_flag(inode, EXT4_INODE_VERITY);
+-	ext4_set_inode_flags(inode, false);
+ 	err = ext4_mark_iloc_dirty(handle, inode, &iloc);
+ 	if (err)
+ 		goto stop_and_cleanup;
+ 
+ 	ext4_journal_stop(handle);
+ 
++	/* Now that rollback is no longer possible, set S_VERITY. */
++	ext4_set_inode_flags(inode, false);
+ 	ext4_clear_inode_state(inode, EXT4_STATE_VERITY_IN_PROGRESS);
+ 	return 0;
+ 
+ stop_and_cleanup:
++	ext4_clear_inode_flag(inode, EXT4_INODE_VERITY);
+ 	ext4_journal_stop(handle);
+ cleanup:
+ 	/*
 diff --git a/fs/verity/enable.c b/fs/verity/enable.c
-index ad4ff71d7dd95..2949fb8afb2fa 100644
+index ad4ff71d7dd95..271e8275fd0d9 100644
 --- a/fs/verity/enable.c
 +++ b/fs/verity/enable.c
-@@ -302,6 +302,14 @@ static int enable_verity(struct file *filp,
+@@ -276,8 +276,8 @@ static int enable_verity(struct file *filp,
+ 	 * initialization so that we don't have to undo the enabling when memory
+ 	 * allocation for the hash table fails.  This is safe because looking up
+ 	 * the fsverity_info always first checks the S_VERITY flag on the inode,
+-	 * which will only be set at the very end of the ->end_enable_verity
+-	 * method.
++	 * which will only be set at the very end of a successful call to
++	 * ->end_enable_verity().
+ 	 */
+ 	err = fsverity_set_info(vi);
+ 	if (err) {
+@@ -287,10 +287,7 @@ static int enable_verity(struct file *filp,
+ 
+ 	/*
+ 	 * Tell the filesystem to finish enabling verity on the file.
+-	 * Serialized with ->begin_enable_verity() by the inode lock.  The file
+-	 * system needs to set the S_VERITY flag on the inode at the very end of
+-	 * the method, at which point the fsverity information can be accessed
+-	 * by other threads.
++	 * Serialized with ->begin_enable_verity() by the inode lock.
+ 	 */
+ 	inode_lock(inode);
+ 	err = vops->end_enable_verity(filp, desc, desc_size, params.tree_size);
+@@ -298,7 +295,8 @@ static int enable_verity(struct file *filp,
+ 	if (err) {
+ 		fsverity_err(inode, "%ps() failed with err %d",
+ 			     vops->end_enable_verity, err);
+-		fsverity_remove_info(vi);
++		if (!WARN_ON_ONCE(IS_VERITY(inode)))
++			fsverity_remove_info(vi);
  	} else if (WARN_ON_ONCE(!IS_VERITY(inode))) {
  		fsverity_remove_info(vi);
  		err = -EINVAL;
-+	} else {
-+		/*
-+		 * Now that verity is enabled, report the signature (if any) to
-+		 * LSMs.  We tolerate that a process racing with this ioctl can
-+		 * briefly see verity enabled with no signature reported yet.
-+		 */
-+		fsverity_report_valid_sig(inode, desc->signature,
-+					  le32_to_cpu(desc->sig_size));
- 	}
- out:
- 	kfree(params.hashstate);
-diff --git a/fs/verity/fsverity_private.h b/fs/verity/fsverity_private.h
-index 6f85f63861aaa..2c41428d484b3 100644
---- a/fs/verity/fsverity_private.h
-+++ b/fs/verity/fsverity_private.h
-@@ -160,6 +160,8 @@ void __init fsverity_init_info_cache(void);
- extern int fsverity_require_signatures;
- int fsverity_verify_signature(const struct fsverity_info *vi,
- 			      const u8 *signature, size_t sig_size);
-+void fsverity_report_valid_sig(const struct inode *inode, const u8 *signature,
-+			       size_t sig_size);
- 
- void __init fsverity_init_signature(void);
- #else /* !CONFIG_FS_VERITY_BUILTIN_SIGNATURES */
-@@ -170,6 +172,12 @@ fsverity_verify_signature(const struct fsverity_info *vi,
- 	return 0;
- }
- 
-+static inline void fsverity_report_valid_sig(const struct inode *inode,
-+					     const u8 *signature,
-+					     size_t sig_size)
-+{
-+}
-+
- static inline void fsverity_init_signature(void)
- {
- }
-diff --git a/fs/verity/open.c b/fs/verity/open.c
-index 6646290430380..13fa69d7e4be4 100644
---- a/fs/verity/open.c
-+++ b/fs/verity/open.c
-@@ -387,6 +387,15 @@ int fsverity_ensure_verity_info(struct inode *inode)
- 		goto out_free_desc;
- 	}
- 
-+	/*
-+	 * Now that the signature (if any) has been verified, report it to LSMs.
-+	 * Do this before inserting the fsverity_info into the hashtable, so
-+	 * that anyone who concurrently retrieves the fsverity_info for the same
-+	 * inode is guaranteed to see the LSM's signature status populated.
-+	 */
-+	fsverity_report_valid_sig(inode, desc->signature,
-+				  le32_to_cpu(desc->sig_size));
-+
- 	/*
- 	 * Multiple tasks may race to set the inode's verity info, in which case
- 	 * we might find an existing fsverity_info in the hash table.
-diff --git a/fs/verity/signature.c b/fs/verity/signature.c
-index 0302a4e506ec4..212e873c84998 100644
---- a/fs/verity/signature.c
-+++ b/fs/verity/signature.c
-@@ -42,13 +42,16 @@ static struct key *fsverity_keyring;
-  * @sig_size: size of signature in bytes, or 0 if no signature
-  *
-  * If the file includes a signature of its fs-verity file digest, verify it
-- * against the certificates in the fs-verity keyring. Note that signatures
-- * are verified regardless of the state of the 'fsverity_require_signatures'
-- * variable and the LSM subsystem relies on this behavior to help enforce
-- * file integrity policies. Please discuss changes with the LSM list
-- * (thank you!).
-+ * against the certificates in the fs-verity keyring.
-  *
-- * Return: 0 on success (signature valid or not required); -errno on failure
-+ * Note that signatures are verified regardless of the state of the
-+ * 'fsverity_require_signatures' variable, and the LSM subsystem relies on this
-+ * behavior to help enforce file integrity policies.  (See
-+ * fsverity_report_valid_sig(), which assumes that the signature, if present,
-+ * was verified here.)  Please discuss changes with the LSM list (thank you!).
-+ *
-+ * Return: 0 if the signature is present and valid, or absent and not required;
-+ *	   -errno on failure
-  */
- int fsverity_verify_signature(const struct fsverity_info *vi,
- 			      const u8 *signature, size_t sig_size)
-@@ -111,18 +114,40 @@ int fsverity_verify_signature(const struct fsverity_info *vi,
- 		return err;
- 	}
- 
--	err = security_inode_setintegrity(inode,
--					  LSM_INT_FSVERITY_BUILTINSIG_VALID,
--					  signature,
--					  sig_size);
-+	return 0;
-+}
- 
--	if (err) {
-+/*
-+ * If the signature exists, this tells the LSM that it was verified.
-+ *
-+ * fsverity_verify_signature() must have already been called with the same
-+ * signature, *and* the inode must have verity enabled with the signature
-+ * matching it.  If called from FS_IOC_ENABLE_VERITY, the latter means that we
-+ * must be past the point of no return, i.e. verity won't fail to be enabled at
-+ * a later point.  This is critical, since LSMs must be told about the signature
-+ * only when the verity status is permanent in the in-core inode.
-+ */
-+void fsverity_report_valid_sig(const struct inode *inode, const u8 *signature,
-+			       size_t sig_size)
-+{
-+	int err;
-+
-+	if (WARN_ON_ONCE(!IS_VERITY(inode)))
-+		return;
-+
-+	if (sig_size == 0)
-+		return;
-+
-+	err = security_inode_setintegrity(
-+		inode, LSM_INT_FSVERITY_BUILTINSIG_VALID, signature, sig_size);
-+	if (err)
- 		fsverity_err(inode, "Error %d exposing file signature to LSMs",
- 			     err);
--		return err;
--	}
--
--	return 0;
-+	/*
-+	 * Besides the logging above, ignore errors here.  The LSM hook just
-+	 * records the signature and doesn't perform access control.  And in the
-+	 * case of FS_IOC_ENABLE_VERITY verity was already enabled.
-+	 */
- }
- 
- void __init fsverity_init_signature(void)
+diff --git a/include/linux/fsverity.h b/include/linux/fsverity.h
+index f9433332c274b..61fe96ccdff6a 100644
+--- a/include/linux/fsverity.h
++++ b/include/linux/fsverity.h
+@@ -54,11 +54,13 @@ struct fsverity_operations {
+ 	 * @merkle_tree_size: total bytes the Merkle tree took up
+ 	 *
+ 	 * If desc == NULL, then enabling verity failed and the filesystem only
+-	 * must do any necessary cleanups.  Else, it must also store the given
+-	 * verity descriptor to a fs-specific location associated with the inode
+-	 * and do any fs-specific actions needed to mark the inode as a verity
+-	 * inode, e.g. setting a bit in the on-disk inode.  The filesystem is
+-	 * also responsible for setting the S_VERITY flag in the VFS inode.
++	 * must do any necessary cleanups.
++	 *
++	 * Else, the filesystem must store the given verity descriptor to a
++	 * fs-specific location associated with the inode and do any fs-specific
++	 * actions needed to mark the inode as a verity inode, e.g. set a bit in
++	 * the on-disk inode.  Finally, on success (only when rollback is no
++	 * longer possible!) it must set S_VERITY in the VFS inode.
+ 	 *
+ 	 * i_rwsem is held for write, but it may have been dropped between
+ 	 * ->begin_enable_verity() and ->end_enable_verity().
 
 base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
