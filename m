@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792940555;
-	b=eEU01UJXonn0Lrq5Buh/tqRNVSiHAUEg8XrUViKUYpsm4DcJtzu5MbeKSLtEyt2sO1PK
-	 WZFB3FxMrM0kliN51WTcGU969GY9BezA+SIsBgbxfUe7yO45f1ywUHg11zfTGCagNkWSZ
-	 k2RafnHLWdUpVrRXW6skcnUvAz13W80p3gZa7gQ4hZTUUdvr/s3ye7gXp4bHcPD41EA7W
-	 9JYzwdhYf2Wle8gTOK+LTbhxg5wiwDop708H5N4cL5rl+st+cR/M/tbIFXeUPPuGjnfDA
-	 p6QM+8ml/+u3EQroV9kyOOT4QIXfY97mSAHW5DAkmQEuYVQCijyOQKpOY++NEbbhPgQ==
+	t=1792941424;
+	b=bXZJzFcZqzLt0ztbh5Iywo7qhlWIVWyB1ijKyxrYZdwVlp/TRgLYpZw/D/lci2P/VXpt
+	 Q04Ov/mTTZ1JoxCZOIDZMB2iwawK9etHZCmUc/nF0m4aEbO3Dv0ZafS+rylsC5BP5OftF
+	 BF6o4DTiVgMStmSwWLfbFXoXxsyA6nkIypYKNZpG0xVBx2IYdFICyXw+T+u/2+juCRiQa
+	 Zc3Zzj3fmZKcnvz3QqKgclo7t71J5/2dCyC1UNquU6DsmQfiIL/mHGB3gQer4geJGJPK2
+	 WY6CaIHY1S7VCekXPWjcLB8yKZviOjNDan8WYbcIUd2OyIlm2x7TnVbqmpfV15lwpEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792940555;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GbbujWN9CgXlIh0OW4AityLz5uAnjAzqZYn7Skh9A08=;
-	b=fItakkcn9Jg7adq4jX+u+9SJHOvSffKP7+uH8OS2itsfLrufG8/dMaNOWS6b1NqVTzbv
-	 KMXYp3JEQgMWBh0s2HZH6vShC4mA8y9o8uwynJmOGR1NRTZ61GyPdtgEi1f/0Yp+5Nm+Y
-	 lDcDzcXbN95jDyAXHey5SbRp1xk5AyFmEr83eFZZxuDcHC7s5XhNLi1UMcuHJIL2HfEa5
-	 cQA/9iPs9S/WWqfzayuSbHSAag3t+R9elIJ9woOhntCLc6GkQ8sknZVXmx4mLFDQdaYBJ
-	 g2O9BGLVZN7c1KfU7MG2Ff0Kt8IynG4Q9K86mrRBgLGtKCGcoApv70E2fmbPXQ+lJng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792941424;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xuT4b3Ogd1sn4kTuluW41732TPOf5pb8loXXUU48qds=;
+	b=deePRg+xEypBDgxySFwi5elgfnbIye1Wsm882VWO5XF9lYdeiOgyeOR6sddb0z3Czb33
+	 M05QnzSyM1LalSsukiicsW3+CLveyuOrV6RUkHJIdCGW8u1RL5s8h6q8ksNCvflEQQaAu
+	 RWHMB5VYy/6/6rGaIyO5NTIrt7wWSbZtmdefm3cJtBje3R7pXZIBJx7JFTSk3xgq6E36o
+	 Om6RQDu8idjclZAt2tcHsaYJjS9MunNXy10EZ0QlOTZ98H2DE80dwxEnqchzwCYdiYKCK
+	 U69VnyZGuEhEgbzIlL86lufhJ98rY3fdA+RKoOfVL0je8c6m1qk+2LFtCNMGfdSUvdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB8BFSmI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=bkhX3K5F;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E90606A31A;
-	Sun, 25 Oct 2026 15:02:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36376606A31A
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 15:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36376606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB8BFSmI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C501F01825;
-	Sun, 25 Oct 2026 15:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792940554;
-	bh=GbbujWN9CgXlIh0OW4AityLz5uAnjAzqZYn7Skh9A08=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dB8BFSmIqZFoIJvvcTzrwfGFB/Kcmfjwo42raWbl1Sw1fgJkiMPZllORd9Zfs5cGP
-	 IyMmhP6OwvLFS39rfdjFkyh64QkFqAZdDL5nplKR6ctb3g5WbDpK+glIXbcmMLFFY0
-	 tXOlVnhHHFgcdAHEQq5a7qzyvVlZORHThoP0wKnp/hWxDpqvdc7OHTFI4CggRchovG
-	 9RSpfhAO9e5F6A/oWKUUGrArmOkJOhHseJ22EVIMDfiXmW920lJtzDyM+kO53dbQ5z
-	 QrUGgC/jvswT/x4Su8DT0xyHPj+z1G9O5pDxcdCektMtzvTuNauQfc6chL92zAxaS2
-	 AjjcIFbF34yHA==
-Subject: Re: [PATCH net] tcp: limit tcp_tso_rtt_log to a valid shift count
-From: netdev-bot+sashiko@kernel.org
-To: 1075151112@qq.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com,
- kuniyu@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 25 Oct 2026 15:02:33 +0000
-Message-ID: <179294055394.3134.18315932925125315352@kernel.org>
-In-Reply-To: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
-References: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=bkhX3K5F
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e64d52949so189981985a.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 08:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1792941423; x=1793546223; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xuT4b3Ogd1sn4kTuluW41732TPOf5pb8loXXUU48qds=;
+        b=bkhX3K5FjsQrft3v3hXQxqYDsSuQznzyGasYeLiPw0fXaiqj12taMq35qXL7NI3cSN
+         hlUm/LZwUyjwX15zW7w1wiPTx/xepHFLqWLtyfKSkFVURXGjuSKFvD+X3/PFa2jDRbDt
+         50mBJi6EsGzn1/LladRetekFy9+VqpXAkcM5Qq9jHW/fPD3Q4BP0Gadx/TUvpolO+nKC
+         UDAF1qWTxf2i0dAymEkgXv1NCb7sboO4Te4RaWSatHa68p4ishuL2T4OlCQ/1554Tm8P
+         zGaFI1XMkYnTGilMixj1aDMxKxUv09uJwzo3/gL3OgH+ZHMU6x5NffvYICXeok2Bqyc3
+         vY4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792941423; x=1793546223;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xuT4b3Ogd1sn4kTuluW41732TPOf5pb8loXXUU48qds=;
+        b=iCdIeUhF3Wl5zR2fbdSX46O5MljKdIiPg09Tb7aSPCGoV49ncu6klMnLXly8JYy7FA
+         /OP+x8rvohGLI7m2S6hG0BVACL9qQeD2dDI+sYUlNAx6myj4ULA4ByCV+xPGvvpsYfVl
+         al4Uy4MmHsF8XvTC8EPsmpRQSMx7pQDDT+N4OEpEaEh6EiAqIy067xIKgEVyZTGxa29i
+         35BCw1aN8ISZ+XGSCzBDOkWjmDM5FyuOde2hpX2LCPbqAdXQ6SVsBrtcipewzUR22sue
+         jv4UHW5jbj6xab/ZtIeVUzU9ShgZe6YLF9FdPrLLbhO3FW8bASq0IWPWgHlL89alXREG
+         MLTA==
+X-Forwarded-Encrypted: i=1; AKwUvByFpA/xYkwauIbAE7xhfh2fNLVk/EVza3EggNlPPX6cv00eY3XIBw9UVeB6baQZlZz2/l8vApE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJphcbKr9A5L48chOgxN/N0NjroUju8Oaue+TQL95wVS/HZukYe
+	NjT6oAWXBS7UWBREfouYyiWZC42CGmr8SozWuEIx2RWVCQUnrgjyeUfhL1SK8PN01w==
+X-Gm-Gg: AYBFou1YQxfWJOo5BHxNSvUKxbM4l0dZYh6NQRW63K56PWn0ChxiEoEJv1C3fokqrNo
+	NWOYdgjr0sXBQ01tbHaUKk6URdym3ecVqPFu7qcS2HkRbz0mnl1ZtQJ2bYH0A+8S14ftC0FaPSj
+	czgnKCdZyAlOnnKYtIGPlvwtIY+rM891MkFe1chbqDmQ2CxK8I+LXE61TSJ9hyirt1H0O0JV/Oe
+	yYuONhFNk+aa0hMp42X0aLfqGTZeYrnnT+vrGuTlwxxWUr4YXu0TCzDrvZwkyZ2/MV3jlINx/n0
+	t+Xl9/oc38U/MSSVghC0nJ6asMxGI//0aKx67INFC7cwUeQJxMccdHcrtihAgMeYhPX+vzqMStY
+	DRcL6gF8hAIs7+0xiOX8Po4T1qbEMxMg5doJGqc6ERxc54ITZHgADcPnJ+bte1VACkXPu9/0UKo
+	bv71NDUlvXo/zEnIxTOA0AK3X6+S1qiKN0v6rfN3T+IwPeh/pZkFBn+goJC+9HJ5SukixXPqqd5
+	/+Y/hDLxA5xFSFbJiJNVwYbUZGd/989NlYC7ixf1xqa9VHEGX0RBGYl
+X-Received: by 2002:a05:620a:40d5:b0:93e:fd69:9a93 with SMTP id af79cd13be357-940ef8d837emr663389785a.31.1792941423007;
+        Sun, 25 Oct 2026 08:17:03 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cd9dcesm47203106d6.42.2026.10.25.08.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 08:17:02 -0700 (PDT)
+Date: Sun, 25 Oct 2026 11:16:59 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: IgorpetinDev <igorpetindev@gmail.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
+Message-ID: <76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+ <20261024155614.2732-1-igorpetindev@gmail.com>
+ <20261025000643.425c57ca.michal.pecio@gmail.com>
+ <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,103 +102,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sun, Oct 25, 2026 at 10:54:57AM +0300, IgorpetinDev wrote:
+> Regarding cancel_work_sync() vs. flush_work() and usb_remove_hcd() vs.
+> usb_stop_hcd(): these changes were specifically suggested by Alan Stern
+> during the review of v1 and v2, which is why v3 was shaped this way and
+> subsequently received his reviewed-by tag.
+> 
+> I'll defer to Alan and Greg on how they wish to proceed and which
+> approach they prefer to take.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+I don't much care whether the new calls go in usb_remove_hcd() or 
+usb_stop_hcd().  I suppose usb_remove_hcd() would make more sense, since 
+no URBs can be sent to the HCD until it is added.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+As for cancel_work_sync() vs. flush_work(), it doesn't really matter.  
+The situation we're in is that there are no more entries remaining in 
+the workqueue and no more will be added, but the final one may still be 
+executing.  In this setting, cancel_work_sync() and flush_work() do the 
+same thing.  However, the name "flush_work" does a better job of 
+expressing what we want to accomplish: wait for the final work item to 
+finish, not try to cancel it.
 
-- [High] The patch puts the new bound on the wrong sysctl, so it does not
-  fix the bug it claims to fix.
+> > > @@ -2787,6 +2789,13 @@ static void usb_stop_hcd(struct usb_hcd *hcd)
+> > >       /* In case the HCD restarted the timer, stop it again. */
+> > >       clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
+> > >       timer_delete_sync(&hcd->rh_timer);
+> > > +
+> > > +     /*
+> > > +      * Even though all URBs have been given back,
+> >
+> > but does anyone actually believe this here?
+> >
+> > Hundreds of drivers written over three decades, often
+> > without linux-usb review. I don't trust them at all.
 
---
+If it's not true, there's likely to be trouble when the completion 
+handler is called.  We could forcibly remove any remaining URBs from the 
+lists before flushing the work item and just leak them (with a warning 
+of some sort -- ideally, one that prints out the names of the completion 
+handler routines for the leaked URBs, if at all possible).
 
-tcp: limit tcp_tso_rtt_log to a valid shift count
-
-This patch tries to cap the net.ipv4.tcp_tso_rtt_log sysctl at 31. The
-reason is that tcp_tso_autosize() right-shifts a u32 by that value. The
-patch also documents the accepted range [0, 31] in ip-sysctl.rst.
-
-> diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-> index e3760daa34706..e954311405b41 100644
-> --- a/net/ipv4/sysctl_net_ipv4.c
-> +++ b/net/ipv4/sysctl_net_ipv4.c
-
-[ ... ]
-
-> @@ -778,6 +779,7 @@ static const struct ctl_table ipv4_net_table[] = {
->  		.maxlen		= sizeof(u8),
->  		.mode		= 0644,
->  		.proc_handler	= proc_dou8vec_minmax,
-> +		.extra2		= &tcp_tso_rtt_log_max,
->  	},
->  	{
->  		.procname	= "ip_early_demux",
-
-[Severity: High]
-Was this hunk applied to the wrong ctl_table entry?
-
-The entry just before "ip_early_demux" is "ip_dynaddr". With this patch
-applied, ipv4_net_table reads:
-
-	{
-		.procname	= "ip_dynaddr",
-		.data		= &init_net.ipv4.sysctl_ip_dynaddr,
-		.maxlen		= sizeof(u8),
-		.mode		= 0644,
-		.proc_handler	= proc_dou8vec_minmax,
-		.extra2		= &tcp_tso_rtt_log_max,
-	},
-
-The "tcp_tso_rtt_log" entry further down is unchanged and still has no
-extra2:
-
-	{
-		.procname	= "tcp_tso_rtt_log",
-		.data		= &init_net.ipv4.sysctl_tcp_tso_rtt_log,
-		.maxlen		= sizeof(u8),
-		.mode		= 0644,
-		.proc_handler	= proc_dou8vec_minmax,
-	},
-
-When extra2 is NULL, proc_dou8vec_minmax() falls back to its default
-maximum:
-
-	unsigned int min = 0, max = 255U, val;
-	...
-	if (!tmp.extra2)
-		tmp.extra2 = (unsigned int *) &max;
-
-So writes of 32..255 to net.ipv4.tcp_tso_rtt_log are still accepted, and
-tcp_tso_autosize() still does:
-
-	r = tcp_min_rtt(tcp_sk(sk)) >> READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_tso_rtt_log);
-
-Is the UBSAN shift-out-of-bounds from the commit message still reachable
-through tcp_sendmsg_locked()->tcp_push()->tcp_write_xmit()->tcp_tso_segs()
-->tcp_tso_autosize()? The r < BITS_PER_TYPE(sk->sk_gso_max_size) check
-after it guards a different shift.
-
-This also means the kernel does not enforce the new "Possible values are
-[0, 31], inclusive." line in ip-sysctl.rst. This statement in the commit
-message doesn't seem to match the diff:
-
-    values 32 and 255 returned -EINVAL
-
-Separately, net.ipv4.ip_dynaddr now rejects writes of 32..255 with
--EINVAL. Before this patch it accepted any u8 value.
-inet_sk_rebuild_header() checks !sysctl_ip_dynaddr, and
-inet_sk_reselect_saddr() checks sysctl_ip_dynaddr > 1, so both accept
-larger values. With the Cc: stable tag, this change in what the sysctl
-accepts would also reach stable kernels.
-
-Should the extra2 line go in the tcp_tso_rtt_log entry instead?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07%40qq.com
+Alan Stern
