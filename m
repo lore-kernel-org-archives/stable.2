@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793007672;
-	b=uT6PSEuvbXmhxKlmo2M3+vmFe+wQzk50RY3JNr1bKhrdihC1yqCsGasV0FRcfJgJGPIu
-	 uKB3Xw7NNP5wjl4McePKirWmqILYY5TWtYrIH4D9fXLY9igm18ArPI8KfqVF3ypsXqpFW
-	 /3rBp+N88eoXtx/C2AT+hA3jD8vcKcDWxvJD6tv2IpJabkVmlMmIRGSgHG9Pa2Yj3EgRh
-	 wiwej4IRRouZAZeDE8rtPMGIGgZ7Q/anmr/CAPsTTX5DYDYsCXVCFOTkjymO7slokZOPU
-	 ptlN4RqyfWcZPij2ehQNC0w3M8h71vSPzoJDN9kNGqZ9wgGwJJT8dija20S2rlm8Rmg==
+	b=yCIpNUcZuTUT8jSDjwxGD6K4Ok5T1QUMGN0MRdLs9uf/iQA7HahQjtBun7+rMytujUHp
+	 sUG/YrQX89ZmUPABcw88CS3I31yrmaOc3z1Wfg5RN3gvKkdTr+sz5//1hQKtCVW48SruD
+	 +umIp8HqsjrZSDYJzh+ShZQdI+aYjjwrCPyS0MipO4XVIFQsb5tMQMJpqdCwwGZe6bkCd
+	 JNbLOADgpDuHyiNjXZu3vfXrFkuFvG3UrhIdySqfUHeVXcUMsTnWTkDNEolP+Vfr9y0u0
+	 EqUV6VkPDUz9NJsrlMqZYtRKJnfF9bL9JL1PVILLYfr6KsYN/trBo3XiRqTu6FrCVyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793007672;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Ju0wQu+417wa892fYJVYM+soH6OLcnP1RPOW0oc0dDM=;
-	b=p6hXcgZLQhjiXJ4CCHAFSloen/w4IF8zzhKO8aXvClDqZavul/MoubVvegvl4aAALKFj
-	 fgIZGyNVlMk1rh55VcX6k4NWWDygEdJw/Z4fi30zD/wDDIyVpsF8ej/e7QSr2+lhMi4YA
-	 WKJbH0mZQMv69OuGYOlgoZajfaGX4aiYNciv7njip3F3j4+spFDz7Wlv755ZpnI0V6YI3
-	 O7QkSqn9oH+nz9TydzzOzgMXcs+SAic0FfRf9Wj4nxUNRcFG2mWiNNtDFCSODGjYk40hp
-	 B66bNcl1gWAXtzfxez1IOn11RN6rotgY5OtiBIuoEij0zmxv9mLL8SzQwJYXpNBvAiA==
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=REIzglI+UokdSSqST5CDOezePfcdiVtDX4vr1iybjIw=;
+	b=aSEEE/efCuoythz066gKYl90EqQtGBB6AIErFiUh7RDQ4nVufNxX6hiR9CPKNz4Aoh5H
+	 9yJdKlcjz2CIgoWX6IlyztE+TarOWltQns0B6VWOMZh0rrT3sh2H5cV6jRiZ+EUx+IX9h
+	 XvHxUPD7I08P98hXMuogobmBPiYJfEvGPmIwGe74YJBX7yDqcxcOSuQxwawj8VqaRd3r4
+	 +Oo/41zB0/01UQfgdi8zQHU2DlLpivS1cxtiKLdYkeHUzPVWR8kT1Jvpx/6iNVeayMyer
+	 fmQcMO7B69iuIfxcM0YpfrmU/hp0ZVY/gMo83KE/eLAC/2YgjHexF4N9gN2cinOjxWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bkq44vBo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QiSloQfr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7AE60A2608;
-	Mon, 26 Oct 2026 09:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CF460A2609;
+	Mon, 26 Oct 2026 09:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bkq44vBo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4491F031E4;
-	Mon, 26 Oct 2026 09:41:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QiSloQfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D665E1F01829;
+	Mon, 26 Oct 2026 09:41:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007671;
-	bh=Ju0wQu+417wa892fYJVYM+soH6OLcnP1RPOW0oc0dDM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Bkq44vBorzSIQqNmE5BNdeuoyahOtvJ9i5Y+eF290s5oC8VnzESCnaiifiDGgU9Pv
-	 /oihNsBnllA9zdlu0zmW+ZymZeMRlvki2nWcLwiMILvzfhn2dGoICcdpKQMgT/1u7o
-	 0RZ5jMTxBTP8Hkqj0bkn3hpNJJw+PrSrKrGCeqnBMDc1AP3xhYcGogJBCKNmYOlMgp
-	 Re5+CA4YLl/NlVqmLzZeDVBOaUo0GlojAkKFiUU/H1uW6MMtBWETGbQfPxYjT/t7x3
-	 1QjOlu2g6QoIBXRNUzt7Wr83/+1As0Shja16nbj82qEDcwk7ptskwHIjvpzKkQ5qfV
-	 WtwS7/rQfdlgQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 26 Oct 2026 10:40:36 +0100
-Subject: [PATCH 03/16] tmpfs: preserve explicitly disabled quota limits
+	s=k20260515; t=1793007672;
+	bh=REIzglI+UokdSSqST5CDOezePfcdiVtDX4vr1iybjIw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QiSloQfro7y48xGi4gcFNCghKwpJoJ0tKGbEHTBRyyphetxebruHsVADA4ArSYXur
+	 8hVsrDaMZUzgAXNsEMae6m8qD0JSY0GeC9mYZUYW3HBpFztHdb0544QYlbPpTVaWzz
+	 7YBcsNT66LipxPoZ6bopJ4Pqe7irxDLQa6Eq96Wu1HSvlTlrWu1hy4ZackBV5OnSf6
+	 KprOyE0ZVhA0yNVB5Sf8yMQwprTqDaGr5QY56YIcRQXyBpcIBhbRXjjW6aG03+v3Vl
+	 4TcpefDK8jjvxK8uoAnrWkCx+40PxsMvF6jOFIiLFWiYcSz5nnu/hIm1g3ecCB/m8G
+	 2thglL7zp4u8g==
+Message-ID: <d1d58902-cb44-415d-8063-6b3ab054cc99@kernel.org>
+Date: Sun, 25 Oct 2026 13:36:27 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,141 +51,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261026-fixes_shmem-v1-3-703206d5fa0c@kernel.org>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
-In-Reply-To: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Stevens <stevensd@chromium.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3884; i=david@kernel.org;
- h=from:subject:message-id; bh=CyHODL1qX+fF6X6EwBAvC5OXSBg9riD9JUneF+nbOeM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLuK4jdrV6/fb3hxrsPVVz9n6q+lD7MXLzwfk9dBNvuN
- fJFqowdHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEykT5KRYWetUuzuMLa/M9iP
- LYw6H752h5PKTQ0WDv5NKTFfTgs5tzL8U+icE1EXLplc5PfcZdLdbvMnH5maJ5htnXa7y7Zb0+0
- NJwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
+To: Samarth Narang <samarth.colleges@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261021182157.1873726-1-samarth.colleges@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+On 10/21/26 20:21, Samarth Narang wrote:
+> replace_page() maps the KSM page with a PTE built from scratch, so the
+> soft-dirty bit of the PTE it replaces is lost. A page written since
+> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
+> a soft-dirty based dumper treats it as unchanged.
+> 
+> Copy the soft-dirty bit from the original PTE to the new PTE.
+> 
+> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+> ---
+> 
+> Notes:
+>     v2: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+>     
+>     Changes since v2:
+>     - Keep only the soft-dirty fix, as David suggested; Lance will be handling
+>       the uffd-wp/RWP part.
+>     - Fixes tag reduced to the soft-dirty commit.
+>     - Dropped the Tested-by tag, since the patch changed.
+> 
+>  mm/ksm.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index dbfb8f98b189..910a1307ac9f 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+>  		dec_mm_counter(mm, MM_ANONPAGES);
+>  	}
+>  
+> +	/* Preserve soft-dirty when replacing the page. */
+> +	if (pte_soft_dirty(orig_pte))
+> +		newpte = pte_mksoft_dirty(newpte);
+> +
 
-An administrator’s decision to disable a user’s or group’s quota
-limits can be silently lost when tmpfs restores the mount defaults
-after releasing and reacquiring the quota record. This can cause
-later file creation or writes to fail with EDQUOT, even though the
-administrator has explicitly disabled quota limits for the user or
-group.
-
-do_set_dqblk() sets DQ_FAKE_B when all block and inode limits are zero.
-This means quota enforcement is disabled for that user or group.
-shmem_is_empty_dquot() treats the flag as a reason to discard the entry
-from the mount's quota tree. The next shmem_acquire_dquot() finds no
-saved entry and recreates it with the mount's default hard limits.
-
-If the cached dquot is reused, DQ_FAKE_B remains set: Q_GETQUOTA reports
-the restored defaults, but enforcement is still disabled. Once that
-dquot has been reclaimed, a new dquot enforces the restored defaults.
-
-Remove the DQ_FAKE_B test. Only discard entries with zero usage, zero
-soft limits and hard limits equal to the mount defaults. Explicitly
-disabled limits are then preserved whenever the mount defaults are
-nonzero.
-
-Explicitly disabled limits now retain a quota-tree entry, just like other
-limits that differ from the mount defaults.
-
-Rename shmem_is_empty_dquot() to shmem_is_default_dquot() to describe
-the check for default values.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: de4c0e7ca8b5 ("shmem: Add default quota limit mount options")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: code cleanups; rewrite description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/shmem_quota.c | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
-
-diff --git a/mm/shmem_quota.c b/mm/shmem_quota.c
-index 43d3b4fd6cb1b..d191ebda3f00e 100644
---- a/mm/shmem_quota.c
-+++ b/mm/shmem_quota.c
-@@ -239,7 +239,7 @@ static int shmem_acquire_dquot(struct dquot *dquot)
- 	return ret;
- }
- 
--static bool shmem_is_empty_dquot(struct dquot *dquot)
-+static bool shmem_is_default_dquot(struct dquot *dquot)
- {
- 	struct shmem_sb_info *sbinfo = dquot->dq_sb->s_fs_info;
- 	qsize_t bhardlimit;
-@@ -253,21 +253,21 @@ static bool shmem_is_empty_dquot(struct dquot *dquot)
- 		ihardlimit = sbinfo->qlimits.grpquota_ihardlimit;
- 	}
- 
--	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
--		(dquot->dq_dqb.dqb_curspace == 0 &&
--		 dquot->dq_dqb.dqb_curinodes == 0 &&
--		 dquot->dq_dqb.dqb_bsoftlimit == 0 &&
--		 dquot->dq_dqb.dqb_isoftlimit == 0 &&
--		 dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
--		 dquot->dq_dqb.dqb_ihardlimit == ihardlimit))
--		return true;
--
--	return false;
-+	/*
-+	 * Defaults are zero usage and soft limits, and the mount's hard limits.
-+	 * DQ_FAKE_B only means that *all* limits are zero, which need not match
-+	 * the mount defaults.
-+	 */
-+	return dquot->dq_dqb.dqb_curspace == 0 &&
-+	       dquot->dq_dqb.dqb_curinodes == 0 &&
-+	       dquot->dq_dqb.dqb_bsoftlimit == 0 &&
-+	       dquot->dq_dqb.dqb_isoftlimit == 0 &&
-+	       dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
-+	       dquot->dq_dqb.dqb_ihardlimit == ihardlimit;
- }
- /*
-- * Store limits from dquot in the tree unless it's fake. If it is fake
-- * remove the id from the tree since there is no useful information in
-- * there.
-+ * Remove the ID from the tree if it has no usage and its limits match
-+ * the mount defaults. Otherwise, save its limits for the next acquire.
-  */
- static int shmem_release_dquot(struct dquot *dquot)
- {
-@@ -302,7 +302,7 @@ static int shmem_release_dquot(struct dquot *dquot)
- 	return -ENOENT;
- 
- found:
--	if (shmem_is_empty_dquot(dquot)) {
-+	if (shmem_is_default_dquot(dquot)) {
- 		/* Remove entry from the tree */
- 		rb_erase(&entry->node, info->dqi_priv);
- 		kfree(entry);
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-2.43.0
+Cheers,
 
+David
