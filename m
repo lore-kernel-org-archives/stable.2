@@ -1,97 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792937259;
-	b=KAJeBc1/4auWm1zrgpurjHwn8VOcGN1iwNs+/t0hqd6MtiqAo8CkFdfrrGuYF/875jKK
-	 0cHVP110npX3rBl24UQHT8nNCW75uTt6szfcYRohINlFkRZLUGNNr3bkbpKwn+o0J3kla
-	 yvhLhi7/d8zSa6+sMBV1QZq3ci2AI+TxToajCZ8fEBjxkytBEPZYLEIkwAcA7bndya++G
-	 8Vnz+0H4oTCG9e8DLeJFY4BK4sy4Xhgh66RW5Dfk3SB8nCtL7KGBuybMeyEPmhLHT+Q9V
-	 gGvJpT6lXGD2XUwmA2e3aYRVUJ++F3cBeSV3CLAu2iAxosTn/savot+wRhqBZQ4UZKg==
+	t=1792937906;
+	b=24ZHgLoYzW2ygwzBrWPINiS9yrsw7CJp37DGn2j8JNBk/VoZAebqyqpW+1xLKoH/BDDz
+	 2/707g5FMhFYlpDKmuotNolT2boH6G97RBMXU7QsEKDNX6pLmRRPyTjATDuirhlUF08vQ
+	 WXqjN0X2x/mztJePu4NcSpkjzi4jU3KiXA1K24lTGbQmHWXRnhTxwrgXpR6yQdFdhkuo5
+	 QuIp73eiP6xw1D1Ze9/gLA6xAxTXIGlSGfiM/2ejiaju9JjOJQzoN8w13pUGKbrm/UUov
+	 2O2vJ8P2tMMe6GkBEQy59BxzpwwSls8z+8rablIaZPAzxpR6xVBv5Z1ztZqA1MBxusg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792937259;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nwo3NYlls8cyar7A+KG0JtYLr0c2wn1Lw0JyofWgGxI=;
-	b=1WyuW6p4Jp7dGMEA3EcBJ9VfbKPie6i+/vw9w+4tDaSW4bjTu4UmSSSA7Ur+LU5dP38g
-	 I9hU+Ojx7VzUFScZVLz2K7HmHh+KnuLmZUOid9c3kDQkwbMmn9ShIZzp50lfC2oXZ6whT
-	 4MEsXAKh65rzY4sFQqTkEgHbp/MBs/isPMZ36b2YwNpHu7hrzVnP8YsJfyPxgkz4y6m4p
-	 ztu0H8OVd50r4KTi82+9ebgojJbf45gPjeu73OqS/4p3xeMVb+0DbFr0EEMJ+9Sm9jDuL
-	 /nU/1vckdpVqDI9gdyqnHn3DwVqczc/8kyKHcEdZKjAmAX/lu/yypNlO/JFWPYqG+IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792937906;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1jP9LR4qPl3i+2W7AG1phxkIUNhYD6OyLXs6hxnZ+u0=;
+	b=YVXFQlj5bhDnRcFKvielnDpgmuVA5qTz3vHTlq780RCuHDSbmDQ17ZFsdQxlhKccA1vd
+	 bIE2jxkUAURAi0SVAEFP12+sTW5kx6Qezpp/TV2DlrBpoQPcN34L6Zz0onllynLzoZNks
+	 ccGe822n+7glu6MbRxNyaYOkU7dyh0etlIkp/EWYU/xFgvhqg/kBWW57dzdc0YHCQ7VkB
+	 c8h0fACm2CAs2Kd5/fP5823FyZFAzcX8NSZfuFUn/+p5WnMxYv7MtmMYxjThCwtWuzGPq
+	 RLbM/X8H2i5p/fLuyHKwe5BXFpqCmrOaqQhunr/Qqym356uMFQrq5cy9FiRxq8WKJUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SlUUBPTN;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=PBypsm2a;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80878606A31F
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 14:07:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80878606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57506606A31A;
+	Sun, 25 Oct 2026 14:18:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57506606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SlUUBPTN
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e5378b281aso15082555ad.2
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 07:07:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792937259; x=1793542059; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nwo3NYlls8cyar7A+KG0JtYLr0c2wn1Lw0JyofWgGxI=;
-        b=SlUUBPTNj/UpNQiL1vlrRsgD7o7sPLtC66LWqGxP3q5zpSmtns3oLq/5tLtKxqlrsP
-         zx9nwz6OqL4RBTnzp9Z1ZQYFXoukssrfoUVgJwA4wY3s2Usu7wkfLv9pIYKTt7Vh4eDh
-         3J3rixsKv+qllsJXnhbYZWrIMaySOBMf15t+9e/bP5jA427RQkckQGt4kPMOZYidt0Is
-         vGftN0CRjIty26pnwzwQwfKbbe+977UHFHXMCRbRQ8lN9Ae3NlY/wrfGkPJFviov/D9A
-         LckF40meGnel6o7bI19tuwCxaFxPPbU8/Rtk5Yifbi5HaQFuI/eJguGJi5lIU5gqU1VA
-         eKdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792937259; x=1793542059;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nwo3NYlls8cyar7A+KG0JtYLr0c2wn1Lw0JyofWgGxI=;
-        b=rbMuUTyIh/CnFuziQHMn7lz0aztpc/FDrBMt+VO/w2MTg03wAHAjWbHyAB8KePHikR
-         vSsWRAucdTb7JjbmXXgaB4oyNXvIBzZgOh+aFbOJ6I6vb3cqmTzNtyWvwgRzT/cY5igr
-         hXvJhcZSSEQaEeomQ2hzG3uPVIAk0XaYDXnSLVj1fWum+Vh8M8EJIbY01+MVhMn/OtjH
-         i9n9MSm0r9LyfOIfA23ZwUacVKGwgNUDP1xT1g7K5D31yem23NxYFTvtf8kWIPjD1fq7
-         bL3oOmQB2PzyMwOTcvMR7Z5V+VAtWOA9XbZUkNRhX15sBUahwu2ZplYlHYWIcxe2X+n8
-         R31g==
-X-Forwarded-Encrypted: i=1; AKwUvBxk4ILQg9BROGO1V6j8d1TDo2kOZNSG/67yYJoFLKGu3z0IYD5EWjIpANMlYCp+zI4buyUKYWU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNaBmmulZgDhNPcQrCzouaHT7BdUEw3wtjoxHt0ligEoM8Rle5
-	fWIG5ZWt9xj+OwMmSMYqDiD1iA0wORzCw+257qSZzBMX4fk03g9f/RTv
-X-Gm-Gg: AYBFou0kPR1f9GonkihFw/kh/bIqiGWduSw19VC6qieSZ9nbCz9qeAfKhDxa5s2lFWL
-	FgoCxMKZO1ZIymYpTYusCjbWFIj3wmwq6+iJTL8rMBGYX/t1TZCBFsMVcoHHDvcb5PTE3iZZCNd
-	fPAr0bG9l/sggfLfMNUWJakNT26G+Q96opAuJxkPVmk8/uP+2xjdr0bmEg58meh5GsxiKGMelH0
-	T4cYwRwTbRlJMTowfyLMgws2POfN5H4RR3KKAnXeV0Zh4tcB78Jr6JxsDOGfx14MHJcTN3Qf0Zh
-	u3b3mUWHe7JN4mR0jHrSV1x2jeLj7kLszL65ri1VvS+8bhX0qUstH2dEdekp7AZyqkMTShCkmGx
-	8Gon8ARA5m2IOzXkV+mvhUNXM7ZIEU9PWihQxlQ0oeYu7nl8a+qul3XJ7HV2hHFbLu9y2sWCIQy
-	In4CGXnjupXKMnptGJWZ1nMbsZH09YYugmG3GWj9ze6XUb5hn2aCjPK+y8XOkGGT6tsOFnEcfmr
-	c3Cdvxk/A4GnYgVfh6/j5Hjh38ZdmSEka7XTHkX9qz0gdHpk4sSzB4S
-X-Received: by 2002:a17:90b:4cd1:b0:3a8:1943:cb7a with SMTP id 98e67ed59e1d1-3adead44808mr3477817a91.18.1792937258609;
-        Sun, 25 Oct 2026 07:07:38 -0700 (PDT)
-Received: from gmail.com ([240e:469:849:35a9:20c:29ff:feb3:e631])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe9078asm5038210a91.10.2026.10.25.07.07.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 07:07:37 -0700 (PDT)
-From: Xue Boyang <fuchen.dust@gmail.com>
-To: kadlec@netfilter.org
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phil@nwl.cc,
-	Xue Boyang <fuchen.dust@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH nf v2] netfilter: ipset: fix double free on kernel-side delete during resize
-Date: Sun, 25 Oct 2026 09:07:29 -0500
-Message-ID: <20261025140729.5152-1-fuchen.dust@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025090609.v2reply.4093.fuchen.dust@gmail.com>
-References: <20261025090609.v2reply.4093.fuchen.dust@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=PBypsm2a
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jCJkz2xhBzlfvps;
+	Sun, 25 Oct 2026 14:18:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792937896; x=1795529897; bh=1jP9LR4qPl3i+2W7AG1phxkI
+	UNhYD6OyLXs6hxnZ+u0=; b=PBypsm2aE4uyXUYFQ1Lu+zEFaRKe9hwPzl8huodj
+	MQ/JfZnUNnHtT+jpvMmZ+4Hx+W+bpmvrvtm5z16slnOOwL5Rq9OoA24v6g9r37dS
+	JEepcJK7gT/LIy4y0cbLJylPY49M2ax8BJAVA4/8W6QvUM/fT7iveuoOIUTFmM2i
+	Y+NQmV1d3YVq7f25HIWq0DVq6JEgvEQyEMKhT6kaiWu1sQdPFsMpdy0XCzayZJnN
+	sK4SkB1TZ4AZvSeB53sjB5jT9kxzNJMrNAEJW+SnGyavfTWmsFiIAYEBTAZTtgdH
+	vubRHnDwQcFIalsUhaKN/nZgMED1e4rvNr9q6RRF0nhXmg==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id egaML7tfjA0s; Sun, 25 Oct 2026 14:18:16 +0000 (UTC)
+Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jCJkv73kBzlfvpN;
+	Sun, 25 Oct 2026 14:18:15 +0000 (UTC)
+Message-ID: <1197df7c-f083-4b25-abfa-41cb4954a2cb@acm.org>
+Date: Sun, 25 Oct 2026 07:18:15 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,272 +70,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] RDMA/srp: refuse a target that cannot receive an
+ SRP_RSP
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261025114155.4007867-1-yhlee@isslab.korea.ac.kr>
+ <20261025114155.4007867-2-yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261025114155.4007867-2-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A kernel-side delete, i.e. a delete triggered by the SET target while
-the set is being resized, is applied to the current table and saved in
-the resize backlog, to be replayed against the new table when the
-resize finished. Both tables share the element extensions: the resize
-copies the element to the new table, keeping the pointer to the
-extension data, e.g. to the comment. Deleting the element in the
-current table calls ip_set_ext_destroy() and releases the shared
-extension. The replay then deletes the copy from the new table and
-releases the same extension again, i.e. the same rcu_head is queued
-twice. With CONFIG_DEBUG_OBJECTS_RCU_HEAD (and slub_debug=F, which
-keeps kfree_rcu() off the sheaf fast path):
 
-  ODEBUG: activate active (active state 1) object type: rcu_head
-  WARNING: lib/debugobjects.c:629 at debug_print_object+0x7b/0x100
-  kvfree_call_rcu(): Double-freed call. rcu_head ffff88810474ce40
-  WARNING: mm/slab_common.c:2041 at kvfree_call_rcu+0x10b/0x140
-  Call Trace:
-   <TASK>
-   debug_object_activate (lib/debugobjects.c:905)
-   kvfree_call_rcu (mm/slab_common.c:2039)
-   hash_ip4_del (net/netfilter/ipset/ip_set_hash_gen.h:1226)
-   hash_ip4_kadt (net/netfilter/ipset/ip_set_hash_ip.c:96)
-   ip_set_del (net/netfilter/ipset/ip_set_core.c:820)
-   set_target_v3 (net/netfilter/xt_set.c:411)
-   ipt_do_table (net/ipv4/netfilter/ip_tables.c:345)
-   nf_hook_slow (net/netfilter/core.c:619)
-   raw_sendmsg (net/ipv4/raw.c:652)
-   __sys_sendto (net/socket.c:2281)
+On 10/25/26 4:41 AM, Yehyeong Lee wrote:
+> diff --git a/drivers/infiniband/ulp/srp/ib_srp.c b/drivers/infiniband/ulp/srp/ib_srp.c
+> index 5811f02df9805..a85d28b95306a 100644
+> --- a/drivers/infiniband/ulp/srp/ib_srp.c
+> +++ b/drivers/infiniband/ulp/srp/ib_srp.c
+> @@ -2379,6 +2379,13 @@ static void srp_cm_rep_handler(struct ib_cm_id *cm_id,
+>   
+>   	if (lrsp->opcode == SRP_LOGIN_RSP) {
+>   		ch->max_ti_iu_len = be32_to_cpu(lrsp->max_ti_iu_len);
+> +		if (ch->max_ti_iu_len < sizeof(struct srp_rsp)) {
+> +			shost_printk(KERN_ERR, target->scsi_host, PFX
+> +				     "Target reported max_ti_iu_len %u, too small for a %zu byte SRP_RSP\n",
+> +				     ch->max_ti_iu_len, sizeof(struct srp_rsp));
+> +			ret = -ECONNRESET;
+> +			goto error;
+> +		}
+>   		ch->req_lim       = be32_to_cpu(lrsp->req_lim_delta);
+>   		ch->use_imm_data  = srp_use_imm_data &&
+>   			(lrsp->rsp_flags & SRP_LOGIN_RSP_IMMED_SUPP);
 
-The double free is reachable from an unprivileged user namespace and
-permits local privilege escalation.
+Is this change perhaps incomplete? When reconnecting. 
+srp_cm_rep_handler() only allocates the receive buffers when ch->rx_ring
+== NULL. srp_rport_reconnect() calls srp_create_ch_ib() and the latter
+function keeps rx_ring, but ch->max_ti_iu_len is overwritten from each
+new SRP_LOGIN_RSP. If a target reports a larger value on reconnect,
+srp_recv_done() calls ib_dma_sync_single_for_{cpu,device}(dev, iu->dma,
+ch->max_ti_iu_len, ...) past the mapped length. That breaks the DMA API
+rules. The HCA itself can't overrun, because srp_post_recv() uses
+iu-> size. Since the series is about bounding the receive IU size,
+please make one of these additional changes:
+* use iu->size in the two sync calls in srp_recv_done(), or
+* on reconnect, refuse (or reallocate for) a max_ti_iu_len larger than 
+the existing rx_ring[0]->size.
 
-Fix this by deferring the delete when a resize is in progress: the
-element is not deleted in the current table, only saved in the backlog,
-like it is done for kernel-side adds. The resize copies the element
-including its extension pointers, and the replayed delete releases the
-extension exactly once. This also avoids updating the cidr counters
-twice for the same element.
+Thanks,
 
-Clearing the used bit of the deferred delete instead is not an option:
-the extension of an element the resize copy loop has not reached yet
-would never be freed, the old table is destroyed with ext_destroy=false
-to protect the extensions shared with the copied elements. The element
-thus stays in the current table until the resize completes, so
-
-- a kernel-side add of such an element must be deferred too, otherwise
-  it is rejected with -EEXIST and lost, and the replayed delete removes
-  the element for good, leaving the set without an element the last
-  packet-path operation added;
-
-- the backlog must keep the arrival order of the operations: deferred
-  deletes are queued with list_add_tail() like the deferred adds, so an
-  add followed by a delete of the same element is not replayed the
-  other way around, resurrecting the element.
-
-A resize which is aborted before the new table is in place replays the
-backlog against the original table, which stays the live table, instead
-of dropping it. This covers the allocation failure in the copy loop and
-the early exits of a retry after -EAGAIN, which inherits the backlog of
-the previous attempt: the deferred deletes are the only record of the
-delete there, dropping them would leave elements in the set which the
-packet path believes deleted, and the backlog entries would leak.
-
-The deferred delete reports -ENOMEM when the backlog entry cannot be
-allocated, instead of returning success without deleting anything.
-
-Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xue Boyang <fuchen.dust@gmail.com>
-Assisted-by: LLM DeepSeek-V4.1-Flash
----
-
-Changes in v2, addressing the review of v1 linked in
-https://sashiko.dev/#/patchset/20261012163353.4093-1-fuchen.dust%40gmail.com :
-
-- Defer the kernel-side add of an element still present in the current
-  table during the resize ("missing clear_bit() breaks operation
-  ordering during resize"). The add was rejected with -EEXIST without
-  being queued, so an add following a deferred delete was lost and the
-  replayed delete removed the element.
-
-- Replay the backlog on all resize failure exits, not only on the
-  allocation failure in the copy loop ("memory leak of deferred
-  operations on resize failure"). The exact path claimed there, an
-  allocation failure of the first attempt, exits before the table is
-  marked resizing and the backlog is empty; the leak is real however
-  for the early exits of a retry after -EAGAIN, which inherits a
-  non-empty backlog from the previous attempt.
-
-- Queue the deferred deletes with list_add_tail() ("backlog replay
-  ordering during resize resurrects deleted elements"). The prepend
-  predates this patch, but the fix relies on the backlog preserving
-  the arrival order, so all deferred operations are now queued FIFO
-  and the failure path replays the full backlog in order instead of
-  dropping the deferred adds.
-
-- Report -ENOMEM when the deferred delete cannot allocate its backlog
-  entry.
-
-The "memory leak of extensions for expired elements" concern is
-preexisting (the resize copy loop skips expired elements and the table
-destroy keeps ext_destroy=false) and is not addressed here.
-
-The reproducer (SET --del-set rule plus a userspace add triggering the
-resize) was run against v7.3-rc5 (mainline tree at 6d25ffca055a):
-before the patch the double free shows up as the warning quoted in the
-commit message and as duplicate objects in the SLUB RCU sheaves; with
-the patch applied it no longer reproduces in repeated runs. The
-reproducer is not attached; it is available and can be shared privately
-upon request. The ordering of the deferred operations and the replay of
-the backlog were verified with a packet-path del+add / add+del
-regression test racing continuous resizes: v1 shows the lost add and
-the resurrected element, v2 shows neither in repeated runs.
-
-Found with AI assistance (DeepSeek V4.1 Flash, see Assisted-by); the
-patch was reviewed, reproduced and tested by hand.
----
- net/netfilter/ipset/ip_set_hash_gen.h | 77 +++++++++++++++++++--------
- 1 file changed, 56 insertions(+), 21 deletions(-)
-
-diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-index 80ca523f304b..f24c51d489e2 100644
---- a/net/netfilter/ipset/ip_set_hash_gen.h
-+++ b/net/netfilter/ipset/ip_set_hash_gen.h
-@@ -764,6 +764,7 @@ mtype_resize(struct ip_set *set, bool retried)
- 	struct hbucket *n, *m;
- 	struct list_head *l, *lt;
- 	struct mtype_resize_ad *x;
-+	LIST_HEAD(backlog);
- 	u32 i, j, r, nr, key;
- 	int ret;
- 
-@@ -786,13 +787,13 @@ mtype_resize(struct ip_set *set, bool retried)
- 	t = ip_set_alloc(hsize);
- 	if (!t) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto drain;
- 	}
- 	t->hregion = ip_set_alloc(ahash_sizeof_regions(htable_bits));
- 	if (!t->hregion) {
- 		ip_set_free(t);
- 		ret = -ENOMEM;
--		goto out;
-+		goto drain;
- 	}
- 	t->htable_bits = htable_bits;
- 	t->maxelem = h->maxelem / ahash_numof_locks(htable_bits);
-@@ -934,20 +935,34 @@ mtype_resize(struct ip_set *set, bool retried)
- 	if (ret == -EAGAIN)
- 		goto retry;
- 
--	/* Cleanup the backlog of ADD/DEL elements */
-+drain:
-+	/* Cleanup the backlog of ADD/DEL elements: replay them in arrival
-+	 * order against the original table, which is still the live table.
-+	 * Kernel-side adds of elements still present are no-ops, the
-+	 * deferred deletes remove the elements. This is also reached when
-+	 * the resize fails early, e.g. on allocation failure in a retry
-+	 * after -EAGAIN: the backlog may still hold deferred operations
-+	 * from the previous attempt.
-+	 */
- 	spin_lock_bh(&set->lock);
--	list_for_each_safe(l, lt, &orig->ad) {
-+	list_splice_init(&orig->ad, &backlog);
-+	spin_unlock_bh(&set->lock);
-+	list_for_each_safe(l, lt, &backlog) {
-+		x = list_entry(l, struct mtype_resize_ad, list);
- 		list_del(l);
--		kfree(l);
-+		if (x->ad == IPSET_ADD)
-+			mtype_add(set, &x->d, &x->ext, &x->mext, x->flags);
-+		else
-+			mtype_del(set, &x->d, NULL, NULL, 0);
-+		kfree(x);
- 	}
--	spin_unlock_bh(&set->lock);
- 	goto out;
- 
- hbwarn:
- 	/* In case we have plenty of memory :-) */
- 	pr_warn("Cannot increase the hashsize of set %s further\n", set->name);
- 	ret = -IPSET_ERR_HASH_FULL;
--	goto out;
-+	goto drain;
- }
- 
- /* Get the current number of elements and ext_size in the set  */
-@@ -1053,6 +1068,19 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 				j = i;
- 				goto overwrite_extensions;
- 			}
-+			if (t->resizing && ext && ext->target) {
-+				/* Resize is in progress and kernel side add
-+				 * of an existing element: the element may
-+				 * have a deferred delete pending in the
-+				 * backlog and it is going to be copied to
-+				 * the new table, sharing the extensions.
-+				 * Defer the add too, so that the replay of
-+				 * the backlog after resize keeps the order
-+				 * of the operations.
-+				 */
-+				ret = 0;
-+				goto resize;
-+			}
- 			ret = -IPSET_ERR_EXIST;
- 			goto unlock;
- 		}
-@@ -1217,6 +1245,26 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 			goto out;
- 
- 		ret = 0;
-+		if (t->resizing && ext && ext->target) {
-+			/* Resize is in process and kernel side del: do not
-+			 * delete the element and free its extensions here,
-+			 * the extensions may be shared with the copy in
-+			 * the new table. Save the values, the resize replays
-+			 * the delete against the new table.
-+			 */
-+			x = kzalloc_obj(struct mtype_resize_ad, GFP_ATOMIC);
-+			if (!x) {
-+				/* Don't bother, deleting the element here
-+				 * could free the shared extensions twice.
-+				 */
-+				ret = -ENOMEM;
-+				goto out;
-+			}
-+			x->ad = IPSET_DEL;
-+			memcpy(&x->d, value, sizeof(struct mtype_elem));
-+			x->flags = flags;
-+			goto out;
-+		}
- 		clear_bit(i, n->used);
- 		smp_mb__after_atomic();
- 		if (i + 1 == pos)
-@@ -1224,19 +1272,6 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 		t->hregion[r].elements--;
- 		mtype_del_cidr_all(set, h, d);
- 		ip_set_ext_destroy(set, data);
--
--		if (t->resizing && ext && ext->target) {
--			/* Resize is in process and kernel side del,
--			 * save values
--			 */
--			x = kzalloc_obj(struct mtype_resize_ad, GFP_ATOMIC);
--			if (x) {
--				x->ad = IPSET_DEL;
--				memcpy(&x->d, value,
--				       sizeof(struct mtype_elem));
--				x->flags = flags;
--			}
--		}
- 		for (; i < pos; i++) {
- 			if (!test_bit(i, n->used))
- 				k++;
-@@ -1273,7 +1308,7 @@ mtype_del(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 	spin_unlock_bh(&t->hregion[r].lock);
- 	if (x) {
- 		spin_lock_bh(&set->lock);
--		list_add(&x->list, &t->ad);
-+		list_add_tail(&x->list, &t->ad);
- 		spin_unlock_bh(&set->lock);
- 	}
- 	if (atomic_dec_and_test(&t->uref) && t->resizing) {
--- 
-2.53.0
-
+Bart.
