@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792966338;
-	b=AiDP5207Qn9xuzLKm1aFL+Lpie2ZWIjiY/vf6STlkN3BanVnKBwKjzE01ktKI+jNzeFJ
-	 IYNYleCt6UCVcQHQTzBl+2MJcqUhlW0Eu2Dcz/L4S4WKyRJvLF1SQkms/OzRyI921HvQ8
-	 qP1CLh6q31aBq63EQWCu/0IFOVO7yxUwu85H82QD0S9PnRXPppJHKs4TyUKRzwpyyLBrE
-	 s2pQX30kGUUbmdN55GpjISKvgMmWXrGTQW2H9zCs9xeeia3BPDTv4bHe5M6NZeJ9VkB+/
-	 5mZciLAzLBP5LIhKLuBFvS6Gh1a2B9l+kPPLPM+lhmXP58LvO83xD7bWyCUJq7uJWHQ==
+	t=1792966688;
+	b=HTq6XtQ18tdVtolnY6Oyxjbj5L2U9RNpUeFbnTEb9BT22Z4XUc52YUmbfi0pzcx0jR/m
+	 +t2uQbTmatr5TAHcKPtyls/IMrhUUR3JeshF0L3DL3Qfp2HLQDV2eey7a9L06FTHqI9Rh
+	 6dYMU6FKAJ8vIy4KeGS1l++KOX2Wq7tkirS5/SheMhLpjRW+i/lokU446srO9CGGjI4Vg
+	 3s4nYqtyFl8Xzl9pDlipaU+4hQXVuQGjnM1linj/N1gHZTn9CglYa5iC9zY11iKrdZiTQ
+	 BFwwBY0a0DShTaIi46BWaStGR78mXEbHvtK5UtjTNOtCj7arzi6u9jvj6wbelQHpiXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792966338;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792966688;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=45zEXmXvaCwGiEjHLcqUSFd6TDFCJExN7G8pg6wAz7M=;
-	b=APJg/ww8YXCYECpFiln4CARKeLjPZ2lbzywqpZcRejdygkmbcX7O4SrWHLrQelYSoXeL
-	 MRqoB1chLtEsf/1wXqRTMHMRrjTPgcQdKwXNUSSCCadtH+PdJHUmQDpVyN2U9f7V79wjP
-	 3Q0g1mFZrbKzEupFtgacAVaAsCg+Vq8uUsQXmxDto/RFzVSEUf/kGwSbOfFlOOCFlYbwB
-	 EIAXj0hqlGHS4uV8C4orSIeFz8g1hQsET/P0JpscAfN79GzzEx4kiCvIfSeMwZwpfs+/A
-	 o5zflRaWY1qaorYZF2vvnbbLbbaOj0VGXHPXQT511R3KDPgNwOkrQeizNh4namCqb2Q==
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MacUxvjp/ZyVsp7L+6WsiqrbR9Yvhn5rX+cxazDxsVc=;
+	b=oTHV8zKH2RJnshG8cYvGbOiEgFroj0Tm6XOAt3RlpoD0tRqWVI+SYXxWBq5GPYgGNEpc
+	 4HsnSG+iz9XDOJetI0OgjR6XCADVx/4OyA+1WC/tnvIgWpB65Vy7uCbPPIzwdjas07L9O
+	 CVxOvT5lD5GUMZVKV3FN7DYxgziBxD9suTxKER8M+j6qFiIlqOer/OoeItCvFoX1lSFgS
+	 o/abXf2cuO56qsmaWFYnPnwRvGNWk8ZU5T9dcC+trWoqjD0Ub0snh/gho7PUxddUqIIWE
+	 hAkSM5KdZ1qBAEgyA950J00iPH2PmzjiJa6v+f9cXzONnRA4ctSO9GqbqjoBJEMvaDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHVquz64;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBm7rv6O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E1D1E606A31A;
-	Sun, 25 Oct 2026 22:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E6F606A31A;
+	Sun, 25 Oct 2026 22:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHVquz64
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id ECDA11F01828;
-	Sun, 25 Oct 2026 22:12:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBm7rv6O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303651F01825;
+	Sun, 25 Oct 2026 22:18:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792966337;
-	bh=45zEXmXvaCwGiEjHLcqUSFd6TDFCJExN7G8pg6wAz7M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UHVquz6439XbChAAwhx2q8HNZG6yoYonJoCHl2PpXKVGn3SMU9q0v1UmRbNg9tlP1
-	 10tkWu/TcftxZpn4jix+Zflcf4HBT6ZUOOggg0FocedH0AnTm1kwY6he4ebBh3TrDZ
-	 9eTuEHyGouyeYvuzUH1bR5TamnkDzV6Kp5fum63CCfF1+70TFrN0PGt0KsgMFWAMPM
-	 QhIVtjIErGRqzjhof0Udc0zdM7c+1hZVDOC/OiFG94iThUydAc7HewWl98Pl1sI0ln
-	 4bZcjK7M/V+keN4N4kawISK1zTs+XC76zM7OF4cG7BeL1Cgvdi8nGKc5FnwrsKMN9o
-	 X74o9KXQZv3rQ==
-Date: Mon, 26 Oct 2026 00:12:13 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: Check return value of crypto_kpp_set_secret()
-Message-ID: <at5-ve5Ap7Oyp1Fo@kernel.org>
-References: <20261025211119.138277-1-ebiggers@kernel.org>
+	s=k20260515; t=1792966687;
+	bh=MacUxvjp/ZyVsp7L+6WsiqrbR9Yvhn5rX+cxazDxsVc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dBm7rv6O1X+IGCP1geOO5pKCVTLaWEXmAuw/NVH+7MCusTD6CDCNKNu42Qu3tnYB2
+	 6vh79543ojjI+jGbRTtiy8ngfbok3atQBjrMxPiHvsNYh3DMnT8OskEwtLChP4wYla
+	 gQwG1Nziuc7oV0GB/eWFw2hjbiebhwE1+yqOni9WnWabIiRon9e5z6L+JSGFzZw5ki
+	 OqUD2CHJ6QqOyEVsxsM31m0SA+FrFVivkm2Y1NCo5XRHXYLHvGnROc1yLymwo8+Brl
+	 /xJ58aI59IDpcoD9399KVI8ievdqw7iTrvOSXefG4DfRqpYcgay1hl5pDG2Wsr6t+a
+	 QqRXXY6ZE15bg==
+Date: Sun, 25 Oct 2026 22:18:01 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: imu: inv_mpu6050: validate ACPI object types
+ in asus_acpi_get_sensor_info()
+Message-ID: <20261025221801.1dc4a7eb@jic23-hlaptop>
+In-Reply-To: <20261025180323.3641477-2-tristan@talencesecurity.com>
+References: <20261025180323.3641477-1-tristan@talencesecurity.com>
+	<20261025180323.3641477-2-tristan@talencesecurity.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,49 +61,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025211119.138277-1-ebiggers@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 25, 2026 at 02:11:19PM -0700, Eric Biggers wrote:
-> crypto_kpp_set_secret() can fail, for example if the kernel is booted
-> with fips=1 and the broken-by-design FIPS RNG used for ECC private key
-> generation doesn't feel like generating random bytes at the moment.
-> Check for error, cancelling the TPM session creation rather than
-> proceeding with a zero or uninitialized private key.
+On Sun, 25 Oct 2026 18:03:23 +0000
+Tristan Madani <tristmd@gmail.com> wrote:
+
+> asus_acpi_get_sensor_info() iterates through a nested ACPI package
+> structure without checking types at either level.  The outer object
+> returned by acpi_evaluate_object() and each inner element must be
+> validated as ACPI_TYPE_PACKAGE before accessing their package.count
+> and package.elements members.
 > 
-> Fixes: 699e3efd6c64 ("tpm: Add HMAC session start and end functions")
+> Add type checks at both levels of the package iteration.
+> 
+> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
->  drivers/char/tpm/tpm2-sessions.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-> index ca1e2bf424e14..2aaaad69760dc 100644
-> --- a/drivers/char/tpm/tpm2-sessions.c
-> +++ b/drivers/char/tpm/tpm2-sessions.c
-> @@ -527,7 +527,9 @@ static int tpm_buf_append_salt(struct tpm_buf *buf, struct tpm_chip *chip,
->  	}
->  	crypto_ecdh_encode_key(encoded_key, buf_len, &p);
->  	/* this generates a random private key */
-
-Could you delete this comment while at it? It's not helping with
-anything.
-
-> -	crypto_kpp_set_secret(kpp, encoded_key, buf_len);
-> +	rc = crypto_kpp_set_secret(kpp, encoded_key, buf_len);
-> +	if (rc)
-> +		goto err_free_kpp;
+> diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+> index 460792ed27e03..81fe1d96365b4 100644
+> --- a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+> +++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+> @@ -57,11 +57,17 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+>  		return -ENODEV;
 >  
->  	/* salt is now the public point of this private key */
->  	req = kpp_request_alloc(kpp, GFP_KERNEL);
-> 
-> base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-> -- 
-> 2.56.0
-> 
+>  	cpm = buffer.pointer;
+> +	if (cpm->type != ACPI_TYPE_PACKAGE) {
+> +		kfree(buffer.pointer);
+> +		return -EINVAL;
+> +	}
 
-[1] https://lore.kernel.org/linux-integrity/asQdZiv7uktfyRWU@kernel.org/
+Similar to previous for this one. I think we can just used the
+typed call to get it in the first place.
 
-Br, Jarkko
+>  	for (i = 0; i < cpm->package.count; ++i) {
+>  		union acpi_object *elem;
+>  		int j;
+>  
+>  		elem = &cpm->package.elements[i];
+> +		if (elem->type != ACPI_TYPE_PACKAGE)
+> +			continue;
+>  		for (j = 0; j < elem->package.count; ++j) {
+>  			union acpi_object *sub_elem;
+Whilst here the ACPI_FREE() thing probably applies as it did
+in the previous patch.
+
+Jonathan
+
+>  
+
