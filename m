@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952431;
-	b=n/TTX/Pg0m3/cYZjHmPQXWZtHQM51S2UVqfS8jOLEGMErWv/c+NKuNENck5sp/dHc8VS
-	 QZUvxvi570zj0Y+95q17qNVZshvNo9gUjHCAqq1riqko2uVX+99bt5mY6IDxhXRrJ3suF
-	 ditIMkbR8Jt6Escb8BQgaoF+F3Ci8nsd/nIvkBVle3YRpTM7qG1ifKdntRQuovBWI6YnQ
-	 x9RfAzfAtQvgRC1oGC3R+v19r+TxXXvvMTqlm+K0tv9L2LlAxkdr3NZsyFi1GQ6b+YQAh
-	 cBSf6RB2nCA4lyl/Ahv2Swkg5wSbZRyh8kJJxb3fPLPfjsbh1sQ9OZpmSYazIyV/vyw==
+	t=1792952615;
+	b=ZXvwZDJYFElPMFyVS3qN9vcPJ3UUmj7zW14KCwOxBx8SmMliJnv0496ppiR8wfhvK/Ks
+	 N/hCx8whY//7eXkqj6mt3vvEKEQUtIWB4Ll0Qu4m0eznCb3IYM+nHM/jz9xYb8FP85tcH
+	 ZJqC8jUBNEInCAnG6HztlhIlF6/rEo8CGa8QmIW9dm3xBpbGcmfoH+FvZsffuGhYUDMbn
+	 In4bkbm3v8pTlxKK0axMI6eohjEWnmxh/gUoZ+Px+rLhEVHA3L3KwktT/PkGW4UFOIFuJ
+	 f8+TEW29URH+vWZyjA9aEOfeysfrE/HaaBF2dm9eSpvtSF28CEdChfgbAFsI7I05YCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952431;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kkg7v9pYa1AwlmOfl8C/ErCvRwIjr29iyWLeNc7eLhs=;
-	b=y4ECeun0OAnxr7ke8XSTSIL1GwgU089GUvpzd00ZJ5yLJoHQNcWreEFhzx/WBSMdKzyI
-	 BmCwHKxG9n2pbcCm0vo7uQsjCBWWCakk2eSwjrj2UFV0T9FOrxUmgREHtMxF4bxwgxuF9
-	 nRiOubKyhoO7BqEtkXnxTcTsFWhqI1MqPKzRpzJBew92w1R6iGrp0VvqNiWrP3fk1H5o5
-	 W1iGFQL9yXqwCN3RwLTrSxZRubBG4a2wa2ztZpd/YYsplS4vGp6zGZjm033O3xQu5OtDe
-	 Ajx4TFMpMlkg9eBJ9YTPesyYSpP97a/H1gur6RMBRkJVf2wZHLqRmcUggREl/pXcyIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952615;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Aiq+VkJ1bKei0HRd+y60jGfMrXiYAQCM2kSm5AYlbis=;
+	b=ofVWfqBIfCknPts6CZga8w0njQXoJlFQXUG2aDj0eOszGyE/3kqYQZtnTHfNw20IYBbG
+	 CLJkgZH2W2U93OcWsNLfmAB8xP7bfcfPnUfProejVa/B2ZKXQpXWMvZkI7ZxVxD3vs5cY
+	 Qu2z20OAUL1rvvpGs/D/l/vaxWIMAA3ES60+7jQdgJ5uWVtkaf0BWJDck13OZZakL3KFc
+	 0lftEUDORtIv7ac20CUnZgMFktq6X4fWGuMSAK5nDwJd2M735ASZBDCeabL087CwM61ji
+	 OTKgeWhVuJHH5UHphSYLmsRZ2t8WgK53JCn3oeGqjE5urm6tcgolAhs9yh04kz18OLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hGg8IcG8;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hpooGz8m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10A8606A31A
-	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D10A8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D30606A31A;
+	Sun, 25 Oct 2026 18:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hGg8IcG8
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8fe8e343fso12952015ad.2
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 11:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792952430; x=1793557230; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kkg7v9pYa1AwlmOfl8C/ErCvRwIjr29iyWLeNc7eLhs=;
-        b=hGg8IcG8zi4/Z/awlqSK8ljg8JDI7fwQl3Gd8hkVh8ELqDTkoDUnkR3YLv1jEfaZCa
-         7SDrXXOS3u4rgPbH7mtse+ndeA/T3iyjofXVtdfWNSyat7E30OY7KB8hErs78BX78YVU
-         RIKz9THfOb8vSxqplRih10XOdz+F7ny9kNM5k4PH3Nk2aL6eKeab/lggbYlBLYWrlNLq
-         vADXZg9wus2h2VjPq7t8CZEYCGjqJLq6yn10t9uBQ4LPUHQcp05QUusLmfx5f03i+gXW
-         xydEaeLW54FbOBhSn6YBcDkID/acsI3mXcWNJBxXhwgEKFat3v/Dimsx0tyLXepsqVqY
-         GokQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792952430; x=1793557230;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kkg7v9pYa1AwlmOfl8C/ErCvRwIjr29iyWLeNc7eLhs=;
-        b=ijEYCEY4smChroSN8FG8s1ea9k9dQNrzFVKyIMTlBO8jKDXPlqkwgBKI1Y7YInt3b1
-         uPbiAjjCrZhKVKMjTz3z0wABt3Yf6sx6TfJ6alhz8O7VFSVpnlQ1zz4a2jMUn1ttzCE2
-         8PVwdeXU0imuCwa/njUkh2WTTiHxkoAniPxCUy1hqe2GDEhsdXkPkiZuXujWf4mT0ECK
-         TdypnP34udS/LQFEWD8LqzUeFM0HI9O23edYchhY9nUN2wJvqM5aeL+jojWmy+6U6heh
-         u/D0Ocj5GQpi3kmW0cwEuMV9iBYq3WxRBs5turNTuOM5617f3Q2lspRja8sE45YpWw/R
-         z5bA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqiqfalQ725ypia7AC6LXU341Grg6OcZn48aGNgwIMp+j6WoAd0OiyirVhzgqza6Brr8ewuio=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUFJ7OjpysTJHFZeJEjkm74l1J3QPWw8+grWUmnGnchMTQA7Iu
-	2Lw2ICYgfFWsYhpGYlQKnmCMVz1t5CLBKQufmCf6ZY2txQDD8Bs9tUxB
-X-Gm-Gg: AYBFou1I6PeUHVmHmSGmtuG83UE8eXGfUu+X5Q9hTxakcpB1AK58DMUG0jxj516Xe9X
-	3JXFHnXSlriWygkzP/fzEQ7D0z9pF0n4ig7D/o2NCnhAfC5EoIcTxv8YIapJ4nDxq0Y9s2Gpo9D
-	+VTnGUDE68BT15XCqaBST2IRuBOMobFfOMVwB1Tme+/hLxQwPaJrV69luUcdScnhAqHz0+hQCQ/
-	N7lYyayL1jaRjPXsSvAN0+PViQVwdSZJm87VzEL+hpZM8v+YHYsB1JJ8peATnkR7aqyaaH5EKl9
-	bGZ8xOQXdBu+lIAKs/qkdLPePhm5fK3HOxZeBetFVDuwVPXNq+Zsdo4A6vo4C4LAq4vJENES1e7
-	n5Z3ajRAGNWha3tSwkDhHpM90SHw8G6zLVYaWmqHMWosTWQu+5eVeRLroEXsvkYE9f/tJk6OibE
-	5euy89tH+gQpoXjRFSePP42FnHfgHLkH5k+FYRvG3SqNQIqvhHOa2PfLn/wfqWbj9FSYGB13EXK
-	f2wrMmsNg6Dg2+dwk05htcSS83HRz3ZQa2iW8EKEzpkgP8Wekpu6uSjLF0DEHbHDgybCG+MrdU9
-	zarPgRk=
-X-Received: by 2002:a17:90b:4acf:b0:3ac:9e76:aa93 with SMTP id 98e67ed59e1d1-3adea0b1206mr3533541a91.7.1792952430015;
-        Sun, 25 Oct 2026 11:20:30 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:6212:1232::1d0:de])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaddd45sm4108709a91.2.2026.10.25.11.20.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:20:29 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	stable@vger.kernel.org,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Dongpo Li <lidongpo@hisilicon.com>,
-	Jiancheng Xue <xuejiancheng@hisilicon.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: hisilicon: hisi_femac: Stop the receiver before releasing the RX ring
-Date: Mon, 26 Oct 2026 02:20:18 +0800
-Message-ID: <20261025182022.2959333-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hpooGz8m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331C31F01825;
+	Sun, 25 Oct 2026 18:23:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792952614;
+	bh=Aiq+VkJ1bKei0HRd+y60jGfMrXiYAQCM2kSm5AYlbis=;
+	h=From:To:Cc:Subject:Date;
+	b=hpooGz8m9Tgo5CDnxiy0f1E6f6l4s4bQTGgI2jn56t/YGYYUdh8Gpd+HUgwVXrFNz
+	 vnPIzO1zjbb4voRaK3ij/6KOoWkq5TxgsNtfyITQ9t6Uqiv0bQZx8ykTMfsS7L3xl8
+	 QWgrM9fWhoe5ksmm2n02DXm+QR+8Hf0NyQw7AjIiVTI6v1lS/pTwMl8ksIfv9ExR9n
+	 tEs+D8H2O97uVEddghxI5xzR08PysHIuGUWt6vKrdJRdkRKIJ84ywugGarZLwyqsG/
+	 E6yLNsnVdBfyNJxeKeBQxwydSmgPjOdji2uZUyssyea5Fp/u8BhY1ocJs2H0DAzLyX
+	 ZCsQ/DAEQbVHQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [RFC PATCH 6.12.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Sun, 25 Oct 2026 11:23:25 -0700
+Message-ID: <20261025182326.178326-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,36 +62,155 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hisi_femac_net_close() frees the receive ring while the RX address queue
-still holds every address that was pushed to IQ_ADDR.
+Patch series "mm/damon: move zero damos quota target_value handling to the
+core layer".
 
-A port that keeps receiving then DMAs arrived frames into buffers that
-other slab caches have already taken back; on an EC6108V9C (hi3798mv100)
-the queue still held all 52 armed addresses right after the interface
-was closed, and had dropped to 43 after 15 s of broadcast traffic.
+Having zero DAMOS quota target value can cause division by zero.  DAMON
+API callers are checking the target value parameters to avoid that.  It is
+easy to make mistakes in some of the multiple API callers.  Move that to
+the core layer.
 
-Reset the port before the buffers are released, so that the receiver no
-longer holds any of their addresses.
+Patch 1 adds the corner case handling into the core layer DAMON parameters
+validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
+side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
+respectively.
 
-Fixes: 542ae60af24f ("net: hisilicon: Add Fast Ethernet MAC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+This patch (of 3):
+
+If a DAMOS scheme has a damos_quota_goal of zero target_value,
+damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
+API callers should do the zero target_value validation.  It is easy to
+make mistakes.  Actually such bugs in DAMON_LRU_SORT and
+DAMON_SAMPLE_MTIER were found and fixed [1].
+
+It is better to handle the corner case only once in the core layer,
+instead of multiple places in all DAMON API callers.  One straightforward
+option is using an alternative denominator for the corner case in the
+damos_quota_goal().  However, the zero target_value is meaningless.  In
+this case, the quota goal is always evaluated as achieved or
+over-achieved.  The quota will only keep being reduced.
+
+Simply avoid using zero target_value by adding a check in the core layer
+DAMOS quota goal parameters validation/commit path,
+damos_commit_quota_goal().  Update it to return an error in the case.
+Also update its caller to propagate the error.
+
+Notes for stable kernel porting.  The upstream commit doesn't have
+Fixes: and therefore not ported to stable kernels.  It turned out it
+fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+goals user input to DAMOS") which was merged into v6.8.  The user impact
+is a race condition that can result in divide-by-zero.  Hence backport.
+Reproducing the issue requires sysfs write permission, certain DAMON ABI
+usages that are supposed to be uncommon, and a rare race timing, though.
+The issue was discovered [2] by Sashiko as a part [3] of its bug report.
+
+Also, the upstream commit on this stable kernel can fix the issue for
+parameters commit paths but DAMON start path.  That's because DAMON
+start path does not invoke damon_commit_quota_goals().  To fix the path
+with minimum change, add a new small validation of quota goal target
+value before damon_start() call.
+
+[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
+[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
+
+Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
+Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
+Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/net/ethernet/hisilicon/hisi_femac.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/damon/core.c  | 18 +++++++++++++-----
+ mm/damon/sysfs.c | 16 ++++++++++++++++
+ 2 files changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/hisilicon/hisi_femac.c b/drivers/net/ethernet/hisilicon/hisi_femac.c
-index 016605e86f0b..a44ea0a2b1ee 100644
---- a/drivers/net/ethernet/hisilicon/hisi_femac.c
-+++ b/drivers/net/ethernet/hisilicon/hisi_femac.c
-@@ -491,6 +491,7 @@ static int hisi_femac_net_close(struct net_device *dev)
- 	netif_stop_queue(dev);
- 	napi_disable(&priv->napi);
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 81d44e41de210..ed32855c16ed8 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -698,14 +698,17 @@ static struct damos_quota_goal *damos_nth_quota_goal(
+ 	return NULL;
+ }
  
-+	hisi_femac_port_reset(priv);
- 	hisi_femac_free_skb_rings(priv);
+-static void damos_commit_quota_goal(
++static int damos_commit_quota_goal(
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+ {
++	if (!src->target_value)
++		return  -EINVAL;
+ 	dst->metric = src->metric;
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+ 	/* keep last_psi_total as is, since it will be updated in next cycle */
++	return 0;
+ }
  
- 	return 0;
+ /**
+@@ -723,18 +726,23 @@ static void damos_commit_quota_goal(
+ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ {
+ 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
+-	int i = 0, j = 0;
++	int i = 0, j = 0, err;
+ 
+ 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
+ 		src_goal = damos_nth_quota_goal(i++, src);
+-		if (src_goal)
+-			damos_commit_quota_goal(dst_goal, src_goal);
+-		else
++		if (src_goal) {
++			err = damos_commit_quota_goal(dst_goal, src_goal);
++			if (err)
++				return err;
++		} else {
+ 			damos_destroy_quota_goal(dst_goal);
++		}
+ 	}
+ 	damos_for_each_quota_goal_safe(src_goal, next, src) {
+ 		if (j++ < i)
+ 			continue;
++		if (!src_goal->target_value)
++			return -EINVAL;
+ 		new_goal = damos_new_quota_goal(
+ 				src_goal->metric, src_goal->target_value);
+ 		if (!new_goal)
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 5aa23c6545cb8..7895b11555d06 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1497,6 +1497,20 @@ static struct damon_ctx *damon_sysfs_build_ctx(
+ 	return ctx;
+ }
+ 
++static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
++{
++	struct damos *s;
++	struct damos_quota_goal *g;
++
++	damon_for_each_scheme(s, ctx) {
++		damos_for_each_quota_goal(g, &s->quota) {
++			if (!g->targe_value)
++				return false;
++		}
++	}
++	return true;
++}
++
+ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ {
+ 	struct damon_ctx *ctx;
+@@ -1517,6 +1531,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ 	ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0]);
+ 	if (IS_ERR(ctx))
+ 		return PTR_ERR(ctx);
++	if (!damon_sysfs_valid_start_ctx(ctx))
++		return -EINVAL;
+ 	err = damon_start(&ctx, 1, false);
+ 	if (err) {
+ 		damon_destroy_ctx(ctx);
+
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
 -- 
-2.53.0
-
+2.47.3
