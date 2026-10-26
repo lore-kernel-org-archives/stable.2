@@ -1,100 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039850;
-	b=wLLmjmRPvYXRjzQ2QHKznhC6hqUuA+hzK/m8fsClp6gJAzDBizjvOtqHjq2saL1dhZtu
-	 dT2b2SxV8kQJhHC9iqI4FccMwVYTArpnRJ50XJIyqPFXEWBe5SJjK9fza2SDshtn+s1li
-	 y1mSl4QXUjjSEzzNRo+ncGY2TeQ6ZcVaiiSSWeqc3iLqcsDKOZHZLJ0by3AZY0vqsXh//
-	 uT7eKXZajWXdCqxvpxesZRLh0svaFghQdLZ3DTmZGVSoC/TBSTB7TRjDNPbmF/V3He92A
-	 PdcRpVeGpcsjJNmEKVFNmFJ7+ky5yXQHnm6WxL+/1ucXH01gDd5kmZWxFRJ9b8+ABMQ==
+	t=1793039926;
+	b=LwNsPzy2RtWjKjiy4jXFpFjedVKSuFb/wi7oLo64SN0u8v3AXvbY6HXOUDkkE/zg8zMy
+	 N2cJBjZdGy/s732lwOgDlfxvWqzfcBViLsmsbxTFWuCQhisfaNXw2tljkSOJuPkPxRDtK
+	 pmuOzW08Fz9XX+uUR7j+W8tKzRRyB82MABZZtIVwnaVQdS0Ik8fl0JJ1loe3zkcYZyA/R
+	 ZWWeTMbiVDJmGjNS6JUy9E1tCRfQBN+xURcB6qWvRu4KeYZ5m4mzlSbMGtjBErJkhX8Rd
+	 zQpgGMFdF4kJ0czYHMWtQSydSfjFG5YllIjdBBFvU6FWKSvz1T2nRZgtvXdqrQJJzOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039926;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jz6PhmHAqHAHeg3j44XUyEwE6Xd1Y8uRjpXGP04iFfo=;
-	b=l59OxE2QDV+4u1KPezTWVkeJyNp5j0OPAR9zIfd8myAH1g7lsyScuRyxRivH1ilCNeVx
-	 swF/n+yYv3pRoqrLH2/IWOLdY8iigACd1YPeP7W2ZwdkD8DX687d/y3to5GtVdBeSMcoS
-	 G2uW7yyNa/D6ELFD/I4J9/AKBVCTo0SEdk1gLY2tDei1L3psFv8m/1wc01nMB3rfx/1zF
-	 xNbwqN+o60rI7BwVLhH9VavgRKug+IXVCB4whOlTuPNOy6CICu7A1ZTwgkcDQaormAj47
-	 2KxWR5SP56VRMFXOkHmGTIyJYtk+RMtVX6uwDaJ5MYXG9nT44XZBM1wBifBz1Kn4s8A==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
+	b=KoVL6V7kUWUhUp5HHUZezxi6j/mIsc28HT1QHe/48zpm0A3bQjD+ZM5AmXGs2+gsR2WC
+	 +TDgh6k7GOUH30qCX3HErls85mKxn4mhZnLb2iKdNaL95h16s0BbPMS90cqoDgDJYyqQY
+	 zkiQNui2gVQZ0+Q2/QFxMpms+mfJYn1Du3TPUO1NFjSxA/lINNjfK1kkRBHthVFq1Qugx
+	 Ze6Gj+VB4I8qLE88wxj8kas/yqQdPHrqB3j5itwR38ZBN8BxXLpSKImRhD1316GVIPC7x
+	 s6EdnyTjQ60+/qLDZgU3jkm7jKCDm0D4ZUVQ3qZe2G99Cb1vht+TstCq4yJ4pjwJeiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cVO0Vd4B;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gbqFxgya;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF1E606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF1E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D61D606A31F
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:38:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D61D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cVO0Vd4B
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so16878975e9.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:37:29 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=gbqFxgya
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8241a56cd70so2160353a34.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793039848; x=1793644648; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jz6PhmHAqHAHeg3j44XUyEwE6Xd1Y8uRjpXGP04iFfo=;
-        b=cVO0Vd4BaAgLdWISFKSYTIzQtS1MXDzRDVaSVak7zkkNZEW5+3DDGPQvwc1ImtkYYv
-         yINVsVjI2CegnkPDhWXYOUuK0LVB/YZkXr5B3/P3IPiOiJZJIigJ27grxIEVt/3yyQut
-         ZSJET+gCiv1LI3fM9mA4LNQq2TpU1GcRnP2vBl0rVylFXi3tAN/d3tIzMVHBIDHwvLAB
-         uKPpT+lxdnIlLVIDYzFiCi/RRIv5zkhBM5wKxZASjWoNLOQFYg6qGn3iPixYOhg9ky09
-         qkkbmrA/P20ZQVk6g0ePZUg4pvAZxwDZNeS4oZAVcU7P0L8lHKDyCIb++tsiW4QABTip
-         fXXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039848; x=1793644648;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1793039924; x=1793644724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jz6PhmHAqHAHeg3j44XUyEwE6Xd1Y8uRjpXGP04iFfo=;
-        b=LpGOh+i+XwuSWDD6v43ajHd/Pc5DFEUqJa0EtTAeP5bYwIGnLPB3QDwdZxkSBOZ4/i
-         FKu+7Pc7vFZOX4DyhyyU6SuZuIHP+YB9ZR861HjUhQiYZcmoV0xkuPJRuJ1a0fsvyXnl
-         /gImoRcJ87GzLKExOpQrTGIQajKVW6V2sycnKsTw+aN2ALZ9r/f8DCQi0EFuJWFKhaUa
-         lkMAbv4DcaxhZgODhk8BVyxZ8d06ls/X0KDmEjOg12CLXcNZNfL5T2cTXiaEUUo0hea/
-         6kVT6KPw4KYhAY1Wrzdlrau41Js9+o8kttxbW4wlh9XmJnpiGkRbAMbGldCR//8ANbO6
-         ueGw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwFZlcv0vdAw076NXsIbW18L6ikYcw5bN8/O4q3UfQ5Zv5p/waHJC/2Dwa7w7rhglo6OjX2+U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLb2VN8pBrvVLiBSYfxYVl+5T7rXej+TDPliFZTFNow8qawn0fo
-	OudEHtPB7kgfvdPUUCETpPFUXrK5Kch59FTNCaXMHqpZPRXl1zTHUcvQ
-X-Gm-Gg: AYBFou1Pz1NMGPyw1OvdEsazLWOwf77H+4Zx+kquxSN5+gAcuBFqk+V1BaM5Q326Ez7
-	KXEfGwWBplBObetGBtE9/emx7yLABh0dqvzWtNdxGyJVREeNMCqrOpEZtKymnXD2aoHH9oasYah
-	VdfwsLZ83pnf2GBY6jicJR/yPxADmm/aWjKiZzxZDQgYkbJNGgqMwyYTXtJg36B+nN3NXuuWOhF
-	A+VJMGYdwwN4DB6JV54wwbdGq5+xmWbP2cA5HRPWODX3VeR282hPnxQuj75IlknNOR6tExZDJdc
-	wjIyHBQTaHt2FbzQJ4fCfPahKaq5eG6dWR6w+VRTV+hWq5gLsLwTXj53NSP8fG3QZXtAQJNmSxI
-	aY1K2a12An9xWGJAZyMpHroM2C9zWS4Jr6mBK1ATZ4n6wn28aex3/Au6mFkk1f3N0BNUX561nJS
-	fpXK9FYZzn17WH5gcULCLqi822gio6swCouHMkOAm8WUWIYBZiDdAma+YP6ZGp2UpXAKKJl6zTj
-	WE8b0Qc82HLF8agnertFc8ujfvuY237tVr7CVMwlT4u3/p4vqb9av93OtJlisNgUFwCXE/eBw8N
-	qVRquzskagUVBjtL
-X-Received: by 2002:a05:600c:3e8c:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4a35acab6cdmr122544295e9.28.1793039847593;
-        Mon, 26 Oct 2026 11:37:27 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5698f1sm211231605e9.8.2026.10.26.11.37.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:37:27 -0700 (PDT)
-Date: Mon, 26 Oct 2026 18:37:26 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Dmitry Antipov <dmantipov@yandex.ru>,
- Jacek Anaszewski <j.anaszewski@samsung.com>, Bryan Wu <cooloney@gmail.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 14/21] leds: flash: Avoid divide-by-zero in
- led_clamp_align()
-Message-ID: <20261026183726.30238d39@pumpkin>
-In-Reply-To: <20261026173129.GF2195460@google.com>
-References: <20261021123406.3163547-1-lee@kernel.org>
-	<20261021123406.3163547-15-lee@kernel.org>
-	<20261022220006.6e066670@pumpkin>
-	<20261026173129.GF2195460@google.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
+        b=gbqFxgyaSJpwnPMXEHEl8DRMN0FH5f+eZmyf7f2x5yINhWDC0h+TI9fLbmGVXrriTb
+         IVX2UKfZbpWhTHtZSiooDsuNCBRCnMLM30hT6S3h50adSBK7Pw2Deh6iFyu8CBclN/z4
+         9C4rCb+Un3r64IpzDxakAemSIEHFSiRml0wqY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793039924; x=1793644724;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qtkfCa1ACFlx/Umc0D+/jZFN6SiMdUN5vaZm0FGpPXQ=;
+        b=m83Ou9FzMJkYexOWzAJfsHqJqyyV3EUkifeve121MI2lCPpeoybEQhSseVk1u8U/P0
+         Ldtb+tn2AdiXOdJRnI9JZ4FXouqHgn8OPCEOGeGVGsXUnwESusqNku6RRbINEYpGN5Kc
+         DT0KQQ/pUnXrIZBNzP+UjFexIjvIJdjQoSEfG9THsAP6pvsxnWY9LRXhnaLpDfVQxehp
+         D57HOIImZlrkFirEu6YVlwwk244TDWcgkN6xzUreGfFCi3sHJFSIEoUAOlqFjQjpInLY
+         DSsf6JevMwatXvk563vRmuB1JrrZ7/86uuIBihoSvy249Qrm2DbMxc527XIfv88eBJh/
+         byGQ==
+X-Forwarded-Encrypted: i=1; AKwUvByoI+k/74Aaj/9dif7ABWiBmDqxQ3fBezC2rah1nGlzaLpiG/9pc0rBkss93a/7RuuQcX0sH1E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSxfLDKH2KJBSK+ShxhWaGbrHs8F+72zOoZTEbzvc4gbedoduu
+	Qki8YRy/WXXG2vcr5Y3RUebOPQAskxGUhnlANHMp6WDJsRrbFTqyyo692VXE/zklqho=
+X-Gm-Gg: AYBFou01nNjY+w6YoFkRSLQSBl/VbS1YYj6aMiGxKDPVh3n46OUCtosdctgvfvq3Ftm
+	+Xm/lKFPHLDh/KxIZ4mt/n5sUzEYlwtUV1wWrxsRbq4j7vUk2UMbiU6ueeBYiUeVXiR+1d27fVW
+	v5IIrEapRw/BiK/sihPACIy3HZ+rs63MkaQ3c+2VFc5+PmyrTPAg+PT0KBcsqhfh8ieS8A9OULX
+	WpUrG2JGeb1GIPMYFhWODrVP2ttVbBcdzV+b04eVIdthrQ0I9439Em+/Q4o+Zr1QIDM/wr1UdAR
+	ShWPsfr7zVkysLUe6w16a3Lgt+1dfvQkGd+qeIS9Vzh6e17UHmBts7At5QhxfpSWMGcqXsmbWza
+	V7+CdP0CA+chmeLA21qK7qbT0R3YMhr8q+GdNOwmhQvwy/OlkpCx/g+E02aAfdO7883CxwMDxR7
+	Gikt0VV+ffFNvrKWnHCiFI9lZ171tS8RhUqZyeweb5kt9vCOSxiHfgeYkYylqk67tHH+sFpK6NG
+	8flNt8UanjwfKV9mFcVHvZ7msVxWXL4fMCiOV6ADXVvzx6b7FhrCNxXHYMrSjxHQ5c=
+X-Received: by 2002:a05:6830:2b11:b0:834:b015:aed2 with SMTP id 46e09a7af769-850fda467b9mr5329495a34.6.1793039924057;
+        Mon, 26 Oct 2026 11:38:44 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fa99bd35sm8395712a34.8.2026.10.26.11.38.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 11:38:43 -0700 (PDT)
+Message-ID: <a072b675-62ef-4076-b3fe-7a344516e992@linuxfoundation.org>
+Date: Mon, 26 Oct 2026 12:38:38 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,67 +88,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261025125805.309934791@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 17:31:29 +0000
-Lee Jones <lee@kernel.org> wrote:
-
-> On Thu, 22 Oct 2026, David Laight wrote:
+On 10/25/26 06:58, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 231 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> > On Wed, 21 Oct 2026 12:32:23 +0000
-> > Lee Jones <lee@kernel.org> wrote:
-> >   
-> > > If a flash LED driver leaves a setting's step size as zero, writing to
-> > > the corresponding sysfs attribute invokes led_clamp_align() and triggers
-> > > an integer division by zero when aligning the offset to s->step.
-> > > 
-> > > Clamp s->val to [s->min, s->max] and return early when s->step is zero.
-> > > 
-> > > Fixes: 7aea8389a77a ("leds: Add LED Flash class extension to the LED subsystem")
-> > > Closes: https://sashiko.dev/#/bug/linux-9d06d7fe-310b-4aee-8b16-0fb49550c287
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Lee Jones <lee@kernel.org>
-> > > ---
-> > >  drivers/leds/led-class-flash.c | 5 +++++
-> > >  1 file changed, 5 insertions(+)
-> > > 
-> > > diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
-> > > index 181dfd49c6ad..16b3b6b9365b 100644
-> > > --- a/drivers/leds/led-class-flash.c
-> > > +++ b/drivers/leds/led-class-flash.c
-> > > @@ -375,6 +375,11 @@ static void led_clamp_align(struct led_flash_setting *s)
-> > >  {
-> > >  	u32 v, offset;
-> > >  
-> > > +	if (!s->step) {
-> > > +		s->val = clamp(s->val, s->min, s->max);
-> > > +		return;
-> > > +	}  
-> > 
-> > Why not just:
-> > 	u32 step = s->step ?: 1;
-> > and then use step instead of s->step.  
+> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
+> Anything received after that time might be too late.
 > 
-> I can see where you're coming from, but I don't think this is better.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
 > 
-> With `step = 1`, the reader has to mentally trace `1 / 2 == 0` and `1 *
-> (offset / 1) == offset` to see that it reduces to a plain clamp and the
-> CPU still executes a redundant integer division.
-
-That happens with a step of one anyway.
-All my suggestion does is treat the unexpected 0 as being the same as 1
-instead of optimising for it being zero.
-
-David
-
+> thanks,
 > 
-> IMHO, simple, easy-to-read, maintainable code wins out over clever code.
-> 
-> > > +
-> > >  	v = s->val + s->step / 2;
-> > >  	v = clamp(v, s->min, s->max);
-> > >  	offset = v - s->min;  
-> >   
+> greg k-h
 > 
 
+Compiled and booted on my test system. No dmesg regressions.
+
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+
+thanks,
+-- Shuah
