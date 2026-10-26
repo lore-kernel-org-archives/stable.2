@@ -1,42 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793040325;
-	b=vxyiKD+NPAhrVpjguUAnW6JbOuQxxIMGZenX1U97gWVAO940B3o8Mjtb4Cnb9AjaulXl
-	 G8W0RGOwu2gBCwKRFfHvuUOOyLRyhRHLbRHkOV1lGXGwy6hnqfxl/gEagBWqqfr42GfXZ
-	 G+ddNRSweoJfGcdNyYEQwsjkERSFaKBq0j+I3WeHdazJxpGYENdvPe0SsIRfWXYNE9jZ+
-	 a3cj+kaHb3bYZtpId2jaSK5OcGfacHJ0A3OK/nBwncsjYQ8ZK0+4WksgpVq6BTbEJrAtP
-	 Ti1On4F2NiatPm/xiooLDfai/acod86Gstj83NyUuhIk/0xjMKxlVTmNXFNYoJzso9Q==
+	b=Dw2iahvXe+01GNheI9R6SWZFxxIJvZtqyuL6SQPEHXLkIdKcuaaa2tgVJ1lv8awDUF3b
+	 GLWlV2AAuyJ8FUId89vJZZG2bVbJ0TXFyBM+EKQ40lznOTULd+h79l4ZVbccDpiWa+Rrp
+	 twIyHmQgCWVYYxnw5k5iM8H0P6c4wQ47u3NPonnqYlRKSy9r0EnmCErFCqNDDXZTjWeg4
+	 5GQABEI1HcG1Zuk52k39pWFscJf4UmjvyyZ6H4XVqB2mAk5LCCRjQwdBWc88Y4sYbQwR/
+	 kpSgKmFwsycH1pIRUJP/hq1AkRqeZVJzp6RcZt8VA+V4WxTvO6/rDFh64PF9klJFHMg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793040325;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=TFpakpCDATQoh2Q5Nqa0fBs+TsFHqi4R7N9JGysXjuM=;
-	b=pPHWP5ueySwqDEte5N52hDqtltdx+iGTcrP8tEsDa0xQfg+/NyCizRC4Wy/P09Fl64WE
-	 yduj1IQZEiWRpJMe3KsjGOCRQW0DqBOZS+rQdHTU8jbHMcFTM0lApSZacmMY2DUl8dCIm
-	 G3OlTFUbnCtqk4+lDK3dZ9zwAvK8yaMhUdAH217wg2b00UcTwSvTsAbwVL2jGEbSywdT1
-	 fS18RUDPV4216m2hjdraJgp+R2eSg7ZdcvTI6qSdY7b0WLk2W924W7ZWJOPHfffQR8Jq1
-	 T00zQN6m944lMghHCQOQS2RcDvCE02DOkSKpkBxqGZ7gM+d+VDQggm0nusKU/AEJIgw==
+	bh=TT6w2M9PdtcrkgQofns/eaPda8NY559LH8hMrL2zYwY=;
+	b=c4O2suEvPG2cKM+feGWhDQKZhmDlGCS0+InAFZt4lTuQDoHKb9BTGmVyhVTo8tzK8xGb
+	 SfetfH7XMSTvhZgVZUxp3LHtqkIz/RMrP+SiXZ/3IC675g6Px5OnyYNDpUjLc7DRa7gyf
+	 iRTIuBavX2PDjgfRFJ95T8EPCtRdTt4w5332I57MukBlVdDUrrqw/Uy8pQDRBqxQ/iOJF
+	 ThsjAH+xqC21B5S7nFNFFwekpHnU+zKrInmBPr2D8vg7lNnbKMA5kLxK/Uzjte6fKrUIN
+	 L/BpeflpSUBCDxX+xxF8UhfpFu/9HsVpO+z5xDJES1IdZ8T/g0p8sf45Hvuoa8Kq9ng==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DYbMpl8i;
-	arc=fail smtp.remote-ip=185.203.200.13
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mjpg48e3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24596606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2535A606A322;
 	Mon, 26 Oct 2026 18:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24596606A31D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2535A606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=DYbMpl8i
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Mjpg48e3
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 408E5202920;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 27C6820291F;
 	Mon, 26 Oct 2026 19:45:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1793040318;
@@ -44,19 +44,19 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TFpakpCDATQoh2Q5Nqa0fBs+TsFHqi4R7N9JGysXjuM=;
-	b=DYbMpl8iCgImFXicoGuLZQjSeLoJ+pX4twtqFkEG+WbEpJR+IPjszsMEundG3+KLnnSfMm
-	OSYa6Agko0u4kE1ggiwM/R9ahMbBXWGwRFPYXFzw4rvWuM2d/Vs02JR2hVzQd8up8fDKg5
-	ATw32H+gwm14DnZyCMFr1afNrBTQ0jBuvt3vTRGJRmobRDvG/K7c2GrnZ0GCgCdjLbXXB6
-	rWd4pFBMNvIgKe6/Qs2cTI1SrqKQJ8qJpIdYhQwkWP/dU7QlCoPdcsVyrDo218HM9SYYnJ
-	Le8f0iNt8yZqZ3+Z/DcsrC7RVUWw3u1lb+A/gOoGDmHI0CkgVs6uxqO2mcAfUg==
+	bh=TT6w2M9PdtcrkgQofns/eaPda8NY559LH8hMrL2zYwY=;
+	b=Mjpg48e3vBlvHpPBPSkonBB4+Ik2CHTc0E+VL/m9IsFpSOzUUCc9xxzzZvhUDGYFOcGcb8
+	vawcjRb4pXZ6fkTBeKYSPDzwLgypHK2s226fKTEfNlBAtsqwt7b8ti9s4MuVgYEjHsf/1K
+	43V89cvypDYyDVYaVMnsrKjKVxTo7alHJWcaQoZbAxvmTIzwzhTofLj6aHaVkXAeSj3KB/
+	mUjagYuNfp0ondUWyWoaHVEOBlu4BrhKNBDT2wzdg4Cv1Sve+qZQ2A/4u6T2xjy03YWFB8
+	QEP2EHbYO1BGEA5UcIvUtCUj9bv/02Njrd2ipeksGXqPfhHZc2KZRTwQHqCcgg==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793040318; a=rsa-sha256;
 	cv=none;
-	b=B54Ds4h5qETfhpTg58MAM+HGP2juHECXpBiI3+c1dZEAa48i+XriLFQyZFak64afv0uWU6
-	lbx6zpTb9FP9kvYemrBzERwdgnrljeZ0nHlCrvM0M2rDJjaxz/+HcSc6mZBqEnfYotcVsE
-	JVmSp/9V0TZ/aojVDcTbxVPgPHP7o3nGEPFIftTC5bRWUPwgVI1i9Xm6iakOAwXcCX5pXY
-	hIgcCmQvt9RVz3WmThPzweQzNClcjSTwQUtxBL/u8gvvaZh+8tuVtezMrypqLw8jnUdEo2
-	y613ZdujtFeW8whLRa2qH+IuZ6SmCzBOyUndCf66FMXIB+ofzjUJHxs2iwWkGA==
+	b=ZQrDNkwqoObkg4FgjkM9U4ftiQEzceKChXZOsL/LyEJt+5m2ewPKQMLe/31Rga5YnTBmnH
+	FBtrYqVefRe1jy2d74lE98NovD7mB/ceopC/3KObOFBx6o6MGDyKzVWbU+DrcD0IPOz1wv
+	myNuGftVZS6pVZcGmjpwF7QekMK7FP/gbFq7luFEhVqIay19clcpsc+kmaznu8v2rcVwNj
+	jvYfhCgeKVEu05EpxOXj4V+0Rtdd97M5DKRvlafYsDmBpSCiJjjP4dOfScKROeh63g01AO
+	fnzgyQzPwuMjJh7PdWRH0FfcHy7ycQYyNw7DbzK2NgP8ppBR0hzRyWDDDARz3w==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -66,29 +66,29 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TFpakpCDATQoh2Q5Nqa0fBs+TsFHqi4R7N9JGysXjuM=;
-	b=J37cSHj9H1i6jb6fkWLwOhabEK6d1/zZHWGhDteiI2HMiVwaXpJ3j5My2Kd0/VbXz9UCqv
-	icIC919gsp30RGRrmpohiW1XtMviHCxpwIYufvXLpTctvsNTqW8+yigwBYw+mdHCZBA9Nc
-	nrGKRs0S/OpCdqv73JBxeeHNEmNHD46Q7sTSbWj7JHnXZhSojv2zNlKKyTyG4cFs/20YVU
-	q8IaZCsE/36CYqMHKLn6snCkb6PNRP6dbe4BKsdvk6g03uW5kz0+xh6tcJylJnPq415q/r
-	LFxS53bOwZ79KZTjMlGnvGp5pisZtVojbsgB+MM154HzpHN67CmaRXGV8oXTkg==
+	bh=TT6w2M9PdtcrkgQofns/eaPda8NY559LH8hMrL2zYwY=;
+	b=NamUxjDWiWS/cywiQneZUShaFw6QbOOGWhAwy3Z9vP6oyuoOvP1rae4mOoVqC5fEwU74VI
+	te+VOLziqRKh/dYHsTUVQYuQbuoFQVwB+N5BktO8pt5UTcclQf5pJV2h1m4jJGELnYdrq/
+	U2D9u2yyenXf8oshTjYtJpW7khWAZotW9O2DuCzAS5n5Q2DtkSMXPDg7hC/duhcb0uNgQy
+	NO7GFvJUooGVgntinG3TJrTsvwuaPszvaniX09CDzjPH30JfriUW9D+oK5JqgbI8cPu5EA
+	1MCFtv/+pKR9ekz1JESv7GF9DmBi3Rl7InALiXx5lTaAjYF1pLluJ5aIlfLIBw==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xLPh8-001JyS-0T;
+	id 1xLPh8-001JyR-08;
 	Mon, 26 Oct 2026 19:45:18 +0100
 Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id D6D825D7288;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id C8A125D7287;
 	Mon, 26 Oct 2026 18:45:17 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Mon, 26 Oct 2026 19:45:08 +0100
-Subject: [PATCH v4 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check
- for overflow flag if SKB allocation fails
+Date: Mon, 26 Oct 2026 19:45:07 +0100
+Subject: [PATCH v4 2/4] can: gs_usb: gs_usb_probe(): init netdev completely
+ before register_candev()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,7 +100,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-gs_usb-fixes-v4-3-59e3b6360053@pengutronix.de>
+Message-Id: <20261026-gs_usb-fixes-v4-2-59e3b6360053@pengutronix.de>
 References: <20261026-gs_usb-fixes-v4-0-59e3b6360053@pengutronix.de>
 In-Reply-To: <20261026-gs_usb-fixes-v4-0-59e3b6360053@pengutronix.de>
 To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
@@ -111,70 +111,148 @@ Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1970; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=K7vTyiU4LYRmmk13fHSmOHnn9jXEe02D7vtwZf6Yy0E=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6P3/Xy12ZayqKd92teNzAUrHNaIpyi2as/qMlKttt6
- 9YdS0u811HKwiDGxSArpsiy9McJRYFAh9LelwmTYOawMoEMYeDiFICJ8PQyMjx4LTz/5dF5szal
- br57yPGVTRbDu2N7ugqyfvxIP2z6+Xc1I8Oc6Zdqjj8uCdTW/leX/k7njWVizgbfJWs0Hsh6H+n
- PXMsLAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4281; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=Dzuwp7w8p8oSMZnC5UKTITwgAdFSeFsiLdJsDWbad3w=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6P39nfJ5fevEBIcZUof13bTetfe8szJcfsr/ONpGP3
+ /2fh6V2RykLgxgXg6yYIsvSHycUBQIdSntfJkyCmcPKBDKEgYtTACYyK4rhr/D9spdWjd2cVbLv
+ Kq/528/3jXFZ+jMzpOn15c3REx4viWNk+MZ+/Pd76ZbitMjspNs9phWrnj//yPlfh/2SW/POlK4
+ lfAA=
 X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
  fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-If the allocation of an SKB fails in gs_usb_receive_bulk_callback(), the
-function neither updates the statistics nor checks whether an overflow flag
-is set in the host frame.
+In gs_usb_probe(), gs_make_candev() is called to allocate and set up the
+CAN channel, as well as to call register_candev(). However, gs_usb_probe()
+defers the assignment of dev->parent and parent->hf_size_rx until after
+gs_make_candev() returns. This opens a race window for the user space to
+bring up the CAN interface, while it's not completely setup.
 
-Instead of directly resubmitting the URB, first update the dropped RX
-statistics then check if an overflow flag is set.
+To close the race window, initialize all CAN interfaces in a first loop and
+then register them in a second loop: Don't call register_candev() from
+gs_make_candev() but explicitly from gs_usb_probe(). Adjust
+gs_destroy_candev() likewise, move unregister_candev() to
+gs_usb_disconnect() and the error paths in gs_usb_probe(), to keep it
+inverse to symmetric to gs_make_candev().
 
-Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
-Fixes: 68c5724ecd15 ("can: gs_usb: gs_usb_receive_bulk_callback(): resubmit URB on skb allocation failure")
+Closes: https://sashiko.dev/#/bug/linux-be54de7d-0b75-408c-b3ee-dd90c9756857
+Closes: https://sashiko.dev/#/bug/linux-71076d59-0843-4749-a5ab-fdd98a08582f
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
 Cc: stable@vger.kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/usb/gs_usb.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/net/can/usb/gs_usb.c | 65 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 40 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index 31c25cda9f43..3afddc46afa9 100644
+index 15f28833f2de..31c25cda9f43 100644
 --- a/drivers/net/can/usb/gs_usb.c
 +++ b/drivers/net/can/usb/gs_usb.c
-@@ -673,8 +673,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
- 		if (hf->flags & GS_CAN_FLAG_FD) {
- 			skb = alloc_canfd_skb(netdev, &cfd);
--			if (!skb)
--				goto resubmit_urb;
-+			if (!skb) {
-+				netdev->stats.rx_dropped++;
-+
-+				goto check_overflow;
-+			}
+@@ -1490,18 +1490,8 @@ static struct gs_can *gs_make_candev(unsigned int channel,
+ 	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
+ 	SET_NETDEV_DEV(netdev, &intf->dev);
  
- 			cfd->can_id = le32_to_cpu(hf->can_id);
- 			cfd->len = data_length;
-@@ -686,8 +689,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 			memcpy(cfd->data, hf->canfd->data, data_length);
- 		} else {
- 			skb = alloc_can_skb(netdev, &cf);
--			if (!skb)
--				goto resubmit_urb;
-+			if (!skb) {
-+				netdev->stats.rx_dropped++;
-+
-+				goto check_overflow;
-+			}
+-	rc = register_candev(dev->netdev);
+-	if (rc) {
+-		dev_err(&intf->dev,
+-			"Couldn't register candev for channel %d (%pe)\n",
+-			channel, ERR_PTR(rc));
+-		goto out_can_rx_offload_del;
+-	}
+-
+ 	return dev;
  
- 			cf->can_id = le32_to_cpu(hf->can_id);
- 			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
-@@ -728,6 +734,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 		netif_wake_queue(netdev);
+-out_can_rx_offload_del:
+-	can_rx_offload_del(&dev->offload);
+ out_free_candev:
+ 	free_candev(dev->netdev);
+ 	return ERR_PTR(rc);
+@@ -1509,7 +1499,6 @@ static struct gs_can *gs_make_candev(unsigned int channel,
+ 
+ static void gs_destroy_candev(struct gs_can *dev)
+ {
+-	unregister_candev(dev->netdev);
+ 	can_rx_offload_del(&dev->offload);
+ 	free_candev(dev->netdev);
+ }
+@@ -1587,21 +1576,16 @@ static int gs_usb_probe(struct usb_interface *intf,
+ 
+ 	for (i = 0; i < icount; i++) {
+ 		unsigned int hf_size_rx = 0;
++		struct gs_can *dev;
+ 
+-		parent->canch[i] = gs_make_candev(i, intf, &dconf);
+-		if (IS_ERR_OR_NULL(parent->canch[i])) {
++		dev = gs_make_candev(i, intf, &dconf);
++		if (IS_ERR_OR_NULL(dev)) {
+ 			/* save error code to return later */
+-			rc = PTR_ERR(parent->canch[i]);
++			rc = PTR_ERR(dev);
+ 
+-			/* on failure destroy previously created candevs */
+-			icount = i;
+-			for (i = 0; i < icount; i++)
+-				gs_destroy_candev(parent->canch[i]);
+-
+-			usb_kill_anchored_urbs(&parent->rx_submitted);
+-			kfree(parent);
+-			return rc;
++			goto out_gs_destroy_candev;
+ 		}
++		parent->canch[i] = dev;
+ 		parent->canch[i]->parent = parent;
+ 
+ 		/* set RX packet size based on FD and if hardware
+@@ -1621,7 +1605,37 @@ static int gs_usb_probe(struct usb_interface *intf,
+ 		parent->hf_size_rx = max(parent->hf_size_rx, hf_size_rx);
  	}
  
-+check_overflow:
- 	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
- 		stats->rx_over_errors++;
- 		stats->rx_errors++;
++	for (i = 0; i < icount; i++) {
++		struct gs_can *dev = parent->canch[i];
++
++		rc = register_candev(dev->netdev);
++		if (rc) {
++			const unsigned int cur = i;
++
++			dev_err(&intf->dev,
++				"Couldn't register candev for channel %d (%pe)\n",
++				i, ERR_PTR(rc));
++
++			for (i = 0; i < cur; i++)
++				unregister_candev(parent->canch[i]->netdev);
++
++			goto out_gs_destroy_candev;
++		}
++	}
++
+ 	return 0;
++
++out_gs_destroy_candev:
++	for (i = 0; i < parent->channel_cnt; i++) {
++		if (!parent->canch[i])
++			continue;
++
++		gs_destroy_candev(parent->canch[i]);
++	}
++
++	kfree(parent);
++
++	return rc;
+ }
+ 
+ static void gs_usb_disconnect(struct usb_interface *intf)
+@@ -1636,9 +1650,10 @@ static void gs_usb_disconnect(struct usb_interface *intf)
+ 		return;
+ 	}
+ 
+-	for (i = 0; i < parent->channel_cnt; i++)
+-		if (parent->canch[i])
+-			gs_destroy_candev(parent->canch[i]);
++	for (i = 0; i < parent->channel_cnt; i++) {
++		unregister_candev(parent->canch[i]->netdev);
++		gs_destroy_candev(parent->canch[i]);
++	}
+ 
+ 	kfree(parent);
+ }
 
 -- 
 2.53.0
