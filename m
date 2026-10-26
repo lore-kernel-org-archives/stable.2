@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020545;
-	b=OhLjsED0ALW6gG5/mff/zXV0quh1Obn+DP3BsEI3vxpKHsM6v7oCSZ3XEhcKxxT/bs2U
-	 Lp1Pe0yK1FA4x0vapRVfZyVd15Fh65HLGJd0+Ob69aDC1Jxasklc3UWkS+ufrUfCHlurF
-	 SqCuCFG7gTwuqzc7xWhJ74asFxdw8q9I5xJzQgq1s+ukmWIeSzq/7YTWYyFowLbHWfxZ/
-	 ul6fXSBxoYZsgDjUhZpf7LQek44aMkHD6RCtVCRRka1XZ6KDLQZ0KyJuVQ3b13ZX/uwMT
-	 WQLWUayo1I5DAyFXlvsnM3/JvH54wQ/2qlMy9sYntzZv5FOp/SBiWbqw/rYa29QUXdw==
+	t=1793020912;
+	b=dH5avFpAAqOpJnMGBF34RVdubyXP4kMq7p3DJpVh9TUdmS19szkDeu8JXDzD+xVydDkK
+	 ISxegRP1NuzJ1H+5CaFslNKwbBsW5nWCm37yzbHneze21Yp8BRWMeBf1TO09N5vaLcueo
+	 HAbFMB/0GfZwLnsLOQBhw4ew5ItU4Hdj2Jhu0N/rlsNahQ82a+AdB208CuSeiewQH+scy
+	 OFFW83WcxZVuToBASyzmbvDSpJbp6rJo6SfdEupDRxpOwJSM/U/YGRqk3EK+1IWMoRv2K
+	 vyv/fhlweuNL5mxcOfDLLUCK4N74v2AHzVIZXu3rNeM3Wg/ytk/XvDiEWfpaCyzTPSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020545;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RGNe2EMyxsnvsEaTX+Pjtf2oiHahHN9mOAFjtweH/sQ=;
-	b=AgEcDKYiJvOzayMkkRuNUd1BeXDJ4RbNO9OQFH4xVvlfdUgW2yji7wshNWbEcRWu5hW6
-	 5f957429RegneIfS/y1mJln5xJSUj6lze0/V4FcUpqrvLdHKas67QHP7c21RRi5lRFenI
-	 /S35qIpBqHPKokQcrKWB/PXzCKy3ebjKPO/TF8ZbGsFNkv9f8Xe6WFzWhzz2QVApZhD2U
-	 lnys3BTYFXcqJW9zE6CTXjhqoALkCVfKBjDmLifAscpLD8Y9xcNHkYn9EwiGt5v28sLrg
-	 9C7m3IBXzcZ9w2Xh7DEofyGkb4iWdVyR4Fz3gYb92GxZkzFIX4/4A5c4Vh+Myyq2bUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020912;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JudSgXLcJ6+6LonVY2e4IdR3mh1sh7zUR10EIzFcThs=;
+	b=DXUmuh1QDcRM6uKU3MCcullUXRcjZ1gh/Ji2HMIQD55uDFtH3NdPK/LjZ8WIE3D5DOTl
+	 4aI6o4tVflzaTSScARJvTiZzybFrHe7XFWqE7MPVyf69JSqhG8sNxRKmIpnd1rGdjMsoN
+	 ZC6PiCPkj8gdZlkNv8+zdWYGPyI2Km3XpN3JDlmn6T60nWu6dlWDAfxKRl1T/jlEj+iJR
+	 kDqX2pWwRbm7lanqCbh79H71uG5f/l+AR+XEr0GJC0IcSMEBRLmJEC1QB/QrTtnZix9Op
+	 3xvwKYcvSx+G6JZVEobFywIAidaW/pXVmZ41geIX+YNSRXQDV3fiTDpHyIAC5HlKycg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmveuHIB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=rL+LFenj;
+	arc=none smtp.remote-ip=115.124.28.169
+Received: from out28-169.mail.aliyun.com (out28-169.mail.aliyun.com [115.124.28.169])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B989E606A31B;
-	Mon, 26 Oct 2026 13:15:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E34606A31A;
+	Mon, 26 Oct 2026 13:21:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53E34606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmveuHIB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB9B1F01825;
-	Mon, 26 Oct 2026 13:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793020544;
-	bh=RGNe2EMyxsnvsEaTX+Pjtf2oiHahHN9mOAFjtweH/sQ=;
-	h=From:To:Cc:Subject:Date;
-	b=lmveuHIBw3NzrRNioS45fPA/x/ZEmPqKziYwNbCbHiOvmGNjQ7FxiTZyofXGlCFnM
-	 wsCBgUiUgjOEA8N7/nWJfzxnTG4nCJ5tPrLBTbaV+lomDOdF1qwA40bH2Iym0QjyxN
-	 VvxHH5dRf0N+Y1b4v1OfpPAlqCiGlz191dR2NqOuzqrvkwWHlpMdTgiBFBgcpYMfCj
-	 evLwks/k7Ya3+GgoRDX9XFwz99W1Wo5HePxA2OvoOTEGWf0+7zNEGeuiiuMX6qBfRf
-	 CVq86qBnnVc8E+b5RLn0KtiQPOmqzoQ1XpDPsxjNwWKDqiNmEu60b4mPYMQ9dZfzF+
-	 J+sbmTUMICQ6Q==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Hannes Reinecke <hare@suse.com>,
-	James.Bottomley@HansenPartnership.com,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=rL+LFenj
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793020908; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=JudSgXLcJ6+6LonVY2e4IdR3mh1sh7zUR10EIzFcThs=;
+	b=rL+LFenjxlNw1X3GFOWGZxAoSvxuru+takJI9cskKx8/X2T0k53vz4GmYYui65+faJ7y6OHl0Ra0krnrismulhA2YQ+f+ePHFzTrTgLqSHWjb56dRC912dwLT6js3jOpSsVNX3Moqq44dxmowGTJigBiC4VkUkBB6/zcx5QqwVU=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07575639|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00077706-5.23839e-05-0.999171;FP=14943764304330181682|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jpwPFyQ_1793020906;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jpwPFyQ_1793020906 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 21:21:47 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: ldewangan@nvidia.com,
+	linux-spi@vger.kernel.org,
+	broonie@kernel.org
+Cc: thierry.reding@kernel.org,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	swarren@nvidia.com,
+	linux-tegra@vger.kernel.org,
+	zhugl3@xiaopeng.com,
 	stable@vger.kernel.org
-Subject: [PATCH] scsi: aic7xxx: Use default settings on the SGI O2 onboard controllers
-Date: Mon, 26 Oct 2026 14:14:32 +0100
-Message-ID: <20261026131432.26065-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH v2] spi: tegra20-slink: size words with spi_bpw_to_bytes()
+Date: Mon, 26 Oct 2026 21:21:46 +0800
+Message-ID: <20261026132146.3806906-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,87 +68,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SGI O2 firmware runs its onboard aic7880s without the Adaptec BIOS,
-so scratch RAM holds no settings. The left over BIOS path reads
-uninitialised bytes, and bad parity panics the boot.
+tegra_slink_calculate_curr_xfer_param() derives bytes_per_word with
+DIV_ROUND_UP(bits_per_word, 8), but the SPI core sizes words with
+spi_bpw_to_bytes(), i.e. roundup_pow_of_two(BITS_TO_BYTES()), and
+__spi_validate() only accepts lengths that are a multiple of that
+power-of-two word size.  For bits_per_word of 17..24 the two differ
+(3 vs 4 bytes): a length like 8 passes core validation yet is measured
+as three 3-byte words, so the copy helpers touch one byte past the
+buffer, and cur_tx_pos/cur_rx_pos advance in multiples of 3 and never
+land on the equality check cur_pos == t->len.  The ISR then recomputes
+remain_len = t->len - cur_pos, which wraps, and the driver keeps
+copying 4096-word blocks past the client buffers until the transfer
+times out.
 
-Use the defaults there with host ID 0. ahc_init() keeps the default host
-ID ahc_pci_config() chose, 7 on other PCI controllers, so only the O2
-changes.
+Use spi_bpw_to_bytes() for bytes_per_word: 24 bit words can have
+padding.  The word count then divides the transfer length exactly, the
+copies stay within t->len, the position counters land on t->len, and
+the wire carries the words the caller asked for.  For power-of-two
+word sizes spi_bpw_to_bytes() returns the same value as
+DIV_ROUND_UP(), so only bits_per_word of 17..24 change behaviour.  The
+non-packed setup already used the 4-byte configuration
+(SLINK_PACK_SIZE_32) that bits_per_word = 32 has always used, TX
+padding stays in the upper byte that the hardware does not shift out,
+and the RX paths already mask the padding.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+Verified with a userspace replica of the transfer arithmetic covering
+all core-legal lengths for bits_per_word 8/16/24/32 in both
+directions: the shipped driver and v1 overrun the buffers and never
+complete for bits_per_word of 17..24 with lengths not divisible by 3,
+while with this change no copy exceeds t->len and every transfer
+completes.  Compile-tested only; no Tegra SLINK hardware was
+available.
+
+Suggested-by: Mark Brown <broonie@kernel.org>
+Fixes: dc4dc3605639 ("spi: tegra: add spi driver for SLINK controller")
+Cc: stable@vger.kernel.org # 3.8+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 ---
- drivers/scsi/aic7xxx/aic7xxx_core.c |  8 ++++++--
- drivers/scsi/aic7xxx/aic7xxx_pci.c  | 20 +++++++++++++++++++-
- 2 files changed, 25 insertions(+), 3 deletions(-)
+Changes in v2:
+- v1 clamped the four copy loops to t->len.  As Mark Brown pointed out,
+  the compact word size itself is the problem: 24 bit words can have
+  padding, so the core only guarantees lengths that are multiples of
+  spi_bpw_to_bytes().  Size words with spi_bpw_to_bytes() instead,
+  which also drops the clamps and lets the position counters land on
+  the equality completion test.
 
-diff --git a/drivers/scsi/aic7xxx/aic7xxx_core.c b/drivers/scsi/aic7xxx/aic7xxx_core.c
-index b9761f9f0bbc..8ad82171e925 100644
---- a/drivers/scsi/aic7xxx/aic7xxx_core.c
-+++ b/drivers/scsi/aic7xxx/aic7xxx_core.c
-@@ -5266,9 +5266,13 @@ ahc_init(struct ahc_softc *ahc)
+ drivers/spi/spi-tegra20-slink.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-tegra20-slink.c b/drivers/spi/spi-tegra20-slink.c
+index ed1fcf57dd30..3f507176b0c8 100644
+--- a/drivers/spi/spi-tegra20-slink.c
++++ b/drivers/spi/spi-tegra20-slink.c
+@@ -261,7 +261,7 @@ static unsigned tegra_slink_calculate_curr_xfer_param(
+ 	unsigned total_fifo_words;
  
- 	/*
- 	 * Assume we have a board at this stage and it has been reset.
-+	 * PCI controllers keep the host ID ahc_pci_config() chose.
- 	 */
--	if ((ahc->flags & AHC_USEDEFAULTS) != 0)
--		ahc->our_id = ahc->our_id_b = 7;
-+	if ((ahc->flags & AHC_USEDEFAULTS) != 0) {
-+		if ((ahc->chip & AHC_PCI) == 0)
-+			ahc->our_id = 7;
-+		ahc->our_id_b = 7;
-+	}
+ 	bits_per_word = t->bits_per_word;
+-	tspi->bytes_per_word = DIV_ROUND_UP(bits_per_word, 8);
++	tspi->bytes_per_word = spi_bpw_to_bytes(bits_per_word);
  
- 	/*
- 	 * Default to allowing initiator operations.
-diff --git a/drivers/scsi/aic7xxx/aic7xxx_pci.c b/drivers/scsi/aic7xxx/aic7xxx_pci.c
-index 2d4c85426dc3..5a04c7d55e4b 100644
---- a/drivers/scsi/aic7xxx/aic7xxx_pci.c
-+++ b/drivers/scsi/aic7xxx/aic7xxx_pci.c
-@@ -701,6 +701,21 @@ ahc_find_pci_device(ahc_dev_softc_t pci)
- 	return (NULL);
- }
- 
-+/*
-+ * The SGI O2 firmware runs its onboard controllers, in slots 1 and 2 of the
-+ * root bus, without the Adaptec BIOS and at host ID 0.  It leaves no settings
-+ * in scratch RAM, which may still hold power-on contents with bad parity.
-+ */
-+static bool
-+ahc_pci_sgi_o2_onboard(struct ahc_softc *ahc)
-+{
-+	int slot = ahc_get_pci_slot(ahc->dev_softc);
-+
-+	return IS_ENABLED(CONFIG_SGI_IP32) &&
-+	       ahc_get_pci_bus(ahc->dev_softc) == 0 &&
-+	       (slot == 1 || slot == 2);
-+}
-+
- int
- ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
- {
-@@ -782,6 +797,9 @@ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
- 	ahc->bus_intr = ahc_pci_intr;
- 	ahc->bus_chip_init = ahc_pci_chip_init;
- 
-+	if (ahc_pci_sgi_o2_onboard(ahc))
-+		ahc->flags |= AHC_NO_BIOS_INIT;
-+
- 	/* Remember how the card was setup in case there is no SEEPROM */
- 	if ((ahc_inb(ahc, HCNTRL) & POWRDN) == 0) {
- 		ahc_pause(ahc);
-@@ -898,7 +916,7 @@ ahc_pci_config(struct ahc_softc *ahc, const struct ahc_pci_identity *entry)
- 			 * Assume only one connector and always turn
- 			 * on termination.
- 			 */
-- 			our_id = 0x07;
-+			our_id = ahc_pci_sgi_o2_onboard(ahc) ? 0 : 0x07;
- 			sxfrctl1 = STPWEN;
- 		}
- 		ahc_outb(ahc, SCSICONF, our_id|ENSPCHK|RESET_SCSI);
+ 	if (bits_per_word == 8 || bits_per_word == 16) {
+ 		tspi->is_packed = true;
 -- 
-2.47.3
-
+2.50.1
