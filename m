@@ -1,64 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018897;
-	b=nrOL0KlbbuQigosvcWsX5jmqDWgk3GDALL9NaI2xv/W22jDTG+ADglyyZx3jiAl7vgMj
-	 CQFhmQnjFhbZ8+CNSUDZItg0wKF0qjSnH/426JrDLIg4vCpmq6k50Z5DmWhT+CwVl0GPr
-	 jguQBJoaZhCp0cR2d7Z05NWW1O6OSeXnrsSUh8Tj1a/BHzh3EPV0vL/eB15svLvcqm/mS
-	 XmEKpqR7ZnorjFRo8baowsHuTIceusuk1BlSs4jz6jnNftDLdmReO2ew22TxXvxW4gH7E
-	 4ibBxAP5ciEvEHfoy64wGtqoIsAPJBWPPqb8a8qkrDdUWKxh6KIJT855lq96bl+bqbA==
+	t=1793018977;
+	b=Bq7ISidi9/zxvV0Ft50j3YXIFrX5DfiIufGzwB1uGhIFvOR7/S3iLQZzhPB80hMvWpA1
+	 LmiYb+Bc7lF+e77S/ygvlcS1yQDIK7ELM8B+SIitdF98GSgUaS/0HfO81KmJ9Y42YXLuL
+	 Nl03NNTBy3afybHSDaBeectP6r2IImnlLZkzY/48rZwcW8MRIi53fTyvpH8rbWMHxKdI2
+	 iCACiq0k7u/7Js6AHVU7Zn6ZYMcLotc1oPe6Sc+id5sW/O5MXMmyzkziCJTBkLr7cKGAB
+	 /cZj7W+czGbGNrXo170eSlJmYk/mKuBO5rOA1tXKhaQt316JE5Km1kAtmIPq6dQZmQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018897;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iSQTJc/iRoE9ap2PM0X1PteM4qNBL5Yn8mEgnBJnQKo=;
-	b=rYH34tLXzSAs35g2VKkcCU2r35OQIVCqHIbhJz3Df6yIJWVeiwOl8LPh/mhmpqtFWjC9
-	 mqgwFN215v+ogS4uaZtHsfhCNjY17X+Vxetf64zj/7iCIyIfWg34vwbL1DgotpfGzLjyn
-	 wZn3tEXT42XIE4ZqgE4ehzsKaWB+v+cXFO2+o0TCvvYN6ODgL88SGJSa5AIXfmk3vqAzd
-	 VofWRAOeWvy/Dlq6b+34++TNic319dU3kA+5BR4MclJ2O8In2K5MOjmqIeK/kIyQ7f86m
-	 6j5+KG5Rzf9+htKC0zPTLxCAIAs99Bktclu/BeWHtS/germbPIPH1zjrrE0Lc3BJMAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018977;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=afZGfCekX7UpYo8D5sYQDVlkG6MmuiaVKNxybV7UkSE=;
+	b=UfaIWnnSdb2rqQFlv0eEDUkzjH5balFkvpa01qPyJ/NCLzbgb1KO0/RiDIse0WqEFG6W
+	 RqjSPYQBDF2DIgF5Iu42vqldpCoNYHHq4ger7wJKgKfUNjRj7rDjbw/w84ROmHbOS7NrV
+	 fJMGYbjuI+jTgR08IhFP1NwoxeDUDbqWOpDsUJ7qaYOBUQkA9MzkkxZQO6X/KC1+HfbDf
+	 4tTFPVZ8QJUK3LtzVE9POPf9J0YI3KVNw8kN6E25QKnwfs5Z1fOlEyf3Ns7c+yYqbC9cc
+	 F4lP1yEn9YmB0Ba1bF2DUMImptf+YKTlAyYxIe2xELnNiPfWa0BKDbPAPPAIx9T4J8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=UmeEj3gw;
-	arc=none smtp.remote-ip=115.124.30.111
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wUFRGu+T;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9YoYJgJT;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QuuBnnDu;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qGFZuMKR;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB2F606A31B;
-	Mon, 26 Oct 2026 12:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB2F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7EA606A31D;
+	Mon, 26 Oct 2026 12:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F7EA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=UmeEj3gw
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793018891; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=iSQTJc/iRoE9ap2PM0X1PteM4qNBL5Yn8mEgnBJnQKo=;
-	b=UmeEj3gwt1JUY4jmlwN9yfmGtOahX/+YRi01iz5RV064oVTtKlUl6X22oy+ObTkxCtb+H9+1e4FEY9oA1z7S4AWULqffnviSD3clw+df0uGtblyaLg+XsHPRgMFHFJMbJqZoB0DC8bRNDt41Kevy6qn2YDuBeiYny+3990LXIMk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDYKCv3_1793018881;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDYKCv3_1793018881 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 20:48:10 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: sashiko-bot@kernel.org
-Cc: mkp@kernel.org,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	john.garry@linux.dev,
-	ddiss@suse.de,
-	hexlabsecurity@proton.me,
-	xiangzao@linux.alibaba.com
-Subject: Re: [PATCH] scsi: target: Verify the iSCSI ISID is NUL-terminated
-Date: Mon, 26 Oct 2026 20:48:01 +0800
-Message-ID: <20261026124801.2720682-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <sashiko-outbox-184760@kernel.org>
-References: <20261026044632.1738901-1-xiangzao@linux.alibaba.com> <sashiko-outbox-184760@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wUFRGu+T;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9YoYJgJT;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=QuuBnnDu;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qGFZuMKR
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 30C2F1F393;
+	Mon, 26 Oct 2026 12:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793018975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afZGfCekX7UpYo8D5sYQDVlkG6MmuiaVKNxybV7UkSE=;
+	b=wUFRGu+T7ZG1KLWrWTEi1iqlAMO8cOnCo/vns6t0g/XH4cywRhW19Wu/iOgTV5sLs8tVCU
+	9NopHFKoCBGlkuYt2t++A87UOvqoIyUDjBFopCWxN7SQTIWQedFZW00uYe2Q/bbkKy7syn
+	O0mrAagysF+M3JNTZJk/gYbyNL5A9+M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793018975;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afZGfCekX7UpYo8D5sYQDVlkG6MmuiaVKNxybV7UkSE=;
+	b=9YoYJgJTLi01TIwUPENmL7JIUaWTs/kVTxy/HUSDYU4Ro78f0q8eYgMQZYU4UDbGu8Fcck
+	8Rpmme2dqi2Y5sDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793018974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afZGfCekX7UpYo8D5sYQDVlkG6MmuiaVKNxybV7UkSE=;
+	b=QuuBnnDuCAKNGbkKz3wvOEQ7Wx1d6Gn69LyR+kxzV73Mce9lPwCRTZJRrsy2ew4pH0rNNo
+	N1yqxjcbBTB0L5ogtOdY1YE6+gKOinW/nnjsmnv/ciOMhOqEAqZUw07/LnoRMNHehUvU7l
+	unZ8SMKCR3DhVHQAKsUObo9KEY/MfX0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793018974;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=afZGfCekX7UpYo8D5sYQDVlkG6MmuiaVKNxybV7UkSE=;
+	b=qGFZuMKRVbI1lalLA/w28T0RpFPpYwec0rWBlWVGUXpRFYB0AEepiV6m7vhtvVGG2vjn05
+	Dc1pCf9OeJEMaTDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DABEE13319;
+	Mon, 26 Oct 2026 12:49:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id a5SyJ1xM32rFTAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 12:49:32 +0000
+Date: Mon, 26 Oct 2026 12:49:30 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+	Davidlohr Bueso <dave@stgolabs.net>, SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Colin Cross <ccross@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] mm: do not unintentionally overwrite atomic VMA flags
+Message-ID: <at9MLiqTg7jLSp8k@pedro-suse.tail5790ac.ts.net>
+References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+ <20261023-fix-vma-atomic-v1-1-8ff4fae1fc85@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,16 +113,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-fix-vma-atomic-v1-1-8ff4fae1fc85@kernel.org>
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -13.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Sashiko is right.  get_unaligned_be64() reads the first 8 bytes
-unconditionally, and the NUL check alone does not bound that when
-fewer than 8 bytes remain in the descriptor.
+On Fri, Oct 23, 2026 at 02:47:27PM +0100, Lorenzo Stoakes (ARM) wrote:
+> madvise, mlock and mprotect take a copy of a VMA's flags holding only the
+> VMA read lock, later writing it back under the write lock (in
+> madvise_update_vma(), mlock_fixup(), mlock_vma_pages_range() and
+> mprotect_fixup()).
+> 
+> This was done on the assumption that VMA flags cannot change with a read
+> lock held.
+> 
+> However this changed in commit 2ab7f1bbafc9 ("mm/madvise: allow guard page
+> install/remove under VMA lock"), which allowed VM_ATOMIC_SET_ALLOWED
+> flags (currently only VMA_MAYBE_GUARD_BIT) to be written concurrently under
+> a VMA read lock.
+> 
+> The actual write itself is safe as this is done under the VMA write lock
+> at which point no further concurrent writes can occur, however at this
+> point the stale flags mean that these callers can unintentionally overwrite
+> atomic flags incorrectly.
+> 
+> The consequences of this are significant - a missing VMA_MAYBE_GUARD_BIT
+> could result in page tables not being copied on fork (the vma_needs_copy()
+> check can return false) or being overwritten on file-backed THP
+> collapse (the file_backed_vma_is_retractable() can return true).
+> 
+> Resolve the issue by always taking care to retain existing atomic flags
+> when overwriting VMA flags, replacing the inconsistently named
+> vma_flags_reset_once() with vma_overwrite_flags() to do so, and always
+> invoking it when flags are overwritten like this.
+> 
+> Reads are a problem too - madvise, mlock and mprotect all compare VMA flags
+> without a VMA write lock held via vma_flags_same_pair().
+> 
+> This has more serious impact, as concurrent changes to atomic VMA flags can
+> cause two sets of VMA flags to be wrongly considered different.
 
-v2 requires 8 bytes to remain after the separator, in addition to
-the NUL, so every consumer stays inside the descriptor.
+I really wish we had a new field for atomic flags :/
 
-v2: https://lore.kernel.org/r/20261026124138.2708365-1-xiangzao@linux.alibaba.com/
+> 
+> For mprotect and madvise this causes a useless split, but mlock is impacted
+> more seriously as it can result in mm->locked_vm underflow.
+> 
+> Fix this by updating vma_flags_same_pair() to disregard
+> VM_ATOMIC_SET_ALLOWED VMAs - VMA equality is the same as VMA mergeability,
+> and atomic VMA flags are disregarded when comparing VMA flags for merge -
+> so this is justified semantically.
+> 
+> Additionally, remove the redundant vma_flags_same_mask() and the unused
+> vma_flags_same() as part of the change, and replace VM_ATOMIC_SET_ALLOWED
+> with VMA_ATOMIC_SET_ALLOWED, using the new VMA flag API.
+> 
+> Finally, update userland VMA tests to reflect the changes.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+Anyway, LGTM
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
 -- 
-Yuanhe
+Pedro
