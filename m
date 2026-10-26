@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057182;
-	b=Fm6RDBMzLY1sq3ecpTUClCxVaFSiGAiR6+Sk6gXIXPHu3pDvfj62v5ahH2Mj1AbdW8k5
-	 ysKcfRw+5TA829Q50bsRR8zu4Dd8NWkrQ3r5IWpkArGygGyeUoQIWRrP6U9xH8ky2vLk2
-	 C2Iq2BANrRTTielB1mRefdnHahZM8J5cvnvLx/r2nE8ibPS+kGyKMxzHKVjy/moQIY5/j
-	 QjsU5eH2pjnIuFKkURnBJrwYH5QB78T/kmOFSm/mupLiWuAnwqeA5K4EkmXkzwrEjFEKi
-	 oUUtFkMaB/zTkxRrdKctJ2D00F61IoghKP2Wqx7JeutS5P4Vh4Urs+bAJfCC8wlKQZQ==
+	t=1793057199;
+	b=v5VHw7Kf97ECf36zfP/L8gUIcKEnabf3VKHk5qcVlFP734vEbv1a6CiQmWuETw4WbdUE
+	 FKuf847DpsZYtEsC/L2HR01hcTIMuptJgkIOo2eAgtOZlThOQrRnGc4OPxoJ2k0Db8Pyo
+	 B5i2mKUXJ/onASk+ojnXL4oltnUvtauKP+kHrxfgjXEuXhdM8jnvP308lHWM9AdpGn0W7
+	 vRhTV+u30tL8b2NsCh+9SJVjCUSToiZs/r0rwwU/VoMd7MOp8gV5mLBqFs38PR1gAmWQD
+	 fjUbiCsodxqZUQCGj0YRnInZGrY9ZgX0e7VcNiOkq6g7li3j2fZLa0Aa189+CtlMwBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057199;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9PtlfpG6u10gaqCyi6SThi6wcZjt4t/Zj3RCdhxUwhA=;
-	b=ZWBJpRiaj2QqP/jnb0rfbG/DJkzh+1xGVP/I1E9FEMw6CpkkHcGe/Gsty9hXwFe5VPN0
-	 iqp4z3624gQTihj6BtXNcH7zjokVoDopJhRL17Id2LIvKrSg6BeCnuRKHWZHfkwcBQlxK
-	 xH/6Wj8I2hrP8I/xP1DWVju3n/U0hpeONWIm2i4f8j9m0WJIlRYCwTSyCHx/Isn7xfdqj
-	 10Ytc9HQf4ZQ5XW5sygZhyXXsvEnLBwoEL+STeQA7tOWFwliN16KqTnM6Xjbd6AsoHbeM
-	 05EOdou2YVlLY2v69T9El6+0OjFrEpSOkLLL4eDLzAFzza3iYH5Kic7pA/TUgHUOLPA==
+	bh=JD3h3UamRh59QcjyL8J1MuE/w/u1X5RZ3DOsE1wllXg=;
+	b=NeQb2GcWBl5Inypx+1MhdXyhs1QJBavrKhzQAnVRw7fDgBWMtC61HFlGZRgWFOPyQZ4i
+	 leMfK5UUStfpZfCbWGFR/gWnhiBJwxiWRxMs8FtSosQ/U+r671WiC1aUlFox3lMYd8/D5
+	 9776zCmnWSMg9zcikAfDdpMxMH1k20RvdJQ3beErtpMTpF+EKpFIZxHHw6NtcKLMstYmX
+	 Paf1qn3X3AtsxiTFqdu44V56FpUn3nstBCerh/DFpXUnVWwLYXbfChzbn8RIFhHxZR7Il
+	 DOAVElna8z1VlEwQTfTW+Aa4p/CJJiwg/qmYBdicuamtLdj7Ik0/Vr9aO7Ij6PUU0Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1Nn4T7C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqxXcyZ5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD183606A31A;
-	Mon, 26 Oct 2026 23:26:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73544606A31A;
+	Mon, 26 Oct 2026 23:26:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1Nn4T7C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598FE1F031E3;
-	Mon, 26 Oct 2026 23:26:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqxXcyZ5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A8C1F01825;
+	Mon, 26 Oct 2026 23:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057181;
-	bh=9PtlfpG6u10gaqCyi6SThi6wcZjt4t/Zj3RCdhxUwhA=;
+	s=k20260515; t=1793057199;
+	bh=JD3h3UamRh59QcjyL8J1MuE/w/u1X5RZ3DOsE1wllXg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=K1Nn4T7CfYtFget3vGQ5tqh5P+gMowQusbsxU6FPOYr05AX8FjhpjtzZJU1s9XLjO
-	 jhIpVkR7LlOi9/NK/+aMHV/q9rnZSwVWgFgg8Xn/IY0YKsi4SwFVzx63p6q0vfuvmL
-	 dKzaebnJK7xNwO5TpYLwq4FFtu01hPHrmFye0XFSIk+fAGQlNKQsMtIgmXKtyFIFUt
-	 omUR/6pOX2dMdwtRlTDSyHIckdtBy8B/tGvbQSZSRWsKVk4B4YpKCyLv5TjL3SnCg9
-	 097ugjBYp6aYeGIc01XFi1b/Lffz8w5g8pYYQZaNqIjydc4qqWer+OSfwsi/N6ao2n
-	 rYY2tC3Coi+JA==
+	b=NqxXcyZ5B7hNxVICB8D7ZuTu2KTFj1aY/wZHjWEHcrphKUZXEhErMydzk2Pzo1mLO
+	 KXsakbOlKadHDvCpmoPg4VdpWYop82udMmVVbnJSsa/yNZfnIpnc7zXVJuFxKNqzsX
+	 XXtyntURfV0Gyys700YmRUpcZNsNBwSVXZSPdu5SAf1AyhwNb3x1lfgitOWD3HGdQS
+	 vWS7Cl3Pan8Rn7XnMFij0eGv/K6IbU4S0Jzeq3EhdCV3hZuhxaFbAcpEYOR+STaAHN
+	 NiDWgUxmVXVvm5yitg/azM9C5yVHptICOOnN2qnAup6cV1VLBTsoFalfWOvsoe9Zzc
+	 roonF+qboPgYw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:47 +0100
-Subject: [PATCH 27/46] mm/mmu_notifier: finish non-blocking interval
- invalidation on error
+Date: Tue, 27 Oct 2026 00:17:48 +0100
+Subject: [PATCH 28/46] mm/mmu_notifier: set ->mm only after mmgrab()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-27-6f74bec9a5bb@kernel.org>
+Message-Id: <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,96 +92,68 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3056; i=david@kernel.org;
- h=from:subject:message-id; bh=p9dwbIzcUX5eScRpyy56kabNT2AFLKSYcMGSl/h3pJs=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu358WM3uhAzNDg9vCV4pqO3uvbXxzPPd44JfqPSzd4
- SYuS3hEOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIjukMfyWOb+7pm7WUmfvF
- K7+VT24em2Z4eM4m+Tye40tX10kdnhTGyPB29yWOqXctCw2P+M3+pVqzbrHeIt2Q7d85P+6dKB/
- FX88OAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1928; i=david@kernel.org;
+ h=from:subject:message-id; bh=x0mKttz+HwDvoeWV/WYBCh6ori+6WykC26zRhsHss7s=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu358WvjBTPacmt4dPIdDk5tcpn+01cwTchGfUrDY2m
+ /szsutzRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABOZdZHhf0TH64MXTnQzGVbk
+ qRb3zPUxmqEu+rl0VcOt4H8i+Tv3tjEyTI9WCD+789mjnlXPFlqk3zA4dezK72lrV9nE/lCeLr9
+ WlhcA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Chris Mason <mason@kernel.org>
 
-When an ordinary MMU notifier rejects a non-blocking invalidation, the
-interval invalidation started beforehand is left unfinished: the caller
-skips mmu_notifier_invalidate_range_end(). Subsequent interval notifier
-operations can then wait forever.
+Radeon uses a non-NULL notifier->mm to decide whether to call
+mmu_interval_notifier_remove() when freeing a buffer object.
+__mmu_interval_notifier_insert() sets ->mm before validating the range,
+so a wrapping userptr range can leave ->mm set after insertion fails.
+Cleanup then tries to remove an unregistered notifier for which no mm
+reference was acquired.
 
-The only in-tree trigger is nouveau SVM, which uses both notifier types
-and rejects non-blocking invalidations. Reaping via the OOM reaper or
-process_mrelease() can therefore leave the GPU fault worker stuck,
-holding a reference that prevents the dying process's address space
-and memory from being freed.
+Set ->mm only after mmgrab(), once insertion can no longer fail. While
+we could fix radeon's code instead, setting ->mm on success only makes
+the code more robust.
 
-End the interval invalidation when an ordinary notifier fails a
-non-blocking invalidation, like mn_itree_invalidate() already does when
-an interval notifier fails. Make that handling clearer in the
-documentation of mmu_notifier_invalidate_range_start_nonblock().
+Fix generated by an LLM and sent by Chris Mason in private.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 99cb252f5e68 ("mm/mmu_notifier: add an interval tree notifier")
+Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: simplify description, update function doc ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: simplify description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/mmu_notifier.h |  3 ++-
- mm/mmu_notifier.c            | 17 +++++++++++++----
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ mm/mmu_notifier.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index a11a44eef521e..5db78e5761c5c 100644
---- a/include/linux/mmu_notifier.h
-+++ b/include/linux/mmu_notifier.h
-@@ -483,7 +483,8 @@ mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- /*
-  * This version of mmu_notifier_invalidate_range_start() avoids blocking, but it
-  * can return an error if a notifier can't proceed without blocking, in which
-- * case you're not allowed to modify PTEs in the specified range.
-+ * case you're not allowed to modify PTEs in the specified range or call
-+ * mmu_notifier_invalidate_range_end().
-  *
-  * This is mainly intended for OOM handling.
-  */
 diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index df69ba6e797f7..2e20f88e162d7 100644
+index 2e20f88e162d7..a7bae5de5fedc 100644
 --- a/mm/mmu_notifier.c
 +++ b/mm/mmu_notifier.c
-@@ -569,16 +569,25 @@ int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
+@@ -947,7 +947,6 @@ static int __mmu_interval_notifier_insert(
+ 	struct mmu_notifier_subscriptions *subscriptions, unsigned long start,
+ 	unsigned long length, const struct mmu_interval_notifier_ops *ops)
  {
- 	struct mmu_notifier_subscriptions *subscriptions =
- 		range->mm->notifier_subscriptions;
--	int ret;
-+	const bool has_itree = subscriptions->has_itree;
-+	int ret = 0;
+-	interval_sub->mm = mm;
+ 	interval_sub->ops = ops;
+ 	RB_CLEAR_NODE(&interval_sub->interval_tree.rb);
+ 	interval_sub->interval_tree.start = start;
+@@ -964,8 +963,12 @@ static int __mmu_interval_notifier_insert(
+ 	if (WARN_ON(atomic_read(&mm->mm_users) <= 0))
+ 		return -EINVAL;
  
--	if (subscriptions->has_itree) {
-+	if (has_itree) {
- 		ret = mn_itree_invalidate(subscriptions, range);
- 		if (ret)
- 			return ret;
- 	}
- 	if (!hlist_empty(&subscriptions->list))
--		return mn_hlist_invalidate_range_start(subscriptions, range);
--	return 0;
-+		ret = mn_hlist_invalidate_range_start(subscriptions, range);
-+
+-	/* pairs with mmdrop in mmu_interval_notifier_remove() */
 +	/*
-+	 * On error, the non-blocking caller is not allowed to call
-+	 * invalidate_range_end(), as in mn_itree_invalidate().
++	 * Pairs with mmdrop in mmu_interval_notifier_remove(). Drivers take a
++	 * non-NULL ->mm for "registered", so set it only with the reference.
 +	 */
-+	if (ret && has_itree && !mmu_notifier_range_blockable(range))
-+		mn_itree_inv_end(subscriptions);
-+
-+	return ret;
- }
+ 	mmgrab(mm);
++	interval_sub->mm = mm;
  
- static void
+ 	/*
+ 	 * If some invalidate_range_start/end region is going on in parallel
 
 -- 
 2.43.0
