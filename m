@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057387;
-	b=HZ+uv9kUUtwm+Rny7fJoc//7EAhgs5QM8LA0bt56tdlELDcO31fwKf8025sRjtY3RMG+
-	 9XB+Mm8utf4wOK7VBqbeHih7rANnUcjLl5vgeoM9z3nOkZKfqNqPbRwMR+crN7ApRsIqu
-	 uA0WQx5iLJ7bvvw5nCFWiu9IgNwSnwq3T9EHTcVi5X5MqSZ8x+F7QqfHpuJb0Wf04T1qI
-	 IC+xQcz7z6bp7Dtfi2eLrYFH7NLTHvclKbYCRGLr2eMhBPH5VYNz/jLpMNWA2U7nwvjkp
-	 yWp2M1Xk3Em7u9EtjqDpDmPoOOIXgjmX9SbYW65cnyniqbfkO/+rzGXHBHZzRaLZswA==
+	t=1793057414;
+	b=2qZkc/nLLwgJpen3Mj19k0yOudqQO0r7NCpq40Pa6aQZx51y8BczhxPIjoJI0xlFIIJ7
+	 MwYQaES274ZCdgLpMZja+oUwIXfDWAQ257R1qhybUH1NWo5LRFD68s+u+2vXiFePzA113
+	 Yhs8O1G8xnmSnf3/ed7aEWpVWeI934IuC3O6TrxEXLlmWnkEdsA0bM3TZR5pzKAupX0Dy
+	 IIYvPVgISP2lhLPeBdWkxQyCT+rchA3SGCLcVnL7HRlViyMEfzsTevN8PNdc6FFE5R9iQ
+	 tCA5Tc5gUCaE2w+bjXdmlHdkONln4ysQDuUCc5MMvIGXVN2Nyo2tUVc8+JibUY6gF4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057387;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=coOQRGDsT+wJUVW51ZA0Qbw+6l1l2M6ICO7oefEeEsg=;
-	b=JtDMCXwemeSfcATp4nZmZL8embjMxH6uT/czFoXp8h1gnyphrhOoVFb8tOLe2FVJeune
-	 3LqnRyHNKCB/vsJtWHkHnOVKDEPTMynN42BXUkWiYsT7F2F/UCP5WG5dMwMlAcHYj1B6o
-	 dBcx5e/39TPVh9+JH0B4cL46l0ySSm+7WK60eB/B4LhidbhGWxnCJE4qZnlW0yVpS4GWt
-	 J1TrWP5q+WD+wgD0QAKP/T8ITS9XVOxrZZI20Qz93EetxxDTSgj2CF341rWneyMAUdRLt
-	 z70VQ2wymIETmaPTU+EJ62zJNTihOMSXf8c3hl9xeoYKTozAgzUSh4vaTrLoFat+aPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057414;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=GyAB2DeZ0z/TsvQJ6cGgsLN0vuvR71jHpUOFZE1ySgg=;
+	b=gC83C4o7EVkQ5Ac6Y2tfLDqqexqRlfXV/o4I9t19tTMEP7/FuBpS25MReTFETlMQpK/I
+	 QSy+s8e2bBMRW1hDKDPFGSjQ9wHRgS4BRZ+FM/BN0U00jl7qJAbdThnR5UmaELBYVaor6
+	 baqKj1GhsEP/TKrrd61M8j4moet8mKsmsgqTc6XpyUA76ztbLl0V6tXiQtu7N+/vfvhcC
+	 N3+ZCHEPoDNo1rTGBe3B7ZOnEew2odshrTqco1qNnFPjHzmhL1P0c1VnQYbU1ZvXfhmLX
+	 9PzbnYHmMzpDjwa670E95mTn4FkQWwd+0In4UlRlwFbvvFqhiWCv2Wp+eMhVg98nqgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GiO4u4AK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifZ+sDVw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA92606A320;
-	Mon, 26 Oct 2026 23:29:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8E660A2615;
+	Mon, 26 Oct 2026 23:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GiO4u4AK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776751F01825;
-	Mon, 26 Oct 2026 23:29:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifZ+sDVw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C80E1F031E1;
+	Mon, 26 Oct 2026 23:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057386;
-	bh=coOQRGDsT+wJUVW51ZA0Qbw+6l1l2M6ICO7oefEeEsg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GiO4u4AKmDnNc8YPvYmnDQq3BaIr+RptwEAcqRK360IcwrF2iBXGw1J4DWyV4sHLw
-	 MSmQi5baxNEw+IWu5HmCurp2H0sINX0XT1PqKiMpshw1F2bnM249lb1mP7hvV3dxpi
-	 N+m8PyNfp4nCcfiSAuW26vuJptP/q9S+unB4blp/je/Ms+iGljDFKSrQg9w5cS7geq
-	 1CVPNZZRNDlD5jgns/lYTAziDHZsp0MK3FeSKb4cJb9NqDwRkM1P3hdksaafMGCq6r
-	 tMOZBP+r6O5Og0wsloC7zDVaRJvM5uwjDSdXuTuIZRJxrM835hsFQah5qSZ7+y6oUc
-	 T4SZkCG4ibHWQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:58 +0100
-Subject: [PATCH 38/46] mm/ksm: reset the unstable trees of all nodes
+	s=k20260515; t=1793057413;
+	bh=GyAB2DeZ0z/TsvQJ6cGgsLN0vuvR71jHpUOFZE1ySgg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ifZ+sDVwJtHc+1Q8JXbpm94kWzCMW+2FtS4kNsu2EB3nRM1GNF0ntK4PPwQPxlIwU
+	 pILTIEMJhiAiu7IOauYJbpKe6QnD3P12yArAZnOhcQ7paIAzzP+ryXputCtbir7s30
+	 xCBcPb7+Gs9wZJhUx+MLtU4D94REDZjCVRbXpM7xmTp3OCROmCT/5lmSI0vglxjZ5h
+	 sMUT18rwpIgOLF7zauWbIB9LBrJO7JUXSHzfSJ2RqWBiUWpU3HueV5nfyF/ltjHv4F
+	 YSMXUW2rPHC+vDoe7/C85aYJ6STRCH6j5J9jIrdCY+Uny71UMRAGou6VodyRVNzGC7
+	 +nqwXiF+gJ2kQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7471B3AA80F0;
+	Mon, 26 Oct 2026 23:30:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,116 +53,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-38-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2111; i=david@kernel.org;
- h=from:subject:message-id; bh=FsjPKsNWJYzmMrPhyxtJFP2mccjtdE2o5Mf6O6Ctwdk=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35/BVZrBpbfEKWi9gCZPyGl1UYv5LxucgjodX84/d
- nXj1IAzHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExkcSMjw92qMGGWqxeDpB/t
- 55ue9/pO5JsfnUq5j/YnlKxvV5Iv38fwv0hX1t79y//MtLXGB8QSL6zP3r7r9IbVn0+8efTB5KH
- fXW4A
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] bonding: fix out-of-bounds read of arp_ip_target
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179305741222.3456332.4784974230471120721.git-patchwork-notify@kernel.org>
+Date: Mon, 26 Oct 2026 23:30:12 +0000
+References: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20261023104528.232427-1-jiayuan.chen@linux.dev>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, jv@jvosburgh.net,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, razor@blackwall.org,
+ linux-kernel@vger.kernel.org
 
-Each full scan resets ksm_nr_node_ids unstable tree roots. Enabling
-merge_across_nodes resets this count to 1, even if per-node roots were
-previously allocated.
+Hello:
 
-So when toggling "merge_across_nodes" 0 -> 1 -> 0, a scan that starts
-while the setting is 1 and continues after switching back to 0 can
-encounter stale unstable tree roots, resulting in UAF.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Only root is allowed to change "merge_across_nodes", and the documented
-sequence is: "merge_across_nodes setting can be changed only when there
-are no ksm shared pages in the system: set run 2 to unmerge pages first,
-then to 1 after changing merge_across_nodes, to remerge according to the
-new setting."
+On Fri, 23 Oct 2026 18:45:27 +0800 you wrote:
+> arp_ip_target is a module parameter array with BOND_MAX_ARP_TARGETS
+> entries. In the loop parsing it in bond_check_params(), arp_ip_count is
+> the number of accepted targets, while i is the index into
+> arp_ip_target. Invalid and duplicate entries are skipped without
+> bumping arp_ip_count, so bounding the loop with arp_ip_count lets i run
+> past the end of arp_ip_target, e.g. 16 targets with one duplicate:
+> 
+> [...]
 
-Let's fix it by tracking in ksm_nr_node_ids the actual number of
-allocated tree roots.
+Here is the summary with links:
+  - [net] bonding: fix out-of-bounds read of arp_ip_target
+    https://git.kernel.org/netdev/net/c/a81513bf5bdf
 
-remove_all_stable_nodes() and ksm_check_stable_tree() will now scan
-more tree roots (skipping the empty ones), which is harmless.
-
-Fixes: ef53d16cded7 ("ksm: allocate roots when needed")
-Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/ksm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b1892..9c51925825cbf 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -475,6 +475,7 @@ static void advisor_stop_scan(void)
- #ifdef CONFIG_NUMA
- /* Zeroed when merging across nodes is not allowed */
- static unsigned int ksm_merge_across_nodes = 1;
-+/* Number of allocated stable and unstable tree roots. */
- static int ksm_nr_node_ids = 1;
- #else
- #define ksm_merge_across_nodes	1U
-@@ -3636,14 +3637,13 @@ static ssize_t merge_across_nodes_store(struct kobject *kobj,
- 			else {
- 				root_stable_tree = buf;
- 				root_unstable_tree = buf + nr_node_ids;
-+				ksm_nr_node_ids = nr_node_ids;
- 				/* Stable tree is empty but not the unstable */
- 				root_unstable_tree[0] = one_unstable_tree[0];
- 			}
- 		}
--		if (!err) {
-+		if (!err)
- 			ksm_merge_across_nodes = knob;
--			ksm_nr_node_ids = knob ? 1 : nr_node_ids;
--		}
- 	}
- 	mutex_unlock(&ksm_thread_mutex);
- 
-
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
