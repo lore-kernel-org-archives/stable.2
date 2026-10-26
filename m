@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793029774;
-	b=3s95YPaluEkeSgYYBJgyF8qa71fzN0DF9iXtKamx3BZAZBzkBDlFUK/93BhoEoHpAdSG
-	 rlDXr0IMAC97HVwFfVoZzFqCdVr7nCHoCgT8KtcDNRItWUwhS0BdRgVfw7qrZeqqE3K+r
-	 Y0zGtYjGno2DkVBj2JLQ6SCmSQWh/w5hN5TkCqyGHiCWNibib+n54PpdiUS2FSKHcVPbt
-	 kcQptUl7N3jWJcUdSUWo3PNgTk3LTiEgNuTLGih8mStOfJ4s5SE3/UaYFO4mm5tO26Vie
-	 7G/dszln5P7pRrh65J5N0y8S/yKqwH53w1c2w+PWm//nFKAdQzpiF8f88XOWzhydaFA==
+	t=1793029863;
+	b=uoiSmoym6DKW52ewAUYVnqzMY2NcHoWM6GW96fqZddzMjBNDFDeA8/U7vjl4WhhNtL5j
+	 WHdncqQCaoJAoioMz7YWL47aMghymo/KyJ9U1p371yNFP3ICliVVCCNyriWlNuha1N9Tp
+	 7PnhIinFv4VXsVnYHyjPo+NUOTkG5U15yKYWSN687+KlaxAs5pp7cOU7YsnKxmDS9Ow/F
+	 57iyo1h0iHeRJUCzUcx2YHcFnQj57GkiLKuw7Qh01H8WL/0bFwybUfOFfrB3vX45TxUpB
+	 VAwolfr9LttU3CLGKB6Cy0WvB60lBTJcLuAkr7l8G44UeZF053+ubHEwH3Lcu9ElPGg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029774;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P9Y6ArcLY3chgAZaw9C1sD+TjXYhG8OFFYFP+hYQc+c=;
-	b=lbqQP7b32KdN+wxd77fxjQQEgUScvMkvLnYEJ6mPRYPyJJD7z/VoWdguj/uTqUD9M+AQ
-	 JqHmdfWbV7Sy7+fnKaLBtznXj5A7OSEIj0GwzmK/lQkAO9egabvTjs5Yb0gPgFkXR7gtt
-	 nzKDu/OoNPhEChC2okyxrHxvaQ8fEWcAiTaPIwuf9MjdS19+LpHyM85k5kIf+tS8z7N9A
-	 Mg8ILJDFQK9LRaV6wJWhLjXDiUgDpPdRTX2qdrlHUjPyp+iWE1H7rUexNsMRmccRa8eQ8
-	 dCejiZCY/T6Iqp1JHrIV08EGVgFZkFS6JE/fUqkXxY/K0OdG/AWbl3u/rq8L8hCE2zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029863;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
+	b=eGNOUkHW2GSPb5DT7jGJ+xreFaX+v2u8cukwWGVpzFdJKGy/TpNxBO/SdLFpfWYH+1lP
+	 GnfJJl1NQpqhGFZcbOKzmdKA6dxjMxpi82anybXz16yM+wKW5aFwfFQ4rqcNT7YMDzQjE
+	 vkZ28CPTkYv0NNMg7qqoPT77sfLAt/oktQF7vnQEHQNT5y7zywjdr4u3880I+uG1nNdWX
+	 O8eLAGVJmkEwCN9Isd6o1NJBqUaNFpHwX44DuKF2ze9YaxpYp+cZZgIOHhyOL8rovMxUA
+	 EDe2zloP0zdCxezHPl+C/hbWtxtLE3jwpu8FperIjZ3EsripnDTAQB/Sy5z901k3qzA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7rfBAC3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E699606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7rfBAC3
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793029773;
-	b=PF/6ZewfmSHltmclaKZMiYqknPsStISNFI/Mtn2B6670hvyS7fPxyRJR2YeJKihLzJPY
-	 UOZCph8cUlWgcNuAlAe49IuXqO1htWhADEJxAQciE+mdelliEXrb/PuNxQB2K5vMnY+kQ
-	 zmweQbVcE6ou8ASHyKIgn2kfRYKTDVq3k27vX+BMVlrV94JbTftvX5coNgqbi3eGS+V3f
-	 gQAkKY5whOzD3tqoRt2jV/PtP37lKVBWI5YT2M0EaDE/I1pLScz1eKYNMClRqylhKyDFP
-	 t3rL7qr86Y+KObI1ur4A3zojn775l9CUaJ2qDoPvoCraTGCZP/4fWSlxVTwaq9LumKQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793029773;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P9Y6ArcLY3chgAZaw9C1sD+TjXYhG8OFFYFP+hYQc+c=;
-	b=tWePtv3JnRtUKoRuKuEMkIR9xvAMQRMR4iPoK0m0LL/QQczFaCrJzZgq505CeRvQE/bx
-	 YmGu+wiWeiqoO9JyIRwzij6YBBNLTrPGKOBrx0QSEhA0Rtd3Jb999WpP9yMvMCFcPzrwn
-	 ME/204We4KbV6L+XzPLSA/86DZBYy+j/yitadvEhtHIzaOndGSlmzzL0fgMy6rnvdW2ku
-	 H6MLMZYDjT2el21xEHaBPpYjIXFdKTcZp454aPFZt9s1IuxtjifY9/SwD6H0CyYqP60OH
-	 3FZzKmVVmj31n1FsIcfiYDcD1jmnyBpYbyb2vKjKeMaELTZG6Pleq4j0c8q8u21bIOQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X9ZL4rku;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E85941F01829;
-	Mon, 26 Oct 2026 15:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793029773;
-	bh=P9Y6ArcLY3chgAZaw9C1sD+TjXYhG8OFFYFP+hYQc+c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=a7rfBAC35HbMQJ8M25MSXLvxNQlR6Z5C/qLENRn16Jzbvpkd+RZt1OctJmbxMUJCO
-	 k1P6IrGudxh5EOGLHLY0dDN+NCT8V+ihSaIU7ZmmuN7PNe/OjtBuOKZuX+xl071fhY
-	 NrBbHG7HrAB2cKjX/JGx2Kxn07zC5CtRdP0/6y8FeBYd/1cWevnNaxTn2snhDtBGoE
-	 cpocmb5Flyv0EZZzrjVuA9k4OO1qmyDyPUifXyknse4yCoVecX6becTpDi6EoI+vMj
-	 CQBswBeBHXTXcPk03Y4tBgihCwzI8cNjJBtvrUr+FXvjgMRocnrh3TUePNvhzCF3O/
-	 yWP7BZ/qxCXpw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 79BB344D73;
-	Mon, 26 Oct 2026 15:49:32 +0000 (UTC)
-From: Leno Hou via B4 Relay <devnull+lenohou.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 13:38:45 +0800
-Subject: [PATCH PATCH 6.1 v2 2/2] mm: vmscan: fix dirty folios throttling
- on cgroup v1 for MGLRU
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C8B606A337
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:51:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2C8B606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X9ZL4rku
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1955007f8f.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:51:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793029861; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l7DtEiS/nKF04FS0BXRSxnYt5FJgRZ1rhRFoHOFgqbjhGsNgo0OFXY+MbhcCfhbzcm
+         WA4DDkj3MbcjSdJhjjRp/gD91zLwBf82yS3IpbBfGzQKukktecjg4Ii+Qamd9g2w0NPW
+         WJR+PuXM+5EMG5+RoBt1N8n+x9Zg8MINo7wbrZsh6sTeXFNF68ZGYKsEhhddappxpvRx
+         Bwqz4/q0ReczsW5TsisPBLCpQq+WfSgjdHR4w3swkpnXploWdOGU9g+x/SeQbPTUslkO
+         gydlf5dqO0iTQ3dzMdGPcKfXGTSCEnfQDDJ6xEa+MzxnWYXAE7EXvhLkcwvUgEx4b/8O
+         tm0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
+        fh=BeLXO3eEBTquvoWWYp6LzUpmz0qoo9VjmzHalglQW+c=;
+        b=qnDNlnSjug5nHZ/o/8AnDr/sPf/4n+QPx+plVlqu305voFeJAii2EycC1C0jbOgSde
+         +ij/QHmxDI+1S/XI6e+QzfOItWtkQoyeoVxxmt52vHFjQNRt79/90FeeHrjVWqoQGpH+
+         Yg4AGilygcjivxqwgDhw5bgx9fobrIR6uoGNM1P1xfBvT2ni7gjEjqf9cPpZfg8Gqa/Z
+         0Aynhpxzsa/WFM8qwAUh//QWivQFlJPTF3cfqMB7YpzIzTTKkw0Ocf9KV8cNRNzepjRU
+         SAoegax6Y6LB2UR1bSlWiGCCLjk7qbk5CyUPp5TmKa7HPeZUwhTG+SShlPsL8OVW9bAU
+         zncw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793029861; x=1793634661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
+        b=X9ZL4rkugLvO7LxSdQ5vS8Il4pgnOi2qXAZyQhbKXSitZBI4ydhl7tcDP6pOCZdgyw
+         QqiKsOBV6UmcyddWQSV5302hHGhASyoLLNCDpWla5S2sB6ReUrIUAHMjmq0bFAW53Eh9
+         T7xHVqhRw2TSIenPNEhZ8MtXs4YA7DXJni42z1xd7lbLu3YUGuE8RZ2h55GF0+Lp1uwE
+         DO+Wo5Nf/ARBC8EHNJ74CQnykrLihY9tSIOAssuLbi6E/pCT+s6233GYLy7IPr0ev51e
+         1p4XwZKzZhrnW3D3VuwLlguXPzJhNKQ/M5adh5C3d+RQj2DmG3MhRgRF0yV4P3Esmnnu
+         sJ6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793029861; x=1793634661;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
+        b=ZRDzM3VSkO7tgUpcFopZD4MC6oAri1M99YL86pez6mFmO890t6q/a5i4D6ymqJNPZW
+         I11Z+3vErKI2NmM+5clYbFu11attenvQyAo5gBxvUCL5xa/DejYVne4L9mbNR+yRGfZR
+         OiEQKvisVwYtQeDQG0QE2l8wVChKDu0mTcNaxuUj/1zc/bWPB55/zbgokDDLz8mkicZw
+         NDJRZdWnfxmMKkCETBQvMIY8LiJp9n8XdE5rfDfAhSb9+9WBqogQ4wpl07E13YBGHB22
+         TOkcM4rOPe7aTaUYeR0DV4QAG1m4yzyIJIA+GzlM4/4k4t+cWTjicsb33fAZCwQ8tL88
+         eClg==
+X-Gm-Message-State: AFq9FYL3mBtV9xRtXuZ1zjGjJqMOEP9unvZUzH9I+cEnPAVGj+ah4FqD
+	owt0zyuvNJUW0VusRoJQuvtWWmMybftbThR977gORMcOGKDOVcA6e52Jucm4SJePzFRkR3Qe7sn
+	jvkdr9p3QLyzUiOcfybqpiboDhnui7iY=
+X-Gm-Gg: AYBFou1LHwp1Nvoq2RC03xoNh2nfSmZ8BmBXwC0FzAZ70qj/HTc685xAqz+hh655DjB
+	mWfBXdwiNvrCTl4shUHdtlaSxhC3G5dVvHgcEB/uw39H94shZfofxpJYhuGlR0wfHglfDRyzNk9
+	Gsm7bPSHZHXUHtcfZhtsXPyWcX/uv8YesARFds9nFFksq9xIQQxiWd71YuyFGE4zpIsFbnOOUfa
+	Ufc1TVlL3141eDVDojDezeRgbWQZnniowOdSzHgpSVg6sWsrvrPZcTOH1wiN/AjwAS4djy1iqlp
+	Wx1TiYBI/xFfo0TjVt2cigxslQaFEEqYm0EJt6DdAfBiWgjm8XFGD+8KQjdQ+Ut9ODDlK/+GZv+
+	rDCAdBXbU8vrmVT0uh7P6vjYsTLJFRzPlkGXzbS47pUSVY9fhIV/W62M9XYzAbQok+MSW
+X-Received: by 2002:a05:6000:188e:b0:48e:3085:7cf0 with SMTP id
+ ffacd0b85a97d-48e3eb989d2mr13878477f8f.51.1793029860404; Mon, 26 Oct 2026
+ 08:51:00 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,113 +103,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-linux-6-1-y-v2-2-92958fc61228@gmail.com>
-References: <20261024-linux-6-1-y-v2-0-92958fc61228@gmail.com>
-In-Reply-To: <20261024-linux-6-1-y-v2-0-92958fc61228@gmail.com>
-To: stable@vger.kernel.org
-Cc: Leno Hou <lenohou@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, 
- David Hildenbrand <david@kernel.org>, 
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
- Wei Xu <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792820328; l=3224;
- i=lenohou@gmail.com; s=20260311; h=from:subject:message-id;
- bh=D2gFt3Bs+PV7C5qZxnAC9J6trppD5tGWe+3gmfZI3lg=;
- b=6hcf1ymN7N6QeHeSb9EYqcBgWADUfu+WpU5YEekYDp4QKLhMkSLxJVIUc2UToATN+yaSNASyY
- vKUE+3wPY2/DIW2HBN0ft2ZfMmZUAfQoUxPmYvehp1p/A88a1c2xZpM
-X-Developer-Key: i=lenohou@gmail.com; a=ed25519;
- pk=8AVHXYurzu1kOGjk9rwvxovwSCynBkv2QAcOvSIe1rw=
-X-Endpoint-Received: by B4 Relay for lenohou@gmail.com/20260311 with
- auth_id=674
-X-Original-From: Leno Hou <lenohou@gmail.com>
-Reply-To: lenohou@gmail.com
-Content-Transfer-Encoding: 7bit
-
+References: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
+In-Reply-To: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
 From: Leno Hou <lenohou@gmail.com>
+Date: Mon, 26 Oct 2026 23:50:47 +0800
+X-Gm-Features: AclHuK-UIoIZifGedzig0AVlg1gdG1nFGKFJjMrT5d4WbZ_UIqNTGMQni2-e8e0
+Message-ID: <CAGQVrL85gG09Uo_+PgGxNOrh+a71eLhsnZn4e93aubpMvXGK5w@mail.gmail.com>
+Subject: Re: [PATCH 6.12 0/2] mm: vmscan: fix dirty folios throttling on
+ cgroup v1 for MGLRU
+To: lenohou@gmail.com
+Cc: stable@vger.kernel.org, Wei Xu <weixugc@google.com>, 
+	Zeng Jingxiang <linuszeng@tencent.com>, Kairui Song <kasong@tencent.com>, Chris Li <chrisl@kernel.org>, 
+	"T.J. Mercier" <tjmercier@google.com>, Yu Zhao <yuzhao@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Barry Song <baohua@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	David Hildenbrand <david@kernel.org>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Qi Zheng <zhengqi.arch@bytedance.com>, Yuanchu Xie <yuanchu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[ Upstream commit 13b6b620910436c29dea398382e83c9499fd13e4 ]
+Sorry, please skip 6.12 branch and just use 6.1 & 6.6 branch
 
-The balance_dirty_pages() won't do the dirty folios throttling on
-cgroupv1.  See commit 9badce000e2c ("cgroup, writeback: don't enable
-cgroup writeback on traditional hierarchies").
+Thanks
 
-Moreover, after commit 6b0dfabb3555 ("fs: Remove aops->writepage"), we no
-longer attempt to write back filesystem folios through reclaim.
-
-On large memory systems, the flusher may not be able to write back quickly
-enough.  Consequently, MGLRU will encounter many folios that are already
-under writeback.  Since we cannot reclaim these dirty folios, the system
-may run out of memory and trigger the OOM killer.
-
-Hence, for cgroup v1, let's throttle reclaim after waking up the flusher,
-which is similar to commit 81a70c21d917 ("mm/cgroup/reclaim: fix dirty
-pages throttling on cgroup v1"), to avoid unnecessary OOM.
-
-The following test program can easily reproduce the OOM issue.  With this
-patch applied, the test passes successfully.
-
-$mkdir /sys/fs/cgroup/memory/test
-$echo 256M > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
-$echo $$ > /sys/fs/cgroup/memory/test/cgroup.procs
-$dd if=/dev/zero of=/mnt/data.bin bs=1M count=800
-
-Link: https://lore.kernel.org/3445af0f09e8ca945492e052e82594f8c4f2e2f6.1774606060.git.baolin.wang@linux.alibaba.com
-Fixes: ac35a4902374 ("mm: multi-gen LRU: minimal implementation")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Leno Hou <lenohou@gmail.com>
----
- mm/vmscan.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index f58651d45540..468207509840 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5267,8 +5267,22 @@ static void lru_gen_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc
- 	 *  If too many file cache in the coldest generation can't be evicted
- 	 *  due to being dirty, wake up the flusher.
- 	 */
--	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken)
-+	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken) {
-+		struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+
- 		wakeup_flusher_threads(WB_REASON_VMSCAN);
-+		/*
-+		 * For cgroupv1 dirty throttling is achieved by waking up
-+		 * the kernel flusher here and later waiting on folios
-+		 * which are in writeback to finish (see shrink_folio_list()).
-+		 *
-+		 * Flusher may not be able to issue writeback quickly
-+		 * enough for cgroupv1 writeback throttling to work
-+		 * on a large system.
-+		 */
-+		if (!writeback_throttling_sane(sc))
-+			reclaim_throttle(pgdat, VMSCAN_THROTTLE_WRITEBACK);
-+	}
- 
- 	clear_mm_walk();
- 
-
--- 
-2.55.0
+Leno Hou
+E-mail :  lenohou@gmail.com
 
 
+On Mon, Oct 26, 2026 at 11:46=E2=80=AFPM Leno Hou via B4 Relay
+<devnull+lenohou.gmail.com@kernel.org> wrote:
+>
+> The series backports the following upstream commits:
+>
+> 1. 1bc542c6a0d1 ("mm/vmscan: wake up flushers conditionally to avoid cgro=
+up OOM")
+> 2. 13b6b6209104 ("mm: vmscan: fix dirty folios throttling on cgroup v1 fo=
+r MGLRU")
+>
+> Patch 1 wakes up flushers conditionally when a memcg is about to OOM due
+> to dirty caches.  It restores the flusher wakeup that was removed by
+> 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle").
+>
+> Patch 2 handles cgroup v1, where balance_dirty_pages() does not throttle
+> dirty folios.  See 9badce000e2c ("cgroup, writeback: don't enable cgroup
+> writeback on traditional hierarchies").  After 6b0dfabb3555 ("fs: Remove
+> aops->writepage"), reclaim no longer writes back filesystem folios
+> directly.  On large memory systems, the flusher may not be able to write
+> back quickly enough, leaving many folios already under writeback.  Since
+> MGLRU cannot reclaim these dirty folios, the system may run out of memory
+> and trigger the OOM killer.  Patch 2 throttles reclaim after waking up
+> the flusher for cgroup v1, similar to 81a70c21d917
+> ("mm/cgroup/reclaim: fix dirty pages throttling on cgroup v1").
+>
+> Signed-off-by: Leno Hou <lenohou@gmail.com>
+> ---
+> Changes in v2:
+> - Link to v1: https://patch.msgid.link/20261024-linux-6-1-y-v1-0-cf381365=
+f30b@gmail.com
+>
+> ---
+> Leno Hou (2):
+>       mm/vmscan: wake up flushers conditionally to avoid cgroup OOM
+>       mm: vmscan: fix dirty folios throttling on cgroup v1 for MGLRU
+>
+>  mm/vmscan.c | 36 ++++++++++++++++++++++++++++++++++--
+>  1 file changed, 34 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
+> change-id: 20261024-fix-mglru-v6-6-v2-d8bc9d4183c7
+>
+> Best regards,
+> --
+> Leno Hou <lenohou@gmail.com>
+>
+>
