@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018521;
-	b=X2nr8llT+pTsn3IwtZ1Zm1Zmz9o23t8RJ/8C09ydFo1cCfy4Gx5lzn9xPr0LLO2QuS1w
-	 DKPpjQ6FuumxfNMcDbIzdHa56MbQUbO5r6G/mjfGjqA/8k6ZpXua45rtyIGVvzU3XDK1A
-	 MDHHIbjwqsaYiLMdyqjqqNe4Iv8oxS0JAFOvR7CVijvtDJviKkHAv7K8wMIJcpo0GK4LS
-	 Dgb5l/KE8hYeLo9jmfPOFUzKVrrsbhep7CZLynmieTOsJVliqfjFIlItkA+J3BfwBgOTI
-	 GaAWrSGp+Lg8qZ2nBu/B2Js2nBF5TDD4k64fZlLcsyVULm86TzWpKYguQ5pf7BQBv3A==
+	t=1793018645;
+	b=XxMGp5egRL2VwLwZAAj3GCvYwS5hIvlyI7VDqEtVmxZHt2/P/HmMX53KJD2YUlOsGK8/
+	 Uz7DNEOCxnC0ERIFPllpuxl1AbbSEHzq0YYPhZqzTfD4mxEukNx9BpspZ/Ev/aGbTILq/
+	 AflkTj7mGmz1sDPEv0UoRImjDOlLOHDQfOJoji5QvI8cCwuV0gdubK9OOcLxFiQ7xj61K
+	 gjKf2cdDL9QlJi/+NwhuoodlfzH7SXpDnjKfqXojRJV5eq+8+e6igO2ICfwSGR+N/ciN6
+	 oioUBA4PmUhVO5nzgixzVn56gz9Od8b1la1nhy5A0CS7aPxkAzRxUl/1P7ZF1wgHhHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018521;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ee86deft2EMqHNTG/W7vHwCtD/2Z0I69U91PpChuFCg=;
-	b=WefeNDmaVEydSA3MIl9HEFdCMtg8IRCz3RTJRU0r9aLwqyBuG0yZgGFN3cZbJGyLDfgx
-	 /AvnRcPkYRDlZA8ullQY1yx7ZagIwMKsxTCCG/rqey8q2sLcn2kwqSZVeUp8FGVhc8Sd7
-	 pbhCjjyFQeDf/LHD2be/nGs8UYOkZQdnD+6KMzvw2WzC9acql5tdLfFSaabQU/SYQUkXW
-	 pXjDvY8ByDkCwan1zD4gIsbkaMASzf7ckMTphgKAQnJgirPEVibdRSaQVJI/dGAWHUFrk
-	 Z9WCNjFHfZgxjM5ilFl6OrcliVzctIvVWtMvvsjnEMJ02zTSjsSYsPn8iYCXm+LhspA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018645;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=uHLlke/0QwEj0e5IfuczaISxPb3MEIUdWSdyMZi2tkc=;
+	b=EIdkHDQW3ldlqN+2WVXrzIybjfaVdmZFOSFTra7wLEoi9AYrwZxFD5GetdAAXdxdVzFo
+	 kRzyq/n3yr0zjnRhvcnfu+FEaaD1VzfqfHi8TjxTphdwGca2WSwjgJDM/HFG3KiDL9ACN
+	 T2/IhUnnZDQpP5VmEk20TTbZgnYID3HKnCFZzraKBKwyPtfAe+iwMzTsWE/kVNDGg8tPK
+	 gaBx79JgUmXrc3Yz39gy78tJqHqNlxmQvWGUzhivRYFa+o6db864jv/iGbrsHo3bVUpPi
+	 +1CBuOjagpcjUbp8giokCngxxRSnWT3XdXU6SkGpogBSmHsC4SzJmHx1XtEF2Or9s+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=czYhut9M;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="E//KcX4j";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D65606A31A;
-	Mon, 26 Oct 2026 12:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D65606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DDD60A2602
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:44:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72DDD60A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=czYhut9M
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793018514; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Ee86deft2EMqHNTG/W7vHwCtD/2Z0I69U91PpChuFCg=;
-	b=czYhut9Mn3uCKRErVmS2N3KjU2pExzeIVFhMsrHWYlWRSIUU0q7ZABdRGpm6P8Kv4/rUikkktMD/4W2iTQ3H6Pn2XdmDB4O2Ab1ldhZ4qxkC2xdRkTMfs8QoBGECe0t1BtQXKDQj+spAVwm7FhZnGDMWzmpgwwk6BbxnEzksSKc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDYkNph_1793018498;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDYkNph_1793018498 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 20:41:54 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E//KcX4j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793018644;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uHLlke/0QwEj0e5IfuczaISxPb3MEIUdWSdyMZi2tkc=;
+	b=E//KcX4jANXjgTCAAhTvi7t7YcL2EoNlfc4wsT3f3JENmpwtvlNJo7vCg4Ot0Ji/mZLRG/
+	tdRbwSaLtWLzgrW7j2+pvrWvTHBXrxf2pUWBIC53IBolN5gyi2sBhvK5LWaRwM7uaypaDQ
+	rBCKhtoQUnhxbup0zXWVoj3hEjMCQjM=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-482-l-HmJhBPOnSEgthlh_uwoQ-1; Mon,
+ 26 Oct 2026 08:44:01 -0400
+X-MC-Unique: l-HmJhBPOnSEgthlh_uwoQ-1
+X-Mimecast-MFC-AGG-ID: l-HmJhBPOnSEgthlh_uwoQ_1793018639
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B8AAF1801319;
+	Mon, 26 Oct 2026 12:43:59 +0000 (UTC)
+Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8B1C8195608B;
+	Mon, 26 Oct 2026 12:43:58 +0000 (UTC)
+From: Laurence Oberman <loberman@redhat.com>
 To: mkp@kernel.org
 Cc: linux-scsi@vger.kernel.org,
 	target-devel@vger.kernel.org,
+	mlombard@redhat.com,
+	michael.christie@oracle.com,
+	bvanassche@acm.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	john.garry@linux.dev,
-	ddiss@suse.de,
-	hexlabsecurity@proton.me,
-	xiangzao@linux.alibaba.com
-Subject: [PATCH v2] scsi: target: Verify the iSCSI ISID is NUL-terminated
-Date: Mon, 26 Oct 2026 20:41:38 +0800
-Message-ID: <20261026124138.2708365-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261026044632.1738901-1-xiangzao@linux.alibaba.com>
-References: <20261026044632.1738901-1-xiangzao@linux.alibaba.com>
+	stable@vger.kernel.org
+Subject: [PATCH v3 3/4] scsi: target: iscsi: Claim the completion in __iscsit_check_dataout_hdr()
+Date: Mon, 26 Oct 2026 08:43:43 -0400
+Message-ID: <20261026124344.745124-4-loberman@redhat.com>
+In-Reply-To: <20261026124344.745124-1-loberman@redhat.com>
+References: <20261026124344.745124-1-loberman@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,100 +84,61 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-iscsi_parse_pr_out_transport_id() returns the ISID of a FORMAT CODE 01b
-TransportID as a pointer into the PERSISTENT RESERVE OUT parameter list,
-lowercased in place and never NUL-terminated.  spc4r37 Table 508
-requires the field to be null-terminated, but a non-conforming
-initiator can omit the NUL; when the ISID ends at the end of the
-received buffer, the pointer is not a C string.
+Commit d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted
+WRITE_PENDING commands") made __iscsit_check_dataout_hdr() complete an
+aborted WRITE once the final DataOut PDU for the last outstanding R2T has
+been received. That call records nothing to say the command has been
+completed.
 
-The registration code still consumes it as one: strcmp() in
-__core_scsi3_locate_pr_reg() and in the REGISTER AND MOVE path, and
-snprintf("%s") in __core_scsi3_do_alloc_registration(), which also
-reads its first 8 bytes unconditionally with get_unaligned_be64() -
-a NUL check does not bound that read.
+target_complete_cmd() on a command that already has CMD_T_ABORTED set goes
+to target_cmd_interrupted(), which queues target_abort_work and returns
+without setting CMD_T_COMPLETE and without changing t_state. The command
+therefore stays in TRANSPORT_WRITE_PENDING and on conn_cmd_list until
+target_abort_work reaches iscsit_aborted_task(). If the connection drops in
+that window, iscsit_release_commands_from_conn() finds the command still in
+TRANSPORT_WRITE_PENDING and completes it a second time, which
+re-initialises and re-queues an se_cmd->work that is already queued.
 
-When the parameter list spans more than one page, transport_kmap_data_sg()
-maps it with vmap(), and the over-read walks off the end of the mapping
-into the vmalloc guard page and oopses.  Reproduced with a PR OUT
-REGISTER + SPEC_I_PT parameter list of exactly 8192 bytes whose final
-TransportID carries a 12-byte ISID without a terminating NUL:
+Route this site through iscsit_complete_aborted_cmd() so that the
+completion is claimed and connection teardown leaves the command alone. The
+helper makes the same iscsit_stop_dataout_timer() and target_complete_cmd()
+calls when it takes the claim, so the completing path is unchanged.
 
-  BUG: unable to handle page fault for address: ffffc9000138c000
-  RIP: 0010:strcmp+0xc/0x30
-  Call Trace:
-   __core_scsi3_locate_pr_reg+0xd3/0x120 [target_core_mod]
-   core_scsi3_decode_spec_i_port+0x8fc/0x13a0 [target_core_mod]
-   core_scsi3_emulate_pro_register+0x73c/0x900 [target_core_mod]
-   ...
-   iscsi_target_rx_thread+0xef/0x1d0 [iscsi_target_mod]
-
-With a single-page parameter list the buffer is a kmap() direct mapping,
-so the over-read continues into the physically adjacent page instead of
-faulting.  snprintf("%s") then copies whatever follows the ISID in
-memory into pr_reg_isid, and PR IN READ FULL STATUS reports the
-registration back to any initiator, turning the over-read into an
-info leak of kernel heap contents.  Reproduced with a 4096-byte
-parameter list whose last TransportID ends at the end of the buffer
-with a 4-byte ISID and no NUL, interleaved with I/O to populate
-adjacent pages: the READ FULL STATUS response returned the ISID as
-"0xleak" followed by raw bytes that were not part of the parameter
-list.  The snprintf() into pr_reg_isid[PR_REG_ISID_LEN] caps the echoed
-ISID at 15 characters, so at most 11 bytes past the buffer are leaked
-per command, but the PR OUT command is not rate limited.
-
-Any initiator that can send PR OUT to an iSCSI-exported LUN can trigger
-either variant, including a guest via vhost-scsi.
-
-Require 8 bytes to remain after the ",i,0x" separator, and a NUL
-inside the rest of the descriptor, before the ISID pointer is
-returned.  REGISTER AND MOVE fails with TCM_INVALID_PARAMETER_LIST;
-on SPEC_I_PT no target port claims the malformed TransportID, and the
-command fails the same way.
-
-Fixes: d04a179085c2 ("scsi: target: Bound PR-OUT TransportID parsing to the received buffer")
-Reported-by: kitta <kitta@linux.alibaba.com>
-Reported-by: sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/sashiko-outbox-184760@kernel.org/
+Fixes: d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted WRITE_PENDING commands")
 Cc: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: John Garry <john.garry@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Signed-off-by: Laurence Oberman <loberman@redhat.com>
 ---
 
-Changes since v1:
+Notes:
+    This depends on patch 1 of this series, which adds
+    iscsit_complete_aborted_cmd().  d5869dae5080 has been backported to 5.10.y,
+    5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y, none of which carry the
+    helper, so a backport to those branches needs patch 1 as well, or the claim
+    open-coded.  Happy to send a standalone version for stable if you would
+    rather not carry patch 1 there.
 
-- Bound the 8-byte get_unaligned_be64() read in
-  __core_scsi3_do_alloc_registration() as well (sashiko review).
-- Corrected the SPEC_I_PT outcome: the command fails, the scan does
-  not skip the entry.
+ drivers/target/iscsi/iscsi_target.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
- drivers/target/target_core_fabric_lib.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
-index 2853b95b2c59..ad024009df56 100644
---- a/drivers/target/target_core_fabric_lib.c
-+++ b/drivers/target/target_core_fabric_lib.c
-@@ -371,6 +371,16 @@ static bool iscsi_parse_pr_out_transport_id(
- 			pr_err("Missing ISID in iSCSI Initiator port TransportID\n");
- 			return false;
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index 3dad7f6..83184de 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -1533,10 +1533,8 @@ __iscsit_check_dataout_hdr(struct iscsit_conn *conn, void *buf,
+ 		 */
+ 		if (se_cmd->transport_state & CMD_T_ABORTED) {
+ 			if (hdr->flags & ISCSI_FLAG_CMD_FINAL &&
+-			    --cmd->outstanding_r2ts < 1) {
+-				iscsit_stop_dataout_timer(cmd);
+-				target_complete_cmd(se_cmd, SAM_STAT_TASK_ABORTED);
+-			}
++			    --cmd->outstanding_r2ts < 1)
++				iscsit_complete_aborted_cmd(cmd);
+ 
+ 			return iscsit_dump_data_payload(conn, payload_length, 1);
  		}
-+		/*
-+		 * The registration code reads the ISID as a C string,
-+		 * and its first 8 bytes with get_unaligned_be64(), so
-+		 * require 8 bytes after the separator and a NUL inside
-+		 * the rest of the descriptor.
-+		 */
-+		if (buf + tid_len - p < 8 || !memchr(p, '\0', buf + tid_len - p)) {
-+			pr_err("Incomplete or unterminated ISID in iSCSI Initiator port TransportID\n");
-+			return false;
-+		}
- 		*port_nexus_ptr = p;
- 		/*
- 		 * Go ahead and do the lower case conversion of the received
 -- 
-2.43.7
+2.43.0
 
