@@ -1,115 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793056589;
-	b=yBLwUEWgfbay8UlHMdVEWPmYOd6mfjkvJuMvhCIvMEA106sTKTCO2Li+hlW+LSMeJDD9
-	 HFe7kTNzLS2E5WDt7TGeJr8WQzNNnGYKWRkr4vyzZOwHNmeiUMI7RwfgZGZS0pdS9jJLf
-	 1+8g4O02uRrjczWrQNDFr8OsCMDoLEucxMo4EWqhq8EurHRTpsgWaczZ1uWlJA3rdhaL7
-	 UsgHc/SFBuD22PX7wPJzT7XIm+yvDmr1tYh4yNNOlOY2r0xZnLvSl19q5DcKdnw1yq6w5
-	 I9AqMHR/7OZwQjSwNHZ4J4ywRSc5komoijG3hqVL2M9Uu6++0Ti/Ya/gWcqI9KVI6og==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056589;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=z2Kp0rk3FZjtZ2QW0QO6SQUUk/rfrVULOdm7Sav3EiA=;
-	b=wOZLuSM5HNiIHhLOUJ9U+2vaKeGpT9+Ka4aD0xjMQCJiX/Zp9Q+f/5xdmlbQMnG5kUL0
-	 Pc7FGG7b9TI6JVocFY4WmBt2PcFVDK59tpuJZRIFuwe0KMv3IkA4G+RmDtKWDdp8kUzBk
-	 XzYVzpI3d5R5sYC9NLqYZaO5BsATbAKQOJ9F9IUrVmlH9XKIktSid7nRPda3LFY4wU46w
-	 UBwO6d661GKBs/n02GWl8f+hjPbZ4aPdeAtFnosOC1GUi8HRykJZwjAtu55NiuNjT5ojT
-	 DhY1dVmPcZJHNwsxMXQVRAzTetKOoPXnReXtf3OopHFyW9Udd6mJDjnpbMOkZEAjXIQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nGLRYP9D;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.26
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013026.outbound.protection.outlook.com [40.107.201.26])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793056680;
+	b=0ZxoPQhEOpyHsnGSEDmJjgdEzFGtGxByVY9LRSG0/415ioY9hjHFOvBTIOi6oFqyPy/T
+	 AKHdYKSVp++7pssxQSCiNkm0L3wFQqKHOTCX1SrAoFWxpKRE2XaQTHfqib83NfqVnAvVg
+	 9dIvGhUsOVrCYCsiOOerlfkankAqTB3irGykFAPAYZ9IrIQbn3vD78lmyN55w1y3CWYFQ
+	 GlOey1NIEBBtseF25VDuNQvunKsRkJQu6qRgw9deUhBymVQ/TONdxij/PTrTDGyOO3KOs
+	 0eRgxfsYEI+S3F8VFhXDXSaGdLVWbs7+4oSVYkiaYIpoXv2np5D2U42K8erVG7kUEGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056680;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ayLTO25mv8hsmSbKJI2pgTaDpBZ/HN5CAIFHS8ZziNk=;
+	b=yMRbsVUjJ5EnZVLa4xtc3xN3EH4UvnU/SPNVPgyMeY8u9GWEZOMbhfWcWpn0NLq8QJK0
+	 Es3ivmOopfylVu6HUqF6tmgh/YfuZjHFNfRHzXFA0We08U81Z8EkAQ6gjWH0EYG+8aSQy
+	 +nn+UnQK/9vkThvWTl5Pjgd3kvbz77X0+gONBcz7cku/b2cqBmUJNGJIQ+aEicG4bahk9
+	 2veOUQx9V0uFwhr49WNX4dsJh0GzOs2A/sncn9AAx7cNoQTAlY6Wdk6ivXbWuP3xA1jDA
+	 wCjDXQ8Xwe5F22ixWz1x6sQx1JsYqipmKgwTS5CacwhX0RvAML5clTNbEHIzVfA2vog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0btN4RF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B90606A31A;
-	Mon, 26 Oct 2026 23:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B90606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BE8606A31D;
+	Mon, 26 Oct 2026 23:17:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nGLRYP9D
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nKw2rPCdn8tSHgk7AvXHKz8PPuIZPUGPmOOgtcdNnediWpkXor9CrT32/7HkTC+D1nf3Q0p4pEjLt2DATt5CHJJX1gqcFDa/nUtYcZoVB0iOkxzrgyt5dIppTmGY16RTmEFsXd2glSKo2BMmtbdrdX9u2Vn3wuuCD/aNitGXsUGnWgt6RPdHtbbclwDSxd6tuxW95rtmP/HZ0kObou+mdxRyq9cfrpIsTcnOBmjpG9x583Av5TK5urdeNcpXGfUFlCEBA/68h2zixsRbdQ0KcL9KjTeF0MlzyFueyp0UzQGg567afTqby3qTBxQcIVl7+suQ3gWApTMoAcq1YGz7uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z2Kp0rk3FZjtZ2QW0QO6SQUUk/rfrVULOdm7Sav3EiA=;
- b=jFQVWMdfnwcBjmzhPfPGa0lpCxw6q+P1VjXyHg7oLxaeQrDn/Dgwrz3/HSa9D3G5pAp0lX1DGQuIh88kgz9LNizwyOLlZsMaYZSC3rjgS+WkJoaqij3RW6K/tzq+nTHTKf0IpwVaJj7PpTxBg4T/jKI+Za5UK2I1NJ8zp8JZ5qSqKHXhTP9w++gyqFgV6pxSNF30YNYnYPyoTbHC2NoMQGBtJOdDMfw8EHhkBfqtsZmXgrXWeHdQJ0fz5+LWTtQF4hJxlpcxhbx/7Y9Zs93y6JDX8ne3KYNmMpzQX3HZmxYmrgvQsn9fBPX1LDAlc33Rzo0k77cW2X+DwTqHhYCTOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z2Kp0rk3FZjtZ2QW0QO6SQUUk/rfrVULOdm7Sav3EiA=;
- b=nGLRYP9Dtnhw9NUCM5LnxAyr1uQwa8oQti1Phs0um4t7OXTtAww/VT9iLOz+BOVDLMlEFr9kDp2tyDtMhDRFc+8K6m08hZdUQeQ0BrlD5LrS/eRVse4tynEUEXGxrBsq2DBYCoCnYy+Lt3ZJc+XQ5vCrOgQOL0q5WjjmZwKeOqI4qrc4zgGPqnvZF+suYHqjRUo6my0pWt21UMb0MXunZF6KTAOhttjXznO0vj2Oor5H7kwbl+j39jGfV+Bb5iFNqC2icbzBaLugZsmC1cRMhombTDPgRFzyu4OAFmxkMWxKUzzwDl5A0bAtHpAEtPZKxVbavQCncM6fHIsXV4nKPQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA1PR12MB8224.namprd12.prod.outlook.com (2603:10b6:208:3f9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 23:16:24 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 23:16:24 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, Chris Mason <mason@kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH 07/16] mm/shmem: avoid moving the truncation start
- backwards
-Date: Mon, 26 Oct 2026 19:16:22 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <0D22B04E-5730-4D3A-ADA6-9F1AF94F06AA@nvidia.com>
-In-Reply-To: <B1241F56-8000-411D-A137-24596E599C85@nvidia.com>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-7-703206d5fa0c@kernel.org>
- <2E377C76-D62C-4A2A-94E3-ABC40C6FCDD2@nvidia.com>
- <583728ed-dc63-4685-9ac5-5a980db55973@kernel.org>
- <B1241F56-8000-411D-A137-24596E599C85@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BLAPR05CA0009.namprd05.prod.outlook.com
- (2603:10b6:208:36e::16) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0btN4RF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7691F01825;
+	Mon, 26 Oct 2026 23:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793056679;
+	bh=ayLTO25mv8hsmSbKJI2pgTaDpBZ/HN5CAIFHS8ZziNk=;
+	h=From:Subject:Date:To:Cc;
+	b=c0btN4RFNd+JK9rkuoTETc7VF6swnFyYz0/L+oSt8CLgeMxb0G2BDek2IJa55YHgH
+	 jxflLIlpQ2WjGfXinmpmDcTPwOBNahVU3Fpt2SewilRmN+LtujcaoK9avQFbHhbqJn
+	 AToCFd3ZAWENyki274UuV7Hrzyj3mkZx+lZBHJAgQM7sMTU2YygJXf/22VO7LBayGo
+	 z1SiNI6qekyGCy9Qj3o0FBTBaCDVIkViGvV5TMESpQllEDQfyei0P9tTKvJQ0Me/gK
+	 wyAA7x7FGyfUCmcqmTS1uQLx7441jdglWG11IvyD9a9d/vtZG2IIN5UFht4h5Bdhmc
+	 BcrYLm+fhg8gw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 00/46] mm: various (urgent?) fixes
+Date: Tue, 27 Oct 2026 00:17:20 +0100
+Message-Id: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,160 +53,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB8224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a6d59e2-1854-4549-cfae-08df33b7277b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|261026140227099003|4143699003|11063799006|56012099006|261026121527099003|261021123027099003|261021121427099003|261022075727099003|261009223027099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	1/01wpAmGwwNB1EGpM45h0r7rLLQ1iROiU616VRI/gvPYC+Xd2uYW2WknvGkrnIH7st6KRChgK/sTr/xMi7j/JW7ejPEq9WOTf4TZmpLuwRNSpXms25qs54XhojP8h97zG39z31dYDHPSwfsW72HqpptgC575Sgc2kH9JA8khij6mTGqYLuAu6JZnywoakInIRdCSDGT9fp6JpuijRe8nQhps2MUiNEfwZrOp8m1V34MGJ+QAchenyw86e7vmQHbvH5YUjojGoMRtE4ofcsrs7tdWxnwQBTbOnV/1mTviTavpAnDLyJpzgoSGvh553LLeTEC1TcCWGKdolZ4Mz96VtOhyCWn2x0671szX/+zaYsudTdOs+NsspRocXVxumprw+OclTKyFx31Yf/WaiVJndnjMALODSNtgEZK2Saoz78E2Ka8aDEW7oqVuaipkfRXIQ+VrIb6lsg3DbM+hSLP27wwDQ1k9YZWfK4WR5Rn/ZdN3TW1caAoc8fWrnz/uJe4GS8C9vjE39JoV7mJkj6ZybjKOsYRjcSyNa9XCUic6i3AwhIDmTZ+/idqd8/4t/QJUgZh6HxbonwawdRN/dYCbEYuLw6BZoYppngkW/Yv5zuX2U4jfuG9D/8QvHmtlrQQicWLuuo2pD8h6AmI/neqevdE0FauWsjZHXCVAGMnus4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(261026140227099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1ZmcEM0NGYrQUluUTNsWE0rMkRiVjEwOWFiM3pSTFJCVSthbWJtMW91MXpX?=
- =?utf-8?B?Kyt5aTZMRnkxaFJJa01hZ0tXWnZId0JMdVFNdUZXV3ArL1h5UjFwemNvMnkx?=
- =?utf-8?B?dXdRNXVodDdBUUpJTG44Ky9McmlWMVRua0ZJSVk5RHIrZFFlNXBOZHpOYW9X?=
- =?utf-8?B?dmFjdnNSbmhyOGFRR20xVmcxVHd3czRDUnFjN0FhV0dyUTk1amFIRHlCTGVS?=
- =?utf-8?B?M0ZyTXZwazdxanQycHJZbUxkdUtjTyt1T2RNVTg4UjQrUFdLZStnL1JEV1NJ?=
- =?utf-8?B?SERrUkFic1lxbCt4OC9Ga2grb3VvNjlveFQyUW5SVjJITS8rSXVZRjd5WTVa?=
- =?utf-8?B?cVA5MUpmZzhwajVEek1JQm56TlNxOHF5LzVrQmtUSkpTejRTZ3QyUW9LZUU4?=
- =?utf-8?B?Wk1reklRVVIvT3hhRlVNVkcwamtubXJoOEVlZEVvR3hQMlM4WlAxemNrQWNU?=
- =?utf-8?B?OHBsYzB3ejM2V3hHZmVpaXV6WG9YWkJwbFB1TkZGdVpNbzA3REJlVnI5SVFx?=
- =?utf-8?B?UHZwL21nbHhDejFXdFlBV09jbUhNN3pkUFpERlFGVWdiNXMzRWZVNkpOMGZL?=
- =?utf-8?B?YzB3WFM5OSt1T0MraDR2ZXVyVCtRckhyaGtrbDVPZmJPV0RVd3JZZDQ5Umd0?=
- =?utf-8?B?VmZSTlU5MDdMTDM5bXFyYkR0UjFoMkMvNTRIc29Fb01MTHppMlAza1h3a3hU?=
- =?utf-8?B?dUhQYTdlU2t4djF4ZzNRNzRmT05GbkhpS3hmeHphblNJN0xidmo3Qk5LTUR3?=
- =?utf-8?B?Tk1UWnBqRnJNOTVCUGtrWnF0U0tneFVwMmpNNkU4RWJwUkhGc3lnSnBWRWpU?=
- =?utf-8?B?b29ibXVnZWZjbjBUdUNsUUd0NzJSWk5CLzJGTUMwMm5mNWFOcm9MK01ncVlx?=
- =?utf-8?B?MVJaWGpMUGVHQmlCVU5jQU4vNVRyYysyK3d0UmZwTUJRSWljWEt0SFFVaHpI?=
- =?utf-8?B?RXk1Szk5NWl4d0cyUTFOVTlIakRsQTlTV092L1phR01qWklZYk1YTVRkQ1A4?=
- =?utf-8?B?MjFycEhQMlRZdk5tNy9mVStYcUxCUEFoNDdqRkppcUpZemFDL0NPbzQrZXR1?=
- =?utf-8?B?T3paN2ljM2ROZXRpd1RKbnU4QkwrUUtTNjlqSjVmZTdPTnRhdFhQeVJmS0lK?=
- =?utf-8?B?eEdRN0h1SWxjazJ2djg0RitwNjBRREdDNTRhbU5VTXBjY040T3NUT0xWVWM0?=
- =?utf-8?B?cy9wdUN4cFEweFJxZTZtaXFJQ0dZM2dCTS9QSm1xd3BVTEdBbksxOWducXBi?=
- =?utf-8?B?M0MvaU9aRXE4OXkvZnZCd3ROU0VOSUFsOGRDZ01naXFGVjNFSzdoSUl0NVA3?=
- =?utf-8?B?WENIak80bHRCTWxFbWZDQmhZcmVuZlljSjRscGQ1dDJleEU4TVhXcWhQRFFo?=
- =?utf-8?B?V28wY0Q0azExUjFXYUpERmxhaU5zQ3hsOTdQOUZ1cFBpQkpoS0EvREdPbkov?=
- =?utf-8?B?YmorbXFBWHAvRHRkOXplb3NQS0lXZHA2a3A1Y01EYnJVQTZteVp0S1J0ZmVM?=
- =?utf-8?B?K0pzSUxwSnoyYUN2R2JydmxiS2JtSEdTVFpMQ0E4Tk4zMXk2bVJYaVYwUWdR?=
- =?utf-8?B?cndVWUFkbUNmRFE5Sm8yTHFRVDNEYXNyaldMM3B3K2hydFZHQ2dKaXh2bWc4?=
- =?utf-8?B?ZUNKajJHVklLelFNcmJKR0xIcWpTZlhkd1JIeE5nZkpqWHhrWHZMQ3dqVXl1?=
- =?utf-8?B?UGw2VkhxVG5VSGJTRUNKb1VTVlBhYjQ2MjQyNWtYZW9VNEVxSDNTbTlHOUFF?=
- =?utf-8?B?c0NTRkdGNGR2M0hzcWZPUTYxbnpUaEtkOFZ1ZDZzelhlU0VHMHVsVlFQVVdL?=
- =?utf-8?B?NzUvelFYOHYrU1NyS2YySzJFbUMxZjdiTGVrcThkRG0weTFjYUExdFZrdEdQ?=
- =?utf-8?B?Z0FuRjd3QzJXdk1XNjI1UWEzMTRRNjYzTnQ3WWlZVjZUb0d4NHZvNllPVzJl?=
- =?utf-8?B?b2pZOGowamJXd04rSDVUM1AvTFA0cE5ERnZqbWloT3JCSFRqd0JzVGJKNXpG?=
- =?utf-8?B?SU9vM3RMVXRObXgrL2h0MjYyd3JhaFBBM3htS256MUJLZkMyTGJPWVVVb25R?=
- =?utf-8?B?cklvY1Q2RnA5ek9sYlhGTEQyeWV6QW53ZDlzZ0NHY1ZwT1JLZGJRa3hhL09y?=
- =?utf-8?B?L3VnNUFpenBKUDBrOEsyTGNzMzlsSnJtMndPZVhKOUN3TkNVdDhBSHdrUlJ0?=
- =?utf-8?B?MXU0VTE0TXovMmxQTHFRVmlpWDd2UTg3WVl4MVY0ZnJRWWluNkNDdDRRdG9K?=
- =?utf-8?B?NzJFNG9PYnM3WndERmduRzBiTVk0aEd3ZVZNMVh4dU9EUXZtd2RXL0doS0ta?=
- =?utf-8?B?bSt2TEFnTno3OUlRMU0wUzhMSHhRYjRpYi9hbXRCbWFrSHVjRjFBUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a6d59e2-1854-4549-cfae-08df33b7277b
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 23:16:24.5691
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i3tKyEQJlivK2CO4G3q9Xby60WUgabXPdqZN3M4dgmi2+K8+bgJ6xEWw0+aUi1Ch
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8224
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIHf32oC/yXM3wpAMBQH4FfRubbapiSvIsnmjOMCnYOU9u6Gy
+ 6/fnxsEmVCgzm5gPEloXRJMnoGf+mVERUMyWG1Lo61RgS6Uzq+Myg2hLKrQB20LSION8UtTv2l
+ /y+Fm9Pv7ADE+TOnff24AAAA=
+X-Change-ID: 20261021-fixes_core-bdf638faf023
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6096; i=david@kernel.org;
+ h=from:subject:message-id; bh=M759dBMTTuWvoyATaey2hLe92rKyKdXXWLH+ZXFHlx8=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu358o8+hoapKLufs0q+lpn12ZBLcv/3an4MwBsxfcD
+ JVLS+V0OkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZhI7S6Gf7r9S3UXX2XVt/qw
+ JKtmldaMlmu2mzm5VXc2e62fdZhNyJrhn9WBe3v8/NPeHmqUd+L4lrf/+qQda2pP1TYyKv7KKbp
+ 1jA8A
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On 26 Oct 2026, at 18:39, Zi Yan wrote:
+Another set of fixes from the current batch that focuses on all core-mm
+things that won't be sent out separately by others. I decided to bundle
+these together as they are all over the place.
 
-> On 26 Oct 2026, at 17:13, David Hildenbrand (Arm) wrote:
->
->> On 10/26/26 20:21, Zi Yan wrote:
->>> On 26 Oct 2026, at 5:40, David Hildenbrand (Arm) wrote:
->>>
->>>> From: Chris Mason <mason@kernel.org>
->>>>
->>>> A nonuniform folio split can fail with -ENOMEM after splitting off som=
-e
->>>> smaller folios. shmem_undo_range() then sets start to the end of the
->>>> original folio, which may now lie before the truncation boundary.
->>>>
->>>> The final scan can consequently discard data below the new EOF, or
->>>> keep retrying a large folio whose split point lies outside it.
->>>>
->>>> Keep start at least at its original value when skipping a folio after
->>>> a failed split. The part in the truncated range has already been zeroe=
-d.
->>>>
->>>> Fix generated by an LLM and sent by Chris Mason in private.
->>>>
->>>> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate oper=
-ation")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Chris Mason <mason@kernel.org>
->>>> [ david: split fixes, simplify descriptions, adjust comments ]
->>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->>>> ---
->>>>  mm/shmem.c | 8 +++++++-
->>>>  1 file changed, 7 insertions(+), 1 deletion(-)
->>>>
->>>
->>> This is fixed by Zhang Yi=E2=80=99s truncate_inode_partial_folio() fix[=
-1].
->>> I think the commit is ad27479793682 ("mm/truncate: fix data loss
->>> when splitting straddling large folios fails") in mm-stable but
->>> not upstream yet.
->>>
->>> [1] https://lore.kernel.org/all/20260928120833.3440834-4-yi.zhang@huawe=
-icloud.com/
->>
->> How confident are we that it fixes the same issue?
->
-> The issue here is that folio_next_index(folio) used in the mainline
-> code can be an index lower than lstart and the fix is use max()
-> to prevent start going backwards. (I wrote this to make sure
-> I understand the issue correctly)
->
-> Zhang Yi=E2=80=99s patch passes start into truncate_inode_parital_folio()=
-,
-> which has a new signature, and it is updated with the folio=E2=80=99s ind=
-ex
-> within the [lstart, lend] range at the beginning.
->
-> So this patch fixes the issue at the caller and Zhang Yi=E2=80=99s patch
-> fixes the issue inside truncate_inode_partial_folio().
->
->>
->> Does it also cover #8?
->
-> No, patch 8 is still needed. I am checking it on how to rebase it
-> on mm-stable.
->
-> Patch 9, 10, 11 might need rebase on mm-stable too.
->
-> Since these patches are on top of mainline instead of mm-stable,
-> you will need to rebase them. IIRC, Zhang Yi=E2=80=99s patches are needed
-> for ext4 + iomap buffered I/O conversion. Hmm, but Zhang Yi=E2=80=99s
-> ext4 iomap patches has landed in mainline but its dependency
-> is not. So we cannot drop Zhang Yi=E2=80=99s patches and ask for a
-> resend. Adding Zhang Yi here.
+I have some hugetlb stuff in the works which is pretty horrible
+(code wise ;) ), that I will send out once ready. Plus some
+low-prio migrate_device oddities + two core-mm things that need more
+thought.
 
-To clarify the dependency, without Zhang Yi=E2=80=99s
-truncate_inode_partial_folio() patchset, the ext4 + iomap changes
-would cause data loss. We probably want to get Zhang Yi=E2=80=99s patches
-in first to avoid that.
+This is the biggest set of patches coming from me, so don't be
+scared ;)
 
-Patch 7 to 11 do not apply cleanly on top of mm-stable due to Zhang Yi=E2=
-=80=99s
-truncate fix, where
+Once more, some of the stuff is more urgent than others. No fixes are
+crazy big and most are easy to review.
 
-1. patch 7 can be dropped as I discussed above,
-2. patch 8 needs a folio->mapping guard for the added statement,
-3. patch 9-11 can be applied with fuzzy, but I need to look into
-them about functionalities before fully trust what LLM says.
+The majority are again fixes from Anthropic that I cleaned up or reworked.
+While doing that, I found a bunch of other issues and tried to fix them
+somewhat cleanly.
 
-The rest of patches have no conflicts on mm-stable.
+I gave it at least some basic testing on x86-64; more testing will be
+highly appreciated.
 
+This is based on akpm/mm-stable.
 
-Best Regards,
-Yan, Zi
+As with the shmem fixes, please prioritize review of these fixes, I want
+to get fixes for the issues in a timely manner upstream.
+
+Thanks to everyone helping out with moving the flood of fixes forward :)
+
+---
+Chris Mason (11):
+      mm/huge_memory: fix truncate racing with PMD zapping
+      mm/huge_memory: fix zapping migration entries for device-private THPs
+      mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
+      mm/gup: fix clearing folios in memfd_pin_folios()
+      mm/gup: fix out-of-bounds write for nr_pages == 0 in GUP-fast
+      mm/mmu_notifier: set ->mm only after mmgrab()
+      mm/memory: reject remote COW faults on PFN mappings
+      mm: fix unkillable fault loop on MAP_DROPPABLE memory
+      mm: fix deadlock of mremap() against UFFDIO_MOVE
+      mm/ksm: check large swap-cache folios before mapping them
+      mm/vma: call ->may_split() before a partial merge
+
+David Hildenbrand (Arm) (20):
+      fork: take mmap_lock before copying mm_struct
+      mm/memfd: check for real shmem inodes before accessing shmem state
+      mm/truncate: look again if a folio left the mapping
+      mm/filemap: finish fault cleanup before dropping the fault lock
+      mm/rmap: handle device-exclusive entries in folio_referenced_one()
+      mm/huge_memory: fix list corruption when deferred_split_scan() races with deferred_split_folio()
+      mm/huge_memory: properly handle refcounted PUD mappings on fork
+      mm/khugepaged: check if PTE table is empty in try_collapse_pte_mapped_thp()
+      mm/gup: recheck the PUD under PTL in follow_pud_mask()
+      mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast
+      mm/userfaultfd: write-lock the VMA before waking waiters when unregistering
+      mm/userfaultfd: wake waiters when registration modes are removed
+      mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
+      mm/mremap: recheck PUDs under the page table lock
+      mm/madvise: fix data loss from MADV_FREE on a KSM page
+      mm/ksm: reset the unstable trees of all nodes
+      mm/ksm: fix use of a freed anon_vma at swap-in
+      mm/huge_memory: split huge PUDs when adjusting VMA boundaries
+      mm/vma: don't leak the charge for stack growth
+      mm/memory-tiers: unregister empty tiers outside memory_tier_lock
+
+Josef Bacik (14):
+      mm/mglru: don't use stack pointers when walking PUD and PMD tables
+      mm/memfd: make f_pos accesses atomic
+      mm/filemap: read mapping->a_ops->free_folio under i_lock
+      mm/filemap: don't lose a folio lock wakeup to a signal
+      mm/huge_memory: fix livelock on device private folio
+      mm/khugepaged: always recheck the pmd in try_collapse_pte_mapped_thp()
+      mm/khugepaged: fix PMD table lock leak in try_collapse_pte_mapped_thp()
+      mm/userfaultfd: wake all waiters on unregister
+      mm/mmu_gather: fix flushing ranges with 4 GiB or larger
+      mm/mmu_notifier: finish non-blocking interval invalidation on error
+      mm/mremap: fix moving PUD leaves
+      mm/memory_hotplug: avoid races in pfn_to_online_page() with dying pgmap
+      mm: fix unmap_mapping_range() beyond 4 GiB on 32-bit
+      fs/proc/task_mmu: refuse addresses beyond 32 bits on 32bit
+
+Rik van Riel (1):
+      mm/cma: don't release CMA pages still in use
+
+ fs/proc/task_mmu.c            |   6 ++
+ include/asm-generic/tlb.h     |   3 +-
+ include/linux/huge_mm.h       |   5 +-
+ include/linux/ksm.h           |   6 +-
+ include/linux/memremap.h      |   6 ++
+ include/linux/mmu_notifier.h  |   3 +-
+ include/linux/shmem_fs.h      |   6 ++
+ include/linux/userfaultfd_k.h |   2 -
+ kernel/fork.c                 |  20 ++++--
+ mm/cma.c                      |  10 ++-
+ mm/filemap.c                  |  88 ++++++++++++-------------
+ mm/gup.c                      |  53 ++++++++++-----
+ mm/huge_memory.c              | 149 ++++++++++++++++++++++++++++++------------
+ mm/hugetlb.c                  |  14 +---
+ mm/internal.h                 |  28 ++++++++
+ mm/khugepaged.c               |  77 +++++++++++-----------
+ mm/ksm.c                      |  56 ++++++++++++----
+ mm/madvise.c                  |   9 +++
+ mm/memfd.c                    |  10 ++-
+ mm/memfd_luo.c                |   2 +-
+ mm/memory-tiers.c             |  29 ++++----
+ mm/memory.c                   |  30 ++++++---
+ mm/memory_hotplug.c           |  13 ++--
+ mm/memremap.c                 |  13 ++++
+ mm/mmap.c                     |   8 +--
+ mm/mmu_notifier.c             |  24 +++++--
+ mm/mremap.c                   | 103 +++++++++++++----------------
+ mm/nommu.c                    |   2 +-
+ mm/rmap.c                     |  23 +++++--
+ mm/shmem.c                    |   5 ++
+ mm/swapfile.c                 |   3 +-
+ mm/truncate.c                 |  17 ++++-
+ mm/userfaultfd.c              |  72 ++++++++++----------
+ mm/util.c                     |  13 ++++
+ mm/vma.c                      |  24 +++++--
+ mm/vmscan.c                   |   4 +-
+ 36 files changed, 588 insertions(+), 348 deletions(-)
+
+---
+
+base-commit: 183895979c441e52dbd651b388553b09eaa35cfa
+
+change-id: 20261021-fixes_core-bdf638faf023
+
+--
+
+Cheers,
+
+David
+
