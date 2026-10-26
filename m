@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016940;
-	b=L4hVw0lwcC2DOPlE+3yYDOuAR2pIloEnSSnytVOSdt9h3xrvfeq7KNJ2BQuZuwaIqJFD
-	 JrDhpgLi4Vt4tktkdFWAPIRDwFRPUmWv5misgOjc6jX02jC7jlG8B0/9OuiNXxLAA2/JS
-	 8uS0vVrDZ6nGNJY6mynsfuhOOLMi7+9Fl7QdobkAxwFJ0+zMl7NdB/ZyzhL4p3hVt5Sfu
-	 NAQwpV0dAU76ifUdrC5XywlJEhEOH43i995wmDaEhnfAuZchTxsvM0Q53xlZeO+Xx2uyF
-	 HejoEYjE4ESU1ERQqy+6ca8PqmI/Qlavk6+mgBSuTdxnQ/dkjBp+npyVLzVm/MCZYoA==
+	t=1793016942;
+	b=Cxe3eOr4ZwFPCrIO34jA39qQs7BaapX/LRPWYlRCR0SXAbDP18dDxiSsh3j+Yf8I/4sA
+	 xr59erXnPSEF/5i/7jGZnnSas63M3cYz37aScbxme7MPmuBRbezpRFZB2UCfduj4iD3I5
+	 8qqQryE5cajLV5voMzTcmECDUSOlRBncBOjQr5zPokPUGIpNURUCmrXbV1M5aq3zKkx9i
+	 72KhdVFAqZIAL13oOqo9jy4zymyHYJEv2uIK/L2oOBa6de3LcfNjseAoSwszZ0pyKStz8
+	 qZpDhMsF27d7MF1WEqD5DTYJxumNvcl707YRXuHLhUjmQdfRzXq70nyQS05Bx+W61mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016940;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016942;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=H8KnQWvxuK6V08t47ps2cs08V3cGZwetRofByIjuEao=;
-	b=l9Ra475RgTXRk6D49ENBBs0B3z8/N3pEYLYumGzGYKMxwftQ7OlKe8eAJbc+vR3jurUp
-	 OHZ3bgLKp7eZFcm7zh3ulO5K9PeiyNY+8vezu9+Dsxbf4KqQIQGCw/UQ6R6di8jNSSfav
-	 yQhE6T2yVjg976+WOExO4+99EpTN44t4krHLgXbZzkDGHTr/wG/Zo94Ju9T6Zl2hx7Lqn
-	 avc6Tgsotg8kuWYvT6Iy3v700evucXXbpohQCdNXi827UYVKjKgXExSrw6SNjonA73sKa
-	 X0n4vEEdSsPASlMOBQlcNAHdRI6FM7bSzeWDrJZfiGBm3ADUlHqnwcQWdyfTEfn9wkQ==
+	bh=IXFaKwcmdOnkE2hJVoEK/ilWxxhplixkaig1tchY038=;
+	b=FbUBEfV6WoTv1OlLamRHfDFyXbnzEn7+eFpgjw4ZGOYc05+0PVN4uWKYVeVTB9nGQU4O
+	 y92qgJXjCRaRYqMgLQZHsH2Qm/agYAMJiXblQLHNbUcbAgQJuey+9vx1RXet5ZeyU7sQi
+	 ofGQxM0CUTDo0mTfQJMviWvqamr4c8ihYQKzqETj3pIxmcNJSR5HlM7ZRg2B+6iRoIXuG
+	 kShbpgeNyQ6I0ZoGvZmsnuPEw2tAX+5vGIhZd63P85so2aA2jvDbL1A37WkzyuHTMur5i
+	 LyBLeD2UWNJBuG5kDlOv1yG0l2cspP8KjZaI4LYwVG672BD0VHEPFDLm6MfbVIcgvAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcZ+UzZh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUGx0YBX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17C2606A321;
-	Mon, 26 Oct 2026 12:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AAF606A324;
+	Mon, 26 Oct 2026 12:15:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcZ+UzZh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04961F01825;
-	Mon, 26 Oct 2026 12:15:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUGx0YBX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5206E1F031E2;
+	Mon, 26 Oct 2026 12:15:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016939;
-	bh=H8KnQWvxuK6V08t47ps2cs08V3cGZwetRofByIjuEao=;
+	s=k20260515; t=1793016941;
+	bh=IXFaKwcmdOnkE2hJVoEK/ilWxxhplixkaig1tchY038=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UcZ+UzZh6envg0pIT6DV3Crs77mjh+wm0SzypbOqgqTc3or4MLJtFN5lhp8Uzq4BA
-	 3s/VSsEJeN2tQF+AtS+f209Rqn7xqJR3LNj6S8U1CXmZdA5C1Q7bhDRuqaB0QBNe3h
-	 6+gMbTFWeoCUMUtXOHOqDOUCs/f4+EeCD+dsjpecxOVev4K6UG4Xu+jaW9AFXRW/Fi
-	 CBC8PufITzQsUvyQW/WXyO/5VBkwDZRR9cZDuET4Nc6ueVcqxn5f2O9dik6qV10mRB
-	 yEgCPYGFMIRBF47ZKXsnxb00HMID1A3aQEfIu2k9TzfXL/PV9V0A9R/pRP3ie8hzbk
-	 5D/LB80BoUj0A==
-Subject: Re: [PATCH net 1/5] ipv6: restrict gc_elasticity to 31
+	b=nUGx0YBXKuED6KFBkinRGaoKdoxNcOBelK2ZK8CXtOsXOxmNoInT59B9gIRsWYK0e
+	 enK4rHOKbfoSJ0c8GadAt0ii1j78bSN03ia7b+KS6G65svOX+JBfNjo/MUHm+Lm3Qx
+	 nQAv6xHQalCzXxQ8RcIrsvTKIzyeCjIngyu+jR9D6t8XOFl5BROSae7w28KjoSt4Mj
+	 SscIJxlV/jhljW7y8T3ZmYM6SKzWkqVMpZkKlyloEQZyJUfGP3vLTjxi8gHzNqZG8M
+	 RwfJ45CePfLWAv997JNiDvTT9+oMcM+FIydSbMB2bwEjpnVFg8MzHgEP1GrUvrDf1+
+	 sA8inmowOOPgA==
+Subject:
+ Re: [PATCH net 2/5] ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
 From: netdev-bot+sashiko@kernel.org
 To: jiayuan.chen@linux.dev
 Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
@@ -50,11 +51,11 @@ Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
  bronzed_45_vested@icloud.com, yuuchihsu@gmail.com, fmancera@suse.de,
  hannes@stressinduktion.org, fbl@redhat.com, pmladek@suse.com,
  paulmck@kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 12:15:38 +0000
-Message-ID: <179301693822.3134.16821045137329382001@kernel.org>
-In-Reply-To: <20261023091419.167088-2-jiayuan.chen@linux.dev>
-References: <20261023091419.167088-2-jiayuan.chen@linux.dev>
-X-sashiko-severity: Low
+Date: Mon, 26 Oct 2026 12:15:39 +0000
+Message-ID: <179301693984.3134.10311722588849367187@kernel.org>
+In-Reply-To: <20261023091419.167088-3-jiayuan.chen@linux.dev>
+References: <20261023091419.167088-3-jiayuan.chen@linux.dev>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -67,72 +68,97 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] The commit message for "ipv6: restrict gc_elasticity to 31" says
-  only "Cap it at 31", and its reasoning covers only values >= 32.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The new backoff code in ip_rt_send_redirect() casts the signed
+  sysctl `ip_rt_redirect_load` straight to u64.
 
 --
 
-ipv6: restrict gc_elasticity to 31
+ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
 
-This commit switches the net.ipv6.route.gc_elasticity sysctl from
-proc_dointvec to proc_dointvec_minmax with bounds [0, 31]. The upper bound
-avoids an out-of-bounds shift of the u32 ip6_rt_gc_expire in ip6_dst_gc()
-that UBSAN reported.
+This commit fixes a UBSAN shift-out-of-bounds in ip_rt_send_redirect().
+The shift happens when ip_rt_redirect_number is set above 32. The backoff
+is now computed in u64 with the shift count capped at 31, and the result
+is clamped to MAX_JIFFY_OFFSET before it is passed to time_after().
 
-> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-> index 94e5ef1c4f83e..6f2efc219f395 100644
-> --- a/net/ipv6/route.c
-> +++ b/net/ipv6/route.c
+> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+> index 595a3b7f17830..76807b7570467 100644
+> --- a/net/ipv4/route.c
+> +++ b/net/ipv4/route.c
 
 [ ... ]
 
-> @@ -6627,7 +6629,9 @@ static const struct ctl_table ipv6_route_table_template[] = {
->  		.data		=	&init_net.ipv6.sysctl.ip6_rt_gc_elasticity,
->  		.maxlen		=	sizeof(int),
->  		.mode		=	0644,
-> -		.proc_handler	=	proc_dointvec,
-> +		.proc_handler	=	proc_dointvec_minmax,
-> +		.extra1		=	SYSCTL_ZERO,
+> @@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+>  	/* Check for load limit; set rate_last to the latest sent
+>  	 * redirect.
+>  	 */
+> +	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
+> +	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
 
-[Severity: Low]
-This isn't a bug, but should the commit message mention the new lower
-bound too?
+[Severity: Medium]
+What happens here when ip_rt_redirect_load is negative?
 
-The changelog says:
+The redirect_load sysctl is a plain proc_dointvec with no extra1/extra2
+bounds, so root can write a negative value:
 
-  Cap it at 31. 31 and 32 are equivalent anyway [ ... ]
-  Values above 31 add no new behaviour, they only hit the UB.
+net/ipv4/route.c:ipv4_route_table[] {
+    ...
+	.procname	= "redirect_load",
+	.data		= &ip_rt_redirect_load,
+	.maxlen		= sizeof(int),
+	.mode		= 0644,
+	.proc_handler	= proc_dointvec,
+    ...
+}
 
-This only covers values >= 32. With extra1 set to SYSCTL_ZERO, negative
-writes that proc_dointvec used to accept will now fail as well.
+When the load is a negative x, (u64)ip_rt_redirect_load sign-extends to
+2^64 + x. For any shift n <= 31, the shifted value mod 2^64 is
+2^64 + x * 2^n, which is still at or above 2^63.
 
-The lower bound also fixes real UB. In ip6_dst_gc(), rt_elasticity is a
-signed int read from the sysctl:
+The min_t() would then always return MAX_JIFFY_OFFSET, and this check
+would effectively never be true:
 
-	int rt_elasticity = READ_ONCE(net->ipv6.sysctl.ip6_rt_gc_elasticity);
-	[ ... ]
-	atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
+    time_after(jiffies, peer->rate_last + MAX_JIFFY_OFFSET)
 
-so a negative value also gives a negative shift count.
+So after the first redirect (n_redirects == 0 skips the check), does a
+peer get no more redirects until the ip_rt_redirect_silence reset clears
+n_redirects?
 
-"Cap" also reads as if values get clamped. proc_dointvec_minmax actually
-rejects writes outside [0, 31] with -EINVAL.
+Before this patch, a negative load produced a negative offset from
+rate_last. time_after() was then always true, so a redirect went out on
+every packet until ip_rt_redirect_number was reached. With this patch a
+negative redirect_load seems to change from no backoff to maximum backoff.
 
-Since this is tagged for stable, could the changelog say that writes
-outside [0, 31] are now rejected in both directions? That would help
-anyone with a negative or >= 32 value in sysctl.conf who starts seeing
-the write fail.
+The commit message says the u64 computation "cannot overflow since
+ip_rt_redirect_load is an int". That only seems to hold for non-negative
+values.
 
-> +		.extra2		=	&ip6_rt_gc_elasticity_max,
->  	},
->  	{
->  		.procname	=	"mtu_expires",
+A later patch in this series restricts message_cost and message_burst to
+non-negative values. It doesn't touch redirect_load, and route.c is
+unchanged through the end of the series.
+
+Would it make sense to treat a negative load as 0 before the cast? The
+other option is a lower bound on the sysctl, for example
+proc_dointvec_minmax with extra1 = SYSCTL_ZERO.
+
+>  	if (peer->n_redirects == 0 ||
+> -	    time_after(jiffies,
+> -		       (peer->rate_last +
+> -			(ip_rt_redirect_load << peer->n_redirects)))) {
+> +	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
+>  		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
+>  
+>  		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023091419.167088-1-jiayuan.chen%40linux.dev
