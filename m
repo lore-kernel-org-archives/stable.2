@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024454;
-	b=tkml6hSrIMjbI2pPPU76fzwJFLa/A9aYHueaDyYBlMiQekSkBgMLoHinNSm+iKAxCYSy
-	 JyGaRwfCFgg7P4rL0dnqn2Fcsio12SjmQBXptZcVoAbIwSqkdam3gZPz+5mSyJ4uswzxj
-	 EPYeO1TDNebC7evR/88OBGTD6NXes4yEDYaJrkfP/V9wj7OTYfTJmaI5y0g5ZJqbC1vyI
-	 9arRUEX+Oah/sJZ18JY/gdBmoHbVNnhjpMymcXYL6XlNj38HHU7FjyNEO9G98Vlqoy7QK
-	 KuUBvsjPwG2Bjm01ZCT4tYl6UNycD5moXonW4Tb5HruGiLSBXwkVXlC1JErJDRCoGVA==
+	t=1793024495;
+	b=Uwb7THmROA8XVGmqAbNV8CqgRSllT4yco7RFo4r70gvdQE58SbDefzd8wadnsMjRgI3H
+	 8L+Q29g09h8PgSuD3wnpRdOgjSe0c9YHzSghx2ZuoRSEzkmxmv7N3l9WF9PrfrumeVU67
+	 tUMM0nOj6RN9sXzFxGpnuZfMeKgwYj5Nn1i40NPHRkX0VI0WzHKUx2XlIAYBdm7dBqnRA
+	 qjNyVVvrcL8WeoL68AzKpFlxdTV+dYns4FMo30AV7kt48ULRRfJK3+BdsFd9qtJEjskFS
+	 Cm+JQBMvaDrfrEJaqNSSdJlPJpdO09rczi3SDsGi5h5rDsd+DENcKUU3oqWmtxW9k7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024454;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qtgx3aMD/495ZX6s7lgn7crrN/uSuC+ZVzynjH2rJKA=;
-	b=wJNnPpFoRzZWBLQPdyESwocjSnUcJ6s2KJAYNL3BFAPyKNBMtOWVlD0DG8nd5erMdBMD
-	 /3aHVIVen2Bh5qw054BfY1erBnB1jRIqG2RR71/8rKtUDuMuZcyj3V1RCHq0Car3zLomL
-	 O/eU1ccWIMJqj57q6/Inq46dBHXuUDWkgnjhERkIcfQcb0jEvuQDzGdpLzmvJjlQhK22e
-	 fFLjdVgYNJrx9N1bvAWfhKAZMEpwkhDfh3bUxTvllpvLLvPy3MqrKcldIw7fofubzDlh/
-	 ycpvPN1tPo5pY2ue0vfSLymrH9xjB7ctKbCDx41YimPKCI/k3aIQyGlptDyk9HL049w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024495;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YrojJ8RdT+pp1L7jagA79jqZnyIDXllAqHzZGpVUGl4=;
+	b=fZe1LmMp5X6mV0LWFTbGumlSI1CMwO7qoixysdz7tDuEB0yZQAnIw2+TBGcpN1yEPQlu
+	 h0/xvPMXeAvCf5FkbTPg9c7XgJXZG7eJtd8THr+DfVMpU2fDmLZFCPDLnGXYAou+e0b95
+	 MFFLfbq8s1t+ggPBotVrhv5ix+7o8HOeqlPIx121ATCMx+70qOnCyZAZ7LTJDbAl42cpY
+	 gJGrVsrio62JvDhhFCKTHVRO0mtrz3dPdDuie62bFZfk35PVdwQp6PMQULcRNfMhcqDs8
+	 ZqO4ATjyAsZqH0ZHEYD6+irAbnjH+Kwxa983iUgVwJ9fMKjdGb2oo6SI1ngAK2Ku1+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VibjgXv+;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Rr/nV/C5";
+	arc=none smtp.remote-ip=95.215.58.202
+Received: from mta1.migadu.com (out-202.mta1.migadu.com [95.215.58.202])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD999606A332
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD999606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5936606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:21:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5936606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VibjgXv+
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e4831c028so1494558f8f.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 07:20:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793024452; x=1793629252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qtgx3aMD/495ZX6s7lgn7crrN/uSuC+ZVzynjH2rJKA=;
-        b=VibjgXv+bcagRtSV3WmXK/WYP/g8lMLfHDmEGVKYDuOO/nSMvtUk/CrBhMiWpgZluv
-         rvtIkQsRzKvGYEjHsiDv139LqoROgRtSoi/gy+ihu2aB5WB/GDAX6SvkwXnbj2UiAWOL
-         uMkXie73jCSAOgPAOrCkkubc9VdDxB6iS2K5pzXM0JYIEaAB2fGrnm0lONCcj9G57EQG
-         jvCiAvfeiyg2zAj6ZQvjO7e9DZ2xH0qVlSiX8jlJLTs+HjBLBe6GaDqauDYBhfBAsPmK
-         srFpmb/GYbr1sbdxmEmwTlpa+l1+z1NBGg/tt70Olk49SdWQcpu1c/hynBdXfNOWMiLc
-         Q+qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793024452; x=1793629252;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qtgx3aMD/495ZX6s7lgn7crrN/uSuC+ZVzynjH2rJKA=;
-        b=k8jG6ui2d1g+60FJCRAQn2qa4lWAOdFkOlXSlZYJMkV59JO+hqEejpGkK0ODMqnNTL
-         8lg2QBWQ5GlTJgLMPDe4vA0WP53JA6D1YUNVWvFG1lEuYJFNyPuV2YsoO8CVEsErmPcO
-         1zLhIdVivYwzpuftIUSuvBA3ERVGo8TM7zvO7PjvbpLpzD3qtvDTmrSWQG7wkg0CcXod
-         OaPUl3fJEpEvO/iSy2EgVAvjbMFjmqwtblAKDgBH4pjXhMlqvs8fsrIWMKHOyu+Z1Uhs
-         AHgy0n8ddMyNWdJdfGJmZrmub/Rx9rdgjE2m44Ibzbnoq9hg7FFW0HrnYUGKQCM9BGHM
-         Aw6w==
-X-Forwarded-Encrypted: i=1; AKwUvBz1XyixkPeAwwU5P1cYq5UNPyvDMKu/jX3jVj6r0q7nj/Gu1lkt1Tp98dfqYXovsvd91LEO29Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2rEDsXjQ68G7KRsspURsp7pVBpj4qY7Rrf9wb3Rgf2XfUWfut
-	nCG94XJvZhh7bxcSktJ9mfHy9pm1SPyXs2oYVOLXJNmDKQ8NCQdhi0Q=
-X-Gm-Gg: AYBFou0Zxh4lbRAryDRCLFOfDjFeBlak8lHMn1C6IysqKWTnLAUls27deMmZvznh01X
-	1X5BKp0SLs1BzI1qvoZSRVv2f8ac4uh3QL9P1jAMpIvcDkDImtSGLn1bcJGgbwIs00Uzc98lmgP
-	/W5uo4uAvjbe7CPhchWagic2OcAq+W0T1o2e5a2fKp/ct5MYmRoIZW3OhIj6QzYjlGdGBCLndu1
-	pg4EnKASFh8E26cgrfqxWQTEbGEvgPWh1WyPTmXYpCMUZZN/QMpx0ugGt19ypU0U8xwqzAIEZMo
-	yDIn/FynwRvTNeYVopvD6E1ZFH0VBdyowQxAexfnt5LUfdVZTXHizpiM1Dp/qdTrxilqGDP+jmV
-	wBViK8FHbg04PTxiHe4BlRoHGp7/NQbRdNutp/QJs8IDBuCCKyjsF/mmRBgO2M37FJTK5G4x9Mz
-	7Ts/7jMzVFhb7GkRvRmrpUdH9vFQ9xjZZnMOgBuX/vdfSm0ukI22szMelwnqdTG8CNG6dO5AO49
-	Va9YXlP3zxIOkhhdEOpYFW+ZSrld0sXcilocOeXcV3zMw==
-X-Received: by 2002:a05:6000:41d0:b0:48d:ff71:dd97 with SMTP id ffacd0b85a97d-48e3eb2bdbcmr13969716f8f.7.1793024445723;
-        Mon, 26 Oct 2026 07:20:45 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb8d5sm17484186f8f.28.2026.10.26.07.20.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:20:43 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Kevin Tsai <ktsai@capellamicro.com>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 1/2] iio: light: cm32181: validate ACPI object type in cm32181_acpi_get_cpm()
-Date: Mon, 26 Oct 2026 14:20:38 +0000
-Message-ID: <20261026142040.62383-2-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261026142040.62383-1-tristmd@gmail.com>
-References: <20261026142040.62383-1-tristmd@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Rr/nV/C5
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LU38JLPVoNiFrE9ir2aCoN20eLvHfG+XA+FLjWMCf10=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793024492; v=1; x=1793629292;
+ b=Rr/nV/C58euHFChJjREzKK2GkRORfr2c6xAhMt3TLMROTR6l7RxwSM69VGF/bswbs2EJG3b0
+ 41y7XHX064jD38T8XXjJFGMZXf7MQTLWx7Ze+7K+lCeqP0ReRuPYgBShiWdO9TvPhcsByNjeN8R
+ sUdbSsvIeD3cUiNSysrO1sNs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 79436808f9b03e13;
+	Mon, 26 Oct 2026 14:21:31 +0000
+X-Mizu-Trace-ID: 79436808f9b03e13
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 26 Oct 2026 15:21:24 +0100
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: Qu Wenruo <wqu@suse.com>
+Cc: linux-btrfs@vger.kernel.org, linux-xfs@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iomap: only follow dio alignment requirement if specified
+Message-ID: <at9hcoPC5NnKADX3@quentin>
+References: <9fae60fcce5ae356deef5e38931124b9634dba3b.1792997261.git.wqu@suse.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,49 +63,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9fae60fcce5ae356deef5e38931124b9634dba3b.1792997261.git.wqu@suse.com>
 
-From: Tristan Madani <tristan@talencesecurity.com>
+Hi Qu,
 
-cm32181_acpi_get_cpm() accesses cpm->package.count and
-cpm->package.elements without checking that the returned ACPI object
-is of type ACPI_TYPE_PACKAGE.  If firmware returns a different type,
-the package union members alias onto unrelated data.
+On Mon, Oct 26, 2026 at 05:18:13PM +1030, Qu Wenruo wrote:
+> [BUG]
+> After commit 4025185cf953 ("iomap: follow the alignment requirement for
+> iomap_dio_hole_iter()"), generic/091 fails on both xfs and ext4:
+> 
+>  FSTYP         -- ext4
+>  PLATFORM      -- Linux/x86_64 btrfs-vm 7.3.0-custom+ #6 SMP PREEMPT_DYNAMIC Mon Oct 26 16:04:56 ACDT 2026
+>  MKFS_OPTIONS  -- -F /dev/mapper/test-scratch1
+>  MOUNT_OPTIONS -- -o acl,user_xattr /dev/mapper/test-scratch1 /mnt/scratch
+> 
+>  generic/091  6s ... [failed, exit status 1]- output mismatch (see /home/adam/xfstests/results//generic/091.out.bad)
+>      --- /home/adam/xfstests/tests/generic/091.out	2022-05-11 11:25:30.766666664 +0930
+>      +++ /home/adam/xfstests/results//generic/091.out.bad	2026-10-26 16:43:49.387401669 +1030
+>      @@ -1,7 +1,25 @@
+>       QA output created by 091
+>       fsx -N 10000 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
+>      -fsx -N 10000 -o 8192 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
+>      -fsx -N 10000 -o 32768 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
+>      -fsx -N 10000 -o 8192 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
+>      -fsx -N 10000 -o 32768 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
+>      -fsx -N 10000 -o 128000 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -W
+>      ...
+>      (Run 'diff -u /home/adam/xfstests/tests/generic/091.out /home/adam/xfstests/results//generic/091.out.bad'  to see the entire diff)
+>  Ran: generic/091
+>  Failures: generic/091
+>  Failed 1 of 1 tests
+> 
 
-Use acpi_evaluate_object_typed() to request an ACPI_TYPE_PACKAGE
-directly, so the ACPI core validates the type before returning.
-Also replace kfree() with ACPI_FREE() for the ACPI-allocated buffer.
+I am trying to reproduce this error in fs-next with ext4/xfs but I am unable
+to.
 
-Fixes: d34ca613b939 ("iio: light: cm32181: Add support for parsing CPM0 and CPM1 ACPI tables")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/iio/light/cm32181.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Do we need some specific disk setup or xfstests config to trigger this?
 
-diff --git a/drivers/iio/light/cm32181.c b/drivers/iio/light/cm32181.c
-index b32a94028f091e..8d00486af608c9 100644
---- a/drivers/iio/light/cm32181.c
-+++ b/drivers/iio/light/cm32181.c
-@@ -114,7 +114,8 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
- 	if (!handle)
- 		return -ENODEV;
- 
--	status = acpi_evaluate_object(handle, obj_name, NULL, &buffer);
-+	status = acpi_evaluate_object_typed(handle, obj_name, NULL, &buffer,
-+						ACPI_TYPE_PACKAGE);
- 	if (ACPI_FAILURE(status)) {
- 		dev_err(dev, "object %s not found\n", obj_name);
- 		return -ENODEV;
-@@ -131,7 +132,7 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
- 		values[i] = elem->integer.value;
- 	}
- 
--	kfree(buffer.pointer);
-+	ACPI_FREE(buffer.pointer);
- 
- 	return count;
- }
+> [CAUSE]
+> The failed command of fsx is COPY_RANGE:
+> 
+>  copy range: 0x6800 to 0xa200 at 0x3f200
+
 -- 
-2.47.3
-
+Pankaj
