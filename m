@@ -1,86 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030986;
-	b=EjYUeir+Z35uq6lbr7GuF6yNopK1U62FQVFiYW/HqM+y+/gXsSA+nS2V36obj3l7Z+Kg
-	 Fn0trdy49KJVwqHvcbP6ytXOaEazeUc1PZbqJX5mj4J540M0X5BK82PzY7xpWZioUb7XT
-	 gKoErIh5YPQJv6SkVl9nkl/Zah5xUcvDbujHYTM6gnVWTLSSBMw5lAkKz0YwSuPqxflJM
-	 B/b3y8b2ALWFM3CGLTR0dYm26JKlBbQPqx2yK6PYp2YzzB2UlXo/BTB7Hnd1OZidr6mnV
-	 OlksVRYyB5XRb3GSEjeLqbOtVTF+5rbp9uvm55KsxRpGsldL2kzNjMOIVt9Dw+Aqubw==
+	t=1793031211;
+	b=pWXajyT7wgKGcy9XcWzTxa1AOET5RRw0dsnK4fbdRYj8uEt2zco+9mZil3IBaH+PEc/9
+	 vNy7D5/pYWncXVPHZng1CwAywcT7sbbWDKMlbjgvn170935an5zOQf+CE4XdsblnGv4ST
+	 oSDttOnK0PFb3oWM1eu+C2JDZXsSXJKnqTTEZJJ31g41wAy3ksySoYNrfZcEyKZnWpvX3
+	 5PI/XUl6GWx9zy4LQCL+sZEfkTqgEw5gjLGq7Wwg/01Q6LjekJOjHB/lnQjVV5CMGGufe
+	 zndgpUOLfBT2cg0SZwQi0A46fSrHFqoLKydL/KD/xumk4f9K9Sl3gYqMj5mkva3Y6Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=yg3SAu7bcjA+P3cd0pQQnqKAc/f2yjYRUKnerwKE1Pk=;
-	b=by2SOgi7WUWjCkl6l/vu6DLB0+HQ8+XCkwfLmBpm+fZG5V+34rT0S7UGgxhTC09u7uOv
-	 1u5gfTZOpyeOue45gMJOyv5fv3oocFPs/dqbkf6xCZnK7nKlobeQYXvBmVGWV1czN0kUm
-	 ZL6TzzR5zngZkBp0w8YpOkMG5Fre63I98d+5oLPMUtxYZf3GzPhiTGyk8+VACHseHMxnc
-	 xY5Y/uYLgg9rBkXzBlBeT5ZLztftCQ1J5fL7w2vBI18Ik7WfR9OWLfA5J4GAMHWj9uf8o
-	 G6iCNRFtTrrdN1wjnxuS94wfSpOuboCNPcJrL/TXrt2XznDuYlgKlPlcSWGg/GorhgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793031211;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=SuEMA61PD8ypCGtu9RwAMCLG5YHaMT/lSDKBxP64Lpw=;
+	b=g97gK1EHraqXo+om3t15TmLEDGvToIGi0KMYTAO/PYayDGkggVvScm4ChlZG+wYgMiUe
+	 ME5M+YBb6tNkzmGxqHGOXWTWoVd4V4sqCGqiNfnbMYZ9e5UfzcfjIxDeS8Bar1u83zvbs
+	 MqlwJZyFtbBD9dnUKfB2PkGKYYUWjfUt5/EX4xADhllLrb9Ak/YGf+VKEcVAMYyBQk+dm
+	 qsk38O0v+KPSLZxi1w/kb/JTjEJNxAQljsT+Z6HwEO9z1nVI2rrOQd404kCdKk3sHUE88
+	 +ZopjXjMoU3jmHhitVSQWN5AyhDUYzWednHfQRWrV/4dKfbwqUolTRD/m6eHPAGZtOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VanedlGZ;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=oJmC6Xsf;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Cb1maXTk;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45608606A31F
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45608606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE405606A31E
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE405606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VanedlGZ
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so267825e9.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:09:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793030985; x=1793635785; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yg3SAu7bcjA+P3cd0pQQnqKAc/f2yjYRUKnerwKE1Pk=;
-        b=VanedlGZOu5ndUlScCLSxlKNzB5QUBvJHOy7xAvY+y80EAJmk/V9xxksuf8NQwaU8P
-         CE9ZNZ5I4maGFZZBUtr12or2LPxp/2FL8+VneSbVf5rkar8wljOEfTGIs8TO1HH/r4LR
-         az6MJXoQYmFFLWv4hMzLFxDhabjVMSfzwN7Qa9+LMqNUhNI8xC4lzBoManTpVANSlari
-         bBjs9b+DDHRzGGulw9/AIgtEixrr6DS4UqLJXmlGSO+GGs75pLqAvk0DyQI/Wg8KMGRG
-         PJw7oflt3vrLO05Gsgx5K4XRgx222bHpxgjMJjEQoYksQNS1QMXHMq2Fvea5H/udQ/AO
-         hCfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793030985; x=1793635785;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yg3SAu7bcjA+P3cd0pQQnqKAc/f2yjYRUKnerwKE1Pk=;
-        b=Wf6nv/tYGAfsAPT+cjfILiQhxueWUGr8Arab1B/BfLWwBqyHHUecx0D6cD/nWeB6t0
-         uL2mwhep1ORJQ1zHBc8f/JFqcvd1WZxKM1zADmy4yzGMNIGP3n/WQj7qrjQu6RXE2T8P
-         O0bKS52ceuU3XIq4MHc5FQPFlHA6NIT/JsW9PVkGgnPEJUpjPBR+n7K8hL8kDURdNWdJ
-         eYW6QCPN5qjfEw1qaqiUdKr7rdd7N7xyGiKgkGulR80AJ2mY86KXbU6zUI4Qx0lzheSx
-         Jkbit7JYxFkkhqU8PvUP2XV9UQ4nsh8wSvMzBd8I6bhYSL00UWKPWQEjW1hgc3rExjjT
-         xf2g==
-X-Gm-Message-State: AFq9FYLZoRxYMITNi6BS6AQusXhuOGVHN3j0tEK0wwugm90GEmoZXqTd
-	LeWNRXj7Vb5ciQOycAuDS8aFDchgVxd1O/ANbxBf2o5OofTvJVfSD+Da
-X-Gm-Gg: AYBFou2JcMl8FasJspz8y8K08Bm1IrW0i/MmqvjH/S3l2mATtCI86u7NArSwKqMWKxf
-	nqqJLY+qpxaaNBfqqJG/3zkvlIgMcLskC4CpCX7GFWomQRXc61Cnk2NVks5wscIG8E1Ok/EZ21K
-	GH4NUBAwJAsSFEo41yRQToolfbSvgLXQOkZJeHKpfhm2Y9fxeVHn9unhmX6Zy6CJx8bD1uzCCwc
-	nUsh3hVrWVyua7h0OaA4V56b0FyBK3NvBIYHQgQK1WntgJYo79GoD3fMKkEouuKz6C8HI8YDD2B
-	9Q8AKPCt8bJYSxbRROLm1FvP5dpVmaFzJG7wASy4CgLEGFaBSDRFa2EGpXiN9a+c/pRrPt74/p8
-	WQdAsAhk5COWHI1kUF6QTlDzk2+V8ElFz0Q28I0DhRTb57QfwxlnlJC4f9hmZvYzjO03/SUq4B4
-	dqVj8MNrhEtL5tY57+rkQu/CRWutBJb6TnCzJu8dE3XzAQcbKcOu8glwt7ydrZT3fSKbu3zqsqh
-	9zNiDoD7CaPPoR34cygsV4RZdscznm/vqmyTqu+wOZc/SrUQNoc+UjouyHzibl9+pRR/Ieo/+fM
-	OBQlcGLARs9xvEECNEobl+Jc1Lf4XA==
-X-Received: by 2002:a05:600c:3115:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a7c16c5294mr2538075e9.13.1793030984491;
-        Mon, 26 Oct 2026 09:09:44 -0700 (PDT)
-Received: from theSameSurfase.localdomain ([89.216.103.252])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0aa097sm224923225e9.3.2026.10.26.09.09.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:09:43 -0700 (PDT)
-From: Artem Utkin <thesame.personal@gmail.com>
-Date: Mon, 26 Oct 2026 17:09:14 +0100
-Subject: [PATCH v2] ARM: dts: samsung: exynos4412-p4note: allow powering
- off the wifi card
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=oJmC6Xsf;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Cb1maXTk
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailflow.phl.internal (Postfix) with ESMTP id 280901380089
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:13:30 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 12:13:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793031209; x=
+	1793038409; bh=SuEMA61PD8ypCGtu9RwAMCLG5YHaMT/lSDKBxP64Lpw=; b=o
+	JmC6Xsfow1yjAZvNP33bJMXf5QY+i5XLHravTrgfuUCsaWbIpBFuTAyiBGRWfzjV
+	1dlqnm623/dOTK6ZeM9oXZ012Glr2ZzTSWB5cbMUYaQNOhfvSb+br37HHzad7Mew
+	YSoqZ1bQIt+/HrK86GlC0l8ihnxPo++AyQVR/CL6z4c4B7H/j6hEts7HjWqmCYi6
+	Dij5oR+kOfo7I4m9b0H0RIgf1Y8DVcG4zMb0gtKvFxUiCssnLsTAUw7wBN8CSXun
+	Rv27Eex5wPm0gULIAO7uqy45Bl7M2JvPMmURWBRR4YgwcAZFygUuOmXf3GL5fwVp
+	HGLRFuIjafJGovqd/yD5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793031209; x=1793038409; bh=SuEMA61PD8ypCGtu9RwAMCLG5YHaMT/lSDK
+	BxP64Lpw=; b=Cb1maXTkRxdSrJDSeCUZhRNJVEOAhC0nIyYPlubphV/2InsX1vj
+	CKga3SeUmjNJb6ZRxYxf7o75fVEESWgnYk2DFP2D0JHiEZA07AN2P0/b9PYWyKoW
+	5ZS83JtRizqFf7/rbcjXl2BmOFBs7RweB/9A4QBfclyL+Y6NQQWXVl+k58gwZPj6
+	oyg8vo+1lkXqSiEFI1opSznaGLXkVzNf3HVhXZzqF5WLE+2w4WTptzclGxpCACJC
+	fUhhD1p2/DXENyImJ9kxipMuSKZFpOPZZBl6O7q6sLLHyid/Xyr9Vk8r0K6xBsrV
+	fripqVEVRosLWlqDqD1IQIDUzY5kxMZm0SA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793031209; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:MWQJnXqHvBGKEqlF9+YcTm0xStSTzytjTmhyRib3imB36AN
+	dBUoYsTvv0ICTogyd6dMX1IF+KzDHm4Ixm9WopSlQ/a+HJwtyRsq2Ki9yzLP4M2q
+	n26DgL2UqWdmItq+Yi+g24RKkpo8FUqcCnCdBZZrNZa9GMT1pQpUbFq4Zvovic+d
+	6ONO3wjMLAWNbK7jOH4aNiqx/rnQ7aAKNLQ/wEulHmuA6OAN2e9kRUfPsWNUSq4s
+	y22yTgxIC86PeONqgd7bxjmRFzulGHQ/k+lRGofRmnHJPsDbKPH0X0pFqs4Ms3Ci
+	8znOK01I0wC3SpDzxDia+xqkuYwSPyxH19h0HlA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:P9tqkjtr7xJ0LZI83z6SZ6DETyMxibEyw+1uHfVj6Zg=:JLuqQrk98leSnt6vv9Cw5t0oqfF/5BKxz1YFDI+HSBc=;
+X-ME-Sender: <xms:J3zfalgYzmFLkjivWEpvSfZqG2OoqNdinomxBIXdw0khYzSPk8Ia0w>
+    <xme:J3zfagu-Pz_FO68c6gFQ9AsJDcOloRLceN5gDhUDkwHZKXCfw5XH0j887loyEWRuM
+    9xqnPBm-XR6YUT2AMrrN_APFTdTp27asP8TrpCG2-u7PUZSB0eEkD-w>
+X-ME-Received: <xmr:J3zfavSa0XBfO4-iC9Ee1B3PxoCm5kctj88IxDRhA7pPrpGJrK-uOmVtTd4>
+X-ME-Proxy-Cause: dmFkZTGBB2cNjuELTs67fGgvkDQEDSU8qux6+8nxtLoE35+WVs+aWAZCsMVW4zWZvl//3o
+    d+Nts1yMBYhfz0A2pBdaxzFlZZaoafSDu63LVpeb+vxy9Vwm87V8WMyFLNk7rWQLoUa5/G
+    k0yzKLjsyVStCe8yZI9HHv7vy5dspIr4hypntb/PIB9H4GNYku4+EG1lzv/wuo8fa87di9
+    +CF8ONEHEzQPPZF0ighPmGYTs5ZHVZOXemZ2aI7j2mAiAgvuUBkiiwxC2GgD8XiB+Phzk7
+    kD0l7xy/HxT+YKPa/yncQBqQq8O7UuH9+4cIXrnIxtjuWoj2OdbkHw4f/dvsCiGqt0GPJ6
+    5XToz1kkUWDtBnx/w21CqNEaW1qZCvZGci3D50ojvkPRVd8HZEg01/INknz4HMFlhsZqAX
+    BgPwRhczFxR3vNXil2moy+KyOZlL14BR/CppwtBzFCXgKpreiHrIjMKpLWLmW0aV/9ND7x
+    o2+CZ0TyrN34nBMGfM1olHAEhI2/mxv3mkAWJHEz8epr0WELvKEStcO2gFrRIN1FQC7sPV
+    RVysmrQ+pAibpu010ENwev3dXzBi0OYRiVIY3IoRKhCaAuO2k5glaEdwhGn+EUxT/nggPe
+    OKKPMnGTGlBnPIt3aeIzpw/5QeNySULr6bW8Ff0Rm+pBvg06Se3/TBr3MdOw
+X-ME-Proxy: <xmx:J3zfaq5Pa-KToeTPK8EsXreG0-ZZRQpQfP5oche3lz2EtpVZb99A5g>
+    <xmx:J3zfamjKiP0dGK1Zh6_Z6YQcsHArXWREOXYSfXPzaUYkwyJfx7b1CA>
+    <xmx:J3zfattvMyNG8zSYSZXeVAfaFOviFi2vceffpzvUOZP_SnZ6KiqLFA>
+    <xmx:J3zfaii39xyfykCc74-fjNwcC1MJZwle20cXhV-3PTdJ2RtNOAXukg>
+    <xmx:KXzfahsomsDyKod-euTcJeG0g_T_Ta9KwojHvoPH_natJJqeuGKu88An>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 12:13:26 -0400 (EDT)
+Date: Mon, 26 Oct 2026 16:13:25 +0000
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
+Message-ID: <at97dZY434e1maVl@thinkstation>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,69 +134,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-exynos4412-p4note-brcmfmac-v2-1-14b372972163@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACl732oC/43NQQ6CMBCF4auQWTuGlgrqynsYFjAMMIltSUsIh
- HB3Kydw+b3F/3aIHIQjPLMdAi8SxbsEfcmAxsYNjNIlg851qXJtkNfN+WiM0jgZ52fGNpDtbUN
- Y3rkiVRQ30/aQAlPgXtYz/q6TR4mzD9v5tajf+ld2Uaiw6PIHm0dJmqrXYBv5XMlbqI/j+AKcD
- dU7xAAAAA==
-X-Change-ID: 20261024-exynos4412-p4note-brcmfmac-68e7c13354bf
-To: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: stable@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Artem Utkin <thesame.personal@gmail.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
 
-sdhci_3 serving BCM4334 was missing cap-power-off-card.
-On my N8000 this resulted in the following messages after sleeping:
-[305.759883] PM: suspend entry (deep)
-[306.514698] brcmfmac: brcmf_ops_sdio_suspend: Failed to set pm_flags 1
-[306.671504] brcmfmac: brcmf_sdio_htclk: HT Avail request error: -110
-[307.127267] PM: suspend exit
+On Mon, Oct 26, 2026 at 10:40:39AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> Once shmem_writeout() has moved the folio from the page cache to the
+> swap cache, the folio lock no longer keeps the inode alive: truncation
+> and eviction find a swap entry, free it and do not wait for anybody.
+> That did not matter as long as swap_writeout() was the last thing the
+> function did.  But since it puts the folio back when swap_writeout()
+> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
+> afterwards:
+> 
+>   reclaim                               last close of an unlinked file
+>   shmem_writeout()
+>     shmem_delete_from_page_cache()
+>     swap_writeout()
+>       zswap_store() fails               shmem_evict_inode()
+>       writeback is disabled               shmem_truncate_range()
+>       return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
+>                                         destroy_inode()
+>                                         ... RCU grace period, freed
+>     shmem_add_to_page_cache(mapping)
+>       xas_lock_irq()            <- use after free
+> 
+> swap_writeout() behaves that way if zswap is enabled, cannot take the
+> folio and the memcg or one of its ancestors has memory.zswap.writeback
+> set to 0.
+> 
+> shmem_unuse() already added infrastructure to deal with that.
+> Reuse info->stop_eviction to protect the inode during writeout. Increment
+> it before removing the folio from the page cache, and decrement it after
+> swap_writeout() and any attempted reinsertion and inode accounting.
+> In shmem_evict_inode(), wait for the counter to reach zero even if
+> swapoff has already removed the inode from the swap list. Add some helpers
+> to make the code easier to digest.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: code cleanups; improve description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-The regression was triggered by commit 8c3170628a9c
-("wifi: brcmfmac: keep power during suspend if board requires it").
-Midas already has a fix in commit 2ff147fdfa99
-("ARM: dts: samsung: exynos4412-midas:
-turn off SDIO WLAN chip during system suspend").
-exynos4412-p4note.dtsi does not include exynos4412-midas.dtsi,
-so p4note did not automatically inherit the Midas fix.
+->stop_eviction is ugly, but, oh, well...
 
-Fixes: 8c3170628a9c ("wifi: brcmfmac: keep power during suspend if board requires it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Artem Utkin <thesame.personal@gmail.com>
----
-Changes in v2:
-- Drop the paragraph about exynos4210-i9100.
-- Add Fixes and Cc stable trailers.
-- Correct the author name to match Signed-off-by.
-- Link to v1: https://patch.msgid.link/20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com
----
- arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-diff --git a/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi b/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
-index 8d52aa13b8..03b514a82b 100644
---- a/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
-+++ b/arch/arm/boot/dts/samsung/exynos4412-p4note.dtsi
-@@ -1232,6 +1232,7 @@ &sdhci_3 {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 	non-removable;
-+	cap-power-off-card;
- 	bus-width = <4>;
- 	mmc-pwrseq = <&wlan_pwrseq>;
- 
-
----
-base-commit: b47faa6004d86ade16b90d24fa1e1f179e6f7230
-change-id: 20261024-exynos4412-p4note-brcmfmac-68e7c13354bf
-
-Best regards,
---  
-Artem Utkin <thesame.personal@gmail.com>
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
