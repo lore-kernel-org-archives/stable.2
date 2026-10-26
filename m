@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053927;
-	b=MINZlMIdWdneq4wia5Ha0zHBmzAWUq8/zbAWyVsU2SIsod1F1CkrgNoqab6bsKyWfaFu
-	 gPo9GX10UERMMeCZHdtWFvYSA/TTosLY7SeVEGGSXaMsu0IFIhbuU5zPzXpwyTmsdd5Ex
-	 LNOzU2lnktm9q9lx+haZes1lS5Bc2oz7GfrOUZAcpwAZ8eiMPA98wWWPf+XIHsgoJhET5
-	 jihWZ+bFcLWge5SKkOwEBIuVkWw94uJTQF2DnRnjvCVrrf6L0qYFfBuKhD68/KNnW0MW3
-	 CdIGY4G6HX+bKbQ/rSvHS96CeeutGypKKETm97PkzJ3wPUAm9ff5M4htOR7PMs4IHWQ==
+	t=1793053936;
+	b=uPE9lwvZr3DZ4xvooK+zpodTSfX+wpqdnf9MGGBBriW8noEdl7rblVWecKkrc0f2MazO
+	 7goMzE8ibdKttQRmEozaPBNyHOnKMhY0ywUx1rfST+VIRRZnKHMUgHuAIvvdTdrWqE+bF
+	 Dbq4fJ7oXJUMHnZzOtIAGcvafw4TFdQ1Vxvf5ijTnbeB51BMTOYXbGMrlWOKas1hEMFfa
+	 soVR+6lkryoUOjvIULyUoKIAhdtGpHTri4WqHDMUMFI2Ai/oNsWlQdAajUz/hxBELRBI+
+	 vZoiUyjd2NSNbS5/wBNhKbvp60PTrm8/XDUDTY7m8zQqPD3wUrMtPl0SKWZqUVGJpfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053927;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793053936;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jI//he41YR3FxIYVnv4p5xMdPmJqhOBHXdSZfWcDXws=;
-	b=4bYFuvr4DSjuPfEIHZRf5HBmHVDZdkU+i8rIFNA95A9fhj5zzkEgddAzRs5agyrTwz21
-	 nC+JAfRFydqbBKXiGqvG7DhjkGOMowgi+1cR3/WKL0weurdAPRnF3c+ULN96MB+pPTr/8
-	 q2/uME8b3By5rmXfUpjNLpgFjsG5CGHu+d76R1Ul4nduDrPM64Y8Afh8eVKO3oReBBTp1
-	 dqE0i9FmkzrTqUOOW9z0UFGDDv+CerTvO9JklzUHDupgN/nIG4naNI8GhQf9aODtr4moW
-	 z0KqQuX/uhEXhPFJ1CSjFmWGFOJS4idTMCOalxr0CT4Wd+2kVPV9pMzAO64dVbDcycg==
+	bh=pLaJAO5gdQUGb1UHhzJRFMc38wz+LAD8Exy48sOnSII=;
+	b=S6h9T35H88ibUdKGqh5h9qhcAcwbgBZAK5lM0DPmNa1JSWZmyJjO4tEIBmDtD9jkib1D
+	 bcHGLxMyQb6STCJw8tZGwOiken/xw22tDy+5F93Xv4hJRm1+bG/hE7YMY1lMJRHh2x2Ef
+	 xkWCp3xyRmzcqNsVRF+V97H0yI4OP75Z0Qk8UmfJ0Xjmt64auM4Hr2r48HR5eUSK0Hxif
+	 tupsCfPXEd8sHigLFaW9wPd91FtCZ9rIJPbcoJkNqU1zUDCTjHaUBxVtjLPZOhtccBLtZ
+	 JhhYPwM2Dr6rah0ChMSgSvjR2DwZtlsMLDVeOZg3FKespjOnyuOTM/uZBTmyHcS5KUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QwaN2o4s;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pA5y4emS;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9085B606A31E
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9085B606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6550D606A331
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6550D606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QwaN2o4s
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso27699935e9.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:32:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pA5y4emS
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso18263345e9.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:32:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793053926; x=1793658726; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793053935; x=1793658735; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jI//he41YR3FxIYVnv4p5xMdPmJqhOBHXdSZfWcDXws=;
-        b=QwaN2o4scPcmHdg9Wj2AFz9YXm1aUVPhXirWyQt7UpzE40980ubcjbufSw8xBvwdeF
-         vQGoUDL/YvS03zir97lepYKFGKWMLqiD6ozMWIlWtrDQT08L8I2KxBYB4zjdsr3ySB+v
-         a8TAZyu8MQoHnoeNQ6KbBzMI87RrJeInZfT6MWaj2IW8/Xz6E4HOPoBTQ2u3bG1o1f/3
-         g5srF7ux3CPbVFW3x0W2XQlcG25DAv3bJbwhX3PI02kXp1C/LhfcT+ji3/gR40z83QjF
-         M/zupQ7I4CfwqnYyh4p2d1DYTBWAOECTfVeFykuuPHbPgp/StdT7q7NKYOZkWVcwNyVK
-         qg5A==
+        bh=pLaJAO5gdQUGb1UHhzJRFMc38wz+LAD8Exy48sOnSII=;
+        b=pA5y4emSgAGiQ2V3ti8+pUQOQGyGTRv1fwG3tNIJ5m7VfVS6F8nLXRdvMG5ArqA+qk
+         42X5+5tHmiqbsAyFzzr0jfs3ZFS8HMf9kkNUgPNqbpQjizqFMYOYlSHmeqxTTqi6NOoT
+         Y74My1iK0ewVLZsBPOfMmYmpZn3hiQTkCcrVJ2XkEwnmxpInD9k5oYmV893eMFcyFdch
+         f5f+GluMr7/snoEHN0RsIvLKxTMkm0Ses2/GcDVV6r29ebvawOkDZi5FL06uTwQsG8IQ
+         vuTWzDJMWyrX3FWU3BZZFtDIlt7vApzPGed2x0ow013a+/y7oKeas8IITmr49vVRGv6r
+         0rEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793053926; x=1793658726;
+        d=1e100.net; s=20260707; t=1793053935; x=1793658735;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jI//he41YR3FxIYVnv4p5xMdPmJqhOBHXdSZfWcDXws=;
-        b=vcs2q2aSH7VwfrB2VxKvkjEQ3I54GmFGQw0w2fyWWCpvhnwOXVdeLshPSitpWi9tvh
-         klUxJ7q7+Uv+I3O2dWFjqnxD4RrHSS6F1dsBY3L1CKnWkctqlLl/RiTYfjdJeLxISubV
-         ve4i1BQBc2AtW5sDLm2GMtEJzLmL1DDKzKvcVSy5z5MO6+wkGQcT1YQ3YtzfBo7Oreko
-         jqmPHUa75k79SWuu8cFXO46vtg1cqBxfdGmZ05aiMx+ozM0Yo7E7WoZXmaQgMbUNr7mK
-         ohcAZ3axAYnsPtf84WSo2U4wtqrUl3fOI4ptfGHu3hwoZBRaToeruAy674ev+OPVLbQt
-         BcrA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMY8FIx6E26rZ2b2KK+0mNN7/Ep8cPggTBED3SzVzgmK7303DYPY8Twt+8nxvSCM7Icg8z+Ks=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHG4eVpoM04sIBQ3c6kjk+QP8rReg4E66ObBiQUBLarBZMPYf7
-	mHS4ZVdZfjTOY/vAEJ5yupBP00mcKSoYpug5tnXC2ziKK0tHj686m38=
-X-Gm-Gg: AYBFou0UiBh1ZBJqlhn/MpMVhOJlAM7aZGQZoEo/oN5TyUe/DVcT0rb7amtcoj457E1
-	9kvH6d9WBBAjjpCU+32EXnb7tiy5bYccoKB9H8dTewgqnT8OSFftMidMb0sqGDEggVMXJ94MYya
-	K1rvcFkKf44POWr3wGshq9jNzh2Y2nDHxQTGvguaUIlWKPhqao+ha3pNjwejiZa/5N2j7CMG1Ut
-	Qy1t0Ildr24RbB1/alK9GQo8bhNQED76OwyJBL/dpQQAZ7PcnjSYPHLc30brIzC86WEXlOl+mSg
-	A7LoGUF8saqs4d8xh8L4dixU1KZYMdw5B7Zb8DRtJmYv+hWQLdagoGkG4AVS7kGjjmi9rFnZcpv
-	O0gh1oitTONM82XdRD4l3zs+NKdC8etLNDw7WOEX1TAeg0LzloGO2SxlBybeCRpIJdEuxZJ29Sj
-	GX+jkyRAi8b9U2y4oHhE0sY6arVlRtN2mt/Ddbig3ntlqTOpr8OLrhfGz4zPtYrXpNHvb8qu+Xl
-	Xmjaiydw+/3i+vCHsXqYVYyXoSuGzidGGoyLg==
-X-Received: by 2002:a05:600c:4743:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4a35aca078cmr145695625e9.20.1793053925890;
-        Mon, 26 Oct 2026 15:32:05 -0700 (PDT)
+        bh=pLaJAO5gdQUGb1UHhzJRFMc38wz+LAD8Exy48sOnSII=;
+        b=LHCzLlTbgwp1HJSl5SVza22k52LJQRjsVAo/XRDcPPMq8IG/3A+sdQLzOw15vFKOtf
+         5PhmQsLSNwKZeB8iWagedrAH3baPG59/9bzyf04MPiNFRCxpmVhf+W1SJM+2wXjKwbqX
+         lMSrcVQO/hv2dsGXjKvdt5/ZYFXcN3jGJvo5x4jKguyNrwpiuO21QnW7O4Bq3LkiRk3g
+         4qrX+MjH5i+oBwtIG5il3dVVfkutjiCTvb/5vHiumRHwW07aEWUAyYXrupyR1FZSe/hc
+         2VdOseP/ManVF8RFV323UNv/zhXF7WI8Htt4+pn3BhpEGo3p0VFUq3ScVVqJCRSF9rdV
+         gUeA==
+X-Forwarded-Encrypted: i=1; AKwUvByO9ZNKQdzbkOFbW54SWSHwvunJmu5jjeT0iwX9xNN1SX1RnZ0AWdQN98qrmQLZs4QWqMDlTxU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkGXM+P38+igoS8Zsn7O2LK8wDLlNeNEgztlF8zwNXrbsN8zgo
+	V7LjfAJdU+pGpAY8CNtfL5QVbKyKQU08bnEUANNVrZp02toy78AvCtQ=
+X-Gm-Gg: AYBFou1EqVnWkwQutUKn0GJnmuhIB9dKcGK9VJOLhl9szqI84Um9rAuUqjyF1J65UHr
+	lgZ3PPPZZntgyVypmkByO/8bW84UKfba1mVVgm6Opyd3h+lj8tolFM0NfxxFaOvt3IgR3WK0rb/
+	p8b/ulaeQbTpF8PgQqTen1iCHYUXgD+YyiT6i6ndlWZTH/Iwqj9OCQuD219g45C58f8uO1F2VLW
+	gh6iydcEO1as0DSGHoKDksdmClRnt+uRhE0eLkfHbyroaFYIfNQmQ5i+VnGfNyfCT+y0zbRvVfa
+	6gf9i+kswZynqjT7RUlfaa2BUKcQEkyFIj9ZjzARqzUDC8aiqymHbJpVwrpncEE2sxqLWLzupFA
+	gsD+ah/EM7bJetLs/r97JYxQTXIIgwm6Flv8JBwjcJs/L867O4tUuRFR07nF62uFdwwfz1qGA7w
+	ewHIPKlXDhv7Cz/lv51cT55VlikRwsbMJlk63lFo395r52sHBT0uJNftQso966VqbchZZYQYZtY
+	XhnNZuYXRFDmjHoiHPbEAyk9ki2N4ZmC/8Low==
+X-Received: by 2002:a05:600c:4e87:b0:4a1:f7f4:7cf2 with SMTP id 5b1f17b1804b1-4a35acaa046mr152238715e9.17.1793053934795;
+        Mon, 26 Oct 2026 15:32:14 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bac37sm238538735e9.6.2026.10.26.15.32.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bb112sm241921425e9.8.2026.10.26.15.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 15:32:03 -0700 (PDT)
+        Mon, 26 Oct 2026 15:32:13 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
 To: Johannes Berg <johannes@sipsolutions.net>,
@@ -88,9 +88,9 @@ Cc: Ivo van Doorn <ivdoorn@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	tristan@talencesecurity.com
-Subject: [PATCH v2 wireless 1/3] wifi: carl9170: replace open-coded IE search with cfg80211_find_ie()
-Date: Mon, 26 Oct 2026 22:32:02 +0000
-Message-ID: <20261026223202.2089824-1-tristan@talencesecurity.com>
+Subject: [PATCH v2 wireless 2/3] wifi: rt2x00: replace open-coded IE search with cfg80211_find_ie()
+Date: Mon, 26 Oct 2026 22:32:13 +0000
+Message-ID: <20261026223213.2091616-1-tristan@talencesecurity.com>
 X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -103,25 +103,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-carl9170_find_ie() open-codes the IE search that cfg80211_find_ie()
+rt2x00lib_find_ie() open-codes the IE search that cfg80211_find_ie()
 already provides.  Replace the hand-rolled function with
 cfg80211_find_ie() at the single call site.
 
-Fixes: a84fab3cbfdc4 ("carl9170: 802.11 rx/tx processing and usb backend")
+Fixes: 1c0bcf89d85cc ("rt2x00: Add autowake support for USB hardware")
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/net/wireless/ath/carl9170/rx.c | 27 ++++++--------------------
- 1 file changed, 6 insertions(+), 21 deletions(-)
+ .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 30 +++++--------------
+ 1 file changed, 7 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/carl9170/rx.c b/drivers/net/wireless/ath/carl9170/rx.c
-index fbe46a5e4e415..9db6ac9d6d3c0 100644
---- a/drivers/net/wireless/ath/carl9170/rx.c
-+++ b/drivers/net/wireless/ath/carl9170/rx.c
-@@ -490,25 +490,6 @@ static struct sk_buff *carl9170_rx_copy_data(u8 *buf, int len)
- 	return skb;
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+index 4d94b7062f440..921383a630bf2 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+@@ -557,26 +557,6 @@ void rt2x00lib_txdone_noinfo(struct queue_entry *entry, u32 status)
  }
+ EXPORT_SYMBOL_GPL(rt2x00lib_txdone_noinfo);
  
--static u8 *carl9170_find_ie(u8 *data, unsigned int len, u8 ie)
+-static u8 *rt2x00lib_find_ie(u8 *data, unsigned int len, u8 ie)
 -{
 -	struct ieee80211_mgmt *mgmt = (void *)data;
 -	u8 *pos, *end;
@@ -137,31 +137,33 @@ index fbe46a5e4e415..9db6ac9d6d3c0 100644
 -
 -		pos += 2 + pos[1];
 -	}
+-
 -	return NULL;
 -}
 -
- /*
-  * NOTE:
-  *
-@@ -521,9 +502,10 @@ static u8 *carl9170_find_ie(u8 *data, unsigned int len, u8 ie)
- static void carl9170_ps_beacon(struct ar9170 *ar, void *data, unsigned int len)
+ static void rt2x00lib_sleep(struct work_struct *work)
  {
- 	struct ieee80211_hdr *hdr = data;
-+	struct ieee80211_mgmt *mgmt = data;
+ 	struct rt2x00_dev *rt2x00dev =
+@@ -642,9 +622,10 @@ static void rt2x00lib_rxdone_check_ps(struct rt2x00_dev *rt2x00dev,
+ 				      struct sk_buff *skb,
+ 				      struct rxdone_entry_desc *rxdesc)
+ {
+-	struct ieee80211_hdr *hdr = (void *) skb->data;
++	struct ieee80211_hdr *hdr = (void *)skb->data;
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
  	struct ieee80211_tim_ie *tim_ie;
- 	struct ath_common *common = &ar->common;
 -	u8 *tim;
 +	const u8 *tim;
  	u8 tim_len;
  	bool cam;
  
-@@ -541,7 +523,10 @@ static void carl9170_ps_beacon(struct ar9170 *ar, void *data, unsigned int len)
+@@ -666,7 +647,10 @@ static void rt2x00lib_rxdone_check_ps(struct rt2x00_dev *rt2x00dev,
  
- 	ar->ps.last_beacon = jiffies;
+ 	rt2x00dev->last_beacon = jiffies;
  
--	tim = carl9170_find_ie(data, len - FCS_LEN, WLAN_EID_TIM);
+-	tim = rt2x00lib_find_ie(skb->data, skb->len - FCS_LEN, WLAN_EID_TIM);
 +	tim = cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-+			       (len - FCS_LEN) -
++			       (skb->len - FCS_LEN) -
 +			       offsetof(struct ieee80211_mgmt,
 +					u.beacon.variable));
  	if (!tim)
