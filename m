@@ -1,97 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792994088;
-	b=YJfz0ULrT0Fy1vnTsf2p2yDHpr6sx+qe7oIsuJjGVApgSEFqvT2nVuZKmLcmheKidoUg
-	 RlUh3ptx7UaAXphqZ+HX/Mt3S8cKwnKrc696bd9YW4eZ2AMUYpiTriThlFRPX17YHpBI2
-	 9OTZu5R64MZhAob5mz+msP06EYoqD7CNxxAjMMXo1nrfx6fWfd+I87QilzbMrXnj8B20A
-	 3TQkZ0UnkhtBSkLajhG4fku5b2+HmlE9ZCPH4ZLvC8Xe6t0YboZlGiUhbEPzXgdZsUZh1
-	 upWMB2fkZ5L3mm/nx9IZzXNnzEciHSVrCgKLL7MFW0Rk/XUqQMHSoj4FVO3elDdNEBQ==
+	t=1792994544;
+	b=UEW8FuojNa+0mbUiPvslN9d41jY2KOWOZTs6DvxCH0SCLCG8+HWr1zpw9Fo+19KQHrS6
+	 DfubYDNNUAb+M0sRmgO2D0I/Zq5vGrembWpahsS6djCDjLaf+kvUiS1gMmZXlRnqemqTk
+	 dwRwx/sfsQ5R27JocArAa8ruxgxl5uEYvGiFou1oQ1k4HLMCTpKD7PhFjxsTZoFXeP2bM
+	 vRrGgWgfpSHh5CYtyPcMxTvAaVJtJxTBMN3mjI0SJCR5HwGB6nnqIGnW/vm6hc8vCPRos
+	 trnHgYQCTTsrg8bO6vpi5GAsJb19u6qhCW2q71PsfXoRnf2N1CO5nvkxn+JWEAfjXEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792994088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792994544;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=q9T0zMsyFxP6+f5YwGyxdVkCFKS+Sl9bRWYPaN9yuOM=;
-	b=OpxHZma1STNHDOmLVVxzEjHyH/7K4QB6pcPAwjj0gSY+Yt1NVNxAObcxJBx19yAUTQei
-	 w1zXIdmyNo78U9se6FMapZZAQD9jDtblUzo7XHM3angV6CeXHoG2EpMj5x2qy3DqO3na1
-	 rIZrzXoom04F++6JIsJTFuiuhuwG9/brrgPpd5DblpKNcoOrHMM/lOrwrzuzMpr5WZtRP
-	 B8ddgeMJ4gBYVSh2ICQ32IQr/z8BosRpLeAEyxN+oEtIegTV7Pe8DNp965wWBPa8h8SUj
-	 iFOCvE2zsKXW1xs4qVyzrpilNOZncdfvaY20+G/F8UruqqQYtSmk9qMeKBH1LVp/utQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=K5t5lwdyPHqIe+zGWPszmhrUHYwt42j52CshxS8SC8s=;
+	b=4cBJKCAHxZcbt3Ij15WwQCMARUD1pKxMpWOV+6WSf0Ahmemcq26aNhiE+XnR8LyeYel8
+	 SB9b8iyaJAP0LyGJ1TBM200+kWqbq7o2jCX21e7ztKdRyK+pXCPyugOi7fWm1g+a/50S4
+	 NKtyfqnvarTmseM9W65SXSE0bGBakBEdXUmo/9ocGfYcejrvPBxDIHD887f72fCImWaZ+
+	 DsTYYDbLO+b1CWufrzuBIYmV+6yfTneyqeiQLnp9WThAtgemN15W6mAu08dTJkNyY98oT
+	 Vls1HYFp5QOpMEyydsZcRY6wPMkC9Y7A0agtOtA2+AIcnDAXQ2jzBk2BsnC07kKnojw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Az9xVXNs;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RZfpTO28;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60B606A31F
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:54:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B60B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD6F606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 06:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD6F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Az9xVXNs
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36681e85e87so699788eec.1
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:54:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RZfpTO28
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ea0efd636dso20237795ad.0
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 23:02:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792994087; x=1793598887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q9T0zMsyFxP6+f5YwGyxdVkCFKS+Sl9bRWYPaN9yuOM=;
-        b=Az9xVXNscG3Ck2w9ynNUu0tuCGQR/ioLw6wLRtkWnJEfRtSPq4Ywm/Ips1yXdNN0AI
-         Xjj9khi9Cg3v44tlvQl6np9xYQJPO8G9yusr7MdnHgF3e0IdaEKYZaaRxUT/coaeloiy
-         5s1hAVBSp2BVOJBNTH91zhkz6RVQGNWU22geHRs6MbrgwzkqzizIWwKLfycyxB1b+gWF
-         buMSIpnizvyc4F/xb1+iIKSc2YoQhGVjHzhsuu9IWY7pn3dc7ElmuGhvoij+NyZesvtj
-         gQGHfjCxfc98lu0hxwZH62DzogMvLSsa6Uxzv3pOzvSmdCvBznHL7qsrYNAaZo32PiEs
-         lqpg==
+        d=gmail.com; s=20251104; t=1792994543; x=1793599343; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K5t5lwdyPHqIe+zGWPszmhrUHYwt42j52CshxS8SC8s=;
+        b=RZfpTO28d8xWb/KIi5uR3p24SsrWLmGAhYKTvilY1NXeGjWbNSbGJByXxg3NAKtZbV
+         L4MH7EqJVua1SWRpd5Q5RLa+T/PaOUifJs6ZfTz/7KizOLKXMtZPTdkNZaM6CdNraTqe
+         ikhCSwcr+8LNkautPAWVWtFkloi7FX3a1+NOZDEJOk1MmAhNIuOADcsI6pz6wDLdwlOR
+         Pqvho1KzmFRNdt5AG/6/VE2SstT82FMOf+PFyVCKW3zvZn7abufORuT5zXPDi9D1pGQ8
+         Z5ftV1T+OzMZ/jvm6+3sJGv4guvIZYc5U9EqG6DId7gtjCHcOf8VuWcesKukvmZ4YhQv
+         iTqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792994087; x=1793598887;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q9T0zMsyFxP6+f5YwGyxdVkCFKS+Sl9bRWYPaN9yuOM=;
-        b=eFPX8hTJLRrP+R/xkvVqGhwcnJbG1sMDi7+4+whR8Xe+IduEFZmD8vztp7Tn30AHsL
-         C365zc8YJoaH5c/qVa0hj/mXnUdQ+XTsp4knVtx94RtbYSDQpYNcx4MCO3Dr608FgPLw
-         DYu9B9AeZ090s52+HHSthpKq+oZuYtoZ5kM30/Fb3/5e7XFVKMfpYyjwSBgR/+Gnd6xK
-         9FbdgJybaicYGnJ00HWjWTzQlI7HzIgeWpRyqGmJicWxIfcDd1dxBHOCPBFZ5lyu7FMQ
-         fdDzO/fRTFpfuy2bwAYvoY+0Bye/AMZKA5+yBGU7xUtZSURGLF2uJKahtwMnvniQul2o
-         9evA==
-X-Forwarded-Encrypted: i=1; AKwUvBwad/8vx/XQq1PUrqm6eT+9gufS6yS5UTbjnnXMr0gYN/livjmkV4b5V/Ofo1XoVBY2QJPfOxw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMMaIwYUItnRAQ4PPRGk9uq9Xztm02LK4QYPt4daNqbgojfBxU
-	NWxGB35CN/I7gKYUyOdDkDaUVtcmoenwlPwGOzDN24OcG5C5e4qrIw7zHo21Q/aKqbs=
-X-Gm-Gg: AYBFou2eUW1FbGE3ZOG8PxCytqExhwien0EY0mbpn8Uei7LWtc+tuGN4RuSl2QjxCDa
-	cA7HTRbsInrpkVcHkHXyD88iGhvncrIr/AoOEEICkyn5qYy+sp4rgk4xKZSmu4Z2VaoTVszCTSu
-	KDyJX9HPTOv65xEgFXyTQXso3n713+K5c1IrXZXF2qw45MYiHnsp4u7GBbvJ6DS0klBNrMdMQm1
-	VBgVsSSs1ClABiv3RL0QhHKE88TEEikhME0BdcdQHXRv6albkvyYNt/7u1tEp8fOj2DS2IH7pHa
-	MQZAPsYQpnWes7HgSt6OUEW+k34WrVXmrGW765tAYZ1FYFQkIOxapQNqgCUYDcC4Y3QYNHmWx1E
-	4TjIzrqDiLhWqUkrHiSALAaK/uSMYFe1pYKsnfYVvnfzVxY2Ivjhrp3DaMx7voONZ3AThs8jU0H
-	nLgtjF2UJi7jJI1GXNZue4r3p6IZfU44kJGIXms19vmlEGlus9Yu8U43a8QCvAN/Tm5mFgxxDq3
-	4e7U5lDwGM05Hb1u2M6ehYN9SePMMHrUwTf8wRTaCpSSQIoRtdnc9cxmnpKZn2YQzodEwCd492E
-	19EUqVDMlgXSr+g6BuI0qGcaajSFuFT8T3/mGso2bLG92EAU
-X-Received: by 2002:a05:7300:599d:b0:351:2958:1740 with SMTP id 5a478bee46e88-369e84e5603mr9189061eec.37.1792994087240;
-        Sun, 25 Oct 2026 22:54:47 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d845ddsm22290613eec.11.2026.10.25.22.54.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 22:54:47 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-rdma@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792994543; x=1793599343;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K5t5lwdyPHqIe+zGWPszmhrUHYwt42j52CshxS8SC8s=;
+        b=pvuxXYN1VxDgduDcehR3ngNigGUkDIGhPXWnBSGoiNqBvJP37svTO8Ciwnko+lNuPx
+         nRnPXYufUtXUKsO6wyJr2/asMiR0J+YuknESaPwJlidxYjxEvycPIzoUrPxAX8fqdlLP
+         10s+z/qvn6oxgfo/tmrDr9qod+vK6y+fhmgkYaiFOJ2wzKz6TvK1bYZZI8QU1IR1cOHl
+         5LlWvd92Qe3nIcYfn0QtjQlcqH4YQmPo2zce0oa1VU2Cm9+znellYn0N7i6zJ5VEUpJe
+         9yqKF5GFxVIaX0kqIk193Q5oUgO4rj0F1hDqIE2dYiQcEbT0B0UbvEm60DgKHg9xvp0Y
+         HqYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwgrBkFZvGUpsslsdjwQYS0Vtlip5kYFK0rEOn2KNWMeh56aXVuevgmEepsNrdH+gbY+aTxasw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSIGIZyzv5dxKatJ1x4DyGfGeJ06uZxiCOUuKq9J7fkVd8nhc5
+	iwqpuNJeSdoErqnxcxdM9g5KmFJvU8y3cNYVf192KcfX8eZqqjwkUhcr
+X-Gm-Gg: AYBFou3ZvxHTuQXP53YhjEVC8Qpk9Xl9gzQ8WZhnfhQOv7OWJJboQCHgLmqst1WAknv
+	412WIEms5UnHdk+louOyh8wqRxj3gcAM3DdPVHkxsNQ+Y+EJ3syFFQ08xcDt3l/iXDHnIbUfwOs
+	unoIj82ZrJiI6IeOZhBbeWcQMAVZN8+WGESYS6wjZMsB5UPwJJpuzuYiDZ2mOWqi6dvNIbPDe8T
+	vQIuTbX7G/um5EHECiY/4oj61Hc3ZPDDiA72e532Vjvd8hem6zGddmupmY7b0F3r9FDgdLFvpOd
+	l8hc8FqP2Aokmn/w1UDegSjCzwYxcl2/ZBiplgkwrYw4aeekQAKKRMnDzzwD5LrRDWuDNd5ZF5s
+	B5nEPd8PkNfsAG3+r1jnjojLqfeYlAfiQ3p1R54EPy6EerwZ/r47pe59ZujrVPRQZOHhIeG4jLl
+	CqLV6ajhEcgHY6pNob8QxCPljT5MIjsqEQk/nS/fwXiB+y+zH3gLouKhMcSiegwe9Qm0H2ivME8
+	/o9sBFt/0VU9HAUERqFNd0XsI5iGS46J1nfA4HU3thL+LzwdDwW+gtQLqGgmt7md+otvzhsOr9F
+	ePlvMd89/G9/gE9kN9Nfytprb97lAqFxszAcVvJY0hWtU94NVe/wUUKJHU0wEsHPCa5K6cIRkT7
+	JWeTYAI/LFW1pFvGv199knMZFFoUH
+X-Received: by 2002:a17:902:da8e:b0:2ea:19a1:cd3e with SMTP id d9443c01a7336-2ea9c83381dmr51356895ad.33.1792994542732;
+        Sun, 25 Oct 2026 23:02:22 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9af31421sm12212435ad.7.2026.10.25.23.02.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 25 Oct 2026 23:02:22 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Koichiro Den <koichiro.den@canonical.com>,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2 RESEND 2/2] RDMA/srp: do not DMA-sync a receive IU past its mapped length
-Date: Mon, 26 Oct 2026 14:54:30 +0900
-Message-ID: <20261026055430.406487-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026055430.406487-1-yhlee@isslab.korea.ac.kr>
-References: <20261026055430.406487-1-yhlee@isslab.korea.ac.kr>
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [PATCH] gpio: sim: snapshot configfs leaf items before depending on them
+Date: Mon, 26 Oct 2026 16:00:49 +1000
+Message-ID: <20261026060049.60599-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,45 +101,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-srp_recv_done() syncs the receive IU with ch->max_ti_iu_len, but the IU
-was mapped with iu->size.  Those are the same value only until the first
-reconnect.  srp_cm_rep_handler() takes ch->max_ti_iu_len from every
-SRP_LOGIN_RSP while it allocates the receive ring only when there is none,
-and srp_rport_reconnect() keeps the ring across a reconnect, so a target
-that reports a larger max_ti_iu_len the second time around makes both
-ib_dma_sync_single_for_cpu() and ib_dma_sync_single_for_device() run past
-the end of the mapping, which breaks the DMA API rules.
+gpio_sim_device_lockup_configfs() walks dev->bank_list and each
+bank->line_list to depend (or undepend) the leaf configfs items when a
+simulated device is activated or deactivated.  The walk runs without
+holding dev->lock:
 
-The HCA itself cannot overrun the buffer, because srp_post_recv() posts
-iu->size, so sync the length that was actually mapped.
+	list_for_each_entry(bank, &dev->bank_list, siblings) {
+		list_for_each_entry(line, &bank->line_list, siblings) {
+			...
+			configfs_depend_item_unlocked(subsys, item);
 
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Fixes: aef9ec39c47f ("IB: Add SCSI RDMA Protocol (SRP) initiator")
+Every other traversal of these lists holds dev->lock, and the lists are
+mutated under it: gpio_sim_line_config_group_release() and
+gpio_sim_bank_config_group_release() both do list_del() under dev->lock
+and then free the line/bank.  A line or bank can be removed by rmdir(2)
+while it is not yet (or no longer) depended on, i.e. in the window around
+activation before configfs_depend_item_unlocked() has pinned it, and in
+the window around deactivation after configfs_undepend_item_unlocked()
+has released it.  The lockless walk can then dereference a line or bank
+that a concurrent release is freeing, or follow a ->siblings pointer into
+a freed node, resulting in a use-after-free / list corruption.
+
+The walk cannot simply be moved under dev->lock, because
+configfs_[un]depend_item_unlocked() take configfs-internal locks and
+holding dev->lock across them would invert the lock order against the
+configfs rmdir path, which calls the release callbacks (taking dev->lock)
+with those configfs locks held.
+
+Take a pinned snapshot of the leaf items under dev->lock instead.  The
+list pointers are now only followed with the lock held; each item is
+pinned with config_item_get_unless_zero() so it cannot be freed once the
+lock is dropped, and items already being torn down (get returns NULL) are
+skipped, since they must not be depended on anyway.  The snapshot is then
+depended/undepended with the lock dropped - preserving the required lock
+order - and each item is put afterwards.
+
+Fixes: 8bd76b3d3f3a ("gpio: sim: lock up configfs that an instantiated device depends on")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
- drivers/infiniband/ulp/srp/ib_srp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpio/gpio-sim.c | 56 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 45 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/infiniband/ulp/srp/ib_srp.c b/drivers/infiniband/ulp/srp/ib_srp.c
-index a85d28b95306a..159d6b6aa93e3 100644
---- a/drivers/infiniband/ulp/srp/ib_srp.c
-+++ b/drivers/infiniband/ulp/srp/ib_srp.c
-@@ -2111,7 +2111,7 @@ static void srp_recv_done(struct ib_cq *cq, struct ib_wc *wc)
- 		return;
+diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
+index 0c73bec..562f305 100644
+--- a/drivers/gpio/gpio-sim.c
++++ b/drivers/gpio/gpio-sim.c
+@@ -978,27 +978,61 @@ static void
+ gpio_sim_device_lockup_configfs(struct gpio_sim_device *dev, bool lock)
+ {
+ 	struct configfs_subsystem *subsys = dev->group.cg_subsys;
++	struct config_item **items = NULL, *item;
+ 	struct gpio_sim_bank *bank;
+ 	struct gpio_sim_line *line;
+-	struct config_item *item;
++	size_t i, n;
+ 
+ 	/*
+ 	 * The device only needs to depend on leaf entries. This is
+ 	 * sufficient to lock up all the configfs entries that the
+ 	 * instantiated, alive device depends on.
++	 *
++	 * The bank and line lists are only stable under dev->lock, but
++	 * configfs_[un]depend_item_unlocked() must not be called under it:
++	 * they take configfs-internal locks and that would invert the lock
++	 * order against the configfs rmdir path, which removes lines and
++	 * banks from these lists and frees them under dev->lock. So take a
++	 * pinned snapshot of the leaf items under the lock - skipping any
++	 * that are already being torn down - and then depend/undepend the
++	 * snapshot with the lock dropped.
+ 	 */
+-	list_for_each_entry(bank, &dev->bank_list, siblings) {
+-		list_for_each_entry(line, &bank->line_list, siblings) {
+-			item = line->hog ? &line->hog->item
+-					 : &line->group.cg_item;
+-
+-			if (lock)
+-				WARN_ON(configfs_depend_item_unlocked(subsys,
+-								      item));
+-			else
+-				configfs_undepend_item_unlocked(item);
++	scoped_guard(mutex, &dev->lock) {
++		n = 0;
++		list_for_each_entry(bank, &dev->bank_list, siblings)
++			list_for_each_entry(line, &bank->line_list, siblings)
++				n++;
++
++		if (!n)
++			return;
++
++		items = kcalloc(n, sizeof(*items), GFP_KERNEL);
++		if (!items)
++			return;
++
++		i = 0;
++		list_for_each_entry(bank, &dev->bank_list, siblings) {
++			list_for_each_entry(line, &bank->line_list, siblings) {
++				item = line->hog ? &line->hog->item
++						 : &line->group.cg_item;
++				item = config_item_get_unless_zero(item);
++				if (item)
++					items[i++] = item;
++			}
+ 		}
++		n = i;
  	}
++
++	for (i = 0; i < n; i++) {
++		if (lock)
++			WARN_ON(configfs_depend_item_unlocked(subsys,
++							      items[i]));
++		else
++			configfs_undepend_item_unlocked(items[i]);
++		config_item_put(items[i]);
++	}
++
++	kfree(items);
+ }
  
--	ib_dma_sync_single_for_cpu(dev, iu->dma, ch->max_ti_iu_len,
-+	ib_dma_sync_single_for_cpu(dev, iu->dma, iu->size,
- 				   DMA_FROM_DEVICE);
- 
- 	opcode = *(u8 *) iu->buf;
-@@ -2148,7 +2148,7 @@ static void srp_recv_done(struct ib_cq *cq, struct ib_wc *wc)
- 		break;
- 	}
- 
--	ib_dma_sync_single_for_device(dev, iu->dma, ch->max_ti_iu_len,
-+	ib_dma_sync_single_for_device(dev, iu->dma, iu->size,
- 				      DMA_FROM_DEVICE);
- 
- 	res = srp_post_recv(ch, iu);
+ static ssize_t
+-- 
+2.43.0
+
