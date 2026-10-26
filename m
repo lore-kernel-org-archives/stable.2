@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793035090;
-	b=w6AVUjHIjb8JprMB8x/tAY8vmbkPKp3dH5De7NqWzDPulQANt1ceX9iZQpGfgknLSmpU
-	 N8j+yb8+Ylxf1x24HL72FP8ympqqSSGTHmMFi4SrKGP/qOtwe4WhcGA6uQPHux/myNf5r
-	 Wg0NJ8B6qV/98FDfPicD/pJSsSzl8km81h2XYi8jiDSrwM7d9kyvW6OFto61cbOsZZ6G+
-	 nTTWknWon8vzuHgrt5ArWG1sfesJXV6kqDTukrvH4ioyc9Fp7ezNyLe1VbBtD77239Ct1
-	 /1Vfw1b9keYXBIVy8L03NN+TGGQW6QAE+s+sucUOkQsFZwb525IbUXuCOa1j6gtnysQ==
+	t=1793035166;
+	b=SFxzbK6aOA5ZAltnxYVPtFuNFU6M9MtYo842qksZ+2P3BWsOLl34pdydcFTZ9irXlUD2
+	 BY6MMasVky7Kcil8TySYr5ZNyn+2hInxKtn399QhVyktK0XR/o3PnEB2Aj6f8jVlJhRN4
+	 WdYcla0+xG3IgUAxmANcay27Uyqztm0lvAXtolk3kffwx5aN2dHZUAmyRyeqywUoDXLz5
+	 9sgwPA2lr8WUo8LQcc6XOVDIBHExsdpGGbGj+9U+5PzB6JCApoa4+Bn8cB+BMowsiBbfa
+	 NkaM5DnjyFbjIBOqN3yQS8x71LgpSWJhezTlyYZDB13cP7skVI5eiPbhZnUvS48pDwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793035090;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XJnn5NkyLDa9N/CUoiVzAj3CnxRRTID38jqgYaGjxi4=;
-	b=PU60wFfSz0jMyGM0LjmjVKL4zrqjhdiT0mjxsOJ5zuSe/JCWGSj9eoQwrm6bjWTDRyOQ
-	 aovmzl95Z/EUJhJOPGB18eHjgMTkKEjN3eaAayDL5rucaa+gzIuQD9VrS89FJQ1NDJ8fa
-	 bqxP8O96OmxlbXbwEptobaL+pnjAQ4hZbVQS2X/9SbFC35an2wJF9BeyeKvJU9DyVdKd/
-	 WQi1kxCXXKJPhlQA+R8smjGK/YFhQoHuNhHTwNzrtQwpiiNhrqWGp1yvytl9Ike0c4z9w
-	 AI1cY/L0TpA9S8pMYpxDbxXr2VZTC7e0AwLS0gLeZcfL+hpLNo08Y3LnOr25STc5+gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793035166;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=y7D/pdzVN/EOHLF1gwbwRGUqI6dGzbr7tUliJl/6fgo=;
+	b=wNEb00+dptkdb4lXlzIneGhLYL87wY8g4s50URYDPLvOyGhz4kFiHzZXDRSemK/uEtzZ
+	 0hGkvNS9dy/tTe6bdJ9TZ1iELOwmbxDZznqwgn0qi1VnXFajjqMtNjeB5a6ImsXqN1omz
+	 MstYkZ0Ji+CAGlj+MASx5CTrw9m2KnE9I1JdjVzbOUH0+YHgEsissDJclGPElUzmEvP5W
+	 jp1asjvpcIxmHmopIBDrYDseEDmtwWhe+Lej/WKLagcu0deRGBZQXWpVCX88gnc9mruSa
+	 XZkcQbavvgAg6ET7WUv2sfnEdunlU9IfzS/JNbJh24HxgODTue8KdM/LL/lw6dP4oFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZanWrwh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABc53r48;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846AC606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E215606A31A;
+	Mon, 26 Oct 2026 17:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IZanWrwh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0A01F031E1
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:18:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABc53r48
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1700C1F01825;
+	Mon, 26 Oct 2026 17:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793035090;
-	bh=XJnn5NkyLDa9N/CUoiVzAj3CnxRRTID38jqgYaGjxi4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IZanWrwhzcX5daUuAlFMqkG0+Plx+1GW6LodnQl7EVHZgSnraCwqVXoGfRhAYprkl
-	 1vs2APJaA8asZ/fjiZSRobr5ZQiEc0Vu2IT6MKPb054M42MLMJeUvWHPBkXyMBMKXn
-	 XG844qgiIwZfdz6meoYauuWguqH6lUrdNk4w5qdqjusnWNLidc96VSfP/tYrj+aDES
-	 4+yLtp2wCBhEO4lf5doeMGQcGR/QMWXGrXEDnxWvZ0ZI7l/z5b+8ARuUh0ZdF7+c7j
-	 GVqoLEs2k/p/6GIqyuSNlxcsVf8MPasIeNcBPKnmwW/Q+JyazHFFtbfjcK9ly3mwxY
-	 mGOGuqwo/i6yw==
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7cc0e865dd1so1033503137.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:18:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJbdrgXd0YB666w94QIRmwp6NY1L5idscievBNvUX63dr48fseRZipCjHEDC/wQCS8MTTtrfk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKke8iDcu3a2SMGSheTROOnrF9szzng167VwH6vWtII/NMxZdrO
-	PvZhIJAYC0poRfE9vzZvhWRLfIe38OyEE+dkvaSYsBr+du46bZvV+WAHDLrCkOkdZSGCQnOh4zU
-	kUzx64ofeeb+cHe721gvbrZiKQr2h62s=
-X-Received: by 2002:a05:6102:c4b:b0:7cb:bc5e:7dad with SMTP id
- ada2fe7eead31-7ce5cc64ee0mr2336258137.10.1793035089545; Mon, 26 Oct 2026
- 10:18:09 -0700 (PDT)
+	s=k20260515; t=1793035165;
+	bh=y7D/pdzVN/EOHLF1gwbwRGUqI6dGzbr7tUliJl/6fgo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ABc53r489ndRB3kIsExwwubwn6BqoifdFxeF1V+6mq9C7La+CDHEtMJsqgEEPoSND
+	 8vUaIBWAZh58EgGBXLGaH0CqTeEtQVtVnOZ3msKhpQnjFswQWULV8YPtS3I+otpqxK
+	 /5aUBOFZfYFSniG7HO3v+Bjovn3HoHc/s2iL9OPHtHBHugWWuzTK5KLorEyBm87JXr
+	 zbNyqybGDw0b8DwJbika7xM4e1ZSJrqdk4ef4rOIQKOfEwCPPl8xGCFN4q7LqiEHbY
+	 7qR8Qv4YWaiChOlyAmpq9ADrjRahNKDRT2aPT0/BjCzB7SLIv1a1ApZFkTFrh7VmTO
+	 PE5ISzb4Lg8jA==
+Message-ID: <8c5a8fb7-233e-4433-af45-b67cb2528b60@kernel.org>
+Date: Mon, 26 Oct 2026 18:19:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,285 +51,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-btrfs-device-add-race-v1-1-90cf05e8128f@external.gene.com>
-In-Reply-To: <20261023-btrfs-device-add-race-v1-1-90cf05e8128f@external.gene.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 26 Oct 2026 17:17:33 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H5ByHxsMk-g=PPfaUUHaS6mQqW1FEDZq7-qmegOf79S=Q@mail.gmail.com>
-X-Gm-Features: AclHuK-8CSqglckmDE3kP7wvRrF7_3RG_QhzAuBxuo-Zsii4LeWHtJh9Vd5sjBg
-Message-ID: <CAL3q7H5ByHxsMk-g=PPfaUUHaS6mQqW1FEDZq7-qmegOf79S=Q@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: fix race between device add and chunk allocation
- leading to transaction abort
-To: zubenkos@external.gene.com
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
+ /proc/PID/maps and friends
+To: Suren Baghdasaryan <surenb@google.com>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+References: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
+ <at8-42OwXk2z6-HB@gremlin>
+ <CAJuCfpFaxo06yHdVKsEEmFf9qoOYS0DbMvUuAZEhNfDe7dcwJA@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAJuCfpFaxo06yHdVKsEEmFf9qoOYS0DbMvUuAZEhNfDe7dcwJA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 10:33=E2=80=AFPM Stanislav Zubenko via B4 Relay
-<devnull+zubenkos.external.gene.com@kernel.org> wrote:
->
-> From: Stanislav Zubenko <zubenkos@external.gene.com>
->
-> While adding a device to a filesystem that was under heavy buffered write
-> load, a chunk allocation done by writeback aborted the transaction with
-> -ENOENT, which turned the filesystem read-only:
->
->   BTRFS: Transaction aborted (error -2)
->   WARNING: CPU: 15 PID: 1149147 at fs/btrfs/block-group.c:3731 do_chunk_a=
-lloc.cold+0x162/0x1b7 [btrfs]
->   CPU: 15 PID: 1149147 Comm: kworker/u128:13 Tainted: G           OE     =
- 6.1.170-213.321.amzn2023.x86_64 #1
->   Hardware name: Amazon EC2 r6i.16xlarge/, BIOS 1.0 10/16/2017
->   Workqueue: writeback wb_workfn (flush-btrfs-1)
->   RIP: 0010:do_chunk_alloc.cold+0x162/0x1b7 [btrfs]
->   Call Trace:
->    <TASK>
->    btrfs_chunk_alloc+0x15d/0x2f0 [btrfs]
->    find_free_extent_update_loop+0x1f6/0x2d0 [btrfs]
->    find_free_extent+0x347/0x740 [btrfs]
->    btrfs_reserve_extent+0x147/0x290 [btrfs]
->    cow_file_range+0x15c/0x590 [btrfs]
->    btrfs_run_delalloc_range+0x111/0x1d0 [btrfs]
->    writepage_delalloc+0xc1/0x180 [btrfs]
->    __extent_writepage+0x10c/0x460 [btrfs]
->    extent_write_cache_pages+0x141/0x4e0 [btrfs]
->    extent_writepages+0x7b/0x140 [btrfs]
->    do_writepages+0xcd/0x1c0
->    __writeback_single_inode+0x41/0x270
->    writeback_sb_inodes+0x209/0x4c0
->    __writeback_inodes_wb+0x4c/0xe0
->    wb_writeback+0x1d7/0x2d0
->    wb_do_writeback+0x22a/0x2b0
->    wb_workfn+0x5d/0x250
->    process_one_work+0x1e5/0x3b0
->    worker_thread+0x50/0x3a0
->    kthread+0xd9/0x100
->    ret_from_fork+0x1f/0x30
->    </TASK>
->   BTRFS: error (device nvme1n1: state A) in do_chunk_alloc:3731: errno=3D=
--2 No such entry
->   BTRFS info (device nvme1n1: state EA): forced readonly
->
-> The filesystem had a single data profile, it was about 80% full and was
-> receiving around 1GB/s of buffered writes. The abort happened about 11
-> seconds after "btrfs device add" was started for a sixth device, and the
-> add never completed (no "disk added" message was logged). The same
-> happened on a second machine with the same workload on the same day.
->
-> The -ENOENT comes from btrfs_update_device(), which does not find the
-> device item of the device being added. This is due to a race between
-> adding a device and chunk allocation, which the following diagram
-> illustrates:
->
->          CPU 1                        CPU 2
->
->  btrfs_init_new_device()
->    btrfs_start_transaction()
->    lock fs_devices->device_list_mutex
->    lock fs_info->chunk_mutex
->    adds the new device to
->    fs_devices->alloc_list
->    btrfs_clear_space_info_full()
->    unlock fs_info->chunk_mutex
->
->                               cow_file_range()
->                                 btrfs_reserve_extent()
->                                   find_free_extent()
->                                     btrfs_join_transaction()
->                                       --> joins the transaction
->                                           started by CPU 1
->                                     btrfs_chunk_alloc()
->                                       lock fs_info->chunk_mutex
->                                       do_chunk_alloc()
->                                         btrfs_create_chunk()
->                                           --> picks the new device,
->                                               it is the one with
->                                               most free space
->                                         btrfs_chunk_alloc_add_chunk_item(=
-)
->                                           btrfs_update_device()
->                                             --> doesn't find the
->                                                 device item of the
->                                                 new device, returns
->                                                 -ENOENT
->                                         btrfs_abort_transaction()
->                                       unlock fs_info->chunk_mutex
->    btrfs_sysfs_add_device()
->    unlock fs_devices->device_list_mutex
->    btrfs_add_dev_item()
->      btrfs_reserve_chunk_metadata()
->        lock fs_info->chunk_mutex
->        unlock fs_info->chunk_mutex
->      inserts the device item in the
->      chunk btree, but it's too late
->
-> Before commit 79bd37120b14 ("btrfs: rework chunk allocation to avoid
-> exhaustion of the system chunk array"), device items were only updated in
-> phase 2 of the chunk allocation, at btrfs_finish_chunk_alloc(), and that
-> was done while holding the device_list_mutex, which is taken there since
-> commit 50460e37186a ("Btrfs: fix race when finishing dev replace leading
-> to transaction abort"). Since adding a device holds the device_list_mutex
-> until after it registers the device in sysfs, the race window was only th=
-e
-> very short time between unlocking that mutex and inserting the device
-> item. The chunk allocation rework moved the device item updates to phase
-> 1, under the protection of the chunk_mutex only, so the window now also
-> covers the sysfs registration and the system space reservation done by
-> btrfs_add_dev_item(), which must take the chunk_mutex itself and so can
-> end up waiting for the very chunk allocation that is going to fail.
->
-> Fix this by deferring everything that makes the new device usable by
-> the chunk allocator until btrfs_add_dev_item() has inserted its device
-> item in the chunk btree: adding it to the allocation list, accounting
-> its space in free_chunk_space, clearing the full flags of the space
-> infos and updating the per profile available space.
->
-> When sprouting a seed filesystem, keep doing this before inserting the
-> device item, because init_first_rw_device() has to allocate chunks from
-> the new device first. That is safe because a seed filesystem is
-> read-only and we are holding sb->s_umount, so nothing else can be
-> allocating chunks.
->
+>> +       /*
+>> +        * No lock was held since the last call, so the iterator's cached range
+>> +        * may no longer be valid. Always restart by address.
+>> +        *
+>> +        * The vma_range_is_empty() checks below avoid unnecessary mmap_lock
+>> +        * fallbacks.
+>> +        */
+>> +       vma_iter_set(vmi, from_addr);
+> 
+> This is clearly simpler but this unconditional vmi reset is not ideal.
 
-The approach seems correct to me, but there are a few tweaks that
-sashiko found and should be addressed as Qu mentioned before:
+Yes, exactly how I ended up where we am right now.
 
-https://sashiko.dev/#/patchset/20261023-btrfs-device-add-race-v1-1-90cf05e8=
-128f%40external.gene.com
+I pref my current fix as something to backport that avoids performance changes.
 
-> Fixes: 79bd37120b14 ("btrfs: rework chunk allocation to avoid exhaustion =
-of the system chunk array")
+If you two disagree, please take it over and drag it over the finishing line in
+a timely manner.
 
-So as you mentioned in one paragraph above, the race actually existed
-before that commit, but it was simply much less likely to happen due
-to a much shorter window.
-So technically that commit did not introduce the problem, only
-significantly increased the time window where the race could happen.
+I wasted enough of my weekend with this over-enginered piece of software. (had
+to change one word before sending, can you guess which :P )
 
-As far as I can see, the proposed fix would also fix the problem
-before that commit.
+-- 
+Cheers,
 
-The race seems to be very very very old, maybe introduced in
-788f20eb5aff ("Btrfs: Add new ioctl to add devices") or in
-0b86a832a1f3 ("Btrfs: Add support for multiple devices per
-filesystem").
-Though I'm not sure what should be in the Fixes tag, maybe just leave
-the stable cc tag with 5.15 or the oldest supported stable series 5.10
-(and see if it's easy to backport there).
-
-Thanks.
-
-
-
-> CC: stable@vger.kernel.org # 5.15+
-> Assisted-by: LLM
-> Signed-off-by: Stanislav Zubenko <zubenkos@external.gene.com>
-> ---
->  fs/btrfs/volumes.c | 34 ++++++++++++++++++++++++----------
->  1 file changed, 24 insertions(+), 10 deletions(-)
->
-> diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-> index 6574939e1..bc8ffa7bb 100644
-> --- a/fs/btrfs/volumes.c
-> +++ b/fs/btrfs/volumes.c
-> @@ -3066,15 +3066,12 @@ int btrfs_init_new_device(struct btrfs_fs_info *f=
-s_info, const char *device_path
->
->         mutex_lock(&fs_info->chunk_mutex);
->         list_add_rcu(&device->dev_list, &fs_devices->devices);
-> -       list_add(&device->dev_alloc_list, &fs_devices->alloc_list);
->         fs_devices->num_devices++;
->         fs_devices->open_devices++;
->         fs_devices->rw_devices++;
->         fs_devices->total_devices++;
->         fs_devices->total_rw_bytes +=3D device->total_bytes;
->
-> -       atomic64_add(device->total_bytes, &fs_info->free_chunk_space);
-> -
->         if (bdev_rot(device->bdev))
->                 fs_devices->rotating =3D true;
->
-> @@ -3088,12 +3085,20 @@ int btrfs_init_new_device(struct btrfs_fs_info *f=
-s_info, const char *device_path
->                                     orig_super_num_devices + 1);
->
->         /*
-> -        * we've got more storage, clear any full flags on the space
-> -        * infos
-> +        * The chunk allocator must not use the new device before its dev=
-ice
-> +        * item is in the chunk btree, otherwise allocating a chunk on it=
- fails
-> +        * to update that item with -ENOENT and aborts the transaction.
-> +        * Sprouting is the exception: init_first_rw_device() must alloca=
-te from
-> +        * the new device before its item can be inserted, and nothing el=
-se can
-> +        * allocate chunks since a seed filesystem is read-only and we ar=
-e
-> +        * holding sb->s_umount.
->          */
-> -       btrfs_clear_space_info_full(fs_info);
-> -
-> -       btrfs_update_per_profile_avail(fs_info);
-> +       if (seeding_dev) {
-> +               list_add(&device->dev_alloc_list, &fs_devices->alloc_list=
-);
-> +               atomic64_add(device->total_bytes, &fs_info->free_chunk_sp=
-ace);
-> +               btrfs_clear_space_info_full(fs_info);
-> +               btrfs_update_per_profile_avail(fs_info);
-> +       }
->         mutex_unlock(&fs_info->chunk_mutex);
->
->         /* Add sysfs device entry */
-> @@ -3134,6 +3139,13 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs=
-_info, const char *device_path
->                  * its fsid has been changed by btrfs_sprout_splice().
->                  */
->                 btrfs_sysfs_update_sprout_fsid(fs_devices);
-> +       } else {
-> +               mutex_lock(&fs_info->chunk_mutex);
-> +               list_add(&device->dev_alloc_list, &fs_devices->alloc_list=
-);
-> +               atomic64_add(device->total_bytes, &fs_info->free_chunk_sp=
-ace);
-> +               btrfs_clear_space_info_full(fs_info);
-> +               btrfs_update_per_profile_avail(fs_info);
-> +               mutex_unlock(&fs_info->chunk_mutex);
->         }
->
->         ret =3D btrfs_commit_transaction(trans);
-> @@ -3190,13 +3202,15 @@ int btrfs_init_new_device(struct btrfs_fs_info *f=
-s_info, const char *device_path
->         if (!list_empty(&device->post_commit_list))
->                 list_del_init(&device->post_commit_list);
->         list_del_rcu(&device->dev_list);
-> -       list_del(&device->dev_alloc_list);
-> +       if (!list_empty(&device->dev_alloc_list)) {
-> +               list_del_init(&device->dev_alloc_list);
-> +               atomic64_sub(device->total_bytes, &fs_info->free_chunk_sp=
-ace);
-> +       }
->         fs_info->fs_devices->num_devices--;
->         fs_info->fs_devices->open_devices--;
->         fs_info->fs_devices->rw_devices--;
->         fs_info->fs_devices->total_devices--;
->         fs_info->fs_devices->total_rw_bytes -=3D device->total_bytes;
-> -       atomic64_sub(device->total_bytes, &fs_info->free_chunk_space);
->         btrfs_set_super_total_bytes(fs_info->super_copy,
->                                     orig_super_total_bytes);
->         btrfs_set_super_num_devices(fs_info->super_copy,
->
-> ---
-> base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
-> change-id: 20261023-btrfs-device-add-race-d8c4f1c3ed84
->
-> Best regards,
-> --
-> Stanislav Zubenko <zubenkos@external.gene.com>
->
->
->
+David
