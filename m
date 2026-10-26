@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793029590;
-	b=pDpfuArWIfvAwIM67XKPc/W2JUfIMo/sSP8x94WpRUhgWv8baoD1Dsjx0QlVeOWKklmE
-	 Tq2IjdVMNHNdtF1au4f8BM3qNXyuVfrD1sXXfVvCZK6+ZVDJvVUav1LI0Y9FQMir21c15
-	 hwb/mZvBccJU3Q8Z6mcNDdT/5Vz9JWSQNaf0OK4KitbY8tzrh8tYB/r8hLv+eW/7/sjTV
-	 1t5EZ8SmfOsBLjxDSYkJ2Do/D9TIO2MJA3UkxHX55B98+nslnh6UVfkq/N7mThI38Fx2K
-	 Q1r132exYLpHd/V1K/S8CvUVhoBzqIjA459d94NUMyfQhH7mHmSLvr13JAp/ueD8K8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029590;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ypy55PQIRY/Gie/kAEltN807fD7sUXsm8MivRuhOtp0=;
-	b=ZoD5zP9VK2h36Tlq7aDue+qH4uPnj3Lo4XhDDgYSx2Ki0jX1FIJi79jYXVq6oV6FCoN8
-	 Vr7NdbNIC+FLAl+DTa13Qa93F6awT7OEbmgV3Qy/2YeLHH/AuhcPboJYY9adcnPiuwVrx
-	 hR8N1COXMrA63f89DUtiHeoC81z44DNdNHcrHrtHgtZMzX+3jIzswbMs8mwmD/HHQj4Tn
-	 smuG8JNV+hKfGGuscLaeQtyr0wX9cYuV6X8Hqx0yzi7J4kA6gyqS2vm3g0nVGbt/v/FG4
-	 DZ39mgBqgFalA54/NPVO84kGiKYuyAz6V6C5ASwg9T7jE0z+LXtgzBOEY/4GzsqSbEQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxkyZSMw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66456606A321
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxkyZSMw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793029590;
-	b=bHWDoVTyot6lav2YnPBuJqiGioEnFWEtz2xnJM4Ohrv7qn6ZwXz/OMMWMU2fDExJu+a/
-	 FZN8AkDw95KpsX0Tvv9rmu7sldPoNG9Gzwp5zL4iB/H0lNXM9tS40AvuUFhKBP4jLjWMB
-	 IvRnC7PZbxg/HYNYQWl4tNVI97Uhg1qzNq6zqI67Xcbn8N0bxodiFDT0rU+cnfMXMf04/
-	 +JFd0NnI115lDp+tUy2zSR6+v4Mu+D0cNofGG1Lv2+fljvX7IBCueCNtwEA/MfMzghU33
-	 I1OqdaxLmYBlq0YxQETKqTDQSMJqtMf7zRYDHdGzgtyCYaW2JJViqlw8AFXQkXh5j5A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793029590;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ypy55PQIRY/Gie/kAEltN807fD7sUXsm8MivRuhOtp0=;
-	b=pnpLceg9osSJy1i20ijmJs242xomQMYpk/tlyxaCFeU2UVD5+Zj3SVgIdaMEYYldH4VC
-	 CEBVzWQ0i3rzvrNhDVmO/YDOa/eiFUs99Iu7yAhVsk3ynIeq/STuW0rlBhA5hJlfkpAuq
-	 u7nmdK2nMNRxaVnmx56zVE9eSsokvqW5gDDTMkWHZQ7wpz3bBzd1UCpEK6Mv/6GlKWq97
-	 FDRARQoUO+GvBimlDo8YSVq9ddd9XysvPlHDdzy/2EVoJd/EcwfupWG248w5ITM/UF3w3
-	 HUSFD04z3LmGxFOhuPxBOABt7OwvOGngh6rsQNRdKDqk05xMsFZLkQ2ZtSJ2Vft3gfQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793029677;
+	b=SBheaY9g0sLfiPg4ffyOfQUHMzGmHuUCOekk+73TF1zyaviCEubajFecsDB6/+Kpc5DE
+	 mMvUjdMmDZMQ5g8Ae8WpUZJAVwkqCS7M0aborxN/UJlw6OSN5Ho/ZXE0Z3w+6XqNnDXs0
+	 9Ke8NbO0RsEQslKa++B+nEK8+/VB9VxtRcVjW4osSBE95z0ODxvToHKmcZXjsXLf1xC69
+	 j6d8Tt/oRYl1AqSfud2jqim8yRc8zfXoaRw96IIpP7vRJHGxbsVJtsyLUycC/Eo4pOeU7
+	 PIuuHj65gbOMQ0sZ9wM2/G7/hgYy9dmWgkyIi9NazVgaKbURzQZK9sksRhFbIr3S1cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029677;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=35uD3sVJLZUeRHcPV8RyOPRby60btWRa2sdjDc5SOss=;
+	b=rDG+YuBUYyvCOzdBuuWz29wROwl06nzAnGt4uqy4IuJRFG0HBIkDCLe9r8e8RqhFxZLf
+	 DvEcsoc3uf0H2mi/KlD9iZ0L+aZcRNpPQn6toMzWpVmKybrx2awPP2uFY883TkUvaTLAf
+	 Bv6VHmpQtk273ZC4x3SWKXNNjhJZtI7xF3uD7HP137EqCMWbzgJ7XVGw48ei90saPVB//
+	 H3y0gsVhF8Db/pfBN9KArGCKNhz6MfGjNMWcymQ5EJGBOgfLIOf9rn7oJ2ZvEmTGMVVwt
+	 cDMqHQnyL9RkKXS5eHVunliT+WYnVpIUxSVDqEsvzgVhwuZpbg7+plE/rk91JoZh/qQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=byeEQHUb;
+	arc=none smtp.remote-ip=209.85.219.53
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 100991F031E4;
-	Mon, 26 Oct 2026 15:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793029590;
-	bh=ypy55PQIRY/Gie/kAEltN807fD7sUXsm8MivRuhOtp0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TxkyZSMwP+xTp3M0/BTClMBB2EMsh57X1al07sxuUgxyckLMsZaCFfvI6SSKFtUOb
-	 X1g34FbfT4cDUsxBQLF0YAuq5dfbKnvHFGM0T2LBUwcfeNCXtHGel//2wN6fFhiMnv
-	 VeSOXVgYS32NDUiez5/KV4SzUgbyA125z/peen2d8PskXoZcT8rwUkpmCcHZvwiKHi
-	 GRwUuvybsJuoM/KICV4ZEAAstwApQRyCejdnMhw86Pdd7b9d/ejeMU6voO2lFFuGIW
-	 b8L+diseAEPlsCuNFKREZg07p5ZHHYNc1A9wAx/9V49alwr5nGXhJSpOqR9lozz7B4
-	 O1T/VhJVnoAbw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 80D1144D61;
-	Mon, 26 Oct 2026 15:46:28 +0000 (UTC)
-From: Leno Hou via B4 Relay <devnull+lenohou.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 13:35:04 +0800
-Subject: [PATCH PATCH 6.12 2/2] mm: vmscan: fix dirty folios throttling on
- cgroup v1 for MGLRU
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CC9606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:47:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72CC9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=byeEQHUb
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917997ab0d9so34715176d6.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:47:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793029670; x=1793634470; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=35uD3sVJLZUeRHcPV8RyOPRby60btWRa2sdjDc5SOss=;
+        b=byeEQHUb9OieTIHdICY6bBwgtkoir/eSMZRVgp0AgET5gmLTzKoGnbdPTANdmvWh0x
+         R/w21WuGyFo3i0Wn8ZRzJcbCzbVowwmFMUFcY9tthfzKWmDvvFE4vC3vDAj76ccxPUrU
+         QjOeAPjy+HI3uU8nNAGddmdjUVXhMF60qe5SGvsHvO5fimwTxVuQAWTnT2bP6Ox7HGVE
+         wgNWlkJrBQ4MJ7/3aSElBcfFX7WzqjY/OY8DdVFQaZd1ghqVk9n2w9EiCzNi0qQzg9IM
+         /03JYdoZuMiqgGa9xspW9dHEXKBLJsycQp32/ZQuXaBq2pTeurr7DG3rO3sBJMu7JDXW
+         wVPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793029670; x=1793634470;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=35uD3sVJLZUeRHcPV8RyOPRby60btWRa2sdjDc5SOss=;
+        b=O7b4bDiA4ExpLkLLTTgFed52w/HR4cN1miMN4nAIKNvC/3WAeFILeUnbZpZcIdLuhy
+         tvMEqe/Hrt+4w/kY3VHNCFkpUwyf/0pgGvuYu3YrC+djhUrI/JrroFPSQn7/mTsTe8lo
+         +KCPLQUAASJZLhqq6tqCoJRXL2qDS/R54OKFGP8Cod8o1DkPQ7DBjhUqeGn9cHe7FLcY
+         kwzQWp7BghAYG9A88oFSjNPFmS/K36bqJ1zjInyI4xnSt1XzGyymdJ4Yj25aYMIAd8Yp
+         Fr183gLw1hfQOR8oVczvKm9x/vxy0v7BpcFormR/4h5R3ueFwEXLe5Jscc1fP6M4vyst
+         Xj/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxZYEsP3Gz5/VIcKkr3LcnomrBQ//HyWI65+eMI7CWYJDpTSNVvt+iZLXb6BtzofoNyLD/vdFo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/TrN+Wk4BDNcC8auubnfmVVt95PEG1crxNxCireszBLbNBVhc
+	KGMwwkBCHXh/8IPR1p4LqIsig7rVFjU8GLbcuu7ELbF6tAV4JYfAK8t8PShAiFq91pA=
+X-Gm-Gg: AYBFou0euIo2b8Vg15HTFAlUCSsu2VLiPwVg3X8DlBNMJSaitmYqG4dH7asP9lwLFMB
+	ZnuzzqjFd9zjSfYg9bBOSP+RNYroDK2uDtN9u+NvWOIHWJB53uoJgIzDInN7s5cxTub4MbpAi53
+	/qdngCWgrKzK15WH5CGy0TrhrHOxsOf9DvrFgnupKeNbJjY2ct82nte9UJn5YE+/eybxy2R/+KY
+	oCwwfHloU7a3uJuQjigY+U32RV0CE6IIZLJd+2WLRV8oJup3dYYjaTXvQXiTCIqfj22DkIdal7q
+	X+RG+VgXWlhknPwrYlQjdmkXqoncztbv3z3oMj9yI+XM703hJPP1ZNteZNbmrdfdY2XEG1XRCr6
+	B1nNO5L0agaS2CsPMA8W9bGTFbf/vr38jGHfSPF+PKkRu6a6g1hAyMa+DvOfBtD7XbMKppFNrWe
+	c5nXsRvrLPYvolVaqaSl0H6bqztAW7dZUwCBxxVgzQ/QqPT2CNFaJlGzNiSsRsDj+Y9dMyx7VWm
+	iyGjNQughFAaXvCghwt4Ldwneg6jHO2BOiYa7mRIllLmZdVgoFEaY5wL7QMJYPjEWwyOGI52V2k
+	QD2okNaZEVMdLLRirABq+cHLW06wWc+BdhtL
+X-Received: by 2002:a05:620a:4515:b0:93e:48fc:aa85 with SMTP id af79cd13be357-940ef9571aamr1034017685a.43.1793029670123;
+        Mon, 26 Oct 2026 08:47:50 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f066731esm719609385a.9.2026.10.26.08.47.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 08:47:48 -0700 (PDT)
+Date: Mon, 26 Oct 2026 11:47:46 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, honggyu.kim@sk.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on
+ memory hotplug
+Message-ID: <at91WFlW96PH-a8A@gourry-fedora-PF4VCD3F>
+References: <20261024170415.4121901-1-gourry@gourry.net>
+ <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,113 +99,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-fix-mglru-v6-6-v2-v1-2-8c9b40f9fc24@gmail.com>
-References: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
-In-Reply-To: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
-To: stable@vger.kernel.org
-Cc: Leno Hou <lenohou@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, 
- David Hildenbrand <david@kernel.org>, 
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
- Wei Xu <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792820120; l=3276;
- i=lenohou@gmail.com; s=20260311; h=from:subject:message-id;
- bh=JnVRp/o3pn75fe9dOg9lgs8yva4bEL6E9tCoeF7HgKg=;
- b=Nx1C3LDTRC0lBwysYQHdw6QqeacDi+EolkMCy1P48+P2rKgJNUYORm4e7888i2pVBYUBx2NoP
- PVzhUyWz+mTCGkoMUqTEnDCqyg8PfKAYVZtC2VWnIH2v+83R60To2fZ
-X-Developer-Key: i=lenohou@gmail.com; a=ed25519;
- pk=8AVHXYurzu1kOGjk9rwvxovwSCynBkv2QAcOvSIe1rw=
-X-Endpoint-Received: by B4 Relay for lenohou@gmail.com/20260311 with
- auth_id=674
-X-Original-From: Leno Hou <lenohou@gmail.com>
-Reply-To: lenohou@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
 
-From: Leno Hou <lenohou@gmail.com>
+On Mon, Oct 26, 2026 at 12:19:21PM +0100, David Hildenbrand (Arm) wrote:
+> > +/* Recompute the weights from node_bw_table, unless they were set manually */
+> > +static int wi_state_refresh(void)
+> > +{
+> > +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
+> > +	int i;
+> > +
+> > +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
+> > +	if (!new_wi_state)
+> > +		return -ENOMEM;
+> > +	new_wi_state->mode_auto = true;
+> > +	for (i = 0; i < nr_node_ids; i++)
+> > +		new_wi_state->iw_table[i] = 1;
+> > +
+> > +	mutex_lock(&wi_state_lock);
+> > +	old_wi_state = rcu_dereference_protected(wi_state,
+> > +					lockdep_is_held(&wi_state_lock));
+> > +	/* NULL wi_state assumes auto=true */
+> > +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
+> 
+> 
+> I was confused about the node_bw_table check at first. Maybe
+> 
+> /*
+>  * We can get hotplug events before any BW data was recorded.
+>  * ...
+>  */
+> 
 
-[ Upstream commit 13b6b620910436c29dea398382e83c9499fd13e4 ]
+I went back and forth on whether to do the mutex in or outside this
+function, but ultimately decided inside is just better structurally.
 
-The balance_dirty_pages() won't do the dirty folios throttling on
-cgroupv1.  See commit 9badce000e2c ("cgroup, writeback: don't enable
-cgroup writeback on traditional hierarchies").
+But yes, this comment seems warranted in this case.
 
-Moreover, after commit 6b0dfabb3555 ("fs: Remove aops->writepage"), we no
-longer attempt to write back filesystem folios through reclaim.
+> > +	/*
+> > +	 * HMAT and CXL report a node's bandwidth only when it first gains
+> > +	 * memory, so recompute the weights whenever N_MEMORY changes.
+> > +	 */
+> > +	wi_state_refresh();
+> 
+> If the function fails, should we at least pr_warn_once() ?
+>
 
-On large memory systems, the flusher may not be able to write back quickly
-enough.  Consequently, MGLRU will encounter many folios that are already
-under writeback.  Since we cannot reclaim these dirty folios, the system
-may run out of memory and trigger the OOM killer.
+The only failure state is -ENOMEM, wasn't sure that was worth warning
+on.  I actually debated whether to just make this a void function.
 
-Hence, for cgroup v1, let's throttle reclaim after waking up the flusher,
-which is similar to commit 81a70c21d917 ("mm/cgroup/reclaim: fix dirty
-pages throttling on cgroup v1"), to avoid unnecessary OOM.
+I don't have a strong feeling here, but happy to add a warn if you
+prefer it.
 
-The following test program can easily reproduce the OOM issue.  With this
-patch applied, the test passes successfully.
-
-$mkdir /sys/fs/cgroup/memory/test
-$echo 256M > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
-$echo $$ > /sys/fs/cgroup/memory/test/cgroup.procs
-$dd if=/dev/zero of=/mnt/data.bin bs=1M count=800
-
-Link: https://lore.kernel.org/3445af0f09e8ca945492e052e82594f8c4f2e2f6.1774606060.git.baolin.wang@linux.alibaba.com
-Fixes: ac35a4902374 ("mm: multi-gen LRU: minimal implementation")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Leno Hou <lenohou@gmail.com>
----
- mm/vmscan.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index a165f685216d..43b808e4e9f2 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5431,8 +5431,22 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 	 *  If too many file cache in the coldest generation can't be evicted
- 	 *  due to being dirty, wake up the flusher.
- 	 */
--	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken)
-+	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken) {
-+		struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+
- 		wakeup_flusher_threads(WB_REASON_VMSCAN);
-+		/*
-+		 * For cgroupv1 dirty throttling is achieved by waking up
-+		 * the kernel flusher here and later waiting on folios
-+		 * which are in writeback to finish (see shrink_folio_list()).
-+		 * 
-+		 * Flusher may not be able to issue writeback quickly
-+		 * enough for cgroupv1 writeback throttling to work
-+		 * on a large system.
-+		 */
-+		if (!writeback_throttling_sane(sc))
-+			reclaim_throttle(pgdat, VMSCAN_THROTTLE_WRITEBACK);
-+	}
- 	/* whether this lruvec should be rotated */
- 	return nr_to_scan < 0;
- }
-
--- 
-2.55.0
-
-
+~Gregory
