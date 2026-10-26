@@ -1,113 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015522;
-	b=MH76wnaKgeriU5FesrqoVHabZ7fHitA6E8U5lC86awhl9YfxnqsMW6GP/+lT1juopj0n
-	 QJ3CNXNIxnZv849hbQY4R6p+YMH2W1auYlLo5lxwGvRIr3U2njKbxHpqiXT5/maUfI9yD
-	 SK5Ad53uFAPQOy5dwQyxaSXu6/EINEgZSv6ja3UizAaf8wLMslbAAjegp8XKzUuaXUkwa
-	 Vr0X2OYDPRPOaP7sb9sQYOnbgxt6jUHhVjIWt+7f29D/VPH5JoE+msBDGVXKfMkHcv1eH
-	 w7d5eMVSw8+86JEIWKXLCtnw1ZwlcUMDb2J+5QYu6pxUwepzKVS5MW62sqPrqcGj1lw==
+	t=1793015556;
+	b=RJJIQuepGZtUvNGApWaL1QK/N4q3ODOXzb6X0Yh3LJLhm7805QU3+a761coy1JamLSto
+	 9ZrepYOM5dasKNMydadTLIgZtu3q3AkA/3B8WLnp76Rbroo/E1kXGtQ0AbTzS8c7yZJRX
+	 zvNCNEhYQ06SwLCVfXGgOqdHK52p/T3Zx7uG6IP6/8tzGxg6iqp4zQlwLi/4W+78WpDC1
+	 Xdk3Xtbx5VlKtUSidKSQawrvY+LTjbxSSHkI1dcDdfafrnqgvMbeLWZ3ck13xpJPSz3Tg
+	 zzOSQl2OQdY1DMfxmbm8b9QTLqp4qBqpfyda/VVmCDOTaebqku3hnj3Q1yzksxZEt0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015522;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oXmtbUNcpCmBSBrSPIQ5eCtMYF36AZ7qVO68tUryAUc=;
-	b=WNnuFwV2BmEzPz/Ak8jW5hk1dcZQu9ct1xzXpcaZKZEEupbxKNwKDK7UzAR/uhOk4hx2
-	 bHSCpFjTir2Nu94H2+FOztUlzJ/+lt7WIR4X6LrdGoG6N7UnidWDkRzHHRdTF3T3Dpnil
-	 Yr6ls2232LL8MJ4E0oNg9+r/efSP/DWsGHRsxJ/kvhA3xvF502SiUJ3+qpH6NDKj0z2/0
-	 O/sEJ4YualXdNJ/dHBh5I/SEsmIZm6XdEU0uHJRsI7DpIH2VLAajHK8KZmOXuKjqDH+Ng
-	 jRNpYRh1RFmUwu/1we5jndfkmNZ3GeC1NIa81VReajpLuBHgk48741awBZpV7bH1bOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015556;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
+	b=S/tnjznjPFnJGv5fC8Jcp0W1ZHybOkCMNzbBoiRVDK0GBhjfm7oLDcvRDDdtPuR0iP8q
+	 xP++82OnBd95R+nJtC/6D5TYSHb9/UxqBjH28xHfzkkr2LKfn2l6KVict8e1temhWZPns
+	 UZS2Xk2K1vLY2Z2fIIbfrthAOCUiM2lzZfC3DhKLc68q8xflmjDatMTtDcdbHoxvDT0QP
+	 H9esAk+Ouf4L/e/zmYYbaP+BxqawZQhMRBY6a2UnUmZvvkdRgAo+CPYHpfxNTjHdAwRPL
+	 Y2JG0ati1Y4Wdvsm+g7JjG8Hb1l05rhUi8Ltxg690+Y4jvVo0TVYJeNAqxStKmzYQDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="B41kM/TU";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=eWGZbKAX;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IsWxLjyv;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34727606A330
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:52:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34727606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62372606A32C
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:52:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62372606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=B41kM/TU;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=eWGZbKAX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793015520;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oXmtbUNcpCmBSBrSPIQ5eCtMYF36AZ7qVO68tUryAUc=;
-	b=B41kM/TUVn5dYi8/qPNRjW7bniAlyCRppbqCTwBMrsqwGHzcqO0tpCBv9wmvdFw/5QSLFB
-	xM1Jlpz2cggrqn7pEbKyLeJKuUOqI/XXGLC3HvZLUPu4vV1tt7lHFc5uIl5IptzBG9pMd8
-	jsnGIUCpG2JCSFPhzF+UWkv5iX1+ocI=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-561-3PoJB86xMuS1j5RWQ9OSvw-1; Mon, 26 Oct 2026 07:51:59 -0400
-X-MC-Unique: 3PoJB86xMuS1j5RWQ9OSvw-1
-X-Mimecast-MFC-AGG-ID: 3PoJB86xMuS1j5RWQ9OSvw_1793015518
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e0c896d05so2718015f8f.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:51:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IsWxLjyv
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070755c8cso1253910b3a.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:52:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793015518; x=1793620318; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oXmtbUNcpCmBSBrSPIQ5eCtMYF36AZ7qVO68tUryAUc=;
-        b=eWGZbKAXg6voSdVmFRNeRAVajxhVFt4Xje6r63u2FAH4GZOY5WZmkSaSxDO33Yik/9
-         H5S2RrBbfLkpsjyZglrOmr/XBmEm0WK/7HpoLz6pIqhdvWTOQ8NoE7UZttwhgoPy1iJD
-         W/ApLnfesP2NSz9ni8jsN5QUuexQTfnwduwbVIVClF6mTxs/lXow+zrQphJpg7KrbZt+
-         yanZ2SDWfod3m05BGsnPn/p5CcgH7z9r9Lny4gy7IXMcG8RURTTkAtZsPcVIZuByRWWN
-         0SfympnV6Dcd21ixn52mfJ2gL5Xgrr0cftJnA7V0pUKHaKKNQMjW8tSQC++9/LFCsZEM
-         3gKg==
+        d=gmail.com; s=20251104; t=1793015555; x=1793620355; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
+        b=IsWxLjyvSS+yJR2TrqdixNFLlM5rTDb7uGtRIyBFo7Hkb3usvDA6pa/LO7PUAFYFm0
+         jL38qgPpgv7tHi8v89bgFJqnUY1Cb5oudLNTw9Z9i/L1MOPyrevjKh5uO/m5w5OWIKZD
+         yVSwWSrA3VEE/eKsrUv45Aw7PuG+L+0XAuCtpt9Ppm9VjKRaHh6dca1MFxfhriz9SHXT
+         NKWMp/2+cHiGiYxdlCoJCmwdkzPp7cbleL9PvimiNxdhLHildiwD6tJL+vKrgom4h/Mz
+         lFjOiTkcr/W71Re3NYhieMIM1wukkhA1IjrlnCWOYkGqheQSYffVJOohK4+bTpdYtWDn
+         3lhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793015518; x=1793620318;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oXmtbUNcpCmBSBrSPIQ5eCtMYF36AZ7qVO68tUryAUc=;
-        b=grvXEEMHfLNNUYTfPFOodLYj9qZblkTbUJYEzlsOfzpL5zTBpLKopDavcx5tEN2PRj
-         tKFJjVrEs7NtVJWYkuWuMR5F5nca4MZz7QH2w0Z6/bwwnDC9wUDJyo2Ss9fuKc3ql1A2
-         iLMNSntlLtlFqiSPMtg4pRo/JjqJ/NI9g9S3aWTZ/Sx7PCIHiyujEG4Qjw4IqK8hdeWx
-         FYdl9cNj4QMHaJAcAuuqeohcyUHz15aJdVdH4qW9ACMS04IOr/FhgbrRWf15Zt9x3RvR
-         Ym9x4ZjTAXqglXwvi4Tug+G3h5ld+/6nfaEzzv42aZP9ePFlODCIWywNwwRaKvQqNqJQ
-         IpAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfR23o+TRxn3Lv061cDFcvfU/9lywlReCYxw+zGlg5w/gS168X0RgqJ8SlnquVjP3txv7m4c4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXSd25w+7k/ImEHWdRQO4g/vEKVys5DTfO6GuWCLd8MuJjx+Qq
-	78IWyZtG3uWqq80AN4w21gO0iMfykVTxqy+tOvTZa0/CpZ361Xw5c4bLFpotuBIu+xEn3LLl5p7
-	mc8vGyW85rnqUPy3LYWp3egwaNXZYKgQpK4R7X7dfw4zbljVhBbOSC3zQEA==
-X-Gm-Gg: AYBFou1EiFlnFpPC6YStf3FIAGBEI2x3YVqKOwyyf/Iv8Vpf2X84Wq5HyBfF3R8a6hp
-	XRGm50jqPkNVUP49DDGuqIBTJsdTUcR+WBQfHfOce4xSTPusP6vCWy5xDwkpt+jJvy5LbeV6fvD
-	Xv2AyUKgeG9dc2ybB9lt5s7Tgpk3W9as5qnLIBPRf/Nzj54orJEU1zqJhtSc12aV5EQmji2K/4Y
-	4yyXFfuNN2nBy1grgwv7BZchOnLO9KwvTeBGiwK/StknureYXAwMvzFKUix6FtTc4CqlUAZSzgH
-	PahTHCO9oQV7T0fC5UP42XwGwdo6QVvbJJvRBd+UU+rWBF+AIh8WRNe179+sFpywnrKLzVLeLr7
-	mvurrnLv6446aA3j6SxczOlugdsJH+WwrhwjuvHHVEYdPJM6vj4O8KQ==
-X-Received: by 2002:a05:6000:430d:b0:48d:ffcb:28e1 with SMTP id ffacd0b85a97d-48e3eb780b0mr11518125f8f.11.1793015517846;
-        Mon, 26 Oct 2026 04:51:57 -0700 (PDT)
-X-Received: by 2002:a05:6000:430d:b0:48d:ffcb:28e1 with SMTP id ffacd0b85a97d-48e3eb780b0mr11518084f8f.11.1793015517438;
-        Mon, 26 Oct 2026 04:51:57 -0700 (PDT)
-Received: from debian (2a01cb0580324c0086a938fffe1eee25.ipv6.abo.wanadoo.fr. [2a01:cb05:8032:4c00:86a9:38ff:fe1e:ee25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48eesm16004691f8f.30.2026.10.26.04.51.56
+        d=1e100.net; s=20260707; t=1793015555; x=1793620355;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
+        b=QOHQ5ZBkqYZGWJsg/uFmU9i0zvid6+AmrjnXR/5g2EoHmNpYogTtf32yYOrLkj0S1e
+         u2NhxjK5USjzpGqgEelEMEfRmfcPLiFZm7vmOuUK0aD9keR7BfQgp4jP2FQwGFjOKo+N
+         6nJUKWndVYhxh0SDxHjlTPieLFTFcR4I36h3UTDaoF8Yd9jnMrY+x1C82nuUDPR7IzyW
+         2Cn7FS/aqLh1w4oS4XJG97iO4t2I+ZNalIecryXJBWD8zFwIa2/Yy3NdbF3qTACgUV5Z
+         i6XOy2/baKgxyU3ImAYGZChumT2N07F4ruACpC4ZaIkzvA7cclcTC0KP9G8cYscpK7kU
+         2JUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFtQ0OCouQgrUhWBjZLc2RZi8N7tK4nrokedRc3uSBTlPjM0sDRpZ87eE7rVGolreHk3rZU+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKydPkcreZPhMMNEZ4qszQkB591dhgYgV+az5io1/r7uaLj267c
+	z4OQqIFsNmxsaGaj4AYekM0xma8vgBoE8PE3ryjHxWhlBP8NLT6XdPL5
+X-Gm-Gg: AYBFou22k+Q/DzFHOl4S2M967D2m4Z5Voq4eexc1WImwZjxqvzzui2WA3WIa+nEUdT/
+	cHtkmYtaJyq8214TGb5WzmR/gHcleHV0GNnRg5AC6CUaUaFSufipermWeRudUAgv4tD3fLm9/DC
+	CPpvbiuUpuWMFqXtQeSdhe1a28a+KDsNx/h0kjADujo+zvWxdHRbPxKggQ/Vt/vMRM1sLTGu3L6
+	uk2SOA3W7GSOUgnlz7zyhPvPF/l6QyiUt5jYav4y3EB+H5Nqo/seisOIunRbg4+xuXaVqDk5VyK
+	MwQBlTrhZ5jOtbCIPcjFNvnaTLeW9F7WWFxemFljl3ElMGD4UWcFWMLIjsL1ktbQyUfz8C833Jc
+	gaNHNZVhYzBvzv2JfVTEGsj2hKsqvDByItCare0JFluPg2m1VPaFOWiKf5sA7AIyZSgANA5Mueu
+	9mARMcW2AMpACn+Chhc40Cvzox0xegpAq51gzIxRefsNGAMm75Y0rlV82BMNSiSVj1804R41eyy
+	DKbNCWjaRS37o+f+A+OCLGykGT+YZf+1CkLtRV0jifbmordFnw18g==
+X-Received: by 2002:a05:6a00:1808:b0:87d:ee98:606 with SMTP id d2e1a72fcca58-8a367f0eb74mr4959061b3a.23.1793015554801;
+        Mon, 26 Oct 2026 04:52:34 -0700 (PDT)
+Received: from lgs.. ([101.76.249.61])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36ada2805sm1233497b3a.12.2026.10.26.04.52.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:51:56 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:51:54 +0100
-From: Guillaume Nault <gnault@redhat.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org, horms@kernel.org,
-	jchapman@katalix.com, tparkin@katalix.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] l2tp: only return sessions of the given tunnel in
- l2tp_session_get()
-Message-ID: <at8-2mFyrmPxfu29@debian>
-References: <20261025145831.2133617-1-hengyul@cs.unc.edu>
+        Mon, 26 Oct 2026 04:52:34 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Gregory Fong <gregory.0xf0@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] gpio: brcmstb: fix UAF after IRQ domain setup failure
+Date: Mon, 26 Oct 2026 19:52:26 +0800
+Message-ID: <20261026115227.41779-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,32 +101,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025145831.2133617-1-hengyul@cs.unc.edu>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 10:58:31AM -0400, Hengyu Liang wrote:
-> @@ -315,10 +315,19 @@ EXPORT_SYMBOL_GPL(l2tp_v2_session_get);
->  struct l2tp_session *l2tp_session_get(const struct net *net, struct sock *sk, int pver,
->  				      u32 tunnel_id, u32 session_id)
->  {
-> +	struct l2tp_session *session;
-> +
->  	if (pver == L2TP_HDR_VER_2)
->  		return l2tp_v2_session_get(net, tunnel_id, session_id);
-> -	else
-> -		return l2tp_v3_session_get(net, sk, session_id);
-> +
-> +	/* An L2TPv3 session ID that has not collided may be in any tunnel */
-> +	session = l2tp_v3_session_get(net, sk, session_id);
-> +	if (session && session->tunnel->tunnel_id != tunnel_id) {
-> +		l2tp_session_put(session);
-> +		return NULL;
-> +	}
-> +
-> +	return session;
->  }
+When devm_request_irq() fails in brcmstb_gpio_irq_setup(), the error
+path removes the IRQ domain but leaves priv->irq_domain non-NULL.
 
-The original code looks correct to me. L2TPv3 sessions, unlike L2TPv2
-ones, are global to all tunnels sharing the same socket.
+The probe error path subsequently calls brcmstb_gpio_remove(), which
+checks priv->irq_domain and attempts to access the already-freed
+domain through irq_find_mapping(). It also attempts to remove the
+domain again, resulting in a use-after-free and potentially further
+memory corruption.
+
+Set priv->irq_domain to NULL after removing it so that the common
+cleanup path skips the already-freed IRQ domain.
+
+This issue was found by our static analysis tool under development.
+
+Fixes: 0ba31dc201de ("gpio: brcmstb: consolidate interrupt domains")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpio/gpio-brcmstb.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpio/gpio-brcmstb.c b/drivers/gpio/gpio-brcmstb.c
+index 44ca798cf832..3b1aaea63951 100644
+--- a/drivers/gpio/gpio-brcmstb.c
++++ b/drivers/gpio/gpio-brcmstb.c
+@@ -513,6 +513,7 @@ static int brcmstb_gpio_irq_setup(struct platform_device *pdev,
+ 
+ out_free_domain:
+ 	irq_domain_remove(priv->irq_domain);
++	priv->irq_domain = NULL;
+ 
+ 	return err;
+ }
+-- 
+2.43.0
 
