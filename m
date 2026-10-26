@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053948;
-	b=KIiLlMcgfx1UJDfEbmpWzGgvU7e27S1QcqOjzq0SC3lSegx96AWG4bE1deS3NELJRVGa
-	 ES5/S+YBkLgaITc1CBA1hGv5+QB4FyLhJn2BIghTzf8NvZ/igMPyYe409uPbAYufEJ7lO
-	 OfwhKF35IK9rWdNr6O4P1r/j2lqr6b8HbVoE425H+jAtfw/kt0N59QNgPIEnHPsqkZj/m
-	 gR+ghsA4ZQdjySZtGvahZqjIGOdjFfb/s/7mpk6dKeTcThSWoAgXy+fbRDFM0bkI6pLd9
-	 3ymextkIKfEhWQZ94lN1ws9G0icXpzjlGbFRzh9U6ZwpwmaqwgjgAnFqa9Oopzz2wSg==
+	t=1793054206;
+	b=l10cRmW3aXTMv4eFa+lwGwnt2A7NJYNOYaFhCzvUQVEExtd9AnShEgCHevqfV2HjjTzz
+	 d443Trh47CpcvXPpQokjrL21DAP/yq7y4h0oGq01xMsbz7r5F9JYDo/UHqG0nLNEzj3Pf
+	 sF3XUO9KsLtgA3YbsvZiCPBETj3cwpWetEhcxAhqkKS6Ani/uemLazaQemGuu4B9vBm7m
+	 FVginGo30COIsoSMFviHhVKLV3EQHBTed7AuPOfm+KHa8W38xC7W/DgItSgJF5yd/qxia
+	 8MXnv9ckTlTVtKyloUUmjue4qgHwJ0iLIaYegZwQVeBhKZqUhg2vM8iI2DhEQxLhYiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8rXduDRKJP8drgeo5JnRezfiCAk6F66eeBkch8vfFZw=;
-	b=cNYPSbQQrXS8y9hyQi3zPNu9y9B6Xb14DcVahmupExexdD8/lepyzuH1i0KmyJmUnGoX
-	 l+5otWM8DwkIOH/Pp3bt+raa3Zw78NLtydL9Lyj54P8iFpIctWGAe/nDN77Yce9PgOJBk
-	 SxswN2laj0WhiG9hwWoEjSl0HJWUhVfJpDNjcn0c9HJvY+xnRQJVoMX1WrbJlIDQ/fjyQ
-	 iqj5JX7THzo/CICu4r8NPU9scuMcNj7w9CYA3NoZs1c2dm/1gvZ1tJ9DC6CkRFVKFqGOU
-	 UBD3IVfvkqWKsJifVvIPBLxLkNc585JDCzRwv0PVEn6DaI0HbDXlJfgi+tvL+eYmj1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054206;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AmPGzHvBBVrG/5dQg97mwCOiJ0XRAPerP5GbYTcq66w=;
+	b=vgZLwmFubDnY83780zm+7sN2MECDSnbTYEunQC9FOLprQNtm1iJizaEMseIT+XvEhjT3
+	 lkzzeOLR6aPXd4IoRdYC1A7thLw3b7iUz0pmDHogG/Im2tWd+0T+bC0SI+TjLQsQflO+3
+	 0ZFq2/YttH6gjm7iBjsB/+0VnLOeikdzGJ16x5lkFVSxBjEl1KMdqo4Dk/iFtIZoZQRa+
+	 C0rVZ+zcDI/MUz9RKG03GjCZG/1O4tO8Az19OKH+mE7sxV1T4MROFhgEqxB3MkDDwbfDy
+	 qsPNprDoRKqspUNJGN4L8MKbnNh3MTBmZVC+TP9o0RKtLdrgubcP1AeRag2eN4gCmxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HwRuhF6M;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=G6dSXYu7;
+	arc=none smtp.remote-ip=109.224.244.122
+Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD13606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DD13606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA65606A31F
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CA65606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HwRuhF6M
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2457699f8f.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:32:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793053946; x=1793658746; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8rXduDRKJP8drgeo5JnRezfiCAk6F66eeBkch8vfFZw=;
-        b=HwRuhF6M+Y66D48I35HkC/WvYHV4sTTX1rD0qaNjeay0lN5WIzYdDyQA8rX1ak4GqR
-         mgrkEzMgbdiStyVxLOvv3vIyiDX4YQQ3iBVjE794ZRVYi6HGB0gQECYxdTYMPPpvkyvp
-         29w/hfSBgvSW5zfhJDiDIzUgbnHD0QLoZXaEEoRjenbetrJki4n7RS1+x94YO+NnsV3Z
-         Xjix2v1h7SVPMcxEAexgee+afdRv4mDBCtHoncnXIrNPwdSq4gR+gG2hFON12d6uJL5d
-         GVYZxep4DLSsCALe7+D3ZyFm/jW/LPNOeKxqTAK5pPc3rFtyQTqyPSFbOfnvTixmNhEi
-         BU0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793053946; x=1793658746;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8rXduDRKJP8drgeo5JnRezfiCAk6F66eeBkch8vfFZw=;
-        b=KmurGU+6/ru1iiHWPje4RvZlCwdun9/m/owpwu1tizwj5ddqcYbHWQWfE/1vKKmkF0
-         vNpkei+H8osniSasm/OmSDR9qZFLHS3dejgrY14GmA3PfilmEScFbwgfOUonvqZYooYk
-         HQ4bwnuQ4TUG1dQJqK9o5wOg2jqroonloWs47T610M5zlyEJ/O7DmyDBz8ZJlg76cWQt
-         o7iVl1MwmGEfra9cDjqAIPq5SWsHJqBXhj9wW7w6qVP7QfiLFKvCW6p99r1S/zE2pZBX
-         mHCOCswpgjNwJ/9SSgzYUEivsI+uOJKk7ngYFUKE7VYf+iySGiGU4HwtWpk4PqfZ8lms
-         x20A==
-X-Forwarded-Encrypted: i=1; AKwUvBxUY9Bj9i2b/aZbMk/yyU7cKn2A513S7cXdt2b2/F6N8rWx7dbLOXZ0tNg7ekhMIPnNBjgwGIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAExNsALbOae5HT6rot2ADYmeARkPokTlRPlquCsLIGJhySWoN
-	2wD/cTwCIFoWM66xuQgtexaxA8lqqcBHpBDEWWdYwYfu04yHPS6KuiaSMpW0
-X-Gm-Gg: AYBFou0DnSZl9K5kvVU2R4dBjtFKPebmUNllPe2vjs7FWKogvpsiNT4TdIxpVDmlsxN
-	M14lEA9VrWXHUe5a6vWyZVMViSSdFhuFEYtfF2rNuTfjx3fiqF59ij5b+CGGSQteSKXtk7oIUyb
-	aAaX23uGlCoSK0aU4cNf1QUhUelqcxo0d3TtJnROIX2fWIHWr3dHJbowOypuk42zHyYwl/932TS
-	ascqlhQrOXKH2DaI8khyTwvu3vlwp4FCROxffZYut3kUUZNnegWhIUtvdHN4mer33wq4+g84Tbw
-	umBcjgEBs3ZiSoKcN5MMfSfjn5n3zTov+S69+rt9npDli2nUzpBg8dCYvVnBAUA1sw5BFUuPtYb
-	vZ9vSLIFs9TARNVJXe+/br8qHsOUMmS1EMNOitiorVXCqls+7mOOh3NyWcJsWyFn9HQ6CmUVNI9
-	VZ3PR2QlDxBkb9vVeenKJNz2Y+/EW2xBpwwM2jOCkBELwhmf86VoYamLOwjl1FgVtEVaoW9WSft
-	NKAF94EfQ7lS1+o22VXorEmWn+/hCFa6dvdvA==
-X-Received: by 2002:a05:6000:2a87:b0:48e:2c2f:59eb with SMTP id ffacd0b85a97d-48e3eb9a023mr11905332f8f.12.1793053945957;
-        Mon, 26 Oct 2026 15:32:25 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb851sm16239300f8f.26.2026.10.26.15.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 15:32:24 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Christian Lamparter <chunkeey@googlemail.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Ivo van Doorn <ivdoorn@gmail.com>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	tristan@talencesecurity.com
-Subject: [PATCH v2 wireless 3/3] wifi: p54: replace open-coded IE search with cfg80211_find_ie()
-Date: Mon, 26 Oct 2026 22:32:21 +0000
-Message-ID: <20261026223222.2093813-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=G6dSXYu7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793054203; x=1793313403;
+	bh=AmPGzHvBBVrG/5dQg97mwCOiJ0XRAPerP5GbYTcq66w=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=G6dSXYu7Hbh1YI+BWkgRrRMSo9XDNB7xr5lZuvU6OV5VlYSUOarPjS8wgUFChe3AE
+	 ZWlQ5HN6FUqfDMW8r9AG1ql4lInQ0qA4paVp6vaKlWj934s5DZBA7Ew5oP3FXXDIfP
+	 h3goRfLLL41/P6dw0W/gk7NGKL+opI2oqRu5chOngL/GOejRhh3ijiWDqiSA688hr2
+	 QI0Gb2mVT45vYJgeUYCZ1xtx/ikm4tvUTTl1cbpLOLWs9pyyvC459HBe2ot94UcXtX
+	 2+waliOwusjJNgGNkpH2G+iWlhEbRVsWCl36rDzpDIsAqeWb6h+tS9AbDQRApBU67l
+	 l4OIXPVupCetA==
+Date: Mon, 26 Oct 2026 22:36:39 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Clemens Ladisch <clemens@ladisch.de>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2 1/2] ALSA: usb-audio: Bound packet copies by the PCM buffer size
+Message-ID: <20261026223543.620-2-enscrpt@pm.me>
+In-Reply-To: <20261026223543.620-1-enscrpt@pm.me>
+References: <20261026223543.620-1-enscrpt@pm.me>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: ee67697b2467dcb3f05ea3f879181ef75b182f5c
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,126 +64,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Replace the hand-rolled p54_find_ie() with cfg80211_find_ie() at both
-call sites.  The old function had a buggy short-frame guard
-(sizeof(mgmt) compares against pointer size, not struct size) and
-open-coded the IE iteration that cfg80211_find_ie() already provides
-correctly.
+retire_capture_urb() and prepare_playback_urb() assume that one USB
+packet never carries more data than the whole ALSA ring buffer. Nothing
+enforces that: the packet size comes from the device (wMaxPacketSize,
+and curpacksize =3D=3D maxpacksize when the class-specific endpoint
+descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
+require 64-byte periods, two periods and a period time of one data
+interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
+full-speed device can send 1023-byte packets into it.
 
-Add a pre-subtraction length guard at both call sites to prevent an
-unsigned underflow when computing the IE area length from a truncated
-beacon frame.
+On the first oversized packet hwptr_done is wrapped once and stays
+beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
+the wrap arithmetic in the copy path computes
 
-In p54_beacon_format_ie_tim() the returned pointer is cast to non-const
-u8 * because the caller modifies the buffer via memmove(); this matches
-existing in-tree precedent (ath10k, wlcore, cw1200, nxpwifi).
+    bytes1 =3D subs->buffer_bytes - oldptr
 
-Fixes: e5ea92a7528d ("p54: AP & Ad-hoc testing")
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
+runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
+
+  BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
+  Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
+
+and for playback, where copy_to_urb() has the same shape:
+
+  BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
+  Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
+   prepare_playback_urb+0x98a/0x1fc0
+
+Truncate an oversized capture packet to the buffer size, and stop
+filling a playback URB once it holds a whole buffer. With bytes <=3D
+buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
+in both copy paths stay inside the buffer. A device whose packets do
+not fit the buffer at all was never going to play correctly anyway.
+
+Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
+isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
+wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sinan Turunc <enscrpt@pm.me>
 ---
- drivers/net/wireless/intersil/p54/lmac.h |  3 ---
- drivers/net/wireless/intersil/p54/main.c | 30 ++++++------------------
- drivers/net/wireless/intersil/p54/txrx.c | 12 +++++++---
- 3 files changed, 16 insertions(+), 29 deletions(-)
+v2: From and Signed-off-by now carry my real name. No code change.
 
-diff --git a/drivers/net/wireless/intersil/p54/lmac.h b/drivers/net/wireless/intersil/p54/lmac.h
-index 8adde6ba35ab8..d9cbffb74a265 100644
---- a/drivers/net/wireless/intersil/p54/lmac.h
-+++ b/drivers/net/wireless/intersil/p54/lmac.h
-@@ -553,7 +553,4 @@ int p54_download_eeprom(struct p54_common *priv, void *buf,
- 			u16 offset, u16 len);
- struct p54_rssi_db_entry *p54_rssi_find(struct p54_common *p, const u16 freq);
- 
--/* utility */
--u8 *p54_find_ie(struct sk_buff *skb, u8 ie);
--
- #endif /* LMAC_H */
-diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
-index 57a62108cbc35..30f235d470bb4 100644
---- a/drivers/net/wireless/intersil/p54/main.c
-+++ b/drivers/net/wireless/intersil/p54/main.c
-@@ -71,28 +71,6 @@ static int p54_set_tim(struct ieee80211_hw *dev, struct ieee80211_sta *sta,
- 	return p54_update_beacon_tim(priv, sta->aid, set);
- }
- 
--u8 *p54_find_ie(struct sk_buff *skb, u8 ie)
--{
--	struct ieee80211_mgmt *mgmt = (void *)skb->data;
--	u8 *pos, *end;
--
--	if (skb->len <= sizeof(mgmt))
--		return NULL;
--
--	pos = (u8 *)mgmt->u.beacon.variable;
--	end = skb->data + skb->len;
--	while (pos < end) {
--		if (pos + 2 + pos[1] > end)
--			return NULL;
--
--		if (pos[0] == ie)
--			return pos;
--
--		pos += 2 + pos[1];
--	}
--	return NULL;
--}
--
- static int p54_beacon_format_ie_tim(struct sk_buff *skb)
- {
- 	/*
-@@ -100,12 +78,18 @@ static int p54_beacon_format_ie_tim(struct sk_buff *skb)
- 	 * The dummy TIM MUST be at the end of the beacon frame,
- 	 * because it'll be overwritten!
- 	 */
-+	struct ieee80211_mgmt *mgmt = (void *)skb->data;
-+	size_t ie_start = offsetof(struct ieee80211_mgmt, u.beacon.variable);
- 	u8 *tim;
- 	u8 dtim_len;
- 	u8 dtim_period;
- 	u8 *next;
- 
--	tim = p54_find_ie(skb, WLAN_EID_TIM);
-+	if (skb->len < ie_start)
-+		return 0;
-+
-+	tim = (u8 *)cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-+				    skb->len - ie_start);
- 	if (!tim)
- 		return 0;
- 
-diff --git a/drivers/net/wireless/intersil/p54/txrx.c b/drivers/net/wireless/intersil/p54/txrx.c
-index 9f491334c8d04..7f952fcf16da7 100644
---- a/drivers/net/wireless/intersil/p54/txrx.c
-+++ b/drivers/net/wireless/intersil/p54/txrx.c
-@@ -293,9 +293,11 @@ static int p54_rssi_to_dbm(struct p54_common *priv, int rssi)
-  */
- static void p54_pspoll_workaround(struct p54_common *priv, struct sk_buff *skb)
- {
--	struct ieee80211_hdr *hdr = (void *) skb->data;
-+	struct ieee80211_hdr *hdr = (void *)skb->data;
-+	struct ieee80211_mgmt *mgmt = (void *)skb->data;
-+	size_t ie_start = offsetof(struct ieee80211_mgmt, u.beacon.variable);
- 	struct ieee80211_tim_ie *tim_ie;
--	u8 *tim;
-+	const u8 *tim;
- 	u8 tim_len;
- 	bool new_psm;
- 
-@@ -310,7 +312,11 @@ static void p54_pspoll_workaround(struct p54_common *priv, struct sk_buff *skb)
- 	if (!ether_addr_equal_64bits(hdr->addr3, priv->bssid))
- 		return;
- 
--	tim = p54_find_ie(skb, WLAN_EID_TIM);
-+	if (skb->len < ie_start)
-+		return;
-+
-+	tim = cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-+			       skb->len - ie_start);
- 	if (!tim)
- 		return;
- 
--- 
-2.47.3
+ sound/usb/pcm.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index 682b6c1fe76..c2f7b08607a 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -1343,6 +1343,18 @@ static void retire_capture_urb(struct snd_usb_substr=
+eam *subs,
+ =09=09=09bytes -=3D adj;
+ =09=09=09subs->stream_offset_adj -=3D adj;
+ =09=09}
++=09=09/*
++=09=09 * A packet can be as large as the endpoint's maxpacksize, which
++=09=09 * the device chooses, while the ring buffer can be as small as
++=09=09 * two 64-byte periods. The hwptr_done wrap below handles one
++=09=09 * wrap only, so never take more than one buffer from a packet.
++=09=09 */
++=09=09if (unlikely(bytes > subs->buffer_bytes)) {
++=09=09=09dev_warn_ratelimited(&subs->dev->dev,
++=09=09=09=09=09     "%u-byte packet exceeds %u-byte buffer, truncating\n",
++=09=09=09=09=09     bytes, subs->buffer_bytes);
++=09=09=09bytes =3D subs->buffer_bytes;
++=09=09}
+ =09=09frames =3D bytes / stride;
+ =09=09if (!subs->txfr_quirk)
+ =09=09=09bytes =3D frames * stride;
+@@ -1553,8 +1565,14 @@ static int prepare_playback_urb(struct snd_usb_subst=
+ream *subs,
+=20
+ =09=09for (i =3D 0; i < ctx->packets; i++) {
+ =09=09=09counts =3D snd_usb_endpoint_next_packet_size(ep, ctx, i, avail);
++=09=09=09/*
++=09=09=09 * Bound by the ring buffer as well as by the URB:
++=09=09=09 * copy_to_urb() wraps hwptr_done once, so one URB must
++=09=09=09 * never carry more than the whole buffer.
++=09=09=09 */
+ =09=09=09if (counts < 0 ||
+-=09=09=09    (frames + counts) * stride > ctx->buffer_size)
++=09=09=09    (frames + counts) * stride > ctx->buffer_size ||
++=09=09=09    (frames + counts) * stride > subs->buffer_bytes)
+ =09=09=09=09break;
+ =09=09=09/* set up descriptor */
+ =09=09=09urb->iso_frame_desc[i].offset =3D frames * stride;
+--=20
+2.56.0
+
 
