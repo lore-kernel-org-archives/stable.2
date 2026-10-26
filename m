@@ -1,48 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052292;
-	b=e7Ya4POlpZbO6ACbV4UUSTbq0ktMvB1iWsedS3pL2t5WjYmVI2lzP33m261SvtDlVmqX
-	 BaCrA9G1mGmaoY4JFpb0fxYpccOivnpgFM7awlUX0tuVp9q/VjErmI5VN4k4UyKnC5pZa
-	 bkriV3KlDyRG1dgfkk5We0n9EWUcOcrCxKYxUlf2dZ7/bp5QULId383CfhVhfVZO6AEGN
-	 uz1cZZLAgyQuRK+AtRfsfEhXZAkOvKftZZhLkrfJJRcdWixLgol6F6LPJMVruF4D9wnEf
-	 zt1YVCgVOe2Rub3/bIcpr+Q9HThdUDJ54ZLY3RXdvk+M9K3+yb1oELfUnCkgIYf0ytw==
+	t=1793052694;
+	b=hKdi3t/1CBjizVHPwpeCvm/93de29eWzvW+iE0onUnYRO4VPbzW5mo9416FBxLdHzQnT
+	 5FxHQOC9nGQWbG8hyu0bLFFxYFh2UIPOVmN4mL+Zz3vAeHw7OOoLye644PjJlzSdM+RIl
+	 3C9yp2uV4YQqv/DlS8SOA2/OTENr/8VrCNf87zOaO9dxVJr03DDbWt2D1d1hZHPaST6k9
+	 UzaW6WVBcYpFO9V6rOlO+2nrg51Ak4d5UlGRG2Qms9KPXhK0gauDCCPT4od4U9XJmzCKN
+	 Tf9Y28bqNdLC6AhotJlk+OxoYhz+iVO/cbZOgaYuVHg9wVBIKGQ1aFXt6TnZ0T/UAiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052292;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=UvLQiwiBzlLk9UbeuHVIDfOtchdHKuXZ4TiBoUCNvaI=;
-	b=bhF9swj38pUmD93u32DYSwFdL9HUmNwLMIvzOwFee+RAgjKMNVy0Db6uS/E3pByUaqw/
-	 tIPwPDzKhaHnO34FZwDHGtp1FvWCqzEMi45kQ06Z1dNhS8d4QwGoRBRQ9DhUAnbQimL2V
-	 bRuFKjEegplm/6u4ezAeL2PIswFV9t3kfwBeC2hV4OR/PV5I1YGS1FdiOp5LOpBTVkUpY
-	 v2aRE/qxGzUfU5/tBcfyVrBw0kSmr6Pr23WTv4E3/XyInL26g5pERN7/++bZoZPwTAgtu
-	 hvAE0NpalbmjEaa2OsAiRLbkCKXJJg7TTl2FHVy6E2eY9GTA5iWVKvrz7UqC3uS5veg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052694;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PSlFXJXkUUOmnhxM2S/IZTz90QMtJhrhBFHA3HUgSEc=;
+	b=U7RpenSVAVtLgLVFGtQJH1/BM5JP8Kft+E2xZ97cf+biFyl1aMtZpu3Mpe0jtCe1XEJH
+	 U8hpc0NgDncF/ZjaJTz2n1SXXBy+HjV+L2lFMCfd+0d4U609oKOp9M1jyEka4C8kgYozP
+	 DBwzd6A+DPRQU/2LzTFCggL1CxML/fu6oZn4vtDYBwR5E5mPG5a1wRmbRdHUMMfTD7HbM
+	 AxFSHg/Y7e+r+zoTm+P3GylOLFAdV4oy6LaaX0X0Elv5ELBRaK7wGWLOJfnAKQqXoyFOd
+	 pnyHDPb1zVXJte0DoVh3j/i3B1Ku69/mMhvDsZSWZuFE25mUVUcCdRQ8ZUoh7rVeqlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HgXBFXpR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jShPicuA;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296B3606A325;
-	Mon, 26 Oct 2026 22:04:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD83C606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:11:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD83C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HgXBFXpR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20751F01828;
-	Mon, 26 Oct 2026 22:04:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jShPicuA
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so27157775e9.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:11:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793052291;
-	bh=UvLQiwiBzlLk9UbeuHVIDfOtchdHKuXZ4TiBoUCNvaI=;
-	h=Date:To:From:Subject;
-	b=HgXBFXpRHfrkyqSRtbdbp4zM1qvKr5qZUXdOEdrcuXNhH5aajEAwq6T+5lzsxitto
-	 HLcuAreHZVkvOirbyU4iS9oYUwfx0+5pCd7UF8JsRiZHGZQ2k0W+oKzUltG6Akx5a6
-	 d+4aAEHZO7RPFo5KtNRZLWFXC/M5DtXnVZtjUzzE=
-Date: Mon, 26 Oct 2026 15:04:51 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
-	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
-	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch added to mm-nonmm-unstable branch
-Message-Id: <20261026220451.A20751F01828@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1793052692; x=1793657492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PSlFXJXkUUOmnhxM2S/IZTz90QMtJhrhBFHA3HUgSEc=;
+        b=jShPicuAEHrkpvl28vBmXFaPHG4zMpZwB6uvHO8oy5BS/uTEy84mPFM8nGV0OnKk0R
+         Oc7ITf/ojDJUjaCGz+DjnTUMH48wJqVbAU4L8r5EJGKYIKbc9p+j5k/oSCEXjjbnrcoy
+         Cs7P+XApdaoteCpo6a+mZU04uzXuJmvJ61OfhP4yBPrS/GcsWi05k8sjsaAEV/v6WmnX
+         zDUzeAM4Uui7tjtKh5QgIbr1LjOQDjp44svvKSFTzCz1L29c2AU08ETWWDpkoJGP1dmZ
+         Q1ZHCAB9cdFV59oTdY+E+0GsM6nhfx18VjuGMln6hwnYC6DxD54wqiiraUJGNXKJZ7Sf
+         erbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793052692; x=1793657492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PSlFXJXkUUOmnhxM2S/IZTz90QMtJhrhBFHA3HUgSEc=;
+        b=Vs0zu2VyPGsfBV6mo0eD5S7ApZ20jzqnfqPUk06K3GMDpTWiMrO1kSRifH7uq1lH29
+         e9mVZPTvgSyifQD6PapcsQxQqFn8nNQVu1B6JK833T200ecSGs/TzUC+oW7Cj18K2lyq
+         kQgNJ3OHkEXz2dxltZS7rLMMmHkaxjxnQ3qMrUxKasPLXlKykhjPd28H5eLmhfTv+E/9
+         ZRmM+kSTkrEPuw9rj6e836J/hh9bMxbugVQPtm8N/1IQICY0zMAoyUOcdwoa/X99F34p
+         78bZuQhAKUK5+yaGiq0zM8u2k4TCmF9C2CQigXze6+aRliHF7YoPh4et7ZQ+V+oqqw2H
+         vspQ==
+X-Forwarded-Encrypted: i=1; AKwUvByWrJLKJFI1Zv2tYdlk8replW6aAVIERyl4RxeDHhjDIolBvQAXRngUSdFqcmq6uEFSFsQjvK8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM/kbWMo1lYN7fa27HmM9QCf2x88RW3qPQoUQ5BxfrMMaBcY90
+	3WU3a/fN4FnUeIGWH3ozAvR/eRG9hT72BEawG/y7wqcDffuue/sM0lMr
+X-Gm-Gg: AYBFou36BrokGxXNUPei70A/SG92woc6eLO/fEPgNphOaexGISY4T3dQG6L7mbZBHMp
+	scFMdUjAiUlndfm9vrd1jUD7F7u4LH5r1VVpNKVrsAE5y+JUWS0ljIN+dg+jhJEOC/isuUsK+/Z
+	Scdx6SoN9L3azxUjN0I7ufJ+zU8cLnOE5n3bjUeb6+o3FAkn/AinWzjmqYzjKcJJ1NDpC0PiDCK
+	5iUUXy7l9BY+5PKgug2BXLVoMKchu4k0F+7GD7VXydfouOcA+W0IZAF0lMDIt6kEqNIhj1RAu3z
+	ayY8isxtnIdi3I2lpX+sVUYa02cD6WDOOboxOZl5rKdUQkQLLvPw6neG8bBR8UmcXh71H+g6vYR
+	I3UL+Xd5xwwg0VZg4vfq7PRxsmFrKNPzWd/46z5ZUu7WLrRUf2xsnIqtPibFl0N472JRLUoKmv7
+	4/Kes03Kau3dVQY9lByDgP9Kkkk+mufGHyxIuwK4tiLrUSI0fA8LQSDRYwbWG48K1gA5S7eWoGt
+	ONb+pbabTIHHT+1zOE8PFz6JB2/Hom5ndrq9gvTYEq3S6hpbOeU/5yJ/3HY3UZTBtiNiFr4S7Rz
+	1+QZPXajBuUbsEBFll4CJIzVKBxal4AT
+X-Received: by 2002:a05:600c:4ece:b0:4a1:6c0c:ab93 with SMTP id 5b1f17b1804b1-4a35acb5854mr138706065e9.28.1793052692005;
+        Mon, 26 Oct 2026 15:11:32 -0700 (PDT)
+Received: from pve.netbird.cloud (bzq-79-181-189-120.red.bezeqint.net. [79.181.189.120])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a56992dsm210437945e9.6.2026.10.26.15.11.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 15:11:31 -0700 (PDT)
+From: "Noam D. Eliyahu" <noam.d.eliyahu@gmail.com>
+To: netdev@vger.kernel.org
+Cc: pavan.chebbi@broadcom.com,
+	michael.chan@broadcom.com,
+	kuba@kernel.org,
+	edumazet@kernel.org,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	"Noam D. Eliyahu" <noam.d.eliyahu@gmail.com>
+Subject: [PATCH net] tg3: Invert restart quirk logic to restrict SNP power-down bypass
+Date: Tue, 27 Oct 2026 00:09:56 +0200
+Message-Id: <20261026220955.473247-1-noam.d.eliyahu@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,165 +101,124 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Commit 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
+bypassed `tg3_power_down()` on system restarts to prevent reboot hangs and
+NMIs on servers where NICs were initialized via SNP (such as Dell PowerEdge
+R650 and R750).
 
-The patch titled
-     Subject: ocfs2: cache the mount context for dentry lock callbacks
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch
+However, skipping the power-down flow globally causes the ACPI _PTS method
+to trigger fatal PCIe AER events and hangs on other models. Commit
+e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot") attempted to
+mitigate this by adding an AER-disable DMI quirk table. Maintaining a
+growing list of models for a secondary symptom misses the root cause,
+leaving systems like the PowerEdge T440 (sharing the BCM5720 NIC) exposed.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch
+Fix this by inverting the quirk logic:
+1. Restrict SNP power-down avoidance strictly to
+   `tg3_restart_snp_quirk_table` for the specific systems requiring it
+   (Dell PowerEdge R650 and R750).
+2. Restore standard power-down behavior for all other systems, eliminating
+   the separate AER-disable quirk table.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+For systems affected by the original SNP restart issue, their shutdown flow
+remains completely untouched.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: cache the mount context for dentry lock callbacks
-Date: Tue, 20 Oct 2026 22:25:53 +0800
-
-ocfs2_drop_dentry_lock() drops the inode reference before releasing the
-DENTRY lock.  This lets inode eviction release the local inode and open
-locks before a remote unlink can proceed past the DENTRY lock.
-
-A DLM callback can still arrive before the DENTRY lock has been dropped.
-ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
-which can access a freed inode when the downconvert thread drops the
-last inode reference in its post-unlock callback:
-
-  Downconvert thread                     DLM callback thread
-  ------------------                     -------------------
-  ocfs2_process_blocked_lock()
-    ocfs2_dentry_post_unlock()
-      ocfs2_dentry_lock_put()
-        ocfs2_drop_dentry_lock()
-          iput(dl->dl_inode)
-          [inode reclaimed after RCU]
-                                         ocfs2_blocking_ast()
-                                           ocfs2_get_dentry_osb()
-                                             dl->dl_inode->i_sb
-          ocfs2_simple_drop_lockres()
-
-Store the mount context in the DENTRY lock resource's l_priv field and use
-the default mount-context lookup.  Recover the containing dentry lock with
-container_of(), as already done for refcount locks, and remove
-ocfs2_get_dentry_osb().  ocfs2_dismount_volume() shuts down the DLM before
-freeing the mount context, so callbacks can use it without accessing the
-inode.  Preserve the existing iput-before-unlock order to avoid delaying
-local inode and open lock release until after the DENTRY lock is released.
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com
-Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/netdev/20251221175050.14089-1-noam.d.eliyahu@gmail.com/T/#u
+Fixes: 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
+Fixes: e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot")
+Cc: stable@vger.kernel.org
+Signed-off-by: Noam D. Eliyahu <noam.d.eliyahu@gmail.com>
 ---
+ drivers/net/ethernet/broadcom/tg3.c | 48 +++++++----------------------
+ 1 file changed, 11 insertions(+), 37 deletions(-)
 
- fs/ocfs2/dcache.h  |    5 ++---
- fs/ocfs2/dlmglue.c |   16 ++++------------
- 2 files changed, 6 insertions(+), 15 deletions(-)
-
---- a/fs/ocfs2/dcache.h~ocfs2-cache-the-mount-context-for-dentry-lock-callbacks
-+++ a/fs/ocfs2/dcache.h
-@@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
- 	u64			dl_parent_blkno;
+diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
+index ce108705bbaf..95827df4cf6a 100644
+--- a/drivers/net/ethernet/broadcom/tg3.c
++++ b/drivers/net/ethernet/broadcom/tg3.c
+@@ -18256,53 +18256,23 @@ static int tg3_resume(struct device *device)
  
- 	/*
--	 * The ocfs2_dentry_lock keeps an inode reference until
--	 * dl_lockres has been destroyed. This is usually done in
--	 * ->d_iput() anyway, so there should be minimal impact.
-+	 * The inode reference is dropped before dl_lockres is unlocked.
-+	 * Callbacks must not use it to find the mount context during teardown.
- 	 */
- 	struct inode		*dl_inode;
- 	struct ocfs2_lock_res	dl_lockres;
---- a/fs/ocfs2/dlmglue.c~ocfs2-cache-the-mount-context-for-dentry-lock-callbacks
-+++ a/fs/ocfs2/dlmglue.c
-@@ -58,7 +58,6 @@ struct ocfs2_mask_waiter {
- #endif
+ static SIMPLE_DEV_PM_OPS(tg3_pm_ops, tg3_suspend, tg3_resume);
+ 
+-/* Systems where ACPI _PTS (Prepare To Sleep) S5 will result in a fatal
+- * PCIe AER event on the tg3 device if the tg3 device is not, or cannot
+- * be, powered down.
++/* Systems where powering down a tg3 device on restarts triggers
++ * NMIs and fatal hangs during reboot if the network adapters were
++ * initialized under SNP.
+  */
+-static const struct dmi_system_id tg3_restart_aer_quirk_table[] = {
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R440"),
+-		},
+-	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R540"),
+-		},
+-	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R640"),
+-		},
+-	},
++static const struct dmi_system_id tg3_restart_snp_quirk_table[] = {
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R650"),
+ 		},
+ 	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R740"),
+-		},
+-	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R750"),
+ 		},
+ 	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "datto"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "SIRIS 5 1U Server"),
+-		},
+-	},
+ 	{}
  };
  
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
- static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
-@@ -258,7 +257,6 @@ static const struct ocfs2_lock_res_ops o
- };
+@@ -18320,14 +18290,18 @@ static void tg3_shutdown(struct pci_dev *pdev)
+ 	if (netif_running(dev))
+ 		dev_close(dev);
  
- static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
--	.get_osb	= ocfs2_get_dentry_osb,
- 	.post_unlock	= ocfs2_dentry_post_unlock,
- 	.downconvert_worker = ocfs2_dentry_convert_worker,
- 	.flags		= 0,
-@@ -309,7 +307,7 @@ static inline struct ocfs2_dentry_lock *
- {
- 	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
- 
--	return (struct ocfs2_dentry_lock *)lockres->l_priv;
-+	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
- }
- 
- static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
-@@ -610,13 +608,6 @@ static __u64 ocfs2_get_dentry_lock_ino(s
- 	return be64_to_cpu(inode_blkno_be);
- }
- 
--static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
--{
--	struct ocfs2_dentry_lock *dl = lockres->l_priv;
--
--	return OCFS2_SB(dl->dl_inode->i_sb);
--}
--
- void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
- 				u64 parent, struct inode *inode)
- {
-@@ -624,6 +615,7 @@ void ocfs2_dentry_lock_res_init(struct o
- 	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
- 	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
- 	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
-+	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
- 	ocfs2_lock_res_init_once(lockres);
- 
-@@ -652,9 +644,9 @@ void ocfs2_dentry_lock_res_init(struct o
- 	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
- 	       sizeof(__be64));
- 
--	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
-+	ocfs2_lock_res_init_common(osb, lockres,
- 				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
--				   dl);
-+				   osb);
- }
- 
- static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
-_
-
-Patches currently in -mm which might be from zzzccc427@gmail.com are
-
-ocfs2-validate-move-extents-against-a-stable-eof.patch
-ocfs2-wait-for-filecheck-kobject-release-after-a-failed-add.patch
-ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch
+-	if (system_state == SYSTEM_POWER_OFF)
++	if (!dmi_first_match(tg3_restart_snp_quirk_table) ||
++	    system_state == SYSTEM_POWER_OFF) {
+ 		tg3_power_down(tp);
+-	else if (system_state == SYSTEM_RESTART &&
+-		 dmi_first_match(tg3_restart_aer_quirk_table) &&
++	} else if (system_state == SYSTEM_RESTART &&
+ 		 pdev->current_state != PCI_D3cold &&
+ 		 pdev->current_state != PCI_UNKNOWN) {
+ 		/* Disable PCIe AER on the tg3 to avoid a fatal
+ 		 * error during this system restart.
++		 * Needed since on restarts for systems in
++		 * tg3_restart_snp_quirk_table skipping on powering down the
++		 * tg3 device causes a fatal AER error during ACPI _PTS
++		 * (Prepare To Sleep).
+ 		 */
+ 		pcie_capability_clear_word(pdev, PCI_EXP_DEVCTL,
+ 					   PCI_EXP_DEVCTL_CERE |
+-- 
+2.39.5
 
