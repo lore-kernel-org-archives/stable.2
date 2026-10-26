@@ -1,102 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017934;
-	b=4lx9Ob+RSW92ZizSUlXQMye6eT2l0rgQuZSgJpf0G4HjomDM2bsBUAYUOxveEwQVmAMz
-	 zd1DLcDDYYswFOhkfMQpqLilldJveYI/Wx6dRxnIQZGUtRynl9JjvnOKL00GfMpEVPOqo
-	 97p32QFprRrD3h+2YOz5bcKevrgr4GQnFZORyi4s7Bdaeqw2+UoecoY0Aa9uZGKfKRiWD
-	 3PCQqgu8sVYvXaZ2tU2oW74NBoiN8maxCXWBTytYWM5dXC3sc45stXN+KiG6JxP4fTrXr
-	 1RszeKLi/omIJ93SdBk1TF3n3vrz8S225T5xVZWU+VIg+t1ML8yQAO1CfEUJwuRs73g==
+	t=1793017978;
+	b=G+2eg/wJIvEOEV/VdwccGyLqZDRUR1pY5+dKXUA/6WASGT53e4x/iAlMQy46NXcN0JAz
+	 AyqPxfNYHcYEYh6HrTjQ+udFyBp1GytQnrB2T/5byJbZ2T1rU5RbJG6PVsSmHy6d4RB0R
+	 ZxWaC0ZYqKFkqH+ZLa7pyqEkgalG/tRhJTYIpG9+Do34A32tF1q5mspuSDXUWVm7zcPCJ
+	 9Y2OPiQLCS7PTt/q6OnOqxSkkaaZSNH3sNmcY+F+gL6KrdTnzKH2OWsWXho112CFiIsbH
+	 eDx1EX0r3hc0+KdM71KcD26Vo9+n94pB755VC+dtG/iDy51NWpIZ0AF2s9WRlh/4QFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017934;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
-	b=W/Gq9OnyDVp4TWe+v6s8HvTGMWAksS/kZ3PWFpCXWzSFupPIGGS7xRh1S+b5l0YMegMy
-	 mMBZUhVinxvsflOBCOtPTIhShoyJY2i3T3lU5NSm7AX5wYt7bek2Nl+TroJxZ27Z4ZPZG
-	 bU7kp2GOXrDfe9Rxo4QHamERNByGz8zosF1zhunS4MuhTV1865Tc2zeZ3Mj8SjQqqqLMH
-	 FNxXWm7gwwVqaOW6E4xKiLi5fPmilz1gh6sXm+lftPfKSEWnG5MQr4kTZkdbCgGLmlBCf
-	 b71WTucKhZdIA64B9BYYuoGaIcCVcOdCcg6F66gsiN4CLJeuACyQPxuDR5BoSG8RQuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017978;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=wBWKAJ7Sj6JriSj5p7Z5YlnSwdpQx47a7utMt3KjLrQ=;
+	b=X6ZLLXzLLB6M/EGM5en8RT4Ks9dpgYJLQnawB8QA+C1UfjknlfO4SGflMik56lA3cGOW
+	 GxMXUVu3m2K3jSDScKSuPBZVUTLbC71fqYqGrxOrRs1TwnP+i2v1qhfolotmcn49xwmgw
+	 U0vrqUbCKF57J2tZTt+1gg+8+B2rwunwAgE27rNAG3ohStV7vmTErSnnzDtksBHMsg+mn
+	 VI8RVsadkXtj6yXzDpUqml+8bfDlqu+p3dB64jl0TFqVBxlJsf2xd4mI3VSdEwzsai1DR
+	 mvdixwmkjhvTNvTKw82FLmcfk/K+y77GEPLSmww3/ytSyfXt51pWS3iRdfSJmg6dR1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mivMcba8;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RtptRIX1;
+	arc=none smtp.remote-ip=95.215.58.194
+Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C812606A329
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C812606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EE606A31E
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A52EE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mivMcba8
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9683375e9.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:32:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793017932; x=1793622732; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
-        b=mivMcba8uYDlFfKaqTMPiPMpITmJGgJrVgHOAE8jYmLoBhYW45mBdXMQ02LqG2updu
-         9LeHTzDGRg5A4F89RhWaUFJZ5c+VI/1ilvjcrv5DlQxsAoj2wFryqCx3b/uPou7AXDeb
-         Wss9LdDOSh3+0Gu7kqjVfhjI8DS+Lu5UP/fenZyhi4gwhMFIDpqrbDyquPelPmXH+51y
-         m+m44LxpXGLxus7eX+O3txTAid5lu69y7VhycvS1snpdVZw/LgFjEanIemDgwrso3110
-         rirMGQoCitHWBLayc4HPMr+aanfRqUmn39o06PX8Oae+V0uea0+PN4brPriZTVyZxsuE
-         4C4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017932; x=1793622732;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
-        b=WhvBKj+vVm87TtP+sqUtvpdyMydv1sDCZiwNj4HPeeE+NUlatUrfHpr5AC7KGC3FUP
-         dwTS06uDPEMoJCJyPb7+MYZan4mIy0URb9R8bjWbksjEHyfPGBjuhJY8fTxkbXrfkW1A
-         TLHZVsGLGeJ/7H227BQkByyatHYABLL8icexW5xZ2c47v7TH6R+XqKjc4ABfIH7zSJSd
-         SrLtHozoda37H+K6xAv6M+c9hFP+ruNAEb3pJ2gTWXbwNvVYp5lpcEp02Ej42BRwhWnb
-         JakK9Q4an0y/f0x2MMOln5/camYqhpYmPHUFFN1Xfy8PKOXPkoz6HrmFdnitmPMCbFQE
-         spng==
-X-Forwarded-Encrypted: i=1; AKwUvBxbj7Wg9kcOTBNPvIbaEZAfe5qdTXe3R2uNdQnPIWgzPFI1HyO+B5ew0/Mgx16PNGNp5tOlvRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx0f9f/QCLsVQxHu4ECk7gw9p90ym6ViAFGSvzDHCRvqQ/+eXZ
-	57lCoQ4bG/oqKrO5C04srEz4//pDTV5zay8MJCOK9aMLa5TIy8cKBvqi
-X-Gm-Gg: AYBFou1uGgbD+r1xxA6MFPwbh+i3yYkoyllyg+ENJHoMPMAZzHY7P3WQ7rW7EuB5n0d
-	7c6DkjRzUy1GIaMNWxqL46py9frJWsCpsXBG3/pWq+PAcXDcW3+0Cdk1KSpP4E+k/F//3po6PGh
-	/LRXQrhOKPS9V7ieptbAtIscM70F13gDAqPP68QLRMhjFSMdcKOZBjBoP173XOLXAL2ggEqtYiU
-	zhF2623QGa7W1mOS6at27vURiltrLO2eMvBwRtBLlNdzuPeENuBKlQwWk/ueNNcaGs8FNlcDwPm
-	Oka/QdWO+Ogm2Ja9QMvH+dfZt2XpHEQIflp7GKh8PjQkv/A8UqsUbt1jcj6LtOs2E4tly9K2Qtu
-	BnakG8n7Yf6FpJjhFKXz9Kv4vUAr6Oj3BtQ0R2mqZvUV4TBleRRl+9cvoOjNM+71mzBlVenHusl
-	NoijK9/SjuvnA6FyiR9HG66Lwx9mqaiEJ959J2bgHYqIETGfaoboiupxLojuryN0VpwVY8iKgt8
-	89epE9kOYE5k8Qsy6Xx1TGqbjlgJ7qugHGXP+mP57R/ZqHERlXjHhUSNoPn2Snn8wz4yB+HpYi1
-	mXIeNGXp
-X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr45612025e9.11.1793017931500;
-        Mon, 26 Oct 2026 05:32:11 -0700 (PDT)
-Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdf9bdsm15684045f8f.55.2026.10.26.05.32.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:32:11 -0700 (PDT)
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kuen-Han Tsai <khtsai@google.com>,
-	Sonali Pradhan <sonalipradhan@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Felipe Balbi <balbi@ti.com>,
-	Jim Baxter <jim_baxter@mentor.com>,
-	Francesco Lavra <flavra@baylibre.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: f_ncm: restart the TX timer if the TX freelist is empty
-Date: Mon, 26 Oct 2026 14:31:59 +0200
-Message-ID: <20261026123159.53234-1-tvlad744@gmail.com>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RtptRIX1
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wRMLJQ0LgYvQePRIKO1OVjTSBPiwUDDy98B0yUAI2W8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793017974; v=1; x=1793622774;
+ b=RtptRIX1cRj6FNyXpSrJIFOchTzXeEqfQTqT6pMyNZdoqV3jrX1n9651T0XVRL8q5inUHKnd
+ oKrGbUNZnMuyS+YSdnbISbCJf4pcARd7HcCtPgPSvluprD4ybP6932TQ1nZvcLjiS1dtKBYGiU/
+ aWYR0S1T9SOLJTi+SJ+yZjyM=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b9b247da60df294;
+	Mon, 26 Oct 2026 12:32:54 +0000
+X-Mizu-Trace-ID: 4b9b247da60df294
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/2] tcp: fix shift-out-of-bounds in SYN-ACK retransmit timers
+Date: Mon, 26 Oct 2026 20:32:38 +0800
+Message-ID: <20261026123244.239766-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,25 +77,165 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 10:26:38PM +0300, Cosmin Tanislav wrote:
-> Under sustained TX saturation the request freelist is empty most of the
-> time. Since the timer is never restarted, small packets keep getting
-> accumulated into the NTB, until either TX_MAX_NUM_DPE packets are stored
-> or NTB_DEFAULT_IN_SIZE is reached, which is an unknown amount of time.
+req->num_timeout counts the SYN-ACK timeouts of a request and is used as
+a shift amount:
 
-I hit this on a OnePlus Pad 3 (SM8750, dwc3, high speed to a Windows 11
-host, qmult 5). Pulling 20 MB from the gadget over ssh stalled for 40 s
-or more in 2 of 24 runs, and most of the other runs took ~6 s instead of
-~1 s. During a stall the sender kept retransmitting, the qdisc backlog
-was empty, tx_packets did not move and the ep1in TRB ring had nothing
-owned by the controller, so the frames were sitting in the pending NTB.
+	/* tcp_reqsk_timeout() */
+	u64 timeout = (u64)req->timeout << req->num_timeout;
+	/* tcp_fastopen_synack_timer() */
+	req->timeout << req->num_timeout
 
-With this patch on top of v7.3-rc5: 24 of 24 runs at ~0.9 s, no stalls.
-Host to gadget is unchanged.
+Once it climbs past the width of the shifted type the shift is UB. Seen
+with tcp_synack_retries=255 and a peer that never completes the
+handshake:
 
-Francesco Lavra posted the same fix in July [1], but without the
-hrtimer_forward_now(), so the timer would fire again right away.
+  UBSAN: shift-out-of-bounds in ./include/net/tcp.h:917:34
+  shift exponent 64 is too large for 64-bit type 'long long unsigned int'
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0xc1/0xf0
+   dump_stack+0x10/0x20
+   __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+   reqsk_timer_handler.cold+0x1c/0x5d
+   call_timer_fn+0x17d/0x510
+   __run_timers+0x662/0xab0
+   run_timer_softirq+0xdf/0x260
+   handle_softirqs+0x204/0x9b0
+   __irq_exit_rcu+0x13c/0x220
+   irq_exit_rcu+0xe/0x20
+   sysvec_apic_timer_interrupt+0x40/0xd0
+   asm_sysvec_apic_timer_interrupt+0x1b/0x20
 
-[1] https://lore.kernel.org/linux-usb/20260727165441.1969927-1-flavra@baylibre.com/
+num_timeout is a 7-bit field. Once a retransmit limit is above 127 the
+"num_timeout >= limit" check can never be true, the request is never
+expired by that limit, and after the field wraps to 0
+reqsk_timer_handler() decrements queue->young again on the next expiry.
 
-Tested-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+ - split tcp_reqsk_timeout() into tcp_reqsk_timeout_sk() and bound the
+   shift there; a num_timeout well under 30 already saturates the
+   tcp_rto_max() clamp, so nothing reachable changes for the u64 path.
+ - cap max_retries / max_syn_ack_retries at 127, the largest value the
+   field can hold, instead of narrowing the sysctl; 128..255 are still
+   accepted and act as 127.
+ - cap the TCP_DEFER_ACCEPT conversion in secs_to_retrans() at 127 too;
+   larger values kept an acked request from ever expiring. getsockopt()
+   now reports at most 14527 instead of 29887 seconds.
+ - route the TFO path through the same helper; its u32 shift could also
+   wrap to 0 before reaching UB.
+ - document that tcp_synack_retries values above 127 act as 127.
+
+Fixes: e6c022a4fa2d ("tcp: better retrans tracking for defer-accept")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+v1 -> v2: reworded the commit message, no code change.
+v1: https://lore.kernel.org/netdev/20261023064915.401112-1-jiayuan.chen@linux.dev/
+---
+ Documentation/networking/ip-sysctl.rst |  4 +++-
+ include/net/tcp.h                      | 16 ++++++++++++----
+ net/ipv4/inet_connection_sock.c        |  2 ++
+ net/ipv4/tcp.c                         |  2 +-
+ net/ipv4/tcp_timer.c                   |  3 ++-
+ 5 files changed, 20 insertions(+), 7 deletions(-)
+
+diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+index 4b19c8d3efda..eac33072be2d 100644
+--- a/Documentation/networking/ip-sysctl.rst
++++ b/Documentation/networking/ip-sysctl.rst
+@@ -956,7 +956,9 @@ tcp_stdurg - BOOLEAN
+ 
+ tcp_synack_retries - INTEGER
+ 	Number of times SYNACKs for a passive TCP connection attempt will
+-	be retransmitted. Should not be higher than 255. Default value
++	be retransmitted. The sysctl accepts 0-255, but values above 127 are
++	silently capped by the SYN-ACK timers to match the 7-bit
++	request_sock::num_timeout field. Default value
+ 	is 5, which corresponds to 31seconds till the last retransmission
+ 	with the current initial RTO of 1second. With this the final timeout
+ 	for a passive TCP connection will happen after 63seconds.
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 0265c27a5fd7..986b7ea05e4a 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -183,6 +183,8 @@ static_assert((1 << ATO_BITS) > TCP_DELACK_MAX);
+ #define MAX_TCP_KEEPINTVL	32767
+ #define MAX_TCP_KEEPCNT		127
+ #define MAX_TCP_SYNCNT		127
++/* request_sock::num_timeout is a 7-bit field. */
++#define MAX_TCP_SYNACK_RETRIES	127
+ 
+ /* Ensure that TCP PAWS checks are relaxed after ~2147 seconds
+  * to avoid overflows. This assumes a clock smaller than 1 Mhz.
+@@ -912,12 +914,18 @@ static inline u32 __tcp_set_rto(const struct tcp_sock *tp)
+ 	return usecs_to_jiffies((tp->srtt_us >> 3) + tp->rttvar_us);
+ }
+ 
+-static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
++static inline unsigned long tcp_reqsk_timeout_sk(const struct sock *sk,
++						 const struct request_sock *req)
+ {
+-	u64 timeout = (u64)req->timeout << req->num_timeout;
++	u64 timeout = (u64)READ_ONCE(req->timeout) <<
++		      min_t(u8, req->num_timeout, 30);
++
++	return (unsigned long)min_t(u64, timeout, tcp_rto_max(sk));
++}
+ 
+-	return (unsigned long)min_t(u64, timeout,
+-				    tcp_rto_max(req->rsk_listener));
++static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
++{
++	return tcp_reqsk_timeout_sk(req->rsk_listener, req);
+ }
+ 
+ u32 tcp_delack_max(const struct sock *sk);
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 8151c638a24c..ee7b64f3141c 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -1072,6 +1072,8 @@ static void reqsk_timer_handler(struct timer_list *t)
+ 	net = sock_net(sk_listener);
+ 	max_syn_ack_retries = READ_ONCE(icsk->icsk_syn_retries) ? :
+ 		READ_ONCE(net->ipv4.sysctl_tcp_synack_retries);
++	max_syn_ack_retries = min_t(int, max_syn_ack_retries,
++				    MAX_TCP_SYNACK_RETRIES);
+ 	/* Normally all the openreqs are young and become mature
+ 	 * (i.e. converted to established socket) for first timeout.
+ 	 * If synack was not acknowledged for 1 second, it means
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 99d7237a623d..a309fd45ad42 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -358,7 +358,7 @@ static u8 secs_to_retrans(int seconds, int timeout, int rto_max)
+ 		int period = timeout;
+ 
+ 		res = 1;
+-		while (seconds > period && res < 255) {
++		while (seconds > period && res < MAX_TCP_SYNACK_RETRIES) {
+ 			res++;
+ 			timeout <<= 1;
+ 			if (timeout > rto_max)
+diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
+index e56eae4bc341..f7b100334a89 100644
+--- a/net/ipv4/tcp_timer.c
++++ b/net/ipv4/tcp_timer.c
+@@ -469,6 +469,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
+ 	 */
+ 	max_retries = READ_ONCE(icsk->icsk_syn_retries) ? :
+ 		READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_synack_retries) + 1;
++	max_retries = min_t(int, max_retries, MAX_TCP_SYNACK_RETRIES);
+ 
+ 	if (req->num_timeout >= max_retries) {
+ 		tcp_write_err(sk);
+@@ -490,7 +491,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
+ 	if (!tp->retrans_stamp)
+ 		tp->retrans_stamp = tcp_time_stamp_ts(tp);
+ 	tcp_reset_xmit_timer(sk, ICSK_TIME_RETRANS,
+-			  req->timeout << req->num_timeout, false);
++			     tcp_reqsk_timeout_sk(sk, req), false);
+ }
+ 
+ static bool tcp_rtx_probe0_timed_out(const struct sock *sk,
+-- 
+2.43.0
+
