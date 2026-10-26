@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016144;
-	b=etIp/G5Ok9w+W2xOoDbYgMmks4pwPyKgKhd+UMK3XszJY1nt/aBplT1nvEIaYtlgoEHN
-	 J9Ga3dpwLZ9f+irlq05idbzIg+7j6d97mGJi2+lVa4Wacb6XaL572pJ8yP9LIU+vk9UhO
-	 RPiFvZCu/ViXV2+2K67oUbxYOPcNTCeX6f3gX78mTEmSjEX6pANeA8Gj/YJpC/+NYGYuv
-	 CV6wh1i5KtsiZgGS1VOq4zdGB70AhzWqcKkVYAXR3v8ZIS9FxwKgg/ebr/nI7SwCAc1mj
-	 sktKYJmIaf2oadS6dZW62xVwNClArpuIed6XMh20vTDHfDo4OOP/+5AwQqPYQ5j//pw==
+	t=1793016177;
+	b=n8DMIZ8C1PtqocHNllXlTnG4SGEN7ZLmVchPk6LYmAwzyy0nR5eA9u8Nihkyk6U+WBhV
+	 PrxJfTTKewsmXSfYgBBGnAc1DqU8d71n1hmmJb+jDj7+vhkDRQu4BMZ0gCNHv0PCZHlue
+	 4pUDyp21U4mhEHhIOB2rHVXjvTbLFFZ+OOCEKUxXHsjtlQjd2tDnFmPy/DgktuT30wZgH
+	 vCTehCFrdfTpOseoJ+Dz3E9iNIzFvGRHGqQEEvUqw67L3whq0862br8P1yQnENx0bjun+
+	 zh3t6GZY5TQUBJrbkBEYL3Ar9YB1i6aJImZsFfulf8fV59UkjHxSwJVG+fn7bfYriBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016144;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Ra7qPqEIPzONkorSTqTvW8u0kxw/OAVjgPoyaHh2L4Y=;
-	b=2cJ1SHAZAcLnJ9Ykw/MdDksAhCTaakkD91wBuK6NyQ3C6Q/gSd/zY9xl4LzqPKk//fbV
-	 oXNxO5poNFxbBB8Q3RFdkHlWuzWKeR9HNv8WR6w9okIGZyf2NeiBOUynPkUL0jGuRB2U/
-	 LY5Q7V9at72CiWH79Tlqf4JSWo02xWqL/NZ1o6Tk6TudW6PrSMPJG6d8KyNuyqRlVlI9Q
-	 2P0/xik/5XWE1eUhLOKQPZMFINXcJedOqM5HiVg3zJdXsy0nBAKe+kPP3MGZoWY4ppXAk
-	 i+zh5+oer0SbUR+cMogje1fzwrvBXxDGPWdV1TMP8RJMP+iM4e2xWUsjnI348+5GGWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RFJJleyh4O8FR2L0iIk2GYhVD/sdkcXc7KlKPVTmZgw=;
+	b=URry6TGZP36G64hoIuPrIQT+Ct0iY0Cod1TMEt9GoGXHuWkk+E/bpCqCYzkPUVOA/wQV
+	 h7iNgGSfpWzo8UpKJApKwEAgO+r5a3hTykk7nWiKJ269pKHnC47oV35F1Fen5gQriHjL0
+	 AZ9vyI663gG+MobB2ynRI1/8bbvOXUKcAeH5mtSsgUIJ01haZU93dNR9C53eG7Cg4PYZC
+	 A1z8ZhyqOnvGikyspGBUvbSaNR8L0CJjK6qSVW1SCJx9CF4wP5+Bj++x4odkHCGd6ElYd
+	 CqDWLiMwaxwqzU0saPGSzl69Vs9a796Dg48mFdL+geDwHPPMxR4rpD5AVpLJgD4UU0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DOkq4rHs;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K4rJlASm;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE75606A31F;
-	Mon, 26 Oct 2026 12:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AE75606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CE160A2604
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:02:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47CE160A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DOkq4rHs
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793016130; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Ra7qPqEIPzONkorSTqTvW8u0kxw/OAVjgPoyaHh2L4Y=;
-	b=DOkq4rHs0GVNAPLPeLBKpFxa2ZT3hpqJopCExQKUxM6k7yD8K46YHY4l1W0iIz8k/ejCaHLq6EZEn3eYDIhx8u6xIAp76AwYm/A0yemPR3+dNR6rB840WkIKB5AdJY/YUvzqsoHy54pss+X+m6QU6o20emCZ7aV79TPJtLnFhrA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDY3IkN_1793016128;
-Received: from 30.221.130.82(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDY3IkN_1793016128 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 20:02:09 +0800
-Message-ID: <90b2a787-3b00-4c69-9d59-e0184674bd7e@linux.alibaba.com>
-Date: Mon, 26 Oct 2026 20:02:08 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K4rJlASm
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso2090409a91.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:02:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793016176; x=1793620976; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RFJJleyh4O8FR2L0iIk2GYhVD/sdkcXc7KlKPVTmZgw=;
+        b=K4rJlASmdIPv97DMDWcrB0zJXkoTNtE9QO7B1Z3zl7VbKMDzMDyWZ1myWlENx1HWFX
+         bQvYnQDesVorMvowUBanQwTmhNbS/JkknAE5OY5CehAktnSYyk5P8pOJgiwt8HcWwmed
+         5vN/U7/Ai/QpxJ0Js0V9VtCIiGUG7hsyCyBoSSjCYYqrhbAh0az82USZwtYuz4QWHnyK
+         aRImYgnbVwZlAClW7z4LJZREsB8h2GnuGvg9+2qqZ9dhn+as4raWRVUyvpTCV2ZvVBDK
+         qUdUr+urP/xdQayVLGiAMAOnlGgR+tVsF47U6DCykZRDOyvn6Hf4byPa/DuObRHstU9m
+         SHBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793016177; x=1793620977;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RFJJleyh4O8FR2L0iIk2GYhVD/sdkcXc7KlKPVTmZgw=;
+        b=O3Ztw6XZtThYJfu+7LyVs81sdVWroQGpDQqqKHmAreSGQEJc17w1aPOf5bNjQgpYgQ
+         6fl5y09KNWvjKnzreybPe7H+P2ZjS+dvmFY7wON+Xf8q9dxDkrO+IWNzHTMvgKdrB8/X
+         SK8A31SbaSevggQoDUsBSZUZ1bsWf2ylHEGHUK10zAYpF9v4dzn2t57Qh744+1XZ8oLd
+         xXaw6BGzZeO7ZrJzwd+EN4QhvF10rrpPbiBLUJRXx48BVpb57jxkX9AOH6P4NOuWjN08
+         PUdeZNg6M1ZVD5jk8Xk5hN8J/f+hJ9i/TYQH3iHIVGtSJ52/wQmcBHesOhZRGWeKMZ7Q
+         vKcg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRGNi7gFNpVJTWZysbs39uW3fZXK/GyqYUFpDHWfGPFDkdA2JhSLDIPAO54t8o/b9TtvkVkhQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfY0VA1GwUMu6PXsWvBM17P6Ln7f3Gy/bRbHLOGMu9zV3Coge5
+	3i7CxmMbdJLJ/1OcDVSxlUub2QbRrjqSsnTWlxVPnVOv3bQ87A4hbkTO
+X-Gm-Gg: AYBFou27rZy65v79qIqt5jt//J5lUs/bJEX0AcAhWfWGFdIfe1NCD/I22r4OO2D4rov
+	Ay60GwYq/HBfK30dLhymu82fIrAKBvkSpOFPJy2iRfp+vbO0eZ8zQuhZ8kmU06MAcEwWbGrdELy
+	iawVYqmXE8rW92U+WWNI8vg+iE5Pd2Hl4tNZYTFx5cDniqQjLltxEfgxa28wxRwI99zLblU0v1B
+	VRWvncMDV9f3xtIwDBlysBVR3KNkavGviRTuDqFn+8ksWmo/A/u82B3FHHnTEg/9AueKUYfmpEF
+	SwRazca2x5kL5D2IHiP+wyCtAJnYC7KacoRFQ94MKR4oEbsrSfbuQVVl/P4KWtcdkjtCvryFnKW
+	gYv8y1lgwowWvi4i4vK4GW/9tClF75cCmqwPDxotJpiysYE6CRqsMiM1XOXtQb8/tspnYLYgBZ0
+	xert6Uj7f97dpIRX9TRqCCBGWgKPjBu1a0UqZaAxyUaxbtpbRXh7PYksUjLFAIQ4pEoRZb5a844
+	FWAj31IMq0lpmnnbNAQLwlX7Re4IvUl7RoWcU098fTLXBta8tVDCtVfyl+qv7qswRRgp5PX
+X-Received: by 2002:a17:90b:164a:b0:3a4:ba6b:cc24 with SMTP id 98e67ed59e1d1-3adeb137823mr4733512a91.58.1793016176366;
+        Mon, 26 Oct 2026 05:02:56 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba47266sm4750299a91.1.2026.10.26.05.02.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:02:55 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: akpm@linux-foundation.org
+Cc: hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	penguin-kernel@I-love.SAKURA.ne.jp,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: memcontrol: don't miss processes whose leader has exited in OOM scans
+Date: Mon, 26 Oct 2026 20:02:48 +0800
+Message-ID: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,68 +104,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ocfs2: validate move extents against a stable EOF
-To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
+mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
+thread group leaders, plus a dying leader that still has live threads.
+Moving a process whose leader has exited, by writing its PID to
+cgroup.procs, moves the live threads but leaves the leader behind, as
+cgroup_migrate_add_task() skips exiting tasks.
 
-On 10/26/26 7:04 PM, Cen Zhang wrote:
-> The move-extents range must be bounded by the inode size used for extent
-> movement. ocfs2_ioctl_move_extents() checks and clamps the request before
-> taking the local inode and cluster locks in ocfs2_move_extents(). It also
-> uses separate i_size_read() calls for the range check and subtraction.
-> 
-> A concurrent truncate can invalidate the first check and make the later
-> unsigned subtraction underflow:
-> 
->   Move-extents ioctl                  Truncate
->   ------------------                  --------
->   check me_start <= i_size
->                                       take inode and cluster locks
->                                       shrink EOF below me_start
->                                       release locks
->   compare me_start + me_len with EOF
->   set me_len = EOF - me_start
->     [unsigned underflow]
->   acquire inode and cluster locks
->   select extents using the bad range
-> 
-> A truncate after clamping can also leave the range extending beyond EOF.
-> Conversely, the cached size may be smaller than the size refreshed when
-> the cluster inode lock is acquired. Early validation can then reject a
-> valid start or permanently shorten the requested length and threshold.
-> The me_start + me_len comparison can also wrap for a large input length.
-> 
-> Validate and adjust the original request once, after inode_lock(), the
-> exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed
-> the size. Read EOF once, reject a start beyond it, and bound the length
-> by EOF minus start. Normalize the threshold using the same EOF snapshot.
-> This keeps zero as the default-threshold sentinel until validation uses
-> the size that will govern extent movement.
-> 
-> Move goal validation after range adjustment as well. Its allocation-group
-> capacity check uses me_len and must see the EOF-clamped length. Both
-> validation failures use the existing inode-lock unwind path before any
-> extent movement or transaction starts.
-> 
-> Range errors now reach the ioctl's normal copyout path, as goal errors
-> already did. Unlike the old early rejection, a failed copyout can
-> therefore override -EINVAL with -EFAULT.
-> 
-> Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+The destination's OOM killer then cannot see the process.  If it is
+alone there, every attempt ends with "Out of memory and no killable
+processes..." and the charge is retried indefinitely, and
+memory.oom.group kills nothing; otherwise another process is killed in
+its place.  The source's OOM killer still finds the leader, reaches the
+moved threads' mm through find_lock_task_mm(), and kills a process that
+has left the memcg.
 
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Walk all tasks and take one per thread group: the leader, or the first
+live thread once the leader is exiting.  Skip exiting threads, which may
+belong to a group that has moved out.
+
+Tested in a VM with memory.max=64M: in each case above the process using
+the memory is now killed, and a process whose exited leader was not
+moved, or whose leader is alive, is killed as before, with and without
+memory.oom.group.
+
+Fixes: f168a9a54ec3 ("mm: memcontrol: use CSS_TASK_ITER_PROCS at mem_cgroup_scan_tasks()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+ mm/memcontrol.c | 35 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 4d00748c8a5b..8823c549b6af 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1427,6 +1427,36 @@ static void invalidate_reclaim_iterators(struct mem_cgroup *dead_memcg)
+ 						dead_memcg);
+ }
+ 
++/*
++ * Take one task per thread group: the leader, or the first live thread once
++ * the leader is exiting, since migrating the group leaves an exiting leader
++ * behind.  Exiting threads are skipped, as one left behind may belong to a
++ * group that has moved out.
++ */
++static bool mem_cgroup_scan_skip(struct task_struct *task)
++{
++	struct task_struct *leader = task->group_leader;
++	struct task_struct *t;
++	bool skip = true;
++
++	if (READ_ONCE(task->flags) & PF_EXITING)
++		return true;
++	if (task == leader)
++		return false;
++	if (!(READ_ONCE(leader->flags) & PF_EXITING))
++		return true;
++
++	rcu_read_lock();
++	for_each_thread(leader, t) {
++		if (!(READ_ONCE(t->flags) & PF_EXITING)) {
++			skip = t != task;
++			break;
++		}
++	}
++	rcu_read_unlock();
++	return skip;
++}
++
+ /**
+  * mem_cgroup_scan_tasks - iterate over tasks of a memory cgroup hierarchy
+  * @memcg: hierarchy root
+@@ -1452,9 +1482,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+ 		struct css_task_iter it;
+ 		struct task_struct *task;
+ 
+-		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
++		css_task_iter_start(&iter->css, 0, &it);
+ 		while (!ret && (task = css_task_iter_next(&it))) {
+-			ret = fn(task, arg);
++			if (!mem_cgroup_scan_skip(task))
++				ret = fn(task, arg);
+ 			/* Avoid potential softlockup warning */
+ 			cond_resched();
+ 		}
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+-- 
+2.43.0
+
