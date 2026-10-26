@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793011951;
-	b=gF2AlLQ1nGxuJlSKAvDcFfKva2Ejzcqz9AH3JJczfyEbCcxBR3L16MSij0pi/3tAt0QO
-	 H2lrhuiqDQJK1HUQS7sb6iqPJDD6nz705klb0XP/4F4vyE9zlCCvwGP9MypqiQC3XxSSg
-	 cxfDpKLbY6ZEAs46Bku4M5h7H6LPPcouvy1fd4luL5Pc80YC5J9UwaAlwmNypz5N/pMkQ
-	 BoDy7+ekUsB6AgRaVvT1x8FCmD4tbrGxVQbgb2PzZwnRqsUghNyUD4zTL7L3aUrHEMIWt
-	 LqQUjc3ToBX/ADK3zCcbsRY/WiHuqDrf36wOdd/6+RPJNpSeYOQH09xB6d7sRZHjofA==
+	b=INMQmauV9v1YdUhtDPYbFsXIUd+rvKpOrQBFydd2ohIdaiEp/k3LkUEwVxBpsRA76t+d
+	 VdLbfl29mjj0iDrn3nxJer/9YwU2giOcZFpiPQJuSh3UN7ZZfkKizhAtVuBCfCWG6ZHIN
+	 OKyE6Mw+Bq81XIKF4bNHEPvSFutTlDOWvgWPGQBzwTMP/0DNPZlnxRGozygJlxRwzYw6U
+	 fLJv9EwhOj/z9aFZiH1Zhdpo4o1PHbyFvL16YwD6JEgrBf9sfyO7PuyCo6qvMoAem48jA
+	 Y982owLCoLR3RI9a2Kdb0XCB1TOrKCmgdHVmBzmct/VI4gr/Nv/YVbvf/Ffytlyd6MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793011951;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=owqMREQTLT+Zo8QWHeU7T7LGj9Otntmb2TJUoLFPRXc=;
-	b=s/8tH02NRSDyD0eWVrmYYmxm8UhTRExNQMlDjbQ8rqQT5ROdriserIxByphhvztJxkb4
-	 LPbYLiZ25D+p5Z72yupFuoeuGB7fHsRRLCFFaSRSer3ctbTeGs8egYow54+xM630tDVqw
-	 jnHiE9BkIwRSVuvbQ7povnv2D8eUpfOvNayZgDMgP6pmlviAZMQjXNfzs8S1S2hOFvJOQ
-	 I2MoM5fCwdmfi9jL5ir9Yy3fbn5TCeG8D7RaHxbJFmDjD1SJIlX1mS6XMdjFfVLhA5oVk
-	 EGlaqORHrIYTzjkjEgfHdQHJgzsm/Vvqz78LomzB4LpJFyGLxFMfEv8rmtQE0qU3zog==
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=AQy2Dahtoc1vS64zM/q2064E7p7snqqcln1PMUtXXJo=;
+	b=HYbWrKQyrCiHEqm04dVEz/d8gCamWixh+PQRk9mSA97KqJjxLMV4QwWl+tCkZisa7Q+J
+	 47KxNGUTcI8mk/wf2Z415eUZjE+jR1AF32hxNWENANvmpmC6vlCXI9Q/pvg8j4aDGMYb+
+	 LLfcd5E2jsG3GULc3V0KFIe88GLNni4lyeRFTkufzMUzfmb4vVFRcRxr0FqSJnosGlS6s
+	 lcAY4aGs+tJDSEX6YfMCswN8EyCa69ab+Gce3iiOIEfwXXDohyn0uWIxl4xBNylhnXhZR
+	 flvnNJjWxduTvQRvA3yFC90O6SQDtV7cX/0elRe7pee/AD/g726HzEO47EtWHYQMxIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r5er5cJS;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D59B606A323
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D59B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r5er5cJS
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-19305bcb72cso1892841c88.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:52:30 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C16D2606A327;
+	Mon, 26 Oct 2026 10:52:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16D2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793011950; x=1793616750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=owqMREQTLT+Zo8QWHeU7T7LGj9Otntmb2TJUoLFPRXc=;
-        b=r5er5cJSvzXwn7jDrT11oN01E/bRxlwHFle/7BGfEoBV8tSk6Mw3V+nk81Dhd3GQcT
-         MCb/IWLYqiCEnymZ4eyPewC5XV4shu2wdobqXW5U0EjqcNw3rmrStXNvSd+cIsJvMF8b
-         xn8E2S3A48PMPAJiBrLWHScTUHV0+joxI8xRgKSwF3bwzE2cYwDh96mt6JE4hO3jbaRR
-         +wN0dXxYi42CtRUROnKsQaT2w5NK2RCLZrAM+dNkkXhXCgWMkMFxrCAK2rgz2K2cMG7R
-         WEV0IdW+MdsFj+95Mf/lrGhYZlFcC6qv4+L5c1aE2TnUHbZr9BzlhYSZ6/cBXKhAdfX7
-         lYTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011950; x=1793616750;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=owqMREQTLT+Zo8QWHeU7T7LGj9Otntmb2TJUoLFPRXc=;
-        b=Jr+8+JE0shf+OgB67P+I7OyP3j107pfWoGrwZtYY1yKLip6JFSMDw9ZeAfN8ag42Hk
-         iBRAdCzRXsJsl4ZxHaLrWo+DBx3Om6t9R6pEeSp+PiE60tBWNsL+EwxErVNU0RRVDjdh
-         UvzGG8FB5IC1sk9hTTmWBmUJ8l9nNA7Ehwhr8yGjFDtGL6qzD0bl2vDB9ZFNhrhSHWBV
-         jETxkjR9BXCl9IQmnnSqKh8RUWeuYtJuWdPXF8nwM9jM7C8F7ew2ZSOiwYDOOkaYaBys
-         GH0ro/Za4H1EEV0z57nfgb4TfowdY1lBJCTKgaD0M+9V9CEHwfB8VR/xLAMmKmkaHO9W
-         4cyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybAVrLoOaKfzWKwj1qKBuBkzjiFkMs2awOV6y0I+89yZeud+meoHZKEvk8PZL33AXRVxexpQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPFW+TbCvJItWtDa0s3RZbh/zQ4OL1fe7s+9xxz+ZhFZZ+cExU
-	lM8MwZvNNFMOscMQuNCa+PiF2XEM8bMYDl2vH5Rve7YALItuSGIHKEmb
-X-Gm-Gg: AYBFou3mgih/2Q8bfjPPuh1y9oGODnY0quDrfBhdwOVE0azGwQilMEqjd5Bz5vCgTNN
-	gjX0uisCYqzFF3Ns19VAStWN0cQypdrc1PgtUJ6ieSKp3FncsJByZykfD/u9hVfZcmqwLSM6iHp
-	CKLVaPV6V4T4TjB5CU8QjFrVp3U+V0gAiuSt8TB7htTfOVA1rIIyRYiKjX1NE/TCTdXDuXAa8Y2
-	3ytH4Qpp/NAOB4G3iLLDJRj32kHBMHYr6ApHqK99FoHMWfXpdsYSDwQ5X+ON9w2GnKuUH0kLH8w
-	wr8eeRsLobDDcvEzUQhMFuPOn1sIvfOwFxLSa5TR6gr/vEiTDxM6TGqHUX4klL4rfCRiJ/1rFIl
-	khojTI2cazQDhc0qTYynMjT9CqrqeYROe6YthY1STUy1MV4vVoMedhjHBzOU9LbdoC0zGM5s/2T
-	f63B3z3Hg2ixerwvH5Rg7Fzy4A4W8yheIj69OwIp6xDnFFSP4i2IRMFuvUV8jItjuCFEt65smK3
-	VAEeyatgxd3qQQ7pFkxSEnhherAlL12W41Z91Kkb+i5WPLvjSoNxEQkscTMFZBvH7QovQFYudVA
-	Hjcx3GoYJfkg6vI5dksHx+xWil2ZY2CaP7Q97UfW
-X-Received: by 2002:a05:701b:420d:10b0:169:bef5:f445 with SMTP id a92af1059eb24-19928f14c3emr10337456c88.4.1793011950077;
-        Mon, 26 Oct 2026 03:52:30 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee69sm32439171c88.4.2026.10.26.03.52.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:52:29 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=AQy2Dahtoc
+	1vS64zM/q2064E7p7snqqcln1PMUtXXJo=; b=AvoL+hhVnJEQTZGOIuDMCxm3pV
+	UKqpBEt4XPu8LYxSfYzrCoxRcqBu8fKKIhV0yU3X1QjHT6YMaIpSsvn7ea01J910
+	em9EGc32CiJV31oEzKiRCnYBXtNUiwgWeaNIzbSHS/7pEAG1glsgJaWNkpl/l3ff
+	uasfRcBcz2LezBHHU=
+Received: from localhost.localdomain (unknown [113.200.174.126])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBmpfrhMN9qL0jpAA--.46778S2;
+	Mon, 26 Oct 2026 18:52:18 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] NFS: pin the superblock across migration recovery
-Date: Mon, 26 Oct 2026 03:52:22 -0700
-Message-Id: <20261026105222.1150121-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] usb: xhci: Fix use-after-free race in xhci_stop_device()
+Date: Mon, 26 Oct 2026 18:52:03 +0800
+Message-ID: <20261026105203.1250-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,80 +58,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBmpfrhMN9qL0jpAA--.46778S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxArWfKr1Dtw18Zry7Zw43Wrg_yoWrGFykpF
+	43Ja45CryUKr1agFs8Kry8XF1rAws7Z3yDWryxW34UursxJryrKFySyrZ09wn7ur97Ar17
+	tFn8GFWruay5GF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
+	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJV
+	W8JbIYCTnIWIevJa73UjIFyTuYvjxUcID7UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUSD2reHcClDgAAsY
 
-The NFSv4 state manager walks clp->cl_superblocks under RCU in
-nfs4_handle_migration() and nfs4_handle_lease_moved(), then drops the
-lock and calls nfs4_try_migration() without holding a reference on the
-nfs_server or its superblock.  A concurrent umount can therefore run
-nfs_kill_super() -> nfs_free_server() while migration recovery is still
-inside nfs4_update_server(): the server is removed from cl_superblocks a
-second time (DEBUG_LIST BUG), and once freed by call_rcu() the migration
-path still writes server->mig_status and touches server->super->s_root.
+A KASAN slab-use-after-free read was observed in xhci_stop_device():
 
-Pin the superblock with nfs_sb_active() before dropping RCU, as
-nfs_client_for_each_server() already does, and drop it again with
-nfs_sb_deactive() on every path: umount then detaches the superblock but
-cannot reach nfs_kill_super()/nfs_free_server() until migration recovery
-has finished and restored the server's list membership.
-nfs4_handle_migration() releases the pin after nfs4_try_migration();
-nfs4_handle_lease_moved() releases it on both restart paths and before
-its final return.
+  BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
+  drivers/usb/host/xhci-hub.c:479
+  Read of size 8 at addr ffff88804e85d2f0
 
-Umount may now wait for the migration attempt to finish, bounded by the
-mount's RPC timeouts, the same trade-off as the other nfs_sb_active()
-users.
+  Freed by task 585700:
+   kfree+0xf8/0x390 mm/slub.c:6566
+   xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
+   xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
+   usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
+   ...
+   usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
 
-Link: https://lore.kernel.org/all/20261025180323.349533-1-teel4res@gmail.com/
-Fixes: c9fdeb280b8c ("NFS: Add basic migration support to state manager thread")
+  Allocated by task 572283:
+   xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
+   xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
+   usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
+   hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
+
+xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
+keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
+sleep.  All callers (the port suspend and bus suspend paths in
+xhci_hub_control() and xhci_bus_suspend()) drop xhci->lock before
+calling it, so a concurrent usb_disconnect() -> xhci_free_dev() can
+clear xhci->devs[slot_id] and free virt_dev under xhci->lock in that
+window.  The endpoint loop then dereferences the freed virt_dev.
+
+commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
+NULL check for this case, but that only helps when the device was
+already freed before the check; it does not close the window.
+
+Re-check xhci->devs[slot_id] against the pointer fetched earlier after
+taking xhci->lock and bail out if it no longer matches, and trace the
+device only while udev is still attached.  xhci_free_virt_device()
+frees the device under xhci->lock, so a matching pointer while holding
+the lock keeps virt_dev alive until xhci_stop_device() drops the lock,
+after which virt_dev is not used anymore.
+
+Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-v2: add Link, Fixes and stable tags, and remove local validation details from the
-commit message.
+ drivers/usb/host/xhci-hub.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
- fs/nfs/nfs4state.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
-index a5dec04..ff866f6 100644
---- a/fs/nfs/nfs4state.c
-+++ b/fs/nfs/nfs4state.c
-@@ -2169,8 +2169,12 @@ restart:
- 						&server->mig_status))
- 			continue;
-
-+		if (!server->super || !nfs_sb_active(server->super))
-+			continue;
+diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
+index b0264bd8577a..f058cb4d3534 100644
+--- a/drivers/usb/host/xhci-hub.c
++++ b/drivers/usb/host/xhci-hub.c
+@@ -467,13 +467,31 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+ 	if (!virt_dev)
+ 		return -ENODEV;
+ 
+-	trace_xhci_stop_device(virt_dev);
+-
+ 	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+ 	spin_lock_irqsave(&xhci->lock, flags);
 +
- 		rcu_read_unlock();
- 		status = nfs4_try_migration(server, cred);
-+		nfs_sb_deactive(server->super);
- 		if (status < 0) {
- 			put_cred(cred);
- 			return status;
-@@ -2212,13 +2216,20 @@ restart:
- 			continue;
- 		server->mig_gen = clp->cl_mig_gen;
-
-+		if (!server->super || !nfs_sb_active(server->super))
-+			continue;
++	/*
++	 * Callers drop xhci->lock before calling us and allocating cmd
++	 * above can sleep, so xhci_free_dev() may have freed the device in
++	 * the meantime.  The device is detached from xhci->devs[slot_id]
++	 * under xhci->lock before it is freed, so re-check under the lock
++	 * that this slot still points to it.  The device cannot be freed
++	 * while xhci->lock is held, and virt_dev is not used after the
++	 * lock is dropped below.
++	 */
++	if (xhci->devs[slot_id] != virt_dev) {
++		spin_unlock_irqrestore(&xhci->lock, flags);
++		xhci_free_command(xhci, cmd);
++		return -ENODEV;
++	}
 +
- 		rcu_read_unlock();
++	/* xhci_free_dev() may already have cleared udev without the lock */
++	if (virt_dev->udev)
++		trace_xhci_stop_device(virt_dev);
++
+ 	for (i = LAST_EP_INDEX; i > 0; i--) {
+ 		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
+ 			struct xhci_ep_ctx *ep_ctx;
+-- 
+2.34.1
 
- 		inode = d_inode(server->super->s_root);
- 		status = nfs4_proc_fsid_present(inode, cred);
--		if (status != -NFS4ERR_MOVED)
-+		if (status != -NFS4ERR_MOVED) {
-+			nfs_sb_deactive(server->super);
- 			goto restart;	/* wasn't this one */
--		if (nfs4_try_migration(server, cred) == -NFS4ERR_LEASE_MOVED)
-+		}
-+		status = nfs4_try_migration(server, cred);
-+		nfs_sb_deactive(server->super);
-+		if (status == -NFS4ERR_LEASE_MOVED)
- 			goto restart;	/* there are more */
- 		goto out;
- 	}
