@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009078;
-	b=sfVC1VyD6CockCy4wLPx2xmrN+IgqjJIu2QqMp60vXoyQoNqxmGZhfMd42iyb9kdlLaV
-	 bLFy0FzvocGoBDjGKu++4UHwmR7HROTxionZKvItWbDa9nnT0Bxrt0xUhLKsWQBTh02tN
-	 B389zL+jT9DcLwAmXgHr+IFI8YRGA2tXlA2PF2dHCAyDYfQJDo/Zx4aXefTZH/kD2jLBq
-	 7dCibxJ8ce6vgcECRJU4o1ryCRB8xu0NA9u5QSsueHmyEoGz3lcy8lvFCfHPSa8MSmkSX
-	 M6l3wSJmYqtrhJCf2ZfDrNZqyUdLDAfVhsaMIuP/9A4XGoAOxIKc1okCW0k6iqUqXvw==
+	t=1793009153;
+	b=Q+oSBDIQTdwjXj9Mh7lMkuluJ1zzGfy1jvnyozLqxtxRuK2VhmGVgUclEv3etleLQbF9
+	 dNwkqcLrYR9fUyn/g4dzWAcK0Z4u8qgnS/5rbWSxljGkQCgcwmYK/PgrZdQX/O+Hfo6YD
+	 AhjOu5rraWLI3C4+rUiq1PQIzuVTZTwAEMg/pI2TLV0R9TqbklNtnvdGJ4AFSFDx6/ztw
+	 4FEfRTgE42GCaHPRrPMpElfsGucuXrBLT1rJI8Kcys5FkkB+K7A/e/2bNhURTaK2BV0ez
+	 njOi7sVtlii8ne18ZZD/idIq8qChuolgL91P6jgYXxEaiUzUCYgY8Ff8LTgtgpRmStQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009153;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
-	b=ANMm+awvoKUQGX1R90fQFNIeCnKwJVHxNB7F3w5XTlH7she6Eav0l9V4u+PSHLgxdKem
-	 3jaiV8itC7oYgHlwr47Q+bXPO36dR+Z5ZC2+uIhNyQgEFhlGO1WGY1evuouU6mzG7zY4f
-	 4ntTuKW6VZz2wQHaBNR+abTQkVW7MobfWWeGg+6LDM+8zyV+qYCTJzK1YUN78k24dEe0C
-	 HltuI20qhYRmhRpjyacLAPZ7q+nzM0RL2JZ9nxX5iG0bh5f/WrXN836iab5TslTZlk0mB
-	 VlH0MfFe3rldV//o85V0q7Zdxnf2v5WJByjwK1y+AMxeTyy/opSxaz4whxgxzcKvBAw==
+	bh=Gm/vkZ/TPKkcuQ8IJYMQfAw8BN32mGEm+OiB1P+AHxg=;
+	b=PZGpvf6lB9xTzagSMS/PY3GaOj+zsRfFt/jeraGEMw+NHt4p5tM0I0Wn+4T5jCYqJ8ik
+	 cxxnYLcVggE3gFRF+EbFROtUJzdqH0Xb7IpJO82hJZjktCOq8bRvBdDhV/OgRQeunlM5W
+	 T6UhydN5qmKcXtqeeiW9E8UWY9ws9ckHKkVEdF5zo44vgeblKVi7qRyaoFon+Me+vDeR/
+	 54Uy6ibs/Csy9Cpx9tgRrS+alpKmYBaWZzOa5n6Q4WzsxLws66tdRPrXpPQ6sKFIAE3y1
+	 1tFA4kB+vK10Lct/uqE7CDFKxKMjStvq2uzLWxtz+UTFZo03Eh9l5ubB4sn3ufsv0vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="UI/H7fym";
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oGltNea8;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB43606A327
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCB43606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F47606A324
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:05:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F47606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UI/H7fym
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab41538192so2033691a91.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:04:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oGltNea8
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccca948203aso768284a12.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:05:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793009077; x=1793613877; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793009152; x=1793613952; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
-        b=UI/H7fymCCV5R8hXtpI07lGH3/oPJ2lwNaDRFtBfJ2Z98WNqgB7BIhhNR5neQc+sBC
-         3iXk3PsFzag2MjYDv0EDhjpGZzt3CyIa1WiUO+EpXrjVAgEltLNFy5lE71bluKr8Hbq+
-         4xbrzmUYbRrihK6YHm6FZUTZLrCDfh49FpFjYlpA42yU8QmoUrHEDCfMu2qwaPuJ66sv
-         qXKUcSu4j9N7ZTUZK7xMA7IPIesrntAfupirllGS5Krn3vDBELoAzBValbjdnSBotsYF
-         Dl7WY9NeVBWjP0eP7ROQJYqD4jfFXAEyey686yMiA/LXm4elu3hwqyuz7+U8v6L8ESMJ
-         +cSg==
+        bh=Gm/vkZ/TPKkcuQ8IJYMQfAw8BN32mGEm+OiB1P+AHxg=;
+        b=oGltNea8Icpks0AKShXXj02HZ9E927nFFfMwJpBRbJKt458wbXwSFBWWA3+ghZw51E
+         vAqvMNSIm+aJR5miw5r+rD46K2/d/dLNahVUsw5BatL/CY6yKy/VK3/v7lvIwdYP6Ncv
+         2HT6AupXt9ynFYBu9eLulOEkm+OgX1tOE3r2peQ4oxqubYTuOFjWpxRbcTe44ySoxVsq
+         Dwa7R+baX9Qj2Gz4dQnI4dqy/BQ392ZtfmWA5pGM61MCheekfpKiVQ4VG4rdGApp3+xr
+         1uJESliw7mMLBpst5JWXhkqgGWWWl6wZVtxYFgUGC5oYVY7oMOEffn8aEX/I8WlA+F7W
+         /vuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793009077; x=1793613877;
+        d=1e100.net; s=20260707; t=1793009152; x=1793613952;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
-        b=qNnbk2wQpt4BF+gcP0LhnHsiCZGFP73t8cMsZw7yZjPVcf6nYer6r7b8qiF+jNwrZa
-         GkVrnLgijz1llUY9A7qkdo6jXepSi6prTFHU7u9FjsdhhAA1QJ1klarEPibEenxa8Gpv
-         fxV2E7O7XEu9BYkUo7DbIGIea3VearHpj7XbEtu3BB+CR+IXpG+NsX5WdITQ2u0ZV/Q3
-         HNMtWfyRTyfYYEwIuDR6wLbW3y9MngytcnLdld93NsXFmXnlOEZ9FV6i+Y4vTC4jIdQp
-         LrCqmeSkTbbABwUHbwr+tRwdKQ1/Olj9VW8rYdMZw9KllXVCkGBw9JzWqpFY8bsnVoBV
-         yBGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBNzRWClIu6GJXbaNfCnWEtNmoAy6TlrCgszneByTfhEjmRxR85D1B9PhomS9TWOCZBYuTcoM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAvJ/mRMWiTwCRfAH6ZPDegdMTaKKsUdH/G8okPg/GlVfu/abO
-	DqFWZhzL49wQcrVSN2c7+bgg8tdghmH3U0Rz1t4DMyHWH6MGXhNd/97V
-X-Gm-Gg: AYBFou1QYQM/0oni90Lc6kSKpD7cwwdwtYVlnSQOxmrz/YcLXTK7o0MuRUjpyU1sGUH
-	HT6GPgslZ9z7xjGhHcORlkpCP6uu1OMn36NkomJg5uwYZvd4FfRobAVqmSUJRF9iD/GxHGygsQf
-	cHliBhIunOEp2/OiZ2sGxIIGo20f6Rbf0zunF6k2KANkpI8KDz8KCcw0x1NZsJDtOLt8EgTMGbH
-	dEs7Fiv9FE3HlP9YpmV3oo27A0cl99ehiJNX4X/g1PKwwA73jNHwqNo5xzgMmOMLOky217WSq4l
-	t4f5YjHnAhm9s2pf6xMi5c8bXD+HJGfZ0BuIT9Y2YQewm680lx/GSz/NQZFA/zHLnJz3beIC5Me
-	r9ErSH8sZqWdhxoUPysFpvck+eRxyk/J3s/6woeQQB7dmASCs91g1CB22HF8qYRdabLjatctXci
-	6wvmt7Tiv+4pKDQyrW4VnQbuysF++Dr58xHEyYBf11EA5H7qMVzo9+RlyIUbkSaseUTT1B8fk8L
-	CFuXhrdtdTbcLK9tFgESu9dmZQ8ovsp3AaPOAF4qPDmpDOSiRlhHCmEAwLX29NJU+MhAqNVAQ3g
-	lDA6ubvgRlRfogHwDIlE0enmD827eGGWf5RC5GOrR9VCXUN/w9vfOSFhpn/gNOzauqG0c/Kim1U
-	cP/jL0CEAUxC/996IyeZZgrG1Wd6M
-X-Received: by 2002:a17:90b:2d86:b0:3ad:ce18:50ad with SMTP id 98e67ed59e1d1-3adead57bfbmr5784240a91.22.1793009077115;
-        Mon, 26 Oct 2026 03:04:37 -0700 (PDT)
+        bh=Gm/vkZ/TPKkcuQ8IJYMQfAw8BN32mGEm+OiB1P+AHxg=;
+        b=HltIHjyyzy2GsPvFlYO1fYlHVeFBZKjSk7My5brwysoV6zIwMJyXOVMvk3vsx7ZJ+7
+         jXc6gTKNIbf+oj94L6Vf/wiGqoCCjSU3ikgNSgaGEhVhT/UMohaBhaH81nL0DzgYXKkm
+         bzuOpj6lYISeBq7vWfvIqHFtPg8eOjjjUMKJsug+gSFPs7Z+/CfdER/ea2R/lUF+XGLh
+         8fmlW+CP7bvt2Jiz8vMvgKNSi5Qn51qx9jESETmqMNb4BRru41hFokv0HpfdC+PECldJ
+         KjxffYY5XrHcjYDhW63PNJfZ992oV407/yp9EjXsRtpDHcBJEY8KVmmJt6u8ovoXiNW7
+         SQ8w==
+X-Forwarded-Encrypted: i=1; AKwUvBxR9f3Q6AT2/6EZ9x6YuNExr/7xVUqkrLAKrHbc+SSoxlq6OWE+0L+E0aCoB0JtyMfJWJ893Ag=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUdJjS2FW5JaPePdUfXncjiBffSS5zeKVhkoXKsc/ieWMUIrbm
+	fOfhQBuXkZPZQeLuVEbD4rnLx5LcwHZx0luINiCRaaRq1VByVjBRl1wO
+X-Gm-Gg: AYBFou3thfZw957mwciiO/sUdRe4F7XemcFpKBzqzURn3IDuvVx/blDLMMu67YhZENN
+	nz2byNNPM8oOTR+eTYB4JuLH8b8p+s8xjpmcMcbwmWNvyAsCrMJjY3OLjufmwHGOtzx0ujXN8PX
+	4GvYWS0EURb93t9KlW5yV9nhKZYmXozPWX1uMgU2qfT3is8Epnm0rRnWcHd3gcYO+QA/haqrsE5
+	G77HX4yl/P8o9qXA42yTYSRPEa4EUVFq/CaxRLf1Y4k55fZqS7NOZeJUAFNYjQdANXpf4jaEvmE
+	s/STH6eVKkrVlRSzC2oWpjauLo0/G/rCPG0rXQg4R10NKC55NBTa39rlETxvEVp9hW4dP/2L8xg
+	spM/JfDZGmhohbsF585m5iQhpPCyF/1aUCYCRtTYvwUpwnp5g+IQXGhypvz3ol/YtHZ8/hEun8o
+	aXaJCq+VJNffIpuZEU/Xg+f1uLBOfR0LsVH+YdwrWtjc60Ixy2yMha4KU1KFESkoSslfK5oBYGr
+	kobPyi41nYmyAIALJP9eInxOtYh9DU5X7UFRr+hyTOLd/CCfPIWLWASpnMns5CgyFSn6oXYGjNU
+	cKuH1/yjz5/uNYYqc17MKT3TkAUzNPV8FwkbkuJiuXLQpt6ewFrPDVdaGu+06dh+PTMq3aD4g2N
+	pVuKieRqTaPM17o/EQhCapa+MAWhg
+X-Received: by 2002:a17:90b:224b:b0:3ac:d19e:85f1 with SMTP id 98e67ed59e1d1-3adeafd6bc7mr4882037a91.53.1793009152103;
+        Mon, 26 Oct 2026 03:05:52 -0700 (PDT)
 Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebac408asm7912647a91.0.2026.10.26.03.04.30
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeb83b35esm4837686a91.0.2026.10.26.03.05.45
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 03:04:36 -0700 (PDT)
+        Mon, 26 Oct 2026 03:05:51 -0700 (PDT)
 From: Yu Zhang <yuz08559@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-remoteproc@vger.kernel.org,
+To: Richard Cochran <richardcochran@gmail.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] rpmsg: char: take ept_lock in the SET_INCOMING_FLOWCONTROL ioctl
-Date: Mon, 26 Oct 2026 20:03:06 +1000
-Message-ID: <20261026100306.68019-1-yuz08559@gmail.com>
+Subject: [PATCH] ptp: fix use-after-free in extts_fifo_show() reading tsevqs unlocked
+Date: Mon, 26 Oct 2026 20:05:35 +1000
+Message-ID: <20261026100535.68114-1-yuz08559@gmail.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,60 +99,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
-rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
-and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
-dereferences ept->ops, so this is the only eptdev->ept user that does not
-honour the ept_lock discipline.
+extts_fifo_show() walks ptp->tsevqs with list_count_nodes() and then
+list_first_entry() without holding ptp->tsevqs_lock, the spinlock that
+"protects tsevqs from concurrent access". Every other accessor of the
+list honours it: ptp_open() (list_add_tail), ptp_release() (list_del
+followed by kfree of the per-fd queue), ptp_clock_release() and
+ptp_clock_event() all take tsevqs_lock. extts_fifo_show() is the only
+one that does not.
 
-eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
-(reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
-device is removed) and rpmsg_eptdev_release() both do
+A per-fd timestamp queue is appended to tsevqs on open("/dev/ptpN") and
+removed and freed on close(), both under tsevqs_lock:
 
-	mutex_lock(&eptdev->ept_lock);
-	rpmsg_destroy_ept(eptdev->ept);
-	eptdev->ept = NULL;
-	mutex_unlock(&eptdev->ept_lock);
+	scoped_guard(spinlock_irq, &ptp->tsevqs_lock)
+		list_del(&queue->qlist);
+	bitmap_free(queue->mask);
+	kfree(queue);
 
-and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
-A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
-eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
-(or a NULL dereference once ept has been cleared).
+So a read of /sys/class/ptp/ptpN/fifo running concurrently with a
+close() of a /dev/ptpN fd can have list_count_nodes() walk into the
+queue that close() is removing and freeing, dereferencing freed memory
+(use-after-free) or a poisoned list pointer.
 
-The other eptdev->ept users get this right: rpmsg_eptdev_write_iter() and
-rpmsg_eptdev_poll() take ept_lock and re-check eptdev->ept before use. Do
-the same in the ioctl. Lock only this case: RPMSG_DESTROY_EPT_IOCTL calls
-rpmsg_chrdev_eptdev_destroy(), which takes ept_lock itself, so the switch
-as a whole must not hold it.
+Take tsevqs_lock around the list walk. The fifo only ever draws from the
+first queue, which is the registration-time queue created in
+ptp_clock_register() and freed only in ptp_clock_release(); that cannot
+run while the sysfs attribute is being read, so the dequeue from
+queue->buf under queue->lock may stay outside tsevqs_lock and the lock
+order is unchanged.
 
-Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
+Fixes: d26ab5a35ad9 ("ptp: Replace timestamp event queue with linked list")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
- drivers/rpmsg/rpmsg_char.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/ptp/ptp_sysfs.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index 550fda2..49c0784 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -343,7 +343,15 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
- 			break;
- 		}
- 		set = !!arg;
--		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
-+		ret = mutex_lock_interruptible(&eptdev->ept_lock);
-+		if (ret)
-+			break;
-+		if (eptdev->ept)
-+			ret = rpmsg_set_flow_control(eptdev->ept, set,
-+						     eptdev->chinfo.dst);
-+		else
-+			ret = -EPIPE;
-+		mutex_unlock(&eptdev->ept_lock);
- 		break;
- 	case RPMSG_DESTROY_EPT_IOCTL:
- 		/* Don't allow to destroy a default endpoint. */
+diff --git a/drivers/ptp/ptp_sysfs.c b/drivers/ptp/ptp_sysfs.c
+index dc398c6..7d09256 100644
+--- a/drivers/ptp/ptp_sysfs.c
++++ b/drivers/ptp/ptp_sysfs.c
+@@ -80,13 +80,17 @@ static ssize_t extts_fifo_show(struct device *dev,
+ 	size_t qcnt;
+ 	int cnt = 0;
+ 
++	spin_lock_irqsave(&ptp->tsevqs_lock, flags);
+ 	cnt = list_count_nodes(&ptp->tsevqs);
+-	if (cnt <= 0)
++	if (cnt <= 0) {
++		spin_unlock_irqrestore(&ptp->tsevqs_lock, flags);
+ 		goto out;
++	}
+ 
+ 	/* The sysfs fifo will always draw from the fist queue */
+ 	queue = list_first_entry(&ptp->tsevqs, struct timestamp_event_queue,
+ 				 qlist);
++	spin_unlock_irqrestore(&ptp->tsevqs_lock, flags);
+ 
+ 	memset(&event, 0, sizeof(event));
+ 	spin_lock_irqsave(&queue->lock, flags);
 -- 
 2.43.0
 
