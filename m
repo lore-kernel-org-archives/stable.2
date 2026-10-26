@@ -1,101 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792976984;
-	b=DYr7GNFepjC6jiBVOKoqdLMfXod6loR6SfwmBpgd7+VT50B10nN/kWK0Esq9v1XPe4rS
-	 Jxt060SH2iuBBemYUcQU9bPorgemiWObaCNWs+hHxFWuvz76GfWhEnXCGtzMDxBV64UkZ
-	 +ZR5cp33UO+qWT2qtS2B9JxE+epumfFts5v2c33yqRffTYX2wAhk9rz3GB1+DTKqPYjEz
-	 tNX9P3jgUM2cJJeookCg13SxrkzLbYxxm3VhUPZLuRXMrFJK6S6kRNlXdCbaDJ7w1kOPW
-	 nx/ffRBSXTWSl5IZHrVNvX43INRIDWJC0neWmhPL0Ig2Mwwy8YIPyqFbGOpFrks69ZA==
+	t=1792977849;
+	b=DDmnzJSmZ09F/1JoVrBtQRgq6jPIysy36l3TgtIH+zNEEyxE7RJmFHiIu0tRI3Og5JUI
+	 6Wa+R7Azr1Tfnz+XUoPWZRNwA9r2yP8K5/YaA/Sz7/cvgrHt7OWwgm7rR+EMLvMTWGBca
+	 +pu5gxe+Xeh0Xgv/8dg2ldKpG7nsaxIqiCDl2xxtSJe4fa1udSQUKJZaulMTuXCghRaOy
+	 B6hdZOKF/Dm2YyZCtp0NJEier1TerXeM3yCdknbvFBB2dYC3H+CBV6F0GdyYrgIbJaAop
+	 ZowDrBBwp17byQerNENWABe/a287wAzLdRZ9MNmlkrTZdo3l9wXqJ4uUXyh2cdRNGOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792976984;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
-	b=N7jC3a4Epv75HVDjzsia7tHXhLS6jS/5djvydZGVmdV+Xm1Mb58+HYfeYJaq8ZalnOOG
-	 t7bdCI3S6VgGR3CnRgyY/6IKMZ4ftivGItwU7onvQkuREkCSYUagm5ufix3DutXj07ciu
-	 38ReJjSh8VDyQov3FtVIbS0VVw8lCg5d6D6D0pzHrf7VI04Pl0dXy1JnSor1/qFIkGw+d
-	 g2geb6SyJG3In/GtynTWoEUsRjF2vD7k+oEKA+0CpCW3e23TL6GY0U+r/jnvYTFuro9EA
-	 kn+j+5azFJ5tYIg0sPZoY5sMl4TaHFJej2uCY23ZGzLDLj/0QX5zWtJ1u6gExr6S66g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792977849;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zdFsEP1AN6T2i8dQrAhXNPucHiLg/K1/ek8PnkvRhmA=;
+	b=04u6XEMj4YgQJWlcejOuBKJC00ua61mZTdi76E2sCayE0uLBL6KYNox8USnX0liMIZ3D
+	 b+L8VEUtHr++LLcH2aB3iVmlulrdZNMWOhCWLob/FrvaSOhab3e+9hd63C+k2olvL222C
+	 lmvMK9PC4NLe7BscAcMeYEzVfCBEAF2Ql8WFKyz62hgge4rFsysWv6v+sSMjz4j5aknfK
+	 QZAk30rCRP2dOYS9jRWC13m3uNnjjWncefFDnNJvBIMyCtUXaij0RP6LkbWHkM5eoy7cC
+	 VvUAEZAcEb1rxTjrTk/i8vQhalPE3Uedjf3bV8Jc2dm9APR8AElEy60x8KnOw/V6G3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=MMk+k0CO;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E99606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 01:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2E99606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=MMk+k0CO
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53512cd2f85so27880961cf.1
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:09:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792976983; x=1793581783; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
-        b=MMk+k0COyYmNm4YdnxYfC2ghljf4SFkUhbA6kOhdeg1cbfitG0EjUsLQQEsUWdh2mT
-         DfisF8g8yCg2zHx3IasNOO7RoHrWYOPP6vcdds9StC+lsuj6pEzcWdILCdQbgNGYa2gA
-         fiWfgn11b2ceufwdYy2Q/aKNdKRi3guSGdI+5531lVzJQMrxEiYtYM9XzQsCI0sgoBtA
-         0SAZzsqwgQu1MOojO7vvZbQg+to6vbuYsUW3/bNiA5a27yiZ3RtFjyuvXX0S+onRwy+n
-         DrhHSBrd6oFm3nt3UAb01Ka+25XOFLCV3zQMmrJj3FeDJPFc0wS8cAuNIgLE3yNxipaB
-         JAcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792976983; x=1793581783;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
-        b=bDV7Y0ARSUBp7M9Yf9mfVT2yO0qU4BvQPkzjQgwp0HsLkCEix3vJXGBVwlT6Tpo1CM
-         MSchCYUBwZ5Ss3NONDjY/ZClxZWMaDCbyUyMMv4iCbRqdGrJkxIYmgGvvhSL7yT8i65H
-         +MoqmIO8qAchc/+WFxYj1xujLWsBk/+gFW6RFzZrcVprbS6M65yuWE1PNfzBR1F8yTrq
-         5CHAL3NAzR2Ir0XAckJBOHfT8JRInkZ0V8UXkvfqnGq+7hmDX7UrrR6K/xuS0L1WxG4U
-         4IyheLWXHOmXlE9ZoXuOPIknZhR7RoFONY8ij6FY3weQG8y6tdfxaMBQJTWBnU9RuTSI
-         Guyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzs8aaCqDvbtwOlKA7QnuiXUvalB6Ly/gKS61ypxdtP/Ow2HJhiCTuMU3/sV770G4e3eKySEGw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAj+GihOBDaoz6/g5FjlmQmEtPuatQWbt2/HrfkWVUQZh6R72G
-	shttDuDaUwZj42Wr9PB5aMVgm8EXFDh+fVh3YQBaWdyxZdvM+Jd4yzIFFwiFM1BeQQsTdEQZaIM
-	PqlWSrw==
-X-Gm-Gg: AYBFou1ZLEGKCb+VHTTJvS6kw7iy6Fk5ZhDn475vaf/rXfYiHdmRiNyNWbtxw6qqEpw
-	OvF3rnwZnb8nMl14cXpFK/ziiC74Nvpso0BOZ0qXxoNuwhlEiIo3blfnMYIF2jBSQPnEd8Q31gf
-	OP7Qu+D3/Mn/NahysgkW+oHO7r6NtiW3bRr+w78ZyewDDGbi6brGHoHB4yu0+H0nLxLoW/re+wg
-	/9S8H9RjX3MZBS4E8ZfMZwAJlYTvzxxpxFqzsybuOgyNvyI+m5ELgyu12e/2EZoZjw8OIoNIIBS
-	q7k6L//USqmNZb5F/GaY+LHqO1tHxM2FoEeBtJjLQYnpKwnWFFsR3wp3XZAL/f1P565QtLnN1g+
-	fI1LNdxxzeB8GALGVe0dOLIBag0eTKagaqJlifyP/hLQMVWY0NgUJdSe7yQQgD8FLMoFetmI4jk
-	YkKquzUpYEg7Ii/CoGB6tIsSXOLdIhE/HnxZL/yP0PjNQWRZ1gOLgGeENP9LfvwzjlwAMtRFMWq
-	yAob2ixXyv9kxE+TsOcLoHXRTy7PoFj6EjWA72ZvDIkDeenmH1vcl4Y
-X-Received: by 2002:ac8:5f10:0:b0:536:8843:c2bf with SMTP id d75a77b69052e-5383b5f25d9mr84356811cf.67.1792976982790;
-        Sun, 25 Oct 2026 18:09:42 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839739ad5sm43892661cf.23.2026.10.25.18.09.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 18:09:41 -0700 (PDT)
-Date: Sun, 25 Oct 2026 21:09:38 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: IgorpetinDev <igorpetindev@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F4A606A31B;
+	Mon, 26 Oct 2026 01:24:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F4A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: e67d2d56d0db11f19a56ed5b684f684d-20261026
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7454b403-2174-47ea-a00d-626dd293ba85,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:7e0345ce150d8e09b77cb675ba672b6b,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898|915,TC:nil,Content:0|15|50|99,EDM:
+	-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e67d2d56d0db11f19a56ed5b684f684d-20261026
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 171342252; Mon, 26 Oct 2026 09:23:50 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: hayeswang@realtek.com,
+	nic_swsd@realtek.com,
+	hsu.chih.kai@realtek.com,
+	mail@birger-koblitz.de,
+	zhangxiangqian@kylinos.cn,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
-Message-ID: <4f60a287-f914-4b81-9dbb-d93528312356@rowland.harvard.edu>
-References: <20261023174015.54793-1-igorpetindev@gmail.com>
- <20261024155614.2732-1-igorpetindev@gmail.com>
- <20261025000643.425c57ca.michal.pecio@gmail.com>
- <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
- <76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
- <20261025171019.49c9a66f.michal.pecio@gmail.com>
+	Linmao Li <lilinmao@kylinos.cn>
+Subject: [PATCH net v3] r8152: Use BMSR to detect the link state
+Date: Mon, 26 Oct 2026 09:23:45 +0800
+Message-Id: <20261026012345.1902285-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,44 +79,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025171019.49c9a66f.michal.pecio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 05:10:19PM +0100, Michal Pecio wrote:
-> On Sun, 25 Oct 2026 11:16:59 -0400, Alan Stern wrote:
-> > > > > +      * Even though all URBs have been given back,  
-> > > >
-> > > > but does anyone actually believe this here?
-> > > >
-> > > > Hundreds of drivers written over three decades, often
-> > > > without linux-usb review. I don't trust them at all.  
-> > 
-> > If it's not true, there's likely to be trouble when the completion 
-> > handler is called.  We could forcibly remove any remaining URBs from
-> > the lists before flushing the work item and just leak them (with a
-> > warning of some sort -- ideally, one that prints out the names of the
-> > completion handler routines for the leaked URBs, if at all possible).
-> 
-> But you are now talking about developing a whole new feature of
-> unclear usefulness (will anyone pay attention to those logs?),
+r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+BMSR_LSTATUS can remain latched low after link up. Since
+commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
+cable is not connected"), the first speed query can then report
+SPEED_UNKNOWN, which applications such as NetworkManager may cache
+until the next carrier change.
 
-Actually I mentioned two new features: forcibly removing any remaining 
-URBs, and printing a warning about them.  I guess you're saying that the 
-warning would be of unclear usefulness.  That may be true; I was just 
-thinking that if anybody was interesting in chasing down the cause of 
-such errors, knowing which driver was involved would be useful.
+Use BMSR_LSTATUS in set_carrier() so a latched link down can turn
+carrier off after the link has recovered. If BMSR reports down but
+PLA_PHYSTATUS reports up, reschedule the link work to read the current
+state without waiting for another notification.
 
-> while my suggestion is merely a small tweak which costs nothing
-> and makes no functional difference under normal circumstances,
-> but reduces severity of hypothetical failures.
+Tested on an RTL8153B: NetworkManager reported 1000 Mb/s after 3 of 3
+rebinds, instead of an unknown speed.
 
-What suggestion was that?  Using cancel_work_sync() instead of 
-flush_work()?  Doesn't that amount to the same thing as forcibly 
-removing remaining URBs from the giveback lists?
+Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network cable is not connected")
+Cc: stable@vger.kernel.org
+Suggested-by: Hayes Wang <hayeswang@realtek.com>
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+v3:
+- Use Hayes's approach: detect carrier from a single BMSR read, so a
+  latched link down can turn carrier off even after the link has
+  recovered (Andrew), and reschedule the link work while
+  PLA_PHYSTATUS still reports up, so carrier up does not depend on
+  another notification (Hayes).
+- Drop the runtime resume change.
+- Tested on a net/main based kernel instead of a 6.6-based one. With
+  intr_callback() filtered to pass only link status changes, and the
+  first link check delayed until after the down and up notifications
+  from ethtool -r, 5 of 5 runs showed NO-CARRIER then LOWER_UP about
+  8 ms apart. With the PHY powered down for 10 s, the carrier stayed
+  off and the speed was unknown.
 
-I still think if you're going to deliberately leak some memory because 
-of a misbehaving driver, there ought to be some mention of it in the 
-kernel log.  Otherwise, how would anybody ever know?
+v2: https://lore.kernel.org/netdev/20261005105249.1281648-1-lilinmao@kylinos.cn/
+v1: https://lore.kernel.org/netdev/20260930113842.2640928-1-lilinmao@kylinos.cn/
 
-Alan Stern
+ drivers/net/usb/r8152.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
+index af3d7dcb2f14..ae861eb6d9a9 100644
+--- a/drivers/net/usb/r8152.c
++++ b/drivers/net/usb/r8152.c
+@@ -6958,11 +6958,8 @@ static void set_carrier(struct r8152 *tp)
+ {
+ 	struct net_device *netdev = tp->netdev;
+ 	struct napi_struct *napi = &tp->napi;
+-	u16 speed;
+-
+-	speed = rtl8152_get_speed(tp);
+ 
+-	if (speed & LINK_STATUS) {
++	if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
+ 		if (!netif_carrier_ok(netdev)) {
+ 			tp->rtl_ops.enable(tp);
+ 			netif_stop_queue(netdev);
+@@ -6988,6 +6985,11 @@ static void set_carrier(struct r8152 *tp)
+ 			tasklet_enable(&tp->tx_tl);
+ 			netif_info(tp, link, netdev, "carrier off\n");
+ 		}
++
++		if (rtl8152_get_speed(tp) & LINK_STATUS) {
++			set_bit(RTL8152_LINK_CHG, &tp->flags);
++			schedule_delayed_work(&tp->schedule, 0);
++		}
+ 	}
+ }
+ 
+-- 
+2.25.1
+
