@@ -1,109 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793038257;
-	b=T9q47vKikv1mR+rtjnbXTTMISxpLesgp3AvL+O+KuJOcE+/5F4t1TzGVGGWW8h9oLC4F
-	 qE+BCLB8g+JcxIujLqNnOV1Ei+ifGGwC/DT978xw/k/I+9dDVHSl6TthmleuJnVZFfP/9
-	 B1Q+4+n1bmAucr7eO3tNZaU8LGEke10UBy1xwbuwcRepJyLvSw2efUWamaYUKVZbWGYeu
-	 /dzWl5RL71dWtUXZYkZyAHN9ESUCa8cnli5gzdpaTIm5TYlFMosOBrLe0MgCLZV8WyCQS
-	 +ffcPiMMIwwTzsgCU1Z1ofdnUCAvAKSnGvOgmH2+d6kdRt6oL8XrWiZ5QVc5yyIs7OQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038257;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aHbLGME1zLdpD+ZxcXS3dYUDC7BfDhB0kmRSRoqnWEQ=;
-	b=gsRKZZoND8L5baMioSd6CYf9S6nrIYmdBH6J4AH3LUKDcXenPWeLAKuUWXiVCLISRWp1
-	 Hv1ScRCDfz+Y8gp3n1ocl6rZ8J213pl6Goqz5eEm6+8rxgFINEGs3rG0fSh/5qu8q9QMv
-	 ar7v6f6f84ZLV/1MBUj1v/SBP1RWxqV07X2/8Bo3kyRJFkV7+NCFRH1kSBlGuL10lSJkr
-	 EpyhtQ3290tSEpf4GjyNj5hEmuVSU773qSmhi3tTXMQ9SkAptWErwUSIQmDiiqh/iS87k
-	 UqYH8lP1td90KCpKbL91wutpHti4eSE9XsPx7xXaWWe+RWyoD7ARwMCZ1GKf3QkNIlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bf4bd5vu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.67
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012067.outbound.protection.outlook.com [40.107.209.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793038398;
+	b=IZ4oetXs7gumFUbHNz9wRbE5fe6zMQMllT4wiU1/Uf/0t5CjE4Ib82c6f1aQlHzvXKpF
+	 ey8UyVD9O68Dmkwb7ulG+XLazfJ4AN/OZz4yAkf0dqLYdzzk5mA8Z4oXxswqZGrTJuJwN
+	 lyaMyesIJehMnKI5Md+sqruUVPQ2p96tUxoYm7uCx+4XJo0VNsOLIQ5cM/dlaWoskm2iN
+	 IAA/VW6NPA5TiqWnMJ0ufElu+O63vpP1jLWvBuDfs91YW6DGgKEjWXzB1HyF6SgQxx/6N
+	 MUj1KmWY2c8MpaAQC16KTpfeqTNyUaA2Q2/GQCEBZQTbOytT/udgbI/IGCVxMnfvO4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038398;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qAFL7hRrfh2T1p4el/pmqxH+76hF6+dSXVrIs9e4ngE=;
+	b=BBRqguNTxoqcDAYzPg/IQLiNfe5hb62wgvQeWGUVG8e3Doy/kqG1pXz46TMVz6ecjcI/
+	 vpQybMPmebjNSzzHSSfv3nBKD72uw7r2FMCRlKNpz3LMGjySz8SzriPCvggehK2X+BmWF
+	 ZNZ9bkY00VCglBf38+aV3grctcdL5KocoEK720xvZj1X4HD7YCCoVzGgV8srKhdVzzIn8
+	 Cbv8TTDjrjtT0HPy3I0kGzGpJvVuc5L8kCgS32wVOrJSr/Acs7EU+qahGqK1feSFI7W0w
+	 K+9j5iCu2vLMkg6hxqwB6ka9TIOIhssnB1jVgHJS2rBAFsd3RCMFX40vjkbyf1RDkrw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lMZWSF+C;
+	arc=none smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D54C606A324;
-	Mon, 26 Oct 2026 18:10:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D54C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850D4606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:13:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 850D4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bf4bd5vu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DSp4TzAwSylI95jEYt8YMKswBCTPlCHkofBIwFIikNF8W/eBJXehFPKQwlJoB07v0RUfT40Y3jk4Qui1kcwPCiV5uE/N45Lco2AqvEs9OJJtTvsrcj/G+gMu1VBfDKm59J90sBIn93f/rsjtyEI04zGGDSFL5OOfDIzbhndBzj9Z3Lk8f/3euqr2mezbHscAwyTci4VqTWTHGDRttDNkR4Hq5MeG1wd9BtbcVv6C5cHtES03rm1bqUOXqLgxtYbq+qvOm+rVah4nQsZhg6YkZSMx/bCJ89+I2vboSAWDYeLXtaeL4tYPwOungE3fGsqH32mL64Ez9O9VQAr7PMCuvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aHbLGME1zLdpD+ZxcXS3dYUDC7BfDhB0kmRSRoqnWEQ=;
- b=lYZ8PgwZTyCSCR2BeeE8jnQeCu3IKZn7i9GJZN3z8SotXXW7xaDHwpgBXZTd/cXQR+5oGi6eO+TiWHL/oYMXUMky10DwQv6sSNVSA4j4K7Jed+Hxqw08Myuxp35h5Evn//w7hG/HDfbBgD3q3aLukecJ1EIOpbZU0mWrZlbs1YlvGfsmRr1u2p0jbqCQxEmnDnGp2Zb4BSkul0NMmIDcu9YtTCXCLn3xqU0W2LH9EugX+nbnvj+aW4BgbTwmY30NA4gPBCoZpYSDX8yuVshIVHq2014tfSbk68peh3jH4fuhqJhpLoQGsoJrfkICG6EhE22eBOSxB/pq+IzChxmLLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aHbLGME1zLdpD+ZxcXS3dYUDC7BfDhB0kmRSRoqnWEQ=;
- b=bf4bd5vu66XJMdj7bGFpxHvhPMT/tAhNB1R0oVeIOCt7Y9hfvWxo+UMWDfQGg3ntpZJ1aq/EJyKkyAg5NjEaFMpilUSs1StqqdD2N+QDU8Rf34h2birFOLrit7Fq6MIdfA2q9hifpGQ1z1B/blZEvoBVBTnpWe0VYFYx7IlHRbEJUTDE7GB+/u+Ns2zC2Bqhq19XIqDtGl+cpnPy407rpLLLfBm7GDTZsrRJrWvMAsPV3z1UoaUIne8YyxeCtUWbPnMIFcom84ikYgTNilG7fOx8yQMr6P0VMfxi+228u+e5W1nxFvJF/uVqpRT9X+AYXqtEjE+3x1Oz6iFtm3ScSg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH0PR12MB8126.namprd12.prod.outlook.com (2603:10b6:510:299::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Mon, 26 Oct
- 2026 18:10:50 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 18:10:50 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 01/16] mm/mempolicy: charge shared policy nodes
-Date: Mon, 26 Oct 2026 14:10:45 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <56FAECE6-6DD7-4890-93A8-274776B22776@nvidia.com>
-In-Reply-To: <20261026-fixes_shmem-v1-1-703206d5fa0c@kernel.org>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-1-703206d5fa0c@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: CH0PR08CA0009.namprd08.prod.outlook.com
- (2603:10b6:610:33::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lMZWSF+C
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679a2297c55so4015218d50.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:13:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793038397; x=1793643197; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qAFL7hRrfh2T1p4el/pmqxH+76hF6+dSXVrIs9e4ngE=;
+        b=lMZWSF+C5IL2Rtf5sQGHhvwUnkGjzgAxu2Cfs+QpPvdHgT/S07RIoqkQ2n+1OgWE08
+         rQBo9Fbd/BNIgP4+yJBXe6mhrrrEHPE9Ga8yOkXfNAF3ZNkSA5xtfECIysJEJTX7n3F7
+         OvsLVuJufJQSlCu4mZjDixSMekvm+K4kY0/EZBcWVQx/fvH12I94gsA+ZbHvXgmy/lAy
+         EDYDqAN64XzBVhcmOu40Iol4qjWLsRkQE8Xuvf5jtWf6VAW5moeENnwibUtp+KXgfV1t
+         laSt1EqGhuDMrQDB8z4oJQMwDH0WIAQMTuxsv23lnPfyTS0NOpAllpzkQZUbzcm4Yz3Q
+         Dkgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793038397; x=1793643197;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qAFL7hRrfh2T1p4el/pmqxH+76hF6+dSXVrIs9e4ngE=;
+        b=D+iJRe59mDZujZTZ683efVyFexov7GKKEA4XKzjcS1S6XgvnSnefiCIM1Py7qj4H0N
+         lxKBYCDBDVubuDy7O/iVSxW6817XsROFNM9OnIe8MiZ10mzVYajOObGH9ajeEHBeyLt4
+         BSBAbvBEJiw4uK0p7u7zvWZbYR7ztn+BdrchXFFulgJlf/5cyQlAaspWcytwtOA4PcuF
+         /9AEUSzttbcDqwNWDL3kUtP2F6GPuztP406d+UC7pXy1QTZxrOUmnj4pg32jn3Luxjsh
+         fc4mHIJ1c+cpQGFaNZdywB922n2uOVcRE0Vs9cK1R58J9nSEijwhLiMuKPxEarKI6PKh
+         gADg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrNuctYAD3BYYoPiVFJg0BYpv1C0vs6rft0mEwSNyvCCbJx9n7ZfkAB8hEKQ1a8/Q2eBZ4bvM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWP2+oSxqtII8NzHVCQfLorHYvgbfJos0VHObbGlF6hinocnBW
+	nMOsF8yf24YLYnTgqIkkn6FksEvyMz9TVsKkDOd88PjXLAjQoRRekCcp
+X-Gm-Gg: AYBFou3B9hSQCuiNNqm4o8owkvVT4VwwLOlp0qBrXO31r+gUcPPYNcHqaFcOYFhrJ6T
+	2S2223fIFFTGgwSGxkATAYk3AWtqP2w3PhWmn39Z5LC7CN1LOJAQ6QeA+4hU0HK2iRHySS1vshS
+	fewKWwxDXZqirMA5TXLGDr9uiNTVqooTKAhOT3I6Xf7Oh1DH9VFfS5HQN5kVxnt2cvsolTCJB/G
+	vCo7ORgG7r8ftZgxLkbJlu3t773rYqkPNjnS9Ij5vJQKoEEjBeatw/Mo9i5GqU3YX/QR/W4yOsa
+	1wCzQPzAwUdX19V7rZPDhXLgxbd4NSwSDeXhbk+Ln7IhRRXAfRtJuAR2Nj5RLy60bALK3w3uKVM
+	5TH4pSE/qWZ7912srOFwIjta+fhDYlRDrXdvmJPxCCP1VFQWKA8qXmD/O2c+LNiK/4r7mZll+Vu
+	St05ffR5NOEYMPJUvzWsVrcoMsMedoYdnZugaKuwUzcwIkZrN7Ped3uKYYeUVux1q32H+dhoZ1p
+	hQs+Es01bXdo6IFGydjBRYn7N+QWAvpqB4J+fyAUGmzE+AWPvLs6/XsShyjTHBQSAnmf193zgIh
+	43wQA3KtWhs=
+X-Received: by 2002:a05:690e:441c:b0:679:935e:3551 with SMTP id 956f58d0204a3-67a45460185mr4398920d50.68.1793038397593;
+        Mon, 26 Oct 2026 11:13:17 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:58::])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a461f0a4bsm3816964d50.11.2026.10.26.11.13.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 11:13:17 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	honggyu.kim@sk.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on memory hotplug
+Date: Mon, 26 Oct 2026 11:13:15 -0700
+Message-ID: <20261026181315.3799696-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261024170415.4121901-1-gourry@gourry.net>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,106 +106,177 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH0PR12MB8126:EE_
-X-MS-Office365-Filtering-Correlation-Id: b371e49a-2450-4070-8f9c-08df338c7798
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|7416014|1800799024|261026140227099003|4143699003|11063799006|56012099006|261026121527099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261021123027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	VO3EO+y0r20K9UX5gVJ1ONVNjf6RZaSzQM0oWehNeh/BMbzuMGzuYdKSp4zPUA/mC2pgN0qrsWNxbjK/RG2tAHGO0+n/6/x/8UDfdCuStUyh/yXOQYiu3PRS6sGHUXEDhuE5wOJCZKI9ldyDuOZ76US4fgq6ltHCARmFRcsOo4VXaNFfcuLG8CNzNJEKht2hqIQmqvCDeJdOcFW/erx+ous+p7NMvnBUC3/dXWB831IR2MS/jYqfhGLDbazJu1+6x3GDvMABMThkNKnsJf7I39pFs7qowb8qKbNy2iDE2Eaf7PMzZ0hZXzLl8uz5CBcjlA0sB02NKrSL9nlyLZKBxTEncqiOlkpseLkQFpNHenP4eX2jAxr0/AsETotzEF1CVIcfUDvccq2eCJ59LANlYm8aW2IIDAHH5I7WXjVAx3eNPujj9ooqiagmTcqJo/d/JuC/dqCF3MBwaNJSxML3OOUIiRDL4kZUSs2xctFT8Rj9N+gKQCsfz9zqTuYM/ZImsDCKVYk2EjWaSkRuat/T/cPHKMOgqp2WdR1UiPo5kJuVZl6w5AkMX7WM69Dzh/xScGXqxfqOePKjQfl2kelAhD8WfXlSte62xP/xkJsxX8ebxtLNHzMfy7p1b1DN+sIAe/L/o0zQ5s/uzS6LI8obJfIf6TfCoPNfLL1Xwyq4PjM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(7416014)(1800799024)(261026140227099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261021123027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uQjUqPxi5ztEl4WJBKJp22xEJhngQpxIfFXeM18he4MrN2UN/E9InJqhVIno?=
- =?us-ascii?Q?npzgyoIZQdkrcr7IHVy25S2gmKVdyfCpv3ihsUNwpL4uQ9OBt9KIJoJ9G+rV?=
- =?us-ascii?Q?gjXTREk3NY9vNLfy/c7IRiQ27JHNeigF7vvMOkIWGxe8vWgVSlT+S+GZglnJ?=
- =?us-ascii?Q?gTiwVXcvYEgGpkh9pnqXclJhFOWYSDGqjnG5ZpoPpu9zhI+NWE3/Bj05haU5?=
- =?us-ascii?Q?4LXKg9D3mba/G4fo8evUrxSY5dI8wM+GlzR2acoZ3lGkilTNd8vCV39BcGTb?=
- =?us-ascii?Q?heRDxyNEHnu/1PU6PREpWqFOEyDR4EO4MFFujDd6iFp9m/JyGv7WSIbtL2vC?=
- =?us-ascii?Q?jMsq7H7UYGj0f+SpA50hZn2lFdE8NmGLd2skg+YbOS93m4pPFl8I7bQXY8tI?=
- =?us-ascii?Q?t0N35SN4kQjnFZSCd5hAg4mHv7ngAoeebBZHmuFe6l5qXoDoJXc5+5P1ov2X?=
- =?us-ascii?Q?+MrC8tncj8Sv/r+53/aoiBc78uLonb/Tg4IqFHVPOuxR0QutcTqBn5vrnlDj?=
- =?us-ascii?Q?v+Sfz+1W5WXAPDe0FopDaajYqZoEf8KruFChsY1pfsz0+ILHBcvdbslw9pSY?=
- =?us-ascii?Q?mBVjao7wsnDxpX587Xk0MROuLftlJACbhq1/85LTq1gzwFzCeyd+TSza5R3e?=
- =?us-ascii?Q?a/C3XWT/la3sc378oM6Yxb3m381SYo7sEjUp04GtfRRTS8NEM28GYRwba+1H?=
- =?us-ascii?Q?X09Z45NOxt2YW6UK1oz+ukizmcMLl78JwI+7LhN2hUO6avIiIv4x3LIebBDq?=
- =?us-ascii?Q?PmfHQJjz9qVWjK0hEKLOO4I/+cj4vhuV5fpBLCpxigzYBTUjIpDtXSlKV4rk?=
- =?us-ascii?Q?lN0RBMo9PFGiRE+eeA9AdMewe+HFZlPYPzCu9LjA6BAB0xl6MvWeOqTV8Rj4?=
- =?us-ascii?Q?xniFo2CvMpBHkI115B+XN8sP3oIjJEEV5vgxYJCTZRAaOsqKmccjPLHlg8dl?=
- =?us-ascii?Q?yCL+6QAPj4YcSnd3gPJHwd9Lmq9QKJ6E7htP+iNAReGqX2ndvUfo688kQBsy?=
- =?us-ascii?Q?gLulKaTv+qimUpqzeMiQGG4buYj7W+KeBQM5lORk5nNxQqcQV/PE3xr1CBSu?=
- =?us-ascii?Q?cGE5uoDMX4ShPB97v/loQ3QGSBUaE6943QyWaLcVTjRt4Pq9i2JiEJzsjIkh?=
- =?us-ascii?Q?NBDhsoMrnLkUxwGhdfijCBU5WnInb1BYFnxgVLfvQnKaH8+NeTHSTosIpAP+?=
- =?us-ascii?Q?BFWJoPZkmFBnT8Rz8y1C9bYLMGJhvpRbBbUwHr+1u/HKYylxgnhQFrLrWxbp?=
- =?us-ascii?Q?SOIMYHmULxWsh53ioKHNPP0dDjUITSEErH1NVkADt2rbO8xiCk5oiwSBjdCk?=
- =?us-ascii?Q?4hk2AM9VPpxV/halUefcBk/h4avQk/ATg0RodIc9gBs2mls3o17n9062vKRv?=
- =?us-ascii?Q?YGT5IcYS1MPp8nt5/jumDhkQOW+kVcEK672dKvA4ikZoHe3X77i/w3PkhyCW?=
- =?us-ascii?Q?chj7gj6gS1FcS2In6LYav+f8Urfy/feiSY85rldWmv7olS0twgRfQ4rEihBQ?=
- =?us-ascii?Q?KcJB3W2+j2CT2RIuP0URRfWhvFPEjWsvbywbPX5t5kR+YK41IWsBOf4aKPlv?=
- =?us-ascii?Q?O6mlv6P57qfXLac/qQK/m0P+cdmFvAsDDDpkcOk0m+cKcC69lreMbaz0FfCY?=
- =?us-ascii?Q?teht0s5dyETCxx9eOL90o0gc4ghGOM0E98/Ivi/Hu5x3cVhgAWyw8CtuM9I3?=
- =?us-ascii?Q?JgXPkeZcPN5+YuChn1OsGfEpEVKRGGWHF7oM2FYMBgr95/V1?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b371e49a-2450-4070-8f9c-08df338c7798
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 18:10:50.6361
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Gat0S3lz8vWWFFQKCP3QvmXerfnvfQjPcUrgtjTa6wXvvrhln1BtvilXPVS1Ic2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8126
+Content-Transfer-Encoding: 8bit
 
-On 26 Oct 2026, at 5:40, David Hildenbrand (Arm) wrote:
+On Sat, 24 Oct 2026 13:04:15 -0400 "Gregory Price (Meta)" <gourry@gourry.net> wrote:
 
-> From: Chris Mason <mason@kernel.org>
->
-> Any local user can bypass memory.max with mbind() on a tmpfs file, and
-> allocate unbounded kernel memory.
->
-> mbind() sets a NUMA memory policy for a range of a mapping. If the
-> mapping is of a shmem and friends, the kernel also stores the policy on
-> the inode, in a tree with one entry per range of the file.
->
-> Each mbind() on a single page of a mapping can add one shared policy node
-> (struct sp_node) and one struct mempolicy to that tree. They outlive the
-> mapping and stay around until the inode is destroyed. The tree is not
-> bounded by the file size, so the file can be empty.
->
-> Memory that user space can allocate must be charged to a memory cgroup. A
-> slab cache does that for all of its objects if it is created with
-> SLAB_ACCOUNT. numa_policy_init() creates the slab caches for both
-> structs without SLAB_ACCOUNT, so they are not charged to any cgroup.
->
-> Reproduced with mbind() on single pages of an empty tmpfs file, from a
-> cgroup with memory.max=8M: the global OOM killer killed tasks owned by
-> root, and the machine panicked.
->
-> Fix this by creating both caches with SLAB_ACCOUNT. This change implies
-> that mbind() can now fail when running into memcg limits. Further,
-> the policy_cache also serves task and VMA policies, so they are
-> similarly accounted now.
->
-> Note that per-file limits are not really helpful, as the user could
-> simply use many files; having limits per user is tricky as well.
->
-> Fix generated by an LLM and submitted by Chris Mason in private.
->
-> Fixes: 5d097056c9a0 ("kmemcg: account certain kmem allocations to memcg")
+> In auto mode, weighted interleave derives each node's weight from its
+> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
+> node's bandwidth once, when the node first gains memory, and nothing
+> else on the hotplug path recomputes the weights.
+> 
+> When a node loses its memory, the other nodes keep weights computed
+> with its bandwidth until another node reports. If one does while the
+> node is away, the reduction skips the node and resets its weight to 1,
+> which it keeps once its memory returns.
+> 
+> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
+> nodes 4 and 5, weighted_interleave/nodeN reads:
+> 
+>   event             node 0-3   node 4   node 5
+>   node 4 online         7         3        -
+>   node 4 removed        7         -        -
+>   node 5 online         7         -        1
+>   node 4 back           7         1        1
+> 
+> Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
+> 6, 3 and 1.
+> 
+> Recompute the weights from the recorded bandwidth whenever a node gains
+> its first memory or loses its last.
+> 
+> mempolicy_set_node_perf() now only records the bandwidth and calls the
+> same helper, so the bandwidth is kept even if allocating the new weights
+> fails. wi_state_lock is dropped between the two steps, which should be
+> safe because the helper reads node_bw_table and the mode under the lock,
+> so a racing writer only makes it work from newer state.
+> 
+> With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
+> node 4 is back.
+
+Ouch, thanks for finding this fix Gregory. In addition to making the
+code correct, I think it's a nice simplification to
+mempolicy_set_node_perf() since we no longer have the nested rollbacks.
+
+> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: smaller description tweaks ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
->  mm/mempolicy.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
+>  mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
+>  1 file changed, 38 insertions(+), 28 deletions(-)
+> 
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 0884c629670d..ffb293a4cc56 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
+>  		new_iw[nid] /= iw_gcd;
+>  }
+>  
+> +/* Recompute the weights from node_bw_table, unless they were set manually */
+> +static int wi_state_refresh(void)
+> +{
+> +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
+> +	int i;
+> +
+> +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
+> +	if (!new_wi_state)
+> +		return -ENOMEM;
+> +	new_wi_state->mode_auto = true;
+> +	for (i = 0; i < nr_node_ids; i++)
+> +		new_wi_state->iw_table[i] = 1;
+> +
+> +	mutex_lock(&wi_state_lock);
+> +	old_wi_state = rcu_dereference_protected(wi_state,
+> +					lockdep_is_held(&wi_state_lock));
+> +	/* NULL wi_state assumes auto=true */
+> +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+I was also a bit confused by this because at first I thought it was a
+simple code move, but this seems to be a new condition.
 
-Best Regards,
-Yan, Zi
+I traced the path in mempolicy_set_node_perf because I think 
+node_bw_table must actually always be non-NULL here......
+
+Aha! But it can indeed be NULL at the new callsite.
+
+Thanks! This looks good to me. With or without David's suggested
+pr_warn_once(), I think the change looks good to me : -) so please feel
+free to add:
+
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+Thanks a lot Gregory, have a great day!
+Joshua
+
+> +		mutex_unlock(&wi_state_lock);
+> +		kfree(new_wi_state);
+> +		return 0;
+> +	}
+> +	reduce_interleave_weights(node_bw_table, new_wi_state->iw_table);
+> +	rcu_assign_pointer(wi_state, new_wi_state);
+> +	mutex_unlock(&wi_state_lock);
+> +	wi_state_retire(old_wi_state);
+> +	return 0;
+> +}
+> +
+>  int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+>  {
+> -	struct weighted_interleave_state *new_wi_state, *old_wi_state = NULL;
+>  	unsigned int *old_bw, *new_bw;
+>  	unsigned int bw_val;
+> -	int i;
+>  
+>  	bw_val = min(coords->read_bandwidth, coords->write_bandwidth);
+>  	new_bw = kcalloc(nr_node_ids, sizeof(unsigned int), GFP_KERNEL);
+>  	if (!new_bw)
+>  		return -ENOMEM;
+>  
+> -	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
+> -	if (!new_wi_state) {
+> -		kfree(new_bw);
+> -		return -ENOMEM;
+> -	}
+> -	new_wi_state->mode_auto = true;
+> -	for (i = 0; i < nr_node_ids; i++)
+> -		new_wi_state->iw_table[i] = 1;
+> -
+>  	/*
+>  	 * Update bandwidth info, even in manual mode. That way, when switching
+>  	 * to auto mode in the future, iw_table can be overwritten using
+> @@ -271,25 +289,10 @@ int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+>  		memcpy(new_bw, old_bw, nr_node_ids * sizeof(*old_bw));
+>  	new_bw[node] = bw_val;
+>  	node_bw_table = new_bw;
+> -
+> -	old_wi_state = rcu_dereference_protected(wi_state,
+> -					lockdep_is_held(&wi_state_lock));
+> -	if (old_wi_state && !old_wi_state->mode_auto) {
+> -		/* Manual mode; skip reducing weights and updating wi_state */
+> -		mutex_unlock(&wi_state_lock);
+> -		kfree(new_wi_state);
+> -		goto out;
+> -	}
+> -
+> -	/* NULL wi_state assumes auto=true; reduce weights and update wi_state*/
+> -	reduce_interleave_weights(new_bw, new_wi_state->iw_table);
+> -	rcu_assign_pointer(wi_state, new_wi_state);
+> -
+>  	mutex_unlock(&wi_state_lock);
+> -	wi_state_retire(old_wi_state);
+> -out:
+> +
+>  	kfree(old_bw);
+> -	return 0;
+> +	return wi_state_refresh();
+>  }
+>  
+>  /**
+> @@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
+>  	case NODE_REMOVED_LAST_MEMORY:
+>  		sysfs_wi_node_delete(nid);
+>  		break;
+> +	default:
+> +		return NOTIFY_OK;
+>  	}
+>  
+> +	/*
+> +	 * HMAT and CXL report a node's bandwidth only when it first gains
+> +	 * memory, so recompute the weights whenever N_MEMORY changes.
+> +	 */
+> +	wi_state_refresh();
+>  	return NOTIFY_OK;
+>  }
+>  
+> -- 
+> 2.56.0
