@@ -1,56 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793022468;
-	b=hW3wWKdlasX6NE2orefOV35zdJjWZyBxbdLacMWLoBEBdKuWGIIKynTh5hK5JU6KvxZx
-	 FaI+9gYe+rd70JJdasueJiXjeoG4wP44+HzHa3U/H7IOiD+XgV5vt9QHdKiZMHjgSBWnM
-	 Z//2YngWEges8xxtMxYDEDtkxd5Zw8DjYCDmI3oMSUMSejZS4geBv4SYrqOGKKoiyL007
-	 v0ag0Y0Yo/RFOCZZMXBx4BTER5PF9KB/HHR+RIdc9MzAhZubnsx4mt0VmhvLhbzzIWTl9
-	 PQFilFhVjCHqOo6IZOuxi1M6KvEZ28/gQgP97o6wAYrXFQ+AMlqedc+Ph+h58RbNX6w==
+	t=1793022527;
+	b=lIXSStzq+7UcVFDIRk0ALPiuYQLQlUTrPU3HQ55LI58o4DOhDGUXmInOn0M4gRrbmYP9
+	 N4Bw9kDPtIyN+1sKK89p+LNCHM+drs5r8rxMoLAeZwXQs5fQ2vJjx2modi7oAQCf6c6wt
+	 zTyyZiIUZxizeKne5Y4tnnoasebZsF8P4Y5AGVgwIyKp2DJtMGvKMem/MOICd96H3gKqs
+	 5lcyGzfCxF8T544pimxytEYO6yqnro6O3JM9bamU8rUedlpEOm6Evtgd3Jkt6/xbfekBO
+	 7Mq39ndiGVyicxipsZUEyP1jG3LcX5oVrqj/eGD7wVVWIsSlYQxyyl4tPNKpMBUhF6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793022468;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aXB9q+SjCodJprte8ZqvjzyulFgl828dew1/IFtc6cc=;
-	b=G2i77zt+SGDGmp3uNwISOIYKKiCT49g57trnX7ozVQAq3sTo1MCRkYHA4jj6eseXWZIi
-	 L2p2XMVxBhnppsB334RQyOcRf+2Sb+DV3+pFGuFwxovH/fV6mcEu7ZpaOfUxBuc3K+/tl
-	 u2ysrUllbO4JinzzgCg75fCxdrRH/kZCCDRbGx+X3wm6DLk8QdcHDFW/fZqV1pt7T0VDa
-	 F1g6Y75vSNqrP8LpKaIoCsDNXMN4m714mlwjGzs563kJnjRdHtVX3f+t7hufw3yBF8PLX
-	 Yt4dqWzZPeL1cGkXSWYNRGUfuCYfCR1SyIe5+cE2auSct+6J8DpIev1/EMbfRxGzazQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793022527;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=yP0V5dOx0YO4fZNuCXNFqmxCdOLoRslWQpoAPj27BjQ=;
+	b=g+ihCIFMvHvSw+I45wZxLOnCdeL/2tKY0qoP7ndiYGv9SCuuxsNfnHb9tAcKrmhLmf2A
+	 feLzPRepUURq+koOvWLDFjjK+tMNJ2wyllR94RZIU0gAZ4PO/o5s54TnfOYyO3qI0Cf/L
+	 MpGfmBV8Bc+Sa3+AzVeUtk2XsmhsAjQbBwD32pPVlxnk9XQW54oac5gtJ50M79VSHc7Cc
+	 CpeqmNB55/Ax5HO7bRcbOn3nQBZlDlQGOHOxW/E3/ZMZ6BW7BAWfFbZcsdXKbibDZCvqF
+	 0OPfx3dOpsYIhFufp3y22+95eT2fE4G99+RsfiYT2kbazDVZushjLBpTv/vFKCW8C3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuknI81y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=uopeR3+Y;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Wll9aDuj;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=uopeR3+Y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Wll9aDuj;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91272606A31A;
-	Mon, 26 Oct 2026 13:47:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C59606A31A;
+	Mon, 26 Oct 2026 13:48:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57C59606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuknI81y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19021F01825;
-	Mon, 26 Oct 2026 13:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793022468;
-	bh=aXB9q+SjCodJprte8ZqvjzyulFgl828dew1/IFtc6cc=;
-	h=From:To:Cc:Subject:Date;
-	b=FuknI81ysijUZpiN3I8AI1drSsxf4I4W+69dTEHZKpuflQISUwVDqE39PD3fIJYCw
-	 lhJUtaM9OZMr4yWHWyglUOxl003BdzsrZFGsMysr63GezpUhcuCEdMmGkkyLI/luFq
-	 OakdRhMcb/Fo2hOJeqL6PNUgBaj1IPUQX6IUmZ2LlU09PqoAPms4rObvneHX3GY8zH
-	 VETwiEnGGb++JIFUc5a6iKPBjfqnUWKPmpnun4abliYzyJk5A3Sy3LNBMKHuSRz3U2
-	 HfTOIQRGc1e1n5T0cz1tSraKe9M6VEgAOX2K9DetLQzZjHp0l4qHJqm4/zyZtbVImM
-	 Gb6ezA3sehgfw==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 6.18.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Mon, 26 Oct 2026 06:47:39 -0700
-Message-ID: <20261026134740.149027-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=uopeR3+Y;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Wll9aDuj;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=uopeR3+Y;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Wll9aDuj
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 533622226F;
+	Mon, 26 Oct 2026 13:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793022524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yP0V5dOx0YO4fZNuCXNFqmxCdOLoRslWQpoAPj27BjQ=;
+	b=uopeR3+YKol5ATzXAwpo12xIA04uZUKtn8Xlbm+bG1UtFPDMXdfbfhHaQAhe1OOYqYa5ey
+	5b/Oq2W0AzFN/jn1ClmSoQahB4HHDbmOa/GVk1oJjAaXa4yKn2uPqc/RNZISA9u4fXc992
+	D1uSJw1phjJnQMJYvYXRCg0KTRphYkk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793022524;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yP0V5dOx0YO4fZNuCXNFqmxCdOLoRslWQpoAPj27BjQ=;
+	b=Wll9aDujcUb33Y7ZGIxHFjnZ/3r5B6MKuypze5E7gU/FGlPwaCL0xpu0PkFdRGsfNbPPlv
+	Bm/js9tHG7t/XGDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uopeR3+Y;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Wll9aDuj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793022524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yP0V5dOx0YO4fZNuCXNFqmxCdOLoRslWQpoAPj27BjQ=;
+	b=uopeR3+YKol5ATzXAwpo12xIA04uZUKtn8Xlbm+bG1UtFPDMXdfbfhHaQAhe1OOYqYa5ey
+	5b/Oq2W0AzFN/jn1ClmSoQahB4HHDbmOa/GVk1oJjAaXa4yKn2uPqc/RNZISA9u4fXc992
+	D1uSJw1phjJnQMJYvYXRCg0KTRphYkk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793022524;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yP0V5dOx0YO4fZNuCXNFqmxCdOLoRslWQpoAPj27BjQ=;
+	b=Wll9aDujcUb33Y7ZGIxHFjnZ/3r5B6MKuypze5E7gU/FGlPwaCL0xpu0PkFdRGsfNbPPlv
+	Bm/js9tHG7t/XGDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA4B313408;
+	Mon, 26 Oct 2026 13:48:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lZ+9JDla32oiDQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 13:48:41 +0000
+Date: Mon, 26 Oct 2026 13:48:39 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 04/16] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+Message-ID: <at9Y_cFWYXX5wjse@pedro-suse.tail5790ac.ts.net>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,172 +121,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[linux-foundation.org,gourry.net,nvidia.com,gmail.com,sk.com,linux.alibaba.com,cmpxchg.org,suse.com,google.com,redhat.com,kernel.org,suse.cz,chromium.org,linux.dev,suse.de,infradead.org,oracle.com,tencent.com,huawei.com,kvack.org,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLgmxzz5wwb987hpmihmge51fg)];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 533622226F
 
-Patch series "mm/damon: move zero damos quota target_value handling to the
-core layer".
+On Mon, Oct 26, 2026 at 10:40:37AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> The owner of a memfd sealed with F_SEAL_EXEC can still change its
+> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
+> this lets an unprivileged owner make a non-executable memfd executable,
+> bypassing vm.memfd_noexec=2.
+> 
+> simple_set_acl() updates i_mode directly, bypassing the seal check in
+> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
+> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
+> in include/linux/memfd.h.
+> 
+> Fix generated by an LLM and sent by Chris Mason in private.
+> 
+> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: use common helper; simplify description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Having zero DAMOS quota target value can cause division by zero.  DAMON
-API callers are checking the target value parameters to avoid that.  It is
-easy to make mistakes in some of the multiple API callers.  Move that to
-the core layer.
+Looks ok, as far as I understand ACLs :)
 
-Patch 1 adds the corner case handling into the core layer DAMON parameters
-validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
-side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
-respectively.
+Acked-by: Pedro Falcato <pfalcato@suse.de>
 
-This patch (of 3):
 
-If a DAMOS scheme has a damos_quota_goal of zero target_value,
-damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
-API callers should do the zero target_value validation.  It is easy to
-make mistakes.  Actually such bugs in DAMON_LRU_SORT and
-DAMON_SAMPLE_MTIER were found and fixed [1].
-
-It is better to handle the corner case only once in the core layer,
-instead of multiple places in all DAMON API callers.  One straightforward
-option is using an alternative denominator for the corner case in the
-damos_quota_goal().  However, the zero target_value is meaningless.  In
-this case, the quota goal is always evaluated as achieved or
-over-achieved.  The quota will only keep being reduced.
-
-Simply avoid using zero target_value by adding a check in the core layer
-DAMOS quota goal parameters validation/commit path,
-damos_commit_quota_goal().  Update it to return an error in the case.
-Also update its caller to propagate the error.
-
-Notes for stable kernel porting.  The upstream commit doesn't have
-Fixes: and therefore not ported to stable kernels.  It turned out it
-fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-goals user input to DAMOS") which was merged into v6.8.  The user impact
-is a race condition that can result in divide-by-zero.  Hence backport.
-Reproducing the issue requires sysfs write permission, certain DAMON ABI
-usages that are supposed to be uncommon, and a rare race timing, though.
-The issue was discovered [2] by Sashiko as a part [3] of its bug report.
-
-Also, the upstream commit on this stable kernel can fix the issue for
-parameters commit paths but DAMON start path.  That's because DAMON
-start path does not invoke damon_commit_quota_goals().  To fix the path
-with minimum change, add a new small validation of quota goal target
-value before damon_start() call.
-
-[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
-
-Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
-Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
-Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from RFC
-- RFC: https://lore.kernel.org/20261025172712.164385-1-sj@kernel.org
-- Add a validation for damon_start() path.
-
- mm/damon/core.c  | 22 ++++++++++++++++------
- mm/damon/sysfs.c | 19 +++++++++++++++++++
- 2 files changed, 35 insertions(+), 6 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 4e6e3d7d0a5c0..8fa788b0d709c 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -807,15 +807,18 @@ static void damos_commit_quota_goal_union(
- 	}
- }
- 
--static void damos_commit_quota_goal(
-+static int damos_commit_quota_goal(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
- {
-+	if (!src->target_value)
-+		return  -EINVAL;
- 	dst->metric = src->metric;
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
- 	/* keep last_psi_total as is, since it will be updated in next cycle */
- 	damos_commit_quota_goal_union(dst, src);
-+	return 0;
- }
- 
- /**
-@@ -833,14 +836,17 @@ static void damos_commit_quota_goal(
- int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- {
- 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
--	int i = 0, j = 0;
-+	int i = 0, j = 0, err;
- 
- 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
- 		src_goal = damos_nth_quota_goal(i++, src);
--		if (src_goal)
--			damos_commit_quota_goal(dst_goal, src_goal);
--		else
-+		if (src_goal) {
-+			err = damos_commit_quota_goal(dst_goal, src_goal);
-+			if (err)
-+				return err;
-+		} else {
- 			damos_destroy_quota_goal(dst_goal);
-+		}
- 	}
- 	damos_for_each_quota_goal_safe(src_goal, next, src) {
- 		if (j++ < i)
-@@ -849,7 +855,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- 				src_goal->metric, src_goal->target_value);
- 		if (!new_goal)
- 			return -ENOMEM;
--		damos_commit_quota_goal(new_goal, src_goal);
-+		err = damos_commit_quota_goal(new_goal, src_goal);
-+		if (err) {
-+			damos_free_quota_goal(new_goal);
-+			return err;
-+		}
- 		damos_add_quota_goal(dst, new_goal);
- 	}
- 	return 0;
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 7f52470be36e3..3a79d8c89b5bb 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1592,6 +1592,20 @@ static int damon_sysfs_repeat_call_fn(void *data)
- 	return 0;
- }
- 
-+static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
-+{
-+	struct damos *s;
-+	struct damos_quota_goal *g;
-+
-+	damon_for_each_scheme(s, ctx) {
-+		damos_for_each_quota_goal(g, (&s->quota)) {
-+			if (!g->target_value)
-+				return false;
-+		}
-+	}
-+	return true;
-+}
-+
- static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- {
- 	struct damon_ctx *ctx;
-@@ -1618,6 +1632,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 		kfree(repeat_call_control);
- 		return PTR_ERR(ctx);
- 	}
-+	if (!damon_sysfs_valid_start_ctx(ctx)) {
-+		kfree(repeat_call_control);
-+		damon_destroy_ctx(ctx);
-+		return -EINVAL;
-+	}
- 	err = damon_start(&ctx, 1, false);
- 	if (err) {
- 		kfree(repeat_call_control);
-
-base-commit: 2926d88bb7fc4608fd942453d929c39e4e5ec006
 -- 
-2.47.3
+Pedro
