@@ -1,49 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013070;
-	b=XU/lt/S31dpmdDaJsY9sRaTYb4GzpsjyDh27U2wpi00I8vwxGQ1Mcnj1X/8aPpYzdeGp
-	 GLx/L+73Sw8/7D48s3NRc/pKW40t7KGvnhJIpT7NhY1LeQOunOWNXxAz5ldd9b5Xf4Uoz
-	 /qlY5b+iU7U9sAia3MNmXXvtdFDjUj2GvJjg8C767YF82cCVKBAVgOOWPPu1/K2kKPQ34
-	 aqIri7IjMwP8SYFhsIKPYYZsZWflyzauwJ720zoXQqCeO0PsMinI0Nzz9HWl/ODMQpGHD
-	 nkV1Zrv95CHRMGhoSG9Q+9p7Q5wLHEBfZOqA6QI4wLb37duYC6xTtBZ6NJ/Uhe9w2cg==
+	t=1793013158;
+	b=APuuvKWy/fCxvLrNXPJByqXlme7hFDi4o8+kFY8cfaFuNDKOdWLb7tYJCg+suUoItZRh
+	 l+ASstVIaDISKZ8AUF0Lp6y41QOqK4QeOt263G0njUQtwkO03IyFcEofNCHFJuUKvbpY9
+	 gFOl1YclA7aT0cl0sd1l0CXXh8+zb9yOsKKPVnGGfqBTzJo0XkvZBvdY0zEaQiAb4veoG
+	 V02fsY2ncRkl9DWFiLuj2540u9IYWPN50GVQQPRwBjn44WrfRDk7gPTLfJGBtBzuIEUGT
+	 ZZQqWScS/vaQtxG8rI4WhrtZQldl4/SWbnCeeUIxVg+TodboAZ5dyZnEhr/IXtMOVlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013070;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=kv79Ibi9i0yW18VfNZUR7O/kIwfQnu5qszXLeT8x3ok=;
-	b=WteivkShQ75q0K+FgbEnNtqqwLWwRlzEVfUkln/+gQjZaB5HXoxbgE+XlWsAePDZ3wlV
-	 fGZApXBuvnkJVcBY6rXKzjd9N6aCRzB4DapVeWq47rFEX2WTTVnIB5MY9LABJdzXlxtB0
-	 q2gqKSFfEbxQQicjucCb6WX2gzeIvTlWU4DOglOMmqC78MD16U1CZXpdeIbrtsASmc/dl
-	 0F0mxKj44g/iMufEErqYJ8UPe1mW+UIE+S5ud5r9BM8Q6sDtIdA0XLaX9tyqOCShgbsuY
-	 rFXhsq0mdGVWGm7U/sFRC/eQ2GL1Wb80gwir0Mnhd24YfF74gPhv0Z82szv+Xo+jTmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013158;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=awi9M7IT8Ic4AtvdFdMv1w+M3I6RyURIykEhjn0ByU0=;
+	b=Gki4uqMhQXwsqY0j07ZakBfbg9gEdk7DKbXJoJdwFNfPIYsvBEGhu5JPYOmUqJG/a7w8
+	 fHzhW2Dv2f41nnQt4BgE8Afqu+Zr7Vf1SEwBmQEB8b8GuDkw+acTJskLZS+0y8Uhdpc9d
+	 ov/3JxMCe42gZaNg/Nacv6x8F6+aZ5Ezo/JG9HbFPRfyaO7Aib6yR5/yNUSKDpox6b6yV
+	 ZbaJ8CMTthf9t/jehK53N9BpiD0OQUYdaas+jxQwqrw3jSdEEUwZoNl/Osvm7Wuxt1b3m
+	 uUOoB+rYFA9ld0ioxlds0qIJsFAbsJc6BHn5bwkyhpWIWxsiu2xcXlfyG2M2Lu6tTnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=vbEuDUa0;
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="lNnTqK/g";
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216B960A382E;
-	Mon, 26 Oct 2026 11:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 216B960A382E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605DB606A31A;
+	Mon, 26 Oct 2026 11:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 605DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=vbEuDUa0
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793013066; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=kv79Ibi9i0yW18VfNZUR7O/kIwfQnu5qszXLeT8x3ok=;
-	b=vbEuDUa0lR/TYNeWtHyreCqcI+7qY+DwXmSvujuDgrG80ppvtqwGsF30X3qsakyvdRy9byh7rL9oeGo0/SJZMLXz05fZ+KcQN+WV0lqPm2OrahAJnBqk0nbGGOuU356K8Ah2+gcoSagkiOYjp8pwHs/q2fy0fWoZMzHJchVLa8Q=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=33;SR=0;TI=SMTPD_---0XDWn7u2_1793013062;
-Received: from 30.74.144.181(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDWn7u2_1793013062 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 19:11:03 +0800
-Message-ID: <a8f01101-7d7d-4982-9cf8-04b754ba132a@linux.alibaba.com>
-Date: Mon, 26 Oct 2026 19:11:02 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lNnTqK/g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793013157; x=1824549157;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ha2HzH6ORm+RxJtnLaMjfjb5ZYTVlXBbvlXlQvs0LGg=;
+  b=lNnTqK/gNupNFY0nwX52+rtHjLXbYbdApys+a0I43plfnigmv83rp+E/
+   O4eQMgTy18b06NIAWZjcZ5OTmkTgAwEJgDYc5BxklvrM7/v/ZgORqDMtQ
+   hxinGCsxW1mILDwv0S/i4np0BTS3ukW50slQvYfW94qVHXwT1Q3amUeS6
+   yhmyK9aabjncPpr/PpHXmKXoZ08C2VRYaPb4MZQ8aWPZQvUD/4W9vTgHl
+   BmFITbcsP2NUStWGnEsBWXZLp8CYIAFXvd1dS75tfkPxA2x11W+z4r8yE
+   6fXm8twShxey3RgLmkb3Bv06DptYsdKgIy26USXzKSIcvGtcXTKqi1hOh
+   w==;
+X-CSE-ConnectionGUID: Hpc49/HjTg2VioYYQ3VUUQ==
+X-CSE-MsgGUID: 9Y4xcgUJRCuAUjTnWeqVSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1584355"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1584355"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:12:36 -0700
+X-CSE-ConnectionGUID: aD3ZJxFaS76hIgw4W1BCAw==
+X-CSE-MsgGUID: NGuyxjBtQc6sgslpq2Yr3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4347917"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 26 Oct 2026 04:12:35 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 5F5AC99; Mon, 26 Oct 2026 12:12:34 +0100 (CET)
+Date: Mon, 26 Oct 2026 12:12:34 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: =?iso-8859-1?Q?Iv=E1n?= Rodriguez <ivanrwcm25@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Fan Wu <fanwu01@zju.edu.cn>, Wei Huang <huangwei@kylinos.cn>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: ucsi: acpi: fix use-after-free on driver
+ removal
+Message-ID: <at81op42aJC5NwNq@black.igk.intel.com>
+References: <20260903030356.58597-1-ivanrwcm25@gmail.com>
+ <20260903232121.271776-1-ivanrwcm25@gmail.com>
+ <ap6mHnPJKKJFapsO@black.igk.intel.com>
+ <CAO4EdiSv-hqc4WMoTa9F-ODs+TCzDG8ZEmAvx0z55wGhLdFJCA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,156 +86,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Gregory Price
- <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO4EdiSv-hqc4WMoTa9F-ODs+TCzDG8ZEmAvx0z55wGhLdFJCA@mail.gmail.com>
 
-
-
-On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
+On Tue, Sep 22, 2026 at 07:56:58PM -0700, Iván Rodriguez wrote:
 > Hi,
 > 
-> the fixing fun continues.
+> Little ping on this patch. It has received RB tags from Wei Huang and
+> Heikki Krogerus, and I don't believe there are any outstanding
+> comments.
 > 
-> This is a handful of fixes for shmem/tmpfs. I sneaked in a related
-> hugetlb fix that stalled upstream.
+> Please let me know if anything else is needed from my side.
 
-Wow, thanks David!
+Resend this. Don't send it as a reply. Start a new thread.
 
-> Some of the stuff is more urgent (patch #1, F_SEAL_EXEC, truncation
-> hangs), others are less urgent but still rather unpleasant.
-> 
-> The majority are fixes from Anthropic that I cleaned up or reworked.
-> While doing that, I found a bunch of other issues and tried to fix them
-> somewhat cleanly.
-> 
-> In general, shmem + swap handling is a nightmare. shmem_undo_range() is
-> such utter garbage it makes me want to cry. I mean, really, WTF did we
-> end up creating there. Does any expert here have time to clean that up and
-> make it *actually* maintainable.
+Thanks,
 
-Agree. :) I'll re-read shmem_undo_range() and take a close look at the 
-issues you raised, and see if I can make shmem_undo_range() more readable.
-
-> The following things are still broken in shmem_undo_range():
-> 
-> (1) Truncate/punch of a single page of a large swap-error marker
-> 
-> We don't split. Consequently, read access afterwards will still fail
-> instead of returning 0s.
-> 
-> I have a fix to try to split (which can fail), but I don't consider it
-> that urgent, really. So I'm not including it. Might send it later
-> separately.
-> 
-> Truncate/punch of a partial page can obviously never do the right thing,
-> as we cannot poison parts of pages ...
-> 
-> (2) Truncate/punch whole pages within part of a large swap entry
-> 
-> We try to read the entry, but if we are out of memory that might fail.
-> Consequently, we will not free up swap space and a re-read will not give
-> us 0s but the previous content.
-> 
-> AI proposed a nasty NOFAIL patch which has too many nasty side effects
-> IMHO (allowing users to force-read pages and retain them afterwards even
-> though memory.max would disallow it). This needs a proper thought. Likely,
-> support for splitting large swap entries (and large folios in the
-> swapcache, which I recall is under development  by Kairui). But splitting
-> can fail ...
-> 
-> (3) Truncate/punch of a part of a base-page swap entry
-> 
-> We obviously have to read the page in, in order to 0-out the parts to
-> discard. That might obviously fail.
-> 
-> Maybe we should install swapin-error markers if swapping during
-> truncate/punchhole fails, to at least tell user space on later access
-> that something went wrong? We might affect unrelated data, outside the
-> requested range, though. Anyhow, these are long standing issues and
-> I don't consider them urgent.
-> 
-> They need a proper solution.
-> 
-> I did my best trying to test these fixes. I was able to reproduce some
-> of the things (including unkillable truncation hangs), and the fixes seemed
-> to help.
-> 
-> But again, shmem_undo_range() is just an absolute mess.
-> 
-> Please prioritize review of these fixes, I want to get fixes for the
-> issues in a timely manner upstream.
-
-OK. Will review and test this serires this week.
-
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> Chris Mason (5):
->        mm/mempolicy: charge shared policy nodes
->        mm/shmem: honour F_SEAL_EXEC when an ACL is set
->        mm/shmem: avoid moving the truncation start backwards
->        mm/shmem: stop retrying folios that cannot be split
->        mm/shmem: preserve data in clean folios when splitting fails
-> 
-> David Hildenbrand (Arm) (7):
->        mm/shmem: discard whole new large folios on fallocate rollback
->        mm/shmem: rescan after nonuniform folio splitting
->        mm/shmem: fix truncate hang in large swap entry
->        mm/shmem: preserve allocation errors when swapping in large entries
->        mm/shmem: fix truncate loop after boundary swapin failure
->        mm/shmem: fix accounting of swapin-error markers
->        mm/shmem: fix truncation of files containing only swapin-error markers
-> 
-> Eva Kurchatova (1):
->        hugetlbfs: enforce F_SEAL_EXEC in setattr
-> 
-> Josef Bacik (3):
->        tmpfs: keep the quota soft limits of an unused id
->        tmpfs: preserve explicitly disabled quota limits
->        mm/shmem: hold off eviction in shmem_writeout()
-> 
->   fs/hugetlbfs/inode.c  |   8 +++
->   include/linux/memfd.h |   9 +++
->   mm/mempolicy.c        |   4 +-
->   mm/shmem.c            | 170 +++++++++++++++++++++++++++++++++++---------------
->   mm/shmem_quota.c      |  28 +++++----
->   5 files changed, 154 insertions(+), 65 deletions(-)
-> 
-> ---
-> 
-> base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-> 
-> change-id: 20261025-fixes_shmem-2782719b130e
-> 
-> --
-> 
-> Cheers,
-> 
-> David
-
+-- 
+heikki
