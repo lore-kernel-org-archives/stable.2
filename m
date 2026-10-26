@@ -1,93 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793047801;
-	b=BTYrVYFk2R4QO8buRG517owRptLZhJeqVdjwdnqSEUKqJLzCRIdCFpXKZhB1q0H6d99a
-	 hv3VbGV9gjajR2xrTiULyGzZ82ui8e78uHzZxptcqLWWGdfqMSH5WG6BVqVxWcUhKtkNa
-	 WJgRZW7KmOiCpTFF+sAVluFlyepXa4vSjAs1TAsBCbFaYA/FKMHnbTOmB+27XCFSp9Q5T
-	 6nSMa4JGzM4HtSzxgz+h6qu7VAo8G5J4Bq0z3sLAlFjVnDcSNYSYiMRCH/4Nv2K4/hfBS
-	 MgfhKRofKfPvG1H0A1fmqMzIlp4gGUt7ZLCeJpZcvX5Uyb4Xo2P2AA4AainzOD5dvrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793047801;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=H5iRjnbzQaAlrwhwVAeO6f65ic0C/2RcyjbvUamc928=;
-	b=VnOJAzEyM4T8frzRNnhMMTNMQdo3FkWkW1HuTHSLEEKqWenj//Ynnx9X9KU0MyEQHJPg
-	 jZl6RMF1hkCvLJ/xDanDM87wpTey6pFvZk4sL36Hyzh1CucSGZ/BOxN3NPGVmsePk2y0l
-	 y5tlwmYWl9upT8MUxVioD1TlXuR/wLCztD23kFrLvWA5XH/sZbycZR9kCtNkImHVf0Ixg
-	 G74m8VRuSG9p+17zUgSdUvHx+lS6B/s5AATFxoQGrvrzlQAvlIF/bEh221FE/vfMrYBMO
-	 +7EGC2KsBifDunLo5+YA/17Qh3CPHgnUHncjUMev+zvUc1IIYxV904EeXD6vpX01tAw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="m/4KHbWL";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.44
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010044.outbound.protection.outlook.com [52.101.69.44])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793047971;
+	b=oGWJkMKQbL1Drt9R53FVc1ABCITHxUHE0mw+k+ZdzATKFmoD1/71LzfDFye5jGF4T0Xg
+	 KjTUmIxNCKvLxdJ7djeRMRtKoF9ztBA7ilDDydr1RPS+qWNHQ/rKVtxtQ2IQsPchsJ1pJ
+	 Mr/e6jPC4m0N8ys9RA3xqGSxQ+hbIzhFGGOqv7of85qagzzswDVtmDKg8HLRrjC2fJ96m
+	 m7jDTvoYc9r4cU/uSIVC/A7iHF6qd4KfsB0Y1KvZo+hwYCmAYQbEGwRPAk9ICBuJUcK9y
+	 IRkRPsAUae9MywJIlIkqz7Drf3JhOcYX/f8jK6ITsoBR6aUSqu4Q6k6AAyDpimmP+0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793047971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=TL5pG22GEFxX7jVCth8wXjdCOvetcOFUrhXB+QJUk+4=;
+	b=5H/BYfTmoeZy9Q4QScz1BwUrca1yzoNOcdQLEVD/BXVOSr11FfamyJt3LLjLPpXMMGKZ
+	 bYDaSpjiSqoc3mFgNgHhaUSKW1Lj529xsozQlZAzdobLHUQVD2jPpMP/4iq38YpQYqPzi
+	 JURhRhCnV8d3g/o/B9HWjD3cW7FFD48sOp2iDuMgtCMKtyqA34yYAhxygAPBXUZ3maWc3
+	 nXwnLphPJK0zD0TFYzNZP/sUSi0+VcQ2r9OKBdUasjhwvjtnZmRZju53vHVvI28AtSR7v
+	 gd77HALRyfB51XrcwtX9Sf7JhtRwioPtNpnvoa1Daa+UeCMTcg5Be5GyBsbTsObJCXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HmRm3bbQ;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55849606A31B;
-	Mon, 26 Oct 2026 20:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55849606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0DD606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:52:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0DD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=m/4KHbWL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=abgaNksmyrhQARTjwsBjvIoKAWTYZ6ZQ9gjwlZt+KSJhoaEm4x2UIYWwN9QUH/EXfq+43RylEJGMU1OcRaXkTI+Ix4JUnY9QcUQygXcm3AypTD2STzOsn6JdREBxWf2PNeh1NUiLUMNWonc4J3FkXjXLy2BYBghtJGl4st+qetKhtwrTnGE24wPZ4DkDibkLLnfeuS5Zjf1pj8kB8s+k/N4M6H/sQSpE/c2dYSRy/dQFfTnyQYPo84De0rNj8sbyDKdqkpwSV0Jtxq5/jGnDZnOj9MVoHRizVAsWjqgD7bnimwLWRxeteWLlKGFE40dKyscq89O3YGOnpYxBVrvHow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H5iRjnbzQaAlrwhwVAeO6f65ic0C/2RcyjbvUamc928=;
- b=TOn4D6hoAE19tfLE7+NBWL3vfjc1IdaQgZGMwdi1Z1Du5+ghMdVEKOmT9izeWv8HcS5oyo16ppBs+huzofxGPIYoxCYf+COSs+3CpVmt9nOelcHuTiMwfQF8vbRVVXzHEUPu8OYvc7mgdJXiY4ouLsHRq1su+7MXMGa9hkJpm3ZW1o8s7J1odrn/dnMY0Ro/9FexGL3NeOSrnEWllpKtDGde0AsHRlSrTxPnsnTZMDKVSSixlk5BfYFXe/uQJrfHhiQmQQsGFGRZpM67sFlazwXPTLMDGvipACL1auyai2Ox93z+VqaHxSLSRnzLFortPrBclbniDRYpycQkuZnYow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H5iRjnbzQaAlrwhwVAeO6f65ic0C/2RcyjbvUamc928=;
- b=m/4KHbWLABRO1leY31sHYvk0nQY9AtITTvjAcZwbTiYRxaIazCGIMPvoHmPAEhBRPoF9iAm5W+/FsHhXxw9xRiC2WkR/yYhHfWZjEak8cKC4T6ioeboBWCrpNEvdL51GEQ2tEW3B+JwHoOoEvh/zm4Sm0Oc+aJfJ3HdMxr+6gQ54IAtxrYO2cORpb0QxmwI+bhUXUjqCdPkNSO55RMhTi8hheiEGVgHa+l66hCiUa8JngKlDkwfZYo+9fib2yLhNYnHaHz1v/TZG1QxZqj7pLUMjn8spkRXKpdC1nVy6PcO05l9k8dOig1ytUpvN51RX26tvaCkh0JnXDUoSs6EjcA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA1PR04MB10501.eurprd04.prod.outlook.com (2603:10a6:102:44e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 20:49:55 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 20:49:55 +0000
-Date: Mon, 26 Oct 2026 15:49:48 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Vinod Koul <vkoul@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
-	linux-mips@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: dma-jz4780: Fix NULL dereference in tx_status
- after terminate
-Message-ID: <at-87AHdnoWz5M9Y@SMW015318>
-References: <20261023080953.16963-1-olivier@mgcrea.io>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023080953.16963-1-olivier@mgcrea.io>
-X-ClientProxiedBy: DM6PR07CA0089.namprd07.prod.outlook.com
- (2603:10b6:5:337::22) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HmRm3bbQ
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso327068c88.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:52:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793047971; x=1793652771; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TL5pG22GEFxX7jVCth8wXjdCOvetcOFUrhXB+QJUk+4=;
+        b=HmRm3bbQCw7uJmUUDq9XvpxJmzrFb9khsUoP3B3DtYrvuYnlhaL+FnQ1NXSIS42B0A
+         yq+7xApHFQJx4Q3Sw1mz5o9Zhg2lGYMgA4FM8s4eNCA0yTqq7a/HYhFu3VdBgHPBb5mr
+         E5+wqF426jio/bV3zcZuXtxC+///3mfNPsBHCPJ7B9PBVLNcwvkpeX2Bm0l8pHH84HF9
+         EuK+2yuASnbEa8ammKAUrTpUfmO01B1YeHmhMSppU5/7ALslLwXb3ghu3cu164Nuxd24
+         62C+laRkssiHGD7ib9zGzar0Th3/9NAs56SxC7HcJtm2VPPV24kJMFzDpqBYaK9i/BYR
+         LapQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793047971; x=1793652771;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TL5pG22GEFxX7jVCth8wXjdCOvetcOFUrhXB+QJUk+4=;
+        b=QPSjuNCpI+JEuHI+dvWpv87slz0T5pv7AHzvJy7S6k7l27q6dQe7pjDsHKVdJ4QfTJ
+         9gFXiIfhMyjMx8oCkIOjIi8RBwiiW8lwRcd9o1VAnxSGepnSPFvs+aHANBP2prEKFIth
+         eroRjlP7h1XaMf0d6llslHidlHMBK5IXdCTt76bDIlOHvrWyrHd5ZURDPae0m38HNJCX
+         ZBBEu8xgjugj/nqAODUvDacUwzdE06P+Y7SSL9N49hxGtaXeS5eDy0fRwJr4Q9OBSSfU
+         RLKWT4rnwc32ir03IdBuu8SzbZvAlX2DQ/QkCj+MlkSEg79qHbo/+1nolILTN5fYsK8q
+         BONQ==
+X-Forwarded-Encrypted: i=1; AKwUvByGVhDrmYtA4gioWzRXibPpzv2u/VY/uRtynk2cS05qTihR+k9LVrOizPt7EAwcrb0r7xan6X0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn1CHHPPbQLjajVBKNedM1crpkFZFPQMrWCKpqWxT2uCIS5/o8
+	Mzrl3N9N/YG0nQpvROUf9uguQ435hBeCY3EnXoH5LcANd96+7xEcjcxbVXh4KA==
+X-Gm-Gg: AYBFou3SFKM8pOMq5C/L53qYlARVRQTg0u6ncYN3GxarRV8fhPNt3OeljX1CM9MLZ5x
+	Ks1SugryoF5sfKWxxuIC+Lqht6KckV7ey8QxXJkissLMT6i0URnknoQSyYCyNSOcLhFzOzztNPN
+	hebCctr2WL6kXnMceOHotuF2u+j/wo/tSC7TqZBw6uyh0iI4Lg8Dfh17qIAxVqX4Ba1V/pFTyVa
+	yUH6h82Heo6hZw2rjhbQVC2eyWJTNiU8Tc30keEVs4WXC6oBCkAG3EVIGYRx1LdvY/eeEIPkbCZ
+	sFWIkiL2asKOgph++KDkwnYjGvt5EsqtcYBeBnj3wOd3ZzXEE6vtxziH9vxRl+BPnvSUJU+iFo0
+	LCmXq/5gHRnAq3GqZ0tiPD2aaRSglpIqzNPQOpnTzCXxU4xRTmWxSb1CimuyU+NNNxLlKzjRzDb
+	x0eUkdWUgsxPdCn0RKOIMRLS1eOuP0KAjCO/vBGTChFMeqUXKJQ54VdUM/o++QrPzwaQtoHc04c
+	zhQPt0d8O4g8P34DLQ/pCmZOcWTHKxhWK/niH3dMveTOYmneMbjX4qxekgl3vw49nFH0A4=
+X-Received: by 2002:a05:7023:a8a:b0:14e:37c7:2b20 with SMTP id a92af1059eb24-1a3c5e708c3mr1093253c88.20.1793047970390;
+        Mon, 26 Oct 2026 13:52:50 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm32014337c88.6.2026.10.26.13.52.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 13:52:49 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 26 Oct 2026 13:52:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Zac Lanzon <lanzonza@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, Aleksa Savic <savicaleksa83@gmail.com>,
+	Edward Blair <edward.blair@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] hwmon: (asus_rog_ryujin) Fix pump control source
+ on the Ryujin III
+Message-ID: <c5dd4280-da25-4fd5-b9c2-2d0e6277bb16@roeck-us.net>
+References: <cover.1790512964.git.lanzonza@gmail.com>
+ <7ca8fe6cd6b4125813613bd4187ff6cdda72e4b6.1790512964.git.lanzonza@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,125 +102,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB10501:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5017a8e9-8bea-447d-1989-08df33a2b101
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|366016|1800799024|261026121527099003|11063799006|56012099006|261021123027099003|261021121427099003|261022075727099003|261021135927099003|261022105027099003|261009223027099003|10067099003|22082099003|18002099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	7Gg+oe4uQYaE6cZ1CWhL9McQvTU7yAVElVOdm01mCKoCMxzsqnwvhigvTQ+iQ/tYWG95WpDqVqy2+JGmf0UoFEWZR66xeirb3dPaQIeGdVozy0PP6sVesHMgj1t0PMAv3anzTtqJym6jsTlUe91zKwPnnzsKo7M2RvT2V7PE8S6MsR+bmYjDq3ZKjFgDs42zEMWdmG4gDd8BVpsDV6JqL47W71KhbryNKRVltYEIrA/WefZEH7X17gfrD/V5b3k8zJPfCaqYUgwOtgpLwsGX6ZdZ7OIaIk+gw9wV751zTTD5qsuCOP5yIfjpTEk136idtqadYjkAebCM/O/Pjly8Y0pcIgh0z90E6DkMVKL1jrQD1ZOsiMWhNbAoUkdMpX1u4WtEp3LolvyWtmnkL0nHS0fIvVVmgY1PJwHVbHL05awJsUAmKIaqXzwiD/9YGxUtKRYa38h0OPWL/gJndVuBZ1EwTZlzSuBISKBtF1Wwx4yZ/ckwInuhD61tkpH3rTKIEXk+KIVHBm6v2DbuKDQz2F1Es7ad8TIh52ut1l7fwJuSFNCJ/FjeGBTTP8tlGVtZ+LfFo10PVKykJYGVddGRPn/GJyawvAfzBotLLEjOM9Qc1jFPNBNu7yAsf7E/aZ2z3Nvh4Q0LLMBBOZKRjRE65Zs29WKjVeET/5hsUBOik7Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(366016)(1800799024)(261026121527099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261021135927099003)(261022105027099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rTcKCuJ3hv7hsP7/BdZWVXxKhFc1QyhpFtJBkr95gPCEnRNl+ILUZi0382n0?=
- =?us-ascii?Q?52QE81pPpiuB+ZLcWoNEM4kD2tQdFdMAawn2vFVszRKm00WKAMvVtF9opeSa?=
- =?us-ascii?Q?zaPtwQPQQYkP+Q/2rRJzNvmgegTIQ3Hp1gOiNqI8IrV+BgGfkQrpR8+2E74h?=
- =?us-ascii?Q?NSQjB56bdz9O1AcRFNzZSFbewmvNr98YLIosIRcxDn4AmSahskUmYBh+cWgr?=
- =?us-ascii?Q?SfTgOtH4JL9rgd+ILhjjTzM2kY4RBoPGfyHFSj/n+BUnffVvDjsmo3Mwus9S?=
- =?us-ascii?Q?Jj4g9FLh1NDzZW4CC43KvPT2o+q+hceyK7GjWMe+MvaLeiNV5p6lWrnymQo0?=
- =?us-ascii?Q?qRT+PorPzCgB3SrjBHxGsfwmLaxAnqxXsVHQ+NpjtVP3cZ3B4+2fwf65Exda?=
- =?us-ascii?Q?2voQvr1vAXLmp4tfr6HBc40V2qqxdyWqnCGeMkM21/eSmA+48OhpjYwS9Ni6?=
- =?us-ascii?Q?+/SBdWfBcBPfCi/jHJG5n1BQevHqYSkkRxKbiTM/t8mcC+HAlIPK06cytmww?=
- =?us-ascii?Q?DOrdQWlsgtCDUUkXjEpdAt49yy6TCMFDkGVBAonuJs0jslzNXPtZnnfG0o5M?=
- =?us-ascii?Q?hhjJpP1qcj31Qf1znEK2wFaPQqrTALEdavMODRFhtamXy+bouo/33SQ+/3Wf?=
- =?us-ascii?Q?qyea9drSjGKdRx4OlcSC3xyfmeIcbx7ZErSf8nVmXbPotg+2/2PsjJJDWNrj?=
- =?us-ascii?Q?xsI8JeL1ga4p7xsO3IaHrPYzZg/SIpQoD0ZT1O6XBfZ7ZkEWGEfnQXpSVRmQ?=
- =?us-ascii?Q?56TXjTHEAB83YUlRmUUEiUKgNjanyKnmT77ICJ7uHtbFv2Q//HZ0n9+KyLlV?=
- =?us-ascii?Q?2INZUkTCei9bZBrCzYxSlYTuUiCamIaM4L2aNDJhLGvY5WO2jFQX4OAetqVr?=
- =?us-ascii?Q?LKCAZ93IG9HcUglnIsO4jQ6h7XDeWXBJYIALkKA69hAzxQaYlK3WfK3zdXm0?=
- =?us-ascii?Q?0thw0YEQrn1XlcdaISlBJS2JWQ3WSrFUz659TNNrYifP2UZ5zruIJQw1uhn0?=
- =?us-ascii?Q?XvIRHIfRtvZettc3CkcETTazKo19F+zkfqgWreYpVYFoaa4GJrORign86JHw?=
- =?us-ascii?Q?D+2olGLz3lYdmjMr6yIuvec5luSXG9NWAM5VkwN/XT+8FzOTR0HnQFDCG9Su?=
- =?us-ascii?Q?mMhXufQga4yfQ+Z/hId+cOGZ8nOtjvNBvGvYUpwEiV8JTfvcezjhzXtreMbN?=
- =?us-ascii?Q?dnen1I1eL99pxLN468erWhGT0zzcmybWzPA7cmhg+0U0HGwiRUe3QxnDS5fq?=
- =?us-ascii?Q?+ZWWre9wz48YCh3lyFxCF9r8GAfFUOIRl30mP+zDyyxjfUsAEP+Odcdg3vt/?=
- =?us-ascii?Q?/Bk6CssLLharS0tQncBUbwQp4rp19/GzHA8fz8V6KhlpaFzw/IK13rgFU/lA?=
- =?us-ascii?Q?mzppvqQ4wQoyjAdULYkybnyHXjo8TlYu+qXkTkgrSqRt4WKF1JEaZHXsx+1J?=
- =?us-ascii?Q?Q9LCDIC0V0BHBSQC/XYaN3Pay+ZqWWXL0p6eHrimkS/Gz0vaj1jInXZp0yD5?=
- =?us-ascii?Q?NNVM9Rg694zHqtzz+Ycgt6DGrN+7qcH4tkG8jUldBJYvKTdvSxaB5mPxTPdE?=
- =?us-ascii?Q?8rI0iyDZhBdwcItohkokzyRR/XHkoPfmY5aFrAsIbIxPyBzrLo5KJ5hc+vU3?=
- =?us-ascii?Q?X7zeUzNTNKW8F5zKNwEPwttDUWmapiAGR1qfJjj2KilG+uyAKYUQ5E7ls63a?=
- =?us-ascii?Q?dfYZG/trLNMGJrcbRPDC9WfoA5SA3FLdFAQHFXih3V1QFl3sh6p3ijwrkHBN?=
- =?us-ascii?Q?ZOJqptdeoS7HWbkBcOQErC/G0yadS83zf5vx3BjYsBsfUfvz/0N1?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5017a8e9-8bea-447d-1989-08df33a2b101
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 20:49:55.9048
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yyjUAVl/9ud3wc+rN0j3GV/mQxsHyLKaSOw03Fcdix82uwm9sd13TtQbmedxT04+rvEOiVqQSsgSwE4NHVNs9/w+ppZw1hcojJTb3+L76IRe79EGYXqNQMH8vtw1tBRZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10501
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7ca8fe6cd6b4125813613bd4187ff6cdda72e4b6.1790512964.git.lanzonza@gmail.com>
 
-On Fri, Oct 23, 2026 at 10:09:53AM +0200, Olivier Louvignes wrote:
-> [You don't often get email from olivier@mgcrea.io. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> jz4780_dma_terminate_all() sets jzchan->desc to NULL. The cookie of a
-> cyclic transfer never completes, so a later jz4780_dma_tx_status() call
-> with that cookie finds no descriptor on the channel's lists, takes the
-> else branch and reads jzchan->desc->vdesc.tx.cookie through the NULL
-> pointer.
->
-> The driver has always allowed this, but it only shows once something
-> calls tx_status() on a terminated cyclic channel, as
-> snd_dmaengine_pcm_sync_stop() does since commit 88e98af9f4b5 ("ALSA:
-> pcm_dmaengine: Don't synchronize DMA channel when DMA is paused").
-> Closing a playback stream then oopses:
->
->   epc : jz4780_dma_tx_status+0x184/0x210
->   Call Trace:
->   [<8048e104>] jz4780_dma_tx_status+0x184/0x210
->   [<805804d8>] snd_dmaengine_pcm_sync_stop+0x4c/0x94
->   [<8058f068>] snd_soc_pcm_component_sync_stop+0x80/0xc0
->   [<805775b8>] do_hw_free+0x20/0x6c
->   [<80577650>] snd_pcm_release_substream+0x4c/0x9c
->   [<805781ac>] snd_pcm_release+0x48/0x9c
->
-> Only compare the cookie with the current descriptor's when there is one.
->
-> Fixes: d894fc6046fe ("dmaengine: jz4780: add driver for the Ingenic JZ4780 DMA controller")
+On Mon, Sep 28, 2026 at 07:41:05AM -0400, Zac Lanzon wrote:
+> The RYUJIN III pump has a 4-pin cable for a motherboard fan header in
+> addition to USB. Byte 2 of the set cooler duty command selects the pump
+> control source: 0 hands the pump to its internal controller, which
+> follows the PWM of the header its 4-pin cable is plugged into, and 1
+> makes it follow the pump duty in byte 3. Byte 3 of the cooler duty
+> report returns the current source.
+> 
+> The driver fills byte 2 with duty_channel, which is 1 for the RYUJIN
+> III, and a pwm2 write re-sends the reported pump duty with the new fan
+> duty. So writing only the internal fan duty takes the pump away from
+> its internal controller.
+> 
+> Measured on a RYUJIN III 360 (firmware AURJ2-S750-0108) with the pump
+> cable on AIO_PUMP and the header PWM set through nct6775, after loading
+> the driver with the pump on its internal controller (pump rpm):
+> 
+>                                    header 50%   header 80%   source
+>   no write yet                        2160         3090         0
+>   pwm2 = 40%, before this patch       1740         1740         1
+>   pwm2 = 40%, with this patch         2130         3090         0
+> 
+> Send the reported source with pwm2 writes. The fan duty applies with
+> either source (40%: 1545 to 1590 rpm, 30%: 870 rpm). A pwm2 write sent
+> right after a pwm1 write that took the pump over, before the report
+> could show the change, left the pump on USB and applied its fan duty
+> (2 of 2 trials, and 7 of 7 with raw commands up to 0.9 s after).
+> 
+> pwm1 writes keep selecting source 1. The cooler reports the pump duty of
+> the last write, whichever source it selected, and 40% after power-on.
+> Byte 9 of the status report follows the duty the pump runs at. Measured
+> from power-on (PSU switched off) once per driver, with the header at
+> 100%:
+> 
+>                                   before this patch   with this patch
+>                                   source duty  rpm    source duty  rpm
+>   no write yet                       0    100  3570      0    100  3570
+>   pwm2 = 40%                         1    100  3570      0    100  3570
+>   pwm1 = 40%, the reported duty      1    100  3570      1     40  1710
+>   pwm1 = 60%                         1     60  2430
+>   pwm1 = 40%                         1     40  1725
+> 
+> So a pwm1 write of the reported duty did not reach the pump, while
+> other duties applied in one write, also when taking the pump from its
+> internal controller (60%: 2460 rpm). When a pwm1 write requests the
+> reported duty, write a duty 1% away first (below at 100%), then the
+> requested one. Sent back to back, the two writes left the pump at the
+> requested duty in all 19 trials, 9 with raw commands and 10 through
+> this driver.
+> 
+> Tested on the RYUJIN III 360 only. The EXTREME, EVA and WHITE EDITION
+> use the same rog_ryujin_iii_info and send the same command, and Edward
+> Blair's analysis of the WHITE EDITION firmware shows the same pump
+> control source. The RYUJIN II, whose duty_channel is 0, is unchanged.
+> 
+> Fixes: cd258aca0dc4 ("hwmon: (asus_rog_ryujin) Add ROG Ryujin III support")
+> Closes: https://github.com/aleksamagicka/asus_rog_ryujin-hwmon/issues/12
+> Suggested-by: Edward Blair <edward.blair@gmail.com>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> ---
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Applied.
 
-> Apologies to the stable list: two copies of this patch reached it earlier
-> today from test sends, with the Cc trailer still in place. Please ignore
-> those. This is the real submission, and it is the same patch.
-
-Please bump version when send this one.
-
-Frank
-
->
-> Seen on an Ingenic X1600 (HiBy R1, compatible "ingenic,x1830-dma" as
-> fallback) on v7.3; the code is shared by all the SoCs this driver
-> supports. The patch is build-tested on 734bef548a96 (v7.3-7363).
->
->  drivers/dma/dma-jz4780.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
-> index 6070dfdb7114..7f827be502f1 100644
-> --- a/drivers/dma/dma-jz4780.c
-> +++ b/drivers/dma/dma-jz4780.c
-> @@ -658,7 +658,7 @@ static enum dma_status jz4780_dma_tx_status(struct dma_chan *chan,
->                 /* On the issued list, so hasn't been processed yet */
->                 residue = jz4780_dma_desc_residue(jzchan,
->                                         to_jz4780_dma_desc(vdesc), 0);
-> -       } else if (cookie == jzchan->desc->vdesc.tx.cookie) {
-> +       } else if (jzchan->desc && cookie == jzchan->desc->vdesc.tx.cookie) {
->                 residue = jz4780_dma_desc_residue(jzchan, jzchan->desc,
->                                         jzchan->curr_hwdesc + 1);
->         }
->
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> --
-> 2.39.5
->
+Thanks,
+Guenter
