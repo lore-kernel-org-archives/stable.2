@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793007669;
-	b=xHb8wVVLyMLPvA2YIP6Yc/0q/zLPgN91uPNWRZ9FBa63YucYwb6aeUpEt+25aIOB+EZu
-	 weYKxgOtGiWaa0K38L41K0nFi2+s8TtqL6vU7qXW8qlDhVV4xPiRrQJ9mzUOfcw1QEb+E
-	 ok5wLk8QqWZ5IjCZfWJXKsWMpPoQf9d4YxkE2ihTuw3weQeqsBCiXlRznSHkruju7/JnA
-	 U9LNYuwLh32FTQ/wAcBlOW2Hg/B2LXcv2vrOMuG4loXgd/d+oJua93Vn8m6p718TisaOA
-	 DBnVy375Cpk116Z/OLi/h80/cQGy7Ae/+X424UbfBikvzpCInHBtJsq22aHx+DEeHRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793007669;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+02ILXuK9KfO91BQX+g4W7G7YIbtI1+HIEbgN+bzPNs=;
-	b=CVGJ24cD5ddTS7X+d5u6CFxVyVbfLDycOUDtEHLo3v1nAaMRjJyvUbYRObeYr2uAn/Hn
-	 /lo94eziMreAcSZTWo6IamAAATyZLuO3O2VlN2T00FYRRG8RyhJ5W4Fg8zxlB/oauJYo5
-	 DfYpQmQciuY0kUIyN4Djbl8WbCJlOrwBIRWgcWURrNHPtU6DwC+iu3JhVBsdtzafBIrNr
-	 7zTQHRhY2U/EuFfZAmX1Vcoqp86tb3NQrmUPGuKpsiphI/KVzR9tf0vjg1mDOqHf3rsHX
-	 JDoQeUylfpAPtGfvWKVGoJB9sUu8tmRt804TBS4LyKjrW/O9hKwv653OO4B7QEhJ7Vw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4kVC4DG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793007681;
+	b=lVJYu9V0uPJKYRXlLBUxN6d2pTcI39z+j/FM3NSRGAQ+tGP2h7LbkJjgjqOcz5pB5l7w
+	 GtYGiF0eEgITpopTXnpWkyJQW4Q1CU/L2pueVUJcQpE6zP5lVfV3Uq0shbKZzmvbaUFBe
+	 gEJ6CVKhsCZaJuyPN+JDf/ecZkwPmN8Y63qVGI6NZuvYxqpRCYhIqz5rZo0eztURIVQtD
+	 3zt9mUiVeCtBvAmsy12kSE0cyc6+TTDlKuT2PbEr4aIjEgTv/uH4N/cqC44e6AJZ+a+js
+	 Mm+k2g+TKiXxkvTTyplnKYVz7pzu5tV+2129UJTUG+YAQWeGhc4Fl71pE6NkOApdxgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007681;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=39E6vW6/aAvA+MOoCKzNKPwKqzjWsVvMXH1IH4y+mQk=;
+	b=pHRjVxroFtzbgzhfJQOcdCLOVTDyCtEmI7tTSuFaSjCY966oX1ZPJwShMRKZAhSg3FXx
+	 HRkoAGy0f9uvHCj8RYOKo9CER7ryVln6DMHSMAVOol7hre4gSU4xc8iZ27PwVkGlQ4a0h
+	 ejA7DIqULu0T4jLqY/FwkiFBC3E5pmvvJdOB7YCK/K95kwN7ueQrwLjvfXdXmEuiNu4gb
+	 J6NbEVtrMXUr54QIjmfDtZN7mcZsBnQB1E2XOnELmaNCgxuVEMQoDVltEuVkFX2Ej/cp6
+	 xlOUSBInAlKjAB8KuDVVdIPjzz1TwIq+3hjKS1EJnALm0EQ5a0LgofizzEJTRoKXMRQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=ua891DVI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81433606A32C;
-	Mon, 26 Oct 2026 09:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DC860A2626
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52DC860A2626
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4kVC4DG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55651F01825;
-	Mon, 26 Oct 2026 09:41:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793007669;
-	bh=+02ILXuK9KfO91BQX+g4W7G7YIbtI1+HIEbgN+bzPNs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B4kVC4DGdBI0nHvQd38JB3xiE9r0i4N3qGwuJUEdjHaOsRrrDZWTPYEJgHeU9YP9E
-	 x5UEkksaPWu3fLn9gKPRdq9+DlZLl0tmGoNyWUTZOpghl1JA3iJtkPbRWENoHMLND0
-	 8xydXSGcQL+2c4pEPRs5A5JdLRoUtySK0dNJxK8+ahLXPcv+8QCPc5omQkBWFUtcxY
-	 vA7PKr/GgjLz8qst218EKOSDbH04nxpTs0Dx06ndguB6lpIkRNDlWswaSwXP9c+WET
-	 C/MpOG0Myr+GqyGXVQ3kAUP5tjXu3f0N0sDBYOpKbf1s3bAHMKbcHbpeeWxIZKOy/I
-	 oC0Y/U9Fj1mgA==
-Message-ID: <d39e7c09-7098-4563-b5fc-dc90982facee@kernel.org>
-Date: Sun, 25 Oct 2026 13:36:12 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=ua891DVI
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so817148a12.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 02:41:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793007679; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RgvvYIJ8MZPX3sjToAaIFczmrRViG7ya01hYDyLTDcGUm95ZgElpVWsfTPdQhtv8Xz
+         k1JJ3IaHch+JPpgA12TsDKKTUQcMHxWB6edv8WZyRMrWKvnaNuGIBfp/DIV1QobywwcS
+         7ox8H0fP7IMhnifkKxTSXWgGQcK2B/JGNjCZnKObjEMEjI3bZLCl1aQ0iP5JKR5GVVWP
+         PN6HV13dYW+2RQ0SlQPPfY3Ntzm4I7EkdsraVk6fsattqaAXgeRJPklCsAGxLegYIV9W
+         MwLMQONOlper+ZBWOjp4PAJnmYfUjvkcxZ6FWfFC+YbaU87LWCd4VDqqxRFcrev0EJoo
+         YZDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=39E6vW6/aAvA+MOoCKzNKPwKqzjWsVvMXH1IH4y+mQk=;
+        fh=leQmvePp3P1DLHQGOKZd5AysStXIsPxKPOff4C4HowM=;
+        b=XEX0myNfQ835YzdILk4DKPZNb9iL0Nkpt5dOWJwAOnrlY1/Z5dSpxNN8Jt16b+DqmE
+         2HaoScYVwKUMjYVLBcrS4omMRB1UnHuGT6pzhOGANMWnSNOAM45AojlTZqv4O3W2Ibd7
+         1v6O6AbolQywAp3yFU5gkf2vxoFOQPYb7XlaE0mybe72hpiuIxuMpvgmzekt0zn70RXl
+         olTvuMV+/e6QBkeXgbyWuOHVkIPrbBsrjUH73vhVtRCiaX6Cw40H/StESLkwCF8rgUGF
+         XmA0tUkAj1YFn2kgL2cpDxSLv/8hsalnFCvoc1WsM8VZzHKOaXrrYTlGQugTizaCIEWj
+         G9EQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1793007679; x=1793612479; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=39E6vW6/aAvA+MOoCKzNKPwKqzjWsVvMXH1IH4y+mQk=;
+        b=ua891DVI/vtebzFUMuYOmcWft3UELTZZSw3AaMRCcrLZznkX8LdQoBSfiOfHcwf3RB
+         5x5HkF4Wqplv4R+QezQHIdzf9xHekp+YHj1p8PhHjw7cjK3Bpt6nPAuHNH6/GQPVuXcE
+         9NNIsF9pnRwYw06uFCLr1YqezvT3/FR1FxtZs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793007679; x=1793612479;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=39E6vW6/aAvA+MOoCKzNKPwKqzjWsVvMXH1IH4y+mQk=;
+        b=rbskQqqSjv5g/H6IRjJud53tbcL8FPGuyujOVr0O7nJWE6YnsBUD9gRoYLK8fosVLB
+         AcGQo5aT6R9VvpzxAq5Yuw1NP5tiTMgXDpVZHuhVx68BWgJcgSIycXY8yzxORo8CtDzH
+         qz9jUl1WJYb8GYn1qloymMv3WLuFoo12qxvl4S8vnwpbiVQSE6cw48BpKGDum7boaP2v
+         O4fosefa4gX8+TLG7xKWwBsOqcQFn1iIbmLzFWjqRP/EC7XTS/UF2zxAtM92mVoFeSIs
+         eDo3q6pKitPg1ken9RB48Mr+RCpOkwK0cM42iBRdOhIyXnqXNnP9GwfkJK1livDQ1QDK
+         1QHg==
+X-Forwarded-Encrypted: i=1; AKwUvBxNROC4jeH0oDwSzssNlW0QQ/VE1L1JRPJVnPDqRgn4SYFQ6Ks1pAZIn7SD+Bd9pCF0gteq2uM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjtQC1uPhoN1GjP90N/gwvOcqwEQ3rvqrn6q4w2f053N4oIyE4
+	yumRaRIRx3SKrSApOrO98UoRNWrUox8ysQlz30cqrvpmNTt7VohkffS9XbRmkboYLZANv5Hm1KE
+	RI+Bj/zuYiRBHiXXvnlENBz0bhrj7C6VmtUEZZIMWIclgz+YNucx5Ug==
+X-Gm-Gg: AYBFou0Zj9fWSUOxeeZVuY2SV+5aUBwIJx4+F9o2SUwI+UKTDnZJcydy6b8kbE47wLR
+	KyYFh0iGz1rvBzaZGhkf9MXtS5lPnkY2CyOqhTsLVVtVukgqeJsT9gpuSYGvME73GQzZ9hCJpci
+	MnZe5P0as4fg9VcrnaYu67e4Kb3uOwLGeTMN+wCDH4N2AfVrClHcmxLxGmNI6ylzLzGTFUTXZLV
+	1kxaTMq43HenI8zyH1szEvof2RnXBi27cj8meR7KuXhEjjHovog99yWtRf0n2xB6xuk5qKWDwbT
+	TINOv80HXo95rRRwg6wsxzFIB4qQcRZhwEdZRDW1nrRQOkIy8ewtCkIkRno443HEeIKFWUeL1xS
+	qjEB5tJZoxp2QxiHWrhuStT+fjPQFZAAKFOPTefKXNktYaBQou22S63NC+J0rrUUKMb/DP9GmkA
+	+SMBrFS27B552dLo8=
+X-Received: by 2002:a05:6a21:880d:b0:3e2:8c23:5d35 with SMTP id
+ adf61e73a8af0-3e7a1b8a544mr3717353637.0.1793007679641; Mon, 26 Oct 2026
+ 02:41:19 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,86 +102,295 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
-To: Andrew Morton <akpm@linux-foundation.org>,
- Samarth Narang <samarth.colleges@gmail.com>
-Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261021182157.1873726-1-samarth.colleges@gmail.com>
- <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261023223352.c6de9f2b58fe999814e5bb17@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <ACT-N6N4.v2.r0.20261022191829@mojatatu.com> <ACT-N6N4.v2.r0.20261022191829-1@mojatatu.com>
+ <ACT-N6N4.v2.r0.20261022191829-2@mojatatu.com> <willemdebruijn.kernel.26d1ddb3bd2ae@gmail.com>
+ <CAM0EoMmwNCHVNW0=Z_JWX_ZcT5Y1po1GRVScddOsevEvL8D-6w@mail.gmail.com>
+ <willemdebruijn.kernel.30ca6285209f7@gmail.com> <CAM0EoMm=t2FMLaGNkC_z_a_D5o4=dwVnHS=Bb23NWdmeJVCVuw@mail.gmail.com>
+ <CAM0EoM=9GxDCHzpJF_bqcoh+7KZY6E=ZmOiMp7kfVK3bHZDppw@mail.gmail.com>
+ <willemdebruijn.kernel.eb29d53899f1@gmail.com> <CAM0EoMnQWjN24gBye1kZdcJUJgXDPDy-=dM+NQ6dqCny7O851g@mail.gmail.com>
+ <CAM0EoMnj7pkfGUg=VFjpbU7AGw7ysD_tQOeuUu==YEc9rfQJ0w@mail.gmail.com>
+ <CAM0EoMmEuj+k4HXOD08rdtS8+aD-8oTWFedED2kt5XfBR8=V3Q@mail.gmail.com> <CAM0EoMkvAgc6+HNsTUrYZ1RHqRrr5Z2vzJkWsz03jMt6NVcEpQ@mail.gmail.com>
+In-Reply-To: <CAM0EoMkvAgc6+HNsTUrYZ1RHqRrr5Z2vzJkWsz03jMt6NVcEpQ@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Mon, 26 Oct 2026 05:41:08 -0400
+X-Gm-Features: AclHuK-S6M5HVrCrcktozs8lmc6x1ni0POvowYyPX-T1Tv2bgs8iy1Y_kr9wG_c
+Message-ID: <CAM0EoM=t0zL+QDKaEJRhzK38XdpwkimsYgoc8p4SF7dFo3fOjg@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/6] net/sched: act_mpls: pull the inner Ethernet
+ header after POP
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Martin Varghese <martin.varghese@nokia.com>, 
+	Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	John Hurley <john.hurley@netronome.com>, Willem de Bruijn <willemb@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/24/26 07:33, Andrew Morton wrote:
-> On Wed, 21 Oct 2026 11:21:57 -0700 Samarth Narang <samarth.colleges@gmail.com> wrote:
-> 
->> replace_page() maps the KSM page with a PTE built from scratch, so the
->> soft-dirty bit of the PTE it replaces is lost. A page written since
->> "clear_refs 4" then no longer shows as soft-dirty once it is merged, and
->> a soft-dirty based dumper treats it as unchanged.
->>
->> Copy the soft-dirty bit from the original PTE to the new PTE.
-> 
-> Thanks.  My LLM review thing says:
-> 
-> : There's a separate, pre-existing problem with the KSM zero-page
-> : path which is worth pointing out.
+On Sun, Oct 25, 2026 at 4:50=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> On Sun, Oct 25, 2026 at 3:39=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.co=
+m> wrote:
+> >
+> > On Sun, Oct 25, 2026 at 3:36=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.=
+com> wrote:
+> > >
+> > > On Sun, Oct 25, 2026 at 4:55=E2=80=AFAM Jamal Hadi Salim <jhs@mojatat=
+u.com> wrote:
+> > > >
+> > > > On Sat, Oct 24, 2026 at 12:14=E2=80=AFPM Willem de Bruijn
+> > > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > > >
+> > > > > Jamal Hadi Salim wrote:
+> > > > > > On Fri, Oct 23, 2026 at 7:46=E2=80=AFPM Jamal Hadi Salim <jhs@m=
+ojatatu.com> wrote:
+> > > > > > >
+> > > > > > > . On Fri, Oct 23, 2026 at 6:50=E2=80=AFPM Willem de Bruijn
+> > > > > > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > > > > > >
+> > > > > > > > Jamal Hadi Salim wrote:
+> > > > > > > > > On Fri, Oct 23, 2026 at 12:09=E2=80=AFPM Willem de Bruijn
+> > > > > > > > > <willemdebruijn.kernel@gmail.com> wrote:
+> > > > > > > > > >
+> > > > > > > > > > Jamal Hadi Salim wrote:
+> > > > > > > > > > > The issue:
+> > > > > > > > > > > act_mpls POP can leave the inner Ethernet header in a=
+ page fragment after
+> > > > > > > > > > > skb_mpls_pop(), either on an L3 device (mac_len =3D=
+=3D 0) or chained after
+> > > > > > > > > > > act_vlan POP_ETH.  A following eth_type_trans() can t=
+hen BUG in
+> > > > > > > > > > > __skb_pull().
+> > > > > > > > > > >
+> > > > > > > > > > > The Fix:
+> > > > > > > > > > > After the pop, if the original MAC header is shorter =
+than ETH_HLEN, pull
+> > > > > > > > > > > the inner Ethernet header into the linear area and dr=
+op only when
+> > > > > > > > > > > pskb_may_pull(skb, ETH_HLEN) fails.  skb_mpls_pop() d=
+oes nothing when the
+> > > > > > > > > > > skb was not MPLS, so no separate state is needed.
+> > > > > > > > > > >
+> > > > > > > > > > > Conditions to recreate the bug:
+> > > > > > > > > > > - egress tc filter on lo: action vlan pop_eth action =
+mpls pop
+> > > > > > > > > > >   (chained), or on an L3 device where mac_len =3D=3D =
+0.
+> > > > > > > > > > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D=
+28, and a non-linear
+> > > > > > > > > > >   eth / mpls / inner-eth frame.
+> > > > > > > > > > > - The inner header is in page frags; a following eth_=
+type_trans() can BUG
+> > > > > > > > > > >   in __skb_pull().
+> > > > > > > > > > >
+> > > > > > > > > > > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulati=
+on actions to TC")
+> > > > > > > > > > > Reported-by: Vega <vega@nebusec.ai>
+> > > > > > > > > > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9=
+271c0f7c54fb7e88e3b.1782548651.git.bronzed_45_vested@icloud.com/
+> > > > > > > > > > > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYee=
+W0Fk_GK6ekR4xiS4zPrGKrbB9wZknpqf1-w@mail.gmail.com/
+> > > > > > > > > > > Cc: stable@vger.kernel.org
+> > > > > > > > > > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> > > > > > > > > > > Suggested-by: Willem de Bruijn <willemdebruijn.kernel=
+@gmail.com>
+> > > > > > > > > > > Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> > > > > > > > > > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > > > > > > > > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > > > > > > > > > > ---
+> > > > > > > > > > >  net/sched/act_mpls.c | 2 ++
+> > > > > > > > > > >  1 file changed, 2 insertions(+)
+> > > > > > > > > > >
+> > > > > > > > > > > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpl=
+s.c
+> > > > > > > > > > > index 4ea8b2e08c3a..5363bca892fb 100644
+> > > > > > > > > > > --- a/net/sched/act_mpls.c
+> > > > > > > > > > > +++ b/net/sched/act_mpls.c
+> > > > > > > > > > > @@ -79,6 +79,8 @@ TC_INDIRECT_SCOPE int tcf_mpls_act(=
+struct sk_buff *skb,
+> > > > > > > > > > >               if (skb_mpls_pop(skb, p->tcfm_proto, ma=
+c_len,
+> > > > > > > > > > >                                skb->dev && skb->dev->=
+type =3D=3D ARPHRD_ETHER))
+> > > > > > > > > > >                       goto drop;
+> > > > > > > > > > > +             if (mac_len < ETH_HLEN && !pskb_may_pul=
+l(skb, ETH_HLEN))
+> > > > > > > > > > > +                     goto drop;
+> > > > > > > > > >
+> > > > > > > > > > Is this first condition needed?
+> > > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > That was me conjecturing from Eric saying in v1 "...the c=
+heck can only
+> > > > > > > > > matter when the original MAC header is short.."
+> > > > > > > > > Since i have to send a v3 (Thanks Eric;->) I will remove =
+it
+> > > > > > > > >
+> > > > > > > > > > More importantly, can it hide a bug?
+> > > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > What kind of bug?
+> > > > > > > >
+> > > > > > > > Two kinds. One, if original mac_len is larger, gets popped =
+and the
+> > > > > > > > resultant packet is still too short for ETH_HLEN afterwards=
+.
+> > > > > > > >
+> > > > > > > > But this can probably not happen, as skb_mpls_pop only pops=
+ one MPLS
+> > > > > > > > tag.
+> > > > > > > >
+> > > > > > > > What this patch tries to ensure is that the subsequent Ethe=
+rnet
+> > > > > > > > header is linear.
+> > > > > > > >
+> > > > > > > > The second potential bug is this assumption that after the =
+MPLS tag
+> > > > > > > > lies an Ethernet header. Is that a valid assumption? Or cou=
+ld we drop
+> > > > > > > > a valid packet with smaller header.
+> > > > > > > >
+> > > > > > >
+> > > > > > > tbh, I was thinking more about skb frags earlier.
+> > > > > > > You are right only ETH_P_TEB promises an inner Ethernet heade=
+r; for
+> > > > > > > other inner protocols the pull is wrong, so I=E2=80=99ll chec=
+k for
+> > > > > > > p->tcfm_proto =3D=3D htons(ETH_P_TEB). I didnt have this chec=
+k in the
+> > > > > > > current fix - good you responded before i sent out.
+> > > > > > >
+> > > > > > > 1/6 (act_vlan POP_ETH) has a similar unconditional
+> > > > > > > pskb_may_pull(ETH_HLEN). A brute approach is also to check fo=
+r TEB:
+> > > > > > >
+> > > > > > >       if (skb->protocol =3D=3D htons(ETH_P_TEB) &&  !pskb_may=
+_pull(skb, ETH_HLEN))
+> > > > > > >                 goto drop;
+> > > > > > >
+> > > > > > > Note: skb_eth_pop() only removes the outer ethernet header bu=
+t does
+> > > > > > > not change skb->protocol
+> > > > > > >
+> > > > > >
+> > > > > > I am going to send it without this 1/6 change - it just doesn't=
+ feel
+> > > > > > like good taste. I will add a comment in the changes to say i
+> > > > > > considered it but decided not to. I also spent time eyeballing =
+the
+> > > > > > code, i dont think there's a potential way to craft a packet th=
+at will
+> > > > > > hit the perceived issue. In any case the 24 hour embargo lifts =
+in a
+> > > > > > few hours so i am not posting yet.
+> > > > > >
+> > > > > > cheers,
+> > > > > > jamal
+> > > > > >
+> > > > > > > thoughts?
+> > > > >
+> > > > > I'm actually a little confused why the tc layer has to anticipate=
+ the
+> > > > > needs of downstream code and pull headers here.
+> > > > >
+> > > > > That directly lead to this guessing of what may be the next heade=
+r,
+> > > > > such as Ethernet. Which may often be correct, but not always.
+> > > > >
+> > > > > All protocol parsing code itself should already be robust and cal=
+l
+> > > > > pskb_may_pull where it is needed. Sounds like there are some targ=
+ets
+> > > > > post TC where that is not true *and* we think there are too many =
+to
+> > > > > update those targets directly, rather than this transformation lo=
+gic
+> > > > > that exposes them to unpulled packets?
+> > > >
+> > > > Not "too many updates" rather the main motivation here (which i kin=
+da
+> > > > empathize with) is pushback from Eric that you have to "fix at the
+> > > > producer" to avoid performance degradation at the "consumer". i.e
+> > > > rather fix the vlan action than have loopback vet as in the origina=
+l
+> > > > patch  (and you just witnessed him stand up and push back on tun fo=
+r
+> > > > that same reason ;->).
+> > > > IOW, we are anticipating so that eth type transfer doesnt bug out
+> > > > (_for ethernet headers_) when invoked at the downstream consumer
+> > > > (loopback etc). Essentially it is a game of whack-a-mole until the
+> > > > next bug or malicious use shows up.
+> > > > Generally, policing intoxicated drivers from getting on the autobah=
+n
+> > > > isn't the best philosophy; it's better to complement that with a
+> > > > "driver beware, you may encounter drunks" warning but that would sl=
+ow
+> > > > down the fast car on the autobahn ;->
+> > >
+> > > Actually the more i think about this the more i am concluding just
+> > > fixing the producers wont be sufficient (Eric!).
+> > > If i have an incompetent or malicious ebpf program it could do
+> > > whatever it wants.. I am going to try something with ebpf.
+> >
+> > And the reason i am bringing up ebpf is because i noticed sashikos
+> > after like several iterations of a patch find a way to sneak in some
+> > ebpf corner case. So i am sure that is coming (if indeed an issue can
+> > be reproduced)
+>
+> confirmed.
+>
+>     #include <linux/bpf.h>
+>     #include <linux/pkt_cls.h>
+>     #define SEC(NAME) __attribute__((section(NAME), used))
+>     static long (*bpf_skb_adjust_room)(void *skb, __s32 len_diff,
+>                                        __u32 mode, __u64 flags) =3D
+>             (void *)BPF_FUNC_skb_adjust_room;
+>     SEC("action")
+>     int shrink(struct __sk_buff *skb)
+>     {
+>             bpf_skb_adjust_room(skb, -1, BPF_ADJ_ROOM_MAC, 0);
+>             return TC_ACT_OK;
+>     }
+>     char _license[] SEC("license") =3D "GPL";
+>
+>
+>  ip link set lo up
+>     tc qdisc add dev lo clsact
+>     tc filter add dev lo egress matchall \
+>         action vlan pop_eth pipe \
+>         action bpf object-file /mnt/shrink.o section action
+>
+> tc filter show
+>
+>     action order 1: vlan  pop_eth pipe
+>     action order 2: bpf shrink.o:[action] ... jited default-action pipe
+>
+> And boom:
+>     [    6.748140] kernel BUG at ./include/linux/skbuff.h:2830!
+>     [    6.748154] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>     [    6.749434] CPU: 1 UID: 0 PID: 301 Comm: mini_poc Not tainted
+> 7.3.0-rc7+ #271 PREEMPT(full)
+>     [    6.750115] RIP: 0010:eth_type_trans+0x335/0x500
+>     ...
+>     [    6.757723]  loopback_xmit+0x1c1/0x580
+>     ...
+>     [    6.778076] Kernel panic - not syncing: Fatal exception in interru=
+pt
+>
+> Eric, any ideas?
+>
 
-Cool, more AI schlop.
+And worse, i just tested a non ethernet next header for mpls (the TEB
+check is a bad idea) and it killed the kernel as well:
 
-TL;dr Sashiko raised this before and I commented why we don't care IIRC.
+tc filter add dev lo egress protocol all flower action vlan pop_eth
+pipe action mpls pop protocol ip pipe action  gact pass
+BUG at include/linux/skbuff.h:2830 in eth_type_trans  via loopback_xmit
 
--- 
-Cheers,
+I am going to withdraw this series - lets reach some consensus first.
 
-David
+cheers,
+jamal
+> cheers,
+> jamal
