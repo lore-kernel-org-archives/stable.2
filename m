@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792997432;
-	b=IGEqzqGLCnw+AoO2JkIKLraDpTJyodBAyg0qDFAKGfojZTw9mHLjhilwziXH4aa75TeU
-	 8UhtezIeMPtGYstPrjwxB4VPi1/vxFIlrwcPRvkmDrI16my6/0bamnqHb9v4jTH0lkayu
-	 niIdTsszD5UnfSv0re4M+ZXcE8yFzlqO93qukUk4gpHRhS5JQxX42LTHzpsJxPhOPswvb
-	 ANG0iRyQXwDoCMO0OYElch+GTh/Z+RYMRZ32LlLpyD26iyxlNABjg3rqblTzjrCM2Fcuj
-	 Pz2WjifhurZA/VuIILevCc0HLhYYXJ2U9mUCITle5A52TyzCVxYLDdFOPNbECWmTv0w==
+	t=1792997438;
+	b=i8jtNAvAAk/5O2+qqdpX285f2utHNjcVSxEb21fNoExjvsAedm+BZAj93UnWqvFfMkl0
+	 1OdN4Y2o1tXXxDVnZIMj+MQMd2r7s5v/v+7nd1Q/VUdh1iMB2CStnRhZE6MeO3SATGI6Y
+	 GuemrWX3zZKZcgInZLHr7gGbaBb1akbezgDlREAFkGarKHZwbWBouZiqE2ckC4vbgJ16k
+	 G+DV79a6LWH2yJwkJAl5eHy6PGvhHvy06plqoD6J7TIuDWgpYZ/2ofds7zVQC5Mw6naNR
+	 PcQ3ttqpiyx28p7kLFU+lL6dKordj4fYpsAdPefZ9Ra05FiawoMr7mje1IB5CDdZZeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792997432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792997438;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=WdCYRudtEDYPOH46p/Wih0pwrS9+80f8dSGtERPW1PE=;
-	b=SY26ss1ILXB35XhWksCaXmpqHwMSOx15Aliwb0mcAahLzkPmkIx2wdGH7DiCxU3gW2Jw
-	 jY/WDIpPMtMy3M5wKI8rWSf77oV8UQhrxVoeqnRM01T0UCZcbvV9u0lDShspgeA0hrwE+
-	 95ZWhk9pGznehuCzksA2JMq2zDs3aWc+M1WRWKbE1UH6xq6bLALnoNqDOF/AFNhLdRVBd
-	 h6h2r50I1NvgjtDpwF3Ke5KlEAZEaNMy4kfvkg9WXV9bQnLQUhTl2dNqz1CtKqwnGpocQ
-	 j7WHTUinrNTsUjz2ii3PiVppMDTvl5y69Dp0FzH0l5Kt2tV/k6vCW3EXFCD3ThbTMRg==
+	bh=mGGTzTbDVNWYnQmVpbZgCh4dhNFuupx1F6U7YbVqkjw=;
+	b=KDyw5WDIsZTJSsyS4/eHI3ti14hheub03B418PHFdGYCXMTxuml8r0MACB0FNn76Lmty
+	 mO0//ZYAsJHqXSW9qi1/J4MCa+cP2gGKsqO1rbuLsqmND88iJh7FXyVtO+hNFyw5QA14W
+	 g4I3bnZ9W8/xlRvBzokryomUtirNFyZprfOPItTkpcqkEJNs4LtDS/97c6QuWoTdvLWBS
+	 8lEM/y6jbs4S6Fo19Z5bfY8lUVSj4/reIqjoBnjDptjA5wVITPni1PwvjqCfeBz4S71Yx
+	 EaZeD10kfaUsWsjCwM203rC+fUk96jDKx7EQwIFMpDdH5Ne7alUigGIOVtvewz3wXNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTOXNwUp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUF0qaOc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC58606A31A;
-	Mon, 26 Oct 2026 06:50:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD46A606A320;
+	Mon, 26 Oct 2026 06:50:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTOXNwUp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1C41F01825;
-	Mon, 26 Oct 2026 06:50:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUF0qaOc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC20A1F01828;
+	Mon, 26 Oct 2026 06:50:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792997431;
-	bh=WdCYRudtEDYPOH46p/Wih0pwrS9+80f8dSGtERPW1PE=;
+	s=k20260515; t=1792997432;
+	bh=mGGTzTbDVNWYnQmVpbZgCh4dhNFuupx1F6U7YbVqkjw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eTOXNwUpY83L2zD0pNiRjvoA5e60H1H1rDNgnjv1s5ZGJqirSnmQu71gaK+qeoq1n
-	 0X4tO2I2zAY780okWtzNuQgt5RfDpHrsV1ZmC62ZdV7UKfWl6lxFHr3om6tJgfbeQV
-	 4FgXOEPRQv/ocMcsbPA62msjA/sfaflrvI2SxzyH50NwyrGYQC9lRnNzpmfvcDFof1
-	 FX9L7ZZ8BunXl3WxVwdRSc9l5xLaKXscQGVaVCjJrKmHf4WSEftCgDmV5g/pDJmXjr
-	 jt0XAegyagAZKAaIJRHOMCHHFBwi0PQWNKrR1wfU6+DVB8tFYB5ShoC8vKwq+dFvX+
-	 FADFmclygMf1Q==
+	b=EUF0qaOcqXijAYxN/SEzQ6twa4I5WqUb0a/9TjIoalYIbhIo12caB9egezz5tDZh1
+	 ZaY69jnouSphGUfRckZwX/YFmSK+rtAIU9mBW7939sKiwpJ3OE5shSfKp4+lLPQupM
+	 SGjw/ug6YOzvdRFymXnFbABt0lpH5Rxt88XuwbFev4oX8TEW+bM+EK+VbQAp/+FDGt
+	 7OKJaS/kbwlNPqTpfofy5sc+ZHUPnJ/Hv/DfYygru7MoMOSWQos6pcWWF6qWDhqno0
+	 HiWAZP7Vb7EYWPxLmUSi+KQcz/9i/+zy5tlvuQEJxubUTrqN/yllli5xSFaXlSSarP
+	 vRjyGJPrxjx0w==
 Subject:
- Re: [PATCH net 1/2] tcp: fix shift-out-of-bounds in SYN-ACK retransmit timers
+ Re: [PATCH net 2/2] tcp: fix shift-out-of-bounds in inet_csk_rto_backoff()
 From: netdev-bot+sashiko@kernel.org
 To: jiayuan.chen@linux.dev
 Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
@@ -49,10 +49,10 @@ Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
  corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
  ncardwell@google.com, kuniyu@google.com, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 06:50:29 +0000
-Message-ID: <179299742989.3134.10967114195935725081@kernel.org>
-In-Reply-To: <20261023064915.401112-1-jiayuan.chen@linux.dev>
-References: <20261023064915.401112-1-jiayuan.chen@linux.dev>
+Date: Mon, 26 Oct 2026 06:50:31 +0000
+Message-ID: <179299743134.3134.13204213247651180532@kernel.org>
+In-Reply-To: <20261023064915.401112-2-jiayuan.chen@linux.dev>
+References: <20261023064915.401112-2-jiayuan.chen@linux.dev>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -77,85 +77,90 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message gets the TCP_DEFER_ACCEPT path wrong and
-  does not mention a user-visible change.
+- [Medium] The code change is correct.
 
 --
 
-tcp: fix shift-out-of-bounds in SYN-ACK retransmit timers
+tcp: fix shift-out-of-bounds in inet_csk_rto_backoff()
 
-The patch caps the shift amount in the request_sock SYN-ACK timeout helper
-at 30. It also limits max_retries / max_syn_ack_retries to 127, the width
-of the num_timeout field, and sends the TFO SYN-ACK timer through the same
-bounded helper. A further hunk lowers the TCP_DEFER_ACCEPT conversion cap
-in secs_to_retrans() from 255 to 127.
+This commit caps the shift amount in inet_csk_rto_backoff() at 32, so a
+large icsk_backoff no longer causes an out-of-range shift of icsk_rto.
+The clamp covers both callers, tcp_ld_RTO_revert() and the orphan check
+in tcp_probe_timer().
+
+> icsk_backoff is bumped on every RTO and zero window probe, and the only
+> thing bounding it is tcp_retries2 (a u8 sysctl, 0..255).
 
 [ ... ]
 
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index 99d7237a623d8..a309fd45ad425 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -358,7 +358,7 @@ static u8 secs_to_retrans(int seconds, int timeout, int rto_max)
->  		int period = timeout;
->  
->  		res = 1;
-> -		while (seconds > period && res < 255) {
-> +		while (seconds > period && res < MAX_TCP_SYNACK_RETRIES) {
+> Set tcp_retries2 to 64 or more and keep the peer silent, icsk_backoff
+> climbs past 63 and the shift is UB.
 
 [Severity: Medium]
-This hunk lowers the TCP_DEFER_ACCEPT cap from 255 to 127. It seems to be
-the actual fix for the defer-accept trigger, but none of the three bullets
-in the commit message describe it. Could the change list mention it?
+The code change looks correct to me. Is this description of how the bug
+is reached accurate, though?
 
-The commit message also says:
+tcp_retries2 caps icsk_backoff only in the zero window probe path:
 
-  TCP_DEFER_ACCEPT can derive a comparable count. Both feed the
-  max_retries / max_syn_ack_retries that decide how long a request_sock
-  keeps retransmitting SYN-ACKs.
-
-Is that accurate? do_tcp_setsockopt() stores the converted value in
-icsk_accept_queue.rskq_defer_accept, and syn_ack_recalc() checks it as a
-separate condition:
-
-net/ipv4/inet_connection_sock.c:syn_ack_recalc() {
+net/ipv4/tcp_output.c:tcp_send_probe0() {
     ...
-	*expire = req->num_timeout >= max_syn_ack_retries &&
-		  (!inet_rsk(req)->acked || req->num_timeout >= rskq_defer_accept);
+	if (err <= 0) {
+		if (icsk->icsk_backoff < READ_ONCE(net->ipv4.sysctl_tcp_retries2))
+			icsk->icsk_backoff++;
     ...
 }
 
-tcp_check_req() also compares req->num_timeout against rskq_defer_accept
-directly. The value never passes through max_retries or
-max_syn_ack_retries, so the new min_t() clamps in reqsk_timer_handler() and
-tcp_fastopen_synack_timer() don't apply to it.
+In the RTO path there is no limit on the count:
 
-Before this patch, take rskq_defer_accept above 127 and a peer that sends a
-bare ACK (acked=1) but no data. The 7-bit num_timeout can never reach
-rskq_defer_accept, so expire stays false. reqsk_timer_handler() then keeps
-re-arming through tcp_reqsk_timeout(), and the shift goes out of bounds once
-num_timeout reaches 64.
+net/ipv4/tcp_timer.c:tcp_retransmit_timer() {
+    ...
+		icsk->icsk_backoff++;
+		icsk->icsk_rto = min(icsk->icsk_rto << 1, tcp_rto_max(sk));
+    ...
+}
 
-That path only needs setsockopt(TCP_DEFER_ACCEPT) on the caller's own
-listener, with the default tcp_synack_retries=5. The commit message gives
-the trigger only as "Set tcp_synack_retries high enough", which needs root.
-Would it help stable backporters to say that this is reachable without
-privileges?
+The connection is killed only by tcp_write_timeout(), which calls
+retransmits_timed_out(sk, retry_until, icsk_user_timeout). When
+TCP_USER_TIMEOUT is non-zero, the tcp_retries2 based model is skipped,
+and only elapsed time is compared against the user timeout:
 
-There is also a user-visible change here. setsockopt(TCP_DEFER_ACCEPT) now
-stores at most 127 retransmits, and larger requested values are truncated
-without notice. As a result, the largest value getsockopt(TCP_DEFER_ACCEPT)
-can return drops from retrans_to_secs(255, 1, 120) = 29887 seconds to
-retrans_to_secs(127, 1, 120) = 14527 seconds.
+net/ipv4/tcp_timer.c:retransmits_timed_out() {
+    ...
+	if (likely(timeout == 0)) {
+		...
+		timeout = tcp_model_timeout(sk, boundary, rto_base);
+	}
+    ...
+}
 
-The ip-sysctl.rst update only covers tcp_synack_retries. Should the commit
-message or the documentation mention the new TCP_DEFER_ACCEPT limit?
+Even when the user timeout is 0, the model bounds elapsed time and not
+the icsk_backoff count.
 
->  			res++;
->  			timeout <<= 1;
->  			if (timeout > rto_max)
+No privilege is needed for either socket option. tcp_sock_set_user_timeout()
+accepts any value >= 0, and TCP_RTO_MAX_MS accepts values down to 1000 ms
+in do_tcp_setsockopt().
 
-[ ... ]
+So an unprivileged process can trigger this with default sysctls:
+
+  setsockopt(TCP_RTO_MAX_MS, 1000)
+  setsockopt(TCP_USER_TIMEOUT, a few minutes)
+  peer goes silent
+    tcp_retransmit_timer() fires about once a second
+    icsk_backoff passes 63 in about a minute
+  ICMP unreachable arrives
+    tcp_v4_err()->tcp_ld_RTO_revert()->inet_csk_rto_backoff()
+
+Without TCP_RTO_MAX_MS, a TCP_USER_TIMEOUT of a few hours is enough. An
+orphaned socket reaches the same shift through tcp_probe_timer().
+
+Is the impact also larger than a UBSAN warning? On x86-64 the hardware
+masks the shift count. tcp_ld_RTO_revert() could then compute an
+icsk_rto that is far too small, and the orphan alive check in
+tcp_probe_timer() could give the wrong answer.
+
+Could the commit message say that unprivileged socket options and a
+network ICMP are enough to trigger this, and describe the RTO impact,
+instead of saying it needs tcp_retries2 >= 64?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023064915.401112-1-jiayuan.chen%40linux.dev
