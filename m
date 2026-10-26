@@ -1,59 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793036753;
-	b=g69Orc95YqwcGYJRqA7eBON8mnFq/zXgQc1IcrUG7S7DwKs27lKQj6kR3VLXoLnaXGLl
-	 gz95AJbL7Zk3boVkYE0YbIPuiD48oHAHGaUBivAZEedSjpVhoueZLkrzmRQSe+HXOSe8/
-	 uDO99iRuEU+JlTLwane97e5Jawh70wVh4isSPSuiQcnWv+jlnygM3aFg5AUDGY2/EWOoV
-	 +w6jPGHDa2zQPw4TZei9sCYKl8W6qS53ZaARTEBIkc7ggN/Y0yajMomDO5n+LYwObgguZ
-	 ZLch4k2J4HOHHFOs74462Nenl5tfkrEebT+fOcnW8t00kmAcmKKX0M9CtJyIC48nFow==
+	t=1793036991;
+	b=R0PD+y4jQ/gAMw4eN1DmhA6wqfBRVKn8Gnx1WSO/rLmTH7QLvlcfQMsit6qyF3JnEmWp
+	 C+2J6xLcv3A9MegnEJYU10FtKnDXrwCbdRT8g00PIvNslWbEDtPA7ClKNJh38itKB0uLM
+	 fmfhEpFVtMNAF5o+IKZStfMP7eQ4S4YtHtisYuRW+foFWWUB/QZrCmr2YJ98JvJ6d+bYD
+	 s3ylh7sMW5BSllrYJZ3ZcsiAZe/z6zzQMyOn6LLihSzt8HOq5ltUcZxJSDrS4XMwz6hzo
+	 5nbrJ/LDFGfYsCNXHbDL1khjyrLrVvMLj3kndlYpOtPYIWbe5bfTtw/Q8yOG8wcKeCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793036753;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=5IWVNWzcWZ7/GsRgxjWRJKgZOwK5XXA78Ujm2BtrSno=;
-	b=vmvhb/+ioMyvPXfWEHoxHMR/moswSbxs2OZ2uRLnYcB46COBO68VR684QrcZYWlqaF0O
-	 HObLZYT8Mgx2/dF5flhmUD2mNAqlEW0ahVysINzInDxFiDvbm+JEeePww1sc/Xha0scPd
-	 vJCZcf8SfR/3kTwjlzDyk35WGg+6B/HoTqN3Dvo30Huvp7EjuVumjVBnjR3LqsEjcm/xV
-	 jsue077t9OWnR6RxAUjhdptSMzPZyHwD0XPyVr9YepFZPbtqST2pOI1V6ncTOTFFesQ8f
-	 0Q6oFfSerz3+0iViInYgPPB2n9xun9YaOaTes/8OstuWhzLe86zC8QvigcakuCrRHbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793036991;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgKkmdnwh3k=;
+	b=C61lbcWaO9m7FuHfp/aKpPVzGjc0502S81PiBXRj2F4Tib5c8DJMj6h1UECENi/UUu9W
+	 Ce3jwOC2YsOwgbDUZI9C1jIpC/az6yoqb0N7NZPo4rzQI2Hn/OfOM9CzFP3TRSJDe4ptN
+	 ys3dlDCkHhxsFDT0c58B39yWrTnyZTkDvyzyi8lkAwL9V8uzMJ6OVpEejdhZx3iQtObqW
+	 e4xtx2pTobvzgAQJkLxEXH9OmWeHbDMqZIwPxCd+V5WfLGuRvEwkPb2E2LSxQuKTi6zIs
+	 0D+ouGfofO3KJNE2OmY4hT2pUKTmhw4BtiinJwHNyUnEa94wQHNm2Sib6Mt6beM/S/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6opAFdH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=JdL3NJqd;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jsaKGria;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537BE606A320;
-	Mon, 26 Oct 2026 17:45:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F93A606A337
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F93A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6opAFdH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA4E1F01825;
-	Mon, 26 Oct 2026 17:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793036752;
-	bh=5IWVNWzcWZ7/GsRgxjWRJKgZOwK5XXA78Ujm2BtrSno=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j6opAFdHGTFw3fY8Z5qzGqRZIe4yMxwbyAs2wwsyrvXGve2gsnIT/guUhKJO2/Frq
-	 JI0/SsX5Jj4lRaN5CEXoBVSzyB6f2SyOGTJGYP+cuml26IJGKb4du8wTuoGAQtB/zT
-	 BkydhsgwCS1Nl0aATTX83VKuhvQj77pjf8r1sWnsHMrsq1SnaKrEpvsBV0ma0HRHP3
-	 mBs2TPFQjLGjM0jO1/9Ejo8i/n9GZ4sx5uig9KoIqIRwWx0OWmuSkKvLTSDNvzyjbj
-	 CCxBb7qykPQ6YiujRUB1gG+Qkz2db9Wypff+w/ukUZCuBlzZgQCOx7fcNfKy097A96
-	 HlSalAZl5WHGQ==
-Subject: Re: [PATCH net] sctp: fix ASCONF address change on single-homed hosts
-From: netdev-bot+sashiko@kernel.org
-To: andrey.misyrov@gmail.com
-Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, junvyyang@tencent.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 26 Oct 2026 17:45:51 +0000
-Message-ID: <179303675173.3134.11217955296529787762@kernel.org>
-In-Reply-To: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
-References: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=JdL3NJqd;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jsaKGria
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailflow.phl.internal (Postfix) with ESMTP id 5798313802D5
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:49:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Mon, 26 Oct 2026 13:49:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793036983; x=
+	1793044183; bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgKkmdnwh3k=; b=J
+	dL3NJqdbugJRjuL9LjsbKRphw2KicwxMAV+dxpERQY19YmZ6QzhL4ln9wQHwiRfA
+	TnU5tgHVCMuKDz2ydh5yqEc6EV5jCwljkkQj5ZzyPNS3axhN+/hZgOXyZkM/RtCl
+	9H4yepfmeOHHV3GJJdQv6ve8B9gW3kfR3KxjI7e4KDv8mLQVmsJcmR2Lppfijn+t
+	U0bMcyWlTqeZTEcSSfT1blE7VQo0bfWtsnRymicu6qzh6hPxZ3SKxuYefnpAhLyn
+	K5or2rlyWtepue8dI6zJyXApcau2pJxOGCpQFsxmwhXzgQXmXs+W7obSdzuFvJhB
+	ArncCXmZNz1bgx71MLw5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793036983; x=1793044183; bh=xxV5ov3c0hTKqd9UolE8DYnovGSmzcocUgK
+	kmdnwh3k=; b=jsaKGriaA692dIgpgEARXfonTPOY41+tEtlzdyhDRdnf0v/lFz+
+	IxIAldbuY99yXj2+uvwHOgBYeG5g2FbmNzgrMSdNjQrdWzYO72La7ZCdUG1f9d9J
+	Af60QpKAvmZ0RHGaWtqd7AiXuoG0sfBjbbg0mrPU4EZ4YR9IOmVFhSc3+nSwNnzS
+	ouQHdvYZsOx4LL9XXeYHdChsXjpNHSbE53VnBXxZFlwuftFZHKE88Ukc6HVdGyl9
+	6nlEbXIzh61dNNA6idTeqYQmheLPlFDf2hj4CxzM5NGSizwEo1XjWs6sPmF1gx50
+	c0KDCCrRBx+TfNBYTIAurgl9KFFzUjhsn1A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793036983; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:AuwwRISA6sS3cgOBFEYlKwlY1i+TTncp+DRIncmb2w4UL/g
+	/ZDihMFnC0RRMqR8QLZcASiPjuJEoXURJo+n+4Lspzfg0izSDHfX7LV1ro8rk7wT
+	Nl6GZmn8aJGPOUdmPldPJcA/JbkNZ5e4I2U5BEKYCfhoyz4SwsE/HyO3fOGlD7Wh
+	2j8vBnuV6a06cfX+6qftdypvTAIuwMhafX/YYt98CAi2foCtjIpDT6lbKpc0KJfJ
+	0s5ijf6UuVWSWhJ2WtvxNA35PDpT9+HlKxAUkZvIN9SzDSWJCQh7GG0INr7iwevd
+	5U1xn+lxNKgwt5NzOLRC1Tf+DM8nuB+RekjaiXw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:oAI8CvIbumntInw+4PFy9SOzhfVHaiSI3xBGsLX0Fcc=:cIqzR+dk4dI8U2SGLdBfaB3Z+vbsjVLGPogfgOdxTgQ=;
+X-ME-Sender: <xms:tJLfaiFURCNdynr59obpYBBiVl4V5UzanoXaw9VQTms5MmvDtIuP-w>
+    <xme:tJLfaiezpFzXO-Zfv_74k1daYZBx6nHLGhU7gb5qHt1m95IWKbwRmmHtAaVqg2Wis
+    zafiftWyYeKAGSyT1Kjbi9iIpDJqezGMiLgTiCWhUE99To5FR2lAiWt>
+X-ME-Received: <xmr:tJLfahJkh1-pM4dmfx0_FPH8hg8zgScCWFiPl7YL1n4UUWyyhTGAzxUa80U>
+X-ME-Proxy-Cause: dmFkZTF3TFhuE3wGcZJjUzIyjpcTOyexH41fjQWtbyhLeXHhYokFl+PdzJCSXxGGgJCuOJ
+    dy5xoklUsRtz+csfRFFFJskyhlsSQsto9rVk3Xlz3nETmWH8sqjeYYmCn0LJzkpgO57i5k
+    rdDoyf1u9Kchi7X+0v96xV5zGmpLMOO9JQ5HHJkAv5WxzI0OrT8Sq74zbsPUvq7mGA7rRZ
+    IIwvOGRi06s646S/NkFK+4dyblma9DUxNKJT1uTJkvS+vsg2bD+Upt3/LTu/0HWVZlK0Jj
+    DlFAwQClbZ6XOv6mqbXadmBiTvGlWIFDBKnMCr7YO4yM+t3ktQ/4bZdUK9LFzakP+92+Fm
+    vG79z7HcXs2kjYGMgAzRjuQ0Qg90Hot+Ca0+OaVT98vuHtEbFT0dJOmcOSmfcw/Xw6u2d1
+    ydWX/qnX0spiO/oLJjHsmk+rsjzeachNCfZqYri4OECtaMqBqLsy8GKT4bQbqK5deL+Y+j
+    xz4oi0XTNlD6jG61NGTNYmy4QmHW5t9idNlTTjUXxyjcS9YURryFMnzp27h1BibhDflcz5
+    UY0o1n8SpTQHwQ3/5malhwYKSeSMg8q6/xrtSPPcVMnMpyyR9vsCGY0TTUpc/3e38AVljE
+    CwiXQtNotFjguQ2i5vkeoRsoHb1TyfkFlTP3gRHzl3UveODfQuz8nenQXqlQ
+X-ME-Proxy: <xmx:tJLfarraKcese7WoQH1qripNE2RW3sQ02AnhQpBgIvlz7tnud-QoxA>
+    <xmx:tJLfagazhqAewp0B4A9M3D6fTyn7_VpRNZ0nuifN8YsHYk9-7jyB2Q>
+    <xmx:tJLfahiI7id630K9NmomSvn62flSZaHn2KKrgta1RGySXMbr7guD7g>
+    <xmx:tJLfatrSUI9pQ0K6u_jA0hZM_uWTVUEDYP0jCuf0p5tgifabZsZhnQ>
+    <xmx:t5LfapU-At2geLhbkQFkmFVQe5KK6EYoSm5kLoDw3GYWlWKmcDqAJ0O7>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 13:49:39 -0400 (EDT)
+Date: Mon, 26 Oct 2026 17:49:38 +0000
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 13/16] mm/shmem: preserve allocation errors when swapping
+ in large entries
+Message-ID: <at-SpfCdyXq18_Ab@thinkstation>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,153 +135,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, Oct 26, 2026 at 10:40:46AM +0100, David Hildenbrand (Arm) wrote:
+> shmem_swapin_folio() adjusts swap to the requested slot within a large
+> swap entry before allocating a folio. If allocation or charging fails,
+> the error path compares this adjusted value with the original entry
+> still stored in the XArray in shmem_confirm_swap().
+> 
+> Unless the index is at the start of the entry, this turns -ENOMEM into
+> -EEXIST even though nothing changed.
+> 
+> The caller retries -EEXIST, so persistent allocation failures can leave
+> the task spinning instead of returning the error.
+> 
+> Restore swap to index_entry on allocation failure so the existing error
+> path checks the original entry. This preserves the allocation error if
+> the entry is unchanged and still retries if it changed concurrently.
+> 
+> Original fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Critical] The patch rewrites the wildcard DEL-IP (0.0.0.0) branch of
-  sctp_process_asconf_param() (net/sctp/sm_make_chunk.c:3153-3159) to…
-
-Pre-existing issues:
-- [Low] The wildcard SET_PRIMARY branch of sctp_process_asconf_param()
-  (net/sctp/sm_make_chunk.c:3182) takes the packet source address from…
-
---
-
-sctp: fix ASCONF address change on single-homed hosts
-
-This patch drops the refusal of a plain DEL-IP of asconf->transport that
-commit 9b2854f86f0b added, so the RFC 5061 5.3.2 single-homed address
-change works again. The wildcard DEL-IP branch now looks up the
-transport of the packet source instead of reusing asconf->transport. The
-plain DEL-IP branch now clears asconf->transport when it removes that
-peer.
-
-> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> index ddc31a5dbad32..2b76e451d5cb0 100644
-> --- a/net/sctp/sm_make_chunk.c
-> +++ b/net/sctp/sm_make_chunk.c
-> @@ -3151,9 +3151,11 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
->  		 * packet MUST be deleted.
->  		 */
->  		if (af->is_any(&addr)) {
-> -			sctp_assoc_set_primary(asoc, asconf->transport);
-> -			sctp_assoc_del_nonprimary_peers(asoc,
-> -							asconf->transport);
-> +			peer = sctp_assoc_lookup_paddr(asoc, &asconf->source);
-> +			if (!peer)
-> +				return SCTP_ERROR_REQ_REFUSED;
-> +			sctp_assoc_set_primary(asoc, peer);
-> +			sctp_assoc_del_nonprimary_peers(asoc, peer);
->  			return SCTP_ERROR_NO_ERROR;
->  		}
-
-[Severity: Critical]
-
-Can this leave asconf->transport pointing at a freed transport?
-
-Suppose __sctp_rcv_asconf_lookup() found the association through the
-ASCONF Address Parameter L. Then asconf->transport is T(L), while
-asconf->source is the packet source S. Take a packet from a new source S
-like this:
-
-  [AUTH][ASCONF: AddrParam L, ADD-IP S (or ADD-IP 0.0.0.0), DEL-IP 0.0.0.0][DATA]
-
-ADD-IP S creates T(S). The wildcard DEL-IP then keeps T(S) and removes
-everything else, including T(L):
-
-sctp_assoc_del_nonprimary_peers(asoc, T(S))
-  sctp_assoc_rm_peer(asoc, T(L))
-    sctp_transport_free(T(L))
-
-Nothing in this branch clears or retargets asconf->transport. Only the
-plain DEL-IP branch below does that.
-
-sctp_inq_pop() reuses the same chunk struct for the bundled DATA chunk.
-sctp_assoc_bh_rcv() then runs:
-
-	if (sctp_chunk_is_data(chunk))
-		asoc->peer.last_data_from = chunk->transport;
-
-This stores the removed T(L). The last_data_from fixup in
-sctp_assoc_rm_peer() has already run, so it does not catch this.
-sctp_rcv() then drops its lookup reference, and T(L) is freed after the
-RCU grace period.
-
-When the delayed SACK timer fires:
-
-sctp_gen_sack()
-  trans = asoc->peer.last_data_from
-  sctp_make_sack()
-    retval->transport = asoc->peer.last_data_from;
-  ...
-  sctp_outq_select_transport()
-    reads new_transport->state
-    list_add_tail(&ctx->transport->send_ready, &ctx->transport_list)
-
-Is that a use-after-free read and write of the transport?
-
-Before this patch, the wildcard branch always kept asconf->transport, and
-9b2854f86f0b refused a plain DEL-IP of it. So asconf->transport could not
-be freed during ASCONF processing.
-
-Any peer of an association with ASCONF enabled appears able to reach
-this, including a well-behaved peer following the RFC 5061 wildcard
-procedure.
-
-Would it close this to set asconf->transport = peer after
-sctp_assoc_del_nonprimary_peers(), or to clear it whenever it is not the
-surviving transport?
-
-> @@ -3166,13 +3168,9 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
->  		if (!peer)
->  			return SCTP_ERROR_DNS_FAILED;
->  
-> -		/* Don't free asconf->transport; a later wildcard DEL-IP
-> -		 * parameter reuses it.
-> -		 */
-> -		if (peer == asconf->transport)
-> -			return SCTP_ERROR_REQ_REFUSED;
-> -
->  		sctp_assoc_rm_peer(asoc, peer);
-> +		if (asconf->transport == peer)
-> +			asconf->transport = NULL;
->  		break;
->  	case SCTP_PARAM_SET_PRIMARY:
->  		/* ADDIP Section 4.2.4
-
-[Severity: Low]
-
-This is a pre-existing issue and was not introduced by this patch. The
-wildcard SET_PRIMARY handling in sctp_process_asconf_param() uses
-sctp_source() instead of &asconf->source:
-
-	if (af->is_any(&addr))
-		memcpy(&addr, sctp_source(asconf), sizeof(addr));
-
-sctp_source() returns &chunk->transport->ipaddr whenever chunk->transport
-is set. When the association was located via the Address Parameter
-(transport T(L), source S), SET_PRIMARY 0.0.0.0 makes L primary instead
-of the packet source S. That doesn't match the comment. The ADD-IP and
-DEL-IP wildcard branches both use &asconf->source.
-
-With this patch the result also depends on parameter order:
-
-- After a plain DEL-IP L clears asconf->transport, sctp_source() returns
-  S.
-- After a wildcard DEL-IP, it returns the ipaddr of the removed T(L), the
-  dangling pointer described above. The lookup then fails and the
-  parameter gets SCTP_ERROR_DNS_FAILED.
-
-Should this branch use &asconf->source like the other two?
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022163639.2566945-1-andrey.misyrov%40gmail.com
+  Kiryl Shutsemau / Kirill A. Shutemov
