@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048045;
-	b=m8Q7+7MqKnkTvn5HJ9LO4ZEx1+G2MT8ewFfut9T0XuUU8Ud9PneL/g6v9Q3cYTcPd8rk
-	 aVroi5N7bhxwY23LzSsdI9gZO5kR2dSHm4WcmBpBmTgsohCEAfmS2zyAmQm7M+HzlFdsl
-	 R1QDLUY4D0RQWHlpjysC7Rg+2IXQvxJZouNy8R8gyUUo2c58CD9NjyXQqZK/ZhxdmPzv2
-	 5kyqWp8cr6QMuj5vUbA3YSSoGDwHpxh9RhwUtBndSfg3PYg5Wxd4mh1v/Wssi+um5sNo1
-	 hS6JcbunxYDMXQuvsHrWOzE7sv5c5aao4w5foat592dFYVKJ7Bgzbt6F6aIGte/oQDg==
+	t=1793048163;
+	b=mPI1EDiv/rgT4gCo0X9Q8KVaG4YnEFFKArvsXrh+eDBYD+zHis5uRAjQ4f8zqzBQ4iVW
+	 bXJKn9b+0Q+q4g+jTxe77tmOtOQ5gbT+ED8hkC6oSXkj1W/E6wqpcu3aonA2DqhWR19uw
+	 qnwzDyKlNVFpHwLrbBNg7YX9js0d0CG0FrkHkyLw2HQuxwfX+Aav8dGMWdQfQS/UUQNoE
+	 189tIRhk4YpZL5jpOO0tfFEBl7AxIdE5XYn9dWZKpW227hYhcPQBIp9cLrsirAAyf9bx3
+	 HKeDaJJO63LZyJLQk/E1aKRPIfevNmJRRgfQOUp3GeJV+JEfWschTxCmTWl+/7NoDbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048045;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Y+asd5FcmQ3i2iF1cd+nZYxacxJNYDOSQpqYG634Y2c=;
-	b=Y1Zl2t1ed5W+pay3KrWGuLyyg+boQgHjSbHwH1ndZKuYEloB5hVM0ayUz1/XDItfRy+g
-	 wFgP/QdkqLetSSfk8uHvVeOLRfsiifFrSWhR5wu6TrJdCYBRfms2pUp97MYWJF3I+Ecna
-	 C4lekZhUV9UfPIW/f45pHdfb9LIlLfMnmOW3hr8VxazPdPias/Lqpx/SuMPsnkIi4LkwO
-	 uR9rnwFZ7B1wWfii5yYjuXCJ7C1/MtnV2K5y6mjVWX4EkGskmYopm+zSBAksfVe0a9ZZx
-	 +AO8/QZqFFSkWCFzubDBirGqWkP3beBxihEv7OKvIclArLd7+iGtq+JNMpiJ7bhGyIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048163;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=3B44qYC1y1oMWzUzev4ii49MY2PIUQMP+MPnvqlHD0k=;
+	b=J9DQXpZf0uYAt0iuNXUVcBbm5hv/2KnUTsJ+dsXoYpFLaV9m3JAxL58To9HMP5xpvO8q
+	 KssIUJLuyTmbw3xOICwxfBg41J0O7TF2noop+5BDa4OUVdYh2R8hwCF3YvU6n83zizp6q
+	 W2/JExqGRQZXVtKm41Z38gvP6WhyAijpGxIZTpW1PHNgPgpnwkC+T/j/hnLuiZfE05qAu
+	 RdKNXqoRVLZFGWBvU+54a6GF73L5cZ0Nssz8CwyL69s8VglGZpOJuPYckM1PvV/yy3MkU
+	 nBQpiW/FckmTFo2ymZaVSZtudfVsJIv6JLb0AkS2/r98HIt7gHau55ty3G3SLB4WQrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8N8ippB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=A+AZHrl6;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7C7606A326;
-	Mon, 26 Oct 2026 20:54:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED40606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED40606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8N8ippB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276721F01825;
-	Mon, 26 Oct 2026 20:54:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048044;
-	bh=Y+asd5FcmQ3i2iF1cd+nZYxacxJNYDOSQpqYG634Y2c=;
-	h=From:Subject:Date:To:Cc;
-	b=V8N8ippBjZTWjNgvaG+rtSMn0Ugh5vnzsVMSrhfrv/o4IyClHiF5RDGfEWdl05RDS
-	 r0anx58IJMeF1VqfmqbhPjY4ET/u3q1Pct2Ir8q3rIZXWsZb74FtTkHsKkq08h7Leg
-	 SONRcbgmD10dv1Xw90+GUlUQWH5R96qbp4kk565Ehq0tlAbPwgLOlso9Fg2AXV65/0
-	 NsY2ztkve0xA75edvwb/8H4D8Uzzwqjn8tPWVcM51YS5Ea82ZSL5wyOIy86BKD6YIA
-	 9reMhiKJ2o8eq2WYNSZw6Y7BF8hVgyB5VtMm3HzEkbTZhZ8BdGbk9sWNtl0vQRO6Bh
-	 JPNyqWU592fcQ==
-From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 0/2] userns: keep the exec securebits
-Date: Mon, 26 Oct 2026 21:53:28 +0100
-Message-Id: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=A+AZHrl6
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e94f72fb9fso33105375ad.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:56:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793048162; x=1793652962; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3B44qYC1y1oMWzUzev4ii49MY2PIUQMP+MPnvqlHD0k=;
+        b=A+AZHrl65W8yvx+twdQ2Zl0C041QiC4aIxbw4UqrAJgWKUy+u+RrStSW3L1pSKiWVm
+         quNPq3st7bcrd3lJyRLLcD1A8lh1kK9EOmzyi8SdigV6xrQ5qNrobNRhjwAo8qYPyU50
+         zcM2HA19Uj+e39zoGBi2DnF0jO6kD5qqVmVG+pAfuRJAI8O0PMyA9AEogFfulGKL+uA4
+         Um3UQce0OLoVrUoI9qfqHdCNGAmEtdK9dGvooFMieTMVJWwmFI9dn/G5jNLnm1LgPuTU
+         1/aAs/SiuNkKI7S+q/cPiUxeiTMp99WNhbVeYUaEOb5lfNXtfTIag6+E07E8H4lPkMQi
+         y0sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793048162; x=1793652962;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3B44qYC1y1oMWzUzev4ii49MY2PIUQMP+MPnvqlHD0k=;
+        b=uO+seFysH+d7PhE9b7s3oKTAkHEipyYzsWVhqSifNUWomW1vaeKGCdxE0A8/EMvAos
+         SpxycXcvaeKMKgpy5ZSeBk9qQL4Ae0b2JSz0O4ek7QQECDdsNtDsl/5Bb8h+Qeg6ZY2w
+         GaUnxD+qKLb6w3wDhBq9AiwGb5RXSkygCNcvxZ6+oEuMAwe9mQ0qyxdm5aKE4fph45zy
+         pY7J5rqdo78FZOkuYdLX/4FQhEbQozTMfNjav13w+vCurwLAxsfc0DN2Rk1upfp3rHtL
+         sKM5qokYhZjx6ndbRe1SXh2vc2K6SXrn1vboMgulYWEv/lPXx+MdbfAdh0C4DbXrDYZE
+         wmUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzv+IaIi1w1i8F1U8dEdGTKmcYNbBoBUqZvu2Ui25IIjFc8lJwEgPTV79N6/6sb3K+FPfEiTYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKonWCP3zz8V7EiRzhFTo+TvnRK6WT0e2YtQ8mWi0L6wjgeZ7Lg
+	GZ3A2ARU++OE2jdbJiYPuWH5u8VBZoLfGgdtBtVrC1VKji1pZExrqD/LXQtJZxBG9dCG0jWXXKq
+	KvbRoynWo+7SX5A==
+X-Received: from plot20.prod.google.com ([2002:a17:902:8c94:b0:2e9:6468:1ffe])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:3806:b0:2e9:5175:2eb with SMTP id d9443c01a7336-2ea9c0f388fmr65823665ad.1.1793048161845;
+ Mon, 26 Oct 2026 13:56:01 -0700 (PDT)
+Date: Mon, 26 Oct 2026 20:55:55 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,66 +75,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0XMMQ7CMAwF0KtUnnGUdGiBqyCGJHWpQUqR3QBS1
- buT0IHBw7f+fysoCZPCuVlB6MXKcyrBHRqIk083Qh5Khta2nSuH71keqBSzUOBFMRcgKXa2t8E
- d/SkOHsr4KTTy5wdfrnvWHO4Ul6rVRvBKGMSnONVXdc3fNbtragu27Qtum2LcqAAAAA==
-X-Change-ID: 20261026-work-securebits-userns-6070b18a9cda
-To: linux-fsdevel@vger.kernel.org
-Cc: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
- Serge Hallyn <serge@hallyn.com>, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, Jann Horn <jannh@google.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1917; i=brauner@kernel.org;
- h=from:subject:message-id; bh=iujI9aAJYOrnMNbrp/gBJRYkBHmRYoPzBhbDlZk61JU=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd3/u4PCjlu9GzqZffpKffDVyt+GEhg0D2ggT+SunZz
- QILv8/P6yhlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIwWKGfyqdxvddnLp4zgWk
- x+i43T1SUawhI9v7YobcfqPCfa3M7gz//bvOlohpXH557OWrEjt7Le4zDnc0UpcqybN2Zciu7V3
- MCQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261026205555.2918396-1-skhawaja@google.com>
+Subject: [PATCH] hugetlbfs: enforce F_SEAL_EXEC on chmod
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>
+Cc: David Hildenbrand <david@kernel.org>, Jeff Xu <jeffxu@google.com>, 
+	Daniel Verkamp <dverkamp@chromium.org>, David Matlack <dmatlack@google.com>, 
+	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The exec securebits are meant to be set and locked by a service manager
-so that nothing below it can turn them off again. But creating a user
-namespace resets all securebits, locks included. So anyone who may
-create a user namespace can shed them with a single
-unshare(CLONE_NEWUSER), and joining one with setns() does the same.
-That's pretty much everyone.
+F_SEAL_EXEC prevents the exec bits of a memfd from being changed once
+the seal has been set. F_SEAL_EXEC is included in F_ALL_SEALS, so
+userspace can set it with F_ADD_SEALS on hugetlbfs memfds just like on
+shmem memfds, and F_GET_SEALS then reports it as set. However, the check
+that rejects the mode change was only added to shmem_setattr().
+hugetlbfs_setattr() never looks at the seal, so the owner of a sealed
+hugetlbfs memfd can still make it executable with chmod(). For the same
+reason, MFD_NOEXEC_SEAL provides no guarantee when it is combined with
+MFD_HUGETLB.
 
-systemd gains a SecureBits= setting for the service manager itself. It
-sets and locks the exec bits for everything it starts, so interpreters
-that support AT_EXECVE_CHECK enforce the system's execution policy for
-their scripts. With the reset "unshare -U python3 /tmp/x.py" gets
-around all of that.
+The memfd selftest already covers this, but only the shmem run passes.
+When run as "memfd_test hugetlbfs", the test aborts in SEAL-EXEC because
+fchmod() succeeds on a sealed file, and none of the remaining tests are
+executed.
 
-The other securebits are about how capabilities are computed and
-resetting them in a new user namespace is fine. The exec bits grant
-nothing. They're restrictions a task placed on itself, like
-no_new_privs, which a user namespace doesn't drop either. So keep them
-and their locks and keep resetting the rest.
+Add the same check to hugetlbfs_setattr() that shmem_setattr() has, so
+that a mode change touching the exec bits fails with -EPERM while
+F_SEAL_EXEC is set.
 
-I also keep the exec bits that aren't locked. fork() and execve()
-preserve them and the task can clear them itself anyway, so dropping
-them on unshare() would just be inconsistent.
-
-The new selftests fail on mainline and pass with the fix. I think this
-wants to go to stable, otherwise the locks don't mean much on any kernel
-that has these bits.
-
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 ---
-Christian Brauner (2):
-      userns: don't drop the exec securebits
-      selftests/exec: check that user namespaces keep the exec securebits
+ fs/hugetlbfs/inode.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- Documentation/userspace-api/check_exec.rst |  4 ++
- kernel/user_namespace.c                    |  5 +-
- tools/testing/selftests/exec/check-exec.c  | 83 ++++++++++++++++++++++++++++++
- 3 files changed, 91 insertions(+), 1 deletion(-)
----
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-change-id: 20261026-work-securebits-userns-6070b18a9cda
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe..56e0588d295d 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -842,6 +842,10 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+ 
+ 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 
++	if ((info->seals & F_SEAL_EXEC) && (ia_valid & ATTR_MODE) &&
++	    ((inode->i_mode ^ attr->ia_mode) & 0111))
++		return -EPERM;
++
+ 	if (ia_valid & ATTR_SIZE) {
+ 		loff_t oldsize = inode->i_size;
+ 		loff_t newsize = attr->ia_size;
+
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+-- 
+2.56.0.307.g5fe7bd680c-goog
 
