@@ -1,106 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793050648;
-	b=RaV7Ansq0c54lYSIMLBENNkR5Y/L9fPHA+xz6OKTnq0Jecehpmqe4GhyclFiYOXiP0SQ
-	 9C1U4Ih+Zpsdbp1phxCoVLbeSjo9STQ1zDSGu+q+V/SeU9bGOC4fhr0J35n5ZWntFl55S
-	 XGwKFCEvMoxmX7y87puFCa//d8szP2sCZnErC4Mloe5T5hKW0hMSMqMEcs7jlm4FsJwdI
-	 LFIm1SwfB00+q+umdc+tcylTx3HqfNrBVO87xPXw4wJ3Msow0h2ci0ltR4/7BF+Edpqe3
-	 sFUA0N657cYmNa4c5Yj6UYGTmjIqsrAH5nDR4/WuKeko8+1pStJieV4HK7yVulRgtpQ==
+	t=1793051152;
+	b=tGjXGMmQjsDeWLYjzfsSkSOysJMB/pNGjg4wmlX7sixTDZ/139wGooCANW97ur196D2l
+	 XOCfRNMzb/kD9hD9MfDRY6AwYo4S0AZ4+cwqbNr/VHvn43/TU+8Vp1YhtXUKHEKF8BLIa
+	 gI+AeWinISrCiYG1FC83Q3WXyZJVlXHos+8yz7xW37+ldai3y6XIU4vy34nXxQmSs+IyW
+	 PCK/O6/thtMqlyncZugX0X+PYOGnTLXvzjlGvlpYavo7MJfYgOMvoptu2ic2gLt4OZ2j2
+	 YRZqpFMQJcpUFGyxLloiYmJMg//IvzN5k438p3YMR+cXY205tuhOdAC39eDZtz1lc9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793050648;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:X-DetectorID-Processed:Content-Type;
-	bh=meiv+5dNu71BxUFRdWrQx3P3KGQyrk/OeZvnUffuhqM=;
-	b=mOksoP8hCnRqUetvZjSVxZXN7EqEaF8KhC9PWajM/2JWYEuX624TbKAl4665y1gkBwGw
-	 cprTP4WwM2TDWGW1tO50J6DV4A8dhfjIwER9gYLHl6xvcIJf4MxBF7YcfSoJciiYbHpgJ
-	 9+Gs/yITMenF5jvYnQZwYKu0TH73ibMapoWVOg4+S1nUZm9GzeLIVhuUTJ/nmYYtLWQ4i
-	 5Ui/TTTqSTfU3ei5y4B+BsgJnGGo6XBearxolj2Z8gN9s/hMopzxeMxkLTzH9wyulkVtT
-	 8fLSnM6YqIOyEd/6oYJZ37K8sf3YkG5ON7Sisq++CVJCbFg3InQ6P+sObvEVAI3coRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793051152;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=LIxn8dmLwdRcxbqau0966HmEjpdstbqbz/jOXmMb9Yo=;
+	b=TZvrkadaDCqynBwQKgUZQ9IZy7108SQTZ3/5FP9MOW77vTeQ5EEzS3mb7FGSxnupmsty
+	 d2tWe1BLOia0uuO12MCqs4qVCgLWvwzdD+ittq0XssbdvKkonZ2roqe4cDHJGrIG0JIPB
+	 tY7taYPu2vaZXcz9QfoNlHD8jCLzUyjTFhp0rF2qh9uUgeWn8z5R65rOfJArwHjbRo/Wo
+	 Iw2qxK9Ogqh/LNpyzkGHVALSVzgBLEY8fslJ/MJGw/2M50ZBgymuHNdYUv5v6a5JLFcr9
+	 TH58wAjgcC8aqZ2gZyezVJRA4ViphA6IC1NKQJvUH+LBPFf46rEPex6D8cuOENDWRgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fE6Kn1FQ;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dqVeQbC4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DC0606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:37:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DC0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221A3606A31A;
+	Mon, 26 Oct 2026 21:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fE6Kn1FQ
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so220494a91.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793050647; x=1793655447;
-        h=content-type:mime-version:message-id:date:subject:cc:to:from
-         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=meiv+5dNu71BxUFRdWrQx3P3KGQyrk/OeZvnUffuhqM=;
-        b=lj4eRLniCNk8R1++ay9ypi7AWChneAgGlxJ3rn1e01iJzAxD8qxjc0qxA0fAK/drje
-         yOuNfM2O6A40fuozQart9nQIxQ8tAwJvXoRTSfe57dqLOSX/QVCEv+RnZy1J001ioRlP
-         wh4VkJFQ06OCp0DpeSO2QA1chbL+N3LoZc9VDa/QhNenEuDCViKiSXfkiESXQfXFLdT7
-         C+5h1GgwnbiVPt0t00G5xJ6XJ24suqGr5zEFthQctbxJjZypEgnQtt/eYL6nYS+i41Xz
-         Skr/ycmg/EhwcKZfjsPCkK6XQM1Vei38qluwDnWlDgZOC2S/OPyPY695XozDlUv1db09
-         KppQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOQ3rA7ze9IgBIcM1JKAOrCJJofySBVcP3V9JEKtZ6oS15OuQNZpWpw1jmod7mTbGHles9jBM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3MvxR+BjFuBaNKYeSVFWib/eSNlJxrnpw1gpjEIyuE4Ck/gaI
-	JYAc9bLiSkYwZlrCpmw5t85yi9gehK2uWE2XUETGpe+tfgqIBq6xgzcNesVaQplyfBy2SUcJ5iu
-	1DQLF5Bz42MCRmDUZQKOaJ4rck/4/ZWtZ3bMY0GZcR26pjAi82hdjtR0eVTyjAcb6W1uosbY8u8
-	6dzoVUvpT2zCY+Tmr2cDdE0MBXASHDtNIyfRbisLsitDsoxjj/I3tjoHs2Esdb3vUv8f2s6Pca3
-	A0LNokD
-X-Gm-Gg: AYBFou38YndPMamPqflWZz/4ZnTL8VnWzwEl70bUlSHm3G2CWsjpCjCiwvzaYpkuYp6
-	8LT7hZ2b7NzIqiXA6rU3oh2CcJCo5NvSon/KJe/6uddXz7h3xBUWHihsIeL+twcp27uGeaCv1yg
-	fyWdYyOpA/S3Pz5WTbTz3Y2sRXt56uAw/oihLFL+CmnCBHXus6Twby78gmrS3a2UONRGE6P4mOE
-	eHPLFc7/TC7pOsuTrdizB9n7ccWdTOBPftmg3xcGDqXClo1nn/h1iySzn9NFxf6vq1ulIRMflV9
-	4Kd1XV3j2daK0jZCcm8oU1dlb7kn4b1MNI3mqD0+DoeRcPz5iMYj12y8zy1L6/bh/BY+HXScx3Y
-	rIMQS0/Nm+1i/TZaFMlFZqP44auZ3WLr+k1ol4/nLaN5dkLvOko7+7/HwJ5NWT4P7GCRYWv1nB8
-	YPcFt4eyot28MS9LTzRly20W0eWg+EziUi
-X-Received: by 2002:a17:90b:1b0a:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ae403c64fcmr347929a91.38.1793050647205;
-        Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adeba44b2fsm3158672a91.1.2026.10.26.14.37.26
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1a2b6fab7a6so404295c88.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:37:26 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dqVeQbC4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F3311F0128D;
+	Mon, 26 Oct 2026 21:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793050645; x=1793655445; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:subject:cc:to:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=meiv+5dNu71BxUFRdWrQx3P3KGQyrk/OeZvnUffuhqM=;
-        b=fE6Kn1FQgSZcNe6nlWSEb2CN2Cxm7nQhhuij4LUfFQfIMh9zfEgB5W+frles5PF1Eg
-         3vfEwrlX3ZehM2B3xzEszH52+GsJnwAlDWzOH/X5y8JSoCjkzYmu/YUZDFXXog2aXnx6
-         +EVdc+TKZDjNwoGs1WHRvQ5vVhWBEpShGqNkM=
-X-Forwarded-Encrypted: i=1; AKwUvBz8ugjX8cSv/q2VA3LeD74NLSTvtxRWr0GGCnW3SPP35x8lBD5GTaDUTFxoZfpaCy/aXn0HHx4=@vger.kernel.org
-X-Received: by 2002:a05:701b:418a:10b0:1a0:d131:662b with SMTP id a92af1059eb24-1a3c7666e26mr1044933c88.6.1793050645080;
-        Mon, 26 Oct 2026 14:37:25 -0700 (PDT)
-X-Received: by 2002:a05:701b:418a:10b0:1a0:d131:662b with SMTP id a92af1059eb24-1a3c7666e26mr1044899c88.6.1793050644459;
-        Mon, 26 Oct 2026 14:37:24 -0700 (PDT)
-Received: from vertex.localdomain ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a21bc6cbsm26705289c88.16.2026.10.26.14.37.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 14:37:23 -0700 (PDT)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: dri-devel@lists.freedesktop.org
-Cc: ian.forbes@broadcom.com,
-	maaz.mombasawala@broadcom.com,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	stable@vger.kernel.org,
-	Zero Day Initiative <zdi-disclosures@trendmicro.com>
-Subject: [PATCH] drm/vmwgfx: validate backup buffer size in command buffer processing
-Date: Mon, 26 Oct 2026 17:37:12 -0400
-Message-ID: <20261026213712.244907-1-zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.53.0
+	d=linux-foundation.org; s=korg; t=1793051151;
+	bh=LIxn8dmLwdRcxbqau0966HmEjpdstbqbz/jOXmMb9Yo=;
+	h=Date:To:From:Subject;
+	b=dqVeQbC4qIr0XKEoTYc0sRzMppaWWsQ4lfslmU5vODkfafafBD35bSExBo8m45lOr
+	 5E48nR7u228pWNG0GB7+sukWVHH5gmfZeyMDdWY5Kpg3qrBWRT4zXiBWNbJG7Kx8DT
+	 MPrg57Pejb/WNwATi+tCF0PMkKozDok0saxZRrTs=
+Date: Mon, 26 Oct 2026 14:45:51 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,xu.xin@linux.dev,
+	xemul@openvz.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
+	sj@kernel.org,shli@fb.com,seanjc@google.com,samarth.colleges@gmail.com,
+	rppt@kernel.org,riel@surriel.com,peterx@redhat.com,pbonzini@redhat.com,
+	mike.kravetz@oracle.com,mhocko@suse.com,mgorman@techsingularity.net,
+	med08elkadiri@gmail.com,mcfadden8@llnl.gov,ljs@kernel.org,liam@infradead.org,
+	kas@kernel.org,jthoughton@google.com,jglisse@redhat.com,hughd@google.com,
+	hannes@cmpxchg.org,gokhale2@llnl.gov,dplotnikov@virtuozzo.com,
+	dgilbert@interlog.com,david@kernel.org,cracauer@cons.org,corbet@lwn.net,
+	chengming.zhou@linux.dev,bobbypowers@gmail.com,bgeffon@google.com,
+	aarcange@redhat.com,lance.yang@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch added to mm-unstable branch
+Message-Id: <20261026214551.8F3311F0128D@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,161 +58,171 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000caae0c065ec522f6"
 
---000000000000caae0c065ec522f6
-Content-Transfer-Encoding: 8bit
 
-vmw_cmd_res_switch_backup lets userspace bind an arbitrary MOB to a
-resource without checking that the MOB is large enough for the resource's
-guest_memory_size. The dirty-tracking bitmap is allocated based on the
-MOB size, but later accessed using the (larger) surface size, causing an
-out-of-bounds write in the bitmap that corrupts adjacent slab memory.
+The patch titled
+     Subject: mm/ksm: fix userfaultfd protection during merge and unmerge
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch
 
-Add a check that backup_offset + res->guest_memory_size does not exceed
-the buffer size before allowing the backup switch.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch
 
-Fixes: a97e21923b42 ("drm/vmwgfx: Hook up guest-backed surfaces")
-Cc: stable@vger.kernel.org
-Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
-Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-34068
-Closes: https://lore.kernel.org/all/BYAPR01MB38301CFC012E873340F77E3D80662@BYAPR01MB3830.prod.exchangelabs.com/
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Lance Yang <lance.yang@linux.dev>
+Subject: mm/ksm: fix userfaultfd protection during merge and unmerge
+Date: Mon, 26 Oct 2026 21:00:54 +0800
+
+KSM loses userfaultfd protection when replace_page() builds a new PTE from
+vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+through ordinary COW instead of userfaultfd write protection handling. 
+For RWP, a merged page also becomes readable without faulting.
+
+Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+have to handle unmerging.  An existing KSM page can be protected with RWP
+before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+of preserving RWP during merging.
+
+Unsharing replaces a shared page with a private one and should leave
+userfaultfd protection in place, as do_wp_page() already does for write
+protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+can proceed to do_wp_page().
+
+- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+  break_ksm() then reports success with a KSM page still merged.
+
+- With asynchronous RWP, protection is cleared before unsharing.
+
+Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+private copy as well.  Unsharing can then complete with RWP still armed
+for a subsequent access.
+
+Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Xu Xin <xu.xin@linux.dev>"
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jérôme Glisse <jglisse@redhat.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Bobby Powers <bobbypowers@gmail.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+Cc: Doug Gilbert <dgilbert@interlog.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Martin Cracauer <cracauer@cons.org>
+Cc: Marty McFadden <mcfadden8@llnl.gov>
+Cc: Maya Gokhale <gokhale2@llnl.gov>
+Cc: Mike Kravetz <mike.kravetz@oracle.com>
+Cc: Pavel Emelyanov <xemul@openvz.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Shaohua Li <shli@fb.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: SJ Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-index a9136a6523cb..0156aee84c9f 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
-@@ -1718,6 +1718,7 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
- {
- 	struct vmw_bo *vbo;
- 	void *info;
-+	u64 end;
- 	int ret;
+ mm/ksm.c    |    8 +++++++-
+ mm/memory.c |   14 ++++++++++----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
+
+--- a/mm/ksm.c~mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge
++++ a/mm/ksm.c
+@@ -34,6 +34,7 @@
+ #include <linux/memory.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
++#include <linux/userfaultfd_k.h>
+ #include <linux/ksm.h>
+ #include <linux/hashtable.h>
+ #include <linux/freezer.h>
+@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_s
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
  
- 	info = vmw_execbuf_info_from_res(sw_context, res);
-@@ -1728,6 +1729,13 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
- 	if (ret)
- 		return ret;
- 
-+	if (check_add_overflow((u64)backup_offset,
-+			       (u64)res->guest_memory_size, &end) ||
-+	    end > vbo->tbo.base.size) {
-+		VMW_DEBUG_USER("Backup buffer too small for resource.\n");
-+		return -EINVAL;
+-	/* Preserve soft-dirty when replacing the page. */
++	/* Preserve soft-dirty and uffd protection when replacing the page. */
+ 	if (pte_soft_dirty(orig_pte))
+ 		newpte = pte_mksoft_dirty(newpte);
++	if (pte_uffd(orig_pte)) {
++		newpte = pte_mkuffd(newpte);
++		if (userfaultfd_rwp(vma))
++			newpte = pte_modify(newpte, PAGE_NONE);
 +	}
-+
- 	vmw_validation_res_switch_backup(sw_context->ctx, info, vbo,
- 					 backup_offset);
- 	return 0;
--- 
-2.53.0
+ 
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+--- a/mm/memory.c~mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge
++++ a/mm/memory.c
+@@ -4122,8 +4122,11 @@ static vm_fault_t wp_page_copy(struct vm
+ 		if (unlikely(unshare)) {
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
+-			if (pte_uffd(vmf->orig_pte))
++			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
++				if (userfaultfd_rwp(vma))
++					entry = pte_modify(entry, PAGE_NONE);
++			}
+ 		} else {
+ 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 		}
+@@ -6659,9 +6662,12 @@ static vm_fault_t handle_pte_fault(struc
+ 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+ 		 * NUMA hinting and must still fall through to do_numa_page().
+ 		 */
+-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+-			return do_uffd_rwp(vmf);
+-		return do_numa_page(vmf);
++		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
++			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
++				return do_uffd_rwp(vmf);
++		} else {
++			return do_numa_page(vmf);
++		}
+ 	}
+ 
+ 	spin_lock(vmf->ptl);
+_
 
+Patches currently in -mm which might be from lance.yang@linux.dev are
 
---000000000000caae0c065ec522f6
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINGz
-zgaeHDUD1qR6RfMe39MZanfKnPmUL4Nfj8NUrPaiMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAyNjIxMzcyNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAB3wDEP4kNfV0GPGBnOHwgoCoD6+wVKShldwDssJ
-Tv0RNC+nVP/iETXa/i9LyCJ62NCiEJmfF4TnUxbtKAfmetSMXLtMp2X8YsSI+a89Buz6f1w+LoV8
-Wnztm7LWveFUpQHx+/LfmHP61mvobq9SlO+cK3fQm3HoxBNLGH5ovUX5ql8yFkdZpeo5vCv3AQuW
-vVciHpQ9+DuJAN0QjzNPB2M4rbwDQEiCONFyM/OyosurXbjtIGSnTzJByFRIpK3b/gMpEHZYv+7s
-En5Jbu0CaYqGEpmPU51bz4CIfRT4pTgEFLdsh+HisDdPdophdXITSbdiUS8MnVAihYmUzRlmSQg=
---000000000000caae0c065ec522f6--
