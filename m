@@ -1,114 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793034735;
-	b=hJrFS8Pegjczj93m5EzAbCkLcqjKNkz83cyeixXGdiJPVJfGM1ghUwbwXhSxSjpJGwbt
-	 AOVeiyNUveqf7GpeooMT3ZF1N/w/+BE1xObPoKQrFh+1SNs69i2OjPyUGs0YYuE2wxjI4
-	 5qcIjKX5g9UukD+GDzYl+iuhsa3SrCnBIMVR37mrCVyFA8bBC1rDc9a2Vma9SNrtLsWH0
-	 mqZMNmqAra1/2wTXBBeYSatyLgXQTiarnQVb/8TdebYQSCPm/yjPMW4uUzsagmSIavCHm
-	 hLKHWZtib3xLlB4WqiTgbkM+9c8ESdp240R8nFBaQKeQhtPnx6vFm4I0zn33VvceWaQ==
+	t=1793034934;
+	b=VewsjKLPpgqaSUG3ittl/x9F4uCv3gv/9bA3MorL8DNe4ajKm9SYQIwv2jEaTAIiGHkB
+	 MtGZB9me4jzkaKne7p2RHA6RAF2G4mgrtHqJc8EvobNvsRFznctY1pIf4XirxgSWWtOcD
+	 oCtS6wAc1NqmVGxn6yYFDgEgA4TQonehCATtZf2N9x6u8kVuI2Tmvj84Qn57Ncd9sLZ9i
+	 d4kUeEx5D5/r30vXutUn077IrdoIIZbz87Hd6lZEKjoyN+smQL7qZt8/tp9uudeltEbbJ
+	 XL8zQC59cceN6fjsv4G51WTBeXcherpTzZkf5AkeAIx1EBrBx6EIUFAxoAZKE+/399g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793034735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793034934;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=RZqGYNXG9Jy9oaDhM1F6gbcQnqTBe6d0+Qk2lQBEUtQ=;
-	b=N6M10dF2N1XTVv0GlKbPr0n8gwF7MKi4oFnKBxIXhFF/qcojO2z8VnVuL/7DJqfXIL3z
-	 pFpufLHpN2H9voXvFRgmZ7MzcJK187ozkByMC5ylo3kY/bueVe732FBlWIVi556PsLaeq
-	 KRoxHHhJJKc5OXPhh2XDbi4jnn1/OMPtdvK4IqoQa/WvDOBpf2h1MsbpogMx72M8Ksw0t
-	 G1x/5LmdVL+gCnhFyVv47tOKACqEjIiGpgjuQsylynKNd54w/kXJ0vEzXcwCJ896U97Hs
-	 Raj+yoJUDsd/nc4Utk1YzWuBl3DjVOv/rg4wMw5tZefWPUd/rzyMpoGFINkfOusXxoQ==
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=WgWZTIZ7qHEcd9eqvBpm5VFp1o1TmVO9nxe8IAIt6xQ=;
+	b=mAwPMwj2ywxDVR2PRyi3MsSadhAFTnBuwfbfPvl8fLlPvcye3ZYkJPwPRwP4C/cb0J35
+	 RJxxnqjDhk5LdxE0ZNiZPlg4P/B0X0KVALBfTGqPqEJ1H5VLwl/rqIk5QQa1bjEHL8/ae
+	 mXtdrISvwnYSU9KfSUrX0i5j/vgg6loKrSKaKpYqKydFTTBrpchIZS8qjBJT1uMsoTXX2
+	 8gflngRP0IP+y5XK/nYnxGVjmNSNq9mAuyZpjeCmEiWsmV/ZGmJcLwUF0/bHu/LIj5YMn
+	 Ltc65kx3tA2Io6/qMoL50i2OGxoO9gOu3PfrFxhcUlxSRG88SN6wqTtYYpKXxGtsKQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=shutemov.name;
 	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=AbWyiBsH;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=m3cPI2hm;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b="fZ/mmV5g";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=T2a+0L1C;
 	arc=none smtp.remote-ip=103.168.172.142
 Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB2F606A31F
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:12:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AB2F606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F55E606A327
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:15:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F55E606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=AbWyiBsH;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=m3cPI2hm
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=fZ/mmV5g;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=T2a+0L1C
 Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id A3C0E13801F4
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:12:13 -0400 (EDT)
+	by mailflow.phl.internal (Postfix) with ESMTP id A95E813802D5
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:15:33 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 13:12:13 -0400
+  by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 13:15:33 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
-	 t=1793034733; x=1793041933; bh=RZqGYNXG9Jy9oaDhM1F6gbcQnqTBe6d0
-	+Qk2lQBEUtQ=; b=AbWyiBsHJcOAxp78Gt4falXdJ/81IDqSJLWnhkR08Drjh0il
-	rRI3YNXUjvbhb2cf3tead8IQuqocZRovMqAiQWbMzdOMyv0Ipo1EgG2h+nQaIvkW
-	DYJxu8IaaEHigLR3MBC3dSruMXaU5GG5e8cZ1kWqiLNNb1R6iu6nNRuZmANYH7Cy
-	7H4Y/COcGaaFYj8DvBV/ymHEZJRsSwaWh+jONqTrghBnFfV3FqoKbvke+klVKPt7
-	IylY2026lfRWAKvngJYsz9PKemVYH5ViGSHWSV9EeSBFoLcZ64+YtglHDEUC7JqQ
-	mSWz20w0hZx0pw5bwPoiNw4E8lk5WBAiDX0v2w==
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793034932; x=
+	1793042132; bh=WgWZTIZ7qHEcd9eqvBpm5VFp1o1TmVO9nxe8IAIt6xQ=; b=f
+	Z/mmV5g9zLaRu5j3caYih8wYVeK7pKR2YtVumaOb7e9AEDxtWwuyOeOFmO+eXRSm
+	1PSO/VFOy/+mWa9abx3T/2yAELqvdnmAeSJu4fzYNvWJTRR2Jy9srIM+XYmCKdSN
+	34dn8nODhQxO4aGw97WCjkzr51iOwn3ruBlaWbfWsb19OudhJxbB5YDBf5pTNnXU
+	+85Hyy13345QP8VDIx7HQEcye1Kq3tAknpXR1YgWlU1X/KWCkckpXky9L9/pqTyz
+	ooN8GW80M1NG7tct3Au1Qb4j8E/mEuaXsdTCAaG59G/O7w4TwqAvgb5t+bXBUdLR
+	V/bb8NEqSPXsjaQ2/6n/A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793034733; x=
-	1793041933; bh=RZqGYNXG9Jy9oaDhM1F6gbcQnqTBe6d0+Qk2lQBEUtQ=; b=m
-	3cPI2hmhe5hC9lykGVQzMYBHrGuUtBaKBX3b3PDp5p+gcvgP1x9snj9bqSgRM60A
-	npnPx0faO2Nl+EPpUAS5vSOXXCEas6LUFCBn64NhUTO7uom48ZZfYftzLGnZCTAj
-	LtzUaq6dzH1iJJbl8qOR6Osp5N6ebo64RU1Z30eCgRvN8YXm39fe6INPBOD7geCb
-	MFy52sYavldvCCnTMEc4Ld85f1dZttLwcdqqumhqWEfGTdZjcrM+P19iBuNTVBiL
-	qOIGBRRb7O29niDiljAJe0MXjiY6T1zjmhgtKgAEe3mHF0nOr9neg8yISNGwCn1B
-	bGvglgPQ/spxAxFk2eeHA==
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793034932; x=1793042132; bh=WgWZTIZ7qHEcd9eqvBpm5VFp1o1TmVO9nxe
+	8IAIt6xQ=; b=T2a+0L1CD1iecshjOU3hWu8d37blUekwLbjtDS5gZpKwM9pjLG9
+	Vh5wjo2Yl1LE3RquV44L5MZlVhg7ag1UV0M73oLMBcwkzOTV1CLOD7lFHm741eds
+	5JoDvLpHNfPTRMvfMpOtrtztR3jMnXJWgPZWUrmoeGxD7hBnGsMLrcEjsVQIAF53
+	vto83Oo4BV8/3XsguCeiXq5ueq1ezjOFmuP1zROLHt6nCS1xsspUVr+0RPfxa0u5
+	02AlJc5y2VQEx4RkptibYJOCx6zM4phKtMB08UgWHrGyWEGZ68xWXDPNiMuiIId1
+	UNfzNs6wjmOLNqXYP2to8UYt7mU5mcEMQYw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
 	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793034733; d=shutemov.name;
+DKIM2-Signature: i=1; m=1; t=1793034932; d=shutemov.name;
 	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
 	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:TGQ0zx+CJT5qsEFlneAWy+5b2j7chVl608JTHwAbd/1CU7y
-	n8FxUjwIxIOoqG/51Kl6q0ytYhxjsxL7ae++0e1k6hwmUeFO4WlspsUBg+T7cJoQ
-	CEXoqQJXFfqPwhlAJ7NMsIL/zPy7cB0ZX4DwinVeJp96BQp/taBCbwRH0Q3m226y
-	vX57HI6/c0ADoDwWi+G/m90zLtErbzmjtf+8ODPyQznimXbWdG6I0QXwGRgxuN6D
-	ZeH7oGBAyG/g6od6cqD2whVdpM4V/oqz/tp1JgK7LS7mWKk67XUURuuK/lb6fGck
-	+c7e4RVp9zQx/jXJDyDx+tqMXyCxi8Mr2g7oZXw==;
+	s=fm1:rsa-sha256:mXUFnP9Ou8CY6EAldWOK47JAotPOJYip/hywivmCd2Keogo
+	SoADiubvLgK1yjenbgyjBzdAlN04ciEeD5TXcf6kXzGvaKIXl8LyBPKjVS+RRQZ3
+	bKoNyB1ki2gptZ+lF0waAkDSt6+xZCWg/B9fCqcU4CiUXCM7UATKVNz8CIAAmthn
+	GKJaoJICZkLBOZDRbCj/FDD/krDwXGPt9PO1n2wpO2ZfdfkeeoJKHvlsy9gZbvXZ
+	tCrNYw+DgVPmi6F70AAQeACkygVYNjme3BiF/NxztGEP5XOyTseAOUDPWN9NlW0Q
+	hJQd3DtC0nrB4IghZmjIOGhhRx+XWiETP1QLZ/Q==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:NjjF5I72RcwC2+4ccWoW5S+EHKEscCvEII6NdBABJgg=:Rd0QNiSVptMYykHMLxZ8QpMclorHmpkWRqBU7dC9M/g=;
-X-ME-Sender: <xms:64nfaqla3Y1_T0gGn6lOm1YQgBvqZstKIvz_kmKG8_kK0aQpVB0FeA>
-    <xme:64nfaojA_xesgJNSkuazJJSILp_fHjMzysAlADF7tSNvL2WCxu-LjVdLKajwpLwU9
-    dvfEd7a-wmmUNs11ZLnnm3tcnCKHriorz52g1fVorZBay8nqOAPuY8D>
-X-ME-Received: <xmr:64nfai34Cu5W37PFLt2lpW_MgC6hU0egX9yN3JXAW20U5KMizTslMQneuco>
-X-ME-Proxy-Cause: dmFkZTE8ZOKPwc5EzHtOWWinHBwzi2uf5XLjKi9jT0n+Q2/8hHEk/Az4FBy+BaF9zD4zXg
-    S7yOtBmoLCsSHpCAzmHJKhimZLJIJSfin8UFhO1xIVZuJgAH+H9RthWtcAyMIvL/aW7GrU
-    pfcDJY0Kg+JaM+oPKz/gLV+sFVN/Q+RPDyrZnPWdUhzuz7VIjsgAWzMw9d+YYXSRF+Ezpk
-    nhF75BvW1D4+YWIZ9mw8tSXJ8mFZjBRM83ZsHx3DhPKpANNDVd3JA4r4HzBG8WaAYbTKR0
-    t8crRv2FlN/UxXmh0hAeIgMh/lbKcb3kQMtWtQXbhkZGSy0F+zmf1rTixFGiyk4nwDf0bN
-    PQijd6ps8/hCEbxR/vj+M4pttglEEVnSfU/xua8Z7cGAk7tWqNfCbl+u8uOfTYlgRN5YpE
-    2Vrk8QzMLmRxH+oTmXMe1x+yTV/iWxw08D4CDORDP8fq7I1429eegPp1LN6wMPjWzwksUk
-    Qw1WNKg2rdZEB2oTUqg028qyv33q5076GUQzmqjhhbyqO+JJu+Z782tynz23o9x/2KFw4O
-    Pm12/RmGdNbvwuf7OOWICCT4MOlU79OLzzHgR8VaIpyBjThhbfkbDstz0Qdt5FfTvHDcsH
-    fR1iPr4h+QtJJ0lCnZNfRvd6dZ0laru5GMGUGqUR9V7ajCDZW4d0lVHDWFGg
-X-ME-Proxy: <xmx:64nfavM2JRyZebVj82zcOB8GMN_Vg8Ss00kKstbg8o8FeW5TvbbpJw>
-    <xmx:64nfaslAFKEu9BHWSiP2__QDHI202MX4gBWy5DimVV94YF1RZZ8Szg>
-    <xmx:64nfaij9W1EiG4T2OpidKyD07LJlqGeXReigCX2rg3AngGSn_l8mJw>
-    <xmx:64nfavEOKzypMUlFwlkEiigoQsQ-BZpooV48zHPnmhTH6lhMhpopxQ>
-    <xmx:7YnfanDN6h8UCSIsbhn_F7PAJD8llKYUhfVYkligy5QhEpsS1_az97hx>
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:CwTqFkX92AiYgrdq5UPorGiNimGP5HguOsZVh3B4CWU=:5B4/pBpvFw4Mf5/ZSFPGmD+cCMlqrVZFb5WHDs2mwGE=;
+X-ME-Sender: <xms:s4rfag58y-RJ_XDZpFZWVrazj564_G53BdUi_PptTtpdDPSLEW2lSg>
+    <xme:s4rfahChi4WKT9gRwf_v0J-xS1spZmaNKWGYOzR4IT59tRyctsE9lE_ag6xsXsNph
+    RRuAOVYRa9nEt1iJnji-zjC83WAUgaHOjEbBHy7FzNNtSBNgTZwa9HH>
+X-ME-Received: <xmr:s4rfakcGZqQLYXC2H57zOUOZqsixT43wyiUlZ7bmVPj2z9IMwBSTgVoP09M>
+X-ME-Proxy-Cause: dmFkZTFB6PNGhMhAXmj0ZOtRvHKd56A9JXD4WvNPHaZaK2XiU5P65xov6wStY5RJjkvPKO
+    XSPqLzkGO4Zo4ODwiKKxS0X6P41grxvQjvP6oiDZiTh+fpDH0yL2MunT0+fjiS+FaAqY1/
+    PaJgc/5aspdPW1Mj45Bp7VVVdrPLEgSlrB+JkwItGH4qYwuHSgEwJtjBUZKOymAYKJScIB
+    KoMf/Q5MRD1DE9DmWfw9Wo0qm6Ock8Jg/0ZvcH/PY8Ox+HjLKJTKKASZNlPl8RIBfaFzN+
+    hv3kzzwRvjniNu6oVve34NyDlpJcCbxEX6LePZcQhFmYCUOx0RpGtkzk9m5jAP/xJV1jqB
+    qmfqQgYHKFDf/konLHPaAJTbFRfxuWNuwXsBKupI59MnPZtXUnXHlo+/ycyFM1EouEFEOx
+    7zcJr24zTYLLO1S6FjnCnGL33sOzapaodQgyvAUHSR+M/pjoi3r1wj6VJRM+aigFAfINZQ
+    VhhPPtbohfWHOpzxaDLQmMyoBtRLSztcPzs4dLBl1kNw79rRydZoPrFc01SCGpo8oEKDNH
+    wHV4Oldi896kOORnjwO8XhqyPwv4StCU+V/qewoqv2I6NmJul/pFVodwr6eWAdHuancEy4
+    TgqJLAjDjyDuZTnngn7454DY/QRz+2UE3Wx2GivQVzMxTOcFQZPY0oQk91Xw
+X-ME-Proxy: <xmx:s4rfakuJjJ6-h0mknCrr9JvZdH7hQUDw35nzt6NEtELk3WpJKPuJqA>
+    <xmx:s4rfasNMDaq6ohN-_TuZ-en2CdiRi5XkgSxs0kvFu5pl5w_Yv2ruAw>
+    <xmx:s4rfapHLmcRWRAKMDXbGPP_ApfgdpsicwQ4b7apUy01Q4IuctmCrIw>
+    <xmx:s4rfal9DZ0S-IpAzW3tGo-tkqwsJYFiR6l7ih97I4dUG4PAROuBgTQ>
+    <xmx:tIrfas6H2672-_gf-0iJEJOe_gcSKJw9pgPdfdJgSt2h7xlz9Ix8uzMA>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:12:10 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:12:09 +0000
+ 26 Oct 2026 13:15:30 -0400 (EDT)
+Date: Mon, 26 Oct 2026 17:15:29 +0000
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -123,12 +120,12 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
 	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
 	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 09/16] mm/shmem: preserve data in clean folios when
- splitting fails
-Message-ID: <at-GrQNgF3V_tL3w@thinkstation>
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 10/16] mm/shmem: discard whole new large folios on
+ fallocate rollback
+Message-ID: <at-Kn5yabin1E1Jw@thinkstation>
 References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-10-703206d5fa0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -138,73 +135,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
+In-Reply-To: <20261026-fixes_shmem-v1-10-703206d5fa0c@kernel.org>
 
-On Mon, Oct 26, 2026 at 10:40:42AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
+On Mon, Oct 26, 2026 at 10:40:43AM +0100, David Hildenbrand (Arm) wrote:
+> When undoing a failed fallocate(), shmem_undo_range() must discard each
+> newly allocated folio. Its second scan instead passes large
+> folios to truncate_inode_partial_folio(), which does not necessarily
+> discard the entire large folio, but instead tries splitting it to
+> discard only the requested range.
 > 
-> A shared writable mapping can have dirty PTEs while its shmem folio is
-> still clean. A read fault can install a writable PTE, and a later store
-> sets the PTE's dirty bit without marking the folio dirty.
+> For example, with huge=always, a failed allocation starting at offset
+> 4 KiB can leave page 0 allocated in an otherwise empty file.
 > 
-> After shmem_undo_range() has handled the boundary folios, a concurrent
-> read fault into a hole below the new EOF can allocate a large folio.
-> For example, on a tmpfs mount with huge=always, the fault's offset must
-> be within the file, but the allocated folio can extend beyond i_size.
-> The final scan then finds this folio and calls
-> truncate_inode_partial_folio() without marking it dirty.
-
-This is hard to follow. I asked LLM for a diagram. I think it would be
-helpful for the commit message:
-
-CPU0: ftruncate(fd, 3M)                CPU1: MAP_SHARED, tmpfs huge=always
-─────────────────────────────────────  ──────────────────────────────────
-i_size = 3M
-shmem_undo_range(3M, -1)
-  first pass: hole, nothing to do
-  boundary folio at 3M: hole, none
-                                       read fault at 2M+x (below EOF)
-                                         PMD folio [2M,4M), crosses EOF
-                                         writable PTE, folio clean
-                                       store to 2M+x
-                                         PTE dirty, folio still clean
-                                       vmsplice(2M+x)
-                                         extra folio reference
-  whole_folios: finds [2M,4M) folio
-  truncate_inode_partial_folio()
-    zero [3M,4M)
-    folio_split()
-      unmap_folio(): extra ref
-        → -EAGAIN, PTE dirty bit
-          never reaches the folio
-    folio clean
-      → truncate_inode_folio(whole)
-        [2M,3M) dropped
-                                       read 2M+x → refault → zeroes
-
-
-> Splitting normally collects the PTE dirty bits when unmapping the
-> folio. An extra reference, for example from vmsplice(), can make it
-> fail before that step. The fallback unmapping on split failure excludes
-> shmem, so the helper still sees a clean folio and drops it, losing data
-> outside the range.
+> Discard the whole folio when unfalloc is set. Note that we enter this
+> path only for folios that are not uptodate, and can consequently be
+> dropped without losing any data.
 > 
-> Mark large folios dirty before partial truncation in the final scan,
-> as the boundary handling already does. Exclude failed-fallocate
-> rollback, which must discard the folios it added.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: b9a8a4195c7d ("truncate,shmem: Handle truncates that split large folios")
+> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: simplify descriptions, adjust comments ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-The fix itself looks reasonable:
 
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
