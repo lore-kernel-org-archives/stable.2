@@ -1,62 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020912;
-	b=dH5avFpAAqOpJnMGBF34RVdubyXP4kMq7p3DJpVh9TUdmS19szkDeu8JXDzD+xVydDkK
-	 ISxegRP1NuzJ1H+5CaFslNKwbBsW5nWCm37yzbHneze21Yp8BRWMeBf1TO09N5vaLcueo
-	 HAbFMB/0GfZwLnsLOQBhw4ew5ItU4Hdj2Jhu0N/rlsNahQ82a+AdB208CuSeiewQH+scy
-	 OFFW83WcxZVuToBASyzmbvDSpJbp6rJo6SfdEupDRxpOwJSM/U/YGRqk3EK+1IWMoRv2K
-	 vyv/fhlweuNL5mxcOfDLLUCK4N74v2AHzVIZXu3rNeM3Wg/ytk/XvDiEWfpaCyzTPSw==
+	t=1793021004;
+	b=H2K8kSVRcB8xKc86zV+N+9QWEyksxr4zdUWBtfyM4tjAOXTUWZZE36LfmmBnN3eZLjkW
+	 IH3rYy7evL3GMRVmwzF8EXKs3x5Qmxoh6Kji4Lit2V0eYRo6z7XOkuxwLmAZZsXxu3nNa
+	 V73XZR84vayh3PFgINQTR1xziMaHraoOzrZbqi0omCU8RHRypaFts0hihgh7QG3iC9GkF
+	 rJF6o+JHmQNmY0nNYYzg5dA47gONF6n1Nzp+quLNEhPgWDHEMxooONeYtULhYQgwkVPtY
+	 c4IDNLOI49rV7hGE1W8BL9StNl82Ha3VKcPnyDaRNv+huyjW1hOioHcPyrI76SXwdwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020912;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JudSgXLcJ6+6LonVY2e4IdR3mh1sh7zUR10EIzFcThs=;
-	b=DXUmuh1QDcRM6uKU3MCcullUXRcjZ1gh/Ji2HMIQD55uDFtH3NdPK/LjZ8WIE3D5DOTl
-	 4aI6o4tVflzaTSScARJvTiZzybFrHe7XFWqE7MPVyf69JSqhG8sNxRKmIpnd1rGdjMsoN
-	 ZC6PiCPkj8gdZlkNv8+zdWYGPyI2Km3XpN3JDlmn6T60nWu6dlWDAfxKRl1T/jlEj+iJR
-	 kDqX2pWwRbm7lanqCbh79H71uG5f/l+AR+XEr0GJC0IcSMEBRLmJEC1QB/QrTtnZix9Op
-	 3xvwKYcvSx+G6JZVEobFywIAidaW/pXVmZ41geIX+YNSRXQDV3fiTDpHyIAC5HlKycg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021004;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=nj0ZTkumZwBuaaWtdchwZQDp2bME62sjCwSF4CmUW1empwVFneUzz/JNSuCKhFoR0854
+	 6I006KTxO0Pdce4DtYqCbxuGJz6tGJ/tHbgKwqnP4i5XJX7q2neOFC63tckV/K6taOpsy
+	 PA2B18uKWJ6h9uigQXtfmBhVTVviv2xEHIyCS5vLuQC7cq/dLscrRgEGE2qjBMF9JB2In
+	 q2Qt1+JStTEeeDLHEx7dLJQ2tr8ylErIVyERC7TIX8rWlH8sIwM5JwAuucnMJbQDrCD97
+	 rcjjwChqkDDcJbPxxZWXdEds+jG1Pta6cRPTvjWUsKY3EiCdHnY6wqiz+OQvBx3yoPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=rL+LFenj;
-	arc=none smtp.remote-ip=115.124.28.169
-Received: from out28-169.mail.aliyun.com (out28-169.mail.aliyun.com [115.124.28.169])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E34606A31A;
-	Mon, 26 Oct 2026 13:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53E34606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F840606A31A;
+	Mon, 26 Oct 2026 13:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F840606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=rL+LFenj
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793020908; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=JudSgXLcJ6+6LonVY2e4IdR3mh1sh7zUR10EIzFcThs=;
-	b=rL+LFenjxlNw1X3GFOWGZxAoSvxuru+takJI9cskKx8/X2T0k53vz4GmYYui65+faJ7y6OHl0Ra0krnrismulhA2YQ+f+ePHFzTrTgLqSHWjb56dRC912dwLT6js3jOpSsVNX3Moqq44dxmowGTJigBiC4VkUkBB6/zcx5QqwVU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07575639|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00077706-5.23839e-05-0.999171;FP=14943764304330181682|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jpwPFyQ_1793020906;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jpwPFyQ_1793020906 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 21:21:47 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: ldewangan@nvidia.com,
-	linux-spi@vger.kernel.org,
-	broonie@kernel.org
-Cc: thierry.reding@kernel.org,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	swarren@nvidia.com,
-	linux-tegra@vger.kernel.org,
-	zhugl3@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] spi: tegra20-slink: size words with spi_bpw_to_bytes()
-Date: Mon, 26 Oct 2026 21:21:46 +0800
-Message-ID: <20261026132146.3806906-1-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xUTHZBxn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFNA1ckD
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A0B091F7A2;
+	Mon, 26 Oct 2026 13:23:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=xUTHZBxn6Fo2g52rorYT5AJWKzV66Id23PhftBav30xkl7j6RiYh69IPrW90yW1RBaBcRA
+	g4zduRyUpGY0uxhtNlpauSE01zaC7UwyXK6WhqS7dxLU2kTlG9/JEemDkwNUHGkwp2kjB2
+	AHURIxwMFenZE6FTzRb5SogE2S0+BoU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021001;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=rFNA1ckDmi0Lx++fuoLze4EEJUg5M/hJz+fhBtonx3VevMQAHz3F93vSWv0YI5az+v6NB2
+	tDvWHLjF2Kk9sxBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793021001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=xUTHZBxn6Fo2g52rorYT5AJWKzV66Id23PhftBav30xkl7j6RiYh69IPrW90yW1RBaBcRA
+	g4zduRyUpGY0uxhtNlpauSE01zaC7UwyXK6WhqS7dxLU2kTlG9/JEemDkwNUHGkwp2kjB2
+	AHURIxwMFenZE6FTzRb5SogE2S0+BoU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793021001;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=54BFzYUW6swCFljasaktNgeI4y2LeWT1KlgHkjBqlXM=;
+	b=rFNA1ckDmi0Lx++fuoLze4EEJUg5M/hJz+fhBtonx3VevMQAHz3F93vSWv0YI5az+v6NB2
+	tDvWHLjF2Kk9sxBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 917C613408;
+	Mon, 26 Oct 2026 13:23:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id e6j3DkhU32pqcAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 13:23:20 +0000
+Date: Mon, 26 Oct 2026 13:23:18 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, liam@infradead.org, 
+	ljs@kernel.org, vbabka@kernel.org, jannh@google.com, usama.anjum@arm.com, 
+	avagin@gmail.com, mirq-linux@rere.qmqm.pl, arnd@arndb.de, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: return -ENOTTY for unknown pagemap
+ ioctls
+Message-ID: <at9Rqspz6uUpu7H9@pedro-suse.tail5790ac.ts.net>
+References: <20261023181300.3366487-1-hengyul@cs.unc.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,68 +110,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023181300.3366487-1-hengyul@cs.unc.edu>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,kvack.org,infradead.org,kernel.org,google.com,arm.com,gmail.com,rere.qmqm.pl,arndb.de,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
+X-Spam-Score: -13.30
 
-tegra_slink_calculate_curr_xfer_param() derives bytes_per_word with
-DIV_ROUND_UP(bits_per_word, 8), but the SPI core sizes words with
-spi_bpw_to_bytes(), i.e. roundup_pow_of_two(BITS_TO_BYTES()), and
-__spi_validate() only accepts lengths that are a multiple of that
-power-of-two word size.  For bits_per_word of 17..24 the two differ
-(3 vs 4 bytes): a length like 8 passes core validation yet is measured
-as three 3-byte words, so the copy helpers touch one byte past the
-buffer, and cur_tx_pos/cur_rx_pos advance in multiples of 3 and never
-land on the equality check cur_pos == t->len.  The ISR then recomputes
-remain_len = t->len - cur_pos, which wraps, and the driver keeps
-copying 4096-word blocks past the client buffers until the transfer
-times out.
+On Fri, Oct 23, 2026 at 02:13:00PM -0400, Hengyu Liang wrote:
+> Commit 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and
+> optionally clear info about PTEs") made do_pagemap_cmd() the ioctl
+> handler of /proc/<pid>/pagemap.
+> 
+> However, do_pagemap_cmd() returns -EINVAL for every command other than
+> PAGEMAP_SCAN. Before that commit, pagemap had no ioctl handler, and
+> the VFS returned -ENOTTY for these commands. As of now, they fail with
+> EINVAL, so tcgetattr() and isatty() on pagemap report EINVAL instead
+> of ENOTTY.
+> 
+> The issue can be reproduced with a simple C program:
+> 
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <termios.h>
+> 
+>     int main(void)
+>     {
+>             struct termios t;
+>             int fd = open("/proc/self/pagemap", O_RDONLY);
+> 
+>             if (tcgetattr(fd, &t) < 0)
+>                     perror("tcgetattr");
+>             return 0;
+>     }
+> 
+> Before that commit, the result is:
+> 
+>     tcgetattr: Inappropriate ioctl for device
+> 
+> After that commit, the result is:
+> 
+>     tcgetattr: Invalid argument
+> 
+> This patch will return -ENOIOCTLCMD for unknown commands, as
+> procfs_procmap_ioctl() in the same file does, so that the VFS turns it
+> into -ENOTTY.
+> 
+> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-Use spi_bpw_to_bytes() for bytes_per_word: 24 bit words can have
-padding.  The word count then divides the transfer length exactly, the
-copies stay within t->len, the position counters land on t->len, and
-the wire carries the words the caller asked for.  For power-of-two
-word sizes spi_bpw_to_bytes() returns the same value as
-DIV_ROUND_UP(), so only bits_per_word of 17..24 change behaviour.  The
-non-packed setup already used the 4-byte configuration
-(SLINK_PACK_SIZE_32) that bits_per_word = 32 has always used, TX
-padding stays in the upper byte that the hardware does not shift out,
-and the RX paths already mask the padding.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-Verified with a userspace replica of the transfer arithmetic covering
-all core-legal lengths for bits_per_word 8/16/24/32 in both
-directions: the shipped driver and v1 overrun the buffers and never
-complete for bits_per_word of 17..24 with lengths not divisible by 3,
-while with this change no copy exceeds t->len and every transfer
-completes.  Compile-tested only; no Tegra SLINK hardware was
-available.
+I would generally be scared of applying this change, but since this is a
+niche API, and there are no other ioctls for it, this should be fine.
 
-Suggested-by: Mark Brown <broonie@kernel.org>
-Fixes: dc4dc3605639 ("spi: tegra: add spi driver for SLINK controller")
-Cc: stable@vger.kernel.org # 3.8+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
----
-Changes in v2:
-- v1 clamped the four copy loops to t->len.  As Mark Brown pointed out,
-  the compact word size itself is the problem: 24 bit words can have
-  padding, so the core only guarantees lengths that are multiples of
-  spi_bpw_to_bytes().  Size words with spi_bpw_to_bytes() instead,
-  which also drops the clamps and lets the position counters land on
-  the equality completion test.
-
- drivers/spi/spi-tegra20-slink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-tegra20-slink.c b/drivers/spi/spi-tegra20-slink.c
-index ed1fcf57dd30..3f507176b0c8 100644
---- a/drivers/spi/spi-tegra20-slink.c
-+++ b/drivers/spi/spi-tegra20-slink.c
-@@ -261,7 +261,7 @@ static unsigned tegra_slink_calculate_curr_xfer_param(
- 	unsigned total_fifo_words;
- 
- 	bits_per_word = t->bits_per_word;
--	tspi->bytes_per_word = DIV_ROUND_UP(bits_per_word, 8);
-+	tspi->bytes_per_word = spi_bpw_to_bytes(bits_per_word);
- 
- 	if (bits_per_word == 8 || bits_per_word == 16) {
- 		tspi->is_packed = true;
 -- 
-2.50.1
+Pedro
