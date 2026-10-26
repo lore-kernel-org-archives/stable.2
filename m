@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055367;
-	b=Z5+Ve2zpz3dIBddPpNupAl1zau1ZFSu0HMrOOubtqpyHXRcBZ8YZB0qEgz8BW6jy2nri
-	 A1M8u3l187Q9/Srgggdtg14EAlfUkgJr6jVMp/vjxfBgDpzk7SyGFjOfreCEhBprFF/Ze
-	 Z1iAnt/xJ4eyZDTSEmw1/7gwSWAUHYdJNGlxcjUgGe/ED7Gof54wSqP3MiWW9lTBlpVFw
-	 uGoSTLpBHxU+ippZcGmENrQa40it+cYJe4JMg7oJv0EVphegp2Uq+QZJD3swKFB3xrrKW
-	 L5jN6fSfD/MfPPCAgz/vaiPnsM+5rcfo0ubloaq9bDq3mPEWkEjKW26rV71F8uJx/Tg==
+	t=1793055368;
+	b=BZ7Tcau5pUrZMhqCmo861pOdn41BE+RmWO0MI0vBi2E8yyWhU45rqm8vnJ3vDZtK+wde
+	 I69RJ2dggeUd2UOFTxusm9UIyLnwlMN5dOQejGhAJ9w8qt63jPkrtO5VOnsN8D7m1Nsgk
+	 gVGFr6l7goeYM6ePCSJCig/NY8qP6E84+D8OsgZtgirczbc/EpZtqQYKmybZHTjdy0/q+
+	 R96ABW9kxGztGqvKalZCVxluyco6bCcTLuoe0q+DoJPxix3dn/eCIiiFHYDeL1Lbm6JK1
+	 1EtNGLhDustk4EcOSIF2ci9Eorqif/0obABIFhmLAEsJ8S/OQQSnJEUfiqyG74ThfsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055368;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1otLA+a9Ck17uJBdWOMD9aQZ7I1FL45z0Ke0U7Gcj7k=;
-	b=E39jpQlRR4IJQPz1sCB7rcTjHiRah7E5+7t9NqgvsyPWqPD+5a/LgwuqvvzizM+lb3Sw
-	 my86346mLJVx58lSI+w0q7lS+bbP1Kk+EifmTDOHjzmhvwrKrzxfI4beinl0lbAaRWigm
-	 wfOsSe1YwanEfs1dUGTdXXUtcxhpZkRgZMmdVzKhRVRuuMeUXRuqVt7T9a/Emp8NXg8gn
-	 3CKMLm4x39doNfn7Hu8LtU97n+QEwt6cndPpiF9232aBa4FEks+v1Wc+akEmIfTqTN4S4
-	 BmAG80X2xDqwPNUHDBkfRZxIJTm7FPqlnRd+N7yUJWaC7PkBMr2jgC8cfVgGCErnGXw==
+	bh=kDRiWJeMZqvF6vqXY+N9yfNAfM6lhJN4gULkYvRyiak=;
+	b=SbJgeI8cjOucxdvKtzDuM5ZZu4XQEQRsjW+GH/LMSSD8SIDPzAdVZD6d1tdnV04SUg+o
+	 Ow0ChkCYwVDHeD65Y+45lVUkTAEJQujCwCUp5fUZjNdYV+e4JFUxdN/QwYqQuu9RIuxFY
+	 t70RHXIVwRyUL7M+EzJCxm4Q/qCRv2CgmOBVyz7juwYa+kTPFXiYdbmopoXd1dOD7ZrNA
+	 rLisWV7bUoBGld4L/xE7X80wj0dA9vHWjoF4EcTgNOKmnYNtm3MJqgscZiQWDIaWv5iX3
+	 3lhl3xrQGr/0mbG8Om+ocCAXEVLtxqSBDIbu4giS4iLOAoEK3BkcT1n+SF9vNeCE0yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4wSkXnS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA6O2W7j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D50606A320;
-	Mon, 26 Oct 2026 22:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171B1606A326;
+	Mon, 26 Oct 2026 22:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4wSkXnS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E25C1F01825;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JA6O2W7j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29761F01828;
 	Mon, 26 Oct 2026 22:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055366;
-	bh=1otLA+a9Ck17uJBdWOMD9aQZ7I1FL45z0Ke0U7Gcj7k=;
+	s=k20260515; t=1793055367;
+	bh=kDRiWJeMZqvF6vqXY+N9yfNAfM6lhJN4gULkYvRyiak=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z4wSkXnSSasjyucKKu/pcwtqdTTfwU2z0R/BhMGq3RpwMSEUjaUFtpzZnDHVKI1cd
-	 Iegnqi019w9RbfW6BTp+P+R9YApjVHI9SLuz7bx1+qOIkgqxUlT4gb2fmBckww35eq
-	 LHSBKUHNaxZBDnvxKzuxI1Bgm12lEP/9WB4dFmS5Kn8tGJ5MCbhpWT7cyUexnu2WwA
-	 qqefe2wsF9rJbXX9auxZA6RLQm7Gw4+Ca41F9xcjGFNbuwdBopCmRfBlhFbitwNTdj
-	 Pe9X8rbV7UwrRwV5fbJQ9jyQoXTcHSNbd1XWi2D8ymUlAz3akS6xyg3ywBGjdmQ/zf
-	 5+GhPpbAWnGMA==
+	b=JA6O2W7j6unWHhshHnkD/s//HD6Gtrrxz19ZJJp88yY8baS14aOi/vhUL9vmbQFoS
+	 YlCnw7TvFUMhJk64ZYoPjt3OMOnK8zJ2oQjFkyu9W+VNz93QO51yxzDj1RmljmeT49
+	 jCw0KgpYmfxg3j7ZZM4qmjjs6fx0/qNxyAs0s9SWeOnQzFA8SHMclQsgU83RHmaTsD
+	 hkNT63KrvO/8yXP1sZU3TQ3kuzUPk4y+K6dMrAzpF7eWXz37BThopS4aUsG5FNh6sr
+	 /VEgJeNMtrTnrhtLZ+0zdQAAvDBEURk95nPKgwo+ut9jeN7y8uxuG8lo4HwSab71fV
+	 Q1MzPx4yhnwAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-raid@vger.kernel.org,
-	EOS - Manlio Morini <morini@eosdev.it>
-Subject: Re: [5.15.y] Request to backport c567c86b90d4 (md/raid10 fstrim kernel crash)
-Date: Mon, 26 Oct 2026 18:55:54 -0400
-Message-ID: <2026-10-26-1-daily-reply-0003-md-io-acct-set-5-15@kernel.org>
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 7.3.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Mon, 26 Oct 2026 18:55:55 -0400
+Message-ID: <2026-10-26-1-daily-reply-0004-damon-zero-target-value-7-3@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <50c31a4e-9a41-46bf-9c70-ccbc1ed07b2e@eosdev.it>
-References: <50c31a4e-9a41-46bf-9c70-ccbc1ed07b2e@eosdev.it>
+In-Reply-To: <20261026133320.68445-1-sj@kernel.org>
+References: <20261026133320.68445-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,15 +64,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I'd like to request the backport of the following upstream commit to the
-> Linux 5.15.y stable series:
->
-> c567c86b90d4715081adfe5eb812141a5b6b4883
-> md: move initialization and destruction of 'io_acct_set' to md.c
+> Notes for stable kernel porting.  The upstream commit doesn't have
+> Fixes: and therefore not ported to stable kernels.  It turned out it
+> fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+> goals user input to DAMOS") which was merged into v6.8.  The user impact
+> is a race condition that can result in divide-by-zero.  Hence backport.
 
-Queued for 5.15, thanks. The io_acct_set exit went into md_stop() and
-md_free() rather than __md_stop(), since that is where 5.15 tears down the
-other biosets.
+Queued for 7.3, thanks.
 
 -- 
 Thanks,
