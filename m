@@ -1,84 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021823;
-	b=OJWDbYUjUXPKbPdqRVGngh+y8GVGSnZU8ZA7n5T/AVaiiJPdgHCq7h88qS2Yyfjd8uWf
-	 AHgaaoI91cISEaetcFumpGuG5ZUzaewfUv39MJB6Wwu2dQcQTBjn6H03hD6ZeTGBOrawY
-	 gD19OG+k+1FmOXhi44wXK6Fo74/U9aMVv6KosqiAGtIhGEKj1nBFF4yZVuVIatAC3w/ia
-	 fjTeOdPUpVylBAEiMDSsGd4H0jfJPHQeQ15kSk96PXYaq5uqYFqTaMBH/8ogqlXjLgmV1
-	 TIukOdpJv5pdTMrI0m5qm0Tyryexp/eZdBwNBNmbVI18WQgz9MDCbnoNjTsr2sQAGGg==
+	t=1793021860;
+	b=fseMYdWPmLL4vsB4hN15bXLbzLAAS1EDJ4oy0ArVSDH/WmXqi8OlouSDAKxZRJFHudgm
+	 I/kxr9/7bAHRzJiOM3CQTau9VnWKl8pkkxadGbAhUFvhPpkc+yf6uMWdjW1pN5GSQAoma
+	 2JorMMay8ZXUBBxo1sbXNyfg5hLhPB4ZbhUsXfBMvOLDVJ9f3nBeL/94fMuTAkI2NHd8I
+	 4BBDimxI+YZxjdboauiLOzwOrcXsB22vwnbOkPU0InyDrWnehTi/HjBkZF3WDoL8VsAV+
+	 dMOez5dDuqJbD3hi69vgCUr/VUks89Q7r/izckEBkR9KvsObOpJyr7mX1p4h+0k6EBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021823;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=u8dEoOvFyttOe/BrdbS9Lckh8vPBq/eJHO5XvvUziD0=;
-	b=C31wgdLVYv6xUbifjt1Me+rKgWEkhACScUYVseYL79ESWYBltMaeAkEx6OEZH5o48tPg
-	 XE8JytUSE3LFRJYv8wd31bZkcY3QG2CDS3ymfvbkFKXn6e7N9bRtRwRtiO0lUEhNGFgWN
-	 80WKIL9MHyGK+4DiiD2BqM2XCM1sINNOMWwuVxZjO98H+jMzyxxV8YddEW6ixda4JsiU1
-	 BtxxMqT0tr31Jukx5Xp/XkXtN6IC7LrT8/1wwC7xykPl8KCvdcGZOecHwCH76jOWzg3VW
-	 NpJ1J4oEdi3I6oQrArfR7lkJnzO2fZye8xYQHG0j5oWLucblgOTID4rJgw+A+rs/ggw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021860;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
+	b=ztDOds+scrHtRBiYEwQDuqE54Tt8vmes2SR0ExPI22UBPQ2+eskAGAvEjvqG+FgqXd9c
+	 K37Y/iGdsYSLYGKq2FOrV4kaNZV60IvB6Ch9JKQhpQVMJNg7JGSrHBBHt2L3uiQE59uFA
+	 zLJQ2i4cCcXenkpSC4WqZxzrjzofJyI3HQlv4jgkrAUNS8Zgibj/djNgNLhvlt1MlkMO0
+	 Lj+ymcj9VeF6bOeN+cnTKCBTNAogdTlb87xSh/mVZY6sFOq9gtZaLA0mEaSB4wwpy0qC5
+	 LDKmKd5u7Rrh5beolvSHE9DNOuox/AJVh/FojDKucNGWAzPGiS8DNP573DIRGL6RULw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=snu.ac.kr;
-	spf=pass smtp.mailfrom=snu.ac.kr;
-	dkim=pass header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=r1D23Vnb;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD475606A32D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:37:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD475606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F001760A6F4B;
+	Mon, 26 Oct 2026 13:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F001760A6F4B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=r1D23Vnb
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-19305bcb72cso2068722c88.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 06:37:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1793021820; x=1793626620; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u8dEoOvFyttOe/BrdbS9Lckh8vPBq/eJHO5XvvUziD0=;
-        b=r1D23VnbbDdUGzSg9SzRtXtenXM4+aoiMq/RQ8WNr8Erl4gTu4vpizT/KD0/4ssWoE
-         b8Rxheen0/j5U7l9cDhnKB89i5xz+pTwAeo5EUUFauyW9yNUpjtTDUlItXx/z+st4TRh
-         XXsF5A1YA6ljV/pkPIwIj8qpDO7MtAOnFAb4o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021820; x=1793626620;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u8dEoOvFyttOe/BrdbS9Lckh8vPBq/eJHO5XvvUziD0=;
-        b=aKXo2Z3c688CW0vOKpaSf+vNiheiuoRiNBDL1nwyWtrElvWOJKM5NR8v6zWqn9sykx
-         SnR6S/eZ3izgy93SeZn72W7SYUhnxCKBc/HGhRRe7tSxQTsePJ6/bpOtiGNQFK781VBJ
-         qaK8ZrZBGDqQ3z+3SiE9F4mls8rl3T1TVcPfL1DzljzN4RpQOiVhm11TF8a6xZ7hyCd+
-         EOYY6gLLrE9gdOM7prWUILE1/RXNcSgIXIj4NOpBZ2V1vmmS7zRdciO9mIAO/tqMjn4H
-         Uh04+M5hKF9dT67Wb0dOyNWr3f1D1VRvNEaU2oZgzwVWWSLy93W7D290jbrvoVg4zLjj
-         9G1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBywEq6GwJZdA9pXgSgG97Y4hXvAIgCPUXk6XJtuJj9Hh5rWqucA/IK3ZigoCa0/ct3WTI8X2xc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeMNezPsGBEPqzWkH6f0FYnDN44XF7f4Wm36p3xcVk2BgBEzkk
-	GSxnjvm4jJN2JUJravj4pdLuOpmpR6+4ZPdI87+L2tIe0PDvdiRz3qhfSzE+k1+cZkU=
-X-Gm-Gg: AYBFou1Bk1+8fwX/Uvso5bvGWLhJlX69UFQSSQwkRmeo/jxVAQWKIhRbv6q8DiiCzJt
-	/zwgzcg0it3znaH9R+HkfngXCuJyuVkws7pTAhL2Kqj9kB7gYUCNFoDbHMM3VOk5ug25FwG0pat
-	mIXPkZEXkYYBkwQH2HdHdwznYLK5/eAAzqgMloDJ/+XabHkH8nGZFtTj0NMjw2hQZEMvEtdxNXj
-	Umg8r/aNN4aOV8AaM/4WhaxhmjLgMFJuNcfQEwuOoVsg3kqFnNZZ4DazhloZYGGsv1y0L3fos7X
-	/HCNT7WGidzZjwr6IZ0piWziJmxOPfQs18nYMzWL1uJ0G3Kglh8d9sCdfkWazi/W6jOEL82u1ng
-	kvI369jWwt3FvXiBd0jTXm6RhCkyNpVqVo8e8Mx3Vmxj9nFIZ+TeJlymQOwBtKWtNpRyHggf3QL
-	23dscrsxbA5wZ3i1jnqt1/tAiqgVCsCu6VdaQtYtFsbr6WzRdMSZjthrvY0EAuc4Z9eX2FETBYV
-	tzI3qECaptaYI/e/D9Ci/xO3v/9nLZrkKGT7i3yMU2lNUNxGw==
-X-Received: by 2002:a05:7022:150c:b0:191:ac4:55a7 with SMTP id a92af1059eb24-19934a96e58mr10119771c88.23.1793021819831;
-        Mon, 26 Oct 2026 06:36:59 -0700 (PDT)
-Received: from [172.19.0.2] ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm22432520c88.8.2026.10.26.06.36.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 06:36:59 -0700 (PDT)
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-Date: Mon, 26 Oct 2026 13:36:43 +0000
-Subject: [PATCH 1/2] iommu/io-pgtable-arm: align next walk address to large
- page size
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=MN6mgPWu;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=05B7c4jh
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F1CE51F43B;
+	Mon, 26 Oct 2026 13:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793021858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
+	b=MN6mgPWuP1dMIU3f6uNvt8/Zwy+Ji5bunevTMshqSLbx/zh7eOuT5DUVnLPIA5R8lA96xG
+	obX9p/vOG6s2PCw2eLLOS/m91dwZCMm/coZmYjeUFVtlFNuYP0NpKdMocUAQ0cZuuepKxF
+	/WUC6xGuccVuIWM+eBYLAzrnsWfDaNI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793021858;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
+	b=05B7c4jhEIx+f0zNUnBKAC8V0BIWFbQHS1oOY3GwthoQn9LNvy9JCMPjHuZKtN16WgIctE
+	3h0TmcLgdHqKQwBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=MN6mgPWu;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=05B7c4jh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793021858; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
+	b=MN6mgPWuP1dMIU3f6uNvt8/Zwy+Ji5bunevTMshqSLbx/zh7eOuT5DUVnLPIA5R8lA96xG
+	obX9p/vOG6s2PCw2eLLOS/m91dwZCMm/coZmYjeUFVtlFNuYP0NpKdMocUAQ0cZuuepKxF
+	/WUC6xGuccVuIWM+eBYLAzrnsWfDaNI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793021858;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TxJaVovbBuzNcz8Fy84RB6HU15y4oYzEhr8Gynqfeyo=;
+	b=05B7c4jhEIx+f0zNUnBKAC8V0BIWFbQHS1oOY3GwthoQn9LNvy9JCMPjHuZKtN16WgIctE
+	3h0TmcLgdHqKQwBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C196C13408;
+	Mon, 26 Oct 2026 13:37:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aWmlJqFX32rQfwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 13:37:37 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 4E306A1419; Mon, 26 Oct 2026 14:37:33 +0100 (CET)
+Date: Mon, 26 Oct 2026 14:37:33 +0100
+From: Jan Kara <jack@suse.cz>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 03/16] tmpfs: preserve explicitly disabled quota limits
+Message-ID: <ohklmfrgb2zpi3xm5nmlqmtum2wwoo33zd6cyjy7vq2t5r5rbl@qdhtgbfr67yt>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-3-703206d5fa0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,60 +128,159 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-iommu-arm-fix-missing-dirty-pages-v1-1-115b6b1cc0f5@snu.ac.kr>
-References: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
-In-Reply-To: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Kevin Tian <kevin.tian@intel.com>
-Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261026-fixes_shmem-v1-3-703206d5fa0c@kernel.org>
+X-Rspamd-Queue-Id: F1CE51F43B
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	URIBL_BLOCKED(0.00)[suse.com:email,toxicpanda.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[linux-foundation.org,gourry.net,nvidia.com,gmail.com,sk.com,linux.alibaba.com,cmpxchg.org,suse.com,google.com,redhat.com,kernel.org,suse.cz,chromium.org,linux.dev,suse.de,infradead.org,oracle.com,tencent.com,huawei.com,kvack.org,vger.kernel.org,toxicpanda.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	R_RATELIMIT(0.00)[to_ip_from(RLrfp3ibjutskb9r7un874bfh3)];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.51
 
-Align down walk_data->addr before the increment by page size to prevent
-the missing dirty pages on IOMMU_HWPT_GET_DIRTY_BITMAP ioctl.
+On Mon 26-10-26 10:40:36, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> An administrator’s decision to disable a user’s or group’s quota
+> limits can be silently lost when tmpfs restores the mount defaults
+> after releasing and reacquiring the quota record. This can cause
+> later file creation or writes to fail with EDQUOT, even though the
+> administrator has explicitly disabled quota limits for the user or
+> group.
+> 
+> do_set_dqblk() sets DQ_FAKE_B when all block and inode limits are zero.
+> This means quota enforcement is disabled for that user or group.
+> shmem_is_empty_dquot() treats the flag as a reason to discard the entry
+> from the mount's quota tree. The next shmem_acquire_dquot() finds no
+> saved entry and recreates it with the mount's default hard limits.
+> 
+> If the cached dquot is reused, DQ_FAKE_B remains set: Q_GETQUOTA reports
+> the restored defaults, but enforcement is still disabled. Once that
+> dquot has been reclaimed, a new dquot enforces the restored defaults.
+> 
+> Remove the DQ_FAKE_B test. Only discard entries with zero usage, zero
+> soft limits and hard limits equal to the mount defaults. Explicitly
+> disabled limits are then preserved whenever the mount defaults are
+> nonzero.
+> 
+> Explicitly disabled limits now retain a quota-tree entry, just like other
+> limits that differ from the mount defaults.
+> 
+> Rename shmem_is_empty_dquot() to shmem_is_default_dquot() to describe
+> the check for default values.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: de4c0e7ca8b5 ("shmem: Add default quota limit mount options")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: code cleanups; rewrite description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-As Commit e21952d72b47 ("iommufd/iova_bitmap: Ensure that iova_bitmap_set()
-handles the full IOVA") mentioned, the requested iova range can begin in
-the middle of the large page (e.g., 2MB page block). So incrementing walk
-address by large page size (e.g., 2M) could bypass next dirty'd small pages.
+Good catch. Feel free to add:
 
-Fixes: 4fe88fd8b4ae ("iommu/io-pgtable-arm: Add read_and_clear_dirty() support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
----
- drivers/iommu/io-pgtable-arm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-index 476c0e25631a..01c3f9cd5d9c 100644
---- a/drivers/iommu/io-pgtable-arm.c
-+++ b/drivers/iommu/io-pgtable-arm.c
-@@ -821,7 +821,7 @@ static int io_pgtable_visit(struct arm_lpae_io_pgtable *data,
- 		return ret;
- 
- 	if (iopte_leaf(pte, lvl, iop->fmt)) {
--		walk_data->addr += size;
-+		walk_data->addr = ALIGN_DOWN(walk_data->addr, size) + size;
- 		return 0;
- 	}
- 
-@@ -868,7 +868,9 @@ static int visit_dirty(struct io_pgtable_walk_data *walk_data, int lvl,
- 		return 0;
- 
- 	if (iopte_writeable_dirty(*ptep)) {
--		iommu_dirty_bitmap_record(dirty, walk_data->addr, size);
-+		u64 iova = ALIGN_DOWN(walk_data->addr, size);
-+
-+		iommu_dirty_bitmap_record(dirty, iova, size);
- 		if (!(walk_data->flags & IOMMU_DIRTY_NO_CLEAR))
- 			iopte_set_writeable_clean(ptep);
- 	}
+								Honza
 
+> ---
+>  mm/shmem_quota.c | 30 +++++++++++++++---------------
+>  1 file changed, 15 insertions(+), 15 deletions(-)
+> 
+> diff --git a/mm/shmem_quota.c b/mm/shmem_quota.c
+> index 43d3b4fd6cb1b..d191ebda3f00e 100644
+> --- a/mm/shmem_quota.c
+> +++ b/mm/shmem_quota.c
+> @@ -239,7 +239,7 @@ static int shmem_acquire_dquot(struct dquot *dquot)
+>  	return ret;
+>  }
+>  
+> -static bool shmem_is_empty_dquot(struct dquot *dquot)
+> +static bool shmem_is_default_dquot(struct dquot *dquot)
+>  {
+>  	struct shmem_sb_info *sbinfo = dquot->dq_sb->s_fs_info;
+>  	qsize_t bhardlimit;
+> @@ -253,21 +253,21 @@ static bool shmem_is_empty_dquot(struct dquot *dquot)
+>  		ihardlimit = sbinfo->qlimits.grpquota_ihardlimit;
+>  	}
+>  
+> -	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
+> -		(dquot->dq_dqb.dqb_curspace == 0 &&
+> -		 dquot->dq_dqb.dqb_curinodes == 0 &&
+> -		 dquot->dq_dqb.dqb_bsoftlimit == 0 &&
+> -		 dquot->dq_dqb.dqb_isoftlimit == 0 &&
+> -		 dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
+> -		 dquot->dq_dqb.dqb_ihardlimit == ihardlimit))
+> -		return true;
+> -
+> -	return false;
+> +	/*
+> +	 * Defaults are zero usage and soft limits, and the mount's hard limits.
+> +	 * DQ_FAKE_B only means that *all* limits are zero, which need not match
+> +	 * the mount defaults.
+> +	 */
+> +	return dquot->dq_dqb.dqb_curspace == 0 &&
+> +	       dquot->dq_dqb.dqb_curinodes == 0 &&
+> +	       dquot->dq_dqb.dqb_bsoftlimit == 0 &&
+> +	       dquot->dq_dqb.dqb_isoftlimit == 0 &&
+> +	       dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
+> +	       dquot->dq_dqb.dqb_ihardlimit == ihardlimit;
+>  }
+>  /*
+> - * Store limits from dquot in the tree unless it's fake. If it is fake
+> - * remove the id from the tree since there is no useful information in
+> - * there.
+> + * Remove the ID from the tree if it has no usage and its limits match
+> + * the mount defaults. Otherwise, save its limits for the next acquire.
+>   */
+>  static int shmem_release_dquot(struct dquot *dquot)
+>  {
+> @@ -302,7 +302,7 @@ static int shmem_release_dquot(struct dquot *dquot)
+>  	return -ENOENT;
+>  
+>  found:
+> -	if (shmem_is_empty_dquot(dquot)) {
+> +	if (shmem_is_default_dquot(dquot)) {
+>  		/* Remove entry from the tree */
+>  		rb_erase(&entry->node, info->dqi_priv);
+>  		kfree(entry);
+> 
+> -- 
+> 2.43.0
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
