@@ -1,58 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792978567;
-	b=VaFSlnQBYGSuluXul82+8GvEkMmQVeRm4ZXjkZoPkoD4fHJtT+ZRIuE+ajLXWDRBtc6r
-	 icCECmIgKVvMPzST464QmiyuvwhUnwiEdheehrplp3haJApB7Ajep4snudJXjChegCoKT
-	 SOHcudlnA9G/OSBt2ycFXpuPsNgx1DBwbZyfwrgTjXs6iC+Vbvrbcer26SbzvstUEbug1
-	 swTkGcSNL2f+iVp5JXtvSoHJrpTa4id6maRe8iduoUOv2xh4d4HMy6gQ2t5z2upIOO4zf
-	 r5dK4DoOxHJ41JEQnzgLl6+Q3q1kTKkqEWZPfSEkEJ2kEzcIMahaZMhMernc1mNTiuw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792978567;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=G8Ajzz5naVzS35r8PFaFnbKVlFcksfzdUJCNllkRj8g=;
-	b=LOKKeMn+xd/vUXMkWU+SAo0roaB2+XoV64jeFgsnamxbtAbCNqFtM24jtNX1cPg5/VY5
-	 LSEDd0TIdUct7ET07148EfboF/I33JoQC7dt8WP9rTmkmJsu5ddckudTC9mgMnSWKLIx+
-	 x9tA6lohuBHATK8QAGVJuoy1klq0w2ucAwEzHSc/gpc7ONTtVrVX4YLFRWOP6W4WtRFy+
-	 gbzwhttsq+qJ+zPR9P/kN4/VPXjtLFfULwpkvMh71aR5drPMK2UbTUJyWVEHujj9riDUk
-	 c0AhK3uuFA/R10ZytZMCeAlM6wVruKHbHPIFDwSah60EzMS0JMBKybPLiZkvAg0ZL/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=C0yt7kdc;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792979647;
+	b=SilpCVJ4mQ8egUuHVdB0tzjHlsMB5NKvLsnULBVknLsIP/NSOIeqYzNeCZuw8WE2pm+L
+	 XHCwzhv2v6Pz40bR8NB2xZ+5ErnOvwa5SPqZ0AqBEjmYmakpMhixMDVll97s6p4mfVlbK
+	 wEz26WXlRkWE9Fu+5OVfWcpdvUDPNEeMWn5V/S+i2NurzBB5bh6DTnRwQb/dvfU/od0NJ
+	 wZQxpBJRs7aI77GdvIOWqf9R+3TTe5bwiplDBWQikirzhv6dIC4qnq6ttuwfICih37QZH
+	 NNZ47zGk7XhgS2FmAyZq7wQeYe3CWXp7GkuHYskgh5/kkf0tv836GkfBTx7+l23HZcA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792979647;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	b=OeIlPFoc8AQkMCwO1WcoSTVSEg8bH2/DIaiVQ8K9TEjmAfbvukUGFWE+ioGNvMBBq12l
+	 Ca5uEa7+0c/EpEPvcGoulX1PZY0nPVRTcISPJvK2ie/VNGbeJjYO+qPbreok7X4lfgmRJ
+	 IGNAdgMHNRXY1RhoOrtgOGofonuFaFCM0sABGwZqipbpgNe3hNnyqCg/potOwbztuRXem
+	 83IrUPE0zb591zBuuEz5D0PqdH5ZqMDn91DbOlEz3/9X1D2M/czJKmNtzSq5MrOM5v884
+	 sEmbNznPvbYXuCRG87So84m2VvOd9/9hv4OG38W+TSnhx8L1E/I5BU+LyFx1hGJa/Vw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RQ1o6/Zb";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D1F606A31D;
+	Mon, 26 Oct 2026 01:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ1o6/Zb
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792979646;
+	b=LdZ3JR0B6ch/VQ4PBUTGQsVJbDJm0e0jQBBPqA9kdsZjz4jbymkursbN07kM75r/lVV+
+	 5n38QJzymNf/z+7pBHWPj8anaEPE0O4QTG5AumpZv/f+EGf9H94y/+5BgrFU3/73kayfL
+	 fFAf59LxQgl3m7E81H0s5wxMxrVawpP1MkN30K8sHVpnvU27wywz9reTP1U+8utviP0pY
+	 +0qZHw0uSrxJIPI+h9DL5Z4nbBifwEeWtThapKo+SbN/jK7vyHzBFXJvi50rOpf5LVnRK
+	 iEzFYmbJm6cg6OqBhIqxsCjhNJ6g/uyQfN71oGnVDWHSuTnmh028dTBrMbhGMQWBnlA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792979646;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	b=Ss2ScRqoA+3GPGZoOazIHsx2ujiSMbSri50unprzQatC19qeUs7SUstwLEhgyCol9rHo
+	 hNEloDZpVj0coFGlWB8y2O8ZX70T1N0MoQSs/s51lIqIznG1aJVwaRXijoOdFjt+GOgT9
+	 Ux00FZV57SidgPCdR4Q0RvNYZLFAmbWudUZnm4mB32St0/+9s4xMkKwbMlP4NY+wFwJw7
+	 2LA1mGpEtPX4wrnZ3jD0yui6DrxYiTuqZvB/H1hezgamahY/DfXRw/fd+GFzfO1LcLDgX
+	 C/Fuug1h/wm9RFOsvYmEMjqg3VfQJ1owZSYYaRF/jdMuXqvoQGFnXigVotgkksFSiUA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41564606A31A;
-	Mon, 26 Oct 2026 01:36:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41564606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=C0yt7kdc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=G8
-	Ajzz5naVzS35r8PFaFnbKVlFcksfzdUJCNllkRj8g=; b=C0yt7kdc8QkD8nEMLs
-	nOy+HMUtKY19r0Hku8zoF0FyLwn91CLqB1OWomSqiRdsFk5PZIfzva4lCPhabPJJ
-	0B7I+buCWSNDfo/AFOPGoqf2NuKVFuKPN79JGS5Ospszq/zNVXC15ppS45CaLeky
-	fakiX4WAfR6YiEhFA9qjgRykI=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnH55prt5qhnFSCA--.7906S2;
-	Mon, 26 Oct 2026 09:35:38 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>,
-	Eric Biggers <ebiggers@google.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] f2fs: drain in-flight DIO before buffered fallback
-Date: Mon, 26 Oct 2026 09:35:36 +0800
-Message-Id: <20261026013536.385261-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 6909C1F01825;
+	Mon, 26 Oct 2026 01:54:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792979646;
+	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RQ1o6/ZbtTUpRGXCepNdotbBYJ3iLW/FABOCdKPEB1/UsQzjuvVSWuEXf++Wtwfge
+	 QM/IMNd6ZZicjfw6A2rDNXw5C/pJS4/cNSrR+ecieDDBmMp2mm2xJrcx7pA4dWU1W/
+	 KhxmHOghHIdS45SsjcBfhwNoggzfQvRpVmZPUPfkD5cOJctV4cHVCiUrczirXp8O3E
+	 g02C+wA9uvg6DnlP51RD7X9TFUYEqYLlzIclwoeCLgQ+EXzcZnWZnFcMHBTpa3QtUY
+	 XViDANjhe0q3+XMWNrKS1oEax5UpTyvztDlQEm9IsmZfiDvyaFVPXrNLGEq0Z1QxFo
+	 3yKcE26XE7rAQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D61C044BB1;
+	Mon, 26 Oct 2026 01:54:04 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Mon, 26 Oct 2026 10:54:06 +0900
+Subject: [PATCH 2/2] xfs: don't skip free extents of the longest length in
+ a whole-AG FITRIM
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,43 +83,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCnH55prt5qhnFSCA--.7906S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKF43ZF4DXF4xuw4DWryDWrg_yoWktwb_Wa
-	4kC34UXw4fGF4fXa1Ikr4fAFWvv348uFyfGrWayryfC34fJ3yrCrn0kr9xG34DZFW5GF98
-	Gr4fXr4Yq3429jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbLihUUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQoYUmrermrlWwAA3D
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-xfs-fitrim-skip-v1-2-cddd8414f99c@samsung.com>
+References: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
+In-Reply-To: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, 
+ Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792979644; l=2296;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=aB3YdzosB9+MLmbMgvq8EWq31a8TDk+3lXux5xdb1mU=;
+ b=+Jv3c76RNB6Z7iHbgFJyUMxriwOSH/IwqigFKgIczG2+rmLqffC9/t8PhDA8iJqiS0g4JS3gl
+ QKXWszn3tLwAhoTWz+l49zyKYhU0gS8CtPX+CJyR+MHTYwmSdG/bvoW
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-A partial direct write can fall back to buffered I/O for the unwritten
-remainder. Other asynchronous direct writes may still be active after their
-submitters release the inode lock. Their completion can invalidate pages
-dirtied by the fallback before it flushes them, causing page-cache
-invalidation failures and recording an I/O error.
+From: Daejun Park <daejun7.park@samsung.com>
 
-Wait for all in-flight direct I/O before the fallback dirties page cache.
-This only serializes the internal direct-to-buffered fallback and does not
-change ordinary buffered write handling.
+Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
+by-length walk of an AG in FITRIM starts with
+xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
+lands on the longest free extent with the lowest block number. The
+other free extents of that length sort after it and are never
+discarded.
 
-Fixes: a1e09b03e6f5 ("f2fs: use iomap for direct I/O")
+Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
+
+Suggested-by: Dave Chinner <dgc@kernel.org>
+Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
- fs/f2fs/file.c | 1 +
- 1 file changed, 1 insertion(+)
+In xfs/842, 6 of 15 free extents that held data were not discarded
+without this patch, and none with it.
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 0c759cc99054..e54456e3a226 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -5596,6 +5596,7 @@ static ssize_t f2fs_dio_write_iter(struct kiocb *iocb, struct iov_iter *from,
- 		 * The direct write was partial, so we need to fall back to a
- 		 * buffered write for the remainder.
- 		 */
-+		inode_dio_wait(inode);
- 
- 		ret2 = f2fs_buffered_write_iter(iocb, from);
- 		if (iov_iter_count(from))
+On v6.10 and later this needs the previous patch. Older stable trees
+need a small backport, which I can send:
+- 6.6.y: always use xfs_alloc_lookup_le(cur, tcur->ar_startblock,
+  tcur->ar_blockcount, &i), and backport 23be716b1c4f ("xfs: don't
+  assume perags are initialised when trimming AGs") with it.
+- 5.10.y to 6.1.y: replace xfs_alloc_lookup_ge(cur, 0, agf_longest)
+  with xfs_alloc_lookup_le(cur, NULLAGBLOCK, agf_longest).
+---
+ fs/xfs/xfs_discard.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
+index 8120f136af..cdf660344c 100644
+--- a/fs/xfs/xfs_discard.c
++++ b/fs/xfs/xfs_discard.c
+@@ -200,12 +200,12 @@ xfs_trim_gather_extents(
+ 		error = xfs_alloc_lookup_le(cur, tcur->start, 0, &i);
+ 		if (!error && !i)
+ 			error = xfs_alloc_lookup_ge(cur, tcur->start, 0, &i);
+-	} else if (tcur->restart_bno == NULLAGBLOCK) {
+-		/* first time through a by-len starts with max length */
+-		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+-		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
+ 	} else {
+-		/* nth time through a by-len starts where we left off */
++		/*
++		 * A by-len walk starts at the last record of the longest
++		 * length (restart_bno is NULLAGBLOCK until the first batch
++		 * ends) and then where the previous batch stopped.
++		 */
+ 		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+ 		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
+ 					    tcur->count, &i);
+
 -- 
-2.34.1
+2.43.0
+
 
