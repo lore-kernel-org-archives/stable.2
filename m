@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016739;
-	b=N633eDRHeFK+PrdqCA1+MOFTpKpi3+5XqNtQayLOk31nOjScel3NdNZKRvvzuaId2AC6
-	 91fePYLv3gEA/yglVYiUZ1KdwH57Uv+xQrQbJ1jWNamI/Kxa4IUtGKE1D1yJoNWK6QhCa
-	 OUHfOz+Vo1e28Lomp5+mPRDAVyOayKJso7iJWhTxR1dXGnbTqLzu3BPdy17pMa9q34SRX
-	 jJqmG23qQ72pHeFHeWoq/DbRfuC8l9xOjTQYbgin8I3d0Q2b/Nz7WoVjKAMPgN7ujXvnq
-	 EhPAEg8e6tYLKpRPN+uqpbgDWifkMcQhIoWvTQlHLoQLsiBDIQo0aqf4BNI0hEqW9wQ==
+	t=1793016755;
+	b=ghHbgaIINk+RPwxgmE8yNg0HKTa/02ZU3YvmQH/dxNyUnNavI0q37eLCF2QjJqXCCm1H
+	 tZbm3sPTqdwlWzkNCUV9wcj7jaWtZYaXLzY/fZu2w0HD/fDzW/EeSxsw+YWfiAIwXylb/
+	 5upz7+4RkSEqpw76YThXjBODLcgfvTa9VLMm1Ue6ZNbXiGMeiRyBHqKGIrkWFmVKOkfKM
+	 PGk+Y453qJ/B2wzlKFBkzXj/b4xy8rA7S9nEsdkTLVQNr64naB5v4keDA87H/FCGTP8L0
+	 5nn880fp3gw1+ZN0vjE6eNNvpdyQqHEeqORrDGxn8uPoMmaKj48dBx2kiVVvLmRqHCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016755;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=EKPDpnDsxP95BvhQy6gMrx0mg3B9bgjTY7R3pORfF0o=;
-	b=pqphRWTUFF//tXLanc4SXj8LlIcvoDdBfdsD/CRBHOV3lrJ+KmvRtcaaQQ6hfYcsEblH
-	 FTLflBHzKvMx6xp8589iioXpfubCt8mMA/B5WtIDI1dyqsjxJudFY+4/LWJR55eLOSdL1
-	 qEJDIME3JmaVOaBYgMvascInbG7YfjkxV9WjBjfy19+y1pCa/QwucqpqqwPpCkqXr9x5t
-	 49XjcteoGcMcmFwa18Za+te+wQG4xGC8iDVY0eps5gEYoWLFP+9nCaNhn7uaNK2THT2vw
-	 5Zts0zXk1cKKGfrOLL2hWAVPvUHlwzaRhK0TZs87AlxJdaeHb6U4AkDPYY4Q1UySjfQ==
+	bh=sCtZvtAR22Ami4S2eIk3HMfDGlAC6il3qa+TGty4veQ=;
+	b=tjWUyn3UIo9OdS0wPetbRDFRqzuGTJzcBA7yGDaueVzmrTdN9neQb2thoajQrVICaNzi
+	 xJADSOnPYNYtWMjfJpbUo8Dt13NcfqhUQ/hXEul0+5l50Pn4IKZmxRPINzT8cfOZ6gxQp
+	 IVQod9MJB/g9P8Mj6FqfcVBSww4MlYhXhgCJ2jBZTe1tKMCcKyp7NJEGE6jtFKreUTRMm
+	 oGnwKCyYeWd7UzrZbkXBq1hS/cRQ1ibVSvEx9NdokjZ+igzqH/tYV0TEKzXru0MEgL8yk
+	 /zlL9oh8zz535taT5/zIKfplNphWCXwIfI0qSa2nDLbWMq567P3zF/0nkXrTpCALvgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBw406SW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5hXer1y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5765B606A322;
-	Mon, 26 Oct 2026 12:12:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522D4606A333;
+	Mon, 26 Oct 2026 12:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBw406SW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F041F031E1;
-	Mon, 26 Oct 2026 12:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5hXer1y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF3B1F01825;
+	Mon, 26 Oct 2026 12:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016739;
-	bh=EKPDpnDsxP95BvhQy6gMrx0mg3B9bgjTY7R3pORfF0o=;
+	s=k20260515; t=1793016754;
+	bh=sCtZvtAR22Ami4S2eIk3HMfDGlAC6il3qa+TGty4veQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iBw406SWNAyN0iypY6z9eMu7GvnlQWgx71O//+605r5yzwZ0nPS5QYtL2h4pXli4b
-	 jQ/8nviFCI0Ni4rjvPmue0JD1nP7zd9iiL+Vbr+PT5RwYMUo5U4P8srFZooN8q67/O
-	 OS5ASw439ShiiovDUOTFVjawzHGh8ZT0ZO79ney7YB8LWOCivypf9hPnO/TLbgVZ9Z
-	 zwJMbwJIGNsuKg5xVyu63tT+4rAywuC2G/YzpOPeoC4QIpXEd80c0uIVBCaSr+jdfu
-	 3MZtaCRlaL6j16jSTIDbjNvxRDP896Db8tLalPtJcZ7P+R43IhNMGOKbYVg7PygMDo
-	 Lfd9/xbqy5Jqw==
-Message-ID: <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
-Date: Mon, 26 Oct 2026 12:19:21 +0100
+	b=J5hXer1yoooeUjppZ6vg8NVJpK4TPTZVdh9mBwO8PTZfOuoo4QYTexYN5v+PEzfkn
+	 +TkbN4+MdUGit7k3nxjDNTPx8XlLTmXCOWgk0q2jT0c6clk4Y+U204lwBOg4QpKeTb
+	 2GrghX99FnCH1TA4q2dZ42c0kJQsGRxKR+N71jDq5SPhPn2abEnXgHtfFFbV3dCGpJ
+	 ZQby89YbBNK/CL7OkyiRCB9dXnyaZV7aCgMFQmE7ikIFxWmT3ZBZCV6pY1hl3k8x4B
+	 +VChZ6FM7OBEfqPxPtdnRfDXLcbT3EA2eUVGeSOVcQT4WGvNP89jipV5fpMMyTiwEe
+	 6vW1Y4+W21ACA==
+Message-ID: <1398e842-db91-4482-949a-e21197a48b9c@kernel.org>
+Date: Mon, 26 Oct 2026 13:12:02 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,14 +52,31 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on
- memory hotplug
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, ying.huang@linux.alibaba.com, honggyu.kim@sk.com,
- stable@vger.kernel.org
-References: <20261024170415.4121901-1-gourry@gourry.net>
+Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>,
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <a8f01101-7d7d-4982-9cf8-04b754ba132a@linux.alibaba.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -106,106 +123,96 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261024170415.4121901-1-gourry@gourry.net>
+In-Reply-To: <a8f01101-7d7d-4982-9cf8-04b754ba132a@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/24/26 19:04, Gregory Price (Meta) wrote:
-> In auto mode, weighted interleave derives each node's weight from its
-> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
-> node's bandwidth once, when the node first gains memory, and nothing
-> else on the hotplug path recomputes the weights.
+On 10/26/26 12:11, Baolin Wang wrote:
 > 
-> When a node loses its memory, the other nodes keep weights computed
-> with its bandwidth until another node reports. If one does while the
-> node is away, the reduction skips the node and resets its weight to 1,
-> which it keeps once its memory returns.
 > 
-> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
-> nodes 4 and 5, weighted_interleave/nodeN reads:
+> On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
+>> Hi,
+>>
+>> the fixing fun continues.
+>>
+>> This is a handful of fixes for shmem/tmpfs. I sneaked in a related
+>> hugetlb fix that stalled upstream.
 > 
->   event             node 0-3   node 4   node 5
->   node 4 online         7         3        -
->   node 4 removed        7         -        -
->   node 5 online         7         -        1
->   node 4 back           7         1        1
+> Wow, thanks David!
 > 
-> Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
-> 6, 3 and 1.
+>> Some of the stuff is more urgent (patch #1, F_SEAL_EXEC, truncation
+>> hangs), others are less urgent but still rather unpleasant.
+>>
+>> The majority are fixes from Anthropic that I cleaned up or reworked.
+>> While doing that, I found a bunch of other issues and tried to fix them
+>> somewhat cleanly.
+>>
+>> In general, shmem + swap handling is a nightmare. shmem_undo_range() is
+>> such utter garbage it makes me want to cry. I mean, really, WTF did we
+>> end up creating there. Does any expert here have time to clean that up and
+>> make it *actually* maintainable.
 > 
-> Recompute the weights from the recorded bandwidth whenever a node gains
-> its first memory or loses its last.
+> Agree. :) I'll re-read shmem_undo_range() and take a close look at the issues
+> you raised, and see if I can make shmem_undo_range() more readable.
 > 
-> mempolicy_set_node_perf() now only records the bandwidth and calls the
-> same helper, so the bandwidth is kept even if allocating the new weights
-> fails. wi_state_lock is dropped between the two steps, which should be
-> safe because the helper reads node_bw_table and the mode under the lock,
-> so a racing writer only makes it work from newer state.
+>> The following things are still broken in shmem_undo_range():
+>>
+>> (1) Truncate/punch of a single page of a large swap-error marker
+>>
+>> We don't split. Consequently, read access afterwards will still fail
+>> instead of returning 0s.
+>>
+>> I have a fix to try to split (which can fail), but I don't consider it
+>> that urgent, really. So I'm not including it. Might send it later
+>> separately.
+>>
+>> Truncate/punch of a partial page can obviously never do the right thing,
+>> as we cannot poison parts of pages ...
+>>
+>> (2) Truncate/punch whole pages within part of a large swap entry
+>>
+>> We try to read the entry, but if we are out of memory that might fail.
+>> Consequently, we will not free up swap space and a re-read will not give
+>> us 0s but the previous content.
+>>
+>> AI proposed a nasty NOFAIL patch which has too many nasty side effects
+>> IMHO (allowing users to force-read pages and retain them afterwards even
+>> though memory.max would disallow it). This needs a proper thought. Likely,
+>> support for splitting large swap entries (and large folios in the
+>> swapcache, which I recall is under development  by Kairui). But splitting
+>> can fail ...
+>>
+>> (3) Truncate/punch of a part of a base-page swap entry
+>>
+>> We obviously have to read the page in, in order to 0-out the parts to
+>> discard. That might obviously fail.
+>>
+>> Maybe we should install swapin-error markers if swapping during
+>> truncate/punchhole fails, to at least tell user space on later access
+>> that something went wrong? We might affect unrelated data, outside the
+>> requested range, though. Anyhow, these are long standing issues and
+>> I don't consider them urgent.
+>>
+>> They need a proper solution.
+>>
+>> I did my best trying to test these fixes. I was able to reproduce some
+>> of the things (including unkillable truncation hangs), and the fixes seemed
+>> to help.
+>>
+>> But again, shmem_undo_range() is just an absolute mess.
+>>
+>> Please prioritize review of these fixes, I want to get fixes for the
+>> issues in a timely manner upstream.
 > 
-> With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
-> node 4 is back.
-> 
-> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
->  1 file changed, 38 insertions(+), 28 deletions(-)
-> 
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 0884c629670d..ffb293a4cc56 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
->  		new_iw[nid] /= iw_gcd;
->  }
->  
-> +/* Recompute the weights from node_bw_table, unless they were set manually */
-> +static int wi_state_refresh(void)
-> +{
-> +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
-> +	int i;
-> +
-> +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
-> +	if (!new_wi_state)
-> +		return -ENOMEM;
-> +	new_wi_state->mode_auto = true;
-> +	for (i = 0; i < nr_node_ids; i++)
-> +		new_wi_state->iw_table[i] = 1;
-> +
-> +	mutex_lock(&wi_state_lock);
-> +	old_wi_state = rcu_dereference_protected(wi_state,
-> +					lockdep_is_held(&wi_state_lock));
-> +	/* NULL wi_state assumes auto=true */
-> +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
+> OK. Will review and test this serires this week.
 
+Thanks!
 
-I was confused about the node_bw_table check at first. Maybe
+If there are better simple fixes, please do suggest them. Any bigger cleanups
+ideally come on top.
 
-/*
- * We can get hotplug events before any BW data was recorded.
- * ...
- */
-
->  
->  /**
-> @@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
->  	case NODE_REMOVED_LAST_MEMORY:
->  		sysfs_wi_node_delete(nid);
->  		break;
-> +	default:
-> +		return NOTIFY_OK;
->  	}
->  
-> +	/*
-> +	 * HMAT and CXL report a node's bandwidth only when it first gains
-> +	 * memory, so recompute the weights whenever N_MEMORY changes.
-> +	 */
-> +	wi_state_refresh();
-
-If the function fails, should we at least pr_warn_once() ?
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+BTW, the next time I get a flood of these patches, would you be willing to do
+the early screening+revise? But be careful, some of them are pretty, pretty awful :)
 
 -- 
 Cheers,
