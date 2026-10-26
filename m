@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055370;
-	b=JCr4qhJx/cvbonJi1uqPFpg97voed2TxNNfLR8nvUqQAdgdK4iI8/LyRtHLWtbV9IAdN
-	 A8EGBWP1Emewpd1cF1HnMFCk8enVAu7KIbzQYUTJgVg0FRVdFWFxlgBq0F7kXBI+dMiL0
-	 TCCQT9Q1OzT5ehA+tqw3hOrfYcez0CSaFo1KHWeGAuy5MLF8v7a02QTHc2aFkUSrYplhS
-	 peXWV9LubeHYsaW/WgDwo9CfrHKVudWnT+QeEIhr4wCe3SbsxgIIYjFdghGuBHeWimLoG
-	 hcLrFj4wUIap1ECSLnYKv02JW7HKhr5yG7WKSPi/KXL22aYYD/qErp66+iKQIwGKsdg==
+	t=1793055374;
+	b=jMJMsEdaBfbSbWRVTamVsOowv5ikeQft/8iBtozakLt8LhBZTo5dRVDGb7YPp8qzAdPh
+	 GeyXrNoA9LR+OwCwVKvXTyX425AyuIs4daLxBOrfj+yQ5odgwcK+rKgmBqrVTYO+ckbLK
+	 9VbkEsCVElolHR+kFvm05SNDVKtqA5d7JWIOH0QilcKez/Pex5hp57d5chlopyIENzIw9
+	 fhmeluNEjA5brdiPzNoUTzTBPy1AzPuZIPxCkcj2k9u75YTM6083yagl5ImJcFG80O6Gv
+	 ss4tWt5ujXCe0oT5gkL54HPllqGiQK2wsaIMTrte+HW1bjxL+dDTQ5TlFE+pf2obguA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055374;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=50DPD+pH2maEeR1T0q8TsL7h2F5lpY+dTHGdMvmi2aI=;
-	b=JaFQ4xnh6/ndTdzzje7NbazdLafMdY85JlwtRscy2BN/2Xt2Ir2YKVptZyKNcBzPIAe8
-	 l/wkQP8zxnk/WOhuVhAEqG3jl1nq7z/p9Xiv8Q+xXOGsDg2z2+ePSNm+qk48Z7CM1Qq2a
-	 AjsM8tCQA9R3v2UTh7zvwd2WrjBZJ2qdkGlv2Xrij9ovys6XwISlTzxWd51xxcrmNjzpD
-	 9Ha3HY+sOD3uZJBJFzfpE4UIZr806YG03HZxtSaRFHNmMwyATjZUVQ+3tNBQrnImEbIgG
-	 bIGOBB20hv7hgmBboH1GWWckUOs64TpXNLYP02HTWGKkmReHY3om7rcxUj2jTovRyow==
+	bh=mgGwuSgO+LHbSNtILvRwP47fUfXrtbaHXe23L9i/K2s=;
+	b=NMQHTuq9aFeeyreDJ5Wg3hzUw5ipxn3Jg78RJe4sNWWy6bk8bZ6tJWabCAG517U+vvmA
+	 vLd8N3l+q45kEQLqOWC9ktvaOL7Zly/v8GLtP2u5N/x6TclW/09a6SQzwW6CDsmGqBHcz
+	 KzGrA/69n4oEuyqt2qbXvB2vd28p4s8My1fb1U9Ud6nXwsT9BFqpJhCtmhg+SC8UBMs1R
+	 mfA14yFQZ3AuD8vlwA//+wc9IV/6ZUlHQ1x3gJ/Av3YExi97D7rzwqJKPeMB/Cpg/8AmO
+	 lQNFSZU0YaW5TyhY1050oWWzLBxcHTyGy7oPcKYD4Rjg/FQJAt49dLTX9e8EvhjXv5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYHbSZWh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/nP9CBH";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BF8606A31F;
-	Mon, 26 Oct 2026 22:56:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B940606A32A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:56:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYHbSZWh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFEB1F031E1;
-	Mon, 26 Oct 2026 22:56:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/nP9CBH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FC01F031E0;
+	Mon, 26 Oct 2026 22:56:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055369;
-	bh=50DPD+pH2maEeR1T0q8TsL7h2F5lpY+dTHGdMvmi2aI=;
+	s=k20260515; t=1793055374;
+	bh=mgGwuSgO+LHbSNtILvRwP47fUfXrtbaHXe23L9i/K2s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SYHbSZWhlg4+NHIxV7K9kwzpQNcgvriD+3VstEKScl17ajn9TeHE7Cei8dgu48jr3
-	 TQxz4drVnZ0uC8ZL806vPatRWG99uYgleUYpmRo7LmYX+5neZIYE0VlukNyUJ/wnEb
-	 unJfljsH9KhzmBZrNFMnfnotHnZ0vDpn+KS9dqGiDqzEQPMv8CcLlXFYM0u1VWqHst
-	 eYQXZNxrCdqMi3rWn/fTgLAjQLOER5cYg1x0HnqUXkhmyXhwyv8VsCBFuj85ulD8VM
-	 skjsvD0IH4FcGFBw4wHjAu22N1ApixjX+u3+X2dvw9KLkzTMhIX48wKtx13h7f9RBn
-	 PSu30cXkdkaUg==
+	b=Y/nP9CBH9M44gsj1TY/WUoK9hW6hhIZJoftx5Id+VAiArIuPoyygyPYmQ+znlhZ7B
+	 NrX8CcEa6Bxa+xspu9nlkMb5lMH6Xymet4BTC7S90ihZscsB1WZ3uWApjTtHXPOal+
+	 keDgfjZgVQO5IPp9Dc8tXx0xd/dKDCHIETs32CeY5Qt+dtUYvX5Ci+cvXrBcQ7C/Ze
+	 tVZrC+P75B2fBq1195tXn6f3l294eklGYeKCHDeo1EWn1vXZ68mdQSZ2GaVk+OPv8I
+	 7XEnt+d/sYcd0GP4ExW/1cvrWe3QcFqrnqgfk179Qv211pgM2g6fZadqNKfGHSG5KI
+	 /i3LATllMZByg==
 From: Sasha Levin <sashal@kernel.org>
-To: SJ Park <sj@kernel.org>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	stable@vger.kernel.org,
+	sh_def@163.com
 Cc: Sasha Levin <sashal@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH 6.18.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Mon, 26 Oct 2026 18:55:57 -0400
-Message-ID: <2026-10-26-1-daily-reply-0006-damon-zero-target-value-6-18@kernel.org>
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH 7.2.y] sched/fair: Avoid overflow in place_entity()
+Date: Mon, 26 Oct 2026 18:56:00 -0400
+Message-ID: <2026-10-26-1-daily-reply-0009-sched-place-entity-7-2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026134740.149027-1-sj@kernel.org>
-References: <20261026134740.149027-1-sj@kernel.org>
+In-Reply-To: <20261026104109.1357489-1-vincent.guittot@linaro.org>
+References: <20261026104109.1357489-1-vincent.guittot@linaro.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,13 +70,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Also, the upstream commit on this stable kernel can fix the issue for
-> parameters commit paths but DAMON start path.  That's because DAMON
-> start path does not invoke damon_commit_quota_goals().  To fix the path
-> with minimum change, add a new small validation of quota goal target
-> value before damon_start() call.
+> Rewrite
+>
+>     lag * (load + weight) / load
+>
+> as
+>
+>     lag + lag * weight / load
 
-Queued for 6.18, thanks.
+Queued for 7.2, thanks.
 
 -- 
 Thanks,
