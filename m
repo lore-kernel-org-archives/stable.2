@@ -1,91 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.238
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028444;
-	b=mwJ1/kREgwp2+2H8ux5EwzRteeRsgPtMyGYtOSFz2fbCS3xdq1O+DifwszViQdoS9+F2
-	 wa0sq+VgP6O7SYjouDOqn/6tB7LDIGJusp7k11W0RgV2X3phbWD5nw54lLQggAIPD6PBV
-	 417RpBG0sFQl2MXkd+qg4cNNQaN9CKTq2uvDj8MQpkKOHvFpeOfNVdcEG55k26p7Lfy/U
-	 d8eDggzjj+QHpLQxil3/sckjqW3zkgXau9opwdg2com6U6G/SqBcpiPaRXJcvee4j5nFQ
-	 KXL9d/uS3OQmFfbQLLkk1tSyrwK6g5140EMukvRZbs129TLIQZMcfp0cYlMyuGiW6lg==
+	t=1793028479;
+	b=oG+gt0TFhWiIaJCl4NnLUZKW+m6WewiSFMTAY0CPFp7t7CaQgqtrvwaPWjVG+QRXXyCB
+	 ox71eT7hqCH6p6YbAty59ZDeU2NySdSDCX6XoHawVYr0+XnHwliuKLiDacvXBictFDbW3
+	 7arWNvl9I7KfGDn7zMHf3wNeMQY2HHNC4xdarEIbD0n0xn+QObo35dXPZeu7S64btUGp4
+	 5DPjLqkwbVTFSLVXqKW8jymIhjUMWtWl+hSELIpVyjWKuEbeiGA++5ESu7kY/uGAUcAfg
+	 4WAuxVLe+lRQ+WOrZudjTS1usjk16nfWe7BIWJuoQ+Q7cgutG2eTadXlbbwBUQQKKCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028444;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028479;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=icXw5cUiWlz5rWfTUQ0wOJr2LvS5fa2INLJ4qgOPSMo=;
-	b=ZfSI4MJrvWzZdtCpfMYKuBmzaZ4EhpxkuIhkjOR8nFFAiHDDfR6gstoLVKjYm0YNkD3v
-	 qoktGEaT9n9e7vXh0eTkRYbNqO4GhU0W5vNVEvu4HEtfJy0CW+nMLXthElSAX92sfvVOV
-	 9u3qZIhydEN5wCNLyDu+IpGmTmi35W9QHlugZ23hQzAztWnQUTBMg2cPhi6gvC6UNtbM9
-	 QTNXn4zHqQryhs+/pM6LwbYBdDh8pNIh+7CnoIPTursINHwZpOt6oe+bW2s6V9876roL7
-	 Qy6shEhHOB3hAxNfvZ3YeTJpxR6fa3iQ3kbIoO8rewxHjJU7JUU2A+rznv23o2qjcbQ==
+	bh=4YP/4sMLmMrBNwv0rmr3CgPfxwdrbgn3B1FIYdO1TaM=;
+	b=Fza+ncgp8ef5matLkVWV1nlQxrTb40N1cOEhlCgjShzuHw6lmC9F96whDT3c1qxXE3Xe
+	 tyKV/b97MzWFCS+rdZq7KtRplIpQLbv6yDUzG6HSNHJungiIvNVYEjwsjeFW0V09cUXuh
+	 07+xQUn093xqs7Lvg+rMoWA/rOgnBTBVuIeStEhndlvco8znoV+AmmIOschtX9lCaweoi
+	 l4N8E5nb3Vu9vK1l8dKrd9l6uszVPGmKk9fMQbVA60kFs14tXS7lSkaN2Adntm4M6PfF5
+	 jot3SCMpxp8odNe5KIl8oVPogZhgSyX8WcBCRkgIvRSHASCcykVsiYPFp7dybyST4Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bfsCPrwm;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C35Jq0pf;
+	arc=none smtp.remote-ip=91.218.175.238
+Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C699F606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C699F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8BC606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD8BC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bfsCPrwm
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9d1114320so23877475ad.3
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:27:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793028443; x=1793633243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=icXw5cUiWlz5rWfTUQ0wOJr2LvS5fa2INLJ4qgOPSMo=;
-        b=bfsCPrwm+ad4L4mOecEHO/1R2ve1iTljR5+QR4t0AqvyTBRIQD4Mfibr3x4ot/3eeq
-         wpoU5e1PgwnA8c8fizuSC5ZjSK3A7UZMBujw0ALSFHQXwzvbblh1MkzlXARBAUFmO3fF
-         u1Erz+jTf1JyqpEq77jeELaRzGmrAhSsAR8cZ9FPl/jUWGTsvTfZHG7UZ4O6PRE3WwTr
-         RiWy57QzMtL32Cs/vrieWxyluqEWuKkWZF133QVLLSyiOcxQ1T9p6mkBgeXD/GcU4FbY
-         6xcTAdmHWBJIeIgHuZJIcnZOhLSKPYFO5dIrOmpU6AFsP6CUJwFesWyW1MWgy9QaDmRN
-         FOeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028443; x=1793633243;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=icXw5cUiWlz5rWfTUQ0wOJr2LvS5fa2INLJ4qgOPSMo=;
-        b=2W6/pt94X4jacwtiyfrZedFUKdZgPwd//FmpCTn2bu0yp1RI7lSNpcgU/qnqJcX+6/
-         WrhwMPiZDux1XRB+15FO1FYrW7i1p95e3DRz+RTmCuGHvWSd/pLN3EnINNT9tsUfWm9A
-         jX6TVpW1L5m//GGPxijiulwFFCLaj/HKID52ib70AaQmtfeBnZrDNAF8qoZZumJrrZA4
-         iBkWlmuynbqSloKIT/Mrqn3YifbGEo3olmMZ1L6Mm9Z9X52wqhRD6cDPvWA/bUES/Uyu
-         d0kHRjSeYFwiwjczh7+9ul7fgjsmgRHAgTHFDaUslztmFN4NBzHRpbJwv1do/3iP8Fz/
-         IqQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkGF32iRlSIJSTO/T4IoCL4gZsMunznHFqKwLYPJiyFBgl9Zl1J6zJSIfBiW2VMLrcfUGU61k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINcC0NF8SiIfCxPKj2m8ab91pFQE6bFMlguDpyXxboQrEwFRYe
-	fSjTQBvs9NLQDhtjM1rnIg7H0By8B6RsstkN/Xh85+hTthBby4a08Asm
-X-Gm-Gg: AYBFou3ZY7YndMM/UiPtTRxCH+xgCqZcq7Jzqdd/Qer/7h/KgsXkU/a7FmoDiZXoCxT
-	EvJzV5YHpqVsnxB4O8wLq3mAtDavlCC25Nj96c/L+xxF93bMtm7X30+tAT9HlFWyte5/K+KkWX/
-	2zjWug2AJM08Yz+ttTSnbAVmCZhAO82ftplhWiRxVY6OfuVsGRUsFp1vlY6tgioK4ez7aGIy5XE
-	LZX+pQx9E9GbUiETSEaHTghJWjSHDKCA/pKUX8IY+pADK5uY6KfRSkpbsGEYzLc9CERU4E9KxQP
-	STgja1cTIcj71FOzXzsUU1C78GSfGwIxzOIXd9AlhiS68mIJDag+VtOSmNkcc4Tt5W9NAuQ09Ub
-	OnagEMtB7lFLMzMve9C6XQsitdKXZA0IgPApiPrutu90x7sVb3Wi4N/mi/5JyRhs05vHszcDF1u
-	bdhnVjZ6KOT0VrR7G+wiWl63KgwzzFLyk0VyuU91olU2vf4V4s4TuVNTOEj6/7UYNNcJiyU2mBy
-	+EKAt9YyPUV9ng77zoQGIHY1RXdMhnioHgSOjmtZIQHPgjtxEDcqPvmQMRLx67mAQ28RkXaIC0G
-	P0pvZ+lIpO0i1aqQUDYC4g==
-X-Received: by 2002:a17:903:234e:b0:2e9:7ff5:545a with SMTP id d9443c01a7336-2ea9c67c29fmr66184465ad.32.1793028442579;
-        Mon, 26 Oct 2026 08:27:22 -0700 (PDT)
-Received: from KRHW1CJW23 ([139.177.225.224])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9af32085sm18713105ad.2.2026.10.26.08.27.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 08:27:22 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C35Jq0pf
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BD5GR4twj1Y0cxe10dqIpaa4/qJ/AH8RfmV9ehRX730=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793028476; v=1; x=1793633276;
+ b=C35Jq0pfAi43X24zs7+pws0mYLmITR+OUzEveCg0XkZvazu8n4wJD73zrHK7x5S+fEpLQuLX
+ P49c8d0YGrGpUtVW23hk8Og+UipwHF8cebaDl0rHVHYY/y46DZkmAf4UXIXMFQh48UVakZafxcK
+ AZ370RiZGW/kNAJoqjyubAWo=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b2b5afc969dd0a08;
+	Mon, 26 Oct 2026 15:27:56 +0000
+X-Mizu-Trace-ID: b2b5afc969dd0a08
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: alex@ghiti.fr,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	aou@eecs.berkeley.edu
+Cc: akpm@linux-foundation.org,
+	zhangchunyan@iscas.ac.cn,
+	rppt@kernel.org,
+	kas@kernel.org,
+	david@kernel.org,
+	andrew+kernel@donnellan.id.au,
+	rmclure@linux.ibm.com,
+	debug@rivosinc.com,
+	baolin.wang@linux.alibaba.com,
+	usama.arif@linux.dev,
+	wangruikang@iscas.ac.cn,
+	namcao@linutronix.de,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mac80211: fix use-after-free when MLO link setup is rolled back
-Date: Mon, 26 Oct 2026 23:26:54 +0800
-Message-ID: <20261026152654.80697-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	alexghiti@rivosinc.com,
+	viro@zeniv.linux.org.uk,
+	ajones@ventanamicro.com,
+	arnd@arndb.de,
+	axelrasmussen@google.com,
+	brauner@kernel.org,
+	conor.dooley@microchip.com,
+	conor@kernel.org,
+	jack@suse.cz,
+	liam@infradead.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	paul.walmsley@sifive.com,
+	peterx@redhat.com,
+	robh@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	yuanchu@google.com,
+	stable@vger.kernel.org,
+	pasha.tatashin@soleen.com,
+	linux-mm@kvack.org,
+	me@ziyao.cc
+Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
+Date: Mon, 26 Oct 2026 23:27:45 +0800
+Message-ID: <20261026152745.11239-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261004030312.90163-1-lance.yang@linux.dev>
+References: <20261004030312.90163-1-lance.yang@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,52 +103,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Rolling back an MLO link addition can free link containers while RCU
-readers still hold pointers to them. ieee80211_vif_update_links()
-publishes new links before checking for duplicate addresses and calling
-drv_change_vif_links(). If either fails, it restores the old pointers
-and frees the new containers without waiting for readers.
+Gently ping ... Hi RISC-V folks, any thoughts on the proposed fix?
 
-During a non-MLO to MLO transition, the published link 0 replaces the
-deflink, so existing link 0 users can acquire the new container. Readers
-such as ieee80211_csa_finish() and
-ieee80211_obss_color_collision_notify() can also queue work embedded in
-the link. If they queue after ieee80211_link_stop() cancels that work,
-it remains queued when the container is freed.
-
-Wait for RCU readers after restoring the old pointers and before
-stopping the new links, so their work is queued before it is cancelled.
-
-Fixes: d3e2439b0f33 ("wifi: mac80211: fix link manipulation")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-LLM-assisted source review and patch preparation.
-KASAN test-tree harness: pre-fix 22 reports, fixed 0; wait after stop 22.
-Sparse, Smatch and driver-failure testing were not run.
-Older affected kernels need an adapted rollback hunk.
-
- net/mac80211/link.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/mac80211/link.c b/net/mac80211/link.c
-index ce1c95b40cd9..34d313a2fef3 100644
---- a/net/mac80211/link.c
-+++ b/net/mac80211/link.c
-@@ -401,6 +401,8 @@ static int ieee80211_vif_update_links(struct ieee80211_sub_if_data *sdata,
- 		memcpy(sdata->link, old_data, sizeof(old_data));
- 		memcpy(sdata->vif.link_conf, old, sizeof(old));
- 		ieee80211_set_vif_links_bitmaps(sdata, old_links, dormant_links);
-+		/* drain RCU readers before cancelling work they may queue */
-+		synchronize_rcu();
- 		for_each_set_bit(link_id, &add, IEEE80211_MLD_MAX_NUM_LINKS) {
- 			ieee80211_link_debugfs_remove(&links[link_id]->data);
- 			ieee80211_link_stop(&links[link_id]->data);
-
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-
--- 
-2.56.0
-
+On Sun, Oct 04, 2026 at 11:03:12AM +0800, Lance Yang wrote:
+>RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
+>CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
+>a problem for PMD migration entries, since pmd_present() also checks
+>_PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
+>cleared during splitting.
+>
+>When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
+>soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
+>migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
+>migration PMD as a present THP! The fault handler skips
+>pmd_migration_entry_wait(), and a write fault can end up in
+>do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
+>as a mapped PFN.
+>
+>Move the swap soft-dirty bit to bit 12 and start the swap offset at
+>bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
+>in migration PMDs and lets us keep the existing pmd_present() check
+>for invalidated THPs. Leave the offset at bit 12 when soft-dirty
+>tracking is disabled.
+>
+>Fixes: 2a3ebad4db63 ("riscv: mm: add soft-dirty page tracking support")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>---
+>I found this while reviewing Usama's PMD-level swap entries series [1]
+>and comparing the swap flag bits with the PMD presence checks across
+>architectures.
+>
+>[1] https://lore.kernel.org/all/20261002095503.3585565-1-usama.arif@linux.dev/
+>
+> arch/riscv/include/asm/pgtable-bits.h |  6 +++---
+> arch/riscv/include/asm/pgtable.h      | 10 ++++++----
+> 2 files changed, 9 insertions(+), 7 deletions(-)
+>
+>diff --git a/arch/riscv/include/asm/pgtable-bits.h b/arch/riscv/include/asm/pgtable-bits.h
+>index d5a86b4df3ce6..d84b459e010c1 100644
+>--- a/arch/riscv/include/asm/pgtable-bits.h
+>+++ b/arch/riscv/include/asm/pgtable-bits.h
+>@@ -27,12 +27,12 @@
+> 	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
+> 	 (1UL << 59) : 0)
+> /*
+>- * Bit 3 is always zero for swap entry computation, so we
+>- * can borrow it for swap page soft-dirty tracking.
+>+ * Bit 12 is reserved for swap soft-dirty tracking. The swap offset
+>+ * starts at bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled.
+>  */
+> #define _PAGE_SWP_SOFT_DIRTY						\
+> 	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
+>-	 _PAGE_EXEC : 0)
+>+	 (1UL << 12) : 0)
+> #else
+> #define _PAGE_SOFT_DIRTY	0
+> #define _PAGE_SWP_SOFT_DIRTY	0
+>diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
+>index b644db16bda94..acaf6d3b54d04 100644
+>--- a/arch/riscv/include/asm/pgtable.h
+>+++ b/arch/riscv/include/asm/pgtable.h
+>@@ -1178,18 +1178,20 @@ static inline pud_t pud_modify(pud_t pud, pgprot_t newprot)
+>  *
+>  * Format of swap PTE:
+>  *	bit            0:	_PAGE_PRESENT (zero)
+>- *	bit       1 to 2:	(zero)
+>- *	bit            3:	_PAGE_SWP_SOFT_DIRTY
+>+ *	bit       1 to 3:	_PAGE_LEAF (zero)
+>  *	bit            4:	_PAGE_SWP_UFFD
+>  *	bit            5:	_PAGE_PROT_NONE (zero)
+>  *	bit            6:	exclusive marker
+>  *	bits      7 to 11:	swap type
+>- *	bits 12 to XLEN-1:	swap offset
+>+ *	bit           12:	_PAGE_SWP_SOFT_DIRTY (CONFIG_MEM_SOFT_DIRTY)
+>+ *	bits 12/13 to XLEN-1:	swap offset (without/with CONFIG_MEM_SOFT_DIRTY)
+>  */
+> #define __SWP_TYPE_SHIFT	7
+> #define __SWP_TYPE_BITS		5
+> #define __SWP_TYPE_MASK		((1UL << __SWP_TYPE_BITS) - 1)
+>-#define __SWP_OFFSET_SHIFT	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT)
+>+#define __SWP_OFFSET_SHIFT \
+>+	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT + \
+>+	 IS_ENABLED(CONFIG_MEM_SOFT_DIRTY))
+> 
+> #define MAX_SWAPFILES_CHECK()	\
+> 	BUILD_BUG_ON(MAX_SWAPFILES_SHIFT > __SWP_TYPE_BITS)
+>-- 
+>2.49.0
+>
+>
