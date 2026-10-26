@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009635;
-	b=ibvyjFAWWsBOCf9fXi4o700qZIRsUlHnqjdsu8Z6HLULQRYVjnUH+jp0xM+5paltC9+E
-	 qp1hPxkCEiOmR8Qgd+4EmV6Ffs67wOg78mT230726K+mFHZdKiicff0NaM9B9e90uuMKY
-	 vFPkJPe+2x2jpzdEKpVtxosPfWQNWxA4MVvTpLx32vnA36E/DuTm2/wqj+kXZB/6hNekk
-	 aSMFFk9EhcgI8poYl6LGbuas1uqLcLe43MVHsvw87y3ls5Ag5C4VMdYhb5e+CL2qLORAE
-	 I+qzBz+GKsNeOw9k289JwihulZDf3FVp/o8C1P8Dy5+HSVkA+XLEim4N/ftw7L1ryLQ==
+	t=1793010508;
+	b=mdW97KlRJ1zuDm78srysVHPLAzpgTR24wMK7oCys4z8r8VLWl35vuwnhsiPSDzzp06re
+	 dfF7UYf9wmCg6FE+mWUEVLvaHfAqoQSSqzygbGtuRYsufWEnU7O6Z4R9/xJYDdi7D9C9E
+	 9IXfDUoy+pprGh64B6c2D5uxFvsceh4yi3gGaV+mTbwd+wC8P/UkSMPStc9w8ShcruJgQ
+	 T3U3F4IcMyjlDaOvb6kM5km23F3JeiIQtns358U9PZ3k4oCJxRIlo57FQd+h4AmW/Lz+Y
+	 rZ9bjgB7xLkoPAtgrnUhutTgi04ggyUG5qSSwk6GUYOek2DXh3KKWAUfd7P9s/wLKJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009635;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gUvhPvbaKNcm4IjsCyO+EpYXhBhQnGVfangkZ0Iy/gk=;
-	b=H8JEWLx3UM1VVWsA3z+XhFDp/5x2ClwkToRPa1PZHWxgOaFA3pUzCQCvPPHOWJZy2TMf
-	 AZ0E6FBAZiVPsC0MVHc9ChigXmoPpyFlOZTbX3XLgYpuv0bkc46cvfPURD/IjS9oE3YlW
-	 E17jI4k7fEL+gKuL8GZ6G72XrruMBnzZKFIot1m2gSCx7joqlX/3vLzd5//f1qDRac8/R
-	 fpptC3JcG2eQF85t1NQZQmvkhUmw8MUj3MaETf8rp1quOLlQPd0S1GsqnecLXCabMocmq
-	 L5M8Es33gW4pz87ho2h3ChtQjPi+e3zr8a0oiGwsNu03aST6j0gfDvCiPPDWm0/5wnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010508;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Z/Nx//XuiuZSu05RUpnkPaT9G9UcEiJqWLgdwhD3/Cc=;
+	b=L/v5R2E+tHZwLOIVmegbmfAQP/7oI7vEd0o/WL8QOmgh1rOuQPQ94gNk2vR2ounptRLL
+	 InmdH2WHKLDt6pQeIF6IqNJAE8HP4Hi1B2mCCKUdZ8Cg5iiVi3Y7T3uGOl7usUu/2tR1M
+	 h7UMMYbKSYR839OLEBKm0uk0nnuiVxrsrUEQyjcB/5z/SqFqRAhjBIAV2XDqDcIsjBNQ/
+	 IqGvooaroyOp7+n76iIBVuHr0tfmrP1twJCJTCD4Cug/o/YFRTJLhoZmJsGcVUDGTMqFk
+	 UnodiYZGxPoJvFRkjiMCfmUSHEfiYYpYcwQ+UplP4tkt6feifew0eChaZd6NCzVWRog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YhVjGRx2;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B28D606A31E;
-	Mon, 26 Oct 2026 10:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B28D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddpGZjyA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70133606A31E
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:28:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YhVjGRx2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=YhVjGRx2bPgQrg+vpxNIR+1EqorTf6K1/A2R2m8iS9gExFmzk7sD8tInPeHph+gv079Nqr6ZEYrST
-	 H6JXGwq58XyeLQNKvOulXiTkKopP9q4uBzbG3EWB2ZI/w9a2aiRzAbeMt+k/pNbOYtaGdCsH6vIklU
-	 tZbt26dxOLWqNqas=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16adf27d9234-29bf5;
-	Mon, 26 Oct 2026 18:13:45 +0800 (CST)
-X-RM-TRANSID:2ee16adf27d9234-29bf5
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[124.156.110.139])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56adf27d8ade-aec31;
-	Mon, 26 Oct 2026 18:13:45 +0800 (CST)
-X-RM-TRANSID:2ee56adf27d8ade-aec31
-From: wuyuehong <wuyuehong@cmss.chinamobile.com>
-To: dm-devel@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatoka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org, syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com
-Subject: [PATCH] dm snapshot: fix discard_granularity unit in snapshot_io_hints
-Date: Mon, 26 Oct 2026 17:35:00 +0800
-Message-ID: <20261026-dm-snap-discard-granularity@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddpGZjyA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022B41F01825
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:28:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793010508;
+	bh=Z/Nx//XuiuZSu05RUpnkPaT9G9UcEiJqWLgdwhD3/Cc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ddpGZjyArUV3lMPf3+abTXA2RxrX7mbnck4xVxteZXt6rcbX8IZG4Wn8BBaZlTsIp
+	 iZIG6XY0gaxWP61LyYYFLqfdN6wTtwjY8o7bNMweP4ryx5xqecl9K8YtkbszT4FH3X
+	 FDcH0xfvBNgknyjKa6WzXv6qq2o8ZjKeEeNFL6Oo1txAxbl720MU6PEgj4wK1R7zXf
+	 mo6ho36rvr0GaZyViZsxF0t/F8QRTm4EfmqKGax+yGskx9lo/C10iUO7BbohLf3wOQ
+	 gaUt2lDG3Qdb+ypsL6TOJaU+2Y99xcuAgtIiWGqsQN2EYDTKZD7BS1q3wWShpzaXzL
+	 7NVr8bBLNB/CQ==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c45551fa84eso410504266b.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:28:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxw//RDMdZMowjJqena9TnUA2JQ7C7IIt6wC7oekcvtnFVQeIuW6HrCZduKCbRIRyiAeRTLNDA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/XbZ3xtILO2wHfAxLA0lX8agI9KRXYE4GgiaxSvzK403vDdO1
+	shx002Nj4XCKxpUe7AFTquUq13Qn+oVTGICAOpr/jdzSbFlInaRW2ScPue5QBlvIchrDccDONxI
+	Gc/mNnDB0NLGVbBVg+agkvkmGP/0v7Ck=
+X-Received: by 2002:a17:907:100c:b0:c46:8063:220c with SMTP id
+ a640c23a62f3a-c46bdbefbf5mr535736366b.11.1793010506723; Mon, 26 Oct 2026
+ 03:28:26 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,65 +59,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261026053422.61138-1-icb@fastmail.org>
+In-Reply-To: <20261026053422.61138-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 26 Oct 2026 19:28:14 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_muFKkpGfhLuWgXyKuzX6QpJmBBueNa=7SE0SjZwmixQ@mail.gmail.com>
+X-Gm-Features: AclHuK-f9k0Uqwon8K6YmJaDhDSPEnRRv4EIXQhAmDV9X7iJqeJ6j76El9biHj8
+Message-ID: <CAKYAXd_muFKkpGfhLuWgXyKuzX6QpJmBBueNa=7SE0SjZwmixQ@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fix app-instance non-durable supersede session UAF
+To: Ian Bridges <icb@fastmail.org>
+Cc: Steve French <stfrench@microsoft.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-snapshot_io_hints() copies the snapshot store's chunk_size, which is
-in 512-byte sectors, into queue_limits.discard_granularity, which, like
-all other members of struct queue_limits, is in bytes.
-
-For snapshots with a chunk size smaller than 512 sectors, e.g. the
-16 KiB (32-sector) chunks created by the syzkaller reproducer, the
-resulting granularity is smaller than a single sector.  When
-dm_calculate_queue_limits() then stacks the target limits into the
-table limits:
-
-	blk_stack_limits(limits, &ti_limits, 0)
-
-queue_limit_discard_alignment() truncates that granularity to zero
-sectors and sector_div() divides by zero:
-
-  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:queue_limit_discard_alignment block/blk-settings.c:645 [inline]
-  RIP: 0010:blk_stack_limits+0x1105/0x2d00 block/blk-settings.c:916
-  Call Trace:
-   dm_calculate_queue_limits+0x70c/0x1510 drivers/md/dm-table.c:1823
-   dm_setup_md_queue+0x199/0x4f0 drivers/md/dm.c:2618
-   table_load+0x4fd/0x8a0 drivers/md/dm-ioctl.c:1661
-
-The divide fault itself only became reachable when commit e924da7d6622
-("block: Drop granularity check in queue_limit_discard_alignment()")
-removed the check for a sub-sector granularity in v6.13.  Kernels
-before that returned a zero discard alignment instead of faulting, but
-they still advertised a granularity 512 times too small.
-
-Use the same chunk_size << SECTOR_SHIFT conversion that
-io_overlaps_chunk() already applies to turn chunk_size into bytes.
-
-Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
-Reported-by: syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1288484b13bf6af3620d
-Cc: stable@vger.kernel.org
-Signed-off-by: wuyuehong <wuyuehong@cmss.chinamobile.com>
----
- drivers/md/dm-snap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 797c432594d8..31676ee05514 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -2414,7 +2414,7 @@ static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
- 			snap = snap_src;
- 
- 		/* All discards are split on chunk_size boundary */
--		limits->discard_granularity = snap->store->chunk_size;
-+		limits->discard_granularity = snap->store->chunk_size << SECTOR_SHIFT;
- 		limits->max_hw_discard_sectors = snap->store->chunk_size;
- 
- 		up_read(&_origins_lock);
--- 
-2.43.0
-
-
-
+On Mon, Oct 26, 2026 at 2:35=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrot=
+e:
+>
+> ksmbd_close_fd_app_instance_id() supersedes a prior open that has the
+> same AppInstanceId. It reaches that open's session through opinfo->sess.
+> This pointer is not refcounted.
+>
+> Session teardown detaches durable handles before it frees the session.
+> It does not detach a non-durable open. That open still points at the
+> session through opinfo->sess after the session is freed. Another session
+> can supersede the open at the same time. The supersede then takes a
+> write lock through the stale pointer, in the freed session's file table.
+>
+>   BUG: KASAN: slab-use-after-free in _raw_write_lock+0x71/0xd0
+>   Call Trace:
+>    _raw_write_lock+0x71/0xd0
+>    ksmbd_close_fd_app_instance_id+0xd9/0x670 [ksmbd]
+>    smb2_open+0x3e10/0xd910 [ksmbd]
+>   Freed by task 212:
+>    ksmbd_session_destroy+0x38d/0x480 [ksmbd]
+>
+> Fix this by looking the session up by opinfo->session_id. The lookup
+> returns a reference, as smb2_break_collect_channels() does. Recheck that
+> opinfo->sess still points at it before using it.
+>
+> Do the lookup without m_lock held. destroy_previous_session() takes
+> m_lock under the session table lock, and taking them in the other order
+> here would deadlock.
+>
+> Fixes: 16c30649709d ("ksmbd: handle durable v2 app instance id")
+> Cc: stable@vger.kernel.org # e0386cd6498b: ksmbd: validate AppInstanceId =
+takeover target
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
