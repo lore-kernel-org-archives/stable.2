@@ -1,107 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792987030;
-	b=xuTQ6HC0CBb61pOJ1uk3nGvFD7fPTqDcFrCbkQ/M/2AMCgOjywN7V4Zw+udLNNiFTtUw
-	 rMe6m+mx/vx4TVzxF+azZD4MzAOtQbfgxSWfi5zcAOtLK55MDzDRVgNMtyOyn31Rb6V9p
-	 CL+YvXQqxkZD3vTTjoVVKa65+750VHa5MMHUHyz5FOii5KoVBTAp//aTmbzck8S1oCp8d
-	 NvKuA+SeUha2SRYt7gwPcFczPqlUobR8PZnLTzWaiRCD0DvV4Pub6MEmw6eqYXH3nK4fa
-	 WcLW8RZyeR1lvUuOqjH3Dcw6DPFoWHP4IQZAZPXgQgNR4M8Mo8vQ4EsmzMNJItryjIw==
+	t=1792987365;
+	b=fpTriOEaNMtm8t8JEcryA3SpjsHUVdpdf2iJmH4g93zHEdTg8nmhf5xfs1KmDoqRIWNM
+	 edXqJBaW5iejzXubqFr3pzSYY0IrdMIkb3v5nm4wFsES5xgAP4pm/gIphmC/5ZcDPe3QK
+	 jObE31u2MbxtQPsJbxTzGcZLW+mPQIqbq2/ka7hocnOSy8NcrxiWdUZjSZvr/nLJ7nU4S
+	 jH0tG7688PizX9lRhQh9Ob7IK9Dw3h5xHFyRKI++CzbE859HHf6M39Gqx4YkvXBNw/MOB
+	 d3WJY4Hkp8fQRQzoT7cvz++UQOPBRXRRo3p79URTrZeAQVCbOlmncstj5T86KJDjM3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792987030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792987365;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+ScCUUWyJM//qpTpz7tt0Fdxp9XvYrNhMa0jbjZM+Ng=;
-	b=pZmn2elx1YqT5pTAKT4hm4xZrxvOzwQ4km+nTtrl4VPpvC1AAWZmZ/u0GXmm/P1/5rqu
-	 VJQTvg2AZGGxquL/au4a3VHZY3ZADYxES9ZXIUXrc8Bi5fpqi2o0nKds9EL7eTnWd4ynA
-	 SBjXjpJhiNBmXByNBqI1308m9t2eKtPAxtBGCm2y9beEvukcOtcimIvWSXkgnLcUsENsC
-	 0an5nlFaqILNt7lwCBZBci9nRMR6cc+oa1C6lDmKbgzJtqoItUS8e7fKoCBXQ41ENpoqn
-	 swuEoVPQVwKwN3PZTw43PdELkPUz0fJ+IsuK6Kq2rBibrvby5P072cMV2Lwa5gu5pqQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=K2jKhwM+YQiKdSr1TcQzqEzMoQpUEpx9bgQiDQX0OfY=;
+	b=iBCAZBOKMw662qPwA5Hs7dlVlKhtdqOI+gO7Woek+i3RYTCMw2ASRxTyBEMiJ/XnAvz+
+	 +fAy+mxIcYEX2nqh7GfH1Ofb+f5quiQfi1Xvzms5aZcTACPMHDvo0GElftexTkf5Rp+hk
+	 0UPTM76i3B8HiqU9IYjiTqMl+pkb/+kCiepdnG7F4l0S9mpzhZslAMAWZ1C8r8tX9Zv4W
+	 HM44Qw8a3xQOqAMXMIClDL7RBLabWu26VCWUFeswPOOtBcTumrv9ZhFHB8ugZyiAkieXI
+	 LG9YgsqWtv+t801hUNpvqEZbAPpzz7sKHbTF2Fa6vmAEyP37PA1djdXvkiVmfzZnRDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CzHL8JAA;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ayyPxwWM;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F502606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F502606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C2A606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:02:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C2A606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CzHL8JAA
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35b2c599f43so467830eec.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 20:57:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ayyPxwWM
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e946155442so21473195ad.3
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 21:02:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792987029; x=1793591829; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+ScCUUWyJM//qpTpz7tt0Fdxp9XvYrNhMa0jbjZM+Ng=;
-        b=CzHL8JAAhVXZp+BFIea6XXS5CXvIdKyvTb9rotyb9xP51zqNOdUyULSyK62QT2G7qO
-         7v7qzFb4ekjP8THGtkchX7EdobigL2eBQbw+WhyrhbXrSIQnzUg+mhL33OKcdQw/kCOl
-         zq1zDO6mrkZUzmX7FZqHcqcNncLTFdoz8LPdi0HLuB1F1rfz8enfQHRYXYoq422/oXFK
-         mPtlgYSvIeU9kcWQBdlA3APCubO0DXLc4kb8YveBwZWFD9FPg86N0L1cKM2rfH9DDam2
-         E2jObCINjT2AdecrPCYLiQbyEsbP7oepRFvC9D5xQPmCjEWHmKY3xEsXTQ/XabPJaAj2
-         pxDA==
+        d=gmail.com; s=20251104; t=1792987365; x=1793592165; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K2jKhwM+YQiKdSr1TcQzqEzMoQpUEpx9bgQiDQX0OfY=;
+        b=ayyPxwWM/lb+H5VABRhht0PR6vZEeUivf9sh2Rgba0uC+hcvHTu/6mrShgE43B9ZT/
+         kMs218fUY4beR83h7cZSyjRDyrIsJUF70dAmMY77n2GZ7zShdhLZofVUAk4UCxtWJFnO
+         x0vswuv9993aAFPfzJM9bDcFhz8jw8VEIr3g32fettpVMclgL0mMHLxjWO0iv6YiGhmu
+         RtvYkwSdBW0zd0sZeheju6ID8IAOSSf8yfkDe8DJCalQFyrQ39ydaP4S5yjQ7P/6aHa9
+         nAVcmEqSej2jmssIaA28ZVHJTo47vL332VCVpSHKoNrOMFGVtzVQsfrrEGpE0x/yAu9P
+         lnRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792987029; x=1793591829;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ScCUUWyJM//qpTpz7tt0Fdxp9XvYrNhMa0jbjZM+Ng=;
-        b=SUBq7unsedOkpoxVv+QdI3y5LbVVq2JY8PjlZnviAaz5OhZRZKZwiTBehwxD2QFxSB
-         AQ6oITgSX1hKy/cs1s7tnudx+k6YF6GXm0gSB4xrBXlH3KnrAryvtp5209Prccu6iv+/
-         pT6wZ5Bw4zze0Kt9b8m3eetokxtgKc/PHYYuD0M8MLwvrHQl05vneZ4L0OMmThExohtp
-         Q0KIdvej3ZAgaNsr7V7QPPLvg2gu7vg5n66dK8wF8h9dtAG5KJJWW9rFPby2ucm+i3H9
-         +qNzGy0Sjva1xFpQqfA+tCHcAwjTus2mt8d4Nk1fGQkM+a5d8V9Gj1Tik00M9+p3yoUO
-         ltfw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0tXs4b6gIFJO65xGzTjmh3BmjQrx2FwunBg94u8qcmW9f0pjMulWaXDJaVMw8vGKHxZfUcQE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKly4TD9G6sBvqL9bdvt8wiFt/QjlXPfDGymUEIpy0SqaHkf6CL
-	txZLfSEMjnGxx8BLVkhsr0SdCkYTPtDZ5UvbRGkHslJDcSVqrQq3nPIa
-X-Gm-Gg: AYBFou3NdIQ4x3+1SC980wnYqWgYCGXxk++nfB4WhkLZOB66DoPAVy52ByvKnfyPwcS
-	YylnHZoY1nD613M1wBPbrlO2ORptbvyLRPMyMJNwYYQlVf2l06i8LdOu3wAkHkn3WITxE8Upr8k
-	par0HLiGIVZzjLDP0M6p3ZjGjTPHGIy2qF+LbCUGDseOUlsZUTqUBecE8i0Ig9HW84zkD33XIwJ
-	5AT21LabmbTh5MtG0Zs5nVx++6qSdaP281UBCVxLBwQf+luMHVEXnf6jW64jTH1IrHhBRpi7Zld
-	c3e/4X7L4WrURms96GRsmXF5MqKqnTgyRWA5jyCVgzSlE8vmb/bENrfVd1yOV8WY87etidpcoy2
-	jnamynvYJrw6Nvq+s+w4m559RFVmn7bJmA/AIABgHEAMFx89Cq3bevty7kAA2nCSG5UqZ/SJ3E8
-	1ySU/0EB41gwJXHKufcBFyjeyP5rnGsTeBazEwfA4LL651cElK/FShvoVIs1xnX8d1McRiaxWSS
-	8tNhMwQXaWp/K/Zl7sNbp+rGLgpvWqyts7L9A0QCGIER32fXgW7f0GNcgg2gnbAvvzUOo7aRo7O
-	zQPcvOqjN3WJZGdJINroRMHL9a7fIfz1FMn1hdU5GCDaKqK0ya+GK5h+fB20GBMs9MEDr4Xb
-X-Received: by 2002:a05:7300:f0ce:b0:366:846a:e21d with SMTP id 5a478bee46e88-369e84d35c0mr9182619eec.33.1792987028486;
-        Sun, 25 Oct 2026 20:57:08 -0700 (PDT)
-Received: from MacBookPro.lan (113x35x113x191.ap113.ftth.ucom.ne.jp. [113.35.113.191])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d93663sm24441240eec.13.2026.10.25.20.57.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 20:57:08 -0700 (PDT)
-From: =?UTF-8?q?Paul-Louis=20Charri=C3=A8re?= <plcharriere@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	Jalen <jalen.lin@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	regressions@lists.linux.dev,
-	=?UTF-8?q?Paul-Louis=20Charri=C3=A8re?= <plcharriere@gmail.com>,
+        d=1e100.net; s=20260707; t=1792987365; x=1793592165;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K2jKhwM+YQiKdSr1TcQzqEzMoQpUEpx9bgQiDQX0OfY=;
+        b=rnhbgyxG6uugOk41t819L6hb2bHJr/TIB79seGANhkM/UvVtTqr9aAYWMq5WSeOTwk
+         uwBrdgAWUoH/XI+6Pkhb/uF2s31BD9Nc0CaSdWItotGhx29e/46t5TcBW8lTMa5EjLYk
+         eSOKvhrk8JYCJrkdCQFEqzjle3Ezchd+A/cdByD4wLu6xhPgTmFZoI1kZq3zAP9zv8F+
+         cdOpy9DQIZtOZZn3PQW6JnBRM+xGQB2yrpc7b5GA4CNlT7oT60Hz5Iy4hLekggI8RbfI
+         Ecrmt1lZm3vIF3m99A8xGjbdhcgIESNDcOCqNOtiw9ZoE5MwcysiN8fzxyea4VRbR78F
+         gqag==
+X-Forwarded-Encrypted: i=1; AKwUvBwhB4zGzoY14BvLuSpUMchKCI2gDOMTEr9wKLUgH8gt8X+YNxuoJ7v42nJtyLzcQhvb1HfUtsI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaESK0AWgvVYVjSjCj742xHKF3SJrLet8bxktR3ou2dSyTVrLj
+	rYWKkKutEqnD56uSgLjz8EFwbdOCXkJpOFIpZW3ks8KJgR6xEwj4qVdH
+X-Gm-Gg: AYBFou13w1s+Uw7GxqzEpLhwB0ueJgiPUHyJyBV3uEFUtNv7onUNTmv/UFUNguMe8Mg
+	WtwccyBxWNH/YxnbbOls+ZtFdTruZuffRGT61XBfvazixBjbMz7iBDpOAHVow9boRVuLRDIeoN0
+	vPdH+GwNEM4JeuPWOvNI1OMAujx6yqf1LfU6gS2dPMrv0fHZxp3O5JQWwhaq6on8soIUnMPTgdJ
+	8+c7HqQjLhIxZUqgwe9JfshNhB77YMam4q8FyzD9eJiVp2xuQSHWUebWPc9b6My5quc7ytxOWIZ
+	8I/z1NOskQxLdLOwww5+07cTNjTr5/j4FGVFbA2MAqrGGLwsyzjAU7tuM6Uyg91NP0eih1tFgBJ
+	4LvzJl+THbC1K+1U3WiQuyT2l3uhHGA8N3IuHi1d875SypaRGf9/sJnTvB4sMXKcfHVdopA/P9b
+	CHRatkK8qpcfrmwbyAkAd2adMtb93vZ5cL9F8rsrRLcGvwyhPjuwwhNGAFjlruaZPloClHSEgb/
+	CoLCfoPpQEwb32PAVia9fhOLpsGW5Cj1X4Wc8EIjw7wVg0HyyHW1C5HPKmWhvL1CrepFUQxDe5z
+	NLcQqYYCj1kZZ+2j8Y4=
+X-Received: by 2002:a17:902:cf12:b0:2e9:73db:3c78 with SMTP id d9443c01a7336-2ea9c63efcamr46730195ad.17.1792987364597;
+        Sun, 25 Oct 2026 21:02:44 -0700 (PDT)
+Received: from xiaolei-VMware-Virtual-Platform ([219.142.21.190])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b22416bsm10626705ad.72.2026.10.25.21.02.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 21:02:43 -0700 (PDT)
+From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+To: aisheng.dong@nxp.com,
+	festevam@gmail.com,
+	Frank.Li@nxp.com,
+	ping.bai@nxp.com,
+	kernel@pengutronix.de,
+	s32@nxp.com,
+	linusw@kernel.org,
+	s.hauer@pengutronix.de,
+	sudeep.holla@kernel.org,
+	cristian.marussi@arm.com,
+	peng.fan@nxp.com,
+	xiaoleiwangxiaolei@gmail.com
+Cc: linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH nf] netfilter: flowtable: remove hardware flows before unbinding
-Date: Mon, 26 Oct 2026 12:56:51 +0900
-Message-ID: <20261026035651.40052-1-plcharriere@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CAHqkChbVoGHrWtaFyGFaLQDiAunWw1qOpW-vKSgkKxWEfQ_tCg@mail.gmail.com>
-References: <CAHqkChbVoGHrWtaFyGFaLQDiAunWw1qOpW-vKSgkKxWEfQ_tCg@mail.gmail.com>
+Subject: [PATCH] pinctrl: imx: scmi: replace custom dt_free_map with pinctrl_utils_free_map
+Date: Mon, 26 Oct 2026 12:02:30 +0800
+Message-ID: <20261026040230.22338-1-xiaoleiwangxiaolei@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,74 +108,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Since commit 13210fc63f35 ("netfilter: nf_tables: imbalance in flowtable
-binding"), FLOW_BLOCK_UNBIND is called when the flowtable hooks are
-unregistered, in the commit phase, and nf_flow_table_free() only tears
-the flows down later.  Their FLOW_CLS_DESTROY requests then find no
-block callback, so the rules stay in hardware: the flows keep being
-forwarded, and drivers such as mtk_eth_soc and mlx5 keep their entries
-and reject a later flow with the same cookie with -EEXIST.
-Commit 5acab91458ce ("netfilter: nf_tables: unbind callbacks from
-flowtable destroy path") had placed the unbind after nf_flow_table_free()
-for this reason.
+From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 
-Remove the flows of the device from the hardware in
-nf_flow_table_offload_setup() before unbinding it, as
-nf_flow_table_indr_cleanup() does for indirect blocks.  The GC run that
-nf_flow_table_gc_cleanup() waits for may skip flows with pending offload
-work, or have started before the teardown, so queue the GC work once
-more, wait for it and flush the delete work again.  A direct
-nf_flow_table_gc_run() would race with the GC worker.  No BIND or
-UNBIND call is added.
+pinctrl_scmi_imx_dt_node_to_map() kmemdup_array()s the pinctrl configs
+of every pin into map[i].data.configs.configs, but the driver's own
+pinctrl_scmi_imx_dt_free_map() only frees the map array itself. The
+pinctrl core releases maps through pinctrl_dt_free_maps(), which calls
+dt_free_map(); the duplicated configs are therefore never freed and leak
+every time the DT node is parsed, e.g. on each (deferred) probe attempt.
 
-Found on a router with mtk_eth_soc flow offloading, where each firewall
-reload left the flows of the old flowtable bound in the PPE.  Jalen
-reproduced it on mainline with mtk_eth_soc and mlx5 and tested this
-change on both, see the report.  Build-tested with W=1 and sparse on
-arm64 and x86_64.  In an arm64 guest with lockdep and KASAN, with TCP
-flows through an offload flowtable on netdevsim ports, the delete work
-of a deleted flowtable now runs before FLOW_BLOCK_UNBIND returns instead
-of after it, and nft_offload.sh passes.
+Replace the custom dt_free_map with the core helper
+pinctrl_utils_free_map(), which frees the configs of each
+PIN_MAP_TYPE_CONFIGS_* map before freeing the map itself. Its
+signature matches pinctrl_ops.dt_free_map(), so the driver-specific
+implementation can be dropped entirely.
 
-Fixes: 13210fc63f35 ("netfilter: nf_tables: imbalance in flowtable binding")
-Reported-by: Jalen <jalen.lin@gmail.com>
-Closes: https://lore.kernel.org/netfilter-devel/CAHqkChbVoGHrWtaFyGFaLQDiAunWw1qOpW-vKSgkKxWEfQ_tCg@mail.gmail.com/
+Detected with kmemleak on an i.MX95 board (FRDM-IMX95).
+
+Fixes: b755521fd6eb ("pinctrl: imx: support SCMI pinctrl protocol for i.MX95")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Paul-Louis Charrière <plcharriere@gmail.com>
+Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 ---
- net/netfilter/nf_flow_table_offload.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/pinctrl/freescale/pinctrl-imx-scmi.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-index 4365859220e..3844a23af5b 100644
---- a/net/netfilter/nf_flow_table_offload.c
-+++ b/net/netfilter/nf_flow_table_offload.c
-@@ -1279,6 +1279,19 @@ int nf_flow_table_offload_setup(struct nf_flowtable *flowtable,
- 	if (!nf_flowtable_hw_offload(flowtable))
- 		return nf_flow_offload_xdp_setup(flowtable, dev, cmd);
+diff --git a/drivers/pinctrl/freescale/pinctrl-imx-scmi.c b/drivers/pinctrl/freescale/pinctrl-imx-scmi.c
+index 613552e35070..8cbd66950848 100644
+--- a/drivers/pinctrl/freescale/pinctrl-imx-scmi.c
++++ b/drivers/pinctrl/freescale/pinctrl-imx-scmi.c
+@@ -153,18 +153,12 @@ static int pinctrl_scmi_imx_dt_node_to_map(struct pinctrl_dev *pctldev,
+ 	return 0;
+ }
  
-+	/* Hardware rules are deleted through the block callbacks, so delete
-+	 * the rules of this device's flows before unbinding it.  Run the GC
-+	 * twice: the first run may skip flows with pending offload work, or
-+	 * have started before the teardown.
-+	 */
-+	if (cmd == FLOW_BLOCK_UNBIND) {
-+		nf_flow_table_gc_cleanup(flowtable, dev);
-+		mod_delayed_work(system_power_efficient_wq,
-+				 &flowtable->gc_work, 0);
-+		flush_delayed_work(&flowtable->gc_work);
-+		flush_workqueue(nf_flow_offload_del_wq);
-+	}
-+
- 	if (dev->netdev_ops->ndo_setup_tc)
- 		err = nf_flow_table_offload_cmd(&bo, flowtable, dev, cmd,
- 						&extack);
-
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+-static void pinctrl_scmi_imx_dt_free_map(struct pinctrl_dev *pctldev,
+-					 struct pinctrl_map *map, unsigned int num_maps)
+-{
+-	kfree(map);
+-}
+-
+ static const struct pinctrl_ops pinctrl_scmi_imx_pinctrl_ops = {
+ 	.get_groups_count = pinctrl_generic_get_group_count,
+ 	.get_group_name = pinctrl_generic_get_group_name,
+ 	.get_group_pins = pinctrl_generic_get_group_pins,
+ 	.dt_node_to_map = pinctrl_scmi_imx_dt_node_to_map,
+-	.dt_free_map = pinctrl_scmi_imx_dt_free_map,
++	.dt_free_map = pinctrl_utils_free_map,
+ };
+ 
+ static int pinctrl_scmi_imx_func_set_mux(struct pinctrl_dev *pctldev,
 -- 
-2.39.5
+2.34.1
 
