@@ -1,56 +1,155 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021814;
-	b=46t/PjrSS6ob5SsyE1rZeT3ADhmXXzrU8GNQraoe52JqOpIP+8Z9lpjl+zOP2A9qW+Wv
-	 DS+CRNx6oYpd0AGniZc/lOnkfDw2A2Nr/Jm3BpPdkni//g6KY5xNjp56voXaw5kbkK2oJ
-	 ij/6iqhyxijPZ86OySRu//ldP5iKsHjgC1qR6/wXusceZPvhL6EV4VxpnPXaKz4NFHrUK
-	 qJYGUpzGpBWSEhUFBLLX/vlp9DDsA4q8pfz6bgYLSGi7pkkxze8c4a357kPZSW+L9SGPd
-	 NdYn4QidGGjp6h1ycw45uTz9LVX3/uQynfvA/gwvqb5JsCT61U0ioMrmYSgOp1DQ49Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021814;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QYZ0XMP0Wi8hecXFzBwOfGQ9AN/zBa/t/RaItnxb0wg=;
-	b=SJkeHy0X0DtSU9dpnm6Xr0xRWSIOHwWPJEyzT9PgXUG9eyh73So/UUt9kkPwZSTCfrZI
-	 +fTLrJzQjHEUFJf5AgkbudvDastR5qeuI9k4cFsxQCewgYhtWRujejJVvNuNI1Uw3OWzN
-	 I3BvrkyVMFQbE4dB9PX7weHgRDAFuRHAQlF80CtYbS09gXyCXPBWWJY28cl/Qg2511ouT
-	 v749kLs62pDdGLDUI843YdbliIOSSYjtYdAMpmuAaXvMMQ8eX6ThnUFxz2Q8vxtU2M08P
-	 u1ngjVJDkKHKu8qdte04nPxHScYUxO1P1env/Q/TyAdaUx5qVdT4KTIKOs7wJGmKIYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nk/QG8F8";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.31
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793021823;
+	b=Tg2f3VUYK1mLs18puNwXpJgA0ryr56oT94ALztNu0eIkNdMgINuWqtrxWelDlF7HKG9O
+	 YTYt9y9oDjGkSthQywcCH9tGJqwmKZlFm/kODkGs7sfuZS9WcvHzNe+tvDoMbC/juU3V4
+	 7sbmWkhSndCHpiPfSMDEKFEQkEda70h/86+DnJNRZEa8jIwQhruaK1cdYFwBUtzvpau/G
+	 VaqYSQ+zH0tNfpbrt9fKGK20OwcNX9o7GWRFIs6EVVVG+lGyLVCmXVq8n9cXYIuIiGe2K
+	 6h1m1fTJbKksDxfbc7mlmkfpIlTvihKAeIF3ECDHBbqTbNnPZWNYGA/gC2DMASDHkZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021823;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wTex4qtLJfSBy+cRVcioMUvD+CtwCsVOH/AECnl4lZQ=;
+	b=TLx0yK44N1OSu/+2ERFrfPcRhH48jiAaSz5ucVdmYHlpnf9+zfytFUfuV4DCcvIGEArj
+	 k/2+/42X4O9WghYVpasQx8Igbt49lND7+j3wTR+ejoFzwDyAWlEXjfyydo0137Z7W0Bdb
+	 hwBqlQOsUWTjgmMd5FhocxFa90vv6NPFeg4V+Gdx1hDaqdnRqbw4eCanpA1x51M5B+EXC
+	 qS/hZnurIQeQJYDnqeUyhESjCkGQgBRxI6BEUY0T14MnahUD4saS7d6VWtZlkJaenTHwi
+	 s9YbahFm3kjxK+OdiVtILxoxNKGRY8VyK+Xc+mB4dDBZuaTm2cX2x4IfsDr8xhbCweg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hydroquebec.com;
+	spf=pass smtp.mailfrom=hydroquebec.com;
+	dkim=pass header.d=hydroquebec.com header.i=@hydroquebec.com header.a=rsa-sha256 header.s=selector2 header.b=XBQoGBi3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.31
+Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11010031.outbound.protection.outlook.com [52.101.189.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EED606A31B;
-	Mon, 26 Oct 2026 13:36:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA48606A31A;
+	Mon, 26 Oct 2026 13:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA48606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hydroquebec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hydroquebec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nk/QG8F8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431841F01825;
-	Mon, 26 Oct 2026 13:36:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793021813;
-	bh=QYZ0XMP0Wi8hecXFzBwOfGQ9AN/zBa/t/RaItnxb0wg=;
-	h=From:To:Cc:Subject:Date;
-	b=Nk/QG8F87cBP4iJGeTUTM8JjtvVnB52rR0VsL7gkPmHXSjlReJAJfz4uTnoMucvw9
-	 ArjLJKQ6q5JP7JsQvMebOc1oI+NgAFJkpEL3XUQPA4sQZgMMYNjMBVAjKqJ4A6Q3S7
-	 CEGZ9GFnUYrZT1cYNkE27HeTrAJypC7Ty40woI474vn37WU3XtNgpiQg1RB8JYLLE4
-	 NQROOXGsCoO0oIHfTvibdAlt+ckfQytLwm+lVSFWbYBOYQJLB6yF7DDVAsX5T4DqAc
-	 06NrMSxu5RwO5h4/lOuNP6htVihjZwB0q3HAYTjeqiGzKcIgb6v69dQks39XMWvUNK
-	 LQ5XWOzmWxT9Q==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 7.2.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Mon, 26 Oct 2026 06:36:43 -0700
-Message-ID: <20261026133645.119485-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=hydroquebec.com header.i=@hydroquebec.com header.a=rsa-sha256 header.s=selector2 header.b=XBQoGBi3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aJBUhuDvGiQAJ8uq8BhB33xrrpC9qPTOrHnpwr71B7YuxAYJDB61nn6D7gi+bo8sdNYhybGoA35VQ2QeaoPowLNNR4h2mKXEsdrg04vsP3zic7psKjbTqUkwnHz4Iks8InCyF7tAfW84nbXXjHen20+5uQxnuM+VFhpEeZMOUau12PYVSEJo1Qa8eeOiniFgKwvYXVjiKaYMIBaVDiVDX77Yvbncx8a76u3rEa1P5MJv6kZ0S4Vaauh9ZbCnsvS4BLEmqs8pII2cGOTJHgkpTRw/hKA5V/unBlOlAs1/4VYUEba4ba2zo84lnFJnhyRl5RbIdJGCbpQed/ZUidGTEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wTex4qtLJfSBy+cRVcioMUvD+CtwCsVOH/AECnl4lZQ=;
+ b=Jg0yuAFNTJ9d9UYbnyflWcB4nTyIARC4R0opwZtvYtsOdDC6OzF5iFSZ7N6QK7Xcy2v7sU6WxNvGTSf4sUpaOwOhcJ+NnE5cpJGMt+be0NSt12jr7qUIuV5E0pj5LL9sh9tOLjKcqT1cB0UZ6+BEQFrD8AZy6DRKpPCNnzoUQdQ8HLNBOhQOwuhSQkbYn5HZwLRdz/Z4XpeJjPsjMbpckzUVDXxO3OkLMWNX/wfUwJLZw2r7j46PcHZ8XsDOzT5d4YGnbcEPkKEOSi+30jWfdgCwO1RPstxoPvuVV4uTrHsLAArJJdaE2+UNJBV2bC/m1ETHvI+mTnlnM5nGdmlezA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=hydroquebec.com; dmarc=pass action=none
+ header.from=hydroquebec.com; dkim=pass header.d=hydroquebec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hydroquebec.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wTex4qtLJfSBy+cRVcioMUvD+CtwCsVOH/AECnl4lZQ=;
+ b=XBQoGBi3yi4upQiwmu9Lwy1TRrO2Fyjof9eGU5HAKeEzyIxKagTgUZzV0xxTTM5o26PyCeN7yWwu5Ik0JBtpI0NN6kepKF+VyfwY+VqzqjmJbwSsiA+3FfdbFwFePFzlY2njf7IzjQpEcERAD1aLw8ex4YnNHCA+gq5akukyDRHuPDvTHt48MgO2xPS9a96znK0e9wH/wZGimxLAIc6YeNbb5aBdo4YvW628UROm6Om8qBtwPP8udvf7XuggI+YiwIwC9eek/btiX5G6FbJYXu9R8RgYz7FMb10ZzdNjN9oNGNM3FNYDsiAic07VYcps1q3LfbMwETJYHyoBv3IpeQ==
+Received: from YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:18d::8) by YQ1PR01MB785934.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:cf::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 13:36:58 +0000
+Received: from YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::aae3:5d66:3923:ae40]) by YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::aae3:5d66:3923:ae40%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 13:36:57 +0000
+From: =?iso-8859-1?Q?Choini=E8re=2C_Vincent?=
+	<choiniere.vincent@hydroquebec.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
+	"przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>,
+	"pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>
+CC: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"aleksandr.loktionov@intel.com" <aleksandr.loktionov@intel.com>,
+	"michal.kubiak@intel.com" <michal.kubiak@intel.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net] ice: fix Tx hang dump using stale tx_buf[0].skb
+Thread-Topic: [PATCH net] ice: fix Tx hang dump using stale tx_buf[0].skb
+Thread-Index: AQHdXW+bM3SfOdfqFke6mUP0vWk/Q7cGbgUAgAlv6yo=
+Date: Mon, 26 Oct 2026 13:36:57 +0000
+Message-ID:
+ <YT4PR01MB647290C874F1270D6B581668FEE3612@YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM>
+References: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
+ <179250185873.3135.10101707471960530546@kernel.org>
+In-Reply-To: <179250185873.3135.10101707471960530546@kernel.org>
+Accept-Language: fr-CA, en-US
+Content-Language: fr-CA
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Enabled=True;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_SiteId=f40a10f0-50ee-4880-9a37-6e1dd4ac2ff3;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_SetDate=2026-10-26T13:36:33.132Z;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Name=Diffusion
+ restreinte;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_ContentBits=1;MSIP_Label_5af313ef-8edb-402d-b576-47820579b2e0_Method=Standard;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=hydroquebec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: YT4PR01MB647290:EE_|YQ1PR01MB785934:EE_
+x-ms-office365-filtering-correlation-id: 4e56a3e3-5993-43fe-ebfc-08df3366350c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|38070700021|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+x-microsoft-antispam-message-info:
+ M3H+hdmWccA+7j6CvW5zeg7gbyKcj+/uDgzaKeB/SpGsAhD5E1Zw/qthATLOm9g7Ll5xN9rzzptTlGj+/3ixEWCorVIlCmFBz6LYdNJKVWuuRqYJI8VWWZ4YshS8m2WSQXp/AEL0XwOXPr+oJi4lmoPweDCWvqzRwhaPSHeu4M8hTEtxqae2F9eCY9AUt/BPTp49BJmeXv7zjfOA6BOQ4IhFnBGqWx3D2D/6ba7xWIdRlDnBY4jq6bXLnV5RE8K2Tk/nMvv1ChGysmqC8FXTntECz5cjEzY+1Vwiu2SznJYYp7q9hRfBwumXAmV5aZ+yCy1/6/p3xN1pN8mdGyuxTCLgxqYUSDKvnFfyhNSv6uuw8RfW4pvjYkcDnjwVoymP7QV4ikLTxUWA/OopaBfY2qi1LqcDwlZHbxseOfoC6p0tV4sMwmf7l/vZOnDScGYPrWnEl20Vp5XLvPkKoFk0gTwRN4PxZON2Jhc51M4dFTqfYBpy6xAkEreXFV7C2VhWd9Eqjw7JLhgtg5yXpLoBUfP69y62K7KVT3yUN3BtYNRSQXrq+XIAFLiV4bFprPI2dHYlS5RuC2GJTD8hliuzgHuUCG/9dN1c6gdR43cFN3iG3OBwOgqN3CAmeg9eiq4S4BpwR53sEhcPGhN/13WT+A80e5lmEgnEx6KXpH3Yhn4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(38070700021)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?tc1qFNqLmko49kNJXQWYgUft+tfcwPCue/7He3Evu+BxdCkymH+KwGIX1x?=
+ =?iso-8859-1?Q?8jd1PIRrYA3Iibg9wKkHPrf623m8HSEJNA35AJTU9ADzuKt86pNknw7Gp7?=
+ =?iso-8859-1?Q?XvSUNOVav6XkGzCHJAwXMrsnTvQFCESsVyFeI7ZitdCxS5++9uqS/+ULSL?=
+ =?iso-8859-1?Q?1zaqdkVoGiZ//Tfvw3U5BqVieLDKerUIdpO8FV+C7QqasguV6E850aVa/B?=
+ =?iso-8859-1?Q?TFlZOt/lVPS70xTcf1DrJENP7YEaTuSS+m4wJ3DtyoI1/wQNAZiR3ij5ch?=
+ =?iso-8859-1?Q?CIIdWtSWViZAIhPX3oaeoAZ+vUhbLQ6xlbgU7CKvvxNVPXceW1Bnlfr8si?=
+ =?iso-8859-1?Q?AZq8f0W7fHW9g9373CST5n0Xaj0878MUU+9qB/nctMHV6O1eO9kWiICc9r?=
+ =?iso-8859-1?Q?AVTWks3eV5lZHOFKAA1b1Wqrt3ZJMN5XnGh2jCxaA08keZaD0JM8cBvHP0?=
+ =?iso-8859-1?Q?h44e/p8CF16U41L5kwYr5vY0islIHPMhFqAVpzNZfYBXIqCetLReJiYWBO?=
+ =?iso-8859-1?Q?ELSdaOvMZBQelIyKvrivq8SPmkIcf7nVPKsOSdZoLquWzZyn5uBzrPzhJx?=
+ =?iso-8859-1?Q?t0rSOIjhmjLS0kaZcCzet3cj7Ebi+m5jB9s0z1N7ifDptA517s9KGA2biw?=
+ =?iso-8859-1?Q?BQMfeFpFoS0mancG5tsbDPCPGO67gvAkXUxo7d8qTZxN6kGi54y3YIPDFl?=
+ =?iso-8859-1?Q?vcRDUrLQg8bxHv//oNQPuS7P/r0v4CTMmyVZdQRDQx2LQwA4qzhT5BgoUD?=
+ =?iso-8859-1?Q?FkuWiw5Xc1JwSqiwAxg+aTLcFkBuKNyBYIrzRisuSUYH1YHzPhSM1uJl3n?=
+ =?iso-8859-1?Q?d/sOFffy3s+zcgyzPdxn3kZNbZiZ4GK6+isi0tLAg5PFMc1U+fNLavEkoQ?=
+ =?iso-8859-1?Q?BQh/i5zY2fUGaRmRUpnPiCxFVNBebhesHxPcTq3AxWMLS1rOh7cyz6R/RF?=
+ =?iso-8859-1?Q?fw+iIWDqFDQ+zSV2UM+K26+2LKiKj7JnQbpkScNpFZsMGWfqXsGGesE3Y8?=
+ =?iso-8859-1?Q?OD2t/TEHS1PN5F4n8Zz0jHv7RI5pXrPOmM0poJ06AWndwl10nLHmbYh3MI?=
+ =?iso-8859-1?Q?mSmr2Qcxjlqmb4BuvnreIJ7GRJHHc/M1+ieZCTWY3yMsJgazlgqhm3vd54?=
+ =?iso-8859-1?Q?2jo8QIqo5sE9TMVcbYHJzNrHfddZs91KncFQr0bTUM3j70VBfcn2B4+KnV?=
+ =?iso-8859-1?Q?m+B43nqkiHmMNQyan0gJQa00Xi9L8sDSEeWqevXwtFZu5pg6sviKHF3/8W?=
+ =?iso-8859-1?Q?TL8wh+j910jhozgAf6yW+J+OsntHJ1ov3N3mwza0JkWGf2I5IQtwfbuGoh?=
+ =?iso-8859-1?Q?zFyRHLxe9SSEcxuf6Do0mj1fH1L3KLVgLiLz3kzTZCpkYVcAgkcmiVzaZr?=
+ =?iso-8859-1?Q?Epw8IwifFvORFxSoofeH0P4u9EQVsxSqcHeNL7xQKvVjetGOv81xL1VJvm?=
+ =?iso-8859-1?Q?IynihVUvZ9FR/9VDfpxqNcnuIApzj3/4Xky0O0z3qmEU/JJdFhwlJEEf3r?=
+ =?iso-8859-1?Q?C5cpfsMcbs1gHZNTdLz1/T2vwe/SYpCpUiNhNe0tDp/WldN+zMWNprcypJ?=
+ =?iso-8859-1?Q?7xMWJ+7RCQzZ5lQ9IiEQNbhDVjr6qR/EJKQGYEEtel7kZ3UuQXTTeDuOGN?=
+ =?iso-8859-1?Q?5NXzUgaK0xXJK4+K+/Xa1khVhkySf7F5LNe0qNbZa4Y59BtK8cNI+u3IuT?=
+ =?iso-8859-1?Q?CfXbvYSTeXOmzub8npqUGR1RuF9kNwU9Ug1kO6hjxJRhN2ZTzhcitBu3uE?=
+ =?iso-8859-1?Q?TebXFzH28T6JMhs7qYHgtlbe+GRABMgJT79xO6bsQC6kvy17kz6IWL7mE3?=
+ =?iso-8859-1?Q?6Aal+YzG/5SftYEKST/mbWmKUIwXgjg=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,172 +159,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: hydroquebec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: YT4PR01MB647290.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e56a3e3-5993-43fe-ebfc-08df3366350c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2026 13:36:57.9278
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f40a10f0-50ee-4880-9a37-6e1dd4ac2ff3
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SYRRckFoemoz526Bzx7Yc7WqfA1M8CkC2MTJ4lxuMrDY4DG5TgCrQDlZgtjhQpqbC1TXj995QVLIrVtTgI/b6RUDqhLxUirOiNig9SZMiHegqM7AfzRmQwy+yrBDNoPN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB785934
 
-Patch series "mm/damon: move zero damos quota target_value handling to the
-core layer".
-
-Having zero DAMOS quota target value can cause division by zero.  DAMON
-API callers are checking the target value parameters to avoid that.  It is
-easy to make mistakes in some of the multiple API callers.  Move that to
-the core layer.
-
-Patch 1 adds the corner case handling into the core layer DAMON parameters
-validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
-side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
-respectively.
-
-This patch (of 3):
-
-If a DAMOS scheme has a damos_quota_goal of zero target_value,
-damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
-API callers should do the zero target_value validation.  It is easy to
-make mistakes.  Actually such bugs in DAMON_LRU_SORT and
-DAMON_SAMPLE_MTIER were found and fixed [1].
-
-It is better to handle the corner case only once in the core layer,
-instead of multiple places in all DAMON API callers.  One straightforward
-option is using an alternative denominator for the corner case in the
-damos_quota_goal().  However, the zero target_value is meaningless.  In
-this case, the quota goal is always evaluated as achieved or
-over-achieved.  The quota will only keep being reduced.
-
-Simply avoid using zero target_value by adding a check in the core layer
-DAMOS quota goal parameters validation/commit path,
-damos_commit_quota_goal().  Update it to return an error in the case.
-Also update its caller to propagate the error.
-
-Notes for stable kernel porting.  The upstream commit doesn't have
-Fixes: and therefore not ported to stable kernels.  It turned out it
-fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-goals user input to DAMOS") which was merged into v6.8.  The user impact
-is a race condition that can result in divide-by-zero.  Hence backport.
-Reproducing the issue requires sysfs write permission, certain DAMON ABI
-usages that are supposed to be uncommon, and a rare race timing, though.
-The issue was discovered [2] by Sashiko as a part [3] of its bug report.
-
-Also, the upstream commit on this stable kernel can fix the issue for
-parameters commit paths but DAMON start path.  That's because DAMON
-start path does not invoke damon_commit_quota_goals().  To fix the path
-with minimum change, add a new small validation of quota goal target
-value before damon_start() call.
-
-[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
-
-Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
-Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
-Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from RFC
-- RFC: https://lore.kernel.org/20261025172434.161597-1-sj@kernel.org
-- Add a validation for damon_start() path.
-
- mm/damon/core.c  | 22 ++++++++++++++++------
- mm/damon/sysfs.c | 19 +++++++++++++++++++
- 2 files changed, 35 insertions(+), 6 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 40714c69d1b18..0aefaef46d655 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -999,15 +999,18 @@ static void damos_commit_quota_goal_union(
- 	}
- }
- 
--static void damos_commit_quota_goal(
-+static int damos_commit_quota_goal(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
- {
-+	if (!src->target_value)
-+		return  -EINVAL;
- 	dst->metric = src->metric;
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
- 	/* keep last_psi_total as is, since it will be updated in next cycle */
- 	damos_commit_quota_goal_union(dst, src);
-+	return 0;
- }
- 
- /**
-@@ -1025,14 +1028,17 @@ static void damos_commit_quota_goal(
- int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- {
- 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
--	int i = 0, j = 0;
-+	int i = 0, j = 0, err;
- 
- 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
- 		src_goal = damos_nth_quota_goal(i++, src);
--		if (src_goal)
--			damos_commit_quota_goal(dst_goal, src_goal);
--		else
-+		if (src_goal) {
-+			err = damos_commit_quota_goal(dst_goal, src_goal);
-+			if (err)
-+				return err;
-+		} else {
- 			damos_destroy_quota_goal(dst_goal);
-+		}
- 	}
- 	damos_for_each_quota_goal_safe(src_goal, next, src) {
- 		if (j++ < i)
-@@ -1041,7 +1047,11 @@ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- 				src_goal->metric, src_goal->target_value);
- 		if (!new_goal)
- 			return -ENOMEM;
--		damos_commit_quota_goal(new_goal, src_goal);
-+		err = damos_commit_quota_goal(new_goal, src_goal);
-+		if (err) {
-+			damos_free_quota_goal(new_goal);
-+			return err;
-+		}
- 		damos_add_quota_goal(dst, new_goal);
- 	}
- 	return 0;
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 26cdad603ad06..9c7e34f18b28f 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -2226,6 +2226,20 @@ static int damon_sysfs_repeat_call_fn(void *data)
- 	return 0;
- }
- 
-+static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
-+{
-+	struct damos *s;
-+	struct damos_quota_goal *g;
-+
-+	damon_for_each_scheme(s, ctx) {
-+		damos_for_each_quota_goal(g, &s->quota) {
-+			if (!g->target_value)
-+				return false;
-+		}
-+	}
-+	return true;
-+}
-+
- static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- {
- 	struct damon_ctx *ctx;
-@@ -2251,6 +2265,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 		kfree(repeat_call_control);
- 		return PTR_ERR(ctx);
- 	}
-+	if (!damon_sysfs_valid_start_ctx(ctx)) {
-+		kfree(repeat_call_control);
-+		damon_destroy_ctx(ctx);
-+		return -EINVAL;
-+	}
- 	err = damon_start(&ctx, 1, false);
- 	if (err) {
- 		kfree(repeat_call_control);
-
-base-commit: cc9de5d4b5ab6459f5774946aa3195ad51236fa8
--- 
-2.47.3
+=0A=
+Thanks everyone for the review. I posted v2 here:=0A=
+=0A=
+https://lore.kernel.org/netdev/20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@=
+hydroquebec.com/=0A=
+=0A=
+Following Sashiko's feedback, v2 no longer dereferences the skb:=0A=
+only its pointer value is reported. It also validates the saved ring=0A=
+under RTNL before copying the descriptors and IRQ name, then releases=0A=
+RTNL before calling devlink_health_report().=0A=
+=0A=
+Przemek: thanks for the conditional Acked-by. Since the implementation=0A=
+changed substantially beyond the additional NULL checks, I have not=0A=
+carried it over. Could you take another look?=0A=
+=0A=
+Paul: the skb contents are no longer included, but the descriptor=0A=
+dump remains available when a ring snapshot can be taken. I dropped=0A=
+your Reviewed-by because the implementation changed substantially.=0A=
+=0A=
+Synchronization of tx_hang_buf between ice_tx_timeout() and the=0A=
+service task remains outside this patch and is documented under=0A=
+Limitations.=0A=
