@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989982;
-	b=ESHVkpmTI8HDA9M/mmstYIf/f1TixwRz3Ia1qymAobQmWIfBfTj4+PjFWCUFmjnNO8jM
-	 U0T5vs2Rql3zGjmpHSXwhMqoQ9pUAA2HMiESm0vzty7we0A93rG5AxOMmUk6SBX567amH
-	 AaVCKtJigheBjdhCDVOe0z4AFNhjSp5slsb6ZAtKb94Jc4M1f1dM9lDAZVtunTSBGL6Kh
-	 W/RiO6cDhwivoKy0b/AS7bpX477fQUTr5eUbG0EjATJ1Mxr0tUsn2NOylx6Qkn4MKHbGF
-	 AeNrpjLX0LaLEAMnhyTZCRR+YMV5KldxlAJeKJVChu5q8kXEBHSPzWM9rm7SGn7mXQg==
+	t=1792990013;
+	b=rwEhiE65Z5pXnEVyrNAmbIiQOjNJlnF/IuJEUGKY0vepgLXoFuLjaLu0z8fuyu9JavJr
+	 Fg8BsPgUb1T0ICvXGDCLJQOomtqdBfH2CpSNDwJct2hcOw6/hnYWL62NgVBHhSddJmDP+
+	 66bTYKteettPpKNPZX3Go0Z0vtUxV91btlOz4ODPHnfCfLKDmdqKrofsvUr0H+mY8BX3+
+	 pfxVN2vQEPymWJniEYF0GWqDvm/PAqzlVrVebn36Yly2l49DRYq5BSiGWjzzEDyeV+K7w
+	 s+riPcyzD+bVQVneaZK6hKWLOluDmf0ZfIrHKtCP2qL33krATJAoy3rAZDPODaq0Zog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989982;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mOrTqyFuWDMhTrOz4qH+PVMDq3SnFizbYjluGLBXc3Q=;
-	b=EzpzenrE+5XIIQ1muwH42oSIbwX6naB1Hn8oS4VNet6KPx/k5H0I/g3KRakOb1RP93Dz
-	 MDm+tB4Ndla+lzB6Hi9KnrmUcZBk/Le/TptK6YXY16N69u1DzYuwA4lro7bhJObKoul38
-	 f54AHR/2HBMAAdTNBE1EsxogOI9h+bEzjDWl3enrEcrZN+PiwsLkgDsWwtk8boVtkXhfP
-	 bziDGUHZS2kfJsjAqppJRQrX4f9JagQWS0cCGD1LgDww1lbdwowjSxaM8tbCB3NPLumRl
-	 UOch1w+Oo6MFpeIh2nCCyQ4xtB59ybqwizwkP8ZZnkbjRPeueyrIvObbvSFmg242UNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792990013;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F9we1B1BcqT0qfRF/FTS2JiiyttBbvpi5NbTu56uFe4=;
+	b=tNXCAWacU4SBaCPcDFe/PH9VuC76opO6vRPOe8YJpK0Fr4k3KXXExK+QdiW+052a3QUK
+	 1w0HRMtf+hBHD1MV71tekNC6I/Mtsf4StFgMJRWqDxylwGE67Z6/gAOSYffIYDa77gYvr
+	 A/zXMxnbq6B9ttMfXk5bt7tQLqrlWUdG5oAnxmYvfvocU5gLoGi/c4SYifku2DDHLZYr5
+	 8YJM6R15j+D15fEjd+YOaDSMXn2akiqFhst1LljQyHIK/hMpRAXAMhoeHAlTB1zncWwc2
+	 eA3mvx1UK/DZEAen+Qq691454Ruti7Ml5BA/Fjw35gbvLkJmkFGaRXyZv03H7KyLADA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgNinzJd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FA7606A32A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgNinzJd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD1A1F031E8
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792989981;
-	bh=mOrTqyFuWDMhTrOz4qH+PVMDq3SnFizbYjluGLBXc3Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JgNinzJddzXO4gVHgLL2xsH4hSXg8Q/MD7W0aKn37vi9Nm+U9kEj8fE8FODdzfLvf
-	 vvoSvxo8WKH3d6NwxlOSBO+PhjLD8/WdZRQnkX9MiiZpl3+5l0SMnLu1E1tJQtc6th
-	 M9oYuKzKY1TQt4TbOev36uZRtXZOOYhD1QUF7Ere0W2va5OUiHoxyZnrP0mbpqr/7F
-	 wTe1ZRW8hkL7S+k7m6M812EIJXOppQb7AtwcCesXC5wYgcCoSjTZoacYBwGQR+TpZ9
-	 KMmeCjcodArjOadcgXVOps3rzSo+x3S2FfsuMkGVEgTocwcByRU0PXujV5zPYjx7ov
-	 MIeJcSsPHb7JA==
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so4106163a12.3
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 21:46:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxxKl7SmCAkd4KQkCXSGehq5jJZKL0N1+5DTrST3Pk0useChN/vYtoawRxv6FDO2yfSrzGqz64=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEWxgfDz0NWe8Fd51ZvV8I4bZgpyBsRlEVNJLMQXDLxuFilHbQ
-	7RVsru06pITOzZ55oFzB49yS0L4kyFTg51y3z5c0vItbAClz2q5KiUh/YgrRXyTZGJgna/Pqexk
-	ibxZPNHZHzpehRDRGANEbrM7pYDCgAkc=
-X-Received: by 2002:a05:6402:e8d:b0:6ad:186a:fda9 with SMTP id
- 4fb4d7f45d1cf-6b442db3ca4mr6960926a12.2.1792989980084; Sun, 25 Oct 2026
- 21:46:20 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885DD606A322;
+	Mon, 26 Oct 2026 04:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885DD606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792990001; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=F9we1B1BcqT0qfRF/FTS2JiiyttBbvpi5NbTu56uFe4=;
+	b=YcoQ/Xj+gi9ghd2kMZHQnBRw8PPh+mZUHAJVXKgkDVyAnpWQsvF3dMfDhhF49PVjpQqkFnAe+BfAZ6wb/uB5nVLhhaNjd/V0ctw7ekyytO4LigHHJH+y6hhqF0ZaSin2l7jTpVcbAbCys74qoGWQib/CbwHAElhDfmPUNFHXAFo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R781e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDRrqrG_1792989992;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDRrqrG_1792989992 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 12:46:40 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: "Martin K . Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	John Garry <john.garry@linux.dev>,
+	David Disseldorp <ddiss@suse.de>,
+	Bryam Vargas <hexlabsecurity@proton.me>,
+	xiangzao@linux.alibaba.com
+Subject: [PATCH] scsi: target: Verify the iSCSI ISID is NUL-terminated
+Date: Mon, 26 Oct 2026 12:46:32 +0800
+Message-ID: <20261026044632.1738901-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,183 +62,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com> <20261020-fw-devlink-nexus-ready-v3-2-fd6f1c17e16d@toradex.com>
-In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-2-fd6f1c17e16d@toradex.com>
-From: Saravana Kannan <saravanak@kernel.org>
-Date: Sun, 25 Oct 2026 21:46:07 -0700
-X-Gmail-Original-Message-ID: <CACRMN=fkhoaTLBrk-01yZBKirrSiND=zspBs=BAur+3CnKLU8w@mail.gmail.com>
-X-Gm-Features: AclHuK-OYUzzrtUJCFh4TFZ-yZrKNaI32savpoRnm_cngkmiLTtp5icSCjr4rXk
-Message-ID: <CACRMN=fkhoaTLBrk-01yZBKirrSiND=zspBs=BAur+3CnKLU8w@mail.gmail.com>
-Subject: Re: [PATCH v3 2/8] of: property: fw_devlink: Follow GPIO nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 6:00=E2=80=AFAM Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> wrote:
->
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> GPIO consumers use of_parse_phandle_with_args_map() to resolve
-> specifiers through gpio-map properties. fw_devlink instead parses GPIO
-> properties as direct phandle references, so it records the nexus node as
-> the supplier rather than the mapped GPIO provider.
->
-> A nexus is a translation node, not the GPIO provider, and need not be
-> populated as a device. The resulting fwnode link can therefore remain
-> unresolved and indefinitely defer the consumer while
-> device_links_check_suppliers() waits for the nexus.
->
-> Use the map-aware parser for all supported GPIO property spellings. This
-> makes fw_devlink resolve the same provider as the GPIO consumer API.
-> Direct GPIO references continue to work because the map-aware parser
-> returns the original provider when no gpio-map property is present.
->
-> Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt=
--parent, dmas and -gpio(s)")
-> Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
-> Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4j=
-bauradujrre@gc5nbdhhixaf/
-> Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> ---
->  drivers/of/property.c | 38 ++++++++++++++++++++++++++++----------
->  1 file changed, 28 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 45e55f618488..aa65976739e1 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-> @@ -1311,6 +1311,19 @@ static struct device_node *parse_prop_cells(struct=
- device_node *np,
->         return sup_args.np;
->  }
->
-> +static struct device_node *parse_nexus_prop(struct device_node *np,
-> +                                           const char *prop_name, int in=
-dex,
-> +                                           const char *stem_name)
-> +{
-> +       struct of_phandle_args sup_args;
-> +
-> +       if (of_parse_phandle_with_args_map(np, prop_name, stem_name, inde=
-x,
-> +                                          &sup_args))
-> +               return NULL;
-> +
-> +       return sup_args.np;
-> +}
-> +
->  #define DEFINE_SIMPLE_PROP(fname, name, cells)                          =
- \
->  static struct device_node *parse_##fname(struct device_node *np,        =
- \
->                                         const char *prop_name, int index)=
- \
-> @@ -1361,6 +1374,15 @@ static struct device_node *parse_##fname(struct de=
-vice_node *np,      \
->         return parse_suffix_prop_cells(np, prop_name, index, suffix, cell=
-s); \
->  }
->
-> +#define DEFINE_SUFFIX_NEXUS_PROP(fname, suffix, stem)                   =
-    \
+iscsi_parse_pr_out_transport_id() returns the ISID of a FORMAT CODE 01b
+TransportID as a pointer into the PERSISTENT RESERVE OUT parameter list.
+The lower-case conversion loop only scans the ISID and never terminates
+it, and while spc4r37 Table 508 requires the field to be null-terminated,
+a non-conforming initiator can omit the NUL.  When the ISID ends at the
+end of the received buffer, the pointer is not a C string.
 
-It's the node that's called the nexus node. The properties themselves
-all have a "map" in their name.
+The registration code still consumes it as one: strcmp(isid,
+pr_reg->pr_reg_isid) in __core_scsi3_locate_pr_reg(), and snprintf("%s")
+and strcmp() in __core_scsi3_do_alloc_registration() and in the REGISTER
+AND MOVE path.
 
-I'd prefer calling these DEFINE_SUFFIX_MAP_PROP() and the simple one
-as DEFINE_SIMPLE_MAP_PROP(). Similar fixes for the function names too.
+When the parameter list spans more than one page, transport_kmap_data_sg()
+maps it with vmap(), and the over-read walks off the end of the mapping
+into the vmalloc guard page and oopses.  Reproduced with a PR OUT
+REGISTER + SPEC_I_PT parameter list of exactly 8192 bytes whose final
+TransportID carries a 12-byte ISID without a terminating NUL:
 
-I know it's a nit pick, but I think it makes sense.
+  BUG: unable to handle page fault for address: ffffc9000138c000
+  RIP: 0010:strcmp+0xc/0x30
+  Call Trace:
+   __core_scsi3_locate_pr_reg+0xd3/0x120 [target_core_mod]
+   core_scsi3_decode_spec_i_port+0x8fc/0x13a0 [target_core_mod]
+   core_scsi3_emulate_pro_register+0x73c/0x900 [target_core_mod]
+   ...
+   iscsi_target_rx_thread+0xef/0x1d0 [iscsi_target_mod]
 
--Saravana
+With a single-page parameter list the buffer is a kmap() direct mapping,
+so the over-read continues into the physically adjacent page instead of
+faulting.  snprintf("%s") then copies whatever follows the ISID in
+memory into pr_reg_isid, and PR IN READ FULL STATUS reports the
+registration back to any initiator, turning the over-read into an
+info leak of kernel heap contents.  Reproduced with a 4096-byte
+parameter list whose last TransportID ends at the end of the buffer
+with a 4-byte ISID and no NUL, interleaved with I/O to populate
+adjacent pages: the READ FULL STATUS response returned the ISID as
+"0xleak" followed by raw bytes that were not part of the parameter
+list.  The snprintf() into pr_reg_isid[PR_REG_ISID_LEN] caps the echoed
+ISID at 15 characters, so at most 11 bytes past the buffer are leaked
+per command, but the PR OUT command is not rate limited.
 
-> +static struct device_node *parse_##fname(struct device_node *np,        =
-    \
-> +                                       const char *prop_name, int index)=
-    \
-> +{                                                                       =
-    \
-> +       if (!strends(prop_name, suffix))                                 =
-    \
-> +               return NULL;                                             =
-    \
-> +       return parse_nexus_prop(np, prop_name, index, stem);             =
-    \
-> +}
-> +
->  /**
->   * struct supplier_bindings - Property parsing functions for suppliers
->   *
-> @@ -1416,7 +1438,7 @@ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
->  DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
->  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
->  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
-> -DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
-> +DEFINE_SUFFIX_NEXUS_PROP(gpio, "-gpio", "gpio")
->
->  static struct device_node *parse_pinctrl_n(struct device_node *np,
->                                            const char *prop_name, int ind=
-ex)
-> @@ -1436,8 +1458,10 @@ static struct device_node *parse_gpios(struct devi=
-ce_node *np,
->         if (strends(prop_name, ",nr-gpios"))
->                 return NULL;
->
-> -       return parse_suffix_prop_cells(np, prop_name, index, "-gpios",
-> -                                      "#gpio-cells");
-> +       if (!strends(prop_name, "-gpios"))
-> +               return NULL;
-> +
-> +       return parse_nexus_prop(np, prop_name, index, "gpio");
->  }
->
->  static struct device_node *parse_iommu_maps(struct device_node *np,
-> @@ -1452,8 +1476,6 @@ static struct device_node *parse_iommu_maps(struct =
-device_node *np,
->  static struct device_node *parse_gpio_compat(struct device_node *np,
->                                              const char *prop_name, int i=
-ndex)
->  {
-> -       struct of_phandle_args sup_args;
-> -
->         if (strcmp(prop_name, "gpio") && strcmp(prop_name, "gpios"))
->                 return NULL;
->
-> @@ -1464,11 +1486,7 @@ static struct device_node *parse_gpio_compat(struc=
-t device_node *np,
->         if (of_property_read_bool(np, "gpio-hog"))
->                 return NULL;
->
-> -       if (of_parse_phandle_with_args(np, prop_name, "#gpio-cells", inde=
-x,
-> -                                      &sup_args))
-> -               return NULL;
-> -
-> -       return sup_args.np;
-> +       return parse_nexus_prop(np, prop_name, index, "gpio");
->  }
->
->  static struct device_node *parse_i2c_parent(struct device_node *np,
->
-> --
-> 2.43.0
->
+Any initiator that can send PR OUT to an iSCSI-exported LUN can trigger
+either variant, including a guest via vhost-scsi.
+
+Require the TransportID to contain the terminating NUL before the ISID
+pointer is returned, so neither reproducer reaches the registration
+consumers.  REGISTER AND MOVE fails with TCM_INVALID_PARAMETER_LIST;
+the SPEC_I_PT scan skips the entry.
+
+Fixes: d04a179085c2 ("scsi: target: Bound PR-OUT TransportID parsing to the received buffer")
+Reported-by: kitta <kitta@linux.alibaba.com>
+Cc: stable@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: John Garry <john.garry@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+---
+ drivers/target/target_core_fabric_lib.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
+index 2853b95b2c59..e15f5118b209 100644
+--- a/drivers/target/target_core_fabric_lib.c
++++ b/drivers/target/target_core_fabric_lib.c
+@@ -371,6 +371,17 @@ static bool iscsi_parse_pr_out_transport_id(
+ 			pr_err("Missing ISID in iSCSI Initiator port TransportID\n");
+ 			return false;
+ 		}
++		/*
++		 * The conversion loop below only scans the ISID without
++		 * ever terminating it, but the registration code reads it
++		 * as a C string.  With no NUL inside the TransportID,
++		 * the reads run past the descriptor, and past the
++		 * mapped buffer when the descriptor ends the buffer.
++		 */
++		if (!memchr(p, '\0', buf + tid_len - p)) {
++			pr_err("Missing NUL terminator for ISID in iSCSI Initiator port TransportID\n");
++			return false;
++		}
+ 		*port_nexus_ptr = p;
+ 		/*
+ 		 * Go ahead and do the lower case conversion of the received
+-- 
+2.43.7
+
