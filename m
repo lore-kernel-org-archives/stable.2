@@ -1,115 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032010;
-	b=y2+28DzaLTs66E0hxTUfQdaSamrPnSek63EChMO7eJqp4gz4YNbIRzjQPPMj3J5RgNzv
-	 NfGcUttvZ7fcJgqzy4thhJugRKpIWGGLrnRwDCsG/Auv2UEwAXgXo9MYl97sunFIwX0yD
-	 J6PB79Im7dOXmYWc3uTOCqXMVY+0M5y4zn+iud5Prd+YJLjjP4lvlm8w1ixYeALju/UCl
-	 nLkt5ukO2/we2Xk9q6bUXesQdHtb6/SYhX20+GpHTr7esbuYM/lT2k8SL3bZfz4SEGe0f
-	 sTMyyF99I8ea9WOYuxlNEGVAk4iX48gV+1Ga9UrKEgf58Yx6SHWN8/oMvJxdqeAWiYQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032010;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=9kcCIz8uI9hyAOMjyWYmAiZN2bIAPxSyBMWCQskBI00=;
-	b=xvVyoK4w8XD1+leDylHURUFHDuSFS2QUCixRRr530lxQ65LTE4onGABdlbVSz8DBbeqD
-	 PDs6qCRYxeG9QU3aWJHAKOVLEFSjURg3i0FtEoMixhBN0Fjd0rNLThIm5mPows98NzXhx
-	 YQa2nnmN2Pod8eo8pYpgaeeUJCYLx9/AdyR4aOfGBV2VPVSS+RMxa1BcpDEAkA3wFMv4X
-	 9aKPyWoKfrKL4d76DmFbdFoC5QnjFTAyzymbnUFAxHGPdxUniln3kGdmC9nXvngwKn8xg
-	 KK5yAbD/IwcXbmdHqUB0xXa9jpDtqpiNAAJNOE0Ov+n4dbZbl+GISXa1spjZNPEL2ng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=aaPSMivG;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bAcjyt75;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793032006;
+	b=PI5NE7ovyxc7/anbOvNdUbFv23QFkEY5ai0RVonE340ujNy3ihNT5LctjxuVGmCbbgUK
+	 uMWIsGJXUxc2Rr2Qfk2yRhByqa56/zVnlqQ6Qv0y1Lh6+t1LwsOzM67zOKS8ML1njP59U
+	 NBGBXYeHMz/s6dJVKK0aCRW0PPazDS5ZrAZ8Ytr+O8QyL5AH7cqJT7ygqwX+WoxjEhPs3
+	 a0QxCfSl5ZsuAIPQOtTx9e4BBeS1vMtwANrmPSiypzH+NAGetSSCbwoz1/78SAZy5Azdz
+	 tshDVrAAgkbbuVbPzoCUcQt5YzVjn6g9lLGooXLxu0zBZTMo6odEe7bUA1AFnS0cCew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+	b=vwbSwp+Ry/gIkVvBlhybaIAjjJx4S+KMZDPYX/whoH/YRY7TJgxJDNFwgxHrjhcYZ7Si
+	 v2gmNA1/LZqBs7KTGqx6l7A28PT0P2ewtHC0Du+dAaqFclvnHYzr5J/T/SwOs3YaZLT77
+	 oEoxs1V6X5eLIlL6c4xlUkonmx5L/1QwIRsDdWlOL+XJkC4i/3vqS1OZlw8ZWAOKv1RRm
+	 EZ8BXe2XT6QCgiv2a9bOW6UQSMwj3NxxSIiiPI/MFos/rWPGRSHwPbGLWTCSK1k5mEBIe
+	 3KOM3O6NE/5S3SgyPnumi499h6RCh2OkdGYVE2LQxs9pwX45Df6eSClDfRpu4guRW1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MUOvYbUG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D138606A322
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:26:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D138606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A3A606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80A3A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=aaPSMivG;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bAcjyt75
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id D1668EC0AA9
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:26:48 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Mon, 26 Oct 2026 12:26:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1793032008; x=1793118408; bh=9k
-	cCIz8uI9hyAOMjyWYmAiZN2bIAPxSyBMWCQskBI00=; b=aaPSMivGYACEEb8Ekw
-	qxtKy/2GN9ui8F7N+pDowQGFYJ/ZavKpc3P5GsE0vFaEmtILuh7++TphBlY1zLrs
-	FbFGkTw3F0Hoy/fpFzl/FjkQG8bILSivzS2bsACxuFswfytvXptIUKo79vJsi8+Q
-	pjQ+IYa3RPO57AX2RqQdxzizTavmDaEuTc567OZWoEjzY60xnEdDgKRSDN2955en
-	a6vNN6ymPDqwfg9Uq76MUEndgvycSuDGnemzJV/r421LxkALLGbewVDaAFRuVE1G
-	zHZtLsS7EUUJsfKLUKH4t4jrDwXmaMet3i+ZV3cWqTGInRvgUzIYA6S1PMpFCMEB
-	FxmQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1793032008; x=1793118408; bh=9kcCIz8uI9hyAOMjyWYmAiZN2bIA
-	PxSyBMWCQskBI00=; b=bAcjyt75C0NuwonrobpMHm/kjym8IJM1G2DgNd2e+i69
-	h1bsazquTL179tHqu70DlaCXPr+zQJGLApL2Z95HrsSc0crlyrrnD5cDtlwq0JCi
-	rWkNGUCxoeXkXksdCbdP8B8rIGTpoXd6rT9nmwkm4yf1HC7XdP+S+aDU1p91g3bW
-	fHrRiDwiazjTjt3/Q0Wuupg4+Q51ttM3mF2KEuqWp4zy5vtVNQvSAqd7Iyw13fXt
-	tv/6CEyNkUzP1W0WD9uabw2vQ3/T1kNb1L2blkaAzGqWYoYKNqJH4gmDLW+orlfN
-	B4uHwr920qv3o7SHU8+sDonDzyxabqgNYTIftZIsEw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793032008; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:ogmQka2jZ513BVLlDm9Y/DdOQvFIwyxQyDMTmTlN5AC09re
-	H0vKXeBltoPHOO7x6b+T7ax0dNBAnnxzc7yAnqP497ao+dtY3APdxd8FpUSJui90
-	ZUC7L7SAPlnJnYkpg+CNqJa/Crq++yGRc4ICtDaYViWaie2/XzbJYjChJgdqDiVi
-	ONTEare1mjANlov0KPMryJ4OU5Z8o8wPxET23n+VesYA5LKRIiNz2W6iQMbnh3ad
-	RIV/N1v7EDGG9g1oCwZOIgBMrwa4vsuIMjaS785/rDpaWRK/yXNMrFeDI2B9i6hP
-	YwTWDewxiz/I0PEWbcfGvIjM8XTqSvqU/R/ta3w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:87NNGZy3Vpy8C/WB/14Kpyf/iHKlI13Ee1/MdgmeDBg=:bvGCad+8AQBYIHE2Cxb/6mTFm3UuOddA3aWXWZSBzJA=;
-X-ME-Sender: <xms:SH_faunSw3SvD8664PPD52tVXbe8TwM-5I8JMKMjpPW9YrRLtwsd1A>
-    <xme:SH_far2arPy0L3HKQGwN2jAqik8zZEy8IdiKZxiWt-LvjawZiua5M6uKgFuK-mEf3
-    RMFOl5kF5zKGDDIRZ3IJz-IAhoy2c2uthyVMOYeSMioR3Gw3_YrDkRD>
-X-ME-Received: <xmr:SH_fancZgMgG9vEHUPpvUcbmkBugj_iIqn-6nxWhQ3VhDHr4FiJVM440kNq538B5qG811gYDk2RwWC3xuub7xd1-Yr1A5YIAvw4>
-X-ME-Proxy-Cause: dmFkZTG4APGyhz6R0v3h0o2cddQphOn9sEg7EFY/1upwb8ZMKMSqp0Z6UuPGn8mG825EqY
-    WnsB5mDkkAll9x61kkVm7r10hFurkgmrhkeyfUPqoctgLK8SXbUPuLJrszMl5Xw2C1yRqM
-    CCr7+zGG61uwG9E0/c6iLmCawCUhpY44K4U+7mAT/3R0b9umVrqZgN/ySk+FgD4z4uY+M2
-    +cRY1iemNWIBZ0meZicq9ghPplaVlOH1VKIGPxpFmPUBHkDtDz2LKEOqbNDdaexcNP77HX
-    9Rd2mM7tIJFZutjySyHpqIyadQ2MQ/Yd8Qj6+wCH3ZGGflxUZ9kaxLTKaeKAs66SgdIWt3
-    MbtvhDbUJ+apWxPa3xwhKk6Mi1hhD+rl0wXpEaC8r6ZVvWo7tv8pbmiBo6PSkBekoEDOcv
-    S+7zE9tlMj+eNfzo8tJpUMTh0/0/9QkCQKo5ZkB09QdYnIla/LkyR2hr3wnG/fULTlbqCH
-    iyafmEy0/H4L1ix+u/9z5CHlTiKAOAXKr+0MVJGwL3N/0L6xM6glJg1a7/l4CZ9Xwhyt9k
-    lQg9QEpjW50xxbf1IF3Cgn9WL1ITchyuf8YyeR9fT030GTKumKUquE4/f0246TmMkDoIDT
-    HDi7P+WSHLaVAA0xl0XRv+3jHRCRhN7DCBcl3rdykgZ7obOTpHchUSCnkvEA
-X-ME-Proxy: <xmx:SH_falbSkeOx1V9ox1Za7lJ2HMudu1kmjXtPwzvICKUsrOsj9h6x7g>
-    <xmx:SH_fasGU0uyhmLgY6CSVOmfUW6rCXYKXHXjnjcRtcz_37R43YI2DcA>
-    <xmx:SH_fajlCs-n5QFH0vqcOsqVGEdr-O3ec2jGuV5_z7arKt-U4OlKykA>
-    <xmx:SH_faverrADpCVn5oZhpPYRiYlWYB4C5xFFeBiiyg68zhiOyWcelKA>
-    <xmx:SH_falg_FW9gtguZGfX2L6q9YH9k6H-5JxZaLIAF7JbN8Yhj3X7c_r3x>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 12:26:47 -0400 (EDT)
-From: Janne Grunau <j@jannau.net>
-Subject: [PATCH 0/2] net: atlantic: AQC113: Fix regression on Apple silicon
- systems
-Date: Mon, 26 Oct 2026 17:26:38 +0100
-Message-Id: <20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583@jannau.net>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MUOvYbUG
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso4543956a12.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:26:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793032004; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SrhX8ruZPrtwtZ/f1tVjThskDpukv69QNnZO24DFWvzl0LPnc5jDnqAjnLvMzzVr4k
+         Zsq9kYCmd9amrEGPZq0jq0jfLsDmyAcOPo3TDq9UTZJiLtAzcwGz64vtZvJKbkuzbFJK
+         FoHxu3gaVcIhrqBJVYBbHVItaTF5qKKVlyVwbaQOchFSNDwWjCUGfp7pUYe4sKzGZZKC
+         Y4PdusH7rFTXtGH/sbkiVQ7RDGK/NbagtAfzAjpvN+Lh/oE9rJXQmCVZjNSmrMhvB1Di
+         UI/+jsR0tgVzyV9/e8qxECXHElzG6WizcFjsK9KudemnWaSAegs+B8EE6GkLTsvtBZIK
+         zJ3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+        fh=8JBz7JS6L4QmVQphvruQswMQNHpQImmllvY+BjIW86g=;
+        b=oVDkhAvYR0NuCPvPVZIEmrtNtowoOyroicsAqKOisrKZoDtrVHcHQdcTV+lOu4MMj8
+         ixgSeY6lHJoBgKXlo3TPlYMc12nZeOPWWZApR0ov3g2pS5sU9pafqpkGq/uZO0+bCS6N
+         E/3nVjwLSIvX5FRCFJLWWW/E0M7hrXWSu5zfX8BRjq2XpxIXs9iZDEo3XBSfc0R2gT9S
+         hQfO3vnm6wuKv8GYmajupP0w0CN2QsSz81BvzFGjMK+s27UYu+FYdt6rr1CPW8tF6emY
+         vHkVUTOULLj4fmVobn5L/F0+Fqz8EAaidYyUScpDdKdFVrlWqgxqNYJRSVEleMw8ijrB
+         +77Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793032004; x=1793636804; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+        b=MUOvYbUGJvLRY+4ozSTJAEYhkO+CViDCgDR/3HRZ2ZWklhcxdU68sVei8SZjibc+9J
+         J/ZNuFm8p9TkB2fxCuz3OVOlpf2qJp2bkWOYL6xSqXJ86bQpdYp+2R+NuOF3onvlTqMA
+         Je20QgRQFsAlFNpoRVlKQx/997AKY43XUf9v7WKQD5FKqoZM//oU3SRUwQG2FwMcct48
+         FPWtM84uU9h6uUcStZ5/AMLizASUvfEq+/F9MQT9uXBPbHezFapVQJANiRTyQ1zgykLO
+         +TstMVO6d3IdV6JbtXoZLedXzaQgSP4HKjde5q+zJ2c8iK3D6Wtb0C/VG7RPtmcKiKA+
+         ejWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793032004; x=1793636804;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lW187BX7pvnv89/fgKm/N1OWRtkvU+9tvFLWWwcKajk=;
+        b=GJzaN/tXAsUSWmcn9qjQd9JxU2MEOEHjnWZl2Vf9Xz+A1+uBA4kdZH38QY9dArbBgX
+         ryXSYwoY1YctI5l5/y5/yD7p7+gmvtaTL3Py300bxCXpoZNsQ5g6/Fjin8Ok6UhN0yco
+         pb4/A8OgAWVrLkaqIDeY0FbqOeQlOr3vJt9dvpqFAG0yAqHl/ZpjRgQcln6ZLOi81uy0
+         kcL3dCPEwPEQubRyx11WWqCEcER4tEaMrWF/3aBz6wou21JfmgZISSz/jT0Yh/gLk7za
+         sHd9Vo8MGEfy8iOqCm2MYMf4lBJnago1P3EGQ3RNjmg4V7u3owxcScR7extEv4DqpVdq
+         YC6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxYZP7cptcp399DpzTE6md0WNm18w0jGustgxWri6ozr4jRLYss2VILfuwiE4ge6G5AvEmPmFM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfbDnmbE7IZ2zYSYumiyodZpR/OSJq5RwRS0tnYWhiof+PtrGc
+	3lBjAeYvzl/69im+Kp/zc9K8KGY2TYvjCk4z1dW1UhxZPBPnFkMTHBMnGbOukRhweX9AB/DJYnD
+	fo4U5NWNGdQJy7tYgo25EQg2X66+FfKk=
+X-Gm-Gg: AYBFou2myEUPVxriNmiVVG4wPPTucjEq8Oydqe8on6SZcTDqlSNXSXPJv7A2wz/D7UC
+	IHHdQGzKYvuWTMgr+rx6LXhMp08Yw1aqGF1dMIUY8SSOEIrN/905zXRCYeyjAEAcAvvy/l1UOBy
+	PV0bHyLiD8o+jKrr5MbeBLak+5eakKOI1hnWkL87VuVXx214ikjKOruufvWFeyaGnwZ+vGEQB/L
+	MnPMTKkTOCwGZtSNxM9TOUkpELbupD13IpuniAVXeV5zZLLaWaAZjhKjiCbxUo/ZjcnxvGyOw3l
+	PQxVejLQ2QWOAV9K6xB10zUnkOi5jmt2Oqo4DaMLBFe17w2ZD5qa2YmstQb3mf7VoJUG/fqf5Ux
+	QfChuQlZJOqUPVS7SU0+LMWAVKn0Ic6RQSmAjd9h0LADrwvIwrsFSGChMZwRQ40BS3psC5g==
+X-Received: by 2002:a17:907:961a:b0:c44:14d:d95d with SMTP id
+ a640c23a62f3a-c46bde35b78mr860710466b.23.1793032003455; Mon, 26 Oct 2026
+ 09:26:43 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,65 +104,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQoCMQwAv7LkbMC0dhG/Ih5CzWogdGtTFmHZv
- 1s8zGEuMzu4NBWH27RDk01d1zKEThPkN5eXoD6HQziHmQZYpCN349I1I3+IInKtJmgBF7UuDd3
- W7jjHS0iUcop0hZGrTRb9/lf3x3H8AEhoGbV6AAAA
-X-Change-ID: 20261026-net-atlantic-aq113-apple-l2-filter-slots-6342515c5318
-To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Janne Grunau <j@jannau.net>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1663; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=bvGCad+8AQBYIHE2Cxb/6mTFm3UuOddA3aWXWZSBzJA=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz79a4dWrenbJm2qW3ZhGNuM/Zdi6hr/ci3yrJ5Bo9Z8
- 1XWqbKWHaUsDGJcDLJiiixJ2i87GFbXKMbUPgiDmcPKBDKEgYtTACayiZ/hn/XM+cVqF8689jaa
- zd/IrPupbqZOeU+n4eMzX0vWMvi2/GVkeKxlv/PlqrCb96bPVrtvvqjwCesuFkujz4lurwM1/ae
- J8gEA
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+References: <20261026154604.579823-2-bestswngs@gmail.com> <2f8371e4-ea8c-45d4-8a42-e1a616915b61@gmx.de>
+In-Reply-To: <2f8371e4-ea8c-45d4-8a42-e1a616915b61@gmx.de>
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Mon, 26 Oct 2026 09:26:07 -0700
+X-Gm-Features: AclHuK8xJMkjzycsM_PGDEWxDNP3nAsGNewoI6y1CFU9ObUj4hzqU8eQ9FVmawY
+Message-ID: <CANgPUi1WDS4aK9+7LO+O4D1JDvGd3isWVWps_W-ocD_fT39HAQ@mail.gmail.com>
+Subject: Re: [PATCH v2] fbdev: vfb: Validate framebuffer geometry and memory size
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, co+b0df61d49532b2ee@bugs.sh, 
+	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hej,
+Helge Deller <deller@gmx.de> =E4=BA=8E2026=E5=B9=B410=E6=9C=8826=E6=97=A5=
+=E5=91=A8=E4=B8=80 09:06=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 10/26/26 16:46, Weiming Shi wrote:
+> > FBIOPUT_VSCREENINFO can supply a virtual width large enough to
+> > overflow get_line_length()'s int multiplication and bypass the
+> > video-memory limit, allowing fbcon to write past the framebuffer. The
+> > offset additions can also wrap, while an excessive videomemorysize
+> > module parameter can be truncated when PAGE_ALIGN() is assigned to
+> > unsigned int.
+> >
+> > Limit virtual geometry and offsets to 8192 x 8192 and cap video
+> > memory at 512 MiB, keeping the stride, framebuffer-size, and generic
+> > fbdev drawing calculations within their destination types.
+> >
+> > KASAN reports:
+> >
+> >    BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
+> >      drivers/video/fbdev/core/sysfillrect.c:24
+> >    Write of size 8 at addr ffa0000001671000 by task poc/198
+> >    sys_fillrect
+> >      drivers/video/fbdev/core/sysfillrect.c:24
+> >    bit_clear_margins
+> >      drivers/video/fbdev/core/bitblit.c:247
+> >    fbcon_clear_margins.constprop.0
+> >      drivers/video/fbdev/core/fbcon.c:1410
+> >    fbcon_switch
+> >      drivers/video/fbdev/core/fbcon.c:2261
+> >    redraw_screen
+> >      drivers/tty/vt/vt.c:994
+> >    fbcon_modechanged
+> >      drivers/video/fbdev/core/fbcon.c:2693
+> >    fbcon_update_vcs
+> >      drivers/video/fbdev/core/fbcon.c:2732
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Reported-by: <co+b0df61d49532b2ee@bugs.sh>
+> > Suggested-by: Helge Deller <deller@gmx.de>
+> > Assisted-by: LLM
+> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Limit virtual geometry and offsets to 8192 x 8192. This retains 8K mo=
+de
+> >    support while bounding all generic fbdev drawing calculations.
+> > - Cap videomemorysize at 512 MiB.
+> > - Keep the existing arithmetic types now that all inputs are bounded.
+> >
+> >   drivers/video/fbdev/vfb.c | 17 ++++++++++++++++-
+> >   1 file changed, 16 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
+> > index de137b2bd..de40ba8c3 100644
+> > --- a/drivers/video/fbdev/vfb.c
+> > +++ b/drivers/video/fbdev/vfb.c
+> > @@ -31,6 +31,9 @@
+> >        */
+> >
+> >   #define VIDEOMEMSIZE        (1*1024*1024)   /* 1 MB */
+> > +#define MAX_VIDEOMEMSIZE     (512 * 1024 * 1024)
+> > +#define MAX_XRES             8192
+> > +#define MAX_YRES             8192
+> >
+> >   static void *videomemory;
+> >   static u_long videomemorysize =3D VIDEOMEMSIZE;
+> > @@ -159,6 +162,14 @@ static int vfb_check_var(struct fb_var_screeninfo =
+*var,
+> >       else
+> >               return -EINVAL;
+> >
+> > +     if (var->xres_virtual > MAX_XRES ||
+> > +         var->yres_virtual > MAX_YRES)
+> > +             return -EINVAL;
+> > +
+> > +     if (var->xoffset > MAX_XRES - var->xres ||
+> > +         var->yoffset > MAX_YRES - var->yres)
+> > +             return -EINVAL;
+>
+> Instead of returning EINVAL, I wonder if we could simply
+> cap the resolutions at MAX_XRES/MAX_YRES?
+>
+>
+> > +
+> >       if (var->xres_virtual < var->xoffset + var->xres)
+> >               var->xres_virtual =3D var->xoffset + var->xres;
+> >       if (var->yres_virtual < var->yoffset + var->yres)
+> > @@ -434,9 +445,13 @@ static int __init vfb_setup(char *options)
+> >   static int vfb_probe(struct platform_device *dev)
+> >   {
+> >       struct fb_info *info;
+> > -     unsigned int size =3D PAGE_ALIGN(videomemorysize);
+> > +     unsigned int size;
+> >       int retval =3D -ENOMEM;
+> >
+>
+> and here maybe
+>         videomemorysize =3D min(videomemorysize, MAX_VIDEOMEMSIZE);
+>
+> that way the driver loads even if the provided too big value?
+>
+> Helge
+> > +     if (videomemorysize > MAX_VIDEOMEMSIZE)
+> > +             return -EINVAL;
+> > +     size =3D PAGE_ALIGN(videomemorysize);
+>
+>
 
-commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter
-slot, MAC address") broke data transmission on Apple silicon systems
-with integrated AQC113.
-A conflict about which L2 filter slots to use between hw_atl2 and
-hw_atl_b0_hw_packet_filter_set() called through
-hw_atl2_hw_packet_filter_set() is to blame for that.
-The firmware on these AQC113 chips report `l2_filters_base_index = 9`
-and `l2_filter_count = 29` while hw_atl_b0_hw_packet_filter_set() uses
-hardcoded L2 filter slots starting at HW_ATL_B0_MAC_MIN (1).
-A related issue is that the multicast address list might exceed the
-number of available L2 filter slots potentially resulting in writing out
-of bounds L2 filter slots.
-
-The fixes in this series restores ethernet data transmission on an Apple
-M1 Max Mac Studio and supercedes my previous "fix" in [1].
-
-Link:
-https://lore.kernel.org/r/20261024-net-atlantic-aq113-apple-regression-v1-1-b8305415a8b1@jannau.net [1]
-
-Signed-off-by: Janne Grunau <j@jannau.net>
----
-Janne Grunau (2):
-      net: atlantic: AQC113: Fix hw_packet_filter_set for l2 filter base index > 0
-      net: atlantic: AQC113: Limit multicast filters to avaiable slots
-
- drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c | 14 +++++++++++---
- drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.h |  6 ++++--
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c  |  7 +++++--
- 3 files changed, 20 insertions(+), 7 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261026-net-atlantic-aq113-apple-l2-filter-slots-6342515c5318
-
-Best regards,
--- 
-Janne Grunau <j@jannau.net>
-
+Yes, that makes sense. I'll cap the geometry and videomemorysize as
+suggested and send a v3.
