@@ -1,130 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032626;
-	b=czSOrhvaWAq5dNxqdvWzPDSPKo/+cON7qn6/iCg4V93pbBFX6kgQTX0h0Wb2I3sGu5bh
-	 86rZHekW1VkY+k9yy32x3ALH5Nm9XXAMb53pdcmqyCBPR5wuiI59C4TAEy4iYOzCeNmRY
-	 ACE9HykpX7dNzibGfhOZnmaj3Th+7Ndkh3MqfTjXDTuK9odrPCDmdWAyaO0Ygk771lQX+
-	 4/HDRvTo6WWXXYkkk1ABLk1tMAZNPGgbNU7mev86/CcaCADMPc4rRgaeLtc91cqa8ajjE
-	 CpnZrdJ7XG7h3G8whm2TCd7VlViA+wN0TjsXHhQpJ/i9VZ0tmY2sauV5hkSw+hkJSAQ==
+	t=1793032833;
+	b=X1phToJOXjx+wdz5+5PKIAmiiI8D2PQIb9sI6ryNZaqCKskGSF/f056p1aIGY2CVkA0+
+	 vtpxdJ7eHE/JWPyvAKxd1YusQ7gfa4QXwVrD8K2F8F/pS8qz7lFbYPolETAW8A7TOBCio
+	 6NOvsX1axSlJm1QzoDo40tOrJQaFWbsltpx3qNocMNPxPt0TL3Xd2yI4AVOtIv7VtHjpJ
+	 XdB78WyZSHaSloBOmp8/irpyTAO/2V3b8zWK6ukyJ40Vp3G+paE9pYYqJ+d9fxcxRgr/Y
+	 PHiNfikk7uRTHRIb4mr/JE8lb0SHMyoTaJRCvhA7DsN12JmMKVxIV10bscPWQpC/NNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032626;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=M788Xk3PB4yK/5EzK9J0RWEJS4zUyVPbx3h+aJGAnIE=;
-	b=3K/31YE+ihwcsgqfoBDTcS952xZJN2iNZRsJU8Ou9P7cC+eb10741eX7YWVjnbF4ioC7
-	 +qnVWHnb36GT+lBmlUr1f1cDY3a35s8wWXd8PkxfG0jd4rtm0eYdZVRxpe+PYPL16myrX
-	 q4DzTEGXQUodVBuntbE9qG0uv1rzj8TEhu1ZTONMvJL6mGi8+j2X0Ykag7L2ZLxNvWmLX
-	 jJvRhsWHjKSO5sUWLWoya0D+oJbsVLvb4CVd/e5cvm02bchTW4F3WU1X1Xw2ND3V7dq2+
-	 e3UW5VDImwAOTIgkUJ7gMr+bQi5ha4gWNJ1esY34m1kgnqrunAYLeCZUv+EXwWk3Ikg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032833;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=klRyRRDnFZYZ2CDpmJK+E/gioA1RuNNa1jRJVKORvEE=;
+	b=kwie4p+nZzr716eykEBVIKPypUs83AXufKRO6dTv9lKEBiSs60sBinYEC3vVbplnfgvu
+	 tQ8ItTenOtJm5fso3Phzdf7jqs/bfsQZ4dHXvMFe2E4H2fUxSxPxrx7psJwStmjiVETcu
+	 +PXJKVzfTt2oEJVJEzH2bTdxiPuaEcdXXyUPpIl/vl7/ESAwaYAi8CRQz4cZhDQntvTuO
+	 dDCfqmwOuSS2ixE/dJ9ZCrTjFKxotDmz7aDn14R1BSQDsPINoOCkOzGh/HvBpRrbSnvHW
+	 2a808Pf3TvTzi61zt8MmSCX2ujgY+WsMJDFsWlv2J5xaZ/yIk/goUwvNh/BicHP2JzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=I7iVn24v;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pR36kdmG;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=neat.no;
+	spf=pass smtp.mailfrom=neat.no;
+	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=dz7SCdLb;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA61606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:37:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FA61606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC45606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC45606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=I7iVn24v;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pR36kdmG
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id 855F613802AD
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:37:05 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 12:37:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793032624; x=
-	1793039824; bh=M788Xk3PB4yK/5EzK9J0RWEJS4zUyVPbx3h+aJGAnIE=; b=I
-	7iVn24vfD41AJXP0/BUpnXd1RvWqMCB3FN3N+xkeoOyTcWM8oXGZQcV4ZzOtbt5A
-	gZMERr//QEIClHkEEpDk0Pg64ptxuKkMUVqDmMNkfOY/HTNsqRFlpzNtAF7Lv9AN
-	kdb0x0yGuYutcx/Vn+YzFcCqrNH8y5M6XznsHneblgFSNwbupCCjmKQEgw08H6E1
-	gpKtxTgOTxETLXIQqrbEDJE97FWt29gHIfWfqRmJ+YPlDGTgePqdTeiFpBANMaH+
-	H2qCZQP9SyTVv+3mnuo/wa2yuS4Dp34BJGZNOZmjPxntK6moKt8P5swXI0h49nsw
-	m3Q5MLYnBxUTnqLdENlfw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793032624; x=1793039824; bh=M788Xk3PB4yK/5EzK9J0RWEJS4zUyVPbx3h
-	+aJGAnIE=; b=pR36kdmGlxLIaC6DYbG+KyTIgggdBXwH6daDGu7VElTmmotgqbC
-	8ogM0UYCjAD+ZstXpYuq8+yxKPYk5JQzyuB0hNvLMdl9ZSwwI1wPT4pBqpsePr7B
-	OXIlziLLErhBjE+5qXwA0AtwbW9xJtjeVm+o3l3sfQYI4RgUIJ0+1gA+GksG58V0
-	LV8TURjx1ItDcsmN9UjVw7HVAZOBHKLIPVe1sHACRb64jBNZnOf932CuhMybN0Vk
-	2QlgU+Luu4iO+sBjwNbvxXzF5sj1AeeZaKBYzbpa6GmiXJNeEe7cYfWF6j5YCzCp
-	f1cQdkU097cgIYje2AFWpk6XkAbgXJwb8Ow==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793032624; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:pIPUrdhkfSCp9wJ+XztjSESAQW0OVkY6cc49RAfES7leTdT
-	p2W4SUCoh2qZ/IbZc9/ntKx3A8dPg9BIXsmsUbwnUf1Hir2Mgmtk05KDB5eGzJJD
-	t/AVH5AeL73m3w90qg+Sg86TzBmWsOCqQ1+8AfWs/Djaum3YZgKuwHCglpYCpq/W
-	XptZgLtaMtoGMPyUzJgq+5tfiP1KG0576g2MZw6LxkMAMCFr+775vjpaRFnI+L9H
-	NwLDSCM+u0k38qKjDMsJjAf+exIUjjvgUYElCc9Hnd0TcRPCYwxF3eCn7wrZORhF
-	Z1aJR3d+D2BZvMM/ogBYRSjiWGznLQuuKVl4gQg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:8u+ljPUjNWAURUdkRgzi4ZvInM4ZjrblckocDAlPWYs=:ogWzqwUh+YwSKRYnV6B3XtBbR1nMJ/BN+dvXfmC+6os=;
-X-ME-Sender: <xms:rYHfanQGM7Mzhl34gLG4et5x43xQbH93vi1lSKzIqoV4zVMr1CohPw>
-    <xme:rYHfavdH9l4s4BXJXSOIMdqdKdPjYcjzpTdUBCyw8prJVvZ0DpDN6_EyT1qeodBSL
-    5Na6TCoFDJK0ASgwnqAV_xfv4y4pUSGwsDTFs0POBX6FUttMu6C0QA>
-X-ME-Received: <xmr:rYHfanBcBL_kqsp1g79Jds2IGWxkQfu3HfcDa6UIv7QZQE0CYV5rzHNYRCM>
-X-ME-Proxy-Cause: dmFkZTF85toFBxe00b6Lht/0YohMnaHZ+kOqQSwWlzVS3n6NaDaTp+3L55+ckhhLGOFqI/
-    gROlgw7KartkRyVU/1mD5EUn7ZFgUh5++lX4Rxl7IqqhV/09tBN8FrMq0XcJNcfIXM/fcs
-    jAN3rc34tCVSgiB8+XaigqTvbo0SI8kdb6oHLKuBaaC5tk1Hc04ITbUeokPS7u+7cdi2D8
-    8UVAypEv3LhlCg+OpfyjybH+wj3IC6vQs1RMPTTrUTwx8MsPvH0qQzqCcCGcBOeLJ7pYW5
-    z57AotUZstf5//pTxw0fi+3Mab6IqWyQVB4QmZR9HHsUERQ/jOfPhnTRd1nMTKX/WyXFZE
-    OXulAZaWcFzCXx+U6qd1iF80o1UBPD6T8nnLTxxx1EtSp+URplR05o6ShthzUEiNykbNFQ
-    OEgBGu8LFPSR8k0wiFDaXMo+rGCqQeLRyj9UpmcfV1/DtePTZ3rAPENl1QZsy9u+YZMCHB
-    yGC+vn7MvXAWw3lGX8X3mGl6bIf7ga0bPO7BN52iaOodqOfajOmX3isATAt+Xtje/ZUDV7
-    UWYj+S1udZApPfGvPyYauzCGzTabSWb/1SPUrYrD+YOry4Kti1y2QGCx2CB/7tHJ22olLk
-    KDBtj+h15jxdS848WxIIPWMXHIcl+GSCel774lZjsjdGaU6R/ZeRAUoSnngw
-X-ME-Proxy: <xmx:rYHfanoZLa6oRb6cRI6obhzerCoRdv_bYmeHbvMsO4WKGgndTFQq9Q>
-    <xmx:roHfakT-aMoPYOh0yt5Uk-dAP1XSLv4GCYHVkDOx8Z10KU4D_IjiZg>
-    <xmx:roHfaocsEWSHJDeQ_WQKhF0iEo-7Sxb_WLiOOG9vcFaStUfrR78Z_A>
-    <xmx:roHfamSUcwl4ir6MPwBZcQlXpUgfDHbsh27wR2SyIo8Y3TDzNUsXmQ>
-    <xmx:sIHfaqfPuip1Z6RnZ2x6Boa_jaULUh_WvfP5KJngoUZHr7tTOpKu5-ds>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 12:37:01 -0400 (EDT)
-Date: Mon, 26 Oct 2026 16:36:59 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 08/16] mm/shmem: stop retrying folios that cannot be split
-Message-ID: <at-AmbZyqUnGAJkI@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=dz7SCdLb
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so21627705e9.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=neat.no; s=google; t=1793032830; x=1793637630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=klRyRRDnFZYZ2CDpmJK+E/gioA1RuNNa1jRJVKORvEE=;
+        b=dz7SCdLbThCzmZC12nFqMLnO+viK5xvFhsXspqN0DcrbgyOtLnVbgCSW8kkHPAQlkn
+         4iUYa4Pq5+R5Bdj1UyY2Is5OwYarh7PlBsRTUMe9TTiyb9PssfamefeyiJ80Loa8GMgE
+         6oLu3+EeQpsY10X/BIEjoVt0lpcrC3KnHBZo/UHXiAVarfMyPRbVHlAXSUYdDBgJf2iJ
+         8Aunp+OpixoeUaMo+D6cPcWZxCfiopwNSk9i+hblRbiC/sVtTIvtmlMdMdLXN/h7ojPu
+         +SbKPbVITzSuAUlb7973QBhb4pmajrjNCGPFoZHoz1IwME3VoZdcXVOhqSCrweLLzwR6
+         FKGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793032830; x=1793637630;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=klRyRRDnFZYZ2CDpmJK+E/gioA1RuNNa1jRJVKORvEE=;
+        b=hYerO7rYnnSbimNHsiN0pSPEph9BH1ilLe3AWGIgndbLQmQydOEdzC6dFG+7Ecx6JB
+         PkDmIJWqv3eaLkDlYwGBon45g5qY0TCChFFE4d8nPDtQacTZGJpJlu/0QKH3Sd6YyeOC
+         WXXh+1qRaoxJ0/Fx4M38VtWGSiurmwzMzj0jyRXiFN3oxmIGQ3cytPXj4nN53NXdWkk1
+         ULRm+toijKQfcsulBbza8rMgTuFNwMvZY875YN0FWnu57eUwSj+iMNM30vUBmwJlCzu8
+         ZV6DcXDQuCWnHaLn9knUwjxtksuHCNtoee/NH1W7+h76PjG6BVyAPTnOJ/m1MKvTK3v0
+         n+qA==
+X-Forwarded-Encrypted: i=1; AKwUvBywQX/oRu1gtlHQ5UO8UTQbtT+2zV/oj+6dMvCw4OZdFQJ98TpUW4/zpurQyuXRORETh5rRlMI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG8SNtLvYeE2Ev2WL6Ugs5uh9jBT/x45Pge7rSfLrxZXXp/ZpF
+	qbRHo4MfrHKNN7VOYNOcDmqJ5NFZRA9cxA2Xq86fiyITPKBKrYfkDw12oEirXiRcvX8hfrCTlXr
+	O96Qa14vZRgbkrFDJSk1a9r5FmgPJ6+sNsGqPIEqe7J0Zxo1/Zs6tf8WMj/BroR23An2VLXTeoZ
+	gg0FI0pr8CWgxL68Qdbj0ptMOvDBMrS0g3Tm+thsX1WdmmbmfBtONGR9TiVzJrZTRvaJ8MdPDbi
+	7s=
+X-Gm-Gg: AYBFou1AYyf1e8D6BxUJXTmcGML5y/iTMZN8aaYrwnplv/qJ5wLm86J7DbEdd53H8Qg
+	vnQI2ykCazJystcVkIOBije6+UJT6tCrG0ZOYX8DLfYl8rzLVuLKNEpRKw8Oe7kHhv0PW2JV5MW
+	NYAi3Ig/yzfjlDkpcV+JStVuBS4IHxo+6cu/wQmT9+3DJfQnw6UyXZB4gMpzLNoFf4A4C/ByRDy
+	OzsKzsp2U+dSTOiXRq7aOd3yc1cXE+Ho+8JV5tjAVr/w0mV2JEiQsNF1K3bSrGCoL0Z8xeVb8fX
+	+y/BgIYdyL37WV+MiVM6qXoYgW2v//LRVpS9RKVKPGt0AZVuw3frKBsd4slRcBn0T+1XeBCGY9X
+	HpYU60c/wyULZNuCu0E2iKvidTfAy8Lk8ognf+X8aGPEDJHxLUXbnuE+Obd4wvTxLMH+m7uBCim
+	hDpa/5elu9NkN3wj2dOijcCdPNjvA2ecjZSmfLUVR6GtZ+xw/Ngqhj64DVSaZPr3levI6qeVKiy
+	fZMvZi2agjJaRtzxMv5aOfh5QYi9QLSvIi4JMFqLuoQcRd+mSXjWtqCXx+yv1U3
+X-Received: by 2002:a05:600c:4e87:b0:49f:c199:e1e2 with SMTP id 5b1f17b1804b1-4a35acbea9amr145367215e9.28.1793032829991;
+        Mon, 26 Oct 2026 09:40:29 -0700 (PDT)
+Received: from threads.localdomain ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:40:29 -0700 (PDT)
+From: Lucas Tanure <lucas.tanure@neat.no>
+To: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Dom Cobley <popcornmix@gmail.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+Date: Mon, 26 Oct 2026 16:40:25 +0000
+Message-ID: <20261026164028.78792-1-lucas.tanure@neat.no>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -134,37 +106,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 10:40:41AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> A fault or collapse can insert a large folio crossing EOF after
-> shmem_undo_range() has handled the boundary folios. If splitting that
-> folio fails, truncate_inode_partial_folio() retains it when it is dirty.
-> The final scan then repeatedly finds it because it restarts from an
-> unchanged start.
-> 
-> Truncation keeps the inode lock and ignores fatal signals while looping.
-> A concurrent unlink() can then block other directory operations while
-> holding the directory lock and waiting for the file's lock.
-> 
-> Advance start past the retained folio, whose truncated part has already
-> been zeroed. Do not move start backwards if the failed split has shrunk
-> the folio.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: split fixes, simplify descriptions, adjust comments ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
+the TMDS clock is stopped and to start the clock at least 1 ms later.
+vc4 writes the bit, and enables the scrambler, at the end of the enable
+sequence, long after the PHY has started, and clears it before the PHY
+stops. A sink that samples the bit when the clock appears never locks
+a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
+order work on the same sink.
 
-Any reason, this should not be in the same patch as 07/16?
-It is the same failure mode in the same function.
+Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
+was an empty stub upstream, so the PHY kept running after disable; the
+Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
+pre-existing race in the scrambling work cancel that the fix would
+otherwise make easier to hit.
+
+v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
+with the same change applied, against the sink that showed the
+problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
+reset and a sink power cycle all lock with zero character errors. v2
+and v3 carry the same code; the hardware test of the final form is
+still pending and will be reported in this thread. Mainline was not
+booted on the Pi 5. The BCM2711 path is unchanged except for the
+enable order; I have no Pi 4 at hand.
+
+Changes in v3:
+- Patch 1: rewrote the commit message as requested.
+- Added Cc: stable@vger.kernel.org to all three patches as requested.
+- Collected the Reviewed-by tags on patches 2 and 3.
+- No code change since v2.
+- v2: https://lore.kernel.org/lkml/20261020151948.83459-1-lucas.tanure@neat.no/
+
+Changes in v2:
+- Add Dom Cobley's vc6_hdmi_phy_disable() from the Raspberry Pi tree so
+  the PHY really stops on BCM2712 before the SCDC bits are cleared.
+- Cancel the scrambling work unconditionally with
+  cancel_delayed_work_sync(); the pending check skipped a running
+  instance that then re-armed itself.
+- Enable the controller scrambler at the same point as the sink bits,
+  before the PHY starts, instead of leaving it at the end of the enable
+  sequence with the sink descrambler already on.
+- Drop the extra usleep_range(); drm_scdc_set_high_tmds_clock_ratio()
+  already waits.
+- v1: https://lore.kernel.org/lkml/20261020134941.631907-1-lucas.tanure@neat.no/
+
+Dom Cobley (1):
+  drm/vc4: hdmi: power down the BCM2712 PHY when the output is disabled
+
+Lucas Tanure (2):
+  drm/vc4: hdmi: always cancel the scrambling work synchronously
+  drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+
+ drivers/gpu/drm/vc4/vc4_hdmi.c     | 10 +++++-----
+ drivers/gpu/drm/vc4/vc4_hdmi_phy.c |  5 +++++
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.56.0
+
