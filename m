@@ -1,94 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054519;
-	b=LrNgBAkNzL0dWjUaR3RBZI631tugMnKLJn/lTc51rD+JZunXJzwdCBMvgQjqZKG3v+0E
-	 kYc9SIZ8x60iT2jsKpYTOV/9If4a9hhttLf4bG6yvciDTBFZClK0h0s2qqujEABnpyX+K
-	 mq5gaGYh7uWC7yBDyGy1czDIl2DqwNqMtmovg7BHDhd2zc14u4Zw9qAI+quHqbyzSq4A2
-	 gnV+NIW1YpeB26MBHnc9YORKx1e7nMLe8NKnFkIhDaplvhro6YA5npzefOGx3fe64JxDv
-	 tG/0tEiQ6ZP7D7d74yuYAOruO4kVgsWIt4gpJ6Mk47cA0ncBjrhWBvHvAKs5J/zO2Bw==
+	t=1793054553;
+	b=Tvcrwbxr9RxHK7yD8t+nWaRXulGJCW7eYM0ba+M2XRh1XdJAMtazYwxg9XD8k8kQUyOf
+	 mBQQx8ViNYpw8iM1BX0rbcgV3C+Chm+4qvutaujO8uIJJQWh/NQY6cYAvMXpo1P8XePl9
+	 TX0XO8EnnxD2TWm+cwPNGyFU8iOpvdHRMwDI58pZOy74aCkI5Rku8+Fs1dsoc9X14bf5n
+	 Z9O525lQxIDJZP0cz2N8WTDTW8omEnl1oCuFmsGwgqKTUg2KQBXGLQ0kG6S8HF/59X7aL
+	 Cb6Se3vEaDpULZenhqvjqzR5cUcBhHJ0duTw4BaPJ/f7oIIPWopVLwbsaF+9j1pdahw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054553;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9TJ2uWGQA28B7/IVLdQOUeh7B2n+/HiF9b/pWpbRQp8=;
-	b=SoEJ4JMWQ2t5ZbM3lllofpQaiaKi3Ch2g4BonMsPaK9P0MFdAV3NfHLJBkNIbUmmVdp5
-	 1tieBlydI4HXaMNTS2kXJ4hZx3+gb62p3y7gdCGm7YL35m1qZp1TsSsE7kyfAuDqDT3I5
-	 4EgHnvYXfA01B8T/trbvR62zvLDtvAqOuTmiy0Xgc2/EQEKv/S1aqqrnVoWEhlXOc1/AZ
-	 QkIFW9ImaaTr8VetQnbQJKXcfkz/K07LjEIJKqn86AwKkOalFHyYlFExXbklm2o6mY/z+
-	 MCMeHBSIPauif4Jw3D+mMRfDdWG0Z6mOzwXrE5G8/4mvYS9YmkUMH2iQ5N8lm/6V4WQ==
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
+	bh=FA3eo9Ml5dMrUZqSyy99rnSaNT5Gvkpu1eGh6dR+CIA=;
+	b=HRWsNkyBV2pQTcxpWpd1mTg9gee9ESSPPikKfWVhMWBjb/oB+LTs6ngGyBRdMp2f+l/W
+	 HS/tjN7Mk9maIJ9AWeYVI9FZ6Wt21y4pOrvj+ofQXXLHb0UYgLepriRFgeWfiV4j9HjvW
+	 9I43uSGHsd/UYfyYXRHTzEQkD9ShXzHSqbaznt1zpeSVFOLA500xECMGAEgSDACe0WS9t
+	 KFrPy0Eum/x9QGlRRnmbZaP3DOew1/o5Et2x8r6ciHFBXp8A7JOFr9+MHZltbiwZG6/nD
+	 qfbMf1TKdtT25UcbdUh13cOjeN85UAtO2QFv1PDLxyFiWWPQyK/FNk4me8yMwTFlQoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sTR+N0rG;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pURyyqNk;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A239A606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A239A606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA97606A320
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AA97606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sTR+N0rG
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so22731445e9.3
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:41:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pURyyqNk
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so30274915e9.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:42:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793054517; x=1793659317; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9TJ2uWGQA28B7/IVLdQOUeh7B2n+/HiF9b/pWpbRQp8=;
-        b=sTR+N0rG1eZuvFqHfBbcpGz3dtTjerA5lXe1bEMttgS8nsv33ERnGeZnDqeMZfzc9d
-         tlbLJUgj2VgJ7Sk7V5qzTyGTFywijunoRW6dxp2pekNeJuohvkWkMkqZFvLlfVRWHRn2
-         YwCSMBl6E1CJsaBedBHyfbkKfvX6molQ5dK8Jd23ohTYLxQVhmIGc+7SaBzM9pjJTjzV
-         PctpyRgTvTIv7NIYQYiklT1HTHeE789laPiMiOf54QF66H0e1VFNmZXKSDeWW7MfvKD6
-         1uCsAXegaBbTd72u70LFKABs2/C3Hn2JYGBq8zcglgUUmRWKdNNYLxaKwCGehtRzvbr9
-         tJZA==
+        d=gmail.com; s=20251104; t=1793054551; x=1793659351; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FA3eo9Ml5dMrUZqSyy99rnSaNT5Gvkpu1eGh6dR+CIA=;
+        b=pURyyqNkKDHarBqDoX2O5yAmjoxUoo0s3xrIN58Sa6ATNJ4JBBCpAogmB2eIbqm6zM
+         2CXNvIxCfGpNzXlKJct6dBNsJbpDZOz1zvp41eNlNKEoeBMEzgN3aOvnC9slmy1QMJzs
+         ZQdWZo0/soNsaplv7BjmwAFN0mA79rSbQkxcSyd+FXyOgrRMv9p7rTdwvTTv1nmbZyvG
+         WVJ6Pri0pmz2rSGVJQIM6EswrqwqcVGzq2iYZJCTAVmWKCn9YsGaqgBvqD60gBR+Bjuq
+         wCcXNIKlnNKSRG8MhECsh7kK8bgaJ/efa+EYMrEzzcVa4vbJiKPOsL6KjvygNmHDLNfF
+         21KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793054517; x=1793659317;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9TJ2uWGQA28B7/IVLdQOUeh7B2n+/HiF9b/pWpbRQp8=;
-        b=auKbnMz5QBTLpN3Z8oyJs+py+7bslhxp8QeEF4lFhlLTPr1oP9RgJg6/bitlIQ0lcI
-         odM/dEQ9BaY78V86DWAPgUqV7oB+8q2C2Ppjr1KZDHBqtwTHdiU1qyXRWjT+PlsPurDf
-         8+QwZgFhoUJCLq2QAODJF7t1Inf95oEiIwAfWTGp47onHm40FmrfA32kcZwlGfsAuvUw
-         JOZOymUFP2c+nMfU2RPTh6t5SIJ1sRXHAzQJ2284O1H/l++IRvcPPUCER2GXZOa55eGN
-         yjpw/L9bJ3RT7Q7mTVp+yElP+xLnJ6WJUHnJKbQoc700tepAXk+waeiYm0PIdzrwhbs7
-         HheA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmG1Ha+EpVxXMmUE5yR+XyPFMmHOmBf6uSF1uF/cUJQqXB31HFlaAXG1b3OBZCve/UtVX/XSs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1xFgHzIzbDsrxr1lnjMsUmwDUEfnkl5f95Jo07EcMVevd0Y2v
-	58Fo4bBzHZJN1kVcg2cFpHXw2nUf/cd1zzzjz2cRy7v2oIaSMr+3qI5y
-X-Gm-Gg: AYBFou2FHPptvLi46VeQXbY8+adYeCeKEfb7QMuarAR7sT72hD+eKmBQtjJGFnjS7gj
-	kvLybMZZsfJ3dBtG4fp9FvG/Z+6mZy/UHC6mE5FPEj+Mha8KwI3LkBjB9Y/amtSuKeH52DQF/5T
-	0lIvWonX8GHB+8iu+aTct+2LQ6tJHOJdnYjOpUsqvlQFVXHhCxLRp5GtnQPNnXXrQED21u/lLHm
-	8QySEWSSZFp3HIHaDpGDt8ioGsyeKANtcwru6ycq+KwHK79CgU9NOmI+x+gTfxL1368Ee+iM8wT
-	e5icPNMOTkuWXnPHt74gG+nhEordSE7wZ4OFFw2jX0AwAOYi63H0ydk9Lckkvw+b2Q+rfxRYfje
-	Gi+zwrvqbmnvnWBgmqve+k+MZb9I/toZ32l5sWsuVu8GK2Sf+PfrdZYDOX2oNvzMh6Y0oz4G2CD
-	azSyVEY/gI56lW+Jw28ts+8ZTnSRZNfQgcnu5QG5hPhdH/ulA1JImhWjqJD4uEEhq7+QlhAqFMl
-	f6g/9+gZBFpUGDi0P1aYZHfYSc5u//srF6xyNQcbgdHWiruuyn8A5TKSgbhwNO4NFy/o9K5iz6u
-	gbAlwoPC17gKpcpTDl2NCCHHKMv89a+ijaWCDjjW/o87B48jtF1efGBF++Cx6bp20TXoov7XTyC
-	KlbzANQ==
-X-Received: by 2002:a05:600c:4e87:b0:4a1:f7f4:7cf2 with SMTP id 5b1f17b1804b1-4a35acaa046mr152446335e9.17.1793054516772;
-        Mon, 26 Oct 2026 15:41:56 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff07190050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff07:1900:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a55e99fsm228800335e9.4.2026.10.26.15.41.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 15:41:54 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift.daheim with esmtp (Exim 4.100.1)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1xLTO3-00000000SgX-3CYi;
-	Mon, 26 Oct 2026 23:41:54 +0100
-Message-ID: <7a52a44b-d674-4469-bc77-35a5a648472d@gmail.com>
-Date: Mon, 26 Oct 2026 23:41:53 +0100
+        d=1e100.net; s=20260707; t=1793054551; x=1793659351;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FA3eo9Ml5dMrUZqSyy99rnSaNT5Gvkpu1eGh6dR+CIA=;
+        b=P+vzRcCPd/cJrzszePO1bnu3eTvMLEmJrYb73MPFdZcalrWc0cuxTkg8kv49bxj8Rz
+         UbVUcZQFjM4DdKePVJzwVS73eYuaDZVnoKqdyFXE5efi1ny/1ZjwD1UQBFm+XFD9xO7T
+         ZEbqyzP05acXuInpeSyxZXtzsnd2Jjy4PocWtnflQpRy2PCg3b+9cmgPE294uyuT7txL
+         T34gtxQ5husnfPVNYgbV2z+avVhkEKLQETGQAvukq97qFpmh6hlZYoMk+gprI3NQA1nb
+         rceR3BvDBax1g5S5pcy71wWmBfe5u00V+mDMNjcarg6Azfp1nd1ztTcNjKubbW6IRIkk
+         +d4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwVMAKHMhiBIGgMKH6AO446GjZwq5X8PvIWme4TheSCZCtGTFkxSxb55tAJTpAXtvGP7HY8MYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3WEa6CqooFNrc9v/vrC9jgY+/4hyI2yi3jnNGUVScW8mrK8/N
+	yZTVB32z/R6u84HqDchTcNU8lMLrIRU9LIudAGcg3vWI7aIycBS4yhK4
+X-Gm-Gg: AYBFou0w/9KQtyyuMVhMQBK+cdJPmV9Ej1YaxbWVEFvm1gcM2LAmzB2PimoenIAGBcP
+	dnEFitBiXG/Tjco9dVnTdX1YLRCIBncAMl14UUT8Cjq1dQtPLhFuXdx7FTNbm2eXfVN2eU9lVHg
+	WxWbzelU4SAeluyscaudQ1UlM1S5lBPhX1b/wBVQNVyVF6u9WYv3jMb+jwgt4QeVEGqf6+nHzbj
+	UoQhdof42cTwtGfvY2fQVlDeaWHdQuK+Q25oPrE13tl2XVCSrUV5NYRLiCgakvmZD4ZiGBMep7n
+	hxPIfbMbfFIQOP/2a2p604JMoZ3UTVzUlFRC9fHn/7McoYyzOcTjT5OeCo2q4YZPyotPThW2oes
+	XL86YU9QmQE1iat+436ZXEGxWE3XRK1uID4QV8QOKnitdaWWxJ2ZC1wsezlMBCa1lWBIokOwBS5
+	NI44USthwICT4xHqpC5kjpXNblXaA2231urD7VgVyYGE/GZL99tWC8TiSSbV7Zdi/UYNJpMfJQx
+	IZUlPwYeLlRYrV4UItm+NVkaooNTF5SzbZRbw7MS8SfeNussCELaABdpKwN8qDv/PM+bSP/S3UW
+	Wj6rzPEs/eEUnm9iiZME
+X-Received: by 2002:a05:600c:609a:b0:4a2:fd2:985d with SMTP id 5b1f17b1804b1-4a35ac95969mr132696405e9.12.1793054551580;
+        Mon, 26 Oct 2026 15:42:31 -0700 (PDT)
+Received: from localhost (bzq-79-181-189-120.red.bezeqint.net. [79.181.189.120])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bac37sm239054165e9.6.2026.10.26.15.42.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 15:42:31 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,75 +87,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH wireless 3/3] wifi: p54: fix IE parsing loop bounds check
-To: Johannes Berg <johannes@sipsolutions.net>,
- Tristan Madani <tristmd@gmail.com>, Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Ivo van Doorn <ivdoorn@gmail.com>, Kees Cook <kees@kernel.org>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-References: <20261026112151.2515228-1-tristmd@gmail.com>
- <20261026112151.2515228-3-tristmd@gmail.com>
- <9658b549be7c1c0f1637699b8b61960d2101dfca.camel@sipsolutions.net>
-Content-Language: de-DE, en-US
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <9658b549be7c1c0f1637699b8b61960d2101dfca.camel@sipsolutions.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 27 Oct 2026 00:42:29 +0200
+Message-Id: <DMF4SGB80HC3.36K88VCSLPHHS@pve>
+From: "Noam D. Eliyahu" <noam.d.eliyahu@gmail.com>
+To: <netdev-bot+sinfo@kernel.org>
+Cc: <netdev@vger.kernel.org>, <pavan.chebbi@broadcom.com>,
+ <michael.chan@broadcom.com>, <kuba@kernel.org>, <edumazet@kernel.org>,
+ <davem@davemloft.net>, <pabeni@redhat.com>, <andrew+netdev@lunn.ch>,
+ <horms@kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH net] tg3: Invert restart quirk logic to restrict SNP
+ power-down bypass
+X-Mailer: aerc 0.14.0
+References: <20261026220955.473247-1-noam.d.eliyahu@gmail.com>
+ <179305291274.3327.7897598693564915611@kernel.org>
+In-Reply-To: <179305291274.3327.7897598693564915611@kernel.org>
 
-On 10/26/26 12:45 PM, Johannes Berg wrote:
-> On Mon, 2026-10-26 at 11:21 +0000, Tristan Madani wrote:
->> From: Tristan Madani <tristan@talencesecurity.com>
->>
->> p54_find_ie() iterates over information elements using a loop condition
->> of while (pos < end). When only one byte remains (pos == end - 1),
->> the loop body accesses pos[1] which reads one byte beyond the validated
->> buffer boundary. The read happens in the bounds check expression
->> pos + 2 + pos[1] > end before the result of that check can prevent
->> the access.
->>
->> Fix by tightening the loop condition to while (pos + 2 <= end),
->> which ensures that at least the IE id (pos[0]) and length (pos[1])
->> bytes are within bounds before any access.
->>
->> Fixes: 0ac0d6cedf611 ("p54: Move mac80211 glue code")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
->> ---
->>   drivers/net/wireless/intersil/p54/main.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/net/wireless/intersil/p54/main.c b/drivers/net/wireless/intersil/p54/main.c
->> index 57a62108cbc35..16614f65dfa5f 100644
->> --- a/drivers/net/wireless/intersil/p54/main.c
->> +++ b/drivers/net/wireless/intersil/p54/main.c
->> @@ -81,7 +81,7 @@ u8 *p54_find_ie(struct sk_buff *skb, u8 ie)
-> 
-> We'd probably be better off just replacing that whole function with one
-> of the real search functions or iteration macros?
-> yeah, I think carl9170 probably can just straight up use cfg80211_find_ie.
+On Tue Oct 27, 2026 at 12:15 AM IST,  wrote:
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+It's mentioned in the link to the mail discussion earlier, I had
+discovered it on my own Dell PowerEdge T440 in production it caused a
+reboot hang 100pc of the time due to the known AER issue that my model
+wasn't listed in it's growing quirk table
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+Yes it was triggered the AER logs are identical to those in 2ca1c94ce0b6
+Fatal AER event regarding ACPI _PTS and the main symptom is that iDRAC
+regards this as fatal and hangs to restart until manually interrupted
+>
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+This change was tested on said Dell PowerEdge T440 which shares the same
+Dell Firmware as the R-series and has the same physical NIC mentioned in
+all other relevant commits (BCM5720)
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-But p54 needs to edit the beacon and the memmove the (found) TIM element
-to the end of the beacon and modify it a bit of tim in p54_beacon_format_ie_tim.
-The problem here is that the helpers are all casting to const. So this will
-look "funny" via to "uncast" const. Unless you meant something else?
-
-As for what to expect if something read past the end? Well, p54 works on skbs. So past the
-"end" in p54_beacon_format_ie_tim() would either be extra tailroom then padding or the start
-of skb_shared_info (u8 flags) I think? In case of p54_pspoll_workaround(), after the "end",
-there will be the FCS (32-bit checksum) - at least on real hardware) and then padding or
-the start of skb_shared_info.
-
-For rt2xx: not sure. But the existing use cfg80211_find_ie in rtw89_core_cancel_6ghz_probe_tx()
-and rtw89_core_cancel_6ghz_probe_tx() looks suspecious.
-Because from what I gleamed, both just pass "skb->len" as then len parameter. But shouldn't
-that be subtracted by the offsetof mgmt->u.beacon.variable? Because cfg80211_find_ie thinks
-len starts from the "ies"? I can't tell right now as I'm sick and need to go back to bed.
-This all could either be a fever dream an be true/half-true or completely wrong. So I have to
-ask in advance: Please don't take this all too seriously.
-
-Cheers,
-Christian
-
-PS: Is there also a patch for rtl_find_ie (isn't that pretty much the same as all the others?)
