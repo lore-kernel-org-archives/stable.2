@@ -1,112 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020041;
-	b=pSNEM2L0mxxtzXGAVNRLQZzjGqWbkLGGKWu6cnBQWvxwKhGzbCrIRUSjFbxmPIub0S1I
-	 FfBe3muCEW87d0WT0pGewl8IbOyD+fhsxh07LsQO7noKXr62ETshpnuvQbNlNWcxy5/OZ
-	 jE+Csjf/7d6FzRlJlnS21z9D8awQVC9SDfwiDhR8YtaTTnhcvKG5mB/MqXWgKLwaVkMXO
-	 zgxdiHCDDIfbnHdvpQP32Th6vYPvSOu5yNDOKzjE8Tj1kYCsuskleSkYtBOkpQpzsD2Gk
-	 kzwtUdq250MptHlSFEyZwS0qQ0ws1i2QtFi7b3k2EyCi/NQcPOE0eYXPsG8TcTEVPCA==
+	t=1793020234;
+	b=DGMg/aLN+5D6plOMSeNVmFGW0noIDazstXGvkPDedk36ESgIccKl6doJKoDudEDEBJ79
+	 WvLHWZzrNS0F8cEeUGhNIyztRLWUUbdtJBK+Uu9ueuxldlspMOgPuGlz73VLmQ3gcgkSY
+	 9URr21vH2IWCZ/TvbxxDOlVd0H9X+p9GYnlvHdjuMwhcq8MpM2rD1NTxoDIV5kZuWNtE+
+	 u/QH5pZ9Dij+h3GS9WaVq+SXhFtc6vW2O0b0sf744r/+Oaw+vKbeV/Kwnriowd8Oak6GT
+	 YJs1/dRFiTk7hnc3uvo+ysrwvDTL6GttE3WxP+nffgB2nR7X3hPLp3GlBca8vHX4Tag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020041;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=p4aTtckkNIZTj3KdHwLDdVPDSaAWMqxSQJcGzbmfPd8=;
-	b=FSPBPc9kiDyEMKvzenfQYw8MLhQg4Lg3q4RZDCnNCLaKc+oSSSdanybjxjIBuLHyE0w4
-	 iT5FriqKZFu8lvY8++taNeyQVIHsRvnhEmHxDTKonIFA64B8zx2SAaryLbZTtDtyGLrT2
-	 wJYEARO/vKx2X21AjZJrw5VgXAZf+8rKdJ8xJlgYRYCMTNi27J4wgxDItZcRVopC4uZWX
-	 fm2ibuN0TNfj0saNYtRo811XStzvewNPEC5h3Ptk2CxjcJVaggN/tiBmwG1FoKliDjTsc
-	 kZbUC2ZmsZo9kmADojQy4IATusQyq5MZ2ADx/Qu21fUHYRKDvksfI0MCJWUBIOO3/0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020234;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ceXZqyDZbjSJNKIpKzybX3IbNeKvCvLhqg+uOKbhDaA=;
+	b=UqJEUd8fmJoCN35z9oPBzHy/KvdfU8LAp+trnbenfiAgg7rAgQpkImQ8zWPn/6Fmz0Ds
+	 mAe7nhD9c48Gs5ShkR/U7NT5m7vunhwgJXm9XOWi0azB3coxZk83KYNnObl9emttHrJB4
+	 Ux4EqtKSfkD1ERZX/aMRh0071HgkcdG3XHRUgCLh0lRQ1QyMfoMRjeaC+3Zu6wPUedToD
+	 WBBPWEmouTGsjmadzObkrY7kRGK80kUo34IEdbMZQNsWugxrV4EMUOkPqL9BvjDl+sC48
+	 9htiF27Af5b75DTiuek6RuOaxgaxOl+ZwXbR6C+n7CkPRv/pYb6n+apw+fGeuDUrotg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kzXwZUgx;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="sYZQ50X/";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="tCXN4/UT";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=axaS3z55;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbtJouF2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FEE606A31B;
-	Mon, 26 Oct 2026 13:07:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68FEE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B14606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=kzXwZUgx;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sYZQ50X/;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tCXN4/UT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=axaS3z55
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4B8A621E84;
-	Mon, 26 Oct 2026 13:07:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793020038; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p4aTtckkNIZTj3KdHwLDdVPDSaAWMqxSQJcGzbmfPd8=;
-	b=kzXwZUgxjb3dLMkfPC4/6iPI5q3nlBiWjKcS+LICVn1f7NgrpyijK9kPMkQXmpEQNDgKs0
-	5wRC3t70dv3tfM4m9rjrGyi3sWZHHdagCD65ztwyGgV4bPaAnTCemVzDvw/Cml1vHSdZ6L
-	9w6zrs9dgniLswGBLc6zRCnVi6YE6mE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793020038;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p4aTtckkNIZTj3KdHwLDdVPDSaAWMqxSQJcGzbmfPd8=;
-	b=sYZQ50X/hGcQnVBiApUx0JvHUaM1W8X7Q9/5/pqzMS0x6EMYYvXIdE98tb4CW8gwaS1dAM
-	UrxsYNdfYBQqAWBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="tCXN4/UT";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=axaS3z55
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793020037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p4aTtckkNIZTj3KdHwLDdVPDSaAWMqxSQJcGzbmfPd8=;
-	b=tCXN4/UTrJkFRabug2fy7KFrUD8//yjdscptoZ2fnQL1W6IvqOP6GOi4p6C1Ow/a0llnl0
-	qKyeiaQiX3zQaqck1GpvjD/4jaCL/ov3M88TtbQtB2KL4aXUxggySnv2p+RDFBmUPjHctf
-	VcYapD8oNUn0plwwEc92uZQGyo/mgqE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793020037;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p4aTtckkNIZTj3KdHwLDdVPDSaAWMqxSQJcGzbmfPd8=;
-	b=axaS3z55G30XACXvwbOHlXmOTQjSeNrlUlKDROuoWn555U5+DlXxrsO8NgblQq/nIYYLA9
-	wnP5qY1NcQLSPOCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09E6213408;
-	Mon, 26 Oct 2026 13:07:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Vpa6MoNQ32rGXwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 13:07:15 +0000
-Date: Mon, 26 Oct 2026 13:07:14 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
-	Davidlohr Bueso <dave@stgolabs.net>, SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Colin Cross <ccross@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 4/4] mm/vma: avoid losing atomic VMA flags when setting
- sticky VMA flags
-Message-ID: <at9QWd9wst333TWx@pedro-suse.tail5790ac.ts.net>
-References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
- <20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbtJouF2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAC51F031E0
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793020233;
+	bh=ceXZqyDZbjSJNKIpKzybX3IbNeKvCvLhqg+uOKbhDaA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IbtJouF23KmF/ujU9ayRLX0fmwvOp9zhCA7pPTY6lkxh4PF1lw+oWj3R2CCQrv4Lm
+	 6VMH+n4OBeqdONyO5UGF2ax6CYmIJqG+C37PGqXWKY9qvlCjS5gCzSd2MYlww/Ln1P
+	 4DXa039eRpUqH0B5RghAP4S/2dJXbU0VsOJBW46dGXxC2kgdSucBQu3x1DcqMCEV/F
+	 qMTU8sJckTJosE7y0M7hPKUhbzkgCWEi6NnDGJKGtZXQRjdrBwYVtOJDrgatWCWMg5
+	 eJ2hq6Q20Xtk6rjD0/qtIj/dQCJyE13TtKpkrGWoG67cInfSq5E/g6Sk9rq5OEtO1D
+	 DH6TXBWfHOa2g==
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-48e9476e26aso1009309fac.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 06:10:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByTXnQzdMesUPhbyOzuTqvMwCk5ifETnP4ugkfaNDpPQNL2jLKxz6q16mjukIYTETq/TzU7WA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKECkYprcf2CLOiXe6FeakBpRazFgd3RQCR2HUV+O8+YD5Or7T+
+	/eUySexne9EdzL9rnEpFc4qrPf1jpZ2KuQKxFBBSU/MBuNGXqPv29kXiz15bIJ+75NqSeJ8BcBw
+	wDLG6pFnnd9uRuJ+w0uPVdRKs5psZRug=
+X-Received: by 2002:a05:6871:c8e7:b0:455:d4ba:1dc6 with SMTP id
+ 586e51a60fabf-4a83f1d4ef2mr4799602fac.5.1793020232147; Mon, 26 Oct 2026
+ 06:10:32 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,102 +59,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org>
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 4B8A621E84
+References: <ACT-N6N4.v3.r0.20261023200137@mojatatu.com> <ACT-N6N4.v3.r0.20261023200137-1@mojatatu.com>
+ <ACT-N6N4.v3.r0.20261023200137-2@mojatatu.com> <CAM0EoMnjxmnoZ3a4XCB9YERcCwYhYW8-jKw1UZ79YzhFct9+KQ@mail.gmail.com>
+ <CAM0EoMkct9bMMZHPRKh3xZ-L5GTX0SeLdnp_NQd+C_QWspHW8w@mail.gmail.com>
+In-Reply-To: <CAM0EoMkct9bMMZHPRKh3xZ-L5GTX0SeLdnp_NQd+C_QWspHW8w@mail.gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Mon, 26 Oct 2026 14:10:20 +0100
+X-Gmail-Original-Message-ID: <CAL4WiirtOb9t7DHTk_bawuhAUeKYTQL_p0DvOZDL-HhuKr+h2w@mail.gmail.com>
+X-Gm-Features: AclHuK8qH1aV31d0h4LssF8wxy74YlebQMH4xMO3XjkohC_WOp_VXKRU4T1umRQ
+Message-ID: <CAL4WiirtOb9t7DHTk_bawuhAUeKYTQL_p0DvOZDL-HhuKr+h2w@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/6] net/sched: act_mpls: pull the inner Ethernet
+ header after POP
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	Victor Nogueira <victor@mojatatu.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Martin Varghese <martin.varghese@nokia.com>, Pravin B Shelar <pshelar@ovn.org>, Vega <vega@nebusec.ai>, 
+	Willem de Bruijn <willemb@google.com>, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 23, 2026 at 02:47:30PM +0100, Lorenzo Stoakes (ARM) wrote:
-> vma_merge_existing_range() merges an existing VMA (middle) when its
-> attributes have changed to match those of one or both adjacent VMAs.
-> 
-> Sticky flags are propagated if they are set in any of the merged VMAs. They
-> are initialised from vmg->vma_flags, which is assumed to contain middle's
-> sticky flags when the function is invoked.
-> 
-> However, the VMA write lock is not held for middle when they are first
-> populated, so concurrent updates to atomic VMA flags may occur, which will
-> be lost upon merge.
-> 
-> This can result in fork failing to propagate guard region markers and (if
-> file-backed) THP collapse discarding them.
-> 
-> Resolve this by propagating the sticky flags after middle is locked.
-> 
-> Make life easier by factoring this into propagate_sticky_flags(), which
-> treats vmg->vma_flags as its base (in case any sticky flags are set there),
-> updating it as sticky flags are accumulated from merged VMAs.
-> 
-> Also update vma_expand() to use propagate_sticky_flags() so all merge paths
-> utilise it.
-> 
-> propagate_sticky_flags() also asserts that the VMA write lock is held for
-> the VMA whose sticky flags are being read, with a comment explaining why.
-> 
-> Another means by which atomic VMA flags can fail to be observed is when the
-> merge is finalised in commit_merge().
-> 
-> rmap locks are dropped in vma_complete() before the sticky flags are
-> written, meaning an rmap walker can observe the VMA without sticky flags
-> set, which can also result in retract_page_tables() discarding guard
-> markers.
-> 
-> Resolve this by assigning the sticky flags before dropping rmap locks,
-> factored into commit_sticky_flags() with a write assert on the VMA being
-> written to.
-> 
-> Also remove the vma_set_flags_mask() invocation at the end of
-> vma_merge_existing_range() as this was introduced by commit
-> 64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
-> which is now redundant with the introduction of commit_sticky_flags().
-> 
-> The vma_set_flags_mask() invocation at the end of vma_expand() setting
-> sticky flags only is also removed for the same reason.
-> 
-> Also update vma_merge_existing_range()'s comment to reflect the fact that
-> vmg->vma_flags gets updated.
-> 
-> Finally, update the userland VMA tests to reflect a previously missed
-> const-ification in vma_assert_write_locked() which would otherwise cause a
-> warning when building them.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
-> Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Le lun. 26 oct. 2026 =C3=A0 11:32, Jamal Hadi Salim <jhs@mojatatu.com> a =
+=C3=A9crit :
+>
+> On Mon, Oct 26, 2026 at 5:42=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.co=
+m> wrote:
+> >
+> > On Sat, Oct 24, 2026 at 10:28=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu=
+.com> wrote:
+> > >
+> > > The issue:
+> > > When the configured inner protocol is ETH_P_TEB, act_mpls POP can lea=
+ve
+> > > the inner Ethernet header in a page fragment after skb_mpls_pop(), ei=
+ther
+> > > on an L3 device (mac_len =3D=3D 0) or chained after act_vlan POP_ETH.=
+  A
+> > > following eth_type_trans() can then BUG in __skb_pull().
+> > >
+> > > The Fix:
+> > > After the pop, pull the inner Ethernet header into the linear area on=
+ly
+> > > when p->tcfm_proto is ETH_P_TEB; drop the packet only when that pull
+> > > fails.  Other inner protocols (IP, MPLS, ...) have no inner Ethernet
+> > > header and must not be required to carry one.  The pull is a no-op wh=
+en
+> > > the header is already linear.
+> > >
+> > > Conditions to recreate the bug:
+> > > - egress tc filter on lo: action vlan pop_eth action mpls pop protoco=
+l teb
+> > >   (chained), or on an L3 device where mac_len =3D=3D 0.
+> > > - AF_PACKET SOCK_RAW with PACKET_VNET_HDR, hdr_len=3D28, and a non-li=
+near
+> > >   eth / mpls / inner-eth frame.
+> > > - The inner header is in page frags; a following eth_type_trans() can=
+ BUG
+> > >   in __skb_pull().
+> > >
+> > > Fixes: 2a2ea50870ba ("net: sched: add mpls manipulation actions to TC=
+")
+> > > Reported-by: Vega <vega@nebusec.ai>
+> > > Link: https://lore.kernel.org/r/40fe2d7dfce13411bfbe9271c0f7c54fb7e88=
+e3b.1782548651.git.bronzed_45_vested@icloud.com/
+> > > Link: https://lore.kernel.org/netdev/CAL4WiiqSMdYQYeeW0Fk_GK6ekR4xiS4=
+zPrGKrbB9wZknpqf1-w@mail.gmail.com/
+> > > Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.26d1ddb3bd=
+2ae@gmail.com/
+> > > Cc: stable@vger.kernel.org
+> > > Suggested-by: Jakub Kicinski <kuba@kernel.org>
+> > > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> > > Suggested-by: Eric Dumazet <edumazet@kernel.org>
+> > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > >
+> >
+> > For the series
+> >
+> > pw-bot: cr
+> >
+> > Eric, you are reading this? See the discussion with Willem.
+> >
+>
+> And to be clear, I am suggesting we fix both the producers and consumers.
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
+I don't think we need to touch loopback / eth_type_trans() directly
+(that's the per-driver cost I pushed back on for tun). There is a single
+natural choke point: the egress fall-through in sch_handle_egress(),
+right before the skb goes back to the driver's ndo_start_xmit(). A
+device advertises how much link-layer header it needs via
+dev->min_header_len, and that is exactly the amount eth_type_trans()
+will pull. One check there covers act_vlan, act_mpls with any inner
+protocol, act_ife, pedit, and BPF, now and in the future:
 
--- 
-Pedro
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 1a09e7869118059e92b53e00ed873dfc7485ffc3..ffc8c4c0dfa35fc6eee12bec799=
+809b0e2476270
+100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4757,6 +4757,16 @@ sch_handle_egress(struct sk_buff *skb, int
+*ret, struct net_device *dev)
+        }
+        bpf_net_ctx_clear(bpf_net_ctx);
+
++       /* Egress actions and programs can pop or shrink the link-layer
++        * header. Drivers expect dev->min_header_len bytes in the linear
++        * area (e.g. eth_type_trans() in loopback_xmit()).
++        */
++       if (unlikely(!pskb_may_pull(skb, dev->min_header_len))) {
++               kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_SMALL);
++               *ret =3D NET_XMIT_DROP;
++               return NULL;
++       }
++
+        return skb;
+ }
+ #else
+
+It is cheap: only runs when an egress tc/tcx program is attached, it is
+an inline compare, and pskb_may_pull() is a no-op when the header is
+already linear. For non-Ethernet devices min_header_len is 0 so nothing
+changes. It is the same dev->min_header_len gate your act_mirred patch
+already uses, just at the other exit point.
+
+I applied *only* this hunk on top of net (none of patches 1, 2) and ran
+your three reproducers on lo egress under PANIC_ON_OOPS=3Dy:
+
+  1) vlan pop_eth + bpf skb_adjust_room(-1, BPF_ADJ_ROOM_MAC)
+  2) vlan pop_eth + mpls pop protocol ip
+  3) vlan pop_eth alone, non-linear inner eth (AF_PACKET+PACKET_VNET_HDR)
+
+Unpatched: all three BUG in eth_type_trans() via loopback_xmit().
+With the hunk above: all three are dropped cleanly, no BUG.
+
+So for v4 I'd suggest:
+  - drop patches 1 and 2 (the egress check subsumes them, and the
+    ETH_P_TEB taste question goes away);
+  - keep patch 3 (act_mirred) - that's the redirect boundary, a
+    different exit;
+  - keep patch 4 (act_ife) - it fixes the egress frame, not just the
+    crash;
+  - keep patches 5 and 6 (OVS) as-is - OVS actions can't run arbitrary
+    BPF, those producer fixes are correct and already reviewed, and they
+    can go in independently.
+
+One gap this does not cover: the BPF redirect path
+(__bpf_redirect_common() in net/core/filter.c) only checks
+mac_header < network_header, so a 1-byte "mac header" still reaches
+eth_type_trans() via __dev_forward_skb2()/loopback_xmit(). I haven't
+reproduced it yet but it looks like the same bug and the same
+dev->min_header_len guard would close it. Can look into that separately.
+
+Thanks,
+
+>
+>
+> cheers,
+> jamal
+>
+> >
+> > > ---
+> > > v2 -> v3:
+> > >   - drop the pre-pop mac_len gate.  The pull is a no-op when the head=
+er
+> > >     is already linear, so the gate only avoided a cheap call (Willem =
+de
+> > >     Bruijn).
+> > >   - restrict the pull to ETH_P_TEB.  act_mpls POP can target IP, MPLS=
+,
+> > >     etc.; those inner protocols have no Ethernet header and must not =
+be
+> > >     required to carry one (Willem de Bruijn).
+> > > ---
+> > >  net/sched/act_mpls.c | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> > >
+> > > diff --git a/net/sched/act_mpls.c b/net/sched/act_mpls.c
+> > > index 4ea8b2e08c3a..35a6d27f76a4 100644
+> > > --- a/net/sched/act_mpls.c
+> > > +++ b/net/sched/act_mpls.c
+> > > @@ -79,6 +79,9 @@
+> > >                 if (skb_mpls_pop(skb, p->tcfm_proto, mac_len,
+> > >                                  skb->dev && skb->dev->type =3D=3D AR=
+PHRD_ETHER))
+> > >                         goto drop;
+> > > +               if (p->tcfm_proto =3D=3D htons(ETH_P_TEB) &&
+> > > +                   !pskb_may_pull(skb, ETH_HLEN))
+> > > +                       goto drop;
+> > >                 break;
+> > >         case TCA_MPLS_ACT_PUSH:
+> > >                 new_lse =3D tcf_mpls_get_lse(NULL, p, !eth_p_mpls(skb=
+_protocol(skb, true)));
+> > > --
+> > > 2.43.0
