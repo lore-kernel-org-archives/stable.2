@@ -1,63 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792975610;
-	b=lyocYykakGGVC9SEGf/mDKhPiHQ54YTaWbm4K7/GQAL6/PVJ0bi32oZi5YHe9+Oh77Iz
-	 Lpun6mKlVuaPFc1TYjLL+MUOESsrFrAkXkCbSxvu8Cjy7eWgD/Vp9gRZzIDFYy1+syMmx
-	 ScK0lGNBQUPEGXI5VZWvSKFmeL0NgApwzS0TpxlMhVyqcHwAH0ZLTqd6bez2OCmH2cILb
-	 D7ypGw0BPA6F2fI4CL4NeZ2C5QQ8qXTYQO742B7PLXy5YssUeEiswgP2TsO3pK38Ix1TW
-	 HJX5O4juJUXkckXSi7P37hGm9Z0NIoGfDIKPQ/kQSox9hxs9tu+VM3WVXY4dhM8ZiXA==
+	t=1792975732;
+	b=fiBWnpm5c9V920pB/QMbd6X4OOYf+CNSKXBnRUCHNCe/RmML7RmT0MtMcsGN2WLDNhUG
+	 ICjzSn7Ww+UBcCO9chLqtQ5NUjBCTQ//s0LcqvLeK+L/D2uFJPQaJMjUzzYN51sED/E69
+	 G2h2bqxzrGUmnpq+tzxSB6sZTEf8BlPUMvrYSqxVFfgRp/jdIVlb9Pg2/JElQHz2LheWe
+	 fJVX3u2xWL1g8GMA05rX3e0Kog67yhRDiKA6m+2MflIA3fttu9KJQNB0G0lasHt/nULCO
+	 OQPcDzcj95wZhI1/cMS3BT3Lkus8gcDbjUc58SJtqIPkuw2Ktfpk7k7RTdHzWMON8Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792975610;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Qijv1dlEij20EdMeIbGpdMin8+1h12UwR2e2M8zTwrI=;
-	b=Fv+lNCQ/SqgzrilY0beroAieXXby34xLDIxqPpfVdAnv+Vi1enW8GB2T5MRLIyDVfv6r
-	 UM/O+yOUDGAEeKPjoOPGIleg2t2gUivN7Fr7WiN2Pe8nsGeF2LH3Nkdv7DKG9WuGvwLg3
-	 +QMM8jUrvWSICoUkFia0JGvYK3bPartrShuLqQBziEAHeGMqxc2m9x25WtGJcyjQ/T/n/
-	 is1nlNy0YboxYDcNg0j378J4xmSnwUpBHlOOWLEoXSHALbce/RwksgWo0DuUYLN9bqpZh
-	 5sMi2XtAcpwC7Rs2GjvkJxkv7iGXbfRod8EHFAFbU3Sw70OX3d51NnHN4TQnLB4DJIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792975732;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=udVOlod3HEgAxXI2vzlG4B3fPf5JJlSfrQiG5WIkwpk=;
+	b=WTNJhhmnrqo6MykK8Tl+TBa4HUU3yv+NcK1dcIVKDC75EKMMblPRfflbuHK+1nNnF1HK
+	 b+MRLkHvCX0TemJk1ZlFYWQFgI0Gtt6qnRk6hZC3mZCHNyVak80MukYCFFuSw8MvS/5Hc
+	 Hg+qmEEsId5KMgFOTlj8D/kejt/87xR8KbApUS0kpEsC5LVDewR61uFyKYwm335KVupD+
+	 /Uddr8CsfV83szsp56ecERXseOyw95DZ5Svp5k2dawMlgvHNoQnisg7K+5hRbaE9zWKxB
+	 c29S0IV7RPCwF/dxvQcGymy/+gB8SMImsWgLRIsQcVgpKKwayn6UVLSBRob4H9oBRfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b="zpGmS/j9";
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=n0IayPEK;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Exe4oodw;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF357606A31A;
-	Mon, 26 Oct 2026 00:46:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF357606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B71F606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 00:48:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B71F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=zpGmS/j9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=Qijv1dlEij20EdMeIbGpdMin8+1h12UwR2e2M8zTwrI=; b=zpGmS/j9i2Cgr9vpSPhJVrLTAg
-	YviDm3y6laX1PP4pjoiOvMY09PC640fXrPxGDvlmyOgbbEnKECW7FFEKxt4V/NWjcmlWpbXPD41aZ
-	TF7wgjR9Wxe6FH1FxKvPyfzAmOU/CvEZO5Jy2oQywxCG23+lCVUgZXNCvpw+gM9IifHZLxYdVxLpF
-	LTtg7OyrQhJHZS2tQ6Xg5nSzv3YbiwsFVHr5RAxsRgFWOI9uyLG7ysGRiqGElNAcsNOlIhmNxeLMJ
-	hXaUMHmatz4llHeY9ZAOhL7lVd9btiyx67NluhrhYsG0IcHt1puCJLf9KB7xfFUcJYh4At4NlmIFP
-	Hrry8Fcw==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xL8rL-000000001BJ-2JXR;
-	Sun, 25 Oct 2026 21:46:44 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] smb: client: don't resurrect an exiting tcon from cached dir workers
-Date: Sun, 25 Oct 2026 21:46:44 -0300
-Message-ID: <20261026004644.239554-1-pc@manguebit.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=n0IayPEK;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Exe4oodw
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id CE562EC00AE
+	for <stable@vger.kernel.org>; Sun, 25 Oct 2026 20:48:50 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Sun, 25 Oct 2026 20:48:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792975730;
+	 x=1793062130; bh=udVOlod3HEgAxXI2vzlG4B3fPf5JJlSfrQiG5WIkwpk=; b=
+	n0IayPEK+VMz2Hjvj8EHJ6u+kXq9iRGPoema7Rm5vA9nu2cG2FRSSq5giCXfSz5N
+	8e3Yxfjx3UhZrpvDsF4Amr3w7Guduwe2pTrgR3RKu+TN+XnaegnRkj5IROt6KqFk
+	85cESkflFNT/sAc4Z+XubeguorkaVh35clZAtuyGuaN9j/ChmmEPHh0FjgKlX+Zp
+	vC0VM2Bc7z/0leVlMfphWOBro2jUviZDICdvFb5AiI9KVM7a2AMGJeOd7Hiq9P9M
+	kHLQZjFDsLeYuCUeaDT+4TaIBjwX0NEmYj5P8ab9FCPhmockXU6DUkZsplC/qZJJ
+	xFQDJYUnT5BI2cRjfiBdAw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792975730; x=
+	1793062130; bh=udVOlod3HEgAxXI2vzlG4B3fPf5JJlSfrQiG5WIkwpk=; b=E
+	xe4oodwVG5TmVy6FOnDPljijtHU9zAuYCEEdKzuoPYkmRPv5ap01GxI2MWsqVsar
+	abF7IbftbtF9tBW7fvT/IviYPzdV3/c3+j58lRkxNvdXQewd+skKlscHqWH/3r7l
+	acO2RnUG+zvw6ytL4nfAb03yulygTRJkuw1iYVHwaWw8sgxGBRACtX0gDWpmW31E
+	PPsRZxQoxFhnYP8i9LZIpDxMXG2qIFNi1muEZA0cA2miVgipy1fKgcvYQa5hh5/J
+	pVB1hMuuegPzOG9gJLm8qz3ttM9m24dSCKhv0O57fvvXx1dns7zKn0aSv26So5Lb
+	EDhj8WCXuHLI81rzPzMRg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792975730; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:eIRuq9Cn8ZQA4el0w7pVADxxhcyuQskU7RI3VKKarshKHtc
+	JJWsjfAvOJh8SUqwQiJE/NB87wcH6iGtHNjsgBN3+K+RERQQC01ObK2ZqQg1PZyI
+	3BFXT7InqkMv06yLshL9uBBPP9NxDhiYqrY732EOMCEdlsIOYjfICYS+M7SBBGmS
+	FADVma4NR+DoCtXCCm1QYUPz1y1BZb876pnNz6yPKMcLDUPoxx1CJkH4qslsHLEH
+	mzXU0uvVlXkYVNBwprVh+wduXM6cL2SZCVOywjyXGZdVYNZ+adshqLrxrigo076d
+	oKNZekWpum7Xo8wpY33I4eLDjcXPI7rkrSD9uYg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:41MKAXvoTXN8LUdyB3+lq5a1h8G0EFUWaCA2z5YHMU8=:iQvbRSHRPGa7LFbYBx98BtR+DgVbLuGcOSRE1L7ajoo=;
+X-ME-Sender: <xms:cqPeagBWlPf7TW46luIeDiZPqPKqa9izLIIuT2UX7JDp4J1j8xf9IQ>
+    <xme:cqPeaubsb9PJZeZYlJwhzeQRA2yW_ltG1wtVlTnwvYN1KqwjgZKzLZp7VDXy813iw
+    HeYeh-8O5qoIoWc7uEdVbfjMtz0FOUcaLIaV0s0UdF2yxWMAqExf7_i>
+X-ME-Received: <xmr:cqPeavFomnZ2E2r5v_mZjbtT-VCaxBZU63RH3YksFBGlfmL7CT_uYhiuEIcQwqI8FgypmPrOK3Jc-ffOOI48TyrYujBUeUQz>
+X-ME-Proxy-Cause: dmFkZTE9yGijkaZXXZ0EKKMGDgwIXdQ62+nstrZptYXNRPY+Uae5Lkg73KctWwVNxg6qb7
+    Cz+PRXp+MNcKaZwJrvfDB4FJ+I32WWRQ8sPXgUccyqi9W3NXfMu/u4JhEY2fWvjt0VCCtK
+    5Paerl6VDtCrDBak9W28q0sM1VjofokTB0BnnotlXPjeMIoyOZ8ENh48USJbK2tC9Jotc3
+    XiPwKIM7QwvXXUKxwa461GcBL4eUB8kybJdF+qffY1NzfQLQ5OjULXvUFibfLSHlVIo+WB
+    hMO+w3pDBHAhbJ/VuKornkXrxaPOLk2qM+NlSOMlQEedqGef41dWhSWh7FegGe3h5Ynqew
+    EsF3geVb7hfaaO7yk74wCeTDVWVeDtaunzR6MSWEDDP6W4976slrPw6c76FUm7ioUxa95f
+    iv/lhrVRQ1mH/A8fdL2HHHF7QAFV9JBs0rmlveVKd9iFZIN6gnMRSNhneG5KqlVRwzweAz
+    20xH4s9Mz3i70/TNM68F1cNCllT9RBWd5PA0YVgeoSlcOJp3TxId+lGQVs97GlUiBRaozN
+    YTbLO/DL+pbAORY5WrUkeAZ2o12GN2LAfRvY75T9kzgt+Q1JeUNPZncKWxg1+HqkTgSvZ/
+    6uY4pZJlGzL1qIZDLIkYew3yE4IeEbGbJ/cRKTBN+8UrfglNI96OL7p9IOkw
+X-ME-Proxy: <xmx:cqPeaqsepklbwYXqQHjUwC3WZQI0ZTjZHoFPwAkm-k3BJrE43d5R1A>
+    <xmx:cqPeatJpWKaNGSxlj5Yq1avGeClyzNfkY1ZQGwWLdY33VQrjItkRxA>
+    <xmx:cqPeagNRq6ypNGvNqfBt9QxDQx2mwPXIs1nWRsOsXm_9z263BS20Ww>
+    <xmx:cqPeatZRSMIy5snZwa8by0C4ZDXpjk_o_K3LUieTi2133Ygio-3XTw>
+    <xmx:cqPeanUCJ8epSBmDd8OJ92kl119oFzwheKlcgGP9O-9NeofV8H9HKGFT>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 25 Oct 2026 20:48:48 -0400 (EDT)
+Message-ID: <8b3fd4ce-7a1e-46f4-b457-7ff9c09022e0@pobox.com>
+Date: Sun, 25 Oct 2026 17:48:46 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,117 +119,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261025125805.309934791@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-cfids_laundromat_worker() bumps tcon->tc_count for every expired open
-cfid and queues cached_dir_offload_close() without checking whether the
-tcon is already being torn down.  Racing with the final cifs_put_tcon(),
-the tcon comes back from zero and gets torn down twice:
+On 10/25/26 5:58 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 231 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-  T1                                  T2
-  cifs_put_tcon()
-   --tc_count == 0, TID_EXITING
-   tconInfoFree()
-    free_cached_dirs()
-     cancel_delayed_work_sync()       cfids_laundromat_worker()
-                                       ++tc_count == 1
-                                       queue_work(serverclose_wq)
-    kfree(tcon->origin_fullpath)
-    kfree(tcon)
-                                      cached_dir_offload_close()
-                                       close_cached_dir()  [UAF]
-                                       cifs_put_tcon()
-                                        tconInfoFree()     [double free]
+Tested on my Lenovo ThinkPad T14 Gen 1, my DIY amd64 NAS, and an arm64
+virtual machine. This fixes the regression I had with 7.2.13-rc2. Thanks!
+I have not observed any other regressions and it's working well.
 
-cached_dir_lease_break() also bumps tc_count without tc_lock, racing with
-the laundromat's locked update.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Take the tcon reference through a helper that refuses once the tcon is
-TID_EXITING or its refcount has dropped to zero.  Queued put_work and
-close_work then always hold a tcon reference, so tconInfoFree() can't
-run before they finish and free_cached_dirs() doesn't need to flush any
-workqueue.  If the laundromat can't get a reference, put the cfid back on
-the dying list for free_cached_dirs() to free; its handle goes away with
-the tree connection.
-
-The lease break path finds the tcon on ses->tcon_list under
-cifs_tcp_ses_lock, so it can't see TID_EXITING, but it now takes tc_lock.
-
-Fixes: 3fa640d035e5 ("smb: During unmount, ensure all cached dir instances drop their dentry")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
----
- fs/smb/client/cached_dir.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/client/cached_dir.c b/fs/smb/client/cached_dir.c
-index 647fa26da4d2..50217f47a0ed 100644
---- a/fs/smb/client/cached_dir.c
-+++ b/fs/smb/client/cached_dir.c
-@@ -649,6 +649,17 @@ void invalidate_all_cached_dirs(struct cifs_tcon *tcon, bool sync)
- 		flush_delayed_work(&cfids->laundromat_work);
- }
- 
-+static bool cached_dir_get_tcon(struct cifs_tcon *tcon,
-+				enum smb3_tcon_ref_trace trace)
-+{
-+	guard(spinlock)(&tcon->tc_lock);
-+	if (tcon->status == TID_EXITING || tcon->tc_count <= 0)
-+		return false;
-+	++tcon->tc_count;
-+	trace_smb3_tcon_ref(tcon->debug_id, tcon->tc_count, trace);
-+	return true;
-+}
-+
- static void
- cached_dir_offload_close(struct work_struct *work)
- {
-@@ -693,6 +704,9 @@ bool cached_dir_lease_break(struct cifs_tcon *tcon, __u8 lease_key[16])
- 		    !memcmp(lease_key,
- 			    cfid->fid.lease_key,
- 			    SMB2_LEASE_KEY_SIZE)) {
-+			if (!cached_dir_get_tcon(tcon,
-+						 netfs_trace_tcon_ref_get_cached_lease_break))
-+				break;
- 			cfid->has_lease = false;
- 			cfid->time = 0;
- 			/*
-@@ -703,9 +717,6 @@ bool cached_dir_lease_break(struct cifs_tcon *tcon, __u8 lease_key[16])
- 			cfid->on_list = false;
- 			cfids->num_entries--;
- 
--			++tcon->tc_count;
--			trace_smb3_tcon_ref(tcon->debug_id, tcon->tc_count,
--					    netfs_trace_tcon_ref_get_cached_lease_break);
- 			queue_work(cfid_put_wq, &cfid->put_work);
- 			spin_unlock(&cfids->cfid_list_lock);
- 			return true;
-@@ -813,12 +824,13 @@ static void cfids_laundromat_worker(struct work_struct *work)
- 		cfid->dentry = NULL;
- 
- 		if (cfid->is_open) {
--			spin_lock(&cfid->tcon->tc_lock);
--			++cfid->tcon->tc_count;
--			trace_smb3_tcon_ref(cfid->tcon->debug_id, cfid->tcon->tc_count,
--					    netfs_trace_tcon_ref_get_cached_laundromat);
--			spin_unlock(&cfid->tcon->tc_lock);
--			queue_work(serverclose_wq, &cfid->close_work);
-+			if (cached_dir_get_tcon(cfid->tcon,
-+						netfs_trace_tcon_ref_get_cached_laundromat)) {
-+				queue_work(serverclose_wq, &cfid->close_work);
-+				continue;
-+			}
-+			scoped_guard(spinlock, &cfids->cfid_list_lock)
-+				list_add_tail(&cfid->entry, &cfids->dying);
- 		} else
- 			/*
- 			 * Drop the ref-count from above, either the lease-ref (if there
 -- 
-2.56.0
-
+-Barry K. Nathan  <barryn@pobox.com>
