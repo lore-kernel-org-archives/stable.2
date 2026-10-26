@@ -1,98 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793058706;
-	b=DT4Mw0qtDlCq38mNW74drMDSZPsd0nsdQbAYsQn4YOVDIrh7AmbcS9r6Qp9G0aCGeItr
-	 SJY1xf7uJHAuWytiFIFCaMJI1ZvUZqA68HTFzKjBV/ztFOG3GJsKhYwtbzDXcD+MjZTIW
-	 cptjLNgvkHD69gchTjVPv9VH9oDmjg7WMF/LKqHTCp2EbPeR9gj+1jeMHpyY6C14hsjPZ
-	 YD6BvFtkGi0U1xjdNeYnRrAyO4n/UsHpkp1WImm1hk6mcb9kxC6nmc0t3OcXutov9Qi8O
-	 Kj4TMSaQzfZrai4BwvcyQorzaEBvj9C9oEigxi/NWOY97b/5E6dMJAHYTyjNWhMUAUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793058706;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793059034;
+	b=oNq3kaqE3aCHa7Yx2WSZ8ZaB4lVQN1nL2PS3IdaPG6iEky7prcdluCckR4MiX8rTzrAy
+	 OnFb4EIdMZ3P4sw7BQb6gmRTmRfXPicv/UkZKvasuxKiTIPtZiZi42gj6JVR7Zw7djZM2
+	 1lmjtc5MXLBndASsnQSUKqWLibx4WL8+4VycE/eCsbUh7uzh6AC3cVWtqrxDXXf6424aD
+	 v1ZYz24H1wuUZNpX97uAY8G3tc+fU52STnJC3XjwklYHVjQsJ4xo0bBoYXBZ/E9RzAq6t
+	 Mop3QFIwAKDqx8LEkDPKlQeLPTX2vNLze91F+TSQeAyAKVj786nFqQnWeTmriiEl3Ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793059034;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=UaoOtljsZiSqMBuHcOa8fGzQ5BRPIrVZWD/hL3QGdlI=;
-	b=S8LwvLWBYriGYmjYVNmEttZ5uqeRPO+QahxRRDqyD+hSmmVc+UvkGXQY9bLdFEq0mukt
-	 23/GSwnq1D22FF4ChPPAzWY17daMPXlI5DWrn3iWUdS8D21uhn7e6y1KEiojOxDUc1e+3
-	 pChEnT4S2svntEamrBxsHjp3wlVhEt2ovcEa1TkhN/yKnF2RMbC8LEpbPs8lr5PFCHx0J
-	 cIDRvSPGH6YJma+hkt/qsOJfjB+QgVWlnX2ECkRRWhPbYkgX8rzGu+vVbLeG+u7tlICNg
-	 4nq0v1mK8vAzcm1RluTZoBZ3Z7AouDtJqbm62MYrAa4GY+kr2m5bKZ7NAgqk1gTmp7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b="goXIMrx/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qDIKx2Op6aSLUbez/797DuVnzQCw0y2by19BWYigguE=;
+	b=rYmCT3iz4+S9iCQ9t4Pp0j3FcS5zvA+7+HcSFBnejglE79mK+XMgtouOfAhS4wTDQa2D
+	 4tbdOREXl2Hg+PjMG4JrX6Bqo5aBDo6JTW92p3G3xSE1tYpAPtPpt2IwxtP1YHZjdPHIT
+	 OBJ62Qr2C89n9Fw1UwOB1kZjdvM0YEai1lNWJkztWq/GL7ft/xRfvQ0K64JGhF1f/GrMV
+	 dlGtsH8NdZarUmKsXQ7ayBAZtjfkzUk2OYVIGR48VJx1DheCAP3L8vV2JGh/gYhxl68Bm
+	 l67zF4it4y0PSTHWbeDtEk/qclY0L4icXZYjqrNODYqOO0QrI6aqMlEWtLYi36PNJEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Iak8vfcQ;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A43606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 23:51:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48A43606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F190606A31E
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 23:57:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F190606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=goXIMrx/
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a06454116eso1500878b3a.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:51:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793058705; cv=none;
-        d=google.com; s=arc-20260327;
-        b=baFzuaoGFeUsNdoufm5xowF5bmQ1E3eufH9vkTuEcQd1rj6D8MRXj2WjC8IE84U8D0
-         O9pQrv+x2wAoPx4TJiuQ1ZNXt4snQ8ve7/aC3dn1pw1dmD1jgnsZo0w0g+3oJ7HWLAoc
-         MsvzlsMyjd61xT/xD/y2zMZxAEvRH733j/XVDW4Ew28d29KqPKx2Xx+pLCwGb4JTfy1L
-         gF4v7oSERc3/xEb1EIKVVpMtOTVLlUssikgg5n5mM5WdlVupVj9zF2NdygdYTIGpieAI
-         pHhbWKKTu3ExKylEdVTCzeSo+S5FL4LVVCMV0IoFZ62KhxFltLHlNpcyl8B1i/wnI3MZ
-         DZ1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UaoOtljsZiSqMBuHcOa8fGzQ5BRPIrVZWD/hL3QGdlI=;
-        fh=li3WVtYmgpy1Oc2ZV/KOVeFuI9wNo7lAK36iKpDGck4=;
-        b=eLPR0Wa4LxLAJN7tkKdsnOYMmoFYzfxcpA2wd/sUlQp+iiNymx0yjdHVpDx5/oXkVa
-         NOsYRn17l2o16U79mR1Pmn2uMVyjNqKaeo7oQ5w+QSahH8ELgCYO1SKE/DnJwaZN4FMe
-         aL9UrqOoVwvSp/POFQzEyS+Vh49g2RGDMSI//7W+oaBsLt605RDTJ1emVRQjjiGvVJSg
-         uvctqzeOZD2r6YWOyUtW/uTuuJ4J3vvEQv/BsHTv7OjpGcPr7KPdFZ6uUYrErtBPW7DN
-         Df+oanpAcG4zSCy4iTigcwkBesFYtfMToKs6cPxQipiTiBaKn63lLX+lhvERJ8trKJVp
-         1x9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Iak8vfcQ
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-9178d514951so29824866d6.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:57:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793058705; x=1793663505; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UaoOtljsZiSqMBuHcOa8fGzQ5BRPIrVZWD/hL3QGdlI=;
-        b=goXIMrx/3XjAcQ+cSW5YwfuTirY+Lh7JxbdW58R8kt1vFWyozoutudfzR2D6O9b81T
-         aBKVERFm4MQfqvpA84tGp/IMkXsnqTLkcaP7XfmQ7JdID12qo1BiSQq24NBwNAHXNUaS
-         7/cT3PhJvsUmJx1OzbX7vo0jQDiXumfPGHvf4=
+        d=gmail.com; s=20251104; t=1793059033; x=1793663833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qDIKx2Op6aSLUbez/797DuVnzQCw0y2by19BWYigguE=;
+        b=Iak8vfcQjHrDPwgQ6ujDpPm2w85Fejjtj5b68bZf8Kj1152YR6lk8u/qfNFnfWa6aT
+         r+KT97wPb8ErZD8+MYStSX8iWx4LCW6/GOfeSYoMfmKwaHjQGn2ZsFkzrRT6eQJITsxM
+         I2wFhWIjq1sDrASOUfFNtqJ2ygtqju0UOC/O1xL9jSehAaSGhF/ZYlPIJHAJ0Qy7OFtO
+         CNIM0kcfjWR1bozkvCAuFFVZbphBqYsgt6PtXAKune2U1c4VYL9b33DTFsYCgQWlHbpF
+         ytPxeNguoQVhpDQa4DuXvUfLHku/wL2Q3yWLpz+44dbreFarrSkFZV58Ulj2jbKPaPkS
+         TYBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793058705; x=1793663505;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UaoOtljsZiSqMBuHcOa8fGzQ5BRPIrVZWD/hL3QGdlI=;
-        b=BwP1RQ1lWAV1XyJo2lq3lWwUGXz3gr12ptXC/nRxQXYqY00Gt7gy2Yu+w3Ht83r/Jq
-         gWdG9QE+l5nvwU2dUyZd9GKV9h5Yr3B2J9LqblKj1XoKQGxBGpmck5UqsULwd/iBv0wT
-         d8iBx2MJVglzvBXEcIuT79EJFrPO9sOesgbvUitiooiz7YwvrCnQyAKgFILcGUB+OHxz
-         4yF0ROzJ987sUATFtGTWblSishfIPhsVKQ3WqiO0snmudL/nc3ASF9AOsIFrm28PDlaM
-         qMaWD/1hHPmYZ58WlH+EpmvyClnO2ZyYyu3YPwa0fUPflKcvemkcUVGcwwqgncBTS7ms
-         wa6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxFLqGFCuJ2S9iNbO6YnUDW8x53H1A3evITmDDUqv/GMLRrxhngYMDDAvYJYaIfNZzpoPHBiRo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJN+S+MJPJYYdSFZcXv8IkZnIV2tIqs+BMbhsrcQKvnSnYA1+i6
-	ehGatmI06ZSlXb7kHHvy/4yrC8DNoGBxVlQMYMaI/7F9fPBDs6fkZ9NmEridq5nRyzoF8Rm3xJE
-	iSgOfcNWiSLXHDr6NXseqzUxl16B9NIJ0EPLjmCgf
-X-Gm-Gg: AYBFou1oyjeXzEpMiVwqTzC3euLDOldB0UlT6ue+OHjClSkNzZLIK7yitTQDVULboIR
-	OAJ+7Gz5pTcwDDRBEp5skK1G2B6si5AG6ymBD6OP2bPBuqmfgvIZW4xSojv+DjM8t0MB9OaX+1m
-	CegpFgJLeNBmGJNz68/8wspWOj3NX6nra+MYd2BaYrbSjixi+3Z5GhJlwaCRmN15iy7YnHxrYAD
-	A1cFPe6kJ80ymxIv0CbGk2ddpZI8/c5a8r57qzC/kZvnPjec0zVKDifwVLO6YxE6CDuGWZokB2a
-	M1LFbGuFMuksN47BOJFF54DXL8tn3COdiscToDForqpN6ceIkyIcVDqNlFX8RSc71lVH563nRnz
-	Ov31GdgGkFiTnE9p4gd6+v6R4hUpzeQuhxvkgOBiLTCrJKuda1NyBdorfNAz5zKbS+1H+BoYaQf
-	yi4r3iDw1IQJFv8aE5RkDySOhovgsJOE0nCxvu
-X-Received: by 2002:a05:6a20:549d:b0:3e2:2b76:bf23 with SMTP id
- adf61e73a8af0-3e7cd5034b0mr9457553637.68.1793058705580; Mon, 26 Oct 2026
- 16:51:45 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793059033; x=1793663833;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qDIKx2Op6aSLUbez/797DuVnzQCw0y2by19BWYigguE=;
+        b=Q19WF3usTpvq3RX5FPK5RmePVMkzuJ17gpDTJOgnbKS/UUozaWuGJjWK5YIxJ/g2OQ
+         VfBMwzhP6NXpIckdgFBfAmfpRPb60gUs8wQ8PKKBmP/GbP5iZ4+bgGjmAwm4NZgfqr+h
+         iE2L0zOxSWJVN0zZkJ7iYBilLi6k4ExbrjKlvSMofY7xRmt4lNLrTdusXJ/MsDYBTuap
+         DwZTxk2IbSf7mU2/DOkg8S06IJ6xVAmGlcUhLBW0Q4KDh7T6qMPwdR2iCdmm8jPRnCZy
+         PfH1NZvZm8h9PddACZRyxHff/C8p4SRRDdI0BVpPKV6TumivnGrqIHa5av9GWB56DOOL
+         qtJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqYH97RT+hEyqucLxGq5JDny2EXSrEZI8qXi35o6VQdODznciWIbYLsYpCBRACttWEX/i7PPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6DJPSZi+YfP1BX+G671bHqGR8XxJZwogjTGQpxzXSjB/PTEvw
+	uvuuu/k+LHDZ/T+Zzc9BIMlmNN5cfyQ0ZMM6MY9uy772wWCfgOQ6KPGF
+X-Gm-Gg: AYBFou3ayrtybAVFUqdVw9mI854TgEXr44wMdn7aAUr3Hwbuc1WCXako/RTNuEgTfqD
+	E3kovNsClP3/szA1nfsaa4GkzqTmVJi/JfpL8pjpk1kfNUh0sbh6opqH62APzWKr6BvoXdznbdb
+	qUh4vm93clGnBj+IIBOHl2YKRrGtj5UtPP3C6zFpvmUFYdtuSLw5KLrHtVjFTpPDbtKCKkIsiXb
+	oCNDP18M8a2PKIfP0AeMbk5bAghbE3Mdciu30Tk/SKYuKE/YkGIduudSzyjlA+QlcSibBNa+n/m
+	zIhlNACkXZWLriferyuMT5gxDq+a9xNcbUyLFpIm4Z2MfFnMyxzuB3X3Ztvb7RysHJg47cu5RHg
+	ltQW3VkFuDDZm8STfEMDJIRfw8HtFhxjwC+p2cvd7ANEsL9fexbEmDp7T08NfPxKCk0te4P62Lf
+	4SQQpyUrny966TSVTdi9xXF3WQ9uSsVxsyU066zaWY/I/+H0PP830k/NunjJ2xIsuwZAlSMBuXG
+	zyPuNFjByMveX/wuSh30TeLU2EvC66lRdNDqHb7ucVEF5iqtwRAQM/vcYWUCpRMmisiCQ16k7Y0
+	CInxAusxcbc32oJ+EArgjqfzX2CDuks=
+X-Received: by 2002:a05:620a:8702:20b0:940:f224:5a63 with SMTP id af79cd13be357-940f2245db0mr872745185a.64.1793059032925;
+        Mon, 26 Oct 2026 16:57:12 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0787f33sm823849485a.25.2026.10.26.16.57.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 16:57:11 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] nfsd: shut down running servers in nfsd_net_exit()
+Date: Mon, 26 Oct 2026 19:56:26 -0400
+Message-ID: <20261026235626.649844-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,157 +101,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <QDISC-6HS9.v1.r2.20261020051718-2@mojatatu.com> <20261026160747.283702-1-horms@kernel.org>
-In-Reply-To: <20261026160747.283702-1-horms@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Mon, 26 Oct 2026 19:51:33 -0400
-X-Gm-Features: AclHuK9KOrZqBCdN7DDV5_e9NiBiIHJYcLxYj0JIq2lJ37Nc28lxMC77niZb0Yg
-Message-ID: <CAM0EoMm9piw8gLJ=t9YYNu2-8zb=qfA3G6djchL0QaeZZvaNfA@mail.gmail.com>
-Subject: Re: [PATCH net 2/2 repost2] net/sched: sch_teql: keep skb->dev
- consistent on the arp-queue path
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	stable@vger.kernel.org, sashiko-bot@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 12:08=E2=80=AFPM Simon Horman <horms@kernel.org> wr=
-ote:
->
-> This is an AI-generated review of your patch. The human sending this
-> email says "Hi Jamal, passing this on for your consideration as it
-> seems to have got stuck somewhere."
+Since commit 924f4fb003ba ("NFSD: convert write_threads to netlink
+command") the server can be started over netlink without mounting the
+nfsd filesystem. But that mount was the only thing pinning the module
+while threads run (commit f49169c97fce ("NFSD: Remove
+svc_serv_ops::svo_module") removed the per-thread reference), and
+nfsd_umount() is the only caller of nfsd_shutdown_threads().
 
-There was nothing wrong with the headers this time - so not sure what
-is going on. A bit frustrating.
+So when the server has been started via netlink, a plain "rmmod nfsd"
+succeeds while the threads are still running. exit_nfsd() then frees
+struct nfsd_net in unregister_pernet_subsys(), destroys the DRC slab
+and finally unmaps the module text underneath the running threads:
 
-In any case these are complaints about commit messages in both 1/2 and
-this i.e there is nothing to change in the code.
-If necessary, I can resend repost 3 with the fixed commit clarifying
-the "identity for every other parker"
+  BUG: KASAN: slab-use-after-free in nfsd_file_net_dispose (fs/nfsd/filecache.c:483) nfsd
+  Read of size 8 at addr ffff888109fe92d0 by task nfsd/300
+  Call Trace:
+   nfsd_file_net_dispose (fs/nfsd/filecache.c:483) nfsd
+   nfsd (fs/nfsd/nfssvc.c:957) nfsd
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+  Freed by task 311:
+   kfree (mm/slub.c:6802)
+   ops_undo_list (net/core/net_namespace.c:257)
+   unregister_pernet_operations (net/core/net_namespace.c:1412)
+   unregister_pernet_subsys (net/core/net_namespace.c:1459)
+   cleanup_module nfsd
+   __se_sys_delete_module (kernel/module/main.c:804)
 
-cheers,
-jamal
+followed by a general protection fault in nfsd_cache_lookup() as soon
+as a thread allocates from the destroyed drc_slab.
 
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC=
--6HS9.v1.r2.20261020051718-1@mojatatu.com?part=3D2
-> ---
-> net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
->
-> The patch sets skb->dev =3D slave before teql_resolve(). An skb parked on
-> the slave's neighbour arp_queue then names the slave, not the teql master=
-.
-> It also adds skb->dev =3D n1->dev at the reinjection point in
-> neigh_update_process_arp_queue(), so parked teql skbs go back through
-> teql_master_xmit() when the neighbour resolves.
->
-> Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@moja=
-tatu.com/
->
-> > diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-> > index 7448320f7ad52..5823f5007812b 100644
-> > --- a/net/core/neighbour.c
-> > +++ b/net/core/neighbour.c
-> > @@ -1336,6 +1336,7 @@ static void neigh_update_process_arp_queue(struct=
- neighbour *neigh)
-> >                       if (n2)
-> >                               n1 =3D n2;
-> >               }
-> > +             skb->dev =3D n1->dev;
-> >               READ_ONCE(n1->output)(n1, skb);
-> >               if (n2)
-> >                       neigh_release(n2);
->
-> [Severity: Medium]
-> The commit message says this assignment "is the identity for every other
-> parker (neigh_resolve_output() parks with skb->dev =3D=3D neigh->dev, ndi=
-sc
-> probes carry no skb)". Does that hold when the skb's dst points at a
-> different device than the neighbour it was parked on?
->
-> If the dst is not DST_OBSOLETE_DEAD, n1 is not the parking neighbour. It =
-is
-> replaced by n2 from dst_neigh_lookup_skb(), and ipv4_neigh_lookup() looks
-> that neighbour up on the dst's device:
->
-> net/ipv4/route.c:ipv4_neigh_lookup() {
->     ...
->         dev =3D dst_dev_rcu(dst);
->         if (likely(rt->rt_gw_family =3D=3D AF_INET)) {
->                 n =3D ip_neigh_gw4(dev, rt->rt_gw4);
->     ...
-> }
->
-> So the new line is only a no-op when dst->dev =3D=3D skb->dev.
-> skb->dev =3D=3D neigh->dev is not enough.
->
-> At least two parkers seem to break that. The first is bpf_redirect_neigh(=
-)
-> with explicit nexthop params. bpf_out_neigh_v4() moves skb->dev to the
-> redirect target B and resolves the nexthop on B:
->
-> net/core/filter.c:bpf_out_neigh_v4() {
->     ...
->         skb->dev =3D dev;
->     ...
->         } else if (nh->nh_family =3D=3D AF_INET) {
->                 neigh =3D ip_neigh_gw4(dev, nh->ipv4_nh);
->     ...
-> }
->
-> However, __bpf_redirect_neigh_v4() only replaces the dst in the !nh branc=
-h,
-> so the routed dst for the original device A stays attached:
->
-> net/core/filter.c:__bpf_redirect_neigh_v4() {
->     ...
->                 skb_dst_drop(skb);
->                 skb_dst_set(skb, &rt->dst);
->         }
->     ...
-> }
->
-> bpf_out_neigh_v6() follows the same pattern with ip_neigh_gw6().
->
-> The second is nft fwd ... neigh in a netdev egress chain.
-> nft_fwd_neigh_eval() changes skb->dev and parks the skb without touching
-> the dst:
->
-> net/netfilter/nft_fwd_netdev.c:nft_fwd_neigh_eval() {
->     ...
->         skb->dev =3D dev;
->         skb_clear_tstamp(skb);
->
->         nf_dev_xmit_recursion_inc();
->         neigh_xmit(neigh_table, dev, addr, skb);
->     ...
-> }
->
-> In __dev_queue_xmit(), nf_hook_egress() and sch_handle_egress() run befor=
-e
-> the IFF_XMIT_DST_RELEASE skb_dst_drop(), so A's routed dst is still
-> attached at these hooks. If B's neighbour is incomplete, the skb is parke=
-d
-> on B's arp_queue with skb->dev =3D=3D B and dst->dev =3D=3D A.
->
-> When B's neighbour resolves, n2 is A's neighbour. With this patch skb->de=
-v
-> becomes A, and n1->output() builds A's link-layer header and calls
-> dev_queue_xmit() on A.
->
-> Before the patch, the frame still left on B, though with A's link-layer
-> header, which was already a pre-existing problem. After the patch, would
-> the packets queued during resolution go through A's egress qdisc, tc and
-> nft hooks a second time?
->
-> That could mean nft_fwd_neigh_eval() calls ip_decrease_ttl() or
-> decrements hop_limit again. Non-idempotent BPF programs (encap,
-> adjust_room) would run again, and counting or stateful rules would see
-> the packet twice. If the redirect is not applied again on A's path, the
-> packets would leave on A and bypass the configured BPF or nft steering.
->
-> Since this is a change to core neighbour code tagged for stable, could th=
-e
-> reinjection fix be limited to the teql case? Alternatively, could the
-> commit message describe the behaviour change for these other parkers?
+Shut down a server that is still running for a net namespace in
+nfsd_net_exit(), which is invoked for every net namespace when the
+module is unloaded. nfsd_shutdown_threads() is a no-op when no server
+exists, so nothing changes for the common case. As the laundromat
+work is queued on laundry_wq until the server is shut down, destroy
+that workqueue after unregister_pernet_subsys().
+
+To reproduce: start the server with nfsdctl (or any other netlink
+client) without mounting the nfsd filesystem, then run "rmmod nfsd".
+
+Fixes: 924f4fb003ba ("NFSD: convert write_threads to netlink command")
+Cc: stable@vger.kernel.org # v6.10+
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+Tested on top of 7.3-rc7 with KASAN and with PROVE_LOCKING: with the
+server started over netlink and an NFSv3 request in flight, "rmmod nfsd"
+now waits for the request to complete and unloads cleanly; starting and
+stopping the server via netlink and via the nfsd filesystem still works.
+
+An alternative would be to take a module reference while a server
+exists so that rmmod fails with EBUSY, as it does while the nfsd
+filesystem is mounted. Stopping the server in nfsd_net_exit() seemed
+simpler and mirrors what nfsd_umount() does, but I am happy to rework
+it if the other behaviour is preferred.
+ fs/nfsd/nfsctl.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index f32311f2d7cf..0a9679114b58 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -3113,6 +3113,7 @@ static __net_exit void nfsd_net_exit(struct net *net)
+ {
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
++	nfsd_shutdown_threads(net);
+ 	kfree_sensitive(nn->fh_key);
+ 	nfsd_net_cb_shutdown(nn);
+ 	nfsd_proc_stat_shutdown(net);
+@@ -3200,9 +3201,9 @@ static void __exit exit_nfsd(void)
+ 	remove_proc_entry("fs/nfs", NULL);
+ 	genl_unregister_family(&nfsd_nl_family);
+ 	unregister_filesystem(&nfsd_fs_type);
+-	nfsd4_destroy_laundry_wq();
+ 	unregister_cld_notifier();
+ 	unregister_pernet_subsys(&nfsd_net_ops);
++	nfsd4_destroy_laundry_wq();
+ 	nfsd_drc_slab_free();
+ 	nfsd_lockd_shutdown();
+ 	nfsd4_exit_pnfs();
+-- 
+2.43.0
+
