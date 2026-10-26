@@ -1,94 +1,92 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
 	t=1793033131;
-	b=KANcPCRgfl6AmAmY09fQfcOtQhJ2uGy6X2Ck9tNXKJFHZwbUZRiZtfhK9lcNWZZ815gf
-	 Qzk9lwLZDefS1GVw4r+KiYFpWqmcbsrWaTw+HEwPeiZ/mRCIf5Hmql3qBfBBeW1Sn/VDV
-	 IKrN7u9Ef5CO+KhNLeOX/7Id43ZF9lupz2jf3y3kZehf02O1BDa9/7H2iWIzz+ueEbpmC
-	 PTKIvbjqCusFzGO+zvXapKxvNE64FlV11c1+bULl3MbPFoR9hd3FRAws1tKDHPerykrBr
-	 nnhLNPPujfs+uqc8sGsCCc1VZ/6An36iiDE/YmMzjMb4icBMG0gX7XwEbB4caj/g2OQ==
+	b=ygaxy08bhiOGjT1xDMXDz3764yu4Gy4zoluTmKGPS/twY8MEkSRivhzpAdo7w9lt7HQW
+	 C3WOpGGU5r6G5rC67VEoA+EiJsKAEkAgJ0vZhBnht0I+ruLwoDaEGVzZiNJCg4ySl+UP7
+	 khsmUHfGv4vvm5jt6w8CmzDCN6UNdjKXi3BgqyGEq0Z1QApLWw6bIWG3eZACdeA5NS6jo
+	 NTQYylxvuo0zQtrY9VjslxIgdCyaIs3ArocwVebvsWO68j2TZosahLAgOej/utCv5oFqX
+	 BsdQAafJjYFOOCIOTWkN56SkJIykbaeuWjdHaCaOUagoFdSrHFYJCNfb307ph9G3L0w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793033131;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=f7d2iVw+tfSSZ2gqsWMbb5CxjuOi50fofZEerRNlY20=;
-	b=G6XR5kx72vIyJJFqr2d6O+OxKdWK9cI1vEwN1HR24CcV7uR6c8JeFIygY1mCt89aM1q7
-	 AHBz7ZCntAY3yM5+y6uaE0+OBDXbPT3JwIFdZj5i4yHTxcAJJJBio9+n1jtv2SqDZEO3j
-	 bXX0eCdyRqhZSehbCmxBIU5ZXcL0x3w6Ep0Xpkw2GR1ycd+XyyblTzxxbChGOIEoq5m7s
-	 ZzHAK02DvTnZzVM+KKJGg4ko14rNN0lxnuuhQPbohNLsV3BRrMGUM+nHsxi4FcV69i1b8
-	 NfSV82sG4zNpKHhg6PgQuz5HlenVk/mB90P7jS3MSxqR/YH2Bk+nNm+RBiKdIx8Q+uw==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=FL3agcMEj+ZGasFhDzJBHOjfkRUKfbW0Sy3yJYyJpvo=;
+	b=IhMqm3wJzq0msDNFc7bDIRSr+THt6xvzb9algqfjFgnOiUfEcVrMH5PICXPHtEidt3y3
+	 0Ysu5jVbYqS+jJdT2DfikQXQE71iosvtKK+W32RBINndWRh9jxxRwiD/GIsNMG0t3A0mD
+	 j7IWdx9czCs1/9MHtAfbZcM+aRc+5fnUClAaWzcI00eZs3q4lFuraoiFsfII9KQU/7jd2
+	 jI4X1Ja0ydUNbAIMQja+0SKJ4b/4FoYT8hqtWmouUbpN+zj9HyHHnllslnGEjEtx8v5YK
+	 OGtlwfrDYOPKAQW5QzBKXpaN7hOBuStbm3ar/aCBp8pGhRoriGyvER4U1Vu9bbpsvfw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CE8CyMO4;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Fpk8YuPV;
 	arc=fail smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60A1606A31F;
-	Mon, 26 Oct 2026 16:45:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60A1606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57962606A31A;
+	Mon, 26 Oct 2026 16:45:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57962606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CE8CyMO4
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Fpk8YuPV
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2BA96202921;
-	Mon, 26 Oct 2026 17:45:24 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 34B8120291D;
+	Mon, 26 Oct 2026 17:45:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793033124;
+	s=20260414; t=1793033123;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f7d2iVw+tfSSZ2gqsWMbb5CxjuOi50fofZEerRNlY20=;
-	b=CE8CyMO4iVA0Vehpewn7n531kV9JOurJvFDvVUDcE9MvKL3WB5ZsgsBj+r2HCFdhx6IjUx
-	ymumxAebEuAsq39kBDWa6wmNUph6kcjDh0OO2FK+cS/BpiwpcFRS5PuC+Ktz5Bazt2G3N6
-	TNjpr1dFPXjKqPyjZRamI8n+k+w71tO8CQHRWClrkD4/AOkzcI/cQUd5nYMzHvj+0mqRf6
-	p2L7Rl4baED45ukgfmmudJ9wQBxHo13OVhmeF1T0uWkoBJvhuPgn75hasHRJn3nyu16Atx
-	ZL4KHdPU0qvpV/2fTXWVK3RL/74UVK2D/QiZwCo3P1OCr9FTjKaoeSBSov80qA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793033124; a=rsa-sha256;
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FL3agcMEj+ZGasFhDzJBHOjfkRUKfbW0Sy3yJYyJpvo=;
+	b=Fpk8YuPVZRnHvnbSRqVaAkzSTJ+7wK/rPFbvybW5fs6dGyC5UexpVV+k2Y4fmMTqFhqYbS
+	SGk5AvE+0/SFuRACOpEUiDHWQItm04u5StGzF6LgipgLDSgvBzt47JMnGUmv/YQNnsprQ9
+	lLzfXhM7KDIoc8J8JY+kBpmbMJHOSsheBW7VnN3hHrnbQOZBdv4VgMYqFP8a6pl5XlUouy
+	OWgeeC834SWMXnwPC0i3FcG/uj/xTEKD7Bw/FMxzIz1zj3vpKES2ZtyK7yGi6PKKxsz8Tm
+	1hyx9zp77kyckFS//mXFq0qCfW65LS38QuNazTxrc+93408+X4KOYGoStkXqFA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793033123; a=rsa-sha256;
 	cv=none;
-	b=K3/oaYgynVax5dxxO6VhfDcIgBpx0AJI5GVoOVyvaU4pNS+6WNSna0+JrwUF51h2jtdxOI
-	7Nc8xsqzIKuYqwWofjbCu4XJjVbLj3HXXPjuz2M7ReQNjD3E8WxqmIT+ZSbGzTxoQyYOdi
-	vz5VADoXJcVLuE0+bwk5P2utYMjAWzgej1SbN6n4qauX9EBeGrgoDb0fcuZjfAuNkmblOj
-	nMNcJcjVd1uRMwWdhm3m3E8Ic9oMEl/F5/YH8I7Mwci9NUciLpbl1lJFoCQ9QwqMwTBQyS
-	D+Kd+polxBuUf7pWLG1uGonCXjHyjauRNb4jVjN2XmIN1loEu4B5tcyTZTyWZg==
+	b=R488NGWreu9tOAbjuSLXhaC9HrvQjp2UPs2ZMvHzNgzFm4SqiGAWiw/f4BJynjE9rq/zlp
+	FrdEHHUjShKy2lb9AXfxoAlhMw/vRZRVSiaJLLEEe1qtdnI4z9NL1oe+rvBGfIUhcEFrIy
+	d8+6kIaEOqnhdYDidapgGDde2mKCQ82sr7Rxgkn3lydo/o+raSOBq5sMbjMwjbwCU1lsmN
+	gBeLxgi5O4zYyI1sGehTTqwOza66dNuE1olkXGT+FEW2Kypt59cfMYWZS8xMCscYTcXChA
+	UW/35hXBvhTJfjBOv0y46SdhKrfF6+IVs4l2FGbZ6qPu7dkR5arqbWgWHFv7MA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793033124;
+	s=20260414; t=1793033123;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f7d2iVw+tfSSZ2gqsWMbb5CxjuOi50fofZEerRNlY20=;
-	b=b9hzSTqxRwEpQiX6o6AAK7kNDyolyuJlmPYVlmtkHhgexHlVUW73cENoh2Do+iZAs+gweT
-	ZmiAPcXxjpKO/Q/nOvKY9E2E2T8rs62Ogc2t88bVBubrDHqVS0DAtVabtunSorzXqHjsVo
-	xXe6l/fgL6CUtdaKw1jpgcy2LL//MYnwNuc4nmwYd2s7+xttuGi16Jr23fI19AzQ6PcfyW
-	58z7kuXqHGwxqkov5lOw127R+v3MnL8Fg/dTXTP0vSqYz5RwXei7qEb6r1LZ0ncdDVj1WN
-	CNEDQzPM9lGL4Z44s8aF+AMxz4R/KgfX/zWtY863SUN7WXx21As/eascTS2Yqg==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FL3agcMEj+ZGasFhDzJBHOjfkRUKfbW0Sy3yJYyJpvo=;
+	b=SqOKOrU+qp8SaoSXmFIFLQHElhP0SxB2n9tWy8EhNMZ5msttljAyQV/Ik0m5QIavFpa9a0
+	BljIHIaQVayI83P+AozSGOljvmwIri7LsJI6lNJc7wnpU3AwgFbaQWAm2egaINyjw1Jdi5
+	4CQMyuD1kB4bbzezYCpFyJ60F5D/JZ742VWpe/R+Ks2oZo/ThIhpnIZu0P+aiEvW7wl0dS
+	WInwuq05/ZJTxNrJwTpA0fI2PzhywjOl/39hRXx1RRyTH9XCFcpCkAXHrG58e7AkEbHrue
+	O7p1i6VX9gtv4OawnY3fEQ2ravjRLHiOIJ+wip2gZbyuH/rhtWN3XH0SbCItMA==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xLNp6-001JFh-0D;
-	Mon, 26 Oct 2026 17:45:24 +0100
+	id 1xLNp5-001JFY-0K;
+	Mon, 26 Oct 2026 17:45:23 +0100
 Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 9A4695D716A;
-	Mon, 26 Oct 2026 16:45:23 +0000 (UTC)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id C98215D7167;
+	Mon, 26 Oct 2026 16:45:22 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Date: Mon, 26 Oct 2026 17:45:07 +0100
-Subject: [PATCH v3 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check
- for overflow flag if SKB allocation fails
+Subject: [PATCH v3 0/4] gs_usb: fixes
+Date: Mon, 26 Oct 2026 17:45:04 +0100
+Message-Id: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,9 +98,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-gs_usb-fixes-v3-3-3a68f1f62813@pengutronix.de>
-References: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
-In-Reply-To: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32PwQ6CMBBEf4X0bLW0VNST/2GMoXTBNaFgtxCM4
+ d8tcDR6nOzM25k3I/AIxE7Jm3kYkLB1UahNwsp74WrgaKNmUsh9KqTmNd16MrzCEYhLLSp1OCi
+ VipzFSOdhOcTE5bpq6s0DyjAzZscdKbT+tfwb0tn3Az2kXPAqz8AYm9lC7c8duLoPvnU4bi2wm
+ T/IfwQZCVppm2lxzKtcfhGmtaKHZx+Hh7U3MwUBL9umwXBKHATuYAy7pkAXE9MH2ferJDIBAAA
+ =
+X-Change-ID: 20261025-gs_usb-fixes-250f38833107
 To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
  Eric Evenchick <eric@evenchick.com>, 
  Maximilian Schneider <max@schneidersoft.net>, 
@@ -111,71 +112,45 @@ Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1970; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=M6sVVScYLrsqbjKV913rZQVqQmzWtIX+jycbFoY6v20=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsi637zgSk9p8OOLDz2VvVv5lVYwCmZO5X/yW07/BP9h9
- fZfi/gYOkpZGMS4GGTFFFmW/jihKBDoUNr7MmESzBxWJpAhDFycAjCRig2MDMc4OtU8F+R8n7Zf
- d5bIn28mwjWybTc//0+qmaiR8fjS71WMDHeOpgoxtUw4GLTi4iuHYNNs5Yb9gkk38rSzrtzLMF7
- LwgoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1373; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=qaYRdb2B5hsbTU25Nu6Xn6o1GaDEbwS64sH/0oP08Rs=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi63zztabH7n+2WPXUqMTOXcYf94WfgeW+0O0D/rv92l
+ e6Ja88Ud5SyMIhxMciKKbIs/XFCUSDQobT3ZcIkmDmsTCBDGLg4BWAihaoMf4X0E5VXPp5zM43h
+ qvcXy3mrNk9v/x24/NDSjgBOFo6QH4sY/spurdIvvb34WNit0DqejTs7b8lY786p2dbYG+W7RGa
+ nEAMA
 X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
  fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-If the allocation of an SKB fails in gs_usb_receive_bulk_callback(), the
-function neither updates the statistics nor checks whether an overflow flag
-is set in the host frame.
+Hello,
 
-Instead of directly resubmitting the URB, first update the dropped RX
-statistics then check if an overflow flag is set.
+this series contains fixes for issues found by sashiko.
 
-Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
-Fixes: 68c5724ecd15 ("can: gs_usb: gs_usb_receive_bulk_callback(): resubmit URB on skb allocation failure")
-Cc: stable@vger.kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/usb/gs_usb.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+Changes in v3:
+- patch #2: fix cleanup if register_candev() fails (pointed out by sashiko)
+- Link to v2: https://patch.msgid.link/20261025-gs_usb-fixes-v2-0-535d45097f72@pengutronix.de
 
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index cbe3750bb68a..5b0c58fde53c 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -673,8 +673,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
- 		if (hf->flags & GS_CAN_FLAG_FD) {
- 			skb = alloc_canfd_skb(netdev, &cfd);
--			if (!skb)
--				goto resubmit_urb;
-+			if (!skb) {
-+				netdev->stats.rx_dropped++;
-+
-+				goto check_overflow;
-+			}
- 
- 			cfd->can_id = le32_to_cpu(hf->can_id);
- 			cfd->len = data_length;
-@@ -686,8 +689,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 			memcpy(cfd->data, hf->canfd->data, data_length);
- 		} else {
- 			skb = alloc_can_skb(netdev, &cf);
--			if (!skb)
--				goto resubmit_urb;
-+			if (!skb) {
-+				netdev->stats.rx_dropped++;
-+
-+				goto check_overflow;
-+			}
- 
- 			cf->can_id = le32_to_cpu(hf->can_id);
- 			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
-@@ -728,6 +734,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
- 		netif_wake_queue(netdev);
- 	}
- 
-+check_overflow:
- 	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
- 		stats->rx_over_errors++;
- 		stats->rx_errors++;
+Changes in v2:
+- patch #2: add missing cleanup if register_candev() fails (pointed out by sashiko)
+- patch #3: do not increase rx_errors during OOM (pointed out by sashiko)
+- Link to v1: https://patch.msgid.link/20261025-gs_usb-fixes-v1-0-f74ebbd4da36@pengutronix.de
 
--- 
-2.53.0
+---
+Marc Kleine-Budde (4):
+      can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
+      can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
+      can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
+      can: gs_usb: gs_usb_receive_bulk_callback(): add missing call to can_rx_offload_irq_finish
+
+ drivers/net/can/usb/gs_usb.c | 77 ++++++++++++++++++++++++++++----------------
+ 1 file changed, 49 insertions(+), 28 deletions(-)
+---
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
+change-id: 20261025-gs_usb-fixes-250f38833107
+
+Best regards,
+--  
+Marc Kleine-Budde <mkl@pengutronix.de>
 
