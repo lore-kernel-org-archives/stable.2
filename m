@@ -1,105 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021154;
-	b=N8CiMXeB6+l5T1/NhYzppwSaO0zkojryAXUty52GxvrbRVUdpM9xUI55dZnHscaYF4V1
-	 Z2vsWa/BfEtw+SO6EFTtFttUJdQEO+xi5PkWWfb/dDwI5YMdXKbsLsZNBC2Xr0yo3M+Kv
-	 fPk7REomABHe3hmXjH4APzbQrul6uUhoOO0vpMUgPqdOD4LSO1mJwW3O6fVLBF4rnm7xB
-	 YcuQkIxFnnwv7M4g6UqfGcOuBEA6OgSq+4CvYk/Bkh6C17oYYkvVrmKxvCim+ennporOr
-	 v8V7h6pVj+IpXuqCnxvSpbC1ibtKFg8apGqYah0obz2FsXBFLBQvTKY/h00pGvuFEMQ==
+	t=1793021149;
+	b=MORVQIWafrmm5HzXA5XOlsIlI8RTVHiTXzLH2OtRj3VlY9kvinlrarirnZz2+AdxZtXm
+	 bgxQhvn7TfRsAPrSLsPg3Uj2ri4xJoVELSKQofdqPI6FbQXAqJQHzIPN1fLayb8xHbces
+	 vrA/bQyuG59uZ/s5pCCNIYYYDO0i8l1Zd7E94irey6T9Gc8VjW6N6R59uOFKtbBgbOhkY
+	 21veWTl+Jo9nDfmSvguZexMRwSEV0efcJFcWxTE3tJe48HI9iJ8tLgxvCtEbchivgMSHh
+	 q+8LETpxueCFblu4hhiwSqsdAezkSRD0xE6qRejDH2h/dYmwm7LGJ8SY/lrizeSdvcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021154;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=yRPCNA7q22mNYbPLjS+vxZpi/8u+Qm+QOc21SCkQ9tk=;
-	b=zpwMQRi5agQ6AhdUdD2yJYKY56f2mZBb2gKG+pva/lig8dr+OGjyfaUE66SMyd9Zl/xY
-	 Cx7Nxe0XKT3zk3Jz4utqWefNXgqu4fx2EeqqebolVBBUqTo0t8eOU9XVrRmQ/vYNbNKws
-	 hfwYTUYybbAHJ/hmOMpe+dNIdJMy0j6b10PPHPK/TQw6QZm08IoqlHZHloz38qrIon7cW
-	 k7xVjqUOF1gjqgoWEF0GfJAmFYZgLQwKeblgfBaZ/q64vQyxFozj3abAskxQ1f7Xb9j5Z
-	 2B+FDmOWcpzyFq/fncEhknEX4pZWowE75c0fIbMn611LXi61ihHViFrZNIRjJp1ANIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021149;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
+	b=hehfzlBYS73AP90lH22xxGlACuwD7vIx+H899LqY4ucmb8f/2hCt6duyLW7FKy6w9C37
+	 Vw/r7b0hyMoXuxJx31zmRSbuw9I97Xwmp3U4oQHhYQoxFn2qpUlVCxhySdXZkqUa9UyDn
+	 zmvtfdwCOhn2AJzjnE+DocCFx66o7ialZ4OuaWRffo+ILkWPiVv8Ll4Q7PczSrIDHQg/A
+	 OzOr0a1y1QMyfbNp6LTQ5QVIPbsq2mkM1mabPks9cQK+w94R5zB5IZzyAeMlNjIJFasFu
+	 xujJigdy4gat7qPFbMibkx5kzSByCOd3H9Yl1u5g1lOjgUIsCLXrau6u9kGm0aUsAhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OXuoreeF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6D0vMvDa;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OXuoreeF;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6D0vMvDa;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TeC2FOPt;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1FF606A32E
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A1FF606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2F7606A33D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D2F7606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OXuoreeF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6D0vMvDa;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=OXuoreeF;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6D0vMvDa
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7A55F222EF;
-	Mon, 26 Oct 2026 13:25:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793021144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yRPCNA7q22mNYbPLjS+vxZpi/8u+Qm+QOc21SCkQ9tk=;
-	b=OXuoreeFlFTH8oQICNZHe/5aaneDHnDEEK62Mx+VR8WyQ3vTEh1ib+DJ9NkqYg345EnLnG
-	UBC1UdQJylhv4vRFlU5XvLs89oVTm1lkiDBAeMvqBTfGSj4xg/ACk8R/3yPoR4g1EFjU8n
-	PrIbHovoWD3PPhl84HO5AgxpXlNMgjA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793021144;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yRPCNA7q22mNYbPLjS+vxZpi/8u+Qm+QOc21SCkQ9tk=;
-	b=6D0vMvDaE9d67fTH0ibs7NBChKNZ8ES2v7d+Io0T/NWF3lz+m+SsBLNYRKMCtkcS1uS7+4
-	cn7LE22YETP6yBAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793021144; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yRPCNA7q22mNYbPLjS+vxZpi/8u+Qm+QOc21SCkQ9tk=;
-	b=OXuoreeFlFTH8oQICNZHe/5aaneDHnDEEK62Mx+VR8WyQ3vTEh1ib+DJ9NkqYg345EnLnG
-	UBC1UdQJylhv4vRFlU5XvLs89oVTm1lkiDBAeMvqBTfGSj4xg/ACk8R/3yPoR4g1EFjU8n
-	PrIbHovoWD3PPhl84HO5AgxpXlNMgjA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793021144;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yRPCNA7q22mNYbPLjS+vxZpi/8u+Qm+QOc21SCkQ9tk=;
-	b=6D0vMvDaE9d67fTH0ibs7NBChKNZ8ES2v7d+Io0T/NWF3lz+m+SsBLNYRKMCtkcS1uS7+4
-	cn7LE22YETP6yBAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B3CD13408;
-	Mon, 26 Oct 2026 13:25:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +MmFDNdU32pPcwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 13:25:43 +0000
-Date: Mon, 26 Oct 2026 13:25:41 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: Ngoc Quy <ngocquy0700@gmail.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	Muhammad Usama Anjum <usama.anjum@collabora.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
-Message-ID: <at9Uv59VV4_R1lgH@pedro-suse.tail5790ac.ts.net>
-References: <20261014095540.3261469-1-ngocquy0700@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TeC2FOPt
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so18533635e9.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 06:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793021147; x=1793625947; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
+        b=TeC2FOPteMhC84ln1XNPf2/uDi0Y1HNEWRFnSOT7TjP9dCtOt9flZwVcpmIH7osh2S
+         f4kq+T7b62JMHP9bVv58rt7+W8RN6vJjr4iPpVcodn4j+Xk1X5eBtPopddvTzpYIsxMK
+         3FNdwQjuoyg7XvmkqvAeADWLNLzjC0zbNgoNVN0+cfAwltOyftmC81rBukPkIweUTb4+
+         G58Jwu1rTaOAWIIl5paP0+PKvr6+i4oCqNSjkpI2Q+g1OyB8CE1k4Lfg2zM+K7BeIy/2
+         RRWUX450SDMx7t3w1AddmhUBy0E/491GGDHDYHDoW5vOcuWcMDODhYjAqqZKC0e5unWk
+         G7HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793021147; x=1793625947;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JTZ/P1YmJ6IZNJ6lk8Cg6Zigprwxb6S7rjKWG93e8pw=;
+        b=q6X2zYkOgm7JV8NoAU3S4iWzfEsObMmb66VXZx/6gcQsDWD8HyTfoRMweph2ZGDx3E
+         H8haTfdnp84R7upOV+RdWSZ5aApZRK4d8fUxbSrpnZb8tstCFhVstMbQjoFNZjvAvDwb
+         YcVDNhHfYepgxoij+AUiTB7FV7XV69T2wrooR7eqCYZOW8OiSaqgTlK2b4BJxkmqcXK9
+         1yKvCnYR4wbOxsso3FhXd+ARilSXLLK39cXXNfw4Y/puTlBIBuuc4pGGShl+Ae+uAkNn
+         w8kXaIJgmIcmKc6/LCDJZDvyBRiqTNO3hlMNdJ3BrtVz+tfOBBt3541QljoB5xX4b943
+         YIsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfO1dcEYkjm31m1lyqqVBYHzBEJxKplD6w4Y4TveCq0KecEVABbOF3W1ULTbEXBFEg9e2yS10=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNPtyd37E0ZnaZe+HZBfeSYfpMlPI6FEGFBRoYAG4giVlLqPr6
+	L6aHw50FfSFdoC867ZhcfPTca4shbzEmhmiYCHcz88i6q1eH8QVSXlbVKWRJm/RPBDNwxcziFCS
+	WIHBnhtw=
+X-Gm-Gg: AYBFou0TmpuW1FLZCX9DRyg0K245AkIysO1GRMpmOJMhwUk3eX6LZ4v+UpiYTbsi0pX
+	GalMlCdFl+JBNwzFLrIYDX8QQYcDxkLTt/OfBT2NvxEYHNwU+9JZr+7xAMs0twtVTkdG6NxT+pc
+	rH7/r+JUJNI1DYPPBCf1vKFtBfgEV4J5tb+eSzr9/y0aMb1ZGOiFbpJ6AobBbmHUOrUKctwwDz2
+	VqMiWMAnJqPtQbFj3TR+6DO6eHZ5C/nSIx51BAgGikdqNRzdKZSOsCtrc03T1EzgnuIz4AchemT
+	acgVhtLZw4EIjVpTAvHL/gjzbPgDVZqMTh54w1mlidwb0Ld3xDHPt1I7Igw7QILvYMHhx41v++n
+	opMC2E0UaOauNvLOYE2leBhoGo58CcfNedEfZ4rx0z34bjW7uSD4+WNb3qgLSRwHen/28L4eP5j
+	b0t25DwCk8npMIj04d0F0fV6I2Hg8R6yNGgwm8ROCcu+N74FZhPdsombvM5SmXkHRUKuAZOmRmo
+	1MbA7jCcq9hictVaAKXrTRW3XNjoJ7GpyNfZwVicbdTDdDOiID4VtExrq1Y0fo3jSMyCQ==
+X-Received: by 2002:a05:600c:a306:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4a4fc8cd1edmr72049405e9.25.1793021147467;
+        Mon, 26 Oct 2026 06:25:47 -0700 (PDT)
+Received: from localhost (109-81-20-177.rct.o2.cz. [109.81.20.177])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm232464125e9.1.2026.10.26.06.25.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 06:25:47 -0700 (PDT)
+Date: Mon, 26 Oct 2026 14:25:44 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
+	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
+	akpm@linux-foundation.org, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: memcontrol: fix NULL pointer deref in
+ high_work_func() on dying memcg
+Message-ID: <at9U2HvyUP-iYOCt@tiehlicka>
+References: <20261023222313.3979455-1-tjmercier@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,66 +102,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014095540.3261469-1-ngocquy0700@gmail.com>
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <20261023222313.3979455-1-tjmercier@google.com>
 
-On Wed, Oct 14, 2026 at 04:55:40PM +0700, Ngoc Quy wrote:
-> The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
-> /proc/<pid>/pagemap without holding a reference to mm_users.
+On Fri 23-10-26 15:23:13, T.J. Mercier wrote:
+[...]
+> ---
+>  mm/memcontrol.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> proc_mem_open() deliberately grabs only mm_count, so a consumer that
-> touches the address space has to call mmget_not_zero() first. Every
-> other consumer in this file does -- m_start(), do_procmap_query(),
-> show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does
-> not.
-> 
-> Without that reference the target can reach exit_mmap() concurrently,
-> and exit_mmap() calls unmap_vmas() while holding mmap_lock only for
-> reading, which does not exclude the scanner. For ordinary VMAs this is
-> harmless, as free_pgtables() and remove_vma() run afterwards under
-> mmap_write_lock. A shared hugetlb VMA is different: __hugetlb_zap_end()
-> frees the VMA's hugetlb_vma_lock inside the read-locked phase.
-> 
-> walk_hugetlb_range() can therefore load vma->vm_private_data, have the
-> lock freed underneath it, and then down_read() a freed rw_semaphore.
-> The load happens before the freeing side clears the pointer, so this is
-> a use-after-free and not a NULL dereference. Any unprivileged user can
-> reach it with no huge pages configured, as hugetlb_reserve_pages()
-> allocates the lock before the VM_NORESERVE early return.
-> 
-> Pin mm_users across the scan, the way the other consumers do. mmput()
-> from the exiting task can then no longer reach exit_mmap() while a walk
-> is in progress.
-> 
-> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Ngoc Quy <ngocquy0700@gmail.com>
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index a05d9a8baa1b..84f4a8fd4d16 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
+>  	struct mem_cgroup *memcg;
+>  
+>  	memcg = container_of(work, struct mem_cgroup, high_work);
+> +	if (!css_tryget_online(&memcg->css))
+> +		return;
+>  	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+> +	css_put(&memcg->css);
+>  }
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+OK.
+  
+>  static void high_irq_work_func(struct irq_work *work)
+> @@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
+>  
+>  	page_counter_set_min(&memcg->memory, 0);
+>  	page_counter_set_low(&memcg->memory, 0);
+> +	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
+> +	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
+>  
+>  	zswap_memcg_offline_cleanup(memcg);
+
+Should we simply disable_work_sync when the memcg is going to be
+released instead (mem_cgroup_css_released)? That should both prevent
+the run reclaim_high during the memcg shut down and and also avoid
+plaing with limits to work around.
 
 -- 
-Pedro
+Michal Hocko
+SUSE Labs
