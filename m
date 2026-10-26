@@ -1,99 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011274;
-	b=Taikomqx+Co2yv6XR0z7QWw9IN1O/gBWdXZ1e1Ibj1PKej87Rkv+63MlpltHxB/m2tRy
-	 MoZQ8/gQtx6kA7NWA7TAT3jxoW/Afte1IVzsX2PbfBeY533ll3BylZEmUDx1wVNZJXoaH
-	 BIOTVFDDEuvLbVlr96rcpJeWjHWMCZSwp12nOkXJtnCGtWXF9bmqDCyVzeZlMn72AjKC+
-	 uXn3WLiqtgURjf+pHQJSk1ADDPGawwz+d7qf5sk16cyTQR4TWuVR6eNlV6R6eBKrm8AH8
-	 4mnV+PBE3Sn6iuh7OgXvKKrXl6ntV8oISctGLSFcEk5VzfzgsSfSe09Ac0f/b3AEJ/g==
+	t=1793011315;
+	b=R+kS4QWk6YoKqrtboMoj7TlFAWNbotg362+vKlz1gjQnHnCnaoE3jdRzlinjvcroTFfb
+	 SFdFO8pkaDwfL/bcyW64fBAoQgYYzZDG/AQsD0LAfew4R2zsZX+h6C8BoKB8FJsfiBqoY
+	 aVlp/9ERsq5Y2iG0MfjdL6uUy58Vj/UVmvdtKvmJZqQciZdJwDVrJqGdQXScgnTzn7MZH
+	 HIs/nM2ixbGZyIlsEs+0F3VPPhCfleryKXf7Q7clxWqEKoYn8j5M6U9AWkDyAQl0/MTc5
+	 ngPBOZUJTTU2WV9JPdyYoZlLo72k40fshhn1t72lssZA2TgxQ2y8JYCmxAvuFLXsMCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011274;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sJmDHnBLEdft3BbzBut/ID+xSxqG4s8c0c0mwhwfkAc=;
-	b=oKw9VLJNuowt2cVOR76TpRHB0D9rArzxe1d7DmFWarwyRCWnRByoIcCXnGv7zB6UgjFO
-	 bds/2Hl8NbFjx5H/PVdLLu2LMnHTd4RFQKrRuIhgnWXb1QpFjsjoY4d3yBPjQ/be6puat
-	 koa5IaWgxkZnoB08f/YnCVKUq4PYmcGwCF0H4HYXBhqNl+tPJLeuJmTFKfydQwYS9tTXf
-	 aPRq341/MbJoUmxdV45KvpkzyDay+dNrIHXfk943oPR1utOACDRfb+IxGhQf83SepkkqB
-	 Qq9Wtq2SwneYxjhYA86uSfcGlHft/nloxTCq9dt3NDoZH0BnYNotELlI2WrKXZDJT0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011315;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=kzgs3AQHLT3HSYh32Yj3thzN6uDPjTvFSOG8Xs2EFDM=;
+	b=oBRgWtIIxEyGHCRtyzNikPAFVtmV5AQF3DdFp6wNB7XOEYG1adI0YOjrko9cTo1hKwuP
+	 Kl+eQMMClVmp9E8hh72EOHvfpaZf4mnazgB0xdEKdgvLMRGhrj/v9myHw9cL2LFHOWcPM
+	 uw0wXRTFpAHh8MrJdHW0KXocYeF9R5K/3oKtl4waeDby1IoOr9dEPZKImws/QM7jx+b7R
+	 fVJE+8LGHT4EN4/vi6WRrrrDqXevlm77v+FMc50OxSeg7/0QQPejxV7xsg9roLZDqD7BP
+	 rZqlJ2kB9BUi1JYeAV4ievAaPBysNhYJ0EJ9ByLBXO3ny2sbnqP/L4nyjxWJ5TRjKHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="U7Y4d0/K";
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DkWW4NNC;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABEB606A325
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:41:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ABEB606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A89606A321
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:41:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A89606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=U7Y4d0/K
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b060ec084so1713054f8f.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:41:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793011273; x=1793616073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sJmDHnBLEdft3BbzBut/ID+xSxqG4s8c0c0mwhwfkAc=;
-        b=U7Y4d0/Kp8EWSnH/Jk87Bb1JRM3PUKO/bHN1I1um6SbcCJRW/LOJT5OIM38/3Q/+TH
-         SzH0TiVeF8B28chgsbZVVILH+gQC2/IlQVXMv2Wz/Mdr9N5D0R/mV96j781CJ88Q4Qoy
-         3bBUH7GsuOfR6gvV+LrPo8bQ3vQXYCecAh7izsiwtVRlkOx4u8vwFHnGR/h0aTsLRCE/
-         gUoL3wyVkhEigjRlWt4h4mzIEae7yBSpmBulfh2v8O6rkOONbYOH3M8Z8tNCo6GWWZiL
-         mL2KcuuFT0TkG11c1SHOO/J/aE51CkoMCPem3nko50+HmXGfORpmhvvBrxssPzvhfJju
-         0ljQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793011273; x=1793616073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sJmDHnBLEdft3BbzBut/ID+xSxqG4s8c0c0mwhwfkAc=;
-        b=xu3MMuMt9PQ0urLBIRhuzxfhVDMWyK8xWRWEHtwt4Xards8q2jPIS6uKmB4CcTWZNn
-         qlnW1Icxde1axsG8be/9tI2vq19Gp3MxyBH48G+gDkfJgxgXD9d9IEdbMHZEmdDk+7g5
-         fjUBEXDdXn8hIlaFUKk62cqnq5zVnrYxyoZuaDwOsJPiSoSw1VdtWQvGvQ3rGFMZwxU9
-         ON6KCaDLxLY50vH8szimMtRcayJZpIl6xO2Ql7QeB8bCL7lL3AeZITAsE7hu9CrLauY1
-         cSyETyKF46uzs7m3Q4TR4KqCYBeJAKT+18yTtrVpqn2OS2tuDrGBS6uoTR17D/iMpM5C
-         N8hg==
-X-Forwarded-Encrypted: i=1; AKwUvBwrHGzxOi9QOcSbhuyfgkwaToK8Xphx02nqQUD0Mg004REjP53WELbgQWnA0ZFPbxsKJHVRv20=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6BGxntsD7wD6A/kBJhw6rE9HJhq2Cw2HVPLYw45N9LDuKFR30
-	yAVkj54jEOHIZ0m5tlJOGFdPU2Fuj5xfnTJ2puVgJWpsBGzoPz9YTy8lBlPjJtDGI8I=
-X-Gm-Gg: AYBFou21bEghVgY0Zh/3sGwHOhspUXzuO+N783l8sSHySB43rangBtGQGumEzETH1b9
-	YMxe45gNg395bFd4+bSg+o4JtXRa4fqQrGC5qTAvtH1XzCaInxj1ihzCsC3bQbX6zPglBIeLj6/
-	DyrMWePskcy5gWxRuECdJdO96uP7R+PqfxzZaJeR7HAlhb89tQ9MCCm2RQOWTv5PMsYrawhW5IR
-	IuSV0BW+noYSUMe901T9jaVoLfDZmZ1ZgHF83rCC0nrOcbK/19pG9OIrtmEK7U/sDin/UVOwEFb
-	M8JLN3MDGMulEkAiU6MsTZ/NJP3RuTKsOq6IcZz4rrVkJLVuKKIwW1c7g9nlhWMiygSzTLUXTRc
-	okPcc4o63Fo57dJAPmezSVrW4uJuGv0ZR3Q+3dO/RkEFlhbmsvjcSwstpZhxOC72jSLLaT7kZNU
-	ISu/ywfD5FNelq9w8giIGvcjROb614e+RruTaGGqd7dR/5QW5gzUrDcQZzPRNIJElxwwfv0gZAw
-	DB2LBYKJNgcedgIh5ASiToWiVbIIM+ZuP5rchUK/A7FiD08fUa7sk2IPTRfqQmOIeykZ5wL
-X-Received: by 2002:a05:6000:2312:b0:48e:e98:8b64 with SMTP id ffacd0b85a97d-48e3eb8b45bmr11290896f8f.19.1793011272569;
-        Mon, 26 Oct 2026 03:41:12 -0700 (PDT)
-Received: from vingu-cube.home ([2a01:e0a:11f4:3020:6bdb:f87:1da6:12eb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3932sm16869581f8f.18.2026.10.26.03.41.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:41:11 -0700 (PDT)
-From: Vincent Guittot <vincent.guittot@linaro.org>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	stable@vger.kernel.org,
-	sh_def@163.com
-Cc: sashal@kernel.org,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH 7.2.y] sched/fair: Avoid overflow in place_entity()
-Date: Mon, 26 Oct 2026 11:41:09 +0100
-Message-ID: <20261026104109.1357489-1-vincent.guittot@linaro.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DkWW4NNC
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jCqtd06QFz8t2h;
+	Mon, 26 Oct 2026 11:41:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793011305;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kzgs3AQHLT3HSYh32Yj3thzN6uDPjTvFSOG8Xs2EFDM=;
+	b=DkWW4NNCtwDcquzGT2i1uQpzfJ7cq015afy2S8OH3g+Zc0Bt8hqPNFmS3Q1OAs5HdlBqYh
+	gnoCfN/s/bYOPiBih4ExklS97zbMwa/cktIbUPMDBiR7sJaDtBX9SZvTuxjgf+Ve9PTBJH
+	L/5gD1G5JprehXwvJ5p0qrkA6tO02N46OCRI2iV2ST0xuYmAXEwPY8KNXXQe5x6Jn8jsA/
+	y8SaXcVmEroRqNwUbl1X2oWYjaV8Qg6Gp0D43jwNUlWd/ohlYSA29x3/VJQ1+FnVsEgdwz
+	Mh0PmLqa5AqTkk+wDku6eGK9xt0mz1y/2XwmE6mDBECrt4G04rUfrBljA4SNiA==
+Message-ID: <e307f665-3836-47ac-bca2-b9ed883fc995@mailbox.org>
+Date: Mon, 26 Oct 2026 11:41:43 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,94 +62,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix DC scanout position handling
+To: Erhan Bilgili <erhan.bilgili@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Jack.Xiao@amd.com,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org
+References: <20261025084506.62881-1-erhan.bilgili@gmail.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <20261025084506.62881-1-erhan.bilgili@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: zpz4e79r48wx4n4f8jybk3kjowe48amm
+X-MBO-RS-ID: 3b6ae10290bdc8a2763
 
-[ Upstream commit 2f93bcb3f9aaf6ceee1aec0a97d4fe386d48e781 ]
+On 10/25/26 09:45, Erhan Bilgili wrote:
+> dm_crtc_get_scanoutpos() packs decoded DC positions and blanking
+> boundaries into u32 words, shifting the second value by 16 bits.
+> 
+> VRR extends vertical blanking without changing the line clock. For
+> example, a 4K240 mode with vtotal=2250 spans about 9000 lines per
+> refresh at 60 Hz, exceeding the 13 bit range within a 48-240 Hz VRR
+> range.
+> 
+> The 13 bit mask truncates positions above 8191, causing early VRR
+> timestamps and missed vblank count adjustments.
+> 
+> Fixes: e806208dc1da ("drm/amd/display: Fix slow FPS.")
 
-place_entity() inflates an entity's virtual lag with
+I don't see how that commit caused the issue. Rather it fixed a bug which had masked the issue.
 
-    lag * (load + weight) / load
 
-Commit 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
-replaced the scaled-down weights used in this calculation with
-avg_vruntime_weight(), removing the arithmetic headroom provided by
-scale_load_down().
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> index 0a8dd7241750..f78c82ba7f70 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -1767,6 +1767,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+>  	bool in_vbl = true;
+>  
+>  	struct amdgpu_device *adev = drm_to_adev(dev);
+> +	/* DC packs decoded values into 16 bit fields. */
+> +	const u32 scanout_mask = adev->dc_enabled ? 0xffff : 0x1fff;
 
-The multiplication can overflow s64 before the division even when the
-final quotient is representable. A task's hierarchical effective weight
-can be as small as 2 after avg_vruntime_weight() scaling under group
-scheduling, while entity_lag() bounds |vlag| by
+The 0x1fff mask isn't correct for all non-DC cases either. drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h has
 
-    calc_delta_fair(cfs_rq_max_slice(cfs_rq) + TICK_NSEC, se)
+#define CRTC_STATUS_POSITION__CRTC_VERT_COUNT_MASK 0x3fff
 
-For example, with HZ=1000, NICE_0_LOAD=1048576, and the minimum scaled
-hierarchical weight scale_load(2)=2048, this bound is 891289600. With 114
-maximum-weight entities, the runqueue load is 10361604096. The
-intermediate product is:
 
-    891289600 * (10361604096 + 2)
-        = 9235189971864780800
-        > S64_MAX
+> @@ -1784,15 +1786,15 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+>  	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
+>  
+>  	/* Decode into vertical and horizontal scanout position. */
+> -	*vpos = position & 0x1fff;
+> -	*hpos = (position >> 16) & 0x1fff;
+> +	*vpos = position & scanout_mask;
+> +	*hpos = (position >> 16) & scanout_mask;
 
-The signed overflow corrupts the entity's placement.
+Since no HW generation seems to have any other fields in the CRTC_STATUS_POSITION & CRTC_V_BLANK_START_END registers, maybe just use
 
-Rewrite
+	*vpos = lower_16_bits(position);
+	*hpos = upper_16_bits(position);
 
-    lag * (load + weight) / load
+and correspondingly for vbl_start/end.
 
-as
 
-    lag + lag * weight / load
-
-The two expressions are equivalent, but the latter avoids multiplying the
-virtual lag by the total runqueue weight. entity_lag() bounds vlag against
-the entity's effective weight, so the remaining lag * weight product stays
-bounded. rescale_entity() preserves this scale across h_load changes and
-already relies on the same product when rescaling vlag.
-
-Keep the original zero-load warning semantics by multiplying lag by weight
-after replacing the divisor with one.
-
-Fixes: 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
-Signed-off-by: Hui Su <sh_def@163.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260928124754.1692077-1-sh_def@163.com
-[ Backport to v7.2 which doesn't have flat hierarchy ]
-Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: stable@vger.kernel.org
----
- kernel/sched/fair.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index b6cace1d0e32..9e1a28a158da 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6250,12 +6250,20 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
- 		load = cfs_rq->sum_weight;
- 		if (curr && curr->on_rq)
- 			load += avg_vruntime_weight(cfs_rq, curr->load.weight);
--
--		weight = avg_vruntime_weight(cfs_rq, se->load.weight);
--		lag *= load + weight;
- 		if (WARN_ON_ONCE(!load))
- 			load = 1;
--		lag = div64_long(lag, load);
-+
-+		weight = avg_vruntime_weight(cfs_rq, se->load.weight);
-+
-+		/*
-+		 * Rewrite, because the product (W + w_i)*vl'_i might
-+		 * overflow s64:
-+		 *
-+		 *   vl_i = (W + w_i)*vl'_i / W
-+		 *        = (W*vl'_i + w_i*vl'_i) / W
-+		 *        = vl'_i + w_i*vl'_i/W
-+		 */
-+		lag += div64_long(lag * weight, load);
- 
- 		/*
- 		 * A heavy entity (relative to the tree) will pull the
 -- 
-2.53.0
-
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
