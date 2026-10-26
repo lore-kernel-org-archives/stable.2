@@ -1,78 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014818;
-	b=t10tGmdaFnqizjmk9qVjdRMkr1z0/mKKEoae70/UWe3o2dDnwUUMXCWvXzfsdlu6a3YT
-	 JXFItogHrlIBh9G6XUtIe1xwIHJQ3iqK8ZurcSTPEOTxdZBfcQ4AhcebnX1DP01XNfVu8
-	 SMeSEplt1ZhzOzBPu+g9WwL5x+hLLyNihRQ1GhnPqhnf02V2UiHoqCFqAZNVnbftBw0qH
-	 piYzS6aqLCRegrs1X3WZ+B4PxmkWyVgQbXjKamn9HwY8KZJtyHT2BZnX5WzAKU4yKYhy0
-	 8xjXOxeOxtCXi4B9+5RGEtgVPYHiSCuI1ZOCJ56Df/1dfJLFRz51Khrlau0rxiW+YcA==
+	t=1793014845;
+	b=19Uj3DqUbq4lhkwwP6vWmOezd1UYgKnxID0BmS+3NaRv/ZOt+0XtpVYgtF0hw4XsesB+
+	 BQxKUs2zTX4ejW5fM15yU/iC6Zjp6muMrMPEJKXfp6GbUdWxsO3OHGDWORQ5o9vPWIR8Z
+	 wK5LuPgzpZA5CDa+d20eiwVokDAPLJ1XYcEzHEaivHzBRvxrtdpvLz+Cov/3o0y+oR3q/
+	 WGWI1YajKgULsoEdNlvkfUCxkqxzLeY1NCKWLaK4JYQfxC7DA7+bknLQWzaL5qYCy85FY
+	 rkfp+eq5OTH6A0p/G0q/L84GTX2x+Ffu5Z5UAaxv3ABE3SmiLLdq67OiCj/aTiT6wYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014818;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014845;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=yxPgJj5K6wdtvZ3s/cYaHrSQ/IJo+WJ9LqzDhRY/Pmw=;
-	b=J/sae4JyJk5gUF6G0kIuteaj063xGK+jCqZ3hHnSeXXqjhjXpWm+WiY1qm2L/PmwJ3eY
-	 z78JYFWRzOCc7HlXjzkqj1TprirCEQFV0AYnes15zX6eaH/COPQYWo40VMIzoUsg43nxI
-	 hWwwrQMLzCCzjSAO76Hpu0WYDf2pXE6GTImvmXLhlUgxgTbQ4HG0XXnEPGX72x5AwKwSZ
-	 jWUdIT5eP51ykbsmFLGZeBvfYgVs03eyOtFdrtlf59ncv2WCASzus6XpCDwPxYF3ZgZRz
-	 uQ7G/1oSIKSK/gpkhMG6ecYlo6ih8itk+1yKx1tWe+SuZD88sNmAlCTKjpTRlZzWqsA==
+	bh=yPAdl72E+7xklG7nRDjs082FkacgxDewbsxvMJxomYI=;
+	b=hOFH/LhUoVekzhgD3rF2+k/q2ZeoGhwLKwW25Vh4Y1IkuOZK8JuGiKgXogLPaS2Yz9JJ
+	 krh2VQJvrCvqm88m1mVqVNyWqMzwtYNNxfMQq8dOPVVyfvdPUys1YvB1Vg7jBUNIn0UYM
+	 u+86zclYg871Cay9of5NrGQ6mQy+F8DYBopJ5sEnJk5mv9ROo9iHqHP26TbsTLXkkvG7Y
+	 YL+T0s6LdH67RMMw6GJAzbleMRt+bW4U5hJbJ7+DFhUcMFopmpIAv1OHI19+wS/gvf47t
+	 AD4b7au30WoDLNZh7mrng/z5gjlZeJCU6q+BbZXDmEjluyHuaWEMVfafrB1yyxUDdcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ijaaStTW;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="l23TYui/";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50021606A31A;
-	Mon, 26 Oct 2026 11:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50021606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF107606A31B;
+	Mon, 26 Oct 2026 11:40:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF107606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ijaaStTW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793014817; x=1824550817;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XtCSgBz6BjUkGziz506cC24Aq11ze1Q6fumnwvlLF7U=;
-  b=ijaaStTW+4/2SsypYmRfgUd+AIv/R6H6AbWcceJCxU7XwWhf/KI2jtHR
-   Z2ss0KE7aebNGmzl+z/4XRd8tAuHn95CRq+QNjXscCRLJU1kbJdrCLj/x
-   cK3h2eFKdh499WPK+NLuMIe7Cof0YQs2fG3E9uMAwT67Rfnz5YKvJZSvo
-   7htzkURXDdjlCu9i2KjRck51Ya9Yy2vE4ZXNUodpBE/bLznrtEUalt5a3
-   egKof9Rsyyn2XFKsubv+8486pZNhk0yHk9qwNveeZCdVSp3nPHkxJZnq4
-   QCwzf5QM6QNipQ8fzrMrEBkbF4vyQpmgxYbOs6pLO1ZmaafUOgBUBFo54
-   Q==;
-X-CSE-ConnectionGUID: 6w7DAgPcQ/K/AAgYu+shrQ==
-X-CSE-MsgGUID: 8D55mBm3Tb2EzBfTtvVj+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1769474"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1769474"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:40:16 -0700
-X-CSE-ConnectionGUID: 3fhEqgJSSZaeaPjt+YrBcQ==
-X-CSE-MsgGUID: 0MQO2kbPTs6DCXlf74SOYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6065364"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa013.fm.intel.com with ESMTP; 26 Oct 2026 04:40:15 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 043E499; Mon, 26 Oct 2026 12:40:14 +0100 (CET)
-Date: Mon, 26 Oct 2026 12:40:13 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Bertrand Jacquin <bertrand@jacquin.bzh>
-Cc: gregkh@linuxfoundation.org, venkat.jayaraman@intel.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=l23TYui/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=yPAdl72E+7xklG7nRDjs082FkacgxDewbsxvMJxomYI=; b=l23TYui/tT2VtnunGJt9l1x/dz
+	Urit897PyBh5STzFdbFbuP9rgPtLXueK6QjPZZPNVB4MnS1laeDfJMoc4BNlC+hkpscbCpTqMAiAM
+	sgaCGAWvdFgQ13klnf6wwSXKmjMkbqkT5lLp9KxAM0NwijA0e2/w1ISPHSJvYLkOBVwkgM6Qs5Oxv
+	An9nhAnTRGJOv7qzAsF4cjweEwUlYYCBN0O9Oocn8lV6nQUVePIxrl8K1tNQ1xW9SHM2LNA9LC85X
+	POcOY5+4fVcGIHQlMnWtzsVYmUok2mqUtzynwAuS9FB8d50ZiV0JxEtD7/330mGuZx6jiw5SdQV2o
+	40GGDHJQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLJ4B-0000000217E-1iIm;
+	Mon, 26 Oct 2026 11:40:39 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 50A4C300DB9; Mon, 26 Oct 2026 12:40:38 +0100 (CET)
+Date: Mon, 26 Oct 2026 12:40:38 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Yao Kai <yaokai34@huawei.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Ingo Molnar <mingo@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-kernel@vger.kernel.org, liuyongqiang13@huawei.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Fix NULL pointer dereference in power
- level debugfs
-Message-ID: <at88HU4YlGSAJGoE@black.igk.intel.com>
-References: <20261010120357.4937-1-bertrand@jacquin.bzh>
+Subject: Re: [PATCH] rseq: Prevent self-preemption when granting a time slice
+ extension
+Message-ID: <20261026114038.GE2668200@noisy.programming.kicks-ass.net>
+References: <20261023040439.3829110-1-yaokai34@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,79 +72,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261010120357.4937-1-bertrand@jacquin.bzh>
+In-Reply-To: <20261023040439.3829110-1-yaokai34@huawei.com>
 
-On Sat, Oct 10, 2026 at 01:03:57PM +0100, Bertrand Jacquin wrote:
-> ucsi_register() creates the debugfs entries right away, but
-> ucsi->connector is only set by ucsi_init(), which runs later from
-> ucsi->work and only publishes the connectors once the PPM has been
-> reset and all ports are registered. Until then, or for good if init
-> fails, ucsi->connector is NULL, yet the peak_current, avg_current and
-> vbus_voltage show callbacks dereference it unconditionally.
+On Fri, Oct 23, 2026 at 12:04:39PM +0800, Yao Kai wrote:
+> __rseq_grant_slice_extension() makes the grant visible to user space and
+> then reads the clock to compute the expiry time before it clears the
+> pending reschedule request. This runs in the exit to user mode loop with
+> interrupts enabled.
 > 
-> On an Intel NUC13ANKi5 whose PPM never answers when CONFIG_ACPI_EC=n,
-> reading those files after the failed init oopses:
+> Clocksource read functions are free to disable and enable preemption.
+> kvm_clock_read(), xen_clocksource_read() and the arm64 architected timer
+> counter accessors, which are used when a counter erratum workaround is
+> active, do so. With full or lazy preemption, when the request which
+> triggered the grant is a non-lazy TIF_NEED_RESCHED, e.g. a lazy request
+> upgraded by the scheduler tick, then preempt_enable_notrace() in the clock
+> read function schedules right away, e.g. in a KVM guest:
 > 
->   ucsi_acpi USBC000:00: error -ETIMEDOUT: PPM init failed
->   BUG: kernel NULL pointer dereference, address: 000000000000045c
->   #PF: supervisor read access in kernel mode
->   RIP: 0010:ucsi_debugfs_register+0x291/0x420 [typec_ucsi]
->   Call Trace:
->    <TASK>
->    seq_read_iter+0x1e4/0x4c0
->    seq_read+0x12b/0x160
->    full_proxy_read+0x9a/0x1f0
->    vfs_read+0xba/0x320
->    ksys_read+0x74/0x110
->    do_syscall_64+0x79/0x240
->    entry_SYSCALL_64_after_hwframe+0x71/0x79
+>   __schedule
+>   preempt_schedule_notrace
+>   preempt_schedule_notrace_thunk
+>   kvm_clock_get_cycles
+>   ktime_get_mono_fast_ns
+>   irqentry_exit
+>   asm_sysvec_apic_timer_interrupt
 > 
-> Return -ENODEV from those callbacks while no connector is available.
+> The task is preempted with the grant already handed out to user space,
+> i.e. in the middle of the critical section which the extension is supposed
+> to protect. The stale grant is cleaned up when the task goes back to user
+> space, so the damage is limited to the extension silently not working for
+> such preemptions on systems which use one of these clocksources.
 > 
-> Fixes: c851b71fd6cd ("usb: typec: ucsi: Add support for READ_POWER_LEVEL command")
+> Read the clock in the interrupt disabled section after the reschedule
+> request has been cleared.
+> 
+> Fixes: dfb630f548a7 ("rseq: Implement rseq_grant_slice_extension()")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Bertrand Jacquin <bertrand@jacquin.bzh>
-
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
+> Signed-off-by: Yao Kai <yaokai34@huawei.com>
 > ---
->  drivers/usb/typec/ucsi/debugfs.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  include/linux/rseq_entry.h | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/usb/typec/ucsi/debugfs.c b/drivers/usb/typec/ucsi/debugfs.c
-> index 77a0dd75edd3..911a151ac16a 100644
-> --- a/drivers/usb/typec/ucsi/debugfs.c
-> +++ b/drivers/usb/typec/ucsi/debugfs.c
-> @@ -92,6 +92,9 @@ static int ucsi_peak_curr_show(struct seq_file *m, void *v)
->  {
->  	struct ucsi *ucsi = m->private;
+> diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
+> index 31ce349ed42c..3e6a339175f8 100644
+> --- a/include/linux/rseq_entry.h
+> +++ b/include/linux/rseq_entry.h
+> @@ -174,8 +174,6 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
+>  	rseq_stat_inc(rseq_stats.s_granted);
 >  
-> +	if (!ucsi->connector)
-> +		return -ENODEV;
-> +
->  	seq_printf(m, "%u mA\n", ucsi->connector->peak_current);
->  	return 0;
->  }
-> @@ -101,6 +104,9 @@ static int ucsi_avg_curr_show(struct seq_file *m, void *v)
->  {
->  	struct ucsi *ucsi = m->private;
->  
-> +	if (!ucsi->connector)
-> +		return -ENODEV;
-> +
->  	seq_printf(m, "%u mA\n", ucsi->connector->avg_current);
->  	return 0;
->  }
-> @@ -110,6 +116,9 @@ static int ucsi_vbus_volt_show(struct seq_file *m, void *v)
->  {
->  	struct ucsi *ucsi = m->private;
->  
-> +	if (!ucsi->connector)
-> +		return -ENODEV;
-> +
->  	seq_printf(m, "%u mV\n", ucsi->connector->vbus_voltage);
->  	return 0;
->  }
+>  	curr->rseq.slice.state.granted = true;
+> -	/* Store expiry time for arming the timer on the way out */
+> -	curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) + ktime_get_mono_fast_ns();
+>  	/*
+>  	 * This is racy against a remote CPU setting TIF_NEED_RESCHED in
+>  	 * several ways:
+> @@ -222,6 +220,18 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
+>  	scoped_guard(irq) {
+>  		clear_tsk_need_resched(curr);
+>  		clear_preempt_need_resched();
+> +		/*
+> +		 * Store expiry time for arming the timer on the way out.
+> +		 *
+> +		 * Read the clock only after the reschedule request has been
+> +		 * cleared and with interrupts disabled. Clocksource read
+> +		 * functions, e.g. kvm_clock_read(), may disable and enable
+> +		 * preemption, which would otherwise schedule right here on a
+> +		 * pending request and void the grant which was just handed
+> +		 * out to user space.
+> +		 */
+> +		curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) +
+> +					   ktime_get_mono_fast_ns();
+>  	}
+>  	return true;
 
--- 
-heikki
+I am confused; even with this patch on, a tick that happens after
+unsafe_put_user() can cause things to get rescheduled 'instantly'. That
+preemption happens from irqentry_exit_cond_resched(), and needs no help
+from any preempt_enable() usage.
+
+
