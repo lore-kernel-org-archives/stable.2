@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012651;
-	b=FGzdFtzlPW98xjXBGcDna1wIHu0w7idIdssPveWK5caMetoC2BNsfgWhLGXIyi3bl3ko
-	 h/Mu+0kLn3j4I1VRkNjLf/Gv1Fo5dXFBZ1FqCFTD8vDdt1tIauRN3NNc4rn2GE925S+kj
-	 b/ZPMILYzBbjqJq2qGMzEE3z8a3SDbD3jFAEvqxa4xQ/vi7oweNaOCI9FRAx0G7DDcjwo
-	 o6qL1TMxa3DT/lez9niDW50ssJv/+xAUqh9eWuxCaqzy/PIiSMmuq1syO9H2ET8vv8OdY
-	 fxpuxygVDlVjJrMvRg/t64xuirM31bJsX66o6mJ7EvGG4rj6jf+S0odem01TBttm2/A==
+	t=1793012652;
+	b=4YPNXuvTuD2UrVP8i4jsOyPNrgSTtN/GUr+8a6vGF0V9EedGqyx2kq9cA1VijT+F5+FI
+	 yfoA7VkCq+EFuUZ5ppeZND2v+4C5e7DDh1Okq1BIV67d5CisdddOVRjtAEAwdnxhDVtz5
+	 NOwvKWVzunyw2RRRjO7KBpmPY11beapfMrZNwygmnbIBVq5HREwdiiwHIVp1IFnIyHeSs
+	 81ySMtPSjzXEU+WBf9c8VQjSuc0EPzDJKDXMVSce6ktVcC0qG7BtEa38tPR2PInhsGGY+
+	 CBkN8bBA3Rc6jjmXKXyd2u706Ie4+N7Zj70lyu9oBClKRGmUybhCBlrftW8EzEAcs2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012651;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yc3GxhcVwYHF7pcFhLDs2JFITUiR3kBKiUR6rOxi4q4=;
-	b=zXCEuC5ozwjcXDZeGNeTw2xdJEd3G07eXbAf5qyHNVr3OJQmm4BZFKPMvMPNvYPYbSsG
-	 ndrHy/6UHAd1NyX7NBZDDGPtFbKjsi2vG6zVHUUMbDkqZ9dN2VVrFG+uMEkSNGMROdYEv
-	 FItEqrEYXpZzbJSGzSGm8D9wVcuegg1uD/FclVeXS1UORDO38fyfKOW60zpy8YBpLQVLf
-	 T+3JixLbq5baZdvB5lL0xTrgZILOjW23bnQX+Vy/WabpTehj+yBXsPoq1NVdDc960YmJA
-	 KHutxnp9VzT99mHIZ7+cTWY4eJ/DhMXVc/huMmEruCe8Lf0tzXvnpICsEFV8mfdfnRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012652;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=+7lSc9bS1/FhK1L6agezkJWt52iS9SoyfWq4Ni3rD1M=;
+	b=uwEoWCtqaDJ99NRHFEh15gx5PVdwJMglW9nMvSw4NK01ybIUWBUSnkUO23/ovlIomwUj
+	 27O1VhgRrFg8UGsu0jfHsocQBXqtvEPLfBckoZfogzq7KhISHofxg5iDWBon+HNPH7L1N
+	 20yvQoDl/v39+s9PTjeUQL/WvGLskO45UvdAl/4gwmgMOwKWOOOYWtqENQrvoS4Qc+fTV
+	 MytbPK9QZ8ywOyKtSyTSmGoOhcW65mRh4R9kEFnbdkpO5dPATp9v5iTHpRrnXViT5E7kb
+	 zLJA4aeGPB+qwZQlX+rHQM5gnpnAgd5nYzKK3WI99quAD7YInQQJYlmb+3b3y/0DfGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HpQNJnOr;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwKKjowA;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C9D606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C9D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0194606A324;
+	Mon, 26 Oct 2026 11:04:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0194606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HpQNJnOr
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1646202a91.2
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:04:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793012650; x=1793617450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yc3GxhcVwYHF7pcFhLDs2JFITUiR3kBKiUR6rOxi4q4=;
-        b=HpQNJnOriCtXbTc+LEUQuu83qSG6ddFJoOM5b1gwgsZtnj1nytw9S9fnZ5FTFYcfdm
-         +jTdk9uxpn6T0zZM6mY3/ky0m3yXpLr+UXO7lKC+9z9dQD88AWqqxbu3RFvsNC9Y88Cv
-         iYPgqo1YphbaVHX5uSe8sdpJxRpHJZAzci+e2H8aCVtLzZLgg2vUIgNZWVV+3PNvVlVd
-         j+XpIieqlNbKDUdTeRhKTyLkebIRv97wZ7G50lAGp5zbhPrHOEMKAuQjYNjlDBzZY5mO
-         o0v6keAvcuzII0wRHr9Jc7iOLZ1c0cMo/g+d6XbZWwJpeViYXDTcJ97j2Z6kSYHzX7rh
-         a4/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793012650; x=1793617450;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yc3GxhcVwYHF7pcFhLDs2JFITUiR3kBKiUR6rOxi4q4=;
-        b=xs+jUl9fz3ZqbTRJzbhhyZR68ZjexdpdI1pL6wfjHSPXR3j+wZZvEeLfh3XFoDHRU7
-         cj8rEfqoq4YRppvNUF0llp3lqscewuBhCSCwHTZnyVOC5lH05STPUWktVTcgTWNwj7WL
-         QS8iMLkbX9m/+w7SeY5Y4bzbnvqKJddcCT4FqI09u+mcH7Vh+jRHAcJMnfPPcUYEs73F
-         43dN1J5sJ9g8alqbqV7bctQp7YKtP+0R+O5P9cXXKAjcPG2YBbqpJR4koixP352LzT48
-         VS3+l5BX7Z+R0+y3wgurO/cmkKnGjDJv1hPwvY2QikUYtasrVuFthhexynyO+MPSNjSv
-         Zftw==
-X-Forwarded-Encrypted: i=1; AKwUvBwT482Nluhh6NS83yX1bnayGEM6/w9VPz8UzJfZKcBfxlk14zhUQxrlqdWdOw3yLTkAEqVBZxk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxi6R447i3ZxllS/xc4mekPFjYwczGpgNrJnMiYn/C1mdFiYRL
-	zaPHJnO/uVYkXn/19N4cHpSyOEV5fksuHIjn+uJj77fDThpn4vNpn6Fy
-X-Gm-Gg: AYBFou3zGVDdNj7cHdFkHn38he0hoH+SdGPaPpSKaa+MrIxt39UfrySi2Zk31FeL+bk
-	ZYchtlZpQ69wpnJx+Zc7O+AMZpe5AmQIcJs25BDBMkE7ngGPb8Y8DxPRXoXkgDMYK9vPR5ucPVW
-	2+LJokE9FZVWSluw1dVB3/V+NaFbG16RXCHmITk0Xb/eBxIjSiYtXKWjuCDN4SKTk45gTlhMBX8
-	McnChhbmHt+JizeDQv/Ft5L/tnYhsLaMFD+IGD4PAMUs6yUuIUUCJuiylxFx+/BtE+5QxWeE6V0
-	YeC5wTCj0CVUYM08TocMh0bpHA8b9paeLfhOaVXw2bzRMZMKTjJLsZYUQyYfvmUON9iSbQxUFrM
-	/BUm/luNY47DFtcQA/T9wXkr1ZlkEjTOVUuXOAmdgUsdbY/3+Hftaml6vBqvOOVrUCUddlA3keU
-	azehizUjscZLBEBQQlYwXz4nAu+UNQl8y7YIaegCz6ANFo9Hvh/2TnxTl0J7j1YwuIF/Q+bGcYp
-	ahhP/6TiZ4FNNcQMAy38q6QdBeJ6n2ht0N+NQOTPJ0Fc3wC9EY=
-X-Received: by 2002:a17:90b:58e8:b0:3ac:9706:7739 with SMTP id 98e67ed59e1d1-3adead57cf0mr5711908a91.17.1793012649819;
-        Mon, 26 Oct 2026 04:04:09 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebbb2fb2sm8024223a91.1.2026.10.26.04.04.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:04:09 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3] ocfs2: validate move extents against a stable EOF
-Date: Mon, 26 Oct 2026 19:04:00 +0800
-Message-Id: <pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UwKKjowA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793012652; x=1824548652;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=6eG67Ytw/5AXlsrQajZVFK7YTNbjLHeV4uqlUNul9IA=;
+  b=UwKKjowA/Ajb9yEaWzbWnGqubPIUl9k8rNzPu8oXF6hPc4ztexe/OdKc
+   +UbNDOvOI170/8zc2RZ7qsxH0mBT7UBarOiWP0cUTyeVKLfqLdD408FNR
+   7j0GbP8mBNcMSroqGb7D+4X8wBJlxzy+hKxOBdkcSlZzI3LS4kYF7ncKl
+   gDxiF/JN+z9ak5l5ASv6+r767VcWYnPR4QvEZnJfbMwHst+is+hukg9Ho
+   EEqlpspN/xPTa91POI3B86H01Lqj0DOcjiiGOaN7LOhuuF73I0EuVLnws
+   6wt+ocWL7BdjU+L0rYI0jeMrAJLtj3kMcDbj/sYQg6ZZ1Cpw3zzL42zez
+   A==;
+X-CSE-ConnectionGUID: HDSN3q+IRyuoD5TG1Md2aA==
+X-CSE-MsgGUID: Kzi5PMIESsuCofoo5n7IRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1583637"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1583637"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:04:11 -0700
+X-CSE-ConnectionGUID: YRbEG+DiRHKgICnjwsLgog==
+X-CSE-MsgGUID: xAgWaSUFQDy7fkQ30DF7JA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4347067"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.109])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:04:07 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 26 Oct 2026 13:04:03 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Raul E Rangel <rrangel@chromium.org>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] serial: 8250_dw: preserve BUSY-safe fractional divisor
+ programming
+In-Reply-To: <20261024-submit-serial-8250-dw-divisor-v1-v2-1-032ca5338359@gmail.com>
+Message-ID: <e3567bb4-394c-39bf-fb97-8254585fffa6@linux.intel.com>
+References: <20261024-submit-serial-8250-dw-divisor-v1-v2-1-032ca5338359@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,181 +84,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-The move-extents range must be bounded by the inode size used for extent
-movement. ocfs2_ioctl_move_extents() checks and clamps the request before
-taking the local inode and cluster locks in ocfs2_move_extents(). It also
-uses separate i_size_read() calls for the range check and subtraction.
+On Sat, 24 Oct 2026, James Hilliard wrote:
 
-A concurrent truncate can invalidate the first check and make the later
-unsigned subtraction underflow:
+> dw8250_probe() installs a divisor setter that makes the UART idle and
+> checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
+> fractional-divisor support, it replaces that setter with the library's
+> callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
+> bypassing the divisor setter's idle sequence and DLAB readback.
+> 
+> If the LCR update fails to set DLAB, the subsequent divisor writes can
+> reach TX and IER instead of DLL and DLH.
+> 
+> Expose the library's fractional-divisor calculation and DLF write as
+> shared helpers. Install the BUSY-safe setter after hardware discovery and
+> use the shared DLF helper to program the fractional field only after DLAB
+> has been confirmed, alongside DLL and DLH. Select the shared calculator
+> when fractional divisors are supported, preserving the core calculation
+> for integer-only ports.
+> 
+> Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+> Changes in v2:
+> - Share the fractional-divisor calculation and DLF write through exported
+>   dwlib helpers, and use them in the platform driver as requested by Andy.
+> - Select the fractional calculator only when DLF is implemented, preserving
+>   the existing core calculation for integer-only ports.
+> - Link to v1: https://lore.kernel.org/r/20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com
+> 
+> Previously included in the DMA cancellation series v4:
+> https://lore.kernel.org/r/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
+> 
+> Changes in DMA cancellation v4:
+> - Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
+>   discovery, writing DLF and DLL/DLH only after confirming DLAB.
+> - Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
+> ---
+>  drivers/tty/serial/8250/8250_dw.c    |  9 ++++++++-
+>  drivers/tty/serial/8250/8250_dwlib.c | 15 +++++++++++----
+>  drivers/tty/serial/8250/8250_dwlib.h |  2 ++
+>  3 files changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index eca02e8bd6d1..d036a2fe258a 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -190,6 +190,7 @@ static int dw8250_idle_enter(struct uart_port *p)
+>  static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+>  			       unsigned int quot, unsigned int quot_frac)
+>  {
+> +	struct dw8250_port_data *pd = p->private_data;
+>  	struct uart_8250_port *up = up_to_u8250p(p);
+>  	int ret;
+>  
+> @@ -201,6 +202,8 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+>  	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
+>  		goto idle_failed;
+>  
+> +	if (pd->dlf_size)
 
-  Move-extents ioctl                  Truncate
-  ------------------                  --------
-  check me_start <= i_size
-                                      take inode and cluster locks
-                                      shrink EOF below me_start
-                                      release locks
-  compare me_start + me_len with EOF
-  set me_len = EOF - me_start
-    [unsigned underflow]
-  acquire inode and cluster locks
-  select extents using the bad range
+Why does 8250_dw.c have to care about this detail? It feels 8250_dw is 
+still crossing "layer" entirely unnecessarily here, can't dwlib's 
+dw8250_set_divisor_dlf() just do nothing if dlf_size is not set? That is, 
+do this in dw8250_set_divisor_dlf():
 
-A truncate after clamping can also leave the range extending beyond EOF.
-Conversely, the cached size may be smaller than the size refreshed when
-the cluster inode lock is acquired. Early validation can then reject a
-valid start or permanently shorten the requested length and threshold.
-The me_start + me_len comparison can also wrap for a large input length.
+	if (!pd->dlf_size)
+		return;
 
-Validate and adjust the original request once, after inode_lock(), the
-exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed
-the size. Read EOF once, reject a start beyond it, and bound the length
-by EOF minus start. Normalize the threshold using the same EOF snapshot.
-This keeps zero as the default-threshold sentinel until validation uses
-the size that will govern extent movement.
+-- 
+ i.
 
-Move goal validation after range adjustment as well. Its allocation-group
-capacity check uses me_len and must see the EOF-clamped length. Both
-validation failures use the existing inode-lock unwind path before any
-extent movement or transaction starts.
-
-Range errors now reach the ioctl's normal copyout path, as goal errors
-already did. Unlike the old early rejection, a failed copyout can
-therefore override -EINVAL with -EFAULT.
-
-Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
----
-Changes in v3:
-- Log goal validation failures with mlog_errno(), matching range validation
-  failures.
-- Document that range errors now reach copyout and that a copyout failure
-  can override -EINVAL with -EFAULT, as for goal errors.
-
-Changes in v2:
-- Validate and normalize the original range only once, after inode and
-  cluster locking have stabilized and refreshed EOF.
-- Move goal validation after range adjustment because its allocation-group
-  capacity check depends on me_len.
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-move-extents-isize-rrw-v3-b2a7508c41108cc2d00b@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com
-
- fs/ocfs2/move_extents.c | 70 +++++++++++++++++++++++------------------
- 1 file changed, 39 insertions(+), 31 deletions(-)
-
-diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
-index ad1678ee7cc4..93b45531bf7d 100644
---- a/fs/ocfs2/move_extents.c
-+++ b/fs/ocfs2/move_extents.c
-@@ -907,6 +907,30 @@ out:
- 	return ret;
- }
- 
-+static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
-+						struct ocfs2_move_extents *range)
-+{
-+	u64 i_size = i_size_read(inode);
-+
-+	if (range->me_start > i_size)
-+		return -EINVAL;
-+
-+	if (range->me_len > i_size - range->me_start)
-+		range->me_len = i_size - range->me_start;
-+
-+	/*
-+	 * The default threshold for defragmentation is 1 MiB, which
-+	 * matches the maximum OCFS2 cluster size.
-+	 */
-+	if (!range->me_threshold)
-+		range->me_threshold = 1024 * 1024;
-+
-+	if (range->me_threshold > i_size)
-+		range->me_threshold = i_size;
-+
-+	return 0;
-+}
-+
- static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
- {
- 	int status;
-@@ -936,6 +960,21 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
- 		goto out_rw_unlock;
- 	}
- 
-+	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
-+	if (status) {
-+		mlog_errno(status);
-+		goto out_inode_unlock;
-+	}
-+
-+	/* The goal check depends on the adjusted range length. */
-+	if (!context->auto_defrag) {
-+		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
-+		if (status) {
-+			mlog_errno(status);
-+			goto out_inode_unlock;
-+		}
-+	}
-+
- 	/*
- 	 * remember ip_xattr_sem also needs to be held if necessary
- 	 */
-@@ -1028,27 +1067,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
- 		goto out_free;
- 	}
- 
--	if (range.me_start > i_size_read(inode)) {
--		status = -EINVAL;
--		goto out_free;
--	}
--
--	if (range.me_start + range.me_len > i_size_read(inode))
--			range.me_len = i_size_read(inode) - range.me_start;
--
- 	context->range = &range;
- 
--	/*
--	 * ok, the default threshold for the defragmentation
--	 * is 1M, since our maximum clustersize was 1M also.
--	 * any thought?
--	 */
--	if (!range.me_threshold)
--		range.me_threshold = 1024 * 1024;
--
--	if (range.me_threshold > i_size_read(inode))
--		range.me_threshold = i_size_read(inode);
--
- 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
- 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
- 		status = -EINVAL;
-@@ -1060,23 +1080,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
- 
- 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
- 			context->partial = 1;
--	} else {
--		/*
--		 * first best-effort attempt to validate and adjust the goal
--		 * (physical address in block), while it can't guarantee later
--		 * operation can succeed all the time since global_bitmap may
--		 * change a bit over time.
--		 */
--
--		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
--		if (status)
--			goto out_copy;
- 	}
- 
- 	status = ocfs2_move_extents(context);
- 	if (status)
- 		mlog_errno(status);
--out_copy:
- 	/*
- 	 * movement/defragmentation may end up being partially completed,
- 	 * that's the reason why we need to return userspace the finished
+> +		dw8250_set_divisor_dlf(p, quot_frac);
+>  	serial_dl_write(up, quot);
+>  	serial_port_out(p, UART_LCR, up->lcr);
+>  
+> @@ -651,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
+>  
+>  	p->set_ldisc	= dw8250_set_ldisc;
+>  	p->set_termios	= dw8250_set_termios;
+> -	p->set_divisor	= dw8250_set_divisor;
+>  
+>  	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+>  	if (!data)
+> @@ -768,6 +770,11 @@ static int dw8250_probe(struct platform_device *pdev)
+>  	if (!data->skip_autocfg)
+>  		dw8250_setup_port(p);
+>  
+> +	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
+> +	if (data->data.dlf_size)
+> +		p->get_divisor = dw8250_get_divisor_dlf;
+> +	p->set_divisor = dw8250_set_divisor;
+> +
+>  	/* If we have a valid fifosize, try hooking up DMA */
+>  	if (p->fifosize) {
+>  		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+> index 9bb02a4ab11f..88562c8d5d1d 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.c
+> +++ b/drivers/tty/serial/8250/8250_dwlib.c
+> @@ -23,8 +23,8 @@
+>   * we have: div(F) * (16 * baud) = rem
+>   * so frac = 2^dlf_size * rem / (16 * baud) = (rem << dlf_size) / (16 * baud)
+>   */
+> -static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+> -				       unsigned int *frac)
+> +unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud,
+> +				  unsigned int *frac)
+>  {
+>  	unsigned int quot, rem, base_baud = baud * 16;
+>  	struct dw8250_port_data *d = p->private_data;
+> @@ -35,11 +35,18 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+>  
+>  	return quot;
+>  }
+> +EXPORT_SYMBOL_GPL(dw8250_get_divisor_dlf);
+> +
+> +void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac)
+> +{
+> +	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+> +}
+> +EXPORT_SYMBOL_GPL(dw8250_set_divisor_dlf);
+>  
+>  static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
+>  			       unsigned int quot, unsigned int quot_frac)
+>  {
+> -	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
+> +	dw8250_set_divisor_dlf(p, quot_frac);
+>  	serial8250_do_set_divisor(p, baud, quot);
+>  }
+>  
+> @@ -217,7 +224,7 @@ void dw8250_setup_port(struct uart_port *p)
+>  
+>  	if (reg) {
+>  		pd->dlf_size = fls(reg);
+> -		p->get_divisor = dw8250_get_divisor;
+> +		p->get_divisor = dw8250_get_divisor_dlf;
+>  		p->set_divisor = dw8250_set_divisor;
+>  	}
+>  
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+> index 39fcb1b323ad..7191cabfb086 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.h
+> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+> @@ -97,6 +97,8 @@ struct dw8250_port_data {
+>  	int		srbr;
+>  };
+>  
+> +unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud, unsigned int *frac);
+> +void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac);
+>  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
+>  void dw8250_setup_port(struct uart_port *p);
+>  
+> 
+> ---
+> base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+> change-id: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
+> 
+> Best regards,
+> --  
+> James Hilliard <james.hilliard1@gmail.com>
+> 
