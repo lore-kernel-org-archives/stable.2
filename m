@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025068;
-	b=cRUVHiTsnUWzWWhAgJsqwcktml1NgVSvj7l1d4W52kHHqB+Vckun3oX+aV+eChpq8loB
-	 aac31wuuOyl0cunPTyABLTHtqy2q+mHcLBjeXvaD/+Y7UxIjD13PBoIKCOgiCSgUD9rJr
-	 DCIJUSk5NAsF/OYXbr+GYaYp+6/xivOTMot3niH3F0/iiTRBShGGp8NBDExQAwyETaN4E
-	 6gQoxdcaXbmj2k/VFzwCYDZRDea80Z7Xr57GDpndlxlhbe0bLQrfkneKDHkY3HZo4w+Tq
-	 JCdhZKU29S0xFZe1EXztVY39dEf+NG0B16CNSMiG/lOjrrVCe26/DWmqydpUKP8O/Aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025068;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793025128;
+	b=O/yBgR85tRbMmTSb5HCHV7c8fp3DPr6DwAHKYmpK+a2ryLCDFLCxt9Uugm1UuJS2+Xfd
+	 EDICQHYrlgJQEFQJGt2dfrI20whh/5UE7KE8bjkhkKEZFYL/QbC9FuDMlNzjqR+7PC9Vj
+	 QKtbbgOZJ3SxT7Z91laI1oaxb/NATMvEfnNsOhOR2YDF1ofTLR7KzSVdW/qrf3qokejOV
+	 Pq4sVmEftI+jxRyii5mJbTjR9zA969/SRT0UqQCgg/vvXwP78UAjddB6IrRQFEHABkvXS
+	 o/I25tYqhGXRD5jLEt+bbEFi6YajvMSYKC2JFNe9cDbKI8IqlwaKZ0QZlmc3dv+pUqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025128;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=S2aF/nJPcL1L7k4kule6+RDBiZtzu5J4Md55u9FTmQA=;
-	b=GPWjVC+v0SAsGUOky8Ft8oKWrLeqfhh3/UEN9OEI9TKJH7O7uTWnq+/s8Jr0rR1BUSQc
-	 9HLneDKW5YDrnEUyj+t078A8UxShN0Ig1te/IvRKNazaH1kmexKwbWL7+8ASLfBi1upJE
-	 Pj39ZM8K9JOUbNiSR9I9D/y4T2aWqpy2PlkvXrgmoF05+l+Zew6PoMpO+XoO4So3ung1Y
-	 RKIJ/j8Z8e0qS+G2QzOdpLElUhxFcp3M8wohiDaNxUCQJQEx3BXHTugzLWy5oCw5Wp6QH
-	 aMCJ1y+EE5jhvAPGQbqQUSwTVHhz/E5+cJR5GDjzB0lRUT4cC8AfiEhN/zZQ1iP9Nag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b="stEoNO/V";
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
+	b=kSNzp2m96PAA6/coK521eVMbhcygoIMw2Hu0Bbuz3SGnag30qiqAgcdOyNacbysmk14V
+	 l5x69Z4guGUMLfECpuGTXtuDQFKjr03Fw9aTHfjeOobGMDfnGu0xAeudIQMyPmVZlajzk
+	 Jmbk4ynMGFVDEqdi0JB3Ia/KPX7ml2XqufHdpcsNogr2AyAC40rkquZ6/fw79E5Qz9MiN
+	 gGTMDWcgeFVRD7stIimu8OpNK/HMIJUun7zPYMEKRAwfAdTamlVP30ZO5XRqhuhPfaJRx
+	 0jLX/4tKGP/oDKZLMh0E6I7vQESRRgZFjTuasd5j/903FtOwuOGoP+l4MVqlyyVxUQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fvFl2JqY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0206606A31F
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0206606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D5F606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:32:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6D5F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=stEoNO/V
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ea7190aea1so13817885ad.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 07:31:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fvFl2JqY
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd69954c755so2069253a12.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 07:32:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793025127; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ERIoAutwDoEji+FxEHR6vCUkR/cYcD88jftWRILdfoOkmUEZy1uiB3laVnmlEfC958
+         JJMX7K1CsygjqAE9w4HmaFrSiQ8HbszK1ewNuocdpuLSQ/PFT6DMb59ajGLK97eGztjB
+         lq2z8GlK1wDEDQzZnYku0ylvDtFO/lDToXcFOIXyQGXoYcAXF+f5wkalFqGEYvwcTAse
+         rxJNjBawj+i9WwSxO5DgVLR+3zmCCVIwlrDYuEdzyJelsFtFNQ8o+m+hItapGivL675h
+         FI8FphHgQcwOH7usE7A4ZSZl3+7tkGFAyx+3CpdW1GrnlhPcPQbsObfa5ZXQFzLVAaAt
+         qj7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
+        fh=WIZ2owM/C5VjmO+tc9aXz7GSH12xtQRuwLyXPagLQss=;
+        b=UMjT9ZShGtTYnZ8ssL+6z4ulIvF+j1D+KHlIEGFkyI3WYaAXAbQC6cjMJ2gjiDO8yb
+         RrH6Rq3dQAJYaDcULgkxICCsWYlO+t5KyWEVj2VSctk/CcS5nrf+5IeaGhpynvwLAlue
+         C25W9+irOSllQzPyvnxuCsf34Ix1Sc8N/n415pQY8xTscT55oSXiOAJ5k3QxTDcPo8yZ
+         YCuBPljtPZMl0Q1a/NUKc9mTjDXp7rFjlgwqPn7dB0/vw5HSp/0M2cfaekIV2MWsOoww
+         rXeFiPLWl8iKys4yF3Yx8SGf2UOU2c1p68r8G6O1ffe9IHR8ygZYmHIk0u9sab7SxXQC
+         dbDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793025067; x=1793629867; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=S2aF/nJPcL1L7k4kule6+RDBiZtzu5J4Md55u9FTmQA=;
-        b=stEoNO/Va7L3S2ug5FpXuRDzuQUh59NNi4tR/hLipjRU84Gt+KKsacKw/1TengoaIN
-         voRuuIUTWcrDERER+gkc13GEdwXpTJKMGjBjmUVDMUW25QH1h+qQxKRtx0OebRFrN/fR
-         kOweUfA6WqwAfiPFHG59LdUiiEW/t00efjNag=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025067; x=1793629867;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1793025127; x=1793629927; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S2aF/nJPcL1L7k4kule6+RDBiZtzu5J4Md55u9FTmQA=;
-        b=boIFsBptIaishGuXXDsLy5gwg6ge7gMq6qK+1KVmdG+UPmFSb0Fmu0/YinIZ8/p/ot
-         QYar2SQ9m5X4GXhomKecpJtAMljQjm18cfF6+aYYN50B1voKsfjBQjuFT5cQzTVlnaRP
-         bTMr4x8ricB4UtShxveiZn4drXLCcPc0Otgbx/wQ9pgNRXojT4ckPOufo+XqNtsIyAOq
-         f+emAzAQoPH9liJelO1Ugt1EfULUdIKCVEyGdlLH3RHAVqLpb9nw+PExe41OdfufwKLG
-         wauSGEsA9WUL/CZ5LJaeb7s1JlbC+9Nyb8a4mNM4NCJQzx+DBIbalBQ0gw5sf6dUETQ+
-         u7Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYQzGtbVzmnM1EDAVRsUVAylv7ZRRpL0bL8LrsfOerG3OqqbJrCCs2EaR9OW63eTqtf/8SjJc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3Xw+Ac6vji394v6DJE+gRP8L6L13T9Oetmtl6GHddX8hWT3Vm
-	4xrNN5PvsgYxOhVwCQy+SgfHNORUgBNVKI4lznJSU9mM6o3AV3odz7pkEDConB1QNsw=
-X-Gm-Gg: AYBFou1OgL3L1IELEIrDSMmlqq3aBtyHATRgq9RK0Yr9Kb8icbBnuf1e4YUFZogjGUB
-	SppKuhz6gA1qx56qQx0DVAuHJZTSJtlB2h6cHk6ZORmWEkqvCw7j2Zrns0tTOANlqaqGvuYmwR+
-	NrKj/2pe8LKVRmN5QGrxrBSEbYafLLmFwZwJRBjvGEeMMk6Htfa0phwxSMUlR0r4IemVZv3vsji
-	fNiYh2BNCehuwaOQGWsNZucYUPT7n2IoG6Q5cMDdm2P6L68zBGjaO+iWwxovxnHo9N4XCe/J8U7
-	aIr/yp5R4ZtVttf9KMjkqbErLJ67iA0BlMUUFQ+3HMaddXalVRsPZHhsFg3DAyehQ6Xt8W0to98
-	DMljMRHJ88ol3ZS5lfbCkbwVGoB+C9Bx2/RBypsvaysedQfFouUH6QC9IkOEWqnxuOib22gY4mA
-	H0pEFk9NwlVso7WNoLoh354UadRIfsNN5sAldrjNGDoSvqwN9WMlsgC583jJVmp9yfCdoouop+Z
-	pLq/PuWw+TYyQags8Ic89HHPhX+uaVtutcxkaL+j4TUc8JaAP0ua52+MIXFVQgTVAuihxE0h6hE
-	Io2lIVbB0XCLiYhy12p9iXPb+FtKS4K1EcN5z3SUMxuSFJNCZEBltf5NQU4+ttRZXOlrYC/zdS2
-	/QtGfWv0/0gs4asipKD1iY/c=
-X-Received: by 2002:a17:902:e947:b0:2e9:4f21:91ef with SMTP id d9443c01a7336-2ea9c876333mr51977345ad.36.1793025066909;
-        Mon, 26 Oct 2026 07:31:06 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9af332d9sm17635845ad.11.2026.10.26.07.31.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 07:31:06 -0700 (PDT)
-Date: Mon, 26 Oct 2026 22:31:03 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Vineeth Pillai <vineeth@bitbyteword.org>,
-	Hugh Dickins <hughd@google.com>, Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Ying Huang <huang.ying.caritas@gmail.com>,
-	Kelley Nielsen <kelleynnn@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, stable@vger.kernel.org
-Subject: [PATCH v2] mm: Make swapoff interruptible when unusing mms/shmem
-Message-ID: <at9kJwdGkHPsWwgG@chrisdown.name>
-References: <ar2YlFYjYUZ49ZA5@chrisdown.name>
+        bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
+        b=fvFl2JqYiK++L9Zn0vfo8qjsAtt8ULXmy4jRMsZWyhMJnRIQKO5Rgi7jeprM6MVIy4
+         /gpHjU/ILM64eE/DWyLU9CpYZROq10UOYB88q2H+bNRGWt/4itLRlgb7IHZmz254KEUJ
+         uyBnRxmPFfHjF2N0bUVo2B5byPKdjvv7n7yrws+I97JBI3bkCFzeSNxO5vtbSRwE8MiE
+         0HiZelCG6u9CtDzypVlb7C/Us/VsX4+woXWZYwOacQWphQIEBAJvEiYJ4K0eVNFK4BwU
+         YE9lJnKghkc2gPV7RauLtKpoQWBEQz+XeynSq1pXEe+p1iupFPzxs9UqunTA7XvO5dcC
+         ZFBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793025127; x=1793629927;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
+        b=W27EWlIobY5F6XrA6iLVQZmBTtg0ciXo87cJMIz8DxfQNP1Tx0nb4WZPuyF4j9OeJn
+         RoC9czXdTelu/1fUA/J/EJISjKoGDQxAc8poQ9/4LyCA+EdlBzJh7naRW2Yvs9c33LuS
+         7vfccyVzGilGPL2NGuzyAV/4SCjnAgclHPyjtUMG1wMaJ4bXv52VG0T0t1gcfq31X8SY
+         Ty5ENvs7UUio7P2Ptg7C8PstJrEl304jRhIhRcKANtCE201OS/Mlfp5QL03m5Te1Nje2
+         1+3iiInU4F6g0SAzoqNvXr76uXctNouOxOTydl9z+o9+8QpYOCaS3c90a2aDj6b0Z0P1
+         ajCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwIkzHQZFs7zd+EIb2NnGjxTKhsKCSoJe80DKJoUr+vnI31BPWRkPNw5/yQODprBDVW0mftoQY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRduUfCk5MdNDx1oq+8drmS5xCwWJxWoLSrACg+xIPDz9d2YEf
+	ojUc2hEzhpqtHek+pgOiHak4+EhYc8hW2sBq3EWKYIUOO9DnJSotbIVvqi8P/FNqFdMXrh3CjFn
+	Z2ngqLwnA4DbJXCHQnZRLA1Tj5vdYRO4=
+X-Gm-Gg: AYBFou0SKrAtjIHbpD5TnXMmqMOOTDG9Rnh+ZZdsCj78K4OHFl5IlYWmJ6JnivJ/PQ4
+	t2bC+DiN9cCi2BCa4jsOUbr8wwFJVa3VQ7w9T40+LAt+annX1/YcBVbATVQUSif71JLFWGbZ2y7
+	22cYh+VcgcUkiKu/aKerUZzfp2+MuZkz8s6t306qZkBRaKJkW8Ssbvh2lsT6DvfTuuzVW5JwGDe
+	X1tZxxV/hbPSrJVsUQGlNPlrdB2UJ5lQ4ksns/2RN2KydrgLyI9DyKmANJw9aVBvylZqo+QC2q0
+	atN/jB8MR9bTRhuBLHNsXa/ph8Zun91f4zkUwk9bxbosZUkCT/TOGCbTwVPj9E5IXkqsTtbUNPe
+	i1HVyPBzkzMdYbsCoGDkTlYS3KoOhM6882KlIl28=
+X-Received: by 2002:a17:90b:5644:b0:3ab:d45c:59da with SMTP id
+ 98e67ed59e1d1-3adeafd21a8mr5767380a91.40.1793025126904; Mon, 26 Oct 2026
+ 07:32:06 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,108 +103,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar2YlFYjYUZ49ZA5@chrisdown.name>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+References: <20261024091256.17918-1-testwrzwrz@gmail.com> <20261024141157.59301-1-testwrzwrz@gmail.com>
+ <20261024141157.59301-2-testwrzwrz@gmail.com> <at82NLzM7g8HGgum@boxer> <20261026142705.4564-1-testwrzwrz@gmail.com>
+In-Reply-To: <20261026142705.4564-1-testwrzwrz@gmail.com>
+From: Magnus Karlsson <magnus.karlsson@gmail.com>
+Date: Mon, 26 Oct 2026 16:31:54 +0200
+X-Gm-Features: AclHuK89CEpPcFuQ9Zkf80L7rIP62d6arcQxEpIyB7BJW5pfRLgwLFs5gMXbiL8
+Message-ID: <CAJ8uoz0XZg8K2g3eBXOajV3TsA-1Sz3D6t-G2+BYw2YX7A4K=Q@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/2] xsk: defer software checksum until the skb is complete
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+	Magnus Karlsson <magnus.karlsson@intel.com>, Jason Xing <kerneljasonxing@gmail.com>, 
+	Stanislav Fomichev <sdf@google.com>, Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, 
+	netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-try_to_unuse() only checks for a pending signal between mms, and
-shmem_unuse() doesn't check at all. That means that once swapoff gets to
-a process or a shmem file with a lot swapped out, nothing can interrupt
-it until every last page of it has been read back in.
+On Mon, 26 Oct 2026 at 16:30, Rongzheng Wang <testwrzwrz@gmail.com> wrote:
+>
+> Hi Maciej,
+>
+> Thanks for the review.
+>
+> Yes. xsk_skb_metadata() is only called for the first descriptor when
+> skb is NULL; continuation fragments do not call it. So
+> skb->ip_summed == CHECKSUM_PARTIAL means the first fragment requested
+> the checksum.
+>
+> I'll preserve unlikely() around pool->tx_sw_csum like this:
+>
+>     static int xsk_skb_sw_csum(struct sk_buff *skb,
+>                                struct xsk_buff_pool *pool)
+>     {
+>             if (unlikely(pool->tx_sw_csum &&
+>                          skb->ip_summed == CHECKSUM_PARTIAL))
+>                     return skb_checksum_help(skb);
+>
+>             return 0;
+>     }
+>
+> For the drop path: xsk_drop_skb() increments tx_invalid_descs and
+> consumes the skb; sendto() returns the error from skb_checksum_help().
+> Since the descriptors are already consumed, retrying is not useful. The
+> current metadata validation makes the malformed-packet path effectively
+> unreachable, so this is a defensive drop.
+>
+> I verified the propagation in a local QEMU test kernel. For the test
+> only, I temporarily changed xsk_skb_sw_csum() to:
+>
+>     static int xsk_skb_sw_csum(struct sk_buff *skb,
+>                                struct xsk_buff_pool *pool)
+>     {
+>             if (unlikely(pool->tx_sw_csum &&
+>                          skb->ip_summed == CHECKSUM_PARTIAL))
+>                     return -EINVAL;
+>
+>             return 0;
+>     }
+>
+> and ran test_xdp_metadata. It failed at the first generate_packet()
+> sendto:
+>
+>     generate_packet:FAIL:sendto unexpected sendto: actual -1 < expected 0
+>     Summary: 0/0 PASSED, 0 SKIPPED, 1/0 FAILED
+>     TEST_RC=1
+>
+> The normal kernel still passes. The test harness does not print errno,
+> so I can only state that sendto() returned -1; the injected error was
+> -EINVAL. I restored the source after the test.
+>
+> Magnus suggested a distinct counter for malformed packets. I agree that
+> would be more precise than tx_invalid_descs, but I'd prefer to do that
+> in a separate patch instead of extending the UAPI in this stable fix.
 
-Just as one example of where this can concretely show up, freezing tasks
-for suspend or hibernation has to wait for swapoff to notice the
-freezer's fake signal, and gives up after freeze_timeout_msecs (20
-seconds by default).
+Correct. If we decide to do anything like that, it should be a
+separate patch for net-next at some later point in time.
 
-Here's a facetious example where one swaps out 2GiB of one process to a
-swap file on ext4, starts swapoff, and half a second later tries to
-freeze with pm_test=freezer. Writing to /sys/power/state then fails with
-EBUSY and this in dmesg:
+Thanks: Magnus
 
-    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
-    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
-    Call trace:
-     [...]
-     io_schedule+0x44/0x70
-     folio_wait_bit_common+0x1ec/0x3d0
-     __folio_lock+0x24/0x40
-     unuse_pte_range+0x2d0/0x348
-     unuse_vma+0x158/0x248
-     unuse_mm+0xfc/0x150
-     try_to_unuse+0x104/0x3f8
-     __do_sys_swapoff+0x220/0x5d8
-     [...]
-
-The same goes for anything else that wants swapoff to stop, like an
-admin hitting ^C in a panic, of course.
-
-Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-try_to_unuse() was driven by find_next_to_unuse() which checks for a
-signal before every entry, so let's restore that behaviour.
-
-Just as an example of the improvements, here's how long freezing takes
-in the same test while swapoff is happening on my computer:
-
-                      before                  after
-    400MiB anon       8.925s                  0.028s
-    400MiB shmem      1.639s                  0.003s
-    2GiB anon         failed after 20.003s    0.011s
-
-Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-Cc: stable@vger.kernel.org
-Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
-Changes in v2:
-- Return -ERESTARTSYS at both new signal checks and at the existing
-  try_to_unuse() signal exit (Baolin).
-- Request stable backporting with Cc: stable@vger.kernel.org (Andrew).
-
- mm/shmem.c    | 4 ++++
- mm/swapfile.c | 4 +++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index fadf23f9e21e..13e0786436cd 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type)
- 		if (ret < 0)
- 			break;
- 
-+		if (signal_pending(current)) {
-+			ret = -ERESTARTSYS;
-+			break;
-+		}
- 		start = indices[folio_batch_count(&fbatch) - 1];
- 	} while (true);
- 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 254ce86fa923..0f72a5b23a3a 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
- 	pmd = pmd_offset(pud, addr);
- 	do {
- 		cond_resched();
-+		if (signal_pending(current))
-+			return -ERESTARTSYS;
- 		next = pmd_addr_end(addr, end);
- 		ret = unuse_pte_range(vma, pmd, addr, next, type);
- 		if (ret)
-@@ -2922,7 +2924,7 @@ static int try_to_unuse(unsigned int type)
- 	if (swap_usage_in_pages(si)) {
- 		if (!signal_pending(current))
- 			goto retry;
--		return -EINTR;
-+		return -ERESTARTSYS;
- 	}
- 
- success:
-
-base-commit: 0c06cb3fccd831787a8e46c929d6c5bf6ea22652
--- 
-2.54.0
-
+> I'll address the remaining feedback and send v3 as a new thread.
+>
+> Thanks,
+> Rongzheng
+>
