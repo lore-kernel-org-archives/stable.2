@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.111.35.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009627;
-	b=2qnqSN2iW2DNIIVw42316KUGrhJN8C+9CA7QdrXwUDafAE/Rcz1eeEQdcweZR6vNO/Yr
-	 dTWaMRjNaJKRXXA3UK7U+jSUcRga4+BwHsdC/WVU71zjx5TwZfqkuF7aeAUH/QHpBSVH/
-	 CPicLDj+J2mvRvauE6/gPuw7s2AzjAk/wizNY/ERmaLKoBTjKZMurZnMjWHwSKO73peXg
-	 PikIDyPrmP9bsWqaRWtcmJvhB6KIAqE1Sl13SgH/kuNtYganzSny0bdWp0ATymyA+6Ing
-	 5NwQ5ml8wfpIEW44cjbDCF2ioH4p5K1iLI/XapzAy+PqiiZ7L4fiJedBdt9zKH1E5tw==
+	t=1793009635;
+	b=ibvyjFAWWsBOCf9fXi4o700qZIRsUlHnqjdsu8Z6HLULQRYVjnUH+jp0xM+5paltC9+E
+	 qp1hPxkCEiOmR8Qgd+4EmV6Ffs67wOg78mT230726K+mFHZdKiicff0NaM9B9e90uuMKY
+	 vFPkJPe+2x2jpzdEKpVtxosPfWQNWxA4MVvTpLx32vnA36E/DuTm2/wqj+kXZB/6hNekk
+	 aSMFFk9EhcgI8poYl6LGbuas1uqLcLe43MVHsvw87y3ls5Ag5C4VMdYhb5e+CL2qLORAE
+	 I+qzBz+GKsNeOw9k289JwihulZDf3FVp/o8C1P8Dy5+HSVkA+XLEim4N/ftw7L1ryLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009627;
-	h=DMARC-Filter:X-Originating-IP:Received:DKIM-Signature:X-Session-ID:
-	 X-Originating-IP:X-Works-Send-Opt:X-Works-Smtp-Source:Received:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009635;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=KHYNaLMhPcP0oroUjwYLBe/Xff4NpZms5BYnQSaUeFs=;
-	b=ltf/p8wEhXxHVX/O0Wlk5b2SblWsirRarD2EJ9zgYlpUQdAHJ+Nn0d1kfc8H7T5Rtinr
-	 eDh1qgEunzss38GKIVJNLGoNgsG933TrrzkT9IQV/wHyP+nOYV0CxY58e1iPY16QQjawD
-	 596U7U1Qfg0Ceb70CL91blxOJxxijBkQNhmVgsf7lWTiwLEwQR1iIqHq4zvJ50aJEWQ8R
-	 fjZlZUeSe2+QnP6RLMIFz5UQZI6kVvUtdrmcEXwSTSfpkY98/9IyB/fzeYIbfSSI3VYYD
-	 XOA+mW58AbjiLxwiuoOMWqBXf/yulVC/+i2Rsn+xQWHGRDjDvpPq889h4fdSRsds2Og==
+	bh=gUvhPvbaKNcm4IjsCyO+EpYXhBhQnGVfangkZ0Iy/gk=;
+	b=H8JEWLx3UM1VVWsA3z+XhFDp/5x2ClwkToRPa1PZHWxgOaFA3pUzCQCvPPHOWJZy2TMf
+	 AZ0E6FBAZiVPsC0MVHc9ChigXmoPpyFlOZTbX3XLgYpuv0bkc46cvfPURD/IjS9oE3YlW
+	 E17jI4k7fEL+gKuL8GZ6G72XrruMBnzZKFIot1m2gSCx7joqlX/3vLzd5//f1qDRac8/R
+	 fpptC3JcG2eQF85t1NQZQmvkhUmw8MUj3MaETf8rp1quOLlQPd0S1GsqnecLXCabMocmq
+	 L5M8Es33gW4pz87ho2h3ChtQjPi+e3zr8a0oiGwsNu03aST6j0gfDvCiPPDWm0/5wnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=navercorp.com;
-	spf=pass smtp.mailfrom=navercorp.com;
-	dkim=pass header.d=navercorp.com header.i=@navercorp.com header.a=rsa-sha256 header.s=s20171120 header.b=VglYu2Ct;
-	arc=none smtp.remote-ip=114.111.35.57
-Received: from cvsmtppost01.nmdf.navercorp.com (cvsmtppost01.nmdf.navercorp.com [114.111.35.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63210606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:13:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63210606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=navercorp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=navercorp.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YhVjGRx2;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B28D606A31E;
+	Mon, 26 Oct 2026 10:13:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B28D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=navercorp.com header.i=@navercorp.com header.a=rsa-sha256 header.s=s20171120 header.b=VglYu2Ct
-Received: from kr0s-hmac-real-1 ([10.180.30.112])
-  by cvsmtppost01.nmdf.navercorp.com with ESMTP id MY+pcMp0STm6h9hTYIcEDw
-  for <stable@vger.kernel.org>;
-  Mon, 26 Oct 2026 10:13:39 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=navercorp.com;
-	s=s20171120; t=1793009619;
-	bh=URLrTE/7n+/omBViu5VvD5nXJWdvITooqgzhIFLjUbQ=;
-	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=VglYu2CtbjKJRgU/l5oLc1exj0+YmkpmBywnMfwXJj4mywmxUNl1Rt5wqd7QOslpw
-	 p0ctOhWa2kpqg5P1BhjMqN21fuyyW95iy2p7X2cglC11HRrUz9z+RcSOzYjKsF37OX
-	 3GNVlvDQhxresy7dzyt1NhPF7ILj8VfaeAfLp9F38r/SgQfu5URKx0ipJH+cN/Im9s
-	 so00FpNzfrCzJNrMpmlmKlhSuomsxuBE1BLf0VqAnLZQwN8FoHD3JZBOzhiTiHG1tt
-	 rPdwd/bKYEwZaqq1L+exjiDhJSUErkymgp/eZmFFCEjL0fJySsHF5oVXsB8j3ETiQA
-	 beVd6JWzikayg==
-X-Session-ID: qo9U7QGhQySfr0bx3zSMnw
-X-Works-Send-Opt: TPKwjAumKAumKAbZjAgmKqKXKoJYFHmXjHwYjAg=
-X-Works-Smtp-Source: AqnXaxUlFqJZ+Hm/KxUX+6E=
-Received: from localhost.localdomain ([10.25.64.175])
-  by cvnsmtp02.nmdf.navercorp.com with ESMTP id qo9U7QGhQySfr0bx3zSMnw
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256);
-  Mon, 26 Oct 2026 10:13:38 -0000
-From: Gyutae Bae <gyutae.opensource@navercorp.com>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jonas=20K=C3=B6ppeler?= <j.koeppeler@tu-berlin.de>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	Minsu Jeon <minsu.jeon@navercorp.com>,
-	Jonghyeon Kim <jong-hyeon.kim@navercorp.com>,
-	Siwan Kim <siwan.kim@navercorp.com>,
-	Gyutae Bae <gyutae.bae@navercorp.com>
-Subject: Backport request: fq_codel stale-state fix (815980fe6dbb)
-Date: Mon, 26 Oct 2026 19:13:37 +0900
-Message-Id: <20261026101337.22494-1-gyutae.opensource@navercorp.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YhVjGRx2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=YhVjGRx2bPgQrg+vpxNIR+1EqorTf6K1/A2R2m8iS9gExFmzk7sD8tInPeHph+gv079Nqr6ZEYrST
+	 H6JXGwq58XyeLQNKvOulXiTkKopP9q4uBzbG3EWB2ZI/w9a2aiRzAbeMt+k/pNbOYtaGdCsH6vIklU
+	 tZbt26dxOLWqNqas=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16adf27d9234-29bf5;
+	Mon, 26 Oct 2026 18:13:45 +0800 (CST)
+X-RM-TRANSID:2ee16adf27d9234-29bf5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[124.156.110.139])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56adf27d8ade-aec31;
+	Mon, 26 Oct 2026 18:13:45 +0800 (CST)
+X-RM-TRANSID:2ee56adf27d8ade-aec31
+From: wuyuehong <wuyuehong@cmss.chinamobile.com>
+To: dm-devel@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatoka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org, syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com
+Subject: [PATCH] dm snapshot: fix discard_granularity unit in snapshot_io_hints
+Date: Mon, 26 Oct 2026 17:35:00 +0800
+Message-ID: <20261026-dm-snap-discard-granularity@cmss.chinamobile.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,36 +65,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+snapshot_io_hints() copies the snapshot store's chunk_size, which is
+in 512-byte sectors, into queue_limits.discard_granularity, which, like
+all other members of struct queue_limits, is in bytes.
 
-Please backport the following upstream commit to 5.10.y, 5.15.y,
-6.1.y, 6.6.y, 6.12.y and 6.18.y:
+For snapshots with a chunk size smaller than 512 sectors, e.g. the
+16 KiB (32-sector) chunks created by the syzkaller reproducer, the
+resulting granularity is smaller than a single sector.  When
+dm_calculate_queue_limits() then stacks the target limits into the
+table limits:
 
-  815980fe6dbb01ad4007e8b260a45617f598b76d
-  net_sched: codel: fix stale state for empty flows in fq_codel
+	blk_stack_limits(limits, &ti_limits, 0)
 
-This fixes stale CoDel state that causes packet drops in sparse
-flows.  When a flow's queue becomes empty, first_above_time is not
-reset, so a later packet can be dropped based on the old timestamp.
+queue_limit_discard_alignment() truncates that granularity to zero
+sectors and sector_div() divides by zero:
 
-We have encountered this in production on 5.15 nodes using the default
-mq + fq_codel setup, with steady qdisc drops on lightly loaded links.
-A kprobe on the fq_codel drop path showed that every drop we traced
-occurred with first_above_time set more than one second earlier.
-Applying the fix as a livepatch on a 5.15 node reduced its drops from
-about 50 per minute to zero.  We also confirmed that the fix eliminated
-these drops in tests that reproduced the issue on 5.15.92 and 6.12.48.
+  Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:queue_limit_discard_alignment block/blk-settings.c:645 [inline]
+  RIP: 0010:blk_stack_limits+0x1105/0x2d00 block/blk-settings.c:916
+  Call Trace:
+   dm_calculate_queue_limits+0x70c/0x1510 drivers/md/dm-table.c:1823
+   dm_setup_md_queue+0x199/0x4f0 drivers/md/dm.c:2618
+   table_load+0x4fd/0x8a0 drivers/md/dm-ioctl.c:1661
 
-The fix adds one line to include/net/codel_impl.h.  It applies cleanly
-to v5.10.272, v5.15.223, v6.1.190, v6.6.160, v6.12.114 and v6.18.58.
-Both commits identified by the Fixes: tags are present in all six
-longterm trees.
+The divide fault itself only became reachable when commit e924da7d6622
+("block: Drop granularity check in queue_limit_discard_alignment()")
+removed the check for a sub-sector granularity in v6.13.  Kernels
+before that returned a zero discard alignment instead of faulting, but
+they still advertised a granularity 512 times too small.
 
-The commit was merged in v7.0 without a Cc: stable tag and was
-backported to 6.19.11 as 86b81a5c24ad.  It is already included in
-7.2.y, but is still missing from the longterm trees listed above.
+Use the same chunk_size << SECTOR_SHIFT conversion that
+io_overlaps_chunk() already applies to turn chunk_size into bytes.
 
-Thanks,
-Gyutae Bae
+Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
+Reported-by: syzbot+1288484b13bf6af3620d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1288484b13bf6af3620d
+Cc: stable@vger.kernel.org
+Signed-off-by: wuyuehong <wuyuehong@cmss.chinamobile.com>
+---
+ drivers/md/dm-snap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index 797c432594d8..31676ee05514 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -2414,7 +2414,7 @@ static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
+ 			snap = snap_src;
+ 
+ 		/* All discards are split on chunk_size boundary */
+-		limits->discard_granularity = snap->store->chunk_size;
++		limits->discard_granularity = snap->store->chunk_size << SECTOR_SHIFT;
+ 		limits->max_hw_discard_sectors = snap->store->chunk_size;
+ 
+ 		up_read(&_origins_lock);
+-- 
+2.43.0
+
+
+
