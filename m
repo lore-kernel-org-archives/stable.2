@@ -1,70 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.31.73.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793033489;
-	b=c1QvfMP5qahnFUD2aMz34dC3FLjWDijRGeKbz/fgP7Qoig3z4Zy/3/bmttSO+bcB3o3c
-	 ODjmwwMKE8AqkbRQmzg9wtJN4ODxuukIhdJNCsU8HPCv+gzCGNsjKD0/hhL7tylYqro8Q
-	 L0cjWwMv7fo/lkzOvhDAFIi6iHfAVqynlMSKf54lwqVZ/l/J9FtOcNhhVJf613Wc46SF1
-	 mYLbhoAg1d4ksFHY8e+qJurIa95ZZ55xVsBVmP9M7WTB3/gijKTBJscU0wX/OnEbUEeAZ
-	 6ieWOkHIhFmMV+/E+iMFlD584qcn+9pio6R51q6cvqzsfn1k0nOsVqKzTSmWL+LZjpw==
+	t=1793033518;
+	b=cNXPpnTKRDKj5mKUgTFX6ANBfyq/3fkV8Aq/vFT0+ppqitNkiS08AJ/QKyBBKtFhcQRJ
+	 mBOZQBMMCyrplW/OCooPMYtzKEyBkyZ7ekjpY9KhDU5ZkWDDb+G90fCNbMCiSa7k71Sxn
+	 /zTEH+GwFD0td3r9dUPw+h+NuQL2OBPRMP3F4hubefd99lvjrS5JEHpBlOVev2xEBf3ES
+	 T9EPXQ5PIWrSFyLwT10vewzJTgPxXEf5p1mYigqnF21PPFxeT0ISqIDZmFZ/N8z1auQhF
+	 5PNidzDJh9e61eovfejbJfGUw3bbPfvRDCy906upXqxaMBzJKIfEorrQBYCJC4JsX3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793033489;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
-	 Content-Language:Autocrypt:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JpYm+GipSnbcvCoj/V9iSt7A187EAklCfzrFeqvUtMI=;
-	b=F62h9aeSKEybFitYfnoBUjmcEHUr9VND0lDlYR2UVYCKG4lLFYF7stiTNeJqDhJCw9g5
-	 GLjPcZq5iaekJouQXIht3KuLov0IKdExidUaB9XFcEDhp99AbRfSJqJX4WrSSO8B9DDEi
-	 nboV73gn5t8Jdous+6/VHmHnVORnB1XB3zYroCSW5IgXyfFjsb/3P8Io7/t1wgghCo8RF
-	 xIbpxbXowCUJ4JXii8E4DQnFLc6g30Cy191wzIdKb8WpwXm+ziARToHcNmQaIAWYdljU3
-	 MIJDM46fPPmL5wa0KawZlrVfYLwNcwTaaL+/+C1Ykf9EzDORBr5R/k0yIJNBv3QzRXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033518;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=2/2qQgHjg7B4L90wJY7NcYQb/sw77pDt+0YufHxfkwg=;
+	b=dhWAMIu52TwtrtEG9QIMz3hLgHSlox6VBNTXFljtmAk3HYRFVwcUjqFuguZ46VilsIaE
+	 V/ZDlMEzWsW4PltMNAFXFfWja9u7TG93Q/0YvtU661A4EjEZp816V5QFn8bXLc6eCThOx
+	 4az0lvG8+BQCD2mF365/ph0Q20jRBe3YZ5N4A6hIyTnKScLcGaSvLPHKiquxjkAZSYhKn
+	 fZ4Yig+EyMskAvheSa3gP3960nuoHtW3KtzDK8z2fGW5DIn+Dihtq+rGWko/MyfTAEUee
+	 Cxkj4ssstP4sFDGBgLkfYpXNPfD1Cl3f4/iyjvd6kiPjYS+TDz4nMvpSwcgqlR+/q2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=eosdev.it;
-	spf=pass smtp.mailfrom=eosdev.it;
-	dkim=pass header.d=eosdev.it header.i=@eosdev.it header.a=rsa-sha256 header.s=list.eosdev.it header.b=jA0Agd+a;
-	dkim=pass header.d=eosdev.it header.i=@eosdev.it header.a=rsa-sha256 header.s=list.eosdev.it header.b=jA0Agd+a;
-	arc=none smtp.remote-ip=89.31.73.190
-Received: from smtpauthcli.interhost.it (smtpauthcli.interhost.it [89.31.73.190])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uMdD4p6K;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0D7606A31A;
-	Mon, 26 Oct 2026 16:51:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D0D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eosdev.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eosdev.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27223606A323
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27223606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=eosdev.it header.i=@eosdev.it header.a=rsa-sha256 header.s=list.eosdev.it header.b=jA0Agd+a;
-	dkim=pass (2048-bit key) header.d=eosdev.it header.i=@eosdev.it header.a=rsa-sha256 header.s=list.eosdev.it header.b=jA0Agd+a
-Received: by smtpauthcli.interhost.it (Postfix, from userid 1000)
-	id F33ABA26AB; Mon, 26 Oct 2026 17:51:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=eosdev.it;
-	s=list.eosdev.it; t=1793033477;
-	bh=ZxTiioJ6b7RWNBjfsRuabOTUrn9zjNjT2s3ACaZvFcs=;
-	h=Date:From:Subject:To:Cc:From;
-	b=jA0Agd+aGon0Arek3u5MIl7qF8v5O3ewgmXlVBPItezZ5fboVqTEygjwSxGQRW3L2
-	 12IecwNwJS+xP6glvOtYJ+VwSmenQChrmomBjUbkDMkzoydvRaPkiuo6jXyGtJCwU9
-	 mQEIP3B13HbOUlZabLl6eyVLKeNLrZl3Lo44UxNwPshFd2XomImyKA2jDwhaO0I8aN
-	 G8nPrrxeVb+3FSFsXEh/p4XHPxSO0r/U3k7ZFVU2BjZgIjxtCujQ/fQ3ApZ6KWA4xu
-	 7XFhMuAWsAlv/+PiGnTGXUI24jvtuEHilv6f6nRziGKJunR2RpXVVqEru4Go/SjPYS
-	 hS3RL+kc0QJSg==
-Received: from [192.168.1.30] (host-79-22-56-114.retail.telecomitalia.it [79.22.56.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	(Authenticated sender: morini@eosdev.it)
-	by smtpauthcli.interhost.it (Postfix) with ESMTPSA id 1FC1AA26B7;
-	Mon, 26 Oct 2026 17:51:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=eosdev.it;
-	s=list.eosdev.it; t=1793033477;
-	bh=ZxTiioJ6b7RWNBjfsRuabOTUrn9zjNjT2s3ACaZvFcs=;
-	h=Date:From:Subject:To:Cc:From;
-	b=jA0Agd+aGon0Arek3u5MIl7qF8v5O3ewgmXlVBPItezZ5fboVqTEygjwSxGQRW3L2
-	 12IecwNwJS+xP6glvOtYJ+VwSmenQChrmomBjUbkDMkzoydvRaPkiuo6jXyGtJCwU9
-	 mQEIP3B13HbOUlZabLl6eyVLKeNLrZl3Lo44UxNwPshFd2XomImyKA2jDwhaO0I8aN
-	 G8nPrrxeVb+3FSFsXEh/p4XHPxSO0r/U3k7ZFVU2BjZgIjxtCujQ/fQ3ApZ6KWA4xu
-	 7XFhMuAWsAlv/+PiGnTGXUI24jvtuEHilv6f6nRziGKJunR2RpXVVqEru4Go/SjPYS
-	 hS3RL+kc0QJSg==
-Message-ID: <50c31a4e-9a41-46bf-9c70-ccbc1ed07b2e@eosdev.it>
-Date: Mon, 26 Oct 2026 17:51:16 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uMdD4p6K
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so10711905e9.3
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793033516; x=1793638316; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2/2qQgHjg7B4L90wJY7NcYQb/sw77pDt+0YufHxfkwg=;
+        b=uMdD4p6KVakawh179kk8FHBLF5CXO9wel4SSzout3Cv109M7RXUmUmrC9sJPIgWsSH
+         9ABB0JV8Z5NUOTGY7GHDP30lVe2PF06Z5Rb3sGZu9AHhb2etfX/cHvQCyiGlPRRn3Cbe
+         CFLeOIxpliD0sRukb/bWQTt0J7k1R+JKXgZVJ1KMgCeuSSmAA57l+zaNLFl6HnQ/Ahaw
+         zQi33bNvGhiw52l+kM3vvg4nLkAUFO3pt8PlK45P8ZDXb1WCt8rTiBonnjcILrrKElFt
+         fjlgVO/cXdwsEDjIa5uw8AyiN4qBUQXEww/1M11No4eGietgwgSL41okjBF4DwT+0EjC
+         VbRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793033516; x=1793638316;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2/2qQgHjg7B4L90wJY7NcYQb/sw77pDt+0YufHxfkwg=;
+        b=z54+JzQ9kk3SpBHGInGu4F8WDdLjYyPM7yX2yYq1OQkawKcDCsWRVDMJA+vdr9tnvj
+         iGqIqcqP8KCsg6qTYwBnyxpak6Lhp49cTx+IdO4YdmUZpC6WG0d+ZMZyffvh9f99XkEe
+         Zztw0QpxjHr/C7z3t5zcqxo6ywvr15dwmBD8uAd6pMNGZyGpbChltEvh4Pj60cWT0dri
+         6TxY72Srz74J89IlCOgl8LtyRqdeXatQvBxvab+uTcTvmGBpVfZj1HTolF/oLINDpgfg
+         PQr4WUu24oNkql7oS6wv2soLpTifdNPCsfatlwyjC0L0nI2xpc/XksPzrtLQLurA7/h6
+         o6Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBxKMTUJLBDdmw2zWY7YzWVoerOv8K1oiS3k/hCjCoVcHqf6Y6cTR5rUaZXf3g7KyMArt1qL7x8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoyAi7txAM6cshV+s5NNZc+NxIt/Tlegm2cmhxTNquA4dqsSgT
+	BdQt88orH7eMW5Bzi9eO+1HWRp6LfL2Zv8BrfunfcRpACZuJDYoJ3UUpQQaVZns3bg==
+X-Gm-Gg: AYBFou3rM8za9t7oERdbwvZSP2kOEX4xRowjnOQmxwKbhdXrxf8XRVeJ1ow8hVIGtrL
+	CuEMn7zLF3/8na6BrpO9w4fYsvcj8Yl3Ubc7dS0cenR/TqbPyBCMg3ngFB4AnQpoRy4TXscYS0s
+	8hCjSBESrLJebJWnSf3dBa/kTitT420qn34CG7C+feAaDQrdGpct1OFEq97JMNgG6LlCQlOpYl4
+	g09CVtom0CjRgboieZLbEgyESzDfObfNkwbFFAElsEzelYv0KTDGmmbjnXYoJKwlYEZRsGteFLE
+	Dmg/wtxTxWby+MvvvteSQKMcD2QhYF0zsKjWA3n6C/6AlhEjdn7sL9WLSh9LtrfiRpXby4kskT8
+	mY4C+hwRNdRzlaa7Si5evluUiTMDlG5TelSE/SMRYxzAslbuBz8Rnk2Ussw597bxBcScWx1LjSC
+	IeYUgDAYN47STYVDxFEF+JpyKgxBx9sSoJOYAUWx04Y8mN//cO1V4+apSw67/aozhmnt4vXU3/P
+	UpOnfrZRkPZnOkToHtlu4+qKnaly05QGyayrc+yoeZ06aaePO8/c9Mcqj/lnokQiEhZoSoSOQC9
+	vhjtr2Y80dqFljsC5NBDceMU
+X-Received: by 2002:a05:600c:46c5:b0:4a2:1364:252b with SMTP id 5b1f17b1804b1-4a35acba20dmr143926245e9.35.1793033515974;
+        Mon, 26 Oct 2026 09:51:55 -0700 (PDT)
+Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a293sm204540985e9.12.2026.10.26.09.51.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 09:51:55 -0700 (PDT)
+Date: Mon, 26 Oct 2026 16:51:52 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Amit Machhiwal <amachhiw@linux.ibm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	kvm-ppc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] ring-buffer: Do not check si_mem_available() before
+ deferred init completes
+Message-ID: <at-FKOk_-OrKTP8H@google.com>
+References: <20261023145459.47516-1-amachhiw@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,103 +106,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: EOS - Manlio Morini <morini@eosdev.it>
-Subject: [5.15.y] Request to backport c567c86b90d4 (md/raid10 fstrim kernel
- crash)
-To: stable@vger.kernel.org
-Cc: linux-raid@vger.kernel.org
-Content-Language: it
-Autocrypt: addr=morini@eosdev.it; keydata=
- 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
-Organization: EOS di Manlio Morini
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261023145459.47516-1-amachhiw@linux.ibm.com>
 
-Hello,
+On Fri, Oct 23, 2026 at 08:24:59PM +0530, Amit Machhiwal wrote:
+> During early boot (early_trace_init() called from start_kernel()),
+> tracing allocates initial ring buffers (temp_buffer, array_buffer, and
+> snapshot_buffer) for CPU 0.  Later, as secondary CPUs come online during
+> smp_init(), each CPU's ring buffer is allocated via trace_rb_cpu_prepare().
+> 
+> Before attempting page allocation, __rb_allocate_pages() performs a
+> heuristic check using si_mem_available() to return early with -ENOMEM if
+> memory appears insufficient.
+> 
+> However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
+> NR_FREE_PAGES only reflects the initial non-deferred pool across the entire
+> period from early_trace_init() through smp_init().  defer_init() leaves
+> only a single section per node (e.g.  16 MiB with 64 KB pages) initialized
+> up-front, and on kernels with large static binary footprints (debug
+> configurations enabling PAGE_OWNER, DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG),
+> early core initialisations (SLUB caches, vmalloc, static ftrace records)
+> consume virtually all managed pages in this pool.
+> 
+> si_mem_available() therefore returns a false negative (often 0-1 pages)
+> across both SYSTEM_BOOTING (for the initial CPU 0 buffers) and
+> SYSTEM_SCHEDULING (for secondary CPU buffers via trace_rb_cpu_prepare()),
+> causing __rb_allocate_pages() to prematurely abort with -ENOMEM.
+> 
+> This failure is false: the buddy allocator is designed to replenish
+> ZONE_NORMAL on demand via deferred_grow_zone() when an actual allocation
+> is attempted.  Checking si_mem_available() before calling alloc_pages_node()
+> short-circuits this on-demand growth entirely.
+> 
+> deferred_grow_zone() is only permanently disabled after page_alloc_init_late()
+> completes (it spawns per-node kthreads and blocks until done), which happens
+> inside kernel_init_freeable() — before system_state is set to
+> SYSTEM_FREEING_INITMEM.  Skip the si_mem_available() check until
+> SYSTEM_FREEING_INITMEM, at which point all deferred pages are initialized
+> and si_mem_available() is accurate.
+> 
+> Use IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) to set i = LONG_MAX during
+> this window, unconditionally bypassing the threshold check.  On kernels
+> without deferred init IS_ENABLED() compiles the branch away and the original
+> check is preserved unchanged.
 
-I'd like to request the backport of the following upstream commit to the 
-Linux 5.15.y stable series:
+Commit messages are not LLMs' strong suit.
 
----
+Otherwise.
 
-c567c86b90d4715081adfe5eb812141a5b6b4883
-md: move initialization and destruction of 'io_acct_set' to md.c
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 
----
-
-The regression was introduced in 5.15.181 by commit 4a05f7ae3371 
-("md/raid10: fix missing discard IO accounting"), which depends on the 
-above commit.
-
-Without this prerequisite, running fstrim on an MD RAID10 array can 
-cause a NULL pointer dereference and crash the kernel.
-
-I have reproduced this crash on my Slackware workstation running Linux 
-5.15.223.
-
-The issue was independently investigated and fixed by Canonical in 
-Ubuntu's 5.15 kernel:
-
-* https://bugs.launchpad.net/bugs/2117395
-
-*https://lists.ubuntu.com/archives/kernel-team/2025-July/161560.html
-
-The prerequisite was also backported to the Linux 6.1.y stable series:
-
-* https://lists.openwall.net/linux-kernel/2025/05/06/1629
-
-My original report:
-
-* 
-https://blog.eosdev.it/2025/07/attenzione-fstrim-su-raid-10-crash-del.html
-
-Since this is a reproducible kernel crash caused by a missing dependency 
-of an already backported commit, could the necessary fix also be 
-considered for the 5.15.y stable series?
-
-Thank you for your work on maintaining the stable kernels.
-
-Best regards,
-Manlio Morini
-
+> 
+> Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
+> Cc: stable@vger.kernel.org
+> Reported-by: Michal Suchánek <msuchanek@suse.de>
+> Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+> Link: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
+> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> ---
+> Changes since v3:
+>  - Replace #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT / #else / #endif with
+>    IS_ENABLED() + i = LONG_MAX to avoid duplicating the threshold check.
+>    (Vincent Donnefort)
+>  - Trim the in-code comment to one sentence. (Vincent Donnefort)
+> 
+> Changes since v2:
+>  - Rebase on top of upstream ring_buffer.c changes from Vincent Donnefort;
+>    update threshold to i < (nr_pages << subbuf_order). (Michal Suchánek)
+> 
+> Changes since v1:
+>  - Extend the guard to cover SYSTEM_SCHEDULING as well: smp_init() calls
+>    trace_rb_cpu_prepare() -> __rb_allocate_pages() before page_alloc_init_late()
+>    completes, so the false negative window spans both SYSTEM_BOOTING and
+>    SYSTEM_SCHEDULING. Use system_state >= SYSTEM_FREEING_INITMEM as the correct
+>    boundary.  (Sashiko, Vincent Donnefort)
+>  - Wrap in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT to preserve the original
+>    check unchanged on non-deferred kernels. (Vincent Donnefort)
+>  - Drop Tested-by: guard condition changed, requesting fresh test.
+> 
+>  kernel/trace/ring_buffer.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 9c4e40847e43..09c02e838c4d 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -2463,8 +2463,16 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
+>  		 * memory. It may not be accurate. But we don't care, we just want
+>  		 * to prevent doing any allocation when it is obvious that it is
+>  		 * not going to succeed.
+> +		 *
+> +		 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, si_mem_available()
+> +		 * will reflect the actual available memory only after
+> +		 * SYSTEM_FREEING_INITMEM.
+>  		 */
+>  		i = si_mem_available();
+> +		if (IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) &&
+> +		    system_state < SYSTEM_FREEING_INITMEM)
+> +			i = LONG_MAX;
+> +
+>  		if (i < (nr_pages << subbuf_order))
+>  			return -ENOMEM;
+>  
+> 
+> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+> -- 
+> 2.54.0 (Apple Git-157)
+> 
