@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792991784;
-	b=Lu6nC4Hac10BDSB1PBq7uLv9XhTUiPZvTzD+R2V60IDSu5gDd5R969VBUtAbxbUYgR13
-	 JCVavO5X3jUo+M1LeHl3iQl8KUeO1yHSlrjE0Dr+Z7eM4FdpWOPuEumrvbMTPEf8UiCLF
-	 aTQOnn/K7JsX7u4qZmHjBjlz/SFnC/5T2blsumiIV50NaY6Ik7RcukrAST+VoFoDUAjZH
-	 MMdYfIYrI7zJiDMnrE7dORv1v5thtHzE4Dx+1HiJIutvaeLoVwMa5oZTQOMRb5mcNowcU
-	 a3ubt6BoWQur3d1RkGUHffRcSubWDv9WURCV4jKe8L7+oR9mtwAHfDF4ghubWoN3ceg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792991784;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792991955;
+	b=gi00REPRTY9jJkTy3RSPUYIjKY7gESWBE2lGDL1jYXZjPI4Sm49Y37/virpDJZBLc7gA
+	 9hJ9YFj3ZF/imHHf2rztu7Wy21tdf8fCNGym7R8VLK8CUbES69OGcfv4uM/gBy7RsFUgx
+	 DSQkJtqqmU1xEukH6qb/zctavsiCGNnfmZYEGGEEZ/4Voj6bmLYul1kcq+JvF7oKNvPJF
+	 bevkfM+TkiD+WkI7fvKWgoIJxUmDf7Kjw4Vkj2QvqOMOua/9c9j5w6SvimahoY5QW0Zri
+	 moHoLukSDW+vVVjzG8iVUhOGUmDEBjMJXcHzY/BxF5fAnh4OqBTAWAz7sagp7yBdEIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792991955;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
-	b=mkIoWCd/4LFQlBJ5L1r+L7wT48n93LvIlW9XTbaEBSaEOamWn2c8lB2bNpw2FgDNQkSF
-	 XO2Z43ndnDoQ0/AM7azZbTIf5ke4UMEAb+yxYXp7OZcAUwdpIEanB+4pvC88IJX/hy1RE
-	 GZ1kEUljv8Uqh8GlKZyyVY5FigIDFF5dgWeNOcQ3Wa8Q3ivDB6rR2UB7EBdhrETDqUctN
-	 3yUTv6TQ3rEiS56BRj1wYAvw/aXxBz9Eqt4eW2vAKBrC7ZbPzOnZVkrdHN5SQYeLVGi44
-	 DtPMeAIX94woRt7QheAhC5Xc790/DQytg5YLIMvYMr816cTTpe/q2axCLRqngsL+NPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
+	b=Hat2StpMeAEvuLrGzyJLKLMqP3/Mz5/XPT3NwYEHhAHZOKqiEITS0YocAbd/UAmpAPkE
+	 Ne2MzF+ioA7PsxTH2ph88AI9XOoK9nKJsy95fyK1pVyUrc6PN7lwhFDRv4OdjSxUjua9Q
+	 AbCvboWdDFgu4ezqO8lF1Y7IECpQ7BPL0RKvrdZU85IM8FGG/s9wcndJQnaC6eWft0x/P
+	 c8xOcDYXDRSDKqFRLwB/hJLv1dW9Srs5QAd88ETrszDlYTNFQPzOrCW8/A3h4NK4x3Akm
+	 RTeaLeWkg9t0bSm8KFnux/qO43GzzC9q7amMLfV7C3LD7O+6M0TIl11cX2584OX8UFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PQ2SpM7u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kl88xs12;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC5B606A325
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBC5B606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD1B606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD1B606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PQ2SpM7u
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c46bd7a7345so214327766b.0
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:16:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792991782; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TI+BHxJS/Z9Y+Gjv0ivJlxMEBElSdx73cU0yyPo30MZNldYh+S7Qovu6sUp+O+Wjno
-         pObS21v/SIog2/QKA6xqsfZ5CWHZbk01i8TLcT32xeF5fqysLUvR8Gakgrkls3ZUSPVC
-         O3zqSp8dc0oR6LxiPe+xPODrWngJUAMUfEkQnhFtkGe+YIT3iK12XGaAzZPafY8jAgQK
-         r9FlC9uZAByIp9IQk2ol3hnQmRuak/njru5YgDxC/ua1A5Y/A1J6I0dYWdhKdb9j2MWy
-         qovtKJrkLl/o1u/kLbPnGlHPoeb1El0UtPfjOvJgm7zpOzq5kP5CuJePCPC4Jg1v2g6Q
-         088w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
-        fh=T76AB2H0gODfUXTwMK2P+7siCtlp76TnFoWxCbKRJtY=;
-        b=IC4TIGUAuyiRrVSWwbVYGz1gRgLZU7/S3F2NPSRXNvQBvF5YBvAncr1OHdU4E4ygyx
-         st9WXhxAeI9/AyXf59Cd3+oVb+xqopDOc+ZkZV5bhZZ6jvrdSSxDoTB8pSsLAAErAfY/
-         aflnd5A2SGLbRFXCVOg7m0GZ0TxMhEYexSZ6CcDtxySnZ0JrxFIQB0uBA/aRHcWODU3W
-         AjA5mn0CpKEZFvaDB6YuZkXvpAinJzELRtnti7NeOev0BMM3q2rb0Ak35V/MZV37dnTO
-         ltaf90Sz2NXQzdDCBb1/lc0xp2kyDpJ7we1vHBnszopbP5C1vvMRbgVvGo5eTvx9Rf0Z
-         jzLA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kl88xs12
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1968962f8f.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792991782; x=1793596582; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
-        b=PQ2SpM7uqS9WHlEZYY7Xf+ANwxpo6Pdajhn2HOJ1DdtJm/nPGeq4afxXIMr1/D0MP1
-         ZqEBE0YbnLXvvUOl5gxOUHjMwRYdV2O++fEWWPEwHF8pP20adYQjiRoJXhB8FjLAJbr4
-         vIaCRcfHDK7mwKQdbDPFb+sVbhQzcjXA8oa65NvU3BNMqIAUP518xme/iTq6wXy7j6eQ
-         xS+BVtRr9zQmDq/N+LW+aaRMQ5826kw+BNnfZmCmZsefZTh+Ld7rFEKIL0ghsEpd7fU4
-         nQH+HKmVJthRcrKvvp+55A01lX8R+i8OYuFfufFg/8xCne27EwX2KXB0eUOYkQdXtmzj
-         HKGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792991782; x=1793596582;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792991953; x=1793596753; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ahOsVudUc7c7Un9O3y9zKqIgbSxfkYu+yvHVouvLUFk=;
-        b=LU03CelCa9IKXses2QE2/6HV6B7Fzc32ugxDqEvpyz1ZomTNfBltnyXg5v2PQJ3mci
-         ZPn3CmowjTelNg2f51rQ93yHL+c1xgx8EgleH/W99uJQKe0rlImMxV6boABdsp/2RlIh
-         3rsAua5zhuixNkg0rDSA48yGgd1cZM7lK2n4wvmb/d0YZPlCrEI8vGTHUUaqI+FQTzxI
-         Q1w5cCK166JUtprI87AD5oyS6/f5BLN8lLFbSGpqviKuoo4JZS3A1XgiQz2fh0fv8kgp
-         NTdAWkzW/0kTp3b0LRyXspR2CtToPc/iREtPQfB0qjHgZJc0u2n0BpwjhYSmqKsHuy8b
-         3Wwg==
-X-Forwarded-Encrypted: i=1; AKwUvBxit3DQXpHrXJ/SnHVkR1CrCjXujKRxv4shc3nEfST49UsckKy9yrQUKIieAE9RxPOfBQbjsAI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJB5gAsLAZY1EZrevZNKS4tJ+o7c0xR/nE1Tga/Ep1xmRceEF5Z
-	vZtM/+9uIbdEFyTbgi1qoG5N8qq/6v7NjrrSNLSqeXP78NdBYfSrq2I+Cye3Svi8iuDMiImmyxP
-	oiagYHFsc2WKBHlBISwY/mug27LLP7lM=
-X-Gm-Gg: AYBFou3j/1AEQ2tGB07WxT6s6ilmg+Zw4wJVod6nBquaT4HwumZR+pJZUu3YTdnzip/
-	YCD7u8YhT8UITpeF2jcSWxsH3qdDeQfIiFhRT+WNyUuf3bN3N2JY+gVqDuNgk6zN6t7jZKc7i3o
-	WI+v97iXGjuHD0GJ3UDLwx4guRqO8Did1waYwFt25UOenbnzG1GQ20hRijDD3Xt0AcKXuTrn/tZ
-	+GH9Ywst0L2MKPonQMGDD48oOsP8kpBnIbV7oyF3+s2EmpeHOkzMQdXzmxiUXx7U0H9TZcDsEt9
-	DahSkgMIzZEh6ypoB2FRjXi7WI8Xsly2ZZeuYmDsbumm3cVamX1Ba1TESUamFiOd+776hYWQkIb
-	/XDyLpy8uN/krEuKP12IEl67rVNMIdVU4zfWWqMHB0sk3ev5V3Hlim/byS5Fp1bULKT7IJ0Re1T
-	tTiMqj16V02VgjHqPA38QIAqkXDy1KjI6XqahzW8sg0eWl
-X-Received: by 2002:a17:907:f48b:b0:c42:bc58:f21 with SMTP id
- a640c23a62f3a-c46be5bfa80mr612811866b.15.1792991782008; Sun, 25 Oct 2026
- 22:16:22 -0700 (PDT)
+        bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
+        b=kl88xs12a4DUn4RWwpvSIEj9DqMyCBJuuTbiJsXrpo4LqeUWra3r6jxSNY77+hi+pH
+         FC7WgVXm2uLm3iBRhJYyIztvONqSdTTJ7O0nMHc/Oab19AZGZi8jW0P/1oXKTNU6AfGW
+         wBHqmmajV9PNZsB4tOogGUqXSL7ZO3LpqtXCxU1MR2muPjhBotIEwv26VVMIPj0MZJWz
+         Kq8x110PyZj99fCIozOeXbuKCze4BMv6srieDTYZcdG8VLegA1Yo+/59OWaP56c/stFp
+         fuXfOmqyySum8NxvFQiO1BQxREmRmqex/OA1a3NAnjmiZ/OyeZ0RZHNf4MFzVGVVHBr1
+         uMIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792991953; x=1793596753;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
+        b=YXZg4LFyipB8m4E+nAZAOYk8eQJ+QpF6ZFaflfeGYQKJr2xKe7lojh6f+6mCr2YqTp
+         TZCTtc9FJE/xmt4ARtD7LPAgl8sd13DMu7mu/+lBbzrqgckElOlSxKO1eRT6tYfm/OIb
+         C8ms+H8O3RUJMivO1HVwVHWxXvaWlOw3taSxNdYKwHG1E4+BgkKkF7aILOz5Itusnrok
+         +EY60akp8pESxVhbWkDL+d9naVepPt9tZCOkCfwOtFvtTMV2IngSsHanUhTlLh7oCaa2
+         jc7kvfRHC1URBjYPvGzf8scUyTDJzksjR5IVXcZz9r1xrL/uaOeVwtQQ1J6uabUD3pHF
+         2VOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlj051XEwq7mvCUhCzVNfkKwJki4Br/e39zjzDpxG9bnvKT0AgSlKR3dc2cJWA19bCCnXC2HQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNCa7w8YFnoG0uhBfLc+jSJ7d0yBqLEgIznRa2x4fdS7ubRDV7
+	1vCzwnUgzX+kRfoYEb/wsvqMwiHCa/e+RvEjvu65dMlDNE9fWIxo276Q
+X-Gm-Gg: AYBFou2aNdvfjaM8+Y87UVKf8OQKboZ61ACqkzeqA9By6gW6585SlkWvVYCB6ODMDSq
+	/wcwAwrN5Q2zfbCEcs7ZM6Xcxq3PaRCF/VR/8rJLgdZVvF8BV4Qt/+lZe4TjKHcErBon6D91bSJ
+	Ns7ncpVSXlD4Vl+Wp6M0ocHn8UGExNUPsxF0yEDkNtykGLdEguF0w2ljEHV8/rMLItHMADTTSls
+	fhCbIr5WywcOn5hg4X7ajIMqPQFsZWTQWA0IDZs23TojSi8DD+vPyqcHpLV0QGAyGaG177lL4MK
+	+CZNXMlYW/JYWlQhlDeJFFadRoMB2yQBlZL8eYL2cwuax5uvC2y3vYE0ED4f+HSdUeyA9RohfBm
+	fa+A/nkOJMFjXYY7AFE4wcSODnI0ofVCqbj5Wl1JRMOFO4FlSu3lmCxpTlGyG2McB50nOzPshAI
+	rA2868jzvM3AcOu8o3b0CNYFORAUS0U8wqWc9oOR5gHLLfI3wdma+MeHOwdKgQqvy3F6B2cSGed
+	w4C/OqrPNJJOpd3Mk7880JKU6ir7ppDjZ6mf9++FGFsTSlwVpxnkbe8VC0eHmH5JrYEUFVQgfzb
+	5Q1fCzMZvjuHtfp6RczKNHbXy6uEtDi4eg==
+X-Received: by 2002:a05:6000:2992:20b0:48c:7f94:8755 with SMTP id ffacd0b85a97d-48e3ed3b79fmr6670550f8f.20.1792991953028;
+        Sun, 25 Oct 2026 22:19:13 -0700 (PDT)
+Received: from fedora ([131.123.42.30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm13667258f8f.4.2026.10.25.22.19.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 22:19:12 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: jorge.lopez2@hp.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: andriy.shevchenko@linux.intel.com,
+	linux@weissschuh.net,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	meatuni001@gmail.com
+Subject: [PATCH v8] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
+Date: Mon, 26 Oct 2026 10:17:40 +0500
+Message-ID: <20261026051740.88791-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,53 +101,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024172641.19424-1-meatuni001@gmail.com> <at5d__q_RzGad7zt@ashevche-desk.local>
-In-Reply-To: <at5d__q_RzGad7zt@ashevche-desk.local>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Mon, 26 Oct 2026 10:16:10 +0500
-X-Gm-Features: AclHuK_gXUAQAd7y9XjGt8VKlv2KxyzU6RO9-KdAgpiiPwDIUw-cWtN014mbLq4
-Message-ID: <CADqcGBmOxJ1ns87pNmaSNVfCc-LNsTsf6YgnnZ5i+x4+dH+AMA@mail.gmail.com>
-Subject: Re: [PATCH v7] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: jorge.lopez2@hp.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
-	linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Andy,
+The input is copied with kstrdup(), which stops at the first NUL, but
+the full write size is passed to hp_enforce_single_line_input(). With
+an embedded NUL the helper reads, and can write one byte, past the
+copy. Use strnchrnul() so the scan stops at the first NUL, and return
+-EINVAL for a NUL or newline before the last byte.
 
-No particular reason. I removed them while trimming the diff, but
-you're right that both comments are still useful. I'll restore them in
-the next revision.
+Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+followed by 4093 bytes of "B" to current_password 100 times returns
+-EINVAL every time, without reading into the heap.
 
-Thanks,
-Muhammad
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+Changes in v8:
+ - Restore the comments dropped in v7 (Andy)
 
-On Mon, Oct 26, 2026 at 12:52=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Sat, Oct 24, 2026 at 10:26:41PM +0500, Muhammad Bilal wrote:
-> > The input is copied with kstrdup(), which stops at the first NUL, but
-> > the full write size is passed to hp_enforce_single_line_input(). With
-> > an embedded NUL the helper reads, and can write one byte, past the
-> > copy. Use strnchrnul() so the scan stops at the first NUL, and return
-> > -EINVAL for a NUL or newline before the last byte.
-> >
-> > Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-> > followed by 4093 bytes of "B" to current_password 100 times returns
-> > -EINVAL every time, without reading into the heap.
->
-> ...
->
-> >  - Drop the trailing comments
->
-> Why? At least The first one has the same meaning as before, what's wrong =
-with
-> the second one?
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Changes in v7:
+ - Use strnchrnul() instead of a separate NUL check (Andy)
+ - Drop the trailing comments
+
+Changes in v6:
+ - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
+
+Changes in v5:
+ - Limit the scan to the string instead of copying the input past its
+   first NUL (Ilpo)
+
+v7: https://lore.kernel.org/all/20261024172641.19424-1-meatuni001@gmail.com/
+v6: https://lore.kernel.org/all/20261016025352.230535-1-meatuni001@gmail.com/
+v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gmail.com/
+
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 876fc35d035b..435639e19c59 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -162,11 +162,11 @@ int hp_enforce_single_line_input(char *buf, size_t count)
+ {
+ 	char *p;
+ 
+-	p = memchr(buf, '\n', count);
++	p = strnchrnul(buf, count, '\n');
+ 
+ 	if (p == buf + count - 1)
+ 		*p = '\0'; /* strip trailing newline */
+-	else if (p)
++	else if (p < buf + count - 1)
+ 		return -EINVAL;  /* enforce single line input */
+ 
+ 	return 0;
+
+base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
+-- 
+2.56.0
+
