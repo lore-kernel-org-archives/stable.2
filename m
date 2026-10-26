@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057095;
-	b=SVUkE7nL2MrMwHfMb7Mq5UhhIWng2EEUuYjTWDi8ViYn+unAp8j0WeoR+Me/MTqnerLf
-	 NtRocYqMQhWcwY/LZr7jIWhViCfcX8smoseKCTkBxXinmwRyOUgezJWxBhrayItlhza1Q
-	 wvxvHHsFQjJulXxc4k1bFC3DNrEVgLIpdAqgrs5hYDb7ySEZlF5IsR9AQqkEekNAwbQI4
-	 SErFu4UnASNRcRNYkOwjrvCRqgYgPvtCtcniExEiRe/4teTHq052r5XFJJSYb7/ORFLKX
-	 Q5g9SqwxLjZbszJtqI7fx+x9lwnuItTLvfWEfFfwBg5EfLH3bmrJNzFhE2VRuIZQGqA==
+	t=1793057110;
+	b=ccwBMxIfAaneZNCs2fyKKq33b0DGhxv9AhL/GiWRPymeo7v3hRh1kCtllTuYaECED3iY
+	 PTJ15p78fJCAZhgGUd4Ut366YH0RZj3c7inaZ20KJOBmgyNKVHDjBk6aQ6MHQUP1Ge+us
+	 xAxKY6izmtryqpZRQ0r20FBTglFyPAWdqvUO2+XyTg7o9cLdmR9wT+7uFDUhf3ERQaEpT
+	 mXtwcsIEr9MN3SmQjV4jAdgC7ZGhbzQYtbCDI+1mi+NdDxMNGooDEKlHb/F+wD0B7Sotf
+	 95T9ddjCh+odg4oRJY5DBTaWUA/hK4z9A9X6VW8S9nEdLYmd9a7EIgi8xYy2XTwHFUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057095;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057110;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=kd3Dml8l3wq2mpKC3ZlVeUqbWcVHK5sKBx/wLEoqeB0=;
-	b=vbWke3HnA1ySfcmUBQlRKdTevOkFHrn4byq+aaY7L/5al7dytnwK96I8dBYLNLy3ePwQ
-	 gj6MqQ0LPECk3TR8hf4tk2VmWOcT5NIAbhXjKN8PjcWEFfnxyJbET9vCk7y1TyhB4yY2I
-	 PxH4L/V+zUuLr99+7aZDkgYZ4jUuKpamDXvCk9U3fxR0JaUt0+11fMTTZlzEZa71hU6SA
-	 +zN/6wHEK5feZzqOTMYZX+vJODCnc09BoL1Kit3wejNHr05LuPlIv45DVjZ5897QVwXyE
-	 E4ZeLvAAru/el4jcz4k2XaJcvlHufP7PJHUHUgGApUybOf02l+vE8POdt2IpJsJQ4Pw==
+	bh=k1Zlag/DNuh0RzHvANliw7JgpC1PTEsuWY1OUAoAx8Y=;
+	b=bubcF0xYsaXWb3JZISz30+BIaBuhFaFtwrku5SaoLYv0pftCltNqipYtixiB4+KeaEE5
+	 6wgoKRP5M4Q1Y/fCJ7nBHPrAjG+BIi24Hm1mia6fKNuZCouWQ/sLFVA3cyhJXiIF6MulP
+	 JSv1VjWs1z7NP/o3w86O92HrnxBcP6+x/5ZQiPH97j1l6whtMRaCmTSGYQK+XSS7KbjD8
+	 FI9W3W2nW/aPVZkC4D9C3WkRWGHyK1wcMbIYIYH6dWsP9wzwGSpiJrZc+aczfixwXNXp1
+	 xrI6JO5S1BJZzhbhAuH8HAF0J3qKymlXAegoSOr2yrxAW6shHU3QWOSrOqbMTTq4dpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+vLYLtK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fnLEbREK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB31606A327;
-	Mon, 26 Oct 2026 23:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF89606A321;
+	Mon, 26 Oct 2026 23:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+vLYLtK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BBCE1F01829;
-	Mon, 26 Oct 2026 23:24:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fnLEbREK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE9C1F031E0;
+	Mon, 26 Oct 2026 23:25:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057095;
-	bh=kd3Dml8l3wq2mpKC3ZlVeUqbWcVHK5sKBx/wLEoqeB0=;
+	s=k20260515; t=1793057109;
+	bh=k1Zlag/DNuh0RzHvANliw7JgpC1PTEsuWY1OUAoAx8Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=n+vLYLtKcNv22bWBkMUGXCCk9gajovYZy6u8dQ6jFeLyq4kpoCxdJi0VGVXm/RKKr
-	 TnmJczfopJdIqOKC/bvueb8a1IUKSpHq0MkO3GERMNwu7TWiZRyatNv9gw/jgFmi6l
-	 Q8BLjog93OMzQB4vESNPiBsCz8e3mhea/ge8JeHM6/8pAJbY4IcRf+ZDno2W3EI7mS
-	 NssvA4u/wjqlObgc4uiZDqRGTMQHigLSUgLw+3wYkpC/VA/Qry13ipXJOJ6YlRA1tL
-	 am+DNTfRuyttb6yiNo69/enwFUs3hEtDaPhRTtD01NkLO7sg3EUPIsRen7n35FtD9F
-	 +R6TlPI70Fwew==
-Message-ID: <c267c29a-5678-4c0f-a15d-e5c12ae8c427@kernel.org>
-Date: Mon, 26 Oct 2026 23:33:31 +0100
+	b=fnLEbREKUCIw3x3D22mrcZnRxIlnJim3GobgkFHE+QN5rPvlAjVqot2WvzRAG1xKA
+	 5H7kD8aq2n70G55NtkQDHhj7rYvSZefDvllEGiQIq5tVGRQZnpBGDZwlWt9kr9nXjD
+	 KT9w8JmxAv+rDcqcSEaH42DuiiIcSduz+eeDMkp8Eb1qL9xHOOIwY9t463bHSIcHJa
+	 qlO6fVGU43GVMPDuQtga3X8z75Z/YHhduXBbnXNHKzHp32YroM2VQCfMAvUvQqY/0h
+	 5hSZkqRt/bf2hTQsQcrmxRUn1ge8dnuh0mYqMYmY13+1QLbdmwGOEsVckCCPrZ2ejt
+	 y29huz6g4kJCw==
+Message-ID: <f0029758-5f2e-4c26-9b25-dbc4b3f33701@kernel.org>
+Date: Tue, 27 Oct 2026 00:24:46 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,22 +52,34 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
- PTEs
-To: Catalin Marinas <catalin.marinas@arm.com>,
- Zhao Gongyi <zhaogongyi@bytedance.com>
-Cc: will@kernel.org, Ryan Roberts <Ryan.Roberts@arm.com>, dev.jain@arm.com,
- baolin.wang@linux.alibaba.com, lance.yang@linux.dev, mark.rutland@arm.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
- <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
- <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
- <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
- <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
- <at9H9Vkx57pIcPos@arm.com>
+Subject: Re: [PATCH 07/16] mm/shmem: avoid moving the truncation start
+ backwards
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-7-703206d5fa0c@kernel.org>
+ <2E377C76-D62C-4A2A-94E3-ABC40C6FCDD2@nvidia.com>
+ <583728ed-dc63-4685-9ac5-5a980db55973@kernel.org>
+ <B1241F56-8000-411D-A137-24596E599C85@nvidia.com>
+ <0D22B04E-5730-4D3A-ADA6-9F1AF94F06AA@nvidia.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -114,40 +126,68 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <at9H9Vkx57pIcPos@arm.com>
+In-Reply-To: <0D22B04E-5730-4D3A-ADA6-9F1AF94F06AA@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/26/26 13:30, Catalin Marinas wrote:
-> On Sun, Oct 25, 2026 at 12:00:33AM +0800, Zhao Gongyi wrote:
->> On 10/24/26 4:55 AM, David Hildenbrand (Arm) wrote:
->>> If we have the spare PTE bit, why shouldn't we just use it?
->>>
->>> It will make batching over PTEs faster. And we care about that for present PTEs.
->>>
->>> So I don't quite see why the stable fix couldn't just do it right away? Do you
->>> have a prototype that shows that it would require significant code changes?
+On 10/27/26 00:16, Zi Yan wrote:
+> On 26 Oct 2026, at 18:39, Zi Yan wrote:
+> 
+>> On 26 Oct 2026, at 17:13, David Hildenbrand (Arm) wrote:
 >>
->> I tried a small prototype that keeps PTE_CONT on present-invalid PTEs.
->> It leaves contpte_set_ptes() unchanged and makes contpte_try_unfold()
->> recognize pte_present(pte) && pte_cont(pte), instead of checking only
->> pte_valid_cont(pte).
+>>>
+>>> How confident are we that it fixes the same issue?
+>>
+>> The issue here is that folio_next_index(folio) used in the mainline
+>> code can be an index lower than lstart and the fix is use max()
+>> to prevent start going backwards. (I wrote this to make sure
+>> I understand the issue correctly)
+>>
+>> Zhang Yi’s patch passes start into truncate_inode_parital_folio(),
+>> which has a new signature, and it is updated with the folio’s index
+>> within the [lstart, lend] range at the beginning.
+>>
+>> So this patch fixes the issue at the caller and Zhang Yi’s patch
+>> fixes the issue inside truncate_inode_partial_folio().
+>>
+>>>
+>>> Does it also cover #8?
+>>
+>> No, patch 8 is still needed. I am checking it on how to rebase it
+>> on mm-stable.
+>>
+>> Patch 9, 10, 11 might need rebase on mm-stable too.
+>>
+>> Since these patches are on top of mainline instead of mm-stable,
+>> you will need to rebase them. IIRC, Zhang Yi’s patches are needed
+>> for ext4 + iomap buffered I/O conversion. Hmm, but Zhang Yi’s
+>> ext4 iomap patches has landed in mainline but its dependency
+>> is not. So we cannot drop Zhang Yi’s patches and ask for a
+>> resend. Adding Zhang Yi here.
 > 
-> I think it's worth doing but currently not sure it buys us much unless
-> we also change pte_batch_hint() to cover such entries. However, if we do
-> this, we need to audit the other pte_valid_cont() callers (e.g.
-> ptep_get() needs updating as well).
+> To clarify the dependency, without Zhang Yi’s
+> truncate_inode_partial_folio() patchset, the ext4 + iomap changes
+> would cause data loss. We probably want to get Zhang Yi’s patches
+> in first to avoid that.
+
+Ugh, what a mess.
+
 > 
-> So, if we aren't going to change pte_batch_hint() as a backport fix (I
-> don't think we should, it's an optimisation), I'd rather take v2 now and
-> continue with a proper pte_present_cont() etc. patchset on top.
+> Patch 7 to 11 do not apply cleanly on top of mm-stable due to Zhang Yi’s
+> truncate fix, where
+> 
+> 1. patch 7 can be dropped as I discussed above,
+> 2. patch 8 needs a folio->mapping guard for the added statement,
+> 3. patch 9-11 can be applied with fuzzy, but I need to look into
+> them about functionalities before fully trust what LLM says.
+Yeah, let me take a look tomorrow.
 
-Your call, the version actually looks quite clean:
+I cannot put into words how much this shmem + pagecache shite annoys me.
 
-https://lore.kernel.org/r/52e7e1f6-3535-474d-9b46-6bb62f96eefc@bytedance.com
+What a piece of crap people created here. And looking at the massive changes to
+fix stuff, what a piece of crap people are creating.
 
-But yeah, audit needed (e.g., no need to flush when shattering such entries that
-are not valid)
+I better go to sleep now :)
 
 -- 
 Cheers,
