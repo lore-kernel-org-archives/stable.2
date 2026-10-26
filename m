@@ -1,132 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.136
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793037584;
-	b=Dt7EAMzNv+jh3fgxK/gSIW3ubVOzaPSxVDYHWbgCCj0VvcRJq3N2LMe68FsVH/HG6Vkb
-	 M/pdlw3hQFs0mUmud/3sik19gMBERYWdG5wrNmNN0Qs6xt41aDKP/2tOsL5k/B7/CNWgs
-	 qSEOaiXBtA51PaaNRucCWdS+OPm0ZXpDvIn/G40q7amU02VM9r18pPMAxVaAiBHbj+pJl
-	 mJUKwfGnsQjC06rA5bP1rNTHmIgATaMxZnueowhQMXOl4ZEVOrsJeSuIaq6eU2L7c7QRr
-	 56M3zcdX2op2KOqhyYAfC9+MN+Un67INkt1hrnd24I6quri7v7kwmYudSsWnjSMq5lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793037584;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=oOYzlYgPliGkanrzYocQaBwBSFhy+a09Z2xViy9Z+c0=;
-	b=bri9Ca9bJHx4Zq9XUGTznla6OVbI4/2JmLgJ2p/ft4trsnY+dW5eQzfb9uojndtJ3kBs
-	 QRj4icLRQKcqxpvYo1TPSETEEPU/Sn71mhrhOYwfXPzDIZAtrLSVFYZH7SnWMFMZpNBy1
-	 Y17Lb9qy+x00EZvZx3wcMc8/RH5bVf5Ofb28fX1q8tcprwV3UF0ZUWzkC/b7SRtKbJ1vU
-	 xw3XG637+tv1A5iT9N5HW6PeQ7VZHkTWMfjrmt7WpgdWHN+oUs13Yt09LolnNHOsEqifg
-	 UTv/puhgtDZqs2fMI2sWAAq86zMEidEY0zITHCsq6EW1OLoQbEddyuVX75ltUCWEnXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=UoOJok6X;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="eURMU/YK";
-	arc=none smtp.remote-ip=103.168.172.136
-Received: from flow-a1-smtp.messagingengine.com (flow-a1-smtp.messagingengine.com [103.168.172.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793037727;
+	b=aG4fE0+sW7haTUHUO6r8GD/aLiep99mO8mj3NoECuMdNCXNdkmaDF2Rj5tZhG7FUVF8C
+	 +VxEURNA0puWsIwoLeYHAliLHCTlrcLTHD4eYI86c3nizaAHyrMYFEAY28Ax3dZArNGSc
+	 ttEtSTk5JNbAoQBc+V5kjEQU4rfMVJducbUzbd0P6peTZLk9PGF2GbZU8RCvgZBaNPcgi
+	 bZn5TZY83zdCJyrNIXGiLsbG34rjW8+TsVIt6qLM9hHSc8zKd87Cy7DJpeiEFg0eC2euv
+	 nNb/YKYyeAZZfP6ldRRqDXFY81IcJd3U9MRkMpD3nlBgosmVQ+ujh1WsL1IMglZZFYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793037727;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tE7RP4VYsHqrXApguz8sNdRczbXmH+5NrdAtgpflwuU=;
+	b=uCFPy+q0bvlXGiOihO4vQyXEiathjsNQLjVg65bDyPfwuWmbUzy+D6w5M9SDO6pBBOuS
+	 JLfcEaTNIpiiKUn/Nve9JM70qI4yhEwwlHwfftqpx3DaB17azcYuiQSCqAOXZiyObJ8mS
+	 NiI1AjYUm3IgVyRsiEeUbspJ0eYnl+f0Z5lCgNf7ZOjtwvFxcp1wZvFsL5qGtgQ2ORboL
+	 2boRp7SBJOveVTWIAswByeneWq5ZdJiv21ntF2zjAKVNj5gUSyn9XM4QofeoQE8uRlluR
+	 dZBIlPT016Q0UX7N9dakEdf09F9FzpY+pWVvwF1fvyiUltr8akST/2JRGBFkv3BLTqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GSt8eQMm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DD8606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:59:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86DD8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057C4606A31F
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:02:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 057C4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=UoOJok6X;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=eURMU/YK
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id 9BBE51380303
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:59:42 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 13:59:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793037582; x=
-	1793044782; bh=oOYzlYgPliGkanrzYocQaBwBSFhy+a09Z2xViy9Z+c0=; b=U
-	oOJok6X+OIinjewBKwhYYwOxH+PZDJZGMSPwjaGJ6X06l3eFrU9YF4zpKT0ZAWky
-	nA8ZV1skgzjGHlHl1L1BmOeH8T42X/fFTZK4K2esGTRHvenXkmEd0Jwusx14tQOs
-	TJ9cxTf5XOaT8SFhyTZvzVEgxB+fBHL2WR4LNGxirAiwgCSjeVHa4vdiBxNskZMq
-	TSAeVMg1/0zZXZyyWFBzcAJtBP6WbUs9+ytZy5rakO2VqM+rhMegC3edWOphRs5l
-	2dUTepFRzOEc2m8Lf1HyEuowFN8oHJXMl6Hn3VlgnWlNRMUyFYO+QrZWlW4ubCrb
-	yyREpw220eOLNVJ1htcyQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793037582; x=1793044782; bh=oOYzlYgPliGkanrzYocQaBwBSFhy+a09Z2x
-	Viy9Z+c0=; b=eURMU/YKDjSZQVR4C6vNt3B8v1oil6L+SXYpKcDU0e4FaCW+fqq
-	gmiDaaps0zI1U6S6vwAcO312JVPYb7hdrYZfXQsR/GCzTdH9D+g6eXCg/ELt7NDD
-	gJ9qDIDm30mM1jQV5dK+75V9gYayp/Bd6zUdbzSDYLxw6iSSh60j+Vx3952ABm6T
-	Z7EENyIA3iX51pozn+UeOLyXTRorQKKUmbIqPQZdJz+jNCWIakOk5BcxJqFvj28k
-	sLCIGoLne581maJUaf/yJXPWSKm/Z9gRxso33HxSfpWiqHS7XUkYBwDL+vMuA02F
-	Ql73aX5JhHXpdRNdStonBzYH9UeCBVeGPvQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793037582; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:YrvDz5fGFLpZsNnikXRFO+vg55yNffbCKxshAfU7OK8fGGW
-	rf6+CDzPAeykmvjp2T1P28/6fJDiEYbc4N35el8X1pcfO58L1HMiQieRHJPngKIY
-	FhK/MLPXQIng3+9pK9pbjn4ETLkSumzy9ONeGRQZKzwLlMMr3lMso9r92tl4a1zL
-	9cyHSbwsvya9SS0JMED0eM2HO/h5UKng6yQUS6Xv8F72E/wB+iCNF5FEqdE9x3/f
-	8GtcPxtEIbJUCBHGdZ/j3NCJ8kIxbepp0rL9s6hJzpgu8H9cOUUVhQE4qVr+bv12
-	6II4dGesVYMUNMubq7EMgCCdWCxAW9/H9xxQSRw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:gdz0OR2pSb070YT1VXXewMkWi4OHqKYlSy7mq3nTxw0=:xvg2+PKiolvt97hjUN1pagpPFL75bqeploLKqu3QsnU=;
-X-ME-Sender: <xms:DJXfaj6fwcX0ZPAdTR3_f3oEj_vAewN7PlEoD3NZMD6NmLQwbfYlfQ>
-    <xme:DJXfavnRKmmObRDl9VqgO_F1z-2AEhqIYkLWM_KfYMG8m1StqqDFzFSY3XPuE4uMP
-    oYsz6xjJGmUEUWtE5hRPVpQp_DP9Rg_Kdea5WdbUcQGexvgNO9fKQeY>
-X-ME-Received: <xmr:DJXfakrrOEFUYHz0RyjOjRGT_jZDZp7cLBZj5usNadk7-RXTxUiHpjC5q_k>
-X-ME-Proxy-Cause: dmFkZTFCJC346uT6BkgpqQYR4FNPAi1RA63Z+5L1PPhx5EiCpW4UTmnFOpzGWG2lAFxYWG
-    ow1NfL/UTp/Pd4DBanvkvVjQX4/GJ9QHoxX2Gnm+9O7gKo81tMOLCB6mgJceKwlnlE/6R0
-    V2YJ39AyV14l8ouat82SghyoTr/S0qOn4UjCWDfZBVfbZ8H6KBl+RFmwuyJgsMdh+ieuFV
-    d3YZBJi/v/7a8u8UDV+6GBpxXisMoQE/lBwP/kVhG7Ecprx03wwiSqHTSA8W8XkMGFowSD
-    sBsXoX6pbh6kmOG7yuRNSEET/XSSH+CeKPAuXjog7+s9n69YFxLZ6RvMAi2C1P2qu/rzC5
-    xbTppKgEW5DqVCnkns29EM82AVgv+vAVO/P7HKFZ6UL0osfJ6AJYjRnMwpW1TPX9BeetfB
-    dc6qhmwH8Xi1dQs6oE1LR62OT4AJmKrTlyqpxF4iiktYda3iqD+0MCE3TCNGOxXSs3wsZD
-    foWjYya+jJPndrlUXX80JGJ2I6lCY9AK6SG4fFw7uvOXYsG5bLswkhY6a5bczIJM3s7PLJ
-    SYKLyw9v7y+OrzOXgf5/c42Iyg3svUHoiwPaMKLxZ9V+4nKMubFDZ4CLzkH4L1G8r5+Lv7
-    rDqIcyTKMcz4ul/5bLWLl7YgOTtWK4GhApbUsuBHbBrj4tO30MPLAugN1lXQ
-X-ME-Proxy: <xmx:DJXfakzI3ROPAIRF3b0nfYO13OEVCw4FsxyzKavvaXvJGmZ4PwfM-A>
-    <xmx:DJXfaq4ZTBk2GA67S3wXuU3nEDe0dCjvge2ERUkxS9U58ABq-IGRog>
-    <xmx:DJXfaqkUHTdbu04yL1Wlt1QzbiAF-t0P2gNd1oe43PGpk9SfM7zLhw>
-    <xmx:DJXfat72axNJc-yU0k8fSlJLmSeAYGZr27y7o2Zc7U_7leWrrlZPhQ>
-    <xmx:DpXfahmllRgZZFxfHQq0fVy_vAh8-l8eogDyjPm3ajYF7TcOsEE_ublE>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:59:39 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:59:38 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 08/16] mm/shmem: stop retrying folios that cannot be split
-Message-ID: <at-U8JkqnTC9GZyK@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
- <at-AmbZyqUnGAJkI@thinkstation>
- <f7d36a47-6879-40bf-8c24-dfc89d937647@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=GSt8eQMm
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso6875e9.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:02:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793037725; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XWy+uu1v3wdtcDVCeECdCAXtvY3BTJlKAvkx5QZ7z+9IVeuf8IiGv0BLxHtrC8lq+3
+         rra/V73iKblz+prX/++hVIiAMs0kRh80WoFPPeB0700FcriivjqrO9nX192j1UDXTPRI
+         NBqSeBMNt0N7+uBllg/VMRCtEVsrwLg+99XMXVUj6PGEczqTbqe+QYsF940NwyNqzRB6
+         TtJHYK5yzrItEEpZJgufNh8pqEyqw0Mdc8Wmx22GVj2wfylvv2HHHLV/R66HnJ0wdPZO
+         WOohM0p1d18m2qpLSImNweiWXivnitzODBtDsl9DT/L4UsmECXuLNxMEW7tUHAstZOoF
+         cdxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tE7RP4VYsHqrXApguz8sNdRczbXmH+5NrdAtgpflwuU=;
+        fh=Fm61S3MYGCQk918oBU3ab4zIJk+D6GUcHdqcm3YPRvs=;
+        b=r++7lkVr3gJ5525m/kzWZRJ+d4tmcq+8j4RYFLCXLmSNrsn2O91lbG+h+DYM/hIBZR
+         neFIRcG9mlaze1cw8DVSJhmZdtu2J6UqbfdgFOC/82HRjt+hn44g7IL1A/+y69ZX/kEB
+         8AhwrZBon8I7rQmK7JlQypio2qRm5dmcDZFq3b+LUrdb7/Jbh99G/9K6qFoDklq2DKlX
+         XWbTqtu1CwDAH310q8ix/1aWgbhTsroMmbpWARTi0aP+a6MN9uh1MP+JsQ2qBmeGszYs
+         p0Zsdi6Aga+QTubkTLqoaq4rXEvqHg9f9xjJXNnnYk9QrLFpJRtjA8ASQuWn74k4wyx+
+         LyhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1793037725; x=1793642525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tE7RP4VYsHqrXApguz8sNdRczbXmH+5NrdAtgpflwuU=;
+        b=GSt8eQMmyonsmu51tnuB3OOoCLAG5Ub3saP+6hzbZxjvXs2HavzZWqdru6q9odLc4x
+         8LZgJ89V0wIRfGdc7DhIluw7u2J5YCb9BrvVTFuHpuCVo+Dh63PI4bO6EdT/unM+OkvQ
+         fdm85tXjnIrCIlStBx5JtUdJV2+GE7Ymx6AobqUFzfBG6IkIaCVYdsqs0rpUNtzdqMGo
+         G5pbGkRiBT08huUAERs6p1O+qMMPoGSQ/EQfuk1JgUcg9wyGzK1sxkCBpYJ6wjVEHIBN
+         f0qJBda99t9zffio2My9RsJ+qhwXwPAlb011+xum5s8GmE9XRsgQo3ncrBNVFI/jihAe
+         PcJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793037725; x=1793642525;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tE7RP4VYsHqrXApguz8sNdRczbXmH+5NrdAtgpflwuU=;
+        b=O1Qs6eSnABZS3H0+CABsWAfJCFXCXp7ihNE6tw2jZ7PigHBUfmOcrHNcc7kJIGWvOJ
+         klr46Z+IgkQ+2uNWsCtDPnchz1fTERz0nf4pwK1aNYwPw7oCWWt17wE+aJjw+uUurTsr
+         gGB0ETNsYk7CX47HJAIV63V+aLyK2Xkg1oIxA24rBugaESgcZYvcI1dMNiDpOPReuebi
+         o8c2zuUOIUKy0kfVDfp9F8m4hyXSAvT08QkYwIKLbJco50ytm5bXEiBd2wdlhd0ws3yW
+         6JassIjPfNAnXQg5fKcaiVzbBlyHD/BtJuxOHsHySPFissF93Y8XRr7XSn/M18aFZTVJ
+         1Ktg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmaszBpmMbchNWPNIATL0XmzMtsotfuR8qlRDZ0LpY9THJAs+V1xOC5F+MRV8nIxSPPVCAfoo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5cYOLqwjpKavM6VzXl5ZMc9N2NaU1bq0dtIltoVpIR0LTSUAI
+	qehHDThKIiUDHEDGsLwYTZ337Ux34vyJwE3pqmbUGBtkM3gJH6nKUPe+LERXTs/ooGVT2B0A29+
+	ZuwQnT6samIoiWOxCUBBbHdZbS1+sY40sxKIPJq4d
+X-Gm-Gg: AYBFou0rjUQyQmaOiHHqC396IuszgSsxNm5D5XC5MR45UbZLrtUxL4KLftNN0SuL629
+	TOreIF1kkOPO2NZ3GsxCqriFStC54bXMOwaCgy6uWM7eIksChgfN5zfz+qD1olmZn0pHLoMrwIm
+	Kk0KMAnCA88flxq6qwi0ARy3NTBId0SISpdqyTEy/2s3YpbVuopz2lS9NHP5COOzeKxyFdGPpZ1
+	Vi2CZKa4F9uVfteXvEoWZBNMfNg/6v+/kTe8U+OGVbivNT/mNityq1ByxTsRD3D4/wqpLvIYZAo
+	WN5YpZtk+3Mcv+xV6ZhAIiTYZ1V5W3Mft5jVoGSExOATqeMzMfEgTovtoZk8CIgWHy7X5hxR4w5
+	gl5f24wAFIWC2QRu1oKViOCSZ5CDwvJ3DyULZtE3BpBxEb7/45Xp5U+QhNXdt1wXqaaX0YZr5Ug
+	9KXUDe5Bmy5t4wKkcBA3rKRw==
+X-Received: by 2002:a05:600c:2295:b0:4a2:bd1:a80a with SMTP id
+ 5b1f17b1804b1-4a7d73b0af0mr46865e9.2.1793037724801; Mon, 26 Oct 2026 11:02:04
+ -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -136,46 +105,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f7d36a47-6879-40bf-8c24-dfc89d937647@kernel.org>
+References: <20261023222313.3979455-1-tjmercier@google.com> <at9U2HvyUP-iYOCt@tiehlicka>
+In-Reply-To: <at9U2HvyUP-iYOCt@tiehlicka>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Mon, 26 Oct 2026 11:01:51 -0700
+X-Gm-Features: AclHuK-fek2ms36qxSTQ8kH_qS9sI-bAShEDJFdyR3pRLqFaZUwSwPiYlTTU9KA
+Message-ID: <CABdmKX1mLKEJNiecW+meJ=LB_Kb8-ieeWdZDd4T6rNR9gKuq_A@mail.gmail.com>
+Subject: Re: [PATCH] mm: memcontrol: fix NULL pointer deref in
+ high_work_func() on dying memcg
+To: Michal Hocko <mhocko@suse.com>
+Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+	muchun.song@linux.dev, zhengqi.arch@bytedance.com, akpm@linux-foundation.org, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 06:08:15PM +0100, David Hildenbrand (Arm) wrote:
-> On 10/26/26 17:36, Kiryl Shutsemau wrote:
-> > On Mon, Oct 26, 2026 at 10:40:41AM +0100, David Hildenbrand (Arm) wrote:
-> >> From: Chris Mason <mason@kernel.org>
-> >>
-> >> A fault or collapse can insert a large folio crossing EOF after
-> >> shmem_undo_range() has handled the boundary folios. If splitting that
-> >> folio fails, truncate_inode_partial_folio() retains it when it is dirty.
-> >> The final scan then repeatedly finds it because it restarts from an
-> >> unchanged start.
-> >>
-> >> Truncation keeps the inode lock and ignores fatal signals while looping.
-> >> A concurrent unlink() can then block other directory operations while
-> >> holding the directory lock and waiting for the file's lock.
-> >>
-> >> Advance start past the retained folio, whose truncated part has already
-> >> been zeroed. Do not move start backwards if the failed split has shrunk
-> >> the folio.
-> >>
-> >> Fix generated by an LLM and sent by Chris Mason in private.
-> >>
-> >> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Chris Mason <mason@kernel.org>
-> >> [ david: split fixes, simplify descriptions, adjust comments ]
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > 
-> > Any reason, this should not be in the same patch as 07/16?
-> > It is the same failure mode in the same function.
-> 
-> I decided to split because it's a slightly different error mode (failing to
-> discard vs. endless loop) and tackles two different commits.
+On Mon, Oct 26, 2026 at 6:25=E2=80=AFAM Michal Hocko <mhocko@suse.com> wrot=
+e:
+>
+> On Fri 23-10-26 15:23:13, T.J. Mercier wrote:
+> [...]
+> > ---
+> >  mm/memcontrol.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index a05d9a8baa1b..84f4a8fd4d16 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *w=
+ork)
+> >       struct mem_cgroup *memcg;
+> >
+> >       memcg =3D container_of(work, struct mem_cgroup, high_work);
+> > +     if (!css_tryget_online(&memcg->css))
+> > +             return;
+> >       reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
+> > +     css_put(&memcg->css);
+> >  }
+>
+> OK.
+>
+> >  static void high_irq_work_func(struct irq_work *work)
+> > @@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struct cgroup_=
+subsys_state *css)
+> >
+> >       page_counter_set_min(&memcg->memory, 0);
+> >       page_counter_set_low(&memcg->memory, 0);
+> > +     page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
+> > +     page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
+> >
+> >       zswap_memcg_offline_cleanup(memcg);
+>
+> Should we simply disable_work_sync when the memcg is going to be
+> released instead (mem_cgroup_css_released)? That should both prevent
+> the run reclaim_high during the memcg shut down and and also avoid
+> plaing with limits to work around.
 
-Fair enough.
+Hi Michal,
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Unfortunately that won't work for shrink_many() ->
+!mem_cgroup_tryget() -> lru_gen_release_memcg() which can occur before
+mem_cgroup_css_released() runs. (mem_cgroup_css_released() happens
+through the cgroup_release_wq.)
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+The high limit reset is also needed for targeting live ancestors above
+the offlined child in try_charge_memcg(). Without the resets,
+high_work is never attempted on them since it gets dropped when
+attempted on the offlined child due to the first hunk, and
+try_charge_memcg() breaks out of the loop.
+
+Shakeel's remote charging patch
+(https://lore.kernel.org/all/20261010210957.1350874-4-shakeel.butt@linux.de=
+v/)
+sends remote charges through high_work too, so without the resets
+those would lose ancestor reclaim the same way. Before that patch not
+performing the resets means reclaim_high() runs unnecesarily against
+current's memcg (not the remote memcg above memory.high).
