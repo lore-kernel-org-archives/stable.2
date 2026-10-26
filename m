@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048991;
-	b=QGZ43NjzN87diN+R7AV30dOiHdwpHrs2Q8+1ZWrfW8eSAHHF0bpQXP61FEy65DUqpeMZ
-	 kCqRYovLCqt500PG4a3cGjI+lQNwXqiahLDEAxZ38ktEhiJAQiWPL9ctRjATLCcdvLQYY
-	 NkYHIQQpFhJpHkHeMRYylakq7pKiQRxaA6BmtTiNALqdz3mhZC0Z4G4mxm+LjiyI8feD6
-	 hmKLy3W91nflOuKwKxW4LwMSCEqMbhVSJab9SWx5YUEq0P+0uwY+nqqE5WtdWohh2ZZiR
-	 uo3rgOjvVdOZAnghuKwkEsFxTNgLCNNNFsfxk7FQowOmsKUaaTXWXzngub3TMVDzcyw==
+	t=1793049194;
+	b=YjYzQvYO/BY4dsc4g2ZZzUDwwL37Aq4qXYtSralbriXK1RMJgsA07QSMpfjbz9frKRAJ
+	 K3YKnFDAqJleowvAt8pGwikJhZon7dRyiGJwzNSKnBLDyywLDht2sbisG6ug2gFZ/OtQ1
+	 4RWlkTEoPZQ9BSJHvliYGiepZg2Ry84uR9Z9LCzjirm7eWQSJ8wQQlNUcmMKGRxCmRYTt
+	 EXe/zra9K1PyEHzKUzK+dZv0EXmfiLaUxw96WuBG1uHC/gRmdm9dfdyL9f9TQ1CARm8q3
+	 aklh6lZ8aW6a4Qge6KdUvO8wbr1AMD3ugKyZHzcHVo5HfGbhsGdLOLpRAeIii87DQ+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793049194;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Km1rvIZ3U8wdp/hbA44AgM+K1KBOJrLBa2SNISYlT0M=;
-	b=4Nuwtutqxwlgtk7NVyHEFi2/cooCtc+hGgZGyT+DCOxfLQk0nSX1Wz3xBTHHL2unkjpG
-	 5OfjfA1MNJSZd/IG2IEs6GSmXYUNs/yLJWYz3ybQTQAWa3rcygvexWs1dQctV6EElmCEl
-	 fTQciy/7BhOkJhRWwkysfWL/RkeoJCC7Q0cCH6AgpJnvIdrhD/YHHMDAyHlbwP8vlLtIr
-	 SbhdzkYVctVatletnwKlyPBViNT965V8m0X0+zOHfm+yMtSL6Zmsey0gFhryz81Q7Ar+p
-	 ftbtmh6eMwZBiEYJFVruM7gzrPdUX0AGXbNs72vrlPjaYq8E8KveKlb/r79QUMJfRaA==
+	bh=njk0ZQAErkLe/6hfHsUYKh/D8MGIWnBcyiLvcekjYL8=;
+	b=bE4CkmHyRZfdPgzbOc8PbPhnkgows2+jRVvydB26m7pXyT9WY/CCUf/wMi5AUMGO6bTb
+	 8Bp6xeKy2BZ4YvU7MviUlj4LsCeqFRCcsAXXmyMBeEitYOo5AVZAXte6ZMS/hD7rcDvz8
+	 ODkHwV04IwFmDzCD2x0yo54Xg/yFAAynb02U0NA655oQeIUzloZGmDUp6vEokLeM9o3O+
+	 bRQqzX5A+fsEM/B2aMZ3PGGxQbZNMsLwR7Pqv4MWH16NRfg0Ti9Eb84M9fFfxVwcu94Ng
+	 2HCq/XoBpiL8xwyXJn7ho/3gnLh5D4AVFEpEm8kh+mlZ8iXuv0Fdb/87YHuqNaDogdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+UaSY8l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LnoTTF2B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E31606A31A;
-	Mon, 26 Oct 2026 21:09:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3F7606A31A;
+	Mon, 26 Oct 2026 21:13:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+UaSY8l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05771F01825;
-	Mon, 26 Oct 2026 21:09:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LnoTTF2B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77A851F01825;
+	Mon, 26 Oct 2026 21:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048990;
-	bh=Km1rvIZ3U8wdp/hbA44AgM+K1KBOJrLBa2SNISYlT0M=;
+	s=k20260515; t=1793049193;
+	bh=njk0ZQAErkLe/6hfHsUYKh/D8MGIWnBcyiLvcekjYL8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f+UaSY8l63lGr7187Oqi5dgWlzYCfWCFaR+aTlR56miEamPTBI4jbIlQqtDV4H+mh
-	 BLRVFIVd9jZkJpPOplQT67gOCLCjIxjBiDjg6DWbAS1RCwcdMi8TkwxsG5AcBeLf8j
-	 8hgPaTi/N6aVWdyw6QbM8e5ynYzOOsMInDRLXP3Tk2Cxm8qnQvFd0ecIYIAEwDwjD+
-	 GHnAbdyPr1B1jcq0txZD4N+6/U8T6KlIS3FmJXW8dej3Z66+3iVYyi/v8kCg9+3zCq
-	 ST/TH1O9+5Jop7hjGAp31uVHgqKJq3BTf4vFndIHSV+Da7tw148EFhdvLcMoJWhNmm
-	 m9us8+cBvgVMA==
-Message-ID: <5d10eba8-11cb-4031-84e1-a394ca5b4cba@kernel.org>
-Date: Mon, 26 Oct 2026 22:09:40 +0100
+	b=LnoTTF2B7/9xXxLtLqV0L+OKJqjRY+xjxLjysetseXblaQTktKaN7zguN5l6NPVgm
+	 QZHYSfSlThR46oLYxM1Gvsr+byOBqfT+hYd9PO/NmJWBkEyOncChsseK59RXgk9l4f
+	 zQe1xEWo3NbsYiEyPdWs+pQH5Lx2WQJr27KbPChsPstoFEOoYBw6XNa2cl+7JMTo9F
+	 IoUO77kLM+A71s/9AkPOTtuBv443xTVaM0A+evBkMGAVT+jnWX6ET+nB10g64OBMfD
+	 Fy7AFApszXdLoygxETvyRtAS4/TaVdmHmpAkQAABOPsz5EcY5AjRq6m/KbttlXXH8a
+	 AHEZItBorXiMw==
+Message-ID: <583728ed-dc63-4685-9ac5-5a980db55973@kernel.org>
+Date: Mon, 26 Oct 2026 22:13:02 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,11 +52,12 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
-To: Gregory Price <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
+Subject: Re: [PATCH 07/16] mm/shmem: avoid moving the truncation start
+ backwards
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
  Johannes Weiner <hannes@cmpxchg.org>,
  Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
  Hugh Dickins <hughd@google.com>, Baolin Wang
@@ -72,10 +73,10 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
  Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+ stable@vger.kernel.org
 References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
+ <20261026-fixes_shmem-v1-7-703206d5fa0c@kernel.org>
+ <2E377C76-D62C-4A2A-94E3-ABC40C6FCDD2@nvidia.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -122,39 +123,47 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
+In-Reply-To: <2E377C76-D62C-4A2A-94E3-ABC40C6FCDD2@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/26/26 21:08, Gregory Price wrote:
-> On Mon, Oct 26, 2026 at 10:40:33AM +0100, David Hildenbrand (Arm) wrote:
->> I did my best trying to test these fixes. I was able to reproduce some
->> of the things (including unkillable truncation hangs), and the fixes seemed
->> to help.
+On 10/26/26 20:21, Zi Yan wrote:
+> On 26 Oct 2026, at 5:40, David Hildenbrand (Arm) wrote:
 > 
-> Given the (urgent?) you're the unwilling recipient of my schlopp-testing
-> harness.  The good news is that the selftests (attached) all look
-> reasonable and reproduce quite easily.
+>> From: Chris Mason <mason@kernel.org>
+>>
+>> A nonuniform folio split can fail with -ENOMEM after splitting off some
+>> smaller folios. shmem_undo_range() then sets start to the end of the
+>> original folio, which may now lie before the truncation boundary.
+>>
+>> The final scan can consequently discard data below the new EOF, or
+>> keep retrying a large folio whose split point lies outside it.
+>>
+>> Keep start at least at its original value when skipping a folio after
+>> a failed split. The part in the truncated range has already been zeroed.
+>>
+>> Fix generated by an LLM and sent by Chris Mason in private.
+>>
+>> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate operation")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Chris Mason <mason@kernel.org>
+>> [ david: split fixes, simplify descriptions, adjust comments ]
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/shmem.c | 8 +++++++-
+>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>
+> 
+> This is fixed by Zhang Yi’s truncate_inode_partial_folio() fix[1].
+> I think the commit is ad27479793682 ("mm/truncate: fix data loss
+> when splitting straddling large folios fails") in mm-stable but
+> not upstream yet.
+> 
+> [1] https://lore.kernel.org/all/20260928120833.3440834-4-yi.zhang@huaweicloud.com/
 
-Thanks! Yeah, I had ran a bunch myself, but not as many as you managed to
-trigger I think.
+How confident are we that it fixes the same issue?
 
-> 
-> Everything below is largely clanker-generated, but after a review I feel
-> comfortable with tagging this.
-> 
-> I was able to directly test:
->   #1-#5
->   #10
->   #12-#16
-> 
-> so for those you can add:
-> 
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> 
-> feel free to take or leave the selftests.
-
-Thanks, no time to polish selftest ;)
+Does it also cover #8?
 
 -- 
 Cheers,
