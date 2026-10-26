@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025766;
-	b=aIbjGhIsA4v3QYh5v+J6jedwa+kojWMRpEa5QcP6cR3mCH2Ot8K3inNbOVHyPVA5RfD7
-	 PQYYf2uwkSXljTWbwbFVaev5rUHlsi5OB2Dj5iyjk+4MLucl3MXI7L1h82LQfuubaKtKl
-	 r4DAtZ7fTaUCxed6d9Z2RjlHZLfM/h66K9I5iugo1C3oaAIfkkYkpb4nQ1CSrfYBrZg7B
-	 BBVbEAU+HxohL1+y0XbEMn+f8xfOsEYTSa3mQ/8E6YJfv8pNt5XKsvdpYnm9MNsd5ocmE
-	 4BD21r0Y3we59GH7LOEqKYoHgRRfYhaHpQ6cHklZN+pcDdH2AQBW8dXLSq3rPVnNe+Q==
+	t=1793026129;
+	b=qJK4SNEDzTFJUTkTmURNLHx0RzD6aczUpUHeJ2YwV0tAQBS2RmXcQYpCs6xu/rZsX88k
+	 RArgbWjIB7+L0cVlzc7UKAyIsLYXqS5Ro0TRdz5c8DZn/G/gLYUn2rzw7s1UszSyfvDb2
+	 W5qpmmfQGe2CFDVbdev0C2WgN3uPSeFu6noif/KvTJhqeqSynD6TFyr6SeKw92jDdik4n
+	 c+sav8w2+VFyDe1yAkBw+OUfOebwloq6amMDSmzVTulPXsMOfBln77ccAwDCVMIkJOh0n
+	 kjSJpe4vmrghW7p1Ga5PJeQSEllfTrDvJ1/H8vbtxCpD697etqnHahEuTGvekqO0jWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793026129;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
 	bh=9miV1nubylsMwRnZKYXYzy2lkCWAGHgmbPrTBCKz+Kk=;
-	b=HVajfQ22TiIriCD25CRlU2S2WNgY2gq2ofAd73CBlORGzSsMtQknOLWq6I6ZNQD//Ztd
-	 H8g1Jshw1yMzglVeYObO+poZY848DWqZx58ff1hZSHcHr1KJrQVeX9VOSzhlL4K0R1IMl
-	 9uTJ7rjNJqQSpx8o9mNFLeVI2SiHXwvMit2l2Xo4iDk2X+KuCQQd3DrJoI9L8e4p1v3Q4
-	 YRKlqpWU4+dSCF4UGbhlfm9sxGmIprQl4eGKvMYOOQoO/GBMTw555IsH+VeUGr1eIZDKD
-	 yJyYT5em6J10vJKMqwhn+HS2t31C3vBNHAUkBO74wnKJap1IZfosMEmIBF3Qb+ZkJZg==
+	b=Vf+DLFFO5e5Vm7QI35mEbJrznooCH1JKI0tpWhGiWqrlTxWeOGeRTe6b1HsFPtbF1Opv
+	 5PcOKM975otPu/o05dq8ujO5zoj0rEDkxgJSkiyGshvfWsWpiWMAiTxFv0vArIUa2avd6
+	 3Kc4npChBmQU9hK5uDdEirhBU2XeGCwEMMPM4fZf7h8RXHP02eCxy7shsgXsLDQL7iDe7
+	 rOZDziKySYlvULd+trspxlXfLNF0GB2b/rMbGoynBLavZvkyO/tgaUqkKb24bv5Lc5ze9
+	 bI6N5BRFnkIDbJhrZs3YQHquj8/XswCx46JV/7WrpnRHBGjcQhevL5S3j1tkJauLs5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Pl7qC4GV;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EBNmbG+q;
 	arc=none smtp.remote-ip=220.197.31.4
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750EA606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:42:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 750EA606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1146606A321;
+	Mon, 26 Oct 2026 14:48:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1146606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Pl7qC4GV
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EBNmbG+q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=9m
-	iV1nubylsMwRnZKYXYzy2lkCWAGHgmbPrTBCKz+Kk=; b=Pl7qC4GVe50/7B7e+p
-	27NZpea/uFoj2HCNdAx1uxMaRq1p5m27oCHJr0fM2FPeYf5Y8AOSh9Ln1zfZ06mi
-	yZDg2FwAT4Q7eajk3AaY3wHySFUsAKSzGYuk6wkyVIXvj1uoL24HGGL8XJvyBVOD
-	j3zuF4bOaW+qMT9zQNazhuZu8=
+	iV1nubylsMwRnZKYXYzy2lkCWAGHgmbPrTBCKz+Kk=; b=EBNmbG+qIjrjnMCm69
+	fwWOlP2TdBg2kw3o99ZUGL5FPBA++pdhPpcrboasof/77uZM+Zf0W7MixU06W/Z5
+	IrUaWz7JxjAqPSXYPnROi5cDrCuPJ1o31ToWxssSWPvFKdteViu3W/dH0NUZvnX6
+	13PAf5foGvROQJnZ329BzJNsg=
 Received: from SYPC (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDXH1DfZt9q_tR6DA--.35597S2;
-	Mon, 26 Oct 2026 22:42:39 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3v15BaN9qgQzCCw--.42660S2;
+	Mon, 26 Oct 2026 22:48:33 +0800 (CST)
 From: hsyysy@163.com
-To: hsyysy@163.com
-Cc: stable@vger.kernel.org
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	Yang Siyuan <hsyysy@163.com>,
+	stable@vger.kernel.org
 Subject: [PATCH] reset: core: honour optional resets when the GPIO fallback is unusable
-Date: Mon, 26 Oct 2026 22:42:15 +0800
-Message-ID: <20261026144215.1391074-1-hsyysy@163.com>
+Date: Mon, 26 Oct 2026 22:48:09 +0800
+Message-ID: <20261026144809.1392806-1-hsyysy@163.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,12 +61,12 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXH1DfZt9q_tR6DA--.35597S2
+X-CM-TRANSID:_____wD3v15BaN9qgQzCCw--.42660S2
 X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4xury5GF45Jw18GryrtFb_yoW8CFyxpF
 	s5Jr4rAr95Ga1fCr4Fqr4FvFyrZw4rKFWxGFWfG3yxuw43Zryavw1UKF1Yqr4UAry8ZFWY
 	vF47tFn7uFyvy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRLiSQUUUUU=
-X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7gBkmGrfZuDMZwAA3K
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piK9a-UUUUU=
+X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7QG88GrfaEH45AAA3g
 
 From: Yang Siyuan <hsyysy@163.com>
 
