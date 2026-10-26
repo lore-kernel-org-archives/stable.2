@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009071;
-	b=BMuyWgkwFKQPMPY1lb2z455nhwB3WAGy5AU62eaTYFXDP8F4/G0gxCdeOZh5ZBvRwL9T
-	 zr/0lma7xckQNxUyN+08cezjckirX8PO4N2M86FCTzVt3bi+6Y17jmiPiuOVMHK5/oB9T
-	 fGGkprBxzOYICuzwFrP4oHMNUD+VPRtYvVIgLT4rR/cWJWZLxQ1SHNO6UT7ULi2Nhxsjz
-	 8gmveIa33sz4RQYa3aTFzZet5VwUPXnrfXarRoJ37QI+OOIfKcU5KtZJF6yeoaS2rzqlZ
-	 x9eHPZc/MdGuFIq9bg7D2bFtM+zG8qnkXUHZexBQazAfrlX09wfdQFDUnI+KRy6+Mbg==
+	t=1793009078;
+	b=sfVC1VyD6CockCy4wLPx2xmrN+IgqjJIu2QqMp60vXoyQoNqxmGZhfMd42iyb9kdlLaV
+	 bLFy0FzvocGoBDjGKu++4UHwmR7HROTxionZKvItWbDa9nnT0Bxrt0xUhLKsWQBTh02tN
+	 B389zL+jT9DcLwAmXgHr+IFI8YRGA2tXlA2PF2dHCAyDYfQJDo/Zx4aXefTZH/kD2jLBq
+	 7dCibxJ8ce6vgcECRJU4o1ryCRB8xu0NA9u5QSsueHmyEoGz3lcy8lvFCfHPSa8MSmkSX
+	 M6l3wSJmYqtrhJCf2ZfDrNZqyUdLDAfVhsaMIuP/9A4XGoAOxIKc1okCW0k6iqUqXvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009071;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PRfBqEtZY9vLSO/v1o7cinPO/v+UATyLQat9ERvQExs=;
-	b=4RnmN6iu0jgrjmjOguMupxFIU2LG1zyzpVrnu4exrCD5EyYWlw+rF88RxQhUtQ8igtNg
-	 eYsctVCUW8RBjQfwEwRB+cTYAC2SGQ/xs4lOS/iV0aNF7MdM9RnEZPTUNk0qvQe7RXf2V
-	 lYXZ4lxE8OAfiOTimY9IfDtzzqN7rMm/v4SW9bZkuOgur8to+mUwAWAA2YHi/QmDGYr1Q
-	 CO+1/hvrKw1QGd2rMMtptf+7vEz3sc1IzltchUjXMvSY42Ed2fbelZTXL2kN/cpXmsapr
-	 EXxo9WDqxT/bSU3S/DgZCCPLhbs438QSOp9TNkHHZVVZR75pL+8Nx7UBTMftrPlym5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009078;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
+	b=ANMm+awvoKUQGX1R90fQFNIeCnKwJVHxNB7F3w5XTlH7she6Eav0l9V4u+PSHLgxdKem
+	 3jaiV8itC7oYgHlwr47Q+bXPO36dR+Z5ZC2+uIhNyQgEFhlGO1WGY1evuouU6mzG7zY4f
+	 4ntTuKW6VZz2wQHaBNR+abTQkVW7MobfWWeGg+6LDM+8zyV+qYCTJzK1YUN78k24dEe0C
+	 HltuI20qhYRmhRpjyacLAPZ7q+nzM0RL2JZ9nxX5iG0bh5f/WrXN836iab5TslTZlk0mB
+	 VlH0MfFe3rldV//o85V0q7Zdxnf2v5WJByjwK1y+AMxeTyy/opSxaz4whxgxzcKvBAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CintjnD4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="UI/H7fym";
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9D6606A331;
-	Mon, 26 Oct 2026 10:04:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB43606A327
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCB43606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CintjnD4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36B01F01828;
-	Mon, 26 Oct 2026 10:04:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793009070;
-	bh=PRfBqEtZY9vLSO/v1o7cinPO/v+UATyLQat9ERvQExs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CintjnD4Et7gXs29ZrsCkod5VJq2bgilI/ipEqW97jU/PCLADSUO2wLwnPcyLl1hB
-	 NraxPlpqgH76NLpNh9tq4QpPKO/RnpKUO7lN8i0e/NPBvfaWIliCqxAecCuPZMoE6W
-	 b0yAiOf05Eg3CzC8NBbutl7l7OQbglYh5lDCaeRaw309XoDIJVnVDoYPgHKbekqnR5
-	 aWgW6GhEm7LvqD+NASSvfBhSuatTJ8THAJ8OURJVGdiQWPWHHas52cNXbNQFrk66CF
-	 1UNoUibOuxvARe5xG+1QdAFEysnJnwhl/T7w6ae4Z7Iutb8mle1Wiy6RQh9GZiJNzI
-	 dSM3s1M6DpjCA==
-Message-ID: <44405019-7494-446a-86b4-05b2ac03f768@kernel.org>
-Date: Mon, 26 Oct 2026 11:04:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UI/H7fym
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab41538192so2033691a91.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:04:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793009077; x=1793613877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
+        b=UI/H7fymCCV5R8hXtpI07lGH3/oPJ2lwNaDRFtBfJ2Z98WNqgB7BIhhNR5neQc+sBC
+         3iXk3PsFzag2MjYDv0EDhjpGZzt3CyIa1WiUO+EpXrjVAgEltLNFy5lE71bluKr8Hbq+
+         4xbrzmUYbRrihK6YHm6FZUTZLrCDfh49FpFjYlpA42yU8QmoUrHEDCfMu2qwaPuJ66sv
+         qXKUcSu4j9N7ZTUZK7xMA7IPIesrntAfupirllGS5Krn3vDBELoAzBValbjdnSBotsYF
+         Dl7WY9NeVBWjP0eP7ROQJYqD4jfFXAEyey686yMiA/LXm4elu3hwqyuz7+U8v6L8ESMJ
+         +cSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793009077; x=1793613877;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rDp7+2O7MU6X785H/wA9kb/1vBQL6oD+1K7g8ImgNt4=;
+        b=qNnbk2wQpt4BF+gcP0LhnHsiCZGFP73t8cMsZw7yZjPVcf6nYer6r7b8qiF+jNwrZa
+         GkVrnLgijz1llUY9A7qkdo6jXepSi6prTFHU7u9FjsdhhAA1QJ1klarEPibEenxa8Gpv
+         fxV2E7O7XEu9BYkUo7DbIGIea3VearHpj7XbEtu3BB+CR+IXpG+NsX5WdITQ2u0ZV/Q3
+         HNMtWfyRTyfYYEwIuDR6wLbW3y9MngytcnLdld93NsXFmXnlOEZ9FV6i+Y4vTC4jIdQp
+         LrCqmeSkTbbABwUHbwr+tRwdKQ1/Olj9VW8rYdMZw9KllXVCkGBw9JzWqpFY8bsnVoBV
+         yBGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwBNzRWClIu6GJXbaNfCnWEtNmoAy6TlrCgszneByTfhEjmRxR85D1B9PhomS9TWOCZBYuTcoM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAvJ/mRMWiTwCRfAH6ZPDegdMTaKKsUdH/G8okPg/GlVfu/abO
+	DqFWZhzL49wQcrVSN2c7+bgg8tdghmH3U0Rz1t4DMyHWH6MGXhNd/97V
+X-Gm-Gg: AYBFou1QYQM/0oni90Lc6kSKpD7cwwdwtYVlnSQOxmrz/YcLXTK7o0MuRUjpyU1sGUH
+	HT6GPgslZ9z7xjGhHcORlkpCP6uu1OMn36NkomJg5uwYZvd4FfRobAVqmSUJRF9iD/GxHGygsQf
+	cHliBhIunOEp2/OiZ2sGxIIGo20f6Rbf0zunF6k2KANkpI8KDz8KCcw0x1NZsJDtOLt8EgTMGbH
+	dEs7Fiv9FE3HlP9YpmV3oo27A0cl99ehiJNX4X/g1PKwwA73jNHwqNo5xzgMmOMLOky217WSq4l
+	t4f5YjHnAhm9s2pf6xMi5c8bXD+HJGfZ0BuIT9Y2YQewm680lx/GSz/NQZFA/zHLnJz3beIC5Me
+	r9ErSH8sZqWdhxoUPysFpvck+eRxyk/J3s/6woeQQB7dmASCs91g1CB22HF8qYRdabLjatctXci
+	6wvmt7Tiv+4pKDQyrW4VnQbuysF++Dr58xHEyYBf11EA5H7qMVzo9+RlyIUbkSaseUTT1B8fk8L
+	CFuXhrdtdTbcLK9tFgESu9dmZQ8ovsp3AaPOAF4qPDmpDOSiRlhHCmEAwLX29NJU+MhAqNVAQ3g
+	lDA6ubvgRlRfogHwDIlE0enmD827eGGWf5RC5GOrR9VCXUN/w9vfOSFhpn/gNOzauqG0c/Kim1U
+	cP/jL0CEAUxC/996IyeZZgrG1Wd6M
+X-Received: by 2002:a17:90b:2d86:b0:3ad:ce18:50ad with SMTP id 98e67ed59e1d1-3adead57bfbmr5784240a91.22.1793009077115;
+        Mon, 26 Oct 2026 03:04:37 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.17])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebac408asm7912647a91.0.2026.10.26.03.04.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 03:04:36 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [PATCH] rpmsg: char: take ept_lock in the SET_INCOMING_FLOWCONTROL ioctl
+Date: Mon, 26 Oct 2026 20:03:06 +1000
+Message-ID: <20261026100306.68019-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,105 +98,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Suren Baghdasaryan <surenb@google.com>,
- Shakeel Butt <shakeel.butt@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-References: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
- <533c4ef7-e008-4439-be40-1aa2a074dfd8@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <533c4ef7-e008-4439-be40-1aa2a074dfd8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/25/26 20:01, Jose A. Perez de Azpillaga wrote:
-> On 10/25/26 11:43 AM, David Hildenbrand (Arm) wrote:
-> [snip]
-> 
->> Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
->> Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
->> Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
+rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
+rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
+and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
+dereferences ept->ops, so this is the only eptdev->ept user that does not
+honour the ept_lock discipline.
 
-> 
-> PROCMAP_QUERY does the same fresh lookup, shouldn't d9d1c2d81797
-> ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks") be
-> here as well? (commit tracked down by an LLM)
+eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
+(reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
+device is removed) and rpmsg_eptdev_release() both do
 
-Hm, very likely I missed that. So yeah, let's just add it. I assume it won't
-matter much because 5631da56c9a8 is the oldest one either way.
+	mutex_lock(&eptdev->ept_lock);
+	rpmsg_destroy_ept(eptdev->ept);
+	eptdev->ept = NULL;
+	mutex_unlock(&eptdev->ept_lock);
 
-> 
-> [snip]
-> 
->> There is the issue with seqcount overflows that Lorenzo is tackling. It
->> probably interacts here as well? Likely, but that's an independent issue
->> to resolve.
-> 
-> the saved seq is reset on every m_start() and query, so a wrap would
-> need 2^31 write locks inside one read() or ioctl, I don't think it
-> matters in practice :)
-> 
-> I tested it on x86_64 in qemu with KASAN, lockdep and DEBUG_VM on top of
-> mm-unstable, the maps holes I hit there are gone. Also, the code LGTM:
-> 
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> 
+and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
+A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
+eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
+(or a NULL dereference once ept has been cleared).
 
-Thanks for the review!
+The other eptdev->ept users get this right: rpmsg_eptdev_write_iter() and
+rpmsg_eptdev_poll() take ept_lock and re-check eptdev->ept before use. Do
+the same in the ioctl. Lock only this case: RPMSG_DESTROY_EPT_IOCTL calls
+rpmsg_chrdev_eptdev_destroy(), which takes ept_lock itself, so the switch
+as a whole must not hold it.
 
+Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+---
+ drivers/rpmsg/rpmsg_char.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index 550fda2..49c0784 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -343,7 +343,15 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
+ 			break;
+ 		}
+ 		set = !!arg;
+-		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
++		ret = mutex_lock_interruptible(&eptdev->ept_lock);
++		if (ret)
++			break;
++		if (eptdev->ept)
++			ret = rpmsg_set_flow_control(eptdev->ept, set,
++						     eptdev->chinfo.dst);
++		else
++			ret = -EPIPE;
++		mutex_unlock(&eptdev->ept_lock);
+ 		break;
+ 	case RPMSG_DESTROY_EPT_IOCTL:
+ 		/* Don't allow to destroy a default endpoint. */
 -- 
-Cheers,
+2.43.0
 
-David
