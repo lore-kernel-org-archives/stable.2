@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793025128;
-	b=O/yBgR85tRbMmTSb5HCHV7c8fp3DPr6DwAHKYmpK+a2ryLCDFLCxt9Uugm1UuJS2+Xfd
-	 EDICQHYrlgJQEFQJGt2dfrI20whh/5UE7KE8bjkhkKEZFYL/QbC9FuDMlNzjqR+7PC9Vj
-	 QKtbbgOZJ3SxT7Z91laI1oaxb/NATMvEfnNsOhOR2YDF1ofTLR7KzSVdW/qrf3qokejOV
-	 Pq4sVmEftI+jxRyii5mJbTjR9zA969/SRT0UqQCgg/vvXwP78UAjddB6IrRQFEHABkvXS
-	 o/I25tYqhGXRD5jLEt+bbEFi6YajvMSYKC2JFNe9cDbKI8IqlwaKZ0QZlmc3dv+pUqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
-	b=kSNzp2m96PAA6/coK521eVMbhcygoIMw2Hu0Bbuz3SGnag30qiqAgcdOyNacbysmk14V
-	 l5x69Z4guGUMLfECpuGTXtuDQFKjr03Fw9aTHfjeOobGMDfnGu0xAeudIQMyPmVZlajzk
-	 Jmbk4ynMGFVDEqdi0JB3Ia/KPX7ml2XqufHdpcsNogr2AyAC40rkquZ6/fw79E5Qz9MiN
-	 gGTMDWcgeFVRD7stIimu8OpNK/HMIJUun7zPYMEKRAwfAdTamlVP30ZO5XRqhuhPfaJRx
-	 0jLX/4tKGP/oDKZLMh0E6I7vQESRRgZFjTuasd5j/903FtOwuOGoP+l4MVqlyyVxUQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fvFl2JqY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793025431;
+	b=zy8fNJUrbVcaFrfUfD/tg5+hJQRBPlJZqcHfAITbkWcxKKqv2u/mrd0MzTBnB485qKpa
+	 h0j+QRjRajWJ7IRgb+89lpLL4dekz9Gj0pRZuL3Sy+G3vVj8nE+vQvcruTDAo7F6/9cRq
+	 rHQ81f+BX43KSHfRCBoOiapMotJrXTXowEs0i5K00KVC4dzA75nYUrz2sL/L+a0SJpJzT
+	 DfB/Wyapf8Hl3SVq1/C/4Gmo1SGmillByytIkJp1/LOu5T3hvjpfpJxovQbbgGePV9maE
+	 +kP106chfmOqj18Gb4oR89p0MPJILrH2SXoOeBGSpuOMC3n2IpvYAZSCVtjF9Bggrog==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025431;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=sl9wycySHELWIYxBYAxwb0s27UAcNsM0vqaNzM0OM3o=;
+	b=iIaG2tDOfsk+2agTgZGIeis0ucfBebeuCTUyTs0PkrJrh9nXKkejjPpdOtoiiGdPw9GX
+	 +wPNByPmmX0wxDyjuymraZtZOdhzI+c+Ns40pWm51u5XcqboxG1fUsDII4VkO9Gq0X/fV
+	 s5TDlSPP7moUScQRD6JgkNLqRuW4vVheg+cEul+ZYU4fCBm3ynFQmRd/xSoWt18hJH1V7
+	 Sdxkxnn9fhZb6SxuvmQl41Kni5GZwQrGJWay95tGZWBGwa/mzM6YUcjvn/XTtZ2nIi9sR
+	 McZyt2MrYb9VlUqX8W1/7+ps9DHSz9VaytqiG9aMTyQFjExAKIygenefFmSNlTaFBAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ka/7Sxsk";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D5F606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6D5F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0819606A31A;
+	Mon, 26 Oct 2026 14:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fvFl2JqY
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd69954c755so2069253a12.3
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 07:32:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793025127; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ERIoAutwDoEji+FxEHR6vCUkR/cYcD88jftWRILdfoOkmUEZy1uiB3laVnmlEfC958
-         JJMX7K1CsygjqAE9w4HmaFrSiQ8HbszK1ewNuocdpuLSQ/PFT6DMb59ajGLK97eGztjB
-         lq2z8GlK1wDEDQzZnYku0ylvDtFO/lDToXcFOIXyQGXoYcAXF+f5wkalFqGEYvwcTAse
-         rxJNjBawj+i9WwSxO5DgVLR+3zmCCVIwlrDYuEdzyJelsFtFNQ8o+m+hItapGivL675h
-         FI8FphHgQcwOH7usE7A4ZSZl3+7tkGFAyx+3CpdW1GrnlhPcPQbsObfa5ZXQFzLVAaAt
-         qj7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
-        fh=WIZ2owM/C5VjmO+tc9aXz7GSH12xtQRuwLyXPagLQss=;
-        b=UMjT9ZShGtTYnZ8ssL+6z4ulIvF+j1D+KHlIEGFkyI3WYaAXAbQC6cjMJ2gjiDO8yb
-         RrH6Rq3dQAJYaDcULgkxICCsWYlO+t5KyWEVj2VSctk/CcS5nrf+5IeaGhpynvwLAlue
-         C25W9+irOSllQzPyvnxuCsf34Ix1Sc8N/n415pQY8xTscT55oSXiOAJ5k3QxTDcPo8yZ
-         YCuBPljtPZMl0Q1a/NUKc9mTjDXp7rFjlgwqPn7dB0/vw5HSp/0M2cfaekIV2MWsOoww
-         rXeFiPLWl8iKys4yF3Yx8SGf2UOU2c1p68r8G6O1ffe9IHR8ygZYmHIk0u9sab7SxXQC
-         dbDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793025127; x=1793629927; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
-        b=fvFl2JqYiK++L9Zn0vfo8qjsAtt8ULXmy4jRMsZWyhMJnRIQKO5Rgi7jeprM6MVIy4
-         /gpHjU/ILM64eE/DWyLU9CpYZROq10UOYB88q2H+bNRGWt/4itLRlgb7IHZmz254KEUJ
-         uyBnRxmPFfHjF2N0bUVo2B5byPKdjvv7n7yrws+I97JBI3bkCFzeSNxO5vtbSRwE8MiE
-         0HiZelCG6u9CtDzypVlb7C/Us/VsX4+woXWZYwOacQWphQIEBAJvEiYJ4K0eVNFK4BwU
-         YE9lJnKghkc2gPV7RauLtKpoQWBEQz+XeynSq1pXEe+p1iupFPzxs9UqunTA7XvO5dcC
-         ZFBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025127; x=1793629927;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VMmBhwH3f++U+Fny1silggx8Fp4rLIZ5/kJA7+I6Zec=;
-        b=W27EWlIobY5F6XrA6iLVQZmBTtg0ciXo87cJMIz8DxfQNP1Tx0nb4WZPuyF4j9OeJn
-         RoC9czXdTelu/1fUA/J/EJISjKoGDQxAc8poQ9/4LyCA+EdlBzJh7naRW2Yvs9c33LuS
-         7vfccyVzGilGPL2NGuzyAV/4SCjnAgclHPyjtUMG1wMaJ4bXv52VG0T0t1gcfq31X8SY
-         Ty5ENvs7UUio7P2Ptg7C8PstJrEl304jRhIhRcKANtCE201OS/Mlfp5QL03m5Te1Nje2
-         1+3iiInU4F6g0SAzoqNvXr76uXctNouOxOTydl9z+o9+8QpYOCaS3c90a2aDj6b0Z0P1
-         ajCA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIkzHQZFs7zd+EIb2NnGjxTKhsKCSoJe80DKJoUr+vnI31BPWRkPNw5/yQODprBDVW0mftoQY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRduUfCk5MdNDx1oq+8drmS5xCwWJxWoLSrACg+xIPDz9d2YEf
-	ojUc2hEzhpqtHek+pgOiHak4+EhYc8hW2sBq3EWKYIUOO9DnJSotbIVvqi8P/FNqFdMXrh3CjFn
-	Z2ngqLwnA4DbJXCHQnZRLA1Tj5vdYRO4=
-X-Gm-Gg: AYBFou0SKrAtjIHbpD5TnXMmqMOOTDG9Rnh+ZZdsCj78K4OHFl5IlYWmJ6JnivJ/PQ4
-	t2bC+DiN9cCi2BCa4jsOUbr8wwFJVa3VQ7w9T40+LAt+annX1/YcBVbATVQUSif71JLFWGbZ2y7
-	22cYh+VcgcUkiKu/aKerUZzfp2+MuZkz8s6t306qZkBRaKJkW8Ssbvh2lsT6DvfTuuzVW5JwGDe
-	X1tZxxV/hbPSrJVsUQGlNPlrdB2UJ5lQ4ksns/2RN2KydrgLyI9DyKmANJw9aVBvylZqo+QC2q0
-	atN/jB8MR9bTRhuBLHNsXa/ph8Zun91f4zkUwk9bxbosZUkCT/TOGCbTwVPj9E5IXkqsTtbUNPe
-	i1HVyPBzkzMdYbsCoGDkTlYS3KoOhM6882KlIl28=
-X-Received: by 2002:a17:90b:5644:b0:3ab:d45c:59da with SMTP id
- 98e67ed59e1d1-3adeafd21a8mr5767380a91.40.1793025126904; Mon, 26 Oct 2026
- 07:32:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka/7Sxsk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA76F1F01825;
+	Mon, 26 Oct 2026 14:37:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793025430;
+	bh=sl9wycySHELWIYxBYAxwb0s27UAcNsM0vqaNzM0OM3o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ka/7SxskYU2X8HL9aFrMsSmohChlAIIZ8CqxW5S8KxSfV/fmq5SxQPV1sJOqYwepk
+	 61cs3TwGMcQOa7Ma1/IW9h7U5F67h9S4kMsQaaTaYkPDuvYpWyrnCbZaByHyM4gN9G
+	 LFr9UBBC1GKpUxScLdzwZ1kqVkzNcseCy6PRhYemqbFTymHwK8dItOaB19+4lUisDU
+	 1UkWga42Y1EU9ifGgERxGI3o5x+QT9zmNpRgYN40KcKFvD9v6NkDftUdA2Yoh2t1Wf
+	 GJkmfyxuLbdXZRMtWVwp7vueyBAUxQBl35c7aVJE1qyA8/xKa3U5BMpLqJuMY7WFAJ
+	 EL+YIbmiq6Mtg==
+Date: Mon, 26 Oct 2026 14:37:05 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Ngoc Quy <ngocquy0700@gmail.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Muhammad Usama Anjum <usama.anjum@collabora.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
+Message-ID: <at9jXXDoMLi3X2EF@gremlin>
+References: <20261014095540.3261469-1-ngocquy0700@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,85 +58,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024091256.17918-1-testwrzwrz@gmail.com> <20261024141157.59301-1-testwrzwrz@gmail.com>
- <20261024141157.59301-2-testwrzwrz@gmail.com> <at82NLzM7g8HGgum@boxer> <20261026142705.4564-1-testwrzwrz@gmail.com>
-In-Reply-To: <20261026142705.4564-1-testwrzwrz@gmail.com>
-From: Magnus Karlsson <magnus.karlsson@gmail.com>
-Date: Mon, 26 Oct 2026 16:31:54 +0200
-X-Gm-Features: AclHuK89CEpPcFuQ9Zkf80L7rIP62d6arcQxEpIyB7BJW5pfRLgwLFs5gMXbiL8
-Message-ID: <CAJ8uoz0XZg8K2g3eBXOajV3TsA-1Sz3D6t-G2+BYw2YX7A4K=Q@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/2] xsk: defer software checksum until the skb is complete
-To: Rongzheng Wang <testwrzwrz@gmail.com>
-Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
-	Magnus Karlsson <magnus.karlsson@intel.com>, Jason Xing <kerneljasonxing@gmail.com>, 
-	Stanislav Fomichev <sdf@google.com>, Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, 
-	netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014095540.3261469-1-ngocquy0700@gmail.com>
 
-On Mon, 26 Oct 2026 at 16:30, Rongzheng Wang <testwrzwrz@gmail.com> wrote:
+On Wed, Oct 14, 2026 at 04:55:40PM +0700, Ngoc Quy wrote:
+> The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
+> /proc/<pid>/pagemap without holding a reference to mm_users.
 >
-> Hi Maciej,
->
-> Thanks for the review.
->
-> Yes. xsk_skb_metadata() is only called for the first descriptor when
-> skb is NULL; continuation fragments do not call it. So
-> skb->ip_summed == CHECKSUM_PARTIAL means the first fragment requested
-> the checksum.
->
-> I'll preserve unlikely() around pool->tx_sw_csum like this:
->
->     static int xsk_skb_sw_csum(struct sk_buff *skb,
->                                struct xsk_buff_pool *pool)
->     {
->             if (unlikely(pool->tx_sw_csum &&
->                          skb->ip_summed == CHECKSUM_PARTIAL))
->                     return skb_checksum_help(skb);
->
->             return 0;
->     }
->
-> For the drop path: xsk_drop_skb() increments tx_invalid_descs and
-> consumes the skb; sendto() returns the error from skb_checksum_help().
-> Since the descriptors are already consumed, retrying is not useful. The
-> current metadata validation makes the malformed-packet path effectively
-> unreachable, so this is a defensive drop.
->
-> I verified the propagation in a local QEMU test kernel. For the test
-> only, I temporarily changed xsk_skb_sw_csum() to:
->
->     static int xsk_skb_sw_csum(struct sk_buff *skb,
->                                struct xsk_buff_pool *pool)
->     {
->             if (unlikely(pool->tx_sw_csum &&
->                          skb->ip_summed == CHECKSUM_PARTIAL))
->                     return -EINVAL;
->
->             return 0;
->     }
->
-> and ran test_xdp_metadata. It failed at the first generate_packet()
-> sendto:
->
->     generate_packet:FAIL:sendto unexpected sendto: actual -1 < expected 0
->     Summary: 0/0 PASSED, 0 SKIPPED, 1/0 FAILED
->     TEST_RC=1
->
-> The normal kernel still passes. The test harness does not print errno,
-> so I can only state that sendto() returned -1; the injected error was
-> -EINVAL. I restored the source after the test.
->
-> Magnus suggested a distinct counter for malformed packets. I agree that
-> would be more precise than tx_invalid_descs, but I'd prefer to do that
-> in a separate patch instead of extending the UAPI in this stable fix.
+> proc_mem_open() deliberately grabs only mm_count, so a consumer that
 
-Correct. If we decide to do anything like that, it should be a
-separate patch for net-next at some later point in time.
+NIT: just say mmgrab() here. Its comment already explains the
+mmget_not_zero() semantics.
 
-Thanks: Magnus
+> touches the address space has to call mmget_not_zero() first. Every
+> other consumer in this file does -- m_start(), do_procmap_query(),
+> show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does
+> not.
+>
+> Without that reference the target can reach exit_mmap() concurrently,
+> and exit_mmap() calls unmap_vmas() while holding mmap_lock only for
+> reading, which does not exclude the scanner. For ordinary VMAs this is
+> harmless, as free_pgtables() and remove_vma() run afterwards under
+> mmap_write_lock. A shared hugetlb VMA is different: __hugetlb_zap_end()
+> frees the VMA's hugetlb_vma_lock inside the read-locked phase.
+>
+> walk_hugetlb_range() can therefore load vma->vm_private_data, have the
+> lock freed underneath it, and then down_read() a freed rw_semaphore.
+> The load happens before the freeing side clears the pointer, so this is
+> a use-after-free and not a NULL dereference. Any unprivileged user can
+> reach it with no huge pages configured, as hugetlb_reserve_pages()
+> allocates the lock before the VM_NORESERVE early return.
+>
+> Pin mm_users across the scan, the way the other consumers do. mmput()
+> from the exiting task can then no longer reach exit_mmap() while a walk
+> is in progress.
+>
+> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
 
-> I'll address the remaining feedback and send v3 as a new thread.
+This is the old-format tag, but the tag is no longer required, so let's
+just drop it.
+
+Instead, write something under the --- about AI usage.
+
+> Signed-off-by: Ngoc Quy <ngocquy0700@gmail.com>
+
+LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  fs/proc/task_mmu.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 >
-> Thanks,
-> Rongzheng
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 5c54aebe2118..8825b01f5e38 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -3231,15 +3231,18 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
+>  	size_t n_ranges_out = 0;
+>  	int ret;
 >
+> +	if (!mm || !mmget_not_zero(mm))
+> +		return -ESRCH;
+> +
+>  	ret = pagemap_scan_get_args(&p.arg, uarg);
+>  	if (ret)
+> -		return ret;
+> +		goto out_mmput;
+>
+>  	p.masks_of_interest = p.arg.category_mask | p.arg.category_anyof_mask |
+>  			      p.arg.return_mask;
+>  	ret = pagemap_scan_init_bounce_buffer(&p);
+>  	if (ret)
+> -		return ret;
+> +		goto out_mmput;
+>
+>  	for (walk_start = p.arg.start; walk_start < p.arg.end;
+>  			walk_start = p.arg.walk_end) {
+> @@ -3294,6 +3297,8 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
+>  		ret = -EFAULT;
+>
+>  	kfree(p.vec_buf);
+> +out_mmput:
+> +	mmput(mm);
+>  	return ret;
+>  }
+>
+>
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> --
+> 2.53.0
+>
+
+--
+Cheers, Lorenzo
