@@ -1,98 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017585;
-	b=R5Kj1rrkYwg/u1hSfhcBr79Sne9NHXrMw4lbPHSkNqimKdKWLExl2rZGRX4CkqLHb8UG
-	 3Gf27EuVeSB8hLJezDVc2od7HCyhjQJqiRTr6ekc8sh6zNavJQs5lXICrJnQem43SKydp
-	 eaiJgtRRxjSqOsA9xYVsLkgft2v2doFN3nX+U/Qo4lpdlsVbCHumd/nEqDz2U2EZ9994t
-	 aHwszs4AoqbG4/6iUU51YpB8eDTDxKFhHO+2hU/O2gWao9KfUaa0CHE9a3vCJXBXy6rk6
-	 HvBAlO8AAvoYEmz5o8TvxKgpIG4l/5HpnD21k1Q0f1DeU7O0bvuLiT4p49wqi3UrrMQ==
+	t=1793017851;
+	b=FWTC1pVfWKdEawjkw84TC0oJN6+91Vphw1RkepZ9+VzHTJeVO95+WA6FXi7k9K9RaKSW
+	 5pnZFlXo4Z/2RT1vfl4pQF6rK6WPOh5MVnJBAWU2B1lLiJX5ym86XvDviGThNejKiHqm+
+	 aB5pzYKc1hqzXWplL/hHPKrdbaa7XyLPVHBFTZzWZI0TTt7HewfBzOSMNcLe8ZaOuL5aR
+	 806ZGx7F/RdA0mp0MjC/BwEhnCiKvcycBbnTP1toNySQSRsZlK7IHgEBOeucax7OYpHw9
+	 DmSzxHBQ7fDjMPJNBY0WtRY+HmWRpT9CuEyfp0KJUzNnLlb5nU1AmgafJA4e+K4G88Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mXaPzB2LTZSPLIrdOOZClzIPyJgWgWO8rm/whSLIkPM=;
-	b=5EO1XN2lzELql7074GICE9pcz43uWg87m2ZPmrEBUFRVXzs8OeV9Pk8snKEj8sWsUDVs
-	 NRrRgebVsMQ4U9wU4B45SGmkEz2LU/PtdeogRX/oJJyoSy0R79iSgr/G1jhOIP3OPAKOx
-	 BkrqgLfM/Qs17ZEGTvCVLG7ajE6XiGJGnxNGXFntth9uvE035XKxjDiEjwEaEL3ulrkAF
-	 OfPgdo4VKWPFn6hc4+PaVEXDDpNMHeTOpt0o3eOf2uQpBeQi6kKMbZPGsTWM0Xvv9+ct/
-	 jAXnJVpmHw6P/c9q+IHmPAeM+oMJquBvTtQHLsJ1s5cd7K/P0LaQs46qG9f0Ya5a/0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017851;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=TRZt7x37p8LUgQOIpKaz3b3988dBzwRGltnd5ZVeEBQ=;
+	b=G41DU1QSAd6rK2iQYhxGigKpSfVVx5WVHer2nL0G38YyjHMH0f79iOGwhA7HK9xbAc1o
+	 yRR5uolyYz5B8HDm+Fx8r0weaIW/oytUfS0BzSm2iadt6xxzwliq0r4YYNFLotXxnvNW8
+	 Zko9M4c94Q2+yux5ozqyjj78RsUGEQyE2R3am4l5CmnArlYUTgGaWtYZN500KKyFbxddA
+	 MrMv3owNGDGzMyAn+HFDFN4MgOEnbux8Jk+Bfg5uODzFUbiDUkuEQSpfi8i75qX147+6G
+	 1b8SuuTFKhFdf+xGW9mvQrDI+VTidlBnfyUNzfsy739r4+w5lw9hSSSTI1eGmqEk14Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J7RUKdBm;
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A8D606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:26:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54A8D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=a51umk1S;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8EC0606A31F;
+	Mon, 26 Oct 2026 12:30:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8EC0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J7RUKdBm
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so878391a12.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:26:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793017585; x=1793622385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mXaPzB2LTZSPLIrdOOZClzIPyJgWgWO8rm/whSLIkPM=;
-        b=J7RUKdBmFWCFYf7Jm5iuhyIacJuMljP4DULL6+tfAbY8VnPD5NPIWoyJzDLqhCOK8F
-         PniBYrHIfIa2L1Fl8LV7ahoG1/HQP3n8pi5GBdaqyYwFuOmJnh35QV/ZHqatgA+le6HO
-         HNAulxRUnjbWO05GSaogpGkqryhZSuLSsqOYXzljsrH9vveEqXa5sSKco6lilfpvmoBw
-         +F2ugaUMD9M21S6iqpDuSg4jHDaEpwwd31Elh7UOxn2KqC7k8/UAei9qMxhU52eVKsYg
-         UhrZ8KtR/n3mMPgG+f74DQQi20v/K9j/xk3m5XfS0E6yz2xztPD1K6EWJldKHSIKfbsr
-         kFAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017585; x=1793622385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mXaPzB2LTZSPLIrdOOZClzIPyJgWgWO8rm/whSLIkPM=;
-        b=mD4MzH7+OjJNOd4qn7spyw7KZ7Z4Gkb6cdXEd1xAWFk2e7djLBFwxdvVfSEQ5NULm6
-         fCOQ/9Mm19zs3ejV+5WXWhiTm36TsPLLWdg3qV/iqzu0/nmk+5xxOeGPnYKfPbkiJkt7
-         Y8ZtSWph0ZCls/oQ/IUi1rzrtEW/LELgU1JGG5lajUC4jRO+N5UnnRxzlNeng9MjknL0
-         Xb2cMfCLAblM1/exvk/dyxfeNo3ch/lQzituHI8cYCGpxtE5xPrcEWJzLZyhnPNUBkPm
-         ZjDozkftTXt4sTVthvWSD3BTsXjUWWC3owNNjknyqUxgTEIUTZ5+6LPkaM7TaIMxXIAM
-         hE0A==
-X-Forwarded-Encrypted: i=1; AKwUvBycWOKOFalurnR1v3SxdOzQtyNrbq205ELUtTE1M879e7Gavr7oZUp9kGkF/qsNKk7JHzK8Xww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD2IE5m/CqOjNnNsviFmL4WFKvGRY47gbflXJeIVUE4fYCiatY
-	VnfpO5H64JM/lodhJbSkViDzk2ex9c1V9ai+wUBlLbvUI3GE/FgloYaD
-X-Gm-Gg: AYBFou2DpNAe7QG4kFgD1NSxgPayocr005R5XLXYE6r9jcdOz3zaae5LSrew8Z1geFC
-	hSAxw1xnaXwvCHa3ueGYtA9lNvAUalj4reH4Rn7WY/3tn/LWnxOe6bdnwfmgcVYzFNWgdUIN8+b
-	sIzxkc/pH/7C3/z2+LH5l/VQGboQyZoTPYtmHS8tQS9Xe0PriWX1b7qdn9FLGZRlWNlYMQY4csH
-	laxYCAkQRAT47g1wCqXV8IZ6Rb5osg4NN3KJ2Soei8B5xkG4Hbu6Of7fBgqW4WTc95krVqoXXjs
-	M3zdUnca4M83Ep3PS6vfhPVQhNeyJe3xoI1Wfc+tYShD/G4oRM3f7fAbpewm7+mYW15o9kArBaa
-	6OPnj+F3ciB2SXziaLViRkMypJdGKKlgzmStKFWNox2n+A7gYsaaIm/mQP60+Fyi8Qm2t5noIgu
-	7z+E7U9tzhETRZZvQGTAAtWqhjUPMzipIxLenk3N4J7JpVfJX5O7acsFAy5Dn0i006kVfJAJS8B
-	q538t3KQ3iN+9hkGW3fdWM2k90NV5dl1Zk4k1lqKMaYWMDm9YR8Deqh4xgsMQtWCJqID8GtgWI=
-X-Received: by 2002:a17:90b:5105:b0:3ab:752f:5f9c with SMTP id 98e67ed59e1d1-3adeafad11emr5076749a91.31.1793017584676;
-        Mon, 26 Oct 2026 05:26:24 -0700 (PDT)
-Received: from lgs.. ([101.76.249.61])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba32e38sm8894148a91.2.2026.10.26.05.26.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:26:24 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Gerhard Uttenthaler <uttenthaler@ems-wuensche.com>,
-	support@ems-wuensche.com,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Sebastian Haas <haas@ems-wuensche.com>,
-	Markus Plessing <plessing@ems-wuensche.com>,
-	Wolfgang Grandegger <wg@grandegger.com>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] can: sja1000: ems_pci: fix UAF in channel cleanup
-Date: Mon, 26 Oct 2026 20:26:15 +0800
-Message-ID: <20261026122616.97845-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=a51umk1S
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F3F025DF;
+	Mon, 26 Oct 2026 05:30:47 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 16F583F7B4;
+	Mon, 26 Oct 2026 05:30:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793017850; bh=X7sXgG5KeOSy1aHvYxzPYxQhid9EVso1C+EnXtpcXiA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a51umk1SJn3Qg0uasCVQzZnOrDFKghUAEP7EkrWFXdPPNFIMzLLrV9N8cjkr3aGKF
+	 z8GG4zNZ3Tm/0q6VoX6Psp3ZxfySUkB3fkJWOhbNWs22m0DRA+otCMqkcURphbPTl5
+	 fFeWa3OFzRFlj5VqI9kqkZNToJ4SuBOlO68fncXY=
+Date: Mon, 26 Oct 2026 12:30:45 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, will@kernel.org,
+	Ryan Roberts <Ryan.Roberts@arm.com>, dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com, lance.yang@linux.dev,
+	mark.rutland@arm.com, akpm@linux-foundation.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+Message-ID: <at9H9Vkx57pIcPos@arm.com>
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
+ <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
+ <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
+ <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,61 +70,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
 
-When a CAN channel is absent or register_sja1000dev() fails, the
-driver frees the network device but leaves its pointer in the
-card->net_dev array.
+On Sun, Oct 25, 2026 at 12:00:33AM +0800, Zhao Gongyi wrote:
+> On 10/24/26 4:55 AM, David Hildenbrand (Arm) wrote:
+> > If we have the spare PTE bit, why shouldn't we just use it?
+> > 
+> > It will make batching over PTEs faster. And we care about that for present PTEs.
+> > 
+> > So I don't quite see why the stable fix couldn't just do it right away? Do you
+> > have a prototype that shows that it would require significant code changes?
+> 
+> I tried a small prototype that keeps PTE_CONT on present-invalid PTEs.
+> It leaves contpte_set_ptes() unchanged and makes contpte_try_unfold()
+> recognize pte_present(pte) && pte_cont(pte), instead of checking only
+> pte_valid_cont(pte).
 
-The cleanup path iterates over card->channels, which counts only
-successfully registered channels, while the array is indexed by
-physical channel number. This mismatch can cause the cleanup path
-to access an already-freed network device and skip registered
-devices at higher array indices.
+I think it's worth doing but currently not sure it buys us much unless
+we also change pte_batch_hint() to cover such entries. However, if we do
+this, we need to audit the other pte_valid_cont() callers (e.g.
+ptep_get() needs updating as well).
 
-Set the array entries to NULL after freeing their devices and
-iterate over the entire array during cleanup. This prevents
-use-after-free and ensures that all registered channels are
-properly released.
+So, if we aren't going to change pte_batch_hint() as a backport fix (I
+don't think we should, it's an optimisation), I'd rather take v2 now and
+continue with a proper pte_present_cont() etc. patchset on top.
 
-This issue was found by our static analysis tool under development.
-
-Fixes: a61a8423c71d ("can: SJA1000 driver for EMS PCI cards")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/net/can/sja1000/ems_pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/sja1000/ems_pci.c b/drivers/net/can/sja1000/ems_pci.c
-index 986fc8786fac..ff680486a299 100644
---- a/drivers/net/can/sja1000/ems_pci.c
-+++ b/drivers/net/can/sja1000/ems_pci.c
-@@ -213,7 +213,7 @@ static void ems_pci_del_card(struct pci_dev *pdev)
- 	struct net_device *dev;
- 	int i = 0;
- 
--	for (i = 0; i < card->channels; i++) {
-+	for (i = 0; i < ARRAY_SIZE(card->net_dev); i++) {
- 		dev = card->net_dev[i];
- 
- 		if (!dev)
-@@ -399,6 +399,7 @@ static int ems_pci_add_card(struct pci_dev *pdev,
- 					"Registering device failed: %pe\n",
- 					ERR_PTR(err));
- 				free_sja1000dev(dev);
-+				card->net_dev[i] = NULL;
- 				goto failure_cleanup;
- 			}
- 
-@@ -408,6 +409,7 @@ static int ems_pci_add_card(struct pci_dev *pdev,
- 				 i + 1, priv->reg_base, dev->irq);
- 		} else {
- 			free_sja1000dev(dev);
-+			card->net_dev[i] = NULL;
- 		}
- 	}
- 
 -- 
-2.43.0
-
+Catalin
