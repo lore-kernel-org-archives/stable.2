@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792976539;
-	b=UEr6w81fJh7Vvx9Jdf6NRJ9MXwui9s64r9RhtQulN8GEgeg5Mh6bCmnXgQVqghViAt53
-	 L5NdKghbQp4Dt5d8505eSjtkCXZDdcceSkpsp9UCaeDfkmo5EMtmk3M6sEu8523k+Dhlk
-	 Xu6dFKMEUm8D9SRCkZLln2fo8iu5S+AyFHS1PEzRtDAMNxQiDX8L2dv5fyatakSq0NM8O
-	 +4vkX+d9uEbdfOx0sEBydhcQhWfFfk+Tt00PzzeQxLJr7fDmqqA9Fxt2mc6VlZzGWEPX6
-	 Sb7ASqdbs2XRLqImnuwsJAG+thUA1dGsHk9+Ai6zgodIj4m49BaDVPFXJAxCoQtNwFQ==
+	t=1792976984;
+	b=DYr7GNFepjC6jiBVOKoqdLMfXod6loR6SfwmBpgd7+VT50B10nN/kWK0Esq9v1XPe4rS
+	 Jxt060SH2iuBBemYUcQU9bPorgemiWObaCNWs+hHxFWuvz76GfWhEnXCGtzMDxBV64UkZ
+	 +ZR5cp33UO+qWT2qtS2B9JxE+epumfFts5v2c33yqRffTYX2wAhk9rz3GB1+DTKqPYjEz
+	 tNX9P3jgUM2cJJeookCg13SxrkzLbYxxm3VhUPZLuRXMrFJK6S6kRNlXdCbaDJ7w1kOPW
+	 nx/ffRBSXTWSl5IZHrVNvX43INRIDWJC0neWmhPL0Ig2Mwwy8YIPyqFbGOpFrks69ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792976539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792976984;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VjjpT/WS6GzMNNn96hvzrrjqoEJgWtlxD5KPXsnUWGQ=;
-	b=2kl4OT/SSMAjZruW+YWWR7QVAwilHUTJUMjHUHm0rS8l0MY+Hpfq0CX4h3+HUjB5vWI8
-	 6YlPihvAixZu03l0kmr412st1eBAUBxwC5tmxa4a2DUD3awrVr/IV0Eo2sxjo9LZ2sNeC
-	 wEGp3dzo3s9regRFlf3O/siZ7fRpPy1nV3Fx/fSxQKOAyQ8pzSPiW7140GNEPQNAl73JF
-	 cotrNLOzmciWQYCr/wufm/tCNCi+ZmyJFhS8ul0TpotFVhbvNZ5gcupi76kK/jWu9A7aA
-	 hTZ57j1I2yqz9CgFg9zjyzSL8bJHbif6Gtec0A1xDgQ/8QmLugTlmDsnNCNlhRzBCNA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
+	b=N7jC3a4Epv75HVDjzsia7tHXhLS6jS/5djvydZGVmdV+Xm1Mb58+HYfeYJaq8ZalnOOG
+	 t7bdCI3S6VgGR3CnRgyY/6IKMZ4ftivGItwU7onvQkuREkCSYUagm5ufix3DutXj07ciu
+	 38ReJjSh8VDyQov3FtVIbS0VVw8lCg5d6D6D0pzHrf7VI04Pl0dXy1JnSor1/qFIkGw+d
+	 g2geb6SyJG3In/GtynTWoEUsRjF2vD7k+oEKA+0CpCW3e23TL6GY0U+r/jnvYTFuro9EA
+	 kn+j+5azFJ5tYIg0sPZoY5sMl4TaHFJej2uCY23ZGzLDLj/0QX5zWtJ1u6gExr6S66g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=syKs5b2q;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=MMk+k0CO;
+	arc=none smtp.remote-ip=209.85.160.170
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B823F606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 01:02:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B823F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E99606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 01:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2E99606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=syKs5b2q
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so4222635e9.2
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:02:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=MMk+k0CO
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53512cd2f85so27880961cf.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 18:09:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792976537; x=1793581337; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VjjpT/WS6GzMNNn96hvzrrjqoEJgWtlxD5KPXsnUWGQ=;
-        b=syKs5b2q4e1IzBryiRFLwcyDll86H3tx7Dktu/J6IpyrTDrxTtiPItnGkSA5E108f/
-         VGkV6VFQwkLG1pyvv+xHxjs4hpNivcKL1UOFK89Zno9yBNHFmZa69WZeEOZu9sZX/gIl
-         S9adAuTKaqwKT+FSxfHNw1ttbx+tAhp99grNniEa9vzRVmEsZEziTjdCrQVn9GaCxHc7
-         x30UQVKAwhGXeAyP/vZyr577/YYIlzctXSntmBeQg1CJe2yj/doYXVvEtf4lMVVQi2zA
-         s7kfyI/N8vxtghNzDxvHLMeQHMfwST+nkh0UDLe8suv+OpgcXYOA4D8fVXpfeH8Xhksx
-         sBLw==
+        d=rowland.harvard.edu; s=google; t=1792976983; x=1793581783; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
+        b=MMk+k0COyYmNm4YdnxYfC2ghljf4SFkUhbA6kOhdeg1cbfitG0EjUsLQQEsUWdh2mT
+         DfisF8g8yCg2zHx3IasNOO7RoHrWYOPP6vcdds9StC+lsuj6pEzcWdILCdQbgNGYa2gA
+         fiWfgn11b2ceufwdYy2Q/aKNdKRi3guSGdI+5531lVzJQMrxEiYtYM9XzQsCI0sgoBtA
+         0SAZzsqwgQu1MOojO7vvZbQg+to6vbuYsUW3/bNiA5a27yiZ3RtFjyuvXX0S+onRwy+n
+         DrhHSBrd6oFm3nt3UAb01Ka+25XOFLCV3zQMmrJj3FeDJPFc0wS8cAuNIgLE3yNxipaB
+         JAcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792976537; x=1793581337;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VjjpT/WS6GzMNNn96hvzrrjqoEJgWtlxD5KPXsnUWGQ=;
-        b=nSqnTWc+HvjKwZkX67qxcdnkha5VS6qLMKl3U7TOWFrn+ogAPKac/VppoBw8XZ2wtJ
-         sSGx0LaDsfFPZPAF0yy/8H4PJJRrmSO7Sz9ljAIxo+3J5lL2sinPl5p2hVmt9K/gvYqW
-         x7PQwckhRSRP8mXeMwpYJBWca8+nfgRsErygTpQPpAUIL5Z3hRenhVLrNbSf68RRkTmI
-         hiyWEORbUXWYwZ/055ZPBkyA7EX4vmyMpS43I8aq0PrgJ9ac11cZNktoq+DRpLP0PLWP
-         mvbHlox4wYAGcBKFrda0/CqIguxuGcpFkSXtGLFUW89jTfU8Iuf+aonUyWw63trpQ3KW
-         tdlg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1zvfws804dHRNEO9fdS20nr1gWgFtZFQmjzpLYhE0NoKqykE0W6R0BDVQ8XOvGz9Qcn/7ppI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJuamcVqVKRDHEBVoYzx4pFW055byMM/4ex2IHFgKqiZyt+Fmz
-	glsUI+VKicIezN5oitq+jps70zKDGF5lMtMaNo3MkX7sW2nTB2tB9plP
-X-Gm-Gg: AYBFou0qnAnA/qd1usfOzfxAXOQuXcT1SVtfVAsl+avOEtQ8sz9SMCtVYmWtJdikyHY
-	2nMjkw+p0ycuEvt15B3J9GfDxkaQZIAsoa7XZ31GsOxBj+MItoSek1lawIizwKxFaSBfwNNRrtc
-	g0rUQFkY09i7c2hcfffXLG3z/o8m+JGwjnIytsCEUugQ9MJH+IWWjvuuCK9Pahm5dRRyKpPVgIq
-	Gz2/lEHfO4di7bZ0k1/T1ee8eXxAKq3Jl59ahgrFKOXy0OHdficn44H1z5VJoojB0qs8o2IvPZm
-	gvzlg74ymj8FCPtbCavqIGl5CkU/MUpPjUCS8XGZJkk4SHbjuM92Q0NUYlIvCWP+8W3bMDGFn/J
-	6cv91TsLuyObzsAQ6lNfbZS876fep0scHmlnduj5L38nzSmR/Ur+YtkU4sMPWUG0la7fVN0xQVE
-	MJfW9fnblHHRkz4XICkDX0gFlQv4XdncA8XDX9CXj2CIe9xviflLHpIy1KV03zG/GynBaHPjoc+
-	+zYKteQ5ss+LzQ3jG9ShYY8SVHyN+hTWnAA6FLPCiMmTMVxjbTbddKyruat21d1kPXhtfLEHV79
-	eb4G+ByH1yzXXsendfCaZ8nJjamOW6wVfhb+g9CXHQ8D4NclmvGCbuat5Evcbh72PYnZuWnzCnE
-	vNRV1+rBD1EcI08Sml51dQNrf5kE3S10faYYzAHwHKx4+QRKwsUXDSZB7+Q==
-X-Received: by 2002:a05:600c:3148:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4a35ac96da9mr81454535e9.20.1792976537008;
-        Sun, 25 Oct 2026 18:02:17 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a9cc-4401-09c3-9199-30c4-c6a3.310.pool.telefonica.de. [2a02:3100:a9cc:4401:9c3:9199:30c4:c6a3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm12325195f8f.43.2026.10.25.18.02.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 18:02:16 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	John Stultz <jstultz@google.com>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Miroslav Lichvar <mlichvar@redhat.com>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Daniel J Blueman <daniel@quora.org>,
-	regressions@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] clocksource: Prevent immediate watchdog rerun after a delay
-Date: Mon, 26 Oct 2026 02:02:00 +0100
-Message-Id: <20261026010200.96371-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <874ie9zc3g.ffs@fw13>
-References: <20261010065509.72916-1-kmehltretter@gmail.com> <87a4oeerwm.ffs@fw13> <atmhdRzqx5t8PYrc@gmail.com> <874ie9zc3g.ffs@fw13>
+        d=1e100.net; s=20260707; t=1792976983; x=1793581783;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i6evN3+Ke0MX69bWlyygAZJMq2satdlGaiCf2WgHvX8=;
+        b=bDV7Y0ARSUBp7M9Yf9mfVT2yO0qU4BvQPkzjQgwp0HsLkCEix3vJXGBVwlT6Tpo1CM
+         MSchCYUBwZ5Ss3NONDjY/ZClxZWMaDCbyUyMMv4iCbRqdGrJkxIYmgGvvhSL7yT8i65H
+         +MoqmIO8qAchc/+WFxYj1xujLWsBk/+gFW6RFzZrcVprbS6M65yuWE1PNfzBR1F8yTrq
+         5CHAL3NAzR2Ir0XAckJBOHfT8JRInkZ0V8UXkvfqnGq+7hmDX7UrrR6K/xuS0L1WxG4U
+         4IyheLWXHOmXlE9ZoXuOPIknZhR7RoFONY8ij6FY3weQG8y6tdfxaMBQJTWBnU9RuTSI
+         Guyw==
+X-Forwarded-Encrypted: i=1; AKwUvBzs8aaCqDvbtwOlKA7QnuiXUvalB6Ly/gKS61ypxdtP/Ow2HJhiCTuMU3/sV770G4e3eKySEGw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAj+GihOBDaoz6/g5FjlmQmEtPuatQWbt2/HrfkWVUQZh6R72G
+	shttDuDaUwZj42Wr9PB5aMVgm8EXFDh+fVh3YQBaWdyxZdvM+Jd4yzIFFwiFM1BeQQsTdEQZaIM
+	PqlWSrw==
+X-Gm-Gg: AYBFou1ZLEGKCb+VHTTJvS6kw7iy6Fk5ZhDn475vaf/rXfYiHdmRiNyNWbtxw6qqEpw
+	OvF3rnwZnb8nMl14cXpFK/ziiC74Nvpso0BOZ0qXxoNuwhlEiIo3blfnMYIF2jBSQPnEd8Q31gf
+	OP7Qu+D3/Mn/NahysgkW+oHO7r6NtiW3bRr+w78ZyewDDGbi6brGHoHB4yu0+H0nLxLoW/re+wg
+	/9S8H9RjX3MZBS4E8ZfMZwAJlYTvzxxpxFqzsybuOgyNvyI+m5ELgyu12e/2EZoZjw8OIoNIIBS
+	q7k6L//USqmNZb5F/GaY+LHqO1tHxM2FoEeBtJjLQYnpKwnWFFsR3wp3XZAL/f1P565QtLnN1g+
+	fI1LNdxxzeB8GALGVe0dOLIBag0eTKagaqJlifyP/hLQMVWY0NgUJdSe7yQQgD8FLMoFetmI4jk
+	YkKquzUpYEg7Ii/CoGB6tIsSXOLdIhE/HnxZL/yP0PjNQWRZ1gOLgGeENP9LfvwzjlwAMtRFMWq
+	yAob2ixXyv9kxE+TsOcLoHXRTy7PoFj6EjWA72ZvDIkDeenmH1vcl4Y
+X-Received: by 2002:ac8:5f10:0:b0:536:8843:c2bf with SMTP id d75a77b69052e-5383b5f25d9mr84356811cf.67.1792976982790;
+        Sun, 25 Oct 2026 18:09:42 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839739ad5sm43892661cf.23.2026.10.25.18.09.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 18:09:41 -0700 (PDT)
+Date: Sun, 25 Oct 2026 21:09:38 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: IgorpetinDev <igorpetindev@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, Oliver Neukum <oneukum@suse.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
+Message-ID: <4f60a287-f914-4b81-9dbb-d93528312356@rowland.harvard.edu>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+ <20261024155614.2732-1-igorpetindev@gmail.com>
+ <20261025000643.425c57ca.michal.pecio@gmail.com>
+ <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
+ <76dfb124-d488-45b1-9525-5369026b529f@rowland.harvard.edu>
+ <20261025171019.49c9a66f.michal.pecio@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,56 +105,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025171019.49c9a66f.michal.pecio@gmail.com>
 
-The watchdog rewrite made the clocksource check handle long intervals
-between two measurements, but missed that the timer expiry needs to be
-rebased after such a delay.
+On Sun, Oct 25, 2026 at 05:10:19PM +0100, Michal Pecio wrote:
+> On Sun, 25 Oct 2026 11:16:59 -0400, Alan Stern wrote:
+> > > > > +      * Even though all URBs have been given back,  
+> > > >
+> > > > but does anyone actually believe this here?
+> > > >
+> > > > Hundreds of drivers written over three decades, often
+> > > > without linux-usb review. I don't trust them at all.  
+> > 
+> > If it's not true, there's likely to be trouble when the completion 
+> > handler is called.  We could forcibly remove any remaining URBs from
+> > the lists before flushing the work item and just leak them (with a
+> > warning of some sort -- ideally, one that prints out the names of the
+> > completion handler routines for the leaked URBs, if at all possible).
+> 
+> But you are now talking about developing a whole new feature of
+> unclear usefulness (will anyone pay attention to those logs?),
 
-When a watchdog invocation is delayed by more than one interval, adding
-WATCHDOG_INTERVAL to the previous expiry leaves the timer expiry in the
-past. That causes an immediate second invocation. The resulting short
-measurement interval can mark a clocksource unstable.
+Actually I mentioned two new features: forcibly removing any remaining 
+URBs, and printing a warning about them.  I guess you're saying that the 
+warning would be of unclear usefulness.  That may be true; I was just 
+thinking that if anybody was interesting in chasing down the cause of 
+such errors, knowing which driver was involved would be useful.
 
-Cure this by rearming the timer based on jiffies, which places the next
-expiry one full watchdog interval into the future.
+> while my suggestion is merely a small tweak which costs nothing
+> and makes no functional difference under normal circumstances,
+> but reduces severity of hypothetical failures.
 
-Fixes: 763aacf86f1b ("clocksource: Rewrite watchdog code completely")
-Closes: https://lore.kernel.org/r/20261010065509.72916-1-kmehltretter@gmail.com/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-The baseline and patched builds used identical configs and initramfs
-images. Tested on v7.3-rc5 (72d3fcf802c4) with four QEMU 8.2.2 TCG
-vCPUs. PTRACE_ATTACH stopped only the vCPU 0 TCG thread for 800 ms,
-six times 12 seconds apart per boot.
+What suggestion was that?  Using cancel_work_sync() instead of 
+flush_work()?  Doesn't that amount to the same thing as forcibly 
+removing remaining URBs from the giveback lists?
 
-                              baseline   patched
-TSC marked unstable           2/3 boots  0/3 boots
-boots with gaps below 250 ms  3/3        0/3
-minimum watchdog gap          0.231 ms   505.484 ms
+I still think if you're going to deliberately leak some memory because 
+of a misbehaving driver, there ought to be some mention of it in the 
+kernel log.  Otherwise, how would anybody ever know?
 
-All 18 injected stalls completed for each kernel.
-
- kernel/time/clocksource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/time/clocksource.c b/kernel/time/clocksource.c
-index f1253f5795c6e..58c0ca11cdc5a 100644
---- a/kernel/time/clocksource.c
-+++ b/kernel/time/clocksource.c
-@@ -673,7 +673,7 @@ static void clocksource_watchdog(struct timer_list *unused)
- 
- 	/* Could have been rearmed by a stop/start cycle */
- 	if (!timer_pending(&watchdog_timer)) {
--		watchdog_timer.expires += WATCHDOG_INTERVAL;
-+		watchdog_timer.expires = jiffies + WATCHDOG_INTERVAL;
- 		add_timer_local(&watchdog_timer);
- 	}
- }
-
-base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
--- 
-2.39.5 (Apple Git-154)
-
+Alan Stern
