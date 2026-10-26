@@ -1,105 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032833;
-	b=0yQIcs6PfkulF4I3FvtkND5zUu5SfPeI1wfghqYWpSviS9qwdk6JLkA9cebxhXAlh+1Q
-	 odgJrqHEaLY++YRJH3JwldW7owbGbunoYCrfRWntAzUDBYrpS4FQzJ1k/vAPAMQthJOKt
-	 HP438JmaRUW2QHKhUg7uIPl054b8wyLeIUhkQuVOn50HVrqoxGl/ponzFdAUuupZJ7ZAZ
-	 Cc0U8pBzpUrOaN1ZJTA7WJaMl7uWv1W+zdYVWWTOcOvwCtMgTVsd14x8CUX6aSojNRDee
-	 hNjVgZV14q6lvI0NTuJXvoqvHQo86jgX3Q4KfxYBS+AW8NygG7KXc+93WveoQN8zBFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=k/RQfOJkIdQzlXf5l9/irF3ArAcPBHy+Vg3AaL27hnc=;
-	b=p4JdbC3WfSqS3K/okfDU/YgLCiCwKnYz/rGabk85uvLiU/F2u24xV9e1TZoWeXu0/BKH
-	 ylfAOHB60znxofZ0/R1FLYiU7uvwDaPGl76UsSNubfArRT3JsiOqcrAxjWNwTYj6FW2D0
-	 UhAfDYwHIzLtuMjFAeBMdhP5paIZevsalM6oxOIZt3lhxV/tERkdYwwOyhI2tbaab1q+h
-	 mdruRjthrSoOq0O6NDJPT1Jh9T+YlKk/DYXxGzKU/7sc440C2eGgLcEsmBUN5LciikKGH
-	 pq9Dwv1bQ+HDZAiiPK7VbizbJgqed9ExgfMiHdqZ7AD9wH05cH00ViXy9oFL07EdNIQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=neat.no;
-	spf=pass smtp.mailfrom=neat.no;
-	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=BGxxdXgD;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793033131;
+	b=KANcPCRgfl6AmAmY09fQfcOtQhJ2uGy6X2Ck9tNXKJFHZwbUZRiZtfhK9lcNWZZ815gf
+	 Qzk9lwLZDefS1GVw4r+KiYFpWqmcbsrWaTw+HEwPeiZ/mRCIf5Hmql3qBfBBeW1Sn/VDV
+	 IKrN7u9Ef5CO+KhNLeOX/7Id43ZF9lupz2jf3y3kZehf02O1BDa9/7H2iWIzz+ueEbpmC
+	 PTKIvbjqCusFzGO+zvXapKxvNE64FlV11c1+bULl3MbPFoR9hd3FRAws1tKDHPerykrBr
+	 nnhLNPPujfs+uqc8sGsCCc1VZ/6An36iiDE/YmMzjMb4icBMG0gX7XwEbB4caj/g2OQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033131;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=f7d2iVw+tfSSZ2gqsWMbb5CxjuOi50fofZEerRNlY20=;
+	b=G6XR5kx72vIyJJFqr2d6O+OxKdWK9cI1vEwN1HR24CcV7uR6c8JeFIygY1mCt89aM1q7
+	 AHBz7ZCntAY3yM5+y6uaE0+OBDXbPT3JwIFdZj5i4yHTxcAJJJBio9+n1jtv2SqDZEO3j
+	 bXX0eCdyRqhZSehbCmxBIU5ZXcL0x3w6Ep0Xpkw2GR1ycd+XyyblTzxxbChGOIEoq5m7s
+	 ZzHAK02DvTnZzVM+KKJGg4ko14rNN0lxnuuhQPbohNLsV3BRrMGUM+nHsxi4FcV69i1b8
+	 NfSV82sG4zNpKHhg6PgQuz5HlenVk/mB90P7jS3MSxqR/YH2Bk+nNm+RBiKdIx8Q+uw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CE8CyMO4;
+	arc=fail smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34724606A323
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 16:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34724606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60A1606A31F;
+	Mon, 26 Oct 2026 16:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D60A1606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=BGxxdXgD
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso15392895e9.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:40:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=neat.no; s=google; t=1793032832; x=1793637632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k/RQfOJkIdQzlXf5l9/irF3ArAcPBHy+Vg3AaL27hnc=;
-        b=BGxxdXgDu7POvfZH79dO8OlxCieEAJvWevRnD3N3jX5J5o9BQbrBCwe7mBl9UYWT8T
-         XE/0E7TGAosTwDwNfTd8StOQ4yNU90Q0jC3qUIdTP4qeOFa/g4J2+W0zLLejdoFOlB++
-         slEHrehG+9izOCqVFBTL9lV67hpYQd+JZj2Fu+Pl48yZwHOhK8hoJE0XivJG+1vB2Efr
-         upvLmA/0oGTT/OjFzvcu+jZLrsLw7VnFyA/Kfc65wMPXfqntS0cRElo7FTMGqX/DSv2a
-         ck240wqEuxrqEyrz5dfE/ivebO8noNxg45WukCJx2/wRgV/7g0WTV6AidSAMA/ZAHjT9
-         hekQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793032832; x=1793637632;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k/RQfOJkIdQzlXf5l9/irF3ArAcPBHy+Vg3AaL27hnc=;
-        b=Est9UsIVURwfeuP4Flk9dJ24VveQ4J5Z2DhzvajJFFsIB8gdHlHwQ37WyblFmXJlLG
-         +wDw97KCqWbN7uYuLCt/SqXH+AdKNxmbqW0j+JPlt9LTsx7LW0WiX0Y4CrZknrzNYaay
-         Ripy+Hl8vLPMiCY4DRbtiwKz5bEdTJCQ0oL25ke5q/lylB7+4bToeutf8hlb4LkUqai7
-         E0XmeT+3i1e/qIiLPgWekPLU7Nupc5pyXU2LpLpqahhd9t4ZCjNyfHpRa6y4WF6Q+3KT
-         NnuiQQIJHJ1YElQntYfAgNsVbc5m3SbWEN/djJnPdZPE0Cs+F6ImHaYTx5ZydZOf6lKx
-         YEtw==
-X-Forwarded-Encrypted: i=1; AKwUvByKrncG7qHJV73gW60XK20F01XIocl+jfZfqeoCT+BiLcfR+ITY0iB9PD91UBYde28NEQSA+KA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+wdw9lJSS1aNYXVjAn0MRzJKuuCr1p+Ot1klDHvH9CtTg2e+K
-	ELi8MlhDPM52gFhvR8/EOYNWZiTNnJpmSXLk95ruCEGr5z4K/gno6IbNaLiHEu9Ok1FZ9JiEtj+
-	8g5sznaDNdB3y+vtTAPlFHuMrCuWRa0CizqsB8yLuaFTfRcl4emDsLK3iFNGxQdfc+/ZOZz3Vg9
-	QZmmD2+2e8kXjfRjqbo7tZyVwR2PFlF9eAaNdamWHABjSQdZZElZgDLVHmcKmmTVW7cWSKmpHOy
-	os=
-X-Gm-Gg: AYBFou1ChkMCtNocrvKhAOsceQxG3Co4m8hqU2hYg/7TpOzlggPH0C4vfORVad809zQ
-	RszRU2IJy8TZoZQmxYZWYfRyG8I8myaPZt7LfU8GJDymidjuzoDgcWQOOto509yXUuuGXUF8ZYx
-	3s9X/sZeAoCfw2VCmHA2KHCbxJbPnSe+te6SxlYguWwlEqTCFfjDQtvz5JdAh4KLlfKkP32Ixjs
-	qh9LCmutJ0ufM7v5buzapLA4yiUrGxE4VO1EMMLhrjI4B1O4CXkNYywggULi9WSG5xFjoscoVlJ
-	2HxKYcltPH9DN+Oka8Pm9BRb3uDOn4KAF7v/AUogeqnJ6U8kXe/pd5NeD1aWIOw6wmqmAGR8LhN
-	lTUdFUR0XSbffMzkz4QbqE1HIkXqVZRJ5NCmfYUa3i/WmC7zaMn+oRv7yanZXsKPCckxGM6LJvm
-	7soTe7i7lppSoGU+v/+Gcg/LEdr78+0Sjfr2yJ737MI6s2VZ5PAOMfAFKd7DphaAsib1DE8zxIZ
-	x67UUE4Ao6gsKb4et2qwkZnlUqz6HY2u/MvbQrrci4pS+RGPo17RbbeEoed4pG7
-X-Received: by 2002:a05:600c:811a:b0:4a7:a309:6b73 with SMTP id 5b1f17b1804b1-4a7a3096bb7mr12028775e9.1.1793032831444;
-        Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
-Received: from threads.localdomain ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
-From: Lucas Tanure <lucas.tanure@neat.no>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dom Cobley <popcornmix@gmail.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] drm/vc4: hdmi: always cancel the scrambling work synchronously
-Date: Mon, 26 Oct 2026 16:40:27 +0000
-Message-ID: <20261026164028.78792-3-lucas.tanure@neat.no>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CE8CyMO4
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2BA96202921;
+	Mon, 26 Oct 2026 17:45:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793033124;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f7d2iVw+tfSSZ2gqsWMbb5CxjuOi50fofZEerRNlY20=;
+	b=CE8CyMO4iVA0Vehpewn7n531kV9JOurJvFDvVUDcE9MvKL3WB5ZsgsBj+r2HCFdhx6IjUx
+	ymumxAebEuAsq39kBDWa6wmNUph6kcjDh0OO2FK+cS/BpiwpcFRS5PuC+Ktz5Bazt2G3N6
+	TNjpr1dFPXjKqPyjZRamI8n+k+w71tO8CQHRWClrkD4/AOkzcI/cQUd5nYMzHvj+0mqRf6
+	p2L7Rl4baED45ukgfmmudJ9wQBxHo13OVhmeF1T0uWkoBJvhuPgn75hasHRJn3nyu16Atx
+	ZL4KHdPU0qvpV/2fTXWVK3RL/74UVK2D/QiZwCo3P1OCr9FTjKaoeSBSov80qA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793033124; a=rsa-sha256;
+	cv=none;
+	b=K3/oaYgynVax5dxxO6VhfDcIgBpx0AJI5GVoOVyvaU4pNS+6WNSna0+JrwUF51h2jtdxOI
+	7Nc8xsqzIKuYqwWofjbCu4XJjVbLj3HXXPjuz2M7ReQNjD3E8WxqmIT+ZSbGzTxoQyYOdi
+	vz5VADoXJcVLuE0+bwk5P2utYMjAWzgej1SbN6n4qauX9EBeGrgoDb0fcuZjfAuNkmblOj
+	nMNcJcjVd1uRMwWdhm3m3E8Ic9oMEl/F5/YH8I7Mwci9NUciLpbl1lJFoCQ9QwqMwTBQyS
+	D+Kd+polxBuUf7pWLG1uGonCXjHyjauRNb4jVjN2XmIN1loEu4B5tcyTZTyWZg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793033124;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f7d2iVw+tfSSZ2gqsWMbb5CxjuOi50fofZEerRNlY20=;
+	b=b9hzSTqxRwEpQiX6o6AAK7kNDyolyuJlmPYVlmtkHhgexHlVUW73cENoh2Do+iZAs+gweT
+	ZmiAPcXxjpKO/Q/nOvKY9E2E2T8rs62Ogc2t88bVBubrDHqVS0DAtVabtunSorzXqHjsVo
+	xXe6l/fgL6CUtdaKw1jpgcy2LL//MYnwNuc4nmwYd2s7+xttuGi16Jr23fI19AzQ6PcfyW
+	58z7kuXqHGwxqkov5lOw127R+v3MnL8Fg/dTXTP0vSqYz5RwXei7qEb6r1LZ0ncdDVj1WN
+	CNEDQzPM9lGL4Z44s8aF+AMxz4R/KgfX/zWtY863SUN7WXx21As/eascTS2Yqg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xLNp6-001JFh-0D;
+	Mon, 26 Oct 2026 17:45:24 +0100
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 9A4695D716A;
+	Mon, 26 Oct 2026 16:45:23 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 26 Oct 2026 17:45:07 +0100
+Subject: [PATCH v3 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check
+ for overflow flag if SKB allocation fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,43 +98,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-gs_usb-fixes-v3-3-3a68f1f62813@pengutronix.de>
+References: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+In-Reply-To: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+ Eric Evenchick <eric@evenchick.com>, 
+ Maximilian Schneider <max@schneidersoft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-d7211
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1970; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=M6sVVScYLrsqbjKV913rZQVqQmzWtIX+jycbFoY6v20=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi637zgSk9p8OOLDz2VvVv5lVYwCmZO5X/yW07/BP9h9
+ fZfi/gYOkpZGMS4GGTFFFmW/jihKBDoUNr7MmESzBxWJpAhDFycAjCRig2MDMc4OtU8F+R8n7Zf
+ d5bIn28mwjWybTc//0+qmaiR8fjS71WMDHeOpgoxtUw4GLTi4iuHYNNs5Yb9gkk38rSzrtzLMF7
+ LwgoA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-The scrambling work re-arms itself every second while a scrambled mode
-is active. When the output is disabled, the work may be executing at
-that moment rather than pending, and delayed_work_pending() is then
-false, so the cancel is skipped. The running instance finishes after
-the disable, sees the sink report scrambling off, writes the SCDC
-scrambling and clock ratio bits back on, and queues itself again. The
-sink is left configured for a scrambled 1/40 link that no longer exists
-and the work keeps running until the next enable.
+If the allocation of an SKB fails in gs_usb_receive_bulk_callback(), the
+function neither updates the statistics nor checks whether an overflow flag
+is set in the host frame.
 
-cancel_delayed_work_sync() handles both states: it waits for a running
-instance and blocks it from queueing itself again.
+Instead of directly resubmitting the URB, first update the dropped RX
+statistics then check if an overflow flag is set.
 
-Fixes: 257d36d493e9 ("drm/vc4: hdmi: Add a workqueue to set scrambling")
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
+Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
+Fixes: 68c5724ecd15 ("can: gs_usb: gs_usb_receive_bulk_callback(): resubmit URB on skb allocation failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/net/can/usb/gs_usb.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 2cc46036f11d..4a386e053d3f 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -843,8 +843,7 @@ static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index cbe3750bb68a..5b0c58fde53c 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -673,8 +673,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
+ 		if (hf->flags & GS_CAN_FLAG_FD) {
+ 			skb = alloc_canfd_skb(netdev, &cfd);
+-			if (!skb)
+-				goto resubmit_urb;
++			if (!skb) {
++				netdev->stats.rx_dropped++;
++
++				goto check_overflow;
++			}
  
- 	vc4_hdmi->scdc_enabled = false;
+ 			cfd->can_id = le32_to_cpu(hf->can_id);
+ 			cfd->len = data_length;
+@@ -686,8 +689,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 			memcpy(cfd->data, hf->canfd->data, data_length);
+ 		} else {
+ 			skb = alloc_can_skb(netdev, &cf);
+-			if (!skb)
+-				goto resubmit_urb;
++			if (!skb) {
++				netdev->stats.rx_dropped++;
++
++				goto check_overflow;
++			}
  
--	if (delayed_work_pending(&vc4_hdmi->scrambling_work))
--		cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
-+	cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
+ 			cf->can_id = le32_to_cpu(hf->can_id);
+ 			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
+@@ -728,6 +734,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 		netif_wake_queue(netdev);
+ 	}
  
- 	if (!drm_dev_enter(drm, &idx))
- 		return;
++check_overflow:
+ 	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
+ 		stats->rx_over_errors++;
+ 		stats->rx_errors++;
+
 -- 
-2.56.0
+2.53.0
 
