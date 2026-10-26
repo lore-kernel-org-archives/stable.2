@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028788;
-	b=aD1f1yNof5HLpkb0Hzx5tskc8X4rrXvKOMKvAAT6lMDilSl5BmP0iXS3gyQUMcknsP6E
-	 Ha9KinFCidyGDyajSAuvHN9cOmRNWvuq8DQUj0IDr+C0smd6ZgPY7i8F/G9rN7larxRYq
-	 zXxEwCoiKo72c9UxLSRmmL6jQC3uvkKtSCPXDgakXOBuysxGZnFWOE1Hwdogn9vZadatY
-	 aKY7J+nwL+s7EjHgjTAwZ2cNdpgUPcWWeIDYNXNjh0JTeWF/1MRKN9g44EDh5MoGfF8Rd
-	 ZRGYXTQg0mupyQpWVReC6aQBX4QmNXRNrIGTN2LivAQA9szHkMI8iH1mOX+bO6QWXOw==
+	t=1793028793;
+	b=qHneg83LzG+fjKFmdiizWmJNM8VzwJtdDSw4j9/X3du/cscUlhZdhr+aYZRSSn9frekq
+	 LLdYYE8zDv331R6FJfaSv8+IZQ7AQgm4rjzrLihYPYTtkMr096L22ja548b+exdnZZNgt
+	 lgdoSD5ZDv2DHKiUvXB5NadPS9cTwXp0NPniXf94l52MkSAT0MU0cqEKUbXkShPsXzzk/
+	 xzugwLmoGcNJkqTk0nPqP6bfBk9rwpST+a3QHnefXzxjyghKlRM9mKYlLSITBEHetnr/5
+	 /K1OmbwdAG0tJ12MGaviafueFAnXumRaLqpMKxZbk0/S/iY0UAVsebMtZgT6VHIe/LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028788;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028793;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XtD3WzeMOo++rFtvQ98lK3NebzzgtJ4cv+Z87PdNz4Y=;
-	b=r/zxcbIiRs2F1jM6BOCc34KuEcq/qRRjardtVN/gLY1bJhB5uC8ZwycZNMkuH/ZPGN6w
-	 RicaiGTtf/uauzonBQVqSmvSkqnsNA6FGkHCAaBBptxJyWg3uHtQnZYj8LW5Qycp3gfV9
-	 2dwdav57NF5xZAW8NUo64RDe8+mf6mxo+nfcp0SzY+AI+e2Du4futSpvtzFmG4ws2aD/D
-	 v2NH1UOz8sCHU0P4CRZjwzL9hDAwQVNadJNdSA0kXPTGEVUWsZ9zq1u8d+L3J6xLJ6r+e
-	 6UnJ7dHdEppkdBwGrFqLKPj/2/dkqROPEU9yuDBuZWTjnvHjKpu0qhEsxbHA/vFRG4g==
+	bh=jvfFLqSO+wzSndJgmfiuqCD6B3AH19K/ayR8BSeHqBM=;
+	b=g3ZgRrjbi6VGrIniV/cyCM0l4sDRrPEsWlPC4zJAJZdjt4D5SQOmNsr/NTSILktaIQET
+	 2o4DmEtceUrhNoSaP2Ev5CoADdzEZmA/tA5KEQTlGabM0mCOq0YDz77Ze3+HOpTZ3Y+AD
+	 2O4uaDoV/rTSFSs1qw6QfvAfWSQqKArWMelyJwA7ErWFae1u5o/zE0SaOCQEpqJ5Fbtqp
+	 AAqpFSkvN0SGjMS+R1ea9k3N3uk0yd1cf+wteixe2ZstB8saUhXt/2jPUjImBlOcc3oEz
+	 CO8gkFpJwUWDtL7VLJPoDn6kck2nWvXusI5iesy+5Fecf7MdgiKZA6+izKqiCq0INCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ZEeJsD2Q;
-	arc=none smtp.remote-ip=115.124.28.147
-Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=G4i0+fgH;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56923606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C0D606A326;
 	Mon, 26 Oct 2026 15:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56923606A323
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C0D606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ZEeJsD2Q
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=G4i0+fgH
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793028776; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=XtD3WzeMOo++rFtvQ98lK3NebzzgtJ4cv+Z87PdNz4Y=;
-	b=ZEeJsD2QlZBqU5a2mVSsB2xEIJeGYoWKzmlqF6hQmPJ/j3RdbbiqZwpiznt0zGMS8cpa6pEjPhWksR43pTMBATUoqyV8y4CzZEJ5/Xz9/9h8ZG+IuJcVmKMYMupOrXD4oKWIZ0fnQD//rDBXbb3JWtOVRkxfmCIexAEGL20aSbs=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07675043|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0058432-0.00310864-0.991048;FP=3309286822709497011|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jq7I2mE_1793028774;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jq7I2mE_1793028774 cluster:ay29)
+	t=1793028777; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=jvfFLqSO+wzSndJgmfiuqCD6B3AH19K/ayR8BSeHqBM=;
+	b=G4i0+fgH0xjqaaaZsWtEisHl2IRXJ3Z49kMVlojbJkEP5NagB9RscO96++C/FMB2xTPGU0yfWGLkEjI6diP2KQgmFJWvv+5jdGHWt8CvLf9Cc/TGs+FrhoTyTkWT+eF5FVa5bQAxJm6/bLeScoPwk50cvQK4Y9F0/0zjdn7YydM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436679|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00946935-0.000441268-0.990089;FP=9323360888359619762|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jq7I2n2_1793028775;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jq7I2n2_1793028775 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 23:32:55 +0800
+          Mon, 26 Oct 2026 23:32:56 +0800
 From: Weibin Liu <liuwb@xiaopeng.com>
 To: Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Orson Zhai <orsonzhai@gmail.com>,
@@ -55,9 +55,9 @@ Cc: Weibin Liu <liuwb@xiaopeng.com>,
 	mfd@lists.linux.dev,
 	Guanglei Zhu <zhugl3@xiaopeng.com>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3 1/2] mfd: sprd-sc27xx: Pass byte length to spi_read()
-Date: Mon, 26 Oct 2026 23:32:52 +0800
-Message-ID: <20261026153253.689525-2-liuwb@xiaopeng.com>
+Subject: [PATCH v3 2/2] spi: sprd-adi: enforce the exact transfer length
+Date: Mon, 26 Oct 2026 23:32:53 +0800
+Message-ID: <20261026153253.689525-3-liuwb@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261026153253.689525-1-liuwb@xiaopeng.com>
 References: <20261026153253.689525-1-liuwb@xiaopeng.com>
@@ -72,43 +72,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sprd_pmic_spi_read() passes 1 as the transfer length to spi_read(),
-but the length parameter is a byte count, and the ADI controller
-consumes a u32 register address from the buffer. The ADI driver
-ignores the transfer length and always operates on the first u32,
-so this happens to work with the 8-byte stack buffer, but the
-advertised length does not describe what the controller actually
-accesses.
+sprd_adi_transfer_one() never looks at the transfer length: the
+read path dereferences t->rx_buf as one u32 and stores the result
+back, and the write path reads two consecutive u32 values from
+t->tx_buf. A transfer whose length does not exactly match what the
+controller touches is a bug in the caller: a short transfer reads
+or writes past the end of the buffer, and a long transfer is
+silently truncated.
 
-Pass sizeof(u32) so the length matches the bytes touched by the
-controller. The companion patch to the ADI driver rejects lengths
-that do not exactly match the ADI register access size.
+The SPI core does not enforce the expected length, so reject reads
+whose length is not exactly sizeof(u32) and writes whose length is
+not exactly 2 * sizeof(u32) with -EINVAL before touching the
+buffers. If the controller is exposed through spidev, a userspace
+client can submit invalid transfers in a tight loop, so use
+dev_err_ratelimited() for the driver's rejection messages.
 
-Tested in QEMU (aarch64 virt) together with the companion patch:
-the SC27xx driver's register transfers still pass the new length
-checks once it advertises the byte length.
+The only in-tree user, the SC27xx PMIC driver, is updated by the
+previous patch to advertise the byte length of an ADI register
+access.
 
-Fixes: 25ca4ae43466 ("mfd: Add Spreadtrum SC27xx series PMICs driver")
+Tested in QEMU (aarch64 virt) against Linux 7.3-rc7, with the
+controller node added to the guest device tree. QEMU has no model
+of this hardware (the MMIO window is backed by RAM), so this only
+exercises the software path. Transfers submitted through spidev
+confirm the new checks: a 4-byte read and an 8-byte write are
+accepted, every other length from 1 to 16 is rejected with
+-EINVAL. A burst of 32 invalid reads and 32 invalid writes emits
+only 10 messages at each new driver call site. The SC27xx driver's
+transfers pass once it advertises the byte length. No Spreadtrum
+hardware was available.
+
+Fixes: 7e2903cb91df ("spi: Add ADI driver for Spreadtrum platform")
 Cc: stable@vger.kernel.org # 4.15+
 Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
- drivers/mfd/sprd-sc27xx-spi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- Rate-limit invalid-length errors as suggested by Sashiko's review.
 
-diff --git a/drivers/mfd/sprd-sc27xx-spi.c b/drivers/mfd/sprd-sc27xx-spi.c
-index 9a8e6add8fca..8759cee052b0 100644
---- a/drivers/mfd/sprd-sc27xx-spi.c
-+++ b/drivers/mfd/sprd-sc27xx-spi.c
-@@ -156,7 +156,7 @@ static int sprd_pmic_spi_read(void *context,
+ drivers/spi/spi-sprd-adi.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/spi/spi-sprd-adi.c b/drivers/spi/spi-sprd-adi.c
+index a6baaf02b3c8..32e445cea0d3 100644
+--- a/drivers/spi/spi-sprd-adi.c
++++ b/drivers/spi/spi-sprd-adi.c
+@@ -339,10 +339,24 @@ static int sprd_adi_transfer_one(struct spi_controller *ctlr,
+ 	int ret;
  
- 	/* Copy address to read from into first element of SPI buffer. */
- 	memcpy(rx_buf, reg, sizeof(u32));
--	ret = spi_read(spi, rx_buf, 1);
-+	ret = spi_read(spi, rx_buf, sizeof(u32));
- 	if (ret < 0)
- 		return ret;
- 
+ 	if (t->rx_buf) {
++		/* ADI reads consume exactly one u32: reg in, value out. */
++		if (t->len != sizeof(u32)) {
++			dev_err_ratelimited(sadi->dev,
++					    "invalid read length %u\n",
++					    t->len);
++			return -EINVAL;
++		}
+ 		reg = *(u32 *)t->rx_buf;
+ 		ret = sprd_adi_read(sadi, reg, &val);
+ 		*(u32 *)t->rx_buf = val;
+ 	} else if (t->tx_buf) {
++		/* ADI writes consume exactly two u32: reg and value. */
++		if (t->len != 2 * sizeof(u32)) {
++			dev_err_ratelimited(sadi->dev,
++					    "invalid write length %u\n",
++					    t->len);
++			return -EINVAL;
++		}
+ 		u32 *p = (u32 *)t->tx_buf;
+ 		reg = *p++;
+ 		val = *p;
 -- 
 2.50.1
 
