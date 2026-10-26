@@ -1,99 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027748;
-	b=2FxLcl3FWefbiAgmjn42uuA9lAn7j8wgtPOsDqx39lRhIEMMQBzEEzsO8A0GTv0aHoNx
-	 h1Mq5o210fkth+PlhLF3+NENNYq3g0yUPGEfC1OID5hY861d8lxa+r3BS8mfdCO06FbVP
-	 NqxjcdWney4TPOVzq59+DhVs/FHgvPAiEfQ2tsHBANA+4xNci/AaIfPld8jxKYecvSbWx
-	 oY3FM24qTe6Ui6xvip/JTxFhj4ZbSCAWbMNvZrbsVvTCRFX30Sj5q2+KC0kuV7N1YoaVZ
-	 lzUqJNOpukVH+Z+Csl3gr4cAX7ZLVG2goA0vILZPY+RhcmMcNKs+wlJae6dGzQ1gxVQ==
+	t=1793027774;
+	b=FTpt7l2iYIJ9YI0xlUfqSlsQxL4sWYDtyRpDVZUmTIP6UCmrvOQyIgxWqNB3trHAYP4+
+	 UzOiVQH5cd8Wjyja4p9QjccTkD4CxXArQvVSioJqemuUDW5mMzLWqEDocY4AXZKvFUy2s
+	 +A9R4PFYls+MkgUwVDs7zL5Y+Ib3HQPQYP4eWjZdSwWavvfQxBkrpAS+Om2QXVIFMfauI
+	 GrmcsoCrW4omQ3QVebUSFXnlTfJWyEAHCBHEMa7htVPW3kUC/LEUiwB8o3ARzKhIulYfa
+	 I2J4CnpkcCs1IFpy932UkENF9iSqw9g390QKwAorsvaXRm/JTQuJpqJFBjjYHz3vNMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027748;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mvj9fHn16t2M1QauOafuhsNe9KnZbuSZNw4c8kirWMA=;
-	b=BSQuiFCzsblKqhwfollvVpGURMOQYdOfo1PKiUeexq/nKfsVO3PAd1xGPHFujEyX3uxj
-	 lgOOvCOFS9VdhGtjUoFqiA/c/LjLJM8cyHU9LyzSn2Mw4QlJoS9NGiR3qb1oldptpM3Hr
-	 YqpSKV4QH7oNdRQZXtxy3CFN9tdw0kubKPWQwh28igxslr/fkJy5f3UnAiM4/I45uCbgD
-	 +AmC1n+FF4A2yixOVDLsctfvmKytwk5wsXvcrcWgYYkde78IkqFNMgODTwEMQHLo+v9Ik
-	 CDRDbwMgzRTERRq0IHc06ehqI02uxxk7odlJX9x+IS//Pm+k+ZAapa8aw/xo1D1aNCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027774;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=WqAL8wt6wFOMrP1r3QXM2nTBuKZ1VNrrsuX87BI0mVs=;
+	b=cM+GhkVVkBDsThEEs5EmRI8CWwRj5Vspmk2JfIKUPwIEhsidQxw3cVfBWWnLJ1v7gUBT
+	 22F4IMWs5O73mEgAJj0BqOk6t04aQWEQbsz5RLvstmu14yDYH0SISiNllFH8y9jmCvAgy
+	 TGLNkXF+8eLzomL9ufC8FKYgXq1BRl1Ov/RmlXgnzWJIVWsCKpZVnx4mW3aWvsr+1Y56p
+	 /JZi+h7nIBCja1Rv9JRCnvvVGdOmkT+vxxPRtAn0X8FCFQ1g1TUGkloaT2jWtfKaCG7MI
+	 OiFzeGFCAK/7y6YVV6bEy6FU77v4fEnq5MiCnYy1QNEDET8Dz9CDStwIFxvDeKaPcOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=pfaikxL5;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYZEJHZp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF48606A31E
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:15:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BF48606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F56606A31A;
+	Mon, 26 Oct 2026 15:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=pfaikxL5
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91c2fc03880so41683106d6.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:15:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793027747; x=1793632547; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mvj9fHn16t2M1QauOafuhsNe9KnZbuSZNw4c8kirWMA=;
-        b=pfaikxL5vjv2lDFdi022jDdLm8NmxSIg9DfGChk0lQdHYjFqNfhm96zygJjIL5Kdi5
-         /jTSB472LmsKW+H9CcIoJ0rxGsibYhINFSHt34AN4SyNveE3qptCxO8igY6FYJDSj0Ve
-         wqvhFgNrjfHrDNckeLJsqcolwCF5cZEO4q/xs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793027747; x=1793632547;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mvj9fHn16t2M1QauOafuhsNe9KnZbuSZNw4c8kirWMA=;
-        b=FT0aG1YdVwmmh3+S2DfV2raMeBe+ZZ1pSjNDkay3iEG55+YYaKa37ss2rTjLQwIYC9
-         eQSODHQDDRwXvUV7vPkZ8QPiUUPdhht2oJNkvmwuil6YC6BYyZF2nFwcixXYvGiL09Td
-         XpST40qdNYEGFy24lzA1gBlzI2rS+vMKy1XC5AQ1bU8iOiTvsLaBZzHO03SLRmkfm9Pm
-         veSZb8U/ykYJQlf/p5O4CBHVJ1i07/R6GFOumiAplRDqYxHacd1qBni2PTzqTDrJgMwe
-         zkPez74HGeRnoeQOYsaPif2h7ICU3agvLkTiX/xYifZWTadraggsPvu13batKZedAZAB
-         AlbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXTup0JhRl6z0OHiSiOSdQ7BVnqA6XPtpaTm69bWmUCUl7CMFIzNBgcbYaJKh1736VEm3/a2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIS9px780OUMqJxGNBWuqTFl2zQajAlaLQ4l5KaETtWcGrLTBJY
-	a3kdWEIy6IPsVdxzKWsX234ew4Jl2X3t8zLpDlLIciiXOtPWREd78Yf0NfI04jCxbA==
-X-Gm-Gg: AYBFou2jycmHCK+3DiYMY1VfN1uYZfcUyjJFtEHUjDolBEiZlG0cJPPLcsNI91cubC0
-	LsnRb5f6mEeLGcuvyXKGt1zV6QNmHZQ/EhrmcnhvXftEYNr01Nb0Pa1pz7VnaHZFPvDLT4E3KAf
-	wC28s3lK1pJ3Zmc1FQCAq9DngNZwgMzCGwerDIYaw+3T3QzKsAkuLSfAbL5+FPZu/7RXJVh6Srs
-	n6IwnwxjJ+WzzetMw25Zr9KMeMaaMF1ceXqoxQCCXvlNzR9f/Q8BqsCSyUm9Ay2wEx5RLHXrBff
-	dTCod43ISItkQfoK6lu0oED7J2NUqIkomlThiK4WVW8PmgkkVCh66g7cIFichx2fzIwUneVNqgU
-	iNzIuzddAMXgtUtnX2pmGPz7pSjiXV8AtU64Grh0DzhUNVnlmxF0gpRNdRMgKs6EtxqPwcIxOi8
-	Omg6xUzBNzMz3LmnNxSiSe4E/OnBxFv+lv9kTAIEjSO7vBQuc6NmEMImoDNvINBwIWGvBQZxG0d
-	4ZEG91s4okJ3K5FQsMOFVxdlQE6zzy/jeiInon0FyiN0BUgOB1w8PrOMmIjTaM4LcTunS5j8fdL
-	XAtXnaPn4t+QGs1/vW8srebV+7PSRbj9xa7+iSAIRg==
-X-Received: by 2002:a05:620a:450c:b0:93e:4c1b:a084 with SMTP id af79cd13be357-940efaacc56mr985762685a.7.1793027746468;
-        Mon, 26 Oct 2026 08:15:46 -0700 (PDT)
-Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f067e3f0sm712706685a.22.2026.10.26.08.15.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:15:45 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	bpf@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYZEJHZp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CC71F01825;
+	Mon, 26 Oct 2026 15:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793027773;
+	bh=WqAL8wt6wFOMrP1r3QXM2nTBuKZ1VNrrsuX87BI0mVs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XYZEJHZpOrp2M+vPXn0Sbd6TtEU8B3Dzxcx06rZf6jZFAe9+jXFYPxFFx3KLFT2Qd
+	 gnM14VxzYy4SkapwiL9fXmOvoFq3wAymHfC0eAUylLi9JRBr7UrdMwT/GABYZKvRO6
+	 GReelLxC/lJ8PwixnwaSEI2WCIQLgNftmvfO1IGnJtpvSmPLFnGOgtPLlj2L4UFbw1
+	 vLbEuBRL+q1Gi3bjJFksZ/oKkbUVgRkhHAHfkFeQ6W3+eOqsNRAXHL7anLtvdZtumI
+	 KoAdocwfb/fl20Znmj5OFeQtOtUN63CDq5kUogCBxGr7C2I36stiNQ12QcDLSKQzu1
+	 I09FJrUOoVo3g==
+Date: Mon, 26 Oct 2026 15:16:08 +0000
+From: Simon Horman <horms@kernel.org>
+To: "mengyuanlou@net-swift.com" <mengyuanlou@net-swift.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+	jiawenwu@trustnetic.com, duanqiangwen@net-swift.com,
+	linglingzhang@net-swift.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, hramamurthy@google.com, jacob.e.keller@intel.com,
 	stable@vger.kernel.org
-Subject: [PATCH net v5] net/sched: clamp skb->queue_mapping before indexing the tx queue
-Date: Mon, 26 Oct 2026 11:15:41 -0400
-Message-Id: <QDISC-MD1X.v5.r0.20261026053226-1@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH net v6] net: libwx: fix VF PM suspend/resume flow
+Message-ID: <20261026151608.GA257209@horms.kernel.org>
+References: <20261019060216.38458-1-mengyuanlou@net-swift.com>
+ <179265975476.3135.4456951664798289210@kernel.org>
+ <4ED66BF6-3475-4933-8BE3-8779745C2ABD@net-swift.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,241 +63,179 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <4ED66BF6-3475-4933-8BE3-8779745C2ABD@net-swift.com>
 
-This issue was caught by Sashiko (nipa). A producer-side path cap is
-already merged (ea4d4b5dddb5); this patch adds the matching consumer-side
-caps.
+On Mon, Oct 26, 2026 at 02:59:59PM +0800, mengyuanlou@net-swift.com wrote:
+> 
+> 
+> > 2026年10月22日 17:02，netdev-bot+sashiko@kernel.org 写道：
+> > 
+> > Thank you for your contribution! Sashiko AI review found 2 potential
+> > issue(s) to consider.
+> > 
+> > Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1 (1)
+> > 
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchwork
+> > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > (one such reply per series is enough).
+> > 
+> > - [High] net: libwx: race between wxvf_remove() and wxvf_reopen_subtask()
+> > - [Low] The v5 changelog says "Schedule the reopen subtask immediately on
+> >  resume; keep the service timer to retry if the PF is not ready."…
+> > 
+> > Pre-existing issues:
+> > - [High] This problem wasn't introduced by this patch, but the patch adds
+> >  a new caller that depends on it.
+> > - [Low] This problem wasn't introduced by this patch, but VF teardown
+> >  never frees the coherent interrupt-status block (wx->isb_mem) that…
+> > 
+> > --
+> > 
+> > net: libwx: fix VF PM suspend/resume flow
+> > 
+> > This patch reworks the shared txgbevf/ngbevf PM callbacks. Suspend now
+> > closes a running VF under RTNL and drains the service timer and work
+> > before disabling PCI. Resume re-enables PCI and hands the PF readiness
+> > check, VF reset, interrupt setup and reopen to the service task through
+> > a new WX_FLAG_NEED_REOPEN flag.
+> > 
+> >> diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
+> >> index 26de78e9a69ef..e2271e8bffcda 100644
+> >> --- a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
+> >> +++ b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
+> > 
+> > [ ... ]
+> > 
+> >> @@ -34,11 +48,20 @@ int wxvf_resume(struct device *dev_d)
+> >> {
+> >> struct pci_dev *pdev = to_pci_dev(dev_d);
+> >> struct wx *wx = pci_get_drvdata(pdev);
+> >> + int err;
+> >> 
+> >> - pci_set_master(pdev);
+> >> - wx_init_interrupt_scheme(wx);
+> >> - netif_device_attach(wx->netdev);
+> >> + err = pci_enable_device_mem(pdev);
+> >> + if (err) {
+> >> + dev_err(&pdev->dev, "Cannot enable PCI device from suspend\n");
+> >> + return err;
+> >> + }
+> >> 
+> >> + clear_bit(WX_STATE_DISABLED, wx->state);
+> >> + pci_set_master(pdev);
+> >> + rtnl_lock();
+> >> + mod_timer(&wx->service_timer, jiffies + HZ);
+> >> + set_bit(WX_FLAG_NEED_REOPEN, wx->flags);
+> >> + rtnl_unlock();
+> >> return 0;
+> >> }
+> > 
+> > [Severity: Low]
+> > The v5 changelog says:
+> > 
+> >  Schedule the reopen subtask immediately on resume; keep the service
+> >  timer to retry if the PF is not ready.
+> > 
+> 
+> This is removed in v6 after test.
+> And it was not mentioned in the changelog, which is a mistake.
 
-The issue:
-The tx queue is picked and capped in netdev_core_pick_tx() before the
-__dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside an
-egress qdisc (not clsact) can then change __sk_buff->queue_mapping; that
-store is never re-checked. bpf_convert_ctx_access() bounds it only by
-NO_QUEUE_MAPPING, not by the device's queue count.
+...
 
-Two consumers read the stale value:
+> > [Severity: High]
+> > Can wxvf_remove() race with a reopen that is still pending after
+> > resume?
+> > 
+> > After wxvf_resume(), WX_FLAG_NEED_REOPEN is set, service_timer is
+> > armed, and WX_STATE_RES_FREED is still set from wxvf_suspend(). The VF
+> > can be unbound before wxvf_reopen_subtask() has completed. That window
+> > includes the first second after resume, and any period where the PF
+> > ping or wx_reset_vf() keeps failing and the subtask keeps retrying. In
+> > that case wxvf_remove() calls unregister_netdev() before it shuts down
+> > the timer or cancels the work.
+> > 
+> > If the interface was up, unregister_netdev() reaches wxvf_close(),
+> > which returns early because WX_STATE_RES_FREED is already set. If the
+> > interface was down, wxvf_close() is not called at all. Either way,
+> > nothing clears WX_FLAG_NEED_REOPEN and nothing sets
+> > WX_STATE_DISABLED. WX_STATE_DISABLED is only set at the very end of
+> > wxvf_remove().
+> > 
+> > Once unregister_netdev() drops RTNL, the timer can still queue the
+> > service task. wx_service_event_schedule() now lets it through because
+> > WX_FLAG_NEED_REOPEN is set. An already queued work can also run while
+> > wxvf_remove() waits in cancel_work_sync(). The guard in
+> > wxvf_reopen_subtask() passes, so it proceeds against a netdev that has
+> > already been unregistered:
+> > 
+> >  wxvf_reopen_subtask()
+> >    wx_mbx_write_and_read_reply()    /* PF mailbox traffic */
+> >    wx_reset_vf()                    /* VF reset */
+> >    wx_init_interrupt_scheme()
+> >      wx_set_interrupt_capability()  /* MSI-X vector allocation */
+> >      wx_alloc_q_vectors()           /* netif_napi_add() */
+> >    netif_device_attach()
+> > 
+> > wx_clear_interrupt_scheme() later in wxvf_remove() frees those
+> > q_vectors again. Even so, adding NAPI instances to a netdev after
+> > unregister_netdevice() has torn it down does not look safe. Neither
+> > does resetting the VF over the mailbox and allocating IRQ vectors in
+> > the middle of remove.
+> > 
+> > Should wxvf_remove() quiesce the service machinery before
+> > unregister_netdev()? For example, it could clear WX_FLAG_NEED_REOPEN or
+> > mark the device as being removed, then call timer_shutdown_sync() and
+> > cancel_work_sync() first. That is similar to how ixgbevf_remove() sets
+> > __IXGBEVF_REMOVING and cancels service_task before
+> > unregister_netdev(). Alternatively, should wxvf_reopen_subtask() refuse
+> > to run once the netdev is no longer registered?
+> > 
+> > [Severity: Low]
+> > This isn't a regression from this patch, but does the VF teardown path
+> > leak wx->isb_mem?
+> > 
+> > wxvf_open()->wx_setup_resources()->wx_setup_isb_resources() allocates it
+> > with dma_alloc_coherent(), which is not devm-managed:
+> > 
+> > wx->isb_mem = dma_alloc_coherent(&pdev->dev,
+> > sizeof(u32) * 4,
+> > &wx->isb_dma,
+> > GFP_KERNEL);
+> > 
+> > wxvf_close() frees only the IRQs and the RX/TX rings. wxvf_remove() never
+> > calls wx_free_isb_resources(). That function is called only from
+> > ngbe_main.c and txgbe_main.c.
+> > 
+> > wx_setup_isb_resources() returns early when isb_mem is already set, so
+> > repeated open/resume cycles do not leak more. Even so, the 16-byte
+> > coherent buffer seems to be left behind on every VF unbind if the
+> > interface was opened at least once.
+> > 
+> > [ ... ]
+> > 
+> >> +static void wxvf_reopen_subtask(struct wx *wx)
+> >> +{
+> > 
+> > [ ... ]
+> > 
+> >> + if (wx_init_interrupt_scheme(wx)) {
+> >> + dev_err(&wx->pdev->dev, "Failed to initialize interrupt scheme\n");
+> >> + goto hard_failure;
+> >> + }
+> >> +
+> >> + if (netif_running(wx->netdev)) {
+> >> + if (wxvf_open(wx->netdev))
+> >> + goto open_failed;
+> >> + }
 
-  - On dequeue, qdisc_restart() calls netdev_get_tx_queue(), which
-    indexes dev->_tx[]. netdev_get_tx_queue() guards it with just a
-    DEBUG_NET_WARN_ON_ONCE, so sch_direct_xmit() takes the out-of-bounds
-    txq->_xmit_lock and writes txq->xmit_lock_owner past the end of the
-    allocation on non-lltx devices such as ifb. Drivers that index their
-    rings from skb_get_queue_mapping() (ex: ifb) go out of range the same
-    way.
+Hi Mengyuan,
 
-  - On enqueue, taprio_enqueue() indexes q->qdiscs[] with the same value;
-    the array is sized dev->num_tx_queues. A duplicating netem on a child
-    qdisc clones the skb and re-enqueues the clone at the taprio root
-    (qdisc_root_bh()) through a direct rootq->enqueue() call, so the value
-    reaches taprio_enqueue() before any dequeue cap runs.
+I apologise if I am missing something obvious.
+But could you respond to the High concern above?
 
-The Fix:
-Cap the mapping at the consumers and write the capped value back, so the
-qdisc's _tx[] lookup, the taprio q->qdiscs[] lookup and any later driver
-read stay in range.
-
-On the dequeue side the cap folds into the dequeue path instead of a
-separate walk over the returned list: dequeue_skb() caps the head, and
-each bulk helper caps the element it appends. netdev_cap_txqueue() already
-logs a ratelimited notice and selects queue 0.
-
-A TCQ_F_ONETXQUEUE qdisc is bound to a single tx queue: dequeue_skb() uses
-q->dev_queue for the frozen check, the BQL limit and the trace point, while
-qdisc_restart() transmits on the skb's queue. Capping an out-of-range
-mapping to queue 0 would therefore send a per-queue child's skb through a
-different queue than the one it was dequeued for. On mq, mqprio, taprio and
-htb offload children, a stopped queue 0 could then park the list in
-q->gso_skb, and the later wake would schedule queue 0's own child instead
-of this qdisc. Pin a TCQ_F_ONETXQUEUE mapping to the qdisc's own queue to
-keep the documented invariant.
-
-That also keeps a bulk list on one queue by construction: every element of
-a TCQ_F_ONETXQUEUE qdisc, including a follower changed by a filter, is
-pinned to q->dev_queue before it is appended. The fast bulk helper
-therefore needs no head comparison and no skb_bad_txq requeue; the slow
-helper, used only by non-ONETXQUEUE qdiscs, still compares and requeues a
-mismatched follower, where a wake on any queue reschedules q.
-
-On the enqueue side taprio_enqueue() caps the mapping against
-real_num_tx_queues and writes it back before selecting q->qdiscs[queue], so
-a duplicating child cannot steer the clone out of the array.
-
-Conditions to recreate the bug:
-The dequeue path: load a SCHED_CLS or SCHED_ACT program that stores
-__sk_buff->queue_mapping (a tc BPF action is enough), attach it to a
-transmit qdisc (for example a matchall filter on a prio root), and send a
-packet. With a 1-queue device a store of 1 indexes one past dev->_tx[].
-Under KASAN with panic_on_warn=1 the unfixed kernel faults with "BUG:
-KASAN: slab-out-of-bounds in sch_direct_xmit". Loading the program needs
-CAP_BPF/CAP_SYS_ADMIN, so the trigger is root.
-
-The enqueue path: on a multi-queue device, install a software taprio root,
-graft a prio child with a duplicating netem on every class, and store an
-out-of-range queue_mapping from a matchall+bpf filter on the prio. The
-duplicate is re-enqueued at the taprio root and indexes q->qdiscs[] past
-dev->num_tx_queues; the unfixed kernel faults in taprio_enqueue_one().
-Same CAP_BPF/CAP_SYS_ADMIN requirement.
-
-Fixes: 74e31ca850c1 ("bpf: add skb->queue_mapping write access from tc clsact")
-Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
-Link: https://lore.kernel.org/netdev/179293123940.3134.1149128679923234677@kernel.org/
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v4.r0.20261021042722-1%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v3.r0.20261015165943-1%40mojatatu.com
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
-Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
-v4 -> v5:
-- Fold in the enqueue-side consumer: taprio_enqueue() indexes q->qdiscs[]
-  with skb_get_queue_mapping(), and a duplicating netem re-enqueues the
-  clone at the taprio root before any dequeue cap can run. Cap the mapping
-  against real_num_tx_queues before the lookup. Reported by Sashiko (nipa).
-- Call out the TCQ_F_ONETXQUEUE steering change for stable users: an
-  in-range mapping set by a filter on a per-queue child is pinned to the
-  child's own queue, restoring the documented invariant. Reported by
-  Sashiko (nipa).
-
-v3 -> v4:
-- Cap a TCQ_F_ONETXQUEUE mapping to the qdisc's own tx queue instead of
-  queue 0, so a per-queue child of mq, mqprio, taprio or htb offload keeps
-  the documented invariant between q->dev_queue and the transmitted queue.
-  Reported by Sashiko (nipa).
-- With every element pinned to q->dev_queue, the fast bulk helper no longer
-  needs a head comparison or a skb_bad_txq requeue; a mismatched follower
-  there could otherwise be stranded behind a stopped queue that cannot
-  reschedule this qdisc. Reported by Sashiko (nipa).
-
-v2 -> v3:
-- Considered Comments from Simon Horman (hunk counts did not match the
-  diff content; patch did not apply):
-  https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
-
-v1 -> v2:
-- try_bulk_dequeue_skb(): the fast bulk helper (TCQ_F_ONETXQUEUE) capped
-  each follower but appended it without comparing it against the head, so
-  a mismatched follower was still sent under the head's txq lock. Compare
-  the capped follower with the head and requeue a mismatch to skb_bad_txq,
-  matching try_bulk_dequeue_skb_slow(). Reported by Sashiko (nipa).
----
- net/sched/sch_generic.c | 41 ++++++++++++++++++++++++++++++++++++-----
- net/sched/sch_taprio.c  |  5 +++++
- 2 files changed, 41 insertions(+), 5 deletions(-)
-
-diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-index 6f6a6f0d5eb0..5dc1d47f811a 100644
---- a/net/sched/sch_generic.c
-+++ b/net/sched/sch_generic.c
-@@ -96,9 +96,34 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
- 
- #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
- 
-+/* Re-cap a stale queue_mapping; an ONETXQUEUE qdisc pins q->dev_queue. */
-+static u16 qdisc_cap_skb_tx_queue(struct Qdisc *q, struct sk_buff *skb)
-+{
-+	u16 queue = skb_get_queue_mapping(skb);
-+	struct net_device *dev = qdisc_dev(q);
-+	u16 capped;
-+
-+	if (q->flags & TCQ_F_ONETXQUEUE)
-+		capped = q->dev_queue - netdev_get_tx_queue(dev, 0);
-+	else
-+		capped = netdev_cap_txqueue(dev, queue);
-+
-+	if (unlikely(capped != queue))
-+		skb_set_queue_mapping(skb, capped);
-+
-+	return capped;
-+}
-+
-+static struct netdev_queue *skb_cap_tx_queue(struct Qdisc *q,
-+					     struct sk_buff *skb)
-+{
-+	return netdev_get_tx_queue(qdisc_dev(q),
-+				   qdisc_cap_skb_tx_queue(q, skb));
-+}
-+
- static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
- {
--	const struct netdev_queue *txq = q->dev_queue;
-+	const struct netdev_queue *txq;
- 	spinlock_t *lock = NULL;
- 	struct sk_buff *skb;
- 
-@@ -110,7 +135,8 @@ static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
- 	skb = skb_peek(&q->skb_bad_txq);
- 	if (skb) {
- 		/* check the reason of requeuing without tx lock first */
--		txq = skb_get_tx_queue(txq->dev, skb);
-+		/* re-cap: real_num_tx_queues may have shrunk */
-+		txq = skb_cap_tx_queue(q, skb);
- 		if (!netif_xmit_frozen_or_stopped(txq)) {
- 			skb = __skb_dequeue(&q->skb_bad_txq);
- 			if (qdisc_is_percpu_stats(q)) {
-@@ -216,6 +242,8 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
- 		if (!nskb)
- 			break;
- 
-+		/* Every element of an ONETXQUEUE qdisc is pinned to q->dev_queue. */
-+		qdisc_cap_skb_tx_queue(q, nskb);
- 		bytelimit -= nskb->len; /* covers GSO len */
- 		skb->next = nskb;
- 		skb = nskb;
-@@ -233,7 +261,6 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
- 				      struct sk_buff *skb,
- 				      int *packets)
- {
--	int mapping = skb_get_queue_mapping(skb);
- 	struct sk_buff *nskb;
- 	int cnt = 0;
- 
-@@ -241,7 +268,9 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
- 		nskb = q->dequeue(q);
- 		if (!nskb)
- 			break;
--		if (unlikely(skb_get_queue_mapping(nskb) != mapping)) {
-+		/* A tc BPF store may have changed the mapping; cap it. */
-+		if (unlikely(qdisc_cap_skb_tx_queue(q, nskb) !=
-+			     skb_get_queue_mapping(skb))) {
- 			qdisc_enqueue_skb_bad_txq(q, nskb);
- 			break;
- 		}
-@@ -286,7 +315,7 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
- 		if (xfrm_offload(skb))
- 			*validate = true;
- 		/* check the reason of requeuing without tx lock first */
--		txq = skb_get_tx_queue(txq->dev, skb);
-+		txq = skb_cap_tx_queue(q, skb);
- 		if (!netif_xmit_frozen_or_stopped(txq)) {
- 			skb = __skb_dequeue(&q->gso_skb);
- 			if (qdisc_is_percpu_stats(q)) {
-@@ -322,6 +351,8 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
- 	skb = q->dequeue(q);
- 	if (skb) {
- bulk:
-+		/* cap the head; the bulk helpers cap every appended element */
-+		qdisc_cap_skb_tx_queue(q, skb);
- 		if (qdisc_may_bulk(q))
- 			try_bulk_dequeue_skb(q, skb, txq, packets, budget);
- 		else
-diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 39ac5b97aa3a..0eb0803047a1 100644
---- a/net/sched/sch_taprio.c
-+++ b/net/sched/sch_taprio.c
-@@ -632,6 +632,11 @@ static int taprio_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 	int queue;
- 
- 	queue = skb_get_queue_mapping(skb);
-+	if (unlikely(queue >= qdisc_dev(sch)->real_num_tx_queues)) {
-+		/* A tc BPF program may have stored an out-of-range mapping. */
-+		queue = netdev_cap_txqueue(qdisc_dev(sch), queue);
-+		skb_set_queue_mapping(skb, queue);
-+	}
- 
- 	child = q->qdiscs[queue];
- 	if (unlikely(child == &noop_qdisc))
--- 
-2.43.0
-
+...
