@@ -1,66 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028793;
-	b=qHneg83LzG+fjKFmdiizWmJNM8VzwJtdDSw4j9/X3du/cscUlhZdhr+aYZRSSn9frekq
-	 LLdYYE8zDv331R6FJfaSv8+IZQ7AQgm4rjzrLihYPYTtkMr096L22ja548b+exdnZZNgt
-	 lgdoSD5ZDv2DHKiUvXB5NadPS9cTwXp0NPniXf94l52MkSAT0MU0cqEKUbXkShPsXzzk/
-	 xzugwLmoGcNJkqTk0nPqP6bfBk9rwpST+a3QHnefXzxjyghKlRM9mKYlLSITBEHetnr/5
-	 /K1OmbwdAG0tJ12MGaviafueFAnXumRaLqpMKxZbk0/S/iY0UAVsebMtZgT6VHIe/LQ==
+	t=1793028855;
+	b=nrmFQhck1rU3cyfRYC2zLpYH1V8l2UivCu+7Q6nmYT5brv0gcLDLlYk+vNuURCiAV/GY
+	 Ftnp12TjfOWySq0OK1YzmFW6BVcm5MveXsc5SP/u15jjfaqxHdlUK4/xEJ0f1TANobBTg
+	 5rckRIje6Uet9DwghlTqOYIYYUpTpWJrw9yrrNXWPkAn6/XNjYYU7Uza4nZrv0aYkeNOP
+	 zPjsG4UHM52fZ54TD1i/Ze3L8T+/i+XH5u4ilZLw694FdHrX6DqEv+b3ROMG/6OVNyXnE
+	 mrRxlNapRFOr7S5U9Ja2L2oT0k3kw1HuMmyIIX2lMnvam1WIGzSVOQ7lxcidCOI8qwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028793;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jvfFLqSO+wzSndJgmfiuqCD6B3AH19K/ayR8BSeHqBM=;
-	b=g3ZgRrjbi6VGrIniV/cyCM0l4sDRrPEsWlPC4zJAJZdjt4D5SQOmNsr/NTSILktaIQET
-	 2o4DmEtceUrhNoSaP2Ev5CoADdzEZmA/tA5KEQTlGabM0mCOq0YDz77Ze3+HOpTZ3Y+AD
-	 2O4uaDoV/rTSFSs1qw6QfvAfWSQqKArWMelyJwA7ErWFae1u5o/zE0SaOCQEpqJ5Fbtqp
-	 AAqpFSkvN0SGjMS+R1ea9k3N3uk0yd1cf+wteixe2ZstB8saUhXt/2jPUjImBlOcc3oEz
-	 CO8gkFpJwUWDtL7VLJPoDn6kck2nWvXusI5iesy+5Fecf7MdgiKZA6+izKqiCq0INCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028855;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=enXAkrWKOg+OnmNqIxb5MDjoHdnjUwcVFg3yFO3gsOw=;
+	b=xLqyyGq9rFEnNgAx9zHDYv6RkI7bFo9vx401LnLjed/hQvlVa+T0PFMZBsuqceYlcrAJ
+	 EMFpDjjTQgcc2yo/WVeXBqr1JRD9tBZXqJOX5eQcD0C4rB8snBCRcNY2xnT9/8nrZvusf
+	 UYFXeyR4vbrpaHWg2wa1zaq9/osTb/HixwbB/2AnUSnlKL8Kfi7DZrrY5OI+q9nb9hH4A
+	 SKJPSYhI12P+EASyjo80gUOw2aTMcOJl3BjdIYiiLB1azC1R8sMx9JeUHCzBYY8IOtUks
+	 iDFHe6J+UXhhOu3CnDUNRRVMEsGJv9VllbIaOUyO60PLYI9liM9xMGlLedPDYP6liGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=G4i0+fgH;
-	arc=none smtp.remote-ip=115.124.28.196
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYGedghM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C0D606A326;
-	Mon, 26 Oct 2026 15:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C0D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E75606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=G4i0+fgH
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793028777; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=jvfFLqSO+wzSndJgmfiuqCD6B3AH19K/ayR8BSeHqBM=;
-	b=G4i0+fgH0xjqaaaZsWtEisHl2IRXJ3Z49kMVlojbJkEP5NagB9RscO96++C/FMB2xTPGU0yfWGLkEjI6diP2KQgmFJWvv+5jdGHWt8CvLf9Cc/TGs+FrhoTyTkWT+eF5FVa5bQAxJm6/bLeScoPwk50cvQK4Y9F0/0zjdn7YydM=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436679|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00946935-0.000441268-0.990089;FP=9323360888359619762|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jq7I2n2_1793028775;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jq7I2n2_1793028775 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 26 Oct 2026 23:32:56 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Lee Jones <lee@kernel.org>
-Cc: Weibin Liu <liuwb@xiaopeng.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	mfd@lists.linux.dev,
-	Guanglei Zhu <zhugl3@xiaopeng.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3 2/2] spi: sprd-adi: enforce the exact transfer length
-Date: Mon, 26 Oct 2026 23:32:53 +0800
-Message-ID: <20261026153253.689525-3-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261026153253.689525-1-liuwb@xiaopeng.com>
-References: <20261026153253.689525-1-liuwb@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYGedghM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723FE1F01829;
+	Mon, 26 Oct 2026 15:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793028855;
+	bh=enXAkrWKOg+OnmNqIxb5MDjoHdnjUwcVFg3yFO3gsOw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hYGedghMubVMClDJg8UjWJMPTv1naRWZLHo697LqQ1NjJFFIW3A8z6OiuPm5amsZK
+	 817PrEtBwLXo2grKB3+JJOXabGO+zkyV8rqrnzu+GUiWa5EXeMU+HSJeOpqbRGbTuj
+	 mxwEQfmskRo7b0x/jML5dWtyFpr6ot32rvD80UbE+Efxr1B2/cwsjfYgY8I0LP0C+N
+	 C3DXm1HeJOokgfAgsMo6II1fKAfvoTievNq+9Z7q1Gj9Ols22ZaCpg5oSrBrMXEAjY
+	 w5fvPfLODiXzNcoK9k6c1tpxQj3QfQElWrco5vXv2FXo8OwCGzdk5wikjtYD9EW8S5
+	 arbgWnx6hwdrA==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 34BFA198003A;
+	Mon, 26 Oct 2026 11:34:11 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 26 Oct 2026 11:34:12 -0400
+X-ME-Sender: <xms:8nLfasmfM_A-8C6FdWnJR4MHx7n7Fo7vyQTnWJp3zKtP3nYBEhxX1w>
+    <xme:8nLfavzl_xCYhIJLLpgJh-8VYiGaAi7HY0RQXA9j6TC9hHjdekDNQyRy-8eY8JFFd
+    Ff4pCUEW-dzMzcC3YPZ7H1T5eDJsdlcfhGStKqYRdyNE16t6fNCTWYu>
+X-ME-Received: <xmr:8nLfajKUovqMB16oEA__sc1etkZHnuNI6tVhz8wdpB7mtQixETQS5gGollY>
+X-ME-Proxy-Cause: dmFkZTFChFXNPhfha3/sK9OQCU8ZlQFCIc2lL//QxSk/v80tP++TpcUbd8oBI/UC2hCcQi
+    dysjiuRL+Umb1+5MgKTxHJCkcRB06cFautIOspS/IbW++kG8/nt8ByYqmCqa61kOqjjIkZ
+    5B1b7xPTLC8gMOzABjCI1erXXuf49nuLg074PCjSRrrp9+Oq7WC3QUM0ucvNkrWxZrrCG5
+    MVs6FZFG0Aaw+DL35JWwRyN0VG4Fp22qKOZ53y3IQDxZIkjTk8a1YbfdrS4W5R/sbrBkRC
+    UBedcz1USRKX28DOANmsb5RQXnQUKOL0yrp2AoqRpq0xZ+5hUhJdrd4k3LnrmS7tNTH2jF
+    +hrceKOpzCT+YgvEo6Tidp/DIQQXN+eysGfT3Nunq9RrOxcrzaKuoL24LSxJcWMRTCQ7JB
+    GbyChTM3CE2oDN4OuBozGAgz0BtZ/66gj/UKJZn5e/XsKdnswLwtpoCwCrum5WoWiMT0vK
+    I1CHxlqCouIb6mBk7vYnOSlrtbnJaDjNzT8MT0NGEhwnzpFTSWbHMyMNDxXDshV6DKo36T
+    m3GWcwxg4sHSxn6V1+ADIZM9hb++0XNTk1dIRJNH7sonrxwjvO1m5o5RnDM06kMMYbQQg5
+    P3GMfvvNuuOZPzbclJKODWSzYrt4rBUgQCMlvQYsuLNJ6//cwaoVT9IQP4/w
+X-ME-Proxy: <xmx:8nLfaiIWUjTM3Uzj9zDV0cUQxWekHdcdUFfzUe5i-gXZ4cohLZetaQ>
+    <xmx:8nLfaiVL9ri3TDtKf021iCV3YxqSv_NYyxWJ5WffayAlEiPBGXaBbQ>
+    <xmx:8nLfaqBOxmM8eyw4vmNZCC_6I-16pxlgLBJXgS9Ni0JZDC-FCKbeNg>
+    <xmx:8nLfalFghDFHw7Ivc7lOozgqdNDSlBAYOgJnKh_WFhEr_IPCMToVWg>
+    <xmx:8nLfamf3M2UKMwUNzKOTyHsHgSG9tI6zGNoyZOnoRhh_O5poW5mpXUsU>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 11:34:10 -0400 (EDT)
+Date: Mon, 26 Oct 2026 15:34:08 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Hungyu Lin <dennylin0707@gmail.com>, willy@infradead.org, jack@suse.cz
+Cc: hughd@google.com, baolin.wang@linux.alibaba.com, 
+	akpm@linux-foundation.org, dave.hansen@linux.intel.com, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] shmem: do not extend i_size when no data was copied
+Message-ID: <at9xXRhD2xZhszEj@thinkstation>
+References: <20261025164619.89992-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,78 +86,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025164619.89992-1-dennylin0707@gmail.com>
 
-sprd_adi_transfer_one() never looks at the transfer length: the
-read path dereferences t->rx_buf as one u32 and stores the result
-back, and the write path reads two consecutive u32 values from
-t->tx_buf. A transfer whose length does not exactly match what the
-controller touches is a bug in the caller: a short transfer reads
-or writes past the end of the buffer, and a long transfer is
-silently truncated.
+On Sun, Oct 25, 2026 at 04:46:19PM +0000, Hungyu Lin wrote:
+> shmem_write_end() advances i_size to pos + copied even when copied is
+> zero. A buffered write past EOF can therefore extend a tmpfs file
+> without writing any data.
 
-The SPI core does not enforce the expected length, so reject reads
-whose length is not exactly sizeof(u32) and writes whose length is
-not exactly 2 * sizeof(u32) with -EINVAL before touching the
-buffers. If the controller is exposed through spidev, a userspace
-client can submit invalid transfers in a tight loop, so use
-dev_err_ratelimited() for the driver's rejection messages.
++ willy, jack, fsdevel.
 
-The only in-tree user, the SC27xx PMIC driver, is updated by the
-previous patch to advertise the byte length of an ADI register
-access.
+This doesn't seem to be tmpfs-specific, right? I see the same with ext4.
 
-Tested in QEMU (aarch64 virt) against Linux 7.3-rc7, with the
-controller node added to the guest device tree. QEMU has no model
-of this hardware (the MMIO window is backed by RAM), so this only
-exercises the software path. Transfers submitted through spidev
-confirm the new checks: a 4-byte read and an 8-byte write are
-accepted, every other length from 1 to 16 is rejected with
--EINVAL. A burst of 32 invalid reads and 32 invalid writes emits
-only 10 messages at each new driver call site. The SC27xx driver's
-transfers pass once it advertises the byte length. No Spreadtrum
-hardware was available.
+simple_write_end() and generic_write_end() check pos + copied the same
+way, so filesystems that use them through generic_perform_write() are
+affected too.
 
-Fixes: 7e2903cb91df ("spi: Add ADI driver for Spreadtrum platform")
-Cc: stable@vger.kernel.org # 4.15+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-Changes in v3:
-- Rate-limit invalid-length errors as suggested by Sashiko's review.
+It makes me think maybe generic_perform_write() is the right place to
+fix it. Hm?
 
- drivers/spi/spi-sprd-adi.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+> Moving prefaulting to the slow write path makes this easy to reproduce:
+> a one-byte pwrite() at offset 4096 into an empty memfd, with an unreadable
+> source buffer, fails with EFAULT but leaves the file size at 4096.
+> generic_perform_write() calls ->write_end() with copied == 0 before
+> trying to fault in the source buffer.
+>
+> Only extend i_size when data was copied. Leave the existing folio
+> handling unchanged so successful writes, retries and preallocated
+> pages retain their current behavior.
+>
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  mm/shmem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index d97fc32e7c94..55287c370c73 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -3487,7 +3487,7 @@ shmem_write_end(const struct kiocb *iocb, struct address_space *mapping,
+>  {
+>  	struct inode *inode = mapping->host;
+>
+> -	if (pos + copied > inode->i_size)
+> +	if (copied && pos + copied > inode->i_size)
+>  		i_size_write(inode, pos + copied);
+>
+>  	if (!folio_test_uptodate(folio)) {
+> -- 
+> 2.43.0
+>
 
-diff --git a/drivers/spi/spi-sprd-adi.c b/drivers/spi/spi-sprd-adi.c
-index a6baaf02b3c8..32e445cea0d3 100644
---- a/drivers/spi/spi-sprd-adi.c
-+++ b/drivers/spi/spi-sprd-adi.c
-@@ -339,10 +339,24 @@ static int sprd_adi_transfer_one(struct spi_controller *ctlr,
- 	int ret;
- 
- 	if (t->rx_buf) {
-+		/* ADI reads consume exactly one u32: reg in, value out. */
-+		if (t->len != sizeof(u32)) {
-+			dev_err_ratelimited(sadi->dev,
-+					    "invalid read length %u\n",
-+					    t->len);
-+			return -EINVAL;
-+		}
- 		reg = *(u32 *)t->rx_buf;
- 		ret = sprd_adi_read(sadi, reg, &val);
- 		*(u32 *)t->rx_buf = val;
- 	} else if (t->tx_buf) {
-+		/* ADI writes consume exactly two u32: reg and value. */
-+		if (t->len != 2 * sizeof(u32)) {
-+			dev_err_ratelimited(sadi->dev,
-+					    "invalid write length %u\n",
-+					    t->len);
-+			return -EINVAL;
-+		}
- 		u32 *p = (u32 *)t->tx_buf;
- 		reg = *p++;
- 		val = *p;
 -- 
-2.50.1
-
+  Kiryl Shutsemau / Kirill A. Shutemov
