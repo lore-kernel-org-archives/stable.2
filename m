@@ -1,66 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793030196;
-	b=1PXdCyBpf1iYKjA13ZNVIpZgE4ec0VO0GAbzGpj28eS6taLHjRM76Z4Yi2V5i6HCP5fb
-	 +BRa6zm546BaWZzOQ/7NdWmyiDa31jtFnVDYzlLAJfUZ6c9q5O7BcMTqDF5ngJ96cCyGm
-	 Rj6xGWlXBOXw+32ieUkzfaH2jHoXzyKnlm1qWGzJPGSahcIHE/gyAFuQciyty83IqS4MI
-	 kRCeTS1NG6sPgULJfjN7tOwG/qwMGBUIFkfuV7ufhfFnAI0kX9nR4J/b5gZe29oKDKvhU
-	 mEX5AumFWIOu/sTm71rHoSbyUU4MWTJGFgTOj4kZDRB189j6t166CVbke8BKbc+TLUA==
+	t=1793030197;
+	b=4ExqhE0GisSQ53p+6Fr65gOjNu2vfC4r+aRQEtuaErHqdygwg/NNa/Upg4RrrnCA9+4A
+	 /FhR9WonJ+g5HgIUvUZWGBwxm5E55NJ2j59Eno8BWcl3dW+Wm+8gNeyzPIkb7z5vkz7eE
+	 8VGpxPEnmjdJVulODYwHCc7k2gmJp8WB0Ta+GOx7WENdVgZWbjIcERyi6mpLnuxT8q32Z
+	 08Y8h4Mz8bAG0cWeJ2v0xk4BVrN2UhevmZKPVsPuV+j7chA8wBp76NdFSBH94m4MuPUvN
+	 8EQBtaU8sPpEpDluViYq30+UCSaUz/MzX/Vn6jD07w1O2Tr8/KizGqZm30UrrrBiFVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793030196;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793030197;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=2GoPmj1ZmLofWBrMyOcxppGzOSH5vRfw4U/a5/6h2ME=;
-	b=dQKt2r3K4IBD6jGs3YF3YqnDiEX6KlRA1PTe+V5Onol+uXTRoywGOWpcXGSu0Hhw/xfY
-	 2vfG65sqkl92n9ES2YN3NKgDjsz/urEiEpKTZc5/glA6yJ3LnifsxmLcPju2KM+nnJk7+
-	 kyHjjbLDE43S8ecvVEClGS64QfRRjnwB0yo6m25NqOJ8Lb0mqLNYh6IiYkPh/NgvoqdVW
-	 kAx40qUGmHXLVGwwdGOmiaYTvQ8Z1zl4yZJaCkgu30gvjMWfu95ndwfsgU2HrGBqn7CBC
-	 hbPKtgBLzsVJRo82g5HBcckafQCkp9VnPW/0SPYpbLeakknVhFe2K5NT/yBajIKVZtA==
+	bh=6YIwg1aJhq4WGjRolwPANaDv/TOTLrhkHYOeCEH41Oc=;
+	b=HuF69NKDbfXJQYCiPO/YP99zg13uSlPkCfJVrGK6CzMpIv+P1lcqkTtzBfPpQZijOCKa
+	 qJT1DV4EEtTa6a0UbdwShC1Ce+Nww8kHqB5UygYeMAwtOuLvpDJ66rwvIqMhbgkEr1oCL
+	 7ZNiaqYx6GjXsAPTwjW2Zc+QUoUkYJbQNhDV33YCmWH82h9EEeifm8JnQ5rxN1oFeP8UD
+	 cIftJY8ByFEiDH+AkypJAXNWVekw01rvV4wyfPXuZf7SJdsfCVtDsVDg4Ln6H20wm+LUr
+	 hC5GoYBqjnDkkbpZGvE/Zk9BnaisAj9gkxyhpmTnY/nCVfy7kJKYviDl/jSD5xd6KAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CFz0EqCR;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uy4OF1Z8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A14C606A31B;
-	Mon, 26 Oct 2026 15:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A14C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62146606A325;
+	Mon, 26 Oct 2026 15:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CFz0EqCR
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jCysv5DCPzlfvpW;
-	Mon, 26 Oct 2026 15:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793030192; x=1795622193; bh=2GoPmj1ZmLofWBrMyOcxppGz
-	OSH5vRfw4U/a5/6h2ME=; b=CFz0EqCRRpkaKxNgZD2gnz80gb+xK4IrgHP2uIOb
-	1xwfASfByJrEHN0huo3sKoNPmOs0ifC5Yv8nLBNf1o6EzwirzmUWsf+J2M42I9PF
-	nbiWg3HgJ5p1lUWSewqvgho9m5utg/N/ezYFouYlik3FSM7mu8+ZtAVX30EhnFxL
-	WB1gyusxNjUGmOUDeB30svhB2RuD1yqTxQJEZkNRGPJK+zMNTqOPkcMRG338CG1N
-	/Jb5+EPe3RAY8raVd8m2mNxNRez6b1f/zWzFBREz4G5W5yckL/BtZluXHeMEGnkf
-	X5liwIBizR6JnImgJyTHdkc21Hi1UTMI7p7wxNVFQxVxZQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id A3JlEVgOhlsY; Mon, 26 Oct 2026 15:56:32 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:829f:7082:d079:ed8b] (unknown [104.135.182.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jCysq64GJzlfvpT;
-	Mon, 26 Oct 2026 15:56:31 +0000 (UTC)
-Message-ID: <6efae213-c75b-435b-888e-f58c32b28bf1@acm.org>
-Date: Mon, 26 Oct 2026 08:56:31 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uy4OF1Z8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3F61F01828;
+	Mon, 26 Oct 2026 15:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793030197;
+	bh=6YIwg1aJhq4WGjRolwPANaDv/TOTLrhkHYOeCEH41Oc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=uy4OF1Z8nc+aGLqmD0I6DdudJyArIB6exyFC9Kl8vVB86ytNblhhLlaRS3H9itES1
+	 9GSQ+zpQxO2RAMQqg9+pWfk20mfy7l2rhyePnD0MgUP9jfo3hJdBkyl6hnzOUs61Vz
+	 6XawunPDVCOwoHA/PfrzK75cEhkN0H08rPz7eC9c=
+Date: Mon, 26 Oct 2026 08:56:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, Suren Baghdasaryan <surenb@google.com>, Shakeel Butt
+ <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading
+ /proc/PID/maps and friends
+Message-Id: <20261026085636.4cc194fdd7aad8e7d3e68c4e@linux-foundation.org>
+In-Reply-To: <44405019-7494-446a-86b4-05b2ac03f768@kernel.org>
+References: <20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.org>
+	<533c4ef7-e008-4439-be40-1aa2a074dfd8@gmail.com>
+	<44405019-7494-446a-86b4-05b2ac03f768@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,40 +62,18 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] scsi: bsg: release io_uring requests in end-I/O
-To: Yingjie Wang <x-professor@outlook.com>,
- "Martin K . Petersen" <mkp@kernel.org>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- Yang Xiuwei <yangxiuwei@kylinos.cn>, Jens Axboe <axboe@kernel.dk>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <cover.1793003363.git.x-professor@outlook.com>
- <8f30e238d2b169702308303687e9504c7513ecc8.1793003363.git.x-professor@outlook.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <8f30e238d2b169702308303687e9504c7513ecc8.1793003363.git.x-professor@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/26/26 1:29 AM, Yingjie Wang wrote:
-> +	pdu->response_addr = READ_ONCE(cmd->response);
-> +	pdu->max_response_len = min(READ_ONCE(cmd->max_response_len),
-> +				    SCSI_SENSE_BUFFERSIZE);
-> +	pdu->sense_buffer = NULL;
-> +	if (pdu->response_addr && pdu->max_response_len) {
-> +		pdu->sense_buffer = kmalloc(pdu->max_response_len,
-> +					    gfp_mask | __GFP_ACCOUNT);
-> +		if (!pdu->sense_buffer)
-> +			return (issue_flags & IO_URING_F_NONBLOCK) ? -EAGAIN : -ENOMEM;
-> +	}
+On Mon, 26 Oct 2026 11:04:23 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-No new kmalloc() calls in the I/O path please. These have a measurable
-performance impact.
+> > 
+> > PROCMAP_QUERY does the same fresh lookup, shouldn't d9d1c2d81797
+> > ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks") be
+> > here as well? (commit tracked down by an LLM)
+> 
+> Hm, very likely I missed that. So yeah, let's just add it. I assume it won't
+> matter much because 5631da56c9a8 is the oldest one either way.
 
-Thanks,
-
-Bart.
+I made that change to the mm.git copy of this patch.
