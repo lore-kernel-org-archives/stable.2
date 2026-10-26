@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004802;
-	b=wAr5HxcP4aG7jO7hGubRSB7wdvStdoCsamllqd7VjcN9iBvmR86snCbPJYTwRn3Nt7Ga
-	 GwBaUrZb3wWmhtuyvXyfGAjcsXDUKVHHNKA9wBflXoZAlPtfD6EVhUjwrnx3SpApfZy7C
-	 g2DxLJvmi7akpB9KP/hcX6BOayj14S+NfdwwrjwVWton+zee5Z1uCTSRp6eU+vHnoRvpx
-	 oNPN+Kf4ZikYKhasic6zorLG/1KEalX1xgCvJmD+YMb7/yRuY1o26+DFptZrX/81fVbhK
-	 Md+FCi4/OJggCIdpb9jQhohu5l7ur2GoNNu+2CtLKtHhAxYj3me3cRcvoenn+ko05mg==
+	t=1793004803;
+	b=PggsgyUBh6JGiPWhDpKaUKvdH5VfKrA3CHMnge4BhaBiez+0qpLbkVe21VLPe7LwoNco
+	 0/7icorNNOMYwgOh43mF6F69Lw+T8GepLgsM+MUCvby4KgOaVDmFn+x7uQ6joVWLgAvhx
+	 WNM22tbYhhEJG3RF8gi0iParW4PLgjwctXQYFCrIF+iPQr4/TO4nMsYKOwdLBkVzZYPez
+	 bIF6j2omy8B/KBoFnP+1qtmGHuSOVPiGUFLxYbzPLSNX8GrO7MbujoX0JBlVOCMICeoB9
+	 Q+erw49JhiwIcfVirruk7Fnbc6/X00YJrY39PPyT8RNZ4h925meKIZbKPu8xJxO6lHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004802;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004803;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ttMqqcboLQzjut5NgdLonwJi+uD/OkLUOeVwq0uZg1w=;
-	b=StE5wU8LMl27TxMfWtnf7GbRXNC+8jS8GJtXWVuNvZPAeuCH1ZZRTp3bMyEcftMvmIID
-	 K3lxKNWn4+CBdPnL11Bu7zuVdlaRo05jtVGMPva43oZlkKgLj40ryt7Y4COh4nXiYrl9/
-	 uKLUd9POx+5uki7eF7hLpt5Ta4hJBC+tDgDzjejgP0zEZaoNVSuY1rYMgDn+LzzjNLkKU
-	 nFBfPe6D0M+hDpMnP3ABQpLLDnJ2JFAyXGAegxd/LdhSUp6oyAaCPrlFK4E6xDccLdSvp
-	 Z1nx2+v85Qzk0mgOz9LcA61M7Gg2fFi7J5w7VIOBniUxZQDt456yiTqYJWrEXtdKLNw==
+	bh=Tb6YY7ws5ricakk5fR+nEefJhgviyi0JtUHb63cvMS4=;
+	b=RvR7kTloAMQEId+SuT6C5Vqn4J47JTrUASzQDoX2nqMlhIq8EKXvM731bGq5v4rQFkmd
+	 0zGL13ly/vO7yWfBezJpz+Zgc8Yfsly/fWW8aNoRmWdZNT5+Xcl2bHVfI93OzOcVXIdx/
+	 j0gguID2AyrMH0l7sxO+GhFGyGEud6FqEiYz5rNis1m8yUIR3k/VhZZ89ueiDXxxU/lh4
+	 tYyO1ELZuLyNK42D6raS5nugTBzhbrKOw9dZhbmXUuvUlAPDN6ElTRsI+HRF5/vcNF92L
+	 MFJwVJrQEQot+lJECP5CsSaXjpIhU/pU4nVJClXQPa9T5Swtc7amZAj2wqZz0xyphtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=simonwunderlich.de;
 	spf=pass smtp.mailfrom=simonwunderlich.de;
-	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b="CJ/AQeWD";
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=gnraW2l4;
 	arc=none smtp.remote-ip=23.88.38.48
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E7A3A606A338;
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BD75D606A337;
 	Mon, 26 Oct 2026 08:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7A3A606A338
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD75D606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=CJ/AQeWD
-Received: from kero.packetmixer.de (p200300c5973Ce5d80Fc8dfE94A24022d.dip0.t-ipconnect.de [IPv6:2003:c5:973c:e5d8:fc8:dfe9:4a24:22d])
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=gnraW2l4
+Received: from kero.packetmixer.de (p200300C5973CE5d80fc8dFe94a24022D.dip0.t-ipconnect.de [IPv6:2003:c5:973c:e5d8:fc8:dfe9:4a24:22d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id DF428FA26D;
-	Mon, 26 Oct 2026 09:53:16 +0100 (CET)
+	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id 7384CFA1DD;
+	Mon, 26 Oct 2026 09:53:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1793004797;
+	s=09092022; t=1793004795;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ttMqqcboLQzjut5NgdLonwJi+uD/OkLUOeVwq0uZg1w=;
-	b=CJ/AQeWDeV4jWGEQJ6H/tYBG216ax3QlMttkQokapKSB42sFiykQ/YoQqeOFoNeNs6VsKE
-	/I6wtSV/scYwFNrmCbLsZv16ASSCjaPva34QKyTBNrYe+CqDzx45QKCW6dnY3cTzF2l4sT
-	A94f0UUQgO3Fp6VTszQsNza4LKObZzI3hSB2VGVS8eSFmMKV0e3p4JCzzE3nC4N0g1sXge
-	3mm/atHBcvMYQ2qZadWEmivu+jX/I2N0HKrO7Ru8z2wM7yc8+Q63pL/c/Pust4YKbssRC1
-	KIIlCxoDiJqfW4xxyxZeDUEUBUEP9XLq0VrwPuLXNje9rNYBlK4iMtk9dIJMNQ==
+	bh=Tb6YY7ws5ricakk5fR+nEefJhgviyi0JtUHb63cvMS4=;
+	b=gnraW2l40+qdMqD9HFBkJ27iu1Qu1IJn9u1z+/kTnTSuPAAPHhp4zP7k1H/PgDM76lJMSu
+	TlIux4U8I29V3Rx8PWOAIuJO90lbdv7WNOMJV9RZoY8dWIgWjuvTH/P58RtDAuK0bJAkrk
+	hluiEFoI/0djs+4Fn6p/o4CB2kdgWVXTKlWxOr2N2+29pVoJwTB7oPKKjrKkoeiE1A+RQX
+	6Av8+8IWIELXSVgnOSSJWZGB5uGhQ0zuL9dm1gYTpO/TKRpuIFewnEhi+HX7bXzEULCsj/
+	+5yiFkfjT1maYhkHmbpZD/6ntl+2uEiNK48Njx+CSV2Ai4+Fu8FGIHwaM8xFsA==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -61,10 +61,11 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	b.a.t.m.a.n@lists.open-mesh.org,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net 08/10] batman-adv: tt: only update flags for TT events
-Date: Mon, 26 Oct 2026 09:53:07 +0100
-Message-ID: <20261026085309.1074911-9-sw@simonwunderlich.de>
+Subject: [PATCH net 06/10] batman-adv: stop originator purge worker before freeing TT
+Date: Mon, 26 Oct 2026 09:53:05 +0100
+Message-ID: <20261026085309.1074911-7-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261026085309.1074911-1-sw@simonwunderlich.de>
 References: <20261026085309.1074911-1-sw@simonwunderlich.de>
@@ -81,103 +82,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-In the first implementation of the translation table events, it was only
-possible to announce:
+batadv_mesh_free() releases the translation tables via batadv_tt_free()
+before batadv_originator_free() stops orig_work. The purge worker can
+therefore still run while the TT is torn down. When an originator times
+out, batadv_purge_orig_ref() calls batadv_tt_global_del_orig(), which
+loads tt.global_hash and walks all buckets while taking their locks:
 
-* ADD: new locally detected client
-* DEL: disappeared local client
+  CPU0                          CPU1
+  batadv_tt_free()              batadv_purge_orig()
+                                  batadv_tt_global_del_orig()
+                                    hash = ...tt.global_hash;
+    batadv_tt_global_table_free()
+      batadv_hash_destroy(hash);
+                                    spin_lock_bh(&hash->list_locks[i]);
 
-If an ADD event was queued and then a DEL event was queued in the same
-timeslot, it is valid to destroy both events because nothing actually
-changed for remode nodes
-
-But with commit e0eb5f8df352 ("batman-adv: improve the TT component to
-support runtime flag changes") and subsequent changes, it could also happen
-that there are extra ADD events:
-
-* ADD: _NEW_ locally detected client
-* ADD: already existing client with new flags
-* DEL: disappeared local client
-
-The first and the last type of event could in theory still be removed
-together from the (to be announced) events queue. But if the "update flags"
-ADD is dropped together with the DEL, it would still leave global
-translation table of a remote node in the incorrect state - believing that
-the client didn't disappear.
-
-If a detected client was previously announced, a DEL event must only
-overwrite the "update flags" ADD but the DEL itself must still continue to
-exist in the (to be anounced) events queue. For now, adjustment of the
-announced flags is used for everything instead of dropping already queued
-up events completely.
-
-Similarly, a DEL followed by an ADD caused both entries to be deleted. But
-the new ADD could announce flags changes which were not yet present for the
-client before it was marked for DELetion. The new ADD must therefore only
-overwrite the DEL - but still be kept.
+Disable orig_work at the beginning of batadv_mesh_free(), directly after
+the mesh was marked as deactivating. The second
+disable_delayed_work_sync() in batadv_originator_free() is harmless because
+it is free'd anyway.
 
 Cc: stable@vger.kernel.org
-Fixes: cea194d90b11 ("batman-adv: improved client announcement mechanism")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260708091821.314516-1-sw%40simonwunderlich.de?part=3
+Fixes: 9d31b3ce8168 ("batman-adv: fix potential TT client + orig-node memory leak")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/translation-table.c | 29 +++++++++--------------------
- 1 file changed, 9 insertions(+), 20 deletions(-)
+ net/batman-adv/main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 39b61426f1680..24054077cf3db 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -622,6 +622,9 @@ static u16 batadv_tt_flags_get(struct batadv_tt_common_entry *common)
-  * @bat_priv: the bat priv with all the mesh interface information
-  * @common: the TT entry involved in the event
-  * @flags: flags of the TT entry combined with the event flags
-+ *
-+ * Only a single change per client is queued. It describes the latest state of
-+ * the client and a new event therefore replaces an already queued one.
-  */
- static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
- 				    const struct batadv_tt_common_entry *common,
-@@ -631,7 +634,6 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
- 	struct batadv_tt_change_node *entry;
- 	struct batadv_tt_change_node *safe;
- 	bool del_op_requested;
--	bool del_op_entry;
- 	size_t changes;
+diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
+index ced76942f33c5..3b9fa861be7be 100644
+--- a/net/batman-adv/main.c
++++ b/net/batman-adv/main.c
+@@ -295,6 +295,11 @@ void batadv_mesh_free(struct net_device *mesh_iface)
  
- 	tt_change_node = kmem_cache_alloc(batadv_tt_change_cache, GFP_ATOMIC);
-@@ -665,25 +667,12 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
- 		if (entry->change.vid != tt_change_node->change.vid)
- 			continue;
+ 	WRITE_ONCE(bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
  
--		del_op_entry = entry->change.flags & BATADV_TT_CLIENT_DEL;
--		if (del_op_requested != del_op_entry) {
--			/* DEL+ADD in the same orig interval have no effect and
--			 * can be removed to avoid silly behaviour on the
--			 * receiver side. The  other way around (ADD+DEL) can
--			 * happen in case of roaming of  a client still in the
--			 * NEW state. Roaming of NEW clients is now possible due
--			 * to automatically recognition of "temporary" clients
--			 */
--			list_del(&entry->list);
--			kmem_cache_free(batadv_tt_change_cache, entry);
--			changes--;
--		} else {
--			/* this is a second add or del in the same originator
--			 * interval. It could mean that flags have been changed
--			 * (e.g. double add): update them
--			 */
--			entry->change.flags = flags;
--		}
-+		/* the other nodes may know the client with different
-+		 * flags. A DEL+ADD must therefore still announce the
-+		 * current flags and an ADD+DEL must still remove the
-+		 * client. ADD+ADD and DEL+DEL only update the flags
-+		 */
-+		entry->change.flags = flags;
++	/* the originator purge worker accesses (among others) the TT tables
++	 * and must therefore be stopped before any of them are freed
++	 */
++	disable_delayed_work_sync(&bat_priv->orig_work);
++
+ 	batadv_purge_outstanding_packets(bat_priv, NULL);
+ 	batadv_tp_stop_all(bat_priv);
  
- 		kmem_cache_free(batadv_tt_change_cache, tt_change_node);
- 		goto update_changes;
 -- 
 2.47.3
 
