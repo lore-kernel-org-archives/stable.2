@@ -1,54 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021455;
-	b=k/A3ZONfpkQ0TSogRyLBoGxdK5QTuEPkYPnI3NGEaEE2dQQreR+a5WzizjVB+QWit2KI
-	 Cc9jK9YkwNxXXOemdU2ksffo5B9VMXUBl78XvkqwPhsdMhfyZlEX5W6emyvOH907gTojL
-	 eU8rmDUZVdKJupe8jsGQ+SIPc0B3V1hy8Yn5BVa0svWRusyeV2GmKgniWnc5ta1/81cAW
-	 LGAosvMHCIYwqSrOzxWXs5//evk55Cpad5eRtJ893othxhc4nTbVSnfZh5Wxr71T/G2LE
-	 aLJVuUodQ+J2c0E9dZS39iKgyJU0wKh2yUWxiHxgZK6A4ntjXzm6ipM3q5kn0uwTKUw==
+	t=1793021502;
+	b=IaC0a2Pi3cidCSfhnB9S7InqPojUzVYVx5lAoyBfWJZOSziOdgStFWEHoH57HjMQ7YUV
+	 o8vqq3azE7tYnViuvcPQSqUiX8b8NbH39Rg+ZpoIzibtSJiADsXnTBRTsmCDqcXgAPHRC
+	 vEMUpp9BOmtvQqmCqDQ9F+lPC3jfJUHMfjahWegjrFow9bgrFB3pendhpAb8rk1Ya2CDQ
+	 L6gGfgMIBjeX3jtegmDZkcp273rA80J/pIH0IMMQiHBHy+zvtqRhysh/OjcW5mkC56B+5
+	 HtUjzAiOhMYmvcRXJunkxHD1sahfXmJbbdqrrCMhTbpo2+2UBbdDF2BHL5iqWiBu3RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021455;
-	h=DMARC-Filter:DKIM-Signature:To:Date:Content-Transfer-Encoding:
-	 X-Original-From:Message-Id:Mime-Version:Content-Type:In-Reply-To:
-	 X-Lms-Return-Path:References:User-Agent:Cc:From:Subject;
-	bh=J4UXRSWdp9L+slM0l5w1zWdkgLQIsp44pt/Clrth68c=;
-	b=EDv45w5bbdUJ6rOoRMpvItJT2hYQrImhjRcUUvD3GdnxAlda4JuOQGiVdhw9/ZLuI5Ts
-	 OFhjBtGVDf2uMcNOXyAiUYZpdmhUZkqE0pC6eElF8dF7GUl1gjzbxF6+hCP2Dm+t30GVa
-	 ZBN5NG8EY0eDScpPzhBW1n/jGRRyHbyD28Ny3cWGDJG4SxjZFtX60G8r4tYjssqrINIHQ
-	 i689dcu8CIrmKbd06o7Wfy8Hd7G25sjFwCKEpS6u/b4dI1gtwKIopFmkkJq8pfgYZFKZR
-	 cf/4qcaJgystV22wTLEEwotbz7I58V7abatiOUGPlBY/gXbipcuqRe1jJm9abzf463w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021502;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=LKf/jI/bjj0oPXrviRNSHjeXeMp3TxZx0LrRFINXjVw=;
+	b=aFiEn5R4C9kFyohv+XDwFbpeCaVeyhLFLoDrr8ZjOdN8OYe65HHl7CqaXJHoiHeNsEZ5
+	 6crBy0IPop179E5rAyOre6v6j4lsmAuQOucOJyQs29dxRSn0eRxRWklL6YQBn0Le1GMhK
+	 9cjg3F9L0RyvB0fpMEw/i7MW8ba+U5eIja7TWpK0m92O6XkI1kCIqZDWQQvCcCcWiMKPP
+	 jWcd1d9x3nEU0CkGPvjFr/Sl3ucW5/K9SMyWLPGgjOVDIXSlsVX7HaDsWkgyWVTXR7Jqt
+	 uOG6oAc/yNMJQc0XFO0BXBJ4YlwJ0gf6Dni1wR3/9tBEHFPY2oKJmWQfKNMqYUCV1pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=DP6Ih9JU;
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UX1M8Er+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AstCp0Vn;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UX1M8Er+;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AstCp0Vn;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713BF606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 713BF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED8A606A31A;
+	Mon, 26 Oct 2026 13:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0ED8A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=DP6Ih9JU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793021448; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=J4UXRSWdp9L+slM0l5w1zWdkgLQIsp44pt/Clrth68c=;
- b=DP6Ih9JUTFHJoJ6beHoY5BaEe7d958V6WxgXvakOnJLZXpVkQEOcM0/N0cKL8kgrOk1NQw
- cdXwr5CfUFsWgpejmChAasJS28yJSGdTRnAIRuPwr0vOkGJI2pPv5vnX7A+D7s4XKE/yMt
- LN7YPQxWeCtsu+Wzgv7ckda0sM1xuuV3AmxVUyZLbQCQaP1vCFcQm2HtQsLCNZJPxDwGjw
- JAnrx9LXT5xkjzKqaIk5+wTtR3KGbOnmfCaa+RBsQ3giDBE8rciRgjP8JhiWM51rv1ed6j
- ZsmD9MbUg1nJgkR3Xg0miLmNUxT1UN1/Z71kuoXZMxFBvevjpwLmA690gREaOQ==
-To: "David Hildenbrand (Arm)" <david@kernel.org>, <catalin.marinas@arm.com>, 
-	<will@kernel.org>, "Ryan Roberts" <Ryan.Roberts@arm.com>
-Date: Mon, 26 Oct 2026 21:30:08 +0800
-Content-Transfer-Encoding: 7bit
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Message-Id: <52e7e1f6-3535-474d-9b46-6bb62f96eefc@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UX1M8Er+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AstCp0Vn;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=UX1M8Er+;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AstCp0Vn
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 27FB721EBD;
+	Mon, 26 Oct 2026 13:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793021500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LKf/jI/bjj0oPXrviRNSHjeXeMp3TxZx0LrRFINXjVw=;
+	b=UX1M8Er+JZvgKRP+DnkHGie/LMyRJLqLTRWNMKOj+vLBPyOqyiDN7H22WQIJiAm1tmExF2
+	CYQ/CL6epAdiKivnKyhe70jXQhl8NoosTUaZFT0RvqQzP0fX2uNnOSRmuun6FjyfoohMgI
+	J5/ZxwjV5WS8j4OIIQL2O9Bc7I7UW7U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793021500;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LKf/jI/bjj0oPXrviRNSHjeXeMp3TxZx0LrRFINXjVw=;
+	b=AstCp0Vn8QLm3QFjXiGbZoQjWqLwTJCuYYh/PwSlR9ZX5+HNTFcIgFeuvV0dzZzoKJOcsd
+	5BHy+myC12caKbDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793021500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LKf/jI/bjj0oPXrviRNSHjeXeMp3TxZx0LrRFINXjVw=;
+	b=UX1M8Er+JZvgKRP+DnkHGie/LMyRJLqLTRWNMKOj+vLBPyOqyiDN7H22WQIJiAm1tmExF2
+	CYQ/CL6epAdiKivnKyhe70jXQhl8NoosTUaZFT0RvqQzP0fX2uNnOSRmuun6FjyfoohMgI
+	J5/ZxwjV5WS8j4OIIQL2O9Bc7I7UW7U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793021500;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LKf/jI/bjj0oPXrviRNSHjeXeMp3TxZx0LrRFINXjVw=;
+	b=AstCp0Vn8QLm3QFjXiGbZoQjWqLwTJCuYYh/PwSlR9ZX5+HNTFcIgFeuvV0dzZzoKJOcsd
+	5BHy+myC12caKbDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F334913408;
+	Mon, 26 Oct 2026 13:31:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ulRbMztW32qOeQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 13:31:39 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 80BEEA1419; Mon, 26 Oct 2026 14:31:31 +0100 (CET)
+Date: Mon, 26 Oct 2026 14:31:31 +0100
+From: Jan Kara <jack@suse.cz>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] filemap: drain in-flight DIO before buffered writes
+Message-ID: <ddkjou5djippzkzf4euqg4wvsnjsc23fw4qldwi3hru5cxg4ul@eyts4mtzasxt>
+References: <20261025124115.3178287-1-yaojiale02@163.com>
+ <20261025124115.3178287-2-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,70 +111,94 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <1c0141e8-3033-4f59-b247-34dee14cbb1f@kernel.org>
-X-Lms-Return-Path: <lba+26adf5606+28b41d+vger.kernel.org+zhaogongyi@bytedance.com>
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org> <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com> <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org> <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com> <1c0141e8-3033-4f59-b247-34dee14cbb1f@kernel.org>
-User-Agent: Mozilla Thunderbird
-Cc: <dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
-	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
-	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
-	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>, 
-	<mhocko@suse.com>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025124115.3178287-2-yaojiale02@163.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[163.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -12.80
 
-On 10/25/26 8:34 PM, David Hildenbrand (Arm) wrote:
+On Sun 25-10-26 20:41:10, Jiale Yao wrote:
+> An asynchronous direct write can remain in flight after its submitting
+> thread releases the inode lock. A buffered write can then dirty page
+> cache before the direct write completes its post-I/O invalidation. The
+> invalidation finds dirty pages, reports a possible data corruption, and
+> records -EIO in the mapping error sequence.
+
+Well, when you do stupid things, you get stupid results. We were always
+saying mixing buffered and direct IO in the same file isn't a good idea and
+we try to not screw users too badly but give no promises. This falls into
+that cathegory... So I don't think there's much to fix here. The only
+sensible exception here are simple filesystems which have only simple
+support for direct IO and fallback to buffered IO for the rest. But I think
+we should handle these on a case-by-case basis and either drop the support
+for direct IO altogether or convert them to iomap and properly handle the
+waiting in their .write_iter methods (like e.g. ext2 does it).
+
+								Honza
+
+> Drain in-flight DIO before both regular buffered writes and direct I/O
+> fallbacks in __generic_file_write_iter(). Preserve IOCB_NOWAIT semantics
+> by returning -EAGAIN when waiting would be required, while retaining a
+> positive partial direct write result.
 > 
-> Can you paste the code here for easy review if that it the right approach?
+> Fixes: 8174202b34c3 ("write_iter variants of {__,}generic_file_aio_write()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  mm/filemap.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 > 
-
-Hi David,
-
-Sure. Here is the minimal prototype I tested. It leaves
-contpte_set_ptes() unchanged, so present-invalid PTEs can retain
-PTE_CONT. The pte_present() check excludes swap entries, where the
-same bit position can be part of the swap offset.
-
-diff --git a/arch/arm64/include/asm/pgtable.h 
-b/arch/arm64/include/asm/pgtable.h
-index 6000905a2..2f89959ec 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -185,6 +185,7 @@ static __always_inline bool pte_present(pte_t pte)
-   * Returns true if the pte is valid and has the contiguous bit set.
-   */
-  #define pte_valid_cont(pte)	(pte_valid(pte) && pte_cont(pte))
-+#define pte_present_cont(pte)	(pte_present(pte) && pte_cont(pte))
-  /*
-   * Could the pte be present in the TLB? We must check mm_tlb_flush_pending
-   * so that we don't erroneously return false for pages that have been
-@@ -1704,7 +1705,7 @@ static __always_inline void 
-contpte_try_fold(struct mm_struct *mm,
-  static __always_inline void contpte_try_unfold(struct mm_struct *mm,
-  				unsigned long addr, pte_t *ptep, pte_t pte)
-  {
--	if (unlikely(pte_valid_cont(pte)))
-+	if (unlikely(pte_present_cont(pte)))
-  		__contpte_try_unfold(mm, addr, ptep, pte);
-  }
-
-The diff is against 24a19b953e2a. The runtime tests used the same
-changes on an arm64 tree whose base pgtable.h and contpte.c blobs
-matched. In a QEMU/KVM guest with KASAN enabled, the guard-marker
-reproducer passed 100 iterations, and the fork and PMD-split probes
-passed five runs each, without warnings or KASAN reports. The
-unmodified kernel failed on the first guard-marker iteration in the
-earlier A/B test.
-
-This shows that the reported failure can be prevented by a small
-change to the unfold check. As Catalin pointed out, this prototype
-does not extend pte_batch_hint() to present-invalid entries or address
-the other pte_valid_cont() users. I agree with taking v2 as the current
-fix and considering the broader grouping changes separately.
-
-Thanks,
-Gongyi
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index b74bc1e5015c..289b8ca44ada 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4502,10 +4502,19 @@ ssize_t __generic_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>  		 */
+>  		if (ret < 0 || !iov_iter_count(from) || IS_DAX(inode))
+>  			return ret;
+> +		if ((iocb->ki_flags & IOCB_NOWAIT) &&
+> +		    atomic_read(&inode->i_dio_count))
+> +			return ret ?: -EAGAIN;
+> +		inode_dio_wait(inode);
+>  		return direct_write_fallback(iocb, from, ret,
+>  				generic_perform_write(iocb, from));
+>  	}
+>  
+> +	if ((iocb->ki_flags & IOCB_NOWAIT) &&
+> +	    atomic_read(&inode->i_dio_count))
+> +		return -EAGAIN;
+> +	inode_dio_wait(inode);
+> +
+>  	return generic_perform_write(iocb, from);
+>  }
+>  EXPORT_SYMBOL(__generic_file_write_iter);
+> -- 
+> 2.34.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
