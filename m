@@ -1,110 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793041719;
-	b=kcQu9gBkW5foh3BA1lX9soX5TcozTS8LSxODITh5e7Pu6f7NDl1RZ6gnYfb7gxFM+PSQ
-	 CRJUMH6JZE0ZjF/HQ5ClqAjcmobZK6hj/4GbxsyOo9RCEzxwt0rtIfW4Gz6kDFvhE3Xw5
-	 w8tc/BNMRNZtE3+yZYTS44piKdo8M+1tkbCOeeUI3G4UKrEGaF4LtTN4+ckyiePxZTFve
-	 aHnk/ArsBCQQRqnQTZLxw3U+dgmvq0pG7yM57JimJ4sYjXxTNyOdi+pJlWgLOXHG7HhHI
-	 OW5qpyjaR/l9hY9caaRWBdqETN93WC7rBDtDKM4Z4EnnD22pCl3gTVv3cXPxgFYHXvQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793041719;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Tsk4dTanj5TSHJ9iLUUMmb2ZTOUw1JbpYIxC9YGu0bs=;
-	b=ew+p4PqpG+sxuGzKq+LW+cnVsfDSdJ2axyInUmPoPLuQlQsT5/+tKe5b/Aw6um9trYs8
-	 wOmB0IPJPfULbPP6ug4gupiXIxPemofWnsnkaltu/V/uha9tDI6QVc1v45VmBxAyVyKJE
-	 BOcgSXf4mhy3/Nmmon/HaGm3zegVezwZXMrtq9QuSMF9Ie4sOYDaXJyv1B39AZz19C2OK
-	 5IFDd6kFMk+fZPRrCQ6ynAGFG/PtKZS7D8bvE7O3mjjdl/qq+hEZ4KryQsNQhGY7Afv0Y
-	 jGAWqnnPBqx+vK98WvVkCmKZkck/Fj3o6zh1uRa6Z2yIXL/SYNA0oMd3wxTZA3Ul0HQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="L/Vn0wlM";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.7
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793042199;
+	b=prvrzq9yUuHPYo50FdnDAmTvM7pfZX99bgckwoxxDvSIeuMi43304nrTN/NsQkp/G4NV
+	 rLIw5KEOkfzNvn27V/4IDiwKxeN4N43goVQ9OtUW6MPefXlp6p/R+LBtpqO3ZMlm1tEOR
+	 1jRP483qojSGtCGOm0xYRjbsWgsd9VzUi4df1SidbFlZ56Gz3RhyFzQnnaXsAbRzQ6Or8
+	 9mXOn/AH6dzpGoFIen2QWCnmdABx0A0I8UJQSH6Q1z9x2UIMH/x+fTeECAuquny3gac35
+	 jamNYMUgD0OF8hH4srGBDtLdU9+cLfVwfUU7bPR05nLnfDkXKfR7F3+5/jowsPvBovQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042199;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=FscSg4jBgrWJT5gVgo6HfZj/41sVn0GqNpooWyzSB1w=;
+	b=M/bbdbN5phN3ujnOeyN4CVdjRT5JhzXJHW0kL66XOLd/IRF/BptZyHJKrC0FlabNYRqc
+	 VV/6jdTM+41i6hVKaBdLmRoHkFOXWrU8uIC45Q3sZl+vG3OvLAzuE8lyHL3vNO6rwsM87
+	 s2vvKmInrXJeuxXFb3rFwq3L5Ng0d0Tu3hvBDZyvYKNRcGjaeMrYFYDFYJe4X8lgnp+Ng
+	 3L3tgNH8ouDhrugCRcrQdVURNLBJ/RJLjYgmCCaef8ZxEMH/xLVWiw+2jdQRKO8buEeev
+	 HsbrQhwjm84PYsrArBcjLoQx4YarDR8NikC0TL0/BTIyegd84yqovyn6LiuLiJkGgvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SY3FsSG9;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DDF606A31E;
-	Mon, 26 Oct 2026 19:08:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DDF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BCC606A31A;
+	Mon, 26 Oct 2026 19:16:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9BCC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=L/Vn0wlM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ky+ma8B1MXWfs5QTfPJcqpqIzHObtETODJooS5MVyU+qCNs60HzV3CaKF0HSOV4e1l0CK8+ftlfBVki9Kf7tsEELuJDq7P7wo3tfARgMwguCA1+00HGZwW0cYyG6Iq354c81hY4SJSS3DHzl6KrvYleDBj6kDS1oeWcgxh4fOPEbV8tFrBMq64XXJkKrz2Kdq5zoZzJV2iY1P3GZK2xgipMQpuQWs+QPaomGmYbpwRL7g6mBXfljbt6a5AR7VTsJS5FQZWXqxAhoKEoSGQ+mGzAqaOc4K/UgnMhxAyOF1RcY94XaFT5S4PEzYnPcC9lgA/Y/jcJsLda3yuSML3m8ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tsk4dTanj5TSHJ9iLUUMmb2ZTOUw1JbpYIxC9YGu0bs=;
- b=p6lpD9jxx3CXqqUWCD9vVXg8VnAnpqquXREsLNdlevzPIkvrS/zeH8hDuIr80jbwyBybivsrqgpBf+apE/67L+60Zk2YdzwtxDzcee92Qx4w4vNmWjaKryZ2eIoPqH+z0GQkmXCXvwXYt98Vv5iG/yo8OZ4souvG7iDqlYSO71mf/Un4oirEFITUKYQkRuKXk+9Tf6GM99m3dyJe1b+2uPsLG3zyMSKtjWOc8ceOHM8b+yO3wyPnnF9tena8ymYphmJScuhPHbh0h0YW3o4jNqUftbS5IBCER87ERa94jfOu/XS0VLRCfDDDNb2Nd/6/D6KOaiAXeuj7GSfhc/tc9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tsk4dTanj5TSHJ9iLUUMmb2ZTOUw1JbpYIxC9YGu0bs=;
- b=L/Vn0wlMFjV/DuRSzxqmO+X5Jxfk/WN47sN2m7Mtc9dPc8R83NDZcr8D6FcEI9iDCndR0HIqCI92GeGGSYhvOnL5A91f1nqTOIT4+NaWUxfaFbQmj3nJsNGdDuX6Qdx9S7HFbYySqSHR/Dg43znq01G6EVSb4HY1j7fHCVY6uaP9ijDMrWlVFlc2uhI+hjmoowXhJ+h2ECfGqgkn7DExH1sVIZKYnLzbM2ir10dADj928+zhRd09SPKQAvc9YKmrIqdr5MKhbUzBq/0MIwoTCZid8D6N9tgjDZT4rVy0LoHGJvl62EumkR5FOYnQLjxAsK/1GIlLVGKBnHmcuT1B9Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SAAPR12MB676730.namprd12.prod.outlook.com (2603:10b6:802:301::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 19:08:35 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 19:08:34 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 05/16] hugetlbfs: enforce F_SEAL_EXEC in setattr
-Date: Mon, 26 Oct 2026 15:08:32 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <D0209A61-A2CA-430E-A76E-0507BEB66728@nvidia.com>
-In-Reply-To: <20261026-fixes_shmem-v1-5-703206d5fa0c@kernel.org>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-5-703206d5fa0c@kernel.org>
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: MN2PR16CA0053.namprd16.prod.outlook.com
- (2603:10b6:208:234::22) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SY3FsSG9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793042199; x=1824578199;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7EGjiUNhjNg9QT4uBtE/DErh4iS/Q21zYfLXonFkvA0=;
+  b=SY3FsSG9BlhiqFPG673f1skRHTf7oU4Pvf9dXDLe6VLKsLk8hAHERVqz
+   fYfardc/egBoYa3o6OAdGC2YVMTZ6dRE4u8g3ydPqcDlrbkjdYiIUxHIL
+   bKTQwyK3DoMUh5wNjoLRax5AXINdT5iCkMhc4pBMYJDtcA0cr1Kdar0uc
+   H73A7ZH6zGIvOdE8W+rE2Q9jNX4jMMktzN/KQgzR6wuDiPCKrBaTrlqnV
+   noYFMToGN0vwV2AML55DYvHmiTkpvDNCrxEw46maQV6EX5Uw3OnM3yNSX
+   AWsTL5kQIs8zVjyb6nSpfDPM+HgjWGKLMawAUk2imX47TAOBttCUIvLfh
+   w==;
+X-CSE-ConnectionGUID: vyaNau6QQFmWCGC+eSZy9w==
+X-CSE-MsgGUID: vHEz9+qHS6+QB3i59SoAsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1814776"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1814776"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:16:38 -0700
+X-CSE-ConnectionGUID: YYtEKwWPQuOA3jHJuyO0mw==
+X-CSE-MsgGUID: qlBeN9ifRxCHQn1ggRc0qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4737914"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 12:16:36 -0700
+Date: Mon, 26 Oct 2026 21:16:33 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] serial: 8250_dw: preserve BUSY-safe fractional
+ divisor programming
+Message-ID: <at-nEUdDMYZpY7oQ@ashevche-desk.local>
+References: <20261026-submit-serial-8250-dw-divisor-v1-v3-1-7dbd194e1f38@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,91 +84,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SAAPR12MB676730:EE_
-X-MS-Office365-Filtering-Correlation-Id: e541803c-d507-4aec-1401-08df33948863
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|6133799003|10067099003|261026121527099003|22082099003|18002099003|56012099006|4143699003|11063799006|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	mRqjt63qpWSSWFKM7zvJ2b9/T6JkdHbbH+50IqtKjxQsmnZFydpFCtz7grlB0n7nAfYUEam2ce3//70EozUTzZVgvF+J9dkcQRS7L4j5EiRnFuQuF3rnqATche+nkvdX+MVi7E484UIbEoxe28at3FJ6sf0uM2Qs5SapRx5WhQZygRKt0ZfwXi5Vk31EgsPbLKH+gGuCbFRaPAxEOPBxzTtjrFbvTMneyQI/MzQnAbecBdcmHgzYR6dslxbb9TlY4Ep8WZ7KgRfxlzQro93/xps5tgDDZVlE1CK3DqB05/GuolMwl3H0Fb97aulyimwpQcVhTLgUNpMaLNsiO/xKSYkApAoU7AVN+s7CdmOMipWKr0jBvfOexgN+zie3PK8Gpqx73H9kNEYeXa7trCcK8spGiMN8+1d16Go3X2uWj8iDkLCQuKtX3skRCa3GnAJyWIVF4+suldXiVNokVMR0H3goP8gszOsM8/EmB4KdQXuzdVjF94WNCyNONM792z80K4QAtbb0sny+ZnzaIjPZ+UR67AVcUDictYFKeiueFG62++NOIXQw4CNVNgZ5hs7xp4W8nTDz2aDgSMQZuanabHqkyFwzKfVMvKezcU0SfpfxaheWb3mo0lWS0Hh8u2UPPm9Zms3h0rYzoQmM9r/QJ2s8ADiIzNqcMrNz8qq5E1c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(6133799003)(10067099003)(261026121527099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?F4MhOmd1xJZvTFTnqyApSb6ewnrT5GkOj72fDPHo7ah/Qpx+H/wdVKxgyPEu?=
- =?us-ascii?Q?kApW+VeosTYxZ+nj0KHgDkZlAHd4J4HD6VxiiG7KOM7Crhxv4uZuW6ND3Sr6?=
- =?us-ascii?Q?CkW4YlK5CDj3OTbbviOQy0c+z6XwMcvMMlbn+8jfxsixr8enMIPfiV5Pi1vC?=
- =?us-ascii?Q?BafK9mAm6BF94fZp/Y5vR0n3XDc0BdVDb46wV/oZYsmWKQcHoVnzjVN0Jem5?=
- =?us-ascii?Q?AM8SS3SlTy8syaT0s61WtgkAS4cd/gFtAhYxfn7wW2WfhVRi2DAjDVzdXo0c?=
- =?us-ascii?Q?7mWLaTSCCGbY1AeSfEDjFtiwAIc5vnWaZ0y941Mu396VTZNnZyxWfwc6oRpa?=
- =?us-ascii?Q?saXUCJhHWon4izCwCEnk+8fdCZhXk5ZBdCTTrcE2vGTO8puO0g0q/6D/OkXy?=
- =?us-ascii?Q?YdSnzWbCuLrtlAoVz8XlbsmGNAfkG6rMTmxN4O7n9YMPsHh90rBWbphkC4Ln?=
- =?us-ascii?Q?+cQ4USBzEdranl+mz0QwncFJSYNp1nvKKaOtDOFZYpv7hFa2sWvN7l0RSmHO?=
- =?us-ascii?Q?hkO1IYn4Ba3Czxo7ihfH78h/tVI/njGDrGo3vtAYwRK8BSHnS6EgMFDtiYEt?=
- =?us-ascii?Q?aFy8CPLYYQ7kmXkeW62A3wuwFZ2vRoEpo2EOKrylFO93Cex8G5OU4Dg7YCXk?=
- =?us-ascii?Q?TTZ+EkZejfBB/K5Gxcsxhk0j2r+6Sewqa9tPA4L8BonDtlE0Kjox8PbZ0MG8?=
- =?us-ascii?Q?TRiBtJNaefeDwOQY546BfZM6WrQEUysMHnJoTy2f89H3KlWZm5CEpiZJoN8l?=
- =?us-ascii?Q?FN6Wt5bxnOX5AXQ4Uk9nTn2QSCGMF7WguqqjF8Cj31iv1HGu3hjox1J+V4cQ?=
- =?us-ascii?Q?qnpdw5a4BQBq5iJNcs+vcOci+FqWhRwHahdz74ZFHikrqciDazX4ItMLpDou?=
- =?us-ascii?Q?+/SOIOJ8Uf5qlqo59wxQEY+khfc6rGsi6uBOSgIMLcecNkHYGXdPAylfegFQ?=
- =?us-ascii?Q?U6qCTbEAQbyHXIinqSKd5ITY0qFYZNHw4oPwbMzF1g60ZeSSLR4a/hSsBzLm?=
- =?us-ascii?Q?rHtdN/l0+Lm6NUZtcUtmB04pc9bWiElFd/t1McsX5t202PaIbJ7MJw6Lk5Ib?=
- =?us-ascii?Q?zkZXHbRr96n+uxmxTa1AY4I9JNZbFA6YVv+fRtXmNJXgDg2UatC0BKFUla4U?=
- =?us-ascii?Q?yASu3/fyrKku5y6REqY6zzvnUmnDity/QvtRCp5gJbreslKC4C5OqTKymyff?=
- =?us-ascii?Q?MnK01XPQph4oRPfRMkNfdxLCkYMVZa8i6YR0H7iaN2XyYuDy+22pGTCCoOZC?=
- =?us-ascii?Q?4L/SHDzgt0aZxfZG7NndqtQgCFbo7BDnpTasoB6KBkJlsU1Lay8UWfHsq0B+?=
- =?us-ascii?Q?5Ei8Fax4kyzqX1dMmJ5+eav8M3JVjM5JiqM0ZCyjbtkQSI2++4IyFhu6ZyMK?=
- =?us-ascii?Q?xpgf2YorGYnTHiyt5pT0TPXiEL4x0D9lVzBPiGqFMs4ShXHPXJdh7Py840Pj?=
- =?us-ascii?Q?ChJpJ3UCWJSrn4kP3LGuAc+QY48KaJZG9BYdbthuYYzkOjRtjmuh8ztuZVNR?=
- =?us-ascii?Q?3Jb1s9RpupocLe2HWxvt16G3zrNNiDwSn/12XaN+tqwOam8tB2uxe57TqpGZ?=
- =?us-ascii?Q?QhNICP8uohFplfwctDAud4L6v4Bso27h0ISd6siwHmVceTcF3/2ew1me4U4W?=
- =?us-ascii?Q?OSAB5J+m66YWtZLEz71hW2WM3UCXgpNtUl4Ah8YgoFpJ5rfZ5Y11EnvH+CN+?=
- =?us-ascii?Q?c7TVaRJ5AZK2FiDLu+6CiRPVeEt8RlAGLwTKSaOUwv0e9PgR?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e541803c-d507-4aec-1401-08df33948863
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 19:08:34.7983
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5Y/Qcsru68Xeconjbur9LhnlK63b7jhd0SGK1qL+5OiDm5Ft86lDaGeRois15ock
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAAPR12MB676730
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-submit-serial-8250-dw-divisor-v1-v3-1-7dbd194e1f38@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 26 Oct 2026, at 5:40, David Hildenbrand (Arm) wrote:
+On Mon, Oct 26, 2026 at 09:59:10AM -0600, James Hilliard wrote:
+> dw8250_probe() installs a divisor setter that makes the UART idle and
+> checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
+> fractional-divisor support, it replaces that setter with the library's
+> callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
+> bypassing the divisor setter's idle sequence and DLAB readback.
+> 
+> If the LCR update fails to set DLAB, the subsequent divisor writes can
+> reach TX and IER instead of DLL and DLH.
+> 
+> Expose the library's fractional-divisor calculation and DLF write as
+> shared helpers. Install the BUSY-safe setter after hardware discovery and
+> use the shared DLF helper to program the fractional field only after DLAB
+> has been confirmed, alongside DLL and DLH. Select the shared calculator
+> when fractional divisors are supported, preserving the core calculation
+> for integer-only ports. Keep the check for fractional-divisor support in
+> the shared DLF setter so callers can use it for either kind of port.
 
-> From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
->
-> F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() doe=
-s
-> not check it. As a result, fchmod() can change the execute bits of a
-> sealed hugetlbfs memfd.
->
-> Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-> to execute bits when F_SEAL_EXEC is set.
->
-> This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-> fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
->
-> LLM assistance was used to reuse the helper and revise the description.=
+...
 
->
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-> Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@=
-virtuozzo.com
-> [ david: use common helper; fixup Fixes: ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  fs/hugetlbfs/inode.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
+> +	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
+> +	if (data->data.dlf_size)
+> +		p->get_divisor = dw8250_get_divisor_dlf;
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+Yeah, this will be the similar issue with layering violation that Ilpo pointed
+out elsewhere. So, perhaps easiest way for now is to let it be as is here, id
+est not assigning .get_divisor() at all. Otherwise we would need the same check
+in there and the branch on what to do if it's not a DLF case.
 
-Best Regards,
-Yan, Zi
+> +	p->set_divisor = dw8250_set_divisor;
+
+...
+
+>  	if (reg) {
+>  		pd->dlf_size = fls(reg);
+> -		p->get_divisor = dw8250_get_divisor;
+> +		p->get_divisor = dw8250_get_divisor_dlf;
+
+Just add a static function wrapper that simply calls this, so we won't
+change it here at all.
+
+static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
+                                       unsigned int *frac)
+{
+	return dw8250_get_divisor_dlf(p, baud, frac);
+}
+
+>  		p->set_divisor = dw8250_set_divisor;
+>  	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
