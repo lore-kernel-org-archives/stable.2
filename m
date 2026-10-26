@@ -1,79 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793029703;
-	b=Zba1MyAiQms8d5ACduBP7mvgB0vvu0Mhq3/ndylDYX7wdAJ4PAsU4Fr6BWGhIz0EaGre
-	 ZECkPlMjLboh22BHTSFU5FbspY3VPv88A1cM4TNYZXto7J9JcDx1NLazrZvjdKEqXx7ZB
-	 lN8c2thgrxlEKOUW1QJObaiOm+tmHF8lYR8s3VgDkgxae1BqFB6Gr4IRaUHpu2JLgVGj0
-	 XzRKcJJ44rUdm6LjE/MD1yBWcHchjR17HaZoJWWMSJiv6Qwz7ngJnkl+ZcNxIaoHMvup1
-	 RWk2ozGFukZD6WF0g948Fry41MyojDHPHKkGu/xb4Q6tElwmv/X+Jeu5s1cJR4fw6Sg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029703;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nByaPGifWhdymgTv0l+Yl389VEYp9ZKjAN6bLOnaRG0=;
-	b=yuf4aDAoS+AfGV88+Xo1Rc/wVddqqjNboYrTcJBh3pCE408TU4kFc5VBjf46rezB8aR4
-	 3bemVeHs3hepKO+XatBPolM/SC4Qs5QZ1Uyu2KqUE/lCLmZ99p4ZjdTCNfagwwwIM4v4Y
-	 sgyV4dl9PFAd+U9qLhDtPSP4raB/Lg/dQVr1KXoB62zdXy1Sbjbwnvg223qAz8fqkutG0
-	 iOVg6uQXHxPtubBO1FU+nRn0rh9oS3k6GiarzVhS5RlaTeeIrZtVwnCl1SPk58zhklvhd
-	 NTg/5ieIvTqqvHdcPLUgQVXsDbl+SnV/ssYmbPoHnWZ9mAHtRIYsC2UOyJdJemC19zw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAUMnlEc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81991606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAUMnlEc
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793029702;
-	b=HWdOUAGa5mgqhcvKBKqcBwJ+OAkyEBhaOMOqmWWBNGJ4H8szmN9fMq5HKbhHcHHnj6b+
-	 RHreCe3Sifx/8fR4Ov73IBwBSQ/w7mstBLYAe7Gm4tvEKJZ4Ns5gg+k1fuTrG4b2DFbJ6
-	 Zrdsp+pLOt7ZLPDiz41aFltCAq/PRijOL6k+PTgWUaEvz0ypR9ENosuZpV+t/60OW1mYQ
-	 dM+n0XUPkL6rbuVwlDFnjEXWq+cOXdkWUEPB7a8Ax3u43iWAECISdRsheogm7xVwEB1Oj
-	 G2hhPhSmoN8CsekunKh0Po8ZpduBNQrfpPlAR35Zu+lxB+a3Zb3ahPmVvY57aYodnKQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793029702;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nByaPGifWhdymgTv0l+Yl389VEYp9ZKjAN6bLOnaRG0=;
-	b=0dpywp094lWTj/OURxUE2zO3uf0xnpF2LVbUuGuljTSPVZbS43DAgIbYmrcu/cu1rbKR
-	 a5n4I+lJ0mXFltbg5B5uM8kWBy+IZaXdNSLdiILGld2RDQg3zz6DPcveEaQfFlHS0sfkv
-	 2R6t+vuHmau+mDy01tfnDvZHtsp0iLWT2gq7keowa1w2E8ihs9UpC96N5mieOAhUoBg80
-	 w4h7NsWXUfZ1SFWv6ns2VwTjo9EhLNDWmmRY6XHrdCX9C+cprCLIriysVeOVo3BlFmWQd
-	 tyz/sJ+WfIeMBtaD00X7biUWncFVGtEhl0rJbtPI1Te4XzBJi8ZJaYvZ/8Mk61rveTA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793029742;
+	b=jB0lwnw0Edg0Quh6zYB8TNJoe46MWEOD0J6QYA+f6l5nsr3Rcm4YvbUn/VnluW2GB4gr
+	 i4O3Mm8vuzdgV39KOBS/8i1kTcOUwedr+erXFe3fbcNUB3uQsCwTKbNoTEmuiYlZVClsA
+	 8NLU4RhK/zArTXNUHd2pJVxlVICc5d8u7U5sCITeAuwTFVkLA/twjqrW/Z38Ok2Z3zsoX
+	 ExvxW2ByAgjLMA88HvaSlv5iEBjl4+cQAOw0tQh4+ewRxInlNfr47Jj/RuFcTPmeD92zp
+	 ovdwcJxNKAzaBxkH+jkabh7+M4OVocRsr4xC66SH8wDxarVaPocVKNeOMtu4ge8D25w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029742;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=KlF69bY/nHZrbLTGbrUEwXS/fyT5+90IouYwTF+tbKY=;
+	b=MQ77kOof4Kd3XT1kl3cc5TU3v//sdGq7c5Tz59Rs+3ATAZ17vItXsVNuzDUmPiIFK/UH
+	 4x4L2StcRkCRezyqZwFRCngZqSuM76+spfABtr8wOhK8XyfQ+xTxg+pLq2hMg13RCSY0U
+	 9ZiPOA3N65HAbC1FxXyysSfmb82F5KJBq1t9/Izy8R/CySw46J8T4/fppHPlaXKL8wFkx
+	 1lOnF6hCyZn/xgPObUoKvwyrAhgaSbOAP5hV3mcF7fVvoQLv2/sqJJ0mai8VAQGRJCr6l
+	 wSFIPqjhvjxpVYmlEA1ZAFhumnS8C6T3l0I0COxVt6KQfj7pcmjKDnNLCXyk0seIAjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=krmv0XT6;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SRMCjd4a;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=HLZOSbie;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=i8OyxSiO;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 801E21F01828;
-	Mon, 26 Oct 2026 15:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793029702;
-	bh=nByaPGifWhdymgTv0l+Yl389VEYp9ZKjAN6bLOnaRG0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nAUMnlEcl2/iXdzvL6Wu+PGrnF9fhZzCAOXvL2inDX6tQb7WmXiuUyY6FTU6KvMoZ
-	 HFmDQjHlGXT+zkYte90oMACRxG4kiWZhudAps22h5q8IjOElgjYli1DPCrrRFQh3Qo
-	 fIKduTY+nDO5Qm+U+Nb1g/iJ9Rjoz5DlrChXt4qJLlhnE/LJJvYhulK0cxmzxvK6Zw
-	 dTucHVOM4CvX+u0yR85agP6cj+W/Vtat0okcPINLNpvoqo+9HaPeWpM2UNh3+5xqaU
-	 0dP7u5ctFGwJ3tn8T46q+a8c/HGVQwfYKwD0MB28D4PnB+5Xebo/wMyEGfu/1Oj4l1
-	 1TkVY2F14Obpw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EF17544D69;
-	Mon, 26 Oct 2026 15:48:20 +0000 (UTC)
-From: Leno Hou via B4 Relay <devnull+lenohou.gmail.com@kernel.org>
-Date: Sat, 24 Oct 2026 13:37:25 +0800
-Subject: [PATCH PATCH 6.6 v2 1/2] mm/vmscan: wake up flushers conditionally
- to avoid cgroup OOM
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0389606A31F;
+	Mon, 26 Oct 2026 15:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0389606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=krmv0XT6;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SRMCjd4a;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=HLZOSbie;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=i8OyxSiO
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E01AE2227B;
+	Mon, 26 Oct 2026 15:48:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793029740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KlF69bY/nHZrbLTGbrUEwXS/fyT5+90IouYwTF+tbKY=;
+	b=krmv0XT6wBZeSaSckvD2LLgRpMbhqBlmxXMtsiX1U7wAZKxmhDV0khHauaRPR0vNgbCAJo
+	Rn/fuxNbdcNezMAW6lTsiAh3blGGuUzgSm0+IHRDIQYKeoAEXpHdWDMpmLZ6gcRObeSBhs
+	QjWyuaCgs4p9elzs10hc37c10xAiiNA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793029740;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KlF69bY/nHZrbLTGbrUEwXS/fyT5+90IouYwTF+tbKY=;
+	b=SRMCjd4aLgS6Y2HNS0yfrFrkDLWRRyTIsW0oIluh7yhwN9JqJp+MptlFj2jLMuiSBq1TqV
+	smjLzLcwalHdUvCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793029738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KlF69bY/nHZrbLTGbrUEwXS/fyT5+90IouYwTF+tbKY=;
+	b=HLZOSbie8dHXdZ6uOMN60r1MBKv30Rz41SKSY5q+GRTzSRDhOHbK5wpgpB06zRgyNV11rt
+	8UiKSogqQ7g8SrM/XZnNKNgKk/V8g1uyk1nSEYDIIvyMo2J+upYyqGT2GTC2Q8+QXYg/l/
+	aYXyl5SbG9FD/yY32CnQT8xv0vH/Gkk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793029738;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KlF69bY/nHZrbLTGbrUEwXS/fyT5+90IouYwTF+tbKY=;
+	b=i8OyxSiOdnmseqEyYZtum+5yGSziChO5J/OdLd2C5pKlJYqPXydnxgt3Mn7tKPkgMuTj32
+	getWLnpB0miLjdBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B604B13408;
+	Mon, 26 Oct 2026 15:48:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FLKQJGp232oqDQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 26 Oct 2026 15:48:58 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3FDFEA1419; Mon, 26 Oct 2026 16:48:58 +0100 (CET)
+Date: Mon, 26 Oct 2026 16:48:58 +0100
+From: Jan Kara <jack@suse.cz>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Hungyu Lin <dennylin0707@gmail.com>, willy@infradead.org, jack@suse.cz, 
+	hughd@google.com, baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, 
+	dave.hansen@linux.intel.com, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] shmem: do not extend i_size when no data was copied
+Message-ID: <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
+References: <20261025164619.89992-1-dennylin0707@gmail.com>
+ <at9xXRhD2xZhszEj@thinkstation>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,190 +112,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261024-fix-mglru-v6-6-v2-v2-1-6ca69ba6e9ae@gmail.com>
-References: <20261024-fix-mglru-v6-6-v2-v2-0-6ca69ba6e9ae@gmail.com>
-In-Reply-To: <20261024-fix-mglru-v6-6-v2-v2-0-6ca69ba6e9ae@gmail.com>
-To: stable@vger.kernel.org
-Cc: Leno Hou <lenohou@gmail.com>, Wei Xu <weixugc@google.com>, 
- Zeng Jingxiang <linuszeng@tencent.com>, Kairui Song <kasong@tencent.com>, 
- Chris Li <chrisl@kernel.org>, "T.J. Mercier" <tjmercier@google.com>, 
- Yu Zhao <yuzhao@google.com>, Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792820248; l=5683;
- i=lenohou@gmail.com; s=20260311; h=from:subject:message-id;
- bh=nKAzG19+qMzUxs7SJjNjH/nBPOniYdoxadIdZNRaLLU=;
- b=dUZo43mInN2lG0/tGEROH+dfi9QWLW/fpeuGoKrmiKuWgCenmAguqhOw23mAXxdW7gzuh8iC3
- sayk/PbefPTCuWchbRXmvQ24EGl3iLx9OINT6SC+JNcuqWeZcICzOHh
-X-Developer-Key: i=lenohou@gmail.com; a=ed25519;
- pk=8AVHXYurzu1kOGjk9rwvxovwSCynBkv2QAcOvSIe1rw=
-X-Endpoint-Received: by B4 Relay for lenohou@gmail.com/20260311 with
- auth_id=674
-X-Original-From: Leno Hou <lenohou@gmail.com>
-Reply-To: lenohou@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at9xXRhD2xZhszEj@thinkstation>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,infradead.org,suse.cz,google.com,linux.alibaba.com,linux-foundation.org,linux.intel.com,vger.kernel.org,kvack.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Leno Hou <lenohou@gmail.com>
+On Mon 26-10-26 15:34:08, Kiryl Shutsemau wrote:
+> On Sun, Oct 25, 2026 at 04:46:19PM +0000, Hungyu Lin wrote:
+> > shmem_write_end() advances i_size to pos + copied even when copied is
+> > zero. A buffered write past EOF can therefore extend a tmpfs file
+> > without writing any data.
+> 
+> + willy, jack, fsdevel.
+> 
+> This doesn't seem to be tmpfs-specific, right? I see the same with ext4.
+> 
+> simple_write_end() and generic_write_end() check pos + copied the same
+> way, so filesystems that use them through generic_perform_write() are
+> affected too.
+> 
+> It makes me think maybe generic_perform_write() is the right place to
+> fix it. Hm?
 
-[ Upstream commit 1bc542c6a0d1444559ab75823a89a94d244bf933 ]
+Well, that would be nice. But how'd you like to do that? i_size update is
+the responsibility of ->write_end and we have to call ->write_end if copied
+== 0 so that is undoes what ->write_begin has prepared.
 
-Commit 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle")
-removed the opportunity to wake up flushers during the MGLRU page
-reclamation process can lead to an increased likelihood of triggering OOM
-when encountering many dirty pages during reclamation on MGLRU.
-
-This leads to premature OOM if there are too many dirty pages in cgroup:
-Killed
-
-dd invoked oom-killer: gfp_mask=0x101cca(GFP_HIGHUSER_MOVABLE|__GFP_WRITE),
-order=0, oom_score_adj=0
-
-Call Trace:
-<TASK>
-dump_stack_lvl+0x5f/0x80
-dump_stack+0x14/0x20
-dump_header+0x46/0x1b0
-oom_kill_process+0x104/0x220
-out_of_memory+0x112/0x5a0
-mem_cgroup_out_of_memory+0x13b/0x150
-try_charge_memcg+0x44f/0x5c0
-charge_memcg+0x34/0x50
-__mem_cgroup_charge+0x31/0x90
-filemap_add_folio+0x4b/0xf0
-__filemap_get_folio+0x1a4/0x5b0
-? srso_return_thunk+0x5/0x5f
-? __block_commit_write+0x82/0xb0
-ext4_da_write_begin+0xe5/0x270
-generic_perform_write+0x134/0x2b0
-ext4_buffered_write_iter+0x57/0xd0
-ext4_file_write_iter+0x76/0x7d0
-? selinux_file_permission+0x119/0x150
-? srso_return_thunk+0x5/0x5f
-? srso_return_thunk+0x5/0x5f
-vfs_write+0x30c/0x440
-ksys_write+0x65/0xe0
-__x64_sys_write+0x1e/0x30
-x64_sys_call+0x11c2/0x1d50
-do_syscall_64+0x47/0x110
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-memory: usage 308224kB, limit 308224kB, failcnt 2589
-swap: usage 0kB, limit 9007199254740988kB, failcnt 0
-
-...
-file_dirty 303247360
-file_writeback 0
-...
-
-oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=test,
-mems_allowed=0,oom_memcg=/test,task_memcg=/test,task=dd,pid=4404,uid=0
-Memory cgroup out of memory: Killed process 4404 (dd) total-vm:10512kB,
-anon-rss:1152kB, file-rss:1824kB, shmem-rss:0kB, UID:0 pgtables:76kB
-oom_score_adj:0
-
-The flusher wake up was removed to decrease SSD wearing, but if we are
-seeing all dirty folios at the tail of an LRU, not waking up the flusher
-could lead to thrashing easily.  So wake it up when a memcg is about to
-OOM due to dirty caches.
-
-I did run the build kernel test[1] on V6, with -j16 1G memcg on my local
-branch:
-
-Without the patch(10 times):
-user 1449.394
-system 368.78 372.58 363.03 362.31 360.84 372.70 368.72 364.94 373.51
-366.58 (avg 367.399)
-real 164.883
-
-With the V6 patch(10 times):
-user 1447.525
-system 360.87 360.63 372.39 364.09 368.49 365.15 359.93 362.04 359.72
-354.60 (avg 362.79)
-real 164.514
-
-Test results show that this patch has about 1% performance improvement,
-which should be caused by noise.
-
-Link: https://lkml.kernel.org/r/20241026115714.1437435-1-jingxiangzeng.cas@gmail.com
-Link: https://lore.kernel.org/all/CACePvbV4L-gRN9UKKuUnksfVJjOTq_5Sti2-e=pb_w51kucLKQ@mail.gmail.com/ [1]
-Fixes: 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle")
-Suggested-by: Wei Xu <weixugc@google.com>
-Signed-off-by: Zeng Jingxiang <linuszeng@tencent.com>
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Wei Xu <weixugc@google.com>
-Tested-by: Chris Li <chrisl@kernel.org>
-Cc: T.J. Mercier <tjmercier@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Leno Hou <lenohou@gmail.com>
----
- mm/vmscan.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 4197e10a27b6..a165f685216d 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4913,6 +4913,7 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		       int tier_idx)
- {
- 	bool success;
-+	bool dirty, writeback;
- 	int gen = folio_lru_gen(folio);
- 	int type = folio_is_file_lru(folio);
- 	int zone = folio_zonenum(folio);
-@@ -4961,9 +4962,17 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		return true;
- 	}
- 
-+	dirty = folio_test_dirty(folio);
-+	writeback = folio_test_writeback(folio);
-+	if (type == LRU_GEN_FILE && dirty) {
-+		sc->nr.file_taken += delta;
-+		if (!writeback)
-+			sc->nr.unqueued_dirty += delta;
-+	}
-+
- 	/* waiting for writeback */
--	if (folio_test_locked(folio) || folio_test_writeback(folio) ||
--	    (type == LRU_GEN_FILE && folio_test_dirty(folio))) {
-+	if (folio_test_locked(folio) || writeback ||
-+	    (type == LRU_GEN_FILE && dirty)) {
- 		gen = folio_inc_gen(lruvec, folio, true);
- 		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
- 		return true;
-@@ -5075,6 +5084,8 @@ static int scan_folios(struct lruvec *lruvec, struct scan_control *sc,
- 	__count_memcg_events(memcg, PGREFILL, sorted);
- 	__count_vm_events(PGSCAN_ANON + type, isolated);
- 
-+	if (type == LRU_GEN_FILE)
-+		sc->nr.file_taken += isolated;
- 	/*
- 	 * There might not be eligible folios due to reclaim_idx. Check the
- 	 * remaining to prevent livelock if it's not making progress.
-@@ -5203,6 +5214,7 @@ static int evict_folios(struct lruvec *lruvec, struct scan_control *sc, int swap
- 		return scanned;
- retry:
- 	reclaimed = shrink_folio_list(&list, pgdat, sc, &stat, false);
-+	sc->nr.unqueued_dirty += stat.nr_unqueued_dirty;
- 	sc->nr_reclaimed += reclaimed;
- 
- 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
-@@ -5415,6 +5427,12 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 		cond_resched();
- 	}
- 
-+	/*
-+	 *  If too many file cache in the coldest generation can't be evicted
-+	 *  due to being dirty, wake up the flusher.
-+	 */
-+	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken)
-+		wakeup_flusher_threads(WB_REASON_VMSCAN);
- 	/* whether this lruvec should be rotated */
- 	return nr_to_scan < 0;
- }
+								Honza
 
 -- 
-2.55.0
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
