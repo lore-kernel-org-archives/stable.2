@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793057313;
-	b=Zy7tVjl7Lq0C4JW+mySTZVkT9kHGi4mkBAD8CV9NyGGNHvpi2c2mrpoD+7VGtqSYP8nR
-	 oUCbNfsvTKYARlohPMfAyxw1+dsSId1D9d5/3jP7z0xI4/aO/x4dYFJFrB4p/4kaZDN4+
-	 GIo9wBEEO66Lw3wu8Z86UCRRQRiq/0a50YOqAxWxaXVtsdXGfQohsEaistz8zUa4qL6Tr
-	 6dZz+t9cdP/qep6FcBsE/rWDrYMSkv13rkR9Bz2hGF+DbmyTAlUdriIUslDGSyV1ms7jp
-	 npK+cdKu6roNP6g1QkmdrNu5OaLR/gwJMIGYeKcMn/+uu4W5tDLb3GC0fe9pOEoj7rA==
+	t=1793057332;
+	b=l084sbMn1zV9rrQJwbA/s9BKVWWST6i5pDiSj0bbeo8/WtOBOKVTGXj0KThnp4O8GKzm
+	 Z39ZwB1e95nYT63/TOImidpZ8wpbkI677me0iqEyW5wXTkFz3QO4vQzTl5044EUeICvOl
+	 gGXZUBG609bb9sUfZk9DIlegjhtvaPNZWuarugcXg9+dBCbOEBmEMMQNiKYNkAFYnZpUb
+	 DPyeWDAukiiE5VLYfs7InSvjCRm9PuC7gCMoLXzDUYgAt4dtMam7KyuFBtKJuq4OojKkf
+	 DSghWGfa0tMurWFrztKJeAW+Z9aVSpdJTCfZwC42PMr260IEcVpIgmWZv7Pny3bHn4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793057313;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057332;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=bKlj3iVdxa80tI8axGYbOkgCnYK7fspTKHlXYvaR2aI=;
-	b=lska5IbmFL1jnIPgcT79bgtxig5pYaxsbYOboSF0oXFDCXOUjedhFnM0XRHi++sDry+J
-	 OsuLuCSg92NdjCyEfSAdAJadIW6/KW+ZFGxcSBwqTBfSd0pkl2bsPYDW4kZkFEfn7HzGu
-	 Xr4j6Dp4DOuUl7dkOFQ9aHHOYR6+QFQ8Gwiu5WLFUgvfC4pth5Vvk14+ZZByppDBIgwvA
-	 YpJcHFI6/iwd3ZonGpEk6oea+FoSeH8vnY3veWMIP4/p1vX+jM93GC6W72pCnAMszQ2K3
-	 hAgLJhz58ZuoRu6/n2RXhMgMfGhkitoVfvZTQFkeVVpEQWlZNg9D0IgWfQj/kpMT8zg==
+	bh=gF7dfVW7ww5vbIAncWUWYvaJygRoZ4DG20xiWs3pPy4=;
+	b=jHqEiuW2rNCgaqZ2SFTGja0uwlmoAqRHKZk70YhUF0wUbR6rRRZONWu38PYJCRqhg8SR
+	 1joRUk4W9aGkEaw79rtdTa4lLYXuLIEU+q6SGgnPLtaM3sybZSvA22ivai7AVyt7vwWBM
+	 G+bO4TUIYOK7Z3DjJsCzCXU4j2froxhzr5MaJ7FVgcDwljjXejT4BUyIjsFhjn7ySxiih
+	 XLoMj2GgW8Lnfhz/Udb3xRdljUKU5HgQcj0RHM59uWnoNLSKJ/Cx5EOBCyWDJBZBHV9r3
+	 lOanVARqvF+mDlo7UMoEvTZ3JJvzSLV2R2eun7Q/41g1iCXMz4+6Ls1+vHZh/dFsivg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IF7UNpYa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYkOuaEL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC92606A31D;
-	Mon, 26 Oct 2026 23:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F06606A320;
+	Mon, 26 Oct 2026 23:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IF7UNpYa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C3A1F01825;
-	Mon, 26 Oct 2026 23:28:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oYkOuaEL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF101F01828;
+	Mon, 26 Oct 2026 23:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793057312;
-	bh=bKlj3iVdxa80tI8axGYbOkgCnYK7fspTKHlXYvaR2aI=;
+	s=k20260515; t=1793057331;
+	bh=gF7dfVW7ww5vbIAncWUWYvaJygRoZ4DG20xiWs3pPy4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=IF7UNpYafd4KinbAs1yEkkzghUj/D3H6lcfEypHVdc8O5mJ/le53JbzB8PXIGDBZ2
-	 92eHkhrsCMv3xbBPQgIrrR6h04i9Hzcb7uymxczaT3Bairn2RgNRTJslpdCGrtvOt2
-	 gGGMSduqcmRf6l6ZEjkKV8KGvZk3TzPQSFa5cfL4jZ4rTy7EpdN8tAmItoI0jZfBeq
-	 mRsOTgGOGKevkd8l9Z5v6l2DRA7JHhLmeUEhDmQlcmfEOS6+6Xyh168s1+PpjNpW/Z
-	 Y5VwHZ1A7nLhFNOJ0TJlewJtDw/sGFXYMfvNX3bI+oOBUubWGSeZf9xih60jKvsFJg
-	 nWblBWTTYdPlw==
+	b=oYkOuaELaYMUn17YBdlpQyUseXxC4wzgiNnmDJaOQTYshvN5UKt+eOpxgTs6OFsxO
+	 irMDteaP8DmEIM3rhJcEOqcTu332c0EkcHZETz328y29O2fbdk+g0ZFbQAEefQ99Te
+	 TPiw9Y3vJv79FrLCvRwXbSvKBfgiLZijII0zrAyFBAOCbu4l1P7wowb7pkTHIntZHC
+	 Qo4FTDYJEtsdK9kUbjP6LyiotCNfu+HkqWY3VIX9YwVY0oulNyftXZdvydxGWYsJhF
+	 glBeBeUDY2xyh7jPwJD9ALhbgDfPl9Ej9TheUjtZTpWni9hCMhjzEJEpA8qTcqoQya
+	 adO2jQ9DmgIjw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:54 +0100
-Subject: [PATCH 34/46] mm/memory: reject remote COW faults on PFN mappings
+Date: Tue, 27 Oct 2026 00:17:55 +0100
+Subject: [PATCH 35/46] mm: fix unmap_mapping_range() beyond 4 GiB on 32-bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-34-6f74bec9a5bb@kernel.org>
+Message-Id: <20261027-fixes_core-v1-35-6f74bec9a5bb@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,78 +92,67 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2202; i=david@kernel.org;
- h=from:subject:message-id; bh=iQuj7gPdQ9im9u/p2aFC5RRjFYSkqwBMiK+uc5Slg5w=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35++9LPovWW5/yR/+Qn4LnnxaLHaroe2drv0FKZw2
- L611nxR1lHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBE/ikxMrS/ZVy+IDlP84+D
- 2u2XR0odt3OwqHyeEbtwitOb9ZcCnYoY/nvc/cDSJvRmm8HhzxaPd9hO0F/morJkqktsWscH5jN
- zbRgA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2194; i=david@kernel.org;
+ h=from:subject:message-id; bh=yohgL4i9AjCKZukx2CMHvMiMRro+7y2Mtk1tuDA6CqQ=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu359uMWti+vt6tyzNqsIFL978VPj9+m3+/xAF/UNbF
+ O1m/efm6ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAi3wIYfjKeuiChaXFpBi9L
+ y88Ne++/nanp0+U/z/bhwwsuQVlWqpIMf6VXeGYpJt/pz/YO87x+1KhG2j3HwqvfzPD9RNXVTlL
+ SjAA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-When handling a COW fault without a normal source page (PFN mappings),
-__wp_page_copy_user() copies from the faulting user address. For remote
-faults, this accesses the wrong address space, resulting in wrong data
-getting copied.
+Commit 9eab0421fa94 ("mm: fix unmap_mapping_range high bits shift bug")
+made holebegin and holelen unsigned before they are shifted, by casting
+them to pgoff_t. That is an unsigned long: on a 32-bit kernel the cast
+cuts off the upper half of the two loff_t values, so a hole which begins
+at 4 GiB or beyond is taken for one in the first 4 GiB of the file.
 
-For example, user_events updates an enable bit in the registering
-process's memory. If that memory needs to be faulted in,
-user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
-item. Placing the enable bit in a private PFN mapping can trigger this
-remote COW path.
+truncate_pagecache() passes the new size of the file and asks for private
+COWed pages to be unmapped as well. If a file of 6 GiB is truncated to
+5 GiB, everything from 1 GiB on is unmapped, and what a process has
+written to a private mapping of the range between 1 GiB and 5 GiB is
+lost: it reads the contents of the file again.
 
-Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
-current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
+Where the range has an end, the wrong range is unmapped instead of the
+right one. The page cache copes with that, as it unmaps every folio that
+it removes. The callers which only have unmap_mapping_range() to get
+rid of user mappings do not, for example drm_vma_node_unmap(), whose fake
+offsets reach beyond 4 GiB on 32-bit, and revoke_iomem() with physical
+addresses of more than 32 bits.
 
-The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
-the VM_UNPAGED logic"); likely, actual ways to get remote faults in
-there on COW PFN mappings appeared afterwards. But the fix is simple and
-straight forward.
+Cast to u64 instead. Nothing changes for 64-bit kernels.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
+Fixes: 9eab0421fa94 ("mm: fix unmap_mapping_range high bits shift bug")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: simplify comment and description ]
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/memory.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ mm/memory.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/mm/memory.c b/mm/memory.c
-index 0f4db5080e371..ec7a1397ab833 100644
+index ec7a1397ab833..5c5f326b8bcbe 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -3761,6 +3761,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
- 		return 0;
- 	}
+@@ -4649,8 +4649,8 @@ EXPORT_SYMBOL_GPL(unmap_mapping_pages);
+ void unmap_mapping_range(struct address_space *mapping,
+ 		loff_t const holebegin, loff_t const holelen, int even_cows)
+ {
+-	pgoff_t hba = (pgoff_t)(holebegin) >> PAGE_SHIFT;
+-	pgoff_t hlen = ((pgoff_t)(holelen) + PAGE_SIZE - 1) >> PAGE_SHIFT;
++	pgoff_t hba = (u64)holebegin >> PAGE_SHIFT;
++	pgoff_t hlen = ((u64)holelen + PAGE_SIZE - 1) >> PAGE_SHIFT;
  
-+	/*
-+	 * __copy_from_user_inatomic() only works as expected for local faults.
-+	 * Reject remote faults.
-+	 */
-+	if (unlikely(mm != current->mm))
-+		return -EFAULT;
-+
- 	/*
- 	 * If the source page was a PFN mapping, we don't have
- 	 * a "struct page" for it. We do a best-effort copy by
-@@ -4086,6 +4093,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 				folio_put(old_folio);
- 
- 			delayacct_wpcopy_end();
-+			if (err == -EFAULT)
-+				return VM_FAULT_SIGBUS;
- 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
- 		}
- 		kmsan_copy_page_meta(&new_folio->page, vmf->page);
+ 	/* Check for overflow. */
+ 	if (sizeof(holelen) > sizeof(hlen)) {
 
 -- 
 2.43.0
