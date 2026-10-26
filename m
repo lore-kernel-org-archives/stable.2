@@ -1,100 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793005366;
-	b=p0rceKnSYPyfEPzpQ7DXQFyM9TIvHDGdiPyt/U9TQvfteR6dqf12syktUnbBz54ScU7o
-	 XnYk9CN0Hhhrog0PnP/N73/NbkBoNrCoe6Cky03CeHTvsxPTJPT1WHJ/+WpikKVRhKw1e
-	 E/bAXWhM2nsid6A/HBqRhr2EWRGJYMW5lfTnkNLp5HyH9NjgxihH1kOySJU1aNihjrG73
-	 YGb2uKzPm0UQP6dVmkPJ/H41jK2uujhzdmdTUp3YNuYD4NWVw2NvpD0dTOZH3nrGs43LN
-	 auiZK2UI28g8J2SSBpPIOIsYtLZ9Q08Zybci51sMshWrFSF7Vr8lFuLhhn8vbrnLCXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005366;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-	b=orslodZHCtiS0HktWlz5e5o0JGTfCfXUElIzNddqHsPecC/J+WkUHbLnorjDr5432Q4c
-	 hIzIFTzGEYsw+GKUjRZGgleuuMrcj0jTO+PC2r2A+nnh8f/GuF/VTcbY0vXdZ6TgztBZ/
-	 A5boUWrwWdvAZb1lhtFbdE/ff/ZGLMzRCH4u/QA5hlMdrloxsKutyGnkZt4DjRaMsYg6H
-	 Wzx2jzN0kQqmkB3ePhs3KIq4kLxpACCWLj+fABEeXTogv5IvkKmqieDcCR7pvljrPRL6s
-	 dS8Pb+9k1jK1c7JvMdz6XXHlqp0bHPxEmDV5nIeQr1/DX/vo/EQfvDhOu5kkOPPXiEQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qLZsAbGj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793005562;
+	b=ngvF+SgmHHZbbBG2SIwOt1KW8+XNmPuWg50CZ9GfCrUkp4888Rd6TmDyz42Cmcq/+icC
+	 D6m13SFeHS/0Ybe5YdYyktHpsRMPO6AOVAq3dUau3jyTsEIn2npDAbXo4IbIxQ3LI56tO
+	 61Dhog/mWYC/8qR6GyTSSTv6CjD7OmcbBdydV3i9Jol71Kj8OUkqdBsAJKLmLvmd3H6DO
+	 Dl385ycbdfqHfO1IKB3+GUMHYJjDBcRNkxRen320NP8MBuXQxFmEYmcmaytE8CFEnbdD3
+	 1NwC+a24jtaR3BLecpeE8zjinZktIOrQFCEdbcF2/2lxIrxRYFHDMjHinMxYH+iBLNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005562;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6rfumQaYpABxgWOFoid1PGociqatj2vsd6oLQZ3XZn0=;
+	b=38h6oKpPN3BMOxhwtQepCAs10rpu718K5NcosnsD5uh2/LxkFUEwdSOZprEmCtwdCpTr
+	 NfcW8k8BJdrmp7XIA+nC3v9KgtiaktvqwEwJd+CiiNwYHyAWIdUp2Q1h2FQB2VBtoCybH
+	 51wGnYBK1zpqeUtYKrpDYrCiJVOMinHuN7vkiCHCLRdXcAOr7/akJiWIVhKAhGu2KshF3
+	 tdmmeRInBt2Ejn+svT2B6xWQrq+5SMlD6y37KFunbXtPYMH/A/VSdi/XZKKKxp8ECL4t+
+	 L1kTlbGRtFT86xnXj9MHiyk/y/Vgf717yOCWryQfRJ+snjZkW5vid9kjX94adO972TA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZUyqw5Kc;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82792606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 09:02:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82792606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011A8606A31A;
+	Mon, 26 Oct 2026 09:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 011A8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qLZsAbGj
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso3833587a12.2
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 02:02:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793005365; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HW3pkP1CSTCgUXp21MtVv0dQvM1e2i/fCnnqVw9U6SeQdr5Jz7hogabUYeioSyYOsC
-         f9p7YvvdlxGcSl2b1tbkblk22q8Ue60pBaPe+ip2lboD49LVQu6hGKTlSdFGctpFo3qP
-         8N9TZqR8yQ/eiIJO8P2my3bWHRhPgCK1y0QbqvUZ3iUH0UoiN54jQGs6oaePxp3a/Nym
-         AgO3BeTDzgPudeGeVIDLCVcVMoWAqZ4pfj6yrSy7fQP3FRR09q08gFMtImkk2uyva0kg
-         nEA9z4TxGEwlg5UuSvqLTF7ITpQDHM9Ima5oeb2QQCkMYNZyQ1i5yanzF7HwFd3gUt8B
-         q0kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-        fh=PzEza2uzN8Qir7U31F+nPiUAG2KJodRVFlZkUurI/Dk=;
-        b=cRfyEiZpI//5zQdmexTtj1PA8+6ZVuY557EHCBZ+owjtuXPWWpGoJJEoaSdF+/MM8n
-         0L8QD6nULhPE1mArPel2pNAloIBJhC9PIT1eTH5lJhpN+TrWGqEep2VhJdKRp8AJ/vCX
-         u/PSvPoRPv6E/8Ln5kJ82kf8cGAodi7Djm/3hmuSsbI0i5MZ1sqmhJj/AjNHMAtHjgj6
-         /vgQLeaV0K1FFIuWBH86OLaQVT6v0n/ATsrChr2nMsKOYL7eeT1QrxP0et7vDAAG49eZ
-         gW5i/OwnuN/Ipvm13tYD6DFrYf62+rRDGv/QTCSqblVuRrSj8M1CxLUaPzzul+VRqwVS
-         D4/A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793005365; x=1793610165; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-        b=qLZsAbGjyhOdJYoX4EsSnYS4ZxHYKYOA5sWs+jPhLE8FVmdXf2M5MlK6AoPKeVw0EC
-         IFKRqq3vpCOpcybm9W8p1utbSK78D+GC7CKCDRA7EzPslPZda9G4Hx+aUNowG5n9m5HH
-         Q7zI0oz7lBoS+j8xPojdDeBhv5h4sNXUM2hnlQVTcSFrGFS9L4vZscL1pUk5xM4TGx+Q
-         IshB5L7JTrlqlJsEkQ3vmOcc3EmCW2eFVJwkM9CUTM7ldURZC0zw8XuiLgqPiRLSt9P2
-         GxnWMgavOQuFtwmggQY/pXnr3BrFQ+IyKQZf1tTCSMvUOPrN/ZKbUxJ70XDEAIaa+era
-         wW8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005365; x=1793610165;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g4ANt8QiPje/vd+XmOCfwQ8O8188yDlc5I5mBp2AsQY=;
-        b=MxgNZzG4FKf/RX/hnVP/m4s30BvYW8TRuevWPjPq9FVllDK34ueAMxZMdenALJVC3s
-         xmxL4UP/lt1Qkzn/dwzbpdrg8danQDSl0xyKGKPxMTKHVNsE77UIFBZgL5CSjwQhJLRO
-         KAUUjm942Qy3oe1RhWRsIla3d8ieoIOV7eH6K3HR8wjqqb+DlWCsZ3jxyJigQ8kA1eaa
-         ZzZGh1Z6Q/IzMQZMQr6OzLrjUZgUDM99iueURkhQqXDfrCNUd50y8WxUE2AaVuJsLrrY
-         M2Wmj/A97q408ijMoqDLdgvwsWlSKEcjVU48MhzxdziuKKqi56ubK1G/jxvE5Pp1guZB
-         U1+g==
-X-Forwarded-Encrypted: i=1; AKwUvBzg4TpUYweEOeL1wIizvS2B9TA/hMJEdUxVC7Sm9jMm7/8mfBbNiIRpXPrN/SIpaY8knGY6cDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNYtPuwCDTnlywNs05spL3oR0XwN6W159eaj3flGvVEVhUW876
-	zfVRiBZbme6S6kjqHHNDWnVSZyKtej/V6WO7u+tv3tb/KKG8RSQHil+laqwybCuJG66XuV5zCyS
-	lBve7+yGkr3vWnlYlkfIYjtykUszYtPE=
-X-Gm-Gg: AYBFou3iJHwexjJVrBgXdY87KyMjHScTH4AOkxJUc8es9UQCMd2RD3zsiEdoAu5Mlpf
-	rp63vn/aOIVztobUFh4DNm1soYP/DoKg0yK5WYmc/POtssHZwADnP511Lcjng4IjTSK5Br3gFf4
-	vP3DK8xgal5ClxPm2WSx8elaWhNhnFTaVj8XeLOZKwOrB/V+QdbpqiJwL1cqIB60bMqileo9Bz6
-	tv9vKwSbUnnfZXz63Z9S0qp9VZM1XOdm2ALdQXTZsG3WQAiE0v80YzWaqd8pX1SYxrTLVDRUUXx
-	CtBmLLXPHF8WbNf7YbkqxG8h5DfFosHorCR9IUTKl6ORFIZkUsUL7j3qGBK6t8R67h55xwDztI2
-	5o48aiz4vWopQYWHLmgiVMDUxAQBmH9DAIraGJdQ8rACeNIXTaIuc0H+HXcCNwpn4XmVMUw==
-X-Received: by 2002:a05:6402:4410:b0:6b4:203:a182 with SMTP id
- 4fb4d7f45d1cf-6b442a89b98mr8306001a12.3.1793005363531; Mon, 26 Oct 2026
- 02:02:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZUyqw5Kc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793005562; x=1824541562;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IYmuIJpwOSwQUw1waf6LOAjny4OLysbFDIu56qrcZ+Y=;
+  b=ZUyqw5KcHSggmuDUcV/PAAbQz7jGhFOMFA/vK/44skTLlNOpt7Z2GtGy
+   IbiD1+inxOfJDk6E4DxzBOlKx4yAbFmkStSdqkCGxaFLDWrxeV4Bfk9P0
+   8CyX4f5xXILmDt9bEI5hl20UmgKoPb0StwBdA/hJK3ddRF+bQuL19uOwM
+   yBgW2Jaw3ZbWfG7oaluz1Kj5E3/CwaZFW9o7K36R3d07oLuM80Sk0/aNI
+   RHXSPFVVmq9JSMhktz0Kj9W6Odh29IzgZa00tv5P4PwRRJekQbl6D0Bxc
+   WrQij0/7GnbU/jMPb0vIK49bIT6bbFdVW7cD0wfqF7ezgVyV+rfya3gdj
+   w==;
+X-CSE-ConnectionGUID: Ui8d48fSTEqdOC9XCXQsvQ==
+X-CSE-MsgGUID: J1NgKjXYQzmI7cCiGWFyDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1572970"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1572970"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:06:01 -0700
+X-CSE-ConnectionGUID: UXkaq4sISqG3pbmLkJ04bg==
+X-CSE-MsgGUID: iVx9PH64Rqy4VwCN+JYzWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4564737"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 02:05:57 -0700
+Date: Mon, 26 Oct 2026 11:05:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iio: pressure: dps310: wait for a new sample after a
+ ratio change
+Message-ID: <at8X810dwa98w9iL@ashevche-desk.local>
+References: <20261019153328.80739-1-zoone.rupert@gmail.com>
+ <atZqSXI14WojGso5@ashevche-desk.local>
+ <20261026024605.3286702f@jic23-hlaptop>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,69 +86,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026015738.46230-1-dennylin0707@gmail.com>
-In-Reply-To: <20261026015738.46230-1-dennylin0707@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 26 Oct 2026 11:02:31 +0200
-X-Gm-Features: AclHuK8o2w3ue0fEsBYRmit5mrje2LPX_3oSwwLStLIHIXFr91Z3Gm5NRG4zIpo
-Message-ID: <CAOQ4uxhxwOw4LNi6NV1FZzSePHZ4_SEg5QikvoH-L7GcKrkoPw@mail.gmail.com>
-Subject: Re: [PATCH] fs: skip copy_file_range write limits when there is no data
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
-	djwong@kernel.org, dchinner@redhat.com, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026024605.3286702f@jic23-hlaptop>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 26, 2026 at 3:58=E2=80=AFAM Hungyu Lin <dennylin0707@gmail.com>=
- wrote:
->
-> generic_copy_file_checks() reduces count to zero for a source offset at
-> or beyond EOF, but still checks the destination write limits. If pos_out
-> is at RLIMIT_FSIZE, this sends SIGXFSZ and returns -EFBIG even though
-> there is no data to write.
->
-> For example, GNU cat copying a 1024-byte regular file to another regular
-> file with RLIMIT_FSIZE=3D1024 copies all bytes and is then killed by its
-> next copy_file_range() call at EOF. A zero-length request can fail in
-> the same way.
->
-> Check write limits only when count is nonzero, as the ordinary write
-> checks already do. Keep the other copy validation in place.
->
-> Fixes: 96e6e8f4a68d ("vfs: add missing checks to copy_file_range")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+On Mon, Oct 26, 2026 at 02:46:05AM +0000, Jonathan Cameron wrote:
+> On Mon, 19 Oct 2026 22:06:49 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Mon, Oct 19, 2026 at 06:33:28PM +0300, Rupesh Majhi wrote:
 
-Thanks for the fix!
+...
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> > >  /* Make sure sleep time is <= 30ms for usleep_range */
+> > >  #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
+> > 
+> > Seems the use of USEC_PER_SEC below should be postponed to a regular cleanup.
+> > Because otherwise it will be inconsistent with the above where it would need
+> > to be 30 * USEC_PER_MSEC
+> Do we want to have the extra churn on the below?
 
-> ---
->  fs/read_write.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/read_write.c b/fs/read_write.c
-> index 4da846a2bf17..c05ad2c42e75 100644
-> --- a/fs/read_write.c
-> +++ b/fs/read_write.c
-> @@ -1531,9 +1531,11 @@ static int generic_copy_file_checks(struct file *f=
-ile_in, loff_t pos_in,
->         else
->                 count =3D min(count, size_in - (uint64_t)pos_in);
->
-> -       ret =3D generic_write_check_limits(file_out, pos_out, &count);
-> -       if (ret)
-> -               return ret;
-> +       if (count) {
-> +               ret =3D generic_write_check_limits(file_out, pos_out, &co=
-unt);
-> +               if (ret)
-> +                       return ret;
-> +       }
->
->         /* Don't allow overlapped copying within the same file. */
->         if (inode_in =3D=3D inode_out &&
-> --
-> 2.43.0
->
+I would bother in case there is no clean up patch attached and we will be left
+with the good *temporary* inconsistency that lasts for years :-)
+
+If Rupesh is going to add the patch to clean up that (before or after this patch)
+I wouldn't be triggered.
+
+> I'm not that bothered by a temporary state of different styles.
+> Nice indeed to have a follow up tidying up other cases though!
+> 
+> There is quite a bit going on around this driver, so I'm going to pick this
+> one up for the testing branch of iio.git rather than the faster path.
+
+> > > -/* Silently handle error in rate value here */
+> > > -#define DPS310_POLL_TIMEOUT_US(rc)	((rc) <= 0 ? 1000000 : 1000000 / (rc))
+> > > +/* A period plus a measurement time; silently handle error in rate value */
+> > > +#define DPS310_POLL_TIMEOUT_US(rc)	(2 * USEC_PER_SEC / max(rc, 1))
+
+My comment basically based on the existence of the no-multiplier style, and
+this patch *changes* it here, but not there. And it's *this* patch that brings
+inconsistency.
+
+However, this is quite a minor thingy, so up to you.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
