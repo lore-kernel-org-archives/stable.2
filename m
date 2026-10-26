@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019081;
-	b=Aa8PD0rrO2LNF4UZLRdrJk3aG4gWQscGWX4iFcgVUG8B9+WRHOL2WARZs6W7I4UbvyFk
-	 8RosvACWxKbbvf/C1GmFUxC5qj/L9CUOuQsqr/IE6r9zRqV+VGxKF3WaJHhA/muTvz1Kk
-	 Cok3MImkdgN4vgfA9LQcPWyZXh5O2VvtZq55skDZcWsOGAWjhfDgHS0g4vRnAwLvHoq6B
-	 XejhpThg3MBrHkVar5aalgVUMSdYWgRrptVkzDq4zK0jTwmCU3iwiJqLwuZJM0QmV8rbx
-	 6AKj3y8c4LTApb7gsgtUMTiScjHpxEYV00+Epmx2sUUEQfkcKK4QS3jQCR7OxTXaWlg==
+	t=1793019207;
+	b=NsknPlsdiypql8Of+Ky6u/TOjQdl6sWA3kt/fzH3Q0Wg4OHvqsxsZVftWTgzFY1I2P8X
+	 lDJIHD48R70jlGvKnuDteOMr95qkzPBXyPONySffh7s5MFIiVQyGCCnnwwHxtWsCyZtMV
+	 315QnLTeWV2zma3gFZd9trUoR64bLqIZKskAAx6RgA301KOmqYN8V5IfmAAGB/KW4ZuKu
+	 rQMTJSyYv704RhtCSTesotrxPw2QP5J7+NRJpKfJhCC4AneneX4V4NGBrHmm3jq7xTp48
+	 XRH/fiMho7j8nxshroXYkYSN8oynNOhvhrdJMU41EuhW915XBRTkAQ/rqZZpLqe7WMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019081;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
-	b=ufmQiKyDEDcCh1QZfo/HPGa77HSPWPxDymvYnS2vVHHgXQDE2+Ktvsu/QMDYOitVgRMJ
-	 obQ3cD073kx9nBy7ApEYeSj9vCt5Dk17xjgzLCX0McwnPWre+Buz6DzUCi6ceQXMDLDby
-	 Uscfzkj+4mR6vAgqLapuJud+8iXH6FaWyKyrKYBhJmFfNOKTtNy2s4QEU3oq4Q0sX7MFT
-	 kxojK9Q03oIjbh/ZA2p5deblfKDECvB2QDd9zjmSoF+vqDZa00a+q6H0jcR5yCQimaC91
-	 HGxp/TAkpmgeC9ppwfhrYiqG5qNWwpqaFkXCSp7cFdkYqsWBYu7MYsJawd+C95h2gRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019207;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=eoeFhuQrsUg2LLls9bBuuI3jERyROiJOphO2K6S7wJw=;
+	b=LezkmoNR9L7WTYeCfAgYtt1fJxuMx/9vqyg0E4rSQu/2HBw0F6GQbdoYJbmgo6B2TGiY
+	 xhKhlXTtaPls/qg+fSZxovctvPKJ6ypaBGOMCMa3QNj/n5SYlHxYQfdK1hEBodB8WGaM8
+	 FY/kTpnWYPJAIm3ZzH/RKTojWrBLqMqhf+jY2gCSosegmMiWmHsrK13QapJHS2p5SYZYc
+	 1iuy4nUMf2FIPOE2zzhF1t61yS9vZSmNqCOjVTzEn4jW0CjlXIpC+TJS+bK0T0/79FnEI
+	 W0HkYKhpez+/cGbekzDF8ozZk1XS5LjbO7GCP8QBtBMq3QamN1j+zUlRbJOe81Sb/zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAZzmVib;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=hglI2lk9;
+	arc=none smtp.remote-ip=203.205.221.240
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D89D606A326
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D89D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D7E606A31E;
+	Mon, 26 Oct 2026 12:53:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D7E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iAZzmVib
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2358872f8f.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:51:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793019080; x=1793623880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
-        b=iAZzmVibNZ5pXAmJsCf9QwWsIrQYAfHeu5kyYReNIuzI6oS/f2HYWCX7Q8ivzDoW4O
-         neaRZ31K6y3YVy0hK9Z9UKswFGDGDVf5Dainac8GhMB5WI9Pca6o9kxfSnsaFXUBFILP
-         dJQHwIHxzpvzxFQQ+p7qI2NiifdOcoi6ZaSLHVJtakYKE/BjKEhAIS47gqUHgkc7NeNs
-         mF7+HYQ0jp1hxQDhQSt9rY4xFFBS73TQHdB+FveLr7n1sJZibkuITzoN9YLHyG1ANn/O
-         9eQEnjBmfLx8TaLolPwWLNFgLlwhJ/5QKJJfsZUUKCuSIsV4Qrf9N6X0YZmelNBSYoxF
-         AMgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793019080; x=1793623880;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AyJwyUEzaLqYdxznGDAau4i6Ab2C6BDv4m/n+Yvt084=;
-        b=sz8hAVx08VUk1o5/8tA2FHwyc0j4W7Y9H34+L/lQD1HAzz5x1pJh+o+yPB2SZDiotj
-         s/jm87MnLMW2y+1C3esuJVRFQgG8fVz2Y5zllP2Hlix7kS+0USOiK/VoMlIOC3wjJf3P
-         q+gqc3o4Lz6T5wUIDD5s8Up8DJltdONqSmJgxki49tvZg+lwJM9q1XnkW7dLJp98CNuE
-         ber9AFdRpqidSGnhH+U7nPEyfbtp2fkJVB8rym0SLN+VTrpUoGRxS+OlontADnIKzUeT
-         1iol2WuPlkX9A6+EnZWAtv19A8J8sHrEkmhsGQHdN3nggB6MpVsqFjpOm6+W4AIXVJdn
-         oneA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJhQQyYHBA20WQkcFJrZCvV3GemVjhxIRhU3iVogP/xHIq1FyKV5PfdJx7DBfaPD/rnshL2q4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLexZC8N6UFr18hGyOJP3BzZ9symaAfLStAzsQDXtUzEumP8Tz7
-	4PFfESCZGWhkgMMY3Tgqv339f3sr8TeC3O3K59sL3SoXwoDh1pz5yuLX
-X-Gm-Gg: AYBFou0I/BkWBPXQXmGI9oKUs6rruTCICPxKpji95lFfAEH0PU5pJvQ3Iv+FikRCUH1
-	uYjcCwPMfA9CjY+RSRaJHclbrB0Kj88ZepsgN8kt8xjWzMntcwkw6MpkEI8E/Ws3LuiRgC7iSFT
-	ecAFDNvquTyIo33AfTVFNbhs2KcO4IEBQomRqBuq1QjaQKDl1IpVsi+55jJHzW9jaNUabh7PO4K
-	EAX0QRPu6cQm6C6KrBLRDO2Crxj7a4GWaD4pR859IebmNPawpl0NpKkg4m1+SCxo6Sp0sq/Eec/
-	47K17G7xJIFF4YcDhrOa3pB3qkhObyJ12SNK9MVaPy28qFO3ao/awbbRKalj7xIJ33IoHbRTgXH
-	0PDzaDmwW2WCqaTVz+NKr4X2iM5133Jy4z+4w+LpPBXs1NNm9dpJfCezfDupm60F11uqm5va74S
-	2Xh74DSTQBowX91GH+kxoLBj7+7PLVQufsOAVCAJXUIHBpUiY8nD+8mzyRoU0Kq24gMzq3NcfaE
-	3Gg3fRxh2c7V35AJCUW2lv0BZAYgNg3hLx3v/eUGVi4rwF3n035NoAriy5B7nHspa8a2j+j350u
-	G3RYuCFE6k6ScO1rnAiuaxcK24aMpA==
-X-Received: by 2002:a5d:6308:0:b0:48a:fff3:f9c1 with SMTP id ffacd0b85a97d-48e3eb87c2amr9417775f8f.20.1793019079507;
-        Mon, 26 Oct 2026 05:51:19 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([129.45.79.200])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dd7sm15828994f8f.15.2026.10.26.05.51.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:51:19 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com,
-	jason.cai.kern@gmail.com
-Cc: dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
-	syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] dm: reject aliased metadata/data and pool/origin devices
-Date: Mon, 26 Oct 2026 13:51:14 +0100
-Message-ID: <20261026125114.251-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=hglI2lk9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793019196;
+	bh=eoeFhuQrsUg2LLls9bBuuI3jERyROiJOphO2K6S7wJw=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=hglI2lk9blL2Ewq6XJQOl1LwizAJYWWmqDQ6TQTq7UGeKWh0EtkorC9r2a/sJJzuj
+	 eirt+WTiaQDXv43TobyQK2jqLjmH4T6W2s9QpQuRWNLr1ZmDYFPUnQkQFgx0JGdEGO
+	 JnGOgfI0ITrAHOfNjIqVnOGJUM0T1vL90RnXm7QI=
+X-QQ-XMRINFO: Mp0Kj//9VHAxZTvkSW1v73Gwx3+DKDx3Cg==
+X-QQ-XMAILINFO: N91a4ffQWdrAP/blrZq7sSDhJ77M3hmBPB3rfPZ65QKIWN2GUtLGIpKzWD1KkT
+	 mQRuQ9+FGkeD5ZBMxgsIpRc/HZBIuSlrPXSxP4ro+lZSPSedXP31uco6JYb2ERtcdsQazvz00J47u
+	 38trGq0XSdz0O3Oavn46ylGREXieHBd0rZTAerz/5FIAZD5sgHxjROds104iMXlkwiMDNONEu1SJm
+	 zUjMP721UBNHN6krscRetKmuoBbd2bzJ0jBQX31LhOnOtI4XSSIqtXAHlG+00RT6+irZ2xQN4nnss
+	 E3bw/+WyjW8rvewhjmQ9UgCwwq9adXlKpEhOu3NcGPM9flVXGiZhi5VbmxpD0AxBCrOhC1qspC0Qd
+	 ycWMPZMla/WWmN1pQSy5we6p6Aj8jG5GTpYz64ST55bWzcYFhIEd/bRcCMoPdYIquruNWGu7yydUr
+	 57XJQkKQzwMlMviTVuKNN2TB488djKlUfl6Hb5g5T4O83e35oW0E05mUXkfXZJ52Uc+Kkq2fJxEI2
+	 euVTY4bc8eZwFdVuw6eecS++zWYD3JA5D0kmf1Z98LxoWwjjaexECRMvk7tf8NFy/Q7sHL3GKP4Hl
+	 69sbHgmYP6sb09FAQGYxzAjZ2g/cI9wBUDwZKn9ioZDrDFMVzfZYiKjiByi9Qz7jHSGSuxqvmuw4Z
+	 G0F4mPTMhz0+mqgbp6Nr4ESwVaeNHuaY4cRIFyCPpuZRA8lOkCoMoRkhUuHSXSQ7ZSAPxCa0Bo2tn
+	 2oFkE/cnGSVCjVqnEMoDT8dP/9eKF4gU286LzPnieR2r9wvlWZp1CVe7bg5oqdYZOwuSRLHuh2MK0
+	 sb3AsIOZC4wcDSOTcLUVU5S8pknx4mHoRo6DzY7pjIaMPJ+jKxDZ1J4QSXUHj1DyGq1PP9hGQJNz7
+	 FJcHWyvUCBTCQKw2qh8G3mUnk8fhlPuTn2VoQSvJ+49N+keRXu4gHLyNfnR/yxbEmmIJShc17vZQy
+	 oHp/VKQ1d05nS0gwcO4lJcZ1gla4UHKh/7jkgDSPys7MHItLKv0I9fbbeROQ+gpVZI3OQ0yzljnGF
+	 5IULTJqH2LuzWLyNsDHvlaLyBIPoQHZDgxT69aP3DI8GKS+JSSIAoDFJQAOQYBTk99tO0DJLCRNXU
+	 W6HAinkm2SmW4t/NgyOQzrEP3KOmZw9ZmBU5VcJwU6at43OIK4/lo5XFL0ssJWUfdQfkIk9L9UIKQ
+	 w==
+From: "=?utf-8?B?5bmz5LmL?=" <treebacker@foxmail.com>
+To: "=?utf-8?B?R3JlZyBLSA==?=" <greg@kroah.com>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>
+Cc: "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?WU9TSElGVUpJ?=" <yoshfuji@linux-ipv6.org>, "=?utf-8?B?QWhlcm4=?=" <dsahern@kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: [PATCH net] ipv6: fix dead half of the MTU guard in __ip6_append_data()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,184 +70,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Mon, 26 Oct 2026 20:53:14 +0800
+X-Priority: 3
+Message-ID: <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_B58BAE2F5FF485D1B4F652E9980EAB132A09@qq.com>
+ <2026102604-circus-juvenile-c521@gregkh>
+ <tencent_7454E65EE7BD1C085B6951A7D2305157370A@qq.com>
+	<2026102658-jockey-volley-94ff@gregkh>
+In-Reply-To: <2026102658-jockey-volley-94ff@gregkh>
+X-QQ-mid: xmseua11-1t1793019194tqd4mfdl8
 
-dm_get_device() identifies devices by their resolved dev_t, but pool_ctr()
-and thin_ctr() only reject identical argument strings.  Different paths
-such as "/dev/ram0" and "1:0" therefore bypass the check and select the
-same dm_dev_internal.
-
-syzbot reported a slab-use-after-free in pool_ctr() when a read-only pool
-used such aliased metadata and data devices.  Opening the metadata device
-read-only first and the data device read-write second made upgrade_mode()
-replace dd->dm_dev and free the old table_device, leaving metadata_dev
-dangling before __pool_find() dereferenced metadata_dev->bdev.
-
-syzbot reported:
-
-BUG: KASAN: slab-use-after-free in pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
-Read of size 8 at addr ffff8880340cc698 by task syz.0.17/5507
-
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- pool_ctr+0x874/0xd60 drivers/md/dm-thin.c:3363
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
- Allocated by task 5507:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x3cc/0x620 mm/slub.c:5582
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- open_table_device drivers/md/dm.c:733 [inline]
- dm_get_table_device+0x23e/0x730 drivers/md/dm.c:821
- dm_get_device+0x327/0x760 drivers/md/dm-table.c:388
- pool_ctr+0x4ae/0xd60 drivers/md/dm-thin.c:3329
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5507:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6802
- close_table_device drivers/md/dm.c:798 [inline]
- dm_put_table_device+0x255/0x2a0 drivers/md/dm.c:841
- upgrade_mode drivers/md/dm-table.c:326 [inline]
- dm_get_device+0x56f/0x760 drivers/md/dm-table.c:399
- pool_ctr+0x585/0xd60 drivers/md/dm-thin.c:3336
- dm_table_add_target+0x58d/0xc70 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x325/0x8a0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff8880340cc680
- which belongs to the cache kmalloc-96 of size 96
-The buggy address is located 24 bytes inside of
- freed 96-byte region [ffff8880340cc680, ffff8880340cc6e0)
-
-Validate the resolved device numbers with dm_devt_from_path() before either
-device is opened, keeping the existing string comparison.  Do this in both
-pool_ctr() and thin_ctr(), which has the same problem for the pool and
-optional origin devices.  Checking the device identity up front avoids the
-mode upgrade entirely and is preferable to switching the dm_get_device()
-call order, which would rely on the data mode being a superset of the
-metadata mode and would only cover pool_ctr().
-
-Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
-Fixes: 70de2cbda8a5 ("dm thin: add sanity checks to thin-pool and external snapshot creation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
- drivers/md/dm-thin.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
-
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 358ed77ffb2b..281b2e1745c3 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -3292,6 +3292,8 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	dm_block_t low_water_blocks;
- 	struct dm_dev *metadata_dev;
- 	blk_mode_t metadata_mode;
-+	dev_t metadata_devt;
-+	dev_t data_devt;
- 
- 	/*
- 	 * FIXME Remove validation from scope of lock.
-@@ -3314,6 +3316,22 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		goto out_unlock;
- 	}
- 
-+	r = dm_devt_from_path(argv[0], &metadata_devt);
-+	if (r) {
-+		ti->error = "Error opening metadata block device";
-+		goto out_unlock;
-+	}
-+	r = dm_devt_from_path(argv[1], &data_devt);
-+	if (r) {
-+		ti->error = "Error opening metadata data device";
-+		goto out_unlock;
-+	}
-+	if (metadata_devt == data_devt) {
-+		ti->error = "Error setting metadata or data device";
-+		r = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	/*
- 	 * Set default pool features.
- 	 */
-@@ -4204,12 +4222,30 @@ static int thin_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	tc->sort_bio_list = RB_ROOT;
- 
- 	if (argc == 3) {
-+		dev_t pool_devt;
-+		dev_t origin_devt;
- 		if (!strcmp(argv[0], argv[2])) {
- 			ti->error = "Error setting origin device";
- 			r = -EINVAL;
- 			goto bad_origin_dev;
- 		}
- 
-+		r = dm_devt_from_path(argv[0], &pool_devt);
-+		if (r) {
-+			ti->error = "Error opening metadata block device";
-+			goto out_unlock;
-+		}
-+		r = dm_devt_from_path(argv[2], &origin_devt);
-+		if (r) {
-+			ti->error = "Error opening metadata data device";
-+			goto out_unlock;
-+		}
-+		if (pool_devt == origin_devt) {
-+			ti->error = "Error setting metadata or data device";
-+			r = -EINVAL;
-+			goto out_unlock;
-+		}
-+
- 		r = dm_get_device(ti, argv[2], BLK_OPEN_READ, &origin_dev);
- 		if (r) {
- 			ti->error = "Error opening origin device";
--- 
-2.43.0
+VGhlIHNlY29uZCBoYWxmIG9mIHRoZSBNVFUgZ3VhcmQgaW4gX19pcDZfYXBwZW5kX2RhdGEo
+KSBoYXMgYmVlbiBkZWFkCmNvZGUgc2luY2UgdGhlIGluaXRpYWwgZ2l0IGltcG9ydDoKCglp
+ZiAobXR1IDw9IGZyYWdoZWFkZXJsZW4gfHwKCSAgICAoKG10dSAtIGZyYWdoZWFkZXJsZW4p
+ICYgfjcpICsgZnJhZ2hlYWRlcmxlbiA8PSBzaXplb2Yoc3RydWN0IGZyYWdfaGRyKSkKCQln
+b3RvIGVtc2dzaXplOwoKKHggJiB+NykgaXMgdW5zaWduZWQgYW5kID49IDAsIGFuZCBmcmFn
+aGVhZGVybGVuIGlzIGF0IGxlYXN0CnNpemVvZihzdHJ1Y3QgaXB2NmhkcikgPSA0MCA+IHNp
+emVvZihzdHJ1Y3QgZnJhZ19oZHIpID0gOCwgc28gdGhlCnNlY29uZCBjb25kaXRpb24gY2Fu
+IG5ldmVyIGJlIHRydWUuICBDb21taXQgNWUzNGFmNDE0MmZmICgibmV0OiBpcHY2OgpmaXgg
+c2tiX292ZXJfcGFuaWMgaW4gX19pcDZfYXBwZW5kX2RhdGEiKSB0aWdodGVuZWQgdGhlIGZp
+cnN0IGhhbGYKKG10dSA9PSBmcmFnaGVhZGVybGVuKSBidXQgbGVmdCB0aGUgZGVhZCBzZWNv
+bmQgaGFsZiBpbiBwbGFjZS4KCkZvciBtdHUgLSBmcmFnaGVhZGVybGVuIGluIFsxLDddLCAo
+eCAmIH43KSA9PSAwLCBzbwoKCW1heGZyYWdsZW4gPSAoKG10dSAtIGZyYWdoZWFkZXJsZW4p
+ICYgfjcpICsgZnJhZ2hlYWRlcmxlbiAtIDgKCnVuZGVyZmxvd3MgYmVsb3cgZnJhZ2hlYWRl
+cmxlbi4gIEV2ZXJ5IGxhdGVyIGJvdW5kIGNvbXB1dGVkIGFzCm1heGZyYWdsZW4gLSBmcmFn
+aGVhZGVybGVuIHRoZW4gd3JhcHMgdG8gMHhmZmZmZmZmOCwgaW4gcGFydGljdWxhciB0aGUK
+ZGF0YWxlbiBjbGFtcCBpbnNpZGUgdGhlIGZyYWdtZW50IGxvb3AsIHdoaWNoIG5ldmVyIGZp
+cmVzIGFuZCBsZXRzCmZyYWdsZW4gPSBkYXRhbGVuICsgZnJhZ2hlYWRlcmxlbiBlc2NhcGUg
+dGhlIE1UVSBjb25zdHJhaW50LgoKV2l0aCBNU0dfTU9SRSBvbiBhbiBlZ3Jlc3MgZGV2aWNl
+IHdpdGhvdXQgTkVUSUZfRl9TRywgYWxsb2NsZW4gPSBtdHUKd2hpbGUgc2tiX3B1dCgpIGlz
+IGNhbGxlZCB3aXRoIHRoZSB1bmNsYW1wZWQgZnJhZ2xlbiwgc28gYSBzaW5nbGUKc2VuZG1z
+ZygpIG9uIGEgcmF3IElQdjYgc29ja2V0IHdpdGggYSAxMjQwLWJ5dGUgSE9QT1BUUyBjbXNn
+IGFuZApJUFY2X01UVSA9IGZyYWdoZWFkZXJsZW4gKyAxIHRyaWdnZXJzOgoKICBza2J1ZmY6
+IHNrYl9vdmVyX3BhbmljOiBsZW46NjEyODAgcHV0OjYxMjgwIC4uLgpbICAgMzcuNjA3ODU2
+XSBrZXJuZWwgQlVHIGF0IG5ldC9jb3JlL3NrYnVmZi5jOjIxNCEKWyAgIDM3LjYwNzg2NV0g
+SW50ZXJuYWwgZXJyb3I6IE9vcHMgLSBCVUc6IDAwMDAwMDAwZjIwMDA4MDAgWyMxXSAgU01Q
+Ci4uLgpbICAgMzcuNjE2NjA2XSBDYWxsIHRyYWNlOgpbICAgMzcuNjE2NjA2XSAgc2tiX3Bh
+bmljKzB4NWMvMHg2MCAoUCkKWyAgIDM3LjYxNjc3OF0gIHNrYl9wdXQrMHg5Yy8weGE4Clsg
+ICAzNy42MTY5NTJdICBfX2lwNl9hcHBlbmRfZGF0YSsweGY4MC8weDE5NDgKWyAgIDM3LjYx
+NzE3Ml0gIGlwNl9hcHBlbmRfZGF0YSsweDk0LzB4MmE4ClsgICAzNy42MTczNjNdICByYXd2
+Nl9zZW5kbXNnKzB4NTg4LzB4OTg4ClsgICAzNy42MTc3MTZdICBpbmV0X3NlbmRtc2crMHg0
+Yy8weGE4ClsgICAzNy42MTc4OTFdICBfX19fc3lzX3NlbmRtc2crMHgyNjgvMHgzMDgKWyAg
+IDM3LjYxODEwNV0gIF9fX3N5c19zZW5kbXNnKzB4YjQvMHgxNDAKWyAgIDM3LjYxODI5OV0g
+IF9fc3lzX3NlbmRtc2crMHhhOC8weDE0MAoKUmVwbGFjZSB0aGUgZGVhZCBleHByZXNzaW9u
+IHdpdGggYSBkaXJlY3QgY2hlY2sgb2YgdGhlIHBheWxvYWQgc3BhY2UKYXZhaWxhYmxlIGlu
+IGEgZnJhZ21lbnQsIHdoaWNoIHJlamVjdHMgbXR1IC0gZnJhZ2hlYWRlcmxlbiBpbiBbMSw4
+XS4KCkZpeGVzOiAxZGExNzdlNGMzZjQgKCJMaW51eC0yLjYuMTItcmMyIikKQ2M6IHN0YWJs
+ZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogYm8gY2FvIDx0cmVlYmFja2VyQGZv
+eG1haWwuY29tPgotLS0KIG5ldC9pcHY2L2lwNl9vdXRwdXQuYyB8IDIgKy0KIDEgZmlsZSBj
+aGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL25l
+dC9pcHY2L2lwNl9vdXRwdXQuYyBiL25ldC9pcHY2L2lwNl9vdXRwdXQuYwppbmRleCAyNWZl
+MGJhOThiMWEuLjdkNGQ0ZDQ1ZTIwNyAxMDA2NDQKLS0tIGEvbmV0L2lwdjYvaXA2X291dHB1
+dC5jCisrKyBiL25ldC9pcHY2L2lwNl9vdXRwdXQuYwpAQCAtMTUwMCw3ICsxNTAwLDcgQEAg
+c3RhdGljIGludCBfX2lwNl9hcHBlbmRfZGF0YShzdHJ1Y3Qgc29jayAqc2ssCiAJCSAgICAg
+cnQtPnJ0NmlfbmZoZWFkZXJfbGVuOwogCiAJaWYgKG10dSA8PSBmcmFnaGVhZGVybGVuIHx8
+Ci0JICAgICgobXR1IC0gZnJhZ2hlYWRlcmxlbikgJiB+NykgKyBmcmFnaGVhZGVybGVuIDw9
+IHNpemVvZihzdHJ1Y3QgZnJhZ19oZHIpKQorCSAgICBtdHUgLSBmcmFnaGVhZGVybGVuIDw9
+IHNpemVvZihzdHJ1Y3QgZnJhZ19oZHIpKQogCQlnb3RvIGVtc2dzaXplOwogCiAJbWF4ZnJh
+Z2xlbiA9ICgobXR1IC0gZnJhZ2hlYWRlcmxlbikgJiB+NykgKyBmcmFnaGVhZGVybGVuIC0K
+LS0gCjIuMzkuNSAoQXBwbGUgR2l0LTE1NCkKCgoKCuWOn+Wni+mCruS7tgrlj5Hku7bkurrv
+vJpHcmVnIEtIIDxncmVnQGtyb2FoLmNvbT4K5Y+R5Lu25pe26Ze077yaMjAyNuW5tDEw5pyI
+Mjbml6UgMjA6MTYK5pS25Lu25Lq677ya5bmz5LmLIDx0cmVlYmFja2VyQGZveG1haWwuY29t
+PgrkuLvpopjvvJpSZTogaXB2Njogc2tiX292ZXJfcGFuaWMgaW4gX19pcDZfYXBwZW5kX2Rh
+dGEoKSB3aGVuIG10dSAtIGZyYWdoZWFkZXJsZW4gaXMgaW4gWzEsN10gKHNpbmdsZSBzZW5k
+bXNnLCBzaW5jZSAyLjYuMTIpCgoKT27CoE1vbizCoE9jdMKgMjYswqAyMDI2wqBhdMKgMDg6
+MDI6MTFQTcKgKzA4MDAswqDlubPkuYvCoHdyb3RlOgo+wqBTdWJqZWN0OsKgW1BBVENIwqBu
+ZXRdwqBpcHY2OsKgZml4wqBkZWFkwqBoYWxmwqBvZsKgdGhlwqBNVFXCoGd1YXJkwqBpbgo+
+wqDCoF9faXA2X2FwcGVuZF9kYXRhKCkKPsKgTUlNRS1WZXJzaW9uOsKgMS4wCj7CoENvbnRl
+bnQtVHlwZTrCoHRleHQvcGxhaW47wqBjaGFyc2V0PVVURi04Cj7CoENvbnRlbnQtVHJhbnNm
+ZXItRW5jb2Rpbmc6wqA4Yml0CgpZb3XCoHNlbnTCoHRoaXPCoG9ubHnCoHRvwqBtZSzCoGlu
+wqBhbsKgaW5jb3JyZWN0wqBmb3JtYXQswqBwbGVhc2XCoGZpeMKgYW5kwqByZXNlbmQKcHJv
+cGVybHkuCgoK
 
