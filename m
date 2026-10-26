@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021438;
-	b=paeVD0EUThyPRTr0NPickMpu3huYT1e/s02ei12Rc9BiyfOYfB7/PXh+4N3h+GmDGtHi
-	 bsvsIWbhq86OViZeeUHbdnR5Jhehw0ZTkjeRsoJuUmfRo1lAb/hjGwz9RbXOg+L41QlqK
-	 CNTWjyb7UynS6J68bMyYzJEuV2CXKOpRM9cPo4oSgwHFOPKAiEhJsFi9uvBd6uWFLj0y/
-	 nFPLNJbuYQFexCilXEi2mhIHBA7Hnc0sCsyTCt5DJfD4XszsPUTs/X8qeAdXKPEJ2XhQ+
-	 FDBaHZSmg4txkS6VeYbHZvO3Wzx5hvjGqWbATttcKKHsZOAz4yM3Mlq8TuHTUusBpfQ==
+	t=1793021455;
+	b=k/A3ZONfpkQ0TSogRyLBoGxdK5QTuEPkYPnI3NGEaEE2dQQreR+a5WzizjVB+QWit2KI
+	 Cc9jK9YkwNxXXOemdU2ksffo5B9VMXUBl78XvkqwPhsdMhfyZlEX5W6emyvOH907gTojL
+	 eU8rmDUZVdKJupe8jsGQ+SIPc0B3V1hy8Yn5BVa0svWRusyeV2GmKgniWnc5ta1/81cAW
+	 LGAosvMHCIYwqSrOzxWXs5//evk55Cpad5eRtJ893othxhc4nTbVSnfZh5Wxr71T/G2LE
+	 aLJVuUodQ+J2c0E9dZS39iKgyJU0wKh2yUWxiHxgZK6A4ntjXzm6ipM3q5kn0uwTKUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021438;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=toIxbZaluxY/csBPcQI9DXYgAKoZ5TBqxydeOi+bj/c=;
-	b=tLLCL+zxHJBOzVRDgpLx3Kg50kfMc3z220P6nwJ6zmqw5C63TGPB/scy/dqimhecl3d2
-	 yv0UKTprDclLwHnHwciwcjC8BzW2mYvh0julI5Y5gcJxVcYQfqzC6pdhbmHcfpT8IgfaB
-	 qdXw5wTRwXDmzTChKVoHzxJIqHpuufUrixTnX7RHjwrGpsa0HLBvw7vQ32oBlPg0ROI6E
-	 c2RyG69uFtA6brkbK+TTqRnJyW3jOqtinmF9lSlDNOh5N7kz11W3rwed+fBPJ1WUw1MNF
-	 8mXKOdQBQfU9O+qZG4gKerpq7XGwzILZC2ZwG4ciVifcEq0Vuc+No2qDf0daQQE2oeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021455;
+	h=DMARC-Filter:DKIM-Signature:To:Date:Content-Transfer-Encoding:
+	 X-Original-From:Message-Id:Mime-Version:Content-Type:In-Reply-To:
+	 X-Lms-Return-Path:References:User-Agent:Cc:From:Subject;
+	bh=J4UXRSWdp9L+slM0l5w1zWdkgLQIsp44pt/Clrth68c=;
+	b=EDv45w5bbdUJ6rOoRMpvItJT2hYQrImhjRcUUvD3GdnxAlda4JuOQGiVdhw9/ZLuI5Ts
+	 OFhjBtGVDf2uMcNOXyAiUYZpdmhUZkqE0pC6eElF8dF7GUl1gjzbxF6+hCP2Dm+t30GVa
+	 ZBN5NG8EY0eDScpPzhBW1n/jGRRyHbyD28Ny3cWGDJG4SxjZFtX60G8r4tYjssqrINIHQ
+	 i689dcu8CIrmKbd06o7Wfy8Hd7G25sjFwCKEpS6u/b4dI1gtwKIopFmkkJq8pfgYZFKZR
+	 cf/4qcaJgystV22wTLEEwotbz7I58V7abatiOUGPlBY/gXbipcuqRe1jJm9abzf463w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGVZ47wI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=DP6Ih9JU;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C40D606A31B;
-	Mon, 26 Oct 2026 13:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713BF606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:30:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 713BF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mGVZ47wI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036271F01825;
-	Mon, 26 Oct 2026 13:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793021438;
-	bh=toIxbZaluxY/csBPcQI9DXYgAKoZ5TBqxydeOi+bj/c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mGVZ47wI25337aHc0NOtWv1yyF4Wr13lGlNU0XG3sGX8znCtezXzr6SETOrGIy4gV
-	 i5WKCyfjhnilMzrc6VZxQnvxoqHnZtR8dV3Cp5v5duGQMgSOHt3Bdii9a8O99M+4D8
-	 OwPzFtmfewyHhjItkGYU1CeJhM7ZE4noVYUAb7zp8Yh6aUfVDep8hXGd7G4cCYaaH+
-	 ZHAjy6jmkKFxeRJmQj7WqJTZFkxCymp2z9q3lQdhrk8G+VQBto3BJX8CL3JTHDQ7tO
-	 CdtL8rvP+tCLOF4CAcx5CMh9YpoNG3UoNLMk6c0qptiabQzLy8Rr0FjsbQWrlKRdiQ
-	 Wctnd8UfBfyBw==
-From: SJ Park <sj@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH 7.3.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Mon, 26 Oct 2026 06:30:30 -0700
-Message-ID: <20261026133031.26195-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026-10-25-1-daily-reply-0011-damon-zero-target-value-decline@kernel.org>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=DP6Ih9JU
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793021448; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=J4UXRSWdp9L+slM0l5w1zWdkgLQIsp44pt/Clrth68c=;
+ b=DP6Ih9JUTFHJoJ6beHoY5BaEe7d958V6WxgXvakOnJLZXpVkQEOcM0/N0cKL8kgrOk1NQw
+ cdXwr5CfUFsWgpejmChAasJS28yJSGdTRnAIRuPwr0vOkGJI2pPv5vnX7A+D7s4XKE/yMt
+ LN7YPQxWeCtsu+Wzgv7ckda0sM1xuuV3AmxVUyZLbQCQaP1vCFcQm2HtQsLCNZJPxDwGjw
+ JAnrx9LXT5xkjzKqaIk5+wTtR3KGbOnmfCaa+RBsQ3giDBE8rciRgjP8JhiWM51rv1ed6j
+ ZsmD9MbUg1nJgkR3Xg0miLmNUxT1UN1/Z71kuoXZMxFBvevjpwLmA690gREaOQ==
+To: "David Hildenbrand (Arm)" <david@kernel.org>, <catalin.marinas@arm.com>, 
+	<will@kernel.org>, "Ryan Roberts" <Ryan.Roberts@arm.com>
+Date: Mon, 26 Oct 2026 21:30:08 +0800
+Content-Transfer-Encoding: 7bit
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Message-Id: <52e7e1f6-3535-474d-9b46-6bb62f96eefc@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,44 +57,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1c0141e8-3033-4f59-b247-34dee14cbb1f@kernel.org>
+X-Lms-Return-Path: <lba+26adf5606+28b41d+vger.kernel.org+zhaogongyi@bytedance.com>
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org> <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com> <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org> <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com> <1c0141e8-3033-4f59-b247-34dee14cbb1f@kernel.org>
+User-Agent: Mozilla Thunderbird
+Cc: <dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
+	<lance.yang@linux.dev>, <mark.rutland@arm.com>, 
+	<akpm@linux-foundation.org>, <ljs@kernel.org>, <liam@infradead.org>, 
+	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>, 
+	<mhocko@suse.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
 
-Hi Sasha,
-
-On Sun, 25 Oct 2026 19:29:57 -0400 Sasha Levin <sashal@kernel.org> wrote:
-
-> > Notes for stable kernel porting.  The upstream commit doesn't have
-> > Fixes: and therefore not ported to stable kernels.  It turned out it
-> > fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-> > goals user input to DAMOS") which was merged into v6.8.  The user impact
-> > is a race condition that can result in divide-by-zero.  Hence backport.
+On 10/25/26 8:34 PM, David Hildenbrand (Arm) wrote:
 > 
-> The older trees don't need this one. The callers in 7.2, 6.18 and 6.12
-> already reject a zero target_value (7.2 also has 06befa61c427
-> ("mm/damon/lru_sort: error out for >10000 active_mem_bp") and a16fd3ad9d89
-> ("samples/damon/mtier: error out for zero quota goal target values")),
+> Can you paste the code here for easy review if that it the right approach?
+> 
 
-That's true.  DAMON_LRU_SORT and DAMON_SAMPLE_MTIER are patched to be safe from
-this issue.  But DAMON sysfs interface can pass zero target_value under a race
-condition.
+Hi David,
 
-> the
-> commit has no Fixes: or Cc: stable,
+Sure. Here is the minimal prototype I tested. It leaves
+contpte_set_ptes() unchanged, so present-invalid PTEs can retain
+PTE_CONT. The pte_present() check excludes swap entries, where the
+same bit position can be part of the swap offset.
 
-I didn't know the race condition when I wrote the patch, so didn't add Fixes:
-or Cc: stable.
+diff --git a/arch/arm64/include/asm/pgtable.h 
+b/arch/arm64/include/asm/pgtable.h
+index 6000905a2..2f89959ec 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -185,6 +185,7 @@ static __always_inline bool pte_present(pte_t pte)
+   * Returns true if the pte is valid and has the contiguous bit set.
+   */
+  #define pte_valid_cont(pte)	(pte_valid(pte) && pte_cont(pte))
++#define pte_present_cont(pte)	(pte_present(pte) && pte_cont(pte))
+  /*
+   * Could the pte be present in the TLB? We must check mm_tlb_flush_pending
+   * so that we don't erroneously return false for pages that have been
+@@ -1704,7 +1705,7 @@ static __always_inline void 
+contpte_try_fold(struct mm_struct *mm,
+  static __always_inline void contpte_try_unfold(struct mm_struct *mm,
+  				unsigned long addr, pte_t *ptep, pte_t pte)
+  {
+-	if (unlikely(pte_valid_cont(pte)))
++	if (unlikely(pte_present_cont(pte)))
+  		__contpte_try_unfold(mm, addr, ptep, pte);
+  }
 
-> and it is patch 1/3 of a series whose
-> patches 2 and 3 remove those caller-side checks.
+The diff is against 24a19b953e2a. The runtime tests used the same
+changes on an arm64 tree whose base pgtable.h and contpte.c blobs
+matched. In a QEMU/KVM guest with KASAN enabled, the guard-marker
+reproducer passed 100 iterations, and the fork and PMD-split probes
+passed five runs each, without warnings or KASAN reports. The
+unmodified kernel failed on the first guard-marker iteration in the
+earlier A/B test.
 
-I'm not sure if this really matters.
-
-So, I think we still need to add this patch to older kernels.  Please let me
-know if I'm missing something.
-
+This shows that the reported failure can be prevented by a small
+change to the unfold check. As Catalin pointed out, this prototype
+does not extend pte_batch_hint() to present-invalid entries or address
+the other pte_valid_cont() users. I agree with taking v2 as the current
+fix and considering the broader grouping changes separately.
 
 Thanks,
-SJ
-
-[...]
+Gongyi
