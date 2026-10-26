@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021825;
-	b=3JB/WJsBb2M3o6P/XJd9PCqbhD8dN6b2N7XRSAFdIJScjB/PS7h3WU+imeeqtNemLq8r
-	 5PARv2qwMHwFywwqbgC8cPZcaNMuk8k3W/G+HRpjFYepKedpGie+3CX3vO0GREq5cyBCp
-	 0kJycG+ZKDGhraQYri1/PCFFi/Z00EUcvH2+F9TjNELtAsO8U8syhKQeN2ot5PBAWrL9E
-	 n047m884oUyNAMCP9B0af5wMl/M8Tvs4uREvBe1vrOFtXXzl2Ffy4rEpqpIpzWkGBDFIU
-	 hNjBISAEZ+7YEgnAXu7x8s2U40pjIVfVL4mFwnDreRf/DB+qA69G/CrRJn8PaC6FJeg==
+	t=1793021822;
+	b=yZ2XYJXxbHQtsJQ0Xvwk2+rNHKjavWWVRNdJviqkZ0HR87bqyOMC25PEk7laXGsPYXsd
+	 GxEgeEbIJh7KZamO+xJCrMTEWpNNHai07Q7kClPiIF/UzaxUcSF2v80aAZI7UXe9Qpb79
+	 8HjSTye0dPjxtEBlQ39Ga8IVI2G+iXhE2nYLsQTV6xkaBNH7xqRPx1c7dTIDmqsgGYMKV
+	 vLbG2sbJhKp1mGaygLUdanR+/gp4WIE38x/idnID3mMK7mmaAxxtZRVrAJqDXiHfXwy+5
+	 4J71WIryAxs1VVnMN9AzuxVFO15S1xrxSH8Vx8cIyOOXfA8ftkKAzq2jHj/PzBZoIWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021822;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=/4ed/RMVrv6O/H4HMl4G3Xz4VIpFThxQX+sYINSnX4Q=;
-	b=Swi42uVmwPexkx2UriIwTMa9zx0if7oR78dLJyU6li7k4XLYaLXk1c+LpR1Gyca2c5C8
-	 k8BwAqlAzlImVCVQOfs+G4knfZ3KzPmvsARXmbsLE3+mDi1NDdeYk1rqHJjqAOsoUJdnP
-	 2vihD2w81C4eMIIQ6iznWYldF+bbYi+UFpGZmO+CvaeKflDQmaBDPbPjOvsl+MMROGZ/R
-	 ePiaPkCCB1sdQF+mB7zcQ2vuj9uxLn/Xn5PwceApXF9tzePb0KRAecb69RKpoaCjtsZuF
-	 cl17SH3/wIruj0CUY+wgmPOR428+U7R7vOkrJQNKhaCZd3GzsAX1hz6S31/MEfvplew==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=5tMMGpxtoQZxq0cbe4boMn3nqRQBhfDysNVoo7AMAY8=;
+	b=kX1vwQgznkLwuj1enUrg7krH8mLET/GYv+XwFtn4Fc1fX8pAecqRb7sx+2WVGdvxg3tJ
+	 uutC09VXmBfu8+r6TphKnklCS2jIsmJZHRSx7pRM/HnOENpMlDw+Vu0SEcUwBS1WMadC+
+	 QuPVnmKMuyFhWcRkGE3I53qBw9AMEXSunYzcAtpmFyeykQ3NpbWq7x7k62CxwYGE1C8DX
+	 xjqsm2nf1FmxC1AfdAKA2TncI/rJq9M35PcUvt7NrpGJ+dVSTagwXJEtXdriA0M7FyCV5
+	 ugrOUX0qfDg6uLQb6EAJZquD0vwUYzuLMWakHoSB7VPOFfw0+WiHb1I0v5gjWCHdapw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=snu.ac.kr;
 	spf=pass smtp.mailfrom=snu.ac.kr;
-	dkim=pass header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=NCTDIcSI;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=t8AUsbBG;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF8F606A32A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:37:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DF8F606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7698F606A325
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7698F606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=NCTDIcSI
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35f036b17easo8110347eec.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 06:37:03 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.a=rsa-sha256 header.s=google header.b=t8AUsbBG
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15943c9c005so3834395c88.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 06:36:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1793021823; x=1793626623; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/4ed/RMVrv6O/H4HMl4G3Xz4VIpFThxQX+sYINSnX4Q=;
-        b=NCTDIcSIp/qQbuuAsKhDPyilHajdNZXntIojx/ZDrMTRJEN7j9tV2m3XwUaABC5uQq
-         024j4gUvZn70Ymwon/ZM3CWUA3HTsiy7MTO5q/2xY97bpwtrX51lDS4QxMM4eK1zzseE
-         ZzZkwzauWXr0wG5f25qy/Jq/QVXjxgPZckH4M=
+        d=snu.ac.kr; s=google; t=1793021817; x=1793626617; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5tMMGpxtoQZxq0cbe4boMn3nqRQBhfDysNVoo7AMAY8=;
+        b=t8AUsbBGZl7j5ze9xZyez+XpgRZcYy1xDR2p4TSbQ91kJl7PLRjRrNP3+ch/7+ihjV
+         u4Hyou2L3OvUhS1sw89zli36GmqqR9cx7EkfZDd4L0YEF0k/XqcYY7U8qDzXlyMwoHmn
+         1nfqzZscpfXOI1byWWTMrFKq5OuK7qEVFT+C8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021823; x=1793626623;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/4ed/RMVrv6O/H4HMl4G3Xz4VIpFThxQX+sYINSnX4Q=;
-        b=nlpdsftq/U4c56x8ZezooUYsWAUUNhsyKdDGrxDgSDuTlYrgdmTUXyAy3PaswtblMZ
-         aiXIWZTkgZwY+4Dq8ogERiJF2IBAJHUBU9kZhsXjVVgE+hDY9rDBcCSCzbtbnK9HcRAt
-         54/Idi9WMzZVGdi+7NP9gLiyJfBrGN0Ww0MDcVRWMx3LtFyoAihSnR7zhzy5ZO5qtNf0
-         m5sSbDgn52WRqh9oNznqQFQhR76cK5aODDXbXvC1chcYIotbqR/04PA/ssrsC2yy05Wm
-         kUCODAVYzj01jTyCtD7XDU75kjsg5oSgFsdfZM1fknGS6nQTWwRhrzr8c/8K6szZp/gn
-         +2Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBw7FW5kGenLPlqmaECih4ceLGIuKEXQ7yWE/fAqvJKwYfmP2qamIvA/zL9SE4f4wYkKhkMtnNA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv1s8yGrP01L439GHQzPnKDL4gYq6di/2hUSdOUqFZTUBn4suq
-	57nSFozi/X+khkXQOdbFMOf+QIjkMprKVEMge+WwYN3ibkhbb8DM/DVhsVo8bHcaw1U=
-X-Gm-Gg: AYBFou0cBUFbFzeT7dj6PJHpozXB6Ji5rIyE+7g95MeJTmYI1G3SVtPwmdPPOD1i+pa
-	z8TkF573sGE+cjo7Dj5oBKVSFSDnSGU70pjRMLGHkL+YjQ1RISFBzLKjvb2lWxxvX3YDtTBTiUL
-	7jh+3nbE1sQfhlBDi/F0uSHZoMHcg3ai3hk/y03nsIWIkBFsjXkf8fHHjF8JS4zYKPptqNYAMnL
-	166NJo88VJOro+DY8kx9NmvPDebcBw5abYxJBt4MU8bLNWAlP/8CfDVkic6qhPr5vOPG1slZZW4
-	/yv3xcKSFiJG0t8yhOJLfDU3QaX92YdTV191SCpg4l2eGU/LqLbdNMsXGVgb18H0ih2HyumMY6r
-	KPAoFcQDJN2U2uZ3sLo6pj5740NjREIPey//5AAsQapGHaB4PKyOESrGxkR1UFEdotlFL4C+PGh
-	hhy/ILRHYDDEpwqULOhiDnI0f0q0BWtbOku2UkDFQ7b96sckjgSq5OAUMcKGw7sylMIirgrPaLj
-	ejvaUsfvpUhIphZC0n3CqhszZUnltqoDfhUevaHU/ubaycrgMbVhUTGgP9mOWS2M5HHT68=
-X-Received: by 2002:a05:701b:2085:10b0:190:d0d9:3110 with SMTP id a92af1059eb24-199406385f5mr9674399c88.45.1793021823146;
-        Mon, 26 Oct 2026 06:37:03 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793021817; x=1793626617;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5tMMGpxtoQZxq0cbe4boMn3nqRQBhfDysNVoo7AMAY8=;
+        b=oQ97SNgExpXZ01AV0sDcTbjGSTK3e9/aktm8x84zzsB0PJaZe7aAfS5sooitTJXmID
+         q6CVpWutMqD+60O18DMyArqPRIOukWL7VvuC6i7v0YpRBmb2t3xqEwrRxfYcLzOrK00O
+         lF4oagjVrhkHGXyTbpa8AD4PJy8EFA9lljBntHYHMMKu8+h3SrpLmh2MKZ6vEU59ZCmo
+         za9oJRyHiXBfGIQFvptKTIbixPjy6ZWmCq1lOb6A0tvGyVLYWzX2eLagEgH5HSqfD5TC
+         paefVIBWsjCjbVNNoBgasfN1NVMZvvW06LYrxAwK6SIBybYHi5cYcuqQFpPIrupSI7lx
+         /5Aw==
+X-Forwarded-Encrypted: i=1; AKwUvBwl1Eor0ZLNlZzRpPfybSjV2lM2rozJiD7hZeJRj+1XpZC3NDsd6RTMpMyGXnJ0r1QrxUdfDhI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIj0AB2O/0mwIUVR8Fa2xmSLVUYcnoJUIlu5iLg82kdv8F3JTbs
+	+rfS597zIMTcbTXuZwriAXdJKl64Q/SxnKMf4Eg3bO3o8YMAJ87+LcKFzMrOAIGA6AI=
+X-Gm-Gg: AYBFou2Q+cbQKSE9DWIlPhQDbkk/eJdgBw+CAZi88ej1cGVztjyD+nrY3J813AK6Qcb
+	+cB6vnnZMbU8kpz7YqKbFI7qC645q08jVRUXr8PRIU2cRyQBwQUHsa0tkhKT/i64xinMujxgcvB
+	6DRtWwiTft8hCfaicV4KU2OZRZ7rzWNnHd1o1xHe/tCUIl6nS2hhaARKn0Bvck8+tM6s2o3bHMf
+	VpPkONHuz4dRK7ankXWAUzGeHb7IkbY+sVo+FoMPXShNvEE+iAEqcx91R86g2k+ietX5lzU4ZOr
+	zPR1nXvaOCLAqSLKVpu/Man9cOZe+9REBxkWONN5xEfxBIOL1rzBjcLfBCkMrFuimta3ixkIMsv
+	hgws0LzUFKOBZQ9z9NSaASsnFV1HtBRO64tu6LnbAm6v3E6uFb0T87mLKUuHzArzZDVuPgpbtJ/
+	l0vl7WqnQeJ8+3p/3F3vKqWnM1QxqyvzllcqBKS4kW89Ob1HWsXppcgrUdhr8f45uSFkmbjX+ml
+	ozJx8VhlBqzxbjNPx4K9TTahLIExryD27Ik0L5OigLVDnWb2g==
+X-Received: by 2002:a05:7022:48:b0:16d:1e24:5cc3 with SMTP id a92af1059eb24-199375eb24amr13097855c88.19.1793021816370;
+        Mon, 26 Oct 2026 06:36:56 -0700 (PDT)
 Received: from [172.19.0.2] ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm22432520c88.8.2026.10.26.06.37.00
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm22432520c88.8.2026.10.26.06.36.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 06:37:02 -0700 (PDT)
+        Mon, 26 Oct 2026 06:36:55 -0700 (PDT)
 From: Seongjun Hong <hsj0512@snu.ac.kr>
-Date: Mon, 26 Oct 2026 13:36:44 +0000
-Subject: [PATCH 2/2] iommu/io-pgtable-arm: invalidate iotlb on dirty pte
- read_and_clear
+Subject: [PATCH 0/2] iommu/io-pgtable-arm: fix missed dirty pages in
+ read_and_clear_dirty()
+Date: Mon, 26 Oct 2026 13:36:42 +0000
+Message-Id: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,9 +90,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-iommu-arm-fix-missing-dirty-pages-v1-2-115b6b1cc0f5@snu.ac.kr>
-References: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
-In-Reply-To: <20261026-iommu-arm-fix-missing-dirty-pages-v1-0-115b6b1cc0f5@snu.ac.kr>
+X-B4-Tracking: v=1; b=H4sIAGpX32oC/x2NQQ6CQBAEv0Lm7CQsCqhfMR4WGdY+7EJm0GgIf
+ 3fioQ6VVLo3MlGI0bXaSOUNw1xcwqGixzOWJIzRnZq66YLDmHN+cdTMEz6cYYaSeISuX15iEuN
+ j355iP4TzEC7kO4uKp/+P233ff+UKJCBzAAAA
 To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
  "Joerg Roedel (AMD)" <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
  Shameer Kolothum <skolothumtho@nvidia.com>, 
@@ -102,87 +102,35 @@ Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
  stable@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-Use io_pgtable_tlb_add_page() instead of iommu_iotlb_gather_add_range()
-to prevent the undesirable case where iotlb invalidation cannot be executed
-because gather->pgsize is not updated before arm_smmu_iotlb_sync().
+Fix missed dirty pages report in read_and_clear_dirty(), which is
+caused by 1) unaligned iova walk address, and 2) missing iotlb invalidation.
 
-io_pgtable_tlb_add_page() leads to iommu_iotlb_gather_add_page(), which
-updates gather->pgsize. It prevents missing iotlb invalidation because
-arm_smmu_iotlb_sync() invalidates iotlb only when gather->pgsize is not
-zero.
+First, align down the iova walk address with page size, noticing that
+small dirty pages following large page block (e.g., 2M) because requested
+iova start address can be in the middle of the page block.
 
-Update gather iova range only when IOMMU_DIRTY_NO_CLEAR flag is not set,
-as record_dirty() does.
+Second, use io_pgtable_tlb_add_page() on visiting dirty ptes instead of
+iommu_iotlb_gather_add_range(), which is called in iommu_dirty_bitmap_record()
+and does not update gather->pgsize, so that arm_smmu_iotlb_sync() does not
+invalidate the cleared pte from the iotlb.
 
-Since iommu_dirty_bitmap_record() becomes stale, discard it.
+Thanks,
+Seongjun
 
-Fixes: 4fe88fd8b4ae ("iommu/io-pgtable-arm: Add read_and_clear_dirty() support")
-Cc: stable@vger.kernel.org
 Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
 ---
- drivers/iommu/io-pgtable-arm.c | 11 +++++++++--
+Seongjun Hong (2):
+      iommu/io-pgtable-arm: align next walk address to large page size
+      iommu/io-pgtable-arm: invalidate iotlb on dirty pte read_and_clear
+
+ drivers/iommu/io-pgtable-arm.c | 15 ++++++++++++---
  include/linux/iommu.h          | 17 -----------------
- 2 files changed, 9 insertions(+), 19 deletions(-)
+ 2 files changed, 12 insertions(+), 20 deletions(-)
+---
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+change-id: 20261026-iommu-arm-fix-missing-dirty-pages-3754a7b18b19
 
-diff --git a/drivers/iommu/io-pgtable-arm.c b/drivers/iommu/io-pgtable-arm.c
-index 01c3f9cd5d9c..6513dac26e79 100644
---- a/drivers/iommu/io-pgtable-arm.c
-+++ b/drivers/iommu/io-pgtable-arm.c
-@@ -870,9 +870,16 @@ static int visit_dirty(struct io_pgtable_walk_data *walk_data, int lvl,
- 	if (iopte_writeable_dirty(*ptep)) {
- 		u64 iova = ALIGN_DOWN(walk_data->addr, size);
- 
--		iommu_dirty_bitmap_record(dirty, iova, size);
--		if (!(walk_data->flags & IOMMU_DIRTY_NO_CLEAR))
-+		if (dirty->bitmap)
-+			iova_bitmap_set(dirty->bitmap, iova, size);
-+
-+		if (!(walk_data->flags & IOMMU_DIRTY_NO_CLEAR)) {
- 			iopte_set_writeable_clean(ptep);
-+			if (dirty->gather)
-+				io_pgtable_tlb_add_page(walk_data->iop,
-+							dirty->gather, iova,
-+							size);
-+		}
- 	}
- 
- 	return 0;
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index ef5043752a36..df57ead2cc3c 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -1106,17 +1106,6 @@ static inline void iommu_dirty_bitmap_init(struct iommu_dirty_bitmap *dirty,
- 	dirty->gather = gather;
- }
- 
--static inline void iommu_dirty_bitmap_record(struct iommu_dirty_bitmap *dirty,
--					     unsigned long iova,
--					     unsigned long length)
--{
--	if (dirty->bitmap)
--		iova_bitmap_set(dirty->bitmap, iova, length);
--
--	if (dirty->gather)
--		iommu_iotlb_gather_add_range(dirty->gather, iova, length);
--}
--
- /* PCI device grouping function */
- extern struct iommu_group *pci_device_group(struct device *dev);
- /* Generic device grouping function */
-@@ -1449,12 +1438,6 @@ static inline void iommu_dirty_bitmap_init(struct iommu_dirty_bitmap *dirty,
- {
- }
- 
--static inline void iommu_dirty_bitmap_record(struct iommu_dirty_bitmap *dirty,
--					     unsigned long iova,
--					     unsigned long length)
--{
--}
--
- static inline void iommu_device_unregister(struct iommu_device *iommu)
- {
- }
-
+Best regards,
 -- 
-2.43.0
+Seongjun Hong
 
