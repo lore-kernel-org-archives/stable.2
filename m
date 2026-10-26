@@ -1,99 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793029863;
-	b=uoiSmoym6DKW52ewAUYVnqzMY2NcHoWM6GW96fqZddzMjBNDFDeA8/U7vjl4WhhNtL5j
-	 WHdncqQCaoJAoioMz7YWL47aMghymo/KyJ9U1p371yNFP3ICliVVCCNyriWlNuha1N9Tp
-	 7PnhIinFv4VXsVnYHyjPo+NUOTkG5U15yKYWSN687+KlaxAs5pp7cOU7YsnKxmDS9Ow/F
-	 57iyo1h0iHeRJUCzUcx2YHcFnQj57GkiLKuw7Qh01H8WL/0bFwybUfOFfrB3vX45TxUpB
-	 VAwolfr9LttU3CLGKB6Cy0WvB60lBTJcLuAkr7l8G44UeZF053+ubHEwH3Lcu9ElPGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029863;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
-	b=eGNOUkHW2GSPb5DT7jGJ+xreFaX+v2u8cukwWGVpzFdJKGy/TpNxBO/SdLFpfWYH+1lP
-	 GnfJJl1NQpqhGFZcbOKzmdKA6dxjMxpi82anybXz16yM+wKW5aFwfFQ4rqcNT7YMDzQjE
-	 vkZ28CPTkYv0NNMg7qqoPT77sfLAt/oktQF7vnQEHQNT5y7zywjdr4u3880I+uG1nNdWX
-	 O8eLAGVJmkEwCN9Isd6o1NJBqUaNFpHwX44DuKF2ze9YaxpYp+cZZgIOHhyOL8rovMxUA
-	 EDe2zloP0zdCxezHPl+C/hbWtxtLE3jwpu8FperIjZ3EsripnDTAQB/Sy5z901k3qzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X9ZL4rku;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.138
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793029936;
+	b=ayc65IEdoFsA5fKraLUFjTVTKqwPF6VjxzlEIXLnywWQNaauOGpJukcAzp5TweHRZTky
+	 d9kr9+Tfc5ghLHSY/UP0bo5aRzZMb5mserpizjuVJrrvRL+riRMebbxyvYE7aqmT6Bd20
+	 3sK+F/x9wFoQ9ATK/S13EOBzeRRh9IT0civQbcjB6RCjSrOAdAzx1hFCUAvjB/zzYHahR
+	 WNVLkhq3ioClAt04K7QB+2sUhnvHU1oWzDg4Q8zhTi2xrF3UmVuybgfgBgBhW1Qgu+WmG
+	 ANMXlnNbp7/LiL3u/FCtUQNCnJsNH9dRrxA4NpI5E8Y02gGq59SLlmimENii0u8Fi5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029936;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CPgBc4xaMzIFqQc4IC3B48/bd19HMe5+87bnM/Zq9yc=;
+	b=QcFWyWbuEyr9mEZjHZt0r09CekERLR4wbKqZ0Fa1q3iS7X8tyMbSK2JXaqxjN53UP4lt
+	 aXyVS4encD+5PBPhDq8udDgwSgBX0q4hxWI8J/Pn/PDNi37mRq+RwB2IIUkoHjx+8CPAl
+	 G0TfvJe3TVaqU1DeqX+ruhd04/WBavuci7bQwwmFP715paD9chxXp4GvlaikjCNZjHtE9
+	 iaFXkHpKUTu3eLcbWG9oTvzu4JV0a5cxVVAqOmRP8Ppxg1NYxEqXckR2P3xBCYFqVE6xl
+	 W3v2K7lI99tgKs4r96lCiK5YGlgPZF2Dz56xVW1XC+64jBmxaUJzkl0jUr60HZb3kQA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=o0BKoQCE;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="Kz0s54/5";
+	arc=none smtp.remote-ip=103.168.172.138
+Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C8B606A337
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2C8B606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09633606A31B
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09633606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X9ZL4rku
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1955007f8f.2
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:51:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793029861; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l7DtEiS/nKF04FS0BXRSxnYt5FJgRZ1rhRFoHOFgqbjhGsNgo0OFXY+MbhcCfhbzcm
-         WA4DDkj3MbcjSdJhjjRp/gD91zLwBf82yS3IpbBfGzQKukktecjg4Ii+Qamd9g2w0NPW
-         WJR+PuXM+5EMG5+RoBt1N8n+x9Zg8MINo7wbrZsh6sTeXFNF68ZGYKsEhhddappxpvRx
-         Bwqz4/q0ReczsW5TsisPBLCpQq+WfSgjdHR4w3swkpnXploWdOGU9g+x/SeQbPTUslkO
-         gydlf5dqO0iTQ3dzMdGPcKfXGTSCEnfQDDJ6xEa+MzxnWYXAE7EXvhLkcwvUgEx4b/8O
-         tm0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
-        fh=BeLXO3eEBTquvoWWYp6LzUpmz0qoo9VjmzHalglQW+c=;
-        b=qnDNlnSjug5nHZ/o/8AnDr/sPf/4n+QPx+plVlqu305voFeJAii2EycC1C0jbOgSde
-         +ij/QHmxDI+1S/XI6e+QzfOItWtkQoyeoVxxmt52vHFjQNRt79/90FeeHrjVWqoQGpH+
-         Yg4AGilygcjivxqwgDhw5bgx9fobrIR6uoGNM1P1xfBvT2ni7gjEjqf9cPpZfg8Gqa/Z
-         0Aynhpxzsa/WFM8qwAUh//QWivQFlJPTF3cfqMB7YpzIzTTKkw0Ocf9KV8cNRNzepjRU
-         SAoegax6Y6LB2UR1bSlWiGCCLjk7qbk5CyUPp5TmKa7HPeZUwhTG+SShlPsL8OVW9bAU
-         zncw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793029861; x=1793634661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
-        b=X9ZL4rkugLvO7LxSdQ5vS8Il4pgnOi2qXAZyQhbKXSitZBI4ydhl7tcDP6pOCZdgyw
-         QqiKsOBV6UmcyddWQSV5302hHGhASyoLLNCDpWla5S2sB6ReUrIUAHMjmq0bFAW53Eh9
-         T7xHVqhRw2TSIenPNEhZ8MtXs4YA7DXJni42z1xd7lbLu3YUGuE8RZ2h55GF0+Lp1uwE
-         DO+Wo5Nf/ARBC8EHNJ74CQnykrLihY9tSIOAssuLbi6E/pCT+s6233GYLy7IPr0ev51e
-         1p4XwZKzZhrnW3D3VuwLlguXPzJhNKQ/M5adh5C3d+RQj2DmG3MhRgRF0yV4P3Esmnnu
-         sJ6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793029861; x=1793634661;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bKsgXgjGIkOA8iceV7p3hQ+zbnJh/tzJ+7YRE2rLUAw=;
-        b=ZRDzM3VSkO7tgUpcFopZD4MC6oAri1M99YL86pez6mFmO890t6q/a5i4D6ymqJNPZW
-         I11Z+3vErKI2NmM+5clYbFu11attenvQyAo5gBxvUCL5xa/DejYVne4L9mbNR+yRGfZR
-         OiEQKvisVwYtQeDQG0QE2l8wVChKDu0mTcNaxuUj/1zc/bWPB55/zbgokDDLz8mkicZw
-         NDJRZdWnfxmMKkCETBQvMIY8LiJp9n8XdE5rfDfAhSb9+9WBqogQ4wpl07E13YBGHB22
-         TOkcM4rOPe7aTaUYeR0DV4QAG1m4yzyIJIA+GzlM4/4k4t+cWTjicsb33fAZCwQ8tL88
-         eClg==
-X-Gm-Message-State: AFq9FYL3mBtV9xRtXuZ1zjGjJqMOEP9unvZUzH9I+cEnPAVGj+ah4FqD
-	owt0zyuvNJUW0VusRoJQuvtWWmMybftbThR977gORMcOGKDOVcA6e52Jucm4SJePzFRkR3Qe7sn
-	jvkdr9p3QLyzUiOcfybqpiboDhnui7iY=
-X-Gm-Gg: AYBFou1LHwp1Nvoq2RC03xoNh2nfSmZ8BmBXwC0FzAZ70qj/HTc685xAqz+hh655DjB
-	mWfBXdwiNvrCTl4shUHdtlaSxhC3G5dVvHgcEB/uw39H94shZfofxpJYhuGlR0wfHglfDRyzNk9
-	Gsm7bPSHZHXUHtcfZhtsXPyWcX/uv8YesARFds9nFFksq9xIQQxiWd71YuyFGE4zpIsFbnOOUfa
-	Ufc1TVlL3141eDVDojDezeRgbWQZnniowOdSzHgpSVg6sWsrvrPZcTOH1wiN/AjwAS4djy1iqlp
-	Wx1TiYBI/xFfo0TjVt2cigxslQaFEEqYm0EJt6DdAfBiWgjm8XFGD+8KQjdQ+Ut9ODDlK/+GZv+
-	rDCAdBXbU8vrmVT0uh7P6vjYsTLJFRzPlkGXzbS47pUSVY9fhIV/W62M9XYzAbQok+MSW
-X-Received: by 2002:a05:6000:188e:b0:48e:3085:7cf0 with SMTP id
- ffacd0b85a97d-48e3eb989d2mr13878477f8f.51.1793029860404; Mon, 26 Oct 2026
- 08:51:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=o0BKoQCE;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Kz0s54/5
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id 57F4F13801F3
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:52:15 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 11:52:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793029934; x=
+	1793037134; bh=CPgBc4xaMzIFqQc4IC3B48/bd19HMe5+87bnM/Zq9yc=; b=o
+	0BKoQCEo3nSrcyVCxtJP1KJxl/yw5aVebOquu+la35y5fz9jh9W0wIbsccWPZOtw
+	lPv0PfFhRS36jmErd0kS3aCFrWXSr6hBe03n1budn0uiDaaykqK2f/fDwglTEM0t
+	PwRTOZut60Q9SQoxlkepYalWady5fZJfrJlIjjlj/ouTkGyII3DFnbBLlyiSIgvV
+	HHQgPvG5QWRfaHVffWOinWQo4RxSsggAVN06fL9rqytCyZKaVtvisskLTe6pRuZU
+	qcGSazzOT/ln+dhx15bgJEhjQlIkGf0AuMAgwSAlVOy34OCMk1Wg6x87uYKnqG5c
+	x7vr6szoyhJTqwIVnvqvw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793029934; x=1793037134; bh=CPgBc4xaMzIFqQc4IC3B48/bd19HMe5+87b
+	nM/Zq9yc=; b=Kz0s54/5iJjqL/Hh3p2OtVE9uLiC6AN79waFcNg2he6mabZvfnm
+	n0XWxAimat+vJBiSn8Jmd3iLewQGdKw47wOJnPMQDOdSKl/xZ15jrFiCga3kHtfL
+	M6gAB6obdV0GQEymXG0DOWwQhKGTeNNAuPSqWN78l1t4UbPSAIJWNnwkiJJQ4YTr
+	tIBJTJTkj9DwvnS19J2+X0k9gt3dbElymBO/yct7zQlUPVlLMAo706mTvH2cOUwO
+	jmuESzMcfXZ1yXG1biavNgJK7DU4hfnaioqEiCZ1ifmblUbrCkMy3YXTK/JkGVlH
+	erWJcKTsyKCkg2+QATFWk/r4KG4nH6Soaww==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793029934; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:b8cam9gTOfKf+eRSradQLadE69Z+ZRJP9ES3DdMuTXL2x7O
+	zjK+TJNf2WlxhlCE6tURZ2y3pOfNvgaSFbaQ8xdC5VvVcMmS5utmdsCQxGEa+Lh+
+	CoHhz9VIx9DeeHrdPkwONxbi/jLSkec3C92GfXGt6OzNGrkccpf4PS3/j0qjFzIy
+	s1Duv6cZ0eV6gW6Z/ngCzwx0cJKqwYnHX/7XHE4HKqKdxhYu0/EGTiyXjctO7GHo
+	+WEMlcatWSNRKz4YQ3Zb6oeESrDWhBugD50nKDw8ct4xRpPjoriGEvOhY2Vv6axR
+	4425t4ekZdMSpV69AWRgeuhTzr+8zb3lzwvItCA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:TSptQC+uPMW58EhXC2TW+E5AzwHwIj0iAaNeMtqyI1A=:5YQRYL/pXslXA49efxXcFJfhlbdrgkaeNfpXN03LNGc=;
+X-ME-Sender: <xms:K3ffahXllY81gQANBHMWb7ApPzS4XFdgRPGgmQsQBZqVrOI-rfCLvA>
+    <xme:K3ffaoS4f-N2KBXy0sO2JKuIUYhwMZ9jSMURIQtPmKJaFiuHdBHnUX2StJGa_IL5L
+    8A0YepPvhed_5e-_CoeEJI8vqWAoNyRTn1Ki4XBNBlLzi4HYd5E7io>
+X-ME-Received: <xmr:K3ffann2o7DU9q1N8a1-EiSkbdymdeOHlv95OV7smwUBwfgkxPDQN5Osb3Y>
+X-ME-Proxy-Cause: dmFkZTEkSluo7FEz7n1qY7QYOfbn0owFYeZY5oOq3jGyfhvPnNpVEknLvAeGR1+iGM3syA
+    9KIyaf94wEd0nEJHg2+khnrAfvqxgujFfy94I/ENHCdc0906l3qTkFhAemCDZZtRoxQBpm
+    ISOWhrDqbIIdQD/XOE0Efd3BZFKX5jwo5O5BVQet0MVPWPwjx/89wQFabKcqsb87E2zGhQ
+    AhHs9zIIZ+GdDFr2ga3NpUuXWeHL9qnhJdz8bu55mbEWD3a9HPXRp+Z1vqFAzmuJVpG86o
+    jDvHzSpOLflmtoY1U6+79dpdUBqHq75y5KpZ9OM97P7mgyK/gICBKBi13o7qY++ND5OLLr
+    YZTLwIugW9gTdbWrpRzW1DUeaLESRpM8rozbGIb7htDEohjfWM6G0235tRBvr5Lq4T46p6
+    Hy1JiSS0d+flJ3EyLB1tHFF6xqKs4XcGDrliXW8nyDab27YUhPkoMSrRX0Q28XOlGmGwKk
+    qhM8mFIJrU5PxpeECU37qyJkils1hwny+zsf1IpG52mzKP1ds/hxmicboQ7qzWJxQ8S3+0
+    Pv4PtDi3sLD+barIJSVFqqNfykQ7mAowqBqY6pOX02pWMz74t/xkVx+6Bx4Ok7znZcyAV+
+    GJ2hnpW15TnIYQHZYc3bCOWkqiZotgTDwAtJEqKb1lbgbzxXsZhL1SoYbGuA
+X-ME-Proxy: <xmx:K3ffak_F0cERTHmcQXmxXAI7UweRjo5_rxdsq5rs3fPxmQdpTENHJQ>
+    <xmx:LHffavWFQzi_x4edbTi0is-2e57xE3DOZA6BYkc4e8CjvbhJ8LLUBA>
+    <xmx:LHffauT4MRVbf9U50mVFfA6bl6K-ealI_VMKfGYJUT-sh9uJVp8T6w>
+    <xmx:LHffav0lwvfFc7HeGCdTdI6O7GaLWe95hMP8ont6HY_mJQ1JZHKKfw>
+    <xmx:LnffaozOOq9MK8xz-qfmkdgz7WlkK1yxG60yntUXhVC7MpPc-gw5b-C0>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 11:52:10 -0400 (EDT)
+Date: Mon, 26 Oct 2026 15:52:09 +0000
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
+	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 04/16] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+Message-ID: <at93HVbtV34eDnOM@thinkstation>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,78 +134,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
-In-Reply-To: <20261024-fix-mglru-v6-6-v2-v1-0-8c9b40f9fc24@gmail.com>
-From: Leno Hou <lenohou@gmail.com>
-Date: Mon, 26 Oct 2026 23:50:47 +0800
-X-Gm-Features: AclHuK-UIoIZifGedzig0AVlg1gdG1nFGKFJjMrT5d4WbZ_UIqNTGMQni2-e8e0
-Message-ID: <CAGQVrL85gG09Uo_+PgGxNOrh+a71eLhsnZn4e93aubpMvXGK5w@mail.gmail.com>
-Subject: Re: [PATCH 6.12 0/2] mm: vmscan: fix dirty folios throttling on
- cgroup v1 for MGLRU
-To: lenohou@gmail.com
-Cc: stable@vger.kernel.org, Wei Xu <weixugc@google.com>, 
-	Zeng Jingxiang <linuszeng@tencent.com>, Kairui Song <kasong@tencent.com>, Chris Li <chrisl@kernel.org>, 
-	"T.J. Mercier" <tjmercier@google.com>, Yu Zhao <yuzhao@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Barry Song <baohua@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	David Hildenbrand <david@kernel.org>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Qi Zheng <zhengqi.arch@bytedance.com>, Yuanchu Xie <yuanchu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-fixes_shmem-v1-4-703206d5fa0c@kernel.org>
 
-Sorry, please skip 6.12 branch and just use 6.1 & 6.6 branch
+On Mon, Oct 26, 2026 at 10:40:37AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> The owner of a memfd sealed with F_SEAL_EXEC can still change its
+> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
+> this lets an unprivileged owner make a non-executable memfd executable,
+> bypassing vm.memfd_noexec=2.
+> 
+> simple_set_acl() updates i_mode directly, bypassing the seal check in
+> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
+> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
+> in include/linux/memfd.h.
+> 
+> Fix generated by an LLM and sent by Chris Mason in private.
+> 
+> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: use common helper; simplify description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Thanks
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Leno Hou
-E-mail :  lenohou@gmail.com
-
-
-On Mon, Oct 26, 2026 at 11:46=E2=80=AFPM Leno Hou via B4 Relay
-<devnull+lenohou.gmail.com@kernel.org> wrote:
->
-> The series backports the following upstream commits:
->
-> 1. 1bc542c6a0d1 ("mm/vmscan: wake up flushers conditionally to avoid cgro=
-up OOM")
-> 2. 13b6b6209104 ("mm: vmscan: fix dirty folios throttling on cgroup v1 fo=
-r MGLRU")
->
-> Patch 1 wakes up flushers conditionally when a memcg is about to OOM due
-> to dirty caches.  It restores the flusher wakeup that was removed by
-> 14aa8b2d5c2e ("mm/mglru: don't sync disk for each aging cycle").
->
-> Patch 2 handles cgroup v1, where balance_dirty_pages() does not throttle
-> dirty folios.  See 9badce000e2c ("cgroup, writeback: don't enable cgroup
-> writeback on traditional hierarchies").  After 6b0dfabb3555 ("fs: Remove
-> aops->writepage"), reclaim no longer writes back filesystem folios
-> directly.  On large memory systems, the flusher may not be able to write
-> back quickly enough, leaving many folios already under writeback.  Since
-> MGLRU cannot reclaim these dirty folios, the system may run out of memory
-> and trigger the OOM killer.  Patch 2 throttles reclaim after waking up
-> the flusher for cgroup v1, similar to 81a70c21d917
-> ("mm/cgroup/reclaim: fix dirty pages throttling on cgroup v1").
->
-> Signed-off-by: Leno Hou <lenohou@gmail.com>
-> ---
-> Changes in v2:
-> - Link to v1: https://patch.msgid.link/20261024-linux-6-1-y-v1-0-cf381365=
-f30b@gmail.com
->
-> ---
-> Leno Hou (2):
->       mm/vmscan: wake up flushers conditionally to avoid cgroup OOM
->       mm: vmscan: fix dirty folios throttling on cgroup v1 for MGLRU
->
->  mm/vmscan.c | 36 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 34 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
-> change-id: 20261024-fix-mglru-v6-6-v2-d8bc9d4183c7
->
-> Best regards,
-> --
-> Leno Hou <lenohou@gmail.com>
->
->
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
