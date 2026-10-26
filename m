@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793012115;
-	b=eOAgmk04IzZdF81aXUOWhtEDqQKBoYCNztiPNyHNkBPeHF6NXj6dw0Ed71ybeHxuXLsP
-	 x6w0b35hqbkeZLSEJUNwXvqRp1GIL4rvGE/7g/rmCxIXrQB6h/SGs9cbrbq0hpfm7lCyh
-	 hV3nZRWaq3cUdA4es8Q+7pM5KyqCbdcXnHpkTkymcCpv7oZ0mcl00fD1wowllVhWpK/xH
-	 PmVhyY+ewq4IeiDMQ+iyWT0LPwQYF+nWgCuJk+w3epZvm1AhTKaBWQTMc0LZWpH7t0Uwb
-	 Z5Rqeg3iFyisZSPXI1IKcIk/Sj8bG2VHc9aDAg3dpXrzIHl+HYu35blj4Qoh2/rDExQ==
+	t=1793012361;
+	b=icA+gs4DeL1WsiYg2cZbuljRHtTMc3nSGo6Yz6asvLZD0NyFMPwFjozpeQGTmzmeDK+F
+	 kCki9HmLWpDzV7t8R5yw/McdY8TLdgOaVdX5xIVUOtDVY7G8CXzRWL1EVBwxkF/r7P5Za
+	 AGX9mWiptg1Px6RMibYg4M4ouW7I4pMcr/hYH6rPSIgeCdW1lhokTEkA5xnIAH/oGPeaK
+	 sRmVMFRbIlQh73TbXoFXZomBCtnHh8QQ9zcI3C/uKLqCNF7nw83NHWnPAVSRIspnGBub0
+	 VCkgBTaZn6YUyzcdYZBQW+6FRlDS+eoEFCqkiSJcsc66FTubcyxo2YxBXbjSPGZ1Gwg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012115;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012361;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DV6c1D/6Qzh64saIkUPZG84ARZMJ/aLNg7R2bPrZljs=;
-	b=09OD7kilVOQRQ806970F4h7bAQcFGwgWZjXtjuQnfKoN3B8QA1wr9oQTtkzCH+Sn/cWO
-	 ajdltZzE5b6JTElzapU3mo+n8YXaAKcFcsGdtWoxKPrzWkLF92luLRDUd5NarezohXfg0
-	 Z7UlAA90UfM7areT2nKM0uzr0hI0PBX/RdvkMmIolD3u6m4y9YSUe/44RwfR7qw154XON
-	 MsA5YCdALwdyzGkm2glUVQP/r0JUnUHH3CyqyaWQQg+ozAYERRuvT33GoM056jZ7t9RfO
-	 YXmVphl5OFpIBclIgiFfIe69i7j4RqBH3FCcAfe/eK4umT5aY/4xMHVpN4WzMLqeKMQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+	b=AydeD6GTW0PLO3yG5AEA1tEzMGca419C4XiaJcMNryrPnZzewVjRScPiBTlb+7tsywrP
+	 x0vUA+ESDrbl2TWN94EQfHV9E5iV0NiqYZsfZMr9/mvY9SmqsjLtE37IcUduCci2m1bvr
+	 cBAEIRcZTjguxAP8R11uJMHZcnhTG+jacuLEaBw73c02XJW29aey0sGEUN6V+kKDmYswi
+	 a7stN45/Ri3LQRYfUF114gZc8pis6/DH/FTOpZNgvm82HhO9leIvVgtmuF+PywcUCk0tq
+	 D2AibW6fgG4Gce0JkWbIib+PeQpNtqn0jBRD2SKAM/NNPMgRul9pljrKqX1g+44dYiw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=futuring-girl.com;
-	spf=pass smtp.mailfrom=futuring-girl.com;
-	dkim=pass header.d=futuring-girl.com header.i=@futuring-girl.com header.a=rsa-sha256 header.s=google header.b=gO9QxkbU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DyPawvPd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541D7606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:55:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 541D7606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0DA606A334
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E0DA606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=futuring-girl.com header.i=@futuring-girl.com header.a=rsa-sha256 header.s=google header.b=gO9QxkbU
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4069277a12.2
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:55:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793012113; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DyPawvPd
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso413471866b.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:59:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793012359; cv=none;
         d=google.com; s=arc-20260327;
-        b=g3c9vVV6KnWC56QffEKFV7n0oDkAa7ikdfxM0ZIb7shDqqa6T8MMgCNLT806O7F+8s
-         GlaiF27L3CUPfcSubzLi8xcxEkrlYsrvQuB8zHc5WBw6Ew3g+E9AY3EG+zBI8Pk4bBrt
-         b7y/f5CnGwphTR98gYIjWQIoTqiFjyjlVUzejMCXUeCQ4K010sV35gUJ5JkYyigJhl2/
-         fChjk73hYHYMOfI/Dk8NZT8HPPQWtGTe3RWPkMFcgk5aHmCqixsIAbt97vpfsmgQDJAR
-         rk/CVkfjGVupJsHhN9xvOtiC3proSMFfq33IXECStn1Flv+3OOF4zOdGhFFb3NvOEgEK
-         w09w==
+        b=JVfNwdDRIsYmZUWGIxkcR3aXV3rQVeXp8cvG/UrE09lqQ9ONRTsMjegbfn12DmJ17v
+         0iq/YFnnE9JQ7wyH9DIF08WLh2zpmlW5wodzSFGza2Y5MBOMY4j3o/zQK0VlZQAF92Fv
+         cA++a5AnX8VtDefGfH7yHU0Qr+u2QUK46nPhn8BILf7SvRAwhPP1iFRFUHXI4HevNoj/
+         Phk4G2N1GHn7PiliTr3l+GBjbWXRxr14AlSGREiKw0ueiaA3VEh8Ugf51myL7yhZPNX8
+         +4/cwZfe6B10R9Xyuo6CCOFM+7EHt9yCX+2xQ1HNwy6xt0PK57Eoj6v412q+H0FnoRUI
+         iD5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=DV6c1D/6Qzh64saIkUPZG84ARZMJ/aLNg7R2bPrZljs=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=h5fF45wp0wxbf/f50A/DmnFfPjvMc6xbG+CXMx9jU2mx1ZPioBG5Kvw+e9V6dM9TRY
-         KKBtxyCh7COxeDJHhWABEEU6NfnK2gwfm16ULiEZGwA2Qbkeox8cvx6D18Ztyc1+cFWl
-         mPc4siu9aVeWKiO8joMyEcTQrvYZ4keshvAwZqtaIg0XLfoq0Rb7hHAbATdH1C86bUEA
-         juIidBrmUHcjkgIha4zOpSRvGr5bdhydTMGL/gAUrA8DXrdO+IU4gXVuoVX6lB8EUZvq
-         L6iuFv8dyrEF5LzIVFvAJXSWMPkjCI0qjt3u8iqx58k/fVc/9OtFq/ZYfywJcYpc6fT7
-         D6sQ==;
+        bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+        fh=hYpjQaZspRCY0txBz07J9rkgXQt3YHeMx5CUX639CBQ=;
+        b=YrqWRdelvbJ4b5kW8L4ELRQUFMc/TrjukUcSyW8dWBBNTTVwscTmU4QqcnB/CA0/KK
+         PkAjPb8a2HVXlDh1R43pSVohE2DyN8eE8NhlewsZx/eINM/0ZiNxFfbxF3AFhMjWM3Vo
+         1UoQPnaRUywClWlw/CqNXr5VYI7lKNRa/Yr/IMdpA2rKj63tr2t/RbsWBMPKBOHDMH83
+         ZEAI9wbsJuiEx0bdGPwY1uUd90IQrUoUKYyZPOkwjcIksGKFAq5fpY5NJJs9Bh9G3W1f
+         I3mPHp/FrrcH1aLbMlZzyGT7wLR8oq8c5uVSPiCWQ/WYN0vvMM1aCcGXZ11RLz8ZpUef
+         AeUw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1793012113; x=1793616913; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793012359; x=1793617159; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=DV6c1D/6Qzh64saIkUPZG84ARZMJ/aLNg7R2bPrZljs=;
-        b=gO9QxkbUjDQdYzGYuh/z9FIpy587E9986cHZUbsQ95sEOS5Uqbh+txOIwSh9raHGUh
-         SwSOSn++ihpEdc7jl3oP+iVComGWMmLfmEiYYRjifbC1jJ3fusu4a5qKSjsefqvrHjSZ
-         3wOxpMrV92IaKDVoow2enrr1x1szTpjWj7hMlHV3b35F868CUWpjVLB7F4twuynEJzom
-         FzXHuLFID7sUphr3+6jf4rKR7gzfn672s+PGRezC657WH8ApJ64qI1HzRhc6IfyytqfT
-         iXaJaLmjn1kxFlVC4E336PekeYq1+sHJ62gfAapcc0kJ8Ydg9fGdhIqpMe35nE12awj4
-         RECA==
+        bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+        b=DyPawvPdLZA+/2VQT40qcS75p1VuyCgyKbNWWe1/i4Jnn6zhdb7Z5sGIcVCCBtzdve
+         wY+MWGwTyiwmh1jMbTXm/hMxmssgBPKY80B+fg+N4kMxRsexoLJTWfqZAgmVmtoKDIZN
+         Tbb54fm41IwBUFBGvf0lX5jW4Ji5On0stoi33OFpy9+4mLy9ONwueNlz5I0b6o4vXjr6
+         9lTvlwvI3nXk+I7s8tC/G+umy7MC91YkNkJ4WunVziJq4nd80XNkWjBGEIV6u+EX4wpO
+         VIdqIHIV40AlLQTZ8v+rmxT4JWsuL8tU9RrZ/vfE1jo7UsTkJEuFDmvaFcQGR6rl888e
+         jK9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793012113; x=1793616913;
+        d=1e100.net; s=20260707; t=1793012359; x=1793617159;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DV6c1D/6Qzh64saIkUPZG84ARZMJ/aLNg7R2bPrZljs=;
-        b=y2Er5457RHhLmDP+lukS+1Edf9LL0X1n7vaEu78UqkKFE7OiA0QXsC+Z+67vvcgUC6
-         Kh6YpjoF2pVoI9dTFal8aPZ3GNuDo9Ce5MS2oqUUsPGwpur8pA4b3x66dHz+pni831ZS
-         bd2yVrciFvHdfJGZc6dXL1NWupf1ya2weMBE306D5jPn7oGeQqymLi6MBHtj7xKAizzD
-         UHWBEcGUbmxy2DEjBQY9PLonjVOFez5Dun+sMhFoolsPEHexteThb9dP1iX13FdQ/67Z
-         l7sKUZk6esPSRmaUjrTpLVgOvBj48ev8UfNQPoRNJKVPkALlljqXdnKndIREbRnwTLur
-         YRPQ==
-X-Gm-Message-State: AFq9FYJQjTYDt71CsKNXLuWQH7X3yXaz4/D3JUvB3sCZ8okbDRndUyKK
-	8hKqaonPqmUueK9YWiOcICvL9TKDmcK8fd8VkqIgiPYKqBXxcWLYGAvSwsAn5dyMTCRtVnQkn1N
-	A0dMf/F/J3Tn8GQint0SHB87ZoDPhj2hPht/SvLpkCw==
-X-Gm-Gg: AYBFou0MDoKjBa5GrwQ94IVk0xod8OfwSpDFdbqUOO8v9NdcKlNefWgoy7406K7dZ6I
-	MMQnj3zn879azK2JjYoUcbNjdlE5sG+lwnwWA6eEgTGZmaLwdySWwxF5cI9wIpk5Ofp+DdIr2iT
-	cj7kJFfiRyz9vspKkAD+fQ3M6/yPxSh/6QgVJ+DSu3AaJIVbzfbM9Hu24bNc3xXRIWKpEhNvdFh
-	GN7b7YCFdqXrEQFv+M4ZVvo+zJsP+X1wRo2WgwYz2Wwk0ntS3cMnPzjPgEvYeq8SWcxWKa4zrdt
-	BMg1pW0z057ngOsb5a9MgeJNkC6RdOh8wOFevDUMEVrxstR+0Qb5D8Mdu1C94H2NyxlChLpHTT6
-	3wYCgmtnJe7UYv/ekNKZqghFvaxdn9TsDyz+MQ3OILWaVX/AjXRY+ERLZaWL6F/MHXPSVWFNYnL
-	47RYMpytESsBr/y4c=
-X-Received: by 2002:a17:907:868c:b0:c2d:c98f:4824 with SMTP id
- a640c23a62f3a-c46bdd91e31mr719992566b.30.1793012112537; Mon, 26 Oct 2026
- 03:55:12 -0700 (PDT)
+        bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+        b=HQN2+1ZK4NUx+DOD5br+A45Mu04klQW/w9JDiugftWYxP4jSzVpZCFNiyqGKmlV+iD
+         DCSJbn5SinI8inf89godl7dgr2vmCrWmAYl5TrcDHRoWtcRAcu/HY47rLp644/1kXi6e
+         gE3/4LQORrqRsUpcX9st8NRSlaiyBEwLhAm3t9XZZgv3/Nh2sMOnYQDPeqhnAwZS7g71
+         c3OxXNAB9MuclfYDohXcI8E7Y0zngw93og6rEq7DtcKJ7rPyNXyipPVZr3LRf099GePJ
+         JPrYwXLr7mQKslA5JotGx83Gn8BKs/oANR1ntgomzL0ApCGUC3O+83YuMapYhyLQiT7X
+         ouBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZiFLuyBXKQEmvW3sz6sfyxvDEMW/gmVCdgsPVA1a3+QuOUyp1fJEzzVCDnsYSe+PFVYqIe/M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeLGIdd5ZbYVEweQjgk9RvCjGBJdVLUq5KEleAuwjm6eyleg+s
+	1TypKSmwAtIZFNaOtX5/YJ67bXgbIf9CGpKfBSgg6Srriw4YKPrXPvYnO1+8YTzRd5vZhR0NpBE
+	9c9QQNDhCOUZrsEyxKw9ZshSdttMNFFI=
+X-Gm-Gg: AYBFou3i7VaOm3ARoWw2kBQTVe4AChIuCPw0xJFSfR2pMSBYb4b73Q7cObTRSttx6gB
+	gIaGqi6iyRqDaLt3updnKlTGU9U4I+IJqjMaAljwkM1lU8ubQ0tdUmJNZSDreG49FGG1dbqisYS
+	XdiU9WykRf+VH9gnM8ZrLRbbb7sQUrTSXhg/01FdRVazeOZws++ZQwHAZSFffMUphn92BmCYWAl
+	Ji+JFW4s7XJ3AgDr4qK+x5xuf4g32lEUt/AbrNWHWuJANvtn/jLem9SoGacb0ENyxly3nNBk8bZ
+	4zG9iqKVyhXsRo52ENMGP9Y5zL84EMHYPtqd1hH4IHB706ipQlc8ubmQYfP2E2JpPQjpAZeRI0i
+	wj+1Q9Hx3SSAALbZes/NXSgMVCXokTtjIeMFSejmnkO9B2zS9Cur0e1tg5yYnMlC7Lkqni9o=
+X-Received: by 2002:a17:906:794e:b0:c34:cf13:a930 with SMTP id
+ a640c23a62f3a-c46bde7eadamr829450366b.34.1793012358782; Mon, 26 Oct 2026
+ 03:59:18 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,62 +104,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025125805.309934791@linuxfoundation.org>
-In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Mon, 26 Oct 2026 19:54:55 +0900
-X-Gm-Features: AclHuK8segfbyZOPLnD6APqICZs0xovJLP7DGUxjOh2pTrAodUPaMgSRzdULPng
-Message-ID: <CAKL4bV68WauVRiggnG_WNr74+L=RHpaG2L=hr=D3TMn-Ht4YkA@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
+References: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com> <asjE_UdsewYa4kjz@alaakso-desk>
+In-Reply-To: <asjE_UdsewYa4kjz@alaakso-desk>
+From: Praveen Puglia <praveenpuglia@gmail.com>
+Date: Mon, 26 Oct 2026 16:29:07 +0530
+X-Gm-Features: AclHuK9VDEMKyVEvJ3-kD0nYb3I9skZQwkqBvSZv2CuCDHv1Z2D4dG5lwnZqJg4
+Message-ID: <CANfatsqw=XxmJvbCPxD9T-=FBwd_h-e4KaEf+Mz5dgtGoK+pRw@mail.gmail.com>
+Subject: Re: [PATCH] media: i2c: cvs: Leave the privacy LED to firmware on
+ Synaptics SVP7xxx
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
+	Marco Nenciarini <mnencia@kcore.it>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Greg
+Hi Sakari,
 
-On Sun, Oct 25, 2026 at 9:59=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.13 release.
-> There are 231 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.13-rc3.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
+Gentle ping on this one. It has Tested-by tags from Marco and Antti,
+and no review comments so far.
 
-Linux version 7.2.13-rc3 tested.
+Anything you'd like me to change?
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+On Fri, 9 Oct 2026 at 16:12, Antti Laakso <antti.laakso@linux.intel.com> wr=
+ote:
+>
+> On Thu, Oct 08, 2026 at 08:39:37PM +0530, Praveen Puglia via B4 Relay wro=
+te:
+> > From: Praveen Puglia <praveenpuglia@gmail.com>
+> >
+> > The Synaptics SVP7xxx (06cb:0701) quirk sets ICVS_HOST_PRIV_CTRL, so
+> > SET_DEV_HOST_ID tells the CVS firmware that the host owns the privacy
+> > LED. Nothing in the driver drives it, though: V4L2_CID_PRIVACY is a
+> > read-only placeholder. The firmware then never turns the LED on and the
+> > camera streams with the LED off.
+> >
+> > The host has no way to drive it on these machines either. On the Dell
+> > Pro Max 16 Premium (MA16250) the only camera LED that INT3472 exposes
+> > is the IR flood LED. The out-of-tree Intel vision driver sends
+> > privacy_led_host =3D 0 for this bridge, and the LED works there.
+> >
+> > Drop ICVS_HOST_PRIV_CTRL from the quirk (quirks 0x7a -> 0x3a). The LED
+> > now turns on while streaming and the stream is unaffected.
+> >
+> > Tested on a Dell Pro Max 16 Premium (MA16250) with v7.2.8.
+> >
+> > Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vis=
+ion Sensing Controller(CVS)")
+> > Cc: stable@vger.kernel.org
+> > Link: https://github.com/intel/ipu6-drivers/issues/417
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Praveen Puglia <praveenpuglia@gmail.com>
+> > ---
+> > This is my first kernel patch. I found and debugged this with an AI
+> > assistant (Claude), then verified it myself on the laptop: quirks read
+> > 0x3a, the LED turns on and off with streaming, and the stream is
+> > unchanged. Tested as a rebuilt module on Fedora's v7.2.8, not on
+> > v7.3-rc.
+> >
+> > Marco Nenciarini reproduced this on the same laptop with Debian and
+> > v7.2.6, and found no host-controlled privacy LED pin in the DSDT/SSDTs:
+> > https://github.com/intel/ipu6-drivers/issues/417#issuecomment-599673834=
+6
+> > ---
+> >  drivers/media/i2c/cvs/core.c | 1 -
+> >  1 file changed, 1 deletion(-)
+> >
+> > diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.=
+c
+> > index d4a3b9c3ba..3520325717 100644
+> > --- a/drivers/media/i2c/cvs/core.c
+> > +++ b/drivers/media/i2c/cvs/core.c
+> > @@ -72,7 +72,6 @@ static const struct icvs_device_quirk cvs_quirk_table=
+[] =3D {
+> >       },      /* Lattice NX33 */
+> >       { 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+> >                         ICVS_HOST_SENSOR_PWR_CTRL |
+> > -                       ICVS_HOST_PRIV_CTRL |
+> >                         ICVS_FW_BUF_SIZE_256 |
+> >                         ICVS_FW_HEADER_SIZE_256
+> >       },      /* Synaptics SVP7xxx */
+> >
+> > ---
+> > base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
+> > change-id: 20261008-cvs-privacy-led-7d0f2327c31f
+> >
+> > Best regards,
+> > --
+> > Praveen Puglia <praveenpuglia@gmail.com>
+> >
+>
+> Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
 
-[    0.000000] Linux version 7.2.13-rc3rv-g638c94931487
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Mon Oct 26 19:31:51 JST 2026
 
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+
+--=20
+Cheers!
+Praveen =E2=97=89 praveenpuglia.com =E2=97=89 @praveenpuglia
