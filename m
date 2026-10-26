@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792982235;
-	b=kwhnQ6Vcejz9v2vCukvxYyH7Hv7pS8HWYUe4kP8Ur6YCxmexnTp2y4FATr1eK7/gjZW9
-	 qdJ3/8VOWD1LOOiGUFOYXHFon2vfLiV/w3DaveNLYphstTzz1JaF8wCP71SbwynRu/K7i
-	 BKDQmooH5ZWZZ23pkS0dA3CspO+ktVHMR7ax6vk9CDbObVXviJpKN1iKO0xr1K3VqukC6
-	 E/S2JOe+bavGzejCsgcU27w/jnevAbZA6OXWJ/SRsxMONWU+/kMUD7CaF0k3bjFeGQ+xQ
-	 8BPS9F7OCLCkLX2/Yk6llc8Jtv1hxclwU6VPYCYG/u+QjBYxowZfezxeAvqg5F2lTyw==
+	t=1792982318;
+	b=xYAdviwjFKQo+BO3gp+iQSdAJy6BFY/KoX5PR3Nj1RIKFzkk+6I68Oj99Z/vjoP4AnkJ
+	 HhGhH6PfRXqKzn4DmfMpVC9/JHNNc/ipbvwV6iDg6d1w/e8tNyuzecuwLVxDc9H4bAYvs
+	 1VSvMRyIjLluJN3gCR5C1cGV3ZnkBuW9IvhJI6Yyfc7VUONVv3Bu3htq2xCsMOc+fb64b
+	 DNdJJ78FVPD6E3ShG4n53IYtSZVKRoENHJv8UoIG/VfWwVlCBlhgaoadMOcxY+3UcAEVO
+	 yBRldVnSAuDZ5OWZZtkkiDOq5re04yHtZrzetRtdndkNKIfoonjwl8nsC96GT/b6lPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982235;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982318;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lYq05nfqgUxcLi4v/X/IWHrkdgOxcK1p03EpXP0/uf0=;
-	b=ESqklaLcchAulk7QS7WXWkHWSHKQmgUAh12MNOCrS2PS0xLmhzk79sSqmlPl1QXvJlCC
-	 taPxJpRawyjEwTefoL0i77/s0bzKUZhwkw8EWeN8T9A+r/Y6tLN22mA0/FauHhQm32bLE
-	 A815yFg8GHTwii4kYoRVRI9JUinXV67f9izUUcFcNZJ78CwVH9lQUc5krcAZXB6c4Pwb3
-	 gdpoyqWsKOV6wCAycj4A7nqRPRcO9y4OJjchtl+aXBlVfVYJe5er1TBiOs+zI2mT1hA1f
-	 bDJsy8sh4bV9Fc1AxPQRdWDOV3+lKhuCzCkpXfkQCvjr0LmsxhtHmFFszrq/ndlvOpg==
+	bh=+WSxtcpzWDqfdS75bPeo5bTo+c8L8XTo3/3XTzhs2c8=;
+	b=IuwiqVLAFNyFiA5Uf5n+ksD0goWMCfES6X+nDJ4q1HV5pIfsRaTVkX5ys6GEKoWFBK4+
+	 f9cUHSR5hp5khVoLsxqTKqPWzct8FHXOMFHfoWz6UnJLDHBVBfOhig6jbb67k3QCQ1ypP
+	 CvH596gse+5j/A0s1E9lLiOJeDywzrp+Wpn3fi76pUiqbaIu9RqTbu72N7LTtVMr2Jmpd
+	 guyQk1pmkAIKvXPIVd2N9O/CpyofjPCi/TL+rrj/mOCa6CllZGiRwFA6jzt6MXYM8Uv2x
+	 M4EZoWgj+qdXQg9NQfa497akW44ZtiIzs2QH+AL+rwR8qVlB/te7EvlmP2o7KoJ4ooA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0SrDaff;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ac9+pc4G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5CA606A31A;
-	Mon, 26 Oct 2026 02:37:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB7F606A31B;
+	Mon, 26 Oct 2026 02:38:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0SrDaff
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D71B61F01825;
-	Mon, 26 Oct 2026 02:37:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ac9+pc4G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9A01F01825;
+	Mon, 26 Oct 2026 02:38:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792982234;
-	bh=lYq05nfqgUxcLi4v/X/IWHrkdgOxcK1p03EpXP0/uf0=;
+	s=k20260515; t=1792982318;
+	bh=+WSxtcpzWDqfdS75bPeo5bTo+c8L8XTo3/3XTzhs2c8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=n0SrDaff+i64/yEyNlUqUoqOGUVN1QNFWy7k+UCZ8C80FQwwxbiGgu6jYr9NBRVZc
-	 dEUjG5YSBSrNG41xpx695YSv8m1dwGqkn/itEbEf9DKdCxPfTF2g8x8LmcIGYGOaFy
-	 oS09u7VIx7KguiRqvJRirk9qe4yZZMg70u7bINRVHV0Mc3uk8k6crI9/rzW6KWAX4K
-	 fgYMIdk4WleNJc9iGTn7KyNMM2VlmZiFK0TC/NDNpbuiSi/MfheqCNRQYBIHtc7k5A
-	 bgnuaeqcHS4v0Y53W9nSX2/uDqvtd+0UzFek0ctw7tHDAItsNq7ws4apKb+DD2kULV
-	 twmwV2hzPnE1g==
-Date: Mon, 26 Oct 2026 02:37:09 +0000
+	b=ac9+pc4GgGD9qrk/zJZXuNNbzby2Q3zZb8H6vs9Lb4f+M71RBI1ni1rj9aAJupLdI
+	 X25Bc9VYquBgJkqvt42DBVrAYoWjng3eVg9IdibMnCnnWalBOCKG5pZWbbAtru6Yuw
+	 RIBbb9bjKYpOKuezVbN3PIY8eyxvPaszR7Ox3iCJQq0lbWSn7pf044dxOdU1JDEbcy
+	 gkaykEf/fXI14WGJBuwCVhSoAb8dKs1VPk8LQfI/KG/XV568ovT41wyG9W1w5JqRHO
+	 82kU4yujyk5pLRrjJd5Af6hqE0XQPkluhRa4mCAYQ0TsBpMmLMBs/vcbjg1uB7GhCb
+	 jaUcXFYoEcPcw==
+Date: Mon, 26 Oct 2026 02:38:31 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: Jean-Baptiste Maneyrol via B4 Relay
  <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
@@ -49,11 +49,11 @@ Cc: jean-baptiste.maneyrol@tdk.com, David Lechner <dlechner@baylibre.com>,
  <andy@kernel.org>, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
  linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: Re: [PATCH] iio: inv_sensors: do not compute period estimation when
- updating odr
-Message-ID: <20261026023709.0c0032e7@jic23-hlaptop>
-In-Reply-To: <20261020-iio-common-inv-sensors-do-not-compute-period-when-updating-odr-v1-1-8fedaea8116d@tdk.com>
-References: <20261020-iio-common-inv-sensors-do-not-compute-period-when-updating-odr-v1-1-8fedaea8116d@tdk.com>
+Subject: Re: [PATCH v2] iio: imu: inv_icm42600: fix parsing of all FIFO
+ frames for odr change
+Message-ID: <20261026023831.32e65b30@jic23-hlaptop>
+In-Reply-To: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
+References: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,18 +67,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 20 Oct 2026 18:28:47 +0200
+On Mon, 19 Oct 2026 15:37:33 +0200
 Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org> wrote:
 
 > From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 > 
-> When odr is updated, the delta between the interrupts will change and it
-> will lead to a bad period estimation.
+> For getting all odr change events, we need to parse all FIFO frames
+> in each iio device. Fix this correctly by sending effectively all
+> frames to all iio devices.
 > 
-> Avoid this by preventing the period estimation in this case.
+> Previously only batches of frames containing a matching sensor event
+> were sent to the corresponding iio device.
 > 
-> Fixes: 82bd09ce4fd3 ("iio: inv_sensors: improve period measurement by using a longer delay")
+> Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 Applied to the fixes-togreg branch of iio.git.
 
+thanks,
+Jonathan
