@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793027964;
+	b=p1uGyEJyPgfpkHc2LXHe78lYnQPQ+pUzVpNKQXJRxQ5s5HHVHUwLvZYBxu4mxZH7wJcR
+	 IXscHl/UTOwkokSAwYTs6L6zneZAzs0Dn0EBInYKswDccNsOeCrTYlCnheXCFmuWK/RB5
+	 YVHJ5hvUsLTTFLtWPJBrA6Tv2id+rEgMoGQFB/6mpDeKccADWKuo5PZ5AViq3KTwqb5th
+	 kVx9IInMcGvbJhendZwquGfUEZsEQN2NZfWQJtnf885eRpLQljwiEn5N0GAt2gttG1bCk
+	 Elr9h/3ro+XS8stW1b/cwt2cQZ4VN6yOVSY4TmZlfe5gT2o6d8jNJdmQhF+ypd7pitw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027964;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=oec+Wt3gHa1boqU1HQuJjZMLSuduFm7h1veFSZGd5Z8=;
+	b=4CKOE7M4+p0T6mundsuSMD9TvYHCdO/xOx+2uctJu+93AtkzcvHgdkvlPnOaT2lSz7MX
+	 EuTT4Y/ipaLuLrsAY/GFhnwDoKXHzeqkkP7rgRMTa8Ac/FLtJjm6jTaPDu3mDDfw9DC/u
+	 6QuoHtvtKL8jgYGDRUv6ilfXS9N3JlGunbN7vz5SDN+dckwjsVdYuL1N2SBzMOZGPifSu
+	 oDjEsgLJIdAW/A7VdcHVGksSB/EImcVLLAAh0AZKLyQ1WDzwupExgoIeN5FF9LPq8fjbh
+	 A8WcOjSRZRUbD+UF6/RjMtok8Tu5klJ1CluncZCOC4obVVNNF7NNDm/r0UszOOUe0QA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0t5NWQd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C16606A320;
+	Mon, 26 Oct 2026 15:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0t5NWQd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793027963;
-	b=eScsJAWZskLUAAJQOjKVIRTHFdDflIJCE/4ejmyYNfDwsHLR3mVNxlhw/RANfe4jHau1
-	 9AELcotH4CkOIK/HK8XhdBc60Omw8Or7F3Fp90Rl2p4fR6c4O8CyU3oSEGQVYbc3Hq/hS
-	 k/htoTlNESNrTN4nSwUt0FlGczxTGQQdd7EJMhv7yqv6X3XoKDyqmX5jGehtGQUB+pA3K
-	 +/xgep41YNETtl0cWBAXBNmrdUffiJCDDX/l0idZLMx072xgcr3fyn3aD5Vj+mkZAIt3w
-	 MtMEOkJMcZkIb3OkZWFxU3MMR/sfmWXBiHCU1ezCdqUzIAIIsMy+xklCVjlyk5osH8Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Iq7770+X68F0gI3cSr/iPyC45eaIdd4N3BvfHNRFTww=;
-	b=iSFC43tBvqlVK+8H9mbKIvhD+07hknr942T4NxjHWmnq5CKgELoOST30LG5FIfMFcVJ5
-	 1MdX+eFQhaDyvbPou1h3onfvUO8A8YspQ5Th7ohS6mgjQIVkQzjzMn4NJEFwKaLHoGO17
-	 0q+k+MeOkjZ9f1ecLZ7PaCFX+vzV6huTFpiTidpAAE/LmnI1kp5u/0dnIfe84KaPiGeuf
-	 W3FmjOqjSczcuDmz0KaCrMK1il2OiGiXz9yppbk/68Y3eekKoYq8TmAzJk6wwnDS3yGBX
-	 4jOyZxduAD5zGJi3Uqc+Ufzwym2WV812jAWVzVtaTFUYJgq4tUggVR4xt1TdT4G2u9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="jJhlE/3S";
-	arc=none smtp.remote-ip=209.85.221.175
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	b=yZlmAG/6kDJ1pVk1famdY35V8HRCuDqcAYtQNBzITYb4rx8W/s1o7kYsDx2spE93EJmZ
+	 cz+Z7akQRVle4EjXOafUdwndYsfaCPM2yCCjE3VItEB2bEiVmukwmZN2NcaV9BwgJjEHb
+	 /ElSmt4rr0LE59If3wc/sr4MCfDQR3NTmFaqNJ6PObZC+O9UWksrutrFS01L4PmsbZxc2
+	 TAFpuiBh0iKEOLHS2p7iBJ28OSAzieO5lqoADS5zIamVoYqZC1kTEouFAba4blm4OJ80r
+	 DqfSkuFSeCKljavk/XggL4ywytHEo47xRTcP8XgTfFMSfqMnDwTtrbvchjYr/YBoSdw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793027963;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=oec+Wt3gHa1boqU1HQuJjZMLSuduFm7h1veFSZGd5Z8=;
+	b=TO952MsxUNPxN7ZlFOy4K/t9wqLWIqnplApmrjmXkCRsNKKgpMUTadkG8gpOFTorEI/I
+	 +fQM16CRBd8ZTBusOEt1HYW62V/XwK8YWUtSm8b74uC4qUr4GllALfP2EHZBiBIDUm1pX
+	 bDCqeVJHM+W+A2d0jaghWPsLAFDXLOxt0GQFkthsVVcZ2j7KnMWMJgKoAXpJ/EVwBntSY
+	 CSw5DSstXpxO5vLYeXL/qwnADPlgjaiHy95p4BuT4oZGCfARQYpIOQphUzo1qDQEW1WSO
+	 nE/tL4EKx0DRCc1UZ11Bo9NpaEztq+UCkh34PjLzs38L6uPvdNTGdJP8sgwB/miJ88Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0631606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:19:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0631606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jJhlE/3S
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eafb65e163so2083674e0c.2
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:19:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793027962; x=1793632762; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Iq7770+X68F0gI3cSr/iPyC45eaIdd4N3BvfHNRFTww=;
-        b=jJhlE/3SRPxdUI5bWwiIdWWTM1QZ7x3YLaHxNFtK7R+6tNfG495pNFm4JE4O45hgaV
-         IY7blEDXzgAFOyuoE9jDE1X4CXTjekDlIt3ZOQS57RrB5mdGDgLtFzVSFwP41UKIWZOe
-         DOBkcMu/zSF3wOsC8ACNWovbo4aRF9vbnVvOA/1w4ajXLg20iko+lnRzmL2F7D/8EBG1
-         fjIvDBnF8w6NDpDnq8H8fwC6zrmiBq1MjaBi8aV+ZwSk8Oduz40SgohDOXvH/R77Zn5+
-         QfRviSEr0o1eTETwzPriO9GDeZsa3j5t6yAWfPsxHwa2DEPoArWNtYlP4/6HmPl9nCSS
-         2fmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793027962; x=1793632762;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iq7770+X68F0gI3cSr/iPyC45eaIdd4N3BvfHNRFTww=;
-        b=GO6vids+9yxgE/qTaRICCxs8hq2pqFyugbO/w0TSAov4o6rxtJXJp0zPWuwngJvOGt
-         0IQM9abh+G6aQdq2UHBODBncjPSylFlzRmUOzY66OwZ0AJYU9j4Sj28N+P4OlpxQkDlq
-         sLQMoLLbPLbWBLTBwkBcWT2UlCPKXwvyEa5ZlrzdmTP4YxR4A8XP0Y9qCcOo0ieTeTML
-         Qk05Xpam0LY2QdPHVQJO2kO/9JggNTfAonFNhBMJx7quC5qENfV2pRjjfljSkwNQKRqU
-         lZE6QLDN3bMeZ6+OrDb/HB3KlFlvjQNRKnczTkj7BTogxtFbwkzFSEnsajFipcuWf7ZX
-         FN6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz6wyTI3W+pam9wRBeoBO/yQSXVsN583HO/WxLsrxlKAC8dURz0TURcbOPTt1SYiedfV6y0NpY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxiP7ixv2afdC6yl1iqPQY4kwthkJVHrTlVQ1FyJh4id41C7LF
-	SBrTOmF/nLYWKIvtP9XW6bPXdLtK574udvsdwTNVc+XRkYsSo4Jt6DTH
-X-Gm-Gg: AYBFou3ekdijnuqZ3ch5HHxvJfuRLM/1tX3+nlFTBPgEkvx6L+OyY5CmyZzSOcaUDZ0
-	eXhidRxDba7zJUba1vF7MTYj/64pdgMs7pgAU0xzsDFSbczoYNxGEhOe9DHF1rYKLDRxMgqgjEo
-	PkgRbp3H/9dKeuZJG02SBHvKAM/1oal3tINERpVpjTmg4MWx62yup/+GCamdemnUzELMcPFMTE/
-	tue4Nk68VQBVo0fCLDlb8nqUp8wa/pDE87IcsULkMPLpjFVNsm5hRXldnOcZO1qBk4IfRjBcXSV
-	UnwJDU940yzZB1fQ14SyBKiDdI0LEIkHaqz3SpvwqQ3A72SDw4tmCPLekiQrAMUVYee8LC5Oq4U
-	ILXXAc4EpcNL3+R4+q2ZIXdKOWhfOTiA1/rnLmP5nKwGlNKc7snKyZ4CtQHnZYxAxH+bz7E43S4
-	U8CeuKo2eAE7uphmYJfwrYbH0HYh0F6Ho4395yJYtQbEUU4JZ8F00C0gtCCq3lY3rxYCAPeVhn7
-	PhxVpvM8hS5pGknFB1cE6h7JIoVTYTgjUIdVhB2yN6N9x7u6iMHPLkH7LpnULmzLj5zvKEqlJUh
-	8u6hB4x4NAaM9DB50eGYJ9YbtWWUrV+OXvXaWXi2blMsq+Te6bpnvFagwZaKyRJoNQuKYBIUADU
-	L7pAfTA/4W5niYewEGQo=
-X-Received: by 2002:a05:6122:3a03:b0:5ea:d18e:dca5 with SMTP id 71dfb90a1353d-5ec232b3397mr2666051e0c.16.1793027961259;
-        Mon, 26 Oct 2026 08:19:21 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e7fbf61sm8607427241.9.2026.10.26.08.19.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:19:20 -0700 (PDT)
-Date: Mon, 26 Oct 2026 11:19:20 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: =?UTF-8?B?5bmz5LmL?= <treebacker@foxmail.com>, 
- Greg KH <greg@kroah.com>, 
- netdev <netdev@vger.kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
- Ahern <dsahern@kernel.org>, 
- stable <stable@vger.kernel.org>
-Message-ID: <willemdebruijn.kernel.491fe86e17fa@gmail.com>
-In-Reply-To: <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
-References: <tencent_B58BAE2F5FF485D1B4F652E9980EAB132A09@qq.com>
- <2026102604-circus-juvenile-c521@gregkh>
- <tencent_7454E65EE7BD1C085B6951A7D2305157370A@qq.com>
- <2026102658-jockey-volley-94ff@gregkh>
- <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
-Subject: Re: [PATCH net] ipv6: fix dead half of the MTU guard in
- __ip6_append_data()
+	by smtp.kernel.org (Postfix) with ESMTPS id E5D5A1F01828;
+	Mon, 26 Oct 2026 15:19:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793027963;
+	bh=oec+Wt3gHa1boqU1HQuJjZMLSuduFm7h1veFSZGd5Z8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=B0t5NWQd1nYWesXGLcbrS5kIqaa+VvY0/tbodjEnwvJ5wo1tIqTUI06PKj6l/bMKT
+	 xBd/oyTG7CIhOUfZ0ieIllPHBiBLyaNT47UGekYDpLrda5OoUEpOz/jahJzFjwAjM9
+	 idmReAf/WQBEc+OhKhSP34qzldEOlBeFiiRp8Lxfi9TfUuyVLyzAY/BLv8n2Ps+5XL
+	 VIu5H7skGiDMOUWglf42kNzmVflS2YiiqWw+UJXAmkxzEQrrICeEhpSpRiXFREUz/3
+	 nswRpm4gku5MjlqbJUe0s6QT9ZsnFtaJaY7MJPz411f64fmJlRzAlWYs/W6lZSjDwZ
+	 NdqNPFzFfPn4Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4C90044D49;
+	Mon, 26 Oct 2026 15:19:22 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Mon, 26 Oct 2026 11:19:22 -0400
+Subject: [PATCH] mm, swap: stop cluster list scans once swapoff clears
+ SWP_WRITEOK
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,100 +83,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINYtLk8syE9L0y0vyixJzc/WTbEwSjNKTEk2SjQ1VgLqKihKTcusAJs
+ YHQvhF5cmZaUml4CMUaqtBQDWLk8TcwAAAA==
+X-Change-ID: 20261026-swapoff-writeok-d82f2adc2a53
+To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
+ stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793027962; l=4058;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=13fz6rqNh91gTcPzM8hXNMOTAxUdtQgWk+c7vws4zJ8=;
+ b=vg9IYQzJgsesZ3/7DOx8iiu+UpwzJK/cT7keQ9ZTtaH4xqfxdkhcRRPeZI97Poq9QOz1X1L6b
+ rOOceG7nTAZB9hJbL18eVW0RArdVG4aOyGUa783AMsl5Gc87b5so/gq
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-=E5=B9=B3=E4=B9=8B wrote:
-> The second half of the MTU guard in __ip6_append_data() has been dead
-> code since the initial git import:
-> =
+From: Mani Tofigh <mt4022@columbia.edu>
 
-> 	if (mtu <=3D fragheaderlen ||
-> 	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <=3D sizeof(struct fr=
-ag_hdr))
-> 		goto emsgsize;
-> =
+SWP_WRITEOK is cleared under si->lock when swapoff starts so that no
+new swap entries are allocated from the device, and try_to_unuse()
+then waits for writeback of the folios that still use the device.
 
-> (x & ~7) is unsigned and >=3D 0, and fragheaderlen is at least
-> sizeof(struct ipv6hdr) =3D 40 > sizeof(struct frag_hdr) =3D 8, so the
-> second condition can never be true.  Commit 5e34af4142ff ("net: ipv6:
-> fix skb_over_panic in __ip6_append_data") tightened the first half
-> (mtu =3D=3D fragheaderlen) but left the dead second half in place.
-> =
+However, an order-0 allocation that chose the device can race with
+swapoff clearing the flag and then loop forever.  It takes a cluster
+from the fragment cluster list of a higher order with
+isolate_lock_cluster(), the allocation from that cluster fails because
+SWP_WRITEOK is clear, and relocate_cluster() puts the cluster back on
+the same list, so the loop keeps finding clusters on it.
 
-> For mtu - fragheaderlen in [1,7], (x & ~7) =3D=3D 0, so
-> =
+The looping task is in reclaim, and it may have set writeback on a
+folio whose write has been queued but not yet submitted.  swapoff then
+waits for that folio, while the reclaiming task, stuck in the loop,
+never reaches the point where it submits the write:
 
-> 	maxfraglen =3D ((mtu - fragheaderlen) & ~7) + fragheaderlen - 8
-> =
+  CPU0 (reclaim)                          CPU1 (swapoff)
+  --------------                          --------------
+  shrink_folio_list()
+    pageout(F)
+      /* F under writeback,
+         write not submitted */
+    folio_alloc_swap(G)  /* order 0 */
+      swap_alloc_slow()
+                                          del_from_avail_list(si, true)
+                                            si->flags &= ~SWP_WRITEOK
+                                          try_to_unuse()
+                                            folio_wait_writeback(F)
+        cluster_alloc_swap_entry()
+          isolate_lock_cluster()
+          /* allocation fails:
+             !SWP_WRITEOK */
+          relocate_cluster()
+          /* repeats forever */
+    swap_write_submit()
+    /* never reached */
 
-> underflows below fragheaderlen.  Every later bound computed as
-> maxfraglen - fragheaderlen then wraps to 0xfffffff8, in particular the
-> datalen clamp inside the fragment loop, which never fires and lets
-> fraglen =3D datalen + fragheaderlen escape the MTU constraint.
-> =
+This results in a soft lockup on CPU0 and a swapoff that never returns.
 
-> With MSG_MORE on an egress device without NETIF_F_SG, alloclen =3D mtu
-> while skb_put() is called with the unclamped fraglen, so a single
-> sendmsg() on a raw IPv6 socket with a 1240-byte HOPOPTS cmsg and
-> IPV6_MTU =3D fragheaderlen + 1 triggers:
-> =
+isolate_lock_cluster() used to check SWP_WRITEOK under si->lock until
+commit 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap
+table") removed that check.  Restore the check.  Since swapoff clears
+the flag under the same lock, isolate_lock_cluster() then returns NULL,
+which ends the scan; the swap slot allocation for G fails, and reclaim
+goes on to submit the write of F.
 
->   skbuff: skb_over_panic: len:61280 put:61280 ...
-> [   37.607856] kernel BUG at net/core/skbuff.c:214!
-> [   37.607865] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-> ...
-> [   37.616606] Call trace:
-> [   37.616606]  skb_panic+0x5c/0x60 (P)
-> [   37.616778]  skb_put+0x9c/0xa8
-> [   37.616952]  __ip6_append_data+0xf80/0x1948
-> [   37.617172]  ip6_append_data+0x94/0x2a8
-> [   37.617363]  rawv6_sendmsg+0x588/0x988
-> [   37.617716]  inet_sendmsg+0x4c/0xa8
-> [   37.617891]  ____sys_sendmsg+0x268/0x308
-> [   37.618105]  ___sys_sendmsg+0xb4/0x140
-> [   37.618299]  __sys_sendmsg+0xa8/0x140
-> =
+Given that this is a race, its reproducibility is non-deterministic.
+We reproduce it by using a non-rotational swap device that is not
+synchronous, with 64K mTHP enabled, where one CPU repeatedly pages out
+two 64K folios and a 4K page with madvise(MADV_PAGEOUT), while other
+CPUs run swapoff and swapon on the same device.  In my tests it
+triggers within 20s in each run, and with the fix applied, it runs for
+300s without any hang/kernel report.  This bug was found and
+reproduced deterministically using a deterministic hypervisor that is
+currently under development.
 
-> Replace the dead expression with a direct check of the payload space
-> available in a fragment, which rejects mtu - fragheaderlen in [1,8].
-> =
+Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap table")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Before commit dda8fb68b590 ("mm/swap: also use struct swap_iocb for
+block I/O"), reclaim submitted the swap write right away, so on 6.18
+to 7.2 the loop most likely ends once swapoff frees the slots instead
+of hanging.
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reproducer: https://github.com/manitofigh/swapoff-repro/blob/main/swapoff.c
+---
+ mm/swapfile.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Fixes: 6596a0229541 ("xfrm: fix MTU regression")
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 601979b97f95..2b03d14b5f52 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -627,6 +627,10 @@ static struct swap_cluster_info *isolate_lock_cluster(
+ 	u8 flags = CLUSTER_FLAG_NONE;
+ 
+ 	spin_lock(&si->lock);
++
++	if (unlikely(!(si->flags & SWP_WRITEOK)))
++		goto out;
++
+ 	list_for_each_entry(ci, list, list) {
+ 		if (!spin_trylock(&ci->lock))
+ 			continue;
+@@ -642,6 +646,7 @@ static struct swap_cluster_info *isolate_lock_cluster(
+ 		found = ci;
+ 		break;
+ 	}
++out:
+ 	spin_unlock(&si->lock);
+ 
+ 	/* Cluster's table is freed when and only when it's on the free list. */
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: bo cao <treebacker@foxmail.com>
-> ---
->  net/ipv6/ip6_output.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> =
+---
+base-commit: e9011a65d78258901ba123c5f522bef26d29902f
+change-id: 20261026-swapoff-writeok-d82f2adc2a53
 
-> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-> index 25fe0ba98b1a..7d4d4d45e207 100644
-> --- a/net/ipv6/ip6_output.c
-> +++ b/net/ipv6/ip6_output.c
-> @@ -1500,7 +1500,7 @@ static int __ip6_append_data(struct sock *sk,
->  		     rt->rt6i_nfheader_len;
->  =
-
->  	if (mtu <=3D fragheaderlen ||
-> -	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <=3D sizeof(struct f=
-rag_hdr))
-> +	    mtu - fragheaderlen <=3D sizeof(struct frag_hdr))
->  		goto emsgsize;
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
 
 
-Correction: I thought a difference with ip6_fragment was benign and
-this patch is still an improvement, but it seems that additionally
-ensuring enough space for one octet of payload is mandatory:
-
-+        if (mtu < fragheaderlen + sizeof(struct frag_hdr) + 8)
-+            goto emsgsize;
-
-See ip6_fragment:
-
-        if (mtu < hlen + sizeof(struct frag_hdr) + 8)
-                goto fail_toobig;
