@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016735;
-	b=rB1v5tfuAaYiWcBDKjYv1L5/Yf60KNUFbpmdqgE36hvWrFQm2l6hPURAdNKPr8wSMjVQ
-	 TymR91NxovsEqEra7tLc8HWfGD/ABUefS6/g/lOUyAHWi02/uZH8U0dMV9E63zoG3I7SC
-	 r/4rdjFuLplpkkN32Tq/Va/GoxBFQ0P+y78nUi+wuopjffthgC60f2KWVJ+NP5tdQsGK/
-	 PXz76NI+fKzQi3wdJOPcR3XTyeub2CsczNsq22zd64mBKt1XI/yMdJ4M0mrBxCTdeBLap
-	 oUwNgX0B1dYq+Kihxy66RnTl+lxwREdVfuadQqSRP6NCp0DgXAapyCEB4zIN55Z4WQg==
+	t=1793016739;
+	b=N633eDRHeFK+PrdqCA1+MOFTpKpi3+5XqNtQayLOk31nOjScel3NdNZKRvvzuaId2AC6
+	 91fePYLv3gEA/yglVYiUZ1KdwH57Uv+xQrQbJ1jWNamI/Kxa4IUtGKE1D1yJoNWK6QhCa
+	 OUHfOz+Vo1e28Lomp5+mPRDAVyOayKJso7iJWhTxR1dXGnbTqLzu3BPdy17pMa9q34SRX
+	 jJqmG23qQ72pHeFHeWoq/DbRfuC8l9xOjTQYbgin8I3d0Q2b/Nz7WoVjKAMPgN7ujXvnq
+	 EhPAEg8e6tYLKpRPN+uqpbgDWifkMcQhIoWvTQlHLoQLsiBDIQo0aqf4BNI0hEqW9wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016739;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=YVOuksGVEghG5uOYmYA58z5wJk+3kOw2LcsR/GcjPto=;
-	b=LdAldo+fWVtkv2KHW0zjdiAQjI74PT8Vzo5/0+f1X6MWhsUHcJJ3+7DYUxSv9KvQQeO4
-	 HmdXpOw2g3xV+acT+eQzikld9/KFrvy189LRxspqfsXOP1g65AAycMGljxgmXQYQVjHwW
-	 C5wE0OWmzG+h/nUtbF8sFtI0NFvkVsKOXvfjyHwoE3KaTyLHqB6sfDgZSbgZ7f3BTNgPb
-	 SSydW7eYRPL2iO8Jm4Op64CCEDnKQ57qQrpqjE52+A510QjNS33dQz6CLy+tFWy4q2RG2
-	 j+8eP95bA4kn1YmdWsv0tWXjb0vxXLFnaWry5IHy4TqQ3gb8jhS3LZTeTnFAWEoYpTw==
+	bh=EKPDpnDsxP95BvhQy6gMrx0mg3B9bgjTY7R3pORfF0o=;
+	b=pqphRWTUFF//tXLanc4SXj8LlIcvoDdBfdsD/CRBHOV3lrJ+KmvRtcaaQQ6hfYcsEblH
+	 FTLflBHzKvMx6xp8589iioXpfubCt8mMA/B5WtIDI1dyqsjxJudFY+4/LWJR55eLOSdL1
+	 qEJDIME3JmaVOaBYgMvascInbG7YfjkxV9WjBjfy19+y1pCa/QwucqpqqwPpCkqXr9x5t
+	 49XjcteoGcMcmFwa18Za+te+wQG4xGC8iDVY0eps5gEYoWLFP+9nCaNhn7uaNK2THT2vw
+	 5Zts0zXk1cKKGfrOLL2hWAVPvUHlwzaRhK0TZs87AlxJdaeHb6U4AkDPYY4Q1UySjfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjr6L2lQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBw406SW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFC6606A31A;
-	Mon, 26 Oct 2026 12:12:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5765B606A322;
+	Mon, 26 Oct 2026 12:12:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjr6L2lQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5C81F01825;
-	Mon, 26 Oct 2026 12:12:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBw406SW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F041F031E1;
+	Mon, 26 Oct 2026 12:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016734;
-	bh=YVOuksGVEghG5uOYmYA58z5wJk+3kOw2LcsR/GcjPto=;
+	s=k20260515; t=1793016739;
+	bh=EKPDpnDsxP95BvhQy6gMrx0mg3B9bgjTY7R3pORfF0o=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Rjr6L2lQ9XEI4uTeOr8KZuQnr4s0v0pMB3V2pMGjT1TVV1p6X4QQr3Gsv6yN5by2t
-	 NZiDmu+xT/xRdbsFKJfpHOBhbBPrB0H2UcJ2LbhECD21PacVYLnOPAu8H054dHx+tx
-	 rj8JMWxUO7jm++/rTrmRzGAq1MbcSeK3DkkzvnXTRl2IxzuSkb+3sdZ+iEsvuMpPiE
-	 gRrf04EBCMYejn2A7DZMegDJPvvwEMw2v1UdUs8t9dBfDgK0CQ48WghYvKNGHc/TPY
-	 KwRxYSk3bnCKD6VDoZKqaV4qOGb5OMKKamoFmYkUx2zn+uNeMgiSfT75uuc+me3hv6
-	 +lFJWdkv3Z1QQ==
-Message-ID: <c7d83d5d-2431-4a38-adda-b07afc8194b1@kernel.org>
-Date: Mon, 26 Oct 2026 12:00:46 +0100
+	b=iBw406SWNAyN0iypY6z9eMu7GvnlQWgx71O//+605r5yzwZ0nPS5QYtL2h4pXli4b
+	 jQ/8nviFCI0Ni4rjvPmue0JD1nP7zd9iiL+Vbr+PT5RwYMUo5U4P8srFZooN8q67/O
+	 OS5ASw439ShiiovDUOTFVjawzHGh8ZT0ZO79ney7YB8LWOCivypf9hPnO/TLbgVZ9Z
+	 zwJMbwJIGNsuKg5xVyu63tT+4rAywuC2G/YzpOPeoC4QIpXEd80c0uIVBCaSr+jdfu
+	 3MZtaCRlaL6j16jSTIDbjNvxRDP896Db8tLalPtJcZ7P+R43IhNMGOKbYVg7PygMDo
+	 Lfd9/xbqy5Jqw==
+Message-ID: <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
+Date: Mon, 26 Oct 2026 12:19:21 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,31 +52,14 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/16] tmpfs: keep the quota soft limits of an unused id
-To: Jan Kara <jack@suse.cz>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights on
+ memory hotplug
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, honggyu.kim@sk.com,
  stable@vger.kernel.org
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-2-703206d5fa0c@kernel.org>
- <xre5aqctyk464ao7gdrg4fzbamccmo2w5jnqxzultltfhm43gm@xtab77j3yetz>
+References: <20261024170415.4121901-1-gourry@gourry.net>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -123,41 +106,106 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <xre5aqctyk464ao7gdrg4fzbamccmo2w5jnqxzultltfhm43gm@xtab77j3yetz>
+In-Reply-To: <20261024170415.4121901-1-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/26/26 11:53, Jan Kara wrote:
-> On Mon 26-10-26 10:40:35, David Hildenbrand (Arm) wrote:
->> From: Josef Bacik <josef@toxicpanda.com>
->>
->> When the last reference to a dquot goes away, shmem_release_dquot()
->> stores its limits in the rb tree of the mount, unless
->> shmem_is_empty_dquot() says that there is nothing worth storing. That
->> function looks at the usage and at the two hard limits only.
->>
->> So if the administrator sets nothing but soft limits for an id that owns
->> no file yet, the entry is thrown away as soon as the dquot that
->> Q_SETQUOTA used is released, and the id never gets to see a limit.
->>
->> To fix it, compare the soft limits as well: an entry can be empty only if
->> both soft limits are zero as well, which is exactly what
->> shmem_acquire_dquot() sets for a new entry.
->>
->> Fix generated by an LLM and sent by Josef Bacik in private.
->>
->> Fixes: de4c0e7ca8b5 ("shmem: Add default quota limit mount options")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->> [ david: slightly adjusted description ]
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On 10/24/26 19:04, Gregory Price (Meta) wrote:
+> In auto mode, weighted interleave derives each node's weight from its
+> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
+> node's bandwidth once, when the node first gains memory, and nothing
+> else on the hotplug path recomputes the weights.
 > 
-> Good spotting although I consider this pretty minor (unlikely setup proven
-> by the fact nobody complained so far). Feel free to add:
+> When a node loses its memory, the other nodes keep weights computed
+> with its bandwidth until another node reports. If one does while the
+> node is away, the reduction skips the node and resets its weight to 1,
+> which it keeps once its memory returns.
+> 
+> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
+> nodes 4 and 5, weighted_interleave/nodeN reads:
+> 
+>   event             node 0-3   node 4   node 5
+>   node 4 online         7         3        -
+>   node 4 removed        7         -        -
+>   node 5 online         7         -        1
+>   node 4 back           7         1        1
+> 
+> Toggling weighted_interleave/auto to 0 and back to 1 gives the correct
+> 6, 3 and 1.
+> 
+> Recompute the weights from the recorded bandwidth whenever a node gains
+> its first memory or loses its last.
+> 
+> mempolicy_set_node_perf() now only records the bandwidth and calls the
+> same helper, so the bandwidth is kept even if allocating the new weights
+> fails. wi_state_lock is dropped between the two steps, which should be
+> safe because the helper reads node_bw_table and the mode under the lock,
+> so a racing writer only makes it work from newer state.
+> 
+> With this patch, weighted_interleave/nodeN reads 6, 3 and 1 as soon as
+> node 4 is back.
+> 
+> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/mempolicy.c | 66 +++++++++++++++++++++++++++++---------------------
+>  1 file changed, 38 insertions(+), 28 deletions(-)
+> 
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 0884c629670d..ffb293a4cc56 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -238,27 +238,45 @@ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
+>  		new_iw[nid] /= iw_gcd;
+>  }
+>  
+> +/* Recompute the weights from node_bw_table, unless they were set manually */
+> +static int wi_state_refresh(void)
+> +{
+> +	struct weighted_interleave_state *new_wi_state, *old_wi_state;
+> +	int i;
+> +
+> +	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
+> +	if (!new_wi_state)
+> +		return -ENOMEM;
+> +	new_wi_state->mode_auto = true;
+> +	for (i = 0; i < nr_node_ids; i++)
+> +		new_wi_state->iw_table[i] = 1;
+> +
+> +	mutex_lock(&wi_state_lock);
+> +	old_wi_state = rcu_dereference_protected(wi_state,
+> +					lockdep_is_held(&wi_state_lock));
+> +	/* NULL wi_state assumes auto=true */
+> +	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
 
-Yeah, similar to #3 really minor.
 
-Thanks!
+I was confused about the node_bw_table check at first. Maybe
+
+/*
+ * We can get hotplug events before any BW data was recorded.
+ * ...
+ */
+
+>  
+>  /**
+> @@ -3900,8 +3903,15 @@ static int wi_node_notifier(struct notifier_block *nb,
+>  	case NODE_REMOVED_LAST_MEMORY:
+>  		sysfs_wi_node_delete(nid);
+>  		break;
+> +	default:
+> +		return NOTIFY_OK;
+>  	}
+>  
+> +	/*
+> +	 * HMAT and CXL report a node's bandwidth only when it first gains
+> +	 * memory, so recompute the weights whenever N_MEMORY changes.
+> +	 */
+> +	wi_state_refresh();
+
+If the function fails, should we at least pr_warn_once() ?
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
