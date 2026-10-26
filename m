@@ -1,66 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017851;
-	b=FWTC1pVfWKdEawjkw84TC0oJN6+91Vphw1RkepZ9+VzHTJeVO95+WA6FXi7k9K9RaKSW
-	 5pnZFlXo4Z/2RT1vfl4pQF6rK6WPOh5MVnJBAWU2B1lLiJX5ym86XvDviGThNejKiHqm+
-	 aB5pzYKc1hqzXWplL/hHPKrdbaa7XyLPVHBFTZzWZI0TTt7HewfBzOSMNcLe8ZaOuL5aR
-	 806ZGx7F/RdA0mp0MjC/BwEhnCiKvcycBbnTP1toNySQSRsZlK7IHgEBOeucax7OYpHw9
-	 DmSzxHBQ7fDjMPJNBY0WtRY+HmWRpT9CuEyfp0KJUzNnLlb5nU1AmgafJA4e+K4G88Q==
+	t=1793017934;
+	b=4lx9Ob+RSW92ZizSUlXQMye6eT2l0rgQuZSgJpf0G4HjomDM2bsBUAYUOxveEwQVmAMz
+	 zd1DLcDDYYswFOhkfMQpqLilldJveYI/Wx6dRxnIQZGUtRynl9JjvnOKL00GfMpEVPOqo
+	 97p32QFprRrD3h+2YOz5bcKevrgr4GQnFZORyi4s7Bdaeqw2+UoecoY0Aa9uZGKfKRiWD
+	 3PCQqgu8sVYvXaZ2tU2oW74NBoiN8maxCXWBTytYWM5dXC3sc45stXN+KiG6JxP4fTrXr
+	 1RszeKLi/omIJ93SdBk1TF3n3vrz8S225T5xVZWU+VIg+t1ML8yQAO1CfEUJwuRs73g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017851;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TRZt7x37p8LUgQOIpKaz3b3988dBzwRGltnd5ZVeEBQ=;
-	b=G41DU1QSAd6rK2iQYhxGigKpSfVVx5WVHer2nL0G38YyjHMH0f79iOGwhA7HK9xbAc1o
-	 yRR5uolyYz5B8HDm+Fx8r0weaIW/oytUfS0BzSm2iadt6xxzwliq0r4YYNFLotXxnvNW8
-	 Zko9M4c94Q2+yux5ozqyjj78RsUGEQyE2R3am4l5CmnArlYUTgGaWtYZN500KKyFbxddA
-	 MrMv3owNGDGzMyAn+HFDFN4MgOEnbux8Jk+Bfg5uODzFUbiDUkuEQSpfi8i75qX147+6G
-	 1b8SuuTFKhFdf+xGW9mvQrDI+VTidlBnfyUNzfsy739r4+w5lw9hSSSTI1eGmqEk14Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
+	b=W/Gq9OnyDVp4TWe+v6s8HvTGMWAksS/kZ3PWFpCXWzSFupPIGGS7xRh1S+b5l0YMegMy
+	 mMBZUhVinxvsflOBCOtPTIhShoyJY2i3T3lU5NSm7AX5wYt7bek2Nl+TroJxZ27Z4ZPZG
+	 bU7kp2GOXrDfe9Rxo4QHamERNByGz8zosF1zhunS4MuhTV1865Tc2zeZ3Mj8SjQqqqLMH
+	 FNxXWm7gwwVqaOW6E4xKiLi5fPmilz1gh6sXm+lftPfKSEWnG5MQr4kTZkdbCgGLmlBCf
+	 b71WTucKhZdIA64B9BYYuoGaIcCVcOdCcg6F66gsiN4CLJeuACyQPxuDR5BoSG8RQuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=a51umk1S;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8EC0606A31F;
-	Mon, 26 Oct 2026 12:30:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8EC0606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mivMcba8;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C812606A329
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C812606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=a51umk1S
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F3F025DF;
-	Mon, 26 Oct 2026 05:30:47 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 16F583F7B4;
-	Mon, 26 Oct 2026 05:30:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793017850; bh=X7sXgG5KeOSy1aHvYxzPYxQhid9EVso1C+EnXtpcXiA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=a51umk1SJn3Qg0uasCVQzZnOrDFKghUAEP7EkrWFXdPPNFIMzLLrV9N8cjkr3aGKF
-	 z8GG4zNZ3Tm/0q6VoX6Psp3ZxfySUkB3fkJWOhbNWs22m0DRA+otCMqkcURphbPTl5
-	 fFeWa3OFzRFlj5VqI9kqkZNToJ4SuBOlO68fncXY=
-Date: Mon, 26 Oct 2026 12:30:45 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Zhao Gongyi <zhaogongyi@bytedance.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, will@kernel.org,
-	Ryan Roberts <Ryan.Roberts@arm.com>, dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com, lance.yang@linux.dev,
-	mark.rutland@arm.com, akpm@linux-foundation.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
- PTEs
-Message-ID: <at9H9Vkx57pIcPos@arm.com>
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
- <daab2f45-56c2-48ad-a24f-aa4f889e4da2@kernel.org>
- <e0f60526-bb95-4d39-9a7a-72cdf32ca5b6@bytedance.com>
- <cc2e3af6-bb56-41b1-9cde-151797c3068d@kernel.org>
- <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mivMcba8
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9683375e9.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793017932; x=1793622732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
+        b=mivMcba8uYDlFfKaqTMPiPMpITmJGgJrVgHOAE8jYmLoBhYW45mBdXMQ02LqG2updu
+         9LeHTzDGRg5A4F89RhWaUFJZ5c+VI/1ilvjcrv5DlQxsAoj2wFryqCx3b/uPou7AXDeb
+         Wss9LdDOSh3+0Gu7kqjVfhjI8DS+Lu5UP/fenZyhi4gwhMFIDpqrbDyquPelPmXH+51y
+         m+m44LxpXGLxus7eX+O3txTAid5lu69y7VhycvS1snpdVZw/LgFjEanIemDgwrso3110
+         rirMGQoCitHWBLayc4HPMr+aanfRqUmn39o06PX8Oae+V0uea0+PN4brPriZTVyZxsuE
+         4C4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793017932; x=1793622732;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ktUKdiKYfb7DoM5zhVHml/g4TQZHJlrIih9rFWqZVKQ=;
+        b=WhvBKj+vVm87TtP+sqUtvpdyMydv1sDCZiwNj4HPeeE+NUlatUrfHpr5AC7KGC3FUP
+         dwTS06uDPEMoJCJyPb7+MYZan4mIy0URb9R8bjWbksjEHyfPGBjuhJY8fTxkbXrfkW1A
+         TLHZVsGLGeJ/7H227BQkByyatHYABLL8icexW5xZ2c47v7TH6R+XqKjc4ABfIH7zSJSd
+         SrLtHozoda37H+K6xAv6M+c9hFP+ruNAEb3pJ2gTWXbwNvVYp5lpcEp02Ej42BRwhWnb
+         JakK9Q4an0y/f0x2MMOln5/camYqhpYmPHUFFN1Xfy8PKOXPkoz6HrmFdnitmPMCbFQE
+         spng==
+X-Forwarded-Encrypted: i=1; AKwUvBxbj7Wg9kcOTBNPvIbaEZAfe5qdTXe3R2uNdQnPIWgzPFI1HyO+B5ew0/Mgx16PNGNp5tOlvRw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx0f9f/QCLsVQxHu4ECk7gw9p90ym6ViAFGSvzDHCRvqQ/+eXZ
+	57lCoQ4bG/oqKrO5C04srEz4//pDTV5zay8MJCOK9aMLa5TIy8cKBvqi
+X-Gm-Gg: AYBFou1uGgbD+r1xxA6MFPwbh+i3yYkoyllyg+ENJHoMPMAZzHY7P3WQ7rW7EuB5n0d
+	7c6DkjRzUy1GIaMNWxqL46py9frJWsCpsXBG3/pWq+PAcXDcW3+0Cdk1KSpP4E+k/F//3po6PGh
+	/LRXQrhOKPS9V7ieptbAtIscM70F13gDAqPP68QLRMhjFSMdcKOZBjBoP173XOLXAL2ggEqtYiU
+	zhF2623QGa7W1mOS6at27vURiltrLO2eMvBwRtBLlNdzuPeENuBKlQwWk/ueNNcaGs8FNlcDwPm
+	Oka/QdWO+Ogm2Ja9QMvH+dfZt2XpHEQIflp7GKh8PjQkv/A8UqsUbt1jcj6LtOs2E4tly9K2Qtu
+	BnakG8n7Yf6FpJjhFKXz9Kv4vUAr6Oj3BtQ0R2mqZvUV4TBleRRl+9cvoOjNM+71mzBlVenHusl
+	NoijK9/SjuvnA6FyiR9HG66Lwx9mqaiEJ959J2bgHYqIETGfaoboiupxLojuryN0VpwVY8iKgt8
+	89epE9kOYE5k8Qsy6Xx1TGqbjlgJ7qugHGXP+mP57R/ZqHERlXjHhUSNoPn2Snn8wz4yB+HpYi1
+	mXIeNGXp
+X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr45612025e9.11.1793017931500;
+        Mon, 26 Oct 2026 05:32:11 -0700 (PDT)
+Received: from localhost.localdomain ([188.190.249.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdf9bdsm15684045f8f.55.2026.10.26.05.32.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 05:32:11 -0700 (PDT)
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kuen-Han Tsai <khtsai@google.com>,
+	Sonali Pradhan <sonalipradhan@google.com>,
+	Kees Cook <kees@kernel.org>,
+	Felipe Balbi <balbi@ti.com>,
+	Jim Baxter <jim_baxter@mentor.com>,
+	Francesco Lavra <flavra@baylibre.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: f_ncm: restart the TX timer if the TX freelist is empty
+Date: Mon, 26 Oct 2026 14:31:59 +0200
+Message-ID: <20261026123159.53234-1-tvlad744@gmail.com>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260817192638.437798-1-cosmin-gabriel.tanislav.xa@renesas.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,32 +106,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3b57c214-6a43-4fc7-a531-fb5eac196465@bytedance.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 12:00:33AM +0800, Zhao Gongyi wrote:
-> On 10/24/26 4:55 AM, David Hildenbrand (Arm) wrote:
-> > If we have the spare PTE bit, why shouldn't we just use it?
-> > 
-> > It will make batching over PTEs faster. And we care about that for present PTEs.
-> > 
-> > So I don't quite see why the stable fix couldn't just do it right away? Do you
-> > have a prototype that shows that it would require significant code changes?
-> 
-> I tried a small prototype that keeps PTE_CONT on present-invalid PTEs.
-> It leaves contpte_set_ptes() unchanged and makes contpte_try_unfold()
-> recognize pte_present(pte) && pte_cont(pte), instead of checking only
-> pte_valid_cont(pte).
+On Mon, Aug 17, 2026 at 10:26:38PM +0300, Cosmin Tanislav wrote:
+> Under sustained TX saturation the request freelist is empty most of the
+> time. Since the timer is never restarted, small packets keep getting
+> accumulated into the NTB, until either TX_MAX_NUM_DPE packets are stored
+> or NTB_DEFAULT_IN_SIZE is reached, which is an unknown amount of time.
 
-I think it's worth doing but currently not sure it buys us much unless
-we also change pte_batch_hint() to cover such entries. However, if we do
-this, we need to audit the other pte_valid_cont() callers (e.g.
-ptep_get() needs updating as well).
+I hit this on a OnePlus Pad 3 (SM8750, dwc3, high speed to a Windows 11
+host, qmult 5). Pulling 20 MB from the gadget over ssh stalled for 40 s
+or more in 2 of 24 runs, and most of the other runs took ~6 s instead of
+~1 s. During a stall the sender kept retransmitting, the qdisc backlog
+was empty, tx_packets did not move and the ep1in TRB ring had nothing
+owned by the controller, so the frames were sitting in the pending NTB.
 
-So, if we aren't going to change pte_batch_hint() as a backport fix (I
-don't think we should, it's an optimisation), I'd rather take v2 now and
-continue with a proper pte_present_cont() etc. patchset on top.
+With this patch on top of v7.3-rc5: 24 of 24 runs at ~0.9 s, no stalls.
+Host to gadget is unchanged.
 
--- 
-Catalin
+Francesco Lavra posted the same fix in July [1], but without the
+hrtimer_forward_now(), so the timer would fire again right away.
+
+[1] https://lore.kernel.org/linux-usb/20260727165441.1969927-1-flavra@baylibre.com/
+
+Tested-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
