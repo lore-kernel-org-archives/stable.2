@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792989095;
-	b=Y6HYLR64EI+9D0nSfMf3eE2Bh8uV69F83xaiXKSwEGfoMd0Zbjf8KVtFFGLkhSSCTPAq
-	 Vp04GrD/HhtVSu0Hx6fGRAK/Ou4ctu/kF9rjpqhXC2QdiQor6Dcad4cjFazpb46vJAnAd
-	 iBWKiFTiET9iUs03RjYS76th0ntSVhm02FmYZhrFpHvLVwuY7a3GR+VowRV7XLd8MzRUV
-	 H5KHvqOP/IOQJq+RF7NZoTI5/fIBSyhRS4vST/hHsVSw+YgwDiuJ7hFlxstv3rpUHxwW7
-	 XuyhNSVH0LKYJk09xMyQ7Hx1wrjXSP56PgCXH7tJKbvss8TAMY56bQKsuas0UualN8g==
+	t=1792989234;
+	b=QZK4xXu0zcNyVFgyjpTAL28WXDECy3FSG5Qwq+1Vun189R/pNLIshzLb/NQHwPWUgvSB
+	 f+cBl3phio0WTcSJIYaMWK5m/V7nqrsaueuVZgnY5jkMCn0N0f/gjDfrvLb5iF1PvLkPJ
+	 nsTXySkoSo4bKZVn7jHMziAqtkpieoR7yaZRvFvkLOK3qoMgl4c2zwHPwndSDwmzTtY7+
+	 9mz1fkP9Z9B4Gy69FQ8XiWDdsGtuTQgsZfxnmmoOVTyX0JzceBuXCh8pMUe8q/Ov0bVZ8
+	 R3KYbw+9KGr4xEwmculnz8slYic6ThaLLVqYR6ll9hG0f8C0vTavLOLSb6a53d+d8rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989095;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=5AfIWjNSRqfmtJIhw7tDuUxfIA/f9Zyu9yDESLH9HVk=;
-	b=1viy8SgUzcftgU7x1seDby747POy4OcA/i/rHvYcdrur6SwAmk9qRC8rrWebUJFkXbb7
-	 Eew9zsOALB9DLa8JwgEJ/s6bO5E+5Jc0oiGdpJp6TumCnQMUF6gsaFuFLRRPfaaEG/etz
-	 YKOkKoBatGRX/R2JwQxTOUIrG0LjbWLUMrV8te9ySVfHOvc/i++t81TeNPqAGoa1p9Xc9
-	 6KdDolxukfw4fuXxysewuzG/kfFf7CCmoKd+nM2jZgEhpH6aF++QZzVQDMNSPTidrYEhP
-	 mWjLI1OkffQN7BoFWbAN1JrperWAXlGdKELAEMN5coMeHyiaYFicB5rvvo4DzLC/HGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989234;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=zp+JxXwgQx3uq+loHTFsBZclGNcJgzZQrarebs928zE=;
+	b=w3H2lUcQJjfULgo6jqgOfhzooX9JDr01k88VXAv4gkSiZNsyxSDJUX79QpPkupkFIZcW
+	 YfUchaqC6W/LDxbiBtEaCllbuGo+dPWiLZLTOlyJjK24unVQiWJfWSAKyET1t1XUYLgHx
+	 gHVfOHpOEJGMGw3E5phY4hkOzoYvuSxolNmCc8vjp7Ew/FfMzh6RuEv4f+RbwDagSN6JJ
+	 XV5nWqsb/4cx45X4181xTMzuJdPypwGS+PAQcIstPJ4VZWGv/xC82bjcNP9Mj+ZwQjhY+
+	 +azQJrVKsZY8JfxIzxS7gw1baz/2IGeprF43XvMUrR+zCaS8EjN8SFEDeMWwxMlubZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FE4B606A31D;
-	Mon, 26 Oct 2026 04:31:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE4B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8CxKvCj195qcF0ZAA--.7991S3;
-	Mon, 26 Oct 2026 12:31:31 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJAxlMyh195qoTgwAA--.8141S3;
-	Mon, 26 Oct 2026 12:31:31 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] dmaengine: loongson: loongson2-apb-cmc-dma: Fix cyclic residue wrap NULL dereference
-Date: Mon, 26 Oct 2026 12:31:20 +0800
-Message-ID: <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1792988985.git.zhoubinbin@loongson.cn>
-References: <cover.1792988985.git.zhoubinbin@loongson.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoahMzMk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F39606A31A;
+	Mon, 26 Oct 2026 04:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoahMzMk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906C01F01825;
+	Mon, 26 Oct 2026 04:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792989233;
+	bh=zp+JxXwgQx3uq+loHTFsBZclGNcJgzZQrarebs928zE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VoahMzMkvtdPbsD3uSmbKUJQqC5mf52O/YL/1w1xNSNqbIunhBSWoIVGr2d2DIAG/
+	 1RvJrSiH3lJ7v6EESg0qLGws2oATxslZQG3E5qJb9pQwmuhf+AWcPN8umgfBmpMNlo
+	 xmAv/yeAZ4czaj2Ge+2/gVK055CRKO7jXTggNvz55lKUVECagb6aUAVqAt05nt7u6k
+	 grgZRXCW6SasKmRSo2Y51Bw4poS9LMXJQewIi61XNQcpMEbg2OVUdF0g348amJkdfs
+	 y5hK0pLMVf1mMd4N0UcKwTDI5GIwcCFtoXnvv/8Swn+lOs304Fjw5JSUF9m9aJ8S5q
+	 zup1RDlEGSmwQ==
+Subject:
+ Re: [PATCH] net/smc: fix possible recursive locking in __smc_lgr_terminate()
+From: netdev-bot+sashiko@kernel.org
+To: anferneemelokc5@gmail.com
+Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
+ sidraya@linux.ibm.com, mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, linux-rdma@vger.kernel.org,
+ linux-s390@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Mon, 26 Oct 2026 04:33:52 +0000
+Message-ID: <179298923209.3134.328428879251012130@kernel.org>
+In-Reply-To: <179290097759.51540.15412712294727302463@gmail.com>
+References: <179290097759.51540.15412712294727302463@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,73 +65,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxlMyh195qoTgwAA--.8141S3
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEMCGretPgwGAAAsU
-X-Coremail-Antispam: 1Uk129KBj93XoW7ur43Aw43Ww1DCryfuFWUZFc_yoW8tF48pF
-	W3Jan5KFyrG3yfuanxAry0qF15AFW5JFW2vay7W347Cr95W3W29w1fCF9YgFsrAr98ZF1j
-	qFWru39rGF4UG3XCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
-	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jOb18UUUUU=
 
-loongson2_cmc_dma_desc_residue()'s cyclic wrap special case checks
-lchan->desc->cyclic instead of desc->cyclic.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-When tx_status() is called for a queued descriptor while no descriptor
-is active, it reaches the "else if (vdesc)" branch with lchan->desc ==
-NULL and passes the queued descriptor to this helper. The helper then
-dereferences lchan->desc->cyclic and oopses.
+Critical: 0 · High: 3 · Medium: 0 · Low: 0
 
-Even when lchan->desc is non-NULL, keying the check on lchan->desc is
-semantically wrong: the wrap decision belongs to the descriptor being
-queried, not to whatever descriptor happens to be active.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Use desc->cyclic. This fixes the NULL dereference and makes the helper
-self-contained.
+- [High] The commit message says smc_conn_free() always unregisters
+  new_smc from lgr->conns_all before early cleanup, so…
+- [High] The new annotation in __smc_lgr_terminate()
+  (net/smc/smc_core.c:1582) creates the lockdep dependency sk_lock-…
+- [High] The new nesting annotation covers only the first acquisition of
+  the per-connection socket in __smc_lgr_terminate()…
 
-Cc: stable@vger.kernel.org
-Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson Multi-Channel DMA controller")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
----
- drivers/dma/loongson/loongson2-apb-cmc-dma.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+--
 
-diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-index 2037120b23ca..f090fbe0b8a1 100644
---- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-+++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
-@@ -484,7 +484,19 @@ static size_t loongson2_cmc_dma_desc_residue(struct loongson2_cmc_dma_chan *lcha
- 	ndtr = loongson2_cmc_dma_read(lddev, LOONGSON2_CMCDMA_CNDTR, lchan->id);
- 	residue = ndtr << width;
- 
--	if (lchan->desc->cyclic && next_sg == 0)
-+	/*
-+	 * For a cyclic descriptor that has wrapped (next_sg == 0), the
-+	 * current period only has the in-flight entry left; the entries
-+	 * from sg[0] onwards belong to the next period. Adding them would
-+	 * make residue exceed one period.
-+	 *
-+	 * Use desc->cyclic, not lchan->desc->cyclic: this helper is also
-+	 * reachable with a descriptor that is not lchan->desc, and only
-+	 * the active-descriptor branch passes lchan->desc today. Keying
-+	 * the wrap decision on the descriptor being queried keeps the
-+	 * result correct and avoids depending on lchan->desc being set.
-+	 */
-+	if (desc->cyclic && next_sg == 0)
- 		return residue;
- 
- 	for (i = next_sg; i < desc->num_sgs; i++)
+net/smc: fix possible recursive locking in __smc_lgr_terminate()
+
+The patch switches the per-connection lock_sock() in __smc_lgr_terminate()
+to lock_sock_nested(..., SINGLE_DEPTH_NESTING). The goal is to silence a
+syzbot lockdep "possible recursive locking" report in the SMC listen path.
+The commit message argues that the socket locked there is always a
+different instance from the one the caller already holds.
+
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index 6021322253e93..64c5ee592e641 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -1579,7 +1579,7 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+>  		smc = container_of(conn, struct smc_sock, conn);
+>  		sock_hold(&smc->sk); /* sock_put below */
+>  		read_unlock_bh(&lgr->conns_lock);
+> -		lock_sock(&smc->sk);
+> +		lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING);
+
+[Severity: High]
+The commit message says:
+
+  smc_conn_free() unregisters new_smc from lgr->conns_all before the
+  early cleanup, so __smc_lgr_terminate() walks the remaining
+  connections and locks another socket, not the one already held.
+
+Is that always true? smc_conn_free() only unregisters the conn while
+lgr->list is still non-empty:
+
+net/smc/smc_core.c:smc_conn_free() {
+    ...
+	if (!list_empty(&lgr->list)) {
+		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+		smc_lgr_unregister_conn(conn);
+	}
+    ...
+}
+
+Suppose the peer answers ACCEPT with a CLC DECLINE that has
+SMC_FIRST_CONTACT_MASK set. That arrives while smc_listen_work() is
+waiting for CONFIRM and still holding new_smc->sk:
+
+smc_listen_work()
+  lock_sock(&new_smc->sk)
+  smc_clc_wait_msg()
+    smc_lgr_terminate_sched(smc->conn.lgr)
+      list_del_init(&lgr->list);
+      lgr->freeing = 1;
+      schedule_work(&lgr->terminate_work);
+  smc_listen_decline()
+    smc_conn_abort()
+      smc_conn_free()        <- lgr->list empty, conn stays in conns_all
+      smc_lgr_cleanup_early()
+        __smc_lgr_terminate()
+          lock_sock_nested(&new_smc->sk, SINGLE_DEPTH_NESTING)
+
+smc_lgr_terminate_sched() does not set lgr->terminating. If
+terminate_work has not run yet, __smc_lgr_terminate() gets past its
+terminating check, and rb_first(&lgr->conns_all) can return new_smc's own
+conn.
+
+smc_conn_abort() computes lgr_valid before it calls smc_conn_free(), so
+the early cleanup still runs on this path.
+
+Wouldn't the kworker then sleep forever in __lock_sock(), waiting for a
+socket lock it already owns?
+
+lock_sock() is just lock_sock_nested(sk, 0), so this change doesn't
+alter runtime behavior. It only changes the lockdep subclass, which hides
+the self-recursion report in this case.
+
+Would the fix need to make sure the caller's own conn is unregistered, or
+skipped in __smc_lgr_terminate(), rather than annotating the lock?
+
+[Severity: High]
+Can this annotation create a lockdep ordering inversion against
+smc_release()?
+
+With this patch, the listen and connect paths record
+sk_lock-AF_SMC -> sk_lock-AF_SMC/1:
+
+smc_listen_work()
+  lock_sock(&new_smc->sk)                              subclass 0
+  smc_listen_decline()->smc_conn_abort()->smc_lgr_cleanup_early()
+    __smc_lgr_terminate()
+      lock_sock_nested(&smc->sk, SINGLE_DEPTH_NESTING) subclass 1
+
+smc_release() already records the opposite order when it closes a
+listener that still has non-accepted children:
+
+net/smc/af_smc.c:smc_release() {
+    ...
+	if (sk->sk_state == SMC_LISTEN)
+		/* smc_close_non_accepted() is called and acquires
+		 * sock lock for child sockets again
+		 */
+		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+    ...
+}
+
+smc_release()
+  lock_sock_nested(sk, SINGLE_DEPTH_NESTING)           listener, subclass 1
+  __smc_release()->smc_close_active()->smc_close_cleanup_listen()
+    smc_close_non_accepted()
+      lock_sock(sk)                                    child, subclass 0
+
+Lockdep keeps these dependencies for the whole boot. Once both orders
+have been seen, wouldn't it report a possible circular locking dependency
+between sk_lock-AF_SMC and sk_lock-AF_SMC/1, triggered by the same syzbot
+scenario?
+
+The sockets involved are different instances, so this may not be a real
+deadlock. The splat would still fire, though, and lockdep would turn
+itself off afterwards.
+
+[Severity: High]
+Does the nested annotation cover the whole time this socket lock is held?
+
+smc_conn_kill() calls smc_close_active_abort(). For SMC_ACTIVE,
+SMC_APPCLOSEWAIT1/2, SMC_PEERCLOSEWAIT1/2, SMC_PEERFINCLOSEWAIT,
+SMC_PROCESSABORT and SMC_APPFINCLOSEWAIT, that goes through
+smc_close_cancel_work():
+
+net/smc/smc_close.c:smc_close_cancel_work() {
+	release_sock(sk);
+	if (cancel_work_sync(&smc->conn.close_work))
+		sock_put(sk);
+	if (cancel_delayed_work_sync(&smc->conn.tx_work))
+		sock_put(sk);
+	lock_sock(sk);
+}
+
+The release_clcsock branch at the end of smc_close_active_abort() also
+takes the lock again with a plain lock_sock(sk).
+
+Both of these take the conn socket again at subclass 0, while
+smc_listen_work() still holds new_smc at subclass 0. Wouldn't lockdep
+then report the same "possible recursive locking detected", this time
+from smc_close_cancel_work()?
+
+This looks reachable for SMC-D, because smc_listen_work() drops
+smc_server_lgr_pending right after sending ACCEPT:
+
+	/* SMC-D does not need this lock any more */
+	if (ini->is_smcd)
+		mutex_unlock(&smc_server_lgr_pending);
+
+Another connection can then join the first-contact lgr and become
+SMC_ACTIVE. If this handshake later fails, for example on a CONFIRM
+timeout, a failed smc_clc_v2x_features_confirm_check() or a failed
+smcd_buf_attach(), this path kills the SMC_ACTIVE conn:
+
+smc_listen_decline()->smc_conn_abort()->smc_lgr_cleanup_early()
+  ->__smc_lgr_terminate()
+
+>  		smc_conn_kill(conn, soft);
+>  		release_sock(&smc->sk);
+>  		sock_put(&smc->sk); /* sock_hold above */
+
 -- 
-2.52.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179290097759.51540.15412712294727302463%40gmail.com
