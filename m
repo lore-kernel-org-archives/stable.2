@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024447;
-	b=ZUKG9giVZ5G6LuAeBWi2e1XmhmUNv+3bEfiMkCV7eOt3G9J4dyFT8K3Z2UZ3Nq/gIf+1
-	 rjD4GnwN274tD1Z/mbHv9edmB2b7oDmbT0ZDaXqdZtti2ET8QcuIbfottBppbRfpzuzoq
-	 PxTfWbEWcOW80j5YX49hAykNKybrieCLvvL0HD9sSQ+GphojxOmexxnjR81aAOXe7808p
-	 Y0IoBW6f+0RPPlgtV/6yVoGvElYdXDAnRjWygrJAGuPG6ewi2OkADGmlaZFfA4N8eYQzu
-	 vPFGmqvUG5lypvUblaIxnP3wYZ/kOnNK4v8RqvQgix2u/1/giPjkaMn0qT8Pi/KsZQA==
+	t=1793024454;
+	b=0EYYqG+Mjo9vV9ivnapk4dwK1EcznpIx1RV4FbHMN1ThdWPVNDsJH7K3J5UqeaPMJ7Dc
+	 JTKuvrKY5MFbTdypLl3oKI7uvnJAJUdNoxsbjb3sLOVfDIYohyNHYkdH7dZ46QevvN+NB
+	 gG/32W+QOwGV+sfUCco13rj3tS3GZEU11pAF2jdoQKXWIASzo5gBeMFhITrKwz75WT2zQ
+	 VtfbzhoF0MCeUBWKEiGWdiwM7VIWX/xYLp8s8yv4sj7GhfVQO6eghd1l+44z3OM/uAjaD
+	 /CwfpebkIGi3J9XzZhaKBW0H8r1L4pqnuA1veqP57K+L8yGlnoxWQZlSQ8WxWxWJ62w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024447;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AmlF0+0aAM2fRJ2RV4wjFXkBSJJqDWyBurX+4vn392I=;
-	b=epRffEeVPH4sAkVtRF+qmM6XKeXf3jUQvtgur9VJ4FoQvVyuhmg4c7837G+2DwkFtkr/
-	 4cCUtVh0IsUJ4iLe95Uzm07oD/RQmaXJsIXOVXBI+l5BvLB/TIArBy942gwC6+9aN0Ji8
-	 M8cSvUgpuVyC4TOahWv63N6YS86WvYE0PDnQ3FaLB8WqF7P47AhBJ5Af5a5PvJXfJzVgq
-	 nAAJBnhcSLmFYLK3rYfWjTE+mFD0lCQ3WFktU7NLeuugDLE05f0dHkCsaI7Z/uubu8Tet
-	 vMc8YLpD8jkNN2PfvpKW0EHhI/G5x0qUCZtPZ4p4iRFqp8lDQfd6X3gpQ+vEJxT9PCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024454;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LgPmm/ErrwehZ+XLxJlpoTIoC++Xdryf/n5RHQZpOtw=;
+	b=WRkWWH/OEskExo5stk7B+w8TmmHaoURqDdjBoEtzVzPV/gyGKH4o4F8fOwtyCSsg9EF8
+	 V5UArjckdUL6uBhV7OMrlW0PM2BfMFBugKijZhIT1cyJflyY3+Q76nh3J8if/6lBKiGrk
+	 dPoNymBTaFBY0C6VPtd2mosJEdn7toWp2H0W51v7BUKWk67RGCAVWgwityEz6AUNfM874
+	 UGVrz7E06BKjy2Hyf8eZ1Fjl7OXuqBfBpYtkZxvZnaHvAtbSyZctfnh7D75WyyoEXOfMf
+	 QK9i5VhEoG9waIML0FN/VhPeIboypJTxWCbgbKRzfenkegofgMpQNn0RAEzgP8AsMVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwrHKO5q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I5GO8QeG;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FF6606A323
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D1A60A2612
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:20:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D1A60A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwrHKO5q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC961F031E6
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793024446;
-	bh=AmlF0+0aAM2fRJ2RV4wjFXkBSJJqDWyBurX+4vn392I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PwrHKO5qtJxFxRGL1vGL4JNW8fYL9264QY5VABTbch1W/dcwzLpgjUqGj/urzbo9E
-	 0e2w6D5H9unmPYvIpHrm+qvIJW6BgV9qch9v/TWQ/uMoqRtPul6ao+kJRwJUGmNb10
-	 GpX+/RfBNqRdOAxcFdo8ik4GWr089+Exfk9OHK3PquqEf19qG47JwzBLmA7gjzm+ie
-	 HnRJNoBVVzGjl5I44Gd1rLthKrXjSL9DTz47XF/SdhbfV1Md5hQTV/K2GqxH3nOCqP
-	 1SGaAQ87/uKKBq4FBrOujGqClneAKphm67ZhBntCtdKtN5loSvSMSvv0qMJ79FRDsI
-	 fZPhLhUz80/iw==
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-43bf9548df4so2717380fac.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 07:20:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw6HyHjCYOWXDV/6YPdoqS6HsJcdPG0hD16dbMlfQjmmNlh8PnshebmFmOXkdzJaX3Fkr9xvok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJj94y3HXtklYeJGz0WJLTtaeFKID3hQgY5ei2ECwtv7V8iKo6P
-	Yi/FPNmKEK0UZSXtYASrxRLxxks4A28ImbDhNBvYqsgSVyYsBbuZ1UMLXarxSywbpm4L/B/Cksj
-	Wig3KFEEr4dWfFuN1q3/krgR0iUCXpL4=
-X-Received: by 2002:a05:6871:419b:b0:49d:c9ed:21f2 with SMTP id
- 586e51a60fabf-4a83f42e1c8mr3861088fac.18.1793024445749; Mon, 26 Oct 2026
- 07:20:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=I5GO8QeG
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2460942f8f.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 07:20:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793024452; x=1793629252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LgPmm/ErrwehZ+XLxJlpoTIoC++Xdryf/n5RHQZpOtw=;
+        b=I5GO8QeGXNlCXahnsOgpe1kLFB/P+Gajs3d2ivcElZp0nGsxs/o6SfavY7cXPO8qvv
+         K+QXcoc3M4fpLcByidkS/r0GpQveUhNex8boBCdmPiytb0i1UCDVm1w0rk+ygkS+hxKu
+         g4NiefZSDhIoEYqmn/CbZB4ebnuhRh3bhR8HNGXZRU8bEHrpsXnW2k2sbW+sDlys5ifG
+         HQNNyhN8uQtoWr/jXcy9cqgvw+fHwL1nhhLiVVbBEvf+gssXMoyY4Z5dOLWTXvOy+/bu
+         1buqLolZ+Nom0tYxf47BgLF1qqvhVB9JoddlCsXxrVCqbdgaVv81kDiBdl2nv7Eesy+S
+         uSEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793024452; x=1793629252;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LgPmm/ErrwehZ+XLxJlpoTIoC++Xdryf/n5RHQZpOtw=;
+        b=rPhRqeXhzoSzGGq2LYa4cUXbMiE/LTo6HVR8FRi/v/z0rIV8XJ5a/HUnMbzu4i2Wpx
+         N4/1PVeKswxUdzPAyIuBWA51kNTCYQV92qDtxhxAcG9IZ3TclABP77x2i/AFPM7VeH+Y
+         5wpAErCaE+KfXj/jKh8dAHs/9KNzGlEvzbNp09lO5hnURZvgHyyqK485Y5o/Q7aTCs0j
+         3GNF7P1gt2dApo4kcdL1NKS9HccJB2HXoWdn+RQB2WkDF8MB/omQhVMig1KY3RzllcPn
+         INNZfG4XeBreoo2PYI1ZgLTBU8VZx30e8Z04Q/JIGInCebBmR9MDsYTBfTH3eZSyq368
+         mB9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxnjP4SrqOxjDK6tSevpCqF92kRL3rESSpN1mF0rMeJsiw0dxbSyzq22g4UV08sjc05lhk4bqs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaclMxHE+NCySEWUuqjPt7k6qL6uwbpCD2ZtVZF9chx5BAN+xD
+	Aan67Qyuu9Z9q2uZ/zUU5GtfI5Xll9xlkDqaBZlEnzaZ7Vrs66sHXsU=
+X-Gm-Gg: AYBFou0pzP/YfdPB+FAYAffOey2rNNPkoepYBd1zVWdewp/sG1M7FOAF0xsde/EhsSs
+	zIbbG6el8Djkq62X0I4FTbTd4AhNBWtJvdpkKrYBVpTmcPZXLVzWA/oaaHsqELSPiWHZlduY05D
+	VZodkPzCCGmUkx1I9UYKRxifjU8xhhuScfcS6dXEHeWAMopmmENbptoIV2HXMgnbODQR6UnY3q9
+	QENgf1Gk9XH57LhggneEOhjCLIrLb2y0aTM0ZEodtcZwzwf8q/FdsdcfPVN38ulOXyqkThF4qmU
+	QKlasDAylmSPIGtcsBur80BS2oWkSjKpXo2uvOLXs5nTmGOnZ1lWY7lN8sBZTmqUmkwJj9S8T2z
+	NJxL5s00/jAI5WuRGSU8cFHhzoqiMtSkGt5MLHoynFsYhYevZWkzhiLkIU0ZAUv16Yx44r+ys+p
+	VqVpPofFQL4k0rwWshbGXBhDRdt3iAZWcb9Mzgi0rHiD/RsuttqOdDZN7DvEJeWx4XlYi9fQc4b
+	Q8Htif77pQUhzGvGG7W/TqumUy6/8eOLxekUZAzZuMteA==
+X-Received: by 2002:a05:6000:470a:b0:48a:f4d4:e1f3 with SMTP id ffacd0b85a97d-48e3ed1ef39mr13569277f8f.13.1793024452132;
+        Mon, 26 Oct 2026 07:20:52 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb8d5sm17484186f8f.28.2026.10.26.07.20.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 07:20:51 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Kevin Tsai <ktsai@capellamicro.com>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 2/2] iio: imu: inv_mpu6050: validate ACPI object types in asus_acpi_get_sensor_info()
+Date: Mon, 26 Oct 2026 14:20:39 +0000
+Message-ID: <20261026142040.62383-3-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261026142040.62383-1-tristmd@gmail.com>
+References: <20261026142040.62383-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,93 +106,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179278529389.3327.1530536500905686255@kernel.org>
- <20261025222222.1064464-1-tristan@talencesecurity.com> <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
-In-Reply-To: <20261026150541.a5a34642db9d1523f839f644@uniroma2.it>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Mon, 26 Oct 2026 15:20:34 +0100
-X-Gmail-Original-Message-ID: <CAL4WiirtzVke8V8f6LJEWdOCDNevGxdQCFhXxEGiEMq-TNbsVA@mail.gmail.com>
-X-Gm-Features: AclHuK8L92wlrbdXy0m1rYg5r51z1Kquhpb4YkZm0AcuyqBb82vwpDIOASY1obs
-Message-ID: <CAL4WiirtzVke8V8f6LJEWdOCDNevGxdQCFhXxEGiEMq-TNbsVA@mail.gmail.com>
-Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace teardown
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: Tristan Madani <tristmd@gmail.com>, netdev-bot+sinfo@kernel.org, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	tristan@talencesecurity.com, david.lebrun@uclouvain.be, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org, 
-	stefano.salsano@uniroma2.it
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le lun. 26 oct. 2026 =C3=A0 15:05, Andrea Mayer <andrea.mayer@uniroma2.it> =
-a =C3=A9crit :
->
-> On Sun, 25 Oct 2026 22:22:22 +0000
-> Tristan Madani <tristmd@gmail.com> wrote:
->
-> > Found by manual code inspection while auditing RCU lifetime
-> > patterns in the seg6 subsystem.  The issue is theoretical --
-> > found by reading the source, not triggered in production.
->
-> Hi Tristan,
-> thanks for the info.
->
-> The pre_exit in this patch introduces a NULL deref. It sets tun_src to
-> NULL before the netns devices are removed, while set_tun_src() can
-> still read it.
->
-> I ran a stress test on net with KASAN. A userspace program sends UDP
-> packets in a loop from init_net through a veth into a test netns, where
-> a seg6 encap route without a per-route tunsrc forwards them. Meanwhile,
-> the test netns is created and deleted repeatedly.
->
-> With this patch applied, KASAN reported a null-ptr-deref in
-> set_tun_src() and the kernel panicked:
->
->  BUG: KASAN: null-ptr-deref in set_tun_src+0xd1/0x240
->  Read of size 8 at addr 0000000000000000 by task udp_flood_user/379
->  Call Trace:
->   <IRQ>
->   set_tun_src+0xd1/0x240
->   __seg6_do_srh_encap+0x410/0x710
->   seg6_do_srh+0x65e/0x6a0
->   seg6_input_core+0x87/0x4c0
->   lwtunnel_input+0x18d/0x420
->   ipv6_rcv+0x44f/0x460
->   __netif_receive_skb_one_core+0xd6/0x130
->   process_backlog+0x2cc/0xa00
->   __napi_poll.constprop.0+0x56/0x270
->   net_rx_action+0x327/0x730
->   handle_softirqs+0x15a/0x6c0
->   do_softirq+0xb4/0xf0
->   </IRQ>
->   <TASK>
->   __local_bh_enable_ip+0xdd/0x100
->   __dev_queue_xmit+0x538/0x1030
->   ip6_finish_output+0x280/0x640
->   ip6_output+0x118/0x380
->   ip6_send_skb+0x99/0x210
->   udp_v6_send_skb+0x397/0x760
->   udpv6_sendmsg+0x1100/0x14d0
->   __sys_sendto+0x219/0x2d0
->   ...
->  Kernel panic - not syncing: Fatal exception in interrupt
->
-> Without this patch, I ran the same test with 1000 netns deletions and
-> KASAN reported nothing.
->
-> Ciao,
-> Andrea
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Right, and there is no bug to fix in the first place.
+asus_acpi_get_sensor_info() iterates through a nested ACPI package
+structure without checking types at either level.  The outer object
+returned by acpi_evaluate_object() and each inner element must be
+validated as ACPI_TYPE_PACKAGE before accessing their package.count
+and package.elements members.
 
-ip6_segments_ops is a pernet subsys, so seg6_net_exit() runs after
-all netns devices have been unregistered (default_device_exit_batch()
-and the RCU grace periods in netdev_run_todo()). At that point no
-packet can reach set_tun_src() for this netns, and no socket can
-issue SEG6_CMD_GET_TUNSRC either.
+Use acpi_evaluate_object_typed() to validate the outer object type
+at evaluation time.  Add a type check for each inner element before
+accessing its package contents.  Also replace kfree() with
+ACPI_FREE() for the ACPI-allocated buffer.
 
-pre_exit runs before devices are dismantled, hence the crash Andrea
-reported.
+Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-pw-bot: rejected
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+index 460792ed27e031..e5ffa0d5f6b1a2 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+@@ -52,7 +52,8 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+ 	union acpi_object *cpm;
+ 	int ret;
+ 
+-	status = acpi_evaluate_object(adev->handle, "CNF0", NULL, &buffer);
++	status = acpi_evaluate_object_typed(adev->handle, "CNF0", NULL,
++						&buffer, ACPI_TYPE_PACKAGE);
+ 	if (ACPI_FAILURE(status))
+ 		return -ENODEV;
+ 
+@@ -62,6 +63,8 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+ 		int j;
+ 
+ 		elem = &cpm->package.elements[i];
++		if (elem->type != ACPI_TYPE_PACKAGE)
++			continue;
+ 		for (j = 0; j < elem->package.count; ++j) {
+ 			union acpi_object *sub_elem;
+ 
+@@ -78,7 +81,7 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+ 		}
+ 	}
+ 	ret = cpm->package.count;
+-	kfree(buffer.pointer);
++	ACPI_FREE(buffer.pointer);
+ 
+ 	return ret;
+ }
+-- 
+2.47.3
+
