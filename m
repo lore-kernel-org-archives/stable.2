@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025431;
-	b=zy8fNJUrbVcaFrfUfD/tg5+hJQRBPlJZqcHfAITbkWcxKKqv2u/mrd0MzTBnB485qKpa
-	 h0j+QRjRajWJ7IRgb+89lpLL4dekz9Gj0pRZuL3Sy+G3vVj8nE+vQvcruTDAo7F6/9cRq
-	 rHQ81f+BX43KSHfRCBoOiapMotJrXTXowEs0i5K00KVC4dzA75nYUrz2sL/L+a0SJpJzT
-	 DfB/Wyapf8Hl3SVq1/C/4Gmo1SGmillByytIkJp1/LOu5T3hvjpfpJxovQbbgGePV9maE
-	 +kP106chfmOqj18Gb4oR89p0MPJILrH2SXoOeBGSpuOMC3n2IpvYAZSCVtjF9Bggrog==
+	t=1793025727;
+	b=u75YpLUnB+pzMHm/fsLfKvb+vs5UJqAyfh7S87W3CUIBgyVMJJV35WiesnND0aJuw1VP
+	 gRTL9LY2N8gxt1KXpUePFLu/QuL69GReDIKZ0SnaGg7PUjyZnBOv7mqvmlnPbh1fX61Ko
+	 uSAiCbRJUIjcbimTVjSHa437VSsyIAEwKc/GkUNx3R2OfKCb/ChfkNUVIvXGp60Dx0MkE
+	 8LAV4+C0BO8joU3cMnL7ZvUZ+VmmW8Z4JrFAW5lRuWG4035gr5I/x8MYXSmyDV/Z9adh1
+	 CrpFcc9hAoS3R1aqE9UR/v/6TIcVHnJw1Mq8JWNZIUEiLcC1k39GDXwjk5fD1JS+AQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025431;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793025727;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sl9wycySHELWIYxBYAxwb0s27UAcNsM0vqaNzM0OM3o=;
-	b=iIaG2tDOfsk+2agTgZGIeis0ucfBebeuCTUyTs0PkrJrh9nXKkejjPpdOtoiiGdPw9GX
-	 +wPNByPmmX0wxDyjuymraZtZOdhzI+c+Ns40pWm51u5XcqboxG1fUsDII4VkO9Gq0X/fV
-	 s5TDlSPP7moUScQRD6JgkNLqRuW4vVheg+cEul+ZYU4fCBm3ynFQmRd/xSoWt18hJH1V7
-	 Sdxkxnn9fhZb6SxuvmQl41Kni5GZwQrGJWay95tGZWBGwa/mzM6YUcjvn/XTtZ2nIi9sR
-	 McZyt2MrYb9VlUqX8W1/7+ps9DHSz9VaytqiG9aMTyQFjExAKIygenefFmSNlTaFBAA==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=sVmxi9G3P4SUdw7es16Dz291BqgE7cTnIFEDumgKpt0=;
+	b=XVqt8CI7N5HOa/HO9Y4lIDTzx1DSsy5/K9KXTCzNlI9AeEvsj87vR4B3NAXb1dIiekyN
+	 6JjKkpniPheNF6yHNlEsFSi9j882Sm7GlxDIoWVf0Tu9L46exiZGVc4vi0s64mIMawgnP
+	 On0MhqVcGQyA/qq0gMlaSblQa2lh/IlWQyf8KSxZPFbzgktq/5dDOo2LaiJxJwGr0F7CC
+	 dIBy5LfFGIaSyb6NToAdQuNEQzcJOaSRSiufSMLapnLrw4Q8ScBwa+sahLMYB3fqe9myN
+	 0Wi3JnP3U+cJUyw+iHtdjfwrfXqf/o5xwYKGjmg8Gl3jrFOoxLv3aTDeAqK/mIW0NXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ka/7Sxsk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkKLIzbO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0819606A31A;
-	Mon, 26 Oct 2026 14:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F00606A31F;
+	Mon, 26 Oct 2026 14:42:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka/7Sxsk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA76F1F01825;
-	Mon, 26 Oct 2026 14:37:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkKLIzbO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019FB1F01825;
+	Mon, 26 Oct 2026 14:42:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793025430;
-	bh=sl9wycySHELWIYxBYAxwb0s27UAcNsM0vqaNzM0OM3o=;
+	s=k20260515; t=1793025726;
+	bh=sVmxi9G3P4SUdw7es16Dz291BqgE7cTnIFEDumgKpt0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ka/7SxskYU2X8HL9aFrMsSmohChlAIIZ8CqxW5S8KxSfV/fmq5SxQPV1sJOqYwepk
-	 61cs3TwGMcQOa7Ma1/IW9h7U5F67h9S4kMsQaaTaYkPDuvYpWyrnCbZaByHyM4gN9G
-	 LFr9UBBC1GKpUxScLdzwZ1kqVkzNcseCy6PRhYemqbFTymHwK8dItOaB19+4lUisDU
-	 1UkWga42Y1EU9ifGgERxGI3o5x+QT9zmNpRgYN40KcKFvD9v6NkDftUdA2Yoh2t1Wf
-	 GJkmfyxuLbdXZRMtWVwp7vueyBAUxQBl35c7aVJE1qyA8/xKa3U5BMpLqJuMY7WFAJ
-	 EL+YIbmiq6Mtg==
-Date: Mon, 26 Oct 2026 14:37:05 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Ngoc Quy <ngocquy0700@gmail.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muhammad Usama Anjum <usama.anjum@collabora.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fs/proc/task_mmu: pin mm_users in do_pagemap_scan()
-Message-ID: <at9jXXDoMLi3X2EF@gremlin>
-References: <20261014095540.3261469-1-ngocquy0700@gmail.com>
+	b=nkKLIzbOpUK72ZDkrA7asz2g0qX6g54gLI11w498h0LAwdNdbWbU4WyidF54SJFLi
+	 iM+ShMKFz2Gfa0NrCb62teKCaxETXiaV79Mi+7/yy/9mwDT+8tZFqfyJPwm2Nx2rHA
+	 ewH4jUBRH0Xp2oIWxAKQEFXTjH7O1fkbmHYTlrNFtBRmF/MdOgkiQJCdNcJw1PqsQE
+	 gvPGlzFG5SD6I5n8yx9JFI7NBjZT+CBBG4klAjBV3vuOIJ8ZhMJyfZl40Hk0HYhMI8
+	 1KM+kO9U4P8cqqpZzB7PRbJ+C0dc21OU2beux6icZ6M84SEGTYQFQ8Myu8+xIkrY7A
+	 ABdNKCctCp+WA==
+Date: Mon, 26 Oct 2026 20:11:56 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, christopher.lew@oss.qualcomm.com, 
+	deepak.singh@oss.qualcomm.com, pranav.phansalkar@oss.qualcomm.com, andersson@kernel.org, 
+	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: qrtr: announce local services again once our
+ HELLO is sent
+Message-ID: <at9mFUv1flg-6aMB@debian>
+References: <20261022163116.1042-1-26rote@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,100 +61,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261014095540.3261469-1-ngocquy0700@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261022163116.1042-1-26rote@gmail.com>
 
-On Wed, Oct 14, 2026 at 04:55:40PM +0700, Ngoc Quy wrote:
-> The PAGEMAP_SCAN ioctl takes mmap_read_lock() on an mm obtained from
-> /proc/<pid>/pagemap without holding a reference to mm_users.
->
-> proc_mem_open() deliberately grabs only mm_count, so a consumer that
-
-NIT: just say mmgrab() here. Its comment already explains the
-mmget_not_zero() semantics.
-
-> touches the address space has to call mmget_not_zero() first. Every
-> other consumer in this file does -- m_start(), do_procmap_query(),
-> show_smaps_rollup() and pagemap_read() -- but do_pagemap_scan() does
-> not.
->
-> Without that reference the target can reach exit_mmap() concurrently,
-> and exit_mmap() calls unmap_vmas() while holding mmap_lock only for
-> reading, which does not exclude the scanner. For ordinary VMAs this is
-> harmless, as free_pgtables() and remove_vma() run afterwards under
-> mmap_write_lock. A shared hugetlb VMA is different: __hugetlb_zap_end()
-> frees the VMA's hugetlb_vma_lock inside the read-locked phase.
->
-> walk_hugetlb_range() can therefore load vma->vm_private_data, have the
-> lock freed underneath it, and then down_read() a freed rw_semaphore.
-> The load happens before the freeing side clears the pointer, so this is
-> a use-after-free and not a NULL dereference. Any unprivileged user can
-> reach it with no huge pages configured, as hugetlb_reserve_pages()
-> allocates the lock before the VM_NORESERVE early return.
->
-> Pin mm_users across the scan, the way the other consumers do. mmput()
-> from the exiting task can then no longer reach exit_mmap() while a walk
-> is in progress.
->
-> Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+On Fri, Oct 23, 2026 at 01:31:16AM +0900, Joonhoe Kim wrote:
+> Since commit 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint
+> register"), qrtr_node_enqueue() drops every packet but HELLO with
+> -EAGAIN until our HELLO has gone out to the node. When the remote's
+> HELLO arrives first, the NEW_SERVER replies from the name service are
+> dropped, and so are the broadcasts for services registered before our
+> HELLO goes out. Nothing announces these services again, so the remote
+> never learns about them.
+> 
+> On Kaanapali the modem sends its HELLO before it accepts ours. With
+> rmtfs started first, the modem never learns about rmtfs and its
+> watchdog resets the SoC about 40 s later.
+> 
+> Remember that the remote has sent a HELLO. Once our HELLO has been
+> sent to such a node, pass a HELLO from it to the local name service
+> again, so that it announces the services it has at that point.
+> 
+> The flag is not cleared when qrtr_endpoint_hello() restarts the
+> handshake on resume, so a HELLO that the remote sent before then is
+> not lost. The cost is that the remote gets the same NEW_SERVER
+> announcements twice when its HELLO arrives before ours goes out but
+> the name service handles it after, and on every resume.
+> 
+> Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 
-This is the old-format tag, but the tag is no longer required, so let's
-just drop it.
-
-Instead, write something under the --- about AI usage.
-
-> Signed-off-by: Ngoc Quy <ngocquy0700@gmail.com>
-
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+This version looks good to me, although I left a few comments inline.
 
 > ---
->  fs/proc/task_mmu.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 5c54aebe2118..8825b01f5e38 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -3231,15 +3231,18 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
->  	size_t n_ranges_out = 0;
->  	int ret;
->
-> +	if (!mm || !mmget_not_zero(mm))
-> +		return -ESRCH;
-> +
->  	ret = pagemap_scan_get_args(&p.arg, uarg);
->  	if (ret)
-> -		return ret;
-> +		goto out_mmput;
->
->  	p.masks_of_interest = p.arg.category_mask | p.arg.category_anyof_mask |
->  			      p.arg.return_mask;
->  	ret = pagemap_scan_init_bounce_buffer(&p);
->  	if (ret)
-> -		return ret;
-> +		goto out_mmput;
->
->  	for (walk_start = p.arg.start; walk_start < p.arg.end;
->  			walk_start = p.arg.walk_end) {
-> @@ -3294,6 +3297,8 @@ static long do_pagemap_scan(struct mm_struct *mm, unsigned long uarg)
->  		ret = -EFAULT;
->
->  	kfree(p.vec_buf);
-> +out_mmput:
-> +	mmput(mm);
->  	return ret;
->  }
->
->
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-> --
-> 2.53.0
->
+> Changes in v2:
+> - Replay the remote's HELLO to the name service from the core once our
+>   HELLO is out, instead of retrying in announce_servers(). Replaying
+>   the announcements once hello_sent is set was suggested in the Sashiko
+>   review of v1. This is also not the delayed work in the name service
+>   that I mentioned to Mani: that would still miss the broadcasts
+>   dropped before our HELLO. Nothing sleeps in the name service worker
+>   and there is no time limit.
+> - v1: https://lore.kernel.org/all/20261016124600.31-1-26rote@gmail.com/
+> 
+> Tested on a Lenovo Legion Tab Y700 Gen 5 (out-of-tree board support)
+> with rmtfs started before the modem: the modem's HELLO is still handled
+> before ours is out ("failed to announce new service"), the replayed
+> HELLO follows right after, rmtfs gets the modem_fs1/2 opens, and the
+> modem stays up.
+> 
+>  net/qrtr/af_qrtr.c | 22 +++++++++++++++++++++-
+>  1 file changed, 21 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+> index e7b364742..508a2dd2d 100644
+> --- a/net/qrtr/af_qrtr.c
+> +++ b/net/qrtr/af_qrtr.c
+> @@ -122,6 +122,7 @@ static DEFINE_XARRAY_ALLOC(qrtr_ports);
+>   * @qrtr_tx_flow: xarray of qrtr_tx_flow, keyed by node << 32 | port
+>   * @qrtr_tx_lock: lock for qrtr_tx_flow inserts
+>   * @hello_sent: hello packet send successful
+> + * @hello_rcvd: remote has sent a hello packet
+>   * @rx_queue: receive queue
+>   * @item: list item for broadcast list
+>   * @say_hello: delayed work for sending hello packet
+> @@ -136,6 +137,7 @@ struct qrtr_node {
+>  	struct mutex qrtr_tx_lock; /* for qrtr_tx_flow */
+>  
+>  	bool hello_sent;
+> +	bool hello_rcvd;
+>  
+>  	struct sk_buff_head rx_queue;
+>  	struct list_head item;
+> @@ -541,6 +543,11 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
+>  		qrtr_node_assign(node, le32_to_cpu(pkt->server.node));
+>  	}
+>  
+> +	if (cb->type == QRTR_TYPE_HELLO) {
+> +		/* Pairs with smp_load_acquire() in qrtr_hello_work() */
+> +		smp_store_release(&node->hello_rcvd, true);
 
---
-Cheers, Lorenzo
+smp_store_{release/acquire}() accessors are only needed if there is an ordering
+requirement. But I don't see that exist with this 'hello_rcvd' bool flag.
+Wouldn't {READ/WRITE}_ONCE() suffice?
+
+> +	}
+> +
+>  	if (cb->type == QRTR_TYPE_RESUME_TX) {
+>  		qrtr_tx_resume(node, skb);
+>  	} else {
+> @@ -619,7 +626,20 @@ static void qrtr_hello_work(struct work_struct *work)
+>  	pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
+>  	from.sq_node = qrtr_local_nid;
+>  	to.sq_node = node->nid;
+> -	qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to);
+> +	if (qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to))
+> +		goto out;
+> +
+> +	/* Pairs with smp_store_release() in qrtr_endpoint_post() */
+> +	if (!smp_load_acquire(&node->hello_rcvd))
+> +		goto out;
+> +
+> +	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
+> +	if (skb) {
+> +		pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
+> +		to.sq_node = READ_ONCE(node->nid);
+
+There is no READ_ONCE() in the earlier read. So please justify why you added it.
+
+> +		qrtr_local_enqueue(NULL, skb, QRTR_TYPE_HELLO, &to, &from);
+
+What happens to the return value?
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
