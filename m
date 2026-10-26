@@ -1,54 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011951;
-	b=INMQmauV9v1YdUhtDPYbFsXIUd+rvKpOrQBFydd2ohIdaiEp/k3LkUEwVxBpsRA76t+d
-	 VdLbfl29mjj0iDrn3nxJer/9YwU2giOcZFpiPQJuSh3UN7ZZfkKizhAtVuBCfCWG6ZHIN
-	 OKyE6Mw+Bq81XIKF4bNHEPvSFutTlDOWvgWPGQBzwTMP/0DNPZlnxRGozygJlxRwzYw6U
-	 fLJv9EwhOj/z9aFZiH1Zhdpo4o1PHbyFvL16YwD6JEgrBf9sfyO7PuyCo6qvMoAem48jA
-	 Y982owLCoLR3RI9a2Kdb0XCB1TOrKCmgdHVmBzmct/VI4gr/Nv/YVbvf/Ffytlyd6MA==
+	t=1793011963;
+	b=MvzxXubEmOMcXYDZdew6yG5MEJklZ1Kdst8uGPi1Nd5CCX/VCAVVOOTWFoinDoARs/Nv
+	 8W/Q8TC1NlnqSxHhFivyvSfsFh8CFcLAuhUxoID07ExO8zW4jsq08x1ICgA7VVFvRJtwK
+	 CoqXRNtYUw78uWV0Xu8pMD7wTN6Mj9+yY4xOizW3yP6FT4DznCJqr7VBh2QGcNDBD/8WT
+	 ESEbUlB4lQsAVS4ovVQOE7JQQmAJ3q5Z5+BzF9S5X2eWd/gVZQz8OLWJTo8tTXikoucw0
+	 3q52kOrdf4MSqt++Jfb0HGyNaG6Q+Nk4odA+RKku9TC+FPhmI1cOqd9oGKIy+kRnT9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011951;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=AQy2Dahtoc1vS64zM/q2064E7p7snqqcln1PMUtXXJo=;
-	b=HYbWrKQyrCiHEqm04dVEz/d8gCamWixh+PQRk9mSA97KqJjxLMV4QwWl+tCkZisa7Q+J
-	 47KxNGUTcI8mk/wf2Z415eUZjE+jR1AF32hxNWENANvmpmC6vlCXI9Q/pvg8j4aDGMYb+
-	 LLfcd5E2jsG3GULc3V0KFIe88GLNni4lyeRFTkufzMUzfmb4vVFRcRxr0FqSJnosGlS6s
-	 lcAY4aGs+tJDSEX6YfMCswN8EyCa69ab+Gce3iiOIEfwXXDohyn0uWIxl4xBNylhnXhZR
-	 flvnNJjWxduTvQRvA3yFC90O6SQDtV7cX/0elRe7pee/AD/g726HzEO47EtWHYQMxIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011963;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3Em7THwSHsQndbMmwUsL9yOCeRU0YR5E1djj6NAjXMU=;
+	b=xhWIv71i8heQ6bXl4fDnpCpNRZ24vQ2r4qu8CFotGgv7RWORYdAKFZHQHkQv2xlBcrRm
+	 fa0k1h6Q0xr7T7YBr5mHGcZKhoMwR4UkK0fszBMPjJGy5aKQAYTCO/ilHbgMPgux7eCkl
+	 8iTAdszMjyq2lTPiwIVIQzDUCHyCzDmUonuPDD3w2Bxk5QXpaW6RPdc+WRe37YB0XJmL/
+	 rG/T5cf5+RpwGR+fngKSbdrWrUJZXTHC9bBDYVc7E7HHMQpRSiRakcYawnag8cZsNSpkq
+	 MWqVmavN+3pEQqQHQegrBQoj4ujyRD2ksnP0wlmVgPKbcFKdkGDPyH1X39nD6M/1HNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C16D2606A327;
-	Mon, 26 Oct 2026 10:52:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C16D2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RLJySYeS;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1996606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:52:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1996606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RLJySYeS
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35943f55c06so3904017eec.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 03:52:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=AQy2Dahtoc
-	1vS64zM/q2064E7p7snqqcln1PMUtXXJo=; b=AvoL+hhVnJEQTZGOIuDMCxm3pV
-	UKqpBEt4XPu8LYxSfYzrCoxRcqBu8fKKIhV0yU3X1QjHT6YMaIpSsvn7ea01J910
-	em9EGc32CiJV31oEzKiRCnYBXtNUiwgWeaNIzbSHS/7pEAG1glsgJaWNkpl/l3ff
-	uasfRcBcz2LezBHHU=
-Received: from localhost.localdomain (unknown [113.200.174.126])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBmpfrhMN9qL0jpAA--.46778S2;
-	Mon, 26 Oct 2026 18:52:18 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+        d=gmail.com; s=20251104; t=1793011962; x=1793616762; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3Em7THwSHsQndbMmwUsL9yOCeRU0YR5E1djj6NAjXMU=;
+        b=RLJySYeS0BQzTg9o9qO1xD/c5MAamNT+UD+2xN9Z+O05l/Av3gsWFchNwa7tQatxX+
+         c7BuZqBIeWfC4XCHIypjcL12Rf9wShN/qjN8EHf5Sifu5uU5Gu65k5fhjLfDId6s2j6q
+         1Bty0VjzgEDUe1SqrhnScGnTOB9bFQ6Wq2OeBeh84Bqe0r6HuhWR0aybhUZb3DrcP95w
+         8ieeeWrrrXr/3oQqHJbTuy0aDB2I+E8wrDeXRbT2KsvcC5xbFpS31ds8tNlKwtVf7MFF
+         Y9Inrm03hhOEaPsSo7I63KeSFeSCHw91s4Lh8A4k/KT2vApbN3rAruLE9fWZ2OttXAUK
+         51sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793011962; x=1793616762;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3Em7THwSHsQndbMmwUsL9yOCeRU0YR5E1djj6NAjXMU=;
+        b=0wn8a1IR++hY66iYtZcw7q6d9e8dTrH1L28tJ4udfP28PPnp0xprTqDb1ex0qmwoP2
+         kxGvWsihKbvHHCFOM9k8zFtxCipgTafWfViaATa1V6bGc9pwOHxAXqGjGFQqSWhyp93/
+         t9xJefwNdPR8SFhha7lFClDTVhsd82aaMHvMw0dmX96HLylzvwNbb/BMUc16lD83CZuR
+         szRWKFJQT8Zz8++hY7ZXcAayE/2Xj5aKEr0zr292sh1K7M3RhGfXhM9HAvjwF21rt44I
+         WoxRmhgqU0Sd1R9cSfZ5KfIu3X706C/ud1Ds7BPuUojDU386RBctXUg8YropUxZM30LS
+         AbfA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsRKqQWU53b1zuDxi7nFIAPfuaOUnVB7GwDgg3S+ysqcMAZgw+sM/fYnpeNF9TQ1/p+FjEvmo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuVofihAa38x+01vGkHCRSZq1PxawjZ9BnJk9fHkhVsBXNYjnQ
+	H/A0cm06lon7qm7O0BX0Q2oJflP3IYC03Bjow4eowhadRO/qTotctb79
+X-Gm-Gg: AYBFou2I/J3Rt+U77taQTZAqFkZsyCmaf5vKDxg82SQBn+bWXRzUZ4hcIugcndRDvM1
+	udager+ygYoU+0Hq6kN/1a5Pq8CKrQx58m8SZ39HsRRpMvG3vdC6iEu2s6NfJcqTDx6dzA2NIe4
+	hI0RwyHEXRZCkU2/zlm7P5C9w2LUptukKSclLmIrxs/mYMcNRFcrHXQqHITWtLwB606h9qlZYuq
+	Ayvv/Dl47FgX4F6eBCU7ciE97u0I1LTSTfxWvHNUr5BBEh/EMuzRDwxqHLt2OOU6m5u1pETmuoT
+	SD1ZchT1+jw93t8bFhOQ95Qj39FfFKOTJpF/MMY6Y2LCBVVexQPiD/Jpicz2AXW6wNM5CbhHRAM
+	44pFVfS3FQtqMfbEhq5m2n8ML28R9mjYgq7QJ4ZzFcbNLLmt0T5To+YvF9ljz4PqyOv6HnMBQSU
+	CCVL0YLNFJIrxzS07orsefq/glGEZBT11JqgVJmRqs836Z3HsAZnlzwZz3xhFnr0RirZ8hYyTRS
+	owBagkbN46ouwaxh84Yk/b5wW9pHHGEEh3+EPQR1VgF2sPchuQd4CmdcB/i4n06ceY4jr6VmfQU
+	ZApJ6gplMu1CtVRpX7hEusZ9qTzMIyNnxszk4tEf
+X-Received: by 2002:a05:693c:69c3:b0:35f:ab1:4792 with SMTP id 5a478bee46e88-369e8484992mr8381446eec.6.1793011961611;
+        Mon, 26 Oct 2026 03:52:41 -0700 (PDT)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm33875226eec.19.2026.10.26.03.52.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 03:52:40 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] usb: xhci: Fix use-after-free race in xhci_stop_device()
-Date: Mon, 26 Oct 2026 18:52:03 +0800
-Message-ID: <20261026105203.1250-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
+	stable@vger.kernel.org
+Subject: [PATCH v2] NFS: defer access-cache entry and group_info free past RCU
+Date: Mon, 26 Oct 2026 03:52:30 -0700
+Message-Id: <20261026105230.1150218-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,114 +97,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBmpfrhMN9qL0jpAA--.46778S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArWfKr1Dtw18Zry7Zw43Wrg_yoWrGFykpF
-	43Ja45CryUKr1agFs8Kry8XF1rAws7Z3yDWryxW34UursxJryrKFySyrZ09wn7ur97Ar17
-	tFn8GFWruay5GF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
-	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJV
-	W8JbIYCTnIWIevJa73UjIFyTuYvjxUcID7UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUSD2reHcClDgAAsY
 
-A KASAN slab-use-after-free read was observed in xhci_stop_device():
+nfs_access_free_entry() drops the group_info reference synchronously
+while the nfs_access_entry itself is only freed after an RCU grace
+period.  The lockless lookup path (nfs_access_get_cached_rcu() ->
+access_cmp()) can still be walking group_info->ngroups/gid[] after the
+entry was replaced and unlinked, so put_group_info() can reach
+groups_free() -> kvfree() under a reader and free the array it is
+reading: a slab-use-after-free read.
 
-  BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
-  drivers/usb/host/xhci-hub.c:479
-  Read of size 8 at addr ffff88804e85d2f0
+put_group_info() may end in kvfree(), so it cannot run from a plain RCU
+callback.  Defer both the group_info reference drop and the entry free
+to process context after a grace period with queue_rcu_work() on
+nfsiod_workqueue.  The entry accounting (nfs_access_nr_entries) and all
+call-site locking are unchanged; the work only drops the reference and
+frees the entry.
 
-  Freed by task 585700:
-   kfree+0xf8/0x390 mm/slub.c:6566
-   xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
-   xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
-   usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
-   ...
-   usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
+On a 7.3 KASAN kernel, the following workload triggers the report: a
+userspace NFSv3 server plus eight readers doing faccessat() with 2048
+supplementary gids, and serialized credential replacements that detach
+the previous killer's group_info reference.
 
-  Allocated by task 572283:
-   xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
-   xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
-   usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
-   hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
+ BUG: KASAN: use-after-free in nfs_access_get_cached+0xb8f/0xf80
+ Read of size 4 at addr ... by task poc/9552
+ Call Trace:
+  nfs_access_get_cached
+  nfs_do_access
+  nfs_permission
+  inode_permission
+  do_faccessat
+ Page last allocated by task ...:
+  __kvmalloc_node_noprof
+  __se_sys_setgroups
+ Page last freed by task ...:
+  nfs_access_free_entry
+  nfs_access_add_cache
+  nfs_do_access
 
-xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
-keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
-sleep.  All callers (the port suspend and bus suspend paths in
-xhci_hub_control() and xhci_bus_suspend()) drop xhci->lock before
-calling it, so a concurrent usb_disconnect() -> xhci_free_dev() can
-clear xhci->devs[slot_id] and free virt_dev under xhci->lock in that
-window.  The endpoint loop then dereferences the freed virt_dev.
+The trigger needs CAP_SETGID in the guest for the setgroups-based
+credential churn; the faulty read path is the ordinary access(2) /
+faccessat(2) path used by any NFS user.
 
-commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
-NULL check for this case, but that only helps when the device was
-already freed before the check; it does not close the window.
-
-Re-check xhci->devs[slot_id] against the pointer fetched earlier after
-taking xhci->lock and bail out if it no longer matches, and trace the
-device only while udev is still attached.  xhci_free_virt_device()
-frees the device under xhci->lock, so a matching pointer while holding
-the lock keeps virt_dev alive until xhci_stop_device() drops the lock,
-after which virt_dev is not used anymore.
-
-Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
+Link: https://lore.kernel.org/all/20261025180329.349613-1-teel4res@gmail.com/
+Fixes: 6238aec83f3f ("NFS: don't store 'struct cred *' in struct nfs_access_entry")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
 ---
- drivers/usb/host/xhci-hub.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+v2: add Link, Fixes and stable tags, and remove local validation details from the
+commit message.
 
-diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-index b0264bd8577a..f058cb4d3534 100644
---- a/drivers/usb/host/xhci-hub.c
-+++ b/drivers/usb/host/xhci-hub.c
-@@ -467,13 +467,31 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
- 	if (!virt_dev)
- 		return -ENODEV;
- 
--	trace_xhci_stop_device(virt_dev);
--
- 	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
- 	if (!cmd)
- 		return -ENOMEM;
- 
- 	spin_lock_irqsave(&xhci->lock, flags);
+ fs/nfs/dir.c           | 21 +++++++++++++++++----
+ include/linux/nfs_fs.h |  3 ++-
+ 2 files changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -2898,10 +2898,25 @@
+ module_param(nfs_access_max_cachesize, ulong, 0644);
+ MODULE_PARM_DESC(nfs_access_max_cachesize, "NFS access maximum total cache length");
+
+-static void nfs_access_free_entry(struct nfs_access_entry *entry)
++static void nfs_access_free_entry_work(struct work_struct *work)
+ {
++	struct nfs_access_entry *entry =
++		container_of(to_rcu_work(work), struct nfs_access_entry, rcu_work);
 +
+ 	put_group_info(entry->group_info);
+-	kfree_rcu(entry, rcu_head);
++	kfree(entry);
++}
++
++static void nfs_access_free_entry(struct nfs_access_entry *entry)
++{
 +	/*
-+	 * Callers drop xhci->lock before calling us and allocating cmd
-+	 * above can sleep, so xhci_free_dev() may have freed the device in
-+	 * the meantime.  The device is detached from xhci->devs[slot_id]
-+	 * under xhci->lock before it is freed, so re-check under the lock
-+	 * that this slot still points to it.  The device cannot be freed
-+	 * while xhci->lock is held, and virt_dev is not used after the
-+	 * lock is dropped below.
++	 * The entry can still be reached by RCU readers that dereference
++	 * its group_info in access_cmp().  Drop the group_info reference
++	 * only after a grace period, in process context because
++	 * put_group_info() may end in kvfree().
 +	 */
-+	if (xhci->devs[slot_id] != virt_dev) {
-+		spin_unlock_irqrestore(&xhci->lock, flags);
-+		xhci_free_command(xhci, cmd);
-+		return -ENODEV;
-+	}
-+
-+	/* xhci_free_dev() may already have cleared udev without the lock */
-+	if (virt_dev->udev)
-+		trace_xhci_stop_device(virt_dev);
-+
- 	for (i = LAST_EP_INDEX; i > 0; i--) {
- 		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
- 			struct xhci_ep_ctx *ep_ctx;
--- 
-2.34.1
++	INIT_RCU_WORK(&entry->rcu_work, nfs_access_free_entry_work);
++	queue_rcu_work(nfsiod_workqueue, &entry->rcu_work);
+ 	smp_mb__before_atomic();
+ 	atomic_long_dec(&nfs_access_nr_entries);
+ 	smp_mb__after_atomic();
+diff --git a/include/linux/nfs_fs.h b/include/linux/nfs_fs.h
+--- a/include/linux/nfs_fs.h
++++ b/include/linux/nfs_fs.h
+@@ -26,6 +26,7 @@
+ #include <linux/refcount.h>
+ #include <linux/rwsem.h>
+ #include <linux/wait.h>
++#include <linux/workqueue.h>
 
+ #include <linux/sunrpc/debug.h>
+ #include <linux/sunrpc/auth.h>
+@@ -65,7 +66,7 @@
+ 	struct group_info	*group_info;
+ 	u64			timestamp;
+ 	__u32			mask;
+-	struct rcu_head		rcu_head;
++	struct rcu_work		rcu_work;
+ };
+
+ struct nfs_lock_context {
