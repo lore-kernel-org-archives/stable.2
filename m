@@ -1,82 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793050585;
-	b=xUHw6lOUVOmwuVoSq6zsE8LVY9VIXAqmRDxsQVw24ehPqUGYW1YXRGbeMJLdTYZz0Ndi
-	 HJ+DdGvvnIKLcTsCRwMfP1EvQRF5qpaI3oMu1hclfY0gz17vPIglIE8pyg2FgtqXh8b0r
-	 jh90Xb1tE9/Z/U/M2eVFi0GgSXVn/1DFDOrQKHBl6NTTaU4w6GDIgx93/RpKNEGmJpRsO
-	 USCRmn4pU1eHXk/w/WoINpMmYp2SAfv2yummCsSh2cPcapCQGRFhWZgi/q7aRr7LEt1p3
-	 s9S4k9OjFA6tsK6nvHmuCg+nER2x56/y1zmK8JbJpB0UdYn7qo8sh93YOcPPWmkuy7A==
+	t=1793050648;
+	b=RaV7Ansq0c54lYSIMLBENNkR5Y/L9fPHA+xz6OKTnq0Jecehpmqe4GhyclFiYOXiP0SQ
+	 9C1U4Ih+Zpsdbp1phxCoVLbeSjo9STQ1zDSGu+q+V/SeU9bGOC4fhr0J35n5ZWntFl55S
+	 XGwKFCEvMoxmX7y87puFCa//d8szP2sCZnErC4Mloe5T5hKW0hMSMqMEcs7jlm4FsJwdI
+	 LFIm1SwfB00+q+umdc+tcylTx3HqfNrBVO87xPXw4wJ3Msow0h2ci0ltR4/7BF+Edpqe3
+	 sFUA0N657cYmNa4c5Yj6UYGTmjIqsrAH5nDR4/WuKeko8+1pStJieV4HK7yVulRgtpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793050585;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=h4TtMxiD7qIIu9haOuhPNclvY/+UQ3UGNUpsBEbNloQ=;
-	b=Irs4J/MrNAvjhHwLm6sTG2s5KogXU890rYGXLl+07KGxTPPMm/Z+qmvaMUmybvLEdXnV
-	 eh3BrtJVddoGb+elY2MfUOCkfrw8aWZY8wh/lJU87s92iNiMU76P3vuCDmOsWVgZn9onH
-	 7FIqLwNHKH656ztKuwr09zRs2h7Y+rEL7yPe7tG879Ll7HtO2SmRMJPcq81hxmS6D4rEU
-	 5f5V/KLvJ08n7jSZj2qYEydBzLy3HMNmGrVLAIABpLHPwFMrNR+BwD2q7xZqsVOSdCxZx
-	 BVaVLkpSLTWnOMoIxcxnX4w+Zx8NZlymJnNVvq3CATzmjO7DiGNapbX1YFeoDz0HLpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793050648;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:X-DetectorID-Processed:Content-Type;
+	bh=meiv+5dNu71BxUFRdWrQx3P3KGQyrk/OeZvnUffuhqM=;
+	b=mOksoP8hCnRqUetvZjSVxZXN7EqEaF8KhC9PWajM/2JWYEuX624TbKAl4665y1gkBwGw
+	 cprTP4WwM2TDWGW1tO50J6DV4A8dhfjIwER9gYLHl6xvcIJf4MxBF7YcfSoJciiYbHpgJ
+	 9+Gs/yITMenF5jvYnQZwYKu0TH73ibMapoWVOg4+S1nUZm9GzeLIVhuUTJ/nmYYtLWQ4i
+	 5Ui/TTTqSTfU3ei5y4B+BsgJnGGo6XBearxolj2Z8gN9s/hMopzxeMxkLTzH9wyulkVtT
+	 8fLSnM6YqIOyEd/6oYJZ37K8sf3YkG5ON7Sisq++CVJCbFg3InQ6P+sObvEVAI3coRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=bUscyYxT;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=CtlJPjFD;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fE6Kn1FQ;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C26606A327;
-	Mon, 26 Oct 2026 21:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4C26606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DC0606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DC0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=bUscyYxT;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=CtlJPjFD
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 519E11F387;
-	Mon, 26 Oct 2026 21:36:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793050580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=h4TtMxiD7qIIu9haOuhPNclvY/+UQ3UGNUpsBEbNloQ=;
-	b=bUscyYxTzRHt7QzisXqdXlxQUubRjiOUGOidOft0pS+MW5uKQpOzP97RW1o9ZvAu0mrLSL
-	UkNv7f4VGOeLWWU9116tuM5kvC57BVLgh1xpXFIwnFpaikH0J8zpCcuKxJVp4Wck964Ff1
-	jtT18Lw6jtTCKd3mXSfU+x1aTc/vrkU=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793050579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=h4TtMxiD7qIIu9haOuhPNclvY/+UQ3UGNUpsBEbNloQ=;
-	b=CtlJPjFDCyd41j9BThmW9qsY23WmTQboRN+liXN7lS6xSvKvQM9D9qNCFj+n+zDsNmz3kx
-	urv7G3eSGrDb/GjU+VJwvIMNwMd9lk3sV2+2UHASugLYSplWmRuIqJjzISZsdFVBrmQlxg
-	UOFCiTMXtLC+05jKSraiTeafvUixCdU=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 34A8E13408;
-	Mon, 26 Oct 2026 21:36:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9xdpIdDH32qmdQAAD6G6ig
-	(envelope-from <wqu@suse.com>); Mon, 26 Oct 2026 21:36:16 +0000
-From: Qu Wenruo <wqu@suse.com>
-To: linux-btrfs@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] iomap: only follow dio alignment requirement if specified
-Date: Tue, 27 Oct 2026 08:05:58 +1030
-Message-ID: <28b1681495dc0b46d8bf98364e471be9f4eb0ba4.1793050525.git.wqu@suse.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fE6Kn1FQ
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so220494a91.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793050647; x=1793655447;
+        h=content-type:mime-version:message-id:date:subject:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=meiv+5dNu71BxUFRdWrQx3P3KGQyrk/OeZvnUffuhqM=;
+        b=lj4eRLniCNk8R1++ay9ypi7AWChneAgGlxJ3rn1e01iJzAxD8qxjc0qxA0fAK/drje
+         yOuNfM2O6A40fuozQart9nQIxQ8tAwJvXoRTSfe57dqLOSX/QVCEv+RnZy1J001ioRlP
+         wh4VkJFQ06OCp0DpeSO2QA1chbL+N3LoZc9VDa/QhNenEuDCViKiSXfkiESXQfXFLdT7
+         C+5h1GgwnbiVPt0t00G5xJ6XJ24suqGr5zEFthQctbxJjZypEgnQtt/eYL6nYS+i41Xz
+         Skr/ycmg/EhwcKZfjsPCkK6XQM1Vei38qluwDnWlDgZOC2S/OPyPY695XozDlUv1db09
+         KppQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwOQ3rA7ze9IgBIcM1JKAOrCJJofySBVcP3V9JEKtZ6oS15OuQNZpWpw1jmod7mTbGHles9jBM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3MvxR+BjFuBaNKYeSVFWib/eSNlJxrnpw1gpjEIyuE4Ck/gaI
+	JYAc9bLiSkYwZlrCpmw5t85yi9gehK2uWE2XUETGpe+tfgqIBq6xgzcNesVaQplyfBy2SUcJ5iu
+	1DQLF5Bz42MCRmDUZQKOaJ4rck/4/ZWtZ3bMY0GZcR26pjAi82hdjtR0eVTyjAcb6W1uosbY8u8
+	6dzoVUvpT2zCY+Tmr2cDdE0MBXASHDtNIyfRbisLsitDsoxjj/I3tjoHs2Esdb3vUv8f2s6Pca3
+	A0LNokD
+X-Gm-Gg: AYBFou38YndPMamPqflWZz/4ZnTL8VnWzwEl70bUlSHm3G2CWsjpCjCiwvzaYpkuYp6
+	8LT7hZ2b7NzIqiXA6rU3oh2CcJCo5NvSon/KJe/6uddXz7h3xBUWHihsIeL+twcp27uGeaCv1yg
+	fyWdYyOpA/S3Pz5WTbTz3Y2sRXt56uAw/oihLFL+CmnCBHXus6Twby78gmrS3a2UONRGE6P4mOE
+	eHPLFc7/TC7pOsuTrdizB9n7ccWdTOBPftmg3xcGDqXClo1nn/h1iySzn9NFxf6vq1ulIRMflV9
+	4Kd1XV3j2daK0jZCcm8oU1dlb7kn4b1MNI3mqD0+DoeRcPz5iMYj12y8zy1L6/bh/BY+HXScx3Y
+	rIMQS0/Nm+1i/TZaFMlFZqP44auZ3WLr+k1ol4/nLaN5dkLvOko7+7/HwJ5NWT4P7GCRYWv1nB8
+	YPcFt4eyot28MS9LTzRly20W0eWg+EziUi
+X-Received: by 2002:a17:90b:1b0a:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ae403c64fcmr347929a91.38.1793050647205;
+        Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adeba44b2fsm3158672a91.1.2026.10.26.14.37.26
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1a2b6fab7a6so404295c88.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793050645; x=1793655445; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:subject:cc:to:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=meiv+5dNu71BxUFRdWrQx3P3KGQyrk/OeZvnUffuhqM=;
+        b=fE6Kn1FQgSZcNe6nlWSEb2CN2Cxm7nQhhuij4LUfFQfIMh9zfEgB5W+frles5PF1Eg
+         3vfEwrlX3ZehM2B3xzEszH52+GsJnwAlDWzOH/X5y8JSoCjkzYmu/YUZDFXXog2aXnx6
+         +EVdc+TKZDjNwoGs1WHRvQ5vVhWBEpShGqNkM=
+X-Forwarded-Encrypted: i=1; AKwUvBz8ugjX8cSv/q2VA3LeD74NLSTvtxRWr0GGCnW3SPP35x8lBD5GTaDUTFxoZfpaCy/aXn0HHx4=@vger.kernel.org
+X-Received: by 2002:a05:701b:418a:10b0:1a0:d131:662b with SMTP id a92af1059eb24-1a3c7666e26mr1044933c88.6.1793050645080;
+        Mon, 26 Oct 2026 14:37:25 -0700 (PDT)
+X-Received: by 2002:a05:701b:418a:10b0:1a0:d131:662b with SMTP id a92af1059eb24-1a3c7666e26mr1044899c88.6.1793050644459;
+        Mon, 26 Oct 2026 14:37:24 -0700 (PDT)
+Received: from vertex.localdomain ([192.19.144.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a21bc6cbsm26705289c88.16.2026.10.26.14.37.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 14:37:23 -0700 (PDT)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: dri-devel@lists.freedesktop.org
+Cc: ian.forbes@broadcom.com,
+	maaz.mombasawala@broadcom.com,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	stable@vger.kernel.org,
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Subject: [PATCH] drm/vmwgfx: validate backup buffer size in command buffer processing
+Date: Mon, 26 Oct 2026 17:37:12 -0400
+Message-ID: <20261026213712.244907-1-zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,168 +110,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000caae0c065ec522f6"
+
+--000000000000caae0c065ec522f6
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -11.80
 
-[BUG]
-After commit 4025185cf953 ("iomap: follow the alignment requirement for
-iomap_dio_hole_iter()"), generic/091 fails on both xfs and ext4:
+vmw_cmd_res_switch_backup lets userspace bind an arbitrary MOB to a
+resource without checking that the MOB is large enough for the resource's
+guest_memory_size. The dirty-tracking bitmap is allocated based on the
+MOB size, but later accessed using the (larger) surface size, causing an
+out-of-bounds write in the bitmap that corrupts adjacent slab memory.
 
- FSTYP         -- ext4
- PLATFORM      -- Linux/x86_64 btrfs-vm 7.3.0-custom+ #6 SMP PREEMPT_DYNAMIC Mon Oct 26 16:04:56 ACDT 2026
- MKFS_OPTIONS  -- -F /dev/mapper/test-scratch1
- MOUNT_OPTIONS -- -o acl,user_xattr /dev/mapper/test-scratch1 /mnt/scratch
+Add a check that backup_offset + res->guest_memory_size does not exceed
+the buffer size before allowing the backup switch.
 
- generic/091  6s ... [failed, exit status 1]- output mismatch (see /home/adam/xfstests/results//generic/091.out.bad)
-     --- /home/adam/xfstests/tests/generic/091.out	2022-05-11 11:25:30.766666664 +0930
-     +++ /home/adam/xfstests/results//generic/091.out.bad	2026-10-26 16:43:49.387401669 +1030
-     @@ -1,7 +1,25 @@
-      QA output created by 091
-      fsx -N 10000 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-     -fsx -N 10000 -o 8192 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-     -fsx -N 10000 -o 32768 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-     -fsx -N 10000 -o 8192 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-     -fsx -N 10000 -o 32768 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -R -W
-     -fsx -N 10000 -o 128000 -l 500000 -r PSIZE -t BSIZE -w BSIZE -Z -W
-     ...
-     (Run 'diff -u /home/adam/xfstests/tests/generic/091.out /home/adam/xfstests/results//generic/091.out.bad'  to see the entire diff)
- Ran: generic/091
- Failures: generic/091
- Failed 1 of 1 tests
-
-[CAUSE]
-The failed command of fsx is COPY_RANGE:
-
- copy range: 0x6800 to 0xa200 at 0x3f200
- do_copy_range:: Resource temporarily unavailable
- LOG DUMP (8 total operations):
- 1(  1 mod 256): SKIPPED (no operation)
- 2(  2 mod 256): SKIPPED (no operation)
- 3(  3 mod 256): WRITE    0x14400 thru 0x211ff	(0xce00 bytes) HOLE
- 4(  4 mod 256): FALLOC   0x72bf4 thru 0x76221	(0x362d bytes) EXTENDING
- 5(  5 mod 256): SKIPPED (no operation)
- 6(  6 mod 256): INSERT 0x11000 thru 0x13fff	(0x3000 bytes)
- 7(  7 mod 256): TRUNCATE DOWN	from 0x79221 to 0xa800
- 8(  8 mod 256): COPY 0x6800 thru 0xa1ff	(0x3a00 bytes) to 0x3f200 thru 0x42bff
- Log of operations saved to "/mnt/test/junk.fsxops"; replay with --replay-ops
- Correct content saved for comparison
- (maybe hexdump "/mnt/test/junk" vs "/mnt/test/junk.fsxgood")
-
-Both ext4 and xfs only require direct IO to be aligned to the logical
-block size of the device, not the fs block size. So the 0x3a00 bytes
-read at 0x6800 is allowed, and should succeed.
-
-But that range is a hole, and that commit makes iomap_dio_hole_iter()
-round the zeroed length down to the fs block size unconditionally.
-The first iteration zeroes 0x3a00 bytes but only advances 0x3000 bytes,
-then the next iteration zeroes the remaining 0xa00 bytes, which is
-rounded down to 0, so -EFAULT is returned.
-
-As ext4 and xfs do not pass IOMAP_DIO_PARTIAL, the whole read fails
-with -EFAULT, which is then converted to -EAGAIN by copy_splice_read().
-Every retry of fsx hits the same -EAGAIN, failing the run.
-
-That commit breaks all direct reads which range is not fs block aligned
-for ext4 and xfs.
-
-[FIX]
-Do not revert the range unless the dio has IOMAP_DIO_FSBLOCK_ALIGNED flag.
-
-iomap_dio_hole_iter() is only called for reads, and for now only btrfs
-reads can reach this path with the flag set. Btrfs has the proper
-fallback when dio returns -EFAULT.
-
-Also update the comment of IOMAP_DIO_FSBLOCK_ALIGNED flag, to indicate
-that both bio and hole zeroing are all fs block aligned.
-
-Fixes: 4025185cf953 ("iomap: follow the alignment requirement for iomap_dio_hole_iter()")
+Fixes: a97e21923b42 ("drm/vmwgfx: Hook up guest-backed surfaces")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-34068
+Closes: https://lore.kernel.org/all/BYAPR01MB38301CFC012E873340F77E3D80662@BYAPR01MB3830.prod.exchangelabs.com/
 ---
-Changelog:
-v2:
-- Update the comment of IOMAP_DIO_FSBLOCK_ALIGNED
-  To indicate that hole zeroing is also affected.
----
- fs/iomap/direct-io.c  | 26 ++++++++++++++++----------
- include/linux/iomap.h |  3 ++-
- 2 files changed, 18 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 45bb24934f3d..ad041ac3252a 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -590,18 +590,24 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index a9136a6523cb..0156aee84c9f 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -1718,6 +1718,7 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
  {
- 	loff_t copied = iov_iter_zero(iomap_length(iter), dio->submit.iter);
--	unsigned int bs = i_blocksize(iter->inode);
--	loff_t aligned_copied = round_down(copied, bs);
+ 	struct vmw_bo *vbo;
+ 	void *info;
++	u64 end;
+ 	int ret;
  
--	/*
--	 * If fs block size is larger than page size, page fault failure
--	 * can cause @copied to be page aligned but not fs block aligned.
--	 */
--	iov_iter_revert(dio->submit.iter, copied - aligned_copied);
--	dio->size += aligned_copied;
--	if (!aligned_copied)
-+	if (dio->flags & IOMAP_DIO_FSBLOCK_ALIGNED) {
-+		loff_t aligned_copied = round_down(copied,
-+						   i_blocksize(iter->inode));
-+
-+		/*
-+		 * For fs passing IOMAP_DIO_FSBLOCK_ALIGNED flag, if fs block
-+		 * size is larger than page size, page fault failure
-+		 * can cause @copied to be page aligned but not fs block
-+		 * aligned.
-+		 */
-+		iov_iter_revert(dio->submit.iter, copied - aligned_copied);
-+		copied = aligned_copied;
+ 	info = vmw_execbuf_info_from_res(sw_context, res);
+@@ -1728,6 +1729,13 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
+ 	if (ret)
+ 		return ret;
+ 
++	if (check_add_overflow((u64)backup_offset,
++			       (u64)res->guest_memory_size, &end) ||
++	    end > vbo->tbo.base.size) {
++		VMW_DEBUG_USER("Backup buffer too small for resource.\n");
++		return -EINVAL;
 +	}
-+	dio->size += copied;
-+	if (!copied)
- 		return -EFAULT;
--	return iomap_iter_advance(iter, aligned_copied);
-+	return iomap_iter_advance(iter, copied);
- }
- 
- static int iomap_dio_inline_iter(struct iomap_iter *iomi, struct iomap_dio *dio)
-diff --git a/include/linux/iomap.h b/include/linux/iomap.h
-index 59718f73c15a..5254430844b2 100644
---- a/include/linux/iomap.h
-+++ b/include/linux/iomap.h
-@@ -693,7 +693,8 @@ struct iomap_dio_ops {
- #define IOMAP_DIO_PARTIAL		(1 << 2)
- 
- /*
-- * Ensure each bio is aligned to fs block size.
-+ * Ensure every operation, including bio and hole zeroing, is aligned to fs
-+ * block size.
-  *
-  * For filesystems which need to calculate/verify the checksum of each fs
-  * block. Otherwise they may not be able to handle unaligned bios.
++
+ 	vmw_validation_res_switch_backup(sw_context->ctx, info, vbo,
+ 					 backup_offset);
+ 	return 0;
 -- 
-2.56.0
+2.53.0
 
+
+--000000000000caae0c065ec522f6
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
+AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
+SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
+hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINGz
+zgaeHDUD1qR6RfMe39MZanfKnPmUL4Nfj8NUrPaiMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAyNjIxMzcyNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAB3wDEP4kNfV0GPGBnOHwgoCoD6+wVKShldwDssJ
+Tv0RNC+nVP/iETXa/i9LyCJ62NCiEJmfF4TnUxbtKAfmetSMXLtMp2X8YsSI+a89Buz6f1w+LoV8
+Wnztm7LWveFUpQHx+/LfmHP61mvobq9SlO+cK3fQm3HoxBNLGH5ovUX5ql8yFkdZpeo5vCv3AQuW
+vVciHpQ9+DuJAN0QjzNPB2M4rbwDQEiCONFyM/OyosurXbjtIGSnTzJByFRIpK3b/gMpEHZYv+7s
+En5Jbu0CaYqGEpmPU51bz4CIfRT4pTgEFLdsh+HisDdPdophdXITSbdiUS8MnVAihYmUzRlmSQg=
+--000000000000caae0c065ec522f6--
