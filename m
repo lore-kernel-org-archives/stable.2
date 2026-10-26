@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793004802;
-	b=Fk2b9gfvGsJev85S9O+BUg6BKbTaJcrfpH2Pxvv34CJa+aEulFq7ZMVq5ZpuWxTwqYLQ
-	 OayvwHBZSaDbRoifnZLhtCfX++zx9mzHfofJZOzTkm1tG+vf+Ct82wt4NFb/y6u30oNZz
-	 JeerxsBPvH6OL79fTF5/tC68lhuXRwKb+ZFwMEgE6fCKcEvnCIlvzepBk8jz5gZUQULop
-	 f5AKKTsZ5e7ApYBZs3OcEIQzeQPda73g7phfGAyZy/UAYvbWXAulTk/G28pVWsL9iWmQ6
-	 t//iKtMA/C/+p0X4Rd2kec1kB7hihDnLDr5QfxuIThpZ+sWSx3RBn1khCtN1M83C5pw==
+	b=NrLV56lYQwa2bi4haq5clQlHrOXufwEhvYSYIdUCdqfJMc0/m82xg0u+Y+R/iXxqywnO
+	 MjV5LlKjh67tm8eJo3hGDAaBk+BjbpeLsSrtOisXt+8DNHa8db/knyEChdMPYdJHikaVE
+	 DpsTvpVj3qpVSCVaISpWy1Lm7wN7lFZNFPbYeqdSp/HQ0YFHyocSTm56k3jLdYMLncqQI
+	 RRAdxFgBK1JQteTVmScaA1hpS1f3udHmWkWe+9z260Z9pdM329EeWz35kpP3i734LCnNq
+	 V0YqsyluatS89O9e97dSm0xkZYjNu/Juk61IHVvpO+MPYV0zhnmhb4VzWA2JE3uYaaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793004802;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zooGUg5U79hEFPrT6Hi6K1nHULVSW/Tn4sEvAK4VHgM=;
-	b=ZKQSZmsrDrnPuZ7zqAnvW+02c0AToyIov4i8epFBhNCJdQ8MvDw5pc8dGGPSd0sdc1QQ
-	 RK7OnC8g5/6JldMF/1RkQwabgDWUfc3FpCKGwx719yLhx3LArk2uVItWuPFsauVDqJTus
-	 Q94vx5D5yhYSE/6tMtj3o3mn9to/Z67JgmrS5UsZ0HX0YXtZ7Uqb6EFoSY+BdrjXbQ/sM
-	 p0m71i5dRPYhVN4CBafnBgRQOJVM16QQCf4LsREf/113ZNcybjY8AccXSE/+PKSR5z12d
-	 d+7equ80koDtzWR1BkFawppdjxk441LrFQSEDg+YhSYfUoH+KAevkDyJ8dBbQnYHvPQ==
+	bh=MN8z/mlRHPV44mj1rD2L1TistCnF9IQ3ZHZlaq5saXc=;
+	b=3Aj/jza0rNsTwfxhWd8NTASkFRT7hADtz0tqRhyQ2isnNLBxqLSmqE3DEcYPEz1aWS9G
+	 BjcjSYlMiQglvkB2klm1rvy6bD1tMVel8aNWjm63+F7fgiYx2llYg2cVT/ScL49qMJxI4
+	 mT+wk+apu7/bZSW14IG0MGws5BPgsnvnyfm/LPsU+cOWabbLEia4LMuKyUoHJojAz5WMY
+	 U3LXLXLtoVdCkwJx9vGAuGygQ6OBJkYD58MN00XoPBfrozMFQ4965lTY+fVuFORP+mhml
+	 de/h6kbkJ1QZ3VQn9DW0GtW85lQwzz8D0CAeGZhMbsBTropW7D1BTZsI5LwAIXWGfig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=simonwunderlich.de;
 	spf=pass smtp.mailfrom=simonwunderlich.de;
-	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=xOMgBnOp;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=ooC2oDbe;
 	arc=none smtp.remote-ip=23.88.38.48
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7D0A7606A32E;
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BD0ED606A336;
 	Mon, 26 Oct 2026 08:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D0A7606A32E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD0ED606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=xOMgBnOp
-Received: from kero.packetmixer.de (p200300c5973Ce5d80Fc8dfE94A24022d.dip0.t-ipconnect.de [IPv6:2003:c5:973c:e5d8:fc8:dfe9:4a24:22d])
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=ooC2oDbe
+Received: from kero.packetmixer.de (p200300C5973CE5d80fc8dFE94a24022d.dip0.t-ipconnect.de [IPv6:2003:c5:973c:e5d8:fc8:dfe9:4a24:22d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id F1FC7FA1DA;
-	Mon, 26 Oct 2026 09:53:13 +0100 (CET)
+	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id D8ACDFA1DC;
+	Mon, 26 Oct 2026 09:53:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
 	s=09092022; t=1793004794;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zooGUg5U79hEFPrT6Hi6K1nHULVSW/Tn4sEvAK4VHgM=;
-	b=xOMgBnOpjIEKs567hEgwRcEEpAczhvNU3VlMu7J+24ohb/EiruGY05gGdc43DNjfDsviHV
-	YiNy547Ofd+bLg0w+PrxAQaUSAeUYxW/0f7I6lJoPVrNo6Iih4Mxf/WPHF8Z+//gVh209A
-	m0xix3+j7BcD6nud5JZNdaEA6V+Junsy2Z3g73u582wbw6n9+i7q872Gb3dWktmhghc/Uf
-	NvpruixTYcemMbXHu4SAR1g5cQwVvZcWffpcHnNDbOCQuNQd0zK8rMQhQYcObFZqa8UcXE
-	yllsiZziv9R+1c06Yi3YAaSbtf5h1S7Ffg36W24vjB/3m7srny81MGj9gk28eg==
+	bh=MN8z/mlRHPV44mj1rD2L1TistCnF9IQ3ZHZlaq5saXc=;
+	b=ooC2oDbezeShF9CVjJl65BGThd6LNfcLV7ZD4dz8waT6a8gcDALeO4vUfHt6oY/Cy22TDM
+	H0ckEnyNv6UyjbIynkAPXPCqRJIOBRfRRYB5qYFqF7ZvkF5J/D9loU430hofRQFVl707gZ
+	EE2uRPbFVsapo1twa9JWmA8N7FdHVOkYmEKrvke0pSKU1MYNym/4CnDXTbdfpEtsM/XYne
+	mc8um22kPalvVevSkB5595gX6cyfbdgFv34s+QMXC79+5nKerFqcTqNpWiju9HXPjUsMGn
+	Gz/cjaOI/s2AoY/yzIT9lRf1yllS9Q5V6BgzwPuBDe95rfoxQekB60WEBP+0cg==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -61,12 +61,10 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	b.a.t.m.a.n@lists.open-mesh.org,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	=?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@c0d3.blue>,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net 04/10] batman-adv: dat: initialize orig_node of unfilled candidate slots
-Date: Mon, 26 Oct 2026 09:53:03 +0100
-Message-ID: <20261026085309.1074911-5-sw@simonwunderlich.de>
+Subject: [PATCH net 05/10] batman-adv: fix skb leak when hard_iface is being released
+Date: Mon, 26 Oct 2026 09:53:04 +0100
+Message-ID: <20261026085309.1074911-6-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261026085309.1074911-1-sw@simonwunderlich.de>
 References: <20261026085309.1074911-1-sw@simonwunderlich.de>
@@ -79,45 +77,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-batadv_dat_select_candidates() allocates the candidate array without
-zeroing it. batadv_choose_next_candidate() marks each slot as
-BATADV_DAT_CANDIDATE_NOT_FOUND but only sets orig_node when an eligible
-originator was found. In the following rounds,
-batadv_is_orig_node_eligible() compares res[j].orig_node of all previous
-slots against the evaluated originator. For slots without candidates, it
-reads uninitialized memory.
+batadv_batman_skb_recv() owns the skb it is given. When the hard_iface
+refcount already dropped to zero, the function jumped to err_out, which
+only returned NET_RX_DROP and skipped the kfree_skb() under err_free.
 
-The orig_node has to be cleared together with the
-BATADV_DAT_CANDIDATE_NOT_FOUND type.
+To avoid a leak, free the skb before returning in this case.
 
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-b25d9aa4-10bb-427c-a145-ccaadc2a1bb9
-Fixes: 785ea1144182 ("batman-adv: Distributed ARP Table - create DHT helper functions")
-Acked-by: Linus Lüssing <linus.luessing@c0d3.blue>
+Fixes: 4fe56e60ac1b ("batman-adv: Check hard_iface refcnt when receiving skb")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/distributed-arp-table.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/batman-adv/main.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/batman-adv/distributed-arp-table.c b/net/batman-adv/distributed-arp-table.c
-index 74050bffedbce..0260ed7e828b2 100644
---- a/net/batman-adv/distributed-arp-table.c
-+++ b/net/batman-adv/distributed-arp-table.c
-@@ -653,6 +653,7 @@ static void batadv_choose_next_candidate(struct batadv_priv *bat_priv,
- 	 * NOT_FOUND
+diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
+index 6c54a8d4be3ec..ced76942f33c5 100644
+--- a/net/batman-adv/main.c
++++ b/net/batman-adv/main.c
+@@ -484,8 +484,10 @@ int batadv_batman_skb_recv(struct sk_buff *skb, struct net_device *dev,
+ 	 * shut down otherwise the packet may trigger de-reference errors
+ 	 * further down in the receive path.
  	 */
- 	cands[select].type = BATADV_DAT_CANDIDATE_NOT_FOUND;
-+	cands[select].orig_node = NULL;
+-	if (!kref_get_unless_zero(&hard_iface->refcount))
+-		goto err_out;
++	if (!kref_get_unless_zero(&hard_iface->refcount)) {
++		kfree_skb(skb);
++		return NET_RX_DROP;
++	}
  
- 	/* iterate over the originator list and find the node with the closest
- 	 * dat_address which has not been selected yet
+ 	skb = skb_share_check(skb, GFP_ATOMIC);
+ 
+@@ -541,7 +543,6 @@ int batadv_batman_skb_recv(struct sk_buff *skb, struct net_device *dev,
+ 	kfree_skb(skb);
+ err_put:
+ 	batadv_hardif_put(hard_iface);
+-err_out:
+ 	return NET_RX_DROP;
+ }
+ 
 -- 
 2.47.3
 
