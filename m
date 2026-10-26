@@ -1,130 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793036378;
-	b=uX0bK/lkS0IdOquGSiui2iI5Fr981rBpFTrTY0FYseyz8eJcl03QJerWF24ZonBpqX5Q
-	 76gZC3i+6hw6VrrQp/w38Ozqzgr06HQlbX++rW4/S3gpNlDPb5dtzzZ1wpTKZmMPyOq6s
-	 cUb7w5FN5MalwYCexCFFfD8kp/K+kKDm6EFpdnOxZpLWX8TmEmHLQ24picMVt08Q/cFJ5
-	 ELJHCZTi+WSaWGYH4oja6P/mtT0yIoyRUJhgdW6RirPBY12xINPHCD3HYOqeg5iNhDBea
-	 R6C92Z2MidYWxfiTfZ98WUMyOOP8RZyFGBMHgAcKOlzOFD049WEXBnljXt9/O9jAQAA==
+	b=La9CpjljLuGQb+RCWnbUKxWXVKNCHmerJeyCDUWjpj85Pc91qbpKrHm4cDD5q2cxHXuN
+	 1L+mAahSMlFGAdVHHbF6BdWGuEw8gEekeyRfy5a9lFwkiEwRjXl9f91fbRONQVWdt0QZu
+	 FbhGRNLSKewHnEkSIxQ/XKGXlbS3IFyiX2N5iGm56BOdohbX0c5APNGCV2GL2H7bjVywJ
+	 4sVz5EDG6EZ4w4il9KzqJYLKR1fK2nBD2+B13jYUgop5EXCtojfzYmWMJORUbMKZj6e1s
+	 4USncVyYRw0TNPxMwYqfJsUVxs1cwEDF+4WCaOTE9f5p0JGOvSaRHC1jSSg9AYS04Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793036378;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXCdvP4sKUY=;
-	b=yZzYNfIeWX1OKiyghmRqqntmTkZHAHvgxGhDyE71baMOLjBuFIhOCvSOpGzkipttLjKO
-	 Km1Axsl8EWDivDTyjWPqmwfMEEVo639HITwLJWFy5r9olTFGYNaegT4GMDYNJfjy3uFqA
-	 6NZYLLuz0L9oiLvznJuMEGqedNcORNEy8a7lu5TUEqWtkAzGVypEnJUaLnVaIlYuu0fGy
-	 9abzLtvVVSNL59kG7Tu41T+l5AAtC+qjmWjrtQDhrQVnOIDmrBztNoAOI0j2dXjCJ39ZO
-	 9sQUs9Ir7xVUicvon6FpWLMos0iPO5UnVoufKat2DgXJhThuKZ4Mf7/xord3nVptR4g==
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=t8Or3b9/pQwlfW96GSEcWmN+qVfsQHETPMtYl66RaNU=;
+	b=SFmYkTCbXXYGLMlk71ow1jbs5z+NOwYWff+3oqzPFIcUAUZu+G8QxZk9j7+FUGlAQfep
+	 eRBQzt+p5/RbJCiIHb4s9y11ZTNmQSsbPSZ7qw9c+YeQ/I8j/LbCWJnHiWb905yplYfFb
+	 XgttFyMy2vQ+DNs6wXtNyNkgNs1VESDukt8urt1Zd5Yw7rILv6wzs/Z7qXyHnL2taIW9B
+	 cToi702ZHpOB3LV5HuOtTd9IElpPnZq42+QW82cB2awyOMBpqZqzWblW+uOzCYnF5sf30
+	 yPlokzA1dAFzqLHS/8v2ejquKf70cs/0wyAcFfELlbZ7xMn0xYyLSdL7wNh5kRxiikA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=FrVDQJkA;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PWsvFXSP;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcTblxIK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5611606A321
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 17:39:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5611606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D65606A325;
+	Mon, 26 Oct 2026 17:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=FrVDQJkA;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PWsvFXSP
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id 09A0C13802EB
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 13:39:37 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 13:39:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793036376; x=
-	1793043576; bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXCdvP4sKUY=; b=F
-	rVDQJkAnwkechcedtUGj+LlJKPVJxedWqltj8oi1vF61VyeKCt36pkyuCO99sxtk
-	WZiGJ07h+f8//gF4HvxL4FWzL8Z6bvThxlk+lrnMDkNCUQZyXFj8d0Q3UdyTKt2l
-	9iuMoTgmEnBwoxJmtJMsr6NwJ/CY0RV8i0i9rwBeUEET0NdcD1b6Az/Xa4IRiczx
-	YHDkbydGvvTDHRvFuGm0EgYw//c2gwCHBbh3dRJRldyEP9ANvg82ix4frg+0lAYe
-	E0K5CnlCz5p7z0/VFxmZbBptZAv65ZrTpS4H/6F3UKnHcQ6rTbmETipC29I+7n9K
-	kuaI3j+2Xekb5rDOQ2+sw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793036376; x=1793043576; bh=OjwL+dOXl1G0XYM6+finyh9q+bDo7EQ0zXC
-	dvP4sKUY=; b=PWsvFXSPHwOA7U63+FmsIT5MJ91tmnaoVdIO3ZUPNtH1Ab98ug7
-	6yRLTsnP0VZYP4arU+dkW54hbAXMiH/3avrcLaDlx8VQi5U5X2CaxWFFE6ql9IvH
-	u2KWd57w4YJQ39WjdP1yEr5vXSFiCsczCwW72tOywJYnGGFP5IjHGlc3xUc2zIGJ
-	IuqjRRsuGWnrWtDoBR4G47nB03Yg6FvGmMYfG/gPsCV/5yAoylo+T3aqJXwBsxPG
-	NxVBXkZWY9JY7jTGuC2TYoiFaYmOvxqntUjmj0EzHbSV/SWY2wxpzX/NJVfP+PMs
-	lF55pPKm/iQJGbRExFpKi+RoxKlLRrZTxZw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793036376; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:LDQ2R4gba7OdMUx8kYJK1v2KazX7QaFnrgf+2AGUxT8DilZ
-	/kGP4NFpR/6/Ei/zNKIc1q1TkJHeQj6avIizZK9SC65URFFYd2prZrBYORaj9HG6
-	caRdI76d62I9V2Wao1+fEXw+5D+FdEHnugiJ0eQBnvfqVRMOh+lfAzlyu4NYOtmC
-	qBdex8AT/wNqpIpFvlCWj7j+wEoKcvhkpslTw04VtrDN5F6Q6RceIC5qD+4z/dhd
-	MDQ2iQbSuGfu5DUJMqvAhK75JmBgo50MI4AWCEch2F/jk6asblmcs02J/mchpGcl
-	fyTlSSw11+Tzfgwo4CkXtBvQSygO65yveuL6EGg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:6Ww9OTLtowtBqWiQULkq+ViRqleNawRqoZVwSFz61xs=:HK5PFLyxFNzFgXX9dEXISx5+CcuJoukdbYSiqq5cWfw=;
-X-ME-Sender: <xms:VpDfakvPYGwmN_RcJhMM65tFUhC25CZ0upVwgyH3PxSnClQheEyqWQ>
-    <xme:VpDfagngJAvfN0X7xcKjN6W8bBdHw39DCvlKQ9KHbLnrX4g-bjZ3ZUPEqIe3OEU2E
-    Bf6sFD51XGQsFxCbFmazWK4kihPX--4aOQhJ_WnQGcKxP4saAk8cw>
-X-ME-Received: <xmr:VpDfakyMxTAcw7YAFXhGLBb7cSk8qCGR1MZW7lU55Eq8QTsPAyQX5K4-lzs>
-X-ME-Proxy-Cause: dmFkZTF6H3SEpQShDd/kr54hvdkdt3MDjTF28+OqAC/bxg6UM4iEJWWMlnnT27v9jePEmz
-    vGMx8mJpChUjh8v1OiOAzIMSlkJxTEn6JkrbUpKe5ErfD84wXqDBMbWsH0xqlTzlt+hdpX
-    HDMnRTKOD4gayTPO77h+/Ew/lA79lBP4gW3fvzv7nBS/pThjI7OlhteCj0KZuy/1hMJ6hl
-    7wmBRBmCVaoZTUGA4TbSiu2cZAiVpR2sAcoEBREPHEr0+AEhMBFYMn8kihpTBwQKSYCN0e
-    19KCYnBmkwGoKFl6OLcnuRebfdT7MuZ9XNsKec6UnbEsx7bfq/xEUZydvzTLi/RATFXjpR
-    wg+k4o4CXPH2SHleMmZd+BJOxQjRUBedVDMhgIl4OfPGAJcx+beaQw6YEv7A+FqYkHm/ut
-    zSnQBLlCtTdKLQafgvSYYz/RytMnVVsxTnFXIt2nl75Gv3qZpsXjjxUKpHBOrTZ3ZdkISo
-    NDQKKsOTGpDz/LwIrqV5boxfnXtPK9RxGT6X8zV4kMwZ3tPcECJ7n2FNAQCeI3MmONSZNa
-    zVwHbzNgIkWSjZgZz2TmJOap4iORe69JcFquTFfiuvDTwYx10HKrvTSr8EO0wMyplkS86w
-    xvaW1X0JnKp3AcjJQzKKgJbBSrQco6NzrXRHjs/+lbO8Y53HXH+/w7g09DeA
-X-ME-Proxy: <xmx:VpDfamwXPRg6kIALhDkqagVgg6yM9zrSZqcuQeKsPQDYoDoh9idcQA>
-    <xmx:VpDfatB2V75JiLUBZeB-0A6yudE42QZQZm0BSVgir-yaurDCmJEAbQ>
-    <xmx:VpDfahph8RNX-Vy4wt4o9RDAs4PQ-LNcicnx_uZWvyvHj56NtyDaZg>
-    <xmx:VpDfarQEV2WjxZIMj2k32K03Eq43nNqa66hkd6edr_rcG7lSkx5J_g>
-    <xmx:WJDfahffJM9mqtUXpu9sfOKyk63ISmf__apPCjOjkhdYXJi2hYZ9tLFA>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 13:39:33 -0400 (EDT)
-Date: Mon, 26 Oct 2026 17:39:32 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Vladimir Davydov <vdavydov.dev@gmail.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>, 
-	Carlos Maiolino <cmaiolino@redhat.com>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Stevens <stevensd@chromium.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, William Kucharski <william.kucharski@oracle.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
-Message-ID: <at-Pen0rJcHRDnBv@thinkstation>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DcTblxIK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5C21F01825;
+	Mon, 26 Oct 2026 17:39:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793036377;
+	bh=t8Or3b9/pQwlfW96GSEcWmN+qVfsQHETPMtYl66RaNU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=DcTblxIKUMbacZae6nQnDOLlJOAKsl2zHNVVwsdna3FHx04eCfESZinLgKdAHbSYZ
+	 64UZ5OVpCPydLM1YFBWrtrLZwPPVErHRxJDTImnAEeD7fXh1Ci9rEDk42bj4e43yoJ
+	 gn+1ghFxLMn62etYz4iP9fykfOHBE7dFRm/d0OtdoBBMyECoZzdO9Fy0S83XHDonR0
+	 YMsH0lCbPkk31FS8MuyltKiDdLqA6FsxPFaACx7EhgEaZcL4XxwsRmJFLVcO2+3DcQ
+	 M46gZMNrIsZ1waHdjY6XsECyPTVvMbtm7VqDdqRc9emfu/RDxpaAoJ2Huzf/Ve7m6Y
+	 cFZACiDwD6Uuw==
+Subject: Re: [PATCH net v2] net: qrtr: announce local services again once our
+ HELLO is sent
+From: netdev-bot+sashiko@kernel.org
+To: 26rote@gmail.com
+Cc: mani@kernel.org, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, christopher.lew@oss.qualcomm.com,
+ deepak.singh@oss.qualcomm.com, pranav.phansalkar@oss.qualcomm.com,
+ andersson@kernel.org, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org
+Date: Mon, 26 Oct 2026 17:39:36 +0000
+Message-ID: <179303637610.3134.6464335759134048296@kernel.org>
+In-Reply-To: <20261022163116.1042-1-26rote@gmail.com>
+References: <20261022163116.1042-1-26rote@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -134,64 +66,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
 
-On Mon, Oct 26, 2026 at 10:40:45AM +0100, David Hildenbrand (Arm) wrote:
-> Truncating a tmpfs file or memfd to a page-aligned size inside a large
-> swap entry can loop indefinitely in shmem_undo_range(). The task holds
-> the inode lock and cannot be killed.
-> 
-> A large swap entry represents a whole swapped-out folio. For example,
-> truncate a file whose pages 0-7 share one swap entry to four pages:
-> 
->     [ 0  1  2  3 | 4  5  6  7 ]
->          keep    |   discard
->                  ^
->             new EOF, start = 4
-> 
-> i_size has already been updated when boundary handling asks
-> shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
-> calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
-> because its starting offset equals i_size. Nothing is read back.
-> 
-> The final scan cannot free the entry without losing pages 0-3. It skips
-> it, restarts from start = 4, and finds it again indefinitely. An unaligned
-> truncate avoids this particular failure because the requested page starts
-> below i_size. Folios already in the page-cache cannot trigger it as the
-> direct lookup will return them beyond EOF.
-> 
-> Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
-> directly for swap entries. This bypasses the read path's i_size check,
-> allowing the existing boundary handling to zero and split the folio. If
-> swap-in returns a smaller folio, it also splits the swap entry so the final
-> scan can free the entries beyond EOF. Retry the lookup if the entry
-> changes during swap-in.
-> 
-> Handling swap-in allocation failures remains broken and is unchanged by
-> this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
-> instead of -EEXIST, shmem_get_partial_folio() returns NULL and
-> shmem_undo_range() skips boundary handling. If the large swap entry
-> remains intact, truncation can still loop in the final scan, while hole
-> punching can return without zeroing the boundary.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Oof.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-> This may read an entire large folio back from swap while holding
-> i_rwsem, only to discard part of it. Avoiding that I/O would require
-> splitting both the swap entry and any large folio still in the swap
-> cache. That, however, is much bigger work.
-> 
-> Original fix generated by LLM and sent by Chris Mason in private.
-> 
-> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-It is getting horrible situation somewhat better, so:
+- [Medium] In net/qrtr/af_qrtr.c, qrtr_hello_work() replays the HELLO
+  once and never retries, so a failed replay is lost for good.
+- [Low] In net/qrtr/af_qrtr.c, the new HELLO replay in qrtr_hello_work()
+  is not serialized against qrtr_endpoint_unregister(), so the replayed…
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+--
+
+net: qrtr: announce local services again once our HELLO is sent
+
+The patch records that the remote node has sent a HELLO. Once our own
+HELLO has gone out, qrtr_hello_work() passes a synthetic HELLO from that
+node to the local name service. The name service then announces the
+local services again, replacing the NEW_SERVER packets that
+qrtr_node_enqueue() dropped with -EAGAIN before hello_sent was set.
+
+> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+> index e7b3647424b8f..508a2dd2d16d4 100644
+> --- a/net/qrtr/af_qrtr.c
+> +++ b/net/qrtr/af_qrtr.c
+
+[ ... ]
+
+> @@ -619,7 +626,20 @@ static void qrtr_hello_work(struct work_struct *work)
+>  	pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
+>  	from.sq_node = qrtr_local_nid;
+>  	to.sq_node = node->nid;
+> -	qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to);
+> +	if (qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to))
+> +		goto out;
+> +
+> +	/* Pairs with smp_store_release() in qrtr_endpoint_post() */
+> +	if (!smp_load_acquire(&node->hello_rcvd))
+> +		goto out;
+> +
+> +	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
+> +	if (skb) {
+> +		pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
+> +		to.sq_node = READ_ONCE(node->nid);
+> +		qrtr_local_enqueue(NULL, skb, QRTR_TYPE_HELLO, &to, &from);
+> +	}
+
+[Severity: Medium]
+What happens if this replay is lost? If qrtr_alloc_ctrl_packet() returns
+NULL, the replay is skipped without any message.
+
+The return value of qrtr_local_enqueue() is also ignored. That function
+frees the skb and returns an error in two cases. It returns -ENODEV if
+the CTRL port lookup fails. It returns -ENOSPC if sock_queue_rcv_skb()
+rejects the skb because the name service socket's receive queue is full:
+
+net/qrtr/af_qrtr.c:qrtr_local_enqueue() {
+    ...
+	if (sock_queue_rcv_skb(&ipc->sk, skb)) {
+		qrtr_port_put(ipc);
+		kfree_skb(skb);
+		return -ENOSPC;
+	}
+    ...
+}
+
+At this point hello_sent is already true. So this re-arm in
+qrtr_node_enqueue() can no longer fire:
+
+	if (rc == -EAGAIN && type == QRTR_TYPE_HELLO)
+		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
+
+The work only runs again after qrtr_endpoint_hello() on resume.
+
+Without the replayed HELLO, ctrl_cmd_hello()->announce_servers() never
+runs. The NEW_SERVER packets dropped with -EAGAIN before hello_sent was
+set then stay lost, which is the outcome the commit message describes
+for rmtfs and the modem.
+
+Earlier in the same function, the first allocation failure reschedules
+say_hello:
+
+	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
+	if (!skb) {
+		qrtr_port_put(ctrl);
+		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
+		return;
+	}
+
+Should a failed replay also be retried, or at least logged? The commit
+message lists duplicate NEW_SERVER announcements as the only cost. It
+does not say that the recovery is best effort.
+
+[Severity: Low]
+Can this replayed HELLO reach the name service after the node's BYE?
+
+After qrtr_node_enqueue() returns 0, ep_lock is no longer held, and
+nothing here checks node->ep again. The GFP_KERNEL allocation can also
+sleep. A concurrent teardown could run like this:
+
+CPU1                               CPU2
+qrtr_hello_work()
+  qrtr_node_enqueue()
+    xmit HELLO
+    hello_sent = true
+                                   qrtr_endpoint_unregister()
+                                     node->ep = NULL
+                                     queue QRTR_TYPE_BYE to NS
+                                     qrtr_node_release()
+                                       radix entries removed
+                                       cancel_delayed_work_sync()
+  qrtr_alloc_ctrl_packet()
+  qrtr_local_enqueue(HELLO)
+
+The NS worker would handle the BYE first in ctrl_cmd_bye(), then the
+stale HELLO. ctrl_cmd_hello()->announce_servers() would then send
+NEW_SERVER for every local server to the dead node id.
+
+qrtr_sendmsg() then fails at qrtr_node_lookup() with -ECONNRESET. That
+is not -ENODEV, so announce_servers() logs "failed to announce new
+service" and qrtr_ns_worker() logs "failed while handling packet". If a
+new endpoint has already registered with the same node id, it may get
+duplicate announcements.
+
+cancel_delayed_work_sync() prevents a use-after-free, so the effect
+looks limited to log noise and extra announcements. Before this patch,
+qrtr_hello_work() never sent anything to the local name service, so
+this reordering is new.
+
+Should the replay be ordered against qrtr_endpoint_unregister()?
+
+> +out:
+>  	qrtr_port_put(ctrl);
+>  }
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022163116.1042-1-26rote%40gmail.com
