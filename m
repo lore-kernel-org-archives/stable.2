@@ -1,107 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793051769;
-	b=I7Ju25lZJRna72dS50MQp6f3X6/xH7TCMnyv1ZdjrliWh+LNclgvqDS820+SKVL3n+iP
-	 W8NaJkYTA46dRnLNNSlcMURJN4rfJhHPnc71x0zz6veFFtvqAg8Uj099ywxAg4Z3BWHdf
-	 CJ/OHMR3ngs2PxVpCdlj0vYzcjGg+WXFUX54OR30rk4xWcOWQ0hOY2gdylcGOPeViv+VA
-	 bQuFJ1yamc7d21awBKlagWS12w4oEr7/reLD8J9CEJLCvQbCTRkXct0NPSNF9vsOw9BfU
-	 frGStrb0iirrBU0zUwjvAudXUqOQ8HYVr+RuKq6YD6mtAKAwWHOSHD7geyZtgVOGtsg==
+	t=1793052119;
+	b=m0g+zsgDbSNBM6EzZk69FCgUOCH2J6e/iTTxVdzgmn4QjJqS3hyWywDxWqqq+PRRkYHe
+	 QrgJcQRp7hMvnqAEiAVkqYPHFYbH3SmL34C5tpTAFMUyCqrlX5Zwo6CaovflCb4QCW6uU
+	 ZHT8XVSjJiaFTKWBe3Y3mK/fBKGTw6N1quzG+ki/D38/bReaLywZju4xRgpPrSOFQPJuW
+	 gBLJ4WAYcOGkIhhiqqfemnCKECiZdBLQcgbrCJXwMmDzWLVmblR2xGym/1aFX9Ak2sP2p
+	 Dx0Z92ugZkdzUt8QAVAtXuZ7LiWsGzo+VO+gG4C5RSa3EzsANI/v5UoWfQ0QGZ41Plw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793051769;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=MCaOqkvghFdjPjEBy1YWJcxG17ikaMSWnkn1If8Ln38=;
-	b=IY77LkeOZC7gM3ge3u+6HenSc3jWN5FQM9FEM7HBOX/LqNtwgVYattZ+lF16+TlyLOHN
-	 yRbZiUNEQRsr4tEPNQgDWZHkD6z3MEBMt6b/z7Wqryp1D6iyRcKeTWXkyrPb5pxRKrCFI
-	 65WxsBKkIwTf608Rgo2D+4/J2dk+IE8DnJe6HM6j9eVEOqLyOL5R/+uoEXwbQY8mHBYad
-	 elHNNqNt+sodCwkNWrlH/+FZWnYNrwqXNTuFdf50csZF4+dcjGU7JnrJ4OKQvAN37nl6j
-	 1p0qzt9PYNYbhFreinz+yH37MJvUPOwPPEhbkkUV1uic2JCv93r2VHjFr0t/wMXKm+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052119;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ET8ka4qtfEv+EdZP3zMkitJSumzzgQOgC9axB/fU1X4=;
+	b=CyRtyysnh1U/nGA/Yn6k6avKJUUnw7Q6vnKLpixSPWWPoDES4hfNb05yzOyWKRRqIwkI
+	 D2etiMmqKQ8NP+s1WVCTMyPzobSTvX9Ri6GiR+wL/okVveYe75wcZwFDtoRC/dFANR4m2
+	 oQADNIegibZK1yrkC1HkHMw/V/DZ68jRfeKUvsmEyu5OREYWPOaBSQxuooWF8PY33w5Ug
+	 2x/D8nT9QdNdZXvXX3nRpqkL/DqCGWamrvy3fWjKiubStFvLQekhI/LImbGplajfulMm/
+	 sY/fBk+YJXhOl5aazN1RopmuwoIos30JBb3NlsEbPBEr3WhSDchHJ2grmooZ4UCPBlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bobrowski.net;
-	spf=pass smtp.mailfrom=bobrowski.net;
-	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=r6qzBHbJ;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=md5Ubl9F;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f3SlIO4z;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B746606A31D
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B746606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABAE606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ABAE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=r6qzBHbJ
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e942864693so18398025ad.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 14:56:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=md5Ubl9F;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f3SlIO4z
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QIoF0t4131366
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:01:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ET8ka4qtfEv+EdZP3zMkitJSumzzgQOgC9axB/fU1X4=; b=md5Ubl9FMi7cc0ij
+	rzpSL01q5iki/iNDVVb3+fQMV88oV81yGYIpIDRpVK3z7mzBPEi3UudJl5t11Itt
+	4QGqGDPY/tdsuTMdwirUAYXNAUzkR29bLNEBSeohZB24CIUprGafJ1ZxdoBeBgCB
+	FgkNfs0bQ++OW4ud0feqpIFai8nMWwTFYVMSvEK0Ctds6L9dHWMW03yBgwxEIfr0
+	HOjgMD3rVhIqFe7ce/zo1mw0l7N97WznagxNemK5SGaZzl0vitCa/uMcIyPgrR16
+	/lOW7FZcqzGyB0ubqAFer2sf/xIM/wYkbbg33yOlm648dGqstpb9Kdm7CXaiXeH1
+	tF5Q9g==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj79xt14v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:01:58 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso6480802eec.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:01:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bobrowski.net; s=google; t=1793051767; x=1793656567; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MCaOqkvghFdjPjEBy1YWJcxG17ikaMSWnkn1If8Ln38=;
-        b=r6qzBHbJ+Y6VySD4piiJQaxG3nmkcim5EedbVvJDLrFKh/z/zfWGVfhzESZgtJcOTT
-         mOo5hPQeKtOllDCqHQ+bRmmdG88imPwjlx7DaOoM0KaMz1KXsKT7apGPB22NyoerYTZQ
-         /4vIHuibqhucsMEMxk6fldlNHvt+fNxp1ovjKGI/eW/I63Ib5IBoE4CjQEJudyO76Wtf
-         1D4vXfgdUVq64lyBYfYwd63VG89p4VOSXiOVGnpeaDouPGJAbGZiYCtI1VTyrXIr7v33
-         A771pKw10Qc39HU/IR1PbeHnB+RlD52C7qD/1DVFZS4Ju3IhXtUDcV290iNJz9ZhBNR4
-         wpoA==
+        d=oss.qualcomm.com; s=google; t=1793052118; x=1793656918; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ET8ka4qtfEv+EdZP3zMkitJSumzzgQOgC9axB/fU1X4=;
+        b=f3SlIO4z0pSjzPXChcZsyrEnpp0BToDODLgESVcbRMvbJmwRZyuaxsLeaPb7iti/oJ
+         LbhBDuiez+DJZuRqy4vwzqMSnvzY2J7mRUrA9UQFTa4ioLWBImIyepvGBVd8EF/blVcn
+         9+EZrzn2WJXpcYAfzpGF4Xp2xaaSU0D6TDCidQgKNzmzxYx0INLgYCgUPcyWb5IfSQ3U
+         WkQvnWZ2yVGxLFfsrArfTbRcgLyJJfdRljjidkmjf44quPja5Zt8dL5t0TGhf0HAyvSJ
+         atZXYkdeDl8+/BJr4szLgKtTaUVri2SCJZNT7xtHbExdg7r3HZlqeZjEzta3u+P4rm+a
+         3nWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793051767; x=1793656567;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793052118; x=1793656918;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MCaOqkvghFdjPjEBy1YWJcxG17ikaMSWnkn1If8Ln38=;
-        b=U2fJvTjHqi6ad4fr4qrG9fmUm+4QgZilX612o0TPNWHSIMu5qhdX67L/41yFhyyggt
-         jwXS5qX2heyuNVCgbd/5Xmeis0uNj1WIqhB7G7GCb4aNEEF5pSbxr098JXnBuzqYORS5
-         8r2r5sI3zqfquCULph3xdWIVcuby3mLkRcelVmEwPwlHYM7DZtMeNZaMZgY3/hjBE7aD
-         JwsRfkbVTmKttmMzEJqDlrM/sEl0aNbrhUHjV7wq56udrhOkKuGcjGmpMENmVGVREoq8
-         nr9YJ9y2Nv1moEUWD1Q+0JvEaaWcWyILEHCAz8xPDGCxgPZpXetZmhb8owid+zLEfxRo
-         om+g==
-X-Forwarded-Encrypted: i=1; AKwUvBxh/gSSsOW96BUU8jF6vRXwYCGuKdiZuab0EvcJ8IirU742d3a+OQqgGCdRdZmZHnhseo6gOWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4POqS3Crw8zPlWRyzSVxE/VbsTxPUYb+pQzFGLvC1K/JNVlwc
-	T+o/MDwAxb2ck6RHGvEgAFWvQjr4mqA+Gb7d6fRDQBn44683BbuxcJO9V8DZ8G5RKZWr
-X-Gm-Gg: AYBFou04tpwJzRA81wp5lu0FBHKoVBBRptohjKV0s03hbdkqf6ZF+LMBi/+KN6RgWuP
-	iYTXTeeyMovlxFccJigVfV8YoMgaV3j2Its5N9Ij1bMoA0penLV8SFKKNxiwhDSL/hlII1wBdfe
-	dbvkXYNtQtx7S7jcbDIV4gXQI0qTYjhi/O2ZyEiKn9OWTv0erqE2dUX2KV+Fsd/hus6iQc5ZFRB
-	hpfDlI1YNcDWnkcEKAn9ADEJz8WIeX5tIHVl+xgt8sSTyQq2YDP4y4jH1jV8ltZfw2QYqzD7iLs
-	HgupujJkeATqqPwiSnaYrpyEVquODk5WvcOK6y0WVyjbHy9/MeSZAELkhSpuLzWkynfOFBGrbiA
-	DY1FmKQJlHgnW+oQOg4A/9yrcGQ6JiJUhw9omAh0/cd1u8tg7qdQU2bR2NB/Xg0RFcGXJAefFml
-	r198bXaLXQ++H2oEVbbIF9IxQ6mi+qdoYX1j0oCiwcoGVGrJwW3z5EgR6JlS31XR2gJkTGEhvU8
-	fwNpsMnBUZZ9cmHwZYlDSfjT/Ot/J2ilHcQ347T0gUTNQjfdtRUj1jt9hCGv/3iUNqN0kK6iscx
-	GTsnDFCe1IeeNelpmmaIihDVKZ5Ww4u+lg==
-X-Received: by 2002:a17:902:db0f:b0:2df:9a7e:d41f with SMTP id d9443c01a7336-2ea9c8740edmr75437265ad.41.1793051767231;
-        Mon, 26 Oct 2026 14:56:07 -0700 (PDT)
-Received: from lima-development (163-53-146-70.ip4.superloop.au. [163.53.146.70])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6455a00sm1186455ad.2.2026.10.26.14.55.59
+        bh=ET8ka4qtfEv+EdZP3zMkitJSumzzgQOgC9axB/fU1X4=;
+        b=uBVKUXeAs/sBlAVl36KR55m0k0CUWbERerMx1aRpFnzF4xJHkVQVm9mdYtgKrDTOi8
+         PQMTE+fwWkyU2AXS8hMtO2BNFXQZkP8pazXHr5Hs+4ZLsNz+pb2+E9UfZcd0Ax8TDisL
+         PWuJkvRksa5eqq93vEt8K/hAFVs+Dby9LXzV4tKHGfHXpbK7wZEysC60OJ7dGBB+qPlM
+         PABZhxBeb1TCPSvd1uYyJY0O8oMdYLG8+TYzZl152mgzzjtnN029lYWjWrg0h0II0XlN
+         DYp4XtxU+tbAJ4pB0Bqa+r9RKNpx/1EtTXzKufLtvkQSXh35LiZB6a6fTIr33apJqPBq
+         wTKA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFwWfFDjKtUWFj3b/xN8PKXqqZxa2mBJzaAFHn4zM3kWgPuHmeUB1hM41lJGUNlV3GcXwoApU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4oLYsJkZcdUeVcjFWckG3wgmn+/K+Zv173i6HtM1qCiVKOc98
+	SRA5h620+RPe+Ua3xrkHCzuS9BEEwvtnsskTRn/Zexgk6r4SyxvoeKJhgOAi3qeVQ/UGoJbz0tH
+	zu/XejQC6o5uAYqq6ZhJoiQfg+Y9k+SKSmzD1ozg+lNc761Tw8/wVep1sVqQ=
+X-Gm-Gg: AYBFou0AG9kyAdd/AHRBiQAPj8vzeGm5/hvYCS0ReFn26yjVDW+/keY8qMhy3RrZLiB
+	djlOIHgPmggMcYQvPewCyxZQX389FQzMyyXXEky/T0MPPnzWfeZcGfT/ePEfMGtqbAN+BrdYbQ+
+	q4IE2lR+OOuIVfN1TrdK+D2BVdnFB6hu/nOHBf0t9rEoBYTMjI3CzkU/0YMIrrttQ2NcFkbLaM5
+	MIoddHvVDcCrFentfBc+TQcs0lMQX0zmvBcv/3GsaQ6kHMdu3eSRkuxnC5EjwdwYic7omxHbZol
+	gqIlKd+RZY7PdEdA6ecLCWvuhPtQ6Hu7ohsT2kLhN8rm6up5RSC0ztM3iuuQHEdJKw7ikZQ2lyq
+	CDMOnfDji3ZwYX1w1B3Wyok5qPmS+xHpBUDr+gg7vvVnik4yi+IwNZw==
+X-Received: by 2002:a05:693c:41cb:10b0:36a:279:c93f with SMTP id 5a478bee46e88-36a0279cf79mr4893075eec.33.1793052117408;
+        Mon, 26 Oct 2026 15:01:57 -0700 (PDT)
+X-Received: by 2002:a05:693c:41cb:10b0:36a:279:c93f with SMTP id 5a478bee46e88-36a0279cf79mr4893031eec.33.1793052116612;
+        Mon, 26 Oct 2026 15:01:56 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a03bea5d4sm8443486eec.6.2026.10.26.15.01.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 14:56:06 -0700 (PDT)
-Date: Tue, 27 Oct 2026 08:55:57 +1100
-From: Matt Bobrowski <matt@bobrowski.net>
-To: Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: bpf@vger.kernel.org, Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for
- exiting tasks
-Message-ID: <at_MbcW0OlciNLrE@lima-development>
-References: <20261020105014.97985-1-matt@bobrowski.net>
- <20261020105014.97985-2-matt@bobrowski.net>
- <DM9VJTFJGVXB.3GH9LO3NGV5PO@gmail.com>
- <atiawbBo6WRPA6QA@lima-development>
+        Mon, 26 Oct 2026 15:01:55 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>, Benoit Masson <yahoo@perenite.com>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        stable@vger.kernel.org,
+        Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
+        Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+In-Reply-To: <20260928213322.98949-1-yahoo@perenite.com>
+References: <20260928213322.98949-1-yahoo@perenite.com>
+Subject: Re: [PATCH v3] wifi: ath12k: assign device id from the WSI index
+Message-Id: <179305211480.3326479.9381266425749962152.b4-ty@b4>
+Date: Mon, 26 Oct 2026 15:01:54 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,99 +122,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atiawbBo6WRPA6QA@lima-development>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-ORIG-GUID: DDBnVFmxjiaVdB6PfSu7V-kTDwIe0qG8
+X-Proofpoint-GUID: DDBnVFmxjiaVdB6PfSu7V-kTDwIe0qG8
+X-Authority-Analysis: v=2.4 cv=FPyOVOos c=1 sm=1 tr=0 ts=6adfcdd6 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=go08DCD3T2PDlqsEJcsA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA4NyBTYWx0ZWRfX+43UGHFlmbW0
+ yZQbwGjObdQBk4n7+pFQt0oDteR59//CODnoRDcmHEV+Pt2M9Xlc3P4iKxSBRUg6DNPT2+KlbF5
+ gZfXzhyfq43hbiZDzryeKKLAAqu6kXRlLQcOmq7yOANcCRZz/z9edI1i5L/w1HXEQL0Wvsow8e0
+ tjos1dWheMxdc1YHUEeOJvVFVrqHbVdz09/1Hy+xFrVqZo+Za3KnfMg8bQI6ns5ALKHCmS887Nw
+ jcHsqCsXtCvCDXzb55l2MOy91Oz6vEDY+QpumjnLBw3ExjrXvNz9nyJ4AQ18h1WE+bPNuHnnAEU
+ bKdQ7UGjqqpI//OnZb1/Z3f5TWXf4aOWSkyjbD8/yUwgwXNIAA5jl75x7GHDZhHvPrdW7x8WNLN
+ x+Kwf0Xjsj4cWe1Ptxkf4b3Q7QjX7I0Ccu2tRcUYuYBV/uCcVSWFQKRW43A5hk4+FI+J6mRAbCh
+ dz850jiqlsWEhrhnAtQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA4NyBTYWx0ZWRfX/4tBZoGbODJK
+ hDNzTAiMJLRn6UxQQarcO19t7LfrPG6oSBAnKGVVHvD1r1YoaTpDGMu9CrsBXpmuIGjCpoZqFL4
+ 1Cua2VEfEA+jzuHtuFEO75aKEPyqrjc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260087
 
-On Wed, Oct 21, 2026 at 09:58:09PM +1100, Matt Bobrowski wrote:
-> On Tue, Oct 20, 2026 at 06:24:42PM +0000, Alexei Starovoitov wrote:
-> > On Tue, Oct 20, 2026 at 03:50 AM Matt Bobrowski <matt@bobrowski.net> wrote:
-> > > Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
-> > > is NULL. Only the task itself clears its fs, in exit_fs(), so the check
-> > > cannot race with that.
-> > 
-> > The crash is gone, but so is the path. file_release progs will get
-> > -EINVAL for every file that a task still has open when it exits.
-> > 
-> > It also breaks what works today. The d_dname branch in d_path() returns
-> > before it looks at current->fs, so at task exit a pipe or a socket
-> > resolves to "pipe:[123]" now and to -EINVAL with this patch.
-> > 
-> > And it's not specific to bpf. The comment in fs/cachefiles/namei.c says
-> > that current->fs == NULL in do_exit() breaks d_path() called from ext4
-> > open.
-> > 
-> > can we fix it in d_path() instead ?
-> > With an empty root prepend_path() goes up to the global root, the same
-> > way d_absolute_path() does. Then the check in bpf_path_d_path() is not
-> > needed and the selftest can expect the path. A chrooted task gets the
-> > path from the global root, but it doesn't have a root anymore.
-> > 
-> > Something like this (compile tested only):
-> 
-> Prior to sending out the fix, I also considered addressing this directly
-> within d_path(), much like you've proposed here, but decided against
-> it. d_path()'s contract is to build a pathname relative to the current
-> root. It does fall back to a root-independent name when the path isn't
-> reachable from that root, but that fallback still presupposes the caller
-> has a root to measure against. An exiting task past exit_fs() has no
-> root, so d_path() has no correct answer to give in that state, and I'm
-> not convinced we should invent one for it.  That's what
-> d_absolute_path() is for.
-> 
-> You're right that my patch regresses the d_dname case though, since
-> pipes and sockets resolve today without ever looking at current->fs.
-> Rather than replicating the d_dname check in bpf_path_d_path(), which
-> would mean duplicating VFS logic such as the mounted pseudo-inode
-> special case, I think the cleaner fix is to move the "no root, no
-> answer" check into d_path() itself, after the d_dname branch:
-> 
-> 	if (unlikely(!current->fs))
-> 		return ERR_PTR(-ENOENT);
-> 
-> That keeps d_path()'s semantics intact, keeps pipe:[N] and socket:[N]
-> working at exit, and turns the oops into an error for every caller,
-> including the ext4 open path you mentioned. Nothing that works today
-> changes behaviour; only calls that currently oops are affected.  Callers
-> that want a name in that state then have to choose one explicitly, which
-> I take to be Al's point.
-> 
-> For BPF, that choice could be a new BPF kfunc wrapping
-> d_absolute_path(), so programs can pick whichever semantics they actually
-> want, and file_release programs that need a name at exit get one whose
-> format doesn't depend on how far the task got through do_exit(). I'd
-> prefer that over silently falling back to d_absolute_path() inside
-> bpf_path_d_path(), which would return chroot-relative names before
-> exit_fs() and absolute ones after, and still wouldn't help pipes and
-> sockets since d_absolute_path() rejects internal mounts.
-> 
-> Al, would a check like the above in d_path() be acceptable to you?
 
-Al, what do you think about what I've proposed above?
+On Mon, 28 Sep 2026 23:33:22 +0200, Benoit Masson wrote:
+> Devices of a hardware group are added to ag->ab[] in PCI probe
+> completion order (ab->device_id = ag->num_probed++), which is not
+> stable across boots. The wiphy radio array is built from ag->ab[] and
+> the wiphy device is taken from its first entry, so the wiphy sysfs
+> path and the mapping of radio indices to bands change on every boot.
+> 
+> Persisted wireless configurations reference radios by index (e.g.
+> OpenWrt/hostapd "radio0"), so such a configuration attaches to a
+> random band at each boot. This affects any multi-chip group with
+> single-band radios, e.g. TP-Link Archer BE800 (three QCN9274/QCN9224
+> radios in one group).
+> 
+> [...]
 
-> > diff --git a/fs/d_path.c b/fs/d_path.c
-> > index c253090..ea49d33 100644
-> > --- a/fs/d_path.c
-> > +++ b/fs/d_path.c
-> > @@ -265,7 +265,7 @@ static void get_fs_root_rcu(struct fs_struct *fs, struct path *root)
-> >  char *d_path(const struct path *path, char *buf, int buflen)
-> >  {
-> >  	DECLARE_BUFFER(b, buf, buflen);
-> > -	struct path root;
-> > +	struct path root = {};
-> > 
-> >  	/*
-> >  	 * We have various synthetic filesystems that never get mounted.  On
-> > @@ -284,7 +284,9 @@ char *d_path(const struct path *path, char *buf, int buflen)
-> >  		return path->dentry->d_op->d_dname(path->dentry, buf, buflen);
-> > 
-> >  	rcu_read_lock();
-> > -	get_fs_root_rcu(current->fs, &root);
-> > +	/* Past exit_fs() there is no root to stop at, go up to the global one. */
-> > +	if (current->fs)
-> > +		get_fs_root_rcu(current->fs, &root);
-> >  	if (unlikely(d_unlinked(path->dentry)))
-> >  		prepend(&b, " (deleted)", 11);
-> >  	else
-> > 
-> > pw-bot: cr
+Applied, thanks!
+
+[1/1] wifi: ath12k: assign device id from the WSI index
+      commit: 81986a81f09fae73926c7c44863b335880269c90
+
+Best regards,
+-- 
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+
