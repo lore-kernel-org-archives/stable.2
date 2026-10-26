@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793056881;
-	b=rAhe7PRFggEJkG2Dw5O2D/KdMLUZYRGDSGjW9PJ4T7YxIK1HAKxVLIQWiE9jKOjgkyNP
-	 pvt2X8XVxTaYf+OCvyz6khJogP4WGkloaXGAxRWdan40cWFIDTnPtHKiOAWjC4ulUyGsF
-	 8aM2nosQ8SSc2oFcXzWZleAceILgFbRkM+1Uguxgb5gQmpRSHk7drxb4d0lEmH6PfJOua
-	 gFf2W2glHqV2NBQDZKeQDjtkNAjB8zyPcRE1zE3CdCvU26+E5jVfmndmOHkOofp/rHVGr
-	 P8x9MBq2lqmj0vSnbYj1RGTcZe+1Da5gA/ERaeIVZ+UNFM7Eigsgn6vwyoY/zp6mctw==
+	t=1793056919;
+	b=lI/tUqUiyUpFca4xr4vRQgkpYZtjjTVmzjS3CAI0KvJBCx7KadfIpDx97JKvg3VEMVoB
+	 aLXehIi3z0XNnQD001YE6XVMkETJpJZUhh6NNlP+JYI6lWyd6DyV6L84gR9059+FHAqKD
+	 egxuYhdM0+74+8ov02l0FuckyqpoDk+Qf60PYnZYE4Echb6AY2tknLrFBzA3O/Wf4V4dK
+	 Bln4vLxYkKbXU6qFOQ0T6y7tPivTL190tzzMC2F252sv0jEZt7/yj0hOL468ve/zpA7F3
+	 yFLYgpKT9iWmJIY70LuxokT0Y6Glu4EPt3UMLKkY4EP1h6KrxNXlU4Blu+mRE3TzDlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056919;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Sa8tfvVw1l57KNfiSIe1Yios+sToK3uLi/AwjZJQ8/k=;
-	b=KH8lhTf2Go+eStHcFLhGd9p9/3OzdVudxoGdLo0jsPnBprS/rAIIgxbJMJ80oKQmrFTF
-	 ejmZY46A149p9IEvCcTinBaIx1ZqzG/1SprEP0aRynuKNVyNCUnVd8nvDzlWZ/p3vCKlk
-	 zH5A3ntU7IK8TEN7VYBaZgUdI5bqZ5n3OTIJrBaPJUA4zepa2nNDVZH37swa+g6CEpLLi
-	 xc2RRzq6f8TqtwrKYEDdwB1hhBb+IJcWWFgcmE6pCDVeGzu81fAOhwEvz/Cxs00oQon3w
-	 Epqa/uCcWMq0KxillEh0dZobZ+3v4iC2OHtvfnkK9xoVaNSuMN8zzwHfmolSH4rPqOw==
+	bh=+MnAvX+qI+mYQxA2fVfQg376k8J/xzQVFinnmk0GIyE=;
+	b=yF4W9GZyTasdzEUqYBagfgYtY5QPbFjyai5xXprA+JxgayHcSZqk0Pc9AA45zcAVNrAx
+	 4glp97VabxoMTmnLGsxk4653wuSxbWqQt2qoT+zBB5qekWAotafhesdBO2TAWiDufwvry
+	 Hbtp99hmbyr2NK/u98ySep0lnDDla64/ZsT5LHzaTeYt+BAU8wbr8qXHhzCh7d3vl3Gse
+	 iBq72I/OVQnU7PggkFkFRb3VUgbLzge8RDv1q9xLC5bXiFvmZ3gZP98HExNOlY+RgJXkR
+	 58mL/WjtS5FGYvqaj2TARYCqs4U6pBcWaqUG8VZPPm7EzhgjGtP4HDAJdPGym8Lc1Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="isKtS/2A";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eh+x/TWR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CCB606A31A;
-	Mon, 26 Oct 2026 23:21:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD5A606A31D;
+	Mon, 26 Oct 2026 23:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isKtS/2A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214011F01825;
-	Mon, 26 Oct 2026 23:21:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eh+x/TWR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C2A1F031E0;
+	Mon, 26 Oct 2026 23:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793056880;
-	bh=Sa8tfvVw1l57KNfiSIe1Yios+sToK3uLi/AwjZJQ8/k=;
+	s=k20260515; t=1793056918;
+	bh=+MnAvX+qI+mYQxA2fVfQg376k8J/xzQVFinnmk0GIyE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=isKtS/2A5NeaRQguaTYvUDnrgIFDJ17wHL59PMobMO6g7ZHpMetE7kei1Ps/bb1A8
-	 xu8Kim7UlEZy2SixWOhdZcUGjChz41ApzfH4YoyAhImQGE0gAIm7Ih+fV60o4n0lO4
-	 au5Viyp2kQyAhWJ8Vf1IKb58qD8iTw3kTdFjKBT8sR2Qn0B1S5PGt7goGve+sPNjtw
-	 PJ4vGRk87GzyiEoh+gCcqdKSkFh9uR9s0cjDeyAORlo3WZL+RRCPtskfA+aeNUSg9k
-	 AVucltVdLCDF9pjdvNZU4izy3JOQFzSQyCkg23um0pmIDKdbJ5Pyi5i+GSDV1lXIV7
-	 ryNKJIL0dRfkw==
+	b=eh+x/TWRFS/iJ1o5pPJTPgSPhjIqgQS3EpnhiXcdC9m89yLc/rPs+Ad+DvKTl1fG9
+	 NRD+KHiMvg3Fzyf/Biyf6XapfStao2hkfGuVGecEOmPxP8jclyVfkwrKJruvRdUs+b
+	 jgvMBNz+MQPmFzhlPEUeSLiIlV1kPYlpWFUelDXGXk0JoUAD6JwZqJlTU62Nccn1oR
+	 Ish/vEaxWz1T3FoN8J0XkU0rKmk3p37d0dFOsvpnab3UoD9KeVrVEvHAMpSewlf2oV
+	 k4+XinYlqn4Ci8QY+xQlfrqejBbu4gtWkoxgMIe7o06wca6Os8beRZYY8j96gLJLvQ
+	 h/YnvNHUxuzcw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:31 +0100
-Subject: [PATCH 11/46] mm/huge_memory: properly handle refcounted PUD
- mappings on fork
+Date: Tue, 27 Oct 2026 00:17:33 +0100
+Subject: [PATCH 13/46] mm/huge_memory: fix truncate racing with PMD zapping
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
+Message-Id: <20261027-fixes_core-v1-13-6f74bec9a5bb@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,124 +92,75 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4336; i=david@kernel.org;
- h=from:subject:message-id; bh=f7xOz6s1fqGaUW9pRJrQ/Dq0ncEqYAqNRmBLRgpR3rQ=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35+ikxnOfLW3cJ+r9Kcba3b/iP8n/sGm/rpQsk3ZI
- v3uKs/wjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACYSuZuR4UfI7J7vjVFP2mQ9
- Cr6e0DVaf80t323DefHZLZ6r7B+c3MjI8G7LP29Dx6glK793rG9a7879mFXy//+1eikfq5jXXZk
- YyQoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2193; i=david@kernel.org;
+ h=from:subject:message-id; bh=lNkOF7790rj6TmUsBd+4scX6XFv84q64jJb19qNwUOE=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35/yUmPX2heKb2tWBnBHR7/sl4lR76kT65hrKpod8
+ jbVfk5yRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABNx8mb4H170dtHjpOPPY/IK
+ t/y9WbzDQ3XOugP26i8L/Wec3XLw5QVGhgv5CutulWXVTX7GdSZnmW4UC+tXA8OLM+w6eS23l7s
+ EsQAA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-copy_huge_pud() copies device-DAX entries without taking a folio reference
-or updating mapcounts and the child's RSS.
+From: Chris Mason <mason@kernel.org>
 
-For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
-forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
-huge PUDs are then copied without accounting for the new mappings.
-Unmapping them in the child decrements accounting that was never added.
+zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
+If this was the last mapping, truncation can skip unmapping the folio
+and proceed without waiting for the PMD lock, racing with dirtying.
 
-Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
-reference and add the child's PUD rmap and RSS accounting before installing
-the copied entry. Pass src and dst VMAs consistently instead of src and
-dst MM. Move the TODO.
+ifs_set_range_dirty() can oops if MADV_DONTNEED races with
+ftruncate() on XFS, when we get the folio set dirty after it was found
+to not be mapped anymore.
 
-Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
+Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
+matching the PTE zap path. This keeps the folio mapped while updating
+its state, so truncation must wait for the page table lock.
+
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
 Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: simplify comment and description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/huge_mm.h |  5 ++---
- mm/huge_memory.c        | 27 +++++++++++++++++++--------
- mm/memory.c             |  4 +---
- 3 files changed, 22 insertions(+), 14 deletions(-)
+ mm/huge_memory.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-index c745f7ad22987..fac05120ab774 100644
---- a/include/linux/huge_mm.h
-+++ b/include/linux/huge_mm.h
-@@ -12,9 +12,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		  pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
- 		  struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma);
- bool huge_pmd_set_accessed(struct vm_fault *vmf);
--int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
--		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
--		  struct vm_area_struct *vma);
-+int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-+		pud_t *dst_pud, pud_t *src_pud, unsigned long addr);
- 
- #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
- void huge_pud_set_accessed(struct vm_fault *vmf, pud_t orig_pud);
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 4c0194af9016d..283c4bc8b927c 100644
+index 2b31a425c7a32..eda020dd6e33f 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -2072,11 +2072,13 @@ void touch_pud(struct vm_area_struct *vma, unsigned long addr,
- 		update_mmu_cache_pud(vma, addr, pud);
- }
- 
--int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
--		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
--		  struct vm_area_struct *vma)
-+int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-+		pud_t *dst_pud, pud_t *src_pud, unsigned long addr)
+@@ -2495,6 +2495,14 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
  {
-+	struct mm_struct *dst_mm = dst_vma->vm_mm;
-+	struct mm_struct *src_mm = src_vma->vm_mm;
- 	spinlock_t *dst_ptl, *src_ptl;
-+	struct page *page;
- 	pud_t pud;
- 	int ret;
+ 	const bool is_device_private = folio_is_device_private(folio);
  
-@@ -2089,11 +2091,20 @@ int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	if (unlikely(!pud_trans_huge(pud)))
- 		goto out_unlock;
- 
--	/*
--	 * TODO: once we support anonymous pages, use
--	 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
--	 */
--	if (vma_is_cow_mapping(vma) && pud_write(pud)) {
-+	page = vm_normal_page_pud(src_vma, addr, pud);
-+	if (page) {
-+		struct folio *folio = page_folio(page);
-+
-+		folio_get(folio);
-+		/*
-+		 * TODO: once we support anonymous pages, use
-+		 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
-+		 */
-+		folio_add_file_rmap_pud(folio, page, dst_vma);
-+		add_mm_counter(dst_mm, mm_counter_file(folio), HPAGE_PUD_NR);
++	/* Transfer young+dirty while the folio is still mapped. */
++	if (is_present && !folio_test_anon(folio)) {
++		if (pmd_dirty(pmdval))
++			folio_mark_dirty(folio);
++		if (pmd_young(pmdval) && likely(vma_has_recency(vma)))
++			folio_mark_accessed(folio);
 +	}
 +
-+	if (vma_is_cow_mapping(src_vma) && pud_write(pud)) {
- 		pudp_set_wrprotect(src_mm, addr, src_pud);
- 		pud = pud_wrprotect(pud);
+ 	/* Present and device private folios are rmappable. */
+ 	if (is_present || is_device_private)
+ 		folio_remove_rmap_pmd(folio, &folio->page, vma);
+@@ -2504,12 +2512,6 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	} else {
+ 		add_mm_counter(mm, mm_counter_file(folio),
+ 			       -HPAGE_PMD_NR);
+-
+-		if (is_present && pmd_dirty(pmdval))
+-			folio_mark_dirty(folio);
+-		if (is_present && pmd_young(pmdval) &&
+-		    likely(vma_has_recency(vma)))
+-			folio_mark_accessed(folio);
  	}
-diff --git a/mm/memory.c b/mm/memory.c
-index 5d6d695675bce..0f4db5080e371 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1463,7 +1463,6 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
- 	       unsigned long end)
- {
- 	struct mm_struct *dst_mm = dst_vma->vm_mm;
--	struct mm_struct *src_mm = src_vma->vm_mm;
- 	pud_t *src_pud, *dst_pud;
- 	unsigned long next;
  
-@@ -1477,8 +1476,7 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
- 			int err;
- 
- 			VM_BUG_ON_VMA(next-addr != HPAGE_PUD_SIZE, src_vma);
--			err = copy_huge_pud(dst_mm, src_mm,
--					    dst_pud, src_pud, addr, src_vma);
-+			err = copy_huge_pud(dst_vma, src_vma, dst_pud, src_pud, addr);
- 			if (err == -ENOMEM)
- 				return -ENOMEM;
- 			if (!err)
+ 	/* Device private folios are pinned. */
 
 -- 
 2.43.0
