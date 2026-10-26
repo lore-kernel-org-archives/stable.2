@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027246;
-	b=Mb8RQ9YFXxO4L7SvfvOyvHfzsYlebE4eqs1M1/KMFsdiEwn+fzsvNNnP3JJMF6WQtxcH
-	 fBWW6zxJBxld79iYJ9/qsK56vOpfP02CJxOqrkZPad/DtjxvYYz7yg+fH+laYkSiJFxjI
-	 aPhW3r/UWxmIfp+npmjNwFBolRHQ4juO/jiY/VGn3MGXbjbjnLhUvA4g8h0W6x5eO1749
-	 viiTb5LTy9ZhhkV6Rhf6ALNkAYqZrT2XL2pri53BpKgKF97LI8C8/NmBVMExCyvsLDHlW
-	 E5aIp3DntcoCclz5Ng31mdoYT3dCsj0rFgm2PsaTCOYdBVgmtV8AzQum97OAOlWFjRQ==
+	t=1793027264;
+	b=Ps7h+jRRg+4Xv45tADjHsKyGLi67/tBmjXBNGY0kOGmFCRZLjL6KyLBu7+zCiZLW7Yc2
+	 f/468m09ZKBQiEuH4sWQ1+sdchp20LLHh3xictxoIgkBSwaW1XO9icHXsQx7nJ+Dd6zJ6
+	 G/V+NFzPo8fuCuAa4OrQas7873jteEHPac25XsfVLJ5JOp6R9lF/YBwlFx9VMEfavDoaJ
+	 JYVJHFUd4lgcpRO1DdXfBrgW6TF03/Udq3rvJCAxJfwvDv4CQWVHlg0Z3t0+wSuFedL+w
+	 Y0Mnx5adkKFmQwc2RVO6QJhs57EPi16GyE+Ho8RVfv5D6TJFLwqKt//nyl7p6N2A6Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027246;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=TFkRKjpchuDLGDuX92gc6zM+k/XaXSJ19+/LXT9gQH8=;
-	b=PuzHMzt54SNCLTIYAcY5qDPt2INAQdxF6t/ZVHp4sxB7vysgg61qJE+7WXvigpRemPEN
-	 wHnUx8otbUFyOS+j5XCavR3+qCyM6Ug6bsrHXZkuYSjcU+Cdo3XybMczQKEMfJ2xqEdj3
-	 cxcuOHpOWUq606OX9lUT2OYe1dHR8q0VGiwFry3S2CkrMMCQDqNuQEfRzzhMdXxx1dkfC
-	 qLeCvrI5uwgYCLn0Vvki6Px04WwnIsDBtlstu5YlobOSt/PgXPt52WE1dy4chgWPJ+5Br
-	 NIFupv9MVlAQwP+Dl2mkBX6XeDdtnyjP0+xrlSVc8fu8cZ+DS+QY38qTRQsoa1eVWmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027264;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=g/R4qcdGAOKFBxRobAFKkRUzmVd4fugkXPdMQsoytF0=;
+	b=owKJMuUvFCHBDWlDt9olxPwiQSh2dajMiW0T4G1vGtkTO9J/6OXzqawAOubZnjEMgLaB
+	 6AwZJ5NcY8Fm9dyXaeFGS71f/WNd0T0wFNYQeAmEyhIUPlK14eisfrzUyk5h074fQxL3M
+	 Pg04JqqbsmjdBHXs2oRpgDSm1K5cxCCa7to+TYqcvxY0+Adr/vsVNaHdyd3vfkhjEKles
+	 ubbH9NI9et30BsXM3oTx1X+CwEal7Ap0Y9CACgg7T/B4LKmBB6z+2O+lJ/CVbYurug+Vz
+	 YSMSSHl0+qGzw25z3CojqXgN7ftG636KKVEY5Gm3C2Ofvllh0jhVrF/qTQokF3gtRWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UgZnk4ZM;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRt+H3T7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA7E60A2616
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 15:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA7E60A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B4B606A33E;
+	Mon, 26 Oct 2026 15:07:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UgZnk4ZM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793027244;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TFkRKjpchuDLGDuX92gc6zM+k/XaXSJ19+/LXT9gQH8=;
-	b=UgZnk4ZMCwyNbeqaNK6IUptJm3d5JY61zxyigfxJMvh1wlvldtD9+/pgbIaKzESt4SBqBB
-	971+2QYzGvsDaM1cQLQGv74glcTdBvrKOiZdbhAVL1+X/vhK8x7wHixoB+w0Zsm/pIlees
-	BaQv5bJCwK7JCIpdbZXl/eUS1qDxYJA=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-568-s0arET9TPaib_C1Zgk5tBg-1; Mon,
- 26 Oct 2026 11:07:21 -0400
-X-MC-Unique: s0arET9TPaib_C1Zgk5tBg-1
-X-Mimecast-MFC-AGG-ID: s0arET9TPaib_C1Zgk5tBg_1793027240
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 36155180267B;
-	Mon, 26 Oct 2026 15:07:20 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CE91730000E3;
-	Mon, 26 Oct 2026 15:07:18 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	mlombard@redhat.com,
-	michael.christie@oracle.com,
-	bvanassche@acm.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/3] scsi: target: iscsi: Claim the completion in __iscsit_check_dataout_hdr()
-Date: Mon, 26 Oct 2026 11:07:09 -0400
-Message-ID: <20261026150710.1063511-3-loberman@redhat.com>
-In-Reply-To: <20261026150710.1063511-1-loberman@redhat.com>
-References: <20261026150710.1063511-1-loberman@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRt+H3T7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAE3C1F031EC;
+	Mon, 26 Oct 2026 15:07:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793027263;
+	bh=g/R4qcdGAOKFBxRobAFKkRUzmVd4fugkXPdMQsoytF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KRt+H3T7XePbH45MV71itXUsJ+b60jVyZRmeEdhmhSN2k5W3zh9skQXFRpcbCr5uc
+	 6MMLI2TlRhJNtTrBA8MXlkigYluBWAzb8KIDuDxNMkYEI80UDt6fLrLgya/KCikINj
+	 xayZbXRipqXTfn5Ha7dsKVFFWIGgn/jT0PTH9E8FAq7q4x2t3qCoxeyH9WnLslg1Bm
+	 ePcNC+6T/OMODCXcEcJYyHx0VX/Xx7nioEo7S+DvytMS+xXQBQS5N6/oVf7cWmlATZ
+	 jy1sMgtIAWnRvrMz5yBLufocbYj29KvliPR+KVItncZeXB7zhD1PHox7Pw4nE6qEeN
+	 rjl+Z/LbUIBGw==
+Date: Mon, 26 Oct 2026 16:07:40 +0100
+From: Antoine Tenart <atenart@kernel.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Zhou Qiuyue <n0ps1edzz@gmail.com>, netdev@vger.kernel.org, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] ipv6: raw: fix use-after-free in
+ rawv6_send_hdrinc()
+Message-ID: <at9sKRSEJLVGj9OK@kwain>
+References: <20261026044808.613-1-n0ps1edzz@gmail.com>
+ <at7uk8gXtzNufuQF@fedora>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,62 +61,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at7uk8gXtzNufuQF@fedora>
 
-Commit d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted
-WRITE_PENDING commands") made __iscsit_check_dataout_hdr() complete an
-aborted WRITE once the final DataOut PDU for the last outstanding R2T has
-been received. That call records nothing to say the command has been
-completed.
+On Mon, Oct 26, 2026 at 02:09:23PM +0800, Hangbin Liu wrote:
+> On Mon, Oct 26, 2026 at 12:48:08PM +0800, Zhou Qiuyue wrote:
+> > diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+> > index b965258cf..bdea82543 100644
+> > --- a/net/ipv6/raw.c
+> > +++ b/net/ipv6/raw.c
+> > @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
+> >  	if (unlikely(!skb))
+> >  		return 0;
+> >  
+> > +	/* l3mdev_ip6_out() may have replaced the skb dst. */
+> > +	rt = dst_rt6_info(skb_dst(skb));
+> > +
+> >  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
+> >  	 * in the error path. Since skb has been freed, the dst could
+> >  	 * have been queued for deletion.
+> 
+> Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
 
-target_complete_cmd() on a command that already has CMD_T_ABORTED set goes
-to target_cmd_interrupted(), which queues target_abort_work and returns
-without setting CMD_T_COMPLETE and without changing t_state. The command
-therefore stays in TRANSPORT_WRITE_PENDING and on conn_cmd_list until
-target_abort_work reaches iscsit_aborted_task(). If the connection drops in
-that window, iscsit_release_commands_from_conn() finds the command still in
-TRANSPORT_WRITE_PENDING and completes it a second time, which
-re-initialises and re-queues an se_cmd->work that is already queued.
-
-Route this site through iscsit_complete_aborted_cmd() so that the
-completion is claimed and connection teardown leaves the command alone. The
-helper makes the same iscsit_stop_dataout_timer() and target_complete_cmd()
-calls when it takes the claim, so the completing path is unchanged.
-
-Fixes: d5869dae5080 ("scsi: target: iscsi: Fix hang for aborted WRITE_PENDING commands")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
-
-Notes:
-    This depends on patch 1 of this series, which adds
-    iscsit_complete_aborted_cmd().  d5869dae5080 has been backported to 5.10.y,
-    5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y, none of which carry the
-    helper, so a backport to those branches needs patch 1 as well, or the claim
-    open-coded.  Happy to send a standalone version for stable if you would
-    rather not carry patch 1 there.
-
- drivers/target/iscsi/iscsi_target.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
-index aab9237..1db6051 100644
---- a/drivers/target/iscsi/iscsi_target.c
-+++ b/drivers/target/iscsi/iscsi_target.c
-@@ -1533,10 +1533,8 @@ __iscsit_check_dataout_hdr(struct iscsit_conn *conn, void *buf,
- 		 */
- 		if (se_cmd->transport_state & CMD_T_ABORTED) {
- 			if (hdr->flags & ISCSI_FLAG_CMD_FINAL &&
--			    --cmd->outstanding_r2ts < 1) {
--				iscsit_stop_dataout_timer(cmd);
--				target_complete_cmd(se_cmd, SAM_STAT_TASK_ABORTED);
--			}
-+			    --cmd->outstanding_r2ts < 1)
-+				iscsit_complete_aborted_cmd(cmd);
- 
- 			return iscsit_dump_data_payload(conn, payload_length, 1);
- 		}
--- 
-2.43.0
-
+Doesn't this change the device seen by the nf hook / used for the stats?
