@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016942;
-	b=Cxe3eOr4ZwFPCrIO34jA39qQs7BaapX/LRPWYlRCR0SXAbDP18dDxiSsh3j+Yf8I/4sA
-	 xr59erXnPSEF/5i/7jGZnnSas63M3cYz37aScbxme7MPmuBRbezpRFZB2UCfduj4iD3I5
-	 8qqQryE5cajLV5voMzTcmECDUSOlRBncBOjQr5zPokPUGIpNURUCmrXbV1M5aq3zKkx9i
-	 72KhdVFAqZIAL13oOqo9jy4zymyHYJEv2uIK/L2oOBa6de3LcfNjseAoSwszZ0pyKStz8
-	 qZpDhMsF27d7MF1WEqD5DTYJxumNvcl707YRXuHLhUjmQdfRzXq70nyQS05Bx+W61mw==
+	t=1793016944;
+	b=13N8KyHZT2Yni/wit/F1mdvrVo5bWBlB5qnsD6riwCFhzcmaZMJfVWrpQlF1kzOm6jq4
+	 fKtSyGqvOO7qtBKXLqZQ8r3ml90xzh9iioB9h09+QAXcHLEvZMaaHSXN4ht2E/RbbbNnr
+	 54WwKunPwLk7AFhZVi8DGDGtOdAs55+uclZtXLzC2ZgYbBJmu/XgzT7v1Gosv5loO9z92
+	 pNR2uajrM18s0awcusgLtrHss9H6ryQoSUxt752i5DhVNq7c9ffPhOm5h1SYGyycVwCB+
+	 CV6hGSRojgSdId3rDEEMjxng/D4r9rFjgxFu6NCg9EjUH2Nd1lpAlo/oih+WJg6EFyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016944;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=IXFaKwcmdOnkE2hJVoEK/ilWxxhplixkaig1tchY038=;
-	b=FbUBEfV6WoTv1OlLamRHfDFyXbnzEn7+eFpgjw4ZGOYc05+0PVN4uWKYVeVTB9nGQU4O
-	 y92qgJXjCRaRYqMgLQZHsH2Qm/agYAMJiXblQLHNbUcbAgQJuey+9vx1RXet5ZeyU7sQi
-	 ofGQxM0CUTDo0mTfQJMviWvqamr4c8ihYQKzqETj3pIxmcNJSR5HlM7ZRg2B+6iRoIXuG
-	 kShbpgeNyQ6I0ZoGvZmsnuPEw2tAX+5vGIhZd63P85so2aA2jvDbL1A37WkzyuHTMur5i
-	 LyBLeD2UWNJBuG5kDlOv1yG0l2cspP8KjZaI4LYwVG672BD0VHEPFDLm6MfbVIcgvAw==
+	bh=IvTulwyfQHGq9xJw1yja6dywbpy8LCBW375451x69yI=;
+	b=gZtXlsmLi3qjJ9YHZ7zJYEJpLouydA8eo8rzpvoqeI06gTrZ6FKTtlbDtTV5unlS2EDS
+	 B+hLXrOtStW91Vd6INVYXT0fLxFNHK3wkwwItSlPzqGTSy5XQUfKc3cz++6jcT8ped+Az
+	 gU+AcRWIZwqwM4UL8IWZdm/Ze88umYTXncjvAOLMLku9zSJ560fQktC88F3MnhTgtGD+B
+	 vuSoqZvtaFtIy4QdGIPuArxGphzuau++huGV7nMB4Oi0uvtxkT4JIwixZv5uXtC5pg/KM
+	 Cj/+HuOzUF85BH/0LLaw/D98xi2S3sQzpICFiWsN8EBgkAfprWhV6EDZjrbpw13pA0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUGx0YBX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOwtRTzA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AAF606A324;
-	Mon, 26 Oct 2026 12:15:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4EA606A31A;
+	Mon, 26 Oct 2026 12:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUGx0YBX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5206E1F031E2;
-	Mon, 26 Oct 2026 12:15:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOwtRTzA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AB4E1F01825;
+	Mon, 26 Oct 2026 12:15:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793016941;
-	bh=IXFaKwcmdOnkE2hJVoEK/ilWxxhplixkaig1tchY038=;
+	s=k20260515; t=1793016943;
+	bh=IvTulwyfQHGq9xJw1yja6dywbpy8LCBW375451x69yI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nUGx0YBXKuED6KFBkinRGaoKdoxNcOBelK2ZK8CXtOsXOxmNoInT59B9gIRsWYK0e
-	 enK4rHOKbfoSJ0c8GadAt0ii1j78bSN03ia7b+KS6G65svOX+JBfNjo/MUHm+Lm3Qx
-	 nQAv6xHQalCzXxQ8RcIrsvTKIzyeCjIngyu+jR9D6t8XOFl5BROSae7w28KjoSt4Mj
-	 SscIJxlV/jhljW7y8T3ZmYM6SKzWkqVMpZkKlyloEQZyJUfGP3vLTjxi8gHzNqZG8M
-	 RwfJ45CePfLWAv997JNiDvTT9+oMcM+FIydSbMB2bwEjpnVFg8MzHgEP1GrUvrDf1+
-	 sA8inmowOOPgA==
-Subject:
- Re: [PATCH net 2/5] ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
+	b=JOwtRTzAlepsbPE9vjwpasr6jqIBmMZ7ZgaImUQJl5dbLv6NH5CDR8oqvWG3kiO8b
+	 Ghl4I3GDbbwtaEHd6lWhe7xgsdYEwz6hygb/QA1m7pnwVjPXsLvc1W18eKs6Epi55R
+	 Hrq0Elv2KbPdFjt7F0HA96dvdGNdnmscFXyzv58c1461tViQsEyvYnrVwxgVvuVrTd
+	 ++zHkoKVlRIJRXDV9w1S7UtG1cA3kxAKZ2uHqbFLjZzyIiKtRTALY4ur4okCuQ49Hc
+	 XRdQN27mxAsOg6m4ADGo+RZmu8EOuceNZ3NFRrBBI6P+FTbTbK+oir3EYw2DY13E+X
+	 4Va6iEOQwi08w==
+Subject: Re: [PATCH net 3/5] ipv6: restrict mld_qrv to 255
 From: netdev-bot+sashiko@kernel.org
 To: jiayuan.chen@linux.dev
 Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
@@ -51,11 +50,11 @@ Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net,
  bronzed_45_vested@icloud.com, yuuchihsu@gmail.com, fmancera@suse.de,
  hannes@stressinduktion.org, fbl@redhat.com, pmladek@suse.com,
  paulmck@kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 12:15:39 +0000
-Message-ID: <179301693984.3134.10311722588849367187@kernel.org>
-In-Reply-To: <20261023091419.167088-3-jiayuan.chen@linux.dev>
-References: <20261023091419.167088-3-jiayuan.chen@linux.dev>
-X-sashiko-severity: Medium
+Date: Mon, 26 Oct 2026 12:15:41 +0000
+Message-ID: <179301694174.3134.6591289617782917175@kernel.org>
+In-Reply-To: <20261023091419.167088-4-jiayuan.chen@linux.dev>
+References: <20261023091419.167088-4-jiayuan.chen@linux.dev>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -68,97 +67,62 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new backoff code in ip_rt_send_redirect() casts the signed
-  sysctl `ip_rt_redirect_load` straight to u64.
+- [Low] This patch adds an upper bound to net.ipv6.mld_qrv in
+  net/ipv6/sysctl_net_ipv6.c: `static int mld_qrv_max = U8_MAX;` at line…
 
 --
 
-ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
+ipv6: restrict mld_qrv to 255
 
-This commit fixes a UBSAN shift-out-of-bounds in ip_rt_send_redirect().
-The shift happens when ip_rt_redirect_number is set above 32. The backoff
-is now computed in u64 with the shift count capped at 31, and the result
-is clamped to MAX_JIFFY_OFFSET before it is passed to time_after().
+This commit adds an upper bound of U8_MAX to the net.ipv6.mld_qrv
+sysctl. ipv6_mc_reset() stores the value in the u8 inet6_dev::mc_qrv, so
+larger values wrap. A value of 256 wraps to 0, which then trips the
+WARN_ON() in mld_update_qrv() when an MLDv2 query arrives.
 
-> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> index 595a3b7f17830..76807b7570467 100644
-> --- a/net/ipv4/route.c
-> +++ b/net/ipv4/route.c
+> diff --git a/net/ipv6/sysctl_net_ipv6.c b/net/ipv6/sysctl_net_ipv6.c
+> index 1a0a36dcdabc1..05a3846803322 100644
+> --- a/net/ipv6/sysctl_net_ipv6.c
+> +++ b/net/ipv6/sysctl_net_ipv6.c
 
 [ ... ]
 
-> @@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
->  	/* Check for load limit; set rate_last to the latest sent
->  	 * redirect.
->  	 */
-> +	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
-> +	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
+> @@ -229,7 +230,8 @@ static struct ctl_table ipv6_rotable[] = {
+>  		.maxlen		= sizeof(int),
+>  		.mode		= 0644,
+>  		.proc_handler	= proc_dointvec_minmax,
+> -		.extra1		= SYSCTL_ONE
+> +		.extra1		= SYSCTL_ONE,
+> +		.extra2		= &mld_qrv_max,
+>  	},
 
-[Severity: Medium]
-What happens here when ip_rt_redirect_load is negative?
+[Severity: Low]
+This isn't a bug, but should Documentation/networking/ip-sysctl.rst be
+updated to match? The mld_qrv entry there already lists its lower limit,
+but it doesn't mention the new maximum:
 
-The redirect_load sysctl is a plain proc_dointvec with no extra1/extra2
-bounds, so root can write a negative value:
+mld_qrv - INTEGER
+	Controls the MLD query robustness variable (see RFC3810 9.1).
 
-net/ipv4/route.c:ipv4_route_table[] {
-    ...
-	.procname	= "redirect_load",
-	.data		= &ip_rt_redirect_load,
-	.maxlen		= sizeof(int),
-	.mode		= 0644,
-	.proc_handler	= proc_dointvec,
-    ...
-}
+	Default: 2 (as specified by RFC3810 9.1)
 
-When the load is a negative x, (u64)ip_rt_redirect_load sign-extends to
-2^64 + x. For any shift n <= 31, the shifted value mod 2^64 is
-2^64 + x * 2^n, which is still at or above 2^63.
+	Minimum: 1 (as specified by RFC6636 4.5)
 
-The min_t() would then always return MAX_JIFFY_OFFSET, and this check
-would effectively never be true:
+With extra2 set to &mld_qrv_max, proc_dointvec_minmax() now rejects
+writes above 255 with -EINVAL. Writes such as 256 or 1000 used to be
+accepted.
 
-    time_after(jiffies, peer->rate_last + MAX_JIFFY_OFFSET)
+Could a "Maximum: 255" line be added, maybe with a short note that the
+value is stored in a u8?
 
-So after the first redirect (n_redirects == 0 skips the check), does a
-peer get no more redirects until the ip_rt_redirect_silence reset clears
-n_redirects?
-
-Before this patch, a negative load produced a negative offset from
-rate_last. time_after() was then always true, so a redirect went out on
-every packet until ip_rt_redirect_number was reached. With this patch a
-negative redirect_load seems to change from no backoff to maximum backoff.
-
-The commit message says the u64 computation "cannot overflow since
-ip_rt_redirect_load is an int". That only seems to hold for non-negative
-values.
-
-A later patch in this series restricts message_cost and message_burst to
-non-negative values. It doesn't touch redirect_load, and route.c is
-unchanged through the end of the series.
-
-Would it make sense to treat a negative load as 0 before the cast? The
-other option is a lower bound on the sysctl, for example
-proc_dointvec_minmax with extra1 = SYSCTL_ZERO.
-
->  	if (peer->n_redirects == 0 ||
-> -	    time_after(jiffies,
-> -		       (peer->rate_last +
-> -			(ip_rt_redirect_load << peer->n_redirects)))) {
-> +	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
->  		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
->  
->  		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
+No later patch in the series seems to update this file. The igmp_qrv
+entry in ip-sysctl.rst also still lists only a minimum, even though
+igmp_qrv also appears to be capped at 255 by the end of the series.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023091419.167088-1-jiayuan.chen%40linux.dev
