@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792979647;
-	b=SilpCVJ4mQ8egUuHVdB0tzjHlsMB5NKvLsnULBVknLsIP/NSOIeqYzNeCZuw8WE2pm+L
-	 XHCwzhv2v6Pz40bR8NB2xZ+5ErnOvwa5SPqZ0AqBEjmYmakpMhixMDVll97s6p4mfVlbK
-	 wEz26WXlRkWE9Fu+5OVfWcpdvUDPNEeMWn5V/S+i2NurzBB5bh6DTnRwQb/dvfU/od0NJ
-	 wZQxpBJRs7aI77GdvIOWqf9R+3TTe5bwiplDBWQikirzhv6dIC4qnq6ttuwfICih37QZH
-	 NNZ47zGk7XhgS2FmAyZq7wQeYe3CWXp7GkuHYskgh5/kkf0tv836GkfBTx7+l23HZcA==
+	t=1792979646;
+	b=di8FBnXzbbolkXv0eWM0+U8bK8JQkzwh/gZz5RHJ0Pjus1Lw21U76tZdilDsxGQjK690
+	 tsYUygDgeCug/nyVlDxvp1Bj7L0TJBEQaYYqUvvC7XClgtUd1+p0usCX4BSie7VnXyreR
+	 YcH3nxf2WLtz8dgPvrq653VMFhX8X5BQTJ4IUh3bXtA0IaTb6EsAgs+nm+ywvLDvxhyhu
+	 RZqcrzd9yTOjXp2eNaqRooBhiDyvnDI0Z90iFyz4HuKbSmzf3adBF1uig30AUQoi0gdbM
+	 QnU5DYBRJOVOiUu02PkGs58evGj4jiVcYs06u5fC6bbqz+WaY+sl3FWLLFGANfoLPGA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792979647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792979646;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
-	b=OeIlPFoc8AQkMCwO1WcoSTVSEg8bH2/DIaiVQ8K9TEjmAfbvukUGFWE+ioGNvMBBq12l
-	 Ca5uEa7+0c/EpEPvcGoulX1PZY0nPVRTcISPJvK2ie/VNGbeJjYO+qPbreok7X4lfgmRJ
-	 IGNAdgMHNRXY1RhoOrtgOGofonuFaFCM0sABGwZqipbpgNe3hNnyqCg/potOwbztuRXem
-	 83IrUPE0zb591zBuuEz5D0PqdH5ZqMDn91DbOlEz3/9X1D2M/czJKmNtzSq5MrOM5v884
-	 sEmbNznPvbYXuCRG87So84m2VvOd9/9hv4OG38W+TSnhx8L1E/I5BU+LyFx1hGJa/Vw==
+	bh=i1Tx8qcEwpxZFCisgTAJsyZfyWhKAw8yYPdhlkU0ob8=;
+	b=lplNpBLGtDr51VgoaMRk1kHkSmmnYWqykCj3F9Ia5uCgF4V5qw+ng/bes+quU5uMc+td
+	 IAyQawhHpLxMCt7XkECxdRoLN0BaC5lZH7LpK0mnZ4wvhO+8oUoKr25b94DMT96OsjjZ9
+	 IPEnoxSVVEPyIX5UgxwuKATBNYdumQMC8pqIUFqWzv6VCH95Psx2yAovCoVbA5wKShUjV
+	 PIeuBlEizyVUc8EN7JXyn0475/Dr/sPEODU7PvvjlQmnPBak2fx7TYfVNOVq7FXF9KgZH
+	 howZW8gfgpYIiVuQ1iDTh/g929rPldCIrFRFhMdIE4s//W7UGhNO698AP9oIFpoej+w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RQ1o6/Zb";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKfTFt+1;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D1F606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6103E606A31A;
 	Mon, 26 Oct 2026 01:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQ1o6/Zb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKfTFt+1
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792979646;
-	b=LdZ3JR0B6ch/VQ4PBUTGQsVJbDJm0e0jQBBPqA9kdsZjz4jbymkursbN07kM75r/lVV+
-	 5n38QJzymNf/z+7pBHWPj8anaEPE0O4QTG5AumpZv/f+EGf9H94y/+5BgrFU3/73kayfL
-	 fFAf59LxQgl3m7E81H0s5wxMxrVawpP1MkN30K8sHVpnvU27wywz9reTP1U+8utviP0pY
-	 +0qZHw0uSrxJIPI+h9DL5Z4nbBifwEeWtThapKo+SbN/jK7vyHzBFXJvi50rOpf5LVnRK
-	 iEzFYmbJm6cg6OqBhIqxsCjhNJ6g/uyQfN71oGnVDWHSuTnmh028dTBrMbhGMQWBnlA==
+	b=Sc75ICtV6zfk9NjjTKIpcVGQ7oS8cjfU6tNyIwWJj8WH5mLALnBANjyMrI0p3PFqMrMB
+	 bxBiFui/JA4d+HuxSU+fIJFk6dQtUsfGAG9qdPxAVtuFMj/Fvw7NhzwOz1r2L2+LzGM/M
+	 GTGanbtZTjuLfSyyIFmipB5hv310r7nr06nYPYK8YyOb7LbOb2x6X51eRGCPeSFbVYeS7
+	 GEy1sSGETXUWGBFAGX+uaYr3cJm73sbSW/v5/7tyM1nphKO4/Y2HTbWGMq+6ZoN5hqPGW
+	 tESoIN01iRUJQJ/t5xpfTzlv2mJu7KYFl2z1EvR5wCFR0PdzdL4eb3uNCWV+wD4Ntqw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792979646;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
-	b=Ss2ScRqoA+3GPGZoOazIHsx2ujiSMbSri50unprzQatC19qeUs7SUstwLEhgyCol9rHo
-	 hNEloDZpVj0coFGlWB8y2O8ZX70T1N0MoQSs/s51lIqIznG1aJVwaRXijoOdFjt+GOgT9
-	 Ux00FZV57SidgPCdR4Q0RvNYZLFAmbWudUZnm4mB32St0/+9s4xMkKwbMlP4NY+wFwJw7
-	 2LA1mGpEtPX4wrnZ3jD0yui6DrxYiTuqZvB/H1hezgamahY/DfXRw/fd+GFzfO1LcLDgX
-	 C/Fuug1h/wm9RFOsvYmEMjqg3VfQJ1owZSYYaRF/jdMuXqvoQGFnXigVotgkksFSiUA==
+	bh=i1Tx8qcEwpxZFCisgTAJsyZfyWhKAw8yYPdhlkU0ob8=;
+	b=XzsqI8YteZaEAbAo1ndLUqD5cVAKp5lTV4DHZH9OhFsChRM7l7a6nXveiXIbUBt1XSc6
+	 ZFnJYfcCCK0+b2qpti98bu7GgQ0GfCwOFFlr83hD6d3d3nGQ8Rx55dV3MLjvk8G2yvcIf
+	 JuaqHjptV23HPf2e/p6MGxR58ZdYnFsMe1ku9GXFIJ+zDsEprOzV9cgaG4hTOYfYs5peB
+	 Uu1nVJwtJgAc3AZZwIfhXCjtBMgK/Yxri6ZoQu1T5K1hArBohW3GXTu1DCjf7jkjKSTBa
+	 flN6LtrvCKg0N+naYA+i62ThKa2uqGf6lo69zd8KrKijBmv8W719Hi06du3SVZ0s8Ew==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6909C1F01825;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6966F1F01828;
 	Mon, 26 Oct 2026 01:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792979646;
-	bh=hwf42MmqiictqeAXTJJ0tDtgRB1pwdbe6TvnDURAkTU=;
+	s=k20260515; t=1792979645;
+	bh=i1Tx8qcEwpxZFCisgTAJsyZfyWhKAw8yYPdhlkU0ob8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RQ1o6/ZbtTUpRGXCepNdotbBYJ3iLW/FABOCdKPEB1/UsQzjuvVSWuEXf++Wtwfge
-	 QM/IMNd6ZZicjfw6A2rDNXw5C/pJS4/cNSrR+ecieDDBmMp2mm2xJrcx7pA4dWU1W/
-	 KhxmHOghHIdS45SsjcBfhwNoggzfQvRpVmZPUPfkD5cOJctV4cHVCiUrczirXp8O3E
-	 g02C+wA9uvg6DnlP51RD7X9TFUYEqYLlzIclwoeCLgQ+EXzcZnWZnFcMHBTpa3QtUY
-	 XViDANjhe0q3+XMWNrKS1oEax5UpTyvztDlQEm9IsmZfiDvyaFVPXrNLGEq0Z1QxFo
-	 3yKcE26XE7rAQ==
+	b=HKfTFt+1v38Y/198GIvGrHfBE+D9Sd6HN224kzR80O+y1Ewzp2/wEQH0t2WAJq2Hx
+	 3A/258KfgfAiBa++luJju2KcjHGjmKt9opY2wkcdZ+CFuZqNFAirmSdU41AfCZj7OE
+	 Qyf/95CONzOiYgjHyYxytNAQjPsipBIk3M9eR5hnq7t1UCucXEXc8yiInOZNFbFJVJ
+	 Tv5Smhi6Ajk6w1t/BJty3/xUp3/4mjcH3F1zCiNTGu/dku6CMSsRQLM9zRCmGxvW/P
+	 UvnrDmFAQDV9Yh4lYjOh9hfS6bHGDNtyIsKX29jOSiBH8BGxt7L0gPQ2ZNSgPrSwP+
+	 +K6PHrWyqStQw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D61C044BB1;
+	by lkml.kernel.org (Postfix) with ESMTP id CB9CD44B76;
 	Mon, 26 Oct 2026 01:54:04 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Mon, 26 Oct 2026 10:54:06 +0900
-Subject: [PATCH 2/2] xfs: don't skip free extents of the longest length in
- a whole-AG FITRIM
+Date: Mon, 26 Oct 2026 10:54:05 +0900
+Subject: [PATCH 1/2] xfs: don't skip free extents in later batches of a
+ whole-AG FITRIM
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-xfs-fitrim-skip-v1-2-cddd8414f99c@samsung.com>
+Message-Id: <20261026-xfs-fitrim-skip-v1-1-cddd8414f99c@samsung.com>
 References: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
 In-Reply-To: <20261026-xfs-fitrim-skip-v1-0-cddd8414f99c@samsung.com>
 To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
@@ -92,11 +92,11 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>,
  Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792979644; l=2296;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792979644; l=2664;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=aB3YdzosB9+MLmbMgvq8EWq31a8TDk+3lXux5xdb1mU=;
- b=+Jv3c76RNB6Z7iHbgFJyUMxriwOSH/IwqigFKgIczG2+rmLqffC9/t8PhDA8iJqiS0g4JS3gl
- QKXWszn3tLwAhoTWz+l49zyKYhU0gS8CtPX+CJyR+MHTYwmSdG/bvoW
+ bh=DE365ED791/wL0LS/rT/QAJXNoFtBUJ5xTlLjkGgwvg=;
+ b=g/3nDUd4lVQpRloxEOxvQahx9DatIYcS7ZBFC0N1+fRSDlymFNElW9xpALEYpmKvuqI6eYdXg
+ 91u87HoOC9oD+fBH5cKgcnRbK6vpyUtnVtNh87ZLwhXnWRwwWPD1bfG
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -107,57 +107,82 @@ Content-Transfer-Encoding: 7bit
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
-by-length walk of an AG in FITRIM starts with
-xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
-lands on the longest free extent with the lowest block number. The
-other free extents of that length sort after it and are never
-discarded.
+A whole-device FITRIM walks every AG but the last by length, in
+batches. xfs_trim_gather_extents() saves the record to restart from in
+tcur->start. But tcur->start is also the start of the range to trim.
+Later batches therefore never discard the free extents below that
+block.
 
-Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
+Save the restart record in a new restart_bno field.
 
-Suggested-by: Dave Chinner <dgc@kernel.org>
-Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
-Cc: stable@vger.kernel.org
-Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
+Cc: stable@vger.kernel.org # v6.10
+Fixes: b0ffe661fab4 ("xfs: fix performance problems when fstrimming a subset of a fragmented AG")
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-In xfs/842, 6 of 15 free extents that held data were not discarded
-without this patch, and none with it.
-
-On v6.10 and later this needs the previous patch. Older stable trees
-need a small backport, which I can send:
-- 6.6.y: always use xfs_alloc_lookup_le(cur, tcur->ar_startblock,
-  tcur->ar_blockcount, &i), and backport 23be716b1c4f ("xfs: don't
-  assume perags are initialised when trimming AGs") with it.
-- 5.10.y to 6.1.y: replace xfs_alloc_lookup_ge(cur, 0, agf_longest)
-  with xfs_alloc_lookup_le(cur, NULLAGBLOCK, agf_longest).
+In the first layout of the new fstests case xfs/842, 409 of 512 free
+extents that held data were not discarded without this patch, and none
+with it.
 ---
- fs/xfs/xfs_discard.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ fs/xfs/xfs_discard.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
-index 8120f136af..cdf660344c 100644
+index 906221ffe9..8120f136af 100644
 --- a/fs/xfs/xfs_discard.c
 +++ b/fs/xfs/xfs_discard.c
-@@ -200,12 +200,12 @@ xfs_trim_gather_extents(
+@@ -155,6 +155,8 @@ struct xfs_trim_cur {
+ 	xfs_agblock_t	end;
+ 	xfs_extlen_t	minlen;
+ 	bool		by_bno;
++	/* restart point (with count) for the by-length walk */
++	xfs_agblock_t	restart_bno;
+ };
+ 
+ static int
+@@ -198,14 +200,15 @@ xfs_trim_gather_extents(
  		error = xfs_alloc_lookup_le(cur, tcur->start, 0, &i);
  		if (!error && !i)
  			error = xfs_alloc_lookup_ge(cur, tcur->start, 0, &i);
--	} else if (tcur->restart_bno == NULLAGBLOCK) {
--		/* first time through a by-len starts with max length */
--		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
--		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
- 	} else {
--		/* nth time through a by-len starts where we left off */
-+		/*
-+		 * A by-len walk starts at the last record of the longest
-+		 * length (restart_bno is NULLAGBLOCK until the first batch
-+		 * ends) and then where the previous batch stopped.
-+		 */
+-	} else if (tcur->start == 0) {
++	} else if (tcur->restart_bno == NULLAGBLOCK) {
+ 		/* first time through a by-len starts with max length */
  		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
- 		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
- 					    tcur->count, &i);
+ 		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
+ 	} else {
+ 		/* nth time through a by-len starts where we left off */
+ 		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+-		error = xfs_alloc_lookup_le(cur, tcur->start, tcur->count, &i);
++		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
++					    tcur->count, &i);
+ 	}
+ 	if (error)
+ 		goto out_del_cursor;
+@@ -235,9 +238,15 @@ xfs_trim_gather_extents(
+ 		if (--batch <= 0) {
+ 			/*
+ 			 * Update the cursor to point at this extent so we
+-			 * restart the next batch from this extent.
++			 * restart the next batch from this extent. The
++			 * by-length walk does not visit extents in block
++			 * order, so it must keep the start of the range and
++			 * restart from restart_bno instead.
+ 			 */
+-			tcur->start = fbno;
++			if (tcur->by_bno)
++				tcur->start = fbno;
++			else
++				tcur->restart_bno = fbno;
+ 			tcur->count = flen;
+ 			break;
+ 		}
+@@ -340,6 +349,7 @@ xfs_trim_perag_extents(
+ 		.start		= start,
+ 		.end		= end,
+ 		.minlen		= minlen,
++		.restart_bno	= NULLAGBLOCK,
+ 	};
+ 	int			error = 0;
+ 
 
 -- 
 2.43.0
