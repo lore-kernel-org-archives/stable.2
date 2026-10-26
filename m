@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008697;
-	b=byp+KDnT5us4xYk61VYD1ca4MiqREc0gMBhXeu05y0GhQz4NNllgDA7GLzwqB4oGHTTv
-	 P7pl3qnpGfJlNII3q4g48hCzWr6WSLyt8bkvpsZrGLvkD6nS+ZW84KRPQa5TxaQp3+8xC
-	 878eDsfPbM9miWnQQoswVAaWX//vx4bnv7FfJyUIhLVytlukmWlIAGzDKDXsi/3i5lO9r
-	 Mbdlx/P0z71jvzLDHJDphhhsmifOtwn3oUWpRRjSiV9xezQvmxj53jhNUjLFV2Sr8VCbm
-	 xoZFkEY0h/qCjr/HDUJvw5BSMdDfRQw3IlvKVs6bzZ41qdiEYTPm0HvpZsUIFWAoC4g==
+	t=1793008807;
+	b=XT/yHqYFNtB0eblqutp8v6Gqu2GqrOI/dqZYG8tWLbKqP6EpefkM3jgVNMCGhEZ0Rwyf
+	 io3AqMrd8wncwaON9eA8vbMaVcZIz9/25NRHt1VAQag3DqjFj6y2AyyE0ViFeHB8xRQn+
+	 HCIpCY+2AKkKE2dN2qoWUhL1/WMD1vZY/EwQ8P8CsFQDUr9ESMGf/B1o5gLLvONZ7AQ6B
+	 vASAySKU8vTGDcAoWX/NFlWOe04jPCBT11UmTacksZAXnzMP6xr+dFC9dBFFlCYC/rVk4
+	 BFIiN9mpXuonE9PA1kEmOWy0dz+HZGV1YohBfLr5+m3tvvH7+o/zgrbG2f6tcDnHY7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008697;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ONdHuIF3arLP4vmgBYYOQGACA53JodskiOkfBwcJbcI=;
-	b=MUe65/DiJSJg7uKGBbdVoMnN+chxwBYAVmkn2kbetpUuiQR961ZA4UHBehFpGyGouNqG
-	 zkRPjU1mM5euq7uYU5J1cuBIYDi3ctLl3oA4nbz99qHmkIkIB+FRIotCFD0SPC4EWO3+T
-	 mFLUj2tXu5CHzyxpxw7fZwLiNhV/H7ZMJz+RjRusIVdb0Qog2jcSFst5zgtUypyO/Dwz6
-	 GsgjXaO3Eqey9odF1Of4Oo08zlyJHCLTTkHn8O4+Xeu8pg5aJ2DUkSTmCKs02PhsNt6M4
-	 H1Au4cw4Mu6rIDDi1JII+HGX2UVgC2QPw6WndJyP4irgmF3wLtaH9qZv3xtqXPXWn0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008807;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=F/pa/uFhSJPFHIEewk36wTKJdJWq4rFHLThxtYs5ePs=;
+	b=Nx0jLcGNNGjfEJ8RLn/n8BKkZ/Qw4kL6WSdBcwcHv5zkV8x88z43NETpzn16hdeFcG9p
+	 rJVHrUXtjhgWT40xHVg/768Dk7Rds3aXKbPRdrW0jze//i4TbzlkLAN5HRDZIWMF8WoY0
+	 exrg9XcQJQlnyowDr5hxE7vClz3xWmhl1aqyggjcJzWRb+L7MS9KeDGToLFT6I3Q4YnHN
+	 6aWjH7Wtbjxb9SXDy9JbP1AX7ftUOsMnw3Z2mM7TQ8meeaQuAF5gatZiQ7loovKm62Xvk
+	 qFrWPznWvj1GycOrLuLr0vZFYM/zvrNY1QDmV2StoD/d8un1sPqENESnU8unnGkDiOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ly97WAR+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dwlM3Jda;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFA560A3838;
-	Mon, 26 Oct 2026 09:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6634606B454;
+	Mon, 26 Oct 2026 10:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6634606B454
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ly97WAR+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45A81F01181;
-	Mon, 26 Oct 2026 09:58:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793008697;
-	bh=ONdHuIF3arLP4vmgBYYOQGACA53JodskiOkfBwcJbcI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ly97WAR+7t3TUBYbtBXG5Cl67uFMpHyxMsFbLGuvN5TOlpDssYVm+ROFpJ1jXEx7X
-	 ZSVu/tZJkNZYNEq/tNneRpJccolHlGTp9S4vx3GVjn2/FNkgsCXYdQG5iZMEI5WFXl
-	 3mP10XHD6ijiDaqDnzVxtMQJsB6Vbss2NHY8wueWSW0A4VBpLtyAXkTalv65owI12W
-	 L+oHhJCSqpeFhUPm8xUPkkMDRHBMyLHFgPI1NVzdKflm+AsGcFjPxkKJnWoLronuqz
-	 dZpEgFrZbp5x/WuzYkdFcaz0SZzqxdTOcG2isnCCPywHopb4n72oi44Xn434DWz6DN
-	 dllmYfOoQ0ukw==
-Message-ID: <29919c80-7901-43ea-97f9-6b74c7e73965@kernel.org>
-Date: Mon, 26 Oct 2026 10:58:08 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dwlM3Jda
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793008802; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=F/pa/uFhSJPFHIEewk36wTKJdJWq4rFHLThxtYs5ePs=;
+	b=dwlM3JdaG5OIPj4Hpwv6O+JHHTOsMIur4AduK7yfy1WQtq1WlssMpBZ5KPIcbYRGK5R55/izikwaCtLpgnIuI8lQL9f1TE4LBmScw+3iSCX5mqBiJKDafwC+KvB29VhQsgTcT7+EmuneBwXusMiwx/ZH/K9JdowyBgALjAu4Tmc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDW4SKg_1793008801;
+Received: from 30.221.130.82(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDW4SKg_1793008801 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 26 Oct 2026 18:00:01 +0800
+Message-ID: <87a005a4-c61f-4525-a0d1-89bfc6a8f75d@linux.alibaba.com>
+Date: Mon, 26 Oct 2026 17:59:59 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,85 +54,193 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/migrate: untag addresses when querying page nodes
-To: Hungyu Lin <dennylin0707@gmail.com>, akpm@linux-foundation.org
-Cc: ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- byungchul@sk.com, gourry@gourry.net, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, andreyknvl@gmail.com, catalin.marinas@arm.com,
- vincenzo.frascino@arm.com, khalid.aziz@oracle.com, odys.yuan@gmail.com,
- sashiko-bot@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261025223226.33740-1-dennylin0707@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261025223226.33740-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH v2] ocfs2: validate move extents against a stable EOF
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-move-extents-isize-rrw-v4-d4b80ed0748f84dc3f8e@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/25/26 23:32, Hungyu Lin wrote:
-> When move_pages() is used with nodes == NULL, do_pages_stat_array()
-> passes each page address directly to vma_lookup(). A valid tagged address
-> therefore fails the VMA lookup and gets -EFAULT in its status entry,
-> instead of the node reported for the corresponding untagged address.
+
+
+On 10/25/26 12:20 AM, Cen Zhang wrote:
+> The move-extents range must be bounded by the inode size used for extent
+> movement. ocfs2_ioctl_move_extents() checks and clamps the request before
+> taking the local inode and cluster locks in ocfs2_move_extents(). It also
+> uses separate i_size_read() calls for the range check and subtraction.
 > 
-> The tagged address ABI permits these pointers, and the migration path
-> already removes their tags. Apply the target mm's untagging rules to
-> the query path as well, while holding its mmap read lock.
+> A concurrent truncate can invalidate the first check and make the later
+> unsigned subtraction underflow:
 > 
-> Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
+>   Move-extents ioctl                  Truncate
+>   ------------------                  --------
+>   check me_start <= i_size
+>                                       take inode and cluster locks
+>                                       shrink EOF below me_start
+>                                       release locks
+>   compare me_start + me_len with EOF
+>   set me_len = EOF - me_start
+>     [unsigned underflow]
+>   acquire inode and cluster locks
+>   select extents using the bad range
+> 
+> A truncate after clamping can also leave the range extending beyond EOF.
+> Conversely, the cached size may be smaller than the size refreshed when
+> the cluster inode lock is acquired. Early validation can then reject a
+> valid start or permanently shorten the requested length and threshold.
+> The me_start + me_len comparison can also wrap for a large input length.
+> 
+> Validate and adjust the original request once, after inode_lock(), the
+> exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed
+> the size. Read EOF once, reject a start beyond it, and bound the length
+> by EOF minus start. Normalize the threshold using the same EOF snapshot.
+> This keeps zero as the default-threshold sentinel until validation uses
+> the size that will govern extent movement.
+> 
+> Move goal validation after range adjustment as well. Its allocation-group
+> capacity check uses me_len and must see the EOF-clamped length. Both
+> validation failures use the existing inode-lock unwind path before any
+> extent movement or transaction starts.
+> 
+> Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 > ---
+> Changes in v2:
+> - Validate and normalize the original range only once, after inode and
+>   cluster locking have stabilized and refreshed EOF.
+> - Move goal validation after range adjustment because its allocation-group
+>   capacity check depends on me_len.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-move-extents-isize-rrw-v3-b2a7508c41108cc2d00b@gmail.com
+> 
+>  fs/ocfs2/move_extents.c | 68 ++++++++++++++++++++++-------------------
+>  1 file changed, 37 insertions(+), 31 deletions(-)
+> 
+> diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+> index ad1678ee7cc4..f2682ef6bf2b 100644
+> --- a/fs/ocfs2/move_extents.c
+> +++ b/fs/ocfs2/move_extents.c
+> @@ -907,6 +907,30 @@ out:
+>  	return ret;
+>  }
+>  
+> +static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
+> +						struct ocfs2_move_extents *range)
+> +{
+> +	u64 i_size = i_size_read(inode);
+> +
+> +	if (range->me_start > i_size)
+> +		return -EINVAL;
+> +
+> +	if (range->me_len > i_size - range->me_start)
+> +		range->me_len = i_size - range->me_start;
+> +
+> +	/*
+> +	 * The default threshold for defragmentation is 1 MiB, which
+> +	 * matches the maximum OCFS2 cluster size.
+> +	 */
+> +	if (!range->me_threshold)
+> +		range->me_threshold = 1024 * 1024;
+> +
+> +	if (range->me_threshold > i_size)
+> +		range->me_threshold = i_size;
+> +
+> +	return 0;
+> +}
+> +
+>  static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+>  {
+>  	int status;
+> @@ -936,6 +960,19 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+>  		goto out_rw_unlock;
+>  	}
+>  
+> +	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
+> +	if (status) {
+> +		mlog_errno(status);
+> +		goto out_inode_unlock;
+> +	}
+> +
+> +	/* The goal check depends on the adjusted range length. */
+> +	if (!context->auto_defrag) {
+> +		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
+> +		if (status)
+> +			goto out_inode_unlock;
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Seems we'd better log the failure like ocfs2_validate_and_adjust_move_range().
 
--- 
-Cheers,
+> +	}
+> +
+>  	/*
+>  	 * remember ip_xattr_sem also needs to be held if necessary
+>  	 */
+> @@ -1028,27 +1065,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+>  		goto out_free;
+>  	}
+>  
+> -	if (range.me_start > i_size_read(inode)) {
+> -		status = -EINVAL;
+> -		goto out_free;
+> -	}
 
-David
+This seems changes the return value. It returned -EINVAL without touching
+the caller's buffer. It now unwinds through out_inode_unlock and falls into
+the copy back and returns -EFAULT instead of -EINVAL.
+
+Seems not a bug since the goal validation failure already behaved this way,
+but worth a line in the commit log.
+
+Thanks,
+Joseph
+
+> -
+> -	if (range.me_start + range.me_len > i_size_read(inode))
+> -			range.me_len = i_size_read(inode) - range.me_start;
+> -
+>  	context->range = &range;
+>  
+> -	/*
+> -	 * ok, the default threshold for the defragmentation
+> -	 * is 1M, since our maximum clustersize was 1M also.
+> -	 * any thought?
+> -	 */
+> -	if (!range.me_threshold)
+> -		range.me_threshold = 1024 * 1024;
+> -
+> -	if (range.me_threshold > i_size_read(inode))
+> -		range.me_threshold = i_size_read(inode);
+> -
+>  	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
+>  			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
+>  		status = -EINVAL;
+> @@ -1060,23 +1078,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+>  
+>  		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+>  			context->partial = 1;
+> -	} else {
+> -		/*
+> -		 * first best-effort attempt to validate and adjust the goal
+> -		 * (physical address in block), while it can't guarantee later
+> -		 * operation can succeed all the time since global_bitmap may
+> -		 * change a bit over time.
+> -		 */
+> -
+> -		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+> -		if (status)
+> -			goto out_copy;
+>  	}
+>  
+>  	status = ocfs2_move_extents(context);
+>  	if (status)
+>  		mlog_errno(status);
+> -out_copy:
+>  	/*
+>  	 * movement/defragmentation may end up being partially completed,
+>  	 * that's the reason why we need to return userspace the finished
+
