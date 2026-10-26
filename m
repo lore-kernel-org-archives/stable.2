@@ -1,123 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792992924;
-	b=Nw2m032R4wos7tF/UuG6psg1sUOegXl6nbAWQgL0314Ao5/gRBY+rJLxWFoGJ1aQa2uO
-	 PXE9gJLuOLxYDv8eI+UJL5duqo1B67AIfREGO8DazuPIPsutgE5BF2XZY1i7+ytiAECns
-	 SzAu6tjnYPfKM6t0KClngPscfHKpp4YbFnxLDF047NqZOPN3vLYQ524tOp+6rp6sqNv3F
-	 gY0JbtgPh25CbivDlA5o5Q9EeRDmHl+HRHFJ5lgMZA8anvAbJ7e9dX6zOV62SG1PUQhYF
-	 tcWQiimyfJY29kBkIYtesxpZgcPzrQUPh3mmzR7K/sHXlBRdkNj7GFPTE6Gq4qnnzGw==
+	t=1792994084;
+	b=XmXWnociQ858As+35hfEqpeeDSDoZ8Du7FAdIlEZzOcWRPuKWmeVTZA7dU53D7nzxRLU
+	 poEsXs/kOo08x0+pemzRlHLvGCrw4xr5one82xkvj8URgm/apubSdXv6KxX8rzryri7lP
+	 YsGJ/Ru6eknkWWgkINMlRWFei8mhzUvyq4DwFDt+p7uuW91OzIfLacsWa/4Xw4EVgD+rT
+	 G+XcPm0zClOKsgeckkrU2IA+SdUx7uGq4gGgo6a3JjQj6p7XSlf12BsBwp1SD2MldQNGU
+	 /zJTpPYrcvI+bw7O5VRUucqgqOL+p0SLyzm5yRsj0DYZZUuoaq8U9sUn0Brco74t0DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792992924;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792994084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=N3m1qXbf35TLhQZZPDTO3VEfB4Wj9dUkZOaPiyInhQQ=;
-	b=QVmaDKAz/rQ8JzFq1Vvu5L6x4qoH4Xa7G2mpFiXejkVRZviRWVMyMifs1Tr04wEfgEbF
-	 LncI3NZxNIdkPjgV4BLkW0STf5ukmAkN8UxNwPVwIOO8vm4GUGe8vSfLoLLmihkWeXPJ9
-	 lXMNhxN12k0VpM/t49PEfqzW8UzFClMYLfQPOeQlRlqydtyde4fn252zbLs1ULRPIEGdY
-	 fDtdsVlXeSnqwVsLh4zMLjxruVQVuID0T6NLU9qMG9iR7UMxxcSfTwIF8YxXuZSIG8D4Q
-	 4vyp8COzFXl0vEa+fQYcibdlLZVqcvixtgkuuz/GmRZfeLulGifgE13VmcdcZO4f4tQ==
+	bh=csphFTdpMBTVxUq8xSOjb1glIePwWhBgc2G/OqCCfTU=;
+	b=J9AjW0G6eGLKsHkm26druusuO+SEgrYSvmsSfmkWSaCK1elAlguIkYaXdcNY514nLfj5
+	 AzeVKCfRWcLi76U0dsGQNmAwe7mlWYR4qAxq3QulPEcCJBWS4tcA6uI0Cew8X2rrbbISy
+	 dpXCqYsEubmCPRDShd76fCKJPVtzIYGSHPsDgUSYgpRkO8U1EjtRq5OnKPHFFM5Kj7cj+
+	 rD3c4A1glm4w4SrrJppv9TQMQ/haNOObTRMDfswvuvI/7EL4qxasvLCJ7oTFJgtkNVH7Q
+	 9VL2bCymTUZ1LaHjB1GWowWwsWuHPtyGelj3LFHlEbZSwtOjyEJ6gnUhfLfxNQKYUxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=jsZObGPy;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=L7XGtf9r;
-	arc=none smtp.remote-ip=202.12.124.153
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=VfDn5U2V;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D2C606A31A
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:35:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21D2C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3939A606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:54:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3939A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=jsZObGPy;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=L7XGtf9r
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 8E1DC7A0254
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 01:35:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 01:35:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1792992922; x=1793079322; bh=N3m1qXbf35TLhQZZPDTO3
-	VEfB4Wj9dUkZOaPiyInhQQ=; b=jsZObGPyapFB7lzyBdMnNJT4szSv4P3snA3F9
-	sbGKq6Vulna7e8BPQ9O8f2MYMtM3kb0AI9RxTx+ollJv0PtcIqG9xP9EfOCkau2L
-	Mp49LU/HaxlT6BJm1IlKjHHHly/K9BGTTneCe/gI9A5PUdz8RwJsTRiUlA1q08La
-	L4BMLj9pCiewuZo+ci1CyQwTnMuAQu1m2rZSY7WiyP9dpPd9TWL7/KheUXb/FETZ
-	HJiYHKClL0GBO13Ucv1onV6s7SzdCsWkCBRzjT6pj08Y48VUfL2Py1ryu8CYxAQi
-	M89qrXQ/yKppQY1P3QJVbV94c3BsClM1F8zx3alYRNobD6rOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792992922; x=1793079322; bh=N3m1qXbf35TLhQZZPDTO3VEfB4Wj9dUkZOa
-	PiyInhQQ=; b=L7XGtf9rS9rewp84Fp7Nfkzoa9iB0bYBBKbnWUFHJIV4cl1LryZ
-	M51V4weixBdcuM/AvFdMeIWUWTKukW5O6NP+oFty50UYURd0Pz9bjw58zOyOyQ7J
-	bR1gC2mZLafXMF5mi4fITwf+cQDHzYQgADNyyAF+ye0AreblGBkH3MvC6PYolgJ9
-	XQPuWdhKUTtDZ2/WgMEqiuHBpVD8IUDMUrGO/rMHamTN58o5f98tk9KXC/wW0Adv
-	zu+dzucklYs1zmj0ZI3tHTQCKT4UASvxE4Y4+9WOf3MF/oIeZTTuPRbutb7ZnnUN
-	XFh78B221Co565I8PKd0hiiaTCOEnE6msjw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792992922; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Z0m1xYGh2IVg6RIIrZ4FR1pyVR7SanJ39oA9F/0Dvyu4qzB
-	LWE1WvSIFWSzN0lVRbeHzN4+Ia82f8Ud9oMwQLqIdlCZo9HQbndTXLgbLUTfChrC
-	fNFeNUo/nDhcwH4S7aWJmWLw+lzEgv7EDL/pJlQlcP6jvCjzMWiAefl5vmj97I0Y
-	PMzGFDyhbjgAuIdJxYRuVW/IEJ/dFeC/wF0kNaENOF0WEvGO0tlzwixwFZfaYT1m
-	hXWy0ze5xTcEoah/QflqVs9OpKyjke/xdduczgqDuQjb7geIKOynVPsOMDvwGt/r
-	0mgKz38FcB/1qGxdQmIf6Kribwo1La/Yv+HFkUg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:r5zhxWwz8o5R/uSF4DHIbxPUs0Qjtj7+8szg86ege0g=:jAm0V4TlNYR5v65wnj8zyhnOeFl3SLqMnTgCSnEobac=;
-X-ME-Sender: <xms:mebeaikpwXXexZAt2hA-Hkv9EYAwrC0Avx2AMKD8EwUUmzczZ-VaXw>
-    <xme:mebeaqQSpz-WhCZuXyd19qZ7CRhCUnAN95oHqP-AzrIiRd_McskZ4L5HbeRAk2JzI
-    2jQvtyXiqpu-fz3PytuH1QDK823PhNBKJRLHzx0Qu0vGrKiLEis0_7r>
-X-ME-Received: <xmr:mebeahVEGWW9V1nhM5uDkUh2Ofvrle-LwyoBGEybQmP3upk6GC7GIg-9Z_iU1VKs>
-X-ME-Proxy-Cause: dmFkZTGr4ldGq7W6i39MdyFEJYR8P3hCGcPU+6t6BA2hYKmTRM3+1zFlzyGDWwN5TWFSyj
-    gha6BzdjG0a/dnkyYDY6MmpFyQFfC1MTSjLSAu8kRDVB8f8oZFH0v7uDoS2exDpKT/h5iS
-    oy2m0jstyY8H8xpoP3mBjkfFQjEPo1Xw+cPSDLhanwpiaBXJ73hLVlLXzoyg1MhJJHhgwt
-    MN4W7MX6cf8UDaMGav1ZA1vpb/APk5/f478ACL2UDRKZSi9bHFW252RAOJP3JbPZSuB7Dl
-    es7zXcgcqGLPWmgqIBovSj8R7EXdvhsesrPCzrHz+IFSZ/+5NrYpIdSkB6Vr4s6yncP/hn
-    7Zm9FnNYmVLqbH6xoaTS86oTs4eeANzTcE7KpGBNSF0uGdqkJXI7PqWihC10KXViB12Uht
-    cVrZrB5Q2VIBcHi8xAAxaJy1KGRdWDK+GTvysmmvHIIW23fKWqTdUlze9oVljhSc4tEZWP
-    LjvcQgcvAqDMkrnWQzd2tskC3aN30OJi0b//vLqGC4Pvs6zXCgbRHJU1MbF6GNSJKkScVF
-    cFsyML7JlL+HJu2vClPHrFWXzCozwR2ICsITQRqTZQA4Xv+3pajzJEA61W5Pg1ExQNSgyP
-    CItYQmIgSJ36QC1yvh8ZoRRCBXx7gal6uo4IiCzceRd/YOd5UZ2UAMiA9Dpw
-X-ME-Proxy: <xmx:mebeauLBFDCtoFnb0hr7JB6VEmf1S6TuusxveiG_bYClUggS1cuwLQ>
-    <xmx:mebeah3SBUuHCPG8TaD5ipEvE97XKvEulCm5mb0S4JvG85gWb3wrvA>
-    <xmx:mebearKFcTWlw-UV_urKOcbzIauFFQnnRUKZ6Fod9SOW75QoIXcn0Q>
-    <xmx:mebeasiwqbcR0Kbt3uC2HtEjv4Tz2yV6o5HS7AIN7TfZMvxIHiaxUg>
-    <xmx:mubeatNes9THuGv5GC3olRpfRNjg26HZoQ2yu1Zb6MwZ5K7gazUfN-eL>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 01:35:20 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Steve French <stfrench@microsoft.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=VfDn5U2V
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-354ba08cfd1so4824837eec.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:54:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792994082; x=1793598882; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=csphFTdpMBTVxUq8xSOjb1glIePwWhBgc2G/OqCCfTU=;
+        b=VfDn5U2VYNvV56jVfnCG8y6ecapaC3HonQmStD6pBkbEAl0RLz5wg3JDXS9n+l70h3
+         lS70Ph3nrjso20JwYz2NZAMCPQJQV4vxmLikdYZhRIVxQ3mzssPNoZtgMt5WwJ1jeevv
+         DL22UvA5sJ4T2xY1eAWfUei6w5iR+OH2D6j1o87XE3asVy6QNLWQ9ItpUNrbfl/8bq24
+         kbx6UQfTHUsY3eN78kp0Qbz40Ps7wIrJn+o/CGam5nN+7C0Y90DIYgro4pBL4HP8f1Pi
+         JJu+e0wAbr7gObXeqRvW2hTrE0wLJxEnSc7roEFnsuZS5bCgn/HqY5vMtPhMVLDWN41/
+         ZosQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792994082; x=1793598882;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=csphFTdpMBTVxUq8xSOjb1glIePwWhBgc2G/OqCCfTU=;
+        b=wNvQ2YQcfIHUY2L3UtwxULTwfkGLHCul8z82AaEpe8lTVHalGDfwgNb4TSTLBW7ANo
+         XhNt5M4shBGbbnM6f/IAVmtuxMg5VgxpXRmSv6tCkjVctDZqLnH3D2FeMVCAE+knonRV
+         baYi5fK6htCxRtqtmAU2xtMDYuhL/B1acHZh/9jMvuk/2Ayii3qIn55+RIi8M2yiAuUB
+         Y+YMVXGa3SK2EY6ZCFdgKnLwKr8RTUXri6h4DLhZbkKUAluyTn4yqI8kszsCrCpc5AAL
+         10Vygeolz5SyhRQb+YcWrns7R5GxUq+p2zTwaJQ1x7kPmqctLyhWwFEi09NjKHlEBCE7
+         Egrg==
+X-Forwarded-Encrypted: i=1; AKwUvBxZqiWRTx48c6EsXmAMQXPSlrtiuaV8ifJHwZ1ZzU0WBVpPiPLrABA2f39nBgHHw8GyYEObgMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqQK0jvyKVEZl61+1C1wISeXiFWdHiJxw36dUCyWr4BUOBGXye
+	AvYZsmsXjmzptmy65luxVtqF9Y+DF02JRqZyo65Ccd0iLT1ZrCnWjke1E6j3SocBbEg=
+X-Gm-Gg: AYBFou1nlA9X70GuUo+MUTGaRaym7rorSBZy/K7UMVk4br6TW7yJFLUxVHeVUGb/WBN
+	u2xz1ZoUO8wMhC/xAqMf+bIBtIFBqLn6zaBZ/WSg0p0yfmgmAGjE20pZUuPEYrfdotoMiuwqNb/
+	fxPMoVvdKH53PPSElOv8TsA7rUjzLOwOJN02ZiHOVxIoo8P5tQrqGxIsJXKK+S8HnJJKXHHldFh
+	abndGSVE7fKMBprvrmJxekDzgqMDvMuP+d8HwD4i+9osAbzChUJXY+Todn4+lYrGAdR+jxWdw2u
+	IAHBy+yx0ILNPPI6p3NOwcPuGDHbkAfCvSuhWgEH1TwWJBJsWxzH4BhRLAtqztGncK4merMTHaG
+	00caqp/1RGtoPsd2wdWut6as/ud4Thf09Igd6pzGxyYaX+/i8saTg3rhV5ecoIhw61JU9n5Ln55
+	E3NYeosmHOkMOQFGTDPsoakj+jWiOIkprgKxkA6ngDUG1fbv9bMnBDytHGb4F6WSY0BCs3vTdp9
+	hyCwcVBjR/9bYi6T9BaCOhnTvhjnXYtDVK0/XHgkFrzteHV3YIJrRb/vOtDUljwRMy/WsSP0ZBO
+	qJVL+WbCzVZswFzgEY+vzfU0rDDS9/COiA8emW4OPJFOYvXh
+X-Received: by 2002:a05:7300:ccb0:b0:366:4c26:2968 with SMTP id 5a478bee46e88-369e84e560emr9111160eec.26.1792994082149;
+        Sun, 25 Oct 2026 22:54:42 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d845ddsm22290613eec.11.2026.10.25.22.54.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 22:54:41 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix app-instance non-durable supersede session UAF
-Date: Mon, 26 Oct 2026 00:34:22 -0500
-Message-ID: <20261026053422.61138-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2 RESEND 0/2] RDMA/srp: bound the receive IU the target asks for
+Date: Mon, 26 Oct 2026 14:54:28 +0900
+Message-ID: <20261026055430.406487-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,130 +100,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ksmbd_close_fd_app_instance_id() supersedes a prior open that has the
-same AppInstanceId. It reaches that open's session through opinfo->sess.
-This pointer is not refcounted.
+The target decides how large the initiator's receive buffers are, and the
+initiator never checks the answer.
 
-Session teardown detaches durable handles before it frees the session.
-It does not detach a non-durable open. That open still points at the
-session through opinfo->sess after the session is freed. Another session
-can supersede the open at the same time. The supersede then takes a
-write lock through the stale pointer, in the freed session's file table.
+srp_cm_rep_handler() takes max_ti_iu_len out of the SRP_LOGIN_RSP and
+srp_alloc_iu_bufs() sizes every receive IU with it. The first patch refuses
+a login that reports less than an SRP_RSP, because such a login hands the
+receive path undersized buffers, and a report of zero is worse: kzalloc()
+answers it with ZERO_SIZE_PTR, which ib_dma_map_single() accepts on a
+virtually mapped transport without looking at the length.
 
-  BUG: KASAN: slab-use-after-free in _raw_write_lock+0x71/0xd0
-  Call Trace:
-   _raw_write_lock+0x71/0xd0
-   ksmbd_close_fd_app_instance_id+0xd9/0x670 [ksmbd]
-   smb2_open+0x3e10/0xd910 [ksmbd]
-  Freed by task 212:
-   ksmbd_session_destroy+0x38d/0x480 [ksmbd]
+The second patch stops srp_recv_done() from syncing those buffers with
+ch->max_ti_iu_len. The receive ring is allocated once and kept across a
+reconnect while max_ti_iu_len is taken from every login response, so a
+target that reports a larger value the second time around makes the driver
+sync past the end of the mapping. iu->size is the length that was mapped,
+and the length srp_post_recv() posts.
 
-Fix this by looking the session up by opinfo->session_id. The lookup
-returns a reference, as smb2_break_collect_channels() does. Recheck that
-opinfo->sess still points at it before using it.
+Resending as a standalone thread; the v2 I sent earlier went out
+In-Reply-To v1 by mistake. No code changes. Apologies for the noise.
 
-Do the lookup without m_lock held. destroy_previous_session() takes
-m_lock under the session table lock, and taking them in the other order
-here would deadlock.
+Changes since v1:
+1/2 unchanged. Dropped v1 2/2 (drop a truncated SRP_RSP): the floor makes
+the buffer always >= sizeof(srp_rsp) so there is no out-of-bounds read, and
+dropping the response would lose its req_lim_delta credit (per review). New
+2/2 bounds the two srp_recv_done() DMA syncs to iu->size, the reconnect
+case review noted 1/2 did not cover.
 
-Fixes: 16c30649709d ("ksmbd: handle durable v2 app instance id")
-Cc: stable@vger.kernel.org # e0386cd6498b: ksmbd: validate AppInstanceId takeover target
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+Yehyeong Lee (2):
+  RDMA/srp: refuse a target that cannot receive an SRP_RSP
+  RDMA/srp: do not DMA-sync a receive IU past its mapped length
 
-Notes:
-    The bug needs an authenticated client with oplocks enabled, which is
-    the default. Two sessions with different ClientGUIDs open the same
-    file with the same AppInstanceId. The first session is then torn down
-    by LOGOFF or a disconnect while the second session's CREATE is
-    superseding it.
-    
-    A reproducer is available on request.
+ drivers/infiniband/ulp/srp/ib_srp.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-    The durable variant of this UAF was fixed by f363a0fb134a ("ksmbd: fix
-    app-instance durable supersede session UAF"). This is the non-durable
-    sibling. It predates that fix, so the Fixes tag points at the original
-    app-instance commit 16c30649709d.
 
-    An alternative fix also works. It takes a session reference in the
-    oplock_info. That changes session lifetime across durable reconnect
-    and touches more call sites.
-
-    This fix was developed with LLM assistance (code review and KASAN
-    reproduction).
-
-    Tested on ksmbd-for-next ed0063dd with only this patch applied, under
-    KASAN. The reproducer no longer triggers the report. The superseding
-    CREATE still succeeds. The race window was widened with a temporary
-    msleep() in smb2_handle_app_instance_id() to reproduce reliably. That
-    instrumentation is not part of this patch.
-
- fs/smb/server/vfs_cache.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
-
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 7a0f13277..28170c30f 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -1262,7 +1262,9 @@ int ksmbd_close_fd_app_instance_id(struct ksmbd_work *work,
- 				 struct ksmbd_file *fp, bool *closed)
- {
- 	struct ksmbd_file_table *ft;
-+	struct ksmbd_session *sess;
- 	struct oplock_info *opinfo;
-+	u64 session_id;
- 	int n_to_drop = 0;
- 
- 	*closed = false;
-@@ -1275,10 +1277,35 @@ int ksmbd_close_fd_app_instance_id(struct ksmbd_work *work,
- 		up_read(&fp->f_ci->m_lock);
- 		goto out;
- 	}
-+	/*
-+	 * opinfo->sess is not refcounted, and m_lock does not keep it alive.
-+	 * The owner can be torn down while we hold only a reference to fp.
-+	 * Look the owner up by id to take a real reference instead.
-+	 */
-+	session_id = opinfo->session_id;
-+	up_read(&fp->f_ci->m_lock);
- 
--	ft = &opinfo->sess->file_table;
-+	/* destroy_previous_session() takes m_lock under sessions_table_lock. */
-+	sess = ksmbd_session_lookup_slowpath(session_id);
-+	if (!sess)
-+		goto out;
-+
-+	down_read(&fp->f_ci->m_lock);
-+	if (opinfo->sess != sess) {
-+		up_read(&fp->f_ci->m_lock);
-+		ksmbd_user_session_put(sess);
-+		goto out;
-+	}
-+	ft = &sess->file_table;
- 	write_lock(&ft->lock);
--	if (fp->f_state == FP_INITED && has_file_id(fp->volatile_id) &&
-+	/*
-+	 * The table may already be detached by destroy_previous_session().
-+	 * A new session could also reuse the old id and address and pass the
-+	 * check above. Only remove fp if this table still publishes it.
-+	 */
-+	if (ft->idr && fp->f_state == FP_INITED &&
-+	    has_file_id(fp->volatile_id) &&
-+	    idr_find(ft->idr, fp->volatile_id) == fp &&
- 	    ksmbd_app_instance_id_matches(work, fp)) {
- 		idr_remove(ft->idr, fp->volatile_id);
- 		fp->volatile_id = KSMBD_NO_FID;
-@@ -1286,6 +1313,7 @@ int ksmbd_close_fd_app_instance_id(struct ksmbd_work *work,
- 	}
- 	write_unlock(&ft->lock);
- 	up_read(&fp->f_ci->m_lock);
-+	ksmbd_user_session_put(sess);
- 	opinfo_put(opinfo);
- 	opinfo = NULL;
- 
-
-base-commit: ed0063dd214dce027717f64817c594cc1b2e1d41
--- 
-2.47.3
-
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
