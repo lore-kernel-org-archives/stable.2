@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793056938;
-	b=hLIt9rfSSZDqH4CChK4GLCW6dHGE3596oGoOpCFXB1SU4PEDQVTbPkXebT4yjxOL1VaX
-	 QQ9XLdPRZ5+zAz8eSVKbvU7airzfa9mjTVb16JklOCvGcdEL0Wl2b+T8ItwOkARLeqhcl
-	 mZ0zRPD8VWq7Pu29gHKPMhGWZHBgRzuEWTzMiiqJCSXPduIZM+iunj6Jh7ZtIfh7exMHU
-	 5BmXjHf++fXHwkSw9B8O1ndPIptp40SL4LSDpyvR+8xtA+/IPy/wHWOag9sB8bb1Y0KBY
-	 iKP5HAUoeew68hacsqmPK/q2ZxMgV2iru9t1HwUVdRM14HjHjohDmfudaZjF+NJ5YGg==
+	t=1793056957;
+	b=hi5Plz2nU3teu1/zXpw6TTpkGtdD3R3yEkyxl7JE6tBhU7rDVeFTtn4CBFyd/Z7hYG6I
+	 Ed8xOqdQLzJOwTKBhGi9afbwPEUIqzrblx5ZE8OHnGrc+1b3uKNe0LUVFXXaphC/GXq/h
+	 gsD47stu6fQSAtj3bJ51+7I6qnG4s45WKHVOvvpbbNAq7S8xu3JZEPSCaEkNjEjADpAlm
+	 O4njdChy/TahZY5sm7W93geUrMgDmNDCewiV4V9HvuLrJR0MGXcvMYGtBsrvNUE3hPpwr
+	 KMtZJtAIqCIaHdiFUfihTseMjOsrFOBvfrHj2HICk0tpscO8GADM5HAeLDlgFJPIjrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793056938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793056957;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ord/cNP4CRsRT4Xvi9c7rgpbK1vGRFp0LVhUmuKhqjI=;
-	b=g/Aw8ofccEcGa+ruI9FSRhZt+mYzAkp0cqTbgImRqGqYsekXdTIorDupeianIN6aK8g7
-	 tSiHauvuPVaWOPQ6/wTCweAcwObX3ZhbN3HemFyKEoQvkaiLAVh2FedlSsjkR8Xf4pb35
-	 41ejMaq7YXCwJXek4UITXt9DbIaOfr/cIXJF/HcXgAyPbhk1QuTlod2JogstOtgR8dJ1J
-	 Uu1C+Sy3mYu6wc4ETjUF8fstSH7fv6/5oS1xq9eJ4FNv0dOLzN3mmZMtYAYBIVEXY3V8W
-	 vDbkcP0wpMbnbmhCVIeXOExUkRDRInI7/jK0DbLgYOjYZ3Ydvzmg/B+H5JUqq4XnUfA==
+	bh=9PONecBNGwAC37JtDon9HRvZi6sk21qH9zGaaJ3qYwM=;
+	b=e5R374AiSvy9jbcofSaQffNGQ7j3ltyfm/KMayQGCdvtzKGpOo2VmOd64uyQqy0UomXg
+	 3CKgkehTeNMsdGqN/eFRb+vP0Fp6qArNFRqhEs3417gVW6sCTE23QOK9LfhZcab8XVxMZ
+	 Xwy1BWx1oYc5JsoKXdl2u+pDXkMYi/sZ9YOCDboU+t0Ag8F+KMT12bcFgG2K6Z1gpp1Ly
+	 ckYKN+p1zkHcFpKUBOIzdvyUe0FTPzKrCf2z/bK2A4jvWbT4hy2A2chtW6gwyYgLI85uu
+	 S+CHCkxlGu02grMTkUU+N899/76rRRjwQbWouobb4DB4e2IBM5CSE/FRCIUncQai6YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/EO6/mr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVvbRksS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9B7606A31B;
-	Mon, 26 Oct 2026 23:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E24606A323;
+	Mon, 26 Oct 2026 23:22:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/EO6/mr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B94E1F01825;
-	Mon, 26 Oct 2026 23:21:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVvbRksS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E7D1F01825;
+	Mon, 26 Oct 2026 23:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793056937;
-	bh=ord/cNP4CRsRT4Xvi9c7rgpbK1vGRFp0LVhUmuKhqjI=;
+	s=k20260515; t=1793056956;
+	bh=9PONecBNGwAC37JtDon9HRvZi6sk21qH9zGaaJ3qYwM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=A/EO6/mrzkD/mg3LADo0kMno6NcudvbnDZM8+tP9DZDoU8h9co0wU4clyW6YZLGFl
-	 ez77QV1LIY6IfUQBxzaqwM2+Y8X4xFpLbUPyaBW70KMfkz7RLbSPEpjilPcUHcVlaz
-	 Nc9VIAX3oxSv0TtODqmK33x8Gw+Djny92ATTXKcaqlSN630jZjUPuTr//5PNs6+tUj
-	 Bv42ssVm1ha1+CGtMl3ZCTjR1Vr36giZAnOD4Sa1XOnawJ5sMZ9PD0aJQeKTO0fxuS
-	 lWZTZeTL6k/4c+Sx5wtd160zyY8s+XW3ZtFGyroIsKFMK3n51Km+Sv+lIi+J0jrgRR
-	 77f61FFUxGTOQ==
+	b=PVvbRksSFwPLqVK97JfuGRK/yyQ7vgKqfwNLBuwg7tRyER/6D481w8uhIlExbvJlF
+	 3Bu3BiC6oN4wuYX83Y+otwZqJERUGRe1XFi0KZ7UsLHZ/O4mJV3ZcTn/vc9WZT9EJX
+	 wPLTosWMrpja6FYcetEEULvCUUTsRwH1Wx4GCZRVT5tvL3HyQE+itWahkkZ0Dz60Ct
+	 XlR6V2Yu3twGvjCbCxFmeWQT5axPeMCrXg6qf9ZLt0Dkzq7EMrgWGUq4VcoD45xmNI
+	 0JiJEmKhSJUPzB+HtPGHZQbcS0lXuOgWw7vLR2o9H5MUKaVvozkgATVGIROQa8biF8
+	 hMVaFTFvhIV7Q==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 00:17:34 +0100
-Subject: [PATCH 14/46] mm/huge_memory: fix zapping migration entries for
- device-private THPs
+Date: Tue, 27 Oct 2026 00:17:35 +0100
+Subject: [PATCH 15/46] mm/khugepaged: always recheck the pmd in
+ try_collapse_pte_mapped_thp()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_core-v1-14-6f74bec9a5bb@kernel.org>
+Message-Id: <20261027-fixes_core-v1-15-6f74bec9a5bb@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,55 +93,61 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1559; i=david@kernel.org;
- h=from:subject:message-id; bh=0T8y59LcTWa+97MvrqvLjbP/3maGmTKua0tBD9F4/0I=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu35+ia/cvPpk1zX/O+d5dB20O/XTZps6+dGX6/C/Wn
- 32/e/6/1FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEdq5m+J++r4l1Vdemiaxr
- 97IsOrB126Hm5Fs1z7zO++7NmFr9v2YlI8MSV+slVydHMX/KX/44/mLh7Gc8sTxTlc/N5lTMr6r
- ZxMMDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1502; i=david@kernel.org;
+ h=from:subject:message-id; bh=tUVUPC0JtoDS0vcvc31VLhuGDhArP2SMJJKTyHtlpxc=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLu359SPM9j88bSt686WqQe8L9xbvg+r1Tw8tRHcz37n
+ s7RmJFY1FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBE5jcx/BU29ki5fl+GO4jN
+ wXS6x7vf0VKJzI6z82R5Fk6a9kRS25nhv2NW248SjrK9fx+kGgX4OdfM0y+eYzZ9l+uy4BN7Is4
+ 9ZAAA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-A PMD migration entry can refer to a device-private folio.
-zap_huge_pmd_folio() checks the folio type instead of the entry type,
-so it treats such a migration entry as a device-private entry.
+try_collapse_pte_mapped_thp() drops the PTE lock after it has cleared the
+page table, and takes the PMD lock and the PTE lock to remove it.
 
-Installing the migration entry already removed the reverse mapping and
-dropped the mapping reference. Zapping it must not repeat those
-operations. Concurrent MADV_DONTNEED during migration back to system
-memory can trigger this.
+In between, MADV_DONTNEED with CONFIG_PT_RECLAIM can reclaim the
+page table. The pmd_same() check is supposed to handle this, but it is
+only done with CONFIG_SPLIT_PTE_PTLOCKS.
 
-Check the PMD entry type using pmd_is_device_private_entry().
+Fix it by performing the check unconditionally.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
+Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify description ]
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: adjust description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/huge_memory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/khugepaged.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index eda020dd6e33f..1b50cc2b35351 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2493,7 +2493,7 @@ static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
- static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- 		pmd_t pmdval, struct folio *folio, bool is_present)
- {
--	const bool is_device_private = folio_is_device_private(folio);
-+	const bool is_device_private = !is_present && pmd_is_device_private_entry(pmdval);
- 
- 	/* Transfer young+dirty while the folio is still mapped. */
- 	if (is_present && !folio_test_anon(folio)) {
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4b71d010b2aff..f53c50507c83d 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2013,12 +2013,11 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 	/* step 4: remove empty page table */
+ 	if (!pml) {
+ 		pml = pmd_lock(mm, pmd);
+-		if (ptl != pml) {
++		if (ptl != pml)
+ 			spin_lock_nested(ptl, SINGLE_DEPTH_NESTING);
+-			if (unlikely(!pmd_same(pgt_pmd, pmdp_get_lockless(pmd)))) {
+-				flush_tlb_mm(mm);
+-				goto unlock;
+-			}
++		if (unlikely(!pmd_same(pgt_pmd, pmdp_get_lockless(pmd)))) {
++			flush_tlb_mm(mm);
++			goto unlock;
+ 		}
+ 	}
+ 	pgt_pmd = pmdp_collapse_flush(vma, haddr, pmd);
 
 -- 
 2.43.0
