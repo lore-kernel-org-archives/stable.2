@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792991955;
-	b=gi00REPRTY9jJkTy3RSPUYIjKY7gESWBE2lGDL1jYXZjPI4Sm49Y37/virpDJZBLc7gA
-	 9hJ9YFj3ZF/imHHf2rztu7Wy21tdf8fCNGym7R8VLK8CUbES69OGcfv4uM/gBy7RsFUgx
-	 DSQkJtqqmU1xEukH6qb/zctavsiCGNnfmZYEGGEEZ/4Voj6bmLYul1kcq+JvF7oKNvPJF
-	 bevkfM+TkiD+WkI7fvKWgoIJxUmDf7Kjw4Vkj2QvqOMOua/9c9j5w6SvimahoY5QW0Zri
-	 moHoLukSDW+vVVjzG8iVUhOGUmDEBjMJXcHzY/BxF5fAnh4OqBTAWAz7sagp7yBdEIA==
+	t=1792992045;
+	b=1gMDd8VQ0bx+Yf5AIHe1jo/iKBDgLuvmgdmS4ts25923k33twUc4oQQ+IuBP5oo/HY/7
+	 uFd4A20zUhvIQMJrPGPAuHUVAi+LJHB+AObhIcZ6DUzM56eWa02wKgDM+APmkRJ9JwgLg
+	 Lb7CAeo7QaHJ9oVnJi949/qYOCAlsBS2DgmjH+dnFfD7ZlguPbSIWjW89Se1BZ5kTjG9J
+	 aeos3EmiuuCwuYIWbaJZcH/W0IqsUsbXXXsnXZl/al+bBFgqw/oWaOFB7AHbnZiJ5W9zZ
+	 XlDgQQAPGMLwHUhP6os3UGiDDtXetaQ/8QN1pBu9SdILBO08iWkHaD5abZKhPhjI5sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792991955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792992045;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
-	b=Hat2StpMeAEvuLrGzyJLKLMqP3/Mz5/XPT3NwYEHhAHZOKqiEITS0YocAbd/UAmpAPkE
-	 Ne2MzF+ioA7PsxTH2ph88AI9XOoK9nKJsy95fyK1pVyUrc6PN7lwhFDRv4OdjSxUjua9Q
-	 AbCvboWdDFgu4ezqO8lF1Y7IECpQ7BPL0RKvrdZU85IM8FGG/s9wcndJQnaC6eWft0x/P
-	 c8xOcDYXDRSDKqFRLwB/hJLv1dW9Srs5QAd88ETrszDlYTNFQPzOrCW8/A3h4NK4x3Akm
-	 RTeaLeWkg9t0bSm8KFnux/qO43GzzC9q7amMLfV7C3LD7O+6M0TIl11cX2584OX8UFA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kFxDNEtLaJF9FbohY5ofu4rvslw1141Z4oiCfeRJ8oA=;
+	b=OX5HjLItUMiT1rNQlLaxRQfAyV5jgpCtYYOs2j2QY+HyyJZX6nJ146ZUj7/n9aoYuZWF
+	 3IWgaYt6+P8rnURgKcD3UEl4w+8DQDWy37+dqRlwyn3oV3752BK6hF+Pqd3w7hZBkI4J9
+	 dkHvR0Alb5NaCvj5SNjSbPo5rzbj7csBnH/ACGAtfiAqh3MKhRuT0+oyFzLb4FOiEV/u7
+	 CHlZXzWpupeBYIl/s7EZfwpiLI5q0lLwRyCcl490dpjrE3BdIxt1SxW6O0VgH92kbCRts
+	 SNa3q2PvTg414hqa1ybgAyFNBbLFwkni2WHycOocGJR2BXQO6Py2KONHLmlC9ADviEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kl88xs12;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=BaNVFCds;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD1B606A31B
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD1B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C2C606A31D
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 05:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C2C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kl88xs12
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1968962f8f.1
-        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:19:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=BaNVFCds
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-188406bb948so1922638c88.1
+        for <stable@vger.kernel.org>; Sun, 25 Oct 2026 22:20:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792991953; x=1793596753; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
-        b=kl88xs12a4DUn4RWwpvSIEj9DqMyCBJuuTbiJsXrpo4LqeUWra3r6jxSNY77+hi+pH
-         FC7WgVXm2uLm3iBRhJYyIztvONqSdTTJ7O0nMHc/Oab19AZGZi8jW0P/1oXKTNU6AfGW
-         wBHqmmajV9PNZsB4tOogGUqXSL7ZO3LpqtXCxU1MR2muPjhBotIEwv26VVMIPj0MZJWz
-         Kq8x110PyZj99fCIozOeXbuKCze4BMv6srieDTYZcdG8VLegA1Yo+/59OWaP56c/stFp
-         fuXfOmqyySum8NxvFQiO1BQxREmRmqex/OA1a3NAnjmiZ/OyeZ0RZHNf4MFzVGVVHBr1
-         uMIA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792992042; x=1793596842; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kFxDNEtLaJF9FbohY5ofu4rvslw1141Z4oiCfeRJ8oA=;
+        b=BaNVFCdspruHH8GA8OXuVxcDRo7VDhd5uMp2O+cGb20fDefa4YtsvUN6OVZiIr8SQu
+         +8mJqMDKykefwy6jzORLyZsw7Zf5Dje3yb5UK4BEFKGn+JU1NwWitamExQ+KX8I2jaOU
+         urCfUjq7f37vTIcq1E46c2mxxTBTN9v2u1KfH4ToPmfQxVCu4B01/tSmvXlUo/mUDNtS
+         gzF+iv7jOQooNRGVD2yy7iknYgLRdN6iOBjkJfgozq01QS/euJpAPzrQxck3l+y+jCp0
+         L638W4cZYZPWxWbUuoBYDWpMbzqrGP8DXhEx83bK/Sc2Sdi8dWO8OmfeoCrn+01qm9Lh
+         QIPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792991953; x=1793596753;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GR1SJvSKmvxCr2BjcQJzd+vqvhW2VA+xloz7HS/XgAs=;
-        b=YXZg4LFyipB8m4E+nAZAOYk8eQJ+QpF6ZFaflfeGYQKJr2xKe7lojh6f+6mCr2YqTp
-         TZCTtc9FJE/xmt4ARtD7LPAgl8sd13DMu7mu/+lBbzrqgckElOlSxKO1eRT6tYfm/OIb
-         C8ms+H8O3RUJMivO1HVwVHWxXvaWlOw3taSxNdYKwHG1E4+BgkKkF7aILOz5Itusnrok
-         +EY60akp8pESxVhbWkDL+d9naVepPt9tZCOkCfwOtFvtTMV2IngSsHanUhTlLh7oCaa2
-         jc7kvfRHC1URBjYPvGzf8scUyTDJzksjR5IVXcZz9r1xrL/uaOeVwtQQ1J6uabUD3pHF
-         2VOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlj051XEwq7mvCUhCzVNfkKwJki4Br/e39zjzDpxG9bnvKT0AgSlKR3dc2cJWA19bCCnXC2HQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNCa7w8YFnoG0uhBfLc+jSJ7d0yBqLEgIznRa2x4fdS7ubRDV7
-	1vCzwnUgzX+kRfoYEb/wsvqMwiHCa/e+RvEjvu65dMlDNE9fWIxo276Q
-X-Gm-Gg: AYBFou2aNdvfjaM8+Y87UVKf8OQKboZ61ACqkzeqA9By6gW6585SlkWvVYCB6ODMDSq
-	/wcwAwrN5Q2zfbCEcs7ZM6Xcxq3PaRCF/VR/8rJLgdZVvF8BV4Qt/+lZe4TjKHcErBon6D91bSJ
-	Ns7ncpVSXlD4Vl+Wp6M0ocHn8UGExNUPsxF0yEDkNtykGLdEguF0w2ljEHV8/rMLItHMADTTSls
-	fhCbIr5WywcOn5hg4X7ajIMqPQFsZWTQWA0IDZs23TojSi8DD+vPyqcHpLV0QGAyGaG177lL4MK
-	+CZNXMlYW/JYWlQhlDeJFFadRoMB2yQBlZL8eYL2cwuax5uvC2y3vYE0ED4f+HSdUeyA9RohfBm
-	fa+A/nkOJMFjXYY7AFE4wcSODnI0ofVCqbj5Wl1JRMOFO4FlSu3lmCxpTlGyG2McB50nOzPshAI
-	rA2868jzvM3AcOu8o3b0CNYFORAUS0U8wqWc9oOR5gHLLfI3wdma+MeHOwdKgQqvy3F6B2cSGed
-	w4C/OqrPNJJOpd3Mk7880JKU6ir7ppDjZ6mf9++FGFsTSlwVpxnkbe8VC0eHmH5JrYEUFVQgfzb
-	5Q1fCzMZvjuHtfp6RczKNHbXy6uEtDi4eg==
-X-Received: by 2002:a05:6000:2992:20b0:48c:7f94:8755 with SMTP id ffacd0b85a97d-48e3ed3b79fmr6670550f8f.20.1792991953028;
-        Sun, 25 Oct 2026 22:19:13 -0700 (PDT)
-Received: from fedora ([131.123.42.30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm13667258f8f.4.2026.10.25.22.19.10
+        d=1e100.net; s=20260707; t=1792992042; x=1793596842;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kFxDNEtLaJF9FbohY5ofu4rvslw1141Z4oiCfeRJ8oA=;
+        b=tjo7xAqSRnJwPtWDMfFjhOnAQMD8D0WPCLh45+9HwpuvkwMPOqs2tMUbO6hfBY3W8z
+         skkEWUjk3oVpNDgjPWIEK9RsPHDSDd/1YGVR9O++QgxdwBksNsduSTG31exxlqaXuxGX
+         +0FMkRjDkPPQv+sD6QI2O6f88QzgV6RVuC0m50CuSunlv1ZCebwnTIXv4kRyeqRD7vvJ
+         H4UtTpUG8k6KvPax6MIjWFDuYFwuavDOA0DQVswG844D68t6BvaSBS9HlAq0JOWSdHRs
+         k9vEcuWyRa1W213JqxDtvkKIIhtC4+tCCllW7/l0XPNpEA530JiD2WBMo8WMlPyFFapu
+         ObBg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6g06VTG7VonURkH8qMDf7+d8rOZ3CBITEY/VU4iJB7t5jus5DB9ZfNgPJQgir+BgW8FHXNa0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/IIb7cpGbCtX+PsecMhe/A8EC/iiwSeTHUPqPsvm+hsbzT639
+	UQroUbjXZj6J99qayjQc3m2hlaNzECVsugfq9vqWmo6aPzV3tozgTprzFLf/KLsXPZDKGtYf0d8
+	TfZHa
+X-Gm-Gg: AYBFou2JGDQo/lmFcVCiZkKSMv2PH/NCwMvih57IUBcY3rpdXsfOsLZUmtH9MkE3+k3
+	cv0lvKD424L0Ojk0I9qDzz/HDo1yQ5Gdzkq7oi0VNCyX3ZFI1UewWPpmDTriyJGwQgRW3cGKYVY
+	6QDkAQSpYfvG3fNSg/xmxnOczGtT2jWJxNXpxltgrUyzQEzOzKKxItP9mEr++NNImffIFf7QA8q
+	m6wLL43xHY26mOn83k3ENdWFgg0sQ5VWSRdXBmw7fvlYn80EPzbbolJl5vig9W+y+TVZDmt9AgY
+	IyhStYmAnaAbadQ0bvG3eRlsEVy9eMame40z4AXyEpcpZEpWGzOYXKV+ioxI0WE7amQU7fmUBIJ
+	xWjl+In10MPPr0xyxMCapxqfT9g0jsDWz0J8pfEBGCmvmy51YbpfpY5rdXqBRvAESlldTeD/i1k
+	Dvr01mAlmNIEun4C8gm2s0V8kHBoShFxXaJtJsVfTD+8PKzpEdE1jvwNpBdnNqM+HYQPmQ6iR0n
+	5uqtSQrwQwSB8V6+Wv7bvdXU5XwUXO1bNQeV9nBgLW1CuidZ2HHKKd+g0GiE+LEolHXdqRqL/gS
+	OZpOPZorGULGqE0nxCkKlj3jrk0kpXnUoez8Ow4smHeyyjO6uSdEMNHYQCRerO1jJM+ZQw==
+X-Received: by 2002:a05:7022:418a:b0:151:2e62:fe6d with SMTP id a92af1059eb24-19935beba2amr11889083c88.22.1792992041815;
+        Sun, 25 Oct 2026 22:20:41 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f83cedsm26765774c88.13.2026.10.25.22.20.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 22:19:12 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: jorge.lopez2@hp.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: andriy.shevchenko@linux.intel.com,
-	linux@weissschuh.net,
-	platform-driver-x86@vger.kernel.org,
+        Sun, 25 Oct 2026 22:20:41 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	meatuni001@gmail.com
-Subject: [PATCH v8] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
-Date: Mon, 26 Oct 2026 10:17:40 +0500
-Message-ID: <20261026051740.88791-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2 0/2] RDMA/srp: bound the receive IU the target asks for
+Date: Mon, 26 Oct 2026 14:20:27 +0900
+Message-ID: <20261026052030.296361-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025114155.4007867-1-yhlee@isslab.korea.ac.kr>
+References: <20261025114155.4007867-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,66 +102,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The input is copied with kstrdup(), which stops at the first NUL, but
-the full write size is passed to hp_enforce_single_line_input(). With
-an embedded NUL the helper reads, and can write one byte, past the
-copy. Use strnchrnul() so the scan stops at the first NUL, and return
--EINVAL for a NUL or newline before the last byte.
+The target decides how large the initiator's receive buffers are, and the
+initiator never checks the answer.
 
-Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
-followed by 4093 bytes of "B" to current_password 100 times returns
--EINVAL every time, without reading into the heap.
+srp_cm_rep_handler() takes max_ti_iu_len out of the SRP_LOGIN_RSP and
+srp_alloc_iu_bufs() sizes every receive IU with it. The first patch refuses
+a login that reports less than an SRP_RSP, because such a login hands the
+receive path undersized buffers, and a report of zero is worse: kzalloc()
+answers it with ZERO_SIZE_PTR, which ib_dma_map_single() accepts on a
+virtually mapped transport without looking at the length.
 
-Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-Cc: stable@vger.kernel.org
-Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Changes in v8:
- - Restore the comments dropped in v7 (Andy)
+The second patch stops srp_recv_done() from syncing those buffers with
+ch->max_ti_iu_len. The receive ring is allocated once and kept across a
+reconnect while max_ti_iu_len is taken from every login response, so a
+target that reports a larger value the second time around makes the driver
+sync past the end of the mapping. iu->size is the length that was mapped,
+and the length srp_post_recv() posts.
 
-Changes in v7:
- - Use strnchrnul() instead of a separate NUL check (Andy)
- - Drop the trailing comments
+Changes since v1:
+1/2 unchanged. Dropped v1 2/2 (drop a truncated SRP_RSP): the floor makes
+the buffer always >= sizeof(srp_rsp) so there is no out-of-bounds read, and
+dropping the response would lose its req_lim_delta credit (per review). New
+2/2 bounds the two srp_recv_done() DMA syncs to iu->size, the reconnect
+case review noted 1/2 did not cover.
 
-Changes in v6:
- - Return -EINVAL on embedded NUL instead of limiting the scan (Ilpo)
+Yehyeong Lee (2):
+  RDMA/srp: refuse a target that cannot receive an SRP_RSP
+  RDMA/srp: do not DMA-sync a receive IU past its mapped length
 
-Changes in v5:
- - Limit the scan to the string instead of copying the input past its
-   first NUL (Ilpo)
-
-v7: https://lore.kernel.org/all/20261024172641.19424-1-meatuni001@gmail.com/
-v6: https://lore.kernel.org/all/20261016025352.230535-1-meatuni001@gmail.com/
-v5: https://lore.kernel.org/all/20261007134711.473857-1-meatuni001@gmail.com/
-
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 876fc35d035b..435639e19c59 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -162,11 +162,11 @@ int hp_enforce_single_line_input(char *buf, size_t count)
- {
- 	char *p;
- 
--	p = memchr(buf, '\n', count);
-+	p = strnchrnul(buf, count, '\n');
- 
- 	if (p == buf + count - 1)
- 		*p = '\0'; /* strip trailing newline */
--	else if (p)
-+	else if (p < buf + count - 1)
- 		return -EINVAL;  /* enforce single line input */
- 
- 	return 0;
-
-base-commit: 8667bd30fd033295b3038ce374c551d1059538ba
--- 
-2.56.0
+ drivers/infiniband/ulp/srp/ib_srp.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
