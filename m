@@ -1,58 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019488;
-	b=RrQ04w9klaRPxztGKE5sZloUaYAkvzahyZH6G4X4YzbP5ToJGUVf59VDlslWpLN0jY4p
-	 oNUAmxdD2IeDAjM3fH8YEiypFWAto3KK2BDByLO3IKYMZscVBvs0CHCdn36gkhVNp09bM
-	 5D/1l7G+t1ZKjzme9HjBjmSfgYNhMvU25f2MptLlB8M+7w0ZhGTX49PINbgr8JHyQHGg3
-	 +fdpjER1BMbRkWqG6JZ0CNhnfh9N1ITVfBKoRW8bmIXHy/8DnJiAxP5O2BxvhXrYjiYPd
-	 +PKgAqOw+AMx3r5QNmr7fgDC7CLQTTmnJqan/F+3JwaHLNz6UHgbYYTKO9qR7GfFRcQ==
+	t=1793019529;
+	b=unPYiICgwyQqw18IqwbigY0l8Ps4gprzwE81SX5AcH6J+ZsKwQkDGhMpzE6XSghpnDsk
+	 O0Kc7Qt5pVqgQl0M5tipw39Kz2XIXtntHqmMPZdVCAqwprJeJ6BgsfbjmXmpZ8rucWF8c
+	 lddKMrNPqsxqmgblD7qEKc9a7XlKWoBedwPle/VbmAKytV+mqXppNzCq8T70c5B5XOtHB
+	 QgslxVHJFyvOKqGaDAvVGTtYdDqS8VPZptqR3DRQpXzxp9reGsq6j5LNA2ZqyaYv9lIPg
+	 vUb47eYSLYmOq1rlqs2XcjEyNjO94SJe7ou/TSXjIKCBumVO3Km0GV0NA0Im8mkLp0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019488;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=lZl2kSIwMNJIkCLglscnuCt3O0TybLkz70TCo4UfuW8=;
-	b=VQYJtZPwIKc0GZ4DOurzqF42SDPy4uCiogBy15GoA1Hbm+9EbFgcPcC/4MIZShEm4ffQ
-	 l2DhzwxWmQHDpIqAws5eE8IXG9yzZ9dhdhQ9sG4TYp9vM9AmpxAFXaPgIKF0EZjMnVAI8
-	 m0iQZ6Ew9XA1WPTUKQkG02QlNHTjAHOg/XJW+vvrZ1oHBIkTrUjkzE0Fi179KT894+Jlf
-	 CHmpkkarHpruO/gZFRmJ4Hizb4EMoEDEgW2HmVXhQB46BtMQM69VmIggrJbnK+jNT6Hrz
-	 +bMZK/u805B69IcWdMyEa+nJftDTzsA7moThgXE25CPK9nJa0jdgMPk6cps0aG7qlIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019529;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=1AcPxe8YD9t4RV8npHRzFGvkXCba4Ptv/GRveQw64xk=;
+	b=pS+MgC9padNT58N5croSHIgsCkd7prNyaL078zSVPVoaCzK6wZ23o7PPgdd8QeJsd8hS
+	 j3Xm0vb7KW96hYK6qDcDDoH4Hns4RFzFU6urJ3QhlWP8V/m1Tf08HXSE5ZolPRNCF76GP
+	 nUriWzBW/2xJfCKkwDsxsf21ehqepERrms+wamr4OuoVdo4239pNOXzg94p878RDQjGwB
+	 Nu2DAjanqdCVAzOQjkdcfq+LTdyxDErWJnFzFpX+1FxEO/E5LP6XUFI/8fnA2E3W4d62G
+	 R6sD/yCk2bDRqUfpDp5XhnLj21Zv24A40pr3wfhuex9UG1bkmHgJsiHxXs3fZLm3dOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E74C1606A320;
-	Mon, 26 Oct 2026 12:57:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E74C1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=lZl2kSIwMNJIkCLglscnuCt3O0TybLkz70
-	TCo4UfuW8=; b=QnuhWUjtE04W8Eoe0tqGvEFE7Xfm/3dcmvnasdLILAqeUb7rpt
-	7coohlYSPBm6VCWKOcEyssZ22tW8TunkOBzSdMwM79TPZoZE94kcsf7L3vMBBgbZ
-	2OAShrz/F2w6yKmaBeOp/V08WICmWrzdEizTepwh/d9VAm8tYZGezE9J4=
-Received: from localhost.localdomain (unknown [113.200.174.126])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWGwFJTt9qbqzpAA--.7289S3;
-	Mon, 26 Oct 2026 20:57:51 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Sean Young <sean@mess.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Anssi Hannula <anssi.hannula@iki.fi>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] media: rc: ati_remote: fix NULL input_dev on rc device open
-Date: Mon, 26 Oct 2026 20:57:30 +0800
-Message-ID: <20261026125731.1952-2-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
-References: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkYTrHBt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D69D606A326;
+	Mon, 26 Oct 2026 12:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkYTrHBt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AB31F01825;
+	Mon, 26 Oct 2026 12:58:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793019529;
+	bh=1AcPxe8YD9t4RV8npHRzFGvkXCba4Ptv/GRveQw64xk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=SkYTrHBtnhMCcCk9oA3UT22C+yXYFPA5MynIsZMPLs5t0UYLyg3NmXqSWG2RCi+Bx
+	 ZDWPwev7WT+akDxc63PkPECOilkNVeyJQZvq9/1GJyDP1jXEG8mMZRw08JX6J+llbB
+	 SLFAN0XOb0Oi3N3ForFsU//0MHKDW4DUxdIdjcVQVb5pd05ajDav8EersdxLDkQqC1
+	 icJTZFLoOTD73TkZv03usW0NCTPHG05p+418aE48/XRuaWaPMZxGiKNYeqmEPR58Io
+	 0ba3Nx7Xc3xteumaaLaj/pKiG3t68eUbmwBT9IZUUgM5uhfn1bkUBmBwM/rRoB6YAD
+	 l/duhPOFI7HIg==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: chenhan <chenhan0017.work@gmail.com>, rust-for-linux@vger.kernel.org
+Cc: boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
+ georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] rust: time: make Delta division and remainder
+ fail consistently
+In-Reply-To: <20261023130413.178487-3-chenhan0017.work@gmail.com>
+References: <20261023130413.178487-1-chenhan0017.work@gmail.com>
+ <om4kxbW6RonEr7EJOnn5nizbkBZi1B662AdSPv_iWS7XNJXuPCDAsOeWG0SMSeK7XqoTrwOPzwMC1jS2nKknXQ==@protonmail.internalid>
+ <20261023130413.178487-3-chenhan0017.work@gmail.com>
+Date: Mon, 26 Oct 2026 13:53:26 +0100
+Message-ID: <87bj8goc6x.fsf@t14s.mail-host-address-is-not-set>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,152 +67,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDWGwFJTt9qbqzpAA--.7289S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxZw48KF13Gr43ZF48AF1rXrb_yoWrKF1fpF
-	W3CayFgFZ5Kr1jga13Kw1UZa45Wr4xZay5ur1fX34a9rs5Zr9YyFyDtFy7JayUAFy09Fy5
-	tw15J3y8uFyUAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmSb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62
-	kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2
-	z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I
-	0En4kS14v26r126r1DMxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
-	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
-	8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWU
-	CwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
-	1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBI
-	daVFxhVjvjDU0xZFpf9x07j4dgXUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1O7tQACsp
+Content-Type: text/plain
 
-ati_remote_probe() registers the rc device before it allocates and
-assigns the mouse input device:
+"chenhan" <chenhan0017.work@gmail.com> writes:
 
-	rc_register_device(ati_remote->rdev);
-	...
-	ati_remote->idev = input_dev;
+> Delta's division and rem_nanos() use Rust operators on 64-bit and C
+> helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
+> a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
+> i64::MIN / -1 case also differs, and neither API documents these inputs.
+>
+> Check for zero divisors and i64::MIN with -1 before the architecture-
+> specific code, and document the panic conditions on each method. This
+> matches Rust's signed division and remainder operators, including when
+> overflow checks are disabled. Valid-input results and API signatures
+> are unchanged; invalid inputs now panic on 32-bit too.
+>
+> No in-tree calls to either API were found at the base commit. The checks
+> stay in the existing methods so the fix does not depend on introducing
+> a math module.
+>
+> Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
+> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+> Closes: https://github.com/Rust-for-Linux/linux/issues/1254
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+> ---
+> Changes since v3: none.
+>
+>  rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++--
+>  1 file changed, 28 insertions(+), 2 deletions(-)
+>
+> diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+> index 16b44e82d2ac..4415e91a5227 100644
+> --- a/rust/kernel/time.rs
+> +++ b/rust/kernel/time.rs
+> @@ -412,8 +412,20 @@ fn mul_assign(&mut self, rhs: i64) {
+>  impl ops::Div for Delta {
+>      type Output = i64;
+>
+> +    /// # Panics
+> +    ///
+> +    /// Panics if `rhs` is zero, or if `self` represents [`i64::MIN`] nanoseconds
+> +    /// and `rhs` represents `-1` nanosecond.
+>      #[inline]
+>      fn div(self, rhs: Self) -> Self::Output {
+> +        if rhs.value == 0 {
+> +            panic!("attempt to divide by zero");
+> +        }
+> +
+> +        if self.value == i64::MIN && rhs.value == -1 {
+> +            panic!("attempt to divide with overflow");
+> +        }
+> +
+>          #[cfg(CONFIG_64BIT)]
+>          {
+>              self.value / rhs.value
+> @@ -421,7 +433,7 @@ fn div(self, rhs: Self) -> Self::Output {
+>
+>          #[cfg(not(CONFIG_64BIT))]
+>          {
+> -            // SAFETY: This function is always safe to call regardless of the input values
+> +            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
 
-The rc device can be opened as soon as it is registered, either through
-its evdev node or through /dev/lirc0; both call ati_remote_open(), which
-submits the interrupt URB.  The completion handler ati_remote_irq_in()
-reports the events it receives through ati_remote->idev, so a report
-that arrives before the assignment above is passed to input_report_rel()
-and input_event() as a NULL device:
+Why change the safety comment here? If the function is always safe to
+call, the exclusion is not relevant. Was the old comment wrong?
 
-	BUG: kernel NULL pointer dereference, address: 0000000000000028
-	#PF: supervisor read access in kernel mode
-	...
-	RIP: 0010:input_event+0x41/0xa0 drivers/input/input.c:394
-	...
-	Call Trace:
-	 <IRQ>
-	 input_report_rel include/linux/input.h:450 [inline]
-	 ati_remote_input_report drivers/media/rc/ati_remote.c:634 [inline]
-	 ati_remote_irq_in+0xf45/0x1420 drivers/media/rc/ati_remote.c:657
-	 __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
+>              unsafe { bindings::div64_s64(self.value, rhs.value) }
+>          }
+>      }
+> @@ -615,8 +627,21 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
+>      }
+>
+>      /// Return `self % divisor` where `divisor` is in nanoseconds.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`]
+> +    /// nanoseconds and `divisor` is `-1`.
+>      #[inline]
+>      pub fn rem_nanos(self, divisor: i32) -> Self {
+> +        if divisor == 0 {
+> +            panic!("attempt to calculate the remainder with a divisor of zero");
+> +        }
+> +
+> +        if self.value == i64::MIN && divisor == -1 {
+> +            panic!("attempt to calculate the remainder with overflow");
+> +        }
+> +
+>          #[cfg(CONFIG_64BIT)]
+>          {
+>              Self {
+> @@ -628,7 +653,8 @@ pub fn rem_nanos(self, divisor: i32) -> Self {
+>          {
+>              let mut rem = 0;
+>
+> -            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
+> +            // SAFETY: The checks above exclude a zero divisor and `i64::MIN / -1`.
+> +            // `&mut rem` provides a valid, aligned, writable pointer for this call.
 
-input_event() dereferences the device it is given and the faulting
-address 0x28 is the offset of evbit in struct input_dev.  ati_remote is
-zeroed when it is allocated and ati_remote->idev is never written back,
-so the pointer is NULL because it has not been assigned yet, not
-because an input device was freed.
+Again, was the old safety comment wrong?
 
-Allocate and initialize the mouse input device before the rc device is
-registered, so that ati_remote->idev is valid before any path that
-submits the interrupt URB exists.  input_register_device() keeps its
-place: input_event() is documented to be safe before registration, the
-events are then simply not delivered to any input handler.
+Once kunit supports the `#[should_panic]` attribute, we can assert the
+behavior on all platforms.
 
-Free the input device only after the rc device has been unregistered and
-the URBs have been killed, so that a completion still in flight cannot
-report through an input device that is going away.
+Best regards,
+Andreas Hindborg
 
-Fixes: c34516e599d9 ("[media] ati_remote: migrate to the rc subsystem")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/rc/ati_remote.c | 34 ++++++++++++++++++++++------------
- 1 file changed, 22 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/media/rc/ati_remote.c b/drivers/media/rc/ati_remote.c
-index 51d85de24fae..8543612d5a60 100644
---- a/drivers/media/rc/ati_remote.c
-+++ b/drivers/media/rc/ati_remote.c
-@@ -813,7 +813,7 @@ static int ati_remote_probe(struct usb_interface *interface,
- 	struct usb_endpoint_descriptor *endpoint_in, *endpoint_out;
- 	struct ati_receiver_type *type = (struct ati_receiver_type *)id->driver_info;
- 	struct ati_remote *ati_remote;
--	struct input_dev *input_dev;
-+	struct input_dev *input_dev = NULL;
- 	struct device *device = &interface->dev;
- 	struct rc_dev *rc_dev;
- 	int err = -ENOMEM;
-@@ -893,37 +893,47 @@ static int ati_remote_probe(struct usb_interface *interface,
- 	if (err)
- 		goto exit_kill_urbs;
- 
--	/* Set up and register rc device */
--	err = rc_register_device(ati_remote->rdev);
--	if (err)
--		goto exit_kill_urbs;
--
--	/* Set up and register mouse input device */
-+	/*
-+	 * Set up the mouse input device before registering the rc device:
-+	 * opening the rc device submits the interrupt URB, and its
-+	 * completion handler reports mouse events through
-+	 * ati_remote->idev, so that pointer has to be valid before the rc
-+	 * device can be opened.  input_event() may be called before
-+	 * input_register_device(); such events are then simply not
-+	 * delivered to any input handler.
-+	 */
- 	if (mouse) {
- 		input_dev = input_allocate_device();
- 		if (!input_dev) {
- 			err = -ENOMEM;
--			goto exit_unregister_device;
-+			goto exit_kill_urbs;
- 		}
- 
- 		ati_remote->idev = input_dev;
- 		ati_remote_input_init(ati_remote);
--		err = input_register_device(input_dev);
-+	}
- 
-+	/* Set up and register rc device */
-+	err = rc_register_device(ati_remote->rdev);
-+	if (err)
-+		goto exit_kill_urbs;
-+
-+	/* Register the mouse input device */
-+	if (mouse) {
-+		err = input_register_device(input_dev);
- 		if (err)
--			goto exit_free_input_device;
-+			goto exit_unregister_device;
- 	}
- 
- 	usb_set_intfdata(interface, ati_remote);
- 	return 0;
- 
-- exit_free_input_device:
--	input_free_device(input_dev);
-  exit_unregister_device:
- 	rc_unregister_device(rc_dev);
-  exit_kill_urbs:
- 	usb_kill_urb(ati_remote->irq_urb);
- 	usb_kill_urb(ati_remote->out_urb);
-+	input_free_device(input_dev);
-  exit_free_buffers:
- 	ati_remote_free_buffers(ati_remote);
-  exit_free_dev_rdev:
--- 
-2.34.1
 
