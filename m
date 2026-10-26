@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.66
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.14
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793013278;
-	b=IvZ1VklOj9/R6/S2SP28FbEd9ieVikMlXWDybNDehdGaIVNvTm6PXdrVs2/RV7eaXZf0
-	 MpGiYy09JjoPHjUajR8J5QW0ZQuj7ZCKYH6U4W2HSQWgb+nexWyGrDRIxjFe7tTu8UJUr
-	 5qiZrF6hLHhaFSaodfd3NL32VfflssLFjIQ5M/mkH8wNKJc4nb73CiOeJgel4Bce4hz9N
-	 hEB1dt1vqXfAJUN0+siKy+mqW7J98ijaJLQGtucABvd6Jp4uWJaxLNKQkaTqMmRwYRyMc
-	 O2+Yc/8HtVtik4n1wvMRhGiAvRJp0v0DUvjdv6nncAkJXFN1YRk8OMGpIEWgyEmNCOQ==
+	t=1793013274;
+	b=DZ/g0Y18oF5XfkzB4Puln9YBoMb65HU2YnjC1p1k+Ngesrhg7CfS5H+FcuePXv0/hqcy
+	 zaHjQs63vusi4q1IsKmLUGc9fP8T6AMxVejU/fuR191tcilVZJmsPJUBflVzWM0xyJS4h
+	 m29U89SgagWQ3JkvxNnvCSoZQ2PwI9ZXKROcmn+0a8aM7C/LY03t8l9MiLckACdMWoiC+
+	 E5nFHxTp30YoSHCUf0p374cg6dTDzj81RxiPooFrK+fAEyZP0fI3KnSnucOX+tmQBsmV7
+	 e5voqqT285+3NH6wzQR36uW4pCL361czzi0owJPYjcsfA8Dr1J/W70hK7VTMgMuWKDQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013274;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
@@ -26,75 +26,75 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Dbvxn3QyxK3RyDBvgRWBLzyngGUK6F9OARXAkvkQo2Q=;
-	b=q0cYKoCEyYYMYJmkgm+LiV3uXtYvJGAHEXUMEuKY6huZLLFt+ermlM7tibkxSiLgbW1H
-	 UA5SEA4MqfGIwHrYPXwR6ffVGialfzIGC51MzNHNHRHTfF6EbbKG7vH0W2tVulXYXuadi
-	 nNZ+4/dYTjxXott15tg9+cU9HSYNYyIoz8FOKmG3Pq2vku4GxQawRh7cFXfWmxi9n2Lpu
-	 IAaK4nS2MRzYPOF122DlMbyz+Sv9wraAqPPz+fI2L/2l6waOMzi0xzT/2KH8OQPhO8fHJ
-	 /6q6Tgzj8fGXuUMDwfedqYMfo7GInkN4EN8/sd+aeQZvPpEQn7k7GtStLmEVIkwQv5A==
+	bh=sIcUsXYksYZgZU+WRfVdvdEeS7eJtxK6Uin7BLPYmsk=;
+	b=R9k84q23124lM5t4q3uWc6tfxLjatZdeCORXeLmq/OVCDs1UzSoLj0nYaHslPfYZb06j
+	 aPehnWu15Gm6SKumMlmWcrTykdxh0burQaHzqiGoWw0Mzv7n7/h3Y5TO8KGtfgvX3ewAL
+	 GEQEfU0tnEB0jV/+aRGONWbRmOL8rSRRHi/dun6s5dEwwHQLy23RYGQoCIqAASl/nVZDb
+	 weSfrLqQNKvHulsUVYIKuKZrp+yJd944SVRQgqm2VzddIufEKRLiFbx+FXeVaFhoYuRb1
+	 uSuNooNm62CplVfhxu6vIO8cdvW23IYGt+gSIgEE8J7+T2W9CsJ0rdukM33l7NGXEgg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iXJyh2Yj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.66
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="QaiK/oVl";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.14
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011014.outbound.protection.outlook.com [52.101.52.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF94606A91A;
-	Mon, 26 Oct 2026 11:14:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEF94606A91A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC8C606A90C;
+	Mon, 26 Oct 2026 11:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC8C606A90C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iXJyh2Yj
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QaiK/oVl
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fJrWuXcaf9CRBUWBnR62kvELNj/+dbZOYpaAT+7FzrH240+r+BEiPMs28ko6WpCGmZzQkbnE6srzPyoMrVRJzhwQ7qgHgWM0prP646cjPUE1fnuvVj7kKIXZ70KkQKsTo99rThgnJZbwJtAI9xJPLZzTkY/su9yR1cczKaRmtwx7lJd/BK6KsrOCPlQ5tdTX6LPqOvH4fpCBjjjqQ+QvL1GPPXhl0FTSnIpkNwE1KK4FOVmpWTzVuyOu2rC7yl9Zc1ReINxx2Dbj9wbkjZDuunD8aeE4mmeKU6qMCpOoHE47KoJL3ueyXoEkvkDYciNo4qG3zon69p+IRwzNB+e93w==
+ b=qnEZWDl9BhKWSebK4GWMQH7jOhjOxI6hoICE8VieUwrRigqsNd9I8v/8kZV/WbhLTtllgu9QY9LK9c1GwnxImfLJfj6fCxWpUlXk7jGF6vFXj+XmRjoHoKY2ocoufly9TqvqywOK/J+qGHGMEKO1jOpELu4IYo9W9I4TPZi1lG+8/krzcbBxlK7QsGzejq2SbZU/26IkUO4n2kUJz84OiQmD9dVL79Oe2BIy2Z8wI5JjB4wG+9G+TrE/w+wb4DGsxjjSzKYR0kn4DpAlLkM1WQbjObG2uf8A1f4jHqZX12gNWaH3pZrC0z5ejG6NKvvM/sKKgyjSYy8zl9n7BWhuXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dbvxn3QyxK3RyDBvgRWBLzyngGUK6F9OARXAkvkQo2Q=;
- b=n5jiFgJ9oogPN/1V6eSyLw5Jm7J9KXNclkDL8qmqlA13Ur7kQhImOnCt6T1ZvG95LLPQP8dHjgysVzVApzspUl7TXNlR2v5X3HA1R0w9/xIQ5WJYAWCDiUWCXEj6Twvh8kyyzD8Czz72RYbsoz3QSCTCuzG9rWzEO30TTjc8AxU2t426fX85PBaO59IX6dv4WWzNRWzOqQ3SRmQRlypDiEuefwe1G2NzAUcTAm1GQnPlgnE/QII6HC0o/leFYTkHPNIE7BXweaqBNHn/hsYv8zQbzqWYYzpXtvlxAXSTlzBajnh6fFwD3HwI4ZNrop25nrhQkUa3FDkt//XS5iMvDw==
+ bh=sIcUsXYksYZgZU+WRfVdvdEeS7eJtxK6Uin7BLPYmsk=;
+ b=qZYONcorzogR/ebdKEXOh86p3KyvfnBbcD/btf37GB+tJA0zsQFvw45oRpFLKlwWNMeAVh5VtVvPozQ6T/M3rSGYxpUb9fLjeYJ9N7i1fYKRWQfX9POjEsUUGoMt833wk0HpGfG6pfMxMoDgbwdSjAjmsctUjgZcYUorPn787q2Qh2UqU8DdT3L5cdmHdTx/S6oHxB182J5BaTsq2EeA8vJGlD0IeIHNSOutpJGydgU9MVd8+S6JWGSahRkUD8DYokj/yZQ0pYcnc1hwaVZFN+W4nlTWbaiGTeQToVUKRDNwax/hsrvlrVt918t1VGqMIvnqUiqhKP3il5ItWGWJWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dbvxn3QyxK3RyDBvgRWBLzyngGUK6F9OARXAkvkQo2Q=;
- b=iXJyh2Yjfmzr3dtc17v7Izd00Ez2ildAlex149zFftTk1GVpY3SLb3MRoz7OArYaJLc+oR2k7flUv8MokoWbJsiGBhRW7m9vWO2v9C6TS7sru9ESvctQBdRWVrEU9pdBTNlXyUAlv8qNKZ8L24Vn1ST1hroTCsI78nKZApIkdqGZEPvzNvwXyNc1DjsG25cOI3hqASvrZ0i13rsqBawT+4bjBDlZAW/Y+tathCGnEo1gkkzjtfhZlFU7uImRSlRn2t6K/xYZfwltwTeXjbCTf9P9CVc+16mU0dPGuSknJ0yGKtntGZTAxadNcy1vBOqxHYJmFPaM5OgfvvJj4+jVQA==
-Received: from BN8PR04CA0042.namprd04.prod.outlook.com (2603:10b6:408:d4::16)
- by SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10) with
+ bh=sIcUsXYksYZgZU+WRfVdvdEeS7eJtxK6Uin7BLPYmsk=;
+ b=QaiK/oVl21Ht4pCesZ0KwHouZxD5knUsOSOmfq0t9osVa0Mpw0Z+P/AyJz0vokRR6sCdvnHUUlfGnYAVIwjQ2kGrPiVDSwKrR91AJxgpqT8wOCawYrPGuNsA5OvHmJdneb5HBsJQ5u2bWKWs7tz0GBOdlT5RFRLtaQgqXrnd4ynB+89yMzoBXMPeybnicjjoz7zaqM4Exarbu+m7878QtHWd9WRorug9URbtfiXWbHUkDfqj2nncwxsHDSMl5/AnNj8E6IaRRtxWEXFCzEkzhuNmc7TcawY59tvOl6TwvAgKiX8XoluJhhJxwZQv3YffHeHiuOimFavQTyTv52Fbsg==
+Received: from BN0PR04CA0089.namprd04.prod.outlook.com (2603:10b6:408:ea::34)
+ by SA3PR12MB8439.namprd12.prod.outlook.com (2603:10b6:806:2f7::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 11:14:32 +0000
-Received: from BN7PEPF00000093.namprd03.prod.outlook.com
- (2603:10b6:408:d4:cafe::71) by BN8PR04CA0042.outlook.office365.com
- (2603:10b6:408:d4::16) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 11:14:30 +0000
+Received: from BN2PEPF0000A890.namprd04.prod.outlook.com
+ (2603:10b6:408:ea:cafe::5e) by BN0PR04CA0089.outlook.office365.com
+ (2603:10b6:408:ea::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
- 26 Oct 2026 11:14:31 +0000
+ 26 Oct 2026 11:14:30 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BN7PEPF00000093.mail.protection.outlook.com (10.167.245.71) with Microsoft
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BN2PEPF0000A890.mail.protection.outlook.com (10.167.248.182) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 11:14:31 +0000
+ 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 11:14:29 +0000
 Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 26 Oct
  2026 04:14:14 -0700
 Received: from drhqmail202.nvidia.com (10.126.190.181) by
  drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 26 Oct 2026 04:14:14 -0700
+ 15.2.2562.56; Mon, 26 Oct 2026 04:14:13 -0700
 Received: from build-va-bionic-20260204.nvidia.com (10.127.8.12) by
  mail.nvidia.com (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.56
- via Frontend Transport; Mon, 26 Oct 2026 04:14:14 -0700
+ via Frontend Transport; Mon, 26 Oct 2026 04:14:13 -0700
 From: Vishwaroop A <va@nvidia.com>
 To: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
 	<jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>
@@ -104,9 +104,9 @@ CC: Sowjanya Komatineni <skomatineni@nvidia.com>, Laxman Dewangan
 	<smangipudi@nvidia.com>, Vishwaroop A <va@nvidia.com>,
 	<linux-tegra@vger.kernel.org>, <linux-spi@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v2 3/3] spi: tegra210-quad: Unmap DMA buffers on transfer timeout
-Date: Mon, 26 Oct 2026 11:14:12 +0000
-Message-ID: <20261026111412.3843954-4-va@nvidia.com>
+Subject: [PATCH v2 2/3] spi: tegra210-quad: Track DMA mapping state
+Date: Mon, 26 Oct 2026 11:14:11 +0000
+Message-ID: <20261026111412.3843954-3-va@nvidia.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20261026111412.3843954-1-va@nvidia.com>
 References: <20261026111412.3843954-1-va@nvidia.com>
@@ -123,92 +123,133 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000093:EE_|SN7PR12MB8146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04062e1f-7809-4a48-8204-08df33524f41
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A890:EE_|SA3PR12MB8439:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c9c2209-e4c3-4aa1-b693-08df33524e13
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|22082099003|18002099003|56012099006|11063799006|261022075727099003|261021121427099003|10067099003|261009223027099003|261022105027099003|261021123027099003;
+	BCL:0;ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|5023799004|11063799006|56012099006|261021121427099003|261021123027099003|261022105027099003|261009223027099003|10067099003|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	PUTpuLt+R6Mb63RCV8uvt3oae7bCVUfLul2TdwG2m3msqghTFuh4AoKm43J+brMnOypiS8IxIt5jLnlcO6GVM/4eejDHlWPjkred0sRp56rolp4s6RxZMTGgsuLOJypvOtiyjtiGsJ/StuzPLzQEB++faYzcItiVL7jr2jQudXvtrfdQTgFbkeCPCbsDHHOsnvePbyYHbZp1pj8iDxfdEo48j+pEiMxyS/de+1fhX+CCZuqOFlegxkmME25WPVx2Ltk4HLCZYcmIljejOHtQQqu+QDpSlIiuwzT/gXEEcwrCwPCdLxkvK22iQgHPPXzoBmiN3PnJ9YWf0Bu7a6kfk+VQUTLnxqwbG8cGOPEV7++abt1MS9UrRES5pRxINI+1zVTnsKQOFwBTdfEfQzcVmoqrwZMlFcj9qRD7RAHGWuP99wafLx80RmTHB1yjPoGodMDoiRJdx4ZonU986KU9sOiK5O356RtRrBYNB3lTX95POe6Q75P24gIIwxnulhZ7AkvQjByQhZ9AZwjNHMbBUEKWAgEoVju5SHXryZjZy+cbTUIH2pxTfVuMJcgvhkcVk/qvC5daX6qGsbzSADcCPKl9BVAc0UapaRAAuo966XdNw92zYsujE1xwto2e62qhAYTtlgokEjo8rBkPOOmJYxVBT2PvwadbFH+Zui+dtywD2Pb7p+m4sIoT+DyEyl5vEpTBFTZKaF130jp1ZkCwbA==
+	39IF9nz3bi4BxtnGS3xTio3LJldQavll+EBpsYtxULtg92c3E9/OCN2otrCcsPY9GuV403l9vUcHOkf6AB09tR9Tht3RFDP5l/ZGyvz84PDaRBRwDJdtLWDLdLCzUPEUCK3r9i3FjzsqQ4qcIJ+Xwjoinwcv+jc0OVMZT4fjKQytsBHw50xPMBkXBB7P49Fw2WtbhgeJfWdxbYnaNHaoZAtKg0Owjqx1Cd8qu8FGmehE6KevIqSIr2sRXn9Njw9oRybO2W9InQprHW6nrle7NXZFxowXNFTKuydQK0fOyLtGSccB197w3TPCxnDLpuPPnA6DkWlj77l4jW9Qbjpdboz+EeznTnTmgeUhJaR+4B9DZH/fNZbrTD3/oVai5kCJHOAHxRBWX3TBD9x3mWXOLkcEdOf+qkQXfQS+P8OKvKGNqLsHkvoCoQ8YOJZQIUMdqYyJBM/o4a/BLro87hrZLA08RuSCmdhowmCtMKAZpnnP+961KRtsY66VfgBGnkjUBfonHLIUOXU7u85QdkisPwlU7jYHf78Yd7RIauDUWGyhYRJNYrUnYY1zoqpcyrQ87bHZh1dnKv8vEftSkR81ZCezH2iZd/+XBCPtVWJWOnW9eiYP52b69wigXe0xMlviI0K+nlpJ1c4vVAIQNpnkjCzUoSInWOxNxN1ggCtyjSMyi8mOdOqAobxlm11Knd44D9MQRtmNq3oSe3ZZCyipbA==
 X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(10067099003)(261009223027099003)(261022105027099003)(261021123027099003);DIR:OUT;SFP:1101;
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(5023799004)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	/R6Thl0vALK2zx5TNPNx5xDRMd9KyWCPF1/M5QLTQqZvjnYRJWPwDn58q67bpYOlIgETLMvjFeDrFpfKdA2VciUWCvHV+49XDR87GXQrMRlyfNMJCKZIm8CZhXznArI66BAfG1aYszEan8b339pthU2sF99UtiDLKE7vP+L8lvYCMz52r3yK4OqRrwM+NA6oeNhd9hM8PsymE2getDZoL9CcPjxFFY3eKEwi/NXvdiXbFsMkDP1+4r/zWO6XJts/fHWt09kdkF9+E4PpycCotAWm/NxrklzlbAEDOwGIOBbvTgoOJVjlUNU/YtnXCJ4pez5rClYuAiHBDHGERT55b/ZfooAHJaGvuXpX6mGgKMKaTMD4opLEC3/rsaKjNN8VO6cY6hVfFe9NvrSt33F4nvQSHz8Mmk56wdGAijCHv7ycH4T2+4/iOnLN1/yHFT+W
+	NI3V4I1TnNYdshcI+/kpUQIuAor9gNem37hkXcaTvyGWYc6hLGw027zgPOm+WXiZ+XT12+7t5G9sG8WKOrTTA+MH250bxh/KzjnnJAlz09RTqGfue287BCs/iUN+iH46sbw/Jgu9hYhOr2pH3eByua4ybA4iww1UC14EvVk4aU4n37P9Cmnd2Ox8WAaUUmYZZU8Cz9kw9pLV+mL4z77uRVzBx32ZZNXtUCoVtwJRfTXfPM0czPFoyQZcqbkp55xiG6fZ0y7l4g/TmGt5kZ+deZd2fA+LfbfB4cJWyyHfP1oXVCLPd/TlKEf411shMCzS/6fM3JBe031m1iO/aX5/gEj6xLuCWMbru66nu1uRzgyiYGxHQ4s/PZhZrk2fHKOuOgfzG0qpbr47Nw0ckec6nzWpKDFhC0uybZsuejtJ6s/Kf7fzyBaCwLcKakmMZcQH
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 11:14:31.8130
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 11:14:29.8281
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04062e1f-7809-4a48-8204-08df33524f41
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c9c2209-e4c3-4aa1-b693-08df33524e13
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF00000093.namprd03.prod.outlook.com
+	BN2PEPF0000A890.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8439
 
-tegra_qspi_start_dma_based_transfer() maps the client TX/RX buffers with
-dma_map_single() via tegra_qspi_dma_map_xfer(). The matching unmap only
-happens in handle_dma_based_xfer(), which runs from the interrupt bottom
-half.
+tegra_qspi_dma_unmap_xfer() assumes a streaming mapping is always
+outstanding and recomputes its length from the live
+tqspi->curr_dma_words. Nothing records whether tegra_qspi_dma_map_xfer()
+mapped anything, so neither assumption holds.
 
-When wait_for_completion_timeout() expires and tegra_qspi_handle_timeout()
-cannot establish that the hardware finished, it returns an error without
-the bottom half ever having run. Both transfer paths then abort the
-transfer with tegra_qspi_dma_stop(), reset the controller and clear
-curr_xfer, but never unmap the buffers. Every genuine transfer timeout
-therefore leaks the streaming DMA mappings for that chunk, which
-gradually exhausts the IOVA space on systems with an IOMMU in front of
-QSPI.
+For a multi-chunk transfer, handle_dma_based_xfer() unmaps the chunk that
+just completed, recalculates the parameters for the next chunk, which
+overwrites curr_dma_words, and re-arms the hardware. If
+tegra_qspi_start_dma_based_transfer() then fails at its
+tegra_qspi_dma_map_xfer() call, nothing is mapped. That early return also
+sits above the smp_store_release() that clears tqspi->trans_status, so the
+previous chunk's QSPI_RDY survives, and the re-arm's return value is never
+checked, so handle_dma_based_xfer() returns IRQ_HANDLED without completing
+the transfer.
 
-Unmap the transfer after stopping DMA on both timeout error paths. The
-unmap is placed after tegra_qspi_dma_stop() so the DMA engine is
-quiesced before the mappings go away.
+The caller times out, tegra_qspi_handle_timeout() sees the stale QSPI_RDY,
+concludes the transfer completed and calls handle_dma_based_xfer() again.
+No DMA completion arrives, so num_errors is incremented and
+tegra_qspi_dma_unmap_xfer() runs with nothing mapped. t->tx_dma then holds
+either the DMA_MAPPING_ERROR sentinel or, if the RX mapping was the one
+that failed, the preceding chunk's address that has already been released.
+Behind an IOMMU the latter frees an IOVA that may since have been
+reallocated.
 
-The recovery paths that do reach handle_dma_based_xfer() unmap there
-themselves. The preceding patch makes tegra_qspi_dma_unmap_xfer() a no-op
-once the mapping is released, so this cleanup cannot unmap twice or run
-against a chunk that was never mapped.
+Record whether a mapping is outstanding and the length that was mapped,
+and return early from tegra_qspi_dma_unmap_xfer() when there is nothing to
+release. is_dma_mapped is only updated under tqspi->lock, or on the timeout
+path after synchronize_irq() and cancel_work_sync() have quiesced the ISR
+and the bottom half.
+
+Also skip releasing the TX mapping on the RX failure path unless a TX
+mapping was created; t->tx_dma is uninitialised when t->tx_buf is NULL.
 
 Fixes: 921fc1838fb0 ("spi: tegra210-quad: Add support for Tegra210 QSPI controller")
-Cc: stable@vger.kernel.org # with "spi: tegra210-quad: Track DMA mapping state"
+Suggested-by: Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org
 Signed-off-by: Vishwaroop A <va@nvidia.com>
 ---
- drivers/spi/spi-tegra210-quad.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/spi/spi-tegra210-quad.c | 31 +++++++++++++++++++++++++------
+ 1 file changed, 25 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index d74aa46636ec..58c87c45431a 100644
+index 4a5933d8112c..d74aa46636ec 100644
 --- a/drivers/spi/spi-tegra210-quad.c
 +++ b/drivers/spi/spi-tegra210-quad.c
-@@ -1507,10 +1507,12 @@ static int tegra_qspi_combined_seq_xfer(struct tegra_qspi *tqspi,
- 					dev_err(tqspi->dev, "transfer timeout\n");
+@@ -237,6 +237,17 @@ struct tegra_qspi {
+ 	bool					is_packed;
+ 	bool					use_dma;
  
- 					/* Abort transfer by resetting pio/dma bit */
--					if (tqspi->is_curr_dma_xfer)
-+					if (tqspi->is_curr_dma_xfer) {
- 						tegra_qspi_dma_stop(tqspi);
--					else
-+						tegra_qspi_dma_unmap_xfer(tqspi, xfer);
-+					} else {
- 						tegra_qspi_pio_stop(tqspi);
-+					}
++	/*
++	 * Set while a streaming mapping created by
++	 * tegra_qspi_dma_map_xfer() is outstanding, together with the
++	 * length that was handed to dma_map_single(). is_curr_dma_xfer
++	 * only records that the last armed chunk took the DMA path,
++	 * which is not the same thing: a chunk whose mapping failed
++	 * leaves the DMA path flagged with nothing mapped.
++	 */
++	bool					is_dma_mapped;
++	unsigned int				dma_map_len;
++
+ 	u32					command1_reg;
+ 	u32					dma_control_reg;
+ 	u32					def_command1_reg;
+@@ -606,24 +617,32 @@ static int tegra_qspi_dma_map_xfer(struct tegra_qspi *tqspi, struct spi_transfer
+ 	if (t->rx_buf) {
+ 		t->rx_dma = dma_map_single(tqspi->rx_dma_dev, (void *)rx_buf, len, DMA_FROM_DEVICE);
+ 		if (dma_mapping_error(tqspi->rx_dma_dev, t->rx_dma)) {
+-			dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma, len, DMA_TO_DEVICE);
++			if (t->tx_buf)
++				dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma,
++						 len, DMA_TO_DEVICE);
+ 			return -ENOMEM;
+ 		}
+ 	}
  
- 					/* Reset controller if timeout happens */
- 					tegra_qspi_reset(tqspi);
-@@ -1624,8 +1626,10 @@ static int tegra_qspi_non_combined_seq_xfer(struct tegra_qspi *tqspi,
- 				WARN_ON(1);
- 				dev_err(tqspi->dev, "transfer timeout\n");
++	tqspi->dma_map_len = len;
++	tqspi->is_dma_mapped = true;
++
+ 	return 0;
+ }
  
--				if (tqspi->is_curr_dma_xfer)
-+				if (tqspi->is_curr_dma_xfer) {
- 					tegra_qspi_dma_stop(tqspi);
-+					tegra_qspi_dma_unmap_xfer(tqspi, xfer);
-+				}
+ static void tegra_qspi_dma_unmap_xfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
+ {
+-	unsigned int len;
+-
+-	len = DIV_ROUND_UP(tqspi->curr_dma_words * tqspi->bytes_per_word, 4) * 4;
++	if (!tqspi->is_dma_mapped)
++		return;
  
- 				tegra_qspi_handle_error(tqspi);
- 				ret = -EIO;
+ 	if (t->tx_buf)
+-		dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma, len, DMA_TO_DEVICE);
++		dma_unmap_single(tqspi->tx_dma_dev, t->tx_dma,
++				 tqspi->dma_map_len, DMA_TO_DEVICE);
+ 	if (t->rx_buf)
+-		dma_unmap_single(tqspi->rx_dma_dev, t->rx_dma, len, DMA_FROM_DEVICE);
++		dma_unmap_single(tqspi->rx_dma_dev, t->rx_dma,
++				 tqspi->dma_map_len, DMA_FROM_DEVICE);
++
++	tqspi->is_dma_mapped = false;
+ }
+ 
+ static int tegra_qspi_start_dma_based_transfer(struct tegra_qspi *tqspi, struct spi_transfer *t)
 -- 
 2.17.1
 
