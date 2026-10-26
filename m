@@ -1,96 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003935;
-	b=lZqqPyU6Ftq54T6e1kRzjk24PoAO1A86ij46IVrUsMjb/fEPWjBye/3pEJgeldh4A6OA
-	 GbDMpgFDjRLsyZeQjzJ98/xrjszzZ/iyhKB0r4woXrCQPzHGiNTGIhqC3rn+hjzYIZ23k
-	 NUkZLa+D/yBk4TzPZ9zFnYn6FOds0BUCNHf6tK9vyACsHONjgRajQrH2SsL7BEyou01CU
-	 yrsIb3dm55xfTRLl0nh3ETIlIbXvUSyy8M1XKLGbAndOSfSl1Iv0Qw0ACZCDJ5lpBJxyt
-	 P+jmuDA9F2esqWPyICs/5bMwov3a74gdyhtU+cKphmYgqZjQfFWPjFjY/rJpV1XikTg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003935;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+MsbjmZXyQIGIrMSZDLm0szNexGnhEGpcLnezb5K85A=;
-	b=tFDCJF1q3wChs+l+lkGwPjWMQZzn1NumjPiDMRYAKb1kVup7SNJ9KmaR2tB+9zaq0wdL
-	 bQUthbA3bzQFJaG9COg7bvqkYFkKMFD0rbACCs/lIjmCNyjx9A1EMCQy2ZsgKqC9YFcHT
-	 DqZptDFLo4ZXspRLzuZQjV4iNz+2GxtremJzGadNWTrO5mG+mdg+TrdYmvVwqPxLrkWma
-	 xJt+Z5FHxuw6Nf95pQ1NO7R3hB/iXColf2NDAluZIv4I02MvfbJLiUaTl6lIU6o9XjecB
-	 AmljAE5h7DqG5O5lW8aRORIeQZDYtmvGjEufe9PXgCk/MDwdSBjfmzIzBuChljV/tBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gBpdk1S6;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793004295;
+	b=mvSuPKQKnv8WUtgGG7jlL0W63YdB93VAdBnMIZIVnHI/5EXqAnTCwR8buMPseJm14M1a
+	 UBmZE/RJjWSvhQxgLiO+ZNvbuUReIinOBTUG/GNj9sjDF/w/yCclDyIWUMfj7Kz04sZjK
+	 ZrigrMLYbuKZiAeRkIyRF7/9ufvIY6+q0HpS33KDI3guo9gsHX6UWhAk9ox/p1s9J3eEH
+	 IHJCY0shRecbZH7/kRVqS/WbeTclrhQKQ4Ft4m+20OVnoCbAp25PwBdeq7NOqi5pYa5sq
+	 CEer2DBi6iZBfxG/3KIyFeH8Atyjib5AfkKQw1MMOesG8+cCHzLgM8Cz0ne/wjZ9LAA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004295;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jz30Kqva1oj2ZOG9QQrY/EiApxn9BM5nq3IuAzI3TSs=;
+	b=WgF39tCMKgLMCnduiDDYRdjGEha0Wy9fw5IruCaPQgOsVoQXmpoYi1rRp81X9e4JyCSw
+	 NnecXd0Axh8r+G/wZLgIxVBsQliL4Xx5aOfPskqrsdYeB/E2i8ipTtx0u6ZhLWz7MaTq5
+	 QEyPSrLvSE51WYwpgtBNVco+p+ncEOjk+aSGfCV8rNVNvkiJRgxT8PCQ7R6FtuEl+RIv2
+	 LfcJeIXz7/x8iBY1mLa8pDxNt9jFZ+GzQS15185bpKJFmzmnObk5SuVyROOTwSqdBGNbm
+	 wAepkU+cXA6/gH9Jm9+JOq3zhQtDQZpAjkaRo5rtlfufsYci2aeM19Z8vqa36RGSs9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMJKtiEh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E30606A31A;
+	Mon, 26 Oct 2026 08:44:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMJKtiEh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793004295;
+	b=dWAN0EA67mkCKq8VUjhqFwoFk5EgPe7rQxVRZtXhCamRDaG0JOQBtpRNRIpXws6k40pC
+	 tJP+5kOd6C4Hgyi6XuuQ+U01PEOO2ZtDebFLBpkLn8Y7iwkhrdzlgShRRNedcsnLEW9pl
+	 MEuTuGsmbb/alOXiHDwUKAKt0La+bBfX8M9IeoOzv4BqVqkwUhQ4Sihi8wpjd/QwOKldV
+	 ZTs4O9yJFEqJ3sr/NfWaipq/KZKX31pI7Q7Amj2HFcYTLGnJvwQNx4gTIvXDp5OHNwxQH
+	 oD70KtbJXOLfK+HN1x4RbMqP+oalQ6zgQjLXMPz8zi5xxcu1Jqv4FN8JB9RESgKeowQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793004295;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jz30Kqva1oj2ZOG9QQrY/EiApxn9BM5nq3IuAzI3TSs=;
+	b=V2glH+uPavtLp8oC12tl6S82+lnS2XoUinfKVH1jwr1dQrH703vtaCUGENd4zVgbUn9Y
+	 mgmYSVnSGySHYw8kzTZc7h5zQVGBwjydRPt2D9ciAYUicEuXna+tmfyzX5hS2fQGLLd76
+	 Gd00nlH8x//PWJrp4cxLMtQ80N+gzwoQpIMEuw2VnlhCNV6XKghFVdAf6S9nbRLrdFPPH
+	 V0na7/SZvzGCFZYd8p+PloY8RmcgqtbqBQpf/7zF/GgK5Syo+pqZORR2MlWOdQAETG4d/
+	 ifgdWx5Zdg6D6nHH+CzJ/jrj1QK1+0gCiHCxDreHj4rGweboxjftByzcmWkc9Ll1s3A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437A8606A31F
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 08:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437A8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gBpdk1S6
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c247f6687dcso398532466b.2
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 01:38:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793003934; x=1793608734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+MsbjmZXyQIGIrMSZDLm0szNexGnhEGpcLnezb5K85A=;
-        b=gBpdk1S6DRVeuljO+Stc1a2ikSJw13AEqo9tYqvDT/LkyFs1i+CQJsKk2w2Cc75aex
-         3TLHt+aC3mlD5r0S4UP+7jv6CsSo8AVrAjFS4XZnG2d9lJJZF1qw5Cax2PnLcGP+TBys
-         Om3WkPcl4r5gadbR23eeWSivdSHpB3wQooIk3EFWqjWX8O6L+kXvW5csbYqTxkSf/qHn
-         PaCESo6On67Gjeklhp+jOMq5S2ppGo11ZhUA7hSDDp3IcO6njPNDPxlyEG8bz3tVvT5R
-         kvoexajBLBOLqif5O9P+vFrCqst9g6dLzIjaAaBhGDHcI3Bv0YSgGhzujnspGQNQaAbx
-         Ms9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003934; x=1793608734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+MsbjmZXyQIGIrMSZDLm0szNexGnhEGpcLnezb5K85A=;
-        b=RQstBng2i1/iHfZ5k4eAKY0JHIv3j7AEtImc8QKFaAjUfxxtqZKurvld1Z9kE4Vb6E
-         gLDVHX/25osWc73E9mP7m7lw6/OLcUuo18/VL3WbeC0KaMUOpQkD923QV6gQ9DQNh9N6
-         XkC6Yxaz/Xoa5ZFqKQHur7V5bboayUiR9diKNyH443Q2Ei/7z4QE4W+txJ7wPY10hVz7
-         rIqUOBqW1mm+8iN8lOCcxxz4pXHliiQLTdGdBGbaNchc3k9zQXaXANsA4BXsVOVlJcCE
-         z5RQeu/eQkbHr70V/2qRI0mgQF6c7y5kBGecsOscLzdjMlx29IjdYTWCxyEM+KjmaHa6
-         5RMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEJx+Zp340JKxUUz1rd5wPoQ08Xc3urBL4XNvRnP8ZHCaoNtj9+Uey5ZuPixifO1ACTnNObnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC0IVR3pE5bz7EA3D01BE7cfa2uyFCRC8d0hXkIAP2vm8qBDXh
-	sZ6XE4z5E4+lc5mtnCNra1LpzU5rV5hg9iji0O05si9WypsYMasi2Uc4
-X-Gm-Gg: AYBFou0PNTBCxjHQEETnI9C5dtWyxJ0Q5yuo9syovfYs3sXCLe4ByMVgGbGO7Ghlp/B
-	ADzYaGHEWXHFOrsIXcK5pVpS12ZE4arIMfvKIRH+MWkGCLjXGdZ9EH/qLQr4rLcZbndGma4QSf9
-	Aui2iFYCls4w1XrYeo5SWpcyQic2rnckex2W/o7lpkki2UrvLhY5Xj3STcJjn7aLmKlRj740f4I
-	imo84mLn8o8qfLao3M5yYz1E2q9PM1FHvQUzpza0Lfb3TJZAv1yyc7b3PS28kjo6xG/kRIEQtx7
-	3fYE7DjiZ8F3mr0PfW8M/DW+oCEM/GwRpLBq+DoWZKM0xgc9nlK0u+YwjkLB0et2MyIGCoXIH7/
-	u+NO5Y7mu0JHBV72fSakKIjuHAb5GXUvauJLzSVuf9ztEfhKUKX+tm8/dcNc9ERbrFUrSWE7oEW
-	DXrolQm6+dvSQc69aRrtpQqStYYOaHj+5HqA4tczJ/uwI1AhHOFfp9SEskp1kxNu0S2t0u53hNt
-	0X1K78/ejThDJ6c6gAJ7H1/vsL8sErLcGPCVU4pfvOyT/IbulEdwKIJaqRcL5XxP9cVXUOmAiLe
-	XPVNtnDruYHiyA30UhAUVQ==
-X-Received: by 2002:a17:907:9611:b0:c46:2a05:b257 with SMTP id a640c23a62f3a-c46bdc0f3b4mr739291766b.23.1793003933589;
-        Mon, 26 Oct 2026 01:38:53 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46c59c063csm249655166b.34.2026.10.26.01.38.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:38:53 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: davem@davemloft.net,
-	andreas@gaisler.com
-Cc: sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linmag7@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] sparc32: do not write back unchanged values in emulated atomics
-Date: Mon, 26 Oct 2026 09:36:56 +0100
-Message-ID: <20261026083837.1055953-2-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026083837.1055953-1-linmag7@gmail.com>
-References: <20261026083837.1055953-1-linmag7@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6D5901F01825;
+	Mon, 26 Oct 2026 08:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793004295;
+	bh=jz30Kqva1oj2ZOG9QQrY/EiApxn9BM5nq3IuAzI3TSs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=gMJKtiEhaIn1a8UWqUtN0VcNNYZr2qYm/gsIoW1ftDtXtGpU7qPh7SpqdZgRHbAov
+	 3IIIl2ogDpTY+vBlxc8gH9x83SEg3WaRj8FvSiFvq4usmr5fDEd2cpw7E+pxyo0/Ow
+	 hg8hMrpbFiBx+yifOqbJ0V3tzYJY7X5FcmKJ364HsmfbkFPNMbALe5QR9p7bd8pyz0
+	 Xx3JrZ6JbeTA+wzR9ZnpMBlB+eZFklCcxK6iuu3X0WFS7razZ5/qo8j1c+FHQpqKFs
+	 YYkXyWC6mqaQPOmzYwJB3pxKAZNroon3Vc7Z7pOXKOfwxCioUZUylIo54wRYk8I5Ir
+	 lLoF+rr0JB/VA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E064A44C77;
+	Mon, 26 Oct 2026 08:44:53 +0000 (UTC)
+From: Enric Balletbo i Serra via B4 Relay <devnull+eballetb.redhat.com@kernel.org>
+Date: Mon, 26 Oct 2026 09:44:34 +0100
+Subject: [PATCH 3/3] clocksource/drivers/nxp-stm: Increase min_delta to
+ 20us for PREEMPT_RT
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,85 +83,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-nxp-stm-fixes-v1-3-20a64a4ea454@redhat.com>
+References: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
+In-Reply-To: <20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
+ Enric Balletbo i Serra <eballetb@redhat.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793004293; l=1611;
+ i=eballetb@redhat.com; s=20261026; h=from:subject:message-id;
+ bh=2oVeDkpoG/kZGujP8YpSokhvVMo8D6Pr1tME75FCvYQ=;
+ b=oJOj++Ax9eLtn9MXj4cg6VRzFKwnoiO5tNLT0d23izNOmKsdtC/1h8bWWET1Y35f76g/bOVb0
+ XhycJ+0Wl1tApeDDk7ptKBEbENZ1EAQRpXw1C/GUzgfGlAMb2CHSQBl
+X-Developer-Key: i=eballetb@redhat.com; a=ed25519;
+ pk=5zh6xuAxTiQwglL2NXQFqWuyRPmCE8T5KPXLbNXhnKI=
+X-Endpoint-Received: by B4 Relay for eballetb@redhat.com/20261026 with
+ auth_id=1324
+X-Original-From: Enric Balletbo i Serra <eballetb@redhat.com>
+Reply-To: eballetb@redhat.com
+Content-Transfer-Encoding: 7bit
 
-A failed bit-lock acquisition can restore an unlinked hlist_bl head and
-leave pathname lookup retrying a dead dentry indefinitely. The owner
-updates the pointer bits with a plain store while holding the bit lock.
-SPARC32's hashed atomic lock does not exclude that store: an unconditional
-fetch-or can write back a stale pointer even when the lock bit was set.
+From: Enric Balletbo i Serra <eballetb@redhat.com>
 
-Skip unchanged stores in the emulated atomic fetch operations and legacy
-set/clear bit helpers. This covers current test_and_set_bit()-based locks
-and older generic bit-lock implementations. Keep the hash lock and IRQ
-exclusion on every path, preserving ordering, return values and
-changed-value updates.
+Under bus contention on PREEMPT_RT kernels, the 2us min_delta is too
+small and the counter can advance past the programmed comparator value
+before the overshoot check runs. While the -ETIME fallback handles this
+case, repeated retries add latency. Increase min_delta to 20us to reduce
+collision probability.
 
-This fixes the bit-lock owner/waiter protocol, not arbitrary races between
-plain stores and changed-value emulated atomic operations.
-
-Fixes: 26333576fd0d ("bitops: introduce lock ops")
 Cc: stable@vger.kernel.org
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
 ---
-Validation: forced-interleaving host regression; SMP/UP builds and QEMU
-smoke boots. A native GDB 18.1 build also passed on dual-CPU HyperSPARC
-as part of the combined integration; see the cover letter for scope.
+ drivers/clocksource/timer-nxp-stm.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
- arch/sparc/lib/atomic32.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
+index ed7662a4e2bc..a0761d7f8b01 100644
+--- a/drivers/clocksource/timer-nxp-stm.c
++++ b/drivers/clocksource/timer-nxp-stm.c
+@@ -335,14 +335,14 @@ static int nxp_stm_clockevent_starting_cpu(unsigned int cpu)
+ 	/*
+ 	 * The timings measurement show reading the counter register
+ 	 * and writing to the comparator register takes as a maximum
+-	 * value 1100 ns at 133MHz rate frequency. The timer must be
+-	 * set above this value and to be secure we set the minimum
+-	 * value equal to 2000ns, so 2us.
++	 * value 1100 ns at 133MHz rate frequency. However, under bus
++	 * contention on PREEMPT_RT, 2us is too small and causes missed
++	 * matches resulting in 32s wraparounds. Increase to 20us.
+ 	 *
+-	 * minimum ticks = (rate / MICRO) * 2
++	 * minimum ticks = (rate / MICRO) * 20
+ 	 */
+ 	clockevents_config_and_register(&stm_timer->ced, stm_timer->rate,
+-					(stm_timer->rate / MICRO) * 2, 0x7FFFFFFFU);
++					(stm_timer->rate / MICRO) * 20, 0x7FFFFFFFU);
+ 
+ 	return 0;
+ }
 
-diff --git a/arch/sparc/lib/atomic32.c b/arch/sparc/lib/atomic32.c
-index 8ae880ebf07a..30b4e0c12c07 100644
---- a/arch/sparc/lib/atomic32.c
-+++ b/arch/sparc/lib/atomic32.c
-@@ -28,15 +28,19 @@ static DEFINE_SPINLOCK(dummy);
- 
- #endif /* SMP */
- 
-+/* Failed bit-lock acquisition must not overwrite an owner's plain store. */
- #define ATOMIC_FETCH_OP(op, c_op)					\
- int arch_atomic_fetch_##op(int i, atomic_t *v)				\
- {									\
--	int ret;							\
-+	int ret, new;							\
- 	unsigned long flags;						\
- 	spin_lock_irqsave(ATOMIC_HASH(v), flags);			\
- 									\
--	ret = v->counter;						\
--	v->counter c_op i;						\
-+	ret = READ_ONCE(v->counter);					\
-+	new = ret;							\
-+	new c_op i;							\
-+	if (new != ret)							\
-+		WRITE_ONCE(v->counter, new);				\
- 									\
- 	spin_unlock_irqrestore(ATOMIC_HASH(v), flags);			\
- 	return ret;							\
-@@ -125,8 +129,9 @@ unsigned long sp32___set_bit(unsigned long *addr, unsigned long mask)
- 	unsigned long old, flags;
- 
- 	spin_lock_irqsave(ATOMIC_HASH(addr), flags);
--	old = *addr;
--	*addr = old | mask;
-+	old = READ_ONCE(*addr);
-+	if (!(old & mask))
-+		WRITE_ONCE(*addr, old | mask);
- 	spin_unlock_irqrestore(ATOMIC_HASH(addr), flags);
- 
- 	return old & mask;
-@@ -138,8 +143,9 @@ unsigned long sp32___clear_bit(unsigned long *addr, unsigned long mask)
- 	unsigned long old, flags;
- 
- 	spin_lock_irqsave(ATOMIC_HASH(addr), flags);
--	old = *addr;
--	*addr = old & ~mask;
-+	old = READ_ONCE(*addr);
-+	if (old & mask)
-+		WRITE_ONCE(*addr, old & ~mask);
- 	spin_unlock_irqrestore(ATOMIC_HASH(addr), flags);
- 
- 	return old & mask;
 -- 
-2.43.0
+2.52.0
+
 
