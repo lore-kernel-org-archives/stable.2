@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011315;
-	b=R+kS4QWk6YoKqrtboMoj7TlFAWNbotg362+vKlz1gjQnHnCnaoE3jdRzlinjvcroTFfb
-	 SFdFO8pkaDwfL/bcyW64fBAoQgYYzZDG/AQsD0LAfew4R2zsZX+h6C8BoKB8FJsfiBqoY
-	 aVlp/9ERsq5Y2iG0MfjdL6uUy58Vj/UVmvdtKvmJZqQciZdJwDVrJqGdQXScgnTzn7MZH
-	 HIs/nM2ixbGZyIlsEs+0F3VPPhCfleryKXf7Q7clxWqEKoYn8j5M6U9AWkDyAQl0/MTc5
-	 ngPBOZUJTTU2WV9JPdyYoZlLo72k40fshhn1t72lssZA2TgxQ2y8JYCmxAvuFLXsMCQ==
+	t=1793011322;
+	b=lZkUv1tvvkCZPy4+ocFenGCl81+yT/YPcnijYt95GXTQ8BiG+pnAeZQFgQm7StvESGD4
+	 2L+XTml98vN394XLayY2ZCiDz8m1GCF76LOl5iKw6YImBcBbitr2iHjGCD3kNY1nObRZ2
+	 et2GcalvJxW3N2iPNqocHnZ0IDBmky1G8KJMLBDDgctpFiLJjMLtZ/gWmkCELdN7nDXE3
+	 CVS60S8/KpQgnuhUTQVsfZyxbF7ciACNlZ3ug8uXUpR14YWEQvBh4y6WMwEMBCwAjOvRH
+	 xjf3UT2XxMkxsqrnmniPVBDfrm+pg3iRbRFHHA8hdyj4eQDobl8CrILQjbVslkrgdbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011315;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=kzgs3AQHLT3HSYh32Yj3thzN6uDPjTvFSOG8Xs2EFDM=;
-	b=oBRgWtIIxEyGHCRtyzNikPAFVtmV5AQF3DdFp6wNB7XOEYG1adI0YOjrko9cTo1hKwuP
-	 Kl+eQMMClVmp9E8hh72EOHvfpaZf4mnazgB0xdEKdgvLMRGhrj/v9myHw9cL2LFHOWcPM
-	 uw0wXRTFpAHh8MrJdHW0KXocYeF9R5K/3oKtl4waeDby1IoOr9dEPZKImws/QM7jx+b7R
-	 fVJE+8LGHT4EN4/vi6WRrrrDqXevlm77v+FMc50OxSeg7/0QQPejxV7xsg9roLZDqD7BP
-	 rZqlJ2kB9BUi1JYeAV4ievAaPBysNhYJ0EJ9ByLBXO3ny2sbnqP/L4nyjxWJ5TRjKHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011322;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=JnLd7yqZo2sTSYpeLVFfEkeSIyRs5fgheca4JBr2f7I=;
+	b=UmQt9QRFTn3gAS0tr5WE/CbNTDWkiBQNQO1LRpVZOrT8fKD81C65yb2dtUi0bSpUmeCd
+	 tm3qXoPSlTXTkVXD1DhIR7I9Rnx9IZZlqj/CuDxzp1IpL6OwF7glBZAYkZJzXPRErr/S1
+	 khsuPnx790RJM1Gk4AUXsg4qLxZfifT3YB/AhZK+9TB91T57vI3cgYlnEVEtR0pz4tiSV
+	 W2Huj0+4kfrxIt9eN/jlgySbUW7/BHrFghch9GBOtRwMhZJnuEkHFqC1Di7obmd/cKhAV
+	 m8qrq1h3ocwGafARask8o40vGxy1fXy+8u4j9KtThBVDT3t4/0DUGLsT4ZeNeHFlzOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DkWW4NNC;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=KklSbKdV;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A89606A321
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A89606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3792B606A332
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 10:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3792B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=DkWW4NNC
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jCqtd06QFz8t2h;
-	Mon, 26 Oct 2026 11:41:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793011305;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kzgs3AQHLT3HSYh32Yj3thzN6uDPjTvFSOG8Xs2EFDM=;
-	b=DkWW4NNCtwDcquzGT2i1uQpzfJ7cq015afy2S8OH3g+Zc0Bt8hqPNFmS3Q1OAs5HdlBqYh
-	gnoCfN/s/bYOPiBih4ExklS97zbMwa/cktIbUPMDBiR7sJaDtBX9SZvTuxjgf+Ve9PTBJH
-	L/5gD1G5JprehXwvJ5p0qrkA6tO02N46OCRI2iV2ST0xuYmAXEwPY8KNXXQe5x6Jn8jsA/
-	y8SaXcVmEroRqNwUbl1X2oWYjaV8Qg6Gp0D43jwNUlWd/ohlYSA29x3/VJQ1+FnVsEgdwz
-	Mh0PmLqa5AqTkk+wDku6eGK9xt0mz1y/2XwmE6mDBECrt4G04rUfrBljA4SNiA==
-Message-ID: <e307f665-3836-47ac-bca2-b9ed883fc995@mailbox.org>
-Date: Mon, 26 Oct 2026 11:41:43 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=KklSbKdV
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id LENaxrDl5v0ndLI9Lx7j40; Mon, 26 Oct 2026 10:41:55 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id LI9Kx6sSl9uv0LI9Kxf0nT; Mon, 26 Oct 2026 10:41:54 +0000
+X-Authority-Analysis: v=2.4 cv=M4tNKzws c=1 sm=1 tr=0 ts=6adf2e72
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=sETsnAVlRaBVmuO7ubEA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=JnLd7yqZo2sTSYpeLVFfEkeSIyRs5fgheca4JBr2f7I=; b=KklSbKdVOT4UY0Q0PTJVczHS+C
+	VO4NmsJJ8lvswvTFvnYMxJ3HDEZWagmJX/i/5sxE2aRtRaIZt35cFT9mdpSMxen7FV6taNK1PR4u4
+	IZQ8elRUbhM6LzhVGPgdnsjZCzXeH+hhOAz1qJlAtvXG+FqGp34wd25Wz8/8NTY60GpBIt+v9qg2K
+	UzoSmmlhrNJl/761YJ82nDwY40PEeEg92Xbos+tcUqtPSYrwLwOUdTo/rslYkm6aGmMZW6JII7ae9
+	ssr+UwyI51tGOf39qEDzEsKMT83xHQVlsbsstpRbEYINH16p2AX7CrupW1Z2CJjhUn3Dk+qYOR0fa
+	3+vjfj9A==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:41948 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xLI9J-00000002HCg-31Jq;
+	Mon, 26 Oct 2026 04:41:53 -0600
+Message-ID: <0df16df8-f20c-4bed-a4f4-3fd9eabe090d@w6rz.net>
+Date: Mon, 26 Oct 2026 03:41:51 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,69 +77,62 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix DC scanout position handling
-To: Erhan Bilgili <erhan.bilgili@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Jack.Xiao@amd.com,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org
-References: <20261025084506.62881-1-erhan.bilgili@gmail.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20261025084506.62881-1-erhan.bilgili@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: zpz4e79r48wx4n4f8jybk3kjowe48amm
-X-MBO-RS-ID: 3b6ae10290bdc8a2763
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261025125805.309934791@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xLI9J-00000002HCg-31Jq
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:41948
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfG2x22TNuVW9CJMpSjn/r8c55l8/yMbhiXj3YLNkv2ilbv3jGYqpQVHaZtkTZDEgq8hF2FvKtklkhu4VMq4D3szj38JnDF+I3yIkfu4nydLfgEH2q7Qr
+ X6neTs7xk2dilK8u6bmFLWr+pz0DfgavpFhEdtCOw8wothOuZEne2g2qQ0H8/Q/RE7mfHO9UU6LjJQ==
 
-On 10/25/26 09:45, Erhan Bilgili wrote:
-> dm_crtc_get_scanoutpos() packs decoded DC positions and blanking
-> boundaries into u32 words, shifting the second value by 16 bits.
-> 
-> VRR extends vertical blanking without changing the line clock. For
-> example, a 4K240 mode with vtotal=2250 spans about 9000 lines per
-> refresh at 60 Hz, exceeding the 13 bit range within a 48-240 Hz VRR
-> range.
-> 
-> The 13 bit mask truncates positions above 8191, causing early VRR
-> timestamps and missed vblank count adjustments.
-> 
-> Fixes: e806208dc1da ("drm/amd/display: Fix slow FPS.")
+On 10/25/26 05:58, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 231 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Tue, 27 Oct 2026 12:57:40 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.13-rc3.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-I don't see how that commit caused the issue. Rather it fixed a bug which had masked the issue.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
+Tested-by: Ron Economos <re@w6rz.net>
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index 0a8dd7241750..f78c82ba7f70 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -1767,6 +1767,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
->  	bool in_vbl = true;
->  
->  	struct amdgpu_device *adev = drm_to_adev(dev);
-> +	/* DC packs decoded values into 16 bit fields. */
-> +	const u32 scanout_mask = adev->dc_enabled ? 0xffff : 0x1fff;
-
-The 0x1fff mask isn't correct for all non-DC cases either. drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h has
-
-#define CRTC_STATUS_POSITION__CRTC_VERT_COUNT_MASK 0x3fff
-
-
-> @@ -1784,15 +1786,15 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
->  	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
->  
->  	/* Decode into vertical and horizontal scanout position. */
-> -	*vpos = position & 0x1fff;
-> -	*hpos = (position >> 16) & 0x1fff;
-> +	*vpos = position & scanout_mask;
-> +	*hpos = (position >> 16) & scanout_mask;
-
-Since no HW generation seems to have any other fields in the CRTC_STATUS_POSITION & CRTC_V_BLANK_START_END registers, maybe just use
-
-	*vpos = lower_16_bits(position);
-	*hpos = upper_16_bits(position);
-
-and correspondingly for vbl_start/end.
-
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
