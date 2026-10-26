@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017978;
-	b=G+2eg/wJIvEOEV/VdwccGyLqZDRUR1pY5+dKXUA/6WASGT53e4x/iAlMQy46NXcN0JAz
-	 AyqPxfNYHcYEYh6HrTjQ+udFyBp1GytQnrB2T/5byJbZ2T1rU5RbJG6PVsSmHy6d4RB0R
-	 ZxWaC0ZYqKFkqH+ZLa7pyqEkgalG/tRhJTYIpG9+Do34A32tF1q5mspuSDXUWVm7zcPCJ
-	 9Y2OPiQLCS7PTt/q6OnOqxSkkaaZSNH3sNmcY+F+gL6KrdTnzKH2OWsWXho112CFiIsbH
-	 eDx1EX0r3hc0+KdM71KcD26Vo9+n94pB755VC+dtG/iDy51NWpIZ0AF2s9WRlh/4QFQ==
+	t=1793017987;
+	b=14EU5p65sKbIOtZf0V2Q+QhnEPfFOusM4w2wie0x3ESe2J9GLpECZlGGcY/3M+W5DLs8
+	 n2KVk04mpsZUm3Abup8+Rua+Q6Kjz2n1gN2SUGZGEtZZ2JLPlHbyTjFZ3IARspCAfVaF0
+	 zhuNoIxLolsl4Lfo/s5KB6P4+RgJHZ9ySf2b1wU6OO5hkvXT/68bhUfDawfD5V1JSFDqw
+	 YdPU4t51PJTMjJIHfwg8o6H4lepef1y6eiaxCo71ckdg0l1/QAzhTjDWb+qcbx+LXZ70R
+	 LJ5i3+QVdWCr/aJ1PYhlvzN0Rv2B/hkxht9ecsHyAVB9/ASEL6+jfXUPN/W3zY79hPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017987;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=wBWKAJ7Sj6JriSj5p7Z5YlnSwdpQx47a7utMt3KjLrQ=;
-	b=X6ZLLXzLLB6M/EGM5en8RT4Ks9dpgYJLQnawB8QA+C1UfjknlfO4SGflMik56lA3cGOW
-	 GxMXUVu3m2K3jSDScKSuPBZVUTLbC71fqYqGrxOrRs1TwnP+i2v1qhfolotmcn49xwmgw
-	 U0vrqUbCKF57J2tZTt+1gg+8+B2rwunwAgE27rNAG3ohStV7vmTErSnnzDtksBHMsg+mn
-	 VI8RVsadkXtj6yXzDpUqml+8bfDlqu+p3dB64jl0TFqVBxlJsf2xd4mI3VSdEwzsai1DR
-	 mvdixwmkjhvTNvTKw82FLmcfk/K+y77GEPLSmww3/ytSyfXt51pWS3iRdfSJmg6dR1Q==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7mgiolJC8r3eZzy98FWtx4U1AHXNmN+96u0Ij+bgNDQ=;
+	b=qpe994DA8N4NdSsZIbWNDiEED7aZ3EyPsID+vVAuQKsy+PLfLNw/liPh93SlpOidHqcp
+	 ixTf6hH8A12m08UecpeQfx/bdbEDaflJzUKQBsVhujPQfh8syzoKNaF+t5KJyhyZr514T
+	 Z88t+DXzSGel0/wj2Z7h+tZmWXcgrvljJ5es+fOcMBZluXqJL0Uf4mk+UEJg4f0PqEnYd
+	 3OC5hLMLoRYCLCEx7fafgyJFNAqAXxoXmWzgIICY0APIdBOsuVoz0a4iBIJzrtZUxmJCn
+	 aS51iqNK0cABVsVZhO2CYc2sBVy3OBUIdnIAhmOAkHJZrQLD1Q4llt34XgPBiNMZgnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RtptRIX1;
-	arc=none smtp.remote-ip=95.215.58.194
-Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LKMYI4Q7;
+	arc=none smtp.remote-ip=91.218.175.204
+Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EE606A31E
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:32:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A52EE606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881FE606A322
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 12:33:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 881FE606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RtptRIX1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LKMYI4Q7
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wRMLJQ0LgYvQePRIKO1OVjTSBPiwUDDy98B0yUAI2W8=;
+DKIM-Signature: a=rsa-sha256; bh=9lM8ZmCt5oSDpMBB/mA6pb9f0mkJCYo0DmDEVHVew+A=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793017974; v=1; x=1793622774;
- b=RtptRIX1cRj6FNyXpSrJIFOchTzXeEqfQTqT6pMyNZdoqV3jrX1n9651T0XVRL8q5inUHKnd
- oKrGbUNZnMuyS+YSdnbISbCJf4pcARd7HcCtPgPSvluprD4ybP6932TQ1nZvcLjiS1dtKBYGiU/
- aWYR0S1T9SOLJTi+SJ+yZjyM=
+ t=1793017984; v=1; x=1793622784;
+ b=LKMYI4Q73DkLwaO5yZpDGyBOgkU0E6i5edhX5Kc5KhSspTNV6Q1Ek9mREno+zN26UB1KtwyC
+ EncgqdceAOagH0G821GpGVsFq5msIy/Ei0opQHiVvRf0zfH2CAD3hbCNZvOVVpIQDJrjuXWn3K9
+ LmP6BruKJc0XNfqW2Y+A2FF4=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4b9b247da60df294;
-	Mon, 26 Oct 2026 12:32:54 +0000
-X-Mizu-Trace-ID: 4b9b247da60df294
+Received: by smtp.migadu.com with ESMTPS id ba99167e89fbca0f;
+	Mon, 26 Oct 2026 12:33:04 +0000
+X-Mizu-Trace-ID: ba99167e89fbca0f
 X-Migadu-Flow: FLOW_OUT
 From: Jiayuan Chen <jiayuan.chen@linux.dev>
 To: netdev@vger.kernel.org
@@ -62,10 +63,12 @@ Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
 	Kuniyuki Iwashima <kuniyu@google.com>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 1/2] tcp: fix shift-out-of-bounds in SYN-ACK retransmit timers
-Date: Mon, 26 Oct 2026 20:32:38 +0800
-Message-ID: <20261026123244.239766-1-jiayuan.chen@linux.dev>
+Subject: [PATCH net v2 2/2] tcp: fix shift-out-of-bounds in inet_csk_rto_backoff()
+Date: Mon, 26 Oct 2026 20:32:39 +0800
+Message-ID: <20261026123244.239766-2-jiayuan.chen@linux.dev>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261026123244.239766-1-jiayuan.chen@linux.dev>
+References: <20261026123244.239766-1-jiayuan.chen@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,165 +80,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-req->num_timeout counts the SYN-ACK timeouts of a request and is used as
-a shift amount:
+icsk_backoff is incremented by tcp_retransmit_timer() on every backed-off
+RTO with no cap of its own, and by tcp_send_probe0() up to tcp_retries2.
+It is used as a shift amount in inet_csk_rto_backoff():
 
-	/* tcp_reqsk_timeout() */
-	u64 timeout = (u64)req->timeout << req->num_timeout;
-	/* tcp_fastopen_synack_timer() */
-	req->timeout << req->num_timeout
+	u64 when = (u64)icsk->icsk_rto << icsk->icsk_backoff;
 
-Once it climbs past the width of the shifted type the shift is UB. Seen
-with tcp_synack_retries=255 and a peer that never completes the
-handshake:
+Once it climbs past 63 the shift is UB. Seen with tcp_retries2=255 and a
+silent peer, when an ICMP host unreachable goes through
+tcp_ld_RTO_revert():
 
-  UBSAN: shift-out-of-bounds in ./include/net/tcp.h:917:34
-  shift exponent 64 is too large for 64-bit type 'long long unsigned int'
+  UBSAN: shift-out-of-bounds in ./include/net/inet_connection_sock.h:258:40
+  shift exponent 73 is too large for 64-bit type 'long long unsigned int'
   Call Trace:
-   <TASK>
+   <IRQ>
    dump_stack_lvl+0xc1/0xf0
    dump_stack+0x10/0x20
    __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
-   reqsk_timer_handler.cold+0x1c/0x5d
-   call_timer_fn+0x17d/0x510
-   __run_timers+0x662/0xab0
-   run_timer_softirq+0xdf/0x260
+   tcp_ld_RTO_revert.cold+0x16/0x92
+   tcp_v4_err+0xdb3/0x13e0
+   icmp_socket_deliver+0x1a7/0x390
+   icmp_unreach+0x2dd/0xe50
+   icmp_rcv+0x93e/0xe30
+   ip_protocol_deliver_rcu+0x36b/0x3e0
+   ip_local_deliver_finish+0x37d/0x620
+   ip_local_deliver+0x165/0x1d0
+   ip_rcv+0x284/0x320
+   __netif_receive_skb_one_core+0x16b/0x1c0
+   __netif_receive_skb+0x21/0x150
+   process_backlog+0x37e/0x1200
+   __napi_poll.constprop.0+0xa5/0x5e0
+   net_rx_action+0x4c0/0xf70
    handle_softirqs+0x204/0x9b0
    __irq_exit_rcu+0x13c/0x220
    irq_exit_rcu+0xe/0x20
-   sysvec_apic_timer_interrupt+0x40/0xd0
-   asm_sysvec_apic_timer_interrupt+0x1b/0x20
+   sysvec_apic_timer_interrupt+0x92/0xd0
+   </IRQ>
 
-num_timeout is a 7-bit field. Once a retransmit limit is above 127 the
-"num_timeout >= limit" check can never be true, the request is never
-expired by that limit, and after the field wraps to 0
-reqsk_timer_handler() decrements queue->young again on the next expiry.
+The orphan check in tcp_probe_timer() calls the same helper. On x86-64
+the oversized shift count is taken modulo 64, so an orphan that should
+be dead can be seen as alive, and tcp_ld_RTO_revert() can end up with a
+smaller RTO than intended.
 
- - split tcp_reqsk_timeout() into tcp_reqsk_timeout_sk() and bound the
-   shift there; a num_timeout well under 30 already saturates the
-   tcp_rto_max() clamp, so nothing reachable changes for the u64 path.
- - cap max_retries / max_syn_ack_retries at 127, the largest value the
-   field can hold, instead of narrowing the sysctl; 128..255 are still
-   accepted and act as 127.
- - cap the TCP_DEFER_ACCEPT conversion in secs_to_retrans() at 127 too;
-   larger values kept an acked request from ever expiring. getsockopt()
-   now reports at most 14527 instead of 29887 seconds.
- - route the TFO path through the same helper; its u32 shift could also
-   wrap to 0 before reaching UB.
- - document that tcp_synack_retries values above 127 act as 127.
+Cap the shift at 32: any non-zero icsk_rto << 32 exceeds TCP_RTO_MAX, so
+the min_t() result is what the unbounded math would give. The
+ilog2(TCP_RTO_MAX / TCP_RTO_MIN) + 1 bound of tcp_probe0_when() does not
+fit here, as icsk_rto has no TCP_RTO_MIN floor the way tcp_probe0_base()
+has.
 
-Fixes: e6c022a4fa2d ("tcp: better retrans tracking for defer-accept")
+Fixes: fcdd1cf4dd63 ("tcp: avoid possible arithmetic overflows")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
-v1 -> v2: reworded the commit message, no code change.
-v1: https://lore.kernel.org/netdev/20261023064915.401112-1-jiayuan.chen@linux.dev/
----
- Documentation/networking/ip-sysctl.rst |  4 +++-
- include/net/tcp.h                      | 16 ++++++++++++----
- net/ipv4/inet_connection_sock.c        |  2 ++
- net/ipv4/tcp.c                         |  2 +-
- net/ipv4/tcp_timer.c                   |  3 ++-
- 5 files changed, 20 insertions(+), 7 deletions(-)
+ include/net/inet_connection_sock.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 4b19c8d3efda..eac33072be2d 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -956,7 +956,9 @@ tcp_stdurg - BOOLEAN
- 
- tcp_synack_retries - INTEGER
- 	Number of times SYNACKs for a passive TCP connection attempt will
--	be retransmitted. Should not be higher than 255. Default value
-+	be retransmitted. The sysctl accepts 0-255, but values above 127 are
-+	silently capped by the SYN-ACK timers to match the 7-bit
-+	request_sock::num_timeout field. Default value
- 	is 5, which corresponds to 31seconds till the last retransmission
- 	with the current initial RTO of 1second. With this the final timeout
- 	for a passive TCP connection will happen after 63seconds.
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 0265c27a5fd7..986b7ea05e4a 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -183,6 +183,8 @@ static_assert((1 << ATO_BITS) > TCP_DELACK_MAX);
- #define MAX_TCP_KEEPINTVL	32767
- #define MAX_TCP_KEEPCNT		127
- #define MAX_TCP_SYNCNT		127
-+/* request_sock::num_timeout is a 7-bit field. */
-+#define MAX_TCP_SYNACK_RETRIES	127
- 
- /* Ensure that TCP PAWS checks are relaxed after ~2147 seconds
-  * to avoid overflows. This assumes a clock smaller than 1 Mhz.
-@@ -912,12 +914,18 @@ static inline u32 __tcp_set_rto(const struct tcp_sock *tp)
- 	return usecs_to_jiffies((tp->srtt_us >> 3) + tp->rttvar_us);
- }
- 
--static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
-+static inline unsigned long tcp_reqsk_timeout_sk(const struct sock *sk,
-+						 const struct request_sock *req)
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index 903499581db7..562e12033a5d 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -255,9 +255,10 @@ static inline unsigned long
+ inet_csk_rto_backoff(const struct inet_connection_sock *icsk,
+ 		     unsigned long max_when)
  {
--	u64 timeout = (u64)req->timeout << req->num_timeout;
-+	u64 timeout = (u64)READ_ONCE(req->timeout) <<
-+		      min_t(u8, req->num_timeout, 30);
-+
-+	return (unsigned long)min_t(u64, timeout, tcp_rto_max(sk));
-+}
+-        u64 when = (u64)icsk->icsk_rto << icsk->icsk_backoff;
++	u8 backoff = min_t(u8, 32U, icsk->icsk_backoff);
++	u64 when = (u64)icsk->icsk_rto << backoff;
  
--	return (unsigned long)min_t(u64, timeout,
--				    tcp_rto_max(req->rsk_listener));
-+static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
-+{
-+	return tcp_reqsk_timeout_sk(req->rsk_listener, req);
+-        return (unsigned long)min_t(u64, when, max_when);
++	return (unsigned long)min_t(u64, when, max_when);
  }
  
- u32 tcp_delack_max(const struct sock *sk);
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 8151c638a24c..ee7b64f3141c 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -1072,6 +1072,8 @@ static void reqsk_timer_handler(struct timer_list *t)
- 	net = sock_net(sk_listener);
- 	max_syn_ack_retries = READ_ONCE(icsk->icsk_syn_retries) ? :
- 		READ_ONCE(net->ipv4.sysctl_tcp_synack_retries);
-+	max_syn_ack_retries = min_t(int, max_syn_ack_retries,
-+				    MAX_TCP_SYNACK_RETRIES);
- 	/* Normally all the openreqs are young and become mature
- 	 * (i.e. converted to established socket) for first timeout.
- 	 * If synack was not acknowledged for 1 second, it means
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 99d7237a623d..a309fd45ad42 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -358,7 +358,7 @@ static u8 secs_to_retrans(int seconds, int timeout, int rto_max)
- 		int period = timeout;
- 
- 		res = 1;
--		while (seconds > period && res < 255) {
-+		while (seconds > period && res < MAX_TCP_SYNACK_RETRIES) {
- 			res++;
- 			timeout <<= 1;
- 			if (timeout > rto_max)
-diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
-index e56eae4bc341..f7b100334a89 100644
---- a/net/ipv4/tcp_timer.c
-+++ b/net/ipv4/tcp_timer.c
-@@ -469,6 +469,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
- 	 */
- 	max_retries = READ_ONCE(icsk->icsk_syn_retries) ? :
- 		READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_synack_retries) + 1;
-+	max_retries = min_t(int, max_retries, MAX_TCP_SYNACK_RETRIES);
- 
- 	if (req->num_timeout >= max_retries) {
- 		tcp_write_err(sk);
-@@ -490,7 +491,7 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
- 	if (!tp->retrans_stamp)
- 		tp->retrans_stamp = tcp_time_stamp_ts(tp);
- 	tcp_reset_xmit_timer(sk, ICSK_TIME_RETRANS,
--			  req->timeout << req->num_timeout, false);
-+			     tcp_reqsk_timeout_sk(sk, req), false);
- }
- 
- static bool tcp_rtx_probe0_timed_out(const struct sock *sk,
+ struct sock *inet_csk_accept(struct sock *sk, struct proto_accept_arg *arg);
 -- 
 2.43.0
 
