@@ -1,85 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793038726;
-	b=jRLY3/tO8yBfiNuYGcFzat4geIkG+Y+gSOJ1XyrDWaqqRbgkWTf8IjXNwano70yOQ5n7
-	 fQ5j0j/FKnGSE9sB2XgzFmBMtc+IO674C0QeW8UdR5nFeS2z30OLfeMDtPOf5gpWnvj3Q
-	 OZxZcVw0Tu44p4/hm8AXeZ/XXOyCoTh5Qa3gOvHPDrysg3bUOexhtiKdZUyoSm/zRWjEW
-	 h7ACg+0UjgGbBfUGz74LpcbfF0UOhmRJGzPrfGSj5eoBBkLaiRa5r/8Ir450Zycg7rb/V
-	 vNSzJK8dWJ1ZS+R70AhBwvXFE9NNmLiPJzvmtVNjpG9V1qkGkNOV0K05KPRhz63RMQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793038726;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hF6zy/Y0w18f+U5+lO+T+mBpU9y/36ue5olFOfJt/uo=;
-	b=TA0xJvZr5+Nam8b7gsMrs5HNctDw/CLmoNUGWywmqUKC0Nlqshs2puwTXIuEpynEqmuG
-	 G/wCwGPiQ18sjw1KiB6vbkr+lYuA28zvUqY1HnWw3n8/f4NnsiD0kSdyskhMsz7tPe4zb
-	 aiWvR2Bx6H9yB3tGa7dUkUklrg2WxCo20ILBrwM57+nBmGRrtizJW8PtgeM4Fmib27DEv
-	 JvUuAymiitIyHwQQLcv0rRF5G0QK09gOr5vTPTdoSSc2sM4UME3OAiEFsCbN70ZUvZIWt
-	 ri2n/vGAsqzsg+16xJ7HBAkHwkYwDlsj7RYHWYKr1rCd2JLIFehMs7txla5/fcav4AQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIcCBUfE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793038745;
+	b=eibTQS1Nm1bbJv7kbXzNa3MBKkTnWLY+8iia0RKGn54yJauHGkpzemAaU1Fd9CWYgteM
+	 WfEd2El2XzqzF3mXPL9RT1ifdmx6BvuaZjPml9rtprG2WgWdgD+qvzVnp8OJ5MmPBregs
+	 NWhGaa9aL955udsjzAPk5zMlZbqrg/+L1SJKfyvGmSYIUToGzRBjS8Rm1/HlpDzoVv4qi
+	 xrOuZNPNnMkGjSwnhZvNmSPsiHKemicWi+fW2uuB5H+WlZ21vtyTnxEvXjcPEA8Jm2OIc
+	 XlRtiMhxowLDrBe6nF9v55wx4ixWTOSEdSqL+PLCFFY5C8XggwCX+//ZkyoVCwNCh6g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038745;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type;
+	bh=q4zljUo/WokZ9ZcS0OuLFAaAoXOMyCY40p9IAtD1yUI=;
+	b=0T7gPOG7TV1swvLnoA46hEVnMDeZLxC3fljTE0pNS59PUYrVanDpaNA4K8LT9bdS3kbi
+	 VrY/c7d5t5oZOhysD+EVY/YojLCLTkylz6Eq2sGcMcyJ5CLCqGy0HnPlFoCduF/h90yJL
+	 bx5hqMCR6g6h3nT+w1hY57X6W61x8EHkmJL3fBwclnP6qdrSnWDwjUKxsQyA/XKIhUvk4
+	 Ow2Au9oFEguxI7OdO52kuDH1CuB0CArGyqAVu0dpvHLqo6/rjh5H1UzdcPwEAC++IcdrA
+	 9ncCN5OPcqi70K47zEC0jVt7UmnbojFSDwtif6fFfcJf+PsyAwW1vHY7wgWNGEQk9sQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YO6o2UWh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1F8606A325
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:18:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF83606A31A
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:19:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF83606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIcCBUfE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3B81F01829;
-	Mon, 26 Oct 2026 18:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793038726;
-	bh=hF6zy/Y0w18f+U5+lO+T+mBpU9y/36ue5olFOfJt/uo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oIcCBUfECmHpGjDvoqlGDjwg0upqF/ujv+bJm89NjWA+4aGP7fnFhFMylf5EkOf2P
-	 C5jv046LtG0PaR4CRFbixzfP2w25IRlAeWL9qJRB5gF+v7LkkdzYHXBIaodIuB1ipP
-	 8UN7rO3FKpKp5AGuaCov5B37v8Gj5inJY4Ex9cnGwokJp4B6FozfygB4PqV+WzeR/k
-	 kK58ulZMyhVjUF0m+twKLnPMBNSpFkfa1S5XFxyQ0zVGRImf2QatW9/GUWAZ15IBDD
-	 YSgpIAej66FTfriHePUOJ/jWuOl3FJi485SEdlWQ/6NIUb8esc50YNf7oOJMfUK4ys
-	 ANN5x/m6twElQ==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9A5FC198003A;
-	Mon, 26 Oct 2026 14:18:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Mon, 26 Oct 2026 14:18:43 -0400
-X-ME-Sender: <xms:gZnfajZ-BHts4MBHXWFnW-gFp81JJN1vpJiEKvdsdfrbKSJhN8knDg>
-    <xme:gZnfamWIQGYuHM68Kd6jnmjPguLYksU5g4Jw_AddnVo2gcvKZ_0da_c7maXj23Hof
-    _T8rAAC1UhevvlnBddDZKe3O1kxHrTrd4SMmYPOc2HfZ9Ew74LqzJnbcA>
-X-ME-Received: <xmr:gZnfaucQ3h9h4FkGosoq6ov7rhDK0QujE015HThBnfJxyGvlZYeJK4tt-sA>
-X-ME-Proxy-Cause: dmFkZTEC6jaU8WSvdlYj4erYp5aRUyJbFL4tgzgG/uQqFE4vkk2Ztkn6i+N1Ul3PwjXj5u
-    D20bYcJ5jjhuGT8nryltaojXVsoT+8ZOnEMBt9S/7aS1YRSG7dsokqX+kHK4DEBIg4c5Eo
-    5xlUdcBx/qw2dml5xc1tuTg/O+U3f6ne+q9J03Y2b95iSFa8NrzvpAM47RG8hhktz73InX
-    SFDDxM0RUNrTg8iD0m2U31nVOYGD5BcF18/dItqb/iD5FcOTNFNOOeEgPKogiCBuWIZfgV
-    iI1kRdoA4bLUgQZcqKXElpW7HW7jbsF9gaHt8mu/7Ht6wXzutN6KcNIZflodDM92pgq5e6
-    CLBddXVbonCCpdm9uNlwGyShwzs1vPdX853BI882TVLTvRSFRDEjJyE/oZEeo89hKoY6Ut
-    sRPvR0dpJ+IZx6OBXXpX/u99FYSgbXkvjNzjC7a3sq7f3ATNFPFo22uZZqB3nmQWJC0oHf
-    dUpW1W+mUrrtc7GaGQUQJxeFY/+0Mo6LEObWdXzJ6bOm9LLFMjGJq1YmfF5flTd0iuaJku
-    fLLV0X8YfRAppyG4sYKpGui02bQvVMr8lCIOBecMZVZTmW8q1HDHnIdD6nME48ZsPCN2Dx
-    3kGIVDkAlPbzvruiVEZcky8DfF/YWgAoeauu8l/u2z/YFRtQh9ishjxf3Pjg
-X-ME-Proxy: <xmx:gZnfajPNjG2RbHJxB75I-_r715n7cKOjptqf11wBj9HCFJW9PnwwiA>
-    <xmx:gZnfamKDG1lQgXhV-HyfW2-wrvQnTb8NGhOkgAakKn6hIvmKN05Nwg>
-    <xmx:gZnfapkOYsIM1ZxSuCF8K8UHrW4QN15-y51cOf1JB4A5lBr2FhqhCQ>
-    <xmx:gZnfalbT2k_iMvQpQnfHXYxI2Um8QTaZNros-SDUE7Kl1JVTGxzFrg>
-    <xmx:gZnfaohu9Vkucs2pLBN8yypcdtfw3NWKeOnFysRWS4miLEyctDXIPwEj>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 14:18:40 -0400 (EDT)
-Date: Mon, 26 Oct 2026 18:18:39 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Hungyu Lin <dennylin0707@gmail.com>, willy@infradead.org, 
-	hughd@google.com, baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, 
-	dave.hansen@linux.intel.com, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] shmem: do not extend i_size when no data was copied
-Message-ID: <at-XtWBQg3jv3H8Z@thinkstation>
-References: <20261025164619.89992-1-dennylin0707@gmail.com>
- <at9xXRhD2xZhszEj@thinkstation>
- <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YO6o2UWh
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so4681414a12.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:19:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793038743; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fxiAC+76GqkhUc5Iepqzy5XfzZW/H/insf0IkaLHRFkcHny++W/l8R/JJJLLkble35
+         IB1pXA8KD31scUCSTi73eJebz+qTP2QasE13n0Z6fajnDw75BUeCIfL15eo1gdO38NFQ
+         tbumLMyARDiV0m19l3/TBZ9EowM8uPSVa+NzNv/2w9INyzYFkChZzkAU1HQ1wSvsDQko
+         wBU3wD/avy+0w19FtlwuvXwVE4kLx+inNuFQuLeZsr9+Ngrc5QvOwGZ1wTivw/W9XzWV
+         prm4G77Xn2bAxfQtRUcnpQl3SRH3t+ke/EtRT/d4FWMw5CI2QkKYffl2IjKcARnkB3tR
+         wobw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=q4zljUo/WokZ9ZcS0OuLFAaAoXOMyCY40p9IAtD1yUI=;
+        fh=ZsJIY3uU2Jot+HNZFd5T0yM0LmGnL6w8wIY6DeC5Njw=;
+        b=G/7QvlvYCU0meAb2c6YZwI/PMsaZ1Vuob62eaHoxwZSnaB0tTnaaUNowBwvxKFk1Om
+         07wb3Zi5dIRJkGnUeb12Czvhp7uEfr0K8LqXwue4gMBVk9uc7ZgjQDHne4hhQfsJN13w
+         +EJK5JtlLAGZxomg27oqCG5fIf/VFsyK9pGBwL/3pjrG/vmBKNWCDPiUAkSqDVdHMOkd
+         17RfWQzA9JurMNskIjjeDohhAA/CnBGyC/MnkokQh1bo5yJe7rOKvyp2XEBO03pUkgCo
+         ASxtmeLZ1xVSQn2sYMipOyqHZNMTN455L+BnC+Rcsu5Vo1nNiNQgg+f0V5KNSKjxDqwe
+         Rbmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793038743; x=1793643543; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q4zljUo/WokZ9ZcS0OuLFAaAoXOMyCY40p9IAtD1yUI=;
+        b=YO6o2UWhnZal/jIxQhDAZyGMq+3ad8NQaAHXtAB8i74Ah6mEwJJNpe37X/jwC2ISQK
+         bexaJ64o7gqfS1A8sf0Q9+3ukfmG+7seVaNvOtaC+6hysw5LW224dJf4+yG4RtF7tfrn
+         Y27k18s1lVt/3DackF2QWeR4RTDiV4zxG0Q3HmtNYpH0jtKwjvLXvUgg0bR48KlrZqln
+         jMYQIqVoljvh/2aIQOkO45H1/1TKs4cTcfKbxXvleK2jSCH5kJan2KZ/j4USCVphGpJW
+         WSx0AweoHgJCEbEjKH3SCyfYNR7gRrXaKYHz77pUN60HpReBov5h0+2pcKtQOMwKImHs
+         Pxvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793038743; x=1793643543;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=q4zljUo/WokZ9ZcS0OuLFAaAoXOMyCY40p9IAtD1yUI=;
+        b=CS6DxtELJzROQyHIxxYhEXAd8iIIrm+ublB4RSWamju08BXBanV8hnZ5HuZob9txau
+         rseJTb++h9O1mpKjxE7rIytunV2uecGoq4mfANiDEO+H8jwRTsDGgh+315RA/e+6abcC
+         6e+33HocIbaxInEatLT1GYtufdzal1S4BIgtdKPih7vyC1JEsI0MFbonCnbKLEz9Ij8f
+         e6JWrjzaCmr+9hh/C82+LqG8/PYfJ3zmk39aZR9j40OfamJdtUbWrs29exBtrMbuRfin
+         VdzwGDMkKJ+r/WuthRh0y0M11xDIIPT8gCj8Fs5t3dujB7eFPfVP5s6nqrKoeEl6AEzC
+         +UWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQI5uLdKUg+lISCtMtWye0ThQFOg0lsqDp9OuJg0IzuvedEtJCCP831NECkPcw24Itq5FRUbs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJh6haRU8tN9s7nVgyb20SN9RBGNrXnyKEPvoLvX1aHGvfbKtt0
+	oDzcRcFGqrnfHZqZepdYheSha5TeApSZ2w7DL4uk1BFf0I3luQyZG84IlRkE1mfRbV3Mz58epSB
+	J0Ycv3jQYiOygnkJgREY1Om+s39W1XT0=
+X-Gm-Gg: AYBFou1u4dOY+eOv6/CKfSeSMPW2/wHAFvnIC/kyeXEIOePmoBrdVUroCVtR+vMNO9i
+	24TUYNqa5faARAurzv6lji+V3V77vcfDu21yLcnv5mvX+KR6gIC8wI0Q9xd05wtXNl1HNU4U1Qp
+	BUMxl+u1oGRMzSOYv+EQ3SvDh6DeklsWY71kHjBetnvgkJa6WEtNMuLrG/wce9mlVJRtpfoxiZY
+	nZjYM2W97BVVgwk3Ec14fnQoRat7lo71iZweh5mlXbP/tpBOWGIPMpOxMbb7lz7FmumOo70v2IS
+	kazHby5MBNEEqaKsIuglwS+SM1uqPita15tc1p8pNdVVJZgGRppjXhiM5s6jgmvbkJPjcct0mXZ
+	nFsMk7Y/npmP1409flEGVZb1DGef9O1475NgP
+X-Received: by 2002:a05:6402:11cb:b0:6b1:c34b:f1de with SMTP id
+ 4fb4d7f45d1cf-6b442fe01e4mr8023274a12.23.1793038743182; Mon, 26 Oct 2026
+ 11:19:03 -0700 (PDT)
+Received: from 511566560828 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 26 Oct 2026 11:19:02 -0700
+Received: from 511566560828 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 26 Oct 2026 11:19:02 -0700
+From: Ivan <ivan.vin.ctf@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,53 +106,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
+Date: Mon, 26 Oct 2026 11:19:02 -0700
+X-Gm-Features: AclHuK-ipMP5mANTbqHhxLeL7nhQ9xloN8pId4pHJHix7hbFR8bNuox2OXTaCOs
+Message-ID: <CA+hZKY+MDvp5rn-F=wJAP2HR8PAXBkLHiK==4ESeZ6uU2zADoA@mail.gmail.com>
+Subject: wifi: mac80211: two more check-sdata-in-driver WARN sites
+ (drv_bss_info_changed, __rate_control_send_low) - same family as the 2026
+ set_bitrate_mask fix
+To: linux-wireless@vger.kernel.org
+Cc: johannes@sipsolutions.net, syzkaller@googlegroups.com, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 04:48:58PM +0100, Jan Kara wrote:
-> On Mon 26-10-26 15:34:08, Kiryl Shutsemau wrote:
-> > On Sun, Oct 25, 2026 at 04:46:19PM +0000, Hungyu Lin wrote:
-> > > shmem_write_end() advances i_size to pos + copied even when copied is
-> > > zero. A buffered write past EOF can therefore extend a tmpfs file
-> > > without writing any data.
-> > 
-> > + willy, jack, fsdevel.
-> > 
-> > This doesn't seem to be tmpfs-specific, right? I see the same with ext4.
-> > 
-> > simple_write_end() and generic_write_end() check pos + copied the same
-> > way, so filesystems that use them through generic_perform_write() are
-> > affected too.
-> > 
-> > It makes me think maybe generic_perform_write() is the right place to
-> > fix it. Hm?
-> 
-> Well, that would be nice. But how'd you like to do that? i_size update is
-> the responsibility of ->write_end and we have to call ->write_end if copied
-> == 0 so that is undoes what ->write_begin has prepared.
+Hi all,
 
-Hm.
+While fuzzing 5.15.216 (KASAN, mac80211_hwsim + USB ath9k emulation) we hit
+two additional "Failed check-sdata-in-driver check" WARN sites, same
+underlying pattern as the recently patched set_bitrate_mask site:
 
-A zero-length copy only moves i_size if the write starts beyond EOF.
-So we can bring the prefault back just for that case, before
-->write_begin():
+1) WARNING: net/mac80211/driver-ops.h:172 drv_bss_info_changed+0x4d8/0x580
+   message: "wlan0: Failed check-sdata-in-driver check, flags: 0x4"
+   trigger: syz_usb_connect_ath9k + NL80211_CMD_SET_INTERFACE (iftype=7)
+   racing interface teardown/bringup; 16 crash instances collected.
 
-        if (unlikely(pos > i_size_read(mapping->host)) &&
-            fault_in_iov_iter_readable(i, bytes) == bytes) {
-                status = -EFAULT;
-                break;
-        }
+2) WARNING: net/mac80211/rate.c:371 __rate_control_send_low+0x6ca/0x7e0
+   message: "no supported rates for sta (null) (0xffffffff, band 1) in
+   rate_mask 0x0 with flags 0x0"
+   trigger: scan_work path with a NULL sta.
 
-Overwrites and appends keep skipping the prefault. It is racy against
-a concurrent munmap(), as it was before 665575cff098, but that is
-userspace racing with itself.
+Both are the "sdata running but IEEE80211_SDATA_IN_DRIVER clear" class:
+the driver callback would run against driver state that may be freed or
+not yet allocated (the guard prevents a use-after-free class). Following the
+set_bitrate_mask fix pattern, early -ENETDOWN returns in the calling paths
+would close these.
 
-The per-filesystem alternative is a 'copied &&' in every ->write_end.
+C reproducers and crash logs available on request.
 
-And generic_write_end() cannot take it as is: generic_cont_expand_simple()
-relies on a zero-length ->write_end() extending i_size. So we need some
-replacement.
+Thanks,
+Ivan Vinichuk
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Reported-by: Ivan Vinichuk <ivan.vin.ctf@gmail.com>
