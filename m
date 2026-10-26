@@ -1,63 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019411;
-	b=NC7xze4PQxK9o38Lz0YcsmaU0kCO59kDw7R6HZIaC02XYQUD5OSP4WVgu/4PG3t+AZ2z
-	 1u9meqhGSFwY6PltbL9Tu85ueIEOHX3nMbKv7xCFyvR1kG/zWB7jnhrobVp503mO9BccI
-	 bfFwdyzYNyHwEA5UVRWO7zfQIzsUMaS0cHjQANsnUAwDKNE4A/kpCtqVr7UduHbmYpGUb
-	 ffB4CyDkdGW1EkX+bMYZcWqxPV24kCPNBgzLzwakDh9QJftJsVVctQk7Zpu73PIUe4FPB
-	 6i3XPQYwh0z+nXaIB+V5cIdl08w172aMHVhddzA5WIYQvms3BkpthfHYnrU4Wutt3Aw==
+	t=1793019430;
+	b=yePU38qN/vNUSN6T0XpyiNvRer6SGwEbe2yy/uojRiinElYwxGV3g3/sPXT2U4urUUkk
+	 j70Ua1qmmjqBEUrSrPZ+dGXiIkpIO58R4Czp5q8X59VOMYS/0ybJFd9OMEnAsvC6r9kXP
+	 T7+5DBy8X9cURfXXoc4sG0oO26OxzciqU6g/elI8NL1dgWpbJ/+jvZzTqklyGT30UElxI
+	 xFDxi+vnQyf18+dcu+ll2rFhKGawsn7lDvo8D2HmpvOxD4K2RspS2WwBCBhpj+au8G9C9
+	 hjaCvbPpBf+7gaDsacZ1VpqB0JZTtjIIIFlEyMQZE5132jlvVX5kXHC9bXPCCk9xawg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019411;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=anlSkHx0/vYrMyEHmH1kZ3Ylu3Zwo/oQD2STj/UK20kfBlaBCD06lP5r3XhVsxZYwHec
-	 KIELzRoJsYFtJ22Jaz0IuLmtuTQgFwX7zJkAO9i6ctyYgO7t5YuxqPd6WDSm1AsugCjGc
-	 2DKkfGeCceGDmncQr8G4pquvCC+lMx6WAXQYBN0u7sGbJuMq02S5NlyotNI5I6/RCRg/9
-	 CMwDSgLd835V+N/Dqa8kRpyoceCivv6e8Djgo2eL0BjHIDoU5l9B6SYbAlVwb/g3ZMhF/
-	 YSCEGwfvoaB9YOSYiitChhq70eNdS9onQ9/fZyLZe1Sdv41AzFZavShjHm4gU0+Y2nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019430;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=dB45kFwQS4LP7KgXqIT3R97L8o1aI9NzgEuOF7ZP0xHcexF4T/Td0Kao3j5SkxUvP/t2
+	 VIjrKsh1K5XsbIqYiZY70gzRElomQrp2iUhju700rKgsSbq8tvNbO0ObSio7sfJDwkiLa
+	 6DC4d3/MxovNQgZvvbHPlbNsGaIPIWVqOKCsoePEQo4k7R28yZHuDz9YeO7MFm/OFT0/x
+	 D5tOc+tm2Gd625euFNYW7limuH0GBXcsDQ12TVTeNHQTKWEyAQZlkOIAmyuf/OLp2aAy5
+	 UZpbIBFot9wfpFVOMRnrEs7eAFv8LgAF+X16yBV/dVmzs+EMeAd5Il1IiJ5DUW1gEkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kX/7XElo";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33842606A31A;
-	Mon, 26 Oct 2026 12:56:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B376F606A31A;
+	Mon, 26 Oct 2026 12:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B376F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kX/7XElo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667691F01825;
-	Mon, 26 Oct 2026 12:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793019410;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kX/7XEloGKraumUnc3PqXVAUGLGkpCxIBgZvuyr0CnxnLkwdE/6dehqKG3BX4mxxC
-	 k/dxrHwbrvcF0klHU5VtuiSCJUFiKkuDlaMuEchb00REDX3D6LxIy66mM3yeHXkYMn
-	 Vf4ouZXz64dls534S+ZBcs6kFgLaLlT8KEZ145Na4KwIB9RcmGCcXoqLgK8Yum4mMd
-	 WVTa2Y05jAuE2DmX3s7pX0c0Q8uM/N8V8TwSm0xA1UOqUdganWfu1ghR3zIlC1EyIz
-	 xKD9W+2X80RVcOIlTi7juaDW6wrQ3FvN7i8KIsmPgBx/yhaMMRpBHg1bx/gTzjeQ9C
-	 +wKmdAii8go8A==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?b?5bmz5LmL?= <treebacker@foxmail.com>
-Cc: Greg KH <greg@kroah.com>, netdev <netdev@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>, YOSHIFUJI <yoshfuji@linux-ipv6.org>,
- Ahern <dsahern@kernel.org>, stable <stable@vger.kernel.org>
-Subject: 
- Re: [PATCH net] ipv6: fix dead half of the MTU guard in __ip6_append_data()
-Date: Mon, 26 Oct 2026 12:56:49 +0000
-Message-ID: <179301940992.3327.2471984737675968211@kernel.org>
-In-Reply-To: <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
-References: <tencent_B58BAE2F5FF485D1B4F652E9980EAB132A09@qq.com>
- <2026102604-circus-juvenile-c521@gregkh>
- <tencent_7454E65EE7BD1C085B6951A7D2305157370A@qq.com>
- <2026102658-jockey-volley-94ff@gregkh>
- <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC3U5SKs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FQwhEslu
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B8EB21F46E;
+	Mon, 26 Oct 2026 12:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793019427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=gC3U5SKscHPXg8RjeWwr3oZamighRtqxYQRxVNIjY/Y6YK8s6TQqmhGyALsdAWqI8ejswA
+	T+rG5lmAVGUtVhaN/yYAcLf4QrIQObD0vS4ju5KSjgp0or4xwNEXd04cxTcIUKXOcdGriZ
+	ococ2Hfp6IrF3/SNKrEO3nZKgi8u8PE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793019427;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=FQwhEsluY/yj6aGnxk6vNIjdQg6JMSvTMi1YubrRCm6nbZKeGaLY7aLGkcZyAfsEiVUZ4Y
+	oZhfSEg8RUKZwjDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793019427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=gC3U5SKscHPXg8RjeWwr3oZamighRtqxYQRxVNIjY/Y6YK8s6TQqmhGyALsdAWqI8ejswA
+	T+rG5lmAVGUtVhaN/yYAcLf4QrIQObD0vS4ju5KSjgp0or4xwNEXd04cxTcIUKXOcdGriZ
+	ococ2Hfp6IrF3/SNKrEO3nZKgi8u8PE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793019427;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtIcRoPsuzvE303euSvkccl6Hv/dLG7a9Be0HhrqmYI=;
+	b=FQwhEsluY/yj6aGnxk6vNIjdQg6JMSvTMi1YubrRCm6nbZKeGaLY7aLGkcZyAfsEiVUZ4Y
+	oZhfSEg8RUKZwjDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 15BE513408;
+	Mon, 26 Oct 2026 12:57:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id eyl2MyFO32rLVAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 26 Oct 2026 12:57:06 +0000
+Date: Mon, 26 Oct 2026 12:57:04 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+	Davidlohr Bueso <dave@stgolabs.net>, SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Colin Cross <ccross@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] mm/vma: write lock source VMA before duplicating it
+ in __split_vma()
+Message-ID: <at9NKAYk-W7PhlGu@pedro-suse.tail5790ac.ts.net>
+References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+ <20261023-fix-vma-atomic-v1-2-8ff4fae1fc85@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,21 +114,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-fix-vma-atomic-v1-2-8ff4fae1fc85@kernel.org>
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi!
+On Fri, Oct 23, 2026 at 02:47:28PM +0100, Lorenzo Stoakes (ARM) wrote:
+> From: "David Hildenbrand (Arm)" <david@kernel.org>
+> 
+> __split_vma() duplicates the source VMA before taking its VMA write lock,
+> and until the VMA is write-locked, a concurrent thread might set
+> VMA_MAYBE_GUARD_BIT, resulting in the duplication missing the flag.
+> 
+> If this happens, then fork may fail to duplicate guard markers and, if a
+> file-backed mapping, THP collapse may also discard the markers.
+> 
+> Resolve this by taking the VMA write lock before vm_area_dup() and, since
+> all callers of vm_area_dup() now hold the VMA write lock, assert that this
+> is the case there, and add a comment to explain why it's needed.
+> 
+> Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ ljs - add VMA write assert in vm_area_dup(), commit message touchup ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+Pedro
