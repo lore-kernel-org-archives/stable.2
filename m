@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792982318;
-	b=xYAdviwjFKQo+BO3gp+iQSdAJy6BFY/KoX5PR3Nj1RIKFzkk+6I68Oj99Z/vjoP4AnkJ
-	 HhGhH6PfRXqKzn4DmfMpVC9/JHNNc/ipbvwV6iDg6d1w/e8tNyuzecuwLVxDc9H4bAYvs
-	 1VSvMRyIjLluJN3gCR5C1cGV3ZnkBuW9IvhJI6Yyfc7VUONVv3Bu3htq2xCsMOc+fb64b
-	 DNdJJ78FVPD6E3ShG4n53IYtSZVKRoENHJv8UoIG/VfWwVlCBlhgaoadMOcxY+3UcAEVO
-	 yBRldVnSAuDZ5OWZZtkkiDOq5re04yHtZrzetRtdndkNKIfoonjwl8nsC96GT/b6lPw==
+	t=1792982771;
+	b=m8HqOjJpTEsHmyj2plFCgOSdkZJ5WJ2mvU2DKzO909m+pcg9NA5Nm+/FhKf78+wLoX3k
+	 K8pMW6xd71FZN1ScajsHn8TDJQCCSHFC27ijy/l56bd/Uk1TVzT7BvqwZ6i3YzHvWsZUp
+	 cVjPc8mQOLLcojKAGnWm1Xi81ik2J9o8xnBR+ajjNs2uAJqJEIcrAmydNSfZo2aomycJx
+	 munc/VWPcdpTRNrNygKh8TUcF3+Hbrcc6EA3QV1J6iLLFjfQBZ1060gUb9obuds3xHdDu
+	 QRJFnQTDhwiPyeE1Z4eoFmCDWvIrX1BaUG+WTiQLPrcVEgLDvtD7/NrPADYR30qjyMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792982318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792982771;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+WSxtcpzWDqfdS75bPeo5bTo+c8L8XTo3/3XTzhs2c8=;
-	b=IuwiqVLAFNyFiA5Uf5n+ksD0goWMCfES6X+nDJ4q1HV5pIfsRaTVkX5ys6GEKoWFBK4+
-	 f9cUHSR5hp5khVoLsxqTKqPWzct8FHXOMFHfoWz6UnJLDHBVBfOhig6jbb67k3QCQ1ypP
-	 CvH596gse+5j/A0s1E9lLiOJeDywzrp+Wpn3fi76pUiqbaIu9RqTbu72N7LTtVMr2Jmpd
-	 guyQk1pmkAIKvXPIVd2N9O/CpyofjPCi/TL+rrj/mOCa6CllZGiRwFA6jzt6MXYM8Uv2x
-	 M4EZoWgj+qdXQg9NQfa497akW44ZtiIzs2QH+AL+rwR8qVlB/te7EvlmP2o7KoJ4ooA==
+	bh=GNx9q8xlz4C2pL81nd+DaavacT/yEGpKYKkpo4ND8NU=;
+	b=3zr8b9aVGA7aqUJ//s6U2L3+RToAVz6Nkd60K0aL4k5PrHfU/19sPQ6524ke0bmGIioY
+	 VRZj33H0cey3dszr9FsQq6vapT3EHW75657KHs5MXbpCEJqdU4ym+BaqkGZBVzUUZcKEX
+	 MPN+wrhsYduWvPkLhcGUXL7dkFpxdmMtXeNSjRdhWiDIef1QfWwNalRMnUG1Wrpr3Kv+V
+	 IF/yfkBvdoiGQwZi1S5FW6iGD5EhcB7dHvRG0Qz86b1w/o+nuTe+LHOO4UYu1QCZs/Ai9
+	 1SZIAIpDcex/jmUywNVyATJUCnnbxqkjzIa5XLYJu1Djv4mDKUFQEEinHo2Mb1KIRRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ac9+pc4G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bERgx/F9";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB7F606A31B;
-	Mon, 26 Oct 2026 02:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448C6606A31A;
+	Mon, 26 Oct 2026 02:46:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ac9+pc4G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9A01F01825;
-	Mon, 26 Oct 2026 02:38:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bERgx/F9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0F21F031E2;
+	Mon, 26 Oct 2026 02:46:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792982318;
-	bh=+WSxtcpzWDqfdS75bPeo5bTo+c8L8XTo3/3XTzhs2c8=;
+	s=k20260515; t=1792982770;
+	bh=GNx9q8xlz4C2pL81nd+DaavacT/yEGpKYKkpo4ND8NU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ac9+pc4GgGD9qrk/zJZXuNNbzby2Q3zZb8H6vs9Lb4f+M71RBI1ni1rj9aAJupLdI
-	 X25Bc9VYquBgJkqvt42DBVrAYoWjng3eVg9IdibMnCnnWalBOCKG5pZWbbAtru6Yuw
-	 RIBbb9bjKYpOKuezVbN3PIY8eyxvPaszR7Ox3iCJQq0lbWSn7pf044dxOdU1JDEbcy
-	 gkaykEf/fXI14WGJBuwCVhSoAb8dKs1VPk8LQfI/KG/XV568ovT41wyG9W1w5JqRHO
-	 82kU4yujyk5pLRrjJd5Af6hqE0XQPkluhRa4mCAYQ0TsBpMmLMBs/vcbjg1uB7GhCb
-	 jaUcXFYoEcPcw==
-Date: Mon, 26 Oct 2026 02:38:31 +0000
+	b=bERgx/F9ZjkMitNzqoudEWvCaXT/3dbqzKl+ZiXjjftlhGpYvDfv2NBTP4Y5e8Aac
+	 T5naUosoU6z7L5JhLOUn5cwD6Xojt86l3MB36mxqAzZxDafUW7VJR7bnO8GXGVsd1T
+	 YuLAdE4slSGEOw1ry/io4QzbhEudt28Aa8iwrLMm5SiQt6Iuu2fhYi7H/+V3fv0JJp
+	 AyLzhVyGLVxkTrVjHWnCQlXxiIN1VdW1zXOmkc2i1AOjwx9N+AIVhVV10UbRpW0euO
+	 k5RsxToIcyTpiusbpp6nw/BJ2hul1yf6nOzDTLyM4UYxHxa7g2Mem1HwEGpiLrNDsN
+	 HeTCHU99vn4gQ==
+Date: Mon, 26 Oct 2026 02:46:05 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Jean-Baptiste Maneyrol via B4 Relay
- <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Cc: jean-baptiste.maneyrol@tdk.com, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: imu: inv_icm42600: fix parsing of all FIFO
- frames for odr change
-Message-ID: <20261026023831.32e65b30@jic23-hlaptop>
-In-Reply-To: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
-References: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Andy Shevchenko
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Eddie James
+ <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: pressure: dps310: wait for a new sample after a
+ ratio change
+Message-ID: <20261026024605.3286702f@jic23-hlaptop>
+In-Reply-To: <atZqSXI14WojGso5@ashevche-desk.local>
+References: <20261019153328.80739-1-zoone.rupert@gmail.com>
+	<atZqSXI14WojGso5@ashevche-desk.local>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,22 +67,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 15:37:33 +0200
-Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org> wrote:
+On Mon, 19 Oct 2026 22:06:49 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+> On Mon, Oct 19, 2026 at 06:33:28PM +0300, Rupesh Majhi wrote:
+> > After an oversampling ratio change, the sample waiting in the result
+> > registers and the one being measured are both from the old ratio, but
+> > are scaled with the new one. Pressure ratio 2 to 16 reads 192 kPa instead
+> > of 103 kPa, and temperature is off by hundreds of degrees. Pressure is
+> > also wrong after a temperature ratio change, as it is compensated with
+> > the cached temperature.
+> > 
+> > Discard those two samples on a ratio change, and for temperature cache
+> > the one after. The ratio write now blocks until then.
+> > 
+> > That wait can be longer than the 1/rate timeout, after which the driver
+> > resets the chip and the ratio silently goes back to 1. Allow two periods.  
 > 
-> For getting all odr change events, we need to parse all FIFO frames
-> in each iio device. Fix this correctly by sending effectively all
-> frames to all iio devices.
+> ...
 > 
-> Previously only batches of frames containing a matching sensor event
-> were sent to the corresponding iio device.
+> >  /* Make sure sleep time is <= 30ms for usleep_range */
+> >  #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)  
 > 
-> Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Applied to the fixes-togreg branch of iio.git.
+> Seems the use of USEC_PER_SEC below should be postponed to a regular cleanup.
+> Because otherwise it will be inconsistent with the above where it would need
+> to be 30 * USEC_PER_MSEC
+Do we want to have the extra churn on the below?
+I'm not that bothered by a temporary state of different styles.
+Nice indeed to have a follow up tidying up other cases though!
 
-thanks,
+There is quite a bit going on around this driver, so I'm going to pick this
+one up for the testing branch of iio.git rather than the faster path.
+
+Thanks,
+
 Jonathan
+
+> 
+> > -/* Silently handle error in rate value here */
+> > -#define DPS310_POLL_TIMEOUT_US(rc)	((rc) <= 0 ? 1000000 : 1000000 / (rc))
+> > +/* A period plus a measurement time; silently handle error in rate value */
+> > +#define DPS310_POLL_TIMEOUT_US(rc)	(2 * USEC_PER_SEC / max(rc, 1))  
+> 
+
