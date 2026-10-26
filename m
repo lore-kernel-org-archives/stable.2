@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793048047;
-	b=A2TlWt/2ZyaJ2bb1KNXoAdOkQFYP2By89wC1OnjWWRZeCxciIT9/O+F/GBTK+zpWAajN
-	 ufyt4SDkdNvV4kU+pPjHMOYiKAZvZ8izgY7nvo8RHrhOPEW1b9S1EVJrlIhbGbPmLJwdQ
-	 2sM4PfmK0XoQmh5UmzNwmbMa+mUb3lT2MPANlJwHbiDf9CU9q1nswnYQzFQDTiAXg/RCs
-	 20rGpy8/I3h7xTzzVBHU/csoTIKEm+ew7ickMB2IbhvOltiOYiS/XXhBLa809LssBb7ox
-	 GAc5A7e2nz3gDEzWz9b1ySz8Tik3kLDuYIAGyT45m4x2MdPvCDoZIM/kBW0Eh/VoHCQ==
+	t=1793048045;
+	b=m8Q7+7MqKnkTvn5HJ9LO4ZEx1+G2MT8ewFfut9T0XuUU8Ud9PneL/g6v9Q3cYTcPd8rk
+	 aVroi5N7bhxwY23LzSsdI9gZO5kR2dSHm4WcmBpBmTgsohCEAfmS2zyAmQm7M+HzlFdsl
+	 R1QDLUY4D0RQWHlpjysC7Rg+2IXQvxJZouNy8R8gyUUo2c58CD9NjyXQqZK/ZhxdmPzv2
+	 5kyqWp8cr6QMuj5vUbA3YSSoGDwHpxh9RhwUtBndSfg3PYg5Wxd4mh1v/Wssi+um5sNo1
+	 hS6JcbunxYDMXQuvsHrWOzE7sv5c5aao4w5foat592dFYVKJ7Bgzbt6F6aIGte/oQDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793048047;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=NIm3ZS5KbjzsYJ0WSulRKaxitX/G7rtbCDL/MIRA6Dk=;
-	b=gBFDK0kEs/77OiU4TgBmmXyuCHpAap2YF0+n2I07XlO6iW0P6RZb8UYuDaJIR1I0aJRT
-	 NiXQ0jKJHYIRlC7JiKEK1U+y83k0L9axe9oUwnYLqOKpY1v2uQf9SvzRQugaotyIt890n
-	 AuYz/9Ob+ewkw3rhziSsvOjSjBnNh8he6A8whOSSifpCp05NekcbAJTwyw/QXLDNbuhee
-	 CyaxPLlQpUzTTJ+tXz9KdvMwwGkNusNoMEsSLBVIGR3dS7iBNvgoqn586Pz3Eox+SOAw9
-	 CkQ+PU51FXcTP7z8gAsqmzPcSYEnhraJEPv03VFMW9V9Za4Vy0ST7SM6DzMHr6bIb/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793048045;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Y+asd5FcmQ3i2iF1cd+nZYxacxJNYDOSQpqYG634Y2c=;
+	b=Y1Zl2t1ed5W+pay3KrWGuLyyg+boQgHjSbHwH1ndZKuYEloB5hVM0ayUz1/XDItfRy+g
+	 wFgP/QdkqLetSSfk8uHvVeOLRfsiifFrSWhR5wu6TrJdCYBRfms2pUp97MYWJF3I+Ecna
+	 C4lekZhUV9UfPIW/f45pHdfb9LIlLfMnmOW3hr8VxazPdPias/Lqpx/SuMPsnkIi4LkwO
+	 uR9rnwFZ7B1wWfii5yYjuXCJ7C1/MtnV2K5y6mjVWX4EkGskmYopm+zSBAksfVe0a9ZZx
+	 +AO8/QZqFFSkWCFzubDBirGqWkP3beBxihEv7OKvIclArLd7+iGtq+JNMpiJ7bhGyIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NxkksvOg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8N8ippB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0AF606A31E;
-	Mon, 26 Oct 2026 20:54:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7C7606A326;
+	Mon, 26 Oct 2026 20:54:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NxkksvOg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4966D1F01828;
-	Mon, 26 Oct 2026 20:54:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8N8ippB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276721F01825;
+	Mon, 26 Oct 2026 20:54:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793048047;
-	bh=NIm3ZS5KbjzsYJ0WSulRKaxitX/G7rtbCDL/MIRA6Dk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=NxkksvOgoUJHDLEYuqZxoDN5w6CVnX11WAHXavjWLJdqMAD7f4eIg6lK7/L6FE42Y
-	 mDawIcxsUDXZB96MfiHTVnvxKvW84UxjxKGbhI5jX08pPzNU4+wCJj96guJTzgbhdP
-	 ySjO1NE7g4mrWrlDutJuY01uq16Eq0ZXqYGGXp3d3QNxRqtAB8pRMrRKWw8sYSfw1J
-	 huEYOB8iz4jSxyI6UgiF1MoW/dw8NSvpcS8jQRYvh4RfJ3ZsxSYxWxV6OFflFgC5Xs
-	 cJ/ZxtgWZnDoh1Gtp4Nzd5n3XbpZ8hNW/VPjKJTfL+RUbArRbUnkTGUHJNmzcgHZO1
-	 c0M9B2lg17dUg==
+	s=k20260515; t=1793048044;
+	bh=Y+asd5FcmQ3i2iF1cd+nZYxacxJNYDOSQpqYG634Y2c=;
+	h=From:Subject:Date:To:Cc;
+	b=V8N8ippBjZTWjNgvaG+rtSMn0Ugh5vnzsVMSrhfrv/o4IyClHiF5RDGfEWdl05RDS
+	 r0anx58IJMeF1VqfmqbhPjY4ET/u3q1Pct2Ir8q3rIZXWsZb74FtTkHsKkq08h7Leg
+	 SONRcbgmD10dv1Xw90+GUlUQWH5R96qbp4kk565Ehq0tlAbPwgLOlso9Fg2AXV65/0
+	 NsY2ztkve0xA75edvwb/8H4D8Uzzwqjn8tPWVcM51YS5Ea82ZSL5wyOIy86BKD6YIA
+	 9reMhiKJ2o8eq2WYNSZw6Y7BF8hVgyB5VtMm3HzEkbTZhZ8BdGbk9sWNtl0vQRO6Bh
+	 JPNyqWU592fcQ==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 26 Oct 2026 21:53:29 +0100
-Subject: [PATCH 1/2] userns: don't drop the exec securebits
+Subject: [PATCH 0/2] userns: keep the exec securebits
+Date: Mon, 26 Oct 2026 21:53:28 +0100
+Message-Id: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,120 +55,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-work-securebits-userns-v1-1-b35473fa1a34@kernel.org>
-References: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
-In-Reply-To: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0XMMQ7CMAwF0KtUnnGUdGiBqyCGJHWpQUqR3QBS1
+ buT0IHBw7f+fysoCZPCuVlB6MXKcyrBHRqIk083Qh5Khta2nSuH71keqBSzUOBFMRcgKXa2t8E
+ d/SkOHsr4KTTy5wdfrnvWHO4Ul6rVRvBKGMSnONVXdc3fNbtragu27Qtum2LcqAAAAA==
+X-Change-ID: 20261026-work-securebits-userns-6070b18a9cda
 To: linux-fsdevel@vger.kernel.org
 Cc: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
  Serge Hallyn <serge@hallyn.com>, linux-kernel@vger.kernel.org, 
  linux-mm@kvack.org, Jann Horn <jannh@google.com>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4204; i=brauner@kernel.org;
- h=from:subject:message-id; bh=yXUxhGjrM0vd95PWJeUZxGZvenzi/6XOwtjTBjMe3FE=;
- b=kA0DAAoWkcYbwGV43KIByyZiAGrfveijG/63VwF2dnEFNKUYyMAEz4cxYRc2NV6OHRsTnZeRt
- Yh0BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmrfvegACgkQkcYbwGV43KIu2AD4nj3u
- VIkyHvgxybscgEGv//3yG9Ldw5lqqzgdkEbALwD/cz6zk+fUQ9NjW+dckrZYKWtR+NuGsOsh9XU
- g0aP6zQg=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1917; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=iujI9aAJYOrnMNbrp/gBJRYkBHmRYoPzBhbDlZk61JU=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd3/u4PCjlu9GzqZffpKffDVyt+GEhg0D2ggT+SunZz
+ QILv8/P6yhlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiIwWKGfyqdxvddnLp4zgWk
+ x+i43T1SUawhI9v7YobcfqPCfa3M7gz//bvOlohpXH557OWrEjt7Le4zDnc0UpcqybN2Zciu7V3
+ MCQA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-SECBIT_EXEC_RESTRICT_FILE and SECBIT_EXEC_DENY_INTERACTIVE tell script
-interpreters to only run what AT_EXECVE_CHECK allows and to refuse
-interactive input. A service manager sets them together with their lock
-bits so that nothing below it can turn them off again.
+The exec securebits are meant to be set and locked by a service manager
+so that nothing below it can turn them off again. But creating a user
+namespace resets all securebits, locks included. So anyone who may
+create a user namespace can shed them with a single
+unshare(CLONE_NEWUSER), and joining one with setns() does the same.
+That's pretty much everyone.
 
-But set_cred_user_ns() resets all securebits to SECUREBITS_DEFAULT. So
-any task that can create a user namespace sheds the locked exec bits
-with a single unshare(CLONE_NEWUSER) and joining one with setns() does
-the same. The lock is pointless if anyone who may create a user
-namespace can drop it, and that is pretty much everyone.
+systemd gains a SecureBits= setting for the service manager itself. It
+sets and locks the exec bits for everything it starts, so interpreters
+that support AT_EXECVE_CHECK enforce the system's execution policy for
+their scripts. With the reset "unshare -U python3 /tmp/x.py" gets
+around all of that.
 
-Resetting the other bits is fine. They are about how capabilities are
-computed and a new user namespace starts out with a full set of
-capabilities anyway. The exec bits grant nothing though. They are
-restrictions a task placed on itself, just like no_new_privs which a
-user namespace doesn't touch either. So keep them and their locks.
+The other securebits are about how capabilities are computed and
+resetting them in a new user namespace is fine. The exec bits grant
+nothing. They're restrictions a task placed on itself, like
+no_new_privs, which a user namespace doesn't drop either. So keep them
+and their locks and keep resetting the rest.
 
-Reproducer:
+I also keep the exec bits that aren't locked. fork() and execve()
+preserve them and the task can clear them itself anyway, so dropping
+them on unshare() would just be inconsistent.
 
-  // SPDX-License-Identifier: GPL-2.0
-  /* Lock the exec securebits, then create a user namespace and look at them again. */
-  #define _GNU_SOURCE
-  #include <sched.h>
-  #include <stdio.h>
-  #include <sys/prctl.h>
+The new selftests fail on mainline and pass with the fix. I think this
+wants to go to stable, otherwise the locks don't mean much on any kernel
+that has these bits.
 
-  #define SECBIT_EXEC_RESTRICT_FILE		(1 << 8)
-  #define SECBIT_EXEC_RESTRICT_FILE_LOCKED	(1 << 9)
-  #define SECBIT_EXEC_DENY_INTERACTIVE		(1 << 10)
-  #define SECBIT_EXEC_DENY_INTERACTIVE_LOCKED	(1 << 11)
-
-  int main(void)
-  {
-  	int bits = SECBIT_EXEC_RESTRICT_FILE | SECBIT_EXEC_RESTRICT_FILE_LOCKED |
-  		   SECBIT_EXEC_DENY_INTERACTIVE | SECBIT_EXEC_DENY_INTERACTIVE_LOCKED;
-
-  	if (prctl(PR_SET_SECUREBITS, bits, 0, 0, 0)) {
-  		perror("PR_SET_SECUREBITS");
-  		return 1;
-  	}
-  	printf("before: 0x%x\n", prctl(PR_GET_SECUREBITS, 0, 0, 0, 0));
-  	printf("clear locked bits: %s\n", prctl(PR_SET_SECUREBITS, 0, 0, 0, 0) ? "refused" : "ALLOWED");
-
-  	if (unshare(CLONE_NEWUSER)) {
-  		perror("unshare(CLONE_NEWUSER)");
-  		return 1;
-  	}
-  	printf("after unshare(CLONE_NEWUSER): 0x%x\n", prctl(PR_GET_SECUREBITS, 0, 0, 0, 0));
-  	return 0;
-  }
-
-On v7.1 this prints "before: 0xf00", "clear locked bits: refused" and
-"after unshare(CLONE_NEWUSER): 0x0". With this patch the last line
-reads 0xf00 as well.
-
-Fixes: a0623b2a1d59 ("security: Add EXEC_RESTRICT_FILE and EXEC_DENY_INTERACTIVE securebits")
-Cc: stable@vger.kernel.org # v6.14+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- Documentation/userspace-api/check_exec.rst | 4 ++++
- kernel/user_namespace.c                    | 5 ++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+Christian Brauner (2):
+      userns: don't drop the exec securebits
+      selftests/exec: check that user namespaces keep the exec securebits
 
-diff --git a/Documentation/userspace-api/check_exec.rst b/Documentation/userspace-api/check_exec.rst
-index 05dfe3b56f71..0904810e1d8d 100644
---- a/Documentation/userspace-api/check_exec.rst
-+++ b/Documentation/userspace-api/check_exec.rst
-@@ -99,6 +99,10 @@ This secure bit may be set by user session managers, service managers,
- container runtimes, sandboxer tools...  Except for test environments, the
- related ``SECBIT_EXEC_DENY_INTERACTIVE_LOCKED`` bit should also be set.
- 
-+Both secure bits and their locks are inherited across :manpage:`fork(2)` and
-+:manpage:`execve(2)`, and they are kept when a task creates or joins a user
-+namespace.
-+
- Here is the expected behavior for a script interpreter according to combination
- of any exec securebits:
- 
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 50c374ed4687..cd748e1cbace 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -46,8 +46,11 @@ static void set_cred_user_ns(struct cred *cred, struct user_namespace *user_ns)
- {
- 	/* Start with the same capabilities as init but useless for doing
- 	 * anything as the capabilities are bound to the new user namespace.
-+	 * The exec securebits grant nothing, they are restrictions the task
-+	 * placed on itself. Keep them and their locks.
- 	 */
--	cred->securebits = SECUREBITS_DEFAULT;
-+	cred->securebits = SECUREBITS_DEFAULT |
-+		(cred->securebits & (SECURE_ALL_UNPRIVILEGED | SECURE_ALL_UNPRIVILEGED << 1));
- 	cred->cap_inheritable = CAP_EMPTY_SET;
- 	cred->cap_permitted = CAP_FULL_SET;
- 	cred->cap_effective = CAP_FULL_SET;
-
--- 
-2.53.0
+ Documentation/userspace-api/check_exec.rst |  4 ++
+ kernel/user_namespace.c                    |  5 +-
+ tools/testing/selftests/exec/check-exec.c  | 83 ++++++++++++++++++++++++++++++
+ 3 files changed, 91 insertions(+), 1 deletion(-)
+---
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+change-id: 20261026-work-securebits-userns-6070b18a9cda
 
