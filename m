@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793015556;
-	b=RJJIQuepGZtUvNGApWaL1QK/N4q3ODOXzb6X0Yh3LJLhm7805QU3+a761coy1JamLSto
-	 9ZrepYOM5dasKNMydadTLIgZtu3q3AkA/3B8WLnp76Rbroo/E1kXGtQ0AbTzS8c7yZJRX
-	 zvNCNEhYQ06SwLCVfXGgOqdHK52p/T3Zx7uG6IP6/8tzGxg6iqp4zQlwLi/4W+78WpDC1
-	 Xdk3Xtbx5VlKtUSidKSQawrvY+LTjbxSSHkI1dcDdfafrnqgvMbeLWZ3ck13xpJPSz3Tg
-	 zzOSQl2OQdY1DMfxmbm8b9QTLqp4qBqpfyda/VVmCDOTaebqku3hnj3Q1yzksxZEt0w==
+	t=1793015915;
+	b=BIlQNDkeA3tfHTCmH6n5yNrzT6TCWaIKDchA5DrzJMdLeuNR9Uhc4Ry67Ky5/wZzhdak
+	 ym8VTqOSzMZnmLoru2fq+aNzmK1lp+MyGwSnhI45dyWSTMcJ25lCV+eN3CGoZJk/c0CIh
+	 YeQtuCsL6TswYIp3fZ5X2lDe7d2PNw3BCG+PNRGkaGXqB+3/tf66Q3WnSSYIenwxeSzcQ
+	 5KqQjbA0GH7mJecb8j/q0mtc53D1B+f74UZtj3RgWWBtXcypPXEu85qOuHf20ocA4nfnV
+	 heAgpv6nj0YsITOVnQ2pC6L8ixdNmfNlsWCQEd0w5nFRx9T6DRd+yDs9F9XyBCWlISQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793015556;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
-	b=S/tnjznjPFnJGv5fC8Jcp0W1ZHybOkCMNzbBoiRVDK0GBhjfm7oLDcvRDDdtPuR0iP8q
-	 xP++82OnBd95R+nJtC/6D5TYSHb9/UxqBjH28xHfzkkr2LKfn2l6KVict8e1temhWZPns
-	 UZS2Xk2K1vLY2Z2fIIbfrthAOCUiM2lzZfC3DhKLc68q8xflmjDatMTtDcdbHoxvDT0QP
-	 H9esAk+Ouf4L/e/zmYYbaP+BxqawZQhMRBY6a2UnUmZvvkdRgAo+CPYHpfxNTjHdAwRPL
-	 Y2JG0ati1Y4Wdvsm+g7JjG8Hb1l05rhUi8Ltxg690+Y4jvVo0TVYJeNAqxStKmzYQDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793015915;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=xA5Je2qa8vdBHWmi+aA7U89RPIKhmEKHRSzdtLfH5tk=;
+	b=jMxxP5MhZ35iVYdxZbAXdkvcJx0Sf0T2Lhs+enrzRBBEyF2On71/ZJ8xXoyG8GM+j4a5
+	 GoNsP9kCRZldNnKclJOPHGarF9ol4osWy5SwCwP2p7a7OOoLqt7iEHF/7DIYSRr75v2bM
+	 ZK+/bIm8Uwsc3Gxz5TYTmRSYj7mmY2Aqc5lFKm4vhbxeAfMibLXhLhBcXCAkQAqzbwr9d
+	 YX1dSQqTolLPJ8K/OH3eL4IMHBda9DsqkgWYyT6eM5emHuCKut3j8wNUV9YhKpJ1o84AQ
+	 U0hyCCcMDdUJfvjC0qjhr6wyGm1aXBWA2BOSjsohE1QDDptx7iskh6NM6SH5wND7iBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IsWxLjyv;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WYd3qw+8;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62372606A32C
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 11:52:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62372606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A0B606A31D;
+	Mon, 26 Oct 2026 11:58:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1A0B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IsWxLjyv
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070755c8cso1253910b3a.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 04:52:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793015555; x=1793620355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
-        b=IsWxLjyvSS+yJR2TrqdixNFLlM5rTDb7uGtRIyBFo7Hkb3usvDA6pa/LO7PUAFYFm0
-         jL38qgPpgv7tHi8v89bgFJqnUY1Cb5oudLNTw9Z9i/L1MOPyrevjKh5uO/m5w5OWIKZD
-         yVSwWSrA3VEE/eKsrUv45Aw7PuG+L+0XAuCtpt9Ppm9VjKRaHh6dca1MFxfhriz9SHXT
-         NKWMp/2+cHiGiYxdlCoJCmwdkzPp7cbleL9PvimiNxdhLHildiwD6tJL+vKrgom4h/Mz
-         lFjOiTkcr/W71Re3NYhieMIM1wukkhA1IjrlnCWOYkGqheQSYffVJOohK4+bTpdYtWDn
-         3lhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793015555; x=1793620355;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vt/79XA/yWxO2ogj1KSk8egFEeSfwKKUg9yTYHPXecQ=;
-        b=QOHQ5ZBkqYZGWJsg/uFmU9i0zvid6+AmrjnXR/5g2EoHmNpYogTtf32yYOrLkj0S1e
-         u2NhxjK5USjzpGqgEelEMEfRmfcPLiFZm7vmOuUK0aD9keR7BfQgp4jP2FQwGFjOKo+N
-         6nJUKWndVYhxh0SDxHjlTPieLFTFcR4I36h3UTDaoF8Yd9jnMrY+x1C82nuUDPR7IzyW
-         2Cn7FS/aqLh1w4oS4XJG97iO4t2I+ZNalIecryXJBWD8zFwIa2/Yy3NdbF3qTACgUV5Z
-         i6XOy2/baKgxyU3ImAYGZChumT2N07F4ruACpC4ZaIkzvA7cclcTC0KP9G8cYscpK7kU
-         2JUQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFtQ0OCouQgrUhWBjZLc2RZi8N7tK4nrokedRc3uSBTlPjM0sDRpZ87eE7rVGolreHk3rZU+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKydPkcreZPhMMNEZ4qszQkB591dhgYgV+az5io1/r7uaLj267c
-	z4OQqIFsNmxsaGaj4AYekM0xma8vgBoE8PE3ryjHxWhlBP8NLT6XdPL5
-X-Gm-Gg: AYBFou22k+Q/DzFHOl4S2M967D2m4Z5Voq4eexc1WImwZjxqvzzui2WA3WIa+nEUdT/
-	cHtkmYtaJyq8214TGb5WzmR/gHcleHV0GNnRg5AC6CUaUaFSufipermWeRudUAgv4tD3fLm9/DC
-	CPpvbiuUpuWMFqXtQeSdhe1a28a+KDsNx/h0kjADujo+zvWxdHRbPxKggQ/Vt/vMRM1sLTGu3L6
-	uk2SOA3W7GSOUgnlz7zyhPvPF/l6QyiUt5jYav4y3EB+H5Nqo/seisOIunRbg4+xuXaVqDk5VyK
-	MwQBlTrhZ5jOtbCIPcjFNvnaTLeW9F7WWFxemFljl3ElMGD4UWcFWMLIjsL1ktbQyUfz8C833Jc
-	gaNHNZVhYzBvzv2JfVTEGsj2hKsqvDByItCare0JFluPg2m1VPaFOWiKf5sA7AIyZSgANA5Mueu
-	9mARMcW2AMpACn+Chhc40Cvzox0xegpAq51gzIxRefsNGAMm75Y0rlV82BMNSiSVj1804R41eyy
-	DKbNCWjaRS37o+f+A+OCLGykGT+YZf+1CkLtRV0jifbmordFnw18g==
-X-Received: by 2002:a05:6a00:1808:b0:87d:ee98:606 with SMTP id d2e1a72fcca58-8a367f0eb74mr4959061b3a.23.1793015554801;
-        Mon, 26 Oct 2026 04:52:34 -0700 (PDT)
-Received: from lgs.. ([101.76.249.61])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36ada2805sm1233497b3a.12.2026.10.26.04.52.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:52:34 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Gregory Fong <gregory.0xf0@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WYd3qw+8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793015915; x=1824551915;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=N4+rXbY563duUc5ZojoYwToBOC9b5UWgotUeQPKwe7c=;
+  b=WYd3qw+8Kn1oymEBOnxk2mdH1Hc12UaWkRs/UCzdDUNuWFW3ghj6OXC5
+   HJQD5/rOUozByl76Olg+g4DJFGmDLuk7sABpW75jKHwjP9BbUOQXLUn5t
+   lwbbTCToqCKIw0zXWdxbl3lbGCdej0GFDz/dJWGDeMsa6iMxftTv6/joc
+   3OQm1gb7oKHPz36JSQy1OpC4nG1W7mv/jAJHNvZbxrSx3HDtg/mSvBxMo
+   AF1AFDMXvY401DUqO9SFS1tpUoPDUCIZw93nZHVR6qPzwv2ney99d8MqP
+   6iIIimS4TX2Y/oRWgRVDV6+VlKMfNug9RVdHbmBDZkB+WdxrlJVljZt9X
+   A==;
+X-CSE-ConnectionGUID: C4UKCHtgQXKdQKXb0uq8ig==
+X-CSE-MsgGUID: bT9VsuoqS0qlk+iJRr3MBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1700797"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1700797"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:58:34 -0700
+X-CSE-ConnectionGUID: qWhAAVibSyyppIZEQpTr1w==
+X-CSE-MsgGUID: VLLP/3JoSfGPymKiN2oWkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4645279"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 26 Oct 2026 04:58:32 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id C17B699; Mon, 26 Oct 2026 12:58:31 +0100 (CET)
+Date: Mon, 26 Oct 2026 12:58:31 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Kyle Tso <kyletso@google.com>
+Cc: badhri@google.com, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] gpio: brcmstb: fix UAF after IRQ domain setup failure
-Date: Mon, 26 Oct 2026 19:52:26 +0800
-Message-ID: <20261026115227.41779-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v1] usb: typec: tcpm: Fix out-of-bounds read of the pds
+ and pd_list arrays
+Message-ID: <at9AZ7KH_1At6Vq1@black.igk.intel.com>
+References: <20261013081549.2375441-1-kyletso@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,41 +82,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013081549.2375441-1-kyletso@google.com>
 
-When devm_request_irq() fails in brcmstb_gpio_irq_setup(), the error
-path removes the IRQ domain but leaves priv->irq_domain non-NULL.
+On Tue, Oct 13, 2026 at 08:15:49AM +0000, Kyle Tso wrote:
+> select_usb_power_delivery_show() iterates through port->pds (via the
+> pd_get() callback) and tcpm_find_pd_data() iterates through
+> port->pd_list until they find a NULL entry. However, tcpm_fw_get_caps()
+> allocates only port->pd_count entries for each array, and
+> tcpm_port_register_pd() fills all of them. Without a NULL terminator,
+> both loops read and dereference one entry past the end:
+> 
+>   Unable to handle kernel paging request at virtual address
+>   adacafaea9a8ac1a
+>   Internal error: Oops: 0000000096000004 [#1] PREEMPT SMP
+>   pc : select_usb_power_delivery_show+0xa4/0x110
+>   lr : select_usb_power_delivery_show+0x90/0x110
+>   Call trace:
+>    select_usb_power_delivery_show+0xa4/0x110
+>    dev_attr_show+0x38/0x74
+>    sysfs_kf_seq_show+0xb4/0x130
+>    kernfs_seq_show+0x44/0x54
+>    seq_read_iter+0x158/0x4ec
+>    kernfs_fop_read_iter+0x68/0x1bc
+>    vfs_read+0x230/0x2c0
+>    ksys_read+0x78/0xe8
+>    __arm64_sys_read+0x1c/0x2c
+>    invoke_syscall+0x58/0x118
+>    el0_svc_common+0xb4/0xf4
+>    do_el0_svc+0x24/0x80
+>    el0_svc+0x2c/0x90
+>    el0t_64_sync_handler+0x68/0xb4
+>    el0t_64_sync+0x1a4/0x1a8
+> 
+> Allocate one extra, zeroed entry for both arrays so that they are
+> always NULL-terminated.
+> 
+> Fixes: cd099cde4ed2 ("usb: typec: tcpm: Support multiple capabilities")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
+> Signed-off-by: Kyle Tso <kyletso@google.com>
 
-The probe error path subsequently calls brcmstb_gpio_remove(), which
-checks priv->irq_domain and attempts to access the already-freed
-domain through irq_find_mapping(). It also attempts to remove the
-domain again, resulting in a use-after-free and potentially further
-memory corruption.
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-Set priv->irq_domain to NULL after removing it so that the common
-cleanup path skips the already-freed IRQ domain.
+> ---
+>  drivers/usb/typec/tcpm/tcpm.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index d721baef5210..8f4e10ec6d66 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -8376,14 +8376,21 @@ static int tcpm_fw_get_caps(struct tcpm_port *port, struct fwnode_handle *fwnode
+>  		}
+>  	}
+>  
+> -	port->pds = devm_kcalloc(port->dev, port->pd_count, sizeof(struct usb_power_delivery *),
+> +	/*
+> +	 * Allocate one extra entry for each array to keep them NULL-terminated.
+> +	 * select_usb_power_delivery_show() iterates through port->pds (via the
+> +	 * pd_get callback) until it finds a NULL entry. Similarly,
+> +	 * tcpm_find_pd_data() iterates through port->pd_list until it finds a
+> +	 * NULL entry.
+> +	 */
+> +	port->pds = devm_kcalloc(port->dev, port->pd_count + 1, sizeof(struct usb_power_delivery *),
+>  				 GFP_KERNEL);
+>  	if (!port->pds) {
+>  		ret = -ENOMEM;
+>  		goto put_capabilities;
+>  	}
+>  
+> -	port->pd_list = devm_kcalloc(port->dev, port->pd_count, sizeof(struct pd_data *),
+> +	port->pd_list = devm_kcalloc(port->dev, port->pd_count + 1, sizeof(struct pd_data *),
+>  				     GFP_KERNEL);
+>  	if (!port->pd_list) {
+>  		ret = -ENOMEM;
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
 
-This issue was found by our static analysis tool under development.
-
-Fixes: 0ba31dc201de ("gpio: brcmstb: consolidate interrupt domains")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpio/gpio-brcmstb.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpio/gpio-brcmstb.c b/drivers/gpio/gpio-brcmstb.c
-index 44ca798cf832..3b1aaea63951 100644
---- a/drivers/gpio/gpio-brcmstb.c
-+++ b/drivers/gpio/gpio-brcmstb.c
-@@ -513,6 +513,7 @@ static int brcmstb_gpio_irq_setup(struct platform_device *pdev,
- 
- out_free_domain:
- 	irq_domain_remove(priv->irq_domain);
-+	priv->irq_domain = NULL;
- 
- 	return err;
- }
 -- 
-2.43.0
-
+heikki
