@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793067751;
-	b=QUUTvb509Ho8R5Al1oLMuh47hEwBTeCwHBqhRbFuSe4l4NqwJB4u59myYEyof2/2QnVA
-	 q7cIz+K0Hkk7syiTHctsMxDqQ8z+NcwC+giHg8X4tOuSlHrK0wsMgTSlawtXHEJmHCFLJ
-	 wGcevgCn9bqISgVC9TF34HEo95VQQYvrCkeB+wWnIcAwh80kPJLjW7DcoYMFVKnlGwpLb
-	 JX9Sz3hLUt7EF4qbUiV64vLigUd0uoDqSXX57XyGHi/jzrqSyIze6AugA+g9rFJYBuOou
-	 eI1/MEXrRe4t24eYcqJU9Q74djQ7KWFlKd75IHSsBXNpJuzTDcWyxFcblZe6HzKeCXg==
+	t=1793068103;
+	b=kd4epf8If3wvk3zC63os5jMiv/Th0u19TwslLNqwRoPrJGSU1Y0nfeqRwOBW44nomb9c
+	 JY4HWXa/zyRkxADw7d9p7u3CGvf+riUPRxAIdBNde05KsQkXNf4mYvD+Fy2S4OSDIRP6t
+	 7C6/NDTWEiMFoamGvilpMBUzPYdWiGwP9UFX/UwM60yHP0j6bplJp6TwJqhKV3KTtZUPI
+	 Vz2GiEAn+3FltMdvZA3GxcrdUE+qvMJhVUbALyB18pYxp01H9AT0TDv3y4mNUJSpoSVgN
+	 TKuMINGzJbWHeTRM9GHyja9VMIgZwR4K4RsRRVA9kHO1wmwXE2Aqw4qtvV8C72/NCiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793067751;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=KZJuOZ7FxPDPoqziqkzLwr1usJTRrA9RZ4eiUv0khSw=;
-	b=XDC5ExXNR0eMpFCq5FN2KgBmmDsuwV1DOcDF+r9Vpq6lTVwQS3p1+yPC7sHi5rWTVa5I
-	 SZJhooDySpc9e74m8Oc54ucr3O+Dg+INSySvmzIi2k+s4BF3WULIG0D98YZiSAqGdavsV
-	 OP5T8SXj4RIYYTQZtiVxQ7p+okjsBNDswWuHtFkYYLRt/PWq97Y0ZHMLpXi2ZUcZ0kj8d
-	 Bc+uizX83zqC6OGpFWG1g5r9DfWQuykUVoc6YEmPaquCkZesA1vxWtuSwLOm7eRK3ifUv
-	 2UqFnGUt8W2jkOKAJZjFmk8OSF3wi5Ih7VBMJDRNq2FdsItIN2u4Wrt73aCXy2G1ZGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793068103;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=aIN9REnhX2JwKznjs/TWpwWu/T+96Wa0bL+NMHcWNSQ=;
+	b=WLf61SM0aJPCuPNPzTIlcvlcYWvT7hupfAdVfAJSC0KzrYFMOLzpK46abpWQw9YI/hYu
+	 nhQPCAqgega+MId5tEiwgBvlsNSpHmvcnNgGTUcIEs/tKKc6HaQ6R7az4yqYZx0osQgOV
+	 tqoRtdYwKECEA3oFaUmK8mUn7TxSUOKo3LCcscbVPcA1C3+tOIt4rvmWcP5mlHgdC1d4h
+	 F7BqhyggHWB8FLt9ueLpYZ6lhDLMHzk34YxR4DVyT+yS9iI9DLWQQWAmEXx+51rHMr5dK
+	 gVqi2IF4MOmOo4Kn1bfd2BvVeTXfU7u9t6/NCYNE7r2YSMS+x9XjMALnULxYZ22rEVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F31C606A31F;
-	Tue, 27 Oct 2026 02:22:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F31C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=KZJuOZ7FxP
-	DPoqziqkzLwr1usJTRrA9RZ4eiUv0khSw=; b=N+Jq5GntYmak0hdhj9FNxb5Bin
-	kPZFnGtVjZCXTOfZ78Ruj0Erd8LocDNOB/q0SAbBCz9rYSH+xJ+bP8ziw6/HyO9A
-	kDclMyLBuYlduhg7uUoDWDDA6WCqtNo8B4Xn0LVxRAspZeBLA3vQol7E2e5cfO3D
-	9Sz1U5MiQGfSHS4yA=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkBma_7XCuBqUVXsAA--.1339S2;
-	Tue, 27 Oct 2026 10:22:16 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] media: dvb-core: wait for a running frontend ioctl before device removal
-Date: Tue, 27 Oct 2026 10:22:14 +0800
-Message-Id: <20261027022214.14345-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=mGHfq1UV;
+	arc=none smtp.remote-ip=203.205.221.192
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE36606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BE36606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=mGHfq1UV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793068094;
+	bh=aIN9REnhX2JwKznjs/TWpwWu/T+96Wa0bL+NMHcWNSQ=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=mGHfq1UVUBRa9gHh5z9lgLbzdfe1omIY0v2qiRWEUO0W3SiMqHyBMeqPjnHUUsNur
+	 0+UWbWmfmR/ndfQz1QUbDMx15ST2JcwNj1AGtb/kkzHPkRWoSxag97ABip3KhWmCKB
+	 bul2smNBXfYkd8c5cPV0E1kAnYXU9fjBEr555uNQ=
+X-QQ-XMRINFO: M/715EihBoGSlklkRJ+EEZe09BgYQyXQfQ==
+X-QQ-XMAILINFO: NAR1i0refQhONAndsdRxhH7XXyXtx8m0C6jN+DS+wlRFMefOOXpmQQYGvs6I5j
+	 IBraT3UsHuEg667T0VofOlocFFMnJQ4/ui6fyiI4t2r+Tjjc3Ktq+SuV6R3+iT2xeWpaK1ZthURig
+	 QKTFonydFTfqC24iVg9HwjBwCG4DoRY7r+zh88Tmq6H9L70RwC9PYdHlh5ntovUbn/ZYdHhv44JCj
+	 KjAwXJQHeSxqQ3vqru9cXGiZ0Lxhdn9SdaXTiLb/v3GlLDkkR9Iaq4/J8r8hxkpNq8P0g294KwQnk
+	 WpSRHoklIok4bmsl4ChYSseOnA/Tfm5lQPZUf8zA+kwHOkuVMj4VgA55mnIyU9IDujycS/3tJygOE
+	 K9c6FNWk+5Majtb9vxO1CGFmcYxOt5MTPTjPET0k0Pi3lZir2LECzKiYyzNg9UjAgGqIp7Gbv7Y6H
+	 n+v8Q68aud/+e40EOoTo7Elbiz0c27j4d0N5Vl+CtMmoDTO+3bGt0CHfmFUkbvb+OXQ2yAoOhIoUy
+	 /WSSSGY3SqTH/TLUtD6NJnQ+fRnQSJ9Dw50ioxS+k+uBaX6oeQNDV8f6+3R8dr6HnnAfZSf+93F7t
+	 FRlPDc34gpY6IcdhKDEdnvaFkaZ9SrKRHjoTolixo6x7FI8w0duUlQY6JjCDkce5B6flZvB6cH80C
+	 YPFaXN9Hp0SDmnWeDJNyjC3Qco7j74fVWAlkZE9piIpph6Mymu4ZfVN1Dw/+xwkiZglgLuiGuZEq7
+	 yBRVacUPBZKYQLRuldOHsl1nS0r7XfNhBVtriobGsJMLUhmkDpUxRm6xNMAXsDyAkjpsKu41tNj72
+	 17J2Cqkk0J9gpBd5clQ12sTVyLyXaFAX7hoqZM1EPAvfZVxE2Hn/bYec+zbI6n/z88QSVVSCG7Dx3
+	 7UmshLPDMlaEPriVr8rGC44G+I69svlZUZ2x1oKD7a7iTSSGvagpLGxWjRN2wvcwk6hbZcml0rXSH
+	 WJ1R5b5HnYG6ihUCbAaAC7wwqf377oUUjLzgW3N+Px/kISsdgEUAKCpAa3Wk2WpIEu7Nc3ymiDfNG
+	 HH7Lf7Q+0gvvx5+JHMLn3tU4Ea22cMMEEo4w2vxDCl2GuChxr4drQ+NvfGJ4oZQuHjini32Vjk3N6
+	 J5Q+/BmOfLzUfYXWo09plGPZV+QT8bEzIUs=
+From: "=?utf-8?B?Ym8gY2Fv?=" <treebacker@foxmail.com>
+To: "=?utf-8?B?QnJ1aWpu?=" <willemdebruijn.kernel@gmail.com>
+Cc: "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?eW9zaGZ1amk=?=" <yoshfuji@linux-ipv6.org>, "=?utf-8?B?ZHNhaGVybg==?=" <dsahern@kernel.org>, "=?utf-8?B?Z3JlZw==?=" <greg@kroah.com>
+Subject: Re: [PATCH net] ipv6: fix dead half of the MTU guard in __ip6_append_data()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,198 +69,162 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkBma_7XCuBqUVXsAA--.1339S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GrW5AF1xtF4kGw4rWF17Jrb_yoWxtF4rpF
-	Z3Ary5KF4DGw1xtw1qyw4DJFnYyw4ftFWUGa4xG3WrJw4rCrZ7GFy8Ka4qqF13Ars2kF4j
-	qanYgFyUA39rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Sb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
-	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXw
-	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrwCFx2IqxV
-	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
-	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
-	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x07bea0dUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2rfbNNOzAAAsQ
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 27 Oct 2026 10:28:12 +0800
+X-Priority: 3
+Message-ID: <tencent_1F10A683EA804AC1EBD0173BE14FADDFD407@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_B58BAE2F5FF485D1B4F652E9980EAB132A09@qq.com>
+ <2026102604-circus-juvenile-c521@gregkh>
+ <tencent_7454E65EE7BD1C085B6951A7D2305157370A@qq.com>
+ <2026102658-jockey-volley-94ff@gregkh>
+ <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
+	<willemdebruijn.kernel.491fe86e17fa@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.491fe86e17fa@gmail.com>
+X-QQ-mid: xmseua11-1t1793068092tjh86ym8d
 
-dvb_frontend_stop() runs in the device removal path, when the
-frontend is unregistered.  An ioctl that is already running at that
-point has taken fepriv->sem and calls into the driver, but it checks
-->exit only right after taking the semaphore, so one that started
-before ->exit was set can still be inside the driver while the driver
-state is being freed.
-
-Two cases were not synchronised at all:
-
-  - when the frontend device node was opened read-only, no frontend
-    thread is started, so fepriv->thread is NULL and the function
-    returned immediately.  Unlike the other legacy statistics ioctls,
-    which return -EAGAIN, FE_READ_STATUS is allowed to run without the
-    thread, so its callback can be running when the removal path frees
-    the driver state;
-
-  - when a thread exists, the thread takes fepriv->sem on its way out,
-    but that acquisition is interruptible.  If it is interrupted, the
-    sema_init() that followed discarded the hold of a running ioctl and
-    left the semaphore with a surplus count, which also allowed two
-    ioctls to call into the driver at the same time.
-
-A use-after-free read was observed on a Twinhan USB2.0 DVB-T receiver
-after the USB device had been disconnected, while the frontend device
-node was still open:
-
-  Read of size 8 at addr ffff8880068c8e90
-  vp7045_usb_op drivers/media/usb/dvb-usb/vp7045.c:61
-  vp7045_read_reg drivers/media/usb/dvb-usb/vp7045.c:86
-  vp7045_fe_read_status drivers/media/usb/dvb-usb/vp7045-fe.c:29
-  dvb_frontend_do_ioctl drivers/media/dvb-core/dvb_frontend.c:2101
-  dvb_usercopy drivers/media/dvb-core/dvbdev.c:996
-
-vp7045_usb_op() builds the receive control pipe from d->udev, but the
-dvb_usb_device holding it had already been freed by dvb_usb_exit().
-
-Wait for such an ioctl instead of re-initialising the semaphore,
-whether or not a frontend thread exists, so that the removal cannot
-proceed while a callback is using the driver state.  When the frontend
-is being removed, ->exit is set back to DVB_FE_NORMAL_EXIT there if the
-frontend thread cleared it on its way out, so that ioctls arriving
-later return -ENODEV before they reach the driver.  The same function
-also runs when a stopping thread is replaced on open, and
-dvb_frontend_start() sets ->exit again for the new thread there, so
-the restore is done for removal only.
-
-dvb_frontend_start() takes fepriv->sem and leaves it to the new
-thread to release.  If kthread_stop() stops that thread before
-threadfn() runs, nobody releases that hold, which would block the
-wait above forever; release it and clear ->thread in that case.
-
-The compat property ioctls take the same semaphore but bypass the
-->exit check in dvb_frontend_do_ioctl(), so check ->exit after taking
-the semaphore there as well.
-
-Both the early return and the semaphore reset have been in this
-function since the initial git import of the tree.  An attempt in
-2022 to close this race, commit 6769a0b7ee0c ("media: dvb-core: Fix
-use-after-free on race condition at dvb_frontend"), waited for every
-user of the device node to close it, and was reverted by
-commit ec21a38df77a ("Revert "media: dvb-core: Fix use-after-free
-on race condition at dvb_frontend"") after it blocked the open path
-for minutes.  The wait added here covers only the ioctl that is
-still running, and is taken after the frontend thread has exited.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-v4:
-  - Set ->exit back to DVB_FE_NORMAL_EXIT only when the frontend is
-    being removed.  dvb_frontend_stop() also runs when a stopping
-    thread is replaced on open, where dvb_frontend_start() sets
-    ->exit again; restoring it there would leave a live device
-    rejecting ioctls if the open gives up early.
-  - Do not claim that an ioctl holds the semaphore for its whole
-    duration: the blocking FE_GET_EVENT wait drops it while it
-    sleeps, which is a separate path and unchanged here.
-  Code and commit message changes, from review comments.
-
- drivers/media/dvb-core/dvb_frontend.c | 44 +++++++++++++++++++++------
- 1 file changed, 35 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f382..ec8a6c271c33 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -807,7 +807,7 @@ static int dvb_frontend_thread(void *data)
- 	return 0;
- }
- 
--static void dvb_frontend_stop(struct dvb_frontend *fe)
-+static void dvb_frontend_stop(struct dvb_frontend *fe, bool removing)
- {
- 	struct dvb_frontend_private *fepriv = fe->frontend_priv;
- 
-@@ -817,13 +817,34 @@ static void dvb_frontend_stop(struct dvb_frontend *fe)
- 		fe->exit = DVB_FE_NORMAL_EXIT;
- 	mb();
- 
--	if (!fepriv->thread)
--		return;
--
--	kthread_stop(fepriv->thread);
-+	if (fepriv->thread) {
-+		/*
-+		 * kthread_stop() returns -EINTR when it stopped the thread
-+		 * before threadfn() ran.  That thread never released the
-+		 * semaphore dvb_frontend_start() took for it, nor cleared
-+		 * ->thread.
-+		 */
-+		if (kthread_stop(fepriv->thread) == -EINTR) {
-+			up(&fepriv->sem);
-+			fepriv->thread = NULL;
-+		}
-+		fepriv->state = FESTATE_IDLE;
-+	}
- 
--	sema_init(&fepriv->sem, 1);
--	fepriv->state = FESTATE_IDLE;
-+	/*
-+	 * An ioctl calls into the driver while holding fepriv->sem, but
-+	 * checks ->exit only after taking it.  One that started before
-+	 * ->exit was set above can still be running inside the driver, whose
-+	 * state is about to be removed, so wait for it here instead of
-+	 * re-initialising the semaphore.  When the frontend is being removed
-+	 * the thread may also have exited on its own and left ->exit at
-+	 * DVB_FE_NO_EXIT; restore it while holding the semaphore, so that
-+	 * ioctls arriving later return -ENODEV.
-+	 */
-+	down(&fepriv->sem);
-+	if (removing && fe->exit == DVB_FE_NO_EXIT)
-+		fe->exit = DVB_FE_NORMAL_EXIT;
-+	up(&fepriv->sem);
- 
- 	/* paranoia check in case a signal arrived */
- 	if (fepriv->thread)
-@@ -866,7 +887,7 @@ static int dvb_frontend_start(struct dvb_frontend *fe)
- 		if (fe->exit == DVB_FE_NO_EXIT)
- 			return 0;
- 		else
--			dvb_frontend_stop(fe);
-+			dvb_frontend_stop(fe, false);
- 	}
- 
- 	if (signal_pending(current))
-@@ -2246,6 +2267,11 @@ static long dvb_frontend_compat_ioctl(struct file *file, unsigned int cmd,
- 		if (down_interruptible(&fepriv->sem))
- 			return -ERESTARTSYS;
- 
-+		if (fe->exit != DVB_FE_NO_EXIT) {
-+			up(&fepriv->sem);
-+			return -ENODEV;
-+		}
-+
- 		err = dvb_frontend_handle_compat_ioctl(file, cmd, arg);
- 
- 		up(&fepriv->sem);
-@@ -3099,7 +3125,7 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
- 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
- 
- 	mutex_lock(&frontend_mutex);
--	dvb_frontend_stop(fe);
-+	dvb_frontend_stop(fe, true);
- 	dvb_remove_device(fepriv->dvbdev);
- 
- 	/* fe is invalid now */
--- 
-2.34.1
+VGhlIHNlY29uZCBoYWxmIG9mIHRoZSBNVFUgZ3VhcmQgaW4gX19pcDZfYXBwZW5kX2RhdGEo
+KSBoYXMgYmVlbiBkZWFkCmNvZGUgc2luY2UgdGhlIGluaXRpYWwgZ2l0IGltcG9ydDoKCglp
+ZiAobXR1IDw9IGZyYWdoZWFkZXJsZW4gfHwKCSAgICAoKG10dSAtIGZyYWdoZWFkZXJsZW4p
+ICYgfjcpICsgZnJhZ2hlYWRlcmxlbiA8PSBzaXplb2Yoc3RydWN0IGZyYWdfaGRyKSkKCQln
+b3RvIGVtc2dzaXplOwoKKHggJiB+NykgaXMgdW5zaWduZWQgYW5kID49IDAsIGFuZCBmcmFn
+aGVhZGVybGVuIGlzIGF0IGxlYXN0CnNpemVvZihzdHJ1Y3QgaXB2NmhkcikgPSA0MCA+IHNp
+emVvZihzdHJ1Y3QgZnJhZ19oZHIpID0gOCwgc28gdGhlCnNlY29uZCBjb25kaXRpb24gY2Fu
+IG5ldmVyIGJlIHRydWUuICBDb21taXQgNWUzNGFmNDE0MmZmICgibmV0OiBpcHY2OgpmaXgg
+c2tiX292ZXJfcGFuaWMgaW4gX19pcDZfYXBwZW5kX2RhdGEiKSB0aWdodGVuZWQgdGhlIGZp
+cnN0IGhhbGYKKG10dSA9PSBmcmFnaGVhZGVybGVuKSBidXQgbGVmdCB0aGUgZGVhZCBzZWNv
+bmQgaGFsZiBpbiBwbGFjZS4KCkZvciBtdHUgLSBmcmFnaGVhZGVybGVuIGluIFsxLDddLCAo
+eCAmIH43KSA9PSAwLCBzbwoKCW1heGZyYWdsZW4gPSAoKG10dSAtIGZyYWdoZWFkZXJsZW4p
+ICYgfjcpICsgZnJhZ2hlYWRlcmxlbiAtIDgKCnVuZGVyZmxvd3MgYmVsb3cgZnJhZ2hlYWRl
+cmxlbi4gIEV2ZXJ5IGxhdGVyIGJvdW5kIGNvbXB1dGVkIGFzCm1heGZyYWdsZW4gLSBmcmFn
+aGVhZGVybGVuIHRoZW4gd3JhcHMgdG8gMHhmZmZmZmZmOCwgaW4gcGFydGljdWxhciB0aGUK
+ZGF0YWxlbiBjbGFtcCBpbnNpZGUgdGhlIGZyYWdtZW50IGxvb3AsIHdoaWNoIG5ldmVyIGZp
+cmVzIGFuZCBsZXRzCmZyYWdsZW4gPSBkYXRhbGVuICsgZnJhZ2hlYWRlcmxlbiBlc2NhcGUg
+dGhlIE1UVSBjb25zdHJhaW50LgoKV2l0aCBNU0dfTU9SRSBvbiBhbiBlZ3Jlc3MgZGV2aWNl
+IHdpdGhvdXQgTkVUSUZfRl9TRywgYWxsb2NsZW4gPSBtdHUKd2hpbGUgc2tiX3B1dCgpIGlz
+IGNhbGxlZCB3aXRoIHRoZSB1bmNsYW1wZWQgZnJhZ2xlbiwgc28gYSBzaW5nbGUKc2VuZG1z
+ZygpIG9uIGEgcmF3IElQdjYgc29ja2V0IHdpdGggYSAxMjQwLWJ5dGUgSE9QT1BUUyBjbXNn
+IGFuZApJUFY2X01UVSA9IGZyYWdoZWFkZXJsZW4gKyAxIHRyaWdnZXJzOgoKICBza2J1ZmY6
+IHNrYl9vdmVyX3BhbmljOiBsZW46NjEyODAgcHV0OjYxMjgwIC4uLgpbICAgMzcuNjA3ODU2
+XSBrZXJuZWwgQlVHIGF0IG5ldC9jb3JlL3NrYnVmZi5jOjIxNCEKWyAgIDM3LjYwNzg2NV0g
+SW50ZXJuYWwgZXJyb3I6IE9vcHMgLSBCVUc6IDAwMDAwMDAwZjIwMDA4MDAgWyMxXSAgU01Q
+Ci4uLgpbICAgMzcuNjE2NjA2XSBDYWxsIHRyYWNlOgpbICAgMzcuNjE2NjA2XSAgc2tiX3Bh
+bmljKzB4NWMvMHg2MCAoUCkKWyAgIDM3LjYxNjc3OF0gIHNrYl9wdXQrMHg5Yy8weGE4Clsg
+ICAzNy42MTY5NTJdICBfX2lwNl9hcHBlbmRfZGF0YSsweGY4MC8weDE5NDgKWyAgIDM3LjYx
+NzE3Ml0gIGlwNl9hcHBlbmRfZGF0YSsweDk0LzB4MmE4ClsgICAzNy42MTczNjNdICByYXd2
+Nl9zZW5kbXNnKzB4NTg4LzB4OTg4ClsgICAzNy42MTc3MTZdICBpbmV0X3NlbmRtc2crMHg0
+Yy8weGE4ClsgICAzNy42MTc4OTFdICBfX19fc3lzX3NlbmRtc2crMHgyNjgvMHgzMDgKWyAg
+IDM3LjYxODEwNV0gIF9fX3N5c19zZW5kbXNnKzB4YjQvMHgxNDAKWyAgIDM3LjYxODI5OV0g
+IF9fc3lzX3NlbmRtc2crMHhhOC8weDE0MAoKUmVwbGFjZSB0aGUgZGVhZCBleHByZXNzaW9u
+IHdpdGggYSBzaW5nbGUgY2hlY2sgbWF0Y2hpbmcgdGhlIG1pbmltdW0KaXA2X2ZyYWdtZW50
+KCkgYWxyZWFkeSBlbmZvcmNlcyBmb3IgYSBmcmFnbWVudGFibGUgcGFja2V0OgoKCWlmICht
+dHUgPCBobGVuICsgc2l6ZW9mKHN0cnVjdCBmcmFnX2hkcikgKyA4KQoJCWdvdG8gZmFpbF90
+b29iaWc7CgpzbyB0aGF0IGEgZnJhZ21lbnQgYWx3YXlzIGhhcyByb29tIGZvciBhdCBsZWFz
+dCBvbmUgOC1vY3RldCBwYXlsb2FkCmJsb2NrLiAgVGhpcyByZWplY3RzIG10dSAtIGZyYWdo
+ZWFkZXJsZW4gaW4gWzEsMTVdOiB0aGUgWzEsN10gcmFuZ2UKdW5kZXJmbG93cyBtYXhmcmFn
+bGVuIGFzIGRlc2NyaWJlZCBhYm92ZSwgYW5kIFs4LDE1XSByZWR1Y2VzIGV2ZXJ5CmZyYWdt
+ZW50IHRvIGhlYWRlcnMgb25seSwgc3Bpbm5pbmcgdGhlIGZyYWdtZW50IGxvb3AgdW50aWwg
+LUVOT0JVRlMuClRoZSBuZXcgY2hlY2sgYWxzbyBzdWJzdW1lcyB0aGUgb2xkIG10dSA8PSBm
+cmFnaGVhZGVybGVuIGNvbmRpdGlvbi4KVGhlIHJpZ2h0IGhhbmQgc2lkZSBjYW5ub3Qgb3Zl
+cmZsb3c6IG9wdF9uZmxlbiBhbmQKcnQtPnJ0NmlfbmZoZWFkZXJfbGVuIGFyZSBlYWNoIGJv
+dW5kZWQgYnkgKFU4X01BWCArIDEpIDw8IDMuCgpTdWdnZXN0ZWQtYnk6IFdpbGxlbSBkZSBC
+cnVpam4gPHdpbGxlbWRlYnJ1aWpuLmtlcm5lbEBnbWFpbC5jb20+CkZpeGVzOiAxZGExNzdl
+NGMzZjQgKCJMaW51eC0yLjYuMTItcmMyIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcK
+U2lnbmVkLW9mZi1ieTogYm8gY2FvIDx0cmVlYmFja2VyQGZveG1haWwuY29tPgotLS0KQ2hh
+bmdlcyBpbiB2MjogY29sbGFwc2UgdGhlIGd1YXJkIGludG8gYSBzaW5nbGUgY2hlY2sgbWF0
+Y2hpbmcKaXA2X2ZyYWdtZW50KCkncyBtaW5pbXVtIGZyYWdtZW50IHNpemUsIGFzIHN1Z2dl
+c3RlZCBieSBXaWxsZW0gZGUgQnJ1aWpuLgotLS0KIG5ldC9pcHY2L2lwNl9vdXRwdXQuYyB8
+IDMgKy0tCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvbmV0L2lwdjYvaXA2X291dHB1dC5jIGIvbmV0L2lwdjYvaXA2X291
+dHB1dC5jCmluZGV4IDI1ZmUwYmE5OGIxYS4uZWUxMGE4YTE5ZTU2IDEwMDY0NAotLS0gYS9u
+ZXQvaXB2Ni9pcDZfb3V0cHV0LmMKKysrIGIvbmV0L2lwdjYvaXA2X291dHB1dC5jCkBAIC0x
+NDk5LDggKzE0OTksNyBAQCBzdGF0aWMgaW50IF9faXA2X2FwcGVuZF9kYXRhKHN0cnVjdCBz
+b2NrICpzaywKIAkJICAgICAob3B0ID8gb3B0LT5vcHRfZmxlbiArIG9wdC0+b3B0X25mbGVu
+IDogMCkgKwogCQkgICAgIHJ0LT5ydDZpX25maGVhZGVyX2xlbjsKIAotCWlmIChtdHUgPD0g
+ZnJhZ2hlYWRlcmxlbiB8fAotCSAgICAoKG10dSAtIGZyYWdoZWFkZXJsZW4pICYgfjcpICsg
+ZnJhZ2hlYWRlcmxlbiA8PSBzaXplb2Yoc3RydWN0IGZyYWdfaGRyKSkKKwlpZiAobXR1IDwg
+ZnJhZ2hlYWRlcmxlbiArIHNpemVvZihzdHJ1Y3QgZnJhZ19oZHIpICsgOCkKIAkJZ290byBl
+bXNnc2l6ZTsKIAogCW1heGZyYWdsZW4gPSAoKG10dSAtIGZyYWdoZWFkZXJsZW4pICYgfjcp
+ICsgZnJhZ2hlYWRlcmxlbiAtCi0tIAoyLjM5LjUgKEFwcGxlIEdpdC0xNTQpCgoKCgoK5Y6f
+5aeL6YKu5Lu2CuWPkeS7tuS6uu+8mldpbGxlbSBkZSBCcnVpam4gPHdpbGxlbWRlYnJ1aWpu
+Lmtlcm5lbEBnbWFpbC5jb20+CuWPkeS7tuaXtumXtO+8mjIwMjblubQxMOaciDI25pelIDIz
+OjE5CuaUtuS7tuS6uu+8muW5s+S5iyA8dHJlZWJhY2tlckBmb3htYWlsLmNvbT4sIEdyZWcg
+S0ggPGdyZWdAa3JvYWguY29tPiwgbmV0ZGV2IDxuZXRkZXZAdmdlci5rZXJuZWwub3JnPgrm
+ioTpgIHvvJpEYXZpZCBTLiBNaWxsZXIgPGRhdmVtQGRhdmVtbG9mdC5uZXQ+LCBZT1NISUZV
+SkkgPHlvc2hmdWppQGxpbnV4LWlwdjYub3JnPiwgQWhlcm4gPGRzYWhlcm5Aa2VybmVsLm9y
+Zz4sIHN0YWJsZSA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4K5Li76aKY77yaUmU6IFtQQVRD
+SCBuZXRdIGlwdjY6IGZpeCBkZWFkIGhhbGYgb2YgdGhlIE1UVSBndWFyZCBpbiBfX2lwNl9h
+cHBlbmRfZGF0YSgpCgoK5bmz5LmLwqB3cm90ZToKPsKgVGhlwqBzZWNvbmTCoGhhbGbCoG9m
+wqB0aGXCoE1UVcKgZ3VhcmTCoGluwqBfX2lwNl9hcHBlbmRfZGF0YSgpwqBoYXPCoGJlZW7C
+oGRlYWQKPsKgY29kZcKgc2luY2XCoHRoZcKgaW5pdGlhbMKgZ2l0wqBpbXBvcnQ6Cj7CoAo+
+wqAgaWbCoChtdHXCoDw9wqBmcmFnaGVhZGVybGVuwqB8fAo+wqAgwqDCoMKgwqAoKG10dcKg
+LcKgZnJhZ2hlYWRlcmxlbinCoCbCoH43KcKgK8KgZnJhZ2hlYWRlcmxlbsKgPD3CoHNpemVv
+ZihzdHJ1Y3TCoGZyYWdfaGRyKSkKPsKgIGdvdG/CoGVtc2dzaXplOwo+wqAKPsKgKHjCoCbC
+oH43KcKgaXPCoHVuc2lnbmVkwqBhbmTCoD49wqAwLMKgYW5kwqBmcmFnaGVhZGVybGVuwqBp
+c8KgYXTCoGxlYXN0Cj7CoHNpemVvZihzdHJ1Y3TCoGlwdjZoZHIpwqA9wqA0MMKgPsKgc2l6
+ZW9mKHN0cnVjdMKgZnJhZ19oZHIpwqA9wqA4LMKgc2/CoHRoZQo+wqBzZWNvbmTCoGNvbmRp
+dGlvbsKgY2FuwqBuZXZlcsKgYmXCoHRydWUuwqDCoENvbW1pdMKgNWUzNGFmNDE0MmZmwqAo
+Im5ldDrCoGlwdjY6Cj7CoGZpeMKgc2tiX292ZXJfcGFuaWPCoGluwqBfX2lwNl9hcHBlbmRf
+ZGF0YSIpwqB0aWdodGVuZWTCoHRoZcKgZmlyc3TCoGhhbGYKPsKgKG10dcKgPT3CoGZyYWdo
+ZWFkZXJsZW4pwqBidXTCoGxlZnTCoHRoZcKgZGVhZMKgc2Vjb25kwqBoYWxmwqBpbsKgcGxh
+Y2UuCj7CoAo+wqBGb3LCoG10dcKgLcKgZnJhZ2hlYWRlcmxlbsKgaW7CoFsxLDddLMKgKHjC
+oCbCoH43KcKgPT3CoDAswqBzbwo+wqAKPsKgIG1heGZyYWdsZW7CoD3CoCgobXR1wqAtwqBm
+cmFnaGVhZGVybGVuKcKgJsKgfjcpwqArwqBmcmFnaGVhZGVybGVuwqAtwqA4Cj7CoAo+wqB1
+bmRlcmZsb3dzwqBiZWxvd8KgZnJhZ2hlYWRlcmxlbi7CoMKgRXZlcnnCoGxhdGVywqBib3Vu
+ZMKgY29tcHV0ZWTCoGFzCj7CoG1heGZyYWdsZW7CoC3CoGZyYWdoZWFkZXJsZW7CoHRoZW7C
+oHdyYXBzwqB0b8KgMHhmZmZmZmZmOCzCoGluwqBwYXJ0aWN1bGFywqB0aGUKPsKgZGF0YWxl
+bsKgY2xhbXDCoGluc2lkZcKgdGhlwqBmcmFnbWVudMKgbG9vcCzCoHdoaWNowqBuZXZlcsKg
+ZmlyZXPCoGFuZMKgbGV0cwo+wqBmcmFnbGVuwqA9wqBkYXRhbGVuwqArwqBmcmFnaGVhZGVy
+bGVuwqBlc2NhcGXCoHRoZcKgTVRVwqBjb25zdHJhaW50Lgo+wqAKPsKgV2l0aMKgTVNHX01P
+UkXCoG9uwqBhbsKgZWdyZXNzwqBkZXZpY2XCoHdpdGhvdXTCoE5FVElGX0ZfU0cswqBhbGxv
+Y2xlbsKgPcKgbXR1Cj7CoHdoaWxlwqBza2JfcHV0KCnCoGlzwqBjYWxsZWTCoHdpdGjCoHRo
+ZcKgdW5jbGFtcGVkwqBmcmFnbGVuLMKgc2/CoGHCoHNpbmdsZQo+wqBzZW5kbXNnKCnCoG9u
+wqBhwqByYXfCoElQdjbCoHNvY2tldMKgd2l0aMKgYcKgMTI0MC1ieXRlwqBIT1BPUFRTwqBj
+bXNnwqBhbmQKPsKgSVBWNl9NVFXCoD3CoGZyYWdoZWFkZXJsZW7CoCvCoDHCoHRyaWdnZXJz
+Ogo+wqAKPsKgwqDCoHNrYnVmZjrCoHNrYl9vdmVyX3BhbmljOsKgbGVuOjYxMjgwwqBwdXQ6
+NjEyODDCoC4uLgo+wqBbwqDCoMKgMzcuNjA3ODU2XcKga2VybmVswqBCVUfCoGF0wqBuZXQv
+Y29yZS9za2J1ZmYuYzoyMTQhCj7CoFvCoMKgwqAzNy42MDc4NjVdwqBJbnRlcm5hbMKgZXJy
+b3I6wqBPb3BzwqAtwqBCVUc6wqAwMDAwMDAwMGYyMDAwODAwwqBbIzFdwqDCoFNNUAo+wqAu
+Li4KPsKgW8KgwqDCoDM3LjYxNjYwNl3CoENhbGzCoHRyYWNlOgo+wqBbwqDCoMKgMzcuNjE2
+NjA2XcKgwqBza2JfcGFuaWMrMHg1Yy8weDYwwqAoUCkKPsKgW8KgwqDCoDM3LjYxNjc3OF3C
+oMKgc2tiX3B1dCsweDljLzB4YTgKPsKgW8KgwqDCoDM3LjYxNjk1Ml3CoMKgX19pcDZfYXBw
+ZW5kX2RhdGErMHhmODAvMHgxOTQ4Cj7CoFvCoMKgwqAzNy42MTcxNzJdwqDCoGlwNl9hcHBl
+bmRfZGF0YSsweDk0LzB4MmE4Cj7CoFvCoMKgwqAzNy42MTczNjNdwqDCoHJhd3Y2X3NlbmRt
+c2crMHg1ODgvMHg5ODgKPsKgW8KgwqDCoDM3LjYxNzcxNl3CoMKgaW5ldF9zZW5kbXNnKzB4
+NGMvMHhhOAo+wqBbwqDCoMKgMzcuNjE3ODkxXcKgwqBfX19fc3lzX3NlbmRtc2crMHgyNjgv
+MHgzMDgKPsKgW8KgwqDCoDM3LjYxODEwNV3CoMKgX19fc3lzX3NlbmRtc2crMHhiNC8weDE0
+MAo+wqBbwqDCoMKgMzcuNjE4Mjk5XcKgwqBfX3N5c19zZW5kbXNnKzB4YTgvMHgxNDAKPsKg
+Cj7CoFJlcGxhY2XCoHRoZcKgZGVhZMKgZXhwcmVzc2lvbsKgd2l0aMKgYcKgZGlyZWN0wqBj
+aGVja8Kgb2bCoHRoZcKgcGF5bG9hZMKgc3BhY2UKPsKgYXZhaWxhYmxlwqBpbsKgYcKgZnJh
+Z21lbnQswqB3aGljaMKgcmVqZWN0c8KgbXR1wqAtwqBmcmFnaGVhZGVybGVuwqBpbsKgWzEs
+OF0uCj7CoAo+wqBGaXhlczrCoDFkYTE3N2U0YzNmNMKgKCJMaW51eC0yLjYuMTItcmMyIikK
+CkZpeGVzOsKgNjU5NmEwMjI5NTQxwqAoInhmcm06wqBmaXjCoE1UVcKgcmVncmVzc2lvbiIp
+Cgo+wqBDYzrCoHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPsKgU2lnbmVkLW9mZi1ieTrCoGJv
+wqBjYW/CoDx0cmVlYmFja2VyQGZveG1haWwuY29tPgo+wqAtLS0KPsKgwqBuZXQvaXB2Ni9p
+cDZfb3V0cHV0LmPCoHzCoDLCoCstCj7CoMKgMcKgZmlsZcKgY2hhbmdlZCzCoDHCoGluc2Vy
+dGlvbigrKSzCoDHCoGRlbGV0aW9uKC0pCj7CoAo+wqBkaWZmwqAtLWdpdMKgYS9uZXQvaXB2
+Ni9pcDZfb3V0cHV0LmPCoGIvbmV0L2lwdjYvaXA2X291dHB1dC5jCj7CoGluZGV4wqAyNWZl
+MGJhOThiMWEuLjdkNGQ0ZDQ1ZTIwN8KgMTAwNjQ0Cj7CoC0tLcKgYS9uZXQvaXB2Ni9pcDZf
+b3V0cHV0LmMKPsKgKysrwqBiL25ldC9pcHY2L2lwNl9vdXRwdXQuYwo+wqBAQMKgLTE1MDAs
+N8KgKzE1MDAsN8KgQEDCoHN0YXRpY8KgaW50wqBfX2lwNl9hcHBlbmRfZGF0YShzdHJ1Y3TC
+oHNvY2vCoCpzaywKPsKgwqAgwqDCoMKgwqDCoHJ0LT5ydDZpX25maGVhZGVyX2xlbjsKPsKg
+wqAKPsKgwqAgaWbCoChtdHXCoDw9wqBmcmFnaGVhZGVybGVuwqB8fAo+wqAtIMKgwqDCoMKg
+KChtdHXCoC3CoGZyYWdoZWFkZXJsZW4pwqAmwqB+NynCoCvCoGZyYWdoZWFkZXJsZW7CoDw9
+wqBzaXplb2Yoc3RydWN0wqBmcmFnX2hkcikpCj7CoCsgwqDCoMKgwqBtdHXCoC3CoGZyYWdo
+ZWFkZXJsZW7CoDw9wqBzaXplb2Yoc3RydWN0wqBmcmFnX2hkcikpCj7CoMKgIGdvdG/CoGVt
+c2dzaXplOwoKCkNvcnJlY3Rpb246wqBJwqB0aG91Z2h0wqBhwqBkaWZmZXJlbmNlwqB3aXRo
+wqBpcDZfZnJhZ21lbnTCoHdhc8KgYmVuaWduwqBhbmQKdGhpc8KgcGF0Y2jCoGlzwqBzdGls
+bMKgYW7CoGltcHJvdmVtZW50LMKgYnV0wqBpdMKgc2VlbXPCoHRoYXTCoGFkZGl0aW9uYWxs
+eQplbnN1cmluZ8KgZW5vdWdowqBzcGFjZcKgZm9ywqBvbmXCoG9jdGV0wqBvZsKgcGF5bG9h
+ZMKgaXPCoG1hbmRhdG9yeToKCivCoMKgwqDCoMKgwqDCoMKgaWbCoChtdHXCoDzCoGZyYWdo
+ZWFkZXJsZW7CoCvCoHNpemVvZihzdHJ1Y3TCoGZyYWdfaGRyKcKgK8KgOCkKK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoGdvdG/CoGVtc2dzaXplOwoKU2VlwqBpcDZfZnJhZ21lbnQ6CgrC
+oMKgwqDCoMKgwqDCoMKgaWbCoChtdHXCoDzCoGhsZW7CoCvCoHNpemVvZihzdHJ1Y3TCoGZy
+YWdfaGRyKcKgK8KgOCkKwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBnb3RvwqBm
+YWlsX3Rvb2JpZzsKCg==
 
