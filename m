@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091436;
-	b=pDdO0Sek1jNsGF6F7DUKdQ+kaPvs5v+Zw76rFUD4gDLfBm1XlW+bTo+hTg6JL/0kfula
-	 AdYuLu7CbR2csCdfitzd90uYwM6BBx+asjgmAzHaXzzjjq6mPXds2NIVcr1djS9OoHF98
-	 TI4/HnBHf4HpRr3k0SDzGfN25kz4/hDk8WB/PuD24deHc0geOX/HxV8whwaibchbjGJTr
-	 k9JSOIAdqZVf4imC3NHlv9LNXyCsuMsoO0vALI+7RZPR5b/P7vm5Hg2wTH1EqQ3P1GIHq
-	 dyjrWqm5Uk73AaKuLhvEhxRRXWUbmBvS2D3WryMZkXBBt7/2ly+RL3Ffgzic7GeyteQ==
+	t=1793091597;
+	b=dEKMrlf8+m5dfgaPiPrVQDzkFbKbf+UyNhPfrkXRJNiGknCL1aB8DLW6NvcfuUv1kOjr
+	 6zpeH4nJEciyTBknsVjaYpfsfeVaJJuqAYmqXPP1640B5PtyzKpAMNI8J3fcK5hp0QRwj
+	 kdV0a+YC+xEk0Zw+djsDm2j1N0WAUpdN55ZNhTXyr3PGS4ixwMwgVsyQBx/r81MjCaXXn
+	 VayXUUw/fwQXzgETJOXYtdvAzSFPtWe/RJK89tWoOj6f4d/f3Byfbl0RXsMzRe3UD9FEN
+	 68ks1e/8rzEp1ke4ARzC+3FTOReeUb+OL9k/Y9+eANMEk+sX6o0kwf45mScdrHpc+6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091436;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=6wITKebm02DSzXpPmZ3P3V2j16CsSQYiy9lUQJxJN8U=;
-	b=Ht7wUELwaQgYAl3TJ7O0Sbvy2XTYaFUm+8bO9a8Ow1kaoSfEaCGYzuxy6Uj8zZqgDCti
-	 immd5nfBX9NEQYUIFqSiARiJJgexsY6hzxcli6isOr9Wl5aALLIJf5BYQz+po7DmSxlKo
-	 xW+b3kVGATuOJ6NarNhWmE5csuT2hF0QZtv9BSKW4nT1mW73Ts46rlDel/ItRsDhMTAQI
-	 1q7LBSIcS6Dn/alH+6ncZINT4WP4CMsQU9gOCR5FiMIPJgpA9mqmXfavhUBChVH/e8yxZ
-	 rl8H/Gfh7Zbkdas7LqicSzJ0Ldwknz+etOeodJZzfgKPB6LuVY86ybcWoThBVKk43Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091597;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=m6D1TMuAeRek2s1DNXoMx/ngM+qIMzVdkNgeKSRi4QI=;
+	b=ZGm+jjY2zvsZ8m6Npka0W4VhqT6BkvMeukrx0gX1bl3IDzawY9rT/k8tLD3GRvuwITBF
+	 snyfwf7N6THBrm0vBRmDMbkft9fHpfQkxCaCW6u9Al7KLfDnY1gKawLcF6fD+HVWnDoNd
+	 L74tpKfbJWMzBzp0oZHurLgCxEGoa23QoGn15jRHqqZtJqqCOk1V2kTDg2MSUiTYPbGY+
+	 58E/frprhRc2LCGGDg7XuPjvArbxa6fzYMPLWwVNURPKOVE6dM88xu51BcyBdB8QXH4sF
+	 J0GbOp1+8pxgrE5IgK3YgyxomkjYczlHJRrQcls3cgybi3a9lGPJfuRWGK6dP8wP/FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4GW3Wuq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fxMRFOmY;
+	arc=none smtp.remote-ip=115.124.30.119
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56C7606A333
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:57:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC77606A31A;
+	Tue, 27 Oct 2026 08:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC77606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4GW3Wuq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840A41F031E6
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:57:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793091436;
-	bh=6wITKebm02DSzXpPmZ3P3V2j16CsSQYiy9lUQJxJN8U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=V4GW3WuqA1XYC/547F3eUifA0z7vD2uXvpN63zCquHskOT2Zo493D1JHPzLZlRnkq
-	 VNCh8MnVlTRqRqx7mFV4t1BjhzjIPwf4lbFj2lV28Q6rxYC+jgV7QxW+YFHZfUdBDx
-	 1lhX/yGO+8Uz5KApL5qQ8gqEIbSbzOhyoh3eqn3Ug3Yhkw2WSoTQKFpT919Iu5feu8
-	 62+632WqXlG3Qyu1rccUppgRDQmGOebR3y8hlBj3RW2Ip7GuDLCmHe+6zff8jXHhWc
-	 p0Kzq3iBNmgcL4Z+TI3GssdSxUbcRPle7SmpmRxfnsBSkinvo0uaTd/7BwS8rzLyd7
-	 1uUzVMiY81BRw==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c49b431f022so17116966b.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:57:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByYNNUcOoWFcMwhrE+MPaJzJg+MSP2xJNp0235c18FqypR+UaV8Qp7e1Sj7hnLrgOiiOt6mvQc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5ioti6z6aStbsXYWA78IT7IVtTBvfCDq5HQ9ne5k+tgygZxL/
-	eQMS765A1c0Ujug0YbWpQmGGW2Yw+can1s/q4r4vCMOjZF22SzYu/4ETqRkAhHVxxXofZsA10Xn
-	ezLB4E5i29anTPc6sab9UT93MW0tCcu4=
-X-Received: by 2002:a17:907:780a:b0:c49:9383:a28 with SMTP id
- a640c23a62f3a-c4993831289mr306624266b.35.1793091435523; Tue, 27 Oct 2026
- 01:57:15 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fxMRFOmY
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793091587; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=m6D1TMuAeRek2s1DNXoMx/ngM+qIMzVdkNgeKSRi4QI=;
+	b=fxMRFOmY+wd33soBaZOkEcSadVJSmiqIihNxf3ScV3sPEjJv/K8LXtxNIz3x6LuLmrj699PrXjIjASwo5m3gaxcaFYU/KVTwunyf3LgGFsat/xKCDVByAxKKMD89I31mtcec1cIyBv1lYY7RgsVxaxCl7f1bNPDR70h9Xzo9BJY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R431e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XDdD1uE_1793091582;
+Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdD1uE_1793091582 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 16:59:44 +0800
+Message-ID: <152d698f-d7bd-4e1a-9736-412d52e2370c@linux.alibaba.com>
+Date: Tue, 27 Oct 2026 16:59:42 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,48 +53,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027065012.191348-1-chunyuzhiqiang@yinhe.ht> <20261027065012.191348-2-chunyuzhiqiang@yinhe.ht>
-In-Reply-To: <20261027065012.191348-2-chunyuzhiqiang@yinhe.ht>
-From: Vincent Mailhol <mailhol@kernel.org>
-Date: Tue, 27 Oct 2026 09:57:03 +0100
-X-Gmail-Original-Message-ID: <CAMZ6RqL-3EBC=hFmpRyxcD4YA3PiMMnC3o+bAxN+ABDGqCNX6g@mail.gmail.com>
-X-Gm-Features: AclHuK_4fAhpPs6TY0ZmiWtv2y46siAzZORz3V1x1x_oFVRYvygyfl06H0jKtk0
-Message-ID: <CAMZ6RqL-3EBC=hFmpRyxcD4YA3PiMMnC3o+bAxN+ABDGqCNX6g@mail.gmail.com>
-Subject: Re: [PATCH v8 2/2] can: dev: can_tdc_fill_info(): don't read
- automatic TDCV if interface is down
-To: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
-Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org, 
-	linux-can@vger.kernel.org, mkl@pengutronix.de, kernel@pengutronix.de, 
-	haibo.chen@oss.nxp.com, shawnguo@kernel.org, imx@lists.linux.dev, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue. 27 Oct. 2026 at 07:54, ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht> wrote:
-> The automatic TDCV readback calls into the driver via do_get_auto_tdcv().
-> Some drivers, such as xcan_get_auto_tdcv(), read controller registers
-> without taking a runtime PM reference, so calling this while the
-> interface is down can touch registers whose clocks are gated.
->
-> Gate do_get_auto_tdcv() on netif_running() in can_tdc_fill_info() and
-> adjust can_tdc_get_size() and can_data_bittiming_get_size() so that only
-> the automatic TDCV size is skipped when the interface is down. The other
-> TDC parameters are still reported, as they are meaningful while the
-> interface is down.
->
-> This is a defensive hardening based on code inspection; the automatic
-> TDCV path has not been triggered on hardware.
-> Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
-
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
-
-I think it is still preferable to add a fix tag here:
-
-Fixes: e8060f08cd69 ("can: netlink: add can_priv::do_get_auto_tdcv()
-to retrieve tdcv from device")
-
-@Marc, not sure if b4 would automatically pick the Fixes tag. If not,
-can you add it while applying?
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-Yours sincerely,
-Vincent Mailhol
+
+On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
+> Truncating a tmpfs file or memfd to a page-aligned size inside a large
+> swap entry can loop indefinitely in shmem_undo_range(). The task holds
+> the inode lock and cannot be killed.
+> 
+> A large swap entry represents a whole swapped-out folio. For example,
+> truncate a file whose pages 0-7 share one swap entry to four pages:
+> 
+>      [ 0  1  2  3 | 4  5  6  7 ]
+>           keep    |   discard
+>                   ^
+>              new EOF, start = 4
+> 
+> i_size has already been updated when boundary handling asks
+> shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
+> calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
+> because its starting offset equals i_size. Nothing is read back.
+> 
+> The final scan cannot free the entry without losing pages 0-3. It skips
+> it, restarts from start = 4, and finds it again indefinitely. An unaligned
+> truncate avoids this particular failure because the requested page starts
+> below i_size. Folios already in the page-cache cannot trigger it as the
+> direct lookup will return them beyond EOF.
+> 
+> Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
+> directly for swap entries. This bypasses the read path's i_size check,
+> allowing the existing boundary handling to zero and split the folio. If
+> swap-in returns a smaller folio, it also splits the swap entry so the final
+> scan can free the entries beyond EOF. Retry the lookup if the entry
+> changes during swap-in.
+
+Make sense to me.
+
+> Handling swap-in allocation failures remains broken and is unchanged by
+> this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
+> instead of -EEXIST, shmem_get_partial_folio() returns NULL and
+> shmem_undo_range() skips boundary handling. If the large swap entry
+> remains intact, truncation can still loop in the final scan, while hole
+> punching can return without zeroing the boundary.
+> 
+> This may read an entire large folio back from swap while holding
+> i_rwsem, only to discard part of it. Avoiding that I/O would require
+> splitting both the swap entry and any large folio still in the swap
+> cache. That, however, is much bigger work.
+
+But I think this case is extremely rare, where every attempt to call 
+shmem_split_large_entry() to split the large swap entry in the loop 
+fails. At that point, the system is already in serious trouble, where 
+even OOM kill cannot free up memory for the xarray allocation. Hard to 
+believe this can actually happen in practice:).
+
+> Original fix generated by LLM and sent by Chris Mason in private.
+> 
+> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+
+Changes look good to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
