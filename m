@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128248;
-	b=Hukk6OrV+x5EOrSO6oBZJPbiNjH15Ra8ZvW854JDYWxNiLXKjIAP8TUJT39u5XzDT4VH
-	 RYi8Ef7D9dd3ZESu+oM2SNgYbabVAOFP9+0Dmq6OMfMncKzpk/G93L2Tj6F71sVgGygGn
-	 EAvTGyIpsodtAs3tSTgJtAfpSG7A90mEFGEsk95FEhAswja/0bwtpGtsvlnhbMkNXRVNh
-	 yDsMyPWWGZkIX9jQkYzy6FMs5Y5JZvGpL+Q56flMvNXZiwWglwdrKvbdDyx6qUNlGNIUe
-	 FJQnAqRZ9p5hZasLNGFoj4aaziQj8LJyede7RNkHwCuG9I6tWMbs2AcUqHpuswi2PPg==
+	t=1793128715;
+	b=WPunWw/52zCd+x3BUA8fXyYqqcScjTm8C1xLvZ7+4Vfr89tMm4ssfCyDvxiHnQkHlO0Z
+	 MtmxvXQEmTT7XOrpwt2XJumy6+p8kpjaHKyGXieR2Jih/ZiKpNLLHWxi50FMYMVbHgTI5
+	 1JLzWeA2lDcJG8sVHozeA2ykavH6WjM3myQx/LIV64ffQBc3QLefDYar7voep6jusJhew
+	 cFOeO3xZp8UIN13E9B6gVDZn64/uCU7yXPciiEVGSBDbu096j48uzIsBfqn0tSNiqNZ3h
+	 CQhiy97t0W4AxDm4T+3Xx8PQVcTKIYwds/MutIbF1xBV8/GW15VRxZkIX8tLMNvkWaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793128715;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=gxw22+dUBVHsNmkwZBBvZhpzn7DjpEcijhpCagz+H44=;
-	b=hJwShB8h8p4uVfFptFB2IiN4NKtoKwwh8RhW9ct5mlxYHlVH47Fu8vLXZ87Ek1H7wakb
-	 ppE/oR6gNeJKPdy7ftNgr5mb1Cx3S/+Ye7pZ5O6qX8LP0wZejM+XilQCkHPMegGaXVQ7C
-	 jTdddHq46ke9VLxnThiygnjigkzapubuRECsXTyF1iwegHo5XyFxn9O8wl4VxuAUW1NPB
-	 5gJQcSCZc+oNHcYt+KihUDQbtDhB9C6oxTlDL5KgKE0CaHZfVcKSDyk5YCn2MrX6UVlGG
-	 eePLFsc9id3p/UoNgfNWY9dsffB87a/X31R1NwGXfr4GwiYXjovjcoqAREuWaZBPg7A==
+	bh=RZNM0QAvkjv2toljsz6cT0DUeLHvWGObkljY6MMux0Q=;
+	b=VwjLKkSKmixzbEy67MKwzg1HRFwB2SuzNlcklelmQcM4ROyXcsX3TShumJZ9p/LUHrFR
+	 231E09TjN8LXObo7ylWq2MLIn/B0jA5uxqtCF5FK0UGrJyXWUWvyQYzI1aroZ3ktRpMaF
+	 jzAvdyzfPM49FWrqe0tN90nJa+5zkUJaOV1Grms2HnYpAdqX2emgoC3kgGn6WmKPVnV0g
+	 CAqETamnPIdLvSDvreR0buqN7n6N01xzPwWVeZvk+oHnlKRePVMhuVEx3/7yezHeqNCaZ
+	 VCEai5YoPstYc+fN6/JDwQaKY16Z4ZZgHzML/uFti7UFofjM8unk7x/MG06+suKrrUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLRsA5zy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YLTdJU5x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB65606A31E;
-	Tue, 27 Oct 2026 19:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB67D606A31A;
+	Tue, 27 Oct 2026 19:18:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JLRsA5zy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF241F01829;
-	Tue, 27 Oct 2026 19:10:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YLTdJU5x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F571F01828;
+	Tue, 27 Oct 2026 19:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793128248;
-	bh=gxw22+dUBVHsNmkwZBBvZhpzn7DjpEcijhpCagz+H44=;
+	s=k20260515; t=1793128714;
+	bh=RZNM0QAvkjv2toljsz6cT0DUeLHvWGObkljY6MMux0Q=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JLRsA5zy6lBMaJmnj1OuZDWK7USr/fw9H52uehWRrOa/1j8WudtcfkokPA36DPpQP
-	 S0rcY4Q/4pP+YF+byKiwleEgDfpZwaUDVDm4L7dPRJIfN292VDlcwOc90kWkBxY6b1
-	 Mi8DZt6gPGhhyfK5+ZRUlwvd29AYr89em87D8L5KbOI1ZjOc3pnjoO99WUhQdMSkwB
-	 Kd8v2WIYlELKJVpxwWEEssNQoRGjucCE81+gjs5//M4+n2M/ral1GW4g4bdGx/h0lV
-	 9ntzmhQGFkbsCzUTDYBHkrEOBWleeXSGrd95OomWvfwcKf7/2yVImSsxRlxqZR1HRK
-	 AiDKFUxA3cIPA==
-Message-ID: <3d5e6a17-3ca5-4e87-baab-f349073ab8e4@kernel.org>
-Date: Tue, 27 Oct 2026 20:10:27 +0100
+	b=YLTdJU5x4o/hyyOxOFwqDIU1Y1ZNR6KV42KTsOrPC3aE7fsc7yxHnDHmlusk1ZAbc
+	 7WbghDU5l1NvCkEtJodjasUhWzXCgfr9Vha9UktQimiDcYzzLg0LinN4/zyoZDs/d3
+	 xfVJdoPYVZikMrjRBlxg3rIShOQQ8xtdT4qpb5cOTugMevkB5DTpGK+9lx5QKKrr3s
+	 RyHvkSeezsGEWBuWOGF0Wz9rAaW4YKD2jM7O1WA/e7eicq1Lz93J6oO28CTPO/D4Pd
+	 RVDg5X3Wj+ZwE0ZbdDEia09ullo9NdzzRIZxY/uH0ERFDqHqyUI36UAodcWUnV9aDO
+	 Dxn7IlIn18beQ==
+Message-ID: <11b91d57-85e6-47d0-87ab-5fa8624e8068@kernel.org>
+Date: Tue, 27 Oct 2026 20:18:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,46 +52,47 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/46] mm/filemap: read mapping->a_ops->free_folio under
- i_lock
-To: Rik van Riel <riel@surriel.com>, Andrew Morton
- <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+Subject: Re: [PATCH 07/46] mm/filemap: don't lose a folio lock wakeup to a
+ signal
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
  Pratyush Yadav <pratyush@kernel.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Harry Yoo <harry@kernel.org>, Alistair Popple <apopple@nvidia.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
  Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
  Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
  Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
  Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
  Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
  Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
- <f12ffd4cf8933452ef13adae55d6d238a3069235.camel@surriel.com>
+ <20261027-fixes_core-v1-7-6f74bec9a5bb@kernel.org>
+ <auDM5mvsb5ilIdsg@pedro-suse.lan>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -138,24 +139,38 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <f12ffd4cf8933452ef13adae55d6d238a3069235.camel@surriel.com>
+In-Reply-To: <auDM5mvsb5ilIdsg@pedro-suse.lan>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10/27/26 03:43, Rik van Riel wrote:
-> On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
+On 10/27/26 17:10, Pedro Falcato wrote:
+> On Tue, Oct 27, 2026 at 12:17:27AM +0100, David Hildenbrand (Arm) wrote:
 >> From: Josef Bacik <josef@toxicpanda.com>
 >>
->> The bug was found by code inspection and has not been reproduced.
+>> An exclusive waiter in folio_wait_bit_common() can leave the wait loop
+>> because of a fatal signal, then be woken by folio_unlock() before
+>> finish_wait(). If the waker did not hand over the lock, the waiter returns
+>> -EINTR without trying to acquire it.
 >>
-> I can't say I'm surprised ;)
+>> folio_wake_bit() stops after waking the first exclusive waiter, so this
+>> loses the wakeup and can leave other waiters asleep indefinitely on an
+>> unlocked folio.
+>>
+>> After finish_wait(), let a waiter woken without a lock handoff try once
+>> more to acquire the lock. If successful, return success so the caller's
+>> eventual unlock wakes the next waiter. Otherwise, the current lock owner
+>> will do so.
 > 
-> I see clues that a most bunch of these issues
-> occasionally happen in our (rather large) fleet, 
-> but not this one.
+> Has this been reproduced? I feel like this would've been found out by now?
 
-IIRC it's mostly memory_failure() only that can trigger this today ... so not
-surprised :)
+Let me dig ... I don't find mention in the notes, but I was told that most of
+these things have reproducers.
+
+I guess it's harder to hit in practice, because you need a fatal signal and then
+keep the other waiter alive while nobody else will take that lock in a timely
+fashion.
+
+I asked codex to try writing one but it refuses for security reasons :)
 
 -- 
 Cheers,
