@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793122720;
-	b=zLmGzKrVhp/H13WHEKgo1atza+yn/Va3FhUDT1Y3CfjeBrWZ5AzCGR49rA6qVHahLLdA
-	 cPRq6+RdjqUNmdQCzXl9gH0kRW8DRYjeP71Fr7UU3F8lQED7GRN73Y6xwQSD3Rzd+G2rU
-	 HT3TFfXj0ae7k1YupfMHFj0E1OADdgOEzJN8mihAmJn8B+0LEK345FQP4heXta1j2Lq3u
-	 gnzKSyG1+RM8yxx80dM0ZAW3gJU1JZlLx7XcGcgYcQZcaAjOAD+dDll/ZZv9rUfVXCFpp
-	 jxkJf6f9S6TApetHpf+k+rFSSoPcap+aqiTzKe2guSEp1pQ2mGEtZBR6pCWKRuOzGCw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
-	b=Kb189WDZvbbXBKwMNOrwhW/qiQkD9YCd4Jr+gBcxotvROYHOcvUR6ajIO1IIINlX1d41
-	 m9BCpRdMh0nBqRJRkvFWVfuPaIZeIoOH3uAMCO9LDd2fk43HHZpOReYMF+nEQXMdrESEv
-	 45AcH7c69/G91TQ+du9AI8YLD12Bw40zjrMGWr0d8blJ4XCvpbZZUMDJRAv8ggcIsUjss
-	 Wof9ECOKyiz18iFE4PV5+/rBVpms2uN4E4CS3Y2TeW3JOiwiAmCT5NDIApYD0KbTa8xzr
-	 4c7pQ1E42/KHMek78DlON3Nyd1m7lhtq8PY0teAiaNAxE1w3LXHjxgwTPaerklIq5Ag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TMbu8PxL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793122923;
+	b=aigCdMpsqUF4BNkUq17tlcr81F4/nxrOpYraQTkwDCpQqJomDGzrFFJaQvYJgplgyl6j
+	 Oz5eKf3mfwJdpE7KEdIAFJqGxaN3B0iKBf/XDQmyYCXb3dOdRUQmuZgGg37jDRWU2hIZf
+	 WfLJyqW5YyhmBDNcFnwHkctH9bTK1pDP4bt3cuhvln/YgzJLL4Ci1oymBOCq2tuYNIMru
+	 pkrLm5oitwJqi8gIbQyiDhCK1jYTn7dGxHEK5yZ62Go2CezCCQizf+/SYM7CtFmgMLs2y
+	 0z3d51UDx1gj1bt/qJrgXJ1T7ji2D41E6g1zOWNZRNjFqV3oWpAPXGWbBZRyvccyZGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122923;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=z3iAtCbmLUk/E3t+9/rOg5G6mlHHR35SW4OVmGcBTKs=;
+	b=Ui21QFEtaB21xkCwhUs3qHHSUTNZQcXgz3dbune4WdyJ27v9uJHSm3NCeTm1BJCnve+a
+	 I9DCl3fJIqJ/0wnIyPwLcvNw8COfpi/qylzBt310HFqeclfZaNYlDYA1phkO0Q6yxOjZy
+	 LZphwNzvbLd2F9p3uLTNQ8hi4N3OC/OyEKRavnKUUQ/6/frl4bcodj1c/66dNCECpbxfQ
+	 xkuh0y359hW4798vJAhaDk3Njr3pIOi7qcBlQV/5/W2YuNu0XqCRkXMRw8uUMPX/Bo3GT
+	 0Vfj+pGt/k07wtArMQ9+3Xj9jdRuVaI1ftf5QG8z+d2gzKTJAYl/UjvPykf2IZtrKKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=ExYHbSH2;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EFE606A321
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:38:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80EFE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1B6606A31A;
+	Tue, 27 Oct 2026 17:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F1B6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TMbu8PxL
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso1011a12.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:38:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793122719; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Li+JaGU86we1bTCQWjkIskPkifKFycV0MKHM67s8/TBy112MjnOmRfI2pJpUgpXhbB
-         LL5gyVzk9AY0Y8ufEosr9iszeFP81vg4/6SIB6xeZt+pw85/6RBuPkfvP3LkqvaRo6+x
-         mnIwvviR1qVoqXfkbut8XUtelRVU9GF1AsaszfykYixxtKzMaw7oEo1pfCTXaNNK7hiK
-         PzkocvT5vDvpTndLS4frEqs8XhvIMblvI+Eht8zGkhpRGcFfIBQF+E77sCdS88PESoH6
-         rPfvRsBJ5h1OkeeqnHPibdImGBMGddQ9QLsvWm9jOtNWidHTQAkHougaVBW/jWhnIzex
-         dTLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
-        fh=c20XU3+zQR8JTknIygg380MkLZ2qIA0JsNT3o1DB25M=;
-        b=JbCmfx5Ioz5qt7CVwEbY7vWnNn6AuEoe6VFr+qLeio9bXsZZnI/WjhqAFXoTSgrVVG
-         jemVsMDUzSvHJpJz3ALIeyF/K2pK4pigesfQ5H+MxsqogQpFa0dVvTZGjgiEuQSoQP7G
-         qIzlWDg3pz6VnUHU5dNG6LFJprCEMYfawFKeWsruZFgj0moy1xfq9lwQuOCT+jS1fnEM
-         gxjKZpyDp3W+Q5yulWGZXDgw9Vx2c6msvp93hdS9ljGCBE6coqnf2O7R9al5x2W6voIe
-         WyhyUC29QMX80Qj6ZPXA0JNfzWxQtP50e3+vbUHMp71APDTFf2mxqvaOcEEwT9Sr1MbM
-         b3Ug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793122719; x=1793727519; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
-        b=TMbu8PxLhpBm5Jxc+UmD3OrKaB4W+TrO+HcdLK/qemtnz4THsUOJblzPEUuFNQdsAX
-         xVppISd9HZVk1k52dXnBDZH5JY2olDDSO95++GZTKXt09LrvWQXh0bdmoGTLejAK1OLt
-         bxZAkxblGRQiGMML4G9URFa8xQWaDlL49VzCVKznumP2+MyKHmYFopFrp7Vomsp36yZT
-         yCc03PZELOyQAfukDHyz3vOgAGIADyvURsSBd2Fsfa6RJBwz/JWJp+HSEvxtvlpPmo9U
-         hDMP72JYBeOYHs8QzW38V9/J7Ub9YckAD4l0ZmHIvx0H8IlISifANZcUpwjvV3oxhTkL
-         uyiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793122719; x=1793727519;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
-        b=vG8pPsNm5h1SeDBykUXW3i/T5AddX8ZFpyNd69viAaqxU1rXHjQcYSFRs6cS/dEWq6
-         NLxRRJ+YXXb1ewizGFDl2E/i4tclcicibulRYr6kOVSfRJJd+C7eqp5ooeNsvgsluglh
-         fEmbfakb3219MhNg3MgRaKzeliBSMzgQQDMAtlMhtw/H6uNZIhJEww4fjOPgfHt/NjNQ
-         5Vir3ExufSDxTKurMF6qyF7lXayyOsloxU3okfLefEe9m8LoFN96L+MNMNY7o2FB8xx2
-         2epRe4p03ApxHWa4vrfRrtzM19dzZAhfxoVopXQuqEeskFK7IyFXGVOG5PD9yrCVmQz6
-         xU1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxiYsN0ZB2Bs9+sfSkOLwzOw9U9Cj1B6G0O8quoMfV8Z4wx61tv45vp4OxJN5k3hJtNpU+mBEs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6hui9N6NSTJLB0uQjbaKNg0yBFky81duMGkWwNRhuAMXgJmtI
-	2qQOwEEoFiETYwZZNwqgWV7WOr6/t3yXgCOgWfzvKFAVYpwBVqw5Qt4R5gez+/fO8w5ksGq0KLi
-	sG/9pNsGno06hv54D0tkFwM7wBPZ6N+mZpvdES4eN
-X-Gm-Gg: AYBFou3wzTeZAHvq/3IKPnFRHOQAOUmWh4efEscpC8Iu8RyX1yCuW23NPHpBMVZGvoR
-	O68ebhYroDEkc/bwBMKlm4XGiHf362pBJMJFOH6r5sG5LSlla+LwU6/Bl8VcWBHUbKV0210EmU4
-	eJmHzfDPZEhDwGbHbfwN79gZYEJMbLw7cyqYHsUUCm1C+d8SQWYtZKOKRmk5bKLYrJZpXWQpfHz
-	+ZyuU0rrBVL3yx053Vh7U3t33keCZq11OQuSLotB7dQPsnWFZuMoJiokpmCI1qy2jdmcB+tJSXr
-	4IlQ9rFUfu2AlG8JFiMgAAgi24jpcZrH3gQGAD+fEI4kilbFNKfhVh4clOXejpJSF+dlV/DLQe3
-	MvDQ1uoA/RQLisbyeo8opfPMu+mKVzcl+5LzmqYM70RkFmZJBOyiFVQ4JZ93HFYR4BA==
-X-Received: by 2002:a05:6402:a2cf:10b0:6b4:597f:50ed with SMTP id
- 4fb4d7f45d1cf-6b4994c5b30mr2214a12.5.1793122718174; Tue, 27 Oct 2026 10:38:38
- -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=ExYHbSH2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=z3iAtCbmLUk/E3t+9/rOg5G6mlHHR35SW4OVmGcBTKs=; b=ExYHbSH2utsdn/f8lny59vG1Ni
+	gcCOx99xrz1qJ2U4gkUsrgdIXnNQjVgDgYJn+Qyp1fD7DQ6cKJt6HU5pGGVv8rtyH1Q2cgBkbnxPr
+	KiSTGMw8n5custdkSFtsndnBEBEAndXGtZOV+hZ1DPvMNe8tjpwA6ss4kvLRyWVXZjY+M4bky3+dQ
+	mURFbEaqwrxuJ8OZykkNmiGxZCB3MPznpKxPvASuPynxcqSM8UABPKnknqryrva3OofwtIsuJj5Lw
+	LBvqkacFuStE4IB4cAOPVibXteCEwETjytqImpXCrPbl8qzBpI9vnlCbRXEUeVnUTLB+CtN+chbbO
+	Pql6008g==;
+Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLlBP-0000000EzyB-2YWZ;
+	Tue, 27 Oct 2026 17:41:59 +0000
+Date: Tue, 27 Oct 2026 17:41:59 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: mm-commits@vger.kernel.org, stable@vger.kernel.org,
+	nickolai@csail.mit.edu
+Subject: Re: +
+ xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch added to
+ mm-unstable branch
+Message-ID: <auDiZyUI490v5Pgm@casper.infradead.org>
+References: <20261023181200.53AF01F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,113 +65,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org> <auBityGTDQjXURWg@gremlin>
-In-Reply-To: <auBityGTDQjXURWg@gremlin>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Tue, 27 Oct 2026 10:38:22 -0700
-X-Gm-Features: AclHuK8I8xcfhrxH9JH4rYz28CrMoohsxda9QortkIHbiI93aH5ozWron9iLPAM
-Message-ID: <CAJuCfpHEHPNj9DKOGbVHYCUsmLf==-XkhzBAR94gNt_ErhdnnA@mail.gmail.com>
-Subject: Re: [PATCH 23/46] mm/userfaultfd: write-lock the VMA before waking
- waiters when unregistering
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
-	Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
-	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
-	linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023181200.53AF01F01825@smtp.kernel.org>
 
-On Tue, Oct 27, 2026 at 1:43=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> On Tue, Oct 27, 2026 at 12:17:43AM +0100, David Hildenbrand (Arm) wrote:
-> > userfaultfd_unregister() wakes pending missing faults before clearing t=
-he
-> > VMA's userfaultfd registration. With per-VMA fault locking, holding
-> > mmap_lock for write does not prevent another fault from queuing after
-> > the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
-> > waiter can then remain asleep indefinitely.
->
-> Oof.
->
-> I guess userfaultfd_clear_vma() only implicitly takes the VMA write lock =
-via
-> vma_modify_flags_uffd().
->
-> >
-> > Call vma_start_write() before waking waiters. Existing fault handlers
-> > queue themselves before dropping the VMA read lock, and new readers are
-> > excluded until mmap_write_unlock().
->
-> Clearly an oversight from the VMA locks work. I guess was always a Hercul=
-ean
-> task to catch every single point at which there is an implicit assumption=
- that
-> mmap write lock ~ readers (esp. faults) excluded.
->
-> >
-> > Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Josef Bacik <josef@toxicpanda.com>
-> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+i said this patch wasn't acceptable with the commit message the way it
+was, and the very next mail i get is you taking it into your tree.
+please stop doing this, it really makes me wonder if i have any value
+left.
 
-Thanks!
-
->
-> > ---
-> >  mm/userfaultfd.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> > index 669f71d485d02..7e30b5ff17be1 100644
-> > --- a/mm/userfaultfd.c
-> > +++ b/mm/userfaultfd.c
-> > @@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaul=
-tfd_ctx *ctx,
-> >                       start =3D vma->vm_start;
-> >               vma_end =3D min(end, vma->vm_end);
-> >
-> > +             /* Prevent new userfaults from being queued after the wak=
-eup. */
-> > +             vma_start_write(vma);
-> > +
-> >               if (userfaultfd_missing(vma)) {
-> >                       /*
-> >                        * Wake any concurrent pending userfault while
-> >
-> > --
-> > 2.43.0
-> >
->
-> --
-> Cheers, Lorenzo
+On Fri, Oct 23, 2026 at 11:11:59AM -0700, Andrew Morton wrote:
+> 
+> The patch titled
+>      Subject: xarray: clear the new head's parent before freeing the old head
+> has been added to the -mm mm-unstable branch.  Its filename is
+>      xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
+> 
+> This patch will shortly appear at
+>      https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
+> 
+> This patch will later appear in the mm-unstable branch at
+>     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> 
+> Before you just go and hit "reply", please:
+>    a) Consider who else should be cc'ed
+>    b) Prefer to cc a suitable mailing list as well
+>    c) Ideally: find the original patch on the mailing list and do a
+>       reply-to-all to that, adding suitable additional cc's
+> 
+> *** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+> 
+> The -mm tree is included into linux-next via various
+> branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> and is updated there most days
+> 
+> ------------------------------------------------------
+> From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> Subject: xarray: clear the new head's parent before freeing the old head
+> Date: Mon, 12 Oct 2026 16:25:49 -0400
+> 
+> When xas_shrink() replaces the head node of an array with the node in its
+> slot 0, it stores the child in xa_head, passes the old head to
+> xa_node_free(), which queues it with call_rcu(), and only then clears the
+> child's ->parent pointer.  In between, a lockless walker can still reach
+> the old head, not from xa_head but upwards from the new head: xas_find(),
+> xas_find_marked(), xas_next() and xas_prev() climb through xa_parent()
+> when they step past the end of a node.  RCU does not protect a walker that
+> gets there: call_rcu() waits only for the read-side critical sections that
+> were running when the callback's grace period started, and that grace
+> period can start before the parent pointer is cleared.
+> 
+>   CPU 0: xa_erase(), xa_lock held   CPU 1: RCU walker, e.g. xa_find()
+> 
+>   xas_shrink()
+>     xa->xa_head = child
+>     xa_node_free(old head)
+>       call_rcu()
+>                     <grace period starts>
+>                                      passes a quiescent state
+>                                      rcu_read_lock()
+>                                      xas_find(): loads xa_head (child),
+>                                      steps past its last slot,
+>                                      child->parent is still old head
+>     child->parent = NULL
+>   xa_unlock()
+>   quiescent state
+>                     <grace period ends>
+>   radix_tree_node_rcu_free(old head)
+>                                      reads old head's slots[], shift,
+>                                      offset and parent
+> 
+> The grace period does not wait for CPU 1, which reported its quiescent
+> state before its critical section began; holding xa_lock delays the end of
+> the grace period, not its start.  The start can fall inside the window
+> when an interrupt arrives in it (interrupts are enabled under xa_lock(),
+> and RCU core processing may run on interrupt exit), when callbacks are
+> offloaded (rcu_nocbs=) and the rcuog kthread on another CPU handles the
+> callback, when many callbacks are queued, or while the writer is preempted
+> under PREEMPT_RT.  Interrupts, and in a guest a preempted vCPU, also
+> stretch the window.
+> 
+> After the climb, xas_find(), xas_find_marked() and xas_next() resume in
+> the old head at the slot after the child and read its slots[] and shift
+> (xas_find_marked() also its mark bitmaps); xas_prev(), for which the child
+> is the first slot, steps past the old head at once and reads its offset
+> and parent, as the others do when they reach its end.  Nothing in the walk
+> notices that the node is gone.  The climb takes ->parent as it is, no
+> lockless path looks at node->array (XA_RCU_FREE), and xas_shrink() stores
+> XA_RETRY_ENTRY in slot 0 of the old head only when the head shrinks to a
+> single entry, not to a node; the walker does not look at slot 0 anyway. 
+> radix_tree_node_cachep is not SLAB_TYPESAFE_BY_RCU, so the walker reads
+> freed memory.  Once the object is reused for a node of another array, the
+> walker returns that array's entries or descends and climbs into its nodes.
+> 
+> The order dates from the introduction of xas_shrink() in the commit below,
+> which reimplemented radix_tree_shrink().  radix_tree_shrink() clears the
+> child's parent pointer before it replaces the head and frees the old node,
+> and still does in lib/radix-tree.c.  The commit gives no reason for the
+> different order and nothing depends on it: xas_update() and xa_node_free()
+> only touch the old head.
+> 
+> Clear the child's parent pointer before freeing the old head, as
+> radix_tree_shrink() does.  The stores are the same, the tree and the
+> xa_state the caller sees are the same, and a walker that starts after the
+> callback's grace period has begun sees the cleared pointer, like every
+> store before call_rcu(), and ends its walk at the new head, which covers
+> every index that the old head had an entry for.
+> 
+> A check in the radix-tree test harness that no node passed to
+> xa_node_free() is still the parent of a node reachable from xa_head fails
+> in xas_shrink() 4731 times in the XArray tests without this patch and
+> never with it.  No test is added: the race is not deterministic and the
+> check needs a hook on xa_node_free().  A harness race test (readers
+> walking the whole array with the four climbing walkers while a writer
+> stores and erases an entry that adds three levels above the leaf) did not
+> hit the window in 20 runs of 200000 erases; with a 1 ms sleep injected
+> after xa_node_free() in xas_shrink(), every one of 20 runs reported a
+> heap-use-after-free in __xas_next() or __xas_prev() under
+> AddressSanitizer, and none did with this patch and the same sleep.  On a
+> kernel (x86_64 defconfig + KASAN, QEMU), with a 100 ms delay injected at
+> the same place, a walk that starts on another CPU 20 ms into the window
+> climbs to the old head in each of 20 rounds, and KASAN reports a
+> slab-use-after-free of the radix_tree_node freed from rcu_core() when the
+> walk takes its next step; with this patch, the walk ends at the new head. 
+> The XArray and IDA self-tests pass on x86_64 and riscv64.
+> 
+> Found while formally verifying xas_store() against the kernel binary.
+> 
+> Link: https://lore.kernel.org/20261012202549.772887-1-nickolai@csail.mit.edu
+> Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Assisted-by: LLM
+> Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Cc: <stable@vger.kernel.org>
+> ---
+> 
+>  lib/xarray.c |    3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> --- a/lib/xarray.c~xarray-clear-the-new-heads-parent-before-freeing-the-old-head
+> +++ a/lib/xarray.c
+> @@ -471,11 +471,12 @@ static void xas_shrink(struct xa_state *
+>  		if (!xa_is_node(entry))
+>  			RCU_INIT_POINTER(node->slots[0], XA_RETRY_ENTRY);
+>  		xas_update(xas, node);
+> +		if (xa_is_node(entry))
+> +			xa_to_node(entry)->parent = NULL;
+>  		xa_node_free(node);
+>  		if (!xa_is_node(entry))
+>  			break;
+>  		node = xa_to_node(entry);
+> -		node->parent = NULL;
+>  	}
+>  }
+>  
+> _
+> 
+> Patches currently in -mm which might be from nickolai@csail.mit.edu are
+> 
+> mm-mlock-use-a-long-for-the-page-count-in-mlock_fixup.patch
+> mm-truncate-fix-the-zeroing-end-of-pagecache_isize_extended.patch
+> resource-report-a-devm_request_resource-conflict-under-the-lock.patch
+> mm-bdi-reset-min_ratio-after-the-sysfs-attributes-are-gone.patch
+> xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
+> mm-vmalloc-read-vm_map_ram-block-regions-from-the-requested-offset.patch
+> 
