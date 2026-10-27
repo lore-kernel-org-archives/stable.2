@@ -1,131 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793122488;
-	b=lyMMAVoLj3j8LFfBscghfmA97FRyWECV5qk1bgqYOMYfNHRpBwDfCRp0DVYghH0NyEfF
-	 AAxOq/5jeYAmIFa9E5CcV0Du4Xg7rsr+ETEIz5FirhgLct6Hpf0/jLpZS118WPwMZTxBx
-	 JiiiZDEMZNlfX4tPuXo80L7ACZYsxqaNgyZo6KJWt4AbilSCBZOLGMVqqPpE/va9g3g6L
-	 td4e7jZnB1hyu/uTRfo2hjqEJufqQuLhjJsKG6kGdrzHFkZ56sFsA0NxuXMIi7zBdEz8u
-	 8Lrnd3rPmjW6qRQAEMfIDtVtspyTYGCT4lTNxJ5ZzZqov1raSYLrO63FTx9DvYXKEYQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793122720;
+	b=zLmGzKrVhp/H13WHEKgo1atza+yn/Va3FhUDT1Y3CfjeBrWZ5AzCGR49rA6qVHahLLdA
+	 cPRq6+RdjqUNmdQCzXl9gH0kRW8DRYjeP71Fr7UU3F8lQED7GRN73Y6xwQSD3Rzd+G2rU
+	 HT3TFfXj0ae7k1YupfMHFj0E1OADdgOEzJN8mihAmJn8B+0LEK345FQP4heXta1j2Lq3u
+	 gnzKSyG1+RM8yxx80dM0ZAW3gJU1JZlLx7XcGcgYcQZcaAjOAD+dDll/ZZv9rUfVXCFpp
+	 jxkJf6f9S6TApetHpf+k+rFSSoPcap+aqiTzKe2guSEp1pQ2mGEtZBR6pCWKRuOzGCw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122488;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=GZ71TJ3d6xVuPPz27MwDP1bcGGs2L7qn/BpAPJ8epwk=;
-	b=LtQB58TnA/1dZ1awlQ3mObiytvnfDSfxKCfi/R2PaakJxIyra8oW+XI5FZgW9hRw9gNX
-	 DrVfSCQzf5wRCRI8Sg+7+fmTlxdEM+KbPaMtQAK5+iN2a9GNUgR0+Rm1X4PokVjdC0RKw
-	 5/8WZUr27QQfFlb4IczsF2WgRUpcBMmN2bZK22p+tvgjIORMmZLb2L3zwCqqoT/RgsXBj
-	 vLY5ZGHD6SkbO9oZPNqY6OqHNlWpJd+tlgvIDtxwQCzDxZIgFwAfQARiiLCuHSMQ3x9HG
-	 vBl97z7eE+CwudlAZX5t7OCcJ2z72/y8olh+myISk/cociwTx2nYMEV/7kwtgJI+btA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122720;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+	b=Kb189WDZvbbXBKwMNOrwhW/qiQkD9YCd4Jr+gBcxotvROYHOcvUR6ajIO1IIINlX1d41
+	 m9BCpRdMh0nBqRJRkvFWVfuPaIZeIoOH3uAMCO9LDd2fk43HHZpOReYMF+nEQXMdrESEv
+	 45AcH7c69/G91TQ+du9AI8YLD12Bw40zjrMGWr0d8blJ4XCvpbZZUMDJRAv8ggcIsUjss
+	 Wof9ECOKyiz18iFE4PV5+/rBVpms2uN4E4CS3Y2TeW3JOiwiAmCT5NDIApYD0KbTa8xzr
+	 4c7pQ1E42/KHMek78DlON3Nyd1m7lhtq8PY0teAiaNAxE1w3LXHjxgwTPaerklIq5Ag==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bmjNNwvs;
-	arc=fail smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TMbu8PxL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECEB606A321
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:34:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECEB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EFE606A321
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80EFE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bmjNNwvs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793122487; x=1824658487;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=FBtHAlB2iBYVHvZK2bQ3tkqg4NNENwJ0/VE8GwXkdVY=;
-  b=bmjNNwvsmDm+k/FiPUIt/+6hlD/1IUiNcuJnnhBN6uaVTdMHfnsk97uV
-   LnZ4xcRhbNO5hHTBxn3frSZOdYizn+Moxrgena+shVHzdlZNQ3cQSaBQd
-   DMvshOPsGP2I71dSJ3B/u1fw9d6Y60XAMSTjYpP3ntkXhqpixznlR1lXW
-   XYTOHpGSIXZj730wy8mZVUPkPkuFBwrI1L03/SEs9brvmK0jiC5GyrCNn
-   xK9joN36O5YMtuktOsuzRLoBfCjKRB611OYc9jJfVNU+6VoIi5KTXwSKT
-   z0EdbwPMDTWOreq2EGYhsYW5dsuUscE2tK4E9LkZtbsnCi3MEMBT/swc/
-   A==;
-X-CSE-ConnectionGUID: eX3DWCOxTEmgoYenCIJNWw==
-X-CSE-MsgGUID: DGobDNN4Rjia825xfbIgFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1824435"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1824435"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:33:55 -0700
-X-CSE-ConnectionGUID: oyce1y6ARuSgAlbVCeHJ0A==
-X-CSE-MsgGUID: gfBzWmPlQkGAaBKnDfTNyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4605827"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:33:54 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 10:33:53 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 27 Oct 2026 10:33:53 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.29) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 10:33:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bro2TSLrxYRruZPn6rIgI9YZ2Nj8oIimI6wxuVKtVfrpTBSJe6Zy3GXiG4EP0N2k6x3Y+5phKDr3JLvkDekecwqhhui6qSJIVOcOZQdFR8jHhVgl7FdpP0Xj977B7LgiTFEEzvQMnqOm2BYahO/qOG7pmgd7JD/UxIFkJB+jQ7MwsCcsYVHdKsF78JKrDenU+jYR3QgCf0+tKvdv1S+rhxYTr5Ss1VyIRbJmx4r0Z8B2zM45YIS48Vyl9CEy5j5ah92ACNc79b0/yL4ZtKxDs9VzJzoMagX0B1BdxwA+GoiEl0vpDcweG/DgFp1dLQuw9FXSVyw1h8omvLHzKSOj0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GZ71TJ3d6xVuPPz27MwDP1bcGGs2L7qn/BpAPJ8epwk=;
- b=svFEzPlaXEGqZIl+/zDBT8T5tn8x6k0PFDe8Qa+CeE22ndSBnJLDZhHafrViThYA2ViEFE6uPtKaFZvbRLUZOLUqOeTYidsociELUu7/vwKqfv+xPU4MWc3PLV1CsDjOL6m9yXeN8urZNMnHsGxx7JJX7qdUs9ekb6WQMsoUZBjwlhVt0RUhnBckU1kcRDmmqRE1tzydkjGDtqYEOpwDSOPer3wV2cPvaI0z4Ut3IMwqvn8s8xLEQfAx/7OdgZk6YcGC3mPNLABo9k/y0CvckQlfSL4uZf2nQdp6tX4ec5/6s6TnFB/3sKuSKXKptwq9hX5uFeZrsrsX5j6j108Kpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV2PR11MB148960.namprd11.prod.outlook.com
- (2603:10b6:408:40f::21) by PH7PR11MB6724.namprd11.prod.outlook.com
- (2603:10b6:510:1b4::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 17:33:50 +0000
-Received: from LV2PR11MB148960.namprd11.prod.outlook.com
- ([fe80::9761:b20d:6f27:5460]) by LV2PR11MB148960.namprd11.prod.outlook.com
- ([fe80::9761:b20d:6f27:5460%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 17:33:49 +0000
-Message-ID: <0bf8a97d-cab8-4f9b-89d4-dad687bd411b@intel.com>
-Date: Tue, 27 Oct 2026 23:03:42 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG
- Strix SCAR 18
-To: Jani Nikula <jani.nikula@linux.intel.com>,
-	<intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: <suraj.kandpal@intel.com>, <stable@vger.kernel.org>
-References: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
- <fc612de514d2382b5c783854aeb98963d0bc0fb9@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <fc612de514d2382b5c783854aeb98963d0bc0fb9@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0109.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:11d::8) To LV2PR11MB148960.namprd11.prod.outlook.com
- (2603:10b6:408:40f::21)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TMbu8PxL
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso1011a12.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:38:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793122719; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Li+JaGU86we1bTCQWjkIskPkifKFycV0MKHM67s8/TBy112MjnOmRfI2pJpUgpXhbB
+         LL5gyVzk9AY0Y8ufEosr9iszeFP81vg4/6SIB6xeZt+pw85/6RBuPkfvP3LkqvaRo6+x
+         mnIwvviR1qVoqXfkbut8XUtelRVU9GF1AsaszfykYixxtKzMaw7oEo1pfCTXaNNK7hiK
+         PzkocvT5vDvpTndLS4frEqs8XhvIMblvI+Eht8zGkhpRGcFfIBQF+E77sCdS88PESoH6
+         rPfvRsBJ5h1OkeeqnHPibdImGBMGddQ9QLsvWm9jOtNWidHTQAkHougaVBW/jWhnIzex
+         dTLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+        fh=c20XU3+zQR8JTknIygg380MkLZ2qIA0JsNT3o1DB25M=;
+        b=JbCmfx5Ioz5qt7CVwEbY7vWnNn6AuEoe6VFr+qLeio9bXsZZnI/WjhqAFXoTSgrVVG
+         jemVsMDUzSvHJpJz3ALIeyF/K2pK4pigesfQ5H+MxsqogQpFa0dVvTZGjgiEuQSoQP7G
+         qIzlWDg3pz6VnUHU5dNG6LFJprCEMYfawFKeWsruZFgj0moy1xfq9lwQuOCT+jS1fnEM
+         gxjKZpyDp3W+Q5yulWGZXDgw9Vx2c6msvp93hdS9ljGCBE6coqnf2O7R9al5x2W6voIe
+         WyhyUC29QMX80Qj6ZPXA0JNfzWxQtP50e3+vbUHMp71APDTFf2mxqvaOcEEwT9Sr1MbM
+         b3Ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793122719; x=1793727519; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+        b=TMbu8PxLhpBm5Jxc+UmD3OrKaB4W+TrO+HcdLK/qemtnz4THsUOJblzPEUuFNQdsAX
+         xVppISd9HZVk1k52dXnBDZH5JY2olDDSO95++GZTKXt09LrvWQXh0bdmoGTLejAK1OLt
+         bxZAkxblGRQiGMML4G9URFa8xQWaDlL49VzCVKznumP2+MyKHmYFopFrp7Vomsp36yZT
+         yCc03PZELOyQAfukDHyz3vOgAGIADyvURsSBd2Fsfa6RJBwz/JWJp+HSEvxtvlpPmo9U
+         hDMP72JYBeOYHs8QzW38V9/J7Ub9YckAD4l0ZmHIvx0H8IlISifANZcUpwjvV3oxhTkL
+         uyiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793122719; x=1793727519;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+        b=vG8pPsNm5h1SeDBykUXW3i/T5AddX8ZFpyNd69viAaqxU1rXHjQcYSFRs6cS/dEWq6
+         NLxRRJ+YXXb1ewizGFDl2E/i4tclcicibulRYr6kOVSfRJJd+C7eqp5ooeNsvgsluglh
+         fEmbfakb3219MhNg3MgRaKzeliBSMzgQQDMAtlMhtw/H6uNZIhJEww4fjOPgfHt/NjNQ
+         5Vir3ExufSDxTKurMF6qyF7lXayyOsloxU3okfLefEe9m8LoFN96L+MNMNY7o2FB8xx2
+         2epRe4p03ApxHWa4vrfRrtzM19dzZAhfxoVopXQuqEeskFK7IyFXGVOG5PD9yrCVmQz6
+         xU1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxiYsN0ZB2Bs9+sfSkOLwzOw9U9Cj1B6G0O8quoMfV8Z4wx61tv45vp4OxJN5k3hJtNpU+mBEs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6hui9N6NSTJLB0uQjbaKNg0yBFky81duMGkWwNRhuAMXgJmtI
+	2qQOwEEoFiETYwZZNwqgWV7WOr6/t3yXgCOgWfzvKFAVYpwBVqw5Qt4R5gez+/fO8w5ksGq0KLi
+	sG/9pNsGno06hv54D0tkFwM7wBPZ6N+mZpvdES4eN
+X-Gm-Gg: AYBFou3wzTeZAHvq/3IKPnFRHOQAOUmWh4efEscpC8Iu8RyX1yCuW23NPHpBMVZGvoR
+	O68ebhYroDEkc/bwBMKlm4XGiHf362pBJMJFOH6r5sG5LSlla+LwU6/Bl8VcWBHUbKV0210EmU4
+	eJmHzfDPZEhDwGbHbfwN79gZYEJMbLw7cyqYHsUUCm1C+d8SQWYtZKOKRmk5bKLYrJZpXWQpfHz
+	+ZyuU0rrBVL3yx053Vh7U3t33keCZq11OQuSLotB7dQPsnWFZuMoJiokpmCI1qy2jdmcB+tJSXr
+	4IlQ9rFUfu2AlG8JFiMgAAgi24jpcZrH3gQGAD+fEI4kilbFNKfhVh4clOXejpJSF+dlV/DLQe3
+	MvDQ1uoA/RQLisbyeo8opfPMu+mKVzcl+5LzmqYM70RkFmZJBOyiFVQ4JZ93HFYR4BA==
+X-Received: by 2002:a05:6402:a2cf:10b0:6b4:597f:50ed with SMTP id
+ 4fb4d7f45d1cf-6b4994c5b30mr2214a12.5.1793122718174; Tue, 27 Oct 2026 10:38:38
+ -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -135,175 +104,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR11MB148960:EE_|PH7PR11MB6724:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23eef054-5373-4c87-28cb-08df34507638
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|22082099003|18002099003|261026121527099003|4143699003|56012099006|261022075727099003|261022105027099003|10067099003|5023799004|11063799006|261021123027099003|261009223027099003|261021121427099003|261022113327099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: ahTXpewt9JT8URDPsTAe4CcDi4lZI3Ujb2e4NbsupkTFu+FO16Igfomoz4itM68GCcpRohmDwX/QObxqFjzJNxLq+d5rlkj/JG67zLdRjM6hiuiw4+sLdicIIOf/UxWoLb6ffemQkvvK6WZoQqWcvdBd6UKU+1Jux6dXoBRgm0B3LoEoColoHwyMdgoE+6n1YxZW85HWbouYAYq8ieWU9yA7t84Tj+fM3Uf5lO+EzmdbE25RdYngrpdhk8Bkt/55FtYXrxjz3hAe7PIgZG87sn+XdTQKnV/z6UpMfbUyLKdbSjOMySe2tTfKSPbsS1XoDbZlJiwuldOMkOqwk+DKpk5hpjePBzTrkg0V3hpBwPw+6jmtNvtffA/x8fzGpPoaexg187fAci9PQWamMtPnjmUg/XFSoxXitYWVLIu+jejj1fzmJoKFXOpZpDiSxLzSMO3CC494OpONdSVJP2TdYrbYaMT9lFqT5X8coeF3tj0Cmo8+M2w+4FRN6LhvksMvSWJQV5Ud6vrGvF2jmsEIwoXaQxLfOav6GwBCdTRsPLfmQeoufjr67TSlQuM84C/ZHC0ik01agFdbigGdxUirV7E23xm45jqmrQMyiCg/4zFJnaGpyjdjb6hDt1nId5lH
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR11MB148960.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(261026121527099003)(4143699003)(56012099006)(261022075727099003)(261022105027099003)(10067099003)(5023799004)(11063799006)(261021123027099003)(261009223027099003)(261021121427099003)(261022113327099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dDhSOWk3Yy9FUHBSUkRhWmZGSis5Qk15ZFd3OFFWd1FWTVpQc2JCcHRoR2RE?=
- =?utf-8?B?QlgveDJrL0xYUHl4MFo2TDhUTm04SXJpZ1lLS1Y4N3YvUWZBYUk3Q0FmOG05?=
- =?utf-8?B?a21GdXpVanZRcEpobENQWUpWOUpCRCtPRFdEWWpmSTZBYktmSndJVkY2czNL?=
- =?utf-8?B?eFQ2ZGNNZWZkNUd5cjdUTGExL3J3TFhKOVNwKy9SdjdDVFNoRUZZTWYzWVlz?=
- =?utf-8?B?em9CbmlDWThWVkFwZUl6S0xReTVvUnh0MmpUbE40VUdOOTNvUXh6bnRtTmw5?=
- =?utf-8?B?NDVHSGxZekw4cUVpbE8vTHdrTE1PMVcvbnN0bW9qa2RnRGxUT3VEZG1kVzFW?=
- =?utf-8?B?eEV3bFdIMDZ1NUZpSGJKSm50VFI1a3NMRkEvVjBxWmVxbmNJVHJucndoWnA5?=
- =?utf-8?B?YVdnZDVXN2Zoc05EczNSOWhmZU0zbHZhT1I5ODVuSExNRUJHUFdCTXlZZTRM?=
- =?utf-8?B?K2VxRGdBaDZmRkgwK2JYT21ibDdMcTdPYUhDdE1MVm5UY1I0RFZwcUc0czF0?=
- =?utf-8?B?ZmRpMGVQVnVaSU5oZFdjVjh5NXJZYm5lbUtzRW41WFhsdDZNRW0xdHozaUtQ?=
- =?utf-8?B?VG4vSTcyU0xKV2NoeXlHVHJ2dzZxd1lwdHZDenM1aWRCcXF0Z2dIbENjUmFS?=
- =?utf-8?B?Qng0SjRQN2FzQUdqbkdMRzk1TURNYVBzaEx0bkl6cStrTXJQTS85UFIwNm9w?=
- =?utf-8?B?K01mZ04zMTdPbGR3QWs1amlaU29XYkxCck9CZ1N1SXpST0JyM09JZDAydFgx?=
- =?utf-8?B?YzR4U3piR2ExV1Y5Ny9HczBCRlR6WmlLc0F3VGYyZnlNR1gvWTd3SVZkNWxI?=
- =?utf-8?B?bmFDMVdrM2ZNa1pNMkhxdk43MzUwV2RLY1hjSW9Xa2E2WWNRdG40NEJrL0Ns?=
- =?utf-8?B?c0hpdlRRb2htaFZkb3phQ0h0SzlVU3VCMFBhZS9IMTlUaUFRMWRDZVMwQ0dn?=
- =?utf-8?B?czZEb0dLdzFFYXBkMklSYXJ4am44QkhPZjJlbWpJeGhGaEpWb05lRzloN0Y0?=
- =?utf-8?B?a0FURkc5eCtTU1BwWDlpc1hZdmhqOHk0cHpNdy9XOStzczh6Y2gvbG9NVmhu?=
- =?utf-8?B?dURWZFFrTlJXaTNwYnp4dmdrRE1jaEZBTUY0Q1luMHV2cUFSR2FWS2RGZFo4?=
- =?utf-8?B?Um53bG9xUEtnMEJTSWlKbU0wWkQ0a2hHUVBsQU12MG1PYjF5T0hTdk5ZMk83?=
- =?utf-8?B?bzBHK1U4UVNsSkVDNUQ4ZnZiQ2N2WWJSaTBLM1FDK1hodE9kYWFXWTlnSE1w?=
- =?utf-8?B?UWRGK0VNYUdIS0N0aVlvODJqU1Q4ODRMb2dRbE1lMHFxa2xua0k2bC9Ca3Nl?=
- =?utf-8?B?aUpYWGhXZWVTVXhCWEdZRlV4VHVvTjhJN3diZWtya0Q1REJrcXppbmFQMEZX?=
- =?utf-8?B?Mk9YRmc0K2NKelpVMVIyRHRIL2p3M2dPbDRkaXJBVGYzL3FRTVN3VzRyUWJx?=
- =?utf-8?B?UCtITEZtWGJWN3Q3SkN4bTJRMmx2dHhURUppS25tUEJtdTcrVUxJa2I5emNG?=
- =?utf-8?B?aHBtcEpWeEtRakZ2b2Rka2hUL0laOE1mZGF1TWRmU2tBTWdsQWlyVFpxQkxz?=
- =?utf-8?B?dFMyZElrU1JkVEx3ekZXZlhxOWFTSjNwZmR4LzRMSTRmU3NsemtyODdrTUx5?=
- =?utf-8?B?WHYyRHZLZDdXWFZ0L0J1TDU5TUprb3lzZ0MzSVdwL292bWoxbXNWMlh6M01l?=
- =?utf-8?B?OEpPM0tpVVBNQUZZd21HRzNQdEVxYVl1RWJLLy8xQUxTSWc3SWlnczVaZUF4?=
- =?utf-8?B?MHBQTERubGFRdmREakY2bGVxYUsyM3ZPOFRmUGMwbitscDB1Qzk0eHFML2ZU?=
- =?utf-8?B?YlRnQU42N05GTnJYRFNrdTdhMVdqRlRBckdSZDVydWNkZEFDWG1udjhGb0dM?=
- =?utf-8?B?ekRKLzd6MThwV2tBeWp6dDdJQkIwZkIvM1VVbVRyUjJDV1ZsZlRPenIyS2lz?=
- =?utf-8?B?VEVVaWwxUjBKakRJQ0cxTUpYd2FFQ0dEbHdRMWIxQ2JlMER6bXJDbFVvUTFk?=
- =?utf-8?B?cG9oM0RieGVtSGQ5L0w1K0tRZlpjcnM2RkFkOFhQaWlaQ21sWktaQ0VNckZK?=
- =?utf-8?B?VU1sQS9jbUk0dGx4OFJ3VGpsMVhteHJhRzdqWFlvWWNjbDRmUGM1cmtPOUxl?=
- =?utf-8?B?WkN4ZXNuY3M5NTBKa0dFbnlTZHd6bHFyRGVibGZndTM5SktNVkNEMGxuNktQ?=
- =?utf-8?B?a0hFSjBhWi81UmlwRnNOUDZWTS83Mi80MVpmVEIxSVZGZUVhM0lWYUtHcFR4?=
- =?utf-8?B?U2VnZkpxZ1VKWkVUT1podUV3MFRYdmNPelAyTWp6Y24xODZ3dXBLQ29FOHI2?=
- =?utf-8?B?VkZORDFYWXQxLzRnMGR6WmJMVXEwVWFQaGVBOXlHcFV0Y1Z3Q0Z4SW10cVRS?=
- =?utf-8?Q?u0i7d5tLxeAMOQyU=3D?=
-X-Exchange-RoutingPolicyChecked: og3U+mTtcVcsp17SZZJnMlEwiTX3tZZdQ1ZT2zy9LdFUovFTdRRg8pyDUET40N67KEB77qCmd3Gi5niDXlrE50TQiHw66YFpyiyGqxjIWMvJMKwTybtv95CglVVTSaWS+RQM53zWcNZb+LXZ2j7bJbh3e3wToPbv5QpiUdesfSmFhy3JiNqZdKMD4EE7pkpHWL4GlTpKvit7hCn+UwTqxFN053p0/boQzlTzpMnQBKULdgUGwjdzUN533VM6nMsv7yTxzLtOEtxPdWV5w/WN4WmGETHaPauSQNVUa0OMYbPcHWQ+A7laO295Dw8kU9t9TXZ+lHtKbf0ubd0sLPWGPg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23eef054-5373-4c87-28cb-08df34507638
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB148960.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 17:33:49.6208
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jHobQcIdot36b4/ZI0ocC8mOlf2lCZhFhCl+EhG07gSFA5RQEthRGCeKNTjx0OUxYNW0UpDta95CCVtonmcBhGPYYhINyF+g4dNdFC1Ql+w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6724
-X-OriginatorOrg: intel.com
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org> <auBityGTDQjXURWg@gremlin>
+In-Reply-To: <auBityGTDQjXURWg@gremlin>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 27 Oct 2026 10:38:22 -0700
+X-Gm-Features: AclHuK8I8xcfhrxH9JH4rYz28CrMoohsxda9QortkIHbiI93aH5ozWron9iLPAM
+Message-ID: <CAJuCfpHEHPNj9DKOGbVHYCUsmLf==-XkhzBAR94gNt_ErhdnnA@mail.gmail.com>
+Subject: Re: [PATCH 23/46] mm/userfaultfd: write-lock the VMA before waking
+ waiters when unregistering
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Oct 27, 2026 at 1:43=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> On Tue, Oct 27, 2026 at 12:17:43AM +0100, David Hildenbrand (Arm) wrote:
+> > userfaultfd_unregister() wakes pending missing faults before clearing t=
+he
+> > VMA's userfaultfd registration. With per-VMA fault locking, holding
+> > mmap_lock for write does not prevent another fault from queuing after
+> > the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+> > waiter can then remain asleep indefinitely.
+>
+> Oof.
+>
+> I guess userfaultfd_clear_vma() only implicitly takes the VMA write lock =
+via
+> vma_modify_flags_uffd().
+>
+> >
+> > Call vma_start_write() before waking waiters. Existing fault handlers
+> > queue themselves before dropping the VMA read lock, and new readers are
+> > excluded until mmap_write_unlock().
+>
+> Clearly an oversight from the VMA locks work. I guess was always a Hercul=
+ean
+> task to catch every single point at which there is an implicit assumption=
+ that
+> mmap write lock ~ readers (esp. faults) excluded.
+>
+> >
+> > Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Josef Bacik <josef@toxicpanda.com>
+> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-On 10/27/2026 4:46 PM, Jani Nikula wrote:
-> On Tue, 27 Oct 2026, Ankit Nautiyal <ankit.k.nautiyal@intel.com> wrote:
->> On Arrow Lake, VBT defaults the eDP pipe joiner enable bit to
->> disabled, and commit 650471948e49 ("drm/i915/dp: Avoid joiner for
->> eDP if not enabled in VBT") made the driver honor that default.
->>
->> On the ASUS ROG Strix SCAR 18 (G835LXG), the bit in VBT is left to
->> the platform default instead of enabling it, even though the
->> 3840x2400@240Hz panel requires the joiner to reach its native
->> mode. As a result the mode is pruned and the panel is limited to
->> 120Hz.
->>
->> Since the VBT bit cannot be relied upon globally for ARL (it is
->> needed to block the joiner on at least one other machine), add a
->> machine-specific quirk, to bypass the VBT restriction and allow the
->> joiner on this machine.
->>
->> Fixes: 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in VBT")
->> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
->> Cc: Jani Nikula <jani.nikula@linux.intel.com>
->> Cc: <stable@vger.kernel.org> # v7.1+
->> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16854
->> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_dp.c     |  3 ++-
->>   drivers/gpu/drm/i915/display/intel_quirks.c | 13 +++++++++++++
->>   drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
->>   3 files changed, 16 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index 00e02e019d25..7b83cc83eede 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -476,7 +476,8 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
->>   		return false;
->>   
->>   	if (intel_dp_is_edp(intel_dp)) {
->> -		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable;
->> +		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable ||
->> +					  intel_has_quirk(display, QUIRK_ALLOW_EDP_JOINER);
-> Could we hide the quirk in intel_bios.c to set
-> connector->panel.vbt.edp.pipe_joiner_enable?
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-Yes that should be possible, as I understand the intel_init_quirks 
-already sets all quirks before we reach this point.
-
-So we can set panel->vbt.edp.pipe_joiner_enable directly in intel_bios.c 
-if the quirk is present.
-
-I will make this change and send the new revision.
-
-Thanks for the suggestion.
-
-
-Regards,
-
-Ankit
-
+Thanks!
 
 >
-> BR,
-> Jani.
+> > ---
+> >  mm/userfaultfd.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> > index 669f71d485d02..7e30b5ff17be1 100644
+> > --- a/mm/userfaultfd.c
+> > +++ b/mm/userfaultfd.c
+> > @@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaul=
+tfd_ctx *ctx,
+> >                       start =3D vma->vm_start;
+> >               vma_end =3D min(end, vma->vm_end);
+> >
+> > +             /* Prevent new userfaults from being queued after the wak=
+eup. */
+> > +             vma_start_write(vma);
+> > +
+> >               if (userfaultfd_missing(vma)) {
+> >                       /*
+> >                        * Wake any concurrent pending userfault while
+> >
+> > --
+> > 2.43.0
+> >
 >
->>   
->>   		if (connector->force_joined_pipes > 1)
->>   			pipe_joiner_enable = true;
->> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
->> index 7d7db774d8c7..ba7bce7f2827 100644
->> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
->> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
->> @@ -100,6 +100,16 @@ static void quirk_disable_psr2(struct intel_display *display)
->>   	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
->>   }
->>   
->> +/*
->> + * VBT on some machines defaults the eDP pipe joiner to disabled even though
->> + * the panel requires it to achieve its native mode, so allow it regardless.
->> + */
->> +static void quirk_allow_edp_joiner(struct intel_display *display)
->> +{
->> +	intel_set_quirk(display, QUIRK_ALLOW_EDP_JOINER);
->> +	drm_info(display->drm, "Applying allow eDP joiner quirk\n");
->> +}
->> +
->>   struct intel_quirk {
->>   	int device;
->>   	int subsystem_vendor;
->> @@ -262,6 +272,9 @@ static struct intel_quirk intel_quirks[] = {
->>   
->>   	/* Xiaomi Book Pro 14 2026 */
->>   	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
->> +
->> +	/* ASUS ROG Strix SCAR 18 G835LXG */
->> +	{ 0x7d67, 0x1043, 0x3b29, quirk_allow_edp_joiner },
->>   };
->>   
->>   static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
->> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
->> index 970a4fe52faf..84f31809011c 100644
->> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
->> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
->> @@ -23,6 +23,7 @@ enum intel_quirk_id {
->>   	QUIRK_EDP_LIMIT_RATE_HBR2,
->>   	QUIRK_DISABLE_EDP_PANEL_REPLAY,
->>   	QUIRK_DISABLE_PSR2,
->> +	QUIRK_ALLOW_EDP_JOINER,
->>   };
->>   
->>   void intel_init_quirks(struct intel_display *display);
+> --
+> Cheers, Lorenzo
