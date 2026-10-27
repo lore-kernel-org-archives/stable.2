@@ -1,99 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793073591;
-	b=jHxc8/KaU1inOF8rbKA7/sX/ykCykpj78Ep2v1Rqdv/dlkBP13H9UT4aFYyL6+4Etkt6
-	 MWhShlR1Sof4ceFxiLisDQRZzpeidyvzfYZY0nqsy2dRd37MR7XClMaSBKRrCwhFY9mlp
-	 03hgpQSL+9p55jYO8dhS3cP/NaxcgXAvMfs9VajnNGiUvbj08sqrjF9taTpSvnpHCR4C1
-	 urCFS2e0F9imQKz8QkErRaMT9ASZKR3h7oZ1Rchqx4fa9p+p+WS3ETpmZSfglvUjHPo+c
-	 TJAIQvNU7zKN5GLuXy6gZI5BUZDR4wgiCe5lSHx4OPgxEbdsvZNwdwp65MeB0CnbwYA==
+	t=1793073695;
+	b=I2GkYEGDHsjMbMt0A3eNr5urv3tWnDnlp3VPeB7+Wt04k5h4xYZRDGxXajQ1DrIahyrl
+	 ipwELZLCAGRP4Z3cyhy8CVwaL8opxIRTUNup8YdO6UmTJPj2McTcl4LuoYZB8PE8KPPIe
+	 30Naqr8i6mkUBntF29EWRg/FDWB+OxwkQZcwUXe6JqrxvjMcKM34Y6DpIVPn5HlokqZRE
+	 Owvlq3AUj5OhoTnBgrEJ2QffHBBE5kXuhptTDSaWzg2AfBg6sczROvKEKTBaVtRiN10l8
+	 dWMSsYmFFvCuAmbYpb0P+duoO70nJVUlpzCced2qanORyXwWJaEYowI9uzqaY9lm+QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793073591;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ow0G93l9e0EmY6URJd2RDSyzRNeAkWxjCkJmGzeQGzA=;
-	b=PYfuUg+k/0nzuqdnrWx4liGV+Rza3kxslxKQFL/TysrZNr14KwTp7RxxbLvmBTEr4dvv
-	 nyceUzkdY3BTH1rKw56JkrNLFxowMnbfoHH3x4zQXYYXPlbJA+Z5lpmBX05l24cXCsjCU
-	 wc2yCyEWKzhxzdoKtzuQYP3Ou3ZHP7dZEd216iYXQMnUswNwn/tfLZXQdNhSzevuGpplj
-	 zjsB7UNP+JKips1COIsnUSRe6g9A7aX7O7Pp+vAEoLTOmCXCaUItSzZdcrk+KdDBWm5PK
-	 9cHA0TobAr+PgsL7gTTNBP6V8URwvICUzZJ3Wx4rFzi0y+Wj7Ir2YZcAMk2Nq2OBA7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793073695;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=kNZ8G8jnCaFmoNpUZvX1H4P3SGZ0ie6bKnpVTUrwXkQ=;
+	b=b8Tlfdur9MIC8Dks2SfBmPKVbaGqLIjjHEZba79QP8c9f73otB5aHUMhlNWFc+suFaUN
+	 BPi3kgMgtrYfsgqZJEDYp5QtBuUO+zjHaaikbsLrlc9c45V2pIv9lLKyg1Sr7vnrUWN1F
+	 adh2o9c2Hq8T6NPI1/zOKZQzaknzBmkePtttbL/VPx6VtGn7VYEvO0M+dRuXfse/+Aw34
+	 jo+M/yqmyu7e9z9RRHUhDY2AHN0h/K6G8WPP8sXGZasYKsITOif9Mx2NMRBlD0E+AhJ6p
+	 3FZdmx916bpN3HiY/Xr40I+cl09O+Dh72NPtrbIKcvZUg+qHVz+bpdMM2JAerRjKs+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="aMwh/y2f";
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VPvLye/9";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD5E606A326
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:59:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD5E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CF0606A31A;
+	Tue, 27 Oct 2026 04:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aMwh/y2f
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so2206527eec.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:59:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793073590; x=1793678390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ow0G93l9e0EmY6URJd2RDSyzRNeAkWxjCkJmGzeQGzA=;
-        b=aMwh/y2faS/js83YQ/KEeWIzD4kvOPqz2TU3afqpyyDp1Xs/QMPIUVv3dXmtkk4rh7
-         ZLxFlVOCJLFzJYhI7oiFSCfiPQLskB2qIB0Cl/2H/ZEHnrEiZJC9RkDW0NdP4t6mVqvJ
-         yrdo52st4GLaEGCCV36JmGMIV9WDuHTqKmBF5SbNQaoqLpQGgsyPfZ6rsHAkmm1M0LRa
-         1OUMz+QUhySL6M0FC6oUa7i4M/xOYqGjFvnt3pUv6z61ZO/ngNDiWW2DC/2sHeQMPZpI
-         wavf10DMzbXZXKyUA8PeFHipSfLDXz4X2U5iwLWXbQYOko09ZctwzsUnvy5HphzbDr7c
-         iJPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793073590; x=1793678390;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ow0G93l9e0EmY6URJd2RDSyzRNeAkWxjCkJmGzeQGzA=;
-        b=Ur1YgT2NxV+A80pLhgLJamkg9MgMctSaU+WykcjeMS9TaO7YcgNmHgpDFOPDnjk1d6
-         uKOh/iV/8fxEuWVhHL76B901npoxs0S7AEIltK0cofsVsrNA+r+Z2wx44M82fTZPhB9e
-         4uEP5vlQmXTW30vSaRfDETDBeiT1aJFl/7jk/oUhtqx8VaHkcpzt03QNdqOJbRnQ7Hj+
-         7bsWTzcJ+IQzDDNUhQfWR3KWbE1ZoO7wHzAsfdSnfPzvgJLluG+WmsYk7tKk5XzExiuL
-         rYnusb41wEERd6vQ9JDRIrcfxZNODYiaerr0prqwSi458bFq/zKSpZ5DNwMIFP8ykmth
-         z8MA==
-X-Forwarded-Encrypted: i=1; AKwUvBzaFV65+RivrWtHntosy6Qwc+LtcD604szeG1qmWA5jUo/QH+JZvLIbScymyQEZ4S6pphmr5sU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBPN/SSa9Sgnw4W77WEb4OO1JQ+UKTRzYX46sEez4FBS2/SEVd
-	uv7soBve0O+aBTKsAvg7TRTv5x9JqTIm4SHiiMcX4jfL07QiR5Xq2P8m
-X-Gm-Gg: AYBFou3oIJj/ZN8wvBYDIqsMWZcp7V2Gq15oSTUsJ9sTwmsRgVn/04LUIcj3OU9ckpD
-	ocydZfmLR7m4F+VywoEhoOWI4yHNeTtV0o0c5zS5EsjFd3AdsJuNEMTgs6dwnvJnRY7RKc1vAtg
-	jfELZ8U9Nr7vf/spFS867XfT2sONlo8rs7ouJGxVMmbyUupu/PfC0ucAq8+CZL4ZPKkYPM3/4RO
-	DuHvXreBtA0+BGqUpoDFBphG+HddWg7BWonM2mbaL8JBW7/Tc93KtPG0S6r4/ItyEZrDNsC0XLq
-	qTmDBBah/bPj5CVzIF6QhJ4uERYU7X0uPtm7HSDdag8LMbJsJ+GYgt4QXoTONe5d7FSB3OFEVTC
-	2uxq7uC3i2Hc/5ryBIIsMU/pMp/LAsbZq4390kk0MWOYlAms6e7ays5EgmcAj7Sm0+oKXGQ2YTB
-	csEIocbeafG8Gcd2lbJcUsehlCvJpaLc6OEoWrkFORQbgcC9uCDWScActbyj+0Fk2FfU2vqGsFE
-	y1Q2sy7i35aGm281GpDgBgti7K8ewwzTk+6pRYBPo3rknjt4xLWDfKuRXjegQr1IH2UV9tTOPA6
-	JEWbFRo=
-X-Received: by 2002:a05:7301:18af:b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a12d7efc5mr979215eec.34.1793073589608;
-        Mon, 26 Oct 2026 20:59:49 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daa3a8sm36899329eec.16.2026.10.26.20.59.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:59:49 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	djwong@kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] ext4: preserve force-fsck requests across unmount
-Date: Tue, 27 Oct 2026 03:58:57 +0000
-Message-ID: <20261027035857.72265-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VPvLye/9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B141F01825;
+	Tue, 27 Oct 2026 04:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793073695;
+	bh=kNZ8G8jnCaFmoNpUZvX1H4P3SGZ0ie6bKnpVTUrwXkQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=VPvLye/9aqYSzIBt766qHx0UIEnt86a1M9re73o7pLSSQrNVIfNqGcXy3JJA/02XT
+	 Qgmo3SybnjB0J57iyydCIBk92CQyFcMAASdp0QmdB7Yc7FlhW243EJPzl3AEEhXuaT
+	 MnHMRcBTEHv0/VK+L1+W9N48cKdD/OM5zkIfqy7sDR/5WybaT29ygsLyzAAqmBCg+4
+	 yUNQpDd5wnKJLZZbr1t2NCV1w6TdNAUFijd7Eiz4VoFIXnS2Z/2x+nbux/is7yyszq
+	 NbVwMD9Lr63wxuC1WSVgOqMBIzDAVBBIGxP+XS5QWbsfxGJPgZ1miFI3948iqBwc9Y
+	 pMLQe5EIaWDog==
+Content-Type: multipart/mixed; boundary="===============6490294886834219674=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,44 +49,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <b3ddc3a43512b33fb503585d34dd75ef62420ea0e0d9f0ceecd6262f79fcb9d0@mail.kernel.org>
+In-Reply-To: <tencent_BEA5FE30F5544754FA5F1BBE68093B69AD0A@qq.com>
+References: <tencent_BEA5FE30F5544754FA5F1BBE68093B69AD0A@qq.com>
+Subject: Re: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
+From: bot+bpf-ci@kernel.org
+To: treebacker@foxmail.com,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,netdev@vger.kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 27 Oct 2026 04:01:34 +0000 (UTC)
 
-EXT4_TUNE_FL_FORCE_FSCK sets EXT4_ERROR_FS in the on-disk superblock
-but leaves s_mount_state unchanged. On a normal read-write unmount,
-ext4_put_super() restores s_state from s_mount_state, clearing the
-requested flag.
+--===============6490294886834219674==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
-As a result, a successful EXT4_IOC_SET_TUNE_SB_PARAM call can be lost
-before e2fsck runs: after unmount it treats the filesystem as clean
-and skips the requested check.
+PiBicGY6IGNoZWNrIGNwdV9wb3NzaWJsZSgpIGluIHBlci1jcHUgaGVscGVycwoKVEw7RFI6Ci0g
+YnBmX3Blcl9jcHVfcHRyKCkgb24gcGVyY3B1IGtwdHJzIG1heSBzdGlsbCBjcmFzaCB3aXRoIGEg
+TlVMTCBkZXJlZmVyZW5jZToKICB0aGUgdmVyaWZpZXIgZG9lc24ndCBtYXJrIHRoZSByZXN1bHQg
+bWF5YmUtTlVMTAotIGNvbW1pdCBtZXNzYWdlIHdyb25nbHkgc2F5cyByZWFkcyBvbmx5Ci0gRnJv
+bS9TaWduZWQtb2ZmLWJ5IG5hbWVzIGRpZmZlcgoKPiBicGY6IGNoZWNrIGNwdV9wb3NzaWJsZSgp
+IGluIHBlci1jcHUgaGVscGVycwo+Cj4gWyAuLi4gXQo+Cj4gRml4ZXM6IDA3MzQzMTEwYjI5MyAo
+ImJwZjogYWRkIGJwZl9tYXBfbG9va3VwX3BlcmNwdV9lbGVtIGZvciBwZXJjcHUgbWFwIikKPiBG
+aXhlczogZWFhNmJjYjcxZWY2ICgiYnBmOiBJbnRyb2R1Y2UgYnBmX3Blcl9jcHVfcHRyKCkiKQo+
+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gU2lnbmVkLW9mZi1ieTog5bmz5LmLIDx0cmVl
+YmFja2VyQGZveG1haWwuY29tPgoKVGhlIEZyb206IG5hbWUgaXMgImJvIGNhbyIgd2hpbGUgdGhl
+IFNpZ25lZC1vZmYtYnk6IG5hbWUgaXMgIuW5s+S5iyIsIHdpdGggdGhlCnNhbWUgZW1haWwgYWRk
+cmVzcy4gIENvdWxkIHRoZSB0d28gYmUgbWFkZSB0byBtYXRjaD8KCj4gZGlmZiAtLWdpdCBhL2tl
+cm5lbC9icGYvaGVscGVycy5jIGIva2VybmVsL2JwZi9oZWxwZXJzLmMKPiBpbmRleCA2NDhhYmUx
+YmE2M2EuLmY5ZjJiZDY2NTAzOCAxMDA2NDQKPiAtLS0gYS9rZXJuZWwvYnBmL2hlbHBlcnMuYwo+
+ICsrKyBiL2tlcm5lbC9icGYvaGVscGVycy5jCgpbIC4uLiBdCgo+IEBAIC03NTMsNyArNzU3LDcg
+QEAgY29uc3Qgc3RydWN0IGJwZl9mdW5jX3Byb3RvIGJwZl9jb3B5X2Zyb21fdXNlcl90YXNrX3By
+b3RvID0gewo+ICAKPiAgQlBGX0NBTExfMihicGZfcGVyX2NwdV9wdHIsIGNvbnN0IHZvaWQgKiwg
+cHRyLCB1MzIsIGNwdSkKPiAgewo+IC0JaWYgKGNwdSA+PSBucl9jcHVfaWRzKQo+ICsJaWYgKGNw
+dSA+PSBucl9jcHVfaWRzIHx8ICFjcHVfcG9zc2libGUoY3B1KSkKPiAgCQlyZXR1cm4gKHVuc2ln
+bmVkIGxvbmcpTlVMTDsKCkRvZXMgdGhpcyBmdWxseSBoYW5kbGUgdGhlIHBlcmNwdSBrcHRyIGNh
+c2U/ICBXaXRoIHRoaXMgY2hhbmdlIGEgaG9sZSBDUFUKbWFrZXMgYnBmX3Blcl9jcHVfcHRyKCkg
+cmV0dXJuIE5VTEwsIHdoaWNoIGlzIG9ubHkgc2FmZSBpZiB0aGUgdmVyaWZpZXIKcmVxdWlyZXMg
+dGhlIHByb2dyYW0gdG8gdGVzdCB0aGUgcmVzdWx0LgoKRm9yIGEgcGVyY3B1IGtwdHIgYWxsb2Nh
+dGVkIHdpdGggYnBmX3BlcmNwdV9vYmpfbmV3KCksIGNoZWNrX2hlbHBlcl9jYWxsKCkKdGFrZXMg
+dGhlIHJldHVybnNfY3B1X3NwZWNpZmljX2FsbG9jX3B0ciBwYXRoIGFuZCBkcm9wcyByZXRfZmxh
+ZywgYW5kIHdpdGgKaXQgUFRSX01BWUJFX05VTEw6CgprZXJuZWwvYnBmL3ZlcmlmaWVyLmM6Y2hl
+Y2tfaGVscGVyX2NhbGwoKSB7CiAgICAuLi4KICAgICAgICBpZiAocmV0dXJuc19jcHVfc3BlY2lm
+aWNfYWxsb2NfcHRyKSB7CiAgICAgICAgICAgICAgICByZWdzW0JQRl9SRUdfMF0udHlwZSA9IFBU
+Ul9UT19CVEZfSUQgfCBNRU1fQUxMT0MgfCBNRU1fUkNVOwogICAgICAgIH0gZWxzZSB7CiAgICAg
+ICAgICAgICAgICAuLi4KICAgICAgICAgICAgICAgIHJlZ3NbQlBGX1JFR18wXS50eXBlID0gUFRS
+X1RPX0JURl9JRCB8IHJldF9mbGFnOwogICAgICAgIH0KICAgIC4uLgp9CgpTaW5jZSBSMCBpcyBu
+ZXZlciBtYXJrZWQgbWF5YmUtTlVMTCwgYSBwcm9ncmFtIGxpa2UgdGhpcyBwYXNzZXMgdGhlCnZl
+cmlmaWVyOgoKICAgIHAgPSBlLT5wYzsgICAgICAgICAgICAgICAgICAgICAgLyogX19wZXJjcHVf
+a3B0ciBmcm9tIGEgbWFwIHZhbHVlICovCiAgICBpZiAoIXApIHJldHVybiAwOwogICAgdiA9IGJw
+Zl9wZXJfY3B1X3B0cihwLCBjcHUpOyAgICAvKiBjcHUgaXMgYSBob2xlIENQVSBvciA+PSBucl9j
+cHVfaWRzICovCiAgICB2LT5jID0gMTsgICAgICAgICAgICAgICAgICAgICAgIC8qIG5vIE5VTEwg
+dGVzdCAqLwoKY2hlY2tfcHRyX3RvX2J0Zl9hY2Nlc3MoKSBhbGxvd3MgdGhlIHdyaXRlIGJlY2F1
+c2UgdHlwZV9pc19wdHJfYWxsb2Nfb2JqKCkKaXMgdHJ1ZSwgYW5kIGJwZl9tYXlfZmF1bHRfb25f
+ZGVyZWYoKSByZXR1cm5zIGZhbHNlIGZvciB0aGlzIHR5cGUsIHNvIHRoZQpzdG9yZSBpcyBub3Qg
+cmV3cml0dGVuIHRvIEJQRl9QUk9CRV9NRU0uICBBdCBydW4gdGltZSB0aGlzIHdyaXRlcyB0bwpO
+VUxMICsgb2Zmc2V0b2YoYykgYW5kIGNhdXNlcyBhIGtlcm5lbCBOVUxMIHBvaW50ZXIgb29wcy4K
+ClRoZSBjcHUgPj0gbnJfY3B1X2lkcyBjYXNlIGFscmVhZHkgcmVhY2hlZCB0aGlzIE5VTEwgZGVy
+ZWZlcmVuY2UgYmVmb3JlCnRoaXMgcGF0Y2ggKHNpbmNlIDAxY2M1NWFmOTM4OCwgImJwZjogQWRk
+IGJwZl90aGlzX2NwdV9wdHIvYnBmX3Blcl9jcHVfcHRyCnN1cHBvcnQgZm9yIGFsbG9jYXRlZCBw
+ZXJjcHUgb2JqIikuICBBIGhvbGUgQ1BVIGlkIHByZXZpb3VzbHkgcmVzdWx0ZWQgaW4gYQp3cml0
+ZSB0aHJvdWdoIGEgYm9ndXMgcGVyLWNwdSBhZGRyZXNzLCBhbmQgbm93IHRha2VzIHRoZSBzYW1l
+IE5VTEwKZGVyZWZlcmVuY2UgcGF0aC4KCldvdWxkIGtlZXBpbmcgUFRSX01BWUJFX05VTEwgb24g
+UjAgZm9yIGJwZl9wZXJfY3B1X3B0cigpIGNvbXBsZXRlIHRoZSBmaXgsCmZvciBleGFtcGxlOgoK
+ICAgIFBUUl9UT19CVEZfSUQgfCBNRU1fQUxMT0MgfCBNRU1fUkNVIHwgKHJldF9mbGFnICYgUFRS
+X01BWUJFX05VTEwpCgpJZiB0aGF0IGlzIGRvbmUsIGEgRml4ZXM6IHRhZyBmb3IgMDFjYzU1YWY5
+Mzg4IHdvdWxkIGFsc28gYXBwbHkuCgpTZXBhcmF0ZWx5LCB0aGUgY29tbWl0IG1lc3NhZ2Ugc2F5
+czoKCj4gRm9yIGJwZl9wZXJfY3B1X3B0cigpIHRoZSBsZWFrIHRhcmdldCBpcyBrZXJuZWwKPiBt
+ZW1vcnkgaW5zdGVhZCBvZiBtYXAgdmFsdWVzICh0aGUgcmV0dXJuIHR5cGUgaXMgbWFya2VkIE1F
+TV9SRE9OTFksCj4gc28gcmVhZHMgb25seSkuCgpJcyB0aGF0IGFjY3VyYXRlIGZvciBwZXJjcHUg
+a3B0cnM/ICBUaGUgTUVNX1JET05MWSBzdGF0ZW1lbnQgaG9sZHMgZm9yIGtzeW0KYXJndW1lbnRz
+LCBidXQgdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3Byb2dzL3BlcmNwdV9hbGxvY19hcnJh
+eS5jIHdyaXRlcwp0aHJvdWdoIHRoZSByZXN1bHQ6CgogICAgdiA9IGJwZl9wZXJfY3B1X3B0cihw
+LCAwKTsKICAgIC4uLgogICAgdi0+YyA9IDE7CgpTbyBiZWZvcmUgdGhpcyBwYXRjaCBhIGhvbGUg
+Q1BVIGxldCBhIHByb2dyYW0gd3JpdGUgdGhyb3VnaCBhIGJvZ3VzCmFkZHJlc3MsIG5vdCBvbmx5
+IHJlYWQuICBTaG91bGQgdGhlIGNoYW5nZWxvZyBkZXNjcmliZSB0aGUgd3JpdGUgY2FzZT8KCgot
+LS0KQUkgcmV2aWV3ZWQgeW91ciBwYXRjaC4gUGxlYXNlIGZpeCB0aGUgYnVnIG9yIGVtYWlsIHJl
+cGx5IHdoeSBpdCdzIG5vdCBhIGJ1Zy4KU2VlOiBodHRwczovL2dpdGh1Yi5jb20va2VybmVsLXBh
+dGNoZXMvdm10ZXN0L2Jsb2IvbWFzdGVyL2NpL2NsYXVkZS9SRUFETUUubWQKCkNJIHJ1biBzdW1t
+YXJ5OiBodHRwczovL2dpdGh1Yi5jb20va2VybmVsLXBhdGNoZXMvYnBmL2FjdGlvbnMvcnVucy80
+MDQ0NTM5NTMyOA==
 
-Set EXT4_ERROR_FS in s_mount_state as well, matching the state handling
-in ext4_clear_journal_err(), so later superblock updates retain the
-request.
-
-Fixes: 04a91570ac67 ("ext4: implemet new ioctls to set and get superblock parameters")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/ext4/ioctl.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-index e8e579498c99..3e444e245c98 100644
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -1384,8 +1384,10 @@ static void ext4_sb_setparams(struct ext4_sb_info *sbi,
- 		    EXT4_FEATURE_INCOMPAT_CSUM_SEED)
- 			es->s_checksum_seed = cpu_to_le32(sbi->s_csum_seed);
- 	}
--	if (params->set_flags & EXT4_TUNE_FL_FORCE_FSCK)
-+	if (params->set_flags & EXT4_TUNE_FL_FORCE_FSCK) {
-+		sbi->s_mount_state |= EXT4_ERROR_FS;
- 		es->s_state |= cpu_to_le16(EXT4_ERROR_FS);
-+	}
- }
- 
- static int ext4_ioctl_set_tune_sb(struct file *filp,
--- 
-2.43.0
-
+--===============6490294886834219674==--
