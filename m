@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094664;
-	b=a+ph9Osv+TusQQGwQ4GUAu2sLSbj+jcbqJVblbL7+fOHE8BO57YLo6tDHkYOoX+6Ek60
-	 C/lV0OX96wwbiSjgOCipRH8VdpFgj3mi1+Z25wdn28ZHkaCSeN4zpVVzZjBEk3+ANn4g9
-	 6EXCIhTS390BRdo4UzmgKeJm8XkdhwiRCPm829p+tDb56WCHgHIj98mmcgMg7gVd3xXLu
-	 4LcpBeaAF/GyYaWB8rugwhqLIB6qasLxPeYiVQna/KbZh4fMqv4VuJXChzOFqCfdkO/p8
-	 nx61X/UKnf4JuwgkQe7IPOIpQwxH3ZS0ugZy/OcTJJMUbd5EGPcAKLNJ0J8LQzX3mWA==
+	t=1793094880;
+	b=4H77G8g5WvUul5bwcR+slUhYslm61XAvDHzk7kw4TgK9XVOP7/Un2dUkGxPPoRjo4z2Y
+	 XrOeVIRt4DjCgIDO6XjmCjas6bSUHP8ud7GYVEMCy7ejH4WgyOAR/PBp2ccIOhA8r1F1/
+	 V79FYd98/hDI2oHzpliwklmyA7wPO4Q/a1Qvyoo/iOkYob1XAOKz+GEZFuUx2PNsKCfkM
+	 cacOQbZpd75iFUn9lmKCWSKyvwBIdFqvN9/iXf4EfU/6LvgExNFDmSHaURnFgWEw0acFM
+	 5e3qMkANFXmdzDBp0wyRoN1w4dn9QPpSpF5fqmfTC88zvjnBJ+32A6Fg9T3R/XI72ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094664;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=YikRuHrgcQQEQeNLoopicKeEponOUqqAXOCmGgP7bMc=;
-	b=DeIuivzm7WdmlATtkv9D6mGQxZprXpp47kch8n5dtlJxkCuB5Cs214sKqk1vKExHRSN6
-	 qMKdH/9XP3GpvF9Y7HiaPgAYjLBWA/u/Zu/ach5umS9+SJ4/tHcvAVIrl4xs0OXEzWoXg
-	 +wBqAk94/GSOlmtoufyIKtlsZwNdYwYRevsD/uSGEKNZyR52VJrDBRMzkwyWBI4hi2neW
-	 VA5J5fn8HOlBFUqrOWdJUvdCnDi0dmzPHGqTaN4r5U5C+5nrS8CCmyT90wT+O5LhKfdAN
-	 73hHe5APjwiinwz2CTwW5ixu0KZGWx4M+JOKqvqZ+sk3L3IJJoOlVpgohJ13PEmMHuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094880;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ipfBmA3cDTk5OYUp61WVnNo/Zii0SGp5r+OHgfJ85R4=;
+	b=HngxRR1Q8K06+MjzJ6v9uA3+f7zbOSrY+bbWeaoFBbCBMvLHwlq8m8G6Ie2BYLO2OaxW
+	 McX08tZX/LdDlR1fqTICOYcsf9wfnm28LZeRKGonBJGYlOW697y1Di2FFKiTA6jppP1jm
+	 JAJ65Ly7fBdXSjnVmzi55Fk7iEeKI1Zb+KMH4FDT55mUu2Zdro1ln68m0qB2wgxYUfpfu
+	 67IElWEfZhm6Y+qgpbkOipbZyjDasaGPFxJLDgVWNBH2qO15/zy1JJR0F8vfVJSt/XRZV
+	 0c+XGJp57yTf4MXrNGA8E8ka16sD6YryZc3hJVRWK3zDKsXQpZj80moNfXP0hHFMJSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IK7uwDYg;
-	arc=none smtp.remote-ip=95.215.58.25
-Received: from mta1.migadu.com (out-25.mta1.migadu.com [95.215.58.25])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="d/dMV9fH";
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87607606A321
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:51:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87607606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4367C606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4367C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IK7uwDYg
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YikRuHrgcQQEQeNLoopicKeEponOUqqAXOCmGgP7bMc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793094661; v=1; x=1793699461;
- b=IK7uwDYgWnddzMvKWJw3ya6jd1O95pxiSUka2B+d5LCvMVJF0eAMpUph7VCpo576csv7uSk+
- RkWa1+WT24INtT8JnumhbrIqAEhPNriR3IJ5BOtfXhCFSYVDbHBk/S3Oe6w++M3F5lyKhOZXvxs
- 0YEaxOC7g+vVBRZSfwe0o1YE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7697935976e69603;
-	Tue, 27 Oct 2026 09:50:59 +0000
-X-Mizu-Trace-ID: 7697935976e69603
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=d/dMV9fH
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so37461115e9.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:54:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793094879; x=1793699679; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ipfBmA3cDTk5OYUp61WVnNo/Zii0SGp5r+OHgfJ85R4=;
+        b=d/dMV9fHgQh1MVXWDT8iIQIwolMQDjth9gFydBAVFmHuCSPqPHx15xZo8X3l5ZOtRz
+         Py5RWx3Cfxf1T+WdlFcud2UM/mgRKTYUou4YwIi690kBz9vh217jqPzeNRa73don2NPh
+         7ULIKiPkcMgQr15lZYA63akmtICwa2o10FvVx7Qaxm9gsxgDD7DEj9j2NUAZMFSbCkgx
+         9pXySLhdBC1gnZKY29/jjCHinCIUby86kN5TM0brIK7kHT3MivbM/P6NiRhjcgWFGru+
+         sFzMvqoqmhWLRryy+LoT3KZPZGwe767HRACiMkzcvTZHQpAuArs6EmZCMTUO4hVLQSJm
+         +wdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793094879; x=1793699679;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ipfBmA3cDTk5OYUp61WVnNo/Zii0SGp5r+OHgfJ85R4=;
+        b=lnDgALDEvyFS+3CDYR23dwvsgPz+MIkuc9HUgsuJxVgH0HaJpcbqZDQ3AShWtJPfj5
+         uCZnehWwQFOA+6DQ85QK425wm7gRP05NJEhWWlWkYUiB/6yN1GW/58utEWSWCnr/Mn7y
+         CwdJlb22zrjKuM8aWbFc+q2tGuEBQbNpeMFy32JGKRfTtgYJhfnewUgTw+6XpqRnJppe
+         ZGsfeE8yaJzm+YhidpomZUK8HZZOa+lese9BMSfI82wynK3FBiS0ZdrZ6VqJmrZ9Jz9I
+         hYJws3EAuMLjowq23pPg/me/5fcuqdLbdPuK2KNYJuFPA76BwDwTbF8YLiWvbtWaRyRA
+         uXog==
+X-Forwarded-Encrypted: i=1; AKwUvBxF+WOG1G6xQCzo7N7J1pSGT1RiqP/rZKr9Wv/qOOqFTdTa7yZmy7NznGpNXXFH15PjPGthUiY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe6TJJ5VoW/RW+yFqkOHcuwPKw0qjWxHhIYZA3SWawn2OkYOp9
+	MOeMz8nNpblagEIoCumwHvekTf80WFyn3XZ87oP/uw8D3lZcB/2CPfud60gaVPSmD9HjcaPkBR8
+	EL77K
+X-Gm-Gg: AYBFou2pv/CpXiivx5Dbe/qi22Yq2XDQkEo6ZKyMRP3gEOmL61gwzeFAACCtnjooHQL
+	x+m2Y8MXmy2QtlpvURys03KK0yFoXPKRTosXglpRal4CiGpoaY2NsQcdBpUDYY90uvPKqRsXFJW
+	hwATDgUsWeBKH+zXjHuXJ3Hbr6047+8M2sisFpNo7CSW3HOxokgwLOFWfqhn6XNeabnE/Lme2E7
+	0H+24DhhqerrBknCG59hF8Um4dYTT5tX2k6CDvoAWctvpi4vn4ZdfMyoCrqEledHUOeiYCFtWbm
+	1A6Rb6ds00l+2lVftbflw9gKz7Z5LBpayE9cFPmdUuq9onYW6rjlQLMrdc+JhOU9E3kguwKIr/m
+	cTlN85zcZHfHrnE4gu7+1GmWU6+/BvSVKjL8TKJFXHDAoQnxS4VgdnP628kCZLC932cup//sXL4
+	l1E5rQrucoII2fBdIVMIiwg90DxcgN9VZ/1YXE5vrgNZJ1poTunp8HCKkCrg0HFBZFVT8fArHWK
+	ei2tLkiWwkXKvqq1NkrDY/ow0D2jjg9mdsgZD64y+ErPLyXHHwM4CrQtpetGe3iUb3aflBHZLq0
+	70+eCgyRbiBB+d4xUDk1xA==
+X-Received: by 2002:a05:600c:1987:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4a35ac3a825mr183181415e9.1.1793094878673;
+        Tue, 27 Oct 2026 02:54:38 -0700 (PDT)
+Received: from ?IPV6:2001:a61:13a7:df01:6e79:f35a:ab88:b157? ([2001:a61:13a7:df01:6e79:f35a:ab88:b157])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3bdbsm17868961f8f.19.2026.10.27.02.54.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 02:54:38 -0700 (PDT)
+Message-ID: <09633215-e52b-42be-90d9-12fee5b8728e@suse.com>
+Date: Tue, 27 Oct 2026 10:54:37 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,118 +92,30 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 26/46] mm/mmu_gather: fix flushing ranges with 4 GiB or
- larger
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
-Date: Tue, 27 Oct 2026 17:50:32 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>,
- Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>,
- Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>,
- Xu Xin <xu.xin@linux.dev>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <377FB184-1E61-4BF8-AC3E-33A79EC56658@linux.dev>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] usb: uas: ignore UAS for ASMT135x bridges (174c:55aa)
+To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>, linux-usb@vger.kernel.org
+Cc: stern@rowland.harvard.edu, gregkh@linuxfoundation.org,
+ usb-storage@lists.one-eyed-alien.net, stable@vger.kernel.org
+References: <20261013221944.41598-1-olivier.kaloudoff@gmail.com>
+ <20261014105700.19433-1-olivier.kaloudoff@gmail.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20261014105700.19433-1-olivier.kaloudoff@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 14.10.26 12:57, Olivier Kaloudoff wrote:
+> The ASMedia chip detection in uas_use_uas_driver() assumes that every
+> device with idVendor/idProduct 174c:5106 or 174c:55aa reporting a
+> config.MaxPower of 0 is an ASM1153 with working UAS.
 
-> On Oct 27, 2026, at 07:17, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> __tlb_adjust_range() takes the size of the range which has to be =
-flushed
-> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), =
-get
-> and pass an unsigned long. Consequently, a range that is 4 GiB or =
-larger
-> gets truncated, possibly to 0.
->=20
-> On arm64 with hugetlb, a 64k kernel can flush 16 GiB hugetlb PMDs, and =
-a
-> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
-> at least these two scenarios are affected.
->=20
-> Fix it by flushing the proper range instead of the truncated one.
->=20
-> Fix generated by an LLM and sent by Josef Bacik in private.
->=20
-> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for =
-handling hugetlb pages")
-> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when =
-unsharing PMD tables using mmu_gather")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: use two-tab indent, simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+have you tried the new quirk reducing the number of streams
+being used?
 
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
+	Regards
+		Oliver
 
