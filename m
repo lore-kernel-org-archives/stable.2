@@ -1,102 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102287;
-	b=GGY6WZkyxW4tZ/iP7z3V8qUOzCTtfGVb90g4MS2UXLi0lpTzMR8kjAMIZi/BG+G14ehr
-	 MLSdYdICe9WQEwuHJwwYTlZtHbclNrl+eWYmJTC2+rAM+oaNVubLQmUW2vS+7P6E6CkQ7
-	 vnMR4ElwtJd59cqstRb6EaKj1LUpkcApJ7OdHT8yzvlGIaKjMWmGrrb7cVgeWoHD0Q+QD
-	 miV49PjE0vYEhMpwK3LRa0lrKHN98Kfhe1xlAVzYbLb0I1GDkI8yrYj02e3vtD/00tzdi
-	 szumHRppKxmbYW89HMxbMho8C433q7r0P4eFvYK0PNTAL8fjZDdvzQ0KaZM8gmsgO0w==
+	t=1793102446;
+	b=s8p0yYHjj3eqlYQSJfaU0MJkJsqQFyQXet0hm+YK7CdkHSR41ri0PhYUNo5cvIdb/pAg
+	 8+2CRusCXmZfl067Z88gPv4naQZga4xAZOvhuLFu1K1ny+j+IYKkdfiBK/aZ/GypOPK5c
+	 COteEyaPp5KPyEGl/r5XnlgUv9+T47+rINjfUcVTLIe86jQHaxcCf67ft2g7JHnF0xKI9
+	 CfQF7jQBy/VdWuaidRIH2gKs+fPRWHVDd6wW5OTi+jQ47mkw+7WHOIG8lv6Z676QjE5Q9
+	 HodHhkpnci6Kh4bCnZinj+FbjbwLkst4U+DZwzplyurZol3XnNpUEAg74Z02FmUsTEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102287;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
-	b=T2sXjfqQQtU5RLTJyJAUQFXgT3YjNoiOyH8NJWMoTs62utWHCEvh5R3pNAlbAEDVzP0S
-	 7Wgw8OUOOTyfHEDeUn1T5W1BfWwa3y7QeUpK0toM/PLeR5OggZLIMrqu8hiKqhxuf/kTD
-	 /Z9hqJDC7CWIKIsa5AOmB0J34DDV6a9jdnxaCN+4WvA6oBKEGHVfdRsqVVLyz3di9elNn
-	 tNUxJFNBhRd8CwvvFjRFjazSmoV2fbylc4K81LK8xXnDdxyOwgj2ct0GVIymr4p45G2iF
-	 Zpg7xX2eVpiU2X5bE2CBsMmMpvuG0LQh8S3eXwMiDdmlFKReoZJ8laOCngpLNwXmsrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102446;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=44RpWvBCxaRdhkKmU4U4u5g9cCT+0OySigjHjteKBFA=;
+	b=krVosu4zeC5YV/Jic5UEJoZcA2sR+atnCt3XJ9lfOszFz8d+RlKGKkgSt9wLEoOtCTGp
+	 dR6d7C4hTv2bSQ3peI5L6h+S5bJaU1Acc969ZybqMRTQgcnO7f+fqT6g2tJOft8ASzNTI
+	 CGgoTR/0z8Fwzm3N1QkwwsvbXMlX4JeFYVjqH9SCcEcF7eZB9oiHLM7ad4haA9XMStAUa
+	 CM77D+ThBAEDA3eLUSIEbE597AbVm1vDKzROf3y+kyD0XEJvklNvnW8zex2RoeV0IHIGg
+	 eWuedjRIIaeCRi11EQqSOs2/pole4AuEFpTmJt9fJUb2x4p0mIFUDXJu4IXXVIev2Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=SSDD+GYh;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515CA606A31A;
-	Tue, 27 Oct 2026 11:58:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 515CA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2F5606A320;
+	Tue, 27 Oct 2026 12:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C2F5606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0CF8C21F22;
-	Tue, 27 Oct 2026 11:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793102280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
-	b=mKhmBA0tiWVXGtGZxRRdqM41EeWzPK1qlHp+yOdEuRezlkRrX3Ici82uja9Vu/A+8cEpzT
-	MMbfDO6KL0jzikb4yhLRfbvrTsBFD/F/1RcWDJNxwGm4p3PgW4O/aVWI2UdypPzC7XoBgO
-	Y2VhfaOgjMz4BzxsjSC01HdhIiydItc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793102280;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
-	b=xV5guRrsWz2oeB6vGqPBGdPzgA4V7DUGwNy/kAhe1NvG5KLbgMgxYB4cB8dUP5FOfKId1u
-	KIzEcQ1vkC0magCA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793102280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
-	b=mKhmBA0tiWVXGtGZxRRdqM41EeWzPK1qlHp+yOdEuRezlkRrX3Ici82uja9Vu/A+8cEpzT
-	MMbfDO6KL0jzikb4yhLRfbvrTsBFD/F/1RcWDJNxwGm4p3PgW4O/aVWI2UdypPzC7XoBgO
-	Y2VhfaOgjMz4BzxsjSC01HdhIiydItc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793102280;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
-	b=xV5guRrsWz2oeB6vGqPBGdPzgA4V7DUGwNy/kAhe1NvG5KLbgMgxYB4cB8dUP5FOfKId1u
-	KIzEcQ1vkC0magCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FDD41321C;
-	Tue, 27 Oct 2026 11:57:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YZZIDMaR4GpOawAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Tue, 27 Oct 2026 11:57:58 +0000
-Message-ID: <baffc5da-c794-4c78-ba9b-ec1a2dec0a9b@suse.de>
-Date: Tue, 27 Oct 2026 12:56:47 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=SSDD+GYh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=44RpWvBCxaRdhkKmU4U4u5g9cCT+0OySigjHjteKBFA=; b=SSDD+GYhrUUY2cNOeiIkcZdZUt
+	37a2mC7cKsayTVIpvEVZyt/bH4y7bBe5YlX/ll5v65tsWldXaBPas5/q2MWIeUPPdqQfgx+l3l6lT
+	rKZiG/7aIhGUmLS1naxekYQfMojrzkaagxtP4aL6z9ORvndND6/lAUhKCwkbMMSslmWgOM5EnwqVW
+	4B+ROKfJHYqc72/Vq2j9eGDLMiKVFomgIpVvE1gBnhDRiBHGDCY8nYeHHU/eDDx4Ja1sjeKcYPJSp
+	tJ6GlCjIWR3ysiHXiSIUMRh7dWatQNsThXbAS0IKvBSUpnAiNT2Vj5sZQyGVcLuypI/E+n7EbzHkd
+	40x2N5ZQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLfr0-0000000EtkH-1FWQ;
+	Tue, 27 Oct 2026 12:00:34 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 4DEB8300DB9; Tue, 27 Oct 2026 13:00:33 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:00:33 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, kernel-team@meta.com, stable@vger.kernel.org,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: Re: [PATCH] x86/nmi: Ignore negative NMI handler durations
+Message-ID: <20261027120033.GM2668564@noisy.programming.kicks-ass.net>
+References: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,108 +75,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 5/5] net: restrict message_cost and message_burst
- to non-negative values
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, Joel Granados <joel.granados@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
- Petr Pavlu <petr.pavlu@suse.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- Willem de Bruijn <willemb@google.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>,
- Gerd Rausch <gerd.rausch@oracle.com>,
- Zhan Xusheng <zhanxusheng1024@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
- Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
- Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng
- <bronzed_45_vested@icloud.com>,
- Hannes Frederic Sowa <hannes@stressinduktion.org>,
- Flavio Leitner <fbl@redhat.com>, Petr Mladek <pmladek@suse.com>,
- "Paul E. McKenney" <paulmck@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
- <20261027104701.296240-6-jiayuan.chen@linux.dev>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261027104701.296240-6-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[31];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org,nvidia.com,suse.com,google.com,ntu.edu.sg,oracle.com,gmail.com,nokia-bell-labs.com,icloud.com,stressinduktion.org];
-	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
 
-On 10/27/26 11:45 AM, Jiayuan Chen wrote:
-> net.core.message_cost and net.core.message_burst feed the interval and
-> burst of net_ratelimit_state, but neither rejects negative values:
-> message_burst uses plain proc_dointvec, and message_cost uses
-> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
+On Tue, Oct 27, 2026 at 03:43:51AM -0700, Breno Leitao wrote:
+> I am seeing NMI handlers in the Meta fleet reported as running for
+> about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
+> such lines, for example:
 > 
-> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
-> negative"), ___ratelimit() splats on such values, so the next
-> net_ratelimit() caller warns, e.g. a martian source log:
+>   AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
+>   [ 1650.616627] INFO: NMI handler (nmi_cpu_backtrace_handler.llvm.9643156322683129580) took too long to run: 18446744073709.551 msecs
 > 
->    Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
->    WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
->    RIP: 0010:___ratelimit+0x578/0x960
->    Call Trace:
->     <IRQ>
->     net_ratelimit+0x1c/0x30
->     ip_handle_martian_source+0x1bb/0x340
->     ip_route_input_slow+0x1057/0x3650
->     ip_route_input_noref+0x104/0x260
->     arp_process+0x109b/0x2510
->     arp_rcv+0x381/0x460
->     __netif_receive_skb_one_core+0x173/0x1c0
->     __netif_receive_skb+0x21/0x150
->     process_backlog+0x37e/0x1200
->     __napi_poll.constprop.0+0xa5/0x5e0
->     net_rx_action+0x4c0/0xf70
->     handle_softirqs+0x204/0x9b0
->     __do_softirq+0x10/0x18
->     do_softirq.part.0+0x49/0xd0
->     </IRQ>
+>   Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
+>   [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too long to run: 18446744071018.936 msecs
 > 
-> Negative values never meant anything here: 0 already expresses both
-> "no limit" (interval) and "suppress everything" (burst).
+>   Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
+>   [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to run: 18446744073709.545 msecs
+
+All these are 'recent' machine and should have a stable TSC :-( I hate
+computers.
+
+> nmi_handle() times each handler with two sched_clock() reads. When the
+> second read is lower than the first, the u64 subtraction wraps, and
+> nmi_check_duration() treats the result as a duration. In the three
+> examples, the clock went back by less than 1 us, by 2.7 s and by about
+> 6 us.
 > 
-> Reject them at write time. message_burst can simply use
-> proc_dointvec_minmax with extra1 = 0. proc_dointvec_jiffies has no
-> minmax variant, so add proc_dointvec_jiffies_minmax(), mirroring
-> proc_dointvec_ms_jiffies_minmax(), and use it for message_cost with
-> extra1 = 0. Note that like the ms variant, extra1/extra2 are compared
-> against the converted jiffies value.
+> The wrapped value is also stored in action->max_duration. Every later
+> real duration is smaller, so the handler is never reported again until
+> the next boot.
 > 
-> Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negative")
+> Whatever makes the clock read lower, a negative difference is not a
+> duration, so return before it is stored or reported. A clock that steps
+> forward is not covered, since that cannot be told from a real stall.
+> 
+> A backwards clock is still worth knowing about, so print the size of
+> the step once per boot. This uses pr_warn_once() rather than WARN, as a
+> stack trace says nothing about the clock and panic_on_warn machines
+> should not go down for it.
+> 
+> Fixes: 2ab00456ea8a ("x86: Warn when NMI handlers take large amounts of time")
 > Cc: stable@vger.kernel.org
-> Suggested-by: Joel Granados <joel.granados@kernel.org>
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+> Cc: Paul E. McKenney <paulmck@kernel.org>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  arch/x86/kernel/nmi.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+> index aae7254774680..57a0dab1ec7a9 100644
+> --- a/arch/x86/kernel/nmi.c
+> +++ b/arch/x86/kernel/nmi.c
+> @@ -130,6 +130,14 @@ static void nmi_check_duration(struct nmiaction *action, u64 duration, struct pt
+>  {
+>  	int remainder_ns, decimal_msecs;
+>  
+> +	/* sched_clock() went backwards? */
+> +	if ((s64)duration < 0) {
+> +		pr_warn_once("NMI handler (%ps): sched_clock() went backwards by %lld ns on CPU%d\n",
+> +			     action->handler, -(s64)duration,
+> +			     smp_processor_id());
+> +		return;
+> +	}
 
-Thanks!
+Fair enough I suppose. Thanks
