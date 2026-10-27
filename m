@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097817;
-	b=WZad85jHzEsRng4jBUbcNhUu+zsTNxkC51PQqvoX0u1A/2sdHl4ttmg8c1mU/6vnyfQf
-	 KTwgwPuHbD5M8A7q2l2MwbOqbjrlqojuE+7ceGEqLqyjjcW90wqk51nZhLhvA21f3O3+y
-	 iDDJ2gjIJGOOC2dgfvyQzV3mkGg59fW7pqWNeIakeW6cPlxk7XSjRRJS5y+zWTXKh9N1j
-	 idHmOTT/hg0cd2lu2JdWJLCwXHSy/EXkaEjJSLFPLzxrjEbrXtdGx7Jm0YV54VupoJ8Dw
-	 QTQ5KrXPoL76g6ZF+xE/hAOP0+Oza8bg4pVBTiQJ4B/2dBGrz41R3ZAq6D4rgrnWatQ==
+	t=1793097825;
+	b=XoLM6HxWiaTT4W56NBncmQ2eJyEyqTqXElyhgNJPXVW8bbEyuephli178MaSiSo+fbvy
+	 ioIcqkaka5WYAzoyoPTT6/uhQs2JNxpMoQrCyLcTlwD3tdTkEuEwVRFopjNCtAkwm03RL
+	 NZPIYu0t6JyN/iNYctf0SEu2V5eEnKJKLrYw3Cj95RLXvcEu4sRNhkrfiWHS7glrkTWRH
+	 jc8s/d2JN1iYWhh/RhM6POtEZVItCotNhx/o9/O6+4dnm5h82IcdNhYWWcYZaK3QQVWf0
+	 ocaBqnHMZmjQzhdmcbsEauOjP2wWIl0oJAczRnmMGAJRVXF0ep28qCZoSKKQn9RNh2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097825;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=XbJa13RjfN6919cMZzDU3gy2a1c9YqXQ9xqZ6+QCABc=;
-	b=IF/B6jfcGWsXR5jSXf54z+GSZ0idh+teijXo6zJZbrJoAERWDgEP1JYjWVhr4z89Y4e0
-	 19aANUYmMHAH3VIJYII/xQWkv4bwpoEVa/sC6BMQGtEW6ylCEAFDn3M/zBHwCourt9Szq
-	 v2WFAgoaZMsJ3pbDzU7lyj6Zd9gnYtqCu8pDeCE90T5UiYTKdhlqLxugfUwqjNWivtfSe
-	 UNLQNFbSjo1Jk+uVgewbxA+zY6K2n9FgEHsq+iuthsf1c2Nbn689fshvuOflRqxkGQIG6
-	 eAanj4lJpQjsHeukfL1aiCQPkBwtl+NYZjwmpJBDuXlqhRZ1Ai/SvGxiLc4jx8CwxuA==
+	bh=y0bWJxnleuC7KHlyjPlcNd7hTqiMUB+V6Nbmxy2tkww=;
+	b=N88UuHsbTXsPHWCcOnHbO21hFK8Rl/L5C55pnee5v8EmEE08vSD+G1uB18xONvAg47MW
+	 yfmDBRZ0K+LfnwsYJ14QsDNKSXa2+1LUUJKvSOINq4ChLEQWtM65nhqly02EKQegU6hwN
+	 vElDUmLl5sNxxvw37Kji9yCtRwLqU5adJxp1vbnW0vK9nqROBzQUbQOv3EqxXUECilOaY
+	 Su3BePD4QA59yJgdSi3Ajaw7ri/Gv2jrqVhCHAhD6007GSHVoc35ylDrIgb3Kfjp8r1Xz
+	 9zyskZwmtwT6alC5PTWzYowhG3PFTUjPV07e0w6fymGGxiVvUMfi0axUedw1aDJEijQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5dpc32J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BotLVmlz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2E1606A31B;
-	Tue, 27 Oct 2026 10:43:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9285606A31A;
+	Tue, 27 Oct 2026 10:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5dpc32J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48011F01829;
-	Tue, 27 Oct 2026 10:43:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BotLVmlz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082211F031E1;
+	Tue, 27 Oct 2026 10:43:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097816;
-	bh=XbJa13RjfN6919cMZzDU3gy2a1c9YqXQ9xqZ6+QCABc=;
+	s=k20260515; t=1793097824;
+	bh=y0bWJxnleuC7KHlyjPlcNd7hTqiMUB+V6Nbmxy2tkww=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=g5dpc32JNKqIkhyHWDOEi5UqQbRy0Xl/siRc8G+C1x4stC4Sg1XdCA281G3SQ+aWu
-	 s0ByXluqi4gjOnDvTfcvY79PvjMrgo/HfAl6GZ65DItvU5QoAetsN5Ffy2Cbqm4UdL
-	 rgBsVa22PtnNFp3OkZNAtboIGRRIN0NDqn/DqjBnGEYjiXtLnQ5MK1c3AM08h5FCXM
-	 FFx0QjTRPnQzRolETg5TgzngAjW5IYRGTGruo9yn8IOY/CVG0JOd79/vD87r49v1YQ
-	 cTPQkk3zmRhG9tfqZHeIUXLAwYgTFHehPBP2LSm5K7d1Z7Nza/CviBXX2mz4Tor9XG
-	 VIVL7PNu6Z4DQ==
-Message-ID: <c7adf7fa-a1f1-43d3-be75-4532a3274415@kernel.org>
-Date: Tue, 27 Oct 2026 11:04:58 +0100
+	b=BotLVmlzy4TZljtLczP71diLAjatbqzAQEkLZp7bs9LTerIp5Qui3KjuhQeeT4l8y
+	 g6gDADj0uuPyyBR3/gn45tABr4F+L9DEc7hoSpkBt8FAsqG65DNR+ExxaJwzfI+27O
+	 6A6t9+eSkEklG4w4NGD9aGjIUv8fmEET9xQq5AACqjr30EQsKl8n6M6dSFYBD8/gME
+	 SAFhyJNtMsoOl29zYLOYHf4fLZY3ulEkDQAUjD+pvQI17pWO/bTChoQvsRdHyRja5K
+	 OWIzo84jQYEScEB5hF+VocHW1TccpKKgvO2N+vIpntsTF00g/UjzLbZPiJyVQkkesr
+	 PQdk+5cMK7eSw==
+Message-ID: <699d2ada-6407-4758-82ad-927426ee049e@kernel.org>
+Date: Tue, 27 Oct 2026 11:07:48 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,7 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/16] mm/shmem: stop retrying folios that cannot be split
+Subject: Re: [PATCH 09/16] mm/shmem: preserve data in clean folios when
+ splitting fails
 To: Kiryl Shutsemau <kirill@shutemov.name>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
@@ -75,10 +76,8 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
  stable@vger.kernel.org
 References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
- <at-AmbZyqUnGAJkI@thinkstation>
- <f7d36a47-6879-40bf-8c24-dfc89d937647@kernel.org>
- <at-U8JkqnTC9GZyK@thinkstation>
+ <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
+ <at-GrQNgF3V_tL3w@thinkstation>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -125,26 +124,55 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <at-U8JkqnTC9GZyK@thinkstation>
+In-Reply-To: <at-GrQNgF3V_tL3w@thinkstation>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/26/26 18:59, Kiryl Shutsemau wrote:
-> On Mon, Oct 26, 2026 at 06:08:15PM +0100, David Hildenbrand (Arm) wrote:
->> On 10/26/26 17:36, Kiryl Shutsemau wrote:
->>>
->>> Any reason, this should not be in the same patch as 07/16?
->>> It is the same failure mode in the same function.
+On 10/26/26 18:12, Kiryl Shutsemau wrote:
+> On Mon, Oct 26, 2026 at 10:40:42AM +0100, David Hildenbrand (Arm) wrote:
+>> From: Chris Mason <mason@kernel.org>
 >>
->> I decided to split because it's a slightly different error mode (failing to
->> discard vs. endless loop) and tackles two different commits.
+>> A shared writable mapping can have dirty PTEs while its shmem folio is
+>> still clean. A read fault can install a writable PTE, and a later store
+>> sets the PTE's dirty bit without marking the folio dirty.
+>>
+>> After shmem_undo_range() has handled the boundary folios, a concurrent
+>> read fault into a hole below the new EOF can allocate a large folio.
+>> For example, on a tmpfs mount with huge=always, the fault's offset must
+>> be within the file, but the allocated folio can extend beyond i_size.
+>> The final scan then finds this folio and calls
+>> truncate_inode_partial_folio() without marking it dirty.
 > 
-> Fair enough.
+> This is hard to follow. I asked LLM for a diagram. I think it would be
+> helpful for the commit message:
 > 
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> CPU0: ftruncate(fd, 3M)                CPU1: MAP_SHARED, tmpfs huge=always
+> ─────────────────────────────────────  ──────────────────────────────────
+> i_size = 3M
+> shmem_undo_range(3M, -1)
+>   first pass: hole, nothing to do
+>   boundary folio at 3M: hole, none
+>                                        read fault at 2M+x (below EOF)
+>                                          PMD folio [2M,4M), crosses EOF
+>                                          writable PTE, folio clean
+>                                        store to 2M+x
+>                                          PTE dirty, folio still clean
+>                                        vmsplice(2M+x)
+>                                          extra folio reference
+>   whole_folios: finds [2M,4M) folio
+>   truncate_inode_partial_folio()
+>     zero [3M,4M)
+>     folio_split()
+>       unmap_folio(): extra ref
+>         → -EAGAIN, PTE dirty bit
+>           never reaches the folio
+>     folio clean
+>       → truncate_inode_folio(whole)
+>         [2M,3M) dropped
+>                                        read 2M+x → refault → zeroes
 > 
 
-Thanks, but I'll drop that tag on the changed version, so please re-review :)
+I'll add it, thanks!
 
 -- 
 Cheers,
