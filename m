@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108339;
-	b=oLye96jcIrXQeOyZnUaPzpsaTrehQnYvhm/QVs0sH605VUQ6O+CqL0WTUAbclvhCKpqY
-	 0Q8ii0E2jYm8dkmhQ3Jj+BkK3+pGiPI7yhbJMz8Yi0eWVso4m9XNNRha0ITNxPoS8eyiJ
-	 waySh4keLBUQmL3tLlRdcf74M5XshUr4Ryqw0wTmUqAY+GxE1ndTYangU46oJgDstoysy
-	 S9nbQPRQ8+TmIS93kmpBZarVcYznFzPrDeCkpLozWVdn4FlTiALZBcz/TQokw3v1pbP56
-	 dBrjQ3XwZCwY9ENiWuKEbhIqYOEkGAglx2jGRMosuxAROZAqp5/ciCVl90fDcG44z/A==
+	t=1793108578;
+	b=NjliNRCCYA5EFtj/GdHai4lCf/47TNspaaBLZkasqEVfe4n6iwuOaCT8w3LzZg4CMYeI
+	 1+kVEIobpmVPnhAZSBhe4QhdLmY6z+QYyvEOdETPPA4VPz5J61pfqg8d3l4v90DkvMi2/
+	 iazt4sQTf9Cb0Epf8M/JfjIu510dwGdGvbPWdMgyFVAZ67VVPiaB3/xqr1TzozgxOj8Da
+	 bxQ94KFofVqD5VUsvuRW1d1Fm6idYke/HBA6cizryWqeu2vw8Wz32GuGr7Tt/SR1pwFBg
+	 c5ssYMD8fqYiDurEW5xyxb+o0YdMI1eQqgAT7hWX3sIZqXmx0RdohaOhe+9tOxqJHig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108578;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=eP/VlP5fifIOIsGnDSJCoqWaClRY4R6jN0i/F3KlPYo=;
-	b=Y1otL8EH7ti2mZB4rKuXLA+5o6JVHFin1J/qtINsjpsGuBuALiffmy4ua96vKIG7WmZ/
-	 LR7QQvxIt7W51FK+kZ3EfXHZ4e9ixbxriXdzrW4WwLsqaZnbf6dIMmuRJPwnv5gqUcdtJ
-	 BorSzqjI3MHrKsU6C6LqTWvgJYnV7l1d873xIn46BTgAsstevZDyVEVBn7jlzQQxweKHj
-	 rO37sMfLngA15D9tCKCgu1ovZPx8qAhdbMIE3zrHDlu45LwMi7+hsBzlrgBi5pFpPBFYX
-	 lnZMzikYoyfeWmHecxCvBkFKFM9KzZNvAoZQIyM8FeKC3GsKT+iyaEzNiHnBJ7pIR4Q==
+	bh=0+f6IJooHiQbF9wAyC4ax/+y1Gmk+/E4quNL5EJAkoQ=;
+	b=UmsMlh+nwZ61GDhMYH5tDmC77xyLkgoNSmn73Jz9c6+D6xoSk5K8KVm5M3ffnzrXfUkH
+	 qRYa5jhX2qV7gGqOk7kXI4GPkUKzpMg3jLZ1P4eLE3KmUx4yIK3R8NY5sN7JLF52tdfmW
+	 oVULAciIcbbi8e/n4QZzHyh/yqPbh9uLIJ6tQJs9nXdsSBCxRmdBZL0nMbS0/v3Gqdqdk
+	 PzixwuRYqzOFsG23GIHRLtRsqITw5HLCMBO/eTMH93QbO7QEzgyPtXZT3/oeJ2D83TfmN
+	 i3bSX9dWEo/Ds35452efVH1tYvAnr+A4O6c/8qXoq9OacafDiM72u3RYBd4BVXH6wZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VASw8a7/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/cT7rN4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E55E606A31A;
-	Tue, 27 Oct 2026 13:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8429E606A31B;
+	Tue, 27 Oct 2026 13:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VASw8a7/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489891F01829;
-	Tue, 27 Oct 2026 13:38:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/cT7rN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234691F01825;
+	Tue, 27 Oct 2026 13:42:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793108339;
-	bh=eP/VlP5fifIOIsGnDSJCoqWaClRY4R6jN0i/F3KlPYo=;
+	s=k20260515; t=1793108578;
+	bh=0+f6IJooHiQbF9wAyC4ax/+y1Gmk+/E4quNL5EJAkoQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VASw8a7/5jcGyFhoJScT9XjbHReklX5yiUSfTG4A2q4yod4g6QT9/IUaeEs7b5JS2
-	 lgFRQ0HhNb1tSz1cBuWVp9r92zhDA+IMGXGaljVYz1J4gmODMiI/WOp/Azxo7F584B
-	 qU93QNYU4SfItBznQ2/Hvf2Top2U0zb/ea1S3Q/4hJesAcm+5NDslrgUh4rhQanbhx
-	 2pMKsbR+x1oWldIOxLGxZQI5JeVxDgZkZlsaIRF1jNjwoGlJ8B0MCIIe88vHIqb82g
-	 ZNyYTy4oBoxw82vv3tGkS8+x7Tld+Gf4XBps3FkzwZv/XBp4T0ifteuiC1qct41yBr
-	 ZMK7s0iMp/vEA==
-Message-ID: <f4fa7ecb-f4aa-4412-bf1e-049c5761407c@kernel.org>
-Date: Tue, 27 Oct 2026 14:38:50 +0100
+	b=O/cT7rN4J4QJA9+qKjooI/EO5er0turCIeVkTDeBg9nmgtchbI+fpxO9S6+r+oBWY
+	 LwmatZaw1QbMHP8ScOJ6R+l2fGSrhmt7f6UUvC43uiHkIJGDGGCW0OQjZcEIUQEPa2
+	 w142oOqbY6kYvnslUnzMN4PB88SswCTWpes66yGol6fQLmBbkQaxbQK69GdBHy5hRV
+	 glBMz2eRymovbjCzKL0DCgcuiVWEYF4wIngi0eCG9PplngO81D5jwjFqaadaqIhz3C
+	 3l+I0Do+I4H43SEQfhyQdeFO3NHr7grqnLgvsjGY/hUxovAgKOJx9ptbOi6w43lJzE
+	 qaE/Jiu8PIH2w==
+Message-ID: <38491041-d167-4ea1-8813-e75bd11cd10f@kernel.org>
+Date: Tue, 27 Oct 2026 14:42:38 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,18 +52,47 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] mm/compaction: wait for pfn walkers before poisoning
- offlined memmap
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org,
- kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org,
- surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com, linmiaohe@huawei.com,
- nao.horiguchi@gmail.com, ljs@kernel.org, liam@infradead.org,
- rppt@kernel.org, osalvador@suse.de, muchun.song@linux.dev,
- iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <20261027042204.3741307-1-gourry@gourry.net>
- <20261027042204.3741307-2-gourry@gourry.net>
+Subject: Re: [PATCH 03/46] mm/memfd: check for real shmem inodes before
+ accessing shmem state
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
+ <auBdPOKXJpE-lX8d@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -110,67 +139,55 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261027042204.3741307-2-gourry@gourry.net>
+In-Reply-To: <auBdPOKXJpE-lX8d@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 05:21, Gregory Price (Meta) wrote:
-> Compaction checks that a pageblock is online, then uses its pages across
-> lock drops and sleeps.  If offline poisons the memmap meanwhile, a
-> DEBUG_VM kernel faults:
+On 10/27/26 09:13, Mike Rapoport wrote:
+> On Tue, Oct 27, 2026 at 12:17:23AM +0100, David Hildenbrand (Arm) wrote:
+>> shmem_file() only checks a file's backing mapping. That mapping can belong
+>> to another file, as with a Coda file backed by a tmpfs container after
+>> mmap(). It does not establish that file_inode(file) is a shmem inode.
+>>
+>> Seal handling and memfd preservation use this check before accessing
+>> shmem inode state, so they can access an inode of the wrong type.
+>>
+>> Add file_inode_is_shmem() to check the inode's file operations in both
+>> paths. This identifies regular shmem inodes, including those used by
+>> memfds and ordinary tmpfs files, independently of wrapper file operations.
+>>
+>> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+>> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > 
->   CPU 1 (compaction)                  CPU 2 (offline_pages)
->   pageblock_pfn_to_page()
->     block is online
->   isolate_migratepages_block()
->     cond_resched()
->                                       offline_mem_sections()
->                                       remove_pfn_range_from_zone()
->                                         page_init_poison()
->     set_pageblock_skip(valid_page)
->       reads the zone of a poisoned page
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 > 
->   Oops: general protection fault, probably for non-canonical address 0xdffffc00000006a2
->   RIP: 0010:set_pfnblock_bit+0xa6/0x2b0
->    isolate_migratepages_block+0x2456/0x3c80
->    compact_zone+0x1638/0x3900
->    compact_node+0x12a/0x1f0
->    sysctl_compaction_handler+0xec/0x160
+> With a small nit below
 > 
-> The free scanner faults the same way.  A contiguous zone skips the
-> online check, since offline clears zone->contiguous only after
-> poisoning.
+>> ---
+>>  include/linux/shmem_fs.h | 6 ++++++
+>>  mm/memfd.c               | 8 +++++---
+>>  mm/memfd_luo.c           | 2 +-
+>>  mm/shmem.c               | 5 +++++
+>>  4 files changed, 17 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+>> index a7c7a96a7cbf9..2ceca7993e4f5 100644
+>> --- a/include/linux/shmem_fs.h
+>> +++ b/include/linux/shmem_fs.h
+>> @@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+>>  		unsigned long len, unsigned long pgoff, unsigned long flags);
+>>  extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+>>  #ifdef CONFIG_SHMEM
+>> +bool file_inode_is_shmem(const struct inode *inode);
 > 
-> Hold an SRCU-fast read section (pfn_walk) from the block check to the
-> last use of its pages, and make remove_pfn_range_from_zone() clear
-> zone->contiguous and wait for it before poisoning.  Offline pays one
-> grace period per range.
-> 
-> Scanner positions outlive the section, and offline can shrink the zone
-> meanwhile, so take the contiguous fast path only inside the current
-> span, publish zone->contiguous with release, and keep the migrate
-> scanner inside the zone.
-> 
-> With a kprobe parking the migrate scanner across the offline, base
-> faults in 3 of 3 runs and this patch in none.  Unforced offline/online
-> cycling under compaction faults in 8 of 24 runs on base and 0 of 12 with
-> this patch.
-> 
-> Fixes: d33695b16a9f ("mm/memory_hotplug: poison memmap in remove_pfn_range_from_zone()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
+> Do we really need the file_ prefix in this name?
 
-BTW, the order of these patches is all wrong.
+Good point, I intuitively added it. Can drop.
 
-There are much more important fixes hiding in this series. And this change here
-would certainly not be the first thing we'd backport.
-
-Please create a proper series that only addresses the pfn_to_online_page()
-situation, without different, more urgent fixes.
-
-Because there is no way we will fast track anything like this here into stable
-kernels.
+Thanks!
 
 -- 
 Cheers,
