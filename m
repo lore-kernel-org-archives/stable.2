@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793085881;
-	b=0BuTtVCzncmIUXHU6LSanMxp/ENLg2Ccg8LoExXrPLifbM1QwFYY+v9Ups6LE53PxbMj
-	 0SdtWwgl9VO1+IFBPzs9Dy8NNZEq8ILSrzHjmSsvbAGGucilzpH0FI9AVrsayYY9kfBIx
-	 b2vR/UXYGtHOSzOimwseJfr/UOa8zvCfpyngJUwwfkV1OiCrrq1UwMZTBRFxLxQE0CunV
-	 8/GL1S5gNqHPfmIYE9N+twdxPmwTnQGpy8cDl/yH6nmJWaq0XU+Ze9N+ZTPZs+y2YGSdU
-	 ihrFZ2awastConr59RMt5YotJajD2U3nrwEjVeljFeh6Esicf6fU0sTiMUkE0xrMn6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085881;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Content-Type:Mime-Version:
-	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
-	 References:To:X-Mailer:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=54IG6ql9KgTDI9H+AnSJiw6y1w0PHnGKhrjTP0qwg2I=;
-	b=Qmyh8ce4kzU1kQmoJQReyE5JFmt4PIQhZrnUxsnkrUQCRYnTRmbkpjJ3kbEnE+GG4cG/
-	 G46YOoBjV4GR25ejPnuve2jux/+JSXkJoKhfbh3a7hJJS0+gvQXutdbyZr+ZOQzbVIRA1
-	 kIAOG0zbDvlR1LTj7mbZ9neANr5czB0AREQuKLxdsJF9yxKZM3gGHZ9ly/ic7IPIKUMD5
-	 uiOtvRpoZk4u/0UkpHQ5194YGLtwt00wXZ2D5OeHVn5cjA9h2yeukkf7TM+P9IQwEwQrJ
-	 qIXcMOLvNO0+Ukb4oF2T+RajU8r5tDC3JztZyVTyGjsK7HEYrrFnVDork+TQXgzPkPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=net-swift.com;
-	spf=pass smtp.mailfrom=net-swift.com;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793085920;
+	b=d7zmO5dWuftDEvS8V+nf1XYJsvZCKYOihxeuvjqaG896+BVOg2RvBJRE9cjz5xQI6H70
+	 6EwETl+bPOnwceaK4sjb8wT5YNo4/ZR+4cC8OVyao8LhirKbxk3oXi5jx6SyczW0u3Uae
+	 p//7S7rEelChzC2JDh9VTT3YzidLTv/BKM3amSuaP0wypfOGoEcRkki3gfJ2qAE40Co6j
+	 ONIRD/UNgavQWzGS7d+tSe+LZDUV39Ftj4esmhCRgmNJPWomVc9G41o/a9g+qrYylU+Hr
+	 qq0u0FCulTTBq7YwMSAzpoO8yvOtwQ5msQxbH+eD2zZPP0xNi+lgpYneNBkM9lSewMg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085920;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1b3yq9bDkj4cyY1tUi5WC5LVpuov7BX3buQ90jWR19Q=;
+	b=xNUzlQnJEMOawuZfML96+UTrgJlYkRZZPo5zXwKiVftOlgYHq7FEUXlFFKw1XoK7dK/j
+	 UPj0Lx7ENyFYTu2bnDPI5osFlszPAFqqkuYi+emp1FCBV25rK9Ae2f2nEqmFN4N8ZGPS+
+	 QHPEim8IM2GS1oQBxZhyy6l37f4y+Tc3xbPSylx7QWYcN5clapFuz75ZtRcbFU4y4x2y1
+	 fiJs50ilw8CptBt44fflt/LGzVVvFqx9Ome0G2JbxngLfNGNPiz9+BZAksvjVOMwoH0lI
+	 o3nUa/xvrJStknSVtWrkTXneyVjzIDaThoFCCZiEcTLfrumzCjWAmwrpWo9BmxLVE4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=i4yqr7Tm;
+	arc=fail smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BF2606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:24:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65BF2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=net-swift.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=net-swift.com
-X-QQ-mid: zesmtpsz5t1793085873ta07ad9a8
-X-QQ-Originating-IP: M6rwgO4/qz23Z7aPtn/QADvwEcfQrS0QznLdFNBSP2U=
-Received: from smtpclient.apple ( [115.227.112.25])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 27 Oct 2026 15:24:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17027930280472250786
-EX-QQ-RecipientCnt: 14
-Content-Type: text/plain;
-	charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1C7606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:25:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F1C7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=i4yqr7Tm
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so1601312b3a.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 00:25:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793085919; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WtfCbOhzEVxggO46SIVV2OOVIXPM44L/9VqVzHVGz2okFGaRJt30RLtkCe2kIWvFq2
+         ZRKhZjXAx9lsLxLxVS/t43OfvpqjEbfiXrWEStofmDOwC3puUdB5WAT7IFqIWMAayM01
+         nHQJzZYBxa8tj/xM5yJVOo/A1Q46G2wgKOvWOGt8hvNiC+SWzurXrl2LyM3W97OVR/J1
+         +JJ5IrGkk5d1p8P+iE40GrMA0erNfGJwDQvy3mCIE1kgs7/iDXJxRsnLweZw8rRZc61B
+         CqIHbJJa+Ya05KW1Syhj8YgBoOmbpJS6g/rKFVbmKXjeFpvKEqJwqXkwdtQ0nzggOChz
+         V6XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1b3yq9bDkj4cyY1tUi5WC5LVpuov7BX3buQ90jWR19Q=;
+        fh=/AwNByIXmjLlLtbAMpjzJGXp98/i6C2JISU6jhzhQ5Q=;
+        b=JdcHXA5CVlkGA2TLcwx4suXG07RAHtxMMO4TRTQt0osz1bpzuwqkzljRmyWeZ9jUR2
+         oSQUk35V7neC2og29NDHwrGsDI16ia3N1xwfSjmWqlyQ3FoBXXpVKQJNvMEU5DNRgiyW
+         jn1n21LGZF7fNyV6hDvtVBwbnIQOSHn0iHEARTRNq06rK05nf0teJtZ9E/XXOQ1jAxoG
+         lUwPlNc1ej49RItWWyHdwGwd7f68JsE2Eo7VSmjPvAXyCXzteEt5AKXfH4S09hsOgljv
+         j3GLjeEDLm4ygnWSFp+16+Dc78kpA2t2uQ0J2yKKgx6GrYUw666zpjOoVGen8ctAUcQV
+         zMbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1793085919; x=1793690719; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1b3yq9bDkj4cyY1tUi5WC5LVpuov7BX3buQ90jWR19Q=;
+        b=i4yqr7TmR4nmOslL8RUixlCjBdWDnhnOn8mTXO0eJbWngP2C6b/ZZD1XVhWpDnOvd8
+         C2qCLaFFSLRoLZZt/nXpQUBmikFS0ckpGKluZRI17EGPDMlY8n6iyVnwDjsgB2qwlpZh
+         tSwWOHo5j/ZLYmvp1EIi6dYs5Ugfz2oOSiUNc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793085919; x=1793690719;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1b3yq9bDkj4cyY1tUi5WC5LVpuov7BX3buQ90jWR19Q=;
+        b=jCoCclkdejVFAjjwgD/seMc4pqMYeyrW1xG8GXbE+0R/vGX+nZgcy8Q3ROm2M5Ojx1
+         NwUy4UCG9zhk1IeLO8cUJnWXP+jljy/5uVeBFh72IbUfb5mLCEAEmCMiu6Wq7ltuAQZz
+         DDTHrkTaFx3uu/LNWLeA1xNEq0uDtcxZ2ulcTWbrlAez6L66ZlaHbgcTdfWK48TpuSMp
+         WTVqKJz1CU6Jti2gVXs3X6rDzApmj19Ml+DCCBWk2XCkPti0lrrrNOrGYLj4b5mG12C5
+         IxCpBTyznHP+7Akje/PTbySzJJfBh6gptvep8dLPJsWiyxbR1gxXZjaSbWI/dYk08TYr
+         HTrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpJJU9xNkJUZY14gMCWxlzl6uufNSq6iKhuU/rBS9Gzh5rQaMwrW+SNOwQK80qWYxgVF00cm4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTNTEAXkP6min5tPbs2OJqIl7teAqkkUrDRPJAPWfobTnGcedw
+	1r2D8DUY1slfH3219qVrvSSlAR3DV3goRWpbxBXGyHDPPVWqroUnTqif4B+mZawG9PiiQHzXeio
+	yzCwCVw3m/t9CGEeErjXR+NbyCzWLOKb3jf9dBl10woNwwajyYgg=
+X-Gm-Gg: AYBFou1MFEaXbzNkmwZbln8nbuJc1j/hHPFE0AVevAHxl7xpZBmSjuKyRvmNc/Ok2Qw
+	Z04RtXOsem/5nM9yQMdmNbS6SfCaJAaNWgJKVOVC8FpdtZ2GY1SHw1qr0cX9qx6S8HcenS/UYEl
+	6bm1GUyKBwGXLaCQAiHpHSmhC5NkW/p03wPJqv65zpfbUYEvbzg+u45zvlaHvjVD3+dePeudXuz
+	Z4iifkZm9Pk+ED3zJRZAfgpFkKNXcIMB1IFHxQELS/fWiDT/7ThfONbLTvSH4CEQpR3sWo4dygI
+	w9Qj+IfmiGli5MrG0qRkdcyyCWGbhCiTfUeHYNrbYHnCHDJfZfaeJpK92qPCngQw/aNiwL6Nmcp
+	psqRnhG5BNeKs49D951u+gVUyPcHkZzn/lwoMHZJgfmMcSPCx5vT0/Cop33c+qZkguEzDaY/W2o
+	7EN7gCQ7fSSjGPwyk=
+X-Received: by 2002:a05:6a00:9093:b0:878:3783:8a88 with SMTP id
+ d2e1a72fcca58-8a3689a9e0amr7511811b3a.52.1793085919500; Tue, 27 Oct 2026
+ 00:25:19 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,295 +101,41 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH net v6] net: libwx: fix VF PM suspend/resume flow
-From: "mengyuanlou@net-swift.com" <mengyuanlou@net-swift.com>
-In-Reply-To: <20261026151608.GA257209@horms.kernel.org>
-Date: Tue, 27 Oct 2026 15:24:21 +0800
-Cc: netdev-bot+sashiko@kernel.org,
- netdev@vger.kernel.org,
- jiawenwu@trustnetic.com,
- duanqiangwen@net-swift.com,
- linglingzhang@net-swift.com,
- andrew+netdev@lunn.ch,
- davem@davemloft.net,
- edumazet@google.com,
- kuba@kernel.org,
- pabeni@redhat.com,
- hramamurthy@google.com,
- jacob.e.keller@intel.com,
- stable@vger.kernel.org
+MIME-Version: 1.0
+References: <QDISC-6HS9.v1.r2.20261020051718-2@mojatatu.com>
+ <20261026160747.283702-1-horms@kernel.org> <CAM0EoMm9piw8gLJ=t9YYNu2-8zb=qfA3G6djchL0QaeZZvaNfA@mail.gmail.com>
+ <20261026174643.088e3f49@kernel.org>
+In-Reply-To: <20261026174643.088e3f49@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 27 Oct 2026 03:25:07 -0400
+X-Gm-Features: AclHuK_uYZ49I43utjW4TiugqfGvmoGuDzSGM3UY8eQ0cCU3DR7mRFC8rpStjeI
+Message-ID: <CAM0EoMmVv5WnzpQw2d7iLZU84KPDUMf7+t5m8BL+MBXR+oy7Lw@mail.gmail.com>
+Subject: Re: [PATCH net 2/2 repost2] net/sched: sch_teql: keep skb->dev
+ consistent on the arp-queue path
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, victor@mojatatu.com, 
+	jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
+	stable@vger.kernel.org, sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <207CCD99-673A-4E63-8E53-05883953AEC9@net-swift.com>
-References: <20261019060216.38458-1-mengyuanlou@net-swift.com>
- <179265975476.3135.4456951664798289210@kernel.org>
- <4ED66BF6-3475-4933-8BE3-8779745C2ABD@net-swift.com>
- <20261026151608.GA257209@horms.kernel.org>
-To: Simon Horman <horms@kernel.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:net-swift.com:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: NN51gi9eLBwalcQqd58rXCqQJBRFioTBeNaSsRIkxU+KM0lf7CulkWgJ
-	T6UuxICWjmDrA+heC0QmyLoQX4VTJoNrbI0QIsf2POVFQ1f89UbjWP+kzTlFEu36PARE5j6
-	XH+vLqmcVoNHRgaTF2CBVmLAo8urPXeJ5DOF3wdgxenAg8GFuJKi9QRYl+671xJKuCrttRL
-	C+Xi2jm7KzSG9QxgGGncaI5d9CiHvPlatgvWxv5/cTt/n4ON04LbF+5JcT0Z+Vke0oYilOr
-	p4vXnO8RihUAES1rTEXWTrs9W3DQF68ghy6W1b91/z6wGO/OP28I3iCL3KG85EQNHSvlA5n
-	X7LwI94tQFi3/rfJTlKZZbWyC693bv1yEWhtM0EqEyOZA2R9X4lR4WCEkDEeS3l7owHAPrs
-	84yQed2IYDZFUSdl4AELWdRGUcobvCtHTnSavJUkEAxeBD2nlQYwyris9INXg0JN5/Hw/H7
-	5r/7MSUYKFDylOfzMev4BzMug3rKcHriC2LH1xDntQtbCuCpGgJzbiuVmKAWhwycmy+mNzw
-	m9BJSjrzH+PLo/G2K/KqtsGZbtt7VSTrwgHz0JcmNW/kKE4GcjN1+XlE+gvWJj58GMll8HV
-	gom6AsZQLh8Kb5ozrJkEm/fKHpVvPkp+xs9S5Y0pY/zmT3toNm7syhj6dHGJesTqX1L+I9Z
-	XaLH+8rB8MPc69/RpbkYTZGYxkWuajBqVEMJ3X4d+noj4ePJF3N1TEssrX1NQ6a+VUpLeFA
-	dir2PhadP0CagkOQq3ZZxl0tqKikXwpwvZZyYlqyqUabl/P3QdDUsZ9Zsig9j2XgLocyw1o
-	7PkLwecQ7YLzlPZc8ERD2rN+OZqMBofNMiCY89+UNtfuQkB8t+HutEaRfza/HKfipP/QCTK
-	lcSpJx47CmCW3UdWA9p+h3WwafXfxIvqSb/ia+VTA1yLTSUGlCREFWl8FnhO+sPKgZ36M0p
-	uXORmgS2CTKcMY1rL3jYoQ4QcRgLWIb2Sj3Ppw+LuQ+j96eHXJekqzHmn75SyYurCMAuJRx
-	zK4M4jUwHl4GoqGxTNkhe7CF3QXg3ULkItqLT1uIWrnhCysAw7hzMNKGdrZTWLg09gJ+QMq
-	A==
-X-QQ-XMRINFO: MSVp+SPm3vtS89NDFrM59jH9/nKhHZFogA==
-X-QQ-RECHKSPAM: 0
 
+On Mon, Oct 26, 2026 at 8:46=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Mon, 26 Oct 2026 19:51:33 -0400 Jamal Hadi Salim wrote:
+> > > This is an AI-generated review of your patch. The human sending this
+> > > email says "Hi Jamal, passing this on for your consideration as it
+> > > seems to have got stuck somewhere."
+> >
+> > There was nothing wrong with the headers this time - so not sure what
+> > is going on. A bit frustrating.
+>
+> It is frustrating, you are the only one with these issues.
+> Patch 2 is posted in reply to patch 1. IDK what else is wrong.
+>
 
+Let me send a repost3 - will take the opportunity to pedantically fix
+the commit message (no code change).
 
-> 2026=E5=B9=B410=E6=9C=8826=E6=97=A5 23:16=EF=BC=8CSimon Horman =
-<horms@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> On Mon, Oct 26, 2026 at 02:59:59PM +0800, mengyuanlou@net-swift.com =
-wrote:
->>=20
->>=20
->>> 2026=E5=B9=B410=E6=9C=8822=E6=97=A5 =
-17:02=EF=BC=8Cnetdev-bot+sashiko@kernel.org =E5=86=99=E9=81=93=EF=BC=9A
->>>=20
->>> Thank you for your contribution! Sashiko AI review found 2 potential
->>> issue(s) to consider.
->>>=20
->>> Critical: 0 =C2=B7 High: 1 (1) =C2=B7 Medium: 0 =C2=B7 Low: 1 (1)
->>>=20
->>> If you believe none of the issues are legitimate, please reply to =
-each
->>> issue of Medium severity or higher and explain why the AI is wrong.
->>> If any of them are legitimate and you plan to respin, please let =
-patchwork
->>> know by including "pw-bot: cr" as a separate line at the end of your =
-reply
->>> (one such reply per series is enough).
->>>=20
->>> - [High] net: libwx: race between wxvf_remove() and =
-wxvf_reopen_subtask()
->>> - [Low] The v5 changelog says "Schedule the reopen subtask =
-immediately on
->>> resume; keep the service timer to retry if the PF is not ready."=E2=80=
-=A6
->>>=20
->>> Pre-existing issues:
->>> - [High] This problem wasn't introduced by this patch, but the patch =
-adds
->>> a new caller that depends on it.
->>> - [Low] This problem wasn't introduced by this patch, but VF =
-teardown
->>> never frees the coherent interrupt-status block (wx->isb_mem) =
-that=E2=80=A6
->>>=20
->>> --
->>>=20
->>> net: libwx: fix VF PM suspend/resume flow
->>>=20
->>> This patch reworks the shared txgbevf/ngbevf PM callbacks. Suspend =
-now
->>> closes a running VF under RTNL and drains the service timer and work
->>> before disabling PCI. Resume re-enables PCI and hands the PF =
-readiness
->>> check, VF reset, interrupt setup and reopen to the service task =
-through
->>> a new WX_FLAG_NEED_REOPEN flag.
->>>=20
->>>> diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c =
-b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
->>>> index 26de78e9a69ef..e2271e8bffcda 100644
->>>> --- a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
->>>> +++ b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
->>>=20
->>> [ ... ]
->>>=20
->>>> @@ -34,11 +48,20 @@ int wxvf_resume(struct device *dev_d)
->>>> {
->>>> struct pci_dev *pdev =3D to_pci_dev(dev_d);
->>>> struct wx *wx =3D pci_get_drvdata(pdev);
->>>> + int err;
->>>>=20
->>>> - pci_set_master(pdev);
->>>> - wx_init_interrupt_scheme(wx);
->>>> - netif_device_attach(wx->netdev);
->>>> + err =3D pci_enable_device_mem(pdev);
->>>> + if (err) {
->>>> + dev_err(&pdev->dev, "Cannot enable PCI device from suspend\n");
->>>> + return err;
->>>> + }
->>>>=20
->>>> + clear_bit(WX_STATE_DISABLED, wx->state);
->>>> + pci_set_master(pdev);
->>>> + rtnl_lock();
->>>> + mod_timer(&wx->service_timer, jiffies + HZ);
->>>> + set_bit(WX_FLAG_NEED_REOPEN, wx->flags);
->>>> + rtnl_unlock();
->>>> return 0;
->>>> }
->>>=20
->>> [Severity: Low]
->>> The v5 changelog says:
->>>=20
->>> Schedule the reopen subtask immediately on resume; keep the service
->>> timer to retry if the PF is not ready.
->>>=20
->>=20
->> This is removed in v6 after test.
->> And it was not mentioned in the changelog, which is a mistake.
->=20
-> ...
->=20
->>> [Severity: High]
->>> Can wxvf_remove() race with a reopen that is still pending after
->>> resume?
->>>=20
->>> After wxvf_resume(), WX_FLAG_NEED_REOPEN is set, service_timer is
->>> armed, and WX_STATE_RES_FREED is still set from wxvf_suspend(). The =
-VF
->>> can be unbound before wxvf_reopen_subtask() has completed. That =
-window
->>> includes the first second after resume, and any period where the PF
->>> ping or wx_reset_vf() keeps failing and the subtask keeps retrying. =
-In
->>> that case wxvf_remove() calls unregister_netdev() before it shuts =
-down
->>> the timer or cancels the work.
->>>=20
->>> If the interface was up, unregister_netdev() reaches wxvf_close(),
->>> which returns early because WX_STATE_RES_FREED is already set. If =
-the
->>> interface was down, wxvf_close() is not called at all. Either way,
->>> nothing clears WX_FLAG_NEED_REOPEN and nothing sets
->>> WX_STATE_DISABLED. WX_STATE_DISABLED is only set at the very end of
->>> wxvf_remove().
->>>=20
->>> Once unregister_netdev() drops RTNL, the timer can still queue the
->>> service task. wx_service_event_schedule() now lets it through =
-because
->>> WX_FLAG_NEED_REOPEN is set. An already queued work can also run =
-while
->>> wxvf_remove() waits in cancel_work_sync(). The guard in
->>> wxvf_reopen_subtask() passes, so it proceeds against a netdev that =
-has
->>> already been unregistered:
->>>=20
->>> wxvf_reopen_subtask()
->>>   wx_mbx_write_and_read_reply()    /* PF mailbox traffic */
->>>   wx_reset_vf()                    /* VF reset */
->>>   wx_init_interrupt_scheme()
->>>     wx_set_interrupt_capability()  /* MSI-X vector allocation */
->>>     wx_alloc_q_vectors()           /* netif_napi_add() */
->>>   netif_device_attach()
->>>=20
->>> wx_clear_interrupt_scheme() later in wxvf_remove() frees those
->>> q_vectors again. Even so, adding NAPI instances to a netdev after
->>> unregister_netdevice() has torn it down does not look safe. Neither
->>> does resetting the VF over the mailbox and allocating IRQ vectors in
->>> the middle of remove.
->>>=20
->>> Should wxvf_remove() quiesce the service machinery before
->>> unregister_netdev()? For example, it could clear WX_FLAG_NEED_REOPEN =
-or
->>> mark the device as being removed, then call timer_shutdown_sync() =
-and
->>> cancel_work_sync() first. That is similar to how ixgbevf_remove() =
-sets
->>> __IXGBEVF_REMOVING and cancels service_task before
->>> unregister_netdev(). Alternatively, should wxvf_reopen_subtask() =
-refuse
->>> to run once the netdev is no longer registered?
-
-
-The VF may resume before its PF, and the mailbox is not usable until the =
-PF has resumed.
-So resume only sets WX_FLAG_NEED_REOPEN and defers the reopen to =
-wxvf_reopen_subtask(),
-which retries over the mailbox until the PF is ready.
-
-It's right about that WX_STATE_DISABLED is only set at the end of =
-wxvf_remove(),
-after unregister_netdev() has returned, so a pending (or newly queued) =
-service
-work could pass that guard and touch the netdev while it is being =
-unregistered.
-That window was real.=20
-
-V7 will add check: the netdev to still be registered
-
- 	rtnl_lock();
- 	if (!test_bit(WX_FLAG_NEED_REOPEN, wx->flags) ||
- 	    test_bit(WX_STATE_DISABLED, wx->state) ||
- +++	    wx->netdev->reg_state !=3D NETREG_REGISTERED) {
- 		rtnl_unlock();
- 		return;
- 	}
-wxvf_reopen_subtask() and unregister_netdev() serialize on the same =
-RTNL, and reg_state
-leaves NETREG_REGISTERED before that lock is dropped.
-
-Thanks,
-Mengyuan
-
-
-
->>>=20
->>> [Severity: Low]
->>> This isn't a regression from this patch, but does the VF teardown =
-path
->>> leak wx->isb_mem?
->>>=20
->>> wxvf_open()->wx_setup_resources()->wx_setup_isb_resources() =
-allocates it
->>> with dma_alloc_coherent(), which is not devm-managed:
->>>=20
->>> wx->isb_mem =3D dma_alloc_coherent(&pdev->dev,
->>> sizeof(u32) * 4,
->>> &wx->isb_dma,
->>> GFP_KERNEL);
->>>=20
->>> wxvf_close() frees only the IRQs and the RX/TX rings. wxvf_remove() =
-never
->>> calls wx_free_isb_resources(). That function is called only from
->>> ngbe_main.c and txgbe_main.c.
->>>=20
->>> wx_setup_isb_resources() returns early when isb_mem is already set, =
-so
->>> repeated open/resume cycles do not leak more. Even so, the 16-byte
->>> coherent buffer seems to be left behind on every VF unbind if the
->>> interface was opened at least once.
->>>=20
->>> [ ... ]
->>>=20
->>>> +static void wxvf_reopen_subtask(struct wx *wx)
->>>> +{
->>>=20
->>> [ ... ]
->>>=20
->>>> + if (wx_init_interrupt_scheme(wx)) {
->>>> + dev_err(&wx->pdev->dev, "Failed to initialize interrupt =
-scheme\n");
->>>> + goto hard_failure;
->>>> + }
->>>> +
->>>> + if (netif_running(wx->netdev)) {
->>>> + if (wxvf_open(wx->netdev))
->>>> + goto open_failed;
->>>> + }
->=20
-> Hi Mengyuan,
->=20
-> I apologise if I am missing something obvious.
-> But could you respond to the High concern above?
->=20
-> ...
-
-
+cheers,
+jamal
