@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093013;
-	b=EAjcppYe/RoP4s9XdpJEwGsqlRlUWKmawTl+ZKGhNhQMaThs2cHuBnPTWdl70l5AryLE
-	 SWHjf6Lv2Oj7YT6i2TB9sr+we+vsc3Y3Gc5xkiPqVROlgBNGmiCt2zAp+J+Sitsif8WDq
-	 3N/rXRzMxTBbyXtpXcPnimabYiVJ2ssmOimyCrgLtjKAsw49BFlQMdrwLFrU5YWuRVh5f
-	 vYBZcxLulB5lo/T3fe7yCWsyddtgSpZdSnir+uL0AE5IPCWZLfS47ThAXujT5hvUNJys8
-	 UJmcZARM8qLMyAFN0pcNesoBKWzP8O/SVYzDyD9e1S8tzxTYAvEMF4dLpYmhd1AECzQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093013;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gKyZ8Btgv2m5r1QzOsn9naTI7JOU43dREIO8vvPdksk=;
-	b=uaOFWQX9maxwUkbgV90mzT36M+9DzrSG2YsBLgtiZ8dJXF5sGYKk//jBEciKgPdBsKV2
-	 qQ4bHIh41TVx4439w4+L3pBfYnWA5DPnaRpZYJjUUyr8J9oA+v1pUDogOCAJ6pANUEcxz
-	 LAJIWjaN92wUfa5Y/tHDtnWsQE8+kd7hUfLQ+Q4ixQcNnk47qmeZFDyIP9R99BKbJ4zWc
-	 MCLu7TRvnsun+lVzaffJy4cy4teS8KvS9iSAPvZO9NBHRii9obpi7rLPlyo6AOyebUTB7
-	 fi0X97+srhrG/qHTxwaF3SHtKCSVH9uhAbniYnR73lV+pfrh+WZQLYSqf4yLTobMITw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRIblIbn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793093022;
+	b=OhGvIYM4rXs8Eep3dMWMS4N0drKn6NcUkBepZKzMMqrdLtBgHuW9DZHmNk3PR8gvslkj
+	 6APU62AcSj/pWWuJeP0Fc0FWDLvL/oxe9lEVyNKAQbFjaPwD8TIcrT/+TViY/SSLGMRQi
+	 lBnkY+zkm4VdEprktr40gM2VvxJGi/ykVLOQVtXLomV2WBNLzwmVkmObv1wbYWi9lPKgP
+	 5136eAO3dQCJaiq5dUYYiLWyvcmvms9HUBHIx1v1X889VPsbvDXi7CGft57x9aL+VXgVe
+	 N4cNRpFpjZFcIK6a/LIBkYP0230vPkEOJux7jw4/C9Dip5N+/RL1M+3CnOV3xpIJ2cQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093022;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=mesQ+EqHTxYwpWS4gAUO/p+jlZlUmaqFtGfsy8swM0U=;
+	b=2mbWUS1LVqfFgWs4N3yE5xpKasqRqWk0MLrVMSDvNlz8RfzNYnRiLgHUEFuW+OhoEQKO
+	 lF3XYFRceHtBZgGm16e4TAiucI5yIfedNgarU8DD/mZHObqJcPht/06vDFFUnlIV7VmkQ
+	 GJJsG/461nODtTdoxZTCSnyASOKc3lz/CqziMcxrKccro/UdCjHj04u0F69Qk4cQ1jjQl
+	 eNzgVSiIu3nxoluqgTvSvQYjHlZF2fmoJXiEk0iR+9ulz848E483lxMW22CUqHs4/thk0
+	 oB/+HPKs1jve409nr25ZxK2yx61BcRVqVRHU6aYKhoYNRsJ7GuVs7glR7EJtVuwu0Pg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=d626wbft;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8916606A31A;
-	Tue, 27 Oct 2026 09:23:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E6F606A31E;
+	Tue, 27 Oct 2026 09:23:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E6F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRIblIbn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C891B1F01825;
-	Tue, 27 Oct 2026 09:23:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793093012;
-	bh=gKyZ8Btgv2m5r1QzOsn9naTI7JOU43dREIO8vvPdksk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RRIblIbn2zLnU8Sr7/XSlAPM/1uYHmreLkJHjINQaRJOZvC9Sgpx42DrJf6dcQTQC
-	 ya74iDcLD6vrow+ocCz0IReZYx0P1Q9NsVCfnovJb8AJLEC/y7eFeLPDmrSWxdwf/o
-	 TksWubM3qOV6hJ2NxKiMMuWprf9uAh0CfC93xkb8BJ1+c+RRuIAFhPkXhr4omthO8q
-	 f7xxqtEGJZKjUL6xCIL7yGA94ZBM9y8WqbzHraQifdUrB3+WWEq4dkNyC5l1Ja6A+i
-	 a65v0Umr9leKkV34R9WoWIlBEKeGporP8FyFgIucxi1ALew3as/VXqSDuvgEofOLI8
-	 FlmLdC2A7uqbA==
-Date: Tue, 27 Oct 2026 09:23:15 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 37/46] mm: fix deadlock of mremap() against UFFDIO_MOVE
-Message-ID: <auBtPQcZOSlj1E64@gremlin>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-37-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=d626wbft
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C612B202859;
+	Tue, 27 Oct 2026 10:23:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793093014;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mesQ+EqHTxYwpWS4gAUO/p+jlZlUmaqFtGfsy8swM0U=;
+	b=d626wbftWZhcD/qFf936zIcfrwA3MOyyAF2UkE3qU5hiHYDAXaY7Whx2lT2hejbFn59cVn
+	UZWnvvHCcH2F72sZ4sNovT9IJfX4TYHdZs1upPaSqg0bI16OnnmNiIf1Ds3GO6rvqdaa1c
+	cMLOjFsLjB3m/QdBUAKJonFeAHWWTpZEouySic4Dt7Q03rWV5igPgoZ2xgr0c7ERqjc+VT
+	CEC57JoIrRMrmmrmVRgUtPKyrWPcHfgohzyVWrT/rslhSHQTp4kmWo3ZkbwsS/IEnfeEwT
+	IdoVJPWIOG4s/olNE6iDqp+7rMDF3QUMsLn2TY2Umrs6cMA7Gp8MRHvlWImBAQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793093014; a=rsa-sha256;
+	cv=none;
+	b=enUmOBGZ6oKloB0pbVD4HPfBY7jW7QGA02xuDxuGV9fMlOsdsZTtihHoYaW7znA/0zXjGR
+	GN92J7LAEWVgKopOduaZFX8+mvVvcp/UcZuxr+9sczCr9ZEFq49aWveUW0Ugd09V9F9tnW
+	OtjDo23VzT3VdxUU2zjyDwVld06XsbjfRTz77Xs+VvyKjhM1hOiulubsrO0IEyZcmKHpPZ
+	PbL0h5cMjqiSfTclMe85bDRpKGCJIqaovNBHM+gRSeKaxG8obN2hmiJliGl9at9oELV3yO
+	A6Xt6h8DHMjv+LP4mcyG3FpcJ0QnTMlcS0SqbtMJgDIn0Zl9VuEja63umLIYGg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793093014;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mesQ+EqHTxYwpWS4gAUO/p+jlZlUmaqFtGfsy8swM0U=;
+	b=WJvWjPK/0vxtOOGaX8R9HqBwe+9MqSGC9ez1xAqWFd2PQX3DQH1z6VT2EhbIa76oYA5tde
+	ZUe4ZKh10IybFTwa5BSukXg8HEH/2TDdcQ7P4npjuckfrshLQkuOwac7YUi9YClpiZJttF
+	IqKoT9EzXHpeSCqO0KrOkrN8udy57P0mhzLzYuEvjqBfPU+384Nl/xv33I1kHYZ1H4PTxc
+	SNy7D4ZxtfssyBcO0dHo6OEHzGQS/vtuGrPkPnPJCShQS5vKnRvD+ZJz8QeVP5MilB0dMG
+	UmpaHURbhOSeKj7NMM+GptY1PV4AEy+FjYm/3dDyLx16z+nUooY74cS4Bejudw==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xLdP4-001PMj-2C;
+	Tue, 27 Oct 2026 10:23:34 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 5EA765D7ABE;
+	Tue, 27 Oct 2026 09:23:34 +0000 (UTC)
+Date: Tue, 27 Oct 2026 10:23:34 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: syzbot ci <syzbot+ci0e4b58e5e6ed7fb1@syzkaller.appspotmail.com>
+Cc: eric@evenchick.com, kernel@pengutronix.de, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mailhol@kernel.org, max@schneidersoft.net, pfink@christ-es.de, 
+	stable@vger.kernel.org, wg@grandegger.com, syzbot@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot ci] Re: gs_usb: fixes
+Message-ID: <20261027-cherubic-monumental-aardwolf-d2cf5f-mkl@pengutronix.de>
+References: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+ <6ae06214.6200f071.51519.0f44.GAE@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,384 +102,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ctj6jyf2ogvq5zp5"
 Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-37-6f74bec9a5bb@kernel.org>
+In-Reply-To: <6ae06214.6200f071.51519.0f44.GAE@google.com>
 
-On Tue, Oct 27, 2026 at 12:17:57AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
->
-> With per-VMA locks, UFFDIO_MOVE can run concurrently with mremap()
-> on different VMAs in the same mm. Those VMAs can share page tables, so
-> both operations can acquire the same pair of page-table locks.
->
-> UFFDIO_MOVE orders the locks by address, while mremap() takes the source
-> lock first. These conflicting orders can deadlock; mremap() holding
-> mmap_lock for writing no longer helps.
->
-> Move double_pt_lock() and double_pt_unlock() to mm/internal.h and use
-> them for all page-table moves in mremap(). Preserve the source entry
-> checks after acquiring both locks. Remove the comments claiming that
-> exclusive mmap_lock makes lock ordering irrelevant.
->
-> In move_ptes(), make sure to just recheck source and destination PMD
-> after taking the locks and drop the overly-long comment.
->
-> Fix generated by an LLM and sent by Chris Mason in private.
->
-> Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: use new helpers consistently; simplify description and comments;
->          move_ptes() fixup ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-OK nice, reviewed off-list and this revision looks correct + covers all
-cases, so:
+--ctj6jyf2ogvq5zp5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [syzbot ci] Re: gs_usb: fixes
+MIME-Version: 1.0
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On 27.10.2026 01:34:28, syzbot ci wrote:
+> syzbot ci has tested the following series
+>
+> [v3] gs_usb: fixes
+> https://lore.kernel.org/all/20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengu=
+tronix.de
+> * [PATCH v3 1/4] can: gs_usb: gs_can_start_xmit(): don't leak uninitializ=
+ed memory over USB
+> * [PATCH v3 2/4] can: gs_usb: gs_usb_probe(): init netdev completely befo=
+re register_candev()
+> * [PATCH v3 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check for o=
+verflow flag if SKB allocation fails
+> * [PATCH v3 4/4] can: gs_usb: gs_usb_receive_bulk_callback(): add missing=
+ call to can_rx_offload_irq_finish
+>
+> and found the following issue:
+> general protection fault in can_rx_offload_del
+>
+> Full report is available here:
+> https://ci.syzbot.org/series/0c1fc4c5-6a50-43da-a45c-fbc3a8685c3d
 
-> ---
->  include/linux/userfaultfd_k.h |  2 -
->  mm/huge_memory.c              | 19 ++++------
->  mm/hugetlb.c                  | 14 ++-----
->  mm/internal.h                 | 28 ++++++++++++++
->  mm/mremap.c                   | 87 +++++++++++++++++--------------------------
->  mm/userfaultfd.c              | 27 --------------
->  6 files changed, 72 insertions(+), 105 deletions(-)
->
-> diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-> index a14b8a9ffb7b1..565e98f342dc8 100644
-> --- a/include/linux/userfaultfd_k.h
-> +++ b/include/linux/userfaultfd_k.h
-> @@ -153,8 +153,6 @@ extern int mrwprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
->  			    unsigned long len, bool enable_rwp);
->
->  /* move_pages */
-> -void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2);
-> -void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2);
->  int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pmd_t dst_pmdval,
->  			struct vm_area_struct *dst_vma,
->  			struct vm_area_struct *src_vma,
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 1b50cc2b35351..08e58cda7d37d 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2645,15 +2645,11 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
->  		return false;
->  	}
->
-> -	/*
-> -	 * We don't have to worry about the ordering of src and dst
-> -	 * ptlocks because exclusive mmap_lock prevents deadlock.
-> -	 */
-> -	old_ptl = __pmd_trans_huge_lock(old_pmd, vma);
-> -	if (old_ptl) {
-> -		new_ptl = pmd_lockptr(mm, new_pmd);
-> -		if (new_ptl != old_ptl)
-> -			spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-> +	old_ptl = pmd_lockptr(mm, old_pmd);
-> +	new_ptl = pmd_lockptr(mm, new_pmd);
-> +
-> +	double_pt_lock(old_ptl, new_ptl);
-> +	if (likely(pmd_is_huge(*old_pmd))) {
->  		pmd = pmdp_huge_get_and_clear(mm, old_addr, old_pmd);
->  		if (pmd_present(pmd))
->  			force_flush = true;
-> @@ -2682,11 +2678,10 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
->  		set_pmd_at(mm, new_addr, new_pmd, pmd);
->  		if (force_flush)
->  			flush_pmd_tlb_range(vma, old_addr, old_addr + PMD_SIZE);
-> -		if (new_ptl != old_ptl)
-> -			spin_unlock(new_ptl);
-> -		spin_unlock(old_ptl);
-> +		double_pt_unlock(old_ptl, new_ptl);
->  		return true;
->  	}
-> +	double_pt_unlock(old_ptl, new_ptl);
->  	return false;
->  }
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index da5d04edf7c10..84141527fe73d 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -5153,15 +5153,9 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
->  	spinlock_t *src_ptl, *dst_ptl;
->  	pte_t pte;
->
-> -	dst_ptl = huge_pte_lock(h, mm, dst_pte);
-> +	dst_ptl = huge_pte_lockptr(h, mm, dst_pte);
->  	src_ptl = huge_pte_lockptr(h, mm, src_pte);
-> -
-> -	/*
-> -	 * We don't have to worry about the ordering of src and dst ptlocks
-> -	 * because exclusive mmap_lock (or the i_mmap_lock) prevents deadlock.
-> -	 */
-> -	if (src_ptl != dst_ptl)
-> -		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-> +	double_pt_lock(dst_ptl, src_ptl);
->
->  	pte = huge_ptep_get_and_clear(mm, old_addr, src_pte, sz);
->
-> @@ -5190,9 +5184,7 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
->  		set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
->  	}
->
-> -	if (src_ptl != dst_ptl)
-> -		spin_unlock(src_ptl);
-> -	spin_unlock(dst_ptl);
-> +	double_pt_unlock(dst_ptl, src_ptl);
->  }
->
->  int move_hugetlb_page_tables(struct vm_area_struct *vma,
-> diff --git a/mm/internal.h b/mm/internal.h
-> index b1b0f29d2216e..7e4d88b2fb02c 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -619,6 +619,34 @@ static inline void force_page_cache_readahead(struct address_space *mapping,
->  	force_page_cache_ra(&ractl, nr_to_read);
->  }
->
-> +/*
-> + * Take two page table locks at the same level in address order such that
-> + * we cannot deadlock.
-> + */
-> +static inline void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2)
-> +	__acquires(ptl1)
-> +	__acquires(ptl2)
-> +{
-> +	if (ptl1 > ptl2)
-> +		swap(ptl1, ptl2);
-> +	spin_lock(ptl1);
-> +	if (ptl1 != ptl2)
-> +		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
-> +	else
-> +		__acquire(ptl2);
-> +}
-> +
-> +static inline void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2)
-> +	__releases(ptl1)
-> +	__releases(ptl2)
-> +{
-> +	spin_unlock(ptl1);
-> +	if (ptl1 != ptl2)
-> +		spin_unlock(ptl2);
-> +	else
-> +		__release(ptl2);
-> +}
-> +
->  unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
->  		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
->  unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index 1237718848f5c..70b7264aa6bf5 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -202,7 +202,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
->  	struct mm_struct *mm = vma->vm_mm;
->  	pte_t *old_ptep, *new_ptep;
->  	pte_t old_pte, pte;
-> -	pmd_t dummy_pmdval;
-> +	pmd_t old_pmdval, new_pmdval;
->  	spinlock_t *old_ptl, *new_ptl;
->  	bool force_flush = false;
->  	unsigned long old_addr = pmc->old_addr;
-> @@ -234,31 +234,30 @@ static int move_ptes(struct pagetable_move_control *pmc,
->  	if (pmc->need_rmap_locks)
->  		take_rmap_locks(vma);
->
-> -	/*
-> -	 * We don't have to worry about the ordering of src and dst
-> -	 * pte locks because exclusive mmap_lock prevents deadlock.
-> -	 */
-> -	old_ptep = pte_offset_map_lock(mm, old_pmd, old_addr, &old_ptl);
-> +	old_ptep = pte_offset_map_rw_nolock(mm, old_pmd, old_addr, &old_pmdval,
-> +					    &old_ptl);
->  	if (!old_ptep) {
->  		err = -EAGAIN;
->  		goto out;
->  	}
-> -	/*
-> -	 * Now new_pte is none, so collapse_scan_file() path can not find
-> -	 * this by traversing file->f_mapping, so there is no concurrency with
-> -	 * retract_page_tables(). In addition, we already hold the exclusive
-> -	 * mmap_lock, so this new_pte page is stable, so there is no need to get
-> -	 * pmdval and do pmd_same() check.
-> -	 */
-> -	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &dummy_pmdval,
-> -					   &new_ptl);
-> +	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &new_pmdval,
-> +					    &new_ptl);
->  	if (!new_ptep) {
-> -		pte_unmap_unlock(old_ptep, old_ptl);
-> +		pte_unmap(old_ptep);
-> +		err = -EAGAIN;
-> +		goto out;
-> +	}
-> +
-> +	double_pt_lock(old_ptl, new_ptl);
-> +	if (unlikely(!pmd_same(old_pmdval, pmdp_get_lockless(old_pmd)) ||
-> +		     !pmd_same(new_pmdval, pmdp_get_lockless(new_pmd)))) {
-> +		double_pt_unlock(old_ptl, new_ptl);
-> +		pte_unmap(new_ptep);
-> +		pte_unmap(old_ptep);
->  		err = -EAGAIN;
->  		goto out;
->  	}
-> -	if (new_ptl != old_ptl)
-> -		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-> +
->  	flush_tlb_batched_pending(vma->vm_mm);
->  	lazy_mmu_mode_enable();
->
-> @@ -317,10 +316,9 @@ static int move_ptes(struct pagetable_move_control *pmc,
->  	lazy_mmu_mode_disable();
->  	if (force_flush)
->  		flush_tlb_range(vma, old_end - len, old_end);
-> -	if (new_ptl != old_ptl)
-> -		spin_unlock(new_ptl);
-> +	double_pt_unlock(old_ptl, new_ptl);
->  	pte_unmap(new_ptep - 1);
-> -	pte_unmap_unlock(old_ptep - 1, old_ptl);
-> +	pte_unmap(old_ptep - 1);
->  out:
->  	if (pmc->need_rmap_locks)
->  		drop_rmap_locks(vma);
-> @@ -395,14 +393,9 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
->  	if (WARN_ON_ONCE(!pmd_none(*new_pmd)))
->  		return false;
->
-> -	/*
-> -	 * We don't have to worry about the ordering of src and dst
-> -	 * ptlocks because exclusive mmap_lock prevents deadlock.
-> -	 */
-> -	old_ptl = pmd_lock(mm, old_pmd);
-> +	old_ptl = pmd_lockptr(mm, old_pmd);
->  	new_ptl = pmd_lockptr(mm, new_pmd);
-> -	if (new_ptl != old_ptl)
-> -		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-> +	double_pt_lock(old_ptl, new_ptl);
->
->  	pmd = *old_pmd;
->
-> @@ -418,9 +411,7 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
->  	pmd_populate(mm, new_pmd, pmd_pgtable(pmd));
->  	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PMD_SIZE);
->  out_unlock:
-> -	if (new_ptl != old_ptl)
-> -		spin_unlock(new_ptl);
-> -	spin_unlock(old_ptl);
-> +	double_pt_unlock(old_ptl, new_ptl);
->
->  	return res;
->  }
-> @@ -452,14 +443,10 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
->  	if (WARN_ON_ONCE(!pud_none(*new_pud)))
->  		return false;
->
-> -	/*
-> -	 * We don't have to worry about the ordering of src and dst
-> -	 * ptlocks because exclusive mmap_lock prevents deadlock.
-> -	 */
-> -	old_ptl = pud_lock(mm, old_pud);
-> +	old_ptl = pud_lockptr(mm, old_pud);
->  	new_ptl = pud_lockptr(mm, new_pud);
-> -	if (new_ptl != old_ptl)
-> -		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-> +
-> +	double_pt_lock(old_ptl, new_ptl);
->
->  	pud = *old_pud;
->  	if (unlikely(pud_none(pud)))
-> @@ -473,9 +460,7 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
->  	pud_populate(mm, new_pud, pud_pgtable(pud));
->  	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PUD_SIZE);
->  out_unlock:
-> -	if (new_ptl != old_ptl)
-> -		spin_unlock(new_ptl);
-> -	spin_unlock(old_ptl);
-> +	double_pt_unlock(old_ptl, new_ptl);
->
->  	return true;
->  }
-> @@ -503,16 +488,14 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
->  	if (WARN_ON_ONCE(!pud_none(*new_pud)))
->  		return false;
->
-> -	/*
-> -	 * We don't have to worry about the ordering of src and dst
-> -	 * ptlocks because exclusive mmap_lock prevents deadlock.
-> -	 */
-> -	old_ptl = __pud_trans_huge_lock(old_pud, vma);
-> -	if (unlikely(!old_ptl))
-> -		return false;
-> +	old_ptl = pud_lockptr(mm, old_pud);
->  	new_ptl = pud_lockptr(mm, new_pud);
-> -	if (new_ptl != old_ptl)
-> -		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-> +
-> +	double_pt_lock(old_ptl, new_ptl);
-> +	if (unlikely(!pud_trans_huge(*old_pud))) {
-> +		double_pt_unlock(old_ptl, new_ptl);
-> +		return false;
-> +	}
->
->  	/* Clear the pud */
->  	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
-> @@ -523,9 +506,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
->  	/* mark soft_ditry when we add pud level soft dirty support */
->  	set_pud_at(mm, pmc->new_addr, new_pud, pud);
->  	flush_pud_tlb_range(vma, pmc->old_addr, pmc->old_addr + HPAGE_PUD_SIZE);
-> -	if (new_ptl != old_ptl)
-> -		spin_unlock(new_ptl);
-> -	spin_unlock(old_ptl);
-> +	double_pt_unlock(old_ptl, new_ptl);
->
->  	return true;
->  }
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 710e913c73bfa..76de84510340c 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -1206,33 +1206,6 @@ int mrwprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
->  	return 0;
->  }
->
-> -void double_pt_lock(spinlock_t *ptl1,
-> -		    spinlock_t *ptl2)
-> -	__acquires(ptl1)
-> -	__acquires(ptl2)
-> -{
-> -	if (ptl1 > ptl2)
-> -		swap(ptl1, ptl2);
-> -	/* lock in virtual address order to avoid lock inversion */
-> -	spin_lock(ptl1);
-> -	if (ptl1 != ptl2)
-> -		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
-> -	else
-> -		__acquire(ptl2);
-> -}
-> -
-> -void double_pt_unlock(spinlock_t *ptl1,
-> -		      spinlock_t *ptl2)
-> -	__releases(ptl1)
-> -	__releases(ptl2)
-> -{
-> -	spin_unlock(ptl1);
-> -	if (ptl1 != ptl2)
-> -		spin_unlock(ptl2);
-> -	else
-> -		__release(ptl2);
-> -}
-> -
->  static inline bool is_pte_pages_stable(pte_t *dst_pte, pte_t *src_pte,
->  				       pte_t orig_dst_pte, pte_t orig_src_pte,
->  				       pmd_t *dst_pmd, pmd_t dst_pmdval)
->
-> --
-> 2.43.0
->
+Good bot! Will be fixed in v4.
 
---
-Cheers, Lorenzo
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--ctj6jyf2ogvq5zp5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCauBtkwAKCRDMOmT6rpmt
+0uh2APwLlnsSC4qra+ba87tRha8A5y05ekmf+mItqK6HNwuEAAEAvIM+bsw+Pm4t
+wQTD90lK73QFYkES1jxcfiVexmr9TwE=
+=4cPB
+-----END PGP SIGNATURE-----
+
+--ctj6jyf2ogvq5zp5--
