@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102074;
-	b=eePtmSe+1RI2I6gL33l5origGKKAHNpotTABJqaWFRflIdQBX64fzsBAMcU2Ox+abwVr
-	 Dn1c7niumFEdAT/sE3LBBKQYoHSkNt/amXIhBB1ZSFNxKi1+gvTPmXHmn6Z5ZzWyiNSkR
-	 KVFz3l+dehN8gkdeNWjE9bvo+qP/H1KSWPfaY49MoqwAclKv6/VSS5+t33jbkUR5mJDek
-	 Fs61AgC77e7KviJi74Q+mnd2H1HHK2Kg0YUJ6uqsM8l++fhbEL00B2M39beqVPQ3EOhsk
-	 /cm7KcfG2PEPRahSPzAgWLVZjL45awiy820zhVZYGRUPOhGQpx6Sp5qlItdQpd9J+aQ==
+	t=1793102130;
+	b=EWf+b2nxAeN0A9Q0lt0eYkfX/6XUu0jlkXH6e5Srjnvk2D+cxXFmecOw9oE6i+akhzr0
+	 Suce/EFgVxAbej2gPOh9UR83G9xlG3dOTFs2/Y/a9oYrntZXUN/kS0NP6QIqf/np767DF
+	 U7BFWCHhuA5t+jsAEfxV12+auGmQwZAT8g9u/a9aEieR+SH7P5zilXAt1CDcfsVeiNLDF
+	 gHyn6iNxLB7/kmNAk1kjDjJdMf2fh+zXaNM+GTeKMxPWebqbTJEGp4uJw8YdlitGixyfr
+	 Syxf4sOWpPGfD/5IB02SASib9dRqUOYOL5w0qs82EMWHXzrcmvSqnsF/U0fZ5DSwjew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102074;
-	h=DMARC-Filter:Received:Received:Message-Id:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Date:Mime-Version:From:To:Cc:Subject:
-	 Content-Type:X-MAIL:X-MSS:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=FqxKvNg4kJimCwQ4aj4TQkIJ9sNptxO95CCUSsHG0XA=;
-	b=Qo606jBrY9dG+q84bQ5M8wtnCGSR/w9esaHexKXJm4fVb5pCdZaNtb0dQHQiYmIg7Sta
-	 idNiB0E+kyeqmgWuVxqtUiidfo1WKK7WZRdU8dkKxGJ2n5F6vVR4fY9U78JDrPhP9G5GW
-	 VGMKFFw66yE/K4H4DiFIWgXKZkYZ8L2dZi2LIR6UyhFjcezuCUKQoEv+IY1A4FTV1gmuk
-	 NceaUK7+W1Ex85NKqS6HW2rJvFPGh8z0E+e724SyY55/AR86Z9VppdNkNhEQXk76HBvzI
-	 L2m1sF/tsNOWF721cOKzLWuJTtIjIg7+XhZpxZ2QqeON17NnQbc7wLYkjPkr7Dr9zAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102130;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=rxmDm29hIYa+G8O63fmxokTTs2LclgKKZv3r9T6ESXM=;
+	b=Nj3bXk/nqWs845GQERzMpBVq0B7v0S3Hn9z20jdpTbt0lfAKaMgXt4uldi56J3pSY3Ah
+	 Y4hKbjI5Jdbh4MtinPLfgROzDhY77AfxstsaVV+l/w2ZZ8iTW1K38QNFfwk6221bR4mwc
+	 fGAsCZ+PGLlptR2OxtAl3CuLp6DV8ET9AqWKMJai2JAgAoFn2gB8uxeKqlpiNf4MfwiZl
+	 6TWtf1vJL1TWX+pv6t4J7OkipyVA8x5TlENxi3AjV7hrW8tsbgE2Cxd8pkj8KAE3zSIIx
+	 FeXrb4yajitPypAHJ2VUSxDYGmpHxnK0kxIpIaYdyZJO0HdJabzuxazAlQiMjG7vxCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="enn3/JrL";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4B6606A31A;
-	Tue, 27 Oct 2026 11:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA4B6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jDTS040CLz5B13b;
-	Tue, 27 Oct 2026 19:54:24 +0800 (CST)
-Received: (from root@localhost)
-	by mse-fl2.zte.com.cn id 69RBsOlq045164;
-	Tue, 27 Oct 2026 19:54:24 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Message-Id: <202610271154.69RBsOlq045164@mse-fl2.zte.com.cn>
-Received: from szxl2zmapp07.zte.com.cn ([10.1.32.52])
-	by mse-fl1.zte.com.cn with SMTP id 69RBlTX0050550;
-	Tue, 27 Oct 2026 19:47:29 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Received: from mapi (szxlzmapp02[null])
-	by mapi (Zmail) with MAPI id mid16;
-	Tue, 27 Oct 2026 19:47:32 +0800 (CST)
-X-Zmail-TransId: 2b046ae08f547b2-3f5fc
-X-Mailer: Zmail v1.0
-Date: Tue, 27 Oct 2026 19:47:32 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE3E606A32F;
+	Tue, 27 Oct 2026 11:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=enn3/JrL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE7F1F01825;
+	Tue, 27 Oct 2026 11:55:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102129;
+	bh=rxmDm29hIYa+G8O63fmxokTTs2LclgKKZv3r9T6ESXM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=enn3/JrLknRWmcjTryI3lzsUGgWcSaqpPgbZU+rF8yJBz+1D9xC9zx50/6FozzTse
+	 f3sv2hEOkxfTxbFMdLQt6of5wxw6hE4eQ2TnANZJ+onqCF+UhhbQ6xg7koEaQXyKCI
+	 hwJVHxIeKy5NLpCZklENjBwgY0Y/+wQvsS7STkzClvQopytNnuUv4a9tnSJwxcKoVL
+	 PmJr0s/M60pGIjEpz5b6hK1aBTDfmDj0Q8P6fnttMPe44XMybBiVzCCakOAwZFX7OG
+	 y1mfeX+eA1hgnpyR8cOq5zJb3GbQQZ1LzVFdqX0iGqRPBtnoiYteFFini8HXWN7ecd
+	 3Ij2aLPHA2n4Q==
+Subject:
+ Re: [PATCH ipsec] xfrm: fix output state cache TOCTOU in xfrm_state_find()
+From: netdev-bot+sashiko@kernel.org
+To: tristmd@gmail.com
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, tristan@talencesecurity.com
+Date: Tue, 27 Oct 2026 11:55:28 +0000
+Message-ID: <179310212860.3134.3705274498786236555@kernel.org>
+In-Reply-To: <20261023195323.3528192-1-tristmd@gmail.com>
+References: <20261023195323.3528192-1-tristmd@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,60 +63,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <lv.yating@zte.com.cn>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-        <namhyung@kernel.org>, <mark.rutland@arm.com>,
-        <alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
-        <irogers@google.com>, <adrian.hunter@intel.com>,
-        <james.clark@linaro.org>
-Cc: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <liu.qingtao2@zte.com.cn>, <he.yilin@zte.com.cn>,
-        <zhang.cheng35@zte.com.cn>, <ye.zhihao1@zte.com.cn>,
-        <shen.lin1@zte.com.cn>, <dai.hualiang@zte.com.cn>,
-        <stable@vger.kernel.org>, <hu.shengming@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIXSBwZXJmIG1hY2hpbmU6IEZpeCBOVUxMIGRlcmVmIGluIHRocmVhZF9fcmVzb2x2ZV9jYWxsY2hhaW5fc2FtcGxlKCk=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 69RBsOlq045164
-X-MSS: AUDITRELEASE@mse-fl2.zte.com.cn
-X-TLS: YES
-X-ENVELOPE-SENDER: lv.yating@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 27 Oct 2026 19:54:24 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE090F0.000/4jDTS040CLz5B13b
+MIME-Version: 1.0
 
-From: lvyating <lv.yating@zte.com.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-When recording with -j stack, resolve_lbr_callchain_sample() can
-dereference a NULL 'chain' pointer while resolving the branch
-stack.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-$ perf record -j stack -e branches:u uname
-perf: Segmentation fault
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fix it by checking 'chain' for NULL before dereferencing it.
+- [Medium] The race this patch says it fixes cannot happen on this tree,
+  because the code the patch changes never runs.
 
-Fixes: 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
-Signed-off-by: lvyating <lv.yating@zte.com.cn>
-Cc: stable@vger.kernel.org
----
- tools/perf/util/machine.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--
 
-diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
-index f86b3b7df742..10a88c070814 100644
---- a/tools/perf/util/machine.c
-+++ b/tools/perf/util/machine.c
-@@ -2858,7 +2858,7 @@ static int thread__resolve_callchain_sample(struct thread *thread,
- 	if (chain)
- 		chain_nr = chain->nr;
+xfrm: fix output state cache TOCTOU in xfrm_state_find()
 
--	if (evsel__has_branch_callstack(evsel)) {
-+	if (chain && evsel__has_branch_callstack(evsel)) {
- 		struct perf_env *env = evsel__env(evsel);
+This commit moves the x->km.state == XFRM_STATE_VALID check in
+xfrm_state_find() inside xfrm_state_lock, so that inserting a state into
+pol->state_cache_list cannot race with __xfrm_state_delete(). It is
+described as the output-cache counterpart of commit ddd3d01329203 ("xfrm:
+Fix xfrm state cache insertion race"), and it is tagged for stable.
 
- 		err = resolve_lbr_callchain_sample(thread, cursor, sample, parent,
+> diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
+> index 0555e5d796ede..581e6d0d3ae3d 100644
+> --- a/net/xfrm/xfrm_state.c
+> +++ b/net/xfrm/xfrm_state.c
+> @@ -1651,10 +1651,11 @@ xfrm_state_find(const xfrm_address_t *daddr, const xfrm_address_t *saddr,
+>  		*err = acquire_in_progress ? -EAGAIN : error;
+>  	}
+>
+> -	if (x && x->km.state == XFRM_STATE_VALID && !cached &&
+> +	if (x && !cached &&
+>  	    (!(pol->flags & XFRM_POLICY_CPU_ACQUIRE) || x->pcpu_num == pcpu_id)) {
+>  		spin_lock_bh(&net->xfrm.xfrm_state_lock);
+> -		if (hlist_unhashed(&x->state_cache))
+> +		if (x->km.state == XFRM_STATE_VALID &&
+> +		    hlist_unhashed(&x->state_cache))
+>  			hlist_add_head_rcu(&x->state_cache, &pol->state_cache_list);
+>  		spin_unlock_bh(&net->xfrm.xfrm_state_lock);
+>  	}
+
+[Severity: Medium]
+Can this block run at all? Earlier in xfrm_state_find(), the cached label
+sets the flag on every path:
+
+net/xfrm/xfrm_state.c:xfrm_state_find() {
+    ...
+	if (best)
+		goto cached;
+
+	hlist_for_each_entry_rcu(x, &pol->state_cache_list, state_cache) {
+		...
+	}
+
+cached:
+	cached = true;
+	if (best)
+		goto found;
+    ...
+}
+
+On a cache hit the code jumps to the label. On a cache miss it falls
+through to it. No goto skips the assignment, and cached is only ever set
+to false at its declaration.
+
+That makes the !cached test above always false. The hlist_add_head_rcu()
+here is the only place that adds to pol->state_cache_list, so the list
+always stays empty.
+
+If that's right, the scenario in the commit message cannot happen on this
+tree, with or without the patch:
+
+  "Between the check and the lock acquisition, __xfrm_state_delete() can
+  transition the state to XFRM_STATE_DEAD. The dead state is then
+  inserted into the cache"
+
+  "A subsequent call traversing the cache can then access a freed state"
+
+The unconditional cached = true came in with 0045e3d80613 itself, together
+with the !cached guard. So it looks like no tree with this feature can
+reach the insertion, and the Fixes: and Cc: stable tags point to a race
+that can't be triggered.
+
+This is a separate issue that the patch doesn't introduce, but it follows
+that the outbound per-policy cache from 0045e3d80613 is never filled.
+Every outbound lookup then falls back to the full bydst and wildcard hash
+search.
+
+Doing the km.state check under the lock is still the right pattern if the
+insertion is ever made reachable. Should this patch be described as
+hardening instead? Or should it be paired with a change that sets cached
+only when the state actually came from a state_cache_list search?
+
 -- 
-2.27.0
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023195323.3528192-1-tristmd%40gmail.com
