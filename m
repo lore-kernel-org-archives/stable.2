@@ -1,124 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114743;
-	b=r5+SuIFggwXoDB/vrDOca+YTnqNhXrm41aj9R51HWQGP+6QCc7unnW/AB2FlPLeUeGn6
-	 qRcwW8MCcSY3tRWd28zZ4NZH8uTfi0SQoXvG4qMIOEjlVRNbkJerTFWc5HHwLZAWm+Sob
-	 ATipoiebH6qNOAxDrKmhNpxUO7zMQ+DMjcDg5kqJuHZwy3oVftiyBlIuRsfzmxOUp/39Y
-	 pjf/Cl7nnWYw5kioznGJLYEY2bA1THJGOBeuSrxAENFDUOUPntQVVSQsK0q3R5GBqL6QA
-	 zvRY5oa9AWTC0hZkHPiQNOcirUgkJPRTDhjyu/Q9/pi22wEO6GJjEXE22afn1iLyBrg==
+	t=1793114795;
+	b=B4t612HIQef1wUW3WXw1mwZoNoHLl4fP0fSff9DEEaDLf7J9aYvK4CKmYpSmzq9T/756
+	 +WXwFCgDMV9Df8BCnPBEI5zwGcWYTnCoIl58Yv51AemYPxOHyJB0ZJclRzPa7OK86i8Dv
+	 M5hR5YUdr0JI9mhdVxk9eKtU3SbMXzMwIKYrEMiSTrlrMNBIuyFoHqQpLWUBBqFxohPCj
+	 8seRuCbrmBuJsC4sg1WD38xEgIlyA94HWhK7W/efWzYxoFA6YkF1klQ+yAYv7Bm2fhlDA
+	 AKd6dL3Xg9MeVQmHbPQh51w7ZnKVxJhZ5It6zc8vxvG+xkdDHseE8pZGrtYHzMEwx6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114743;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CrzYlOiXndQJ0pSCxiyKgUhvgnFRy32acr/NLV6t3y4=;
-	b=LhZl9hV/6MLLALnLR9ij6lX+jZI0J6M0uJE+t1nBQ2/x5jsdu4ATueicE7zmQJmJKFPB
-	 1rUrZf+f0lToss6TpQT9Af5vfuUSDJKSSNEXuN7d+OO4mcpoO0N+lSxFC1Im2MEI8fWPA
-	 rX4HWCAFGAZqwuhLSwZZHRFfjfG8wsj/HnBM9ZotFJ7+DY8Xbz8PXXajDCOAEMygltkSH
-	 2kkY/QMuRBGjU39rZ1OwTKOnlJYqutg5tz0GGdaDXC+aXgI0y6pRJ+NqJKj264rpdDDYx
-	 wroAfapn/wFLYGwLUlmSEbi8ToW4yQ9SgALFXdtzF5ORjvt2eNP9imVSyCQ2PuW7B7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114795;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UTZ0KdxtrRAJmu9V7A4LrovnqYfB1lyRM9tdslCmQOE=;
+	b=b9i7i3oSpUfXp7vmnMoV+jjZlhu81AZ4lBziwqGfa9sGl5Akuo6QSvKrQ6XXVJAsRMKQ
+	 6fJbp4XIZ7QD5I18qWrJEKbrxahxVFA0u7djoJ0gHoTBZwRPL0R8kW3jPUOZ2dWT1ndAU
+	 7rT7MHLqHESSuEPrSTUcR8MnikcggjZWw6UAnGUr+iI+d7C/Du5dfpfxBpx63eu7jLpMV
+	 lqRVWDOaYva3CX8p5NIcvbRQugR82rJGHdo9FOKJfVCSYkIHCRjek2GJFiVM4RtIslmk/
+	 2ycbTvuQlwqlMiGakcEBta7hvKHNTLrFjJYhy6Fl2ffTfGI7wFhf7cCw2hprqe48ICg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b="Lwn/44NF";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="i/c9sucX";
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cz20H7dV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D311606A32D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:25:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D311606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6349A606A31B;
+	Tue, 27 Oct 2026 15:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=Lwn/44NF;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=i/c9sucX
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 64079EC010A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 11:25:42 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 27 Oct 2026 11:25:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793114742; x=1793201142; bh=CrzYlOiXndQJ0pSCxiyKg
-	UhvgnFRy32acr/NLV6t3y4=; b=Lwn/44NFrIO92Tyt7zOOuol4nbbGjg8xPX8rG
-	lJJ6SMJcb1FPsD+Smzowcm1K/Zj9UyecPIoQVmysgg5OnVReDyblL3s6ZZdNWUpG
-	8RAA8d+i5uztpIWpjGGkE6DhfcFDOTIEulUDiJvQOazc2Tc8TBmoE3TiOX+Fy+le
-	WJP+GGvfFuQh+YU1Dps5W51f4R2uUPbZWCO91pgYXBfXkkYsM22Zbnws9c/1SR/j
-	Qg55n2WOVt3dlOn8JQNxAqHys2Ca5U/Tj/e7HCVcH+Mq5i8Yj2PZqWD0onC4yeLy
-	q0Cd8bPEQ83FwrnAZ3roHDm0lskLOxLw2JdM6tFbq+UMPXnqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793114742; x=1793201142; bh=CrzYlOiXndQJ0pSCxiyKgUhvgnFRy32acr/
-	NLV6t3y4=; b=i/c9sucX+GK9xN1coEyB0efrQLnycDI9JkfbtK18cSDIaLV+yL9
-	cxzv8dnIkf/pDQpphUF+TW9Td+/dH/dILDknd0T7b3MiQA1xKnI+f+W0W+ATrMzi
-	xrP9U7QxwEx9r1Wvk0fjXB7iJ8IsiknjbUXbZl1hdCnnps039tPv20m+wX5mqGJe
-	/rHN4CopDca4TXaNKpT8cC3li2XB1emUxV5KfaNtuw7J8Zv4Sgx0JnB1op6DrxQC
-	2ks1ZfMLjIkh6LKJ5QrYrmeaUlLrTFporUCECNGEkN2wP4EON/RzUdCLdaEge7zK
-	xZHNQu0e5wwsT1DWIIz0I9mn3IIeyBc8hMA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793114742; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:IsZFgj5yzrgwqhJiloZRDIF4anAqDJqM/UUm0qO8AYlFWpq
-	Fs6NpOs26TecJ2YmJXepth1E+aqoPkJGDIB8LIRD/oz5bRRAbt0kKaddNMqFBgDK
-	FVML9HUgECs1xFCL0lewpkjFT0CI4zdGokqZRawRT43Mf9+5UoK0C+BRwfSVoEx5
-	1OTNxOdk6y5tAcLGTgS4r5sLM5UF/kO1waLnqigsZSJ4hzw1qpsYbuT+ldXw4m46
-	uNbSvEWrgK3yAumjsEW9BlsnYebdVVSdEll1NU+rRWaojBt5g/QzjaVkjweUCgRi
-	VBJlkfCv1ODunwdriG4iv61c+eMitavBYyLUL0w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:LeOpmESBzsCkTdRKz7HBI1WnP9d0MbIlEffVUU8Wbgs=:S79AsNeZJcr5jN8008YDzIAHTFExo7Dhsh/auCRi8kc=;
-X-ME-Sender: <xms:dsLgaucppVFyIJmgrmBjfb4_HjXTxmVBr0NmlIB-ESoLCsN6K9AbzA>
-    <xme:dsLgauPY7vJHGSlmvB4LL6UYtxG5aDQ1Bk34stb10eMGgbRKQmn_eNJ3TknMmRXh_
-    nxiUpCYlT4AlQb7uqjAZ3uf4mQWNBcWoWMGbrMAAVAZkS4I2Ec0mSQZ>
-X-ME-Received: <xmr:dsLgaqWzkmVh7764_asPEm9jg3Ch1oikHUSxsrCOzXQQ3FLiPMIcU9lSPxqYDC5e>
-X-ME-Proxy-Cause: dmFkZTGbBFLvq44vFIUxr3zCaJHCHgNFIpbBMDnoLBb+EWwQS1bWou5/MorY+i0IxFWr1v
-    vRg+duKKE9jikI8mSx+2VjGwf/e92ShZl3yCU7SkAV3OwtTLuwFKSkWJfkgG9QMJeKDz3t
-    rn/19fmFapCFPFmvO0GDnbopS7aLs7W9TkW7gh6N4oxTTcVlzRgSTKL0iKTxFr7ZqtoCjc
-    AaRY2mmnBFn9XhfWsJvSXugzJT5kQewHU/MI29AHAp3io0T4ll+eDK29jYQxuZ9Rp8pWau
-    Af9ez/i1Vv1b1sYxL1TnM3zgtL4xA5XBTA43kp0RFjEHLtV94BJKxJyR047vlYr9shekcW
-    XWS96DN313jWGOtgypAP5P3NgxTEhvvW/Enw6unBeJScbQc5+zTSSo9tuBJpahCjPgHysr
-    n5mVax4y9FTdS9wizcqndlL9ZWzcLix6DDE2CvRx5wiWcpUt7HtYeqWULsdz6HTIp57EBc
-    3IKTg+ayvOJDWKRe10tanFb4eatKyOHjH9vQZBtXlTaVMW+IKossZ2NKDpemb+L+M37YHO
-    RLsy5qGxUAMhG5mxIjO/X+VVyx1qI3v1g3sgklpvVxk73tEhE3bmKopfqxEOimHNOjnbPm
-    1rhI7Teu5sRy1DboIWMTf4Z0YJhFow8PeSrEO7iRggTLHy1QAW/EWQFRHepw
-X-ME-Proxy: <xmx:dsLgauzLaoFIjJ8fE6KTUL73ffi6d-pOLnbQqaY0TcCk86sKgrIJLg>
-    <xmx:dsLgap-duTwWPRvvwhlsrTwbyrOEwywn0NkE6NAOjvpC1vBL4fY-eA>
-    <xmx:dsLgar98sTExe1zg7ooNzhbz5uFfeoLu_aVPJKFZssTx2gkYT2J-xA>
-    <xmx:dsLgagX7BzjrqAg9GEZYJlxHyPUF0-9-Z65iipqNoayi8ZDG8HqDvw>
-    <xmx:dsLgauSYN0-CWTF3EYJEySFbk37cAGNyP9CKYHBDA0u0ETgn9gmba3sS>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 11:25:40 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Steve French <stfrench@microsoft.com>,
-	Junyi Liu <moss80199@gmail.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix use-after-free after a failed durable reconnect
-Date: Tue, 27 Oct 2026 10:25:19 -0500
-Message-ID: <20261027152519.138444-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cz20H7dV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D47581F01825;
+	Tue, 27 Oct 2026 15:26:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793114795;
+	bh=UTZ0KdxtrRAJmu9V7A4LrovnqYfB1lyRM9tdslCmQOE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Cz20H7dVfruPuCw51mSYdVyCPbrpCTynDlQLVGuyE0Z4H2gbUeozix32jwaRqNzNH
+	 HZG5n1nbBnVVb8JEypNidBmOx59Az8AOJc9ddcjXeC/M8NsjsfNTn2XS440cA+R6CB
+	 xfTFgZbEiYKWoHz0UElxawnMEav4ecovlIsW5UG0UI7C1cCqZhzTX2g01BHcKkxHW2
+	 zgtyu1EkFlu58DwcsdLOtUKGyNJ4d4yPQcleKpC05XE9qc0xwYidlUP3MsaVKBDR9s
+	 hStH4gI6qhuaxozRwP0yrjU0d6uVGuvgVDfXlGdZ764fKIw8UT011tDmEt8stlUfme
+	 LwrNKMecP1s0w==
+Message-ID: <9ef05c62-1067-459f-8dab-2b0fbe70178d@kernel.org>
+Date: Tue, 27 Oct 2026 16:26:30 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,179 +51,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-ksmbd_reopen_durable_fd() republishes a detached durable handle in the
-reconnecting session's file table and takes no reference for that entry.
-If smb2_open() then fails, cleanup relies on the final ksmbd_fd_put() to
-remove the volatile id.
-
-Two reconnects of the same handle can both take a lookup reference before
-either attaches it. If the one that reopens first then fails and drops
-its references first, the other request makes the final put through
-ksmbd_put_durable_fd(). That frees the handle without removing the first
-session's table entry, so tearing that session down writes to freed
-memory.
-
-  BUG: KASAN: slab-use-after-free in __close_file_table_ids+0x14d/0x740 [ksmbd]
-  Call Trace:
-   __close_file_table_ids+0x14d/0x740 [ksmbd]
-   ksmbd_destroy_file_table+0x76/0x100 [ksmbd]
-   ksmbd_session_destroy+0xf8/0x480 [ksmbd]
-   ksmbd_dispose_sessions+0x13e/0x200 [ksmbd]
-   ksmbd_conn_sessions_cleanup+0x4c3/0x6d0 [ksmbd]
-  Freed by task 1030:
-   __ksmbd_close_fd+0x97d/0x1000 [ksmbd]
-   smb2_open+0x14eb/0xd9f0 [ksmbd]
-
-Commit 3515503322f4 ("ksmbd: fix durable reconnect error path file
-lifetime") handles a final put made by the reconnecting request, but not
-one made by another holder.
-
-Remove the volatile id under the file-table lock on this error path,
-before the references are dropped, as ksmbd_close_fd() does on the
-request_open path just above. Removal then no longer depends on which
-holder makes the final put. The stale comment in the reconnect cleanup
-is updated to match. A successful reconnect is unchanged.
-
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: da9150: fix IRQ action memory leak on removal
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Lee Jones <lee@kernel.org>,
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+References: <20261027030803.118131-1-lgs201920130244@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027030803.118131-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Notes:
-    The bug needs "durable handles = yes" (the default is no, but macOS Time
-    Machine destinations need it) and a durable handle (v1 or v2) that is
-    detached and waiting for reconnect. Two things must then overlap. A
-    reconnect of the handle must fail after ksmbd_reopen_durable_fd()
-    succeeds. Another holder must take a global-table reference before that
-    reopen and drop it after the failed reconnect's puts. The other holder can
-    be a second reconnect of the same handle, and a durable v1
-    reconnect needs only the persistent id. A durable v2 create with the
-    same CreateGuid also takes a short-lived reference. These lookups run
-    before the owner check, so the second request does not need the owner's
-    credentials.
-    
-    The affected early error path is reached if ksmbd_override_fsids() fails
-    or ksmbd_vfs_getattr() returns an error after a successful reopen. The
-    reproduction forced the getattr failure. Naturally occurring failures
-    were not tested.
-    
-    The race dates from c8efcc786146, where a ksmbd_iov_pin_rsp() failure
-    after the reconnect leaves the same stale id. 1baff47b81f9 ("ksmbd: fix
-    use-after-free in smb2_open during durable reconnect") moved the lookup
-    put to the end of smb2_open(), which made a getattr failure a trigger as
-    well.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance (code review and KASAN
-    reproduction).
-    
-    Tested on ksmbd-for-next 714f27729121 under KASAN, on a fresh boot. With
-    only this patch applied, an ordinary durable v2 reconnect succeeds, the
-    handle reads back the data written before the disconnect and closes
-    cleanly, and no handle or KASAN report is left (kmemleak shows only one
-    unrelated object with no ksmbd frames). The race and the getattr failure
-    were made deterministic with temporary debug hooks. They are a barrier
-    that lets both reconnects take their lookup reference before either
-    reopens, a forced getattr failure, and a wait that makes the second
-    reconnect drop its reference last. That instrumentation is not part of
-    this patch.
-    Without the patch, the hooked run triggers the KASAN report above when
-    the first session is torn down. With it, both reconnects fail with an
-    error status, the volatile id is already gone before the last put, no
-    handle is left, and no KASAN report fires over two runs. A single
-    failing reconnect behaves the same. The injected-failure paths still
-    emit a pre-existing warning from ksmbd_free_work_struct() that this fix
-    does not touch.
+On 27/10/2026 04:08, Guangshuo Li wrote:
+> da9150_remove() currently removes the regmap IRQ chip before removing
+> the MFD child devices. regmap_del_irq_chip() disposes the child IRQ
+> mappings and removes their IRQ descriptors.
+> 
+> The GPADC child registers an interrupt handler using
+> devm_request_threaded_irq(). When the child device is subsequently
+> removed, its device-managed cleanup calls free_irq(), which can no
+> longer find the corresponding IRQ descriptor. As a result, the
+> allocated struct irqaction is not freed, causing a memory leak.
+> The associated IRQ thread also cannot be stopped normally.
+> 
+> Remove the MFD child devices first so their interrupt handlers are
+> released while the IRQ mappings are still valid. Then remove the
+> regmap IRQ chip and its IRQ domain.
+> 
+> This issue was found by our static analysis tool under development.
 
- fs/smb/server/smb2pdu.c   |  9 +++++----
- fs/smb/server/vfs_cache.c | 28 ++++++++++++++++++++++++++++
- fs/smb/server/vfs_cache.h |  2 ++
- 3 files changed, 35 insertions(+), 4 deletions(-)
+So you just keep ignoring and ignoring our feedback. It's just bot, so
+little point to discuss with bot.
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b306bc6e21ee..4dc91d4f1a94 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -5628,6 +5628,8 @@ int smb2_open(struct ksmbd_work *work)
- 				ksmbd_close_fd(work, fp->volatile_id);
- 				smb2_complete_request_open(work);
- 			} else {
-+				if (dh_info.reconnected && fp == dh_info.fp)
-+					ksmbd_unpublish_reopened_fd(work, fp);
- 				ksmbd_fd_put(work, fp);
- 			}
- 		}
-@@ -5641,10 +5643,9 @@ int smb2_open(struct ksmbd_work *work)
- 	if (dh_info.reconnected) {
- 		/*
- 		 * If reconnect succeeded, fp was republished in the
--		 * session file table.  On a later error, ksmbd_fd_put()
--		 * above drops the session reference; drop the durable
--		 * lookup reference through the same session-aware path so
--		 * final close removes the volatile id before freeing fp.
-+		 * session file table, and the error path above has
-+		 * already removed its volatile id.  Drop the durable
-+		 * lookup reference through the same session-aware path.
- 		 */
- 		if (rc && fp == dh_info.fp)
- 			ksmbd_fd_put(work, dh_info.fp);
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 4368e069fd5e..f9079c529d07 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -1074,6 +1074,34 @@ void ksmbd_wake_session_blocked_works(struct ksmbd_session *sess)
- 	read_unlock(&ft->lock);
- }
- 
-+/**
-+ * ksmbd_unpublish_reopened_fd() - remove a reopened durable handle from the
-+ *	session file table after its CREATE failed
-+ * @work:	smb work of the failed CREATE
-+ * @fp:		durable handle republished by ksmbd_reopen_durable_fd()
-+ *
-+ * The reopen publishes @fp in this session's table without taking a reference
-+ * for the entry, so the CREATE error path's puts need not be the last ones.
-+ * Another holder of a global-table reference, such as a concurrent reconnect
-+ * of the same handle, can drop the last one through ksmbd_put_durable_fd(),
-+ * which frees @fp without touching this table.  Remove the id here, while
-+ * the caller still holds its references.
-+ *
-+ * Every path that removes the id before the final put also clears
-+ * @fp->volatile_id under ft->lock, so a valid id is still @fp's entry.
-+ */
-+void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
-+{
-+	struct ksmbd_file_table *ft = &work->sess->file_table;
-+
-+	write_lock(&ft->lock);
-+	if (has_file_id(fp->volatile_id)) {
-+		idr_remove(ft->idr, fp->volatile_id);
-+		fp->volatile_id = KSMBD_NO_FID;
-+	}
-+	write_unlock(&ft->lock);
-+}
-+
- int ksmbd_close_fd(struct ksmbd_work *work, u64 id)
- {
- 	struct ksmbd_file	*fp;
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index c00d92fdf94a..a0239ec178d8 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -205,6 +205,8 @@ static inline bool ksmbd_stream_fd(struct ksmbd_file *fp)
- int ksmbd_init_file_table(struct ksmbd_file_table *ft);
- void ksmbd_destroy_file_table(struct ksmbd_session *sess);
- int ksmbd_close_fd(struct ksmbd_work *work, u64 id);
-+void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work,
-+				 struct ksmbd_file *fp);
- struct ksmbd_file *ksmbd_lookup_fd_fast(struct ksmbd_work *work, u64 id);
- struct ksmbd_file *ksmbd_lookup_foreign_fd(struct ksmbd_work *work, u64 id);
- struct ksmbd_file *ksmbd_lookup_fd_slow(struct ksmbd_work *work, u64 id,
-
-base-commit: 714f27729121d59f103ca4dad7b0c2d1c125cd71
--- 
-2.47.3
-
+Best regards,
+Krzysztof
