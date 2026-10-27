@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793087068;
-	b=IkTtmvPjrrZ5gyVkF3nCw9UXOAglEPIXMYVJEAqlvYaBxbM0/LRzESm4MvhkuI+Hi3Lt
-	 QxrVdYJVf9KeoQoy9sEFgLpQ0lZHIi4KbWBXhkLV4YvI3ooFlz+t263T22nqBWOvVPcO2
-	 YaBF5EuiWN/JZkglncBSI4NSWXgOGiQhbjQqYYak8et8THxXFJsdTQZgDPOfvVOfSeAbC
-	 Rx20vQvsuY/cSg+0RX1peXFN11op5uZ1Ydmrt1IJWA2F5tQipRZFqVvoLv+TMqgBEgwiS
-	 Ohn6XaxR7I4TyruvTSzX3qD5B5Wa2Ee8T88uJotO0kjrCvMQytEKVMwZBOQfcaCbtGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=t8/PxpfNSZztMrpDfo2mhB/IeCh9GOPkH14avjuDCYE=;
-	b=QmSosXYdGHjDvsH0eeX4SllvSros8Hw5Z1YbaAT69r2bypnS8Vy8a7HG0guS3QIkhsRF
-	 ZL4LQEeG0a5QWm9y9AvJS3Hgi45BnFuCaMPuvFhWGMth07LdLvOUYxfjLZCWk3ZPQUmWc
-	 3KUNmJ4XLHuZuqEIjlWvg7gEsZSOXYDAKH7LVTAlaKnX2GKf7s25j6DYzu5rN+tlx5+sN
-	 t2mEgouUyqCuEjP3dgOCDZwENvoh5mSjdN3wajCUyMQncDz0/R4hgUXRflZu2bArVMN+b
-	 bQkj8KvJY/hMEu5nriB6ew9PHD1/uzuoStkbUWOWnyc4pgWUqObzZoZn5oBlC5WhFrg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=qJtaDY7u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793087587;
+	b=l8lWumdlRlSU2KoRbvF5/ljqPGIJK6LJ3AhMkKFzD0SqaEj/33sJH+8JEvDTZ6NtSMxD
+	 AdrmpUblTYhGndmmvTABQXlRdKNGaS4AewC4UDJsv9b7wf+BAfUzQUULVqIj1nmVd/1Si
+	 0g0p2KLPXry2mqugBHi/TzVdSyqFn10WV8bff5i8ADUgRwRb47sH6lXRLZcQQQY9mjfrI
+	 QNyCnLLR5YrMKoWlCiGfn2F6AkkbTWDc0otzjdJcVpNdSpy9qjwUsApc+Dzw51vNzy9On
+	 iqAcqWLf+0yOh+MNZ4BzcZ+58BaSpUB6y5OO/0S8KjcROlZVe4XGbRqRAOx7ZZmz1Tg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087587;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ncow6dC6njzXXu7ufdlagYld5QtR81SFHe3xp8WHXz0=;
+	b=ILyBbZzIoSTfCHo0P3pYJ0ZtXrnOTylIXW5aKmz3yIzC1pd4lbkZkiCFi1Fj/87fDklS
+	 ewBaLJZtcCmQWibPB5oOybXaqU0IlgON8jcdJZ3E0L659w1FaZjxS1g7xInUjSSADv8Zt
+	 QiZGnkTkq9AFR/QuSepA95E5Hzhp1LwhygkofEBWo7/5RZI8S16Z/nkgzTHFQ2uR9N2D0
+	 gPSq31dhE63N7YxJpN584UPig5d/RWsPHyYggEoJGJf34wJcpNCmoLAGWFCCIz8y13IdD
+	 4skk9WAvQb1vJb8Zri2vR92axG1tRU87vPi0xuJ6nZ4j1Hco6p0ptzlWvC/ExkodWqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gA+3QMcY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D63606A32E
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D63606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9140606A31A;
+	Tue, 27 Oct 2026 07:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=qJtaDY7u
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a064dcfcfdso1219518b3a.2
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 00:44:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793087067; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZnSVEpB9e6IhS2grxuAsQD4Gpqx97usJ76TkSUAX1ujcZCMdN8TbGygFiNDROKZ9tt
-         r3afwz6jfBs8N79W+FACRa8ajv35JhhOEA/KD2tlng6quY66RpgoolvDipO0WiXd/f7A
-         SoJ1fsmv3difGOArxmCqh4M/Rne+c+GnjvmVOUSS223d3ZP07UuaBXpjb7Sdu99XG6j5
-         O3McJEXTI1dXLUKsy5OG293vjEmcXI1yuh6mz08KjkfbQI5J2jAzOvNHYbL53m4y4wMZ
-         OfjKLzF1VJDJuEcRZEFcP6tmHjPB35gGZEiQb9/hPV4rHaX3IdmAaJ9Q5dQ2vHEoCKol
-         2eig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t8/PxpfNSZztMrpDfo2mhB/IeCh9GOPkH14avjuDCYE=;
-        fh=EBME3DIJZYv98phBZqN+uwcClr5oezOfWrvymm+44CA=;
-        b=j5GO6Z1U3r7tPHSu22nCu9AsNA4YxA/RM/PUueHvLJv3k6upZFBx5qqT8tyQR79VFF
-         GSkZuJVFLmPpqnL2KMARUcPytmrDOMbUy/FPgVhT0hpoiR0ufnEIwDCP5J1bD7ZlZA7x
-         Dh5Ibi84EsFJ6m4vsTEc4YwFfyY8PCKLlTJ9xbiBf1kECVDx7Z9TAwzvjDWfWdTZDjYs
-         hiIUugpkDq8v46VBfwEcXo6fN8D3SNie455TwxG50MJw4gVu0hH+2UgxFbJTpoiMiHbo
-         hD0JH2Ao4SNAGRlTV2gZlGZfGYdlBz8aTjNA5SjsWguUe8HoUY8Od4fjNBhYzVATIX+G
-         xPNg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793087067; x=1793691867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t8/PxpfNSZztMrpDfo2mhB/IeCh9GOPkH14avjuDCYE=;
-        b=qJtaDY7uRC/Jp57961vqxucRI+RXzzW+zMjJumh4cdp7WfZ9iE+VyK9NW7VuxMGQSd
-         61TLVdOaXpjCHo68NPRakgDUnx/tmIq4fAOItrVGC7kmj3loIie79w/o+vzW9cL06oJb
-         h7W8hhdk/dd76WvA0ku8XY7QfLjH3XSpvrndw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793087067; x=1793691867;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t8/PxpfNSZztMrpDfo2mhB/IeCh9GOPkH14avjuDCYE=;
-        b=OLMCRNH/5Hp+/4N5ssezx5CFyr467Lh7HmfIPF5/nDFCK0L3x0rj028K1B65LWF1Sw
-         7L7G3P3Exp2qM6X1o0vs5eClHKLuDnAFkHzkcVAjy0XVdN/mNgl9QMwn26c0ovYeI+68
-         XQdgcyDv9eNE87RCJUAc+CHMB68zT3Cfitjnt08IZbXFylgMcogZwC9m2BU1a7tKepJD
-         W1QAYHPVjSA3R9eAnE99nNeTn6tzWqkiipPSOekkyPk2UX7DTx97EW4If+PVsDTNIIgA
-         1wkaW/X/qZMPMmj9pQhGKbxQ8mfkNTbuHMqPUQaJJSwe0LK1LELp4yzw0cFhH1a7wSPe
-         z5ig==
-X-Forwarded-Encrypted: i=1; AKwUvBwOeiPAc0Je/ZMYfD86U41gISbMqSeCuP2/PWoiTCIIK65/2eLMouAax9wshYVsGq7zfaEFA98=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEwt9370h/t8LCt3Vw7hv+LWSCKlirxhy715FZnkxRLzqjH0cI
-	0PjjdXysxNFYTK7DOhk8KPe6EUXPzBfcoAUKB7geNifU64L7kvFiIH39VOOVFOZpcVfZsHqXRFY
-	earWcoIRpU0ZkajcOaJEWkoO3NjdC/6rA783GGe+a
-X-Gm-Gg: AYBFou36jDspdbrt6cZ/WGEksMzc1ZMYH1cfDrDfp9xfFsIFtO1vW8fALyOELgMdXWh
-	QuCrJwi1RI3g8foohRBn0u5+it9kiPjBMgegsAiEL5bX+vMNtlTTuNrDtBNqstLh3Ypom84RVjT
-	U4PPjUrc1Ji/roRul2+64t23kn18CzvJPeo5tAECZYyxJfrqI/sl0x5W4o/jwwyCXyF4CEsmgau
-	g/oo3t2eNLn0m4Gc4JPfMPA6BSar9Okn2ycvarcY51YLB2ErlR+gfA8cLScOHnWisBUTdBrhjHK
-	Aw/9Sk3/+06CsBfGmasOZlYikpF8wIeMuYM5nAZdofMZeoTMNz8er0Gtf5SrEIb2ZkaF40HLg6z
-	TK3Us/NXq4TGtjgN2x9vXy/07KYHSD3eCU6jouHscGmnTdmCng5vPb9xEiiiK1lie9UM+LDaRnR
-	sZfQrEXmexZi0M5KA=
-X-Received: by 2002:a05:6a00:1c9f:b0:8a0:2344:c44b with SMTP id
- d2e1a72fcca58-8a369072aa0mr6446296b3a.40.1793087067623; Tue, 27 Oct 2026
- 00:44:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gA+3QMcY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54741F01825;
+	Tue, 27 Oct 2026 07:53:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793087586;
+	bh=ncow6dC6njzXXu7ufdlagYld5QtR81SFHe3xp8WHXz0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gA+3QMcYGunpp8qEs97x0hj+GghziZhSZhMcpYbjotXLOt73SajsBeKk+ElEhrlQZ
+	 Brh3757vexEnAQZmh7AbYTgUSj0wL6x/GQKtwjmnyGIdrwueJ+Xz7+D20yuqHqBg9e
+	 qbCt9kW7ymHV7htpGYSQR761ckLOmVBHpuxUiVlMNwEq/4KQdU45qPy36Yzg1keodW
+	 kBrYC+j9E8a/L8Sdu5BoOBAYJXh4J0gMuAO0x57W8sCLFvR6pv4BX0pg8gcOUEBgia
+	 k20nJWabBVzRj9GnoeFtBG29g6SgWhtCkVm2UUSuUw3w3g0c+QjWCWq8X6GDWihFtI
+	 xmmU7CgAzpRNg==
+Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace teardown
+From: netdev-bot+sashiko@kernel.org
+To: tristmd@gmail.com
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ david.lebrun@uclouvain.be, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ tristan@talencesecurity.com
+Date: Tue, 27 Oct 2026 07:53:05 +0000
+Message-ID: <179308758546.3134.12594467353635303069@kernel.org>
+In-Reply-To: <20261023195234.3524462-1-tristmd@gmail.com>
+References: <20261023195234.3524462-1-tristmd@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,67 +64,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <QDISC-6HS9.v1.r2.20261020051718-2@mojatatu.com>
- <20261026160747.283702-1-horms@kernel.org> <CAM0EoMm9piw8gLJ=t9YYNu2-8zb=qfA3G6djchL0QaeZZvaNfA@mail.gmail.com>
- <20261026174643.088e3f49@kernel.org> <CAM0EoMmVv5WnzpQw2d7iLZU84KPDUMf7+t5m8BL+MBXR+oy7Lw@mail.gmail.com>
-In-Reply-To: <CAM0EoMmVv5WnzpQw2d7iLZU84KPDUMf7+t5m8BL+MBXR+oy7Lw@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 27 Oct 2026 03:44:16 -0400
-X-Gm-Features: AclHuK-XU17g_8FeeLG5wHtsmEQGCourlsQaD87psYPdRxXdqk4bS7ynbQ1_6E0
-Message-ID: <CAM0EoMkvbVZoG91==QWT2mfyPkWYsS=BWCBsK0iYJR9BP=aviw@mail.gmail.com>
-Subject: Re: [PATCH net 2/2 repost2] net/sched: sch_teql: keep skb->dev
- consistent on the arp-queue path
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, victor@mojatatu.com, 
-	jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
-	stable@vger.kernel.org, sashiko-bot@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 3:25=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> On Mon, Oct 26, 2026 at 8:46=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> =
-wrote:
-> >
-> > On Mon, 26 Oct 2026 19:51:33 -0400 Jamal Hadi Salim wrote:
-> > > > This is an AI-generated review of your patch. The human sending thi=
-s
-> > > > email says "Hi Jamal, passing this on for your consideration as it
-> > > > seems to have got stuck somewhere."
-> > >
-> > > There was nothing wrong with the headers this time - so not sure what
-> > > is going on. A bit frustrating.
-> >
-> > It is frustrating, you are the only one with these issues.
-> > Patch 2 is posted in reply to patch 1. IDK what else is wrong.
-> >
->
-> Let me send a repost3 - will take the opportunity to pedantically fix
-> the commit message (no code change).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-BTW, checking i see the threading was:
-     0/2 cover  (root)
-       1/2      (reply to 0/2)
-         2/2    (reply to 1/2)
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
 
-I checked other postings that didnt have issues and it was fine. I
-also found the approach
-   0/2 cover  (root)
-       1/2      (reply to 0/2)
-        2/2    (reply to 0/2)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-was fine. So not sure if it is the threading. Likely I have to make a
-change to not confuse it. I am making a commit text change this time.
-If you can please just apply that instead of waiting for sashiko, in
-posting 1 it didnt have issues with 1/2 commit phrasing. In repost 2
-it did. And i am sure if we wait for it to review again it will find
-something about a code comment or who knows even code.
-The pre-existing issues it complains about are what a parallel teql
-patch resolves.
+- [Critical] The patch adds a reachable NULL pointer dereference on the
+  seg6 datapath during netns teardown.
 
-cheers,
-jamal
+--
 
-cheers,
-jamal
+seg6: fix tun_src RCU lifetime on namespace teardown
+
+This patch adds a pre_exit callback to seg6 pernet ops. The callback
+saves the per-netns tun_src pointer in a new tun_src_old field and then
+clears the RCU pointer. The exit callback frees tun_src_old after the
+grace period that runs between pre_exit and exit.
+
+> diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+> index 8c2b156c227a7..670052290e43c 100644
+> --- a/net/ipv6/seg6.c
+> +++ b/net/ipv6/seg6.c
+> @@ -447,18 +447,28 @@ static int __net_init seg6_net_init(struct net *net)
+>  	return 0;
+>  }
+>  
+> +static void __net_exit seg6_net_pre_exit(struct net *net)
+> +{
+> +	struct seg6_pernet_data *sdata = seg6_pernet(net);
+> +
+> +	/* Save tun_src for exit to free after the RCU grace period. */
+> +	sdata->tun_src_old = rcu_dereference_raw(sdata->tun_src);
+> +	RCU_INIT_POINTER(sdata->tun_src, NULL);
+
+[Severity: Critical]
+Can this cause a NULL pointer dereference in set_tun_src() while the
+netns is being torn down?
+
+set_tun_src() in net/ipv6/seg6_iptunnel.c assumes tun_src is never NULL.
+If the route has no per-route tunsrc configured (the default), it does:
+
+	rcu_read_lock();
+	tun_src = rcu_dereference(sdata->tun_src);
+
+	if (!ipv6_addr_any(tun_src)) {
+		memcpy(saddr, tun_src, sizeof(struct in6_addr));
+
+ipv6_addr_any() dereferences its argument in both config variants, so a
+NULL tun_src faults there.
+
+In ops_undo_list(), all pre_exit callbacks run first. After that comes
+synchronize_rcu_expedited(), then ops_exit_rtnl_list(), then
+ops_exit_list(). The netns devices are unregistered later, in
+default_device_exit_batch() during the exit phase. That means the dying
+netns keeps its registered devices and seg6 lwtunnel routes after
+seg6_net_pre_exit() has published NULL.
+
+A packet that arrives in that window, for example from a veth peer in a
+live netns or from a physical NIC, would follow:
+
+seg6_input_core() / seg6_output_core()
+  -> seg6_do_srh()
+    -> seg6_do_srh_encap() / seg6_do_srh_encap_red() / seg6_do_srh_inline()
+      -> set_tun_src()
+        -> ipv6_addr_any(NULL)
+
+This runs in softirq or xmit context. The grace period does not close
+the window, because it only waits for readers that already exist.
+Readers that load the pointer after the clear still see NULL.
+
+Before this patch, tun_src was never NULL between init and exit. Would
+it be better to leave the pointer in place and keep the kfree() in
+seg6_net_exit()? By the time exit runs, a grace period has already
+passed.
+
+seg6_genl_get_tunsrc() also passes the pointer to nla_put() without a
+NULL check. That path is probably not reachable on a dying netns, since
+a genl socket holds a netns reference.
+
+> +}
+> +
+>  static void __net_exit seg6_net_exit(struct net *net)
+>  {
+>  	struct seg6_pernet_data *sdata = seg6_pernet(net);
+>  
+>  	seg6_hmac_net_exit(net);
+>  
+> -	kfree(rcu_dereference_raw(sdata->tun_src));
+> +	kfree(sdata->tun_src_old);
+>  	kfree(sdata);
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023195234.3524462-1-tristmd%40gmail.com
