@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793066765;
-	b=sP7MWqBbLZD9flfj/BWeIkmjtSWBIoGomVOOu4uGEgUS8OP4hvG8o3YYqdUbp2h5vrLW
-	 cuAiQFdcCQFJ5C8wD5A4Bdn1oaKECsLwSFMI9eoLTX3eFMiwAa2LJSPxGtLmx+b0sP6CW
-	 SHlaD4NcF6pzi1MdrLpB6NnjVtSuHKzHypfhvP0Hw0y+/b0qtIWOk5CSJObCEr57yIZZG
-	 nVgO5ac2/2c5PZvyOIWOgVCLMA8JU+Ou5AJ5cLHZ6H4ncp47OsFZGv9RtK9k6jNnkZ8mc
-	 ZSw2QWnu5WfxTRvPR5yYlqcfjhAbpYSyd4XBk9HAkgDNroLpvENATrVmbHnNgvnwVFw==
+	t=1793066885;
+	b=4XSGot1qx1GDufoafcirAs8CinD6cOLd1HNsjgmgEmaXkMqoXVoP9VZzxdbkVjKE9cDZ
+	 r/rSdXplI39zt+T3E9Z0XpcJXz7m9PJbuovGp5VsvIiwGje0t3RzcJw47ewBXvcXDUmQN
+	 Sez40m6SdiHi07ndLbtdG6ESEIUdKfQVk/NtKztvVaO7O6z0CYHvKHEI+2xGM1eScEHdu
+	 YzsFMXCZXIs/Sb9vRJL0JqNDrIj71P8GdqkrsmC/Ppe+AWeMTsUVQofIkj9mGaa1Q5EeC
+	 jOFRp5uKaByLUUjMLQuI8icmM1lkhBgoW6h+1E97oYnZCeBTK+UsjeBwUL9S5ZgYJrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793066765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793066885;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Content-Type:
 	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=BbcsaSvYmqsc1/PGogALmAlsxQ4NtVNgPQ1FxMhmi+A=;
-	b=g7Xo27CqkCZD2MV6PoNKeM17V/4d2TceeDkNEQa0Gh0Fo64an0pGnjsfMO9zIWrqqNiT
-	 wJNvsOW9XCgNr0Pgff0WUOYdzZbMAjwkI93COVphj5qfTJsPLJA88N4Flhrph9cElWFpP
-	 qjVjEk6STz6ZXIjnd8S9ii0OTRsY2LvtE7f6GYUOcBICt6CxwSJXq0TSZ9ep9RB/SB2XU
-	 8pvQW+NyGokM9PBiJTdw6xEaRxcH7HA+ryCO2ZMmIRNIgfyPSDnAvNtPfVofVYsKNFEe2
-	 Ak55Q2fCRAgY83BZuHl8dyhGPI3iZF7OGA74bZYO0g1XDu7ugTZbKpZJ1yCy1ig5jmw==
+	bh=oLq4wxz5oEh5R1sh+VJJCccBAQfxGPFlpx22HnajP3g=;
+	b=p/EKTGqCBJhLoYsvIOmGKNJmTk4eOOcbHYzG7dk6bZxLyGMPjzf/B1KLpEXWxyZ1HFaN
+	 JZIp+TeZlovtGMJIO7Fv95sBhHPdeR2fs15mDf77ylTpcJ+2rQX35m2luk/YMenRMHYgc
+	 HQ/DpBJZORXwuDLnV98BLt6+VnhVDnvn2yKREFBFzsb4O5+LswYvhPB4c+41qbmKEq755
+	 y/tbA21L/2H9vi+7AmKvtN2GloVMGmOpMU5IIV7GBjEkZ7UWOnnAnjAax9XjNwWIIuE2c
+	 Cv59kCJnymg3cHfD/AobtmVHCcFuUKGVVkA+usQbjcHqPa0C8VLlidjBAtU+3URlkxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=surriel.com;
 	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=CWZKUMOl;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=I4TZvnuF;
 	arc=none smtp.remote-ip=96.67.55.147
 Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E70606A31B;
-	Tue, 27 Oct 2026 02:06:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27E70606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40057606A31A;
+	Tue, 27 Oct 2026 02:08:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40057606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=CWZKUMOl
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=I4TZvnuF
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
 	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=BbcsaSvYmqsc1/PGogALmAlsxQ4NtVNgPQ1FxMhmi+A=; b=CWZKUM
-	Olnx3u/Gk5d/OR91etCdue5a5CeEvh9PUqUSqSygUk5of/q0VBUBLnXBtQ2IAvjkhbniPBjcGJ5AJ
-	zBfQQUrA0ZeKI7TGX302NhHs/ur3FPzRcq5M6b0MbQR0vP9icJJX5f5CLh/ck9GLTlhxJTH3OYQdd
-	WvMY6xVWwNwR+GZMzxMuGji7f82nyk0ZKOcdh6DgF0SppBH9V107GJT6RjHLvk6VFYHa2mO8AqRKg
-	r0D6xxl2JO9boBueLIeID4FZrS8rSfqex+cOpROWqy4bTb6t0CjFI5zmTuuIJNeHNGcWzLHLf97l7
-	vOiE2PSWsmxrt/oipmdtcnhFJauQ==;
+	:Resent-Message-ID; bh=oLq4wxz5oEh5R1sh+VJJCccBAQfxGPFlpx22HnajP3g=; b=I4TZvn
+	uFx5nXaNn5b4N6dTFJOZnQFvfCyMSRe1WmZf0oJ6ac5FdYlGx4P4oZcraSi6f8oHxdUKQRL2hhMv2
+	k1T8Qhk4DMEliLIEGV8Z9vwg9OjZR0LHm1fw7Q4EGvmnlyqmSPcCxJDJVd3+v/SvoT1lDE5OhhWJh
+	bB0TywZtbrrrqxcpI/RWp69SqjcAEJ93TnMT1V6Mt8msESZgTNg0CoUeCX2noFZdIztNs0cPT7B/y
+	9e9Au7mlP2j0PqR5y1+9tf4+O0p9v7VEND/Q6vD2t3xAaX7LNz89F3FQppIO6jBl/Ye+nt7mv8PxY
+	jNU/oTDZc+eq68lcC1MXDWmrSHAA==;
 Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
 	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.99.5)
 	(envelope-from <riel@surriel.com>)
-	id 1xLWY0-0000000B0qk-3U0e;
-	Tue, 27 Oct 2026 02:04:20 +0000
-Message-ID: <35420f2a3d5f3af10cd88fd9e3a977b4e17a0476.camel@surriel.com>
-Subject: Re: [PATCH 03/46] mm/memfd: check for real shmem inodes before
- accessing shmem state
+	id 1xLWaN-0000000B10v-3TRT;
+	Tue, 27 Oct 2026 02:06:47 +0000
+Message-ID: <639cb6dca4ab423272e05b90562ec49c7bdb12f9.camel@surriel.com>
+Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
 From: Rik van Riel <riel@surriel.com>
 To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton	
  <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal
@@ -84,12 +83,12 @@ To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton
  <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org,
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-Date: Mon, 26 Oct 2026 22:04:20 -0400
-In-Reply-To: <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
+ linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org, Josef Bacik
+ <josef@toxicpanda.com>, 	stable@vger.kernel.org
+Date: Mon, 26 Oct 2026 22:06:47 -0400
+In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-	 <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
+	 <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
 Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
  keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
  eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
@@ -128,26 +127,26 @@ Precedence: list
 MIME-Version: 1.0
 
 On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
-> shmem_file() only checks a file's backing mapping. That mapping can
-> belong
-> to another file, as with a Coda file backed by a tmpfs container
-> after
-> mmap(). It does not establish that file_inode(file) is a shmem inode.
+> From: Josef Bacik <josef@toxicpanda.com>
 >=20
-> Seal handling and memfd preservation use this check before accessing
-> shmem inode state, so they can access an inode of the wrong type.
 >=20
-> Add file_inode_is_shmem() to check the inode's file operations in
-> both
-> paths. This identifies regular shmem inodes, including those used by
-> memfds and ordinary tmpfs files, independently of wrapper file
-> operations.
+> Set the flag when the memfd is created.=C2=A0 As for any other regular
+> file the
+> lock is only taken if the file is reachable in more than one way, and
+> nothing a memfd does in read or write waits for another operation on
+> the
+> same file.=C2=A0 This cannot be done for all alloc_file_pseudo() files:
+> anon
+> inode files such as eventfd are S_IFREG as well, and a blocked read
+> holding
+> ->f_pos_lock would lock out the write that is supposed to wake it.
 >=20
-> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file
-> checking")
-> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+> Fix generated by an LLM and sent by Josef Bacik in private.
+>=20
+> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
 > Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: minor description tweaks ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 Reviewed-by: Rik van Riel <riel@surriel.com>
