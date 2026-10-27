@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793097248;
-	b=2d6jVt1xjkmH3sJ03KcI/9LxNcRRcSrsF2IqCTx44xfVx+LcTgPsEdi0FhWF4nGzeUF8
-	 ZyV+qtGMXvYdpk4jPzOZVz3w2briDdXGbDg+6TdDcnWIRH61GpgKZzjeVslvxHUbTe931
-	 8X2ZfmiMpPrKbMsJTF6m0rI9wxywXFcP/oyYpMP62nfFfA39/cUDl2kk2DN8dIT2rBYrY
-	 RsfG2/SXgjpmvluCzByyPD2STG/X0FzYvVDazwIVGl0kRxmIUTzd4l4r4E1idP27lZ/ML
-	 1zYYuUS6YGHgca9fTpBGUpOFgK8TlZRF7bzheBZgUZNuDG432/1myfUUrDZl2jdf8qg==
+	b=gZDsSmTUpIvbKso92V2u5Ruk22m04+nGwfGjNFd2EgmKc1Cyh7lRzkaNqi/x5QX9YUal
+	 MqQQ6+0WBK0vB7gPGNlwx3FF/+lJU8gPEBfguILuA9G7SsFsogRzfIxVjxJzSeV+GcBFa
+	 B3Lcdn50MFbyqLXCJQcV1s5kk8sVMbP1vPHBum9hcScsb+el1BS4axtpS8l8Qh+ooVXe0
+	 x+2/GBdO9SRpwed5CaZZbTEsVCXaZCX+pM74ParMWmJNcLaEb3DDuiLppe4U6g3SzVpGx
+	 RzkTvyWOlACjLAac+vf40C14el8KgpPBoJTLpgwi0NSZF9NGPSwuJLS74C6QuxFnFBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793097248;
 	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=T176+OvwvKvZgAEn2v+P3j6cUnFW/lZ5GLsddWW5L4U=;
-	b=u5DTUbHLwcMcqgGWZdSQBnK4e6eKnmaprbhz5R3wb/Df2CCokiKasF5YlRf7tLK+q4XH
-	 dNUsK1QsMrVtbWLAc5Lf313asTAfA7GPOcOzIXe0mGbmj1KeKuTRfG4zd0c73OLb9Kmas
-	 CPCbFF6T85vbBCyVxu5b71ycfGRbPnpeRh2oUTKb/Eo2d79dTHBdUsK21inWRpTAl6/fr
-	 3FSrSZLlzXWJi2c3ddBb1fQJCBjAT3aMz57XGo3qTfnsu7Bq7ESE8DhRcA/6rz5wFxrmk
-	 pADZtUii/I1YPO+5UTlHK8HmWWwJkrSLFUpdG/+JhSbtZGHiwdI0JIObc174nrgxsHQ==
+	bh=us8BejSqm23f1XiVi6u4hYhzTsLDP4QrbvXIptfxO2Q=;
+	b=B9BxPLwbY6ag25gsht8w1mw7awRtHCFXeAGf0RNS1zTLu74loh5X3GNNfE/pOESSGUzO
+	 ZpGWP3Ym0G386Madbmkr/G8xF26LGvgAfR8N/2rdCLmyCTp22P6Brvi4d6r6DUzPOCk60
+	 JqySHYuSeGMfISUyUMEO0vWnOLp7QSMLQ89MtIVRXS5ADZTM6tjjJ/E0TYMh3fX5c47ww
+	 0UJqL+5Py8LfjeCqZMwejidGbKMURbzUD+7PLB8rqEiqc7JmWYHqOLRZmT9g6lNXKpZvQ
+	 6ZEZnYkPXPDQWAaJ2b9oOp39o0nK0OTiwcVL+ChttC0yJimSCR0fWPqOz8AzIqRhEMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=geanix.com;
 	spf=pass smtp.mailfrom=geanix.com;
-	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=7itOupAM;
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=j9ZZ6HDv;
+	arc=none smtp.remote-ip=79.135.106.112
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD01E606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C248A606A336
 	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD01E606A338
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C248A606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=7itOupAM
+	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=j9ZZ6HDv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1793097245; x=1793356445;
-	bh=T176+OvwvKvZgAEn2v+P3j6cUnFW/lZ5GLsddWW5L4U=;
+	s=protonmail; t=1793097243; x=1793356443;
+	bh=us8BejSqm23f1XiVi6u4hYhzTsLDP4QrbvXIptfxO2Q=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=7itOupAMUcxqkJILsYqoVzKT8KKx88ikEK1ji/LJotx2hhcKLQ7oL7NfSbeP+bTkd
-	 OJ7pmGMp8GjZAracMEkmIKhpzkRpJOu5S+/3Oz6mcguXQJidkRwn82Cmn71X41wFnV
-	 A+CPDpCKF2fFcaOkZ1wpLps5+bqH+MkdcT/mzycjlvZz5X22kRI28tSEfUIhpfQ4wH
-	 On4PrLNpkM4rIs3nHi0RUvn0UC8qT9R47PBOIOC8KD9hnjCjnzEfOzHCnJOmaSh9K1
-	 lgofgDQ+1KWYEKbBiDq0NU4u8WZdrT/fW4h2zPBygRVGEjIh9o3I8ci9OxGW3eoJ+e
-	 dT6JfJyvj13uA==
-X-Pm-Submission-Id: 4jDRgJ3HB8z1DDLJ
+	b=j9ZZ6HDvXwl1foSL69wYRexgjt/bNm3P3q6dvEn41zONgqUFMezB0DaUjbPKrIKiy
+	 X7x5mB9fAq1lNqI+T8vPOzK3cHHuImYU9OfZu86/JoDkR742wS5qpsIDQB+pb/NYqw
+	 tsUkLbvABUf2JZ5bRof3VoE+OcCkARnmdvPwABt1Hl4WIkHBqRN++4IOZM6f6usLSj
+	 HRV3uV/RRdqpZuJNkHv8M2YwCH0edfR35RlcY+7MjgN0t28CDNG207g3dGwO04RgU7
+	 kNyAgddDMU23vgFUCutpV86YPFyVKtelLZ/qewqj1SYlTh9nEb4ha6st0T70DX5+Qq
+	 vOgIAtc+bNfYg==
+X-Pm-Submission-Id: 4jDRgF01Krz1DDL5
 From: Esben Haabendal <esben@geanix.com>
-Date: Tue, 27 Oct 2026 11:33:51 +0100
-Subject: [PATCH v5 3/4] drm/bridge: nwl-dsi: Correct auto-insert EOTP
- behavior
+Date: Tue, 27 Oct 2026 11:33:49 +0100
+Subject: [PATCH v5 1/4] drm/bridge: nwl-dsi: Cleanup endpoint mux control
+ selection
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-nwl-dsi-fixes-v5-3-b6d1d3d2d356@geanix.com>
+Message-Id: <20261027-nwl-dsi-fixes-v5-1-b6d1d3d2d356@geanix.com>
 References: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
 In-Reply-To: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -77,56 +77,73 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Sam Ravnborg <sam@ravnborg.org>, imx@lists.linux.dev
 Cc: Esben Haabendal <esben@geanix.com>, Frank.Li@kernel.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793097237; l=1590;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793097237; l=2014;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=QlvLZtjTIgZL2y9CCm+bmOOwdBUYqFKSP3naY4aW3IU=;
- b=bd3/w0z63fAKN8QGoZ/aazNwAx94N/dDnUKp9lmjrCeYbN0wS84fWTnFZF/aXxCxVkwlpnYs6
- PfYNre8+4j3AYyWSH4brF6FQrUtMowhZZl/4hRlpQbvWcL3m7CdrBH2
+ bh=VnH57TThUBRrumoSPfKBCfwJnaCqBhJHzReWomjxIyg=;
+ b=s9TGh/ZHoHRMHwymoA20d9octH3ejlqVZegcU3KUsBU8oHweo/2ifOA4E13qs5EmDh0a8xUzI
+ RplCPUCCvn2BJSTpg5oL6JwWQnZJSN9u+ynxxVm1KSJoWthPMdBD2B8
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-From: Robert Chiras <robert.chiras@nxp.com>
+Using the endpoint define values makes it more clear that the argument to
+mux_control_try_select() must be valid state integers, and not something
+that looks like a boolean.
 
-In order to respect the DSI protocol, make sure that auto-insert EOTP is
-enabled according to the NO_EOT_PACKET flag instead of the
-CLOCK_NON_CONTINUOUS flag.
+The endpoint value is kept, as it will be used in a following patch that
+changes behavior slightly based on which endpoint is selected.
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
 Cc: stable@vger.kernel.org
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
  drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 1aab46e1a168..f3f4334136c0 100644
+index 09992529f3d8..80e26a947ae6 100644
 --- a/drivers/gpu/drm/bridge/nwl-dsi.c
 +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
- 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
- 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
+@@ -110,6 +110,8 @@ struct nwl_dsi {
+ 	int error;
  
--	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-+	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
--		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
--	} else {
-+	else
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
+ 	struct nwl_dsi_transfer *xfer;
 +
-+	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
--	}
-+	else
-+		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
++	unsigned int endpoint;
+ };
  
- 	/* values in byte clock cycles */
- 	cycles = ui2bc(cfg->clk_pre);
+ static const struct regmap_config nwl_dsi_regmap_config = {
+@@ -1088,13 +1090,12 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
+ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ {
+ 	struct device_node *remote;
+-	u32 use_dcss = 1;
+ 	int ret;
+ 
+ 	remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 					  NWL_DSI_ENDPOINT_LCDIF);
+ 	if (remote) {
+-		use_dcss = 0;
++		dsi->endpoint = NWL_DSI_ENDPOINT_LCDIF;
+ 	} else {
+ 		remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 						  NWL_DSI_ENDPOINT_DCSS);
+@@ -1103,11 +1104,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ 				      "No valid input endpoint found\n");
+ 			return -EINVAL;
+ 		}
++		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
+ 	}
+ 
+ 	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
+-		     (use_dcss) ? "DCSS" : "LCDIF");
+-	ret = mux_control_try_select(dsi->mux, use_dcss);
++		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
++	ret = mux_control_try_select(dsi->mux, dsi->endpoint);
+ 	if (ret < 0)
+ 		DRM_DEV_ERROR(dsi->dev, "Failed to select input: %d\n", ret);
+ 
 
 -- 
 2.56.0
