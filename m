@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119016;
-	b=l0DZA9+iNiXkDAPN2ZOra7mU+yvYPYJnnqUsTrA9EVjHAu4fb8/TbI6hu4U39XItHJRc
-	 guswvxkwMB9/IwbjPHRzdcbTeRsKGtzyFa+CQmLrsz5ub7y6TPl0hOfOJTBVmmP8YRroa
-	 +6uV4fY6c8BBKIyLYzsgvgX3DCJyVMQmSh4cMXQo4MxfQxyZ6cZeQicNqAt46YIRzVTrD
-	 uKmFHbYgz9jfiIXPKd1ZHBqV3AEzaV84O2WwzcUiqFqjFTZ6sT7rjxQxdM85pwucTAJyq
-	 25NnKjoK/hfzl8gIQBDD6wHeLjD1XlSg6+Wsb1pncRZxvBecedmylAFdYhh/Lsw4N7Q==
+	t=1793119041;
+	b=5QsFWWpRjNDra8Pmyn0b/LFFIpddFZerRKkowkNaWDAavuWJuDVOO5KMEDmPI1BDhNKb
+	 DorS+6IC1Ia+BBDS6cL1Y9iga3r4a+utkuBIu/Z+8cMX3NjKVCTcEJiM4Dz6fqyhdfxmu
+	 rK+iWZGEv8UjabvDow1qlwQ/cgX7s6qRyWqbm3eRO+rGvK2KpfHSuhOB8qUTYW+ja22JA
+	 /MjPkT26tCte3ByZMXEaSyYjAiONvH5WrpzfHIxI5MXFzPkx7kggoKp35HHj6CnaAjLbC
+	 wAackZ0r9PH/NJUOPcksQmeLlmizRS8KtzTDPf8Ggs68M78xvOjt7RCa6vNQ6nLcr8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119016;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 Content-Language:Thread-Index;
-	bh=DgyxaXcpCEgbpB6+0qEWI5ndWEratI/KZGAOF1/cwnc=;
-	b=oXq5BqF23c0UuyaeUCwpOHWscABDRNo1PYYAknsOjv47jks4daCORuBI8/CT6CpzrGFW
-	 YPqFbOCJ19UMTvJDXeFCJcuVd1K5btXZL+HNyuP0jE+PVJn6dH4qY9H4ylHVHuundpbGG
-	 jU4bvztfM8CT2+Sqrai45fToA7OrVUHwvKotf9tvmImBufr0J2zcXWWfsL5PSptpYmGcX
-	 2Il9L3AWABIBu6HmnAUWefeI6anJOwpT0UKIk0ED/EesZiWjebHL+SwqDxPeWwuMfOfUk
-	 G2Hv3qILIR/UpB7SLihMTcsrHZpIH7HXVZDjWMEe7WO7ohkDKsQ2C+h2XZxxF1JkwKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119041;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WUbRWxHa4nNr1uTBKayVBagYCdC/mmrTOL9xLLUPSFQ=;
+	b=le7hmR2ngrkoI6f1GeLcwFoS0WOq+fid49RGgDFaXG8QcIM7fd7+0EwXapoSHhVOnkdl
+	 Na69T+59F7KZ6zocqBO2eHGUi1xJ8k3TPcfTfZPySOzl3o378Hue4xLu/FFUG2dc/mnRe
+	 Okz6YaGUtT+nzk7Sc4gIi6EAoBNZWdU4HL7dhniM9pnLsdz9drcw0ydu5FVaHhWo3bvlB
+	 a+jUqFdfLBvqz8TPqCjnrBTQSeHTWrbyEHgz/JxWc102LQZJ6MQqvRDmG+hE8eEwpdMum
+	 XLg+hd+8sV9G9ccEQiQEpPixJX3QNIOogIOU79dyjYAT49rq7pF+q/LvyGevEzmD/eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=telus.net;
-	spf=pass smtp.mailfrom=telus.net;
-	dkim=pass header.d=telus.net header.i=@telus.net header.a=rsa-sha256 header.s=google header.b=dXf3FYtH;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=T7zYMpqb;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B626606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:36:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B626606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=telus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=telus.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DA9606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:37:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73DA9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=telus.net header.i=@telus.net header.a=rsa-sha256 header.s=google header.b=dXf3FYtH
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so632728a91.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:36:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=telus.net; s=google; t=1793119016; x=1793723816; darn=vger.kernel.org;
-        h=thread-index:content-language:content-transfer-encoding
-         :content-type:mime-version:message-id:date:subject:in-reply-to
-         :references:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DgyxaXcpCEgbpB6+0qEWI5ndWEratI/KZGAOF1/cwnc=;
-        b=dXf3FYtHi6EApSS+succvYZUloGyMtcGm4itBNRUej+p2wUz1PdvJWyWBnHlS7IXyW
-         Wvwc+7ohJcYWd7giLzyglW+KZ8S+dVpgaikh7JwqEQS9g3EF/eYF3mWEp89abTEdlQIT
-         55iceKE5kDWXGvUrjlfoFiFN1aCibgH9B5n3IIqpxZ4f5t6nnq+OfOlK5UzK4GQ82KFv
-         htE1xuXoMEYndJO5bmTbKpUTfY/6vCeF7IQsGi9sN6UOjSVxVAMTcwzseyF3yLhVEevY
-         UTH19XCQvW+efQsT+IH822A968wBB8gp1u6h8vMAuqyZaOFNMTNQOn9tVIt9Ry3lvHIJ
-         V2aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119016; x=1793723816;
-        h=thread-index:content-language:content-transfer-encoding
-         :content-type:mime-version:message-id:date:subject:in-reply-to
-         :references:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DgyxaXcpCEgbpB6+0qEWI5ndWEratI/KZGAOF1/cwnc=;
-        b=opZG+iyr9xu1NNKdwP4DMO0jMOJwElDRbNK9quHQ44VtsuUSBYazsF1sZVp/LMFrxI
-         kH/j6JNU/zc9XiPyjD7X65Z+pA7lS39iZoRFNujMUUNITeEcw9Ubt0VqUjxCIhdYSJhC
-         IJsVrko2AwLobswba0vT9H7u/LZdmU9rLsiN7Mwn4PF3chlMFPJ847PQhXXIEPtcmt9c
-         lW9aU9RaAUd8F6mf4h4HFTtAStvwVGEd1vBKVofZ2xopDdYHoCbVA9HkVtmDUxDuwQ+l
-         D6wC6rvzHIVsYYth1F5zty7AczySjDW+p9GGhYIS8OePq/jqY0qK1q5I3nVbTeWB6BjM
-         fDzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJYIuoXhGmAmMjxhFJpEZjZu7Y/+TtE7Iai9Cni3V/q5cblByLCjM0oGS31Ofh64AcDYh9aQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6qtjbEPGh25lgsbzL6d/cG1rCGdH+lvQVNEKjiJ+/XSAij8dM
-	WSn+MZYb78CfyGnwKvtPArXNRWLyisNSZcV6niA/24yZ2DaBGpuOheJdRMselRtOtNo=
-X-Gm-Gg: AYBFou3DQgVLPIauxetGy1m+OMeNrtsoOrwSp572DELtKwcVmUciwYsb4tfhmEoRTx5
-	yxR8i2Lat4FTEMA7O9zZ+DvrHBRgS0ruRBrOsabCeICGUV1uvzy2bpivMJX1H6pZOGsm/n31bQv
-	fYEm/FxVS+YKcE+o1hmpVPKcZkIuuxeOvHyxwqM2ajc6/LmyOrOpGhWOjt5yIzseH1rT4mDGRSG
-	IERb0ev41DdpwAds8aUqlrRU/3Sc7M/OBQFEFj/MkBgtYDYuGyyFc4urqSPw7o2y16ic7pWmCq4
-	8KsaKagBKIL546Fna4WyDztfZnGAyydWgxfBLw6WfuBO4NVdEjGFyX41H1peJCkuR5yAZ6u+IGA
-	oYm2tbCUvHc0+X3FF362FUq2IOWKrBEPBa0Aq24WGJad9xK6mTDUCCZYQ5qCPN4TqbJQPF8O4dI
-	s035yrvwnc4veqKTxHjBclTHskBPvAyV2Tq366mBNOnwWeIyH0TZR8F0cogGE26yfo1jz2BzidC
-	rWry+c8kHOYjzP/1modMw0Gf1i+d/XcjB6qYwdsKquvYFFC2yZ5LiJRIlSi9CQ=
-X-Received: by 2002:a17:90b:582f:b0:3a6:e159:a229 with SMTP id 98e67ed59e1d1-3ae40443725mr1880815a91.49.1793119015745;
-        Tue, 27 Oct 2026 09:36:55 -0700 (PDT)
-Received: from DougS18 ([66.183.142.209])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc90d74sm3015675a12.20.2026.10.27.09.36.54
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 09:36:55 -0700 (PDT)
-From: "Doug Smythies" <dsmythies@telus.net>
-To: "'Zak'" <zakbrightonknight@gmail.com>,
-	<linux-pm@vger.kernel.org>,
-	"'Rafael J. Wysocki'" <rafael@kernel.org>,
-	"'Srinivas Pandruvada'" <srinivas.pandruvada@linux.intel.com>
-Cc: "'Len Brown'" <lenb@kernel.org>,
-	"'Viresh Kumar'" <viresh.kumar@linaro.org>,
-	<linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>,
-	"Doug Smythies" <dsmythies@telus.net>
-References: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
-In-Reply-To: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
-Subject: RE: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume without HWP
-Date: Tue, 27 Oct 2026 09:36:55 -0700
-Message-ID: <001101dd6631$6167dbd0$24379370$@telus.net>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=T7zYMpqb
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69REERxY1519297;
+	Tue, 27 Oct 2026 16:37:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=WUbRWxHa4nNr1uTBK
+	ayVBagYCdC/mmrTOL9xLLUPSFQ=; b=T7zYMpqbkyZLAKa9/LCbnvEwigLIVPoc7
+	EMLba5xjgUf1M8OjjzXWS3nfUb0gEdo0UT2OcvvkvRBF87EV2DcnDadqaUmzf7kO
+	G7nIDU+PadtxLOA2HJcNo1EcLac9UUJciln/ZEfwPBtgxfZn/K+asGlCUB+s7IhK
+	iQerv9LbnwZ3svU0zRNXp2dc93Lay8oncqSl5v9cilIiahDKILb7yHw6/z7/fpoy
+	Xvc8zB5itaPMb108hGk5UF5bI1z6DWMZgsZ2voaYSIBF4tCTiEGGJXefnHnc7osI
+	RwxyxVD1xp++ibRJdIeBp51NsR5lWHECiKnwHU0XDYron/g6+pQxg==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3g0e9w-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 16:37:13 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoQrt3057798;
+	Tue, 27 Oct 2026 16:37:13 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hh97gugm1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 16:37:12 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69RGb95b17695008
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 27 Oct 2026 16:37:09 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2BCA320043;
+	Tue, 27 Oct 2026 16:37:09 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0ED412004B;
+	Tue, 27 Oct 2026 16:37:09 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Tue, 27 Oct 2026 16:37:09 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
+	id EA7091612ED; Tue, 27 Oct 2026 17:37:08 +0100 (CET)
+From: Alexandra Winter <wintera@linux.ibm.com>
+To: stable@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+        Aswin Karuvally <aswin@linux.ibm.com>,
+        Alexandra Winter <wintera@linux.ibm.com>,
+        Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.10.y v2] net/iucv: fix the recvmsg window update
+Date: Tue, 27 Oct 2026 17:36:55 +0100
+Message-ID: <20261027163655.1403341-1-wintera@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102105-deuce-amnesty-4222@gregkh>
+References: <2026102105-deuce-amnesty-4222@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,124 +96,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-ca
-Thread-Index: AQG+ka4iSAouj32QbdBtcmCOlo9WerdPO5KA
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae0d339 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=oIMCRTnLk8HH-e69WRcA:9 a=O8hF6Hzn-FEA:10 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: 8x2idxDJj-qAbRZCD5dsn1D0-Q3MviJC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2NCBTYWx0ZWRfX0n4dV9facCYl
+ 0oE47wX9XHvyuEcPCYSdKxkw9R5rJfUZs4u5SZ/pp3CeBDnOwAPKu/WGaMQMj5MpwXBtdacZ6ST
+ quwHJNZMtY5AY904fr8tHkJMJDTNHZdggWn2e21fg64W48h5yXkuqyNbkShH8SNfbwFko4uq3y+
+ RdswLtStSplzgEHs7W3oncZyHiYSJJdO+nLaB2eO+vkFVZdbEprNP1c1N/WrVyjRIYcHWkGL3b6
+ CuhP33hUuz2070u72wTgPoROK0H7Hy8iZ6IOkTYf4jDA7tyPKYd9xAPb0NSpPzfT1IttF6rEHIg
+ 1d0ZkcKtXCsaqXPbuZUe5reBEtbbwXeSUGdE3++7q3u8SNS86VNzCyJb5AjcJDnAJ0ZigCf/P0s
+ iZDiD2NjhN/TELRQ38g0D581ppv3b4Rd+DOPdvMEfihYwVuOMwdCe+d8u6BkcCLiPWQ8nCZIJnd
+ UKhF75HpGpuu/dhTz8Q==
+X-Proofpoint-GUID: 8x2idxDJj-qAbRZCD5dsn1D0-Q3MviJC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2NCBTYWx0ZWRfX3k++h3hX0rp0
+ V2GMHdowGz3AbgeDXA9un0eVsUUBIJSHc+gx5kJhfc4dUnkr1ieU//BMSi5DzcTBuZ+kpMLaIll
+ M8G9a7TeGhcX9qtCqcgmacChAF7MkzY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270064
 
-On 2026.10.27 07:37 Zak Brighton Knight wrote:
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-> From: Zak Brighton Knight <zakbrightonknight@gmail.com>
->
-> On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
-> the CPUs stop using turbo after every suspend to RAM when intel_pstate
-> is in passive mode with the performance governor: they stay at the
-> 2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
-> policy limits change or the system is rebooted.
-> 
-> During resume, the firmware sets each CPU's P-state request register,
-> MSR_IA32_PERF_CTL, to the base ratio (28), and the kernel never writes
-> the requested turbo ratio (38) again.  Without hardware-managed
-> P-states (HWP), intel_pstate caches the last P-state it wrote and
-> skips writes that would not change it.  In passive mode the cpufreq
-> core also skips requests for the frequency it believes is already set
-> (policy->cur), because intel_cpufreq sets CPUFREQ_NEED_UPDATE_LIMITS
-> only with HWP.  Neither cached value is updated across suspend and
-> resume, so as long as the governor keeps requesting the same P-state,
-> as the performance governor always does, the register is never
-> rewritten.  Governors that change the request often, such as
-> schedutil, mostly hide the problem.
->
-> Fix this by writing the cached P-state back to the register in
-> intel_pstate_resume() when HWP is not used, as is already done for
-> the HWP request when it is.
->
-> The problem was found and root-caused, and this patch was drafted, with
-> the help of an AI coding assistant (Claude, by Anthropic) during a
-> performance review of the machine described above.
->
-> Fixes: 001c76f05b01 ("cpufreq: intel_pstate: Generic governors support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
-> ---
-> Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
-> with v7.3 plus this patch and a temporary module parameter, not part
-> of this patch, to turn the fix off.  intel_pstate.c is the same in
-> v7.3 and in the base commit below.
->
-> Each row is one suspend to RAM and resume (rtcwake -m mem -s 25).
-> "Request" is the P-state read back from PERF_CTL on all eight CPUs
-> 5 and 17 seconds after resume; "clock" is the measured speed of a
-> single-threaded busy loop.  Before every suspend, all CPUs requested
-> 38 and the clock was about 3.8 GHz.
->
->  mode     governor     fix  request after resume  clock
->  passive  performance  on   38 on all CPUs        3.8 GHz
->  passive  performance  off  28 on all CPUs        2.8 GHz
->  active   performance  off  38 on all CPUs        3.8 GHz
->  active   performance  on   38 on all CPUs        3.8 GHz
->
-> The passive-mode failure was also reproduced twice on Fedora's 7.2.11
-> kernel.  In active mode the request was back at 38 after resume even
-> without the fix, so on this machine the fix only makes a difference in
-> passive mode, the default without HWP.
->
-> Not tested: systems with HWP (their code path is unchanged, only
-> restructured), other machines and firmware, and suspend-to-idle.  The
-> patch adds no warnings with W=1; sparse was not run.  The tests were
-> scripted and run by the same AI assistant.
->
-> drivers/cpufreq/intel_pstate.c | 16 +++++++++++++---
-> 1 file changed, 13 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-> index 17158cb..53db91a 100644
-> --- a/drivers/cpufreq/intel_pstate.c
-> +++ b/drivers/cpufreq/intel_pstate.c
-> @@ -1371,6 +1371,7 @@ static void set_power_ctl_ee_state(bool input)
->  }
-> 
->  static void intel_pstate_hwp_enable(struct cpudata *cpudata);
-> +static void intel_pstate_set_pstate(struct cpudata *cpu, int pstate);
-> 
->  static void intel_pstate_hwp_reenable(struct cpudata *cpu)
->  {
-> @@ -1404,11 +1405,20 @@ static int intel_pstate_resume(struct cpufreq_policy *policy)
->  	else if (power_ctl_ee_state == POWER_CTL_EE_DISABLE)
->  		set_power_ctl_ee_state(false);
-> 
-> -	if (cpu->suspended && hwp_active) {
-> +	if (cpu->suspended) {
-> 		mutex_lock(&intel_pstate_limits_lock);
-> 
-> -		/* Re-enable HWP, because "online" has not done that. */
-> -		intel_pstate_hwp_reenable(cpu);
-> +		if (hwp_active) {
-> +			/* Re-enable HWP, because "online" has not done that. */
-> +			intel_pstate_hwp_reenable(cpu);
-> +		} else {
-> +			/*
-> +			 * PERF_CTL may have been changed by the platform
-> +			 * firmware, but it is only written when the requested
-> +			 * P-state changes, so restore it explicitly.
-> +			 */
-> +			intel_pstate_set_pstate(cpu, cpu->pstate.current_pstate);
-> +		}
-> 
-> 		mutex_unlock(&intel_pstate_limits_lock);
-> 	}
->
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> -- 
-> 2.56.0
+iucv_sock_recvmsg() sends the HiperSockets-only AF_IUCV_FLAG_WIN without
+testing the transport, so on a classic z/VM socket iucv_send_ctrl() sizes
+the skb through a NULL iucv->hs_dev. SO_MSGLIMIT accepts 1, so msglimit /=
+ 2
+is zero and one recvmsg() on its own socket is enough for an unprivileged
+process to take a spurious disconnect.
 
-I confirm your findings and tested your proposed patch. It all worked fine.
-I had not seen Rafaels's reply about a possible race condition until now.
+It also calls iucv_send_ctrl() under spin_lock_bh(&message_q.lock), which
+allocates GFP_KERNEL inside a section the code treats as atomic. Sending
+outside that lock lets two recvmsg() reach afiucv_hs_send() at once, wher=
+e
+msg_recv is sampled for the advertised window and subtracted after
+dev_queue_xmit() -- and sendmsg reaches that counter under lock_sock()
+while recvmsg holds no socket lock, so both can subtract the same value,
+the counter goes negative and the credit reaches the peer twice.
 
-Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
+Test the transport, claim the credit with atomic_xchg() after the last
+error exit and hand it back if the transmit fails, and send once the lock
+is dropped.
 
-... Doug
+Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
+Fixes: 238965b71b96 ("net/af_iucv: build proper skbs for HiperTransport")
+Cc: stable@vger.kernel.org
+Tested-by: Aswin Karuvally <aswin@linux.ibm.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
+Link: https://patch.msgid.link/20260828-b4-disp-33fac0ed-v3-1-e6d061880ee=
+0@proton.me
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit fa5acd038ea657ad5033713d6916214cbd349151)
+Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+---
+ net/iucv/af_iucv.c | 41 ++++++++++++++++++++++++-----------------
+ 1 file changed, 24 insertions(+), 17 deletions(-)
 
+diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
+index d37e8f4ad472..034c4c79b898 100644
+--- a/net/iucv/af_iucv.c
++++ b/net/iucv/af_iucv.c
+@@ -223,12 +223,6 @@ static int afiucv_hs_send(struct iucv_message *imsg,=
+ struct sock *sock,
+ 	phs_hdr->flags =3D flags;
+ 	if (flags =3D=3D AF_IUCV_FLAG_SYN)
+ 		phs_hdr->window =3D iucv->msglimit;
+-	else if ((flags =3D=3D AF_IUCV_FLAG_WIN) || !flags) {
+-		confirm_recv =3D atomic_read(&iucv->msg_recv);
+-		phs_hdr->window =3D confirm_recv;
+-		if (confirm_recv)
+-			phs_hdr->flags =3D phs_hdr->flags | AF_IUCV_FLAG_WIN;
+-	}
+ 	memcpy(phs_hdr->destUserID, iucv->dst_user_id, 8);
+ 	memcpy(phs_hdr->destAppName, iucv->dst_name, 8);
+ 	memcpy(phs_hdr->srcUserID, iucv->src_user_id, 8);
+@@ -261,21 +255,29 @@ static int afiucv_hs_send(struct iucv_message *imsg=
+, struct sock *sock,
+ 	}
+ 	skb->protocol =3D cpu_to_be16(ETH_P_AF_IUCV);
+=20
++	/* Claim the receive credit here, not while building the header:
++	 * to minimize the time the window is zeroed.
++	 */
++	if (flags =3D=3D AF_IUCV_FLAG_WIN || !flags) {
++		confirm_recv =3D atomic_xchg(&iucv->msg_recv, 0);
++		phs_hdr->window =3D confirm_recv;
++		if (confirm_recv)
++			phs_hdr->flags =3D phs_hdr->flags | AF_IUCV_FLAG_WIN;
++	}
+ 	__skb_header_release(skb);
+ 	nskb =3D skb_clone(skb, GFP_ATOMIC);
+ 	if (!nskb) {
+ 		err =3D -ENOMEM;
++		atomic_add(confirm_recv, &iucv->msg_recv);
+ 		goto err_free;
+ 	}
+=20
+ 	skb_queue_tail(&iucv->send_skb_q, nskb);
+ 	err =3D dev_queue_xmit(skb);
+ 	if (net_xmit_eval(err)) {
++		atomic_add(confirm_recv, &iucv->msg_recv);
+ 		skb_unlink(nskb, &iucv->send_skb_q);
+ 		kfree_skb(nskb);
+-	} else {
+-		atomic_sub(confirm_recv, &iucv->msg_recv);
+-		WARN_ON(atomic_read(&iucv->msg_recv) < 0);
+ 	}
+ 	return net_xmit_eval(err);
+=20
+@@ -1258,6 +1260,7 @@ static int iucv_sock_recvmsg(struct socket *sock, s=
+truct msghdr *msg,
+ 	struct iucv_sock *iucv =3D iucv_sk(sk);
+ 	unsigned int copied, rlen;
+ 	struct sk_buff *skb, *rskb, *cskb;
++	bool send_win =3D false;
+ 	int err =3D 0;
+ 	u32 offset;
+=20
+@@ -1350,16 +1353,20 @@ static int iucv_sock_recvmsg(struct socket *sock,=
+ struct msghdr *msg,
+ 		if (skb_queue_empty(&iucv->backlog_skb_q)) {
+ 			if (!list_empty(&iucv->message_q.list))
+ 				iucv_process_message_q(sk);
+-			if (atomic_read(&iucv->msg_recv) >=3D
+-							iucv->msglimit / 2) {
+-				err =3D iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
+-				if (err) {
+-					sk->sk_state =3D IUCV_DISCONN;
+-					sk->sk_state_change(sk);
+-				}
+-			}
++			if (iucv->transport =3D=3D AF_IUCV_TRANS_HIPER &&
++			    atomic_read(&iucv->msg_recv) >=3D
++							iucv->msglimit / 2)
++				send_win =3D true;
+ 		}
+ 		spin_unlock_bh(&iucv->message_q.lock);
++
++		if (send_win) {
++			err =3D iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
++			if (err) {
++				sk->sk_state =3D IUCV_DISCONN;
++				sk->sk_state_change(sk);
++			}
++		}
+ 	}
+=20
+ done:
+--=20
+2.53.0
 
