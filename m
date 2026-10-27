@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793118176;
-	b=cjWJ+Q63uzmxw8zOLtZzcHzTP+LJ4FKg+3pXqv8CxxdR5SWvLyr+d7H7cZoF44pvmYlu
-	 ujR9/+s+y7NyqAaFqwR07eyfQvLnIeF9BhFYH0MwnVf53XGqfkJCQisjYVGB1y7GM3Lmw
-	 QsWJWNNUA86VKFJyOfd4jFR5sQSQTy+b3Y7B68RYOkduCs8KqoPq3E784c+MtqQ0LH2jA
-	 TwCg/xrQSYiIVuyrCLYniz9LYJSJm/+Nj2bhM2C/UahCSjgsLoP+nmcBfVW78Qbc97S54
-	 53TxZ6NXYZzC+AqZf+VH4RDaHlZV7LYfj0vJ2/582DfXvxsS6C8nZejfGeHAJCOyaSw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793118196;
+	b=ds/ojA2EiTlS2++jA9rNvia9ivV7vpqKabQ+B1MGmMNKn02tEJJ/nV/diCabRlutdzpO
+	 1ovV/UiTqIKAmv7r1W0laZ5Fv7m3LFLZ+LlkTNVN1CN3Ca6kCDpyUp3dTLzPxHxxlUhXQ
+	 uYPMjXPTHmrpYVi4hDZQIKJG52sUJmJ32N7K5dMR9jUOGD9+LdF+UDyv/3jOSq3Yo0Syw
+	 w+IFuyCYTI2ooNZ1Nabiva7QoabBJFIAA/N8x/RE743mzsUxYSD5n9uH5HOqw3XyG9Wtk
+	 mYwO3NgbNpPjaww+vQXnEy01k1Uu7bA54Uo7fvvAuwqPUn2SPvxFU027sr+y7c2Xzbw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118176;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118196;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
-	b=Fq5YYRvDnubSrnBDmpSI0NFixjLD9DhPkE7V80T9ERcWl0/8msvfZIdqahR9fz0oQ5j8
-	 gBJk9chNoXE0NFXqxmvDgrWgHWPF6t7KpMZ6ZRT14wXAnBO0xVAXuCZDIT6oCYBvm5Yr5
-	 5ui13VoAjRKUpdPsWTigJWmxoU4OVNKVA8KGNy3K+EDoujr0KitRXi6QSvnXhJJqr/FBy
-	 sT+QzNYg5/1+mmhOKaJDBoDZUPWGe0NT76rq626uTINA3jf+a9AQ3kHuUu9Qz3h9GfkZg
-	 gAjyurZdUB33bHBSh5kJLV5egSVg/KjG4N1n9bWEEWVcVdXkmbszBKH4BUZEssO8mWA==
+	bh=QqIpGBAK2KuXj5Mm6dgtYCSC1cgHN+QuSvgapi/y7rc=;
+	b=jWXafCGd4s0FSXcjjtaKNJ2tFYdEi7jMSR3mF+ASLxAZmyI3flij49pvJAgK3T04exMi
+	 oJ8O9UD1j1vmnmt5h/X3kZksEQwiezWVLdqz701lL7jXpyg5oQdLVyp4p4kPqxdQtZ5AK
+	 UIZr8MmSGyq4h2XnBdkTQkPMtHUVY5QE5WvgcRMrXPItLRD4blYMmK9p/x+UuWVaWyoIh
+	 QDCaIWRajQPMSC8SKcOpySOGUlbd90YxcWRsNgiUj6gGAA9PRkuuAYk3G+kiVqGWci+/x
+	 M6P5c+Tlmgq/2DLtuXs4kbWyplsZYf99tiblpXCF62+Dfhk9/7ZuFC22UVoTbjRxrAQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgV9nJRE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XMLfp17Q;
+	arc=fail smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C95660A2631
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C95660A2631
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE7606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BE7606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgV9nJRE
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8ac8a2ac52bso455467b3.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:22:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793118175; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XMLfp17Q
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b0a921ee46so36552147b3.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:23:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118195; cv=none;
         d=google.com; s=arc-20260327;
-        b=ULBWeBydtrnuOUlF8QsnNllnWQWsG9ql1yKyXKd6tnFw/3KT56Z+QkTuxcHp4LMMvY
-         D246kGzIeGzsD1QVnMQSlhacbMQxe1WcAqZzXorR6YA3zOFJ1oQHxsJLLD44pCviZQrA
-         IqM91DvHL0szbd6w/GNdJHckU/Jus+QPStQfvYSAjnznSWBR5LNNjuEJsjWV89Ao57rk
-         nM5xp3tgnD8vxXK6RDtDu8UMZWfLQBdxgdFpL6hWjH633PDL/z/znbPYal0cPBcxBR7D
-         bmpI+1qbwpZ8E0GwrrZryTwsYYoTxR9z9bIG8yiOD/zQTvUxH5M11b8Y1A752v508sjM
-         DmAw==
+        b=r20MIQ9S3q87R5YqfhoUaELEAwbXiVxBdTSnGB44qkggFRrP/qCzjrtXqz75d4kP4s
+         wAkYEKGNrxRYcEzDySdrYGCG589IG7aOp6B70SDMByQJ+GyeOcjyh6058a0dHfdzc8p2
+         xBojFs6pqxAPxbBfrNh35vaWLW2nvqJdHYglWp6xVLHtiInRAVSbc8eZk70OtP+H3AVr
+         kvBJsIjX+xBtj6zBQ4MkYnmO9457ib9legLVcaJAZ47I/hUQOjlyYg8fUcg4Yqc0C5CJ
+         ppTMON5Kosl+0IX3y5g+ZZDU9Sq3/xzUa75tyb04qfEdFvs3V+e1AmYHUGp6gS4Akl5I
+         gH+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
-        fh=TV+IKsctmmGJuk6KNH+3eEKUsnIUiU3aSR/LNjOVfjg=;
-        b=osWd8VikTDwroiOGtsrNeyTuAayxYZ8UutzXay7jlAwG0UiJqEeURUW7P7vk+AKiDL
-         6dqaPZL/FeQgGeiGVZ34qjEzIV05zcI/S2cr/I3YdRnG8owyVbdaAvjpdCNPXyxMbvks
-         EQ/TLmV/u40A/n+9UFPJpzGw9m7cGdLzL8VGo4qfOat/OzZVnS6i4/x4ICx34DZYb4zI
-         GX0wrdtSfi0sJvDA88eEvnXEObCXkv1mWixE1n1ZIUVfC7rWZCn0woOsxdfVddpeV+bK
-         15/M/49Q6oT0wV3RgL3XIiGHCW/dz+mr0tHav5rmYu5X0wVP6p/ori9wscla2isgiI4h
-         JpsA==;
+        bh=QqIpGBAK2KuXj5Mm6dgtYCSC1cgHN+QuSvgapi/y7rc=;
+        fh=vL/LzEseeUebOzMncPsa0xjXRzonzeIRs9CBZ9/kztI=;
+        b=Dfbgbl6UPYw89t1vySC4ZRBIlX+5jholLfx5zLvWE4RI1vF+qMHynkUhoBIyhGz8jX
+         g0EncOqQEuOABRPs0C92YIqtpO6Zpo/GE11/5DJY3hFL2tGm3f7g7HP8ow4mzR4EyjnU
+         /hAlugOs1hDU/CCv0zZyt53pDvmwNO2zhd2h2FEguiE/u51g+uvggNx0BNV7Fb87vUm0
+         yxeq1pDu6FYNgQ5Xo8vkrOEFRtQY4WWmmyYW1bc7QlPDYLTqdL8fPnaSk5EwZZz2jpGI
+         9j/ucz3FZ/5ssrYaX64Dx2GHQfYTFI/tc1JWSfx+1c27TQa5hDm3XMZNRqs/r8SVurRA
+         rLcA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793118175; x=1793722975; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793118195; x=1793722995; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
-        b=dgV9nJREEGJRJ9QmZnqkErrAe+48xCQlxpl768uv/UFrYOpJ5vGmw1FdZrXRTu2cXN
-         xdxn9LTkyvYmnAfpAeId+I87c6foglCe0e7IOk+MUjOI0KWkQ5+6WvOzSkNuiegFa62z
-         PgVusNWxO5SqIq2OHRAWlFvaZ4SD4HksuK8nvqBBVkZdxU4f+5hyNawB365EHUmD50SX
-         xd1fP9w+WSJT26mMvdN+TZLDrWisKuL/C2T22PkvAWscLcIZmOC/mHidXEnM+pQa+f8E
-         GwVzeEnIaj18wcAo07Wb3PNMFzzLUXjv3OQJVqky8xgIUWOBLVSB7oHfumhlX4TLFuuv
-         +9mg==
+        bh=QqIpGBAK2KuXj5Mm6dgtYCSC1cgHN+QuSvgapi/y7rc=;
+        b=XMLfp17QWzpGE0tU5jJjiCFTB4/tY1R1uZXh/9tzKH+JZ1EpWJ2QbLXtbTP5cwypu+
+         tjIq070JZMhQ919gl5zS3WzV7nfdO1KPWvuJshIa/S+dz2u21UtLNvpH1XhMuz+LdWb2
+         ciFjQL4BVuyLd4nuJUjwOOSi0oDx+zOAqBAQaG1KQEYjkJVEtK6Hfc8abC/KkMp948cS
+         i9hjseDoOIgABmGaDlV6goSmNfAAg8F+ZnolgHqGCyV3+Lzk8LVH2X3H+YCe2m+MwOD+
+         JTgWPwbRaO3AtEm0hz0NtgmNtn6WOJvCLcztaHXonJiERv1QwlhudS2pPCeDvSQY3rIO
+         vJzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118175; x=1793722975;
+        d=1e100.net; s=20260707; t=1793118195; x=1793722995;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
-        b=bVhBSenzp6MSnH/YTZlblfPGeYJR+8nRaK9PO4UUDJIw7s+j7NZVg0rQaudli6NGF5
-         eSm4W02RgAm7PQ5qySKofxolOkKqOOw9jDZjQseWQyUNmVn2IP50MYnrkvY8KLMyQ0w8
-         kwroGRpPxkY2IJbGhRiYcfHzZpUchCSecDvBaNFD5BneD79v9IjV9iu7x9dTNO0Z/CdN
-         TiBuOAIrTAFg05P7PoBqOnJibdVUsOCD6fTVXAzQ2UPXVqjlEdPn+0DZSCEADZcv55yp
-         D/pcaaITvcc5Eg4671tJcUmxADEwFgR1g1CJtpSxhiAh6Sv78+bCIIXtFOENhEq11VID
-         TeyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjXiIDRGSwVjRyYb4/X2ZDm42KnwED9sDy82aGb/GTduwkfM9vZuW5o+BDfDKKQQeJqdwgTbU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjav/1ZaGlsVT5avph3xz2QO0rJSE8aG1HkTFKKUzftDXpm772
-	gKOzUQjLUQzl5Xam0cui/wNuyY0QJS6Zgq2/ajvGt5vgUF2tqgRqETWXwg6t/6YraZcfjNSojC+
-	3d3Dr0RWmbghmdN6VmcfcgZtVRNpWyYU=
-X-Gm-Gg: AYBFou0l/VgdGLfjRV+xkmkXGdGb48C+vQvys6aYGdj0iwqUE9rBS4q1u5iG5dFOcoH
-	a05uJfd/HfvRRToNHFCZVWP+1gBknQh1Et4oUCfxxxIbyDCu5Q4kL+hWiqTSvhgeo0rFK9HG91h
-	fgmHa7gtSYT6skPCB1iFDukaB/6Gc1fXHbjCxqa/3Y7wl/i1EX2iPekxYEC+flItaDtP2XinQYx
-	2lhff93vm0yCM65yfrl67Vk/6BO7XEZM9lLRsgvLkzuyBkx/Abo80EZCnfeeJ0x6deyxEy5JnyX
-	KONBP1011k/8U4U9VL1nzUAhP1K5cLWzeL4jb9GDySSxc1AUShNUdWgiFzGCgXWiBQgj4Zaxoeq
-	Y+6f8PxxLINDpW/UoGPXfMrOVNrVXwF5B32jUcA==
-X-Received: by 2002:a05:690c:fcc:b0:8a8:316e:5973 with SMTP id
- 00721157ae682-8b19c9f0c84mr27894277b3.14.1793118175296; Tue, 27 Oct 2026
- 09:22:55 -0700 (PDT)
+        bh=QqIpGBAK2KuXj5Mm6dgtYCSC1cgHN+QuSvgapi/y7rc=;
+        b=sZPUcCbK/VW973PbY1dO6wB7Tt4Or0aUxwhjrWx2SH35RPTrkfczPWdVN99vqtVd4F
+         MMeJFDIHZRr77gLgP7wDEhlJ2ycZxfIqrQIDloY4FQZWV9sp9RpkcHrBXMgMOXnHvn5l
+         EeYXXHlnvdkdDztjncYJ3lPb6+cWJS7QDGYCBsYna7NbteO8inhAY09scQfUCxlP66zA
+         PZu/q6547qudC1Kzi/WXOikF51TTt5HpVfd8j4NWTLKXAP+FvjlHfoTFRQ9jqhhtjUuz
+         kiUS/4N8Q4gFCKZ05l2/MVIjZU4SFyEGaoUFwpcHowx4y2gei1NwtfOY/S1Xhmkje5X0
+         C36w==
+X-Forwarded-Encrypted: i=1; AKwUvBzhboq+JK0BHBzmm7/6bH+/w5VAJCFkVwR/dX+3J8uwGFm40sJ3pY5Br2LxwomKMg/x+DnwV2k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoFLTgfky0Tx5fRarHLUMio5lez40RRgLpCVuyvuwcJOg06bmW
+	JgVXdN6yipaTvHJkKQQs6vkFpAgEKKMTHctBgozFhp8NIDfTqmDXCK4hXopxI/7nxFuOHTArw2A
+	OSozgolcKkFpvClejDT31G0rqvMe6dP8=
+X-Gm-Gg: AYBFou1njzwVWGN27+kHpPjMrS9rwr4OPfMWXBJtJoIvWN3JU+xvj8o/YunPq7jxdDn
+	FK+R234nLIAthJdc7+/Mxdag10EqboX+HGjl8CDI/Apn48ruWlA2pQxcDgc1sXEeq+dtJZ8wwth
+	ousQXxHbAekj+ZoF+7JQVwlss0KKyIQHXalCc5W1puY/HPN0N/pfZLKucvvhmPYYTnx1/qi8crQ
+	4haol7XEOhp/+GVmOrlv5BWS10cJ/Ic40OTHmDN9NXCi7JtFVb7clEypK/oetROnuV4J/fDNfR7
+	Os0/pGq6yG57l7YykPReEAqMxkdGLqBjUpfEAYeMSpf64lNOouECyL9UMN2NkqF9Mp6gw31GVgH
+	K25sN4p2ga7Xacq4Nu2ZydXZakoBKlA2tl2Oo
+X-Received: by 2002:a05:690c:ec8:b0:8a9:977a:4149 with SMTP id
+ 00721157ae682-8b166c208dfmr65074317b3.72.1793118195377; Tue, 27 Oct 2026
+ 09:23:15 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,19 +103,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027032609.119226-1-lgs201920130244@gmail.com> <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
-In-Reply-To: <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
+References: <20261026111103.4158855-1-lgs201920130244@gmail.com> <908cb70d-bfe8-4d01-b64e-44ffcfe259bd@kernel.org>
+In-Reply-To: <908cb70d-bfe8-4d01-b64e-44ffcfe259bd@kernel.org>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 28 Oct 2026 00:22:44 +0800
-X-Gm-Features: AclHuK_rUH-wQYjXcUxpNAITglYIi677x8p05GEnBtjGRev3n8Z0DOrQJ-qbQ2Q
-Message-ID: <CANUHTR-SJTiQvo__wbqosSQV958fkHGY33YTRFor2=EwDTdXPg@mail.gmail.com>
-Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
+Date: Wed, 28 Oct 2026 00:23:05 +0800
+X-Gm-Features: AclHuK-tuXfD3-wCV2DoM9fPtRqDwLKmCfP8tZLuO8Qr1rY1uRTJcYQ15eNQu_Q
+Message-ID: <CANUHTR9XrH5gKF=bN0s7Z2xP=5OzPEU8D8_Xwv4F+3rp2cUS-A@mail.gmail.com>
+Subject: Re: [PATCH] platform/x86: acer-wmi: fix UAF after accelerometer
+ registration failure
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Lee Jones <lee@kernel.org>, 
-	Mark Brown <broonie@opensource.wolfsonmicro.com>, Samuel Ortiz <sameo@linux.intel.com>, 
-	Peter Ujfalusi <peter.ujfalusi@ti.com>, linux-omap@vger.kernel.org, mfd@lists.linux.dev, 
+Cc: "Lee, Chun-Yi" <jlee@suse.com>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Matthew Garrett <mjg@redhat.com>, Marek Vasut <marex@denx.de>, platform-driver-x86@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -123,32 +122,27 @@ Hi Krzysztof,
 
 On Tue, 27 Oct 2026 at 23:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> On 27/10/2026 04:26, Guangshuo Li wrote:
-> > twl6040_remove() currently removes the regmap IRQ chip before
-> > removing the MFD child devices. This destroys the IRQ mappings
-> > before the child drivers can release their interrupt handlers.
+> On 26/10/2026 12:11, Guangshuo Li wrote:
+> > When input_register_device() fails in acer_wmi_accel_setup(), the error
+> > path frees acer_wmi_accel_dev but leaves the global pointer non-NULL.
 > >
-> > The parent driver also registers READY and thermal interrupt
-> > handlers using devm_request_threaded_irq(). These handlers are
-> > normally released by device-managed cleanup after remove returns,
-> > when the corresponding IRQ descriptors have already been removed.
+> > Since acer_wmi_init() ignores the accelerometer setup failure and
+> > continues initialization, a later driver removal or initialization
+> > failure can call input_unregister_device() on the dangling pointer,
+> > resulting in a use-after-free.
 > >
-> > Consequently, free_irq() cannot find the IRQ descriptors and the
-> > allocated struct irqaction objects are not freed. The associated
-> > IRQ threads also cannot be stopped through the normal cleanup path.
+> > Set acer_wmi_accel_dev to NULL after freeing it so that the cleanup
+> > paths do not attempt to unregister the already-freed input device.
 > >
-> > The probe error paths have a similar issue, as they destroy the IRQ
-> > chip before the device-managed IRQ handlers are released.
+> > This issue was found by our static analysis tool under development.
 > >
-> > Remove the MFD child devices first, then explicitly free the
-> > parent's READY and thermal IRQ handlers using devm_free_irq()
-> > before removing the regmap IRQ chip.
-> >
-> > Also update the probe error paths to release successfully requested
-> > IRQs before destroying their mappings.
-> >
+> > Fixes: 1eb3fe1d3b6b ("ACER: Add support for accelerometer sensor")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
 >
-> More of postings by bot ignoring any feedback.
+> So you just keep ignoring and ignoring our feedback. It's just bot, so
+> little point to discuss with bot.
 >
 > Best regards,
 > Krzysztof
