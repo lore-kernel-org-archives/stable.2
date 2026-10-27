@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793079882;
-	b=KBXJas+s58MFUbKZ48p4VEJ/WPiy7BYIeGz/x8W/4+ub64/N9N0xuKnk8/VRdgLHr1WX
-	 AiRM7Ma7c7ohxGNNOzNhOyvlVa0YB06cm1pdpp6ztB1EDGlt5945008grw3Zups5+ZG3c
-	 Ag7Pova8XFrsBUUxFuHaHvc5p6EfBgbOdeC5+Cs5TkOnrtCwwvnzjDXNAF8iJIVxbQ3s1
-	 bs+BwXT92Uhz2IPIcXVyvehlJgGtzg7uwtZ2t0ozNnrRUxHnqtYj4L9izuafX7vaQzUXb
-	 r5gxWYGcuZ0Ilg08dbGAzBAVV1Yx2J8JFKoy5K7lL/qSuVXu3LJpRNDPdxdUfwSqAdw==
+	t=1793080203;
+	b=qIjvk5lDFznG/YlyUQApsSmcbZjTQ6u4gXRDtksqzuDrmw7G6j3VkTHq7JEIkoZjuGis
+	 XNFq3XGTdBifa/e6SSz67kYDksLrv5c9DzTHYLjeB5Ah/4IgUxkuOk6gsfV61NBIPfYhZ
+	 HFAyHe3yQyYOkVDv+abev66tEJzf8yhQNpoRGARY9aecoz0at1ErKK1ckE3VrAVA2CD1W
+	 hFH8vSXZ6wLQQBkowjc7G7JEJPUMCAc8MkMow/prRT+QpFiMZB/0BCpZAlDLYMGZ3c9hX
+	 EfERZNXRJcfM1rqTGSTLQejZ8kpaayyYgPkQmA1M2/51XQwFZJCli9AaJe2XFXreK+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793079882;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=aSD/uA5GzniB62u1aszYIPG0z9UbK8URKHofuIPTWTk=;
-	b=BJiwUTO+Fsqc54GyKlQTfHSE7KXGU0lunieopJ3kZGMuv+5WRAWW8vEmjfUKsHa+XGs0
-	 +kHdiIA4HGR36gtR0OLvy7MOpPZik+n6FVldVM0Q/W8c10zGGnWxVoGFvcOzTgzDYqabw
-	 rFuCLbHgy7y0C9lXzu7SXdGyVr6QZaYsv9gRxzBwrxdP5884bs1l1YvV9MX0m/kjOkIg2
-	 BECca9snppSBRDJtAPwJGTh4Qf03dDyGtuJ/HLgBl1U36H0jAywqpLSFmqPtqNFTa6z3t
-	 E9yD9HinvgX4C3OsrjIGTG/RQNcD1VbVPyBdHWZH9oRLKVA6KLuXdyWxLInoWpAXY3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080203;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AF8+tY0XoFdKfS6hqQtj29XSUELY/nlktGY153p75yY=;
+	b=zWF/5plSpjyJbVesLJwzyxphm8W6+X8A7Dhgq6QOaRWflWY4qt5oshnYBNRJ2hCI2RTI
+	 Hm+bkTUh6nJXtdXqKA2xKqSS52iwfdpMdQDQ8n/QCuAchdvGY8C6PHT9NwwCp8GbE/+Zh
+	 K3eNVtEx0C/X6yeNOdLRC3rsbURnrus7L1dHVjJXzTNBL7Y2HlFxs5fsBK0J9aVvP3PlV
+	 estxTyJMV1PczQ3LFBhGIaoMaVT24MvqLQdyc+fprYZ+xmDhUei4jzrCTZ0EaAstE2dUV
+	 4vt6JMOdeeETlQtSlRTv1egMi0sQqON9DyCaXE31OntBmWiCMo8jDjst4bJ1J0qJI5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NyUV7tUJ;
-	arc=none smtp.remote-ip=115.124.30.110
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=psSjvtjr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497DA606A31A;
-	Tue, 27 Oct 2026 05:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 497DA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6552606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 05:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NyUV7tUJ
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793079878; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=aSD/uA5GzniB62u1aszYIPG0z9UbK8URKHofuIPTWTk=;
-	b=NyUV7tUJLJAGILy3i9leMXptrzlVSQ1RMoIV5rre+g2Jdc0Z6+Cez9tv1wrlV56GABlimvzD17fPV+mb2wnnAb7iDZi5VOSHN7uYlpYVqOPPW6rL4OHq0DSDRtnr1WC+tfhZQd1om4vo5LMJo9sDnTARU6CB4vyW8I+t2eKU2dw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R491e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=31;SR=0;TI=SMTPD_---0XDcpFMl_1793079873;
-Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDcpFMl_1793079873 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 13:44:35 +0800
-Message-ID: <738ae37e-71f0-4539-be59-e64023a8e237@linux.alibaba.com>
-Date: Tue, 27 Oct 2026 13:44:32 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=psSjvtjr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDBAC1F01825;
+	Tue, 27 Oct 2026 05:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793080202;
+	bh=AF8+tY0XoFdKfS6hqQtj29XSUELY/nlktGY153p75yY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=psSjvtjrdA3tpFpm8B+Gww+BgArb0Yb/0KG5XXC9nhz6pbSRTOmv7+fBIOsp+s0WI
+	 uVEXY6wCharVJhj908OPiQ6E3axYsHKttd0Ud/sPcy6JJdmnojydpw0D4CBEP20dh3
+	 l2aSAwbuni6ZNAJ803rYtKt844PFn692+h3x+bZE=
+Date: Tue, 27 Oct 2026 06:50:01 +0100
+From: gregkh <gregkh@linuxfoundation.org>
+To: "yao.zhang1@amlogic.com" <yao.zhang1@amlogic.com>
+Cc: stable <stable@vger.kernel.org>, "tuan.zhang" <tuan.zhang@amlogic.com>,
+	"jianxin.pan" <jianxin.pan@amlogic.com>
+Subject: Re: mm: call the security_mmap_file() LSM hook in remap_file_pages()
+Message-ID: <2026102700-astonish-whenever-37b4@gregkh>
+References: <2026102711371963416812@amlogic.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,81 +53,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Gregory Price
- <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026102711371963416812@amlogic.com>
 
+On Tue, Oct 27, 2026 at 11:37:21AM +0800, yao.zhang1@amlogic.com wrote:
+> Dear 5.15.y maintainers,
+> 
+> An mm patch should be backported from upstream mainline to the stable
+> 5.15.y branch. The patch's information is shown as below:
+> 
+> [Subject]
+> mm: call the security_mmap_file() LSM hook in remap_file_pages()
+> 
+> [Upstream commit ID]
+> 0f910dbf2f2a4a7820ba4bac7b280f7108aa05b1
+> 
+> [Kernel version]
+> 5.15.y
+> 
+> [Why]
+> The remap_file_pages syscall handler calls do_mmap() directly, which
+> doesn't contain the LSM security check. And if the process has called
+> personality(READ_IMPLIES_EXEC) before and remap_file_pages() is called for
+> RW pages, this will actually result in remapping the pages to RWX,
+> bypassing a W^X policy enforced by SELinux.
+> So we should check prot by security_mmap_file LSM hook in the
+> remap_file_pages syscall handler before do_mmap() is called. Otherwise, it
+> potentially permits an attacker to bypass a W^X policy enforced by
+> SELinux.
 
+Please provide a working backport that you have tested for this, as it
+does not apply cleanly on its own.
 
-On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Once shmem_writeout() has moved the folio from the page cache to the
-> swap cache, the folio lock no longer keeps the inode alive: truncation
-> and eviction find a swap entry, free it and do not wait for anybody.
-> That did not matter as long as swap_writeout() was the last thing the
-> function did.  But since it puts the folio back when swap_writeout()
-> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
-> afterwards:
-> 
->    reclaim                               last close of an unlinked file
->    shmem_writeout()
->      shmem_delete_from_page_cache()
->      swap_writeout()
->        zswap_store() fails               shmem_evict_inode()
->        writeback is disabled               shmem_truncate_range()
->        return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
->                                          destroy_inode()
->                                          ... RCU grace period, freed
->      shmem_add_to_page_cache(mapping)
->        xas_lock_irq()            <- use after free
-> 
-> swap_writeout() behaves that way if zswap is enabled, cannot take the
-> folio and the memcg or one of its ancestors has memory.zswap.writeback
-> set to 0.
-> 
-> shmem_unuse() already added infrastructure to deal with that.
-> Reuse info->stop_eviction to protect the inode during writeout. Increment
-> it before removing the folio from the page cache, and decrement it after
-> swap_writeout() and any attempted reinsertion and inode accounting.
-> In shmem_evict_inode(), wait for the counter to reach zero even if
-> swapoff has already removed the inode from the swap list. Add some helpers
-> to make the code easier to digest.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: code cleanups; improve description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+Also note that 5.15.y will only be alive for one more month, so why
+aren't you moving off of this kernel version already instead of wanting
+to add a new bugfix to it when there are already 2000+ unfixed CVEs in
+that tree?
 
-LGTM. Did some shmem swap and truncation tests, and no issues found. So
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+thanks,
+
+greg k-h
