@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106314;
-	b=rL/PoCXAJBt0rXpB+qAf1Z5UsjfA32v1Kb8hFDCBkFokfFOmlVl87echA0yhT8RDYAKG
-	 4UY0KZukN0brUa41zwoylh5iKsSCWPx+rZhPCgfLdJ1gIJKuWGkqxg8lWJQ23A2FSkSMV
-	 2LqXcWHoiq4oiI+jm4jDv83Y6PJHgATMWSVBStWXcbP+opgcJaATKbooVYciOWo0fNjyV
-	 MO32i3QJYhgPilLGMJWKPi+urpbmSiZcEtJ2lAIob9wK/IyixMCdb/NU7f4Js588c1izn
-	 aFD7XF1Y2Xx0fGD9SkQ3o5Z8Hw5xPD/RULaR0mWeTgeYuZcrxd7sID/z+IvnI3ePKQQ==
+	t=1793106485;
+	b=meupQh7hu+dfVTZL6QeNbC73Khu1alQeWLBHz4B6hdiPWiu5b8vXL8LvSppKg1KYizBv
+	 0FTRD9xNwyFVmRW7/pQq1A3G0zYcJ7OlQdaP4gz0nFs71kRCI183xqmr2Ry3kILITOAMl
+	 iU9jbTu9970gsKS4Vx2t499zTGoOuqAdb/3W8gnqkhvl481iGtyhbz2sH6d2En9R2Hj0q
+	 p49LFj4SHrAVtbkw5EfMemQkhIiWzvPXEy9hx/SThVmTn2RcBzzu49ByQgAT3WXhkHYN1
+	 YNLyKFvFoiSURRQZ0NCb4+e7Ki61f6/2kE0gTLpRFHxC2Xefm7Sczeyq9ezS0ge17mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106314;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=UKWfg6nXMEPTxXujUYzfp00rWiuxfD1JI+7Tq1SH2b8=;
-	b=3R8WedMX7iD+Mte5i2jmpAYLoMdkeIN1QoEgtTH78nokpSvuiEK//nhEyNgAxo34InSI
-	 DYQF8ggJZBphzCHSbQGSqGNBSOqhROIWEksdOuvhku2JLiPRA09dMZ/qhLeaHDCFCSX5q
-	 vFCsCK16XaC/MXYwL527H9jsNGJwPXAhPseQPL6Z0oEMIntYb+9XWqbiixleIcTFjmktv
-	 dugIggPFw3do3yAFpVXaNRDYl0whp7h1JA2UIkIvUIa6e2RvHaib4omwJOqjGCNNr8h8m
-	 6ZlXQgAVuLIl23TEx/20eJoWoxPgiUx/+iKuxZ8oDJszq/qrajrtFjk5qi+VaiV1gFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106485;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Go1xjrAL7q/1AARqhv9eE2FyOWcMjJhhydc8QRK0djk=;
+	b=jl1cPw60GK0MjoSvOJWL/Jz8HFweq5PaOheMEO8JhWNpZXqjvsdouZ4kTnhc1jzjn6C9
+	 VEPzqc57hOLm3MBv4H7Kdajjns3uHHLcekwoZFevokO+si3fUX4e+6I1pYzOiYeB7ZFHI
+	 /pDpSmWGNc+Bu4e7gj8z9cvq7zS3mADcI9Rimor8OJ0hK5Sj8HGYiURzumjoXHPoBpQvG
+	 YEnJ3s1Ukwykg+IVgPD8bJrPTC5U7nTCOeIYmxz/LOyBQhNmeMof1U2G3MCmMUl4MHg5K
+	 LUwJJ35o8LfSMDJDo/iLJjBDwHc5Vzz/utEVWl8CqfHAqPwxqgnFzp5r9NXdnwfZkCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kp9s8TDt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Dsn0KVV7;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A98A60A2634;
-	Tue, 27 Oct 2026 13:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A28606A31B;
+	Tue, 27 Oct 2026 13:08:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28A28606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kp9s8TDt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB9E1F01825;
-	Tue, 27 Oct 2026 13:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106314;
-	bh=UKWfg6nXMEPTxXujUYzfp00rWiuxfD1JI+7Tq1SH2b8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Kp9s8TDta9bR85RsgT6BZ+ZVbkIwImQjtt+GAaCwxk6heK7vDx653LYrsHkwhXSUM
-	 4eyDrjRmVpk0METZ4Np8f4rqJ9dx8e5+fNkunjb7do92JUh5oOa0Bh7KMHmOEPtSzG
-	 19InT/xTJdtBLOmOs0BdyIY44HXIdGZCTeXIMnSbgGFDBJ/6cZl2ZfdGpNF0kPuKTG
-	 hNpwOZj3KGf453gc1NBIevm7pIfxW9qBNQ+B8xnTKsfcHo700lKsM2Cw7Q9uV75Chw
-	 2dYhIBo2Jxz9IIePMFzS5yYnzzlqKPEl1hmSB9MFnfQtuMRyPtkMuxkw6hqQeCJ66I
-	 GPqm4S9a76eCw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 14:03:19 +0100
-Subject: [PATCH v2 14/14] mm/shmem: fix truncation of files containing only
- swapin-error markers
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Dsn0KVV7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=Go1xjrAL7q/1AARqhv9eE2FyOWcMjJhhydc8QRK0djk=; b=Dsn0KVV7avfjTIwunE5xqU9MlA
+	/Sd9aDdiwTR70tn36rCVE9ocOsuRhayewl5VmWltbtieVzdIP0HBTzDZ3Edvs5ssAkBfQpU7Hup5O
+	PPyVvKxI0HGyen6EO7sPfIgif5PtksZgW1Y43rRof08PNEtD2cT+67rRZ7G4LEPAOuEmiO8wALjAV
+	f86Eq9xUipvJaaKnI7FvAmtzOOYo8Q6v5nJ8yc8KD0hnpOAO6mpMSOdKfhNtYHJh98xSFxIDlSXvj
+	rYjye5jiw+3uXNbTO/3bvYLKCYy9nE4BBwoYTyd0vZgTVEAR3xqfXuhXZB9zmHCnnwZtZMXl5YdRK
+	cbEEuYSQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xLgtt-00BnnE-NI; Tue, 27 Oct 2026 14:07:37 +0100
+Message-ID: <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com>
+Date: Tue, 27 Oct 2026 10:07:32 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,80 +57,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_shmem-v2-14-86a00952acb9@kernel.org>
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
-In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Stevens <stevensd@chromium.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1547; i=david@kernel.org;
- h=from:subject:message-id; bh=i3hN4RE7liAW06y2OgRE+JIRMBR8d+B3ALKw3Lw9zRQ=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBSKP814sdEoLk21M/PRD6GVt9LFl3/Sibj4n3HZS
- fvS3A8rOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIhacM/z0L5r8L6+j0YpNR
- j6n8mtGpeDq8me9LevOHw392aT2yu83wvyrAf3fGP/n5wa8/6dmeKeruEbjtEct88lbS735FbZd
- bLAA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
+ clock starts
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Lucas Tanure <lucas.tanure@neat.no>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dom Cobley <popcornmix@gmail.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261026164028.78792-1-lucas.tanure@neat.no>
+ <at_4EgWZFghkRHzH@collabws.localdomain>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <at_4EgWZFghkRHzH@collabws.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-It might not be very common, but we can end up with shmem files that are
-composed only of swapin-error/poison markers.
+Hi Cristian,
 
-Such markers are not counted in info->alloced. Consequently,
-shmem_setattr() can skip shmem_truncate_range(), leaving the markers
-behind.
+On 26/10/26 22:23, Cristian Ciocaltea wrote:
+> Hi Lucas,
+> 
+> On 2026/10/26, Lucas Tanure wrote:
+>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
+>> the TMDS clock is stopped and to start the clock at least 1 ms later.
+>> vc4 writes the bit, and enables the scrambler, at the end of the enable
+>> sequence, long after the PHY has started, and clears it before the PHY
+>> stops. A sink that samples the bit when the clock appears never locks
+>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
+>> order work on the same sink.
+>>
+>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
+>> was an empty stub upstream, so the PHY kept running after disable; the
+>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
+>> pre-existing race in the scrambling work cancel that the fix would
+>> otherwise make easier to hit.
+>>
+>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
+>> with the same change applied, against the sink that showed the
+>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
+>> reset and a sink power cycle all lock with zero character errors. v2
+>> and v3 carry the same code; the hardware test of the final form is
+>> still pending and will be reported in this thread. Mainline was not
+>> booted on the Pi 5. The BCM2711 path is unchanged except for the
+>> enable order; I have no Pi 4 at hand.
+> 
+> While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
+> ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
+> issues.
+> 
+> Hence, could you please verify whether your problem reproduces with a
+> recent mainline kernel?  If it does, could you also give [1] a try and
+> report back the actual behavior?
+> 
 
-Truncating the file to zero and growing it again will result in reads
-failing with -EIO instead of returning zeroes.
+I suspect you didn't hit this on mainline because vc6_hdmi_phy_disable()
+is a stub, so the TMDS clock never stops between disable and enable.
 
-Check whether the mapping contains entries, in addition to
-info->alloced, before skipping the truncation. Keep the info->alloced
-check so that shmem_recalc_inode(), called at the end of
-shmem_undo_range(), can fix up accounting after reclaim has emptied the
-mapping.
+Best regards,
+- Maíra
 
-Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
-Cc: stable@vger.kernel.org
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/shmem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 2800dbdf031c1..3c42b4f253b5e 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1591,7 +1591,8 @@ static int shmem_setattr(struct mnt_idmap *idmap,
- 			if (oldsize > holebegin)
- 				unmap_mapping_range(inode->i_mapping,
- 							holebegin, 0, 1);
--			if (info->alloced)
-+			/* Swapin-error markers are not counted in alloced. */
-+			if (info->alloced || !mapping_empty(inode->i_mapping))
- 				shmem_truncate_range(inode,
- 							newsize, (loff_t)-1);
- 			/* unmap again to remove racily COWed private pages */
-
--- 
-2.43.0
+> [1] https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/
+> 
+> Regards,
+> Cristian
 
