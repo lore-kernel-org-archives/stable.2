@@ -1,79 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090213;
-	b=DtB5fyB5hWWL1z2mO9rd1jPPZue3LtmLaR/tQ9IfAQTvQOzaFL5X3V7BDVJ4Q+4cqEUp
-	 EFeRJ0YfKQ6Ly2W5MN/F94OyLV8Kl8NLMQYXxzKsNnUYhqjmYcumZiiREG94DOeutGGB9
-	 lS7aMwd00XdthfF6YQiWZw3Om/cM27+ZqQ/H/GAkABxrEbaghcmqVTjDQMVFljMQT2A4U
-	 odb1KQ1fs1btuDjuAPqg96o9EP45RzFBkygYlO4dy5eI4psaNzzcczifMmuPgI/72cXLs
-	 B2s3WYOjrthtz6xYr8w331OpSqDL5I3EpPqYAvLsTj6BGfYQfbLzvE11O1NK+lomm1A==
+	t=1793090291;
+	b=35Oo+fD1v+NEukIQeyr9dizWQga1sw8SJqviyFTrgolSCzC8HDJgrQhwWc5AFErG8ZF6
+	 igbK+mOhMXfgol8HZ5EzRTE8NVZA5d29u+ytxQxJ0Fb71qdIJ5H0uzv5ryFSnhQN5KoZZ
+	 RlI6F3fuZ7XFqUUeq8eVT/bBXEY+eoNGUUM+0j4HksZs9NlOEV1jqcU9GLY31n2XNjIfJ
+	 ff/hGxQXutFRRGQIeJ15akKr+BvR7woGreRJILyMe5g0HV07rvyrCUCMLl+TAL7zKlu6p
+	 Og624LRXpQKODKII+E5CS2uBMRGD3EhT77P9tK/d+9hddo7Nb5FvDThdyQO/Cam/bsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090213;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yYgcjxrZzXoy0psYU0Nq+QxW34HHCYEZSvr+g4Xkf3Q=;
-	b=GdE2j3Y0b0FgU1lOUbO6hGEFwtP8PlrS1fN6SzAL7Mk60mfMcJZuhKKGV6y5mLaDD5++
-	 /f11Ny6JnQXr+FkOjeVB8vq4OiITjnW3IJ2IFkwFqmmPioKiiwgkNy2tk1wIa4z12JfGl
-	 Q0ahOv2wrct1+y3+lFUo2xZR45gxks9qQIIHw5Ii7JhTyyggzkqGPBwCVxjpHgyX1XwMX
-	 iTp6txIpmAw834x3u1/v+hMXS4Spe7Oqbd8iyQkCsYEZ9NC66sii0Iicup6y/PBtLiRSp
-	 60aaLYNThwJloXNe2+FLUq8Xj4x/kH9mX4QCdKqEvNXgMMlcW5ykvLyQ+kaiKQP93pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090291;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SQQm3WtRkyJr046QrssLNcdll1ov6N3Vsz6lOv7a/Wk=;
+	b=xieABLQ4X8lyjH9m9POblOh3JBnuKtoGX7dcvYJSZByngaUF982bYXWq3t8EVnf7bgdl
+	 vE67UlOzwlab3EbP5xZvxt8qPek3Hgxd2ygyuGrFsL+H4BQMffZoFXf3LPt0TMian3DKc
+	 y+LE9CH+VM0pgO3rVeWk8vbtN6FafFoa8IXNV+Rc/tVNkAivtOu1ueIbhm3R8DBjOAMVw
+	 7uLSXNAhuB128xu8k8yzknRex9RWHOTQkH/Un9mB3rwjLB2AysQflnnhNXsx+Z+NetRYb
+	 A/sVFEINQ85Vi0kr4nIvMsuvzCT6LmAmC0JFEUx0j+3ak+9TWJG7/Go9veSQ7HJZlpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YgWQ0jUy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Evply8ZT;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6CF606A31A;
-	Tue, 27 Oct 2026 08:36:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDB1606A333;
+	Tue, 27 Oct 2026 08:38:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDB1606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YgWQ0jUy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0202A1F01825;
-	Tue, 27 Oct 2026 08:36:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793090213;
-	bh=yYgcjxrZzXoy0psYU0Nq+QxW34HHCYEZSvr+g4Xkf3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YgWQ0jUy2R3Rh6tVUq1cYOMph9r06iXsVVDLcV7MttnPuaU1a16q5fg+QaCk7f+Fx
-	 FzVMQCYd/p+MkpgpnFyBzCzl+fi3rnW0pIlK1fRrVDOkrsTCamrF3lIKcsPE77OK+Q
-	 GIcJKTG5KNfSBGz+lX+edsIgMQTXvFzfUt5kzxtbIx9RH8l3e/D3N5JbaEWymZs/AM
-	 k9m2KnjFXcgH69AYMz8pQx4Dw81BFFnZ5uku8faOD0mwALYfuFExgFXDKgj/Ka6VQy
-	 tuZal11vRiWnP6mU0vu9Ih1K1GdOoDAAEAdwlWfYaybPxhriIQnfLoHF5xpZXNFlOf
-	 U/cWZtqdU5sAQ==
-Date: Tue, 27 Oct 2026 08:36:36 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 24/46] mm/userfaultfd: wake all waiters on unregister
-Message-ID: <auBiimQ9PuT9wXIB@gremlin>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-24-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Evply8ZT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793090290; x=1824626290;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=8iLj4Blu5XtuBJf4301/oZB1RzZHmVWvOGI4Spmmxek=;
+  b=Evply8ZT1GofLsP93yqUoclIOo7VrfSirawAEFU5vamgt2PonCzAqZIS
+   RoKAFcInzGBQRsUENw+7wuPkWfjMnFl8uOO4T6R4aeIlEIm0VRhWKfPPJ
+   8Rr8hApPizQiW0+lJ02ufD3hNRrRHGXuCITGlM1KqAV0icRfdsjH//NEB
+   lfNpIcs5hWE9lh8GKVM4QFbiXomKGscgMf/E2j2XdWYubpZzgxjNbpXAl
+   /G2WHTqmtS3jn5qWjtpZRxE1WlIZ9vKTuYfdxs3GhzSsaa3+AP1Omnlnf
+   AX+y8anxEqO61ggp4ztImJRRMrNOor4QaINwk1LfYXDsdIWGwTk6l5Bcr
+   w==;
+X-CSE-ConnectionGUID: lMiCqwtrT3uAgfItl2pI5g==
+X-CSE-MsgGUID: g0yk5mkMQoG22uSoYE4h0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1672391"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1672391"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:10 -0700
+X-CSE-ConnectionGUID: mQ5/7eyOTYeHjWx2MkUnVQ==
+X-CSE-MsgGUID: R5VblLImQdq5Z4GeqsQ56A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4570792"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:08 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	stable@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH 1/3] ASoC: hdac_hda: Allocate the private data at codec driver bind
+Date: Tue, 27 Oct 2026 10:38:38 +0200
+Message-ID: <20261027083840.28813-2-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
+References: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,80 +85,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-24-6f74bec9a5bb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:17:44AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
->
-> UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
-> Threads waiting on write-protect, minor or RWP faults can therefore remain
-> asleep after unregistering a range that does not track missing faults.
->
-> Wake pending faults regardless of the registration mode so they can retry
-> without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
-> the existing behavior for missing faults, including removing unread fault
-> messages for the woken waiters.
->
-> Fix generated by an LLM and sent by Josef Bacik in private.
->
-> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: rebase; simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The SOF HDA code allocates struct hdac_hda_priv and stores it as drvdata
+of the codec device before the codec driver is bound. The driver core
+clears drvdata on unbind, so after unbinding the codec driver via sysfs
+a subsequent bind dereferences a NULL pointer in hdac_hda_dev_probe().
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+All information in the private data can be derived from the codec
+device itself, so allocate and set it up in hdac_hda_dev_probe() as a
+device managed resource, which is released on unbind.
 
-> ---
->  mm/userfaultfd.c | 22 ++++++++++------------
->  1 file changed, 10 insertions(+), 12 deletions(-)
->
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 7e30b5ff17be1..2122676c4220f 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
->
->  	ret = 0;
->  	for_each_vma_range(vmi, vma, end) {
-> +		struct userfaultfd_wake_range range;
-> +
->  		cond_resched();
->
->  		/* VMA not registered with userfaultfd. */
-> @@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
->  		/* Prevent new userfaults from being queued after the wakeup. */
->  		vma_start_write(vma);
->
-> -		if (userfaultfd_missing(vma)) {
-> -			/*
-> -			 * Wake any concurrent pending userfault while
-> -			 * we unregister, so they will not hang
-> -			 * permanently and it avoids userland to call
-> -			 * UFFDIO_WAKE explicitly.
-> -			 */
-> -			struct userfaultfd_wake_range range;
-> -			range.start = start;
-> -			range.len = vma_end - start;
-> -			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
-> -		}
-> +		/*
-> +		 * Wake any concurrent pending userfault while we unregister,
-> +		 * so they will not hang permanently and it avoids userland to
-> +		 * call UFFDIO_WAKE explicitly.
-> +		 */
-> +		range.start = start;
-> +		range.len = vma_end - start;
-> +		wake_userfault(ctx, &range);
->
->  		vma = userfaultfd_clear_vma(&vmi, prev, vma,
->  					    start, vma_end);
->
-> --
-> 2.43.0
->
+Remove the allocation from SOF, keeping the check for iDisp codecs
+without display audio component.
 
---
-Cheers, Lorenzo
+Fixes: 3fd63658caed ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/codecs/hdac_hda.c     | 13 ++++++++++++-
+ sound/soc/sof/intel/hda-codec.c | 23 ++++-------------------
+ 2 files changed, 16 insertions(+), 20 deletions(-)
+
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 7414be08d3d5..46617fc88277 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -619,10 +619,21 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
+ 
+ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ {
+-	struct hdac_hda_priv *hda_pvt = dev_get_drvdata(&hdev->dev);
++	struct hdac_hda_priv *hda_pvt;
+ 	struct hdac_ext_link *hlink;
+ 	int ret;
+ 
++	hda_pvt = devm_kzalloc(&hdev->dev, sizeof(*hda_pvt), GFP_KERNEL);
++	if (!hda_pvt)
++		return -ENOMEM;
++
++	hda_pvt->codec = dev_to_hda_codec(&hdev->dev);
++	hda_pvt->dev_index = hdev->addr;
++	/* Intel iDisp (HDMI/DP) codec */
++	if (((hdev->vendor_id >> 16) & 0xFFFF) == 0x8086)
++		hda_pvt->need_display_power = true;
++	dev_set_drvdata(&hdev->dev, hda_pvt);
++
+ 	/* hold the ref while we probe */
+ 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index 91f7ca22a4a7..a2b2ecf1e7e6 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -15,8 +15,6 @@
+ #include "hda.h"
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+-#include "../../codecs/hdac_hda.h"
+-
+ #define CODEC_PROBE_RETRIES	3
+ 
+ #define IDISP_VID_INTEL	0x80860000
+@@ -148,7 +146,6 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
+ /* probe individual codec */
+ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ {
+-	struct hdac_hda_priv *hda_priv;
+ 	struct hda_bus *hbus = sof_to_hbus(sdev);
+ 	struct hda_codec *codec;
+ 	u32 hda_cmd = (address << 28) | (AC_NODE_ROOT << 20) |
+@@ -168,27 +165,15 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 	dev_dbg(sdev->dev, "HDA codec #%d probed OK: response: %x\n",
+ 		address, resp);
+ 
+-	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
+-	if (!hda_priv)
+-		return -ENOMEM;
+-
+ 	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_LEGACY);
+ 	ret = PTR_ERR_OR_ZERO(codec);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	hda_priv->codec = codec;
+-	hda_priv->dev_index = address;
+-	dev_set_drvdata(&codec->core.dev, hda_priv);
+-
+-	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
+-		if (!hbus->core.audio_component) {
+-			dev_dbg(sdev->dev,
+-				"iDisp hw present but no driver\n");
+-			ret = -ENOENT;
+-			goto out;
+-		}
+-		hda_priv->need_display_power = true;
++	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL && !hbus->core.audio_component) {
++		dev_dbg(sdev->dev, "iDisp hw present but no driver\n");
++		ret = -ENOENT;
++		goto out;
+ 	}
+ 
+ 	if (is_generic_config(hbus))
+-- 
+2.56.0
+
