@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793089917;
-	b=ov/yfq2KFf7CE9oneyt/0H593y+QZDH0Jn9JNke0HNgWfZeTNW1S0pbI8i/17+Ie3tXu
-	 BXwbY11LmNfcBT8yQtnjzRI6AeGMqZmctqoTsAlEyL57O//jh4p1urfgcHshIpdys3ksm
-	 fB6QQ7O46em6tHmpVIwlUaXYG0VtwJshV8n/ggKewFicmNoz4U3sIxQmHy3Nf6H4c4L/A
-	 bb2RhlGt+OYcPyjGQt4vXPcgmniati3tCA2VmDW0MmrfXm1R+9bs2awWEuTaAnARM1vW3
-	 rl7zvWNg/4I3FD89Vh1Q5KRViKBihI7a2eGqn50olQCsLNhEeJw/W+nosuRVaho/2wA==
+	t=1793089946;
+	b=kLW6EHtMPG+1DtpkxnzqsIc1gbjlEERxE3m3mJ6yvN7XOxsbNHGWx6HQsgQWO/KA/vfL
+	 AtR/CiKX3L9HqWO8kMcKH/CRvcFRZ+tJo0auRiRXM47jVu8LkfS/gNBypHlRqdXPsmHRW
+	 xpQfPPZ9jf5oxN8gXV1Rg42vxPC0hfq4SYb7FzfmTR6nDiNdT3AE3j+PYakA7pre876kY
+	 kX3gl5RSevF0PZ8GKP443hOo4/xruTSM3FZ1F3xcJPGKRvImF3bblTJx5orfyW6E5Dov2
+	 Zejt3EDYrteJXR5S1rhWJ3xDYG9wZtqTSqlE6TTI5MAdpINwhP2yOiYVa/Sb9h4YPtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793089917;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JYDAxb/IKfi0ONAEetWSuyzn9W1ajE3cX6VVYTxdndk=;
-	b=5jBLRTO4Cd6oDUZj5hEGXow4hGqQVUPTPAR+RwQKQJKUA0wfR4VPNL2UfQ38Bu2BQY7a
-	 klQtx3uC10X9V6I1YyIZCyrgY3AQAXRH7FW3Wwm+PErRV8Bb5lG8DknJn184f8bOqaZ6W
-	 qJtuMzhl2Grav4PuaCNBzsqORWQFdX57oVzMeJ8H+U0+q71tHhbc5QkQXEjPnV8uzrkha
-	 J/LFdnBN6ocYveV3XbHxWZ86w/sP/aQswr85Olry/fENrSVcWUHQqqvJ3fJVCxtWG9MuU
-	 dpHgMFDpjEGWDCIgVrebreR7WsjHs6dkQxpnUVxFA3FrFblRHi6xavfomacDfQMVJaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793089946;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bBDjCRfYv01l5K9nHrY3/Hd2EiV/PHl9OnpVwXCk3ew=;
+	b=dp/oSADcYvQdLZumuk3MVpRaPiyFhRWVuJ7tGTKis1ZeWpZVX5egv0AuOjwZZ0kTeMSL
+	 OzRa0UGTmH6XYsd/3H2H05R1YGikh9Sa+Sir+mSLi59/16JJV/St8Iqm2aZzv9FNSmHbb
+	 VkFrST0qrlOUwUDd3oQFgv7iA+cDwvUIc5HVz5sJPdhh950Q23Yh56vYeo5mY7MlfJgAp
+	 YdJRdL0UlqQM2As0L5BukNhmsAv++hrxigun1G3d+2Iyvrhq7BTJmTW0k6/nAC5sYXyUj
+	 aKYDsDe0clKTIt6+4e+fB7AMFUmVQP/qhX00BDjMIPPfR6DcsCdWqVW8iaL03aQB7mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSyrEmFs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JGPWpZne;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63396606A328;
-	Tue, 27 Oct 2026 08:31:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B40D606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B40D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSyrEmFs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FE51F01825;
-	Tue, 27 Oct 2026 08:31:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793089917;
-	bh=JYDAxb/IKfi0ONAEetWSuyzn9W1ajE3cX6VVYTxdndk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NSyrEmFsH2/8hgo8acOSrNLr9Hp/jrECdxCZNkIUtjazyxj1KHY2Z9xTuaK1Lx/+E
-	 ZlmTVVItxriaq2TTVszlyqWoslkxBKunusBgrpEBtjqe+GL7/BhgMfvr0j6wiA++no
-	 F2KtES+mT9pC9lUi/ceR10V31SP1W8sTkLdb8RXB5buLAYoTKBuslgPDKXcQC7fYaC
-	 tmT15Bau5bPVbn3Z1pAmnKqeU5kgzDR3je5XpPQh+1wLiPoL+vicuxqnXgb7RRv82r
-	 DFUEPhtPAu/EsK33zZwLXIqaPQ96HHeqGtj52+tHWqHJBcswjRzCsbgunsrigQ97JU
-	 n0Iy4vbd890bA==
-Date: Tue, 27 Oct 2026 08:31:40 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 25/46] mm/userfaultfd: wake waiters when registration
- modes are removed
-Message-ID: <auBgr8OO0UIJ5-in@gremlin>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-25-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JGPWpZne
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so2681133b3a.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:32:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793089946; x=1793694746; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bBDjCRfYv01l5K9nHrY3/Hd2EiV/PHl9OnpVwXCk3ew=;
+        b=JGPWpZnejBl2k0E3x5C6PtwzodNl+Q6b5PjhKtsnInQyZ9bj2wkbTtLyQLZAowYhh+
+         5VJM/JanbOo9njybFJ2DtZ28HRUDUyyqMPexFCPDyRFJ05VYZdlPn0g6m92b6zow6/k0
+         PlQRpYhg/LeNrmbo0xy3ezH/CSGJ9Qce7+SegQRopKlzGMqP3202+L7N5xweQTOwDB8O
+         KQsh54mTMnqvlHdLmMkf9ON9q1xGT8HFNoeYDZ4LOdzLXVYYBrkQoJ/XBZdk5EGkKD9T
+         mai0dKeO8Y1pinqQZXi+FkGAN9IwN3Y+Q4kenrHua35qOCJAMYWb4qYP22np3BhqfBwF
+         kVIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793089946; x=1793694746;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bBDjCRfYv01l5K9nHrY3/Hd2EiV/PHl9OnpVwXCk3ew=;
+        b=M042DfVnzJPsN1Jd97b74K0eozx8r95LjvjHrh6nbhaWVBVXaPHJ0YXP1vSW8xkkbF
+         HYvcDuqEcXl1oBp3sifRahBbWaqXsH1Sh1ZpG2G9mW3TuqUe+UAzKHJ75Kc7YwXbXg+4
+         eVh79uZuLIBOf9lh8Ucj2V7qkZ6anGj0DfS7GmdMprqPLILVgcoBV45t/6+3WXQYLSNC
+         Rk/pYdAG+u7iDd7f60D5SBFs2xDH65wOOEyK6OBdMx+ge17iNyn+g1sbmqU8rPQX2C3q
+         LadydA7fFtS/0tVtneKmFqCTgIUbJFzfbA2EAydCKqzEB9Mcnjhe8PrmxlapM6mz+Osi
+         F3CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzcVIWVosuFHeNXGPgewhJ3ggtYeRLRX9ESrSAXFdV0H8xIC0lQIZJOTzj/Ack+HcDt0OZbx8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqN4WruvOFTYeGNn/VD9BCBJcTSZZz54qxOnUW9n1n/QV6u3X2
+	kABH2IiZXjN7CXezPIreibWI45vTP2kaEWBMSOGyDXhmc7zQFDqT1qLv
+X-Gm-Gg: AYBFou37ok76McFY4YYOK4HdQi5RYmLvfsXne1HJNkQG4LrY3I+ZmlCHuexuNRuOPqW
+	zXf4RSa56D17305+d+wV3I5fBdyNLLMjj6c8FGrXDQidxxbDoNO7Ugiu0RMVjPIbkgEQ9aVVn14
+	O+vDZahxySwxMZeo9yY3fkHW7n+8oKuttjls7Pol546hzR7zK7vStyBCH8o2FpF4DJI2aNTdBS3
+	DVn9B63DSFowObV1RZyfnXoLM2jzJy2g+rzs0SoEKbkWUByB8ltZKq5p3Ln6sKgsR+vL31z1Bxv
+	16DP6Dy58Qxt9PvcRspvj0fsrtQaLf53IqcryZB/Yt/jNxL9fhojxWFWb1mubLaBnoQ/dZE/6S+
+	sQSsEA/xAK38gag+b3KuqzTchfoKD5P9IvuhQRzGOWtipQm8AiCvUShlZyYMRi+VwoTZ3JyjMnp
+	0rw8/Yp6uOMnMhsfpiWhIrg151XIillS4G8uHc3Nv6GQkyXPfSsoblgDnXLYoXv8mSEeoivMynw
+	NDhVJAQ0m5sjco3SaTFLhah7jJ+dPCdBjpQPgOJFZ5vqCkD32elkVO+7E7rliCBbD9KZaprvK+6
+	oTgUtDBzDMfww7BOhSDH1LSETaiT/s62iX3TLbTcvfYQOb1ildw=
+X-Received: by 2002:a05:6a21:880e:b0:3e1:c1a4:91f6 with SMTP id adf61e73a8af0-3e7cd4d9db9mr6517172637.13.1793089945941;
+        Tue, 27 Oct 2026 01:32:25 -0700 (PDT)
+Received: from WIN-L6GHNQALH57 (1-21-119-227.east.dxpn.ucom.ne.jp. [1.21.119.227])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36b37251fsm2018741b3a.27.2026.10.27.01.32.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 01:32:25 -0700 (PDT)
+From: Masafumi Suzuki <shengshilingmu97@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Masafumi Suzuki <shengshilingmu97@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] sctp: account for chunk padding in sctp_init_cause()
+Date: Tue, 27 Oct 2026 17:24:05 +0900
+Message-ID: <20261027082405.1297-1-shengshilingmu97@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,100 +103,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-25-6f74bec9a5bb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:17:45AM +0100, David Hildenbrand (Arm) wrote:
-> UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-> faults that are already queued. For example, switching an anonymous
-> range from MISSING to WP leaves a missing-fault waiter asleep until
-> userspace explicitly wakes it.
+sctp_init_cause() accepts a chunk when skb_tailroom() can hold the
+cause header and the payload. sctp_addto_chunk() then writes 0-3
+bytes of padding before that header so the chunk stays 4-byte
+aligned. The check does not include the padding, and the following
+skb_put() calls skb_over_panic() from softirq.
 
-I assume this is something people basically never do because you'd think it'd be
-a pretty obvious bug report right?
+Count the padding sctp_addto_chunk() is about to write. The cause
+length on the wire stays the header plus the payload.
 
->
-> When a registration change removes a UFFD mode, wake waiters in the
-> affected interval after updating the VMA. The VMA is write-locked at
-> this point, so no new faults can queue under the old modes and woken
-> threads cannot retry until mmap_write_unlock(). Waiters for retained
-> modes in the same interval may also wake and refault.
+Fixes: 8914f4bace3f ("sctp: add sctp_make_op_error_limited and reuse inner functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Masafumi Suzuki <shengshilingmu97@gmail.com>
+---
+ net/sctp/sm_make_chunk.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Oh good lord.
-
->
-> The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-> with both read and unread fault events.
->
-> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-In the words of Metallica, the more I see, the less, the less I believe...
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/userfaultfd.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 2122676c4220f..710e913c73bfa 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -2270,6 +2270,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
->  	return ret;
->  }
->
-> +static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-> +		unsigned long start, unsigned long end);
-> +
->  /* Assumes mmap write lock taken, and mm_struct pinned. */
->  static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
->  			       struct vm_area_struct *vma,
-> @@ -2287,6 +2290,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
->  		prev = vma;
->
->  	for_each_vma_range(vmi, vma, end) {
-> +		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-> +
->  		cond_resched();
->
->  		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
-> @@ -2332,6 +2337,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
->  		 */
->  		userfaultfd_set_ctx(vma, ctx, vm_flags);
->
-> +		/* Retry faults for removed modes while the VMA is write-locked. */
-> +		if (any_mode_removed)
-> +			wake_userfault_range(ctx, start, vma_end);
-> +
->  		if (vma_is_hugetlb(vma) && uffd_disable_huge_pmd_share(vma))
->  			hugetlb_unshare_all_pmds(vma);
->
-> @@ -3648,6 +3657,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
->  		__wake_userfault(ctx, range);
->  }
->
-> +static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-> +		unsigned long start, unsigned long end)
-> +{
-> +	struct userfaultfd_wake_range range = {
-> +		.start = start,
-> +		.len = end - start,
-> +	};
-> +
-> +	wake_userfault(ctx, &range);
-> +}
-> +
->  static __always_inline int validate_unaligned_range(
->  	struct mm_struct *mm, __u64 start, __u64 len)
->  {
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 84a4c97d0f75..8933caadcdb6 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -133,20 +133,27 @@ static const struct sctp_paramhdr prsctp_param = {
+  * cause codes will be embedded inside an abort chunk.
+  */
+ int sctp_init_cause(struct sctp_chunk *chunk, __be16 cause_code,
+ 		    size_t paylen)
+ {
+ 	struct sctp_errhdr err;
++	int chunklen, padlen;
+ 	__u16 len;
+ 
+ 	/* Cause code constants are now defined in network order.  */
+ 	err.cause = cause_code;
+ 	len = sizeof(err) + paylen;
+ 	err.length = htons(len);
+ 
+-	if (skb_tailroom(chunk->skb) < len)
++	/* sctp_addto_chunk() pads the chunk up to a 4-byte boundary before
++	 * appending the cause, so account for that padding here as well.
++	 */
++	chunklen = ntohs(chunk->chunk_hdr->length);
++	padlen = SCTP_PAD4(chunklen) - chunklen;
++
++	if (skb_tailroom(chunk->skb) < padlen + len)
+ 		return -ENOSPC;
+ 
+ 	chunk->subh.err_hdr = sctp_addto_chunk(chunk, sizeof(err), &err);
+ 
+ 	return 0;
+ }
+-- 
+2.47.0
