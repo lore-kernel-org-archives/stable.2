@@ -1,69 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095377;
-	b=p9cikaIbed22+n5vWYrN106NzjbdXtcNthE3MVJq3y1IzqPSwzacY+128sN6LXLDWEa8
-	 OZDEY9BxXhNGs7Nx5B4LqoSnZtecEoX9oLMDJtLUX2FBQzVAS336DiIzGm+yvdlpmZm7h
-	 Bi6vpLAD/v5m76DxYcDSTFPhATM2XBmYAVfX2uki9ze9FMjG0qWwe2X/D+Cs88sfST9oY
-	 292IJotY66n707boZ2vgZAJqYMuVrl3B7Mc8bRhDb5A7Y/vWx8/FFSTV9UwX+4K4XtKZl
-	 byaLgLUDg1cts3GyglcHetxkPSUc6OpOx1PefWJN4H1m2Gg5vyVUk+/X1WzRnImCRrg==
+	t=1793095647;
+	b=V2tw2rv0h7jQsg14jBpDu7Ykmjflp0wZefr3TdWNTGte+0Fm+j23049n3tNUnt0BH/We
+	 aWpk8ITjgr6pdEVRSn8QAE2LUpj7BY648Otm/rN60KGRCAAFn9yFhLOWpNS9m/NFgXABg
+	 VmQVrcxVbJI/K3//b9tQnnsUwrRip38pmbSUcyLX+738vbdmiFHWUmvragFQdxK5eVgRH
+	 y8s9OplxT1p3eVy3xN8LqgLZBpvdxAvyuIIMAMgzTOqMsbIiC6hPJnp7iibbHPexdvOh/
+	 pahLyVDM6PAjd3FHcvZ7iykdV+ILkX15/AFeqTMeBocyBz6J7f8+CLIkx/wBLqrCRQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095377;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GGRD4rHxzGR/0Ca4q08YEFPKFTP39F+dpDG023MGztQ=;
-	b=LEs9T1bpK1RtHE085TB1NH0LhE45JqWqz8Sx/mNjR7ztXVSWqLqia1Cs6e2yWBepwwMn
-	 9y/dx+Sq3Lun4eu7LJtokboU/jWJ8BTp1t32D7nXFyYcG6uC5xcW/GmVy3vZFYRUPnKst
-	 OdSx7Pt78sa6ncJKExfiSTbY621CUqBZ5BAn77jXkF0itphNF14YW1bWFz8a1V5WGqVNb
-	 bekMDMeJ/Q2teRp0hRCFN+ARYAkdyBfZ/UQjDsupA8rFBfe/r1T1LEJhlHf6//CirPPii
-	 u3N2LdnPqo57n8tDfV9/FN+xtcUqmpW51prfdEMVCRqTkZjKJ4MenuohVS5CUKUbrGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095647;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fSot5EilqCYTXnvq8kQw3/OaKHnMrWXVOOIBWUnaAS8=;
+	b=af/d+Ao+/gHAwe7sRhWy8Y9IbHD7wFen2AHUyMW+N8vv3Gf+dL54LzqwOVSSTGAiX7ZJ
+	 f91UCsIlygU/3UBzTFJ9UAkafHi53anAGhmhFwqHhUZOP5EOMJZtJ0GIkFFPgbaugyaro
+	 yt0X3naqWwvuWFV6xYp6ENGeiSEXl+9d5502CpycvSt6PmJOHdm3bLwyunobZqaUoSknI
+	 AIDPhvgK7P13t5mNWDrDkI+gy2dP4TGNV/Z+mcdBHtz0MF9+P89ejemwQPbHZmoVhL//p
+	 zyEjjXPPT1S98Bl2LYNLI9zVOve7bXhxX80+fSCHC30ioKHRFfUREFfz7AsMli4jhUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAV7po4c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MyfAElSh;
+	arc=none smtp.remote-ip=91.218.175.146
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1865606A331;
-	Tue, 27 Oct 2026 10:02:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53163606A322
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:07:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53163606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAV7po4c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACBA71F031E2;
-	Tue, 27 Oct 2026 10:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793095376;
-	bh=GGRD4rHxzGR/0Ca4q08YEFPKFTP39F+dpDG023MGztQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NAV7po4clxqLOB0eFidpYCyquPlfwwLy3U5lnPcK+H4LLuBw0jnMIum8/5BA49Ksc
-	 lg6lmt6cfNZJlbbtAlRaCiqtUpuO6DoZIVUALueWJ5JzhMlRkV5f31f61wcUNdSBoK
-	 EjTNsl9LQZ/4G3EWSXk8WtF3wk5bDG/sgS4fVzT4tZLLF5/TI7OD3fC9HV2YEKnxk1
-	 uqZxNRKLejFQ0Hl/sX3vmpu6X9F5ZIFsbd81idFC7utwcYr+u7cvl9Q1da44GlxI4M
-	 GfGsJsDZQoouXZseBHsYzbK0+D9UAy6cfwBPrtu5gBZQOe6nCYfhhVL5E86fJIH2u1
-	 Fs/VvBq6g3LHg==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>,
-	"Gustavo F. Padovan" <gustavo@padovan.org>,
-	Maxim Krasnyansky <maxk@qualcomm.com>,
-	Marco Elver <elver@google.com>,
-	linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Pauli Virtanen <pav@iki.fi>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: [STABLE v6.1-v5.10 2/2] Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
-Date: Tue, 27 Oct 2026 10:02:40 +0000
-Message-ID: <20261027100242.2886699-3-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-In-Reply-To: <20261027100242.2886699-1-lee@kernel.org>
-References: <20261027100242.2886699-1-lee@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MyfAElSh
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EmC1viSKISOlO+4LV4Tq5yi5YtyJNhBL4pIRDOKg2QA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793095644; v=1; x=1793700444;
+ b=MyfAElShe6jUrR9xnSoZrUkOVisggxknz1jRHruHD7OaBeWNHCrmn5Agq7SG26q26Tr6L7x8
+ VFGQVVAOiWWOkyiqqAr/mhMfcaRatGKy++wTfxv6TU93eW/3jYNlSxdR1o7kqMOD2/C4xV9G6Bh
+ 1LclLypAw4qdUMABgq6H5rpc=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 275ac0127e5d04df;
+	Tue, 27 Oct 2026 10:07:24 +0000
+X-Mizu-Trace-ID: 275ac0127e5d04df
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0046bdae-1dd1-4f4b-a1e5-9eb7fe8b5fe0@linux.dev>
+Date: Tue, 27 Oct 2026 11:07:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,95 +58,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iomap: only follow dio alignment requirement if specified
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>, Qu Wenruo <wqu@suse.com>
+Cc: linux-btrfs@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, da.gomez@kernel.org,
+ gost.dev@samsung.com
+References: <9fae60fcce5ae356deef5e38931124b9634dba3b.1792997261.git.wqu@suse.com>
+ <at-p1QXETaTvvj_r@quentin> <5f49d819-12ec-48b2-b9b2-adce264d266d@gmx.com>
+Content-Language: en-US
+From: Pankaj Raghav <pankaj.raghav@linux.dev>
+In-Reply-To: <5f49d819-12ec-48b2-b9b2-adce264d266d@gmx.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Pauli Virtanen <pav@iki.fi>
 
-[ Upstream commit 86b55991d3cd690e73c5ef8d20b75ae4905b357a ]
 
-l2cap_chan may be linked to l2cap_conn at most once. This is assumed in
-several places, eg l2cap_chan_del cleanup.
+On 10/26/2026 9:59 PM, Qu Wenruo wrote:
+> 
+> 
+> 在 2026/10/27 06:19, Pankaj Raghav (Samsung) 写道:
+>> On Mon, Oct 26, 2026 at 05:18:13PM +1030, Qu Wenruo wrote:
+>>>
+>>> [CAUSE]
+>>> The failed command of fsx is COPY_RANGE:
+>>>
+>>>   copy range: 0x6800 to 0xa200 at 0x3f200
+>>>   do_copy_range:: Resource temporarily unavailable
+>>>   LOG DUMP (8 total operations):
+>>>   1(  1 mod 256): SKIPPED (no operation)
+>>>   2(  2 mod 256): SKIPPED (no operation)
+>>>   3(  3 mod 256): WRITE    0x14400 thru 0x211ff    (0xce00 bytes) HOLE
+>>>   4(  4 mod 256): FALLOC   0x72bf4 thru 0x76221    (0x362d bytes) EXTENDING
+>>>   5(  5 mod 256): SKIPPED (no operation)
+>>>   6(  6 mod 256): INSERT 0x11000 thru 0x13fff    (0x3000 bytes)
+>>>   7(  7 mod 256): TRUNCATE DOWN    from 0x79221 to 0xa800
+>>>   8(  8 mod 256): COPY 0x6800 thru 0xa1ff    (0x3a00 bytes) to 0x3f200 thru 
+>>> 0x42bff
+>>>   Log of operations saved to "/mnt/test/junk.fsxops"; replay with --replay-ops
+>>>   Correct content saved for comparison
+>>>   (maybe hexdump "/mnt/test/junk" vs "/mnt/test/junk.fsxgood")
+>>>
+>>> Both ext4 and xfs only require direct IO to be aligned to the logical
+>>> block size of the device, not the fs block size. So the 0x3a00 bytes
+>>> read at 0x6800 is allowed, and should succeed.
+>>>
+>>> But that range is a hole, and that commit makes iomap_dio_hole_iter()
+>>> round the zeroed length down to the fs block size unconditionally.
+>>> The first iteration zeroes 0x3a00 bytes but only advances 0x3000 bytes,
+>>> then the next iteration zeroes the remaining 0xa00 bytes, which is
+>>> rounded down to 0, so -EFAULT is returned.
+>>>
+>>> As ext4 and xfs do not pass IOMAP_DIO_PARTIAL, the whole read fails
+>>> with -EFAULT, which is then converted to -EAGAIN by copy_splice_read().
+>>> Every retry of fsx hits the same -EAGAIN, failing the run.
+>>>
+>>> That commit breaks all direct reads which range is not fs block aligned
+>>> for ext4 and xfs.
+>>>
+>>> [FIX]
+>>> Do not revert the range unless the dio has IOMAP_DIO_FSBLOCK_ALIGNED flag.
+>>>
+>>> iomap_dio_hole_iter() is only called for reads, and for now only btrfs
+>>> reads can reach this path with the flag set. Btrfs has the proper
+>>> fallback when dio returns -EFAULT.
+>>>
+>>> Fixes: 4025185cf953 ("iomap: follow the alignment requirement for 
+>>> iomap_dio_hole_iter()")
+>>> Cc: stable@vger.kernel.org
 
-There is a TOCTOU race where the invariant is violated:
+FYI, your patches are not in 7.3 and only in linux-next. So we don't need to cc 
+stable?
+>>> Signed-off-by: Qu Wenruo <wqu@suse.com>
+>>> ---
+>>>   fs/iomap/direct-io.c | 26 ++++++++++++++++----------
+>>>   1 file changed, 16 insertions(+), 10 deletions(-)
+>>>
+>>
+>> Ignore my previous question (I had a old version of xfstests).
+>> I was able to reproduce the error on XFS, ext4 and this patch fixes it.
+>>
+>> One small nit: should we update the IOMAP_DIO_FSBLOCK_ALIGNED flag
+>> documentation to reflect this?
+>>
+>> At the moment the document says "Ensure each bio is aligned to fs block
+>> size". Should we expand it to say "Ensure each bio and any progress
+>> reported for hole/unwritten extents is aligned to fs block size"?
+> 
+> I'll change it to something like "Ensure every operation, including bio and 
+> folio zeroing, is aligned to fs block size".
+>
 
-    [Task 1]                          [Task 2]
-    l2cap_chan_connect                l2cap_sock_bind
-      l2cap_chan_lock                   lock_sock
-      l2cap_state_change                if (sk->sk_state != BT_OPEN)
-        chan->state = BT_CONNECT
-        l2cap_sock_state_change_cb      chan->state = BT_BOUND
-                                        sk->sk_state = BT_BOUND
-          lock_sock <------------------ release_sock
-          sk->sk_state = BT_CONNECT
+This is better.
+> Will be included in the next update.
+> 
 
-l2cap_sock_connect() does not check sk->sk_state, so since chan->state
-is now BT_BOUND, subsequent connect() ends up with second
-__l2cap_chan_add.
+And for the b4 error, feel free to use:
+Reviewed-by: Pankaj Raghav(Samsung) <pankaj.raghav@linux.dev>
 
-Explicitly document and check the invariant in __l2cap_chan_add with
-WARN_ON_ONCE. The only callsite where it could be hit is
-l2cap_chan_connect, so add pre-check there to avoid relying on
-chan->state. chan->state read/write is not properly guarded currently so
-there can be other TOCTOUC problems.
-
-Add l2cap_lock_chan in l2cap_sock_bind() to guard chan->state write.
-
-Fixes: b66774b48dd9 ("Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn ref")
-Assisted-by: deepseek-4-flash # finding the race condition
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[Lee: Resolve context conflict around mutex_lock(&conn->chan_lock) prior to commit 56c2b5831d39 ("Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect")]
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- net/bluetooth/l2cap_core.c | 7 ++++++-
- net/bluetooth/l2cap_sock.c | 2 ++
- 2 files changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 88ddd8eabae9..445a43c721f6 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -630,6 +630,10 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
- 	BT_DBG("conn %p, psm 0x%2.2x, dcid 0x%4.4x", conn,
- 	       __le16_to_cpu(chan->psm), chan->dcid);
- 
-+	/* Caller must ensure l2cap_chan is linked to l2cap_conn only once */
-+	if (WARN_ON_ONCE(chan->conn || test_bit(FLAG_DEL, &chan->flags)))
-+		return;
-+
- 	conn->disc_reason = HCI_ERROR_REMOTE_USER_TERM;
- 
- 	chan->conn = l2cap_conn_get(conn);
-@@ -7431,7 +7435,8 @@ int l2cap_chan_connect(struct l2cap_chan *chan, __le16 psm, u16 cid,
- 	mutex_lock(&conn->chan_lock);
- 	l2cap_chan_lock(chan);
- 
--	if (cid && __l2cap_get_chan_by_dcid(conn, cid)) {
-+	if ((cid && __l2cap_get_chan_by_dcid(conn, cid)) || chan->conn ||
-+	    test_bit(FLAG_DEL, &chan->flags)) {
- 		hci_conn_drop(hcon);
- 		err = -EBUSY;
- 		goto chan_unlock;
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index b11558b0dfec..655922aa82f1 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -111,6 +111,7 @@ static int l2cap_sock_bind(struct socket *sock, struct sockaddr *addr, int alen)
- 			return -EINVAL;
- 	}
- 
-+	l2cap_chan_lock(chan);
- 	lock_sock(sk);
- 
- 	if (sk->sk_state != BT_OPEN) {
-@@ -176,6 +177,7 @@ static int l2cap_sock_bind(struct socket *sock, struct sockaddr *addr, int alen)
- 
- done:
- 	release_sock(sk);
-+	l2cap_chan_unlock(chan);
- 	return err;
- }
- 
--- 
-2.56.0.307.g5fe7bd680c-goog
+--
+Pankaj
 
