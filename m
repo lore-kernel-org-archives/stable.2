@@ -1,41 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793068997;
-	b=hoj6Xn0JdmAWFy0lBtQidAaKFYSMn0GfKy8FhQckbmFkF5c/PGZOPiq5NbOMUYGFveCh
-	 hjO0HKplL2aZ1n9VjnQDWWg4HOpLXqvMSNDntx+u8+NA5DqbBwaOYJZnhxvQ8SyiwATJi
-	 H8vjpS1cjwLz+LLGM3B5v4QXxLaDX07kgFynYXdAQlGjzHuMMTqYvDexxwpWnikHUPsTI
-	 82bpSCukFxLp5jQpiELNcoOwj834qmHRgLBPdWaIMVNPcHa+aT0tbGd5zgMBb0fCFziwE
-	 3nJk5hFDmX0HdHGPJSKKUKCgXqLBYCb6HbVHwWxZmbgovg9rGvhlo5xvOhcIQ00hZ9A==
+	t=1793069053;
+	b=DbU0f+bjLCWl0d8zhTP/AQVsjAOPZmmNmqs/nvpnDgaTepOCfLgUko+pesPw5jgSCzGM
+	 wR+dCfZ8HsgkFjggZhb194lCGIFZLNl14rJkVeToCWTWN7iinrM8NMqUZ68LhVtPq1+05
+	 fLGtulC9BbOneqVtTmI8G969mhuBXpJcuUejZxbeXuYtPCCJrfBM7cHxEnHyQIzsMhnJ0
+	 Zx9mR/kyYzO/r0q/AiyM4GkdT07ZBqu4BA6YGGl9I0Yfx0EpZg/6ma/X4KJCJV0aPGcya
+	 yaufcBfHUnchSgX4XFDM8vfDOOi73YzvbH+1PqjjJbq7udNm5FMA5PJoLBMhxND03pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068997;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=IKs4C9V2Krahgn2sw/njHCKySJqkCP+QuXj+XB+M/hY=;
-	b=H3oA4EuEfcK+ZefxAslSYjERjUxW25rEeFd3lcgyZhMayHqj/JpyLAertvq/xdtgw4ZV
-	 ID0gKKI2cbXPSQxsMstsXmWxO6PlQSsRymf4ykSsuRzOaqwKUkMPznFsBKxlEFtkxclYz
-	 TfTh+VOO2hMkRqDE0gcPQoyp7BH3fioWEH1DyYsRHRUir23uC9f4i3lvjvCvoBwlhfFIr
-	 mKQtTt9a2wFqv33MefzzVFEaX6CMievqjo5XLkd5J054URsjI+Cvd1jXLLlR6ZEB0Zvl3
-	 nF1/AfJ6M2hILnwXPxtmUNx4voBg1U12Vw8eg+wRfoZg5CCPF0y5/H/XNBuaVMfV7hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069053;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=I2Pn6xRJYEBPJmWug/edeMipFZTmZSxh0VD/dkwMazw=;
+	b=MZpKfS93ogJGokYhql0dKGMmDcTbkR0JYG6y6ifCKOQkigmqgj3/WIMGLlZZa53qkl94
+	 hEQbLCKfjnZCI3y3Fv8AX1qmZVoM0qxGj+tFa9+I7fFB2C33zsOsq1ShCu/XiGVfSQm51
+	 k+4daSuNT9aYxHtqoZ+OhVjnp4NTFwjm/qD7bPtJE6CtdCuj3I/kFLXLrYuVFBgkwVHoE
+	 k9WQrY4zYbgPz39rhyQqFOOls68IpHwRU6DhnDnv322lHLDCGxQm4WVY6q6E1iMW0KKXc
+	 7dNCSCeDH1IHYqfzDWRqQO+WAu4cT9uzA5CrjpeF6KkV4BgMg28f02f2LhkYWfGrSrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C907606A31A;
-	Tue, 27 Oct 2026 02:43:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C907606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8Bxb9PAD+Bqo60ZAA--.8914S3;
-	Tue, 27 Oct 2026 10:43:12 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAx3c68D+BqmocwAA--.35858S2;
-	Tue, 27 Oct 2026 10:43:11 +0800 (CST)
-Message-ID: <05420c73-2f4d-423c-86fc-e8053edab415@loongson.cn>
-Date: Tue, 27 Oct 2026 10:40:23 +0800
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkmh+LGv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45FA606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkmh+LGv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E3C1F031E2
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793069052;
+	bh=I2Pn6xRJYEBPJmWug/edeMipFZTmZSxh0VD/dkwMazw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kkmh+LGviL+8CjjEtjV/aE9szaodjPsQWw4eXioA31QOwUTD7zQMMND+iNF3tskAW
+	 mUaZaArRpPO3Nqms1Mls2Lqnr3xKtxkRNElRMEmAPpjs8B5daoX0k8YovD9K1nsI1F
+	 xXqSUL0ofXoSVXTC0aFuU+GK8R8iMSvJz9ElIRf/qJ8syKanEQ1EABeZFzhBKvKghe
+	 CVv3ibMUunImTjjfcx8TaJT0PIf2ezwwQ/YAn+92tm9ViuxsIFndWOsDcfShu0fHQP
+	 rHpRWDJxM8JNzFjWrwmlL0PYiwuaiAYOQ8Nh1AMkBzKP0S3rQ5etaF2Ttpjhk4NV8J
+	 Hxx8IXJrbWXsw==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c434376dbebso89991966b.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 19:44:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBznx+PUYjWIuMxZNfaPrBP6dxPi70Ay5Ai4lnM3JjJnsrJ8kqa7Qlb8u7JZ/y+jfj5Vd44+K08=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLiI1BiiE0D2mCgDBAfb8LheYGNKH6l927knH3CWXc6eZ4Fe9NU
+	90DM77G2fydElmLffg9jfQ8oZZdEwliQmiRvkKeRDU6u/20nmlzc80OOKngbRwRU8f1fONn+ycB
+	oM8c2PZlPEj/XZwAcgg3C31Vj08qj7yo=
+X-Received: by 2002:a17:907:3f88:b0:c2e:62af:b6fe with SMTP id
+ a640c23a62f3a-c49a71ff750mr110811266b.8.1793069051228; Mon, 26 Oct 2026
+ 19:44:11 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -45,70 +59,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/28] mfd: loongson-se: Reinitialise completions and wait
- uninterruptibly for commands
-To: Lee Jones <lee@kernel.org>
-Cc: stable@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-17-lee@kernel.org>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-17-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c68D+BqmocwAA--.35858S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cr45Kr4rWr13Cw4rXw43Arc_yoW8Xr1xpF
-	43uw4UKF4DtF1kt3Z0q34j9a45urZ3JrZrCanrtryUAr4qyFyvgFy5tF4kA398u39Yqry2
-	qFWDGFWF9a15JFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
+References: <20261026004644.239554-1-pc@manguebit.org>
+In-Reply-To: <20261026004644.239554-1-pc@manguebit.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 27 Oct 2026 11:43:58 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-0pD0cSc1aN3rfutb+HuWx-hOC=kiFjJmHEN6-_jbpSw@mail.gmail.com>
+X-Gm-Features: AclHuK_RWwFxHNp00nLUu2mkpDKyXyJdgtDIjGxzidPUsBjisouYxgCMHa6raJY
+Message-ID: <CAKYAXd-0pD0cSc1aN3rfutb+HuWx-hOC=kiFjJmHEN6-_jbpSw@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: don't resurrect an exiting tcon from cached
+ dir workers
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: linux-cifs@vger.kernel.org, David Howells <dhowells@redhat.com>, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-在 2026/10/21 20:09, Lee Jones 写道:
-> loongson_se_send_controller_cmd() and loongson_se_send_engine_cmd() wait
-> on se->cmd_completion and engine->completion using
-> wait_for_completion_interruptible() without reinitialising the
-> completion before issuing a new command.  Because the hardware has no
-> mechanism to abort an in-flight command once accepted by
-> loongson_se_poll(), returning early on a signal leaves the controller or
-> engine actively processing the shared command registers and DMA buffers
-> in the background, and its subsequent completion interrupt leaves a
-> stale completion token that causes the next command to return
-> prematurely.
+On Mon, Oct 26, 2026 at 9:46=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> =
+wrote:
 >
-> Clear any stale pending interrupt status and reinitialise the target
-> completion inside loongson_se_poll() while holding se->dev_lock
-> immediately before notifying the controller, and wait uninterruptibly
-> via wait_for_completion() once loongson_se_poll() confirms the command
-> has been accepted by the hardware.
+> cfids_laundromat_worker() bumps tcon->tc_count for every expired open
+> cfid and queues cached_dir_offload_close() without checking whether the
+> tcon is already being torn down.  Racing with the final cifs_put_tcon(),
+> the tcon comes back from zero and gets torn down twice:
 >
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-> Closes: https://sashiko.dev/#/bug/linux-4661fb0d-d936-4168-89cd-2f6dec31a7b5
+>   T1                                  T2
+>   cifs_put_tcon()
+>    --tc_count =3D=3D 0, TID_EXITING
+>    tconInfoFree()
+>     free_cached_dirs()
+>      cancel_delayed_work_sync()       cfids_laundromat_worker()
+>                                        ++tc_count =3D=3D 1
+>                                        queue_work(serverclose_wq)
+>     kfree(tcon->origin_fullpath)
+>     kfree(tcon)
+>                                       cached_dir_offload_close()
+>                                        close_cached_dir()  [UAF]
+>                                        cifs_put_tcon()
+>                                         tconInfoFree()     [double free]
+>
+> cached_dir_lease_break() also bumps tc_count without tc_lock, racing with
+> the laundromat's locked update.
+>
+> Take the tcon reference through a helper that refuses once the tcon is
+> TID_EXITING or its refcount has dropped to zero.  Queued put_work and
+> close_work then always hold a tcon reference, so tconInfoFree() can't
+> run before they finish and free_cached_dirs() doesn't need to flush any
+> workqueue.  If the laundromat can't get a reference, put the cfid back on
+> the dying list for free_cached_dirs() to free; its handle goes away with
+> the tree connection.
+>
+> The lease break path finds the tcon on ses->tcon_list under
+> cifs_tcp_ses_lock, so it can't see TID_EXITING, but it now takes tc_lock.
+>
+> Fixes: 3fa640d035e5 ("smb: During unmount, ensure all cached dir instance=
+s drop their dentry")
+> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+> Cc: David Howells <dhowells@redhat.com>
+> Cc: Namjae Jeon <linkinjeon@kernel.org>
+> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+> Cc: Shyam Prasad N <sprasad@microsoft.com>
+> Cc: Tom Talpey <tom@talpey.com>
+> Cc: Bharath SM <bharathsm@microsoft.com>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-
-Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-Tested-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-
-Thanks for fixing this!
-
-
-Best Regards,
-
-Qunqin.
-
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks!
