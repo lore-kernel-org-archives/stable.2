@@ -1,49 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100838;
-	b=jxLH+IHL1SBsfwVGt/HTCtaatbOD5ID/CirYqGIi7kMYQLEQuHVBiRk/EFaRTlFDPI2/
-	 pdTaYaqXw9F8u5ssEKScLKDN3B86Vs2s4Z4BoGYeel6W+KxAU1eVQWLBaxOZlNj3S1tgb
-	 q0FKshTUO7JI5B6iSnOBEsJ0VBCiBo5g5rfK1MXuAIEM78d5Eh5CnZRdDhY5vyJ4uLjud
-	 CyIV/rUDXemqrqZ/KEigcpaC85t62bmTaUHpl4MRfA+GICZFzjgM+4jzxfeilKF8josmh
-	 1RQAvR3U21HJk6KkQv2SYxMqP7dIG45FvQQNBht+oGS83z7SkO/7GtlqFJZTu94D1Fw==
+	t=1793100839;
+	b=asZlRUi7n6vteHSIfUYtbk9yplzMrKohArd0vYf1sOpUTcnxQH6yq2u8iCHwIV/B7Efg
+	 LttxGejtwLevEJXUvp7ojR7iO4COskfCCmlX2VdGF3iCfIHajRbsNKI9iSNQlvmyKTJJX
+	 u/UNP1DSqRdWiU7V64chRi2g1gbHZhoCZB/WdsBlzR6Y25NCBNXNWByIUoUN+9Y3G/se5
+	 5ZTdFWjqnmSc4vuz2xsE/12WDcC3LIDb9UfLe4usfL5cenmfhO2E/isExQ4DCQTcA/zpV
+	 IoqFqAunXnZbOETddOd9FcWoA9nGjov6dGNHljzXmOWak39/dwQHGEXuBhYs9bRH1Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100839;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Flowmailer-Platform:Feedback-ID;
-	bh=0Sek7EhtHIj1t/6WMQlwpjOQbOVwpC06TntZr717z9k=;
-	b=GGCR8htWQeAArVW53d4YHYAulRhLMahAIzs1YRQn4I6FOIm6hiiDl8n/wVHkQmvVRyXy
-	 z1dz4l+bhf1j2nbSUDtvxrJFDJ2G3Pp3pi8kFrQn3e8jZ6I/rCo55GKef/v6WwwhlJeMm
-	 jKg1dQI8xocg5sWPZj8//V97zvA/c7myeBLezUd/TLWz9ZTPXuZyV8aO+SMB6Z9QEOO4p
-	 Za2QAkvYMoHz52iqwngG2TxhDU4W/aBXDqt01y395M+jQ1mzjfU/SKD/2VxnMw87RaPCt
-	 RWkuUdQUW6FYSIokzUoqIjBMt4U6mCSfsgykz9xn6SLzsJvR4+JPeqWCay1TJw+N6MA==
+	bh=Rs4N/HkUBnDEEaFceAjgCgShwFi+Xu++Bs87eYOoOBM=;
+	b=lrz4JZDOzlXeFR9nFgHwDM2rHwoE47Er9px5orhDbg4Ljcbp6VN+eiPAGNoYHMHdPEcN
+	 BI5FYfLUS3XGwAkUc7vz9Rhd6dIAIWKM1dTG6KCTIEheKDkiSjVPUUNxcekDBRlsfZ1CF
+	 NnjruadKVwKRB+L6fOdmqbx7XvxxZnbPwul71q9QI52UPTm0CWfPHSH5K9w88uqGNDtrd
+	 b91soRU9vX3nj9vOKklMaaSnyPokLn/DrFcTT2wpBxJ4NV5M694znGm0vV1MQ9WiL0sy0
+	 kt7wpJNp8sxsAeU6061zHU1p2LRxN8gQyxTvI5cWtyYk9uR4m3a4KodOSTrGewV6eUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siemens.com;
 	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
-	dkim=pass header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=bM+0I9Nz;
-	arc=none smtp.remote-ip=185.136.64.228
-Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
+	arc=none smtp.remote-ip=185.136.64.225
+Received: from mta-64-225.siemens.flowmailer.net (mta-64-225.siemens.flowmailer.net [185.136.64.225])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D336606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678B3606A334
 	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 11:33:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D336606A32A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 678B3606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=bM+0I9Nz
-Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 202610271133541bba81161b00020767
+Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id 202610271133540fb7376574000207de
         for <stable@vger.kernel.org>;
-        Tue, 27 Oct 2026 12:33:54 +0100
+        Tue, 27 Oct 2026 12:33:55 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
  h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=0Sek7EhtHIj1t/6WMQlwpjOQbOVwpC06TntZr717z9k=;
- b=bM+0I9NzL1IdWXMGZZQo+NKBOU6Trs75lN5klXQR35nQmhjlexau5HviPB0tLFecfqZ3Bn
- AtcvCnmSd2zcUy8+2QGZvul5hmpcYjTv5pPlCKyJRMq5Y3t6gLZGJftmtrtTr316lBSeNC2c
- RzDzrVILsKR3nSmGvKr5XrOa/dDava9oCAsmy8pZb9Ke9ZUoKMmSD4p32BE2ji04pqfzHQa2
- jgRv/KKL8k8I/VFcgHUvvw0YEcZMu5tK3Q0z2msKbCpApd5mOPw8BuV+3xlB3efFBRahigo3
- rQ+bNgZGriuHZeqTY2UePjo+HtdBTUDaNsJoljF6ZA56coM/ydr96foQ==;
+ bh=Rs4N/HkUBnDEEaFceAjgCgShwFi+Xu++Bs87eYOoOBM=;
+ b=cf+VCVES6xCl+xHMqj6WSTH2Ofcp/6zd/21BRKpFojcQGvn+foa9I/789ONGcowJZ+av9J
+ uwL9f3NSmraXSQVjKU/zI1MrpwdDRYtBua6SodzTZsdhiRRqyxjvZrrhRXfSJdImBYyKZJdY
+ ck6DPRrm+gldKBnkIRI82LVeKn4MGD0LN1ZLLZFfxxzmgfW68w9tOn1J38pIzlS672pTqVeh
+ aR1nUgfFWl9WV/cgwtYN1LTHpS6jwcocR9VRpUv9OjCkYQ8VV4Q9n5JvzBjfCvPlF/LmwSJ9
+ LAp0TGGvyhqjDROWQ6V6/uL6EdAv6nyLpQfn8cp9cpdrRe5wjO6KA40A==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -57,9 +54,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v6 4/5] leds: trigger: netdev: Report invalid interval to user space
-Date: Tue, 27 Oct 2026 12:33:44 +0100
-Message-ID: <20261027113349.383147-5-alexander.sverdlin@siemens.com>
+Subject: [PATCH v6 5/5] leds: trigger: netdev: Serialize mode/interval stores with trigger lock
+Date: Tue, 27 Oct 2026 12:33:45 +0100
+Message-ID: <20261027113349.383147-6-alexander.sverdlin@siemens.com>
 In-Reply-To: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 References: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 X-Mailing-List: stable@vger.kernel.org
@@ -77,46 +74,191 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-interval_store() silently accepts out-of-range values: a write outside
-the [5, 10000] ms bounds returns the full count as if it succeeded, yet
-the interval is left unchanged.
+netdev_led_attr_store() and interval_store() update ->mode and run
+set_baseline_state() without trigger_data->lock. kernfs only serializes
+writes to the same file, so two attribute writes race on the non-atomic
+read-modify-write of ->mode:
 
-Reject out-of-range values with -EINVAL instead.
+  CPU0 (echo 1 > link_10)       CPU1 (echo 1 > link_100)
+  -----------------------       ------------------------
+  mode = trigger_data->mode;
+                                mode = trigger_data->mode;
+  set_bit(LINK_10, &mode);
+                                set_bit(LINK_100, &mode);
+  trigger_data->mode = mode;
+                                trigger_data->mode = mode;  // LINK_10 lost
+
+They also race the notifier's link-state and ->hw_control updates.
+
+Take trigger_data->lock in both stores. netdev_trig_work() also holds it,
+so use the async cancel_delayed_work(). interval_store() now tests
+->hw_control under the lock too, so it can no longer sample a stale value
+and change the interval while a concurrent store enables offload.
+
+The async cancel cannot stop a worker already blocked on the lock: it may
+resume after a store enabled hw_control and keep software-blinking and
+rescheduling itself. Gate the worker and its arming in set_baseline_state()
+on a shared netdev_trig_sw_blink() helper, so it stops once offload is
+active or RX/TX monitoring is off.
+
+set_baseline_state() can also re-arm the worker from a store that acquires
+trigger_data->lock in the window between a notifier's
+cancel_delayed_work_sync() and the notifier taking the same lock. The
+notifier then sets carrier_link_up = false but does not cancel the re-armed
+work. Gate netdev_trig_sw_blink() on carrier_link_up as well, so a worker
+left armed across a link-down stops instead of blinking.
 
 Cc: stable@vger.kernel.org
-Fixes: 06f502f57d0d ("leds: trigger: Introduce a NETDEV trigger")
+Closes: https://lore.kernel.org/all/sashiko-outbox-178980@kernel.org/
+Fixes: d5e01266e7f5 ("leds: trigger: netdev: add additional specific link speed mode")
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
 Changelog:
 v6:
-- patch introduced
+- fixed unlocked hw_control check in interval_store()
+- added missing carrier_link_up check in netdev_trig_sw_blink()
+v4:
+- introduced netdev_trig_sw_blink() and used it in netdev_trig_work()
+v3:
+- explicit mutex_lock()/mutex_unlock() instead of guard()
+v2:
+- reduced verbosity both in the comments and in commit message
+- dropped sync from cancel_delayed_work() (worker now takes the lock)
 
- drivers/leds/trigger/ledtrig-netdev.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 56 +++++++++++++++++++--------
+ 1 file changed, 39 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index bf9a5ec245a43..b1f84014acab9 100644
+index b1f84014acab9..a503a4d64cefd 100644
 --- a/drivers/leds/trigger/ledtrig-netdev.c
 +++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -502,12 +502,13 @@ static ssize_t interval_store(struct device *dev,
- 		return ret;
+@@ -81,6 +81,17 @@ struct led_netdev_data {
  
- 	/* impose some basic bounds on the timer interval */
--	if (value >= 5 && value <= 10000) {
--		cancel_delayed_work_sync(&trigger_data->work);
-+	if (value < 5 || value > 10000)
-+		return -EINVAL;
+ static const struct attribute_group netdev_trig_link_speed_attrs_group;
  
--		atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
--		set_baseline_state(trigger_data);	/* resets timer */
--	}
-+	cancel_delayed_work_sync(&trigger_data->work);
++/* True while the software activity worker should keep polling and blinking. */
++static bool netdev_trig_sw_blink(struct led_netdev_data *trigger_data)
++{
++	return trigger_data->net_dev && !trigger_data->hw_control &&
++	       trigger_data->carrier_link_up &&
++	       (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
++		test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
++		test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
++		test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode));
++}
 +
-+	atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
-+	set_baseline_state(trigger_data);	/* resets timer */
+ static void set_baseline_state(struct led_netdev_data *trigger_data)
+ {
+ 	int current_brightness;
+@@ -164,10 +175,7 @@ static void set_baseline_state(struct led_netdev_data *trigger_data)
+ 		/* If we are looking for RX/TX start periodically
+ 		 * checking stats
+ 		 */
+-		if (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
+-		    test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
+-		    test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
+-		    test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode))
++		if (netdev_trig_sw_blink(trigger_data))
+ 			schedule_delayed_work(&trigger_data->work, 0);
+ 	}
+ }
+@@ -385,7 +393,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ {
+ 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+ 	struct led_classdev *led_cdev = trigger_data->led_cdev;
+-	unsigned long state, mode = trigger_data->mode;
++	unsigned long state, mode;
+ 	int ret;
+ 	int bit;
  
+@@ -417,6 +425,10 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 		return -EINVAL;
+ 	}
+ 
++	/* async cancel: the worker takes this lock */
++	mutex_lock(&trigger_data->lock);
++
++	mode = trigger_data->mode;
+ 	assign_bit(bit, &mode, state);
+ 
+ 	if (test_bit(TRIGGER_NETDEV_LINK, &mode) &&
+@@ -429,20 +441,26 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
+ 	     test_bit(TRIGGER_NETDEV_LINK_25000, &mode) ||
+ 	     test_bit(TRIGGER_NETDEV_LINK_40000, &mode) ||
+ 	     test_bit(TRIGGER_NETDEV_LINK_50000, &mode) ||
+-	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode)))
++	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode))) {
++		mutex_unlock(&trigger_data->lock);
+ 		return -EINVAL;
++	}
+ 
+-	cancel_delayed_work_sync(&trigger_data->work);
++	cancel_delayed_work(&trigger_data->work);
+ 
+ 	trigger_data->mode = mode;
+ 	trigger_data->hw_control = can_hw_control(trigger_data);
+ 
+ 	if (!led_cdev->brightness_set && !led_cdev->brightness_set_blocking &&
+-	    !trigger_data->hw_control)
++	    !trigger_data->hw_control) {
++		mutex_unlock(&trigger_data->lock);
+ 		return -EOPNOTSUPP;
++	}
+ 
+ 	set_baseline_state(trigger_data);
+ 
++	mutex_unlock(&trigger_data->lock);
++
  	return size;
  }
+ 
+@@ -494,9 +512,6 @@ static ssize_t interval_store(struct device *dev,
+ 	unsigned long value;
+ 	int ret;
+ 
+-	if (trigger_data->hw_control)
+-		return -EINVAL;
+-
+ 	ret = kstrtoul(buf, 0, &value);
+ 	if (ret)
+ 		return ret;
+@@ -505,11 +520,21 @@ static ssize_t interval_store(struct device *dev,
+ 	if (value < 5 || value > 10000)
+ 		return -EINVAL;
+ 
+-	cancel_delayed_work_sync(&trigger_data->work);
++	/* async cancel: the worker takes this lock */
++	mutex_lock(&trigger_data->lock);
++
++	if (trigger_data->hw_control) {
++		mutex_unlock(&trigger_data->lock);
++		return -EINVAL;
++	}
++
++	cancel_delayed_work(&trigger_data->work);
+ 
+ 	atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
+ 	set_baseline_state(trigger_data);	/* resets timer */
+ 
++	mutex_unlock(&trigger_data->lock);
++
+ 	return size;
+ }
+ 
+@@ -691,11 +716,8 @@ static void netdev_trig_work(struct work_struct *work)
+ 		return;
+ 	}
+ 
+-	/* If we are not looking for RX/TX then return  */
+-	if (!test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) &&
+-	    !test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) &&
+-	    !test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) &&
+-	    !test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode)) {
++	/* Nothing to do under hw offload or without RX/TX monitoring */
++	if (!netdev_trig_sw_blink(trigger_data)) {
+ 		mutex_unlock(&trigger_data->lock);
+ 		return;
+ 	}
 -- 
 2.56.0
 
