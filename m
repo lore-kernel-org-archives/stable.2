@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.75.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139530;
-	b=JIGFeAdDHvDHjCuxul/JZCcU9myX5vfg4O8GCeYGfHv79DZM1DB121dJjgkCUKJF466r
-	 rnKiNlerGuZhdxgQFj+PaiGZGfTvqPKKn5RUNtJB9OqEvNxd2l+3sDnOZwk7lLc12eDAi
-	 kxPIoIGV3NuIPvwY3Q0LwaPgzPmQbyf1zLLOxy38mG/rcNahIWC4RfiJzqb51LE6dVkYC
-	 e37H/dOFe6CnmzyD4UcWUEc+M+QAAG3KZdHbajbGfD7K3Rp//JVetDcmVwi/sFySX/Bkk
-	 72bahQfSGhCTv0P7CMqxxF7DXkIZV/4d2gr6UAl1c13L1suPr45XQ9k9Y4+X/2S7eqQ==
+	t=1793139724;
+	b=WzNj31FOA6KeQhvtlMFJMfSlgl9YsDRm24za8X4QgWKPFs7O9KWvL0M/DKSm2guIWsv3
+	 acZfnNkrCtmD3/FV4vo0yyA3SiXKP5giV0PYxQUZD0D7PjVfPWQMNDSIgH17vHMJZxJvq
+	 IUVuMp+y73haz1cjsX0mWEJ1wf4D1nGZ6Fxl9ED+5bqNlTGM3MZ8xmaqz1ad5D8ZT7UGC
+	 ODTkKONhtBvzKEQCEud0Eg0RelBWq1LMdOYM8YWjENQzI0cDRYfjRKDax4g8QhGcNfAfC
+	 v8AHdeoRbpkgGcRuZWWiJ0J/SiOuaPbswXsh9yDIJeUCDwiRYqwqKyZVclV+pQenGng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139724;
 	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
 	 Received:Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:
 	 Cc:From:Subject:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Info-Out:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ;
+	 X-Authority-Info-Out:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-JNJ;
 	bh=9HJ62GiGTy/gw8NufnOvKlJLBVkRKKV7d6QpXBkvd7E=;
-	b=AgORlZXEOJ93wg5s6imP86b4dUWSA4/S89m24VqY2z3t9srWshH0gLdYotIzjNcadH95
-	 dPIWa/Xci0J/iLJzkh5rZRPv1DdHU1qobfXc76kgn5CUd0vNzgN5l7qaClbF4ppLc5Hbi
-	 5W5/GGByBuGPhdm7m/3Qzf4wWynluuWbkIXDAViC+ymFz4+JN0fm1G5jLUvPNYLyhCaia
-	 g6+2IlTFyTcJ9OG3rGcXO/J3UyBGIylWnWEZkufiEan/EwKPSIM+QLmicSXJClVK6iOlE
-	 pCRHdFzIm3GMxSEDaGWawjPRt7ab2GcM+4cPf+xC37Z+rYd3bJwMu+SgHXuWojLW2Kg==
+	b=YA3SPwisXVe0T6M1O18tZH0yOYl2F03CNDzAzkZwd+tGHBP3zMTiHV2oa9M5E5GMLA0p
+	 2D3bRoBtEwEvr2tDNT4cAkulwm4Lj3YrmLMJWBt43Furdhs6Kaqd+fKvBfvm/Q4DLgvsV
+	 BCceYphfa8MPgMGSNxL6M8dG2SPFgtgYw3JvVcH41IEHjd9Y4Vy+7r/fOPJskTip8YeDn
+	 4fENz2Ln9VaZYiXqma+9jtcz4uAGvVDEzLv8y/BNtPKV9sQ5QbNLY2E6FQHaQVXguH80s
+	 6TQo07MA7rRStsmjLDLKrj6CZ2aRn9dShOpYYW1hIwIF78UM45hopL2L4DdXxuZde+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=icloud.com;
 	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=VznvtUGi;
-	arc=none smtp.remote-ip=57.103.75.5
-Received: from outbound.ms.icloud.com (ms-2006c-snip4-2.eps.apple.com [57.103.75.5])
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GYg0Zs0o;
+	arc=none smtp.remote-ip=57.103.74.231
+Received: from outbound.ms.icloud.com (ms-2004l-snip4-11.eps.apple.com [57.103.74.231])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2B5606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:18:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC2B5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8C6606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B8C6606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=VznvtUGi
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GYg0Zs0o
 Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-10-percent-1 (Postfix) with ESMTPS id C86AA180013F;
-	Tue, 27 Oct 2026 22:18:48 +0000 (UTC)
-X-ICL-RepId: 01a17f71-d450-7886-b377-c4fd3ec315ea
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhNC0MDXBxCC0AdXwddEhVdRVAfXhhGGVgWHQ5WGEYVVRRSA1grWxNVF0YJGQhdHRkeV1BeCF4fTBwdDlgGEgJaRQZNXw5eHwQXRhlVBEceXVZeHhkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4EVAddBV1WUAJaS18ZXUUPCVUOAxJdS1dAAlkGRhRMVwkHRgsSCU0eWAUOCxNYT1ddBlsBMFAbXwJCDxwTVhUNTUMSQhUEEVABWB5W
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793139529; x=1824675529; bh=9HJ62GiGTy/gw8NufnOvKlJLBVkRKKV7d6QpXBkvd7E=; h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:x-icloud-hme; b=VznvtUGiztfKk9qdLxrbMq+A955Zdmkiz1SkFCw6M1g+MCIbV1ARysdv1nl74NKU7294FXmt34BTGAAEBUFnMk/uWNxQRxlnVzwx7co0FS4ZYT7hxx3tkLeMFiY2NBG3jJPsHHsAHtEljnI0k8FekmSifsGztRAJQqJvn3eslK4IUVlzqZHXiQ+zem1RJcq+/8MMvStWqBfoiK6kVpl/8vNmqUpbI5RaTDDGTbor03h6ylKuqtrDEoEdDX+5eqli97x5NWyYnSPCqm8WHhhXn/VjgZ3n3O8R6ajDwUQzFTk1NXoVI28sLiS3Ez42fVsSJub22YTrgtNELcr5bPeFKw==
+	by p00-icloudmta-asmtp-us-west-3a-100-percent-7 (Postfix) with ESMTPS id 6262F18000A6;
+	Tue, 27 Oct 2026 22:22:01 +0000 (UTC)
+X-ICL-RepId: 01a17f74-c466-7522-87aa-3ffceb447af1
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhNC0MDXBxCC0AdXwddEhVdRVAfXhhGGVgWHQ5WGEYVVRRSA1grWxNVF0YJGQhdHRkeV1BeCF4fTBwdDlgGEgJaRQZNXw5eHwQXRhlVBEceXVZeHhkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4EVAddBV1WUAJaS18ZXUUPDA9fVBUOGgZAVQoLQBRMVlgGRlMWWhseWANTVEhbSwNcD1tQMFAbXwJCDxwTVhUNTUMSQhUEEVABWB5W
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793139722; x=1824675722; bh=9HJ62GiGTy/gw8NufnOvKlJLBVkRKKV7d6QpXBkvd7E=; h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:x-icloud-hme; b=GYg0Zs0oxKfswLL50Dy9wQUyFJ9eaTegkAUgGtb6IAO5Z/9RKwUp/1aIXAMdJ5Nn67V1xzqJt9yumqI/vPn9XZqipoeFJRTHA+nb/F8hgi+LbW6+qRNRD8KNAvoTfo7NCZm7P7PWkAECUJHVzpe2qioByy6wt5gl9qpsf/kFiE0SweW8987dxXuLnoM0KskCNcozCeFJbyZfREP7W8HgMReAbdY7sewRUupDrL4daZcct8zVR2bNzPtm6PfIV1RdhF5cnaCdBFjC0ZAZbFYRvWGh/op4XUjeOXKXRpPvkn407L6t6KJjCku577QXuODnERi0X29nESGQnpLH9kg2EA==
 Received: from [192.168.1.50] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-10-percent-1 (Postfix) with ESMTPSA id 69B3018000E6;
-	Tue, 27 Oct 2026 22:18:47 +0000 (UTC)
-Message-ID: <dbe1bd3d-5246-4dd0-9b05-52e9ca7d0103@icloud.com>
-Date: Tue, 27 Oct 2026 23:18:44 +0100
+	by p00-icloudmta-asmtp-us-west-3a-100-percent-7 (Postfix) with ESMTPSA id 5196F180013C;
+	Tue, 27 Oct 2026 22:21:59 +0000 (UTC)
+Message-ID: <a84fe7b5-ba90-4e51-afcc-548f8b30180b@icloud.com>
+Date: Tue, 27 Oct 2026 23:21:57 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,46 +58,46 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: med.jebabli@gmail.com, tiwai@suse.de
-Cc: linux-sound@vger.kernel.org, regressions@list.linux.dev,
+Cc: linux-sound@vger.kernel.org, regressions@lists.linux.dev,
  stable@vger.kernel.org
 From: Cristian Castellano <cristian.castellano@icloud.com>
 Subject: [REGRESSION] ALSA: hda/tas2781: divide error on playback open after
  accepting V1 calibration data without CRC (Lenovo Yoga Pro 9 16IRP8)
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=J/ynLQnS c=1 sm=1 tr=0 ts=6ae12348
+X-Authority-Info-Out: v=2.4 cv=SrOdKfO0 c=1 sm=1 tr=0 ts=6ae12409
  cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
  a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=x7bEGLp0ZPQA:10 a=eD1N5GnKAbQA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=VfikHhr-D2iK5rlxiJcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: _kV_DvKpXF5sDviRAW_RzDQte_XOXlJK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA4OSBTYWx0ZWRfX8mIicfo56THN
- TC1fWLFCUxt9ArAhnqdPBaTVT1kHyUayulxehkkotPho5UDnT7PQtJISoNAUOPzhCvpir625mg6
- HXlHgO+Jcs7uJh3As43oT7Z5ZFGTTQqP1qttJCqmtb4WFhKcFahOqOy8FUsL8FXS1zIQXkTGqE3
- e22hhIEy+9As8YvEn6140jRKV6OqhElkdXNPITGCRxOP/hWzSlPnnNi8yiERQjoi5MtCQfr1uC7
- BENSp5uEZ/VIbEm0lIgrfuFUVEjSvysl41WnRAEv0OkNqoGzoNmV0U6YZzR8WhcDlaoumHUjD7H
- Zg5L6hIAgRTmCeK/IdB3PvmDozwWzVCmYb1tX4scgtuifM/y1aKNef5lrC6mWg=
-X-Proofpoint-GUID: _kV_DvKpXF5sDviRAW_RzDQte_XOXlJK
-X-JNJ: AAAAAAABZWL2jN0TDSiIGK7aFBiAikdNRgN1lXTJ2r5yP2oXeuPM6WqupHe7BoFKANULQb
- m9De+7DYXC1s6fzWKFC44zcYUL1lskJaC6QRPW4ayI2OoJ04KDyBB1Z0Xs1WGKzWP5L8V3
- eEdLYmbqd1VWFPzXFGITgc1xyeLSrC9CN3fdaFg2GG0MGFvqXAfBy1OL/xE2GQG3cNi5s4
- s16YLb9FYnqoWwmo3hDsogGGF1kkLwE4r3IClzZqIsPLZnhmcZ87fFl+UfMw9JbUWQHPl4
- 3EwXwC0NKIH7yvz2iimfwdpSRAJMbBnkIngDVyyRBweD3+H9+bpHLo8ykaN8AOtED4NJDB
- 3H4RJaCW8j9Df5fgHK27ORC8TwwhNftXt+D6fROuB0VYNIE/O8oXGBMBXFhuBfnT52Qs0v
- ErjzXW7uOUUGtH4kb3JwDXRbn23EFvtvJGCujKrWH25HV8h1w6XPz1MjYjTS4jnLVDlzYV
- lEPN9jTkVAdNvj5DCDGwqJG6nNsL6izBuJKb30UUtyPw4upQitMrN/kHZQtiKombzgtDHb
- plYZ+Awjm9oOiCjRcUCo3Ddm1X+yrOQG7ScCWg4aPPJMKXv+8vZhLP62EqBH3dotB7aG8n
- axVRb1zUfqP5BPAlKgmpgdWvhxdgFmxg7WJF41vLlFygcPy9Pcw9p97rcPbliRY7FjKILb
- sCpYKwlXxw/UtM+9Mb1+VXKA5B/L9+IWSq56PPOTh08tqT2/gtn/T6DoYxX34Ab+oZYVq3
- zMRxhuxfJmW4F6U3t5Ka1LwiU2o7Qad9FIHUSF0/ygxA7W0Nac57+Mun8qTxUTRSfX4ezk
- 61N3gJT3TFGo50owjndVt0BulBx/itbVCcV44rlZLu2fhHv7NOzlBxZUxSIlKUxpBD8n91
- lyPhvCrGCrfJpnzwpMtVXeA/mMy8tXO2cPKZTOAznn/GAJ45KFfJpFV8PIm0JnmPXTaZNH
- 2n16+oDFLp4ZM/EpLYIMcVP9RBM19te+5DhQM9aXShIU8iMEoBxG5KBeXtU9hGiqmsnBzy
- SUXr/XHHJXnyUje5QZi70WTGrCP0LplDM7n7QpfNQMldqSmWHkPbg9s66Z3Nc+c/fIb+Jg
- lzc/QEHHNRVGmdA0PPVaOEgoyM0tqkioq3n2YkrDECWjJZ8mVY1fjM2e3S/LxjWUmrqOPu
- dMl6w5zDumYBnWAZhrVUYyBbTtUXQ7F5WxWB9Sul6mdwjc2c0Za4/z507HjXjRcHAgj0LU
- dfxWn7BMSp5jg0ia54VaKLnT6tajrQfQ96SSDmhmFh5iCdXmB2hswcBSc0qDPRxgDPehNL
- SS7CEG/pzPydtoxhZYHtdJ+KYZZaZSyA8gDxAfJ5KCfEHWnH2ALQCPvg==
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA5MCBTYWx0ZWRfX8X/qb+UQpwhq
+ 48wYsNv7WhrmnpP01REaPS4kYjvVJoAg6ZMb/XBsYpk30YpfGNnDTHHJfh6MyAB6u6UFmse6VPN
+ 2OXNDPrYyHzt4Hk6wq8bdgWYuTD+BV9Xy75509siASZKscLGGut+iCoRLVz6gI3IWXtCRNo7y4H
+ TsKcqE2cKSSmllR/oHsVzkMZpq9dc+9YQ9FpbtjPRc66nKwtvHSaWcJwoXjPIIs7pcIJ0aJDVSv
+ PN+/FX9xgdYkatuBB36psEpy6Nb3+/uGufyKiVerzBUzWXCEo0J31z05Mfq243YNvrJ5WiACazx
+ dtla8lbPm645QlxXlVCELwEdNKRDa55t6+j3s820XrVVrw00ts8rjk2eJ5U+AU=
+X-Proofpoint-GUID: zvmonwOqKB_Wd4m3Y7uZFogIyICaqb9Y
+X-Proofpoint-ORIG-GUID: zvmonwOqKB_Wd4m3Y7uZFogIyICaqb9Y
+X-JNJ: AAAAAAABqFK7fFSoe7rCT4ANnaHlhYTdBA0lRwtOCMx6VOTy/8iaEGvF/169W9N5AXD0na
+ OXopY8FIA9LzETibOKNkitaouP8Qo2tEx4sXgXLlTPk8TUicADGZtWlhkGIHOWgIDSaLiD
+ K11PIc1ZjvlxSSWVH7s9yImvCFx5sX3oTpiR9Vnh3g4sJaEC0C1nPRgOzBiw3imwEPxZu1
+ 3SQVh4QkxYgqpl29Qf4h/zXsIoYrlxQzc2t+MA5y6OAHusAXghJBTJRvCB4gMhC9Nd1mpB
+ 3FqdgnsneUXplnMoAHRAWqrZ1Nv1u5H9iYAmeKtqVUsoneudzbXqTZ6sbpXlGQE+cJmLQd
+ QOGuWMVo7Dh0xfL6yu/bPlFXWeLdAHhSWdld7PBAXiyhrzrsrKxgV5u/VScKEFBNv59jPC
+ 08uWUUD1xF4nmM2Y56YdzBT0VtPpGjqL6yFmG95thmnqpe/sJQpTmKjOldS98f7fCpSYnu
+ sI7hv79YtVB/grpTZ6gfNDwZ9K7iWFNt8giDQ+zxSuVW44E/lHormsDhK2eEOZZyGTSPVt
+ mVNUqaBWfvWRjVgyfOHw3sIcP5OELRLO3p80iegRYJla9JLfahRPGFlumIiLmXp910mDCi
+ EbqnV0zELe//qWqQ0TOHq/oSkGNWLSzNYFnbiF5L1RNEqmULwkaVfLWfsERKHw+Y7Y8DE5
+ JouC5lLQ9PnmZyi3YFGd1Dy/i7c+Xw9EjKpzmzozjDh824A0MTNYuv0AAiDgBRhghx6XQc
+ /NPhwoC6nIU/jYPypy0eZfFv0eee5GVPeJx1teleTPf5g5i0nur4zmV54OrPGkBt//Qa7F
+ AW8VuveUdp3YgNDc/6V4L2JpR0Kq3mK1RXAuCS5ByjLJUMjnwIhND72UATEG5swgZ+e5YD
+ idAD1PFBvSJXb94E2xtvIzsn9QtFpvBTIh0SWhV1KzjNRSUPW45WQfSwh99uc0myxtUC4i
+ itwWweSBsFU5LwcIFZVMTa7JzQWfjWTNa0FWVnLopCRtTSclVRUfGPbyLy7tRWNtb8Yd+R
+ 6873Y59NjaPg2b3QNr6gHkXTNMdOjGabGxHAPkfH061OUJZ21oYXokTh+x7zb3cBdjhv9U
+ r35EHens5QGW2f9UzU9M8NYWXG5k7ym9BHGcSMZ1NQIFn0j8zNn3ViYzBxN8L9VX13+yAw
+ PS+E3s75syQMHGlM1TNXsJeGCmrgLY+YRocc3+wzRv2FUg+IgHRxXCd2kDBr1Ew5qqgDwP
+ oS3FpyrB9q6AO/7Y1mwUHlqud+Z24WkdlyoPmbnM7Ny38+dT4ZU5ilYDR58Ta1JQ46A8A0
+ v4Wqlkt1cTGwmmQ0xr9pc60EJpGgna3MUxKzky1ebI49xd9AEy0DETrAiUZw==
 
 Hello, since I updated to 7.2.11 (and then to 7.3), opening a playback stream on my Lenovo Yoga Pro 9
 16IRP8 (83BY, subsystem 17aa:3835, BIOS KVCN44WW) triggers a divide error in snd_soc_tas2781_fmwlib and audio stops working. 7.2.9 just works.
