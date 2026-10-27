@@ -1,89 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112106;
-	b=vJWuBoq4HtPuLCNZcsUIsDkIwoPsRT4/FRCB1iquB1W5iAvLJE2UZHl6LH8cbAufzfVk
-	 inwasKi2Yizy4a23/KDdGuZOZjOi/H3bmtLl89fniNJd0AIow9qEgZtPOnTYuccVKTGv7
-	 5CQP4NwmQFu2WG7ZJkOMeThig66hDrQ6B7X6Az5rySDuCXYO97DJKwiNMWk4TDS0p/LeW
-	 7A8bDkRIvpQEdIm9buSNRvwMVTipYHgqtu9u3f/VL6XO3OI3rGhgidrf6fU7DND1PiMhJ
-	 RYKqHk5p+kYvFkleol5bLl6Q7DtMDqnhQLW+B4MikOYv2OTyLDDLNVD1pRTJPVoRk9Q==
+	t=1793112385;
+	b=EyUpMESW6xUHBXWlt1elUltPbMIoG8FJnCsYjQ4MG4BwyvzHLyRUHwP+D8AOCYWedEag
+	 8CWLUnLyIP+mQpzCLixCqjbZ3mhcIvnGwbyDkpIJITFTXUtuyyvmiZdl3qpYzXBbGHXaE
+	 NxDjd+Vbgq2+xpZtnDWjCgmvfZFltsZTP9+kEV4XVSjvPq7tXfnOU/3kqsNqGR1K/PU3T
+	 NQt9ZDjQAucJJCJgtc0eOncbOMewlDOU42YhH7sXt1HVcF6sm7OCcdRQrI+6do0hQnGuA
+	 mqlR3JIjBQAwZ1SumIFxFLdoGl8XMPF0j2gN+NRpxdwF2ri3rnwq3cA0TlIMh7E7b8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112106;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=Cxbcd97TigLbOc2nsbdYTtwGKr7cyQITuDlutqpOwp0=;
-	b=aQWoFWncYIly05m2wm8N8TcnU4qli123A04TBWdwMxkibL+tPmzuwdvgz8KkjeYCP2Fh
-	 a0/UE05pck6F7gK5k9juD8LUvV7SDMxMDLxx9+K7bYgcDZBXVeL1GEaKKpJRCKKM0A/Je
-	 eGRNpE4W2WancAtRCKLZN3YYlKXVMIwKg697vFBRVazVZNBww9QkKrTawNe8GKGNADMDw
-	 yUSyfUllzKuX88ljONv1M52IkmfYaJEXDos1JYaSQb6zSD0zU/BuQ+G7l9T0X5M5pdqGv
-	 GAMAmTLIj/vlGKVhfQNon/iHn8aPOS2cX613oE+0vcFks8HAxFkqVDEA4iNsfn6e7AA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112385;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=IRYscKx8sG7oBga7um/aSNX4ppGTBUA5j7SQ3A1vxDM=;
+	b=NgV9ADsfWVLObArXVvowzHnkR3GsaEwXUY2XZFyLEqDfQ+7tYyU39rISTerM2+J6ISbf
+	 3A7BSXQpgGEYtcNq3kPRkaHGr5NdzBM5oMjTGJUusr3IBxHnrkC93IiI3Z9P3uuJ/aLP4
+	 cPjDwACbpcT4IihAV16vzzZBFfeuGc/SZFNojFTvrccr/y44seFLQlIP70R+oOVToHaDM
+	 H610OdXDPk1keA/NG2cJbsB7Rz+nt9BtS5XTjlvw4B9mCNhyMFm2gymueKs0ZlsBKSVSD
+	 lF7vJGTOw+zJK2CwXFiFimdnwhYtOB1vm7hYK8zCcZjv7H0DTu5kfsUDPMIViqAohig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/aE3Kg9";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CGwLvwcP;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B82606A31E;
-	Tue, 27 Oct 2026 14:41:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4EC606A31B;
+	Tue, 27 Oct 2026 14:46:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A4EC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/aE3Kg9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A8B1F01825;
-	Tue, 27 Oct 2026 14:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793112105;
-	bh=Cxbcd97TigLbOc2nsbdYTtwGKr7cyQITuDlutqpOwp0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=F/aE3Kg94sj9fXVFeMOGEhnFPh7IPM73CFA/LmgAAZfItP5Nw7PY1j3LmhUrie3RF
-	 WWOkZE/CrqgRjQtrY5czn2Xyhnu7Jhr5cpxZIRN6ucwFL7953eyR9cc+xJIfYeqrtx
-	 x427FQ040+6sFoWm3ZQYEETyJqIrMT+OQrZXuAnXJaqqyPl1iBQjI9L2UIFGYkQFmj
-	 rXT+tzW5xd2XQNYXVDL7CnDknr0SBZMXfP2tLX56GVF5sYE25tWUnjur3LSUQsNAM/
-	 e9FZ57Wpnn2LjlHGFOu9V+hCx07zuXfQscJu7g4AtCiXI1sCKypZwCMKvsYpJoK5pk
-	 vtVZ2ljYGxZvA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  Johannes Weiner
- <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>,  Qi Zheng
- <qi.zheng@linux.dev>,  Shakeel Butt <shakeel.butt@linux.dev>,  Lorenzo
- Stoakes <ljs@kernel.org>,  Kairui Song <kasong@tencent.com>,  Barry Song
- <baohua@kernel.org>,  Axel Rasmussen <axelrasmussen@google.com>,  Yuanchu
- Xie <yuanchu@google.com>,  Wei Xu <weixugc@google.com>,  Baoquan He
- <baoquan.he@linux.dev>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
-  "Liam R. Howlett" <liam@infradead.org>,  Vlastimil Babka
- <vbabka@kernel.org>,  Mike Rapoport <rppt@kernel.org>,  Suren Baghdasaryan
- <surenb@google.com>,  Michal Hocko <mhocko@suse.com>,  Kees Cook
- <kees@kernel.org>,  Peter Zijlstra <peterz@infradead.org>,  Jann Horn
- <jannh@google.com>,  Pedro Falcato <pfalcato@suse.de>,  Hugh Dickins
- <hughd@google.com>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
- Yadav <pratyush@kernel.org>,  "Matthew Wilcox (Oracle)"
- <willy@infradead.org>,  Jan Kara <jack@suse.cz>,  Zi Yan <ziy@nvidia.com>,
-  Lance Yang <lance.yang@linux.dev>,  Rik van Riel <riel@surriel.com>,
-  Harry Yoo <harry@kernel.org>,  Alistair Popple <apopple@nvidia.com>,
-  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts <ryan.roberts@arm.com>,
-  Dev Jain <dev.jain@arm.com>,  Usama Arif <usama.arif@linux.dev>,  Kiryl
- Shutsemau <kas@kernel.org>,  Matthew Brost <matthew.brost@intel.com>,
-  John Hubbard <jhubbard@nvidia.com>,  Peter Xu <peterx@redhat.com>,  Will
- Deacon <will@kernel.org>,  "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-  Nick Piggin <npiggin@gmail.com>,  Oscar Salvador <osalvador@suse.de>,
-  Minchan Kim <minchan@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
-  Xu Xin <xu.xin@linux.dev>,  Chengming Zhou <chengming.zhou@linux.dev>,
-  Chris Li <chrisl@kernel.org>,  Kemeng Shi <shikemeng@huaweicloud.com>,
-  Nhat Pham <nphamcs@gmail.com>,  Youngjun Park <youngjun.park@lge.com>,
-  Gregory Price <gourry@gourry.net>,  Joshua Hahn
- <joshua.hahnjy@gmail.com>,  Rakie Kim <rakie.kim@sk.com>,  Ying Huang
- <ying.huang@linux.alibaba.com>,  Jason Gunthorpe <jgg@ziepe.ca>,
-  linux-mm@kvack.org,  linux-kernel@vger.kernel.org,
-  kexec@lists.infradead.org,  linux-fsdevel@vger.kernel.org,
-  linux-arch@vger.kernel.org,  linux-cxl@vger.kernel.org,
-  stable@vger.kernel.org,  Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 03/46] mm/memfd: check for real shmem inodes before
- accessing shmem state
-In-Reply-To: <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org> (David
-	Hildenbrand's message of "Tue, 27 Oct 2026 00:17:23 +0100")
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-	<20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
-Date: Tue, 27 Oct 2026 15:41:34 +0100
-Message-ID: <2vxzh5i7p5nl.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CGwLvwcP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793112385; x=1824648385;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gMQLtPPJ2JHiqxtyX+cp5DoM6/NIF/m1eiqWp4AjPs8=;
+  b=CGwLvwcPz6RI3pyk+Mj21aFENE7JyDEqgPF5/6jyMyJgfWcbzfjVl2JB
+   RztYv8WBV0kh0kdCEz3av1Vk6nqFe/BEXnfF58wLy2qvFcA+YifWJWq4b
+   WBfdv1L9aQx8UC/VGmvbf5rN43R1AusdHWvh9Ae8vp/V/tA1ibVfhBY/E
+   mBWl/1G+DQIHTWb632JCQShIspq/rjyh2ZnhtnNF7Hg5jJDlskhLNoYOo
+   CTKnVebK8IKpndBSi+UARIyGdfHHa49RIPFerl7egAPz/qICbdKJuSaCN
+   S6yB3PdyuW12m0v0A1tGJ4mV3Gk+RDOGc/qx2mw/OHzQTJYZV1rgqGjEa
+   A==;
+X-CSE-ConnectionGUID: +DdlmM44QfiPecPLXMuThw==
+X-CSE-MsgGUID: Tms5wl0mTDCPpWd2lDPmzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1700278"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1700278"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:46:23 -0700
+X-CSE-ConnectionGUID: cZDerJIdRniypspQP79I/g==
+X-CSE-MsgGUID: DYQzslGQRaaARrm1oqqX7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4960476"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:46:22 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	stable@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH] ASoC: hdac_hda: Keep runtime PM state in sync across codec remove/probe
+Date: Tue, 27 Oct 2026 16:46:55 +0200
+Message-ID: <20261027144655.31988-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,121 +82,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Hi David,
+After the codec has been removed, its runtime PM status is
+RPM_SUSPENDED while hdac_hda_codec_probe() powers the codec up via
+snd_hda_codec_device_new(). The pm_runtime_put()/snd_hda_power_down()
+calls on probe and registration then see an already suspended device,
+the codec suspend callback is not called and the codec, its HDA link and
+the codec_powered bit stay set, preventing the controller from runtime
+suspending.
 
-On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
+The remove has a similar problem with the codec link accounting:
+hdac_hda_codec_remove() drops the link reference taken in probe without
+looking at the runtime PM state of the codec. If the codec was already
+runtime suspended, the link reference has been dropped by the codec
+suspend callback and the remove drops it a second time.
 
-> shmem_file() only checks a file's backing mapping. That mapping can belong
-> to another file, as with a Coda file backed by a tmpfs container after
-> mmap(). It does not establish that file_inode(file) is a shmem inode.
->
-> Seal handling and memfd preservation use this check before accessing
-> shmem inode state, so they can access an inode of the wrong type.
->
-> Add file_inode_is_shmem() to check the inode's file operations in both
-> paths. This identifies regular shmem inodes, including those used by
-> memfds and ordinary tmpfs files, independently of wrapper file operations.
+Resume the codec in hdac_hda_codec_remove() before disabling runtime PM
+so that the link reference and the codec_powered bit are always in the
+same state as after the probe, and mark the device active on probe once
+the codec has been powered up.
 
-Why not update shmem_file() to do this check instead? Having a
-shmem_file() that might not always return the right result on a file
-seems like a landmine.
+Finally mark the codec device suspended at the end of the remove. Its
+runtime PM is disabled at this point and if only the ASoC card is
+unbound (e.g. by unbinding the machine driver), a following system
+suspend would otherwise call the runtime suspend callback on the already
+cleaned up codec via pm_runtime_force_suspend().
 
-For example, you missed check_memfd_seals() in udmabuf or
-memfd_pin_folios() in gup. Plus, someone later down the line might use
-shmem_file() without knowing this subtle problem, and we probably would
-miss it in review.
+This is a followup patch to address Sashiko reports.
 
-For callers that only care about the mapping should then use
-shmem_mapping(). Perhaps that would be collapse_file() but TBH I don't
-really understand khugepaged all that much. All other callers of
-shmem_file() seem to care about the actual inode.
+Link: https://lore.kernel.org/linux-sound/20261027083840.28813-4-peter.ujfalusi@linux.intel.com/
+Fixes: c3ec8ac82105 ("ASoC: hdac_hda: fix memleak on module unload")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+Hi,
 
->
-> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  include/linux/shmem_fs.h | 6 ++++++
->  mm/memfd.c               | 8 +++++---
->  mm/memfd_luo.c           | 2 +-
->  mm/shmem.c               | 5 +++++
->  4 files changed, 17 insertions(+), 4 deletions(-)
->
-> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-> index a7c7a96a7cbf9..2ceca7993e4f5 100644
-> --- a/include/linux/shmem_fs.h
-> +++ b/include/linux/shmem_fs.h
-> @@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
->  		unsigned long len, unsigned long pgoff, unsigned long flags);
->  extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
->  #ifdef CONFIG_SHMEM
-> +bool file_inode_is_shmem(const struct inode *inode);
->  bool shmem_mapping(const struct address_space *mapping);
->  #else
-> +static inline bool file_inode_is_shmem(const struct inode *inode)
-> +{
-> +	return false;
-> +}
-> +
->  static inline bool shmem_mapping(const struct address_space *mapping)
->  {
->  	return false;
-> diff --git a/mm/memfd.c b/mm/memfd.c
-> index 0f6fff004f5e4..7d2da23157003 100644
-> --- a/mm/memfd.c
-> +++ b/mm/memfd.c
-> @@ -211,12 +211,14 @@ static int memfd_wait_for_pins(struct address_space *mapping)
->  
->  static unsigned int *memfd_file_seals_ptr(struct file *file)
->  {
-> -	if (shmem_file(file))
-> -		return &SHMEM_I(file_inode(file))->seals;
-> +	struct inode *inode = file_inode(file);
-> +
-> +	if (file_inode_is_shmem(inode))
-> +		return &SHMEM_I(inode)->seals;
->  
->  #ifdef CONFIG_HUGETLBFS
->  	if (is_file_hugepages(file))
-> -		return &HUGETLBFS_I(file_inode(file))->seals;
-> +		return &HUGETLBFS_I(inode)->seals;
->  #endif
->  
->  	return NULL;
-> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-> index 59de210bee5f9..c0811407ce397 100644
-> --- a/mm/memfd_luo.c
-> +++ b/mm/memfd_luo.c
-> @@ -582,7 +582,7 @@ static bool memfd_luo_can_preserve(struct liveupdate_file_handler *handler,
->  {
->  	struct inode *inode = file_inode(file);
->  
-> -	return shmem_file(file) && !inode->i_nlink;
-> +	return file_inode_is_shmem(inode) && !inode->i_nlink;
->  }
->  
->  static unsigned long memfd_luo_get_id(struct file *file)
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index fadf23f9e21ed..0d41aac125df9 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -275,6 +275,11 @@ static const struct vm_operations_struct shmem_vm_ops;
->  static const struct vm_operations_struct shmem_anon_vm_ops;
->  static struct file_system_type shmem_fs_type;
->  
-> +bool file_inode_is_shmem(const struct inode *inode)
-> +{
-> +	return inode->i_fop == &shmem_file_operations;
-> +}
-> +
->  bool shmem_mapping(const struct address_space *mapping)
->  {
->  	return mapping->a_ops == &shmem_aops;
+this is an incremental update for
+https://lore.kernel.org/linux-sound/20261027083840.28813-4-peter.ujfalusi@linux.intel.com/
 
--- 
+to address Sashiko concerns and validated again on hardware.
+
+I think this is the first time the unbind/bind was used for the HDA codec
+with SOF stack, so the real world impact is low, but never the less, it has
+been broken eversince hdac_hda is used.
+
 Regards,
-Pratyush Yadav
+Peter 
+
+ sound/soc/codecs/hdac_hda.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index bd4b113401a8..48eb95973b7a 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -514,6 +514,9 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 		snd_hdac_display_power(hdev->bus,
+ 				       HDA_CODEC_IDX_CONTROLLER, false);
+ 
++	/* The codec is in D0, the status is RPM_SUSPENDED after a previous unbind */
++	pm_runtime_set_active(&hdev->dev);
++
+ 	/* match for forbid call in snd_hda_codec_device_new() */
+ 	pm_runtime_allow(&hdev->dev);
+ 
+@@ -554,6 +557,12 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+ 		return;
+ 	}
+ 
++	/*
++	 * Resume the codec to have its link reference (dropped below) and
++	 * codec_powered bit in the same state as after the probe.
++	 */
++	pm_runtime_get_sync(&hdev->dev);
++
+ 	/* prevent runtime PM callbacks while the link and the codec are torn down */
+ 	pm_runtime_disable(&hdev->dev);
+ 	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
+@@ -565,6 +574,9 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+ 
+ 	/* Balances the disable above, cleanup_for_unbind keeps runtime PM disabled */
+ 	pm_runtime_enable(&hdev->dev);
++	pm_runtime_put_noidle(&hdev->dev);
++	/* The codec is cleaned up, system suspend must skip it from now on */
++	pm_runtime_set_suspended(&hdev->dev);
+ }
+ 
+ static const struct snd_soc_dapm_route hdac_hda_dapm_routes[] = {
+-- 
+2.56.0
+
