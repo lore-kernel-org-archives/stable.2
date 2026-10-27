@@ -1,49 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793070874;
-	b=hBm4w9lRK33MQN1lUAzw38CjyAcHxYrvKPGFqxFkG3XAnR2ub1RCtgCC3/eQDGG1M8/z
-	 GG2MX/Jb+YTwKoMdJ0nD9nmKFyplHvoV/3wfNLfxcoTy/dqGN18dQRgVa6IqJ9W3FlgsY
-	 CuVjF+jF76pe7zioYDlDYbieqGAOFQKfV/lMWHVGlHdt91vNe/24y1CXb1JjuwipuxUyO
-	 6MDJfTdq9szc+98GmgEGD03J+YGF7QXMUPHBwY520tLvRkt/zqY5jDruohtgl0NjpQYLo
-	 FxMDtIDHYzTBncC8/TjSxDXLtDNDYikrLyOeNYg9ZF5fq6ZrckO76jdCLGED1GmbGvw==
+	t=1793070961;
+	b=GNLFmbzLjo8DslfeMuJEAFHDxcWyZpK21Lt+/Rrpbh70pqRqHnNJkq6QpOD5YSChR82q
+	 894A9xjZD4rdgicEdXU5lvY16rHv1U4zXrjz2aHM2Vx3NvzCFQzYxGS9640PMdSNsdDX1
+	 l1ZUukrJ0EpiOFawD3f5SNBBkjXbWrgB0NdhAZAfOO9M+1CxIZc4jQcJDuMmEk5H+/u3V
+	 vyGvloMXX3P6NsokSCDvnVw+zLRO55RpCOL1rgJprAWBGGhdaS0ATfpQTLwbNWF4Ij1AT
+	 mNF9wHasC7TLVuiLpa+clarPS2oeLonjkaRTAAUqMJG+QVMHKdZUcv0EcRYeN/OLpGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793070874;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=4iUhOsMtYZqyoy383Nq9ZumsgU2FDeni2SDa+RtJWZc=;
-	b=FZ32nGv2c5g/WnqREHwuyxidigxW3Zz3xTjcAJepf+s+JU+lOxY9pB+pUrPb0N5cVZkU
-	 sFSddChIyWU4hBvN0dwU5L6nn3AGJ1PFpwbeAB2UpnrZKBtTEaXjU4+IDkJojuj14e09b
-	 rM8w9npPAIOPjBAS5zWEWrJvLbbQE2E1vU276XG4B1vKxZgLeKeZM3S5xwnEBt3OCbNAv
-	 xmXuo5s+XBEPZXagny5KqJAlc6BAm5iVLfOl/7h/oST2zto/upVty0nFjtqV0peR8aSZf
-	 Zf8XPtoN9OVkpsjWPQFlLo3T8cGX4QmfjOjyeovKNCFqMw2I2/f/in/KHi7a6tT3O/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070961;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=vcMzYXM5+gaf2CTPQI0XuREV4OxjZWsWUv3S0ZwqH8I=;
+	b=Fym3KfWSBR6eRvrIVmkH44d7S9L59IWZb4koyxu3729IrlvT72RQfWUo6ij0K7LKDlHU
+	 bgQVrTMGdf338wlXjBEcH7q9ulQd3/QfH6WaV2AdnbHlBc7UNrUxQ/27F8eMP1MLKyGN7
+	 63w3ZfBUpwmRuk+4AhVyuEVulpcGVSofr7UqXypY4NqpI0UW/0QVhigO2SLZWRikcq618
+	 EIrFFugJ8Psl9rSbwebzVPTkOqok9lLZdcql6LYZ+a4pzhUxtbb+hNFul07B8GXkETkGG
+	 Pvyupm79GwxB03lG/2yh/8CnsXwpnNgpUCeEcJ8HD6bW9NqjmwcXzwnGmfRYS3SggeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="UEusca/2";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Pidx7iDA;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA937606A31A;
-	Tue, 27 Oct 2026 03:14:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7C8606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:16:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C7C8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=UEusca/2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9211F01825;
-	Tue, 27 Oct 2026 03:14:33 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Pidx7iDA
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so1209079a12.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:16:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793070960; x=1793675760;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vcMzYXM5+gaf2CTPQI0XuREV4OxjZWsWUv3S0ZwqH8I=;
+        b=0nf+8Qd9uMThT3z85GLAwtGMbmaTfIQjKypQG5vO2lVW9Bs+yjJwq9WeRq2cnxCv5L
+         2++EZKdMuLiBgY/UVU3VWhOyCClZtDG0rp7Q4XeJMlEs4SBW91dZj33TGk+/qSH+JFzp
+         8amzPnaUeyWubSrhGShUIrYE64omyUx3F3/7CXPzJfrd4zNjWSu5TARGBTJtUTlGuEG+
+         5ATgahl8tdV32sxTgy9YSbUj8TGga6KyPd0lcWtQ/Eljuhv/eqDpt2QUfbcPUNZruBuA
+         Gnwj3y3KJ9nENwRUnHKrhPw0U6zUWgtoMEXA06VK83+BYgwmWEl03wcrmKVfwsaF1Yuu
+         ilMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxLpItu6nokfneuhLA9D++dUqxRLpsUE4wW8xfJ5i5oPDJzbxTAi3uU/FHwXnVBERTIkVoohJ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnQVLTpVBK3Odh5MwUyT2d7X4aaC2JphtLjBsSF76GAhOFgWGK
+	mBxXXRXC9RQ/gNHV0TPXuswSPuM/iQNFIxXSYfLJUJvmHLGkLHay0o1OeNPEM1iWoUVVPerIH/c
+	GLo0xAZ8qqxo9EqwMan1hSQ8WB63KynPrsemxkZATznFgqax5u57gnKRZROMwcQYr4YT9mFZojv
+	Di9geaRskdcGIOpMAutRCDAwMjKsQLAKqfuXqXZMS2xO6/VbksR904L/1NQ9/irD3NyJrt/+IBK
+	qkcEErN
+X-Gm-Gg: AYBFou2vImeTKGJjiaS3LdBr+WxpZeAUG1qHJRy41R49KyL69AUp5UtvTJjhEfeJjDY
+	llkeBduCU4wmmuUyqjyE4wkffHLlzFjErbG67jxe68bh1MU/QmNyy9kluSya91gsSaIuzdAIaVy
+	bmqfKcPOicx0aaQwRlLiM6HatsvfwhlBaB5TYc0++Qbt7FfM/p4g/tpOU5gnRql1NTB3RfZxeA4
+	Rra3+QgeawLbOJw2Ekialvav23tb6ryJraceBi7qzgQzi9BqaEPkx6v4Jk2TMUlkOrgxYs7JxtI
+	Fal8hIWdLL+1HcQV5WGKlgR2B85PyzSlVMSEJHBFoN2ajmEV+Sgs6AdSdMmZmRMyzt3OBmUOawe
+	YNvaeInUchX6ZJTu1szBLbPWEQzyoWBl+cPiDLYKl1dn5Z/LUTbxPmeR5UgW4/Grd3WQrRpv0XA
+	+wuq7AnwxI8z8fRoQN6I0JQZcjqonjr0NB
+X-Received: by 2002:a17:90b:568f:b0:3a7:e11c:4e6e with SMTP id 98e67ed59e1d1-3adeae83450mr7073583a91.59.1793070959761;
+        Mon, 26 Oct 2026 20:15:59 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae406dc8fbsm1105368a91.1.2026.10.26.20.15.59
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 20:15:59 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b8306ba68so94975646d6.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:15:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793070873;
-	bh=4iUhOsMtYZqyoy383Nq9ZumsgU2FDeni2SDa+RtJWZc=;
-	h=Date:To:From:Subject;
-	b=UEusca/2/rdABrzzxCMbB+KDKqfo+dW7+B9/Moe6+WNJ8gxpfEQ1yhFezIBaeICqd
-	 SLxatyXORllNDvnW3SnBNnI/dkdpuNTakMxuDy7WNGlt8JFBV4yh0RjfQmVI0+su5D
-	 OArN7zh80+fMs1yOPQEhkmawP2/eSyR2Bmh/00iU=
-Date: Mon, 26 Oct 2026 20:14:32 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,rppt@kernel.org,qi.zheng@linux.dev,pfalcato@suse.de,
-	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jack@suse.cz,
-	david@kernel.org,ayushr@modal.com,baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-memory-fix-truncation-removing-mapped-folios.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261027031433.1D9211F01825@smtp.kernel.org>
+        d=broadcom.com; s=google; t=1793070958; x=1793675758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vcMzYXM5+gaf2CTPQI0XuREV4OxjZWsWUv3S0ZwqH8I=;
+        b=Pidx7iDA5crppEtrIodklSeTGYkvj/lMWQzyLInaU6iTXqiG9moZ9fo13wwe9TaxiV
+         UMwp8M5t83puoPDc/Q6SyOWN2cPHLhN7s/w6xTYsAWTednYeCkxH5edXKAWi4HE/V9uU
+         hwOItFKhSFcQ0BdBwQXI+/nQJCPDqTfFbX7CY=
+X-Forwarded-Encrypted: i=1; AKwUvBy0Ic29qMs/aTlIEoM5HkBaVTA7UucICaNBTlMRI8TthibeXrSdCPFmxl2DBlm8SgmWo6dDrwo=@vger.kernel.org
+X-Received: by 2002:a05:6214:4888:b0:91c:6c93:4482 with SMTP id 6a1803df08f44-91c6c934827mr36407616d6.23.1793070958400;
+        Mon, 26 Oct 2026 20:15:58 -0700 (PDT)
+X-Received: by 2002:a05:6214:4888:b0:91c:6c93:4482 with SMTP id 6a1803df08f44-91c6c934827mr36407406d6.23.1793070957857;
+        Mon, 26 Oct 2026 20:15:57 -0700 (PDT)
+Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a69853sm90478946d6.6.2026.10.26.20.15.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 20:15:57 -0700 (PDT)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: dri-devel@lists.freedesktop.org
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	ian.forbes@broadcom.com,
+	maaz.mombasawala@broadcom.com,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	stable@vger.kernel.org,
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Subject: [PATCH v2] drm/vmwgfx: validate backup buffer size in command buffer processing
+Date: Mon, 26 Oct 2026 23:15:33 -0400
+Message-ID: <20261027031533.2241918-1-zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,210 +111,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+vmw_cmd_res_switch_backup lets userspace bind an arbitrary MOB to a
+resource without checking that the MOB is large enough for the resource's
+guest_memory_size. The dirty-tracking bitmap is allocated based on the
+MOB size, but later accessed using the (larger) surface size, causing an
+out-of-bounds write in the bitmap that corrupts adjacent slab memory.
 
-The patch titled
-     Subject: mm: memory: fix truncation removing mapped folios
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-memory-fix-truncation-removing-mapped-folios.patch
+Add a check that backup_offset + res->guest_memory_size does not exceed
+the buffer size before allowing the backup switch.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memory-fix-truncation-removing-mapped-folios.patch
+DX shaders and stream outputs never set guest_memory_size, and both were
+allocated with kmalloc(), so the check would read uninitialized memory for
+SVGA_3D_CMD_DX_BIND_SHADER and SVGA_3D_CMD_DX_BIND_STREAMOUTPUT and could
+reject valid binds. Allocate both with kzalloc() so their
+guest_memory_size is 0 and the check only bounds the offset.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: mm: memory: fix truncation removing mapped folios
-Date: Tue, 27 Oct 2026 10:19:19 +0800
-
-Ayush reported an issue that shmem/tmpfs folios are still mapped when
-truncating them on production:
-"
-BUG: Bad page cache in process ...  pfn:...
-page dumped because: still mapped when deleted
-"
-
-I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
-branch, and I got the following crash info. From the dump message, we can
-see that truncate_inode_folio() is really trying to remove mapped folios,
-which is incorrect.
-
-"
-[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
-index:0x3880 pfn:0x191647
-[  189.171995] memcg:ffff0000cc073d40
-[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
-[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
-workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
-.......
-[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
-[  189.172026] ------------[ cut here ]------------
-[  189.172027] kernel BUG at mm/filemap.c:155!
-[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-.......
-[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
-7.3.0-rc4+ #277 PREEMPT(lazy)
-.......
-[  189.183986] Call trace:
-[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
-[  189.184391]  __filemap_remove_folio+0x34/0x160
-[  189.184633]  filemap_remove_folio+0x4c/0xb0
-[  189.184859]  truncate_inode_folio+0x34/0x58
-[  189.185087]  shmem_undo_range+0x220/0x658
-[  189.185308]  shmem_fallocate+0x2f0/0x470
-[  189.185527]  vfs_fallocate+0x128/0x328
-......
-[  189.187078]  el0t_64_sync+0x184/0x188
-"
-
-After analysis, I believe the race exists between truncation and MADV_DONTNEED,
-and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
-MADV_DONTNEED synchronously releases the pagetable page before calling
-tlb_flush_rmaps(), this could cause another thread's truncation to skip
-zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
-as non-zero. A possible race scenario is as follows:
-
-CPU 0                           CPU 1
-shmem_fallocate                 madvise_dontneed_single_vma
-  unmap_mapping_range            .......
-  ......
-  (filemap_map_pages() remap folios)
-				  zap_pte_range
-  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
-    unmap_mapping_folio
-    ......
-      zap_pmd_range (saw pmd none, skip)
-
-  filemap_remove_folio
-    BUG_ON(folio_mapped)
-                                    tlb_flush_rmaps(remove rmaps)
-
-To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
-to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
-concurrent zapping, so that when we find a pmd_none() while unmapping a folio
-without holding the PTL, the folio's mappings are guaranteed to have been
-removed via tlb_flush_rmaps().
-
-Link: https://lore.kernel.org/d7f009c90b11ded86654885b5ebcb8c9308fa31a.1793067441.git.baolin.wang@linux.alibaba.com
-Link: https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/ [1]
-Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Ayush Ranjan <ayushr@modal.com>
-Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jan Kara <jack@suse.cz>
-Cc: <stable@vger.kernel.org>
+Fixes: a97e21923b42 ("drm/vmwgfx: Hook up guest-backed surfaces")
+Cc: stable@vger.kernel.org
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-34068
+Closes: https://lore.kernel.org/all/BYAPR01MB38301CFC012E873340F77E3D80662@BYAPR01MB3830.prod.exchangelabs.com/
+Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c      | 8 ++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c       | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c | 2 +-
+ 3 files changed, 10 insertions(+), 2 deletions(-)
 
- mm/internal.h |   10 ++++++----
- mm/memory.c   |   30 +++++++++++++++---------------
- 2 files changed, 21 insertions(+), 19 deletions(-)
-
---- a/mm/internal.h~mm-memory-fix-truncation-removing-mapped-folios
-+++ a/mm/internal.h
-@@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tl
- void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index a9136a6523cb..0156aee84c9f 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -1718,6 +1718,7 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
+ {
+ 	struct vmw_bo *vbo;
+ 	void *info;
++	u64 end;
+ 	int ret;
  
- /**
-- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
-+ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
-  * @mm: The mm_struct.
-  * @pmdp: Pointer to the pmd that was found to be pmd_none().
-  *
-  * When we find a pmd_none() while unmapping a folio without holding the PTL,
-- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
-- * indicate that it's unmapped. Skipping the PMD without synchronization could
-- * make folio unmapping code assume that unmapping failed.
-+ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
-+ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
-+ * for the table have been removed, but nothing orders the pmd_none() read
-+ * against later mapcount reads. Skipping the PMD without synchronization
-+ * could make folio unmapping code assume that unmapping failed.
-  *
-  * Wait for concurrent zapping to complete by grabbing the PTL.
-  */
---- a/mm/memory.c~mm-memory-fix-truncation-removing-mapped-folios
-+++ a/mm/memory.c
-@@ -2073,6 +2073,15 @@ retry:
- 		}
- 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+ 	info = vmw_execbuf_info_from_res(sw_context, res);
+@@ -1728,6 +1729,13 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
+ 	if (ret)
+ 		return ret;
  
-+	add_mm_rss_vec(mm, rss);
-+	lazy_mmu_mode_disable();
-+
-+	/* Do the actual TLB flush before dropping ptl */
-+	if (force_flush) {
-+		tlb_flush_mmu_tlbonly(tlb);
-+		tlb_flush_rmaps(tlb, vma);
++	if (check_add_overflow((u64)backup_offset,
++			       (u64)res->guest_memory_size, &end) ||
++	    end > vbo->tbo.base.size) {
++		VMW_DEBUG_USER("Backup buffer too small for resource.\n");
++		return -EINVAL;
 +	}
 +
- 	/*
- 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
- 	 *
-@@ -2080,18 +2089,12 @@ retry:
- 	 * to hold the pmd lock failed, then we need to recheck all pte entries
- 	 * to ensure they are still none, thereby preventing the pte entries
- 	 * from being repopulated by another thread.
-+	 *
-+	 * Clear the PMD after the rmaps for the table have been removed, in case
-+	 * an incorrect mapcount is observed after unmapping the folio.
- 	 */
- 	if (can_reclaim_pt && direct_reclaim && addr == end)
- 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
--
--	add_mm_rss_vec(mm, rss);
--	lazy_mmu_mode_disable();
--
--	/* Do the actual TLB flush before dropping ptl */
--	if (force_flush) {
--		tlb_flush_mmu_tlbonly(tlb);
--		tlb_flush_rmaps(tlb, vma);
--	}
- 	pte_unmap_unlock(start_pte, ptl);
+ 	vmw_validation_res_switch_backup(sw_context->ctx, info, vbo,
+ 					 backup_offset);
+ 	return 0;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c b/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+index 39811cf19db1..033157efb1fc 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+@@ -597,7 +597,7 @@ int vmw_dx_shader_add(struct vmw_cmdbuf_res_manager *man,
+ 	if (!vmw_shader_id_ok(user_key, shader_type))
+ 		return -EINVAL;
  
- 	/*
-@@ -2139,12 +2142,9 @@ static inline unsigned long zap_pmd_rang
- 				continue;
- 			}
- 			/* fall through */
--		} else if (details && details->single_folio &&
--			   folio_test_pmd_mappable(details->single_folio) &&
--			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--			sync_with_folio_pmd_zap(tlb->mm, pmd);
--		}
--		if (pmd_none(*pmd)) {
-+		} else if (pmd_none(*pmd)) {
-+			if (details && details->single_folio)
-+				sync_with_folio_pmd_zap(tlb->mm, pmd);
- 			addr = next;
- 			continue;
- 		}
-_
+-	shader = kmalloc_obj(*shader);
++	shader = kzalloc_obj(*shader);
+ 	if (!shader) {
+ 		return -ENOMEM;
+ 	}
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c b/drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c
+index 52c6cfa163da..34d5b71fa42f 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c
+@@ -284,7 +284,7 @@ int vmw_dx_streamoutput_add(struct vmw_cmdbuf_res_manager *man,
+ 	struct vmw_private *dev_priv = ctx->dev_priv;
+ 	int ret;
+ 
+-	so = kmalloc_obj(*so);
++	so = kzalloc_obj(*so);
+ 	if (!so) {
+ 		return -ENOMEM;
+ 	}
 
-Patches currently in -mm which might be from baolin.wang@linux.alibaba.com are
-
-mm-memory-fix-truncation-removing-mapped-folios.patch
+base-commit: 8ef66514d7b993c9fb96a5886f001e3556610c1c
+-- 
+2.53.0
 
