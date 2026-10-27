@@ -1,51 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139724;
-	b=WzNj31FOA6KeQhvtlMFJMfSlgl9YsDRm24za8X4QgWKPFs7O9KWvL0M/DKSm2guIWsv3
-	 acZfnNkrCtmD3/FV4vo0yyA3SiXKP5giV0PYxQUZD0D7PjVfPWQMNDSIgH17vHMJZxJvq
-	 IUVuMp+y73haz1cjsX0mWEJ1wf4D1nGZ6Fxl9ED+5bqNlTGM3MZ8xmaqz1ad5D8ZT7UGC
-	 ODTkKONhtBvzKEQCEud0Eg0RelBWq1LMdOYM8YWjENQzI0cDRYfjRKDax4g8QhGcNfAfC
-	 v8AHdeoRbpkgGcRuZWWiJ0J/SiOuaPbswXsh9yDIJeUCDwiRYqwqKyZVclV+pQenGng==
+	t=1793141523;
+	b=2Y86uZgFc6UsFH2NFu03j5y+4OyQUrbo41PuFgRHe+F4nXEpjpxudPPbQfBOryx1zRYv
+	 hWI3rRcagVQ7Vx8H+loHzv2Kym44AACFZWbxSV8hrxvEzM3UUMcRRxocXb1wfALz0tnNI
+	 fqPcm1C+r9tM9UieSyS9UZV8rYD5E1JH8k6t6d0xl+Y6LYoAqgm2w5wikP3mu8QtOF20P
+	 CfrW9nvHV0OMV2gfQciYspW/grlLyLukrcvfxBVfOUpE9CY02801yvD4G2Uua2JeSr5YB
+	 3wDZjI/mA04yeYgglDd2QZVwijkhchOxV4XPgdEjjuVyE7YNJ7ptYCEUg1ipaDNgWmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139724;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:
-	 Cc:From:Subject:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Info-Out:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-JNJ;
-	bh=9HJ62GiGTy/gw8NufnOvKlJLBVkRKKV7d6QpXBkvd7E=;
-	b=YA3SPwisXVe0T6M1O18tZH0yOYl2F03CNDzAzkZwd+tGHBP3zMTiHV2oa9M5E5GMLA0p
-	 2D3bRoBtEwEvr2tDNT4cAkulwm4Lj3YrmLMJWBt43Furdhs6Kaqd+fKvBfvm/Q4DLgvsV
-	 BCceYphfa8MPgMGSNxL6M8dG2SPFgtgYw3JvVcH41IEHjd9Y4Vy+7r/fOPJskTip8YeDn
-	 4fENz2Ln9VaZYiXqma+9jtcz4uAGvVDEzLv8y/BNtPKV9sQ5QbNLY2E6FQHaQVXguH80s
-	 6TQo07MA7rRStsmjLDLKrj6CZ2aRn9dShOpYYW1hIwIF78UM45hopL2L4DdXxuZde+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141523;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9nLhzNnuR7rMVo3Esh8395rEk4roZFjv/lWnMw/Mzgw=;
+	b=4MdX2rmWyRZ7JH38SlhUW06Eu0+Tx/vXIFjPDEeU12bgzxcv39mqpLXV0UBHUUs0k0ii
+	 fnj7MTcPo+BvSSdrWQoxRdCTs/nTc097SBUw7QQAjichPSoG7bxnXvDR8UxXdx3NKwqRq
+	 fkj8qeQ31Zpv894UoT8nU7a9b6LKTm0i859mVbjpx8OrQVuf8qjRApUt+hSIeCY+463/X
+	 H1h19WiPkusUPT4qOZHg8pg1KGPr9B9s4kk12L5AxEtpY8qnPi68IxNT2OLpzSXpcKNbR
+	 RCojg8X6+4BkykJoV5HddHwuFWihZJQWSp7sCkueOb/QiRTp/I+16ZrvQvodPZMOJZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GYg0Zs0o;
-	arc=none smtp.remote-ip=57.103.74.231
-Received: from outbound.ms.icloud.com (ms-2004l-snip4-11.eps.apple.com [57.103.74.231])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+IpKiM9;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8C6606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:22:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B8C6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DDE606A31E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49DDE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GYg0Zs0o
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-100-percent-7 (Postfix) with ESMTPS id 6262F18000A6;
-	Tue, 27 Oct 2026 22:22:01 +0000 (UTC)
-X-ICL-RepId: 01a17f74-c466-7522-87aa-3ffceb447af1
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhNC0MDXBxCC0AdXwddEhVdRVAfXhhGGVgWHQ5WGEYVVRRSA1grWxNVF0YJGQhdHRkeV1BeCF4fTBwdDlgGEgJaRQZNXw5eHwQXRhlVBEceXVZeHhkCURxWDVdDVARfUEkMQVBsWgBHF0gdXRlZb1BdHA4EVAddBV1WUAJaS18ZXUUPDA9fVBUOGgZAVQoLQBRMVlgGRlMWWhseWANTVEhbSwNcD1tQMFAbXwJCDxwTVhUNTUMSQhUEEVABWB5W
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793139722; x=1824675722; bh=9HJ62GiGTy/gw8NufnOvKlJLBVkRKKV7d6QpXBkvd7E=; h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type:x-icloud-hme; b=GYg0Zs0oxKfswLL50Dy9wQUyFJ9eaTegkAUgGtb6IAO5Z/9RKwUp/1aIXAMdJ5Nn67V1xzqJt9yumqI/vPn9XZqipoeFJRTHA+nb/F8hgi+LbW6+qRNRD8KNAvoTfo7NCZm7P7PWkAECUJHVzpe2qioByy6wt5gl9qpsf/kFiE0SweW8987dxXuLnoM0KskCNcozCeFJbyZfREP7W8HgMReAbdY7sewRUupDrL4daZcct8zVR2bNzPtm6PfIV1RdhF5cnaCdBFjC0ZAZbFYRvWGh/op4XUjeOXKXRpPvkn407L6t6KJjCku577QXuODnERi0X29nESGQnpLH9kg2EA==
-Received: from [192.168.1.50] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-100-percent-7 (Postfix) with ESMTPSA id 5196F180013C;
-	Tue, 27 Oct 2026 22:21:59 +0000 (UTC)
-Message-ID: <a84fe7b5-ba90-4e51-afcc-548f8b30180b@icloud.com>
-Date: Tue, 27 Oct 2026 23:21:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+IpKiM9
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab41538192so311989a91.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:52:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793141522; x=1793746322; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9nLhzNnuR7rMVo3Esh8395rEk4roZFjv/lWnMw/Mzgw=;
+        b=h+IpKiM9EJt2thLQz1fBkjo/WZpclRTehidHTaDMWs/2As2J1KRXkq5WjU7mWFvA6f
+         m+ETDsnZifKaqRyTJrVwxTJDB4rvr+WvlMqgB9CQpDZsnkPSEtaXUki5XL/ER0lEg/I6
+         7jeUBtEbST9g7e7iqOTug9MPf5PBwbqnJt6Ai2rqj0GNGcEMLFYZuxoMwSefCjD06X3b
+         I46MVsDVHmB+yhlFZaUkLkJMov+Bj5XmNkBoTc3uI617g8yxV7ZID6NiYhDmBIijL4/F
+         RSpIudgAxUs06IE2i4kne682u9l1XiM0c6JUWyy48dFyk7DdBR6zuOjW5UqnRPBHoUaw
+         ZLWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793141523; x=1793746323;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9nLhzNnuR7rMVo3Esh8395rEk4roZFjv/lWnMw/Mzgw=;
+        b=qmvKg4BxZ1I27asjba1/BWtOASLZ1uNo2i/hW6xyQO3MLiNbZoI/aOawMAmwtP//bA
+         nVxIF+osRmJ7jN5NBlD0CVYMwCeWCfFQ0XTtYU4yxwOhKRnGefnRaBmQyjAoC0DIsfD4
+         dLrZ7baQxFZvN6pWuyVshb0mIi1Dz6ASij6dNZ3RvrtjvCUTfhDfCA5gOx8Q81JtaSIW
+         7wfsz20ic0f4lDjfQ1oRJHNbPktTCjtZjgaLt3NUgls2h4U6UXbLv1X2dDHeMYnIsSvX
+         oPb5X5jmpFkTge2u4P9VoY2IeBXg7Oy53WFpJA/ku0M+0eE3nr8mZLEJVN+rjFYHV2pz
+         ygjA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+zx+RXZT2DGAcT7GMU89TfKs7qtnYd1N2FsqhtdpThsjrwaDssmFxq506kX6DMadkZ+oFczI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlA9l+JPP6GOG5v/flfJ9kYGk8V9KqXI2miroDFyXl6oNKaiZO
+	RY2vbcEaBCfqxEtHbWFqrXm6A5hKrIGVeVAGpyqMNW/Vm9/z06ZIKcT1
+X-Gm-Gg: AYBFou06uWgWtb/37I2WuVk4MBfieVoMt0tzSmky0kM072e6RnAzDzclLJ5n6/BCJeR
+	J1bGHr6sR2xFeagtHIuCrcbiE9MHJw92IO9jEeXUs7AX046l3hxbWxchh6tDHUAQSqW2hqS+MbF
+	/vbYJEbigTtl4L3a3ymCb7ClAJZdNCbYKzkc0gcQaK4qtbP5bw/Sg2wfBLtvkj5UokO7RWO1KLJ
+	HaqATrpckYsb/4S+K+b1Z+oO8hW4HaDn0+JfDbDar+RtY6yv7FxGApkt8/aDr3P7hv8KRb1kiht
+	nlGhDu0ho9EiXEd5icKHmk72FfX0dsrcu9lTnjM7Tz+v8GuhHmcXPN3NNDd4pLOglRi8FaQy7+Q
+	MD9ygLfYnZ0g5Zv6KWpxNiNuigcTq+Oe4TyIgJ1XQVb3qxA+CvjlT4YBAsCvUTHzZHWpb0J8rb4
+	KM0daHzbMHF5FNpOVdBvwS402BtVNWcqCTkMDQbnWIgYaurYXvPQ3YJY55ealBKK+nPAEWMgaVs
+	qo3XZI6n2ruU/M3oHtQQ5Wccx/7plw2ehXo+ctJE0YP3V10yjuu+8SmPyJzaJsJ/1kO8rbfCcfc
+	WTAPTbUgISO52GnOApr1n5w+zGxMf3csl8K05xSTesW6
+X-Received: by 2002:a17:90b:2745:b0:3ae:5572:c4e2 with SMTP id 98e67ed59e1d1-3ae58317899mr361987a91.57.1793141522593;
+        Tue, 27 Oct 2026 15:52:02 -0700 (PDT)
+Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a944acasm192658a91.7.2026.10.27.15.51.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 15:52:02 -0700 (PDT)
+From: Guoshuai Yang <yangguoshuai@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Guoshuai Yang <yangguoshuai@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] xfrm: esp: reset outer TCP GSO metadata on espintcp input
+Date: Wed, 28 Oct 2026 06:51:55 +0800
+Message-ID: <20261027225155.49607-1-yangguoshuai@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179308626642.3134.14988418944940808850@kernel.org>
+References: <20261023065311.65031-1-yangguoshuai@gmail.com> <179308626642.3134.14988418944940808850@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,114 +109,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: med.jebabli@gmail.com, tiwai@suse.de
-Cc: linux-sound@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org
-From: Cristian Castellano <cristian.castellano@icloud.com>
-Subject: [REGRESSION] ALSA: hda/tas2781: divide error on playback open after
- accepting V1 calibration data without CRC (Lenovo Yoga Pro 9 16IRP8)
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=SrOdKfO0 c=1 sm=1 tr=0 ts=6ae12409
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=x7bEGLp0ZPQA:10 a=eD1N5GnKAbQA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VfikHhr-D2iK5rlxiJcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA5MCBTYWx0ZWRfX8X/qb+UQpwhq
- 48wYsNv7WhrmnpP01REaPS4kYjvVJoAg6ZMb/XBsYpk30YpfGNnDTHHJfh6MyAB6u6UFmse6VPN
- 2OXNDPrYyHzt4Hk6wq8bdgWYuTD+BV9Xy75509siASZKscLGGut+iCoRLVz6gI3IWXtCRNo7y4H
- TsKcqE2cKSSmllR/oHsVzkMZpq9dc+9YQ9FpbtjPRc66nKwtvHSaWcJwoXjPIIs7pcIJ0aJDVSv
- PN+/FX9xgdYkatuBB36psEpy6Nb3+/uGufyKiVerzBUzWXCEo0J31z05Mfq243YNvrJ5WiACazx
- dtla8lbPm645QlxXlVCELwEdNKRDa55t6+j3s820XrVVrw00ts8rjk2eJ5U+AU=
-X-Proofpoint-GUID: zvmonwOqKB_Wd4m3Y7uZFogIyICaqb9Y
-X-Proofpoint-ORIG-GUID: zvmonwOqKB_Wd4m3Y7uZFogIyICaqb9Y
-X-JNJ: AAAAAAABqFK7fFSoe7rCT4ANnaHlhYTdBA0lRwtOCMx6VOTy/8iaEGvF/169W9N5AXD0na
- OXopY8FIA9LzETibOKNkitaouP8Qo2tEx4sXgXLlTPk8TUicADGZtWlhkGIHOWgIDSaLiD
- K11PIc1ZjvlxSSWVH7s9yImvCFx5sX3oTpiR9Vnh3g4sJaEC0C1nPRgOzBiw3imwEPxZu1
- 3SQVh4QkxYgqpl29Qf4h/zXsIoYrlxQzc2t+MA5y6OAHusAXghJBTJRvCB4gMhC9Nd1mpB
- 3FqdgnsneUXplnMoAHRAWqrZ1Nv1u5H9iYAmeKtqVUsoneudzbXqTZ6sbpXlGQE+cJmLQd
- QOGuWMVo7Dh0xfL6yu/bPlFXWeLdAHhSWdld7PBAXiyhrzrsrKxgV5u/VScKEFBNv59jPC
- 08uWUUD1xF4nmM2Y56YdzBT0VtPpGjqL6yFmG95thmnqpe/sJQpTmKjOldS98f7fCpSYnu
- sI7hv79YtVB/grpTZ6gfNDwZ9K7iWFNt8giDQ+zxSuVW44E/lHormsDhK2eEOZZyGTSPVt
- mVNUqaBWfvWRjVgyfOHw3sIcP5OELRLO3p80iegRYJla9JLfahRPGFlumIiLmXp910mDCi
- EbqnV0zELe//qWqQ0TOHq/oSkGNWLSzNYFnbiF5L1RNEqmULwkaVfLWfsERKHw+Y7Y8DE5
- JouC5lLQ9PnmZyi3YFGd1Dy/i7c+Xw9EjKpzmzozjDh824A0MTNYuv0AAiDgBRhghx6XQc
- /NPhwoC6nIU/jYPypy0eZfFv0eee5GVPeJx1teleTPf5g5i0nur4zmV54OrPGkBt//Qa7F
- AW8VuveUdp3YgNDc/6V4L2JpR0Kq3mK1RXAuCS5ByjLJUMjnwIhND72UATEG5swgZ+e5YD
- idAD1PFBvSJXb94E2xtvIzsn9QtFpvBTIh0SWhV1KzjNRSUPW45WQfSwh99uc0myxtUC4i
- itwWweSBsFU5LwcIFZVMTa7JzQWfjWTNa0FWVnLopCRtTSclVRUfGPbyLy7tRWNtb8Yd+R
- 6873Y59NjaPg2b3QNr6gHkXTNMdOjGabGxHAPkfH061OUJZ21oYXokTh+x7zb3cBdjhv9U
- r35EHens5QGW2f9UzU9M8NYWXG5k7ym9BHGcSMZ1NQIFn0j8zNn3ViYzBxN8L9VX13+yAw
- PS+E3s75syQMHGlM1TNXsJeGCmrgLY+YRocc3+wzRv2FUg+IgHRxXCd2kDBr1Ew5qqgDwP
- oS3FpyrB9q6AO/7Y1mwUHlqud+Z24WkdlyoPmbnM7Ny38+dT4ZU5ilYDR58Ta1JQ46A8A0
- v4Wqlkt1cTGwmmQ0xr9pc60EJpGgna3MUxKzky1ebI49xd9AEy0DETrAiUZw==
 
-Hello, since I updated to 7.2.11 (and then to 7.3), opening a playback stream on my Lenovo Yoga Pro 9
-16IRP8 (83BY, subsystem 17aa:3835, BIOS KVCN44WW) triggers a divide error in snd_soc_tas2781_fmwlib and audio stops working. 7.2.9 just works.
+On Tue, Oct 27, 2026 at 07:31:06AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Low]
+> Is enabling rx-gro-list enough on its own to reach this case?
+...
+> Could the commit message describe that topology? Could it also say that
+> this half of the fix depends on TCP fraglist GRO? That feature is much
+> newer than e27cca96cd68 from the Fixes: tag, so on stable trees without it
+> the pre-pass does nothing.
+>
+> [Severity: Medium]
+> Is there still a BUG_ON() at this point? In the tree this patch targets,
+> skb_segment() handles the condition like this:
+...
+> Could the commit message say which kernel the trace came from? Could it
+> also describe the behavior on the kernels this patch targets?
+>
+> [Severity: Medium]
+> Can fragp point at the ->next field of a member that is still shared when
+> this store happens?
+...
+> This relink pattern looks like it comes from ___pskb_trim(). That function
+> handles skb_shared() on every member before skipping any, so it never
+> writes through a shared predecessor. Would it be safer to privatize every
+> member walked so far, including the skipped ones, or to copy from the first
+> shared member onward the way skb_cow_data() does?
 
-The only tas2781 change between the two I found is:
-c1b708f712f5 ("ALSA: hda/tas2781: Accept V1 calibration data without CRC") (upstream 408249089c48).
+Thank you for the detailed review. All three points are valid:
 
-At boot the driver now logs:
+1. In esp_reset_espintcp_fraglist_gso(), skipping a shared predecessor
+   before checking skb_shared(frag) means a subsequent *fragp = frag store
+   would overwrite the shared predecessor's ->next pointer across both
+   clones. Unsharing every walked frag_list member first (as ___pskb_trim()
+   does) before checking SKB_GSO_FRAGLIST guarantees that fragp always
+   points into an unshared predecessor.
+2. In the commit message, I will clarify that the BUG_ON(!list_skb->head_frag)
+   oops trace was captured on a 6.12 LTS kernel, whereas on current mainline
+   kernels skb_segment() hits DEBUG_NET_WARN_ON_ONCE(1) and returns -EINVAL,
+   causing validate_xmit_skb() to drop the packet.
+3. I will also clarify the topology required for TCP fraglist GRO
+   (SKB_GSO_FRAGLIST) to reach esp_input() (e.g., rx-gro-list on a device in
+   an outer netns forwarded across veth into the netns hosting the espintcp
+   socket) and note that this pre-pass applies to kernels with TCP fraglist
+   GRO support.
 
-  tas2781-hda i2c-TIAS2781:00: tas2781_apply_calib: V1 data without CRC, accepting
+I will send a v4 with these updates.
 
-Before that commit the data was rejected and the amplifiers worked with
-default parameters. On this machine the CALI_DATA EFI variable
-(CALI_DATA-1f52d2a1-bb3a-457d-bc09-43a3f4310a92) contains two non-zero
-device entries followed by zeros, with TimeStamp and CRC zeroed:
-
-  0000000 07 00 00 00 5c c8 20 1d 28 b5 27 23 2a 79 42 16
-  0000016 f2 07 c5 00 00 00 e0 2e 01 f7 2a 1d 72 6f 1b 23
-  0000032 2a 41 4a 16 c4 0a c3 00 00 00 e0 2e 00 00 00 00
-  0000048 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  *
-  0000128 00 00 00 00
-
-(the first 4 bytes are the EFI attributes)
-
-Oops:
-
-  Oops: divide error: 0000 [#1] SMP NOPTI
-  CPU: 10 UID: 1000 PID: 1533 Comm: wireplumber Tainted: G        W  O        7.3.0-4-cachyos #1 PREEMPT(full)
-  Hardware name: LENOVO 83BY/LNVNB161216, BIOS KVCN44WW 03/05/2025
-  RIP: 0010:tasdevice_select_tuningprm_cfg+0x8c2/0xa90 [snd_soc_tas2781_fmwlib]
-  Code: 4c 89 f7 41 b8 04 00 00 00 2e 2e 2e 41 ff d3 85 c0 0f 88 97 01 00 00 48 8b 4c 24 10 66 0f 38 f0 01 0f b7 c0 0f af 44 24 18 99 <f7> 7c 24 24 88 21 88 41 01 c6 41 08 01 48 8b 4c 24 08 48 8b 44 24
-  RAX: 0000000000000000 RBX: 000000000000002a RCX: ffff8d36ca8af218
-  RDX: 0000000000000000 RSI: 0000000000000db8 RDI: ffff8d36ca8af21b
-  RBP: 0000000000000000 R08: 0000000000000004 R09: 000000000000000a
-  R10: 0000000000000100 R11: ffffffff87559290 R12: ffff8d3684e350df
-  R13: ffff8d36a861d9b8 R14: ffff8d3684e35038 R15: 0000000000000002
-  Call Trace:
-   <TASK>
-   tasdevice_tuning_switch+0x71/0x80 [snd_soc_tas2781_fmwlib]
-   tas2781_hda_playback_hook+0x4c/0x110 [snd_hda_scodec_tas2781_i2c]
-   hda_component_manager_playback_hook+0xb5/0x370 [snd_hda_scodec_component]
-   playback_pcm_open+0x79/0xa0 [snd_hda_codec_generic]
-   hdac_hda_dai_open+0x5c/0x90 [snd_soc_hdac_hda]
-   snd_soc_dai_startup+0x52/0x90 [snd_soc_core]
-   __soc_pcm_open+0x108/0x6c0 [snd_soc_core]
-   dpcm_be_dai_startup+0x153/0x3c0 [snd_soc_core]
-   dpcm_fe_dai_open+0x109/0xc00 [snd_soc_core]
-   snd_pcm_open_substream+0x604/0x920 [snd_pcm]
-   snd_pcm_open+0xeb/0x220 [snd_pcm]
-   snd_pcm_playback_open+0x39/0x60 [snd_pcm]
-   chrdev_open+0xbf/0x230
-   vfs_open+0x3f8/0x520
-   path_openat+0x4f4/0xc50
-   do_file_open+0xd7/0x150
-   do_syscall_64+0x8f/0x380
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
-
-The kernel is  linux-cachyos 7.3 (taint O is from the NVIDIA module);
-CachyOS does not patch the tas2781 driver, and its LTS, 6.18.55  works. If it is needed, I can test patches.
-
-#regzbot introduced: 408249089c48
-
-Thank you,
-Cristian Castellano
-
-
+pw-bot: cr
