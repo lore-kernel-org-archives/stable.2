@@ -1,79 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092487;
-	b=4ZJgbl3BEXU0i3RxCI4i4PuOgEipeijv9i8j+abhemEYX9wGgqXO1BVnUCtGrRjQaBBy
-	 VBwn1ZQYgtIj3x3HkTBKjk1GXws4XjcyJD3WPWMmx57sfJ4/9lHW8ywucfgvNjit4z5ez
-	 4TZTkJjpMj265S93RO2WsPRGzljTMpHrxD+1QCUUzP7GVUD7Y+WFCx+J6G9J+GMi49tLt
-	 HoMraDMIMK1su8RqD3oNOmy4RwZlaC8VWd1WVTMLHDCeJGGO+xVRhHj6G/vT5Cy37fnRk
-	 C9d/nSGgcYVg7IOs1uhrO0+3lNlVu8T94Nmr5zAUYKS22QZ8xE7uT9VokfS2ALvADQQ==
+	t=1793092566;
+	b=wLxNNO44rESRTAw17B1Z5KsOFJQi0br0dje0L2FIyj9KX5mcByyNN0kJdzdcUGImTucF
+	 14+LyW/QFRKo0RNIcCYSRRA3HySJK6A+bKI31MnoDcAjoxa2o8Is++DNAmFQk26J+jUEb
+	 K6iJ6L1yRjhmu32oBb19jHlFtzTyLbNkJgs7Ddn2jiyCab0OxF6z+BKcl246a0R69XYox
+	 P8CIwYCUWMX4St/di6kOvS8LhQLAFvo6edMf18tq7qyYl9KPEd7wfkr4c0oipvIKmoif4
+	 hAkjTacNFRrszphNnezeGN0YsD0AbWPMuyPYsvXghLAMHK82/tH2GDZ+LipGQcXb4Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092487;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3C9BaH0xhn5HBqYI2J//q0I0p6+i5eg81V2wjnKirFM=;
-	b=5fB8gDmJ44C3V5dzynMbGrkQ8NDdt32ZRurAv8ZidHQlJIDEIbW8KuxyB3WYTRxKRBRA
-	 cTNdeNEFEvU+nOCBLybnjVXV5/6d70zlRJ3isE56Lw8Z3zcNF61qath16DgHMJn57RXbD
-	 nJ62QH33PDviM9NNyn1kOgfs4zpDdXTUxJ9ApOBQt0bBrpfe3zQsw4svqq/KdGygCsnlE
-	 FIhoUeyGMpezjDuSe/bZeTcI+mHQZmbSjV2W/jvYcP/7Dsorl//80skdpod/X9OMEt8En
-	 DGOs1AUTi22GTecJebfBfhy6KIzcaUPrPfLak71KNeOgIqkN1qz5szKEaFexSRtGRMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uvIjmI+HRIAkGOyGjy/GnDVEBAcECg6oog9cRdexHmk=;
+	b=1fipdBfIuXinzWv9YjSpFZApFs+RYJU4FJRrR52uPWJeKx9aOGPWgv6/mgQ8Gdhqsu7o
+	 vIlbysGo6Lu8KkofuOnj492rejD7ijUt3QmoOA+6sipSO0Hoinau0CGSt4q6WTDxoywC4
+	 XtYALCO2N7OOQzcq0gJ234c9XGCcjSBrbOyBZjVpo+TzygoQMe7mBMIhicyTk0L7RY7U1
+	 uAgvNlskBYBschrfmJNYaN7mwNS95Kx448wJE4w1e52JpTbkJMlCQIIbt1n0okZrGvOTE
+	 Iu6MnnrLCIu5Ys9gGJ0rRQSbuRVygZk5G307f1bxttXL/wE3IxwDFPSd5blfQ2oldgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wax8ZcaD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tAkgNglS;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFCB606A31A;
-	Tue, 27 Oct 2026 09:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF7C606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF7C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wax8ZcaD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD0D1F01828;
-	Tue, 27 Oct 2026 09:14:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793092486;
-	bh=3C9BaH0xhn5HBqYI2J//q0I0p6+i5eg81V2wjnKirFM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wax8ZcaD/71DiecJRehBjH5zvLNetiaOZxFQpb1WrNjXeS7UbTJCfdPzju8GkpkR5
-	 dhrLX3VqNdfyJG8THsKAy7Zg1MlSK48H8IzHPn4+WXagMvTMTf23VfaYwqjmMxWF4J
-	 ++aVQRfE/N3qmeQ4mWlhTnPnTLk6holKtH9fysbFY3Sq0B3fzgYVi6P9bv72BUL8as
-	 jPTVF6ybNZ9tbOBT4WgNmDcRrIiEEvZtlJjuia2pyRtxp1x+2LMPFWrT8PiiQnoU70
-	 T6x25iwZeTJPgQeNnZDH/2onGJTGqPiDGfF68A322uNHd7QLFq01c+VVuq5nXdSavM
-	 /61haflQ2EIiA==
-Date: Tue, 27 Oct 2026 09:14:30 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH 38/46] mm/ksm: reset the unstable trees of all nodes
-Message-ID: <auBrQQ9Lu_261z2e@gremlin>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-38-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tAkgNglS
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35c76e9614aso6134072eec.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:16:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793092565; x=1793697365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uvIjmI+HRIAkGOyGjy/GnDVEBAcECg6oog9cRdexHmk=;
+        b=tAkgNglSz/+ybvpncEJVs1gO7yn9HYgmP0XNkHiEkJjFhVm+DYSgT9C6sAEWqkXtZt
+         fZJgBvZWCrX5u7ND/7BAaa4Cu2+0hPN69tRHVe5s3KwCH1ljo+hSUggL5+FZBqnBDX38
+         MvX1WQSghE6OYXMzbf/KlQJIHTr3Bv2/+L2Dw+yLTvAKAvVCIfg/MzFr/nFUncneMkN7
+         jl5AS4hAnA9XyUMqBBEXHTXMcu2ubQjGjFe4ynLum6ibXiddWJAqNF5CAJ7Km1WGka3z
+         Lll80hKtKAH+2rACEGl+3JEijyvX2JCYPvKOfmIwfGjTw1uVfsoy/zaGF6dDyyzclypo
+         VMyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793092565; x=1793697365;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uvIjmI+HRIAkGOyGjy/GnDVEBAcECg6oog9cRdexHmk=;
+        b=WMbKyoxeAsW9JNE7f1iPu6qsPlax28YauwU07hiBmXCT6pVYzXo42bwKTeqmasKhcC
+         wDAyy5QXCHmxAGmWSGcvtYF5jsDVU/dWu1MUfC2mYrRY7agkUI7xjEHggNL0+jpLG1Fk
+         /vV1NGZsOobl3zbbvpAtKXs/DvNakW7tL7ZNUL73xp8iEgJGk1UKK448TxMJLmOT5uJb
+         Bx87L96yMROBnK2dsBd0430fPNLStujLLImT3dPHcl0s+qxerARgDz2Ju+SEstIrMiYg
+         46ESTsmnbv9T0ZTcGys5sves0WNvI+0zX/Ed1GSnQFYJ5DKfnufTly3adsF4x7B6ySFh
+         Gbfg==
+X-Forwarded-Encrypted: i=1; AKwUvBxjgqNmd78FGHqLDy9tQKy5NbbrSDY4oa+cZ0lWgojlCBcT06q0rmO9vGpdT1lWtVHkBgRrhcE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWXWOJ31+GKDH2T+tkME3fxEGpxNoe/P5W85zTViEm+fzjoevV
+	ufVzX+rdRL0VNziqTNAW3soz8RnxfXEI/icoaHcPZAAt/LsMSCUoMMmcmLQ2MaWu3Mw=
+X-Gm-Gg: AYBFou1snqQKowV44iTO7ngEZXOeMHXXQIn/jlnbgOeupEVxh2/mmHW59g7nwl/4m/A
+	gHmBIBVXVaN5mWQc3mjQbNIYUpESgwO0dpN1rF38NW8V9lLQ5ls5400xgiRUXW5IDPUdRnirlgM
+	mf+q3toveEeYjRsceGYASpLaczzbm4Ls1jnzT01QmeHuGYDsD0atQJ4Il02+JSpQzAmhZHF0Hbf
+	8DkRGVFWaFLLtkxbRxEUJM8plq2G515zV+lyZt+OqN4uFDv1vvt9Ya4Umu95Zs8RruBNKsGWm99
+	NF/JHq+KPlYZybce2ysaEdmIQblxeg3RbpOsZwmKRemwFBiqrn71eS6IeGdIPV38kUu/OnrGjrD
+	FK7c2fIEblRKOdRgU4xjQZZhtZSSzZSJRzNzmvTFLOJ5oepua93kA/yFWzetrzcuRYCeDGylVwM
+	lyZrtMa0BGSlKtmwz326mW97m+PNXOBovewHtYlOn3uGczUuz8HuSKz+k3y1PeZbri62Z3ldZW8
+	TVBiodAUtxmZ7udz1OMXXm5WSpIxGO8CO1sRX0KMS0SP5Fo/ZmNGy52uTIpZZ+EJIZsQ/9LkKQQ
+	YAiGYITn4Q==
+X-Received: by 2002:a05:7301:fc10:b0:36a:1008:5815 with SMTP id 5a478bee46e88-36a10085e66mr2611715eec.5.1793092565123;
+        Tue, 27 Oct 2026 02:16:05 -0700 (PDT)
+Received: from Zoro.lan ([2409:4090:2022:b00e:72eb:d31b:8aa6:1b54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ee71f5sm41232082eec.28.2026.10.27.02.16.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 02:16:04 -0700 (PDT)
+From: Vishal Satle <vishalsatleit24@gmail.com>
+To: Richard Weinberger <richard@nod.at>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Zhihao Cheng <chengzhihao1@huawei.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vishal Satle <vishalsatleit24@gmail.com>
+Subject: [PATCH] mtd: ubi: nvmem: Fix device_node leak in ubi_nvmem_add()
+Date: Tue, 27 Oct 2026 14:45:07 +0530
+Message-ID: <20261027091507.130294-1-vishalsatleit24@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,75 +100,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-38-6f74bec9a5bb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:17:58AM +0100, David Hildenbrand (Arm) wrote:
-> Each full scan resets ksm_nr_node_ids unstable tree roots. Enabling
-> merge_across_nodes resets this count to 1, even if per-node roots were
-> previously allocated.
->
-> So when toggling "merge_across_nodes" 0 -> 1 -> 0, a scan that starts
-> while the setting is 1 and continues after switching back to 0 can
-> encounter stale unstable tree roots, resulting in UAF.
->
-> Only root is allowed to change "merge_across_nodes", and the documented
-> sequence is: "merge_across_nodes setting can be changed only when there
-> are no ksm shared pages in the system: set run 2 to unmerge pages first,
-> then to 1 after changing merge_across_nodes, to remerge according to the
-> new setting."
->
-> Let's fix it by tracking in ksm_nr_node_ids the actual number of
-> allocated tree roots.
->
-> remove_all_stable_nodes() and ksm_check_stable_tree() will now scan
-> more tree roots (skipping the empty ones), which is harmless.
->
-> Fixes: ef53d16cded7 ("ksm: allocate roots when needed")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+ubi_nvmem_add() calls of_get_child_by_name() to verify that the UBI
+volume device node contains an "nvmem-layout" subnode.
+of_get_child_by_name() returns a pointer to the child device_node
+with its reference count incremented.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Because the returned pointer was only evaluated as a boolean condition
+and not retained or put, the reference count of the "nvmem-layout" node
+was leaked whenever an NVMEM-enabled UBI volume was registered.
 
-> ---
->  mm/ksm.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index dbfb8f98b1892..9c51925825cbf 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -475,6 +475,7 @@ static void advisor_stop_scan(void)
->  #ifdef CONFIG_NUMA
->  /* Zeroed when merging across nodes is not allowed */
->  static unsigned int ksm_merge_across_nodes = 1;
-> +/* Number of allocated stable and unstable tree roots. */
->  static int ksm_nr_node_ids = 1;
->  #else
->  #define ksm_merge_across_nodes	1U
-> @@ -3636,14 +3637,13 @@ static ssize_t merge_across_nodes_store(struct kobject *kobj,
->  			else {
->  				root_stable_tree = buf;
->  				root_unstable_tree = buf + nr_node_ids;
-> +				ksm_nr_node_ids = nr_node_ids;
->  				/* Stable tree is empty but not the unstable */
->  				root_unstable_tree[0] = one_unstable_tree[0];
->  			}
->  		}
-> -		if (!err) {
-> +		if (!err)
->  			ksm_merge_across_nodes = knob;
-> -			ksm_nr_node_ids = knob ? 1 : nr_node_ids;
-> -		}
->  	}
->  	mutex_unlock(&ksm_thread_mutex);
->
->
-> --
-> 2.43.0
->
+Assign the child node to a local variable and release it with
+of_node_put() once existence has been validated.
 
---
-Cheers, Lorenzo
+Fixes: 34a5d8525b6a ("mtd: ubi: add NVMEM support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
+---
+ drivers/mtd/ubi/nvmem.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/ubi/nvmem.c b/drivers/mtd/ubi/nvmem.c
+index 2dade9727..15737d511 100644
+--- a/drivers/mtd/ubi/nvmem.c
++++ b/drivers/mtd/ubi/nvmem.c
+@@ -61,6 +61,7 @@ static int ubi_nvmem_reg_read(void *priv, unsigned int from,
+ static int ubi_nvmem_add(struct ubi_volume_info *vi)
+ {
+ 	struct device_node *np = dev_of_node(vi->dev);
++	struct device_node *layout;
+ 	struct nvmem_config config = {};
+ 	struct ubi_nvmem *unv;
+ 	int ret;
+@@ -68,9 +69,12 @@ static int ubi_nvmem_add(struct ubi_volume_info *vi)
+ 	if (!np)
+ 		return 0;
+ 
+-	if (!of_get_child_by_name(np, "nvmem-layout"))
++	layout = of_get_child_by_name(np, "nvmem-layout");
++	if (!layout)
+ 		return 0;
+ 
++	of_node_put(layout);
++
+ 	if (WARN_ON_ONCE(vi->usable_leb_size <= 0) ||
+ 	    WARN_ON_ONCE(vi->size <= 0))
+ 		return -EINVAL;
+-- 
+2.51.0
+
