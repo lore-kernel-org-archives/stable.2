@@ -1,136 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793110239;
-	b=GpeXec0nuNBOhg8wZRTs4xB/cWcq6PD3HThsmllQU+1YrbQfDSV6GvadDPwLM2+epE+X
-	 OcFcjazQV3ImwQ8vF/2v/3IPgFBik5d3P6d6WGdEz96nDTtD3us4bg+bawECHTUwQRdU0
-	 kyzo/EgN00aQgkTrM+cukrOJ0BYH95qQ2IvPecnDazoF3Gb3dqqT61oGo4wj81ZQ/5WXb
-	 1/pnDN0LjUfSqWLzRmLiuaAHt/Pwof9nm2UVWJyY6FPAJThAMyitkSwMM7bUdQaqv6am+
-	 tw6oYdu1qzY90cQEFkQl48ht5BW1DUsnOSR9M4j+WtruYHTwIGTkX6IKR2XRExUOZXg==
+	t=1793110429;
+	b=IU+HsOmhWMiinv5JvlUvOclkjv105sMgIoh0bQx7m/tuYM2eSK+6SRnW82MSf14Un1su
+	 iiP3ThkbC8oUe/NIVLFJIVg9ixH2drUBpYYUYsjhD1cFSH2c6rmyBqbonmccA/O+/m/7B
+	 UO8JS2YbKa23GptF9MCbmz5Pnr82ixp64axAMSKMNJ5T/Xru+VaAC78b1H0d+DxNv/9OX
+	 nkZ18gpWT7aIontllhrI2Eib4dhEVvlCaoPghvdbpNrLcInNss0zlk8ovYFE4mhrpHOJT
+	 raWJQHPKEqgWFn+cV7hMsQP/7a0wdgziDZO+mdOTl5bX1LBQ7RhKYBJ5kayBaZaknaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110239;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5jxF6/4/W+A1WjrCqJd2E9d0nCbxdlQgcbJ/7pkC9T0=;
-	b=rlS63ijbB8XzpzbkX3cZ85+sd+65kWcR/+HYJPP188qWmjMIN6cOanCoowDFjuriuaMR
-	 +PIR8U5qhhUGnyNpyfc+8tlf/uNegLlhXN4bDyd2NxbGRyU8l+OgrA9VLKNbZZs8JY8he
-	 9gc6pfzzA4cdnisGDmwY1/Xtr0g7+BpD8b+7ctj0kivECiwHCwJHXVTmtTbe8nKVHYEoG
-	 4kmrX0zGTMuPANqBiKk/SjOcglyWNIgXgz76Exso4La3EjDwHJ+8lO7BnNCgeudIqCzqe
-	 VBE89P3/vLPgviyYTBa7Z7iXB2NdqrZ42Okc9q1+KqaXFGrAcKF9uXQ1hYFEG0da75A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110429;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Smq8QLRfkjBN1obmOVmOeJFl6fXBs9WJMR4nvP90F6g=;
+	b=OVtV7DUutSMRFoprRaeus+kflEV7OdSabri8+Me/BX5l4f45gnUeYowdcwB3B0asEAAT
+	 ZHxWILi3ME1tCc4nfpyvhe1dHyJQYGYLxN/Lamuwbzkdc6J9RhGJ3FgGsWf5OnXrh3czP
+	 d26yYfIheBWB0lWlcyksgoJcqW6Kk+ZdTB6VleX71o1ViwBVkVFOlKmQecm8ig52O4ync
+	 dQFQO6OpHrRlNzi8tFINIQ8wPbdG/4R3R6XfZAC5W+w7n3z4+c6571oGagEA7GFZjBsM3
+	 I5hT5SwLCaNzGsVPowTc52LeFPB0QBi3oU2FxzsRFwmTOGioMGeF++X+6eP10r2GAHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=nHbEtXvQ;
-	arc=none smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYy1lsbi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5768F606A320
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:10:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5768F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA5D606A31E;
+	Tue, 27 Oct 2026 14:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=nHbEtXvQ
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b10ac6ab7bso39172387b3.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:10:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793110237; x=1793715037; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5jxF6/4/W+A1WjrCqJd2E9d0nCbxdlQgcbJ/7pkC9T0=;
-        b=nHbEtXvQuJ/8CywicpheEz5Jdzxi84tcFvyEWo6MXDPh4asHKIihhtID8raFmjk37Z
-         dIOwkrGzjZhxvEZXUJRdwo9NVK3DnFO6vFgVbyFCqM+U4fQ4FG8QNsnimbJIyHqaW5wy
-         zdmb6kGSLSm95ASDlhX+rqMiMzLlf/wpw7XJwPUNNt1wr89Tc/8R+06TYMpR+3qRODJp
-         T0kDcPU38fvugHwlN3DGLvwyBfotlPqRAWV0pwds8WKmv6DVhYWhA/X4VC37TJl2YkFo
-         5fgiFCeXn8wHRmX8+HCDn3P1/hp1F7XTI6c+hNVNWpzgRnQiAvnJ+DdZz1WeG3Ulo5HG
-         5tFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793110237; x=1793715037;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5jxF6/4/W+A1WjrCqJd2E9d0nCbxdlQgcbJ/7pkC9T0=;
-        b=U4zNK9mgk+WLMibmAcIxj/IwzWfO3jTdQv1vhNdWkAnMd7ZUCxSdtMbmtCMC/nParI
-         CxnyxbgK7dwcpmdrXr+aynECFlEePNFbX3JJhvbETkjfFVscMFiUUefI+kTekVUStBt/
-         YBsU+8/PJq/VNVLW2NsPX5i/i15AfbnV61kKeh0L8qPInx5ICY91paXCfi9P71zkXWUK
-         4tLJ1JJwXi9dYnUQ7H3tBDrvV+jNzz6IDipapGWIbTXVkpldYDvvwhloPH74DlKYLAnR
-         sTrTV0XHCao7OivKRVNZBIDu12XHTlcysyPHDOAMxdeZOXo5gqv4abFqQLPFCY9EjJQs
-         Uc6w==
-X-Forwarded-Encrypted: i=1; AKwUvBzmGClgyXDOSNS9UAHDvDglfR0m9CkrmS7ZMfPKllbWkF5pCx9o1mwDfe7HCtMcTMgVPkPM01w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNu2FkvlDm1xgAey2KkMu7thW+0PPgcAmDZI9A49MrOvijlXRw
-	EHhghUHplQ5O6eymnElL5KQ8nRSL4BoGZfbfHaoH68j2AyG96ZcEC+/wd68HpTAivRY=
-X-Gm-Gg: AYBFou2lhjlOAj0K+GpZbY8Edsp03KWEEbexQfkzTw5biG6459BcKCSEMVlTE0fkMup
-	yybZNjleFV3atXW5dzyyEsIrldOC1Xsj49k+z6ZZvPHW7lPoCFofLM9Nz/0oA0EpVcDIYJt5ZSG
-	6COCXFTPscxMhHwaZqUHFFcUwRgqO1G1kzrIE3BDMPppTeIxFYKc8Ow9CRTyr5C5MU93guIhxof
-	NkrUhjs0YiQ99f+QZQwDNkaTu58I/+4Px5bHmryqLy57H195iXIqEDQ4cIFO9/p0N2srBmhYrYR
-	o7JA3w9VZbRACtq1wYrrQHKH6QWMoCeS5ImbyG8WE7Vu1e3jSzJo7+U8YAOmPxwhkUYo/pS49UT
-	Leq6M0fJJdteWtEQ8Koq1/LFBPa1ZJQVzekpDKK2701TXSg3etivlwHiLdY4wPK2niX0SPT1YUK
-	7O6K0hAQFd0UKn1IjDjjnFsL0nLMXCw66yt2LMW9P2ggsYRO+g6OGM00oyxr5HyKq7fg5nKjcKw
-	2Dca340NtO9SA70TkAZYrDsH3HNEZkIaGsvNynbzWgAVfQH3lZzQfw=
-X-Received: by 2002:a05:690e:bcf:b0:678:907b:3014 with SMTP id 956f58d0204a3-67a6b942174mr1866452d50.63.1793110236828;
-        Tue, 27 Oct 2026 07:10:36 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a07daf6sm127367d50.7.2026.10.27.07.10.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:10:36 -0700 (PDT)
-Date: Tue, 27 Oct 2026 10:10:35 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>,
-	Harry Yoo <harry@kernel.org>, Alistair Popple <apopple@nvidia.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
-	Minchan Kim <minchan@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Chris Li <chrisl@kernel.org>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Gregory Price <gourry@gourry.net>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org, stable@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH 10/46] mm/huge_memory: fix list corruption when
- deferred_split_scan() races with deferred_split_folio()
-Message-ID: <auCw2-_yjh1_RjiO@cmpxchg.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYy1lsbi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E971F031E0;
+	Tue, 27 Oct 2026 14:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793110428;
+	bh=Smq8QLRfkjBN1obmOVmOeJFl6fXBs9WJMR4nvP90F6g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dYy1lsbiYvg7GAPH7+g3JyCzJUoe2oGUGJRFEtAsjImqhsHKdo4N6djWKbkA9JZMN
+	 AH+B5K8qeFwE2L00i8BZxLpcpnlFpfuZoYV0TmIlmdPmpMYDslQ0c1o1r3h10zVEL6
+	 bm66SNK7NPVadUBQFq/64vHdKxKSVdp2YfuffXMgAwcrV2o41qYy4G59dxWPwKgIEl
+	 gHRWfvJht0JTe2qsHlhmi1sRp38Ec05zEFMYe7ZPDJYXVXsOxJqZEzNhIH8t7ac6ok
+	 dmWXjLYdt2M7krxZNWgwn8I3ug5/B+8iLFi8AU89KioGpxPKV7gC5Nf9CXQbznFlZt
+	 1mQj0C4Ytpv6A==
+Message-ID: <6f5aaf2b-894c-4306-a0b2-e56f815d0a89@kernel.org>
+Date: Tue, 27 Oct 2026 15:13:40 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -140,49 +51,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
+ alloc_contig_range
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-cxl@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org,
+ vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com,
+ linmiaohe@huawei.com, nao.horiguchi@gmail.com, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, osalvador@suse.de,
+ muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com,
+ stable@vger.kernel.org
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <20261027042204.3741307-5-gourry@gourry.net>
+ <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+ <179310997463.2232644.3260379218896917308.b4-reply@b4>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <179310997463.2232644.3260379218896917308.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 12:17:30AM +0100, David Hildenbrand (Arm) wrote:
-> Since the deferred split queue became a list_lru, the isolate callback
-> moves the folios it took a reference on to an on-stack list, linked
-> through folio->_deferred_list, and deferred_split_scan() takes them off
-> that list with list_del_init() without holding the list_lru lock.
+On 10/27/26 15:06, Gregory Price (Meta) wrote:
+> On 2026-10-27 14:37 +0100, David Hildenbrand (Arm) wrote:
+>> On 10/27/26 05:22, Gregory Price (Meta) wrote:
+>>
+>> We have an existing AI fix for that as well already handled by Vlasta.
+>>
+>> I think we'll have to establish some model of "ask David first before posting"
+>> because otherwise we just create duplicate work for everyone.
+>>
 > 
-> deferred_split_folio() does not know about the on-stack list. It only
-> holds the list_lru lock when it looks at the same list_head, and it can
-> run for such a folio: a THP is queued when it is mapped, as a candidate
-> for the underused check, and is queued "again" when a part of it gets
-> unmapped:
+> Yeah, this is going to happen more.
 > 
->   CPU0 deferred_split_scan()          CPU1 deferred_split_folio()
->   list_del_init(&folio->_deferred_list)
->     next->prev = prev
->     prev->next = next
->     entry->next = entry
->                                       list_lru_lock_irqsave()
->                                       folio_set_partially_mapped()
->                                       __list_lru_add()
->                                         list_empty(item)  -> true
->                                         list_add_tail(item, &l->list)
->                                           item->next = &l->list
->                                           item->prev = tail
->     entry->prev = entry
-> 
-> The folio now sits on the list_lru with ->prev pointing to itself. The
-> next removal leaves the neighbours pointing to it, and they still do so
-> after the folio has been freed. With CONFIG_DEBUG_LIST:
-> 
->   list_del corruption. prev->next should be ffd4000000270090, but was
->   ffd4000000278090. (prev=ffd4000000270090)
-> 
-> Fix it by grabbing the lock around list_del_init() so
-> deferred_split_folio() cannot race with it.
-> 
-> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> I've been sitting in these patches for over a month while they soaked on
+> hardware getting performance tests.  
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+I mean this fix here is really just independent and shouldn't wait that long :)
+
+> 
+> Maybe worth a private tree we can rebase on regularly for these kinds of
+> un-vetted/posted fixes to see what's coming?
+
+Maybe. But if it's just us core people we can just talk on IRC etc (like Zi did
+two days ago when he was about to post something that I already had on my queue).
+
+-- 
+Cheers,
+
+David
