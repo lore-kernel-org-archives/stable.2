@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793063252;
-	b=JxzzRGL9uZ51vDBg7m8EJ8yLIJpMLmUjQA641zKqVw3YatYEUoVLAzjqr7i59NWM2OCN
-	 3vHsoPIk5wpCoPAvJwF7YYLwsxGln2dy1+x8IVxa7M9KwtQXr8F7Lx0lRv0Prg7tQmAs4
-	 gXfV+5tjdhrowqL7q20qAQ2ArKIEF+FPcveYrGIvG0ts4G7XwlNuc37jMd9c2YDs+hcI0
-	 F12YqdcK7jlnV+gopDCQIko3dnSMMqIZqPaDMUbGNJXfcI3rOSNlm43Y/Qeqql1sDfl5b
-	 VKsLKc+JFPA5V6UsKjYYYAA7Gei35F+JFAiL6nTcuBhJJpbtOD+pA73u4TOXb9HhSwg==
+	t=1793063390;
+	b=PKnVj24gfpdbKeCfllJ0s86W9q76LwrvsImZVWuU1En+q2WN4abBk2gXVtVfbfNpmUls
+	 0qmexvEtqGHLWEK/2eoZLox7RMUJdaNT+WWas1DXVm2Kr1V6UGdLkFPahPdT9+DvjjY2B
+	 +AhW+iEGeYYiAQRM+m+H4uAfuhdmcZ2xJyXF7KVWCucVHf07dq5tmQG8UlG0i56TgIXJ2
+	 N0PeJB1rtSR90n/V6xyHSy02SJez4o6eqKNR3yzq9pkD0Msl+3rg7X5U27IaeALnIH6vS
+	 DbPcINGB1zw58T7sMfBLgn1RNK1gt5TkZVvG9/ldBZtvb5Hf/cyDvz7rtubjdmWvwFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793063252;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793063390;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=55ArNOBWPhEla2pmzTdRiMih/sZJNSHURRA5JAJ5SX0=;
-	b=LOp6Oe9thqhxXRlfop0HTk8FrlwKGgXthXrkKBLyQmsg42k3hk/6XSQXuZwnDMCWZPB8
-	 EqMbF8E9G/JA/yI4qZ5/mh5TAGC49nUgN5xW7hOhB+e5Z3CvCX7jpYIxkmd4dnsPw8nop
-	 bgASseFpcCV1gTL77CZSbbZdpyqJd9N8YVsG6byL8MSZ8Z5eBrAE3vSNkqxAXkqFSlxjc
-	 kAAWvijeF1ac2c5E/77hYn5C90pMa0TVZ20HMhdgTLcDYm3n6X0kvQuQz/uzVA9LVQoBr
-	 HTAMNv4GFeMrdQHD9PeHLY7gScDUaLFqh+qZO4UAx4SbN9I688kO7ZqQTmA7/t6EttQ==
+	bh=xvbMHvz44q6egU6UHmyrVq7TTu1E+YqD75Q/63ez7/E=;
+	b=QwMFUgi+vx4G4JfIE0FsKmGIccMoFAwXjMDUJMakkfSHkTguww/fFYmEAtGw3fKvd+U6
+	 SnvFCWYGPeIwP1fi5B8homEUmuHS98v6MrKUuSPqyUvwFiNN2DeXDuO3TZwyDrHyJqoaS
+	 +uZ19SjnfLXdiI7wfBTPwrg6RTSkOdwemtKJsHDdEX9Ov9bBwWvaCG6/axmWvNF+Oqr3j
+	 kw1vIRqwWswW3075Fhsc0OTMwiEPxt8C0o/5jlv8rQigJsclKHC0IJTlK/d/7EW7J1TkC
+	 HYYzN/qutQbB7oOELiIWw9uWttK7Bpo490SJIP0OoyRWUDG1IyHzWn1rKkjLO2qz6fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuXwr2gD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lo0Ng5hz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C60606A31A;
-	Tue, 27 Oct 2026 01:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE52F606A31A;
+	Tue, 27 Oct 2026 01:09:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuXwr2gD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4767C1F01825;
-	Tue, 27 Oct 2026 01:07:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lo0Ng5hz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D781F01825;
+	Tue, 27 Oct 2026 01:09:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793063251;
-	bh=55ArNOBWPhEla2pmzTdRiMih/sZJNSHURRA5JAJ5SX0=;
+	s=k20260515; t=1793063389;
+	bh=xvbMHvz44q6egU6UHmyrVq7TTu1E+YqD75Q/63ez7/E=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DuXwr2gDB4QNZILHXgUxV6jz7wgWPyCzNP2EFrOXEjzGOsIWqiQqn3pyUREAYy1YI
-	 CqigLyxR5qcL9MbwCrF86tMFi98r6NAZRIAkRtehnYEVGeG/IsojvWY0F8M3rCJlVj
-	 UfEi3OTZARSS51y9YK97ijGXDyxM8SASaqDOdUWBEDBoLySeS31lsw8z9RkfRVg0u4
-	 q+zkJtA736Kud8KkeCqCEzVpF/m5KvEUBVVEcS40RZSCZRSANU9wZiQz0/bEWczbJA
-	 QWcq8wI0gXuksWxb57IGRvJJhBvUyhhMLkDQQ9lpki5co278XIffgc0o3YnqQq6N4k
-	 QXMCAa0g21Lhg==
-Date: Tue, 27 Oct 2026 01:07:25 +0000
+	b=Lo0Ng5hz8D5+SDQAjVUXEG5RLC5UI/0jmIzSkgDXLA5n5GAHaW8Oh1aTN4hjv+4Kk
+	 rkwRMMVR3PMQ/DWSQeqfhIkm5ZquVb1v1P4e7SoVZ0uXBU/byB1X9Kt2C74RtAeE95
+	 qWssxbEj4By1bw4wQhiU8+RyzNFZFlx78nfKZLMYaKe5X5+aKXmBfGLAfVXjvSJ467
+	 V4+i3BPf7oL6NoXervU+TGZvFJj+GgdcitMPhHXPDJI4qF+HGihS3yfYBf9FTDVigf
+	 P0ouiL73T13nx31OGf6HGJVf5eGK5H/Yf8zxbQanMAMIa1wZ+Y8BOMVmfy1mOyGIub
+	 M0vzk6bc7TRxQ==
+Date: Tue, 27 Oct 2026 01:09:40 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: Tristan Madani <tristmd@gmail.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Kevin Tsai
- <ktsai@capellamicro.com>, Jean-Baptiste Maneyrol
- <jean-baptiste.maneyrol@tdk.com>, David Lechner <dlechner@baylibre.com>,
- Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Hans de
- Goede <hansg@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
- <tristan@talencesecurity.com>
-Subject: Re: [PATCH v2 2/2] iio: imu: inv_mpu6050: validate ACPI object
- types in asus_acpi_get_sensor_info()
-Message-ID: <20261027010725.4fa8ea9b@jic23-hlaptop>
-In-Reply-To: <20261026142040.62383-3-tristmd@gmail.com>
-References: <20261026142040.62383-1-tristmd@gmail.com>
-	<20261026142040.62383-3-tristmd@gmail.com>
+Cc: Marius Cristea <marius.cristea@microchip.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, tristan@talencesecurity.com
+Subject: Re: [PATCH] iio: adc: pac1934: validate ACPI _DSM return type and
+ bounds
+Message-ID: <20261027010940.50bd884a@jic23-hlaptop>
+In-Reply-To: <20261026230910.2569782-1-tristan@talencesecurity.com>
+References: <20261026230910.2569782-1-tristan@talencesecurity.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,67 +65,97 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 14:20:39 +0000
+On Mon, 26 Oct 2026 23:09:10 +0000
 Tristan Madani <tristmd@gmail.com> wrote:
 
-> From: Tristan Madani <tristan@talencesecurity.com>
+> pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
+> times to read channel configuration but does not validate the returned
+> object type or array bounds:
 > 
-> asus_acpi_get_sensor_info() iterates through a nested ACPI package
-> structure without checking types at either level.  The outer object
-> returned by acpi_evaluate_object() and each inner element must be
-> validated as ACPI_TYPE_PACKAGE before accessing their package.count
-> and package.elements members.
+>   1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
+>      firmware returns a different type, accessing rez->package.count
+>      and rez->package.elements on a non-package object produces
+>      unpredictable values.
 > 
-> Use acpi_evaluate_object_typed() to validate the outer object type
-> at evaluation time.  Add a type check for each inner element before
-> accessing its package contents.  Also replace kfree() with
-> ACPI_FREE() for the ACPI-allocated buffer.
+>   2. The loop bounds use rez->package.count directly without capping
+>      to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
+>      than expected causes writes past the fixed-size labels[],
+>      shunts[], and active_channels[] arrays.
 > 
-> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
+>   3. The bipolar and sample rate DSM calls access elements[0] without
+>      verifying package.count >= 1.
+> 
+> Add ACPI_TYPE_PACKAGE validation after each acpi_evaluate_dsm() call,
+> cap loop iterations to PAC1934_MAX_NUM_CHANNELS, and verify package
+> count >= 1 before accessing elements[0].
+> 
+> Fixes: 0fb528c8255b ("iio: adc: adding support for PAC193x")
+I should have mentioned this for earlier patches.  This is
+to my eyes not a fix, it is hardening against buggy firmware.
+
+Now I'm fine with doing such hardening but we don't want to
+suggest it is something folk should definitely backport.
+
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
->  drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/iio/adc/pac1934.c | 23 +++++++++++++++++++++--
+>  1 file changed, 21 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> index 460792ed27e031..e5ffa0d5f6b1a2 100644
-> --- a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> +++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
-> @@ -52,7 +52,8 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
->  	union acpi_object *cpm;
->  	int ret;
+> diff --git a/drivers/iio/adc/pac1934.c b/drivers/iio/adc/pac1934.c
+> index de59dc27c4405..43c4705c27be7 100644
+> --- a/drivers/iio/adc/pac1934.c
+> +++ b/drivers/iio/adc/pac1934.c
+> @@ -1101,8 +1101,13 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
+>  	rez = acpi_evaluate_dsm(handle, &guid, 0, PAC1934_ACPI_GET_NAMES_AND_MOHMS_VALS, NULL);
+>  	if (!rez)
+>  		return -EINVAL;
+> +	if (rez->type != ACPI_TYPE_PACKAGE) {
+> +		ACPI_FREE(rez);
+> +		return -EINVAL;
+> +	}
 >  
-> -	status = acpi_evaluate_object(adev->handle, "CNF0", NULL, &buffer);
-> +	status = acpi_evaluate_object_typed(adev->handle, "CNF0", NULL,
-> +						&buffer, ACPI_TYPE_PACKAGE);
-Same as previous wrt to indent.  In the kernel style guide
-this is only there implicitly in examples, but it is definitely
-preferred choice for IIO and I don't recall seeing anywhere in
-the kernel where this wasn't an acceptable choice.
-
-Jonathan
-
-
->  	if (ACPI_FAILURE(status))
->  		return -ENODEV;
->  
-> @@ -62,6 +63,8 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
->  		int j;
->  
->  		elem = &cpm->package.elements[i];
-> +		if (elem->type != ACPI_TYPE_PACKAGE)
-> +			continue;
->  		for (j = 0; j < elem->package.count; ++j) {
->  			union acpi_object *sub_elem;
->  
-> @@ -78,7 +81,7 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
->  		}
+> -	for (i = 0; i < rez->package.count; i += 2) {
+> +	for (i = 0; i + 1 < rez->package.count &&
+> +	     i / 2 < PAC1934_MAX_NUM_CHANNELS; i += 2) {
+>  		idx = i / 2;
+>  		info->labels[idx] =
+>  			devm_kmemdup(dev, rez->package.elements[i].string.pointer,
+> @@ -1130,7 +1135,13 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
+>  		return 0;
 >  	}
->  	ret = cpm->package.count;
-> -	kfree(buffer.pointer);
-> +	ACPI_FREE(buffer.pointer);
 >  
->  	return ret;
->  }
+> -	for (i = 0; i < rez->package.count; i++) {
+> +	if (rez->type != ACPI_TYPE_PACKAGE) {
+> +		ACPI_FREE(rez);
+> +		return -EINVAL;
+> +	}
+> +
+> +	for (i = 0; i < rez->package.count &&
+> +	     i < PAC1934_MAX_NUM_CHANNELS; i++) {
+>  		idx = i;
+>  		info->shunts[idx] = rez->package.elements[i].integer.value;
+>  		info->active_channels[idx] = (info->shunts[idx] != 0);
+> @@ -1141,6 +1152,10 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
+>  	rez = acpi_evaluate_dsm(handle, &guid, 1, PAC1934_ACPI_GET_BIPOLAR_SETTINGS, NULL);
+>  	if (!rez)
+>  		return -EINVAL;
+> +	if (rez->type != ACPI_TYPE_PACKAGE || rez->package.count < 1) {
+> +		ACPI_FREE(rez);
+> +		return -EINVAL;
+> +	}
+>  
+>  	bi_dir_mask = rez->package.elements[0].integer.value;
+>  	info->bi_dir[0] = ((bi_dir_mask & (1 << 3)) | (bi_dir_mask & (1 << 7))) != 0;
+> @@ -1153,6 +1168,10 @@ static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
+>  	rez = acpi_evaluate_dsm(handle, &guid, 1, PAC1934_ACPI_GET_SAMP, NULL);
+>  	if (!rez)
+>  		return -EINVAL;
+> +	if (rez->type != ACPI_TYPE_PACKAGE || rez->package.count < 1) {
+> +		ACPI_FREE(rez);
+> +		return -EINVAL;
+> +	}
+>  
+>  	info->sample_rate_value = rez->package.elements[0].integer.value;
+>  
 
