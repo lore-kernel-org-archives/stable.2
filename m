@@ -1,95 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111940;
-	b=IQVK39++ygzhAeB5lvhM10Xv02FcgZxn1FvpTCPrLSKgn+s/R1jmQkI1MaGjyudRRVY8
-	 uwnW8hrlLVz94MNIm3IHUu8Ho29sc/1Y1yoRKYgqNasO9Fn8X9TpkLO7ngAb26r1++zAF
-	 ofp14Euxn9xAL2Su1gqORXvjNskQlyycEoYDDvgdYVb1w1uJroKfg3vQucIO8M13Cfz6D
-	 snEy4luRahd394ro4Pqp8S0dgNG1uiEUjx29HZ2uLqJvnFRv31sC5hMU5yE7HMVZ4N9lq
-	 s81B3tjd4eZUsnxWDCLWvTyrAnzDetwSTAmX/jZZfsW/gRiW5EjWZDI49a+pueFJWXA==
+	t=1793112026;
+	b=bi/pYcrYFcSPDL2PmdexkznLtGpNw4mQLcWGZ4DE1pwbH/fIw0T6ZoNA4jlv89K83QUl
+	 fsp/ENEqSW/buaJPwFtIt06akHDjtqHymzSOJWEcKkKebyeUhdc9J490r61eDQ1EBdCPH
+	 1LVBdUIArBNVVXJU6byaLYrqFg9XiMmAHJ43L43pr7+lXyBDnpnqnRE2z0iFsf0qto1Av
+	 x0Le0yQYydDpb9dIJiWktTxJcFJGt9KV2Z1Ot7AOZsaiOL+0xzIczO6FMjT5wx3gOFl/s
+	 18Nh3GxsaT4n74BRXc1YFE3OfTRvW3TlNzi+uNQagHScU/21hFuYkajJ4ActVGRK5LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111940;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112026;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4Ltbz60b+IHvyoCek9XEc1bssVVFscuvuXVkPxdZ7Yw=;
-	b=HmzjzfANw3C3AhZh5KpSCdIxRK3BN+7PzzRYS0Q0RFcP+wGZ8Ev+vLfHGh1SpgrXdGRk
-	 gzgnOztH6/tc0ve0NU/m092btqu8nwIBVmuJHyLVruqKsa5TZ8CtTIayYy2ypjRK8+gT0
-	 8G9C5i69/9LEGVZkJygsecv9NKBpCB41dYwj60VmNUpq4HdSBoIlVUrTQzNTdHMRDLLWO
-	 hOeOvVH1biLuBcCvuSUwCXLfyigmFK86+mdegiIJxnNmhSWCezvCamfhfxmNiKAhQMcYj
-	 TY6ooZ57L55K/8CcK+2hurZRI4DqntoxnvW58JJe0mMmfphwFpIl8bdqTrOYJFv8Wvw==
+	bh=T1E/r4jGzpmWVwuykcjDGwY++XCWizWnAfM22Qf0RY4=;
+	b=cI3A9L0XWHkK0WYyPp3snEyGCLftUmCWuOITjtiNuKcDF+YWMt6+P0l0xPILPvaJp9df
+	 nZVrp+ypLBjq0Fg2i9aJpy0QbihdxS2gce7jl2wH1q+2NkGCIeS+yOIEboTfgjteJONsU
+	 WUP3g78v+h4dVwsflAnEIUNKhEBRFEG2GX6fTDfa2dT/cFql7/DmzzP2Xsf3tNiF2CvWB
+	 svwxRFmSK0ZmRjPFPW1PPebGv9zbEBDIJEn9j8ZR8KqGrIFyx+HNkxIlbvcVCJOormpA5
+	 fiTgpdDnTZ3jThsY9z10hqzjtN8czSMChn1TOQlHLs05Si8fP7pfzp4qKcOeGAZmd9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DBPs7ajY;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="hkV/NtVt";
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93351606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:38:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93351606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F9D606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4F9D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DBPs7ajY
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so7830835e9.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:38:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hkV/NtVt
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36a1947498bso673844eec.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:40:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793111938; x=1793716738; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793112025; x=1793716825; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4Ltbz60b+IHvyoCek9XEc1bssVVFscuvuXVkPxdZ7Yw=;
-        b=DBPs7ajYm++LSNGtV/1lJbK9KACWDdjd/H0//J5qmRVq//bULWBYP6ZkAS1EBZr46p
-         dejtR1DDCrqEdbDX+FtL13P34SDd12km84ilKQpX2rdWIz6t8UQ9v1AUlW4clv0puLjE
-         O6faV8Uq4m/w+VPx0qcsyytFyAWfX9/XFPDwwWB2UuO8aJiqiiNjmJkunbm4eZ6XY+84
-         1WWUFVycHgMoubIzapAJ1fuO+jLchIXXZ1ApfN5JLXRMN0D3iPIaTUwLAHFQgQgLJd8F
-         WZ/6dDyzhenBMPJXm4KHl/rQhKU4DjgGUjn4Xi2YG/CtuP7f9zbMkCNbWpyQvuMwczz7
-         wB3Q==
+        bh=T1E/r4jGzpmWVwuykcjDGwY++XCWizWnAfM22Qf0RY4=;
+        b=hkV/NtVt+9hXtT9TZ9RxA6SHUJvK+GPTgc7A8PHd3EKBSKD3xBsljRYWpxqzEYgQCY
+         bL4seHN3+U1JnaHXaX3LX2BNV8JPAXAzLWzUWSui5RMzk9bXwZoDtvDxC0FoVcVXsCuE
+         ASPqN4tjjGCxsD1kDzfEVaj+mHUzAQCadoyg3ydo8f0zRLD7+Xd8EJKYvhNjF8r+zjSD
+         NGtaTbWD1DtZcWTAO7ma3n/NxUfx8uFoLjuUsw3xZ6JqaaO1elRU8hP9zjxOok7z4Gds
+         gwfmurKxf6SwF9qTedwOh0cEu7yTSI1J9+syn8RS88M7plXs4SsoCbQgRLplbaNxb8ya
+         uoXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793111938; x=1793716738;
+        d=1e100.net; s=20260707; t=1793112025; x=1793716825;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4Ltbz60b+IHvyoCek9XEc1bssVVFscuvuXVkPxdZ7Yw=;
-        b=icChtYqUY3AqXsmewxqVWkWkaHmXM9yffEa9lUG0gIMIOMivnWPamksyTrE+aNvzbx
-         +WHpuiK+ZnZevBnJSFFLzHmYMU4512oZLQ+rE8AFSCT2SnVHSEm3NG2X86tEdFczzA6d
-         nsEQGRG6E1uIm1tAcPO2t/3zwEby+9edZblIZNZ2+dFxemCRhiE5BekFF/CLLGT9W+fK
-         vliKLUijBJ39fpN4j49FrEIoNEI1wGl2mUYpV/eW6lp5icgGRpe75ykxvefhZZeZqjIm
-         0zaqEvt1EzCJnz+dQVAr1G0RIzby6MROsuaryEyGQgI+K/p4oHO/+GXG16bBXRUgd8+j
-         EBeA==
-X-Forwarded-Encrypted: i=1; AKwUvBwYbWm5OmlzqIyXgJNVJc/CeIPUUipKYK39WUigPrQFhDFN8Ri/B0IMe5Qb8NOxVgsoiUS3XMs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG0yuHj7FQhSTfqD3QkUBlE1BRhm8oNrFe8fYll73MqckEBwBV
-	lcyDZLzrWd/AMWgKR4exMTbK7v+aTwGrffDLGfzaTMxvY+9D2dezTGGe
-X-Gm-Gg: AYBFou0Ce+M5/enbTFSHpTo8+MpKvEO/VjrDqTkvGKzweZu0w/ZUOe7hbVPigECGnGp
-	GTYe1CM2VKNqlZwkVQCckoPlR6ZSEBEWVLN2IcLvpVbxjT+838aTQjJNnxA92+VTt5GmqQkiKzN
-	w75OL00pgMrCOgcIblrDT9RwdXDGXe/lhL9hdUJ0srmcUc0TXHre2zdBVcMvZ20VRBlJSQo9Ohb
-	XR1v470+nn2bW8wSNTKu/kdUaXGBMl34w2Tt1+lFxmYKrLDP/aKOraqj8qLkPdfjH6P7h++blIE
-	m1y0ionHEKQrlcM2bWk0qmlSyJNU4ERMoq9pINTQQ0WZM6sDbUbM9joMfNHjI5W8wr0bQrVMVJ5
-	LHNyc7f4p04HQ5f2nt+jroBQByh0EeSOcuM8cezYZv6v5dgtJjLDxAM1GNxm61dz0zDSt2zJLq6
-	W1LOQo6ZXvyDi5ZwblMd3rnSZ/WZEQYHcnph3yLhENV01alRcrlA0akNBsJM7JIH7pXmJsp34S7
-	ntPVzHBx08WZ33+uBqrkUWBFlw2ag7Cw64Q9M9WdnSEo+bvPavrrRx9PiZXeVhzyGtgA/NQnmUa
-	OxFQV2QfSeQ=
-X-Received: by 2002:a05:600c:3d08:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4a7bfec49damr64723785e9.4.1793111937376;
-        Tue, 27 Oct 2026 07:38:57 -0700 (PDT)
-Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ae28sm279495975e9.2.2026.10.27.07.38.55
+        bh=T1E/r4jGzpmWVwuykcjDGwY++XCWizWnAfM22Qf0RY4=;
+        b=PO33IcvQuMwqfPH1b1ZzQ4ZboqO7k9vb2tlIVmg9IqhkD14A7m8NFO9nhBvP9uUElf
+         SM3DtlAcWD24FaTmuabZ9zIWWCh3fl/Ci/2gS04GjwRDxRHDhxnCvEF7cCarcK+PDc5G
+         xR+oXV5MoVCzbYp0C9mWB4exoR0S0SIKsvHgidnMu2cTYYFL1vgLUHv/2oDGk5TaIENv
+         5aktJ6mcVooCVxoXaMjYeumVGSpTk1Zth7szS/dhCVr92LVkxEOgm07x4P9LnAH6IY5U
+         B7jRbX0QmAi33M+czVONI2CkFCeN38ITpN0LeTUsUWpGwjVevwxkd1yfXe3f7g1SMnCD
+         XMGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwsBUFCKfgMVS5FoSLPXZff0gOplS5WB3Qx9Ey3xdEyqUp5sRHx5xax29yS4srmX2iwhAshe+Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqXO7icapAI7sz6PL0PhC/yk6gISjsugj56aGOwFpygmeUCGjB
+	sEkeFJhhTj5SdvvftrT308DgdK6UjoK7if/9a8QXYYyKaKAY2XU/YMaq
+X-Gm-Gg: AYBFou3swG2NcyQGVGJUyM9n0XFqfPnXOv0KsGvOmsBwq2BtUNRBqtpBRtc2iB4aZ1B
+	Tsa7IBNhDS3Xvk3xsSdeQhiZLjOwYraeQMAGIkn8T6jhL99LniJ69qyaeGSAfsbQLpo3UcE8v5E
+	mz+/z+k/0MmxjRFZoC4U0Yh59LZAWAhocSqGXOZrP5qJ0fgr6RbBadZowaz0ooS/e7MaY8Rywh+
+	EnmE9ymaVlhmlb2ES42AeKaV+j9WwDdDi+DNRObFvinttM5zA/ijiuFtXAxU/bDOr7o1fIxurUq
+	Qg2dz1zQBz8wdfPVOXJvjT9Q/0Aqjw7V0Nyxy8Smyx2lIAOUzianUTwD/gRFEzo2FY8dDTmebnv
+	edYssQPCDKhedvYG3R655KRPvNR4JJME+ZvgNhveIZZrl+0l8QJ7JO69LWBORAciuaj2nghvpn9
+	dFwWSA7uT6w7uAMf/xboW/QR+HsEeKDthDXAXubCvhLXGcrkwgrlaCUcbpVbLUf5WyW9zyu/tnu
+	yqfJJaGFJZN1WoSIBIiNChqd1ESID+u4cctr6YryUfvBtjqViir9miG61JCYmfJ+balrD22T7mz
+	LNQeCUNYl46+sE5EhA==
+X-Received: by 2002:a05:7300:2301:b0:347:8d01:164f with SMTP id 5a478bee46e88-369e84b15ccmr22877138eec.19.1793112023769;
+        Tue, 27 Oct 2026 07:40:23 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7e73sm34727318eec.20.2026.10.27.07.40.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:38:56 -0700 (PDT)
-From: Zak <zakbrightonknight@gmail.com>
-To: linux-pm@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Len Brown <lenb@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
+        Tue, 27 Oct 2026 07:40:23 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: akpm@linux-foundation.org
+Cc: hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	penguin-kernel@I-love.SAKURA.ne.jp,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	cui.tao@linux.dev,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Zak Brighton Knight <zakbrightonknight@gmail.com>,
+	zhanxusheng@xiaomi.com,
 	stable@vger.kernel.org
-Subject: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume without HWP
-Date: Tue, 27 Oct 2026 14:37:25 +0000
-Message-ID: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH v2] mm: memcontrol: don't miss processes whose leader has exited in OOM scans
+Date: Tue, 27 Oct 2026 22:40:16 +0800
+Message-ID: <20261027144016.2582880-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,107 +108,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zak Brighton Knight <zakbrightonknight@gmail.com>
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
-the CPUs stop using turbo after every suspend to RAM when intel_pstate
-is in passive mode with the performance governor: they stay at the
-2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
-policy limits change or the system is rebooted.
+mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
+thread group leaders, plus a dying leader that still has live threads.
+Moving a process whose leader has exited, by writing its PID to
+cgroup.procs, moves the live threads but leaves the leader behind, as
+cgroup_migrate_add_task() skips exiting tasks.
 
-During resume, the firmware sets each CPU's P-state request register,
-MSR_IA32_PERF_CTL, to the base ratio (28), and the kernel never writes
-the requested turbo ratio (38) again.  Without hardware-managed
-P-states (HWP), intel_pstate caches the last P-state it wrote and
-skips writes that would not change it.  In passive mode the cpufreq
-core also skips requests for the frequency it believes is already set
-(policy->cur), because intel_cpufreq sets CPUFREQ_NEED_UPDATE_LIMITS
-only with HWP.  Neither cached value is updated across suspend and
-resume, so as long as the governor keeps requesting the same P-state,
-as the performance governor always does, the register is never
-rewritten.  Governors that change the request often, such as
-schedutil, mostly hide the problem.
+The destination's OOM killer then cannot see the process.  If it is
+alone there, every attempt ends with "Out of memory and no killable
+processes..." and the charge is retried indefinitely, and
+memory.oom.group kills nothing; otherwise another process is killed in
+its place.  The source's OOM killer still finds the leader, reaches the
+moved threads' mm through find_lock_task_mm(), and kills a process that
+has left the memcg.
 
-Fix this by writing the cached P-state back to the register in
-intel_pstate_resume() when HWP is not used, as is already done for
-the HWP request when it is.
+Walk all tasks and let one task of each thread group in the memcg stand
+for it: the first one that is not exiting, or the first one that has not
+exited yet once the whole group is exiting, so that an OOM victim stays
+visible until it is gone, as the leader does today.  Exiting threads left
+behind do not count while the group has live threads elsewhere.
 
-The problem was found and root-caused, and this patch was drafted, with
-the help of an AI coding assistant (Claude, by Anthropic) during a
-performance review of the machine described above.
+Tested in a VM with memory.max=64M: in each case above the process using
+the memory is now killed, and a process whose exited leader was not
+moved, or whose leader is alive, is killed as before, with and without
+memory.oom.group.
 
-Fixes: 001c76f05b01 ("cpufreq: intel_pstate: Generic governors support")
+Fixes: f168a9a54ec3 ("mm: memcontrol: use CSS_TASK_ITER_PROCS at mem_cgroup_scan_tasks()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
-Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
-with v7.3 plus this patch and a temporary module parameter, not part
-of this patch, to turn the fix off.  intel_pstate.c is the same in
-v7.3 and in the base commit below.
+v2:
+ - Do the whole check under RCU and walk the group through task->signal;
+   v1 read task->group_leader, which a reference on a thread does not pin
+ - Keep exiting threads visible while the whole group is exiting, so a
+   concurrent scan still finds an OOM victim and aborts
+ - Pick the representative among the tasks in the scanned memcg
 
-Each row is one suspend to RAM and resume (rtcwake -m mem -s 25).
-"Request" is the P-state read back from PERF_CTL on all eight CPUs
-5 and 17 seconds after resume; "clock" is the measured speed of a
-single-threaded busy loop.  Before every suspend, all CPUs requested
-38 and the clock was about 3.8 GHz.
+Tao's Reviewed-by and Tested-by are not carried over, as the check
+changed.
 
-  mode     governor     fix  request after resume  clock
-  passive  performance  on   38 on all CPUs        3.8 GHz
-  passive  performance  off  28 on all CPUs        2.8 GHz
-  active   performance  off  38 on all CPUs        3.8 GHz
-  active   performance  on   38 on all CPUs        3.8 GHz
+The walk visits every thread again, as it did before f168a9a54ec3, but
+the check stops at the first thread of a group whose first thread is
+live and in the scanned memcg, which is the usual case.  A group can
+still be visited twice, or not at all, if the task standing for it
+finishes exiting during the scan.
 
-The passive-mode failure was also reproduced twice on Fedora's 7.2.11
-kernel.  In active mode the request was back at 38 after resume even
-without the fix, so on this machine the fix only makes a difference in
-passive mode, the default without HWP.
+v1: https://lore.kernel.org/all/20261026120248.2188024-1-zhanxusheng1024@gmail.com/
 
-Not tested: systems with HWP (their code path is unchanged, only
-restructured), other machines and firmware, and suspend-to-idle.  The
-patch adds no warnings with W=1; sparse was not run.  The tests were
-scripted and run by the same AI assistant.
+ mm/memcontrol.c | 37 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 35 insertions(+), 2 deletions(-)
 
- drivers/cpufreq/intel_pstate.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index 17158cb..53db91a 100644
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -1371,6 +1371,7 @@ static void set_power_ctl_ee_state(bool input)
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 4d00748c8a5b..cdb8ca4d4625 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -1427,6 +1427,38 @@ static void invalidate_reclaim_iterators(struct mem_cgroup *dead_memcg)
+ 						dead_memcg);
  }
  
- static void intel_pstate_hwp_enable(struct cpudata *cpudata);
-+static void intel_pstate_set_pstate(struct cpudata *cpu, int pstate);
- 
- static void intel_pstate_hwp_reenable(struct cpudata *cpu)
- {
-@@ -1404,11 +1405,20 @@ static int intel_pstate_resume(struct cpufreq_policy *policy)
- 	else if (power_ctl_ee_state == POWER_CTL_EE_DISABLE)
- 		set_power_ctl_ee_state(false);
- 
--	if (cpu->suspended && hwp_active) {
-+	if (cpu->suspended) {
- 		mutex_lock(&intel_pstate_limits_lock);
- 
--		/* Re-enable HWP, because "online" has not done that. */
--		intel_pstate_hwp_reenable(cpu);
-+		if (hwp_active) {
-+			/* Re-enable HWP, because "online" has not done that. */
-+			intel_pstate_hwp_reenable(cpu);
-+		} else {
-+			/*
-+			 * PERF_CTL may have been changed by the platform
-+			 * firmware, but it is only written when the requested
-+			 * P-state changes, so restore it explicitly.
-+			 */
-+			intel_pstate_set_pstate(cpu, cpu->pstate.current_pstate);
++/*
++ * Let one task of each thread group in @memcg stand for the group: the
++ * first one that is not exiting, or, once the whole group is exiting, the
++ * first one that has not exited yet, so that an OOM victim stays visible.
++ * The leader is not enough: a group whose leader has exited can be moved
++ * without it.  Exiting threads left behind in @memcg do not count while the
++ * group has live threads elsewhere.
++ */
++static bool mem_cgroup_scan_skip(struct mem_cgroup *memcg,
++				 struct task_struct *task)
++{
++	struct task_struct *t, *dying = NULL;
++	bool live_elsewhere = false;
++
++	guard(rcu)();
++	__for_each_thread(task->signal, t) {
++		bool here;
++
++		if (READ_ONCE(t->exit_state))
++			continue;
++		here = mem_cgroup_from_task(t) == memcg;
++		if (!(READ_ONCE(t->flags) & PF_EXITING)) {
++			if (here)
++				return t != task;
++			live_elsewhere = true;
++		} else if (here && !dying) {
++			dying = t;
 +		}
++	}
++	return live_elsewhere || dying != task;
++}
++
+ /**
+  * mem_cgroup_scan_tasks - iterate over tasks of a memory cgroup hierarchy
+  * @memcg: hierarchy root
+@@ -1452,9 +1484,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+ 		struct css_task_iter it;
+ 		struct task_struct *task;
  
- 		mutex_unlock(&intel_pstate_limits_lock);
- 	}
+-		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
++		css_task_iter_start(&iter->css, 0, &it);
+ 		while (!ret && (task = css_task_iter_next(&it))) {
+-			ret = fn(task, arg);
++			if (!mem_cgroup_scan_skip(iter, task))
++				ret = fn(task, arg);
+ 			/* Avoid potential softlockup warning */
+ 			cond_resched();
+ 		}
 
 base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-2.56.0
+2.43.0
 
