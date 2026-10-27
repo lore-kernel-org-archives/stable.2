@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097884;
-	b=Iv7Z8vN6HFfAMi3cPy0wCCnVwAJURv6KjooBFHmhdmemS4Hbnn+6qPGJfzeSI2/hH4n7
-	 2Zl4YEizifjlgHKACMb42twcoFcDdy0W/TkzFAzAQrCrCWy3pteb78i820G87ApPist2j
-	 FU9GhSvUDaFyy8qdC/essjse8Rtd3Zm/csxJ1W5dgVKylV9u4Mxy400gmx1Jk+Vpq62s9
-	 3SPbFZqUeBwgC1KcmH/f0oFakQbzLC6vEUUS4h5gQdmzs2JJN3nes9kdGBkji25HkFd4R
-	 x7TiHKdQBZ95sIs9Ur/MJxNFYPXQ7Mmkb09qj21fs4q5RcxLB2W8NljbwgurLs+KmIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097884;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793097945;
+	b=sgxwR0ktnnizYDtTtabl17Es9aGm0FGUwSViYZjX1ODIz5AmoYkhRNi/sJ5qwdSDXXsm
+	 uKdqWniHkBNM8ilU2OAtTRNZOMakBYixSi4r0ylKV2GLCU6OT3WIsfbvl9mOOzMZvQtsq
+	 5IKwDv8i2scfZW6PMMT4rOLLm6PPNd9UIYZ9PdGLoom3U478Opxwq9vmHam/sq3zBnmKq
+	 rINe23to3U2GaukXL6eKTWo9YwXG+AvpFIX23aeyPzLBDTFVU202bMJRCcId1AJu6ErgQ
+	 02foWsnnOzUZwcjPL2+C61UNq9RoqPCGxasubsiT5PPaV9iV4pJkYcBN7F8tCt2lNCw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097945;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8S+4Ca6+ZW0dJ/5s+MHcKgmRM457g71lb2YWMXhZ5MA=;
-	b=tr1qY0TX1qpEwtsBr7j8l+E50g3M7jq5NjV9wvpC++d7RT7mLIIb34IIrwmGQfiT50Tq
-	 t7+s9+EGvj5b2q+VpgjlqGQa/izlZUQ9+ZtfY7qaqPQowmNX/eLgDk+R0T7uvTygEwhyL
-	 nt7Ygj5rdZTief0Zz1lyl+vtfSpJXTfTTVVbr51YVFKl9BkEehR8j1b06096bAyFetdKF
-	 u1X2sXNw6RnjaTxpVRRzRcyA+lEq0MZ/VnRaWdz22xuA3XbPY43gOtg+IRRoxXUfz0n6t
-	 RcFunUNr45d4DRACGm8ryH++blS50SyRXI4VSMCPF59MlF5/T9GsgxnkRyPxEdvIGDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hTokF6f/74TTsrDj3bp7weKrYI5kvTRFYSNs6uOsOws=;
+	b=iqwjEkXRvHFK3wpO+Me70ChPFa9h9MaPZdoCbUXk8EEU0WJafbiOsP0nWqVo+Mrovrjm
+	 LBzp/sfaHNdBbJqYoJYKwU8JirzbVK0nxGOJ6iHSyy3mQzF+mep8+tTVIEatf8MeBObv8
+	 fcIAcQQ5f9i5GgKuBB90zV/EhWBdYR7O0rBO4mft0ZhqNJ3NdQ4XOns/5+TPpVNDdHSfu
+	 gduMWqeatasdj10e2qrUo+3H7GjmogIP0ZrI3YSI1MYHirMQVi2rcZJ/iTDGnWXQUEcgu
+	 LOVp5nBxsuf5IkJoNxyyFw9ddRPim42iqJtPoi8+O5ztzSomaCGycNMt0MOcN3JG56g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jj75lsKv;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sogkfs8Y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3084560A260A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3084560A260A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61605606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:45:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61605606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jj75lsKv
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535a54bed9so6130558eec.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:44:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sogkfs8Y
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3ab2ac79b69so23026951fa.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:45:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793097944; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hm402lWLssuDIc2UGwXhZQ2qbOxHR8O6Ni+UU3MkqYcctP1rmq+tfSW5pKB8jF8haC
+         AYvkqusDyKjHIo3NdLfSAnwdPtF4G2FL9voNiw9ACAEHfZ7LF65TgudDR9hBeK2ryU9n
+         318uP2WIEUQyxWOKUlNq1CvI79IdoBUFk7PNkZgRjss4dRwnNndNWPQ524HZw2Uw7/qo
+         gyMWjRUxhNeRy5XUSCUcw5WGHKSJxMWnAJds3hs2+A2Z3bRYXP2rkFVKVwrJtJDF+WGN
+         sEX/ia9hypb3MKTU5V7X7N8hBFLS+TCwluL0HlOaR9XAxtFyGd0Ec+w2VmLnJTSy3OLX
+         zfFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hTokF6f/74TTsrDj3bp7weKrYI5kvTRFYSNs6uOsOws=;
+        fh=CIZyiNZdS+RwLDSr01H+2Zaz9VlxewenhVAlLdJbiyE=;
+        b=ZyZmSbpa7pv8wvA0wyNpdkITf8cfc3XzAU2JW4C7cpI615Sli1tl40gI7oDcIQoAWb
+         lrSZF5urOWEkcjLGRYvSAqL7rAeLharWj1TLbs347xgwh/JvHMSnghNzMvfGQ7aCCKrt
+         zI1sWMV6iVjuKGOmrSH2LXchi8Qp5qjZQMGQKJQUGcMpR9EpKtCcGzkun6IMdpvvGq6s
+         6tgJOVQt+5CvIrbw3Pgyq0mWS4GUgBqG1Xy4+DlYmNudG4y5y/Cs94mwNbbAoArbn+c4
+         30joq3Tf9tvKf4i/1ySrrXBwJq7XJR2drPPCDuRuC8zpn2YGcDNP9stnL4bnGZiO1CgB
+         kivQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793097883; x=1793702683; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8S+4Ca6+ZW0dJ/5s+MHcKgmRM457g71lb2YWMXhZ5MA=;
-        b=jj75lsKvrp/82SYp8I910Zvhw1BiUzMi4/aySvDv7UKE5qE6p72n12Q2bCCt5lwfei
-         kEi7ttXSmxq+BXiEbdPnEVEv6PtZwORshp7mFbBIIBg+DN8O4PvlyJrJN0kidjqAYqZG
-         vVXycfaUYl2K5V08lvSSYkSf6ldSJ6TVBnnWcAylJO2ouSCpj96/v+7Eb57sLdQpEXzb
-         QyRrBI0PeU2YxBElYp3BXy1sc5SvY6IbB6chH68mfcjMimJOrlUhg9MIpm2r9d1nY3jG
-         Y1PNk5AEfxkJOdesREog/pc4d2fjTZhk6VZF59zTXPM1qyt/x+p4R7e8AUfThF2AlGsn
-         S3ew==
+        d=gmail.com; s=20251104; t=1793097944; x=1793702744; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hTokF6f/74TTsrDj3bp7weKrYI5kvTRFYSNs6uOsOws=;
+        b=sogkfs8Yj7sLD1GRZUKprdjOlswEuPvl0xyZHwAG0iwY476oBzdktP8aRfeuCj+QEU
+         h6aXCTXRsU3Yh7oF6mda1jsjjtbiEku1MBHqoMyLt+I1j7oj4hgW22Z/unEMrUU2n5ts
+         5kc7EptSgzWes73Knoo0y4sPi7VLDrs01ZFtI79AlzO3Wv/67i4HT2J4S0cq44Y1J2TQ
+         /cmyG57cyRboHEPJ+CLmKYX8mQ/yiLCQPpDFk/JAW2KqgqQ/+3gsM5dREycEm+1tb+wz
+         /OWiFY3481x0kpqQmvg6ej5GanWyR8/4rpyAb+s62N/7MBRUrG9P95ZjCVaXHuUwYrSN
+         TMtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793097883; x=1793702683;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8S+4Ca6+ZW0dJ/5s+MHcKgmRM457g71lb2YWMXhZ5MA=;
-        b=UrqYjHmdnFNdk4P8NDCua+r2JvXeCk5rDZ2D33kyJ6j+j2bM8hBZnhaY6ufc+CkSeF
-         qvt5cnDqwavWWkV4eRGxhj9G9iORkeaJsaHBgFKRGaCe4MzuF3vulqoebgU9krCfIzuN
-         g9SPBtJUaqCq1VYs1YcXnmqRaciNj2H3GAdSExaE/B73BYTdZhXP3kcvxBzpDwlxcOLo
-         7ASWa0Qi3c/juLhwyUjcaGDSfNzfuYn4YqWmoTzlXb9Ti9/Mr134WzGnACfr8ZxAeRPb
-         9n+KIrfFertvR45cWFd1GPiIBhEl3wW/+ZmzrDbrHf/BDRVHJLzHitYKYsdrjKG67j1J
-         Glvg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6yIR23aKMAKNkwlIebRZ/SZdIXmluWx1tfLQ0jodS7uR1VNj23T80PWoojX5xFavyMiG+U9o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7jVYv+NNBwmqIQGGHlfSsyTqpYeZvEnt3m/SeynXlLZkV/X4G
-	SICxnidvYofe0o2PZzx+ghW2RylV7ggzYxosq306dUCXqNkX5PjkhhwR
-X-Gm-Gg: AYBFou2CGKLsrSu9sU/AZUPj+LTzpnPM430lcu0mgcTEJvL0CI9yomnTiNJ8iR6LTZV
-	DDiAG6ZOcrJCOOHWlFG5AjAo2zSIyqEI3wTAiWTKv/uItoF94/KTwlQVpcZhw3HdrAWFQhFkyKh
-	ckfiwGuJztRpLlaZXBxQ5bfxwuqRpX2r/jlkC4G1NGup+c4FuA584M2+Cqy1DFckWmCnCb+Wosn
-	n+7o2dBVLIEAeDBaAm/CGto4jluuJXydJOhmqbmp5OeMO9pQcTfhl19L/V6yAX+umTnj+gc9vlJ
-	VUO0TVykVRSdbAPxzC+cNPUWEYB4k2rdDDsd35kxYkYkXHE4SHe8CVOQOivBeWgA8eDmUngdRvQ
-	0e5DnyO1L5Uh+WfGrswhPGPY/t/pGTASCIvrfq2iwURn8sFaTRWGijuty6ya6A5qxpsyRncxuM0
-	j+swvQvkedEe3vlKtleh2tCX5sg4jJD1e9vwf4owUhBsZSLcK852+ev7YBHNjSgfpfT60lIMx0F
-	fshS4228MANFw7NkaW37f9Hmya5u56jhP7aD3J07RI20eASOwW1kuZi+rlSA6l3T4vV7wSv1Ex8
-	4IbU7cy4
-X-Received: by 2002:a05:7301:1828:b0:369:f9c4:1fda with SMTP id 5a478bee46e88-369f9c42405mr10913555eec.27.1793097883083;
-        Tue, 27 Oct 2026 03:44:43 -0700 (PDT)
-Received: from Zoro.lan ([2409:4090:2022:b00e:72eb:d31b:8aa6:1b54])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f27d5bf8sm31955745eec.4.2026.10.27.03.44.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:44:42 -0700 (PDT)
-From: Vishal Satle <vishalsatleit24@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vishal Satle <vishalsatleit24@gmail.com>
-Subject: [PATCH] mtd: virt_concat: Fix device_node reference leaks in mtd_virt_concat_create_item()
-Date: Tue, 27 Oct 2026 16:13:45 +0530
-Message-ID: <20261027104345.172612-1-vishalsatleit24@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793097944; x=1793702744;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hTokF6f/74TTsrDj3bp7weKrYI5kvTRFYSNs6uOsOws=;
+        b=GmIf38yzptokTZVDb2p2hURgGi1rz10zdZWO7pxTBwPbs29E+eD+EqA5SkDqohAkwN
+         0L4va8hMEzUqjcVFXYjWDBgSLD2sjrLui/DPiDmZoZ/YS2T7wHqCmDagHRNLTnh1EqWV
+         MPv6u8fNFyWGSRSuRnC7QSxPqS2LpSIw9F99XRjUIDIW3GvZNzObevj0ikAtLDZO0DCR
+         DVAOX1TaU9SEaf+cVKuzt+/MTK/htu5AqnlBgGmRqpaCSXQa1xfYGSlHufmKoU2zkJh7
+         TFa/WyLgNquWTH+wi415/wSA/UzapRucgvAjDZ2mGHCUaUpkD4D5SAFJ0QIgmqTEIzGw
+         pcOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdKL+qpiEnKRBd1t7oJ9n4iw8BxqXHk1v65H5ocH4vjDJFH/+xeha23cXCaRnwC8DVa87ZNXM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIr4Xs4sP9P0XdhrZN+mXAHB+q3DQ4PxGB5G/Otno21U7+kXcw2
+	DJdbtIP8LcuYaUx8hUyYfXNzO2TTzdeS+btrK27EF96oTeZJp4BUc5qZaFq/CftpKOlyYjbJ2fT
+	Eq6M9Cdh/F+4o1boVoAC9wwp0OsWh1VE=
+X-Gm-Gg: AYBFou0RaoOh95q56zlo74ztnjC/z4iwfvPjTZGG5AZSX7XCT74HpR6gswuo9HZwpjf
+	rrGNAdH1ozyIshvZTT7i+xuytC8Pc7n4CMGZcfunOdVMt81E27mQrDKUgGtHkftN0S5Tk7RRzYc
+	+0yEoGnCGOAOoPe/HfM/AUiQ7T4JuTDoDHANSh1DkkCkft5UkonQBEZ5GALIvT8CyVzo+rdqUEq
+	+Jc2n9zk5V2+H7yJ4zEUonDlVg5ti1F9CDG96y40UF8P0cEjOKMLeY9a2JOzfrzD1CV/zzoOlc8
+	CWjyFpzXSfyf8NP1I0XCB2bjvbFHfRzQ9JbLIg1hJF8IqU99jF+5GAQNa45IySIu6wptBWYtZmD
+	/hyPt36iGxMd/uOC3BpBgrOPBRtZ1EPs9UwG9Rw==
+X-Received: by 2002:a2e:8a88:0:b0:3a6:636b:63c5 with SMTP id
+ 38308e7fff4ca-3ac6fd3b986mr20717081fa.16.1793097943292; Tue, 27 Oct 2026
+ 03:45:43 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,70 +104,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261020034531.1420194-1-bsdhenrymartin@gmail.com> <20261021102614.GA3351287@shredder>
+In-Reply-To: <20261021102614.GA3351287@shredder>
+From: henry martin <bsdhenrymartin@gmail.com>
+Date: Tue, 27 Oct 2026 18:45:31 +0800
+X-Gm-Features: AclHuK8Zgr31J_CCsucf-oYLGgEzAL6MqaaFwHvcjtoZy3YHWAsoUhYfxrWtFnQ
+Message-ID: <CAEnQdOoQRuH8A=HnJqruN_kp5exzTwV7bK-LZUVo=LGuSMmgNA@mail.gmail.com>
+Subject: Re: [PATCH net v2] vxlan: reject adding a remote to a nexthop fdb entry
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Petr Machata <petrm@nvidia.com>, 
+	Ferruh Yigit <ferruh.yigit@amd.com>, Antoine Tenart <atenart@redhat.com>, 
+	Ilya Maximets <i.maximets@ovn.org>, Seungwon Bae <qotmddnjs@gmail.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In mtd_virt_concat_create_item(), several device_node reference count leaks
-and lifecycle bugs exist:
+Thanks for the review.
 
-1. of_parse_phandle() returns a device_node with its refcount incremented.
-   The validation loop calls mtd_is_part_concat() directly on the returned
-   pointer without releasing it, leaking the node reference on every
-   iteration and on early return.
+No crash and no leak: the appended vxlan_rdst is freed with the
+entry, and vxlan_xmit() follows the nexthop whenever f->nh is set.
+What breaks is state consistency:
 
-2. item->nodes[0] is assigned directly from parts without acquiring a
-   reference via of_node_get(). However, mtd_virt_concat_destroy_items()
-   and mtd_virt_concat_destroy() call of_node_put() on all item->nodes,
-   and mtd_virt_concat_node_create() drops its own reference on parts in
-   the next iteration of of_find_node_with_property(), leading to an
-   underflow / premature release of parts.
+- vxlan_fdb_notify(), RTM_GETNEIGH dumps and the switchdev FDB
+  programming all prefer the remote list over the nexthop, so user
+  space is told traffic goes to the appended remote while the
+  datapath follows the nexthop group.
 
-3. If kzalloc_flex() fails for concat, the error path frees item without
-   releasing the acquired references in item->nodes[0..count-1].
+- Once a stray remote is attached to an all-zeros nexthop entry,
+  __vxlan_fdb_delete() destroys the whole entry when the matched
+  remote is the only one on the list, so a dst-scoped "bridge fdb
+  del ..." or "ip link set ... remote 0.0.0.0" tears down the
+  nexthop entry, not just the stray remote.  Same class of
+  inconsistency as commit 98fc57d16744.
 
-Fix these issues by releasing next after mtd_is_part_concat() in the
-validation loop, taking a reference with of_node_get() when assigning
-item->nodes[0], and releasing all acquired node references if concat
-allocation fails.
+Test cases added to fib_nexthops.sh in both ipv4_fdb_grp_fcnal() and
+ipv6_fdb_grp_fcnal(), mirroring 98fc57d16744's style (rejected
+append and rejected non-unicast replace on a nexthop entry).
 
-Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
----
- drivers/mtd/mtd_virt_concat.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+A sashiko pass on v2 also caught that the rejection would leave
+"bridge vni add" half-installed, so v4 is a 2-patch series: [1/2]
+the fdb guard with the above message and tests, [2/2] a pre-install
+rejection in vxlan_vni_add().  If the consequence description still
+reads as net-next-only to you, I will re-send there once it reopens.
 
-diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
-index 40b300021..6abc88251 100644
---- a/drivers/mtd/mtd_virt_concat.c
-+++ b/drivers/mtd/mtd_virt_concat.c
-@@ -163,7 +163,11 @@ static int mtd_virt_concat_create_item(struct device_node *parts,
- 	int i;
- 
- 	for (i = 0; i < (count - 1); i++) {
--		if (mtd_is_part_concat(of_parse_phandle(parts, CONCAT_PROP, i)))
-+		struct device_node *next = of_parse_phandle(parts, CONCAT_PROP, i);
-+		bool is_concat = mtd_is_part_concat(next);
-+
-+		of_node_put(next);
-+		if (is_concat)
- 			return 0;
- 	}
- 
-@@ -178,13 +182,15 @@ static int mtd_virt_concat_create_item(struct device_node *parts,
- 	 * is defined is the first device in the list of concat
- 	 * devices.
- 	 */
--	item->nodes[0] = parts;
-+	item->nodes[0] = of_node_get(parts);
- 
- 	for (i = 1; i < count; i++)
- 		item->nodes[i] = of_parse_phandle(parts, CONCAT_PROP, (i - 1));
- 
- 	concat = kzalloc_flex(*concat, subdev, count);
- 	if (!concat) {
-+		for (i = 0; i < count; i++)
-+			of_node_put(item->nodes[i]);
- 		kfree(item);
- 		return -ENOMEM;
- 	}
--- 
-2.53.0
+pw-bot: cr
 
+Regards,
+Henry
+
+Ido Schimmel <idosch@nvidia.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8821=E6=97=
+=A5=E5=91=A8=E4=B8=89 18:26=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Oct 20, 2026 at 11:45:31AM +0800, Henry Martin wrote:
+> > FDB entries backed by a nexthop group must not carry a remote
+> > destination list.  vxlan_fdb_update_existing() currently appends a
+> > remote via vxlan_fdb_append() on an NLM_F_APPEND request with a
+> > multicast or zero MAC even when the entry is backed by a nexthop,
+> > breaking that invariant through three different callers:
+> >
+> > - "bridge fdb append" with a dst on a nexthop entry;
+> > - "ip link set dev vx0 type vxlan remote <ip>" (vxlan_changelink());
+> > - "bridge vni add/change ... group <mcast>" on a vnifilter device
+> >   (vxlan_update_default_fdb_entry()).
+> >
+> > All three reach the append block with nhid =3D=3D 0 and a PERMANENT
+> > state, so they pass the earlier nexthop checks.
+> >
+> > Reject the combination at the top of vxlan_fdb_update_existing(),
+> > next to the existing nexthop guards, so a refused request has no
+> > side effects: placing the check in the append block instead would
+> > return -EOPNOTSUPP only after the entry state and flags have been
+> > rewritten, skipping both the notification pass and the err_notify
+> > rollback.
+> >
+> > Note the resulting behavior change for the two rtnetlink callers:
+> > operations that previously succeeded while silently attaching an
+> > unused remote to a nexthop entry now fail with extack
+> > "Cannot add a remote to a nexthop fdb entry".
+> >
+> > This issue was discovered by Tencent CodeBuddy Security.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
+> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+>
+> I agree that it doesn't make sense to append a remote to an FDB entry
+> that points to a nexthop, but what are the consequences of allowing it?
+> Does this patch fix a crash / memory leak? If so, the commit message
+> should describe it. Otherwise, this looks like net-next material
+> (currently closed).
+>
+> Also, please add a test case in fib_nexthops.sh, in a similar fashion to
+> commit 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a
+> nexthop id").
