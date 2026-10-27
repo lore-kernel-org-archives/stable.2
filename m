@@ -1,111 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102495;
-	b=uRWD2VuU3smRMLZgGDTK/WJtogRkiqCsWLmXXExfJhaKnCPnluy894/V5qyu3n0KHo4j
-	 XXxe+EQzyYl7XzVeeHwFhtsv44Y7ZjBjopTlcWjdxWKu9qIU3nqYfu0AiMKkfkC+mqB/w
-	 rvcVfx9T5ma6vfCFIwOR5q4EQY5AyzAZckvEff2x503tBM2p6Yzf7K53P3GqbUD/BjJrb
-	 6G/QrUZYNyVgfqw/cShPU+cMySxRimS2dpmxjpB2FBmVMqO3Tt/FF//T69QZ3X6nNnL5v
-	 diw5csb2T/iqY3EmNbgE1e7bgO3HcQi4+JrhNoB++kjbP/gOXaUtSUXFHm/pagpocqg==
+	t=1793102591;
+	b=3xUvVK9SQ7GiawZ/hCuVamT/BxYHRGKn6iGHh+o8IsSMjQ2GSy2wkTrTS0IWBKkIJHB1
+	 Ea4m2yal3bcaZVrXMUtqbBOF8nUuxuGr9VtmHfHuuhxn4FlwMHqRguXBcFLdhwwzW9gtr
+	 BnAln+Qpxxf/XodVLzj7tWSeOFDBgRJ9WQuJ1SVkQTFNiu66SgsXPEqvdme0xr7UhbPpy
+	 1lYWFy2j9CkmU+KdsZhUksny1RmNXbuYZbp1Yfkxf913NQ3dRuVUZy9Ucb2P/l1o4GPH9
+	 3KB2DEzg33LRTnIJ86zp9fghc+eo8qbxblkfBWD+kU7IwZLXNNevRAB4RbOcNEo0SAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102495;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=KNE237mj1MNRlMgpVoOvUADUwZrvTfIRUQM33z2ltSI=;
-	b=IqyLpYg67MvCzgCYwiKlcOXXqB8nazmLSVr8R7BpQA7D/91Egq4xusKts1Wmuz1mKIZJ
-	 jmIOMoKroLEFk7gok5JmOn6YEdpJ0kCCMpsRVS3+sLbEbAIWiAJXegjqebjcDBN1facMH
-	 iNINL18PGwCRi39OeA3c9GAPAXS5V82nECUWc600Rad09765cSTSImmxY9gRDJhPO0KHC
-	 WWCyNBkvgT7nThnHaoH73NZJyIHuRfAiGUj0SlfuCsGdmqLnZcMEOitoo09bMqc+DOSAC
-	 vO0n/DMwcX3711FhSYOvy/4xo5ugaGyxVOKaKs8byCUumNthZ+zVRtMvB05ypJyvfwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102591;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=Xk/3IAbzd1VTf1sorpQhYh140qhCaxvlTgIx+6FQd9A=;
+	b=GzglyaE5ra6NVJb7nRafEAno6Ra7cmFJOElNnnu0ShM5ziBUljZ9KHZUNn7RlCYjyJIW
+	 kqLD1O2mOLu9Tz/w61mtx+r6sH8Hvd977VcftSOQiZ2hFV44DnrPJmCmSOnOgPssy+R+Z
+	 WKKqWINS6fuPnVoD4hBeBcD///K6pGBnV8BAxqANZurZfpieRDzlLxdPxoqGfoDrx4Pa9
+	 Lp1fWrsomlJNybD2oR5sZ7wBPeqwVQ6FO/3fcMAwrI/5sqTZmKYRnyY7pKL0QBPePH9d8
+	 0tjpObYn8AOYKHPBq7SLcV5SrQ9eya9Ig14loPcvZl1B0snsEbv7occtp5jsvI9VCCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a3jL96oI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="VAJtsum/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UoyobN5W;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5671606A33C
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5671606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FC660A262A;
+	Tue, 27 Oct 2026 12:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FC660A262A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a3jL96oI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VAJtsum/
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe11o1921889
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:01:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=KNE237mj1MNRlMgpVoOvUA
-	DUwZrvTfIRUQM33z2ltSI=; b=a3jL96oIYi1MaDo2m07xgWy3ARXVIdcyH/IIHt
-	xQX0JYNGBw0v6ChJnqI+0gMJcR3IfDzt6VlfelqZDY7meh6fcSfC2946WrDoaMlC
-	foAOhZrevvo446fAl0owCfsTfQ4FhDDS/R5HYRmFeGLn/vn1O3R0pZ1WG1MSN+Gf
-	Ul1NQX+0Mu14mu2VZ1mxAbzvk1hrTmkv1EjXC1qoZWMxbCBOZKFzMy1SQFN4TZM/
-	S2PcIzu7k62KtqA9gKV33WzAalXxV+sIUI91vi9ds+qyLKUZ4kBL5HOMNF3/dkji
-	OoCkbxWZrqadoauKWSkCcdX03LoN42RO8bnvr+zxw2/asd+A==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjrq68r2n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:01:33 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab926c236aso3707486a91.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 05:01:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793102492; x=1793707292; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KNE237mj1MNRlMgpVoOvUADUwZrvTfIRUQM33z2ltSI=;
-        b=VAJtsum/4WR1627U5fC/m+fcZBathrsL5yjUllNFwlvuU1mAyItiuDP2l8KauoDhfK
-         6mHkeJp1EA9XwqyMCb4LtnlEjsgK1Bnq5ucIgFU6LXCn+mFgc0GaJ7hmKJJRoghsAgY/
-         swJv8FMZpOM9L/EJ73+jIPdhqTP8ZELBUDRRioNvRtxlEAYBuqCltpDkEfecsfw42N4e
-         hFxm+QMInzW7fUVA+xZqy6mPNJEAOstFGuuU7QroCcI2C/q0weOl6zJi4zJbex4hYux2
-         pdXtx82EhTSVaqGITgVdKC1ckWjaPNuh0SQG3uQxN0v/jbB2nBQ+2uLQxM/Ug/dvbeq9
-         NaFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102492; x=1793707292;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=KNE237mj1MNRlMgpVoOvUADUwZrvTfIRUQM33z2ltSI=;
-        b=l7jqTS15NncIkHRZch/c+Wt5GkgBEeUyxGKjZY4YRkgaZ0y/bgFae4QrngCcztfuDC
-         dtcNKx+RTr8YUJO8nw8FZ8wCbBQyJuMr/ORcTJzpraRUIhrxk+bEIGM7mtDcIlsLEdaO
-         bmfD8gF/asx92OvdhyHFB67nDrizlak3uEVJvxgt/kJ6tuHpfZ/nLFS/AJh1OyvLPIfI
-         hufWHBNgu20M06IaDXQDm02PuabNwZriYOnpwEFXXSS/XXi5boVoddlhauxqIM53N3PB
-         rmYb6hYApvqN3UfNPfxgQT3DdejcMsEk4AAFcDqGYLyWlurbOSRSnHYKuD/CIStH9SmZ
-         9bSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNLrIW3R5oqOqTedH6Qcc5FbE5qscjmCDFf8zOq81neByMOfdQVBTL47uSFQn+Z4GUg6pSqAE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRZMSVBFtsMlIdUoybsmX1AuFGOHmaK2r38V7gY9UfRkuI7Y5s
-	Cd/5qIyPpuWVG/GL3PemdbxESmqxeZhZwJRyAqf/LH7RiyqPh9sg+bPbjcV5YoA62MjUgesPExw
-	vu34T2yZqtCh0KWhdWcYQ6ULLT3Pu3sWlxePVe0TcJ/PYy4adjMEhT7+qCVc=
-X-Gm-Gg: AYBFou0PLISZzO9O5yICbiczsGzKBUDRNNV0RCQ9OQF/njZhcVS3A9pXCoqihoRVxnA
-	SaU24p6pm3D7c9ucc2yhWEJMS91YVu/akmTZ2JqSrscza01P/MBXQuzm2KgqRabsuJPKA9a9GYl
-	lJikVdNHuhZYjNoy3zVX36mf8R06oiLV1MFm+TAbIOps3SInCvN2ahLY6Er/zdOcCNHWB9IvLiY
-	PektV7RkhjE10Lco/VnZmQUC2OxKg8v6a3OaUU4F3FqtVVBcySqHPEuqjIqvmA3w6ynzRUx9Ugu
-	ViCK+kifZH+/zIWZsnI2vm918/XR4dPIS/ku8S6q5mY3V372JMDb9IQ/Oc5UtRr07MORHOJ4njl
-	y0FfRaae5Tc4UvuoYRfYljGc2J6KGohXdpNHZtOTOHUcUKD0vOCulw2dO1OG/wqRj4yhAYDzwQt
-	GIvGJJISN4QA==
-X-Received: by 2002:a17:90b:4cd1:b0:3a8:1943:cb7a with SMTP id 98e67ed59e1d1-3adead44808mr7390146a91.18.1793102492449;
-        Tue, 27 Oct 2026 05:01:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:4cd1:b0:3a8:1943:cb7a with SMTP id 98e67ed59e1d1-3adead44808mr7390113a91.18.1793102491931;
-        Tue, 27 Oct 2026 05:01:31 -0700 (PDT)
-Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40651560sm3672037a91.13.2026.10.27.05.01.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:01:28 -0700 (PDT)
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 17:31:22 +0530
-Subject: [PATCH] remoteproc: qcom_q6v5_mss: Fix proxy regulator array
- overflow
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UoyobN5W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793102583;
+	bh=YWoolVgm2Ixluif9oj3rIYs3Yoa5Ka1lDDAT8MCYdfk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UoyobN5Wle8Hb0w9IdgnZ+siA/tNG7uUg0NF0kOV5aEFVGthGSjxzrOY2jYARwdLy
+	 jar4TukEip4Ektz+ER+VHW8aVHBNMnnqIwUM63lyHM1r/bqr5i3iwenKcl13VIzinX
+	 YhVJesQJCB3r4AvUeRdYiQCR2vsa8rW2cv34NSSQk7QCs1saRmvUMmBAH1Zy0UMH9m
+	 JWGZxlZbxCTVK8y7yHktAohlEOZ239L5lBRsFgnuEN2ot7RnD2qaFBQT+0/W1gOWD+
+	 cwODVBpgwQBg+7jJIA+zM5mC+saw4pr5hMDW1V61pMjfaCqW3F5pBPOJc0LzKrUoNk
+	 Zu+jD+5MxTc3g==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 16C7B259D7;
+	Tue, 27 Oct 2026 15:03:03 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 27 Oct 2026 15:02:57 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.50.125])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jDTdr20WPz2w2G;
+	Tue, 27 Oct 2026 15:02:56 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Chris Mason <clm@meta.com>,
+	Chuck Lever <cel@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Anna Schumaker <Anna.Schumaker@Netapp.com>
+Subject: [PATCH 5.10 v2 1/2] rpcrdma: Fix comments about reverse-direction operation
+Date: Tue, 27 Oct 2026 15:01:37 +0300
+Message-ID: <20261027120143.1596-2-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
+References: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,94 +100,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-b4-q6v5_mss_proxy_regs-v1-1-6c5557e42462@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAJGS4GoC/yXMQQqDMBBA0avIrBsYQ422VyklaBx1ClU7U8Ui3
- r1Rl2/x/wpKwqRwT1YQmll56CPSSwKhK/uWDNfRYNG6FG1uqqv5uDnzb1U/yrD8vFCrxtZ5gQH
- xlgUHMR6FGl6O8eN5WqfqReG732Db/rMFwYp6AAAA
-X-Change-ID: 20261027-b4-q6v5_mss_proxy_regs-2d780c0095c6
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Luca Weiss <luca@lucaweiss.eu>,
-        =?utf-8?q?Matti_Lehtim=C3=A4ki?= <matti.lehtimaki@gmail.com>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793102485; l=1400;
- i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
- bh=TJzPJNVsxPFGtMeNzrXT5vOZP2+aBDhH2ctGaurMUUQ=;
- b=jWhUUIWporDqHDdpejnELQLUFf//pLhMvR5mqllgDSbaBgGClVK1s9ny5BdYA/5+aFfwP3LRm
- Xa0GRyOmqItDfaSCSQir1BbZzqlMbnA1+IB1FOZXkP3Db40jTkQdbTY
-X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
- pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
-X-Authority-Analysis: v=2.4 cv=RYwFmFtv c=1 sm=1 tr=0 ts=6ae0929d cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=isYqYfF-chSf2xzEknkA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: t7n0DiFZbh2B114CVUY2dfpBqc0eZblE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX9r17kIidAPtk
- 1Dl3QJWIsZZ54aGihz+49C4c1CoLxHgBCL6W2sWMMag3LuTBo1ISDXcM+vT128RR8mi4hrtjR4V
- spRt9NVqNeSyIvExX8nanCo+f6aLJv4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfXxpbrzCtFR/tD
- nrVk61vMB3WyMvW1jZGf+sC6AEoNXTmNwhN87EvHwmJlsL27q1RHY1xZHWXwd10i3VovNWtI9zw
- ychC9DG549bHV/V05BQ1B+3sg05c5EkDpLkKVbesyS4h8qsJRb6EvpIZLEAYfdDu9+Qf6dlyIv4
- TmiTqE/snNzFRl+JetlHTNz5/hAvu5k9jEnTyAQk6019C1+6rzoOx4E3pynHlz8eFPpG4f43xGI
- DaAu2gVAJKA+P0ovZ8eABZ8Jx9LwZ3AjWvivtmTLJSCZp652j29XLVrufCo+FFenjMTYsTbAG9t
- AumKIs3PEoCQIsA2hNDVy2KdaCIWNoG/6nt2QLNejtSy/jsf8A1LPIWI8GYUn0klMZUfU5QQwhO
- BYAjiFM5hnJ/GUbCUcIesGzpfqAp0qW4mtqZ0SSl1xr8fHL4JI4aAgewmzKXc2zFqPaWBfLl71r
- lTb4pLm5yeWPaChyu2w==
-X-Proofpoint-ORIG-GUID: t7n0DiFZbh2B114CVUY2dfpBqc0eZblE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270047
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {Tracking_from_domain_doesnt_match_to}, {Tracking_interpol}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207024 [Oct 27 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/27 10:49:00 #28748526
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-The proxy supply tables of msm8974, msm8226 and msm8926 list two
-regulators (pll and mx), but proxy_regs[] has room for one. The second
-entry written by q6v5_regulator_init() lands in fallback_proxy_regs[0].
+From: Chuck Lever <chuck.lever@oracle.com>
 
-On msm8974 with a device tree that has no cx power domain, the
-fallback table then overwrites that entry with cx, so mx is never
-enabled and cx is enabled twice.
+commit 84dff5eb86ceb2a356d5409fc1af21a366bf3c35 upstream.
 
-Make proxy_regs[] large enough for the largest proxy supply table.
+During the final stages of publication of RFC 8167, reviewers
+requested that we use the term "reverse direction" rather than
+"backwards direction". Update comments to reflect this preference.
 
-Fixes: 4641840341f3 ("remoteproc: qcom_q6v5_mss: Handle platforms with one power domain")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Reviewed-by: Tom Talpey <tom@talpey.com>
+Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
+Stable-dep-of: c7653d5cebc8 ("xprtrdma: Fix bcall rep leak and unbounded peek")
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- drivers/remoteproc/qcom_q6v5_mss.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sunrpc/xprtrdma/backchannel.c          | 4 ++--
+ net/sunrpc/xprtrdma/rpc_rdma.c             | 6 +-----
+ net/sunrpc/xprtrdma/svc_rdma_backchannel.c | 4 ++--
+ net/sunrpc/xprtrdma/xprt_rdma.h            | 6 +++---
+ 4 files changed, 8 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index 2f71ed2feff6..7dea3bad9f5d 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -216,7 +216,7 @@ struct q6v5 {
- 	int proxy_pd_count;
+diff --git a/net/sunrpc/xprtrdma/backchannel.c b/net/sunrpc/xprtrdma/backchannel.c
+index c92c1aac270a..31514e4d81ff 100644
+--- a/net/sunrpc/xprtrdma/backchannel.c
++++ b/net/sunrpc/xprtrdma/backchannel.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) 2015 Oracle.  All rights reserved.
+  *
+- * Support for backward direction RPCs on RPC/RDMA.
++ * Support for reverse-direction RPCs on RPC/RDMA.
+  */
  
- 	struct reg_info active_regs[1];
--	struct reg_info proxy_regs[1];
-+	struct reg_info proxy_regs[2];
- 	struct reg_info fallback_proxy_regs[2];
- 	int active_reg_count;
- 	int proxy_reg_count;
-
----
-base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
-change-id: 20261027-b4-q6v5_mss_proxy_regs-2d780c0095c6
-
-Best regards,
---  
-Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+ #include <linux/sunrpc/xprt.h>
+@@ -208,7 +208,7 @@ static struct rpc_rqst *rpcrdma_bc_rqst_get(struct rpcrdma_xprt *r_xprt)
+ }
+ 
+ /**
+- * rpcrdma_bc_receive_call - Handle a backward direction call
++ * rpcrdma_bc_receive_call - Handle a reverse-direction Call
+  * @r_xprt: transport receiving the call
+  * @rep: receive buffer containing the call
+  *
+diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
+index b8174c77dfe1..bb5648133b10 100644
+--- a/net/sunrpc/xprtrdma/rpc_rdma.c
++++ b/net/sunrpc/xprtrdma/rpc_rdma.c
+@@ -1170,14 +1170,10 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
+ 	 */
+ 	p = xdr_inline_decode(xdr, 3 * sizeof(*p));
+ 	if (unlikely(!p))
+-		goto out_short;
++		return true;
+ 
+ 	rpcrdma_bc_receive_call(r_xprt, rep);
+ 	return true;
+-
+-out_short:
+-	pr_warn("RPC/RDMA short backward direction call\n");
+-	return true;
+ }
+ #else	/* CONFIG_SUNRPC_BACKCHANNEL */
+ {
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_backchannel.c b/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
+index feac8c26fb87..2e860c68735f 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) 2015-2018 Oracle.  All rights reserved.
+  *
+- * Support for backward direction RPCs on RPC/RDMA (server-side).
++ * Support for reverse-direction RPCs on RPC/RDMA (server-side).
+  */
+ 
+ #include <linux/sunrpc/svc_rdma.h>
+@@ -59,7 +59,7 @@ void svc_rdma_handle_bc_reply(struct svc_rqst *rqstp,
+ 	spin_unlock(&xprt->queue_lock);
+ }
+ 
+-/* Send a backwards direction RPC call.
++/* Send a reverse-direction RPC Call.
+  *
+  * Caller holds the connection's mutex and has already marshaled
+  * the RPC/RDMA request.
+diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
+index 73c8ab89456b..a89605e14f2f 100644
+--- a/net/sunrpc/xprtrdma/xprt_rdma.h
++++ b/net/sunrpc/xprtrdma/xprt_rdma.h
+@@ -95,9 +95,9 @@ struct rpcrdma_ep {
+ 	unsigned int		re_inline_recv;	/* negotiated */
+ };
+ 
+-/* Pre-allocate extra Work Requests for handling backward receives
+- * and sends. This is a fixed value because the Work Queues are
+- * allocated when the forward channel is set up, long before the
++/* Pre-allocate extra Work Requests for handling reverse-direction
++ * Receives and Sends. This is a fixed value because the Work Queues
++ * are allocated when the forward channel is set up, long before the
+  * backchannel is provisioned. This value is two times
+  * NFS4_DEF_CB_SLOT_TABLE_SIZE.
+  */
+-- 
+2.43.0
 
