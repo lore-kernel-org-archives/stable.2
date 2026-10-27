@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093714;
-	b=h6UJMK2cPqdXf8ByNak/jbR6WI4EugLaxqWzyr/SdqP3uZSsxh9Y6iLeabf0ZDUuXrWc
-	 kzngXoHtp6GvfV3JAvfNSG0J4HHddeiMUm/vIZ8T3j0WDECZL5gWKDI4xmk7DFj+Mi/5j
-	 V828LIMJ69GuT9wXzr4mWiPIbJjLDs1rcUGAnfF9Q0redEyinkF31v2bvJVBbeOrqJLb9
-	 tldwHZ+HBDwdRG5+GvHppdKMgYpuuX/sKHg6qtdnh3b7WbknNFCBziSUsf/JSe3FMb0VQ
-	 F4pJGvkz3feuqfhBjI+XHDeGqREHhITjwRZawqoZsSBAgUeSLmPcvX5y5ojmUARxU1A==
+	t=1793093873;
+	b=aeHOkC/Yfe64jx/ScyQz2PfyXpM248QI9grfdHytW89ZVDadGSwt4Jecsin3WfJbzFkK
+	 ENbhKvEJyfCnaenYHAapJ5ALB2iTYRnNk+srHd2IBkq/BR/40R782dmc/qIHEKz8XVSl3
+	 JZyyK48sVLoX29oLhXVY6ixipjQEToLNf7OCoTRdj+q1L/r16/3oYYcvGXsWqIPQSHSYt
+	 1zdz4UHGm9cfkanQSYmXNDKPcNKo6loJJnAnTdLW0Keg6vuE3Bu+9xOiF/XIZp1WwblS6
+	 QVstsT2vlwH0MhKnNiGrTKMFphVgK2wcax96gjWhhjAY9BZlKLaDBMqSy+3jcU/IhEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093714;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093873;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GyDf/T3A99e/UK5Tx0KKev7xPaxEfXMruyrCYj6de1U=;
-	b=DTY4v1B4gKBqK+X/BbJSIXEcwwlGhifuZd4ef7t6WbM32oSsOcY6G/v0s9Qhh+f4D0Zn
-	 0n7ZrkALb5hx4MPmoWq3uGQreSsmHQ8sd6gj+Tj2C8Pl1eFFsxakFAKzSGp5g4MgePnRD
-	 5pl1gzRvuZUK9i8tmkukoN7Dk9Z/BiqUfrJ4vGU6CzGF3wZm0jz2TEl1yYo+7hg2rkHCv
-	 K46e9JLB7HvlvRCHUImNBZ8KgfZbcLNKt/cO1CbqjNaPGLzyUDhgOAzw+Erva1QQsoL9m
-	 DZ6iGPCEs9o2SXpm/ToSZHN1NpQc2dVpCjll5t04T6UqKO8x6CuB0nFTKqGJdX921pg==
+	bh=+rNSdhvOTHmuEN3Ml/bfsrTqF8UwvJdcqDi4DNQ6sTg=;
+	b=BNoowM04eRTfOb4kDWjStN1Nj+6UGSUi+P6MjFiL0K9185ewYg+VJIXR0tSg0mEgPXnH
+	 vKVkKXMOkgCHkP+T5v2zoHstMUm2BLVakzktGRDpg9vZlAn0frXbv9UkIIWlV/B14ttwz
+	 wDsUXca9zHJ4Rwc36S4ci2FEhwVVYj4iXvgzcVkGBAaF+fY66SIipZHQI3gsJ4h0j8y/4
+	 GloN0f3T1gMCtwTB629hgrrTOFuBSyP7wV1erZZKHynXza5TUr+yWtMQdgDS9JuzaVRjb
+	 0jqDia9C6mmHjqpAYdtdOky+Y/JDw+l87lQuc27vOXS7Xp0ZRNXn6kppVwqItRDKjAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3V2ir1f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7+fBT3l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08428606A322;
-	Tue, 27 Oct 2026 09:35:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B781F606A31A;
+	Tue, 27 Oct 2026 09:37:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3V2ir1f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD641F01825;
-	Tue, 27 Oct 2026 09:35:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7+fBT3l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490C11F01825;
+	Tue, 27 Oct 2026 09:37:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793093713;
-	bh=GyDf/T3A99e/UK5Tx0KKev7xPaxEfXMruyrCYj6de1U=;
+	s=k20260515; t=1793093872;
+	bh=+rNSdhvOTHmuEN3Ml/bfsrTqF8UwvJdcqDi4DNQ6sTg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z3V2ir1fhLjLEOG38tPqPyKd7K/FHGfPC09OfR7eOlE/pdqk+8s3kVa1i4DQbH+Qx
-	 MZ32NLc7julvf25Egjxt2K1dVEewhL3Of9L8IHSEkMikSMuPsfkdtPqT3BAFRQIx4l
-	 I2aocqwSNzVOB8HXoD0iEYYGXcOv8ZXfRuVth/j1TS6G/Q38VWONKl+4C7n5MEPxNA
-	 MdDQY8Y20j6O/Wno2AqROjn/Br7ZnF59rm1EwFzdyTg2TjL0F8dx2lgZTIglHC5tyA
-	 DHYvTnMV0DHzDPWwpSElNE8EW4/oPBEyMA8Gm39jeV4/zgUOyB58UgoLt0XQBoz9Do
-	 0CxG7SV58ggfg==
-Date: Tue, 27 Oct 2026 09:34:57 +0000
+	b=U7+fBT3lehpQpFc3uJKZHtVpRgi1GtGHT6z3b8kE2S6FeF6bFDBDYsG/DhyOz1wlU
+	 gkZvgV/b8GwC5hBF2vuMNqTpih+mBOGm/magVJ+5tlmYMUc8rC0HgDbxkq4C2ZdX7/
+	 ykFSl8AC+Hlev3LyWJ5Ey8IgtYvUDz6NSxnqxhKKoOE4gmRJYKRD4ktRxpkFHa/N0B
+	 GZx6g/C9Es4dpnIsGGa84PHZ4w1B6j/LHsH9niHHf9ry4zHK8ev9PN5ziVl0zIXEG7
+	 p4yl/pvZrQHfp2KrQDErkAMPWJNescqIgRyziMHz4MrRviwMpP912C23Dpz/85S7eu
+	 i5GpXe5pXwalg==
+Date: Tue, 27 Oct 2026 09:37:34 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -68,12 +68,13 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
 	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 22/46] mm/gup: check for overflow when converting
- nr_pages to bytes in GUP-fast
-Message-ID: <auBwBYzcs-segDVk@gremlin>
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 21/46] mm/gup: fix out-of-bounds write for nr_pages == 0
+ in GUP-fast
+Message-ID: <auBwudfT22AZ82GB@gremlin>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-22-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-21-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,47 +86,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-22-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-21-6f74bec9a5bb@kernel.org>
 
-On Tue, Oct 27, 2026 at 12:17:42AM +0100, David Hildenbrand (Arm) wrote:
-> The overflow check in gup_fast_fallback() only covers the addition to
-> start. The preceding nr_pages << PAGE_SHIFT can already have truncated
-> the length on 32bit.
-
-Insert rant about 32-bit kernels here :)
-
+On Tue, Oct 27, 2026 at 12:17:41AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
 >
-> Users such as RapidIO's rio_dma_transfer() can derive such page counts
-> from a 64-bit userspace length.
+> With nr_pages == 0, GUP-fast still enters its page table walk and can
+> write past the caller's page array. The old end <= start check caught
+> empty ranges, but was replaced with an overflow check.
 >
-> Let's just check_shl_overflow() to reject any such overflow with
-> -EOVERFLOW early.
+> Users such as OrangeFS can pass a zero page count derived from a
+> userspace-supplied length. So let's return zero for nr_pages == 0 before
+> starting the walk, just like GUP-slow.
+>
+> Fix generated by an LLM and sent by Chris Mason in private.
 >
 > Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
 > Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify description ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+LGTM so:
 
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
->  mm/gup.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  mm/gup.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
 > diff --git a/mm/gup.c b/mm/gup.c
-> index 9906965893431..48e1bfe5ab9a9 100644
+> index 47e7ae152cdf1..9906965893431 100644
 > --- a/mm/gup.c
 > +++ b/mm/gup.c
-> @@ -3214,8 +3214,8 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
->  		might_lock_read(&current->mm->mmap_lock);
+> @@ -3204,6 +3204,9 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
+>  				       FOLL_PCI_P2PDMA | FOLL_HONOR_NUMA_FAULT)))
+>  		return -EINVAL;
 >
->  	start = untagged_addr(start) & PAGE_MASK;
-> -	len = nr_pages << PAGE_SHIFT;
-> -	if (check_add_overflow(start, len, &end))
-> +	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
-> +	    check_add_overflow(start, len, &end))
->  		return -EOVERFLOW;
->  	if (end > TASK_SIZE_MAX)
->  		return -EFAULT;
+> +	if (unlikely(!nr_pages))
+> +		return 0;
+> +
+>  	if (gup_flags & FOLL_PIN)
+>  		mm_set_has_pinned_flag(current->mm);
+>
 >
 > --
 > 2.43.0
