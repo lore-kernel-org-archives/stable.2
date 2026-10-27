@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102166;
-	b=4lmLAsPorfE2v6tr+OvkvrPVsdvEwHp1iJcKwUjb+sZ4zIraiuWqD6IXi5p8gV2HveIu
-	 nnIgm+wLWi5rzZNjQW/cNBieMs7nqFPW3sPwtCZC7cdpIzcIQaaq6DmnMlJeqClbBiTlP
-	 wmIpf7vHDhPmOF9R3Z4MVLZOVmPvJGC/gdKijLiVrNX+V1FhSY1slT29O/CTMD5t6GLGx
-	 r6I9WLJRYft26I21TXU1e8DOJvb+dyg8ZLidl4N/0Q6Md4BKhs+/wcYZ/kpvpfpVdwKvU
-	 vxRrDSt7RYCMOY1mJULNiElAi8melDgY/heDTf0P7a/613nx1UR8NeSdmn5/XUBDcVw==
+	t=1793102287;
+	b=GGY6WZkyxW4tZ/iP7z3V8qUOzCTtfGVb90g4MS2UXLi0lpTzMR8kjAMIZi/BG+G14ehr
+	 MLSdYdICe9WQEwuHJwwYTlZtHbclNrl+eWYmJTC2+rAM+oaNVubLQmUW2vS+7P6E6CkQ7
+	 vnMR4ElwtJd59cqstRb6EaKj1LUpkcApJ7OdHT8yzvlGIaKjMWmGrrb7cVgeWoHD0Q+QD
+	 miV49PjE0vYEhMpwK3LRa0lrKHN98Kfhe1xlAVzYbLb0I1GDkI8yrYj02e3vtD/00tzdi
+	 szumHRppKxmbYW89HMxbMho8C433q7r0P4eFvYK0PNTAL8fjZDdvzQ0KaZM8gmsgO0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102287;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
 	 X-Spam-Level:X-Spam-Flag;
-	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
-	b=GSn3iN5ECqa1540WscCFWt88GcFSEaWD+DkErXrjmMnJSqFTV4KVESaKQySNvnwiiXVi
-	 JETLBu0351GmDc2zMH47KXfV50CraNHSenNtRnSiZomOld+NUzOlNMnurpHDiD6isUlcI
-	 Oqa0hZqDp2E2tzTVsX9ayyP9C/OABQ3ymrM396A80USWamR6D0HkhiME6L34A6Av7kQvR
-	 hAeDmdPVVd/KRRa7oowvuU6jIjdC1V/gGlVqmaKwddqYeSRG8yzYiDQx81QLmOK/2f80E
-	 aFYYyNGdGSglPyACb7e8Du8G4rxjq4GJcs9nVzOIs67DEAdKc/5IPQHqHEsNL72jgog==
+	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
+	b=T2sXjfqQQtU5RLTJyJAUQFXgT3YjNoiOyH8NJWMoTs62utWHCEvh5R3pNAlbAEDVzP0S
+	 7Wgw8OUOOTyfHEDeUn1T5W1BfWwa3y7QeUpK0toM/PLeR5OggZLIMrqu8hiKqhxuf/kTD
+	 /Z9hqJDC7CWIKIsa5AOmB0J34DDV6a9jdnxaCN+4WvA6oBKEGHVfdRsqVVLyz3di9elNn
+	 tNUxJFNBhRd8CwvvFjRFjazSmoV2fbylc4K81LK8xXnDdxyOwgj2ct0GVIymr4p45G2iF
+	 Zpg7xX2eVpiU2X5bE2CBsMmMpvuG0LQh8S3eXwMiDdmlFKReoZJ8laOCngpLNwXmsrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.de;
 	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931C8606A31F;
-	Tue, 27 Oct 2026 11:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 931C8606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515CA606A31A;
+	Tue, 27 Oct 2026 11:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 515CA606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mKhmBA0t;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xV5guRrs
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id ADF7C1F74D;
-	Tue, 27 Oct 2026 11:56:03 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0CF8C21F22;
+	Tue, 27 Oct 2026 11:58:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793102163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793102280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
-	b=RDYbBM5WGI30gQrB819E2bvezVUH3VQfKEceXHyp1epw0WJgt18L6vV024u88ni42lbkm9
-	G8HkngkwennDbJjEygM1PD1T7jcro/zcTwBie2G8AHnRAJLWJfnRd5S7nTizj1fIo+y94g
-	n1EE/NoTGTEP8vKQ4Vo9C4nOhIgF4Og=
+	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
+	b=mKhmBA0tiWVXGtGZxRRdqM41EeWzPK1qlHp+yOdEuRezlkRrX3Ici82uja9Vu/A+8cEpzT
+	MMbfDO6KL0jzikb4yhLRfbvrTsBFD/F/1RcWDJNxwGm4p3PgW4O/aVWI2UdypPzC7XoBgO
+	Y2VhfaOgjMz4BzxsjSC01HdhIiydItc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793102163;
+	s=susede2_ed25519; t=1793102280;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
-	b=Om4iQt9Yxxrqzb8auQ/4iHgxAUDW3rYMstr+szFfrnmbHUWwYBPZwsXGa1/TW6qQDP6LLK
-	b8lNM8e7jTaqLfBQ==
-Authentication-Results: smtp-out2.suse.de;
+	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
+	b=xV5guRrsWz2oeB6vGqPBGdPzgA4V7DUGwNy/kAhe1NvG5KLbgMgxYB4cB8dUP5FOfKId1u
+	KIzEcQ1vkC0magCA==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793102163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793102280; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
-	b=RDYbBM5WGI30gQrB819E2bvezVUH3VQfKEceXHyp1epw0WJgt18L6vV024u88ni42lbkm9
-	G8HkngkwennDbJjEygM1PD1T7jcro/zcTwBie2G8AHnRAJLWJfnRd5S7nTizj1fIo+y94g
-	n1EE/NoTGTEP8vKQ4Vo9C4nOhIgF4Og=
+	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
+	b=mKhmBA0tiWVXGtGZxRRdqM41EeWzPK1qlHp+yOdEuRezlkRrX3Ici82uja9Vu/A+8cEpzT
+	MMbfDO6KL0jzikb4yhLRfbvrTsBFD/F/1RcWDJNxwGm4p3PgW4O/aVWI2UdypPzC7XoBgO
+	Y2VhfaOgjMz4BzxsjSC01HdhIiydItc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793102163;
+	s=susede2_ed25519; t=1793102280;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
-	b=Om4iQt9Yxxrqzb8auQ/4iHgxAUDW3rYMstr+szFfrnmbHUWwYBPZwsXGa1/TW6qQDP6LLK
-	b8lNM8e7jTaqLfBQ==
+	bh=vNqRak6R0NOXOPwZ8K7M7qsowzZcmzyNUaJvV33gtt4=;
+	b=xV5guRrsWz2oeB6vGqPBGdPzgA4V7DUGwNy/kAhe1NvG5KLbgMgxYB4cB8dUP5FOfKId1u
+	KIzEcQ1vkC0magCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC2101321C;
-	Tue, 27 Oct 2026 11:56:01 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FDD41321C;
+	Tue, 27 Oct 2026 11:57:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id e7lhLlGR4GohaQAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Tue, 27 Oct 2026 11:56:01 +0000
-Message-ID: <5fd819c3-9c6e-4273-a340-4ca190573cd7@suse.de>
-Date: Tue, 27 Oct 2026 12:54:48 +0100
+	id YZZIDMaR4GpOawAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Tue, 27 Oct 2026 11:57:58 +0000
+Message-ID: <baffc5da-c794-4c78-ba9b-ec1a2dec0a9b@suse.de>
+Date: Tue, 27 Oct 2026 12:56:47 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,31 +107,32 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/5] ipv4: fix shift-out-of-bounds in
- ip_rt_send_redirect()
+Subject: Re: [PATCH net v2 5/5] net: restrict message_cost and message_burst
+ to non-negative values
 To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
+Cc: stable@vger.kernel.org, Joel Granados <joel.granados@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
  Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
- Joel Granados <joel.granados@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn
- <willemb@google.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>,
- Daniel J Blueman <daniel@quora.org>, Jiri Wiesner <jwiesner@suse.de>,
- Gerd Rausch <gerd.rausch@oracle.com>, Oleg Nesterov <oleg@redhat.com>,
+ Petr Pavlu <petr.pavlu@suse.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Willem de Bruijn <willemb@google.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+ Gerd Rausch <gerd.rausch@oracle.com>,
+ Zhan Xusheng <zhanxusheng1024@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
  Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
- Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
- <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng
+ <bronzed_45_vested@icloud.com>,
+ Hannes Frederic Sowa <hannes@stressinduktion.org>,
  Flavio Leitner <fbl@redhat.com>, Petr Mladek <pmladek@suse.com>,
  "Paul E. McKenney" <paulmck@kernel.org>, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
- <20261027104701.296240-3-jiayuan.chen@linux.dev>
+ <20261027104701.296240-6-jiayuan.chen@linux.dev>
 Content-Language: en-US
 From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261027104701.296240-3-jiayuan.chen@linux.dev>
+In-Reply-To: <20261027104701.296240-6-jiayuan.chen@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Spamd-Result: default: False [-13.29 / 50.00];
@@ -141,76 +142,72 @@ X-Spamd-Result: default: False [-13.29 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	XM_UA_NO_VERSION(0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[32];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
-	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,lwn.net,linuxfoundation.org,infradead.org,nvidia.com,suse.com,google.com,ntu.edu.sg,quora.org,suse.de,oracle.com,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[31];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,davemloft.net,redhat.com,lwn.net,linuxfoundation.org,infradead.org,nvidia.com,suse.com,google.com,ntu.edu.sg,oracle.com,gmail.com,nokia-bell-labs.com,icloud.com,stressinduktion.org];
+	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
 	FROM_EQ_ENVFROM(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,linux.dev:email]
+	URIBL_BLOCKED(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,imap1.dmz-prg2.suse.org:helo,suse.de:email]
 X-Spam-Score: -13.29
 X-Spam-Level: 
 X-Spam-Flag: NO
 
 On 10/27/26 11:45 AM, Jiayuan Chen wrote:
-> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
-> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
-> the redirects an exponential backoff:
+> net.core.message_cost and net.core.message_burst feed the interval and
+> burst of net_ratelimit_state, but neither rejects negative values:
+> message_burst uses plain proc_dointvec, and message_cost uses
+> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
 > 
-> 	if (peer->n_redirects == 0 ||
-> 	    time_after(jiffies,
-> 		       (peer->rate_last +
-> 			(ip_rt_redirect_load << peer->n_redirects)))) {
+> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+> negative"), ___ratelimit() splats on such values, so the next
+> net_ratelimit() caller warns, e.g. a martian source log:
 > 
-> n_redirects grows until it reaches ip_rt_redirect_number, and both
-> redirect_number and redirect_load are plain proc_dointvec sysctls with
-> no upper bound. Set redirect_number past 32 and n_redirects climbs past
-> 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit int by
->> = 32 bits, which is UB:
-> 
->    UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
->    shift exponent 32 is too large for 32-bit type 'int'
->    CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
+>    Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+>    WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+>    RIP: 0010:___ratelimit+0x578/0x960
 >    Call Trace:
 >     <IRQ>
->     dump_stack_lvl+0xc1/0xf0
->     dump_stack+0x10/0x20
->     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
->     ip_rt_send_redirect.cold+0x2c/0x146
->     ip_forward+0x1ddc/0x2430
->     ip_rcv+0x2b1/0x320
->     __netif_receive_skb_one_core+0x16b/0x1c0
+>     net_ratelimit+0x1c/0x30
+>     ip_handle_martian_source+0x1bb/0x340
+>     ip_route_input_slow+0x1057/0x3650
+>     ip_route_input_noref+0x104/0x260
+>     arp_process+0x109b/0x2510
+>     arp_rcv+0x381/0x460
+>     __netif_receive_skb_one_core+0x173/0x1c0
 >     __netif_receive_skb+0x21/0x150
 >     process_backlog+0x37e/0x1200
 >     __napi_poll.constprop.0+0xa5/0x5e0
 >     net_rx_action+0x4c0/0xf70
+>     handle_softirqs+0x204/0x9b0
+>     __do_softirq+0x10/0x18
+>     do_softirq.part.0+0x49/0xd0
+>     </IRQ>
 > 
-> Bounding redirect_number instead is not an option: 0 disables redirects
-> and -1 removes the cap. Compute the backoff in u64 with the shift count
-> capped at 31, which cannot overflow once ip_rt_redirect_load is
-> non-negative, and clamp the result to MAX_JIFFY_OFFSET: on 32-bit a
-> backoff of 2^31 or more is read by time_after() as already expired. This
-> keeps redirect_number as the limit on how many ICMP redirects are sent,
-> and the shift can no longer go out of bounds.
+> Negative values never meant anything here: 0 already expresses both
+> "no limit" (interval) and "suppress everything" (burst).
 > 
-> redirect_load on the other hand gets a lower bound of 0. A negative
-> backoff never meant anything, the old code only happened to treat it as
-> no backoff, and once converted to u64 it would turn into the maximum
-> backoff instead.
+> Reject them at write time. message_burst can simply use
+> proc_dointvec_minmax with extra1 = 0. proc_dointvec_jiffies has no
+> minmax variant, so add proc_dointvec_jiffies_minmax(), mirroring
+> proc_dointvec_ms_jiffies_minmax(), and use it for message_cost with
+> extra1 = 0. Note that like the ms variant, extra1/extra2 are compared
+> against the converted jiffies value.
 > 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negative")
 > Cc: stable@vger.kernel.org
+> Suggested-by: Joel Granados <joel.granados@kernel.org>
 > Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
 Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 
 Thanks!
