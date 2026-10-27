@@ -1,52 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118302;
-	b=XgJjL1zEVxAeRJycgQrA6Mb4wjrzJHF4QPVJKw4jYpGsAWvwEMbmhUvQWi1ezPilA01R
-	 z6Uy0coy0omCqDutXmRIWb2/RF+9h9NlVg4YI7WROEqpJ4cZtzAUxqVxCTZZXcST2CuY6
-	 Rky2sdv43QBURuyKX5gTZ5H+n1q2KFEJZ1qk1cbZcIW4xmaDAN1rx3LJnnqNeav1RAOQm
-	 P5uFp750u+++APc7lHzQMCQeVFl9/A/dLCIltiMdfD1W4zfRKA2vZh2ZMp2bualmkro9z
-	 6XvfQnwFOvxwlRrC98SLFWYGwH24LOk3X/tm30xnKX9JiD5q0nClQ0jK9kAZharSGng==
+	t=1793118342;
+	b=4tsNJNw4BIHONRSz4QGhVSOrcXUg8/g6NJMLcsP7m/6E9vSzD6D55z4HmmVlQHFCjcil
+	 YsjqZeXZ6QtwUXpR7M4DKpWESOKuohcP4okx0uFc1ykQwl68CLZ/GTxOkzfm0hf/9qzO8
+	 HTkBsvZ7W4SYS7CGJmfX+iYD4LenIrmG0IdEo2OYVeZEA7EaMIpfSpI2SP8qOwtgHZXeZ
+	 xZgD0RcrgGlOTas4uOTLTsFLXTng1A/8GSc58ZYRDaUy2V3klxBnwlY2b/36FR7mIAd4J
+	 zkxpo4e8CnwrXicn0q4/gP6hUUmEJ7U+W9Zur8FD96iVyBVtWrjoWVewOituScViaJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118302;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YFn9N296AUPt1TT/Th8lkz66Ww2cz2FSkX+aWjJetro=;
-	b=TxIcI6j0Rg8+m5AJVYuDJ70ap7Wa3R6O4kkDDVOhEsLt91eB3EjCsqzX1ldHZugbqP95
-	 z3RzBVBs2zFCEl1UYVcYZn81JeUAtCSR/eC9KSQ+gu6NsXkTXLXNeYTvLmmc8slw/TSBR
-	 9eERP7p5sQAq3mvR1WT7v+UMMyOssUyCWijzyHHEK5mOv34YpbaBjtBKJAIcuIRJNnFrn
-	 wB5zzobUOwoCnoNIirTdCRaaXOzusZCUK0QkcqqYLp8WwmAYYg1bP9HgkKDmL59XqP/1w
-	 lf9NWTZ3fLeax7gTx3UoMr5vlaNQ0iBOxJUB5Nt5CST0BB/DUVCkmcqdOzVqzHktb1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118342;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=zM4ewrWqw2f6SmBtbr/tDGa+C9RG4lXc1mOVbn72TpU=;
+	b=FHZ+0hNeOlqGEZ8Dk7uIu4Np2tgWds5rOskOPrJ7ZwWmoSoYvLlgDAvhKiZehAfo0D8w
+	 brvbXDGdRpeadkEVbIK/CDUTsBNMNxQZLlmXJfWdEYqLaJs36pDs4SyL2c4Op3dCHDTn5
+	 2ve9MrwpyMx1JgNoqrdDdaf8O7PYuw0zlw5VOqWRSTQGzMvgGA0j1kK0ujBzU/looxN61
+	 pwHi1hkhg4Td9E+jaWOdMoskulPbP9jGv9yrpfBA5fted/KiKqZLyGkwjzrx2Qp9DE9vd
+	 Mt4eQLDYJvVrmBdko1vIxsCAsglSjNESCf0MfN3B//XsN0Cqw4zKbOK4jThTBvaq+Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhYSZEsk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eFFZQxZD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="5x/Mf13W";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eFFZQxZD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="5x/Mf13W";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BC5606A31B;
-	Tue, 27 Oct 2026 16:25:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05840606A337;
+	Tue, 27 Oct 2026 16:25:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05840606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhYSZEsk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0711F01825;
-	Tue, 27 Oct 2026 16:25:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793118301;
-	bh=YFn9N296AUPt1TT/Th8lkz66Ww2cz2FSkX+aWjJetro=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AhYSZEskka/PikmfkvDAdES9PNgnFTXqk/mZRYci9ZDyns0UI2E82mD61H4xfSOU9
-	 Sit+3fO12w+ICptraCT9A9x++YMyJfFQSSAgDBH7ZDCPvLNsythGYm6qEr26/g66Xf
-	 hBtc9gWHFF3a8JOxXmeQvZF1yxhuJlNBCb99dfCG7I29V+TWHoJmHfsdP+Htgn60Cb
-	 cp5+EmRPVzl0ObgXSUw1eTzAauKFtD7chDPGkTkcFkqASmUGziVmwh+BQjaOYq0c0g
-	 oPniQDXXCWMBoL+HVJlw7JWnkzz3DGL1JjA6JSBK+GpzD+sODMkQmHZp7UsVbtPWFU
-	 xsC9Lx+TnNbBQ==
-Date: Tue, 27 Oct 2026 16:24:57 +0000
-From: Lee Jones <lee@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: John Stultz <john.stultz@linaro.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
-Message-ID: <20261027162457.GJ2195460@google.com>
-References: <20261027024609.117371-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eFFZQxZD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5x/Mf13W;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eFFZQxZD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5x/Mf13W
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 16DB61F443;
+	Tue, 27 Oct 2026 16:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793118340; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zM4ewrWqw2f6SmBtbr/tDGa+C9RG4lXc1mOVbn72TpU=;
+	b=eFFZQxZDIQ0XrUtbljDTopdSUHtnS0Rchu0y4oeuC91OH0xbso4nUCMJPC34AbN4hBfBGy
+	gVVXJW0TvNuBuFLHR2SWccB3J6TtMhQRIb+Uq8YEVeMpXiOk9utAv8dF2HpuAi/kQnNgw/
+	sZqIEBwxsvNrsaS39QkIwr7J+s3KLFg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793118340;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zM4ewrWqw2f6SmBtbr/tDGa+C9RG4lXc1mOVbn72TpU=;
+	b=5x/Mf13W5kSNx1/2U3SlnBvv3FbGAYSwz6f//rUBqN3oio1LhRuqqfX6BL9HxJvUrQvD/Y
+	7UbLtiL/2VeEfpCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eFFZQxZD;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="5x/Mf13W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793118340; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zM4ewrWqw2f6SmBtbr/tDGa+C9RG4lXc1mOVbn72TpU=;
+	b=eFFZQxZDIQ0XrUtbljDTopdSUHtnS0Rchu0y4oeuC91OH0xbso4nUCMJPC34AbN4hBfBGy
+	gVVXJW0TvNuBuFLHR2SWccB3J6TtMhQRIb+Uq8YEVeMpXiOk9utAv8dF2HpuAi/kQnNgw/
+	sZqIEBwxsvNrsaS39QkIwr7J+s3KLFg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793118340;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zM4ewrWqw2f6SmBtbr/tDGa+C9RG4lXc1mOVbn72TpU=;
+	b=5x/Mf13W5kSNx1/2U3SlnBvv3FbGAYSwz6f//rUBqN3oio1LhRuqqfX6BL9HxJvUrQvD/Y
+	7UbLtiL/2VeEfpCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EB2FF1321C;
+	Tue, 27 Oct 2026 16:25:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uT6LLX/Q4GoWBQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 27 Oct 2026 16:25:35 +0000
+Date: Tue, 27 Oct 2026 16:25:34 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 43/46] mm/vma: don't leak the charge for stack growth
+Message-ID: <auDQb49VabNhUPqm@pedro-suse.lan>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-43-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,54 +138,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027024609.117371-1-lgs201920130244@gmail.com>
+In-Reply-To: <20261027-fixes_core-v1-43-6f74bec9a5bb@kernel.org>
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_GT_50(0.00)[65];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,toxicpanda.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 16DB61F443
 
-On Tue, 27 Oct 2026, Guangshuo Li wrote:
-
-> hi655x_pmic_remove() currently removes the regmap IRQ chip before
-> removing the MFD child devices. regmap_del_irq_chip() disposes the
-> child IRQ mappings and removes their IRQ descriptors.
+On Tue, Oct 27, 2026 at 12:18:03AM +0100, David Hildenbrand (Arm) wrote:
+> acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
+> This can happen for read-only or MAP_NORESERVE mappings created with
+> MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
+> Committed_AS.
 > 
-> The hi65xx-powerkey child registers interrupt handlers using
-> devm_request_any_context_irq(). During child device removal, the
-> device-managed cleanup calls free_irq(), but the corresponding IRQ
-> descriptors are no longer available. As a result, the allocated
-> struct irqaction objects referenced by irq_desc->action are not
-> freed, causing a memory leak.
+> Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
+> Unaccounted growth skips the overcommit check while remaining subject
+> to the other stack-growth limits.
 > 
-> Remove the MFD child devices first, allowing their device-managed
-> IRQ handlers to be released while the IRQ mappings are still valid.
-> Then remove the regmap IRQ chip and its IRQ domain.
-> 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: eb10245fb37e ("mfd: hi655x-pmic: Add powerkey device to hi655x PMIC driver")
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/mfd/hi655x-pmic.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/mfd/hi655x-pmic.c b/drivers/mfd/hi655x-pmic.c
-> index 5cb392892c19..3a7ccc9d30b7 100644
-> --- a/drivers/mfd/hi655x-pmic.c
-> +++ b/drivers/mfd/hi655x-pmic.c
-> @@ -147,8 +147,8 @@ static void hi655x_pmic_remove(struct platform_device *pdev)
->  {
->  	struct hi655x_pmic *pmic = platform_get_drvdata(pdev);
->  
-> -	regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
->  	mfd_remove_devices(&pdev->dev);
-> +	regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-What about devm_regmap_add_irq_chip() and devm_mfd_*()?
-
->  }
->  
->  static const struct of_device_id hi655x_pmic_match[] = {
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
 
 -- 
-Lee Jones
+Pedro
