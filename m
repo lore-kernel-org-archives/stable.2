@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128046;
-	b=J99pGDso6dlzZEVR+1s0/gz8gsTY5VK8ThBBSdunHsmAtYJ1wO3TIEB5fpoaBxjhMXHB
-	 4euz/ApgbwaJt2QxAc0gJF7voLp8Ho3cYSlHFa5KuqZc5yyQ31791AuGxEMF1lnGgJ/mr
-	 ZgC2FzGwI/I00vwjEV9n8H9oRsw9w/JdajilKGDhGfDR7ezcrqo6DgkjVhlGGCpKNMpt4
-	 YD92f0TmYQfKeJRa32/8WfAVQCPT3DxnwMgFP29WDvG3yIRoN0uOYXFo1464QY5gO2qBU
-	 v/3f6XuCG6b0AtN8Vbh484V4EueyzUjGRAtVdIqxePRCZQFDk1ShRWoCdLWw5LCB9tA==
+	t=1793128199;
+	b=2gleGfvdhZEkW0UWxMR7pTjSLWuqP1RwptaEbQiX83kdaYIEBldVLDaSasN0y4tM3s0k
+	 PXZR9DqfoEuhXt0q2y2tf67SoxB9XAbDNabX5ovklbw+mkuJAKkR2RjCnzEtc2QUcwDea
+	 IdEeQS9wOhKU+SZNzeZUtIxmz2KRqcu6qJmSm6wYzq1bIYIjdH7S98YbkhLKkwhvLaNdi
+	 TVK9+n66VxIHmReQtQZIS+zXIzBtbBFI4mjdOVPUqvU/C1GX2PnkJLUq0dMxXs4Ttez20
+	 vRfRGzTWQo0UO5KS4ymE/V2GF5qq5puDsjBuX3FWTUrgkooTcMszgLy3aEBTI/jJ5Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793128199;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4JNAgIKFjPRpfv1PgOMbYf97LYfRcFa+6eIVMdPRyjw=;
-	b=DBbGSafRFWgNOijz0nyZvzyxdAz9YG1ecb/b0HuXswklH1XXrwkX8EpILe7pOHTnk/Gb
-	 01AdXaPsAuOfPzTe/f5Rofq5sYyeEXzIsGZp4j9xeB3sZOHC0V67cLuxx1WKBIwXCXIq/
-	 gVQ+jfRytEDZHbyb9UPH3x6+b9m0aULRmf6uLsYqwdUDecoBonwDxxPSetC6U9Iyi5Q+k
-	 3z1uOW8efiYwb4IweADMSMEpA/zdIjyNjTagqyFSj/hFyXUWjj8Q7x2dPmuNi6AxCxyej
-	 p5dUh/fhDs+3uGfeBuFJVqTfSQfOPFyCFkXqRaBeOCcWI8j9Pyk3HhkQSIc9hNII0ew==
+	bh=kkvfEtwgKNH/KsYhrOsWJWMTyAP67vGHRSRe8u51NyU=;
+	b=HZNmWp1MSJZGEXOlGwd6KJKgHBz0RE9zWTRsJhWbWBRqX5F5pIIE3n7mr8WFNcCrZdI5
+	 kuoPYX0uzhBkr8HoCVqVfxF/UjBNl91RjWEogGOzQTceqTa8QBKwvIlkf1GWCNVE0Gpfp
+	 OWQnGA4Pg31hoXiOINnLzRaje2NJcirO2vPzClOvffO/qbNnoalRQF+mZOVCJyyjVf31l
+	 Gap7FNKUwltAV3GAlNc+0Nz5mxLvLE5vVBX1m/oToaUyitcOvZw6fax0WsMYJB7+y750/
+	 ZpxQ7xSbMwrhNjZoyy1OKHjIHLk4MNagjXE576OADLN+ScSuvRSBwW+iTz7U/cVCK2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jf1fDspo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=es2eEKk+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFF5606A31D;
-	Tue, 27 Oct 2026 19:07:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA674606A31A;
+	Tue, 27 Oct 2026 19:09:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jf1fDspo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729AC1F01825;
-	Tue, 27 Oct 2026 19:07:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=es2eEKk+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197B11F01825;
+	Tue, 27 Oct 2026 19:09:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793128046;
-	bh=4JNAgIKFjPRpfv1PgOMbYf97LYfRcFa+6eIVMdPRyjw=;
+	s=k20260515; t=1793128198;
+	bh=kkvfEtwgKNH/KsYhrOsWJWMTyAP67vGHRSRe8u51NyU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jf1fDspo2NgWYuI74LdGEBcYt8altR6P9yRUKqtzDSTFSAnWIf4GPYCpU6SCH2cR4
-	 kLKqYwz07l5Zxzm/sG06VNfh8M3YEXLg0g/xDRdxPgQdpFPjuVEjR01moMhjRlhF+T
-	 pjPpXSza1JiJ6vbP0VDvf6JnPlSg5bHKRMHCf8gjvuKNvnjEbklK28yyR7bqqPh8uC
-	 LRmuSQyxUKj9WGQhuRHWgrbDg7s+hLnc2B2yj63yqn4Wai5qpm3fBCxoqPXWBL+olg
-	 28HWBF3L63ZWkWwiog+dmsXfZtM+0ZeN1bDPXJhSyQqkRos7H6AArQhBQMI6vYISQY
-	 8xVSAIg2hJR+Q==
-Message-ID: <22b819a2-631d-468e-b724-770caf9f94e4@kernel.org>
-Date: Tue, 27 Oct 2026 20:07:06 +0100
+	b=es2eEKk+bUcpnare1MMH51MzJ56RMYhJHCJ4BbctEiBx+OTKwVt98ZYvFRoK2s802
+	 7zEK/2ivxgL2Z2lGDn9QxlCzi4S3oV1kfpOid34xAz5jxDFltH8xfEeJp9M+7/Ptz3
+	 ZE8XAUsU66F9fKYfgRjOUGIK8VrdX7t9QDm8O3gjYy/vNY6XRXPLq1oT35R7IfhNm6
+	 vfwa47AhjF15KgJ4OPPZLClvSNtHPclXBuu0DOKz/kQ3wVHCLyxglh19i1lO5umlq1
+	 7M+LKT4FNl3GB5zrB/ijPxIInk/P+8QS2D4Fk1N0Zv8kpezBwrOu3C7LY5oNXwaWnb
+	 JBUMmaM0Rvp7A==
+Message-ID: <c4be5787-c519-4fc5-8e58-743b30bb6692@kernel.org>
+Date: Tue, 27 Oct 2026 20:09:36 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
-To: Pedro Falcato <pfalcato@suse.de>
+Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
+To: Gregory Price <gourry@gourry.net>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
@@ -66,7 +66,8 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
  Pratyush Yadav <pratyush@kernel.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
@@ -82,16 +83,15 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
  Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
  Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>
+ linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
- <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
+ <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+ <179307206859.1171062.6841971971647864368.b4-reply@b4>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -138,42 +138,38 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
+In-Reply-To: <179307206859.1171062.6841971971647864368.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 11:38, Pedro Falcato wrote:
-> On Tue, Oct 27, 2026 at 12:17:22AM +0100, David Hildenbrand (Arm) wrote:
->> dup_mm() copies the parent's mm_struct before dup_mmap() takes the
->> mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
->> and newer heap mappings, causing later brk() requests to fail.
+On 10/27/26 04:34, Gregory Price wrote:
+> On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
+>> From: Josef Bacik <josef@toxicpanda.com>
 >>
->> Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
->> cause inconsistencies.
+>> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
+>> read(), write() and lseek() on a shared open file description of a regular
+>> file serialize on ->f_pos_lock.  The flag that asks for it,
+>> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
+>> too, but its struct file comes from alloc_file_pseudo() and never passes
+>> through do_dentry_open(), so it does not get the flag:
 >>
->> As a simple and robust fix, grab the parent's mmap_lock earlier. This
->> way we don't need to update individual mm fields in dup_mmap() and
->> keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
->> exec_vm, stack_vm), as that is now no longer required.
+> ... snip ...
 >>
->> Keep releasing the parent's mmap_lock in dup_mmap(), before
->> userfaultfd completion, to avoid moving the userfaultfd handling into the
->> caller. This should get cleaned up later.
->>
->> Move uprobe_start_dup_mmap() to preserve the lock ordering.
->>
->> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
 >> Cc: stable@vger.kernel.org
->> Reported-by: Josef Bacik <josef@toxicpanda.com>
->> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>> [ david: minor description tweaks ]
 >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > 
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> 
-> FWIW, strictly speaking malloc() isn't usable in a forked
-> (multi-threaded) child, but glibc/musl provide this in a best-effort way.
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Yeah, I'm more concerned about other things that can race ... :)
+Thanks!
+
+> 
+> This one arguably should have at least a trivial selftest.
+
+Yes, best to bundle some of these and send them out after the fixes landed. Thanks!
 
 -- 
 Cheers,
