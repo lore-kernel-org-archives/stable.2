@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109547;
-	b=b9UIZzEaJsv9LFneLeNxvCIQKuLQBR9BEF5hw7WDrh3Sf/ZzvoO7PYXSdPr0wyPFJKfc
-	 77PIgL+s3MU492kkWqaN0B4ZwtkgA0K52u2ppPnh0F/kxOih4VBE/ctmua4ti5cTY+syI
-	 FUQx8XuypnaxMw6NGQIdHLYiGlCxr2QDCLv3NDuEKH8vIpkZlOkbcd4QBablzEwDoRcTG
-	 o0zuqflycV+veL/lBbdZCJRExKIWku4fx6jg5TvDjwMwPdMjvKKG27lNRNV10oLjTvZTs
-	 NSHLJWcU/gYuEU967WSgjp3Fw6wdCN/DQKuPheU5GLDyeKPJJfYZHYkgNaYSnHPjnsQ==
+	t=1793109760;
+	b=4pvap4sbN0ZOfGWuPezFEb274BGhF8Dacf9OE4w/Zjzm3oNf4sO2NA9Pev9RoL/PP4So
+	 yywwhtIKW4pmuI3qZpcSotHgkqbIO0fT8EDePBuDIHH4Uaxzec76TtjEiGscg5yg8LKgL
+	 f3Q32DcdcRC2xXeaI/TRGEi2qWVXfPCeVk9CeZe77kC5wl8H1P+MSQLK/J9laX0vKQOWu
+	 cp0kZ3aJ1OMiGXy5KlPUb/pJpBq87Wsg+qE5gWf5vjmdSKqXlkYWEh/9cD8eruvjRg/nT
+	 I2WT5gv3TxRr8gKj1eV3xMeaZK6wmb9Gxy/zXi9TDKnxOR8Q91hACOJFD3/E2cTGPIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109547;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=k81WR/qvDcIxasabpW38Pkoc1U6DpN2apgQSlcIEcSk=;
-	b=GhYRElS7gD4sP6NxhPd0IAWiT5q1kg+IgtCsYqSu5J8XFMQrH8nJJEU6fao3IuFNw8y+
-	 FrLhJpTX6Z+xg+9hbeZcsjFpIbfr0Vy2M4So2rD0gg1iKVo1Ix/3QgGr6y1fUPKkuUTNZ
-	 Xp9qdkDGRLMHPI0MKjTR9IlJx9x1plxR2Ary62WdFb1rWG/GNpUWWvho6XHyDQDB5uwMy
-	 Lr3vczKvNr53onURdeWHmQwK+/mK9NSxdVao8Ai9+EVKnc3IFBBPepoG6OpwWKA7ufjiZ
-	 ZNCCakS4EcaPMWMbV49iormFVB0I14i/brV5zRg6fu5V7RcvIvzvR2erObUqLoi70OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109760;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=1o9096nWf9ghL1mNo+bNKs9Dd0gIk9ZEkL7EBJmA/hI=;
+	b=SQQlkLEgZ2L+JMWCXFMArR5MteFlEzGasdv6eKY2WLgJdeQDYt1pUaJd2yxm9ynXT/Cy
+	 ywBU1wN1c8UeIFaPamIXmmkEinONq/iXZkCQQykBAOI/3rgKKf1mjKEb3YsIgRdsM9uVl
+	 oqWpz6h+dIr6ElNPGALr5gq5pieNkJkPX5cl7CoEuKRjZoVbhgz7hdIBx1hE+DVpt6nEu
+	 ZflQlJOw14XWkEGaVZ0aYpbuqcndc9dTd2aZN/H5SuyIZJGkb8uPfGUAiWPXqWb3whxVU
+	 Q32Q/d0gvJ60yXyF3gCuVena0id1AA8MHbTo5eVC3LAwluVnvWrwDbYE9TNC9urb5Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHrUB3jR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ir3jNTPw;
+	arc=none smtp.remote-ip=209.85.221.173
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A305606A31A;
-	Tue, 27 Oct 2026 13:59:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461E3606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461E3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHrUB3jR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4991F01828;
-	Tue, 27 Oct 2026 13:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793109547;
-	bh=k81WR/qvDcIxasabpW38Pkoc1U6DpN2apgQSlcIEcSk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eHrUB3jRVGTT5gVd5LhwYjTDJh48kysHjX4M3oar92rSyGEuBUI06wp8/1WyJtRvu
-	 MFVNxZiXKv2iMe78Aa+x82OYyF1ICYo6Qc59eGq9QH24bjDczxEyPR9rQYv8tIa8P+
-	 1whqTApXHR/S/f4Njb2QikgChQOGQUYdKrifwa8mNYP6KMS/OrDn9NzawHSOEjx36E
-	 w2VFvv7ojoUDS5H7JHfZ/H+/bn0sSbJkRYfVMhSQDmgfOHTS38ml++OzkxwhYu26VY
-	 uw5thE/0fH52aDlFhf5UAz1g07/UZbcai0NnortUnR6DiY7y1GgcxBECPKc7wQ6L6P
-	 muQ7yiZ6QDfxw==
-Message-ID: <b47ec526-78b7-440f-a034-0a4d5137b549@kernel.org>
-Date: Tue, 27 Oct 2026 14:58:59 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=ir3jNTPw
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eafb65e169so2862282e0c.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:02:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793109759; x=1793714559; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1o9096nWf9ghL1mNo+bNKs9Dd0gIk9ZEkL7EBJmA/hI=;
+        b=ir3jNTPwDNyatsm9BxPi+Aw5N3wKTKrSGFy/dToJ1/s9I5I79ZVy2JXbTFkOXOeGnl
+         Q0/mimig9l4XQK4eNW0ry4CJXFT9lsvyZ4jZAlvjOxdi73pFY4bxT9C+v47TA1qbv9un
+         aneBQAzm9dOpyJjj4PGNtKkSebDoXSx3dauhR6v5iJtW8JfvpThzZFuoBTXh0lxm5KWr
+         4hGokWEMLRiSsYAxqkcaGPh5iMZFrSVDzAOxKiTZzgUI4mETGcQbJCwMFrtBKHx+rash
+         Lg/HHYFDUrxWL1/fGVZXKxKlOEuQky0mqxfOS9vG7EKL7IGfAhnbh5k3pNEJgZGL11J7
+         5MsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793109759; x=1793714559;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1o9096nWf9ghL1mNo+bNKs9Dd0gIk9ZEkL7EBJmA/hI=;
+        b=J3jRMNFokpzLVhkzCtCTYkIEbA7Pcpb/5NeH5AGPT+g90+pN/MgkhZkoo1tapqar0q
+         jPW+vhsdUCPDW50N5+LYWDB2shbSU8GWA2q2VrQezQOHROkOl8+Z9hk7jLJ4wWcfuYGi
+         urJUE3xqXM45lf8go600pWfbkhtsD5qTJ/O89vb0yDdtLWOMGAG7z0h1SwB25AtFJDvK
+         enku9pDMdfxhFZnEEHGV3l7qwbvXK1cBiCysSfEes+DWW0bWMKLs7p6E7wQbptMZW+vx
+         djTgEVphw4I26GJDRt6mQj+x1qyUVVAZk7jNdjHAxbTuUiCucfqRyMvuMxWkJsyF04iC
+         HG/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzXoLiza+AQyaykScrIpnayz1BPC8TM/+466PCc1prqJQZdgT2b5LaY3e0cPha3LH0CrDb0k80=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9IH4yRqu/+aBNr7ISHMWvIszFuAHNac0aJcac7sr/5deUmRVU
+	mjb6asQyjCwftJ95g5PlnqlE08/Xri/P2yGp7qowb/ihBOgJ2u0MELuU9WBfdxaYkRc=
+X-Gm-Gg: AYBFou2A8NKCn3mqa85aahcx8cVANyG5Jn3cKlH7uWiWoR9Sj6OPuy5eEkjiteVzyxi
+	c44dwXUwEdHWdfatwQkYsOQXs75ZctJQMByMAhX5CUA8NboXph+qMoWU12F5hBwumXtOw3ABM5o
+	NvmLb5474ZyfknILEe08kKyfOO7xi3vabJ5uBXrnN/jS/Q6OzzPnhM1PiHp6931569QX2DBIJ7Q
+	CbQ7ehW2rFQsFfi2gGI0aCFSHf9/HQqpOAYyIfS+oQtFPJu+QHMaEzldh57Gi6Vic9YLw3ElYwf
+	OZot+pkh1N3hR0pfPT6dlxkPsrxgmXz9BUXJZWTJbsga5IVEuRP+iedRZF7QO2KGCIHBW5X/h/J
+	b9I3uzZM+OKgUz0khu7k5vTaqxO4F0YOiPu43olGt/Ys1SpxJiwgMtocpJTqJgYnudJ3yIVD11K
+	2YUPrRw66MAIU1AUGJnzFQSLWBajRn0/wjQWOCnlwa4BxsGFSv6Gp5ed+QWPHR+3welnBCUh4T7
+	LqpliY/RLGhM3Df5pUVfj22xuc45dEyudULnhX4geb7/vOlw0Swg9PFpV0pgqZj5rv6Cq2mI0ju
+	uQKdPRKQHToADPIeXNObBK2w/JuQtJzo6hnhlQ8320P4azgb2PrwmB236u8wPsFYwKVh0nsZXlu
+	a
+X-Received: by 2002:a05:6122:3c4c:b0:5ea:e197:702e with SMTP id 71dfb90a1353d-5ec23326373mr4106967e0c.20.1793109747918;
+        Tue, 27 Oct 2026 07:02:27 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bda586sm103188516d6.8.2026.10.27.07.02.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:02:26 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,112 +89,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in
- collapse_file()
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org,
- ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, jack@suse.cz,
- djwong@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- hch@lst.de, ngocthang2710.1999@gmail.com,
- syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261026152013.10511-1-lance.yang@linux.dev>
- <321017a4-58cb-4178-8ff2-055a9bbb28b6@kernel.org>
- <auCg6dXegweUB5m0@pedro-suse.tail5790ac.ts.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auCg6dXegweUB5m0@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights
+ on memory hotplug
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, 
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, honggyu.kim@sk.com, 
+ stable@vger.kernel.org
+In-Reply-To: <13a3b600-8a87-478e-adcc-2425c75f98c6@kernel.org>
+References: <20261024170415.4121901-1-gourry@gourry.net>
+ <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
+ <at91WFlW96PH-a8A@gourry-fedora-PF4VCD3F>
+ <13a3b600-8a87-478e-adcc-2425c75f98c6@kernel.org>
+Date: Tue, 27 Oct 2026 10:02:25 -0400
+Message-Id: <179310974571.2232644.3181896214940432050.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On 10/27/26 14:05, Pedro Falcato wrote:
-> On Tue, Oct 27, 2026 at 12:06:05PM +0100, David Hildenbrand (Arm) wrote:
->> On 10/26/26 16:20, Lance Yang wrote:
->>> collapse_file() can call page_cache_sync_readahead() while still holding
->>> source folios locked. If truncate holds mapping->invalidate_lock
->>> exclusively and waits for one of those folios, readahead waits for
->>> invalidate_lock and neither side can make progress.
->>>
->>> We need to release those folio locks before starting readahead. On a page
->>> cache miss, roll back first, populate the collapse range, and retry once.
->>> Doing readahead after rollback avoids an extra pass when all folios are
->>> already present. If another miss occurs on retry, give up rather than keep
->>> retrying while truncate or reclaim removes folios.
->>
->> Makes sense. So we simply try readahead on all folios.
->>
->> Any reason we don't simply add a second loop after the first loop where we don't
->> take the folio locks and do the swapin/readahead dance, then a second loop where
->> we do all the other stuff?
+On 2026-10-27 14:04 +0100, David Hildenbrand (Arm) wrote:
+> >>> +	/*
+> >>> +	 * HMAT and CXL report a node's bandwidth only when it first gains
+> >>> +	 * memory, so recompute the weights whenever N_MEMORY changes.
+> >>> +	 */
+> >>> +	wi_state_refresh();
+> >>
+> >> If the function fails, should we at least pr_warn_once() ?
+> >>
+> > 
+> > The only failure state is -ENOMEM, wasn't sure that was worth warning
+> > on.  I actually debated whether to just make this a void function.
+> > 
+> > I don't have a strong feeling here, but happy to add a warn if you
+> > prefer it.
 > 
-> I'm not sure I understand. You want to nest two loops? Or do you want a loop
-> upfront? I don't think we want a loop upfont. That's slow and involves
-> starting/waiting for IO. Fallback logic makes more sense IMO.
+> I'd assume we'd at least want to tell the world somehow that something is now
+> imprecise?
+> 
+> Or is not updating that harmless?
+> 
 
-I'd have an earlier loop where we focus on filling holes, and grabbing folios
-then in the second loop only from the pagecache + trylocking them.
+It's a potential performance regression, but if we just -ENOMEM'd a
+kernel buffer to hold the weights, there's bigger issues.
 
-That would make the second easier to the eye.
-
-collapse_scan() file could just indicate if there are any holes and whether
-looping makes sense at all. It already does a scan.
-
-So you could just skip the loop when there is no reason to readahead at all.
-
-This function is pretty horrible and the retry logic doesn't quite improve the
-situation.
-
-But no strong opinion for this fix as long as we clean it up properly later.
-
-(looking forward to reworks)
+I'll add a warn.
 
 -- 
-Cheers,
+~Gregory
 
-David
