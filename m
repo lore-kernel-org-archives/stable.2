@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099498;
-	b=5dbKvKbQOrh38N1OrXwiypQ0IhvmFpob1SJgf40T5v62rU30uNXhPAaQz0ZcIwyV6mef
-	 Ns6w9r4AE1TZmr562m0kTIMVazCXVWc1wc1Wu8j1lWBfWkrLEEnISL0BswwXUNMmOWurG
-	 v9dQNg4MLVk4Oc1B+tNn6uYCqOjYVMvM05Y3UFrDuix+OlqBJoo5d53GxF+wqcg/wVSZ4
-	 Fx4WoFlq/kXDMFgEO0VUBy00bZIzTZC5dTEGQAU1ibryy2/ks40kq8+4Dy3wALGL0L8Hn
-	 DzDii3UjTao9BFKJtNKnsch1ciGDxiLmjFTTgrPNcH/6cSHZ8D6UzU0RBgNqpfTNRhg==
+	t=1793099503;
+	b=sOM0Nm7imFpjWkodwaLNCOv+Wj/jrir3tUMOOoGQA+0/T4of2qCoSjgXLrq6XI2zbH1S
+	 efG+vPyMzdhbC1CifiFcDTnzOzn9gqhvrXhO1+53zePQNFvJ+q6Cc9uwdmi5uuef39flq
+	 H6qwtvSvnC+YfSm6e2vy6rdftTc1zG6d4C4HtrQXuM3I8l+7p49Y/jgn7rH9RMbzCOVNg
+	 ziYOmVtf9kjrQB/aGzq7igY86T9IaV1VUcc65HjqP0NgItScBu94S4vAgR0IEypqzpGo8
+	 e9dV4Wfpv2IxR6wZC1EKH1zBXCF43YV4/tnm1OT6P5U+dYhl5eiogrWtiop5eGadJ5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099503;
 	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rKThV24HW1veN5Zp/zLmPe5+vW3IsKHoQQgpGDbJtHM=;
-	b=CuZ8y3TWwXwpHQ3v+k4IW2IFAXO/1B/YRMLxdSr9KBIozxu0riajWhZFop7cqajACZRA
-	 Te8HrH8K4AD7vvKPDaxubKkAqY0FMjRsp2c9jRMPs6+EaH0zKJGzw5fmRBsulvtRwV6GA
-	 woxuGQ5pEorAa2k3MB9YfXftT1HMfy9Fl49XlWIoVbW1/uwl7F6w6Uh6quXUXOh1akbhx
-	 n+v5GjWFNplJMXtaXPZl2xJp+sVdPBctD8s4CuSmav+DM0TLNfZLzPUUgbpuDMcPaumz5
-	 ZtngF/vI4giHLa7N/9/NymAZLiI9CsLnSvdaewjAFe8p8U0clcmApCN7X7e6mqflpGA==
+	bh=uRm+F7qYtT36OPuPfH5nm2HUlkYwRf4AN90k+1SZEEo=;
+	b=VF3q1EoX1JpV4aRULMqr6J7KelD9Dklnkj7BUqtCDV9mwRb1EN1AljE1UuK17uDbgEjo
+	 xuTdEy5G8tyZeEVd1tq6bxg92WdrdYt+125rQXCnFcILHt8WEUY5C47WE2ddnAaCW3Xxx
+	 Y+QL2cevfWPW4OXFe+eyyjeF2gy0OEXgqZx/5HzCwmm2g+NMkNjSB/Ow6Um6HTRMVrKjN
+	 d0Jh2Jum2sEZiHoqcZT0uEeHoBkCpUZOHO4Y83CEppxOWjAx2M84DVGjBeQJSR80Njl6L
+	 Z3MajlJ3zhvD6ilaU2vQmnmCnggtUf0R+/RT3h0fP6YTZAtDfOEyo4CD7bxvNhshQAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=runtimeverification.com;
 	spf=pass smtp.mailfrom=runtimeverification.com;
-	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=n42NRKLc;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=OYa4Eb8M;
+	arc=none smtp.remote-ip=109.224.244.107
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5699E606A31E;
-	Tue, 27 Oct 2026 11:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5699E606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC211606A329
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 11:11:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC211606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=n42NRKLc
+	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=OYa4Eb8M
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1793099495; x=1793358695;
-	bh=rKThV24HW1veN5Zp/zLmPe5+vW3IsKHoQQgpGDbJtHM=;
+	d=runtimeverification.com; s=protonmail; t=1793099500; x=1793358700;
+	bh=uRm+F7qYtT36OPuPfH5nm2HUlkYwRf4AN90k+1SZEEo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=n42NRKLcr/ufkD2QUrT44cgOjkBkrJGdunD+JfiksvQ4hC4NCaGx4D2cwYqzsJJ7E
-	 glXoDHDdICYvSSHJzruqD57ywS+YvkccomYPAFvMisyuIkAb+cXiwjXhBJN+DtJiXe
-	 nvpIBu23BKEnr3NVlUdYmrWpn8H8kH57mMRgaUdc+o11fWKazrvz6ke6DXdBaOew0c
-	 CSxJJEOjN/kazVUt+xSIky3JzqSU0q6By56V44dNIEwh5XQfADYTKlVKgIidksbe5s
-	 6dHTv2tMjkFI33uFE362zDDsyoQj9IYV82tQB6OIoFR/0AUOqMUCvF2vaLgkNb76pG
-	 1wRw/Ql0SHJUQ==
-X-Pm-Submission-Id: 4jDSVW14dlz2ScjF
+	b=OYa4Eb8MMmjnnSbftKj6t6tsGHic4RQNA/6WBHSkWGWjXLZungxm37Dy6thwFzn6w
+	 ttNvjB19xqdAw2tZXvk+IRLLy+7DvqX7CqjWr9mON5mK5iZqM4Cifo4RhUTrUrie2L
+	 2Q/nGfE/ij0XGHoLHKW3RMc6qQGa2sKn0DO+zYJb4gS/cGQsyOfdk+rR67+j8yuGu8
+	 vsCaqlMlxKd1jzbg0SmloMaa7lRgYdDuO91dPyNfXe8e+rguZVwplPZD9VwTA/9XH5
+	 diPoPp8j84cgmvipLqtt++w3RD5oJWbtHPzzHFea8NgwLdTTt8YefAjzSq2q18kDnN
+	 Ln3r4THmsAypg==
+X-Pm-Submission-Id: 4jDSVb5T0kz2Scj6
 From: Natasha Klaus <natalie.klaus@runtimeverification.com>
 To: laurent.pinchart@ideasonboard.com,
 	hansg@kernel.org,
@@ -54,11 +54,11 @@ Cc: ribalda@chromium.org,
 	david.laight.linux@gmail.com,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/3] media: uvcvideo: Let uvc_parse_frame() report a skipped frame
-Date: Tue, 27 Oct 2026 14:11:14 +0300
-Message-Id: <20261027111116.119182-2-natalie.klaus@runtimeverification.com>
+	stable@vger.kernel.org,
+	Natasha Klaus <natalie.klaus@runtimeverification.com>
+Subject: [PATCH v4 2/3] media: uvcvideo: Fix integer overflow in frame buffer size calculation
+Date: Tue, 27 Oct 2026 14:11:15 +0300
+Message-Id: <20261027111116.119182-3-natalie.klaus@runtimeverification.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
 References: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
@@ -73,94 +73,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uvc_parse_frame() returns the descriptor length on success and a
-negative error code on failure, and uvc_parse_format() treats every
-negative value as fatal for the whole streaming interface. There is no
-way for the parser to say "this frame descriptor is unusable, but the
-rest of the format is fine".
+From: Noam Ben Shimon <noambs2999@gmail.com>
 
-Change the return convention so it can. Return 0 on success and let the
-caller advance by buffer[0], which is the value the function returned
-anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
-and leave every other negative value to mean "skip this frame descriptor
-and carry on with the next one".
+In the function uvc_parse_frame(), it recomputes
+dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
+around devices that report it wrong:
 
--ENODATA is currently the only error the function can return, so the
-skip path is unreachable until later patches add checks that use it. The
-one behavioural change is the truncated-descriptor diagnostic, which
-moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
-without the DESCR debug flag. That leaves the local alts variable
-unused, and the kernel builds -Wunused-variable as an error, so it goes
-too.
+	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
+					 * frame->wHeight / 8;
 
-Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
+These three arguments originate from the device's own descriptors, and
+therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
+u16. The expression is evaluated in int, and the maximum value is
+255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
+A device that declares large dimensions therefore overflows a signed
+int here.
+The kernel is built using -fno-strict-overflow, so this wraps rather
+than being miscompiled, but the wrapped value (which is often negative)
+is then divided by 8 and stored in a u32 used as a size.
+
+Two examples for this (using legal field values):
+
+  - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
+    INT_MIN. After division and conversion to u32 the field has the
+    value 4026531840 rather than 268435456.
+
+  - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
+    The field holds 0, rather than the correct 536870912.
+
+I don't think memory corruption is a consequence of this. The value
+reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
+decode path is bounded by buf->length, which uvc_buffer_prepare() gets
+from vb2_plane_size() rather than this field. What a wrapped value does
+instead is make the driver describe the stream inconsistently.
+For an uncompressed format uvc_fixup_video_ctrl() copies it into
+ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
+sizeimage reported by VIDIOC_G_FMT. This is while width, height and
+bytesperline continue to describe the full frame.
+This also makes uvc_video_validate_buffer() mark error on all frames,
+because it is comparing bytesused against the same number.
+
+Compute the size in 64-bit, and if the result does not fit in the u32
+field then skip the frame descriptor. An uncompressed frame this large
+is probably not a real device, and skipping it leaves the rest of the
+format and the streaming interface usable.
+
+The overflow was found with the help of Claude. The fix itself
+was written by hand.
+
+Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
 Cc: stable@vger.kernel.org
+Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
 Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
 Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
 Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
 ---
-Changes in v4: rebased onto d135ab453a74.
+Changes in v4:
+- >> 3 instead of DIV_ROUND_UP_ULL, see cover letter. This is the
+  form Ricardo reviewed on Noam's v2; Noam's test inputs give the
+  same result, so Reviewed-by and Tested-by are kept.
+- Changelog says how the overflow was found.
+- Rebased onto d135ab453a74.
 
-stable: no Fixes: on purpose, 2/3 needs this patch. Both or
-neither.
+Changes from Noam's v2: rebased on 1/3; dev_warn() instead of
+uvc_dbg(); operand values in the message (David Laight); last
+paragraph describes skipping instead of rejecting.
 
- drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index cbc14569716b..14ab4cc28c40 100644
+index 14ab4cc28c40..4d1380c38ec6 100644
 --- a/drivers/media/usb/uvc/uvc_driver.c
 +++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 			   u32 **intervals, u8 ftype, int width_multiplier,
- 			   const unsigned char *buffer, int buflen)
- {
--	struct usb_host_interface *alts = streaming->intf->cur_altsetting;
- 	unsigned int maxIntervalIndex;
- 	unsigned int interval;
- 	unsigned int i, n;
-@@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 	n = n ? n : 3;
+@@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 	 * information. For uncompressed formats this can be fixed by computing
+ 	 * the value from the frame size.
+ 	 */
+-	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
+-		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
+-						 * frame->wHeight / 8;
++	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
++		u64 bufsize;
++
++		bufsize = ((u64)format->bpp * frame->wWidth *
++			   frame->wHeight) >> 3;
++		if (bufsize > U32_MAX) {
++			dev_warn(&streaming->intf->dev,
++				 "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
++				 frame->bFrameIndex, frame->wWidth,
++				 frame->wHeight, format->bpp);
++			return -EINVAL;
++		}
++
++		frame->dwMaxVideoFrameBufferSize = bufsize;
++	}
  
- 	if (buflen < 26 + 4 * n) {
--		uvc_dbg(dev, DESCR,
--			"device %d videostreaming interface %d FRAME error\n",
--			dev->udev->devnum, alts->desc.bInterfaceNumber);
--		return -EINVAL;
-+		dev_warn(&streaming->intf->dev,
-+			 "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
-+			 buflen, 26 + 4 * n);
-+		return -ENODATA;
- 	}
- 
- 	frame->bFrameIndex = buffer[3];
-@@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 
- 	*intervals += n;
- 
--	return buffer[0];
-+	return 0;
- }
- 
- static int uvc_parse_format(struct uvc_device *dev,
-@@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
- 			ret = uvc_parse_frame(dev, streaming, format, frame,
- 					      intervals, ftype, width_multiplier,
- 					      buffer, buflen);
--			if (ret < 0)
-+			if (ret == -ENODATA)
- 				return ret;
--			format->nframes++;
--			buflen -= ret;
--			buffer += ret;
-+			if (!ret)
-+				format->nframes++;
-+			buflen -= buffer[0];
-+			buffer += buffer[0];
- 		}
- 	}
- 
+ 	/*
+ 	 * Clamp the default frame interval to the boundaries. A zero
 -- 
 2.34.1
 
