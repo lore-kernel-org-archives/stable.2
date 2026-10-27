@@ -1,47 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103348;
-	b=cWTr90AjPh9oItwhz5mIhRaKxDzSB8seqk7O0bjgPYSDCvdhm9VSfs8gSdgV7aFdiHGi
-	 Zf+H4id0o4W0Fq+4t8YVE4Wp+3U9vIxntHCJ7/JCgkHDp3GioHQdCqViyOnZrZNhBywvY
-	 wazb+kRy/aAeFLK2hfdgHh2KilmcYUQ4jCOHNzu2nmx6nfCLo+v69esV/kwD/hJwISkpv
-	 01La4P2+zpsNUxs+I19t+c3nbkZxyCIGbRr2T3l3Lbj6XjLfeOssREMdUv5RQit7eIp7K
-	 A1w91zYrd6rXNfiIGXetLjfhFz9/AtdxEswTxzrOREB8csZo5Z1B5DQ5a/q7LLd8vhA==
+	t=1793103493;
+	b=3ZiIRb57cRi9euzN2vyrnQaAfyxuE3FBc3eXf7km0QjdHzF9U6elZGr0ypzOTwxVIuIP
+	 E0knSwD1SDeYow5RP5ottwxBOxCeXAVmjP/JJqocB2JnxfyOVvn/lAD7RqEBeqLGt6+KP
+	 PECVG1jKTVoxkfjs2d8q85BnaPeyQcRHMa6aQBd5TkyrqFmiqmni7kIzEtSwdvyyJ8bhM
+	 pEQ2w713yYS4gRYb3hC7+3epLgkhTLVPu6w3Gd1v4RXMA5Hl9Z2mObjxcWOxnihvFvyPb
+	 41/TsiDlF2fcKQSW4EkrF6nNfXmZNRzkCOCZ9yCK12tbTaU3Vpc5UvEU0uMyH8zkXTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103348;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lJNnO55C6AmR58ZbeinAj1BxG+DZ/g7vQRj9tLP8FcE=;
-	b=lXnpcPMtByphDBTqtgeuhrw8xiQh6XBWyqfVdiogbjgKnliER1AVNDNr0zRMDiiAa555
-	 vX9dky9AwCw7UuEaCnipMTJ+nchPxRSvPfpK63V5e3HEbDXEfmdb75RhMNd8eO/6orETa
-	 wLAc7V2SVWCSPo/R1IBynaKXMCWgrUj4Ux96Z1x0RUpBlz3OB14jErIK+bymEb58RGvsy
-	 todWU4YYKmM+aAbB+SASpaDtrDKz62nrdaLo/ZNVjYI5GoDCgEaLqtMDjpJurvDfggbct
-	 s7jDGmQWVH8xNYnb6E4/EXkwh+8L7eYS5EBsvPNV+ZsdIUziXnsnVo9qzruM+PGeyFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103493;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-Haraka-GeoIP:
+	 X-Haraka-GeoIP-Received:DKIM-Signature;
+	bh=iJ1Nfpl2TinUNkpTG4ohkPo/oX2ZD3x210L8IQ08D14=;
+	b=ouSyIIjwQxZoU8NtnWBNe/Qq3OJAf0oZtlZxvUBxLApYIKsDkqnIr5r+KHVYTFsPyCeI
+	 QhgGSMiJaejqP+ZAfJS6I3TkyHP58vKjmd78tG2FNq29N3wgWg13eDS66qWu3EtAUVDoM
+	 6uZJaAMGRd3V/P5m/LLOYwTRb8adL34NVDUamNfNIAZDyWHCEDi4/vcItd/Gukr8mFIvx
+	 ytnb2FxXJsxbsbif04MU5kVpVY76N/MF6xABKc8ghwUrQ13qha84m4OSrqktHzsunfP2L
+	 maQQTYrpLBZJ0Yy6n7wbBxH401kqubo5JJpdKibvgsd8N0pnW0Jid8cRIoO+ZJjoASQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fbgXWj1/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rimpianto.com;
+	spf=pass smtp.mailfrom=rimpianto.com;
+	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=Mo9PDoWg;
+	arc=none smtp.remote-ip=46.14.198.178
+Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AF5606A31A;
-	Tue, 27 Oct 2026 12:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD7F606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FD7F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fbgXWj1/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C87D1F01825;
-	Tue, 27 Oct 2026 12:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103348;
-	bh=lJNnO55C6AmR58ZbeinAj1BxG+DZ/g7vQRj9tLP8FcE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fbgXWj1/g519KQ+q0WyFpS2YospmjaHK7RkACo3duGiVboKd5uKktUCQnqfZvIIwG
-	 Bwn7XY1iAhz+VlC7yTOPEnHj1UQWBcbAUkNh+xXoknzNybHRuYZGKI7iOeOSkt+XmM
-	 REnH+JGDibRQzXQ5YgW0A5NMGkCWu1AGlPMOAjWFuZON8rsevFq5+B0l6t68Im0N/t
-	 bpYuIdDj2ztiVNHybuxqBqJ2cKoffhq3Lz1JDCprwnDqCJaHb2NrFljCC9FEgTYzmy
-	 OxoHRydNb6JFL8I8JL3+Tmk2ntpENq6Tr3/QsK5027s/x7n1JqPg0sZxRvTf4T0wSf
-	 i7GuITIgITgpw==
-Message-ID: <916d4173-36a3-48f2-8362-2ce7d937bee4@kernel.org>
-Date: Tue, 27 Oct 2026 13:15:35 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=Mo9PDoWg
+Authentication-Results: mail.rimpianto.com;
+	auth=pass (plain)
+Received: from Mac.littleredfox.internal (213-144-151-178.init7.net [213.144.151.178])
+	by mail.rimpianto.com (Haraka) with ESMTPSA id 8F3E3102-F2EB-4E63-920E-365A352252E4.1
+	envelope-from <federico@rimpianto.com>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Tue, 27 Oct 2026 13:18:11 +0100
+From: Federico Musto <federico@rimpianto.com>
+To: federico@rimpianto.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH net] net: atl1c: free the RX buffer when the descriptor reports an error
+Date: Tue, 27 Oct 2026 13:18:10 +0100
+Message-ID: <20261027121810.18654-1-federico@rimpianto.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,111 +56,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/ksm: fix userfaultfd protection during merge and
- unmerge
-To: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org
-Cc: xu.xin@linux.dev, chengming.zhou@linux.dev, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, jglisse@redhat.com, aarcange@redhat.com, peterx@redhat.com,
- kas@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- bobbypowers@gmail.com, bgeffon@google.com, dplotnikov@virtuozzo.com,
- dgilbert@redhat.com, hughd@google.com, hannes@cmpxchg.org,
- kirill@shutemov.name, cracauer@cons.org, mcfadden8@llnl.gov,
- gokhale2@llnl.gov, mgorman@suse.de, mike.kravetz@oracle.com,
- rppt@linux.vnet.ibm.com, xemul@openvz.org, riel@redhat.com, shli@fb.com,
- jthoughton@google.com, corbet@lwn.net, pbonzini@redhat.com,
- seanjc@google.com, sj@kernel.org, ziy@nvidia.com, stable@vger.kernel.org,
- samarth.colleges@gmail.com, med08elkadiri@gmail.com
-References: <20261026130054.91461-1-lance.yang@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261026130054.91461-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Haraka-GeoIP: CH
+X-Haraka-GeoIP-Received: 213.144.151.178:CH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=s20260314391; t=1793103491;
+ bh=iJ1Nfpl2TinUNkpTG4ohkPo/oX2ZD3x210L8IQ08D14=;
+ b=Mo9PDoWgNZc3Kab2lDc9p/DvfJMcXcCWNIxz+pcde0Zwm4+XsqqbJqvbLkz8zgzXE3jUrnQL9
+ p9JIGH8xHFkvQU2hV9aXvKEzCO2MZkwtoNi+jMFGPMG5NtgxF/q5bC7XYvVWzlILnHW1Bx+uLsK
+ BUpiS0mAIpjMLWRj0OADAsMtcSFmaOR5Nid5bfdsYrqlQY+r5q9oOsqz2+TYF9qcTSfcxfe/kmU
+ Pj9/UEStsIapRL/HSOUSWjHSPEPTRU4fFTnM3Yv6HVljqm5ZwGlku4r11/aKyViqKzXHMTml5Bz
+ 5iMOn5vNN0g61Z0n6xTRuiZYMhK6T3WbtuDFQr5KmBiQ==
 
-On 10/26/26 14:00, Lance Yang wrote:
-> KSM loses userfaultfd protection when replace_page() builds a new PTE
-> from vma->vm_page_prot. Dropping its uffd bit lets a subsequent write go
-> through ordinary COW instead of userfaultfd write protection handling. For
-> RWP, a merged page also becomes readable without faulting.
-> 
-> Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-> have to handle unmerging. An existing KSM page can be protected with RWP
-> before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-> of preserving RWP during merging.
-> 
-> Unsharing replaces a shared page with a private one and should leave
-> userfaultfd protection in place, as do_wp_page() already does for write
-> protection. Currently, an unshare fault reaches do_uffd_rwp() before it
-> can proceed to do_wp_page().
-> 
-> - With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
->   break_ksm() then reports success with a KSM page still merged.
-> 
-> - With asynchronous RWP, protection is cleared before unsharing.
-> 
-> Preserve the uffd bit when merging, and restore PAGE_NONE for RWP. Let
-> FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-> private copy as well. Unsharing can then complete with RWP still armed
-> for a subsequent access.
-> 
-> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-> Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-> Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+atl1c_clean_rx() drops a frame whose return descriptor carries
+RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR by calling atl1c_clean_rfd(), which
+only marks the RFD free and clears the skb pointer.  Nothing unmaps the DMA
+mapping and nothing frees the skb, so every errored frame - CRC, alignment,
+truncation, runt - leaks one skb and one DMA mapping.  The driver uses a
+32-bit DMA mask, so on a host without an IOMMU each of those mappings also
+pins a swiotlb slot.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Unmap and free before the RFD is recycled, the same way the good path does.
+The hardware already counts these frames in its own error counters, which
+atl1c_get_stats() reports, so no software counter is added here.
 
+Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Federico Musto <federico@rimpianto.com>
+---
+Spotted while reviewing a fix for a different problem in the same function
+(skb_over_panic on oversized RX frames), by the Sashiko review bot.  It is
+independent of that patch and applies on its own.
+
+The guard on buffer_info->skb is there because the slot can be empty after a
+reset; rfd_num != 1 stays on the old path, since multi-RFD is not supported
+by this driver anywhere else either.
+---
+ drivers/net/ethernet/atheros/atl1c/atl1c_main.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+index e58f1d2..2d68955 100644
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -1908,6 +1908,23 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+ rrs_checked:
+ 		atl1c_clean_rrd(rrd_ring, rrs, rfd_num);
+ 		if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
++			/* The RFD is recycled below, and that drops the only
++			 * pointer to the buffer: unmap and free it first, or the
++			 * skb and its DMA mapping leak on every errored frame.
++			 */
++			if (likely(rfd_num == 1)) {
++				rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
++						RRS_RX_RFD_INDEX_MASK;
++				buffer_info = &rfd_ring->buffer_info[rfd_index];
++				if (buffer_info->skb) {
++					dma_unmap_single(&pdev->dev,
++							 buffer_info->dma,
++							 buffer_info->length,
++							 DMA_FROM_DEVICE);
++					kfree_skb_reason(buffer_info->skb,
++							 SKB_DROP_REASON_NOT_SPECIFIED);
++				}
++			}
+ 			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+ 			if (netif_msg_rx_err(adapter))
+ 				dev_warn(&pdev->dev,
 -- 
-Cheers,
+2.54.0 (Apple Git-157)
 
-David
