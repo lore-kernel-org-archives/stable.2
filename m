@@ -1,54 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103082;
-	b=aBnAKSo5FM9iAc5jjAwGyIsMN2mGkCgmINyI1XcCYUsojtzStAkZIxPGIdm0faSoxP6q
-	 Mi5Or813vBLyyMCvFLnD1USSDAZBokbFRlbTcijQObfxotSO+duDGertTxWGvs56WDjhH
-	 8unZY7s5Dd8tfXjUG5yRLSk/xZH+plW0Za4LDuCxLJYLBjP/fJeZi9ZjzmnbL3n6wfkio
-	 dvj9liba34vJR6CgSqi2SSyUQ5RD2xYP7MNYDgBKbdMKtzykdxbUG0in4GavOQkXEsD3S
-	 CraPjtVpyWlY1k8ImY8Y7bHkUtND4l7pY4cOE7hNrjRCZdKoUt4IylvUGl4fTL0in9w==
+	t=1793103128;
+	b=vS+H/xsl8QlrjG8yocy3DKd0c7QWn3yxaQdoE1SwmAi81cOs7yYFDkgolR9V20uvIEUS
+	 SxMHTQXvZVvoi5NZDJM9nt4ppB79qYXX8LWuMr9+VNKKT22pOquTRXGlmsBmTwJL/IfEh
+	 noCqhMN2HASvpParX97r0DBpatXfraxXFmUMLLm19gtCmlXiOTSemFzAbOJWaQHDCURDf
+	 NmE1ZBSbsXhQbwpB/5jveNXquwfjZUToU9irA6E7PxCMKaCBlwQKNnGBHkVi7q8QwwSky
+	 CvbWtgDILbItGRCjLcumjSssIJJEPEaBwcLBoGdnVR2/E+wyw+EjZQCTwcWh6j6qQ7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103082;
-	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:X-Mailer:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:Received:DKIM-Signature;
-	bh=DLDJ75XjjsCibz0EL53P9TCwyCWQcLlHNaoZbM5HS5s=;
-	b=tWDUI/0GmHwcdncVcX+b9taScGUu9aKNxaIPQcX5AmDLQD6TLtxPBIo+Pwv93qpJubA+
-	 wbcTAaKcLc58TeY3ZSMkn2zjPSqZY9gDd3hBQ/lzsoW3IkTv9RV8yAWjR6TSH69RW059Q
-	 7Gb8guIB/HwfgdvB1ZrYY1JgtoQdmhfcNTI7FMs7KiC8XKiMonQ1NnaG6zuYV/tbA45vT
-	 hJqhw8Mb0J59IK+M11wqWalwvy0BpxIXXq6x4J1lNvYUtKWzlIjXg8XCU+2KttQg/Kl7q
-	 ByBmupOHerRWiciI7NHMYJHQ1QfGjwbCQ5GHoRV8W8qzRd27FKDVtPzZ0NTCZeyFuFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103128;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=myKKudY9AElKYbxGQePv2vddrjcLrdPLn2/PF00unVI=;
+	b=f2Dlbzt5RCn8BRzVBDMDOJcvWFEuaNM3svBnwpe438Pcg2Ds6nqU0/2bmh6+z7kYObtF
+	 i+0WAAZQ0Z54VMO5eEcm6HarnIWwx3jkZ5ezLtaAn14cPmaEx2iQ2SznCoKUEovI4aVtq
+	 zcLIX82H7S7ox7euNYi2lY7L998dPk7ebUW3oDcXcrrFPPVyswNVqyPe+7EIbApHxFH88
+	 AhOf5S/g5E+EskPlN0Jm1QGoDkl3bsPnS8RWM3zG4kw9dSk3QCelzwtufVaLkKo+Sn/W+
+	 E0gNR8NjJf+Qfxv4xWv8pyEHnAU/T3ySFMBtqpMJ36Jmrp3RQFyrokT543T0AtYaVaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rimpianto.com;
-	spf=pass smtp.mailfrom=rimpianto.com;
-	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=QJFnOsSq;
-	arc=none smtp.remote-ip=46.14.198.178
-Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdGBtsof;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78490606A31F;
-	Tue, 27 Oct 2026 12:11:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78490606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5016A606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:12:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=QJFnOsSq
-Authentication-Results: mail.rimpianto.com;
-	auth=pass (plain)
-From: Federico Musto <federico@rimpianto.com>
-To: netdev@vger.kernel.org
-Cc: netdev-bot+sinfo@kernel.org, chris.snook@gmail.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: atl1c: free the RX buffer when the descriptor
- reports an error
-Date: Tue, 27 Oct 2026 13:11:18 +0100
-Message-ID: <179310307892.17409.740717153893027262@rimpianto.com>
-In-Reply-To: <179310301440.3327.713112000658731384@kernel.org>
-References: <20261027115156.17128-1-federico@rimpianto.com>
- <179310301440.3327.713112000658731384@kernel.org>
-X-Mailer: git-send-email 2.54.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdGBtsof
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619471F01829;
+	Tue, 27 Oct 2026 12:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793103127;
+	bh=myKKudY9AElKYbxGQePv2vddrjcLrdPLn2/PF00unVI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hdGBtsofI8YcoPXtyx8lkCxdQDmLN3OUIJlU595mRf8mckm8AT3oTgF84fn/PVE7V
+	 BuiOCXppr7kNOIWYqTYgoZWISnHuQ5Nv0x+s0RHTB3nep7fkcxTuE7Nah/aCD5y1mI
+	 P7SP84rQC4m20Fzyjlaqb6CcDV3+P5E3wHAFD79wVJ1g/UBU0OANd2CxcICZpsDLuY
+	 MuyZNpD1T5wjhnEXdMgjWQHagrB2xfK5h6ne2i0s1id7XhVPsbwFmKW3lzhCBr4Krv
+	 vPfAK0watnfgPPAy4ZiJQD5zNYRXbx2JHxfE8efm2rUmShTqejUueJro0hD+qMMw4c
+	 lgbA8D3Ol+coQ==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B3BBC198004A;
+	Tue, 27 Oct 2026 08:11:58 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 27 Oct 2026 08:12:04 -0400
+X-ME-Sender: <xms:DpXgapG0meWIN0OM66ofji3vvc4hNVtH0drLydv1KcNIs3ErsZpJ8g>
+    <xme:DpXgassn_lZcNXJFSd8gXX8QhsKHGrp27KDHGK01N2lkLJsMN-kA-SA6sBTv8Mneb
+    CuMRL_aJzmPFEkIodcySUV_VxtN9HCoV6CjJbVJGzh5hDgWtimhgNeM>
+X-ME-Received: <xmr:DpXgatl5ve32KSZ52FWmLf7pa8yRPvWx_n5HehD8GDPXoMiFRmAlNElLDRM>
+X-ME-Proxy-Cause: dmFkZTGe5tge3hMEKwWY8gQags5EmqESoYDA0+zWY7IvA1d+/F6MsE3Cn1soB2gZC+4C8m
+    AmdeqR6xBlYdjHkIi1+xb2TKsxTiKKv5qUEaP5dpCSOsLFN98khIIpouApYCUZ9iaewTN0
+    hT1CmGkfdX9omvnjCFWDGuofhrU50LyeRF23rClfUeUbjui0PU0B5qFKnfogAY0cVw9+6O
+    4l2HB0vw+6RGJXa4SsnIhqMXtV9Neg0umvLPylEUbt52l2DRcdcEZf56++DvuebVy5KRjg
+    xa8UyxviWzWUZZykb0Fnka1ej9fCGRTSjDsN4tbCgsE4rWbtQ4MqGo2ev5BggJ27hNHiEV
+    L8ibXBG14E1YD9USjV1AJkkSV08UoWz2qtU7PPRmtKgS3ApkHJBirZCYH0ppodUqAdwlIL
+    69W31hE/Gs9Y/AZ5W/Z5yKU8cWSN6msM6P2mpNzDLiMPFopbpJ7fKurotK6JPMvwtTzs+x
+    CceVUI8VFllI706r169j/JZsf045pQEb/pwr7oaouDKNI3rsdfX0ZepQ2zVHs4CQOk6zY/
+    VugIsLjXQosrDDGEfECKAx0oj4ODRX5noTPyeL3FIjBHTxHUsQjH8ohCl1+RbkTNnO/dqR
+    jw1e2R++h7DvurnnFSeIGznQ/jdZjSoxnKgmRQCZrUCh5beAl3uD4bGaZQuQ
+X-ME-Proxy: <xmx:DpXgasQ1EyxtRBs4tFiKL8tb9Hn_Y9_cB9p6DEQ5SXWv7itXQGBAwQ>
+    <xmx:DpXgav7Y_iwdhRD6lPwDAiYjYRymzwiWwL5vNpdSwH-mETNsjZ8Y6Q>
+    <xmx:DpXgamlH7FICF6lnNILH3u5xidPa-NkHHRAF8lynadF3sQqtQ870lg>
+    <xmx:DpXgal5jGenzwm1UO_iCp-fS1b4AlC1TALorVMgfcXv_uVLHSAwGbg>
+    <xmx:DpXgapx4HHMRpaZzmToEh90JxUkL7hrk0zETU6mAek0gaMBujEKHWGps>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 08:11:57 -0400 (EDT)
+Date: Tue, 27 Oct 2026 12:11:56 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, xu.xin@linux.dev, 
+	chengming.zhou@linux.dev, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, jglisse@redhat.com, 
+	aarcange@redhat.com, peterx@redhat.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bobbypowers@gmail.com, bgeffon@google.com, 
+	dplotnikov@virtuozzo.com, dgilbert@redhat.com, hughd@google.com, hannes@cmpxchg.org, 
+	cracauer@cons.org, mcfadden8@llnl.gov, gokhale2@llnl.gov, mgorman@suse.de, 
+	mike.kravetz@oracle.com, rppt@linux.vnet.ibm.com, xemul@openvz.org, riel@redhat.com, 
+	shli@fb.com, jthoughton@google.com, corbet@lwn.net, pbonzini@redhat.com, 
+	seanjc@google.com, sj@kernel.org, ziy@nvidia.com, stable@vger.kernel.org, 
+	samarth.colleges@gmail.com, med08elkadiri@gmail.com
+Subject: Re: [PATCH] mm/ksm: fix userfaultfd protection during merge and
+ unmerge
+Message-ID: <auCTv9O6F1JPyOAu@thinkstation>
+References: <20261026130054.91461-1-lance.yang@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,42 +95,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id 3E2F3573-DDCD-4D4E-8324-17F91AE33D9C.1
-	envelope-from <federico@rimpianto.com>
-	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Tue, 27 Oct 2026 13:11:19 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=MIME-Version: Content-Transfer-Encoding: Content-Type: References:
- In-Reply-To: Message-ID: Date: Subject: Cc: To: From; q=dns/txt;
- s=s20260314391; t=1793103079;
- bh=DLDJ75XjjsCibz0EL53P9TCwyCWQcLlHNaoZbM5HS5s=;
- b=QJFnOsSq5GWQuU6Rl8xE7BwRmXlAaBsHSE/BmYxEiaRoKmzclTExRtd7lYj4GOEMkwl7JxbYF
- 9PDu9vmwdMeI7N5HPTiUO6v3sZka+HV2TWjTKnVOGbhnTUjfzA7eF8WXW61gmZK6tOa4zC44vgp
- hr7mXZ44loaSwuyKdvVBk11p1Ux7RYVUaRJzCLORYDAVmVSqvStVU9CF6q0aCu01dR/AQmHcyaj
- o+wULNzPD+G9EmIUkyT0BTJLbdMBgDI0u0CcG4cpLnceNLCGLRsBh3ksAEpGa1LVIiKHGNraMMQ
- 5IvD0+fXpUOxi4CnJKjhFGjR4R77/rQpOAXfo/NdWLAg==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026130054.91461-1-lance.yang@linux.dev>
 
-The leak was found by inspection, not by triggering it.
+On Mon, Oct 26, 2026 at 09:00:54PM +0800, Lance Yang wrote:
+> KSM loses userfaultfd protection when replace_page() builds a new PTE
+> from vma->vm_page_prot. Dropping its uffd bit lets a subsequent write go
+> through ordinary COW instead of userfaultfd write protection handling. For
+> RWP, a merged page also becomes readable without faulting.
+> 
+> Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+> have to handle unmerging. An existing KSM page can be protected with RWP
+> before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+> of preserving RWP during merging.
+> 
+> Unsharing replaces a shared page with a private one and should leave
+> userfaultfd protection in place, as do_wp_page() already does for write
+> protection. Currently, an unshare fault reaches do_uffd_rwp() before it
+> can proceed to do_wp_page().
+> 
+> - With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+>   break_ksm() then reports success with a KSM page still merged.
+> 
+> - With asynchronous RWP, protection is cleared before unsharing.
+> 
+> Preserve the uffd bit when merging, and restore PAGE_NONE for RWP. Let
+> FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+> private copy as well. Unsharing can then complete with RWP still armed
+> for a subsequent access.
+> 
+> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+> Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+> Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
 
-While reviewing a separate change in the same function - the oversized-RX
-drop, which removes an skb_over_panic that I did hit on this hardware - the
-review pointed at this branch: atl1c_clean_rfd() clears the skb pointer
-without unmapping or freeing, so every frame carrying RRS_RX_ERR_SUM or
-RRS_802_3_LEN_ERR leaks one skb and one DMA mapping.  I have not reproduced
-the leak with an injected error stream, so the change is untested beyond
-compiling and applying: it only moves the unmap/free that the good path
-already performs to before the RFD is recycled.
+Thanks for fixing this:
 
-Hardware the driver work is done on: MikroTik CCR2004-1G-2XS-PCIe (4x
-AR8151) in a Proxmox VE 9.2 host, kernel 7.0.14, atl1c built out of tree
-with DKMS.  On that box the hardware error counters do move
-(rx_len_err/rx_crc_err) when the link partner sends frames the host MTU
-cannot take, which is how this branch gets reached in practice; I did not
-isolate the leak itself on it.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-If there is a deterministic way to force error descriptors on this device -
-a specific register write or a known-bad traffic pattern - I am happy to run
-it and report what the counters and /proc/slabinfo do.
+> @@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+>  		dec_mm_counter(mm, MM_ANONPAGES);
+>  	}
+>  
+> -	/* Preserve soft-dirty when replacing the page. */
+> +	/* Preserve soft-dirty and uffd protection when replacing the page. */
 
-Federico
+Small nit: the period at the end of a single-line comment looks odd to
+me. Am I the only one?
+
+If you are going to respin the patch for some reason, maybe drop it?
+
+>  	if (pte_soft_dirty(orig_pte))
+>  		newpte = pte_mksoft_dirty(newpte);
+> +	if (pte_uffd(orig_pte)) {
+> +		newpte = pte_mkuffd(newpte);
+> +		if (userfaultfd_rwp(vma))
+> +			newpte = pte_modify(newpte, PAGE_NONE);
+> +	}
+>  
+>  	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+>  	/*
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
