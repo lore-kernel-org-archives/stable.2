@@ -1,58 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097989;
-	b=ay2+cg8w98lpDTNHIP94ChnrNNCc65gadQUtbAWEyhFiRZ3xfHJFZlT0dbuBVPrijK6O
-	 ztFvQUAZ1eER8E5waCx0C9NiQeTqUZS5IBxrXZvZ0Yg62hRFXErrUqXKOb/0lUICJv8Fc
-	 +kCheRE232LTjB0I3SnPb62R2kDiODJEOSp3FVk1P31YC9nv0JaojvtNlByyXYoZk6Jmu
-	 a+vLEMhtaBenu3TAMJpTg77urWZSQhbasyAFrR+liWcKI6hA5AdnAd6Si7dpaf5TxffYT
-	 0xwRUwlzttaniiZkQtGUwOED9N4qELuoTGJbPSRj67T7BOXuOtRI/DALprl7JSbiwRg==
+	t=1793098050;
+	b=UiDh5bt+okSeUkReTcFDS/pgPt1eWGR5wV3xxRt8tICY+9ib/jfM2UB64MmxvRRxzsel
+	 9t6GJrSuKDcet/HZCnc3mZ/xdlfl1zW9wuoK5ymb+XvLY5cQPZx1sjlFp2LsQqjwyFOHO
+	 uFB5D6YJZ2EF7O5AZQly/wbD8+DAN8z3Ks5PiKJpKvb3W/l5mzRMDKeQdtvhZrnF9HKzh
+	 nWduJj2qwsUtVYogq/xSGUaIFgN3ocNUkDOu5ig8II22yGmZ6OGiZc5yxOXFD31kUTQnn
+	 CjpfqB2DgKlco1gU0pBuyaZbt2+T/sFsG5OoXuxy2A9emNJ/0XxM27EAfYCFwTOd5hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097989;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=5Vs5ndS2ROIItVTRiDUX3nUYZx63qxUzwdl+W5kNnhI=;
-	b=2CMt+ory8TV/DReW048Hcd9t40Rg3pxXATk1/LDY+qvD17+gZnRAliSS7bVJZw9/pFk5
-	 ACdMxg61bTDQ8PHWZQp4pa3FQq4OJEse2S0RGW0BKI0AvymPMHKVoVCZ5MuM5Vaof3dz3
-	 FaTIsKMpHjAKY2OAUgAZYy1Z/BpjjoTlgpZsKeHdcqxCK6hxc+VSOEw7KXGAG7PCXNMQS
-	 eOUOHswrdzn6sMakVkBlLEPzR/d+xrW9vD85x9QWI0gE7o741hT7fz/MhsurUMwA86ScQ
-	 GbT2dQk7gzWqlRRFrRm21XOdI46wkoR0E5IFq022qmGi1URo9WlNV8CLxcPxp4lcoHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098050;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KNgfDwC+3+GosfqLGHUx6kr+kkAHjH7KEB5LS7CnCmM=;
+	b=p+Si9dyOUyBMDd0fG72GktusmstzMdzpnMGZaRk+FvhYzcnLa17kK+uQM5FgvOADjpMN
+	 gObqWA7K0gHyH81pQtAT87OK6Y96BuhINezUf8tj7DCWxjPuyvCcXifFlwknmlPz1M+Nn
+	 PYNx6ynjO+ohlGCuTfmBtpWE+A90kQa2LRtF9uA6e61+aWPrDmwcLRSmaL79SqTEKkTBA
+	 L9x/36VaMY06fc5yQncnb2NnYj8yP6aXmhAttUoN42BXDG8+tSBX4Nkl1NX6q9nFirvSy
+	 Vix4FUZYKPistnavq+yfm1yWq5CIVz8S4kjKYlB3FAKfBufJDuvKQ+R2bX4RnY28SlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pDRFcNvi;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MQKmLPZJ;
+	arc=none smtp.remote-ip=74.125.231.64
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43222606A31A;
-	Tue, 27 Oct 2026 10:46:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43222606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781FF606A323
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:47:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 781FF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pDRFcNvi
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=5Vs5ndS2ROIItVTRiDUX3nUYZx63qxUzwdl+W5kNnhI=; b=pDRFcNvizUZNwBNHBQDf4cT86I
-	bSWg2dh0Zii3ieQuGvFrWZX+fOgrN6KfwSkoyKp7shsF+v3+MOLZAkhziSSknBlapM4Ve/2n3C6Du
-	oBSS37Q9OzG4OCAlbWO6Iwj+yZkLn1f9cmVTdvTrvtrfYdXmtKiEdYI/+JUi8VOsfNjDZ767nWpx4
-	oQcN2ciLVX5RZ3AXZVn8JKOptJQheEGAtCSQPfgXNhIc6msR6+etpr7SV/loz3RboHHqo7Mhos/gf
-	/Vlzah4okFQ1ChReBUYuaabraIVFTFip52XbBtfY5nMLfF+uoB1cnGpT35Xm9UPVYm9+qgtFC+1O/
-	TyzYbx+A==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLehB-001P1Z-1K;
-	Tue, 27 Oct 2026 10:46:21 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 27 Oct 2026 03:43:51 -0700
-Subject: [PATCH] x86/nmi: Ignore negative NMI handler durations
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MQKmLPZJ
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so826889fac.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:47:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793098048; x=1793702848; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KNgfDwC+3+GosfqLGHUx6kr+kkAHjH7KEB5LS7CnCmM=;
+        b=MQKmLPZJuqcgyjnXyDxD/97XlTCvnNhUq2zFaKUbbWiYi5z8O2IpZhAHn1GVymp1kQ
+         j7DW2bgalslQl2+/IGXCfHhSmtQVVPaA6O70ssIj7KARyNJBZbsgHbCx4Shs4gu3brlc
+         t67KQMtNaVjBi1eL7CetaAX/3mubCTVDxvLcqwpKpczazzxFIBYEMWlCPoQAhTBbIKC8
+         DbqYiw8tnf+mQQxH1FH4ktcyxqC5N72wt8W+RfCxikmlQIOW4pq1QhGK3kZg2FueRDbY
+         /GM7m1trkNTyAzWVJAHYIzdstugpuQx7HBV5fuBZCkIVzQGbdIV/rpykyrYbNK5QmXkK
+         NZBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793098048; x=1793702848;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KNgfDwC+3+GosfqLGHUx6kr+kkAHjH7KEB5LS7CnCmM=;
+        b=JtJtAw8BosHj7f94F2Q+6GHr/h2h6hEyfyufQsZ+Jp3X5YS/2ZytHo4Hd8bbfWSqUE
+         slFZOVoPi4RawK9a+qL+z1A9StK/zQ6VdJzsk+QqmKuMY/RwKfFWSn7pg5JiKz3VttxC
+         cCPxRRkv4GYkFWRIZiBm2DoUW/XQliVhie4U+aN5FihBNTPeohg89ARik51k2o32QnyN
+         mOtj9DejJo4y0Cl9fuRkNHm1wDvm6jYt73BlMdg9v/9yhfdId8XV6StvoWk94GDN80Cf
+         i7KmbqVIiLWNmy9qs80ijuITLj47fSYU8WOGm6QbMGOpHnvRlTowpxGXuyigplucUYF/
+         yL4g==
+X-Forwarded-Encrypted: i=1; AKwUvByhyJ/r2alNQH6yoZS9FNVzvAjcT0Tad15veFkJaNyTP/Al3jFWgWlQFpaOPwvIFhpsk2uNzhA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0N6mbtqBnFlX7+rPAFP6pXsbaKws0skiYfVtrdEjN5JTCSp75
+	rlpwp9y505Tb7mKqN0LXV16c0kUOtViGCEu9XSq/vIH6jdZyvZjP+9VM
+X-Gm-Gg: AYBFou0x41+8F1uNcqK/bi1qG5ve9sElcgcKj9vNSFJri7K/etaEFwawa10ZDDvqG1H
+	UOd5+2ZRMe8VYkal5ovZ4ei7tdoDg0G6TeS+O9eFR1dRuKW3Pqd4Z5va+BH6nup4OB9cDhOw7Wk
+	XeS1KM0e0e4oAUbTy2FADkIRWcw1eU0CVQ6Wgv7o7A9Rmn0NTpPLf0z+YQdpLxcy1UZ9o3QwEGp
+	UZ+2DmeJ/nTw6wiiU+J1CQBJzWI+ipXXHjVDgmDZmC1Px4qSQf3tvheNQ5deIdwayVoSk3cFNru
+	v256wkGWjHx1SkapWKEY9NFGJ5utGsjTFRvliYXAYsKXteKs0uFK/X8JI4DiycGq8qcOqQvJGgH
+	FyDfnnflUJoofPvwO+Ej3Uoj9svMYV61Pwfnax5FDFYm3aRei8YSnBIDH2QTF8WLzfOB8HO7Za8
+	q6SfE0sgup0KgRWecVGTkH3ww5rBXGseUlmacdxbnaWSBwHAgnzrZ9bcEIwzG2MLGw7xr2E+Rku
+	Vrc+K5ckdrnI8qX8u+j8LVhBI0NBGolHHivi/lxeYGlOhnpTMwJLOHBRatDNsYrytTTcEwZWeCB
+	5V31VGlfj5G3S8qoQBhpHkExdwNNBBFJNY1DeseDxAK3lQgCCnuXUqTQUE2vMd+JE93TyQ==
+X-Received: by 2002:a05:6870:658a:b0:4a7:df5e:d6ee with SMTP id 586e51a60fabf-4a83f53b9aemr5207325fac.45.1793098048302;
+        Tue, 27 Oct 2026 03:47:28 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.36])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a842e89b77sm6597299fac.2.2026.10.27.03.47.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:47:26 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Ido Schimmel <idosch@nvidia.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Petr Machata <petrm@nvidia.com>,
+	Ferruh Yigit <ferruh.yigit@amd.com>,
+	Antoine Tenart <atenart@redhat.com>,
+	Seungwon Bae <qotmddnjs@gmail.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4 1/2] vxlan: reject adding a remote to a nexthop fdb entry
+Date: Tue, 27 Oct 2026 18:47:12 +0800
+Message-ID: <20261027104713.328028-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,108 +108,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
-X-B4-Tracking: v=1; b=H4sIAGmA4GoC/x3MUQqAIBAFwKss7zshJTK8SkRUrrUfWWhIEN09a
- A4wDzIn4QxHDxIXyXJEONIVYdmmuLISD0cwtWl1bayKu4yR1+mSwqqz7aIbz8HYGRXhTBzk/rt
- +eN8PulRcPl4AAAA=
-X-Change-ID: 20261027-nmi_negative-876c14def27b
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Peter Zijlstra <a.p.zijlstra@chello.nl>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, kernel-team@meta.com, stable@vger.kernel.org, 
- "Paul E. McKenney" <paulmck@kernel.org>, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2785; i=leitao@debian.org;
- h=from:subject:message-id; bh=DfX9yGq/hRTEBVgaZ+1kGHTYBcKp/gGuPYxnhsGsefI=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq4ID4OuYskGa3uP7bFJSNETdpI1SWXWw/4NvKR
- ZuBJ4zA8E6JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauCA+AAKCRA1o5Of/Hh3
- bTQgD/4uuCcgkh9r8dn9dAH0g4VpyTZisz3MLhsa1sTfQLH2ZLQOT29YK0XaVCvoa6b21a5tAgW
- kG81kHkALqPXwVwzim5uVP4JNO8q9UQ+iwWUPP9kgmIIW1X/0LwjyKQdym4ilCssdvPwsBwiqEl
- FTljEgB8XFQm1VFwKaLz5xiL7ZAaxH3p2Vy11ChkelGsXG/8WEV6Rc20J3pURLrTsEEaP+netiN
- u9CeuBX4LZdX/2J5L/l6foSpLwKy6lBVziZ6p7mQ9o7cXKd+yx9p7ASjytKZTTtW3SHm3HCiJqt
- 2qy2jE7e2wM2JIBub9g87YaG27tVJeHol0E3egms8pbHGuamlNuBPDchrx7vHxr9zdxB5Ba5xJN
- xMvSh1/7WHg/8AwsOD7aOp3dKR8AzwWxdOrcGVl+CuaVSWL5OZFMcrpGp014amYundGuhF9lAeD
- gBfJxkks+s8nHOkHCit4S2lfEzl+/koZrq9MsLNX76RObAAf2Eo/sGBqzItD+oLvER+jN0cr8jR
- pZ03fA3xDgKsxoXtczHslThq1+cAK+BeSp4ZtS81dZ/KLy/43rSPDKPjnviT2tUuWk497PRL/8c
- j6VqypM2yiH5zF1TRFKwsrRFCfc54NipYm2lQYXTTWhTtPg0Z+Fvw9Fn7ic4f0hSacOsw9J+rk5
- 0ho3yB0HH/QQP/g==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-I am seeing NMI handlers in the Meta fleet reported as running for
-about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
-such lines, for example:
+FDB entries backed by a nexthop group must not carry a remote
+destination list.  vxlan_fdb_update_existing() currently appends a
+remote via vxlan_fdb_append() on an NLM_F_APPEND request with a
+multicast or zero MAC even when the entry is backed by a nexthop,
+breaking that invariant through three different callers:
 
-  AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
-  [ 1650.616627] INFO: NMI handler (nmi_cpu_backtrace_handler.llvm.9643156322683129580) took too long to run: 18446744073709.551 msecs
+- "bridge fdb append" with a dst on a nexthop entry;
+- "ip link set dev vx0 type vxlan remote <ip>" (vxlan_changelink());
+- "bridge vni add" on a vnifilter device
+  (vxlan_update_default_fdb_entry()); this includes a plain
+  "bridge vni add vni N" without a group, which falls back to the
+  device's default remote, and a unicast group.
+All three reach the append block with nhid == 0 and a PERMANENT
+state, so they pass the earlier nexthop checks.
 
-  Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
-  [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too long to run: 18446744071018.936 msecs
+There is no crash and no leak: the appended remote is freed with the
+entry, and the transmit path ignores it (vxlan_xmit() follows the
+nexthop whenever f->nh is set).  But the stray remote changes
+deletion semantics: __vxlan_fdb_delete() destroys the whole fdb entry
+when the matched remote is the only one on the list, so removing it
+via "bridge fdb del ... dst <remote>" or "ip link set ... remote
+0.0.0.0" tears down the nexthop entry, not just the stray remote.
+The entry state is also misreported: vxlan_fdb_notify(), RTM_GETNEIGH
+dumps and the switchdev FDB programming all prefer the remote list
+over the nexthop, so user space sees the dead remote while the
+datapath follows the nexthop group.
 
-  Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
-  [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to run: 18446744073709.545 msecs
+Reject the combination at the top of vxlan_fdb_update_existing(),
+next to the existing nexthop guards, so a refused request has no side
+effects.
 
-nmi_handle() times each handler with two sched_clock() reads. When the
-second read is lower than the first, the u64 subtraction wraps, and
-nmi_check_duration() treats the result as a duration. In the three
-examples, the clock went back by less than 1 us, by 2.7 s and by about
-6 us.
+Also move the non-unicast NLM_F_REPLACE rejection to the same place;
+it previously returned -EOPNOTSUPP only after the entry state and
+flags had been rewritten, skipping both the notification pass and
+the err_notify rollback.
 
-The wrapped value is also stored in action->max_duration. Every later
-real duration is smaller, so the handler is never reported again until
-the next boot.
+Note the resulting behavior change for the rtnetlink callers:
+operations that previously succeeded while silently attaching a
+remote to a nexthop entry now fail with extack
+"Cannot add a remote to a nexthop fdb entry".
 
-Whatever makes the clock read lower, a negative difference is not a
-duration, so return before it is stored or reported. A clock that steps
-forward is not covered, since that cannot be told from a real stall.
+Add test cases to fib_nexthops.sh in the same fashion as the sibling
+fix, commit 98fc57d16744 ("vxlan: reject dynamic fdb entries that
+reference a nexthop id").
 
-A backwards clock is still worth knowing about, so print the size of
-the step once per boot. This uses pr_warn_once() rather than WARN, as a
-stack trace says nothing about the clock and panic_on_warn machines
-should not go down for it.
+This issue was discovered by Tencent CodeBuddy Security.
 
-Fixes: 2ab00456ea8a ("x86: Warn when NMI handlers take large amounts of time")
 Cc: stable@vger.kernel.org
-Cc: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- arch/x86/kernel/nmi.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
-index aae7254774680..57a0dab1ec7a9 100644
---- a/arch/x86/kernel/nmi.c
-+++ b/arch/x86/kernel/nmi.c
-@@ -130,6 +130,14 @@ static void nmi_check_duration(struct nmiaction *action, u64 duration, struct pt
- {
- 	int remainder_ns, decimal_msecs;
+v4: Also move the non-unicast REPLACE rejection before the entry is
+    modified (the same half-update class, pre-existing), describe the
+    stray remote's effect on __vxlan_fdb_delete() instead of calling
+    it "unused", and note that a plain "bridge vni add" or a unicast
+    group hits the check too (sashiko review of v2).
+
+v3: Describe the actual consequence and add fib_nexthops.sh test
+    cases as requested by Ilya Maximets.
+
+v2: Move the check before the entry state/flags update, next to the
+    other nexthop guards (reported by sashiko, confirmed by Jakub).
+
+ drivers/net/vxlan/vxlan_core.c              | 26 +++++++++++++--------------
+ tools/testing/selftests/net/fib_nexthops.sh | 18 ++++++++++++++++++
+ 2 files changed, 40 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 3390e341d1e58..13143085065f6 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -1002,6 +1016,22 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 		return -EOPNOTSUPP;
+ 	}
  
-+	/* sched_clock() went backwards? */
-+	if ((s64)duration < 0) {
-+		pr_warn_once("NMI handler (%ps): sched_clock() went backwards by %lld ns on CPU%d\n",
-+			     action->handler, -(s64)duration,
-+			     smp_processor_id());
-+		return;
++	if (rcu_access_pointer(f->nh) &&
++	    (flags & NLM_F_APPEND) &&
++	    (is_multicast_ether_addr(f->key.eth_addr) ||
++	     is_zero_ether_addr(f->key.eth_addr))) {
++		NL_SET_ERR_MSG(extack,
++			       "Cannot add a remote to a nexthop fdb entry");
++		return -EOPNOTSUPP;
 +	}
 +
- 	if (duration < nmi_longest_ns || duration < action->max_duration)
- 		return;
++	if ((flags & NLM_F_REPLACE) &&
++	    (is_multicast_ether_addr(f->key.eth_addr) ||
++	     is_zero_ether_addr(f->key.eth_addr))) {
++		NL_SET_ERR_MSG(extack, "Cannot replace non-unicast fdb entries");
++		return -EOPNOTSUPP;
++	}
++
+ 	/* Do not allow an externally learned entry to take over an entry added
+ 	 * by the user.
+ 	 */
+@@ -1018,22 +1048,18 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 	}
  
+ 	if ((flags & NLM_F_REPLACE)) {
+-		/* Only change unicasts */
+-		if (!(is_multicast_ether_addr(f->key.eth_addr) ||
+-		      is_zero_ether_addr(f->key.eth_addr))) {
+-			if (nhid) {
+-				rc = vxlan_fdb_nh_update(vxlan, f, nhid, extack);
+-				if (rc < 0)
+-					return rc;
+-			} else {
+-				rc = vxlan_fdb_replace(f, ip, port, vni,
+-						       ifindex, &oldrd);
+-			}
+-			notify |= rc;
++		/* Only change unicasts; non-unicast replace is rejected
++		 * before any state is modified.
++		 */
++		if (nhid) {
++			rc = vxlan_fdb_nh_update(vxlan, f, nhid, extack);
++			if (rc < 0)
++				return rc;
+ 		} else {
+-			NL_SET_ERR_MSG(extack, "Cannot replace non-unicast fdb entries");
+-			return -EOPNOTSUPP;
++			rc = vxlan_fdb_replace(f, ip, port, vni,
++					       ifindex, &oldrd);
+ 		}
++		notify |= rc;
+ 	}
+ 	if ((flags & NLM_F_APPEND) &&
+ 	    (is_multicast_ether_addr(f->key.eth_addr) ||
 
----
-base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261027-nmi_negative-876c14def27b
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+diff --git a/tools/testing/selftests/net/fib_nexthops.sh b/tools/testing/selftests/net/fib_nexthops.sh
+index 431d7bed76224..bdc23205bde4c 100755
+--- a/tools/testing/selftests/net/fib_nexthops.sh
++++ b/tools/testing/selftests/net/fib_nexthops.sh
+@@ -547,6 +547,15 @@ ipv6_fdb_grp_fcnal()
+ 	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
+ 	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
+ 
++	# fdb entries with a nexthop group cannot take a remote append
++	run_cmd "$BRIDGE fdb add 00:00:00:00:00:00 dev vx10 nhid 102 self static"
++	run_cmd "$BRIDGE fdb append 00:00:00:00:00:00 dev vx10 dst 2001:db8:91::11 self"
++	log_test $? 255 "Fdb append with nexthop group"
++
++	# fdb entries with a nexthop group cannot be replaced with a non-unicast MAC
++	run_cmd "$BRIDGE fdb replace 00:00:00:00:00:00 dev vx10 dst 2001:db8:91::11 self permanent"
++	log_test $? 255 "Fdb replace with nexthop group"
++
+ 	run_cmd "$IP -6 ro add 2001:db8:101::1/128 nhid 66"
+ 	log_test $? 2 "Route add with fdb nexthop"
+ 
+@@ -697,6 +706,15 @@ ipv4_fdb_grp_fcnal()
+ 	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
+ 	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
+ 
++	# fdb entries with a nexthop group cannot take a remote append
++	run_cmd "$BRIDGE fdb add 00:00:00:00:00:00 dev vx10 nhid 102 self static"
++	run_cmd "$BRIDGE fdb append 00:00:00:00:00:00 dev vx10 dst 10.0.0.3 self"
++	log_test $? 255 "Fdb append with nexthop group"
++
++	# fdb entries with a nexthop group cannot be replaced with a non-unicast MAC
++	run_cmd "$BRIDGE fdb replace 00:00:00:00:00:00 dev vx10 dst 10.0.0.3 self permanent"
++	log_test $? 255 "Fdb replace with nexthop group"
++
+ 	run_cmd "$IP ro add 172.16.0.0/22 nhid 16"
+ 	log_test $? 2 "Route add with fdb nexthop"
+ 
+-- 
+2.43.7
