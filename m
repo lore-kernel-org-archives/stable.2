@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084239;
-	b=Ppm5jkqpVaboXdcdW610XFVEXFjTy+YdBacbTEf4oMcNC/DUU3kPNQ2wZ+24/oYalT7C
-	 V58DEWr7CNnkhdKExq+eRkn97xNRawhYTdX/P7MQSDym6aSknV4vNaDeh1YPrmsrwCyj5
-	 MWS3KhYJWf//I0icnMQPSScai1tG6KvIJ8Uqfs+jBsIl6TPnmkLJxUmbhRYkMPCKO7y46
-	 klYLsBfEWDKRgy2+fj76vHBnBdCMg0W+Qu15Ju5p+eB3lOkRYBd+5ipBCnyTOA3XMQE8q
-	 lb/eX27pYNkSJeJMT2pZvxO4izJuUvotq2Mo5YS12dPnLq2KUx5l81SRWE8dyqW+f7Q==
+	t=1793084244;
+	b=MPBYolVLty7gugcVnnoyE8HUQIZ74Tx+t3OZelgM+WXUWDBwS2eoVPZa3lPEPYLQGSSQ
+	 O3xahWewzV7P12YtDYF4oy7YdtTZuTB9VOY1Cv4MUWGluMz6n/4Pmq8J6NUsEujssuSlM
+	 sDIiMBa6Q23Nh2BXR6a9Aj8FVhTP2AN3DqiwELrRNguqXzoPTySTS4D7x843cyp/NAabL
+	 lS1V93KUDIQTaMO7twJov9mYXDSlohd3JfPdmDwWMIL9X9I4i3XD6/znUPFxgDcEUt5vp
+	 vHnLsVZEWKy/FMkZnty3hC4UNh41sHiiTGJ1bemwhhKri6bdTOmLY0PrpcOawOy+F9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084239;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084244;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=pRNMKUxHBHa2Apv5r1Y7542NpZLiiBP519/s4FlUMAw=;
-	b=dlaXmtAa02RqMlXPPiY7QeXT4kJ64fhRiU8m7CvdX1x9wUBbHai4f9jLRzXOiqqpc48b
-	 BC7dKlcVRVGagygEXcYxOYMpl9YEWzizkKCrUB/zMEyjfDRitjmM+BVRn+nHuG5ll4kHN
-	 QVlVU5372med+ZdTi50s5M93hNGDQ85a6U3aheSWfrJ2j1SxtGIVyrYTw6KjAIgd4hi7Z
-	 /2cPSSe9LTmth3NOoXbcpGn1hK8ZcPU+oJDNqa6szxgsqD/Hruubab1NNpA8HGJlJiEDb
-	 VrIW/dT6d9FH7MoyzAtUmZ0RlFlrZKd5BG0l+s1SxfSGrk+XSDGAU0aW3wsiHsE9ElQ==
+	bh=PwCP5UyYPH4odKmTXXB7Wfe40ztBWuQkqosyPb4KfP0=;
+	b=B2t/Yqnvd6pMj6Nb2aYTa4vYZaod7PI9oOEgxVRJEw5LP9MFbDWInK5Z/lO8M6CZcoBT
+	 Vy3nddocGcRn3syKy5jc+T4ikaRobuNAnoqrPJMSI889L8r9vHRZLeatfWdoYLiz6xAwo
+	 8+fQ38tLDh5B+Zfe9P5dWGL3QA3fjv5/xN560P6XGdMaVVaTdNIGkUjmu63d56qUCcbWq
+	 59BuDhdui50NVakr5XUECXQiofa2v0Jbz/fl129OginGMXqNrQhcG0/hPQ9VIDQIYe0ES
+	 tJKmSTN4uclK8rJnaJWgw+YK8TbbhV0Rr6CfFom3NTSoN9hOdqIj/MwUFFrp6cs+pdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bwAsvIEp;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RFkjpEkO;
 	arc=none smtp.remote-ip=117.135.210.3
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9D6606A323;
-	Tue, 27 Oct 2026 06:57:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA9D6606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC980606A31A;
+	Tue, 27 Oct 2026 06:57:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC980606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bwAsvIEp
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RFkjpEkO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=pR
-	NMKUxHBHa2Apv5r1Y7542NpZLiiBP519/s4FlUMAw=; b=bwAsvIEpMwavS2NKX5
-	3UsiiKbg8MFRRa2K0YYrg07O0irRjyG8BHRNuquZ0etUJuGRq5t9DrNpINm3CToC
-	lu/lIW84LVXfvG6uae5Vhjs225SBmnUeyTem19UBZr8GzAR6ztabP+lR/s+7cKfB
-	JbCWO0OLtpXNPXOS6mgnK9pX4=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Pw
+	CP5UyYPH4odKmTXXB7Wfe40ztBWuQkqosyPb4KfP0=; b=RFkjpEkOyILTmEHZbG
+	K8+z3vD2JY0EB3e2IO8hlbEhTFs0SuKieCjKCTyo5if0dpsLlN34rm4ICML5wy21
+	wq09g1JCOf2a///hv+dO3q5TJq83GBZXKB5plL36b6h4T1m2powP6F164ekQ4+ad
+	KGB4mvJi2xtP6mr+y7k7gkNOg=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3f3srS+BqJPR6DA--.54486S4;
-	Tue, 27 Oct 2026 14:56:46 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3f3srS+BqJPR6DA--.54486S3;
+	Tue, 27 Oct 2026 14:56:45 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Haiyang Zhang <haiyangz@microsoft.com>,
 	Wei Liu <wei.liu@kernel.org>,
@@ -54,9 +54,9 @@ To: Haiyang Zhang <haiyangz@microsoft.com>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Kameron Carr <kameroncarr@linux.microsoft.com>
-Subject: [PATCH v3 2/2] Drivers: hv: vmbus: copy dynamic IDs before dropping the lock
-Date: Tue, 27 Oct 2026 14:56:42 +0800
-Message-Id: <20261027065642.2280297-3-yaojiale02@163.com>
+Subject: [PATCH v3 1/2] Drivers: hv: vmbus: prevent duplicate dynamic IDs
+Date: Tue, 27 Oct 2026 14:56:41 +0800
+Message-Id: <20261027065642.2280297-2-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261027065642.2280297-1-yaojiale02@163.com>
 References: <20261027065642.2280297-1-yaojiale02@163.com>
@@ -70,32 +70,21 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f3srS+BqJPR6DA--.54486S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFWxKFWxtFWrKFWxZr4Utwb_yoW7Gryfpa
-	1DWFWYyrW7GF1fW3s3Zr18AFyY9wnFq3WY9rnYk3ZxKF9IyryUXayxtFWjvasYyrWUGF12
-	yF1UtryrAFWDZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7DG5UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A6w6mrgSy4PSAAA3M
+X-CM-TRANSID:_____wD3f3srS+BqJPR6DA--.54486S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ur45XF4fJF15Xw43ZFyrJFb_yoW8uF1xpa
+	1UurWayr18JF13WwnYvrWUAFyFv3yvg343KryDC3Z2vF1qyryq93yUJa4jvF9xt3y8WFnI
+	vF48tr1rua1DZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UNAw3UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ2w6mrgSy1OdgAA3O
 
-Dynamic IDs are freed by remove_id_store() while holding dynids.lock, so a
-pointer into a dynamic ID entry is valid only while that lock is held.
-hv_vmbus_dynid_match() currently returns such a pointer after unlocking. A
-concurrent remove_id write can therefore free the entry before a driver
-probe dereferences it.
+new_id_store() checks for an existing dynamic ID before calling
+vmbus_add_dynid(), but the check and insertion use separate critical
+sections. Two concurrent writers can therefore both observe that a GUID is
+absent and add duplicate entries. Removing the GUID once then leaves the
+duplicate active.
 
-Copy a matching dynamic ID under the lock and pass the caller-owned copy to
-the probe callback. This follows the lifetime handling added for PCI by
-commit 3ffc4c9690c3 ("PCI: Fix UAF when probe runs concurrent to dyn ID
-removal") and for USB by commit ef8154d8b52d ("usb: fix UAF when probe runs
-concurrent to dyn ID removal"). Document that the ID is valid only for the
-duration of probe.
-
-Because matching and probing perform separate lookups, removal can also
-happen between them. Reject the probe if the second lookup no longer finds
-an ID instead of passing NULL to drivers which dereference it. Keep the
-hvsock exception because it does not use an ID table or inspect the ID.
-
-This issue was found by static analysis of the dynamic ID lifetime.
+Move the duplicate check into vmbus_add_dynid() so it is performed under
+the same lock as the list insertion.
 
 Fixes: fc76936d3ea5 ("vmbus: add support for dynamic device id's")
 Cc: stable@vger.kernel.org
@@ -103,108 +92,52 @@ Tested-by: Kameron Carr <kameroncarr@linux.microsoft.com>
 Reviewed-by: Kameron Carr <kameroncarr@linux.microsoft.com>
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/hv/vmbus_drv.c | 34 ++++++++++++++++++++--------------
- include/linux/hyperv.h |  1 +
- 2 files changed, 21 insertions(+), 14 deletions(-)
+ drivers/hv/vmbus_drv.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 1037117e2d81..1cacbc71266f 100644
+index 4692687cdbf3..1037117e2d81 100644
 --- a/drivers/hv/vmbus_drv.c
 +++ b/drivers/hv/vmbus_drv.c
-@@ -661,21 +661,21 @@ hv_vmbus_dev_match(const struct hv_vmbus_device_id *id, const guid_t *guid)
- }
- 
- static const struct hv_vmbus_device_id *
--hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid)
-+hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid,
-+		     struct hv_vmbus_device_id *id_copy)
+@@ -737,7 +737,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
+  */
+ static int vmbus_add_dynid(struct hv_driver *drv, guid_t *guid)
  {
--	const struct hv_vmbus_device_id *id = NULL;
 -	struct vmbus_dynid *dynid;
-+	scoped_guard(spinlock, &drv->dynids.lock) {
-+		struct vmbus_dynid *dynid;
++	struct vmbus_dynid *dynid, *existing;
+ 
+ 	dynid = kzalloc_obj(*dynid);
+ 	if (!dynid)
+@@ -745,9 +745,16 @@ static int vmbus_add_dynid(struct hv_driver *drv, guid_t *guid)
+ 
+ 	dynid->id.guid = *guid;
  
 -	spin_lock(&drv->dynids.lock);
--	list_for_each_entry(dynid, &drv->dynids.list, node) {
--		if (guid_equal(&dynid->id.guid, guid)) {
--			id = &dynid->id;
--			break;
-+		list_for_each_entry(dynid, &drv->dynids.list, node) {
-+			if (guid_equal(&dynid->id.guid, guid)) {
-+				memcpy(id_copy, &dynid->id, sizeof(*id_copy));
-+				return id_copy;
-+			}
- 		}
- 	}
+-	list_add_tail(&dynid->node, &drv->dynids.list);
 -	spin_unlock(&drv->dynids.lock);
- 
--	return id;
-+	return NULL;
- }
- 
- static const struct hv_vmbus_device_id vmbus_device_null;
-@@ -685,7 +685,8 @@ static const struct hv_vmbus_device_id vmbus_device_null;
-  * If there is no match, return NULL.
-  */
- static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *drv,
--							struct hv_device *dev)
-+							struct hv_device *dev,
-+							struct hv_vmbus_device_id *id_copy)
- {
- 	const guid_t *guid = &dev->dev_type;
- 	const struct hv_vmbus_device_id *id;
-@@ -697,7 +698,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
- 		return NULL;
- 
- 	/* Look at the dynamic ids first, before the static ones */
--	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid);
-+	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid, id_copy);
- 	if (!id)
- 		id = hv_vmbus_dev_match(drv->id_table, guid);
- 
-@@ -843,13 +844,14 @@ ATTRIBUTE_GROUPS(vmbus_drv);
- static int vmbus_match(struct device *device, const struct device_driver *driver)
- {
- 	const struct hv_driver *drv = drv_to_hv_drv(driver);
-+	struct hv_vmbus_device_id id_copy;
- 	struct hv_device *hv_dev = device_to_hv_device(device);
- 
- 	/* The hv_sock driver handles all hv_sock offers. */
- 	if (is_hvsock_channel(hv_dev->channel))
- 		return drv->hvsock;
- 
--	if (hv_vmbus_get_id(drv, hv_dev))
-+	if (hv_vmbus_get_id(drv, hv_dev, &id_copy))
- 		return 1;
- 
- 	return 0;
-@@ -864,9 +866,13 @@ static int vmbus_probe(struct device *child_device)
- 	struct hv_driver *drv =
- 			drv_to_hv_drv(child_device->driver);
- 	struct hv_device *dev = device_to_hv_device(child_device);
-+	struct hv_vmbus_device_id dev_id_copy;
- 	const struct hv_vmbus_device_id *dev_id;
- 
--	dev_id = hv_vmbus_get_id(drv, dev);
-+	dev_id = hv_vmbus_get_id(drv, dev, &dev_id_copy);
-+	if (!dev_id && !is_hvsock_channel(dev->channel))
-+		return -ENODEV;
++	scoped_guard(spinlock, &drv->dynids.lock) {
++		list_for_each_entry(existing, &drv->dynids.list, node) {
++			if (guid_equal(&existing->id.guid, guid)) {
++				kfree(dynid);
++				return -EEXIST;
++			}
++		}
 +
- 	if (drv->probe) {
- 		ret = drv->probe(dev, dev_id);
- 		if (ret != 0)
-diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-index e61f9a4cb7c3..1d5862725f24 100644
---- a/include/linux/hyperv.h
-+++ b/include/linux/hyperv.h
-@@ -1264,6 +1264,7 @@ struct hv_driver {
- 		struct list_head list;
- 	} dynids;
++		list_add_tail(&dynid->node, &drv->dynids.list);
++	}
  
-+	/* The device ID pointer is only valid during the probe callback. */
- 	int (*probe)(struct hv_device *, const struct hv_vmbus_device_id *);
- 	void (*remove)(struct hv_device *dev);
- 	void (*shutdown)(struct hv_device *);
+ 	return driver_attach(&drv->driver);
+ }
+@@ -780,9 +787,6 @@ static ssize_t new_id_store(struct device_driver *driver, const char *buf,
+ 	if (retval)
+ 		return retval;
+ 
+-	if (hv_vmbus_dynid_match(drv, &guid))
+-		return -EEXIST;
+-
+ 	retval = vmbus_add_dynid(drv, &guid);
+ 	if (retval)
+ 		return retval;
 -- 
 2.34.1
 
