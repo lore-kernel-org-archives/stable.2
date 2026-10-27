@@ -1,125 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065232;
-	b=xffBQum/v+vcU7AiEI+HimyNb27l0lizsFSGUOuOnucLmX3PHJyiCsS572mqV7/Nqqab
-	 8BPIT5TxeOtvqFt8xWskRQ7DWAEHD35MLDMss91hd1b5j4TvvAM5R7Efl62tenxR+1pmV
-	 O/mr0JYl1jMu9IQDuVkahLIw/Ppwaraxrv4P/+/W0HxTredzDRYpewxz5ECiWURtaDjZp
-	 bONBm0MlChkVwUrqoL6RIBvllKDrbb4URY/d78sAOwJM+O5ojkgLziwa6RQo8sZc19z1P
-	 a2IasSw6Mk7ZZPpZNh4gMg7X9gO4kNnGxo74u//9GDAPje6bA9Oj8dU/AB8GDzhV/Sg==
+	t=1793065327;
+	b=oTHEnqZ6qUXW/Hk3DW/LnqsYVAOV+ydh3szDDMDlZEgygCY4DORfceER1RfmZiUrzZaS
+	 FVWX3deGlUFWxD5neFeOo2FOKjJTEJumKVc6cgifhwO0nAvawlljTaz6wb+Zw5IGWZ7CY
+	 0E6o0pkZOsMQ7pLssURJXvHWSlbFR1IeAiKdaquKOW/LE3PiGDaS/Qq6GVgf2tvW9DzsX
+	 4jp3J9bwY3m1dd0a8a+kxugehlEQ2n3v/VRD8cjzI3GUEKpc9RO7qGQRcwB86y+WGLfP9
+	 WK7RT23ypo7I0/cRbQ5QwzhYQFaUCSB9G2xQ6Ivg5FxuSQn/+jOg2Z9KozyGtw6RTfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065232;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BkXkcM2hnjFWl9v28Vxsd/Upl1qj7NsrUbXI+iAyTm0=;
-	b=u/Xb4Ptez3VGFEWJnWRMjOlMbokeKa6de6k5/X+FpllADqUKJXy80DGD6KFSCyf0H32J
-	 2mx7+shDB9l9GOj9K5oAE9DimSQF8HvlknCB0ELXBPz1ZMBW2yfab6OaGJJHsI5GxjC4b
-	 ENC1Yah5gRMwLHMOeNfK3c3V1ixXf2dYK81IIwdKCu9Z9V5ZAtAWydKgq39ZOqDUXUwg0
-	 K6diFUPPW9Dhy/ip5san0b+Fbew/vBHQRfLm+xjiVZHt/3xiX30+IPQrqZo2UfvmpWFRU
-	 EkW+sZk87QVLL9cb12xjCsrCFG2OSVfDgudydQxO8pd7vgo0Pv/6Z0yeZOcRYgXjfJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065327;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=QPrihA68+s7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=;
+	b=vCpkcZIf84BR2caN87fC2sbgKXLBSz0sP/cncGqQAqnZWY8mtTGwPyPVJqCdMwPO5Vwn
+	 T9aBl6ucCmTSdE82tiDmOIkSjHbChrcpdpT/ecQzzNI31MkXior6VcbViPHXgcPu293m9
+	 Ta1uvO7Fj30tIaTG59EYSxueSiBh7l93BHYDAHnD0FuMTXG4r4ESWTa8rlFLBL/adOxjc
+	 74VHMV/3XhoNa3YTwjc7G43uUMkubQKK6mDvRqgvroLg/pF9dS1Fd8K0SJkAeI/Ky26Iw
+	 K3zNofp+75P5hLj90z2B50t1pSwmJhBa+DYbkXAFUWLtkS86cFRvctBkd2dVT3Uk+KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=guSmXYdq;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iH2nk1m6;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFA3606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:40:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFA3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=guSmXYdq;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iH2nk1m6
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 8D109EC0828
-	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:40:30 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 21:40:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793065230; x=1793151630; bh=BkXkcM2hnjFWl9v28Vxsd
-	/Upl1qj7NsrUbXI+iAyTm0=; b=guSmXYdq4YiKcYclTRsHh19DXM7aaAC6bndgs
-	SUaJFDriiz+z9YMjqjXCyj+kbLspsq0xV8+2Al57GILG3bZWGM8G5Aojp1imOEJm
-	Lapd6ZSuCwOmks7BfwF7i0bKoaohdHJryoMzjObO7rmAoDnu27m4Rjqq40kyJchW
-	bIL039KtdO5aKxSRaSheyngDqETwZdg9+1SK21EiJRfUPZW9v/a/DxGm/AscpUSL
-	7wgf6fBh6O4Pi8zWv+5u6RTkffv1sqY15NQOWKOn6dH3r61Rmkx3neCwa3y3ZzUQ
-	ZEf5DM/5xPY6bNPnVadDZQaBg0Zqw8OaYOv2nDcZOsrSDYf9A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793065230; x=1793151630; bh=BkXkcM2hnjFWl9v28Vxsd/Upl1qj7NsrUbX
-	I+iAyTm0=; b=iH2nk1m6zM5xucMo85aPLmwlayauindkEQvGcGv7d9z+oo7USyw
-	zmXxDuXg44SDd8+Uh8mDj2sGD10Kmdr5wTSozAIj7ObW9p6CH7RSb3wF0M3XPcfZ
-	Egd55lCFrur1QvICdhrKb6XLTraUz9CRTnlnmxCUGawdhiF0zdYKI7s9wvIO5aby
-	hC5naFBa4/+uvoWfmgdPuKSGynbhJ4BYOk3Z38FFz53IkTH+iYhfarYT/gZuYnzk
-	vYAl4g1sYi6Lv6l/6i07zD62liSSTXJ4Txg18UJ+2+Dbnx39bqLB4XU3YIclI+UJ
-	73Al+ylBTbGvEf+5Nj/mJ5v0NorOcydPaCg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793065230; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:QC6LtAdhzVRoFmkU+B3HxPmTwJdm9K6oYlx63WJqQoxTsa8
-	RV6zPf8CuYVSL8DmNx2mi6UJAnspvrmrNRSaPNegnumbf1Yf7njSeIWm6YCKk+he
-	67TaO3LaT7riIC1z2rC1OmakwetMF6F3VrZPtSu9tkduwe1sqja9w0FoR5Y07+jg
-	J1LsJ4Vg6XZtIkBphLu7H0RuZaCYa5/YKlARwTOsuXANDmoLK7EN9q6hD+8FuTa5
-	yTBOZvh0PlVRlO96Y7ohsLUQYQTvwE2LvNpDt8HQIKtZ5ad7MfP0CSaKwKI3M8N1
-	7JQnMa04bKv/lt3oTns+MFD2YvQ2GTE1gOQ+wTQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:JSKyhtfkzb8SipyzlO9D8s9e93a5mzMBI+TrfaaqzRk=:gZoN+jJWo6aBR/Y71g9u2luMhMBya8Sq+nCG+t54gDg=;
-X-ME-Sender: <xms:DQHgaj13oUTIeLNBE1hR-RUmNEbdu3nO3dZ3SgCQL2Dh04yP_aLXhA>
-    <xme:DQHgat9lARM8Y_ZABdEk3MVz7fpDFZEiTzasB42EJJNLepwbESF3pyQk45gVTgcjO
-    pWCN3w2AHVgYMf4rxw1txNxJCkrjvdFT9DGKheegiACWz1-C0FSVbs>
-X-ME-Received: <xmr:DQHgag7VfXTwJGPY3-jN4CPQU9u4s8VNJu294VrkVfreRy3Pj86lw9cs7Awn1oFA>
-X-ME-Proxy-Cause: dmFkZTFxZ8iPiYUXlVN1g41AZDpnk6ig7exYgtvZ7ivnbLC/ZuFvE+cYT6vZLYlRY+LN4f
-    OIan/aaRo71bUQaVqjn4W2dKlVF8rgSEOWzUg5cctUSR+07ZodC0w67WuGvxMoQfrEx088
-    1estAJIxI0N6YTj9FZYPnF1UCCBTOy1ZRZk0qiM3hh3zHxI7wylrRH6F3cBHzgRA/SW1Um
-    FIWv80//Vo8bJPxypfKJWY6dvJufqVWRuchRtTzmPPpgT4caiQ8BhyX/DY7T+7hcAxAnxb
-    0oOI4+H/HavlDoiEHTgyW+ysRbrRrKkxJGG4sczShh+fDS9LgaZQEraHHWPPAy/6A/NhKq
-    PkbGGiIjC+U/cGKJW/NumsjLnIAtcS5f01kE9jMKuI8M87ZGM0t77VzK7k9cqTh87PPKPj
-    kXOSw9VCTGTXMyHuZy2VMyCYyqhqAE7FggxYrmrUpMLsSfeQupz/Zkn4QIulEf/t8+AgI0
-    ioWgDg9ezGcPka9JdvYsC81V5ua00dzy6hFfYNs21v1NFWGFtAeRyWYFEZuf5rdtfzVpoJ
-    Stech4QNNSM6013DEGKZfNtPt8b2c8gDIMFnvhQjAwymJWN0eOgMwO3iA1vWwkQVfiWYwS
-    rrm/FqqKK5OzKxlqdHd6AwfAdtSwZKDNUqE3R9I7flOSqqNl8ZLvMJh7HvmQ
-X-ME-Proxy: <xmx:DQHgatu1F_Hz9oyse-AfBxgUgj1dtz0aIqs1VbGRBQCifX8OAHcbPA>
-    <xmx:DQHgaq1psExUvnVEOq_bXMA8PKqR0OmfnYdVaUl6tAA2Uag5lc7tGQ>
-    <xmx:DQHgauqpOMqcK6O6V9VsURMdWGU5dN-KRZTvbAdJBCCnGeFYUlqqzA>
-    <xmx:DQHgaiIrC9kepgh3V5RVqTWyFlC9oeXnol7pcbSgtohz0rQnPDcoJg>
-    <xmx:DgHgaghlb7UUU0x8g3naJ3efVVHsNwhrSzdfMxyObyvnKCWBsdxEar78>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 21:40:28 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	Ronnie Sahlberg <lsahlber@redhat.com>,
-	Steve French <stfrench@microsoft.com>,
-	linux-cifs@vger.kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28D13606A31A;
+	Tue, 27 Oct 2026 01:42:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D13606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QPrihA68+s
+	7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=; b=aJWRJ5Pr668VyEYwztZVjQl2v7
+	ezuQcdj6N58AZdu+Z0QLK0xhJb4u4UM7+MnAlflrQUoVLs1n8ZQU74CH42Et9oPZ
+	6c3eL01nv6mAGlz3QPMQm7Q/EW1+GuCwONUWGxGBDM53S5zXAU8aPByjwjBLKcPN
+	PZYPPhoYUqJnLxjh8=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGrwVYAeBqGKLsAA--.50649S2;
+	Tue, 27 Oct 2026 09:41:45 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: =?UTF-8?q?David=20H=E4rdeman?= <david@hardeman.nu>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix out-of-bounds read when padding the final compound response
-Date: Mon, 26 Oct 2026 20:40:21 -0500
-Message-ID: <20261027014021.108390-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
+Date: Tue, 27 Oct 2026 09:41:44 +0800
+Message-Id: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,93 +60,131 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCGrwVYAeBqGKLsAA--.50649S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr15AryftF4xGryDArW5ZFb_yoWrXF43pa
+	n5Wa4rtryjgrsrWr47Xw42qa4rua1Iy398Zry8Kw1q9FZ3Ary3tFZ5JFyUCa4UJry0yFW3
+	tFW5J3y8uayUuF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6w4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUcID7UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FCrgAAss
 
-Compound response handling pads the last response of a compound to an
-8-byte boundary by growing the final iov and the RFC1002 length.
-smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
-fill the response buffer to within 7 bytes of its end, for example a
-QUERY_INFO whose output is bounded only by the space left. The padding
-can then run past the allocation, and ksmbd_tcp_writev() reads those
-bytes when it sends the response.
+If rc_register_device() fails after device_add() - for example when
+ir_raw_event_register() cannot create its kthread - the unwind path
+frees the keymap via rc_free_rx_device() while the device is still
+visible in sysfs, and never clears dev->registered.
 
-  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
-  Call Trace:
-   _copy_from_iter+0x744/0x10e0
-   tcp_sendmsg_locked+0x2290/0x3f80
-   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
+A userspace reader of the uevent attribute then enters
+rc_dev_uevent(), passes the registered check under dev->lock and
+dereferences the already freed dev->rc_map.name:
 
-Allocate room for the padding when the request is a compound, as
-smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
-unchanged, so commands still fill only up to it, and kvzalloc() zeroes
-the padding.
+  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
+  lib/vsprintf.c:737
+  Read of size 1 at addr ffff888007ca9d80
+   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
+   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
+   uevent_show+0x1af/0x380 drivers/base/core.c:2756
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fix it the same way rc_unregister_device() does: take dev->lock,
+close the input device if it is still open and clear
+dev->registered before releasing any resources. rc_dev_uevent()
+then observes the cleared flag and returns -ENODEV instead of
+reading rc_map.name. The same sequence is also needed when
+rc_setup_rx_device() fails: lirc has been registered by then, so
+an open /dev/lircX file descriptor would otherwise keep calling
+driver callbacks that access the torn down device.
+
+Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+
 ---
+v2:
+ - Clear dev->registered on the rc_setup_rx_device() error path too;
+   lirc is already registered there and open file descriptors can
+   still reach driver callbacks.
+ - Factor the lock/close/clear sequence into rc_unregister_device_state()
+   and share it with rc_unregister_device().
+---
+ drivers/media/rc/rc-main.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-Notes:
-    The bug needs a client to send a compound request whose last command
-    fills the response buffer to within 7 bytes of its end, at an offset
-    that is not a multiple of 8. The reproducer uses QUERY_INFO
-    FILE_ALL_INFORMATION as the last command, after QUERY_DIRECTORY
-    commands that fill the buffer. On a share that allows guest access
-    (guest ok) it is reachable without credentials.
-    
-    This follows 73f860489e3b ("ksmbd: zero pipe read compound padding"),
-    which fixed the same padding for smb2_read_pipe()'s payload buffer.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance (code review and KASAN
-    reproduction).
-    
-    Tested on ksmbd-for-next 146c3fc6540e with only this patch applied,
-    under KASAN. "smb2 max trans" was lowered to 65560 so that response_sz
-    ends at a KASAN redzone. Before the patch, the compound above triggers a
-    KASAN slab-out-of-bounds read in _copy_from_iter() during the socket
-    send. After it, the last response is still padded to 8 bytes, the
-    padding is zero, QUERY_INFO returns its full output and KASAN stays
-    quiet.
-
- fs/smb/server/smb2pdu.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index f5fe3cf8ba32..140604099bb0 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -955,7 +955,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	struct smb_version_values *vals = work->conn->vals;
- 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
- 	size_t large_sz = small_sz + vals->max_trans_size;
--	size_t sz = small_sz;
-+	size_t sz = small_sz, pad_sz = 0;
- 	int cmd = le16_to_cpu(hdr->Command);
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index dda3479ea3ad..3ac5d532c6dc 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1888,6 +1888,24 @@ static void rc_free_rx_device(struct rc_dev *dev)
+ 	ir_free_table(&dev->rc_map);
+ }
  
- 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
-@@ -981,10 +981,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
++/*
++ * Prevent userspace from accessing a device that is being taken down.
++ *
++ * The uevent attribute, the lirc character device and the input device
++ * all check dev->registered under dev->lock before using driver data.
++ * Clear it while still holding that lock, and call dev->close() for an
++ * input device that is still open, exactly as rc_unregister_device()
++ * does, before the resources they use are freed.
++ */
++static void rc_unregister_device_state(struct rc_dev *dev)
++{
++	mutex_lock(&dev->lock);
++	if (dev->users && dev->close)
++		dev->close(dev);
++	dev->registered = false;
++	mutex_unlock(&dev->lock);
++}
++
+ int rc_register_device(struct rc_dev *dev)
+ {
+ 	const char *path;
+@@ -1954,8 +1972,10 @@ int rc_register_device(struct rc_dev *dev)
+ 
+ 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
+ 		rc = rc_setup_rx_device(dev);
+-		if (rc)
++		if (rc) {
++			rc_unregister_device_state(dev);
+ 			goto out_lirc;
++		}
  	}
  
- 	/* allocate large response buf for chained commands */
--	if (le32_to_cpu(hdr->NextCommand) > 0)
-+	if (le32_to_cpu(hdr->NextCommand) > 0) {
- 		sz = large_sz;
-+		/*
-+		 * is_chained_smb2_message() pads the last response of a
-+		 * compound to 8 bytes, which can take it past response_sz.
-+		 * Leave room for the padding. kvzalloc() zeroes it.
-+		 */
-+		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
-+	}
+ 	if (dev->driver_type == RC_DRIVER_IR_RAW) {
+@@ -1970,6 +1990,7 @@ int rc_register_device(struct rc_dev *dev)
+ 	return 0;
  
--	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
-+	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
- 	if (!work->response_buf)
- 		return -ENOMEM;
+ out_rx:
++	rc_unregister_device_state(dev);
+ 	rc_free_rx_device(dev);
+ out_lirc:
+ 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
+@@ -2024,11 +2045,7 @@ void rc_unregister_device(struct rc_dev *dev)
+ 	timer_delete_sync(&dev->timer_keyup);
+ 	timer_delete_sync(&dev->timer_repeat);
  
-
-base-commit: 146c3fc6540e24eef6296395a35bf5b924182e8b
+-	mutex_lock(&dev->lock);
+-	if (dev->users && dev->close)
+-		dev->close(dev);
+-	dev->registered = false;
+-	mutex_unlock(&dev->lock);
++	rc_unregister_device_state(dev);
+ 
+ 	rc_free_rx_device(dev);
+ 
 -- 
-2.47.3
+2.34.1
 
