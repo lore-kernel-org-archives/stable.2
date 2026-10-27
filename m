@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119818;
-	b=mt/iX4iKa7fcm2wLbQTDuz3am9D3dt8FItAwFnc5xii+oIFpoKmTjHSeR6/wCZqucfv7
-	 8Fkfiwzz4Rg+pTPJQqVIO0FmNd1O+s8GYeLGXmppAUg3IbcXrj4mScg3yj32xuh6RoIMf
-	 ua/WBd9u8uJDOZaFb0eXRKFE7d/wNVhBMIdZa5Bzuk9gvo+YNhW5DmIhNC8DI2Jahqyo6
-	 umbbUgZcG9VxEZBm2yoIqzI85uX1jm5vpjC7ZfZ96V5hIvPgY0lkrrbDkGECQwlBeY+NH
-	 +GTAlQpy5b+tHRFWKvJpQBi0CdDGIrZf9BSYYVDknfDV1F5vmsateoxrdFsp83zJlbA==
+	t=1793119821;
+	b=UUu/cdDYyQwmEWEvOG9Rat+lNH0CJv69z69tYhLFzg0EwR0ItEIWfFtC5P9zX1yJKo7W
+	 w3xYlKtTIQwKbePJtWJhc1kDNiIM9Geh0J2vuRoaBYVuAMQ2TKO1BEKM+H0VxJ+1nVUzq
+	 tU0J5YK5/6DPBgsspvqPcgfgviS8YdUwT+Jely+kia2k1oTOJKmqOqLr2JA32tLebhhU7
+	 FS6JKKhJavgUueGQGepo116GorKTaSJm8RfhR9W8zzWthXsj4YiF79YStgtvSbuQZEUEe
+	 mU4e14I9Xz7kM0t2tS/MksM+zJL9qw28/+e5tqwTzOtWrYEtm2oDmZk7vDSN9AghVIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119821;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/4uABW8OiY3rHeYMO8zDAabmlkfTd/SaGhS/z4feweo=;
-	b=tF6VWzY4X4GB206jlgWNBBlapP4Y7Qtybdg7b/kbzDyobAvC/gRYeh0cDt03qzS2tqdh
-	 Kz7+aky+2F0xyglTixvH6+l3YMPNBe+VcIuU1MdmSHPuML16DMhsah834pJVeZypjzatW
-	 kLoJt7J6kEUlqSEHwq3/oK/HUb7wQ9TMwqhc6c2AI6rE6qWKCblssAINTowk/131vHAz5
-	 iJvM+vXH4XN+voFFKoj1krcGRL4dJD3RBprXxHvo9l7nRDlTdJ73rLX+gcyOKScN3QSpC
-	 Js9kz3uJIoLpjtMI5G6vg2doKfTtpzcoldiU3am5lnfKKRkjwHCFlAIYKiWcsdJUGNA==
+	bh=Mz2DBXUEdTIOWIEUBBMP7Z0Vym1wsLsSE/Z0Bowg/lg=;
+	b=f6lcfQWZ0t90Xd3keRsOjhkYrFHCZe1qNEWPKzngdJsb3WED00IuuBuVneBhke5LhWYw
+	 kvBAZyY1bUTY3hQCttVZamb7QjMyT/J8VrfbQx0y/pcdzLn1kqTKKcnMRZ0Z4b9qhq8pE
+	 WpcbgY+RDZzAsbjHYrsgCXV+0Pn8QJCzp8XR6vbFh2lRyF1eJ03a7r6Cqp+FNwKGQHph2
+	 6pXGVkokEc4HLbJooqittqOACXPCuKg5Lnxqi8/SUNoKS9Dd820Hvj4kXSNbPX64Z1lhS
+	 AVKLREhBHjwiGOnQYvs7NIzV+pBllp0vRMFurrr7ePyFA5gvL6F5qhvIF/mkLE4TwRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=la4w1539;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A7bmwddl;
+	arc=none smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B21606A320
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:50:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11B21606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF286606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:50:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF286606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=la4w1539
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-83c1a9bd428so3549a34.2
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:50:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A7bmwddl
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-8459fdb1e17so7506a34.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:50:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793119817; x=1793724617; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793119820; x=1793724620; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/4uABW8OiY3rHeYMO8zDAabmlkfTd/SaGhS/z4feweo=;
-        b=la4w1539TI11yfEnrvxu16oZX8aY02atnOMFhFecsCbLPlsc+qWmlalnnmLTLrhRB0
-         cXIvBvW6AdVlwli/OTujmmOHe++pNxCW+WoLLWx97k4l2AjqirquI4ZzwUcfXoZ9YQtu
-         8bCmVM99moCXyTyw2yydQxBqmWSc2UtzeLgDHnQiZRuzGBw7VSnVJWqhOrzvakukfkfL
-         CAWtO5k2Rd3mKS36H7GyqDwB0iV6vkqIUBIa2xrUmc06KhKMrQheAPGT5HL9u/fnmgQA
-         Ch6NpKShcV1J44hvq99uS6ZwrdIJ81bgxOvNUdBy98opNB8hXms2gGveQqZt8KWmzNBG
-         +Irw==
+        bh=Mz2DBXUEdTIOWIEUBBMP7Z0Vym1wsLsSE/Z0Bowg/lg=;
+        b=A7bmwddlPCZjKHmbGq0JSUgdYvLW8EVDnvcDTMBmYf6vWuOTPyNMLsV7cRhQ+1bEjw
+         IGQF7KKqdfa/S95rvJblzaHdYTZzWPSStQwcjWIKVaReqJG0EZ4iiVpCVYA3YbEVkl3V
+         3ahYDwl443hl16HkbYjhQQeKo043RyCyKLJHcrwy1EIH4ABZW4JSwnjo2gak+rUfzGfn
+         hUaqJaMCCcpqwvX2SBUYR1avjDCTpVlE2k5hjbJ1hrakHWccNdj5qUXpZNgd2cGJNJdp
+         hgaxuYW56ydky0xTkGoEyUV8a+tc3gkuMp4mJG38kzNtzziOOHFqYyYDbi8buhkY9PO1
+         WC6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119817; x=1793724617;
+        d=1e100.net; s=20260707; t=1793119820; x=1793724620;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/4uABW8OiY3rHeYMO8zDAabmlkfTd/SaGhS/z4feweo=;
-        b=ik2bd9VzLOiTk4IquLHxc72Pu4qm42OD52SYMoUySPySmfLy42FAEvSeejR5s4NXfj
-         4QgSJzogxc4/OJ+8nXMNksEsKocXU/S8+RtaycRBQqwzTCXXqMLMv8ScEREQ4vx6v17q
-         +A84uI/0tDstPa/b88P7fbUdZFMB+k4JFNJqO2KACrm1qSJYKoi4mraoJKg28mz/CJYY
-         UJFwYVjpDoW219+zP++JqcvIzAXZ2zsx4CSZXVQQEoQHPAxhjV35nM9UNmOY6S8e46uv
-         kKQ/hxxFTMr/tli0gJt4+6sbw7HKibpj+3j13mO2nyLfeUpRh9iwvYFOkmznQek+UKw7
-         1Frg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWwYC0W+u8Br8159+kGUB6dU1CPaU65RI/ZURN7wy9DE/PYgS3curL7UMtPhwcE/pJ0HgGlaw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIX7g9ZAblvkubUqi7+M985GmHOPqjNknE6CP5YPCL0FypwrdiE
-	TuMbEf90e5bk7wcEC6G7f4MMqhGWNct9Ex0I/Ua07rFrfbGFmKpRR6uv
-X-Gm-Gg: AYBFou2ly9+eMZTzFV69QsHWCyY4EEAX9ITMhzk5pmXtu5vrasP4jVKArRK9lpgMBV8
-	sTzJDdhcnfgpYKEAtu34zZ5hMc5jDPi9ChVwhOCaRvU95DZU7+itiE6hFrs8NJnZyDAnHNjgTvL
-	rJdz6q6+AOMgizqOkkhh/CBhD0+B9fL5cRcFjVHCuGSppHaC1+jbmfHipTMah2Iw/WCXCxHEIMZ
-	tMzYtaxGEAXF19YtFeL5x7yih0A1IgHrW1aDi95GEAG/L7u76Za8RKwLFxoh41ksDgEoktA/ykW
-	a5ZplikZ3f8WtmCNzULDKCQxa16agQuC9DGYaT52oYODB1LbFbuxF+9CFCArTKjmf0IudDhXiLZ
-	8r9UQev8bs0EHeYSGwa73Dd6Ugs6G8jEo6JxVKRFq1VsNSQSBu84sF8A+J+TpSo58Gx1PnXFXkh
-	mDVXGBDKO438O3+GijaVJwy5+nvAXUR6vs40gYZ50AMreC2vM66qE6F0QyAOc98DXJb7U3irQtd
-	cd1Qik6bnURKk/VumNh2EZSN6dM3KUR6/oodTZaGc2w60JOlEG69uG+Q6Sv2f3ZVYARX71HcFNc
-	n/sjjykrfnz3RvfCJQysetHbcmEEJXaOZ7A=
-X-Received: by 2002:a05:6830:a201:10b0:828:f53c:92fa with SMTP id 46e09a7af769-85aba4245c6mr70437a34.0.1793119816992;
-        Tue, 27 Oct 2026 09:50:16 -0700 (PDT)
+        bh=Mz2DBXUEdTIOWIEUBBMP7Z0Vym1wsLsSE/Z0Bowg/lg=;
+        b=Jd9M3jVSgPXuJOzBmlW06jcpO/j0yyaVFeT5eTBgdybmd1oQ1N1mL+Tx3nH6i6jZnd
+         4IE3y719KkBHYbRTc3LbMhmcqu62RXAjfOovYxkSA0SSOQy37juhaQ8Bp3f3sA0701PY
+         hqKYCl8W8C/xwW7+XVyACBnWOJanwW60ZIzxzcRYWd8ITmPPZzCBB4Y7MxzxOh/4KHib
+         TbS0YCNI/bjNFjWY/zP11VLNht5GiEVQAmtKAwjY2AdQJ/hrS3IU/pMhuzhny52lZtxp
+         c793MQNvy2nBDs55uP05p7QtigOSmZCsEgvYTGhxWaEauB60tyYOPRu3DNIliP9mVdtn
+         iVmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMcos+/Q0crtjagBKylTriB2xCM7B5IWm5MCUWhWQ3/8jKpmhp+HikOHQqn4FPHiqwF8mPom8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdv4jzslXA/Vr/3DInTOibH4C3pu2mLNU+S/j1WIt1+SFs5wgP
+	apg0VxNCax1mHUGgHxyI4w7zDE0XU6+LTm+VD8HHIDZdHUluux3eZOQr
+X-Gm-Gg: AYBFou039Z8oQoWjX1M4EsoxRIWSDezOGTHalyhgSVRjYlsDLDZuBAciO9M+luixRT4
+	rX6M2j6Z3T7r76kff9URyh9UzxHU+5QajDBMCXnjUTVqQUmq6ETtmzY+wrph7I+oibWCGXnNYk5
+	0Zr8dLByo49v1pBYgRUwV+AE6EEo5hwo7IGqnsR/t20BYWPittKlWE/Ztx+u5oBD7rTV4geX9KU
+	Jp1vtQdvndURp2eTSKA1cu60+CVpW5D5M7NJORXrZOprimYRQ9zLpP1pSgLI8qHBxQQxppDTs82
+	pJhiv6J/69ersiT7tQjGJQ3ArcWudB6y0x9DVyqN8WooeD0pZzgaCAqbneGVJgtKKM/D0WH/urP
+	S1eNGHOQcUG344oqua/WhqbESshyGIw3bYuw5J6ikWgHXqLwflW/92mNSrjeVwegPW7r+JO92U3
+	OTEIdsNhNl93fwdqY09PKBkb4wZT8QDqbIXAWbUh+FjMY3r099DSEUTJC8XW3r0ZdTEnoDp/5l6
+	XIiqvVhN1EkHXGIfS8CR/hiPijo23DBiu5Fk8Qf27tZaIEHXNTUGrjbh/W+R4mrFVPTFpIjYh40
+	1seiVgTYK+98fq9hmO+Nh8/J6+AUCWUW9bU=
+X-Received: by 2002:a05:6830:a147:20b0:827:c0cc:1a08 with SMTP id 46e09a7af769-85ab5eae098mr119261a34.1.1793119819661;
+        Tue, 27 Oct 2026 09:50:19 -0700 (PDT)
 Received: from localhost.localdomain ([37.19.221.77])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb0749dcsm10927058a34.11.2026.10.27.09.50.14
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb0749dcsm10927058a34.11.2026.10.27.09.50.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:50:16 -0700 (PDT)
+        Tue, 27 Oct 2026 09:50:19 -0700 (PDT)
 From: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
 To: linux-bluetooth@vger.kernel.org
 Cc: Marcel Holtmann <marcel@holtmann.org>,
@@ -87,9 +87,9 @@ Cc: Marcel Holtmann <marcel@holtmann.org>,
 	Hitalo Souza <enghitalo@gmail.com>,
 	Pauli Virtanen <pav@iki.fi>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] Bluetooth: hci_conn: hold a reused SCO connection for its caller
-Date: Tue, 27 Oct 2026 17:50:07 +0100
-Message-ID: <20261027165009.2401154-2-yaroslav.voytovych@gmail.com>
+Subject: [PATCH 2/3] Bluetooth: hci_conn: don't reuse an aborting SCO connection
+Date: Tue, 27 Oct 2026 17:50:08 +0100
+Message-ID: <20261027165009.2401154-3-yaroslav.voytovych@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261027165009.2401154-1-yaroslav.voytovych@gmail.com>
 References: <20261027165009.2401154-1-yaroslav.voytovych@gmail.com>
@@ -104,73 +104,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Connecting a second SCO socket to a device whose link is already
-in use correctly fails with EBUSY, but also disconnects the first
-socket's working link.
+A new SCO socket can report a successful connect() to a link that
+is already being disconnected. No new link is established, and the
+socket is closed with ECONNABORTED when the old link's
+Disconnection Complete arrives. PipeWire hits this when it closes
+and reconnects a SCO socket during an HFP codec change.
 
-hci_connect_sco() must return a connection with a hold owned by
-its caller. sco_connect() drops that hold when it no longer needs
-it, including when sco_chan_add() fails.
+hci_connect_sco() looks up an existing connection by type and
+address. It sends Setup Synchronous Connection only when that
+connection is BT_OPEN or BT_CLOSED.
 
-For a new link, hci_conn_link() takes the required SCO hold.
-Since commit 06149746e720 ("Bluetooth: hci_conn: Add support for
-linking multiple hcon"), a connection whose link already exists
-is returned without one: hci_connect_sco() hands the reused SCO
-connection back without a caller hold, while keeping the extra
-ACL hold that hci_connect_acl() took for the link.
+An aborting connection is neither: hci_abort_conn() sets
+abort_reason and queues the Disconnect, but leaves the state
+BT_CONNECTED until the Disconnection Complete. A new connect in
+that interval therefore reuses the old connection without sending
+a setup command.
 
-Commit 8a5b0135d4a5 ("Bluetooth: SCO: fix race conditions in
-sco_sock_connect()") added the drop on sco_chan_add() failure.
-When the second socket gets EBUSY, that drop consumes the first
-socket's hold. hci_conn_timeout() then finds no holder and
-disconnects the link.
+Before commit e6720779ae61 ("Bluetooth: SCO: Use kref to track
+lifetime of sco_conn"), the closed socket stayed attached in
+BT_DISCONN until that event, so sco_chan_add() rejected the new
+socket with EBUSY. Since that commit, the closed socket is
+detached at once, and the new socket takes its place: sco_connect()
+reports it connected, and the Disconnection Complete then closes
+it with ECONNABORTED.
 
-When the SCO connection already has a link, take a hold for the
-caller and drop the extra ACL hold, which the existing link
-already owns. Keep the hci_conn_link() path for connections that
-do not yet have a link.
+Reject a connection whose abort_reason is set with -ECONNABORTED,
+and drop the ACL hold that hci_connect_acl() took. The caller
+learns at once, with the error the socket would otherwise get
+later, and can connect again once the old link is gone.
 
-This follows the ownership correction made for CIS by
-commit e06d549fcd4a ("Bluetooth: hci_conn: fix CIS hold ownership
-on reuse"). The second connect() still fails with EBUSY, but no
-longer disconnects the first socket's link.
+hci_connect_sco() runs under hdev->lock, but hci_conn_timeout()
+sets abort_reason through hci_abort_conn() without it. Use
+READ_ONCE() for the new check and WRITE_ONCE() for that write.
 
-Fixes: 8a5b0135d4a5 ("Bluetooth: SCO: fix race conditions in sco_sock_connect()")
-Cc: stable@vger.kernel.org # 6.6.x
+Fixes: e6720779ae61 ("Bluetooth: SCO: Use kref to track lifetime of sco_conn")
+Cc: stable@vger.kernel.org
 Signed-off-by: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
 ---
- net/bluetooth/hci_conn.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ net/bluetooth/hci_conn.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index b007f623b2ecc..7a55aaf197138 100644
+index 7a55aaf197138..6b92fd0177857 100644
 --- a/net/bluetooth/hci_conn.c
 +++ b/net/bluetooth/hci_conn.c
-@@ -1911,11 +1911,20 @@ struct hci_conn *hci_connect_sco(struct hci_dev *hdev, int type, bdaddr_t *dst,
+@@ -1909,6 +1909,14 @@ struct hci_conn *hci_connect_sco(struct hci_dev *hdev, int type, bdaddr_t *dst,
+ 			hci_conn_drop(acl);
+ 			return sco;
  		}
- 	}
- 
--	link = hci_conn_link(acl, sco);
--	if (!link) {
-+	if (sco->link) {
-+		/* The existing link already owns the hold on the ACL, and the
-+		 * caller needs its own hold on the SCO connection, which
-+		 * hci_conn_link() only takes for a new link.
++	} else if (READ_ONCE(sco->abort_reason)) {
++		/* The connection is being disconnected and stays BT_CONNECTED
++		 * until the Disconnection Complete event, so no setup would
++		 * be sent for it and it would be closed under the new socket
++		 * as soon as the event arrives.
 +		 */
- 		hci_conn_drop(acl);
--		hci_conn_drop(sco);
--		return ERR_PTR(-ENOLINK);
-+		hci_conn_hold(sco);
-+	} else {
-+		link = hci_conn_link(acl, sco);
-+		if (!link) {
-+			hci_conn_drop(acl);
-+			hci_conn_drop(sco);
-+			return ERR_PTR(-ENOLINK);
-+		}
++		hci_conn_drop(acl);
++		return ERR_PTR(-ECONNABORTED);
  	}
  
- 	sco->setting = setting;
+ 	if (sco->link) {
+@@ -3272,7 +3280,7 @@ int hci_abort_conn(struct hci_conn *conn, u8 reason)
+ 
+ 	bt_dev_dbg(hdev, "handle 0x%2.2x reason 0x%2.2x", conn->handle, reason);
+ 
+-	conn->abort_reason = reason;
++	WRITE_ONCE(conn->abort_reason, reason);
+ 
+ 	/* Cancel the connect attempt. A return of 0 means the create command
+ 	 * was still queued and got dequeued, so there is nothing to disconnect.
 -- 
 2.43.0
 
