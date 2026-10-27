@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097444;
-	b=xI8IqJogeK5kCXHgXw8vlCiZ3Bgj/NvLbsJBG5fiRWOmmXqW0SYPiDp0axfb0FAe7tX4
-	 FZXxPbNqYxc9Ld1gMV9uLxWl8B30Bxet0qvgEVIzC7nQmGiRD+mg+MyI28cxc3J5DkH6w
-	 wQ79BLgBarUXd3SEHZfOqE5iZJC7EpVCrmFLcpNsP1vKg3ik7+Su3b7rGip1sBWo4qpLR
-	 WWqzZXa3Dyjn54I9j7BnIgosoxJurPzwjJXM19UIULkNHzrqep3aixHcigBc00F9KI5hz
-	 lOG9WgK8AWPBZ74GE0ay8SwRjDzeTOXoHNzlkT2kpRpzg6W5hSbw/JzwaiL/grSfTew==
+	t=1793097451;
+	b=hEbui3L1bY0dI9KALmEJnSrhvG/PzReAzV76+ZS6Yb8+STIaEhYH3EbS8Hz95YdYruX0
+	 CzKeWGc6ViYK4RWY1SOvh6CafPS52XVXBPiDy9iBDMQZIC2HYc/hdcr3MsIe+fPSyk5ZM
+	 tXeD2WShnwW6+2Q5/MvtWAG+SpetNzrBdniuVKp/jeVEetAamz9HONvucVyfl10WZFE/J
+	 3uPS1tTl03lBhHcXNIaAEKgKJS8JuZMQYPRzjelZ5z4/d5K8smmz8Oe05rRpLOBOyLO2X
+	 f/K2aaU4jmBL8m018l9CnPzYaDYWvyI7VCATBMwPCH5D8/4wz0/nPeYcwH1Kl3Y7FIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097451;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0+hs+cdGW/yq2YKQMQNFvWfQnrQePF0emoEPtgfBsX0=;
-	b=mT+ZWzixKeEoDMGFcXNMvibAaurvEjmEaAo4NojeveP7DTpbxnUrIk6F6CvFHGIuAuCk
-	 HeCIz7UHQxyle1pKXH7CC/bHQj9hDPNS5fytxbIYuzht04UmA2qtzNqPeoTGlnpvDWwhs
-	 5WM+/j9EPXqw+h5kbUUwY2X32T7GXZSLD81iwfLY7ZPa/avHH6k0E0jNqOToq8j9ZN9Bv
-	 pNPhyVpd6SgmqqCZNjSFbw/O2VEZE7HhY6hLqaM0561rnlE/n1qlxyrgV6ciTk98H7Jpm
-	 h3t9pPsiN9J/HjokUR0dNNReXHjqigwpQAR6c9VHOqxa5sm5Bl2pMj1TddlwqwlQBpw==
+	bh=2dTor8V/omKMQXmW5Bbk3/qL+/7DkafmttfX0otPwNw=;
+	b=XeG4rRABXnLZRPlypHS1tLtTDYluupE9Q9QLE7ZMcUVHNYZ+Z0Z3hcriJtrcHiCrwLu/
+	 dNfRG26rIvgocRtwgEKhLXpzZn78QeeBSNvJ/j7Wbi12+lLfErIwbctVEOUBYALhdsQYi
+	 wE3+mCvC9eAA3gZiOtWQc9Oqm+zkGRqVd8l34VYaswGwrkrE/gRF8aCQdPIf0aDQFYciT
+	 5oT3YIv/xe/GnvpVumIRL5z89gfaEuFR7zwN0vxxXnQpHOcNPxrR6VI6p1hn49nfbQhDs
+	 j0uHiNwlyihiqPept7gS1mvCZ9yeZWTYhakZmOPHqIG8Qw+2zHmhwYfKqoXLKvPBVYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adEdJzos;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ce007NVO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF3C606A31B;
-	Tue, 27 Oct 2026 10:37:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F605606A324;
+	Tue, 27 Oct 2026 10:37:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adEdJzos
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5601F01829;
-	Tue, 27 Oct 2026 10:37:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ce007NVO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D331F01825;
+	Tue, 27 Oct 2026 10:37:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097444;
-	bh=0+hs+cdGW/yq2YKQMQNFvWfQnrQePF0emoEPtgfBsX0=;
+	s=k20260515; t=1793097450;
+	bh=2dTor8V/omKMQXmW5Bbk3/qL+/7DkafmttfX0otPwNw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=adEdJzosPEqPheUCwRQScxouFfVNMC8UGXq7ARPrG9Z4sdzRK4ybBvbv8EQSP2Z+E
-	 8wHoDmm4YUtYRAmyrUj39QvzABrBtOlnVKx33GP6bmPeVlzIyP3LqJi8QiFF6IKGuZ
-	 i55r7S3LZvp/TB7grQXPWfBOnt8VRPj/DmJ7E/Sr9PUII+FbBFyv9W3XrDq01scEzM
-	 vg+azIeuWHD5yDXXiLsEwwbAzpnu/nSSRTNNyUo5WJqewvDJYQgEn7m/kj8bwNILbA
-	 YuQEk4jdylAqrJXdV/ah+PcQicK5IXGVANEgfSv0T+kY7SfUvDDFFwEmOAhBLdsWNW
-	 359EyNBYvyk7Q==
+	b=Ce007NVO/CrGn5egoZtMeumiwhXe2H3zkLYvEaEobzBN+6gv7IFv2eVUI7qqtvFne
+	 ekSVExxGcrL9cb/LBzLeV2Ts04wzKXYDnu81IKnN3EXO9Zx+Dl5U8UnuuTnIxvt5lI
+	 QXVOfYd9QGKtlqNNAQSF+a+FLJ7sfK1y4tEIPS9cwXct/igTLG22FHljhjJvsYViGq
+	 8lfw9wGqeRqZdmbgQtIrZVZ5u/AeeTc4zWPehoxaHHqvXCaWZ0v/Oxc5iCkwzC/gsV
+	 FOXj1Nt5gD1iyMB1Y5MaQnl5hlZf/AMUFRFsUmqUfTT4TU9a9DDVwKVN2NM3tCYGCz
+	 yKeBTgumC3e+Q==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Aaro Koskinen <aaro.koskinen@iki.fi>,
@@ -48,13 +48,15 @@ To: lee@kernel.org,
 	Tony Lindgren <tony@atomide.com>,
 	Kai Svahn <kai.svahn@nokia.com>,
 	syed khasim <x0khasim@ti.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
 	linux-omap@vger.kernel.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 12/27] mfd: twl-core: Clear pm_power_off callback in twl_remove()
-Date: Tue, 27 Oct 2026 09:30:41 +0000
-Message-ID: <20261027093306.2812695-13-lee@kernel.org>
+Subject: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on teardown and probe failure
+Date: Tue, 27 Oct 2026 09:30:42 +0000
+Message-ID: <20261027093306.2812695-14-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -69,75 +71,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a TWL6030-class device is configured as the system power
-controller, twl_probe() registers twl6030_power_off() as the global
-pm_power_off callback.  However, twl_remove() does not clear
-pm_power_off when tearing down the device on late probe failure or
-driver unbind, leaving a dangling callback that dereferences the freed
-twl_priv context during system shutdown.
+twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
+and checks for a non-NULL twl_priv at entry to reject multiple device
+instances.  However, twl_remove() and the early error paths in
+twl_probe() never reset twl_priv to NULL, a failure when adding MFD
+child devices bypasses twl_remove() by jumping to free instead of fail,
+and twl_remove() tears down the IRQ domain and dummy I2C clients before
+child devices are unregistered.  After devres frees the underlying
+memory on probe failure or unbind, twl_priv remains a dangling pointer,
+causing subsequent exported API calls to dereference freed memory and
+blocking future probe attempts with -EBUSY.
 
-Reset pm_power_off to NULL in twl_remove() when it points to
-twl6030_power_off().
+Unregister DT-populated and MFD child devices at the start of
+twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
+reset twl_priv to NULL in twl_remove() and on probe error exit.
 
-Fixes: ca9414a1d087 ("mfd: twl-core: Add power off implementation for twl603x")
-Closes: https://sashiko.dev/#/bug/linux-f5847f26-c868-416a-b926-3fc3da57802d
+Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
+Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/twl-core.c | 29 ++++++++++++++++-------------
- 1 file changed, 16 insertions(+), 13 deletions(-)
+ drivers/mfd/twl-core.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index c024a28b057e..64b45fe79159 100644
+index 64b45fe79159..21fc0acb827b 100644
 --- a/drivers/mfd/twl-core.c
 +++ b/drivers/mfd/twl-core.c
-@@ -672,10 +672,26 @@ static void clocks_init(struct device *dev)
- /*----------------------------------------------------------------------*/
- 
- 
-+static void twl6030_power_off(void)
-+{
-+	int err;
-+	u8 val;
-+
-+	err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val, TWL6030_PHOENIX_DEV_ON);
-+	if (err)
-+		return;
-+
-+	val |= TWL6030_APP_DEVOFF | TWL6030_CON_DEVOFF | TWL6030_MOD_DEVOFF;
-+	twl_i2c_write_u8(TWL_MODULE_PM_MASTER, val, TWL6030_PHOENIX_DEV_ON);
-+}
-+
- static void twl_remove(struct i2c_client *client)
+@@ -689,6 +689,11 @@ static void twl_remove(struct i2c_client *client)
  {
  	unsigned i, num_slaves;
  
-+	if (pm_power_off == twl6030_power_off)
-+		pm_power_off = NULL;
++	of_platform_depopulate(&client->dev);
 +
- 	if (twl_class_is_4030())
- 		twl4030_exit_irq();
- 	else
-@@ -692,19 +708,6 @@ static void twl_remove(struct i2c_client *client)
++	if (twl_class_is_6030())
++		mfd_remove_devices(&client->dev);
++
+ 	if (pm_power_off == twl6030_power_off)
+ 		pm_power_off = NULL;
+ 
+@@ -706,6 +711,7 @@ static void twl_remove(struct i2c_client *client)
+ 		twl->client = NULL;
+ 	}
  	twl_priv->ready = false;
++	twl_priv = NULL;
  }
  
--static void twl6030_power_off(void)
--{
--	int err;
--	u8 val;
--
--	err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val, TWL6030_PHOENIX_DEV_ON);
--	if (err)
--		return;
--
--	val |= TWL6030_APP_DEVOFF | TWL6030_CON_DEVOFF | TWL6030_MOD_DEVOFF;
--	twl_i2c_write_u8(TWL_MODULE_PM_MASTER, val, TWL6030_PHOENIX_DEV_ON);
--}
--
  
- static struct of_dev_auxdata twl_auxdata_lookup[] = {
- 	OF_DEV_AUXDATA("ti,twl4030-gpio", 0, "twl4030-gpio", NULL),
+@@ -880,10 +886,10 @@ twl_probe(struct i2c_client *client)
+ 			num_cells = ARRAY_SIZE(twl6030_cells);
+ 		}
+ 
+-		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
+-					      cells, num_cells, NULL, 0, NULL);
++		status = mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
++					 cells, num_cells, NULL, 0, NULL);
+ 		if (status < 0)
+-			goto free;
++			goto fail;
+ 
+ 		if (of_device_is_system_power_controller(node)) {
+ 			if (!pm_power_off)
+@@ -900,8 +906,10 @@ twl_probe(struct i2c_client *client)
+ 	if (status < 0)
+ 		twl_remove(client);
+ free:
+-	if (status < 0)
++	if (status < 0) {
+ 		platform_device_unregister(pdev);
++		twl_priv = NULL;
++	}
+ 
+ 	return status;
+ }
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
