@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135863;
-	b=jnPsQpNVnJSSHERSWrcH3fsxbNuMejUEmdxu1UhS8Cg4+pA+voMDp0oy3GQ85S0CIxcY
-	 18H9qTV066i4lnz9S0izgX22Ge+zkMYCu+zW//cc1cLx2UtOJBzabYe1Ax4c5AKyrPLbt
-	 62CKXN67xotsVnV3tFwjaD6b8bVlFa/YnjD3Rp7+AWLM2Zd5OuotWgaZ2pklkAZ4XTTek
-	 1zVlBVIp5JH/FDF/f2gkEZW9GE/RhtdTIU4aOsQlLSGKGqG70+9v3vZTMd/axJSiUjMqa
-	 LbWk/M0NibBn9RZpUUsb+CP5SrTCKZZS6Dji8um4Yq3zBEfzX/ZQ9EEDFSQyj/9C41g==
+	t=1793135866;
+	b=HHMBSBsHSVXSxQO3mvOj3hPFGx+mTVYV0yAyhdDUhwd94Tx9DM2UkOsea1zE/r18Hs31
+	 xZniouWS1kBMZ9PG/9aw5jXRy16oUu3eChoywvOokpQjdEh4gxEqq4xHxyeN5XDnIbAEE
+	 6qDSxCSD5g5yTxByEc0/WOGefhM5qYXQghBhKbHV2AEwhkW/GrDcihH2ip/EMcICbfF70
+	 WZfGKRYS1KlCBQ34Ge2s0DoIKw43eq0lszGItzzHIcMWWLHIsVqy7HTBjT3zVityzaMat
+	 lCOVPNDUx9vc4WDp5+f0xRy9YRS7OAnVr/IZ2fbxgAjdl7/2vduK2hFu2DcvQqcanAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135866;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=kjKHoXJ1QztHn7LxaBTuy/zVwxBXOh8NpL66zD+sMpw=;
-	b=e3bdq0HJ+14GL+djyW5BTGW1HLA3L4js4lxgM/jok/BSfZq2IGB0aa4bT/GasD5Ra8Tj
-	 rEta1UQpo5ZlW2eou+2Qp0GvWyaH18fsSwUBogy+2gIy0OKp4iJRsUayhsUQdJSDNre3c
-	 HJr6sHUj0NcfulttaVGEN3u26UFowKocPsn21WfoITpZLVy08k8TeQNzIvY/OpitKwUMr
-	 vA1jQbI+d7m2jQ0MS4En8MRtUfJzqka+nWhklDlleKpcsO+iIm/Ro2qiSEX0YCP+jEGSE
-	 /OKDdRuYHVLeLBEyfHKja7ar6yRvNpfJZxdaGXct9hN8xuVr1RDGUpCcdY7as5RYwng==
+	bh=VhwStqBc0JsG88BacH2y24XzBET34vQRSMUTxkJ0j4g=;
+	b=LrGqJoE5Gnel/rHKmiST0cB4xLtPO97YebtGFKTAFbokftCThYry6oGL6K7EPgcXCJlc
+	 maw0r3yez87sBFojMFmZw9W3UNzVhpMYU3vjSa+7whJLNI3lHVOXIJCPyQEylznO7I1ez
+	 z50nivQU9zz68zNT/i2V0egOKvB26+zJxJdhPDIorRwG9H3Qs77dDzMbES1P+I2ZY6F81
+	 p2itkucO4pgutTVcm/CdQ9m6k3UVb6lmc6JiHuNC6p3oRf5P/eR5wLStvcxnNgUgzs8so
+	 jOSExCpi1A6Ugv2zK8Qf3Y8xCvydR+FtqtQAKg8rCZQoXpxyJS6gvqDfX++ffzcNt4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=BX2i5Mtt;
-	arc=none smtp.remote-ip=209.85.210.228
-Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QD668nKQ;
+	arc=none smtp.remote-ip=209.85.161.97
+Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com [209.85.161.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E340E606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 21:17:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E340E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA75606A322
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 21:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EA75606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=BX2i5Mtt
-Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-886e61fa30fso158279b3a.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:42 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=QD668nKQ
+Received: by mail-oo1-f97.google.com with SMTP id 006d021491bc7-6d7e06dbcccso280933eaf.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793135862; x=1793740662;
+        d=1e100.net; s=20260707; t=1793135865; x=1793740665;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kjKHoXJ1QztHn7LxaBTuy/zVwxBXOh8NpL66zD+sMpw=;
-        b=frFO/apqUiPJJMTnUzOTPteHWSKUZe4f9FdLKgIWkDGJ/nAaUOpqigDdi6zGBIblSh
-         NX2En3rw7r4982Awnt+WtAHm1gsy/EG3ANwBKyvj9Sz/d2y2kwtNhZZKZkbaUY30XFBq
-         3Q9zAFJo3yAFs4bLYAtQ8zEQOr+ZF9Xmm5vGncqFi+8e2QC5Vyg+ToBmwkGy1uupHVJg
-         8a7Y7mqd65RebqfdnXvPnfId1pvFH/PGVW/ZyVfxWlPFieERA0NjIh2JO3Qq8ynMsJGJ
-         rxSAPAModjCpeZIyXLclhMlIIMWvOhll6bFo0mJLMoQzft4rm3UOOViaUDdALIru/l53
-         bFXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztcbW0pVNia9Ef4mU4myhc41ab81HUyJYGaJMHxFFUFfQPbpOFdmSVM5qZzceu0hup811AR5s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOabKmRglPM02IxPiSlE/XcNzjSR7erzMQ4R6ajbyfrtFPo9xl
-	g9bMnY5bweirZFADe4gyM/asmaROhQevujns7W/rrBQEMfqCMs8S8rbk8mGfM1sTwRcOsrzEIZ0
-	gNebtxt/LgW0DdDuciPk6Tozq0IlRZ/0xUZeQsrmVWt9SCntbjp70+9jD8ftgiAu3H3W65/1dCV
-	bT6VGh1KqlknzjaF7Pgv8Zy4K1osBqPw1Tdu8wujxsFDtq06Oz5weFU7zhOAh3gguxr9foqBX3E
-	5dV27JP
-X-Gm-Gg: AYBFou0Dai7nhl542FtVpweLt3SzNQ94XkB+tQ0YV2WkUKnqVtojsj1Ay/V3mDY5PQs
-	JzujFWXJ7oxvvW7bKWUvL863DNBFkFzQCsG+RamkJJ3Nx18rur1TXVGEhx0K8mcv1aFyozoKaGO
-	VZhgYngVw+QC90OdqxwMUleGEUGZdQhrFQDvJs7dAtj4hnAPkViQcs5bb08+a3HMajIRL8xEy1t
-	H1R16UXvdEmtd7Vpu9Vec1z3yoNf+Eykj8jB7rqtGf80JkFDVAml02RlGlhWs72k9Nj85gJB5gq
-	0VSgIMeRXGARIYBl2bH6hRmX7OIHXkokipKX8dLvb9X1MqBOgNLJzKiqS7IqjM3lqKkGIkFQv4Y
-	nnEM1S7/XvE1jvN66MnrqwBp913Bt9xiOJWJgaj20QFei9nv7Tbg/4cPzebvl+bRtrSfU2tmqv3
-	xARSj440eFzgEqWsPc8N6XaqAmc2xKVMMp
-X-Received: by 2002:a17:90b:4f49:b0:3ab:b39f:41da with SMTP id 98e67ed59e1d1-3ae580ae572mr191647a91.11.1793135862140;
-        Tue, 27 Oct 2026 14:17:42 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae579cd137sm99023a91.2.2026.10.27.14.17.41
+        bh=VhwStqBc0JsG88BacH2y24XzBET34vQRSMUTxkJ0j4g=;
+        b=sBqHUOe+lFjO75S2PKLYjQ6K4OUdWw1QN5qaAfWBh/7rhfE+Ge5PbSUZ5xtsuRaM7h
+         NySF0KG1M1tf84pVo44JEqddPOLepGwA5qdg53nCf992JwrbVP7/N5hI6z72QzjyGT5O
+         7fDSSAodcmKAj+EFRHnIgirGZcJxY+x0TP6oCHNbXwGlN5Ofwdy8HmsO5ZI+ekXhByqs
+         AqNeT2pJl17LXabe5skffb70USPuL6TlrcvNUhMO5gqfKbg/3DBI3w+VQBEEnJYqCXrT
+         +Y1lxga/rKCgYkbhQESw15v+YJdGhFEbLRnDZURfrXrTV5lrKMZMPHX1Wx5Nl0F/rwwl
+         vd0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxeGXfgcs9ytYPebREO9MMdVpLM8BhlCcDJgbO4gFOmY2HZ8WBSnwo2jUtghePYa1ClPGg7kFE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLls2RHyP+ciFtckZNWFTs1BeobNdmX7BXHuaYC3rflR6CKtf3q
+	dPbtgZ8LRIVjhtJTWhi/8pZjEOkcWKfv0qRb19yLtP9c2EGpq5QXvXTsSgLfkk2zOd80UIWbnyJ
+	Tr7IdLBI2mhueQVrQF3XLh0WCxyCNqhHF0swgrLFE+4LFJRDNFMMEaaaRIRtIcSrHNTMwh3sZU0
+	6G747qPbDzUHrAiFcHmxHVoNzs15f/YzcfFDjEslkfZmt5/hfNEJgwj6zlt+MDugRuy+DKfx6o4
+	/e1DPPw
+X-Gm-Gg: AYBFou06D7j3DWoTn94Rf5PS6gz6wYDwjFrCaAszby8dgOPF2ahLERUUyRCaY1M2osX
+	QxWD6FIaot/Lf0SD5Zj5wqIzEJh0jSKD7GnM59xwnZC4Qg3bHLzAxoTwMnuR0UDHsYbxwZicK+2
+	2jeqjJECrknYEjrqcFJhguN6CGv/8hdQMOxVMFdlahp331miPtOEYo1Xjq6a0bosZn3P5uPxb0f
+	bHCGRxJf2cywgFagZD4Yw+LrjoFcx6+RbOLDMtmpIcL4Y9aNofLlSZAP/cZLCqYdRcPM7PLWPoB
+	HHU3KxEKi7p8qebQxHVXUwwNfqS7j6CNDQrxqoqYGdrt41xj58P3eP8U6JRyGHU/a8QW7gCHoVI
+	QhegodJgZR+pUSugWAAXdFXHV+L2mRNBcTjUpYPvhQoUoZk6aYL5WdVFtYYF3t8KZzqwWpaHtfw
+	wQckS2/0PHP6jfpDnhFGQNxep0338UAKgZ
+X-Received: by 2002:a05:6820:4606:b0:70d:9d05:dac with SMTP id 006d021491bc7-713eeb52434mr194660eaf.58.1793135865303;
+        Tue, 27 Oct 2026 14:17:45 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 006d021491bc7-70b9e01f523sm113568eaf.23.2026.10.27.14.17.43
         for <stable@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 14:17:42 -0700 (PDT)
+        Tue, 27 Oct 2026 14:17:45 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so498473eec.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:41 -0700 (PDT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so1025784eec.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793135860; x=1793740660; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1793135863; x=1793740663; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kjKHoXJ1QztHn7LxaBTuy/zVwxBXOh8NpL66zD+sMpw=;
-        b=BX2i5MttuJJdamn4P8WL/EO3Mg3yG+te6xEL/aKHtOky1pCIthdcB0YEmq2ILNryN4
-         fA6nD3m/2kxYFJMukKEPeqG2oK3/a8J5+stIlFpzEKsSkSXhAOyh3XMcD4EdsuxE1QQA
-         Oyt5UMPds/wz2aTh+yrQhk37JtFRVyD9sIdP0=
-X-Forwarded-Encrypted: i=1; AKwUvByFZUrQW4xzhO6k/jUnAgxxcvIEbQ+6wo8GfFcrZoUoM+yYnvSHcuf9l+uMCqu91MR4YF+FfeE=@vger.kernel.org
-X-Received: by 2002:a05:7301:2e85:b0:36a:1788:3d1c with SMTP id 5a478bee46e88-36a203dfa05mr1211704eec.34.1793135860324;
-        Tue, 27 Oct 2026 14:17:40 -0700 (PDT)
-X-Received: by 2002:a05:7301:2e85:b0:36a:1788:3d1c with SMTP id 5a478bee46e88-36a203dfa05mr1211660eec.34.1793135859600;
-        Tue, 27 Oct 2026 14:17:39 -0700 (PDT)
+        bh=VhwStqBc0JsG88BacH2y24XzBET34vQRSMUTxkJ0j4g=;
+        b=QD668nKQEADxI5DBhpO4SCjw2HbCaqMeFX8h3ydhmTK27yqD8OUXs7vn3cFMLqExct
+         FbiTtI3ppUiWdHW4q0YZG9dYpeIQKOkeeekdTH8kXGYZkKqNkicAHUDx9RmeJ3JmqxoA
+         GosQYLH2h3Y1ewNXHi3KGOPCspXBWzIj6+Pww=
+X-Forwarded-Encrypted: i=1; AKwUvByoCZHhnoEiOLI11Q7jEmxRf5OUuvMJbjzVGGfVA/kyvQ0vTbhNXmYN65N+QWRM68Nba2Ibzxo=@vger.kernel.org
+X-Received: by 2002:a05:7301:78c8:b0:366:dbf9:32bd with SMTP id 5a478bee46e88-36a20406fcemr723442eec.9.1793135862591;
+        Tue, 27 Oct 2026 14:17:42 -0700 (PDT)
+X-Received: by 2002:a05:7301:78c8:b0:366:dbf9:32bd with SMTP id 5a478bee46e88-36a20406fcemr723426eec.9.1793135861976;
+        Tue, 27 Oct 2026 14:17:41 -0700 (PDT)
 Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8c576ebsm35760859eec.3.2026.10.27.14.17.37
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8c576ebsm35760859eec.3.2026.10.27.14.17.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 14:17:38 -0700 (PDT)
+        Tue, 27 Oct 2026 14:17:41 -0700 (PDT)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com,
@@ -102,9 +102,9 @@ Cc: bcm-kernel-feedback-list@broadcom.com,
 	tomas@slax.org,
 	Zack Rusin <zack.rusin@broadcom.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/6] drm/vmwgfx: keep cursor mappings and pins with each plane state
-Date: Tue, 27 Oct 2026 17:17:24 -0400
-Message-ID: <20261027211729.646988-2-zack.rusin@broadcom.com>
+Subject: [PATCH 2/6] drm/vmwgfx: validate GB-only cursor command limits
+Date: Tue, 27 Oct 2026 17:17:25 -0400
+Message-ID: <20261027211729.646988-3-zack.rusin@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027211729.646988-1-zack.rusin@broadcom.com>
 References: <20261027211729.646988-1-zack.rusin@broadcom.com>
@@ -120,206 +120,67 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Cursor plane states duplicate the user object reference without acquiring
-its mapping or pin. Preparing the duplicated state nevertheless unmaps
-that object, and only pins the new buffer if it is not already pinned.
-Cleanup of an older state can therefore remove a mapping or pin still
-needed by another cursor commit. Repeated cursor updates from KMS clients
-can then access an unmapped or movable buffer.
+Guest-backed devices without cursor MOB support define cursor images with
+SVGA_CMD_DEFINE_ALPHA_CURSOR. SVGA_REG_CURSOR_MAX_DIMENSION belongs to the
+cursor MOB register class and reads as zero on devices that do not expose
+that class. Applying this register to GB-only cursors rejects every
+nonempty image submitted by KMS clients, leaving Xorg without a hardware
+cursor.
 
-Give each prepared state its own mapping, buffer reference and pin, and
-reset the mapping when duplicating a state. Release only the resources
-owned by that state in cleanup_fb(). Map the required image extent for
-every state so resizing a cursor on the same buffer cannot reuse a
-smaller cached mapping. Unwind the pin and reservation if preparation
-fails.
+The submission transport also limits the command size. A 96x96 image fits
+the 40 KiB FIFO image limit, but exceeds the 32 KiB command-buffer limit
+and causes a device command error when submitted through that transport.
 
-Fixes: 965544150d1c ("drm/vmwgfx: Refactor cursor handling")
+Validate GB-only images against SVGA_MAX_CURSOR_CMD_DIMENSION and
+SVGA_MAX_CURSOR_CMD_BYTES. For command-buffer submission, also bound the
+whole command by SVGA_CB_MAX_COMMAND_SIZE, including its header. Calculate
+the image byte count in 64 bits and keep the register-based dimension and
+MOB size checks for MOB cursors.
+
+Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
 Cc: stable@vger.kernel.org
+Reported-by: Yunfeng Li <yunfeng.li.nb@gmail.com>
+Closes: https://patch.msgid.link/20260830151619.2452307-1-yunfeng.li.nb@gmail.com
 Assisted-by: LLM
 Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 69 ++++++++++++--------
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h |  4 ++
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c          |  1 +
- 3 files changed, 48 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 23 ++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-index 5a69606a0593..942d07079ef7 100644
+index 942d07079ef7..14490ead99cd 100644
 --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
 +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-@@ -112,8 +112,7 @@ static void vmw_cursor_update_mob(struct vmw_private *vmw,
- {
- 	SVGAGBCursorHeader *header;
- 	SVGAGBAlphaCursorHeader *alpha_header;
--	struct vmw_bo *bo = vmw_user_object_buffer(&vps->uo);
--	u32 *image = vmw_bo_map_and_cache(bo);
-+	u32 *image = vps->cursor.map.virtual;
- 	const u32 image_size = vps->base.crtc_w * vps->base.crtc_h * sizeof(*image);
- 
- 	header = vmw_bo_map_and_cache(vps->cursor.mob);
-@@ -132,7 +131,6 @@ static void vmw_cursor_update_mob(struct vmw_private *vmw,
- 	memcpy(header + 1, image, image_size);
- 	vmw_write(vmw, SVGA_REG_CURSOR_MOBID, vmw_bo_mobid(vps->cursor.mob));
- 
--	vmw_bo_unmap(bo);
- 	vmw_bo_unmap(vps->cursor.mob);
- }
- 
-@@ -490,9 +488,21 @@ vmw_cursor_plane_cleanup_fb(struct drm_plane *plane,
- {
- 	struct vmw_cursor_plane *vcp = vmw_plane_to_vcp(plane);
- 	struct vmw_plane_state *vps = vmw_plane_state_to_vps(old_state);
-+	struct vmw_bo *bo;
-+	int ret;
- 
--	if (!vmw_user_object_is_null(&vps->uo))
--		vmw_user_object_unmap(&vps->uo);
-+	if (vps->cursor.map.bo) {
-+		bo = to_vmw_bo(&vps->cursor.map.bo->base);
-+		ret = ttm_bo_reserve(&bo->tbo, false, false, NULL);
-+		if (WARN_ON_ONCE(ret))
-+			return;
-+
-+		ttm_bo_kunmap(&vps->cursor.map);
-+		vps->cursor.map.bo = NULL;
-+		ttm_bo_unpin(&bo->tbo);
-+		ttm_bo_unreserve(&bo->tbo);
-+		vmw_bo_unreference(&bo);
-+	}
- 
- 	vmw_cursor_mob_unmap(vps);
- 	vmw_cursor_mob_put(vcp, vps);
-@@ -625,10 +635,12 @@ int vmw_cursor_plane_prepare_fb(struct drm_plane *plane,
- 	struct vmw_surface *surface;
- 	int ret = 0;
- 
--	if (!vmw_user_object_is_null(&vps->uo)) {
--		vmw_user_object_unmap(&vps->uo);
-+	/*
-+	 * A duplicated state only owns the user object reference. Its mappings
-+	 * and pins belong to the old state until cleanup_fb().
-+	 */
-+	if (!vmw_user_object_is_null(&vps->uo))
- 		vmw_user_object_unref(&vps->uo);
--	}
- 
- 	if (fb) {
- 		if (vmw_framebuffer_to_vfb(fb)->bo) {
-@@ -652,31 +664,34 @@ int vmw_cursor_plane_prepare_fb(struct drm_plane *plane,
- 		bo = vmw_user_object_buffer(&vps->uo);
- 		if (bo) {
- 			struct ttm_operation_ctx ctx = { false, false };
-+			size_t size = (size_t)new_state->crtc_w *
-+				      new_state->crtc_h * sizeof(u32);
- 
- 			ret = ttm_bo_reserve(&bo->tbo, true, false, NULL);
- 			if (ret != 0)
--				return -ENOMEM;
-+				return ret;
- 
- 			ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
- 			if (ret != 0)
--				return -ENOMEM;
-+				goto out_unreserve;
- 
- 			/*
--			 * vmw_bo_pin_reserved also validates, so to skip
--			 * the extra validation use ttm_bo_pin directly
-+			 * vmw_bo_pin_reserved() also validates, so to skip
-+			 * the extra validation use ttm_bo_pin directly.
-+			 * Every state takes its own pin, the buffer can
-+			 * still be in use by an older state whose commit
-+			 * hasn't been cleaned up yet.
- 			 */
--			if (!bo->tbo.pin_count)
--				ttm_bo_pin(&bo->tbo);
-+			ttm_bo_pin(&bo->tbo);
- 
--			if (vmw_framebuffer_to_vfb(fb)->bo) {
--				const u32 size = new_state->crtc_w *
--						 new_state->crtc_h *
--						 sizeof(u32);
--
--				(void)vmw_bo_map_and_cache_size(bo, size);
--			} else {
--				vmw_bo_map_and_cache(bo);
-+			ret = ttm_bo_kmap(&bo->tbo, 0, PFN_UP(size),
-+					  &vps->cursor.map);
-+			if (ret) {
-+				vps->cursor.map.bo = NULL;
-+				ttm_bo_unpin(&bo->tbo);
-+				goto out_unreserve;
- 			}
-+			vmw_bo_reference(bo);
- 			ttm_bo_unreserve(&bo->tbo);
+@@ -778,8 +778,27 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
+ 				 "surface not suitable for cursor\n");
+ 			return -EINVAL;
  		}
- 		if (!vmw_user_object_is_null(&vps->uo)) {
-@@ -703,6 +718,10 @@ int vmw_cursor_plane_prepare_fb(struct drm_plane *plane,
- 	}
- 
- 	return 0;
+-	} else if (update_type == VMW_CURSOR_UPDATE_GB_ONLY ||
+-		   update_type == VMW_CURSOR_UPDATE_MOB) {
++	} else if (update_type == VMW_CURSOR_UPDATE_GB_ONLY) {
++		u64 image_size = (u64)new_state->crtc_w *
++				 new_state->crtc_h * sizeof(u32);
++		u32 max_size = SVGA_MAX_CURSOR_CMD_BYTES;
 +
-+out_unreserve:
-+	ttm_bo_unreserve(&bo->tbo);
-+	return ret;
- }
- 
- /**
-@@ -796,7 +815,6 @@ void
- vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 			       struct drm_atomic_commit *state)
- {
--	struct vmw_bo *bo;
- 	struct drm_plane_state *new_state =
- 		drm_atomic_get_new_plane_state(state, plane);
- 	struct drm_plane_state *old_state =
-@@ -823,9 +841,8 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 		vmw_cursor_update_mob(dev_priv, vps);
- 		break;
- 	case VMW_CURSOR_UPDATE_GB_ONLY:
--		bo = vmw_user_object_buffer(&vps->uo);
--		if (bo)
--			vmw_send_define_cursor_cmd(dev_priv, bo->map.virtual,
-+		if (vps->cursor.map.virtual)
-+			vmw_send_define_cursor_cmd(dev_priv, vps->cursor.map.virtual,
- 						   vps->base.crtc_w,
- 						   vps->base.crtc_h,
- 						   vps->base.hotspot_x,
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h
-index d32cf17d013b..9b50f80f9635 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h
-@@ -14,6 +14,8 @@
- #include "drm/drm_fourcc.h"
- #include "drm/drm_plane.h"
- 
-+#include <drm/ttm/ttm_bo.h>
++		/* The command-buffer limit includes the define-cursor header. */
++		if (vmw->cman)
++			max_size = min_t(u32, max_size,
++					 SVGA_CB_MAX_COMMAND_SIZE -
++					 sizeof(struct vmw_svga_fifo_cmd_define_cursor));
 +
- #include <linux/types.h>
++		if (!new_state->crtc_w || !new_state->crtc_h ||
++		    new_state->crtc_w > SVGA_MAX_CURSOR_CMD_DIMENSION ||
++		    new_state->crtc_h > SVGA_MAX_CURSOR_CMD_DIMENSION ||
++		    image_size > max_size) {
++			drm_dbg_kms(&vmw->drm,
++				    "Cursor dimensions (%u, %u) violate command limits\n",
++				    new_state->crtc_w, new_state->crtc_h);
++			return -EINVAL;
++		}
++	} else if (update_type == VMW_CURSOR_UPDATE_MOB) {
+ 		u32 cursor_max_dim =
+ 			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
  
- struct SVGA3dCmdHeader;
-@@ -41,6 +43,8 @@ struct vmw_cursor_plane_state {
- 	enum vmw_cursor_update_type update_type;
- 	bool changed;
- 	bool surface_changed;
-+	/* The mapped buffer is referenced and pinned by this state. */
-+	struct ttm_bo_kmap_obj map;
- 	struct vmw_bo *mob;
- 	struct {
- 		s32 hotspot_x;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 31d3ee0825ca..85228eb9c3e6 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -283,6 +283,7 @@ vmw_du_plane_duplicate_state(struct drm_plane *plane)
- 	vps->cpp = 0;
- 
- 	vps->cursor.mob = NULL;
-+	memset(&vps->cursor.map, 0, sizeof(vps->cursor.map));
- 
- 	/* Each ref counted resource needs to be acquired again */
- 	vmw_user_object_ref(&vps->uo);
 -- 
 2.53.0
 
