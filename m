@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104940;
-	b=tsIMK0WqRKJo345zEwGwn3o24BBGtscYUYiimPhIggOjWwSeVn9o9jzcVhGQxmkqK58R
-	 33P3S2kz1epULf+eut8Rf6xqADmYOK7RL0rU6a+/RKEEHwzB9PwhXSJ3qzL62yRyTwDiD
-	 I1ckdtyUgYVIaDWsBPAzAPUOyXi2z/cJbAF5NN4z6PV1Zn9ZK2CzRDSq5wwsoSZhy9dYj
-	 SrAXKkJfl2fUN/2s6nNW9x2fBRAcEhJG2y2A9ZDFVFfNSVnvjldu/gfNhwGelfGrjlKAq
-	 JoLdf8Va7WjuaaTJcWdIjKfrUkYenQpCpv+CyJ2K3Ns09MiLhlI5Dam104CgU39lbEg==
+	t=1793105146;
+	b=5DocqA2DcS0o6oCOaqX2oRM9oLy7CM9RLadTKqHaDFDVuRvzbuv+CKhpLqwo1t/Yy0wk
+	 Zgrs6u/RMI4IPuBzhnZ+VWwSrHpN9ivMCaoWXilecQyMJ/4RWL6Rxq42oTvd61UPojOGe
+	 fBido/cmL5hIDTKpwn2CBBOw1fJtebYAq+RaNB74PFX/DUvKRQbUYh7+3uzbbNcuXVhc/
+	 yGsv8y3en1Y5iv+L2f2KWgsP3GPz7JinkBhxoiSqGuRyiJu1xk4036fdDli4BSaFQj5ys
+	 F4DLFgA2+0Zw9T8SbbMunmHrksQ9TS3uPpYOiau8F+youBP6ZwkcPSTko3DoplCO2WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104940;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=PiV4t28T1jdg2chdhmmFYFRc+kPf1uvncvGOZbGDjx8=;
-	b=JVJO3dtqJkNRgvVLX3a/+yXYUJJD9rthF+qS8S+ZwSkkD4XW1b/WBCl/+PKwhqhGDSAY
-	 NS/teo6pgeYHcNfllaTcBYEHf8AdlPXFhjyYxfUr02SivR7X5yMdPhIGVnApOA4aqiaDR
-	 PGg1AMhHmN+bDZRJlRAuGKSvKduj1dRiRGEvjMCwx/kJHZp/UY38jvT04dcbIAoh5/7II
-	 ZRZsGZI0wv9pUSf1JGuf/kNxXrClEVTcxvvzrPwLYNb5zR8DpEe67lyDgeilInnRexO1E
-	 BROe7hgiWjyIJfLeV59P7w3ZXQ9xSD/zr7KjtZ7wI3DMo9q8hzpAOH+r6oUKGFpIvvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105146;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=koFtvkLfr2oI9uXtX/n3Ay3Dy+ycp8hbA1U6raVcKYE=;
+	b=gtncVGNuxhgxb/EN32XlN68HvEZyDN9uLG6LKW5nAqFFkC+RSC3mkdZD2JGo9GJwZ1zI
+	 e7LXmN/Gx2dHa07NuLEyTXdwkuM8bTy0qqfL/u67oMUcej5e1fbpSKelOTKrZgJIVASCx
+	 7NiTdLv4ExB3qFDyE23H5cYIVJZfxrgbriQckDYDUz7H3TG2PHserqYBQn6c92uKZVFkH
+	 ryOeaD6OsJy4eWh+duDLxuh+oK99lR7iMnYyVZP17XPVvYzqbfiGSALGccyHFjt2YEmU3
+	 3g8Db675sfuQMmCnlCQ5hlEJYby384z3XQnAdCT62d/p/hz20kzJf7gxxsS9mTbr3Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EofktGYX;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5B1imMU;
+	arc=none smtp.remote-ip=95.215.58.38
+Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BB8606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:42:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3BB8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4F1606A331
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:45:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA4F1606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EofktGYX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793104939; x=1824640939;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=NMEa5vWU4ZlNJLykssghl9O3s6Ml6pgdhRGqV7VPbts=;
-  b=EofktGYXXZJqhklz0WdIAtoHHhE+ceb17RN3HF0G98bNdt0bXPhQaA8S
-   RVe21M1VpOr/jh7rVrYJCKpsKlMe7tEakjLi3GXJRqSr+2aUHABKzvGjQ
-   B7Ju6GOEQtV8sO42o5a/UDLnPZX8zEkF8SRlPhcbez8ViVTHiA0za+DfE
-   eJXRndLM44lOMsI7+63OkikLnHACbFXYJAe90BrKyilG9tE/fqbun2r//
-   +/HmQ1ZqM34W6uvqDgS7vViUN755l0yGxIzxG+OBEzmE4qPPyRgA3csjP
-   9obz5J6R6abVLTI8juxcJvvQiu3Oq2LQHweimuqLl+Dy3N7zbdfsgJ6Hv
-   g==;
-X-CSE-ConnectionGUID: mfDZuxc7SnG3GscuwqkPyg==
-X-CSE-MsgGUID: uQmK6GGMTRem+P9d0a2ahw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1790040"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1790040"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:42:18 -0700
-X-CSE-ConnectionGUID: dSeO7xJfQMOp0jxELMjmdw==
-X-CSE-MsgGUID: QgWc/OjfSbaLYded+0PQLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4556012"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.244.18]) ([10.245.244.18])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:42:16 -0700
-Message-ID: <bfb62b44-5fcb-4a41-8dc8-c917d9687d28@intel.com>
-Date: Tue, 27 Oct 2026 12:42:13 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5B1imMU
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7hyLZnCptglh6ZfX27cwvtA9DMVa5PLCr9Si8AAJnHA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793105144; v=1; x=1793709944;
+ b=o5B1imMUAsXMIe68c9yZ8nUysrg9IA3E5gU6Jo69SRBPFqKt990Xab1s4cfAE2x9M7THBwwA
+ 3+KbCVOHBt2XqQu4lrWHGQzoKEqn1BBqv8Aob+fNaFgruL63suAcGmi5Ee11M9EUXcFkeTN66Sd
+ ikXmkP6AWUjk+DkrHmtBniH4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c7f68ba690e126ba;
+	Tue, 27 Oct 2026 12:45:23 +0000
+X-Mizu-Trace-ID: c7f68ba690e126ba
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e25fd292-5391-41fc-a324-0ec260828415@linux.dev>
+Date: Tue, 27 Oct 2026 20:45:14 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,146 +59,120 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/xe/sa: make suballocator waits uninterruptible
-From: Matthew Auld <matthew.auld@intel.com>
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org
-References: <20261022174058.226432-4-matthew.auld@intel.com>
- <20261022174058.226432-5-matthew.auld@intel.com>
- <45831f6088cde19e2885cbbde52574da8a595e18.camel@linux.intel.com>
- <3c39fc90-de66-44a6-936e-06a69219f7af@intel.com>
-Content-Language: en-GB
-In-Reply-To: <3c39fc90-de66-44a6-936e-06a69219f7af@intel.com>
+Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
+ configured MTU, not the learned PMTU"
+To: echoowall@gmail.com, netdev@vger.kernel.org
+Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Shuah Khan <shuah@kernel.org>, Thorsten Leemhuis
+ <regressions@leemhuis.info>, regressions@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>
+References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
+ <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23/10/2026 10:32, Matthew Auld wrote:
-> Hi,
-> 
-> On 22/10/2026 19:29, Thomas Hellström wrote:
->> Hi, Matt
->>
->> On Thu, 2026-10-22 at 18:41 +0100, Matthew Auld wrote:
->>> Large BO clears and copies in xe_migrate_clear() and
->>> xe_migrate_copy()
->>> are split into multiple passes, each needing a batchbuffer from the
->>> fixed size kernel bb pool. Once the pool fills up, __xe_sa_bo_new()
->>> waits interruptibly for space, so a pending signal (e.g. Xorg's 5ms
->>> SIGALRM smart-scheduler timer) makes it fail mid-loop with -
->>> ERESTARTSYS.
->>> The partial progress is then thrown away and the restarted ioctl
->>> starts
->>> again from byte 0, including the memory allocation, which can
->>> livelock
->>> if the signal arrives faster than the whole operation completes. In
->>> the
->>> shrinker path the same error also aborts the shrinker walk, even
->>> though
->>> ctx->interruptible is false.
->>>
->>> Being interruptible here doesn't seem to buy much anyway: on error
->>> the loop already waits uninterruptibly for all submitted passes
->>> before
->>> returning. So just make the suballocator waits uninterruptible,
->>> matching
->>> amdgpu and radeon. The other users (page reclaim from a kworker, and
->>> the
->>> GuC buffer cache) shouldn't really see any meaningful change.
->>
->> This is a deviation from the "make all waits possible interruptible".
->> One might argue that user-space that interrupts kernel work with a 5ms
->> time only to restart it again and again is not well-behaving and
->> continously shoots itself in the foot.
-> 
-> Maybe. This is the xserver, so I assume this is very old and not some 
-> new thing. I feel like even in this situation the kernel should be able 
-> to make some forward progress in the ioctl.
-> 
->>
->> Given our pipelining abilities, isn't there a risk that we delay signal
->> delivery with up to 10s?
-> 
-> At least for the copy/clear, it looks like there is already an 
-> uninterruptible wait on the err path if fence != NULL, which we trigger 
-> on a signal.
-> 
->>
->> In the worst case, is there a way we can periodically at least check
->> for pending signals or perhaps increase the sa bo size so that it
->> doesn't block on a single large buffer?
-> 
-> Other idea is to expose the intr, and then maybe plumb down the ctx- 
->  >interruptible somehow, which would then cover the shrinker case and 
-> maybe other places like that which explicitly asked for that? For the 
-> clear case (gem_create) maybe we check if the fence != NULL first and 
-> then set intr accordingly? If we have a pending signal it would bail if 
-> we have not started GPU clearing yet, but if we have started then we try 
-> to finish? The error path will currently do an uninterruptible wait 
-> anyway, and that one could be a lot worse for a big buffer, since it 
-> drains ALL prior jobs, instead of just waiting for the oldest bb. And 
-> here it might be that we got right to the tail end of the clears but we 
-> got a signal, so we throw away all of that work.
-> 
-> Increasing the sa bo is also an option (maybe both). Although I guess 
-> there will likely still be something too big, and I guess we might still 
-> see issues if the pool is still busy with other pending work?
 
-Some more thoughts. Since Matt nuked the vm_bind GPU path, I don't think 
-there is much contention on the reserved bcs any more since there is 
-just one migrate queue (?), so maybe we can also:
+On 10/26/26 3:23 PM, Esko Mobius via B4 Relay wrote:
+> From: Esko Mobius <echoowall@gmail.com>
+>
+> This reverts commit 2640e6419594 ("net: advertise TCP MSS from the
+> configured MTU, not the learned PMTU").
+>
+> That commit stopped the learned PMTU from lowering the MSS we advertise
+> in SYN and SYN-ACK. For symmetric paths it argued that "the peer runs
+> its own PMTU discovery and usually already knows the real path MTU".
+> That only holds if ICMP "fragmentation needed" can reach the peer. When
+> the peer sits behind a firewall that drops inbound ICMP, its PMTU
+> discovery is a black hole (RFC 2923, section 2.1), and the smaller MSS
+> we advertised was the only thing keeping its full-size segments off the
+> narrow hop.
 
-1. Bump the VRAM clear + identity path. 8M is maybe very pessimistic 
-now? Maybe we could push a lot more work per MEM_SET + page mode here? 
-This could also give more perf, with a lot fewer jobs for 1G+ buffers. I 
-have seen llama.py with 5G+ gemma model use 1G+ buffer on my BMG, for 
-example.
 
-2. Maybe also pack more work per-bb, at least for identity? Each new bb 
-eats up a bunch of padding for pre-fetch etc.
+A client that cannot receive ICMP is broken beyond this: QUIC's DPLPMTUD
+hits the same black hole, and nothing the server advertises can help it.
 
-> 
->>
->> /Thomas
->>
->>>
->>> Assisted-by: LLM
->>> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9644
->>> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
->>> GPUs")
->>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: <stable@vger.kernel.org> # v6.12+
->>> ---
->>>   drivers/gpu/drm/xe/xe_sa.c | 5 +++--
->>>   1 file changed, 3 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/xe/xe_sa.c b/drivers/gpu/drm/xe/xe_sa.c
->>> index f32045f40b7a..d9c2b28b08c2 100644
->>> --- a/drivers/gpu/drm/xe/xe_sa.c
->>> +++ b/drivers/gpu/drm/xe/xe_sa.c
->>> @@ -165,7 +165,8 @@ void xe_sa_bo_sync_shadow(struct drm_suballoc
->>> *sa_bo)
->>>    * @size: number of bytes we want to suballocate
->>>    * @gfp: gfp flags used for memory allocation. Typically GFP_KERNEL.
->>>    *
->>> - * Try to make a suballocation of size @size.
->>> + * Try to make a suballocation of size @size. Any waits for space
->>> are
->>> + * uninterruptible.
->>>    *
->>>    * Return: a &drm_suballoc, or an ERR_PTR.
->>>    */
->>> @@ -178,7 +179,7 @@ struct drm_suballoc *__xe_sa_bo_new(struct
->>> xe_sa_manager *sa_manager, u32 size,
->>>       if (size > sa_manager->base.size)
->>>           return ERR_PTR(-ENOBUFS);
->>> -    return drm_suballoc_new(&sa_manager->base, size, gfp, true,
->>> 0);
->>> +    return drm_suballoc_new(&sa_manager->base, size, gfp, false,
->>> 0);
->>>   }
->>>   /**
-> 
+
+>
+> Inbound ICMP filtering is very common in enterprise and carrier
+> networks, and it is pervasive in mainland China. We hit this in
+> production after the commit was backported to 6.12.111: TCP connections
+> that reach a server through a relay with a smaller-MTU hop complete the
+> handshake, then stall as soon as the client sends full-size segments.
+
+
+
+The learned PMTU is keyed per destination address. If your relay
+masquerades the clients, the server sees a single address, and one
+client's download seeds the entry for everyone behind it. That is why
+this looked reliable. Once the clients are spread over their own
+addresses, each one needs its own fresh entry and it falls apart. The
+old behaviour was never a mechanism for this.
+
+
+> Clients on networks that let ICMP through, and connections that bypass
+> the relay, are unaffected, which made it hard to trace back to the
+> kernel.
+>
+> Reproducer, network namespaces on a single host:
+>
+>    cli --(1500)-- r1 --(1456)-- r2 --(1500)-- srv
+>
+> r1 drops ICMP frag-needed towards cli. srv has already learned PMTU
+> 1456 towards cli, then cli uploads 1 MB to srv:
+
+
+This precondition does all the work. The server only learns the PMTU
+when it sends a full-size segment itself. If it only sends ACKs or small
+replies it never learns it, the SYN-ACK MSS is 1460 on 6.12.107 as well,
+and the upload stalls the same way. The entry also expires after 10
+minutes (ip_rt_mtu_expires), so the server must have received a
+frag-needed within the last 10 minutes before each new connection.
+
+Please re-run the 6.12.107 case without seeding the PMTU.
+
+
+>
+>    kernel                     SYN-ACK MSS   1 MB upload
+>    6.12.107                   1416          OK
+>    6.12.111                   1460          stalls, times out
+>    7.3-rc7                    1460          stalls, times out
+>    7.3-rc7 + this revert      1416          OK
+>
+> The asymmetric case the commit was written for does not need a new
+> default: the advertised MSS can already be set per route with the
+> advmss metric, which takes precedence over default_advmss(). With this
+> revert applied, on an asymmetric path where srv learned PMTU 1456
+> towards cli while cli->srv is 1500 end to end:
+>
+>    srv route to cli           SYN-ACK MSS   largest cli->srv segment
+>    default                    1416          1404
+>    advmss 1460                1460          1448
+>
+> So DSR-style setups can opt in with "ip route ... advmss <mss>", while
+> hosts whose peers cannot complete PMTU discovery keep working by
+> default.
+>
+> Fixes: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
+> Reported-by: Esko Mobius <echoowall@gmail.com>
+> Closes: https://lore.kernel.org/regressions/4F0FAEB6-A13B-47F3-BFF1-C706686C6F64@gmail.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Esko Mobius <echoowall@gmail.com>
+
+
+
+
+Maybe a better way out than a plain revert:
+
+Revert in stable, and in net-next add a sysctl, something like 
+net.ipv4.tcp_advmss_use_pmtu,
+that decides whether an endpoint uses the PMTU it learned on its send
+side for the MSS it advertises (even though these are two opposite
+directions). Default on keeps your setup working, DSR-style setups turn
+it off
+
 
