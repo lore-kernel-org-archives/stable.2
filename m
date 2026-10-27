@@ -1,76 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069977;
-	b=B134oif5nbZ9AhUaXw0GeGFPmNq+UdbJ3z13VkN8eotjUhYgkYhpqwxkjmSFzI7WAQdb
-	 lxi03ybCiM5LEoZUkBEJ1RObz2iHKXusCv19HLOYG+QkyVLZTcrQtGamCePxdoRzR1FOr
-	 vzYtHxNhYxz3PQyTrJTBEreOyF4waPpCe7CcaeuV8kH4mxlnLfv3KUH0EZdRthqRbl4gk
-	 F4xbKuAHxqIk0ow0CS+7UFNXOUC1lAMShG8woPx8YYZ5OKpipaoutpPuMHId/mw7oQsmR
-	 as+lH2LduGEYmoFWRZrlbmbQRmBh2ATyw0LcwbAoVubHXAq/94MwCutDLADsPjkCJwA==
+	t=1793070314;
+	b=K7rUEAlHEF3y6u3Zw9+cLl+E+pssnbluABbhde77fmcLYM1uCiak2y1PstjYtqz1fqED
+	 DfwAHlOfI/YiD11fZspKsn+8iS0wmRlXXmhSPm94bDH7EL5gZxXImYnvXRd6qHXCBvVBU
+	 /QzurQeGZyWohczzmbdPlA/WDuZdhgfwLArHSq8JKLq58KfRbrVFBRoknZDeIj6QYjEQL
+	 eNQnNUNsH1Nku/coSIr8RMFDbnP5YAxUV0axoAK5DNhYDXaALN4NYTytjq0bpL3fNV9g0
+	 +NJqF4T777wFrXfvpn2p+9lTsz8KYmKGAIVAaOk0RZZOflREiMtJsImmKqM560s/VJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069977;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=9Xw4C9YzTPAgVaFuy+cQke/aA94FYtR9rQ/7mL/9V2U=;
-	b=eM94GQ2y5m+UprJ4NgYsLmIuZWUBuW7hxSvH1Wza4N3AisUCK3Lmbx+YN6z1hl45eVfl
-	 jsT5L6xaILwau7XAR8ymZwdHsyrkbkubkjEFubThcFkMCfTfWXkK60FdTylWxCBVBlnAT
-	 mbMVaNCRvkJb3ST0yM5mFTc4rxM5m68RtlCg5phi05KjB2WR+UIkpfhyMCyxACyfPielW
-	 JmDw6b2Z0NL9yvSzzKwON3q1snYHjP8ccmudHF67Nx02a7ci5PqpwFHZKugPU4LF14u/g
-	 MwtF8ss5/teT7vJesHF08U0CUIU7I3l1S7ByF3R+RuGnnepkjNJta4piJHyStAfoBXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070314;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=+m6MAN4UT0/EHYIpxyVZqteSVMfVdSNgFL/Qz2Lnr3Y=;
+	b=mZ3GqRYBqlfv470UxzTW8KornBmNClm743MP1ixs+DbQeeGed/I9kFXVhUepz1xs76DW
+	 zYdIM0rWGL2BnSs4SqZDcLR1ngRHNYzxRI8X82RHJfYZqYOU/lyLMlLdFD43HCynwvHn+
+	 qnkm0+YFrOFsLHxqD1Y07WiDJ3FVfN8AQce0ajJ5a0mA26WkRW1al4/tKaQ/kQo6i2AfC
+	 LmapkjFMmCczPB53k7Iqp+kdoDz47WELXZ7witilKqx+cgEOify7l9DLPQ/SfUKR7mkSR
+	 8LI2w2aavntarMLYOn77t5rcvLfE1LpUdtDKU72zqgQiX+hqvk39YvCjTRC1k4Yrulg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cLQCsutK;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=RGgw4ROk;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F059606A325
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:59:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F059606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6D1606A31A;
+	Tue, 27 Oct 2026 03:05:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD6D1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cLQCsutK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793069976; x=1824605976;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Wc/sJiss4XXnfSr8lhZWbdzeiQIHLn0r4nsyG5FYmPU=;
-  b=cLQCsutKCRE6gBzCdKoIVsaOuQyQ9Mme5K3dTocykSt5DvdJFcdTmreQ
-   05t72Kl5oRqOQsvzZNNBANPIypBA53zTZa1OOnKcJwYw9PfsTHY9vbcJ7
-   4D4sxvrHLphJz/ruCGcNF48VJwDMhGkaQ8Oq3nuc7Rq+oDLo5rTSSXCEo
-   oMKoltLF59vqVkV8TmhDFwgXwipUFGAx/LOLTsDEPHMOcccSpPWGT+SLQ
-   i7FH7EeZZZJkZlKW7mQCMWGy2UMX3OAqAHLThchLjX45EXfCujWA+xVus
-   nmMNq9pi75LdLCaee3tqWn7OYwYGarErCIGlxsBwcmu4F+ZkUzccb1MCI
-   Q==;
-X-CSE-ConnectionGUID: 4vFhANSdQiCKD7mhoq48QA==
-X-CSE-MsgGUID: eIEvIJHPTsCD+gWtOliwPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1761311"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1761311"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:59:35 -0700
-X-CSE-ConnectionGUID: ANN6JCqKRVahYn8RXDaO/A==
-X-CSE-MsgGUID: 3HlD0sPcT8eoRuQHWmeUng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4823163"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:59:33 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com,
-	suraj.kandpal@intel.com,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18
-Date: Tue, 27 Oct 2026 08:13:34 +0530
-Message-ID: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=RGgw4ROk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=+m6MAN4UT0/EHYIpxyVZqteSVMfVdSNgFL/Qz2Lnr3Y=; b=RGgw4R
+	OkD3cg0cf6P6MGLfRM+m5MvS+GJTc7UdWM+UQ6RguBHrPalIxkK7wcfHFWNFj7sZKNtnLm1zdBkgs
+	N8lTiw3w08GyTbklL3MkANvd0R5Vpa/l+ULy2OKc5dDDmCb0BJtK8atoHOWEbl0wIQckJdOqYAXI0
+	0pditX8YqoUTyxfvs46eYWQm0tlaMerwC9JI7aOGv9A3zaGQonfYqGEe8qQno7ZJP78jH6v4/N2JX
+	pNCEHk4WoVbuUeWjg1nuN86duV8apM2UIYOylgwQ0mmHgNptwLsypcm1xsZq+bvglC4XcRpdoLXKz
+	zVSK2VHrwJ/eQJhc2JFuU0IjUvoA==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xLXTa-0000000B5QX-1toX;
+	Tue, 27 Oct 2026 03:03:50 +0000
+Message-ID: <8b09a67e95975a23d3a1eb9446030d758a1b5afe.camel@surriel.com>
+Subject: Re: [PATCH 07/46] mm/filemap: don't lose a folio lock wakeup to a
+ signal
+From: Rik van Riel <riel@surriel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton	
+ <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal
+ Hocko	 <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt	
+ <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song	
+ <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen	
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
+ <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang	
+ <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ Baghdasaryan <surenb@google.com>,  Michal Hocko <mhocko@suse.com>, Kees
+ Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Jann Horn	
+ <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins	
+ <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush
+ Yadav	 <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Lance Yang <lance.yang@linux.dev>, Harry Yoo	 <harry@kernel.org>, Alistair
+ Popple <apopple@nvidia.com>, Nico Pache	 <nico.pache@linux.dev>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain	 <dev.jain@arm.com>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau	 <kas@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, John Hubbard	 <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Will Deacon <will@kernel.org>,  "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Oscar Salvador
+ <osalvador@suse.de>,  Minchan Kim <minchan@kernel.org>, Muchun Song
+ <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,  Chengming Zhou
+ <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
+ <shikemeng@huaweicloud.com>,  Nhat Pham <nphamcs@gmail.com>, Youngjun Park
+ <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>,  Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Ying Huang	
+ <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org, Josef Bacik
+ <josef@toxicpanda.com>, 	stable@vger.kernel.org
+Date: Mon, 26 Oct 2026 23:03:50 -0400
+In-Reply-To: <20261027-fixes_core-v1-7-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+	 <20261027-fixes_core-v1-7-6f74bec9a5bb@kernel.org>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,92 +126,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Arrow Lake, VBT defaults the eDP pipe joiner enable bit to
-disabled, and commit 650471948e49 ("drm/i915/dp: Avoid joiner for
-eDP if not enabled in VBT") made the driver honor that default.
+On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> An exclusive waiter in folio_wait_bit_common() can leave the wait
+> loop
+> because of a fatal signal, then be woken by folio_unlock() before
+> finish_wait(). If the waker did not hand over the lock, the waiter
+> returns
+> -EINTR without trying to acquire it.
+>=20
+> folio_wake_bit() stops after waking the first exclusive waiter, so
+> this
+> loses the wakeup and can leave other waiters asleep indefinitely on
+> an
+> unlocked folio.
+>=20
+> After finish_wait(), let a waiter woken without a lock handoff try
+> once
+> more to acquire the lock. If successful, return success so the
+> caller's
+> eventual unlock wakes the next waiter. Otherwise, the current lock
+> owner
+> will do so.
+>=20
+> Fix generated by an LLM and sent by Josef Bacik in private.
+>=20
+> Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in
+> the page lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: clarify and simplify comment + description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-On the ASUS ROG Strix SCAR 18 (G835LXG), the bit in VBT is left to
-the platform default instead of enabling it, even though the
-3840x2400@240Hz panel requires the joiner to reach its native
-mode. As a result the mode is pruned and the panel is limited to
-120Hz.
+Reviewed-by: Rik van Riel <riel@surriel.com>
 
-Since the VBT bit cannot be relied upon globally for ARL (it is
-needed to block the joiner on at least one other machine), add a
-machine-specific quirk, to bypass the VBT restriction and allow the
-joiner on this machine.
-
-Fixes: 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in VBT")
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v7.1+
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16854
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     |  3 ++-
- drivers/gpu/drm/i915/display/intel_quirks.c | 13 +++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
- 3 files changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 00e02e019d25..7b83cc83eede 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -476,7 +476,8 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
- 		return false;
- 
- 	if (intel_dp_is_edp(intel_dp)) {
--		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable;
-+		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable ||
-+					  intel_has_quirk(display, QUIRK_ALLOW_EDP_JOINER);
- 
- 		if (connector->force_joined_pipes > 1)
- 			pipe_joiner_enable = true;
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 7d7db774d8c7..ba7bce7f2827 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,16 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/*
-+ * VBT on some machines defaults the eDP pipe joiner to disabled even though
-+ * the panel requires it to achieve its native mode, so allow it regardless.
-+ */
-+static void quirk_allow_edp_joiner(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_ALLOW_EDP_JOINER);
-+	drm_info(display->drm, "Applying allow eDP joiner quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -262,6 +272,9 @@ static struct intel_quirk intel_quirks[] = {
- 
- 	/* Xiaomi Book Pro 14 2026 */
- 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
-+
-+	/* ASUS ROG Strix SCAR 18 G835LXG */
-+	{ 0x7d67, 0x1043, 0x3b29, quirk_allow_edp_joiner },
- };
- 
- static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52faf..84f31809011c 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_ALLOW_EDP_JOINER,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.50.1
-
+--=20
+All Rights Reversed.
