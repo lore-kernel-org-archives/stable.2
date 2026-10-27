@@ -1,134 +1,96 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098715;
-	b=pZfE+PcvthCBlYwI4j0yJ20cBycjwFhzDP/+r5hwxtbAM9fNHYlub/Yb+2ckxPRFjQUw
-	 4KR3Wk74ngxDMt8HIgS7KpEam6jEAZdkFEKVDB7KX7TNKdbMCqf5IWNhUnRdArPQNHffc
-	 9DTiOBW+/J22Rj27xNf3voiijGJBj708buo4KBvnJKAjfh6bi/HtMXlSpSJaMvfhGZucg
-	 y4tR87hzIlHclvueae4LiHLJ1k9Ob52S06JbJF/phd3pH5k/xGamlJ6ykUdeAfOq1MNIK
-	 y/cap/3o1tV6TDasgP/WTzOZvWFlKsh+DYsroDom9ctu9vsWswpK6qqC/4Sp35YVlbQ==
+	t=1793098853;
+	b=NbI8F3e5e5d85u+IXHvFa24otETdEeT/glxR0v1ZHBV3PGzOaqX9q1gsbq/IlJhmEsuM
+	 4m/SzoX9sODkSqrXLDMA2guXfN/Yx6SqwMFeSuW5Rwfo3Woyo9lbLC3pu/iGoR0TA85bd
+	 aBnlnAiL57lvXQ0Pbqm58SMuxxIM0JA3itzKl5/UDekMrKGPyHgNWgVsxyfU1YCZv3oK8
+	 fjNt6T5EKaHAOdXKwtI5pWZAeDaXLSnxM09M3cRvkeDW/7xhUIBoIVApADYoSZuLdCwhx
+	 2/e8ZxVHlBFA3ruBPU0SGFksO1BStA9qQQc6C1cvF6qsM4Z9Dbd7ibPo18NpWd4XStg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098715;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=NvyIA+aWyz4S5FPVdXSTLrggEVJP8b3aFjTgPX2tYCc=;
-	b=vendOjue6HMTGSGGoWdCR2INyFc4cnU52bt+JaeyuFPBa2ir0JMijtSZAeiiqcr0MQyX
-	 tPBrKO5rQvJwB+HpwrOyfVKQ1XgUXSDpusQRrwLM8SBmIKNFdNbXuxcG+TpYit25g5Hnm
-	 KgJoZgxajImylL6TYfnhOSxHuxshPPo2qKWH6AxPXTcPrw26qewCWa5Zz1SX8Iz8vMwrh
-	 w9nSy8ryQTgMaCW1JigGIpAiv+be4u8pMmkT4rjZ6vgKWyTnS0XFLklxfNb+N701ZWtBc
-	 iX6UYtdvHQMUYTtfetEt27GpBT+0y/DxW9iQLt78OtNHkM9jUxAFOUAbJyjm2bpxgnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098853;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=iYbvF08NWfCm8zT3/Z6YZVWDxLXQALtM59UBUKduNM8=;
+	b=FYv3mj9kwKFrEepAF5lc0yRaclcl9+5BRyc61Fd7/XOTZf5CR9KnjAPlyNGvKMMIclwG
+	 FeohZ33UCQR1LWBMcIbFsJsiK/w9XpRbKyeUPgwfTM5yOQdww0rIEgogXJl1NqaxwYiV8
+	 9IsWZvS+52qRMuT5mquPjQnK3o9Hlr4G/DtzsSjVIDJ7SeHUow8Vnmbd3VWknlC/1ELNk
+	 751cg5yDzptBpzPxJkYtqmzGSSoHS9F+7LDOchltVP4zFHaUJD72bTIMuH55N0sFwshM9
+	 QLkxrbbhCV50IbaeaPutNljsVV2DC+60MLMhREw0OhbrgYEQA7DZPcG0fXq6dCmkoLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q96Yy3I7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi70ByI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8A0606A31A;
-	Tue, 27 Oct 2026 10:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F055C606A31F
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 11:00:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q96Yy3I7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733F61F01825;
-	Tue, 27 Oct 2026 10:58:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi70ByI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6601F01828;
+	Tue, 27 Oct 2026 11:00:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793098714;
-	bh=NvyIA+aWyz4S5FPVdXSTLrggEVJP8b3aFjTgPX2tYCc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Q96Yy3I7bW+2W4Oe+RN1HBOY5feEQ/ihLXuXj8lrejsRMde5f3/V97SCWtUgbqXMH
-	 uOZGjkB4HuKQamFfEi4elfCLPvBTGLoavMZ7SLyOnZZMQBitK14ErvEelWaCWH2fxO
-	 1UXUITOEfwn7sLup1aYTxhp+67ND5UvUV9uXqjAnFgdLJ1WYRIymH9NcoVlkLEbYnz
-	 nfQTY9ju8Myjt5sZRXgpOJlrq5UzrHj0YEZ96sLqms3orji7iQKAFgsBrSUw6BHukV
-	 HRAoxJglzBzqp0fSgEfPh9/n5s7pkNcZURmOEmAzVRNcTGAkf1T15bhCWewqpln5JH
-	 Cr5l3jsqGMzug==
-Message-ID: <715d2efa3fd7abe8ce9a42f365bac9f88912b6ad.camel@kernel.org>
-Subject: Re: [PATCH] nfsd: pin client reference across async copy reaper
- cleanup
-From: Jeff Layton <jlayton@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>, Chuck Lever <cel@kernel.org>
-Cc: NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- linux-nfs@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, 	tristan@talencesecurity.com
-Date: Tue, 27 Oct 2026 06:58:30 -0400
-In-Reply-To: <20261026230151.2474608-1-tristan@talencesecurity.com>
-References: <20261026230151.2474608-1-tristan@talencesecurity.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	s=k20260515; t=1793098852;
+	bh=iYbvF08NWfCm8zT3/Z6YZVWDxLXQALtM59UBUKduNM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXi70ByIYNx77IpBcMisOiA+9HTw5hMBbP5PnuL7cKbARfcX2YXFB3C0Nb8UcfqNa
+	 W7Py7K5dxU+H/LWwf90HvhPlYti70w25ed3Bp0XXEM8yFJBsr4Jae0JcwB/LPddQBj
+	 wbowNiyNG+uQUPwXlzw25efd1WcYa5K8q9TIwEwEjBufCI3hm8x35zsP5yMFHCjTNw
+	 Fr+cX9g11qAge5j4vG2+CaxU+wLE5q0RxEbrRC3L0X1UUh32Yz8DPU0bfxHKZXbr42
+	 cKcoCYG4Q+EvbNRoEihL7XrPdCrZ1C4s5HXW6eSRescu4f3xtYyjY8jB9a1Ud29OET
+	 K3vcGXk5udPLA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A87A5198003A;
+	Tue, 27 Oct 2026 07:00:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 27 Oct 2026 07:00:50 -0400
+X-ME-Sender: <xms:X4Tgak2R7XlAMxcuTmHRzIr7ez5GNzfvlc70VSppEbBPNEMAWKFcOg>
+    <xme:X4TgavBMDxN8HAJYhYhfI8m4xF2uNV9ZSAzubmbB7aMp-_f92eJf20VVeRqptRDxU
+    Cpa1N0lq_PxcAeagHDkZn-OkAixEYe-lWIifrOcDWbMx7lWKGKNDBQ>
+X-ME-Received: <xmr:X4TgaoeA5PmS20bEiK9t_Jq2sJ-hY3OIDNV6rg_RAdKVzRC1nvYEofvM2TA>
+X-ME-Proxy-Cause: dmFkZTEH5HcaTFB4/RSeaBPIM8m/gt3cZoCwfpNH3mXXlPR7GLTQw5jDkbvPewCqEOsVW5
+    cFwyaWOhWKFVYwv12P22aj+aNYkue0yC9RBewdQlwm3Lh3/GIwjOvZCoQCwESE22iMt+rh
+    K9T29xYowPMV6PoNNSwNRKOg9HnvGZjwlpo4yoYgKeM1P/BKABmzBZ2MncxxCS+Kn+QHVD
+    dBW5I7Wpc5cjpsBHe18buzhlkBhbz+2tFZ1iv8sxotsh1H/xAtJfGKxmlZfoe23OAa8Bts
+    +IUtsL4HURjwW3AnXk/HWNPAfrdT63zSAgtUeGNTW/U4jjGTdLpDA0lfnnJ6EyT9m//LeO
+    F8OOJyjMwigGTLKPuE7tOzr4pBjRYCkn+ZhJJVjYQsYV47lnK3smN4lP1ypn0oDOxLSTnK
+    dPobhxLCH5U+tXuBHS6r5KDsKTNQ9vOglz8aLeDlDh+ixB+GcC+6nYH7w50tei2rn9NTNP
+    Um/BNOVL0QXu4E7SuGkf7ITb+dUbtQu3iJGcyFePnaTVSEFCMidZ1SSdQ8j4rfcf30IVjk
+    cP93VEA6C2iukCpvePyZh7cMyIaxgTcJE+S0LkMyoAaHh16JtGDqUNiygiYlF3PYfSzH6C
+    fyz/477qLwuIohL8Qp5Laa6y1CXUQBE0IPhVmjljA5bwOUsAMyfu2nqb0nFw
+X-ME-Proxy: <xmx:X4TgaixYAJ0pnTaK9IF77X7UAhfUDhUA_P2PfnAlXTSilca0kERg9g>
+    <xmx:X4Tgagm35jXAkw7DgzpwTcMJnAvzrFpPkF5Lsc7HdPrVpJphW6zocA>
+    <xmx:X4TgajBizeJZjVL1GncyI3tnBYYKXr8HvhpRPyMqcMzn57rmeMFKog>
+    <xmx:X4TgalcEF7WkatxqDIh4WEP5_y-l9lknxMulooU9hr75sog7f05sHw>
+    <xmx:X4TgahogeNgFVcLmxeBz7YDbAUm6oVdAwlYmbmuIFIUe4VLDYP2oguiy>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 07:00:46 -0400 (EDT)
+Date: Tue, 27 Oct 2026 11:00:45 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Dev Jain <dev.jain@arm.com>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <auCDnqJc7fsBpUW2@thinkstation>
+References: <20261014202936.GC371161@cmpxchg.org>
+ <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+ <atDMN5MoGrwJNpAj@thinkstation>
+ <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+ <atiCG2iPrHwDznSZ@thinkstation>
+ <d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com>
+ <ats7oFM-fsYdUS8y@thinkstation>
+ <attOFXch_TchIfEv@thinkstation>
+ <atty0n4UzTfI46eN@thinkstation>
+ <0757f1b0-9af6-417c-a4cb-eff0b05ba277@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -138,93 +100,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0757f1b0-9af6-417c-a4cb-eff0b05ba277@arm.com>
 
-On Mon, 2026-10-26 at 23:01 +0000, Tristan Madani wrote:
-> nfsd4_async_copy_reaper() detaches completed async copies from the
-> client list and later calls cleanup_async_copy(), which eventually
-> drops the stid reference via nfs4_put_stid().  That path accesses
-> stid->sc_client unconditionally, but the client is not pinned during
-> the cleanup phase.
->=20
-> A concurrent expire_client() or force_expire_client() can free the
-> client between the nn->client_lock drop and the cleanup loop, leaving
-> nfs4_put_stid() with a stale sc_client pointer.
->=20
-> This is the same missed pattern that Chuck Lever addressed in seven
-> other nfsd4_laundromat() paths with cl_rpc_users pinning (v7.3-rc2).
-> The async copy reaper was not covered by that series.
->=20
-> Fix this by:
->   1. Skipping expired clients (cl_time =3D=3D 0) during iteration.
->   2. Taking a cl_rpc_users reference before moving the copy to the
->      reaplist.
->   3. Dropping the reference with put_client_no_renew() after
->      cleanup_async_copy().
->=20
-> Export put_client_no_renew() so it is accessible from nfs4proc.c.
->=20
-> Fixes: ac0514f4d198 ("NFSD: Add a laundromat reaper for async copy state"=
-)
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  fs/nfsd/nfs4proc.c  | 5 +++++
->  fs/nfsd/nfs4state.c | 2 +-
->  fs/nfsd/state.h     | 1 +
->  3 files changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-> index 50c07561e31f3..1f36afceb1fe1 100644
-> --- a/fs/nfsd/nfs4proc.c
-> +++ b/fs/nfsd/nfs4proc.c
-> @@ -1501,6 +1501,9 @@ void nfsd4_async_copy_reaper(struct nfsd_net *nn)
->  			if (test_bit(NFSD4_COPY_F_OFFLOAD_DONE,
->  				     &copy->cp_copy.cp_flags)) {
->  				if (!--copy->cp_ttl) {
-> +					if (clp->cl_time =3D=3D 0)
-> +						continue;
-> +					atomic_inc(&clp->cl_rpc_users);
->  					list_del_init(&copy->copies);
->  					list_add(&copy->copies, &reaplist);
->  				}
-> @@ -1513,8 +1516,10 @@ void nfsd4_async_copy_reaper(struct nfsd_net *nn)
->  	while (!list_empty(&reaplist)) {
->  		copy =3D list_first_entry(&reaplist, struct nfsd4_async_copy,
->  					copies);
-> +		clp =3D copy->cp_stid.sc_client;
->  		list_del_init(&copy->copies);
->  		cleanup_async_copy(copy);
-> +		put_client_no_renew(clp);
->  	}
->  }
-> =20
-> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-> index 9c4adf3110aea..10e864ca7407a 100644
-> --- a/fs/nfsd/nfs4state.c
-> +++ b/fs/nfsd/nfs4state.c
-> @@ -252,7 +252,7 @@ static void put_client_no_renew_locked(struct nfs4_cl=
-ient *clp)
->  		__put_client_locked(clp, false);
->  }
-> =20
-> -static void put_client_no_renew(struct nfs4_client *clp)
-> +void put_client_no_renew(struct nfs4_client *clp)
->  {
->  	struct nfsd_net *nn =3D net_generic(clp->net, nfsd_net_id);
-> =20
-> diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-> index 2d00a411c6634..1d3a7e35bb9ff 100644
-> --- a/fs/nfsd/state.h
-> +++ b/fs/nfsd/state.h
-> @@ -918,6 +918,7 @@ extern void nfsd4_shutdown_callback(struct nfs4_clien=
-t *);
->  extern void nfsd4_shutdown_copy(struct nfs4_client *clp);
->  void nfsd4_put_client(struct nfs4_client *clp);
->  void nfsd4_async_copy_reaper(struct nfsd_net *nn);
-> +void put_client_no_renew(struct nfs4_client *clp);
->  bool nfsd4_has_active_async_copies(struct nfs4_client *clp);
->  void nfsd_update_cmtime_attr(struct file *f, unsigned int flags);
->  extern struct nfs4_client_reclaim *nfs4_client_to_reclaim(struct xdr_net=
-obj name,
+On Tue, Oct 27, 2026 at 12:42:12PM +0530, Dev Jain wrote:
+> 
+> 
+> On 23/10/26 8:16 pm, Kiryl Shutsemau wrote:
+> > On Fri, Oct 23, 2026 at 01:12:02PM +0100, Kiryl Shutsemau wrote:
+> >> The diff below replaces the previous one. It needs cleanup and splitting
+> >> before it goes upstream.
+> > 
+> > Proper patchset:
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/kas/linux.git page_alloc/nofrag-watermark-v1
+> > 
+> 
+> Thanks! I applied the 3 commits on top and the results improved a lot. Your patches
+> make sense to me.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Thanks for testing.
+
+Can I use your Tested-by?
+
+> But still, I see more compact_stalls and a worse compaction success:fail ratio. The
+> limitation must be by definition I believe: we still won't be able to use 64K blocks
+> from non-movable pageblocks.
+
+Right, that is by design.
+
+defrag_mode keeps the free space in unmovable and reclaimable blocks for
+those allocations, so they don't spill into movable blocks. Your 64K
+faults never take it.
+
+The price is that defrag_mode needs more free memory for the same
+workload. In return, the system does not fragment over time: huge page
+availability stays steady instead of decaying under load.
+
+The benchmark runs right at the edge: it fills 99% of MemAvailable and
+then faults another 20% in 64K. defrag_mode=0 takes the 64K chunks it
+finds in non-movable blocks without compacting. defrag_mode=1 has to
+build them inside movable blocks, and with memory full there is little
+free space there. So more compaction, and more of it fails.
+
+The 64K fault count ends up close anyway: 20.1k vs 20.7k in my runs.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
