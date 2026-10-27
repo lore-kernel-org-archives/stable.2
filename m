@@ -1,79 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069873;
-	b=NBHqFaobF9MaaFNxwwQTQ+wBmSZw/ZvLdQRZkqdgr1SNa9Jc4QHTQBeIjwznCT+fAKj1
-	 KniJ3wIhaaZv1HcGbJI6EP6yaeFBtr3CbJuf2RKeVvtCdqiURmCF7D10HhFA1ZRBN6Srr
-	 N2Jm11jC6KCT77TUJIPnD596gUF3ZyX/aYmNGjB+RQWLjfloDj6DVIhpRHIu9n78ANHkn
-	 ilLC+pIC4NVs3ljFO6BZ5gNgD8YqLCyORv+pTHIR+49e2F/dkQJjfV+WSnqhDAY7aqgsC
-	 l5Fp4swBDZ2ppBbWjWgGYX1boQC/M9UfTESjuAr5KpucTp6qzb4V9kwBoDe6idTHyQg==
+	t=1793069977;
+	b=B134oif5nbZ9AhUaXw0GeGFPmNq+UdbJ3z13VkN8eotjUhYgkYhpqwxkjmSFzI7WAQdb
+	 lxi03ybCiM5LEoZUkBEJ1RObz2iHKXusCv19HLOYG+QkyVLZTcrQtGamCePxdoRzR1FOr
+	 vzYtHxNhYxz3PQyTrJTBEreOyF4waPpCe7CcaeuV8kH4mxlnLfv3KUH0EZdRthqRbl4gk
+	 F4xbKuAHxqIk0ow0CS+7UFNXOUC1lAMShG8woPx8YYZ5OKpipaoutpPuMHId/mw7oQsmR
+	 as+lH2LduGEYmoFWRZrlbmbQRmBh2ATyw0LcwbAoVubHXAq/94MwCutDLADsPjkCJwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069977;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TTwekm/Gt9bndSKmUoo4bfoXvp6BtM9Qta1TmXnMuEY=;
-	b=2O03/HMOJMospmjuX0ranOa7hzl1D+cW1YAsM/YYU/Flc+IGFcEURhGjm5aOBb6iN5IF
-	 CoZnoM3drkSfJ9ZoU7GqyHazjVvqWKHsn/8XEK/hpnBtyeFQWaM5usaCynKHB09j5ml3y
-	 8mXWHlIjfU20L/sN09POQEn8rGY+WjQpGP+X51TjxMlCUotFPtpz9Zu8SvA6yzy/PMVfM
-	 I5dH3mFFGw0ablkC6Fq412X+zARhFhZI7Nfyq4Rm0b+SeSrLQX/2/CAbRPJyZZ5kY2dvy
-	 nhaxYnEqtXEjIRnB+iDhpjvMFuT2Ozapl5vwSsGU9GK3WtiPI5KfgI0YSaIQ5GgGo9A==
+	bh=9Xw4C9YzTPAgVaFuy+cQke/aA94FYtR9rQ/7mL/9V2U=;
+	b=eM94GQ2y5m+UprJ4NgYsLmIuZWUBuW7hxSvH1Wza4N3AisUCK3Lmbx+YN6z1hl45eVfl
+	 jsT5L6xaILwau7XAR8ymZwdHsyrkbkubkjEFubThcFkMCfTfWXkK60FdTylWxCBVBlnAT
+	 mbMVaNCRvkJb3ST0yM5mFTc4rxM5m68RtlCg5phi05KjB2WR+UIkpfhyMCyxACyfPielW
+	 JmDw6b2Z0NL9yvSzzKwON3q1snYHjP8ccmudHF67Nx02a7ci5PqpwFHZKugPU4LF14u/g
+	 MwtF8ss5/teT7vJesHF08U0CUIU7I3l1S7ByF3R+RuGnnepkjNJta4piJHyStAfoBXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H2AERsOY;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cLQCsutK;
 	arc=none smtp.remote-ip=198.175.65.15
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B842606A31A;
-	Tue, 27 Oct 2026 02:57:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B842606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F059606A325
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F059606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H2AERsOY
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cLQCsutK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793069871; x=1824605871;
+  t=1793069976; x=1824605976;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=SchimnEHsM3qHihA0tcHF9PFqJCA9ILjKcim1aKJcUc=;
-  b=H2AERsOYJ82c4RuR7oPfuvWM0uRxXNPMatqRtuzGQRWmCpOiW85oK6UY
-   NZdowN2XKoXu7/msKmGdIT9gdEIpRAuB1FuVT2nfEMaNVTPj+D8IOdQe3
-   1NTWc/kozY/6gjueg2PR7Z0aeGwMaTlJHN/6Xuo/7lLHdjzhroOV1a+rU
-   O38xJK85eSu++5GhIG3VkFuBJcQhLL7atwrGT/nldIH7xi5Uq6qHW6GU4
-   D404QG9AM0371tafDMEdaBViGkKvVSujE797iw4/opK1WaFJU7a/iqa5O
-   P9sFMJcPJsNE+QKd/tmlNLIGugtu6Dm7uamehVZgehM4T8vzuOn6uShel
-   A==;
-X-CSE-ConnectionGUID: vNf7IGvRTZ+V+hJWsINxrQ==
-X-CSE-MsgGUID: w46RGhDYRoOy3yIs+uF0ng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1761129"
+  bh=Wc/sJiss4XXnfSr8lhZWbdzeiQIHLn0r4nsyG5FYmPU=;
+  b=cLQCsutKCRE6gBzCdKoIVsaOuQyQ9Mme5K3dTocykSt5DvdJFcdTmreQ
+   05t72Kl5oRqOQsvzZNNBANPIypBA53zTZa1OOnKcJwYw9PfsTHY9vbcJ7
+   4D4sxvrHLphJz/ruCGcNF48VJwDMhGkaQ8Oq3nuc7Rq+oDLo5rTSSXCEo
+   oMKoltLF59vqVkV8TmhDFwgXwipUFGAx/LOLTsDEPHMOcccSpPWGT+SLQ
+   i7FH7EeZZZJkZlKW7mQCMWGy2UMX3OAqAHLThchLjX45EXfCujWA+xVus
+   nmMNq9pi75LdLCaee3tqWn7OYwYGarErCIGlxsBwcmu4F+ZkUzccb1MCI
+   Q==;
+X-CSE-ConnectionGUID: 4vFhANSdQiCKD7mhoq48QA==
+X-CSE-MsgGUID: eIEvIJHPTsCD+gWtOliwPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1761311"
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1761129"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:57:51 -0700
-X-CSE-ConnectionGUID: faI6S+BMTEa9liU7ZOXU7Q==
-X-CSE-MsgGUID: 01uCM4FQQ4+NTTAzLBsaEQ==
+   d="scan'208";a="1761311"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:59:35 -0700
+X-CSE-ConnectionGUID: ANN6JCqKRVahYn8RXDaO/A==
+X-CSE-MsgGUID: 3HlD0sPcT8eoRuQHWmeUng==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4537589"
-Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
-  by fmviesa002.fm.intel.com with ESMTP; 26 Oct 2026 19:57:48 -0700
-From: Even Xu <even.xu@intel.com>
-To: bentiss@kernel.org,
-	jikos@kernel.org,
-	sammiee5311@gmail.com
-Cc: srinivas.pandruvada@linux.intel.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Even Xu <even.xu@intel.com>,
-	Rui Zhang <rui1.zhang@intel.com>
-Subject: [PATCH v2] HID: intel-thc-hid: intel-quickspi: validate GET REPORT response size
-Date: Tue, 27 Oct 2026 10:58:20 +0800
-Message-ID: <20261027025820.3085067-1-even.xu@intel.com>
-X-Mailer: git-send-email 2.43.0
+   d="scan'208";a="4823163"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:59:33 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com,
+	suraj.kandpal@intel.com,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/dp: Add quirk to allow eDP joiner on ASUS ROG Strix SCAR 18
+Date: Tue, 27 Oct 2026 08:13:34 +0530
+Message-ID: <20261027024334.1140596-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,116 +82,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: HyeongJun An <sammiee5311@gmail.com>
+On Arrow Lake, VBT defaults the eDP pipe joiner enable bit to
+disabled, and commit 650471948e49 ("drm/i915/dp: Avoid joiner for
+eDP if not enabled in VBT") made the driver honor that default.
 
-quickspi_handle_input_data() copies GET_FEATURE and
-GET_INPUT_REPORT responses into qsdev->report_buf. The response length
-is derived from data supplied by the controller, but was not checked
-against the destination buffer size.
+On the ASUS ROG Strix SCAR 18 (G835LXG), the bit in VBT is left to
+the platform default instead of enabling it, even though the
+3840x2400@240Hz panel requires the joiner to reach its native
+mode. As a result the mode is pruned and the panel is limited to
+120Hz.
 
-Adjust qsdev->report_buf_size to store the data length of report buffer,
-reject responses that exceed it before copying. This prevents an
-oversized response from overflowing report_buf. The rejected response
-does not complete the GET REPORT request, so quickspi_get_report()
-follows its existing timeout path.
+Since the VBT bit cannot be relied upon globally for ARL (it is
+needed to block the joiner on at least one other machine), add a
+machine-specific quirk, to bypass the VBT restriction and allow the
+joiner on this machine.
 
-Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI protocol implementation")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Signed-off-by: Even Xu <even.xu@intel.com>
-Tested-by: Rui Zhang <rui1.zhang@intel.com>
+Fixes: 650471948e49 ("drm/i915/dp: Avoid joiner for eDP if not enabled in VBT")
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v7.1+
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16854
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
-Change log:
-V2:
- - Rebased on top of latest mainline kernel
- - Adjust qsdev->report_buf_size to store the data length of report buffer
+ drivers/gpu/drm/i915/display/intel_dp.c     |  3 ++-
+ drivers/gpu/drm/i915/display/intel_quirks.c | 13 +++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
----
- .../intel-thc-hid/intel-quickspi/pci-quickspi.c  | 16 ++++++++--------
- .../intel-thc-hid/intel-quickspi/quickspi-dev.h  |  1 +
- .../intel-quickspi/quickspi-protocol.c           | 12 ++++++++++--
- 3 files changed, 19 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-index 53023e30cf8d..d0aa66a8a4b4 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-@@ -562,17 +562,17 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
- 	max_report_len = max(le16_to_cpu(qsdev->dev_desc.max_output_len),
- 			     le16_to_cpu(qsdev->dev_desc.max_input_len));
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 00e02e019d25..7b83cc83eede 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -476,7 +476,8 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
+ 		return false;
  
--	/*
--	 * write_cmd_to_txdma() writes the output report header ahead of the
--	 * content in this buffer, so it has to hold both.
--	 */
--	qsdev->report_buf_size = HIDSPI_OUTPUT_REPORT_SIZE(max_report_len);
--
--	qsdev->report_buf = devm_kzalloc(qsdev->dev, qsdev->report_buf_size,
--					 GFP_KERNEL);
-+	qsdev->report_buf = devm_kzalloc(qsdev->dev,
-+					 HIDSPI_OUTPUT_REPORT_SIZE(max_report_len), GFP_KERNEL);
- 	if (!qsdev->report_buf)
- 		return -ENOMEM;
+ 	if (intel_dp_is_edp(intel_dp)) {
+-		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable;
++		bool pipe_joiner_enable = connector->panel.vbt.edp.pipe_joiner_enable ||
++					  intel_has_quirk(display, QUIRK_ALLOW_EDP_JOINER);
  
-+	/*
-+	 * Store the max data length of this report buffer, then compare it with output/input
-+	 * packet content when write or read into this report buffer to avoid buffer overflow.
-+	 */
-+	qsdev->report_buf_size = max_report_len;
-+
- 	return 0;
+ 		if (connector->force_joined_pipes > 1)
+ 			pipe_joiner_enable = true;
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 7d7db774d8c7..ba7bce7f2827 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,16 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
  }
  
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
-index fe51ff51d8c0..4362ac568bda 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
-@@ -115,6 +115,7 @@ struct acpi_device;
-  * @input_buf: store a copy of latest input report data
-  * @input_len: the data size of the input report buffer
-  * @report_buf: store a copy of latest input/output report packet from set/get feature
-+ * @report_buf_size: the data size of input/output buffer
-  * @report_len: the length of input/output report packet
-  * @reset_ack_wq: workqueue for waiting reset response from device
-  * @reset_ack: indicate reset response received or not
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-index 0df33c44fbff..5de25c36a1e4 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-@@ -30,7 +30,7 @@ static int write_cmd_to_txdma(struct quickspi_device *qsdev,
- 
- 	write_buf = (struct output_report *)qsdev->report_buf;
- 
--	if (HIDSPI_OUTPUT_REPORT_SIZE(report_buf_len) > qsdev->report_buf_size)
-+	if (report_buf_len > qsdev->report_buf_size)
- 		return -EINVAL;
- 
- 	write_buf->output_hdr.report_type = report_type;
-@@ -161,6 +161,7 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
- 	struct input_report_body *input_body;
- 	u8 *input_report;
- 	u32 input_len;
-+	u32 report_len;
- 	int ret = 0;
- 
- 	input_body = (struct input_report_body *)qsdev->input_buf;
-@@ -210,7 +211,14 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
- 
- 	case GET_FEATURE_RESPONSE:
- 	case GET_INPUT_REPORT_RESPONSE:
--		qsdev->report_len = sizeof(body_hdr->content_id) + input_len;
-+		report_len = sizeof(body_hdr->content_id) + input_len;
-+		if (report_len > qsdev->report_buf_size) {
-+			dev_err_once(qsdev->dev, "Get report response too big: %u\n",
-+				     report_len);
-+			return;
-+		}
++/*
++ * VBT on some machines defaults the eDP pipe joiner to disabled even though
++ * the panel requires it to achieve its native mode, so allow it regardless.
++ */
++static void quirk_allow_edp_joiner(struct intel_display *display)
++{
++	intel_set_quirk(display, QUIRK_ALLOW_EDP_JOINER);
++	drm_info(display->drm, "Applying allow eDP joiner quirk\n");
++}
 +
-+		qsdev->report_len = report_len;
- 		input_report = input_body->content - sizeof(body_hdr->content_id);
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -262,6 +272,9 @@ static struct intel_quirk intel_quirks[] = {
  
- 		memcpy(qsdev->report_buf, input_report, qsdev->report_len);
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
++
++	/* ASUS ROG Strix SCAR 18 G835LXG */
++	{ 0x7d67, 0x1043, 0x3b29, quirk_allow_edp_joiner },
+ };
+ 
+ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..84f31809011c 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_ALLOW_EDP_JOINER,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
 -- 
-2.43.0
+2.50.1
 
