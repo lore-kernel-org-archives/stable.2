@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793094619;
-	b=DDDqB/dCdQqkUwjWLfGeemDBInU7BexWUHGydlPWwT9UEZmu6G0eWsHceuzCAtvTeg0L
-	 Zrq/wwEAkzeRHjOtRDw1MA0vk43E3nTWrjyVph1CIRL2eI+iMTp6iYErwDlNs7Fgxg4Ar
-	 TGH6Qdnq0/YsPW6W86yp3Z+SVDGHoAYK1WK7KV9yT2WOihlBOYPxz/sPdZjpcszUoQMdf
-	 DCeYNzkGWq6A34f02MFGhaZDWOmp/8EhvT+FwFwS+OgQOxnh0i9/k47900y9Gd33U07qR
-	 dB9bxAoUVCBlLOggpBekUfMQ1aPJh3ih47ETtheR/mB2mruofxhJbPaTwZ8ZnLShEJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094619;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=37aoPFZQ7YWN+mj1zo+QiW4j2bMLjcD8/kzkeE7hglU=;
-	b=U64nTTlNobCExPRg+vmfUuUz3pqICIJmwYGHmQrvZpYlA6om/cmQCQQECIUwGOJp/9ep
-	 JZ+fTWdhZyZ7WvLSCU5y1fcqr6HcMf14fVjp7jq4xh8ZNzDYHYSHHmQfefLdeCMUCDgqQ
-	 CzZC8vjgflNS/DSZ7QYegrzpjIOA6e+Cerd8rleS29Yd89cucdPSBurXeMe1OQai95ZIx
-	 4asoM5qp5OIKK3ucppaJcHV7GB1lRBXceI9GIEDMi9p8TdQ43YLvburEkmzDI7EsmYBrf
-	 r+7ByKlZ0RTrYWIj4b3n7AiB25S7s6CgeM6jVEICeP2Cu3li37WbcjfT8pXsUdk1/+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OEmx0vf1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793094634;
+	b=yeagc25ygeFYojqnrkYe1l//foRUL6/cDyFH78+M3OEto9uopSjVpJ4JuMCSJKyiGKaa
+	 b1F7FuwjPvTJwmL0UAA0ZWNo0T9ynPDzTHnbYSIydzh2E9nsPZPFeg/hDqucB2bC4YciG
+	 aJWQFOchuIiMlwxF6Qx5NmutzNHRDxsYLx+zppoQv2K2/B0jgBZQxT0Efd9jm55ZMepoi
+	 45Q/ar/EXnx33toXIny7Mukzb+RuGE6ekTmV/PLAw5BPL9j7lFLnaR2tdssSJ5eOH6169
+	 4EAZ6o+tG4GYU3Usi6mGICuARy+aS5xkt7xoZnTjm2gImy3HId3h93gsmoAd8Ck9zHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094634;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0RqTFyVn/l364Pu7jS7dFXzz69K6cCLaLO+gjoUqCcY=;
+	b=mzFvMtqNeLoq2TQjLUq8CEhOLJMf/N1FCfGciJiVoe3MBM4ewVzUFIRzRtIjpqLW4Ux4
+	 6yf8JzXcz7ZgX9Q922ZsojMa6euiQsv0Y93CBP9wb5d3D6/hEWDDtcYkNESyJ5IWIWbN7
+	 TaBCeHZWOwH+IJT2eV1rg+XZxtL1rfBp5fRiko8PLenomjNNCGdSDONlUxd/LtD2KcBk/
+	 0OsiiVsKG/O5dNxuUyy+LldSGpQgzBfKqNtdXjUgoCZ5Hw9s9kIRQHBs8nwBEckJy5Uaq
+	 EHicCGDTeUUYMYpjP/ShjMqfh48u9QTLuvrsUKVYVxdu0gMBVjgQk1qfOAOpzFDBGNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBUaD6VP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743CF606A321;
-	Tue, 27 Oct 2026 09:50:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743CF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0BF606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:50:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OEmx0vf1
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7277E200F4D;
-	Tue, 27 Oct 2026 10:50:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793094615;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=37aoPFZQ7YWN+mj1zo+QiW4j2bMLjcD8/kzkeE7hglU=;
-	b=OEmx0vf1XKBL+/qnutmOpVlFj+MO4cRBLD/pyrHdrKuMr1YRNELD2/jUXV4yXYNWX9dfY/
-	+e5NBPtiUPuaCjPWJ/NWJstEy7LdlTkbBb2mnrTNXS/xLbbZlJGRLM8kyUuMrKAnG6EeAt
-	Zz5XApH1YHBKufGnWecFuzhWulDTSGP38NG0n52vI04q3V/ZhOCYLHliKetGJfPrvqS5jl
-	1+995cQy8+FgQuUrlyRg3oUeWxX8xceMnt8mVlSqB5ycKpQN8s1NxcHZ/pxo1P62hyEFBw
-	YDYoHc3ca6RDNiR1vZWRMm2ESbMS2glBVssizEcEW+Jn3+LJiHgSexEA/ZaThg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793094615; a=rsa-sha256;
-	cv=none;
-	b=P6yuW2XevoXyx0g2ExTALpykWEBmIRdTbwUP3vM843AvODp/xIIoAfoRib3UzAkrK60NC/
-	K35wUhhkrViGvUQjydJXq5WthrTjcC7pZZ1A4sa+nXc2UYytfXjS74KEzDGCULBwCUoDaS
-	sDh/tv0bPoqI8tpunRH8L4hNTUEC8YgpfbUMgPJ5BrIxcjWLzuxeBt/QCMKk6yK4uaEE0/
-	Lg4TgHmo1Ezt1JgPH/HK6xr5je7aly1GRTJWeOFJWxyUCgqh++L/5O14Ob150ObXBLabxh
-	J7fAWB9VjM64ODJjg7zG+tG4Xz36lJKtsHvjlQ1rATcOwctudBUq19nkteKhGw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793094615;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=37aoPFZQ7YWN+mj1zo+QiW4j2bMLjcD8/kzkeE7hglU=;
-	b=FwMPj0OnX0h6F6Nmwr9g1fGBFJ0WnHvQDh/Zx5FEzCQicBq7OqSXPrO4AKyDL4q/fATb+e
-	8xWpQhrUMh5mxJDszaRv4LgIn74EoB7silK4dTJ39rGJwHf2JAP5L1AAAjTDVxzuqkIALQ
-	3nGzdg1KD4QRvQ0Yo2Y1kID7NV1lhE6HSmzh26kqMqzAKDajemQJoGy8uGTRVAvr4Aj+/W
-	HZjndhJabUcYKdEzCSRb/dnOO+p27LACpIKak7aEzkH1WsCliHIq97mV0MjYeeLW6dNfIJ
-	6MwPsdmbM4CfcfRaITYA/VzqhCq+wH9que5iVMTG8BrdbjwDPyGcQh0KOgIbbA==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xLdot-001PSH-1B;
-	Tue, 27 Oct 2026 10:50:15 +0100
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 0CFA75D7B2A;
-	Tue, 27 Oct 2026 09:50:14 +0000 (UTC)
-Date: Tue, 27 Oct 2026 10:50:14 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com, 
-	max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kuba@kernel.org
-Subject: Re: [PATCH v2 2/4] can: gs_usb: gs_usb_probe(): init netdev
- completely before register_candev()
-Message-ID: <20261027-eminent-ammonite-of-sympathy-df880b-mkl@pengutronix.de>
-References: <20261025-gs_usb-fixes-v2-2-535d45097f72@pengutronix.de>
- <179309405203.3130.15846151010657082871@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBUaD6VP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A401F031E2
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:50:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793094633;
+	bh=0RqTFyVn/l364Pu7jS7dFXzz69K6cCLaLO+gjoUqCcY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VBUaD6VPoyO+o2vCfbg3pqKZqdairWQdoPhH7047vnPN/R4AvVaoawlC2ObiO4grJ
+	 b0uQ59k0nCwUciSk/kZLz4hA41dOTo6g/+R2yQ3lh5YC4BZuY8eh8RkieLfMXiEFQr
+	 OzQ5jr0W1b6GhytEyOgf9K39MrfsCgKxh6tKTwVFerNWlvt7Xy1xiqx3rbf/nOxrJ2
+	 J9I7375tSJoCdeUf2UL4pB2D7kuAnPDz+JMfA0LVhl85RnYqamXRjrTFxf8fR0ctpr
+	 Qwih9N8jZm2AascskDG1rPL6MGwhj04mG7QGQ8H5aNK0lYQHbiMxMn85/esD/E82Sg
+	 B7h0OlZUpbqPg==
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-679a2b540f3so3546330d50.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:50:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByy6YlBVL5RW6VgGCI1Z+0cVmcXpeLknBSI4I+SWZee4k8deMy7uL/yyHYz/wo+sdmIC/0FxYw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoz3+rOvHjYbJfpEqH8kvjBdvqNLaKHZn1eEo20BB3i7yQVAKV
+	SaYQ2sJTgy436WnP+jUWNJB55XXprC/i6uJblUip+HKD1CiiM0ND0+QCjZSh2tI7mnUxD6sgwJg
+	QRyhRtsECYnAhGOu5x+wC823JyfX62gI=
+X-Received: by 2002:a05:690e:2510:10b0:679:2ec9:9b1a with SMTP id
+ 956f58d0204a3-67a4543d42amr3823226d50.64.1793094633129; Tue, 27 Oct 2026
+ 02:50:33 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,66 +59,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vxv43k7utftamfwk"
-Content-Disposition: inline
-In-Reply-To: <179309405203.3130.15846151010657082871@kernel.org>
-
-
---vxv43k7utftamfwk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20261027014021.108390-1-icb@fastmail.org>
+In-Reply-To: <20261027014021.108390-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 27 Oct 2026 18:50:19 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_03VQfaneatZURH4hLVBZA4f46tjTubPeG-Tt91cmGMA@mail.gmail.com>
+X-Gm-Features: AclHuK90c9Mz02fa-V3lujObRHgoXJIiCvz94FvKUdOCqBAu-HVrqlSq8UtgxKk
+Message-ID: <CAKYAXd_03VQfaneatZURH4hLVBZA4f46tjTubPeG-Tt91cmGMA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fix out-of-bounds read when padding the final
+ compound response
+To: Ian Bridges <icb@fastmail.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Hyunchul Lee <hyc.lee@gmail.com>, 
+	Ronnie Sahlberg <lsahlber@redhat.com>, Steve French <stfrench@microsoft.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/4] can: gs_usb: gs_usb_probe(): init netdev
- completely before register_candev()
-MIME-Version: 1.0
 
-On 27.10.2026 09:40:52, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Critical]
-> Both cleanup loops use dev, and dev still points at parent->canch[cur],
-> the channel whose register_candev() just failed. Should these use
-> parent->canch[i], like the gs_make_candev() failure loop earlier in
-> gs_usb_probe()?
+On Tue, Oct 27, 2026 at 10:40=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
+te:
 >
-> As written, the first loop calls gs_destroy_candev() cur times on
-> canch[cur], which was never registered. unregister_candev() on a
-> NETREG_UNINITIALIZED netdev hits the WARN_ON(1) in
-> unregister_netdevice_many_notify(). free_netdev() then frees it
-> immediately:
+> Compound response handling pads the last response of a compound to an
+> 8-byte boundary by growing the final iov and the RFC1002 length.
+> smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
+> fill the response buffer to within 7 bytes of its end, for example a
+> QUERY_INFO whose output is bounded only by the space left. The padding
+> can then run past the allocation, and ksmbd_tcp_writev() reads those
+> bytes when it sends the response.
 >
-> net/core/dev.c:free_netdev() {
->     ...
-> 	if (dev->reg_state =3D=3D NETREG_UNINITIALIZED ||
-> 	    dev->reg_state =3D=3D NETREG_DUMMY) {
-> 		kvfree(dev);
->     ...
-> }
+>   BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
+>   Call Trace:
+>    _copy_from_iter+0x744/0x10e0
+>    tcp_sendmsg_locked+0x2290/0x3f80
+>    ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
 >
-> So when cur >=3D 2, does each later pass touch freed memory and then free
-> it again?
-
-Valid issue, will fix.
-
-pw-bot: cr
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---vxv43k7utftamfwk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCauBz1AAKCRDMOmT6rpmt
-0la8AP9zT+roGrAE7yCft9v+xk3ZLW9pqobOIbiVel9rIixaNgEAoRWRkIGAbFcB
-QQa/vTV9A4cSPg1aVS9ZjlkKsNMj3gg=
-=/LHu
------END PGP SIGNATURE-----
-
---vxv43k7utftamfwk--
+> Allocate room for the padding when the request is a compound, as
+> smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
+> unchanged, so commands still fill only up to it, and kvzalloc() zeroes
+> the padding.
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
