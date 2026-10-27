@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090293;
-	b=cXaJL96o54DONchpRwwqciWHaYbFIG2ofD04tUBH3k2QwSx8fgxaCWohaTMpt04i8juk
-	 22yxSXdoN4BfkoC2ThQdxbsS2yRyV/28bsqQHjQJpAFjuV5pmOyblmLIxJkCWVWfp7X3T
-	 ZsnJRVL9/RX5Z17i1OqFS64KeZGfRzSfYaTnTTVYgGvW1ROc3kHNKnHDYS2aNVoTMzsLY
-	 LILpMZMTbyAiCPv12RwkQFghA2RLSpLL4aJoBJU/zplrPAIoQ7y3Bwldncf/Szo2sdDJA
-	 V1h2hExuiyFeco4Lff7hCHaU2nwlyGi9wtOHG27Zf33H4zg03hmW6U9s8/5U3Wp13VQ==
+	t=1793090612;
+	b=YcNbWiCtjC1FLyxFGevkrtMxWJXucff6bkz/w6JciwVTyaAZ7rZdAuOMDKcXL9ji6fc6
+	 FD6kfPp4nj3xkAvMBrCmsqC36Ysfx9SHmxhgIrBnlKLBuNCYaTxxJez4+dqwY63wYKADS
+	 Yc44dk+242XzSIaR+y4mZGxsws+8RIw47idsHZG5lCmkl8/EsMxEO8OWDUjCGdQE2TcDl
+	 0iAtci0oJ77Yu501/wJj33SUduQxvhiYVVqJ18VOrb9eZVXuWgJVKXZOmJq/csCrqnj4i
+	 z0VUdGrH6Kor+SGUr8MXH67Wab1ltSGFrUUzVfrG9PT98jqX+KOeFxnSOQDwAN+ECEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090293;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h0VKfLRevl/jC/izVmhP9oxgiD+shfSqIizdNJiu+lM=;
-	b=DUMOVTHPxB6Y4c+gL9JneAvVPVEP7XFR7ywyHjdOFooO6YuDrBvO8bRbiD8IGBlpRhPQ
-	 rLTcIyDMzpcDipeaCHodZB69Pbo6HvKyvxI3wn2pHJDb4xvFEmpjbqApO3U02E7YvDvLa
-	 eyCIlKNDtdg1AAmvxEHDFt/ZhGTZKrC5PzeRTy9SD3z3e81s8MGA0hy9ZktF1MtnoCrc+
-	 WXXCkVPEuHdqXBrEzBcZZC7uKapt/6ye7TIG6W4aX0Tjoe8g890zcxV4rW0H0ET997VuZ
-	 CmOQpvGe2AVcyiap8hLN+ge1DJ0aHcIVWrNT1vVZGUbo/yx9/K7GIesVo92CgzDB3Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090612;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dHr232roZz4zxvNcr7fz7EZ96bBQfhBelI7N1e6dtIg=;
+	b=f/93ihTyvRM1VQk7MunX6Asl9kqiDlyCJafPtyX6z54gtvA6h9B0LC2kQfISqM//vBn1
+	 ePX8uAeKqAeJaELanyry42OTeyj9Wf5j9bwRV7TE8mmNTb4JJRnak76UVBZ0eVS1QyFms
+	 pA3/pP+kYeSfQN8s9/HToRwBKtAM4chPKseUHcuaPbFmdvl4YWB8KEJwTPj4VeViHC63/
+	 mH7QSQ+D3rOkOuv0gLa1UIM8d7ITTqHNaE7HfoqvekNs3hlsExZ5MZFOLEdpw9URSB8zW
+	 Jzj+FNt8HATD2A2UyTgclYwv4qZpbKbbXEowlMgDYWD0T48suK7buB6Z6a144ovc7oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fNoq+L1L;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzfqTN9d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAA8606A321;
-	Tue, 27 Oct 2026 08:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFAA8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E096606A31B;
+	Tue, 27 Oct 2026 08:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fNoq+L1L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793090293; x=1824626293;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=isiVD2VUlFIC1aqZZvfbAbjSXwFOzEU4PqQ3SGcStp0=;
-  b=fNoq+L1Lyalsqy+DRFxDrHmmht2Pum2y2PKTzjVwoK+BVzTdaYNe0DuZ
-   mI/3HlrP5cCVUA5F0xv4rZpgRzW8nk/uY0afRnyJo8crYzyaIKeu3krqL
-   CkVAoAI2v8i8Q8SWA54BW6jUUTK4tqReTmZFNypAL0AK4Df/IWAp2iyY1
-   0R6Dshpl99JsAXwKo4o9Hd5B1cYmJIwGDWET9mUQkLK9i8s1NRAzsoXJ0
-   nhr/c5CyJJrXPZ6y2A4GD51+rtqk9B67VquRmu912xnDITBgly+2VyXxm
-   BLw5XT/vdEyrLABvkreCrBiByIK8PIi800LO3GFi1blLkPOtTe04hdIQ/
-   A==;
-X-CSE-ConnectionGUID: CdW04U53Qgi4pTbNPqSdVg==
-X-CSE-MsgGUID: fkTmuvF6RXqOeAsaM21qxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1672397"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1672397"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:12 -0700
-X-CSE-ConnectionGUID: UZRaEUFkTxW1rT3dml+q6g==
-X-CSE-MsgGUID: W+xOPv6xSm6+0INgnoEaCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4570815"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:11 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: linux-sound@vger.kernel.org,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	stable@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz
-Subject: [PATCH 2/3] ASoC: hdac_hda: Restore the codec device type on unbind
-Date: Tue, 27 Oct 2026 10:38:39 +0200
-Message-ID: <20261027083840.28813-3-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
-References: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzfqTN9d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9500B1F01829;
+	Tue, 27 Oct 2026 08:43:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793090611;
+	bh=dHr232roZz4zxvNcr7fz7EZ96bBQfhBelI7N1e6dtIg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WzfqTN9dybqeLWoA8oUAZ1tXSG8xyenSoildQDFUPskrIwuh0Om8GmkGOBhQ5FsqX
+	 3B6I40g9wmGk8NCIIhxhAbDqi/ZMQNeLz88bXgkLZL9wp3hp24AVldencxxNOmO56E
+	 4Dk/LyzP9i6+CjPNOmovIvMvgBMfOCP5ftzi7ttPrA1HXuEw+YPYQEt8JuPCPhU9Qh
+	 FTU2I/BXKFE66SYqvBcFQdHZeCq08jT60hhxAZK8vNRyQ92PVr8LzDAXu2OR6KFYh4
+	 ggHTOX/ZZnJQfYnUIldz4DBR8skhm8PsS7DC9s4XnGtCHDusD1BrLy77dRYwXUQQzN
+	 YEpV0CA1ETDaQ==
+Date: Tue, 27 Oct 2026 08:43:14 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 23/46] mm/userfaultfd: write-lock the VMA before waking
+ waiters when unregistering
+Message-ID: <auBityGTDQjXURWg@gremlin>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,57 +84,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org>
 
-hdac_hda_codec_probe() changes the type of the codec device to
-HDA_DEV_ASOC to prevent snd_hda_codec_unregister() from unregistering
-the device when the card is freed.
+On Tue, Oct 27, 2026 at 12:17:43AM +0100, David Hildenbrand (Arm) wrote:
+> userfaultfd_unregister() wakes pending missing faults before clearing the
+> VMA's userfaultfd registration. With per-VMA fault locking, holding
+> mmap_lock for write does not prevent another fault from queuing after
+> the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+> waiter can then remain asleep indefinitely.
 
-The type is never restored, and hda_bus_match() requires the device and
-driver types to be equal. After unbinding the codec driver via sysfs the
-HDA_DEV_LEGACY codec drivers no longer match the device and bind fails
-with -ENODEV.
+Oof.
 
-Restore HDA_DEV_LEGACY with a device managed action registered before
-the component, so it runs after the component and the card are gone.
+I guess userfaultfd_clear_vma() only implicitly takes the VMA write lock via
+vma_modify_flags_uffd().
 
-Fixes: b60ee2e281b6 ("ASoC: hdac_hda: overwrite hdev type to HDA_DEV_ASOC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/codecs/hdac_hda.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+>
+> Call vma_start_write() before waking waiters. Existing fault handlers
+> queue themselves before dropping the VMA read lock, and new readers are
+> excluded until mmap_write_unlock().
 
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index 46617fc88277..cae5711e979c 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -617,6 +617,13 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
- 	.endianness		= 1,
- };
- 
-+static void hdac_hda_restore_dev_type(void *data)
-+{
-+	struct hdac_device *hdev = data;
-+
-+	hdev->type = HDA_DEV_LEGACY;
-+}
-+
- static int hdac_hda_dev_probe(struct hdac_device *hdev)
- {
- 	struct hdac_hda_priv *hda_pvt;
-@@ -634,6 +641,11 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
- 		hda_pvt->need_display_power = true;
- 	dev_set_drvdata(&hdev->dev, hda_pvt);
- 
-+	/* Allow the legacy codec driver to match again after unbind */
-+	ret = devm_add_action(&hdev->dev, hdac_hda_restore_dev_type, hdev);
-+	if (ret)
-+		return ret;
-+
- 	/* hold the ref while we probe */
- 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
- 	if (!hlink) {
--- 
-2.56.0
+Clearly an oversight from the VMA locks work. I guess was always a Herculean
+task to catch every single point at which there is an implicit assumption that
+mmap write lock ~ readers (esp. faults) excluded.
 
+>
+> Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/userfaultfd.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 669f71d485d02..7e30b5ff17be1 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+>  			start = vma->vm_start;
+>  		vma_end = min(end, vma->vm_end);
+>
+> +		/* Prevent new userfaults from being queued after the wakeup. */
+> +		vma_start_write(vma);
+> +
+>  		if (userfaultfd_missing(vma)) {
+>  			/*
+>  			 * Wake any concurrent pending userfault while
+>
+> --
+> 2.43.0
+>
+
+--
+Cheers, Lorenzo
