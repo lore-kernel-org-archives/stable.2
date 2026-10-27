@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793089946;
-	b=kLW6EHtMPG+1DtpkxnzqsIc1gbjlEERxE3m3mJ6yvN7XOxsbNHGWx6HQsgQWO/KA/vfL
-	 AtR/CiKX3L9HqWO8kMcKH/CRvcFRZ+tJo0auRiRXM47jVu8LkfS/gNBypHlRqdXPsmHRW
-	 xpQfPPZ9jf5oxN8gXV1Rg42vxPC0hfq4SYb7FzfmTR6nDiNdT3AE3j+PYakA7pre876kY
-	 kX3gl5RSevF0PZ8GKP443hOo4/xruTSM3FZ1F3xcJPGKRvImF3bblTJx5orfyW6E5Dov2
-	 Zejt3EDYrteJXR5S1rhWJ3xDYG9wZtqTSqlE6TTI5MAdpINwhP2yOiYVa/Sb9h4YPtg==
+	t=1793090069;
+	b=poZm6Ao65V4IrqMd5CG/kBUaa2ye6bJKfaACkMNrDrjH1w4B6GJKHvz4eOVqBuNDvI2D
+	 d70o9piTLJKsGva9o7NhE8vKG3xDzwgiCoDYQ20CTR/frPELKLxOqbQQec/uaG7ibCq0U
+	 VigJFUlMbDyZ1hz4H1dB86Ii+vTGoJXEin5n/VZi67Angd/rMM5yXqTTs1YXodFuBr1x+
+	 y6uRNfJ6hISEs4e81HnwZNH6nOdSDQdtty+W0fe+69Kp+R/YABx4FCeUIQzsniuytjA+i
+	 /ojvAUY9RLEzemxoFRlL+rVQKa3/OG469k/nsB7NLmyWNFwYwGfdJbtcqbvOSxvVn+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793089946;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bBDjCRfYv01l5K9nHrY3/Hd2EiV/PHl9OnpVwXCk3ew=;
-	b=dp/oSADcYvQdLZumuk3MVpRaPiyFhRWVuJ7tGTKis1ZeWpZVX5egv0AuOjwZZ0kTeMSL
-	 OzRa0UGTmH6XYsd/3H2H05R1YGikh9Sa+Sir+mSLi59/16JJV/St8Iqm2aZzv9FNSmHbb
-	 VkFrST0qrlOUwUDd3oQFgv7iA+cDwvUIc5HVz5sJPdhh950Q23Yh56vYeo5mY7MlfJgAp
-	 YdJRdL0UlqQM2As0L5BukNhmsAv++hrxigun1G3d+2Iyvrhq7BTJmTW0k6/nAC5sYXyUj
-	 aKYDsDe0clKTIt6+4e+fB7AMFUmVQP/qhX00BDjMIPPfR6DcsCdWqVW8iaL03aQB7mQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090069;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=Tqtx97Mqlim2ETCdbAWzFT1K6COkig+THJDQuWiLO7A=;
+	b=NOExC8E8W+UVdsenfTLRqNzAwq+hifM4KGpPDXWS0C0Kuhd5+GcEqHKCiXnl7d4NWNXZ
+	 feEmx3hB4nSfuBLz+HULwJzE1epkYI4GFgzJQWtgQLg6WyePN+LcxeZBpr+cK0Vj8ndvF
+	 h8jiHygo03tuBjQkFbHjEd6wVag1oMH6Uzo4UqkU0PAQ/aM+4z7br++j5dkJ7ySTmNs3h
+	 XS3wdPwYoS+Btk6oKwSYE+NT9jnVjIQ1jx4FhK9264/zn2YWa7NXBXJI6W5M4rt+yDzZY
+	 TIQvxHYRiBwNV4tk3HX4DV20IvCrUioKF7c5j/HusXaVQ2goVxtoY8fruyLnpmppLRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JGPWpZne;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B40D606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:32:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B40D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JGPWpZne
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so2681133b3a.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:32:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793089946; x=1793694746; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bBDjCRfYv01l5K9nHrY3/Hd2EiV/PHl9OnpVwXCk3ew=;
-        b=JGPWpZnejBl2k0E3x5C6PtwzodNl+Q6b5PjhKtsnInQyZ9bj2wkbTtLyQLZAowYhh+
-         5VJM/JanbOo9njybFJ2DtZ28HRUDUyyqMPexFCPDyRFJ05VYZdlPn0g6m92b6zow6/k0
-         PlQRpYhg/LeNrmbo0xy3ezH/CSGJ9Qce7+SegQRopKlzGMqP3202+L7N5xweQTOwDB8O
-         KQsh54mTMnqvlHdLmMkf9ON9q1xGT8HFNoeYDZ4LOdzLXVYYBrkQoJ/XBZdk5EGkKD9T
-         mai0dKeO8Y1pinqQZXi+FkGAN9IwN3Y+Q4kenrHua35qOCJAMYWb4qYP22np3BhqfBwF
-         kVIg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64218606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:34:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64218606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab260600easo1003489b6e.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:34:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793089946; x=1793694746;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bBDjCRfYv01l5K9nHrY3/Hd2EiV/PHl9OnpVwXCk3ew=;
-        b=M042DfVnzJPsN1Jd97b74K0eozx8r95LjvjHrh6nbhaWVBVXaPHJ0YXP1vSW8xkkbF
-         HYvcDuqEcXl1oBp3sifRahBbWaqXsH1Sh1ZpG2G9mW3TuqUe+UAzKHJ75Kc7YwXbXg+4
-         eVh79uZuLIBOf9lh8Ucj2V7qkZ6anGj0DfS7GmdMprqPLILVgcoBV45t/6+3WXQYLSNC
-         Rk/pYdAG+u7iDd7f60D5SBFs2xDH65wOOEyK6OBdMx+ge17iNyn+g1sbmqU8rPQX2C3q
-         LadydA7fFtS/0tVtneKmFqCTgIUbJFzfbA2EAydCKqzEB9Mcnjhe8PrmxlapM6mz+Osi
-         F3CQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzcVIWVosuFHeNXGPgewhJ3ggtYeRLRX9ESrSAXFdV0H8xIC0lQIZJOTzj/Ack+HcDt0OZbx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqN4WruvOFTYeGNn/VD9BCBJcTSZZz54qxOnUW9n1n/QV6u3X2
-	kABH2IiZXjN7CXezPIreibWI45vTP2kaEWBMSOGyDXhmc7zQFDqT1qLv
-X-Gm-Gg: AYBFou37ok76McFY4YYOK4HdQi5RYmLvfsXne1HJNkQG4LrY3I+ZmlCHuexuNRuOPqW
-	zXf4RSa56D17305+d+wV3I5fBdyNLLMjj6c8FGrXDQidxxbDoNO7Ugiu0RMVjPIbkgEQ9aVVn14
-	O+vDZahxySwxMZeo9yY3fkHW7n+8oKuttjls7Pol546hzR7zK7vStyBCH8o2FpF4DJI2aNTdBS3
-	DVn9B63DSFowObV1RZyfnXoLM2jzJy2g+rzs0SoEKbkWUByB8ltZKq5p3Ln6sKgsR+vL31z1Bxv
-	16DP6Dy58Qxt9PvcRspvj0fsrtQaLf53IqcryZB/Yt/jNxL9fhojxWFWb1mubLaBnoQ/dZE/6S+
-	sQSsEA/xAK38gag+b3KuqzTchfoKD5P9IvuhQRzGOWtipQm8AiCvUShlZyYMRi+VwoTZ3JyjMnp
-	0rw8/Yp6uOMnMhsfpiWhIrg151XIillS4G8uHc3Nv6GQkyXPfSsoblgDnXLYoXv8mSEeoivMynw
-	NDhVJAQ0m5sjco3SaTFLhah7jJ+dPCdBjpQPgOJFZ5vqCkD32elkVO+7E7rliCBbD9KZaprvK+6
-	oTgUtDBzDMfww7BOhSDH1LSETaiT/s62iX3TLbTcvfYQOb1ildw=
-X-Received: by 2002:a05:6a21:880e:b0:3e1:c1a4:91f6 with SMTP id adf61e73a8af0-3e7cd4d9db9mr6517172637.13.1793089945941;
-        Tue, 27 Oct 2026 01:32:25 -0700 (PDT)
-Received: from WIN-L6GHNQALH57 (1-21-119-227.east.dxpn.ucom.ne.jp. [1.21.119.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36b37251fsm2018741b3a.27.2026.10.27.01.32.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 01:32:25 -0700 (PDT)
-From: Masafumi Suzuki <shengshilingmu97@gmail.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Masafumi Suzuki <shengshilingmu97@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] sctp: account for chunk padding in sctp_init_cause()
-Date: Tue, 27 Oct 2026 17:24:05 +0900
-Message-ID: <20261027082405.1297-1-shengshilingmu97@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+        d=1e100.net; s=20260707; t=1793090068; x=1793694868;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Tqtx97Mqlim2ETCdbAWzFT1K6COkig+THJDQuWiLO7A=;
+        b=CDcISE2EI4vuMqi/Jh+Bigk+4sr+1WeMZFVEgd51wBRBwORqY4NSZ9v8jLsCXNF8CC
+         EBtM7TgsGsJksxMdgpwgjAeO51YbB1sezDSQ4pDqpuLiaqBtz0cZRVih/uGUZ68HWkpr
+         qXd57TQGp+wPJa10xqbr+Wgi8zEpM4JcJ1qLevp10P/p02BvWBXyB5DVHe5lgVYS2EyB
+         Sl8TbIdzgbycF+gHXJsA3eFhtl+SGar6p7b0bR86JIdqXRSCjgSOc8bGbTV0mH1AcT6L
+         QrejjA3FirzqVeaqKJDXtKPqXSxdguiE5CAdPoalq1KHmokJxg3la7+EG0yd02irbeme
+         vqIA==
+X-Forwarded-Encrypted: i=1; AKwUvBwGKcNO05Bhj4BDFaeMbByV2YG4K3cgUDMQjeDqvwCy3lo9yImCf4MjdjzkRXVCBisHVWhnA1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJt3KD4Syv2F/wWLbFgVSlfqJu8lKIv6wkDqLeePE83qY2blGdK
+	VKoC285YPLiSE/s0ANRSM9PMA1gOtAsPlKdvDqLPNRA0RSHvPCTvu16kLUVctmmkV03v+++7hu2
+	3I46hn7GNQLCh4Z/muTiAl938cAS1mmmipYwh1mznBITVeUNZ3zGhgL5fdI0=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,56 +58,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:14d4:b0:4c2:e32c:1ee2 with SMTP id
+ 5614622812f47-55f7ef3ce97mr958316b6e.22.1793090068498; Tue, 27 Oct 2026
+ 01:34:28 -0700 (PDT)
+Date: Tue, 27 Oct 2026 01:34:28 -0700
+In-Reply-To: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae06214.6200f071.51519.0f44.GAE@google.com>
+Subject: [syzbot ci] Re: gs_usb: fixes
+From: syzbot ci <syzbot+ci0e4b58e5e6ed7fb1@syzkaller.appspotmail.com>
+To: eric@evenchick.com, kernel@pengutronix.de, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mailhol@kernel.org, max@schneidersoft.net, 
+	mkl@pengutronix.de, pfink@christ-es.de, stable@vger.kernel.org, 
+	wg@grandegger.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-sctp_init_cause() accepts a chunk when skb_tailroom() can hold the
-cause header and the payload. sctp_addto_chunk() then writes 0-3
-bytes of padding before that header so the chunk stays 4-byte
-aligned. The check does not include the padding, and the following
-skb_put() calls skb_over_panic() from softirq.
+syzbot ci has tested the following series
 
-Count the padding sctp_addto_chunk() is about to write. The cause
-length on the wire stays the header plus the payload.
+[v3] gs_usb: fixes
+https://lore.kernel.org/all/20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de
+* [PATCH v3 1/4] can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
+* [PATCH v3 2/4] can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
+* [PATCH v3 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
+* [PATCH v3 4/4] can: gs_usb: gs_usb_receive_bulk_callback(): add missing call to can_rx_offload_irq_finish
 
-Fixes: 8914f4bace3f ("sctp: add sctp_make_op_error_limited and reuse inner functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Masafumi Suzuki <shengshilingmu97@gmail.com>
+and found the following issue:
+general protection fault in can_rx_offload_del
+
+Full report is available here:
+https://ci.syzbot.org/series/0c1fc4c5-6a50-43da-a45c-fbc3a8685c3d
+
+***
+
+general protection fault in can_rx_offload_del
+
+tree:      axboe
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
+base:      734bef548a96e8774d6eef5dfa2026c6edc4e80b
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/03f4b948-ccf7-4d18-8177-b9847267246c/config
+syz repro: https://ci.syzbot.org/findings/e4142ca3-3d98-40ef-95df-e6f3ad59fd4e/syz_repro
+
+gs_usb 1-1:0.0: Couldn't get bit timing const for channel 0 (-EPROTO)
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000005f: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x00000000000002f8-0x00000000000002ff]
+CPU: 1 UID: 0 PID: 5651 Comm: kworker/1:4 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:__netif_napi_del include/linux/netdevice.h:3007 [inline]
+RIP: 0010:netif_napi_del include/linux/netdevice.h:3026 [inline]
+RIP: 0010:can_rx_offload_del+0x3c/0x1e0 drivers/net/can/dev/rx-offload.c:423
+Code: 48 89 fb 48 bd 00 00 00 00 00 fc ff df e8 9c 5f fc fa 4c 8d a3 d0 00 00 00 49 89 dd 4c 8d b3 00 01 00 00 4c 89 f3 48 c1 eb 03 <80> 3c 2b 00 74 08 4c 89 f7 e8 26 57 6d fb 41 bf 38 0e 00 00 49 8b
+RSP: 0018:ffffc90006a4eb30 EFLAGS: 00010206
+RAX: ffffffff86cbe694 RBX: 000000000000005f RCX: ffff8881ba5cbc00
+RDX: 0000000000000000 RSI: 000000000000009e RDI: 00000000000001f9
+RBP: dffffc0000000000 R08: ffffc90006a4e6c7 R09: 1ffff92000d49cd8
+R10: dffffc0000000000 R11: fffff52000d49cd9 R12: 00000000000002c9
+R13: 00000000000001f9 R14: 00000000000002f9 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff8882a7ca4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fd875c71220 CR3: 0000000115016000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ gs_destroy_candev drivers/net/can/usb/gs_usb.c:1510 [inline]
+ gs_usb_probe+0x2201/0x2730 drivers/net/can/usb/gs_usb.c:1639
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__netif_napi_del include/linux/netdevice.h:3007 [inline]
+RIP: 0010:netif_napi_del include/linux/netdevice.h:3026 [inline]
+RIP: 0010:can_rx_offload_del+0x3c/0x1e0 drivers/net/can/dev/rx-offload.c:423
+Code: 48 89 fb 48 bd 00 00 00 00 00 fc ff df e8 9c 5f fc fa 4c 8d a3 d0 00 00 00 49 89 dd 4c 8d b3 00 01 00 00 4c 89 f3 48 c1 eb 03 <80> 3c 2b 00 74 08 4c 89 f7 e8 26 57 6d fb 41 bf 38 0e 00 00 49 8b
+RSP: 0018:ffffc90006a4eb30 EFLAGS: 00010206
+RAX: ffffffff86cbe694 RBX: 000000000000005f RCX: ffff8881ba5cbc00
+RDX: 0000000000000000 RSI: 000000000000009e RDI: 00000000000001f9
+RBP: dffffc0000000000 R08: ffffc90006a4e6c7 R09: 1ffff92000d49cd8
+R10: dffffc0000000000 R11: fffff52000d49cd9 R12: 00000000000002c9
+R13: 00000000000001f9 R14: 00000000000002f9 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff8882a7ca4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f58953fcfe0 CR3: 000000000fb48000 CR4: 00000000000006f0
+----------------
+Code disassembly (best guess):
+   0:	48 89 fb             	mov    %rdi,%rbx
+   3:	48 bd 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbp
+   a:	fc ff df
+   d:	e8 9c 5f fc fa       	call   0xfafc5fae
+  12:	4c 8d a3 d0 00 00 00 	lea    0xd0(%rbx),%r12
+  19:	49 89 dd             	mov    %rbx,%r13
+  1c:	4c 8d b3 00 01 00 00 	lea    0x100(%rbx),%r14
+  23:	4c 89 f3             	mov    %r14,%rbx
+  26:	48 c1 eb 03          	shr    $0x3,%rbx
+* 2a:	80 3c 2b 00          	cmpb   $0x0,(%rbx,%rbp,1) <-- trapping instruction
+  2e:	74 08                	je     0x38
+  30:	4c 89 f7             	mov    %r14,%rdi
+  33:	e8 26 57 6d fb       	call   0xfb6d575e
+  38:	41 bf 38 0e 00 00    	mov    $0xe38,%r15d
+  3e:	49                   	rex.WB
+  3f:	8b                   	.byte 0x8b
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
 ---
- net/sctp/sm_make_chunk.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-index 84a4c97d0f75..8933caadcdb6 100644
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -133,20 +133,27 @@ static const struct sctp_paramhdr prsctp_param = {
-  * cause codes will be embedded inside an abort chunk.
-  */
- int sctp_init_cause(struct sctp_chunk *chunk, __be16 cause_code,
- 		    size_t paylen)
- {
- 	struct sctp_errhdr err;
-+	int chunklen, padlen;
- 	__u16 len;
- 
- 	/* Cause code constants are now defined in network order.  */
- 	err.cause = cause_code;
- 	len = sizeof(err) + paylen;
- 	err.length = htons(len);
- 
--	if (skb_tailroom(chunk->skb) < len)
-+	/* sctp_addto_chunk() pads the chunk up to a 4-byte boundary before
-+	 * appending the cause, so account for that padding here as well.
-+	 */
-+	chunklen = ntohs(chunk->chunk_hdr->length);
-+	padlen = SCTP_PAD4(chunklen) - chunklen;
-+
-+	if (skb_tailroom(chunk->skb) < padlen + len)
- 		return -ENOSPC;
- 
- 	chunk->subh.err_hdr = sctp_addto_chunk(chunk, sizeof(err), &err);
- 
- 	return 0;
- }
--- 
-2.47.0
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
