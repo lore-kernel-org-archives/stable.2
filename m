@@ -1,83 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793072574;
-	b=33VSrsQhCmivDbBAWRdMD1F2XTxHDvZdb9OJ9H0n5hrTikkxoY5TPsZPOfmcaMrJmH4Z
-	 riCBgs6kxB/x+SGeaqjtvH0lBTVv8d7zVKBMAlhgyrluPXyyOlVh+zpk48gEbrWCZ/c5h
-	 ifapo2PVx43MLsmg7ZwlEzITARPAZMgarmNj3L2cNeA1tx9bTcVKQ8DuThgVtHfZMKYW3
-	 LYJDG6fLnQBSwyHEqJBbj1cWLBTrP8KkEIki4Z56zU78Xkv2jtuFsQv7ojuZOqxJ0PepW
-	 CPdBsvILq1I7bhHEkAROoLL45IU+JspN7lFvgqi215HDitcPg40LY3cnTwMtgroSdtA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793072574;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793072636;
+	b=eSeOSpKtdRvtFKRwAPQ0ODSe4L7UdqlhwOhJBTGgKoHAX+8x2gpgHX3C6DjrdQZv6Gho
+	 DAPnwIQ4Uy8miHkcw0Pg3LjhhnZat+bGYD2xORJ085vMxjtF812t4IETYPJleHss8oE2K
+	 ASy8Ua8pT2cB4B/idS/VHcpx2FgqVnRSxXJYOLd8qBkL1BM6P6sXWvsQ8w69vA5Q4CvX/
+	 a2I4PiGOC2QF3IFOFqT8LlyQe5DwGtaVSszsJf7G/3irqpY7L5h79DWUeiY8DhVExQqYS
+	 HxquPYuV+NlpYbgfdvE8cTc/fzA3mUhNDLadXqUvFWE/GOkNQ+ErOk7PkoKQbDV20CQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072636;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=3AmNHif0hEkmbwEeTcZrwdr+/HB8qgSmoybIARXFX10=;
-	b=y5Wq145mAOcPGU8Z7/Alol7wg4T2OWda2IBJTLp15UiOZZAIxp9fBmCJXnV3aLKoLZF4
-	 kA4snnJ0OBdiSPae+Vllk/slzvQh8BQL5zBwuwcXNt4mCmEsvdowKBZeLbnIRZ4IiqzkB
-	 SX6mgHHBoXEdIYpDO94PuqDCvDHu8dw8zprN776z60xCGgQB8i4AlpiNicjnY82Qc1WqS
-	 81OvnumJ7XbNtmPNxsN/SfTu7yc4YXjtkIoiW2i7iBXmGI8oRBDlRIVxzjr3gT0e6Z8iP
-	 5sSBw0JyUOqUiscTeKGPUFV2CqUJnGK6NcXzm/XKMAeWqIfAzjNZ88bx+UQz7f4I73A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TP6Wb0G9;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
+	b=s/Ov/M1DGwPGGQTq8HxgYAqIEMuVM2Ltu2r70HZjLLFPbgFgQShdYJaE1aKAOysqm7eq
+	 6EBsJH7smZwFU4zfpqYQ9g2FeE42Le/s3Hex+Eq/MQRqRgQQyeG8C4QTjf49U44RccEDA
+	 fzPJEqH2uYXSedC/oGnHR/jB8nn6ROInbGWo+lew2GScP+4jFw1tkP2uuChQ5z1Scw5+U
+	 s2TKQJtXNrUBeDixeU8TAB/I4sr7VbpIhbKMPDOS9A3/O/Z6JKHLq/DWiaEVIU8V5yth0
+	 UsaLTY6DvF8/CT7u5Q+CuIFzSJco0y3LfCZiXoC3flzV9/01tumasqD1+GVzavo1zgQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jk9klGgU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9995606A321
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9995606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B36606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:43:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B36606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TP6Wb0G9
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4682977f9aso427191066b.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:42:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jk9klGgU
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso5272691a12.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:43:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793072635; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gC4MuAU6vzxZuYIDpvMNli03JNCxc5s82a3HGY3ycgYv9QZLPTyL+awHYbvMpdTjbY
+         /3N9x6SPMlKCX87KJfThdlgFzQUhaCKxAB5CDtr1rBe+GtWicE43pconS3tPK5mbJCms
+         nq6qCZe3rocEUIAJfSMFurjUnIusYi1Z9ZcxFCszgtN5CN4p5at10MoDWgEiMzZobE/U
+         2MxKYP14gdX5nOVIFVBoZyuPhWR04O1Kr8k7jp35vWu8A8TMUj5FdVM7V0FojaIng26k
+         4UHpozeEFBHDr1UfFlhhUYhGxIf+M6p71HFXjLwQ6Ain//aX8af06SPWbiUU4EKMsIMj
+         MFdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
+        fh=ryzd+ijsfKdt1uCqwTwi/PZZFOc6WMv5ztnfND3qQ9Q=;
+        b=gMqEsBTTpaJ8mxP6cnTRE5oL3p6oOXcFV7qKvLW1/AcA9/ZX19zQg2KTK3LIUODbBS
+         zlUTh/u6leuzrQ/J+KlPv7namOmA5C02lZcua0KV6Gq/MbpUsOLbNgB74gbzZiD2Nvy4
+         EEb6c00ne2XJ+HKA34XkGyn70rlWSrj8BMzdNQXHp2JVJcC+wU8PHUlKbqyLCut190X+
+         HbpU4d4f6jX/5KY4h7OIkDwANOiJbM2MBTxzwOdRPfXAinvmCmRaOtQuGAbIKGuEICN0
+         352cJEsm2CXzq2YRHx5MKV/g6bQwN9RyW6ZGAFgLr1RHKiBVmBQ1H2dbdfVgrR8eQxf5
+         argg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793072572; x=1793677372; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3AmNHif0hEkmbwEeTcZrwdr+/HB8qgSmoybIARXFX10=;
-        b=TP6Wb0G9zLDqWuDXb4AhwPpwuHlSKdtp7vOXpYDf7eGm1a80xAQ1Kk7a3BAwdBSgbf
-         7jIsPCCAndPaIyaXMt1h9L+v3YN04he2Yn/CRRvHVdHgoUlgLlSgwa9hE7a1amSX74cH
-         Kwjdvwabbe16pgNJqcLstwt0irlt7+SuIDQSlFjPA8tQknv+O8lFGJzh6gB7RDu1kMgs
-         b7Ioo0qZ28U44QqcJ5fTkQnZXkb4QTONZ/A3yzR+1a7MYD/SYCY6zoTd6EcwzJuhItLH
-         0B0L6IlHYe4/Vnwr07ZM2/roJJBr1DR/QdSECM7/FpaBVLw/yoke4fT7pykNvEVAzfsJ
-         pBZA==
+        d=arista.com; s=google; t=1793072635; x=1793677435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
+        b=Jk9klGgU8GCrKZmkFhs0ofHkPl3C52FsJVCvOYWx7PjTj+kkHRZn7BK3ECb9H4p988
+         csjhO5vqCOnHyVq16sNPNfgZl8cVYqnLVh4+/AHV9f3DE9YZvzU9C2PAdvtWZLzVOY/A
+         bjIMnQcvaPVD1Qts2AKCN8ddA2CkscjuAuKsphVYQGjG1qBF+4x4CVQzzI3Job19LEek
+         z53oj2K5xfKsoaROJGrQx6CkAoA+fDmIuqWeUEPVFPYyr4U4NFnyuVYmRZ+i146NycjI
+         BdJpjrCCZt+2KcxGL81Wg1AiMeSmTJYKbQaHv+5d9SMe5vII742HyniZsixYbPk6IsCs
+         M1OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793072572; x=1793677372;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793072635; x=1793677435;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3AmNHif0hEkmbwEeTcZrwdr+/HB8qgSmoybIARXFX10=;
-        b=1ce97YnOi/h1Osd9nlDMSO9qJOCIl2eu1hoJwBYS1JHQ/+EK/HSDnwDc2JcFsOnzoH
-         LnCQ1CdaDw7yjh4sEdFRVJ76sSM+jebu+h9rJ+NgHP5H1fY1ZrxLsnWJkVEtEAF6Q36m
-         lYc7dBoopulITAOoGJ6wF3EuYgdjZM2y4bAPzw1202qodC+Q9iYPjIAb2Mi8dE4BkF4F
-         lz1etD/ZbW5JGyGFNFZhe9510DQPaOpj/gWn3U88Vq3q2mrmr7ESK96tyRuOQ93Rll/B
-         Fv2pf4b2Z3qhTCAH94A8qNkSjxeX1JLPXyXJykiU4s1QcxnOVXO0JfgxBJ9P52BZW5yJ
-         EqCA==
-X-Forwarded-Encrypted: i=1; AKwUvBwoaUhoL8ZOwiZS7eCDXaIKDZNGlflaofmEvRDW9TscuutrGxLI1FrOaXjSIOcldHCFMHbV45U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxY+v1xs+PXnR6gN2FOu6Ue/GysxCP+ZDXPrKV2H3xg8Bo2Yda
-	ZadrQ48ODyt5X80HFj4BHd4G707zjfTK081mEeJJL02VNFN4D76duJzorTfTtCokAw4=
-X-Gm-Gg: AYBFou0/acmfcNE6ek289abDc4ih3ngg7A7yXsMvHQGTWkqFqOMkp27bsW1SQd6HWYp
-	xII3S8eGPWB7lJCeC4f+qy083XyIRMD47pkjTVb9sbgHF1b2Pwf9PmqrRPy/UCj2oWq/+xe81qK
-	Y6OYiYo1N5a00A0e3fa/BBQJI0QXid4ObHrNhu0KMYMtPa5VuFxv8JW6fOEQxLczL+uD0FXfpIM
-	o14VQcPw9voHdlZNDmsyBsitxLSPzZ3CF3rdG2EOeH4ura8eg4yhJVW9X5shFmYRZK5oAuykwn7
-	kV4/VeSax9Q/O7O4Isb2vPvYNFFQWdVqUPU5/qgqm1RkFh2NZTEQXe+/CvIhpDSpXBQFqeeSi1n
-	R+ky5m5R5GZKYUtvGEKtIa0KkC3Py2d4c1n8OSAQhvxGrb9zCPIgRPwoC860j17YSOg3h/ttAga
-	ft2yDnuzUGv3wpV/yM99xPDgTZqHxxklMY89/ckNC07aJhjcgZeAWPV84e4M7te3JlTsO8eLCh8
-	VGcl8hsB5GvtP/1xSZIeP9/6fPetH6UlHkox3WsBX7bQ7hs3nnYl4G+O3D38+6MA3AO
-X-Received: by 2002:a17:907:96a4:b0:c42:102f:15d7 with SMTP id a640c23a62f3a-c46bdbf000fmr901757066b.10.1793072572116;
-        Mon, 26 Oct 2026 20:42:52 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:4a::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd649997sm382056866b.42.2026.10.26.20.42.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:42:50 -0700 (PDT)
+        bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
+        b=BXShjONP5zOdkR+4z8TZPgWdX+SS+AFQrsdxGqPB7xIqZqX4fUvIlGqzqrc5fKi9gz
+         eECv9hry737/WRiNWKy5oyKJUSPcQ+zeIhzQqhOMvumwZg3h7aBCsxwwnMcYAGnLvj2v
+         fEh27uSBJvxRmtB6YHbiO6A/H9eRNgovlLY5OlLmEQix1Y1J9bJSxkyWhMGS2z53ZWES
+         3Amckj/mxVBxrKiuRhYqQij4B5juAYT1LoyCAibvjvg2jWEFNmsRe8MLvFskACY1EdpZ
+         VywKiCCK60rlONCatkD99RzywWelM8002U11jzd1nK2PO6kEQl4ID4HImXJ6LuiHm6db
+         bLNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxGDYBw8oKhBq4FnDcM/EDG43rQHZcuif8e029IO8dH8fYYTkyLvVgJ5hr1X0+nQVVgDKRhPzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2VTUR26fgVOZp+/Wuw9BN0QQ7oayX9lZJRNY6vGAFu22Qbtd5
+	yLywmrE95J1L7dw+1VzGqwSRWXjbzzY1NRwjGMC7xbPiAouQQzk30ygdPm4HtJIfgHn3yv6NAE1
+	5E2Zh6Wz48J9Gr2AkXRc4HU8yVDVmTyRtoyAYSO4A
+X-Gm-Gg: AYBFou0TF8eCcumWTLTiaM9yTA4AMliogDNab5PV5xgciXBOw8L8F76BGZVBILn8G1Y
+	f+783WHpu3Mhmu8mCmOZSDG9DTGTAj0b8wrUnrXbspQqjLEg+Wwk3N9bYPIfBFhGEn5k9woqb9p
+	dVLCHfyjfNq5lEppYb329nAxmcbOVAFKEAdE8EGLVw4ArEEGKnaxLXqjIoYmgBE3DBimDqHEtq2
+	NWKu/kq7lar0OJr5cJu15ZQe5Gf9VIXNPl8MtqgGDkDuxLtHQlBIKHsxI2D0FZj3ScEuKL7WPez
+	aQzT7w6PstQdG94oeBsikodjKWaNWWT6HMRV+eebXZCcgcBmEqcM3BYEKgwJZLBtBuol9l5KjOg
+	d5CMQtVWLDzwODWo2XCNjM/tk3JEqGegnrEfRV8MGV/h4zq+rW6fTW3a+tpzMyvb01CU1+A==
+X-Received: by 2002:a17:906:794b:b0:c42:4750:8d49 with SMTP id
+ a640c23a62f3a-c46bde3aeeemr1002596266b.25.1793072634757; Mon, 26 Oct 2026
+ 20:43:54 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,78 +104,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 28/46] mm/mmu_notifier: set ->mm only after mmgrab()
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
- stable@vger.kernel.org
-In-Reply-To: <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
-Date: Mon, 26 Oct 2026 20:42:49 -0700
-Message-Id: <179307256988.1171062.17835586018092384558.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+References: <20261027024635.366900-1-prasad@arista.com> <179306948792.3327.2977782192715102568@kernel.org>
+ <CAKh1g56_WiP3gTMbcWkukb_tK9Fnun6NqLAQKWdU5o2ECL0veQ@mail.gmail.com>
+In-Reply-To: <CAKh1g56_WiP3gTMbcWkukb_tK9Fnun6NqLAQKWdU5o2ECL0veQ@mail.gmail.com>
+From: Prasad Koya <prasad@arista.com>
+Date: Mon, 26 Oct 2026 20:43:42 -0700
+X-Gm-Features: AclHuK-1EqxydWR_WSLPmaEW4heYYjA6apJgh5zMMaiBELQB98cyhu7hOmmOXQg
+Message-ID: <CAKh1g54bKZYQwyAS_t6FSOfZvt0Gn3gUWqnwg+6Nv4qTT3C6NQ@mail.gmail.com>
+Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru mode
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> Radeon uses a non-NULL notifier->mm to decide whether to call
-> mmu_interval_notifier_remove() when freeing a buffer object.
-> __mmu_interval_notifier_insert() sets ->mm before validating the range,
-> so a wrapping userptr range can leave ->mm set after insertion fails.
-> Cleanup then tries to remove an unregistered notifier for which no mm
-> reference was acquired.
-> 
-> Set ->mm only after mmgrab(), once insertion can no longer fail. While
-> we could fix radeon's code instead, setting ->mm on success only makes
-> the code more robust.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The issue was observed during development testing with 5.10 and 6.12
+kernels. It was reproduced on Linux 6.12.68 by enabling allmulticast
+on a down passthru macvlan, bringing it up, and toggling allmulticast
+off and on. This triggered the =E2=80=9Callmulti touches roof=E2=80=9D warn=
+ing.
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-
--- 
-Gregory Price <gourry@gourry.net>
+> On Mon, Oct 26, 2026 at 7:51=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wro=
+te:
+>>
+>> Hi!
+>>
+>> This is an automated message. This series looks like a fix, but its
+>> commit messages seem to be missing some information:
+>>
+>>  - How the issue was discovered, e.g. hit in production, hit during
+>>    development, syzbot report, manual code inspection, LLM or static
+>>    analysis tool scan.
+>>
+>> Please do not repost the series just to address the above. Instead,
+>> reply to this email with the missing information, so that reviewers
+>> can take it into account. If the series needs another revision for
+>> other reasons, please include the information in the commit messages
+>> then.
+>>
+>> The evaluation is done by an LLM so it may be wrong, if you think
+>> that is the case please reply and explain.
