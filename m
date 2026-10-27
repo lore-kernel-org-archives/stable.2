@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793081373;
-	b=cDoP2tW+YucFq80BHAJUCDblC+pSx4YKgXMK00GjkCCpzoMCAXMmpq4drDyxup+8tWKN
-	 flMbl+hil5a2pbWWaxz3GBcjyk+B+Xrzrc6sWovRRj3nfQy+d4Xw5+6Lice9WB5HQ6t86
-	 pQoRlZ4lSzZjphP4NJ+x+OuxayLKtLHN9jhaB4YcrFZvhKv1+rEe0urHegsJ7D0si891e
-	 WnyAvFIw+oMW9FYRe3fcHQvpggab/nLBj+7Lv46c21ycur9a9Wmry2XK87T2UzHApa2Qa
-	 AkeDTkozyVLhyn6JQLGx+cPPEFTu6y0LkyRzhfLlcnI+6YVN03+UPyQpkLiyjNlxHRg==
+	t=1793081989;
+	b=th+n2al1BKUgjx2YJwxBbh5/PsXcXGqr2WG+qyyXmxBn9fP/gzvf2XP8OOD+N4q6bINv
+	 /KWrBv95FQ+fHwED835Y4p+kkpsqf+zE/aZHkefTVX2Z00KVdlABlEHdJ45+Zvp1lHRNb
+	 aIzyIoKPsD96gXlhFI+EHuNm4yAk9MFCk26owwS+N8YvAAjYVo7QLP4GPnqz5dYZhR6d+
+	 RW08OGshmbHDMZ+6ukDfpZOwzKHRHxhTNsmgW4Y33+sbW5fmG0XGgg/b2JVDMGFXb8Bkp
+	 BIZeUd2DEOfj7U5FMWDuwZ8quH9WXvmlNvJONIOkJVbzUYwW2J7E36XftzBaaJlAa4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fB6Whtak24taZDZv6ZtTz72XfGauaIchm99YUmKfUiw=;
-	b=a7RItcRJ7TQbBx2Mj9KAZqbkYVkhUEY3RkoxJYIgQVxCIydGFAjb2YH93zNY0CEVdbuW
-	 SefESVR/3YAz36yib4Vkhk1Xe+JEu3BnbE76rJTNVvKqnNnnNQc9ZuhAQaAkeA11F+E76
-	 t8DlmfXocJtd5EOHjJ4OBJrOyt74J4RZG1lIJMuphgm7KJoopXFcadGziFTGDCo8lWwfh
-	 BdU4LplaKUubpkcvWDCHACpRp7ieoLoNb5PgKybtDi7A83vsRZEZ1V9zS+WnP3EG9j4V1
-	 RxXtOkD+Id5ZhZ5N6n3cbrCD7zT9SU0jgM7yZye+96DvNLmggj+5x8kM7/N2Q7WSzqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793081989;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vAk7JnVPBwae5fUKaIkq/jC2gmYuvdXbn/hohKLDfO8=;
+	b=Hbn0xdM3UMpOWmmPs+lyo2KGqajys+sYCGubYLWprgRVNEJvfUFJyshfnMMwVeHjP2AV
+	 e2aRrdeU6QZ4HcVyq9j49X5+i29+Ij3C2XkfCuqC6MQyFBGq5fZ0rDmvB7fu6ocm23EM8
+	 1wbl8fb7Xg2DJagY92WY3SD2tBI9aj8vxr+GLJ7J1sLrevcOrO2OoKk+PW14Ww60kAfme
+	 ztG0xfnl5X+XEtNCzzAfM0OX1nef31v9JN0N9yCIIW86pMwnYfkUgxNQFG+GBE5DHBheb
+	 nCZlX4U0doIsyLN8eIz+7cwqkER5vOMFZmKwtXY3OBwPoQpyvalc1N639+UNv9n7Uqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="JiIbL/+a";
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+8c7NW2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB87B606A31E
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 06:09:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB87B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB0B606A31B;
+	Tue, 27 Oct 2026 06:19:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JiIbL/+a
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso2709532a91.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 23:09:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793081372; x=1793686172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fB6Whtak24taZDZv6ZtTz72XfGauaIchm99YUmKfUiw=;
-        b=JiIbL/+arHNQTGQ9N7KClbrBKj0pG6pjrvIUesXD/l1dR3Dy4Mxakyojzy6jPFX5LY
-         Nuysek6kceyz8PK1Vxw8leKH+Kb38H9yyHclIBvBzC1KKsFAdFAW0kv7W2teKVWuwb00
-         8/0PgFxeRX9r3i5KIzcXnkexSflg1I+Mcljh/7rc/OQxz4u21JHW8ADMyWBilgUpTlYN
-         UZbeB53gwu9Sino0pOl7paUJ9Vc8bpV7RiL6lPVDRRo17qulkrKAOxofcgw8rDV1Ry93
-         j/6/syDapGnd51exiPXlW/Jt+tSged5MYWmQGi4aPjAXHEhlFujF/wNcTAceQbQmlyqK
-         dFQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793081372; x=1793686172;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fB6Whtak24taZDZv6ZtTz72XfGauaIchm99YUmKfUiw=;
-        b=lGIrYmS5Urj20Xr9+QR5j7sz49+EVYDm0jJRtqbkl/xnDV8pUfipS0OcLo9tUdrDKZ
-         BQgvSZS95ADeo3WEFwXzqgPJlIMWJ1jsue52QicDp0hTz520TEQx2FttqNedfzfpxeYy
-         CEgjfcD/UVXQpGkk/LQLAbTu2QgR/BqzNgTg3xcTRMMfHNEl1tRXThIG9/5UwlB8pzMg
-         MH6d7Gb+2NG16ic5P3IpVmXKTxnaz3S62kE1tUSh3iavflwLjNlbBPV/IbbmcS8posai
-         +4MFRNPIy/b+MJgEwrG1JhJbyhj1ZWxCD84enN1PBg44FQqmGEVFcKa2T4FFA0ij+Ixq
-         oQzg==
-X-Forwarded-Encrypted: i=1; AKwUvBzr6STHLxdjuNUqEfvoT1M4ZJ1dbnnbU6rMBib8LoQhoN1qaX+6vLPNy/MoLTa1GNG+bGjOzqc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTxdbboUM55AGvn+Y1qYmnyIm6j0PMUWfcM+v9oabhOZFh+NRw
-	pvH2lXh6AxOtW+J0IUO3+MPkYPFZlqAeplL4rxT95KZT/UeYvsjDkDG4
-X-Gm-Gg: AYBFou1hefsRbPW+cpZQv3Pdel+s2iBrWDlErvevBT0I1N2DPI0hZnDjJ3SUuma8EH/
-	W3NkDzcgNca4Q3iPOa6Uq5Nxy21bWxJTWkex8k8XuTEsd/aDEjSMIWyvCFgKEHYudV4UFMj6D0D
-	hB3LuYhnR+vOYCKZcWFOaqVW8gnd9wmZEQTl8lUuSuZHp5DkJXrOu88H7Z/23Fe5InhZvkjF+sU
-	kMQ8g8zBWgV/dfr7WniHBtCp0PrWmOY39BFealkGpTKYM6rRETVH7BseYs8fUeUa/1UOEdCTLvc
-	+8dk93uofzhALt6tN1qOcBL8Jw3mPkQvIgSWhthp1inkwcaRv6oXQaX7hOdYwc3mnbcWlJt6WrO
-	vF5olxUQoiCYU+sZdWD7LfBo6Oi4x3wvdWn4h3qgJKCuNacnqR9hlFidp0qWtS4eDoSbbKvIW3q
-	+Fh+8USccn/NPW171U4x+5B35uFdJEe8XEdF+VaZ+gkm2HoE54wARoghqsaArqkWyDAVezWKsmY
-	Up47RDKKIibGAYT0o+HALQZXWG4VMmlbAMnR0BO27H+2atc5MRSEQocQBjTcQy/xlSKgR4EOxKU
-	jplc2uSoB6KxTpJKCKOl1P87IpdnVSiATCBOD/hvn62mrg==
-X-Received: by 2002:a17:90b:1d09:b0:3ac:8dfe:8ec9 with SMTP id 98e67ed59e1d1-3adeb0fbe41mr6633907a91.47.1793081371921;
-        Mon, 26 Oct 2026 23:09:31 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4041fafcsm2798694a91.0.2026.10.26.23.09.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 23:09:31 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3] ocfs2/dlm: serialize migration MLE cleanup on failure
-Date: Tue, 27 Oct 2026 14:09:23 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0038-v7-7a0bd8f07ba98784f6b7@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+8c7NW2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E541F01829;
+	Tue, 27 Oct 2026 06:19:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793081989;
+	bh=vAk7JnVPBwae5fUKaIkq/jC2gmYuvdXbn/hohKLDfO8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c+8c7NW2UQkkf0nlM50QGAhXIwtSLrMG2fPqnmFzPjpm0yEfzzgEDwtn7juwOAopx
+	 HHiYXjH1NJWIGzGy3iR4dd7+yfKWBhWUleLLWe6zbpgnhwRFWQex/HfyJ8XrfsYAvH
+	 EX0UkHnbAZ5E8JL2wwvFoHI6GSqsgfKIlp+t+dPk5IZh86nHWvtcQKaIG4A2hPDYYj
+	 hs2e/W8q/I98MILGos/U/kVrzJBuJVHIzCtjb25WUU//gllGG0yBgbUu4yFME1Si+O
+	 V3ok1tX80nUeGIMQAFgbRBOqr7y2wnHpWxWutFoS4IF7dXfmbqcw1Cswulf//TuPTy
+	 AUB2FfmrHB4Zg==
+Message-ID: <b0d3e7bf-ddd3-4eaa-8ebc-fbe5e7d8443f@kernel.org>
+Date: Tue, 27 Oct 2026 07:19:45 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,302 +51,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7] can: dev: can_fill_info(): don't wake up controller if
+ interface is down
+To: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>, netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, linux-can@vger.kernel.org, mkl@pengutronix.de,
+ kernel@pengutronix.de, haibo.chen@oss.nxp.com, shawnguo@kernel.org,
+ imx@lists.linux.dev, stable@vger.kernel.org
+References: <20261021145115.153107-1-chunyuzhiqiang@yinhe.ht>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBAhsDBQsJCAcC
+ AiICBhUKCQgLAgQWAgMBAh4HAheAFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmrTM8wFCR1O
+ HxcACgkQq1/riG27mcJ2KAEAhG19xBSkjiA9dtatvq2WJnGaes4SUmY+LSn7dh1Lf7YBAIwB
+ lsMMmigMTk3Qgwymg1nT+Z8z1Owc/TGtRlo4ZcwMzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmAhsMFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmrTNKcFCRUFdT0ACgkQq1/riG27mcLEVwD/VmnQtTf6yhowaIFj
+ AjUtwiyQz9ja4NRu9GOvz/pb2L8A/3QcADR0dcxADGsmOiBpN2M9KI7nqdNIq3VPM/3/5fcB
+In-Reply-To: <20261021145115.153107-1-chunyuzhiqiang@yinhe.ht>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A migration MLE has a base reference for the mastering answer and an
-in-use reference held by dlm_migrate_lockres(). The finishing assertion
-consumes the base reference, but migration failure drops it again
-without checking whether the assertion already consumed it.
+Hi Chun,
 
-The target queues its migration worker before it acknowledges the
-ALL_DONE packet, so its finishing assertion can arrive while the sender
-still waits for the status, or after dlm_send_one_lockres() has
-returned a connection error for that very packet:
+Because it seems you are preparing a v8, here are a few final nitpicks
+on the line wrap.
 
-  Old-master sender                  Finishing assertion
-  -----------------                  -------------------
-  publish MLE; take in-use reference
-  send ALL_DONE; wait for status
-                                     take lookup reference
-                                     unlink MLE
-                                     put lookup and base references
-  send returns a connection error
-  put base reference again; free MLE
-  put in-use reference; access freed MLE
+On 21/10/2026 at 16:51, ChunYuZhiQiang wrote:
+> If the interface is down, the CAN controller might be powered down, the
+> clock disabled, and/or its external reset asserted.
+> 
+> Don't call do_get_berr_counter() or do_get_auto_tdcv() to read the CAN
+> controller if the interface is down. This fixes a generic logic problem
+> that exists on all platforms.
+> 
+> As a result, IFLA_CAN_BERR_COUNTER is no longer reported for down
+> interfaces, and the automatic TDCV readback is skipped for both CAN FD
+> and CAN XL. The other TDC parameters are still reported, as they are
+> meaningful while the interface is down. Userspace must treat these
+> attributes as optional.
+> 
+> The berr-counter issue was triggered on an i.MX8QXP board by running
+> "ip link show" without ever bringing the interface up. On i.MX8QXP the
+> CAN clocks are gated through the SCU LPCG and the subsystem shares the
+> IMX_SC_R_CAN_0 power domain; there is a window where
+> pm_runtime_resume_and_get() has returned but the clock has not reached
+> the module yet, and the immediate ECR read raises a synchronous
+> external abort. This is the same class of problem fixed for m_can in
+> commit 91a55c72a821 ("can: m_can: m_can_get_berr_counter(): don't wake
+> up controller if interface is down").
+> 
+> The TDC auto readback path was found by code inspection; it is gated as
+> a precaution because xcan_get_auto_tdcv() reads XCAN_SR without taking a
+> runtime PM reference.
+> 
+> Note: do_get_state() is left unguarded. Drivers that implement it by
+> reading live status registers may need a similar fix. This is tracked
+> separately and is not changed by this patch.
+> 
+> Fixes: ec56acfef2af1 ("can: flexcan: flexcan_get_berr_counter(): switch on clocks before accessing ecr register")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+> ---
+> v7:
+>  - Rebase onto current net-next/main, including e63281614747
+>    ("can: netlink: add initial CAN XL support").
+>  - Gate do_get_auto_tdcv() on netif_running() for both IFLA_CAN_TDC and
+>    IFLA_CAN_XL_TDC. The other TDC parameters are still reported for down
+>    interfaces.
+>  - Pass dev to can_tdc_get_size() and can_data_bittiming_get_size()
+>    instead of a bool, as suggested by Vincent Mailhol.
+>  - Adjust the TDC size calculation for both FD and XL paths.
+>  - Keep the berr-counter gating unchanged.
+>  - The Fixes: tag points to ec56acfef2af1 because this patch supersedes
+>    the down-interface readback behavior it introduced, not because that
+>    commit was buggy.
+>  - TDC auto readback gating is based on code inspection; only the
+>    berr-counter path was tested on i.MX8QXP hardware.
+> ---
+>  drivers/net/can/dev/netlink.c | 26 ++++++++++++++++----------
+>  1 file changed, 16 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+> index 766d455950f5..ac30d2849543 100644
+> --- a/drivers/net/can/dev/netlink.c
+> +++ b/drivers/net/can/dev/netlink.c
+> @@ -720,7 +720,8 @@ static int can_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	return 0;
+>  }
+>  
+> -static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+> +static size_t can_tdc_get_size(const struct net_device *dev,
+> +			       struct data_bittiming_params *dbt_params,
+>  			       u32 tdc_flags)
+>  {
+>  	bool tdc_manual = tdc_flags & CAN_CTRLMODE_TDC_MANUAL_MASK;
+> @@ -742,7 +743,8 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+>  	}
+>  
+>  	if (tdc_flags) {
+> -		if (tdc_manual || dbt_params->do_get_auto_tdcv)
+> +		if (tdc_manual ||
+> +		    (dbt_params->do_get_auto_tdcv && netif_running(dev)))
+>  			size += nla_total_size(sizeof(u32));	/* IFLA_CAN_TDCV */
+>  		size += nla_total_size(sizeof(u32));		/* IFLA_CAN_TDCO */
+>  		if (dbt_params->tdc_const->tdcf_max)
+> @@ -752,8 +754,10 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+>  	return size;
+>  }
+>  
+> -static size_t can_data_bittiming_get_size(struct data_bittiming_params *dbt_params,
+> -					  u32 tdc_flags)
+> +static size_t
+> +can_data_bittiming_get_size(const struct net_device *dev,
+> +			    struct data_bittiming_params *dbt_params,
+> +			    u32 tdc_flags)
+>  {
+>  	size_t size = 0;
+>  
+> @@ -764,7 +768,7 @@ static size_t can_data_bittiming_get_size(struct data_bittiming_params *dbt_para
+>  	if (dbt_params->data_bitrate_const)		/* IFLA_CAN_{,XL}_DATA_BITRATE_CONST */
+>  		size += nla_total_size(sizeof(*dbt_params->data_bitrate_const) *
+>  				       dbt_params->data_bitrate_const_cnt);
+> -	size += can_tdc_get_size(dbt_params, tdc_flags);/* IFLA_CAN_{,XL}_TDC */
+> +	size += can_tdc_get_size(dev, dbt_params, tdc_flags);/* IFLA_CAN_{,XL}_TDC */
+>  
+>  	return size;
+>  }
+> @@ -812,7 +816,8 @@ static size_t can_get_size(const struct net_device *dev)
+>  	size += nla_total_size(sizeof(u32));			/* IFLA_CAN_STATE */
+>  	size += nla_total_size(sizeof(struct can_ctrlmode));	/* IFLA_CAN_CTRLMODE */
+>  	size += nla_total_size(sizeof(u32));			/* IFLA_CAN_RESTART_MS */
+> -	if (priv->do_get_berr_counter)				/* IFLA_CAN_BERR_COUNTER */
+> +	if (priv->do_get_berr_counter &&
+> +	    netif_running(dev))				/* IFLA_CAN_BERR_COUNTER */
 
-dlm_assert_master_handler() holds dlm->spinlock from the MLE lookup to
-the final puts, and it takes dlm->master_lock around the unlink and the
-puts. Decide under the same locks: if the MLE is already unhashed, the
-assertion consumed the base reference, so drop only the sender's in-use
-reference. Otherwise unlink it before consuming the base reference so a
-later assertion no longer finds it.
+Put this on a single line:
 
-An assertion that got there first has also made the target the owner.
-Treating the attempt as failed at that point would leave the lockres
-owned by the target while this node still holds the other nodes' locks
-and refmap bits, so it could neither be purged nor migrated again, and
-recovery of the target would send those locks to its recovery master.
-The same half handed-over state exists for a moment in the normal
-completion, where the handler switches the owner and the sender drops
-the locks later under a second spinlock section.
+	if (priv->do_get_berr_counter && netif_running(dev))	/* IFLA_CAN_BERR_COUNTER */
 
-Hand the lockres over in one res->spinlock section instead: the handler
-drops the other nodes' locks and refmap bits together with the owner
-switch, and the sender only does the same if the handler has not reached
-that point yet. Recovery takes res->spinlock before it looks at the
-owner, so it sees either the old master with every lock or the new
-master with only our own locks. An attempt that failed after the
-assertion then has nothing left to do but recalculate the usage.
+(it slightly exceeds the 80 column limit, but so does the surrounding
+code).
 
-Ignore a finishing assertion from a node that is no longer in the domain
-map. Recovery has already cleaned the lockres up with this node as the
-owner, and the sender fails the attempt once it sees the death; handing
-the lockres over to a dead node would leave it unowned forever.
+>  		size += nla_total_size(sizeof(struct can_berr_counter));
+>  	if (priv->termination_const) {
+>  		size += nla_total_size(sizeof(priv->termination));		/* IFLA_CAN_TERMINATION */
+> @@ -825,10 +830,10 @@ static size_t can_get_size(const struct net_device *dev)
+>  	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
+>  	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
+>  
+> -	size += can_data_bittiming_get_size(&priv->fd,
+> +	size += can_data_bittiming_get_size(dev, &priv->fd,
+>  					    priv->ctrlmode & CAN_CTRLMODE_FD_TDC_MASK);
+>  
+> -	size += can_data_bittiming_get_size(&priv->xl,
+> +	size += can_data_bittiming_get_size(dev, &priv->xl,
+>  					    priv->ctrlmode & CAN_CTRLMODE_XL_TDC_MASK);
+>  	size += can_pwm_get_size(priv->xl.pwm_const,		/* IFLA_CAN_XL_PWM */
+>  				 priv->ctrlmode & CAN_CTRLMODE_XL_TMS);
+> @@ -910,7 +915,8 @@ static int can_tdc_fill_info(struct sk_buff *skb, const struct net_device *dev,
+>  		if (tdc_manual) {
+>  			tdcv = tdc->tdcv;
+>  			err = 0;
+> -		} else if (dbt_params->do_get_auto_tdcv) {
+> +		} else if (dbt_params->do_get_auto_tdcv &&
+> +			   netif_running(dev)) {
 
-For a send that failed with a connection error, wait for the target to
-die before deciding, while the MLE is still published. The target may
-have received the packet and may still assert; an assertion that finds
-no MLE for a lockres we still own is fatal in the handler. The wait is
-bounded as before, and an assertion that arrives even later meets that
-check as it did before this change.
+Same, this fit in one line:
 
-Use the same cleanup for the pre-send failure, the send failure and the
-target-death failure paths. The sender's in-use reference keeps the MLE
-alive until its final put outside the nested locks.
+		} else if (dbt_params->do_get_auto_tdcv && netif_running(dev)) {
 
-KASAN report, only the relevant frames are kept:
+>  			err = dbt_params->do_get_auto_tdcv(dev, &tdcv);
+>  		}
+>  		if (!err && nla_put_u32(skb, IFLA_CAN_TDC_TDCV, tdcv))
+> @@ -1006,7 +1012,7 @@ static int can_fill_info(struct sk_buff *skb, const struct net_device *dev)
+>  	    nla_put(skb, IFLA_CAN_CTRLMODE, sizeof(cm), &cm) ||
+>  	    nla_put_u32(skb, IFLA_CAN_RESTART_MS, priv->restart_ms) ||
+>  
+> -	    (priv->do_get_berr_counter &&
+> +	    (priv->do_get_berr_counter && netif_running(dev) &&
+>  	     !priv->do_get_berr_counter(dev, &bec) &&
+>  	     nla_put(skb, IFLA_CAN_BERR_COUNTER, sizeof(bec), &bec)) ||
+>  
 
-BUG: KASAN: slab-use-after-free in dlm_put_mle_inuse+0xce/0xe0
-Read of size 8 at addr ffff8881190e3c20 by task umount/593
 
-Call Trace:
- <TASK>
- dlm_put_mle_inuse+0xce/0xe0
- dlm_migrate_lockres+0x16af/0x20d0
- dlm_empty_lockres+0x60a/0xbd0
- dlm_unregister_domain+0x53b/0x11d0
- o2cb_cluster_disconnect+0xa5/0x110
- ocfs2_cluster_disconnect+0x73/0xc0
- ocfs2_dlm_shutdown+0x311/0x440
- ocfs2_dismount_volume+0x696/0x940
- generic_shutdown_super+0x15f/0x490
- kill_block_super+0x40/0xa0
- deactivate_locked_super+0xae/0x120
- deactivate_super+0xa2/0xc0
- cleanup_mnt+0x217/0x450
- task_work_run+0x144/0x230
- </TASK>
-
-Allocated by task 593:
- kmem_cache_alloc_noprof+0x20b/0x5c0
- dlm_migrate_lockres+0x20e/0x20d0
- dlm_empty_lockres+0x60a/0xbd0
- dlm_unregister_domain+0x53b/0x11d0
- o2cb_cluster_disconnect+0xa5/0x110
- ocfs2_cluster_disconnect+0x73/0xc0
- ocfs2_dlm_shutdown+0x311/0x440
- ocfs2_dismount_volume+0x696/0x940
-
-Freed by task 593:
- kmem_cache_free+0x242/0x580
- __dlm_put_mle+0x4b2/0x660
- dlm_migrate_lockres+0x1690/0x20d0
- dlm_empty_lockres+0x60a/0xbd0
- dlm_unregister_domain+0x53b/0x11d0
- o2cb_cluster_disconnect+0xa5/0x110
- ocfs2_cluster_disconnect+0x73/0xc0
- ocfs2_dlm_shutdown+0x311/0x440
-
-The buggy address belongs to the object at ffff8881190e3c00
- which belongs to the cache o2dlm_mle of size 480
-The buggy address is located 32 bytes inside of
- freed 480-byte region [ffff8881190e3c00, ffff8881190e3de0)
-
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v3:
-- Hand the lockres over in one res->spinlock section:
-  dlm_assert_master_handler() drops the other nodes' locks and refmap bits
-  together with the owner switch, and the sender only does the same if the
-  handler has not reached that point; the failed-but-asserted paths just
-  recalculate usage. This removes the window in which recovery of the target
-  saw a lockres it owned with other nodes' locks still attached (Sashiko
-  review).
-- Ignore a finishing assert from a node that is no longer in the domain map,
-  so a late assert from a dead target cannot hand the lockres over after
-  recovery has cleaned it up (Sashiko review).
-
-Changes in v2:
-- Complete the migration instead of failing it when the finishing assert has
-  already switched the owner, so the lockres is not left owned by the target
-  with the other nodes' locks still held here (Sashiko review).
-- On a connection error from the send, wait for the target's death before
-  the MLE is dropped, so a late assert finds the MLE instead of hitting the
-  handler's check (Sashiko review).
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v5-5e414ac0c701d2ccd4b3@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v6-44416f9847751914bacc@gmail.com
-
- fs/ocfs2/dlm/dlmmaster.c | 98 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 82 insertions(+), 16 deletions(-)
-
-diff --git a/fs/ocfs2/dlm/dlmmaster.c b/fs/ocfs2/dlm/dlmmaster.c
-index 612969867ff9..94ebae4a450a 100644
---- a/fs/ocfs2/dlm/dlmmaster.c
-+++ b/fs/ocfs2/dlm/dlmmaster.c
-@@ -1823,6 +1823,20 @@ int dlm_assert_master_handler(struct o2net_msg *msg, u32 len, void *data,
- 				spin_unlock(&dlm->master_lock);
- 				spin_unlock(&dlm->spinlock);
- 				goto done;
-+			} else if (!test_bit(assert->node_idx, dlm->domain_map)) {
-+				/*
-+				 * The target died after sending this. Recovery
-+				 * has cleaned the lockres up with us as the
-+				 * owner and the sender fails the attempt once
-+				 * it sees the death; do not hand the lockres
-+				 * over to a dead node.
-+				 */
-+				mlog(0, "%s:%.*s: finishing assert from dead node %u, ignoring\n",
-+				     dlm->name, namelen, name, assert->node_idx);
-+				__dlm_put_mle(mle);
-+				spin_unlock(&dlm->master_lock);
-+				spin_unlock(&dlm->spinlock);
-+				goto done;
- 			}
- 		}
- 	}
-@@ -1924,6 +1938,13 @@ int dlm_assert_master_handler(struct o2net_msg *msg, u32 len, void *data,
- 				wake = 1;
- 				dlm_change_lockres_owner(dlm, res, mle->new_master);
- 				BUG_ON(res->state & DLM_LOCK_RES_DIRTY);
-+				/*
-+				 * Hand the lockres over completely while the
-+				 * spinlock is held: recovery must never find
-+				 * the other nodes' locks or refmap bits on a
-+				 * lockres that the target owns.
-+				 */
-+				dlm_remove_nonlocal_locks(dlm, res);
- 			} else {
- 				dlm_change_lockres_owner(dlm, res, mle->master);
- 			}
-@@ -2525,6 +2546,34 @@ static int dlm_is_lockres_migratable(struct dlm_ctxt *dlm,
-  */
- 
- 
-+/*
-+ * Drop the sender's references on a migration MLE after the attempt has
-+ * failed. The finishing assert from the target may already have unlinked
-+ * the MLE and consumed its base reference; decide under the locks the
-+ * assert handler holds, and only drop the base reference while the MLE is
-+ * still hashed. Returns true when the assert got there first: it has handed
-+ * the lockres over to the target, so the attempt must not count as failed.
-+ */
-+static bool dlm_put_migration_mle(struct dlm_ctxt *dlm,
-+				  struct dlm_master_list_entry *mle)
-+{
-+	bool asserted;
-+
-+	spin_lock(&dlm->spinlock);
-+	spin_lock(&dlm->master_lock);
-+	__dlm_mle_detach_hb_events(dlm, mle);
-+	asserted = hlist_unhashed(&mle->master_hash_node);
-+	if (!asserted) {
-+		__dlm_unlink_mle(dlm, mle);
-+		__dlm_put_mle(mle);
-+	}
-+	spin_unlock(&dlm->master_lock);
-+	spin_unlock(&dlm->spinlock);
-+
-+	dlm_put_mle_inuse(mle);
-+	return asserted;
-+}
-+
- static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 			       struct dlm_lock_resource *res, u8 target)
- {
-@@ -2609,9 +2658,10 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 
- 	if (ret < 0) {
- 		if (mle_added) {
--			dlm_mle_detach_hb_events(dlm, mle);
--			dlm_put_mle(mle);
--			dlm_put_mle_inuse(mle);
-+			if (dlm_put_migration_mle(dlm, mle)) {
-+				dlm_lockres_calc_usage(dlm, res);
-+				ret = 0;
-+			}
- 		} else if (mle) {
- 			kmem_cache_free(dlm_mle_cache, mle);
- 			mle = NULL;
-@@ -2639,17 +2689,25 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 	if (ret < 0) {
- 		mlog(0, "migration to node %u failed with %d\n",
- 		     target, ret);
-+		/*
-+		 * The target may still have received everything and may
-+		 * finish the migration. Give it the chance to assert, or
-+		 * to die, while the MLE is still published, so that a late
-+		 * assert finds the MLE instead of a lockres we still own.
-+		 */
-+		if (dlm_is_host_down(ret))
-+			dlm_wait_for_node_death(dlm, target,
-+						DLM_NODE_DEATH_WAIT_MAX);
- 		/* migration failed, detach and clean up mle */
--		dlm_mle_detach_hb_events(dlm, mle);
--		dlm_put_mle(mle);
--		dlm_put_mle_inuse(mle);
-+		if (dlm_put_migration_mle(dlm, mle)) {
-+			dlm_lockres_calc_usage(dlm, res);
-+			ret = 0;
-+			goto leave;
-+		}
- 		spin_lock(&res->spinlock);
- 		res->state &= ~DLM_LOCK_RES_MIGRATING;
- 		wake = 1;
- 		spin_unlock(&res->spinlock);
--		if (dlm_is_host_down(ret))
--			dlm_wait_for_node_death(dlm, target,
--						DLM_NODE_DEATH_WAIT_MAX);
- 		goto leave;
- 	}
- 
-@@ -2686,9 +2744,11 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 				     res->lockname.name, target);
- 				ret = -EINVAL;
- 				/* migration failed, detach and clean up mle */
--				dlm_mle_detach_hb_events(dlm, mle);
--				dlm_put_mle(mle);
--				dlm_put_mle_inuse(mle);
-+				if (dlm_put_migration_mle(dlm, mle)) {
-+					dlm_lockres_calc_usage(dlm, res);
-+					ret = 0;
-+					goto leave;
-+				}
- 				spin_lock(&res->spinlock);
- 				res->state &= ~DLM_LOCK_RES_MIGRATING;
- 				wake = 1;
-@@ -2700,11 +2760,17 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 			     dlm->name, res->lockname.len, res->lockname.name);
- 	}
- 
--	/* all done, set the owner, clear the flag */
-+	/*
-+	 * All done. The finishing assert hands the lockres over under
-+	 * res->spinlock; if it has not reached that point yet, do it here
-+	 * in the same way, so the lockres is never left half handed over.
-+	 */
- 	spin_lock(&res->spinlock);
--	dlm_set_lockres_owner(dlm, res, target);
--	res->state &= ~DLM_LOCK_RES_MIGRATING;
--	dlm_remove_nonlocal_locks(dlm, res);
-+	if (res->state & DLM_LOCK_RES_MIGRATING) {
-+		dlm_set_lockres_owner(dlm, res, target);
-+		res->state &= ~DLM_LOCK_RES_MIGRATING;
-+		dlm_remove_nonlocal_locks(dlm, res);
-+	}
- 	spin_unlock(&res->spinlock);
- 	wake_up(&res->wq);
- 
+Yours sincerely,
+Vincent Mailhol
