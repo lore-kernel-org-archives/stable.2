@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115170;
-	b=EzqFoS3H8miA2YPVTSEuxT5ipo15tzajVdgkvN31zDH/ur2ZxkCke6ux1Rx8M1DU2Sqt
-	 bHd5F3orCie9WxaGs74Q5PZaZfUXPw8/jGxYUV/uFkPcH5nN1AbRENE79PqedkWFouf3P
-	 O72zCMv6zB01AV2jyyCw9B3JB1ex0TnpS/sCSL27kJwGnbaHi+Yopxq7dw4TScmpCK31t
-	 Nia+N8aYm8RRpLzdLoklAjroTlhGylZXkKEDPd+d6O2BScWcRA8hKLImoyF8GXwLguUUk
-	 nqHO2KB10mghRRyLlI69l5lcF6s6RkJ2Jw/Y8kk6QDZ8BMXMwPZ9VX8voFmxUC09e/g==
+	t=1793115187;
+	b=f6/yiMufx49jGhtdz77nkC4wt8gk3P4qgk+cU+XYYpwbOiyCFEadW0VI21qbUxnFqV+s
+	 6DRKEq3Nwf+DIBb/82afrg/UmojRVV4Em9+eINoxOqJgQHjZ5nzEbYlvu9NVfBcDdpTiM
+	 wZokautKSQ7LdSAZ77AphQHo04KQOtdShtFD/Rj6QyEdcNAvW045Z5CZhx72/YUuCN7OL
+	 yyDdOG2xkHP3j6nWCzVkq4J9NTOK7r0Qao2dKsnjLxB3o/TCiX7+FfEbL1G98lN66mVbd
+	 Qoyc1tanO8GeoVmNFj09QBTeKd4NU61rtVwKUQHXicZly+Df0n1Vw7IGsHvKmw9eQQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115170;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115187;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
 	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
-	b=uotcF8SQbRHfYPKmTS2U1Nfd3v6t8RHeKxClVjb5INFlrmCa8NL6r0ivcVy70Rb7sl+v
-	 7rkBPU3L3aJ8IstmQNdKDvd5jx4vUy263qOp/IWRXoy/eVsjNB3ylA4gvBJib62jg2XPn
-	 4MnZOHQhXqVImAESW0swmGhuGpuSI6+iIpoZgCs2QTF4k6M/tga7U4zF2h+WYPzPBeaKb
-	 0+FqjG/W0RGN5DHiPFFB/0QRhKerv0GULtJYIlhlvwQlFltIpo4T55vbG0QdHf6JHuP8s
-	 WWzFZOCXTuEheZeTL7ttoQhct1r1kQQ3K03JfR9aPKJU6mqvdeOBnKLvdRsXZ74o+EQ==
+	bh=XKRRX0UlJKTHSTcaSuA0OGQu5CFc5V39WwUGCnioMvA=;
+	b=JQM7LHpOZCPjFrfqe59QNm82e7GcycAdCcG37W/9V5dyln80957TcBmHDggp8T+p8G97
+	 ThvQ1DVziJ8OI7nbnfjfeRFp3V6YVePNJPGoHEE0/5pAAbypo5gUEfIUhFlrkG3epw0b5
+	 VqtE5RjH39h0lk1EiKyMzSXvlNOeKJ0czBdHuBe65MefSinv22wn54LwuvyD3oaXOi2Mf
+	 G8gAqojh/gDEyxpoMWUUMzQ4HriOg2DK0xoluZBnDsjJOINxpCSmMf5UJGbmbbILoB+0u
+	 VisqR7PsMiZJIoj9qFhXGYWjkxpqj1H7lf1i07yBA46Xig4iD1okSNijpm5fINCcBsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYClCjbh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857F606A31B;
-	Tue, 27 Oct 2026 15:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C907C606A31A;
+	Tue, 27 Oct 2026 15:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0452A1F01825;
-	Tue, 27 Oct 2026 15:32:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYClCjbh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49311F01828;
+	Tue, 27 Oct 2026 15:33:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115169;
-	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
+	s=k20260515; t=1793115186;
+	bh=XKRRX0UlJKTHSTcaSuA0OGQu5CFc5V39WwUGCnioMvA=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=dtEwIKUUeNK/0V3q72RuhjcM3XB9lvACZ3yKUhInj8Zf+PtknFhFFKjhNFk5Efdkp
-	 xpANNTMa9TXxqHgWiccafR7WvvDydpYotUzIOI5DNnocm2KagZ4TLJqbciqwQLDZM9
-	 vcWbnU+CUX/0GkNzKsFrWSl5vheOnQzevABytfwin/U9fc9d2YLjHBknOiunYPulRo
-	 cBVAKaLp9o6rAcYW5iz4YSXOWSHlIIREcpLNS5k89b9hozEB09uf6sUB7Cf0yCLiTk
-	 8/qgCOZRxIDRGOiNCcAcboen3xq2yxLY8oYoZ7dfpniILZNhE0t/9FMlMBhKPcSfrz
-	 qaGSp5cSzwymQ==
-Message-ID: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
-Date: Tue, 27 Oct 2026 16:32:44 +0100
+	b=UYClCjbhDrs5QslV0n60kvRt5gg29L5ZXOmX0+j18kyZkP1LIzc0ynOoxAjOrz7Hz
+	 VItysBmrZnLu8i06oVtEu1xiaIFMWqXhsIzPXlkPmO7CrBSGHRpLTrdMUrdzkwN5pN
+	 OCH5SqaIKpHvuK5bsrRxY7OE0o6OurfqgAX5VTpOnuFVTTqNP3IqTR/LmkVtt5gwy0
+	 rP/qBDtwHnHuhKcDZ/Zm8nvajBYqIqf4liPy9MuF19BMqT9ufjB4ADUnYRo+jql81X
+	 lA8JkmqeS0bjdHhkgFdiVZ3LwO0yCOLpMkUl+0c2Sb22xPAX8OAEw2Fo6HemDKkZC6
+	 EsIrXNVr6nNXQ==
+Message-ID: <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
+Date: Tue, 27 Oct 2026 16:33:01 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,18 +53,17 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
+Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
 To: Guangshuo Li <lgs201920130244@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
+ <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Lee Jones <lee@kernel.org>, Mark Brown
+ <broonie@opensource.wolfsonmicro.com>, Samuel Ortiz <sameo@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, linux-omap@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20261027145313.136305-1-lgs201920130244@gmail.com>
+References: <20261027032609.119226-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -109,29 +108,34 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261027145313.136305-1-lgs201920130244@gmail.com>
+In-Reply-To: <20261027032609.119226-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 15:53, Guangshuo Li wrote:
-> fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
-> DMA address does not satisfy the firmware alignment requirement,
-> but leaves is->memory.vaddr non-NULL.
+On 27/10/2026 04:26, Guangshuo Li wrote:
+> twl6040_remove() currently removes the regmap IRQ chip before
+> removing the MFD child devices. This destroys the IRQ mappings
+> before the child drivers can release their interrupt handlers.
 > 
-> Because firmware loading is asynchronous, this error path may run
-> after probe has returned successfully. A later remove can then
-> attempt to free the same DMA allocation again.
+> The parent driver also registers READY and thermal interrupt
+> handlers using devm_request_threaded_irq(). These handlers are
+> normally released by device-managed cleanup after remove returns,
+> when the corresponding IRQ descriptors have already been removed.
 > 
-> Set is->memory.vaddr to NULL after freeing the buffer so the
-> existing NULL check in fimc_is_free_cpu_memory() skips the
-> already-freed allocation.
+> Consequently, free_irq() cannot find the IRQ descriptors and the
+> allocated struct irqaction objects are not freed. The associated
+> IRQ threads also cannot be stopped through the normal cleanup path.
 > 
-> This issue was found by our static analysis tool under development.
+> The probe error paths have a similar issue, as they destroy the IRQ
+> chip before the device-managed IRQ handlers are released.
 > 
-> Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
+> Remove the MFD child devices first, then explicitly free the
+> parent's READY and thermal IRQ handlers using devm_free_irq()
+> before removing the regmap IRQ chip.
+> 
+> Also update the probe error paths to release successfully requested
+> IRQs before destroying their mappings.
+> 
 
 More of postings by bot ignoring any feedback.
 
