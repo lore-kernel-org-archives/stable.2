@@ -1,92 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119041;
-	b=5QsFWWpRjNDra8Pmyn0b/LFFIpddFZerRKkowkNaWDAavuWJuDVOO5KMEDmPI1BDhNKb
-	 DorS+6IC1Ia+BBDS6cL1Y9iga3r4a+utkuBIu/Z+8cMX3NjKVCTcEJiM4Dz6fqyhdfxmu
-	 rK+iWZGEv8UjabvDow1qlwQ/cgX7s6qRyWqbm3eRO+rGvK2KpfHSuhOB8qUTYW+ja22JA
-	 /MjPkT26tCte3ByZMXEaSyYjAiONvH5WrpzfHIxI5MXFzPkx7kggoKp35HHj6CnaAjLbC
-	 wAackZ0r9PH/NJUOPcksQmeLlmizRS8KtzTDPf8Ggs68M78xvOjt7RCa6vNQ6nLcr8A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119041;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=WUbRWxHa4nNr1uTBKayVBagYCdC/mmrTOL9xLLUPSFQ=;
-	b=le7hmR2ngrkoI6f1GeLcwFoS0WOq+fid49RGgDFaXG8QcIM7fd7+0EwXapoSHhVOnkdl
-	 Na69T+59F7KZ6zocqBO2eHGUi1xJ8k3TPcfTfZPySOzl3o378Hue4xLu/FFUG2dc/mnRe
-	 Okz6YaGUtT+nzk7Sc4gIi6EAoBNZWdU4HL7dhniM9pnLsdz9drcw0ydu5FVaHhWo3bvlB
-	 a+jUqFdfLBvqz8TPqCjnrBTQSeHTWrbyEHgz/JxWc102LQZJ6MQqvRDmG+hE8eEwpdMum
-	 XLg+hd+8sV9G9ccEQiQEpPixJX3QNIOogIOU79dyjYAT49rq7pF+q/LvyGevEzmD/eA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=T7zYMpqb;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793119150;
+	b=wDfs4PKb61fOgRY+yK0B7tuM2/CGsAo309KAYbEunh0wb3ocN7KEPYNlYqqjRjFFuNiv
+	 NKWvBFsdJLmuLTNMankQ0wM4tYGYqCXXfzenVoak14HB0YflCavE+8mYxmNa/6m3NTk7j
+	 i0l3jGQ0Ullx26igq0JjkbrI+5WSuCW1eDrIyIAa4Kv3pkFAKy31zg1dvpam0ZxFxA7e7
+	 4wkyt1ENs2y3I1ne79LOJDAIIy6tMb7WG8Yo2Oly6TbT/Alnk6v8gO2e0CcA895BB0CWq
+	 Mu5GdjrvKrlvqY2XNk/xL6cQ2iM4OEeSofEE1OftvkAALqqo5iy6Q9HOD013TN0Cryg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119150;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=aWeIFCUSStBB678tZMupBU9VdXokbp8ZAi5raZvu5B8=;
+	b=NQB67Oaixgol5Bj57x3Qu+V55YrG2UepEO9YTNWuN7jfYLu3JetR9NColO4OqzCwElEv
+	 617ud/d+EKpsF8fbUrftynEak4mtrJrCMVDlfjKlrVuxQICusGmA13vwXVr/hINmTe3fB
+	 9WVht9rdOXaMpjgtjdgG57qzbSGdy1vO0xyOI15MANgmr4XPQCooxV7j9P8xjCx59Smwf
+	 chAlWocRnOt3sSg8mNfGpBKhMCFjUb3Bgv7QC3LPJ48IU4d5QOxB6IRjTt+mGGFzPWDsK
+	 XGN8nUPVklb81LnRMuECZqxY9ishoI7qL6mmpcZDu2Syd91TPiCpy/968vV1IYA+z2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIp5eOoO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1421A606A32E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QIp5eOoO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793119149;
+	b=NdqkLSoSjk8cbqaRxUOQIezMbdOVLx4+83XdEZ3Q7EzDGdGf1is0wv0VpGKqV59qHj0z
+	 LPhNXYYEF2E3ZytGqu5opE06y3OClFaw/OCH5mUuLg8UPiUcnpFXAlWiLRrKQw9Jga9TP
+	 mfa63nqm0EnDHEdQ55HFyUPCc3pNSgzxP3dKXpn4S3JbVTGheqceP1S9ZA9qeZKykVAYm
+	 ygXV3Wq+fpxmwuoiobC6MzARSsyz/IRcrMa0MKdk3Pz7oYk9DtpEw6Wfx3JokJUOMzjFp
+	 KBAgXFo8F12yNcdJr3vFt3WSFAlF5cR0fbFMVeeyRsefmbz1sWzP6zONHp3lEZv08CQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793119149;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=aWeIFCUSStBB678tZMupBU9VdXokbp8ZAi5raZvu5B8=;
+	b=yvZoV3iqpjHA4hzpQbZuwlwAnsYTXXKVrTLqOM/9PHv8+CyqcE6nGMoe75WKkZlc79kn
+	 KByFL0yR3DZoCAHlPcLkOXCCKaYTkUoXpUkP/WTHWvKEA6qlZdHGpNd3sP5bRsUrhwzAJ
+	 D4OvmYR/LhQxBQY9Pj9n2WNvJHTlZo4LsjkhEFIm6ZIAdoRx6BRKkque+l/U3tWOeCCh+
+	 RT5y397b9smbB4i/FE2JDFvtFKOFvqNYqAJAwaAFn78xJpsg2zR/cFtFdJ45oJ6g5pb+N
+	 U+Zqb7yWZrr5wKzdIWz6WFEuu/HCqFxOykMyrkYWbFkEfQKGqZmmfsN5uCsOdAEr5NA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DA9606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:37:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73DA9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=T7zYMpqb
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69REERxY1519297;
-	Tue, 27 Oct 2026 16:37:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=WUbRWxHa4nNr1uTBK
-	ayVBagYCdC/mmrTOL9xLLUPSFQ=; b=T7zYMpqbkyZLAKa9/LCbnvEwigLIVPoc7
-	EMLba5xjgUf1M8OjjzXWS3nfUb0gEdo0UT2OcvvkvRBF87EV2DcnDadqaUmzf7kO
-	G7nIDU+PadtxLOA2HJcNo1EcLac9UUJciln/ZEfwPBtgxfZn/K+asGlCUB+s7IhK
-	iQerv9LbnwZ3svU0zRNXp2dc93Lay8oncqSl5v9cilIiahDKILb7yHw6/z7/fpoy
-	Xvc8zB5itaPMb108hGk5UF5bI1z6DWMZgsZ2voaYSIBF4tCTiEGGJXefnHnc7osI
-	RwxyxVD1xp++ibRJdIeBp51NsR5lWHECiKnwHU0XDYron/g6+pQxg==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3g0e9w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 16:37:13 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoQrt3057798;
-	Tue, 27 Oct 2026 16:37:13 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hh97gugm1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 16:37:12 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69RGb95b17695008
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2026 16:37:09 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2BCA320043;
-	Tue, 27 Oct 2026 16:37:09 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0ED412004B;
-	Tue, 27 Oct 2026 16:37:09 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Tue, 27 Oct 2026 16:37:09 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
-	id EA7091612ED; Tue, 27 Oct 2026 17:37:08 +0100 (CET)
-From: Alexandra Winter <wintera@linux.ibm.com>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-        Aswin Karuvally <aswin@linux.ibm.com>,
-        Alexandra Winter <wintera@linux.ibm.com>,
-        Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.10.y v2] net/iucv: fix the recvmsg window update
-Date: Tue, 27 Oct 2026 17:36:55 +0100
-Message-ID: <20261027163655.1403341-1-wintera@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102105-deuce-amnesty-4222@gregkh>
-References: <2026102105-deuce-amnesty-4222@gregkh>
+	by smtp.kernel.org (Postfix) with ESMTPS id E9B781F01828;
+	Tue, 27 Oct 2026 16:39:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793119149;
+	bh=aWeIFCUSStBB678tZMupBU9VdXokbp8ZAi5raZvu5B8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=QIp5eOoOXp+EJ/EZAv/sni9jE2uHCosG6+649bJkR1B+AfWhvUEcct59ppikhUrPM
+	 KSbZJTCgRkDSkECIroRQ+pKl1wGGTyX+V/05jUjnUmxyzgsoERn/f77GzZj7eKhIft
+	 0j0v2kK21OLWGZwemEH5c71B2wo27hoQT99FEU4PLLeujkbES7FVsIfYTPINk0zxVc
+	 1QY4s0l7NXccMStq5BKekACjI6Oonu9FSX7Uykavrpf2kYqHRmndSjfR6nR1jr2tPC
+	 TsFeH5dJeafk37YD7lzteHA6ceZr4/EtC0aShOER5Qvcso5GB0fqsoHrUJmjQGZv2O
+	 TVpl46GSUiLzg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4D78F45187;
+	Tue, 27 Oct 2026 16:39:08 +0000 (UTC)
+From: Leno Hou via B4 Relay <devnull+lenohou.gmail.com@kernel.org>
+Date: Wed, 28 Oct 2026 00:39:03 +0800
+Subject: [PATCH PATCH 6.18] mm: vmscan: fix dirty folios throttling on
+ cgroup v1 for MGLRU
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,164 +83,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae0d339 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=oIMCRTnLk8HH-e69WRcA:9 a=O8hF6Hzn-FEA:10 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-ORIG-GUID: 8x2idxDJj-qAbRZCD5dsn1D0-Q3MviJC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2NCBTYWx0ZWRfX0n4dV9facCYl
- 0oE47wX9XHvyuEcPCYSdKxkw9R5rJfUZs4u5SZ/pp3CeBDnOwAPKu/WGaMQMj5MpwXBtdacZ6ST
- quwHJNZMtY5AY904fr8tHkJMJDTNHZdggWn2e21fg64W48h5yXkuqyNbkShH8SNfbwFko4uq3y+
- RdswLtStSplzgEHs7W3oncZyHiYSJJdO+nLaB2eO+vkFVZdbEprNP1c1N/WrVyjRIYcHWkGL3b6
- CuhP33hUuz2070u72wTgPoROK0H7Hy8iZ6IOkTYf4jDA7tyPKYd9xAPb0NSpPzfT1IttF6rEHIg
- 1d0ZkcKtXCsaqXPbuZUe5reBEtbbwXeSUGdE3++7q3u8SNS86VNzCyJb5AjcJDnAJ0ZigCf/P0s
- iZDiD2NjhN/TELRQ38g0D581ppv3b4Rd+DOPdvMEfihYwVuOMwdCe+d8u6BkcCLiPWQ8nCZIJnd
- UKhF75HpGpuu/dhTz8Q==
-X-Proofpoint-GUID: 8x2idxDJj-qAbRZCD5dsn1D0-Q3MviJC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2NCBTYWx0ZWRfX3k++h3hX0rp0
- V2GMHdowGz3AbgeDXA9un0eVsUUBIJSHc+gx5kJhfc4dUnkr1ieU//BMSi5DzcTBuZ+kpMLaIll
- M8G9a7TeGhcX9qtCqcgmacChAF7MkzY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015 spamscore=0
- phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270064
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-fix-mglru-v6-18-v1-1-5813f30470a5@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyML3bTMCt3c9JyiUt0yM11DC12jVKPkJMvURMPk5FQloK6ColSgErC
+ J0UoBjiHOHgpmeoYWSrEQueLSpKzU5BKQkUq1tQDt75kYfwAAAA==
+X-Change-ID: 20261028-fix-mglru-v6-18-2e2cb9ea1cce
+To: stable@vger.kernel.org
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Barry Song <baohua@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
+ Wei Xu <weixugc@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Leno Hou <lenohou@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793119146; l=3366;
+ i=lenohou@gmail.com; s=20260311; h=from:subject:message-id;
+ bh=ZuOibcyCjCwv7fTq5uuREQh9Yfw6I6yU4s9aM7bnXV4=;
+ b=3j88arFiX8mhZjRvXzpkeMvBcyhqDUR26nojAxrpj74mDTVq3eldHmZqWhb7Px6kGFQpZa6ZE
+ qdwMVTRednGAejQQotqS2wsl0h7hpNVih/ipGXCJBL7lFVWcCfxVja9
+X-Developer-Key: i=lenohou@gmail.com; a=ed25519;
+ pk=8AVHXYurzu1kOGjk9rwvxovwSCynBkv2QAcOvSIe1rw=
+X-Endpoint-Received: by B4 Relay for lenohou@gmail.com/20260311 with
+ auth_id=674
+X-Original-From: Leno Hou <lenohou@gmail.com>
+Reply-To: lenohou@gmail.com
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
 
-iucv_sock_recvmsg() sends the HiperSockets-only AF_IUCV_FLAG_WIN without
-testing the transport, so on a classic z/VM socket iucv_send_ctrl() sizes
-the skb through a NULL iucv->hs_dev. SO_MSGLIMIT accepts 1, so msglimit /=
- 2
-is zero and one recvmsg() on its own socket is enough for an unprivileged
-process to take a spurious disconnect.
+The balance_dirty_pages() won't do the dirty folios throttling on
+cgroupv1.  See commit 9badce000e2c ("cgroup, writeback: don't enable
+cgroup writeback on traditional hierarchies").
 
-It also calls iucv_send_ctrl() under spin_lock_bh(&message_q.lock), which
-allocates GFP_KERNEL inside a section the code treats as atomic. Sending
-outside that lock lets two recvmsg() reach afiucv_hs_send() at once, wher=
-e
-msg_recv is sampled for the advertised window and subtracted after
-dev_queue_xmit() -- and sendmsg reaches that counter under lock_sock()
-while recvmsg holds no socket lock, so both can subtract the same value,
-the counter goes negative and the credit reaches the peer twice.
+Moreover, after commit 6b0dfabb3555 ("fs: Remove aops->writepage"), we no
+longer attempt to write back filesystem folios through reclaim.
 
-Test the transport, claim the credit with atomic_xchg() after the last
-error exit and hand it back if the transmit fails, and send once the lock
-is dropped.
+On large memory systems, the flusher may not be able to write back quickly
+enough.  Consequently, MGLRU will encounter many folios that are already
+under writeback.  Since we cannot reclaim these dirty folios, the system
+may run out of memory and trigger the OOM killer.
 
-Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
-Fixes: 238965b71b96 ("net/af_iucv: build proper skbs for HiperTransport")
-Cc: stable@vger.kernel.org
-Tested-by: Aswin Karuvally <aswin@linux.ibm.com>
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
-Link: https://patch.msgid.link/20260828-b4-disp-33fac0ed-v3-1-e6d061880ee=
-0@proton.me
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-(cherry picked from commit fa5acd038ea657ad5033713d6916214cbd349151)
-Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+Hence, for cgroup v1, let's throttle reclaim after waking up the flusher,
+which is similar to commit 81a70c21d917 ("mm/cgroup/reclaim: fix dirty
+pages throttling on cgroup v1"), to avoid unnecessary OOM.
+
+The following test program can easily reproduce the OOM issue.  With this
+patch applied, the test passes successfully.
+
+$mkdir /sys/fs/cgroup/memory/test
+$echo 256M > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
+$echo $$ > /sys/fs/cgroup/memory/test/cgroup.procs
+$dd if=/dev/zero of=/mnt/data.bin bs=1M count=800
+
+Link: https://lore.kernel.org/3445af0f09e8ca945492e052e82594f8c4f2e2f6.1774606060.git.baolin.wang@linux.alibaba.com
+Fixes: ac35a4902374 ("mm: multi-gen LRU: minimal implementation")
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Leno Hou <lenohou@gmail.com>
 ---
- net/iucv/af_iucv.c | 41 ++++++++++++++++++++++++-----------------
- 1 file changed, 24 insertions(+), 17 deletions(-)
+ mm/vmscan.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-index d37e8f4ad472..034c4c79b898 100644
---- a/net/iucv/af_iucv.c
-+++ b/net/iucv/af_iucv.c
-@@ -223,12 +223,6 @@ static int afiucv_hs_send(struct iucv_message *imsg,=
- struct sock *sock,
- 	phs_hdr->flags =3D flags;
- 	if (flags =3D=3D AF_IUCV_FLAG_SYN)
- 		phs_hdr->window =3D iucv->msglimit;
--	else if ((flags =3D=3D AF_IUCV_FLAG_WIN) || !flags) {
--		confirm_recv =3D atomic_read(&iucv->msg_recv);
--		phs_hdr->window =3D confirm_recv;
--		if (confirm_recv)
--			phs_hdr->flags =3D phs_hdr->flags | AF_IUCV_FLAG_WIN;
--	}
- 	memcpy(phs_hdr->destUserID, iucv->dst_user_id, 8);
- 	memcpy(phs_hdr->destAppName, iucv->dst_name, 8);
- 	memcpy(phs_hdr->srcUserID, iucv->src_user_id, 8);
-@@ -261,21 +255,29 @@ static int afiucv_hs_send(struct iucv_message *imsg=
-, struct sock *sock,
- 	}
- 	skb->protocol =3D cpu_to_be16(ETH_P_AF_IUCV);
-=20
-+	/* Claim the receive credit here, not while building the header:
-+	 * to minimize the time the window is zeroed.
-+	 */
-+	if (flags =3D=3D AF_IUCV_FLAG_WIN || !flags) {
-+		confirm_recv =3D atomic_xchg(&iucv->msg_recv, 0);
-+		phs_hdr->window =3D confirm_recv;
-+		if (confirm_recv)
-+			phs_hdr->flags =3D phs_hdr->flags | AF_IUCV_FLAG_WIN;
-+	}
- 	__skb_header_release(skb);
- 	nskb =3D skb_clone(skb, GFP_ATOMIC);
- 	if (!nskb) {
- 		err =3D -ENOMEM;
-+		atomic_add(confirm_recv, &iucv->msg_recv);
- 		goto err_free;
- 	}
-=20
- 	skb_queue_tail(&iucv->send_skb_q, nskb);
- 	err =3D dev_queue_xmit(skb);
- 	if (net_xmit_eval(err)) {
-+		atomic_add(confirm_recv, &iucv->msg_recv);
- 		skb_unlink(nskb, &iucv->send_skb_q);
- 		kfree_skb(nskb);
--	} else {
--		atomic_sub(confirm_recv, &iucv->msg_recv);
--		WARN_ON(atomic_read(&iucv->msg_recv) < 0);
- 	}
- 	return net_xmit_eval(err);
-=20
-@@ -1258,6 +1260,7 @@ static int iucv_sock_recvmsg(struct socket *sock, s=
-truct msghdr *msg,
- 	struct iucv_sock *iucv =3D iucv_sk(sk);
- 	unsigned int copied, rlen;
- 	struct sk_buff *skb, *rskb, *cskb;
-+	bool send_win =3D false;
- 	int err =3D 0;
- 	u32 offset;
-=20
-@@ -1350,16 +1353,20 @@ static int iucv_sock_recvmsg(struct socket *sock,=
- struct msghdr *msg,
- 		if (skb_queue_empty(&iucv->backlog_skb_q)) {
- 			if (!list_empty(&iucv->message_q.list))
- 				iucv_process_message_q(sk);
--			if (atomic_read(&iucv->msg_recv) >=3D
--							iucv->msglimit / 2) {
--				err =3D iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
--				if (err) {
--					sk->sk_state =3D IUCV_DISCONN;
--					sk->sk_state_change(sk);
--				}
--			}
-+			if (iucv->transport =3D=3D AF_IUCV_TRANS_HIPER &&
-+			    atomic_read(&iucv->msg_recv) >=3D
-+							iucv->msglimit / 2)
-+				send_win =3D true;
- 		}
- 		spin_unlock_bh(&iucv->message_q.lock);
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 2c66fbcd6e84..c983815bde5b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4901,9 +4901,24 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
+ 	 * If too many file cache in the coldest generation can't be evicted
+ 	 * due to being dirty, wake up the flusher.
+ 	 */
+-	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken)
++	if (sc->nr.unqueued_dirty && sc->nr.unqueued_dirty == sc->nr.file_taken) {
++		struct pglist_data *pgdat = lruvec_pgdat(lruvec);
 +
-+		if (send_win) {
-+			err =3D iucv_send_ctrl(sk, AF_IUCV_FLAG_WIN);
-+			if (err) {
-+				sk->sk_state =3D IUCV_DISCONN;
-+				sk->sk_state_change(sk);
-+			}
-+		}
- 	}
-=20
- done:
---=20
-2.53.0
+ 		wakeup_flusher_threads(WB_REASON_VMSCAN);
+ 
++		/*
++		 * For cgroupv1 dirty throttling is achieved by waking up
++		 * the kernel flusher here and later waiting on folios
++		 * which are in writeback to finish (see shrink_folio_list()).
++		 *
++		 * Flusher may not be able to issue writeback quickly
++		 * enough for cgroupv1 writeback throttling to work
++		 * on a large system.
++		 */
++		if (!writeback_throttling_sane(sc))
++			reclaim_throttle(pgdat, VMSCAN_THROTTLE_WRITEBACK);
++	}
++
+ 	/* whether this lruvec should be rotated */
+ 	return nr_to_scan < 0;
+ }
+
+---
+base-commit: 1253a6aa5d104312bf0992afacc15220ae35bdf9
+change-id: 20261028-fix-mglru-v6-18-2e2cb9ea1cce
+
+Best regards,
+--  
+Leno Hou <lenohou@gmail.com>
+
 
