@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793118154;
-	b=oGCpmfjMIS0s6fWQFQU/rsFk22e0vpf1z/LmRMbTOJwzEKDcXFBrmRmS7P86vHMFSKrm
-	 DeH79kfJlSXbamSKvJF3fppZw84N6zSGUcjxIS6yaA32CcfkvKYLD8SOCfCxH0oobpQfw
-	 uSbvxh/fCc0PzQWoXPHVgOyoLaTxYKIORJw9dvJJkjydb+RsB9kAQc/LCWNCS4MpA+iBF
-	 dyaUPRvdBNwqyl1okaoEpreIKf/I6J1ON/Y6BZEMBjDMqOZfXf3tlAXVlEsD4DEh4whIW
-	 vXV7kozF7md9o2mAMlaLYm3JksRL5BP3SHWBZK6csd7+JJxx4Oh/PeNgguAkwjzHzUg==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793118176;
+	b=cjWJ+Q63uzmxw8zOLtZzcHzTP+LJ4FKg+3pXqv8CxxdR5SWvLyr+d7H7cZoF44pvmYlu
+	 ujR9/+s+y7NyqAaFqwR07eyfQvLnIeF9BhFYH0MwnVf53XGqfkJCQisjYVGB1y7GM3Lmw
+	 QsWJWNNUA86VKFJyOfd4jFR5sQSQTy+b3Y7B68RYOkduCs8KqoPq3E784c+MtqQ0LH2jA
+	 TwCg/xrQSYiIVuyrCLYniz9LYJSJm/+Nj2bhM2C/UahCSjgsLoP+nmcBfVW78Qbc97S54
+	 53TxZ6NXYZzC+AqZf+VH4RDaHlZV7LYfj0vJ2/582DfXvxsS6C8nZejfGeHAJCOyaSw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118176;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
-	b=uQdaoH0/ieYQjqdESbIhOksn66TaSnKPpNmJD9LaMAd5H27OilhfU+80r9ow26ayAxPp
-	 3Dd9ap0LLcKeDZslkPjeV0Q8plcpvBXoD3qheISzHTm2QwJUVVgWhIDaKv20/DwIB+PtF
-	 fmVOpAzeZuvO7W6fcMV3s3BJRlFRIfSQCd2sv0PD9Cdz8UY+Ic/BoJKCIpKR3nmpAtVy3
-	 9np6qq4jne9XVnxKZhs6wvJdA9/3mgR3cqD45f+V9mE9hWRGXdAKcqoU+ywmSzKgt/vhI
-	 eqliDiExlVoNTTEeEB4qqbv1NhFZ1ov8OwA+GmcWRnmGctVNoj0liOEvyKM2c/Z+Q/A==
+	bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
+	b=Fq5YYRvDnubSrnBDmpSI0NFixjLD9DhPkE7V80T9ERcWl0/8msvfZIdqahR9fz0oQ5j8
+	 gBJk9chNoXE0NFXqxmvDgrWgHWPF6t7KpMZ6ZRT14wXAnBO0xVAXuCZDIT6oCYBvm5Yr5
+	 5ui13VoAjRKUpdPsWTigJWmxoU4OVNKVA8KGNy3K+EDoujr0KitRXi6QSvnXhJJqr/FBy
+	 sT+QzNYg5/1+mmhOKaJDBoDZUPWGe0NT76rq626uTINA3jf+a9AQ3kHuUu9Qz3h9GfkZg
+	 gAjyurZdUB33bHBSh5kJLV5egSVg/KjG4N1n9bWEEWVcVdXkmbszBKH4BUZEssO8mWA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1iQHa5S;
-	arc=fail smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgV9nJRE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DDA606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:22:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8DDA606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C95660A2631
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:22:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C95660A2631
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1iQHa5S
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b06c0794cfso37847317b3.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:22:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793118153; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgV9nJRE
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8ac8a2ac52bso455467b3.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:22:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118175; cv=none;
         d=google.com; s=arc-20260327;
-        b=kwyqcX9vkCaJQpDN1bdbgUQGp2F4UX6AmeiapNWVP2q8GEKkqNqd7l0rTmgyBKavva
-         fRfZ9bnDoOt5vcy+3gPSkuZiye/jm1aeG3m5tF8H1tQNHBa05gAbnUg7vMixzvF3TIzr
-         6Ssms6Ts5KKJT4PItuWM5UIxv9/Jlt+Ywzk4LDcv66RJ4NXSEnP48+Od7RuQUhPv4IEr
-         2GsHMTqT6gmROltgSzjeiwZmlEpDp60LpbAXruXDECH7KgGwJx9VSK8ZKBBmOfNtvKKG
-         ihIVJfR7aNHtavUCqBbICZmcMgN737Hl3PfVQFn/nZj1YpYiu6Zbvwe5GVwkP+O2wF6k
-         XEjg==
+        b=ULBWeBydtrnuOUlF8QsnNllnWQWsG9ql1yKyXKd6tnFw/3KT56Z+QkTuxcHp4LMMvY
+         D246kGzIeGzsD1QVnMQSlhacbMQxe1WcAqZzXorR6YA3zOFJ1oQHxsJLLD44pCviZQrA
+         IqM91DvHL0szbd6w/GNdJHckU/Jus+QPStQfvYSAjnznSWBR5LNNjuEJsjWV89Ao57rk
+         nM5xp3tgnD8vxXK6RDtDu8UMZWfLQBdxgdFpL6hWjH633PDL/z/znbPYal0cPBcxBR7D
+         bmpI+1qbwpZ8E0GwrrZryTwsYYoTxR9z9bIG8yiOD/zQTvUxH5M11b8Y1A752v508sjM
+         DmAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
-        fh=tcnKt9iSgH2odWdd2AKNaV9Xibk3BtZm54s9qU/j+6Q=;
-        b=VtUTAIdT+HmDRXZTuAqhiqDG0g8knAamYrXwV/aM+rqFUhNbAc+2rjSvjDxPU6+AU+
-         AfVdtrc+N4ufbjRytWRZ8pF0sxZyb3SFhc2kFjwjpy2WVxmdxwYthCyq6RdmVXUIyPvw
-         5gPjgQS639WRUosrNMblSloUALtps9xQ/vbfDD+DJhavfbG1rKyQVpd7atJvC/MZR3Oh
-         4s0xi3qPgWeZAhJAcxDtSeuyO8wmezDI2M7hyQ3KXUicu4HNClvrMmZ8+qzbmxNIPBW7
-         74mtvj4w/MGzk26MogNq7EzPaT+bfeBo8iuW0TLjzvETtEbnXs5oF240ja+VE3UmLAul
-         Mi4w==;
+        bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
+        fh=TV+IKsctmmGJuk6KNH+3eEKUsnIUiU3aSR/LNjOVfjg=;
+        b=osWd8VikTDwroiOGtsrNeyTuAayxYZ8UutzXay7jlAwG0UiJqEeURUW7P7vk+AKiDL
+         6dqaPZL/FeQgGeiGVZ34qjEzIV05zcI/S2cr/I3YdRnG8owyVbdaAvjpdCNPXyxMbvks
+         EQ/TLmV/u40A/n+9UFPJpzGw9m7cGdLzL8VGo4qfOat/OzZVnS6i4/x4ICx34DZYb4zI
+         GX0wrdtSfi0sJvDA88eEvnXEObCXkv1mWixE1n1ZIUVfC7rWZCn0woOsxdfVddpeV+bK
+         15/M/49Q6oT0wV3RgL3XIiGHCW/dz+mr0tHav5rmYu5X0wVP6p/ori9wscla2isgiI4h
+         JpsA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793118153; x=1793722953; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793118175; x=1793722975; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
-        b=W1iQHa5SX/Qc+pJyHgnzeP49i7n4MyoEA1Sg3k4vdH/8WuPlX0on9nVDrySw3Zna8i
-         VmAyaK3ohLRAwCwDkIuGUhl6lFASHb9v/c6ua/hWP4ZnWIS4Pg/QPxL+h/j2+M/ph6tF
-         1vS3HMQklRX7SsooBGhCqQgqAsP87LL1H8P0aiSVUl4bKJTDy8l9YqnJ0x5Ec1X5CdbS
-         J+/smu1iGC4WhXJMXPInRtuGzDFJObu3iEpaPAiN+VC9nv1zNGfLCEZH1FiQpKqwIiPf
-         VWeWPMWfSjW129zws8g4m5xGzmWq5KHVcVk+cQtM/DXfJbdUlA+dhI85l6M9pPu5/00F
-         GlHQ==
+        bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
+        b=dgV9nJREEGJRJ9QmZnqkErrAe+48xCQlxpl768uv/UFrYOpJ5vGmw1FdZrXRTu2cXN
+         xdxn9LTkyvYmnAfpAeId+I87c6foglCe0e7IOk+MUjOI0KWkQ5+6WvOzSkNuiegFa62z
+         PgVusNWxO5SqIq2OHRAWlFvaZ4SD4HksuK8nvqBBVkZdxU4f+5hyNawB365EHUmD50SX
+         xd1fP9w+WSJT26mMvdN+TZLDrWisKuL/C2T22PkvAWscLcIZmOC/mHidXEnM+pQa+f8E
+         GwVzeEnIaj18wcAo07Wb3PNMFzzLUXjv3OQJVqky8xgIUWOBLVSB7oHfumhlX4TLFuuv
+         +9mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118153; x=1793722953;
+        d=1e100.net; s=20260707; t=1793118175; x=1793722975;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
-        b=eyhhXW2k27j9JkrrQCgUcuWBz1lRui7bYchX/AWzsGV1V0HvaJJ6mJZX/HnaT6S2up
-         vIBkHum5LnqlEWaTn0WrYUJR1g3h6/XJv6deeDGKbcXnokRE74+NZKwL5qsUSvTw1YeX
-         SgURpy5R6aw/JWEnxLmkeqNewHLvfMzYGmkgH9ugPLWLQjaT8V16L4AJWsQbtlj1HGA3
-         ZabLQ9vShBevPLz4mFdLZg2K/EHl71sP14pLeBmtzUA+GIfSvyhCigczCYqf0gOHIVil
-         Ai/pBvLSjR5BTjpce7jn71p+LMhTkV9sKIZKApHeU4PVMgu5Gy7UNZqgNFciMrew1b36
-         oJpg==
-X-Forwarded-Encrypted: i=1; AKwUvBybwY8Gd+3Muy8yZKcLlhmEd5uxXuHDExVv8ftZBpzZMq95nibMvOrbKqtFLD1bS6EVQc29fWc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnaPCxarFiVu+eV8LAez+LT436LDj7Rj5MxViw14smyr8+3hm7
-	fqdVWTRc0toLRZx40fqze9FXqcUhra0889WkB7F2bZZUhml0V3XMDPRv0T6jEnv34ND5FkbE3MT
-	qyBYvG9NdREX+ah8jSaRfBtdbE0ZeJg/H+txwpXJ0FffpZP0=
-X-Gm-Gg: AYBFou0jDeoQZa2oV8l1z7+Mqvcg7nV8Ti75cqYWK+bSSwOLmN9zGhWQ5fQX0l31OFg
-	7ek5MSf6PiI6RK4Bdtul5z7RjVBH0V6CD4oKBs94Wic/nDPLX8eDYTPpvALJyu4xg1PpAvlVOxJ
-	vmWDGLRXi9nYObiITEwnqXonbQ0FXoyd55XhFcFR7nL+uoIWvPtXBaunP+UGFjBlPfrD/Kl8Mca
-	d/82dOxsI7VOCUAY/D0q40ZfJCNQWMQMuNIgTj88qFoVyR2dtF6ncDQ3Z3SBBDdlSr+o6a+NAIp
-	sKTlcz2u1fCUYEJjPpRtbdhco9HvhmIV3T3cTUcGrZLfnEQqFDBGgMRLuoxbgXYh53BKpXamT9L
-	GY+iOcTpkF0YbxlyRzbNxgsGjfcMdIasgLDDC
-X-Received: by 2002:a05:690c:dd6:b0:8b0:cee8:53cf with SMTP id
- 00721157ae682-8b1669cb374mr84387667b3.3.1793118152555; Tue, 27 Oct 2026
- 09:22:32 -0700 (PDT)
+        bh=j54dq75J+7uAbhmduFvYuY44W6HJdtNi7cBNY+H2V68=;
+        b=bVhBSenzp6MSnH/YTZlblfPGeYJR+8nRaK9PO4UUDJIw7s+j7NZVg0rQaudli6NGF5
+         eSm4W02RgAm7PQ5qySKofxolOkKqOOw9jDZjQseWQyUNmVn2IP50MYnrkvY8KLMyQ0w8
+         kwroGRpPxkY2IJbGhRiYcfHzZpUchCSecDvBaNFD5BneD79v9IjV9iu7x9dTNO0Z/CdN
+         TiBuOAIrTAFg05P7PoBqOnJibdVUsOCD6fTVXAzQ2UPXVqjlEdPn+0DZSCEADZcv55yp
+         D/pcaaITvcc5Eg4671tJcUmxADEwFgR1g1CJtpSxhiAh6Sv78+bCIIXtFOENhEq11VID
+         TeyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjXiIDRGSwVjRyYb4/X2ZDm42KnwED9sDy82aGb/GTduwkfM9vZuW5o+BDfDKKQQeJqdwgTbU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjav/1ZaGlsVT5avph3xz2QO0rJSE8aG1HkTFKKUzftDXpm772
+	gKOzUQjLUQzl5Xam0cui/wNuyY0QJS6Zgq2/ajvGt5vgUF2tqgRqETWXwg6t/6YraZcfjNSojC+
+	3d3Dr0RWmbghmdN6VmcfcgZtVRNpWyYU=
+X-Gm-Gg: AYBFou0l/VgdGLfjRV+xkmkXGdGb48C+vQvys6aYGdj0iwqUE9rBS4q1u5iG5dFOcoH
+	a05uJfd/HfvRRToNHFCZVWP+1gBknQh1Et4oUCfxxxIbyDCu5Q4kL+hWiqTSvhgeo0rFK9HG91h
+	fgmHa7gtSYT6skPCB1iFDukaB/6Gc1fXHbjCxqa/3Y7wl/i1EX2iPekxYEC+flItaDtP2XinQYx
+	2lhff93vm0yCM65yfrl67Vk/6BO7XEZM9lLRsgvLkzuyBkx/Abo80EZCnfeeJ0x6deyxEy5JnyX
+	KONBP1011k/8U4U9VL1nzUAhP1K5cLWzeL4jb9GDySSxc1AUShNUdWgiFzGCgXWiBQgj4Zaxoeq
+	Y+6f8PxxLINDpW/UoGPXfMrOVNrVXwF5B32jUcA==
+X-Received: by 2002:a05:690c:fcc:b0:8a8:316e:5973 with SMTP id
+ 00721157ae682-8b19c9f0c84mr27894277b3.14.1793118175296; Tue, 27 Oct 2026
+ 09:22:55 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,45 +103,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027145313.136305-1-lgs201920130244@gmail.com> <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
-In-Reply-To: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+References: <20261027032609.119226-1-lgs201920130244@gmail.com> <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
+In-Reply-To: <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 28 Oct 2026 00:22:22 +0800
-X-Gm-Features: AclHuK9WhSZ_5Xj4ee9jEQ2X-wRviwNJD5dHM2yTu5byUlkX8Eudsa4g1RS5X-w
-Message-ID: <CANUHTR_RYcMEOTevXWRF2iS83oNDc4pXqsbBZKLV7QbSUeYh=A@mail.gmail.com>
-Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
+Date: Wed, 28 Oct 2026 00:22:44 +0800
+X-Gm-Features: AclHuK_rUH-wQYjXcUxpNAITglYIi677x8p05GEnBtjGRev3n8Z0DOrQJ-qbQ2Q
+Message-ID: <CANUHTR-SJTiQvo__wbqosSQV958fkHGY33YTRFor2=EwDTdXPg@mail.gmail.com>
+Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Hans Verkuil <hverkuil@kernel.org>, 
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Lee Jones <lee@kernel.org>, 
+	Mark Brown <broonie@opensource.wolfsonmicro.com>, Samuel Ortiz <sameo@linux.intel.com>, 
+	Peter Ujfalusi <peter.ujfalusi@ti.com>, linux-omap@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Krzysztof,
 
-On Tue, 27 Oct 2026 at 23:32, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Tue, 27 Oct 2026 at 23:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> On 27/10/2026 15:53, Guangshuo Li wrote:
-> > fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
-> > DMA address does not satisfy the firmware alignment requirement,
-> > but leaves is->memory.vaddr non-NULL.
+> On 27/10/2026 04:26, Guangshuo Li wrote:
+> > twl6040_remove() currently removes the regmap IRQ chip before
+> > removing the MFD child devices. This destroys the IRQ mappings
+> > before the child drivers can release their interrupt handlers.
 > >
-> > Because firmware loading is asynchronous, this error path may run
-> > after probe has returned successfully. A later remove can then
-> > attempt to free the same DMA allocation again.
+> > The parent driver also registers READY and thermal interrupt
+> > handlers using devm_request_threaded_irq(). These handlers are
+> > normally released by device-managed cleanup after remove returns,
+> > when the corresponding IRQ descriptors have already been removed.
 > >
-> > Set is->memory.vaddr to NULL after freeing the buffer so the
-> > existing NULL check in fimc_is_free_cpu_memory() skips the
-> > already-freed allocation.
+> > Consequently, free_irq() cannot find the IRQ descriptors and the
+> > allocated struct irqaction objects are not freed. The associated
+> > IRQ threads also cannot be stopped through the normal cleanup path.
 > >
-> > This issue was found by our static analysis tool under development.
+> > The probe error paths have a similar issue, as they destroy the IRQ
+> > chip before the device-managed IRQ handlers are released.
 > >
-> > Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
+> > Remove the MFD child devices first, then explicitly free the
+> > parent's READY and thermal IRQ handlers using devm_free_irq()
+> > before removing the regmap IRQ chip.
+> >
+> > Also update the probe error paths to release successfully requested
+> > IRQs before destroying their mappings.
+> >
 >
 > More of postings by bot ignoring any feedback.
 >
