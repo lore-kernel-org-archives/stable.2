@@ -1,95 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793072850;
-	b=pZOHUJ7UKJKYbvIdcNWjts7VBI4sOkFa9I8yBuTiVuKFoYJW8k4d47wbaskFG4o/0j0z
-	 oweYskgi+JYJC/o10aI6pXmQRqh6eHvt6xQqI0lI44752c1iOUQkU2FZwiUhG4xFVwdIy
-	 NKacZYJnl3pLXcHzZTXULP1SfTYLbCKJtgspTqd9wOOaMQi9xcZlzhVtgQMPEsQuHHfhy
-	 x4h5EkXJzunRuAZC9JZ196VhftY9ERkEjIkPGaGJdV14aZgugwCTuFXE+JH/LIWJMQk+u
-	 Hkm37tSoe668rfcRWPX21avt3FwXfewbcmc459T6YSAWIvI326nJ6XPbVlfC6iWQGPg==
+	t=1793073590;
+	b=L1SYTI+AI/9KGiMJtVVTB28/NazIQQbJBLJvGGHBs0F2YUh97QnbEGHdaQXwirS/1knS
+	 3XHCD9XEiy2JFCwMGxhwCGA1/zVwhVq5JqVydmnFtD/fDgO0hczcV9LGwaHipvWeF/zQg
+	 FyRx4XJ+7gzL4vQx9xcuuezVvyB3xsCc4DMJY4+vYoRX5MPSB2goA+aVOMeg0yzrqEoeC
+	 ZpvAypPQ0STIzyRd8d/3yKgtpUHxZCwyOrcgwQ+rFa92BxNqk1tCC2WN9VvGAcruUP1c+
+	 CPxA64TdgAdX2GQVBJ5TALudF5cVKEa+3rp6+D9TXxRgsuKLRcq9/hEqyRREQ8/rc8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793072850;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=d5xPE7zkAisWNP1/3IMkS+loLJJfjfdBEUGlcoiM7g0=;
-	b=uk/abbYPyiStAvwquUFAGXAZA4uBQOGEOVOI+1xYa99WP2cO0+EkKCV9alL4AwJI+nHD
-	 K/jjaebxxLTToAcVrMynuNpb/E0wF6gXoqneuqT7LJ/bUnVVVG8V0KYvbdbnZCC2Jt1OG
-	 rLYiqHR5Iw/LcYVk1Cc+i9Tx6qX204LAsndNBtnl6x91wGE3zOc2XBHx90wNOrO2PBCjz
-	 4QQsyaTnC7SScVjXdvJFvb1uETkzfYSATG7z0mb2yeFgr7C46PTq57S9F/tRmYNcG1Foa
-	 aVlN+C/XCMS/wfRXATTqzfKtMbV04sVKkISUtoBKKExjjmV0q9hcOo8vL0oOMVi9hCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793073590;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=yNjVGzNCe/dUhA+Uvzx9OfKhmHV1qkPYX987us1hODA=;
+	b=y6RiXFNVErz9Pn0s+7FoUofsKUOBOcSx8QyowrSdy6lgJ+k8zncO5Dltq+Ybc79oYr7Z
+	 zkjbTTsMojHhsu22tkNyBRpGCCPOPlfOYJ1zsy2G4mOv6C3j2zk5OEAxJn2NwjSvp9ySM
+	 iOa5/LpXJs6VPR74P2yipm/SgFWPMun6eB9Y3i4dZR71JVsikVi627HpXfusXdexhnqFu
+	 uXJeIZG1KuziauNQi63bZJ3GdesiDYga9O3iuXcVRb1linW0Q8rPlF5ZKPUZ1kk3hdyNX
+	 HxzRlcVt8RUW+iL3dQ7Ef2aHOIQfyn5LycqiXuaynu0lfEI9PLjukr1QS2XaSKRieCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e983Zow8;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C4A606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:47:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13C4A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e983Zow8
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so778570eec.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:47:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793072848; x=1793677648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d5xPE7zkAisWNP1/3IMkS+loLJJfjfdBEUGlcoiM7g0=;
-        b=e983Zow8bqjcKnPpbeo0bbx7KS7wIeUh39gAOhDmf2Re+Zkktq3fgnJC41tfL3GREe
-         5c6sMBCH2D4WNBCK52FND3Xet7GOvnwn13zfbYx7WoOVAzxFGimRlBBT7Y07ZzNEEktP
-         7WXk+Yi/UJL42KfR3Di5c6WFqo5Tvb/ND7+pWcYoSSHGN6Xhi6Bl7CypCbWewPd3QNUT
-         k5mohsSecJcBa+nCksrsh0AVnrGG/oWPJl9JesGIU1/9WNuYcQbYO1xjz+ZNXnwBd8tf
-         JdeFa+FyY3QE6XfKiASyPEKdUp1zMj78IG9LZPrLQSMz0xSnnywEzz5NhGHDOWOQTzl3
-         OHSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793072848; x=1793677648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d5xPE7zkAisWNP1/3IMkS+loLJJfjfdBEUGlcoiM7g0=;
-        b=05VoHNkrDySGDzGBu4TmwAYvYq5QD1h/i07bcK16kLV/hHPiIaodXMWp/nTNRPIZ4+
-         v8suYeYHMjaBANer3M/l9b/WBq555kgvUVNl3zx4Z8yhJtf0m1WSFOGlTxXGH1zDbXLS
-         t0h+sK8OVQ+Buh0Lp1zPwUOJ1vhudXcdXFmpHHuF1TV+hYZ+E/tLE/BN9TjHTi8sTGz4
-         4EsgQ2dj2tj4RAxK2vSP1MISe8GVxv5WBfyL0lCi1SBI6U00V3GH9sHmh+fk4KkuGiyZ
-         GtGsUvM6m5dfC7ctgOXxLW9WmmChY5wr3qq1ijARyc2JkAHhqlnsryuxrBNkfGwIJwAt
-         6FjA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5d5K9kf4nE4tVP66B/wxuQ+n0LPA/ho9jw9bapJ/K5OY9tOSwbIevzZocRB7yfIYQQ4RIHuY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8fquYP0LNfuoBeMzLKfXCtygKd8QIFkHrr/GVbyb32XB9J4RG
-	A368YfNcDPH8+X1OpOfCwxlW2puhFKry9zuseg58MhJCcuFZ0VThOl+R
-X-Gm-Gg: AYBFou0BMGmv0KOjnZLUYFLpVt1aB+o6ZlJ18CoS6C2uCq+aoycmNbE1Hu4cE6Xf+SG
-	kmdPnqsiKRyJ8JPBoFNxADrCh1HKNezx2GA+4EkKZ3peZfWBU33z+jD7YnxWNZJMWpKMCWsaejC
-	XJ8UD1jz7xlYAWc7Pyx2nDj6On4wmOZTnEWjpjMp+yA5lpEX/ZJ8f7/Bf3tGvGwCn2kdZyDREwC
-	gr54jQ6PdOBF45WNL7MEctY/a//vOFobeQtVDzfeGxpvWwTvx+HlGNIv6M/BTOkMaFUjOF+05jz
-	lG3Mjqj5tLEU6arriLQp7lkNjyAGyYVzXpifJYVjuonO4C5SzRDOAyQgdE5RDOGlIbcPRxuVQ5C
-	gd+3yuaslfyCLSSLrDOgZdRR8HJZsUnhWPIpq27Gexl1+2yqlNXzbAip4TZwMVeHRvyaZyubaOn
-	ol/q++kNmCqzlPHHYiUJSLHm0lFcKPhRYbgcNf54/gtGFjQLs5rqes+9KiPTxEKmvKvlCAssexR
-	D/PBM00PcPCZCVMrYDSaDZGiGpE4H3WXwC+jvDFuimFb/7noUtC0URjDTOjZnH4cjOlsvADE3I0
-	7Asr3MiwKfjPvKjt
-X-Received: by 2002:a05:7301:7d01:b0:366:c497:610c with SMTP id 5a478bee46e88-369e8610133mr11168504eec.33.1793072847986;
-        Mon, 26 Oct 2026 20:47:27 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a026e04a0sm11349777eec.1.2026.10.26.20.47.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:47:27 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fbcon: Avoid cancel_delayed_work_sync() in atomic context
-Date: Tue, 27 Oct 2026 11:47:16 +0800
-Message-ID: <20261027034716.588174-1-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35180606A31A;
+	Tue, 27 Oct 2026 03:59:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35180606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8DxjdKxIeBqUbIZAA--.8827S3;
+	Tue, 27 Oct 2026 11:59:45 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJBxpMyrIeBqK40wAA--.9167S2;
+	Tue, 27 Oct 2026 11:59:42 +0800 (CST)
+Message-ID: <aa36b32b-5702-42e9-b27a-19dcf373b777@loongson.cn>
+Date: Tue, 27 Oct 2026 11:56:54 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,122 +45,196 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 20/28] mfd: loongson-se: Stop controller and mask
+ interrupts on teardown and shutdown
+To: Lee Jones <lee@kernel.org>
+Cc: Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen
+ <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-20-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-20-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxpMyrIeBqK40wAA--.9167S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3XrW7uF4DWF48Gw4ftryxJFc_yoW7Wr48pF
+	4DAa4a9r4Yyr42kwsxXrZ09F1Y934ftry7CrZ7Ww4xCryDtw18Wry5KF18GFs3Cr4UXF48
+	XrW8GrZ5CF48uFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
+	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j0sjUUUUUU=
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-fbcon_cursor() can be reached from the console printing path, which runs
-in atomic context. When the VT software cursor is enabled
-(vc_cursor_type & CUR_SW), it calls fbcon_del_cursor_work(), which uses
-cancel_delayed_work_sync() and therefore may sleep.
+在 2026/10/21 20:09, Lee Jones 写道:
+> loongson_se_probe() enables hardware interrupts before registering IRQ
+> handlers and starts the controller via loongson_se_init(), but provides
+> no teardown or shutdown handler to stop the controller and mask
+> interrupts.  If probe fails after loongson_se_init(), if the driver is
+> unbound, or during a system reboot or kexec transition, the controller
+> remains active with DMA configured to memory that is reclaimed.
+>
+> Clear pending interrupts before requesting IRQs, unmask interrupts only
+> after IRQ handlers are registered, clean up on failure inside
+> loongson_se_init(), register a devres action after loongson_se_init()
+> succeeds to issue SE_CMD_STOP and mask interrupts on teardown, and wire
+> up the platform driver .shutdown callback.
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-15511672-7569-4eac-96a0-c08581925710
+> Closes: https://sashiko.dev/#/bug/linux-e6ed8d33-d641-4969-a5ea-959f21ae3696
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-With CONFIG_DEBUG_ATOMIC_SLEEP enabled, the following is reported:
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
-  ...
-  __cancel_work_sync
-  fbcon_del_cursor_work
-  fbcon_cursor
-  hide_cursor
-  vt_console_print
-  console_unlock
-  ...
+Thanks for fixing this!
 
-Make the default helper safe: fbcon_del_cursor_work() only stops
-blinking, using cancel_delayed_work(), which is allowed in any context.
-Every "stop blinking" call site keeps using it, including fbcon_cursor().
-Only fbcon_release(), which is about to free @par and must ensure that no
-callback is still using it, calls the separate
-fbcon_del_cursor_work_sync(). New call sites therefore get the safe
-variant by default.
 
-cancel_delayed_work() does not wait for a running callback, and
-fb_flashcursor() re-arms itself, so also move the requeue into the
-console_lock section. fbcon_del_cursor_work() callers hold
-console_lock, which serializes them with the requeue and keeps the
-non-synchronizing cancel effective.
+Best Regards,
 
-Fixes: 3b0fb6ab25dd ("fbcon: Use delayed work for cursor")
-Cc: stable@vger.kernel.org
-Assisted-by: Opencode:deepseek-v4.1-flash
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
-Sorry for the last email, I forgot to write changelog. This email has no
-code modification, it just adds the changelog.
+Qunqin.
 
-Changes in v2:
-- Reworked per review (sashiko-AI): do not guess the context with
-  in_interrupt()/irqs_disabled().  fbcon_del_cursor_work() is now
-  non-synchronizing by default and therefore safe from any context;
-  fbcon_del_cursor_work_sync() is added for fbcon_release(), the only
-  path that frees @par and needs to drain the work.
-- Move the requeue in fb_flashcursor() under console_lock so a running
-  callback cannot re-arm the work after the non-synchronizing cancel.
-
- drivers/video/fbdev/core/fbcon.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 94abbb5ac766..917ce9d641a1 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -422,10 +422,14 @@ static void fb_flashcursor(struct work_struct *work)
- 	par->bitops->cursor(vc, info, enable,
- 			    get_fg_color(vc, info, c),
- 			    get_bg_color(vc, info, c));
--	console_unlock();
- 
-+	/*
-+	 * Re-arm under console_lock so that a concurrent
-+	 * fbcon_del_cursor_work() cannot race with this requeue.
-+	 */
- 	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
- 			   par->cur_blink_jiffies);
-+	console_unlock();
- }
- 
- static void fbcon_add_cursor_work(struct fb_info *info)
-@@ -437,10 +441,30 @@ static void fbcon_add_cursor_work(struct fb_info *info)
- 				   par->cur_blink_jiffies);
- }
- 
-+/*
-+ * Stop the cursor blink.
-+ *
-+ * Does not wait for a callback that is already running, so it is safe to
-+ * call from any context.
-+ *
-+ * console_lock serializes this with the requeue in fb_flashcursor();
-+ * otherwise a running callback could re-arm the work.
-+ */
- static void fbcon_del_cursor_work(struct fb_info *info)
- {
- 	struct fbcon_par *par = info->fbcon_par;
- 
-+	cancel_delayed_work(&par->cursor_work);
-+}
-+
-+/*
-+ * Stop the cursor blink and wait for a running callback to finish before
-+ * @par is freed.  May sleep, only for teardown paths.
-+ */
-+static void fbcon_del_cursor_work_sync(struct fb_info *info)
-+{
-+	struct fbcon_par *par = info->fbcon_par;
-+
- 	cancel_delayed_work_sync(&par->cursor_work);
- }
- 
-@@ -765,7 +789,7 @@ static void fbcon_release(struct fb_info *info)
- 	if (info->fbcon_par) {
- 		struct fbcon_par *par = info->fbcon_par;
- 
--		fbcon_del_cursor_work(info);
-+		fbcon_del_cursor_work_sync(info);
- 		kfree(par->cursor_state.mask);
- 		kfree(par->cursor_data);
- 		kfree(par->cursor_src);
--- 
-2.56.0
+> ---
+>  drivers/mfd/loongson-se.c       | 51 +++++++++++++++++++++++++++++----
+>  include/linux/mfd/loongson-se.h |  1 +
+>  2 files changed, 46 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+> index 10af13c3b7cc..bdbab4b91729 100644
+> --- a/drivers/mfd/loongson-se.c
+> +++ b/drivers/mfd/loongson-se.c
+> @@ -169,6 +169,23 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> +static void loongson_se_stop(void *data)
+> +{
+> +	struct loongson_se *se = data;
+> +	struct loongson_se_controller_cmd cmd = {};
+> +
+> +	mutex_lock(&se->engine_init_lock);
+> +
+> +	cmd.command_id = SE_CMD_STOP;
+> +	loongson_se_send_controller_cmd(se, &cmd);
+> +
+> +	spin_lock_irq(&se->dev_lock);
+> +	writel(0, se->base + SE_S2LINT_EN);
+> +	spin_unlock_irq(&se->dev_lock);
+> +
+> +	mutex_unlock(&se->engine_init_lock);
+> +}
+> +
+>  static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
+>  {
+>  	struct loongson_se_controller_cmd cmd = {};
+> @@ -176,15 +193,23 @@ static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
+>  
+>  	cmd.command_id = SE_CMD_START;
+>  	err = loongson_se_send_controller_cmd(se, &cmd);
+> -	if (err)
+> +	if (err) {
+> +		writel(0, se->base + SE_S2LINT_EN);
+>  		return err;
+> +	}
+>  
+>  	cmd.command_id = SE_CMD_SET_DMA;
+>  	cmd.info[0] = lower_32_bits(addr);
+>  	cmd.info[1] = upper_32_bits(addr);
+>  	cmd.info[2] = size;
+>  
+> -	return loongson_se_send_controller_cmd(se, &cmd);
+> +	err = loongson_se_send_controller_cmd(se, &cmd);
+> +	if (err) {
+> +		loongson_se_stop(se);
+> +		return err;
+> +	}
+> +
+> +	return 0;
+>  }
+>  
+>  static const struct mfd_cell engines[] = {
+> @@ -192,6 +217,13 @@ static const struct mfd_cell engines[] = {
+>  	{ .name = "tpm_loongson" },
+>  };
+>  
+> +static void loongson_se_shutdown(struct platform_device *pdev)
+> +{
+> +	struct loongson_se *se = platform_get_drvdata(pdev);
+> +
+> +	loongson_se_stop(se);
+> +}
+> +
+>  static int loongson_se_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> @@ -225,12 +257,12 @@ static int loongson_se_probe(struct platform_device *pdev)
+>  	if (IS_ERR(se->base))
+>  		return PTR_ERR(se->base);
+>  
+> -	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
+> -
+>  	nr_irq = platform_irq_count(pdev);
+>  	if (nr_irq <= 0)
+>  		return -ENODEV;
+>  
+> +	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
+> +
+>  	for (i = 0; i < nr_irq; i++) {
+>  		irq = platform_get_irq(pdev, i);
+>  		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
+> @@ -238,10 +270,16 @@ static int loongson_se_probe(struct platform_device *pdev)
+>  			dev_err(dev, "failed to request IRQ: %d\n", irq);
+>  	}
+>  
+> +	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
+> +
+>  	err = loongson_se_init(se, paddr, se->dmam_size);
+>  	if (err)
+>  		return err;
+>  
+> +	err = devm_add_action_or_reset(dev, loongson_se_stop, se);
+> +	if (err)
+> +		return err;
+> +
+>  	return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, engines,
+>  				    ARRAY_SIZE(engines), NULL, 0, NULL);
+>  }
+> @@ -253,8 +291,9 @@ static const struct acpi_device_id loongson_se_acpi_match[] = {
+>  MODULE_DEVICE_TABLE(acpi, loongson_se_acpi_match);
+>  
+>  static struct platform_driver loongson_se_driver = {
+> -	.probe   = loongson_se_probe,
+> -	.driver  = {
+> +	.probe    = loongson_se_probe,
+> +	.shutdown = loongson_se_shutdown,
+> +	.driver   = {
+>  		.name  = "loongson-se",
+>  		.acpi_match_table = loongson_se_acpi_match,
+>  	},
+> diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson-se.h
+> index 2d0a8b1e5c9e..dbe5992bd435 100644
+> --- a/include/linux/mfd/loongson-se.h
+> +++ b/include/linux/mfd/loongson-se.h
+> @@ -11,6 +11,7 @@
+>  #define SE_SEND_CMD_REG_LEN		0x8
+>  /* Controller command ID */
+>  #define SE_CMD_START			0x0
+> +#define SE_CMD_STOP			0x1
+>  #define SE_CMD_SET_DMA			0x3
+>  #define SE_CMD_SET_ENGINE_CMDBUF	0x4
+>  
 
