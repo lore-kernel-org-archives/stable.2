@@ -1,99 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793066373;
-	b=5j6Taew6oI3z716H3NXFtypABCB3Wn0mdOrrgiblSPLYtUZu9tgNbe9Kbl3Y5t4nXWC8
-	 jVC42N/5uz+fy0JQ2NL3y8dt7Bsn5v7j0SCzXy0P76ZVi2P3XpzCmwH5EFiX8DSIwrZ4T
-	 pNVF5bQgejbabzG7k4FSg1Raeq9GxJpOIcRkYkBYgIkXJ05DHi6YeWP57dptju823CAgp
-	 v9mPiU6ielLx4+M/BJ7/MFmBHPqt5GCWl53WEoUaBFvAOSjyyMcaBlUSb1tfvEsBUY1E5
-	 skTmklQlC6cRGQjU2FR3ylS+sLL1fnZyZGBlY7CWL0W+YvHYUc5jSzm7xEtwf3MspUA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793066373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MyKz2NnZLm4vS/6MNncCEBuMsPdw/vfPh4W80n8BBIU=;
-	b=APLPy9njt4KU6CfMJQ3MH3tQEJkLe9g3ZlsYd3az2Q81FB8XKj9JDEBBtpkyIjHBynMi
-	 b2dkB32Bb4rU9OmgUZLKQEqlKpYyqjnwuI7m/ss/9/zHCgh+PyLmPrfvRs9W5r4jE25E9
-	 kMGo542hJSG4J27koaBuwxmv3QKjBTccnXczHsxx+e4Z4VL0veqkBfXLWCJVv/bLKEICg
-	 VJ58CVrYqKPz/1YU70UTsFsodGcrWu2AxZz+Wq5bcvf0M+BXSLOeFX47frDEqcRSfTukw
-	 5MtvYiOWqv8t6cIF2hdUauUVnQJ11iWCTknEHMiSOC4vr3rFOa9BTfJOijbM6w1ArrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hioCVfYH;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793066465;
+	b=rizGJhVNeaEXtbIaQ8PO1jao8RHyfLyFAtIagVv0whr5Bl6kWfBkTO9HBVobkSuI+xFd
+	 AjXIDh27FeIv6aW9u7g/I1oDc0/MogZe3hA57+p1ftVhcVR2IcNEi6M5FfrLzi1ZnoaKh
+	 frEAPrdZeTxj+LnRjbfA/t5hcP8/gCe5nC7R2Z6fhmS2gleoitjEjr3qV43pWEBs4wFEb
+	 7Gdc1OBuBmawG9HR6E7n6LaLrqHpIwEEPqRBU+wn3MDeFkY6+trdX0Oqp2BQJeCsjmVWy
+	 AbcZQ/K1Ghq5fys3mqbEwzNg6JW3YGNukRpK7zi9DD4a2FCdADMUNgM0kXLx33n8USg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793066465;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
+	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ZJXeSH5eRoyu1WcwxWHgJvicUgtxRWa0d3FiCGgRq3g=;
+	b=RsN+TH7rGztSsYBH4eSyH/T36EUvqSR3kFP1YOpTcbhyaQKC7KaV3FalWE94IIHGqQEp
+	 20DxvDha19Atc1fDZ4+jbOyHg/wnoGvozkRwWZ727ndu3LkytsQSJ+AW5+TwUi/RU0hFT
+	 JsiMzJbz5M5+Xpr3j6xESGn3qzr0Fw6Y8b1figWMd34cJ4mU689+TZRhvRs8kApZlUB4V
+	 aDAbQ1RuvcSzImE2EVtS8pEj/WlZEyefZ3yhhul6KDlmgcdZsFXdVrfpf6ZczafrYEeTQ
+	 Ew4jeyIB8COoxK9fUrd3ETFMpks5eu2NI2IzRxJxRZ1Xa1JG+x8xyFcQUxzQTe+iF/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oyk1SfTD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.23
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AA6606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:59:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89AA6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99563606A31A;
+	Tue, 27 Oct 2026 02:01:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99563606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hioCVfYH
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a215e64962so27799085e9.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793066371; x=1793671171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MyKz2NnZLm4vS/6MNncCEBuMsPdw/vfPh4W80n8BBIU=;
-        b=hioCVfYHWlLhbSo5yjRn8MuqL0pwxKTKk/wKwST/9/JtfiIYiCTNEYxwOLYQRRRhw3
-         CT6e2rSWJ77ignU/UJx6JIm5vBPLntdECaTwb401nP1hKh7AKrdLniU4QuTZ4qKtJfDe
-         aodWORmsts9V3a1NKDDv9te9IJhePgPiyhQF5L8wLR2oLa6jIKp/m8ZICz/GVbDF8vVo
-         7vh7+ynf6JDxUtViz/L6YdwMqLFq2RDS4HRCeLW09vuM8NL2LFkH3zZKHlskXME0tEar
-         kcrfkv1QUveSIXexO7GNiYooNDCg7WIz8fifdZgt8vZXcLJU7utVXDmqO47MlRhHWEtt
-         pW4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793066371; x=1793671171;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MyKz2NnZLm4vS/6MNncCEBuMsPdw/vfPh4W80n8BBIU=;
-        b=ijqnmKOkm+7k84/JXM0eUDxCSHJBGvd0HyOAsVgPyPMpvGcaY28on7rXJ0rg2S0ttt
-         MLkKFIMAv7CVfXrP8kZv3piHTvboUUTLedDzx0likLmwXLPRFeZZHkQaEf9aFfD123Gl
-         Gk96ILrR7eNnid3+9DYxVvHhvCWhEWaR/pjbj5EOxAcHTaH4200UBp7qzOjJSQ/lP+6J
-         1fUnxD3S/ap47LR3WF4SqOcEA2wR0vAisIK+4133IppiXRhPJxLI3B1q5ZH5YkTdkck/
-         MLiTDLzJmE8c0x0XjXdbL0v7617Y29E1BbD1sllXVYzsMc5nDhr8KS2Zlsiy06IsBWel
-         NnTw==
-X-Forwarded-Encrypted: i=1; AKwUvByxGnKbHqB8we+4GnsIBxjJLR5+Ia6qFg7FpQSTxnnlR0i2q/hQIB5uUc8R2F5mWsqeuB6QlaI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuakn2h26tqzHeXZyxOmRV0ewJ2lM7y8OrGgU47YBRb8d0Vm9p
-	Jz1k4j6FsST4x5pE+gRwQewLD6wVxFg/goGBiokw7g3rNkHeTgL6ZjMf
-X-Gm-Gg: AYBFou0Ylrw66tWK9qt4C+/t42dTSagwTgrtFrjDhfWBWhbnWOrrW5tSxFnHmgVYnY0
-	yGnFih31TQolLFXUqJkNayJaJM2bzWClk949C4vRz1yyhCscryoxCKnwoBfMiWeW4CZVJocregc
-	iqM4UD9SoAZa87H6P4gwl2gZrhvHmF2Z3YhNorQ/9SdP9imMnOioZMyjFsaryiOPE9stbNh92ad
-	+gNAxqL7WqEwWBP2PzbCXZPh3Fls+neW7MFtARxZkE5WIT8mO/TAM5zHDuMHONQtTg5R8oTDVbI
-	zHaJjgnAE7KSNujMpK+yOjsx9UirPTelRd0GdLl1ylWJiaX0UCfnij6SDK3i3b2YzZ5QLNvSUnw
-	ymIWGBzE8NwwnKI1K9Fy3o+H8gOkgGubxXqZt6BbY3pvomdWxVbQHib+b9gjGjy5zIEuFeA5J6E
-	v14e6h0Kcroju+NNQ0/l9RMQepggi68SWAlOeGAkIiMieW31gszzO7ii/O3SqgllrdlUTtsMQn/
-	lIKeFNcO3miYhMxK20JIziLD+bxD1nNp4kdukTQnLaoHnuAbqmFclzWUIs3o9s2EGCyL3iNIA==
-X-Received: by 2002:a05:600c:19d4:b0:4a2:c2b:a91b with SMTP id 5b1f17b1804b1-4a35ac9114dmr145090405e9.10.1793066370786;
-        Mon, 26 Oct 2026 18:59:30 -0700 (PDT)
-Received: from etherl ([41.239.147.33])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bb112sm251096485e9.8.2026.10.26.18.59.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 18:59:30 -0700 (PDT)
-From: Ahmed Essam <mrmrmidoessam@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Ahmed Essam <mrmrmidoessam@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Shenghan Gao <gsh20040816@gmail.com>,
-	Aditya Kumar Singh <aditya.kumar.singh@oss.qualcomm.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH ath-current] wifi: ath12k: fix lost 5 GHz range by tracking reg ranges per radio
-Date: Tue, 27 Oct 2026 04:59:03 +0300
-Message-ID: <20261027015919.277156-1-mrmrmidoessam@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <bbd65b93-816b-427b-8abe-1d1fd1cf4e70@oss.qualcomm.com>
-References: <bbd65b93-816b-427b-8abe-1d1fd1cf4e70@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oyk1SfTD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YJm6YpNrW8UZTPhyBi8/NKFnivunKH2Lkbq/UPfwHMCPb9FAZUNCBakfX5OFskmJBncw2s8qxV6JipiwsRlDUNUIHnTzv1UHIRG/PaNN0iMxVau+IZxywmn8lkICpQY7v0qygAsjpWWMCcLCRuMpHlkFgKTdveyXrf7+jCL7kECv0eooQ1MeVvTYIghP1Yme3C+9bUOMgbp7V1CGMcG9AyNygeR+lczz1hdACs+b4Ukpl0rtGofn4QspN0jrsDq6eGdJUACzeeQih+AiPxn9Zj+c1mqmjW98Xplnae3dz/rC2SrGoKZLWbph31gkBi/hoziC63pZUr7vFubbjPyNug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZJXeSH5eRoyu1WcwxWHgJvicUgtxRWa0d3FiCGgRq3g=;
+ b=RkDe8jeroua5yxc8B9kbW6jvsDxBeAQGiwiD5pnSQivwQ6MsekPAEZfw4Zf4BrxdiRBi8XnQCdNlXL9wQpq7Pi1KCc6W5YKvJ9i4Aiz7o//IaVGNdvvD8gpJ/JHMtT8/Skpov5UoTNJA6GmxOWZQQmJOfS4YrTJ5LuqtPI2+4V3eBFXm/qExGjEyouo817+gHjLbKe9Y3OLN5NQnFAceTHcHc8rm9JKj2E1hnKcrnLCnYYtScBDjUUlWdSY/Rqs/fDO65uFWHWWQ8B3SydwGLDYQpTSASDDsYZY8kfRIBxjfcbDcQ82743Cmv7m9ZFQOXinQnbCIdzlx2YQ0mFeFDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZJXeSH5eRoyu1WcwxWHgJvicUgtxRWa0d3FiCGgRq3g=;
+ b=oyk1SfTDBTIcilfa82lbwzHoOFMSqwO5DWEIcTtuF03sxn2ocsu9rRvDEHw1i0T7BiF6TUvLnJDPNwxhN6YOyt6Mcr21ePhfv3z7egrVwc/YAxioWbG0yW9XCgufQHDMFBeOIB3J7JR2E26e7b8YbI3nGMoz/cQSJrj+5g6u/BlvysoagSR2f3VS+1gVZSjk3HmwFQnqBkUpsaGWAZCjTIdGb+YnzfsoHwRtawEiU3Ft/1BuL4M4cwvMwRqwkjYtYaIXSBLoySKgiMr2fkO9qAnXHfJA/Vb1c2teK1hYfHs6dFb0Da5GUuN85yYFK4pLZfYvEBxptwA6XMBEQ10XBQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by FT1PR12MB281198.namprd12.prod.outlook.com (2603:10b6:170:1d::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 02:01:00 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 02:00:59 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 26 Oct 2026 22:00:58 -0400
+Message-Id: <DMF90FIEGBQS.2GVI2Y0R5BTV3@nvidia.com>
+Subject: Re: [PATCH 09/16] mm/shmem: preserve data in clean folios when
+ splitting fails
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, "Chris Mason"
+ <mason@kernel.org>, <stable@vger.kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Gregory Price" <gourry@gourry.net>, "Joshua
+ Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Ying
+ Huang" <ying.huang@linux.alibaba.com>, "Johannes Weiner"
+ <hannes@cmpxchg.org>, "Vladimir Davydov" <vdavydov.dev@gmail.com>, "Michal
+ Hocko" <mhocko@suse.com>, "Hugh Dickins" <hughd@google.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Lukas Czerner" <lczerner@redhat.com>,
+ "Carlos Maiolino" <cmaiolino@redhat.com>, "Christian Brauner"
+ <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Daniel Verkamp"
+ <dverkamp@chromium.org>, "Jeff Xu" <jeffxu@google.com>, "Muchun Song"
+ <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "David
+ Stevens" <stevensd@chromium.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "William Kucharski" <william.kucharski@oracle.com>,
+ "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Nhat
+ Pham" <nphamcs@gmail.com>, "Miaohe Lin" <linmiaohe@huawei.com>, "Naoya
+ Horiguchi" <nao.horiguchi@gmail.com>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
+In-Reply-To: <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
+X-ClientProxiedBy: MN2PR14CA0029.namprd14.prod.outlook.com
+ (2603:10b6:208:23e::34) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,351 +113,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|FT1PR12MB281198:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd3314df-af06-4db9-1386-08df33ce2599
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|10067099003|18002099003|261026121527099003|22082099003|921020|56012099006|11063799006|4143699003|261022105027099003|261009223027099003|261026140227099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	6hCqe3y3xv6w73KcauvP+JfD4iWe9bF7j579jTJdEpfPW9nP10uAOwO9Hi8FdMOnN12BXvkovVQdwEaxH5Bi0Al8TQ4i34CNRfZEC2eV5ypSHnIPMEtJ85SKvUEM8Bb3jwOeb4P+HNgKPld2dojUnO5qLh3WpQ8ICj2gPCXX4dzMFP/ktXtKhY/DbUdBEBe1g3mTyjf15Drzx/ruUDWJOAYBRrNuGeoOp/Am5MgrKODGjIr10ReuRjsvgKTAWjGJ0knTBQ+EKGyML8djEjwVcVAH39txoXJtoPQ5bX/MuJLCtY+oMRBUXcTIyYAK9LN0ldKhOFerKZhrnUjfuCdjUS/EZjiAOzdJzNHhiSrr5qhbIWEHpW+rI13qrNAakjuxBRw1Hk8ogOV2TdKBZHW/WR5bapsVT9fpaj9wFrwUw8XeqsbMY+VkVXQrdDOynZorV9BceEmF/LXWvSWxBSRuvQRgo7eY52VE3fXoMBYS4HJUTaZ1nI74x5U292rqEEne0wVAnYGOUaXvjSpeXSiydos3YAGqSqTlRvVDvN515J9NS/y25q9NkG21Nd5ONmk1W+vxJKDAxWV/REeunlTGBbRe9CKz4d0mBqJ4V2q72JGuj/BmeBmhIKX6CyZ5rw0BRqmhJBDdWN87P9npLUTVq59smYc8rDdMaIoGIS4SbOT0aHxwknQyXa6AdL8py9DQfl5+HUY+JcDGwaFWdMILCw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(261026121527099003)(22082099003)(921020)(56012099006)(11063799006)(4143699003)(261022105027099003)(261009223027099003)(261026140227099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bUQ1TjAwMEs0Yjlib0dqdGI5ZDFaLy8wSnF0L1dEMThlTVFlM3lVUm4wK3d5?=
+ =?utf-8?B?cDdTR0x2WUwxOXpZay8wU09KdGVDcnVMWExJY0RrSTFZV0RRWE9nWUZZMG5X?=
+ =?utf-8?B?SS9kV1ZLNitnMGtSaEZYSVRHaGx1VVA1ZzU3bUZvazdxbWIvZDRxZFlTUkZx?=
+ =?utf-8?B?QzN6TWdVakYwMVBJWnNCbXRHSFFRNzNHbk9GN2E2WVlVdTNrUnczM3c0cENq?=
+ =?utf-8?B?TTZKRWRxbUp3Mjlac1JOV21DWmZZTkhIM1ZTdUdlVHdnMGM5QmhUM0YzOEtz?=
+ =?utf-8?B?OVBhSUljY0E4U3E2dnNXeHc4eUxEOWJ4eXVxZm1WM2VwRlAwK281SndROVVM?=
+ =?utf-8?B?Z3kweEZabWVwL1ltMFpDd0tHUVJsWVN2eEkvUXBNdzBINzRkTUlNN0Uza3V0?=
+ =?utf-8?B?cUxzL0RZeFozTlNPODFZeDJ4VFFKNUwzQktmZHRTZGR1eVR3bkphWG5VY3dT?=
+ =?utf-8?B?M1YzOU02Smk2M1dHMUljTE9HSzBtNmVUWThIblNTbS80ZnBGVk1EWGVoVFRr?=
+ =?utf-8?B?OEhsdFJ5TjNLRXoxemhmbnlmQTBKaGdmcm94aC9FY1pUS3RqbFlSdFRVNWov?=
+ =?utf-8?B?QSt0VlFIakJyK2ZyeVdsaXpXajFYanQrMGFFc3VNa1N4UEtSTWNxTnhFdHpl?=
+ =?utf-8?B?Y21WNEhJVFNDcHJadlJFSFdDcmx4QWVqUjZlYTdVVTNDa3JKZjJNNFVvTzhs?=
+ =?utf-8?B?aXpZSVdtZ09oTDArZzl6R3dLU0JtRzBnYVMzREowRnNlOFFhQndMSHBoUFZS?=
+ =?utf-8?B?YnowWjhibzBoREJPcnN6VjVsL3dWMmVPL2dmTnBFbHVpdElMQm80Y0FBNG1w?=
+ =?utf-8?B?MFJnNFZVOTVKeGg5bVZjZWZtWFpYZkRsR09zN0hJMHV4ZitTY3hGOTdEUHIy?=
+ =?utf-8?B?ZVpGSHkydnRiQUQrYTZhVFlwbUtuR1BQTnMxTUx1MS9uaHpFRnd5bDZmb3hl?=
+ =?utf-8?B?ZDU2NGVoblpKZWYzemJ0RlArS05pR2g3L2dPdUsySTExSndkd3VnRGZYMkxi?=
+ =?utf-8?B?b3B3TkNNSjlEdlB0NzBzQU1ZNVFTRU5FSUhvWTQrWEtmYnpQdVdPNExsRW1a?=
+ =?utf-8?B?NEIxYnB3UnNEY015VnpBMUJwbGZkVlMvR3pyR0xhODRMRisxZlNmNHZyWC9D?=
+ =?utf-8?B?M2ZtaTgySmk1N2ppUUZXeTlGSG44K1hGeGNyRDJRZzBiTXpzL1h1Sm5xUitq?=
+ =?utf-8?B?dGVNVjR4YjhkWDUxZkI2c0Qzb2x4emh0L0owT2NLNUdsQmFaOWwySWs3R3Va?=
+ =?utf-8?B?MmhQQ3YwdTdoNE9PT3gwTDlsOXJqWFkxWGZzQkx4MkxDZUhQZEJLQzNXSmhN?=
+ =?utf-8?B?WkVQVUxIWnJIWUtLVndJVUdmelFnOXR4TDl4UlRTTG1NcXFNR0lsZjJ1aXh6?=
+ =?utf-8?B?eDBpWnVLRUZsT1l6YlQvdFVlUUpSSVNrRXllOWo0SkFJcUlZdTZQZ0xvMzhB?=
+ =?utf-8?B?KzAzMDlRV1FoK1BPVldwSjJYcVZxKzN1dTNPSlNKTENMTVJSV1hzbnZRY3dp?=
+ =?utf-8?B?VmZhVTU1ZEVLelFRdWhuNDFHZ0xFZjdveHFFSlRDd3k5cEdxZEtobDJTNDhs?=
+ =?utf-8?B?S2Zvb1E5cWlFRHY3UVJZRkM2cUlDYWJtMHVDRE44SXZqVm9JdTJqRHFHbE5h?=
+ =?utf-8?B?VHRDOUxvOGdZT1pjeHZZUlVlWm5GeFJWVjhmc20ybjBYV0RYREZMUUs5bjdn?=
+ =?utf-8?B?YVdGUlNNSElCR0d5STVzYWpmTlpRdHBHcXloNGdaU05jN1VZZHhmV1Q4bWdE?=
+ =?utf-8?B?VFhKSVVrcUFsSytRS1Rsa2dQdmlIeWZOSHQrRjlIaTA4dG15ZE44RjkxNE9S?=
+ =?utf-8?B?dUp5Sm5qNXc0SWk3a2dmZHV2WEd1amdvM0o5SWNuOE1JeVJUc2Q4Mm9JRGxy?=
+ =?utf-8?B?aUQ4MEUwRW5VTVpqSXd4MTR3b0JUYWNSQnY2emhzdkVhd0FGbFFFS0sxckZv?=
+ =?utf-8?B?L2VRWktJcTMrSkk0KzJCWWhEdnR4MlZBZkZUcm9FZDZuWkNEaitBb0d2TmFl?=
+ =?utf-8?B?UDRzOHNQWG9MZWc1d0tGbXAwczBHQUp2aE1rUm9PSVZUM2FrYS9YclR6NFFT?=
+ =?utf-8?B?cEo3cHNlQVQ4M0tiU2UyZkFLWkFXOEdlZGQzdGUrTTJQMVNzTURyY25oalpN?=
+ =?utf-8?B?TUUvMEwvQnVBcWZuQzJZcFdqQTRMdHVROCtLQlBKN2hSbWQ4T3YrSEFwdXlt?=
+ =?utf-8?B?ZVVYTGs5cGo0UWpwZTc3WUdNMmN3QjJTS2JQN0JKNk1zWWVwa1NJYXF3YXFR?=
+ =?utf-8?B?aWhiTHR4ZTVUQ2EwNUpjZHFQZlRYSFVFYU1oVWt5UHJnbXVIREkvQXBOOG5r?=
+ =?utf-8?Q?dK2ApRTdRc6VWVSYiW?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd3314df-af06-4db9-1386-08df33ce2599
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 02:00:59.7873
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4j23eL7f6B5HP74xkNOAGfW5bbIBmfZpuqveN7H4hjzPTVMinrNkJ59VTYh6Im9k
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB281198
 
-ath12k_reg_build_regd() records the frequency span covered by the
-received reg rules in ab->reg_freq_{2,5,6}ghz. Those fields live in
-struct ath12k_base, but firmware sends WMI_REG_CHAN_LIST_CC_EXT per
-radio, and ath12k_regd_update() uses them to compute the frequency
-range of a single radio (ar->freq_range). This causes two problems.
+On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+>
+> A shared writable mapping can have dirty PTEs while its shmem folio is
+> still clean. A read fault can install a writable PTE, and a later store
+> sets the PTE's dirty bit without marking the folio dirty.
+>
+> After shmem_undo_range() has handled the boundary folios, a concurrent
+> read fault into a hole below the new EOF can allocate a large folio.
+> For example, on a tmpfs mount with huge=3Dalways, the fault's offset must
+> be within the file, but the allocated folio can extend beyond i_size.
+> The final scan then finds this folio and calls
+> truncate_inode_partial_folio() without marking it dirty.
+>
+> Splitting normally collects the PTE dirty bits when unmapping the
+> folio. An extra reference, for example from vmsplice(), can make it
+> fail before that step. The fallback unmapping on split failure excludes
+> shmem, so the helper still sees a clean folio and drops it, losing data
+> outside the range.
+>
+> Mark large folios dirty before partial truncation in the final scan,
+> as the boundary handling already does. Exclude failed-fallocate
+> rollback, which must discard the folios it added.
+>
+> Fix generated by an LLM and sent by Chris Mason in private.
+>
+> Fixes: b9a8a4195c7d ("truncate,shmem: Handle truncates that split large f=
+olios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify descriptions, adjust comments ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/shmem.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
 
-First, ath12k_regd_update() cannot tell which bands a radio received
-rules for, so it uses ar->supports_6ghz as a proxy: the 5 GHz range is
-skipped for any radio that supports 6 GHz. That is only valid for
-split-pdev devices. On single-pdev devices such as WCN7850 one radio
-covers 2 GHz, 5 GHz and 6 GHz. When firmware switches to a country
-without 6 GHz rules, for example after an 11d update to CN or EG,
-ar->freq_range collapses to 2402-2482 MHz and
-ath12k_reg_update_chan_list() drops every 5 GHz channel from the list
-sent to firmware. From then on firmware no longer scans 5 GHz, a
-5 GHz-only scan request fails ("received scan start failure event"),
-and 5 GHz networks disappear from scan results, typically shortly after
-boot. They stay gone until the driver is reloaded or firmware moves to
-a country that has 6 GHz rules.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Second, by code inspection, build_regd() resets all three per-device
-ranges on every event, so on multi-radio devices an event for one radio
-can wipe the range of another radio whose regd_update_work has not run
-yet, silently dropping a band.
+This fix is still needed, since Zhang Yi's patches do not fix this
+issue. The patch below is rebased on top of mm-stable.
 
-Move reg_freq_{2,5,6}ghz into struct ath12k_pdev and fill them for the
-radio identified by reg_info->phy_id. In ath12k_regd_update(), include
-a band only if this radio registered that band and received reg rules
-for it, instead of guessing from ar->supports_6ghz. Checking the
-registered band is needed because a radio can receive rules for bands
-it does not operate on, e.g. the 6 GHz radio of a split-pdev device.
-
-Also fix the reg_cap lookup for single-pdev devices: pdev->cap.band[]
-is indexed by enum nl80211_band, but was indexed with the
-WMI_HOST_WLAN_*_CAP bit flags, so the 2 GHz lookup used the 5 GHz
-entry and the 5 GHz lookup used the unset 60 GHz entry. Refresh
-reg_cap for the 6 GHz band as well, as is done for 2 GHz and 5 GHz.
-
-With ATH12K_DBG_MAC enabled on WCN7850 and the firmware switching to
-EG, the range before this change is:
-
-  mac pdev 0 freq limit updated. New range 2402->2482 MHz
-
-and after it:
-
-  mac pdev 0 freq limit updated. New range 2402->2482 MHz
-  mac pdev 0 freq limit updated. New range 2402->5330 MHz
-
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
-
-Fixes: 657b0c72c4ad ("wifi: ath12k: Fix frequency range in driver")
-Fixes: 13324cecbb2c ("wifi: ath12k: Update frequency range if reg rules changes")
-Fixes: 0d777aa2ca77 ("wifi: ath12k: fix mac pdev frequency range update")
-Cc: stable@vger.kernel.org
-Reported-by: Shenghan Gao <gsh20040816@gmail.com>
-Closes: https://lore.kernel.org/all/20260715065218.41232-1-gsh20040816@gmail.com/
-Suggested-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Assisted-by: Claude:claude-opus-5-5 sparse
-Signed-off-by: Ahmed Essam <mrmrmidoessam@gmail.com>
----
-
-Notes:
-    Jeff, sorry for the duplicate: a test send reached you a few minutes
-    ago without the lists.
-    
-    This picks up Shenghan Gao's patch "wifi: ath12k: fix frequency range
-    for single-pdev devices" [1], reworked as Baochen suggested in review
-    [2]: reg_freq_* are now per radio, and each band is gated on whether
-    the radio received rules for it instead of on ar->supports_6ghz. On top
-    of that suggestion, the band must also be registered on the radio,
-    since the 6 GHz pdev of a split-pdev device receives rules for all
-    bands.
-    
-    Shenghan, I hope you don't mind me picking this up after the thread
-    went quiet. I kept your band-index fix and credited your report.
-    
-    Testing:
-    - WCN7850 (single-pdev) with the firmware above. Firmware sets the
-      country to EG via 11d about 7 s after the driver loads.
-      Before: freq_range drops to 2402->2482 MHz after the EG update, a
-      5 GHz-only scan is rejected ("received scan start failure event"),
-      and all 5 GHz networks are gone from scan results after about a
-      minute.
-      After: the range is 2402->5330 MHz, a 5 GHz-only scan returns 26 BSSes,
-      5 GHz networks stayed visible for the whole 26 minute run while
-      associated on 2.4 GHz, and association to a 5 GHz AP works.
-    - Built for x86_64 with W=1; checkpatch --strict and sparse report
-      nothing new.
-    
-    Not tested: split-pdev devices such as QCN9274, and 6 GHz operation (EG
-    has no 6 GHz rules). The split-pdev handling is based on reading the
-    code only.
-    
-    AI assistance: I used Claude (claude-opus-5-5) to investigate the
-    problem on my machine, write the patch following Baochen's suggestion,
-    draft this message and run the tests above. I reviewed the change and
-    tested it on my hardware.
-    
-    [1] https://lore.kernel.org/all/20260715065218.41232-1-gsh20040816@gmail.com/
-    [2] https://lore.kernel.org/all/9dd4e992-5810-429f-bc54-036c4eb276a7@oss.qualcomm.com/
-
- drivers/net/wireless/ath/ath12k/core.h | 20 +++++----
- drivers/net/wireless/ath/ath12k/mac.c  | 12 ++---
- drivers/net/wireless/ath/ath12k/reg.c  | 61 ++++++++++++++++----------
- 3 files changed, 56 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath12k/core.h b/drivers/net/wireless/ath/ath12k/core.h
-index 93fd227b4d19..b48d39c5db5c 100644
---- a/drivers/net/wireless/ath/ath12k/core.h
-+++ b/drivers/net/wireless/ath/ath12k/core.h
-@@ -850,6 +850,11 @@ struct mlo_timestamp {
- 	u32 mlo_comp_timer;
- };
- 
-+struct ath12k_reg_freq {
-+	u32 start_freq;
-+	u32 end_freq;
-+};
+diff --git a/mm/shmem.c b/mm/shmem.c
+index efd54a624974c..e9f98d526fc52 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1463,6 +1463,15 @@ static void shmem_undo_range(struct inode *inode, lo=
+ff_t lstart, uoff_t lend,
+ 				VM_BUG_ON_FOLIO(folio_test_writeback(folio),
+ 						folio);
+=20
++				/*
++				 * A shared mapping can have dirty PTEs while
++				 * the folio is still clean. Mark the folio
++				 * dirty so a failed split cannot discard data
++				 * outside the range.
++				 */
++				if (!unfalloc && folio_test_large(folio))
++					folio_mark_dirty(folio);
 +
- struct ath12k_pdev {
- 	struct ath12k *ar;
- 	u32 pdev_id;
-@@ -857,6 +862,13 @@ struct ath12k_pdev {
- 	struct ath12k_pdev_cap cap;
- 	u8 mac_addr[ETH_ALEN];
- 	struct mlo_timestamp timestamp;
-+
-+	/* Frequency ranges covered by the reg rules last received for
-+	 * this radio, per band. end_freq is 0 if no rules were received.
-+	 */
-+	struct ath12k_reg_freq reg_freq_2ghz;
-+	struct ath12k_reg_freq reg_freq_5ghz;
-+	struct ath12k_reg_freq reg_freq_6ghz;
- };
- 
- struct ath12k_fw_pdev {
-@@ -871,11 +883,6 @@ struct ath12k_board_data {
- 	size_t len;
- };
- 
--struct ath12k_reg_freq {
--	u32 start_freq;
--	u32 end_freq;
--};
--
- struct ath12k_mlo_memory {
- 	struct target_mem_chunk chunk[ATH12K_QMI_WLANFW_MAX_NUM_MEM_SEG_V01];
- 	int mlo_mem_size;
-@@ -1147,9 +1154,6 @@ struct ath12k_base {
- 	/* Denote whether MLO is possible within the device */
- 	bool single_chip_mlo_support;
- 
--	struct ath12k_reg_freq reg_freq_2ghz;
--	struct ath12k_reg_freq reg_freq_5ghz;
--	struct ath12k_reg_freq reg_freq_6ghz;
- 	const struct ath12k_mem_profile_based_param *profile_param;
- 	enum ath12k_qmi_mem_mode target_mem_mode;
- 
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index da2ba1f39244..a11eb3e2a593 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -14263,9 +14263,9 @@ static int ath12k_mac_setup_channels_rates(struct ath12k *ar,
- 		}
- 
- 		freq_low = max(reg_cap->low_2ghz_chan,
--			       ab->reg_freq_2ghz.start_freq);
-+			       ar->pdev->reg_freq_2ghz.start_freq);
- 		freq_high = min(reg_cap->high_2ghz_chan,
--				ab->reg_freq_2ghz.end_freq);
-+				ar->pdev->reg_freq_2ghz.end_freq);
- 
- 		ath12k_mac_update_ch_list(ar, band,
- 					  reg_cap->low_2ghz_chan,
-@@ -14308,9 +14308,9 @@ static int ath12k_mac_setup_channels_rates(struct ath12k *ar,
- 			band->bitrates = ath12k_a_rates;
- 
- 			freq_low = max(reg_cap->low_5ghz_chan,
--				       ab->reg_freq_6ghz.start_freq);
-+				       ar->pdev->reg_freq_6ghz.start_freq);
- 			freq_high = min(reg_cap->high_5ghz_chan,
--					ab->reg_freq_6ghz.end_freq);
-+					ar->pdev->reg_freq_6ghz.end_freq);
- 
- 			ath12k_mac_update_ch_list(ar, band,
- 						  reg_cap->low_5ghz_chan,
-@@ -14365,9 +14365,9 @@ static int ath12k_mac_setup_channels_rates(struct ath12k *ar,
- 			}
- 
- 			freq_low = max(reg_cap->low_5ghz_chan,
--				       ab->reg_freq_5ghz.start_freq);
-+				       ar->pdev->reg_freq_5ghz.start_freq);
- 			freq_high = min(reg_cap->high_5ghz_chan,
--					ab->reg_freq_5ghz.end_freq);
-+					ar->pdev->reg_freq_5ghz.end_freq);
- 
- 			ath12k_mac_update_ch_list(ar, band,
- 						  reg_cap->low_5ghz_chan,
-diff --git a/drivers/net/wireless/ath/ath12k/reg.c b/drivers/net/wireless/ath/ath12k/reg.c
-index 89abf2e87ad1..17232392071a 100644
---- a/drivers/net/wireless/ath/ath12k/reg.c
-+++ b/drivers/net/wireless/ath/ath12k/reg.c
-@@ -269,10 +269,11 @@ static void ath12k_copy_regd(struct ieee80211_regdomain *regd_orig,
- int ath12k_regd_update(struct ath12k *ar, bool init)
- {
- 	struct ath12k_wmi_hal_reg_capabilities_ext_arg *reg_cap;
--	u32 phy_id, freq_low, freq_high, supported_bands;
-+	u32 phy_id, freq_low, freq_high;
- 	struct ath12k_hw *ah = ath12k_ar_to_ah(ar);
- 	struct ieee80211_hw *hw = ah->hw;
- 	struct ieee80211_regdomain *regd, *regd_copy = NULL;
-+	struct ath12k_pdev *pdev = ar->pdev;
- 	int ret, regd_len, pdev_id;
- 	struct ath12k_base *ab;
- 	long time_left;
-@@ -288,43 +289,55 @@ int ath12k_regd_update(struct ath12k *ar, bool init)
- 		 */
- 	}
- 
--	supported_bands = ar->pdev->cap.supported_bands;
- 	reg_cap = &ab->hal_reg_cap[ar->pdev_idx];
- 
- 	/* Possible that due to reg change, current limits for supported
- 	 * frequency changed. Update it. As a first step, reset the
- 	 * previous values and then compute and set the new values.
-+	 *
-+	 * Only bands that this radio operates on and received reg rules
-+	 * for contribute. A radio may receive rules for bands it does not
-+	 * operate on, e.g. the 6 GHz radio of a split-pdev device.
- 	 */
- 	ar->freq_range.start_freq = 0;
- 	ar->freq_range.end_freq = 0;
- 
--	if (supported_bands & WMI_HOST_WLAN_2GHZ_CAP) {
-+	if (ar->mac.sbands[NL80211_BAND_2GHZ].channels &&
-+	    pdev->reg_freq_2ghz.end_freq) {
- 		if (ab->hw_params->single_pdev_only) {
--			phy_id = ar->pdev->cap.band[WMI_HOST_WLAN_2GHZ_CAP].phy_id;
-+			phy_id = pdev->cap.band[NL80211_BAND_2GHZ].phy_id;
- 			reg_cap = &ab->hal_reg_cap[phy_id];
- 		}
- 
--		freq_low = max(reg_cap->low_2ghz_chan, ab->reg_freq_2ghz.start_freq);
--		freq_high = min(reg_cap->high_2ghz_chan, ab->reg_freq_2ghz.end_freq);
-+		freq_low = max(reg_cap->low_2ghz_chan, pdev->reg_freq_2ghz.start_freq);
-+		freq_high = min(reg_cap->high_2ghz_chan, pdev->reg_freq_2ghz.end_freq);
- 
- 		ath12k_mac_update_freq_range(ar, freq_low, freq_high);
- 	}
- 
--	if (supported_bands & WMI_HOST_WLAN_5GHZ_CAP && !ar->supports_6ghz) {
-+	if (ar->mac.sbands[NL80211_BAND_5GHZ].channels &&
-+	    pdev->reg_freq_5ghz.end_freq) {
- 		if (ab->hw_params->single_pdev_only) {
--			phy_id = ar->pdev->cap.band[WMI_HOST_WLAN_5GHZ_CAP].phy_id;
-+			phy_id = pdev->cap.band[NL80211_BAND_5GHZ].phy_id;
- 			reg_cap = &ab->hal_reg_cap[phy_id];
- 		}
- 
--		freq_low = max(reg_cap->low_5ghz_chan, ab->reg_freq_5ghz.start_freq);
--		freq_high = min(reg_cap->high_5ghz_chan, ab->reg_freq_5ghz.end_freq);
-+		freq_low = max(reg_cap->low_5ghz_chan, pdev->reg_freq_5ghz.start_freq);
-+		freq_high = min(reg_cap->high_5ghz_chan, pdev->reg_freq_5ghz.end_freq);
- 
- 		ath12k_mac_update_freq_range(ar, freq_low, freq_high);
- 	}
- 
--	if (supported_bands & WMI_HOST_WLAN_5GHZ_CAP && ar->supports_6ghz) {
--		freq_low = max(reg_cap->low_5ghz_chan, ab->reg_freq_6ghz.start_freq);
--		freq_high = min(reg_cap->high_5ghz_chan, ab->reg_freq_6ghz.end_freq);
-+	if (ar->mac.sbands[NL80211_BAND_6GHZ].channels &&
-+	    pdev->reg_freq_6ghz.end_freq) {
-+		/* 6 GHz is reported as part of the 5 GHz band capability */
-+		if (ab->hw_params->single_pdev_only) {
-+			phy_id = pdev->cap.band[NL80211_BAND_5GHZ].phy_id;
-+			reg_cap = &ab->hal_reg_cap[phy_id];
-+		}
-+
-+		freq_low = max(reg_cap->low_5ghz_chan, pdev->reg_freq_6ghz.start_freq);
-+		freq_high = min(reg_cap->high_5ghz_chan, pdev->reg_freq_6ghz.end_freq);
- 
- 		ath12k_mac_update_freq_range(ar, freq_low, freq_high);
- 	}
-@@ -645,6 +658,7 @@ ath12k_reg_build_regd(struct ath12k_base *ab,
- 		      enum wmi_vdev_type vdev_type,
- 		      enum ieee80211_ap_reg_power power_type)
- {
-+	struct ath12k_pdev *pdev = &ab->pdevs[reg_info->phy_id];
- 	struct ieee80211_regdomain *new_regd = NULL;
- 	struct ath12k_reg_rule *reg_rule, *reg_rule_6ghz;
- 	u32 flags, reg_6ghz_number, max_bw_6ghz;
-@@ -709,14 +723,15 @@ ath12k_reg_build_regd(struct ath12k_base *ab,
- 		   alpha2, ath12k_reg_get_regdom_str(new_regd->dfs_region),
- 		   reg_info->dfs_region, num_rules);
- 
--	/* Reset start and end frequency for each band
-+	/* Reset start and end frequency for each band of the radio this
-+	 * event belongs to. reg_info->phy_id has already been validated.
- 	 */
--	ab->reg_freq_5ghz.start_freq = INT_MAX;
--	ab->reg_freq_5ghz.end_freq = 0;
--	ab->reg_freq_2ghz.start_freq = INT_MAX;
--	ab->reg_freq_2ghz.end_freq = 0;
--	ab->reg_freq_6ghz.start_freq = INT_MAX;
--	ab->reg_freq_6ghz.end_freq = 0;
-+	pdev->reg_freq_5ghz.start_freq = INT_MAX;
-+	pdev->reg_freq_5ghz.end_freq = 0;
-+	pdev->reg_freq_2ghz.start_freq = INT_MAX;
-+	pdev->reg_freq_2ghz.end_freq = 0;
-+	pdev->reg_freq_6ghz.start_freq = INT_MAX;
-+	pdev->reg_freq_6ghz.end_freq = 0;
- 
- 	/* Update reg_rules[] below. Firmware is expected to
- 	 * send these rules in order(2G rules first and then 5G)
-@@ -728,7 +743,7 @@ ath12k_reg_build_regd(struct ath12k_base *ab,
- 			max_bw = min_t(u16, reg_rule->max_bw,
- 				       reg_info->max_bw_2g);
- 			flags = ath12k_get_bw_reg_flags(reg_info->max_bw_2g);
--			ath12k_reg_update_freq_range(&ab->reg_freq_2ghz, reg_rule);
-+			ath12k_reg_update_freq_range(&pdev->reg_freq_2ghz, reg_rule);
- 		} else if (reg_info->num_5g_reg_rules &&
- 			   (j < reg_info->num_5g_reg_rules)) {
- 			reg_rule = reg_info->reg_rules_5g_ptr + j++;
-@@ -743,7 +758,7 @@ ath12k_reg_build_regd(struct ath12k_base *ab,
- 			 */
- 			flags = NL80211_RRF_AUTO_BW |
- 				ath12k_get_bw_reg_flags(reg_info->max_bw_5g);
--			ath12k_reg_update_freq_range(&ab->reg_freq_5ghz, reg_rule);
-+			ath12k_reg_update_freq_range(&pdev->reg_freq_5ghz, reg_rule);
- 		} else if (reg_info->is_ext_reg_event && reg_6ghz_number &&
- 			   (k < reg_6ghz_number)) {
- 			reg_rule = reg_rule_6ghz + k++;
-@@ -752,7 +767,7 @@ ath12k_reg_build_regd(struct ath12k_base *ab,
- 				ath12k_get_bw_reg_flags(max_bw_6ghz);
- 			if (reg_rule->psd_flag)
- 				flags |= NL80211_RRF_PSD;
--			ath12k_reg_update_freq_range(&ab->reg_freq_6ghz, reg_rule);
-+			ath12k_reg_update_freq_range(&pdev->reg_freq_6ghz, reg_rule);
- 		} else {
- 			break;
- 		}
+ 				if (!folio_test_large(folio)) {
+ 					truncate_inode_folio(mapping, folio);
+ 				} else if (truncate_inode_partial_folio(folio,
 
-base-commit: 9f0fe5ad0c9af369400bb87143bc936ebb741391
--- 
-2.56.0
+
+
+--=20
+Best Regards,
+Yan, Zi
 
