@@ -1,54 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793070410;
-	b=Am5n9oS7tzp/7c1iXRPbUSabzLHfBScsVoloubtSLHMEYziNIi2HBQEB4AqA0AtHUtOA
-	 1B966vTUeCzE9N5mZ5aOIbvb/phnuUyNquKPMObA9imOK2r5NaMXbPJkjJ9VCQNI6+Y0s
-	 PUMn58zTn5at2AgvXjiyTeNGVEER3A3owizt2gLgkIZ6ybhvJi0eCFgKQUnK1abABiRWC
-	 C92o8g+TYXH78y0Q52LNrAVw9qr6a57f6J6g80EHnXBp5cbpuaxPoK85Ok8Yzu+EjHeZk
-	 Q+Gc8Qcyv0Qev+PZwk6EKv73UZwfQYnRDri0GjvFlUWAR9LgFos5GaAQTlP0J8bItZw==
+	t=1793070430;
+	b=gDqU4I7wuC7F2tOGJJuDFdNV1bU8mZaT77yXD4euF/3riG5iAN833UPrYx73srwnM5M1
+	 lE11veCzp7mhUWJ+6HY1ZgVWdGUT73YEts0C1VDtOsQXMODtHXI7tV7Vn6eUbaxLTBeL8
+	 LqaigjqsEHaKTUkwNBFpjNkNNaKL6yZGo69oXYLknd209XTCUj9q3tesL+Jshdz0ZmVd7
+	 /Z3KQOpIKu4Qj34dU5uIeemkdnD4NtqB4mGhAe5uz6sMHPlWykZRBDiO9LecH+4X9aWZX
+	 dC019OZjQv+k+r10PwtxL+xPZegNwjw7xNIlaEl71duqctTjl9oLnuEj7/aM49jJIpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793070410;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NfiBYouQ7SUxOIRjsg6uwpg+DvPUrarmQVPVZOSrssU=;
-	b=QTJ3m5IbEMjcT8E7UPU+whfkf9M//B1UFQp2mBaEk/DJgOdiH1mp3S0HqPOxlKgbV1jX
-	 Whgw1dciGH/JzeozFmUne6vlpRobKL+zerl/G49SPS/o5GpSCQsamy58Q3oCv5ZLHVaQF
-	 oLCpThpNw1cgZ08Y7LV0AybpLhWB1WDJ6o4NlEjNM4U/bvmCzCm1Awja2aHOHotdA+TUz
-	 MJYCffTBnWwBmj2MRi8VrYrFsjpaajMHXzIVkJt0PEp7r0UAehP//UkNHXZRhohrysJpY
-	 Idbtoqd+9nHQs6zOPbXldUPSBldnxrwXsEkJByHtD4gAc71d4zquZyuy6hlW62NugQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070430;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:X-QQ-mid;
+	bh=AYABbuvpRmugHL7xKhEUg235XYvNPii8LhIKNTJod1Y=;
+	b=rq+4jx5CWLgTLymO1NlIUy26+J7B7KJO3UaO4jjf+DLJn8sEO57i8TRH9vh+tjZcw5WF
+	 TC3OSsPqMMMWgAZwXpDMpWVL4W0Xcgfu9YBGcoYPeQ2EBwdYycCLfUiee/nNTzPfRmvLM
+	 X9kBkLtLO/+zOY0gvoaOQYM5X2nmqpHnMVDo2/IxrkRqzlCu2ky8VAFZK1yQaD23ehZIY
+	 uQy66PhDJsqdLXD0SNKWf6QfLriwMHKca46x8pTBkKD+X7Q7k2DofzOTSnpSF82d0G2xz
+	 4RdnMMfU9GgerPWR7xn9pzyuP7KbYBHqneTEQ+87UTQ9miKFVktzzaPHxI4Si8coNrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OmJvHkyF;
-	arc=none smtp.remote-ip=91.218.175.199
-Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=C9gjPcN+;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A511A606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A511A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741DE606A31A;
+	Tue, 27 Oct 2026 03:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 741DE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OmJvHkyF
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AqI8n299OICKahJhyCKFqs0u3m8/ZWmCuQo8Rk556kA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793070407; v=1; x=1793675207;
- b=OmJvHkyFxsfeKypToUZ7LSGC2sUxdtwI3R9o6a19BnFlQ/VY2YusuFobH1ESXjXmdW4D/0v1
- 2U+cDF/TlFIvOXWIa+BCKSj8lSkeCR2P5jwvU83YvE2C4LcKuDnPaa1N3Qp/AhtOyPyWtF6jp0r
- X5a1YWHseL+TPDdj7Y10H9cA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa452c266040fd6e;
-	Tue, 27 Oct 2026 03:06:46 +0000
-X-Mizu-Trace-ID: fa452c266040fd6e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b0f16e9c-691a-4ab1-9ac4-d76b92c58b60@linux.dev>
-Date: Tue, 27 Oct 2026 11:06:27 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=C9gjPcN+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793070423;
+	bh=AYABbuvpRmugHL7xKhEUg235XYvNPii8LhIKNTJod1Y=;
+	h=From:To:Cc:Subject:Date;
+	b=C9gjPcN+6iUBmbZmoKNrsDV2qpF7XrAq1lhbHJZxXFSgsIyYsmZPH89+0duyvne5C
+	 PumwOGNr9m3UJHUyYYczKYouIbopxK55xap5mGFcwI6txIk+idQjeN4dEmo1uMdvgY
+	 yoMBCMVx6fWMN04HSffMvJtR3A3NMdQ86f4fYjoc=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: NMiAo2azIaDAYkkE/EfDdnEpgPxvV2EMCwzHid6acn8ULBvUa3pzkkrd5u+dan
+	 bDiaOcfYFsm0tEpgB1AQer2c1p3q0XYBV3gW6cLoEuJFShq26agMqMX6xbHWbEcFyp3q1ajMiLFf+
+	 2sTM7HZCi/+8NU78CwLcp6hDR35cTND6wIUWSTkRQzNBsdnxRbvlbOss83ZF4FxNIpv2MlXGRVqWk
+	 iAOX1LQ2DAeo9XoJA6CT4rUOeaocr5Jdvh2ZwvI8tUZUzCDiwxX94UFPJsfjR81TlRK6hqBdP7fG5
+	 QE9tLAvdVxaqZFl3F/lCzUY7uB+gRsM0W8nYqMZtN6E7F7LYktJBVUo6n5JnincxygUV4w/RlxQrQ
+	 hZjGc+2q7sDjmEir1XLzb5RRmsNhGlAbWUoxKfs2xFbPD2FQmIoOKWSYvIgoC7jaGMOd8ICdJt/xx
+	 8VM7coxjp9HZpnVYjssVmUuQQInhWiong5ApphWlflxy6hM1yDQ+7XaWL38Z02nXisdFdT1lcq/P3
+	 Xk7TbrPjfBN3EnS0g2qBTRtVwHE0GKGsEsMPfEgyFzuJMFf5/m8LshEZKY8/96EsU0LjGzsD0sgV2
+	 eI2U8qCmAcQ+f2KrEbuq2XcypqHVvRqio+fTCqi0hAq3NoomUWHp5F3a6Gl2eUA26nNFErRSEr7JW
+	 edCuVsCvwzD4oUuPnrUI3NMd6NAuYAIRRm1Syz7Ie4+9AOuQz8/LQrqIzt9u/xfTyjJPN9NdpGkzq
+	 +WnnoOR8yG3s/q+y9PYI2LIc+15x3g24o00MzUlmxl19XCYQ+fO7A6extz9a8W4Gn7y30p1Mao4mS
+	 8ryYMWKR79sLmmS6pBD7ruAI1GsN3IpemIc0V7noI662gtu3gqLy3lWUo0UGuPmepuZXaUAbjr5c1
+	 4Q7hcizws6urf+aSiiv6b+x/a6OcpfEyrFWN+byWAt08lJGT3KapaEiNDK0XfM6KhDWf81rDGvEFe
+	 Og9v4MwvW/JAzXO6CkmrserwpDIOJKJWqloDnBZgIYz2ya6ow3ZdCByHguS9igHS/k4osC4e/hYPL
+	 JQNTihGp4LRgh6Rt+jIxz8W7rvHfArmyiNe0rNLUGHrPepRLhjUjcrqSd0A==
+From: "=?utf-8?B?Ym8gY2Fv?=" <treebacker@foxmail.com>
+To: "=?utf-8?B?YnBm?=" <bpf@vger.kernel.org>
+Cc: "=?utf-8?B?YXN0?=" <ast@kernel.org>, "=?utf-8?B?ZGFuaWVs?=" <daniel@iogearbox.net>, "=?utf-8?B?YW5kcmlp?=" <andrii@kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,101 +67,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 26/46] mm/mmu_gather: fix flushing ranges with 4 GiB or
- larger
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 27 Oct 2026 11:07:01 +0800
+X-Priority: 3
+Message-ID: <tencent_3A8413B414528B9802AB092A67AE015FFE09@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-mid: xmseua11-1t1793070421tirbjsk9n
 
-
-
-On 10/27/26 7:17 AM, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> __tlb_adjust_range() takes the size of the range which has to be flushed
-> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
-> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
-> gets truncated, possibly to 0.
-> 
-> On arm64 with hugetlb, a 64k kernel can flush 16 GiB hugetlb PMDs, and a
-> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
-> at least these two scenarios are affected.
-> 
-> Fix it by flushing the proper range instead of the truncated one.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
-> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: use two-tab indent, simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->   include/asm-generic/tlb.h | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
-> index fbe1114e9a443..3f4a180b48f3c 100644
-> --- a/include/asm-generic/tlb.h
-> +++ b/include/asm-generic/tlb.h
-> @@ -350,8 +350,7 @@ struct mmu_gather {
->   void tlb_flush_mmu(struct mmu_gather *tlb);
->   
->   static inline void __tlb_adjust_range(struct mmu_gather *tlb,
-> -				      unsigned long address,
-> -				      unsigned int range_size)
-> +		unsigned long address, unsigned long range_size)
->   {
->   	tlb->start = min(tlb->start, address);
->   	tlb->end = max(tlb->end, address + range_size);
-
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
-> 
+VHdvIEJQRiBoZWxwZXJzIHRha2UgYSB0YXJnZXQgQ1BVIGlkIGFzIGEgcmF3IHUzMiAoYXJn
+X3R5cGUKQVJHX0FOWVRISU5HLCBzbyB0aGUgdmVyaWZpZXIgZG9lcyBub3QgY29uc3RyYWlu
+IGl0KSBhbmQgb25seSByZWplY3QKY3B1ID49IG5yX2NwdV9pZHMgYmVmb3JlIHRoZSB2YWx1
+ZSBpcyB1c2VkIGFzIGEgcGVyX2NwdV9wdHIoKSBpbmRleC4KCmJwZl9tYXBfbG9va3VwX3Bl
+cmNwdV9lbGVtKCkgZGlzcGF0Y2hlcyB0byB0aGUgcGVyLWNwdSBtYXAKaW1wbGVtZW50YXRp
+b25zLCBhbmQgYWxsIHRocmVlIG9mIHRoZW0gKHBlcmNwdSBhcnJheSwgcGVyY3B1IGhhc2gs
+CnBlcmNwdSBMUlUgaGFzaCkgY2hlY2sgbm90aGluZyBiZXlvbmQgdGhhdCB1cHBlciBib3Vu
+ZDoKCglpZiAoY3B1ID49IG5yX2NwdV9pZHMpCgkJcmV0dXJuIE5VTEw7CgkuLi4KCXJldHVy
+biBwZXJfY3B1X3B0ciguLi4sIGNwdSk7CgpicGZfcGVyX2NwdV9wdHIoKSBoYXMgdGhlIHNh
+bWUgd2VhayBjaGVjayBiZWZvcmUgcmV0dXJuaW5nCnBlcl9jcHVfcHRyKHB0ciwgY3B1KSBm
+b3IgYSBrZXJuZWwgcGVyY3B1IHZhcmlhYmxlLgoKUGVyLWNwdSBtZW1vcnkgaXMgb25seSBh
+bGxvY2F0ZWQgZm9yIHBvc3NpYmxlIENQVXMsIGFuZApfX3Blcl9jcHVfb2Zmc2V0W10gaXMg
+b25seSBpbml0aWFsaXplZCBmb3IgdGhlbSAob24gYXJtNjQsCnNldHVwX3Blcl9jcHVfYXJl
+YXMoKSB3YWxrcyBmb3JfZWFjaF9wb3NzaWJsZV9jcHUpLiAgT24gYSBzeXN0ZW0Kd2l0aCBh
+IHNwYXJzZSBwb3NzaWJsZSBtYXNrIC0gZS5nLiBhbiBhcm02NCBndWVzdCB3aXRoIGEgZGV2
+aWNlLXRyZWUKQ1BVIGhvbGUsIHBvc3NpYmxlIG1hc2sgMCwyLTMgd2l0aCBucl9jcHVfaWRz
+ID0gNCAtIGEgY2FsbCB3aXRoIHRoZQpob2xlIENQVSBpZCBwYXNzZXMgdGhlIHdlYWsgY2hl
+Y2ssIGFuZCBwZXJfY3B1X3B0cigpIGNvbXB1dGVzIHRoZQpyZXR1cm5lZCBwb2ludGVyIGZy
+b20gdGhlIHVuaW5pdGlhbGl6ZWQgX19wZXJfY3B1X29mZnNldFtob2xlXS4KCkZvciBicGZf
+bWFwX2xvb2t1cF9wZXJjcHVfZWxlbSgpIHRoZSBoZWxwZXIgdGhlbiBoYW5kcyB0aGUgQlBG
+CnByb2dyYW0gYSBwb2ludGVyIG91dHNpZGUgYW55IHZhbGlkIHBlci1jcHUgY2h1bmsgb2Yg
+dGhlIG1hcDogcmVhZHMKbGVhayB0aGUgc3RhbGUgYnl0ZXMgdGhyb3VnaCB0aGUgbWFwIHZh
+bHVlLCBhbmQgd3JpdGVzIGNvcnJ1cHQKd2hhdGV2ZXIgdGhlIG9mZnNldCBoYXBwZW5zIHRv
+IGxhbmQgb24uICBGb3IgYnBmX3Blcl9jcHVfcHRyKCkgdGhlCmxlYWsgdGFyZ2V0IGlzIGtl
+cm5lbCBtZW1vcnkgaW5zdGVhZCBvZiBtYXAgdmFsdWVzICh0aGUgcmV0dXJuIHR5cGUKaXMg
+bWFya2VkIE1FTV9SRE9OTFksIHNvIHJlYWRzIG9ubHkpLgoKUmVwcm9kdWNlZCBvbiBhbiBh
+cm02NCBndWVzdCB3aXRoIHBvc3NpYmxlIG1hc2sgMCwyLTMgKFVidW50dQo3LjMuMC05LWdl
+bmVyaWMpOiBhIHNvY2tldCBmaWx0ZXIgcHJvZ3JhbSBwYXNzZXMgdGhlIHBvaW50ZXIKcmV0
+dXJuZWQgYnkgYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0obWFwLCBrZXksIDEpIG9uIGFz
+IHRoZSB2YWx1ZQphcmd1bWVudCBvZiBicGZfbWFwX3VwZGF0ZV9lbGVtKCksIGFuZCB0aGUg
+Y29weSBpbnNpZGUKYXJyYXlfbWFwX3VwZGF0ZV9lbGVtKCkgZmF1bHRzIG9uIGl0OgoKICBw
+YyA6IF9fcGlfbWVtY3B5X2dlbmVyaWMrMHgzYy8weDIzMAogIGxyIDogYXJyYXlfbWFwX3Vw
+ZGF0ZV9lbGVtKzB4MTQ4LzB4MmE4CiAgQ2FsbCB0cmFjZToKICAgX19waV9tZW1jcHlfZ2Vu
+ZXJpYysweDNjLzB4MjMwIChQKQogICBicGZfcHJvZ184MzVhNGJhMmVhNjc1NWYwX3BvYysw
+eDkwLzB4YzAKICAgYnBmX3Rlc3RfcnVuKzB4MmQwLzB4NDYwCiAgIGJwZl9wcm9nX3Rlc3Rf
+cnVuX3NrYisweDRhYy8weDkyMAogICBfX3N5c19icGYrMHg2MTQvMHhiZTgKICAgX19hcm02
+NF9zeXNfYnBmKzB4MzgvMHg3OAoKVGhlIHN5c2NhbGwgc2lkZSBvZiB0aGUgc2FtZSBwcm9i
+bGVtIChCUEZfRl9DUFUgbWFwIG9wZXJhdGlvbiBmbGFncykKd2FzIGZpeGVkIGJ5IGVkNTRi
+ZjU2NGFjNSAoImJwZjogRml4IEJQRl9GX0NQVSB2YWxpZGF0aW9uIGZvciBzcGFyc2UKQ1BV
+IElEcyIpLCB3aGljaCBhZGRlZCBjcHVfcG9zc2libGUoKSB2YWxpZGF0aW9uIHRvCmJwZl9t
+YXBfY2hlY2tfb3BfZmxhZ3MoKS4gIFRoZSBoZWxwZXIgcGF0aHMgZG8gbm90IGdvIHRocm91
+Z2ggdGhhdApmdW5jdGlvbiwgc28gdGhlIHNhbWUgY2xhc3Mgb2YgaG9sZSBDUFUgaWQgbmVl
+ZHMgdG8gYmUgcmVqZWN0ZWQKdGhlcmUgYXMgd2VsbC4KCkZpeCB0aGUgbWFwIGhlbHBlciBj
+ZW50cmFsbHkgaW4gaXRzIGRpc3BhdGNoIHNvIGFsbCBtYXAKaW1wbGVtZW50YXRpb25zIGFy
+ZSBjb3ZlcmVkLCBhbmQgZml4IGJwZl9wZXJfY3B1X3B0cigpIGluIHBsYWNlLgoKRml4ZXM6
+IDA3MzQzMTEwYjI5MyAoImJwZjogYWRkIGJwZl9tYXBfbG9va3VwX3BlcmNwdV9lbGVtIGZv
+ciBwZXJjcHUgbWFwIikKRml4ZXM6IGVhYTZiY2I3MWVmNiAoImJwZjogSW50cm9kdWNlIGJw
+Zl9wZXJfY3B1X3B0cigpIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9m
+Zi1ieTogYm8gY2FvIDx0cmVlYmFja2VyQGZveG1haWwuY29tPgotLS0KIGtlcm5lbC9icGYv
+aGVscGVycy5jIHwgNiArKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyks
+IDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9rZXJuZWwvYnBmL2hlbHBlcnMuYyBiL2tl
+cm5lbC9icGYvaGVscGVycy5jCmluZGV4IDY0OGFiZTFiYTYzYS4uZjlmMmJkNjY1MDM4IDEw
+MDY0NAotLS0gYS9rZXJuZWwvYnBmL2hlbHBlcnMuYworKysgYi9rZXJuZWwvYnBmL2hlbHBl
+cnMuYwpAQCAtMTMzLDYgKzEzMywxMCBAQCBjb25zdCBzdHJ1Y3QgYnBmX2Z1bmNfcHJvdG8g
+YnBmX21hcF9wZWVrX2VsZW1fcHJvdG8gPSB7CiBCUEZfQ0FMTF8zKGJwZl9tYXBfbG9va3Vw
+X3BlcmNwdV9lbGVtLCBzdHJ1Y3QgYnBmX21hcCAqLCBtYXAsIHZvaWQgKiwga2V5LCB1MzIs
+IGNwdSkKIHsKIAlXQVJOX09OX09OQ0UoIWJwZl9yY3VfbG9ja19oZWxkKCkpOworCisJaWYg
+KGNwdSA+PSBucl9jcHVfaWRzIHx8ICFjcHVfcG9zc2libGUoY3B1KSkKKwkJcmV0dXJuIDA7
+CisKIAlyZXR1cm4gKHVuc2lnbmVkIGxvbmcpIG1hcC0+b3BzLT5tYXBfbG9va3VwX3BlcmNw
+dV9lbGVtKG1hcCwga2V5LCBjcHUpOwogfQogCkBAIC03NTMsNyArNzU3LDcgQEAgY29uc3Qg
+c3RydWN0IGJwZl9mdW5jX3Byb3RvIGJwZl9jb3B5X2Zyb21fdXNlcl90YXNrX3Byb3RvID0g
+ewogCiBCUEZfQ0FMTF8yKGJwZl9wZXJfY3B1X3B0ciwgY29uc3Qgdm9pZCAqLCBwdHIsIHUz
+MiwgY3B1KQogewotCWlmIChjcHUgPj0gbnJfY3B1X2lkcykKKwlpZiAoY3B1ID49IG5yX2Nw
+dV9pZHMgfHwgIWNwdV9wb3NzaWJsZShjcHUpKQogCQlyZXR1cm4gKHVuc2lnbmVkIGxvbmcp
+TlVMTDsKIAogCXJldHVybiAodW5zaWduZWQgbG9uZylwZXJfY3B1X3B0cigoY29uc3Qgdm9p
+ZCBfX3BlcmNwdSAqKShjb25zdCB1aW50cHRyX3QpcHRyLCBjcHUpOwotLSAKMi4zOS41IChB
+cHBsZSBHaXQtMTU0KQoK
 
