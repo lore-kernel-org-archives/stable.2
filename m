@@ -1,106 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793124780;
-	b=Q14U67MBRnh2VYc3UrRMjjRh9gvD8SwF2yKdqafD6Gk/eIQNdHrXg03LTtcV2jXyx5Xg
-	 zmcHwmVyebcWpa+7/xJpsis4Lr20UyPev6vCiBqclb57S8/Gb4veApwq4llsFpvtgfWuh
-	 sAcPHKJI+pDIhlTWGHg4EnArxeJZrkrj8KJaaOvMeBhOu/JdWeHwepIcTTHe9F4/DRVJ1
-	 LRkc0u8Gx0ydDxePdu1VceEXFcz1prl1tYDtDi1A5A8E1NGpRhkxoyW6MoGrIL2rhO/9g
-	 DPKj326Nrh+RH3H7wCf309j/neml/nnRiUWQ89Brstu3n64Efoz9XVa9elszLJg0sdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124780;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-	b=Ax16ckMd0FMS09aeDGftx2Akky+ToIqZhovl8GQtQAPaoXDYd+C1XAxscjetXoFxsjzs
-	 RhiyGf6o+jsCyyCIIGIAb825vZjgfrl4Om+UrwoxwRfcPKMHSqUWdQpV+YaPUVJ9TiaG3
-	 kIqtSF+dNh3Ru/D/DRlZ4neL3zuL4rcph6BIPkZV0CVOLgXRRxwRiOgfQOT6UVh7nipNR
-	 HypgdUMuiyNr09n6fPCUqUPZW1Rrfbjbc4eldE/oV0gZCrSu+5D876gTwaE7LguOSwegg
-	 lypunK5djRXFh8n6TYiBxocgdKQhP2DqZK1Z8nGJyzzgLL1k4uiWxTBcWglIUnangOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=n2jbAlcY;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=egdW8twB;
-	arc=fail smtp.remote-ip=85.215.255.51
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793124821;
+	b=kcDyd9zoZyjQEgP5vhcSb6n6cINwBbCqk+IW9dZWf8RcdryxnuJ3frkJoX5TQhevr2TH
+	 SqZNvNwKc6U4svd3wAibMfkhbH7gQoWtzBppaDL3lrnZTWzofbiImEZUgwtPyF9oQuPW5
+	 mr8vGA7PDn+AvBsCdXpIHz4LGdYlvlO/wKyeGJoEm7e0aHTcN8xi2MuiA/ZY7VvZl7TeZ
+	 vnzpeaA1DJOGlHgcGutnaKqakkoXV7GfFaJiwILYm7NHkSqQMghkX96MpKOImWvZ6LzPq
+	 8X5/jemSR6FWMPb6fX3505wKUvzy0eVqMJKWuJhlCihBiKFXP5e90yZQ8SdNiqg76dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124821;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RAZ/iVl/fsmrBPqbCB4Psd2pgLF4V2Sco/QGegU0DJ0=;
+	b=f12KG7ZvompN2ire7lKM49R3YhwSVHyxn9H/QSl40KLYo1CT1fXChyCPfAWoI2bRtd3n
+	 bxZuruXR0zwdbNXIZhjnYBbhtkVP0NC1HHx0xybXzjo0hF3snQ1sSQj7qp0bjSB1IUpvs
+	 Ieu0FdL8izduC9/NhhmjmSKB1H4qtyScw99Nzzjt2YlesdAT0PFNBNyniAnt0jMiVZvlP
+	 86etaDJoDZ12pUJywlNRPIOpYtxyHc2VwiC2+zNdDU0AG9/eJ2+FFGa3WxAJsLEzeKktn
+	 TuS8r6Rz6B3wTjFhT4T3MAkfllcSuQPaeE5mM+HBKb9oSu1LW+YjE9h+Z61OkcZ5pBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SMNavOoT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C9D606A31A;
-	Tue, 27 Oct 2026 18:12:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C9D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE3B606A31A;
+	Tue, 27 Oct 2026 18:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=n2jbAlcY;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=egdW8twB
-ARC-Seal: i=1; a=rsa-sha256; t=1793124762; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=PIoEo8fub/GpGERjlGpouvvVB8GpP7cdZoDkfCzVh7oaKbakx6rtgmoQA/G0e0566e
-    RDHf3OiSgApdYiFkO4K+9JFV/XyD5oJxPqkzYNtet/Iwnf7uRWaeqbi02nh6+gOcTEGS
-    +16ntBlFtQAJzQ+6z+AWT3bFRHrKn/Ne7WZT43DJigqhxnPaPx+ffInwFdb9jJWgP0tG
-    8EI8IBkGp9yel0qKDOAL1abnzMjCRPfQxD0tHBb7QMmDpbvATRmPAA6yugQXYGPqbQNr
-    OlhdG88CEtoyw2xDmxpzWC6Uev+jkNQWGuSQrkVb24gf0lmajHuD4ujP6hAfk7eXK03c
-    piqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793124762;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-    b=dwutRWKLncdhHyX1EGDYs9rmfTtQzI4XIPskR/LgP7IvBW6z7ck0f8vV5ZcYYMGkrW
-    bj/Y+MR3Ogs9nDm5rT6PYKzgg6qQqnlkc3KZSFKDZXutQUci61ncJLUGT0PAn5072xmC
-    YOYAIDUsXegwFUbv3BlqTEBS+Ao6Ajwvre5cRYybHgLZpP6n7rtRX3Ia0IT9uCAvKjjc
-    f0w8rXhJqLD2KrJjVQ3C7a65dGVSatOOK6agHvYujaPymyvrwJC/VmVNOn1pfRZrIJYi
-    1J/4EiJP0BTVxUJBfOZLYGcV4qT1FG3t5PFhLEDmpxzAms055vNsMuyTHQy6qgYhm+jk
-    /a4g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793124762;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-    b=n2jbAlcYTcjr+S2o3wo+mRgWFTSYQGPZovPk7NZjoBylSEXoxlJ75k81J84F9sCn/K
-    esGjbVW2E0c2iL3+ZrHJvC5TUW4Vng/E279lLCeUYTR1Heo6RucezoT6pQt9J6VuKtwm
-    aTTSmSb7Dx884gWN7wv+mli8W/BykMQWYSG3DUE8+VE5nhZGXm2jIyRs5GYB/0fXGdsO
-    IpEr7AW1ZicQ2R/h095hDcu5eCg/ehiwiEyYvo9/vfwr9oSo8hSgsQ+cZNXUZWd+vjfu
-    MBHz+W49GnLLjnKELbaYvt02kMiqEPEKk/TDro9ewpwIVG1bQgZtjM51z9GOBdji9hEv
-    czEQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793124762;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-    b=egdW8twBSUfAwmSUUlzcedi+4pG0XAEow8WgPBhFmDylWAzgkz2+71kbAM86xkXrbr
-    Wax23uO52XvrOFSKN1Cw==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZyk"
-Received: from [10.176.237.181]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29RICf8Xg
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 27 Oct 2026 19:12:41 +0100 (CET)
-Message-ID: <112238206a5698e8766528c2b6d4d3e208c28d71.camel@iokpp.de>
-Subject: Re: [PATCH v6] scsi: ufs: Change the error check sequence for auto
- hibern8
-From: Bean Huo <beanhuo@iokpp.de>
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, avri.altman@wdc.com,
-  jejb@linux.ibm.com, martin.petersen@oracle.com, bvanassche@acm.org, 
- kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com, 
- h10.kim@samsung.com
-Cc: stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
-Date: Tue, 27 Oct 2026 19:12:40 +0100
-In-Reply-To: <20261027110357.3649301-1-hy50.seo@samsung.com>
-References: 
-	<CGME20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb@epcas2p4.samsung.com>
-	 <20261027110357.3649301-1-hy50.seo@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SMNavOoT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67931F01825;
+	Tue, 27 Oct 2026 18:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793124820;
+	bh=RAZ/iVl/fsmrBPqbCB4Psd2pgLF4V2Sco/QGegU0DJ0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SMNavOoTSyfbu8F5d5cSsawUeeQbX/GqsxpDqs1QFj47SFM+YzKty83KB4TCdUtEY
+	 q0UN97F1tB2GTpN4F83h3SWR4Jy1ai3F9dUxu8MQS4CHNU/1zcu5JA7SHlXSGxPvTL
+	 Jmnum7zBI0QWGLryCUPp3DlRZ00GHqBEefbwQ+iQ=
+Date: Tue, 27 Oct 2026 11:13:40 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: mm-commits@vger.kernel.org, stable@vger.kernel.org,
+ nickolai@csail.mit.edu
+Subject: Re: +
+ xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch added
+ to mm-unstable branch
+Message-Id: <20261027111340.b33f2ae190f4cdbf215b9193@linux-foundation.org>
+In-Reply-To: <auDiZyUI490v5Pgm@casper.infradead.org>
+References: <20261023181200.53AF01F01825@smtp.kernel.org>
+	<auDiZyUI490v5Pgm@casper.infradead.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,32 +58,20 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-10-27 at 20:03 +0900, HOYOUNG SEO wrote:
-> Auto-hibern8 enter and exit are performed by the host controller without
-> a UIC command, and the auto-hibern8 idle timer only runs while no UIC
-> command is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is
-> therefore usually reported while hba->active_uic_cmd is NULL.
->=20
-> Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
-> easier to analyze"), ufshcd_uic_cmd_compl() returns early when
-> hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
-> called. Such auto-hibern8 errors are no longer recorded in hba->errors,
-> so ufshcd_check_errors() is not called for them and the error handler is
-> not scheduled.
->=20
-> Check for auto-hibern8 errors before checking for an active UIC command,
-> as was done before that commit, but keep returning early when there is
-> no active UIC command so that a NULL cmd is never dereferenced. Only
-> report the missing UIC command if no auto-hibern8 error was found.
->=20
-> Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier=
- to
-> analyze")
-> Cc: stable@vger.kernel.org=C2=A0# v6.13+
-> Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
-> Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+On Tue, 27 Oct 2026 17:41:59 +0000 Matthew Wilcox <willy@infradead.org> wrote:
 
+> 
+> i said this patch wasn't acceptable with the commit message the way it
+> was, and the very next mail i get is you taking it into your tree.
+> please stop doing this, it really makes me wonder if i have any value
+> left.
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+You said the code change itself was OK so I grabbed it for testing and
+added a note "TBU (changelog)".
+
+So it won't be going any further until that open issue is resolved.
+
