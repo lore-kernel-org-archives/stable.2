@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086650;
-	b=CrVwvITmR43zVnhYnTO/af+H/yRxyd/NES3AxoFY0PIwnmjmY8gKryJkRRDZbmGMb7jk
-	 eJnt1pBmEO3Con3uy6x9askwMriPYlxcNfSzP5FjT0ecg34baZdvKjdEJSD8hB1V2I1NJ
-	 HKyNbPWiWMPLgQoDKWg/KNYtcnWT++9x9NJaUh88CdYHQjZ/1mo3ZyTns4lFfWcDjR07h
-	 eOS+934BimXOwfIiwN4C4VNZ93NTn8Jm5InG5KxKodaAANc5KCDyQqNz1/+xra/RuU+2w
-	 ZyMprY2swqPKRhjW9by08H03VetWKmBbNQv+HoAq9r7+xNTLxbxYE0iNfuNsrj691Gg==
+	t=1793086649;
+	b=m+dggUvxOL4sVMu1yOwHEQyCAc7gZWE0xK/pULmakhCt79iAK30qlrBp47XSxYvaNwXD
+	 TvCXFe1KZci/Gbil8uXgdSsY3wV3RBfzrZIXTNvLSSumqKTWEKWneXaGnhva4P5/JYfyR
+	 RDuEIjNMYhPftIrTs6k4oM8w2V3g2cgw9v9F4qhjFLEzyWQjmfrfS1ogjSHTA1ZskbIW2
+	 3By7CwgVS+yv2HT/9jROQ9f3kRLkwAwIsdbRxi1qtFz1Yk/7JaDztZRg3sDMhRDI07JzY
+	 7KXiqaBiJgIpz06TRUcTrc5F86nq/UoRaesYTUqvan5Iei9JLYfspw5+YW3jmoAUkFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086649;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=2e0MsO9AHXoJdX9UWJnkLnX9r1+Gelx4hH11sNzcLnU=;
-	b=KcjVZMuXmVu0eUtZ8DOHA2TFolKt2Ha/uly1sVkd6NR9yKDd0hyDSLpZpWvjMpNzQgoP
-	 Y8S0hEXyqq6TPVMw7r+M54LtGYpvg5eqnxla39SqfcFFidAZP+gvxcz+MjolO58jpQ43S
-	 17j4nSZIpi3jdotR6iwBkUCUysIDi7eey2GnAQh2ohiY03r1DmALhIvzxuxFDI1WpWFZG
-	 UDFMlIfTLfFxeR04E/UoS3RO8UdEv4oBkTme9nYz7ogxMIeQgukt3R67BMsu8WWXmwvrX
-	 aOYA1p6BtoW7vv3OIAs34jGMLqTO6VMFKaUcML8wnEvOPC2WaJftvFeAggrCyJSMFnA==
+	bh=XazMYHQ4YDq84ivlXp0m0RYPuCcD0RTYnpWVm+WmuqI=;
+	b=tpTMDBvREV1FHKb6aPV8iYhlaR/jPlpmum9+dn1++YHC80Pjf0QFXDxXrKidc1O8J5uE
+	 kQ68QtNx4liCw7jwIojpIuiQWF/W6m5ukjy4uI6PIlgt+AhK0jcxLh1JzgK6l3BXn/XVD
+	 Z2TCPuq2guZicvr4rbebtLnxeDllyM/4xKEQBKGRAcx9oXtlQHYcdh/ceyVvPeUf9m+Gr
+	 KrOAwjGle8g35gjiHQYrMCpV03vSNVgztakBZPLo8dak68z+kexZMEnSMeY9a4IPQcbKs
+	 OWq2lj0j8iNQh72RNH/W/9gF124xq/GPQTzh8pSCl37Qq7PJw4jaLweYAdS8hwPwF+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiMiXO05;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtObGSZv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA4606ADA0;
-	Tue, 27 Oct 2026 07:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125AF606AD9C;
+	Tue, 27 Oct 2026 07:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiMiXO05
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4E41F031E2;
-	Tue, 27 Oct 2026 07:37:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtObGSZv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5F61F01829;
+	Tue, 27 Oct 2026 07:37:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793086649;
-	bh=2e0MsO9AHXoJdX9UWJnkLnX9r1+Gelx4hH11sNzcLnU=;
+	s=k20260515; t=1793086648;
+	bh=XazMYHQ4YDq84ivlXp0m0RYPuCcD0RTYnpWVm+WmuqI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LiMiXO059gYMjJvZr3VzMyWO43KUzF7Wp1TA4eVCncm5L4TF2HvEMMEPlmrQuxURQ
-	 7Qri08L+bSiekRaf8ahClnK+pH/yZZpL66bfaqi16kUFR74WaSNx2fUIW/Io/KjkD1
-	 ptoFnlFXzdZ6iJmcJVCDT6HjPOdbZrBcGF1OCEAtRZC8rilkLipcTQitTev10krH/+
-	 yEzaSwjgtsSruzupiE+YaAzIX0SAbe0kZR8mJGGuXbZ5HwEJ8wGaHcELskV2REmCvo
-	 DM3TfPoLLqL664GbPVq2E7xKldS4wCkDe0z5UijqVodsZ6OmlHX/E5RFNUv1FFWgGi
-	 tUo1gUXxDWqGw==
-Subject: Re: [PATCH 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check
- for overflow flag if SKB allocation fails
+	b=UtObGSZvh4LPf0hFqvcRwEE1iA0l2y1Tp0dFCkGqH7Nn6GL7krK1XQ2BzY9VkSazt
+	 uj37l3qDLRwaN3bbFLPUvRYfAUs3y6Ucmwl1B2xAUhO5S4ZuZ2+8DdbG7LRYEsdRfB
+	 aL6pX6ToIQGSadrThkdt4grBXB00691yl7LG/OFOjLcayEbWwtdES8K1r6zoxFmgWF
+	 c95uHDC76TzVnRqztMKsSmjTX+8yWgNUSsJoGPaXRDPe6k58hlg6yXuEZPrtqA9+2V
+	 pULix4JICYRapeadyFN8nctO4dIMnKAQKl803oNnHXsksYCx0iGMl2eaV/OZAcA/d0
+	 938Ho2cZJ95wA==
+Subject: Re: [PATCH 2/4] can: gs_usb: gs_usb_probe(): init netdev completely
+ before register_candev()
 From: netdev-bot+sashiko@kernel.org
 To: mkl@pengutronix.de
 Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
  max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
  linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 27 Oct 2026 07:37:28 +0000
-Message-ID: <179308664876.3130.13155434112115626633@kernel.org>
-In-Reply-To: <20261025-gs_usb-fixes-v1-3-f74ebbd4da36@pengutronix.de>
-References: <20261025-gs_usb-fixes-v1-3-f74ebbd4da36@pengutronix.de>
-X-sashiko-severity: Medium
+Date: Tue, 27 Oct 2026 07:37:27 +0000
+Message-ID: <179308664758.3130.9049840508592700660@kernel.org>
+In-Reply-To: <20261025-gs_usb-fixes-v1-2-f74ebbd4da36@pengutronix.de>
+References: <20261025-gs_usb-fixes-v1-2-f74ebbd4da36@pengutronix.de>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -68,7 +68,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -76,174 +76,194 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In gs_usb_receive_bulk_callback()
-  (drivers/net/can/usb/gs_usb.c), both new SKB-allocation-failure…
+- [High] This patch adds a memory leak to the gs_usb_probe() error path
+  in drivers/net/can/usb/gs_usb.c.
 
 Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but in
-  gs_usb_receive_bulk_callback() (drivers/net/can/usb/gs_usb.c) the…
-- [Low] At this commit, the check_overflow block in
-  gs_usb_receive_bulk_callback() (drivers/net/can/usb/gs_usb.c:744-746)…
+- [High] This problem wasn't introduced by this patch, but the
+  gs_usb_probe() register-failure path keeps an existing use-after-free.
 
 --
 
-can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
+can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
 
-This commit changes the alloc_can_skb() and alloc_canfd_skb() failure
-paths in gs_usb_receive_bulk_callback(). They now update the RX statistics
-and jump to a new check_overflow label instead of resubmitting the URB
-directly. As a result, GS_CAN_FLAG_OVERFLOW in the host frame is still
-handled when the SKB allocation fails.
+This patch moves register_candev() out of gs_make_candev() and into a
+second loop in gs_usb_probe(). Every channel, including dev->parent and
+parent->hf_size_rx, is now fully set up before any channel is registered.
+This closes the window where userspace could bring up a partially
+initialized CAN interface.
 
-Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
+Closes: https://sashiko.dev/#/bug/linux-be54de7d-0b75-408c-b3ee-dd90c9756857
+Closes: https://sashiko.dev/#/bug/linux-71076d59-0843-4749-a5ab-fdd98a08582f
 
 > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index 985d6a9113d96..5687544af99c8 100644
+> index 15f28833f2deb..985d6a9113d96 100644
 > --- a/drivers/net/can/usb/gs_usb.c
 > +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -673,8 +673,12 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
->  		if (hf->flags & GS_CAN_FLAG_FD) {
->  			skb = alloc_canfd_skb(netdev, &cfd);
-> -			if (!skb)
-> -				goto resubmit_urb;
-> +			if (!skb) {
-> +				netdev->stats.rx_dropped++;
-> +				netdev->stats.rx_errors++;
-> +
-> +				goto check_overflow;
-> +			}
-
-[Severity: Medium]
-The commit message says "first update the dropped RX statistics". However,
-both new allocation failure branches (CAN FD here, and Classical CAN in the
-next hunk) also increment rx_errors. Is rx_errors the right counter for a
-host-side allocation failure?
-
-The kernel-doc for struct rtnl_link_stats64 in include/uapi/linux/if_link.h
-defines the two counters like this:
-
- * @rx_errors: Total number of bad packets received on this network device.
- ...
- * @rx_dropped: Number of packets received but not processed,
- *   e.g. due to lack of resources or unsupported protocol.
-
-In this path the frame arrived intact and only the SKB allocation on the
-host failed.
-
-Other CAN drivers that handle an alloc_can_skb() or alloc_canfd_skb()
-failure count only rx_dropped. Examples are m_can.c, c_can_main.c,
-mcp251xfd-rx.c, kvaser_usb_hydra.c and es58x_core.c. The shared rx-offload
-helper also leaves rx_errors alone:
-
-drivers/net/can/dev/rx-offload.c:can_rx_offload_offload_one() {
-    ...
-	if (IS_ERR(skb)) {
-		offload->dev->stats.rx_dropped++;
-		offload->dev->stats.rx_fifo_errors++;
-    ...
-}
-
-With this change, would memory pressure on the host show up as RX errors
-on a gs_usb interface? Those would look like bus or controller faults, and
-the change would reach stable through the Cc: stable tag.
-
-A minor point: the new lines use netdev->stats directly, while the rest of
-gs_usb_receive_bulk_callback() uses the local stats pointer.
-
+> @@ -1490,18 +1490,8 @@ static struct gs_can *gs_make_candev(unsigned int channel,
+>  	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
+>  	SET_NETDEV_DEV(netdev, &intf->dev);
 >  
->  			cfd->can_id = le32_to_cpu(hf->can_id);
->  			cfd->len = data_length;
-> @@ -686,8 +690,12 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  			memcpy(cfd->data, hf->canfd->data, data_length);
->  		} else {
->  			skb = alloc_can_skb(netdev, &cf);
-> -			if (!skb)
-> -				goto resubmit_urb;
-> +			if (!skb) {
-> +				netdev->stats.rx_dropped++;
-> +				netdev->stats.rx_errors++;
-> +
-> +				goto check_overflow;
+> -	rc = register_candev(dev->netdev);
+> -	if (rc) {
+> -		dev_err(&intf->dev,
+> -			"Couldn't register candev for channel %d (%pe)\n",
+> -			channel, ERR_PTR(rc));
+> -		goto out_can_rx_offload_del;
+> -	}
+> -
+>  	return dev;
+>  
+> -out_can_rx_offload_del:
+> -	can_rx_offload_del(&dev->offload);
+>  out_free_candev:
+>  	free_candev(dev->netdev);
+>  	return ERR_PTR(rc);
+> @@ -1593,14 +1583,14 @@ static int gs_usb_probe(struct usb_interface *intf,
+>  			/* save error code to return later */
+>  			rc = PTR_ERR(parent->canch[i]);
+>  
+> -			/* on failure destroy previously created candevs */
+> +			/* on failure clean up previously created candevs */
+>  			icount = i;
+> -			for (i = 0; i < icount; i++)
+> -				gs_destroy_candev(parent->canch[i]);
+> +			for (i = 0; i < icount; i++) {
+> +				can_rx_offload_del(&parent->canch[i]->offload);
+> +				free_candev(parent->canch[i]->netdev);
 > +			}
 >  
->  			cf->can_id = le32_to_cpu(hf->can_id);
->  			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the Classical CAN error
-frame handling is still skipped when alloc_can_skb() fails. A little
-further down, after the allocation succeeds:
-
-	/* ERROR frames tell us information about the controller */
-	if (le32_to_cpu(hf->can_id) & CAN_ERR_FLAG)
-		gs_update_state(dev, cf);
-
-gs_update_state() is the only place where controller state reported by the
-device reaches dev->can.state and can_stats (restarts, bus_off,
-error_warning, error_passive). It reads cf->can_id and cf->data[1], and the
-same values are available in hf->can_id and hf->classic_can->data[1].
-
-An error frame can carry a BUS_OFF, RESTARTED, warning or passive
-transition. If one arrives while alloc_can_skb() fails, the goto
-check_overflow skips the state update. Can dev->can.state then stay stale
-until another state change frame arrives and its allocation succeeds?
-
-Some peer drivers update controller state even when the error SKB
-allocation fails. For example, esd_usb.c does:
-
-	skb = alloc_can_err_skb(priv->netdev, &cf);
-	if (!skb)
-		stats->rx_dropped++;
-
-	if (state != priv->old_state) {
-
-The original return, and the later goto resubmit_urb from commit
-68c5724ecd15, also skipped this update. The patch does not address it.
+> -			usb_kill_anchored_urbs(&parent->rx_submitted);
+> -			kfree(parent);
+> -			return rc;
+> +			goto out_usb_kill_anchored_urbs;
+>  		}
+>  		parent->canch[i]->parent = parent;
+>  
 
 [ ... ]
 
-> @@ -728,6 +736,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  		netif_wake_queue(netdev);
+> @@ -1621,7 +1611,30 @@ static int gs_usb_probe(struct usb_interface *intf,
+>  		parent->hf_size_rx = max(parent->hf_size_rx, hf_size_rx);
 >  	}
 >  
-> +check_overflow:
->  	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
->  		stats->rx_over_errors++;
->  		stats->rx_errors++;
+> +	for (i = 0; i < icount; i++) {
+> +		struct gs_can *dev = parent->canch[i];
+> +
+> +		rc = register_candev(dev->netdev);
+> +		if (rc) {
+> +			dev_err(&intf->dev,
+> +				"Couldn't register candev for channel %d (%pe)\n",
+> +				i, ERR_PTR(rc));
+> +
+> +			icount = i;
+> +			for (i = 0; i < icount; i++)
+> +				gs_destroy_candev(parent->canch[i]);
 
-[Severity: Low]
-This is a pre-existing issue, but at this commit the overflow block
-continues like this:
+[Severity: High]
+Does this leak the candevs for channel i and every channel after it?
 
-		skb = alloc_can_err_skb(netdev, &cf);
-		if (!skb)
-			goto resubmit_urb;
-		...
-	}
+The second loop only runs after the first loop has called gs_make_candev()
+for all channels. At that point every canch[] entry holds an allocated
+netdev with rx-offload attached.
 
-	can_rx_offload_irq_finish(&dev->offload);
+When register_candev() fails for channel i, only canch[0..i-1] go through
+gs_destroy_candev(). Channels canch[i] through canch[channel_cnt - 1] never
+get can_rx_offload_del() or free_candev().
 
-resubmit_urb:
+The kfree(parent) at out_usb_kill_anchored_urbs then frees canch[], which
+held the only pointers to those netdevs.
 
-If alloc_can_err_skb() fails, this path skips
-can_rx_offload_irq_finish(). An RX SKB queued earlier in the same callback
-by gs_usb_rx_offload(), or an echo SKB queued by gs_usb_get_echo_skb(),
-then stays on offload->skb_irq_queue. NAPI is not scheduled until a later
-URB completion calls irq_finish.
+Before this patch, gs_make_candev() cleaned up its own channel when
+register_candev() failed, and no later channels had been allocated yet.
 
-On the new allocation failure paths added here, nothing has been queued
-before check_overflow, so this patch does not make the delay worse.
+The USB device can trigger this. register_candev() returns -EINVAL when
+can_bittiming_const_valid() fails:
 
-The next patch in this series, "can: gs_usb:
-gs_usb_receive_bulk_callback(): add missing call to
-can_rx_offload_irq_finish", changes this to goto can_rx_offload_irq_finish
-and adds a matching label, which fixes the skipped irq_finish.
+drivers/net/can/dev/dev.c:can_bittiming_const_valid() {
+    ...
+	if (!btc->sjw_max)
+		return false;
+    ...
+}
 
-One part is not covered by that patch: when alloc_can_err_skb() fails,
-rx_dropped is not incremented for the lost overflow error frame. The
-overflow event itself is still counted in rx_over_errors and rx_errors.
-Should rx_dropped be incremented here as well?
+gs_make_candev() copies sjw_max straight from the device's
+GS_USB_BREQ_BT_CONST reply. A device that reports sjw_max == 0 for channel
+0 would leak every channel on each probe.
+
+Should this error path also run can_rx_offload_del() and free_candev() on
+channels i through channel_cnt - 1, the same teardown the first loop's
+error path uses?
+
+> +
+> +			goto out_usb_kill_anchored_urbs;
+> +		}
+> +	}
+> +
+>  	return 0;
+> +
+> +out_usb_kill_anchored_urbs:
+> +	usb_kill_anchored_urbs(&parent->rx_submitted);
+> +	kfree(parent);
+> +
+> +	return rc;
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this teardown order
+cause a use-after-free in gs_usb_receive_bulk_callback()?
+
+The old gs_make_candev() failure path had the same pattern. Registered
+channels 0..i-1 are destroyed one at a time, and gs_destroy_candev() frees
+each netdev right after unregistering it. The freed pointers stay in
+parent->canch[].
+
+The shared RX URBs are only killed when the last active channel closes:
+
+gs_can_close() {
+    ...
+	parent->active_channels--;
+	if (!parent->active_channels) {
+		usb_kill_anchored_urbs(&parent->rx_submitted);
+    ...
+}
+
+The only other place they are killed is out_usb_kill_anchored_urbs, which
+runs after the whole destroy loop.
+
+Suppose userspace has already brought up canch[0] and canch[1] when
+register_candev() fails for a later channel. Unregistering canch[0] closes
+it, but active_channels is still 1, so the RX URBs keep running after
+canch[0] is freed.
+
+If the device then sends a frame with hf->channel == 0, the callback
+dereferences the freed entry:
+
+gs_usb_receive_bulk_callback() {
+    ...
+	dev = parent->canch[hf->channel];
+
+	netdev = dev->netdev;
+	stats = &netdev->stats;
+
+	if (!netif_device_present(netdev))
+    ...
+}
+
+A frame with an out-of-range channel id goes to the device_detach label
+instead. That code calls netif_device_detach() on every non-NULL canch[]
+entry, which writes to the state field of the freed netdev.
+
+The window is shorter now that no USB control messages run between
+registrations, but the ordering is the same. gs_usb_disconnect() is not
+affected, because usb_unbind_interface() disables the interface before it
+calls disconnect.
+
+Would it help to unregister all the registered channels first, so the last
+close stops the shared RX URBs, and only then free them?
+
+>  
+>  static void gs_usb_disconnect(struct usb_interface *intf)
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025-gs_usb-fixes-v1-0-f74ebbd4da36%40pengutronix.de
