@@ -1,96 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102591;
-	b=3xUvVK9SQ7GiawZ/hCuVamT/BxYHRGKn6iGHh+o8IsSMjQ2GSy2wkTrTS0IWBKkIJHB1
-	 Ea4m2yal3bcaZVrXMUtqbBOF8nUuxuGr9VtmHfHuuhxn4FlwMHqRguXBcFLdhwwzW9gtr
-	 BnAln+Qpxxf/XodVLzj7tWSeOFDBgRJ9WQuJ1SVkQTFNiu66SgsXPEqvdme0xr7UhbPpy
-	 1lYWFy2j9CkmU+KdsZhUksny1RmNXbuYZbp1Yfkxf913NQ3dRuVUZy9Ucb2P/l1o4GPH9
-	 3KB2DEzg33LRTnIJ86zp9fghc+eo8qbxblkfBWD+kU7IwZLXNNevRAB4RbOcNEo0SAQ==
+	t=1793102807;
+	b=cOu/2teGwFYobGh2/OfH9dOIPazq1TsbPxbJqnJ2uORQjyotBZjE1p1vMYRyreJJKfo2
+	 h5ZrG7C4b/hbwODhmJ+jj5Fyc+H2P1jaDB2IX8JkD+1zeZGAa4yQh0y/4I2oY4UOQa6QE
+	 t2hdgMNGlsrfGjnEU6fj+JRgvf3woaQ67H4PC8hNAoSsE6ezdfaD8Llytolm9hhPTZO5C
+	 2F6uA5SmPspIcuZinDcBx1xXcLpSuX7Gux1uRmRQ9Iw7uZ2AJZGOZUCGW8YCk6kzzOBRr
+	 qL0lRQk5ZOpFFS8o9i4ecKaFRRp8IVG5S6YuHUzxZfiIecWsmVpjr7IaGTWLTESAbJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102591;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=Xk/3IAbzd1VTf1sorpQhYh140qhCaxvlTgIx+6FQd9A=;
-	b=GzglyaE5ra6NVJb7nRafEAno6Ra7cmFJOElNnnu0ShM5ziBUljZ9KHZUNn7RlCYjyJIW
-	 kqLD1O2mOLu9Tz/w61mtx+r6sH8Hvd977VcftSOQiZ2hFV44DnrPJmCmSOnOgPssy+R+Z
-	 WKKqWINS6fuPnVoD4hBeBcD///K6pGBnV8BAxqANZurZfpieRDzlLxdPxoqGfoDrx4Pa9
-	 Lp1fWrsomlJNybD2oR5sZ7wBPeqwVQ6FO/3fcMAwrI/5sqTZmKYRnyY7pKL0QBPePH9d8
-	 0tjpObYn8AOYKHPBq7SLcV5SrQ9eya9Ig14loPcvZl1B0snsEbv7occtp5jsvI9VCCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102807;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
+	b=xsKER7p9EzGvmTnQzoSjGpPWqnLm0FM3fTKQy5zTAGu2c9Xj1B57hJWTpoWPZpudNRVU
+	 KY7OeH/HxlLLJJAju2sNT0V0E6uUQbBq6Mylas8W6bVQA3HZWdOmPUnpSfavUwDIvumZU
+	 huHynRD1mXqHQzsxmphgTsB3AJMyTl9xfkBBu0tOYProNsv/zrOG3L2N++0BN7HDlqkgM
+	 QlBW4vhpn5jrSVwA8SLlPC5UjCKeARmb0QOYNDZ0/0ojiRDIRmId9oKnFcHxdk3LhN4It
+	 FwXoRDaSe9fSLM32L7Qj5ZaaEM18GrmIQZttZTUBWQsA6mFhAP1hcarmYSgfF4Cx94Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UoyobN5W;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C8wf6H+A;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RXPeLHkn;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FC660A262A;
-	Tue, 27 Oct 2026 12:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FC660A262A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD0D606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD0D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UoyobN5W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793102583;
-	bh=YWoolVgm2Ixluif9oj3rIYs3Yoa5Ka1lDDAT8MCYdfk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UoyobN5Wle8Hb0w9IdgnZ+siA/tNG7uUg0NF0kOV5aEFVGthGSjxzrOY2jYARwdLy
-	 jar4TukEip4Ektz+ER+VHW8aVHBNMnnqIwUM63lyHM1r/bqr5i3iwenKcl13VIzinX
-	 YhVJesQJCB3r4AvUeRdYiQCR2vsa8rW2cv34NSSQk7QCs1saRmvUMmBAH1Zy0UMH9m
-	 JWGZxlZbxCTVK8y7yHktAohlEOZ239L5lBRsFgnuEN2ot7RnD2qaFBQT+0/W1gOWD+
-	 cwODVBpgwQBg+7jJIA+zM5mC+saw4pr5hMDW1V61pMjfaCqW3F5pBPOJc0LzKrUoNk
-	 Zu+jD+5MxTc3g==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 16C7B259D7;
-	Tue, 27 Oct 2026 15:03:03 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue, 27 Oct 2026 15:02:57 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.50.125])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jDTdr20WPz2w2G;
-	Tue, 27 Oct 2026 15:02:56 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Chris Mason <clm@meta.com>,
-	Chuck Lever <cel@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Anna Schumaker <Anna.Schumaker@Netapp.com>
-Subject: [PATCH 5.10 v2 1/2] rpcrdma: Fix comments about reverse-direction operation
-Date: Tue, 27 Oct 2026 15:01:37 +0300
-Message-ID: <20261027120143.1596-2-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
-References: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C8wf6H+A;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RXPeLHkn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793102806;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
+	b=C8wf6H+AYeIBEpNoYU9zy+75ULNP/v8GQ+JI8YeV0z07n1Y+A6DfJJMoiLDsRAkdopP1nm
+	mDDqcgNZtSs6bwlt30sfqIwMVo1hpfZjo5uyPypqxGriI9Ja/hmZFjb/UVoEAAKB0hRrO2
+	t5vzy8hgE7y5Sd8a2kTPo8g1uS2cPCU=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-582-YdnLd-gNNd6NAOBrTjuTIg-1; Tue, 27 Oct 2026 08:06:45 -0400
+X-MC-Unique: YdnLd-gNNd6NAOBrTjuTIg-1
+X-Mimecast-MFC-AGG-ID: YdnLd-gNNd6NAOBrTjuTIg_1793102804
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a35db2d6b3so20434135e9.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 05:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793102804; x=1793707604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
+        b=RXPeLHknvGdIZGmmQOg9CAJu4ZQtCgOy3X3PowC0Os1DVS3R3aAap0u/wm9XlHjjU0
+         HM7EnBYUihFyrhh1OeTuQm1swnYuwj1Fq5vCpeTtiKUZayZvLx2FW2nE2iCCCEN8uLZS
+         rm/XjIP89WmKbQEYcS1deWV+VA4VJRJYm+1PAToAyM5Brkq2jjR8JxmcLQ4Z7AVNuVBl
+         IHAFFIrp8q1UELTYZ1iRU7F0s+8NonqxUEMQqQIT9XKQIOqDtIAL9X6LF91LY+mc2I4L
+         bl2+O7sPWb1g0mhON7TtdHK9xkW+VDA6Y7xxWXbXmAA0J1q8u4nHXpudB6pPMGTKXTzt
+         FJ7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793102804; x=1793707604;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
+        b=1oug1naiI5EDFD63uGNaEhVgH1B1EGhe2MhvLapi3fQfVruZ0nBqQyFlCrX2F73puN
+         nDuae41qk6IZ3Jrhu01fAdAHXfa6DDTfXtjWXo70zBfTy+cyAowMDyjaxBlsh+IEu4CF
+         4XkJZJ8ogRdXTEwKQ9ljteVcvMkGK1Fa1aHCQX5ExC/XSm2i70U8nrXwsHNTZYD6By9q
+         jkUkcmjXmCuXzVAzK7IqiVniKMR5IPYdEeS5pmbirI04ZiYULP3/8LsW3LXCmc4S08Xw
+         /ry4U3RLsb/nc1EvmpIo4VjqNEgooKf3uMHx2hGT38v20pD50p1nRJ+HTUl6GyBfixQe
+         wxnA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+2jj/MGvBjxVnL5UcQYxnjQjV+x6IcqC7TPP3rABID3nSfoxpk+pO6xft45RBHGUmXsswiXU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZ+AnEZLuWONCUK+Aso7JYCQf1NILT8nS+GHTXxpuFh8EXcE0j
+	6O54skB1hk/Lc7Xzs4fJ709fPcR/bXIG9nOUW8FcrkEPnKkGafwBhj8P3NXYFlb7kbiG8L542Ur
+	ts0fXxk/as+D9lvlw332yjxbMusB6YmawKqM2MqVjZC+m1KYXOyjNn7olAQ==
+X-Gm-Gg: AYBFou0dlKTYbMcre2uYrSJaHaJptoxBJiaiwv2Y04dtWr+EetO4aYCfCen1Rz/kZDo
+	LD1Y/ycVPJzcHpOcqkt6eH81lYnEc7d2EK2GHtJsf05mbPt9VWSo9CG5B/DM4t8Vt+nLesCfEhJ
+	VwbeGXw8ayF4nmqanEN+ky6bnoMQ+DUTXQ+c7Z40P7POaNIpCCommeAHtfIevTzAUE6Zt1/x9/Y
+	TUlFPf8JzrtzFODGQaQL/iBs0tYZ4PP0sEO/Uzr6CQZTa4XmoYWkUvcu1e3RAHQwpc4qgh/wyPi
+	pCakYGA+snw2pj7LPUue+2o/QgJpp69hSJcgY513fJ047GRDzr4e61pF7rWF6EcqTTZK7zfqq7D
+	xQFTKNQb9Fdy3sHQ5MQPaYf/XISc3oKSQDtYmv+rFQ3CvxeJZinD8bC4wjHX5X6xiFptjwukgWQ
+	==
+X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr103979865e9.11.1793102803692;
+        Tue, 27 Oct 2026 05:06:43 -0700 (PDT)
+X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr103979245e9.11.1793102803120;
+        Tue, 27 Oct 2026 05:06:43 -0700 (PDT)
+Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2d9280sm259748385e9.13.2026.10.27.05.06.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:06:42 -0700 (PDT)
+Message-ID: <096bd22b-c569-4998-a943-0381c3fa9998@redhat.com>
+Date: Tue, 27 Oct 2026 13:06:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,124 +112,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {Tracking_from_domain_doesnt_match_to}, {Tracking_interpol}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207024 [Oct 27 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/27 10:49:00 #28748526
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] virtio_net: reject stats replies for queues outside
+ the request
+To: Lianjie Wang <karin0.zst@gmail.com>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261022182710.2055771-1-karin0.zst@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261022182710.2055771-1-karin0.zst@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+On 10/22/26 20:26, Lianjie Wang wrote:
+> __virtnet_get_hw_stats() passes the vq_index of each record in the
+> device's statistics reply to virtnet_fill_stats() without checking it,
+> so the device decides where the driver writes the counters.
+> 
+> For ethtool -S, virtnet_fill_stats() uses vq_index as an offset into the
+> output array, which the ethtool core sized for curr_queue_pairs. A
+> record with the vq_index of a higher queue makes the driver write past
+> the end of the array.
+> 
+> For the per-queue netlink stats, the queue type also comes from
+> vq_index. A receive record in reply to a request for a transmit queue
+> makes the driver fill the struct netdev_queue_stats_tx on the stack as
+> if it were a struct netdev_queue_stats_rx. If the device offers
+> VIRTIO_NET_STATS_TYPE_RX_SPEED, this writes one counter to the eight
+> bytes after the tx struct.
+> 
+> Fix this by rejecting the reply when the vq_index of a record lies
+> outside the range of queues the request asked about.
+> 
+> Claude Opus 5.5 was used to review the driver code and draft this patch.
+> To reproduce, the virtio-net device in QEMU was modified to answer an
+> ethtool -S request on a one-pair device with a record for a receive
+> queue the device does not have. On an unmodified kernel, KASAN then
+> reports a write past the ethtool -S output array. With this patch, the
+> driver rejects the same reply with "Failed to get hw stats.", a
+> well-formed reply fills the statistics as before, and the
+> drivers/net/stats.py selftest passes.
+> 
+> Fixes: 941168f8b40e ("virtio_net: support device stats")
+> Fixes: d888f04c09bb ("virtio-net: support queue stat")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lianjie Wang <karin0.zst@gmail.com>
+> ---
+>   drivers/net/virtio_net.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> index daab43ac92ce4..0473fa9947858 100644
+> --- a/drivers/net/virtio_net.c
+> +++ b/drivers/net/virtio_net.c
+> @@ -4955,7 +4955,8 @@ static void virtnet_fill_stats(struct virtnet_info *vi, u32 qid,
+>   static int __virtnet_get_hw_stats(struct virtnet_info *vi,
+>   				  struct virtnet_stats_ctx *ctx,
+>   				  struct virtio_net_ctrl_queue_stats *req,
+> -				  int req_size, void *reply, int res_size)
+> +				  int req_size, void *reply, int res_size,
+> +				  int first_vq, int last_vq, bool enable_cvq)
+>   {
+>   	struct virtio_net_stats_reply_hdr *hdr;
+>   	struct scatterlist sgs_in, sgs_out;
+> @@ -4976,6 +4977,10 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
+>   	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
+>   		hdr = p;
+>   		qid = le16_to_cpu(hdr->vq_index);
+> +		if ((qid < first_vq || qid > last_vq) &&
+> +		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
+> +			return -EINVAL;
 
-commit 84dff5eb86ceb2a356d5409fc1af21a366bf3c35 upstream.
+I think the above check could be simplified to:
+		if (qid < first_vq || qid > last_vq)
+			return -EINVAL;
 
-During the final stages of publication of RFC 8167, reviewers
-requested that we use the term "reverse direction" rather than
-"backwards direction". Update comments to reflect this preference.
+squashing the following in virtnet_get_hw_stats():
 
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Reviewed-by: Tom Talpey <tom@talpey.com>
-Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
-Stable-dep-of: c7653d5cebc8 ("xprtrdma: Fix bcall rep leak and unbounded peek")
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
- net/sunrpc/xprtrdma/backchannel.c          | 4 ++--
- net/sunrpc/xprtrdma/rpc_rdma.c             | 6 +-----
- net/sunrpc/xprtrdma/svc_rdma_backchannel.c | 4 ++--
- net/sunrpc/xprtrdma/xprt_rdma.h            | 6 +++---
- 4 files changed, 8 insertions(+), 12 deletions(-)
+-       if (enable_cvq)
++       if (enable_cvq) {
+                 virtnet_make_stat_req(vi, ctx, req, vi->max_queue_pairs * 2, &j);
++               last_vq++;
++       }
 
-diff --git a/net/sunrpc/xprtrdma/backchannel.c b/net/sunrpc/xprtrdma/backchannel.c
-index c92c1aac270a..31514e4d81ff 100644
---- a/net/sunrpc/xprtrdma/backchannel.c
-+++ b/net/sunrpc/xprtrdma/backchannel.c
-@@ -2,7 +2,7 @@
- /*
-  * Copyright (c) 2015 Oracle.  All rights reserved.
-  *
-- * Support for backward direction RPCs on RPC/RDMA.
-+ * Support for reverse-direction RPCs on RPC/RDMA.
-  */
- 
- #include <linux/sunrpc/xprt.h>
-@@ -208,7 +208,7 @@ static struct rpc_rqst *rpcrdma_bc_rqst_get(struct rpcrdma_xprt *r_xprt)
- }
- 
- /**
-- * rpcrdma_bc_receive_call - Handle a backward direction call
-+ * rpcrdma_bc_receive_call - Handle a reverse-direction Call
-  * @r_xprt: transport receiving the call
-  * @rep: receive buffer containing the call
-  *
-diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
-index b8174c77dfe1..bb5648133b10 100644
---- a/net/sunrpc/xprtrdma/rpc_rdma.c
-+++ b/net/sunrpc/xprtrdma/rpc_rdma.c
-@@ -1170,14 +1170,10 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
- 	 */
- 	p = xdr_inline_decode(xdr, 3 * sizeof(*p));
- 	if (unlikely(!p))
--		goto out_short;
-+		return true;
- 
- 	rpcrdma_bc_receive_call(r_xprt, rep);
- 	return true;
--
--out_short:
--	pr_warn("RPC/RDMA short backward direction call\n");
--	return true;
- }
- #else	/* CONFIG_SUNRPC_BACKCHANNEL */
- {
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_backchannel.c b/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
-index feac8c26fb87..2e860c68735f 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
-@@ -2,7 +2,7 @@
- /*
-  * Copyright (c) 2015-2018 Oracle.  All rights reserved.
-  *
-- * Support for backward direction RPCs on RPC/RDMA (server-side).
-+ * Support for reverse-direction RPCs on RPC/RDMA (server-side).
-  */
- 
- #include <linux/sunrpc/svc_rdma.h>
-@@ -59,7 +59,7 @@ void svc_rdma_handle_bc_reply(struct svc_rqst *rqstp,
- 	spin_unlock(&xprt->queue_lock);
- }
- 
--/* Send a backwards direction RPC call.
-+/* Send a reverse-direction RPC Call.
-  *
-  * Caller holds the connection's mutex and has already marshaled
-  * the RPC/RDMA request.
-diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
-index 73c8ab89456b..a89605e14f2f 100644
---- a/net/sunrpc/xprtrdma/xprt_rdma.h
-+++ b/net/sunrpc/xprtrdma/xprt_rdma.h
-@@ -95,9 +95,9 @@ struct rpcrdma_ep {
- 	unsigned int		re_inline_recv;	/* negotiated */
- };
- 
--/* Pre-allocate extra Work Requests for handling backward receives
-- * and sends. This is a fixed value because the Work Queues are
-- * allocated when the forward channel is set up, long before the
-+/* Pre-allocate extra Work Requests for handling reverse-direction
-+ * Receives and Sends. This is a fixed value because the Work Queues
-+ * are allocated when the forward channel is set up, long before the
-  * backchannel is provisioned. This value is two times
-  * NFS4_DEF_CB_SLOT_TABLE_SIZE.
-  */
--- 
-2.43.0
+(likely with some meaningful comment).
+
+/P
 
