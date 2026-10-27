@@ -1,63 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793083871;
-	b=RkQiE7IbnUZCcuCNPU1awSHP/wrP79K7HtdOZ1nW/TqnpgX9lSl+OjaDD67QGOPZmtoI
-	 8qMAoedJhf8W7ftksEpXvSz0E8i+NaAaXCIzNTEOQmuLMgQ8dPlCD3+PnF6RgYGdTlH6B
-	 4nU4FZ+JCMAfEuaCh4mT3EcFwhPM3Q9P3SSp9EpYg1Wr6zFzUExdmStIRGIkMItjZ6y+L
-	 3iXL/TmRscoICk/ZnCCtQ8dsulwX0qvZO3jEvnJ7Dx89hDvAOPI483iXdtbKgB85KliFq
-	 VcpmPimZjcPLxY4JApuiF/kGmnNRIluYr8dwK5R3/dCHLM2b7MkwC75C78VvtXE9MMA==
+	t=1793083973;
+	b=dm1Cs0l0t7s0i7x8SSWlVK1wCFYWyNPipdbVQBr69WaxURg23U81imPJceVTvyuCm95r
+	 UNCO/kmuPNPJAgC4pOvb2J5Liuid4ldLYY3KcRArnzBiWuqwf+d+dD9NOdnpefw6XNi/J
+	 2loN1WjKhu/NRehEPbBgUMD0rtN5xGkxWq1us36EftapIf644s+Iq+c7Rw1rNd6AwLDCU
+	 FM5/y5KwR7j90z8VR795nzRFMGZbpWPy8bNWCxKbBoVemHsmIvQlfqyh/l6H26QwlTsyY
+	 iW9ysOT4mt68ZYS/ZQYnmj35W/QGf7lR+tYc3VD3748rtD2qB6zreTvk1qbflOcFRqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083871;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=T7GMpbDuEdomDKncFT3yYy8syZ+MfWolkM+DO91ddA4=;
-	b=vxgu7ah4ssdYyZQjWnOg3Of5ki0vTmHb95J6ST+4MOpApwkmXMlVGSWXmKX3UU15+cBw
-	 h9aG87Cu9KR3L/SNbjlU+hh4aS9KLC5Lmqz/OJMQIiBheIJkJPECr34piN6DezFo/YnOA
-	 6DIW3dcqHFLh1F0IuZqqcM5OObAy0gkywe18Kvc22TRyY6BdHHXoDTi+4pRqgMvDqOC1G
-	 FoQFYPZZuF/b6rU4aHI+/H188Ti1Y8BslqQjG6SIevqPxWoBoGytgHcgVylFQ9yM1e3Nt
-	 up+YsOP9rmNk0tEPYS25HeOE8scKwq2G3EXHRFFqU5fZoQYlYjBsWzRCRBK9SggOmfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083973;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Bcuq2df4LWxKU06cO1cKfQHt7bV53cP3D5X0WMKpC5M=;
+	b=h1S8kCcWs/Lnn/7pHsBq1J5RzqCB88odzlrFXIcUVryZe7BSS0tdMI2brzcYfaumxwba
+	 8AFP9jJf7X3w1/j38lhFTcQ2UMMfxianNQDu6W2t6N9bK4aTrFtPmiG849lxFid9mNjVA
+	 +J8oOYTgLHAR7j/GYgDimakgKfjy0XiQWDbctSvZbNrFqKC4V7SJtg1yFem83ORf0jhxn
+	 HRw8B88ozNPQFfM53dxCiZBWnz8vz9Cer4wM5fDw6nOqxn5KR86939EMBq/ANpYoGtx3w
+	 xTej8kt8Fh8mqoC+wlN9h7pErOTM7hicichmpUIbfSJO1ghAZhCwR1j9ZWV6oszQ3bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N7tkItcO;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CyVpYmwe;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C48B606A334;
-	Tue, 27 Oct 2026 06:51:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C48B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0364C606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 06:52:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0364C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N7tkItcO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=T7GMpbDuEdomDKncFT3yYy8syZ+MfWolkM+DO91ddA4=; b=N
-	7tkItcOAJBFYJOpTHkz+a5Uur8gwRX0IYqacuVKvGYhfmjNwobJDyU+Oo0FHlMIP
-	IbJv+ILgqqYt5961K2QTmoAQRCTGKvNoVsxtEss5Dmz64tK6Bbb6zrW7QaTInIR+
-	8o2Qhfw0eYPIw5f7cmZOxOfy67khNJICM9jQEIp4oA=
-Date: Tue, 27 Oct 2026 14:50:49 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Sudeep Holla" <sudeep.holla@kernel.org>
-Cc: "Jassi Brar" <jassisinghbrar@gmail.com>,
-	"Mark Brown" <broonie@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CyVpYmwe
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so20818655e9.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 23:52:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793083971; x=1793688771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bcuq2df4LWxKU06cO1cKfQHt7bV53cP3D5X0WMKpC5M=;
+        b=CyVpYmwexZ0bVEp0AP6HCD+adMbpynGOGrPpnbPVqkVSdUknZA4JinYq0I51kxx8Aa
+         17jMEtKvvpyf6qJsb+JydH+g0gXGuN+gpDGCPywZi8w7SJkff9cmaY4GUC41TyRl41DM
+         qD7lYaTVE+xOke0MyrzHq7xXdStA/EzCcFkL/dhcL1N/yvhuUCMLf4m2ph+ctGO+aI2y
+         l+nhpfmo8m0zFLguHtoGeGbs5JAjWoVtefeElI/aiZd8obcTZX5IwfZSSpDP4nTW6Ut+
+         b6g1/pCZedJSU4PX0NGcQqJekYsdDn1Fp4Cmw7tVPIdzIn5xFRARbGS3vl8i2WqWWLfN
+         vnQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793083971; x=1793688771;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bcuq2df4LWxKU06cO1cKfQHt7bV53cP3D5X0WMKpC5M=;
+        b=Xwo2OY47BI+ujfoZQPU9yaKQbmKOoLlA+ucWVNRdbK/tCGNI7SSWaLWdyi0p7rCACt
+         uYPfXNbnWq/KYNckJ+0TK0XwTsVUcaOa4sOgJJIKdJA2CmWugDkjde/raoNdautMsWq9
+         FwTQplGiI812wmU7jk7qdGbzD02ax04VGImrGVJIjyXJjPeQnr6QyHZvUxMyjrr9/GBO
+         6sbV7/I1SH9iV/v3X6sGVHn4A5in9e/xrlJhmneMEnqOd4gBO+XXkHHRdhauGPLuxdJb
+         cjZ/PT2L7ttSRiYMIeFDjZPsNT1yPbhbRmj4E1j3ozN/gw20rU47eQycGiIHMwjgRI3e
+         3E1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzddfSm6Y01RZQUCCthKajoCto+x/DOvkYYjK90SzJ6rqmrmJo54bVuLdTeXpEtWKTApk97z8I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvxJ29xEsf0VCzE6wP/GRy3bH5CsarbjwoL8J9mssu9yvUwr82
+	rca1yPZABaJ1wX1afStXntwTmuQsum/xgWTx7a990tzI1zKO8RwKRjiT
+X-Gm-Gg: AYBFou3piwpXbK9x9FLt9eAMTb5m1T+8D/ar4kpVgLVF9QXRwXzGL1V87n8ueIunZMR
+	1kWcGBVo9MqekMcfXqP2BwsHuQj/Db/TAWNIOXbs0Y/HJD0Getv7yAg+oMPiO3IWi1gEBsyLXj8
+	PxzgOf3mLswaMWx3/XG1dCjish/JRf/LeJRAzfejUQfJNifeXFs3ZeW2axrUwfRINYgxVjk6bgV
+	S8rcFPxYZacRZGWRVB2EmY4EhEq1o6+snPVSlqdIHr/jXIZZ2Hrgw/T7WbhuVMnUsPpboguEzdI
+	OKfwygBYlf3ZcqJa+v97SZcUs7g4Nxvj0100bqAtWgOYw1yWKIWKLLpI58D427Yn785A4X9LRlv
+	TR9r6FBhUMcRRWxNWTBOdEsUc6UlEpVdUWdPopywashIDQOrZA2NCiLE2jZrHd1ylkIK/KtMqUp
+	mCEWBAWBXBvpy+b4blPudcd8t/RkzCq/Ir5ZJ0IZ1vic3L0Rr1hxyse5nQOkj9r4igiKWQCia2h
+	Ik0gmdgDqPh5MxKrce8cCqWpcz5YF/lY85x37c7aFaDb9C5zVKVBhPzjF7Mn3uxU5p91CKTGYl+
+	xgllHg1BJp0z2svi1TbfZXX6yy69PCtXfujYvla9JY2gMciJQQk89mrdxPtRTNNPtmkZT8UDPyo
+	GYkYA6GdW5SVQMVxMn7jI33uIKSEZlOchqJyO7LlnkbOnFgzGjv9Mx/ZbzWjf6mgdVadMJTrS9Q
+	KJCAif
+X-Received: by 2002:a05:600c:3f07:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4a35ac91137mr150192625e9.11.1793083971271;
+        Mon, 26 Oct 2026 23:52:51 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2ac-9b01-6900-1f92-d182-4435.310.pool.telefonica.de. [2a02:3100:b2ac:9b01:6900:1f92:d182:4435])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2ed5a2sm259282285e9.15.2026.10.26.23.52.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 23:52:50 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Austin Schlegel <schlegelas@outlook.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Alan Cox <alan@linux.intel.com>,
+	Stephen Warren <swarren@nvidia.com>,
+	Austin Schlegel <austin.schlegel@arthrex.com>,
+	linux-serial@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re:Re: [PATCH v2] mailbox: pcc: validate PCCT subspaces before
- parsing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261023-invincible-satisfied-dragon-c3dc50@sudeepholla>
-References: <20261023093839.715037-1-yaojiale02@163.com>
- <20261023-invincible-satisfied-dragon-c3dc50@sudeepholla>
-X-NTES-SC: AL_Qu2SAfyTvEAv7ymbYekcn08ShO49XMOyvfoi2YFTc8EFhwzy3T8rZFVlLHfY28mULw+2ux6vQhhcw+doWoNAEsXTXuVpb4zAhBF5dsEARg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Subject: Re: [PATCH v3 0/3] serial: tegra: fix DMA descriptor use-after-free and stale completions
+Date: Tue, 27 Oct 2026 07:52:39 +0100
+Message-Id: <20261027065239.95915-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261022-serial-tegra-dma-uaf-v3-0-129f6d67f673@outlook.com>
+References: <20261022-serial-tegra-dma-uaf-v3-0-129f6d67f673@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,103 +110,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <6b05ec89.55fd.1a17c203cd6.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gigvCgDnj8HKSeBqi_xgAA--.1500W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQpXkWrgScol-wAA3S
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0xMC0yMyAyMjoyNDoyOCwgIlN1ZGVlcCBIb2xsYSIgPHN1ZGVlcC5ob2xsYUBrZXJu
-ZWwub3JnPiB3cm90ZToKPihGb3Igc29tZSByZWFzb24geW91IGRvbWFpbiBnZXRzIGJsb2NrZWQg
-Zm9yIG1lLCBzbyBwbGVhc2Ugd2FpdCB1bnRpbAo+SSBjaGVjayByZXNwb25zZSBtYW51YWxseSBv
-biBsb3JlKQo+Cj5PbiBGcmksIE9jdCAyMywgMjAyNiBhdCAwNTozODozOVBNICswODAwLCBKaWFs
-ZSBZYW8gd3JvdGU6Cj4+IFRoZSBQQ0MgbWFpbGJveCBwcm9iZSB3YWxrcyBQQ0NUIGVudHJpZXMg
-YnkgdGhlaXIgZGVjbGFyZWQgbGVuZ3Rocwo+PiB3aXRob3V0IGNoZWNraW5nIHRoYXQgZWFjaCBl
-bnRyeSBpcyBjb250YWluZWQgaW4gdGhlIHRhYmxlLiBJdCBhbHNvCj4+IHBhc3NlcyBnZW5lcmlj
-IGhlYWRlcnMgdG8gdHlwZS1zcGVjaWZpYyBwYXJzZXJzIHdpdGhvdXQgZXN0YWJsaXNoaW5nIHRo
-ZQo+PiByZXF1aXJlZCByZWNvcmQgc2l6ZS4gTWFsZm9ybWVkIGZpcm13YXJlIGNhbiB0aGVyZWZv
-cmUgbW92ZSB0aGUgY3Vyc29yCj4+IG91dHNpZGUgdGhlIFBDQ1Qgb3IgY2F1c2Ugb3V0LW9mLWJv
-dW5kcyBmaWVsZCByZWFkcy4KPj4gCj4+IFZhbGlkYXRlIHRoZSB0YWJsZSBoZWFkZXIsIGVhY2gg
-c3Vic3BhY2UgcmFuZ2UsIGFuZCB0aGUgbWluaW11bSBzaXplIGZvcgo+PiBzdXBwb3J0ZWQgc3Vi
-c3BhY2UgdHlwZXMgZHVyaW5nIGJvdGggdGhlIGNvdW50aW5nIGFuZCBwcm9iZSBwYXNzZXMuCj4+
-IAo+PiBGaXhlczogODZjMjJmOGM5YTNiICgiTWFpbGJveDogQWRkIHN1cHBvcnQgZm9yIFBsYXRm
-b3JtIENvbW11bmljYXRpb24gQ2hhbm5lbCIpCj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
-Cj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0K
-Pj4gCj4+IE5vdGVzOgo+PiAgICAgQ2hhbmdlcyBpbiB2MjoKPj4gICAgIC0gUmVwbGFjZSB0aGUg
-dHlwZSBzd2l0Y2ggd2l0aCBhIG1pbmltdW0tbGVuZ3RoIGxvb2t1cCB0YWJsZS4KPj4gICAgIC0g
-UmVtb3ZlIHRoZSByZWR1bmRhbnQgcmVtYWluaW5nLWhlYWRlci1zaXplIGNoZWNrLgo+PiAgICAg
-LSBLZWVwIGFuIGV4cGxpY2l0IHR5cGUgYm91bmQgY2hlY2sgYmVmb3JlIGluZGV4aW5nIHRoZSB0
-YWJsZS4KPj4gCj4+ICBkcml2ZXJzL21haWxib3gvcGNjLmMgfCA0OSArKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKystCj4+ICAxIGZpbGUgY2hhbmdlZCwgNDggaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJv
-eC9wY2MuYyBiL2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBpbmRleCA5ODg4ZGFiNjQ2MzkuLjkx
-Y2VmMGVlMzM5MSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tYWlsYm94L3BjYy5jCj4+ICsrKyBi
-L2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBAQCAtNTUzLDYgKzU1MywzOCBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IG1ib3hfY2hhbl9vcHMgcGNjX2NoYW5fb3BzID0gewo+PiAgCS5sYXN0X3R4X2Rv
-bmUgPSBwY2NfbGFzdF90eF9kb25lLAo+PiAgfTsKPj4gIAo+PiArc3RhdGljIGNvbnN0IHUxNiBw
-Y2Nfc3Vic3BhY2VfbWluX2xlbltBQ1BJX1BDQ1RfVFlQRV9SRVNFUlZFRF0gPSB7Cj4+ICsJW0FD
-UElfUENDVF9UWVBFX0dFTkVSSUNfU1VCU1BBQ0VdID0KPj4gKwkJc2l6ZW9mKHN0cnVjdCBhY3Bp
-X3BjY3Rfc3Vic3BhY2UpLAo+PiArCVtBQ1BJX1BDQ1RfVFlQRV9IV19SRURVQ0VEX1NVQlNQQUNF
-XSA9Cj4+ICsJCXNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWQpLAo+PiArCVtBQ1BJ
-X1BDQ1RfVFlQRV9IV19SRURVQ0VEX1NVQlNQQUNFX1RZUEUyXSA9Cj4+ICsJCXNpemVvZihzdHJ1
-Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWRfdHlwZTIpLAo+PiArCVtBQ1BJX1BDQ1RfVFlQRV9FWFRf
-UENDX01BU1RFUl9TVUJTUEFDRV0gPQo+PiArCQlzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9leHRf
-cGNjX21hc3RlciksCj4+ICsJW0FDUElfUENDVF9UWVBFX0VYVF9QQ0NfU0xBVkVfU1VCU1BBQ0Vd
-ID0KPj4gKwkJc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19zbGF2ZSksCj4KPlBsZWFz
-ZSBhZGQgVHlwZSA1IGRldGFpbHMgaGVyZSBhcyB3ZWxsIHNvIHRoYXQgaXQgZG9lc24ndCBlc2Nh
-cGUgdGhlCj5zaXplIHZhbGlkYXRpb24uIEFzIGlzLCBpdHMgemVyby1pbml0aWFsaXplZCBhbmQg
-bGV0cyBldmVyeSBub24gMC1ieXRlCj5yZWNvcmQgcGFzcyB2YWxpZGF0aW9uLgo+Cj4+ICt9Owo+
-PiArCj4+ICtzdGF0aWMgYm9vbCBwY2Nfc3Vic3BhY2VfaXNfdmFsaWQoc3RydWN0IGFjcGlfc3Vi
-dGFibGVfaGVhZGVyICplbnRyeSwKPj4gKwkJCQkgIHVuc2lnbmVkIGxvbmcgZW5kKQo+PiArewo+
-PiArCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSAodW5zaWduZWQgbG9uZyllbnRyeTsKPj4gKwlzaXpl
-X3QgbGVuZ3RoOwo+PiArCj4+ICsJaWYgKHN0YXJ0ID49IGVuZCkKPj4gKwkJcmV0dXJuIGZhbHNl
-Owo+PiArCj4+ICsJbGVuZ3RoID0gZW50cnktPmxlbmd0aDsKPj4gKwlpZiAobGVuZ3RoIDwgc2l6
-ZW9mKCplbnRyeSkgfHwgbGVuZ3RoID4gZW5kIC0gc3RhcnQpCj4+ICsJCXJldHVybiBmYWxzZTsK
-Pj4gKwo+PiArCWlmIChlbnRyeS0+dHlwZSA+PSBBQ1BJX1BDQ1RfVFlQRV9SRVNFUlZFRCkKPj4g
-KwkJcmV0dXJuIGZhbHNlOwo+PiArCj4KPllvdSBjYW4gZHJvcCB0aGUgYWJvdmUgY2hlY2sgaWYg
-cGFyc2VfcGNjX3N1YnNwYWNlKCkgZG9lcyB0aGlzIGZpcnN0Lgo+Cj4+ICsJcmV0dXJuIGxlbmd0
-aCA+PSBwY2Nfc3Vic3BhY2VfbWluX2xlbltlbnRyeS0+dHlwZV07Cj4+ICt9Cj4+ICsKPj4gIC8q
-Kgo+PiAgICogcGFyc2VfcGNjX3N1YnNwYWNlIC0gQ291bnQgUENDIHN1YnNwYWNlcyBkZWZpbmVk
-Cj4+ICAgKiBAaGVhZGVyOiBQb2ludGVyIHRvIHRoZSBBQ1BJIHN1YnRhYmxlIGhlYWRlciB1bmRl
-ciB0aGUgUENDVC4KPj4gQEAgLTU2OCw2ICs2MDAsOSBAQCBzdGF0aWMgaW50IHBhcnNlX3BjY19z
-dWJzcGFjZSh1bmlvbiBhY3BpX3N1YnRhYmxlX2hlYWRlcnMgKmhlYWRlciwKPj4gIHsKPj4gIAlz
-dHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNlICpzcyA9IChzdHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNl
-ICopIGhlYWRlcjsKPj4gIAo+PiArCWlmICghcGNjX3N1YnNwYWNlX2lzX3ZhbGlkKCZzcy0+aGVh
-ZGVyLCBlbmQpKQo+PiArCQlyZXR1cm4gLUVJTlZBTDsKPj4gKwo+Cj5TbyB0aGlzIHdpbGwgdGFr
-ZSBjYXJlIG9mIHZhbGlkYXRpb24gYXMgcGFydCBvZiBhY3BpX3Byb2JlKCkgaXRzZWxmIHdoaWNo
-IGlzCj5nb29kIGJ1dCBzZWUgbXkgcXVlc3Rpb24gYmVsb3cuCj4KPj4gIAlpZiAoc3MtPmhlYWRl
-ci50eXBlIDwgQUNQSV9QQ0NUX1RZUEVfUkVTRVJWRUQpCj4+ICAJCXJldHVybiAwOwo+PiAgCj4K
-Pk1ha2UgdGhpcyB0aGUgZmlyc3QgY2hlY2sobmVlZCB0byByZXZlcnNlIGl0IHRvIHJldHVybiBl
-cnJvciBub3cpIGFuZAo+ZHJvcCB0aGUgYWJvdmUgY2hlY2sgYXMgbWVudGlvbmVkLgo+Cj4+IEBA
-IC04MTIsNiArODQ3LDcgQEAgc3RhdGljIGludCBwY2NfbWJveF9wcm9iZShzdHJ1Y3QgcGxhdGZv
-cm1fZGV2aWNlICpwZGV2KQo+PiAgCXN0cnVjdCBhY3BpX3RhYmxlX2hlYWRlciAqcGNjdF90Ymw7
-Cj4+ICAJc3RydWN0IGFjcGlfc3VidGFibGVfaGVhZGVyICpwY2N0X2VudHJ5Owo+PiAgCXN0cnVj
-dCBhY3BpX3RhYmxlX3BjY3QgKmFjcGlfcGNjdF90Ymw7Cj4+ICsJdW5zaWduZWQgbG9uZyB0YWJs
-ZV9lbmQ7Cj4+ICAJYWNwaV9zdGF0dXMgc3RhdHVzID0gQUVfT0s7Cj4+ICAJaW50IGksIHJjLCBj
-b3VudCA9IHBjY19jaGFuX2NvdW50Owo+PiAgCj4+IEBAIC04MjEsNiArODU3LDEzIEBAIHN0YXRp
-YyBpbnQgcGNjX21ib3hfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4gIAlp
-ZiAoQUNQSV9GQUlMVVJFKHN0YXR1cykgfHwgIXBjY3RfdGJsKQo+PiAgCQlyZXR1cm4gLUVOT0RF
-VjsKPj4gIAo+PiArCWFjcGlfcGNjdF90YmwgPSAoc3RydWN0IGFjcGlfdGFibGVfcGNjdCAqKXBj
-Y3RfdGJsOwo+PiArCWlmIChwY2N0X3RibC0+bGVuZ3RoIDwgc2l6ZW9mKCphY3BpX3BjY3RfdGJs
-KSkgewo+PiArCQlyYyA9IC1FSU5WQUw7Cj4+ICsJCWdvdG8gZXJyOwo+PiArCX0KPj4gKwl0YWJs
-ZV9lbmQgPSAodW5zaWduZWQgbG9uZylwY2N0X3RibCArIHBjY3RfdGJsLT5sZW5ndGg7Cj4+ICsK
-Pj4gIAlwY2NfbWJveF9jaGFubmVscyA9IGRldm1fa2NhbGxvYyhkZXYsIGNvdW50LCBzaXplb2Yo
-KnBjY19tYm94X2NoYW5uZWxzKSwKPj4gIAkJCQkJIEdGUF9LRVJORUwpOwo+PiAgCWlmICghcGNj
-X21ib3hfY2hhbm5lbHMpIHsKPj4gQEAgLTg0NCw3ICs4ODcsNiBAQCBzdGF0aWMgaW50IHBjY19t
-Ym94X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICAJcGNjdF9lbnRyeSA9
-IChzdHJ1Y3QgYWNwaV9zdWJ0YWJsZV9oZWFkZXIgKikgKAo+PiAgCQkodW5zaWduZWQgbG9uZykg
-cGNjdF90YmwgKyBzaXplb2Yoc3RydWN0IGFjcGlfdGFibGVfcGNjdCkpOwo+PiAgCj4+IC0JYWNw
-aV9wY2N0X3RibCA9IChzdHJ1Y3QgYWNwaV90YWJsZV9wY2N0ICopIHBjY3RfdGJsOwo+PiAgCWlm
-IChhY3BpX3BjY3RfdGJsLT5mbGFncyAmIEFDUElfUENDVF9ET09SQkVMTCkgewo+PiAgCQlwY2Nf
-bWJveF9jdHJsLT50eGRvbmVfaXJxID0gdHJ1ZTsKPj4gIAkJcGNjX21ib3hfY3RybC0+dHhkb25l
-X3BvbGwgPSBmYWxzZTsKPj4gQEAgLTg1Niw2ICs4OTgsMTEgQEAgc3RhdGljIGludCBwY2NfbWJv
-eF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiAgCWZvciAoaSA9IDA7IGkg
-PCBjb3VudDsgaSsrKSB7Cj4+ICAJCXN0cnVjdCBwY2NfY2hhbl9pbmZvICpwY2hhbiA9IGNoYW5f
-aW5mbyArIGk7Cj4+ICAKPj4gKwkJaWYgKCFwY2Nfc3Vic3BhY2VfaXNfdmFsaWQocGNjdF9lbnRy
-eSwgdGFibGVfZW5kKSkgewo+PiArCQkJcmMgPSAtRUlOVkFMOwo+PiArCQkJZ290byBlcnI7Cj4+
-ICsJCX0KPj4gKwo+Cj5XaHkgZG8gd2UgbmVlZCB0byByZS12YWxpZGF0ZSB0aGUgc3Vic3BhY2Ug
-aWYgaXQgaXMgYWxyZWFkeSB0YWtlbiBjYXJlCj5iZWZvcmUgcGNjX21ib3hfcHJvYmUoKSBhcyBw
-YXJ0IG9mIGFjcGlfcHJvYmUoKS4gSU1PIHRoZSBjaGFuZ2VzIGluCj5wY2NfbWJveF9wcm9iZSgp
-IGNhbiBiZSBkcm9wcGVkLgoKVGhhbmtzIGZvciB5b3VyIHJldmlldywgdGhlIHVwZGF0ZSBvbmUg
-aXMgaGVyZSwKCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAyNzA2NDgzNS4yMjY0
-NDU5LTEteWFvamlhbGUwMkAxNjMuY29tCgo+Cj4tLSAKPlJlZ2FyZHMsCj5TdWRlZXAK
+On Thu, Oct 22, 2026 at 05:10:23PM -0400, Austin Schlegel wrote:
+> Patch 2 (TX) fixes the same ordering bug in tegra_uart_stop_tx().
+> It also fixes tegra_uart_flush_buffer(), which terminated the TX
+> channel without clearing tx_in_progress, so a later
+> tegra_uart_stop_tx() acked the freed descriptor.
+>
+> The bugs fixed by patches 2 and 3 were found in review (Sashiko, on v2)
+> and have not been reproduced on hardware.
+...
+> Testing was done on Tegra234 (Jetson AGX Orin) with GPC DMA only. The
+> APB DMA driver (Tegra20-Tegra210) recycles descriptors only after they
+> are acked; the series keeps every ack but has not been tested there.
+
+Tested on Jetson Nano (Tegra210, 70006040.serial with tegra20-apb-dma)
+in TIOCM_LOOP internal loopback mode on v7.3-rc2 (5b0764a53235):
+
+- Unpatched: queuing a 4096-byte TX DMA transfer at 115200 baud and
+  calling tcflush(fd, TCOFLUSH) 5 ms later leaves tup->tx_in_progress
+  set to TEGRA_UART_TX_DMA. Subsequent write() calls see
+  tup->tx_in_progress != 0 in tegra_uart_start_tx() and never start TX
+  (0/48 bytes received on loopback, TIOCSER_TEMT == 0).
+- With v3 applied: tcflush(fd, TCOFLUSH) during in-flight TX DMA clears
+  tx_in_progress and the follow-up write() transmits (48/48 bytes
+  received, TIOCSER_TEMT == 1). Twenty rounds of 3 Mbaud loopback
+  transfers with mid-transfer TCOFLUSH and port close/reopen completed
+  with no warnings.
+
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
+
+Thanks,
+Karl
