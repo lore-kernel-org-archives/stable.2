@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090291;
-	b=35Oo+fD1v+NEukIQeyr9dizWQga1sw8SJqviyFTrgolSCzC8HDJgrQhwWc5AFErG8ZF6
-	 igbK+mOhMXfgol8HZ5EzRTE8NVZA5d29u+ytxQxJ0Fb71qdIJ5H0uzv5ryFSnhQN5KoZZ
-	 RlI6F3fuZ7XFqUUeq8eVT/bBXEY+eoNGUUM+0j4HksZs9NlOEV1jqcU9GLY31n2XNjIfJ
-	 ff/hGxQXutFRRGQIeJ15akKr+BvR7woGreRJILyMe5g0HV07rvyrCUCMLl+TAL7zKlu6p
-	 Og624LRXpQKODKII+E5CS2uBMRGD3EhT77P9tK/d+9hddo7Nb5FvDThdyQO/Cam/bsg==
+	t=1793090295;
+	b=Lf6fT/hyCYhsw0DTZGuPyk0Dtg8YRZ9bmZYlzmyGt1l+k6aV7GKXpqyNAZb1dfYYMueb
+	 GzqLRoIwhiA3y9/MHAGMjyomdJ1U8JfnFPHYpEVPSNzPBhgjplkNo9Np+OBwm+5oYiIvh
+	 7pYBdsTtJ/MzBiwV8BroCP/FNmBjuOA4FAwPJq/aziLmzqZZjVWqVlJIq9EGcv7/5iAZV
+	 4RaVqRFVOCJbg4J3ONOo0xgRhwWpZ6PJklSh7wU+RP3WoPNaLOAs0+zbNh7imU1UFn3IS
+	 SXtQmc8dboEcP+4wLTM2E16pJS/DiVsTgOSpViM3HTyoLH7ZIXAxIN4IyIsFCEgjKWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090295;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SQQm3WtRkyJr046QrssLNcdll1ov6N3Vsz6lOv7a/Wk=;
-	b=xieABLQ4X8lyjH9m9POblOh3JBnuKtoGX7dcvYJSZByngaUF982bYXWq3t8EVnf7bgdl
-	 vE67UlOzwlab3EbP5xZvxt8qPek3Hgxd2ygyuGrFsL+H4BQMffZoFXf3LPt0TMian3DKc
-	 y+LE9CH+VM0pgO3rVeWk8vbtN6FafFoa8IXNV+Rc/tVNkAivtOu1ueIbhm3R8DBjOAMVw
-	 7uLSXNAhuB128xu8k8yzknRex9RWHOTQkH/Un9mB3rwjLB2AysQflnnhNXsx+Z+NetRYb
-	 A/sVFEINQ85Vi0kr4nIvMsuvzCT6LmAmC0JFEUx0j+3ak+9TWJG7/Go9veSQ7HJZlpg==
+	bh=0jvUE7BAMfXfeQ7E5zBu/mVl8NbznBTqo/0Pqg6+g9Y=;
+	b=KIHgivgbuF3o2EUdB3VKb/1EKJCwWRkiisPcORLtV7uowGaLq5u1HpZRZ7qs55ffbcEy
+	 BuLgpF9+NAhoe+l0c97L/YxGkcKsKZlaeezj9cpCdX4W9q9EkyGvUoPoYJ99xoYNckWj/
+	 kN1pSbJOt/qWUYlas5kDVP0DXeQjXFNq+VIqbyBxCJnQmCth537atc+ZGBhvNHiCrSIoH
+	 vvMm+6lYiaQarHrl68fMjOkCTVQDG7zLQNA7HFGvlNI4K98ILWKo/f8l6UoorfBYpgPwD
+	 Ao8lij7mFKHSK+zDpN3sre2x9XqVm/EpBcX/qW3GdaHzPQZyz1nrt5af81N0Ko1OyPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Evply8ZT;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gZS4+wDS;
 	arc=none smtp.remote-ip=198.175.65.11
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDB1606A333;
-	Tue, 27 Oct 2026 08:38:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDB1606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3076B606A31A;
+	Tue, 27 Oct 2026 08:38:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3076B606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Evply8ZT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gZS4+wDS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793090290; x=1824626290;
+  t=1793090295; x=1824626295;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8iLj4Blu5XtuBJf4301/oZB1RzZHmVWvOGI4Spmmxek=;
-  b=Evply8ZT1GofLsP93yqUoclIOo7VrfSirawAEFU5vamgt2PonCzAqZIS
-   RoKAFcInzGBQRsUENw+7wuPkWfjMnFl8uOO4T6R4aeIlEIm0VRhWKfPPJ
-   8Rr8hApPizQiW0+lJ02ufD3hNRrRHGXuCITGlM1KqAV0icRfdsjH//NEB
-   lfNpIcs5hWE9lh8GKVM4QFbiXomKGscgMf/E2j2XdWYubpZzgxjNbpXAl
-   /G2WHTqmtS3jn5qWjtpZRxE1WlIZ9vKTuYfdxs3GhzSsaa3+AP1Omnlnf
-   AX+y8anxEqO61ggp4ztImJRRMrNOor4QaINwk1LfYXDsdIWGwTk6l5Bcr
-   w==;
-X-CSE-ConnectionGUID: lMiCqwtrT3uAgfItl2pI5g==
-X-CSE-MsgGUID: g0yk5mkMQoG22uSoYE4h0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1672391"
+  bh=QF9WraV6r1mF6ekngCDfbiFVTkXFMr/IAGfvAPiXb8o=;
+  b=gZS4+wDS16qSARpEBUTeh0esgbrNEH2BWVegwgJzoiQChHB8FmBoiDqy
+   ppdQMARsp0cq9yd2v+ZvfCT+tZO/pWfVfpzguTmOhuVP1OEzZRdjCKcc0
+   uxnXW00nxRbtU9EMLbkN2XuPdiD+7RmlogZZzExqCl+XZZ2dFyfKHCe+T
+   nou7P17a43DSwpE0gAotcQGfrMbKlt37umV/rZ109xYQaqd2ZJdimq7B3
+   tmZw1ZA9f5BU6ffe0CE7fMrzyIrVZybB1vHnyjY/PQ9JNzHFEInNcEV25
+   Y67yq7sOmJlZgfTqE51rxPSjI1TdDBqgtaScoqBGJ1HM7YSYhn2Rai6yo
+   g==;
+X-CSE-ConnectionGUID: Jn9nCk3pQcGQTY95ppoiXw==
+X-CSE-MsgGUID: vLc0VgqJSkqKn/Y+Uo9D1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1672403"
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1672391"
+   d="scan'208";a="1672403"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:10 -0700
-X-CSE-ConnectionGUID: mQ5/7eyOTYeHjWx2MkUnVQ==
-X-CSE-MsgGUID: R5VblLImQdq5Z4GeqsQ56A==
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:15 -0700
+X-CSE-ConnectionGUID: 2SDZ2rOAQJG1M/VwS53ajg==
+X-CSE-MsgGUID: KgFkfEJbRCmqPB2wjLQ6uA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4570792"
+   d="scan'208";a="4570816"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:08 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:13 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -70,9 +70,9 @@ Cc: linux-sound@vger.kernel.org,
 	stable@vger.kernel.org,
 	tiwai@suse.com,
 	perex@perex.cz
-Subject: [PATCH 1/3] ASoC: hdac_hda: Allocate the private data at codec driver bind
-Date: Tue, 27 Oct 2026 10:38:38 +0200
-Message-ID: <20261027083840.28813-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/3] ASoC: hdac_hda: Balance the runtime PM disable in codec remove
+Date: Tue, 27 Oct 2026 10:38:40 +0200
+Message-ID: <20261027083840.28813-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
 References: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
@@ -87,105 +87,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SOF HDA code allocates struct hdac_hda_priv and stores it as drvdata
-of the codec device before the codec driver is bound. The driver core
-clears drvdata on unbind, so after unbinding the codec driver via sysfs
-a subsequent bind dereferences a NULL pointer in hdac_hda_dev_probe().
+hdac_hda_codec_remove() disables runtime PM of the codec device before
+releasing the HDA link and calling the codec driver's remove callback,
+so that no runtime resume can race with the teardown and access the
+link or the already freed codec driver data.
+snd_hda_codec_cleanup_for_unbind() then disables runtime PM again.
 
-All information in the private data can be derived from the codec
-device itself, so allocate and set it up in hdac_hda_dev_probe() as a
-device managed resource, which is released on unbind.
+On the next probe snd_hda_codec_register() enables runtime PM only once,
+leaving it disabled after the ASoC card or the codec driver has been
+unbound and bound again: the codec stays powered and runtime_status
+reads 'unsupported'.
 
-Remove the allocation from SOF, keeping the check for iDisp codecs
-without display audio component.
+Re-enable runtime PM at the end of hdac_hda_codec_remove() to balance
+its own disable. The codec remains disabled until it is registered again.
 
-Fixes: 3fd63658caed ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
+Fixes: c3ec8ac82105 ("ASoC: hdac_hda: fix memleak on module unload")
+Cc: stable@vger.kernel.org
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/codecs/hdac_hda.c     | 13 ++++++++++++-
- sound/soc/sof/intel/hda-codec.c | 23 ++++-------------------
- 2 files changed, 16 insertions(+), 20 deletions(-)
+ sound/soc/codecs/hdac_hda.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index 7414be08d3d5..46617fc88277 100644
+index cae5711e979c..bd4b113401a8 100644
 --- a/sound/soc/codecs/hdac_hda.c
 +++ b/sound/soc/codecs/hdac_hda.c
-@@ -619,10 +619,21 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
- 
- static int hdac_hda_dev_probe(struct hdac_device *hdev)
- {
--	struct hdac_hda_priv *hda_pvt = dev_get_drvdata(&hdev->dev);
-+	struct hdac_hda_priv *hda_pvt;
- 	struct hdac_ext_link *hlink;
- 	int ret;
- 
-+	hda_pvt = devm_kzalloc(&hdev->dev, sizeof(*hda_pvt), GFP_KERNEL);
-+	if (!hda_pvt)
-+		return -ENOMEM;
-+
-+	hda_pvt->codec = dev_to_hda_codec(&hdev->dev);
-+	hda_pvt->dev_index = hdev->addr;
-+	/* Intel iDisp (HDMI/DP) codec */
-+	if (((hdev->vendor_id >> 16) & 0xFFFF) == 0x8086)
-+		hda_pvt->need_display_power = true;
-+	dev_set_drvdata(&hdev->dev, hda_pvt);
-+
- 	/* hold the ref while we probe */
- 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
- 	if (!hlink) {
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 91f7ca22a4a7..a2b2ecf1e7e6 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -15,8 +15,6 @@
- #include "hda.h"
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
--#include "../../codecs/hdac_hda.h"
--
- #define CODEC_PROBE_RETRIES	3
- 
- #define IDISP_VID_INTEL	0x80860000
-@@ -148,7 +146,6 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
- /* probe individual codec */
- static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- {
--	struct hdac_hda_priv *hda_priv;
- 	struct hda_bus *hbus = sof_to_hbus(sdev);
- 	struct hda_codec *codec;
- 	u32 hda_cmd = (address << 28) | (AC_NODE_ROOT << 20) |
-@@ -168,27 +165,15 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- 	dev_dbg(sdev->dev, "HDA codec #%d probed OK: response: %x\n",
- 		address, resp);
- 
--	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
--	if (!hda_priv)
--		return -ENOMEM;
--
- 	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_LEGACY);
- 	ret = PTR_ERR_OR_ZERO(codec);
- 	if (ret < 0)
- 		return ret;
- 
--	hda_priv->codec = codec;
--	hda_priv->dev_index = address;
--	dev_set_drvdata(&codec->core.dev, hda_priv);
--
--	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
--		if (!hbus->core.audio_component) {
--			dev_dbg(sdev->dev,
--				"iDisp hw present but no driver\n");
--			ret = -ENOENT;
--			goto out;
--		}
--		hda_priv->need_display_power = true;
-+	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL && !hbus->core.audio_component) {
-+		dev_dbg(sdev->dev, "iDisp hw present but no driver\n");
-+		ret = -ENOENT;
-+		goto out;
+@@ -554,6 +554,7 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+ 		return;
  	}
  
- 	if (is_generic_config(hbus))
++	/* prevent runtime PM callbacks while the link and the codec are torn down */
+ 	pm_runtime_disable(&hdev->dev);
+ 	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
+ 
+@@ -561,6 +562,9 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+ 		driver->ops->remove(codec);
+ 
+ 	snd_hda_codec_cleanup_for_unbind(codec);
++
++	/* Balances the disable above, cleanup_for_unbind keeps runtime PM disabled */
++	pm_runtime_enable(&hdev->dev);
+ }
+ 
+ static const struct snd_soc_dapm_route hdac_hda_dapm_routes[] = {
 -- 
 2.56.0
 
