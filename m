@@ -1,121 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065206;
-	b=fhaibfvNBJ3b7THbg7N0TBQcm5jYBuVlOztvPJHHRcJDg7tWyS73VKK0Bg3TvEv81z1R
-	 8+j5GHCu5TG0yjajrawBIa5V3qYZWQr/0A6V9nr0um2XSLjsrftyLsgQP4IkOHv5oewMj
-	 H12Do7KtxFgoDu8iIscMqxNanrwvcsORRvTYbkf7j1kwLfZ1elFcP5c2aVWX0kuY00wSX
-	 yEs+a24A7FBsEyr2HVLq8HPkXGy+4jB1S478rvy1W0BDuF2wnGToCgKs5qWfyPTei5WhU
-	 /rGUMNOxCixxTzxHc+uyQcZWHIKZZZaIxi1tnU8tzDez93yFDbwggTMu/LU997G4aeg==
+	t=1793065232;
+	b=xffBQum/v+vcU7AiEI+HimyNb27l0lizsFSGUOuOnucLmX3PHJyiCsS572mqV7/Nqqab
+	 8BPIT5TxeOtvqFt8xWskRQ7DWAEHD35MLDMss91hd1b5j4TvvAM5R7Efl62tenxR+1pmV
+	 O/mr0JYl1jMu9IQDuVkahLIw/Ppwaraxrv4P/+/W0HxTredzDRYpewxz5ECiWURtaDjZp
+	 bONBm0MlChkVwUrqoL6RIBvllKDrbb4URY/d78sAOwJM+O5ojkgLziwa6RQo8sZc19z1P
+	 a2IasSw6Mk7ZZPpZNh4gMg7X9gO4kNnGxo74u//9GDAPje6bA9Oj8dU/AB8GDzhV/Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065206;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=lUuA7+chWIhLu+qX3DDV5gWAGrlrfczNAdJpLXe+OFs=;
-	b=5D+EFeEUCW2nIBPlxL8t19u9GN3Jf3XhtBgsL05K/uS1rajtc5HkSnsb1nTXYZ36teh4
-	 vaHWHasqI2+DX9EBvL9KS/zFgpzVPRz7MmfeezTKSzkXZLbbfU0jNPbaOLAcF0WX9iHZf
-	 M8MdntlHNOh8aIGTAbIW7hcKKpDYB54oCe9xs5zhp545U8IDmc0pjEg420Cx4NcoKkS8E
-	 ZTT3RkHebU9cohdvAZ1XEi5+xBMv395WEI35YIqEOHcyDRxmXB1EI3hQNAhm7uTSxZTr8
-	 x35gqORIQjEKZUq4qWM7brE+KW0rpNQLyWmoh4LBK9Juqc9pqWpFI3daLdDIU7M9Rpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065232;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BkXkcM2hnjFWl9v28Vxsd/Upl1qj7NsrUbXI+iAyTm0=;
+	b=u/Xb4Ptez3VGFEWJnWRMjOlMbokeKa6de6k5/X+FpllADqUKJXy80DGD6KFSCyf0H32J
+	 2mx7+shDB9l9GOj9K5oAE9DimSQF8HvlknCB0ELXBPz1ZMBW2yfab6OaGJJHsI5GxjC4b
+	 ENC1Yah5gRMwLHMOeNfK3c3V1ixXf2dYK81IIwdKCu9Z9V5ZAtAWydKgq39ZOqDUXUwg0
+	 K6diFUPPW9Dhy/ip5san0b+Fbew/vBHQRfLm+xjiVZHt/3xiX30+IPQrqZo2UfvmpWFRU
+	 EkW+sZk87QVLL9cb12xjCsrCFG2OSVfDgudydQxO8pd7vgo0Pv/6Z0yeZOcRYgXjfJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=hLHADdJY;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=guSmXYdq;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iH2nk1m6;
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF85606A320;
-	Tue, 27 Oct 2026 01:40:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF85606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFA3606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFA3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=hLHADdJY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=lUuA7+chWIhLu+qX3DDV5gWAGrlrfczNAdJpLXe+OFs=; b=hLHADd
-	JYpcXFYTdIkRnelJUktscfivm4kwDbjgCJ3oKz+6xIqeSecb3hHKgagunNCrtnoqN8IQD6/REH25s
-	oHxZyQSCr0OSEiqSi9Os1mhnjxwRqGWFbbumNQDd1oEhret8XLlNZtgONJZyTclZm5WpxtQmyWuhS
-	8hjwzAqfRD5ea3cepZRKgnVd38mXxeU0fx0Vvpx5yXaqmpkPi1NIPFAjqK1QEievZKt7FLcbA0WoV
-	A1CkwiQYO2zNKD8dQNoCPMBm3AxtWxJpcVyZPk1xkQAUCCyI93gHTEygLADW11NuQ+67ga/vRCIlp
-	DGjTDp5ID1o5evE+HPpbi2ITaPpg==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xLW99-0000000AyaG-17xt;
-	Tue, 27 Oct 2026 01:38:39 +0000
-Message-ID: <26a54fb0de70f23951e524dccd7c905807278deb.camel@surriel.com>
-Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
-From: Rik van Riel <riel@surriel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton	
- <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal
- Hocko	 <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt	
- <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song	
- <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen	
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
- <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang	
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>,  Michal Hocko <mhocko@suse.com>, Kees
- Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Jann Horn	
- <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins	
- <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush
- Yadav	 <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
- Lance Yang <lance.yang@linux.dev>, Harry Yoo	 <harry@kernel.org>, Alistair
- Popple <apopple@nvidia.com>, Nico Pache	 <nico.pache@linux.dev>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain	 <dev.jain@arm.com>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau	 <kas@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, John Hubbard	 <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, Will Deacon <will@kernel.org>,  "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Oscar Salvador
- <osalvador@suse.de>,  Minchan Kim <minchan@kernel.org>, Muchun Song
- <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,  Chengming Zhou
- <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
- <shikemeng@huaweicloud.com>,  Nhat Pham <nphamcs@gmail.com>, Youngjun Park
- <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>,  Joshua Hahn
- <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Ying Huang	
- <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org,
- stable@vger.kernel.org, Josef Bacik	 <josef@toxicpanda.com>
-Date: Mon, 26 Oct 2026 21:38:39 -0400
-In-Reply-To: <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-	 <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=guSmXYdq;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iH2nk1m6
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8D109EC0828
+	for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:40:30 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Mon, 26 Oct 2026 21:40:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793065230; x=1793151630; bh=BkXkcM2hnjFWl9v28Vxsd
+	/Upl1qj7NsrUbXI+iAyTm0=; b=guSmXYdq4YiKcYclTRsHh19DXM7aaAC6bndgs
+	SUaJFDriiz+z9YMjqjXCyj+kbLspsq0xV8+2Al57GILG3bZWGM8G5Aojp1imOEJm
+	Lapd6ZSuCwOmks7BfwF7i0bKoaohdHJryoMzjObO7rmAoDnu27m4Rjqq40kyJchW
+	bIL039KtdO5aKxSRaSheyngDqETwZdg9+1SK21EiJRfUPZW9v/a/DxGm/AscpUSL
+	7wgf6fBh6O4Pi8zWv+5u6RTkffv1sqY15NQOWKOn6dH3r61Rmkx3neCwa3y3ZzUQ
+	ZEf5DM/5xPY6bNPnVadDZQaBg0Zqw8OaYOv2nDcZOsrSDYf9A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793065230; x=1793151630; bh=BkXkcM2hnjFWl9v28Vxsd/Upl1qj7NsrUbX
+	I+iAyTm0=; b=iH2nk1m6zM5xucMo85aPLmwlayauindkEQvGcGv7d9z+oo7USyw
+	zmXxDuXg44SDd8+Uh8mDj2sGD10Kmdr5wTSozAIj7ObW9p6CH7RSb3wF0M3XPcfZ
+	Egd55lCFrur1QvICdhrKb6XLTraUz9CRTnlnmxCUGawdhiF0zdYKI7s9wvIO5aby
+	hC5naFBa4/+uvoWfmgdPuKSGynbhJ4BYOk3Z38FFz53IkTH+iYhfarYT/gZuYnzk
+	vYAl4g1sYi6Lv6l/6i07zD62liSSTXJ4Txg18UJ+2+Dbnx39bqLB4XU3YIclI+UJ
+	73Al+ylBTbGvEf+5Nj/mJ5v0NorOcydPaCg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793065230; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:QC6LtAdhzVRoFmkU+B3HxPmTwJdm9K6oYlx63WJqQoxTsa8
+	RV6zPf8CuYVSL8DmNx2mi6UJAnspvrmrNRSaPNegnumbf1Yf7njSeIWm6YCKk+he
+	67TaO3LaT7riIC1z2rC1OmakwetMF6F3VrZPtSu9tkduwe1sqja9w0FoR5Y07+jg
+	J1LsJ4Vg6XZtIkBphLu7H0RuZaCYa5/YKlARwTOsuXANDmoLK7EN9q6hD+8FuTa5
+	yTBOZvh0PlVRlO96Y7ohsLUQYQTvwE2LvNpDt8HQIKtZ5ad7MfP0CSaKwKI3M8N1
+	7JQnMa04bKv/lt3oTns+MFD2YvQ2GTE1gOQ+wTQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:JSKyhtfkzb8SipyzlO9D8s9e93a5mzMBI+TrfaaqzRk=:gZoN+jJWo6aBR/Y71g9u2luMhMBya8Sq+nCG+t54gDg=;
+X-ME-Sender: <xms:DQHgaj13oUTIeLNBE1hR-RUmNEbdu3nO3dZ3SgCQL2Dh04yP_aLXhA>
+    <xme:DQHgat9lARM8Y_ZABdEk3MVz7fpDFZEiTzasB42EJJNLepwbESF3pyQk45gVTgcjO
+    pWCN3w2AHVgYMf4rxw1txNxJCkrjvdFT9DGKheegiACWz1-C0FSVbs>
+X-ME-Received: <xmr:DQHgag7VfXTwJGPY3-jN4CPQU9u4s8VNJu294VrkVfreRy3Pj86lw9cs7Awn1oFA>
+X-ME-Proxy-Cause: dmFkZTFxZ8iPiYUXlVN1g41AZDpnk6ig7exYgtvZ7ivnbLC/ZuFvE+cYT6vZLYlRY+LN4f
+    OIan/aaRo71bUQaVqjn4W2dKlVF8rgSEOWzUg5cctUSR+07ZodC0w67WuGvxMoQfrEx088
+    1estAJIxI0N6YTj9FZYPnF1UCCBTOy1ZRZk0qiM3hh3zHxI7wylrRH6F3cBHzgRA/SW1Um
+    FIWv80//Vo8bJPxypfKJWY6dvJufqVWRuchRtTzmPPpgT4caiQ8BhyX/DY7T+7hcAxAnxb
+    0oOI4+H/HavlDoiEHTgyW+ysRbrRrKkxJGG4sczShh+fDS9LgaZQEraHHWPPAy/6A/NhKq
+    PkbGGiIjC+U/cGKJW/NumsjLnIAtcS5f01kE9jMKuI8M87ZGM0t77VzK7k9cqTh87PPKPj
+    kXOSw9VCTGTXMyHuZy2VMyCYyqhqAE7FggxYrmrUpMLsSfeQupz/Zkn4QIulEf/t8+AgI0
+    ioWgDg9ezGcPka9JdvYsC81V5ua00dzy6hFfYNs21v1NFWGFtAeRyWYFEZuf5rdtfzVpoJ
+    Stech4QNNSM6013DEGKZfNtPt8b2c8gDIMFnvhQjAwymJWN0eOgMwO3iA1vWwkQVfiWYwS
+    rrm/FqqKK5OzKxlqdHd6AwfAdtSwZKDNUqE3R9I7flOSqqNl8ZLvMJh7HvmQ
+X-ME-Proxy: <xmx:DQHgatu1F_Hz9oyse-AfBxgUgj1dtz0aIqs1VbGRBQCifX8OAHcbPA>
+    <xmx:DQHgaq1psExUvnVEOq_bXMA8PKqR0OmfnYdVaUl6tAA2Uag5lc7tGQ>
+    <xmx:DQHgauqpOMqcK6O6V9VsURMdWGU5dN-KRZTvbAdJBCCnGeFYUlqqzA>
+    <xmx:DQHgaiIrC9kepgh3V5RVqTWyFlC9oeXnol7pcbSgtohz0rQnPDcoJg>
+    <xmx:DgHgaghlb7UUU0x8g3naJ3efVVHsNwhrSzdfMxyObyvnKCWBsdxEar78>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 26 Oct 2026 21:40:28 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	Ronnie Sahlberg <lsahlber@redhat.com>,
+	Steve French <stfrench@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: fix out-of-bounds read when padding the final compound response
+Date: Mon, 26 Oct 2026 20:40:21 -0500
+Message-ID: <20261027014021.108390-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -125,18 +129,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
->=20
-> Move uprobe_start_dup_mmap() to preserve the lock ordering.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Compound response handling pads the last response of a compound to an
+8-byte boundary by growing the final iov and the RFC1002 length.
+smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
+fill the response buffer to within 7 bytes of its end, for example a
+QUERY_INFO whose output is bounded only by the space left. The padding
+can then run past the allocation, and ksmbd_tcp_writev() reads those
+bytes when it sends the response.
 
-Reviewed-by: Rik van Riel <riel@surriel.com>
+  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
+  Call Trace:
+   _copy_from_iter+0x744/0x10e0
+   tcp_sendmsg_locked+0x2290/0x3f80
+   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
 
---=20
-All Rights Reversed.
+Allocate room for the padding when the request is a compound, as
+smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
+unchanged, so commands still fill only up to it, and kvzalloc() zeroes
+the padding.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+Notes:
+    The bug needs a client to send a compound request whose last command
+    fills the response buffer to within 7 bytes of its end, at an offset
+    that is not a multiple of 8. The reproducer uses QUERY_INFO
+    FILE_ALL_INFORMATION as the last command, after QUERY_DIRECTORY
+    commands that fill the buffer. On a share that allows guest access
+    (guest ok) it is reachable without credentials.
+    
+    This follows 73f860489e3b ("ksmbd: zero pipe read compound padding"),
+    which fixed the same padding for smb2_read_pipe()'s payload buffer.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance (code review and KASAN
+    reproduction).
+    
+    Tested on ksmbd-for-next 146c3fc6540e with only this patch applied,
+    under KASAN. "smb2 max trans" was lowered to 65560 so that response_sz
+    ends at a KASAN redzone. Before the patch, the compound above triggers a
+    KASAN slab-out-of-bounds read in _copy_from_iter() during the socket
+    send. After it, the last response is still padded to 8 bytes, the
+    padding is zero, QUERY_INFO returns its full output and KASAN stays
+    quiet.
+
+ fs/smb/server/smb2pdu.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f5fe3cf8ba32..140604099bb0 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -955,7 +955,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ 	struct smb_version_values *vals = work->conn->vals;
+ 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
+ 	size_t large_sz = small_sz + vals->max_trans_size;
+-	size_t sz = small_sz;
++	size_t sz = small_sz, pad_sz = 0;
+ 	int cmd = le16_to_cpu(hdr->Command);
+ 
+ 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
+@@ -981,10 +981,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ 	}
+ 
+ 	/* allocate large response buf for chained commands */
+-	if (le32_to_cpu(hdr->NextCommand) > 0)
++	if (le32_to_cpu(hdr->NextCommand) > 0) {
+ 		sz = large_sz;
++		/*
++		 * is_chained_smb2_message() pads the last response of a
++		 * compound to 8 bytes, which can take it past response_sz.
++		 * Leave room for the padding. kvzalloc() zeroes it.
++		 */
++		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
++	}
+ 
+-	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
++	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
+ 	if (!work->response_buf)
+ 		return -ENOMEM;
+ 
+
+base-commit: 146c3fc6540e24eef6296395a35bf5b924182e8b
+-- 
+2.47.3
+
