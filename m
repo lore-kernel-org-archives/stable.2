@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793141709;
-	b=qKbGks34WB32ju9XhnpVDt1BRaPaz7NtduS0bddTFR5Ct3KarsU4OypSn9QCWyslK0cI
-	 jAxj/yr54XT0hK8fYL6XPt80Xlzvmn+T2ciWi7WueTJrj7ryhZB9X1NMxTRovlSKTN9BL
-	 +KdO8fLyrOpGSYJ/hN5BXe7bCvRcA1UvepnxMRuplQJEtHua4tQnflc00XCWLiysrSHZd
-	 TSuay+w18SXaD1U1WQLueRGUfRMoFWPKZQtl+Dx6jDOenHpCNl2ZkYQQLMPsUIGyJAYhP
-	 9wrFiTXlS5CB4In8uY7j+3DQoboDyBGynZAdfD5pHJY+X2mJTON5Tk2yAAlwxEZgZ/w==
+	t=1793141839;
+	b=xmzaip1Rzwz7Vqs0x/mQ7CSftiLQo147smO7D9duMIru7qbU4pn9DzYwEhKaZ3AON2if
+	 8KyDMfCthG3cZpUSLlbZKMgyql8ukPecfi3+I5+uNrM/2R691dP0Eex6s0DbCz3lInPYW
+	 Zh7Mef0T9LyyDFBEezmKymsEMvrLwZHjmdilbi1NtVMCNCv5CANrQKTZOd8TqSfh+QJXl
+	 9eZLUmKHP70J2DR9pocIJ8Y1FoaXzo3FnHxg6WY0L/MFYaBjRcK8DOYLYTHI3t/uOKGtD
+	 Dr6YDGRX+nBDSBvSAvbc8h6TdEuHeVBUM0wJGxCALyC/8oBf00ooMute5HMqY0RiMzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793141709;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
-	 DKIM-Signature:X-Received:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=+6N+Jms6EdQM8CFjQ6BDl0aRKTJSrgGB/6/Z+xj6T4w=;
-	b=TOqS04d6DSl3lOHuOGz/U2AwPLxD9dXOZnBmk6pZT/3n1/8Ie3MNF+hd8Jc42WZddjfB
-	 FU0JURxWnbZowsuLlXLukNeHgVVoGEcxITYdKtQwHpssDCPiShwIIa5/a2qe8NoB0KwhX
-	 Xjr6yMftCx9rBYcKWjG3vDloJoExEbrW+Kz+mu7ak5iLNnJamDOgCwr0hbtzRPZNkhfrr
-	 jt1TUXBa4VJJS0PWyORY7Wq4ND/BuM6RotKjIb74HJmkZ4JwyWU7pC9Ocis8FlSRYQY32
-	 Imed4gjKbu4U8b4a1Rc3EBWUO/OpCXiTdjXS3ZkFalcwOtpAN+uKNJPNCg4Ov8LZA/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141839;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=x4Wb1nq3gFYdX6BA5R6X0Kbpi+TDs/uhIWeWQW5ffww=;
+	b=eMPMgaej6DxZl3jfAnXLiwLlSxktUy0d9f6SUS6Ew7XvBc+hp4wqw3HME06RX8lm6VIg
+	 mcg6/Wgfpii3NKWDuA0+YMXvkTBmWo6YiL6Cw7woIzvwBXIoVOGWLu2rAXM4yG0kClbIp
+	 jaIDsOwuWM8CF4jjHlTojjShSqZLlBGHXcju54WJsN7G8cH+wc0Ujz5iXNGWeLYC5T7+S
+	 FDb59i9CYSL4cWsTxQdGDG6gHZKk9Z69d7aXJ1LJdcVOrMxIOsC3geFAenzHWrFJNDfXy
+	 w4q+YEtMatdSYAiQCUwbIfzQZB6RVIDOSgsj0E1D30qYUHm1KmwEv9EGkzclCQ+kxbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=IjKzF6jB;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wgCH0ctU;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4762606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:55:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4762606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5C5606A31E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:57:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E5C5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=IjKzF6jB
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so258603a91.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:55:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793141707; x=1793746507;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+6N+Jms6EdQM8CFjQ6BDl0aRKTJSrgGB/6/Z+xj6T4w=;
-        b=usdOAh2zqWJZO06RITHKyo5YH7EgGnWDc5I5876/GtmUrNXSFX0TAOIRlY9gzRMfkh
-         ElnLlwDmyyouvoxvI4HqoVPNpFwhnkW4TP5k0np64IUVbWtDtbFDrv1xCuBsEkh1Fd+1
-         Tw84/sRd2QJr584ld9u/SAKVbypVbeICToeG9KKjEaS1TsFmKszSMWyzrMx6Y2JoLVBA
-         CAnq7VvBpGFl+TNsPT+79qT8Ud/r6uOmgXrPJ25L93TM/NrF7oRp11C9Qk6C3SUVNskX
-         Q0S7Kwg9y31Vc0V1wvprC7D07I7WqnoefLN9bnhGXJzmpBAqF6iS57s9wNo9756FQoTt
-         81aw==
-X-Gm-Message-State: AFq9FYLLcZ6kBMDzYxZPu2Q4E31pO4qlsQ62BkHouA6xeZZsKiNADwPp
-	W2SAw3swCWZMRaNZhlIfBYAPEzJRY+OXzbxtE9RuThnGd4Mosam4V+vCdj/Hv9r7V3NnI44W2kg
-	IfMFDOZudrSCErpiIm7+DCm+PkTaWujyHDNA7Fx6+ZZH8Dbiys+gP5UgUkDf9Hm1M9B6uy6YGDy
-	5Qx3uu8sxbJ28U9OkY8rNdLovi8XZGUvHddWOr8GJqnxI6xlBnl/phE7qOZmBNYtTKWWpNB++2t
-	hl0UyveiexslUeyyAQ=
-X-Gm-Gg: AYBFou3XUYEZZJC8NPONU8JMWLeCJTJt9VP1OEc45eRDrN7S1CM14kB3/WE6XUfki0O
-	ApzOR3pB8PV90syRw4yuljEkAYUi2MWZz/iSyFa4riQtDbDavtxbGxVcyt+vKpbXT/8YZzHC8zt
-	ahTYqDBqarLKuOdnlh3Yyoxn+rUebQxUg6zo+/KvsJiG1f5IryBAmC01Vg0AkNcIjrO7rh7kNQ+
-	9DlM0L/KD2OVo49JOvlIJL7R6eCrN4XSAk8ORra5IK+Cxj7fgftEV1HRSAOw1P+mGkobUzau+Ue
-	bk9fwO3+cbNomcWnuR9J2+lycOa6+cwUw+bZsfDJyl11JNXEPLvzHib7GKNbXM+dewzFUGnr7A8
-	MX3wTL8V6lTgSgvXaGnxQxIb9cC05TCKUP0lwXfV+VxZBIq+ZYeN915yJtHBTZWUsTqxNTxng3g
-	WJRFOOcn9VHo/Lit+h288QDOulL4pwcdE/7BD+5EDBJ5M=
-X-Received: by 2002:a17:90b:564d:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae58155bfbmr369745a91.35.1793141707153;
-        Tue, 27 Oct 2026 15:55:07 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae5ac44609sm119668a91.8.2026.10.27.15.55.06
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 15:55:07 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-14373747468so339791c88.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:55:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wgCH0ctU
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e5378b281aso1598485ad.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:57:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793141705; x=1793746505; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+6N+Jms6EdQM8CFjQ6BDl0aRKTJSrgGB/6/Z+xj6T4w=;
-        b=IjKzF6jBzFiCVbTzEGMyKw9WUZurEE0RXHusuT/uO0ZOp38P8RLGznU6MPAO6nrXQr
-         CXYHI8aGzDk9NShPTQV0QZ9HGQYzIw6Q4B7m4E2+mBPAznCsuAvKph29og4IB0h6qoeS
-         dBmw5EFurzXwBASMQ1RlDznRRNSsKRT8m3p90=
-X-Received: by 2002:a05:701b:4288:10b0:136:b50c:c0e9 with SMTP id a92af1059eb24-1a6ce9bba59mr860587c88.21.1793141705342;
-        Tue, 27 Oct 2026 15:55:05 -0700 (PDT)
-X-Received: by 2002:a05:701b:4288:10b0:136:b50c:c0e9 with SMTP id a92af1059eb24-1a6ce9bba59mr860547c88.21.1793141704694;
-        Tue, 27 Oct 2026 15:55:04 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a6d98c8da2sm1105224c88.14.2026.10.27.15.55.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 15:55:04 -0700 (PDT)
-Message-ID: <50fc3275-863b-42d0-863b-d0594d7779ca@broadcom.com>
-Date: Tue, 27 Oct 2026 15:55:01 -0700
+        d=gmail.com; s=20260707; t=1793141837; x=1793746637; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x4Wb1nq3gFYdX6BA5R6X0Kbpi+TDs/uhIWeWQW5ffww=;
+        b=wgCH0ctU69DCcoz3Ru9BWpJRF/qCvUOXZaq1XCXJ1mY+CrA71lhfiXobTbCAgjpBrk
+         DyaxcIPqmt4+ye/6ixGQledSXjLCZRsPF5G8bzUZUp+e27MPNEmH65LnNlJLvMr2Et58
+         9FQoB0qgzbGh45aAKAz1ywuxDNOmjfeeOIEF2KOld7xjB9gKcLc1Ur0b2fMUX5Lqj0+w
+         Ra8L+RM/OPIkhQsMGjJL0fU8XfOeRal7e3+EFHTgd0ooyWqzBvQ82+5ozusU08AkL9Lg
+         hYQSsUa9WPWkVUY0Hx0H0pInv+iykHsdHkYdpyLRUg1UA1Tqqg5VGBAuwDsbSna5P7GU
+         dWhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793141837; x=1793746637;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x4Wb1nq3gFYdX6BA5R6X0Kbpi+TDs/uhIWeWQW5ffww=;
+        b=mFFDKUF6/8b89o5D1RdOCUoKYGvmNiF2lAjLyjbIKjPxlLWYMrwHN6evG+XTsgyhFK
+         udCDSEhNr4GmYZUm79mMlzWifw8Qvnph8gKC5i0k6ZkcO9Qpn0KTVGQ0N6VpUi7C1KzF
+         Fj0iKigaj2ywmIe8TEjugHg4ubx55H05XGimad1bRDWHsLOmQ8pZngc1NINqCPL3dk9X
+         l6BvAOHqDZKygZvYooW2whDIIUBQNMy8DOlOMj8IkBTkSDWekruRVEvuF3IWhc2gj9m/
+         ttuigjyZuTxNu0w6JIpC7/+g7SgWQYHpyAQvcMDL6jpyb3CPCUlLOPN+9sS75BQPiaXj
+         kneA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCnPPNhTTng2PrdPetAbcVRTKF0sm3pzzSVcBZf4zTxBYASp7y5+HZ5W/3tXNZyeMe1dWoYjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLobl1ZDxYISyhjo8Z0bWP9LqrWco22dQXDuCDskwFWYg/jacU4
+	wO7bs4E50GfC+fNwqNYQ25WRFScD28DiabGUZiY4Z60zhkT8qJTlmVNx
+X-Gm-Gg: AYBFou3w1osyjTpedX1XOU6TbK8DTMNRGn7/NGkELYEzJDuXaexrrvrvLmSUu7NM9zS
+	E/pFOBSCVUGCL3fDBxqpFff/6byEumV5mboqDo/6gNIS8vZPU4TEFsQGvpLg7YiVsCyQDZb5TZx
+	S4k1XaXs4/anfdfVdaBWQ6jMx87B9G8uf5+YeHk4SS2zETC74XhdQGFY6SYS/x0NrRAPPNUkVr7
+	WB6QgUkcIFLmOVB2LZQU6kriajSV7kRGyf53bYS01FcbC1Hu1gql/MWnKTJImWbmjxMyARwjfBE
+	DOX+qzQCgd/POv/MzirVgw1du/X4hXh7lxbrqjMY36KFA1D5zb8qWc6J8FwKyUxJA/+9dWzvgut
+	jkiYWe0YwSwu76PFF4nuPXuor4PoCOTW6/0/Bd6psWg22svqDBefbC9oVxtE6wsZyahbB416weK
+	W5Cxx6LzmjgYqCWDLVg4DKG03d4OzdnlTgCmuVzomCU6d+VXigZXsvvEifM2gvLXQkx1JT/LHur
+	KLdDSxPgSqCVMj4nfGg+EaSzgykJRbyKPkRpcW1W3cgrLua19MBjyuoUF9NchPvCTHGcmhEjfUD
+	d6ZpWKZz0NwNLUrpSOg1rwA6YVCuGYyfsJGpAgg6x7VS
+X-Received: by 2002:a17:902:fc87:b0:2e2:b7b8:abc5 with SMTP id d9443c01a7336-2eb0038e312mr6543085ad.32.1793141837445;
+        Tue, 27 Oct 2026 15:57:17 -0700 (PDT)
+Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b76df7sm15602385ad.14.2026.10.27.15.57.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 15:57:17 -0700 (PDT)
+From: Guoshuai Yang <yangguoshuai@gmail.com>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Guoshuai Yang <yangguoshuai@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] xfrm: esp: reset outer TCP GSO metadata on espintcp input
+Date: Wed, 28 Oct 2026 06:57:10 +0800
+Message-ID: <20261027225710.51832-1-yangguoshuai@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,75 +104,240 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpio: brcmstb: fix UAF after IRQ domain setup failure
-To: Guangshuo Li <lgs201920130244@gmail.com>, Doug Berger
- <opendmb@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Gregory Fong
- <gregory.0xf0@gmail.com>, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+
+When ESP packets are received over TCP (RFC 8229 espintcp), strparser
+slices individual length-prefixed ESP records from the outer TCP stream by
+cloning the incoming TCP skb(s) in __strp_recv().
+
+If the outer TCP skb was GRO-coalesced before reaching strparser, its
+skb_shinfo carries the outer TCP stream's GSO metadata (gso_size, gso_segs,
+and gso_type). When an ESP record spans two outer TCP segments, strparser
+chains the spillover clone onto skb_shinfo(head)->frag_list.
+
+Subsequently in esp_input() and esp6_input(), skb_cow_data() unshares the
+head skb via pskb_expand_head() (preserving the outer TCP gso_size and
+gso_type in the new private skb_shinfo) and calls skb_copy() on each cloned
+frag_list member, which copies the outer TCP GSO fields via
+skb_copy_header() onto a linear frag_list child skb allocated from slab
+with head_frag == 0.
+
+Furthermore, on kernels with TCP fraglist GRO support, if an outer TCP GRO
+aggregate carrying SKB_GSO_FRAGLIST reaches the espintcp socket unsegmented
+(for example, when rx-gro-list is enabled on a device in an outer netns
+where tcp4/6_check_fraglist_gro() finds no local socket and the aggregate
+is forwarded across a NETIF_F_GSO_FRAGLIST-capable veth device into the
+netns hosting the espintcp socket) and is chained onto
+skb_shinfo(head)->frag_list by __strp_recv(), skb_cow_data() invokes
+skb_copy() / skb_copy_expand() on that frag_list member and hits
+WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
+-ENOMEM before decryption even begins. (On older stable trees without TCP
+fraglist GRO, the pre-pass is a no-op.)
+
+After ESP decryption and header removal, the resulting single inner packet
+still has skb_is_gso(skb) == true with the stale outer TCP gso_size, while
+skb_headlen(head_skb) is now smaller than that gso_size due to stripping
+the outer framing and ESP header. When this packet passes through
+gro_cells_receive() (which flushes frag_list packets via GRO_NORMAL
+without resetting gso_size) and is forwarded, validate_xmit_skb() invokes
+tcp_gso_segment() -> skb_segment(). Because head_skb is shorter than the
+stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
+the slab-backed frag_list member as a scatter-gather page fragment where
+list_skb->head_frag == 0. On current mainline kernels, skb_segment()
+triggers DEBUG_NET_WARN_ON_ONCE(1) and fails with -EINVAL, causing
+validate_xmit_skb() to drop all multi-segment espintcp packets. On stable
+kernels prior to the removal of BUG_ON(!list_skb->head_frag) in
+skb_segment() (such as 6.12.94 where this trace was captured), it crashes
+the kernel:
+
+  Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
+  PC is at skb_segment+0x574/0xd20
+  LR is at skb_segment+0x884/0xd20
+  Call trace:
+   skb_segment from tcp_gso_segment
+   tcp_gso_segment from inet_gso_segment
+   inet_gso_segment from skb_mac_gso_segment
+   skb_mac_gso_segment from __skb_gso_segment
+   __skb_gso_segment from validate_xmit_skb
+   validate_xmit_skb from __dev_queue_xmit
+   __dev_queue_xmit from ip_finish_output2
+   ip_finish_output2 from ip_output
+   ip_output from ip_sublist_rcv_finish
+   ip_sublist_rcv_finish from ip_sublist_rcv
+   ip_list_rcv from __netif_receive_skb_list_core
+   __netif_receive_skb_list_core from __netif_receive_skb_list
+   __netif_receive_skb_list from gro_normal_list
+   gro_normal_list from gro_cell_poll
+
+Similarly, if a decrypted inner packet with a frag_list later takes the
+ip_do_fragment() frag_list fast path, each detached frag_list member is
+transmitted as a standalone IP fragment and would still carry the stale
+outer TCP GSO state when reaching validate_xmit_skb(). And even when an
+ESP record does not have a frag_list, leaving the stale outer TCP gso_size
+on the decrypted inner skb prevents dev_gro_receive() from initializing
+gso_size to the inner packet's skb_gro_len().
+
+We cannot reset GSO state earlier in espintcp_rcv() / handle_esp() because
+the skb may still be a clone sharing skb_shinfo with the outer TCP skb held
+by strparser. Instead, in esp_input() and esp6_input():
+1. Prior to skb_cow_data(), unshare/unclone and reset GSO metadata on any
+   frag_list member carrying SKB_GSO_FRAGLIST (unsharing any shared
+   predecessor frag_list members along the walk) so skb_copy() /
+   skb_copy_expand() inside skb_cow_data() does not hit WARN_ON_ONCE() and
+   drop the packet.
+2. At skip_cow, where the head skb and all frag_list members are guaranteed
+   to be uncloned with private skb_shinfo, call skb_gso_reset() on both the
+   head skb and each skb_walk_frags() member.
+
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
 Cc: stable@vger.kernel.org
-References: <20261026115227.41779-1-lgs201920130244@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261026115227.41779-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Signed-off-by: Guoshuai Yang <yangguoshuai@gmail.com>
+---
+v4:
+  - In esp_reset_espintcp_fraglist_gso(), unshare any shared frag_list
+    member before checking SKB_GSO_FRAGLIST so *fragp = frag never writes
+    through a shared predecessor's ->next pointer.
+  - Clarify in the commit message that on current mainline kernels
+    skb_segment() triggers DEBUG_NET_WARN_ON_ONCE(1) and returns -EINVAL
+    (dropping the packet in validate_xmit_skb()), whereas the BUG_ON()
+    oops trace was captured on 6.12.94 LTS.
+  - Clarify the cross-netns veth forwarding topology required for TCP
+    fraglist GRO (SKB_GSO_FRAGLIST) aggregates to reach esp_input()
+    unsegmented.
+  - Link to v3: https://lore.kernel.org/netdev/20261023065311.65031-1-yangguoshuai@gmail.com/
+v3:
+  - Unshare/unclone and reset GSO metadata on any frag_list member carrying
+    SKB_GSO_FRAGLIST before skb_cow_data() so skb_copy() / skb_copy_expand()
+    does not hit WARN_ON_ONCE(SKB_GSO_FRAGLIST) and return -ENOMEM.
+  - Move the shared espintcp GSO reset helpers into include/net/esp.h.
+  - Link to v2: https://lore.kernel.org/netdev/20261020030450.7170-1-yangguoshuai@gmail.com/
+v2:
+  - Also call skb_gso_reset() on each skb_walk_frags() member at skip_cow
+    in esp_input() and esp6_input() so detached frag_list members on the
+    ip_do_fragment() fast path do not retain stale outer TCP GSO state.
+  - Specify target tree 'net' in subject prefix.
+  - Link to v1: https://lore.kernel.org/netdev/20261018005218.53267-1-yangguoshuai@gmail.com/
+ include/net/esp.h | 51 +++++++++++++++++++++++++++++++++++++++++++++++
+ net/ipv4/esp4.c   |  9 +++++++++
+ net/ipv6/esp6.c   |  9 +++++++++
+ 3 files changed, 69 insertions(+)
 
-On 10/26/26 04:52, Guangshuo Li wrote:
-> When devm_request_irq() fails in brcmstb_gpio_irq_setup(), the error
-> path removes the IRQ domain but leaves priv->irq_domain non-NULL.
-> 
-> The probe error path subsequently calls brcmstb_gpio_remove(), which
-> checks priv->irq_domain and attempts to access the already-freed
-> domain through irq_find_mapping(). It also attempts to remove the
-> domain again, resulting in a use-after-free and potentially further
-> memory corruption.
-> 
-> Set priv->irq_domain to NULL after removing it so that the common
-> cleanup path skips the already-freed IRQ domain.
-> 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: 0ba31dc201de ("gpio: brcmstb: consolidate interrupt domains")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+diff --git a/include/net/esp.h b/include/net/esp.h
+index 3229507..83c75ef 100644
+--- a/include/net/esp.h
++++ b/include/net/esp.h
+@@ -28,6 +28,57 @@ static inline void esp_output_fill_trailer(u8 *tail, int tfclen, int plen, __u8
+ 	tail[plen - 1] = proto;
+ }
+ 
++static inline int esp_reset_espintcp_fraglist_gso(struct sk_buff *skb)
++{
++	struct sk_buff **fragp;
++	struct sk_buff *frag;
++
++	skb_walk_frags(skb, frag) {
++		if (skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST)
++			break;
++	}
++	if (!frag)
++		return 0;
++
++	if (skb_unclone(skb, GFP_ATOMIC))
++		return -ENOMEM;
++
++	for (fragp = &skb_shinfo(skb)->frag_list; (frag = *fragp);
++	     fragp = &frag->next) {
++		if (skb_shared(frag)) {
++			struct sk_buff *nfrag;
++
++			nfrag = skb_clone(frag, GFP_ATOMIC);
++			if (!nfrag)
++				return -ENOMEM;
++
++			nfrag->next = frag->next;
++			consume_skb(frag);
++			frag = nfrag;
++			*fragp = frag;
++		}
++
++		if (!(skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST))
++			continue;
++
++		if (skb_unclone(frag, GFP_ATOMIC))
++			return -ENOMEM;
++
++		skb_gso_reset(frag);
++	}
++
++	return 0;
++}
++
++static inline void esp_reset_espintcp_gso(struct sk_buff *skb)
++{
++	struct sk_buff *iter;
++
++	skb_gso_reset(skb);
++	skb_walk_frags(skb, iter)
++		skb_gso_reset(iter);
++}
++
+ struct esp_info {
+ 	struct	ip_esp_hdr *esph;
+ 	__be64	seqno;
+diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
+index e76db58..92980cd 100644
+--- a/net/ipv4/esp4.c
++++ b/net/ipv4/esp4.c
+@@ -893,6 +893,12 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
+ 		}
+ 	}
+ 
++	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
++		err = esp_reset_espintcp_fraglist_gso(skb);
++		if (err)
++			goto out;
++	}
++
+ 	err = skb_cow_data(skb, 0, &trailer);
+ 	if (err < 0)
+ 		goto out;
+@@ -900,6 +906,9 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
+ 	nfrags = err;
+ 
+ skip_cow:
++	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
++		esp_reset_espintcp_gso(skb);
++
+ 	err = -ENOMEM;
+ 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
+ 	if (!tmp)
+diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
+index b1c9b36..65470d3 100644
+--- a/net/ipv6/esp6.c
++++ b/net/ipv6/esp6.c
+@@ -936,6 +936,12 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
+ 		}
+ 	}
+ 
++	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP) {
++		ret = esp_reset_espintcp_fraglist_gso(skb);
++		if (ret)
++			goto out;
++	}
++
+ 	nfrags = skb_cow_data(skb, 0, &trailer);
+ 	if (nfrags < 0) {
+ 		ret = -EINVAL;
+@@ -943,6 +949,9 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
+ 	}
+ 
+ skip_cow:
++	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
++		esp_reset_espintcp_gso(skb);
++
+ 	ret = -ENOMEM;
+ 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
+ 	if (!tmp)
 -- 
-Florian
+2.54.0 (Apple Git-157)
+
