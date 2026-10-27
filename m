@@ -1,73 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.191
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122465;
-	b=siTa6Mqy5Juo7nlY4ynOYFtgkOUdY6zt2MalFSPDYAoO6uxy2TQbstPsMMsL2Fr+Us9Z
-	 NhZ2g9Xos2McqIZAz+AKKqR/FyeamMLKR9P3tA8pLAZYI/xnrgOfxskG7c5Oy03HmEoYD
-	 zbnb0uVzIUvwhzyPUv1kJMxB+54nsxMdzmSM8SBsHW+2yG1n6azBoZtgsHU9BxS2eFQOQ
-	 d5MT/X+D+bxj6oyptw8jXFbpQXnXy3qLPEtqum5GsFF3/klREy7JJSmyn1Dhm7y3OFuAZ
-	 Z3Ez4YM59AJpoGRmWL43glIKP9Oh6xwJcqqrw8bTbUydkR8M9fCuVOB93YuVMj2N6rg==
+	t=1793122476;
+	b=S2arPtPHQZmnKZO0qTvi2rs+0aKDFE1K/GRRUDDcv3FQT4Q/IVir7CSSSHhNHqmWEjCC
+	 XY5ZsvAjntX4R2wZ50L0Tg3QI3CP+mMKtLudd1zqBtNrCUSq+NZm26lVZnLT5vSzgKtJ9
+	 w9CfcWsylwrv4mJAwDvzHzyzh+LUj/j6K7mlevdBTyTJm+tM3GSLGBkn8MINESXVzL0X5
+	 pV+OOpSOJJcAwO0uOydG8J7rMi+OfY9HGhyDa82YroybpUOgER4Ru8qGAwpdm7ODzVI8l
+	 g41rzhtNNBYbhA6xzbzqaUMwIXMGkjzRCwmEuflhJgj8XoFbE+S6t8JRzZaJN2LLifw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122465;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=COdQsqilLLQbumWXSPatN4LDhJMWTfOp2W8kqhDBWxs=;
-	b=K5yotWVMsn7QNQBSi7Nt5tQjlqVBUlXBQw59gZb9rhnfMAqcaB8NRhgWJ5x/THRJnBpO
-	 Vh8Kl2Fy25i6tBL/NtqfAXwapRzwpJy+M7JijboTyHrGYsYLsutWUzBP8shTop9UDLXHs
-	 TS3rySUNyaNpoI7XiwmLC+UjAgnNY1rZoLzIT7MRjQm/GA2t6MTMpW1e4ZAoBQFDnjAF7
-	 0YDbZ1xvMGyZKmkq/NB8QB8kIOa6crMVbVIiaWUV4Kdf2p6wSMc4IhMlOOpceTKocffr4
-	 /NpWGHlXeOU0A6SZFHTtlEvJReHWV8fnvryfTXQhDrJIbL5p4Uyb/u8tobWTt+ozf5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122476;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=eH/ILNneWFjzbYE1V7mJp7q808oLcwhhI5kcVPmM+oM=;
+	b=q4wJM2wm38eKwXw08hM6P6BN2ryT8enGPtfs3zoIOqfWvd4TpXKS+uWGSL7iCvp9UHGB
+	 37k8JP67d9BDA/dOlqhboOAHXvZX8PAfdcs8UutqEDN05zaBb65mFX6dWiQtdxhlK+Bg6
+	 7cBNFk8LyOWtIMixIX4C5bajrD20lcB55YDGtoKpO0xCBNkXphIJAPCjOQjHFFup8kuly
+	 AQXeXMwCT2IBZrPAd/HPVKEIFg+V5OszXh23327WMKndcVI3kldBscsNgAjV7gJLn+Myd
+	 OJDhVH5rxYvw0CEC+YxzVGP3nPoUfaLm5avk0Oq6zkw2g1oEMlHTBG3a8xalo8KfHng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYN2vzKs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Eu33nbjP;
+	arc=none smtp.remote-ip=203.205.221.191
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com [203.205.221.191])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B895606A31A;
-	Tue, 27 Oct 2026 17:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18AC606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:34:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A18AC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYN2vzKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30B81F01825;
-	Tue, 27 Oct 2026 17:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793122465;
-	bh=COdQsqilLLQbumWXSPatN4LDhJMWTfOp2W8kqhDBWxs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=RYN2vzKs4ZkzsggRNOd5345Y9RmP5xJuwIVm9w6r5x3FAJg1HBumtJ7kzq7Zk2Byv
-	 NJLY3MTki5J/jgMKffKX0MJUDmrh7Mj9/0LUeDWRGFT9PKDun2MDUk4bswpvOBod5/
-	 bNYMieVVAxa9BIH2qgUZj85frA0Pfn970M2GP/0jc91EGPQZNOIAGmiPNiger8wclo
-	 ufyI4lp/osGtIkHDTUYogUM4fs20J692aYPNRbVq5x2xvqh4gPgqRcUB13BB9b5qSK
-	 oNjI1xXwG20lYigNS/pYDFW4KUWITLyuatPQ7hVvva5pYJEnM36h88Ce4pzq4aw8J6
-	 m+957JU9t5eOA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  Gregory Price
- <gourry@gourry.net>,  Zi Yan <ziy@nvidia.com>,  Joshua Hahn
- <joshua.hahnjy@gmail.com>,  Rakie Kim <rakie.kim@sk.com>,  Ying Huang
- <ying.huang@linux.alibaba.com>,  Johannes Weiner <hannes@cmpxchg.org>,
-  Vladimir Davydov <vdavydov.dev@gmail.com>,  Michal Hocko
- <mhocko@suse.com>,  Hugh Dickins <hughd@google.com>,  Baolin Wang
- <baolin.wang@linux.alibaba.com>,  Lukas Czerner <lczerner@redhat.com>,
-  Carlos Maiolino <cmaiolino@redhat.com>,  Christian Brauner
- <brauner@kernel.org>,  Jan Kara <jack@suse.cz>,  Daniel Verkamp
- <dverkamp@chromium.org>,  Jeff Xu <jeffxu@google.com>,  Muchun Song
- <muchun.song@linux.dev>,  Oscar Salvador <osalvador@suse.de>,  David
- Stevens <stevensd@chromium.org>,  "Matthew Wilcox (Oracle)"
- <willy@infradead.org>,  William Kucharski <william.kucharski@oracle.com>,
-  Chris Li <chrisl@kernel.org>,  Kairui Song <kasong@tencent.com>,  Nhat
- Pham <nphamcs@gmail.com>,  Miaohe Lin <linmiaohe@huawei.com>,  Naoya
- Horiguchi <nao.horiguchi@gmail.com>,  linux-mm@kvack.org,
-  linux-kernel@vger.kernel.org,  Chris Mason <mason@kernel.org>,
-  stable@vger.kernel.org,  Pedro Falcato <pfalcato@suse.de>,  "Kiryl
- Shutsemau (Meta)" <kas@kernel.org>
-Subject: Re: [PATCH v2 04/14] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-In-Reply-To: <20261027-fixes_shmem-v2-4-86a00952acb9@kernel.org> (David
-	Hildenbrand's message of "Tue, 27 Oct 2026 14:03:09 +0100")
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
-	<20261027-fixes_shmem-v2-4-86a00952acb9@kernel.org>
-Date: Tue, 27 Oct 2026 18:34:18 +0100
-Message-ID: <2vxz7bj3oxnp.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Eu33nbjP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793122472; bh=eH/ILNneWFjzbYE1V7mJp7q808oLcwhhI5kcVPmM+oM=;
+	h=From:To:Cc:Subject:Date;
+	b=Eu33nbjP8BlNPy7CP9hFP3ULritJ3yCb/wkeQVy20x1GvgxEimPosrHDd+nZCP72/
+	 E2GpmxyRucNzwLs4dOM1S2UnpXhW1gpTk8cfcMDTU6AEOJR3a9UXQqUxyRA6/lQQB7
+	 8OnATxo+C0+KhstPpaMKzTrAWL1DrvHq3AlV/iDU=
+Received: from CRASHEDROM.localdomain ([117.147.101.47])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 89F2B6AF; Wed, 28 Oct 2026 01:34:31 +0800
+X-QQ-mid: xmsmtpt1793122471tw2vfcbfg
+Message-ID: <tencent_6337CA8D55BCC5519576F3F816D0B83A5906@qq.com>
+X-QQ-XMAILINFO: MRBm8gEMwvbCd6LZRPL4OrMrQ6vSXny4gxaQZ/D50zhBiZMBpA2pciCuBT4IeX
+	 zbkLX18rGEnJYIo9950Uc0LMoSYud5hECca6oTe1TDDzPL0IScwVNbg7jPhN7Bx5ji7sbuRTK4+z
+	 6u+qypOptCzdUV+XTi8FQvfIckZZaqUDbwrImo6sQbgat0/RNSKW/pKXqWLpZwuo8Z/ukAtx9e6a
+	 63zbVhVHgisasYDi1v6EFpSdZHTuMdP7fLDbds8K5KAIwrAzxmfMbnfNZ/G7BLRfIBQPnSNljsIT
+	 pZl2NK4RK6+HajoGpuEQ3/ZyX8+kUxOb1FSZzyWEC7beYbS8sp4Hil7DOOKMEkf2lb+p7QfCrmuQ
+	 v4Tc+OxoGUtHV381hLbFiW25L4kwfuO/1eLyPJKd+VNTX5UaqMjkNXZAZGPfFhWX5vFC8WIEXTkS
+	 R/GE3wS3eVoelkzXt5PqA5GKHreHFVFTpYETsD0PssDa2DIopXK65BnBhvCjDBq9pUgTAZ9RVUK9
+	 Mc77X5mL5i/eKXapIPaL6hThR6U+3ksqp8QKwdiE4/oJMyzDrJNXi3dgj6/Q9N7dTu0bd2O0Qfwf
+	 jC6yHGqFKEIqJKi9B4R2ZDqTj2MQ/1Kcglvr6NXL8aDpuUYYMiWpJBT5GMotGyXlOP4/L81Tgurr
+	 18VLwQAjnMnoBtTCc7QBScEw1sXvveJzJ78QbFVOHxYscsFPQgWtvF0TRxeFG5zj9QX9zZJsrig8
+	 QN2KyrOol58SNMDqCq+wIou4P+3AglET4uq4O2bX0ONr0+XG+dX9klURD9BCIAlpCtI/MlTrwSBi
+	 GNq1CfSKP9QckBFewFL7eVSsKpBL9yugj3kWWU+4igQfrrEQE2pWwsQTjlK6hcnjhoTvgwbW8Kwq
+	 dqo3Q/NvvvSjU9GKN469eZVismJwPPS/ssZTCBLhipAshMTZBYMvtcf8LfbVunYek8Ec4ZdmPvAT
+	 15F3bJ6JqbOGmb+OcOMfuEScC5Q7NGtWyPZLcNhDnu+CLSzDTyi+FP9jQYAXFTsloe644/3XCUxj
+	 1GlYKApTEQ0cen82+oyWNyUluXAdgpQOtI62VTtnIKoyX4/GP9
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Chengyu Liu <19290937@qq.com>
+To: 19290937@qq.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH net 1/2] hdlc_cisco: shut down the keepalive timer on ->detach
+Date: Wed, 28 Oct 2026 01:34:07 +0800
+X-OQ-MSGID: <20261027173407.2742972-1-19290937@qq.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,39 +75,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
+cisco_start() arms st->timer unconditionally and cisco_timer() re-arms
+itself on every fire.  The only deletion lives in cisco_stop(), which is
+unreachable on the protocol-detach path: detach_hdlc_protocol() calls
+only ->detach() (never ->stop()) and then kfree()s hdlc->state.  The
+cisco hdlc_proto has no ->detach at all, so unregistering an up cisco
+device leaves the keepalive timer armed on top of freed memory; it fires
+within one keepalive interval and cisco_timer() writes through the dead
+cisco_state (st->lock, st->txseq++, cisco_keepalive_send()).
 
-> From: Chris Mason <mason@kernel.org>
->
-> The owner of a memfd sealed with F_SEAL_EXEC can still change its
-> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-> this lets an unprivileged owner make a non-executable memfd executable,
-> bypassing vm.memfd_noexec=2.
->
-> simple_set_acl() updates i_mode directly, bypassing the seal check in
-> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-> in include/linux/memfd.h.
->
-> Fix generated by an LLM and sent by Chris Mason in private.
->
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> [ david: use common helper; simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Add a ->detach callback that shuts the timer down permanently before the
+state is freed, mirroring the CVE-2026-63803 ppp fix
+(timer_shutdown_sync() in ppp_timer_release()).
 
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Initialize the timer in cisco_ioctl() when the protocol is attached and
+drop the timer_setup() from cisco_start(), so the timer is initialized
+exactly once at attach time: attach_hdlc_protocol() uses kmalloc() (not
+kzalloc), so st->timer is uninitialized garbage until the first
+timer_setup() and ->detach() must never run timer_shutdown_sync() on it.
 
-[...]
+This bug was found by static analysis and confirmed with a KASAN
+reproducer: slab-use-after-free write in __run_timer_base() within one
+keepalive interval after rmmod of an up cisco HDLC device (allocated by
+attach_hdlc_protocol() via cisco_ioctl(), freed by
+detach_hdlc_protocol() via unregister_hdlc_device()).
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <19290937@qq.com>
+---
+ drivers/net/wan/hdlc_cisco.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wan/hdlc_cisco.c b/drivers/net/wan/hdlc_cisco.c
+index bfc978b15b..2173d5c6d6 100644
+--- a/drivers/net/wan/hdlc_cisco.c
++++ b/drivers/net/wan/hdlc_cisco.c
+@@ -274,7 +274,6 @@ static void cisco_start(struct net_device *dev)
+ 	spin_unlock_irqrestore(&st->lock, flags);
+ 
+ 	st->dev = dev;
+-	timer_setup(&st->timer, cisco_timer, 0);
+ 	st->timer.expires = jiffies + HZ; /* First poll after 1 s */
+ 	add_timer(&st->timer);
+ }
+@@ -293,9 +292,17 @@ static void cisco_stop(struct net_device *dev)
+ 	spin_unlock_irqrestore(&st->lock, flags);
+ }
+ 
++static void cisco_detach(struct net_device *dev)
++{
++	struct cisco_state *st = state(dev_to_hdlc(dev));
++
++	timer_shutdown_sync(&st->timer);
++}
++
+ static struct hdlc_proto proto = {
+ 	.start		= cisco_start,
+ 	.stop		= cisco_stop,
++	.detach		= cisco_detach,
+ 	.type_trans	= cisco_type_trans,
+ 	.ioctl		= cisco_ioctl,
+ 	.netif_rx	= cisco_rx,
+@@ -353,6 +360,7 @@ static int cisco_ioctl(struct net_device *dev, struct if_settings *ifs)
+ 
+ 		memcpy(&state(hdlc)->settings, &new_settings, size);
+ 		spin_lock_init(&state(hdlc)->lock);
++		timer_setup(&state(hdlc)->timer, cisco_timer, 0);
+ 		dev->header_ops = &cisco_header_ops;
+ 		dev->hard_header_len = sizeof(struct hdlc_header);
+ 		dev->type = ARPHRD_CISCO;
 -- 
-Regards,
-Pratyush Yadav
+2.25.1
+
