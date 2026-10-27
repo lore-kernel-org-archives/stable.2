@@ -1,93 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069177;
-	b=mb9b3v9xYMgOPdr/uyvILAN8pqu15EN8GZoey/YNgXfM0IQfa3PT/wUj7WgVNxvogJKz
-	 SR+G6elpXWNcv/eA3p/DOFXmFLf+jNuUIE8J0pVLwVTJ71GuCqWdjFbomRWtSN8FihZvY
-	 yPwC8uvw6zsOO9EWfc4avvdxNPM93+vVh1+YGrihRV9IPTA7BSFjm0oNAterDThYHR2Vj
-	 yegojrrvb3Wq9eUsbTIdpmMcrTi5E7Xeeu12N+h47By6rX99gGUBmH0rV7a7z8aPLzY3B
-	 CEZaQTfGdM7BY1OyMIFyY4rKCbzxICYNPayGjflAVGwW4gX2nCySEqs4CW+9W5UeXcA==
+	t=1793069211;
+	b=Fe9X9qHsllKTdxEvshEnBbY2hT50nkFZkgpalRTn0Wqv6PpsA6s5ZGCn5P2XyEp7PBY4
+	 LRQLNw3Dl6e5kI3i246IbRIm1sYX9CAwP8V6IkN25KbgsMg5TssImtKEEyQRC6M5A+YYw
+	 U/VQi9m5wBPZWWioy0+LzZ6krRaqyvRdJXhZcT8H3OgWAzFxiRVYRZPdf5s2zqwS14Eyb
+	 TuBZyIB+DmHKNYJjGuXT9B8F3gDC/aHeITmye4lzpvSgdY6aZx+FTh168wq95CizCB+Hy
+	 LhzPemEb64oSEQT4BxDR/XQomKCmQcsFdKN+3B97yAyxzzCjOsnEt6+UlxO5yZvuByg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069177;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PGT+puAojXJ10M7d5F+nORTVc4mPik48tZJfhJIgcgQ=;
-	b=1MSEWfutaiESXbo68JK6z3AzLXDQ74qbWRzUaYFgZo/B4YLr8MwSIKRxUSI3aiQum7Rq
-	 Q7Irfg1meyi6uzsvQ2vs/7eqvRNcA+cA1h1PkxEQA7AW0usJ7xGmb09Xdd6kyvWt/xYYQ
-	 3UmFuArfMgEIQNgDF+KT3W0qkYvSJf0lxk1MO9VvCPTpDjl2qITMjCJdr2ITd6JGw7x7A
-	 hqN8Vmfi754t1hDIV7WZJsoosD4awCwTOX0stkcf9B2GNeOF6XBz4iBi6/lKTI2EJTDIb
-	 ZrHUiSDZw8lFb6/cllsvbJbiYFTw6Nhscj3maucmi1pp+ninwOJyvi6s+vc+alWZMyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069211;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=tJccXRA73KxCPHa334RsjIMd6gOUDXrizq4EVOM7j+0=;
+	b=oFBG2W7n/UwAoHtvJHGwIlCyFkyBkt46uBPcu7Hgpo4cRNALDWoWN0ZS4rCB+EWsyK4L
+	 oLw++u1M4K7oCjFdA4DsBgffeP/2mLYQWEpKmKsEaoeeYYzJ1juGvLZGdGg4DRaLaXW/N
+	 JjRIvlESg0l22XSZBcW1l70cVI1/NmCsdOymk3fhvcEKkHYUA/3M6tXdHfna3YZa8+c22
+	 fpOAdmTGknKirCvBZ0DvqweM9TDjOXMUJMJf+R/Lq7aaYomlDoY670kr4qyEh70w9Cno7
+	 Gcc65cW77T974nNefzPj8QmiumC1w3cAzuRbj1nQ4/yP5GJUt76AfZVc2Y8EolaPssw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tBxBQwUw;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C47606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48C47606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tBxBQwUw
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e831e86ebfso22644715ad.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 19:46:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793069177; x=1793673977; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PGT+puAojXJ10M7d5F+nORTVc4mPik48tZJfhJIgcgQ=;
-        b=tBxBQwUw3LMOsElAatjrmzeCT/o+kwm7rU70vYpvStsNfTivQebNbB4S41E+reNAut
-         vBPJYEZw9Al2tLcsK0+O8GSooRxE5X6oRt+UHy9JrVZ2d/LOkrADi8GG3ZFsP7Ne4glw
-         BZoGPPf27Wg++Q+2TjK5M9XOH/uM4vXzr6gE+sDNBd+LIyxuw+n3oEQO2qegbvFb5CDr
-         HU67wvjRhmgK+NlA18o5tGS8b/EwtF59eqMjNHkrumRV+iYvNvSMf5ZYxcOtPsOwbhSj
-         g7MgKYiODe3DijlSrduXjNpZdKp5uVlgbF81OamBofyYH1tDfIa6AnrYoN1LuAuLHvRx
-         k3iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069177; x=1793673977;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PGT+puAojXJ10M7d5F+nORTVc4mPik48tZJfhJIgcgQ=;
-        b=XPGMW15KcGDszz39c5JBybFlHsggbHqYXkmTS8pWn0KlNUzp72TvrITHF3XVrWtQBi
-         MvqTit/DG5WZQtH8ClYnW9ENksuaIaO/Gfc9i56U7/w6D3+8ms1GB7GqCdGwYcstM+dJ
-         0fL1buUWtC1wBJ3a6L+S8mHOaFNkMzEqNvcfVaX8Oyj76RAztyWiCXH1PVMVV5ZKlNVF
-         x4q306rkgBwtQ5LYCrCSdueMCyZM/0bl5au4szGqMcwyIC2JDMJwflJ7XThicJxI1oSf
-         LPdgNJV0RvIj4rMwWvgaynSEqrWKOURIYre2RVqFfIt26M0Sr0YpPJiAODS+OxV9gAWt
-         fprg==
-X-Forwarded-Encrypted: i=1; AKwUvBzIo7iVwC1FFapNyDaFQMo+VGk5MiF8AxP8PbjvXqvdkGlAnF49qFt3X7wLHQx+q1Sudi+6YxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/AkilzkRivlG6ZQEdb3rVbd03n3pnz5BA6IEz9MTQI1maoNNO
-	3RisPV47wAzEGvgXb3o+mDNO4b/l7KIX6HvQsOh94W2XfHt6lC+ZBn6+
-X-Gm-Gg: AYBFou3MpyFHMkSZ2arezi1fjdNbanuhohN//nPcply3quld4+vRgX7KTSgrUFrwOL/
-	y0A0OQuiPRhY8ATidJUTvGMaXJyrojpspUIY45p+NXwGISSr7R9tHcoMi1pm6TDoGOkMRtgvBx9
-	ZPUJKNy90vsK693t7hTpCHf6UjQl5qAE+Uybtqy0CV+6vwYblGfh6MItmW/DQhaslGDhDTH+3Jb
-	na3/DZszxqar5aKQ+Xhe1RT0G/PumQL+H7qZRekVq8UlTnBZ3eTkXLE6WmcBYCsERb7Glyc9N1n
-	gRP8bs/ecwFmmGMeucdaTva4+InwsUMwISuc+ad3zP16oYwk0zAUyk6usrKEGg1TjXpWkDZ3SZy
-	q4gSFH55simKbhyPx9cZYyNYTwQ3pFZgtdraRRW94LM7xNyPJG4Ccg/Gy+z/9PSmEq0E/5/CMNX
-	GCZzwrVW4M4nDtXOFcIhiIgYE7ynMkSkXikPAcm2YEPHP3cYnr6PGWXCxGBQ1qPUxY55Z2V6Qsg
-	sY9/0W/HvZwrM/YMxeoh7NPPNLWfTRPv3MoHlqWKJed/3tndeITU6zYgye6dAaAXbBHatNNag+x
-	hGnY/O4vGXQbjrnlA6fMpAC3YnUC
-X-Received: by 2002:a17:902:ea12:b0:2e9:87a2:b4f8 with SMTP id d9443c01a7336-2ea9c83f108mr69673795ad.29.1793069176577;
-        Mon, 26 Oct 2026 19:46:16 -0700 (PDT)
-Received: from lgs.. ([101.76.249.61])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bdd5cesm2324565ad.30.2026.10.26.19.46.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:46:16 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
-Date: Tue, 27 Oct 2026 10:46:08 +0800
-Message-ID: <20261027024609.117371-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60843606A31D;
+	Tue, 27 Oct 2026 02:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60843606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8Cx_9KXEOBqy60ZAA--.9213S3;
+	Tue, 27 Oct 2026 10:46:47 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJAx2c2UEOBqy4cwAA--.36117S2;
+	Tue, 27 Oct 2026 10:46:46 +0800 (CST)
+Message-ID: <33132214-21cc-4ea8-9eb4-022ecd0659c4@loongson.cn>
+Date: Tue, 27 Oct 2026 10:43:59 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,46 +45,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/28] mfd: loongson-se: Zero-allocate driver data and
+ initialise engine completions in probe
+To: Lee Jones <lee@kernel.org>
+Cc: Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen
+ <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-18-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-18-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx2c2UEOBqy4cwAA--.36117S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7CrW7tr43WF48Wr4fZrWrJFc_yoW8tr13pr
+	sxua4jkr45tr409an8JryUuFyY934ftrW7Ca9xtw40yr1DJ3s2gFy5KFyUWFWDArWDGF12
+	qFykKa1rua1FkrcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j83kZUUUUU=
 
-hi655x_pmic_remove() currently removes the regmap IRQ chip before
-removing the MFD child devices. regmap_del_irq_chip() disposes the
-child IRQ mappings and removes their IRQ descriptors.
 
-The hi65xx-powerkey child registers interrupt handlers using
-devm_request_any_context_irq(). During child device removal, the
-device-managed cleanup calls free_irq(), but the corresponding IRQ
-descriptors are no longer available. As a result, the allocated
-struct irqaction objects referenced by irq_desc->action are not
-freed, causing a memory leak.
+在 2026/10/21 20:09, Lee Jones 写道:
+> loongson_se_probe() allocates struct loongson_se using devm_kmalloc(),
+> leaving the se->engines array uninitialised until child MFD drivers
+> later invoke loongson_se_init_engine().  Meanwhile, hardware interrupts
+> are unmasked and se_irq_handler() is registered during probe.  Any
+> engine interrupt arriving before loongson_se_init_engine() runs causes
+> se_irq_handler() to call complete() on an uninitialised completion
+> structure.
+>
+> Allocate struct loongson_se with devm_kzalloc() and initialise all
+> engine completion structures in loongson_se_probe() before registering
+> interrupt handlers.
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-ad9310d7-13b2-4a4a-ad7d-78a4c612c78c
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Remove the MFD child devices first, allowing their device-managed
-IRQ handlers to be released while the IRQ mappings are still valid.
-Then remove the regmap IRQ chip and its IRQ domain.
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-This issue was found by our static analysis tool under development.
+Thanks for fixing this!
 
-Fixes: eb10245fb37e ("mfd: hi655x-pmic: Add powerkey device to hi655x PMIC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/mfd/hi655x-pmic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/hi655x-pmic.c b/drivers/mfd/hi655x-pmic.c
-index 5cb392892c19..3a7ccc9d30b7 100644
---- a/drivers/mfd/hi655x-pmic.c
-+++ b/drivers/mfd/hi655x-pmic.c
-@@ -147,8 +147,8 @@ static void hi655x_pmic_remove(struct platform_device *pdev)
- {
- 	struct hi655x_pmic *pmic = platform_get_drvdata(pdev);
- 
--	regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
- 	mfd_remove_devices(&pdev->dev);
-+	regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
- }
- 
- static const struct of_device_id hi655x_pmic_match[] = {
--- 
-2.43.0
+Best Regards,
+
+Qunqin.
+
+> ---
+>  drivers/mfd/loongson-se.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+> index 9b531e62fb85..187ebbed0422 100644
+> --- a/drivers/mfd/loongson-se.c
+> +++ b/drivers/mfd/loongson-se.c
+> @@ -106,7 +106,6 @@ struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
+>  
+>  	engine->se = se;
+>  	engine->id = id;
+> -	init_completion(&engine->completion);
+>  
+>  	/* Divide DMA memory equally among all engines */
+>  	engine->buffer_size = se->dmam_size / SE_ENGINE_MAX;
+> @@ -199,12 +198,14 @@ static int loongson_se_probe(struct platform_device *pdev)
+>  	int nr_irq, irq, err, i;
+>  	dma_addr_t paddr;
+>  
+> -	se = devm_kmalloc(dev, sizeof(*se), GFP_KERNEL);
+> +	se = devm_kzalloc(dev, sizeof(*se), GFP_KERNEL);
+>  	if (!se)
+>  		return -ENOMEM;
+>  
+>  	dev_set_drvdata(dev, se);
+>  	init_completion(&se->cmd_completion);
+> +	for (i = 0; i < SE_ENGINE_MAX; i++)
+> +		init_completion(&se->engines[i].completion);
+>  	spin_lock_init(&se->dev_lock);
+>  	mutex_init(&se->engine_init_lock);
+>  
 
