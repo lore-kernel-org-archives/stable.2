@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116005;
-	b=SSTsoai2etBcIsbI1JIIIOdHWRJwOhTDV2x/ojthewTRKw3ASa8S/fGMvrZUw2N7GR3z
-	 cq9tU6i3192b3cpBUOD0Md+bl1ARuwEmzW2ycLyN/qMewQY/TkpmXmi1xcvBeLLOX9rtk
-	 mfLKbkq0AEjFqDOqFtXQ0znCjR4bUW/gXA9PvBQStlht4SDfbnuRVaiPrFIObzQJHXV/r
-	 GKOATeUrfYow4F9MgGmtDzSG8hd0+3tmXCi7DIefs8+YZIjcM4EoVK+uH4GqVusRGFQvf
-	 /HmX12ETRvq+XBWauYln/GO3AdFXvS3FDlPJ2qgO8Y3T6wY39clbTFSKIPihvcqv9nA==
+	t=1793116009;
+	b=IHJ9WubyfEItL3ewp3tZ6j23SgztvzLrNobwxlzjpg7Wm3KQ4MiUoIYLYnyHebe4W90v
+	 +5y2DPlMd7pDbpXQ3gHgIVrJO5o6rAP5y5vnmKXMiHWYUz/drPbk4QlBL64YZhI4RTR8B
+	 zfae7hAVwWGRu9v0mQmGCMrEvzudHJz2M/yY+58/n9Mp+uklCbkI3LLwM9JHRm157u+Ya
+	 McjGKW3q6fe0nFX9h7FPttugIZp+yByF9WAwfL9YvkTfVX2UKP4tTaevlrJeaC9a2IMjA
+	 kHojNPWO97at4AzhDvRyYepqtZQ8yWckTzc1w+0rF7nFaiAzYklvZ/EXvjo9wNN9ioA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116009;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
-	b=RWwlAaKNIzCCQnkpgpRprZl3ZzQ5mu0kHjZ0XBUobDeSfdheQ7RAbCAdrV48WhKIze/d
-	 LSHA3pUoYCocCLIM7tgm2kani/Kk1Q9Q1lKCjDdoHRdqZwpvJg6fz4A+3b8jyfflkrBJn
-	 NuYsaCa/o5ulRtW+qujdEUULRlSu+y444QAnbhZG1yD2e9XrkPSnPq0OA+Qk5aVcil+H0
-	 gJ2v8abfU7xVM4zq6kAb7xDAbzwIvZ3ioa3nrRk9VETN9Gs47/ZNGBXDZMLAz+ZgzRR4N
-	 JaVDsMFZM9AuYs/i+mPRBRFCwm4tJPel6x8vtLO3fhxMUpgPvbXNj92TrOq3kF5rn6w==
+	bh=1u8lZKxgFZyPpeTOFFRYQ4fgYgjI0MvFics9ypH01DY=;
+	b=JOBv8YhDvr2Ga6vP/okNZNxtwkWqLgqZTS+XT6OLsesT6w1QZ8V0lijz+oG+zlkkjFQi
+	 8WSA8QRGKMsKIXvm0REJO/zeZqdBOLd5oKFfiNaJsdG4FbE+RzpJ4KlUY1LDIz+KDho2q
+	 TnpE4eox5HbkH6YkriXlnpZXE9sgMqXbJPfWThQ2+yw5r4BVDADLq4K7pAOZ0su4uJmiP
+	 8xyKoLpCwsQhch3m1uhy8T65KDM8D04dh47lJhgxk/7OUg5tWZcSEMETRu4T7qjzrLuXl
+	 BnW8KjhXm/ot4eHzHvSeblXFNFR1AVlVjBpwo/SUIErjvGkQOz3+gpp1FIrLhcvds1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E12ZfgfY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPSY5mcs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657FB606A329;
-	Tue, 27 Oct 2026 15:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCA9606A33E;
+	Tue, 27 Oct 2026 15:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E12ZfgfY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5F31F01825;
-	Tue, 27 Oct 2026 15:46:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dPSY5mcs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B6271F031E1;
+	Tue, 27 Oct 2026 15:46:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793116005;
-	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
+	s=k20260515; t=1793116008;
+	bh=1u8lZKxgFZyPpeTOFFRYQ4fgYgjI0MvFics9ypH01DY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=E12ZfgfY9ynMlsq27sp3+JPTml03yPMJtxySRvItV0bZeT/oBcKyDuGbdDrwJ7G/g
-	 /3yTyW3G2KdkQEkm7nATNIpbNf5GGLbUPJ2hlys+9e3n/nP3DQogyfyN/8Ine0Wg8K
-	 eTKj345nI26OzTolIvYj2lP0WeVmQMqVWvW7ZfSUBpJewvOxP/DmoDKYrpm8oYLaIt
-	 UjUZ+njZG2AOdpBIw79hu+wj6ia6FcGeNNRRRfdbGVMBlP8eaQyw/Je33Fa2uHH12E
-	 mANIpIC1zrp6cBBxBwtI4LvzIfFQmKD8Qq9zHZSgOZhdrvfPBJjWQL40tSdbjEoznl
-	 zEA2ZqWTrwzRg==
+	b=dPSY5mcsmJ6rtX9SPiO4XwDXHY7n/zmhtkCHeEC3C0NnN/O+8oo37LqtI35rur40l
+	 aHy2epuMIF6RqQ7LULRCxz0CP8ZblI4binijgF1tR99odhURt9pZYB+LUhwDhr3PP7
+	 E5sqYOdg1rmsyYrtTRx0CnJeOe/ucrxrwkFD26mimA9CjIAkhn/eWHGFgj6H46+DwZ
+	 KPdBHRt4OsQMef1KfLUUQlYFvG1/HrqZg99bSh+vOpZqfhdsIrKF9lQ6sjnaj/HmCM
+	 XsJH/DRSX3Y7SQs2J0tWUnvTRhDswaqDSsUkac9Qh5rYJvmMcYUU61KJyb+8QCcEqP
+	 Io50uxM5SsA2g==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Tue, 27 Oct 2026 16:46:29 +0100
-Subject: [PATCH 3/9] mm: page_frag: refill the cache for large fragments
+Date: Tue, 27 Oct 2026 16:46:30 +0100
+Subject: [PATCH 4/9] mm/page_alloc: keep the pagesets of an empty zone
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-pgalloc-ai-hotfixes-v1-3-9c7d1aca801e@kernel.org>
+Message-Id: <20261027-pgalloc-ai-hotfixes-v1-4-9c7d1aca801e@kernel.org>
 References: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 In-Reply-To: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
@@ -70,72 +70,99 @@ X-Mailer: b4 0.16.0
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-A fragment which is larger than PAGE_SIZE can only be served from the
-32K page of a page_frag_cache. If memory is low and the cache had to fall
-back to a single page, __page_frag_alloc_align() returns NULL and keeps
-that page.
+When the last memory of a zone goes offline, zone_pcp_reset() frees
+zone->per_cpu_pageset and zone->per_cpu_zonestats. Nothing waits for those
+who found the zone populated and still use the two pointers. They take
+neither the memory hotplug lock nor any other lock which offline_pages()
+holds, and some of them can sleep:
 
-Since the offset counts up, this check comes first and is made whenever
-the fragment does not fit behind nc->offset, no matter how big the page
-of the cache is. So the cache is never refilled on behalf of a large
-fragment: with fragsz = 10000 the first three allocations succeed, the
-fourth one and all the following ones fail although memory is plentiful.
-nc->offset does not move either, so this lasts until smaller fragments
-have used up the rest of the page, which never happens if the cache has
-no other user.
+  CPU0 vmstat_update()                CPU1 offline_pages()
+  refresh_cpu_vm_stats()
+    for_each_populated_zone(zone)
+      pcp = zone->per_cpu_pageset
+      cond_resched()
+                                      adjust_present_page_count()
+                                      zone_pcp_reset(zone)
+                                        free_percpu(zone->per_cpu_pageset)
+      decay_pcp_high(zone, pcp)
+      __this_cpu_write(pcp->expire, 0)
 
-The nfp driver allocates its receive buffers with napi_alloc_frag() and
-netdev_alloc_frag(). They are larger than a page with a jumbo MTU.
+The same goes for drain_all_pages(NULL), which takes pcp->lock, for
+zone_pcp_update(), show_free_areas() and the readers and writers of the
+zonestats. If the per-cpu memory has got a new owner in the meantime, it
+is corrupted.
 
-Only give up if the fragment does not fit into the page at all, which is
-what the comment describes. The fourth allocation in the scenario above
-with a 32k page will thus now proceed to refill the cache.
+The pagesets are only freed because setup_zone_pageset() would otherwise
+leak them when the zone gets memory again. Keep them instead and let
+setup_zone_pageset() and zone_pcp_init() use them again, like it is done
+with pgdat->per_cpu_nodestats. Their lists are empty, and their limits
+have been calculated for a zone without memory by the
+init_per_zone_wmark_min() of offline_pages(), which is what
+setup_zone_pageset() would come up with as well.
 
-Fixes: 8218f62c9c9b ("mm: page_frag: use initial zero offset for page_frag_alloc_align()")
+Fixes: 340175b7d14d ("mm/hotplug: free zone->pageset when a zone becomes empty")
 Cc: <stable@vger.kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-[vbabka@kernel.org: make the comment more obvious]
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/page_frag_cache.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ mm/page_alloc.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/mm/page_frag_cache.c b/mm/page_frag_cache.c
-index e63efe78b7d4..8914437ddc51 100644
---- a/mm/page_frag_cache.c
-+++ b/mm/page_frag_cache.c
-@@ -119,15 +119,20 @@ void *__page_frag_alloc_align(struct page_frag_cache *nc,
- 	size = PAGE_SIZE << encoded_page_decode_order(encoded_page);
- 	offset = __ALIGN_KERNEL_MASK(nc->offset, ~align_mask);
- 	if (unlikely(offset + fragsz > size)) {
--		if (unlikely(fragsz > PAGE_SIZE)) {
-+		if (unlikely(fragsz > size)) {
- 			/*
--			 * The caller is trying to allocate a fragment
--			 * with fragsz > PAGE_SIZE but the cache isn't big
--			 * enough to satisfy the request, this may
--			 * happen in low memory conditions.
--			 * We don't release the cache page because
--			 * it could make memory pressure worse
--			 * so we simply return NULL here.
-+			 * The caller is trying to allocate a fragment that's
-+			 * larger than the whole cache page.
-+			 *
-+			 * Either fragsz is larger than PAGE_FRAG_CACHE_MAX_SIZE
-+			 * so this cannot ever succeed.
-+			 *
-+			 * Or the refill has fallen back to order-0 due to a low
-+			 * memory condition. Then we don't want to release the
-+			 * cache page to attempt a new large-size refill because
-+			 * it could make memory pressure worse.
-+			 *
-+			 * So in both cases we simply return NULL here.
- 			 */
- 			return NULL;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 9a4d3352c037..13211b8caada 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6312,6 +6312,10 @@ void __meminit setup_zone_pageset(struct zone *zone)
+ {
+ 	int cpu;
+ 
++	/* The zone has been populated before, see zone_pcp_reset(). */
++	if (zone->per_cpu_pageset != &boot_pageset)
++		return;
++
+ 	/* Size may be 0 on !SMP && !NUMA */
+ 	if (sizeof(struct per_cpu_zonestat) > 0)
+ 		zone->per_cpu_zonestats = alloc_percpu(struct per_cpu_zonestat);
+@@ -6404,6 +6408,10 @@ void __init setup_per_cpu_pageset(void)
+ 
+ __meminit void zone_pcp_init(struct zone *zone)
+ {
++	/* A node which is added again, see zone_pcp_reset(). */
++	if (zone->per_cpu_pageset && zone->per_cpu_pageset != &boot_pageset)
++		return;
++
+ 	/*
+ 	 * per cpu subsystem is not up at this point. The following code
+ 	 * relies on the ability of the linker to provide the
+@@ -7684,6 +7692,12 @@ void zone_pcp_enable(struct zone *zone)
+ 	mutex_unlock(&pcp_batch_high_lock);
+ }
+ 
++/*
++ * The zone has become empty. Its pagesets and zonestats are not freed: nothing
++ * keeps somebody who found the zone populated, such as refresh_cpu_vm_stats()
++ * or drain_all_pages(), from still using them. They are used again when the
++ * zone gets memory again.
++ */
+ void zone_pcp_reset(struct zone *zone)
+ {
+ 	int cpu;
+@@ -7694,12 +7708,6 @@ void zone_pcp_reset(struct zone *zone)
+ 			pzstats = per_cpu_ptr(zone->per_cpu_zonestats, cpu);
+ 			drain_zonestat(zone, pzstats);
  		}
+-		free_percpu(zone->per_cpu_pageset);
+-		zone->per_cpu_pageset = &boot_pageset;
+-		if (zone->per_cpu_zonestats != &boot_zonestats) {
+-			free_percpu(zone->per_cpu_zonestats);
+-			zone->per_cpu_zonestats = &boot_zonestats;
+-		}
+ 	}
+ }
+ 
 
 -- 
 2.56.0
