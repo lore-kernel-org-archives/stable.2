@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106211;
-	b=LY6eRpMvEQh6BDT9J7XL5550tFS5yen/N2KA3WAEB9Ohhwyxp430rDtZlxd78K/GfVRc
-	 z25K/GYPJ9ccfbK6zQs4UqsqMRouaypcGf3PViFh7sWuKUxjxHI4v/SuyuGRt0Fh5iBb1
-	 2oiECTpYgWzhOC+PevVLaFjE9NjK81cVQMZN4kggmEgBt33yZmMaRvBImXYQupL1wrAv2
-	 y6igpZLK/hbSU8yZ/rVIN3U16A7z0SeqmJhCXH2gFr5odVTgFPwSuVZIFqn0f8leXcedk
-	 lKJIMpyWJvKE5zvbNWzhPN2V1mY0toQRt17Jy7KITvmYKHBKoijVMHts8HYMkD83a0Q==
+	t=1793106219;
+	b=nOkypySIybK606WvTfznlRYauuz1WeNt+Oj+0+4NI8u1lUWlCNvQge09/HwUPFPv4iGP
+	 QDqE7kbMklnDdKkxYDviK0OodVfGK0Qr1/OQRz1prwLq/8TReb27wcrDscETp7f9tTzd6
+	 s9ywniq/6kEPLeZXmbqJo4ivBBlOuJf6i+cGglqydcK+p31om/vXK9wTlke4t3/whcCqZ
+	 zaQ8Tt3ABz/YrXpDFE4E6zL/S7m4i2pi5Tur3PbkxwFMscrE/sK0NHeKm5tloS8p4/Lj1
+	 DnBUF7UglC+QC+ataMw2Dht3E/RDHuOf6EySQXlWo5eK6li1o79vb+qO6pmEWxlq04w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106211;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106219;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q7D2pDXqbZSONsr/MmRGENltL8knHH0R9po0DYvSbu4=;
-	b=NGHj0Rb+U6g+px1x2RPApyQgQHbQHOSEiBf5V9qZFLr+q1vo4tGA1EHW5C/EMBMW729N
-	 wqGAGys5LglK42tajiIh7JIPtvM7rePvEWtjr3btLj4qCgD9nER0YxXFZQD59BuhWaWI3
-	 bUMCnVgV2AmfmXyRphcbyh7oTLsLgQX0umwIIjMwIW/gZqSmfsEVSdfHhz7xCqpCWmZWx
-	 IF6H6j+zbxplIJ0zmTkhs1iOA8S25Rs7rfJ7AA7ClmNpjh5ou7n67Vf0R2+In38D+304p
-	 2acMpxNnvTixGqcaAchx/j5I5b9wEYJMugOQk/Ny5zUJZLe9UfVJjwtPQ/DZ9rvvk0g==
+	bh=HmxLnNloqDnX2mGRaG7UB60Xgda7GnOgxeIVM3cnCiI=;
+	b=GlUVfjzcqhO1WFdWUbRTrru6N9kEk0lBh4HLwBNQQ8Btb/dqB1RUO/XTPZuNgLZemfce
+	 7za1tCDSWtIQUHANkVEgQ52KzpmUakfhRTRBNUXJq1lpShDpeD4g6J5TjiQbddl/S4uCL
+	 YPb0mc5KQFkiZN6N7bYKHODN4ob2KexqOrw3QLcrIZ7zMvXUBTQMoEaYmZ0FDY/EfNipn
+	 kO/85hY9T6/TLhKsX2v/mwwoMrXOvrNwrqyDZ1SSGT6LC9zFw+1jG52mTiKIt+RKhMo9+
+	 ZLVUJFe3uc3bxIEW9q+o3F4/Hyt6Pqw01Xdp8qpOYuHSFP3OMebr2f6Gji3nQwIxQyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRpCV5Ea;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkCBEq2X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19DA606A323;
-	Tue, 27 Oct 2026 13:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06879606A31F;
+	Tue, 27 Oct 2026 13:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRpCV5Ea
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1FB1F01829;
-	Tue, 27 Oct 2026 13:03:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkCBEq2X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D4B1F01825;
+	Tue, 27 Oct 2026 13:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106211;
-	bh=Q7D2pDXqbZSONsr/MmRGENltL8knHH0R9po0DYvSbu4=;
+	s=k20260515; t=1793106218;
+	bh=HmxLnNloqDnX2mGRaG7UB60Xgda7GnOgxeIVM3cnCiI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FRpCV5EaSLtVC8eEMDVo0u1FmULq5zDGV8G+kIfW8i6YVeXP/TraM30QNhy3KXjGF
-	 TBnRw+JKmsEW853CgwTRSl8OoKlIpdTxwWbJMAFAK1gjL6W9P0tdldeDA4VYmSJsBY
-	 fjHs9KsqiPI4s5TiR4sQD1nIN+sMvB6zVtyxz+YpiyNGseRZEbTNv0cVqSqDevw32+
-	 jyhOI+3+bVZpLb5QwbsZvJVYVjx6dn6y8Qkmj279LOd+xdlGrO0ieT73YWk2/15IK8
-	 EQds5zruV+Q+e/YrZFZQohlrg2s1XdBdfdN2c57USCYUbV9pDRzr1P/bb9RIqoiA/9
-	 hAJ2HAAxOHgiw==
+	b=jkCBEq2XthyXjppB6FBZsDBb4g+JSV14/RdizzEMI5plk0gIcKULthmFx0xGUXtt9
+	 W3TLuDN8wSjmTf/3igeQrdB01tryX2n/9PpiAB/MjPzt2WHI1TmBki18TanYBxzft8
+	 x1w2jkCDONXBiws5DDA4GjVSiezHe3kb4H+Nv5ZUd5LH4xy/v56p2gXCLrecf6OkJc
+	 QFb7akhDXTu5+qRVuZGhp6bQR1CVzjK5n+jAtW5hVloS7SilC+nGh/PpmPdYwqCKDd
+	 YDrKe/RZMsi2XuSBq3L/5ofNkWa+Fp0/VVGgbkVayTGg5l++oO43MVm6nq79jqkKBU
+	 HRlChtleeBSZA==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 14:03:06 +0100
-Subject: [PATCH v2 01/14] mm/mempolicy: charge shared policy nodes
+Date: Tue, 27 Oct 2026 14:03:07 +0100
+Subject: [PATCH v2 02/14] tmpfs: keep the quota soft limits of an unused id
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_shmem-v2-1-86a00952acb9@kernel.org>
+Message-Id: <20261027-fixes_shmem-v2-2-86a00952acb9@kernel.org>
 References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
 In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -77,83 +77,57 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2683; i=david@kernel.org;
- h=from:subject:message-id; bh=gtxaBrXycCbt80R146vYiuduiMmjXTomAHupfr8V11s=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBQIF+jI+L1r94RdB436LiUluq0JODvPmOXDkYDLc
- 8RbRe/md5SyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjARnXuMDJf8uF6o6vkvbVxd
- X2Xi6Dqf97lx3XWHy3xh2TMUmPOnJjIynJtZssWR/ceS7r5nvheP35HT81T10/j9Kl6zoGkuo30
- 1LwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1681; i=david@kernel.org;
+ h=from:subject:message-id; bh=JOA/wkBohGWebURbwXTYcThfkfGV/E7mEcVBQ7p5Pw0=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBRg8NoZ9G7p573SIdMul1omC2pmCF3SaLvT/+vaq
+ ZY7b7+ZdpSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJrAhXJwCcJPXMTIcXiO30NJwnoHrFvmp
+ Sr2Lg31dbHxZ9VZcTw/vDjQP9N3CyHD9Tvn/3c1F5rcCxddrntBX3tLsdJSz4kTKh9IfGQs7ZJg A
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-Any local user can bypass memory.max with mbind() on a tmpfs file, and
-allocate unbounded kernel memory.
+When the last reference to a dquot goes away, shmem_release_dquot()
+stores its limits in the rb tree of the mount, unless
+shmem_is_empty_dquot() says that there is nothing worth storing. That
+function looks at the usage and at the two hard limits only.
 
-mbind() sets a NUMA memory policy for a range of a mapping. If the
-mapping is of a shmem and friends, the kernel also stores the policy on
-the inode, in a tree with one entry per range of the file.
+So if the administrator sets nothing but soft limits for an id that owns
+no file yet, the entry is thrown away as soon as the dquot that
+Q_SETQUOTA used is released, and the id never gets to see a limit.
 
-Each mbind() on a single page of a mapping can add one shared policy node
-(struct sp_node) and one struct mempolicy to that tree. They outlive the
-mapping and stay around until the inode is destroyed. The tree is not
-bounded by the file size, so the file can be empty.
+To fix it, compare the soft limits as well: an entry can be empty only if
+both soft limits are zero as well, which is exactly what
+shmem_acquire_dquot() sets for a new entry.
 
-Memory that user space can allocate must be charged to a memory cgroup. A
-slab cache does that for all of its objects if it is created with
-SLAB_ACCOUNT. numa_policy_init() creates the slab caches for both
-structs without SLAB_ACCOUNT, so they are not charged to any cgroup.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Reproduced with mbind() on single pages of an empty tmpfs file, from a
-cgroup with memory.max=8M: the global OOM killer killed tasks owned by
-root, and the machine panicked.
-
-Fix this by creating both caches with SLAB_ACCOUNT. This change implies
-that mbind() can now fail when running into memcg limits. Further,
-the policy_cache also serves task and VMA policies, so they are
-similarly accounted now.
-
-Note that per-file limits are not really helpful, as the user could
-simply use many files; having limits per user is tricky as well.
-
-Fix generated by an LLM and submitted by Chris Mason in private.
-
-Fixes: 5d097056c9a0 ("kmemcg: account certain kmem allocations to memcg")
+Fixes: de4c0e7ca8b5 ("shmem: Add default quota limit mount options")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: smaller description tweaks ]
+[ david: slightly adjusted description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/mempolicy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/shmem_quota.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 0884c629670dd..4da1cb8777f68 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -3372,11 +3372,11 @@ void __init numa_policy_init(void)
- 
- 	policy_cache = kmem_cache_create("numa_policy",
- 					 sizeof(struct mempolicy),
--					 0, SLAB_PANIC, NULL);
-+					 0, SLAB_PANIC | SLAB_ACCOUNT, NULL);
- 
- 	sn_cache = kmem_cache_create("shared_policy_node",
- 				     sizeof(struct sp_node),
--				     0, SLAB_PANIC, NULL);
-+				     0, SLAB_PANIC | SLAB_ACCOUNT, NULL);
- 
- 	for_each_node(nid) {
- 		preferred_node_policy[nid] = (struct mempolicy) {
+diff --git a/mm/shmem_quota.c b/mm/shmem_quota.c
+index d0b92d6da50f5..a83392f75e56b 100644
+--- a/mm/shmem_quota.c
++++ b/mm/shmem_quota.c
+@@ -251,6 +251,8 @@ static bool shmem_is_empty_dquot(struct dquot *dquot)
+ 	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
+ 		(dquot->dq_dqb.dqb_curspace == 0 &&
+ 		 dquot->dq_dqb.dqb_curinodes == 0 &&
++		 dquot->dq_dqb.dqb_bsoftlimit == 0 &&
++		 dquot->dq_dqb.dqb_isoftlimit == 0 &&
+ 		 dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
+ 		 dquot->dq_dqb.dqb_ihardlimit == ihardlimit))
+ 		return true;
 
 -- 
 2.43.0
