@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096002;
-	b=N59I82UyA55i15s2pzTX8TVljektkK+GneoJWcXMihPSCgXDatByHxxXBOO6QnvU8s4d
-	 Ri1XLRn2o+elH6bXSNnb4QFcIZ+sfrM3Cx8LHgcaeUmZ2Vf+FGphlnWDp/7gVLM9p7h5x
-	 WbvVzDcl5X9LfKMPoSuJ8cT28aWH5/o2GhFe2IroJRkxn/WA58hye4IZjNPQuJr9PftdA
-	 pc0GbUUhz0xzAsF/IW5DDHG9qgqJqWoDkIGkVFaE87Rpy4zYf/yrmFTlsKxTNtoJIZgKt
-	 LpyjJhEzouLM/Qikn5mz01bWo/nTYArqMYRfcaMDVDL6bB1Zco6uWxCSmsxj0i3Fqaw==
+	t=1793096034;
+	b=FthpSAszuLK14MzjTqK5jEnCkX41pGMmlrQFTRK52lkuIawVhSaAoMAR9wVt5P8kmnYU
+	 ZIh3V31fQE6EA5hK1aguFbPDXSIjSJRSM/bmijc1MbCMpZLc5DOMyfSVD01qJMvjgqVQz
+	 jNoZ/yh51tmN0zA66vXVoRmc/dHE1SSPoAubw59uAF6eh+TDa7kr+T+iDX1whjzDz7Vzk
+	 KXyLFdVfy6JHXObVSG1eDcwo2r0PlkDP3HgYZX+3GWKILXmnPesW5SdQF5iNPpQidAX5a
+	 sYs0qjQKvOlia2Z4oPjPjytWhQyS++lL3KYlV25o9WG2iIgTMIWY3EwESoqVDetH1+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096034;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Cka5iH+f4CbA6h635wyMcWCPwiqQPm4mJkPl8r728Is=;
-	b=UPEvvgSq+2frds19yttABmQlC1fUCTBlf32N82LZDi88/iTo/74Qd/oM/8KfDwfcGCEz
-	 /WxbQL5svhJ5RFhAia3TlypM7pTTCB9I3kALoixbsKDfGoeuPhW/eelV6os/D7j1UUKCl
-	 SIi1ZB05xN4hiIVebLnniSWZ4pwCM/YGXG9CL0iH0TI3fVsjV7S0kQ/1ZvzccpcjKgxW0
-	 j5IncA+9EZdi3qJ0QqH8giGgw3qtA0gZ7fuiCyDy8dCBszpjycVj7820p7BV33kPOeTcm
-	 8Eud9LmQECjNlzwxvRQ+4gqS/xZJbdhArODuC7ZExBkpnvRwF3PeWLqmKlB21TwXknA==
+	bh=VcjnV7QS2G+aidrtUKihb76qyh+JC3b0hokomy9CWtI=;
+	b=DKoJbd0yAiZBHFcaGXKPKG1HIikgmsU1htZE3DqXlE4qE+1+2h+NKOEMT5XAOeMGfQSp
+	 qx0aYbwVVShcn4KEmFh/3IoX+JWi2pAOMKNAYOnKnCPCH8yLD8Q7dGvzyGBAr//6jGdnb
+	 RjzNYdpudfGCakZnfVDr2jHHzUCi4wX+HLmcVF+qsJ6ivfTTSPCDq+XOo9rLaaRWUxFIP
+	 tyXmQ+567lQ+HvNQIPsGRPTDdoJME6Se4iUS8vsga1MV+t5OpQPYLykD8C+2ZqqKlM8d/
+	 UWBuJF2VTiGlU4GeYBdzMOCsA22jNn+DqdIAp2MesPpbkOVeiv6dRQVIUG5ODstzxyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbdlsP83;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwnkNvoo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF3C606A31F;
-	Tue, 27 Oct 2026 10:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283C3606A31A;
+	Tue, 27 Oct 2026 10:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbdlsP83
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5EBF1F01825;
-	Tue, 27 Oct 2026 10:13:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwnkNvoo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B261F01825;
+	Tue, 27 Oct 2026 10:13:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793096002;
-	bh=Cka5iH+f4CbA6h635wyMcWCPwiqQPm4mJkPl8r728Is=;
+	s=k20260515; t=1793096033;
+	bh=VcjnV7QS2G+aidrtUKihb76qyh+JC3b0hokomy9CWtI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RbdlsP83pI0g/GUuM6VbZ/P7fr3ctS+PR6qMg7VJjK38uiDEInGcgR8axZzFGyzch
-	 Xu8ztux3zdWT/cyx43bEg029AF65TcMp6iUv4cfkEpEGcwA5TdhzIlkR1JM5IBiYkS
-	 scMq6PvraM+qnz0paWREPYrC4vjw9IkmsHcfuec+D98dS+YOkzzEjLYhkjY44jJiRf
-	 0rHtxNgZg6QQ+IpqUuHkD5F1Po5gI9bi5/DwYKYslq1ccb1h+m0ry7Ptpvr5G4QivF
-	 jNGNIs/fyfOoWObaQePwocAIqdd/Pi9bPa3VTfoe3KnH6uMFPOkKoCGDR9+NqE/nuK
-	 AVGed6pJRYBjQ==
-Message-ID: <3edbd664-a6f9-4344-8a6c-6e3feebf728a@kernel.org>
-Date: Tue, 27 Oct 2026 10:53:27 +0100
+	b=UwnkNvoos1ek2AkU4HMF6xMMIsDgOXZGtVXxowwR/TRjQw2QGKWFVBS9ZULzArNQM
+	 vKjbhEVbAE3XPTSOdy8+zQwqfOB/4dPDOtAjgwfFuR+DqJwgHcwlxraumzkxaHA2ib
+	 Va2JKy62cNXxS5F+0zUgxeVYwzpiDA2KcmRzwRB7TU2ZGdFjSlpkYuldKxpsncjev3
+	 VX99o6PmXSBPUsXfoGoG2H1a1zhRt2weS+QJK9agGdCjnbHxq7Z4JjPoHfP4VxU7MW
+	 OUTqfd8SpKL3+WjGAgmochCxIqilm+wXLSmTgUwZQGbAORhAlqKbDbjxETH1txy4HI
+	 +owiB3GFSMiyg==
+Message-ID: <b45a3b54-2b96-4325-a0a3-508ba0227c16@kernel.org>
+Date: Tue, 27 Oct 2026 11:03:24 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,12 +52,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
+Subject: Re: [PATCH 08/16] mm/shmem: stop retrying folios that cannot be split
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
  Johannes Weiner <hannes@cmpxchg.org>,
  Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
  Hugh Dickins <hughd@google.com>, Baolin Wang
@@ -71,12 +69,12 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  William Kucharski <william.kucharski@oracle.com>,
  Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
  Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- stable@vger.kernel.org
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
 References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
- <at97dZY434e1maVl@thinkstation>
+ <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
+ <DMF8FVCUYJ5X.215YGBLZ7H56Y@nvidia.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -123,59 +121,111 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <at97dZY434e1maVl@thinkstation>
+In-Reply-To: <DMF8FVCUYJ5X.215YGBLZ7H56Y@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/26/26 17:13, Kiryl Shutsemau wrote:
-> On Mon, Oct 26, 2026 at 10:40:39AM +0100, David Hildenbrand (Arm) wrote:
->> From: Josef Bacik <josef@toxicpanda.com>
+On 10/27/26 02:34, Zi Yan wrote:
+> On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
+>> From: Chris Mason <mason@kernel.org>
 >>
->> Once shmem_writeout() has moved the folio from the page cache to the
->> swap cache, the folio lock no longer keeps the inode alive: truncation
->> and eviction find a swap entry, free it and do not wait for anybody.
->> That did not matter as long as swap_writeout() was the last thing the
->> function did.  But since it puts the folio back when swap_writeout()
->> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
->> afterwards:
+>> A fault or collapse can insert a large folio crossing EOF after
+>> shmem_undo_range() has handled the boundary folios. If splitting that
+>> folio fails, truncate_inode_partial_folio() retains it when it is dirty.
+>> The final scan then repeatedly finds it because it restarts from an
+>> unchanged start.
 >>
->>   reclaim                               last close of an unlinked file
->>   shmem_writeout()
->>     shmem_delete_from_page_cache()
->>     swap_writeout()
->>       zswap_store() fails               shmem_evict_inode()
->>       writeback is disabled               shmem_truncate_range()
->>       return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
->>                                         destroy_inode()
->>                                         ... RCU grace period, freed
->>     shmem_add_to_page_cache(mapping)
->>       xas_lock_irq()            <- use after free
+>> Truncation keeps the inode lock and ignores fatal signals while looping.
+>> A concurrent unlink() can then block other directory operations while
+>> holding the directory lock and waiting for the file's lock.
 >>
->> swap_writeout() behaves that way if zswap is enabled, cannot take the
->> folio and the memcg or one of its ancestors has memory.zswap.writeback
->> set to 0.
+>> Advance start past the retained folio, whose truncated part has already
+>> been zeroed. Do not move start backwards if the failed split has shrunk
+>> the folio.
 >>
->> shmem_unuse() already added infrastructure to deal with that.
->> Reuse info->stop_eviction to protect the inode during writeout. Increment
->> it before removing the folio from the page cache, and decrement it after
->> swap_writeout() and any attempted reinsertion and inode accounting.
->> In shmem_evict_inode(), wait for the counter to reach zero even if
->> swapoff has already removed the inode from the swap list. Add some helpers
->> to make the code easier to digest.
+>> Fix generated by an LLM and sent by Chris Mason in private.
 >>
->> Fix generated by an LLM and sent by Josef Bacik in private.
->>
->> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
+>> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
 >> Cc: stable@vger.kernel.org
->> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->> [ david: code cleanups; improve description ]
+>> Signed-off-by: Chris Mason <mason@kernel.org>
+>> [ david: split fixes, simplify descriptions, adjust comments ]
 >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/shmem.c | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>>
 > 
-> ->stop_eviction is ugly, but, oh, well...
+> I rebased your patch on mm-stable, which has Zhang Yi's fix, and
+> 1. tweaked the comment,
+> 2. skipped the dropped folio (this is to avoid a narrow case below).
+> 
+> Since after Zhang Yi's patchset, truncate_inode_partial_folio() is
+> changed to return false when it drops the entire folio. Restetting
+> start for a dropped folio in the scenario below would leave zeroed
+> folios still in the memory, causing a waste, although it is very narrow:
+> 
+> folio A=[0, 512), B=[512, 1024), C=[1024, 1536],
+> 
+> 1. A, B and, C are inserted after the same_folio block check, so only the
+>    code at whole_folios label sees all of them,
+> 2. A is split partially and the split failed, A becomes [0, 32) and
+>    [32, 512) zeroed,
+>    truncate_inode_partial_folio() returns false, start is set to 32,
+> 3. B is dropped entirely, false is returned, start is set to 1024,
+> 4. C is split successfully
+> 
+> After 4, index is start=1024. The [32, 512) folio is not dropped. That
+> is why I added the folio->mapping check to avoid changing start in 3.
+> 
+> 
+> 
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index fadf23f9e21ed..efd54a624974c 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1480,6 +1480,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+>  						index = start;
+>  						break;
+>  					}
+> +				} else {
+> +					/*
+> +					 * Splitting failed, but the part in the
+> +					 * range is already zeroed. If the folio
+> +					 * was not dropped, skip it when
+> +					 * restarting the scan to avoid retrying
+> +					 * it forever.
+> +					 */
+> +					if (folio->mapping)
+> +						start = max(start, folio_next_index(folio));
+>  				}
+>  			}
+>  			folio_unlock(folio);
+> 
+> 
 
-yeah, I was not particularly happy to learn that this exists ...
+Thanks, makes my life a lot easier!
 
-Thanks everybody for the review!
+I'll change that to an effective:
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 1a81f6dca7510..c263f02fe07cf 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1481,6 +1481,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+                                                index = start;
+                                                break;
+                                        }
++                               } else if (folio->mapping) {
++                                       /*
++                                        * Splitting failed, but the part in the
++                                        * range is already zeroed. The folio
++                                        * was not dropped, so skip it when
++                                        * restarting the scan to avoid retrying
++                                        * it forever.
++                                        */
++                                       start = max(start, folio_next_index(folio));
+                                }
+                        }
 
 -- 
 Cheers,
