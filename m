@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097428;
-	b=DcRPOxi/SRiNlu4hX8nADYUtcg12+gen7eaWAOTQwKji15I6FETXTMlQ9Yb0lJkqFZF9
-	 GkSeboSsTPZgqChQSZntY8HbGi3SVGijMvvlaG477h8zshWa0vz0e8QWHrtZ6cvYsmr9s
-	 fSD8pwA0h/bBjVE0yImB/npEKVPEJolsG4LHAOVj02pCzVQPJGVqC2tVu/QBHVonh24qM
-	 /KKCl1DLYTOJRH131+9vfUfA1yWM/yAxjqtXRCixY54M82lmd9nya9+l/Mw3Za9zaeG7b
-	 fHiRZKQfZmXrA2fLOYh/s/yZxV7S6X/1DFuEzRNtfTDbr8TzZv9R0Oyc9mBjzkUrrmg==
+	t=1793097433;
+	b=XjpnrQUxTW4FamS1+4Giv2ciWvOKNGRPnyR+LDEcsA1SOPJO5bnx31dChomwCstm3c1k
+	 zlt6CQaGSPFh+XZJawZa+ahjEf0+D4Ji/xfQ89Hf0/JwW5L4NIJJh35SFt1H5bjC+Y4KA
+	 eZf309TqPTprhTB2FaFA4XFB85WZGN8q5WsKa5hil6Aw16X5edKESFBA+/NRg6CQF1Ku0
+	 f02hkUepgim/Vn9+HeGWc6Cxm8zBP/FaNBet/u6os5SU3wh9+h+JApP0zVzCkFxUo7/jZ
+	 VZetXUXRulknepoOi60HGQ7wYPQgLN4XxTOB2GEE5hcPS3uecbg8N2GlH1iz48POE/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097428;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097433;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=F3U/F5SLemlNyKQRB0guqkLTdXKOKLmVioIhX/xtkwM=;
-	b=HLFq/tgGCmC67XrZFrnHD/n2S3/fngOEItYaUt8gVLvttH/UaH/NEqNaWG0jCqapDN1c
-	 wQuTHlV5DcvGLfZTM/lHxgIIr+rcWPv12J41qpBEq95WuDFfCvsnhSkCeUK4ZVplReqs3
-	 wU08MOQDOukiNP7H8PgaaBtn6LRDJJQPxcPDYN20/gVGS2JhNqhyNHNAC8wAyMX/OAo6F
-	 ghKRv+MCaSjRGYPPElLLlAL3Jbkaklln9lgmageSEPcJJvJDVEJZp1md/j3NlvD4IxDOA
-	 idPmm/UjpSXapFKhZMf4D916r4Y8nhDp9uZUrAppXGxtETM6BnyPMihA5mISn3pdtdw==
+	bh=hqInm/ZHOjc3yMqIETdIoGeBEnEoCj8Hf4GrPe3PS04=;
+	b=UmsFgZfQpMRRWtKCqaGf8ZSSSDxcGh1Iui0rT50dce1nNgUGLqLln3M8MlRFNY9q+7KW
+	 3wNh69zU7TXrzGCzTIsgvSsd7I/efFpp2H/GURQitj/m5LVxEdRRApOPaDdmkYUNgVJdW
+	 P/MwxKjNr79TMMZ2pPZ46XYZCLid6Q8vqOyd7RsUvWSCPa1kxLvtV2eKmWwjVx0rY9lPW
+	 ArPK6CTluoz8Wg06jd5czqfFMNjgs2OYk+B4NJo+UXhsCytMlgV51iOZdHVap2BkXn8IP
+	 0Em4qj6a31PyEyBhGH3kkcMLLEU0YfJMeCGtLqPRncnDKhjvu4lLuCDGH5as4M7Dnwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J68CsTFB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tc8EVZ5D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E56606A31D;
-	Tue, 27 Oct 2026 10:37:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D72606A325;
+	Tue, 27 Oct 2026 10:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J68CsTFB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CEA1F01825;
-	Tue, 27 Oct 2026 10:37:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tc8EVZ5D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D7E1F01828;
+	Tue, 27 Oct 2026 10:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097427;
-	bh=F3U/F5SLemlNyKQRB0guqkLTdXKOKLmVioIhX/xtkwM=;
+	s=k20260515; t=1793097432;
+	bh=hqInm/ZHOjc3yMqIETdIoGeBEnEoCj8Hf4GrPe3PS04=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J68CsTFBkWyN1agzdN+nrfPes1CZ4milteoIpEp8Bb5V+VXF59oxL23sMUdi5Dnj5
-	 bT0YNVKGsS8K37g5lz5vIhRc+qhWM/6L3RhU7nMFzhVCCa0zWjx9njPbagaqNl7GY0
-	 w+HQpZpei1BrEGnGc4foNLANY6oHMAVAWOGUYD1kpIml3/THFBMnkpvGvIhvirzdX8
-	 e6uJW6CusdKpbP1aNBb17bTgVD1LFuTK/H1ggiuqFZBMZlgxk8l3AkInFaVJp/7hkQ
-	 HzN1EIJ8ARytEDmsQJKealQrWwuMxkZvsUuuxJg8gfaYG8QrAwenANzq4HD57iiKFw
-	 3KONlh1yBz6Gg==
+	b=Tc8EVZ5DSg30b0yoOSuwJ/QHofJeOSxEEu0NWBaZdIOyGvmVotJIONs+xprUMJvZL
+	 3Yg/oG0C1ScbcEXkRcc21Vks1XsKBoP4GaocLUgQua1f/U2cr1H5vlxl1gMrqV1/CT
+	 W2wLgxt8+1tAmVJfQc6m0iyVEJRzAWz7aLsSEOOtgyWyhRAOwEaDtC7K5/+WnYx1XO
+	 As8VbkjBR/ModDScP20kuoDmwhJRWDC8leJMKiSqlQBEcGFHZbWACfSW5qX5QTJp3q
+	 zVe2D0UG67K2H9Daa+EITXLUmcVFKxd/nXxqh+EVBeexdb9StiYsJbx6EaFrdJOgXi
+	 lHetdiVK/mwYQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Thomas Bogendoerfer <tbogendoerfer@suse.de>,
-	Stanislaw Skowronek <skylark@unaligned.org>,
-	Joshua Kinard <linux@kumba.dev>,
-	Brent Casavant <bcasavan@sgi.com>,
-	Pat Gefre <pfg@sgi.com>,
-	Paul Burton <paulburton@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Jarkko Nikula <jarkko.nikula@linux.intel.com>,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 09/27] mfd: ioc3: Request parent IRQ via request_irq() and free before domain removal
-Date: Tue, 27 Oct 2026 09:30:38 +0000
-Message-ID: <20261027093306.2812695-10-lee@kernel.org>
+Subject: [PATCH v2 10/27] mfd: intel-lpss: Remove registered MFD child devices on probe failure
+Date: Tue, 27 Oct 2026 09:30:39 +0000
+Message-ID: <20261027093306.2812695-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -67,114 +65,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ioc3_irq_domain_setup() registers ioc3_irq_handler() as a chained
-interrupt handler using irq_set_chained_handler_and_data(), whilst
-ioc3_mfd_remove() and the ioc3_mfd_probe() error path attempt to tear it
-down with free_irq(ipd->domain_irq, (void *)ipd) after removing the IRQ
-domain.  Because chained handlers bypass the standard irqaction list,
-free_irq() warns and fails to detach ioc3_irq_handler(), leaving a
-dangling handler referencing the freed IRQ domain and driver private
-data.
+When intel_lpss_has_idma() is true, intel_lpss_probe() registers the
+iDMA64 child device via mfd_add_devices() before registering the host
+controller cell.  If the second mfd_add_devices() call fails, the
+err_remove_ltr error path returns without calling mfd_remove_devices(),
+leaving the iDMA64 child device registered after the parent's
+device-managed resources are freed.
 
-Register ioc3_irq_handler() with request_irq() to match free_irq(),
-dispatch child interrupts via generic_handle_domain_irq_safe(), and free
-the IRQ prior to removing the IRQ domain on teardown.
+Call mfd_remove_devices() on the probe error path to clean up any
+previously registered MFD child devices, matching intel_lpss_remove().
 
-Fixes: 0ce5ebd24d25 ("mfd: ioc3: Add driver for SGI IOC3 chip")
-Closes: https://sashiko.dev/#/bug/linux-81f02420-548c-47cf-bd46-0bdcfb5c1738
+Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
+Closes: https://sashiko.dev/#/bug/linux-b0ba1dea-0272-491a-a1aa-2fd27c5eb9b0
 Cc: stable@vger.kernel.org
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/ioc3.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ drivers/mfd/intel-lpss.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/mfd/ioc3.c b/drivers/mfd/ioc3.c
-index 5f8ac364b610..885f19154e02 100644
---- a/drivers/mfd/ioc3.c
-+++ b/drivers/mfd/ioc3.c
-@@ -99,10 +99,9 @@ static const struct irq_domain_ops ioc3_irq_domain_ops = {
- 	.unmap = ioc3_irq_domain_unmap,
- };
- 
--static void ioc3_irq_handler(struct irq_desc *desc)
-+static irqreturn_t ioc3_irq_handler(int irq, void *data)
- {
--	struct irq_domain *domain = irq_desc_get_handler_data(desc);
--	struct ioc3_priv_data *ipd = domain->host_data;
-+	struct ioc3_priv_data *ipd = data;
- 	struct ioc3 __iomem *regs = ipd->regs;
- 	u32 pending, mask;
- 
-@@ -110,10 +109,12 @@ static void ioc3_irq_handler(struct irq_desc *desc)
- 	mask = readl(&regs->sio_ies);
- 	pending &= mask; /* Mask off not enabled interrupts */
- 
--	if (pending)
--		generic_handle_domain_irq(domain, __ffs(pending));
--	else
--		spurious_interrupt();
-+	if (pending) {
-+		generic_handle_domain_irq_safe(ipd->domain, __ffs(pending));
-+		return IRQ_HANDLED;
-+	}
-+
-+	return IRQ_NONE;
- }
- 
- /*
-@@ -133,6 +134,7 @@ static int ioc3_irq_domain_setup(struct ioc3_priv_data *ipd, int irq)
- {
- 	struct irq_domain *domain;
- 	struct fwnode_handle *fn;
-+	int ret = -ENOMEM;
- 
- 	fn = irq_domain_alloc_named_fwnode("IOC3");
- 	if (!fn)
-@@ -146,13 +148,19 @@ static int ioc3_irq_domain_setup(struct ioc3_priv_data *ipd, int irq)
- 
- 	ipd->domain = domain;
- 
--	irq_set_chained_handler_and_data(irq, ioc3_irq_handler, domain);
-+	ret = request_irq(irq, ioc3_irq_handler, IRQF_SHARED, "IOC3", ipd);
-+	if (ret) {
-+		irq_domain_remove(domain);
-+		irq_domain_free_fwnode(fn);
-+		ipd->domain = NULL;
-+		goto err;
-+	}
- 	ipd->domain_irq = irq;
+diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+index 63d6694f7145..657b1e3fb896 100644
+--- a/drivers/mfd/intel-lpss.c
++++ b/drivers/mfd/intel-lpss.c
+@@ -455,6 +455,7 @@ int intel_lpss_probe(struct device *dev,
  	return 0;
  
- err:
- 	dev_err(&ipd->pdev->dev, "irq domain setup failed\n");
--	return -ENOMEM;
-+	return ret;
- }
- 
- static const struct resource ioc3_uarta_resources[] = {
-@@ -615,9 +623,9 @@ static int ioc3_mfd_probe(struct pci_dev *pdev,
- 		if (ipd->domain) {
- 			struct fwnode_handle *fn = ipd->domain->fwnode;
- 
-+			free_irq(ipd->domain_irq, (void *)ipd);
- 			irq_domain_remove(ipd->domain);
- 			irq_domain_free_fwnode(fn);
--			free_irq(ipd->domain_irq, (void *)ipd);
- 		}
- 		pci_iounmap(pdev, regs);
- 		goto out_disable_device;
-@@ -645,9 +653,9 @@ static void ioc3_mfd_remove(struct pci_dev *pdev)
- 	if (ipd->domain) {
- 		struct fwnode_handle *fn = ipd->domain->fwnode;
- 
--		irq_domain_remove(ipd->domain);
--		irq_domain_free_fwnode(fn);
- 		free_irq(ipd->domain_irq, (void *)ipd);
-+		irq_domain_remove(ipd->domain);
-+		irq_domain_free_fwnode(fn);
- 	}
- 	pci_iounmap(pdev, ipd->regs);
- 	pci_disable_device(pdev);
+ err_remove_ltr:
++	mfd_remove_devices(dev);
+ 	intel_lpss_debugfs_remove(lpss);
+ 	intel_lpss_ltr_hide(lpss);
+ 	intel_lpss_unregister_clock(lpss);
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
