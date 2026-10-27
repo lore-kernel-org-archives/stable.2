@@ -1,49 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793059208;
-	b=4eO8Y+lSQ/CE+V+fW7SpWXauYEJHDUV5i2Yw+CkxdgcXBaQr3yXdTK9MKe8sr5cxXd1Q
-	 OKdrM25jm8jiKvPjiL6Th4Stvh9kcaU1syTj00zzbDKug4sZ8EQ/RPinHCe66rcBv3A0l
-	 DwRpcqZBTOY0qZQ5EHvt23TxXlY4QI+B8gvEKh78GiGAFGGs5WLMN+n2PZhwr+0Bi9daK
-	 J8pNrwiKiHLAWKKMkeRJSjeS1+6AJKbG+D1Zow42lbk8BRa+kbWC6x2w61hMsXlL78EmU
-	 yIR5Vj0kINXPF1tQIF26IYT11XrVpwZPuzbuza7nU+trWnulCXZ9IOWnwDXuztWPi4w==
+	t=1793059294;
+	b=XUT6yvRR2wl1T6BOXB/yq4szCFYUFuP6dAK5Eebk/wrqM+t+V7WhkiDrzdaggooksnqP
+	 eRebVHXIvpxquh4ipzb5K3K27hiQwdUB1M5RXpoD4t/iPhPSW9ct6lC89hU+qZRFbBfgz
+	 40qynNVbZI6K5EDMIpLXszMJKx4kiau3feOcMMHqy04Rakh/GotOA2m2CuLi2kzRvMA3k
+	 fr+iEzO4UQY4jlgDHTJFOKKSW7M83SXD2IrQHLbj9/B8bDfnxGbaNyMf9Jax7u/+H39un
+	 P9yD684iXrSPKMEadt2kLor835UgEoEq5fBWAnmmShrypfh+6KiLzOgsD7pNP5woR9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793059208;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=sRBxls+fDXcYabNmDkORIlMaTl0ADNtGzRxkQN+pXR0=;
-	b=ua8+b6b2lqaZyQdi/8sxXz8+ttAcp6PNMQv5rmLM/hWZrRdeJh6VukyqgEllbY+W8Qxl
-	 M6cIJzk40wsHYmokxQwLSTYFF19TQRlRivFdxSo4EjIPVDgnxZy6CZRdmejkemIcqxRVL
-	 Wp4ceCy6ogcSeN/9wMPxnMmwBbcdDS/E50emoPkN4JejnIq3TOnVvnddBksl5dixQGZ1/
-	 s4dL3sEtj59Vz2pMaAHIluC7aVJysFcfx5Yip7sVvUuxHMKo+JnarGTty4c6CRa/VBeT7
-	 uSJuqjj4UFWZ8NfCE0BVRiE97ygwxJQFL587c1qWV0/opfdHKDRAxtbyp2hgAXEm00g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793059294;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1Ah8BrrnLsu2f3h+SZaSrIJTZykx5ndF54DrtT2Sjfk=;
+	b=uEq2iVFyDl/L8XU5ceCnl/rL522PRWJsCL0/9k/vI7pdnk03tnopiXiwRATLN+FT3r03
+	 XW+fmu22DXpqHS9dFI5J854BLAEoOCx8t5g6E2fvI/uyRtSBzm0styu3Fa2f7c6I1YLwA
+	 gwxAvkG0qKbNsqwvZEscyU8zgeodkEo0jMy2EfePPbvGimjeEIyoul/qacksM08C4SiKx
+	 AEgYprxyVpq3+DvBPbDjTpLW3DmUmpC/+oaguc1OOIXf0JvK39VvxfOPj7yErNxnUxEDw
+	 GEgoXyFGitXZETQVKPrfqujK0IwbRzWbd3A5iLKP+O5PIYhwDFflOLXnQhwyCHcfwcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVfFljSR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7rOTNav;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE6E606A320;
-	Tue, 27 Oct 2026 00:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB746606A31D;
+	Tue, 27 Oct 2026 00:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVfFljSR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133171F01825;
-	Tue, 27 Oct 2026 00:00:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7rOTNav
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264521F01825;
+	Tue, 27 Oct 2026 00:01:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793059208;
-	bh=sRBxls+fDXcYabNmDkORIlMaTl0ADNtGzRxkQN+pXR0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lVfFljSRPcMn+FDAEFbvFCyrsfvBlZtNff4+EsYFi6Ovb/1CgJ9S761Es5oQhtzKV
-	 5tWh1gpLEXYa6Ut0c5gEkPs4GHCJtVNRH58UMN7yP7jsNuA3C66kFWvN4OyEAQUKtG
-	 jCpnmAxQg8Gsl7196nd9QHIHKqkeDci3e7U20RuH9qf7W2mD3lReN1+QZwHUACtKe6
-	 x584byggWLdcO6sINU5U7umgr6FD0mTwwTUctG3TmoYRIctWqLPw6V2q9KPjWoG6l5
-	 TH7Y6ILlPg2fME7y4VyxD2m9Wfetj1pX86ozKxdrtga7hAYIJiGqQOBjkMJPiAxUDR
-	 AVHY4xgdquP+w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 073753AA80F1;
-	Tue, 27 Oct 2026 00:00:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793059293;
+	bh=1Ah8BrrnLsu2f3h+SZaSrIJTZykx5ndF54DrtT2Sjfk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h7rOTNavWHvnY0UaYjX9CW/w7w1qHLGHcxMxhQWYFvyVaApX37ziE1Y2163AzbFeG
+	 9YTONgGt3YpegrQqQ7/z+/x2SXLN5K6S9RFe5Cl3+4upqHoLqmoMcSyjOUV2Dt6wKg
+	 Eg7eISzf1aIfybVMg+hsdujCTSaRULl6jfbD1Nw3lZJtzw+/9S4fVNxmsc59XScJN9
+	 hxHvGp6FcWNwlZgNHB5Wnbyrxof/KlFPNGBREaWeNZNlME2p+7GrBoIsZWUgmbXpJg
+	 FsB/b5aZkWQol1GdDcQblZkHQSCB+aExQ8u/Bcsm3vjhp0FxlfDxeT7GiwK/8s1h7W
+	 l3iw/RQRlnHYg==
+From: SJ Park <sj@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [RFC PATCH 6.12.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Mon, 26 Oct 2026 17:01:20 -0700
+Message-ID: <20261027000120.156623-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026-10-26-1-daily-reply-0007-damon-zero-target-value-6-12@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,44 +63,28 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] tcp: limit tcp_tso_rtt_log to a valid shift count
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179305920681.3470272.11485380440248270643.git-patchwork-notify@kernel.org>
-Date: Tue, 27 Oct 2026 00:00:06 +0000
-References: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
-In-Reply-To: <tencent_31D2FFCCE76C50A695A1270151F825E90906@qq.com>
-To: Yingjie Wang <1075151112@qq.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiayuan.chen@linux.dev,
- ncardwell@google.com, kuniyu@google.com, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+Hello Sasha,
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+On Mon, 26 Oct 2026 18:55:58 -0400 Sasha Levin <sashal@kernel.org> wrote:
 
-On Fri, 23 Oct 2026 22:40:36 +0800 you wrote:
-> tcp_tso_autosize() right-shifts the u32 returned by tcp_min_rtt() by
-> sysctl_tcp_tso_rtt_log. The sysctl uses proc_dou8vec_minmax() without
-> an upper bound, so it accepts values through 255. Values above 31 make
-> the shift undefined.
+> > Also, the upstream commit on this stable kernel can fix the issue for
+> > parameters commit paths but DAMON start path.  That's because DAMON
+> > start path does not invoke damon_commit_quota_goals().  To fix the path
+> > with minimum change, add a new small validation of quota goal target
+> > value before damon_start() call.
 > 
-> A process with CAP_NET_ADMIN in the target network namespace can set the
-> per-netns sysctl. With CONFIG_UBSAN_SHIFT=y, setting it to 32 and sending
-> TCP data over loopback triggers:
-> 
-> [...]
+> Queued for 6.12, thanks.
 
-Here is the summary with links:
-  - [net,v2] tcp: limit tcp_tso_rtt_log to a valid shift count
-    https://git.kernel.org/netdev/net/c/850a7225bc61
+I'm sorry but could you please unqueue?  Sashiko found [1] a bug that can leak
+pids.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Also, could we avoid queueing DAMON patches that marked as RFC in general?
+
+[1] https://lore.kernel.org/20261026150825.152576-1-sj@kernel.org
 
 
+Thanks,
+SJ
+
+[...]
