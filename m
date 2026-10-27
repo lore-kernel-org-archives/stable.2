@@ -1,74 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793065327;
-	b=INIYt8/i7apmgJu/K83TO7tEGlj5KWl3i1Zyqad3Cgi3m1/bljCLmuiRub11j4AGOeAh
-	 p86nXJORQ/mG9OFLTMAiD0GONulqfHL97iUvXsIP7i5r2l5tAKQkZMixRNykvHAhXRHbU
-	 8Mh6+f7ju4NHnGRrP8/5Gn9ahVydkIiGp+WXppvf7I4VVhzC0zzSaJ74mWOrehaJJB0lO
-	 wf/zq6gqyu2j9wr34Qcg1c45josGIa0wvvz2vaSbRfNTf9wC+xXVEr4G0qpTuREN4gdlh
-	 3Oskbd4y3ZnB8qPR/c5/DNS+Ku5+zwCbd3vHSq1NBJt9uOZZjCAXQVDBc9Yzx3iu0HQ==
+	b=46YC6/26a7ll9HAIIkvc8bUJPRJdj5twPdBmjq3cWcvY+Lr1LrYiPIp/qacIarNmBHkV
+	 AAGWha9/HZfovdHrngOfaRzyH5ppGDraD3nJOJ6xiohxW2Oh4GJ15w+i0X7UEAPTcIDGT
+	 mTena4Cark6nz2bk8EmMfG5ICTS2hTPpIiNAaPeyO3c0VQepnDR46jqEs/34F4EWh47ob
+	 7WlDAdIZQ6zs3bt1cz7PUo1LqpJ3iONC/FXItUg8ModM7HhkZaU9qGJ74j6CxjmB1PUqU
+	 7hYzQocNNGQqtgPCiMIbjBb9v0SfSkAR5RFGGDbWpTBIUVl/yBWm604fmckY14jAzOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793065327;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=PxhKt4ewbW887pppfVDxKOmckuc+6YqylYK09wMwPvI=;
-	b=YYss9rOqdAdN5xbSuvHM63GC76r/yqHBv1qBr3Ge6EjKZ153HlhcaE1l1syAPQIEgY0z
-	 fXtkc7ug3E9SXDLOw26Q3tyPTBLD0jqsXZL8jld1RvP5kHy9WdX8owbq5kFemhD5XAfjZ
-	 Y0zVtONdkE3KGCTlfIlYNwfH7w1s6pERyCn5j7DLGb8n0OyCw+f3hmv/UbTd3sKsGSvMh
-	 Ih6fzpNQiSCAoVaRDdqXJLZXLXoKCBMbVNLHUJbg2aoSNIa6AXrj01RzDpBosYF42GqhC
-	 r/pp0JFg2FOd/R5Ixc/0B+TwNunG8tToA2k7OAeKf8DUhdY4N7NgBE1iZdl/9rfwyYA==
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=hkPcqV6bQ4Z8wReOxK+4e0ObiWgBkGg1Scv7w0+4fyg=;
+	b=U+pPFnoeW4tlrerKws4HAFzY0+hmzpQkDnHQoSYsgSZexRiU/RQH9GR/NNxCN52hy1ok
+	 18ansNTkDCY22/AVeSfrvS5/zXXakGK5iwtCnz3fIC9qbKH1WoRmLbqM3xW6sPWn3Dgns
+	 SFUzzUlx+Dnyaequ2+My0lfZtn5V0DnOvoPUM0ur/bH2mOMaPl9FaUW8FpgU7NdAX/HgB
+	 LUZw/ZKN3feh0QT08uZOq0OkRd/xb+fbXlxSQrk4qwk9ycdK6bboi0CMplaJXx5EUB6Zi
+	 HdajhFDrLPBhHku+ZhOjr158MquHmk7CZ20hxLF9KQn3JvQFGZAYbK3keb58vEfKdQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="g/knnsl9";
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y/cUSMre";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E4A606A324
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9E4A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A26606A335;
+	Tue, 27 Oct 2026 01:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=g/knnsl9
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-89e05d31e54so2403137b3a.1
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:42:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793065326; x=1793670126; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PxhKt4ewbW887pppfVDxKOmckuc+6YqylYK09wMwPvI=;
-        b=g/knnsl9kYCBewBGyHtxjeHICS2L5Hw2DX0ijDDaApZ9CtRSJQb0PUvpWyfuQm6QKD
-         u1UZXxnLQKcUxB9pelvME0T/DlAsnUI+BAJ2zdQNewrqRxvVjMdIXLao3KvVgt49MU1/
-         2YvLfXRoAGImmM54FcAQDb335sU6X1Ui6kfv64hTrLch1yPWyrD98rNbaJcSqNzYTnqi
-         LW4aEtMi087jzeXNqTicPKEBAfwOGWGFdXHEsmeaY6IfQ3GwSS6Wtqna3nqMyeSP5Wb9
-         ppr1c/F305tfTNV6G86eNtFrWjySieAu8zAUrxzjctjvCI87LUjBkUBxQ9LrHTZtybn4
-         1Vqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793065326; x=1793670126;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PxhKt4ewbW887pppfVDxKOmckuc+6YqylYK09wMwPvI=;
-        b=VcupNSBFlLFWYsApTKbZCApwF2nNe/EOnaVTy/uMYw2YmvhU+ArH4OQbK+zZn/H6s7
-         jV/lLpNZ3bS4eqoZGGhrf20GNjmRtaylMFY8ZlZoWsWciiE2kBVYWFtUeQSMtdWZks+I
-         HEaU9MPyKtbMgUILmMIt/w+mgvUCe5rukzeZOd1occlJreSKxF/glU1OwfT6n4IDsF6I
-         RruPu0rZvuxzVYMCX0usqXIIDdLieIcXzQkQ5ee1k0GfJ98Ny7u1B0pj/yuvrQa0lN2j
-         mT16kurH4lNFWqzPBU2WArsGQuYeQkErIsq9cmWXxS+W2LgAGaRRMWOulJa7HZUXyUR7
-         0yFg==
-X-Forwarded-Encrypted: i=1; AKwUvBzewc24p2ybnESq96fxHkKkGA1h5mDFhBvuaft+BFlQr2n4YGEtSFCCnEbl9wfsytRjwYNH+hs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDrFJj5Hnip53wykdOPQPgnbh+cWHgPw4fxpkOGkiFxH37mTbd
-	nMoun1b/edSP4Am4GrtELUqIvCdAbdp1Q5K7DKlDpejFHqf+42uX9DLuGFVNIlA+liW1m58XY6o
-	OOOrYhg==
-X-Received: from pfff18.prod.google.com ([2002:a05:6a00:bd12:b0:8a2:1bc3:8884])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1f0e:b0:874:705d:f63d
- with SMTP id d2e1a72fcca58-8a368a9fde8mr6298199b3a.31.1793065325885; Mon, 26
- Oct 2026 18:42:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y/cUSMre
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452021F01828;
+	Tue, 27 Oct 2026 01:42:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793065327;
+	bh=hkPcqV6bQ4Z8wReOxK+4e0ObiWgBkGg1Scv7w0+4fyg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Y/cUSMreRanUU2thDVNP9jw8Ri4N5Sx4xrnZLTU8wZ8QDHtv2bJEnjBpL9SXRGLTW
+	 Rxdh2kqs5NvuPr0BlPM+9BIGbEt8CxmZYe2FSm9DYdWlT3RJijtI0ESjkzBek0GpgI
+	 osnagbMk/AU6ckNyP3sc4Yvt8C5zOUmcavjoFkg9ltiHjfDn8iCMgfpyohBiQ42nzW
+	 PcJ0PtI0M0eL+TMBzEOfWUSUaYedQOoF23OjO3uqK/cxK3SsL76BVUsvXPVEqYuAFi
+	 p6xagXhaMPFPRNvHO92ZBsraxvMWWznc3vBT1kYmH18wEnU/I94Zd4Irxs15XFEMhE
+	 PWNx00RJTSfBw==
+Subject: Re: [PATCH net v3 2/4] gve: Fix backward stats when interface goes
+ down or configuration is adjusted
+From: netdev-bot+sashiko@kernel.org
+To: hramamurthy@google.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com,
+ nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com,
+ pkaligineedi@google.com, yangchun@google.com, patricion@google.com,
+ awogbemila@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ treapking@google.com
 Date: Tue, 27 Oct 2026 01:42:05 +0000
-In-Reply-To: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
+Message-ID: <179306532583.3134.7567788102217743644@kernel.org>
+In-Reply-To: <20261023204706.3112215-3-hramamurthy@google.com>
+References: <20261023204706.3112215-3-hramamurthy@google.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,95 +66,107 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
-Message-ID: <auABC6uMYxXmPqtb@google.com>
-Subject: Re: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Yingjie Wang <1075151112@qq.com>
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 
-On Thu, 22 Oct 2026 22:05:36 +0800, Yingjie Wang wrote:
-> Commit e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
-> made unix_peek_fpl() invalidate unix_peek_seq when gc_in_progress is
-> set.
-> 
-> scm_fp_dup() increments the received files' reference counts before
-> unix_peek_fpl() checks that flag, while unix_gc() sets the flag before
-> reading the same reference counts. The reference-count operations and
-> flag accesses are relaxed. spin_lock() provides acquire ordering, but
-> does not order the earlier flag store against the later file_count()
-> loads.
-> 
-> On weakly ordered machines, GC can therefore miss the reference acquired
-> by MSG_PEEK while MSG_PEEK misses gc_in_progress. unix_peek_seq then
-> remains unchanged, allowing GC to classify an SCC as dead and purge a
-> live receive queue.
-> 
-> Add smp_mb__after_atomic() after scm_fp_dup()'s reference increments and
-> smp_mb__after_spinlock() before GC samples the reference counts. This
-> ensures that either GC observes the new reference or MSG_PEEK observes
-> the active GC and invalidates the seqcount.
-> 
-> LKMM admits the stale/stale outcome without these barriers and forbids it
-> with them. An explicit AArch64 model gives the same result. The original
-> workqueue layout in that commit also lacked the PEEK-side ordering, so the
-> incomplete handshake dates to e5b31d988a41.
-> 
-> Fixes: e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> ---
->  net/unix/garbage.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/net/unix/garbage.c b/net/unix/garbage.c
-> index da774f56ca648..c3ed00f52b04e 100644
-> --- a/net/unix/garbage.c
-> +++ b/net/unix/garbage.c
-> @@ -329,6 +329,14 @@ void unix_peek_fpl(struct scm_fp_list *fpl)
->  	if (!fpl || !fpl->count_unix)
->  		return;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] When XDP is attached, the new base snapshot counts XDP TX ring
+  traffic only at teardown, so device-level netdev qstats tx-packets/tx-…
+
+--
+
+gve: Fix backward stats when interface goes down or configuration is adjusted
+
+This patch keeps baseline rtnl and qstats counters in gve_priv so that
+device statistics do not go backwards across queue teardown. Ring counters
+are folded into the base in gve_queues_mem_remove() and in
+gve_rx_queue_stop(). gve_get_base_stats() now reports the saved values
+instead of zeros.
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+> index 26fdd22644f4d..52c152a986eb7 100644
+> --- a/drivers/net/ethernet/google/gve/gve_main.c
+> +++ b/drivers/net/ethernet/google/gve/gve_main.c
+
+[ ... ]
+
+> @@ -646,6 +688,9 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
+>  	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
 >  
-> +	/*
-> +	 * Pair with smp_mb__after_spinlock() in unix_gc(). get_file() in
-> +	 * scm_fp_dup() increments an atomic reference count, so this ensures
-> +	 * that either GC sees the new references or this thread sees
-> +	 * gc_in_progress and invalidates unix_peek_seq.
-> +	 */
-> +	smp_mb__after_atomic();
+>  	spin_lock_bh(&priv->stats_lock);
+> +	gve_get_ring_stats(priv, &priv->base_net_stats);
+> +	gve_get_ring_err_stats(priv, &priv->base_ring_err_stats);
 > +
+>  	priv->tx = NULL;
+>  	priv->rx = NULL;
+>  	spin_unlock_bh(&priv->stats_lock);
 
-Thanks for the patch, and sorry for the late reply.
+[Severity: Medium]
+With an XDP program attached, will the device-level qstats tx-packets and
+tx-bytes jump forward on every ifdown or reconfiguration?
 
-Actually there is another thread going on for this issue and
-I suggested another aproach, so ...
+The TX loop in gve_get_ring_stats() goes up to gve_num_tx_queues(), and
+that count includes the XDP TX rings:
 
-pw-bot: cr
+    return priv->tx_cfg.num_queues + priv->tx_cfg.num_xdp_queues;
 
+As a result, the full pkt_done/bytes_done history of the XDP TX rings
+ends up in base_net_stats.tx_*. Those counters are updated by
+gve_clean_xdp_done() and by the DQO XDP path.
 
+While the interface is up, qstats never reads those rings live:
 
->  	if (!READ_ONCE(gc_in_progress))
->  		return;
+gve_queues_start()
+    netif_set_real_num_tx_queues(dev, priv->tx_cfg.num_queues);
+
+netdev_nl_stats_by_netdev()
+    netdev_stat_queue_sum(netdev, 0, netdev->real_num_rx_queues, &rx_sum,
+                          0, netdev->real_num_tx_queues, &tx_sum);
+
+So gve_get_tx_queue_stats() is only called for the non-XDP TX queues. The
+new gve_get_base_stats() returns only the saved snapshot.
+
+The qstats device total therefore leaves out live XDP TX traffic. Then,
+when gve_close() or gve_adjust_config() reaches gve_queues_mem_remove(),
+all of that traffic shows up at once. gve_get_stats() counts the live XDP
+rings the whole time, so rtnl and qstats report different totals while
+the interface is up.
+
+The netdev_stat_ops kernel-doc says get_base_stats "can also be used to
+report any miscellaneous packets transferred outside of the main set of
+queues used by the networking stack".
+
+Should gve_get_base_stats() also add the live counters of
+tx[tx_cfg.num_queues .. gve_num_tx_queues())? The other option is to
+limit the teardown snapshot's TX loop to tx_cfg.num_queues.
+
+> @@ -2844,12 +2901,22 @@ static void gve_get_base_stats(struct net_device *dev,
+>  			       struct netdev_queue_stats_rx *rx,
+>  			       struct netdev_queue_stats_tx *tx)
+>  {
+
+[ ... ]
+
+> +	spin_lock_bh(&priv->stats_lock);
+> +	rx->packets = base_stats->rx_packets;
+> +	rx->bytes = base_stats->rx_bytes;
+> +	rx->alloc_fail = base_err_stats->rx_alloc_fails;
 >  
-> @@ -614,6 +622,12 @@ static void unix_gc(struct work_struct *work)
->  	WRITE_ONCE(gc_in_progress, true);
->  
->  	spin_lock(&unix_gc_lock);
-> +	/*
-> +	 * Pair with smp_mb__after_atomic() in unix_peek_fpl() to ensure that
-> +	 * either the file-count reads below see MSG_PEEK's increments or
-> +	 * MSG_PEEK sees gc_in_progress.
-> +	 */
-> +	smp_mb__after_spinlock();
->  
->  	if (unix_graph_state == UNIX_GRAPH_NOT_CYCLIC) {
->  		spin_unlock(&unix_gc_lock);
-> 
-> base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
-> -- 
-> 2.43.0
-> 
+> -	tx->packets = 0;
+> -	tx->bytes = 0;
+> +	tx->packets = base_stats->tx_packets;
+> +	tx->bytes = base_stats->tx_bytes;
+> +	spin_unlock_bh(&priv->stats_lock);
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023204706.3112215-1-hramamurthy%40google.com
