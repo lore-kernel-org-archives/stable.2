@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135869;
-	b=3PCuBfaRzo5Gi2rMh2EDDsrm8wGF5BVOyn/OFnD6pq0LnHiKGGsmEm04vuRifT/MbuJM
-	 g/gcDFgFyQDbSPeUkvD8T142idkGPyMHPbRWhAkFzCuecTWKLaHe8bbPtxSWWcWvJvLUG
-	 2gI+/zjZSj4I/3OqksAnHNK7uOQM17hkZekOULW4ayiGEr7yOCc7MjE8fUJEKRWWXOjr7
-	 F3I8Zy4uO6KRQiK915i5sHEP2gsRFX6MPg+rsADaZOyjVv5r2Gp07zbCXnq+BJ1tkJxbb
-	 od+C3B0ESTLxwEgeczTwzysijoB9S4K5RrQWZv3BjIpNdD/tyXO4UzNbBeraWDJ1yww==
+	t=1793135871;
+	b=40XDQik6PDKsb07LfFJQiGfKzylOUqChzRkYctGrkZAuU0M9v9TrifHUcYyefC29sesv
+	 s1xPSb2SXrn4BWdIBGGA88NmyjywgnfJVvMse32mD0B1BCBRbWNCXvrarbkrlJgWz4bsa
+	 6l3saMG2wulkRxbepF1fnrT92lCQLDdCT7uVCcLbnRdweVWFv8bSPAU4nETA5pJqlTPDW
+	 wU0kusGev7JqG3zaAPBIPdO+7n6LMpCJ0AhQdxpCcw1M3YA7npcm8yo5WkNsxzx27CMyj
+	 o+aV5/JdWVWxdFLmfj4yPLnQLbmHyPaYgnj3JU00DLl6BODZwF9WlPiY+tuvETJrYTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135871;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=Z15Mxl6D/RVXRz+kYS1G8evAgIyEZyDMFRgpwmQMOpU=;
-	b=aV4LUBHdJ2JoqZspKjeikEDcyZBsWNEX6e8KAXwik3JsgAjGlmEPR2qS1S62VEDTMlQY
-	 1zHQtA4dJOXpOM1idV78aeUqbXqoF71iTritCV0Y+fBsI2WEz0AA7rC4Of7txDSjhHU6L
-	 GJ0l8sANzdiOCT9dVwiPwlvliWuC9Vf8T2zOWEaUUMhLBp+8p5YZat8sYYBwCl3hYisvX
-	 F04c0hLMfSUoDJ5JhEYL3iFPer9emwBr/GYvaeasySr1HE7T1YgKdMqub9CwrYxIk+ST0
-	 pgfvvgXOCjDqP96eFqcoBHwVatJCpkoqnTNQDVXvMCHE6nTQM6SS8o/mJ5kZvMuM1tg==
+	bh=lgbyT6PeI2khIu3G1MvqRPb/iNuJirnyDT1hctA+7wQ=;
+	b=PwGCgQIxh2a3OPJTU/wrE3kzLyBfQqcp35Vy6neA2RzqFkWr54LiBnA3BFmbewjwkwd2
+	 ma6joq0ZL4gvUE6qDzQDI57Tskjhympi9OGD3WGPMnytTVuL+jx0/jYlQyUFG8zffj3Kf
+	 OMc2kq2a+ugh2J82qxXZh0Dcs2NwboG+M6lBDG1uBAzY3jGe5aFWadXTDQuZ5NXVKUTel
+	 BnaDDeFnB4fMPuN0YYlYZCVfjFhL/+2FRNfPLfmOITsrr8vAN/Eka7SPMv5tt3BQLlePm
+	 DcsLubuivOFNAjBISxmAKyPUq+D4JQ/s/83fL/HyxCkPx4Qr55NDDdW0eo4N/pgrkDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KHy6TFN7;
-	arc=none smtp.remote-ip=209.85.215.226
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=b8pWdd6I;
+	arc=none smtp.remote-ip=209.85.160.228
+Received: from mail-qt1-f228.google.com (mail-qt1-f228.google.com [209.85.160.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F51F606A31F
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 21:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F51F606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180E2606A325
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 21:17:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 180E2606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KHy6TFN7
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso158584a12.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:48 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=b8pWdd6I
+Received: by mail-qt1-f228.google.com with SMTP id d75a77b69052e-533861a59b8so5264021cf.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793135868; x=1793740668;
+        d=1e100.net; s=20260707; t=1793135870; x=1793740670;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z15Mxl6D/RVXRz+kYS1G8evAgIyEZyDMFRgpwmQMOpU=;
-        b=fgyBGC4QF4rVEyBTIiKl0adPoBZSab+FtAtuMVhbl2ZmC9izzBpF6NQY6EiTA6zDib
-         DjITbyjQ+KItPBbFq+d9gmFBe3QVt0mA2UySPPWoM8pz227Gn45uhie/8ngrkJbam4Du
-         Zi79V2/2zmGJl8Npk+zCs9MD1Z8wdWfWFDViDyUNKa7XoI7WCNWorqt4xnDVNPwl1vmk
-         D9IDkMhXlL6Bj31xWZcNl/b0yEBa2n/TU9d7D73S12TeF9HqWgdcO2dGzLNG7gAM3KoH
-         j/9J8h08FekU+NH6qVmRox39UBrSovgfMWjoItXrfPtjQeTpv/SUTFTp0aprq9GsAjfb
-         bgdA==
-X-Forwarded-Encrypted: i=1; AKwUvBymD3yQSz0mvqSGrgsopkmz0MI+5N3B8Sn+nEFLD3TPFzQTYljX8ZE72wRUZ9ey3BpBLQCUDfo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSvJ0vw6J1d5qIGslgRzWTLeHrLseH2Ca8clfLr2VFB4owb3BI
-	zppjGIHm2dwEZBpDLh+9vPSqCoYWnA9foi/g/5pDlnFcH95FPbSsttkWpQFjn7zlgmSwZ2yBJiy
-	pJpfW7ETnAY4L+FJIrEt70AI/YAT6tqroZI7dBIc0KBwAkqacRNZZZUgmN+yeN2ewUInEEsdMBU
-	EXaIOe/GZERwiKeDXu2ld8SPv0di8Gx8NzeTKz09W16GzkZlIi4ZVMeWgHinXajzYDhDZ5cPoxc
-	cZ8HBvf
-X-Gm-Gg: AYBFou3YpRC7kiArKlFhUby9ug6lpFwdGwVCYUsJhwnMWMra5Z025szz7vYQyO5bCSb
-	Ruct3pMvR3ACnrX/qI9yOKSzOrTgrAWyMjp4GRRNOUpiPdhqceqPkQRQ3RtTRyC2OWdVWv9+/js
-	Vncf826xRqCSoIeiIgtPB86cbhSCRLy6VxsP8BkOUqVxm5XZyUqUHZqbwF+CFjZ4bZZ7jVQ06AB
-	yXHr/7xDTKmTj0vBPAKiP3FOwl6LhFU/1P0raiOTAFQFcLxXhW1vnHzbQGERUMR+enxnYTdNxfL
-	D+mQuCkyv8U1Qbqq3yYfJsdq1aACFIzsV15OcgMbqiFDtxJeS/ZJzOIqYS4fpL8DlUxXpNWzTeC
-	gAEjsfwDIyj3SC7Y+lIn1/OY0hRzwmu+G5IlCmQSBiGJaxW+p9TGsHoQfggUIW3FwYg4UbXT1/u
-	J8FFDFTWlAdfgxFHF1ugEHP7mCilxUcEN7
-X-Received: by 2002:a17:90b:562e:b0:3ac:9ed8:f30d with SMTP id 98e67ed59e1d1-3ae580de136mr225042a91.39.1793135867571;
-        Tue, 27 Oct 2026 14:17:47 -0700 (PDT)
+        bh=lgbyT6PeI2khIu3G1MvqRPb/iNuJirnyDT1hctA+7wQ=;
+        b=ad/pu7mw26v4UrhRRsMqAC/flRJTLBIoJJbp7N+kmoNKyUsdxFVjzR/8B1KEviApuj
+         wSFNEodOrmIxFg7uzsmBevk9J+abPCQXsVQpPcPOz6jlk2IpqovEhP8YheVHA8SE1Gr7
+         uyuMuwmRbEgNgdehl/J3tbmS1n3zeZy4LS4i5oX8I4cRArvI6G6G9odxaBRx+ORDOMfe
+         VWsh0s1OOM4npYCqdRAO6//Au6zXMIIgY312a4XZl5Xjt1ePv2JH5W5m/Ge2yaRtDfz/
+         vGYGyVYRqxxxwd21FzSMg6+UU/gpvwzetDMe3s33LduC6dth8mMPLi+4wYnJYo2lE7Hn
+         iAew==
+X-Forwarded-Encrypted: i=1; AKwUvByo6Qf4hRHIvzosV1/Fi3y9FEL9/U/stESro+9ye5SVh6y0xC3jJdyMqBdr08gNDGydzQTbVE4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXuGGbK7t9q0q26SQymwYzMayPT29jtHNuRIf9IiabEHW+7DgQ
+	4DucCnDRROmcUjv/QVHEYmQVchhk4QLp7clZzKF8ujtqfEBNgbb72J2qT2e/GMFgX+zRI5f4wjI
+	JvRDCSlDNiPRxOl8o2EABeuJ3R8mNBPcop9EKvZg+ErieLm4zgPIGyTRD9CAnWtFG5PrMLX3nfC
+	Ux8Ak+WvL4wPaEWY6mV/nEeMMeHW2bUR1N57ZMfmkJ7Rn9mUo2ElHyqCqIcotlIOVG8d+AC95Sw
+	r2rDy2C
+X-Gm-Gg: AYBFou23k7CMPUNobPG5z71onF9T9h+wF+w5NYTKYv3JeUgxEzAiDCzAS3WqJyJ8ErP
+	RJDjgI5EJxhluhGpjZpM8IbOx3zZnVNvhzEkFNOB9eIH3CYoYmH2hIpLVGAbb/n5Ng/WvsnHMoA
+	zqV3SGVGhcvFcy3I4Uwb2WEwHSi62S7pdLrBx9Mjt2Kqrvw8EObYz4mvbjTko+lSU/+IU4AzgJy
+	KIyYg51b1rIvgIW3iFoaXXIU6oaYQHgP2vVZ+gTKQFWheRKSF61pT4mEam2nog8Q92f00fIXVQY
+	gTfOQi5Cy7W65V3p30s98RlfkdstAkUSq/h5KG/8uLJM+WITZruqkayb4zxjwJBXWqcqv3L8Mkl
+	mbHxC/ygeCBkT3TNEU4sLZ9OazzI7WLuuTh1WEL3MwEB3hLq3fjTDTZuZPfBzyjk00ZEz2D7T8Q
+	PtTEPXohTapre6EC4GEZgB3mBP2GoDAxtX
+X-Received: by 2002:a05:622a:506:b0:536:66d7:8ccb with SMTP id d75a77b69052e-53fcbfdee70mr10129211cf.51.1793135870046;
+        Tue, 27 Oct 2026 14:17:50 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae55a7b970sm220921a91.0.2026.10.27.14.17.47
+        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-53837fa712asm787921cf.20.2026.10.27.14.17.49
         for <stable@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 14:17:47 -0700 (PDT)
+        Tue, 27 Oct 2026 14:17:50 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36637676140so400707eec.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:46 -0700 (PDT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a1e2485fdso644461eec.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:17:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793135866; x=1793740666; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1793135868; x=1793740668; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z15Mxl6D/RVXRz+kYS1G8evAgIyEZyDMFRgpwmQMOpU=;
-        b=KHy6TFN7QCpAekGxkJe/HRMXV6KAOg5EqouvOCgBiubXGMtNj1Wlk7qj9wYkoOC09B
-         SvqD9ODCYsNyiSmeXaRKlAFpOi4E2eYRfplFiexdSgpRUVwj53t0S6qOYUdL+PNhSpLK
-         btFrG3U7+M9CNol8EzdWzxbv8lG9mq2JqBkfc=
-X-Forwarded-Encrypted: i=1; AKwUvBwOdtJquaLEJYPukXO+zjPiuJhxfQIpKe7PaHkClnOezzsIQxn8ISlYxXMKIj1WDubaAiO7Cl0=@vger.kernel.org
-X-Received: by 2002:a05:7300:d088:b0:36a:238:1485 with SMTP id 5a478bee46e88-36a2016f3d3mr897562eec.37.1793135865592;
-        Tue, 27 Oct 2026 14:17:45 -0700 (PDT)
-X-Received: by 2002:a05:7300:d088:b0:36a:238:1485 with SMTP id 5a478bee46e88-36a2016f3d3mr897525eec.37.1793135864781;
-        Tue, 27 Oct 2026 14:17:44 -0700 (PDT)
+        bh=lgbyT6PeI2khIu3G1MvqRPb/iNuJirnyDT1hctA+7wQ=;
+        b=b8pWdd6ISZUAdc6U3o5WKgykXSq/dddJVOD/aIriuYcVu7qAwd72w4lwv5t/S8iCdB
+         Ad3dOJX6wIZy2PzbxGkyiUni35v6T2g2zLPR2TRBhMVlQ4dRCz2AXR//mZk5JLl2UvTY
+         4wd+poPzPv64FznhCctCuFKqHnJDWtIpnTdkw=
+X-Forwarded-Encrypted: i=1; AKwUvByoM15FMeZ1heuoEgnFXYigjEdeDvt427L1r8ASMpYn/d9jHje57oskr2V58i43T8XM38E7fpY=@vger.kernel.org
+X-Received: by 2002:a05:693c:41d7:20b0:367:3d68:8480 with SMTP id 5a478bee46e88-36a20115c41mr798414eec.0.1793135868001;
+        Tue, 27 Oct 2026 14:17:48 -0700 (PDT)
+X-Received: by 2002:a05:693c:41d7:20b0:367:3d68:8480 with SMTP id 5a478bee46e88-36a20115c41mr798388eec.0.1793135867298;
+        Tue, 27 Oct 2026 14:17:47 -0700 (PDT)
 Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8c576ebsm35760859eec.3.2026.10.27.14.17.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8c576ebsm35760859eec.3.2026.10.27.14.17.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 14:17:43 -0700 (PDT)
+        Tue, 27 Oct 2026 14:17:46 -0700 (PDT)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com,
@@ -100,11 +100,11 @@ Cc: bcm-kernel-feedback-list@broadcom.com,
 	maaz.mombasawala@broadcom.com,
 	yunfeng.li.nb@gmail.com,
 	tomas@slax.org,
-	stable@vger.kernel.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH 3/6] drm/vmwgfx: include legacy hotspots in GB-only cursor images
-Date: Tue, 27 Oct 2026 17:17:26 -0400
-Message-ID: <20261027211729.646988-4-zack.rusin@broadcom.com>
+	Zack Rusin <zack.rusin@broadcom.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 4/6] drm/vmwgfx: reserve dumb buffers while detaching their surfaces
+Date: Tue, 27 Oct 2026 17:17:27 -0400
+Message-ID: <20261027211729.646988-5-zack.rusin@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027211729.646988-1-zack.rusin@broadcom.com>
 References: <20261027211729.646988-1-zack.rusin@broadcom.com>
@@ -120,64 +120,49 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Tomas M <tomas@slax.org>
+vmw_bo_free() detaches the surface associated with a dumb buffer and
+clears its guest memory binding. It reserves the resource, but does not
+hold the buffer reservation required by vmw_resource_mob_detach(). TTM
+releases that reservation before invoking the buffer destructor.
 
-The guest-backed cursor path without cursor MOB support defines the image
-using only the hotspot from the plane state. Its position calculation
-also includes the legacy hotspot supplied through DRM_VMW_CURSOR_BYPASS.
+KMS clients destroying dumb buffers can therefore trigger the reservation
+assertion from vmw_resource_mob_detach(). GNOME reaches this path through
+DRM_IOCTL_MODE_DESTROY_DUMB during cursor and display updates.
 
-Xorg's xf86-video-vmware driver supplies its hotspot through that ioctl
-and loads the image with drmModeSetCursor(), which does not set a plane
-hotspot. The mismatched image and position hotspots displace the visible
-cursor by the legacy offset.
+Reacquire the buffer reservation while detaching the surface and clearing
+its dirty tracking and guest memory binding. Acquire it after
+cmdbuf_mutex, following the command validation lock order, and release it
+before releasing the resource and GEM object.
 
-Use the combined hotspot for both the GB-only image command and cursor
-position, matching the legacy and MOB image paths.
-
-Fixes: eef295a85082 ("drm/vmwgfx: Restore Guest-Backed only cursor plane support")
+Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of dumb buffers")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Tomas M <tomas@slax.org>
 Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-index 14490ead99cd..f0661e5effeb 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-@@ -852,6 +852,10 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 		return;
- 	}
- 
-+	/* Include legacy Xorg cursor-bypass offsets in the image and position. */
-+	hotspot_x = vps->cursor.legacy.hotspot_x + new_state->hotspot_x;
-+	hotspot_y = vps->cursor.legacy.hotspot_y + new_state->hotspot_y;
-+
- 	switch (vps->cursor.update_type) {
- 	case VMW_CURSOR_UPDATE_LEGACY:
- 		vmw_cursor_plane_update_legacy(dev_priv, vps);
-@@ -864,8 +868,7 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 			vmw_send_define_cursor_cmd(dev_priv, vps->cursor.map.virtual,
- 						   vps->base.crtc_w,
- 						   vps->base.crtc_h,
--						   vps->base.hotspot_x,
--						   vps->base.hotspot_y);
-+						   hotspot_x, hotspot_y);
- 		break;
- 	case VMW_CURSOR_UPDATE_NONE:
- 		/* do nothing */
-@@ -878,9 +881,6 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 	cursor_x = new_state->crtc_x + du->set_gui_x;
- 	cursor_y = new_state->crtc_y + du->set_gui_y;
- 
--	hotspot_x = vps->cursor.legacy.hotspot_x + new_state->hotspot_x;
--	hotspot_y = vps->cursor.legacy.hotspot_y + new_state->hotspot_y;
--
- 	vmw_cursor_update_position(dev_priv, true, cursor_x + hotspot_x,
- 				   cursor_y + hotspot_y);
- }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+index 9c7a73c0b0dc..a6d7156e4281 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+@@ -55,6 +55,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
+ 			/* Reserve and switch the backing mob. */
+ 			mutex_lock(&res->dev_priv->cmdbuf_mutex);
+ 			(void)vmw_resource_reserve(res, false, true);
++			/* TTM drops the reservation before calling the destructor. */
++			dma_resv_lock(bo->base.resv, NULL);
+ 			vmw_resource_mob_detach(res);
+ 			if (res->dirty)
+ 				res->func->dirty_free(res);
+@@ -62,6 +64,7 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
+ 				vmw_bo_dirty_release(res->guest_memory_bo);
+ 			res->guest_memory_bo = NULL;
+ 			res->guest_memory_offset = 0;
++			dma_resv_unlock(bo->base.resv);
+ 			vmw_resource_unreserve(res, true, false, false, NULL,
+ 					       0);
+ 			mutex_unlock(&res->dev_priv->cmdbuf_mutex);
 -- 
 2.53.0
 
