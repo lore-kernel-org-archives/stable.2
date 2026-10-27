@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102807;
-	b=cOu/2teGwFYobGh2/OfH9dOIPazq1TsbPxbJqnJ2uORQjyotBZjE1p1vMYRyreJJKfo2
-	 h5ZrG7C4b/hbwODhmJ+jj5Fyc+H2P1jaDB2IX8JkD+1zeZGAa4yQh0y/4I2oY4UOQa6QE
-	 t2hdgMNGlsrfGjnEU6fj+JRgvf3woaQ67H4PC8hNAoSsE6ezdfaD8Llytolm9hhPTZO5C
-	 2F6uA5SmPspIcuZinDcBx1xXcLpSuX7Gux1uRmRQ9Iw7uZ2AJZGOZUCGW8YCk6kzzOBRr
-	 qL0lRQk5ZOpFFS8o9i4ecKaFRRp8IVG5S6YuHUzxZfiIecWsmVpjr7IaGTWLTESAbJg==
+	t=1793102848;
+	b=0GredhS7pebESSmV89b4ZQKc3SdwV7MJw9BOJO9h/3vxVXoxISiNnbjBVjT4DbNgfjIX
+	 FmJQ0n3ZHKC4+6nwQVJ2/zYNpYIpor1FTscL6ez5d3NbOD04XeBuAYFJo+NV6l9oIIGsx
+	 obWh97ibRSmzTIvjHYCMBXdFIFKsIUHfieADAifpWxArIVPGfTjTk4WhCedMzMzk3y8qf
+	 4wdCHUW+xLM1d8pXLLQpSlvFPHQhu6WB9TkrpLhtWdO8nDRGq0NE7KtlfoV4OSDebJXeO
+	 ztCHq7XWbmGCeWqtxOjpOON+dlwVN/GTWnZtaR3458Vtj79aeJdgKuewdyQE9cNKKxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102807;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-	b=xsKER7p9EzGvmTnQzoSjGpPWqnLm0FM3fTKQy5zTAGu2c9Xj1B57hJWTpoWPZpudNRVU
-	 KY7OeH/HxlLLJJAju2sNT0V0E6uUQbBq6Mylas8W6bVQA3HZWdOmPUnpSfavUwDIvumZU
-	 huHynRD1mXqHQzsxmphgTsB3AJMyTl9xfkBBu0tOYProNsv/zrOG3L2N++0BN7HDlqkgM
-	 QlBW4vhpn5jrSVwA8SLlPC5UjCKeARmb0QOYNDZ0/0ojiRDIRmId9oKnFcHxdk3LhN4It
-	 FwXoRDaSe9fSLM32L7Qj5ZaaEM18GrmIQZttZTUBWQsA6mFhAP1hcarmYSgfF4Cx94Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102848;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pNXJLprrikiyjdl1QDWtGw0/RtOyXwyYKGXN/8wvjIk=;
+	b=p+vJIKExiaFoDdi5mDBW6vWmhTMVP6hAZk2/qDKQJM/SsvSlyUq7w/Yf770FCoad5MTc
+	 vLUxPnFl9t+dZ41WGKRAlPnQ73D709xBfbfWFWNq8RXHRjnqFxPKPhX1zYTv9JijKBpZC
+	 mfhS+7jZUGl/lRf/plln4qWgfLDPGlffZV/2/cs2Mj6aaQvrGvDAYgAUqhTAEA3gOYC1j
+	 k4xhM9vEoggVCiGi5cmKVnTq2Zb48+WlnR27BHgGsSmxFisv46+baf6IR3GpK6Vfk+/nW
+	 udcAs12ljNV2ZOjyZcxLQ5XRaV8Iw8y/GySpmRjuc55DaIAkmFnQrJgE2WEydOC44wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C8wf6H+A;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RXPeLHkn;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=droMFJoX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD0D606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD0D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B352606A321;
+	Tue, 27 Oct 2026 12:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C8wf6H+A;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RXPeLHkn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793102806;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-	b=C8wf6H+AYeIBEpNoYU9zy+75ULNP/v8GQ+JI8YeV0z07n1Y+A6DfJJMoiLDsRAkdopP1nm
-	mDDqcgNZtSs6bwlt30sfqIwMVo1hpfZjo5uyPypqxGriI9Ja/hmZFjb/UVoEAAKB0hRrO2
-	t5vzy8hgE7y5Sd8a2kTPo8g1uS2cPCU=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-582-YdnLd-gNNd6NAOBrTjuTIg-1; Tue, 27 Oct 2026 08:06:45 -0400
-X-MC-Unique: YdnLd-gNNd6NAOBrTjuTIg-1
-X-Mimecast-MFC-AGG-ID: YdnLd-gNNd6NAOBrTjuTIg_1793102804
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a35db2d6b3so20434135e9.3
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 05:06:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793102804; x=1793707604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-        b=RXPeLHknvGdIZGmmQOg9CAJu4ZQtCgOy3X3PowC0Os1DVS3R3aAap0u/wm9XlHjjU0
-         HM7EnBYUihFyrhh1OeTuQm1swnYuwj1Fq5vCpeTtiKUZayZvLx2FW2nE2iCCCEN8uLZS
-         rm/XjIP89WmKbQEYcS1deWV+VA4VJRJYm+1PAToAyM5Brkq2jjR8JxmcLQ4Z7AVNuVBl
-         IHAFFIrp8q1UELTYZ1iRU7F0s+8NonqxUEMQqQIT9XKQIOqDtIAL9X6LF91LY+mc2I4L
-         bl2+O7sPWb1g0mhON7TtdHK9xkW+VDA6Y7xxWXbXmAA0J1q8u4nHXpudB6pPMGTKXTzt
-         FJ7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102804; x=1793707604;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-        b=1oug1naiI5EDFD63uGNaEhVgH1B1EGhe2MhvLapi3fQfVruZ0nBqQyFlCrX2F73puN
-         nDuae41qk6IZ3Jrhu01fAdAHXfa6DDTfXtjWXo70zBfTy+cyAowMDyjaxBlsh+IEu4CF
-         4XkJZJ8ogRdXTEwKQ9ljteVcvMkGK1Fa1aHCQX5ExC/XSm2i70U8nrXwsHNTZYD6By9q
-         jkUkcmjXmCuXzVAzK7IqiVniKMR5IPYdEeS5pmbirI04ZiYULP3/8LsW3LXCmc4S08Xw
-         /ry4U3RLsb/nc1EvmpIo4VjqNEgooKf3uMHx2hGT38v20pD50p1nRJ+HTUl6GyBfixQe
-         wxnA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+2jj/MGvBjxVnL5UcQYxnjQjV+x6IcqC7TPP3rABID3nSfoxpk+pO6xft45RBHGUmXsswiXU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZ+AnEZLuWONCUK+Aso7JYCQf1NILT8nS+GHTXxpuFh8EXcE0j
-	6O54skB1hk/Lc7Xzs4fJ709fPcR/bXIG9nOUW8FcrkEPnKkGafwBhj8P3NXYFlb7kbiG8L542Ur
-	ts0fXxk/as+D9lvlw332yjxbMusB6YmawKqM2MqVjZC+m1KYXOyjNn7olAQ==
-X-Gm-Gg: AYBFou0dlKTYbMcre2uYrSJaHaJptoxBJiaiwv2Y04dtWr+EetO4aYCfCen1Rz/kZDo
-	LD1Y/ycVPJzcHpOcqkt6eH81lYnEc7d2EK2GHtJsf05mbPt9VWSo9CG5B/DM4t8Vt+nLesCfEhJ
-	VwbeGXw8ayF4nmqanEN+ky6bnoMQ+DUTXQ+c7Z40P7POaNIpCCommeAHtfIevTzAUE6Zt1/x9/Y
-	TUlFPf8JzrtzFODGQaQL/iBs0tYZ4PP0sEO/Uzr6CQZTa4XmoYWkUvcu1e3RAHQwpc4qgh/wyPi
-	pCakYGA+snw2pj7LPUue+2o/QgJpp69hSJcgY513fJ047GRDzr4e61pF7rWF6EcqTTZK7zfqq7D
-	xQFTKNQb9Fdy3sHQ5MQPaYf/XISc3oKSQDtYmv+rFQ3CvxeJZinD8bC4wjHX5X6xiFptjwukgWQ
-	==
-X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr103979865e9.11.1793102803692;
-        Tue, 27 Oct 2026 05:06:43 -0700 (PDT)
-X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr103979245e9.11.1793102803120;
-        Tue, 27 Oct 2026 05:06:43 -0700 (PDT)
-Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2d9280sm259748385e9.13.2026.10.27.05.06.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:06:42 -0700 (PDT)
-Message-ID: <096bd22b-c569-4998-a943-0381c3fa9998@redhat.com>
-Date: Tue, 27 Oct 2026 13:06:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=droMFJoX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C81F01828;
+	Tue, 27 Oct 2026 12:07:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102847;
+	bh=pNXJLprrikiyjdl1QDWtGw0/RtOyXwyYKGXN/8wvjIk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=droMFJoXyLggipZyfrxjW6vvPs0RatK5Ln8l/8ouZu9C+IH7SsaJ+ysMa9LZCAVQq
+	 e+xL4ZIejnr455+J5CQxelz195RbChcq+BJl04WYclXHkI48r+Cq96ZzkN613lJ9BD
+	 nO5IiQ3hJH9mQz+VrbRivjNP+nRaLk/PATbwYuP0V4psk8PC+aN+OLW/EAQrvphVah
+	 e0snwB80F2nuHWo3re3sNJWbk3i17h834g4JmwA2T7n66Wx+rpOyCV1I/zgQzLMG4D
+	 jPA4+ze61RWdVnQAJQ1Q18w6b26mK1d0iEROGpcyAMOb6jbPdUmy6yAcLBZ9a4UmDV
+	 qVBDPC37NRnxw==
+Message-ID: <7e4b4737-8086-4444-9c27-88ef09a2e591@kernel.org>
+Date: Tue, 27 Oct 2026 13:07:09 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,96 +52,109 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] virtio_net: reject stats replies for queues outside
- the request
-To: Lianjie Wang <karin0.zst@gmail.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261022182710.2055771-1-karin0.zst@gmail.com>
+Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
+ <5d10eba8-11cb-4031-84e1-a394ca5b4cba@kernel.org>
+ <179304984259.319828.7383468637599462048.b4-reply@b4>
+ <3022ba03-54c6-499d-b07a-2ca8d033a56d@kernel.org>
+ <179310104515.664110.14057520583832900506.b4-reply@b4>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261022182710.2055771-1-karin0.zst@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <179310104515.664110.14057520583832900506.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/22/26 20:26, Lianjie Wang wrote:
-> __virtnet_get_hw_stats() passes the vq_index of each record in the
-> device's statistics reply to virtnet_fill_stats() without checking it,
-> so the device decides where the driver writes the counters.
+On 10/27/26 12:37, Gregory Price (Meta) wrote:
+> On 2026-10-27 10:34 +0100, David Hildenbrand (Arm) wrote:
+>> On 10/26/26 22:24, Gregory Price (Meta) wrote:
+>>>
+>>> It's there to show the work more than to merge, but the long-term goal
+>>> here is to feed these tests into a larger session that does the polish.
+>>
+>> Agreed. But a note that if these essentially contain reproducers that can cause
+>> harm on real systems, posting them upstream might not be a very good idea until
+>> fixed.
+>>
+>> Well, unless people can trivially generate them already.
+>>
 > 
-> For ethtool -S, virtnet_fill_stats() uses vq_index as an offset into the
-> output array, which the ethtool core sized for curr_queue_pairs. A
-> record with the vq_index of a higher queue makes the driver write past
-> the end of the array.
+> Nothing here has been generated by anything the public does not have
+> access to with a $20 subscription or enough RAM to a run a decent
+> model locally. Otherwise I wouldn't have posted it.
 > 
-> For the per-queue netlink stats, the queue type also comes from
-> vq_index. A receive record in reply to a request for a transmit queue
-> makes the driver fill the struct netdev_queue_stats_tx on the stack as
-> if it were a struct netdev_queue_stats_rx. If the device offers
-> VIRTIO_NET_STATS_TYPE_RX_SPEED, this writes one counter to the eight
-> bytes after the tx struct.
-> 
-> Fix this by rejecting the reply when the vq_index of a record lies
-> outside the range of queues the request asked about.
-> 
-> Claude Opus 5.5 was used to review the driver code and draft this patch.
-> To reproduce, the virtio-net device in QEMU was modified to answer an
-> ethtool -S request on a one-pair device with a record for a receive
-> queue the device does not have. On an unmodified kernel, KASAN then
-> reports a write past the ethtool -S output array. With this patch, the
-> driver rejects the same reply with "Failed to get hw stats.", a
-> well-formed reply fills the statistics as before, and the
-> drivers/net/stats.py selftest passes.
-> 
-> Fixes: 941168f8b40e ("virtio_net: support device stats")
-> Fixes: d888f04c09bb ("virtio-net: support queue stat")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lianjie Wang <karin0.zst@gmail.com>
-> ---
->   drivers/net/virtio_net.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index daab43ac92ce4..0473fa9947858 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
-> @@ -4955,7 +4955,8 @@ static void virtnet_fill_stats(struct virtnet_info *vi, u32 qid,
->   static int __virtnet_get_hw_stats(struct virtnet_info *vi,
->   				  struct virtnet_stats_ctx *ctx,
->   				  struct virtio_net_ctrl_queue_stats *req,
-> -				  int req_size, void *reply, int res_size)
-> +				  int req_size, void *reply, int res_size,
-> +				  int first_vq, int last_vq, bool enable_cvq)
->   {
->   	struct virtio_net_stats_reply_hdr *hdr;
->   	struct scatterlist sgs_in, sgs_out;
-> @@ -4976,6 +4977,10 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
->   	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
->   		hdr = p;
->   		qid = le16_to_cpu(hdr->vq_index);
-> +		if ((qid < first_vq || qid > last_vq) &&
-> +		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
-> +			return -EINVAL;
+> Posting the patch is the full disclosure at this point.
 
-I think the above check could be simplified to:
-		if (qid < first_vq || qid > last_vq)
-			return -EINVAL;
+Agreed.
 
-squashing the following in virtnet_get_hw_stats():
+I'll post a v2 rather soonish to move forward with that.
 
--       if (enable_cvq)
-+       if (enable_cvq) {
-                 virtnet_make_stat_req(vi, ctx, req, vi->max_queue_pairs * 2, &j);
-+               last_vq++;
-+       }
+-- 
+Cheers,
 
-(likely with some meaningful comment).
-
-/P
-
+David
