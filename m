@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793072636;
-	b=eSeOSpKtdRvtFKRwAPQ0ODSe4L7UdqlhwOhJBTGgKoHAX+8x2gpgHX3C6DjrdQZv6Gho
-	 DAPnwIQ4Uy8miHkcw0Pg3LjhhnZat+bGYD2xORJ085vMxjtF812t4IETYPJleHss8oE2K
-	 ASy8Ua8pT2cB4B/idS/VHcpx2FgqVnRSxXJYOLd8qBkL1BM6P6sXWvsQ8w69vA5Q4CvX/
-	 a2I4PiGOC2QF3IFOFqT8LlyQe5DwGtaVSszsJf7G/3irqpY7L5h79DWUeiY8DhVExQqYS
-	 HxquPYuV+NlpYbgfdvE8cTc/fzA3mUhNDLadXqUvFWE/GOkNQ+ErOk7PkoKQbDV20CQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793072636;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
-	b=s/Ov/M1DGwPGGQTq8HxgYAqIEMuVM2Ltu2r70HZjLLFPbgFgQShdYJaE1aKAOysqm7eq
-	 6EBsJH7smZwFU4zfpqYQ9g2FeE42Le/s3Hex+Eq/MQRqRgQQyeG8C4QTjf49U44RccEDA
-	 fzPJEqH2uYXSedC/oGnHR/jB8nn6ROInbGWo+lew2GScP+4jFw1tkP2uuChQ5z1Scw5+U
-	 s2TKQJtXNrUBeDixeU8TAB/I4sr7VbpIhbKMPDOS9A3/O/Z6JKHLq/DWiaEVIU8V5yth0
-	 UsaLTY6DvF8/CT7u5Q+CuIFzSJco0y3LfCZiXoC3flzV9/01tumasqD1+GVzavo1zgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jk9klGgU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793072701;
+	b=gAiy8ssexkFTO34IANKMvlPnoi8f8+UObAygVIyEkQTLOJ+RVn1Iw/RUeYa0APMZ5hJV
+	 clGm7Zh1DtdgAKSMlXoCYjrIU0xh9XugcFBmFUiUCna4f3VQxVD4FXkC47siPwDCGsiNL
+	 XbzQ07sfiErjXjfEYl7QLYSftTKSFVE1z2+foYPYsCwl+8AUFUYZ/iRGw/dPRnSKg/s3c
+	 UNJc6uuLz5NI+8bkVuXReyLo/7Oh0S9x4HUv2ftG4LnR3Ky3+yLq2MZT//K7b8Plc5m8v
+	 aABfU8vg06Y58B5cgcGsqJhEVVzcDkWCT6JLtcvqpWMqkggjQ7d7OC+IalJb3kv8ORQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072701;
+	h=DMARC-Filter:DKIM-Signature:To:Subject:Message-Id:X-Mailer:From:Cc:
+	 Date:Mime-Version:X-Original-From:Content-Transfer-Encoding:
+	 Content-Type:X-Lms-Return-Path;
+	bh=ULr9bgQ6yFnrOUoUUAJX9WlVlG9/9n0WdEkZqyzIDlU=;
+	b=YRHgsyHut8yYZRxx8ZxDKUxgpGfY1sYVDmNi7wzcKQ4il0QCg86LpeMoAqzQrLFKiIvL
+	 Jf/qhGb5uv3eQXir8txBkRdkkpDyR8QjC5yYCfD3zpDq11A0xmcZwyP5rwhLjqlpCAkMx
+	 WOiTE9XPnQtr3/uvHtiDXmuFKW3JhE/hIcTovziJSlesS2FpMyW94UOkMiWHttplHjgeb
+	 ngbyZj+eDlJGnfhhE/XuOGEQSN+anR1iHABvo9mxBn41UcQHIu/UmiMJjZ/pHouHSTzt+
+	 P8Je+cyGq+9XwWcAQ1QcppyNzykBEq/bgRw7Kd7+lC9ctq+QT49rIxrJMXgpG3am4+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=G5X6RFgY;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B36606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:43:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B36606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403F606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:44:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7403F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=Jk9klGgU
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso5272691a12.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:43:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793072635; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gC4MuAU6vzxZuYIDpvMNli03JNCxc5s82a3HGY3ycgYv9QZLPTyL+awHYbvMpdTjbY
-         /3N9x6SPMlKCX87KJfThdlgFzQUhaCKxAB5CDtr1rBe+GtWicE43pconS3tPK5mbJCms
-         nq6qCZe3rocEUIAJfSMFurjUnIusYi1Z9ZcxFCszgtN5CN4p5at10MoDWgEiMzZobE/U
-         2MxKYP14gdX5nOVIFVBoZyuPhWR04O1Kr8k7jp35vWu8A8TMUj5FdVM7V0FojaIng26k
-         4UHpozeEFBHDr1UfFlhhUYhGxIf+M6p71HFXjLwQ6Ain//aX8af06SPWbiUU4EKMsIMj
-         MFdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
-        fh=ryzd+ijsfKdt1uCqwTwi/PZZFOc6WMv5ztnfND3qQ9Q=;
-        b=gMqEsBTTpaJ8mxP6cnTRE5oL3p6oOXcFV7qKvLW1/AcA9/ZX19zQg2KTK3LIUODbBS
-         zlUTh/u6leuzrQ/J+KlPv7namOmA5C02lZcua0KV6Gq/MbpUsOLbNgB74gbzZiD2Nvy4
-         EEb6c00ne2XJ+HKA34XkGyn70rlWSrj8BMzdNQXHp2JVJcC+wU8PHUlKbqyLCut190X+
-         HbpU4d4f6jX/5KY4h7OIkDwANOiJbM2MBTxzwOdRPfXAinvmCmRaOtQuGAbIKGuEICN0
-         352cJEsm2CXzq2YRHx5MKV/g6bQwN9RyW6ZGAFgLr1RHKiBVmBQ1H2dbdfVgrR8eQxf5
-         argg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1793072635; x=1793677435; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
-        b=Jk9klGgU8GCrKZmkFhs0ofHkPl3C52FsJVCvOYWx7PjTj+kkHRZn7BK3ECb9H4p988
-         csjhO5vqCOnHyVq16sNPNfgZl8cVYqnLVh4+/AHV9f3DE9YZvzU9C2PAdvtWZLzVOY/A
-         bjIMnQcvaPVD1Qts2AKCN8ddA2CkscjuAuKsphVYQGjG1qBF+4x4CVQzzI3Job19LEek
-         z53oj2K5xfKsoaROJGrQx6CkAoA+fDmIuqWeUEPVFPYyr4U4NFnyuVYmRZ+i146NycjI
-         BdJpjrCCZt+2KcxGL81Wg1AiMeSmTJYKbQaHv+5d9SMe5vII742HyniZsixYbPk6IsCs
-         M1OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793072635; x=1793677435;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5qKxJCbfRdRrH3hTlJ0h5gJEmaH0ng7PGOWlvDUhXUA=;
-        b=BXShjONP5zOdkR+4z8TZPgWdX+SS+AFQrsdxGqPB7xIqZqX4fUvIlGqzqrc5fKi9gz
-         eECv9hry737/WRiNWKy5oyKJUSPcQ+zeIhzQqhOMvumwZg3h7aBCsxwwnMcYAGnLvj2v
-         fEh27uSBJvxRmtB6YHbiO6A/H9eRNgovlLY5OlLmEQix1Y1J9bJSxkyWhMGS2z53ZWES
-         3Amckj/mxVBxrKiuRhYqQij4B5juAYT1LoyCAibvjvg2jWEFNmsRe8MLvFskACY1EdpZ
-         VywKiCCK60rlONCatkD99RzywWelM8002U11jzd1nK2PO6kEQl4ID4HImXJ6LuiHm6db
-         bLNg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGDYBw8oKhBq4FnDcM/EDG43rQHZcuif8e029IO8dH8fYYTkyLvVgJ5hr1X0+nQVVgDKRhPzU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2VTUR26fgVOZp+/Wuw9BN0QQ7oayX9lZJRNY6vGAFu22Qbtd5
-	yLywmrE95J1L7dw+1VzGqwSRWXjbzzY1NRwjGMC7xbPiAouQQzk30ygdPm4HtJIfgHn3yv6NAE1
-	5E2Zh6Wz48J9Gr2AkXRc4HU8yVDVmTyRtoyAYSO4A
-X-Gm-Gg: AYBFou0TF8eCcumWTLTiaM9yTA4AMliogDNab5PV5xgciXBOw8L8F76BGZVBILn8G1Y
-	f+783WHpu3Mhmu8mCmOZSDG9DTGTAj0b8wrUnrXbspQqjLEg+Wwk3N9bYPIfBFhGEn5k9woqb9p
-	dVLCHfyjfNq5lEppYb329nAxmcbOVAFKEAdE8EGLVw4ArEEGKnaxLXqjIoYmgBE3DBimDqHEtq2
-	NWKu/kq7lar0OJr5cJu15ZQe5Gf9VIXNPl8MtqgGDkDuxLtHQlBIKHsxI2D0FZj3ScEuKL7WPez
-	aQzT7w6PstQdG94oeBsikodjKWaNWWT6HMRV+eebXZCcgcBmEqcM3BYEKgwJZLBtBuol9l5KjOg
-	d5CMQtVWLDzwODWo2XCNjM/tk3JEqGegnrEfRV8MGV/h4zq+rW6fTW3a+tpzMyvb01CU1+A==
-X-Received: by 2002:a17:906:794b:b0:c42:4750:8d49 with SMTP id
- a640c23a62f3a-c46bde3aeeemr1002596266b.25.1793072634757; Mon, 26 Oct 2026
- 20:43:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=G5X6RFgY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793072689; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ULr9bgQ6yFnrOUoUUAJX9WlVlG9/9n0WdEkZqyzIDlU=;
+ b=G5X6RFgYys8sHCve15qtWmiByr09G/qIaVrk4ZegEXxI+AO9FZqJdCEvdAxDxROb1sXII1
+ 8tUTcaZGTBOr2jmTBR7LFd9y1+ysnAyl1WOvpgtVYRzaVy0oTN71DEaH07WWN/T3ioPE2s
+ dcWpbwB3uwEGpOfKhZ3y9ZlSGwCPIpzKIhz0DFD70Oefa/vPdZat2HDUL+UBI/iEczaLNC
+ woHf+dibHCzeiIwmZ1k4cWvQVBw20+DAcVhYwfwmv+OFWM4a9sT1p8tCoQetU3oj18NPoh
+ JhtKwzLxbFSlRLIPdM0mvYhzpBuq7R5kjODmCtfkoLuYmrh8b5vzuTvn/hUmKw==
+To: <x86@kernel.org>
+Subject: [PATCH v3 0/2] x86/fpu: Fix dynamic fpstate leak on exec()
+Message-Id: <cover.1793072271.git.weiguixiong@bytedance.com>
+X-Mailer: git-send-email 2.55.0
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+Cc: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>, 
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, 
+	<chang.seok.bae@intel.com>, <shuah@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Guixiong Wei" <weiguixiong@bytedance.com>
+Date: Tue, 27 Oct 2026 11:44:28 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,45 +62,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027024635.366900-1-prasad@arista.com> <179306948792.3327.2977782192715102568@kernel.org>
- <CAKh1g56_WiP3gTMbcWkukb_tK9Fnun6NqLAQKWdU5o2ECL0veQ@mail.gmail.com>
-In-Reply-To: <CAKh1g56_WiP3gTMbcWkukb_tK9Fnun6NqLAQKWdU5o2ECL0veQ@mail.gmail.com>
-From: Prasad Koya <prasad@arista.com>
-Date: Mon, 26 Oct 2026 20:43:42 -0700
-X-Gm-Features: AclHuK-1EqxydWR_WSLPmaEW4heYYjA6apJgh5zMMaiBELQB98cyhu7hOmmOXQg
-Message-ID: <CAKh1g54bKZYQwyAS_t6FSOfZvt0Gn3gUWqnwg+6Nv4qTT3C6NQ@mail.gmail.com>
-Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru mode
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26ae01e2f+3ac4c8+vger.kernel.org+weiguixiong@bytedance.com>
 
-The issue was observed during development testing with 5.10 and 6.12
-kernels. It was reproduced on Linux 6.12.68 by enabling allmulticast
-on a down passthru macvlan, bringing it up, and toggling allmulticast
-off and on. This triggered the =E2=80=9Callmulti touches roof=E2=80=9D warn=
-ing.
+An exec() after using an XFD-controlled xfeature leaks the dynamically
+allocated fpstate. Fix the cleanup in fpstate_reset() and add an AMX
+regression selftest.
 
-> On Mon, Oct 26, 2026 at 7:51=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wro=
-te:
->>
->> Hi!
->>
->> This is an automated message. This series looks like a fix, but its
->> commit messages seem to be missing some information:
->>
->>  - How the issue was discovered, e.g. hit in production, hit during
->>    development, syzbot report, manual code inspection, LLM or static
->>    analysis tool scan.
->>
->> Please do not repost the series just to address the above. Instead,
->> reply to this email with the missing information, so that reviewers
->> can take it into account. If the series needs another revision for
->> other reasons, please include the information in the commit messages
->> then.
->>
->> The evaluation is done by an LLM so it may be wrong, if you think
->> that is the case please reply and explain.
+The selftest reports FAIL on an unfixed kernel (verified 10/10 FAILs
+on 7.1.3 with the leak reproducer present) and OK with the fix applied.
+
+Changes since v2:
+- Free dynamic state at the start of fpstate_reset(), keeping the
+  fpstate_free() interface unchanged. Clear the inherited fpstate
+  pointer in fpu_clone() before resetting it.
+- Replace nested self-exec with a parent fork()/exec() loop.
+- Add a pipe-synchronised pre-flight check that confirms the dynamic
+  allocation is observable via /proc/vmallocinfo before measuring the
+  post-exec() delta. Without that gate "no new entries" is ambiguous
+  between "freed" and "never observed" and would silently PASS on
+  kernels where the allocation is not reachable. /proc/vmallocinfo is
+  the only user-visible signal for a leaked post-exec() fpstate (it
+  has no task scope once the task is gone).
+- Compare the set of allocation start addresses in /proc/vmallocinfo
+  before and after the loop; addresses present only in the "after"
+  snapshot count as new allocations that outlived their task. This
+  compares allocation identity directly, so unrelated vmalloc churn
+  elsewhere does not change the result. SKIP if any matching entry's
+  address is hidden (kptr_restrict) because the diff can no longer
+  distinguish allocations.
+- Report leak failures without preventing subsequent subtests from
+  running, and simplify the commit messages.
+
+v2: https://lore.kernel.org/r/cover.1791428412.git.weiguixiong@bytedance.com
+v1: https://lore.kernel.org/r/20260929151013.81562-2-weiguixiong@bytedance.com
+
+Guixiong Wei (2):
+  x86/fpu: Fix memory leak with dynamic fpstate and exec()
+  selftests/x86/amx: Test dynamic fpstate cleanup across exec()
+
+ arch/x86/kernel/fpu/core.c        |   5 +
+ tools/testing/selftests/x86/amx.c | 251 +++++++++++++++++++++++++++++-
+ 2 files changed, 254 insertions(+), 2 deletions(-)
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.55.0
