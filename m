@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128990;
-	b=cNm8Xqrui5T0qHfr/mDLH92vVDIyAqD3xnOf6kIh2owIfjcFkG2M85qjr79nG4+c7dEo
-	 V1/9dsPIcvphn7kwWjrHln11sfnTQ/UyEE0YUtm5dn8f/fRP/FZzGQUhmKpa32lMkms6F
-	 5YkuN3nh1Y3VDIifFnkAuwHEaQXvk9SBKJ7t9t/CHY2wqXsK3myxpnoDxIVu+AvovuIvI
-	 gbYELik8uD9nXNdpRh1KACdn6+wga6CNt+QNvloqcDO0R8F+2Y+zmsVKV4nuep4zwOtp/
-	 cuBBGLTtGRW+t8PV01rjKy+2dk4EUc94FxB0R80cgpcp11/K1tnxjcV+7uN0yaWY2Cg==
+	t=1793129007;
+	b=bJV0uy7r6vszR4o6Q3rf5e8CyeP8H4NWXGCgpVD6QR3xCu22c/vKLfkolSKM/AvgYvqj
+	 hCBhqYuosbdGBVkJ1B+G/DfZUg5qp5jreaumEqUbXM9stUfAiT8jBFzEeZY8UcjdhGRvc
+	 XZbQodTckiAq7xz/R6e4A16BZaxFh0BKHILMGozbYX2oMBlglqCQW6B0IeAZbR88nt98F
+	 NiKalYX7dykCEjhgtshvFRWimpfRhVAGlCGlaUoslKbu0+IwbG0cwOKW7MbAX+3/jJMYc
+	 F1K0ws/5q6sXKSsC7bKe9qurRrvdTUjU9zaunZ+YWE7ieSdgYMiX4lUEL6BXhKyoPXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793129007;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=HoOcwxnYW5BPsnbBpyOUUjSJrZpAEuBUDQ6Rytj43SI=;
-	b=OM8KX0xcdjpvkiUH1FD/xMPZEwyz69ZvJR5Vga0Y5FBFvVfsh+sNk6+Vxj04SDIFxAkc
-	 YOpVxK5RQhbaMMxvgKeJ5fT5NRq33fBjqyZ6Hbo3zkuTxfIjSoCSjuH45GNpN9X5Ix3qh
-	 ixR4tvDQn1UJIosznwCi1YDzbhB5eZqrYFaOf4yTvKvz37KxWRIRCzib+L9uSOiwGisxN
-	 rIOwDs8F2r4I3t8c2PLCw86jBdTFmD9Du9jADeSEoN4ZF7TC5RSvadvMsxMGgwbLZQS3I
-	 Xw4wCD+GkCSVNZweiz1Prsh+/YNWbl87I1Jhr3NnBfmE5qEmGYjVDgcPjWmuBo/p84A==
+	bh=J9gSRb3D7ogtqu1SdrAnawsdd8oVJY1XtzaSrPDBAaU=;
+	b=tYEf5aM9USh57kmdlmDXzvoQEUFMA0hJMPm/kpyKvaERaKgwDgvlFHzb36ntFmP4OigK
+	 mOvbA6GqXGX8jufKZSy9aJCyffhAqiP2LYC3d45n1iRaSiUznlF7Z5CgbQP79c1t/6o/j
+	 u/wSDDzdxYvS9KWg6HzenWoPueoHqGRgNLf1VprNeAxfcIuReeN3wKQe1S330LuYvtJNg
+	 q9wVIhGP60LE3uTtprqJe6IQgveWZzVRPwY8i271XhY2MZVQUeHuVu0+F+fGRnJNT9jbW
+	 ISgJ/9tgDZHd6Pqdtt+4sC49l0g+BY5PTLn1FjqHE2XCVfTCUh9jZlHzHzL5FZyI5/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftRU37dy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j3ud/ZuJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A4E606A321;
-	Tue, 27 Oct 2026 19:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A831606A327;
+	Tue, 27 Oct 2026 19:23:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftRU37dy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331471F031E6;
-	Tue, 27 Oct 2026 19:22:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3ud/ZuJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6CD1F01825;
+	Tue, 27 Oct 2026 19:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793128989;
-	bh=HoOcwxnYW5BPsnbBpyOUUjSJrZpAEuBUDQ6Rytj43SI=;
+	s=k20260515; t=1793129006;
+	bh=J9gSRb3D7ogtqu1SdrAnawsdd8oVJY1XtzaSrPDBAaU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ftRU37dyB4p0fpCveWi8u9OzVVMH+c9jVXZBnjJEcbX+3eUtHh0Bpvj0EPoUXVaPi
-	 0QIZG6aMCRRp9b8cz1jyaC4I/RPv5oyxP0gLO6UnDAB0wFu8xZJKIBLAV8TY4tp2Zs
-	 V90tZ5gdhOHNZIuy4O8LU/EauDhEGQ1e41/XKUoUv+VeND2ArLOaAradJIZSY1HXf1
-	 4HUN70NN0Glr6awt8YHNGO19R2ozNFjPj7mGG/v7TegGd0qz55IDN87LZJ/bb9e51c
-	 XNnTusUt2bSy/KdE3hQfe6e0wG0LfmdjZ9rOOnLn6PNHQxl3T0uu0eA167PkncXzMF
-	 vWwdNA1FTwpXg==
-Message-ID: <ec55c760-f099-48e1-900b-9f8e2e5315da@kernel.org>
-Date: Tue, 27 Oct 2026 20:20:43 +0100
+	b=j3ud/ZuJbVW9Ht6RBnRGEDrT32arwt0VIBU0qKDUNIniXzHqRWI+D+aEx8+VeUx89
+	 HqHfaNjLOyNGKRWV6YgOkr68n3/qo9W0eMTZKINy2npz5GIar9UTvOFFdcSrtP0vv5
+	 4jBkpsSuk2SY0/VYo17xyO/vRjQmaJgmQ0ymbf30GmQWIepsYBU+WJr0/di38WoRq+
+	 kqm7EYhMmPqKzwKCAnGfYtn00aLBJbManBRnsv0Wg6USpxdVWqOa63F7st/2+ucXEw
+	 SHdY9czvzINbUIfc9qTtV8eJv4VO6GuzywLfFvmEu/vIFmsGBnaOmiDW2PK2xQnMZa
+	 1n5n8XUqi4ceg==
+Message-ID: <ba37b2a3-201e-4cd5-a992-c3ec6ab2aadb@kernel.org>
+Date: Tue, 27 Oct 2026 20:21:33 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,15 +52,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 20/46] mm/gup: fix clearing folios in memfd_pin_folios()
-To: Pratyush Yadav <pratyush@kernel.org>
+Subject: Re: [PATCH 23/46] mm/userfaultfd: write-lock the VMA before waking
+ waiters when unregistering
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
@@ -68,6 +68,7 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
  Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
  Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
@@ -87,11 +88,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-20-6f74bec9a5bb@kernel.org>
- <2vxzbj8fp4sn.fsf@kernel.org>
+ <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org>
+ <auBityGTDQjXURWg@gremlin>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -138,66 +139,24 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <2vxzbj8fp4sn.fsf@kernel.org>
+In-Reply-To: <auBityGTDQjXURWg@gremlin>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 16:00, Pratyush Yadav wrote:
-> On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
+On 10/27/26 09:43, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Oct 27, 2026 at 12:17:43AM +0100, David Hildenbrand (Arm) wrote:
+>> userfaultfd_unregister() wakes pending missing faults before clearing the
+>> VMA's userfaultfd registration. With per-VMA fault locking, holding
+>> mmap_lock for write does not prevent another fault from queuing after
+>> the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+>> waiter can then remain asleep indefinitely.
 > 
->> From: Chris Mason <mason@kernel.org>
->>
->> memfd_pin_folios() pins folios obtained directly from the page cache
->> without checking whether they are uptodate. However, shmem fallocate()
->> can leave newly allocated folios uncleared and not uptodate. Callers
->> such as udmabuf can then expose uninitialized memory to userspace.
->>
->> Clear non-uptodate folios and mark them uptodate under the folio lock
->> before returning them to the caller.
->>
->> Fix generated by an LLM and sent by Chris Mason in private.
->>
->> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Chris Mason <mason@kernel.org>
->> [ david: simplify description and comment ]
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/gup.c | 14 ++++++++++++++
->>  1 file changed, 14 insertions(+)
->>
->> diff --git a/mm/gup.c b/mm/gup.c
->> index efc9aa2654625..47e7ae152cdf1 100644
->> --- a/mm/gup.c
->> +++ b/mm/gup.c
->> @@ -3516,6 +3516,20 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
->>  					goto err;
->>  				}
->>  
->> +				/*
->> +				 * fallocate() can leave folios in the
->> +				 * page cache that were never cleared.
->> +				 */
->> +				if (!folio_test_uptodate(folio)) {
->> +					folio_lock(folio);
->> +					if (!folio_test_uptodate(folio)) {
->> +						folio_zero_range(folio, 0, folio_size(folio));
->> +						flush_dcache_folio(folio);
->> +						folio_mark_uptodate(folio);
->> +					}
->> +					folio_unlock(folio);
->> +				}
->> +
+> Oof.
 > 
-> Nit: this logic is repeated in a couple places in shmem.c and in
-> memfd_luo.c. Perhaps it deserves a helper?
-> 
-> Anyway, sounds like an important fix so don't make my nitpick stop you
-> from landing this if you don't want to bother.
+> I guess userfaultfd_clear_vma() only implicitly takes the VMA write lock via
+> vma_modify_flags_uffd().
 
-Thanks! yeah, I had the same thought when trying to improve this. We should have
-an easier way to just not hand out unzeroed folios outside of shmem core
-functions in the first place ...
+Yes. And the original AI fix wanted to reshuffle waiting because of that (stupid).
 
 -- 
 Cheers,
