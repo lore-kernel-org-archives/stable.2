@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106219;
-	b=nOkypySIybK606WvTfznlRYauuz1WeNt+Oj+0+4NI8u1lUWlCNvQge09/HwUPFPv4iGP
-	 QDqE7kbMklnDdKkxYDviK0OodVfGK0Qr1/OQRz1prwLq/8TReb27wcrDscETp7f9tTzd6
-	 s9ywniq/6kEPLeZXmbqJo4ivBBlOuJf6i+cGglqydcK+p31om/vXK9wTlke4t3/whcCqZ
-	 zaQ8Tt3ABz/YrXpDFE4E6zL/S7m4i2pi5Tur3PbkxwFMscrE/sK0NHeKm5tloS8p4/Lj1
-	 DnBUF7UglC+QC+ataMw2Dht3E/RDHuOf6EySQXlWo5eK6li1o79vb+qO6pmEWxlq04w==
+	t=1793106227;
+	b=r+hCPTAdBLjO5YMKcM/vnq1jV88QwrH/m3M/lzOkReVayAdHEi6t+SSc1hKnRHIs+sba
+	 dUcCKcKEtgR6pA3lYMTwNKW4tX54vA6BbpdKzx5ZcerJSapJjPPvPeGja9StiW13Nzgj1
+	 wUpJHLVHCiiCHcG4H8BqjMnQIGMWakHkkgWpM5bmsL/qEpP09qicqTROH+FMDMfBSYxOP
+	 rf+PbDZJJhgsqe9+a1QL6G7B6knuYh6dD5Nq5BMH77/CNhfo3VSTyYP3r3kNIPTpPQZ4V
+	 XBWPVGofamJOkwzOOCKdiHJVXAZRPk3/kj77Qoi0EhcEICwXglAGAtUfrqliz9sQKvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106227;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HmxLnNloqDnX2mGRaG7UB60Xgda7GnOgxeIVM3cnCiI=;
-	b=GlUVfjzcqhO1WFdWUbRTrru6N9kEk0lBh4HLwBNQQ8Btb/dqB1RUO/XTPZuNgLZemfce
-	 7za1tCDSWtIQUHANkVEgQ52KzpmUakfhRTRBNUXJq1lpShDpeD4g6J5TjiQbddl/S4uCL
-	 YPb0mc5KQFkiZN6N7bYKHODN4ob2KexqOrw3QLcrIZ7zMvXUBTQMoEaYmZ0FDY/EfNipn
-	 kO/85hY9T6/TLhKsX2v/mwwoMrXOvrNwrqyDZ1SSGT6LC9zFw+1jG52mTiKIt+RKhMo9+
-	 ZLVUJFe3uc3bxIEW9q+o3F4/Hyt6Pqw01Xdp8qpOYuHSFP3OMebr2f6Gji3nQwIxQyA==
+	bh=FuTQQCIIhCRj/ogwMUaU/txEPw0T6il6C0pniQihRqQ=;
+	b=K6JuolWK4u0Kz8Z2xD+bayfmFqzgHkK8fv5Y4Us/dBn0tueJWQcQlHxjBC/Hhm6izC8O
+	 ku2sHMqgih23UOV87Kydt6Qp6t/eNP65XQB7D3qf38g2CID8OhrlCoSvXFl+nv/bCUrur
+	 3zlPl+yaxmW4XOY/Ban0UCW+/4Oc2M4ZJzr9CkZKtpy+IbGPMoxcyBKGWP8MBy4tFo8Rd
+	 gLSgqA9WNrkHv0Ci5mv4X2JNaVBYeNgmFBeuGZgTxXob8MggZGsIjhqosrLxrZhbbOnSG
+	 RjyXNbtWytTaOhj7UhDkBlk/whSDwj0rvkljKoYBBAZ4zBsgdoOF4GO0oZYtLjVeZqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkCBEq2X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LntWz1aq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06879606A31F;
-	Tue, 27 Oct 2026 13:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFBE606A31A;
+	Tue, 27 Oct 2026 13:03:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jkCBEq2X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1D4B1F01825;
-	Tue, 27 Oct 2026 13:03:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LntWz1aq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4751F01825;
+	Tue, 27 Oct 2026 13:03:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106218;
-	bh=HmxLnNloqDnX2mGRaG7UB60Xgda7GnOgxeIVM3cnCiI=;
+	s=k20260515; t=1793106227;
+	bh=FuTQQCIIhCRj/ogwMUaU/txEPw0T6il6C0pniQihRqQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jkCBEq2XthyXjppB6FBZsDBb4g+JSV14/RdizzEMI5plk0gIcKULthmFx0xGUXtt9
-	 W3TLuDN8wSjmTf/3igeQrdB01tryX2n/9PpiAB/MjPzt2WHI1TmBki18TanYBxzft8
-	 x1w2jkCDONXBiws5DDA4GjVSiezHe3kb4H+Nv5ZUd5LH4xy/v56p2gXCLrecf6OkJc
-	 QFb7akhDXTu5+qRVuZGhp6bQR1CVzjK5n+jAtW5hVloS7SilC+nGh/PpmPdYwqCKDd
-	 YDrKe/RZMsi2XuSBq3L/5ofNkWa+Fp0/VVGgbkVayTGg5l++oO43MVm6nq79jqkKBU
-	 HRlChtleeBSZA==
+	b=LntWz1aq54bGNesh7BxKU9O4TTVvUn8Nb85jHj0+dEg8gBWUsiJ7EEsWPcueC9j0X
+	 FEuCjgO84J4BAk0jUowFE9WbI9ZGoKLdwgkpL4rVUhTEV6NYNUdjZgLMw4A4BGrJv5
+	 gjo1NCsMWD7eMYBn0FWhWSbdWub9sNQok57/LZA5p4iB+kJGV8bNp4iAMwTdttRLrh
+	 JCz1Tp5kyVK9krOqnecfbenbFoxboTngoFDFGhcdM5Qfsq/4xr02OvkZgeCRbjhs30
+	 Xlahlb2PsI8DOkN1tgA38JdF9skFrmcmNRvKiCPzQml01gRIi2OXy6Vr+V+N42C0mA
+	 NGFNhzFrX8Utg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 14:03:07 +0100
-Subject: [PATCH v2 02/14] tmpfs: keep the quota soft limits of an unused id
+Date: Tue, 27 Oct 2026 14:03:08 +0100
+Subject: [PATCH v2 03/14] tmpfs: preserve explicitly disabled quota limits
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,8 +53,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_shmem-v2-2-86a00952acb9@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261027-fixes_shmem-v2-3-86a00952acb9@kernel.org>
 References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
 In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -79,28 +79,44 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  "David Hildenbrand (Arm)" <david@kernel.org>, 
  Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1681; i=david@kernel.org;
- h=from:subject:message-id; bh=JOA/wkBohGWebURbwXTYcThfkfGV/E7mEcVBQ7p5Pw0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBRg8NoZ9G7p573SIdMul1omC2pmCF3SaLvT/+vaq
- ZY7b7+ZdpSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJrAhXJwCcJPXMTIcXiO30NJwnoHrFvmp
- Sr2Lg31dbHxZ9VZcTw/vDjQP9N3CyHD9Tvn/3c1F5rcCxddrntBX3tLsdJSz4kTKh9IfGQs7ZJg A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3975; i=david@kernel.org;
+ h=from:subject:message-id; bh=F9NYnsgH8oBV9j5aJk45w6lMYbZSDg8OHv+OvgcNne8=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBSImX5u9oq8Tz/OLVvmufhkyP6PYpnd6z/uOerZu
+ 0/3Tr59REcpC4MYB4OsmCJLUPB9g5cv19VWu/Exw8xhZQIZwsDFKQATmSLN8D/lhY3YFJW8jPJk
+ Jg0O3cCODbd7eO7szKyOebl/KQ9niz3DP+ONsuyv1B4p9m08uLNo0Yup1QWLVhxyTHw2L1Rj3WH
+ GUj4A
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-When the last reference to a dquot goes away, shmem_release_dquot()
-stores its limits in the rb tree of the mount, unless
-shmem_is_empty_dquot() says that there is nothing worth storing. That
-function looks at the usage and at the two hard limits only.
+An administrator’s decision to disable a user’s or group’s quota
+limits can be silently lost when tmpfs restores the mount defaults
+after releasing and reacquiring the quota record. This can cause
+later file creation or writes to fail with EDQUOT, even though the
+administrator has explicitly disabled quota limits for the user or
+group.
 
-So if the administrator sets nothing but soft limits for an id that owns
-no file yet, the entry is thrown away as soon as the dquot that
-Q_SETQUOTA used is released, and the id never gets to see a limit.
+do_set_dqblk() sets DQ_FAKE_B when all block and inode limits are zero.
+This means quota enforcement is disabled for that user or group.
+shmem_is_empty_dquot() treats the flag as a reason to discard the entry
+from the mount's quota tree. The next shmem_acquire_dquot() finds no
+saved entry and recreates it with the mount's default hard limits.
 
-To fix it, compare the soft limits as well: an entry can be empty only if
-both soft limits are zero as well, which is exactly what
-shmem_acquire_dquot() sets for a new entry.
+If the cached dquot is reused, DQ_FAKE_B remains set: Q_GETQUOTA reports
+the restored defaults, but enforcement is still disabled. Once that
+dquot has been reclaimed, a new dquot enforces the restored defaults.
+
+Remove the DQ_FAKE_B test. Only discard entries with zero usage, zero
+soft limits and hard limits equal to the mount defaults. Explicitly
+disabled limits are then preserved whenever the mount defaults are
+nonzero.
+
+Explicitly disabled limits now retain a quota-tree entry, just like other
+limits that differ from the mount defaults.
+
+Rename shmem_is_empty_dquot() to shmem_is_default_dquot() to describe
+the check for default values.
 
 Fix generated by an LLM and sent by Josef Bacik in private.
 
@@ -109,25 +125,69 @@ Cc: stable@vger.kernel.org
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: slightly adjusted description ]
+[ david: code cleanups; rewrite description ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/shmem_quota.c | 2 ++
- 1 file changed, 2 insertions(+)
+ mm/shmem_quota.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/mm/shmem_quota.c b/mm/shmem_quota.c
-index d0b92d6da50f5..a83392f75e56b 100644
+index a83392f75e56b..eeca9efd448a2 100644
 --- a/mm/shmem_quota.c
 +++ b/mm/shmem_quota.c
-@@ -251,6 +251,8 @@ static bool shmem_is_empty_dquot(struct dquot *dquot)
- 	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
- 		(dquot->dq_dqb.dqb_curspace == 0 &&
- 		 dquot->dq_dqb.dqb_curinodes == 0 &&
-+		 dquot->dq_dqb.dqb_bsoftlimit == 0 &&
-+		 dquot->dq_dqb.dqb_isoftlimit == 0 &&
- 		 dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
- 		 dquot->dq_dqb.dqb_ihardlimit == ihardlimit))
- 		return true;
+@@ -234,7 +234,7 @@ static int shmem_acquire_dquot(struct dquot *dquot)
+ 	return ret;
+ }
+ 
+-static bool shmem_is_empty_dquot(struct dquot *dquot)
++static bool shmem_is_default_dquot(struct dquot *dquot)
+ {
+ 	struct shmem_sb_info *sbinfo = dquot->dq_sb->s_fs_info;
+ 	qsize_t bhardlimit;
+@@ -248,21 +248,21 @@ static bool shmem_is_empty_dquot(struct dquot *dquot)
+ 		ihardlimit = sbinfo->qlimits.grpquota_ihardlimit;
+ 	}
+ 
+-	if (test_bit(DQ_FAKE_B, &dquot->dq_flags) ||
+-		(dquot->dq_dqb.dqb_curspace == 0 &&
+-		 dquot->dq_dqb.dqb_curinodes == 0 &&
+-		 dquot->dq_dqb.dqb_bsoftlimit == 0 &&
+-		 dquot->dq_dqb.dqb_isoftlimit == 0 &&
+-		 dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
+-		 dquot->dq_dqb.dqb_ihardlimit == ihardlimit))
+-		return true;
+-
+-	return false;
++	/*
++	 * Defaults are zero usage and soft limits, and the mount's hard limits.
++	 * DQ_FAKE_B only means that *all* limits are zero, which need not match
++	 * the mount defaults.
++	 */
++	return dquot->dq_dqb.dqb_curspace == 0 &&
++	       dquot->dq_dqb.dqb_curinodes == 0 &&
++	       dquot->dq_dqb.dqb_bsoftlimit == 0 &&
++	       dquot->dq_dqb.dqb_isoftlimit == 0 &&
++	       dquot->dq_dqb.dqb_bhardlimit == bhardlimit &&
++	       dquot->dq_dqb.dqb_ihardlimit == ihardlimit;
+ }
+ /*
+- * Store limits from dquot in the tree unless it's fake. If it is fake
+- * remove the id from the tree since there is no useful information in
+- * there.
++ * Remove the ID from the tree if it has no usage and its limits match
++ * the mount defaults. Otherwise, save its limits for the next acquire.
+  */
+ static int shmem_release_dquot(struct dquot *dquot)
+ {
+@@ -297,7 +297,7 @@ static int shmem_release_dquot(struct dquot *dquot)
+ 	return -ENOENT;
+ 
+ found:
+-	if (shmem_is_empty_dquot(dquot)) {
++	if (shmem_is_default_dquot(dquot)) {
+ 		/* Remove entry from the tree */
+ 		rb_erase(&entry->node, info->dqi_priv);
+ 		kfree(entry);
 
 -- 
 2.43.0
