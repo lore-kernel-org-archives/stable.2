@@ -1,103 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114237;
-	b=g1sL0J/OPXqz/7aq0Iw95dVeO2+jLoRKbuXiXInLG+vmUM56TWI4IQ3U8ELGbzNmHtHZ
-	 CsEA6EiiUFy/2Q5jGmRS1j8qR0m9wt5Zu77v8Uai+SNlvMDbvgiWKlxLmmWw+75Bl7abj
-	 hH7Xz7jdE5qqMuDWS+s9/tGr/uMIzQQQY1w2IBwSq0iR1mfNfkdtveemYqRGQcu3uJCaZ
-	 u1J5zkAoMwAEtmrGk2g/TzEAVIcx7zuh8Cb1j8g9EDoauT2YpRCM38l1PZwIJzttAohRN
-	 fhud/PANrTvrwt6sX64/+Bk5EauEvvJCVRw342bKTPr3wFPQ9rQB3475w+h+ZvoMuPQ==
+	t=1793114287;
+	b=G2RFEUfqW07bbBO0NdyxOuWUHw1FOqIX+neMn/K1lY2alBbW7wTIJSVVFB3EHNwOLF3l
+	 sGINcNO+dlBgCXy935tEJZvEp5KFQCHA4uCBvk1BzRoiWZVEU9bZWu65Elk+wBLLiaNB2
+	 gjlgFsQmo9vdBY8gdGf0kasl03qUei686uh029VK6TH+rXE7CR6RxxVCnjqSem2WO2y7w
+	 TC1wttcl9JiLSROOdfClTBH8JOraiWgwDqil3OYOfPjvl7UyKJuAi3KaV/VadDGKMXTou
+	 VVs/c7IsrJWQv/f+uX4CTqZR7vKqS3QwtGfz4K2oXaHEDWFh4OkWbA9MLntazbmGxtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114237;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114287;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cRq9t0qIqm1WrofTQOp5zElqXMgWMX02w9eR+vGRDO8=;
-	b=0aK14NwhatvIXrO8TqdZsKYYrWu6TJRpCRg7DMv8xlEPiDL3MnTMBgMzCZIN3wjXLhw9
-	 I7coE8IW3jenmaZiU/civQ8UaPfaHEqZGov7EfRL+0g52aMs335/ImUxINqWDKULRhaZr
-	 /YyW0jXDYPswOhmM2IyQO3fI4TVmoHyMK5hOqh8xoPiRztJpjBc7Jox0i2rJYGaY0CQY3
-	 nbFcDIbCITDfkrxBMolvV17B+5vTSkY9PUup/EKMB9+4a2ibqRuPBiUDvFyWsC2LXPvPQ
-	 oQMXefoyZBWc3uXk0RCcK+kbtqtE7CpC8UrNqb1FTt2etS5rG7znh33w8RjikqVwT/A==
+	bh=j3Qa+V3IuRI+P0CHYRVzERRph/QnLAAsDUYydB4MNhM=;
+	b=zT4htwFHsF0mN7hfU8WdTamgF1heb4x7xDvtIwqhmT2QHzAQvr0Hg0CnV73iwIiBNodc
+	 3PdrUgXURQPpj700e88gN/Rip7aSvFaxoYhQ3mFK4ioB9m90PmcHTPrQaSG6v+DMK8EvZ
+	 MI3rbppB9Q0AfNOa+cwRtWSw6howRq2KKfQsMxIRUF0ro5FGnUvqj/2ak3efF7P974M4k
+	 910l5yVnJiCaJdBf9MRcpeHX6dmIAtQxPuY5rISTR4OpVmlQpqfXH2+YKvgpEMYFeLXmO
+	 9oVeo9CBcgLhUePLJdeQ2W76wSz3lO0rMGiz5n5QV3knW/3B6LgCzm1TaQEwUFWiKdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hKnAHZMw;
-	arc=none smtp.remote-ip=74.125.231.201
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WLkRowIQ;
+	arc=none smtp.remote-ip=74.125.231.192
+Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F735606A31D
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:17:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F735606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D50606A31F
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:18:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D50606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hKnAHZMw
-Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f61e12e8e0so661952b6e.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:17:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WLkRowIQ
+Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-533fe730856so1900195b6e.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:18:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793114235; x=1793719035; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793114286; x=1793719086; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cRq9t0qIqm1WrofTQOp5zElqXMgWMX02w9eR+vGRDO8=;
-        b=hKnAHZMwirqdOZyPxF7SWjj0SCGQXFMiaWQLQ36LwEdV48EGwzpW8o8tTqS8R0E8jR
-         /tIaWAbKkJXcH4O84WsWQgWPeXdNEHOWFEa0iz1tCB33GQnTo86Gf7EwF3qiBMBIiE+c
-         8Z1kqYgBRa8kzmXKaHorQ1MFZ0Ro1cvSsolrfXo6cxJwnz/Z9hGsa/+4KWtHqQdgAALO
-         ENh3heGBbwfRHC9IApvcmRQ/iG1UcaKcmOPANVixbtJJzwf/c/H8WOJQGJqNUWF8Anl8
-         XvSxFZwpH7s9OQ6UuzoxsE5NZj2V45GZIzn85Y8eIiPR44jJxXHDqB3txKO50HuVLTrZ
-         3YDw==
+        bh=j3Qa+V3IuRI+P0CHYRVzERRph/QnLAAsDUYydB4MNhM=;
+        b=WLkRowIQXIhcPuk+Jxnyn81h2nuzryWq6PMTu+RVzNQM/XPlRZQlUuG++FIpXZw5Pk
+         L1g3NAW/uBM/eUK/pgryfRBsgFyOT8aKwnY3xUHRr+cH3zysJe6Ntw5vD7qgQ1ImfJLB
+         n11iJpyW0L1/pjzWnRVpHhfzj0+UvdweqZ1Mf3BFd2CneEKT9TyYvxTg5G0fJ1WbC8jS
+         MT5GoU5vUOp/JeuOngShJ02939g4gGnG2dC6HLLkDG503hvKmubrg1kmnZ1kF1A9a44X
+         SEm+8dSHbIakR44suIjh4+/HzV3uczmMxaWgg3f3cKlgPfSANCKHeK0SB0uTkLfhLGyO
+         a/Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114235; x=1793719035;
+        d=1e100.net; s=20260707; t=1793114286; x=1793719086;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cRq9t0qIqm1WrofTQOp5zElqXMgWMX02w9eR+vGRDO8=;
-        b=rJOMO/LSxKtTdoTOxRFiR+6xi8lctSr+deAyhD2beGI8Da1Z+6DVsRAeg5+QoBPjfO
-         hsRUSS6Px7h1HuGN//JO4N8RZpy4SH7rVSRhKHgISspvqqs6Y552SR/Go6P69ToiOfkh
-         B231MAZrKB5oB+kyYlSL+qkwIsaEwUcTaVGgeZVdfeKfw2S2Subsgmn8oCjZM9+Uxzem
-         DkSiUEcB5bEcuqMV/IERMlevbc+TLKSC/AnOq18HrqPpbWuAJXuk4/by8jcXgg3BK18/
-         iRF2OUyF9ZTVBLJ4rpYmdyr6eG6SWlypdgyPaoj5ZotSM1FMi4EmzpDPzetmZgi5L0Iz
-         qmNw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/330bwGm3Zbgjdl5C8gr/4NRghA45HucdXhZZdd4wLrrHK9w41vUCgXjnry1baj0jzlYoLEQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIH9bH1wYLPcrHprlOW7BDlHAmfdmbT/dH9xSd2xSwUCbCaHQfk
-	tYqB8xvm3ics0p3evpHuIs+7h73S/qxmK2q/ygTCFr0BGNZS7HPOcAaq
-X-Gm-Gg: AYBFou2qdmdHrMOeno8EBfNcnFHBuAo8DPWUSklJI6aGy9VzjqDSIEm9WpTeAgE/JI+
-	h9fD9tBOLCDDLxrz6Xc31BGw9MrkrMzZhY2FMuPUx7nlQAaODxBCYB2xrhtV0RnTKmftNPSa56g
-	3q60PKObaImRjwhhgzw5tp2aoZdyspv52XaJQUqE4G1Pl5fymknfIRoAr6UfTBq8CGkMZ7AhY83
-	Ql1XY4Fo2xVuzoIgfXyO4F1YHhQe55hzh5cImyBB9JVbuHMROwOvalSv8kYiMMvoa7xQQsKzHO4
-	5sVJRDfDssdF4c1uczjaxLjZLTqrrJ0IptuXucILzrnczxUWeWjNFaoZ8EUnUCR1jUPpT52X65I
-	IOIwe6il8pI6V+OwCWRi/v9lyEAlxWIo0iDG2r/90deygSeQMLjfsa2f5YZwJGQxkEMbvjdwktW
-	J7i/DiSBaqzEkwcGJ8jdhhWDCDb9WbQF4xBt9IKI46XlgHZs2uI/3cOouSxAbytkfdmDXmhwaQ1
-	ie0g+HnI5eEAli4Id9E26UuGYSgOVtCd6SKiXdY5Hu27KktCWEoenIlxCb1H+JDOhLu5lV/cfWw
-	nbtCgelpgF+sngH0MVVWCfagoYfJtH7/U08UdZfFVhPQugYhW38Ph7Ic0rVL7Gvcl6I=
-X-Received: by 2002:a05:6808:2215:b0:4d6:92b3:5c84 with SMTP id 5614622812f47-55c00421867mr6297968b6e.65.1793114235460;
-        Tue, 27 Oct 2026 08:17:15 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.161])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0429c932sm8197469b6e.7.2026.10.27.08.17.08
+        bh=j3Qa+V3IuRI+P0CHYRVzERRph/QnLAAsDUYydB4MNhM=;
+        b=Lq4sUCze3lJujMth8/OExWUNOiWgXtAQlCg8usR6lyNGoIilExjC8D1/Aj8yhAhci8
+         g5G01eoYTilYQE3nXW/iUCVo/q95cPeYe0gqYAf3ZCjggz3/GLmSQyD001MqeJhCkwzW
+         UrGscbZz0LlQ/bCBVRmWUdJYySeS0l9EXADv4fRA1sGarBKXH/M1riEz6kB9pgBzWqg3
+         tR1MmmoQ7DJJaOvAcXvCVoW7fNvmuSJLDwTIjVD0ZQ5FSELaZxVVMKXnjPLoWfnspQuq
+         8ejQWvDblJLO+Pw7n0L0bdYjCS9Wi5eFUGrZND+UWXURG9hC7ITmjbROYe1BzU4zuk3S
+         6Djg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6pG/rMwSlFd25Am3isliPDRHB8PerNVYemOnzX9qaIvSvH6d2p7nmqM1TmnLmJIsLOfjFM0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9+cphjRkAuq0dZln3gv+6g4VOL3Wn2IgaAFdywNadEtWO79z2
+	NMMUEGrisQfLVr6j8aVcuYDq79uut1elER1W4zza3/HiQx/bU9ncgDvi
+X-Gm-Gg: AYBFou1hmn1nc9AX/Tc2wjJtnHgzDaVZx5Cac2iA9bVYTa8KhpUBbqLhA/UD+F1DsL6
+	WLWKeh3pjMJtWCBcbtXiZQc6fJL1DegdW7eyEtQ1CQXHC8qakg/EzSzO5APkMF+BHK+na3buiOR
+	yf6aq+nMqGKlYNN0iVbT66bShpZzHECfFzgDoL3CC+CaMLGnqRronFMye4dPv0uAvzdr994vmY8
+	p/tw6QQtXMyPmh+CLHWZspWI52ZzM58/XGwQTmGYX6wNQEttYChI1ojxnSVFwZMfwhTOM0igWPK
+	UNLUekUP2zhYuWVFaoL8HmrqizveiIDQHTeTOEXQrjGRv42RKfb/a+q/2FuWJBwYjLMjI8D9AW0
+	jY6szB48fH2J8wypAPfjVaL6ENPmXNqbVIlGXsEN3pPR5hITqnCCv6O4ISD7EPP4dQWOTWLwewv
+	DN5zG9yxDJsTWPnQ3agXuA9QQkNPWmbcnQ/uosznKDa0AsyQBTxV+zlxLAaESR7zmpr/+p0mBl1
+	2GEC3Wud+LLzEmYNSDfyrzD0QNGQuYTdAfK1FGI/mSzdd6+QLee28wwktPmNWqt7/e4/0QAfsSt
+	qg35PIW7ADKgHObGGzw=
+X-Received: by 2002:a05:6808:244d:b0:4f8:4ec9:b170 with SMTP id 5614622812f47-55bfff9736fmr6281431b6e.2.1793114286462;
+        Tue, 27 Oct 2026 08:18:06 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.39])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c04311a8asm8009673b6e.16.2026.10.27.08.17.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:17:14 -0700 (PDT)
+        Tue, 27 Oct 2026 08:18:05 -0700 (PDT)
 From: Henry Martin <bsdhenrymartin@gmail.com>
 To: Carlos Maiolino <cem@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
 	"Darrick J . Wong" <djwong@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	David Hildenbrand <david@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
 	Kairui Song <kasong@tencent.com>,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Rafal Ostrowski <rafal.ostrowski@amd.com>,
-	Likun Gao <Likun.Gao@amd.com>,
 	James Clark <james.clark@linaro.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>
+	Long Li <leo.lilong@huawei.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Javier Tia <javier@peridio.com>,
+	SJ Park <sj@kernel.org>,
+	Rafal Ostrowski <rafal.ostrowski@amd.com>,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Likun Gao <Likun.Gao@amd.com>,
+	hongao <hongao@uniontech.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Cihan Karadag <cihan.cihan@gmail.com>
 Cc: linux-xfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Henry Martin <bsdhenrymartin@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] xfs: fix out-of-bounds write from crafted btree root numrecs during log recovery
-Date: Tue, 27 Oct 2026 23:17:03 +0800
-Message-ID: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
+Subject: [PATCH] xfs: fix out-of-bounds da node read with a crafted record count
+Date: Tue, 27 Oct 2026 23:17:54 +0800
+Message-ID: <20261027151754.975492-1-bsdhenrymartin@gmail.com>
 X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -110,125 +114,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xfs_bmbt_to_bmdr() converts a logged in-memory bmap btree root block
-into its on-disk short form, and it trusts the source block's record
-count for the copy sizes:
+xfs_da3_node_verify() bounds the on-disk record count with:
 
-	dblock->bb_level = rblock->bb_level;
-	dblock->bb_numrecs = rblock->bb_numrecs;
-	dmxr = xfs_bmdr_maxrecs(dblocklen, 0);
-	...
-	dmxr = be16_to_cpu(dblock->bb_numrecs);
-	memcpy(tkp, fkp, sizeof(*fkp) * dmxr);
-	memcpy(tpp, fpp, sizeof(*fpp) * dmxr);
+	/* we don't know if the node is for and attribute or directory
+	 * tree, so only fail if the count is outside both bounds
+	 */
+	if (ichdr.count > mp->m_dir_geo->node_ents &&
+	    ichdr.count > mp->m_attr_geo->node_ents)
+		return __this_address;
 
-The capacity bound (dmxr from xfs_bmdr_maxrecs) is computed and then
-immediately overwritten with the attacker-controlled numrecs from the
-source block.  During log recovery, xlog_recover_inode_dbroot() and
-the XFS_ILOG_DBROOT/XFS_ILOG_ABROOT paths pass a raw log iovec as the
-source block, so a crafted log item with numrecs up to 0xffff makes the
-two memcpy calls copy up to 512KB each (8 * 65535) out of the log
-buffer and into the inode fork area (a few hundred bytes) and past the
-end of the inode buffer page: a page-granularity out-of-bounds write
-with fully attacker-controlled length and content, before any dinode
-verification runs (xfs_dinode_verify() only sees the result
-afterwards).
+The "fail only outside both bounds" conjunction is forced weak
+because the verify pass cannot tell directory from attribute nodes.
+On filesystems with a multi-fsb directory block size (mkfs.xfs -n
+size=64k, sb_dirblklog > 0), m_dir_geo->node_ents is much larger than
+m_attr_geo->node_ents (~8184 vs ~504 for 64k/4k), so an attribute
+tree node with a count in (attr_ents, dir_ents] passes verification.
+Consumers then index the in-block btree array with that count and
+read out of bounds:
 
-The same pattern exists in xfs_rtrmapbt_to_disk() and
-xfs_rtrefcountbt_to_disk(), which convert rt rmap and refcount btree
-roots from log blocks using the source numrecs unbounded.
+  xfs_da3_node_lookup_int()   btree[max - 1].hashval  (max = count)
+  xfs_da3_path_shift()        btree[nodehdr.count - 1].hashval / .before
 
-Validate that the source numrecs fits within the destination capacity
-before converting, in all three conversion helpers.
+with count=8184 the read lands ~61KB past the 4K buffer, and the
+out-of-bounds "before" value is then used as a child block number.
+The read path is reachable by an unprivileged user via
+getxattr/listxattr once the malicious image is mounted.
+
+Tightening the verify conjunction would falsely reject legitimate
+large directory nodes whose counts live in the same interval, so
+enforce the per-fork bound instead where the geometry is known: at
+the two consumers that index the array with the on-disk count.
 
 This issue was discovered by Tencent CodeBuddy Security.
 
-Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
+Fixes: f5ea110044fa ("xfs: add CRCs to dir2/da node blocks")
 Cc: stable@vger.kernel.org
 Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- fs/xfs/libxfs/xfs_bmap_btree.c       | 13 ++++++++++++-
- fs/xfs/libxfs/xfs_rtrefcount_btree.c | 13 +++++++++++++
- fs/xfs/libxfs/xfs_rtrmap_btree.c     | 12 ++++++++++++
- 3 files changed, 37 insertions(+), 1 deletion(-)
+ fs/xfs/libxfs/xfs_da_btree.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/fs/xfs/libxfs/xfs_bmap_btree.c b/fs/xfs/libxfs/xfs_bmap_btree.c
-index 758a4b1ccf5bb..118e8ab35f1d1 100644
---- a/fs/xfs/libxfs/xfs_bmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_bmap_btree.c
-@@ -148,6 +148,7 @@ xfs_bmbt_to_bmdr(
- 	xfs_bmdr_block_t	*dblock,
- 	int			dblocklen)
- {
-+	int			maxrecs;
- 	int			dmxr;
- 	xfs_bmbt_key_t		*fkp;
- 	__be64			*fpp;
-@@ -167,7 +168,17 @@ xfs_bmbt_to_bmdr(
- 	ASSERT(rblock->bb_level != 0);
- 	dblock->bb_level = rblock->bb_level;
- 	dblock->bb_numrecs = rblock->bb_numrecs;
--	dmxr = xfs_bmdr_maxrecs(dblocklen, 0);
-+	maxrecs = xfs_bmdr_maxrecs(dblocklen, 0);
-+	if (be16_to_cpu(dblock->bb_numrecs) > maxrecs) {
-+		/* Corrupted log block: refuse the conversion instead of
-+		 * copying past the end of the inode fork area.
+diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
+index 3d02a0d7ba44a..ab3deff11111e 100644
+--- a/fs/xfs/libxfs/xfs_da_btree.c
++++ b/fs/xfs/libxfs/xfs_da_btree.c
+@@ -1787,6 +1787,18 @@ xfs_da3_node_lookup_int(
+ 		} else
+ 			expected_level--;
+ 
++		/* The verify pass cannot tell directory from attribute
++		 * nodes, so its count bound has to allow both geometries.
++		 * Here we know the fork; enforce its geometry so crafted
++		 * counts cannot make the array indexing run out of the
++		 * block.
 +		 */
-+		xfs_warn(mp, "bmbt log recovery: numrecs %d > max %d",
-+			 be16_to_cpu(dblock->bb_numrecs), maxrecs);
-+		memset(dblock, 0, dblocklen);
-+		return;
-+	}
-+	dmxr = maxrecs;
- 	fkp = xfs_bmbt_key_addr(mp, rblock, 1);
- 	tkp = xfs_bmdr_key_addr(dblock, 1);
- 	fpp = xfs_bmap_broot_ptr_addr(mp, rblock, 1, rblocklen);
-diff --git a/fs/xfs/libxfs/xfs_rtrefcount_btree.c b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-index dcc89b8e149b0..c6b351b7fbcdb 100644
---- a/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-@@ -696,6 +696,19 @@ xfs_rtrefcountbt_to_disk(
- 	dblock->bb_level = rblock->bb_level;
- 	dblock->bb_numrecs = rblock->bb_numrecs;
- 
-+	/* Corrupted log block: refuse the conversion instead of copying
-+	 * past the end of the inode fork area.
-+	 */
-+	numrecs = be16_to_cpu(rblock->bb_numrecs);
-+	maxrecs = xfs_rtrefcountbt_droot_maxrecs(dblocklen,
-+						 be16_to_cpu(rblock->bb_level) == 0);
-+	if (numrecs > maxrecs) {
-+		xfs_warn(mp, "rtrefcountbt log recovery: numrecs %u > max %u",
-+			 numrecs, maxrecs);
-+		memset(dblock, 0, dblocklen);
-+		return;
-+	}
++		if (nodehdr.count > args->geo->node_ents) {
++			xfs_buf_mark_corrupt(blk->bp);
++			xfs_da_mark_sick(args);
++			return -EFSCORRUPTED;
++		}
 +
- 	if (be16_to_cpu(rblock->bb_level) > 0) {
- 		maxrecs = xfs_rtrefcountbt_droot_maxrecs(dblocklen, false);
- 		fkp = xfs_rtrefcount_key_addr(rblock, 1);
-diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-index a15e460a1ec7f..29d948b42af66 100644
---- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-@@ -929,6 +929,18 @@ xfs_rtrmapbt_to_disk(
- 	dblock->bb_numrecs = rblock->bb_numrecs;
- 	numrecs = be16_to_cpu(rblock->bb_numrecs);
+ 		max = nodehdr.count;
+ 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
  
-+	/* Corrupted log block: refuse the conversion instead of copying
-+	 * past the end of the inode fork area.
-+	 */
-+	maxrecs = xfs_rtrmapbt_droot_maxrecs(dblocklen,
-+					     be16_to_cpu(rblock->bb_level) == 0);
-+	if (numrecs > maxrecs) {
-+		xfs_warn(mp, "rtrmapbt log recovery: numrecs %u > max %u",
-+			 numrecs, maxrecs);
-+		memset(dblock, 0, dblocklen);
-+		return;
-+	}
-+
- 	if (be16_to_cpu(rblock->bb_level) > 0) {
- 		maxrecs = xfs_rtrmapbt_droot_maxrecs(dblocklen, false);
- 		fkp = xfs_rtrmap_key_addr(rblock, 1);
+@@ -2161,6 +2173,11 @@ xfs_da3_path_shift(
+ 		blk = &path->blk[level];
+ 		xfs_da3_node_hdr_from_disk(dp->i_mount, &nodehdr,
+ 					   blk->bp->b_addr);
++		if (nodehdr.count > args->geo->node_ents) {
++			xfs_buf_mark_corrupt(blk->bp);
++			xfs_da_mark_sick(args);
++			return -EFSCORRUPTED;
++		}
+ 
+ 		if (forward && (blk->index < nodehdr.count - 1)) {
+ 			blk->index++;
+@@ -2227,6 +2244,11 @@ xfs_da3_path_shift(
+ 			blk->magic = XFS_DA_NODE_MAGIC;
+ 			xfs_da3_node_hdr_from_disk(dp->i_mount, &nodehdr,
+ 						   bp->b_addr);
++			if (nodehdr.count > args->geo->node_ents) {
++				xfs_buf_mark_corrupt(blk->bp);
++				xfs_da_mark_sick(args);
++				return -EFSCORRUPTED;
++			}
+ 			btree = nodehdr.btree;
+ 			blk->hashval = be32_to_cpu(btree[nodehdr.count - 1].hashval);
+ 			if (forward)
 -- 
 2.43.7
