@@ -1,122 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069071;
-	b=yKzyj+0G/Kxs2S0KLo8qwftHN6uLMNXbAk0w24+FR4MGesDtrSU19WsTDKtpx1NmVdzW
-	 3+42hwOv1vx+zwVJ/OPU968PzsnvJa5QJhgseyy3GGg7gH0sGe/3CcnLQipchYxxHSsC+
-	 bSTIM//M0vvXPt7+3Qu4+9bQsf4Hivyrw70zpmDSi4T8MzESv8YC4Q60MX5k8RrOl8hhh
-	 ElA3g6PE9REr6wleVZmnzQEO6ooZxelzZf+Y+G7TwwO33M11NdIBV1tA1ZmI1MK1P6TC2
-	 3e+GwdJs1WUjOqB/S9IvfiJo1wV1QSrZL/uBK8G81RGHZQLr0lEcgW2FdwVt0XNGI0Q==
+	t=1793069177;
+	b=mb9b3v9xYMgOPdr/uyvILAN8pqu15EN8GZoey/YNgXfM0IQfa3PT/wUj7WgVNxvogJKz
+	 SR+G6elpXWNcv/eA3p/DOFXmFLf+jNuUIE8J0pVLwVTJ71GuCqWdjFbomRWtSN8FihZvY
+	 yPwC8uvw6zsOO9EWfc4avvdxNPM93+vVh1+YGrihRV9IPTA7BSFjm0oNAterDThYHR2Vj
+	 yegojrrvb3Wq9eUsbTIdpmMcrTi5E7Xeeu12N+h47By6rX99gGUBmH0rV7a7z8aPLzY3B
+	 CEZaQTfGdM7BY1OyMIFyY4rKCbzxICYNPayGjflAVGwW4gX2nCySEqs4CW+9W5UeXcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069071;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=jD8NrEF10P2VtaMB8bhjtU6NtVeQsEVr6wPPMXQfP+A=;
-	b=bt0pP6/Ir90aiJXqNx9D6khfgUpD+TWKyBskyCOrrPwo1q0kuL+Kx6NkrrTRW3Qf2dL1
-	 FvHOXiFnhnjPxRw36osK3/Ql0NklsCpsno3Ulcqtr6zvSz5K61t0i3wDTqZvCFb3YYFcC
-	 FkyITDoR/wBgCohR+rmFdRCzgeenFDQIEcJCim42K8Ixr7HHLfWWrVDQ2HB8ThamDSZXK
-	 0fYXKbM4LkN1OaHUTbjV514aC8cDsBvTNbEIy6bDL1MmMp2cCMO/XukfBnf1RQTvc29jG
-	 VU0DcmTO4vK2xf3NfQsJydZbSp+ZrW9UXvVb7zzfuIhSm4sDschjCAP3RN1sY6/WmFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069177;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PGT+puAojXJ10M7d5F+nORTVc4mPik48tZJfhJIgcgQ=;
+	b=1MSEWfutaiESXbo68JK6z3AzLXDQ74qbWRzUaYFgZo/B4YLr8MwSIKRxUSI3aiQum7Rq
+	 Q7Irfg1meyi6uzsvQ2vs/7eqvRNcA+cA1h1PkxEQA7AW0usJ7xGmb09Xdd6kyvWt/xYYQ
+	 3UmFuArfMgEIQNgDF+KT3W0qkYvSJf0lxk1MO9VvCPTpDjl2qITMjCJdr2ITd6JGw7x7A
+	 hqN8Vmfi754t1hDIV7WZJsoosD4awCwTOX0stkcf9B2GNeOF6XBz4iBi6/lKTI2EJTDIb
+	 ZrHUiSDZw8lFb6/cllsvbJbiYFTw6Nhscj3maucmi1pp+ninwOJyvi6s+vc+alWZMyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=iBq+nqKL;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tBxBQwUw;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D9B606A31A;
-	Tue, 27 Oct 2026 02:44:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9D9B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C47606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 02:46:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48C47606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=iBq+nqKL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=jD8NrEF10P2VtaMB8bhjtU6NtVeQsEVr6wPPMXQfP+A=; b=iBq+nq
-	KLOEjbYYdUAPAEsZwkrsVlsMbau8sPaQUcFxapsXRqkp5x7L0HKbiz1V+JwuKcTR/GBqgaCvr71vs
-	Azl5exRlAEe+DimTQWh8fS0vwDU2CsiljZsMdUYZDAPvE5/hwXnoNhMGxlXeqfF7JYCSjK6mmcfeW
-	BfiPVgT3S4zTiGr3VU359pUEU7q0FHXgB6OThiw+NTjQPpMdcwrnSU5ZEyXwFVFYW0t+NalyqESRH
-	CfKP89P11ExVsiA3ldtFd1nVlkbgGl6/jisI5NTNJX9ju733TLXV4llbeM7Mjm7VlOJ93SU0QV4F4
-	bX5UR21h5xQnnQD/hzqAbQwGl8zw==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xLX9Q-0000000B2wR-2Z6a;
-	Tue, 27 Oct 2026 02:43:00 +0000
-Message-ID: <f12ffd4cf8933452ef13adae55d6d238a3069235.camel@surriel.com>
-Subject: Re: [PATCH 06/46] mm/filemap: read mapping->a_ops->free_folio under
- i_lock
-From: Rik van Riel <riel@surriel.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton	
- <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal
- Hocko	 <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt	
- <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song	
- <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen	
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
- <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang	
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>,  Michal Hocko <mhocko@suse.com>, Kees
- Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Jann Horn	
- <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins	
- <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush
- Yadav	 <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
- Lance Yang <lance.yang@linux.dev>, Harry Yoo	 <harry@kernel.org>, Alistair
- Popple <apopple@nvidia.com>, Nico Pache	 <nico.pache@linux.dev>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain	 <dev.jain@arm.com>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau	 <kas@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, John Hubbard	 <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, Will Deacon <will@kernel.org>,  "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Oscar Salvador
- <osalvador@suse.de>,  Minchan Kim <minchan@kernel.org>, Muchun Song
- <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,  Chengming Zhou
- <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
- <shikemeng@huaweicloud.com>,  Nhat Pham <nphamcs@gmail.com>, Youngjun Park
- <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>,  Joshua Hahn
- <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Ying Huang	
- <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org, Josef Bacik
- <josef@toxicpanda.com>, 	stable@vger.kernel.org
-Date: Mon, 26 Oct 2026 22:43:00 -0400
-In-Reply-To: <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-	 <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tBxBQwUw
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e831e86ebfso22644715ad.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 19:46:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793069177; x=1793673977; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PGT+puAojXJ10M7d5F+nORTVc4mPik48tZJfhJIgcgQ=;
+        b=tBxBQwUw3LMOsElAatjrmzeCT/o+kwm7rU70vYpvStsNfTivQebNbB4S41E+reNAut
+         vBPJYEZw9Al2tLcsK0+O8GSooRxE5X6oRt+UHy9JrVZ2d/LOkrADi8GG3ZFsP7Ne4glw
+         BZoGPPf27Wg++Q+2TjK5M9XOH/uM4vXzr6gE+sDNBd+LIyxuw+n3oEQO2qegbvFb5CDr
+         HU67wvjRhmgK+NlA18o5tGS8b/EwtF59eqMjNHkrumRV+iYvNvSMf5ZYxcOtPsOwbhSj
+         g7MgKYiODe3DijlSrduXjNpZdKp5uVlgbF81OamBofyYH1tDfIa6AnrYoN1LuAuLHvRx
+         k3iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793069177; x=1793673977;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PGT+puAojXJ10M7d5F+nORTVc4mPik48tZJfhJIgcgQ=;
+        b=XPGMW15KcGDszz39c5JBybFlHsggbHqYXkmTS8pWn0KlNUzp72TvrITHF3XVrWtQBi
+         MvqTit/DG5WZQtH8ClYnW9ENksuaIaO/Gfc9i56U7/w6D3+8ms1GB7GqCdGwYcstM+dJ
+         0fL1buUWtC1wBJ3a6L+S8mHOaFNkMzEqNvcfVaX8Oyj76RAztyWiCXH1PVMVV5ZKlNVF
+         x4q306rkgBwtQ5LYCrCSdueMCyZM/0bl5au4szGqMcwyIC2JDMJwflJ7XThicJxI1oSf
+         LPdgNJV0RvIj4rMwWvgaynSEqrWKOURIYre2RVqFfIt26M0Sr0YpPJiAODS+OxV9gAWt
+         fprg==
+X-Forwarded-Encrypted: i=1; AKwUvBzIo7iVwC1FFapNyDaFQMo+VGk5MiF8AxP8PbjvXqvdkGlAnF49qFt3X7wLHQx+q1Sudi+6YxE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/AkilzkRivlG6ZQEdb3rVbd03n3pnz5BA6IEz9MTQI1maoNNO
+	3RisPV47wAzEGvgXb3o+mDNO4b/l7KIX6HvQsOh94W2XfHt6lC+ZBn6+
+X-Gm-Gg: AYBFou3MpyFHMkSZ2arezi1fjdNbanuhohN//nPcply3quld4+vRgX7KTSgrUFrwOL/
+	y0A0OQuiPRhY8ATidJUTvGMaXJyrojpspUIY45p+NXwGISSr7R9tHcoMi1pm6TDoGOkMRtgvBx9
+	ZPUJKNy90vsK693t7hTpCHf6UjQl5qAE+Uybtqy0CV+6vwYblGfh6MItmW/DQhaslGDhDTH+3Jb
+	na3/DZszxqar5aKQ+Xhe1RT0G/PumQL+H7qZRekVq8UlTnBZ3eTkXLE6WmcBYCsERb7Glyc9N1n
+	gRP8bs/ecwFmmGMeucdaTva4+InwsUMwISuc+ad3zP16oYwk0zAUyk6usrKEGg1TjXpWkDZ3SZy
+	q4gSFH55simKbhyPx9cZYyNYTwQ3pFZgtdraRRW94LM7xNyPJG4Ccg/Gy+z/9PSmEq0E/5/CMNX
+	GCZzwrVW4M4nDtXOFcIhiIgYE7ynMkSkXikPAcm2YEPHP3cYnr6PGWXCxGBQ1qPUxY55Z2V6Qsg
+	sY9/0W/HvZwrM/YMxeoh7NPPNLWfTRPv3MoHlqWKJed/3tndeITU6zYgye6dAaAXbBHatNNag+x
+	hGnY/O4vGXQbjrnlA6fMpAC3YnUC
+X-Received: by 2002:a17:902:ea12:b0:2e9:87a2:b4f8 with SMTP id d9443c01a7336-2ea9c83f108mr69673795ad.29.1793069176577;
+        Mon, 26 Oct 2026 19:46:16 -0700 (PDT)
+Received: from lgs.. ([101.76.249.61])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bdd5cesm2324565ad.30.2026.10.26.19.46.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 19:46:16 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	John Stultz <john.stultz@linaro.org>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
+Date: Tue, 27 Oct 2026 10:46:08 +0800
+Message-ID: <20261027024609.117371-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,30 +97,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> The bug was found by code inspection and has not been reproduced.
->=20
-I can't say I'm surprised ;)
+hi655x_pmic_remove() currently removes the regmap IRQ chip before
+removing the MFD child devices. regmap_del_irq_chip() disposes the
+child IRQ mappings and removes their IRQ descriptors.
 
-I see clues that a most bunch of these issues
-occasionally happen in our (rather large) fleet,=C2=A0
-but not this one.
+The hi65xx-powerkey child registers interrupt handlers using
+devm_request_any_context_irq(). During child device removal, the
+device-managed cleanup calls free_irq(), but the corresponding IRQ
+descriptors are no longer available. As a result, the allocated
+struct irqaction objects referenced by irq_desc->action are not
+freed, causing a memory leak.
 
-> Fix generated by an LLM and sent by Josef Bacik in private.
->=20
-> Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a
-> separate function")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: get rid of filemap_free_folio() entirely; improve patch
-> description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->=20
+Remove the MFD child devices first, allowing their device-managed
+IRQ handlers to be released while the IRQ mappings are still valid.
+Then remove the regmap IRQ chip and its IRQ domain.
 
-Reviewed-by: Rik van Riel <riel@surriel.com>
+This issue was found by our static analysis tool under development.
 
---=20
-All Rights Reversed.
+Fixes: eb10245fb37e ("mfd: hi655x-pmic: Add powerkey device to hi655x PMIC driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/mfd/hi655x-pmic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/hi655x-pmic.c b/drivers/mfd/hi655x-pmic.c
+index 5cb392892c19..3a7ccc9d30b7 100644
+--- a/drivers/mfd/hi655x-pmic.c
++++ b/drivers/mfd/hi655x-pmic.c
+@@ -147,8 +147,8 @@ static void hi655x_pmic_remove(struct platform_device *pdev)
+ {
+ 	struct hi655x_pmic *pmic = platform_get_drvdata(pdev);
+ 
+-	regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
+ 	mfd_remove_devices(&pdev->dev);
++	regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
+ }
+ 
+ static const struct of_device_id hi655x_pmic_match[] = {
+-- 
+2.43.0
+
