@@ -1,53 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109522;
-	b=GKGtP1flHCvuRR1mCfi1j8fwPygnqucWEcI5df/9X81djkNzxGN/sAjYqYxPUS72FRQS
-	 QpmFi3y0wFkShlMS69/aNPRnG2riJAsXAj4gbaWA0AKjC+aj+89FoCuZFwVsbZRJjMtEL
-	 JFooe45EC8B/v64qFVhVUXBf4Qb1T1V78iqIpGTM9qcr4a4J6btr9HHMEC3EkWDwAQ7YA
-	 qXO0OhSzdRDjc/Bt9XoXsaQ75acDFbzncVsVCbVbxYqSj1kKMWer4vwNFaoW6pCLABZsa
-	 kImf19Mtb2NNhfJsI5wn64Yw3Vja2VMsj4t1yWemiaBnK25DAAe88TZd/L9t33sq4mQ==
+	t=1793109538;
+	b=jtGPPR2TGmw59sDoHHOSmjrRW1qesC8Z6sbOF4EzITwv9yxvDnPc3tvsTnItteY1UlMG
+	 nmor1AEHW9cyzISX37pghKcyPs+fu3/GLZ/nRZeFMrTbAgt4ACZgaD6z7AsTF+z4vx3VT
+	 DuCQ40ani7Uenr2iYpalemLIU6sdsOpMk0VA+vsV5mX9F2UFMpHE6fRz7jZa9MVf2mQ8L
+	 7pB8K7wbE1GAPUB5Ta71e3S1VXtTmgawEFVEV+NGnWfC4MLFOkEwKm1c2eyMq6pEUZ9HB
+	 HcjUsttAjhmrAiiia6KwzdnAKvraJvqa4ydNoRTGaQpQBlP1je/Hze/sq/7whm7Tj/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109522;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ZNW8maKSOmUQrE7ECbKlMR017leMZ50Z6p2INihyCQg=;
-	b=im3Ud2nO2cjDSiUp7VZUyjPILIwvJMmfPe9STsjPEMyWFlIkwjBDBG47h+Lxv8tdnzmM
-	 QsQyogrkNcPLDJRV4rjnkdsc2VX3sjIV1LkR7mlyffjdAHo1P+Y9wLoRQTkfFpLDHG/FW
-	 Ne6xCJ6NclWZgyu9R6BpJz866UwY1loCpmj+AdZay00j3bfh/Zzb0ACykvLRy+LA9JZOJ
-	 VW8pshCLuUAihw5+DqyscemWd1JrF+nPJZuZmgdVPUwSB8Y/0qpykUA35Oz+M/LAwguiJ
-	 QTyoymvOIdaXjwhkdK/uUVQn1/27AvLPydQRZ7SmAz/OJUD5jFzJgcBPG761qy0dJBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109538;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=w/asevmWz3EGzQUELUfjPY42F+0RqEQ7+Wm/whP+n14=;
+	b=bCKZ065CR7iEJflX4+QT/dW7lfgLUFIwCQwAF4XgetVkKI739EbrqGF0MK9BKQqw0Er5
+	 C+fnbmWmgZopdsJ5+cCiajSm+vHEsukT90Rcnlda9q/XbsJmCmdnozkd6tQ7zy+GjjKYR
+	 uE9oEx5QUSDGwJaiJnuSN9opuMU/kIlSvkC6l/n113n4gL8up4W2Lwbrbs9u0YsKY18US
+	 cUJld/+qmRlvqDB9irbHhj2SaWhCOzfxagZHmdbKSZAXIQV7g4eqY6hfEHglC04r7EdHh
+	 DDQ2x+IO8rw97aiJJpVn9z64WnTK1pCeZ3Y6ZvSb6f8XL7uwjE26SjpVaj3yWYiSqhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=orL2Va6C;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Hr9dn7Ia;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EF9606A31A;
-	Tue, 27 Oct 2026 13:58:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7EF9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BCD606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 13:58:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06BCD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=orL2Va6C
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=ZNW8maKSOmUQrE7ECbKlMR017leMZ50Z6p2INihyCQg=; b=orL2Va6CVyWuXhBJbyCqstSITZ
-	QSTVM/zkNxD5Kg2MQ0tcgDb5tD/EmTmbWrmGlSrO9OLn3dxw/mZD0pGZULiT9tlsC8pmmEFvSJslX
-	rvayo6wkCMlFOpKXHaUHv26z0Rpd1jwzGw+H1RAyoJ8TZrtE6IwvtidtvqgHhRNOypqz7UDySRrkY
-	P7SveV1TXDx2WLiPlknYJgMHIFkuuhEejiZtsLGNKX1vtc739ikTxo7zQjwrMXiTBiTwdio6EOBAY
-	jpSMBirFZjC9MOgoP4oBSAFZRLkCUX/7a7jUDMYuW8oKvh5OVwDpuQ9y8xq2/lEbCIUB1O9SDBdN3
-	i9lDh/lA==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xLhh2-00BqVl-QM; Tue, 27 Oct 2026 14:58:25 +0100
-Message-ID: <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
-Date: Tue, 27 Oct 2026 10:58:18 -0300
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Hr9dn7Ia
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793109535;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w/asevmWz3EGzQUELUfjPY42F+0RqEQ7+Wm/whP+n14=;
+	b=Hr9dn7IaLp1TwOh16RO75w0P+V0eav55BVtrHtqOfRXiksLX22O51pdRqeASAhAy3V/Gi9
+	QBpXWmO+Fmrd47brvJadSziWjUvuS91s6wSYX4Qa54h8ocTM0pO32mpVaHaFm9LH799y+T
+	U8FCPssFsauKomXO+asmCwTWgmKvRQM=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-526-PFnqHEF7PWGdMxt6ARAxlA-1; Tue,
+ 27 Oct 2026 09:58:52 -0400
+X-MC-Unique: PFnqHEF7PWGdMxt6ARAxlA-1
+X-Mimecast-MFC-AGG-ID: PFnqHEF7PWGdMxt6ARAxlA_1793109531
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E29FD1955EB5;
+	Tue, 27 Oct 2026 13:58:50 +0000 (UTC)
+Received: from pabeni-thinkpadp1gen8.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id ABC981800495;
+	Tue, 27 Oct 2026 13:58:47 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: theodorlarionov@gmail.com
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	nicoyip.dev@gmail.com,
+	stable@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] fou: reserve headroom before pushing the encap header
+Date: Tue, 27 Oct 2026 14:58:33 +0100
+Message-ID: <20261027135833.87953-1-pabeni@redhat.com>
+In-Reply-To: <20261021065517.198322-1-theodorlarionov@gmail.com>
+References: <20261021065517.198322-1-theodorlarionov@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,146 +85,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
- clock starts
-To: Lucas Tanure <lucas.tanure@neat.no>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dom Cobley <popcornmix@gmail.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
- <at_4EgWZFghkRHzH@collabws.localdomain>
- <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com>
- <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Hi Lucas,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+> diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
+> --- a/net/ipv4/fou_core.c
+> +++ b/net/ipv4/fou_core.c
+> @@ -1071,16 +1074,20 @@ static int fou_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
+>  static int gue_build_header(struct sk_buff *skb, struct ip_tunnel_encap *e,
+>  			    u8 *protocol, struct flowi4 *fl4)
+>  {
+> -	int type = e->flags & TUNNEL_ENCAP_FLAG_CSUM ? SKB_GSO_UDP_TUNNEL_CSUM :
+> -						       SKB_GSO_UDP_TUNNEL;
+> +	struct ip_tunnel_encap encap = READ_ONCE(*e);
+> +	int type = encap.flags & TUNNEL_ENCAP_FLAG_CSUM ?
+> +		   SKB_GSO_UDP_TUNNEL_CSUM : SKB_GSO_UDP_TUNNEL;
+>  	__be16 sport;
+>  	int err;
+>  
+> -	err = __gue_build_header(skb, e, protocol, &sport, type);
+> +	if (skb_cow_head(skb, gue_encap_hlen(&encap)))
+> +		return -ENOMEM;
+> +
+> +	err = __gue_build_header(skb, &encap, protocol, &sport, type);
+>  	if (err)
+>  		return err;
+>  
+> -	fou_build_udp(skb, e, fl4, protocol, sport);
+> +	fou_build_udp(skb, &encap, fl4, protocol, sport);
+>  
+>  	return 0;
+>  }
 
-On 27/10/26 10:53, Lucas Tanure wrote:
-> On Tue, Oct 27, 2026 at 1:07 PM Maíra Canal <mcanal@igalia.com> wrote:
->>
->> Hi Cristian,
->>
->> On 26/10/26 22:23, Cristian Ciocaltea wrote:
->>> Hi Lucas,
->>>
->>> On 2026/10/26, Lucas Tanure wrote:
->>>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
->>>> the TMDS clock is stopped and to start the clock at least 1 ms later.
->>>> vc4 writes the bit, and enables the scrambler, at the end of the enable
->>>> sequence, long after the PHY has started, and clears it before the PHY
->>>> stops. A sink that samples the bit when the clock appears never locks
->>>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
->>>> order work on the same sink.
->>>>
->>>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
->>>> was an empty stub upstream, so the PHY kept running after disable; the
->>>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
->>>> pre-existing race in the scrambling work cancel that the fix would
->>>> otherwise make easier to hit.
->>>>
->>>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
->>>> with the same change applied, against the sink that showed the
->>>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
->>>> reset and a sink power cycle all lock with zero character errors. v2
->>>> and v3 carry the same code; the hardware test of the final form is
->>>> still pending and will be reported in this thread. Mainline was not
->>>> booted on the Pi 5. The BCM2711 path is unchanged except for the
->>>> enable order; I have no Pi 4 at hand.
->>>
->>> While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
->>> ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
->>> issues.
->>>
->>> Hence, could you please verify whether your problem reproduces with a
->>> recent mainline kernel?  If it does, could you also give [1] a try and
->>> report back the actual behavior?
->>>
->>
->> I suspect you didn't hit this on mainline because vc6_hdmi_phy_disable()
->> is a stub, so the TMDS clock never stops between disable and enable.
->>
->> Best regards,
->> - Maíra
->>
->>> [1] https://protect.checkpoint.com/v2/r02/___https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/___.YzJlOm5lYXQ6YzpnOmQ1ODUyMWJlOGIwNzJjNjNmOWRiMDk3ZmFmYWFkNDliOjc6YTM1MTpiMzBiNzY3ODAyMzBkOGM2M2U0ZjRjMTY2MzE5ZjVhZWZjY2QxYmRjZDBlOWI4MzI0MGYxMjkyNjQ1Y2NkNzJiOnA6VDpG
->>>
->>> Regards,
->>> Cristian
->>
->>
-> Hi Cristian, Maíra,
-> 
-> Tested on a Raspberry Pi 5 with the Raspberry Pi 7.3 tree [1] as base
-> (pure mainline panics at boot on this board). That tree carries
-> vc6_hdmi_phy_disable() implemented, so the clock does stop on disable.
-> 
-> 1. plain rpi-7.3.y: 4K60 never locks.
-> 2. 7.3 + my patches: all lock.
-> 3. 7.3 + the 7.4 scrambling infrastructure + Cristian's 9 patches: same
->     failures as in 1.
-> 4. same as 3 + drm_connector_hdmi_enable_scrambling() moved before
->     phy_init() and drm_connector_hdmi_disable_scrambling() after
->     phy_disable(): all lock, zero errors, picture on the panel.
-> 
-> Maíra, I also tried 3 with vc6_hdmi_phy_disable() emptied again, as on
-> mainline: same failures as in 1. So the stub is not what hides this.
-> Cristian did not see it because his sink re-evaluates
-> TMDS_Bit_Clock_Ratio after the clock is running and forgives the late
-> write, as most TVs do. Ours samples the bit when the clock first
-> appears and never again. So to reproduce the issue you need a strict
-> HDMI input.
-> 
-> Happy to send a v4 on top of Cristian's series, with the two helper
-> calls moved and patch 2 dropped since the common helper already cancels
-> synchronously, if that is the preferred order.
-> 
+[Severity: High]
+[Finding: sashiko-gemini-db46d5c5]
+[Sources: sashiko-gemini]
+struct ip_tunnel_encap is four 16-bit fields. It is 8 bytes in size
+but only 2-byte aligned. Inside struct ip_tunnel the encap member
+follows parms and three ints (mlink, encap_hlen, hlen). That places
+&tunnel->encap on a 4-byte boundary, not an 8-byte one, on 64-bit.
 
-As your patches are fixes, I'd prefer to push them to drm-misc-fixes and
-then Cristian's would rebase on top of your patches, as their patches
-will go to drm-misc-next.
+READ_ONCE(*e) on an 8-byte object passes
+compiletime_assert_rwonce_type() and is done as a single 64-bit
+access. On arm64 with CONFIG_LTO, the 8-byte case of __READ_ONCE()
+emits ldar/ldapr, which requires natural alignment. Every GUE
+transmit that reaches gue_build_header() with &tunnel->encap, from
+ip_tunnel_xmit() or ipip6_tunnel_xmit(), can then take an alignment
+fault on the hot path. CONFIG_UBSAN_ALIGNMENT will also flag the
+misaligned 64-bit access elsewhere.
 
-Are you okay with this plan, Cristian?
+The whole-struct READ_ONCE() also does not give the atomicity it
+suggests. ip_tunnel_encap_setup() fills tunnel->encap with separate
+stores, so the copy can still be torn between fields.
 
-Best regards,
-- Maíra
-
-> [1] https://github.com/raspberrypi/linux/tree/rpi-7.3.y
-> 
-> Thanks,
-> Lucas Tanure
+What must stay consistent here is flags, between gue_encap_hlen() and
+__gue_build_header(). Could the local copy be built field by field,
+with READ_ONCE() on flags, sport and dport, instead of one READ_ONCE()
+of the whole struct? Or is there a reason you need a single 8-byte
+load?
+-- 
+This is an AI-generated review.
 
