@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097831;
-	b=WaDAoO4tLC4k3JsjAOWBcfdcVx9XX4dm5vbuUKboNjwMVp5n+EW3whRJz/omVlICERiG
-	 yyeXpXbgqGErHRggu+puOr1Ws9EPJPhRnzrCAcEIcRsQRdQPrSdFWsqmXTEtRMxXBdkFJ
-	 3bclMddaLv74OXLY+DsibxWPR0ngHdlHnXkcNTvkKXShLV8H8rSvDwkwa6WS2NP6CoH9X
-	 QM3gIF0Ioti1PtnzNxifkZE+5LiEyWchsXpJ5pjCFm7ZZwurxK5LKh5vaMl80RqZOKgOC
-	 lKyHl2Bd3CkPgo8JoT0hUyaEVZmYsye9eNQvaO9r+O2ModPQ8d+1K0UPA5e11+9POnQ==
+	t=1793097838;
+	b=CMOgyimDHz86cFCFI3F8Dq5Y7l2ieqm6yYEoWdlW0LQOpA89IVZsYcJW5fbdbS2taQM4
+	 EaPtHaxdia1x+NM/4We2+RSNyzyB9g7rkQfG5OTiGWXxvgAX+w5FyS1dTLtk5iA7J62oM
+	 iFkMFJd1tYwKp6H18ktmb0B3vWMvW2q0xK3Ez7NrYjwzvVtn5vwVA1BTai6Dmm4SsritQ
+	 4Pv4Wu4qmNkuqYEa6mDY9qE1qbcPc61on5/WcU36A2vDAu5RYbNUwWdFz71J5Y6U3rpGZ
+	 v/z4B5VYH4/3RnJJkkGpiCL0H5I2Zt5IuSm/Fl/H48sA/dsgtV1pMO5R60YWy1fEz8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097831;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097838;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PmR+vZLuWo/MOqGjjBOdrO5nYefFznZmjJsKNuauJZY=;
-	b=ag0Orn47rTwU2EpxZygEjHd3/+tDimPukDBFCUK+iGvZ2eF0iG241FNuP856aM/Kelw9
-	 g2u3qsVxcrtR8XVooeHBVlhxxUw5wYRpDqo4pFS1S1YJ3i5fHQ8Cq1IqBn2a4V1WVTrlw
-	 9bQS9OUj1OOvXKXy9BkZkjSNOGXI6rVRtD+WSnKt5ZGKbn+YbmrhzieNWhu52RpmrpgAP
-	 5ZP6PNKbL7BxvoHsS2e70rMxvDHcfxYzrx031jgL7eqWjBJhB1yh0/wK8eKaHT0q9nhQi
-	 AB+F7hQUGWxBGE65sYTpNXgPJulb/4CddD0hwwLrteNhFBvGUF2QMjA2T4lgWmlJzLA==
+	bh=RUGcoGJ3mRnt/Z7GBxa2RJO4TTMxywHgVzZ1aSTOpqE=;
+	b=zonSAmFxQmJXBy5fNM5HbyO09kH8AqzR1OkSmLTuM0mOwIjRcjK6eNSOmr3kEAesBYiU
+	 vTUNFEMJNESqySarj3WCltAL706WnGVrfoNPcdgD0oLA9eqHmahCLVDuDWICY8I35fSaT
+	 qJgaJMYd/bFjRYAjn5jlbNSxzh0C974lQoTZPzjcUBM9kxWvtfikuTPZAaLSzyf87UKoC
+	 KRWr9IQoWAMP3h9iLktp9UY4+f70XCfui5KsR3PGyHecxMyI/CabZZJ90Xpd2tszNmVkF
+	 qJ0/4ZEIfx+RvgWoWDcFt+BVbF7Iu254sPpyRGj4PtaqJEhYupCvYb4R3rvXzutAvPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLh2i4Pn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5uSrUhY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6C4606A31D;
-	Tue, 27 Oct 2026 10:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C94606A31F;
+	Tue, 27 Oct 2026 10:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLh2i4Pn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087C01F01829;
-	Tue, 27 Oct 2026 10:43:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5uSrUhY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1C11F031E0;
+	Tue, 27 Oct 2026 10:43:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097831;
-	bh=PmR+vZLuWo/MOqGjjBOdrO5nYefFznZmjJsKNuauJZY=;
+	s=k20260515; t=1793097837;
+	bh=RUGcoGJ3mRnt/Z7GBxa2RJO4TTMxywHgVzZ1aSTOpqE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mLh2i4Pn549MOAtBAwtTl7y/1OVtrnhp4rO0PbVy/V6UmYdAI3NtxKLMphuOG7fLo
-	 wblUgc4S0AB7lxV1rH43/mDzSHF3W6Fynm7taDJXc1bX2QL4Nti6g4BSRnPmyk/DiO
-	 lNS7FaWQur6QkV/w+mv7H8Wm50v3XNiFOVIguHWqQ6oSLNB4R5+4WSZOHQkxrSuugc
-	 CMuIVKXwgrjt2zoc+cfKUOK3c473SQp01RiT5Df8tKOgu8lhdEcdUXMMrkXXCKHppD
-	 D83cximXZrxDk6WmbRv4v12unJ6ypdppHtcvqEWZQjSiy2ajbp1AztlNYQOhLWSW7u
-	 fD317OsWCcakQ==
-Message-ID: <b30a1c50-2db6-4376-bcfa-3088ce5d68d5@kernel.org>
-Date: Tue, 27 Oct 2026 11:12:41 +0100
+	b=c5uSrUhYlCsGKMO8Vp8lcJXtrvW1Yd9wQv6SBFXz1V0+3wtAnO8fPiQP0N44b5Caw
+	 JEfPDn2OgjccvQPVnX9M/V4VDQdTor9tUu92/PRDa9si9aYVzDcMuUTkZ63f/xl+MY
+	 wZIC3SiiuburrWWPpelVf2/XqjSKfYfDyW5QyoJ6TzsM0fdTaa/1gMoPCO+kaODY6M
+	 gteuPkd5rNdSnaN5sCYooq12TpUeft37PUUaXuIyhur4BrRBlfcjiRhAucIDo0OU2g
+	 F4JJK0ITfJexW69BQBa2a8huNvhSK4zOzUugogaUwEtLU2KWCRkeE52k0Z4b/7BDQX
+	 yLto4UgWV6vUQ==
+Message-ID: <1748ab4b-c219-4eb2-9f0b-cc540c7986f4@kernel.org>
+Date: Tue, 27 Oct 2026 11:14:09 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,14 +52,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/16] mm/shmem: rescan after nonuniform folio splitting
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+Subject: Re: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
  Johannes Weiner <hannes@cmpxchg.org>,
  Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
  Carlos Maiolino <cmaiolino@redhat.com>,
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
  Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
@@ -72,8 +73,8 @@ To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-11-703206d5fa0c@kernel.org>
- <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
+ <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
+ <152d698f-d7bd-4e1a-9736-412d52e2370c@linux.alibaba.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -120,83 +121,66 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
+In-Reply-To: <152d698f-d7bd-4e1a-9736-412d52e2370c@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/27/26 03:32, Zi Yan wrote:
-> On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
->> The final scan in shmem_undo_range() restarts after a successful split
->> only if the original folio is no longer large. A nonuniform split can
->> leave that folio large, so the scan skips the newly created folios.
->> Hole punching then leaves pages within the hole allocated even though
->> they could be discarded.
+On 10/27/26 09:59, Baolin Wang wrote:
+> 
+> 
+> On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
+>> Truncating a tmpfs file or memfd to a page-aligned size inside a large
+>> swap entry can loop indefinitely in shmem_undo_range(). The task holds
+>> the inode lock and cannot be killed.
 >>
->> For example, a fault below the hole can allocate a 2 MiB folio after
->> boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
->> folio successfully but leaves the original folio at order 4. The scan
->> continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
->> The hole reads as zero, but the pages and their block charges remain.
+>> A large swap entry represents a whole swapped-out folio. For example,
+>> truncate a file whose pages 0-7 share one swap entry to four pages:
 >>
-> 
-> 
->> Restart when the original folio is still in the mapping after partial
->> truncation, identified by checking folio->mapping. If the helper
->> removed the whole folio, no rescan is needed.
-> 
-> This paragraph is no longer needed after Zhang Yi's truncate fix, since
-> truncate_inode_partial_folio() returns true only if the folio is split.
-> The function returns false when the whole folio is truncated[1].
-> 
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/tree/mm/truncate.c?h=mm-stable#n282
-> 
+>>      [ 0  1  2  3 | 4  5  6  7 ]
+>>           keep    |   discard
+>>                   ^
+>>              new EOF, start = 4
 >>
->> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate operation")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/shmem.c | 11 ++++-------
->>  1 file changed, 4 insertions(+), 7 deletions(-)
+>> i_size has already been updated when boundary handling asks
+>> shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
+>> calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
+>> because its starting offset equals i_size. Nothing is read back.
 >>
+>> The final scan cannot free the entry without losing pages 0-3. It skips
+>> it, restarts from start = 4, and finds it again indefinitely. An unaligned
+>> truncate avoids this particular failure because the requested page starts
+>> below i_size. Folios already in the page-cache cannot trigger it as the
+>> direct lookup will return them beyond EOF.
+>>
+>> Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
+>> directly for swap entries. This bypasses the read path's i_size check,
+>> allowing the existing boundary handling to zero and split the folio. If
+>> swap-in returns a smaller folio, it also splits the swap entry so the final
+>> scan can free the entries beyond EOF. Retry the lookup if the entry
+>> changes during swap-in.
 > 
-> folio->mapping check is dropped and the comment is adjusted after the
-> patch is rebased on top of mm-stable because of the aforementioned
-> reason:
+> Make sense to me.
 > 
+>> Handling swap-in allocation failures remains broken and is unchanged by
+>> this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
+>> instead of -EEXIST, shmem_get_partial_folio() returns NULL and
+>> shmem_undo_range() skips boundary handling. If the large swap entry
+>> remains intact, truncation can still loop in the final scan, while hole
+>> punching can return without zeroing the boundary.
+>>
+>> This may read an entire large folio back from swap while holding
+>> i_rwsem, only to discard part of it. Avoiding that I/O would require
+>> splitting both the swap entry and any large folio still in the swap
+>> cache. That, however, is much bigger work.
 > 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 7cf5a4d9d1ace..ddea31f44fb32 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1477,18 +1477,12 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
->  				} else if (truncate_inode_partial_folio(folio,
->  						lstart, lend, NULL, NULL)) {
->  					/*
-> -					 * If we split a page, reset the loop so
-> -					 * that we pick up the new sub pages.
-> -					 * Otherwise the THP was entirely
-> -					 * dropped or the target range was
-> -					 * zeroed, so just continue the loop as
-> -					 * is.
-> +					 * The folio was split. Retry the scan
-> +					 * to find the split folios.
->  					 */
-> -					if (!folio_test_large(folio)) {
-> -						folio_unlock(folio);
-> -						index = start;
-> -						break;
-> -					}
-> +					folio_unlock(folio);
-> +					index = start;
-> +					break;
->  				} else {
->  					/*
->  					 * Splitting failed, but the part in the
-> 
+> But I think this case is extremely rare, where every attempt to call
+> shmem_split_large_entry() to split the large swap entry in the loop fails. At
+> that point, the system is already in serious trouble, where even OOM kill cannot
+> free up memory for the xarray allocation. Hard to believe this can actually
+> happen in practice:).
 
-Yeah, that's straight forward. For this one I will keep Kiryl's ACK.
-
-Thanks all.
+So, it's fairly easy to reproduce with memcgs. But yeah, I assume this is a
+corner case. (hopefully :D )
 
 -- 
 Cheers,
