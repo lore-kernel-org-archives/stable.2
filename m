@@ -1,96 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117391;
-	b=FywbYBUHO7wRd+V+psWXNorQtZHYaAxo2IQgIb/SyvOnkwxXPhTO4IWM5xESi5xpKyzM
-	 d6RM2uGoNxHK/b2iZ0LWL00TCvbivKHyWGLLP5+zw5TosCfxFdYPECeuAwYnJOcZcac1H
-	 iTJtpRxdm3pX5/ZbGmDpBCJE4JvP1wwHf1FowDxOf7DvgTwr9CkLnYkA5Z2pL2CMvNkWj
-	 6LHiAyHDSBa0YKoe5XRX9dwuzXL6pgi0LTXZVILwKQyUafP5/cGKyWpbPBFKY5z0fTf79
-	 W24yz1xRHbG5ACJeNMrs/ttsF14Mui4yUQQWAzqzCcNDju8SHtJr7WmenSz6jHSXizA==
+	t=1793117466;
+	b=PwxOXmDeB3sRubj8F3zQNRsY5LYtXNelEdTREXgU2/febAjw22MkebsRlhZ6ezuPVr+L
+	 fn8ilTx8RlCHP4Z0/qKyKqUrqQguHTZGPYQ3b/x9eQyDvFbHHbyWMV+hn+SjaxB6yenIt
+	 6cJXlSP830wCKieJPTGQ/pqECPej92y1jwiTnQsyhWvOQT03q+OSwSs46Ufveeyg83X6e
+	 FQmP2bINAI2Kan35aGe4Mx+pfZ0f5qDWCuemfhNRH6SPhrRbOyJ0/QNmHYhEnoTswpKdV
+	 OYKvFchUe7BACXjTBNY+4tqK3eCWWoYK239d1JPdmPbBOTEO3UzmvzqYEk49FhY6ctQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117391;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zXxn2I5xRz6x8frUdiRRQE7jhrWj+wttl0bEoQMCRfs=;
-	b=DkeXNCR6qXN9Ir0zjJlEM7PB1KB65D/agu4SAeL/uZXo1uONnriIunTTT0T/wGdkgACY
-	 eZ5UXyVr3ixsHQup7EfXmugPTcxpm+9RQ/Cr6WyKCyedMCSDYedkyUxPoCm/4nw9tGoxv
-	 xnIe387Eb5dNHniNlFS1kVtj1lxmZJv+d/hm10lCqjqMNPjpEkRFQaDZ7VL788VDlJMYx
-	 4CHewXMzRPNHZQYcoiIZQeMKb6vyWaNRv+Uj7PEamvRItl1AAeWKntTcwlfmWXk/a+yvL
-	 5VVlicnPFh/gqbSIOh7NPhmIpnZHxkrV0oGphnDM36ulbVOLINedPba+pTYpGly2Ryw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117466;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=YfHrAfI9Raij9s83r70SYcL5s7BnI9+K8vQC+GWWGI8=;
+	b=o2ZQBtx7VnKQkkk4YvXajsIfn4P552TYJSLuuC1AR7twKprv1xXTW86ITRJCujYOnSs6
+	 Pm5lbEdIfgNypRoTohwKEVVrkSXj8oTucwlLUG5uEQ2BbZlehbg4tSv1Kl4VkfoOnexoQ
+	 dkYi1qvkLVZc06MryKlxikv5w2y4KnSy1P3vDx/JwHjAEsFrQRJqyb0SMxdSCuxgWvvXP
+	 zEg2+6/BJG6aqag0RtyYJmqbuZCvqhQOI/HbfCudNTVVYoQ3K9G7jxI5PnL2CEhiI2wLL
+	 V+OcswWXRt9zL02GMfpR/2Zmz7GnKwQQdkJPPaiq843LOLonoqZKLNop2AUcB20cMRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zF3ihAUz;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CWV+pd7v;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dH0yVuWP;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CWV+pd7v;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dH0yVuWP;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727E5606A31B
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 16:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 727E5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58FF606A321;
+	Tue, 27 Oct 2026 16:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D58FF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zF3ihAUz
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so34579eec.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:09:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793117390; x=1793722190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zXxn2I5xRz6x8frUdiRRQE7jhrWj+wttl0bEoQMCRfs=;
-        b=zF3ihAUzXf8793o6L+4QfNxIyt7f+13AIXnDYsk7gzSuy+4xL0fzt9p9lf3HEzXuM5
-         qHU/hijXmCeOGtpwK2JXmMpkP3fNEQYZ1OQw2el+ubMKdUVFE7EsutNErbR/r/9JXVXp
-         mMlw3MubtOyB7eAfF6nHNoxQDK3JarQM2lKMkH2sna7MvF9MP4JDICX2s38DpdMSeFCE
-         1kDMz2vrztRfnTkgtj2jqCf716FuVBMsWxFrtMnOf4xjjFhJa+csbQ1t9VwJh5aVj63/
-         DhpZNQWV3xsgEZkc4/WPBbRJNTm66g+hY0eLtIdjNlm3TJOShzIO1QtZybQ1R/rUKOqy
-         3TNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117390; x=1793722190;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zXxn2I5xRz6x8frUdiRRQE7jhrWj+wttl0bEoQMCRfs=;
-        b=RSs71FF7ucjpCjXcg6ZsWZuXduZ3TZgdQ+Xfy8v/6J2MkUR2r13l4xAf8HFac2V4kI
-         AzhYSyVk5wJlKdgpaXY85B/QtXJQfHez+vArbbALKQkL1UZ0dyhQmL0kHG9RH2jkQHxu
-         w1lrvnr6h3f8LhQwNm+HtZvFZ7Gj8/mZWqWberDE3h+lfKpwUFwJdT13RM8SeMFtL1vb
-         iqc5OrHcqwAOIutNW0fgYCVzFLQk68J67S/lwCkMHslOwVH76TkPVhMB6ViYrQ+8Y/UI
-         Ek1IoEA8ndjYB8eLO1eYkSToIGvWE/8vc0FA9vmMnyIk+AUpB2xJopfdrAKFkUG0QLkU
-         I+OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8nL/7lMrWpn2kb14sC6LHfpX7gdtds1uHRaicG8o4MsVeQrTbFfDgPpYrSha6emw1CivXzXY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjFWyxS3ycthVFYnrgsXMXlRtxgF+OjdHwrhhem1kzQhnOt7nV
-	WW+WD29kjS3iYie2tJh3Ny/ohinU5tpL97di8RnLEoAv5VPyE4AzuiDyr69gT28GB86Xmw==
-X-Gm-Gg: AYBFou2wkpJP4D0FjeahObYNo1MwMahBo/S7lLO7TIUqDTsrQ+sQC5cX+9iPipK/ayi
-	dTZ4VU8XrlLGNCe1nsbP3HBgENEiYKMyC24ueyKe9dMDXVf+F52kF7lw9nGOQX1A5MvTIde37PW
-	wzTovMKlkXC0bT+eEf8cHLPRNtYohQ1Mdbk1NgX6iW01Tk6ghN6Psc3DTdLUMOBOMx/sttCSmWO
-	EMRhs2dzFHrd4zmHTH/lLmcZeW9iSH4BoEbhYrKIM0Kf6v6CLGrkSKsfA+6nne/+jClji0gAK0M
-	xqFqENNeU0i30Dmty6IASbvqWAjFXWxymttyn4FyqmVwT8m+jsUzD+7LbwHajONR1NRc+hvS6XG
-	6tks8pkaXioIdpGeTl0inoLH5ocGcZU0U7sekNgLQFUp89VU1WHpfV2A3Wwuk6pijn0tw3QtjyW
-	f5T7/BXWzidxbw814s5bVBSFV4+H+/frUuV9OHyx6S/oo5SOcMLSqRo/c0eOeAxvLT25OQmIdqA
-	H4f2BJ3nAJ9RSzJ+mU24Cybxbq8M8YK31QjDw0n7qr5zv6uTLm55YOO3zUiHe2U2yXOJYNZ8D6+
-	MCc15Mylxz8KHIt/4K3hrKeKrmfTEuE5ARRUrh03AUPiaP7wtRvxL7KsjOFrs46FboaqudJRDSA
-	8fw==
-X-Received: by 2002:a05:7301:d192:b0:353:7e33:664c with SMTP id 5a478bee46e88-369e8610eedmr14636189eec.37.1793117390413;
-        Tue, 27 Oct 2026 09:09:50 -0700 (PDT)
-Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daa3a8sm43061239eec.16.2026.10.27.09.09.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:09:49 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	co+b0df61d49532b2ee@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CWV+pd7v;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dH0yVuWP;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CWV+pd7v;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dH0yVuWP
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A563521F16;
+	Tue, 27 Oct 2026 16:11:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793117463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YfHrAfI9Raij9s83r70SYcL5s7BnI9+K8vQC+GWWGI8=;
+	b=CWV+pd7vX6TrUdMXNaxESYJ1slGQOcP06ic+g4xxjnPvWnvKsCWHc5jQdxIPIQbRLzO9R/
+	diRP0hoJuL/mI0KQkpa3xxmXRWeSg74DGGEU77lFzSpCYYlDj7PdkWYefoW4nkJgVCUPf3
+	QaNpFGuQxCzB3SqNtBvKB0BxwcTkqYc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793117463;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YfHrAfI9Raij9s83r70SYcL5s7BnI9+K8vQC+GWWGI8=;
+	b=dH0yVuWPJUPJUjY+esjPpF+hgG8gt8lOiUDib4DBNfyZ2FqTmjKurTJ9mNNDDjXKRirJJN
+	V99f8i/6XejizRBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CWV+pd7v;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=dH0yVuWP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793117463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YfHrAfI9Raij9s83r70SYcL5s7BnI9+K8vQC+GWWGI8=;
+	b=CWV+pd7vX6TrUdMXNaxESYJ1slGQOcP06ic+g4xxjnPvWnvKsCWHc5jQdxIPIQbRLzO9R/
+	diRP0hoJuL/mI0KQkpa3xxmXRWeSg74DGGEU77lFzSpCYYlDj7PdkWYefoW4nkJgVCUPf3
+	QaNpFGuQxCzB3SqNtBvKB0BxwcTkqYc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793117463;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YfHrAfI9Raij9s83r70SYcL5s7BnI9+K8vQC+GWWGI8=;
+	b=dH0yVuWPJUPJUjY+esjPpF+hgG8gt8lOiUDib4DBNfyZ2FqTmjKurTJ9mNNDDjXKRirJJN
+	V99f8i/6XejizRBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B83C1321C;
+	Tue, 27 Oct 2026 16:10:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qrX6BxPN4GrwdAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 27 Oct 2026 16:10:59 +0000
+Date: Tue, 27 Oct 2026 16:10:57 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
 	stable@vger.kernel.org
-Subject: [PATCH v3] fbdev: vfb: Validate framebuffer geometry and memory size
-Date: Tue, 27 Oct 2026 09:09:14 -0700
-Message-ID: <20261027160914.3787276-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH 07/46] mm/filemap: don't lose a folio lock wakeup to a
+ signal
+Message-ID: <auDM5mvsb5ilIdsg@pedro-suse.lan>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-7-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,110 +137,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-7-6f74bec9a5bb@kernel.org>
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCPT_COUNT_GT_50(0.00)[65];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: A563521F16
 
-FBIOPUT_VSCREENINFO can supply a virtual width large enough to
-overflow get_line_length()'s int multiplication and bypass the
-video-memory limit, allowing fbcon to write past the framebuffer. The
-offset additions can also wrap, while an excessive videomemorysize
-module parameter can be truncated when PAGE_ALIGN() is assigned to
-unsigned int.
+On Tue, Oct 27, 2026 at 12:17:27AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> An exclusive waiter in folio_wait_bit_common() can leave the wait loop
+> because of a fatal signal, then be woken by folio_unlock() before
+> finish_wait(). If the waker did not hand over the lock, the waiter returns
+> -EINTR without trying to acquire it.
+> 
+> folio_wake_bit() stops after waking the first exclusive waiter, so this
+> loses the wakeup and can leave other waiters asleep indefinitely on an
+> unlocked folio.
+> 
+> After finish_wait(), let a waiter woken without a lock handoff try once
+> more to acquire the lock. If successful, return success so the caller's
+> eventual unlock wakes the next waiter. Otherwise, the current lock owner
+> will do so.
 
-Cap framebuffer geometry at 8192 x 8192 and video memory at 512 MiB,
-keeping the stride, framebuffer-size, and generic fbdev drawing
-calculations within their destination types.
+Has this been reproduced? I feel like this would've been found out by now?
 
-KASAN reports:
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: clarify and simplify comment + description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
-    drivers/video/fbdev/core/sysfillrect.c:24
-  Write of size 8 at addr ffa0000001671000 by task poc/198
-  sys_fillrect
-    drivers/video/fbdev/core/sysfillrect.c:24
-  bit_clear_margins
-    drivers/video/fbdev/core/bitblit.c:247
-  fbcon_clear_margins.constprop.0
-    drivers/video/fbdev/core/fbcon.c:1410
-  fbcon_switch
-    drivers/video/fbdev/core/fbcon.c:2261
-  redraw_screen
-    drivers/tty/vt/vt.c:994
-  fbcon_modechanged
-    drivers/video/fbdev/core/fbcon.c:2693
-  fbcon_update_vcs
-    drivers/video/fbdev/core/fbcon.c:2732
+Acked-by: Pedro Falcato <pfalcato@suse.de>
 
-Cc: stable@vger.kernel.org
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: <co+b0df61d49532b2ee@bugs.sh>
-Suggested-by: Helge Deller <deller@gmx.de>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
-Changes in v3:
-- Clamp visible and virtual resolutions and offsets instead of rejecting
-  oversized requests.
-- Clamp videomemorysize before PAGE_ALIGN() instead of rejecting it.
-- Add unsigned suffixes to the limit constants.
-
-Changes in v2:
-- Limit virtual geometry and offsets to 8192 x 8192. This retains 8K mode
-  support while bounding all generic fbdev drawing calculations.
-- Cap videomemorysize at 512 MiB.
-- Keep the existing arithmetic types now that all inputs are bounded.
-
- drivers/video/fbdev/vfb.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
-index de137b2bdaed..deaa3e9c758d 100644
---- a/drivers/video/fbdev/vfb.c
-+++ b/drivers/video/fbdev/vfb.c
-@@ -31,6 +31,9 @@
-      */
- 
- #define VIDEOMEMSIZE	(1*1024*1024)	/* 1 MB */
-+#define MAX_VIDEOMEMSIZE	(512UL * 1024 * 1024)
-+#define MAX_XRES		8192U
-+#define MAX_YRES		8192U
- 
- static void *videomemory;
- static u_long videomemorysize = VIDEOMEMSIZE;
-@@ -142,6 +145,10 @@ static int vfb_check_var(struct fb_var_screeninfo *var,
- 		var->xres = 1;
- 	if (!var->yres)
- 		var->yres = 1;
-+	var->xres = min(var->xres, MAX_XRES);
-+	var->yres = min(var->yres, MAX_YRES);
-+	var->xres_virtual = min(var->xres_virtual, MAX_XRES);
-+	var->yres_virtual = min(var->yres_virtual, MAX_YRES);
- 	if (var->xres > var->xres_virtual)
- 		var->xres_virtual = var->xres;
- 	if (var->yres > var->yres_virtual)
-@@ -159,6 +166,9 @@ static int vfb_check_var(struct fb_var_screeninfo *var,
- 	else
- 		return -EINVAL;
- 
-+	var->xoffset = min(var->xoffset, MAX_XRES - var->xres);
-+	var->yoffset = min(var->yoffset, MAX_YRES - var->yres);
-+
- 	if (var->xres_virtual < var->xoffset + var->xres)
- 		var->xres_virtual = var->xoffset + var->xres;
- 	if (var->yres_virtual < var->yoffset + var->yres)
-@@ -434,9 +444,12 @@ static int __init vfb_setup(char *options)
- static int vfb_probe(struct platform_device *dev)
- {
- 	struct fb_info *info;
--	unsigned int size = PAGE_ALIGN(videomemorysize);
-+	unsigned int size;
- 	int retval = -ENOMEM;
- 
-+	videomemorysize = min(videomemorysize, MAX_VIDEOMEMSIZE);
-+	size = PAGE_ALIGN(videomemorysize);
-+
- 	/*
- 	 * For real video cards we use ioremap.
- 	 */
 -- 
-2.56.0
-
+Pedro
