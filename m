@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793082017;
-	b=sYeC7BbHi7ZtCh5MqEfTSU7PdfJoM6L3msSqZzbKVRgIBU1ONbhThCZTJ1WEHtyjr8aa
-	 9vPFR64Ha1diM+/wVm5VKQI0TtQVhSezyPz6RMHmv6qu5Jhou4+BdW4dRP22MfeBObVKj
-	 /E6BSBXpwPTia4VcUxSt3OH6b9DC0GoZi4S+DDncZn+x2XkA79nxgqQ9PrugpQd6eeFZT
-	 u8HdlcZQ+7Ay5QmtxVrP+5pfY2N3ZiRaVSv1OALNOdQ1ToZZ9GhQwR29BXwrXmdtM3JxB
-	 NWHXZyVa+QOGXzlcMY3/yB7cbj6pWfZ3ZrcGC06QdX5R3dh5AOsFqGq5VhEmxUQQWQg==
+	t=1793082380;
+	b=jefogaAs9OToKoqP5b2mMsDWQ6P+809PERm2VeY7xj4+NdwLVYqaO3zK7gBj1UR4CWZJ
+	 U6ufllAbXX4OwZDiWfsKXyzZeQ6c33wZ7BXMQriekYUvk93h9SFWX2MPRYBFYURuXmhU5
+	 HCB1GOrr89Al2l1JsfAbaxL1mRoOuh5L3pOf9SIeECtk6qkAOlJkX+iQFBkJS97iFJfFI
+	 uBJ8IWwzUObrTFZfen3m9+cg6Hi6dlhUtDdb1CGLLF9VoLwe0DS1Ntl30oUjgY4zHsqN5
+	 kZsuRCuKHTvDSW5XM8TNCzLjj5ONpHI1nN3pREbACoZqQn2V+/2p7e8o6D/eTIsV7yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793082017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793082380;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=D0qXlGYkhUaQu3BXG9i/Wn1oOUp7K31Eb/rzZABKwDo=;
-	b=jcJ+dJFaui1rbhfDmuyfKgrZEHuizrs0gA5IRciqpg480pBfIWyTLCk9BKVBM0USR/tn
-	 KgUxoBHIJeYE9wi4IbOagNMr4okSHyhHTTby7II8nQt6Q7JZq6w9W3umhdfO/6EUmS1LL
-	 ToVMtNnBsFTY9TJSs83AZMzJdeAf1SJwYL89ekOVCfIlvADLRmepyPJyVYwie/u9reRC5
-	 U3wlrAzEIxNrjkwaOHc2EPaYVgwS5utXWI0H1eGOoMfZWbwDmdoyQanGgPINdabjNKnFg
-	 dxD5XC4QOGn9EGAgQa6lgj3fnTgDrsbvEh359QJYRu3l3BnDKVTKg4yWAl86Dxtlvlg==
+	bh=V9ApAIzeT+M/XO21y1Qv5W9e8U1mznozVnK/qq4x5Q0=;
+	b=KQMGdBC9ZSzJ50NoGVr7gH4gJnnWBfL9ByeUBHrhsYuy7MgeMlFVwN6SituBbsN5FE38
+	 L74zYz3m9MN1PbPg7QHMDEG+ZcchlEHhyk3rVBaOEtjGEh91t8rNJFtPpMJlX2llqI8oh
+	 gTUu323EQNFkqndza905QWOuYPYOTArHGrhbrDleZX3Lb2DM4p8YAdcnVMCrcTBDSljf4
+	 I7ClCDb+eOMSp3k51JZGYS7xuGusVJ0frQLHMZa8GrfEcnQU+WGKw7CsesNRGkZ0VqfxY
+	 edClfY1LqxeOFzxJlwNv7ifOPnAw6bVKauC5eCDPLSFn+3KxpayrmTeeqlxKfKApRwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jPtPxjwi;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDAFmca7;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E97D606A31A;
-	Tue, 27 Oct 2026 06:20:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E97D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91617606A320;
+	Tue, 27 Oct 2026 06:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91617606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jPtPxjwi
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDAFmca7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=D0
-	qXlGYkhUaQu3BXG9i/Wn1oOUp7K31Eb/rzZABKwDo=; b=jPtPxjwit2x6XTQZmt
-	H8aym7fgDWaGtCJgvhC30wG1UnHokG3JB2oZKyUpwfhzkypFXzrGIjbvvPV2GivA
-	csiQWOCodYfH0No5IYc7p7obxUPbf91YK7x3tDT9f8+RL0ux70uny7omAIv+L6SR
-	hufP28m5bhSe2b22u3dCd9xgk=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=V9
+	ApAIzeT+M/XO21y1Qv5W9e8U1mznozVnK/qq4x5Q0=; b=jDAFmca7cnW3+Z5ITV
+	pvcqXp66Nk3FMD+ePqJFCXoY9if4twOkyHCVlxlMxVcELxeLqb8Zum1o6GQUbyo7
+	opsrP4KmVhQmEg3UilQ5n22MpOUrmvWoPToTjEj0nBCxF014ycQxJALsx361NcOc
+	z66rVe/9ZLWfUg17dq8my6paA=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3bweXQuBqPxjOCw--.9144S2;
-	Tue, 27 Oct 2026 14:20:08 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v77+Q+BqYq0mCw--.52012S2;
+	Tue, 27 Oct 2026 14:26:06 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
 Subject: [PATCH v2] regulator: core: flush deferred disables before suspend
-Date: Tue, 27 Oct 2026 14:20:07 +0800
-Message-Id: <20261027062007.2226548-1-yaojiale02@163.com>
+Date: Tue, 27 Oct 2026 14:26:05 +0800
+Message-Id: <20261027062605.2233921-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,12 +61,12 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3bweXQuBqPxjOCw--.9144S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1DJF45Zr48Jw4UJr4ktFb_yoW5uFykpr
-	W5XFZayr48uFyIva1Ykr47t3WYqrs7t397Zr97K3y3C3W3JF1xJF4kAry5ZF1kArykJrnF
-	yryDAw4kC3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UMpBhUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRiJw2rgQphRUAAA3O
+X-CM-TRANSID:_____wD3v77+Q+BqYq0mCw--.52012S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1DJF45Zr48Jw4UJr4ktFb_yoWrJF17pr
+	W5XrZayr48uFyIva1Ykr47t3WYqr4kt397Zr97K3y3C3W3JF1xJF4vyry5ZF1kArykJwnF
+	yrWDAw4kC3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UNvttUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8ADjHmrgRAA7cQAA3J
 
 regulator_disable_deferred() can leave hardware access pending while the
 system enters suspend. Allowing that work to run during device suspend can
@@ -85,6 +85,13 @@ is either flushed or handled synchronously.
 Fixes: da07ecd93b19 ("regulator: Implement deferred disable support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+Changes in v2:
+- Flush pending disables during PM prepare instead of freezing the work.
+- Process new deferred disables synchronously until PM completes.
+- Synchronize requests racing with PM prepare using the regulator lock.
+
+Link to v1: https://lore.kernel.org/all/20261016100522.2582557-2-yaojiale02@163.com/
 ---
  drivers/regulator/core.c | 30 +++++++++++++++++++++++++++++-
  1 file changed, 29 insertions(+), 1 deletion(-)
