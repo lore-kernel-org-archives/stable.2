@@ -1,89 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121066;
-	b=UJOSnWRvOcTEjPpGxfB5Twp9P3kjdpU7mhJNnmWwUP2PD4Noq+KF15xn+8AUWweGVBHQ
-	 pLc+pEBIRT6dML4f37JvBKpv+/N8+wIHGJ9+qdrJbmkgZUYfo4n/1IVv6/7wFW4GJiwa3
-	 TClSD9H/vTS2FL7NGzF3yxRuKjZRTiQR6GIqVN+ZG4LGaRjbeRaZfydtHR4Oc6JGFH/zQ
-	 a1ngzE0PKjn6shmP7d0fqgBuUeoMcxfZCOVnLFfr1n4TR5OdLZ0zZR21AI7QAEXEprcTw
-	 uTXH0Irenrlq/Q+wc6za8eo+ABtYO03tsuWA38XfeKBJWHyNcOIJ+r0Z+i0NfILv7fQ==
+	t=1793121345;
+	b=XxnNb9RmGyblfcO6ucIW44hmkojkGk04M0/bgcCG83VEPmnLVRbX5X7J9BQnrHo41HEu
+	 vTWWu0DEb2x8MNZeVQcEuPbph6eZBS3ViE8AW1K6rXaOrIZIn8T53tyJKW0KN+vtrmxTS
+	 4+xVcQjcOnpR/fVbUCf5TA2f8chkXp9ndZyvPxL/NyYGkThNxSRdXvnOHu28YhJ0RWJPe
+	 pCPmjxbvi4VhwP+GV/D1TJD2IFdton/pNLdTGi9rAxDbgR42jz33oN1oeSh4kU8U4aEuG
+	 nF+To/FrKVr4LIVyJXPBRJrfMEsDG90rwgyAJOEmdx3G0SFKQVFbBx+yemeTjw/ebtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121345;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=aSSGdTxE1BTiwe1su80qJLKASHzeXOFM873+44F4KYE=;
-	b=TFuSBt3D8/i+bYqHP/3rcnR+zv/7BBf6I/cUCSqMfuAa9MeQtWHTtUcpq6J4fhYeqfzv
-	 4pHW/k3brcllUtY4o7sUCtarpEoQcMZERzWpVDpACg2usMNntxU0rhcqJxke9h9PD2jG3
-	 JNI1Iex0DBS2EHenhnbffuIJW5bowtMaQ26WeFgo4abpc3TUb62oPEd4B1O599A4kWCzO
-	 9a1Yip4eqVRvYWWXSPZUwxejWqNj+MUgQDuah5Rt7Ycd51mXHk/bypS3B8aIK2kOzbm8P
-	 B1GQ+++g/tTMzzOf4CWUOwXYH5kwfbffebfiViXoOyoJ1WRopLEzvvKz82p1mwOhApw==
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
+	b=GmCnx5OsbAlY32bhMsRz6yMKnt6AILpKnHZG5eUDikeMzCE7scBT/N86dsM9M3Uiv577
+	 2/SgkqklOq6Ra6fKoEvyzKiRusA2EJ1ruXaSmFBmAryONB8grqnHSFEKuD5wXdrMroDxb
+	 maL/z1Pb3IWwCMqHkE0jkiQIkgpBhSuN6dqDiSWNY4HxPmjhOyyUa5PLOpZZ7HKfFxZW2
+	 9101yzSSUTlxP14EBTNgMnhnoeawEyqC3eNBVkA9xxRBAXOGd2yfpjq3dfQJG55qepKbB
+	 oiiMeNM4QLnfabKCf4jaSNhWOzPSoxy7eW9Uc0/jNDksDn1wm9SnK0GGfrzP9udG4Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hFmjYzhq;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="M45/9I4w";
+	arc=none smtp.remote-ip=209.85.128.98
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com [209.85.128.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BA0606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:11:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13BA0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92510606A31F
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:15:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92510606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hFmjYzhq
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-84a248254f4so50570a34.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:11:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=M45/9I4w
+Received: by mail-wm1-f98.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so7838505e9.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793121065; x=1793725865; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aSSGdTxE1BTiwe1su80qJLKASHzeXOFM873+44F4KYE=;
-        b=hFmjYzhq8jncXh5SWcqqr9vcSjgBHjJ/0ujMw1TuUkutLW1gNsuW+7J/t9TFilfRHP
-         JQqFapd7dhVXsTQDnyJ3+KrUiBoZJ5pwUN041avArKdg/pIQ15rbDwAN5vko/S/6kFui
-         WkHmp6irSutL8XZnXx1rbNmH/lAcYIvrbUNGdbLVszf3NaM3FZXgDvOzUF1mlBTSWGoc
-         ix011qvzykBFhCUienmKA1gNIXN5R67sA2uSwmGLOnOaHAnrSSTzdSHUSosdhzyOGQGX
-         FJ6nnK6TdA4b7A4Boe2lNXcDPGjwVbu5mqxvbaIX1PL3tpO3WzKxeSN9fTI7PYR2rEjN
-         +E9g==
+        d=purestorage.com; s=google2022; t=1793121343; x=1793726143; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
+        b=M45/9I4w0d9YCytxCe5LhgJSicqsUlutj91GfE6p1YPTCTfgOP0DAMAK6PJ+nZ1b2b
+         fcN6vVeuK+cr0tadZRZ6LuxCZ7qkzFTR/nzfkp49leM6wRz1shtvOAOzAGy3Ixz8tsPv
+         jfFjwbx23NRdpP9xtmoMw/15HAk979MDx5ZcoiO0mqA+nuzPnv5gIG2p/N/1JTLoNYvb
+         V/yaZ4WY4hml+tKsUgw9P+G7yCpP7O+a5mYk4IlybbGDxw3UXAzjZ6AXD/djDZRLedOw
+         ylFggX0xIMY1cVJRPULlVBNI/yk9LaPOE+POAi62Dzpen0poA9BCjej5+UBz+uwULMvx
+         9DJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793121065; x=1793725865;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aSSGdTxE1BTiwe1su80qJLKASHzeXOFM873+44F4KYE=;
-        b=A8SLDI9TI+IcOl6PSGXUzAc8mvHafXFZy6luIyZNMk/oIJ5PbrNm5QY6t24R+EjLHF
-         WyCaRB1kE1zRy2gIPeljsf2+KwGzztNZgHb6Cnig+Bf7zznkUVPuEGO992gw5nK9iu3p
-         skjHorPwLBKAnEWPby6ZMsH96Fu7QA2olL2qBxXcjfGksNn5oiYCuxYwOR9nyBvOP3md
-         1P6byjCB+Gr38Q2u/rFb2Rv1O6LNC/N63tFbvJmfrJHZPbFVDA7cQ09eB9VvNlVK5Wk+
-         LMdxHc/GE+nZJ77x2vj/wJKS5vL2xV+oeFGFhMQ90crWHMfZ4wfBegdHrNOR9fT+pM6B
-         8dYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvnrB/kOsYkqquPvLRfsYJlw1FvZH7m3AK+fOJp20tvR8p3DpPeIF+8XSId6x1+KP3WntnIF8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwQIQ4mM50u8jCMotKps35b4rRPrYGo3ZG35R6FqATWKzCddGT
-	HzBUcjrDwpPlkPMHAvozS01w2FR2FZglkVZvlWylu68jyfwG+jrfwVlW
-X-Gm-Gg: AYBFou27dXI2NKlouuA4bwhJjVWGJXOPcYFg7jOl7NjrYiOzjTp8NW49OA0ssftkWQJ
-	1IQV9+pIZGDZ0Jkm+r+qhZ7Dr9naV2+859fnqcCd179dcRffZ/xynFy0CiGOoiVj0JPmAz1F8vU
-	JNtmo56dvcdsdMDbbJO1BtcsTm9ZwIM2O3cFz6sFsPo56OmIDKBR9CtHDUz3nV2T2/rAcZ1sK5J
-	pkaaiFLv+UOn4RYbk7XIG/BaQ6bthbpsrwbZwrd8FTHxMq2ZYi8+da+aaMlAeQDMrA5W/fig999
-	arpjL6oY0tmqWQhWVzVrW2bRhF8Y/GoMnANe0VqULhh+p+oxqXkKXkw2AH6r88COYPOB8PifmMf
-	Z8KCfYZtcwM+sEVs/1mzBcRhRlNHcPKHzLt2i2pAWJPoFCILfrTfpmFK+O5AT8AUsur6m8lK4kP
-	DQeq7Ugm8hhUyG96tQOeW+R17tFR2MkmIIyCpZNsI8/lagIdRmOkE+m9d1puTCQdAhAetaPzljP
-	im39Ky8sNHned6NBYTKshRdDZHZj6/mfWOxrs706EqekKF3mH5xLmwPqxYR1Bpe0wshJsCGrHLk
-	lJhnv8uOetVQV2on/9y+SmduU1KoesbCDnklOElIVJRz4tGKJa+Pq1AXgU014JdjyV52N4wO94U
-	mUTkmwwu5H61lidZcbdtplTNqeLe7VfLa7+RvNfqsns6lgcrENnPpPVWS8uxdES9SAtfI5OOpbJ
-	7IYA==
-X-Received: by 2002:a05:6830:b15:b0:80c:d34f:5f66 with SMTP id 46e09a7af769-85abdc07c3emr95370a34.31.1793121064652;
-        Tue, 27 Oct 2026 10:11:04 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fbc1b072sm12101200a34.21.2026.10.27.10.11.03
+        d=1e100.net; s=20260707; t=1793121343; x=1793726143;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
+        b=r9Ovhj/pivlx0BeYJUJ79oiUkXd4V2GrI9t28azZCdXHswPBE0jgCk2WSigK4267+S
+         6slr+xZrbUts53nG/CT2SDA4ahl6d4Huus9ToY1G1xM0kvPeX4EF8M0F/0fsYC/BYwjm
+         AfY2zo6rh8HOvuIUxvQUkO+k0056dJ7FP6VjY38Qaor0qV9finvPAdcLUEdcegvYVOkZ
+         T99FCBsGI/5I6VrJ2xX1LnQDopvVXiEkh4aeibb5fhoCcL3CtJsdQIwJKnUNCyf7PqHH
+         gLbIx0HXoiaDJg2ObL+uv5rCTXmLr7qdwHzDxTgSxtT+P0JwtlVHtC0EWpps+UZkEA85
+         nYTw==
+X-Forwarded-Encrypted: i=1; AKwUvByu5hNA1BBW9ucw4vyJIk8LDb3RKKZoxiCjSGws6w2u9/6RxyS+tpS47pku+S8af2XEc7u4neo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIg5vPIjAKqmvpE2TrYkI35ijJHZPJrPpJuHERHVyd3g0P5xeXs
+	FMa9J69CqCoF07o8ILSfXTliAW1gxdsmcyzAlJxvVfeys92s8TKWKLg5im8uGfSHoVLAE75Pa6r
+	DOa8/Jbllg7mtSLhSlZjWJrz53cDi2vEQuohR
+X-Gm-Gg: AYBFou0hCxG6nICuGppiYiaDP1AbpLv1mHLswKbUfMUiGLGGxLgKx4QAwnWz/5IJBs7
+	jQP404H/+iqCbbf6pIDsMonBO/Ggg/s6dFliTsJLGd/9dksHFpKU1CXcK5RoNLb8SEa7/fcpEiC
+	mAJ5po2ZYMiyjeGsS7267xKDbPcVk/r28qWPgq4J/FNgloV9wGqU0FuysyNCnv5b6I+qIjaKJTv
+	Ult4W4R0IYCoLbZlaML5K+rgkOyoy18WVt/0htuLgbEQJjeAICboXVIFIFfPGV2MbqDwc2xehdY
+	JgYpr1NbV1uu3QmLlXT3//NXyM6NHNWndADE/xKe1seWFmBxlKoYTW6cjiGNtVuSYnQM6iNaLYU
+	pD8jk2OUvpZoCbjb3/cvtAD06ydE6TE2dJyU=
+X-Received: by 2002:a05:600c:c049:b0:4a1:9c71:9f17 with SMTP id 5b1f17b1804b1-4a7c100b0c7mr52810595e9.9.1793121342804;
+        Tue, 27 Oct 2026 10:15:42 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-4a931902eb8sm212955e9.14.2026.10.27.10.15.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 10:11:04 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 27 Oct 2026 11:10:57 -0600
-Subject: [PATCH v4] serial: 8250_dw: preserve BUSY-safe fractional divisor
- programming
+        Tue, 27 Oct 2026 10:15:42 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 2C3804013C;
+	Tue, 27 Oct 2026 11:15:41 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 2667BDCE124; Tue, 27 Oct 2026 11:15:41 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	stable@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Boris Pismenny <borisp@mellanox.com>,
+	Ilya Lesokhin <ilyal@mellanox.com>,
+	Aviad Yehezkel <aviadye@mellanox.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 1/2] tls: only install push_pending_record for a TX context
+Date: Tue, 27 Oct 2026 11:15:33 -0600
+Message-ID: <20261027171537.2317025-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,175 +109,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XOy27DIBAF0F+JWHdSni7uKv9RdcFjiKliuwLiJ
- or874VkY3WVSrC4wBzujWRMETN5391IwiXmOE81yJcdcYOZjgjR10w45R2jXEA+2zEWaGPmBJo
- rCv4HfKyjc4KFgQqs0z16qowmlflOGOLl/sXH5yNX4wtdaW57YU1GsMlMbmhHpVxf64YJL6VdD
- zGXOV3vFRfWmH+0qYtBkIp7aS2zLByOo4mnvZtH0tosfAvKJ0BeQSq4M0oILVT/FxRbsHsCFBV
- 889azXiILQm/BdV1/AZmNzsujAQAA
-X-Change-ID: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Raul E Rangel <rrangel@chromium.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-dw8250_probe() installs a divisor setter that makes the UART idle and
-checks DLAB before writing DLL and DLH. When dw8250_setup_port() detects
-fractional-divisor support, it replaces that setter with the library's
-callback. The replacement writes DLF and uses serial8250_do_set_divisor(),
-bypassing the divisor setter's idle sequence and DLAB readback.
+tls_set_sw_offload() assigns ctx->push_pending_record for both
+directions, but the hook is a TX-side dispatcher. On a socket whose TX
+side is HW offloaded, tls_set_device_offload() installs
+tls_device_push_pending_record(); any later TLS_RX setsockopt
+overwrites it with tls_sw_push_pending_record(), because
+tls_set_device_offload_rx() itself calls tls_set_sw_offload(sk, 0, NULL)
+for the software half of a successful HW RX offload, and so does the
+fallback when the RX offload is declined (NIC with TX-only offload,
+tls_dev_add() failure).
 
-If the LCR update fails to set DLAB, the subsequent divisor writes can
-reach TX and IER instead of DLL and DLH.
+From then on tls_handle_open_record() (a TLS_SET_RECORD_TYPE cmsg after
+a MSG_MORE send, or the close path with a pending writer) runs
+tls_sw_push_pending_record() against priv_ctx_tx, which is a
+struct tls_offload_context_tx, not a struct tls_sw_context_tx, and
+reads open_rec from inside the offload context. On x86_64 without lock
+debugging that field overlays sg_tx_data[2].dma_address, which is never
+set, so the push is silently skipped and the data buffered by the
+MSG_MORE send is later sent under the cmsg's record type, e.g.
+application data in a handshake or alert record. Enabling
+CONFIG_DEBUG_SPINLOCK, CONFIG_DEBUG_LOCK_ALLOC and CONFIG_LOCKDEP, but
+not CONFIG_LOCK_STAT, in the tested x86_64 configuration moves open_rec
+over sg_tx_data[5].page_link. Once populated, its page pointer and
+scatterlist flags are interpreted as a tls_rec pointer and dereferenced
+while reading msg_plaintext.sg.size.
 
-Expose the library's fractional-divisor calculation and DLF write as
-shared helpers. Install the BUSY-safe setter after hardware discovery and
-use the shared DLF helper to program the fractional field only after DLAB
-has been confirmed, alongside DLL and DLH. Keep fractional-divisor
-detection and calculator selection in the library, preserving the core
-calculation for integer-only ports. Let the shared DLF setter check for
-fractional-divisor support so callers can use it for either kind of port.
+Only set the hook when initialising the TX side.
 
-Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+Found by code review while developing TLS 1.3 HW offload rekey support.
+
+Tested with HW TLS TX and RX offload on Mellanox ConnectX-6 Dx (Crypto
+Enabled): after setting TLS_RX, send() "AAAA" with MSG_MORE, then
+sendmsg() "BBBB" with a TLS_SET_RECORD_TYPE cmsg for a handshake
+record. Without this patch the peer receives a single handshake record
+"AAAABBBB"; with it, an application data record "AAAA" followed by a
+handshake record "BBBB".
+
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
-Changes in v4:
-- Leave fractional-divisor calculator selection in dwlib, removing the
-  platform driver's DLF capability check and getter assignment.
-- Preserve dwlib's existing getter callback through a static wrapper
-  around the shared calculator, as requested by Andy.
-- Link to v3: https://patch.msgid.link/20261026-submit-serial-8250-dw-divisor-v1-v3-1-7dbd194e1f38@gmail.com
+ net/tls/tls_sw.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v3:
-- Move the fractional-divisor support check into the shared DLF setter,
-  allowing the BUSY-safe platform setter to call it directly, as requested
-  by Ilpo.
-- Rebase onto current tty-next.
-- Link to v2: https://lore.kernel.org/r/20261024-submit-serial-8250-dw-divisor-v1-v2-1-032ca5338359@gmail.com
-
-Changes in v2:
-- Share the fractional-divisor calculation and DLF write through exported
-  dwlib helpers, and use them in the platform driver as requested by Andy.
-- Select the fractional calculator only when DLF is implemented, preserving
-  the existing core calculation for integer-only ports.
-- Link to v1: https://lore.kernel.org/r/20261023-submit-serial-8250-dw-divisor-v1-v1-1-f452d4bb1b1f@gmail.com
-
-Previously included in the DMA cancellation series v4:
-https://lore.kernel.org/r/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
-
-Changes in DMA cancellation v4:
-- Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
-  discovery, writing DLF and DLL/DLH only after confirming DLAB.
-- Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
----
- drivers/tty/serial/8250/8250_dw.c    |  5 ++++-
- drivers/tty/serial/8250/8250_dwlib.c | 24 +++++++++++++++++++++---
- drivers/tty/serial/8250/8250_dwlib.h |  2 ++
- 3 files changed, 27 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index eca02e8bd6d1..9cbe076463e0 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -201,6 +201,7 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
- 	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
- 		goto idle_failed;
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index d1ad31986cf2..235b868facfa 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -2591,7 +2591,8 @@ int tls_set_sw_offload(struct sock *sk, int tx,
+ 		}
+ 	}
  
-+	dw8250_set_divisor_dlf(p, quot_frac);
- 	serial_dl_write(up, quot);
- 	serial_port_out(p, UART_LCR, up->lcr);
+-	ctx->push_pending_record = tls_sw_push_pending_record;
++	if (tx)
++		ctx->push_pending_record = tls_sw_push_pending_record;
  
-@@ -651,7 +652,6 @@ static int dw8250_probe(struct platform_device *pdev)
- 
- 	p->set_ldisc	= dw8250_set_ldisc;
- 	p->set_termios	= dw8250_set_termios;
--	p->set_divisor	= dw8250_set_divisor;
- 
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
-@@ -768,6 +768,9 @@ static int dw8250_probe(struct platform_device *pdev)
- 	if (!data->skip_autocfg)
- 		dw8250_setup_port(p);
- 
-+	/* Use the BUSY-safe sequence for both integer and fractional divisors. */
-+	p->set_divisor = dw8250_set_divisor;
-+
- 	/* If we have a valid fifosize, try hooking up DMA */
- 	if (p->fifosize) {
- 		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
-diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
-index 9bb02a4ab11f..91b3607b64e6 100644
---- a/drivers/tty/serial/8250/8250_dwlib.c
-+++ b/drivers/tty/serial/8250/8250_dwlib.c
-@@ -23,8 +23,8 @@
-  * we have: div(F) * (16 * baud) = rem
-  * so frac = 2^dlf_size * rem / (16 * baud) = (rem << dlf_size) / (16 * baud)
-  */
--static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
--				       unsigned int *frac)
-+unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud,
-+				    unsigned int *frac)
- {
- 	unsigned int quot, rem, base_baud = baud * 16;
- 	struct dw8250_port_data *d = p->private_data;
-@@ -35,11 +35,29 @@ static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
- 
- 	return quot;
- }
-+EXPORT_SYMBOL_GPL(dw8250_get_divisor_dlf);
-+
-+static unsigned int dw8250_get_divisor(struct uart_port *p, unsigned int baud,
-+				       unsigned int *frac)
-+{
-+	return dw8250_get_divisor_dlf(p, baud, frac);
-+}
-+
-+void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac)
-+{
-+	struct dw8250_port_data *pd = p->private_data;
-+
-+	if (!pd->dlf_size)
-+		return;
-+
-+	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
-+}
-+EXPORT_SYMBOL_GPL(dw8250_set_divisor_dlf);
- 
- static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
- 			       unsigned int quot, unsigned int quot_frac)
- {
--	dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
-+	dw8250_set_divisor_dlf(p, quot_frac);
- 	serial8250_do_set_divisor(p, baud, quot);
- }
- 
-diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-index 39fcb1b323ad..7191cabfb086 100644
---- a/drivers/tty/serial/8250/8250_dwlib.h
-+++ b/drivers/tty/serial/8250/8250_dwlib.h
-@@ -97,6 +97,8 @@ struct dw8250_port_data {
- 	int		srbr;
- };
- 
-+unsigned int dw8250_get_divisor_dlf(struct uart_port *p, unsigned int baud, unsigned int *frac);
-+void dw8250_set_divisor_dlf(struct uart_port *p, unsigned int quot_frac);
- void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
- void dw8250_setup_port(struct uart_port *p);
- 
-
----
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-change-id: 20261023-submit-serial-8250-dw-divisor-v1-5f1689ed05a8
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+ 	/* setkey is the last operation that could fail during a
+ 	 * rekey. if it succeeds, we can start modifying the
+-- 
+2.50.1
 
