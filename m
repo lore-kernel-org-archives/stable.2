@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097825;
-	b=XoLM6HxWiaTT4W56NBncmQ2eJyEyqTqXElyhgNJPXVW8bbEyuephli178MaSiSo+fbvy
-	 ioIcqkaka5WYAzoyoPTT6/uhQs2JNxpMoQrCyLcTlwD3tdTkEuEwVRFopjNCtAkwm03RL
-	 NZPIYu0t6JyN/iNYctf0SEu2V5eEnKJKLrYw3Cj95RLXvcEu4sRNhkrfiWHS7glrkTWRH
-	 jc8s/d2JN1iYWhh/RhM6POtEZVItCotNhx/o9/O6+4dnm5h82IcdNhYWWcYZaK3QQVWf0
-	 ocaBqnHMZmjQzhdmcbsEauOjP2wWIl0oJAczRnmMGAJRVXF0ep28qCZoSKKQn9RNh2Q==
+	t=1793097831;
+	b=WaDAoO4tLC4k3JsjAOWBcfdcVx9XX4dm5vbuUKboNjwMVp5n+EW3whRJz/omVlICERiG
+	 yyeXpXbgqGErHRggu+puOr1Ws9EPJPhRnzrCAcEIcRsQRdQPrSdFWsqmXTEtRMxXBdkFJ
+	 3bclMddaLv74OXLY+DsibxWPR0ngHdlHnXkcNTvkKXShLV8H8rSvDwkwa6WS2NP6CoH9X
+	 QM3gIF0Ioti1PtnzNxifkZE+5LiEyWchsXpJ5pjCFm7ZZwurxK5LKh5vaMl80RqZOKgOC
+	 lKyHl2Bd3CkPgo8JoT0hUyaEVZmYsye9eNQvaO9r+O2ModPQ8d+1K0UPA5e11+9POnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097831;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=y0bWJxnleuC7KHlyjPlcNd7hTqiMUB+V6Nbmxy2tkww=;
-	b=N88UuHsbTXsPHWCcOnHbO21hFK8Rl/L5C55pnee5v8EmEE08vSD+G1uB18xONvAg47MW
-	 yfmDBRZ0K+LfnwsYJ14QsDNKSXa2+1LUUJKvSOINq4ChLEQWtM65nhqly02EKQegU6hwN
-	 vElDUmLl5sNxxvw37Kji9yCtRwLqU5adJxp1vbnW0vK9nqROBzQUbQOv3EqxXUECilOaY
-	 Su3BePD4QA59yJgdSi3Ajaw7ri/Gv2jrqVhCHAhD6007GSHVoc35ylDrIgb3Kfjp8r1Xz
-	 9zyskZwmtwT6alC5PTWzYowhG3PFTUjPV07e0w6fymGGxiVvUMfi0axUedw1aDJEijQ==
+	bh=PmR+vZLuWo/MOqGjjBOdrO5nYefFznZmjJsKNuauJZY=;
+	b=ag0Orn47rTwU2EpxZygEjHd3/+tDimPukDBFCUK+iGvZ2eF0iG241FNuP856aM/Kelw9
+	 g2u3qsVxcrtR8XVooeHBVlhxxUw5wYRpDqo4pFS1S1YJ3i5fHQ8Cq1IqBn2a4V1WVTrlw
+	 9bQS9OUj1OOvXKXy9BkZkjSNOGXI6rVRtD+WSnKt5ZGKbn+YbmrhzieNWhu52RpmrpgAP
+	 5ZP6PNKbL7BxvoHsS2e70rMxvDHcfxYzrx031jgL7eqWjBJhB1yh0/wK8eKaHT0q9nhQi
+	 AB+F7hQUGWxBGE65sYTpNXgPJulb/4CddD0hwwLrteNhFBvGUF2QMjA2T4lgWmlJzLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BotLVmlz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLh2i4Pn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9285606A31A;
-	Tue, 27 Oct 2026 10:43:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6C4606A31D;
+	Tue, 27 Oct 2026 10:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BotLVmlz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082211F031E1;
-	Tue, 27 Oct 2026 10:43:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLh2i4Pn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087C01F01829;
+	Tue, 27 Oct 2026 10:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097824;
-	bh=y0bWJxnleuC7KHlyjPlcNd7hTqiMUB+V6Nbmxy2tkww=;
+	s=k20260515; t=1793097831;
+	bh=PmR+vZLuWo/MOqGjjBOdrO5nYefFznZmjJsKNuauJZY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BotLVmlzy4TZljtLczP71diLAjatbqzAQEkLZp7bs9LTerIp5Qui3KjuhQeeT4l8y
-	 g6gDADj0uuPyyBR3/gn45tABr4F+L9DEc7hoSpkBt8FAsqG65DNR+ExxaJwzfI+27O
-	 6A6t9+eSkEklG4w4NGD9aGjIUv8fmEET9xQq5AACqjr30EQsKl8n6M6dSFYBD8/gME
-	 SAFhyJNtMsoOl29zYLOYHf4fLZY3ulEkDQAUjD+pvQI17pWO/bTChoQvsRdHyRja5K
-	 OWIzo84jQYEScEB5hF+VocHW1TccpKKgvO2N+vIpntsTF00g/UjzLbZPiJyVQkkesr
-	 PQdk+5cMK7eSw==
-Message-ID: <699d2ada-6407-4758-82ad-927426ee049e@kernel.org>
-Date: Tue, 27 Oct 2026 11:07:48 +0100
+	b=mLh2i4Pn549MOAtBAwtTl7y/1OVtrnhp4rO0PbVy/V6UmYdAI3NtxKLMphuOG7fLo
+	 wblUgc4S0AB7lxV1rH43/mDzSHF3W6Fynm7taDJXc1bX2QL4Nti6g4BSRnPmyk/DiO
+	 lNS7FaWQur6QkV/w+mv7H8Wm50v3XNiFOVIguHWqQ6oSLNB4R5+4WSZOHQkxrSuugc
+	 CMuIVKXwgrjt2zoc+cfKUOK3c473SQp01RiT5Df8tKOgu8lhdEcdUXMMrkXXCKHppD
+	 D83cximXZrxDk6WmbRv4v12unJ6ypdppHtcvqEWZQjSiy2ajbp1AztlNYQOhLWSW7u
+	 fD317OsWCcakQ==
+Message-ID: <b30a1c50-2db6-4376-bcfa-3088ce5d68d5@kernel.org>
+Date: Tue, 27 Oct 2026 11:12:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,13 +52,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/16] mm/shmem: preserve data in clean folios when
- splitting fails
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
+Subject: Re: [PATCH 11/16] mm/shmem: rescan after nonuniform folio splitting
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
  Johannes Weiner <hannes@cmpxchg.org>,
  Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
  Hugh Dickins <hughd@google.com>, Baolin Wang
@@ -72,12 +69,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  William Kucharski <william.kucharski@oracle.com>,
  Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
  Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-9-703206d5fa0c@kernel.org>
- <at-GrQNgF3V_tL3w@thinkstation>
+ <20261026-fixes_shmem-v1-11-703206d5fa0c@kernel.org>
+ <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -124,55 +120,83 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <at-GrQNgF3V_tL3w@thinkstation>
+In-Reply-To: <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10/26/26 18:12, Kiryl Shutsemau wrote:
-> On Mon, Oct 26, 2026 at 10:40:42AM +0100, David Hildenbrand (Arm) wrote:
->> From: Chris Mason <mason@kernel.org>
+On 10/27/26 03:32, Zi Yan wrote:
+> On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
+>> The final scan in shmem_undo_range() restarts after a successful split
+>> only if the original folio is no longer large. A nonuniform split can
+>> leave that folio large, so the scan skips the newly created folios.
+>> Hole punching then leaves pages within the hole allocated even though
+>> they could be discarded.
 >>
->> A shared writable mapping can have dirty PTEs while its shmem folio is
->> still clean. A read fault can install a writable PTE, and a later store
->> sets the PTE's dirty bit without marking the folio dirty.
+>> For example, a fault below the hole can allocate a 2 MiB folio after
+>> boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
+>> folio successfully but leaves the original folio at order 4. The scan
+>> continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
+>> The hole reads as zero, but the pages and their block charges remain.
 >>
->> After shmem_undo_range() has handled the boundary folios, a concurrent
->> read fault into a hole below the new EOF can allocate a large folio.
->> For example, on a tmpfs mount with huge=always, the fault's offset must
->> be within the file, but the allocated folio can extend beyond i_size.
->> The final scan then finds this folio and calls
->> truncate_inode_partial_folio() without marking it dirty.
 > 
-> This is hard to follow. I asked LLM for a diagram. I think it would be
-> helpful for the commit message:
 > 
-> CPU0: ftruncate(fd, 3M)                CPU1: MAP_SHARED, tmpfs huge=always
-> ─────────────────────────────────────  ──────────────────────────────────
-> i_size = 3M
-> shmem_undo_range(3M, -1)
->   first pass: hole, nothing to do
->   boundary folio at 3M: hole, none
->                                        read fault at 2M+x (below EOF)
->                                          PMD folio [2M,4M), crosses EOF
->                                          writable PTE, folio clean
->                                        store to 2M+x
->                                          PTE dirty, folio still clean
->                                        vmsplice(2M+x)
->                                          extra folio reference
->   whole_folios: finds [2M,4M) folio
->   truncate_inode_partial_folio()
->     zero [3M,4M)
->     folio_split()
->       unmap_folio(): extra ref
->         → -EAGAIN, PTE dirty bit
->           never reaches the folio
->     folio clean
->       → truncate_inode_folio(whole)
->         [2M,3M) dropped
->                                        read 2M+x → refault → zeroes
+>> Restart when the original folio is still in the mapping after partial
+>> truncation, identified by checking folio->mapping. If the helper
+>> removed the whole folio, no rescan is needed.
+> 
+> This paragraph is no longer needed after Zhang Yi's truncate fix, since
+> truncate_inode_partial_folio() returns true only if the folio is split.
+> The function returns false when the whole folio is truncated[1].
+> 
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/tree/mm/truncate.c?h=mm-stable#n282
+> 
+>>
+>> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate operation")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/shmem.c | 11 ++++-------
+>>  1 file changed, 4 insertions(+), 7 deletions(-)
+>>
+> 
+> folio->mapping check is dropped and the comment is adjusted after the
+> patch is rebased on top of mm-stable because of the aforementioned
+> reason:
+> 
+> 
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 7cf5a4d9d1ace..ddea31f44fb32 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1477,18 +1477,12 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+>  				} else if (truncate_inode_partial_folio(folio,
+>  						lstart, lend, NULL, NULL)) {
+>  					/*
+> -					 * If we split a page, reset the loop so
+> -					 * that we pick up the new sub pages.
+> -					 * Otherwise the THP was entirely
+> -					 * dropped or the target range was
+> -					 * zeroed, so just continue the loop as
+> -					 * is.
+> +					 * The folio was split. Retry the scan
+> +					 * to find the split folios.
+>  					 */
+> -					if (!folio_test_large(folio)) {
+> -						folio_unlock(folio);
+> -						index = start;
+> -						break;
+> -					}
+> +					folio_unlock(folio);
+> +					index = start;
+> +					break;
+>  				} else {
+>  					/*
+>  					 * Splitting failed, but the part in the
 > 
 
-I'll add it, thanks!
+Yeah, that's straight forward. For this one I will keep Kiryl's ACK.
+
+Thanks all.
 
 -- 
 Cheers,
