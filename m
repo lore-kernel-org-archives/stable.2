@@ -1,47 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107840;
-	b=X0+t1h+SkTpdlVf7DyIrPxSivZMH0wOeP5tw1C0SE9N9J3R6xHM4E57ZzWv36/PEN5RZ
-	 gckDQuBuBCAEk4KxcM9aDqAKnbD7kSdgIz/g6kpbyk00AYXKAqqsIqe3IkXuoL6KqvhRo
-	 8AO5Dpf9IOvWMaTygJmYVeMVVVbUI00ipiReUww2ok8Hp5KtXF4N1tIL7jX785RJWZWj1
-	 1i/pVlzv8HsYNZOL9U1ldjCcgXiEdTbkKfN/YkW2etjq2b3EkdwIIiXICaAQaqg7jjw8y
-	 p2MNc55Fy9APNHWWq6lMP+Of9b4cLB/NxCLwGx2RF3IqGpeEpAPTekk5t3sfeVbcI6Q==
+	t=1793108019;
+	b=KheQ8Hubtjn29TAIybrJhvFFovaRPix7GpzGIyNbCpj0AcL3gqGbB/HJn+NADHAJXYct
+	 aibiYoLzMaEkp81vOJc9oEYc4OMAESBqtTwq4r+C/gFChGd9ww+SESTux5E8Gz05nYHer
+	 Xrhl8mE8lOCA0AOKQKMsoAZJKmYSXFRJ18BQa58NLXzO+FXOtuaZReeOOHqxYHhk0qI6J
+	 87y8dZo9NiOSxFOcRp1Sq99YtIehVPTNcB00GAhMzcLiQ6JWkpdFTpxVnQewZHOkvhALa
+	 xpcvxbxkR8wBNTTMy1NSZP3dujqm6EpEtjVttmRWVut53fAhpJbhgqMVi+pGDQ4OVzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107840;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pqjZ8RLKQmKAOWm9avC1hYXEKlDxEx8VP/meGl2gwmg=;
-	b=MmIq4Qa9E2ExPHbdZ30m94u+1/QlDFmkex1gjXCOlTWrCfwGRrIEYcK2VZqT+nDayXYC
-	 Or8fcdatNoue1eRomW9CnaSn1NtgfQmmy1WHz4/V3L2iiSNV/zoCEosi9G8cZK93OWlrB
-	 o4uvhlTr8Ee6uw8G9+J5yz0fImv8TqTwOP3cqf1fM6VLH5Rx7EJhqDC1SG5c+1/6sZHGj
-	 B7szBZxuMvbQKQX76tB9NMp8fzUt+hAxpQcBmDaLccR91KhR/WksSz0B/+PuhWpuCODmO
-	 mGYLrHM44cdjaxexqvpxXeEZEMLra1G9I2IZ3hpZELToX5nfqLxAHBoUMV5d8jqVRrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108019;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VhTrCHgNWYcect8PsBRYG/AUQupaCriJbSZPutukaL4=;
+	b=rAwmsS88w7n2Ne0pWmYmFufCvuIgHXJT5ECrktl0t+MDTLqlBGZNMrt9HMrQka11siGg
+	 sD6sQW6v0u/ZUvQnIfrpKiuQukEMVZcTRYW/XN6B/nqpS3+FccSbAcs2pymty7NKSl5+C
+	 Yp0V7X9MTmpGJh6po0wHXCMa41YQymbj3+9yS4N1i2N5urileaX8qnZjNpG0XeUj1clgW
+	 E/imuB1oAFtk07cba8kTQNM9wPNfsP8HDSPZ60rXuyDGkmMW8VESgEKBepe4UFYx6eHn0
+	 vS4f1oMGxSk5KMkEo7DS6C/tQ1E3gM4vEABUVmF+mWBDBg5DvNIQFNf7FPCQQf7+nng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNmhhpR2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cXQyxX7E;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YAAV8iuJ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F4A606A31D;
-	Tue, 27 Oct 2026 13:30:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE01F606A31E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 13:33:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE01F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fNmhhpR2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5B11F01825;
-	Tue, 27 Oct 2026 13:30:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793107840;
-	bh=pqjZ8RLKQmKAOWm9avC1hYXEKlDxEx8VP/meGl2gwmg=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=fNmhhpR2uX/tEeM3pZ5Y547zPloMNNJzC4kxlbHDe4s5VwJV8hdhTQyn/UBvJ1GZP
-	 t/uoLgzdmXYAokeFyhazPNYFnSeymkcHVlTBJFpL1zm1eNSCkin3DBaJaN77wiuTBG
-	 qyv7ik8+JN9M7awERldxCsTjx67Ee9PX0DgQW1GdIHyOxrvrct2MAb9bdz1Dn0MZm+
-	 jZQDLx5OwdevBDrqSNZ++OaxHnwL3+B5YzHoxwGNAQk0ixqnboeGKirGxecoplY17t
-	 Aj/TbvL+k6aAnjoh5EmFmyWxazVn0t/EbkLc9KIzapg0ahTmcRICHor8Eh5/vRYOH9
-	 wMNQ+VvUh0lrA==
-Message-ID: <8386b412-c6eb-44fa-95a4-763dd90d2c61@kernel.org>
-Date: Tue, 27 Oct 2026 14:30:28 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cXQyxX7E;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YAAV8iuJ
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe3ru2524795
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 13:33:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=VhTrCHgNWYcect8PsBRYG/AUQupaCriJbSZ
+	PutukaL4=; b=cXQyxX7EWtisylRynMs+ee5lUEWdoPioWw2HSYEyhvDCxMGzpwX
+	+5aftycct+4vVHIJkhj5/3E4WJUYPmPwdFUwLqN3F5CRpnV3cOoukxa3Zhz8WqTY
+	GLmIZpzRt6eTbe7/rxGYiBW8zhVQJdCnV1V1aYrvFwXaqsYGxN1ofKOK8D61Lt+I
+	X/Xa36EXTA6byVR9wHZtMXcyrzqQXT7eO1ZFiK9SZJQacEUrIQS62SWCyl3nm37E
+	8zERHzrOrryeGVOuFL+1ZHbrN5BvzABWGMV2EHnD7qYGxMMrrK0awmJJeS6tvmE+
+	IA0hoA9PpnpTLLKLaArJEmp1RP9bYYYhMwg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqw21avt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 13:33:37 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab27eb38d6so3941429a91.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 06:33:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793108016; x=1793712816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VhTrCHgNWYcect8PsBRYG/AUQupaCriJbSZPutukaL4=;
+        b=YAAV8iuJhVeXfJOB2te6lNryHey1pT0keX33pOuv7VsuE+g4mZcJtNayZPJ6qV31u9
+         SVLoOFPtrJmv2Bofev89LOWCueCUVawSDDm8nWIbvzTBmxo2RB3/7aAmnqrHOUjWor8o
+         vZIhXCKvZp0Ay1en+l62XZLHdOW7dRaw88u8GOJK1RE0fTKXJZ8ke9Yc586ul4R877LT
+         CQY3enD2uQ6VDg2Vmw5FVRhDZw+lgbssYuLXwpVu7Q+vbOR1dhSx5JcPM0ewZ/DUDfhW
+         GGnUizSoRK/OLeIZTJ7B/fDXR6MjtSo3S9Z2L4UItohS2/IIm+0Ks7bJDId/nA3ESC68
+         oKzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793108016; x=1793712816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VhTrCHgNWYcect8PsBRYG/AUQupaCriJbSZPutukaL4=;
+        b=g9viRG/QJANlO0wKUnQlqpahNdpgu3PQNAkF5v3KEULKBhNoE1EiN77ICNoA+q0k5T
+         GNIUUNxjYBVPzb3jSG7HcHmjwhytZ/GG4B2uS520fICMCoixRFFHMKF9y62slcl/0wtu
+         K7vP+UDA4rw67rHfjFw1it9bH3j9cyr2zXCAxM/T6h9ziI5MtrdmyI1rRQZkDRLHjt6g
+         HiVz8K1PGMWnoL8Dabr+NYMmepgeiA43KKvEOijXwzVWos1d8tm/E3tkeK6mncXb3IKZ
+         Ri6Ng1oYulm9xlajSQTPW+1QkJszrNfwUWDcvjlyAJ8FkPCUOELYEFvW8MbdfgmPWZDv
+         jGhA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPitv2vxFm+1FUbt09RVnmnZj/FOV9QP8oWg0ub7nCkAXtUaNJlk2v8yRswvlFuwk4I4yM1/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDB7IrgyMdu3N8voc2OrnQCnoSouoPiZ0Fh/qfS+470V6o4RCq
+	T7pa6PS+oxQUTAZ1q24BOJSC+enm9pg3Cn+zxvAuvRsatv/L+PosCdqFr7WOm44KZX+Uj45Bfxd
+	fFHbT+xK9pPDBDTeWPmyiduJMUUZYXiz3hxKGtX6E6t8Y+G859b0C62BlCwY=
+X-Gm-Gg: AYBFou0dfhZNp1FD4xCp2jxzTxkcUvPY4/a+b20gaBrCLJNhUlMfa/Cgwq0Gj6j7Gnq
+	M1w2SBn85RvtK3ZCahOKXhnGeiFNhxDKCLd0ylG9LDCpxoaZ+ieg78BX/b2IsivswsF70rqzt5H
+	YdXaztj/QSTBhUR+kaFLEUzadn8wy/+qFenj1c4S0fm6aRxq0gQVKyibvP1djbjhPCPu6pZxf0E
+	HpxZ1B9kdV8VdG4gWD/2NBtxsSCBxsGcb20YvrjpO4MR8S68B0w8Kj/pfT+LGgaS0ZxjfXs1igj
+	ceMBG0iyDchChK/Rsunfj91SgBXnL1MBwqhXYW+egquuGrHyH0GM48tUlMaCf4offFEPeX4xJ/B
+	kUhQ7G20qAnB8vVQuUkyiVxyAdfQF+XACy4PT5O7UfVRwoK5828IG8070V41hAWnt3G35kKrdBS
+	dCfmlWxZPs8Bqmhv3r5eSAEkIGncGhal7qwuUoyLA=
+X-Received: by 2002:a17:90a:e7c1:b0:3ac:9a5e:9cde with SMTP id 98e67ed59e1d1-3adeabe0cc2mr8753249a91.30.1793108016194;
+        Tue, 27 Oct 2026 06:33:36 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c1:b0:3ac:9a5e:9cde with SMTP id 98e67ed59e1d1-3adeabe0cc2mr8753220a91.30.1793108015716;
+        Tue, 27 Oct 2026 06:33:35 -0700 (PDT)
+Received: from zhonhan-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4066d631sm4033195a91.17.2026.10.27.06.33.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:33:35 -0700 (PDT)
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+To: rafael@kernel.org, viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        zhongqiu.han@oss.qualcomm.com, stable@vger.kernel.org
+Subject: [PATCH] cpufreq: stats: Fix potential out-of-bounds access in deferred reset
+Date: Tue, 27 Oct 2026 21:33:31 +0800
+Message-ID: <20261027133332.377546-1-zhongqiu.han@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,287 +117,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/14] mm/shmem: various (urgent?) fixes
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>, Gregory Price
- <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- Josef Bacik <josef@toxicpanda.com>,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
- <de90d124-03f6-4657-a467-71ab3d441212@linux.alibaba.com>
- <74d45c5a-1815-44f0-890d-c847f84c0a57@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <74d45c5a-1815-44f0-890d-c847f84c0a57@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MyBTYWx0ZWRfX6IqCDUDos6+y
+ i6ipXF/nGeNPMHLUU6i/G06AVEoCaXY9oam7QcxgU9HDfoGRsG4M5v0EDRBwDwAuQd0e3rf3nui
+ Rxchht8njXKvvwywUlcoWyL73QxDGpmp5nl1Dd9tcKNzlW5elyRDpNDCosAZCMunQ7nBJT6vntu
+ 5w24BMU1Lo+8Xj+dTnwTPFPyzb8r4h9IUUYZ3p3ErgTVu/n+v8Oo6ew4JgnWgK/rXgZOT8tQ5Lt
+ WjS1oH4GwxlSB6kmXxSd1TfaxlhUCDzmoOrbMpPuvM+8kdqanWqD8HKtbpVkko6Lo2aVslVf9UL
+ dCdJ3bFh2nlDd/NBWSaLw2YZ8BvNCwJdGawZZFybB26f/J8G5u4BWV1mKoPoAx42C/A2l+SngTm
+ E4dylQ1tZEioj0SoiVnzixepMrkRJqk86nQuQJHeqF5x7lGUeF+k75Jy5zGssz0vDxh9kuNV6hR
+ PGS5ku/QRlH3fuewTsA==
+X-Proofpoint-GUID: 3kqAn7Zqt9OiSS02wqK2mRXggEpISiXZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MyBTYWx0ZWRfXywJnrsN+wsc2
+ RA0VBppDBywuS8Y8TCFigQi6qw4QnDOsmGOJVooBFOkT70WGJ/i6X/0m76PMSOXEsBKtYaA/EW9
+ gedkW9S1JHhfi+/1SrkuXiaD+VTFFNY=
+X-Authority-Analysis: v=2.4 cv=PsYG/AM3 c=1 sm=1 tr=0 ts=6ae0a831 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=rmPzS-a5SAvYCXl-4t4A:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: 3kqAn7Zqt9OiSS02wqK2mRXggEpISiXZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270053
 
-On 10/27/26 14:27, David Hildenbrand (Arm) wrote:
-> On 10/27/26 14:20, Baolin Wang wrote:
->>
->>
->> On 10/27/26 9:03 PM, David Hildenbrand (Arm) wrote:
->>> Hi,
->>>
->>> see v1 for details. TL;DR various fixes.
->>>
->>> I now rebased on top of mm-stable (thanks Zi!) and retested with
->>> Gregory's tests (thanks!). Thanks everyone for the fast review!
->>>
->>> When sending this upstream there will be one conflict with the following
->>> upstream commit:
->>>
->>>     737362c7012a ("fs: port ->set_acl() to pass const mnt_idmap")
->>>
->>> Which should get resolved through something like
->>>
->>> diff --git a/mm/shmem.c b/mm/shmem.c
->>> --- a/mm/shmem.c
->>> +++ b/mm/shmem.c
->>> @@
->>> -static int shmem_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
->>> +static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
->>>           struct posix_acl *acl, int type)
->>>
->>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->>> ---
->>> Changes in v2:
->>> - Rebased on mm-stable
->>>   - Fixup shmem_set_acl() compilation issue after rebase
->>>   - Dropped: "mm/shmem: avoid moving the truncation start backwards"
->>>   - Fixed up: "mm/shmem: stop retrying folios that cannot be split"
->>> - In "hugetlbfs: enforce F_SEAL_EXEC in setattr", check for S_ISREG
->>> - Smaller patch description fixups
->>> - Picked up tags
->>> - Link to v1: https://patch.msgid.link/20261026-fixes_shmem-
->>> v1-0-703206d5fa0c@kernel.org
->>
->> why drop this fix "mm/shmem: hold off eviction in shmem_writeout()" from v2?
->>
->> https://lore.kernel.org/all/20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org/#t
-> 
-> Because I'm stupid and dropped two commit instead of one :(
-> 
+cpufreq_stats_create_table() sets stats->last_index to -1 if policy->cur
+is not in the frequency table. It then stays at -1, because
+cpufreq_stats_record_transition() returns early on old_index == -1 before
+it gets to update last_index.
 
-I'll wait a bit and then send v3 fairly aggressively, including again:
+Commit 46a310b80bc2 ("[CPUFREQ] Don't set stat->last_index to -1 if
+the pol->cur has incorrect value.") added that check. However, since
+commit 40c3bd4cfa6f ("cpufreq: stats: Defer stats update to
+cpufreq_stats_record_transition()"), the stats reset is deferred to the
+beginning of cpufreq_stats_record_transition(), before that check, and
+cpufreq_stats_reset_table() ends with an unconditional
+cpufreq_stats_update(). So if the "reset" attribute is written while
+last_index is -1, the next frequency transition accesses
+time_in_state[-1].
 
+Fix it by also returning early on last_index == -1 in
+cpufreq_stats_reset_table().
 
-From d342e8d7d01bb656d7e224e38acd7309d7678e53 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 9 Oct 2026 00:36:37 +0000
-Subject: [PATCH] mm/shmem: hold off eviction in shmem_writeout()
-
-Once shmem_writeout() has moved the folio from the page cache to the
-swap cache, the folio lock no longer keeps the inode alive: truncation
-and eviction find a swap entry, free it and do not wait for anybody.
-That did not matter as long as swap_writeout() was the last thing the
-function did.  But since it puts the folio back when swap_writeout()
-returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
-afterwards:
-
-  reclaim                               last close of an unlinked file
-  shmem_writeout()
-    shmem_delete_from_page_cache()
-    swap_writeout()
-      zswap_store() fails               shmem_evict_inode()
-      writeback is disabled               shmem_truncate_range()
-      return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
-                                        destroy_inode()
-                                        ... RCU grace period, freed
-    shmem_add_to_page_cache(mapping)
-      xas_lock_irq()            <- use after free
-
-swap_writeout() behaves that way if zswap is enabled, cannot take the
-folio and the memcg or one of its ancestors has memory.zswap.writeback
-set to 0.
-
-shmem_unuse() already added infrastructure to deal with that.
-Reuse info->stop_eviction to protect the inode during writeout. Increment
-it before removing the folio from the page cache, and decrement it after
-swap_writeout() and any attempted reinsertion and inode accounting.
-In shmem_evict_inode(), wait for the counter to reach zero even if
-swapoff has already removed the inode from the swap list. Add some helpers
-to make the code easier to digest.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-[ david: code cleanups; improve description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: 40c3bd4cfa6f ("cpufreq: stats: Defer stats update to cpufreq_stats_record_transition()")
+Cc: stable@vger.kernel.org # 5.10+
+Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 ---
- mm/shmem.c | 36 ++++++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
+ drivers/cpufreq/cpufreq_stats.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index ad644a268c0d2..9db820f04d378 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1616,6 +1616,17 @@ static int shmem_setattr(struct mnt_idmap *idmap,
- 	return error;
+diff --git a/drivers/cpufreq/cpufreq_stats.c b/drivers/cpufreq/cpufreq_stats.c
+index 670a10c3ecfa..e7ec16bcb67e 100644
+--- a/drivers/cpufreq/cpufreq_stats.c
++++ b/drivers/cpufreq/cpufreq_stats.c
+@@ -52,6 +52,10 @@ static void cpufreq_stats_reset_table(struct cpufreq_stats *stats)
+ 	 * reset_pending accesses in cpufreq_stats_record_transition().
+ 	 */
+ 	smp_rmb();
++
++	if (stats->last_index == -1)
++		return;
++
+ 	cpufreq_stats_update(stats, READ_ONCE(stats->reset_time));
  }
  
-+static void shmem_disallow_eviction(struct shmem_inode_info *info)
-+{
-+	atomic_inc(&info->stop_eviction);
-+}
-+
-+static void shmem_allow_eviction(struct shmem_inode_info *info)
-+{
-+	if (atomic_dec_and_test(&info->stop_eviction))
-+		wake_up_var(&info->stop_eviction);
-+}
-+
- static void shmem_evict_inode(struct inode *inode)
- {
- 	struct shmem_inode_info *info = SHMEM_I(inode);
-@@ -1628,16 +1639,21 @@ static void shmem_evict_inode(struct inode *inode)
- 		mapping_set_exiting(inode->i_mapping);
- 		shmem_truncate_range(inode, 0, (loff_t)-1);
- 		shmem_unused_huge_del(inode);
--		while (!list_empty(&info->swaplist)) {
--			/* Wait while shmem_unuse() is scanning this inode... */
-+		/*
-+		 * Writeout may still use the inode after swapoff has removed it
-+		 * from the swaplist, so always wait at least once.
-+		 */
-+		do {
- 			wait_var_event(&info->stop_eviction,
- 				       !atomic_read(&info->stop_eviction));
-+			if (list_empty(&info->swaplist))
-+				break;
- 			spin_lock(&shmem_swaplist_lock);
- 			/* ...but beware of the race if we peeked too early */
- 			if (!atomic_read(&info->stop_eviction))
- 				list_del_init(&info->swaplist);
- 			spin_unlock(&shmem_swaplist_lock);
--		}
-+		} while (!list_empty(&info->swaplist));
- 	}
- 
- 	simple_xattrs_free(&sbinfo->xa_cache, &info->xattrs, sbinfo->max_inodes ? &freed : NULL);
-@@ -1776,15 +1792,14 @@ int shmem_unuse(unsigned int type)
- 		 * remove placeholder inode from swaplist, nor let it be freed
- 		 * (igrab() would protect from unlink, but not from unmount).
- 		 */
--		atomic_inc(&info->stop_eviction);
-+		shmem_disallow_eviction(info);
- 		spin_unlock(&shmem_swaplist_lock);
- 
- 		error = shmem_unuse_inode(&info->vfs_inode, type);
- 		cond_resched();
- 
- 		spin_lock(&shmem_swaplist_lock);
--		if (atomic_dec_and_test(&info->stop_eviction))
--			wake_up_var(&info->stop_eviction);
-+		shmem_allow_eviction(info);
- 		if (error)
- 			break;
- 		if (list_empty(&info->swaplist))
-@@ -1915,6 +1930,13 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
- 			spin_unlock(&shmem_swaplist_lock);
- 		}
- 
-+		/*
-+		 * Once the folio has left the page cache, its lock no longer
-+		 * keeps the inode from being evicted and freed: hold eviction
-+		 * off, in case the folio has to be put back below.
-+		 */
-+		shmem_disallow_eviction(info);
-+
- 		folio_dup_swap(folio, NULL);
- 		shmem_delete_from_page_cache(folio, swp_to_radix_entry(folio->swap));
- 
-@@ -1922,6 +1944,7 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
- 		error = swap_writeout(ctx, folio);
- 		if (error != AOP_WRITEPAGE_ACTIVATE) {
- 			/* folio has been unlocked */
-+			shmem_allow_eviction(info);
- 			return error;
- 		}
- 
-@@ -1938,6 +1961,7 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
- 			shmem_recalc_inode(inode, 0, -nr_pages);
- 			folio_put_swap(folio, NULL);
- 		}
-+		shmem_allow_eviction(info);
- 
- 		/*
- 		 * The swap_cache_del_folio() below could be left for
 -- 
 2.43.0
 
-
--- 
-Cheers,
-
-David
