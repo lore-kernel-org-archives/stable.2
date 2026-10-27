@@ -1,69 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793120778;
-	b=aaaOLvxWPzqJot6cDMUa5b70aQTECsfWompwzUByCel1lYSeQIGb25NrND7uICsS4OFC
-	 xIntoFou+xzKMi2YCVDDMQE3jkBgZHWkPaC5x2fX9UkpB3y06oQBrZbt9u/bPxzTgUPmo
-	 1EYwf1W9ZeQUCICGUJ7irjXmUFwUqUAFKdwLgiPDNQcvqoSZH3E3zirpjh1/laJrDdMd7
-	 vww4+lZ0WpAXzgmEJVSfeIGX/olUZ6Vd+IZWcpwam8+FEchcLjziOeMsx4RVZGGsKGo9X
-	 IRfHI5CFRaHU+AXVhxR0ux8hmDUQWRvkUSRwUpphI4swe3cXlAWsEYe8R4FvNw/O+Gw==
+	t=1793120906;
+	b=1PhrgZmM5fnQNOBX7VCuLBn+QPfgoTHw4n6C/Urx+pBjLIev7otarlgShJY+h8+NLkeM
+	 5cnYGM/CY74I+r0jiBxQRQfGHnGBhP7oxOcJyA89VPKudwnQCm+d5sA5VBUXnPvdcrCPS
+	 hMqx29vU10uAMp7r7spz54juQWQfQrbk0I2WIB//yyfTlQytVEs+HiF3DIswkMndEsO9T
+	 J2Bp6G0hfuGTSSPkS9rvpfiGpoAE0AsPce3M/iTtj0R00Yf8wH5sFFj7zVe2c2JFDcYxK
+	 IelsphUI/lOqE0xx1FvKwJypDcgAUEhR6wi6O6P2WuBxP3+clMyX9gEM6IL3kXwpcAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120778;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120906;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=CIRKIW6FyjGByuy1vcj3Kaosm6T+AEo/GoygfORs3IQ=;
-	b=kPU4sTQR3u+23ZwYwxjOjhbMxEr9CH8WN/rhXwBcFV51vjN7o+x+niTaNLCzCw7Ofnub
-	 SVrF0FBy/fOooSJEhrvs+fvk11oFjfYqS7L8auNxeDgLTO2fDSGWsCW101WTFuik58leS
-	 +lhG0a5xSaqBfpWD2RsSiBYPBHWs+RnkiYDtEwgTXAbKjyzan+52v2huH3NmHJIp/2C+U
-	 9+28SaX/aEq4alUFFrgWvi2R6DEuPtyWkwSp1ecXkajD/UhL1gow26QrrVhVqbyLwSRxi
-	 0RdHtD6cax8gR29f1TLJ9aoobzHGN0whsC95BP1oNw5ajwRNwI1fMwJtUR45yoUPjZQ==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=EqRKj4JjHw6XL8/kSkGRlKo0pVt1CLaSeDtymMxLZjc=;
+	b=UhL2LUa7TSejdMq8SkTGYSTEYwNhgu6UzvLmPRv57VF4Zr5BG3k96ri50syPjpCOMeAT
+	 aTT+XFzY8Y1lDxthZZ464VhgDIYfQBQpwJJiHouXmE7Y4RRGDv1U0j/m9P6wa68zFmHHw
+	 /nhEMRZfjXx7Iua+5A994vjYpuLrxNX/b4wFOSoVMKqcTuVGk7hZ0vYSUNUF4PjyaIo1+
+	 6mayq3JaGHI8mrsRQbHWK44mPZ7RnhY7J0utRxI3d6BUVwIM/j84qU1lMCInVXw+u2W8h
+	 2b1NUhpwB953uWz0ebXOC8pMQQZtdFzZawtvCVUNuExJPXh/SjYtgGreZZUu4wPT9Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LX9oQFb3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BA3B606A320;
-	Tue, 27 Oct 2026 17:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA3B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YaYcSimt;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2140606A31A;
+	Tue, 27 Oct 2026 17:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2140606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LX9oQFb3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D61871650;
-	Tue, 27 Oct 2026 10:06:12 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8FEFF3F7B4;
-	Tue, 27 Oct 2026 10:06:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793120776; bh=YfBOcf/1p0yKe28rQCyfQziZDw3iZcDMCiJAcTFH3s0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LX9oQFb3JCU/nRh3HOHfyGm75yvY2AqOJkXgl4H1OUrL+YV/yfv5t2j4NyOmkDQk9
-	 wJjiz2smZNW3BasgYXW2q2tqg9DtW18Hjbi6WScVSvfUxSgq2xS9N/BwOrfVKoiH+i
-	 KRo062zN72Uh7zYRswDgomQDOFjW4Mykh8WDYZzM=
-Date: Tue, 27 Oct 2026 17:06:11 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-Subject: Re: [PATCH v3 4/4] arm64/mm: fix destructor for unconstructed
- hotplug page tables
-Message-ID: <auDaAw5IR-ZFvqJ5@arm.com>
-References: <20261023063428.3658761-1-songmuchun@bytedance.com>
- <20261023063428.3658761-5-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YaYcSimt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793120904; x=1824656904;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZY+GVp1iLeMaklemOOZDjWJMytlYyxP/MoY5YjBxoPU=;
+  b=YaYcSimt+oUAtggKTp1zllMcgaUF8nK5n6TdHEi4t6jfpS2PtbgcQP2b
+   TXQWzrH6QPj6F9PReQiNKHAi0JmvTZ8EAtGJVH7e/dbDConq9Qr8T855T
+   sIV4fNY1BiDblz3VtQbrjqsCj/5kH+Jeu3CD/HCo/i0OY7+pGOpdYDEcq
+   Ax+zw79ag1QPJhDv2Gsm5svIdEpSO632vH9lpSpAp58eB2SacY2FVKfvD
+   DcIKrsJVX/ZlymUyG/mvTpWJpQz44vm1sJre1FSpQcGtYTheU4KqUzY/j
+   j1edwDhoj4leULNismOrrjr1qOILD5k8D9fk23zR2OZN44MKHfxVjEcIB
+   g==;
+X-CSE-ConnectionGUID: HDnwve3wQY6F1E8rzOH2KQ==
+X-CSE-MsgGUID: RzKj8TjLTzqxo/TvjmVYnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1828577"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1828577"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:08:23 -0700
+X-CSE-ConnectionGUID: G/XzPPOkQ/mehdlrVHha1g==
+X-CSE-MsgGUID: UJLaONPAT5SA3mKcICqqjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4596521"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:08:21 -0700
+Date: Tue, 27 Oct 2026 19:08:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: liuc63 <liuc63@xiaopeng.com>
+Cc: gregkh@linuxfoundation.org, khtsai@google.com, fangxy@xiaopeng.com,
+	rdunlap@infradead.org, dbrownell@users.sourceforge.net,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: u_ether: fix out-of-bounds read in
+ get_ether_addr
+Message-ID: <auDagk-2QU88ofVC@ashevche-desk.local>
+References: <20261023110113.2969708-1-liuc63@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,30 +83,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023063428.3658761-5-songmuchun@bytedance.com>
+In-Reply-To: <20261023110113.2969708-1-liuc63@xiaopeng.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 23, 2026 at 02:34:28PM +0800, Muchun Song wrote:
-> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
-> hot-removed page tables") made free_hotplug_pgtable_page()
-> unconditionally run the page-table destructor. This matches page tables
-> allocated by the arm64 mapping code, which runs the corresponding
-> constructors.
+On Fri, Oct 23, 2026 at 07:00:59PM +0800, liuc63 wrote:
+> get_ether_addr() parses a MAC address string with a fixed six-iteration
+> loop, unconditionally calling hex_to_bin() twice per iteration.  It never
+> checks for the terminating NUL, so a short string supplied through the
+> configfs dev_addr attribute (e.g. "ab") makes the parser read past the
+> end of the buffer, triggering a slab-out-of-bounds read reported by
+> KASAN.  hex_to_bin() also returns -1 for non-hex characters, which is
+> shifted and OR'ed into dev_addr.
 > 
-> However, arm64 also uses the generic sparse-vmemmap population code.
-> Runtime intermediate page tables allocated by that code do not run a
-> page-table constructor. Freeing one during memory hot-remove therefore
-> runs a destructor without a matching constructor and corrupts
-> NR_PAGETABLE accounting.
-> 
-> Free intermediate page-table pages through pagetable_free(). It runs the
-> destructor only for constructor-backed pages and then releases the page
-> through the page-table freeing path.
-> 
-> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Bail out as soon as the string ends or a non-hex digit is found, routing
+> all failure paths through the existing eth_random_addr() fallback so that
+> dev_addr is always fully initialized before the function returns.
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Instead, in lib/net_utils.c:
+
+bool parse_mac_pton(const char *s, u8 *mac, const char *delim)
+{
+	...
+		if (i != ETH_ALEN - 1 && !strchr(delim, s[i * 3 + 2]))
+	...
+}
+
+In include/linux/hex.h:
+
+static bool mac_pton(const char *s, u8 *mac)
+{
+	return parse_mac_pton(s, mac, ":");
+}
+
+and here
+
+static int get_ether_addr(const char *str, u8 *dev_addr)
+{
+        if (str) {
+		bool valid;
+
+		valid = parse_mac_pton(str, dev_addr, ".:");
+		if (valid && is_valid_ether_addr(dev_addr))
+			return 0;
+        }
+        eth_random_addr(dev_addr);
+        return 1;
+}
+
+Note, this will require select NET_UTILS in Kconfig to be added.
+
+Make it two patches (first prepares parse_mac_pton() for others to use).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
