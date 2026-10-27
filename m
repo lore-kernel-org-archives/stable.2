@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094531;
-	b=mRb3A0LPiQJnCw/pYtGQjZFcIVc1zq0Q1cE/S5l8kqoQ3jXWn3wLwrBr60epBjD9Dh6S
-	 bTF6bCXmEJIDgUDtjthHA8283lRm2x4eW+YAR3DdVTTpmrPkqAJJYkHKZQy4pTD2upRjM
-	 MYpVRogVGDqT/VCgt0cGxNqYNZdw8Nduxg903gn+fJCM7RZ7bxMPo7dtrKQajWwTOPAbX
-	 5vEIIbRz3NHRWRGClZRNnRFgwa+71s9ltCMEM5gEJOmRNxj0F8lZ4b3zhZO+Lcay4egrN
-	 UNiOZiyY6S1oSPv4NMDhHFcvEJ+wHud1/0QiTe4rsXv9TN68G+oRejmj/kgaOFDXFYw==
+	t=1793094588;
+	b=Lr0PFtugW3WCUyHEwjfPEjeqcoT68v7TQrdu2jQy/6QtcW4pjUiWYKLT5dJ9pVBmDw6H
+	 MG8mXgCEwNA/JEufFDZnMRsEdAJMvXzz5KErkmZiqzdXgJAAI+xBvKnyL73TVT/aS/IDM
+	 ugpph/pLANmxZjUnFkXPbmylRH8C10bNzFZuRcgsz71YQ+uXAlHI+H5/7axyTRJK0OQqV
+	 RYXr30UIrelvE89JXD0v+oMtfMb6WOENeVN4xQNIyufZPxQuItuA4wjBCr/u1QdnmUGot
+	 TpUrjoypa/zEHBS41mM7Es9AdQVZG1F2e2PZZr+8m1GMS8LNFDKoUCDQfwHXWKmdX9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094531;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=w+/m5TRiUEroTYi/JhU/ZMYvRJ27fL3IgAeL8IYLhOs=;
-	b=xF6acuxfLslUfDqotpZjVtBgcXVC6UiHmJYTALfiZoHyZcYcROL83nRl3yPFiChLQADL
-	 uR3HMhvc+rKWjgg7Rdt8p1qXJw0Orq63kpFtCboIehuRiD+oU89YykloDo4CIInowtcVW
-	 yPrxqZaMZjIXoeZyWX//TCtIma4wpZrfWXKdH0VsOFVvInKOTvv92j3myhaTOcja4ceJs
-	 c86K7uYnbBJLw2gmxMqd49HJuD6nli/8v790o5VhOHlCyOPSQFuDLF1186OsGOAfTJlcr
-	 tgc2J0QdM8QLU4yqtoCfLggxezIew1DK8u3KFekcylNWk/tcolUXB0j6uq5VwHCwDaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094588;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bbhL5NLVy9Oz3kDCEpkXfrPMU8gaHJkfwTMkrmkXY+8=;
+	b=sWMbf5tAn+0i2ZeL2uJE9UWyVaHJ24NKCMeX55VO4WyO0i4fz45W8GNrGdbr8o++Xy7e
+	 cq0bHi3vucBIf/vYSq7GM2oPBl4HxUHFu+jw+d92NVkZaZBxQPoPTOMI1Xc1C/iotDGCA
+	 xQt33xv/vSLbXhRhDf7ppaXjB2bvJEy/tqtM8GyICGvYuzgRCuXLILmJqlh0b4RDbGttt
+	 Dtgc5ejDSLf5XTT6Wg3Dq0+bDRYMd3SjsozJBA7YvKyvSwr+kMeo1iUhMsZ6zDfo7vbPT
+	 PQlRIUW9saD6UDWG0vPqP4YiAlQHsiueZJs8H9C1+0DlFRJxHya+j66ctesSai082tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M5HfFoAj;
-	arc=none smtp.remote-ip=95.215.58.137
-Received: from mta1.migadu.com (out-137.mta1.migadu.com [95.215.58.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4553D606A320
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4553D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ed37GiXq;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AA1E606A31A;
+	Tue, 27 Oct 2026 09:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AA1E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M5HfFoAj
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=w+/m5TRiUEroTYi/JhU/ZMYvRJ27fL3IgAeL8IYLhOs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793094529; v=1; x=1793699329;
- b=M5HfFoAjUDnRgQrtlqwxlCzg/yUz3ct1gnJFOAIpEV4mZEEV3dK1BLmaugjdYXhR6Y1192oO
- bvxwaI9qa6LHkm0LAQTLWGbPluusZ6PGzBIq6PiGDoL/kcvoOndbK+wUxRwtkmmdvKO7NuAJ/E3
- CZvZDj4wGfkHNKwOBZvMDrNc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 74e52af488cb4c06;
-	Tue, 27 Oct 2026 09:48:48 +0000
-X-Mizu-Trace-ID: 74e52af488cb4c06
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ed37GiXq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Ed37GiXqwNsqzNpJ5CXcuYDUd57ahg06bDk5s54HCenDaLHn3s4ms1Eiiz9yJcRGOx+mqh5BbQCct
+	 z0mBce5/wqHPSx3rru5d17/YNOU0Pjk5sf8U+Ul7UqxRmA58yrk2a0Zum6OTC5MOC9jjj9moVnuQTJ
+	 dPTGVutrj95ReGU4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36ae073b6f76-23d0d;
+	Tue, 27 Oct 2026 17:49:44 +0800 (CST)
+X-RM-TRANSID:2ee36ae073b6f76-23d0d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae073b5bb3-d716d;
+	Tue, 27 Oct 2026 17:49:44 +0800 (CST)
+X-RM-TRANSID:2ee96ae073b5bb3-d716d
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	tangbin@cmss.chinamobile.com,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/mediatek: mtk_hdmi_v2: NULL check curr_conn in pre_enable
+Date: Tue, 27 Oct 2026 17:49:41 +0800
+Message-ID: <20261027094941.1862-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,117 +75,36 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 44/46] mm/cma: don't release CMA pages still in use
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
-Date: Tue, 27 Oct 2026 17:48:18 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>,
- Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>,
- Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>,
- Xu Xin <xu.xin@linux.dev>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C94DBF32-62A3-4010-808D-DEB2E17DC552@linux.dev>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+mtk_hdmi_v2_bridge_pre_enable() calls
+drm_atomic_get_new_connector_state(state, hdmi->curr_conn) which
+dereferences hdmi->curr_conn (via drm_connector_index) before the existing
+WARN_ON(!conn_state) check. Add WARN_ON(!hdmi->curr_conn) first.
+
+Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+index f0277fcf3..c94d22042 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+@@ -1026,6 +1026,8 @@ static void mtk_hdmi_v2_bridge_pre_enable(struct drm_bridge *bridge,
+ 
+ 	/* Retrieve the connector through the atomic state */
+ 	hdmi->curr_conn = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
++	if (WARN_ON(!hdmi->curr_conn))
++		return;
+ 
+ 	conn_state = drm_atomic_get_new_connector_state(state, hdmi->curr_conn);
+ 	if (WARN_ON(!conn_state))
+-- 
+2.52.0.windows.1
 
 
-
-> On Oct 27, 2026, at 07:18, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Rik van Riel <riel@surriel.com>
->=20
-> When a driver calls dma_free_contiguous() before quiescing DMA, the
-> page might still have a reference from the device.
-> put_page_testzero() there returns false, WARN fires, but the code =
-proceeds
-> to free_contig_frozen_range() putting a live page onto buddy and =
-clearing
-> the bitmap. A subsequent allocation can hand the same PFN to a new
-> owner while the original holder still references it.
->=20
-> A concurrent put_page() that drops the last reference between the
-> testzero loop and free_contig_frozen_range() can double-queue the page
-> via page->lru, corrupting buddy lists.
->=20
-> Avoid the corruption by not freeing a CMA region if any of the
-> pages inside are still in use.
->=20
-> Make it explicit in the warning that the driver allowed a leak.
->=20
-> While at it, use page_ref_freeze() to make the semantics clearer and
-> switch to pr_warn_ratelimited().
->=20
-> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rik van Riel <riel@surriel.com>
-> Link: https://patch.msgid.link/20260811132045.5f114772@fangorn
-> [ david: use page_ref_freeze() + pr_warn_ratelimited() ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks
 
