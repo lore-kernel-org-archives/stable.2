@@ -1,58 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069354;
-	b=BclkV1TDIc5xY/bUzSxZCz+gMsP3Lf2PeVtYKLMaaHFVojOe5VD0p6mwz0WdiupwNiOu
-	 3B74Fv7fAAndwbpeRUIB7RI4nZVrujINK0hq03mXnnSppRDpSzs0WYMyI/b7QsD9gI+qs
-	 YrUVcgZjXnirbDjMJNClbrdG4jQOZ0aSmNhTssYpKXQz/TLoRMUu63yJOupsIH9FvMDmf
-	 7QYljC9qNkzbzTqfRzMJyjFtmJFyT/GzC1J8GyJ8rugbV1ueY4icZNYIqA4VokwRKe7I3
-	 zYC5i3Z+2bpCTJxSd3FLxxilhbzEojHz3zwX7RPqlsFF3jq7A3ZJMKyN4OeSrNCSL3Q==
+	t=1793069446;
+	b=ktx+jpUXbpzQKzgD+SYdb9BX1//i/EQCODrx25c8zZ5RIrFxTdKX0RnmXoTjHXrVxtfR
+	 2NUIa23ZKT72PNntBweFAazjQJhA94En12wPDzhGnvum7syUVQzhisHOQL++ykEOG0FmV
+	 xWfW+B+aNeynoAUwqU7RkpqlEeglYfNMJ6gfKj7QzRlotfYyYip7wASfeRZvhF+5tV0vJ
+	 rq2RL9AqMALHRCgylsTXKKgiDPafJwuw+kLSVNOMweVv36T+13BOkgy1Mb0rBJ7dMgJNu
+	 Lm11cZEybCGV93b66c9syC1dk8i3p41AWtkyUm+IUEJWUD1NmLnnCf8pCX9dlOVo7wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069354;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=hQzXnM0yfdxQSXBqRydbNKMrYYWCqZdyv/6dIVcZyDw=;
-	b=AvZG9StrKzrNjTk3SRlaMcWMln9MmEAcVW1pKNhxYK8rEUu+UYtD8ofewyr5hUcBIsC3
-	 Gk4g82Wbc0zGzbfWJ66oiZogX/6IjsuromI/pj9enYWiXtu0akWQp9tDKF0vgHurXs2L0
-	 /tFzBFCBxBDF2jT8tXYLaGujZk9EFZFrVbsmTsyzuHJBeLrGwmepSEQ6ebZGTvNXUv/WY
-	 7jYQ2uGUWfQUhQgEr8OlY2yudHDkaDfHm7cb53EyBXDpm8UQuJkvtmm5rxISpikQKxXBc
-	 uq08I3AezxXTBdTlfm2UyGF/CZ5ospXA0f0lWYxtqMh75AJrk+VPQHxkB14WYAI5rDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069446;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=yp5lwm6B1KcrGTQodF+hkNMZvE12OPY0D+ZFleJb6Vo=;
+	b=cVwfSbcZABCQCTkikKD1Sjw94eBbHoXleBosy+LKLSWPWPDaB2aVWeDb2tPR8K9oW1xG
+	 SoVu+nQ9e+IyMNxWe6m+LYYMbm0xxKBocl6PehSgFXnV69oROlyt9FK0eF4t62qboYBDz
+	 5WxwYSl25C0O96C79CGjGYjqmxO1IJgZU6+rjlAUzNvUeGVIi6XX2JC0eVhmDuEtpmxZD
+	 eGhAUmoekVfUaYo0bp+RVcsS/eX91fbvHuPnUelXyaNY0DJiC8qbrwIlABB5cDwIsRswa
+	 Z8iTyVZaCU1ziYcb78mIUpgvQ7+f2gkosz005kRfYRMLqMQi2jUIwTGg+2urF84oQlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DD0C606A31E;
-	Tue, 27 Oct 2026 02:49:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD0C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=hQzXnM0yfdxQSXBqRydbNKMrYYWCqZdyv/
-	6dIVcZyDw=; b=RRVVo50OlKTpsddLlMTkkuJtDZfgWSClfLlUbHvTgKsKyEC/XB
-	wOjKH2e3uFGUmPFEKcMBqc2GOP0uU65/rwsf+vKFFPG1/sMSlXAxwK40RiY72yFc
-	uQX5AtKgtWspX6X5/FbLOb5ibkYUrKdaBGofBXsq1F57gJ6zYiiqusS5E=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnwQZEeBqBLjsAA--.49584S5;
-	Tue, 27 Oct 2026 10:49:06 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v4 3/3] media: dvb-usb: refcount dvb_usb_device to fix disconnect UAF on open chardevs
-Date: Tue, 27 Oct 2026 10:48:56 +0800
-Message-Id: <20261027024856.22764-4-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027024856.22764-1-25031212351@stu.xidian.edu.cn>
-References: <20261027024856.22764-1-25031212351@stu.xidian.edu.cn>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 760A2606A31E;
+	Tue, 27 Oct 2026 02:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 760A2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8Bx79KDEeBqJa4ZAA--.9661S3;
+	Tue, 27 Oct 2026 10:50:43 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJAxlMyAEeBqJogwAA--.8723S2;
+	Tue, 27 Oct 2026 10:50:42 +0800 (CST)
+Message-ID: <bf429747-eaea-47d5-a341-f74251321d09@loongson.cn>
+Date: Tue, 27 Oct 2026 10:47:55 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,499 +45,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 19/28] mfd: loongson-se: Prevent out-of-bounds engine
+ access in se_irq_handler()
+To: Lee Jones <lee@kernel.org>
+Cc: stable@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-19-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-19-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBWnwQZEeBqBLjsAA--.49584S5
-X-Coremail-Antispam: 1UD129KBjvAXoWfGrWruFy5Wr1UWF47CrW8tFb_yoW8WFy3Xo
-	WxKw4fJw4rJr4jkrWktF1qqry0gFZ7WanxWw43Cr4kZ3yI9Fs8Jr45Gws8Xw1Igrs5Krnr
-	t34DJrW5Jw48Jr48n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUOf7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20EY4v20xva
-	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r1rM28IrcIa0x
-	kI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84AC
-	jcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM2
-	8EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
-	M2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
-	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
-	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYx
-	C7MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrwCFx2Iq
-	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
-	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
-	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7
-	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
-	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUk8n5UUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2rfbNNUuAACs8
+X-CM-TRANSID:qMiowJAxlMyAEeBqJogwAA--.8723S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7uw1DCrWDGF48Cr45AFy8tFc_yoW5Jr1DpF
+	WDCa4jyr4qkF47Cw1ayF98Kw13W3y7Jr9rCFZFgr4UZan7tw1xGr1jkFy3Grs8urWkJFWI
+	vF98Wrs5uFW8XabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU27PEDUUUU
 
-On USB unbind (physical disconnect or usbfs USBDEVFS_DISCONNECT_CLAIM /
-USBDEVFS_RESET / USBDEVFS_SETCONFIGURATION), dvb_usb_device_exit() ->
-dvb_usb_exit() tears the whole "struct dvb_usb_device" down while
-userspace may still hold open /dev/dvb/adapter*/frontend* file
-descriptors and while the kdvb-ad-X-fe-Y thread is still running.
 
-The post-disconnect paths then trip over the freed object:
+在 2026/10/21 20:09, Lee Jones 写道:
+> loongson_se_probe() enables all 32 interrupt bits via SE_INT_ALL
+> (0xffffffff), and se_irq_handler() uses the set bit index from the
+> 32-bit status register directly to index se->engines, which only holds
+> SE_ENGINE_MAX (16) entries.  Any interrupt bit asserted at index 16 or
+> above triggers an out-of-bounds access on se->engines.
+>
+> Restrict SE_INT_ALL to GENMASK(SE_ENGINE_MAX - 1, 0) and bounds-check
+> the bit index against SE_ENGINE_MAX before completing the engine in
+> se_irq_handler().
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-bc962408-5c42-40af-8111-a8463a05ccdf
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-  * i2c_transfer(&d->i2c_adap) from a frontend's ->release() /
-    ->init() reads i2c_adap.bus_lock etc. out of freed memory
-    (KASAN reports A/D in the bug report);
-  * dvb_usb_generic_rw() / ttusb2_i2c_xfer() lock/unlock
-    &d->usb_mutex / &d->i2c_mutex inside freed memory
-    (KASAN UAF writes, UBSAN qspinlock splats, and a NULL dereference
-    where "d" was gone entirely);
-  * dvb_usb_fe_wakeup() / dvb_usb_fe_sleep() call
-    dvb_usb_device_power_ctrl() -> ttusb2_power_ctrl() on freed "d".
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-struct dvb_usb_device has no refcount, so there is no way to keep it
-alive until the last chardev user is gone.  Add one:
+Thanks for fixing this!
 
-  * New fields "struct kref kref" and "int dead" in struct
-    dvb_usb_device.
-  * New helpers dvb_usb_device_get() / dvb_usb_device_put(); the
-    release function frees ->priv and "d" once the last reference
-    is dropped.
-  * dvb_usb_device_init() initialises the kref; dvb_usb_exit() no
-    longer frees "d" but marks it ->dead, keeps doing all the
-    subsystem teardown (remote, adapters, i2c, priv_destroy), and
-    drops the framework reference.  The object itself is freed by
-    the last put().  The error path of dvb_usb_device_init() marks
-    the device dead as well, so callbacks that keep it alive do not
-    run against the ->priv that dvb_usb_init() has already freed.
 
-The reference has to cover the whole lifetime of a frontend, not
-just individual calls: closing the last file descriptor after
-disconnect runs __dvb_frontend_free() -> fe->ops.release(), which
-still talks to the demodulator over i2c.  Therefore:
+Best Regards,
 
-  * dvb_usb_adapter_frontend_init() takes a reference per registered
-    frontend, saves the driver's release callback and installs
-    dvb_usb_fe_release() as fe->ops.release.  The wrapper calls the
-    original callback, calls dvb_detach() on it when
-    CONFIG_MEDIA_ATTACH is enabled, and then drops the dvb_usb_device
-    reference.  A failed registration drops the reference itself and
-    keeps the driver callback installed, so the core detaches it as
-    before.
-  * dvb_frontend_invoke_release() applies dvb_detach() to
-    fe->ops.release itself, which is the wrapper now, so the module
-    reference it drops is taken with __module_get(THIS_MODULE) when
-    the wrapper is installed.  Both sides are conditional on
-    CONFIG_MEDIA_ATTACH; without the matching get(), the module
-    reference counting would be off by one in both directions.
-  * dvb_usb_adapter_init() calls dvb_usb_adapter_frontend_exit() when
-    a failure happens after the frontends were registered, instead
-    of leaking the registered frontends and their references.
-  * usb_get_dev() / usb_put_dev() tie the underlying "struct
-    usb_device" to the same lifetime, so late USB helpers either
-    work or fail cleanly on a disconnected device instead of
-    dereferencing freed memory.
-  * dvb_usb_fe_wakeup() / dvb_usb_fe_sleep() pin the device around
-    the power-control + fe_init/fe_sleep calls;
-  * dvb_usb_generic_rw() and ttusb2_i2c_xfer() pin the device for
-    the duration of the USB/i2c work and check ->dead right after
-    taking their mutex, skipping the hardware access if the device
-    is gone.
-  * dvb_usb_i2c_exit() restores the i2c adapter data pointer after
-    i2c_del_adapter() zeroed adap->dev, so a late transfer that
-    reaches another dvb-usb driver's ->master_xfer callback finds
-    the device instead of NULL.
+Qunqin.
 
-Because the kref lives inside the object itself, every consumer that
-wants to probe "is it dead?" does so while holding a ref, so the flag
-can never be read from freed memory.  With the object kept alive, the
-mutexes and the i2c_adapter embedded in it are also still valid, which
-is what the KASAN/UBSAN reports were complaining about.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/usb/dvb-usb/dvb-usb-dvb.c  | 66 ++++++++++++++++++++++--
- drivers/media/usb/dvb-usb/dvb-usb-i2c.c  | 11 +++-
- drivers/media/usb/dvb-usb/dvb-usb-init.c | 47 +++++++++++++++--
- drivers/media/usb/dvb-usb/dvb-usb-urb.c  | 21 +++++++-
- drivers/media/usb/dvb-usb/dvb-usb.h      | 14 +++++
- drivers/media/usb/dvb-usb/ttusb2.c       | 24 +++++++--
- 6 files changed, 170 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-dvb.c b/drivers/media/usb/dvb-usb/dvb-usb-dvb.c
-index 029dad86a059..61af74df41d8 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-dvb.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-dvb.c
-@@ -8,6 +8,7 @@
-  * linux-dvb API.
-  */
- #include "dvb-usb-common.h"
-+#include <linux/module.h>
- #include <media/media-device.h>
- 
- /* does the complete input transfer handling */
-@@ -251,26 +252,59 @@ static int dvb_usb_fe_wakeup(struct dvb_frontend *fe)
- {
- 	struct dvb_usb_adapter *adap = fe->dvb->priv;
- 
--	dvb_usb_device_power_ctrl(adap->dev, 1);
-+	if (!dvb_usb_device_get(adap->dev))
-+		return -ENODEV;
-+
-+	if (!adap->dev->dead)
-+		dvb_usb_device_power_ctrl(adap->dev, 1);
- 
- 	dvb_usb_set_active_fe(fe, 1);
- 
--	if (adap->fe_adap[fe->id].fe_init)
-+	if (!adap->dev->dead && adap->fe_adap[fe->id].fe_init)
- 		adap->fe_adap[fe->id].fe_init(fe);
- 
-+	dvb_usb_device_put(adap->dev);
- 	return 0;
- }
- 
- static int dvb_usb_fe_sleep(struct dvb_frontend *fe)
- {
- 	struct dvb_usb_adapter *adap = fe->dvb->priv;
-+	int ret = 0;
-+
-+	if (!dvb_usb_device_get(adap->dev))
-+		return -ENODEV;
- 
--	if (adap->fe_adap[fe->id].fe_sleep)
-+	if (!adap->dev->dead && adap->fe_adap[fe->id].fe_sleep)
- 		adap->fe_adap[fe->id].fe_sleep(fe);
- 
- 	dvb_usb_set_active_fe(fe, 0);
- 
--	return dvb_usb_device_power_ctrl(adap->dev, 0);
-+	if (!adap->dev->dead)
-+		ret = dvb_usb_device_power_ctrl(adap->dev, 0);
-+	dvb_usb_device_put(adap->dev);
-+	return ret;
-+}
-+
-+static void dvb_usb_fe_release(struct dvb_frontend *fe)
-+{
-+	struct dvb_usb_adapter *adap = fe->dvb->priv;
-+	void (*release)(struct dvb_frontend *frontend) =
-+		adap->fe_adap[fe->id].fe_release;
-+
-+	if (release) {
-+		release(fe);
-+#ifdef CONFIG_MEDIA_ATTACH
-+		/*
-+		 * __dvb_frontend_free() detaches fe->ops.release, which is
-+		 * this wrapper now, so the driver callback is left
-+		 * attached.  Drop the reference dvb_attach() took instead.
-+		 */
-+		dvb_detach(release);
-+#endif
-+	}
-+
-+	dvb_usb_device_put(adap->dev);
- }
- 
- int dvb_usb_adapter_frontend_init(struct dvb_usb_adapter *adap)
-@@ -304,10 +338,20 @@ int dvb_usb_adapter_frontend_init(struct dvb_usb_adapter *adap)
- 		adap->fe_adap[i].fe->ops.init  = dvb_usb_fe_wakeup;
- 		adap->fe_adap[i].fe_sleep = adap->fe_adap[i].fe->ops.sleep;
- 		adap->fe_adap[i].fe->ops.sleep = dvb_usb_fe_sleep;
-+		adap->fe_adap[i].fe_release = adap->fe_adap[i].fe->ops.release;
-+
-+		/*
-+		 * A frontend file descriptor can outlive USB disconnect.
-+		 * Hold a reference for the whole frontend lifetime: the
-+		 * release callback and the frontend thread then still run
-+		 * against a live struct dvb_usb_device.
-+		 */
-+		dvb_usb_device_get(adap->dev);
- 
- 		if (dvb_register_frontend(&adap->dvb_adap, adap->fe_adap[i].fe)) {
- 			err("Frontend %d registration failed.", i);
- 			dvb_frontend_detach(adap->fe_adap[i].fe);
-+			dvb_usb_device_put(adap->dev);
- 			adap->fe_adap[i].fe = NULL;
- 			/* In error case, do not try register more FEs,
- 			 * still leaving already registered FEs alive. */
-@@ -317,6 +361,20 @@ int dvb_usb_adapter_frontend_init(struct dvb_usb_adapter *adap)
- 				return 0;
- 		}
- 
-+		/*
-+		 * From now on the frontend owns the reference.  Under
-+		 * CONFIG_MEDIA_ATTACH, dvb_frontend_invoke_release() drops a
-+		 * module reference on fe->ops.release, which is the wrapper
-+		 * from here on; take it, and the wrapper detaches the driver
-+		 * callback in turn.  The registration error path above runs
-+		 * with the driver callback still installed and is not
-+		 * affected.
-+		 */
-+#ifdef CONFIG_MEDIA_ATTACH
-+		__module_get(THIS_MODULE);
-+#endif
-+		adap->fe_adap[i].fe->ops.release = dvb_usb_fe_release;
-+
- 		/* only attach the tuner if the demod is there */
- 		if (adap->props.fe[i].tuner_attach != NULL)
- 			adap->props.fe[i].tuner_attach(adap);
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-i2c.c b/drivers/media/usb/dvb-usb/dvb-usb-i2c.c
-index bc4b2abdde1a..fac65098219b 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-i2c.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-i2c.c
-@@ -42,8 +42,17 @@ int dvb_usb_i2c_init(struct dvb_usb_device *d)
- 
- int dvb_usb_i2c_exit(struct dvb_usb_device *d)
- {
--	if (d->state & DVB_USB_STATE_I2C)
-+	if (d->state & DVB_USB_STATE_I2C) {
- 		i2c_del_adapter(&d->i2c_adap);
-+		/*
-+		 * i2c_del_adapter() zeroes adap->dev and with it the
-+		 * adapdata.  A frontend callback can still run a transfer
-+		 * after disconnect and i2c_transfer() reaches ->master_xfer
-+		 * regardless; keep the back pointer valid so those drivers
-+		 * find the (kept alive) device and not NULL.
-+		 */
-+		i2c_set_adapdata(&d->i2c_adap, d);
-+	}
- 	d->state &= ~DVB_USB_STATE_I2C;
- 	return 0;
- }
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-init.c b/drivers/media/usb/dvb-usb/dvb-usb-init.c
-index 6d2672bcc69b..970da1e82346 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-init.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-init.c
-@@ -111,6 +111,7 @@ static int dvb_usb_adapter_init(struct dvb_usb_device *d, short *adapter_nrs)
- 	return 0;
- 
- frontend_init_err:
-+	dvb_usb_adapter_frontend_exit(adap);
- 	dvb_usb_adapter_dvb_exit(adap);
- dvb_init_err:
- 	dvb_usb_adapter_stream_exit(adap);
-@@ -136,9 +137,36 @@ static int dvb_usb_adapter_exit(struct dvb_usb_device *d)
- 
- 
- /* general initialization functions */
-+static void dvb_usb_free_device(struct kref *ref)
-+{
-+	struct dvb_usb_device *d =
-+		container_of(ref, struct dvb_usb_device, kref);
-+
-+	usb_put_dev(d->udev);
-+	kfree(d->priv);
-+	kfree(d);
-+}
-+
-+struct dvb_usb_device *dvb_usb_device_get(struct dvb_usb_device *d)
-+{
-+	if (!d)
-+		return NULL;
-+	kref_get(&d->kref);
-+	return d;
-+}
-+EXPORT_SYMBOL(dvb_usb_device_get);
-+
-+void dvb_usb_device_put(struct dvb_usb_device *d)
-+{
-+	if (d)
-+		kref_put(&d->kref, dvb_usb_free_device);
-+}
-+EXPORT_SYMBOL(dvb_usb_device_put);
-+
- static int dvb_usb_exit(struct dvb_usb_device *d)
- {
- 	deb_info("state before exiting everything: %x\n", d->state);
-+	d->dead = 1;
- 	dvb_usb_remote_exit(d);
- 	dvb_usb_adapter_exit(d);
- 	dvb_usb_i2c_exit(d);
-@@ -148,8 +176,8 @@ static int dvb_usb_exit(struct dvb_usb_device *d)
- 	if (d->priv != NULL && d->props.priv_destroy != NULL)
- 		d->props.priv_destroy(d);
- 
--	kfree(d->priv);
--	kfree(d);
-+	/* last put() frees the device */
-+	dvb_usb_device_put(d);
- 	return 0;
- }
- 
-@@ -157,6 +185,7 @@ static int dvb_usb_init(struct dvb_usb_device *d, short *adapter_nums)
- {
- 	int ret = 0;
- 
-+	kref_init(&d->kref);
- 	mutex_init(&d->data_mutex);
- 	mutex_init(&d->usb_mutex);
- 	mutex_init(&d->i2c_mutex);
-@@ -303,8 +332,12 @@ int dvb_usb_device_init(struct usb_interface *intf,
- 	info("found a '%s' in warm state.", desc->name);
- 	d->udev = udev;
- 	d->desc = desc;
-+	d->dead = 0;
- 	d->owner = owner;
- 
-+	/* keep the usb_device alive for as long as the object itself */
-+	usb_get_dev(udev);
-+
- 	usb_set_intfdata(intf, d);
- 
- 	ret = dvb_usb_init(d, adapter_nums);
-@@ -321,7 +354,15 @@ int dvb_usb_device_init(struct usb_interface *intf,
- 
-  error:
- 	usb_set_intfdata(intf, NULL);
--	kfree(d);
-+	/*
-+	 * dvb_usb_init() has already freed ->priv; make sure late callers
-+	 * that keep the object alive see a dead device.
-+	 */
-+	d->dead = 1;
-+	if (d->udev)
-+		dvb_usb_device_put(d);
-+	else
-+		kfree(d);
- 	return ret;
- }
- EXPORT_SYMBOL(dvb_usb_device_init);
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-urb.c b/drivers/media/usb/dvb-usb/dvb-usb-urb.c
-index 2aabf90d8697..b8f51104092f 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-urb.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-urb.c
-@@ -17,13 +17,28 @@ int dvb_usb_generic_rw(struct dvb_usb_device *d, u8 *wbuf, u16 wlen, u8 *rbuf,
- 	if (!d || wbuf == NULL || wlen == 0)
- 		return -EINVAL;
- 
-+	if (!dvb_usb_device_get(d))
-+		return -ENODEV;
-+
- 	if (d->props.generic_bulk_ctrl_endpoint == 0) {
- 		err("endpoint for generic control not specified.");
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	if (d->dead) {
-+		ret = -ENODEV;
-+		goto out;
- 	}
- 
- 	if ((ret = mutex_lock_interruptible(&d->usb_mutex)))
--		return ret;
-+		goto out;
-+
-+	if (d->dead) {
-+		mutex_unlock(&d->usb_mutex);
-+		ret = -ENODEV;
-+		goto out;
-+	}
- 
- 	deb_xfer(">>> ");
- 	debug_dump(wbuf,wlen,deb_xfer);
-@@ -57,6 +72,8 @@ int dvb_usb_generic_rw(struct dvb_usb_device *d, u8 *wbuf, u16 wlen, u8 *rbuf,
- 	}
- 
- 	mutex_unlock(&d->usb_mutex);
-+out:
-+	dvb_usb_device_put(d);
- 	return ret;
- }
- EXPORT_SYMBOL(dvb_usb_generic_rw);
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb.h b/drivers/media/usb/dvb-usb/dvb-usb.h
-index 550006a8d86f..53647f9cf34d 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb.h
-+++ b/drivers/media/usb/dvb-usb/dvb-usb.h
-@@ -14,6 +14,7 @@
- #include <linux/input.h>
- #include <linux/usb.h>
- #include <linux/firmware.h>
-+#include <linux/kref.h>
- #include <linux/mutex.h>
- #include <media/rc-core.h>
- 
-@@ -373,6 +374,7 @@ struct dvb_usb_fe_adapter {
- 
- 	int (*fe_init)  (struct dvb_frontend *);
- 	int (*fe_sleep) (struct dvb_frontend *);
-+	void (*fe_release)(struct dvb_frontend *fe);
- 
- 	struct usb_data_stream stream;
- 
-@@ -429,6 +431,12 @@ struct dvb_usb_adapter {
- /**
-  * struct dvb_usb_device - object of a DVB USB device
-  * @props: copy of the struct dvb_usb_properties this device belongs to.
-+ * @kref: refcount; the object is only freed once every user that can
-+ *	outlive USB disconnect (frontend file descriptors, the frontend
-+ *	thread, in-flight i2c/usb transfers) has dropped its reference.
-+ * @dead: set once the USB device is gone; USB/i2c workers must check
-+ *	this while holding @kref and skip real hardware I/O.  Protects
-+ *	access to @udev and to the mutexes below.
-  * @desc: pointer to the device's struct dvb_usb_device_description.
-  * @state: initialization and runtime state of the device.
-  *
-@@ -462,6 +470,9 @@ struct dvb_usb_device {
- 	struct dvb_usb_device_properties props;
- 	const struct dvb_usb_device_description *desc;
- 
-+	struct kref kref;
-+	int dead;
-+
- 	struct usb_device *udev;
- 
- #define DVB_USB_STATE_INIT        0x000
-@@ -502,6 +513,9 @@ extern int dvb_usb_device_init(struct usb_interface *,
- 			       short *adapter_nums);
- extern void dvb_usb_device_exit(struct usb_interface *);
- 
-+struct dvb_usb_device *dvb_usb_device_get(struct dvb_usb_device *d);
-+void dvb_usb_device_put(struct dvb_usb_device *d);
-+
- /* the generic read/write method for device control */
- extern int __must_check
- dvb_usb_generic_rw(struct dvb_usb_device *, u8 *, u16, u8 *, u16, int);
-diff --git a/drivers/media/usb/dvb-usb/ttusb2.c b/drivers/media/usb/dvb-usb/ttusb2.c
-index acde6149d278..aae99d7ab27e 100644
---- a/drivers/media/usb/dvb-usb/ttusb2.c
-+++ b/drivers/media/usb/dvb-usb/ttusb2.c
-@@ -369,10 +369,26 @@ static int ttusb2_i2c_xfer(struct i2c_adapter *adap,struct i2c_msg msg[],int num
- {
- 	struct dvb_usb_device *d = i2c_get_adapdata(adap);
- 	static u8 obuf[60], ibuf[60];
--	int i, write_read, read;
-+	int i = 0, write_read, read;
- 
--	if (mutex_lock_interruptible(&d->i2c_mutex) < 0)
--		return -EAGAIN;
-+	if (!dvb_usb_device_get(d))
-+		return -ENODEV;
-+
-+	if (d->dead) {
-+		i = -ENODEV;
-+		goto out;
-+	}
-+
-+	if (mutex_lock_interruptible(&d->i2c_mutex) < 0) {
-+		i = -EAGAIN;
-+		goto out;
-+	}
-+
-+	if (d->dead) {
-+		mutex_unlock(&d->i2c_mutex);
-+		i = -ENODEV;
-+		goto out;
-+	}
- 
- 	if (num > 2)
- 		warn("more than 2 i2c messages at a time is not handled yet. TODO.");
-@@ -426,6 +442,8 @@ static int ttusb2_i2c_xfer(struct i2c_adapter *adap,struct i2c_msg msg[],int num
- 	}
- 
- 	mutex_unlock(&d->i2c_mutex);
-+out:
-+	dvb_usb_device_put(d);
- 	return i;
- }
- 
--- 
-2.34.1
+> ---
+>  drivers/mfd/loongson-se.c       | 3 ++-
+>  include/linux/mfd/loongson-se.h | 7 ++++---
+>  2 files changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+> index 187ebbed0422..10af13c3b7cc 100644
+> --- a/drivers/mfd/loongson-se.c
+> +++ b/drivers/mfd/loongson-se.c
+> @@ -158,7 +158,8 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
+>  	/* For engines */
+>  	while (int_status) {
+>  		id = __ffs(int_status);
+> -		complete(&se->engines[id].completion);
+> +		if (id < SE_ENGINE_MAX)
+> +			complete(&se->engines[id].completion);
+>  		int_status &= ~BIT(id);
+>  		writel(BIT(id), se->base + SE_S2LINT_CL);
+>  	}
+> diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson-se.h
+> index 07afa0c2524d..2d0a8b1e5c9e 100644
+> --- a/include/linux/mfd/loongson-se.h
+> +++ b/include/linux/mfd/loongson-se.h
+> @@ -4,6 +4,8 @@
+>  #ifndef __MFD_LOONGSON_SE_H__
+>  #define __MFD_LOONGSON_SE_H__
+>  
+> +#include <linux/bits.h>
+> +
+>  #define LOONGSON_ENGINE_CMD_TIMEOUT_US	10000
+>  #define SE_SEND_CMD_REG			0x0
+>  #define SE_SEND_CMD_REG_LEN		0x8
+> @@ -18,10 +20,9 @@
+>  #define SE_L2SINT_STAT			0x98
+>  #define SE_L2SINT_SET			0xa0
+>  
+> -#define SE_INT_ALL			0xffffffff
+> -#define SE_INT_CONTROLLER		BIT(0)
+> -
+>  #define SE_ENGINE_MAX			16
+> +#define SE_INT_ALL			GENMASK(SE_ENGINE_MAX - 1, 0)
+> +#define SE_INT_CONTROLLER		BIT(0)
+>  #define SE_ENGINE_RNG			1
+>  #define SE_CMD_RNG			0x100
+>  
 
