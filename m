@@ -1,41 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793073590;
-	b=L1SYTI+AI/9KGiMJtVVTB28/NazIQQbJBLJvGGHBs0F2YUh97QnbEGHdaQXwirS/1knS
-	 3XHCD9XEiy2JFCwMGxhwCGA1/zVwhVq5JqVydmnFtD/fDgO0hczcV9LGwaHipvWeF/zQg
-	 FyRx4XJ+7gzL4vQx9xcuuezVvyB3xsCc4DMJY4+vYoRX5MPSB2goA+aVOMeg0yzrqEoeC
-	 ZpvAypPQ0STIzyRd8d/3yKgtpUHxZCwyOrcgwQ+rFa92BxNqk1tCC2WN9VvGAcruUP1c+
-	 CPxA64TdgAdX2GQVBJ5TALudF5cVKEa+3rp6+D9TXxRgsuKLRcq9/hEqyRREQ8/rc8g==
+	t=1793073591;
+	b=jHxc8/KaU1inOF8rbKA7/sX/ykCykpj78Ep2v1Rqdv/dlkBP13H9UT4aFYyL6+4Etkt6
+	 MWhShlR1Sof4ceFxiLisDQRZzpeidyvzfYZY0nqsy2dRd37MR7XClMaSBKRrCwhFY9mlp
+	 03hgpQSL+9p55jYO8dhS3cP/NaxcgXAvMfs9VajnNGiUvbj08sqrjF9taTpSvnpHCR4C1
+	 urCFS2e0F9imQKz8QkErRaMT9ASZKR3h7oZ1Rchqx4fa9p+p+WS3ETpmZSfglvUjHPo+c
+	 TJAIQvNU7zKN5GLuXy6gZI5BUZDR4wgiCe5lSHx4OPgxEbdsvZNwdwp65MeB0CnbwYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793073590;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=yNjVGzNCe/dUhA+Uvzx9OfKhmHV1qkPYX987us1hODA=;
-	b=y6RiXFNVErz9Pn0s+7FoUofsKUOBOcSx8QyowrSdy6lgJ+k8zncO5Dltq+Ybc79oYr7Z
-	 zkjbTTsMojHhsu22tkNyBRpGCCPOPlfOYJ1zsy2G4mOv6C3j2zk5OEAxJn2NwjSvp9ySM
-	 iOa5/LpXJs6VPR74P2yipm/SgFWPMun6eB9Y3i4dZR71JVsikVi627HpXfusXdexhnqFu
-	 uXJeIZG1KuziauNQi63bZJ3GdesiDYga9O3iuXcVRb1linW0Q8rPlF5ZKPUZ1kk3hdyNX
-	 HxzRlcVt8RUW+iL3dQ7Ef2aHOIQfyn5LycqiXuaynu0lfEI9PLjukr1QS2XaSKRieCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793073591;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ow0G93l9e0EmY6URJd2RDSyzRNeAkWxjCkJmGzeQGzA=;
+	b=PYfuUg+k/0nzuqdnrWx4liGV+Rza3kxslxKQFL/TysrZNr14KwTp7RxxbLvmBTEr4dvv
+	 nyceUzkdY3BTH1rKw56JkrNLFxowMnbfoHH3x4zQXYYXPlbJA+Z5lpmBX05l24cXCsjCU
+	 wc2yCyEWKzhxzdoKtzuQYP3Ou3ZHP7dZEd216iYXQMnUswNwn/tfLZXQdNhSzevuGpplj
+	 zjsB7UNP+JKips1COIsnUSRe6g9A7aX7O7Pp+vAEoLTOmCXCaUItSzZdcrk+KdDBWm5PK
+	 9cHA0TobAr+PgsL7gTTNBP6V8URwvICUzZJ3Wx4rFzi0y+Wj7Ir2YZcAMk2Nq2OBA7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35180606A31A;
-	Tue, 27 Oct 2026 03:59:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35180606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8DxjdKxIeBqUbIZAA--.8827S3;
-	Tue, 27 Oct 2026 11:59:45 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJBxpMyrIeBqK40wAA--.9167S2;
-	Tue, 27 Oct 2026 11:59:42 +0800 (CST)
-Message-ID: <aa36b32b-5702-42e9-b27a-19dcf373b777@loongson.cn>
-Date: Tue, 27 Oct 2026 11:56:54 +0800
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="aMwh/y2f";
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD5E606A326
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:59:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD5E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aMwh/y2f
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so2206527eec.0
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:59:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793073590; x=1793678390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ow0G93l9e0EmY6URJd2RDSyzRNeAkWxjCkJmGzeQGzA=;
+        b=aMwh/y2faS/js83YQ/KEeWIzD4kvOPqz2TU3afqpyyDp1Xs/QMPIUVv3dXmtkk4rh7
+         ZLxFlVOCJLFzJYhI7oiFSCfiPQLskB2qIB0Cl/2H/ZEHnrEiZJC9RkDW0NdP4t6mVqvJ
+         yrdo52st4GLaEGCCV36JmGMIV9WDuHTqKmBF5SbNQaoqLpQGgsyPfZ6rsHAkmm1M0LRa
+         1OUMz+QUhySL6M0FC6oUa7i4M/xOYqGjFvnt3pUv6z61ZO/ngNDiWW2DC/2sHeQMPZpI
+         wavf10DMzbXZXKyUA8PeFHipSfLDXz4X2U5iwLWXbQYOko09ZctwzsUnvy5HphzbDr7c
+         iJPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793073590; x=1793678390;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ow0G93l9e0EmY6URJd2RDSyzRNeAkWxjCkJmGzeQGzA=;
+        b=Ur1YgT2NxV+A80pLhgLJamkg9MgMctSaU+WykcjeMS9TaO7YcgNmHgpDFOPDnjk1d6
+         uKOh/iV/8fxEuWVhHL76B901npoxs0S7AEIltK0cofsVsrNA+r+Z2wx44M82fTZPhB9e
+         4uEP5vlQmXTW30vSaRfDETDBeiT1aJFl/7jk/oUhtqx8VaHkcpzt03QNdqOJbRnQ7Hj+
+         7bsWTzcJ+IQzDDNUhQfWR3KWbE1ZoO7wHzAsfdSnfPzvgJLluG+WmsYk7tKk5XzExiuL
+         rYnusb41wEERd6vQ9JDRIrcfxZNODYiaerr0prqwSi458bFq/zKSpZ5DNwMIFP8ykmth
+         z8MA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaFV65+RivrWtHntosy6Qwc+LtcD604szeG1qmWA5jUo/QH+JZvLIbScymyQEZ4S6pphmr5sU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBPN/SSa9Sgnw4W77WEb4OO1JQ+UKTRzYX46sEez4FBS2/SEVd
+	uv7soBve0O+aBTKsAvg7TRTv5x9JqTIm4SHiiMcX4jfL07QiR5Xq2P8m
+X-Gm-Gg: AYBFou3oIJj/ZN8wvBYDIqsMWZcp7V2Gq15oSTUsJ9sTwmsRgVn/04LUIcj3OU9ckpD
+	ocydZfmLR7m4F+VywoEhoOWI4yHNeTtV0o0c5zS5EsjFd3AdsJuNEMTgs6dwnvJnRY7RKc1vAtg
+	jfELZ8U9Nr7vf/spFS867XfT2sONlo8rs7ouJGxVMmbyUupu/PfC0ucAq8+CZL4ZPKkYPM3/4RO
+	DuHvXreBtA0+BGqUpoDFBphG+HddWg7BWonM2mbaL8JBW7/Tc93KtPG0S6r4/ItyEZrDNsC0XLq
+	qTmDBBah/bPj5CVzIF6QhJ4uERYU7X0uPtm7HSDdag8LMbJsJ+GYgt4QXoTONe5d7FSB3OFEVTC
+	2uxq7uC3i2Hc/5ryBIIsMU/pMp/LAsbZq4390kk0MWOYlAms6e7ays5EgmcAj7Sm0+oKXGQ2YTB
+	csEIocbeafG8Gcd2lbJcUsehlCvJpaLc6OEoWrkFORQbgcC9uCDWScActbyj+0Fk2FfU2vqGsFE
+	y1Q2sy7i35aGm281GpDgBgti7K8ewwzTk+6pRYBPo3rknjt4xLWDfKuRXjegQr1IH2UV9tTOPA6
+	JEWbFRo=
+X-Received: by 2002:a05:7301:18af:b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a12d7efc5mr979215eec.34.1793073589608;
+        Mon, 26 Oct 2026 20:59:49 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daa3a8sm36899329eec.16.2026.10.26.20.59.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 20:59:49 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	djwong@kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH] ext4: preserve force-fsck requests across unmount
+Date: Tue, 27 Oct 2026 03:58:57 +0000
+Message-ID: <20261027035857.72265-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -45,196 +103,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 20/28] mfd: loongson-se: Stop controller and mask
- interrupts on teardown and shutdown
-To: Lee Jones <lee@kernel.org>
-Cc: Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen
- <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-20-lee@kernel.org>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-20-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxpMyrIeBqK40wAA--.9167S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3XrW7uF4DWF48Gw4ftryxJFc_yoW7Wr48pF
-	4DAa4a9r4Yyr42kwsxXrZ09F1Y934ftry7CrZ7Ww4xCryDtw18Wry5KF18GFs3Cr4UXF48
-	XrW8GrZ5CF48uFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwI
-	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j0sjUUUUUU=
 
+EXT4_TUNE_FL_FORCE_FSCK sets EXT4_ERROR_FS in the on-disk superblock
+but leaves s_mount_state unchanged. On a normal read-write unmount,
+ext4_put_super() restores s_state from s_mount_state, clearing the
+requested flag.
 
-在 2026/10/21 20:09, Lee Jones 写道:
-> loongson_se_probe() enables hardware interrupts before registering IRQ
-> handlers and starts the controller via loongson_se_init(), but provides
-> no teardown or shutdown handler to stop the controller and mask
-> interrupts.  If probe fails after loongson_se_init(), if the driver is
-> unbound, or during a system reboot or kexec transition, the controller
-> remains active with DMA configured to memory that is reclaimed.
->
-> Clear pending interrupts before requesting IRQs, unmask interrupts only
-> after IRQ handlers are registered, clean up on failure inside
-> loongson_se_init(), register a devres action after loongson_se_init()
-> succeeds to issue SE_CMD_STOP and mask interrupts on teardown, and wire
-> up the platform driver .shutdown callback.
->
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-> Closes: https://sashiko.dev/#/bug/linux-15511672-7569-4eac-96a0-c08581925710
-> Closes: https://sashiko.dev/#/bug/linux-e6ed8d33-d641-4969-a5ea-959f21ae3696
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+As a result, a successful EXT4_IOC_SET_TUNE_SB_PARAM call can be lost
+before e2fsck runs: after unmount it treats the filesystem as clean
+and skips the requested check.
 
-Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Set EXT4_ERROR_FS in s_mount_state as well, matching the state handling
+in ext4_clear_journal_err(), so later superblock updates retain the
+request.
 
-Thanks for fixing this!
+Fixes: 04a91570ac67 ("ext4: implemet new ioctls to set and get superblock parameters")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/ext4/ioctl.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-
-Best Regards,
-
-Qunqin.
-
-> ---
->  drivers/mfd/loongson-se.c       | 51 +++++++++++++++++++++++++++++----
->  include/linux/mfd/loongson-se.h |  1 +
->  2 files changed, 46 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-> index 10af13c3b7cc..bdbab4b91729 100644
-> --- a/drivers/mfd/loongson-se.c
-> +++ b/drivers/mfd/loongson-se.c
-> @@ -169,6 +169,23 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
->  	return IRQ_HANDLED;
->  }
->  
-> +static void loongson_se_stop(void *data)
-> +{
-> +	struct loongson_se *se = data;
-> +	struct loongson_se_controller_cmd cmd = {};
-> +
-> +	mutex_lock(&se->engine_init_lock);
-> +
-> +	cmd.command_id = SE_CMD_STOP;
-> +	loongson_se_send_controller_cmd(se, &cmd);
-> +
-> +	spin_lock_irq(&se->dev_lock);
-> +	writel(0, se->base + SE_S2LINT_EN);
-> +	spin_unlock_irq(&se->dev_lock);
-> +
-> +	mutex_unlock(&se->engine_init_lock);
-> +}
-> +
->  static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
->  {
->  	struct loongson_se_controller_cmd cmd = {};
-> @@ -176,15 +193,23 @@ static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
->  
->  	cmd.command_id = SE_CMD_START;
->  	err = loongson_se_send_controller_cmd(se, &cmd);
-> -	if (err)
-> +	if (err) {
-> +		writel(0, se->base + SE_S2LINT_EN);
->  		return err;
-> +	}
->  
->  	cmd.command_id = SE_CMD_SET_DMA;
->  	cmd.info[0] = lower_32_bits(addr);
->  	cmd.info[1] = upper_32_bits(addr);
->  	cmd.info[2] = size;
->  
-> -	return loongson_se_send_controller_cmd(se, &cmd);
-> +	err = loongson_se_send_controller_cmd(se, &cmd);
-> +	if (err) {
-> +		loongson_se_stop(se);
-> +		return err;
-> +	}
-> +
-> +	return 0;
->  }
->  
->  static const struct mfd_cell engines[] = {
-> @@ -192,6 +217,13 @@ static const struct mfd_cell engines[] = {
->  	{ .name = "tpm_loongson" },
->  };
->  
-> +static void loongson_se_shutdown(struct platform_device *pdev)
-> +{
-> +	struct loongson_se *se = platform_get_drvdata(pdev);
-> +
-> +	loongson_se_stop(se);
-> +}
-> +
->  static int loongson_se_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> @@ -225,12 +257,12 @@ static int loongson_se_probe(struct platform_device *pdev)
->  	if (IS_ERR(se->base))
->  		return PTR_ERR(se->base);
->  
-> -	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
-> -
->  	nr_irq = platform_irq_count(pdev);
->  	if (nr_irq <= 0)
->  		return -ENODEV;
->  
-> +	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
-> +
->  	for (i = 0; i < nr_irq; i++) {
->  		irq = platform_get_irq(pdev, i);
->  		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
-> @@ -238,10 +270,16 @@ static int loongson_se_probe(struct platform_device *pdev)
->  			dev_err(dev, "failed to request IRQ: %d\n", irq);
->  	}
->  
-> +	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
-> +
->  	err = loongson_se_init(se, paddr, se->dmam_size);
->  	if (err)
->  		return err;
->  
-> +	err = devm_add_action_or_reset(dev, loongson_se_stop, se);
-> +	if (err)
-> +		return err;
-> +
->  	return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, engines,
->  				    ARRAY_SIZE(engines), NULL, 0, NULL);
->  }
-> @@ -253,8 +291,9 @@ static const struct acpi_device_id loongson_se_acpi_match[] = {
->  MODULE_DEVICE_TABLE(acpi, loongson_se_acpi_match);
->  
->  static struct platform_driver loongson_se_driver = {
-> -	.probe   = loongson_se_probe,
-> -	.driver  = {
-> +	.probe    = loongson_se_probe,
-> +	.shutdown = loongson_se_shutdown,
-> +	.driver   = {
->  		.name  = "loongson-se",
->  		.acpi_match_table = loongson_se_acpi_match,
->  	},
-> diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson-se.h
-> index 2d0a8b1e5c9e..dbe5992bd435 100644
-> --- a/include/linux/mfd/loongson-se.h
-> +++ b/include/linux/mfd/loongson-se.h
-> @@ -11,6 +11,7 @@
->  #define SE_SEND_CMD_REG_LEN		0x8
->  /* Controller command ID */
->  #define SE_CMD_START			0x0
-> +#define SE_CMD_STOP			0x1
->  #define SE_CMD_SET_DMA			0x3
->  #define SE_CMD_SET_ENGINE_CMDBUF	0x4
->  
+diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+index e8e579498c99..3e444e245c98 100644
+--- a/fs/ext4/ioctl.c
++++ b/fs/ext4/ioctl.c
+@@ -1384,8 +1384,10 @@ static void ext4_sb_setparams(struct ext4_sb_info *sbi,
+ 		    EXT4_FEATURE_INCOMPAT_CSUM_SEED)
+ 			es->s_checksum_seed = cpu_to_le32(sbi->s_csum_seed);
+ 	}
+-	if (params->set_flags & EXT4_TUNE_FL_FORCE_FSCK)
++	if (params->set_flags & EXT4_TUNE_FL_FORCE_FSCK) {
++		sbi->s_mount_state |= EXT4_ERROR_FS;
+ 		es->s_state |= cpu_to_le16(EXT4_ERROR_FS);
++	}
+ }
+ 
+ static int ext4_ioctl_set_tune_sb(struct file *filp,
+-- 
+2.43.0
 
