@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096034;
-	b=FthpSAszuLK14MzjTqK5jEnCkX41pGMmlrQFTRK52lkuIawVhSaAoMAR9wVt5P8kmnYU
-	 ZIh3V31fQE6EA5hK1aguFbPDXSIjSJRSM/bmijc1MbCMpZLc5DOMyfSVD01qJMvjgqVQz
-	 jNoZ/yh51tmN0zA66vXVoRmc/dHE1SSPoAubw59uAF6eh+TDa7kr+T+iDX1whjzDz7Vzk
-	 KXyLFdVfy6JHXObVSG1eDcwo2r0PlkDP3HgYZX+3GWKILXmnPesW5SdQF5iNPpQidAX5a
-	 sYs0qjQKvOlia2Z4oPjPjytWhQyS++lL3KYlV25o9WG2iIgTMIWY3EwESoqVDetH1+A==
+	t=1793096099;
+	b=OtRgKysMIZTPxTL4oQfZv2Q8K6/gnvXe2kOJ8e/tV5tl8J86kRlymv8RJpeBu6ElGjLh
+	 PGWbjzEMSgriWXnXtv/y0NzzWGHCgs5up+1GXlx4IpqyAMXTvsgcroChJoNRisizx2qOz
+	 AeWHmkKYJ6EipeqNOTMko+ebtJwTTKRJwVduaQ61/VhdfR1oWR5elGavnpJ2hE97ovXYJ
+	 FUzX0V+6ewJFeqEajfVOnwCcxp43NubUR0SI6BQzr44AqNhFWhecGGG5pnEl4Xw7uFqNH
+	 QTLAHbXOP6Z4IQTgCfMkq2uOwM5qz0h8y7O9L+vya1IyFu8Umo5AlJQkPdD9Qo8JNCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096034;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VcjnV7QS2G+aidrtUKihb76qyh+JC3b0hokomy9CWtI=;
-	b=DKoJbd0yAiZBHFcaGXKPKG1HIikgmsU1htZE3DqXlE4qE+1+2h+NKOEMT5XAOeMGfQSp
-	 qx0aYbwVVShcn4KEmFh/3IoX+JWi2pAOMKNAYOnKnCPCH8yLD8Q7dGvzyGBAr//6jGdnb
-	 RjzNYdpudfGCakZnfVDr2jHHzUCi4wX+HLmcVF+qsJ6ivfTTSPCDq+XOo9rLaaRWUxFIP
-	 tyXmQ+567lQ+HvNQIPsGRPTDdoJME6Se4iUS8vsga1MV+t5OpQPYLykD8C+2ZqqKlM8d/
-	 UWBuJF2VTiGlU4GeYBdzMOCsA22jNn+DqdIAp2MesPpbkOVeiv6dRQVIUG5ODstzxyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
+	b=uGc/Gorgz7iQEft0HpkE/LSHcgWHyOtu7RXLfpoV7K0Quk0R4ah/RpMWfrUrKPIDvfMq
+	 RpEntEmgZCSmmKz8jBWNrIDy6EF0Atdq/Exl/I2P2hhiHlmEj6oIRQT1VL+dDdiOTNWsR
+	 c0AaeDB8981QTNKzjn2fU/u6p6N8XwKWd2k6G6ZgGw7I5opxLnbBtxz/mFmd+kii2Epn4
+	 zLrwcCgkm+PKm3aYlmO+kbEUJJlTLdQJjWke9Mrra48d2mxwXUL9/sFN/K2QPhIt++y5O
+	 KhrTBQgGvFf2AX4BQTlgG67AKGneIYvRsarSghirxgSwzC3tRgl6d6Y/PTxJ8f0wiuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwnkNvoo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DJ4JD5oP;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283C3606A31A;
-	Tue, 27 Oct 2026 10:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BCB606A31B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1BCB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwnkNvoo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B261F01825;
-	Tue, 27 Oct 2026 10:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793096033;
-	bh=VcjnV7QS2G+aidrtUKihb76qyh+JC3b0hokomy9CWtI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UwnkNvoos1ek2AkU4HMF6xMMIsDgOXZGtVXxowwR/TRjQw2QGKWFVBS9ZULzArNQM
-	 vKjbhEVbAE3XPTSOdy8+zQwqfOB/4dPDOtAjgwfFuR+DqJwgHcwlxraumzkxaHA2ib
-	 Va2JKy62cNXxS5F+0zUgxeVYwzpiDA2KcmRzwRB7TU2ZGdFjSlpkYuldKxpsncjev3
-	 VX99o6PmXSBPUsXfoGoG2H1a1zhRt2weS+QJK9agGdCjnbHxq7Z4JjPoHfP4VxU7MW
-	 OUTqfd8SpKL3+WjGAgmochCxIqilm+wXLSmTgUwZQGbAORhAlqKbDbjxETH1txy4HI
-	 +owiB3GFSMiyg==
-Message-ID: <b45a3b54-2b96-4325-a0a3-508ba0227c16@kernel.org>
-Date: Tue, 27 Oct 2026 11:03:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DJ4JD5oP
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so1598518a91.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793096098; x=1793700898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
+        b=DJ4JD5oPh4znSBd5MjH0yzKd9gZovBRDtmMqJCWZvSOefnbAZfhLhhNHc5gd0SmNG9
+         1rbBOqy8Fa3j2AadB2ypYyAARvg22x17Fj28rsbfO7bKc3HbXh5Xb5xnYp4/5C8dUYD1
+         4zNaypqM6Cdb3DVInc7lzDt4YnfziCx01A5mso4wyDXYiNRjy1G07I0gCNEz9zC4qh1z
+         aZeZcPR/P6iiIg/CgPDcgVLxg1Zh3NhoImzJPHoZ8ZuedH0WLpHHZXHcJdiW4rYWBEPZ
+         0MdWU1bKeb80IPFNPrlymToLeHzbqp+yrNd8Jn4+HvpHcMi9jMhJVekxg/ZdwoHxZegV
+         WmMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793096098; x=1793700898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
+        b=ip3k1r8zqOcT3mCc90sOM4NDIpLqT9bx82xK3GNBN6gEGX84yTZzrSLk+T+D6zzwew
+         WlFTLXk/awU4wwAG/q/vgL6Ch3vs3SL0gclYdzUfI3AUV0IfF4TbkOa4AG6hxwB5KpcQ
+         cYwX0OpFCe4plsSpFr4oEvRb+8HeS1doBhsFqrC1+fw1bKLA/3X+HN8PqdVAOe7QlWFE
+         /9MgT8T8pB+5C1RVCdIa4VIpr0AOGUzDIwwH1G3PgcJLNU4k8lJ5CqdDgnfpV4mIILSQ
+         RCgS2RykfmGKU9EfWD/FUZa0lIqEu1coLN21keG9LtprTlUFynW28Nlf5EGTi2vVAtp+
+         nTqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsM1DmYXm8rBdLShHIG967nRqMnJvIRNnZTbJRwRbPRKbcN9+q8ilolkrv9j6GXu84EKKwvYs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoRX+DwXoV/bljpdd/RG1I9teJM+M+/YELgTBqzTNPQcaV0TzF
+	QpLqiMW4TVaZw+1WvSqiHmf/K0Q/g1W/cyAwQ3O+pH1kxBIz4HqQ512U
+X-Gm-Gg: AYBFou2RtdWWB3zXkpWOGo6xJukrSf8536bkOc6Un3WI90WHdFSDxP7vD/j3E8Wjnyy
+	ba9T0VHfVi4OzSWmZ4aprg/YOV7rhN2dALZBdLyveCtEAFA7KPl2wMwzXf7Yr8P9IbMlXUncAtM
+	XY0hhSdiWnk1aCfPFRo524uOiPWJJ9VcgopzexI+Kz4IhIktu2QM2NZTT3Bi1FVphGQMIFVk5pS
+	cMbYLBtEfRtKVMfZUbEceSYIFN8EHyebAeQfT4KU0xqlsYjMZBcDtuKMkk1N05Rqf9TuF6ptRgf
+	vZRJ+Q+HDp99G3+cTJLqdUdLDbZJg8SsqYlAw5x4Koc/B6GhkFkG7gOrUWzbZAYF8sorR8nxVID
+	C6N/s47jBaacNrIoeftKJHZjLsIY6o8ycPG0DTiKR2tviu5cgtljtGA9KKdEUIP2L/2nSjMJeQL
+	n48EtUIN8fEy8YRwMBGIDdsg+Y7QiBBa+uQypnjYccEhn4V5a47yg++msb8xEFLxjhYwvdz6+n+
+	a09k1pFKkukYM8kAA6zMuT+EBY4/+bLvg2fzeVjYzd8PiAHCbE=
+X-Received: by 2002:a17:90b:2e8c:b0:3ac:8897:7b9f with SMTP id 98e67ed59e1d1-3adeae77a16mr7444135a91.43.1793096097910;
+        Tue, 27 Oct 2026 03:14:57 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404274b2sm3188284a91.5.2026.10.27.03.14.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:14:57 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v4] ocfs2/dlm: serialize migration MLE cleanup on failure
+Date: Tue, 27 Oct 2026 18:14:49 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0038-v9-659f247ea980d5f3fbeb@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,183 +100,259 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/16] mm/shmem: stop retrying folios that cannot be split
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
- <DMF8FVCUYJ5X.215YGBLZ7H56Y@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <DMF8FVCUYJ5X.215YGBLZ7H56Y@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/27/26 02:34, Zi Yan wrote:
-> On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
->> From: Chris Mason <mason@kernel.org>
->>
->> A fault or collapse can insert a large folio crossing EOF after
->> shmem_undo_range() has handled the boundary folios. If splitting that
->> folio fails, truncate_inode_partial_folio() retains it when it is dirty.
->> The final scan then repeatedly finds it because it restarts from an
->> unchanged start.
->>
->> Truncation keeps the inode lock and ignores fatal signals while looping.
->> A concurrent unlink() can then block other directory operations while
->> holding the directory lock and waiting for the file's lock.
->>
->> Advance start past the retained folio, whose truncated part has already
->> been zeroed. Do not move start backwards if the failed split has shrunk
->> the folio.
->>
->> Fix generated by an LLM and sent by Chris Mason in private.
->>
->> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Chris Mason <mason@kernel.org>
->> [ david: split fixes, simplify descriptions, adjust comments ]
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/shmem.c | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->>
-> 
-> I rebased your patch on mm-stable, which has Zhang Yi's fix, and
-> 1. tweaked the comment,
-> 2. skipped the dropped folio (this is to avoid a narrow case below).
-> 
-> Since after Zhang Yi's patchset, truncate_inode_partial_folio() is
-> changed to return false when it drops the entire folio. Restetting
-> start for a dropped folio in the scenario below would leave zeroed
-> folios still in the memory, causing a waste, although it is very narrow:
-> 
-> folio A=[0, 512), B=[512, 1024), C=[1024, 1536],
-> 
-> 1. A, B and, C are inserted after the same_folio block check, so only the
->    code at whole_folios label sees all of them,
-> 2. A is split partially and the split failed, A becomes [0, 32) and
->    [32, 512) zeroed,
->    truncate_inode_partial_folio() returns false, start is set to 32,
-> 3. B is dropped entirely, false is returned, start is set to 1024,
-> 4. C is split successfully
-> 
-> After 4, index is start=1024. The [32, 512) folio is not dropped. That
-> is why I added the folio->mapping check to avoid changing start in 3.
-> 
-> 
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index fadf23f9e21ed..efd54a624974c 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1480,6 +1480,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
->  						index = start;
->  						break;
->  					}
-> +				} else {
-> +					/*
-> +					 * Splitting failed, but the part in the
-> +					 * range is already zeroed. If the folio
-> +					 * was not dropped, skip it when
-> +					 * restarting the scan to avoid retrying
-> +					 * it forever.
-> +					 */
-> +					if (folio->mapping)
-> +						start = max(start, folio_next_index(folio));
->  				}
->  			}
->  			folio_unlock(folio);
-> 
-> 
+A migration MLE has a base reference for the mastering answer and an
+in-use reference held by dlm_migrate_lockres(). The finishing assertion
+consumes the base reference, but migration failure drops it again
+without checking whether the assertion already consumed it.
 
-Thanks, makes my life a lot easier!
+The target queues its migration worker before it acknowledges the
+ALL_DONE packet, so its finishing assertion can be handled while the
+sender still waits for the status. If the connection fails before the
+status arrives, dlm_send_one_lockres() returns an error for a migration
+that the target has already completed:
 
-I'll change that to an effective:
+  Old-master sender                  Finishing assertion
+  -----------------                  -------------------
+  publish MLE; take in-use reference
+  send ALL_DONE; wait for status
+                                     take lookup reference
+                                     unlink MLE
+                                     put lookup and base references
+  send returns a connection error
+  put base reference again; free MLE
+  put in-use reference; access freed MLE
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 1a81f6dca7510..c263f02fe07cf 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1481,6 +1481,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
-                                                index = start;
-                                                break;
-                                        }
-+                               } else if (folio->mapping) {
-+                                       /*
-+                                        * Splitting failed, but the part in the
-+                                        * range is already zeroed. The folio
-+                                        * was not dropped, so skip it when
-+                                        * restarting the scan to avoid retrying
-+                                        * it forever.
-+                                        */
-+                                       start = max(start, folio_next_index(folio));
-                                }
-                        }
+dlm_assert_master_handler() holds dlm->spinlock from the MLE lookup to
+the final puts, and it takes dlm->master_lock around the unlink and the
+puts. Decide under the same locks: if the MLE is already unhashed, the
+assertion consumed the base reference, so drop only the sender's in-use
+reference. Otherwise unlink it before consuming the base reference so a
+later assertion no longer finds it.
 
--- 
-Cheers,
+An assertion that got there first has also made the target the owner
+and cleared DLM_LOCK_RES_MIGRATING. Treating the attempt as failed at
+that point would leave the lockres owned by the target while this node
+still holds the other nodes' locks and refmap bits, so it could neither
+be purged nor migrated again. Finish our side as a completed migration
+does instead: drop those locks under res->spinlock if the target still
+owns the lockres, and recalculate its usage.
 
-David
+Use the same cleanup for the pre-send failure, the send failure and the
+target-death failure paths. The sender's in-use reference keeps the MLE
+alive until its final put outside the nested locks. Successful
+migration retains its existing in-use-only put.
+
+A target that has died cannot assert after the sender has seen its
+death. The o2net node-down callback runs before the DLM one; it
+disconnects the node and flushes the workqueue that runs the message
+handlers, so an assertion already received has been handled by the time
+the DLM removes the node from the domain map. A node that leaves the
+domain cleanly sends its exit message only after its assertions have
+been answered.
+
+Two windows of the hand-over itself are left as they are: the handler
+switches the owner and the sender drops the other nodes' locks moments
+later, and an assertion from a live target that arrives after the
+sender has given up still meets the owner check in the handler. Waiting
+for the target before giving up would only stretch the first window
+into the time in which recovery of the target can observe it.
+
+KASAN report, only the relevant frames are kept:
+
+BUG: KASAN: slab-use-after-free in dlm_put_mle_inuse+0xce/0xe0
+Read of size 8 at addr ffff8881190e3c20 by task umount/593
+
+Call Trace:
+ <TASK>
+ dlm_put_mle_inuse+0xce/0xe0
+ dlm_migrate_lockres+0x16af/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+ generic_shutdown_super+0x15f/0x490
+ kill_block_super+0x40/0xa0
+ deactivate_locked_super+0xae/0x120
+ deactivate_super+0xa2/0xc0
+ cleanup_mnt+0x217/0x450
+ task_work_run+0x144/0x230
+ </TASK>
+
+Allocated by task 593:
+ kmem_cache_alloc_noprof+0x20b/0x5c0
+ dlm_migrate_lockres+0x20e/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+
+Freed by task 593:
+ kmem_cache_free+0x242/0x580
+ __dlm_put_mle+0x4b2/0x660
+ dlm_migrate_lockres+0x1690/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+
+The buggy address belongs to the object at ffff8881190e3c00
+ which belongs to the cache o2dlm_mle of size 480
+The buggy address is located 32 bytes inside of
+ freed 480-byte region [ffff8881190e3c00, ffff8881190e3de0)
+
+Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v4:
+- Drop the v3 hand-over in dlm_assert_master_handler(): removing the other
+  nodes' locks there races with dlm_send_one_lockres() still walking the
+  lock lists when the last message was sent from inside the loop. The sender
+  drops the locks as before, right away when the assertion got there first
+  (Sashiko review).
+- Drop the v2 wait for the target's death before the MLE is dropped; it
+  stretched the half handed-over window that recovery of the target can
+  observe. The failure paths decide right away as before (Sashiko review).
+- Drop the v3 domain map check on finishing assertions. The o2net node-down
+  callback runs before the DLM one and flushes the message handlers, so an
+  assertion from the target is always handled before the node leaves the
+  domain map and the late assertion from a dead target asked about in the
+  Sashiko review cannot occur.
+
+Changes in v3:
+- Hand the lockres over in one res->spinlock section:
+  dlm_assert_master_handler() drops the other nodes' locks and refmap bits
+  together with the owner switch, and the sender only does the same if the
+  handler has not reached that point; the failed-but-asserted paths just
+  recalculate usage. This removes the window in which recovery of the target
+  saw a lockres it owned with other nodes' locks still attached (Sashiko
+  review).
+- Ignore a finishing assert from a node that is no longer in the domain map,
+  so a late assert from a dead target cannot hand the lockres over after
+  recovery has cleaned it up (Sashiko review).
+
+Changes in v2:
+- Complete the migration instead of failing it when the finishing assert has
+  already switched the owner, so the lockres is not left owned by the target
+  with the other nodes' locks still held here (Sashiko review).
+- On a connection error from the send, wait for the target's death before
+  the MLE is dropped, so a late assert finds the MLE instead of hitting the
+  handler's check (Sashiko review).
+
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v5-5e414ac0c701d2ccd4b3@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v6-44416f9847751914bacc@gmail.com
+Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v7-7a0bd8f07ba98784f6b7@gmail.com
+
+ fs/ocfs2/dlm/dlmmaster.c | 70 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 61 insertions(+), 9 deletions(-)
+
+diff --git a/fs/ocfs2/dlm/dlmmaster.c b/fs/ocfs2/dlm/dlmmaster.c
+index 612969867ff9..ea48c013f7fb 100644
+--- a/fs/ocfs2/dlm/dlmmaster.c
++++ b/fs/ocfs2/dlm/dlmmaster.c
+@@ -2525,6 +2525,52 @@ static int dlm_is_lockres_migratable(struct dlm_ctxt *dlm,
+  */
+ 
+ 
++/*
++ * Drop the sender's references on a migration MLE after the attempt has
++ * failed. The finishing assert from the target may already have unlinked
++ * the MLE and consumed its base reference; decide under the locks the
++ * assert handler holds, and only drop the base reference while the MLE is
++ * still hashed. Returns true when the assert got there first: the target
++ * has become the master, so the caller must complete the migration.
++ */
++static bool dlm_put_migration_mle(struct dlm_ctxt *dlm,
++				  struct dlm_master_list_entry *mle)
++{
++	bool asserted;
++
++	spin_lock(&dlm->spinlock);
++	spin_lock(&dlm->master_lock);
++	__dlm_mle_detach_hb_events(dlm, mle);
++	asserted = hlist_unhashed(&mle->master_hash_node);
++	if (!asserted) {
++		__dlm_unlink_mle(dlm, mle);
++		__dlm_put_mle(mle);
++	}
++	spin_unlock(&dlm->master_lock);
++	spin_unlock(&dlm->spinlock);
++
++	dlm_put_mle_inuse(mle);
++	return asserted;
++}
++
++/*
++ * The finishing assert got there first: it switched the owner to the
++ * target and cleared DLM_LOCK_RES_MIGRATING. Drop the other nodes' locks
++ * as a completed migration does, unless recovery has taken the lockres
++ * over since, and let the usage be recalculated.
++ */
++static void dlm_migrate_lockres_asserted(struct dlm_ctxt *dlm,
++					 struct dlm_lock_resource *res,
++					 u8 target)
++{
++	spin_lock(&res->spinlock);
++	if (res->owner == target)
++		dlm_remove_nonlocal_locks(dlm, res);
++	spin_unlock(&res->spinlock);
++
++	dlm_lockres_calc_usage(dlm, res);
++}
++
+ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 			       struct dlm_lock_resource *res, u8 target)
+ {
+@@ -2609,9 +2655,10 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 
+ 	if (ret < 0) {
+ 		if (mle_added) {
+-			dlm_mle_detach_hb_events(dlm, mle);
+-			dlm_put_mle(mle);
+-			dlm_put_mle_inuse(mle);
++			if (dlm_put_migration_mle(dlm, mle)) {
++				dlm_migrate_lockres_asserted(dlm, res, target);
++				ret = 0;
++			}
+ 		} else if (mle) {
+ 			kmem_cache_free(dlm_mle_cache, mle);
+ 			mle = NULL;
+@@ -2640,9 +2687,11 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 		mlog(0, "migration to node %u failed with %d\n",
+ 		     target, ret);
+ 		/* migration failed, detach and clean up mle */
+-		dlm_mle_detach_hb_events(dlm, mle);
+-		dlm_put_mle(mle);
+-		dlm_put_mle_inuse(mle);
++		if (dlm_put_migration_mle(dlm, mle)) {
++			dlm_migrate_lockres_asserted(dlm, res, target);
++			ret = 0;
++			goto leave;
++		}
+ 		spin_lock(&res->spinlock);
+ 		res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 		wake = 1;
+@@ -2686,9 +2735,12 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 				     res->lockname.name, target);
+ 				ret = -EINVAL;
+ 				/* migration failed, detach and clean up mle */
+-				dlm_mle_detach_hb_events(dlm, mle);
+-				dlm_put_mle(mle);
+-				dlm_put_mle_inuse(mle);
++				if (dlm_put_migration_mle(dlm, mle)) {
++					dlm_migrate_lockres_asserted(dlm, res,
++								     target);
++					ret = 0;
++					goto leave;
++				}
+ 				spin_lock(&res->spinlock);
+ 				res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 				wake = 1;
