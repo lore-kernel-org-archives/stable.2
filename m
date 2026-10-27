@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084503;
-	b=qaPzu5F4U6iK3ze6TrC5Kp/Ao/ilEGK+kBmu4J0BBQNhHXgVgDo8GQ3QGGbhSFshyg3A
-	 O4M1Wim6snz+Sz/DOWM1drzpKxVHDyFM39yHpT0APpK47eEssLIFIbU5k/N85no5tBMXq
-	 LCC8TkulNthkG9qFU5eIwXzlAyh6IVsBj3y27S8i7/FWTciI2KeOh3sUOP8iosfswbxec
-	 Y3Rs8cYc/vkAOPr/L4DzniOxPi1oo6zDYRWuB4M7+YDMi+22nffqQiddVIbn95pl6bGTu
-	 gj5EF9Hba0pYyW/iTWWLbkIvvR5haofzHwwho/H9NjBlxYQFyyt+8HqUAsmmWd9y1dw==
+	t=1793085142;
+	b=bd7NVBPokaXpQZGY3eCDcCABhPavXfutD28PksVLhnw28/i4FSG/iAdYKfzdv6GcAqbX
+	 hdLQcR87KTM7cLPpPX2e6vOJBtolJzZyQqHS437Rf7SHK9iGmoXpECQVBhZ+tjwR8v8wj
+	 lxeEyyostVIps5NWfc3LfxVLYVkqTbG8o+d6snl1J+EqvwNrXNziZiM6/Zci9hOF0F5LD
+	 qU2Kz7DNw2wGeF6xPglNvyM4V41C5yZp76ERZi7ZI09DLtMaPdwEuiLWfOkhxCceaPfbV
+	 /TKFMxEr7lbLAJ4N8IMxa0NAkCJtGuphyV4/wmcyi5lwaVY8McI6x49xRAd75AvprpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084503;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=02Uz2Vl5PMj3H0XVcfZQT2jH6lSBsH/c66JZZZkAW9I=;
-	b=WtaWxSeKlTnA7mg0jym1ZCTZVCrxYPQ0G5XMk3j163944NyieJASt6zZt+TkHMCRTD1y
-	 d5MPg1OxdRFIU8Gjoh8352fNWMnD1/fnuRaot4l5g03j+poT1ZM99Ah7GPMZb8gf3uMSe
-	 W3f2pFz8+xgKTgeCYtp992p9d2VKCsMY3bhC8oV1IEfPlWkPtz3rX+wgTZo6UiLBRwIdn
-	 gi6Z+HE4Wv+cTFhjUITsqzukflT0oCAAFJ89nVjBqT7t6ZCtGwiPCGs0N7MSV/+QZM33x
-	 rJpaIfLkfRN35K+EUgKLVgzoenkxawEOor4qnLFnsSBdwWpCDJlvlzBc5hvDtya51Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085142;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=gtdNnLom4qpn3DvgmzGMm6xPHdf4ojR1KNUGjX1eUNk=;
+	b=b06YF58U/JBOOkYaRJ+6CtRIl3pYkTa9oECvTuU9SxFaGlxvOeEMmbQMWJcgh7Vp/qAQ
+	 eccszM5VDWOl5GMBGLbZvjUOd7vmRzScO3vvHq0JXAbopz2O5ipMxQ0+sAgXiZN/HaB6R
+	 XYSGBCXobVm4VGRxSbtAdXECHqKxWJckiRT2RvfPDJwAoOTBZq4wZa0frFUFGlZvVM72v
+	 9r4VvA3VlnDtB7ovsFUlodzxRJw9EEXVmv6qRyFGEOLb4OG0liIEa07bpZ4iWoFAPdUqI
+	 K293K8CEC/iRae8vTxZjnH5It54+pqvdAA5GeQhYWt6F90X1RtU/VjMg8nRayureXxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QUyR5bYW;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CBBA606A324;
-	Tue, 27 Oct 2026 07:01:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBBA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FfiDc6lQ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FE6B606A31A;
+	Tue, 27 Oct 2026 07:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE6B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=QUyR5bYW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=QUyR5bYWgCnNOP98IU3IUwTAcW2T0o3LaxF7vkDZ08XxWb5Pf7iPKVMGXuWdPyQwJM87GRuaz5GKM
-	 INxMm7mSb5y+0ME0zPODLP6TEEtyCetrEvswUTlYQrM10CSGmyG+gjcuq2dfc4zS36Qvj5JmwnyChZ
-	 iJjqO0EijAcXmVw4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36ae04c536e2-21444;
-	Tue, 27 Oct 2026 15:01:39 +0800 (CST)
-X-RM-TRANSID:2ee36ae04c536e2-21444
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from  (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae04c509fb-d0e59;
-	Tue, 27 Oct 2026 15:01:39 +0800 (CST)
-X-RM-TRANSID:2ee66ae04c509fb-d0e59
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: krzysztof.kozlowski@linaro.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+1c5368988052dc2d8201@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] nfc: pn533: add timeout to USB frame send completion wait
-Date: Tue, 27 Oct 2026 15:01:35 +0800
-Message-ID: <20261027070136.1339-3-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261027070136.1339-1-zhaofeng2@cmss.chinamobile.com>
-References: <20261027070136.1339-1-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FfiDc6lQ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8CBAC1655;
+	Tue, 27 Oct 2026 00:12:17 -0700 (PDT)
+Received: from [10.163.152.160] (unknown [10.163.152.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F06B3F673;
+	Tue, 27 Oct 2026 00:12:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793085140; bh=a8GTRJb/qeXzyezkSqk5mOqJzNR0LEKUkQ+3k+5mvZA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FfiDc6lQo1cXuVWAHm7sZJKVPvB1uBSZcBxPlRTRTKZB9P2/HqL0iAsLKLf/ssxMF
+	 ewNuKCyCho5VuZn4COMZ36FF9jRRuUEgT7JmcRN66+bZPL6d1ZNnonW1F5rlGHUUuO
+	 xoTW+Fk8ljZo+MhZo0XWRWOqXNpvgAySN6D+/GdQ=
+Message-ID: <0757f1b0-9af6-417c-a4cb-eff0b05ba277@arm.com>
+Date: Tue, 27 Oct 2026 12:42:12 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,75 +53,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-pn533_usb_send_frame() waits unboundedly for the out URB to complete.
-A device that never completes the transfer makes the task sleep
-forever in TASK_UNINTERRUPTIBLE while holding the command mutex, as
-reported by syzbot (hung task in pn533_usb_send_frame).
-
-Use a 1 second timeout instead.  On timeout, kill the URB and return
--ETIMEDOUT so the command in progress fails gracefully instead of
-hanging the task.
-
-The transfer may complete between the timeout expiring and
-usb_kill_urb(); in that case urb->status is 0 after the kill and the
-send proceeds normally instead of reporting a spurious failure,
-mirroring what usb_start_wait_urb() does.
-
-Fixes: 9dab880d675b ("nfc: pn533: Wait for out_urb's completion in pn533_usb_send_frame()")
-Reported-by: syzbot+1c5368988052dc2d8201@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=1c5368988052dc2d8201
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Cc: <stable@vger.kernel.org>
----
-v2: check urb->status after killing the URB on timeout and carry on if
-    the transfer completed in the race window; add Fixes tag and Cc
-    stable; the pn533_wq_cmd() error handling fix is now patch 1/2.
-    Issues reported by the Sashiko AI review.
-
- drivers/nfc/pn533/usb.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/nfc/pn533/usb.c b/drivers/nfc/pn533/usb.c
-index 0b7e3b118d..265baf2213 100644
---- a/drivers/nfc/pn533/usb.c
-+++ b/drivers/nfc/pn533/usb.c
-@@ -30,6 +30,9 @@
- #define ACS_VENDOR_ID 0x072f
- #define ACR122U_PRODUCT_ID 0x2200
- 
-+/* How long to wait for the out URB to complete */
-+#define PN533_USB_SEND_TIMEOUT_MS	1000
-+
- static const struct usb_device_id pn533_usb_table[] = {
- 	{ USB_DEVICE(PN533_VENDOR_ID, PN533_PRODUCT_ID),
- 	  .driver_info = PN533_DEVICE_STD },
-@@ -184,8 +187,20 @@ static int pn533_usb_send_frame(struct pn533 *dev,
- 	if (rc)
- 		return rc;
- 
--	wait_for_completion(&arg.done);
--	phy->out_urb->context = cntx;
-+	if (!wait_for_completion_timeout(&arg.done,
-+					 msecs_to_jiffies(PN533_USB_SEND_TIMEOUT_MS))) {
-+		usb_kill_urb(phy->out_urb);
-+		phy->out_urb->context = cntx;
-+		/*
-+		 * The transfer may have completed between the timeout
-+		 * expiring and the urb being killed; if so, carry on as
-+		 * usual instead of reporting a bogus failure.
-+		 */
-+		if (phy->out_urb->status)
-+			return -ETIMEDOUT;
-+	} else {
-+		phy->out_urb->context = cntx;
-+	}
- 
- 	if (dev->protocol_type == PN533_PROTO_REQ_RESP) {
- 		/* request for response for sent packet directly */
--- 
-2.39.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel-team@meta.com
+References: <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
+ <as5q14OsbK2CmOrh@thinkstation> <20261014202936.GC371161@cmpxchg.org>
+ <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+ <atDMN5MoGrwJNpAj@thinkstation>
+ <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+ <atiCG2iPrHwDznSZ@thinkstation>
+ <d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com>
+ <ats7oFM-fsYdUS8y@thinkstation> <attOFXch_TchIfEv@thinkstation>
+ <atty0n4UzTfI46eN@thinkstation>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <atty0n4UzTfI46eN@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
+
+On 23/10/26 8:16 pm, Kiryl Shutsemau wrote:
+> On Fri, Oct 23, 2026 at 01:12:02PM +0100, Kiryl Shutsemau wrote:
+>> The diff below replaces the previous one. It needs cleanup and splitting
+>> before it goes upstream.
+> 
+> Proper patchset:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/kas/linux.git page_alloc/nofrag-watermark-v1
+> 
+
+Thanks! I applied the 3 commits on top and the results improved a lot. Your patches
+make sense to me.
+
+But still, I see more compact_stalls and a worse compaction success:fail ratio. The
+limitation must be by definition I believe: we still won't be able to use 64K blocks
+from non-movable pageblocks.
 
