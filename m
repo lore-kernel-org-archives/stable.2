@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102848;
-	b=0GredhS7pebESSmV89b4ZQKc3SdwV7MJw9BOJO9h/3vxVXoxISiNnbjBVjT4DbNgfjIX
-	 FmJQ0n3ZHKC4+6nwQVJ2/zYNpYIpor1FTscL6ez5d3NbOD04XeBuAYFJo+NV6l9oIIGsx
-	 obWh97ibRSmzTIvjHYCMBXdFIFKsIUHfieADAifpWxArIVPGfTjTk4WhCedMzMzk3y8qf
-	 4wdCHUW+xLM1d8pXLLQpSlvFPHQhu6WB9TkrpLhtWdO8nDRGq0NE7KtlfoV4OSDebJXeO
-	 ztCHq7XWbmGCeWqtxOjpOON+dlwVN/GTWnZtaR3458Vtj79aeJdgKuewdyQE9cNKKxg==
+	t=1793102885;
+	b=sXcrHnVai7hyTJh2XlPAZStE9snosQDmiycg0iXCafibkxIMK/MzVEpi63MUmG9bRCvo
+	 mSLY0CwCRyL1Vn0bXCoCTcZCTARdlMW5Wb1ESodSPHlhXfpO8XZUDmYSftW+I4e69qq0Q
+	 1Gz1Su02leAXNzMFjwAjeMdTQSPcS6Rdu7Cr3qOlY3RDG6bBEm2PiMV/Qjvvk+Wgs5sTr
+	 8WmVIg+iHShgLrx4HIjYNLCog8uv+jaaj7xLOhwvPWeu59QztiN38U0tbLXMeUQhEU/jc
+	 YpDWHb+bjpIht0BQA/QjcIdlcihk5LNrbAYouFdsws1R+bqIufUcmBnLOL2ecgVCYHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102848;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pNXJLprrikiyjdl1QDWtGw0/RtOyXwyYKGXN/8wvjIk=;
-	b=p+vJIKExiaFoDdi5mDBW6vWmhTMVP6hAZk2/qDKQJM/SsvSlyUq7w/Yf770FCoad5MTc
-	 vLUxPnFl9t+dZ41WGKRAlPnQ73D709xBfbfWFWNq8RXHRjnqFxPKPhX1zYTv9JijKBpZC
-	 mfhS+7jZUGl/lRf/plln4qWgfLDPGlffZV/2/cs2Mj6aaQvrGvDAYgAUqhTAEA3gOYC1j
-	 k4xhM9vEoggVCiGi5cmKVnTq2Zb48+WlnR27BHgGsSmxFisv46+baf6IR3GpK6Vfk+/nW
-	 udcAs12ljNV2ZOjyZcxLQ5XRaV8Iw8y/GySpmRjuc55DaIAkmFnQrJgE2WEydOC44wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102885;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Received:DKIM-Signature;
+	bh=NW22/M5fUtaK0fVanACYV2rmeCp3k9/Yy4PuBxq5OEM=;
+	b=w9Qdk1KQdwz3wO2pz3wVZX0PRxM29zV51xgDklQL/mc34wBzm4GCbA2DDBxkUFxaAAdL
+	 BV9SZKwET+lEGz9fBRfER+8K1na3t2ShGXifnZyrEgNwK8thNse2SWWxjqBkLAPuOE9Zc
+	 6RLEQjJbSIu4w8Kdzxngp+aQcWiLc2BCT/hNCw3tRBy4ko4B+GwCjKRCVf0kE3qq6/340
+	 brYxK4PmBq5kPR5j0nz49AtkmOjFW1owblw6vTu/jnKxElyYXIvDfehzukrqgfUaZHuHZ
+	 0nEbFiBnbvY1VjY3+Cvw9FGNnklMfxfkAoSundCkgpBTGKIeib25W90vFZOA+wMZPXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=droMFJoX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rimpianto.com;
+	spf=pass smtp.mailfrom=rimpianto.com;
+	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=Ylglh9oZ;
+	arc=none smtp.remote-ip=46.14.198.178
+Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B352606A321;
-	Tue, 27 Oct 2026 12:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC915606A31B;
+	Tue, 27 Oct 2026 12:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC915606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=droMFJoX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C81F01828;
-	Tue, 27 Oct 2026 12:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793102847;
-	bh=pNXJLprrikiyjdl1QDWtGw0/RtOyXwyYKGXN/8wvjIk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=droMFJoXyLggipZyfrxjW6vvPs0RatK5Ln8l/8ouZu9C+IH7SsaJ+ysMa9LZCAVQq
-	 e+xL4ZIejnr455+J5CQxelz195RbChcq+BJl04WYclXHkI48r+Cq96ZzkN613lJ9BD
-	 nO5IiQ3hJH9mQz+VrbRivjNP+nRaLk/PATbwYuP0V4psk8PC+aN+OLW/EAQrvphVah
-	 e0snwB80F2nuHWo3re3sNJWbk3i17h834g4JmwA2T7n66Wx+rpOyCV1I/zgQzLMG4D
-	 jPA4+ze61RWdVnQAJQ1Q18w6b26mK1d0iEROGpcyAMOb6jbPdUmy6yAcLBZ9a4UmDV
-	 qVBDPC37NRnxw==
-Message-ID: <7e4b4737-8086-4444-9c27-88ef09a2e591@kernel.org>
-Date: Tue, 27 Oct 2026 13:07:09 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=Ylglh9oZ
+Authentication-Results: mail.rimpianto.com;
+	auth=pass (plain)
+From: Federico Musto <federico@rimpianto.com>
+To: chris.snook@gmail.com,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Federico Musto <federico@rimpianto.com>
+Subject: [PATCH net v2] net: atl1c: drop oversized RX frames instead of panicking
+Date: Tue, 27 Oct 2026 12:51:51 +0100
+Message-ID: <20261027115151.17092-1-federico@rimpianto.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,110 +53,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
- <5d10eba8-11cb-4031-84e1-a394ca5b4cba@kernel.org>
- <179304984259.319828.7383468637599462048.b4-reply@b4>
- <3022ba03-54c6-499d-b07a-2ca8d033a56d@kernel.org>
- <179310104515.664110.14057520583832900506.b4-reply@b4>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <179310104515.664110.14057520583832900506.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Received: from localhost (Unknown [127.0.0.1])
+	by mail.rimpianto.com (Haraka) with ESMTPSA id FA3F8D32-D33F-48D8-B99E-BCCF3E36FBBA.1
+	envelope-from <federico@rimpianto.com>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Tue, 27 Oct 2026 12:51:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=s20260314391; t=1793101912;
+ bh=NW22/M5fUtaK0fVanACYV2rmeCp3k9/Yy4PuBxq5OEM=;
+ b=Ylglh9oZqida7IEg+f7wmqe5HL89ZVj2dg5k2IR8dAKLn3vHbTNZXfWHjyjBnQdEnGKcTvopD
+ 9P7P3FBMlQ3TsrfKDez2aRvPB1pyupaWsygUST00t5bxOr1on+L7ThhgmLZ4wqa6DH5Nyxkf1rj
+ Gvp/Rwf7GZmSIBVmc/5D7ugZJ8XKwmXSn0TMAD5Uf1bjCvy9UlfvyJHM+fwLxux6f44AnPmn7uD
+ GWFPwCaaKfLRNB8h+vfyhSP1jVLs9yVHQ2TIgZGtcG6Vo/7G6lHUGdzzhd1zVGbJZn5T/T6+mha
+ h6O3/OUGTNnBbI4RiajVpq5M9CKqUdKc6cyEotAQCVYw==
 
-On 10/27/26 12:37, Gregory Price (Meta) wrote:
-> On 2026-10-27 10:34 +0100, David Hildenbrand (Arm) wrote:
->> On 10/26/26 22:24, Gregory Price (Meta) wrote:
->>>
->>> It's there to show the work more than to merge, but the long-term goal
->>> here is to feed these tests into a larger session that does the polish.
->>
->> Agreed. But a note that if these essentially contain reproducers that can cause
->> harm on real systems, posting them upstream might not be a very good idea until
->> fixed.
->>
->> Well, unless people can trivially generate them already.
->>
-> 
-> Nothing here has been generated by anything the public does not have
-> access to with a $20 subscription or enough RAM to a run a decent
-> model locally. Otherwise I wouldn't have posted it.
-> 
-> Posting the patch is the full disclosure at this point.
+atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
+overheads, which comes to 1522 bytes at the default MTU.  A link partner
+that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
+whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
+- makes the length reported by the RX return descriptor exceed what the
+hardware wrote, and skb_put() then either includes bytes that were never
+received or trips skb_over_panic and takes the host down.
 
-Agreed.
+Compare the descriptor length against buffer_info->length, the length the
+hardware was given, rather than against skb_tailroom(): the skb carries 64
+bytes of slack for the DMA erratum, so tailroom is larger than the DMA
+buffer and a frame in between would pass the check and still be delivered
+with a tail the device never wrote.  The same test rejects frames shorter
+than ETH_HLEN + ETH_FCS_LEN; before this change a reported length below
+ETH_FCS_LEN underflowed in skb_put().
 
-I'll post a v2 rather soonish to move forward with that.
+The frame is dropped with kfree_skb_reason(SKB_DROP_REASON_PKT_TOO_BIG) so
+drop_monitor and the kfree_skb tracepoint see it, and counted through
+dev_core_stats_rx_dropped_inc(), which survives atl1c_get_stats()
+overwriting the hardware counters on every read.  It also counts as work:
+atl1c_clean_rfd() has already recycled the RFD, and the refill at the end
+of the poll only runs when work_done is non-zero, so sustained oversized
+traffic would otherwise drain the ring and stop RX.
 
+Tested on a MikroTik CCR2004-1G-2XS-PCIe (4x AR8151) in a Proxmox VE host,
+with atl1c built from a DKMS tree carrying this change: the l2mtu-1600
+traffic that panics the stock driver is dropped and counted with the patch
+applied, and received normally once the host MTU is raised to match.
+
+This complements commit 36c2009d90f2 ("net: atl1c: fix soft lockup on
+out-of-range tpd_cons read"), which fixed the TX side of the same
+"host dies while the card resets" problem.
+
+Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Federico Musto <federico@rimpianto.com>
+---
+v1 -> v2, after the Sashiko review:
+ - bound the length by buffer_info->length instead of skb_tailroom(): the skb
+   is allocated with 64 bytes of slack for the DMA erratum, so tailroom is
+   larger than what the device wrote and a frame in between would have been
+   delivered with stale tail bytes
+ - count the dropped frame as work, so the RX ring is refilled; without it
+   sustained oversized traffic could drain the RFD ring and stop RX
+ - kfree_skb_reason() with SKB_DROP_REASON_PKT_TOO_BIG instead of
+   dev_kfree_skb(), which is consume_skb(), and drop the rx_length_errors
+   increment that atl1c_get_stats() overwrites anyway
+ - the commit message now mentions the runt rejection as well
+
+v1: https://lore.kernel.org/netdev/20261023093000.73535-1-federico@rimpianto.com/
+
+Not touched here: the RRS_RX_ERR_SUM branch frees neither the skb nor its
+DMA mapping (atl1c_clean_rfd() only marks the slot free and drops the
+pointer).  That is pre-existing and independent of the panic, so it belongs
+in a separate patch.
+---
+ .../net/ethernet/atheros/atl1c/atl1c_main.c   | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+index e58f1d2..eddd840 100644
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -1934,6 +1934,39 @@ rrs_checked:
+ 			break;
+ 		}
+ 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
++
++		/* A link partner whose l2mtu is larger than ours can hand us a
++		 * frame that does not fit the buffer the hardware was given:
++		 * the descriptor reports the untruncated length while at most
++		 * buffer_info->length bytes were written.  skb_put() of such a
++		 * length would pull in whatever the tail of the buffer holds
++		 * and, past the end of the skb, trips skb_over_panic and takes
++		 * the host down.  Bound it by what the device actually wrote
++		 * rather than by skb_tailroom(): the skb carries 64 bytes of
++		 * slack for the DMA erratum, so the two are not the same.
++		 *
++		 * Frames shorter than an Ethernet header plus its FCS are
++		 * rejected by the same test; before this, a length below
++		 * ETH_FCS_LEN underflowed in skb_put().
++		 */
++		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN ||
++			     length > buffer_info->length)) {
++			dev_core_stats_rx_dropped_inc(netdev);
++			if (netif_msg_rx_err(adapter))
++				dev_warn_ratelimited(&pdev->dev,
++						     "dropped rx frame: %u bytes, buffer %u\n",
++						     length, buffer_info->length);
++			kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_BIG);
++			/* atl1c_clean_rfd() has already recycled the RFD, so
++			 * count the drop as work: the refill at the end of the
++			 * poll only runs when work_done is non-zero, and
++			 * sustained oversized traffic would otherwise drain the
++			 * ring and stop RX for good.
++			 */
++			work_done++;
++			continue;
++		}
++
+ 		skb_put(skb, length - ETH_FCS_LEN);
+ 		skb->protocol = eth_type_trans(skb, netdev);
+ 		atl1c_rx_checksum(adapter, skb, rrs);
 -- 
-Cheers,
+2.54.0 (Apple Git-157)
 
-David
