@@ -1,52 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=87.76.132.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793066267;
-	b=Mgn8ULGWeLSxwwW82ksHea9cK1mM156GRGgZ/Eopj5bZWrQVhQ7qF+7ku7ZGGh6nSEt/
-	 cz8YdrD098ybgcoFtTQxpAohQiyeGLCTuMWr0WB1s45R6hQJk2qmTkTfxFo8UoMEdQJYg
-	 hdjdESEdvNCv/RULchlQSny/sH568M1vuFFP4NFEqasehFa/UAGRcowhlwVNO8AA8up5R
-	 rf8RXPk/7jFa3O5wXuo/vd6vhTUokXuLSoq9oDPloXoqbbBAiWg6w3vl8Mi9KcoIFeX2I
-	 PbFMO6lsQH88h0kixYhXN0o3BnjeXpYuwfOzuvf2viz7+bqojcGt79YQ5M4TtoUjBgw==
+	t=1793066304;
+	b=DrA9Khdl7Z1URxwhZ1bdgXuKANH1O1CvwEjDSRbmzoglnaf+B5AAKQOUBeI2YabyvD2f
+	 MnpcwBDPzpwJratDx1LdjX/oUljXLRQgvow1DWzU5ij/JSIjD1vxzuMCh+L5SumgP1/LG
+	 y4XP7e4M3+W+H/EVZeUx6WjtsaOA5A44EQ1udOd/fz/us7AvNrcmwHMKokAI6pwkEScaC
+	 TOOKrlcy54vQPy9GRvqNtTKdbNS8FZfR7sTx8kr5+6fR2xQF9llZsCdOqNUbO9vp4uK+e
+	 X+WyKXCW8AcbEpIM/1Xg8XQiO5hXrTLntpnHWjXfDOtyOOt0ctLmkcyxgSaXG6sM+cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793066267;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=tDledRj10pIPH6BHhl7shD7iwbGeBauSFw2IvG3336w=;
-	b=rEg8vATJhHyYtxPvJDb16Q1iNLgqQixR7g/b/HUwEG1WjotryiktyLztoLg8ENch9zGS
-	 +HeyMgeAACjRmMT7QP2+1QfsQ4aUgnzxLAtRLy8jyWjrFv8ws8vbfnylx3ILZKAU/Q3+5
-	 zKsPAMRGTRvklFlPuT6J9EveMMVWANjfmKwa22cv1/W7i2wQDZxwuVS1aPXiPITDfQg1X
-	 Cnq29d/YE7BZ15ixmfMRKz55bOApU/bTxOBcpSvDDjRTvdpjDDpeILeHMLv9GagkDXbIq
-	 fiW061pVasrQyuhvADP3r4mAAr6Mz+v7UvVRNb16Nc1tRNFdLsamup0nY/8tuWJP1nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793066304;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtEIJfpuzKtI=;
+	b=uHKy+QCZ9GUsIm9vl7enR+XaTGZqEpuEm/AOGLH506DrTSNPU8GkjpH2+98tos7CLVuL
+	 c8OrWIHLAhpg0/sd9whLi6Ws+0yy8AFN0thbVaQThy7dDe5zpNTkcvTOPJ41JUTi5Kxmk
+	 HxozUcscxNpH1nHkAV7B/LGlGUxwVQktN19R16lNX9FZI4pxJyweA3yaM4yKIqVnTkAxt
+	 JpiCFKKrAAYppof3h40Zp8z60OZ/RT7KimaabDQgw7aOldGZ3LoZZRZt/99pYT7WenTli
+	 vCwLYPCU43AgvTxXYP7Psmqy4sjtsXbxKVa37HebTcH3xwUZi3x4RoOUn8E6BOF3lBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=auth.ink;
-	spf=pass smtp.mailfrom=auth.ink;
-	dkim=pass header.d=auth.ink header.i=@auth.ink header.a=rsa-sha256 header.s=dkim header.b=RT2Kgm5k;
-	arc=none smtp.remote-ip=87.76.132.165
-Received: from mail.netskyway.net (mail.netskyway.net [87.76.132.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A15606A31D;
-	Tue, 27 Oct 2026 01:57:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95A15606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auth.ink
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auth.ink
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=auth.ink header.i=@auth.ink header.a=rsa-sha256 header.s=dkim header.b=RT2Kgm5k
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A81E3003F9;
-	Mon, 26 Oct 2026 22:57:33 -0300 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=auth.ink; s=dkim;
-	t=1793066254; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-language:in-reply-to:references;
-	bh=tDledRj10pIPH6BHhl7shD7iwbGeBauSFw2IvG3336w=;
-	b=RT2Kgm5kOkK4JIMR673dow3iAeYbj0p/Gu4bllFHA5vZhmB5HjpcYXXdM+F7vKcXDxs02g
-	u0+d7lyzqM8CSDSt5qYC7AjBOICYUzS/RMUc9rNw5W1XXht8fBKbPfjRRhhTMdbJ58ZMmN
-	739Yu4j0J3IeBsZNXPgyMKun7E+2YcsIPHtVs7949+NKsMU/BysM+ueMPKLqT3WCnny8E+
-	0MeYkQmo9BNbDoSX1WZCSs+3KBCq6ubSWrev5v3ystp+zmFSQVQp8MbJtU7DMVIIXheZP7
-	a+gQUAtKn/poSASnLfrLD0JzlEce5K7WcGude6q1ysDvbwg0Qr8eNbGsX5Hd5g==
-Content-Type: multipart/mixed; boundary="------------QqbpEjYZiutLsk9D3MKh6ZXv"
-Message-ID: <bb79cd2c-0edc-4e78-9b20-5f3ec976f1ac@auth.ink>
-Date: Tue, 27 Oct 2026 03:57:32 +0200
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EE811606A32E;
+	Tue, 27 Oct 2026 01:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE811606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtE
+	IJfpuzKtI=; b=stD+GEJ7WsT1Qc4IdLdHDb7vBmRPiA3CWiLyaf4lr51NcHanGD
+	sZKVdFYSuAPpbtrtw/Y2ghvLUVqzPrcwt41G0NXlNIyrA9S0NbjFzzweR9xaUpTU
+	9Oq2Y5NM9sssI0G7RgCSpameXMX3SKX/ZQDDwLdckqdWe5vCbNgT5AxaY=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnAEsBeBqxnzsAA--.34537S4;
+	Tue, 27 Oct 2026 09:58:15 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v3 2/3] media: dvb-core: keep dvb_device alive while checking users count in frontend release paths
+Date: Tue, 27 Oct 2026 09:58:03 +0800
+Message-Id: <20261027015804.13148-3-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027015804.13148-1-25031212351@stu.xidian.edu.cn>
+References: <20261027015804.13148-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,83 +62,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Tamir Awad <tamir@auth.ink>
-Subject: Re: [PATCH 5.15.y] af_unix: Clear oob_skb in scan_inflight()
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org, lee@kernel.org,
- netdev@vger.kernel.org, Rodrigo Zaiden <rodrigo.zaiden@canonical.com>
-References: <1685aeee-c65d-4a8f-9bfe-607e13e114a9@auth.ink>
- <2026-10-25-1-daily-reply-0005-af-unix-oob-skb-5-15-hold@kernel.org>
- <4ADFAF9F-7A76-4897-9374-914E5A384D8F@auth.ink>
- <A37FE39D-BD84-4FBE-A160-1ACE5AA98D39@auth.ink>
- <CAAVpQUBA89A5qjL85pavgcYCpQ9jWFiiQXs9eBbHT+zAX1nC4Q@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CAAVpQUBA89A5qjL85pavgcYCpQ9jWFiiQXs9eBbHT+zAX1nC4Q@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBWnAEsBeBqxnzsAA--.34537S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
+	Z3JFW5KrWUKw4kKrs7C3W7ZrnYvF4Syr98C34xt3Z7Cr1fX34SkryFq34q9r13Cr93A3yj
+	qwnrGay8C3y7AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmv14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vY
+	z4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7Mx
+	kF7I0En4kS14v26r126r1DMxkIecxEwVAFwVWkMxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
+	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
+	cSsGvfC2KfnxnUUI43ZEXa7VUUmLvtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2rfbNNHygABse
 
-This is a multi-part message in MIME format.
---------------QqbpEjYZiutLsk9D3MKh6ZXv
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Both dvb_frontend_release() and the __dvb_frontend_open() error path
+inspect dvbdev->users after calling dvb_generic_release(), which ends
+with dvb_device_put().  If that put() drops the last reference - e.g.
+the device was unregistered during USB disconnect while this was the
+last open() file - "dvbdev" is freed before ->users is read:
 
-I included the patch as a file below.
---------------QqbpEjYZiutLsk9D3MKh6ZXv
-Content-Type: text/plain; charset=UTF-8; name="af_unix-5.15.y-patch.txt"
-Content-Disposition: attachment; filename="af_unix-5.15.y-patch.txt"
-Content-Transfer-Encoding: base64
+	BUG: KASAN: slab-use-after-free Read of size 8
+	 dvb_frontend_release+0x28b/0x2b0 dvb_frontend.c:2903
 
-RnJvbSA1OGY3ZjBjZjk0OTVkNGI3NGNmZjgwMTViZDYwOWE3ZTU5NDcxOGM1IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBLdW5peXVraSBJd2FzaGltYSA8a3VuaXl1QGFtYXpv
-bi5jb20+CkRhdGU6IE1vbiwgMyBNYXIgMjAyNSAxOTowMTo0OSAtMDgwMApTdWJqZWN0OiBb
-UEFUQ0ggNS4xNS55XSBhZl91bml4OiBDbGVhciBvb2Jfc2tiIGluIHNjYW5faW5mbGlnaHQo
-KQoKdW5peF9nYygpIGFjY2Vzc2VzIG9vYl9za2IgYWZ0ZXIgZHJvcHBpbmcgc2tfcmVjZWl2
-ZV9xdWV1ZS5sb2NrLiBUaGlzCmNhbiByYWNlIHdpdGggcXVldWVfb29iKCkuIENsZWFyIG9v
-Yl9za2IgaW4gc2Nhbl9pbmZsaWdodCgpIHdoaWxlIHRoZQpsb2NrIGlzIGhlbGQuCgpUaGlz
-IHJlc2VuZHMgS3VuaXl1a2kgSXdhc2hpbWEncyBNYXJjaCAyMDI1IGZpeCBmb3IgdGhlIG9s
-ZCBHQy4gVGhlCmNvZGUgZGlmZiBpcyB1bmNoYW5nZWQuCgpPbiA1LjE1LjIyMywgdGhlIHJl
-cHJvZHVjZXIgcGFuaWNrZWQgdGhyZWUgdW5wYXRjaGVkIFFFTVUgZ3Vlc3RzLiBUaHJlZQpw
-YXRjaGVkIGd1ZXN0cyBjb21wbGV0ZWQgOCwwMDAgcm91bmRzIGVhY2ggd2l0aG91dCBhIGtl
-cm5lbCB3YXJuaW5nLgpCb3RoIGJ1aWxkcyB1c2VkIHRoZSBzYW1lIGNvbmZpZyBhbmQgZ3Vl
-c3QgaW1hZ2UuIEFuIGluc3RydW1lbnRlZCBydW4KdHJhY2VkIHRoZSBoYXJuZXNzJ3MgZmFp
-bGVkIHJhY2luZyBzZW5kcyB0byBFUElQRSBhbmQgRUNPTk5SRVNFVCBhbmQKY29uZmlybWVk
-IGFsbCA4LDAwMCBpdGVyYXRpb25zIHJlYWNoZWQgdGhlIHJhY2UuCgpGaXhlczogMzE0MDAx
-ZjBiZjkyICgiYWZfdW5peDogQWRkIE9PQiBzdXBwb3J0IikKTGluazogaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvYWxsLzIwMjUwMzA0MDMwMTQ5LjgyMjY1LTEta3VuaXl1QGFtYXpvbi5j
-b20vClJlcG9ydGVkLWJ5OiBMZWkgTHUgPGxsZmFtc2VjQGdtYWlsLmNvbT4KU2lnbmVkLW9m
-Zi1ieTogS3VuaXl1a2kgSXdhc2hpbWEgPGt1bml5dUBhbWF6b24uY29tPgpTaWduZWQtb2Zm
-LWJ5OiBUYW1pciBBd2FkIDxzZWN1cml0eUBhdXRoLmluaz4KLS0tCiBuZXQvdW5peC9nYXJi
-YWdlLmMgfCAyMCArKysrKysrKysrLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDEwIGlu
-c2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL25ldC91bml4L2dh
-cmJhZ2UuYyBiL25ldC91bml4L2dhcmJhZ2UuYwppbmRleCBkMmZjNzk1Li5hNzMzZDBkIDEw
-MDY0NAotLS0gYS9uZXQvdW5peC9nYXJiYWdlLmMKKysrIGIvbmV0L3VuaXgvZ2FyYmFnZS5j
-CkBAIC0xMDIsMTMgKzEwMiwxNCBAQCBzdGF0aWMgdm9pZCBzY2FuX2luZmxpZ2h0KHN0cnVj
-dCBzb2NrICp4LCB2b2lkICgqZnVuYykoc3RydWN0IHVuaXhfc29jayAqKSwKIAkJCS8qIFBy
-b2Nlc3MgdGhlIGRlc2NyaXB0b3JzIG9mIHRoaXMgc29ja2V0ICovCiAJCQlpbnQgbmZkID0g
-VU5JWENCKHNrYikuZnAtPmNvdW50OwogCQkJc3RydWN0IGZpbGUgKipmcCA9IFVOSVhDQihz
-a2IpLmZwLT5mcDsKKwkJCXN0cnVjdCB1bml4X3NvY2sgKnU7CiAKIAkJCXdoaWxlIChuZmQt
-LSkgewogCQkJCS8qIEdldCB0aGUgc29ja2V0IHRoZSBmZCBtYXRjaGVzIGlmIGl0IGluZGVl
-ZCBkb2VzIHNvICovCiAJCQkJc3RydWN0IHNvY2sgKnNrID0gdW5peF9nZXRfc29ja2V0KCpm
-cCsrKTsKIAogCQkJCWlmIChzaykgewotCQkJCQlzdHJ1Y3QgdW5peF9zb2NrICp1ID0gdW5p
-eF9zayhzayk7CisJCQkJCXUgPSB1bml4X3NrKHNrKTsKIAogCQkJCQkvKiBJZ25vcmUgbm9u
-LWNhbmRpZGF0ZXMsIHRoZXkgY291bGQKIAkJCQkJICogaGF2ZSBiZWVuIGFkZGVkIHRvIHRo
-ZSBxdWV1ZXMgYWZ0ZXIKQEAgLTEyMiw2ICsxMjMsMTMgQEAgc3RhdGljIHZvaWQgc2Nhbl9p
-bmZsaWdodChzdHJ1Y3Qgc29jayAqeCwgdm9pZCAoKmZ1bmMpKHN0cnVjdCB1bml4X3NvY2sg
-KiksCiAJCQkJfQogCQkJfQogCQkJaWYgKGhpdCAmJiBoaXRsaXN0ICE9IE5VTEwpIHsKKyNp
-ZiBJU19FTkFCTEVEKENPTkZJR19BRl9VTklYX09PQikKKwkJCQl1ID0gdW5peF9zayh4KTsK
-KwkJCQlpZiAodS0+b29iX3NrYikgeworCQkJCQlXQVJOX09OX09OQ0Uoc2tiX3VucmVmKHUt
-Pm9vYl9za2IpKTsKKwkJCQkJdS0+b29iX3NrYiA9IE5VTEw7CisJCQkJfQorI2VuZGlmCiAJ
-CQkJX19za2JfdW5saW5rKHNrYiwgJngtPnNrX3JlY2VpdmVfcXVldWUpOwogCQkJCV9fc2ti
-X3F1ZXVlX3RhaWwoaGl0bGlzdCwgc2tiKTsKIAkJCX0KQEAgLTI5OSwxNyArMzA3LDkgQEAg
-dm9pZCB1bml4X2djKHZvaWQpCiAJICogd2hpY2ggYXJlIGNyZWF0aW5nIHRoZSBjeWNsZShz
-KS4KIAkgKi8KIAlza2JfcXVldWVfaGVhZF9pbml0KCZoaXRsaXN0KTsKLQlsaXN0X2Zvcl9l
-YWNoX2VudHJ5KHUsICZnY19jYW5kaWRhdGVzLCBsaW5rKSB7CisJbGlzdF9mb3JfZWFjaF9l
-bnRyeSh1LCAmZ2NfY2FuZGlkYXRlcywgbGluaykKIAkJc2Nhbl9jaGlsZHJlbigmdS0+c2ss
-IGluY19pbmZsaWdodCwgJmhpdGxpc3QpOwogCi0jaWYgSVNfRU5BQkxFRChDT05GSUdfQUZf
-VU5JWF9PT0IpCi0JCWlmICh1LT5vb2Jfc2tiKSB7Ci0JCQlrZnJlZV9za2IodS0+b29iX3Nr
-Yik7Ci0JCQl1LT5vb2Jfc2tiID0gTlVMTDsKLQkJfQotI2VuZGlmCi0JfQotCiAJLyogbm90
-X2N5Y2xlX2xpc3QgY29udGFpbnMgdGhvc2Ugc29ja2V0cyB3aGljaCBkbyBub3QgbWFrZSB1
-cCBhCiAJICogY3ljbGUuICBSZXN0b3JlIHRoZXNlIHRvIHRoZSBpbmZsaWdodCBsaXN0Lgog
-CSAqLwotLSAKMi41Ni4wLndpbmRvd3MuMgoK
+The same pattern exists at err1: after dvb_generic_release() in
+__dvb_frontend_open(), the ->users check runs on an object that may
+already be gone.
 
---------------QqbpEjYZiutLsk9D3MKh6ZXv--
+Take the extra reference *before* dvb_generic_release(): the file
+still holds its own reference at that point, so the get is guaranteed
+to be valid, while a get after the put() could itself touch freed
+memory.  Drop the reference again after the ->users check.
+
+On the __dvb_frontend_open() error path the reference is deliberately
+not put() back inside the function.  fops->release() does not run for
+an erroring open(), so dvb_device_open() calls dvb_device_put()
+itself; that put() drops the reference taken here.  This also keeps
+the accounting balanced: dvb_generic_release() already dropped the
+file's original reference, and the extra get hands dvb_device_open()
+one to drop in its place.
+
+In dvb_frontend_release() the reference is balanced explicitly, before
+dvb_frontend_put(fe).
+
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Fixes: a2dd235df435 ("media: dvbdev: drop refcount on error path in dvb_device_open()")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/dvb-core/dvb_frontend.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..00c29cf7ddf0 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2834,6 +2834,14 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+ err2:
+ #endif
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object.
++	 * dvb_device_open() drops it again when ->open() fails.
++	 */
++	dvb_device_get(dvbdev);
+ 	dvb_generic_release(inode, file);
+ err1:
+ 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
+@@ -2934,6 +2942,15 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 		mb();
+ 	}
+ 
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object, and drop it
++	 * again right after.
++	 */
++	dvb_device_get(dvbdev);
++
+ 	ret = dvb_generic_release(inode, file);
+ 
+ 	if (dvbdev->users == -1) {
+@@ -2954,6 +2971,8 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 			fe->ops.ts_bus_ctrl(fe, 0);
+ 	}
+ 
++	dvb_device_put(dvbdev);
++
+ 	dvb_frontend_put(fe);
+ 
+ 	return ret;
+-- 
+2.34.1
+
