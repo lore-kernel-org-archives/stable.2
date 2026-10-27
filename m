@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793063099;
-	b=XEzYG3iSXC/iKKwWf0sW5dKBLKk8ttEonJYClmqLY5U70Lz785VKm0SU67TwYB/74nJ7
-	 b+p+yP6Vv8uuYvhPjavEapDn9cpo3Z1na4IJmuvqtCYZ2FSI4yj3YgamloizFq6tNHRIe
-	 8AiuNUcVWkMqu3NazR407Y1lwUtyY99MtQEsT868AgM+5fdgjlFs5smiIdLJAzkVGdt3t
-	 hVMTH/nsXJXnt8J28Y/iSDXwrnSQjVFTo8SBagiJao8JKcBTXldSOJ0RoDdIkVs4+KYkh
-	 jjfrz6h8P52GwY2wDTPEBvXsafatZl1LaFWklhyJW9lIgczVYWIyKRdWoM8RCj/rcjQ==
+	t=1793063252;
+	b=JxzzRGL9uZ51vDBg7m8EJ8yLIJpMLmUjQA641zKqVw3YatYEUoVLAzjqr7i59NWM2OCN
+	 3vHsoPIk5wpCoPAvJwF7YYLwsxGln2dy1+x8IVxa7M9KwtQXr8F7Lx0lRv0Prg7tQmAs4
+	 gXfV+5tjdhrowqL7q20qAQ2ArKIEF+FPcveYrGIvG0ts4G7XwlNuc37jMd9c2YDs+hcI0
+	 F12YqdcK7jlnV+gopDCQIko3dnSMMqIZqPaDMUbGNJXfcI3rOSNlm43Y/Qeqql1sDfl5b
+	 VKsLKc+JFPA5V6UsKjYYYAA7Gei35F+JFAiL6nTcuBhJJpbtOD+pA73u4TOXb9HhSwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793063099;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793063252;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=mGxWHZuwgItXpq40WocP1Fuuw/cuauEvBv+PeNmyS44=;
-	b=X6rZgH2V1NZ1lR/cPJ8yul7USAxSfAdGKCR1vmIBfTyMDAR2Nj3FLM1ttSS2SFvAIdNF
-	 jan1LNtfZGo9jJli5Pc9bdnGcnSL3pTs9wAEswpyRVV+cjq8yh+GeAAvXQq5+dSqVhCJZ
-	 Kg1M7rw1uCfQ5ZwYWzeE4NBlFj8QAcsQ5ZfrMnRErE64tW4YxjAyTW2qXrrzWsJDKYeUV
-	 0zILXjFxshETOutuDhE0nt9RiPKKRrC+v7JZNrnPAiRtXqUP0xmaV293Stii3pkPToInV
-	 qNy2GcdvDbXMSxwxS1VsX1IyH6WopcOheYUC2C+C6ubNobJN0gFSf8rwPiwGxuzvXww==
+	bh=55ArNOBWPhEla2pmzTdRiMih/sZJNSHURRA5JAJ5SX0=;
+	b=LOp6Oe9thqhxXRlfop0HTk8FrlwKGgXthXrkKBLyQmsg42k3hk/6XSQXuZwnDMCWZPB8
+	 EqMbF8E9G/JA/yI4qZ5/mh5TAGC49nUgN5xW7hOhB+e5Z3CvCX7jpYIxkmd4dnsPw8nop
+	 bgASseFpcCV1gTL77CZSbbZdpyqJd9N8YVsG6byL8MSZ8Z5eBrAE3vSNkqxAXkqFSlxjc
+	 kAAWvijeF1ac2c5E/77hYn5C90pMa0TVZ20HMhdgTLcDYm3n6X0kvQuQz/uzVA9LVQoBr
+	 HTAMNv4GFeMrdQHD9PeHLY7gScDUaLFqh+qZO4UAx4SbN9I688kO7ZqQTmA7/t6EttQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJM+7HSJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuXwr2gD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778F7606A31A;
-	Tue, 27 Oct 2026 01:04:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C60606A31A;
+	Tue, 27 Oct 2026 01:07:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJM+7HSJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792661F01825;
-	Tue, 27 Oct 2026 01:04:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuXwr2gD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4767C1F01825;
+	Tue, 27 Oct 2026 01:07:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793063099;
-	bh=mGxWHZuwgItXpq40WocP1Fuuw/cuauEvBv+PeNmyS44=;
+	s=k20260515; t=1793063251;
+	bh=55ArNOBWPhEla2pmzTdRiMih/sZJNSHURRA5JAJ5SX0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QJM+7HSJCDuAJTQqAd+iU+38gWcQHquWOxygitQXX5oOqe93VrlxlbFg49HHp/hpn
-	 L9Inrrg+hnMc4aOckCuZxar5iQ71+DtHI7qnvePFwf4ePCZoYTPtQ977VnJ0PJYG2b
-	 qmkNWVNEDk4KZSZgzofIaYK9Uu37RaAUv+AHPr3eSL+d5h4042EDsnwwSQJyKgx4tw
-	 2ew8mwFKW//BYEbRH06XVzQ2lixfB5MT04ty8S7rWNwC441nPr0ZZGgzLhQTBEgc2n
-	 5CrHNBNbBjpbciW21vvck/FOoJRhLo7KR4QxQkviO5reEbgrXfad2BS1oJw+gHzcVR
-	 yMf4w6Oxego9Q==
-Date: Tue, 27 Oct 2026 01:04:51 +0000
+	b=DuXwr2gDB4QNZILHXgUxV6jz7wgWPyCzNP2EFrOXEjzGOsIWqiQqn3pyUREAYy1YI
+	 CqigLyxR5qcL9MbwCrF86tMFi98r6NAZRIAkRtehnYEVGeG/IsojvWY0F8M3rCJlVj
+	 UfEi3OTZARSS51y9YK97ijGXDyxM8SASaqDOdUWBEDBoLySeS31lsw8z9RkfRVg0u4
+	 q+zkJtA736Kud8KkeCqCEzVpF/m5KvEUBVVEcS40RZSCZRSANU9wZiQz0/bEWczbJA
+	 QWcq8wI0gXuksWxb57IGRvJJhBvUyhhMLkDQQ9lpki5co278XIffgc0o3YnqQq6N4k
+	 QXMCAa0g21Lhg==
+Date: Tue, 27 Oct 2026 01:07:25 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: Tristan Madani <tristmd@gmail.com>
 Cc: Lars-Peter Clausen <lars@metafoo.de>, Kevin Tsai
@@ -51,12 +51,12 @@ Cc: Lars-Peter Clausen <lars@metafoo.de>, Kevin Tsai
  <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
  <tristan@talencesecurity.com>
-Subject: Re: [PATCH v2 1/2] iio: light: cm32181: validate ACPI object type
- in cm32181_acpi_get_cpm()
-Message-ID: <20261027010451.7214ed8d@jic23-hlaptop>
-In-Reply-To: <20261026142040.62383-2-tristmd@gmail.com>
+Subject: Re: [PATCH v2 2/2] iio: imu: inv_mpu6050: validate ACPI object
+ types in asus_acpi_get_sensor_info()
+Message-ID: <20261027010725.4fa8ea9b@jic23-hlaptop>
+In-Reply-To: <20261026142040.62383-3-tristmd@gmail.com>
 References: <20261026142040.62383-1-tristmd@gmail.com>
-	<20261026142040.62383-2-tristmd@gmail.com>
+	<20261026142040.62383-3-tristmd@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,55 +70,67 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 14:20:38 +0000
+On Mon, 26 Oct 2026 14:20:39 +0000
 Tristan Madani <tristmd@gmail.com> wrote:
 
 > From: Tristan Madani <tristan@talencesecurity.com>
 > 
-> cm32181_acpi_get_cpm() accesses cpm->package.count and
-> cpm->package.elements without checking that the returned ACPI object
-> is of type ACPI_TYPE_PACKAGE.  If firmware returns a different type,
-> the package union members alias onto unrelated data.
+> asus_acpi_get_sensor_info() iterates through a nested ACPI package
+> structure without checking types at either level.  The outer object
+> returned by acpi_evaluate_object() and each inner element must be
+> validated as ACPI_TYPE_PACKAGE before accessing their package.count
+> and package.elements members.
 > 
-> Use acpi_evaluate_object_typed() to request an ACPI_TYPE_PACKAGE
-> directly, so the ACPI core validates the type before returning.
-> Also replace kfree() with ACPI_FREE() for the ACPI-allocated buffer.
+> Use acpi_evaluate_object_typed() to validate the outer object type
+> at evaluation time.  Add a type check for each inner element before
+> accessing its package contents.  Also replace kfree() with
+> ACPI_FREE() for the ACPI-allocated buffer.
 > 
-> Fixes: d34ca613b939 ("iio: light: cm32181: Add support for parsing CPM0 and CPM1 ACPI tables")
+> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 > ---
->  drivers/iio/light/cm32181.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/iio/light/cm32181.c b/drivers/iio/light/cm32181.c
-> index b32a94028f091e..8d00486af608c9 100644
-> --- a/drivers/iio/light/cm32181.c
-> +++ b/drivers/iio/light/cm32181.c
-> @@ -114,7 +114,8 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
->  	if (!handle)
+> diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+> index 460792ed27e031..e5ffa0d5f6b1a2 100644
+> --- a/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+> +++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c
+> @@ -52,7 +52,8 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+>  	union acpi_object *cpm;
+>  	int ret;
+>  
+> -	status = acpi_evaluate_object(adev->handle, "CNF0", NULL, &buffer);
+> +	status = acpi_evaluate_object_typed(adev->handle, "CNF0", NULL,
+> +						&buffer, ACPI_TYPE_PACKAGE);
+Same as previous wrt to indent.  In the kernel style guide
+this is only there implicitly in examples, but it is definitely
+preferred choice for IIO and I don't recall seeing anywhere in
+the kernel where this wasn't an acceptable choice.
+
+Jonathan
+
+
+>  	if (ACPI_FAILURE(status))
 >  		return -ENODEV;
 >  
-> -	status = acpi_evaluate_object(handle, obj_name, NULL, &buffer);
-> +	status = acpi_evaluate_object_typed(handle, obj_name, NULL, &buffer,
-> +						ACPI_TYPE_PACKAGE);
-The parameter on the second line should be aligned as:
-	status = acpi_evaluate_object_typed(handle, obj_name, NULL, &buffer,
-					    ACPI_TYPE_PACKAGE);
-
-Along with being preferred style for kernel code I think it is also the
-most common choice in this file.
-
->  	if (ACPI_FAILURE(status)) {
->  		dev_err(dev, "object %s not found\n", obj_name);
->  		return -ENODEV;
-> @@ -131,7 +132,7 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
->  		values[i] = elem->integer.value;
+> @@ -62,6 +63,8 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+>  		int j;
+>  
+>  		elem = &cpm->package.elements[i];
+> +		if (elem->type != ACPI_TYPE_PACKAGE)
+> +			continue;
+>  		for (j = 0; j < elem->package.count; ++j) {
+>  			union acpi_object *sub_elem;
+>  
+> @@ -78,7 +81,7 @@ static int asus_acpi_get_sensor_info(struct acpi_device *adev,
+>  		}
 >  	}
->  
+>  	ret = cpm->package.count;
 > -	kfree(buffer.pointer);
 > +	ACPI_FREE(buffer.pointer);
 >  
->  	return count;
+>  	return ret;
 >  }
 
