@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088930;
-	b=cTvohyS3PUgRHbbZYGfXNDbsOfw7JUKGUrd6hWkEsToPQY1wG1ZJHAoFDjXkGC1WzsYF
-	 6SGoaKehdxdZvUtF9q14UfSawxT50M5QdddrZIcSzVUUIwybcY7hXhrJGMIgOhRATedoi
-	 pA5gO0UbH7EvqPZGxe2jCdpQ+DmCbTV+lgS8j40iuT2K0I3iVyGtt2o2ixFjZZVul3oPl
-	 jaX2nXhSgteQpelieUHL7peEpg1NsB18aNx2J+SwwfqNhqh5pIJ024ZlG1Bvdc9Xyujlk
-	 Nn3bhpccxpN9KLe4iOVRm7pH+fNLqNiN6REqPzWBLtdk9bD0tBCLRatT3kXgPfM61aw==
+	t=1793089008;
+	b=zJXEvYE49edRoCeY+vK+7Z1UYwy000o7pT3McSnROEEYs0BjU4IpZwydEpirvGeheMbd
+	 xpfi8fgu9FqrbizWa/QgHzanigfQ0o6ZmII2SqFv+oHgfxrOdQQzQTkUchFhFRxBEXTa6
+	 kJnGtmClCDmJT9h3LmgMdIqF1UzmcesYOLxemk36U1pf47l5TMdSZ3gpL5MJ/9q7NdNQS
+	 0ui1ZkkfvaBwKQAY9HcTeGlAUvwvFy3S6Qtg6yB/rJhRBBT3v4qT71msOcyQ2245Ov4v1
+	 TeWJi5IBiqb8+VlTFWLucn8nvQL837EViQTIUC6QjUSjjXXAp2rhRMnmhzS3QHYpI9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088930;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793089008;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5kxHiEVY3AkdeOmkiyMicYxXOYN4StpWVAs8/ArHz0o=;
-	b=acIi2hkamcJyMX5+AiwfyjxuS3u0txvVuf6T92Dnn8SGAU0NWeD1RcqR/CQf8It+e4+3
-	 JwcE5mRSB9MSv8v8a9Jdd52wXOAcv4PonxyqYJojkaiW8VoRlgeVEwshpj4s65USwgRuB
-	 hFL3XDTXvIOVq/I5kcOjr71Yyi1zuZIJrXdinli0ITGi8T8+7TvftZAczCjuUOuafF9tf
-	 u6jIlAjs4lOObSUUqpyS1EzJHHeEMlx/zWRPgwJZN0/Uh8f0iQEL5aFlIZyrmXT60xmP/
-	 6eo+rDOmGic8YKX97ty6tC/R0F47NPUxQKfrGpUl3B+ozJxQScDY2rrglbmEJ7dd9Gg==
+	bh=25JoUd0Ca4DSucyqp8VdpaHvYyD4L6ugc8HcJwXmagI=;
+	b=TsqjEmTxTtNdn9KrUJ34+Dk3iynC1OCRoK54pI/OoWcFY6UUF0MxnMsCfplIFkwzCOo3
+	 t4cLNFuRj/UAhGnBb+6CXlI+IOakgvcQierxhybUCizN4BsyZYb6siI0hCsEAVIcOxXNP
+	 A6jeOwnVYhdSbJ5zbZviZqf+3enz58VuZk6yKn7L7cYQHuBStGd71R5QxwEcGTHY6rMrc
+	 yxPJvzpwKq3AdSsAEGRX7vQ5vxuTdfk7/6/HBYc+cmBEPC56DHMqn5WKgj9Gv5JI97A+H
+	 Q4yc4ApVhflwIn6rKU7nM/Aui6GDBvw+YSJV4WoO/oomtpcsI07byCHDHao/i/o4Txg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TohUlqMB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqgW1ogH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE77606A31A;
-	Tue, 27 Oct 2026 08:15:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52733606A31A;
+	Tue, 27 Oct 2026 08:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TohUlqMB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC241F01825;
-	Tue, 27 Oct 2026 08:15:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqgW1ogH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6EE1F01825;
+	Tue, 27 Oct 2026 08:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793088929;
-	bh=5kxHiEVY3AkdeOmkiyMicYxXOYN4StpWVAs8/ArHz0o=;
+	s=k20260515; t=1793089008;
+	bh=25JoUd0Ca4DSucyqp8VdpaHvYyD4L6ugc8HcJwXmagI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TohUlqMBXvTV6SqJFuiC+dqJjW/ij05cgrKtKEOfYxV88J5WLixwsYKmPfpSGBA2B
-	 C+OmR9z5ZQPvnP70HVJyU7RC/CroJIV4UeBShTJu8eqdqUxUaoqOarZFm1dzPQXqFd
-	 9tm6W7ZBJjPSXKIvNDqJIqzVvCngxMhyCkgQuyeGljrVxcZZ6+6MOELxqy231soY3X
-	 GqAKIoz4S+Xnh6OouG5YutTdPxrxAOYEgd5VJ3AkybBIYVwdQ4Zz9O/MVH8vdiCTjr
-	 p4b/83kRK763X0IwAQe+MCH3KJ3GHP5MK8a903LLNXFYeAbx5wprUZo5Jf2y+jOZpP
-	 WoD4aFVO/XgLQ==
-Date: Tue, 27 Oct 2026 10:15:07 +0200
+	b=DqgW1ogHskC3KjpnvkmfF/B2DYXhDZoPDNeziDRz5NYseOTPq/Bt3d/gR2uwOi5tt
+	 l0FKm0+vSEXyriWPhPAPthXH1Up+UF+85+8a4DRAWSbZRYMnvjqZUBuxtSS9VhexcH
+	 QjEToIVl39sflEhmYe9ziXX5NCu06RELjf5E7IRB4kHtHZXSvXfgKEoP26dOW1+9IE
+	 ffVmPh+WFa/36AqcOLOz1lEuekRW0rjPES5+SXPWLU9gfjD0+35/LrvlH8duWv+GbJ
+	 RuWAou4+YDgaZUIhlBwjRnVkYYWwTrj2jlqPucPxJ4gaehaWDjNNziTUjRRUgWOZSb
+	 cgzDt4LnM1kJg==
+Date: Tue, 27 Oct 2026 10:16:25 +0200
 From: Mike Rapoport <rppt@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -85,12 +85,13 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
-Message-ID: <auBdixo2E9rqB_vN@kernel.org>
+	linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 23/46] mm/userfaultfd: write-lock the VMA before waking
+ waiters when unregistering
+Message-ID: <auBd2RS7buo-Aa5I@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,65 +103,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org>
 
-On Tue, Oct 27, 2026 at 12:17:24AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Oct 27, 2026 at 12:17:43AM +0100, David Hildenbrand (Arm) wrote:
+> userfaultfd_unregister() wakes pending missing faults before clearing the
+> VMA's userfaultfd registration. With per-VMA fault locking, holding
+> mmap_lock for write does not prevent another fault from queuing after
+> the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+> waiter can then remain asleep indefinitely.
 > 
-> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
-> read(), write() and lseek() on a shared open file description of a regular
-> file serialize on ->f_pos_lock.  The flag that asks for it,
-> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
-> too, but its struct file comes from alloc_file_pseudo() and never passes
-> through do_dentry_open(), so it does not get the flag:
+> Call vma_start_write() before waking waiters. Existing fault handlers
+> queue themselves before dropping the VMA read lock, and new readers are
+> excluded until mmap_write_unlock().
 > 
->   CPU0                                CPU1
->   write(memfd, "a", 1)                write(memfd, "b", 1)
->     pos = file->f_pos  (= 0)
->                                         pos = file->f_pos  (= 0)
->     vfs_write(..., &pos)
->                                         vfs_write(..., &pos)
->     file->f_pos = pos  (= 1)
->                                         file->f_pos = pos  (= 1)
-> 
-> One of the two bytes is overwritten.  Two threads writing 100000 bytes
-> each, one at a time, to a memfd end up with a file that is far shorter than
-> 200000 bytes, while the same program on a tmpfs file never loses a byte.
-> 
-> Set the flag when the memfd is created.  As for any other regular file the
-> lock is only taken if the file is reachable in more than one way, and
-> nothing a memfd does in read or write waits for another operation on the
-> same file.  This cannot be done for all alloc_file_pseudo() files: anon
-> inode files such as eventfd are S_IFREG as well, and a blocked read holding
-> ->f_pos_lock would lock out the write that is supposed to wake it.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
+> Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: minor description tweaks ]
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
 > ---
->  mm/memfd.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  mm/userfaultfd.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/mm/memfd.c b/mm/memfd.c
-> index 7d2da23157003..6f5fbce74f21e 100644
-> --- a/mm/memfd.c
-> +++ b/mm/memfd.c
-> @@ -484,6 +484,8 @@ struct file *memfd_alloc_file(const char *name, unsigned int flags)
->  	}
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 669f71d485d02..7e30b5ff17be1 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+>  			start = vma->vm_start;
+>  		vma_end = min(end, vma->vm_end);
 >  
->  	file->f_mode |= FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE;
-> +	/* a regular file like any other: POSIX.1-2008/SUSv4 Section XSI 2.9.7 */
-> +	file->f_mode |= FMODE_ATOMIC_POS;
->  	file->f_flags |= O_LARGEFILE;
->  
->  	if (flags & MFD_NOEXEC_SEAL) {
+> +		/* Prevent new userfaults from being queued after the wakeup. */
+> +		vma_start_write(vma);
+> +
+>  		if (userfaultfd_missing(vma)) {
+>  			/*
+>  			 * Wake any concurrent pending userfault while
 > 
 > -- 
 > 2.43.0
