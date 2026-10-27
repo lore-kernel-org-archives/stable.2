@@ -1,45 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793073695;
-	b=I2GkYEGDHsjMbMt0A3eNr5urv3tWnDnlp3VPeB7+Wt04k5h4xYZRDGxXajQ1DrIahyrl
-	 ipwELZLCAGRP4Z3cyhy8CVwaL8opxIRTUNup8YdO6UmTJPj2McTcl4LuoYZB8PE8KPPIe
-	 30Naqr8i6mkUBntF29EWRg/FDWB+OxwkQZcwUXe6JqrxvjMcKM34Y6DpIVPn5HlokqZRE
-	 Owvlq3AUj5OhoTnBgrEJ2QffHBBE5kXuhptTDSaWzg2AfBg6sczROvKEKTBaVtRiN10l8
-	 dWMSsYmFFvCuAmbYpb0P+duoO70nJVUlpzCced2qanORyXwWJaEYowI9uzqaY9lm+QQ==
+	t=1793074937;
+	b=0BRWlaYGeeaIWNNM+ELPNtFM4B7mxet+cXJHFjy/4uVC1/2LX4suZ9Dr4BE0qGXu0YgQ
+	 50nBjIspA398kOO8UMf2iRBC+jYcECprayzHtSkpAz1J2WM1XLztlsmIrCovxPn5+MGDd
+	 VKwhJJMpHqUmMTyX5kuqMhJOum/Oj3xs157ACMHawtM6SIq/7u7hZXh2VZjNa6qWKss63
+	 sGQUX/kB4je9cjPsYHgUOUTKJcquSDYpZQdgZA+tbgcVZlHnwu9iUSMq3sNosn7V/7CC0
+	 TOd7RUXvL2kXKKe0+Pa2iBCXr7YJ4Zxj4hA6MIheXTCmlLZhkUwtUXNBipdE91kdOPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793073695;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=kNZ8G8jnCaFmoNpUZvX1H4P3SGZ0ie6bKnpVTUrwXkQ=;
-	b=b8Tlfdur9MIC8Dks2SfBmPKVbaGqLIjjHEZba79QP8c9f73otB5aHUMhlNWFc+suFaUN
-	 BPi3kgMgtrYfsgqZJEDYp5QtBuUO+zjHaaikbsLrlc9c45V2pIv9lLKyg1Sr7vnrUWN1F
-	 adh2o9c2Hq8T6NPI1/zOKZQzaknzBmkePtttbL/VPx6VtGn7VYEvO0M+dRuXfse/+Aw34
-	 jo+M/yqmyu7e9z9RRHUhDY2AHN0h/K6G8WPP8sXGZasYKsITOif9Mx2NMRBlD0E+AhJ6p
-	 3FZdmx916bpN3HiY/Xr40I+cl09O+Dh72NPtrbIKcvZUg+qHVz+bpdMM2JAerRjKs+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793074937;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CfcYGaJ4tkbNnhjQHfn5dtEgiZ6cd5xAnQKhOyf0Ms4=;
+	b=2eyrhH3mW1z6ucOn6eOHWnTxvj3b6OD32ZVKciL6e72YVIaOfC8elqvE0svs0WYRcLre
+	 FFW8v99qaFbeUlNMl6/KWiW8SEDHK45abGJ8MUVGCLHR3q+4LfgVSAXrjSOxCh0h6FAnH
+	 9pXOxD8FrGN46yEGjEM1BMUDHXJd+egdzoY85NBL0z7yjmvLX7WWDU4meFwn7OVXCzchH
+	 btstIAKb2hYdKa7/UqBcngTdvCgosiX4xYmHmrSxeqe56UBoaYT124Ev35lu/Uj9XHkUh
+	 pZ2yXNBNHMwBXu/5uYm+wKeTV94ClPXoDrNr8l/ubMm3a8wZRbxcGIMBXdDlHLbq3yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VPvLye/9";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y3gLtDpB;
+	arc=none smtp.remote-ip=209.85.219.43
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CF0606A31A;
-	Tue, 27 Oct 2026 04:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C907C606A31F
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 04:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C907C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VPvLye/9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B141F01825;
-	Tue, 27 Oct 2026 04:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793073695;
-	bh=kNZ8G8jnCaFmoNpUZvX1H4P3SGZ0ie6bKnpVTUrwXkQ=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=VPvLye/9aqYSzIBt766qHx0UIEnt86a1M9re73o7pLSSQrNVIfNqGcXy3JJA/02XT
-	 Qgmo3SybnjB0J57iyydCIBk92CQyFcMAASdp0QmdB7Yc7FlhW243EJPzl3AEEhXuaT
-	 MnHMRcBTEHv0/VK+L1+W9N48cKdD/OM5zkIfqy7sDR/5WybaT29ygsLyzAAqmBCg+4
-	 yUNQpDd5wnKJLZZbr1t2NCV1w6TdNAUFijd7Eiz4VoFIXnS2Z/2x+nbux/is7yyszq
-	 NbVwMD9Lr63wxuC1WSVgOqMBIzDAVBBIGxP+XS5QWbsfxGJPgZ1miFI3948iqBwc9Y
-	 pMLQe5EIaWDog==
-Content-Type: multipart/mixed; boundary="===============6490294886834219674=="
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y3gLtDpB
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91c60e30054so15644046d6.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:22:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793074936; x=1793679736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CfcYGaJ4tkbNnhjQHfn5dtEgiZ6cd5xAnQKhOyf0Ms4=;
+        b=Y3gLtDpBr+M2FDm5quUn5gPRwaJ+fyy+Qctp/Xqq2lMD6UiJWzbPv9MlofyBKVv900
+         6m1NdCDxkTiDqwSgh9vEt4LVmKHniUPhnAjTPT4WVA1CzqHelc6fFBfKcz8hxsUiltpc
+         kBEpn5xRR4grlCDKkY+ZibHGqnK4DTxcLe0VUNj/Y4ouJt17aSmtj685hXExRr4cTTb+
+         pA551bJ7Xbm+xIjMutL6A1H+BngA2tatnAWOsBrSpbdiGnD8ifrhMQFrTdHePnu7KOZ+
+         iWTdzua/H0lxYN4pk1j6so712OOLxxT2AcP22qgzQXUHqvdIMVlLUq14b59nPsSYrClv
+         2RVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793074936; x=1793679736;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CfcYGaJ4tkbNnhjQHfn5dtEgiZ6cd5xAnQKhOyf0Ms4=;
+        b=yf4Dg2F2KawlPhgUul+btbgklUyMd7myyVFORu14ofwbzNoHy809wDmQK1FK4/E5f8
+         IbgzJ5NiYGBoNx/ceYNiEerx3QVkjJ4gglCtF2Uxa28kasuocr9UkKxmQC84e+ao16/g
+         nDdpp/VOnwHj8FLEgAjTqmYr3COagbA1uXgfSt7HblCyKDdN5yQVHHa3Ea5668/dROrr
+         0HrRwYywoZyiicdnE5Wum5EeUeEEAQcVy+YVK2F4NrZFKlO4xtU+MZBr8KaS+DcwnYxM
+         Yhmg8sotGajULV77v4g9SNq/Sox91SJA1PhtK+E2rps4hBjTmeRajAg/tNrbfvkBXO5B
+         SmQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwptWyk+RDxz2WA4yG5ZBZeq71FwC8vwQwfk0t/23fCpkNV1OdnOqnZQq4s9beC17X1NpjZmV8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISXp9oRPdJwY0HbIxs1188qcKzwuo0v57xDISa0d+4Ibbv1trg
+	fOr0F1Gn/B1c551IbyndnRFRSKmpoQeh1MP5yRRjyzhguirX7VDHCSuyKyfBp5eoI38=
+X-Gm-Gg: AYBFou2WOYKVjZnhE249WueZZHZIWTnpAb8NLxFg64028jLjJl5/V71UQ1h0PgIAx+F
+	w3D+/8IMbuJEWACOcew1xK5KVWmar58PWUUccuwYDCsJFD+U7wTJKe6MGRDVs1TKT+xLsK/7uWv
+	G4bKQRUy8ZE5otycYHsYBJFi2LXLuISlhaHczB1quSq+CxCpEj3/XJ+4C0AxYLJlO+tQz6WnLQJ
+	r61Zru56EFPbV2TNeHec2eUfzIa9CSV6s87Z7EGF9q1hg8F6/S9MrpWTR1exxdnihv9BWejXpnS
+	tg/1u8zs/+csBMdnt/HwNerx7ZRS8eQonDiYYuWqGPPT0NzEfsQE36o2aF9L337W8PRcqEfBYZ8
+	2y4X95aAiACVCnjXiVAOtm10VbhhJOlmqNt4lEFy58S76crd6AcAzIJTQK3fFbCIU2c4wOGBZom
+	kpEq0UYX2JXbiQNoowNDyOF3x9uZ2OnPS84/rpk9enUf8kmML4OexabSesRfr7Tlt91uo332WIP
+	iqXL5V44gT4dwZOOPsyImoE2uYRdNbhUXCwbT+AQOKiYL54JeZkRa/Q9iGGj2gAAfok+23U0Vvn
+	3u7We+V3i7VOz7giWkuBPxIuyJvzAGfmwcNVW+Mj+A==
+X-Received: by 2002:ad4:5c8d:0:b0:917:92c7:ce45 with SMTP id 6a1803df08f44-91c48e5705dmr159481776d6.37.1793074935786;
+        Mon, 26 Oct 2026 21:22:15 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd01cdsm91139676d6.7.2026.10.26.21.22.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 21:22:13 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	osalvador@suse.de,
+	muchun.song@linux.dev,
+	iamjoonsoo.kim@lge.com,
+	anshuman.khandual@arm.com,
+	stable@vger.kernel.org
+Subject: [PATCH 1/6] mm/compaction: wait for pfn walkers before poisoning offlined memmap
+Date: Tue, 27 Oct 2026 00:21:59 -0400
+Message-ID: <20261027042204.3741307-2-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027042204.3741307-1-gourry@gourry.net>
+References: <20261027042204.3741307-1-gourry@gourry.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,84 +116,245 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <b3ddc3a43512b33fb503585d34dd75ef62420ea0e0d9f0ceecd6262f79fcb9d0@mail.kernel.org>
-In-Reply-To: <tencent_BEA5FE30F5544754FA5F1BBE68093B69AD0A@qq.com>
-References: <tencent_BEA5FE30F5544754FA5F1BBE68093B69AD0A@qq.com>
-Subject: Re: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
-From: bot+bpf-ci@kernel.org
-To: treebacker@foxmail.com,bpf@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,netdev@vger.kernel.org,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 27 Oct 2026 04:01:34 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============6490294886834219674==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Compaction checks that a pageblock is online, then uses its pages across
+lock drops and sleeps.  If offline poisons the memmap meanwhile, a
+DEBUG_VM kernel faults:
 
-PiBicGY6IGNoZWNrIGNwdV9wb3NzaWJsZSgpIGluIHBlci1jcHUgaGVscGVycwoKVEw7RFI6Ci0g
-YnBmX3Blcl9jcHVfcHRyKCkgb24gcGVyY3B1IGtwdHJzIG1heSBzdGlsbCBjcmFzaCB3aXRoIGEg
-TlVMTCBkZXJlZmVyZW5jZToKICB0aGUgdmVyaWZpZXIgZG9lc24ndCBtYXJrIHRoZSByZXN1bHQg
-bWF5YmUtTlVMTAotIGNvbW1pdCBtZXNzYWdlIHdyb25nbHkgc2F5cyByZWFkcyBvbmx5Ci0gRnJv
-bS9TaWduZWQtb2ZmLWJ5IG5hbWVzIGRpZmZlcgoKPiBicGY6IGNoZWNrIGNwdV9wb3NzaWJsZSgp
-IGluIHBlci1jcHUgaGVscGVycwo+Cj4gWyAuLi4gXQo+Cj4gRml4ZXM6IDA3MzQzMTEwYjI5MyAo
-ImJwZjogYWRkIGJwZl9tYXBfbG9va3VwX3BlcmNwdV9lbGVtIGZvciBwZXJjcHUgbWFwIikKPiBG
-aXhlczogZWFhNmJjYjcxZWY2ICgiYnBmOiBJbnRyb2R1Y2UgYnBmX3Blcl9jcHVfcHRyKCkiKQo+
-IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gU2lnbmVkLW9mZi1ieTog5bmz5LmLIDx0cmVl
-YmFja2VyQGZveG1haWwuY29tPgoKVGhlIEZyb206IG5hbWUgaXMgImJvIGNhbyIgd2hpbGUgdGhl
-IFNpZ25lZC1vZmYtYnk6IG5hbWUgaXMgIuW5s+S5iyIsIHdpdGggdGhlCnNhbWUgZW1haWwgYWRk
-cmVzcy4gIENvdWxkIHRoZSB0d28gYmUgbWFkZSB0byBtYXRjaD8KCj4gZGlmZiAtLWdpdCBhL2tl
-cm5lbC9icGYvaGVscGVycy5jIGIva2VybmVsL2JwZi9oZWxwZXJzLmMKPiBpbmRleCA2NDhhYmUx
-YmE2M2EuLmY5ZjJiZDY2NTAzOCAxMDA2NDQKPiAtLS0gYS9rZXJuZWwvYnBmL2hlbHBlcnMuYwo+
-ICsrKyBiL2tlcm5lbC9icGYvaGVscGVycy5jCgpbIC4uLiBdCgo+IEBAIC03NTMsNyArNzU3LDcg
-QEAgY29uc3Qgc3RydWN0IGJwZl9mdW5jX3Byb3RvIGJwZl9jb3B5X2Zyb21fdXNlcl90YXNrX3By
-b3RvID0gewo+ICAKPiAgQlBGX0NBTExfMihicGZfcGVyX2NwdV9wdHIsIGNvbnN0IHZvaWQgKiwg
-cHRyLCB1MzIsIGNwdSkKPiAgewo+IC0JaWYgKGNwdSA+PSBucl9jcHVfaWRzKQo+ICsJaWYgKGNw
-dSA+PSBucl9jcHVfaWRzIHx8ICFjcHVfcG9zc2libGUoY3B1KSkKPiAgCQlyZXR1cm4gKHVuc2ln
-bmVkIGxvbmcpTlVMTDsKCkRvZXMgdGhpcyBmdWxseSBoYW5kbGUgdGhlIHBlcmNwdSBrcHRyIGNh
-c2U/ICBXaXRoIHRoaXMgY2hhbmdlIGEgaG9sZSBDUFUKbWFrZXMgYnBmX3Blcl9jcHVfcHRyKCkg
-cmV0dXJuIE5VTEwsIHdoaWNoIGlzIG9ubHkgc2FmZSBpZiB0aGUgdmVyaWZpZXIKcmVxdWlyZXMg
-dGhlIHByb2dyYW0gdG8gdGVzdCB0aGUgcmVzdWx0LgoKRm9yIGEgcGVyY3B1IGtwdHIgYWxsb2Nh
-dGVkIHdpdGggYnBmX3BlcmNwdV9vYmpfbmV3KCksIGNoZWNrX2hlbHBlcl9jYWxsKCkKdGFrZXMg
-dGhlIHJldHVybnNfY3B1X3NwZWNpZmljX2FsbG9jX3B0ciBwYXRoIGFuZCBkcm9wcyByZXRfZmxh
-ZywgYW5kIHdpdGgKaXQgUFRSX01BWUJFX05VTEw6CgprZXJuZWwvYnBmL3ZlcmlmaWVyLmM6Y2hl
-Y2tfaGVscGVyX2NhbGwoKSB7CiAgICAuLi4KICAgICAgICBpZiAocmV0dXJuc19jcHVfc3BlY2lm
-aWNfYWxsb2NfcHRyKSB7CiAgICAgICAgICAgICAgICByZWdzW0JQRl9SRUdfMF0udHlwZSA9IFBU
-Ul9UT19CVEZfSUQgfCBNRU1fQUxMT0MgfCBNRU1fUkNVOwogICAgICAgIH0gZWxzZSB7CiAgICAg
-ICAgICAgICAgICAuLi4KICAgICAgICAgICAgICAgIHJlZ3NbQlBGX1JFR18wXS50eXBlID0gUFRS
-X1RPX0JURl9JRCB8IHJldF9mbGFnOwogICAgICAgIH0KICAgIC4uLgp9CgpTaW5jZSBSMCBpcyBu
-ZXZlciBtYXJrZWQgbWF5YmUtTlVMTCwgYSBwcm9ncmFtIGxpa2UgdGhpcyBwYXNzZXMgdGhlCnZl
-cmlmaWVyOgoKICAgIHAgPSBlLT5wYzsgICAgICAgICAgICAgICAgICAgICAgLyogX19wZXJjcHVf
-a3B0ciBmcm9tIGEgbWFwIHZhbHVlICovCiAgICBpZiAoIXApIHJldHVybiAwOwogICAgdiA9IGJw
-Zl9wZXJfY3B1X3B0cihwLCBjcHUpOyAgICAvKiBjcHUgaXMgYSBob2xlIENQVSBvciA+PSBucl9j
-cHVfaWRzICovCiAgICB2LT5jID0gMTsgICAgICAgICAgICAgICAgICAgICAgIC8qIG5vIE5VTEwg
-dGVzdCAqLwoKY2hlY2tfcHRyX3RvX2J0Zl9hY2Nlc3MoKSBhbGxvd3MgdGhlIHdyaXRlIGJlY2F1
-c2UgdHlwZV9pc19wdHJfYWxsb2Nfb2JqKCkKaXMgdHJ1ZSwgYW5kIGJwZl9tYXlfZmF1bHRfb25f
-ZGVyZWYoKSByZXR1cm5zIGZhbHNlIGZvciB0aGlzIHR5cGUsIHNvIHRoZQpzdG9yZSBpcyBub3Qg
-cmV3cml0dGVuIHRvIEJQRl9QUk9CRV9NRU0uICBBdCBydW4gdGltZSB0aGlzIHdyaXRlcyB0bwpO
-VUxMICsgb2Zmc2V0b2YoYykgYW5kIGNhdXNlcyBhIGtlcm5lbCBOVUxMIHBvaW50ZXIgb29wcy4K
-ClRoZSBjcHUgPj0gbnJfY3B1X2lkcyBjYXNlIGFscmVhZHkgcmVhY2hlZCB0aGlzIE5VTEwgZGVy
-ZWZlcmVuY2UgYmVmb3JlCnRoaXMgcGF0Y2ggKHNpbmNlIDAxY2M1NWFmOTM4OCwgImJwZjogQWRk
-IGJwZl90aGlzX2NwdV9wdHIvYnBmX3Blcl9jcHVfcHRyCnN1cHBvcnQgZm9yIGFsbG9jYXRlZCBw
-ZXJjcHUgb2JqIikuICBBIGhvbGUgQ1BVIGlkIHByZXZpb3VzbHkgcmVzdWx0ZWQgaW4gYQp3cml0
-ZSB0aHJvdWdoIGEgYm9ndXMgcGVyLWNwdSBhZGRyZXNzLCBhbmQgbm93IHRha2VzIHRoZSBzYW1l
-IE5VTEwKZGVyZWZlcmVuY2UgcGF0aC4KCldvdWxkIGtlZXBpbmcgUFRSX01BWUJFX05VTEwgb24g
-UjAgZm9yIGJwZl9wZXJfY3B1X3B0cigpIGNvbXBsZXRlIHRoZSBmaXgsCmZvciBleGFtcGxlOgoK
-ICAgIFBUUl9UT19CVEZfSUQgfCBNRU1fQUxMT0MgfCBNRU1fUkNVIHwgKHJldF9mbGFnICYgUFRS
-X01BWUJFX05VTEwpCgpJZiB0aGF0IGlzIGRvbmUsIGEgRml4ZXM6IHRhZyBmb3IgMDFjYzU1YWY5
-Mzg4IHdvdWxkIGFsc28gYXBwbHkuCgpTZXBhcmF0ZWx5LCB0aGUgY29tbWl0IG1lc3NhZ2Ugc2F5
-czoKCj4gRm9yIGJwZl9wZXJfY3B1X3B0cigpIHRoZSBsZWFrIHRhcmdldCBpcyBrZXJuZWwKPiBt
-ZW1vcnkgaW5zdGVhZCBvZiBtYXAgdmFsdWVzICh0aGUgcmV0dXJuIHR5cGUgaXMgbWFya2VkIE1F
-TV9SRE9OTFksCj4gc28gcmVhZHMgb25seSkuCgpJcyB0aGF0IGFjY3VyYXRlIGZvciBwZXJjcHUg
-a3B0cnM/ICBUaGUgTUVNX1JET05MWSBzdGF0ZW1lbnQgaG9sZHMgZm9yIGtzeW0KYXJndW1lbnRz
-LCBidXQgdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3Byb2dzL3BlcmNwdV9hbGxvY19hcnJh
-eS5jIHdyaXRlcwp0aHJvdWdoIHRoZSByZXN1bHQ6CgogICAgdiA9IGJwZl9wZXJfY3B1X3B0cihw
-LCAwKTsKICAgIC4uLgogICAgdi0+YyA9IDE7CgpTbyBiZWZvcmUgdGhpcyBwYXRjaCBhIGhvbGUg
-Q1BVIGxldCBhIHByb2dyYW0gd3JpdGUgdGhyb3VnaCBhIGJvZ3VzCmFkZHJlc3MsIG5vdCBvbmx5
-IHJlYWQuICBTaG91bGQgdGhlIGNoYW5nZWxvZyBkZXNjcmliZSB0aGUgd3JpdGUgY2FzZT8KCgot
-LS0KQUkgcmV2aWV3ZWQgeW91ciBwYXRjaC4gUGxlYXNlIGZpeCB0aGUgYnVnIG9yIGVtYWlsIHJl
-cGx5IHdoeSBpdCdzIG5vdCBhIGJ1Zy4KU2VlOiBodHRwczovL2dpdGh1Yi5jb20va2VybmVsLXBh
-dGNoZXMvdm10ZXN0L2Jsb2IvbWFzdGVyL2NpL2NsYXVkZS9SRUFETUUubWQKCkNJIHJ1biBzdW1t
-YXJ5OiBodHRwczovL2dpdGh1Yi5jb20va2VybmVsLXBhdGNoZXMvYnBmL2FjdGlvbnMvcnVucy80
-MDQ0NTM5NTMyOA==
+  CPU 1 (compaction)                  CPU 2 (offline_pages)
+  pageblock_pfn_to_page()
+    block is online
+  isolate_migratepages_block()
+    cond_resched()
+                                      offline_mem_sections()
+                                      remove_pfn_range_from_zone()
+                                        page_init_poison()
+    set_pageblock_skip(valid_page)
+      reads the zone of a poisoned page
 
---===============6490294886834219674==--
+  Oops: general protection fault, probably for non-canonical address 0xdffffc00000006a2
+  RIP: 0010:set_pfnblock_bit+0xa6/0x2b0
+   isolate_migratepages_block+0x2456/0x3c80
+   compact_zone+0x1638/0x3900
+   compact_node+0x12a/0x1f0
+   sysctl_compaction_handler+0xec/0x160
+
+The free scanner faults the same way.  A contiguous zone skips the
+online check, since offline clears zone->contiguous only after
+poisoning.
+
+Hold an SRCU-fast read section (pfn_walk) from the block check to the
+last use of its pages, and make remove_pfn_range_from_zone() clear
+zone->contiguous and wait for it before poisoning.  Offline pays one
+grace period per range.
+
+Scanner positions outlive the section, and offline can shrink the zone
+meanwhile, so take the contiguous fast path only inside the current
+span, publish zone->contiguous with release, and keep the migrate
+scanner inside the zone.
+
+With a kprobe parking the migrate scanner across the offline, base
+faults in 3 of 3 runs and this patch in none.  Unforced offline/online
+cycling under compaction faults in 8 of 24 runs on base and 0 of 12 with
+this patch.
+
+Fixes: d33695b16a9f ("mm/memory_hotplug: poison memmap in remove_pfn_range_from_zone()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ mm/compaction.c     |  8 ++++++++
+ mm/internal.h       | 41 +++++++++++++++++++++++++++++++++++++++++
+ mm/memory_hotplug.c | 14 ++++++++++++--
+ mm/mm_init.c        |  4 ++--
+ mm/page_alloc.h     |  7 ++++++-
+ 5 files changed, 69 insertions(+), 5 deletions(-)
+
+diff --git a/mm/compaction.c b/mm/compaction.c
+index f1b2060eb2016..2aeb18b6d54dd 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -360,6 +360,7 @@ static void __reset_isolation_suitable(struct zone *zone)
+ 	if (!zone->compact_blockskip_flush)
+ 		return;
+ 
++	guard(pfn_walk)();
+ 	zone->compact_blockskip_flush = false;
+ 
+ 	/*
+@@ -716,6 +717,7 @@ isolate_freepages_range(struct compact_control *cc,
+ 	unsigned long isolated, pfn, block_start_pfn, block_end_pfn;
+ 	int order;
+ 
++	guard(pfn_walk)();
+ 	for (order = 0; order < NR_PAGE_ORDERS; order++)
+ 		INIT_LIST_HEAD(&cc->freepages[order]);
+ 
+@@ -1340,6 +1342,7 @@ isolate_migratepages_range(struct compact_control *cc, unsigned long start_pfn,
+ 	unsigned long pfn, block_start_pfn, block_end_pfn;
+ 	int ret = 0;
+ 
++	guard(pfn_walk)();
+ 	/* Scan block by block. First and last block may be incomplete */
+ 	pfn = start_pfn;
+ 	block_start_pfn = pageblock_start_pfn(pfn);
+@@ -1732,6 +1735,7 @@ static void isolate_freepages(struct compact_control *cc)
+ 	unsigned long low_pfn;	     /* lowest pfn scanner is able to scan */
+ 	unsigned int stride;
+ 
++	guard(pfn_walk)();
+ 	/* Try a small search of the free lists for a candidate */
+ 	fast_isolate_freepages(cc);
+ 	if (cc->nr_freepages)
+@@ -2099,6 +2103,7 @@ static isolate_migrate_t isolate_migratepages(struct compact_control *cc)
+ 		(cc->mode != MIGRATE_SYNC ? ISOLATE_ASYNC_MIGRATE : 0);
+ 	bool fast_find_block;
+ 
++	guard(pfn_walk)();
+ 	/*
+ 	 * Start at where we last stopped, or beginning of the zone as
+ 	 * initialized by compact_zone(). The first failure will use
+@@ -2116,6 +2121,9 @@ static isolate_migrate_t isolate_migratepages(struct compact_control *cc)
+ 	 */
+ 	fast_find_block = low_pfn != cc->migrate_pfn && !cc->fast_search_fail;
+ 
++	/* Offline may have shrunk the zone start past an old migrate_pfn */
++	low_pfn = max(low_pfn, block_start_pfn);
++
+ 	/* Only scan within a pageblock boundary */
+ 	block_end_pfn = pageblock_end_pfn(low_pfn);
+ 
+diff --git a/mm/internal.h b/mm/internal.h
+index d497c35ee7833..8a2faa74403b5 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -18,6 +18,7 @@
+ #include <linux/rmap.h>
+ #include <linux/swap.h>
+ #include <linux/leafops.h>
++#include <linux/srcu.h>
+ #include <linux/tracepoint-defs.h>
+ 
+ /* Internal core VMA manipulation functions. */
+@@ -1206,6 +1207,46 @@ struct tlbflush_unmap_batch;
+  */
+ extern struct workqueue_struct *mm_percpu_wq;
+ 
++/*
++ * Compaction checks that a pageblock is online and then uses its pages,
++ * possibly across sleeps.  remove_pfn_range_from_zone() waits for these
++ * readers before it poisons the memmap of a range taken offline.
++ */
++#ifdef CONFIG_MEMORY_HOTREMOVE
++extern struct srcu_struct pfn_walk_srcu;
++
++static inline struct srcu_ctr __percpu *pfn_walk_lock(void)
++{
++	return srcu_read_lock_fast(&pfn_walk_srcu);
++}
++
++static inline void pfn_walk_unlock(struct srcu_ctr __percpu *scp)
++{
++	srcu_read_unlock_fast(&pfn_walk_srcu, scp);
++}
++
++static inline void pfn_walk_synchronize(void)
++{
++	synchronize_srcu(&pfn_walk_srcu);
++}
++#else
++static inline struct srcu_ctr __percpu *pfn_walk_lock(void)
++{
++	return NULL;
++}
++
++static inline void pfn_walk_unlock(struct srcu_ctr __percpu *scp)
++{
++}
++
++static inline void pfn_walk_synchronize(void)
++{
++}
++#endif
++
++DEFINE_LOCK_GUARD_0(pfn_walk, _T->scp = pfn_walk_lock(),
++		    pfn_walk_unlock(_T->scp), struct srcu_ctr __percpu *scp)
++
+ #ifdef CONFIG_ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH
+ void try_to_unmap_flush(void);
+ void try_to_unmap_flush_dirty(void);
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index 796af1028ee23..b5d9e367b893d 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -543,6 +543,16 @@ void remove_pfn_range_from_zone(struct zone *zone,
+ 	struct pglist_data *pgdat = zone->zone_pgdat;
+ 	unsigned long pfn, cur_nr_pages;
+ 
++	/*
++	 * The range is offline, but compaction may still use pages it found
++	 * online.  Make new scans check the online state instead of trusting
++	 * zone->contiguous, and wait for the old ones before poisoning.
++	 */
++	if (!zone_is_zone_device(zone)) {
++		clear_zone_contiguous(zone);
++		pfn_walk_synchronize();
++	}
++
+ 	/* Poison struct pages because they are now uninitialized again. */
+ 	for (pfn = start_pfn; pfn < end_pfn; pfn += cur_nr_pages) {
+ 		cond_resched();
+@@ -563,8 +573,6 @@ void remove_pfn_range_from_zone(struct zone *zone,
+ 	if (zone_is_zone_device(zone))
+ 		return;
+ 
+-	clear_zone_contiguous(zone);
+-
+ 	shrink_zone_span(zone, start_pfn, start_pfn + nr_pages);
+ 	update_pgdat_span(pgdat);
+ 
+@@ -1783,6 +1791,8 @@ bool mhp_range_allowed(u64 start, u64 size, bool need_mapping)
+ 
+ #ifdef CONFIG_MEMORY_HOTREMOVE
+ 
++DEFINE_SRCU_FAST(pfn_walk_srcu);
++
+ static int check_no_memblock_for_node_cb(struct memory_block *mem, void *arg)
+ {
+ 	int nid = *(int *)arg;
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 01ced0553ce9b..db610ddc37398 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -2270,8 +2270,8 @@ void set_zone_contiguous(struct zone *zone)
+ 		cond_resched();
+ 	}
+ 
+-	/* We confirm that there is no hole */
+-	zone->contiguous = true;
++	/* We confirm that there is no hole; pairs with pageblock_pfn_to_page() */
++	smp_store_release(&zone->contiguous, true);
+ }
+ 
+ /*
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index 53df6b8a0c00a..7e185326b80ab 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -216,7 +216,12 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
+ static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
+ 				unsigned long end_pfn, struct zone *zone)
+ {
+-	if (zone->contiguous)
++	/*
++	 * Offline can shrink the zone under a caller's old pfns and then set
++	 * zone->contiguous again, so only trust it inside the current span.
++	 */
++	if (smp_load_acquire(&zone->contiguous) &&
++	    zone_spans_pfn(zone, start_pfn) && zone_spans_pfn(zone, end_pfn - 1))
+ 		return pfn_to_page(start_pfn);
+ 
+ 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
+-- 
+2.53.0-Meta
+
