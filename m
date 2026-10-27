@@ -1,124 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793138644;
-	b=GkYf9MsFGRcswpcflzQV040fFm22FyrI4z0lrbr30ajaq12jHlivXATBmX7NpuWx9iJ3
-	 /ycMgeSIaVE9XfIF0p1aK6nirNxsQPzZyf4XfC5f5L8DXtiY90v5Z+EUhX0QoONsHiUak
-	 as1Skn8XCMSGX4JLZRseK0e40tvshRzkW/KlwFWeNVoZMt+CzniVcCU2ZeXMoEdWZDWS8
-	 x5eqf1dKohUtIpnhoQATDGtE9CB3ER6+MLs3F4RDS9ksi1uujgCZDnE1A7Wcbd64l7sWk
-	 V1CIcCoXxfDNa7BB2FNv74TjLwM1rl0sTWrg/KLYsfG6XwF1IhHFcholZFV+ZE3yP4Q==
+	t=1793139009;
+	b=Oq9cMXv7a3oTzEIIbi+N6BD3l8FdKpbNpW4nmOG2bNipAyXcSNyqWUNyWiYDhImXEWUT
+	 829JSJchalcnMC0aTUO2VMGmnxbXTgaO4tH9apzaaZ/ITcLKuAoDwEdHXoQT2ZnXtM2NY
+	 Qied9ZOeY1WIBTLTrrqm3V5qU8MXtdNe6Fzv6z2L/NXvAyyuX8b8Fm3D1W/aO/xbSEPWT
+	 tRDXf8gmIcs60Viq51yV6xXr3HivYwpI+chYJo1VP2j10IcxTP7eLgvG1qnAjkdL2UwrG
+	 8re6LwMMiYKEhFYrbFjVZ+fUxjtUe4QdDWEAFSAg+TPE8imvfdoUj3XcyUN5so/y6Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793138644;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=Ra19lD8Crx8QohBcrsGmDVBKOcqDjMmSrSzcQ18M9zg=;
-	b=jHAtlaP10eEgUx3K720MkNkyiTgXqmmKGAC96KG6rWZP5/EH++EZtpmMa/7wqTHDe2SD
-	 81mLXOWEqfjGnp+clXbdvm50/0/KPliwOxO2MWiz25o0gAdhqcig5gZOx5vwv3ikiH1cd
-	 hiArzipB36EGfT7TFqaM4+qH1X6zJaxsKjh0/bqsXpkAsgxq7X36942fvr+UQzJMFNrQB
-	 ZFHGfH7EYlXnJrtbwTVYDVF4QjT2QIO5uPLF5o/gBV7y/61cSXK8A7c0iJ6QXRdC8SOf9
-	 XdLhiwa0cuMFQQRpA3/NcvyFqJt/niqNZpMKS3psakz5Zp47BWR313+R//tU2TmE8Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fT+qwxtE+A6GcMts/RFwLqPXWbldRP/ojd/gLikqx/o=;
+	b=dHXua+3ryiFMpHZf02ZwZdjJN3T5IH/ogtZ9UUMbG4JLBC1TxP1X9ruY/BLJc3i8yed8
+	 L0e09f9sqQRUvU5Ngnqrc5I6L5fEVceeiz7kWom5Zr8f5a77JTYHxAnn/AIut1+j7VZP/
+	 qacIPRmt8gCdsekCZbCKAYRaifUduhz/1B0TmXAgmpEp+7Mc6hfLnNsG7FZ8fdsHCbVF1
+	 gTQT3K3DWIlwfC6pJVL9z2abZ1osng08Kt9W4wKw/DJRdWAPjF4A4O0kciNbymt8ldPZ8
+	 SS4WQXtoWrWNpvqi7j00WlkPNtANxe/iOgwLabHpvPD92lHqJ+UPMM5kS953bBFl9zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=djmhDBOu;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK1fsW+2;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D9A606A31A;
-	Tue, 27 Oct 2026 22:04:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0D9A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F722606A31E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 22:10:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F722606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=djmhDBOu
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=Ra19lD8Crx8QohBcrsGmDVBKOcqDjMmSrSzcQ18M9zg=; b=djmhDB
-	OubPpTf9NhqXyoYINRrSPKiGvPUJ4NX+Hk8yVeI2HGGWmUlWyeHrj6vg4Y7v33xaIi+4+aZoIHNus
-	B5oUcCzCkFPc8N75CXJuNLV2ZeZvoMRWNlVLb1DVwfC7EqGYeYZjZaEYORE7EFoXy8jhyyNxaXuE0
-	dK6YKElLoKxfXNY7Rr3S8e01wCPNO30tunYNiVc9JNgy9uS6vf15q5Lpbh654jnbBz+pziF9n3lV5
-	RZJlwgzoO5f8pMWJDeUnJEXZNkAxXRkAxsnJ0FK8Q+WfHVWuH0NvM0bQ7h0qOqgG+Z9KwHNwDSCxv
-	uCk6byi3jwKieKYfnOkXolBr5qSQ==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xLpFA-0000000010l-1L8i;
-	Tue, 27 Oct 2026 22:02:08 +0000
-Message-ID: <8131011db0b4753a1e3b02ac70abe1b1cded6faa.camel@surriel.com>
-Subject: Re: [PATCH 07/46] mm/filemap: don't lose a folio lock wakeup to a
- signal
-From: Rik van Riel <riel@surriel.com>
-To: Pedro Falcato <pfalcato@suse.de>, "David Hildenbrand (Arm)"
-	 <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner	
- <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng	
- <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo
- Stoakes	 <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song
- <baohua@kernel.org>,  Axel Rasmussen <axelrasmussen@google.com>, Yuanchu
- Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,  Baoquan He
- <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam
- R. Howlett"	 <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko	 <mhocko@suse.com>, Kees Cook <kees@kernel.org>, Peter
- Zijlstra	 <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh
- Dickins	 <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav	 <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
- Lance Yang <lance.yang@linux.dev>, Harry Yoo	 <harry@kernel.org>, Alistair
- Popple <apopple@nvidia.com>, Nico Pache	 <nico.pache@linux.dev>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain	 <dev.jain@arm.com>, Usama Arif
- <usama.arif@linux.dev>, Kiryl Shutsemau	 <kas@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, John Hubbard	 <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, Will Deacon <will@kernel.org>,  "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Oscar Salvador
- <osalvador@suse.de>,  Minchan Kim <minchan@kernel.org>, Muchun Song
- <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,  Chengming Zhou
- <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
- <shikemeng@huaweicloud.com>,  Nhat Pham <nphamcs@gmail.com>, Youngjun Park
- <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>,  Joshua Hahn
- <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Ying Huang	
- <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org, Josef Bacik
- <josef@toxicpanda.com>, 	stable@vger.kernel.org
-Date: Tue, 27 Oct 2026 18:02:08 -0400
-In-Reply-To: <auDM5mvsb5ilIdsg@pedro-suse.lan>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
-	 <20261027-fixes_core-v1-7-6f74bec9a5bb@kernel.org>
-	 <auDM5mvsb5ilIdsg@pedro-suse.lan>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK1fsW+2
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so3529765e9.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 15:10:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793139007; x=1793743807; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fT+qwxtE+A6GcMts/RFwLqPXWbldRP/ojd/gLikqx/o=;
+        b=eK1fsW+2JB+u32dztweW6UknefzXls1ygcl5CLm71Z1p1xr/SQRcK5omOGQRHtcZJe
+         AvVkVl/9LOOkxYmhd1abAw2Mm8vOOTgZ1UWGFMO1pLl/MMTaF3XSy260n4/HfsRGpiBy
+         JIpLGwoHQExszH0S+epY/KMiGEzSp37mYCQBpt9wYUat2ouWFbcsd5vgCRBiXuhzzqBT
+         biomUCwj+SKLC4EhQNWqweICVG5qf43GhQQux8yfd9xRoCGPP2Xr8toiG51npBY3etq+
+         zio8FAXRXAeRCiTxpt8NE+qiM7HLaqPjKUhzzFd8rnjlQKjHX04C3xjFWXiBKXVIV8vN
+         XQow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793139007; x=1793743807;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fT+qwxtE+A6GcMts/RFwLqPXWbldRP/ojd/gLikqx/o=;
+        b=L27ZZpeJ++TRxjsWjOVS/7C92eNjsWS0XFnjB5lR9puL3+CuBzWorGdYvBZb+nYKB7
+         TpCB17NDAtuZN+QIeJT2xFrx7lx6Jf82dsMuR7qAK8PliwiCCFSOwEVZwjj+bej6CkB2
+         oKc0mvXPoPLklO4lHcli+8BARVoKRF8vRzbqHuv3wR//InnT4ALl+aJFc+E8ykWqJFUY
+         DEtOVfrdKQYnhyRWwh2h/XOv7cwIJ3T0Q5wXafedYBiXoeaGn0rtGe65/lXwmFtNMdBl
+         a0gbDKgi1MV8y2cog+czwFgscWtXlygqimCQspICAlcogZBF15foGAOJwTnu7CjHqv9h
+         VQLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzurvezDmaoDe2rW757f/cDVpBVVqbtY+wssvIWKQHE8SkMGCkRFvhfu/T1vmndOR6m5Yr9RNM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPDgs+yvRBy55YT2ltJVgPmE6N96hfO4MN7YjPpEKeX/rnAxZC
+	ZJ66DwRAwwWl46FpjRQugbM/sKCmrMbSKyz+Ce1edfjzAKdHCCYJXLLZ
+X-Gm-Gg: AYBFou3pUjWGo6CSlJ0BOyjaLVreCTD0FzVpJT/3+Rmxn+ELBhFCu5FsZgc2Soa4w4l
+	SGnAJfzElZPnzy/GhKXxDjmoD3Y/7qOcKkPfrgg3ytU6v60dcrugLJaGeXbHCfnRwDyHEHMV9An
+	dc+NrL49+HHIv5eB1jPpkcALGQBuYmVaPh9QJA5tAFzXQrmUrL0PSbza5VaaCAoh7y1FSkBDOC/
+	KoBemCzd5WyP6ljD767srPV9CbyGoKyDhIvf3qJQ9MCXe3JJs1d1zLJdClibDCeExcyY8k7lN/U
+	46H/ZkKLQUz9d5PVTCofkaSoGwttc1p5FbDV73amUhAcbRepzZ7XfP+LI0XRANlWOruXqB/NCbH
+	w6Rsc0gp72HuchPPhO1WrPP8tvwhrrTwxxHcPm/QiZOab1ONMGkrvJhdehHsoD+jIMbP2nRn5XX
+	whg2I4nwrV9US/Wec40fueUPrw+CvnBsSvSIYEQiIttHAZynFLJxcLlEkMi5o7qjqDvYSaH/EgZ
+	+Vvcar/aUeeAz/8LgX7ObuGQZ8Z8Q+hjq4AE/vrJKjDQiXRvIHA
+X-Received: by 2002:a05:600c:8b05:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a967202925mr5734215e9.19.1793139006789;
+        Tue, 27 Oct 2026 15:10:06 -0700 (PDT)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm24526363f8f.42.2026.10.27.15.10.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 15:10:05 -0700 (PDT)
+Message-ID: <968e7fce-a027-4c4e-8a3f-79ddf0b2ba9d@gmail.com>
+Date: Tue, 27 Oct 2026 23:10:04 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,44 +91,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] fs/proc/task_mmu: fix missed VMAs when reading
+ /proc/PID/maps and friends
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Suren Baghdasaryan <surenb@google.com>, Shakeel Butt
+ <shakeel.butt@linux.dev>, SJ Park <sj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org,
+ "David Hildenbrand (Arm)" <david@kernel.org>
+References: <20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-10-27 at 16:10 +0000, Pedro Falcato wrote:
-> On Tue, Oct 27, 2026 at 12:17:27AM +0100, David Hildenbrand (Arm)
-> wrote:
-> > From: Josef Bacik <josef@toxicpanda.com>
-> >=20
-> > An exclusive waiter in folio_wait_bit_common() can leave the wait
-> > loop
-> > because of a fatal signal, then be woken by folio_unlock() before
-> > finish_wait(). If the waker did not hand over the lock, the waiter
-> > returns
-> > -EINTR without trying to acquire it.
-> >=20
-> > folio_wake_bit() stops after waking the first exclusive waiter, so
-> > this
-> > loses the wakeup and can leave other waiters asleep indefinitely on
-> > an
-> > unlocked folio.
-> >=20
-> > After finish_wait(), let a waiter woken without a lock handoff try
-> > once
-> > more to acquire the lock. If successful, return success so the
-> > caller's
-> > eventual unlock wakes the next waiter. Otherwise, the current lock
-> > owner
-> > will do so.
->=20
-> Has this been reproduced? I feel like this would've been found out by
-> now?
->=20
-I have seen stuck waiters, on a fleet of millions
-of systems, but I have never tracked one down when
-the root cause was transitory, and no longer
-visible after things got stuck.
+On 10/27/26 3:08 PM, Lorenzo Stoakes (ARM) wrote:
 
-There's no way to tell whether or not this was
-the root cause, though the symptoms match.
+[snip]
 
+> +	if (from_addr < vma->vm_start &&
+> +	    vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start - 1))
+> +		goto fallback_unlock;
 
---=20
-All Rights Reversed.
+the helpers make this a lot easier to follow than v1 :)
+
+I re-tested v2 on x86_64 in qemu with KASAN, as in v1. So, this LGTM:
+
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+
+-- 
+cheers,
+jose a. p-a
