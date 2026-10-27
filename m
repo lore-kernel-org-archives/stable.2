@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793107548;
-	b=ARNwBn3v/v8cLbrFJzIaYrfJ4e2v60ukqOqH5WjDzfcLtFDEfrB0ZqCmYLhYgvqAWNK4
-	 PlGHCmdPLkJVuY8MkUiQ4ZFAVayIGkHV8LexwuvE4PIiYjGtMb+qUJJrA/Pzlr35ECTT7
-	 /UInd3ARkSQ6214rkBcm4+yDbwDq6ua0k9m4njnF45M5kSehi42EJXy4WQLc7vfX0EDOw
-	 l8Itwz+zrm8VEtqmHRLn30khQqp+rP4Yvi5xeRvRIORZ6mz0REn75ZZrUSGeLp80EfUwF
-	 A4Buk8xfaK2lPIgOkDax1ZIdyu08X0PrcKrAv3OICAXxs4uxuYKYBTCpqNNNBILJaUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107548;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=s40smEMW0f5Ma4VaCr4Bts4wYLNWEamsEgEfivrNgUA=;
-	b=JGuOlYXiZB8Nq2cFw9vMTphy34/vilNk7D4EsQTbyMrdWFCHD+jUdqTzPEibIQ8griI5
-	 s8aLWWd1XDs0RvvJF5BAG2VdnGg5jmSbMcfrtTh9XZhCcxWpqMK+FAmJkALga/0mkQJPS
-	 YaCK8gGnCDEETqh9MiE2MjfNFdjn0kiD+cKH500dTxzlTx/ApAhzBthQeVfYs4UkRbyNw
-	 rMseSGSxFvMOhKF+o10FPNehcrtzv6QDrmYxQNMrQGPKsR0EtQRamO1YnX9aRL5p4IjMY
-	 DOwxZVoGhvznNZ/JRYGe2drg7IDd9xFgjFzI2cw04UhOgzxu+ccO/gLOqm5lWWiGoQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbbJ3LPo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ECD606A31B;
-	Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbbJ3LPo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793107547;
-	b=bRduIq07ypo9LaZDejjOBol9m/1962dwdsvP2zmkn0maM9GKYItFRO0C5g40KQK/MqF4
-	 ppvytMdXQA0LrMJFWLWKQ+L4Fm+wRKNpr9LpFdQfXJrHbfGyxQRiTjg0RGr7XXkkFQLO+
-	 wIM4DBor3/D2vRxmAiw2Asn/D1HICEMsO6BK1PVA24kBxDnwItfFxCd5yDuoiTOkY0SYT
-	 TsjGzFPnnyzg4fN/MdIAtRwdAjpdWBrASPl1tLFoKCurDnGSXwke5VP15WWlQk5Vj68br
-	 EQXCnaWBi9YySm9VaZbdbc77IDcz9/8b80PEE+uujn03KUrKEtrPpTdbZHK+L5Kq70Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793107547;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=s40smEMW0f5Ma4VaCr4Bts4wYLNWEamsEgEfivrNgUA=;
-	b=hgyr0aj2dFHNUSxYPqohteKKIfbCkAFMsgB/mTMZW1IeSH8BnamqL1MpYHD6uaVOOSnX
-	 NGKZKYa5rgge5Dsjiki1ZjZzGpeInzWDwYBrfbGAYWxpEmS0hpOUQ3STZZBG92JbXS/Q+
-	 UDvB+viwu/K7tc1FdiC6nf5DXwQeVlL3zK1QwAwAzN5nixdE8rvw0x2ZYayRVAsjGbZcQ
-	 1B6IMstCng0setSkg/XEXxjugJWIb3j3aaC1VHuA6akkUnuyXciaGMjt4nIFXbtT3KtM8
-	 8woi5pd4VLOiwXPjZdQTEs20hOvrppdEcnbR1CzMAC+3HajkIf7RAFzuTameD2Bf65Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793107602;
+	b=Hm0Q3q3rvWfctQ8Ui/bwXIpIbSDGhqNQ1hZrDlo/dPiK4S7lXJHhKMC3uGVoy5Sb97qx
+	 3dZMPVEaKg92a/t1MjELDe4NeN+ELqHRmziCQ+4ITU9z37YPSaOpONvVNcIvm0VN2xM6e
+	 fvqAEmBwj1vkNIpW02DxhOBAL65pTbKwvU4esM3VyDkNIMQ8jvoKG2ROpA4RwEIx9Y6fz
+	 ZoNhfCXdAAbd7JbOU99MBclpiP+ncdlFVL/1+V74FCZCmps/vBV9v04Z+tMcqzCrBMsWO
+	 fWsYLDcBXwBzJCpgEm6y41DiQp3ZoN1DAa05shbJH5eXqblaa9qYQsRmoMt06/P2Jgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107602;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
+	b=RjH47WyWZ+YsRcsW+WAl4AwlIlDX75fqZZO4HqqDUhj7ofewK4D+nQYmb3YObt43qs8o
+	 DTWNdh3eFG7ZHwfVQKZZlecBk/4S6AEbJ2jBMINhWRt3KMzuLglFH6SDPXlmC/pcsL/03
+	 W/ci3+fHqeT2bJ2KVlUvixql3l9C/qFQ3M84iFVX+/7vp7O2CoaSBYfsM6XCmQirXfPX5
+	 N5z0EOrv5nQM7z9OzFOGweCiIc14RV1bsL1iGwPfODtvk8RGa0n4B/zUQDhL3W8TUyhTC
+	 yuWPFBqP/4JliyNqLjgHuMx9PHOeuZxdAFOF6oeANrSDtzsY3KP/iws2V/zXZHUC0VA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OK9TotMC;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0AEA11F031E0;
-	Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793107547;
-	bh=s40smEMW0f5Ma4VaCr4Bts4wYLNWEamsEgEfivrNgUA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BbbJ3LPo2ATptI+PnwR5XkyoUe2k14ajR1X/RiCuKrLj8dKa27ztuHnTjYHOjc8wa
-	 ZYnGxImAHPhN/6oZOqMdhke6v9xSIaDOGOyHM/vkdMxCYMRH2UdNIMRo9wiJyLznLf
-	 e8p5+knnhYUtWAS72+vpdACH4kZKahmpAsH4GGriteV54FAnpoolv6h4ZrxP+hK/GJ
-	 MKATi4cvLcuFdClBhyA4isKFkgmCdEaptxcHvT3KGua/mF0HFVX4DQKqOEc13KZLk9
-	 iyB45DNFfJ03EJ+HEL83qYJpNYpP93XJ+nlUMcg4/WQscuAS4pZz1FVUz91zMZrqHr
-	 OyGL2TRU1CEKw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 766D1450DA;
-	Tue, 27 Oct 2026 13:25:46 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 06:25:42 -0700
-Subject: [PATCH 1/2] drm/amd/display: Keep FreeSync flip timing across
- plane resets
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51516606A31E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 13:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51516606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OK9TotMC
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-14f0e9c6543so100847c88.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 06:26:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793107601; x=1793712401; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
+        b=OK9TotMCE05Hedid5XG0LVl7FLYqe8ZH8kprcIB7UdfEYJGARO7MopLEC7hlhuiUfd
+         0d6/N8qFuGmAzBQRrKU/QKdtNKmfzLWoc7TOJ1fWJbsHwMcE02GuvHGkgRs+tvs2LhAK
+         Hkrscyu0EGwegZHJhqwGb5RZn3lLam/DERk2NF4dffTs1dBg9gA9oh6rd93RghAtjSv+
+         /Cks4H01uITera+4iEjCUQJF0lp+IW9yYuPyVdLYFpY2B2Kb8yvkVPUvXjgfgjIobD2e
+         7D87S+QCzblGbPBx3qiGf49thDvLaKhj2MfyrFjcWsPwMUaJYG+nSaS3Y1zV3APa0dHQ
+         QsCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793107601; x=1793712401;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
+        b=0PGmjf+4xNQ624DdEV/TCOHaTLCJoD2shsOsxm4ncuim5ab3BISiQ6L7Qp9iaWG7mv
+         9OV5nr8phUqPOYtxDEcpjvOdtmspdOSk5O3fE1Az7jespyLIZ/O4tnZhbFN9ZCYBRaQW
+         EivB6OI06C/KKGvZMdU+zOKHUR7+3xEVVg4QqiU3cP1twxnwRJxEP0yzjMgF24HEilOy
+         RqasQcc0h5vBFNlcUTsJKaZim63rGmqyQ6NCDM2yZHSioqn+adYRxSbBsZAVC6FuvsZ6
+         vIAiHT1yyu+6sYMydLpoetFnSEP49APnhCl+GnP6qiiAGEfNucjugK3INP8bRbcmsrAQ
+         GQmA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9yZfo5+Iiyds/b7FQHPxGq7LVHs7eryR1JKgih6HqD9nGj/B7rHEQ6PtPzIPjrf0lCOymRlA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxnH/R+k+O74wVY0ysZ9y1gS0GnZeJRaRl0j1Zyg90zXymvTBi
+	8mec8rr8nQTUqNrcS1pyjDvS/VUMJ62MzhlI1dcio5EmgjVyuvKtS5lq
+X-Gm-Gg: AYBFou1UvTzELJkc4jlyPpKkieTdksnsi/1cxPhjp9yFDDXMd3Qt6rSHXfuLdiV/yZV
+	yd6YP+ye5k+IRB84KbSnaMeY4alWAIdE9Gd5P0tZ5Xekz8JWjTx1TzCYOTPplQ9fzmBdu0lOOXo
+	y6ESLJ1ar8KlBMR6Dtf+XTMxg0AnCw0oliGOZYBu9TUkQe5gyhpb8Md1ibusqdHZsYtNAVSe9xl
+	yhxwIDeZxL3AvRJlrT+/A8RyRCDKdfFFCj9t8az5TIvY1QeqykmatuuY54Q0nPzE6wuoxZZHPjM
+	qVy2GpTbH+daaAbmoVAhm0MHeYlcw41bRgSoncR7zrXEP0M95hHNCvmQcKuCNjGFK96tSfIHx3I
+	+Vcm1ign1/T4242OxgrdpoaqMEqSkWcSpViCa3vnn0Zwj0uMDLOrCoR1yuX8bZOmSB0ZWc0XDez
+	kSQeCFM2p/xflD9quzh9CExmtiN4DWC0GqbszH9hvFO+mdkCgoq5HqJfSeWMYfLEeTbMqVk2g9D
+	VSB0ekeAZga6j9j2kFadVWtZDDlnSEN/Kob4rkYrJM4LJOMv1H6pSHC+G43clKT62myws7hJffS
+	R67gH6+Ue60Xh2uBAS5rrn23IQhkQt0/EooMVQAuC/hS2sFucqhIoRkYj77CE4IAvGUnIKAwUyY
+	DRdgFjEyoQr6lRnAIfhX48hemqJceL3H7ydT7czqhuBm0Jw==
+X-Received: by 2002:a05:7022:264b:b0:165:be2f:c56e with SMTP id a92af1059eb24-199376df85bmr20204030c88.2.1793107601105;
+        Tue, 27 Oct 2026 06:26:41 -0700 (PDT)
+Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm30235977c88.8.2026.10.27.06.26.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:26:40 -0700 (PDT)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: dmanresa@gmail.com
+Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	djrscally@gmail.com,
+	dan.scally@ideasonboard.com,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+Date: Tue, 27 Oct 2026 22:26:37 +0900
+Message-ID: <20261027132637.540222-1-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com> <20261026111032.88355-2-antoine.pichot@gmail.com> <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,87 +105,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-freesync-plane-reset-time-v1-1-bb43b501faf4@gmail.com>
-References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
-In-Reply-To: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793107546; l=2469;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=w8smsIu+a5d74TM+0w5js6HnzbIYeWoiUunZBo70U9A=;
- b=XuQhEr5d/ly0qNmqbPSFTSRSyE921S+L8DE/BhEQghgfzDXAh6up4MrcGTnI84ugUZDc7qI6u
- uC8VuTaDBF+AwvtgkFbXTH28q9/Ynmh+1D0ZsIeGqEPvBlIcBe66sCF
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
-Reply-To: davidralphhughes@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Davey Hughes <davidralphhughes@gmail.com>
+Hi,
 
-dm_update_plane_state() replaces the DC plane with a newly allocated one
-whenever the plane is reset. The new plane's flip timing is zero, and
-mod_freesync_handle_preflip() runs before DC stores the new plane's
-first flip timestamp, so FreeSync takes the 32-bit microsecond timestamp
-itself as the last render time: the uptime modulo about 71.6 minutes.
+On Tue, Oct 27, 2026 at 03:26:45AM -0700, D. Manresa wrote:
+> Applying the patch makes this machine worse, though, and since it carries
+> Cc: stable I think that is worth resolving before it goes in.
 
-On a panel with below-the-range compensation (BTR), that engages BTR and
-pins the frame time at the BTR mid-point (13.447 ms on a 48-165 Hz
-panel). A panel without BTR (max refresh below twice the min) goes
-through the fixed refresh path instead and locks to its max refresh
-after six frames.
+Agreed, and thank you for the measurements.
 
-It takes a reset on every flip to keep the panel there, and color
-management changes reset the plane. DRM sets color_mgmt_changed whenever
-a color property is given a different blob, even one with the same
-contents, and KWin with HDR enabled and its color accuracy setting at
-"Prefer efficiency" sets a new GAMMA_LUT blob on every commit. Plane
-resets for CRTC color changes, added by
-commit 7316c4ad2996 ("drm/amd/display: Reset planes for color management
-changes"), and later for plane color properties and colorops, made this
-reachable on every flip.
+The patch selects the 319.2 MHz PLL table, which the index bug has kept
+unused on IPU machines since it was added in 2022. That table runs the
+PLL oscillator (the VCO of figure 2-12 in the OV7251 datasheet, rev
+2.12) out of range: it multiplies before it divides, so the oscillator
+sits at 19.2 x 133 = 2553.6 MHz before the divide by 4 brings it down
+to 638.4 MHz, and table 2-11 allows 300 to 800 MHz. The 240 MHz table
+divides by 3 first and stays at 480 MHz. The datasheet is public at
+https://dlscorp.com/wp-content/uploads/2019/02/ov7750_ov7251_csp3_rev1f_ds_2.12.pdf
 
-Copy the flip timing from the old DC plane into the new one when the
-plane stays on the same CRTC. This covers both the BTR and the fixed
-refresh path. A plane that is newly enabled or moved to another CRTC
-still starts without history.
+The Windows driver on the Surface Book 2 uses both orders. Its Windows
+Hello mode divides by 4 first, which keeps the oscillator at 638.4 MHz
+for the same 638.4 Mbps, and writes 0x1f to 0x4837, the MIPI pixel
+clock period register. Its two 640x480 modes keep the mainline order,
+with the MIPI divider at 0x01 and 0x4837 at 0x19.
 
-Fixes: 180db303ff46 ("drm/amd/display: Add below the range support for FreeSync")
-Cc: stable@vger.kernel.org
-Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
- 1 file changed, 5 insertions(+)
+On my Surface Book 2 (IPU3, kernel 7.2) I ran three 150-frame captures
+at 30 fps with each of these, the last four with the series applied:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14da..a69e28685857 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6076,6 +6076,11 @@ dm_update_plane_state(struct dc *dc,
- 			goto out;
- 		}
- 
-+		/* FreeSync times each frame from the plane's previous flip. */
-+		if (dm_old_plane_state->dc_state &&
-+		    old_plane_crtc == new_plane_crtc)
-+			dc_new_plane_state->time = dm_old_plane_state->dc_state->time;
-+
- 		drm_dbg_atomic(new_plane_crtc->dev, "Enabling DRM plane: %d on DRM crtc %d\n",
- 				 plane->base.id, new_plane_crtc->base.id);
- 
+  the 240 MHz table (unpatched)
+  the mainline 319.2 MHz table
+  the Windows Hello divider order
+  the Windows Hello divider order + 0x4837 = 0x1f
+  the mainline table + mipi_div = 0x01 (what you tried)
 
--- 
-2.56.0
+All gave 0 dropped buffers and 0 CSI-2 error lines, so the divider swap
+is only a hypothesis for your machine.
 
+> One hypothesis tried and failed, so you do not repeat it: the out-of-tree
+> Surface driver notes that the vendor runs the 319.2 MHz PLL with the MIPI
+> divider at 0x01 rather than 0x05. Building this patch with mipi_div
+> changed to 0x01 in the 19_2_mhz_319_2_mhz entry was worse, not better --
+> 3 frames in about four minutes. So the divider alone is not the missing
+> piece. The vendor path also uses VTS 522, which I did not try.
 
+The datasheet decodes both as "divide by 1" (0x30b5[2:0]: 2 is /2, 4 is
+/4, anything else /1). A frame length (VTS) of 522 belongs to the
+Windows driver's 640x480 modes at about 99 fps, so it is no alternative
+at 30 fps.
+
+> So either ipu-bridge's advertised link frequency is wrong for this SKU,
+> or mainline's 319.2 MHz PLL entry needs more than the index fix to be
+> usable. I have the machine for a few more days and can run whatever would
+> help decide which.
+
+Could you please try the two patches below, the first alone and then
+both, with your 150-frame measurement? They are on
+https://github.com/antoine79/surface-ir-camera/tree/test/pll1-vco under
+kernel/patches-test/, for git am on top of 1/7.
+
+The first swaps the two dividers of the 319.2 MHz table:
+
+  -  .pre_div = 0x01,
+  +  .pre_div = 0x04,
+     .mult = 0x85,
+  -  .div = 0x04,
+  +  .div = 0x01,
+
+The second also writes 0x1f instead of 0x19 to 0x4837 in the three mode
+tables.
+
+If the swap helps, v2 puts the PLL table fix before the index fix, both
+Cc: stable. If it does not, the question moves to the Pro 7+ receiver:
+ipu-bridge asks for 319.2 MHz on both machines, and the Windows driver
+programs 638.4 Mbps on the Book 2. Your unpatched numbers point the same
+way: at 480 Mbps, three runs logged thousands of error lines and your
+568-frame run logged none, with the same timing per line. Could you
+please also run 2/7 without 1/7 at 60 and 90 fps? That shows whether the
+error count follows the number of frame starts.
+
+After 1/7, pixel_rate reads 63840000, but the pixel array runs at 48 MHz
+whatever the link frequency; v2 fixes that in a separate patch. My
+319.2 MHz captures above ran at 30.0 fps, which is 48e6 / (928 pixels
+per line x 1724 lines); 63.84 MHz would give 39.9 fps. 63.84 MHz is the
+CSI-2 bus rate, not what V4L2_CID_PIXEL_RATE reports
+(Documentation/driver-api/media/tx-rx.rst).
+
+Thanks,
+Antoine
