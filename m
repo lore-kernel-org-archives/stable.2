@@ -1,83 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096807;
-	b=w878JX1VmOFoGn1hIGLoq8yh6C13haKje2IVNXo8Jv1zF7h5ep4vPJPPWe53w/tJ0bhI
-	 6IWkyvKEUFIIYxSwVH1jJiJYVhjvL1T114wPta+dr9iX8VFkCQnMw2RRTWpxpVOCyWLK0
-	 OFvqvNzQNdAab/OXxn74Dsgii238Z7FftdTA6AElMWqZiJV0pS5hktSNteafl5ohj1BJT
-	 xpTneu+kMFuGcUxHw+8jqv0usjcflXtDeO+s2gavEpIHJmC7zLXY96cJpNpyuvhYxK7GF
-	 r4DyCwKolMxrKoQamYvPHsnhUajkJcK35a6lpLdMZ68ir5czFxB+u5y2enw38ZY2i/g==
+	t=1793097045;
+	b=K5KbOepZe99KuDDHqas6oMuCUK3Z9eJlyMp1SHrsa6zj8YlPe9Xj99bQZwBV0TFvHH1o
+	 oKg53zLnc7TnT7lOzyEbwhsoHsX8gDfOf/h3c/lqn4DF57lIVxfX9OZ5rvvDVyt3pD5nv
+	 OgykMeG9m8d9Aex4Cj/XwpCi9n7jPZyIQC+NEvpZht2Ta6KWz0IAGVEHoTWeAK7+SBNNf
+	 pwLurLPiNU/3zRQansNrKe3MfoW1ERJJZ4TBKyGOz9M88MVGQSJLCJc6EfQgROqY2wvn2
+	 gk4O1iZoVwWZcIOGT8LVRNQXp0PPlXJvD4fJ8n93L6zNAPak4iar64wE/kIBu3RQCDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096807;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=POzvAe7QGGr/0bL2el8rav1+Sb6N+ML+fOUxzpGMHxk=;
-	b=BXpjep3J8IM4z+XYwL4Q2W7yn47aTxaTmyyfsr/jQPPFbKqg004JnfoxGGnBoQdulrZ8
-	 uIzANzbcztUhc9/ox1E6qspr2ayGgwpqZWBIQ5EJEPFWVFyw11A+tdfxo1v667wpA35Bd
-	 QthC+nsl72lQ/ous+io9G2ycaFfNEWWiBMKn3icEHUdY9xa8M8vSF2AyaqV2ik6CmS6w1
-	 xeH32KALQdfGJb1FCCfwkcRkXJqkWzZcEQuoZt1LUO7m3shkZmeL17XH7TshTSH/qbXPy
-	 EkpR/xoQr4Zcpow9lV9L8mxFp/OKPT0LM29DgQ6HgetxR9yNgsBoBxSrttdNNw+kKmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097045;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=CfsimHztCruO2Wg5kbGqSZxP4HQYNhZ0++xp8V5kraE=;
+	b=aaw77gag8aAx8gOOmkM5WNKSW03p50ReKPEzGIQQuSp9rGXWSxoHGcPInHu+aS84KuRD
+	 BlWQekDWv/fqK5kMQDiuVlOswxMua3SiE0ReOpZD6aZOx7uPuODavJ6tTfpwjl4V7O5s3
+	 ASUspe1wNzzcfoJw1iE0Z0Aa/EbQc3DbnoOh47RVZoKIUxkV2MJIyJFr5YDd85l/39pIu
+	 B7c/Gk3F2AQA2bHuYAgbAigOljZNCXbMZ3394A/sJ2aXM/N0WAd9IqWWzjCB12I6phhUW
+	 tm7hogK1ooWGow4BNs5WZ8ijm4dz6ChjaBUCVFRV3Y2ig9RVBNlZbp5WkRL82Q4aM8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wERo8I2l;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8HWqkJop;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wERo8I2l;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8HWqkJop;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E3D606A334
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 10:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95E3D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso30883695e9.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:26:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793096806; x=1793701606;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=POzvAe7QGGr/0bL2el8rav1+Sb6N+ML+fOUxzpGMHxk=;
-        b=HfMyTezJ7dv5SzbupjJGV0OqmafaJShXen1e4LNGLqf/VtmXTz5dbud/UTxKXnWUJt
-         7Ce6pBPUVSmi3AWUn3dPdu+BHGoerpgf4QYqkuqtPLPAZXMHsoR0tSG4lX8NNHgUk8u+
-         x01yDy7QVLTKUgT1OlqvJx37R7zdr/t7gfyw+KCERCstZZx1VQc3QL9T70Pce8xJdopr
-         MtOPkBS90xELqc/bD763BgHyj7j0MQrgflHlO7Q23D2ZIADJJLlM3OMmyZ1cPN4t+EZW
-         bk8Zu7DoU46PjRqY29xOcsALVap0JE0K9evJ3GOOcXEtZUB+GgTA1EqxFwSFdlAsHuo1
-         01og==
-X-Forwarded-Encrypted: i=1; AKwUvBwrKG9B73sw5thLkJo8xK5+CrY7QGtmf80Q6VuuPXJQwPA2qAFpaEJgNub3OxVfOV8VbFnLxUU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLx9Sfsd6joX9D1ThLQnA6W2wVTtbk6NyG88Zw7e680/unYxvJM
-	H9ylD3dZMVQC8odmsH/7Ogp2+dhHZyp0n4YzhwZIHb5L8AY3GFo2U6I=
-X-Gm-Gg: AYBFou1EjpIeSxjHERlGxTrFC9gwatXpdza2y2h5qb+nLXRjLuztSy2B7UnpGO4l3kx
-	7Cx6Bid1R+sN5QQYSPht2ixbidD64E2gP7kXFZhOJodYRoDKfuGhZWDQLur352D2DgSBE/SSFYG
-	P1ics1lyxuTlHsbw6hlGXuJ5CxOzGBoN/WD1FSH4YH7qTEvjuIhew4uRT+fZ6awdbZWAEhlYcWG
-	SOfLSiPvhjZ23VUZ5sPaOcsTbyIN/KVcLQpuDiqXHDjsAPpsJuyUbRLzRhnIwpky1HBrdcw90xE
-	ePXiXxhvJMO8OLF9Pr4A7YRJzlXijWzWw8lj1UlIJpZD9rEyLGLKgQvVNZ/zhMHLKrfoNLQntrX
-	6ReXDs261vG2LFMdwbaZnalvrITZF+q51H5gderBBuKRJWOXaEyOf2G/GIyoziiyDbwU23gmlAT
-	HEs7psHJIwM4jNM2RpY7HGxu/7FNNFFTdnJ867YyPWixIG2+GnS9s2upOicxffZu5FldFduuZpj
-	MkwcxH5pojhPg6gmiroBr2oP5B2MB6yfLeW0Q21uwhlemkv2IvnTDutti2t0fPKL9EeSU4c50pC
-	m9Q0fVJXepVn8tSIv6GtDbjfibpRBWjMnoUm0QY=
-X-Received: by 2002:a05:600c:34c9:b0:4a2:994:575c with SMTP id 5b1f17b1804b1-4a35acb994bmr179703845e9.34.1793096805704;
-        Tue, 27 Oct 2026 03:26:45 -0700 (PDT)
-Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359f3e00asm444137735e9.0.2026.10.27.03.26.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:26:45 -0700 (PDT)
-Message-ID: <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
-Date: Tue, 27 Oct 2026 03:26:45 -0700 (PDT)
-From: D. Manresa <dmanresa@gmail.com>
-To: antoine.pichot@gmail.com, linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org, djrscally@gmail.com,
- dan.scally@ideasonboard.com, hansg@kernel.org,
- andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
-In-Reply-To: <20261026111032.88355-2-antoine.pichot@gmail.com>
-References: <20261026111032.88355-1-antoine.pichot@gmail.com>
- <20261026111032.88355-2-antoine.pichot@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CCC606A31F;
+	Tue, 27 Oct 2026 10:30:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62CCC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wERo8I2l;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8HWqkJop;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wERo8I2l;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8HWqkJop
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 371831F7E9;
+	Tue, 27 Oct 2026 10:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793097042; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CfsimHztCruO2Wg5kbGqSZxP4HQYNhZ0++xp8V5kraE=;
+	b=wERo8I2l80Tbc7zJzgDVpUtP8F4hNH5xHai1+6lKUZPKwS4vDftwCXE/JroFhBufP60rJ0
+	B/oCs7boHDjA0SGhsKWWb1V9o5NDenKsZHKq1syJC63/jbUrF6n4/ZPg19Hl/dxyjMZeqJ
+	xNmRFjrv1LVl1hvgYjA99EMcOdJD7+Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793097042;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CfsimHztCruO2Wg5kbGqSZxP4HQYNhZ0++xp8V5kraE=;
+	b=8HWqkJopKnjpTl2rDCb/W7qDTjgk+JL8glEff3Y7OL45XtiNrvHKtDVQBZvE1sSYQ2NkeN
+	PF5hAv8OYKoavEDw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wERo8I2l;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=8HWqkJop
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793097042; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CfsimHztCruO2Wg5kbGqSZxP4HQYNhZ0++xp8V5kraE=;
+	b=wERo8I2l80Tbc7zJzgDVpUtP8F4hNH5xHai1+6lKUZPKwS4vDftwCXE/JroFhBufP60rJ0
+	B/oCs7boHDjA0SGhsKWWb1V9o5NDenKsZHKq1syJC63/jbUrF6n4/ZPg19Hl/dxyjMZeqJ
+	xNmRFjrv1LVl1hvgYjA99EMcOdJD7+Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793097042;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CfsimHztCruO2Wg5kbGqSZxP4HQYNhZ0++xp8V5kraE=;
+	b=8HWqkJopKnjpTl2rDCb/W7qDTjgk+JL8glEff3Y7OL45XtiNrvHKtDVQBZvE1sSYQ2NkeN
+	PF5hAv8OYKoavEDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 507801321C;
+	Tue, 27 Oct 2026 10:30:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /jBeBlB94GqiEQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 27 Oct 2026 10:30:40 +0000
+Date: Tue, 27 Oct 2026 10:30:34 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
+	jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, hch@lst.de, ngocthang2710.1999@gmail.com, 
+	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in
+ collapse_file()
+Message-ID: <auB9CHQh0acOxXpZ@pedro-suse.tail5790ac.ts.net>
+References: <at9_1mf2kLqMX8-W@pedro-suse.tail5790ac.ts.net>
+ <20261027025507.59451-1-lance.yang@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,74 +115,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027025507.59451-1-lance.yang@linux.dev>
+X-Rspamd-Queue-Id: 371831F7E9
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,kernel.org,nvidia.com,linux.alibaba.com,infradead.org,linux.dev,arm.com,suse.cz,kvack.org,vger.kernel.org,lst.de,gmail.com,syzkaller.appspotmail.com];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[16bf7cd0ebeb1de93aa5];
+	DKIM_TRACE(0.00)[suse.de:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,linux.dev:email,syzkaller.appspot.com:url,appspotmail.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.01
 
-On Mon, Oct 26, 2026 at 08:10:26PM +0900, Antoine Pichot wrote:
-> Observed on a Surface Book 2, where ipu-bridge lists one link frequency,
-> 319.2 MHz, which is link_freq[1]: V4L2_CID_LINK_FREQ reads 240000000,
-> and the pixel rate and PLL registers are off the same way.
+On Tue, Oct 27, 2026 at 10:55:07AM +0800, Lance Yang wrote:
+> 
+> On Mon, Oct 26, 2026 at 04:33:08PM +0000, Pedro Falcato wrote:
+> >On Mon, Oct 26, 2026 at 11:20:13PM +0800, Lance Yang wrote:
+> >> collapse_file() can call page_cache_sync_readahead() while still holding
+> >> source folios locked. If truncate holds mapping->invalidate_lock
+> >> exclusively and waits for one of those folios, readahead waits for
+> >> invalidate_lock and neither side can make progress.
+> >> 
+> >> We need to release those folio locks before starting readahead. On a page
+> >> cache miss, roll back first, populate the collapse range, and retry once.
+> >> Doing readahead after rollback avoids an extra pass when all folios are
+> >> already present. If another miss occurs on retry, give up rather than keep
+> >> retrying while truncate or reclaim removes folios.
+> >> 
+> >> Keep page_cache_sync_readahead() and wait for read I/O with
+> >> filemap_lock_folio(), releasing each folio before moving to the next. The
+> >> existing uptodate check during collapse still handles read errors.
+> >> 
+> >> Shmem uses shmem_get_folio() for swapin and fallocated folios without
+> >> taking mapping->invalidate_lock, so it is unaffected.
+> >> 
+> >> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+> >> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> >> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> >
+> >Thanks for the patch! This looks almost perfect!
+> 
+> Thanks Pedro!
+> 
+> >
+> >> ---
+> >> v3 -> v4:
+> >>  - Move readahead after rollback and retry collapse once (per Pedro).
+> >>  - Drop the preparation pass and its redundant uptodate check (per
+> >>    Baolin and Pedro). Thanks!
+> >>  - https://lore.kernel.org/all/20261016065920.4153-1-lance.yang@linux.dev/
+> >> 
+> >>  mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
+> >>  1 file changed, 33 insertions(+), 11 deletions(-)
+> >> 
+> >> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> >> index da91762f6358..0d3bd9e23613 100644
+> >> --- a/mm/khugepaged.c
+> >> +++ b/mm/khugepaged.c
+> >> @@ -2239,6 +2239,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >>  	enum scan_result result = SCAN_SUCCEED;
+> >>  	int nr_none = 0;
+> >>  	bool is_shmem = shmem_file(file);
+> >> +	bool do_readahead = false;
+> >> +	bool readahead_done = false;
+> >>  
+> >>  	/*
+> >>  	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+> >> @@ -2256,6 +2258,10 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >>  
+> >>  	mapping_set_update(&xas, mapping);
+> >>  
+> >> +retry:
+> >> +	result = SCAN_SUCCEED;
+> >> +	do_readahead = false;
+> >> +	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
+> >>  	__folio_set_locked(new_folio);
+> >>  	if (is_shmem)
+> >>  		__folio_set_swapbacked(new_folio);
+> >> @@ -2320,17 +2326,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >>  			}
+> >>  		} else {	/* !is_shmem */
+> >>  			if (!folio || xa_is_value(folio)) {
+> >> -				xas_unlock_irq(&xas);
+> >> -				page_cache_sync_readahead(mapping, &file->f_ra,
+> >> -							  file, index,
+> >> -							  end - index);
+> >> -				/* drain lru cache to help folio_isolate_lru() */
+> >> -				lru_add_drain();
+> >> -				folio = filemap_lock_folio(mapping, index);
+> >> -				if (IS_ERR(folio)) {
+> >> -					result = SCAN_FAIL;
+> >> -					goto xa_unlocked;
+> >> -				}
+> >> +				do_readahead = !readahead_done;
+> >> +				result = SCAN_FAIL;
+> >> +				goto xa_locked;
+> >>  			} else if (folio_test_dirty(folio)) {
+> >>  				/*
+> >>  				 * This page is dirty because it hasn't
+> >> @@ -2657,6 +2655,30 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >>  	new_folio->mapping = NULL;
+> >>  
+> >>  	folio_unlock(new_folio);
+> >> +
+> >> +	/* Readahead may take invalidate_lock; source folios are unlocked. */
+> >> +	if (do_readahead) {
+> >> +		for (index = start; index < end;) {
+> >> +			folio = filemap_lock_folio(mapping, index);
+> >
+> >I'm not sure if there's a point in locking the folio. If we are retrying,
+> >then the logic above will lock it anyway and check uptodate. So I don't
+> >think there's much of a point doing it here. Right?
+> >
+> >So I think we could get away with a filemap_get_folio() here, and no
+> >filemap_lock_folio() after RA. Unless you're intent on waiting for RA
+> >right before failing, but I don't see a point in that.
+> 
+> Right, waiting for RA is what I intended here. Without that wait, the
+> retry can hit folio_trylock() while the read is still in flight and bail
+> out with SCAN_PAGE_LOCK, before it even gets to the uptodate check.
+> 
+> If the read completes successfully, we can continue with collapse.
+> That's why I kept the wait before retrying. Do you think waiting isn't
+> worth it here, and we'd be better off leaving collapse to a later
+> attempt?
 
-The diagnosis holds on a Surface Pro 7+ (IPU6 Tiger Lake, 8086:9a19).
-ipu-bridge gives this machine the same single frequency as yours:
+Hmm, yes, thanks for the explanation. I had a fresh look at the code and your
+patch preserves that bit of behavior. Isolating folios is simply trylocking,
+and only does a hard folio_lock after RA. So, LGTM!
 
-  IPU_SENSOR_CONFIG("INT347E", 1, 319200000)
-
-and unpatched, the sensor reports
-
-  link_frequency ... value=0 (240000000)
-  pixel_rate ... value=48000000
-
-exactly the mismatch you describe.
-
-Applying the patch makes this machine worse, though, and since it carries
-Cc: stable I think that is worth resolving before it goes in.
-
-The fix does not only correct a reported value: it reprograms the PLL and
-moves the link from 480 to 638.4 Mbps.
-
-                     unpatched v6.19     + this patch
-  link_frequency     0 (240000000)       1 (319200000)
-  pixel_rate         48000000            63840000
-  PLL1 0x30b1/b3/b4  0x01 / 0x4b / 0x03  0x04 / 0x85 / 0x01
-
-The IPU6 receiver here does not hold that link. 150-frame captures of the
-640x480 30 fps mode, counting dropped buffers from v4l2-ctl and csi2-5
-error lines from dmesg (including the "callbacks suppressed" lines):
-
-  unpatched  run 1  dropped 23   csi2 errors ~7216
-  unpatched  run 2  dropped 23   csi2 errors 13277
-  unpatched  run 3  dropped 13   csi2 errors 4722
-  patched    run 1  dropped 106  csi2 errors 120788
-  patched    run 3  stalled: 50 frames, then none for 60 s
-
-The errors are DPHY fatal error, SOT sync error, inter-frame short/long
-packet discarded and frame sync error. The frames that do arrive look
-normal, so this is the link and not the image.
-
-Two things to be honest about. This unit is not a clean baseline: even
-unpatched, mainline already logs thousands of CSI-2 errors per run at
-30 fps, and the out-of-tree Surface driver sidesteps the whole area with
-a vts_boost parameter -- at its production VTS of 3448, 15 fps, I measure
-zero CSI-2 errors. And the sample is small: three runs each, one unit.
-What makes me report it anyway is that the one-line difference was
-consistent in every run, that it introduced hard stalls I never saw
-unpatched, and that going back to a build with only that line reverted
-gave 568 consecutive frames with zero CSI-2 errors.
-
-One hypothesis tried and failed, so you do not repeat it: the out-of-tree
-Surface driver notes that the vendor runs the 319.2 MHz PLL with the MIPI
-divider at 0x01 rather than 0x05. Building this patch with mipi_div
-changed to 0x01 in the 19_2_mhz_319_2_mhz entry was worse, not better --
-3 frames in about four minutes. So the divider alone is not the missing
-piece. The vendor path also uses VTS 522, which I did not try.
-
-So either ipu-bridge's advertised link frequency is wrong for this SKU,
-or mainline's 319.2 MHz PLL entry needs more than the index fix to be
-usable. I have the machine for a few more days and can run whatever would
-help decide which.
-
-The rest of the series tests well here; I have replied to the cover letter
-with that.
-
-D. Manresa
-
-(Written with AI assistance, directed and reviewed by me.)
+-- 
+Pedro
