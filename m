@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793089917;
-	b=3AyJjMpjkItnMAwbSKrH3zH6KP6wiNyCj7XogRh5jzvnbTQMoi/Min8Utg9cdGh3DgTy
-	 9FqmGIODEry/6M+BaFqlgLd5y5qC7jxSreWgQdPM6nxTZ4ovlu6EhS4ra1GNvzGwNJtAA
-	 ZXNaseED3o4nd9VKn7iOz/ko7ZbpmLHG2H+/CEArxIQktW9Ek2VkVkj5+slsMG/SnAbT2
-	 +ThvV6Hjxp5RLNjugLBZ2j0AZY5E3LmqA7YOvYj+26wJms0Vzf9s/XlKHEErojAEqvXyi
-	 7R2hw28yMWyeU7h1t4anG6ByDLZzxZuqNC5TNcOfPoFNwo2p/C6gvpTfhJAB3vMqDkQ==
+	b=ov/yfq2KFf7CE9oneyt/0H593y+QZDH0Jn9JNke0HNgWfZeTNW1S0pbI8i/17+Ie3tXu
+	 BXwbY11LmNfcBT8yQtnjzRI6AeGMqZmctqoTsAlEyL57O//jh4p1urfgcHshIpdys3ksm
+	 fB6QQ7O46em6tHmpVIwlUaXYG0VtwJshV8n/ggKewFicmNoz4U3sIxQmHy3Nf6H4c4L/A
+	 bb2RhlGt+OYcPyjGQt4vXPcgmniati3tCA2VmDW0MmrfXm1R+9bs2awWEuTaAnARM1vW3
+	 rl7zvWNg/4I3FD89Vh1Q5KRViKBihI7a2eGqn50olQCsLNhEeJw/W+nosuRVaho/2wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793089917;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Feedback-ID;
-	bh=C+vkxyU67zeMcKwQ1EK2nacMQDWtW7hAmQ/dpae/8Nc=;
-	b=14XQ+HDC1pela1pOAYlPhwNB0U4wAAljY7d8CAwh5oYuP9jCiFaXw0VEEd2QwniAQzDi
-	 U0OmysYcRpQkvjO4A3FhKl68C1untblFIT0HQA2aJ4nzlQTa7yctqM4jC3w5W8GdQWAcO
-	 PLc1mRP3JDi4+0Lj/dY1fvH9yTL2N0ja6vzs56F7PKfwqrh8bG7EiMhhXoXjcuWtjPoC2
-	 fjrHFCw8BXlPqzzyQ7ztwNS9KMVH/zR8U215wGhQj4gXaxKhVBJnbVjckzqygBnCF6EIg
-	 lQbld0FrQqGGUqf7KV0uLYismP7zx0MtMsEvJi1XXyEKrKLl9Fx9geGWdPubvueivjw==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JYDAxb/IKfi0ONAEetWSuyzn9W1ajE3cX6VVYTxdndk=;
+	b=5jBLRTO4Cd6oDUZj5hEGXow4hGqQVUPTPAR+RwQKQJKUA0wfR4VPNL2UfQ38Bu2BQY7a
+	 klQtx3uC10X9V6I1YyIZCyrgY3AQAXRH7FW3Wwm+PErRV8Bb5lG8DknJn184f8bOqaZ6W
+	 qJtuMzhl2Grav4PuaCNBzsqORWQFdX57oVzMeJ8H+U0+q71tHhbc5QkQXEjPnV8uzrkha
+	 J/LFdnBN6ocYveV3XbHxWZ86w/sP/aQswr85Olry/fENrSVcWUHQqqvJ3fJVCxtWG9MuU
+	 dpHgMFDpjEGWDCIgVrebreR7WsjHs6dkQxpnUVxFA3FrFblRHi6xavfomacDfQMVJaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuta.io;
-	spf=pass smtp.mailfrom=tuta.io;
-	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=1fVdC8uS;
-	arc=none smtp.remote-ip=185.205.69.214
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSyrEmFs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE04606A327
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:31:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE04606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63396606A328;
+	Tue, 27 Oct 2026 08:31:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=1fVdC8uS
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id D020819D206F0
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 09:31:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793089915;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:Sender;
-	bh=C+vkxyU67zeMcKwQ1EK2nacMQDWtW7hAmQ/dpae/8Nc=;
-	b=1fVdC8uSvxRplZYoxPCMM2VzmVJvp8Ayml4xvbBTROZ5YDWPWCcefGplVhfbuv8f
-	LlOdbmrMZm1bGSP7DkNT8kOR8lfMIk0THHNbnnzVi+Tst254XO0tI3hiU8f2FUWfA4C
-	3YXSdKws03ewH1Nrd3pQEDFo1WBMuIUmXaedOmjY9ydFXKtOua2uC2ZYCNiqkge97Ku
-	SL5NQlLcXxUaNy2qz8B2WRy4r2OKlC4LyKDnvVcsNA+wPi4kvPE3qblW6VChlyA35+M
-	VRvhXhNLIB7nsnroJ9teNnYPYgwafR1FE/g5R2UQ9XbaHbqsR0icBwEf4loWCRSabbK
-	7lI3ZW233g==
-Date: Tue, 27 Oct 2026 09:31:55 +0100 (CET)
-From: Edvard Conrad <edvard@tuta.io>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Edvard Conrad <edvard@tuta.io>, Miklos Szeredi <miklos@szeredi.hu>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Message-ID: <P4wUBaI--F-9@tuta.io>
-Subject: Re: [PATCH] backing-file: inherit FMODE_NONOTIFY from the user file
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSyrEmFs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FE51F01825;
+	Tue, 27 Oct 2026 08:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793089917;
+	bh=JYDAxb/IKfi0ONAEetWSuyzn9W1ajE3cX6VVYTxdndk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NSyrEmFsH2/8hgo8acOSrNLr9Hp/jrECdxCZNkIUtjazyxj1KHY2Z9xTuaK1Lx/+E
+	 ZlmTVVItxriaq2TTVszlyqWoslkxBKunusBgrpEBtjqe+GL7/BhgMfvr0j6wiA++no
+	 F2KtES+mT9pC9lUi/ceR10V31SP1W8sTkLdb8RXB5buLAYoTKBuslgPDKXcQC7fYaC
+	 tmT15Bau5bPVbn3Z1pAmnKqeU5kgzDR3je5XpPQh+1wLiPoL+vicuxqnXgb7RRv82r
+	 DFUEPhtPAu/EsK33zZwLXIqaPQ96HHeqGtj52+tHWqHJBcswjRzCsbgunsrigQ97JU
+	 n0Iy4vbd890bA==
+Date: Tue, 27 Oct 2026 08:31:40 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 25/46] mm/userfaultfd: wake waiters when registration
+ modes are removed
+Message-ID: <auBgr8OO0UIJ5-in@gremlin>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-25-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,66 +83,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Feedback-ID: 0127f977f5e13e8051b46c6e7f57d0f95a0470d24b79d7c31d07fdf611cc427ab823e0f4692a810119c92d8768973a9281:TurnOnPrivacy!:tutamail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-25-6f74bec9a5bb@kernel.org>
 
-On Tue, Oct 27, 2026 at 12:53 AM Amir Goldstein <amir73il@gmail.com> wrote:
-> Any chance you can post this as an LTP test?
+On Tue, Oct 27, 2026 at 12:17:45AM +0100, David Hildenbrand (Arm) wrote:
+> UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
+> faults that are already queued. For example, switching an anonymous
+> range from MISSING to WP leaves a missing-fault waiter asleep until
+> userspace explicitly wakes it.
 
-Yes. Written and verified, I will post it to the LTP list shortly as
-syscalls/fanotify26. Two cases: a mark on the overlay only, which passes
-on every kernel and keeps the test from passing for the wrong reason,
-and a mark on the overlay plus the backing filesystem, which is the
-shape that deadlocks.
+I assume this is something people basically never do because you'd think it'd be
+a pretty obvious bug report right?
 
-> Urgh I hate how special case this is.
 >
-> How about something like below (untested)
+> When a registration change removes a UFFD mode, wake waiters in the
+> affected interval after updating the VMA. The VMA is write-locked at
+> this point, so no new faults can queue under the old modes and woken
+> threads cannot retry until mmap_write_unlock(). Waiters for retained
+> modes in the same interval may also wake and refault.
 
-Agreed on the shape, and it covers backing_tmpfile_open() as well, which
-mine did not. As posted it does not fix the deadlock though:
+Oh good lord.
 
-> -       f->f_mode       = OPEN_FMODE(flags);
-> +       f->f_mode       = OPEN_FMODE(flags) | fmode;
+>
+> The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
+> with both read and unread fault events.
+>
+> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Five lines further down init_file() calls
+In the words of Metallica, the more I see, the less, the less I believe...
 
-	file_set_fsnotify_mode(f, FMODE_NONOTIFY_PERM);
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-and that helper clears FMODE_FSNOTIFY_MASK before it sets its argument,
-so the inherited FMODE_NONOTIFY is dropped again. The backing file ends
-up at FMODE_NONOTIFY_PERM, which is not FMODE_FSNOTIFY_NONE(), so
-fsnotify_open_perm_and_set_mode() does not take its early return and
-still raises FS_OPEN_PERM on the real path.
+> ---
+>  mm/userfaultfd.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 2122676c4220f..710e913c73bfa 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -2270,6 +2270,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
+>  	return ret;
+>  }
+>
+> +static void wake_userfault_range(struct userfaultfd_ctx *ctx,
+> +		unsigned long start, unsigned long end);
+> +
+>  /* Assumes mmap write lock taken, and mm_struct pinned. */
+>  static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+>  			       struct vm_area_struct *vma,
+> @@ -2287,6 +2290,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+>  		prev = vma;
+>
+>  	for_each_vma_range(vmi, vma, end) {
+> +		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
+> +
+>  		cond_resched();
+>
+>  		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
+> @@ -2332,6 +2337,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+>  		 */
+>  		userfaultfd_set_ctx(vma, ctx, vm_flags);
+>
+> +		/* Retry faults for removed modes while the VMA is write-locked. */
+> +		if (any_mode_removed)
+> +			wake_userfault_range(ctx, start, vma_end);
+> +
+>  		if (vma_is_hugetlb(vma) && uffd_disable_huge_pmd_share(vma))
+>  			hugetlb_unshare_all_pmds(vma);
+>
+> @@ -3648,6 +3657,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
+>  		__wake_userfault(ctx, range);
+>  }
+>
+> +static void wake_userfault_range(struct userfaultfd_ctx *ctx,
+> +		unsigned long start, unsigned long end)
+> +{
+> +	struct userfaultfd_wake_range range = {
+> +		.start = start,
+> +		.len = end - start,
+> +	};
+> +
+> +	wake_userfault(ctx, &range);
+> +}
+> +
+>  static __always_inline int validate_unaligned_range(
+>  	struct mm_struct *mm, __u64 start, __u64 len)
+>  {
+>
+> --
+> 2.43.0
+>
 
-Measured in a VM on a defconfig + OVERLAY_FS + FANOTIFY +
-FANOTIFY_ACCESS_PERMISSIONS build of this tree, with the reproducer from
-the patch and with the LTP test:
-
-  kernel                        reproducer    fanotify26
-  mainline                      hangs         1 pass 1 fail
-  v1 (fs/backing-file.c)        ok            2 pass
-  your diff as posted           hangs         1 pass 1 fail
-  v2                            ok            2 pass
-
-v2 keeps your structure and routes the fsnotify part through
-file_set_fsnotify_mode() instead:
-
-	fmode_t fsnotify_mode = fmode & FMODE_FSNOTIFY_MASK;
-	...
-	f->f_mode	= OPEN_FMODE(flags) | fmode;
-	file_set_fsnotify_mode(f, fsnotify_mode ? fsnotify_mode :
-						  FMODE_NONOTIFY_PERM);
-
-One deliberate difference from your version: it inherits only the "no
-events at all" mode rather than masking FMODE_NONOTIFY out of whatever
-the user file carries. A user file in the HSM mode (FMODE_NONOTIFY |
-FMODE_NONOTIFY_PERM) would otherwise leave its backing file fully
-silent, suppressing the events on real files that bc2473c90fca
-deliberately enabled.
-
-v2 follows in this thread.
-
-Thanks,
-Edvard
+--
+Cheers, Lorenzo
