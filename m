@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793131539;
-	b=hh5z8icAINH20ZEpe+Tgl1d9x+UnMAUb6fVXLipfgrdaMGkXp/6104POOND+2iZ44bPP
-	 lKlcf6dB7ZTThPk0CqJ+jhA67G5Jk6RS/Ux3nxrfMXyXGx2E7mBmoi7vrw8zNfWmA8Mfi
-	 pFAOAL5TIThSF9nJQuhF0sWkULiiXG0G6EImcZWD+5BfPSf3CjX8XmUz9wGDequt9sqiD
-	 Nh5YM8RmavDNitTWY1JO5etiDpJMozY9dHlc+Iomo4YPuxA1nFAW69+Gf7o8sC56b12NR
-	 hBV9SSmFth1NZAdVdhTpnfi/o3/6bibZ4RHfGGDmAyK0aWEbXQf6IEcKJ6QmwqkvCNw==
+	t=1793131543;
+	b=MsfvHX4voQwoz8vjJ6ZpNdiAQX7MC/E1tDtlLb+OO7A+i33F7Rv1hbhrpRaYJF6ce1J9
+	 elRC6s0H7+qEhD0Cm4CR5po/uEfUa0Gys0PHc9HYIrqZ7/K2llP79A1KOSWIlnommbOdM
+	 B7bJuRLALFzfhZeH1jGJevbLOuWCt27gJ+AVIDXr9KfFLleNIizM3MeFUwBw0ZW1OlJT4
+	 EUrbXSg8ieu1wKOfkIGXqi2O8PHzFNGSWEVCo2TcY/RVsn1QN03RXuLTYTGaiDMOUFH8j
+	 QexyKyI9ut3nUvinAsbYgPkcSdPjDYtHG6SoMGfnBfzfhrdD8C9W7af2mhHCOc7GeqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793131539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793131543;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=6cq8HJdbTp8bPAXhCRb8wHCGy3+CcXkC2T30FZUf4pw=;
-	b=qzPCGpUURor8Zp93xnc49ReZBBqiEUi2s0/6odZLI+qPaKsDBeNCaZiauF1DBlZouY9Q
-	 mYUBWgVJJYKX70quxV4DPypG8DqUMwPiWscZVlukAMteDu6o7lZ3Igx9P28pcxiYMppG8
-	 UOhu1dkny3UAnxXyfBLLsALjcXrXYaayzuljELBEGLqW95HFkzQzKaXPd1FzxIrhCG6vx
-	 iMGOdRYCNtaW5lAbKRmpSLmxrMFfodYwOLHtUtOvhrZXMLVXBEeYUuJxqi9agQ3Lip2+h
-	 AP0OWOb36MNHsdAfJ/DSCY3o+0UOJwhtCgSxN9OhS4w5VpcV91pbenJIoEWXqF0qxVA==
+	bh=3yZbLKl+lK8pTnLJ8/ysaxlpLv1CxJpbhJHDq/znmvE=;
+	b=Nx7Zlcq/mhFOe1KOZRGR+KMVc5BbwiPGzde5+4JXTxZ04q3h25jH9K1BHFC6e6hfUJo9
+	 o+mTOVNPsARI+RS+ayAva8OLEQ6hr3SqnAKOGXZaEg7zWy8XSVdAy9XN1YpDozMxkYWbt
+	 qIAOtzzfxqG2oyTzeSMbRs4pSPfHmNxfzQDUEd4BRPC/c7ulAXfSp41JOgX4A2KfFG8eo
+	 k0zov8NjbSsDJt5F7bmE2kmTKbMoa+H9wqBKItJF6uhOhmDHpGLXwOdkguoXAcw4A47/6
+	 iCuolKyMRRixKy9I9otLghTHcgSdwNFqq0mAWVAZUO4iHq0ZwLEGhI7nQYluhEfWKTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p7GNlvHL;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=s80zaUZK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FF8606A320;
-	Tue, 27 Oct 2026 20:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772D0606A31A;
+	Tue, 27 Oct 2026 20:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p7GNlvHL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A54D1F01828;
-	Tue, 27 Oct 2026 20:05:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=s80zaUZK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B471F01825;
+	Tue, 27 Oct 2026 20:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793131538;
-	bh=6cq8HJdbTp8bPAXhCRb8wHCGy3+CcXkC2T30FZUf4pw=;
+	d=linux-foundation.org; s=korg; t=1793131543;
+	bh=3yZbLKl+lK8pTnLJ8/ysaxlpLv1CxJpbhJHDq/znmvE=;
 	h=Date:To:From:Subject;
-	b=p7GNlvHLW51dRtMvJJUyvShEoVLYpRRLNKbzykkDAoYabvSL1khh+Yxr+pSxHZJY5
-	 H2NnZimTi+8AS0J3YH1ouPO+lGSdEdaMewPFToohwNZvFpsJtd72zsbzREeYPtSyhM
-	 vcT0vu9H9vAcXhwl4cbpylNBU15L7rTd3l3wR6nc=
-Date: Tue, 27 Oct 2026 13:05:38 -0700
+	b=s80zaUZKCBlhmk6YS1+wx8jGo0tnFhvpBQppzcoD4SlIahiHErZ7LpwI6X2miI8iX
+	 L6kgnjAw21KbmFC6OvxBFTi7Fw+NtftLAT9fNgUrDP8XhUGSjal2E+bhsglzHPll9n
+	 +kBVl0ByrZCMBX9xOixpsy/nisZvY11wcwOAEGg8=
+Date: Tue, 27 Oct 2026 13:05:42 -0700
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,
 	vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
 	shakeel.butt@linux.dev,rppt@kernel.org,osalvador@suse.de,mhocko@suse.com,
 	hannes@cmpxchg.org,gourry@gourry.net,david@kernel.org,
 	brendan.jackman@linux.dev,josef@toxicpanda.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-compaction-trust-zone-contiguous-only-in-the-span.patch added to mm-unstable branch
-Message-Id: <20261027200538.8A54D1F01828@smtp.kernel.org>
+Subject: + mm-memory_hotplug-resize-zones-under-their-seqlock.patch added to mm-unstable branch
+Message-Id: <20261027200543.41B471F01825@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,12 +55,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm/compaction: trust zone->contiguous only in the span
+     Subject: mm/memory_hotplug: resize zones under their seqlock
 has been added to the -mm mm-unstable branch.  Its filename is
-     mm-compaction-trust-zone-contiguous-only-in-the-span.patch
+     mm-memory_hotplug-resize-zones-under-their-seqlock.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-compaction-trust-zone-contiguous-only-in-the-span.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memory_hotplug-resize-zones-under-their-seqlock.patch
 
 This patch will later appear in the mm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -79,41 +79,29 @@ and is updated there most days
 
 ------------------------------------------------------
 From: Josef Bacik <josef@toxicpanda.com>
-Subject: mm/compaction: trust zone->contiguous only in the span
-Date: Tue, 27 Oct 2026 16:46:32 +0100
+Subject: mm/memory_hotplug: resize zones under their seqlock
+Date: Tue, 27 Oct 2026 16:46:34 +0100
 
-compact_zone() keeps the positions of its scanners in cc->migrate_pfn and
-cc->free_pfn for the whole run. Memory offlining can shrink the zone in
-the meantime. At the end of remove_pfn_range_from_zone(),
-set_zone_contiguous() only looks at what is left of the zone. If that has
-no hole, or if nothing is left, zone->contiguous is set again, and
-pageblock_pfn_to_page() returns the memmap of any pfn unchecked, also of
-one that the zone does not span any more.
+With CONFIG_DEBUG_VM the page allocator checks that a page which is
+freed, split or allocated lies within its zone. The check reads
+zone->zone_start_pfn and zone->spanned_pages under zone->span_seqlock, as
+memory hotplug can change the two at any time.
 
-The memmap of the range that left the zone is poisoned if CONFIG_DEBUG_VM
-is set. Once the memory has been removed, the memmap and the pageblock
-flags are freed. Ejecting DIMMs that were online in ZONE_MOVABLE while
-other tasks write to /proc/sys/vm/compact_memory, no debug options set:
+Commit 27cacaad16c5 ("mm,memory_hotplug: drop unneeded locking") removed
+the write side, since all resizing is serialized by the hotplug lock. That
+leaves the reader without protection. When memory below the start of a
+zone goes online, the start is lowered first and the size is raised
+afterwards. When the lowest memory of a zone goes offline, the size is
+reduced first. In between, the zone seems to end before its last pages. If
+one of them goes through the allocator at that moment, it is reported as
+being outside of the zone and VM_BUG_ON_PAGE() kills the kernel.
 
-  BUG: unable to handle page fault for address: ffffea0004000008
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  PGD 3fee9067 P4D 3fee9067 PUD 3fee8067 PMD 0
-  RIP: 0010:isolate_migratepages_block+0x32f/0x1280
-  Call Trace:
-   compact_zone+0x673/0x1140
-   compact_node+0xb6/0x130
-   sysctl_compaction_handler+0x77/0xd0
+Write the two fields in a write section of the seqlock. Interrupts are
+disabled as pages are freed from interrupts, too, and the reader would
+wait for the writer which it has interrupted.
 
-kcompactd and direct compaction walk into such ranges in the same way.
-
-Only trust the flag for a pfn that the zone spans. Everything else goes
-to __pageblock_pfn_to_page(), which finds the section offline or gone.
-The span is written before the flag is set, so read them in the opposite
-order.
-
-Link: https://lore.kernel.org/20261027-pgalloc-ai-hotfixes-v1-6-9c7d1aca801e@kernel.org
-Fixes: 7cf91a98e607 ("mm/compaction: speed up pageblock_pfn_to_page() when zone is contiguous")
+Link: https://lore.kernel.org/20261027-pgalloc-ai-hotfixes-v1-8-9c7d1aca801e@kernel.org
+Fixes: 27cacaad16c5 ("mm,memory_hotplug: drop unneeded locking")
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
@@ -132,39 +120,85 @@ Cc: "Gregory Price (Meta)" <gourry@gourry.net>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/mm_init.c    |    4 ++--
- mm/page_alloc.h |    7 ++++++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ mm/memory_hotplug.c |   44 ++++++++++++++++++++++++++----------------
+ 1 file changed, 28 insertions(+), 16 deletions(-)
 
---- a/mm/mm_init.c~mm-compaction-trust-zone-contiguous-only-in-the-span
-+++ a/mm/mm_init.c
-@@ -2270,8 +2270,8 @@ void set_zone_contiguous(struct zone *zo
- 		cond_resched();
- 	}
- 
--	/* We confirm that there is no hole */
--	zone->contiguous = true;
-+	/* We confirm that there is no hole, see pageblock_pfn_to_page() */
-+	smp_store_release(&zone->contiguous, true);
+--- a/mm/memory_hotplug.c~mm-memory_hotplug-resize-zones-under-their-seqlock
++++ a/mm/memory_hotplug.c
+@@ -467,6 +467,22 @@ static unsigned long find_biggest_sectio
+ 	return 0;
  }
  
- /*
---- a/mm/page_alloc.h~mm-compaction-trust-zone-contiguous-only-in-the-span
-+++ a/mm/page_alloc.h
-@@ -216,7 +216,12 @@ extern struct page *__pageblock_pfn_to_p
- static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
- 				unsigned long end_pfn, struct zone *zone)
++/*
++ * The page allocator checks pages against the span of their zone while the
++ * zone is resized, see page_outside_zone_boundaries(). It must not see the
++ * new value of one field together with the old value of the other one.
++ */
++static void zone_set_span(struct zone *zone, unsigned long start_pfn,
++			  unsigned long spanned_pages)
++{
++	unsigned long flags;
++
++	write_seqlock_irqsave(&zone->span_seqlock, flags);
++	zone->zone_start_pfn = start_pfn;
++	zone->spanned_pages = spanned_pages;
++	write_sequnlock_irqrestore(&zone->span_seqlock, flags);
++}
++
+ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
+ 			     unsigned long end_pfn)
  {
--	if (zone->contiguous)
-+	/*
-+	 * A scanner may still be at a pfn that has left the zone: the zone is
-+	 * shrunk before set_zone_contiguous() says that it has no holes.
-+	 */
-+	if (smp_load_acquire(&zone->contiguous) &&
-+	    zone_spans_pfn(zone, start_pfn))
- 		return pfn_to_page(start_pfn);
+@@ -482,13 +498,10 @@ static void shrink_zone_span(struct zone
+ 		 */
+ 		pfn = find_smallest_section_pfn(nid, zone, end_pfn,
+ 						zone_end_pfn(zone));
+-		if (pfn) {
+-			zone->spanned_pages = zone_end_pfn(zone) - pfn;
+-			zone->zone_start_pfn = pfn;
+-		} else {
+-			zone->zone_start_pfn = 0;
+-			zone->spanned_pages = 0;
+-		}
++		if (pfn)
++			zone_set_span(zone, pfn, zone_end_pfn(zone) - pfn);
++		else
++			zone_set_span(zone, 0, 0);
+ 	} else if (zone_end_pfn(zone) == end_pfn) {
+ 		/*
+ 		 * If the section is biggest section in the zone, it need
+@@ -499,11 +512,10 @@ static void shrink_zone_span(struct zone
+ 		pfn = find_biggest_section_pfn(nid, zone, zone->zone_start_pfn,
+ 					       start_pfn);
+ 		if (pfn)
+-			zone->spanned_pages = pfn - zone->zone_start_pfn + 1;
+-		else {
+-			zone->zone_start_pfn = 0;
+-			zone->spanned_pages = 0;
+-		}
++			zone_set_span(zone, zone->zone_start_pfn,
++				      pfn - zone->zone_start_pfn + 1);
++		else
++			zone_set_span(zone, 0, 0);
+ 	}
+ }
  
- 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
+@@ -696,12 +708,12 @@ static void online_pages_range(unsigned
+ static void __meminit resize_zone_range(struct zone *zone, unsigned long start_pfn,
+ 		unsigned long nr_pages)
+ {
+-	unsigned long old_end_pfn = zone_end_pfn(zone);
++	unsigned long end_pfn = max(start_pfn + nr_pages, zone_end_pfn(zone));
+ 
+-	if (zone_is_empty(zone) || start_pfn < zone->zone_start_pfn)
+-		zone->zone_start_pfn = start_pfn;
++	if (!zone_is_empty(zone) && start_pfn > zone->zone_start_pfn)
++		start_pfn = zone->zone_start_pfn;
+ 
+-	zone->spanned_pages = max(start_pfn + nr_pages, old_end_pfn) - zone->zone_start_pfn;
++	zone_set_span(zone, start_pfn, end_pfn - start_pfn);
+ }
+ 
+ static void __meminit resize_pgdat_range(struct pglist_data *pgdat, unsigned long start_pfn,
 _
 
 Patches currently in -mm which might be from josef@toxicpanda.com are
