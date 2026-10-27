@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114825;
-	b=g/uFI9vs4Z90BaxbEKA0q0D5VVCAGKnMbZKR71SU7Mgd0v2lQvEBEvf+4uapuVIGItJj
-	 nH/KMkGiR6dxjBm6ne2D7CWgKT3zR4d/fH6QgQzRd1RW1m7wt/8zGvwxgQEUEQ4YdKrif
-	 hRHduPij/OilltqDYvT3ANpafvrKUW54JKCv0ceXhTmcbZVy5ZHMmZW+ahkEGD4hjZqFg
-	 IAwUgy+t8An46Xj1Ce1FWnXBwnAdiQzJxEOcTpakfL+ThM471NQ2l5LWF+Cex32rjB2st
-	 OH1pUIOVA8fXJAQ7BYBOuir9M8YTXCkAhRdhbYnaIESo98zjmHujbOXKVynZSKPnDRQ==
+	t=1793115170;
+	b=EzqFoS3H8miA2YPVTSEuxT5ipo15tzajVdgkvN31zDH/ur2ZxkCke6ux1Rx8M1DU2Sqt
+	 bHd5F3orCie9WxaGs74Q5PZaZfUXPw8/jGxYUV/uFkPcH5nN1AbRENE79PqedkWFouf3P
+	 O72zCMv6zB01AV2jyyCw9B3JB1ex0TnpS/sCSL27kJwGnbaHi+Yopxq7dw4TScmpCK31t
+	 Nia+N8aYm8RRpLzdLoklAjroTlhGylZXkKEDPd+d6O2BScWcRA8hKLImoyF8GXwLguUUk
+	 nqHO2KB10mghRRyLlI69l5lcF6s6RkJ2Jw/Y8kk6QDZ8BMXMwPZ9VX8voFmxUC09e/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114825;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115170;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=wi0StJVtvw/zinVc4sKSY3h0wecMwn/MhOcHTKAD02s=;
-	b=TiP3e6I9DhFeC0FU92VuPQvze10gHPJfe9IEqZuOuUFVDHB6/OAHWUOe9Ifc2wSt1qQ3
-	 IJh3fW2Lckl0coLVbWuvyHjNrQx+MGyZtDZ9zXY+zL5C931B07jStjDjNUam5iEMNHdT8
-	 0tBeb22zxqaLEPsscCaYdmxg5iVo6K8O0k6M9FJARCTTghSfvbtB4EtjD/F8aO7garo/v
-	 aS5NTlzf1G2dnIp+AsY4t+ubNEFuZFYbf2Rpj9dH2OyEvhwR9xYmatMWtz04MpQjIo576
-	 yHZZ5OPv1GmwJ7VWMTrOiaIV9/0+1H8XvsRDYTLjk/yuoVv8lrUPm23SiClgcaCvliA==
+	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
+	b=uotcF8SQbRHfYPKmTS2U1Nfd3v6t8RHeKxClVjb5INFlrmCa8NL6r0ivcVy70Rb7sl+v
+	 7rkBPU3L3aJ8IstmQNdKDvd5jx4vUy263qOp/IWRXoy/eVsjNB3ylA4gvBJib62jg2XPn
+	 4MnZOHQhXqVImAESW0swmGhuGpuSI6+iIpoZgCs2QTF4k6M/tga7U4zF2h+WYPzPBeaKb
+	 0+FqjG/W0RGN5DHiPFFB/0QRhKerv0GULtJYIlhlvwQlFltIpo4T55vbG0QdHf6JHuP8s
+	 WWzFZOCXTuEheZeTL7ttoQhct1r1kQQ3K03JfR9aPKJU6mqvdeOBnKLvdRsXZ74o+EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9thClYQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073AE606A31A;
-	Tue, 27 Oct 2026 15:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857F606A31B;
+	Tue, 27 Oct 2026 15:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9thClYQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D0A1F01825;
-	Tue, 27 Oct 2026 15:27:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0452A1F01825;
+	Tue, 27 Oct 2026 15:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793114824;
-	bh=wi0StJVtvw/zinVc4sKSY3h0wecMwn/MhOcHTKAD02s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F9thClYQkOQH0DL1SCEgrbzYuEQiLDXX04oG3zeeQiS9/a3WqSz0HLsb81+jWLl0Q
-	 VuOSq3y9r7DNp5PQcCzV/sa4iw3dxDA1RzLz47QtrwNJVo+seqFS7BblE9h+31apgG
-	 7wEhg5JOS4GPxodIMZ2Iyop6JPEOTqLjJ69YFpGOmg/TbKzGm6x5Q5BBi6AoAFvPI8
-	 F+b3zPpymGiuT51zSVXzkTa2V3ICWBTnyWKVK0IIzD0TxYOVUUJ4B1TCRxi+JvqdRk
-	 Wuq/rOZPJn0OxbY0peUoiYPnM6yp2kHKKTIQAtv5BRDTtSSjTByBrE2gz73slJy67V
-	 Ysy8utH+sZJ7A==
-Message-ID: <c04f2ba8-fc83-4118-a26a-76ea8cbee518@kernel.org>
-Date: Tue, 27 Oct 2026 16:27:00 +0100
+	s=k20260515; t=1793115169;
+	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=dtEwIKUUeNK/0V3q72RuhjcM3XB9lvACZ3yKUhInj8Zf+PtknFhFFKjhNFk5Efdkp
+	 xpANNTMa9TXxqHgWiccafR7WvvDydpYotUzIOI5DNnocm2KagZ4TLJqbciqwQLDZM9
+	 vcWbnU+CUX/0GkNzKsFrWSl5vheOnQzevABytfwin/U9fc9d2YLjHBknOiunYPulRo
+	 cBVAKaLp9o6rAcYW5iz4YSXOWSHlIIREcpLNS5k89b9hozEB09uf6sUB7Cf0yCLiTk
+	 8/qgCOZRxIDRGOiNCcAcboen3xq2yxLY8oYoZ7dfpniILZNhE0t/9FMlMBhKPcSfrz
+	 qaGSp5cSzwymQ==
+Message-ID: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+Date: Tue, 27 Oct 2026 16:32:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,13 +52,19 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
-To: Guangshuo Li <lgs201920130244@gmail.com>, Lee Jones <lee@kernel.org>,
- John Stultz <john.stultz@linaro.org>, mfd@lists.linux.dev,
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20261027024609.117371-1-lgs201920130244@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+References: <20261027145313.136305-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -103,27 +109,29 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261027024609.117371-1-lgs201920130244@gmail.com>
+In-Reply-To: <20261027145313.136305-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 03:46, Guangshuo Li wrote:
-> hi655x_pmic_remove() currently removes the regmap IRQ chip before
-> removing the MFD child devices. regmap_del_irq_chip() disposes the
-> child IRQ mappings and removes their IRQ descriptors.
+On 27/10/2026 15:53, Guangshuo Li wrote:
+> fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
+> DMA address does not satisfy the firmware alignment requirement,
+> but leaves is->memory.vaddr non-NULL.
 > 
-> The hi65xx-powerkey child registers interrupt handlers using
-> devm_request_any_context_irq(). During child device removal, the
-> device-managed cleanup calls free_irq(), but the corresponding IRQ
-> descriptors are no longer available. As a result, the allocated
-> struct irqaction objects referenced by irq_desc->action are not
-> freed, causing a memory leak.
+> Because firmware loading is asynchronous, this error path may run
+> after probe has returned successfully. A later remove can then
+> attempt to free the same DMA allocation again.
 > 
-> Remove the MFD child devices first, allowing their device-managed
-> IRQ handlers to be released while the IRQ mappings are still valid.
-> Then remove the regmap IRQ chip and its IRQ domain.
+> Set is->memory.vaddr to NULL after freeing the buffer so the
+> existing NULL check in fimc_is_free_cpu_memory() skips the
+> already-freed allocation.
 > 
 > This issue was found by our static analysis tool under development.
+> 
+> Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
 
 More of postings by bot ignoring any feedback.
 
