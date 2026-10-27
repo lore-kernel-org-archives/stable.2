@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128974;
-	b=RVNxk/f1+pAj+j8LE2bcKr5MJxFH0ylNpE1OtqHuLgAz6Hs+CrjRC7VpIHoOHzvvjX3O
-	 HNunfjoQGj/aD+Uw1VTHTbbyZrL1N+r5C/qhZDbU8o91IDAIh+UMWAIqCtuKk0PiLgqbG
-	 Q/evbI5GP5SOOr3fLfB09+g55iiysTaUMaFvES68OwcEHf6RFqeoQcz3NCKv6rM0tMLVN
-	 v0kGSvATGoVlW7p76yiaLUYkeRs13cpa/5TuioEJ0P1fEplYehd/lLz9H/GypVVjUFHki
-	 VgNGqrPlBJL86ARCrPzQTNUWqYTa7pXLv1pTo9XxKs6QNTUWPls039MXciuPtvOfrVg==
+	t=1793128990;
+	b=cNm8Xqrui5T0qHfr/mDLH92vVDIyAqD3xnOf6kIh2owIfjcFkG2M85qjr79nG4+c7dEo
+	 V1/9dsPIcvphn7kwWjrHln11sfnTQ/UyEE0YUtm5dn8f/fRP/FZzGQUhmKpa32lMkms6F
+	 5YkuN3nh1Y3VDIifFnkAuwHEaQXvk9SBKJ7t9t/CHY2wqXsK3myxpnoDxIVu+AvovuIvI
+	 gbYELik8uD9nXNdpRh1KACdn6+wga6CNt+QNvloqcDO0R8F+2Y+zmsVKV4nuep4zwOtp/
+	 cuBBGLTtGRW+t8PV01rjKy+2dk4EUc94FxB0R80cgpcp11/K1tnxjcV+7uN0yaWY2Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793128990;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=CmHIg5Am5Rl4OyiVljbueHpe0qSwosHitoSBvm1s4Dg=;
-	b=h4L7kh78M+sp3z3T5FyUCP64zlpeSOqegGn68nwOMIE4KNuHSblcD7ukvpx0J/2ux3em
-	 S752zvg+FVABm2PTrtYZgCmUKp2f+DQXhggu68l62aXYUuSgcW6tjQmf2hDL8p5Z0Qapr
-	 sQSsn6jYl5W6PgrspdbQBVa4rY3kLOBofDHLD61LCG2vDZwBoXN+4Fwb6qf4zjykdYq94
-	 MA44jfz9KU9llN0kLsc/N1mPoZoLk1FT3oFts7YPgTcnchpfcEE2zSFka3+J8yk9x6C+h
-	 AAtvZ7KeibHzN2+IWhgSGGdXdL8qdNUAhgtl2EEGCM9/3bpXHGwBG7LQ41GCbD6F6Fg==
+	bh=HoOcwxnYW5BPsnbBpyOUUjSJrZpAEuBUDQ6Rytj43SI=;
+	b=OM8KX0xcdjpvkiUH1FD/xMPZEwyz69ZvJR5Vga0Y5FBFvVfsh+sNk6+Vxj04SDIFxAkc
+	 YOpVxK5RQhbaMMxvgKeJ5fT5NRq33fBjqyZ6Hbo3zkuTxfIjSoCSjuH45GNpN9X5Ix3qh
+	 ixR4tvDQn1UJIosznwCi1YDzbhB5eZqrYFaOf4yTvKvz37KxWRIRCzib+L9uSOiwGisxN
+	 rIOwDs8F2r4I3t8c2PLCw86jBdTFmD9Du9jADeSEoN4ZF7TC5RSvadvMsxMGgwbLZQS3I
+	 Xw4wCD+GkCSVNZweiz1Prsh+/YNWbl87I1Jhr3NnBfmE5qEmGYjVDgcPjWmuBo/p84A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbBcKjaD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftRU37dy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85241606A320;
-	Tue, 27 Oct 2026 19:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A4E606A321;
+	Tue, 27 Oct 2026 19:23:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbBcKjaD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C501F01825;
-	Tue, 27 Oct 2026 19:22:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftRU37dy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331471F031E6;
+	Tue, 27 Oct 2026 19:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793128974;
-	bh=CmHIg5Am5Rl4OyiVljbueHpe0qSwosHitoSBvm1s4Dg=;
+	s=k20260515; t=1793128989;
+	bh=HoOcwxnYW5BPsnbBpyOUUjSJrZpAEuBUDQ6Rytj43SI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mbBcKjaDUzUToQwzCV+6Pgw0tzlFD93S9m1+KWfG1NxVpkyCRRNCeTQwiMNIOfzvn
-	 Sepy4cP6buD5heeyq6OynLNzNTGdO00RkWDd0HqkGKmTptI8bihK23QBxhd/Wqlonf
-	 HbWh4RvfN3us9Hc0aASVdF6DtQcbxkvLXWp3rkhuItiwQf8kK98x9/vIo3CCT3q+Ag
-	 ZeBaYiMvwQBc7P/f1/3KXVozk+l9bV0Uk87EM9uSlMEaK/HEsSJ27Yr2GFx6cacDE/
-	 C46o3eLzcUWhsQoYCuflTeg/cKr6z05wLtUyE8LSSSA1LnR+P/p7FBp/xOTeU8yg0W
-	 8nFzhp8mMriYg==
-Message-ID: <5875ffa2-6d8d-4b30-9998-ffbe290a44b2@kernel.org>
-Date: Tue, 27 Oct 2026 20:19:33 +0100
+	b=ftRU37dyB4p0fpCveWi8u9OzVVMH+c9jVXZBnjJEcbX+3eUtHh0Bpvj0EPoUXVaPi
+	 0QIZG6aMCRRp9b8cz1jyaC4I/RPv5oyxP0gLO6UnDAB0wFu8xZJKIBLAV8TY4tp2Zs
+	 V90tZ5gdhOHNZIuy4O8LU/EauDhEGQ1e41/XKUoUv+VeND2ArLOaAradJIZSY1HXf1
+	 4HUN70NN0Glr6awt8YHNGO19R2ozNFjPj7mGG/v7TegGd0qz55IDN87LZJ/bb9e51c
+	 XNnTusUt2bSy/KdE3hQfe6e0wG0LfmdjZ9rOOnLn6PNHQxl3T0uu0eA167PkncXzMF
+	 vWwdNA1FTwpXg==
+Message-ID: <ec55c760-f099-48e1-900b-9f8e2e5315da@kernel.org>
+Date: Tue, 27 Oct 2026 20:20:43 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,15 +52,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/46] mm/huge_memory: fix list corruption when
- deferred_split_scan() races with deferred_split_folio()
-To: Mani Tofigh <mt4022@columbia.edu>, Johannes Weiner <hannes@cmpxchg.org>
+Subject: Re: [PATCH 20/46] mm/gup: fix clearing folios in memfd_pin_folios()
+To: Pratyush Yadav <pratyush@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
@@ -68,7 +68,6 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
  Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
  Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
@@ -88,13 +87,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>
+ linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
- <auCw2-_yjh1_RjiO@cmpxchg.org>
- <5d431bf7-8813-4e2c-a40d-b45d4ff39a5b@kernel.org>
- <208738b1-35df-458c-9955-e2e5318fd2c7@columbia.edu>
+ <20261027-fixes_core-v1-20-6f74bec9a5bb@kernel.org>
+ <2vxzbj8fp4sn.fsf@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -141,38 +138,66 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <208738b1-35df-458c-9955-e2e5318fd2c7@columbia.edu>
+In-Reply-To: <2vxzbj8fp4sn.fsf@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 19:03, Mani Tofigh wrote:
+On 10/27/26 16:00, Pratyush Yadav wrote:
+> On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
 > 
+>> From: Chris Mason <mason@kernel.org>
+>>
+>> memfd_pin_folios() pins folios obtained directly from the page cache
+>> without checking whether they are uptodate. However, shmem fallocate()
+>> can leave newly allocated folios uncleared and not uptodate. Callers
+>> such as udmabuf can then expose uninitialized memory to userspace.
+>>
+>> Clear non-uptodate folios and mark them uptodate under the folio lock
+>> before returning them to the caller.
+>>
+>> Fix generated by an LLM and sent by Chris Mason in private.
+>>
+>> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Chris Mason <mason@kernel.org>
+>> [ david: simplify description and comment ]
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/gup.c | 14 ++++++++++++++
+>>  1 file changed, 14 insertions(+)
+>>
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index efc9aa2654625..47e7ae152cdf1 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -3516,6 +3516,20 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
+>>  					goto err;
+>>  				}
+>>  
+>> +				/*
+>> +				 * fallocate() can leave folios in the
+>> +				 * page cache that were never cleared.
+>> +				 */
+>> +				if (!folio_test_uptodate(folio)) {
+>> +					folio_lock(folio);
+>> +					if (!folio_test_uptodate(folio)) {
+>> +						folio_zero_range(folio, 0, folio_size(folio));
+>> +						flush_dcache_folio(folio);
+>> +						folio_mark_uptodate(folio);
+>> +					}
+>> +					folio_unlock(folio);
+>> +				}
+>> +
 > 
-> On 10/27/26 11:15 AM, David Hildenbrand (Arm) wrote:
->> While I have your attention: This variant works, a different proposal used
->>
->> list_del_init_careful()
->>
->> instead. However, that is documented to require list_empty_careful().
->>
->> Do you think it's worth looking into?
->>
->>
->> https://lore.kernel.org/all/20261026-thpsplit-careful-v1-1-
->> d357d70fd6f4@columbia.edu/
+> Nit: this logic is repeated in a couple places in shmem.c and in
+> memfd_luo.c. Perhaps it deserves a helper?
 > 
-> In this case the careful variant is fine without
-> list_empty_careful() since it writes ->prev first
-> and then ->next with smp_store_release(), and
-> __list_lru_add() only writes to the entry after it
-> sees -> next == entry so it can't race with the ->prev
-> write anymore.
-> 
-> But your version also covers the PG_partially_mapped
-> race your comment mentions, which mine doesn't, so
-> it's the more complete fix anyway.
+> Anyway, sounds like an important fix so don't make my nitpick stop you
+> from landing this if you don't want to bother.
 
-Thanks for checking!
+Thanks! yeah, I had the same thought when trying to improve this. We should have
+an easier way to just not hand out unzeroed folios outside of shmem core
+functions in the first place ...
 
 -- 
 Cheers,
