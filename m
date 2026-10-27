@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112805;
-	b=28EGGmQEdBCRDnDvV5JTqvvKPIittSVSoL6qeHzEz2XUhx8hgIt6MbOWtXmKOlAYp234
-	 dUM7n+IIecHt2P7pwQAVDcMVieiptZUILj/AdUwWuWfA58q5Apqrl9xlY/3AmxFGRA7x5
-	 aReyzK46rYIuKJtEH8RMaZ7BssvJ+iml6um8pPLEp1EOxLjan8isAGQ8cAnHjU2jH/3Sq
-	 sdv4MFiWIPFO+hRRZa0CY6cwFfIY52x2s6aiKGLLAgOizlwP7bG1SIhSj9Z9avYSP9qPc
-	 65DOQsN9O7EcrB/4O2jBSeIHlWH6g4zDzWf2DQulpWJbweeVKnPczxy+YS6OaTs8y1Q==
+	t=1793113219;
+	b=tibO/Y75Od/s/YJ2qD2d9SyHI8A2KWDkH9mpKaBGOdFpd1mY1vyP9KZ0CLpVKI+PaeqX
+	 X5z2k8MXU7hXCkL5uedjtCChKTQGZyOUMSs94EJrDtHrAysWwgRlna9eVxx/LxFwEi3F+
+	 +WVs76VNN/hFSADikU10iunyG6oJQjQaLSAKD810otbAFqw+UQWccXAVWLL+yUehDqynW
+	 t9dlxj0++glgzhDcTusa84ccXlVVNxn9+zdQDQY6pC7lP4i7SArs0lHrfFhcqscgvbql5
+	 IatTLeICVv8mPcctRFmNcGmdop4L3T0ooY699WrAsipWHLJ37e0r94B6czoI1RcHQBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112805;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MpIBWf7/b2ks94p+dnClhdfP917IQaGrC6d3ELQJeOU=;
-	b=gmCEY83N7BXrmlPlxZ55FfA6Hdy6gEQOXk04rkqMoJ6N3oiemXDugJneR/CKmUlXAr/h
-	 d3DdLihCZ/WrUDjadu3+t9i6YI7N/URmwtK7S7m+pCDMiViwhRZFFRuaFsVpWtRFuTS2T
-	 ycSuCehsS2xuM1zeD7Y3BzgHjTlTopREPZIMWuvyLgd37EscLEYUtga+u/LO7foP4sokS
-	 Y4r9Yx48Eu0jkXvQ+U12V11HWW1R2xQA076m214aAFd1d3L/RNt2iRlnBLMrpOXEUh9SR
-	 wlPxEC8La3/EOcWQLNOr2aPJRTPUHvr8sR4kZnP8JamU5Lj1w0CWpb9g4sO7rz4a0+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113219;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 User-Agent:Date:Message-ID:MIME-Version:Content-Type;
+	bh=qp+fSXor3rJtw8hGRhqYEuRFppHYbzFfezBhq/ClTY8=;
+	b=qV8pnwXCk7UsXFGptyUSJ+KHnCIwgpQHwScarF41oMGjJ7h4kc3TqHs7XQk/5bnhZo6T
+	 YAM4Zy//iijzrlPr+AL4xRk8Jf0Ul4ZeOIuo5V4X4oxnBjZK0YvSrWSOIJLhVnVsjRXw1
+	 VTPoxFx1NFQ2RaUb5M/EQunid36OugxqvZdigRaE090cmMFJpi1byYtC2X26jAwUF2ZY9
+	 DoD/S6Zo3XxlU46KFCbeJpoxh2JeIuTCTRrzFbweTYM2/7k2be+Gz09AhlsNK2ypsz6dy
+	 zoUEjez1UpUU+Pds+oGQOF3NgnZhZ36CInGxu1KuqlJ2Xz9ks+Ik27m3cNnxvVSymOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PL0uNvOF;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnXLdq3k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499A9606A31E
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 14:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 499A9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BA2606A32D;
+	Tue, 27 Oct 2026 15:00:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PL0uNvOF
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so7718a12.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 07:53:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793112804; x=1793717604; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MpIBWf7/b2ks94p+dnClhdfP917IQaGrC6d3ELQJeOU=;
-        b=PL0uNvOF6KtmytVx/LyM6gB7gFM05V7MDTXiIU/jNVGVrb8h0a4YBmqrVAgfzJYkM/
-         XIIlEJw0YrfmwpzCxmxqRPuPBrSO/A+mN3FRztpVogzN5DyzY3Sq8CWDatzUvbLI2rzi
-         PEoaPyAY2SHhTTr0iu4XDHOxPytwusNn66/D7hbTLGkaFvARqeP3wSVvxPrg+czWBFbi
-         RvThogGY40pn9hSgBkEgfoaZM+UFVgqyOpQbxAV+BfMI+qMCM7/3D1R4tD+tval28tEb
-         ebUXb/xw8hrtyeGU568eNfHW+R/Qs73nxMAMBtE4IOYI4JVt4Tzz/h41aFppjGK698YZ
-         ta7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793112804; x=1793717604;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MpIBWf7/b2ks94p+dnClhdfP917IQaGrC6d3ELQJeOU=;
-        b=HJ56si1+MzQ1eIXamxdEw0+DH3RRnm41TrbdWKdRFSb061YAD+QMmbDBhpD/QY0+VK
-         CWZGuxSVHbXWQGv7aITHVtHf6x/CYKoEcGBZkcuvpDerrS+PSq8M4A7uXj7A1hPoYQm9
-         AzxfX7zH0+hMnV5rAXgaMZO5vqhl2g3JURxq2qBqxl5QuydcXqDKwvYRUkAuKTL3wWTW
-         G6SPyOnnU6lzySy/TVk0rhXNAnSB1AlhUJTFT+olLHpYapBy7JC841pmtVX3eIDBFXWs
-         C3rM1uwjHNkmSSoRyWb3TEtSmvCS7DkNESeluYr3zeaM2H+s4j32wDYAVH+YjG0xTpsk
-         Fevw==
-X-Forwarded-Encrypted: i=1; AKwUvBylqWPGOMZTmu0bslStGGbZnUO3+2uyAd4Hi48lzwX75Y3D4gLuRfyyaitjQCPGWwzXTeYJcQo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDFbTr0W8JjKbhABPG2TjN/odQ1FQ8xqaY6AarjRnATLEzpv2C
-	JaHhwscZxDj2LEdE8ERZV/vLus/Jkfz2taHaKHGAQpsaOKzFUSPObeme
-X-Gm-Gg: AYBFou2zsLqcGC1M9DTWJYqBnAcae4T//cP1mCUAJSVqp32YJmGP1rYSeCPFZmdgtRF
-	T/gMkhsMgLFZqalOAIO2TFhj7Tegy7CW1q0nk7snByMdKRClsvs3NmJ3CCQTIlGcd7fZbgkz6l2
-	Acv1ajeyo7pWYkma97m5rRlkv1hTTF1bCuWvINlBUZMN3DGwRchRMGmeWCcRoU15UUjMO3KzMHL
-	XpMOovvBPn6L3m9R+lmArHu9oEOt9Np4ph3y7ZhQmAfrTddLZ2hEbHDYGAzhhl9vB1KYIjvrl2+
-	WKl7fzQ7Yar9tnL2mL5qYwFFnPeJi09xmXjkTXJuPSvqBHbMRqMGD0C9yvQzreaYnoE2OUeeopE
-	sJEen/dlpbx5C4qN8ethuKZ7j3lxm8PqHOui2e3QuCsoOHlz1Lw9FB6sGDoOGIzw/0Y8Hqd7fj0
-	Cc/KTCup/LUt+WmB2jhgjqQX3MyBvXXRXtt8ORdAGJDZo64ZBZQPYXGuITrFY6CyGq8+WrmzsH8
-	iOH2eDKWDnvdISaRl4llNgGdYzqukLsAfznfG0g2NOu5awxEcQfHw==
-X-Received: by 2002:a17:90a:b896:b0:3ab:b39f:41c8 with SMTP id 98e67ed59e1d1-3adead4dce8mr5470253a91.46.1793112804486;
-        Tue, 27 Oct 2026 07:53:24 -0700 (PDT)
-Received: from lgs.. ([101.76.249.61])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40614d7dsm4093349a91.3.2026.10.27.07.53.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:53:23 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: exynos4-is: fix DMA memory double free
-Date: Tue, 27 Oct 2026 22:53:13 +0800
-Message-ID: <20261027145313.136305-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnXLdq3k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0151F01825;
+	Tue, 27 Oct 2026 15:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793113219;
+	bh=qp+fSXor3rJtw8hGRhqYEuRFppHYbzFfezBhq/ClTY8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=UnXLdq3klaC+tZ2+JX6PBI45P7W7nF48+f9ADm70UzXvPsh4+dY2WhOicztPbMw7F
+	 SARjt9Oczq92TzB6tsLTcFdVUo5032qKNP4oINRE/Q8ajIBJ3KPA69x6ct5ZyaPihb
+	 dzmgq7TcIx1PWaY/d5t1JPP1sQw/8RZHDucCg/R/QFCmyDP2NXPW+F6S6AUKz2W+3t
+	 Dpk7PNOGHdNngY66tF6fRyZEMJsZsML0o3pMjD/NKndJzXXBZJwiuvk6Lr6JNZpq0X
+	 Vrc6vg4zteKiAqZrKEoQENifIVt/YUhXNNs100l6gLc3ci49cX4el5JejC4ULazFv4
+	 Ph+fkkfmpEbLw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,  Johannes Weiner
+ <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>,  Qi Zheng
+ <qi.zheng@linux.dev>,  Shakeel Butt <shakeel.butt@linux.dev>,  Lorenzo
+ Stoakes <ljs@kernel.org>,  Kairui Song <kasong@tencent.com>,  Barry Song
+ <baohua@kernel.org>,  Axel Rasmussen <axelrasmussen@google.com>,  Yuanchu
+ Xie <yuanchu@google.com>,  Wei Xu <weixugc@google.com>,  Baoquan He
+ <baoquan.he@linux.dev>,  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  "Liam R. Howlett" <liam@infradead.org>,  Vlastimil Babka
+ <vbabka@kernel.org>,  Mike Rapoport <rppt@kernel.org>,  Suren Baghdasaryan
+ <surenb@google.com>,  Michal Hocko <mhocko@suse.com>,  Kees Cook
+ <kees@kernel.org>,  Peter Zijlstra <peterz@infradead.org>,  Jann Horn
+ <jannh@google.com>,  Pedro Falcato <pfalcato@suse.de>,  Hugh Dickins
+ <hughd@google.com>,  Pasha Tatashin <pasha.tatashin@soleen.com>,  Pratyush
+ Yadav <pratyush@kernel.org>,  "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>,  Jan Kara <jack@suse.cz>,  Zi Yan <ziy@nvidia.com>,
+  Lance Yang <lance.yang@linux.dev>,  Rik van Riel <riel@surriel.com>,
+  Harry Yoo <harry@kernel.org>,  Alistair Popple <apopple@nvidia.com>,
+  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>,  Usama Arif <usama.arif@linux.dev>,  Kiryl
+ Shutsemau <kas@kernel.org>,  Matthew Brost <matthew.brost@intel.com>,
+  John Hubbard <jhubbard@nvidia.com>,  Peter Xu <peterx@redhat.com>,  Will
+ Deacon <will@kernel.org>,  "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+  Nick Piggin <npiggin@gmail.com>,  Oscar Salvador <osalvador@suse.de>,
+  Minchan Kim <minchan@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+  Xu Xin <xu.xin@linux.dev>,  Chengming Zhou <chengming.zhou@linux.dev>,
+  Chris Li <chrisl@kernel.org>,  Kemeng Shi <shikemeng@huaweicloud.com>,
+  Nhat Pham <nphamcs@gmail.com>,  Youngjun Park <youngjun.park@lge.com>,
+  Gregory Price <gourry@gourry.net>,  Joshua Hahn
+ <joshua.hahnjy@gmail.com>,  Rakie Kim <rakie.kim@sk.com>,  Ying Huang
+ <ying.huang@linux.alibaba.com>,  Jason Gunthorpe <jgg@ziepe.ca>,
+  linux-mm@kvack.org,  linux-kernel@vger.kernel.org,
+  kexec@lists.infradead.org,  linux-fsdevel@vger.kernel.org,
+  linux-arch@vger.kernel.org,  linux-cxl@vger.kernel.org,  Chris Mason
+ <mason@kernel.org>,  stable@vger.kernel.org
+Subject: Re: [PATCH 20/46] mm/gup: fix clearing folios in memfd_pin_folios()
+In-Reply-To: <20261027-fixes_core-v1-20-6f74bec9a5bb@kernel.org> (David
+	Hildenbrand's message of "Tue, 27 Oct 2026 00:17:40 +0100")
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+	<20261027-fixes_core-v1-20-6f74bec9a5bb@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+Date: Tue, 27 Oct 2026 16:00:08 +0100
+Message-ID: <2vxzbj8fp4sn.fsf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,41 +92,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
-DMA address does not satisfy the firmware alignment requirement,
-but leaves is->memory.vaddr non-NULL.
+On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
 
-Because firmware loading is asynchronous, this error path may run
-after probe has returned successfully. A later remove can then
-attempt to free the same DMA allocation again.
+> From: Chris Mason <mason@kernel.org>
+>
+> memfd_pin_folios() pins folios obtained directly from the page cache
+> without checking whether they are uptodate. However, shmem fallocate()
+> can leave newly allocated folios uncleared and not uptodate. Callers
+> such as udmabuf can then expose uninitialized memory to userspace.
+>
+> Clear non-uptodate folios and mark them uptodate under the folio lock
+> before returning them to the caller.
+>
+> Fix generated by an LLM and sent by Chris Mason in private.
+>
+> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify description and comment ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/gup.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/mm/gup.c b/mm/gup.c
+> index efc9aa2654625..47e7ae152cdf1 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -3516,6 +3516,20 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
+>  					goto err;
+>  				}
+>  
+> +				/*
+> +				 * fallocate() can leave folios in the
+> +				 * page cache that were never cleared.
+> +				 */
+> +				if (!folio_test_uptodate(folio)) {
+> +					folio_lock(folio);
+> +					if (!folio_test_uptodate(folio)) {
+> +						folio_zero_range(folio, 0, folio_size(folio));
+> +						flush_dcache_folio(folio);
+> +						folio_mark_uptodate(folio);
+> +					}
+> +					folio_unlock(folio);
+> +				}
+> +
 
-Set is->memory.vaddr to NULL after freeing the buffer so the
-existing NULL check in fimc_is_free_cpu_memory() skips the
-already-freed allocation.
+Nit: this logic is repeated in a couple places in shmem.c and in
+memfd_luo.c. Perhaps it deserves a helper?
 
-This issue was found by our static analysis tool under development.
+Anyway, sounds like an important fix so don't make my nitpick stop you
+from landing this if you don't want to bother.
 
-Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/samsung/exynos4-is/fimc-is.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 
-diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-is.c b/drivers/media/platform/samsung/exynos4-is/fimc-is.c
-index b7d9bfedd590..9fdc352abfe4 100644
---- a/drivers/media/platform/samsung/exynos4-is/fimc-is.c
-+++ b/drivers/media/platform/samsung/exynos4-is/fimc-is.c
-@@ -346,6 +346,7 @@ static int fimc_is_alloc_cpu_memory(struct fimc_is *is)
- 			(u32)is->memory.addr);
- 		dma_free_coherent(dev, is->memory.size, is->memory.vaddr,
- 				  is->memory.addr);
-+		is->memory.vaddr = NULL;
- 		return -EIO;
- 	}
- 
+>  				if (nr_folios == 0)
+>  					*offset = offset_in_folio(folio, start);
+
 -- 
-2.43.0
-
+Regards,
+Pratyush Yadav
