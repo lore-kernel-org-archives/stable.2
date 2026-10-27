@@ -1,55 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793065327;
-	b=oTHEnqZ6qUXW/Hk3DW/LnqsYVAOV+ydh3szDDMDlZEgygCY4DORfceER1RfmZiUrzZaS
-	 FVWX3deGlUFWxD5neFeOo2FOKjJTEJumKVc6cgifhwO0nAvawlljTaz6wb+Zw5IGWZ7CY
-	 0E6o0pkZOsMQ7pLssURJXvHWSlbFR1IeAiKdaquKOW/LE3PiGDaS/Qq6GVgf2tvW9DzsX
-	 4jp3J9bwY3m1dd0a8a+kxugehlEQ2n3v/VRD8cjzI3GUEKpc9RO7qGQRcwB86y+WGLfP9
-	 WK7RT23ypo7I0/cRbQ5QwzhYQFaUCSB9G2xQ6Ivg5FxuSQn/+jOg2Z9KozyGtw6RTfg==
+	b=INIYt8/i7apmgJu/K83TO7tEGlj5KWl3i1Zyqad3Cgi3m1/bljCLmuiRub11j4AGOeAh
+	 p86nXJORQ/mG9OFLTMAiD0GONulqfHL97iUvXsIP7i5r2l5tAKQkZMixRNykvHAhXRHbU
+	 8Mh6+f7ju4NHnGRrP8/5Gn9ahVydkIiGp+WXppvf7I4VVhzC0zzSaJ74mWOrehaJJB0lO
+	 wf/zq6gqyu2j9wr34Qcg1c45josGIa0wvvz2vaSbRfNTf9wC+xXVEr4G0qpTuREN4gdlh
+	 3Oskbd4y3ZnB8qPR/c5/DNS+Ku5+zwCbd3vHSq1NBJt9uOZZjCAXQVDBc9Yzx3iu0HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793065327;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=QPrihA68+s7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=;
-	b=vCpkcZIf84BR2caN87fC2sbgKXLBSz0sP/cncGqQAqnZWY8mtTGwPyPVJqCdMwPO5Vwn
-	 T9aBl6ucCmTSdE82tiDmOIkSjHbChrcpdpT/ecQzzNI31MkXior6VcbViPHXgcPu293m9
-	 Ta1uvO7Fj30tIaTG59EYSxueSiBh7l93BHYDAHnD0FuMTXG4r4ESWTa8rlFLBL/adOxjc
-	 74VHMV/3XhoNa3YTwjc7G43uUMkubQKK6mDvRqgvroLg/pF9dS1Fd8K0SJkAeI/Ky26Iw
-	 K3zNofp+75P5hLj90z2B50t1pSwmJhBa+DYbkXAFUWLtkS86cFRvctBkd2dVT3Uk+KA==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=PxhKt4ewbW887pppfVDxKOmckuc+6YqylYK09wMwPvI=;
+	b=YYss9rOqdAdN5xbSuvHM63GC76r/yqHBv1qBr3Ge6EjKZ153HlhcaE1l1syAPQIEgY0z
+	 fXtkc7ug3E9SXDLOw26Q3tyPTBLD0jqsXZL8jld1RvP5kHy9WdX8owbq5kFemhD5XAfjZ
+	 Y0zVtONdkE3KGCTlfIlYNwfH7w1s6pERyCn5j7DLGb8n0OyCw+f3hmv/UbTd3sKsGSvMh
+	 Ih6fzpNQiSCAoVaRDdqXJLZXLXoKCBMbVNLHUJbg2aoSNIa6AXrj01RzDpBosYF42GqhC
+	 r/pp0JFg2FOd/R5Ixc/0B+TwNunG8tToA2k7OAeKf8DUhdY4N7NgBE1iZdl/9rfwyYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28D13606A31A;
-	Tue, 27 Oct 2026 01:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D13606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="g/knnsl9";
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E4A606A324
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 01:42:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9E4A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=g/knnsl9
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-89e05d31e54so2403137b3a.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 18:42:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QPrihA68+s
-	7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=; b=aJWRJ5Pr668VyEYwztZVjQl2v7
-	ezuQcdj6N58AZdu+Z0QLK0xhJb4u4UM7+MnAlflrQUoVLs1n8ZQU74CH42Et9oPZ
-	6c3eL01nv6mAGlz3QPMQm7Q/EW1+GuCwONUWGxGBDM53S5zXAU8aPByjwjBLKcPN
-	PZYPPhoYUqJnLxjh8=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGrwVYAeBqGKLsAA--.50649S2;
-	Tue, 27 Oct 2026 09:41:45 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: =?UTF-8?q?David=20H=E4rdeman?= <david@hardeman.nu>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
-Date: Tue, 27 Oct 2026 09:41:44 +0800
-Message-Id: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=google.com; s=20251104; t=1793065326; x=1793670126; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PxhKt4ewbW887pppfVDxKOmckuc+6YqylYK09wMwPvI=;
+        b=g/knnsl9kYCBewBGyHtxjeHICS2L5Hw2DX0ijDDaApZ9CtRSJQb0PUvpWyfuQm6QKD
+         u1UZXxnLQKcUxB9pelvME0T/DlAsnUI+BAJ2zdQNewrqRxvVjMdIXLao3KvVgt49MU1/
+         2YvLfXRoAGImmM54FcAQDb335sU6X1Ui6kfv64hTrLch1yPWyrD98rNbaJcSqNzYTnqi
+         LW4aEtMi087jzeXNqTicPKEBAfwOGWGFdXHEsmeaY6IfQ3GwSS6Wtqna3nqMyeSP5Wb9
+         ppr1c/F305tfTNV6G86eNtFrWjySieAu8zAUrxzjctjvCI87LUjBkUBxQ9LrHTZtybn4
+         1Vqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793065326; x=1793670126;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PxhKt4ewbW887pppfVDxKOmckuc+6YqylYK09wMwPvI=;
+        b=VcupNSBFlLFWYsApTKbZCApwF2nNe/EOnaVTy/uMYw2YmvhU+ArH4OQbK+zZn/H6s7
+         jV/lLpNZ3bS4eqoZGGhrf20GNjmRtaylMFY8ZlZoWsWciiE2kBVYWFtUeQSMtdWZks+I
+         HEaU9MPyKtbMgUILmMIt/w+mgvUCe5rukzeZOd1occlJreSKxF/glU1OwfT6n4IDsF6I
+         RruPu0rZvuxzVYMCX0usqXIIDdLieIcXzQkQ5ee1k0GfJ98Ny7u1B0pj/yuvrQa0lN2j
+         mT16kurH4lNFWqzPBU2WArsGQuYeQkErIsq9cmWXxS+W2LgAGaRRMWOulJa7HZUXyUR7
+         0yFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzewc24p2ybnESq96fxHkKkGA1h5mDFhBvuaft+BFlQr2n4YGEtSFCCnEbl9wfsytRjwYNH+hs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDrFJj5Hnip53wykdOPQPgnbh+cWHgPw4fxpkOGkiFxH37mTbd
+	nMoun1b/edSP4Am4GrtELUqIvCdAbdp1Q5K7DKlDpejFHqf+42uX9DLuGFVNIlA+liW1m58XY6o
+	OOOrYhg==
+X-Received: from pfff18.prod.google.com ([2002:a05:6a00:bd12:b0:8a2:1bc3:8884])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1f0e:b0:874:705d:f63d
+ with SMTP id d2e1a72fcca58-8a368a9fde8mr6298199b3a.31.1793065325885; Mon, 26
+ Oct 2026 18:42:05 -0700 (PDT)
+Date: Tue, 27 Oct 2026 01:42:05 +0000
+In-Reply-To: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,133 +77,95 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkCGrwVYAeBqGKLsAA--.50649S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr15AryftF4xGryDArW5ZFb_yoWrXF43pa
-	n5Wa4rtryjgrsrWr47Xw42qa4rua1Iy398Zry8Kw1q9FZ3Ary3tFZ5JFyUCa4UJry0yFW3
-	tFW5J3y8uayUuF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6w4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUcID7UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FCrgAAss
+Mime-Version: 1.0
+References: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com>
+Message-ID: <auABC6uMYxXmPqtb@google.com>
+Subject: Re: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yingjie Wang <1075151112@qq.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-If rc_register_device() fails after device_add() - for example when
-ir_raw_event_register() cannot create its kthread - the unwind path
-frees the keymap via rc_free_rx_device() while the device is still
-visible in sysfs, and never clears dev->registered.
+On Thu, 22 Oct 2026 22:05:36 +0800, Yingjie Wang wrote:
+> Commit e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
+> made unix_peek_fpl() invalidate unix_peek_seq when gc_in_progress is
+> set.
+> 
+> scm_fp_dup() increments the received files' reference counts before
+> unix_peek_fpl() checks that flag, while unix_gc() sets the flag before
+> reading the same reference counts. The reference-count operations and
+> flag accesses are relaxed. spin_lock() provides acquire ordering, but
+> does not order the earlier flag store against the later file_count()
+> loads.
+> 
+> On weakly ordered machines, GC can therefore miss the reference acquired
+> by MSG_PEEK while MSG_PEEK misses gc_in_progress. unix_peek_seq then
+> remains unchanged, allowing GC to classify an SCC as dead and purge a
+> live receive queue.
+> 
+> Add smp_mb__after_atomic() after scm_fp_dup()'s reference increments and
+> smp_mb__after_spinlock() before GC samples the reference counts. This
+> ensures that either GC observes the new reference or MSG_PEEK observes
+> the active GC and invalidates the seqcount.
+> 
+> LKMM admits the stale/stale outcome without these barriers and forbids it
+> with them. An explicit AArch64 model gives the same result. The original
+> workqueue layout in that commit also lacked the PEEK-side ordering, so the
+> incomplete handshake dates to e5b31d988a41.
+> 
+> Fixes: e5b31d988a41 ("af_unix: Give up GC if MSG_PEEK intervened.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <1075151112@qq.com>
+> ---
+>  net/unix/garbage.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/net/unix/garbage.c b/net/unix/garbage.c
+> index da774f56ca648..c3ed00f52b04e 100644
+> --- a/net/unix/garbage.c
+> +++ b/net/unix/garbage.c
+> @@ -329,6 +329,14 @@ void unix_peek_fpl(struct scm_fp_list *fpl)
+>  	if (!fpl || !fpl->count_unix)
+>  		return;
+>  
+> +	/*
+> +	 * Pair with smp_mb__after_spinlock() in unix_gc(). get_file() in
+> +	 * scm_fp_dup() increments an atomic reference count, so this ensures
+> +	 * that either GC sees the new references or this thread sees
+> +	 * gc_in_progress and invalidates unix_peek_seq.
+> +	 */
+> +	smp_mb__after_atomic();
+> +
 
-A userspace reader of the uevent attribute then enters
-rc_dev_uevent(), passes the registered check under dev->lock and
-dereferences the already freed dev->rc_map.name:
+Thanks for the patch, and sorry for the late reply.
 
-  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
-  lib/vsprintf.c:737
-  Read of size 1 at addr ffff888007ca9d80
-   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
-   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
-   uevent_show+0x1af/0x380 drivers/base/core.c:2756
+Actually there is another thread going on for this issue and
+I suggested another aproach, so ...
 
-Fix it the same way rc_unregister_device() does: take dev->lock,
-close the input device if it is still open and clear
-dev->registered before releasing any resources. rc_dev_uevent()
-then observes the cleared flag and returns -ENODEV instead of
-reading rc_map.name. The same sequence is also needed when
-rc_setup_rx_device() fails: lirc has been registered by then, so
-an open /dev/lircX file descriptor would otherwise keep calling
-driver callbacks that access the torn down device.
+pw-bot: cr
 
-Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
----
-v2:
- - Clear dev->registered on the rc_setup_rx_device() error path too;
-   lirc is already registered there and open file descriptors can
-   still reach driver callbacks.
- - Factor the lock/close/clear sequence into rc_unregister_device_state()
-   and share it with rc_unregister_device().
----
- drivers/media/rc/rc-main.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..3ac5d532c6dc 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1888,6 +1888,24 @@ static void rc_free_rx_device(struct rc_dev *dev)
- 	ir_free_table(&dev->rc_map);
- }
- 
-+/*
-+ * Prevent userspace from accessing a device that is being taken down.
-+ *
-+ * The uevent attribute, the lirc character device and the input device
-+ * all check dev->registered under dev->lock before using driver data.
-+ * Clear it while still holding that lock, and call dev->close() for an
-+ * input device that is still open, exactly as rc_unregister_device()
-+ * does, before the resources they use are freed.
-+ */
-+static void rc_unregister_device_state(struct rc_dev *dev)
-+{
-+	mutex_lock(&dev->lock);
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	dev->registered = false;
-+	mutex_unlock(&dev->lock);
-+}
-+
- int rc_register_device(struct rc_dev *dev)
- {
- 	const char *path;
-@@ -1954,8 +1972,10 @@ int rc_register_device(struct rc_dev *dev)
- 
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
- 		rc = rc_setup_rx_device(dev);
--		if (rc)
-+		if (rc) {
-+			rc_unregister_device_state(dev);
- 			goto out_lirc;
-+		}
- 	}
- 
- 	if (dev->driver_type == RC_DRIVER_IR_RAW) {
-@@ -1970,6 +1990,7 @@ int rc_register_device(struct rc_dev *dev)
- 	return 0;
- 
- out_rx:
-+	rc_unregister_device_state(dev);
- 	rc_free_rx_device(dev);
- out_lirc:
- 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
-@@ -2024,11 +2045,7 @@ void rc_unregister_device(struct rc_dev *dev)
- 	timer_delete_sync(&dev->timer_keyup);
- 	timer_delete_sync(&dev->timer_repeat);
- 
--	mutex_lock(&dev->lock);
--	if (dev->users && dev->close)
--		dev->close(dev);
--	dev->registered = false;
--	mutex_unlock(&dev->lock);
-+	rc_unregister_device_state(dev);
- 
- 	rc_free_rx_device(dev);
- 
--- 
-2.34.1
-
+>  	if (!READ_ONCE(gc_in_progress))
+>  		return;
+>  
+> @@ -614,6 +622,12 @@ static void unix_gc(struct work_struct *work)
+>  	WRITE_ONCE(gc_in_progress, true);
+>  
+>  	spin_lock(&unix_gc_lock);
+> +	/*
+> +	 * Pair with smp_mb__after_atomic() in unix_peek_fpl() to ensure that
+> +	 * either the file-count reads below see MSG_PEEK's increments or
+> +	 * MSG_PEEK sees gc_in_progress.
+> +	 */
+> +	smp_mb__after_spinlock();
+>  
+>  	if (unix_graph_state == UNIX_GRAPH_NOT_CYCLIC) {
+>  		spin_unlock(&unix_gc_lock);
+> 
+> base-commit: f4377bf85887f57b59abb5479f7660a81ffe4449
+> -- 
+> 2.43.0
+> 
