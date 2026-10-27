@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793131537;
-	b=xelY7dO+cS6sZoiY3WXT2NhYcg5cSzMCkBojn0vYKd1ww6abmcJFjw0Ty3TG9I99weo7
-	 WNys7z6LClLqaJTDcTwsBwJpvqZdXhRbWw9HXusI1IlUX2sbeN8DFgTR6a6XkZvXLzLov
-	 4xJPqmqnx4/PJTL41bw0bTimuaUuvEqqoaQ9t8Hll2EKXI36zQwdHQ74ZNTDSXP/Qg5yj
-	 hJqpYkJG2tYnyXBu7PNxdge8C6Mgj81HyfbrjnRNh2Zon35V5tMXoaUapXRVpGo4f9bfs
-	 NBKuZxjeVnwvgU3fVk3adwqUrAwLoasc6DD9qf6omzihKUFuoBGY5xjZ0PjKXGslc9A==
+	t=1793131531;
+	b=flDmtCcVmu5u/r5rSie2Cbrq6AQGIRRIjIsb7mmYEKe43LoHqtYQYvkzk+BRnLfCdtZU
+	 x4mFkfJAcgF40ceIx3R0pff5SyeTTKavGO42Z5HA33AU9DA0RMXfFE+35h5p9h4tz5Gx+
+	 hyNgQ8q15XudjG7+7k4scegUBMt1/z+MAP8yVuTqX+NMmjxY6BtAV+qP4jaMmEY4l4bf7
+	 iS9YO0bCGUZYmAvKMqszbKAxvLdIsxGf9sxpGGEYii3s78J8+lJXR+0NGhUpI1Zi0tz9v
+	 qebZDAdz6S6mcv70ouNCmJ92GI6DzKmdDFD1zybjoPWPrFGNs9oQYyUd8zqs79IdlWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793131537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793131531;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=smZHxwQLMO0VfGs7DNHVio37eG+DNgsUwaA5kyPFTXo=;
-	b=uqmilfNYGDMEZ5F/hLTw15EqHUnoPckjIa7+UMTnZt0ikOabDtOWT+/HCXjWLCq9o4gc
-	 z+nFPF5coM1zTgLhuNquGu6Nkxz2bdDlLUascyDalyNQtRbQyqogn3Rn2WhuoGv3njG9Y
-	 QlL2iM/LeEY4Q/mTkF5XhV6M1w4GU69WLv7AGlRD5C/DUAamquIcRYkrNqZ2MBP396hdg
-	 0rcLbZtWHvFwJRgPs31U64IF8fJwVidPxW8jJZw+BBOMbYm7tfYjgPc4pmID83SPph2vH
-	 YVVBUjaEHP60Xoe1tpCZpRHb0ZEJcsyaAXMLzwfV7mubOrcAP9xFXyH7F2BhAZtpARA==
+	bh=fUz4b6QdP7dTUELIouxOFIGIJMCUt4wDA++rQwb+PSs=;
+	b=4z1o1GaLHkEECXGk1XiHgJKd2YwMrIyixyfNO8RbDNl4y0hWwQsz7qNRpop4jN9oKaKR
+	 F0WAx6qG8/1Rfcf0zicVR7jkwdVt9AfLjtIY46xettZoMuXoyvHCoCkd78Iwk67D6l4bY
+	 iALxvduVS2xXRA2AD58PpUTEeSx5YjjeY+nMdRHl+iZV3I2wTw5t+nunrR7Z3lMSqpYOn
+	 on5RjskSECskokArDhUw0HONAbT5zOn9K//gSF4OUaaDfUyIlqxnMH8qdEfwksTG9Q5nZ
+	 JTphX2rx+lsLaAxDfvuguqhxFMobikRpe6UysY0Ap6nfQ/+dZSmJmlKkJ/d/RyLGcdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cI7RFzuA;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1MYlm62U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97B2606A31E;
-	Tue, 27 Oct 2026 20:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8900606A322;
+	Tue, 27 Oct 2026 20:05:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cI7RFzuA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C661F01825;
-	Tue, 27 Oct 2026 20:05:36 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1MYlm62U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1D71F031E2;
+	Tue, 27 Oct 2026 20:05:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793131536;
-	bh=smZHxwQLMO0VfGs7DNHVio37eG+DNgsUwaA5kyPFTXo=;
+	d=linux-foundation.org; s=korg; t=1793131530;
+	bh=fUz4b6QdP7dTUELIouxOFIGIJMCUt4wDA++rQwb+PSs=;
 	h=Date:To:From:Subject;
-	b=cI7RFzuA1NbsdOxXoEGpTclkewRa+E60lE4V45nS3FZklGyNMw7KACnLkAM/IZsFm
-	 NysGxFj0smbgTReQnb47KFZ7qy1cEPPSRW+f0aWXdKnQZ/J7bz+uHQnfZ7B3ulIgb9
-	 BudS8G/Mdy2OuRgzo+U9GeoC/j/gp/aO+hHvs2ao=
-Date: Tue, 27 Oct 2026 13:05:35 -0700
+	b=1MYlm62U+jDMbk2HVeeDbc92+8tkzLnLPPynB2hSuvfgyEqnBc3G9t8fNwcqcUTu4
+	 cHTny/6o1F3+QbVk+YzbJedVcR4Z9sG0cp0kj5kBLqkcub9NOQHQhlM1pV0/A1YmiA
+	 toMzLMuug/MIo4uhj3dp5ER2Li2bHZE0U4mGezLs=
+Date: Tue, 27 Oct 2026 13:05:29 -0700
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,
 	vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
 	shakeel.butt@linux.dev,rppt@kernel.org,osalvador@suse.de,mhocko@suse.com,
 	hannes@cmpxchg.org,gourry@gourry.net,david@kernel.org,
 	brendan.jackman@linux.dev,josef@toxicpanda.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-page_alloc-pass-zone-pointer-to-trace_reclaim_retry_zone.patch added to mm-unstable branch
-Message-Id: <20261027200536.25C661F01825@smtp.kernel.org>
+Subject: + mm-page_alloc-clear-private-of-deferred-free-pages.patch added to mm-unstable branch
+Message-Id: <20261027200530.5C1D71F031E2@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,12 +55,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
+     Subject: mm/page_alloc: clear ->private of deferred free pages
 has been added to the -mm mm-unstable branch.  Its filename is
-     mm-page_alloc-pass-zone-pointer-to-trace_reclaim_retry_zone.patch
+     mm-page_alloc-clear-private-of-deferred-free-pages.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_alloc-pass-zone-pointer-to-trace_reclaim_retry_zone.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_alloc-clear-private-of-deferred-free-pages.patch
 
 This patch will later appear in the mm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -79,31 +79,43 @@ and is updated there most days
 
 ------------------------------------------------------
 From: Josef Bacik <josef@toxicpanda.com>
-Subject: mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
-Date: Tue, 27 Oct 2026 16:46:31 +0100
+Subject: mm/page_alloc: clear ->private of deferred free pages
+Date: Tue, 27 Oct 2026 16:46:28 +0100
 
-should_reclaim_retry() walks a zonelist and passes the zoneref pointer
-to the reclaim_retry_zone tracepoint, which loads the zone from the
-entry again to find the node.
+free_pages_nolock() and free_frozen_pages_nolock() put the page on
+zone->trylock_free_pages if they get neither the pcp lock nor zone->lock.
+add_page_to_zone_llist() keeps the order of the page in page->private.
+The next free_one_page() which does get zone->lock passes these pages to
+split_large_buddy() with ->private still set.
 
-Memory hotplug rebuilds the zonelists in place while allocations are
-under way. When a zone in front of the zoneref entry has become empty,
-the entries move up, and this one can be the end marker by the time the
-tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
-zone. Short of that, the event can name another zone than the one its
-numbers belong to.
+__free_one_page() writes ->private of the head of the resulting free page
+only. If the deferred page is merged with its lower buddy, it becomes a
+tail of that free page and keeps the order in ->private.
 
-Pass the zone pointer instead of the zoneref pointer.
+All other free pages which are not the head of a buddy have a ->private
+of zero, and since commit 819bfbd47e49 ("mm/page_alloc: remove
+set_page_private() in prep_compound_tail()") the allocator relies on it.
+When the stale page is allocated again as a tail of a larger page:
 
-Link: https://lore.kernel.org/20261027-pgalloc-ai-hotfixes-v1-5-9c7d1aca801e@kernel.org
-Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
+ - prep_compound_tail() hits VM_WARN_ON_ONCE(tail->private);
+ - with the page checks enabled, __free_pages_prepare() reports
+   "BUG: Bad page state", "nonzero private", and leaks the whole page;
+ - without them the value is seen by whoever uses that page next, e.g. as
+   folio->private of a folio which is split off a large folio.
+
+Only pages of an order above zero are affected. Those can be freed
+through _nolock() by the stack depot (order 2) and by SLUB (a new slab
+which cannot be added to the partial list by kmalloc_nolock()).
+
+Clear ->private when the page is taken off the list.
+
+Link: https://lore.kernel.org/20261027-pgalloc-ai-hotfixes-v1-2-9c7d1aca801e@kernel.org
+Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 Assisted-by: LLM
 Cc: Shakeel Butt <shakeel.butt@linux.dev>
 Cc: Mike Rapoport <rppt@kernel.org>
@@ -113,55 +125,24 @@ Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Michal Hocko <mhocko@suse.com>
 Cc: Brendan Jackman <brendan.jackman@linux.dev>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>
 Cc: <stable@vger.kernel.org>
 ---
 
- include/trace/events/oom.h |    8 ++++----
- mm/page_alloc.c            |    2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ mm/page_alloc.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/include/trace/events/oom.h~mm-page_alloc-pass-zone-pointer-to-trace_reclaim_retry_zone
-+++ a/include/trace/events/oom.h
-@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
- 
- TRACE_EVENT(reclaim_retry_zone,
- 
--	TP_PROTO(struct zoneref *zoneref,
-+	TP_PROTO(struct zone *zone,
- 		int order,
- 		unsigned long reclaimable,
- 		unsigned long available,
-@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
- 		int no_progress_loops,
- 		bool wmark_check),
- 
--	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
-+	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
- 
- 	TP_STRUCT__entry(
- 		__field(	int, node)
-@@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
- 	),
- 
- 	TP_fast_assign(
--		__entry->node = zonelist_node_idx(zoneref);
--		__entry->zone_idx = zonelist_zone_idx(zoneref);
-+		__entry->node = zone_to_nid(zone);
-+		__entry->zone_idx = zone_idx(zone);
- 		__entry->order = order;
- 		__entry->reclaimable = reclaimable;
- 		__entry->available = available;
---- a/mm/page_alloc.c~mm-page_alloc-pass-zone-pointer-to-trace_reclaim_retry_zone
+--- a/mm/page_alloc.c~mm-page_alloc-clear-private-of-deferred-free-pages
 +++ a/mm/page_alloc.c
-@@ -4675,7 +4675,7 @@ should_reclaim_retry(gfp_t gfp_mask, uns
- 		 */
- 		wmark = __zone_watermark_ok(zone, order, min_wmark,
- 				ac->highest_zoneidx, alloc_flags, available);
--		trace_reclaim_retry_zone(z, order, reclaimable,
-+		trace_reclaim_retry_zone(zone, order, reclaimable,
- 				available, min_wmark, *no_progress_loops, wmark);
- 		if (wmark) {
- 			ret = true;
+@@ -1562,6 +1562,8 @@ static void free_one_page(struct zone *z
+ 		llist_for_each_entry_safe(p, tmp, llnode, pcp_llist) {
+ 			unsigned int p_order = p->private;
+ 
++			/* It may end up as a tail of the merged free page. */
++			p->private = 0;
+ 			split_large_buddy(zone, p, page_to_pfn(p), p_order, fpi_flags);
+ 			__count_vm_events(PGFREE, 1 << p_order);
+ 		}
 _
 
 Patches currently in -mm which might be from josef@toxicpanda.com are
