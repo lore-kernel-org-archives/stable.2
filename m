@@ -1,41 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793071728;
-	b=HBhu3hQTFtkNGR5wQwoSdMEWqZUHcoE9LiHvcUaAmV2lhk6ZAY4YXZoYvFtMm6jHECXb
-	 PzFfCi03BYGjWQ0LZY+ZPD3R10uGLUDrUbqEnE2orG0YdpMuJw3QwDVKpYj0hnT+W3/lP
-	 EF1gs6GwnRHdSD7MQi5KjRY7scAAoS774lpy+FG8Laz+1REFHtw44V4oFZmFhDsX2rBmD
-	 LwDUUjdinUHECxUf9ziyK1lIURmjGwk1r6rymv9Ht3ZYUzZZCdfHjUeGLlnprnhyy35i1
-	 AvXTMEtFQnba+VB9iyz+ArORdwCESsDwGgSJQKgmGZgappHt1PdsHzbKUvtWyHBGqQQ==
+	t=1793071829;
+	b=l6GRDCNjU4bsuIwpyyVro/ZyIeAi/iyoKDpYyKx19Q1YeQ/ObcOJE3iY5Gz0ae4zJIbO
+	 wqWjsIHiUskPwOtFOwqvlATClLG8IASZEvSE/gvIzQA9/YuQQdq2FBTFzYWFdzA3Spr8f
+	 Cn3m1AgqTb9wxA9fMK55Nbg+I15h0YGy1prEX63fL+OxglltiwshkTVzVv8Assd1935CS
+	 RWdHot+x+oKYNmTP1mxd4isKjaxaBnaFiSwavWZ8x0kAQI/wzCpRoE9oNBUgG+lqd8L++
+	 e1Y1noYV7qd1YNx3aVa2NgTVlOVmJu6T2Xf7VB5hAkLYxpaKmyaDuXom+alxjGclmOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793071728;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=sb+RKkGHy3e/r4gLHkfytASA7lsn8w/DIKciO5unH5I=;
-	b=C9C8R3+2jpxWAQGrsscbUUrjX5bZVIViG0JJAaQ/+Z+flTV1hXVFGhNSULjZKC+jjPcq
-	 DzQ+2W4uoFnwDIf0FJ27Cyw/p+OwXtIiXLpcotUkkwX3AiCfR3R+STq3J2zFDb//nhPVa
-	 06GIFJUfJB8CqG7H8K0mKjmpNhDwMiJFgDaznqWJAd8JFtY2ohyJ1dauz2XqBDc/Mn+Sf
-	 Kq8s1gYhEALJMIer9ttMEslO59nt4UblKNRpz/Ul5VrxGnOla3QiJflD7xEpU7xOCzFwg
-	 wP+278+FHVirZW+pQzYpOBAuDmqgzRtUzHDHA8AQxZzLbCZrB6vAcRXlUAzVGZ2A+Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793071829;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:X-QQ-mid;
+	bh=R7f3stiUVfXhOWegH27IIaZItUwO7d+QT85UzPs4+fc=;
+	b=Kz6CRI0Erl5hN2ap7yJGpra+trGnopB74LSRakNdiB4rX71q4x4keFdBkb0Z/HUDwTLl
+	 iZBObu/dwWbv4CQEcJ8I8RLkfMw8w5SADcuyto1Ai01UXuo8AJNwgFe4T9ppdR+Fsesoa
+	 7s4wrMMgAkegaBwcQbe6dcNJqsjyBnrKeJB+7FEl3gpE//8RbzgYBan90m0/GmiAHv98s
+	 eGRJ0xf60YSSseWX0bq2X36JOQimTdpUvwvX+M88ejJsYvVRcg7lvkoqVP9GPg/JLfIgY
+	 KvNC6VCyeYV3K3UtBmiVLOUVZl9GzSMHY7tyQrL2jY27yRe0LOB9ysaUoSI18xA5z+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E91D5606A31A;
-	Tue, 27 Oct 2026 03:28:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E91D5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8Axj9FkGuBqGbAZAA--.9450S3;
-	Tue, 27 Oct 2026 11:28:36 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJCxPs9hGuBqhYowAA--.35389S2;
-	Tue, 27 Oct 2026 11:28:35 +0800 (CST)
-Message-ID: <7c3d56c7-5764-4c4a-9fbc-1e70c95df0b0@loongson.cn>
-Date: Tue, 27 Oct 2026 11:25:48 +0800
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=uM7zQ4zL;
+	arc=none smtp.remote-ip=203.205.221.164
+Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8CC606A31A;
+	Tue, 27 Oct 2026 03:30:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8CC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=uM7zQ4zL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793071819;
+	bh=R7f3stiUVfXhOWegH27IIaZItUwO7d+QT85UzPs4+fc=;
+	h=From:To:Cc:Subject:Date;
+	b=uM7zQ4zLw1Fy8pa7lxQJMQQqDXxi64jU6Xr5VZazjCMUfq1kHlPLLp27bERsfk3vj
+	 aVjeoxqVtjg+pTsLsOWCDV7AZMJrLvu1VFXHZkcH8b0PALn8ndzStSEuX1X7jqA9yz
+	 rW/srQZdt4A+rDjMWBXPKJ0XnfFD7TEMu0e8b11E=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: MqwtKnyaFYvYreKouAK98/fF7gw1PqAM6dG6FAdsei8Va5GvPHhhuq0w463LH6
+	 e0BCFD9AyFyGeuO5C0bu9dx00IhKqsyyONggIAcmnJuhCTsLIo5NUl64/bsAW6ZKkowSlR+zoI042
+	 XNX3g5bJxoCGQf2aSufUOADj2ohQJOBD3HgMpbiKAFqF/GXEGk6sSYTkBFz5E76my05ajqA688iT2
+	 QhgYkuaGL88T1KGilJBWQQfidtiakFJmYI8lLoZUc4DCas0EIHNn6ypJRuJuj72x4wuNvKqr33cqo
+	 TUCLNuHRXF19WoediFlO37tKVCgsrnmdqRNNCyjA0Msyrsmwi0Dd/keoKp6WaeGIrRmR5NpGk4ZRR
+	 mR7BLdRzZRhszqF+4JJ8zanCTHEHrSV3Ukzfxj8iAY/xxcB/Bm/a2HikORa5XsLrIPo+nimEJHGpN
+	 dDq3JF4zfBIkFBQEY4xwIp8S29Z057CbN2OspTLKwJtyUZUBDH7BRbyyiJZhlTR8lXqTSBQjT6/kD
+	 +tHEv23IAHJbpUPrM/savezN91lz4qxusOaB3kFUkaksSx2689pOBmBTATCxWeK78+3+ovopCid3w
+	 AlJZdWLudyWCv+Xm1JU6AmdjK3QT4ZM1lLjiWYBcNuRd52s8cySqI2BTFN6tlGM0lkfMZ/fi7oOVm
+	 X9UaCjvVcnP11NTgYeQTVtV6iH576VtK4Q8SG+zR7bd4rgmaFBo695lKlxCV9wiPNp2Iz5IRZbrDb
+	 eieVQvVizBFPicmpEuNaEoi817Vge744VXMx8XhoBQaccJOPZI0Teco1sOn5XJHWuvf9al/ibTKI2
+	 n4QOgLdcSoMS72u7uEFWeLA+rvvPzVNFJaCvJZn26hqIB2idVNVpUMrAoNBEbfB/yLTkpSt53a/jc
+	 oZM/gHmgPJwe9e/pU6eJI1+aVW4QyEkhVIWTc7hPRy7+SWAUPrkBuXOmGh1pVg+XCOO8J8HI4sHDN
+	 6Qn2xJtAuJWBNqH/tQUha0CqLFgMxZspz6Mb7/Pgc/zuzY70w1JbgkYxDyJc2usevyhtoAXof+rJG
+	 N91ja2Y6xXe/jMiXh6InMv1zx4VE0dpip64ALkPB/PJAMO6nnw5gZnwFWCAWUNHfB02EpY99n5H8I
+	 166v8JOpMcKvquSadjVX4Efkpkqmsnt1ByaOM9POuQvAkQ==
+From: "=?utf-8?B?Ym8gY2Fv?=" <treebacker@foxmail.com>
+To: "=?utf-8?B?YnBm?=" <bpf@vger.kernel.org>
+Cc: "=?utf-8?B?YXN0?=" <ast@kernel.org>, "=?utf-8?B?ZGFuaWVs?=" <daniel@iogearbox.net>, "=?utf-8?B?YW5kcmlp?=" <andrii@kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -44,141 +68,120 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/28] mfd: loongson-se: Validate engine ID, DMA buffer
- size, and IRQ registration
-To: Lee Jones <lee@kernel.org>
-Cc: stable@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
- Yinggang Gu <guyinggang@loongson.cn>, linux-crypto@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-21-lee@kernel.org>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-21-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxPs9hGuBqhYowAA--.35389S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXFWDGF4rXw4kGFWfuFWfZwc_yoW5tFW5pF
-	45Aa4Ykr4Yyr4xuwsxJrZ8AF1YyFyrJry7Ca9rta1IkFyDXw18Wry5WFyUWFZ3ArWUJF1f
-	XFWkGFs5uF1rGFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU2DUUUUUUU
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 27 Oct 2026 11:30:18 +0800
+X-Priority: 3
+Message-ID: <tencent_BEA5FE30F5544754FA5F1BBE68093B69AD0A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-mid: xmseua11-1t1793071818too4wx4rh
 
-
-在 2026/10/21 20:09, Lee Jones 写道:
-> Harden input and error checking in loongson_se_init_engine() and
-> loongson_se_probe():
->
-> - Reject out-of-bounds engine IDs and engine 0 in
->   loongson_se_init_engine() before indexing se->engines.
-> - Store dmam_size as u32 to match device_property_read_u32() and verify
->   that it is large enough to hold the command buffers of all engines
->   within engine 0's data region.
-> - Propagate negative error codes from platform_irq_count(),
->   platform_get_irq(), and devm_request_irq() instead of ignoring IRQ
->   registration failures or masking -EPROBE_DEFER.
->
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-> Closes: https://sashiko.dev/#/bug/linux-89bf25f5-ecd9-40e3-bb4c-bd26d07c53a1
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-
-Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-
-Thanks for fixing this!
-
-
-Best Regards,
-
-Qunqin.
-
-> ---
->  drivers/mfd/loongson-se.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-> index bdbab4b91729..23af05d388aa 100644
-> --- a/drivers/mfd/loongson-se.c
-> +++ b/drivers/mfd/loongson-se.c
-> @@ -26,7 +26,7 @@ struct loongson_se {
->  	struct completion cmd_completion;
->  
->  	void *dmam_base;
-> -	int dmam_size;
-> +	u32 dmam_size;
->  
->  	struct mutex engine_init_lock;
->  	struct loongson_se_engine engines[SE_ENGINE_MAX];
-> @@ -101,8 +101,13 @@ EXPORT_SYMBOL_GPL(loongson_se_send_engine_cmd);
->  struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
->  {
->  	struct loongson_se *se = dev_get_drvdata(dev);
-> -	struct loongson_se_engine *engine = &se->engines[id];
->  	struct loongson_se_controller_cmd cmd = {};
-> +	struct loongson_se_engine *engine;
-> +
-> +	if (id <= 0 || id >= SE_ENGINE_MAX)
-> +		return NULL;
-> +
-> +	engine = &se->engines[id];
->  
->  	engine->se = se;
->  	engine->id = id;
-> @@ -186,7 +191,7 @@ static void loongson_se_stop(void *data)
->  	mutex_unlock(&se->engine_init_lock);
->  }
->  
-> -static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
-> +static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, u32 size)
->  {
->  	struct loongson_se_controller_cmd cmd = {};
->  	int err;
-> @@ -249,6 +254,9 @@ static int loongson_se_probe(struct platform_device *pdev)
->  	if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
->  		return -ENODEV;
->  
-> +	if ((se->dmam_size / SE_ENGINE_MAX) < (SE_ENGINE_MAX * 2 * SE_ENGINE_CMD_SIZE))
-> +		return -EINVAL;
-> +
->  	se->dmam_base = dmam_alloc_coherent(dev, se->dmam_size, &paddr, GFP_KERNEL);
->  	if (!se->dmam_base)
->  		return -ENOMEM;
-> @@ -258,16 +266,21 @@ static int loongson_se_probe(struct platform_device *pdev)
->  		return PTR_ERR(se->base);
->  
->  	nr_irq = platform_irq_count(pdev);
-> -	if (nr_irq <= 0)
-> +	if (!nr_irq)
->  		return -ENODEV;
-> +	if (nr_irq < 0)
-> +		return nr_irq;
->  
->  	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
->  
->  	for (i = 0; i < nr_irq; i++) {
->  		irq = platform_get_irq(pdev, i);
-> +		if (irq < 0)
-> +			return irq;
-> +
->  		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
->  		if (err)
-> -			dev_err(dev, "failed to request IRQ: %d\n", irq);
-> +			return dev_err_probe(dev, err, "Failed to request IRQ: %d\n", irq);
->  	}
->  
->  	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
+VGhyZWUgcGF0aHMgdGFrZSBhIHRhcmdldCBDUFUgaWQgYXMgYSByYXcgdTMyIGFuZCBvbmx5
+IHJlamVjdApjcHUgPj0gbnJfY3B1X2lkcyBiZWZvcmUgdGhlIHZhbHVlIGlzIHVzZWQgYXMg
+YSBwZXJfY3B1X3B0cigpIGluZGV4LgoKYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0oKSBk
+aXNwYXRjaGVzIHRvIHRoZSBwZXItY3B1IG1hcAppbXBsZW1lbnRhdGlvbnMsIGFuZCBhbGwg
+dGhyZWUgb2YgdGhlbSAocGVyY3B1IGFycmF5LCBwZXJjcHUgaGFzaCwKcGVyY3B1IExSVSBo
+YXNoKSBjaGVjayBub3RoaW5nIGJleW9uZCB0aGF0IHVwcGVyIGJvdW5kOgoKCWlmIChjcHUg
+Pj0gbnJfY3B1X2lkcykKCQlyZXR1cm4gTlVMTDsKCS4uLgoJcmV0dXJuIHBlcl9jcHVfcHRy
+KC4uLiwgY3B1KTsKCmJwZl9wZXJfY3B1X3B0cigpIGhhcyB0aGUgc2FtZSB3ZWFrIGNoZWNr
+IGJlZm9yZSByZXR1cm5pbmcKcGVyX2NwdV9wdHIocHRyLCBjcHUpIGZvciBhIGtlcm5lbCBw
+ZXJjcHUgdmFyaWFibGUuCgpOb3RlIHRoYXQgdGhlIHZlcmlmaWVyIHJld3JpdGVzIGNhbGxz
+IHRvIGJwZl9tYXBfbG9va3VwX3BlcmNwdV9lbGVtKCkKd2l0aCBhIGtub3duIG1hcCBpbnRv
+IGRpcmVjdCBjYWxscyB0byB0aGUgbWFwIGNhbGxiYWNrCihrZXJuZWwvYnBmL2ZpeHVwcy5j
+LCBCUEZfRlVOQ19tYXBfbG9va3VwX3BlcmNwdV9lbGVtIGNhc2UpLCBzbyBhCmNoZWNrIGlu
+IHRoZSBoZWxwZXJzLmMgd3JhcHBlciBhbG9uZSBkb2VzIG5vdCBjb3ZlciBKSVRlZCBwcm9n
+cmFtczsKdGhlIGNhbGxiYWNrcyB0aGVtc2VsdmVzIG11c3QgcmVqZWN0IHRoZSBob2xlIENQ
+VSBpZC4KClBlci1jcHUgbWVtb3J5IGlzIG9ubHkgYWxsb2NhdGVkIGZvciBwb3NzaWJsZSBD
+UFVzLCBhbmQKX19wZXJfY3B1X29mZnNldFtdIGlzIG9ubHkgaW5pdGlhbGl6ZWQgZm9yIHRo
+ZW0gKG9uIGFybTY0LApzZXR1cF9wZXJfY3B1X2FyZWFzKCkgd2Fsa3MgZm9yX2VhY2hfcG9z
+c2libGVfY3B1KS4gIE9uIGEgc3lzdGVtCndpdGggYSBzcGFyc2UgcG9zc2libGUgbWFzayAt
+IGUuZy4gYW4gYXJtNjQgZ3Vlc3Qgd2l0aCBhIGRldmljZS10cmVlCkNQVSBob2xlLCBwb3Nz
+aWJsZSBtYXNrIDAsMi0zIHdpdGggbnJfY3B1X2lkcyA9IDQgLSBhIGxvb2t1cCB3aXRoCnRo
+ZSBob2xlIENQVSBpZCBwYXNzZXMgdGhlIHdlYWsgY2hlY2tzLCBhbmQgcGVyX2NwdV9wdHIo
+KSBjb21wdXRlcwp0aGUgcmV0dXJuZWQgcG9pbnRlciBmcm9tIHRoZSB1bmluaXRpYWxpemVk
+IF9fcGVyX2NwdV9vZmZzZXRbaG9sZV0uCgpGb3IgYnBmX21hcF9sb29rdXBfcGVyY3B1X2Vs
+ZW0oKSB0aGUgcmV0dXJuZWQgcG9pbnRlciBsaWVzIG91dHNpZGUKYW55IHZhbGlkIHBlci1j
+cHUgY2h1bmsgb2YgdGhlIG1hcDogcmVhZHMgbGVhayB0aGUgc3RhbGUgYnl0ZXMKdGhyb3Vn
+aCB0aGUgbWFwIHZhbHVlLCBhbmQgd3JpdGVzIGNvcnJ1cHQgd2hhdGV2ZXIgdGhlIG9mZnNl
+dApoYXBwZW5zIHRvIGxhbmQgb24uICBGb3IgYnBmX3Blcl9jcHVfcHRyKCkgdGhlIGxlYWsg
+dGFyZ2V0IGlzIGtlcm5lbAptZW1vcnkgaW5zdGVhZCBvZiBtYXAgdmFsdWVzICh0aGUgcmV0
+dXJuIHR5cGUgaXMgbWFya2VkIE1FTV9SRE9OTFksCnNvIHJlYWRzIG9ubHkpLgoKUmVwcm9k
+dWNlZCBvbiBhbiBhcm02NCBndWVzdCB3aXRoIHBvc3NpYmxlIG1hc2sgMCwyLTMgKFVidW50
+dQo3LjMuMC05LWdlbmVyaWMpOiBhIHNvY2tldCBmaWx0ZXIgcHJvZ3JhbSBwYXNzZXMgdGhl
+IHBvaW50ZXIKcmV0dXJuZWQgYnkgYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0obWFwLCBr
+ZXksIDEpIG9uIGFzIHRoZSB2YWx1ZQphcmd1bWVudCBvZiBicGZfbWFwX3VwZGF0ZV9lbGVt
+KCksIGFuZCB0aGUgY29weSBpbnNpZGUKYXJyYXlfbWFwX3VwZGF0ZV9lbGVtKCkgZmF1bHRz
+IG9uIGl0OgoKICBwYyA6IF9fcGlfbWVtY3B5X2dlbmVyaWMrMHgzYy8weDIzMAogIGxyIDog
+YXJyYXlfbWFwX3VwZGF0ZV9lbGVtKzB4MTQ4LzB4MmE4CiAgQ2FsbCB0cmFjZToKICAgX19w
+aV9tZW1jcHlfZ2VuZXJpYysweDNjLzB4MjMwIChQKQogICBicGZfcHJvZ184MzVhNGJhMmVh
+Njc1NWYwX3BvYysweDkwLzB4YzAKICAgYnBmX3Rlc3RfcnVuKzB4MmQwLzB4NDYwCiAgIGJw
+Zl9wcm9nX3Rlc3RfcnVuX3NrYisweDRhYy8weDkyMAogICBfX3N5c19icGYrMHg2MTQvMHhi
+ZTgKICAgX19hcm02NF9zeXNfYnBmKzB4MzgvMHg3OAoKdGhlIG1lbWNweSBzb3VyY2UgKHgx
+ID0gMDAwMGI3NzM3ZWM3ZGM4OCkgYmVpbmcgdGhlIG91dC1vZi1ib3VuZHMKcG9pbnRlciB0
+aGUgbG9va3VwIHJldHVybmVkIGZvciB0aGUgaG9sZSBDUFUuCgpUaGUgc3lzY2FsbCBzaWRl
+IG9mIHRoZSBzYW1lIHByb2JsZW0gKEJQRl9GX0NQVSBtYXAgb3BlcmF0aW9uIGZsYWdzKQp3
+YXMgZml4ZWQgYnkgZWQ1NGJmNTY0YWM1ICgiYnBmOiBGaXggQlBGX0ZfQ1BVIHZhbGlkYXRp
+b24gZm9yIHNwYXJzZQpDUFUgSURzIiksIHdoaWNoIGFkZGVkIGNwdV9wb3NzaWJsZSgpIHZh
+bGlkYXRpb24gdG8KYnBmX21hcF9jaGVja19vcF9mbGFncygpLiAgVGhlc2UgcGF0aHMgZG8g
+bm90IGdvIHRocm91Z2ggdGhhdApmdW5jdGlvbiwgc28gdGhlIHNhbWUgY2xhc3Mgb2YgaG9s
+ZSBDUFUgaWQgbmVlZHMgdG8gYmUgcmVqZWN0ZWQgaGVyZQphcyB3ZWxsLgoKQWRkIHRoZSBj
+aGVjayB0byB0aGUgdGhyZWUgbWFwIGNhbGxiYWNrcyAoc28gdGhlIHZlcmlmaWVyJ3MgZGly
+ZWN0CmNhbGwgcGF0aCBpcyBjb3ZlcmVkKSwga2VlcCBpdCBpbiB0aGUgaGVscGVyIGRpc3Bh
+dGNoIGFzIGEgY2VudHJhbApmYWxsYmFjaywgYW5kIGZpeCBicGZfcGVyX2NwdV9wdHIoKSBp
+biBwbGFjZS4KClN1Z2dlc3RlZC1ieTogc2FzaGlrby1ib3QgPHNhc2hpa28tYm90QGtlcm5l
+bC5vcmc+CkZpeGVzOiAwNzM0MzExMGIyOTMgKCJicGY6IGFkZCBicGZfbWFwX2xvb2t1cF9w
+ZXJjcHVfZWxlbSBmb3IgcGVyY3B1IG1hcCIpCkZpeGVzOiBlYWE2YmNiNzFlZjYgKCJicGY6
+IEludHJvZHVjZSBicGZfcGVyX2NwdV9wdHIoKSIpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwu
+b3JnClNpZ25lZC1vZmYtYnk6IOW5s+S5iyA8dHJlZWJhY2tlckBmb3htYWlsLmNvbT4KLS0t
+CkNoYW5nZXMgaW4gdjI6IGFkZCB0aGUgY3B1X3Bvc3NpYmxlKCkgY2hlY2sgdG8gdGhlIHRo
+cmVlIHBlci1jcHUgbWFwCmNhbGxiYWNrcyBhcyB3ZWxsLCBiZWNhdXNlIHRoZSB2ZXJpZmll
+ciByZXdyaXRlcyBoZWxwZXIgY2FsbHMgd2l0aCBhCmtub3duIG1hcCBpbnRvIGRpcmVjdCBj
+YWxscyB0byB0aGUgY2FsbGJhY2tzIChrZXJuZWwvYnBmL2ZpeHVwcy5jKQphbmQgdGh1cyBi
+eXBhc3NlcyB0aGUgaGVscGVycy5jIHdyYXBwZXIsIGFzIHBvaW50ZWQgb3V0IGJ5CnNhc2hp
+a28tYm90LgoKTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYnBmL3Nhc2hpa28tb3V0
+Ym94LTE4NjA0OEBrZXJuZWwub3JnLwotLS0KIGtlcm5lbC9icGYvYXJyYXltYXAuYyB8IDIg
+Ky0KIGtlcm5lbC9icGYvaGFzaHRhYi5jICB8IDQgKystLQoga2VybmVsL2JwZi9oZWxwZXJz
+LmMgIHwgNiArKysrKy0KIDMgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA0IGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2tlcm5lbC9icGYvYXJyYXltYXAuYyBiL2tlcm5l
+bC9icGYvYXJyYXltYXAuYwppbmRleCAxMzNmMTg5YmY2ZDIuLmVhYjAzZjk4NTI4MCAxMDA2
+NDQKLS0tIGEva2VybmVsL2JwZi9hcnJheW1hcC5jCisrKyBiL2tlcm5lbC9icGYvYXJyYXlt
+YXAuYwpAQCAtMzI3LDcgKzMyNyw3IEBAIHN0YXRpYyB2b2lkICpwZXJjcHVfYXJyYXlfbWFw
+X2xvb2t1cF9wZXJjcHVfZWxlbShzdHJ1Y3QgYnBmX21hcCAqbWFwLCB2b2lkICprZXksCiAJ
+c3RydWN0IGJwZl9hcnJheSAqYXJyYXkgPSBjb250YWluZXJfb2YobWFwLCBzdHJ1Y3QgYnBm
+X2FycmF5LCBtYXApOwogCXUzMiBpbmRleCA9ICoodTMyICopa2V5OwogCi0JaWYgKGNwdSA+
+PSBucl9jcHVfaWRzKQorCWlmIChjcHUgPj0gbnJfY3B1X2lkcyB8fCAhY3B1X3Bvc3NpYmxl
+KGNwdSkpCiAJCXJldHVybiBOVUxMOwogCiAJaWYgKHVubGlrZWx5KGluZGV4ID49IGFycmF5
+LT5tYXAubWF4X2VudHJpZXMpKQpkaWZmIC0tZ2l0IGEva2VybmVsL2JwZi9oYXNodGFiLmMg
+Yi9rZXJuZWwvYnBmL2hhc2h0YWIuYwppbmRleCBiZjc4ZTA5ZjRkNTEuLjAwNzI3OWMxNmI3
+NyAxMDA2NDQKLS0tIGEva2VybmVsL2JwZi9oYXNodGFiLmMKKysrIGIva2VybmVsL2JwZi9o
+YXNodGFiLmMKQEAgLTI2NzAsNyArMjY3MCw3IEBAIHN0YXRpYyB2b2lkICpodGFiX3BlcmNw
+dV9tYXBfbG9va3VwX3BlcmNwdV9lbGVtKHN0cnVjdCBicGZfbWFwICptYXAsIHZvaWQgKmtl
+eSwKIHsKIAlzdHJ1Y3QgaHRhYl9lbGVtICpsOwogCi0JaWYgKGNwdSA+PSBucl9jcHVfaWRz
+KQorCWlmIChjcHUgPj0gbnJfY3B1X2lkcyB8fCAhY3B1X3Bvc3NpYmxlKGNwdSkpCiAJCXJl
+dHVybiBOVUxMOwogCiAJbCA9IF9faHRhYl9tYXBfbG9va3VwX2VsZW0obWFwLCBrZXkpOwpA
+QCAtMjY5Niw3ICsyNjk2LDcgQEAgc3RhdGljIHZvaWQgKmh0YWJfbHJ1X3BlcmNwdV9tYXBf
+bG9va3VwX3BlcmNwdV9lbGVtKHN0cnVjdCBicGZfbWFwICptYXAsIHZvaWQgKmsKIHsKIAlz
+dHJ1Y3QgaHRhYl9lbGVtICpsOwogCi0JaWYgKGNwdSA+PSBucl9jcHVfaWRzKQorCWlmIChj
+cHUgPj0gbnJfY3B1X2lkcyB8fCAhY3B1X3Bvc3NpYmxlKGNwdSkpCiAJCXJldHVybiBOVUxM
+OwogCiAJbCA9IF9faHRhYl9tYXBfbG9va3VwX2VsZW0obWFwLCBrZXkpOwpkaWZmIC0tZ2l0
+IGEva2VybmVsL2JwZi9oZWxwZXJzLmMgYi9rZXJuZWwvYnBmL2hlbHBlcnMuYwppbmRleCA2
+NDhhYmUxYmE2M2EuLmY5ZjJiZDY2NTAzOCAxMDA2NDQKLS0tIGEva2VybmVsL2JwZi9oZWxw
+ZXJzLmMKKysrIGIva2VybmVsL2JwZi9oZWxwZXJzLmMKQEAgLTEzMyw2ICsxMzMsMTAgQEAg
+Y29uc3Qgc3RydWN0IGJwZl9mdW5jX3Byb3RvIGJwZl9tYXBfcGVla19lbGVtX3Byb3RvID0g
+ewogQlBGX0NBTExfMyhicGZfbWFwX2xvb2t1cF9wZXJjcHVfZWxlbSwgc3RydWN0IGJwZl9t
+YXAgKiwgbWFwLCB2b2lkICosIGtleSwgdTMyLCBjcHUpCiB7CiAJV0FSTl9PTl9PTkNFKCFi
+cGZfcmN1X2xvY2tfaGVsZCgpKTsKKworCWlmIChjcHUgPj0gbnJfY3B1X2lkcyB8fCAhY3B1
+X3Bvc3NpYmxlKGNwdSkpCisJCXJldHVybiAwOworCiAJcmV0dXJuICh1bnNpZ25lZCBsb25n
+KSBtYXAtPm9wcy0+bWFwX2xvb2t1cF9wZXJjcHVfZWxlbShtYXAsIGtleSwgY3B1KTsKIH0K
+IApAQCAtNzUzLDcgKzc1Nyw3IEBAIGNvbnN0IHN0cnVjdCBicGZfZnVuY19wcm90byBicGZf
+Y29weV9mcm9tX3VzZXJfdGFza19wcm90byA9IHsKIAogQlBGX0NBTExfMihicGZfcGVyX2Nw
+dV9wdHIsIGNvbnN0IHZvaWQgKiwgcHRyLCB1MzIsIGNwdSkKIHsKLQlpZiAoY3B1ID49IG5y
+X2NwdV9pZHMpCisJaWYgKGNwdSA+PSBucl9jcHVfaWRzIHx8ICFjcHVfcG9zc2libGUoY3B1
+KSkKIAkJcmV0dXJuICh1bnNpZ25lZCBsb25nKU5VTEw7CiAKIAlyZXR1cm4gKHVuc2lnbmVk
+IGxvbmcpcGVyX2NwdV9wdHIoKGNvbnN0IHZvaWQgX19wZXJjcHUgKikoY29uc3QgdWludHB0
+cl90KXB0ciwgY3B1KTsKLS0gCjIuMzkuNSAoQXBwbGUgR2l0LTE1NCkKCg==
 
