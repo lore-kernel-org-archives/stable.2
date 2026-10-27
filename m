@@ -1,64 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793070430;
-	b=gDqU4I7wuC7F2tOGJJuDFdNV1bU8mZaT77yXD4euF/3riG5iAN833UPrYx73srwnM5M1
-	 lE11veCzp7mhUWJ+6HY1ZgVWdGUT73YEts0C1VDtOsQXMODtHXI7tV7Vn6eUbaxLTBeL8
-	 LqaigjqsEHaKTUkwNBFpjNkNNaKL6yZGo69oXYLknd209XTCUj9q3tesL+Jshdz0ZmVd7
-	 /Z3KQOpIKu4Qj34dU5uIeemkdnD4NtqB4mGhAe5uz6sMHPlWykZRBDiO9LecH+4X9aWZX
-	 dC019OZjQv+k+r10PwtxL+xPZegNwjw7xNIlaEl71duqctTjl9oLnuEj7/aM49jJIpg==
+	t=1793070490;
+	b=FdC7LMBamqARlzI/lq2Q4gVp04+11XGrZtH55VlXc1sq/8APsEDewxwXgGv2aSf2P3Jm
+	 2qKI7o1qtzRWbURzij2c1e0fD1bctAvGJUgNajbF5Ed8smCW5OJEdxjr1AyhC6OUmkTxY
+	 QVwf9Pk0mjudeCwNUdwixjUxPet4IkNQ7/83CNKsokp4qnnzvYoJqhfklL0vlO2NXqUJ6
+	 AJJSPaiPIYMseWk31lMW1rqs9kLD9Dl6olTJKoIkktO/MzpPaXiM5/wHabtY7bkLggChS
+	 UK+O8gLch6gj7BOFFnRzs4aJRgLP7MjCmCLNTePMXHHhr5BuyqHyckpDw0KMDAiUtXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793070430;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:X-QQ-mid;
-	bh=AYABbuvpRmugHL7xKhEUg235XYvNPii8LhIKNTJod1Y=;
-	b=rq+4jx5CWLgTLymO1NlIUy26+J7B7KJO3UaO4jjf+DLJn8sEO57i8TRH9vh+tjZcw5WF
-	 TC3OSsPqMMMWgAZwXpDMpWVL4W0Xcgfu9YBGcoYPeQ2EBwdYycCLfUiee/nNTzPfRmvLM
-	 X9kBkLtLO/+zOY0gvoaOQYM5X2nmqpHnMVDo2/IxrkRqzlCu2ky8VAFZK1yQaD23ehZIY
-	 uQy66PhDJsqdLXD0SNKWf6QfLriwMHKca46x8pTBkKD+X7Q7k2DofzOTSnpSF82d0G2xz
-	 4RdnMMfU9GgerPWR7xn9pzyuP7KbYBHqneTEQ+87UTQ9miKFVktzzaPHxI4Si8coNrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=igNgupZEn7aKjw+PjHHDoJ6CuNjmPliTKlApfHrxbJo=;
+	b=NSNuCsKefjIRsomgcK4XcWODq+nnGDIjTAGcjO+VzCBGi/t7QWD3v1IPTIzBJPNr/eHo
+	 maqiB6xK2jAhjpxJOiGb/u8IF+1c053saIdzUh5fu7tRUcX2ikMKFPOl17EDYUm7XrO7B
+	 MW/707oPQ6KcurAMC+rGeQiA74BGHKnUYx8L1y6I+3MvGRD4V+ZddzxSyDIP1mA/by49w
+	 U+oE24lOeYCLETQ7IVsHRZtui7M22NV9UFjZYWOJmmVhZFBG33rx4d0h4QyAfn1gFiOc8
+	 XA2iv06F+ZakZbktWIcAaGDfK2w/H1xjyicAUL/WMP/mMh17ktLd+ov44RwjtvlWGiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=C9gjPcN+;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T3mmvNcK;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741DE606A31A;
-	Tue, 27 Oct 2026 03:07:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 741DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEF2606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 03:08:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADEF2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=C9gjPcN+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793070423;
-	bh=AYABbuvpRmugHL7xKhEUg235XYvNPii8LhIKNTJod1Y=;
-	h=From:To:Cc:Subject:Date;
-	b=C9gjPcN+6iUBmbZmoKNrsDV2qpF7XrAq1lhbHJZxXFSgsIyYsmZPH89+0duyvne5C
-	 PumwOGNr9m3UJHUyYYczKYouIbopxK55xap5mGFcwI6txIk+idQjeN4dEmo1uMdvgY
-	 yoMBCMVx6fWMN04HSffMvJtR3A3NMdQ86f4fYjoc=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-XMAILINFO: NMiAo2azIaDAYkkE/EfDdnEpgPxvV2EMCwzHid6acn8ULBvUa3pzkkrd5u+dan
-	 bDiaOcfYFsm0tEpgB1AQer2c1p3q0XYBV3gW6cLoEuJFShq26agMqMX6xbHWbEcFyp3q1ajMiLFf+
-	 2sTM7HZCi/+8NU78CwLcp6hDR35cTND6wIUWSTkRQzNBsdnxRbvlbOss83ZF4FxNIpv2MlXGRVqWk
-	 iAOX1LQ2DAeo9XoJA6CT4rUOeaocr5Jdvh2ZwvI8tUZUzCDiwxX94UFPJsfjR81TlRK6hqBdP7fG5
-	 QE9tLAvdVxaqZFl3F/lCzUY7uB+gRsM0W8nYqMZtN6E7F7LYktJBVUo6n5JnincxygUV4w/RlxQrQ
-	 hZjGc+2q7sDjmEir1XLzb5RRmsNhGlAbWUoxKfs2xFbPD2FQmIoOKWSYvIgoC7jaGMOd8ICdJt/xx
-	 8VM7coxjp9HZpnVYjssVmUuQQInhWiong5ApphWlflxy6hM1yDQ+7XaWL38Z02nXisdFdT1lcq/P3
-	 Xk7TbrPjfBN3EnS0g2qBTRtVwHE0GKGsEsMPfEgyFzuJMFf5/m8LshEZKY8/96EsU0LjGzsD0sgV2
-	 eI2U8qCmAcQ+f2KrEbuq2XcypqHVvRqio+fTCqi0hAq3NoomUWHp5F3a6Gl2eUA26nNFErRSEr7JW
-	 edCuVsCvwzD4oUuPnrUI3NMd6NAuYAIRRm1Syz7Ie4+9AOuQz8/LQrqIzt9u/xfTyjJPN9NdpGkzq
-	 +WnnoOR8yG3s/q+y9PYI2LIc+15x3g24o00MzUlmxl19XCYQ+fO7A6extz9a8W4Gn7y30p1Mao4mS
-	 8ryYMWKR79sLmmS6pBD7ruAI1GsN3IpemIc0V7noI662gtu3gqLy3lWUo0UGuPmepuZXaUAbjr5c1
-	 4Q7hcizws6urf+aSiiv6b+x/a6OcpfEyrFWN+byWAt08lJGT3KapaEiNDK0XfM6KhDWf81rDGvEFe
-	 Og9v4MwvW/JAzXO6CkmrserwpDIOJKJWqloDnBZgIYz2ya6ow3ZdCByHguS9igHS/k4osC4e/hYPL
-	 JQNTihGp4LRgh6Rt+jIxz8W7rvHfArmyiNe0rNLUGHrPepRLhjUjcrqSd0A==
-From: "=?utf-8?B?Ym8gY2Fv?=" <treebacker@foxmail.com>
-To: "=?utf-8?B?YnBm?=" <bpf@vger.kernel.org>
-Cc: "=?utf-8?B?YXN0?=" <ast@kernel.org>, "=?utf-8?B?ZGFuaWVs?=" <daniel@iogearbox.net>, "=?utf-8?B?YW5kcmlp?=" <andrii@kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T3mmvNcK
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e987b4a710so2194705ad.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 20:08:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793070489; x=1793675289; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=igNgupZEn7aKjw+PjHHDoJ6CuNjmPliTKlApfHrxbJo=;
+        b=T3mmvNcK8/rhpm5cNcIOD/CQ5n59Gin70ROvTsrk7xbOnpt/692Iw6ZohmPlR9U9ZU
+         +0AEIaXN+wLqA2Sh72WSFc6myjIbFm6Y3+5IfL/cj1DfRZfzwwgkYrSnZPPH4D9jKO6J
+         4fVjbYe/bYW+IfC69xgKyaK8ZC8hyOuOKHdGl8reeH6DsjS5L2b1Ow2bZDkS1Id0kJlZ
+         Al7XyCuT7vOhk+GSVN5JjrMWG8pAVhEZxCBEjlfhdYGvs/bHF2AAhpuZu76cJDR9pnbm
+         sxrEfmaauC/b1VucXRe2JFNa5xoJvenuZXFqKWuOMwFTQNHSavPCJ6HaBvqTgYRwbkOR
+         vVDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793070489; x=1793675289;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=igNgupZEn7aKjw+PjHHDoJ6CuNjmPliTKlApfHrxbJo=;
+        b=ZUyyHgrckC6HMstFiUZFTI+MLbfZNxZZhEheP07lYqjQR/HqxjdLZpWBduIU5Fo7RF
+         Q59izfPco/bZFz0zK+dIvfYoC+GB6Awv/8qrA90vl7EbYyBqf3FRVBwwgI8AwvMM8Xan
+         +Ei/dgSuPJEcTTWfoGUO8Z5DGcqN6JOZmW49bzDoYvdoU0LvYCGuZRb39BGq40MRlJCB
+         Gc4Nw+cIOUUmFH1iJoPTZrQgF+1FGUtxO9FHq0CXBAETXxFKQCIF9/4o7FmILXV9TwoX
+         gMide9kgazlo0HzENXOTt4NAbfdz6bCf8PLEl23ZPU+je7bDCXC31/573BAEeqQXp/Ai
+         YXcg==
+X-Forwarded-Encrypted: i=1; AKwUvBzX7aZO0U1YqGn9AQfSz6in2lJvbhhp/W+Jf9xChenwIc7uJ4teuKEnwHQs3nOl9816niisyE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIylroxRa2Waun6FWiVBGh4O26n0k2BxKDrVxvxgxczqLMdy38A
+	VMXE2IR10F/4DFzU06VKTrY65DharNlsCySFsGF3UgFQUdIADFl7LY4D
+X-Gm-Gg: AYBFou0Zzw8XvPbXcJoN1Z3ZAS7bEUJcgkeeMjsjI936BAJbgVSsESKsED6d5jMP853
+	RjbvVszz9akzexZgHh+aBUMcGEWA0LXagwEDSsgbG+ewJn2HZtUlC7JuKSv4oGvqedb4yNvzuZ7
+	dtxCXyrvEcIntK6/ClhsUoLwR6sQZpBOIWE7nww+2+WEuOQPMPar1dbKSJWGCV72hm8xTtLdIEd
+	UMvNkhkNXKFYZyoFxHEPZ9fE+2SozFVBCt5IcjXxcv9FybREcDeWEmCy3wbWX6sUDHn0dFu3IZr
+	BJKmMKXbxuGbPXgL7CtzZ+9Y3TEzhF9xjyhmP83Bgi1+myTecJ1T3e11jvqY3uRXkaixuJI0PIf
+	wwhE3eQT9+TEGoGF329kGP2J2dlvsERJBBRAAZxSPk8tS79LTy0F8akLv7jv9gHMpEgkVlHNYtO
+	0vF3TaUJ8Myd9AMc31ppJuayMwLqNx0Xvp7ikfT624KeUQlDWm1dwHNpqJErwgBOgy0mrZE8F4s
+	LI3LJMIr+vRa37M3CIGWqPOe7z8E7KZstqiTwU95642h/OV63YJ+acQRsz0Hotp/hRWzshmz/IU
+	QYOmbDr/YAX6Cz4Iq6i6IRYOJ6Q=
+X-Received: by 2002:a17:90b:3142:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3ae40268bbemr736527a91.8.1793070488963;
+        Mon, 26 Oct 2026 20:08:08 -0700 (PDT)
+Received: from lgs.. ([101.76.249.61])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebafacd4sm5767362a91.2.2026.10.26.20.08.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 20:08:08 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>,
+	Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: da9150: fix IRQ action memory leak on removal
+Date: Tue, 27 Oct 2026 11:08:02 +0800
+Message-ID: <20261027030803.118131-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,83 +97,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 27 Oct 2026 11:07:01 +0800
-X-Priority: 3
-Message-ID: <tencent_3A8413B414528B9802AB092A67AE015FFE09@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-mid: xmseua11-1t1793070421tirbjsk9n
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-VHdvIEJQRiBoZWxwZXJzIHRha2UgYSB0YXJnZXQgQ1BVIGlkIGFzIGEgcmF3IHUzMiAoYXJn
-X3R5cGUKQVJHX0FOWVRISU5HLCBzbyB0aGUgdmVyaWZpZXIgZG9lcyBub3QgY29uc3RyYWlu
-IGl0KSBhbmQgb25seSByZWplY3QKY3B1ID49IG5yX2NwdV9pZHMgYmVmb3JlIHRoZSB2YWx1
-ZSBpcyB1c2VkIGFzIGEgcGVyX2NwdV9wdHIoKSBpbmRleC4KCmJwZl9tYXBfbG9va3VwX3Bl
-cmNwdV9lbGVtKCkgZGlzcGF0Y2hlcyB0byB0aGUgcGVyLWNwdSBtYXAKaW1wbGVtZW50YXRp
-b25zLCBhbmQgYWxsIHRocmVlIG9mIHRoZW0gKHBlcmNwdSBhcnJheSwgcGVyY3B1IGhhc2gs
-CnBlcmNwdSBMUlUgaGFzaCkgY2hlY2sgbm90aGluZyBiZXlvbmQgdGhhdCB1cHBlciBib3Vu
-ZDoKCglpZiAoY3B1ID49IG5yX2NwdV9pZHMpCgkJcmV0dXJuIE5VTEw7CgkuLi4KCXJldHVy
-biBwZXJfY3B1X3B0ciguLi4sIGNwdSk7CgpicGZfcGVyX2NwdV9wdHIoKSBoYXMgdGhlIHNh
-bWUgd2VhayBjaGVjayBiZWZvcmUgcmV0dXJuaW5nCnBlcl9jcHVfcHRyKHB0ciwgY3B1KSBm
-b3IgYSBrZXJuZWwgcGVyY3B1IHZhcmlhYmxlLgoKUGVyLWNwdSBtZW1vcnkgaXMgb25seSBh
-bGxvY2F0ZWQgZm9yIHBvc3NpYmxlIENQVXMsIGFuZApfX3Blcl9jcHVfb2Zmc2V0W10gaXMg
-b25seSBpbml0aWFsaXplZCBmb3IgdGhlbSAob24gYXJtNjQsCnNldHVwX3Blcl9jcHVfYXJl
-YXMoKSB3YWxrcyBmb3JfZWFjaF9wb3NzaWJsZV9jcHUpLiAgT24gYSBzeXN0ZW0Kd2l0aCBh
-IHNwYXJzZSBwb3NzaWJsZSBtYXNrIC0gZS5nLiBhbiBhcm02NCBndWVzdCB3aXRoIGEgZGV2
-aWNlLXRyZWUKQ1BVIGhvbGUsIHBvc3NpYmxlIG1hc2sgMCwyLTMgd2l0aCBucl9jcHVfaWRz
-ID0gNCAtIGEgY2FsbCB3aXRoIHRoZQpob2xlIENQVSBpZCBwYXNzZXMgdGhlIHdlYWsgY2hl
-Y2ssIGFuZCBwZXJfY3B1X3B0cigpIGNvbXB1dGVzIHRoZQpyZXR1cm5lZCBwb2ludGVyIGZy
-b20gdGhlIHVuaW5pdGlhbGl6ZWQgX19wZXJfY3B1X29mZnNldFtob2xlXS4KCkZvciBicGZf
-bWFwX2xvb2t1cF9wZXJjcHVfZWxlbSgpIHRoZSBoZWxwZXIgdGhlbiBoYW5kcyB0aGUgQlBG
-CnByb2dyYW0gYSBwb2ludGVyIG91dHNpZGUgYW55IHZhbGlkIHBlci1jcHUgY2h1bmsgb2Yg
-dGhlIG1hcDogcmVhZHMKbGVhayB0aGUgc3RhbGUgYnl0ZXMgdGhyb3VnaCB0aGUgbWFwIHZh
-bHVlLCBhbmQgd3JpdGVzIGNvcnJ1cHQKd2hhdGV2ZXIgdGhlIG9mZnNldCBoYXBwZW5zIHRv
-IGxhbmQgb24uICBGb3IgYnBmX3Blcl9jcHVfcHRyKCkgdGhlCmxlYWsgdGFyZ2V0IGlzIGtl
-cm5lbCBtZW1vcnkgaW5zdGVhZCBvZiBtYXAgdmFsdWVzICh0aGUgcmV0dXJuIHR5cGUKaXMg
-bWFya2VkIE1FTV9SRE9OTFksIHNvIHJlYWRzIG9ubHkpLgoKUmVwcm9kdWNlZCBvbiBhbiBh
-cm02NCBndWVzdCB3aXRoIHBvc3NpYmxlIG1hc2sgMCwyLTMgKFVidW50dQo3LjMuMC05LWdl
-bmVyaWMpOiBhIHNvY2tldCBmaWx0ZXIgcHJvZ3JhbSBwYXNzZXMgdGhlIHBvaW50ZXIKcmV0
-dXJuZWQgYnkgYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0obWFwLCBrZXksIDEpIG9uIGFz
-IHRoZSB2YWx1ZQphcmd1bWVudCBvZiBicGZfbWFwX3VwZGF0ZV9lbGVtKCksIGFuZCB0aGUg
-Y29weSBpbnNpZGUKYXJyYXlfbWFwX3VwZGF0ZV9lbGVtKCkgZmF1bHRzIG9uIGl0OgoKICBw
-YyA6IF9fcGlfbWVtY3B5X2dlbmVyaWMrMHgzYy8weDIzMAogIGxyIDogYXJyYXlfbWFwX3Vw
-ZGF0ZV9lbGVtKzB4MTQ4LzB4MmE4CiAgQ2FsbCB0cmFjZToKICAgX19waV9tZW1jcHlfZ2Vu
-ZXJpYysweDNjLzB4MjMwIChQKQogICBicGZfcHJvZ184MzVhNGJhMmVhNjc1NWYwX3BvYysw
-eDkwLzB4YzAKICAgYnBmX3Rlc3RfcnVuKzB4MmQwLzB4NDYwCiAgIGJwZl9wcm9nX3Rlc3Rf
-cnVuX3NrYisweDRhYy8weDkyMAogICBfX3N5c19icGYrMHg2MTQvMHhiZTgKICAgX19hcm02
-NF9zeXNfYnBmKzB4MzgvMHg3OAoKVGhlIHN5c2NhbGwgc2lkZSBvZiB0aGUgc2FtZSBwcm9i
-bGVtIChCUEZfRl9DUFUgbWFwIG9wZXJhdGlvbiBmbGFncykKd2FzIGZpeGVkIGJ5IGVkNTRi
-ZjU2NGFjNSAoImJwZjogRml4IEJQRl9GX0NQVSB2YWxpZGF0aW9uIGZvciBzcGFyc2UKQ1BV
-IElEcyIpLCB3aGljaCBhZGRlZCBjcHVfcG9zc2libGUoKSB2YWxpZGF0aW9uIHRvCmJwZl9t
-YXBfY2hlY2tfb3BfZmxhZ3MoKS4gIFRoZSBoZWxwZXIgcGF0aHMgZG8gbm90IGdvIHRocm91
-Z2ggdGhhdApmdW5jdGlvbiwgc28gdGhlIHNhbWUgY2xhc3Mgb2YgaG9sZSBDUFUgaWQgbmVl
-ZHMgdG8gYmUgcmVqZWN0ZWQKdGhlcmUgYXMgd2VsbC4KCkZpeCB0aGUgbWFwIGhlbHBlciBj
-ZW50cmFsbHkgaW4gaXRzIGRpc3BhdGNoIHNvIGFsbCBtYXAKaW1wbGVtZW50YXRpb25zIGFy
-ZSBjb3ZlcmVkLCBhbmQgZml4IGJwZl9wZXJfY3B1X3B0cigpIGluIHBsYWNlLgoKRml4ZXM6
-IDA3MzQzMTEwYjI5MyAoImJwZjogYWRkIGJwZl9tYXBfbG9va3VwX3BlcmNwdV9lbGVtIGZv
-ciBwZXJjcHUgbWFwIikKRml4ZXM6IGVhYTZiY2I3MWVmNiAoImJwZjogSW50cm9kdWNlIGJw
-Zl9wZXJfY3B1X3B0cigpIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9m
-Zi1ieTogYm8gY2FvIDx0cmVlYmFja2VyQGZveG1haWwuY29tPgotLS0KIGtlcm5lbC9icGYv
-aGVscGVycy5jIHwgNiArKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyks
-IDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9rZXJuZWwvYnBmL2hlbHBlcnMuYyBiL2tl
-cm5lbC9icGYvaGVscGVycy5jCmluZGV4IDY0OGFiZTFiYTYzYS4uZjlmMmJkNjY1MDM4IDEw
-MDY0NAotLS0gYS9rZXJuZWwvYnBmL2hlbHBlcnMuYworKysgYi9rZXJuZWwvYnBmL2hlbHBl
-cnMuYwpAQCAtMTMzLDYgKzEzMywxMCBAQCBjb25zdCBzdHJ1Y3QgYnBmX2Z1bmNfcHJvdG8g
-YnBmX21hcF9wZWVrX2VsZW1fcHJvdG8gPSB7CiBCUEZfQ0FMTF8zKGJwZl9tYXBfbG9va3Vw
-X3BlcmNwdV9lbGVtLCBzdHJ1Y3QgYnBmX21hcCAqLCBtYXAsIHZvaWQgKiwga2V5LCB1MzIs
-IGNwdSkKIHsKIAlXQVJOX09OX09OQ0UoIWJwZl9yY3VfbG9ja19oZWxkKCkpOworCisJaWYg
-KGNwdSA+PSBucl9jcHVfaWRzIHx8ICFjcHVfcG9zc2libGUoY3B1KSkKKwkJcmV0dXJuIDA7
-CisKIAlyZXR1cm4gKHVuc2lnbmVkIGxvbmcpIG1hcC0+b3BzLT5tYXBfbG9va3VwX3BlcmNw
-dV9lbGVtKG1hcCwga2V5LCBjcHUpOwogfQogCkBAIC03NTMsNyArNzU3LDcgQEAgY29uc3Qg
-c3RydWN0IGJwZl9mdW5jX3Byb3RvIGJwZl9jb3B5X2Zyb21fdXNlcl90YXNrX3Byb3RvID0g
-ewogCiBCUEZfQ0FMTF8yKGJwZl9wZXJfY3B1X3B0ciwgY29uc3Qgdm9pZCAqLCBwdHIsIHUz
-MiwgY3B1KQogewotCWlmIChjcHUgPj0gbnJfY3B1X2lkcykKKwlpZiAoY3B1ID49IG5yX2Nw
-dV9pZHMgfHwgIWNwdV9wb3NzaWJsZShjcHUpKQogCQlyZXR1cm4gKHVuc2lnbmVkIGxvbmcp
-TlVMTDsKIAogCXJldHVybiAodW5zaWduZWQgbG9uZylwZXJfY3B1X3B0cigoY29uc3Qgdm9p
-ZCBfX3BlcmNwdSAqKShjb25zdCB1aW50cHRyX3QpcHRyLCBjcHUpOwotLSAKMi4zOS41IChB
-cHBsZSBHaXQtMTU0KQoK
+da9150_remove() currently removes the regmap IRQ chip before removing
+the MFD child devices. regmap_del_irq_chip() disposes the child IRQ
+mappings and removes their IRQ descriptors.
+
+The GPADC child registers an interrupt handler using
+devm_request_threaded_irq(). When the child device is subsequently
+removed, its device-managed cleanup calls free_irq(), which can no
+longer find the corresponding IRQ descriptor. As a result, the
+allocated struct irqaction is not freed, causing a memory leak.
+The associated IRQ thread also cannot be stopped normally.
+
+Remove the MFD child devices first so their interrupt handlers are
+released while the IRQ mappings are still valid. Then remove the
+regmap IRQ chip and its IRQ domain.
+
+This issue was found by our static analysis tool under development.
+
+Fixes: b8fce55c09d3 ("mfd: Add support for DA9150 combined charger & fuel-gauge device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/mfd/da9150-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/da9150-core.c b/drivers/mfd/da9150-core.c
+index 5c59cc869fb3..1b6dbbed60e7 100644
+--- a/drivers/mfd/da9150-core.c
++++ b/drivers/mfd/da9150-core.c
+@@ -474,8 +474,8 @@ static void da9150_remove(struct i2c_client *client)
+ {
+ 	struct da9150 *da9150 = i2c_get_clientdata(client);
+ 
+-	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
+ 	mfd_remove_devices(da9150->dev);
++	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
+ 	i2c_unregister_device(da9150->core_qif);
+ }
+ 
+-- 
+2.43.0
 
