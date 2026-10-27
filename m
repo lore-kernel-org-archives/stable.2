@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090084;
-	b=onj051unyZFvLf0pPoTl+acy0vfRPf/l5hIeGCFuJjWTBvMt/D9S+kUQOJ1UowVMmpUQ
-	 WnDV+b3AylFY7uVyvlIDMzQyCuM3yWNBc8UDEyEHv0ucehunYrOkGAkIClNWJ+H2JjZpA
-	 6bDv7jRlJk6KAlpuUxXdFZLKYSTgQ4/C/TgM+jhNaAkRd0eQj5ew5FeFkFXpxq2TiDQGn
-	 y3LCm+jqt889OEbdHgrS6RkGlBVe8h7h8fvhVW++Hspsl4OdlRKVIoUR/57kRBkqHfPJj
-	 RaeU+yQ4kB0v2WFTbP1IYBSYiCJ0Vpgr9ocvN8kFiO5+Z9cdNJVdaC2wWOraplSNQ8A==
+	t=1793090106;
+	b=1xlYJVtcKKaYtoKdpEVSRASQ4y8RUJwwWo3fD/i+MIpusC4yRQKD3rMqT/ILEJNzeMzi
+	 tmrYYnnQEEuYy6n5QKJv8rycY7kteNxcC/AZHxl6QeYCLin08sXNKzHLYCZ/v2IN5IW9f
+	 VXdhPTv9xndm0TblYNqPBpkgpHYTTVK5qK9BFTsqCR87ePC05j+cqV0pZFhV5yaMygrLV
+	 /xaKcXIuI/H52JBo2ha6L49eg/IRLSqeh761ED8UfGSu5VDX3AAqwNhDjklHqU0ZGEUM4
+	 +/nhb02VVcc/k3qSOXvT6l05uHTDm9enxyq2R7rmUwEmPHZwkVGXkhL0kdVbyy9HWQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090084;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sLWwjFGLdeBcwQnsfAwPrniEyWPhxDR91tX0J66L3So=;
-	b=NogKooNCBf4ay2VP+PwemgCKBW+WPzznXKufxCx4hkwAziEfpBTTONAbvB3gRAYPMNKQ
-	 5wCwZxKpuwdQYTkKANjFVNBrn+6rPwe/5m7u2M+AroXPF6pcXfZ4rKYlDkCjJsw5r0vkb
-	 WMIwxu32VmEx5UsHr5vQF2ctWZzdxUtILANMJIvDfEbtZP+8vVDEiEUXqHkGeIg5ItpNb
-	 znqeDPxsJYzj25YKGfA5H+P9VstLySLUw3lx9I9hxT7RgIU8VQa7KU7N6FdWGrj4auNH3
-	 GKbgKFR6XOeGZEMJ+55mJV8QFPPR6A9hS9wM+d3yIKziyIWRkWIE1r0bXy6sltV2kCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090106;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
+	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
+	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
+	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=5bahGxfUN75E2T3mOHUJ9Zz0leyIiVRMhMYoQV+Rpgs=;
+	b=c5+DciuagnL380DqbI1XNJGP0RoItA6CFdNapYwWlPANLrDMvNm8JA7rfcQHYCNhX91/
+	 uibBQ39LvuE5Md2tq0Q8ZewpJYJjpz/ziigr+zKu751QBUARgxBcOynBg2vim4kE0zCHk
+	 U96Bc8SG0BLUBYw0ExfiBPG2DSSaSFeWQAUd61PwZAX69waJt31oifnM40fz99jdi8A9H
+	 vxFiV5P7L7AicDQKMouj28m9UWS36f8O3pbvF3ATJXCk5db/hXhpGRtYPefyxdCla87qy
+	 4//MILAcPk8uw3bb7l3D+zL8GfqAK3hY+BDF1RBx4rDtXbvFimV0ftoMpp+viFtr/oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWuW0cKX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=L4lEPNd+;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C285C606A31E;
-	Tue, 27 Oct 2026 08:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3537606A31E
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:35:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3537606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iWuW0cKX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E991F031E0;
-	Tue, 27 Oct 2026 08:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793090083;
-	bh=sLWwjFGLdeBcwQnsfAwPrniEyWPhxDR91tX0J66L3So=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iWuW0cKXZmOQUEKA0DdsDmfISDp1HM6uNFA+OrpXEcF1EfYioInZMwtCGOdIF6qDm
-	 2ZJ7hmlvVwY29S+AV1kR2VrjT+NwB2ZbC1AGDlkpP2Hu/2XGjUub9o0KZuUZDz5VN4
-	 bOte2srwXvvDRkGWNqVEe92HB+0tNldbI+P4GIJuv4VQMS0wSNfDwWXFal2dIx1Orl
-	 x0U8n1DndRrHYe5G6CxVSQBViEGL8i3o1uTW+8MPPqwsNJuV9WICe+0BuaGqEMXpZg
-	 kfBddp5j6xO6B/b+7gSc8oOeq7qp1H1svOR4/Jz18QEn9IZjEbWW07ds8YSYkIyOJf
-	 ixT5ifEbW3KDg==
-Date: Tue, 27 Oct 2026 08:34:36 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, Davidlohr Bueso <dave@stgolabs.net>, SJ Park <sj@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Colin Cross <ccross@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/4] mm: avoid losing atomic VMA flags
-Message-ID: <auBh08P6GPQEHPCh@gremlin>
-References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
- <179306587687.1925990.13855179558376532702.b4-reply@b4>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=L4lEPNd+
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261027083503epoutp03145adcfdc8d2f5d0653dc3ca47729c31~iVfMFrleB1322613226epoutp03B
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 08:35:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261027083503epoutp03145adcfdc8d2f5d0653dc3ca47729c31~iVfMFrleB1322613226epoutp03B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793090103;
+	bh=5bahGxfUN75E2T3mOHUJ9Zz0leyIiVRMhMYoQV+Rpgs=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=L4lEPNd+F7ee8P3N/mHT/N1cn74Bk23jtK73oJvSICLDsyxIDUNmFDbFox9TiE9+x
+	 ADQgI+Kd7P6lLh55lo/7d7+/uivKwLd3FhCIpos1hwluRZoNZuiJTwo7wna/3uI5WM
+	 RB8L7kn8gWQ3LAMMrLPijurzgNnNQ3qzhXraLJ+s=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261027083503epcas2p494af9311ba030f4f9573dc589ba17ada~iVfLXfW_z1990719907epcas2p4J;
+	Tue, 27 Oct 2026 08:35:03 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.208]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jDP1y6RkCz6B9mR; Tue, 27 Oct
+	2026 08:35:02 +0000 (GMT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,31 +62,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179306587687.1925990.13855179558376532702.b4-reply@b4>
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH v4 5/9] xfs: limit the count of a pNFS write
+ allocation to one extent
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, "Darrick J.
+ Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, Chuck Lever
+	<cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, Dai Ngo
+	<Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, Andrey
+	Albershteyn <aalbersh@kernel.org>, "linux-nfs@vger.kernel.org"
+	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <atoImJxtg70XcIjS@quentin>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261027083502epcms2p736b8c20d8a66bdc43b1f68e5cde0fc24@epcms2p7>
+Date: Tue, 27 Oct 2026 17:35:02 +0900
+X-CMS-MailID: 20261027083502epcms2p736b8c20d8a66bdc43b1f68e5cde0fc24
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261022130241epcas2p22506b749cfa884fea92c554d34d3df19
+References: <atoImJxtg70XcIjS@quentin>
+	<20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+	<20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
+	<CGME20261022130241epcas2p22506b749cfa884fea92c554d34d3df19@epcms2p7>
 
-On Mon, Oct 26, 2026 at 09:51:16PM -0400, Gregory Price (Meta) wrote:
-> You too get to be the unwilling participant in my schlopptesting
-> experiment - but the good news is there's no issues and you win
-> tags and free self/unit tests.
+On Thu, Oct 22, 2026 at 03:02:30PM +0200, Pankaj Raghav wrote:
+> Isn't it better we add this in xfs_direct_write_iomap_begin() instead of
+> adding it in pnfs?
+[...]
+> +       count_fsb = min_t(xfs_filblks_t, count_fsb, XFS_MAX_BMBT_EXTLEN);
 
-Uh oh...
+Thanks. That works for pNFS as well, as xfs_fs_map_blocks() passes the
+same count to xfs_iomap_write_direct(). I put the cap in
+xfs_fs_map_blocks() because it relies on the caller asking again for
+the rest of the range, which nfsd does, and the other caller,
+xfs_direct_write_iomap_begin(), already limits a mapping to 1024 pages.
 
->
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-
-Thanks :)
-
->
-> Might be worth taking the VMA unit test below.
-> Selftests... maybe the non-race uffd one.
-
-Lazy-lorenzo, but could you submit your test schloppen as a 2 patch series? I am
-behind on test-writing given the surge of fixes...
-
-Thanks!
-
---
-Cheers, Lorenzo
+Daejun
