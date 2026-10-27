@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090781;
-	b=XMOvJRmPHEeFs9ylBIIKci+nrf2aIzSZu5lByU3KZhmsXJN1GgzMwFilf5j/ORZ/n1Ba
-	 biAKzgPHJDuVmkzSeqdA3y7Qf8vnS1UFZHak+E3kSM6mbqAt1aeCSA6SsCwkNMpwPdRz4
-	 Lh5u1Iw1z5V/NdIR238AGzFPEe7eDAuzjiR9qvlNaU3+T32g93FMK9h/0KYtJisQISp8P
-	 UQeKRzbcesRAsYz6OXuUHIquwJowdIiz533Ci9tMFQwsCe7X9jwINKo4BftiXdu1DXlej
-	 8HzY3Sdo+Ss0DGK3V7UJkPvJuEHiokkgatTWBMcDgmyy+qgByGpxHkVvW2kixD66/fw==
+	t=1793091064;
+	b=yDi1ojsMeFKHPkdBRhTsUTGjCrSwVSW1CjUBCH/EAFrMKFsmRxFDqdXuCVov/6M+rJLA
+	 avfbu8C/Nd58Ra+vu0DE+VA32mlWbPksRjnfh3m4wgRDVw/S2CthtTrq4Y7UEwqdOQ0hA
+	 8GxGDrOQ0yOkwREC8SQvfCG9ytxBSpexhdH3M9zkXKO8h5GCHVHuw8aUzRJQ4AvTMxBf1
+	 Cm9RmwHYH8HTt61FIyfnAM8RFICOvu/MygRueHxx8I2jGSPTsVsuweRJW545eGva63fb6
+	 VgCAoi/J9KovmI7tdgC358ur+GQD/R4tvms2B2Y8t/K3vPBr/Vo4fGc/F3Al9Qg6dLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091064;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=x/YAccCPR+QDBod9TtDEo8/GkjTX2DKJZMvCayiMInU=;
-	b=URvcBNRjTq4mnXTvBIQ+EmZzjn5fKtAkQo/tkN0o6+rv/r2N7sPKg7SEx3cGL7XhyfvH
-	 FxRDcou8UW7DKjqzNQIWk38KLnf8dEQdJX1pwqJLKR57VT/rg55qtx1gMssh7yn9OoaW0
-	 W4W8q4QOmi9OPQ/G1cg937mSKzEAhvnOVd3Qbv4wTVdLRg5HaGcLYjHWIbl0YhCNv2DLH
-	 V+uUzefuGtKsUIyXLUu+VhQjH5pOIEutXAdXgStbJEVreuG/0n4Jdy5GS7iRht2OZbE17
-	 yIAsqWBKv9irtVm0aO+8mnieMNa3fqmROqWXsh1k7PlPaApkQyMJFo8vj35fdLTTXig==
+	bh=lc0U5Ze+hBCT9T6cAf8QTcqfqTu5UwDLhLRH+Lp9NjM=;
+	b=Wv7VLU0jsU37N1Ad0nMmAe33BnXlftjEV6ZHJMHZiaWG3cfFut2wIRXG822YFUBOhyZu
+	 t84DMwvaQPbZZ2VhjNJUzyvVfLEIcVofcOPAdPCJ96oOKrSXMDZkV+pfL4585NHkT0P/O
+	 UjYUUyhEaQziwlPYuORgcrP91qLXsXrYmEssU034zGR6p+ZcPKb2jXCeQLoFhLjX/QOCm
+	 YD2US+zOGjmI9J/jIV+nbvUtxlYG7x5EyHY4+UIokkKGF5ogGdcux5FhN7wAJ7Lw9MaHF
+	 4bEHHJaVQk4oVBPQAdV47XcMfPnL7ZECRmtRrcI6Kv+cJbQdlZKDDibDmydXga9l2fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIHfOMOJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cLX5cty9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB8160A2614;
-	Tue, 27 Oct 2026 08:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FC3606A327;
+	Tue, 27 Oct 2026 08:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIHfOMOJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3898B1F01825;
-	Tue, 27 Oct 2026 08:46:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cLX5cty9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370ED1F01825;
+	Tue, 27 Oct 2026 08:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793090780;
-	bh=x/YAccCPR+QDBod9TtDEo8/GkjTX2DKJZMvCayiMInU=;
+	s=k20260515; t=1793091064;
+	bh=lc0U5Ze+hBCT9T6cAf8QTcqfqTu5UwDLhLRH+Lp9NjM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MIHfOMOJNGtvK/bOljqxWLAHcLixYnsRYXCAHtUQcunjVDLnNyeo97KX3xAMoJr0Z
-	 5SfJAbFdkjKREw+q9Mtl0ffuKASWKcn7N0F0BmgFbcVUy46FHcanqfHr21qQWcr5jW
-	 pN5brAKAoAMh9KQ2wKajox7TxwfMs/QXMXRrm6/pCm731qJU0brAVO4+ppYe1VSs4W
-	 QVZYWrlfndxZlKOun9t4YN97qlLu70ioNm4z4BQTX+PWQAgemaKean1qRUpkEbbfK2
-	 Ylrgvy+1T3A3hOJGk4nx9jTZUzT20nRhHgy1MV+6HzvLQExySYnOpZQXYHoPDsoTcO
-	 4j7djgWhTTvDQ==
-Date: Tue, 27 Oct 2026 08:46:04 +0000
+	b=cLX5cty9Fes4nyGOhdTXTwUi4CjHh2d6Exjv+rOUNmJ1hOpq301ah/59VYJa3KAfa
+	 0JAFnIYv5q6uCZJiWZ7/JnzC3pOPhPL5VdEq05fzYEQAfU8x5PjoaLGCbo4oJkSshy
+	 aEyuswfa3kOJCEFW345rfcWjsyhvaijqqaHgik6uB7QOrxdB7sJV1oJ6I3Q0c1V+Ry
+	 Cf3Ekq4j3MW2BWPpctWVOXD4r4MRy4tI0wpG7A71nGLVk4q5d74j9EcT8h6eyujZ5T
+	 xnvfCFG95f/Qz4H2P0ATu2ppTZylFpdC3r3f636dunxIG7AvtZ7dC6rCzDfglAN4g9
+	 pK7u8ZerdMAkQ==
+Date: Tue, 27 Oct 2026 08:50:46 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -68,12 +68,12 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
 	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
-Message-ID: <auBkxrOz882zhhZ5@gremlin>
+Subject: Re: [PATCH 28/46] mm/mmu_notifier: set ->mm only after mmgrab()
+Message-ID: <auBl3iJyp0RQ-tEA@gremlin>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,65 +85,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
 
-On Tue, Oct 27, 2026 at 12:17:24AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Oct 27, 2026 at 12:17:48AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
 >
-> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
-> read(), write() and lseek() on a shared open file description of a regular
-> file serialize on ->f_pos_lock.  The flag that asks for it,
-> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
-> too, but its struct file comes from alloc_file_pseudo() and never passes
-> through do_dentry_open(), so it does not get the flag:
+> Radeon uses a non-NULL notifier->mm to decide whether to call
+> mmu_interval_notifier_remove() when freeing a buffer object.
+> __mmu_interval_notifier_insert() sets ->mm before validating the range,
+> so a wrapping userptr range can leave ->mm set after insertion fails.
+> Cleanup then tries to remove an unregistered notifier for which no mm
+> reference was acquired.
 >
->   CPU0                                CPU1
->   write(memfd, "a", 1)                write(memfd, "b", 1)
->     pos = file->f_pos  (= 0)
->                                         pos = file->f_pos  (= 0)
->     vfs_write(..., &pos)
->                                         vfs_write(..., &pos)
->     file->f_pos = pos  (= 1)
->                                         file->f_pos = pos  (= 1)
+> Set ->mm only after mmgrab(), once insertion can no longer fail. While
+> we could fix radeon's code instead, setting ->mm on success only makes
+> the code more robust.
 >
-> One of the two bytes is overwritten.  Two threads writing 100000 bytes
-> each, one at a time, to a memfd end up with a file that is far shorter than
-> 200000 bytes, while the same program on a tmpfs file never loses a byte.
+> Fix generated by an LLM and sent by Chris Mason in private.
 >
-> Set the flag when the memfd is created.  As for any other regular file the
-> lock is only taken if the file is reachable in more than one way, and
-> nothing a memfd does in read or write waits for another operation on the
-> same file.  This cannot be done for all alloc_file_pseudo() files: anon
-> inode files such as eventfd are S_IFREG as well, and a blocked read holding
-> ->f_pos_lock would lock out the write that is supposed to wake it.
->
-> Fix generated by an LLM and sent by Josef Bacik in private.
->
-> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
+> Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: minor description tweaks ]
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify description ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
->  mm/memfd.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  mm/mmu_notifier.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 >
-> diff --git a/mm/memfd.c b/mm/memfd.c
-> index 7d2da23157003..6f5fbce74f21e 100644
-> --- a/mm/memfd.c
-> +++ b/mm/memfd.c
-> @@ -484,6 +484,8 @@ struct file *memfd_alloc_file(const char *name, unsigned int flags)
->  	}
+> diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+> index 2e20f88e162d7..a7bae5de5fedc 100644
+> --- a/mm/mmu_notifier.c
+> +++ b/mm/mmu_notifier.c
+> @@ -947,7 +947,6 @@ static int __mmu_interval_notifier_insert(
+>  	struct mmu_notifier_subscriptions *subscriptions, unsigned long start,
+>  	unsigned long length, const struct mmu_interval_notifier_ops *ops)
+>  {
+> -	interval_sub->mm = mm;
+>  	interval_sub->ops = ops;
+>  	RB_CLEAR_NODE(&interval_sub->interval_tree.rb);
+>  	interval_sub->interval_tree.start = start;
+> @@ -964,8 +963,12 @@ static int __mmu_interval_notifier_insert(
+>  	if (WARN_ON(atomic_read(&mm->mm_users) <= 0))
+>  		return -EINVAL;
 >
->  	file->f_mode |= FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE;
-> +	/* a regular file like any other: POSIX.1-2008/SUSv4 Section XSI 2.9.7 */
-> +	file->f_mode |= FMODE_ATOMIC_POS;
->  	file->f_flags |= O_LARGEFILE;
+> -	/* pairs with mmdrop in mmu_interval_notifier_remove() */
+> +	/*
+> +	 * Pairs with mmdrop in mmu_interval_notifier_remove(). Drivers take a
+> +	 * non-NULL ->mm for "registered", so set it only with the reference.
+> +	 */
+>  	mmgrab(mm);
+> +	interval_sub->mm = mm;
 >
->  	if (flags & MFD_NOEXEC_SEAL) {
+>  	/*
+>  	 * If some invalidate_range_start/end region is going on in parallel
 >
 > --
 > 2.43.0
