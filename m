@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793092768;
-	b=to7bDGzTIjPy2EKBeLQx8pX5XnoOHz906dqTphZoWhj5iNU6YXiFV1oxkuBhSad0t9ks
-	 rYnqaaokxGlgNSFZIgkP95LX34MFc0NXA2Q9tipR//Lbg6K7iAOgswT77icwfLdNB3LoA
-	 reVocty62kQEBsqbLWQJogZv1jAeFXNUYO7UjQddLcd9pgtbvGsgQt6Eu3YytmNohOhuL
-	 M51MBpl274UFOf10+pnzj1LcRWF9N4rzoRGbtx/sseXIoowfgzqAoYaClzMa4cJvYm3tQ
-	 rK2qXOqmv65cx21d20mXLC39bRSfyK0+Tgzo3MbSwZTwCLMAKgyx+nMw+/PYvdH+8hQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793092823;
+	b=rQck7BtZycOLGPajmtioUA1fhsoKlI5YEHYpQRXctUxx3snIsljC6Eg44shhTqKk1wys
+	 wMAsgQX38L3xeGGphzo2gIVcu7tGXJU83eITz6DermumbRtiemL4EpZaSsn6PJHjzjOun
+	 lqzOAuAbx/S1IEcau4K2JbrBS4vvaOUCTcjIB0QM7cR204dVhcgQk/mquzx1Z4lBNinfo
+	 P7xyFTMnAxLauXljmdmXmP9IL/X9JMWe2bCYEZxSNbueNMYLlIojFj4eYg+2VgM0k4MK2
+	 st94mIPIy0+hT+bDEaCfK6Bsysy48k5/sZEvbgT29WUAr7TTQTR3gxL7dWfM6N7VD3g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092823;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=QG+IwVQ9grDIq47IKAf02fmU2aVGD0WubOXaYAEOrr8=;
-	b=rYG3L4mrYI4h22sFo3NuENoi/1eyhze9cDFz/vqNb5ycSm/djLbh4zL7h20XSmFWvybz
-	 BtP5bOAQJfottqu4pB2Nt/tWlvsJcUHwdePhtQu4ob76UDl1gRVl3+saJ+/FHIAcc0rA6
-	 W+IAEbYYoEi7It+U3HjQ8kQfDPZtHN1gx3nSgWN2NEJWIyS4Ef//VAajwwkZYHMkuzhka
-	 +3mJYnrDo3n9T2tojVjLZcmTIqctZis0l5/W+n+kPoByT6nt1MvA+I/47nO+8iqW87Oo8
-	 hMjd6bHDqgN3eh1lkyRXqzr7UibHXxXsZRUZryJzrVtJoxn1KMS7UJVklVO3g/xoMRg==
+	bh=jcyAMqkFqLBwkbzNR5Ttpcd+d4aaRMoP1bBfqTr9PKU=;
+	b=nFm3WnRs3rPDu3vOM8DKMFfV62I3LELn7XR5iVkgByiQgzNP9qM7NW3HEK+Y66hnDWwU
+	 B55UxWvgSNhCqhpqDQ4zO4SH6rXP6yVJAO0T2a6vkZ3N4qvGX2o2PhGg4UlPD3juR9FCd
+	 PcsCaToTX0k7+fJ/k+2z+pan/H6muR5QO9VAQErH60iitpczC8Ch99ov9+Uhv0MKGuy0w
+	 t5NedM91f1Lb7LCKldHD256skc4vBXJ9MA8zQurRY58fgX82BLff+bGSkpmyUP2KmsjeP
+	 Ecqj6IWc4/OX/zSMo8Xvu+h692cwazS9aYPd/6ni0wZfY0OdpNqOtiWDEr4ie7OXIdQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NZz1Malh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XKECpg9H;
+	arc=fail smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5B9606A31A;
-	Tue, 27 Oct 2026 09:19:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D5B9606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A56606A31B;
+	Tue, 27 Oct 2026 09:20:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A56606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NZz1Malh
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XKECpg9H
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 28413201F14;
-	Tue, 27 Oct 2026 10:19:24 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2052D201F0D;
+	Tue, 27 Oct 2026 10:20:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793092764;
+	s=20260414; t=1793092820;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QG+IwVQ9grDIq47IKAf02fmU2aVGD0WubOXaYAEOrr8=;
-	b=NZz1MalhC0cKTsSsbFn8UF9Si5rB1KtOJrXX70I6QXygIcl0L7pNM5xby4Kve8QhwDw7nR
-	PgmUSyGgGNtlMxwaeWEfqXrRUtExKD8bvxzWNsDNoDtIRDMR5lE2ptkXmczY+TXKz5kAl5
-	kYPvkFBJXaaPWhkdBnuyu7xrSgp76yPPy9HY62HfwYw4dP/yHlnsuFlceCQUU0tGkS//Iu
-	lGLoxXKPbJ3TzCfXM+Om51BCedhVslEuolOvZXLrJToI4CsCQVfnI5nViZOF+MEdzRpbGw
-	3pizT8qcaPc3DkV17pssN0b6LvhubRM05SAW985ScqBA801VuI0w/Yn0L1RX3w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793092764; a=rsa-sha256;
+	bh=jcyAMqkFqLBwkbzNR5Ttpcd+d4aaRMoP1bBfqTr9PKU=;
+	b=XKECpg9HnAuZvs+ymq+dvC55yRs4Fs+J0Elc0egv3nPMRX5TOfZOxWfZbsUj/30mCHVx/L
+	Pny3mmtTRb0jjO4dk84h6Vp8qyIUUwuV56uNA8u2xTsTvgFTLRf5JNCuKkWvp2wV4o5ZNH
+	oKcnTwZBCIRhnJ/MQ8ns1hYRWH6lmeJCwAQGxctiIV5AiJ8s15iLkYmIt+7LV0AQkhtRHz
+	FBQDSewZZwxRUMSQG1gfg/Tsq6ABpsMWLMET4Ni07/tTvsiIn1S4Owz40PcpaPun7veooA
+	pRlGIKSwB0XZ7rnUtD3f+TssB3Tpi7UJtpjItfDnc/YG26QksNNwWInY6WbZtg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793092820; a=rsa-sha256;
 	cv=none;
-	b=L/lcylgeLOZCcpCvWkHNvI2sTImq8U0XDLXWdTkeTAYnth7jHtxJECfTIswIFBmHDhXaB4
-	7yHxHeHXM4xRHjllzp6MvPaUjrc2DBHXf5W5lCUDz7Q1rBR4zFkQXcI6h/RCBQ8uTpEvqb
-	qGTqXOsG+fcXSj/RgXEhNWqK9TJ6+gKGbD1aBxdcRs4HwZ7IFi2j9+IAl9+bjzLGm6BQzY
-	3ck2l1tFyJil9exKHlUvOpo+tm4sTmiEuUIcVvnZbziPrfDkI8H/9BQCc15VlmH2uqb644
-	AlEn60ycaYXBWRgbdFnpKuEVzHb2j3qSjCmCNHGhHZd1cg9oY0Gdg4b4kXnnPg==
+	b=YaFumjsRyq4JeydNdHAt75MyTSKYyvFkqkyfqM9LaTNNkN/x+iyHOP+4bjyJlaPruI6oUg
+	LEUwRQvV/as6PMe5P3XgU3Xk0s1N1P3w/vpt7RIMjrPanOLWmqani2SxBc//kDPs6VBhx2
+	OoGhS7GejenIGQRismbCPtwhGzNdjwGk+i50hPs9ph1ofygtIijfxOmqHrAN8zEb3YlXQN
+	boN60VxQxd/gFI2duLnJ6PG/HEF72A5sKxkukKSNKqAhXIexB5nr/HUiSI8GbzH0GeBkU+
+	6MeYhSfxFdrp8S7CzG3v3xTGBvXQGJJfXReFdz/gK6TyYgg3gCrGWqtJR+Ns/w==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793092764;
+	s=20260414; t=1793092820;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QG+IwVQ9grDIq47IKAf02fmU2aVGD0WubOXaYAEOrr8=;
-	b=WIA2P6FFE/ei5LMhuOuWf/pphPPiMCqmPMlWBPoCVeuH++xV/SDPcXstbQmoIfaZ46yr7R
-	qUxJzg0jfRAEiXXx934kUw9hTqXRK1iyXn86GGBOQIxrjUEKlOfxiYKvanQoHz92+fep7z
-	hsWHM/yt0FgnD7cGyFwmujIPQhKfEJG7hO5/L8vEhDsbjZUyXSl6tSh+LxNheIGlNGwJUb
-	FMZZJausQWQk+wCZL+8kCaL0GZRQC+IHusZ5dyBRCW4YFhIda0j11WdRqpEKU0lpDdTJot
-	BiPVYsr+5atchowKRXkOFGjcTckVV7kiK0P6iqh/u/G76VzNbRjuTEHGC7tiPA==
+	bh=jcyAMqkFqLBwkbzNR5Ttpcd+d4aaRMoP1bBfqTr9PKU=;
+	b=JIqe6q8ps0Y8t8CLbcrRrnYEIgD70LwEjfRWsdQvcsxM4rri2OzSlwJUVYWHp2hEwzNIH/
+	tbsGkno3Y8zj8c57XlhBb1ok+dlTf0ILG2XsOAbcvxtID0w01tlo2glCcA8PxEQ5JnVpoQ
+	WH0BJislOPFS8QGlNoxiC/71sltqlG8CyDO8KuW5aeEM9SnSuHZNzeP8jKKC68XxihBgzK
+	6gO8/87upkK55/s+TWL/EZhTHPxa0+ePwOAQQVGPWWr1NMnL09zksObShTa+XnJJ1wjSJA
+	hfT7rx+WnPIJ7lu4NwHMRLawgCB1EfcwGQjryiCyHbH4kZIKL9YR34VE+596mg==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xLdL2-001PMT-0E;
-	Tue, 27 Oct 2026 10:19:24 +0100
+	id 1xLdLw-001PMY-07;
+	Tue, 27 Oct 2026 10:20:20 +0100
 Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id BDA145D7AAD;
-	Tue, 27 Oct 2026 09:19:23 +0000 (UTC)
-Date: Tue, 27 Oct 2026 10:19:23 +0100
+	by smtp.blackshift.org (Postfix) with ESMTPSA id C91725D7AB3;
+	Tue, 27 Oct 2026 09:20:19 +0000 (UTC)
+Date: Tue, 27 Oct 2026 10:20:19 +0100
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Vincent Mailhol <mailhol@kernel.org>
-Cc: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>, netdev-bot+sinfo@kernel.org, 
-	netdev@vger.kernel.org, linux-can@vger.kernel.org, kernel@pengutronix.de, 
+To: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org, 
+	linux-can@vger.kernel.org, mailhol@kernel.org, kernel@pengutronix.de, 
 	haibo.chen@oss.nxp.com, shawnguo@kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
 Subject: Re: [PATCH v8 2/2] can: dev: can_tdc_fill_info(): don't read
  automatic TDCV if interface is down
-Message-ID: <20261027-truthful-okapi-of-youth-42211f-mkl@pengutronix.de>
+Message-ID: <20261027-capable-active-leech-1aae56-mkl@pengutronix.de>
 References: <20261027065012.191348-1-chunyuzhiqiang@yinhe.ht>
  <20261027065012.191348-2-chunyuzhiqiang@yinhe.ht>
- <CAMZ6RqL-3EBC=hFmpRyxcD4YA3PiMMnC3o+bAxN+ABDGqCNX6g@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,12 +103,12 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4vrkcp45w3iqkhqx"
+	protocol="application/pgp-signature"; boundary="3hoorgl3hwcfdx7m"
 Content-Disposition: inline
-In-Reply-To: <CAMZ6RqL-3EBC=hFmpRyxcD4YA3PiMMnC3o+bAxN+ABDGqCNX6g@mail.gmail.com>
+In-Reply-To: <20261027065012.191348-2-chunyuzhiqiang@yinhe.ht>
 
 
---4vrkcp45w3iqkhqx
+--3hoorgl3hwcfdx7m
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -117,36 +116,46 @@ Subject: Re: [PATCH v8 2/2] can: dev: can_tdc_fill_info(): don't read
  automatic TDCV if interface is down
 MIME-Version: 1.0
 
-On 27.10.2026 09:57:03, Vincent Mailhol wrote:
-> On Tue. 27 Oct. 2026 at 07:54, ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht> w=
-rote:
-> > The automatic TDCV readback calls into the driver via do_get_auto_tdcv(=
-).
-> > Some drivers, such as xcan_get_auto_tdcv(), read controller registers
-> > without taking a runtime PM reference, so calling this while the
-> > interface is down can touch registers whose clocks are gated.
-> >
-> > Gate do_get_auto_tdcv() on netif_running() in can_tdc_fill_info() and
-> > adjust can_tdc_get_size() and can_data_bittiming_get_size() so that only
-> > the automatic TDCV size is skipped when the interface is down. The other
-> > TDC parameters are still reported, as they are meaningful while the
-> > interface is down.
-> >
-> > This is a defensive hardening based on code inspection; the automatic
-> > TDCV path has not been triggered on hardware.
-> > Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+On 27.10.2026 14:50:12, ChunYuZhiQiang wrote:
+> The automatic TDCV readback calls into the driver via do_get_auto_tdcv().
+> Some drivers, such as xcan_get_auto_tdcv(), read controller registers
+> without taking a runtime PM reference, so calling this while the
+> interface is down can touch registers whose clocks are gated.
 >
-> Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+> Gate do_get_auto_tdcv() on netif_running() in can_tdc_fill_info() and
+> adjust can_tdc_get_size() and can_data_bittiming_get_size() so that only
+> the automatic TDCV size is skipped when the interface is down. The other
+> TDC parameters are still reported, as they are meaningful while the
+> interface is down.
 >
-> I think it is still preferable to add a fix tag here:
+> This is a defensive hardening based on code inspection; the automatic
+> TDCV path has not been triggered on hardware.
 >
-> Fixes: e8060f08cd69 ("can: netlink: add can_priv::do_get_auto_tdcv()
-> to retrieve tdcv from device")
+> Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+> ---
+> v8:
+>  - Split out of the berr-counter patch so that the stable backport only
+>    carries the hardware-tested change.
+> ---
+>  drivers/net/can/dev/netlink.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
 >
-> @Marc, not sure if b4 would automatically pick the Fixes tag. If not,
-> can you add it while applying?
+> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+> index b958c04d53db..613beee9e936 100644
+> --- a/drivers/net/can/dev/netlink.c
+> +++ b/drivers/net/can/dev/netlink.c
+> @@ -720,8 +720,9 @@ static int can_changelink(struct net_device *dev, str=
+uct nlattr *tb[],
+>  	return 0;
+>  }
+>
+> -static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
+> -			       u32 tdc_flags)
+> +static size_t can_tdc_get_size(const struct net_device *dev,
+> +				 struct data_bittiming_params *dbt_params,
+> +			     u32 tdc_flags)
 
-b4 git, but struggled with the new line :) - fixed
+fixed indention while applying
 
 regards,
 Marc
@@ -157,15 +166,15 @@ Embedded Linux                   | https://www.pengutronix.de |
 Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
 Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
---4vrkcp45w3iqkhqx
+--3hoorgl3hwcfdx7m
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCauBsmQAKCRDMOmT6rpmt
-0uIpAQDH1Yh5CV7Naz1mfslk5xWgp7/vsXgQ6q6lyDPVXRSs1QD/Y3Nqtav23Isf
-DkthkKvMFxFn1yjVHXHdbW7ajuSxPgo=
-=FaA1
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCauBs0QAKCRDMOmT6rpmt
+0oVeAQDPEldnMllUjP5SviKmoKnl3wLQpl6Na0CmXlnuUCcdVQD+IERK8W02hMHr
+yGq+TzIrMiw2A/UuXMYwz7euvw+nyAM=
+=KAH8
 -----END PGP SIGNATURE-----
 
---4vrkcp45w3iqkhqx--
+--3hoorgl3hwcfdx7m--
