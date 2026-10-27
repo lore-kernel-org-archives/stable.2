@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086268;
-	b=LLC1kmP8VFRDJwV+UIUCXZou8jiwDVtK8wlBjJoyXy09/JQ8eoZcuRjt/qp+/gwngpW0
-	 jqmwZ5Av1nLU0dOXWh2goVuhh6AXBj2f1wiGqP43wWFLYKEOlcqc2lgYWHwBnUutlsK29
-	 /8hF8C9631tgpsjUU8XK2UD1aZW1usZnFztGj3nhR0QFBkcUU4d0ezauKTgaJ/kT7P+6J
-	 U5ZUrgZNPWDCMlwKwr5qw9KVfpwrk52Lu6gG604MrMX2vDroQCm4ZB5eaEUW/RKQM949o
-	 tCq7iqHTBiyt8xE611C1ZGK4/JshiqFpz4Esr8JRgfJ1/rLpj7TjjKvrwo88NOmZoqg==
+	t=1793086554;
+	b=Tnyrnn62yGGVOrKxhWkp+vLmwfJyFvFpt28W+mLt7lTabjZN3CgcmoECvW6WFF1l3vgz
+	 OudJyedL6KAwmG+7MK8Xqi1acPwZqMszPPnY3dIgbYf/7jNvPYybM3IOqwmdUfXz2B1Hn
+	 Jec/HnFDkY5bg/rYh+g0KX6NWi4aFNImydgj2UoZ5YOmJmxY8Kgpogw9vKD0xjKgzfgxl
+	 zGAUrnZO43BAftfBTu6dAeK5yy9CWIQ0NfkL6ZNaL1215DoGB0neb6RPPaiznXW2xSKEh
+	 RCZoDG+weJAGIlJnaD+JHHjiKkzwuYesiI9yLoVeVrGluSBebu0klpl9+ott0RuxwGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086268;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TSzWHCPYD+61FDYzvIaUM/XSpeBKrTUMpoKDAlcttLw=;
-	b=K86N8BVr8zBIhOOCCNgdYZLHmZvwmAIhfSuaS44nV+XjT5BV5gF41a4EoCcAuF6cw6Ab
-	 pkzIMxWHNKsaSG61pgU4dK5NZLaU/DiR/dhplzYXi550NHzUL9R6Ugm18U4l2CIMBevYL
-	 Yz+8iYYVKdgQmGVYrfjQhfR/EebLiSXTAx8E+y0+TrwDTwUWXXTrOOru2QcKbQqX8uI75
-	 HyM67VSDcO1byjcqQS/KuRqKW89iT2V4OKoSegLmMCO/isuf0UgaG4idAakWlnQJpSUwW
-	 39ooH9yIa9bBlQ/Tk53n2hPLpKFxaSf5RvK+LPJsPo6SmtONbsarFtfXDH+IfXy3C6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086554;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=5jc2ZtnsslhTBje2qQpVD7MrTZfTUlL74O4i/llDB/M=;
+	b=HK7b0hFK9ekbCd1jwKEOIVbpTiErYlHdr3sPZp6IofAcTTj5rHqNZ3g4Mw/en6mvR+Mo
+	 kLJm1xgCa2S1f3fdXVLkFECSjjGqG9weOnyF1K9vnYlsZ0Ke4mzPHe7Q+qw9Cy/4JjfS3
+	 ZvvA4SQIFwq+gXdC1ZWDJQ7hFCAP6eYHX9Sbu9SIbDNifjPQ/O8Rv5q4c2Zm+Ua3A0k7r
+	 /qc2zcWxr9g76ZKiB1nUJUDcmliI/qqIFkBvs0IvH7Fs6Cp6JmKwUrN6UmDRGhlekZkZF
+	 C+HaiLXyk49ofZl7KIPfF16v0DTyV019fnIAjpzxRBT8FGvy7wlJj3/rOGv8ivw+/1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7g9fxfM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4402C606A31A;
-	Tue, 27 Oct 2026 07:31:07 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="ShPz/LB/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F324606A323;
+	Tue, 27 Oct 2026 07:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F324606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7g9fxfM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E4D1F01825;
-	Tue, 27 Oct 2026 07:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793086267;
-	bh=TSzWHCPYD+61FDYzvIaUM/XSpeBKrTUMpoKDAlcttLw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M7g9fxfMXawEb4o84LE3DlT49o4CGS+NuHl7wlKbmcWmn4I7EOZMpv1Rr60pITHgg
-	 Dqub4aRSd6IBNEnL3hUn1HiryZFfKQvr9frfsy2q//7GeQbxvG3TGmqZklF85tx4oq
-	 P7f58F8+wY6DAAMmzRxaE/F/12KTxkDHKEdgbEvmUBxrgpcmdUKMdcdFdFvizKt4P3
-	 m2gB66ToFe2tv+cAeDe4ouaXIp3kEuLfI9Ouals+wH76B2F6TacSsrBKriNZXpW1pu
-	 cZ2U+ndptccftx8WpToOR3zREPcneEIxezbP86VemeGq0XX+Qwr5VLmw+24yOyMjRo
-	 VlWnCOTp507gg==
-Subject:
- Re: [PATCH net v3] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-From: netdev-bot+sashiko@kernel.org
-To: yangguoshuai@gmail.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- sd@queasysnail.net, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 27 Oct 2026 07:31:06 +0000
-Message-ID: <179308626642.3134.14988418944940808850@kernel.org>
-In-Reply-To: <20261023065311.65031-1-yangguoshuai@gmail.com>
-References: <20261023065311.65031-1-yangguoshuai@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ShPz/LB/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C08721655;
+	Tue, 27 Oct 2026 00:35:48 -0700 (PDT)
+Received: from [10.163.152.160] (unknown [10.163.152.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 316693F673;
+	Tue, 27 Oct 2026 00:35:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793086551; bh=n2WrtA8FsjLacOwP70K0qkcnkliELHh0b55ywQMgrm4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ShPz/LB/JTXMSaXWoN89wpg1R0MFhTQ3+OYAWgQenVr07qFiwcr+BtH2v6xKKQfRM
+	 QrYTx4Q3mPU1qcZAPdg41yN63hG8hPH4qkEAk45cxkJ8LLmOSK716gyfQv1IvIJqjZ
+	 R/89T7N51QEEo+TuFrpiXNQLA0t0iBWtwxXvK0jA=
+Message-ID: <21091d4e-0afb-4b5b-84ac-b36bac58e40f@arm.com>
+Date: Tue, 27 Oct 2026 13:05:27 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,182 +53,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 26/46] mm/mmu_gather: fix flushing ranges with 4 GiB or
+ larger
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 27/10/26 4:47 am, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> __tlb_adjust_range() takes the size of the range which has to be flushed
+> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+> gets truncated, possibly to 0.
+> 
+> On arm64 with hugetlb, a 64k kernel can flush 16 GiB hugetlb PMDs, and a
 
-- [Medium] The commit message presents a crash as the current failure
-  mode: skb_segment() 'hits BUG_ON(!list_skb->head_frag)', followed by…
-- [Medium] esp_reset_espintcp_fraglist_gso() (include/net/esp.h:31-71)
-  replaces a shared frag_list member by writing `*fragp = frag` (line…
-- [Low] The commit message names 'rx-gro-list is enabled' as the example
-  trigger for the SKB_GSO_FRAGLIST case.
+Nit: this wasn't obvious to me. Better expressed as:
+"a 64K kernel can have 16 GiB hugepage mapped contiguously at the PMD level"
 
---
 
-xfrm: esp: reset outer TCP GSO metadata on espintcp input
+> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+> at least these two scenarios are affected.
+> 
+> Fix it by flushing the proper range instead of the truncated one.
 
-This patch clears stale outer TCP GSO metadata from espintcp ESP records
-in esp_input() and esp6_input(). Before skb_cow_data(), a new helper
-unclones the head and any frag_list members that carry SKB_GSO_FRAGLIST.
-At skip_cow, skb_gso_reset() is called on the head and on every
-frag_list member.
+Nit: after reading this I thought you are passing some other parameter now.
+But that is just a type change.
 
-> Furthermore, if an outer TCP GRO aggregate carried SKB_GSO_FRAGLIST (e.g.,
-> when rx-gro-list is enabled) and was chained onto
-> skb_shinfo(head)->frag_list by __strp_recv(), skb_cow_data() invokes
-> skb_copy() / skb_copy_expand() on that frag_list member and hits
-> WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
-> -ENOMEM before decryption even begins.
 
-[Severity: Low]
-Is enabling rx-gro-list enough on its own to reach this case?
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: use two-tab indent, simplify description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-tcp4_check_fraglist_gro() looks up an established socket in the netns of
-the GRO device. It enables fraglist GRO only when no socket is found:
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 
-net/ipv4/tcp_offload.c:tcp4_check_fraglist_gro() {
-    ...
-	net = dev_net_rcu(skb->dev);
-	sk = __inet_lookup_established(net, iph->saddr, th->source,
-				       iph->daddr, ntohs(th->dest),
-				       iif, sdif);
-	NAPI_GRO_CB(skb)->is_flist = !sk && !skb_is_gso(skb);
-    ...
-}
 
-tcp6_check_fraglist_gro() does the same.
+>  include/asm-generic/tlb.h | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+> index fbe1114e9a443..3f4a180b48f3c 100644
+> --- a/include/asm-generic/tlb.h
+> +++ b/include/asm-generic/tlb.h
+> @@ -350,8 +350,7 @@ struct mmu_gather {
+>  void tlb_flush_mmu(struct mmu_gather *tlb);
+>  
+>  static inline void __tlb_adjust_range(struct mmu_gather *tlb,
+> -				      unsigned long address,
+> -				      unsigned int range_size)
+> +		unsigned long address, unsigned long range_size)
+>  {
+>  	tlb->start = min(tlb->start, address);
+>  	tlb->end = max(tlb->end, address + range_size);
+> 
 
-An espintcp flow always ends at a locally established TCP socket. If that
-socket is in the same netns as the GRO device, is_flist stays 0. In that
-case only plain SKB_GSO_TCPV4/V6 state reaches esp_input(), and the
-skip_cow reset handles it without the new pre-pass.
-
-It looks like esp_reset_espintcp_fraglist_gso() only matters when GRO runs
-in a different netns from the espintcp socket and the aggregate arrives
-unsegmented. One example is a host NIC forwarding into a container over
-veth, since VETH_FEATURES includes NETIF_F_GSO_SOFTWARE and so
-NETIF_F_GSO_FRAGLIST.
-
-Could the commit message describe that topology? Could it also say that
-this half of the fix depends on TCP fraglist GRO? That feature is much
-newer than e27cca96cd68 from the Fixes: tag, so on stable trees without it
-the pre-pass does nothing.
-
-> stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-> the slab-backed frag_list member as a scatter-gather page fragment and hits
-> BUG_ON(!list_skb->head_frag):
->
->   Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
->   PC is at skb_segment+0x574/0xd20
-
-[Severity: Medium]
-Is there still a BUG_ON() at this point? In the tree this patch targets,
-skb_segment() handles the condition like this:
-
-net/core/skbuff.c:skb_segment() {
-    ...
-				} else {
-					if (unlikely(!list_skb->head_frag)) {
-						DEBUG_NET_WARN_ON_ONCE(1);
-						err = -EINVAL;
-						goto err;
-					}
-    ...
-}
-
-On current kernels, segmentation seems to fail and validate_xmit_skb()
-drops the packet. A warning appears only with CONFIG_DEBUG_NET, and there
-is no oops.
-
-Could the commit message say which kernel the trace came from? Could it
-also describe the behavior on the kernels this patch targets?
-
-> diff --git a/include/net/esp.h b/include/net/esp.h
-> index 322950727dd0a..09ed682209113 100644
-> --- a/include/net/esp.h
-> +++ b/include/net/esp.h
-> @@ -28,6 +28,57 @@ static inline void esp_output_fill_trailer(u8 *tail, int tfclen, int plen, __u8
->  	tail[plen - 1] = proto;
->  }
->
-> +static inline int esp_reset_espintcp_fraglist_gso(struct sk_buff *skb)
-> +{
-
-[ ... ]
-
-> +	if (skb_unclone(skb, GFP_ATOMIC))
-> +		return -ENOMEM;
-> +
-> +	for (fragp = &skb_shinfo(skb)->frag_list; (frag = *fragp);
-> +	     fragp = &frag->next) {
-> +		if (!(skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST))
-> +			continue;
-> +
-> +		if (skb_shared(frag)) {
-> +			struct sk_buff *nfrag;
-> +
-> +			nfrag = skb_clone(frag, GFP_ATOMIC);
-> +			if (!nfrag)
-> +				return -ENOMEM;
-> +
-> +			nfrag->next = frag->next;
-> +			consume_skb(frag);
-> +			frag = nfrag;
-> +			*fragp = frag;
-
-[Severity: Medium]
-Can fragp point at the ->next field of a member that is still shared when
-this store happens?
-
-When the head is cloned, the skb_unclone(skb) call above goes through
-pskb_expand_head(). That calls skb_clone_fraglist(), which only takes a
-reference on each member:
-
-net/core/skbuff.c:skb_clone_fraglist() {
-	skb_walk_frags(skb, list)
-		skb_get(list);
-}
-
-After that, the old shinfo and the new shinfo both walk the same ->next
-pointers.
-
-Take a chain A -> B where A has no SKB_GSO_FRAGLIST, B does, and both are
-now shared. The loop skips A with continue. It then clones B into N, calls
-consume_skb(B), and writes A->next = N.
-
-A is shared, so the other owner's chain now points at N as well. B still
-holds one reference but is no longer linked anywhere, so it leaks. N has
-users == 1 but two chains reach it.
-
-skb_cow_data() runs next. It sees that A is shared, copies A and
-everything after it, and calls kfree_skb() on N, while the other owner's
-A->next still points at N. Can that lead to a use-after-free or double
-free of N?
-
-The -ENOMEM returns after this point can leave the same cross-linked chain
-behind.
-
-This relink pattern looks like it comes from ___pskb_trim(). That function
-handles skb_shared() on every member before skipping any, so it never
-writes through a shared predecessor. Would it be safer to privatize every
-member walked so far, including the skipped ones, or to copy from the first
-shared member onward the way skb_cow_data() does?
-
-I could not find a current producer that hands esp_input() a cloned head,
-or a shared non-FRAGLIST member in front of a FRAGLIST member. strparser
-unclones the head or allocates a fresh one before chaining. Still, the
-skb_unclone(skb) and skb_shared() branches here exist only for that case.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023065311.65031-1-yangguoshuai%40gmail.com
