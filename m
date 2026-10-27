@@ -1,66 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090295;
-	b=Lf6fT/hyCYhsw0DTZGuPyk0Dtg8YRZ9bmZYlzmyGt1l+k6aV7GKXpqyNAZb1dfYYMueb
-	 GzqLRoIwhiA3y9/MHAGMjyomdJ1U8JfnFPHYpEVPSNzPBhgjplkNo9Np+OBwm+5oYiIvh
-	 7pYBdsTtJ/MzBiwV8BroCP/FNmBjuOA4FAwPJq/aziLmzqZZjVWqVlJIq9EGcv7/5iAZV
-	 4RaVqRFVOCJbg4J3ONOo0xgRhwWpZ6PJklSh7wU+RP3WoPNaLOAs0+zbNh7imU1UFn3IS
-	 SXtQmc8dboEcP+4wLTM2E16pJS/DiVsTgOSpViM3HTyoLH7ZIXAxIN4IyIsFCEgjKWg==
+	t=1793090289;
+	b=FAWZdB+lvbioeqB1uRb/QBuIpCtTDQAJWTohzAY6mq+MRS45MK5Q3cfqFIzQ0ffyYaVs
+	 f78MXimIeGtY1UvGdgktMFXC447oXVINQMFCnO1BrRMyonTD+Ss5QaKniyUiBNQY8pr9C
+	 E+0wFZtjePP4x7rS/I2qxXnrDIXKVKgnaneYRWKrW6/Fll6Afuzip6WgSr4EbplNqgCA5
+	 oq091cQATwX+34FfYG8GFItGxtqU3WydZL4r6Lw1STNXGdZ5NESrnLgolprPWE3n/Ky0/
+	 2nqOX0Z3WjmQ+VlYgXoktQ/XkxxHRqUI6Oi1Ix1ehRJpbyYq5Af1bj3MpI5S6pUdN4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090289;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0jvUE7BAMfXfeQ7E5zBu/mVl8NbznBTqo/0Pqg6+g9Y=;
-	b=KIHgivgbuF3o2EUdB3VKb/1EKJCwWRkiisPcORLtV7uowGaLq5u1HpZRZ7qs55ffbcEy
-	 BuLgpF9+NAhoe+l0c97L/YxGkcKsKZlaeezj9cpCdX4W9q9EkyGvUoPoYJ99xoYNckWj/
-	 kN1pSbJOt/qWUYlas5kDVP0DXeQjXFNq+VIqbyBxCJnQmCth537atc+ZGBhvNHiCrSIoH
-	 vvMm+6lYiaQarHrl68fMjOkCTVQDG7zLQNA7HFGvlNI4K98ILWKo/f8l6UoorfBYpgPwD
-	 Ao8lij7mFKHSK+zDpN3sre2x9XqVm/EpBcX/qW3GdaHzPQZyz1nrt5af81N0Ko1OyPA==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=jelzCIJWdhjVx6nrXnvzhRfginKwOd34PJhJ6YdscOM=;
+	b=q4+NfGQ9xieMEumUEm1z8bIrWKaXyQjcDgPdd1UsTAwxNE4GVmbDuN8jjc1RCHw4q1Xe
+	 cICDnrat2v1xHfAxYyw1aGXu/hh/YYZ3L+k/NYQZ87nVqPjoUF77aHYdTnyueQhrkoabo
+	 MMBhWSSdJ7W7LZK15b3h5ndIyrSQZrjOV2V+efmTS3TQgamOKI0qAkX1BtifjeaO6qUcr
+	 Shz0ywtwS4ZBXff79/D0m3B66OjhxuHs0LZKErwx/0XkU5pN93VTQEc+otedmpihY6+vv
+	 p47hjjIZ0t9gGycyBMZ/Rs6iZwgA6HeTb4f/8ZIcRhvXEjHrDCeQYN7s1SeuizWNXPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gZS4+wDS;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UHpIFOTI;
 	arc=none smtp.remote-ip=198.175.65.11
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3076B606A31A;
-	Tue, 27 Oct 2026 08:38:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3076B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A126C606A31E;
+	Tue, 27 Oct 2026 08:38:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A126C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gZS4+wDS
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UHpIFOTI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793090295; x=1824626295;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=QF9WraV6r1mF6ekngCDfbiFVTkXFMr/IAGfvAPiXb8o=;
-  b=gZS4+wDS16qSARpEBUTeh0esgbrNEH2BWVegwgJzoiQChHB8FmBoiDqy
-   ppdQMARsp0cq9yd2v+ZvfCT+tZO/pWfVfpzguTmOhuVP1OEzZRdjCKcc0
-   uxnXW00nxRbtU9EMLbkN2XuPdiD+7RmlogZZzExqCl+XZZ2dFyfKHCe+T
-   nou7P17a43DSwpE0gAotcQGfrMbKlt37umV/rZ109xYQaqd2ZJdimq7B3
-   tmZw1ZA9f5BU6ffe0CE7fMrzyIrVZybB1vHnyjY/PQ9JNzHFEInNcEV25
-   Y67yq7sOmJlZgfTqE51rxPSjI1TdDBqgtaScoqBGJ1HM7YSYhn2Rai6yo
-   g==;
-X-CSE-ConnectionGUID: Jn9nCk3pQcGQTY95ppoiXw==
-X-CSE-MsgGUID: vLc0VgqJSkqKn/Y+Uo9D1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1672403"
+  t=1793090288; x=1824626288;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=f+ACxmwWlztbLOqiMhH6E0ePDfrfYELcqnuxvCStSAM=;
+  b=UHpIFOTIojAFRt1mrdvupkvpWL7GiJAvKY77JfBqO62rX4FCOkGroz3L
+   0feUQOAzCUyA0Xv2KAUPkDTPgTjkSiPX8HtofQxtaQTAGq/xsLLBLyGLT
+   r2rlRhZ74PAaK5D4YDgyiB7RPuwcKNQFfDQaeQfRVTW5CY5NJBjQ5f7qh
+   JgTr+ReJ5Hj2oDicMBgEVIwtZcn6AXP4AuI8/y/RLrpquaTGOSzNc7sMq
+   MTMkC78M8ZnYGIPz+iZuYUmvwoyMK7O/CFg5hlqe0QZJvXzTeofD1WgPY
+   JECMiAFKMSSGdn/vX7puyiGRJJ/oZLhaW94/T+pQ/hbjVuONVdWoPQtaq
+   A==;
+X-CSE-ConnectionGUID: LKDtDJKSSRqJwQeMFM0TCw==
+X-CSE-MsgGUID: +t2pnUM7R0K5l0fep0ftVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1672388"
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1672403"
+   d="scan'208";a="1672388"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:15 -0700
-X-CSE-ConnectionGUID: 2SDZ2rOAQJG1M/VwS53ajg==
-X-CSE-MsgGUID: KgFkfEJbRCmqPB2wjLQ6uA==
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:08 -0700
+X-CSE-ConnectionGUID: jIIpvgXGRJKX4sU87lfEgw==
+X-CSE-MsgGUID: mbFrv7RhS9+EV5UGEql3TQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4570816"
+   d="scan'208";a="4570789"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:13 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:38:06 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -70,12 +69,10 @@ Cc: linux-sound@vger.kernel.org,
 	stable@vger.kernel.org,
 	tiwai@suse.com,
 	perex@perex.cz
-Subject: [PATCH 3/3] ASoC: hdac_hda: Balance the runtime PM disable in codec remove
-Date: Tue, 27 Oct 2026 10:38:40 +0200
-Message-ID: <20261027083840.28813-4-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 0/3] ASoC: hdac_hda: Fix module unbind/bind via sysfs
+Date: Tue, 27 Oct 2026 10:38:37 +0200
+Message-ID: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
-References: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,49 +84,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hdac_hda_codec_remove() disables runtime PM of the codec device before
-releasing the HDA link and calling the codec driver's remove callback,
-so that no runtime resume can race with the teardown and access the
-link or the already freed codec driver data.
-snd_hda_codec_cleanup_for_unbind() then disables runtime PM again.
+Hi,
 
-On the next probe snd_hda_codec_register() enables runtime PM only once,
-leaving it disabled after the ASoC card or the codec driver has been
-unbound and bound again: the codec stays powered and runtime_status
-reads 'unsupported'.
+While looking at the reconfig lockup reported in
+https://bugzilla.kernel.org/show_bug.cgi?id=222182
+I checked whether the same can be done by unbinding and binding the HDA
+codec driver via sysfs:
 
-Re-enable runtime PM at the end of hdac_hda_codec_remove() to balance
-its own disable. The codec remains disabled until it is registered again.
+  echo -n ehdaudio0D0 > /sys/bus/hdaudio/drivers/snd_hda_codec_alc882/unbind
+  echo -n ehdaudio0D0 > /sys/bus/hdaudio/drivers/snd_hda_codec_alc882/bind
 
-Fixes: c3ec8ac82105 ("ASoC: hdac_hda: fix memleak on module unload")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+The unbind works and the SOF card is removed, but the codec cannot be
+bound again. This has been broken for a long time with hdac_hda; the
+reconfig lockup itself is addressed by a separate patch.
+
+Patch 1 and 2 fix the bind: the codec private data was lost on unbind
+and the codec device type was left as HDA_DEV_ASOC, so no HDA codec
+driver could match it anymore. Patch 2 depends on patch 1, otherwise
+the bind would dereference NULL drvdata instead of failing.
+
+Patch 3 fixes an unbalanced runtime PM disable in the component remove,
+which leaves the codec with runtime PM disabled after the card is
+re-created. This is also visible with machine driver unbind/bind.
+
+Tested on PTL (ALC888 + iDisp): repeated codec and machine driver
+unbind/bind, playback/capture, runtime suspend and module reload.
+
+Regards,
+Peter
 ---
- sound/soc/codecs/hdac_hda.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Peter Ujfalusi (3):
+  ASoC: hdac_hda: Allocate the private data at codec driver bind
+  ASoC: hdac_hda: Restore the codec device type on unbind
+  ASoC: hdac_hda: Balance the runtime PM disable in codec remove
 
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index cae5711e979c..bd4b113401a8 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -554,6 +554,7 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 		return;
- 	}
- 
-+	/* prevent runtime PM callbacks while the link and the codec are torn down */
- 	pm_runtime_disable(&hdev->dev);
- 	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
- 
-@@ -561,6 +562,9 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 		driver->ops->remove(codec);
- 
- 	snd_hda_codec_cleanup_for_unbind(codec);
-+
-+	/* Balances the disable above, cleanup_for_unbind keeps runtime PM disabled */
-+	pm_runtime_enable(&hdev->dev);
- }
- 
- static const struct snd_soc_dapm_route hdac_hda_dapm_routes[] = {
+ sound/soc/codecs/hdac_hda.c     | 29 ++++++++++++++++++++++++++++-
+ sound/soc/sof/intel/hda-codec.c | 23 ++++-------------------
+ 2 files changed, 32 insertions(+), 20 deletions(-)
+
 -- 
 2.56.0
 
