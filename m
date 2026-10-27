@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115998;
-	b=VRx2PQ9MR3Y82L4UVrSpvZUnPAmqza8QcoYJ8kb4BE/FB5/lCkGcBcNAdZ0n9Fv9jb4p
-	 faePGDNr+XPLdOauno2cjih30gXVd9SNqZWIgBYcq+LRbRLBFa8HjTJxZJy9FxbwVVuIO
-	 oh8Rzq7S1Qx/Ls9UmjhXtYYiHPMAzr5TBfEKyztDWUgJiPe7xBuaIxxW7va9YNfcKmOj2
-	 2H+o2R8BBsmB/Doj7ftYq+OxVBcygtAubGZ8uDo9Q/Oh25x6h/gV31z1os4NW0nTqHxFk
-	 KIzwToWB9+lYG3aCHK/A/cUBgFnXZS8/IN8hdv9GwIubYxXOIeIArRftLp/+iDOCJmA==
+	t=1793116002;
+	b=DF97Oqf5HOGxxqQmiyg7K7wOBlW6SiLmMmd0TM9s2wy4GEaXVsIntdptBfxfrDlxXv1+
+	 GrHRs0+dhQ1xjwK/UrIE1MhJR2tGy6pqc4HgpB3hBMnLpGEql8lHZYUR4iGBN2ybKixvr
+	 OUrIre80G/IN2XL/tPCk3aKXbHqqLhfp3MR46blVvSZSp+mFjl+VmKJTNm2mEeiQ9Agf7
+	 aiT/el+3RO3YgGcwFlQl/3qcb9/3PcDuR8kVnCXHrtNOFP4sb2Fjh8/Qt2U2XYi8ZzJyC
+	 f5vdunPRuiopwEBecyi6Nyby7QswGFYyru13i3+A+NflRVFD/x6q15V8L6zILGpGnWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116002;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=TkajPyN/GH0NQa9nfHgSYQX1lDjcrGhWefwdVdOd9cw=;
-	b=ks/1c1RwEb8CMArwMYFhyPzn2NUk5O70uazt8z+rQTlfW0ftDxUXv7S/fWxgJw9GikEL
-	 k8iVuc4s/PklV88LE1Ky+KLxbMUVVyhKKfPxcl1Vmjzti+WSyF7dDLhhtbd8XeaDD+9nq
-	 faM2V2k5mjJ2aNjZ1INIgRsKK2whW1aQJGjhSIdHjdpWO9JZxyVdutFJ8Ich4IdxG+y9M
-	 K9XVd0kIbHRLGoyw1NUO5Adq5+Q+iN9FA7QaxrmTxe7rRHr7FfAyAEhLn1lnYPx7fuWF8
-	 OXGqOwCj601CU9vSfIW6EKGfcOtbFM+z5grZyZ1EVO2ATOUXc+0qDfmb1YrNMsVoPuQ==
+	bh=JZkvBXJ1M4cprmGAnU9nv4mrWfliu5LNDxbLf5XaiBg=;
+	b=naNSG6KuGwxOY4OMu6RqjhUCniUad7qYd4/HTekJkvQ4Q4PIirRdHmLx6QvBIAdiX8nY
+	 uEUWjxtR4ZdZMAj49YcV4KIul0Y0jzlLuSxw6iwirf+8U2tcQr/rrRYYxt8xx2brRRYzv
+	 e4Fbpi1Gat1IZ2x1AH8k0M61Nmcmxzs9ElwqUJrNlnZArFV7RADu8xdFUObq5g6/tc5mf
+	 JZFTegWZAOkYe2M6TrjmVcx4Y4Tl1GSUt5m8REK1f+32BSoXBVT1lLVuMPzmw81lLYwlg
+	 hOwlV2dOQBOrYPlfS9+uzke+dnZZ0Se6J4Knn2o0U5FeMHwsl8f6XFZ5urhVhhS+7VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnFG75xq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wi3ycDQp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87AB606A31B;
-	Tue, 27 Oct 2026 15:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1669606A325;
+	Tue, 27 Oct 2026 15:46:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnFG75xq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D06E1F01828;
-	Tue, 27 Oct 2026 15:46:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wi3ycDQp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17F91F01829;
+	Tue, 27 Oct 2026 15:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115997;
-	bh=TkajPyN/GH0NQa9nfHgSYQX1lDjcrGhWefwdVdOd9cw=;
+	s=k20260515; t=1793116001;
+	bh=JZkvBXJ1M4cprmGAnU9nv4mrWfliu5LNDxbLf5XaiBg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=cnFG75xqYOPouaLfdO1n3+9x3mvKVPPbTb75zL0Ve7ybnZEI0um1yk8fTdE8c0aTO
-	 OchixKsbFVVX9pkhfU8QMXnYDWso5w6BCnYha1Sc5cjQItWdP9kCGEJkuxqUSqePjL
-	 8uU4jMMYQTDh78EtXMcWaOSkSScCWe82+YcgniY0LjTDdjXyI1E/hCu0k06rsimkpT
-	 elPFWaqr76SXEb3wdjqlKb+VHRwzdYLtCJHhySzu2ULW+0xXwC2q5cW86ssKv6nXWb
-	 tCxzDMabgmXHRPakFeCLbHumw2TLgD2ng4t9qmDjk4xTEUCqm85kercIRwu0+TqsEW
-	 rS9xwAW23dcUQ==
+	b=Wi3ycDQpHF+2DIQxiDwQjdSsO80VWcpydnlA755H+EKJMGT8hFyb11qJN+Gseajqt
+	 Byo+QhM5RwKb2KaoAkOnY8OD680CD011e5np2eh5OvSj9jNHK1VSl96bA92YWs81BZ
+	 yX3UDHGZs7N7CIsp2y4BIuKhbks1JtLfBADzO6vesqXSur5M5wM3ZruF6VCFjA/T9s
+	 mGBc39SYbWerm/Qh9VTg2baNXgVabajJy3pjqmbOJOLzT6yK5buRJ4WXMmUbWSOLi+
+	 84B7Yp5bQkRwVMiqoZcMxHGwGPo8lfgIOsv6f/Koddk4FP7pNe1Pu1J2b9ZxMjMxIT
+	 Z60vbzB3zih/A==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Tue, 27 Oct 2026 16:46:27 +0100
-Subject: [PATCH 1/9] mm/page_alloc: don't undo a racing
- start_isolate_page_range()
+Date: Tue, 27 Oct 2026 16:46:28 +0100
+Subject: [PATCH 2/9] mm/page_alloc: clear ->private of deferred free pages
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-pgalloc-ai-hotfixes-v1-1-9c7d1aca801e@kernel.org>
+Message-Id: <20261027-pgalloc-ai-hotfixes-v1-2-9c7d1aca801e@kernel.org>
 References: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 In-Reply-To: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
@@ -71,69 +70,56 @@ X-Mailer: b4 0.16.0
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-start_isolate_page_range() fails with -EBUSY if one of the pageblocks is
-already isolated, i.e. if somebody else is working on it. It restores
-the pageblocks which it has isolated itself before it returns, as its
-kernel-doc says:
+free_pages_nolock() and free_frozen_pages_nolock() put the page on
+zone->trylock_free_pages if they get neither the pcp lock nor zone->lock.
+add_page_to_zone_llist() keeps the order of the page in page->private.
+The next free_one_page() which does get zone->lock passes these pages to
+split_large_buddy() with ->private still set.
 
-  We then clean up by restoring the migration type on pageblocks we may
-  have modified and return -EBUSY to caller. This prevents two threads
-  from simultaneously working on overlapping ranges.
+__free_one_page() writes ->private of the head of the resulting free page
+only. If the deferred page is merged with its lower buddy, it becomes a
+tail of that free page and keeps the order in ->private.
 
-alloc_contig_frozen_range() nevertheless calls undo_isolate_page_range()
-for the whole range in this case, which clears every isolated pageblock
-it finds. The only ones left at this point belong to the other user of
-the range:
+All other free pages which are not the head of a buddy have a ->private
+of zero, and since commit 819bfbd47e49 ("mm/page_alloc: remove
+set_page_private() in prep_compound_tail()") the allocator relies on it.
+When the stale page is allocated again as a tail of a larger page:
 
-  CPU0 offline_pages()                CPU1 alloc_contig_frozen_range()
-  start_isolate_page_range(A)
-    pageblock X: isolated
-  migrate ...
-                                      start_isolate_page_range(B)
-                                        X is isolated: -EBUSY
-                                        (own pageblocks restored)
-                                      undo_isolate_page_range(B)
-                                        X: not isolated any more
-  test_pages_isolated(A): -EBUSY
-  (again and again)
+ - prep_compound_tail() hits VM_WARN_ON_ONCE(tail->private);
+ - with the page checks enabled, __free_pages_prepare() reports
+   "BUG: Bad page state", "nonzero private", and leaks the whole page;
+ - without them the value is seen by whoever uses that page next, e.g. as
+   folio->private of a folio which is split off a large folio.
 
-offline_pages() repeats the migration and test_pages_isolated() until the
-latter succeeds, which is now impossible and the task spins until it gets
-a signal, while the free pages of X are handed out by the allocator again.
+Only pages of an order above zero are affected. Those can be freed
+through _nolock() by the stack depot (order 2) and by SLUB (a new slab
+which cannot be added to the partial list by kmalloc_nolock()).
 
-If X is released after the last test_pages_isolated(),
-__offline_isolated_pages() takes pages which are accounted as free off
-the free lists as MIGRATE_ISOLATE. Thus NR_FREE_PAGES stays too high, or
-hits BUG_ON(!PageBuddy(page)) if one of them has been allocated.
+Clear ->private when the page is taken off the list.
 
-For another alloc_contig_frozen_range() or cma_alloc() the result is a
-spurious -EBUSY.
-
-Return the error, like the function did until it was reworked.
-
-Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock granularity")
+Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
 Cc: <stable@vger.kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/page_alloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/page_alloc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 36079e092875..ee013db45ed1 100644
+index ee013db45ed1..9a4d3352c037 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -7329,7 +7329,7 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
+@@ -1562,6 +1562,8 @@ static void free_one_page(struct zone *zone, struct page *page,
+ 		llist_for_each_entry_safe(p, tmp, llnode, pcp_llist) {
+ 			unsigned int p_order = p->private;
  
- 	ret = start_isolate_page_range(start, end, mode);
- 	if (ret)
--		goto done;
-+		return ret;
- 
- 	drain_all_pages(cc.zone);
- 
++			/* It may end up as a tail of the merged free page. */
++			p->private = 0;
+ 			split_large_buddy(zone, p, page_to_pfn(p), p_order, fpi_flags);
+ 			__count_vm_events(PGFREE, 1 << p_order);
+ 		}
 
 -- 
 2.56.0
