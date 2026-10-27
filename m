@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105146;
-	b=5DocqA2DcS0o6oCOaqX2oRM9oLy7CM9RLadTKqHaDFDVuRvzbuv+CKhpLqwo1t/Yy0wk
-	 Zgrs6u/RMI4IPuBzhnZ+VWwSrHpN9ivMCaoWXilecQyMJ/4RWL6Rxq42oTvd61UPojOGe
-	 fBido/cmL5hIDTKpwn2CBBOw1fJtebYAq+RaNB74PFX/DUvKRQbUYh7+3uzbbNcuXVhc/
-	 yGsv8y3en1Y5iv+L2f2KWgsP3GPz7JinkBhxoiSqGuRyiJu1xk4036fdDli4BSaFQj5ys
-	 F4DLFgA2+0Zw9T8SbbMunmHrksQ9TS3uPpYOiau8F+youBP6ZwkcPSTko3DoplCO2WA==
+	t=1793105658;
+	b=Bt2pARfMfm8kr6gm9HoVSqE3OZb2mZXKPid0RCr+/a6nLWf3RAVlMzRTp/qfJffyt61Y
+	 CxlUx3zgwyM70p9Zfw6sk2ku4zRM7j1bQr5Hh6nE0hwJct0SzO96LzMmCVFKlEZIMO37l
+	 4PaqQ55WBOMzqOWIzPQ4Ljz0Dqm1WT4Y8PhwY+1ehHA/1zUFOAl2Chj9lnyooNCfHGQrH
+	 hEykhGQnZDhv4Aj0n6jn7DQujHfeXf6/WOhVCJEknxrofg1gR2FpAZIxAbMIqlU8ex6MX
+	 punreOYXXM+bSMf7ANFUz4xFGUfHkfVmeq1Boyc27IiACpmnm7IhZYTV5bnHxFNPFxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105146;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=koFtvkLfr2oI9uXtX/n3Ay3Dy+ycp8hbA1U6raVcKYE=;
-	b=gtncVGNuxhgxb/EN32XlN68HvEZyDN9uLG6LKW5nAqFFkC+RSC3mkdZD2JGo9GJwZ1zI
-	 e7LXmN/Gx2dHa07NuLEyTXdwkuM8bTy0qqfL/u67oMUcej5e1fbpSKelOTKrZgJIVASCx
-	 7NiTdLv4ExB3qFDyE23H5cYIVJZfxrgbriQckDYDUz7H3TG2PHserqYBQn6c92uKZVFkH
-	 ryOeaD6OsJy4eWh+duDLxuh+oK99lR7iMnYyVZP17XPVvYzqbfiGSALGccyHFjt2YEmU3
-	 3g8Db675sfuQMmCnlCQ5hlEJYby384z3XQnAdCT62d/p/hz20kzJf7gxxsS9mTbr3Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105658;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ajhi3IASz6j1nsG+aKk5gHIR6odA67bemeXJatpjIoM=;
+	b=tezNs7GHzVlzvVcNOeMPH7v1zss8CluRnHTCvwN1QAcnuxxhB7VpTTKhWndu59ltgyfg
+	 Rsf7p3+a/Y+Fi6zLQbHOdjqHK75AhS673bKo1v6V2IgK9u7p7vq7QOuKwTg1cJrH71aWA
+	 cInsZSK++gAY8+Fp3UCcws/P284Rk0y6uaU1jiRaCOnQhLg8ZN4F+el7mK23b2rP9pm98
+	 4PxTLKkw1gtr5hL/luyyHeQ6REn7OCHu4ACus19ECteE6IxoWelX5FZQ/5d6cUEOnhX0V
+	 2ooYqPb2/fcy6bdDY4VuQzYG0ZmgJdoznOSFtgIfkFBZN+HX5jHLUMiCmJgl/8fBdAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5B1imMU;
-	arc=none smtp.remote-ip=95.215.58.38
-Received: from mta1.migadu.com (out-38.mta1.migadu.com [95.215.58.38])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=it6BDLel;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4F1606A331
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 12:45:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA4F1606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7C1606A31F;
+	Tue, 27 Oct 2026 12:54:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B7C1606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5B1imMU
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7hyLZnCptglh6ZfX27cwvtA9DMVa5PLCr9Si8AAJnHA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793105144; v=1; x=1793709944;
- b=o5B1imMUAsXMIe68c9yZ8nUysrg9IA3E5gU6Jo69SRBPFqKt990Xab1s4cfAE2x9M7THBwwA
- 3+KbCVOHBt2XqQu4lrWHGQzoKEqn1BBqv8Aob+fNaFgruL63suAcGmi5Ee11M9EUXcFkeTN66Sd
- ikXmkP6AWUjk+DkrHmtBniH4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c7f68ba690e126ba;
-	Tue, 27 Oct 2026 12:45:23 +0000
-X-Mizu-Trace-ID: c7f68ba690e126ba
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e25fd292-5391-41fc-a324-0ec260828415@linux.dev>
-Date: Tue, 27 Oct 2026 20:45:14 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=it6BDLel
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793105657; x=1824641657;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=sBltcqNZmwTxjonR9sdBB+Igk0tLqgp0m8kQbwTLzAY=;
+  b=it6BDLelAnaA0NLb9h6JHQ/ZhoOmRTyaGBBKfpMtKJCmX8aGpZWKnjnC
+   uzm2mdvMS7k3KWu5oI0B6woorSq/oPHX2W8JfBysiCoXgvOEDHli0sYaq
+   P1BKjmQMvekN5TUJ1ye+ONzhU1klXbVU1vrkIxNjdHJK16uahDzqCjG8q
+   QKxNW26f3BPsTFothor9dqDxLThUlMEYYFbwllkJW3xIHYBMoFMYLxvXQ
+   J1SOQHszGPyzjvA2mt4DKvOXb6m3DaiclFJ0JM+wjn6gOLN79C3VCSNg2
+   LOSb8o009g6+JfgI3c2Bno3my7a8XN+GKfVIb2V10JtYdBvs/QSAkiM47
+   g==;
+X-CSE-ConnectionGUID: Ib71TJPpRPm8qXjGuMuUlA==
+X-CSE-MsgGUID: JvGkUJJqSNCsw2rZAxflqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1684658"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1684658"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:54:16 -0700
+X-CSE-ConnectionGUID: pMG6J01BQtC0kiIpUxeLUg==
+X-CSE-MsgGUID: sjbQ3zMBRpmgdGpa41Pk/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6294843"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:54:15 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	stable@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz
+Subject: [PATCH v2 0/3] ASoC: hdac_hda: Fix module unbind/bind via sysfs
+Date: Tue, 27 Oct 2026 14:54:45 +0200
+Message-ID: <20261027125448.11018-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,121 +82,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-To: echoowall@gmail.com, netdev@vger.kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Shuah Khan <shuah@kernel.org>, Thorsten Leemhuis
- <regressions@leemhuis.info>, regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
- <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
-On 10/26/26 3:23 PM, Esko Mobius via B4 Relay wrote:
-> From: Esko Mobius <echoowall@gmail.com>
->
-> This reverts commit 2640e6419594 ("net: advertise TCP MSS from the
-> configured MTU, not the learned PMTU").
->
-> That commit stopped the learned PMTU from lowering the MSS we advertise
-> in SYN and SYN-ACK. For symmetric paths it argued that "the peer runs
-> its own PMTU discovery and usually already knows the real path MTU".
-> That only holds if ICMP "fragmentation needed" can reach the peer. When
-> the peer sits behind a firewall that drops inbound ICMP, its PMTU
-> discovery is a black hole (RFC 2923, section 2.1), and the smaller MSS
-> we advertised was the only thing keeping its full-size segments off the
-> narrow hop.
+Changes since v1:
+- Add pm_runtime_set_active() after snd_hda_codec_device_new() in
+  hdac_hda_codec_probe() function as reported and suggested by
+  Sashiko Bot.
 
+Expanded test plan run on the device to cover the previously missed
+scenario.
 
-A client that cannot receive ICMP is broken beyond this: QUIC's DPLPMTUD
-hits the same black hole, and nothing the server advertises can help it.
+While looking at the reconfig lockup reported in
+https://bugzilla.kernel.org/show_bug.cgi?id=222182
+I checked whether the same can be done by unbinding and binding the HDA
+codec driver via sysfs:
 
+  echo -n ehdaudio0D0 > /sys/bus/hdaudio/drivers/snd_hda_codec_alc882/unbind
+  echo -n ehdaudio0D0 > /sys/bus/hdaudio/drivers/snd_hda_codec_alc882/bind
 
->
-> Inbound ICMP filtering is very common in enterprise and carrier
-> networks, and it is pervasive in mainland China. We hit this in
-> production after the commit was backported to 6.12.111: TCP connections
-> that reach a server through a relay with a smaller-MTU hop complete the
-> handshake, then stall as soon as the client sends full-size segments.
+The unbind works and the SOF card is removed, but the codec cannot be
+bound again. This has been broken for a long time with hdac_hda; the
+reconfig lockup itself is addressed by a separate patch.
 
+Patch 1 and 2 fix the bind: the codec private data was lost on unbind
+and the codec device type was left as HDA_DEV_ASOC, so no HDA codec
+driver could match it anymore. Patch 2 depends on patch 1, otherwise
+the bind would dereference NULL drvdata instead of failing.
 
+Patch 3 fixes an unbalanced runtime PM disable in the component remove,
+which leaves the codec with runtime PM disabled after the card is
+re-created. This is also visible with machine driver unbind/bind.
 
-The learned PMTU is keyed per destination address. If your relay
-masquerades the clients, the server sees a single address, and one
-client's download seeds the entry for everyone behind it. That is why
-this looked reliable. Once the clients are spread over their own
-addresses, each one needs its own fresh entry and it falls apart. The
-old behaviour was never a mechanism for this.
+Tested on PTL (ALC888 + iDisp): repeated codec and machine driver
+unbind/bind, playback/capture, runtime suspend and module reload.
 
+Regards,
+Peter
+---
+Peter Ujfalusi (3):
+  ASoC: hdac_hda: Allocate the private data at codec driver bind
+  ASoC: hdac_hda: Restore the codec device type on unbind
+  ASoC: hdac_hda: Fix codec runtime PM across remove and probe
 
-> Clients on networks that let ICMP through, and connections that bypass
-> the relay, are unaffected, which made it hard to trace back to the
-> kernel.
->
-> Reproducer, network namespaces on a single host:
->
->    cli --(1500)-- r1 --(1456)-- r2 --(1500)-- srv
->
-> r1 drops ICMP frag-needed towards cli. srv has already learned PMTU
-> 1456 towards cli, then cli uploads 1 MB to srv:
+ sound/soc/codecs/hdac_hda.c     | 36 ++++++++++++++++++++++++++++++++-
+ sound/soc/sof/intel/hda-codec.c | 23 ++++-----------------
+ 2 files changed, 39 insertions(+), 20 deletions(-)
 
-
-This precondition does all the work. The server only learns the PMTU
-when it sends a full-size segment itself. If it only sends ACKs or small
-replies it never learns it, the SYN-ACK MSS is 1460 on 6.12.107 as well,
-and the upload stalls the same way. The entry also expires after 10
-minutes (ip_rt_mtu_expires), so the server must have received a
-frag-needed within the last 10 minutes before each new connection.
-
-Please re-run the 6.12.107 case without seeding the PMTU.
-
-
->
->    kernel                     SYN-ACK MSS   1 MB upload
->    6.12.107                   1416          OK
->    6.12.111                   1460          stalls, times out
->    7.3-rc7                    1460          stalls, times out
->    7.3-rc7 + this revert      1416          OK
->
-> The asymmetric case the commit was written for does not need a new
-> default: the advertised MSS can already be set per route with the
-> advmss metric, which takes precedence over default_advmss(). With this
-> revert applied, on an asymmetric path where srv learned PMTU 1456
-> towards cli while cli->srv is 1500 end to end:
->
->    srv route to cli           SYN-ACK MSS   largest cli->srv segment
->    default                    1416          1404
->    advmss 1460                1460          1448
->
-> So DSR-style setups can opt in with "ip route ... advmss <mss>", while
-> hosts whose peers cannot complete PMTU discovery keep working by
-> default.
->
-> Fixes: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
-> Reported-by: Esko Mobius <echoowall@gmail.com>
-> Closes: https://lore.kernel.org/regressions/4F0FAEB6-A13B-47F3-BFF1-C706686C6F64@gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Esko Mobius <echoowall@gmail.com>
-
-
-
-
-Maybe a better way out than a plain revert:
-
-Revert in stable, and in net-next add a sysctl, something like 
-net.ipv4.tcp_advmss_use_pmtu,
-that decides whether an endpoint uses the PMTU it learned on its send
-side for the MSS it advertises (even though these are two opposite
-directions). Default on keeps your setup working, DSR-style setups turn
-it off
-
+-- 
+2.56.0
 
