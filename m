@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793085645;
-	b=XefV1EycbVO/zspbTmsbRnmUc1b5eWfuy6S7MmPKaVJE6U5MgeBTQWeSpC1st5e+vzjv
-	 N3eN6kJCGaaOqDTUwm3IzA0HFfqnQza0m2SHGFPmjKXkkKP9jfdH+2WAg6ATVicLOW2ai
-	 FPmu213GIqedvmAe3AQlVrTZn/zbGYCU4P5TvFEHXEMrPNcDfkyQCvF4C5Ax+4IKbjZf3
-	 +NkD77KeMhkoTk8sCQlxpoJWWPLUTDqGqI1Bd/iEgn6HPKA3Waf8wEcLWEcamg497Oa8S
-	 N3BwcdjcJx4kHA3DgxRXGvJ6Uu5Wu7xsRSuFCQrBANftbcV2QcdnU1grOr+MAvziQIA==
+	t=1793085739;
+	b=tGXpOzWasXc8MkJq7bBQGCxoRY1ipwWiO9EDr6RwM5N1d2rCyOn6pk3jkI/RCtMRImE7
+	 V///q5J8/wP80lKkTMS8hhSjxJEHlL0eDn0rsX15XEg7I6sMFBM3JmithQNSefvhnaBVj
+	 gqg/QoU5+09E93EYcq8u2i8kxc2JEcN6AWOWz8rjBJEZsET75T0OK8ygrh0YO+NujFFzM
+	 Ou/stkKBivUBHjb0p213BRFtPak1lUoOKf3qp44g/2Qd8SCZlU+62aotwhjPLPSOm5CJm
+	 DjuQjF4oPrP9zPIFGwmnim2Xz9yHxGNVN5jSIt6zkGiykjfgh9Y89kp0cazOxV2A3Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085645;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=JxvqEmSKUPHSp/dylabMtz9NDYhSF/aiHTeMfx5p0gg=;
-	b=wGlMEmfImBXXTyHB5gD3Vki2cA2SO5lAn0OsQGSNEg63lAf+FVkwnlbbl9fxhT9Kz1aw
-	 bNYwCYpfejKpKV/GcqP+h0E1Z8cvfAmpKbUsGH/X8trXj7YHqfCvWgkMXGiy1Qb4cOmTw
-	 mnxyc2dpQ1GNfUgFect5LxKQDtBJ2m7y/vugJ8zdf0obwAOqHH6cmlqv9JJdUtZtohZP4
-	 yovxL0Hp3WD/kbhjIjtyo0+7AphlYA5fJikqrboBsJ0zFm21QFuoU8aUtZtxoHDHQtnxt
-	 C6zSYQEldpBw6W+0XHKadZ6tCdiUqVT8NXNzbQ01A2/Feh5ZnjzR7C3IpGgcalQaCOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085739;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JsUhQgYhLYbX4Kkfrba6OTA7TB95G8+K2DCg364sdME=;
+	b=GMPlMuf1Stkcmpr56CuffGqk+4jG7QQCAgsAY/pMDbqn4O3F+nhRFIy5LtSrfAeOS0U9
+	 IfLQnrp32lePmR8F02p9QrznodMVdhRUp/7yRqwlAqjqKHB4nLSX1eONPf2oxnhEZ6g3L
+	 /G6SVaOFqyroi+y1ORnE6lL8Y4iPY0X1Mrhb0TiJ/pJTypjjVGXGWhT8XMCCLskJfw13u
+	 /43vMC5d0QJ7DkWZL0Iy5JeW0sFQbSV7np1wftAVGUJrSj//gKxnWrNq3LFqbgCprWher
+	 X+ZVpw+Tt/LGrbz9bugdo7AUnKePDgCxfnmEDExcLqTpLD2BnYQKj909L+rE8YQchWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vQcZ+K7u;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA75B606A31A;
-	Tue, 27 Oct 2026 07:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA75B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xxk7Cki3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C45606A31F;
+	Tue, 27 Oct 2026 07:22:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vQcZ+K7u
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD3D21655;
-	Tue, 27 Oct 2026 00:20:39 -0700 (PDT)
-Received: from [10.163.152.160] (unknown [10.163.152.160])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA8A93F673;
-	Tue, 27 Oct 2026 00:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793085643; bh=9hjydCMJHH07W+S/5zQJiskTD8rJHnoHE7cyvgQKAu4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vQcZ+K7utjnoFyY/avj8WNV9xYKitfP2P//3Id71b4DAsIKJDegS4COAwYGEiNKT2
-	 PrXdAjX60UJjVEs2tZHA6I59AtFq0w29SQQ4rAvE+M4N2PjAlsPToayaOUnEVUpCVa
-	 /LBIke5i9dpMnl6JO3d6gq7y1YASHSTdsmqI17a4=
-Message-ID: <12633ce2-dc65-4908-930f-b128f525cc8a@arm.com>
-Date: Tue, 27 Oct 2026 12:50:19 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xxk7Cki3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5541F031E0;
+	Tue, 27 Oct 2026 07:22:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793085739;
+	bh=JsUhQgYhLYbX4Kkfrba6OTA7TB95G8+K2DCg364sdME=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xxk7Cki3E+gWRVDPZ6nHxvfQA46+admaYon0whxApBCa96ueBxPexpYe+pdONks0k
+	 ZmwvQ8N921y11ZWSkdbZi2kI/2Ic1coNgamsqP1giWSKOXsqjUUOeyQ3Q7PL6Y/tMG
+	 7XcrVDEsrh6AiSDg462qp2WggcAfkf8hPSP5BoPBYxqmkAgYqm/WGXuMBLCjFEZUYE
+	 aWj4m1FpvSVtF3TeQ9h5Xql7SK+s3czrirmi6OIGjbjihZUXCa92CZN/4+5FaiP0Vj
+	 Jqzq1P1mzJ3NmqRt6r5mdiy6nBz7BNBO060vhs6cwpQxp9OP3CdKWDmPX5B9v1SkPH
+	 tInYbvBtHaXAQ==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Max Chou <max.chou@realtek.com>,
+	tfiga@chromium.org,
+	tzungbi@kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] Bluetooth: btrtl: Propagate errors if btrtl_vendor_read_reg16() fails
+Date: Tue, 27 Oct 2026 07:21:47 +0000
+Message-ID: <20261027072148.3963826-2-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+In-Reply-To: <20261027072148.3963826-1-tzungbi@kernel.org>
+References: <20261027072148.3963826-1-tzungbi@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,113 +63,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/46] mm/mglru: don't use stack pointers when walking PUD
- and PMD tables
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+A NULL pointer dereference is observed in btrtl_download_firmware():
 
+  [ 2592.730992] Bluetooth: btrtl_vendor_read_reg16() hci0: RTL: RTL: Read reg16 failed (-110)
+  [ 2592.731005] Bluetooth: btusb_rtl_alloc_devcoredump() hci0: RTL: Failed to generate devcoredump
+  [ 2592.731060] BUG: kernel NULL pointer dereference, address: 0000000000000000
+  ...
+  [ 2592.731906] RIP: 0010:btrtl_download_firmware+0x19/0xb10 [btrtl]
+  ...
+  [ 2592.732791] Call Trace:
+  [ 2592.732883]  <TASK>
+  [ 2592.732935]  btrtl_setup_realtek+0x30/0x60 [btrtl]
 
-On 27/10/26 4:47 am, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> MGLRU passes stack copies of page-table entries in walk_pud_range() and
-> walk_pmd_range() when walking to the next level. These copies can become
-> stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
-> table concurrently.
-> 
-> This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
-> support page table walks"). Likely, earlier locking masked the latent
-> bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
-> retract_page_tables() without mmap or vma lock") allowed concurrent
-> retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
-> for MGLRU") dropped the walker's outer RCU protection.
-> 
-> The fix is simple, so just fix the original commit so we don't have to
-> speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
-> RCU-protected lookup and validation against the live PMD. Note that the PUD
-> handling is required as well to handle folded page tables correctly in all
-> cases.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: handle walk_pud_range() as well, clarify+simplify description,
->          adjust Fixes: ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+When btrtl_vendor_read_reg16() for RTL_SEC_PROJ fails in
+btrtl_initialize(), the error code is stored in `rc` instead of `ret`,
+causing the err_free path to return ERR_PTR(0) (NULL).  As a result,
+IS_ERR(btrtl_dev) in btrtl_setup_realtek() evaluates to false and NULL
+is passed to btrtl_download_firmware(), leading to a NULL pointer
+dereference.
 
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Store the return value in `ret` so the error is properly propagated to
+the caller.
 
+Fixes: cd8dbd9ef600 ("Bluetooth: btrtl: Avoid loading the config file on security chips")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+ drivers/bluetooth/btrtl.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
->  mm/vmscan.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 9959ca158ce83..6a1af9b92349f 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -3911,7 +3911,7 @@ static void walk_pmd_range(pud_t *pud, unsigned long start, unsigned long end,
->  
->  		walk->mm_stats[MM_NONLEAF_FOUND]++;
->  
-> -		if (!walk_pte_range(&val, addr, next, args))
-> +		if (!walk_pte_range(pmd + i, addr, next, args))
->  			continue;
->  
->  		walk->mm_stats[MM_NONLEAF_ADDED]++;
-> @@ -3947,7 +3947,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long start, unsigned long end,
->  		if (!pud_present(val) || WARN_ON_ONCE(pud_leaf(val)))
->  			continue;
->  
-> -		walk_pmd_range(&val, addr, next, args);
-> +		walk_pmd_range(pud + i, addr, next, args);
->  
->  		if (need_resched() || walk->batched >= MAX_LRU_BATCH) {
->  			end = (addr | ~PUD_MASK) + 1;
-> 
+diff --git a/drivers/bluetooth/btrtl.c b/drivers/bluetooth/btrtl.c
+index d29813331603..d2c2e79800fc 100644
+--- a/drivers/bluetooth/btrtl.c
++++ b/drivers/bluetooth/btrtl.c
+@@ -1073,7 +1073,6 @@ struct btrtl_device_info *btrtl_initialize(struct hci_dev *hdev,
+ 	u16 hci_rev, lmp_subver;
+ 	u8 hci_ver, lmp_ver, chip_type = 0;
+ 	int ret;
+-	int rc;
+ 	u8 key_id;
+ 	u8 reg_val[2];
+ 
+@@ -1185,8 +1184,8 @@ struct btrtl_device_info *btrtl_initialize(struct hci_dev *hdev,
+ 		goto err_free;
+ 	}
+ 
+-	rc = btrtl_vendor_read_reg16(hdev, RTL_SEC_PROJ, reg_val);
+-	if (rc < 0)
++	ret = btrtl_vendor_read_reg16(hdev, RTL_SEC_PROJ, reg_val);
++	if (ret < 0)
+ 		goto err_free;
+ 
+ 	key_id = reg_val[0];
+-- 
+2.56.0.307.g5fe7bd680c-goog
 
