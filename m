@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106244;
-	b=Yhob3ieLDqaAkNhE+uGwrivOL/Fuibh3Ba7QgxwCVHoRtlKgb4B3ET0sLJE57zpmRRRg
-	 sNbYXc852sZFnDHCCJPos29JeqRzpTmQqaJ8dI/FRdIajnHj5i5tB1My4Siw2gXkcn0mr
-	 CJeMTphIT/tG3rcIOt3ioyTyxRor+GEM03BCUWKVkHl1lNNgWc4SkK4sJcFC5+mSEJYaM
-	 s65hXyR6CbV31R9rkBnoMNOKSsgccC02x9+jztpdI957864Va8b2JboAGoutDXrPjSZXX
-	 vgQSk7VTYWZu0SwCQRqpsRHcElC7yZ5ktwt5oLxIB3EIK+qlAbZVSfp6YKvG0ZQBoSg==
+	t=1793106252;
+	b=XhwWVoS5f5Hxp8dGx6KvIHKkYvxHlP1V8kjfkU1zsYLrgFKhhLO9/aYrIx50WacmgQoD
+	 smv/ufUXht1rqp79uVwtQyR4Mohur4fsmBBCZZgSqR4xVSVmDdTPWpT6IgiuiTS+kb3Le
+	 QJCIODGi6DU0eRqWm7mHDxeVSTlRWBqv8NwLmHrYnRoze5m1woJ6PqthrS3g+82BJbbUX
+	 BzLkngFx4XebJf8s9xqWKbG8hfIY/mjpHjbSrvj1imlQ6atvoRjUD1l1CTTnf7n4ifNf+
+	 dIbkhDxRISAxdieyXJB716wBXfH5F8k4BgIH4oHriS6OUm8QwIytwysrvcXnldBvJkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106244;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106252;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/wwGXqxRc5YvwerZOSnrubg9QNwrCXY3rCABuj1vruU=;
-	b=uRwopjRUYxLHnR8Yq9Nb83cVZ8vTsjdLRjVa7xePR8tttTuHbAydqKODiKn15rhxzBL8
-	 lrRxc4G5kTKlOQUctORg7kTIsHkEt2tiLKKr4GTaES4Q94YVmGBjNV7LWq7K2hABrakGX
-	 Pp3UdeDytjguEkTF8blzoIOj+9juG0wN4v9/alu37632HIROJhf4PiZ+F+RxWdkcLPeBl
-	 jdIz7NZV+PhDuluZ/FtRaQe8CHJ0Rmp5f3EUqq3PrJkQXm568Lx29GlEHxW18ph+k0B0D
-	 0+GgOS6I/32gKptrl1TwAh1wr86ZldsxlvRtOdn4F6GapvyuY3doSzdqIs0FN5URS2w==
+	bh=HhxjLl01JE8HuMTeAuZe7yEExHhcmywGMiR+Ut1EZeI=;
+	b=uU1rPVuKfovdsgr65oumsTsg4HJdceEEeL908DB7pUP7ivUmUDPOFcyXB96Mtw1S3rRl
+	 NieGKVcFoEWuO6lWf0bEfFjF864lPdUH7w8d1JOZRAqcJ9v6zFVj1EwPJpiWzV4o0cI1b
+	 M/4Tg8hWz7PalOWW2pRI3iE2p7Dk9FNRXWdsE0oJ8VweiyPEVHcOIa21yNsXLIH8BkeRt
+	 zWnmy2QibZ/aypU0kHwtrUQvufKSR132eSlp1W0TIczEF0fmKHEWWB72F3gyJtR3xG7Hb
+	 UGGHHviOSTiUGuAj3yXhiSS/6li117fpl0EUvjjEMXT3X9vx1eiMQLxwq6ka+ZEdGDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drswFaK1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAJUnKJp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FE0606A339;
-	Tue, 27 Oct 2026 13:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA538606A32A;
+	Tue, 27 Oct 2026 13:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drswFaK1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209301F01825;
-	Tue, 27 Oct 2026 13:03:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAJUnKJp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383461F031E1;
+	Tue, 27 Oct 2026 13:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106243;
-	bh=/wwGXqxRc5YvwerZOSnrubg9QNwrCXY3rCABuj1vruU=;
+	s=k20260515; t=1793106251;
+	bh=HhxjLl01JE8HuMTeAuZe7yEExHhcmywGMiR+Ut1EZeI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=drswFaK1ZVzCJ1irJvFYIsaU4ismpcQekcE0Z8MKJh1B4DRmMJDs39Pa0nAYrFC7G
-	 UMBRfFrGSO1JDe32pi+uAm6MHftdlYcnFZ2WCCR77sIBS17hJUb4M+hQRdgYg2Akv2
-	 sfs06vlX7NTuaZCxZ1RJiBzloKNdxNeRX8inZcYW9GnQiZYEsgyKjbt49kb0uUkcjP
-	 jmtdYPbwAxatCFIMWJBz/WHjoiRhBRkzhvLnEOmkvH7D28q3RnM0Qi77sDkHullbom
-	 PUiqTu72Zjws1z4jPr5Lg+DMz0F/fukgG03TKQ9wC6b2sxraGeGf86bS9d7E8hXl/m
-	 8DdSEQwH8Hnsw==
+	b=MAJUnKJpssMeeloEVpIfvQ1vuVL6RVQCj8iscz0RR7jWPKYwoYelvRV2efgyDGJPS
+	 i6IXr2sM4vUIqO3py3xMMXOUqfLQdfbZu6iGKnCLK1GZNkuY9nTQv6GBwcfLx2Pds7
+	 wedoPfGuYfPik3pVvcW8lTOVewcH3UReqL8V1wIF63pbHYqmjpP5W9k5yaZ2aDF4Fj
+	 UB36IK9XwB8C71NcVT4u1CwKci1ilb3z4cu0dWm0Ykcw7iCO3shJCGQjewI+d+2cCx
+	 PbFGvbeNSOtvF/FVp+a1AT9mJuodT9Z9RpTnUbOr1bHC41FDEj4eVqqX+FjqjbMYjp
+	 96eD9lTCKseqQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 14:03:10 +0100
-Subject: [PATCH v2 05/14] hugetlbfs: enforce F_SEAL_EXEC in setattr
+Date: Tue, 27 Oct 2026 14:03:11 +0100
+Subject: [PATCH v2 06/14] mm/shmem: stop retrying folios that cannot be
+ split
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_shmem-v2-5-86a00952acb9@kernel.org>
+Message-Id: <20261027-fixes_shmem-v2-6-86a00952acb9@kernel.org>
 References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
 In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -77,70 +78,65 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1810; i=david@kernel.org;
- h=from:subject:message-id; bh=kN0V+ffVNdzTEb4f73Jhvx435CzQjTpPxsBtdWyTB48=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBQ8yHgyKLi9WZ9/7ZFvJ8TePtXK+CCaxb46eMKLb
- yqLd3+u6ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiO3UYGWacUdZ5rrbJwuGG
- xP7OBfNuKU4qZQx6Ha1fHeGykOnmXHlGhtZTJ+Ujs58mPU60ifwdZZa4+t71dWXSU5awHy7d/8z
- fjxkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1755; i=david@kernel.org;
+ h=from:subject:message-id; bh=xU6NxeFuouXddfE5ExETEgUGwjovPx64LRkyocig7Ck=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBSsPj3973PG+Y92+ax+ZcYkd62Y55LXvdXTmNSbT
+ dZWT2i81lHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEGp8xMryYtkFw1UzvUE37
+ +p/TV2ZoZnha3Dq18VbXxzLj6r8CW/oY/vDdqMv74VEmlz+3ft3iLB7hfVdtuTJzNvT3TPn54U3
+ 1NX4A
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+From: Chris Mason <mason@kernel.org>
 
-F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
-not check it. As a result, fchmod() can change the execute bits of a
-sealed hugetlbfs memfd.
+A fault or collapse can insert a large folio crossing EOF after
+shmem_undo_range() has handled the boundary folios. If splitting that
+folio fails, truncate_inode_partial_folio() retains it when it is dirty.
+The final scan then repeatedly finds it because it restarts from an
+unchanged start.
 
-Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-to execute bits when F_SEAL_EXEC is set.
+Truncation keeps the inode lock and ignores fatal signals while looping.
+A concurrent unlink() can then block other directory operations while
+holding the directory lock and waiting for the file's lock.
 
-This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+Advance start past the retained folio, whose truncated part has already
+been zeroed. Do not move start backwards if the failed split has shrunk
+the folio.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Chris Mason <mason@kernel.org>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; fixup Fixes:; check only regular files ]
+[ david: split fixes, simplify descriptions, adjust comments ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/hugetlbfs/inode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ mm/shmem.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index ab1e4dec3f77b..1fa05b4d26531 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -28,6 +28,7 @@
- #include <linux/folio_batch.h>
- #include <linux/fs_parser.h>
- #include <linux/mman.h>
-+#include <linux/memfd.h>
- #include <linux/slab.h>
- #include <linux/dnotify.h>
- #include <linux/statfs.h>
-@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
-+	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
-+	}
-+
- 	trace_hugetlbfs_setattr(inode, dentry, attr);
- 
- 	if (ia_valid & ATTR_SIZE) {
+diff --git a/mm/shmem.c b/mm/shmem.c
+index ad644a268c0d2..5d21cdf5fb0a5 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1481,6 +1481,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 						index = start;
+ 						break;
+ 					}
++				} else if (folio->mapping) {
++					/*
++					 * Splitting failed, but the part in the
++					 * range is already zeroed. The folio
++					 * was not dropped, so skip it when
++					 * restarting the scan to avoid retrying
++					 * it forever.
++					 */
++					start = max(start, folio_next_index(folio));
+ 				}
+ 			}
+ 			folio_unlock(folio);
 
 -- 
 2.43.0
