@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793075514;
-	b=nGZeDqjJcJaFCOmiuXgteC9qTp4tYD9UP45gf4Tj86wyupQTQQGKIYCxrNCSWt7ml+Yc
-	 wGwd//xoQcKnW4Ed03wreKKPWgAub6Zjl+M471xyTCn8vvZk7DUQtcFkJrlOG8MZgBz8r
-	 bw1QiYGET5HWycscLv9CTQLHjEVsPNL6x5hEWzvZ02m3NdCdg8mkaIG2L33S6R/t//DNC
-	 HsgqNYQKhuU4dAj5f38h/rt450N724i2ibRd6lDXjiH3LiWiZ37CPskE3Mfn80PiRZDe7
-	 Ge69OzDRycQYqHlOsp4TRdBXQWert3eNEligu0HsertkeMrWD++ogk2Q5/VNfFIeezg==
+	t=1793075538;
+	b=fX10gCwA00Po+vQEJ5r7oWQByo4G4z73i4x9/7mxpOBotauPo29HAaoHd4qtBl29Cz6a
+	 5zr7ccu8fNciNTyoviFErb4goKFnYK4NngMlpuYF5GwmRRfHD5Gu6RnUia478wADOTRLw
+	 xBN55DVUUu1zADn9/FYXOnJ5/1U0V6xk6lXhLqRs5391/tMmUY4p1rNH9aQJwbXQrJWs7
+	 rEesiTtK0VUmcKOZe2zC9Bf/cwH0VTOVQx4U4nAHN37uBGkprhjfCps1j+N9toV5ghBFY
+	 FCxhnhL6PrA24u+ZHqRyHeZhRPCZWwKuVtsGA/6wdqPnxATnY/dXL2CODJgCL7sgApw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793075514;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793075538;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9XcXpTHmLfHB2Be+0WH2R/6aY5PlfN5yRc5K8VlYOZ4=;
-	b=rY6iKp9hyIUuKvW8UpeHf0ZpsWN7VjfhRPv7x69q3Mbnd4tXqa3N2F+bVRUakre6m/Jl
-	 O6tjZAlq0q+Qrq7HcKqnOL4T833P9RhqBoQG8BZ03AO6oQAeUKhsjcfXflqDX9V2Swvx2
-	 I62eDNjrWNf0YNNovs2vWZjDf/tn6LvXfj6nz/RcVVEzDKYyljdH0tgiJIpo8y3mgKucU
-	 SXHA5YIaasBFRUjeOW0Tgkkex9ky+l6hUyCGhgsGi/LjYFaGGuwMdrrTm16Mx6FzWkDmL
-	 o4jrkqov3CZE3gkXyBJqCo34cttmsCvpJlSBHVUr4P0QFvD7y0SC38CeaPmr37KjwGA==
+	bh=7MMtT7NDNtcrZKVPxg0zRMK7VI/lv7gSqFapA+hTA04=;
+	b=hkzCl0CzQmW/QKUVczWESpLsYVQ7KrSBKLApay+ZZsu9ka1Z4fr4MXeEJ+OF3vWsKC3/
+	 NcuR8926hJazM8/cDZIRYQqqjVxHUBPGuQ5cag1wcdCyVftaObJAz2uWHnK2BPCzypCS/
+	 9cQdK0PNgETaW7lfhQERNRlQB9rbSdoobTxsu1t58uy96WKQW2f5+5Mc2HXkU9YLXhBdX
+	 d5ADLZ9IJFEmrnKmnqglk0HcTQsWb8wj1vP8XaE3ooevxGeJtAkcpUgNmsEricYWa5Y0M
+	 Law1flYGL5YGHNSbN0A3X1IPZGxcl9vFlFTBI7XixnSj2FJ36laD46mo9Wu2cUAwjwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ft+kc9d7;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FWTt0C0c;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D25606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 04:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D25606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F45606A31A
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 04:32:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F45606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ft+kc9d7
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so2524209b3a.0
-        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:31:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FWTt0C0c
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd6a7e1f4e4so1336885a12.2
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 21:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793075513; x=1793680313; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793075537; x=1793680337; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9XcXpTHmLfHB2Be+0WH2R/6aY5PlfN5yRc5K8VlYOZ4=;
-        b=Ft+kc9d70C01oMLfCbLd9iWGPhjlf1sER8D1d7A4Xht4btHHd978r+0PHX6XK4pGDc
-         zsk96tl1jWKHoqatlBACQde7hGlwGuFGfiU9zb+jAxWfc4g/065naoYH2FHrkQCvQ0UY
-         Y3NbFR2W0R8uYkZgLMT46jgTrMLKEe0rrBNwkCfLMC7KSIghk3ZOVWRxlbx1PnQykHiJ
-         r3vF7QmJp3BqYeqPc5Ohkp2GpGFE045NNyg30cIehDS2fdqa5fmu6XLx0myEDfV1OQDb
-         xMma0Hoq0nkUyw58L1WkLPU+R4cLeE6PVWruk73dIVoeeovUfnsj4/sNIVaiPytviYNj
-         hvkQ==
+        bh=7MMtT7NDNtcrZKVPxg0zRMK7VI/lv7gSqFapA+hTA04=;
+        b=FWTt0C0cJi+W8xRweUCuN7aBeS/xl4VxJ9Rics0TRxoiEEV1KT5l9Gvi8B+gUp1LvQ
+         Yynd0bAbp+JbyPSo9n0QZP9b1XoLzEi+OACDz4MpaXsUfDkPe59LcjV+KJS1VkBWk6ON
+         1zt7rpTJxVn9cnx+sAKCsaQmpzdj9H52j6OolIira/NRhHS58lhnuri+26CIlvAkMAXz
+         VTB90BPY6eawVITQZmkkpfKCSVHI+zHCnCbFH5fXuAi0AZHcYbUDvNtSbSM9rBMAvLD8
+         rL7B1FLbgnt8TkA1prORe7v6Y5bFlpN8t+ly/AKl8N8K7p7v9sr5qr72D6HrAl7BQT1w
+         ib+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793075513; x=1793680313;
+        d=1e100.net; s=20260707; t=1793075537; x=1793680337;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9XcXpTHmLfHB2Be+0WH2R/6aY5PlfN5yRc5K8VlYOZ4=;
-        b=kG4cVL2a2b+FOVOWRcUu1dRTSI1HPxLQzY/O2rB/rK997t1+AmnQdzx4ugRzVQDn7R
-         lEY75iwDI8JKoPnOkO4GBl1X4My2RtQ58gLt+6QyyOWc5yorQkIONBZ70vYlWt9Pndxi
-         LYH8f6PXM/P3+FdE3AhzgGnoqQh1zeX6zEvaONwTdkG1nRXVZrCYGnayvHD4MNySYEmp
-         ze7NGbf+6V5A9IfqdA9lFKe7+Dj5t9Jsca97dRi8lcbCbSkWqFkmA9mz7g7RQjAts06J
-         xy3D4iSBVDWfZFA3Qz+8Z15kewWilAR1SUipk2yk5sUM/Nwcvko86L7JFxH63ji8ZOLh
-         gKAA==
-X-Forwarded-Encrypted: i=1; AKwUvBw4jKC1Kl29Cx7pQjPjZCAlJkpz5o8lc0MeuR6BijK08AhcubrdT4Q1O62nNYbN8zo65bC+nRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIst1GKjBGIpIAhZyv1ZiXP6GiXEoCulOCmKqbPuoi5TBvVQF3O
-	YWkP/IAoPDQ2HqOvcUTd4EIqJGijxebRurjr6K4G7k7n9jxynmJmFL9y
-X-Gm-Gg: AYBFou2wO4dXvSsluz6GCskx8W05rBEB8TYnvgjXtkP6IXxm4t2zq5SABlgPulYJkjN
-	99M3FlVa1WBDPzcmssw3XQAi+zP51yBD3/6N43d6rTN+A2tmspsWZrUKoHUhjg+dy+g3Hu9rBLM
-	L0rBiHCCEQEAWPsHquP03ow2ZNenNRkzmhxG46DNjIrwzSyNVmxMXUH89nRRYJBDYflcO+R+h2t
-	eDUqkzpGsnoPsJjtqJgB2At11YyYWf9vFMBH9e5o2WFK2g3AysWUbBpHUqkEt/A4IUcbbX3cGLk
-	TUaXpBmjS7WWjYJ9+MozQ9HKfwX8u9S5isddH5AG3sq5WZMyP0xPuuELI40OeyhbuJoJufwR98j
-	wXlg9tEA0UInw0WCjtJYgqbGuMmrKQ4nTQgYxgtqUUabJUbGH+RD5dBA9Hgw7grMik6+1RlW5oX
-	c58zdpujeIaxTfs1bw8qTfCsRUStCbBqf/rr8QWZ/x3xQoqUPRvvEvPF6Jt61M7B7WP6E6Aim8Z
-	BrYBSjI6fcq2d8yktdqBdTuh1cH8DidftsZVH27T5ZpiVh8q8iUstoN/xZxJ+xtoEZualbA
-X-Received: by 2002:a05:6a00:2d91:b0:89e:f8e9:205e with SMTP id d2e1a72fcca58-8a369072e1bmr6269839b3a.40.1793075513176;
-        Mon, 26 Oct 2026 21:31:53 -0700 (PDT)
+        bh=7MMtT7NDNtcrZKVPxg0zRMK7VI/lv7gSqFapA+hTA04=;
+        b=SDYhv+QvQ3GXhvksi3NBaFPye2Ec+t8djqAlD1gJc0DbI87F6FvZh6IYuG19As+nuM
+         sfM8nQJ493TIgVXE3e8wlx6cKxcFMOHNXvuHvF0j+Vqfooj48ZQDXStWbf0v1LaZzYU7
+         97CnzyecIQyX7fdxXOQLz6qVJMNmhYS/PNjelS+PHqswuHkMsES2fVwJFYdagv0ZVb9N
+         txNY9FMori2FKbjd1xTIcEG+J5Iht10ae1sdGwoDossV+YjaBFS7avEud8WmuRZp4yzq
+         itLohhtQFzCIy5qPxUlVahXGuSNNsE37CabRKh6MOZZt27yCRO9igSiynrhOa+MVN/wx
+         pdUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyvLu1A1228CgywgQIX2loyU75swz9gYtbUfPdKz7oQkGnULjd7huavQSb77TqJxfS5EKjoaw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3ZWJ22QVar47GtCXz40CUCmcdlAHhugw9ilG7k8VUR25Tkfvt
+	WBhPwrk0zCoMeJzhlwBvSt3pvWemZbFEmLl40mtK9hmtFknRxX4dgO7/
+X-Gm-Gg: AYBFou3J3pZmhQzTZbR3oX86dXn+7zqPWtESPxYl9W/oxJUSVysVip0einGF8r4nb/g
+	JK9H6xUgLahqLt0HVcFcFEhVienFpQ62KA91TDpj61zRmYSSNbxQlSajwf9tWMPlkUAZXzNZYXN
+	JXju8cfJ3E7fnjgu7YnqTv0WQKM5tuc7Qhpx+2V5cCfAYThnZLZopaMtWHkBAY+xkh+5/MSruT3
+	4qng0nY4OZmx3r9LVT7/lwMBBVDFIQ2Atb3ysSFaapGnhwd+KtU9wtOVsJLfUDftxYTcAksebkC
+	yH8iXX8eArDAIcLyO1GkG8ov5WNszU/XaX2UU0w7RTUYWUYw/f+V8oLI6cyNjCNX8wqInXfnDfB
+	3OjAGJiJGc4td07iXmr98JvGmpgrJclUsKco1GDPln9ZZUf/IOlE0IbfxFgDka+yIy9TQDS7Sti
+	gKDMjJCo21mGfGkymsSem+3/EUmegHFjwDoYqle5C/C4GS/IN7NThjxc73Tx9irPXzZedsPAWPa
+	QilK7pxO+xeBVrdYoTrEVDVJqRmTDxZk3X8cjDjtJnBXKRQW30=
+X-Received: by 2002:a17:90b:5805:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3adeabde7a7mr7140468a91.25.1793075536653;
+        Mon, 26 Oct 2026 21:32:16 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d85e22sm1887537b3a.8.2026.10.26.21.31.48
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404426c2sm1778399a91.7.2026.10.26.21.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:31:52 -0700 (PDT)
+        Mon, 26 Oct 2026 21:32:16 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: mark@fasheh.com,
 	jlbec@evilplan.org,
@@ -87,9 +87,9 @@ Cc: heming.zhao@suse.com,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: keep locking_state within the cluster connection lifetime
-Date: Tue, 27 Oct 2026 12:31:44 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0011-v7-61e3ef8b1ad44ac2e817@gmail.com>
+Subject: [PATCH v2] ocfs2/cluster: quiesce peer slots before destroying the o2net workqueue
+Date: Tue, 27 Oct 2026 12:32:10 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0090-v7-06712049fb73524bb8d3@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,124 +102,282 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The locking_state reader calls ocfs2_dlm_lvb() through the selected
-cluster stack. Its debug-object reference keeps the tracking list alive,
-but does not keep that stack selected without a cluster connection.
+Listener shutdown must leave no peer work behind before it destroys the
+o2net workqueue. destroy_workqueue() drains the work that is queued, but
+delayed work whose timer has not expired is invisible to it and is
+queued onto the freed workqueue when the timer fires.
 
-DLM initialization publishes the file before establishing its connection,
-and DLM shutdown drops the connection while the file still exists. Both
-the mount error unwind in ocfs2_mount_volume() and ocfs2_dismount_volume()
-remove the debugfs subtree only after ocfs2_dlm_shutdown() has returned.
-Whenever the disconnect releases the last stack reference, which is the
-case for a failed mount and for any unmount without a pending hangup, a
-concurrent reader dereferences a NULL active_stack:
+o2net_stop_listening() only disconnects peers that are still in the node
+table, and o2net_disconnect_node() cancels the delayed work without
+waiting for a running instance. Several paths rearm it afterwards.
 
-  Mount error unwind                  Debugfs reader
-  ------------------                  --------------
-  ocfs2_mount_volume(): out_dlm
-    ocfs2_dlm_shutdown()
-      disconnect last cluster
-        clear active_stack
-                                      read locking_state
-                                        ocfs2_dlm_seq_show()
-                                          ocfs2_dlm_lvb()
-                                            dereference active_stack
-  fill_super(): out_debugfs
-    remove debugfs subtree
+Node removal disconnects a peer before taking it out of the table. A
+heartbeat-up callback in between sees the persistent error and queues
+the connect and expiry work again, and the listener shutdown then skips
+the peer because it is no longer in the table:
 
-Publish the debug files only after the connection and the mount lock
-resources are initialized, so a failed DLM initialization has no debug
-reference to drop. Remove them again in the common DLM shutdown helper
-before the connection is dropped: debugfs removal waits for readers that
-are inside the file operations, and the parent directory is still present
-at that point in every caller. This covers the mount error unwind, the
-ocfs2_fill_super() failures after a successful mount that dismount with
-mnt_err set, and unmounts whose disconnect releases the stack directly.
+  Peer removal                       Heartbeat / listener shutdown
+  ------------                       -----------------------------
+  disconnect peer; cancel work
+                                     heartbeat-up: rearm delayed work
+  remove peer from node table
+                                     stop listener
+                                       synchronize heartbeat callbacks
+                                       skip peer absent from node table
+                                       destroy o2net workqueue
+                                     delayed-work timer expires
+                                       queue on freed workqueue
 
-Only the relevant frames of the report are kept:
+o2net_connect_expired() may be running while the disconnect cancels;
+once the disconnect drops nn_lock it queues itself and the connect work
+again, and the flush does not wait for those timers.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-RIP: 0010:ocfs2_dlm_lvb+0x38/0xf0
+o2net_start_connect() decides under nn_lock whether to connect, drops
+the lock to create the socket, and attaches the socket without looking
+again. A disconnect in between is undone: the socket stays attached
+with its callbacks armed, and o2net_set_nn_state() rearms the expiry
+work after it has been cancelled.
+
+Set o2net_shutting_down for the duration of the shutdown. While it is
+set, o2net_set_nn_state() rearms no work, the connect worker repeats its
+check under nn_lock before attaching the socket and backs off, and the
+accept path refuses a new socket. With no rearm left, cancel the
+connect-expiry, connect and still-up work of every peer slot
+synchronously after the disconnect; expiry queues connect work, so it
+is cancelled first.
+
+Those cancellations can remove the only pending connection attempt of a
+slot whose persistent error a rearm has already cleared. Leave every
+slot the way a disconnect does, with nn_timeout reset and -ENOTCONN as
+the persistent error, so that the next heartbeat-up after a restart
+reconnects and senders fail instead of waiting for a connection that
+nothing will establish.
+
+KASAN report, only the relevant frames are kept:
+
+BUG: KASAN: slab-use-after-free in __queue_work+0x1189/0x1600
+Read of size 4 at addr ffff8881169069c0 by task swapper/2/0
+
 Call Trace:
- <TASK>
- ocfs2_dlm_seq_show+0x36a/0xb70
- seq_read_iter+0x480/0x1110
- seq_read+0x362/0x5a0
- full_proxy_read+0x11f/0x180
- vfs_read+0x1a0/0xc20
- ksys_read+0x111/0x200
- </TASK>
+ <IRQ>
+ __queue_work+0x1189/0x1600
+ call_timer_fn+0x176/0x540
+ </IRQ>
 
-Fixes: 286eaa95c5c5 ("ocfs2: Break out stackglue into modules.")
+Allocated by task 486:
+ __kmalloc_noprof+0x2de/0x780
+ __alloc_workqueue+0x61/0x17a0
+ alloc_workqueue_noprof+0xcc/0x130
+ o2net_start_listening+0x139/0x7c0
+ o2nm_node_local_store+0x4c0/0x810
+ configfs_write_iter+0x2f9/0x4f0
+ vfs_write+0x639/0x1010
+ ksys_write+0x111/0x200
+
+Freed by task 485:
+ kfree+0x308/0x580
+ rcu_core+0x6be/0x1ed0
+
+Last potentially related work creation:
+ __call_rcu_common.constprop.0+0x80/0x280
+ pwq_release_workfn+0x740/0xe10
+
+The buggy address belongs to the object at ffff888116906800
+ which belongs to the cache kmalloc-1k of size 1024
+The buggy address is located 448 bytes inside of
+ freed 1024-byte region [ffff888116906800, ffff888116906c00)
+
+Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
 Changes in v2:
-- Remove locking_state and locking_filter in ocfs2_dlm_shutdown() before the
-  disconnect instead of only in the ocfs2_mount_volume() error unwind; the
-  old placement missed ocfs2_fill_super() dismounting after a late failure
-  and unmounts without a pending hangup, as the Sashiko review of v1 pointed
-  out.
-- Drop the super.c hunk; the patch now only touches dlmglue.c.
+- Add o2net_shutting_down: o2net_set_nn_state() rearms nothing while it is
+  set, the connect worker rechecks under nn_lock before attaching its socket
+  and the accept path refuses a new socket, so an in-flight connect or
+  expiry can no longer rearm the timers after the synchronous cancellations
+  (Sashiko review).
+- Leave every slot with nn_timeout reset and -ENOTCONN after the
+  cancellations, so a later heartbeat-up reconnects and senders fail instead
+  of waiting on a slot whose persistent error a rearm had cleared (Sashiko
+  review).
+- Subject changed accordingly.
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0011-v6-14cf2458f4fc90780f76@gmail.com
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0090-v6-127847d463212a41b773@gmail.com
 
- fs/ocfs2/dlmglue.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ fs/ocfs2/cluster/tcp.c | 86 +++++++++++++++++++++++++++++++++---------
+ 1 file changed, 69 insertions(+), 17 deletions(-)
 
-diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-index 88d946466083..412ab0808c59 100644
---- a/fs/ocfs2/dlmglue.c
-+++ b/fs/ocfs2/dlmglue.c
-@@ -3356,6 +3356,14 @@ static void ocfs2_dlm_shutdown_debug(struct ocfs2_super *osb)
- {
- 	struct ocfs2_dlm_debug *dlm_debug = osb->osb_dlm_debug;
+diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+index 8b3830b601ba..eb4628839eef 100644
+--- a/fs/ocfs2/cluster/tcp.c
++++ b/fs/ocfs2/cluster/tcp.c
+@@ -114,6 +114,8 @@ static DEFINE_MUTEX(o2net_wq_mutex);
+ static DECLARE_COMPLETION(o2net_wq_destroyed);
+ /* Heartbeat callbacks stay registered across local-node off/on. */
+ static bool o2net_listening;
++/* set while o2net_stop_listening() quiesces the peer slots */
++static bool o2net_shutting_down;
+ static struct work_struct o2net_listen_work;
  
+ static struct o2hb_callback_func o2net_hb_up, o2net_hb_down;
+@@ -553,11 +555,14 @@ static void o2net_set_nn_state(struct o2net_node *nn,
+ 		       SC_NODEF_ARGS(sc));
+ 	}
+ 
+-	/* trigger the connecting worker func as long as we're not valid,
 +	/*
-+	 * Drain the readers before the cluster stack goes away: the
-+	 * locking_state reader resolves ocfs2_dlm_lvb() through the
-+	 * stack. Every caller removes the parent directory later.
++	 * trigger the connecting worker func as long as we're not valid,
+ 	 * it will back off if it shouldn't connect.  This can be called
+ 	 * from node config teardown and so needs to be careful about
+-	 * the work queue actually being up. */
+-	if (!valid && o2net_wq) {
++	 * the work queue actually being up.  Once the listener shutdown
++	 * has started cancelling, nothing may be rearmed.
 +	 */
-+	debugfs_lookup_and_remove("locking_state", osb->osb_debug_root);
-+	debugfs_lookup_and_remove("locking_filter", osb->osb_debug_root);
++	if (!valid && o2net_wq && !READ_ONCE(o2net_shutting_down)) {
+ 		unsigned long delay;
+ 		/* delay if we're within a RECONNECT_DELAY of the
+ 		 * last attempt */
+@@ -1578,6 +1583,23 @@ static void o2net_sc_postpone_idle(struct o2net_sock_container *sc)
+  * having a connect attempt fail, etc. This centralizes the logic which decides
+  * if a connect attempt should be made or if we should give up and all future
+  * transmit attempts should fail */
++/*
++ * Called with nn->nn_lock held.  See if we already have one pending or
++ * have given up.  For nn_timeout, it is set when we close the connection
++ * because of the idle time out.  So it means that we have at least
++ * connected to that node successfully once, now try to connect to it
++ * again.  Nothing may connect once the listener shutdown has started.
++ */
++static bool o2net_nn_should_connect(struct o2net_node *nn)
++{
++	unsigned int timeout = atomic_read(&nn->nn_timeout);
 +
- 	if (dlm_debug)
- 		ocfs2_put_dlm_debug(dlm_debug);
- }
-@@ -3370,8 +3378,6 @@ int ocfs2_dlm_init(struct ocfs2_super *osb)
- 		goto local;
- 	}
- 
--	ocfs2_dlm_init_debug(osb);
--
- 	/* launch downconvert thread */
- 	osb->dc_task = kthread_run(ocfs2_downconvert_thread, osb, "ocfs2dc-%s",
- 			osb->uuid_str);
-@@ -3411,9 +3417,10 @@ int ocfs2_dlm_init(struct ocfs2_super *osb)
- 	ocfs2_orphan_scan_lock_res_init(&osb->osb_orphan_scan.os_lockres, osb);
- 
- 	osb->cconn = conn;
-+	if (conn)
-+		ocfs2_dlm_init_debug(osb);
- bail:
- 	if (status < 0) {
--		ocfs2_dlm_shutdown_debug(osb);
- 		if (osb->dc_task)
- 			kthread_stop(osb->dc_task);
- 	}
-@@ -3443,10 +3450,11 @@ void ocfs2_dlm_shutdown(struct ocfs2_super *osb,
- 	ocfs2_lock_res_free(&osb->osb_orphan_scan.os_lockres);
- 
- 	if (osb->cconn) {
-+		/* The disconnect below may release the selected stack. */
-+		ocfs2_dlm_shutdown_debug(osb);
++	if (READ_ONCE(o2net_shutting_down) || nn->nn_sc)
++		return false;
++	return !nn->nn_persistent_error ||
++	       (nn->nn_persistent_error == -ENOTCONN && timeout != 0);
++}
 +
- 		ocfs2_cluster_disconnect(osb->cconn, hangup_pending);
- 		osb->cconn = NULL;
+ static void o2net_start_connect(struct work_struct *work)
+ {
+ 	struct o2net_node *nn =
+@@ -1587,7 +1609,6 @@ static void o2net_start_connect(struct work_struct *work)
+ 	struct socket *sock = NULL;
+ 	struct sockaddr_in myaddr = {0, }, remoteaddr = {0, };
+ 	int ret = 0, stop;
+-	unsigned int timeout;
+ 	unsigned int nofs_flag;
+ 
+ 	/*
+@@ -1609,17 +1630,7 @@ static void o2net_start_connect(struct work_struct *work)
+ 		goto out;
+ 
+ 	spin_lock(&nn->nn_lock);
+-	/*
+-	 * see if we already have one pending or have given up.
+-	 * For nn_timeout, it is set when we close the connection
+-	 * because of the idle time out. So it means that we have
+-	 * at least connected to that node successfully once,
+-	 * now try to connect to it again.
+-	 */
+-	timeout = atomic_read(&nn->nn_timeout);
+-	stop = (nn->nn_sc ||
+-		(nn->nn_persistent_error &&
+-		(nn->nn_persistent_error != -ENOTCONN || timeout == 0)));
++	stop = !o2net_nn_should_connect(nn);
+ 	spin_unlock(&nn->nn_lock);
+ 	if (stop)
+ 		goto out;
+@@ -1658,9 +1669,16 @@ static void o2net_start_connect(struct work_struct *work)
+ 	tcp_sock_set_nodelay(sc->sc_sock->sk);
+ 	tcp_sock_set_user_timeout(sock->sk, O2NET_TCP_USER_TIMEOUT);
+ 
+-	o2net_register_callbacks(sc->sc_sock->sk, sc);
 -
--		ocfs2_dlm_shutdown_debug(osb);
- 	}
+ 	spin_lock(&nn->nn_lock);
++	/*
++	 * nn_lock was dropped while the socket was created.  A disconnect
++	 * or the listener shutdown in between must not gain this socket.
++	 */
++	if (!o2net_nn_should_connect(nn)) {
++		spin_unlock(&nn->nn_lock);
++		goto out;
++	}
++	o2net_register_callbacks(sc->sc_sock->sk, sc);
+ 	/* handshake completion will set nn->nn_sc_valid */
+ 	o2net_set_nn_state(nn, sc, 0, 0);
+ 	spin_unlock(&nn->nn_lock);
+@@ -1954,6 +1972,12 @@ static int o2net_accept_one(struct socket *sock, int *more)
+ 	new_sock = NULL;
+ 
+ 	spin_lock(&nn->nn_lock);
++	/* a slot that is being quiesced takes no new socket */
++	if (READ_ONCE(o2net_shutting_down)) {
++		spin_unlock(&nn->nn_lock);
++		ret = -ESHUTDOWN;
++		goto out;
++	}
+ 	atomic_set(&nn->nn_timeout, 0);
+ 	o2net_set_nn_state(nn, sc, 0, 0);
+ 	spin_unlock(&nn->nn_lock);
+@@ -2179,6 +2203,30 @@ int o2net_start_listening(struct o2nm_node *node)
+ 	return ret;
  }
  
++/*
++ * Called with o2net_shutting_down set.  Cancel the delayed work of a peer
++ * slot synchronously: work waiting on its timer is invisible to a flush
++ * and would be queued on the destroyed workqueue.  Then leave the slot
++ * the way a disconnect does, so that the next heartbeat-up after a
++ * restart reconnects and senders fail instead of waiting.
++ */
++static void o2net_quiesce_nn(struct o2net_node *nn)
++{
++	/* whoever takes nn_lock from now on sees o2net_shutting_down */
++	spin_lock(&nn->nn_lock);
++	spin_unlock(&nn->nn_lock);
++
++	/* expiry queues connect work, so cancel it first */
++	cancel_delayed_work_sync(&nn->nn_connect_expired);
++	cancel_delayed_work_sync(&nn->nn_connect_work);
++	cancel_delayed_work_sync(&nn->nn_still_up);
++
++	spin_lock(&nn->nn_lock);
++	atomic_set(&nn->nn_timeout, 0);
++	o2net_set_nn_state(nn, NULL, 0, -ENOTCONN);
++	spin_unlock(&nn->nn_lock);
++}
++
+ /* again, o2nm_this_node() doesn't work here as we're involved in
+  * tearing it down */
+ void o2net_stop_listening(struct o2nm_node *node)
+@@ -2190,6 +2238,7 @@ void o2net_stop_listening(struct o2nm_node *node)
+ 	BUG_ON(o2net_listen_sock == NULL);
+ 
+ 	WRITE_ONCE(o2net_listening, false);
++	WRITE_ONCE(o2net_shutting_down, true);
+ 	o2hb_synchronize_callbacks();
+ 
+ 	/* stop the listening socket from generating work */
+@@ -2200,15 +2249,18 @@ void o2net_stop_listening(struct o2nm_node *node)
+ 
+ 	for (i = 0; i < ARRAY_SIZE(o2net_nodes); i++) {
+ 		struct o2nm_node *node = o2nm_get_node_by_num(i);
++
+ 		if (node) {
+ 			o2net_disconnect_node(node);
+ 			o2nm_node_put(node);
+ 		}
++		o2net_quiesce_nn(o2net_nn_from_num(i));
+ 	}
+ 
+ 	/* finish all work and tear down the work queue */
+ 	mlog(ML_KTHREAD, "waiting for o2net thread to exit....\n");
+ 	o2net_destroy_wq();
++	WRITE_ONCE(o2net_shutting_down, false);
+ 
+ 	sock_release(o2net_listen_sock);
+ 	o2net_listen_sock = NULL;
