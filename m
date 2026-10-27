@@ -1,59 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098537;
-	b=5fjaCYJWSw5X60Gqc8UgInLrywheLsTZuNEzyouAoUJlK01RCKf/77OvPgiGSw62eb3e
-	 lBBaPmokpk88v76xylHazvGKrvaytVhbQAPxz/sWa3hH6U4NReZob3D7haQluRjP1YKaX
-	 t2ahb6OaX+9HBFg01dFg89/hSIBf1RwXmrBNRGYQY5gcdKx91McgS3u+D9d9ZUBPoIbDR
-	 c+w4CPlAAdvy7N0pXliPfbv50DIjfXro/VsQOluuDHKPK8bpLUxfzy1VZDW3RNtc2bMgG
-	 UO16LPivBir5lXzTww56ist3hhsXqHZ/1f9Z7aEer61RBrOk6+Nof3TDClN+3mR0AUQ==
+	t=1793098655;
+	b=TpoWAK6asMOBaYwZmG/4kiPSOyg6hi9lO5z7BevLp2v/k9oUlWSJCKmyo027MfrXIDmm
+	 rap9fTkzVpTgtjOwRp58Ldkr4gBvGGj1+Wxdn+C5wVP/rKH6+SZzp+TDkgMIKvUpHPFIS
+	 C3vxnQMmZ4fNFS0VNQMN+3xPNdpTsI9Lgs4PsUlkGVh5kN7e1vdUChBdTfhCOrBZuLPmI
+	 j8KtjvNGRzEETEloQyRiOSI5ItAxiQP4qpdbi5+0Jo6dbFE8wAGjMiPbQEN2ET4jjKacR
+	 HiBx0q/5l8lEfudAF1J2uyjf/C1EV6CNehGKf8RRDV4ySZWyQzUKNoa+TmzOkHduE2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098537;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098655;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=AKbxYvklE+RtW/4px6T7qZCglKItX3GKgrMwqEp3qDw=;
-	b=qhQ68tJ0DHfjqdFUt9JhzenICw2yLmojAVRhHu7lcuTPzkBCgEGvNfTtswj83THOyiki
-	 3fyrp4cUPd4as8Tulo/LUenGSAuVZo5dhvn0UkDIL2q6BP/1DKqjV5VwBwKx3MjD400Ou
-	 BPGuJR1uAkiZ/1W2yyyrSXGKROjXKYtjDzJUAidJ5KB5APJYCRpHYss3ekN4U2xSUewHu
-	 /j4dG+vf4jJOcmoSODuqVBwn4aixpqHvjHXubGL1oslKCzsXe2YYLUcyuC6gnm+vfYTad
-	 YVdejlgqwMxfxvZm+XK5jjZKc6bLFnxcIowzGceiJZbcazgITdnhMAmTWWzT5ud/R/w==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=dZz9lepwmlI/2ss/zkEKEg3BC+T3gnksNTo7+qpe9cw=;
+	b=N5441xdTeA/dX6VS26XkTHdKdUcQSnSgLb08jjiD1JeQgOfFfoZfrbK6kHgHW4hXSaS/
+	 wG8p6UAFDSuaTgZCLz8LXwAMcbUZENnZ09F+1rKq7j2j2e01MV9OUIdDqof7qkhQD57Vl
+	 mDCMUJmXAsMfdgu0BnF2mYsEBVdhhDpI4UqBQ+o1+2YEst2PKIfwg383V1/whfJZBvYdV
+	 a3zsNsgKdJhW+PBSCJB9e9/4rQbfmm0SHwXn2ldGllkOOCI5O3j6EUhUJWClyfQ10Fg1s
+	 yAGCPEudReZaCmohbrFr+uapoKojM5frC6wfyp0yb0q12h8TMoKwmR9aCz+Y/90naYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hc95gwYr;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E22CC606A31A;
-	Tue, 27 Oct 2026 10:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E22CC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ju2DiaR9;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D13606A31B;
+	Tue, 27 Oct 2026 10:57:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D13606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hc95gwYr
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D800615A1;
-	Tue, 27 Oct 2026 03:55:30 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E00023F59E;
-	Tue, 27 Oct 2026 03:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793098533; bh=2KWWEm3YGgOg7VXROLDs0BaAsOc3yp6g0LrHlJpAeJ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hc95gwYr4hlRyW/o5zs0jyhfOGs74Do+ch0sJPW5V5HxppF6ribgfdRKL5l+Ph1qM
-	 divMRR/TWoxxKhidxaYV5/bLcdzmWWzi7zrZ3SsmUbA2ws9BGJeDnbCnPVa+mkE9Qm
-	 v0KvihGVOgmtbN05Kl4GX9PpZb6J8aJNpWqTJH9I=
-Date: Tue, 27 Oct 2026 10:55:29 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, byungchul@sk.com,
-	gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com,
-	andreyknvl@gmail.com, vincenzo.frascino@arm.com,
-	odys.yuan@gmail.com, sashiko-bot@kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/migrate: untag addresses when querying page nodes
-Message-ID: <auCDIcgPP2tKq32y@arm.com>
-References: <20261026195330.46757-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ju2DiaR9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793098655; x=1824634655;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NJXnj7w8pWN3MAmf0AvWK3yUGzwNpUAqyM+X0M9ZSTI=;
+  b=ju2DiaR9hMXgLQD0vkwlbK8jvdF1UUGCKKNQGZv8LJ3/sYPFxAnBuFXM
+   8Nagi/Qj4VhrH1k/kIoOl559hQXomF2vzas8YgIHOoBruIHyfd6hPHE37
+   vvIOIrYwh1ko/jqw46sbHXLqNg/QIiVjQLw7lIW8Rz/8aqes3vZWX9/mj
+   FSk9Z/ifCIddmq3iAOntUm2SxB4LoEgFbxLAGUo4KCijlKAa3g2KXhnM/
+   GE8j0/TR2iv5OxN4hQOOYeyB8yyZbVyvJ2EiotP+kxpbU45/A5ITk3O46
+   negytHUZVwFKXSp5cWrTPEbDMgVtve5WByzmIRVlQQrXhOlXGJ13kacgb
+   g==;
+X-CSE-ConnectionGUID: qs9Fzu/9QfyU3Ng+Gd12qg==
+X-CSE-MsgGUID: cOdqnKJYSiaWg7JfV1AWXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1698414"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1698414"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:57:34 -0700
+X-CSE-ConnectionGUID: mKWLNoNfTvq7NWi3cOEIBw==
+X-CSE-MsgGUID: yXzo/wnYTh+aZbgjrPdnzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6265627"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:57:27 -0700
+Date: Tue, 27 Oct 2026 12:57:23 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matt Ranostay <mranostay@gmail.com>,
+	Gene Chen <gene_chen@richtek.com>,
+	Jonathan Santos <Jonathan.Santos@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Zhang Lixu <lixu.zhang@intel.com>,
+	Cong Nguyen <congnt264@gmail.com>,
+	Ethan Tidmore <ethantidmore06@gmail.com>,
+	Christian Eggers <ceggers@arri.de>,
+	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	Petre Rodan <petre.rodan@subdimension.ro>,
+	Jianping Shen <Jianping.Shen@de.bosch.com>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	Justin Weiss <justin@justinweiss.com>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	"Andrew F. Davis" <afd@ti.com>,
+	Archit Anant <architanant5@gmail.com>,
+	Stefano Manni <stefano.manni@gmail.com>,
+	Jyoti Bhayana <jbhayana@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Piyush Patle <piyushpatle228@gmail.com>,
+	=?iso-8859-1?Q?Nicol=E1s?= Antinori <nico.antinori.7@gmail.com>,
+	stable@vger.kernel.org,
+	Adi Nata <adinata.softwareengineer@gmail.com>,
+	Cheng-Yi Chiang <cychiang@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Francesco Lavra <flavra@baylibre.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>
+Subject: Re: [PATCH 00/39] IIO: Continue removing deprecated
+ iio_push_to_buffers_with_timestamp()
+Message-ID: <auCDk6qMQDMEGdOr@ashevche-desk.local>
+References: <20261026-iio-v1-0-8b136778eedf@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,24 +112,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026195330.46757-1-dennylin0707@gmail.com>
+In-Reply-To: <20261026-iio-v1-0-8b136778eedf@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 26, 2026 at 07:53:29PM +0000, Hungyu Lin wrote:
-> When move_pages() is used with nodes == NULL, do_pages_stat_array()
-> passes each page address directly to vma_lookup(). A valid tagged address
-> therefore fails the VMA lookup and gets -EFAULT in its status entry,
-> instead of the node reported for the corresponding untagged address.
+On Mon, Oct 26, 2026 at 04:05:18PM -0700, Jonathan Cameron wrote:
+> A bit of technical debt cleanup that was partly a discovery exercise in
+> using AI tooling for this sort of somewhat messy subsystem maintenance
+> activity.
 > 
-> The tagged address ABI permits these pointers, and the migration path
-> already removes their tags. Apply the target mm's untagging rules to
-> the query path as well, while holding its mmap read lock.
+> Replace iio_push_to_buffers_with_timestamp() with
+> iio_push_to_buffers_with_ts() which includes a runtime check that
+> there is sufficient space to insert the timestamp.
 > 
-> Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> A few other modifications of related code seen whilst working through
+> these and a couple of fixes for DMA safety. Those are not sent as
+> separate fixes as they are in old drivers and we have had no
+> reports of problems. So no rush to get upstream.
+> 
+> The remaining users of iio_push_to_buffers_with_timestamp() are
+> the more complex cases that will require more careful review so
+> are left for the next series.
+> 
+> I appreciate this is a large series, so if you have time to take
+> a look review what you can and I'll nibble away at applying the
+> ones that have received sufficient review.
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+assuming we get a positive feedback from Srinivas on testing HID sensors case.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
