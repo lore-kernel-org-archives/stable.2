@@ -1,88 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080214;
-	b=SFOv1rRfL2DgTPozxTtKEhX17/OhkfzPr6kD1HJGQWTur/OGKmYX2JfXq5FIf6pMylxK
-	 3o/QSrK7u1Ag87rZDBFhDl7DQZ1dZPP03ljTTJ86OZTecSIUB2UeoZyUc4apNANp9B/fN
-	 yMh4CRzhN3VTT6PxENINxHBxiPinXF5rt/wSAm0HDv7oODU+DTWMvgdI8V4ST4twCad01
-	 xqbpebBDnjf+bb0wXKJzLl9W5djFTdRzvwSYrkOSwLIeBMmmXEX/edfPDVCKb8WrB0IwS
-	 2O8GWhi3T8y/dv05XuiPYqQPG0M6hGy+Z++bQXuE+u5xhi4X8pbWtl5bcZ4F4slfUlQ==
+	t=1793080514;
+	b=btfR3SxLoWVmDMdqqI3ZVupPHz3/sgSg/EYW6bqLaBIQ4VnB7nZZvZde1fPFVP87X59D
+	 QpiXAt3chVC9dtCr1ubtCwJpwo7//JiVHkjIGdEOjwr0Ho0d6MM7+XX0SeGyWuhgkZStu
+	 QtoASRw8gi22W0cZrbCPDgRBsi14pcLSZgSgNATIUwXopnhH2prDgHyg8yWYhf4M9VhB1
+	 i9XTNlLVYM6G6/hk/I+FVBR/RD0ccS0giqddKZXJvNn9OlH7qXBuWvw6+Pys0yfQUyflT
+	 lJiQ9J/MbK1yivF0jf2bKIYDKjM8Wc9EYET5pLSDfH7gQS4umgfhTmay+HY1Q6UCXJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080214;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=dH+1qS3r3/qThoPs/bcfpRZ8WDJsMNF5jVHZIGMNezg=;
-	b=c3zqUQRpR0fNFEr8UtAd1TPSNqp2dJ6riv2P1n2Uj8+BikKBfi7WGXy9PnOuQMUnPRZw
-	 aZBmqmPHY4vB9KDc/YWsKm2sgVTs3O8hNNzxaAbtRaiTOV2GQ8CGcfISauP1kuvA7PfDt
-	 cA8chfBdMuwUaNGDsFvaDzMrSo9ttpnRmcUFyqFRNelHh2gN4h2Qe53i522Sq5UT5DFK4
-	 +82esOhryj3t9ap+9Lv8poXGIMcw9KqHC0kUS6PmMtROhmhv0YAJHrLWKeE3/aTlSzKLK
-	 gZQwcbSWbzROteySkj/cmPAyod0DOXd0vKPwpE9NEEL7dEJDaQIEQoFy5sCaOkCkpmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080514;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=2I/jzg7WgJ3LoL18fXMyofGaArzp2mzlrfAX2Uqrog8=;
+	b=3mysAWTFKd/n9NTzFDm7l0zSbD9pESl0zF5OFucGDBMymrChTpJ+jRdvCJXgzmpA3ysz
+	 /DNIoBdsco9EXQofmoQxxVBM0S4fEYeOJVrB1LInZzHZMdF55TB2WaIwtVYGsjKTTynxo
+	 av1Iu8kbGYHRbQOAYGLfweFhtobp2mbP2Wd1AOLXjkBndtDOHrOC8Wqi8Y96B+F6xdLtn
+	 c9EwUx0zMrjCss4tuJym1YOlFf9lfOalfI1bVBTSW4+vXpd3GHcCKU4XT3lv3KjYe/L/P
+	 t2784l09FzlKWmRwmyKPWtywWGWTmKmVuJBEUkft/oVdG5/T74supH2bYyetSwTm8MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VN52ouDJ;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTO0YQaW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9EA606A327;
-	Tue, 27 Oct 2026 05:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A9EA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3913606A322;
+	Tue, 27 Oct 2026 05:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VN52ouDJ
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69R5nWhqD701598, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793080172; bh=dH+1qS3r3/qThoPs/bcfpRZ8WDJsMNF5jVHZIGMNezg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=VN52ouDJwmzTdlQG+++aCY8axAkumQe6RJ9XGHpLcMPAjjDdLbZiYxgtuctwNTLXx
-	 TAOO+unwUfOeir/gNyfNih1EwJdaubbdduk5atv1ufvygNAvcthcnKdyS7B+l59Qz5
-	 8tNB2ihWBOAUCNkhqbdxxqZ89JF0hrsXm7VQMmlgfDnlWzy0gQ4H6lBTvqygdD9seQ
-	 yCgKK9Nnc6QgnZMji7BMZVe8RtmZEALvoGJgO9PlU0jt1omvh/Jd8NIHTj9vafwMjD
-	 j1hKjWYcjP393Ji+eXKtpOb8RCAJCIP7/AcLYwJR80GbVy3z0In0W7r+ZWqNHjj+uU
-	 tnLZobeY4LRnA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69R5nWhqD701598
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 27 Oct 2026 13:49:32 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 13:49:33 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 13:49:32 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
- 15.02.2562.049; Tue, 27 Oct 2026 13:49:32 +0800
-From: Hayes Wang <hayeswang@realtek.com>
-To: Linmao Li <lilinmao@kylinos.cn>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
-CC: nic_swsd <nic_swsd@realtek.com>, Chih Kai Hsu <hsu.chih.kai@realtek.com>,
-	"mail@birger-koblitz.de" <mail@birger-koblitz.de>,
-	"zhangxiangqian@kylinos.cn" <zhangxiangqian@kylinos.cn>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH net v3] r8152: Use BMSR to detect the link state
-Thread-Topic: [PATCH net v3] r8152: Use BMSR to detect the link state
-Thread-Index: AQHdZOi1SWakue5+fUmL1fScAZd2QbcQ421w
-Date: Tue, 27 Oct 2026 05:49:31 +0000
-Message-ID: <65b2cd5e124a4fee9eb5b013e4069e44@realtek.com>
-References: <20261026012345.1902285-1-lilinmao@kylinos.cn>
-In-Reply-To: <20261026012345.1902285-1-lilinmao@kylinos.cn>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTO0YQaW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D0B1F01828;
+	Tue, 27 Oct 2026 05:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793080513;
+	bh=2I/jzg7WgJ3LoL18fXMyofGaArzp2mzlrfAX2Uqrog8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RTO0YQaWKGiuOkNydkjp9F0al4OwblPd0GYhllMy2sm19Y8JqUcgO9O3b1/KdXTIv
+	 5/ra9NTHNFcz+DUsB5GzL2ouUTpEUN568x/hf9G2eVZVajy8OSb2G1D3E/QjzZ8ger
+	 XDTSy+6YUzw3iKN1K1wdjHxmIQMdWne8faQzUWdh73hGAIk6JKnGSLCjvTsof8k2D3
+	 ZBvYhzMwjhOXVIhEEyX8DJ9riNHmKtfxXGvfjrxLPTgc6dv7A8wagr80H0wn2mOMhb
+	 ua9tKgcHzReEiJmIOYBg3S9Pt/hKp/tpl4MwgtjHAoH1IKGESgH7b0FzeYa8Aw9J+C
+	 RiNxd1KxMjpgQ==
+Subject: Re: [PATCH net v2 1/2] inet: reject unhashed sockets during
+ established lookups
+From: netdev-bot+sashiko@kernel.org
+To: imv4bel@gmail.com
+Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ martin.lau@linux.dev, john.fastabend@gmail.com, weiwan@google.com,
+ sd@queasysnail.net, jiayuan.chen@linux.dev, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 27 Oct 2026 05:55:12 +0000
+Message-ID: <179308051231.3134.13492846570151635023@kernel.org>
+In-Reply-To: <20261023052542.3505250-2-imv4bel@gmail.com>
+References: <20261023052542.3505250-2-imv4bel@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,52 +66,89 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Linmao Li <lilinmao@kylinos.cn>
-> Sent: Monday, October 26, 2026 9:24 AM
-> To: andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@kernel.org;
-> kuba@kernel.org; pabeni@redhat.com
-> Cc: Hayes Wang <hayeswang@realtek.com>; nic_swsd
-> <nic_swsd@realtek.com>; Chih Kai Hsu <hsu.chih.kai@realtek.com>;
-> mail@birger-koblitz.de; zhangxiangqian@kylinos.cn; linux-usb@vger.kernel.=
-org;
-> netdev@vger.kernel.org; linux-kernel@vger.kernel.org; stable@vger.kernel.=
-org;
-> Linmao Li <lilinmao@kylinos.cn>
-> Subject: [PATCH net v3] r8152: Use BMSR to detect the link state
->=20
->=20
-> External mail : This email originated from outside the organization. Do n=
-ot
-> reply, click links, or open attachments unless you recognize the sender a=
-nd
-> know the content is safe.
->=20
->=20
->=20
-> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
-> BMSR_LSTATUS can remain latched low after link up. Since
-> commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
-> cable is not connected"), the first speed query can then report
-> SPEED_UNKNOWN, which applications such as NetworkManager may cache
-> until the next carrier change.
->=20
-> Use BMSR_LSTATUS in set_carrier() so a latched link down can turn
-> carrier off after the link has recovered. If BMSR reports down but
-> PLA_PHYSTATUS reports up, reschedule the link work to read the current
-> state without waiting for another notification.
->=20
-> Tested on an RTL8153B: NetworkManager reported 1000 Mb/s after 3 of 3
-> rebinds, instead of an unknown speed.
->=20
-> Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network ca=
-ble is
-> not connected")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Hayes Wang <hayeswang@realtek.com>
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Reviewed-by: Hayes Wang <hayeswang@realtek.com>
+Low priority / nit picks for your consideration:
 
-Best Regards,
-Hayes
+- [Low] At this commit, the new post-reference checks
+  hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) and…
 
+--
+
+inet: reject unhashed sockets during established lookups
+
+This commit adds an hlist_nulls_unhashed_lockless() check after the
+reference is taken in __inet_lookup_established() and
+__inet6_lookup_established(). A lookup that races with
+SLAB_TYPESAFE_BY_RCU reuse of a socket now restarts instead of returning
+an unhashed object. The SYN cookie, Fast Open and request migration
+failure paths now drop references with reqsk_put() instead of calling
+__reqsk_free() directly.
+
+> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+> index 5abcb0debb270..b0239d203f045 100644
+> --- a/net/ipv4/inet_hashtables.c
+> +++ b/net/ipv4/inet_hashtables.c
+> @@ -552,8 +552,9 @@ struct sock *__inet_lookup_established(const struct net *net,
+>  		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
+>  			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+>  				goto out;
+> -			if (unlikely(!inet_match(net, sk, acookie,
+> -						 ports, dif, sdif))) {
+> +			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
+> +				     !inet_match(net, sk, acookie, ports, dif,
+> +						 sdif))) {
+
+[Severity: Low]
+On weakly ordered architectures, are the new pprev load and the repeated
+tuple check guaranteed to happen after the refcount increment?
+
+refcount_inc_not_zero() is relaxed here. At this commit, the code that
+publishes a nonzero refcount on never-hashed request sockets also uses
+plain stores:
+
+net/ipv4/syncookies.c:tcp_get_cookie_sock() {
+    ...
+	if (child) {
+		refcount_set(&req->rsk_refcnt, 1);
+    ...
+}
+
+net/ipv4/tcp_fastopen.c:tcp_fastopen_create_child() {
+    ...
+	refcount_set(&req->rsk_refcnt, 2);
+    ...
+}
+
+The inet_reqsk_clone() users do the same. They are reqsk_timer_handler()
+(refcount_set(&nreq->rsk_refcnt, 2 + 1)), inet_csk_complete_hashdance()
+and inet_csk_listen_stop() (refcount_set(&nreq->rsk_refcnt, 1)).
+
+On arm64 or POWER, the hlist_nulls_unhashed_lockless() and inet_match()
+loads could be satisfied before the cmpxchg in refcount_inc_not_zero().
+If so, the lookup could still return the recycled, unhashed SYN cookie
+reqsk with rsk_listener == NULL. That is the tcp_v4_rcv() crash described
+in the commit message. The same applies to __inet6_lookup_established(),
+which also uses a relaxed refcount_inc_not_zero() before the new check.
+
+This ordering is older than this patch. It is fully fixed by the next
+patch in the series, "inet: restore refcount ordering for established
+lookups". That patch switches both lookups to
+refcount_inc_not_zero_acquire(), and switches tcp_get_cookie_sock(),
+tcp_fastopen_create_child() (moving the set after initialization),
+reqsk_timer_handler(), inet_csk_complete_hashdance(),
+inet_csk_listen_stop() and sk_clone() to refcount_set_release().
+
+Both patches carry Cc: stable. Should they be marked so that they are
+backported together, so that this one is not picked up alone?
+
+>  				sock_gen_put(sk);
+>  				goto begin;
+>  			}
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023052542.3505250-1-imv4bel%40gmail.com
