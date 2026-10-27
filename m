@@ -1,66 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.67
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793077162;
-	b=0vU6XNb9669ylVKQV64DvwuYHmnA4SoW5hZksKTVT/6JxpppyRUCRR2qwqgC5YoEvWJH
-	 va5yvHaJEM4sDVaRnOcOUBnqnhUXVSCvVYN597xZM5DDyVGhwOolSERjVnOBqH/G44iLZ
-	 SUeg6KZM6CucrrLaxMcuLsZ5TntIE2HGpXm5FxzOg/0DeWMRT3e3MOAdSoWo+/CUN0Rov
-	 zYW+qxupAvS5pli1TTY+ahDs6zueDLr1swAmUnTLcOOT4n2lZQkLRY+5MhiaYutG/4Hoj
-	 fYUYuBgR69Dhpkb26c78PAQVtNKufJDzO3j2teS71DdvsnFRQDLP8yE719NETD6/93Q==
+	t=1793077350;
+	b=mHI3WZf56rMqT+cFtgBKYo/ZuKyV8kRcYaDqji2UPoOEj//Olkr5gHxyjdsMKaH8Tu0S
+	 FMJ/ltw3918chb11cnwoogrUGHVThYXg+pxw5xH+Uwd+smVwAlhv8M0ZgHzcMAkkC0Ut2
+	 CdV4AUSrIi4brNhM4Fs/iFL7yQbDtcVXTVFrdqM40K7OHExLA1NSWQMCbD/MzXRcikRhK
+	 hmf1xSfrqpctESulyRbu3c7v7ecbpuTZhPZWVvpoFRL9vpVAl4OaqUXKVI5t77t1bbIbG
+	 DDZ+Mo5LP+FYwFGkPi2TUq2xVpqhGCc2pCL7dwVIDNaudOqIN14XML3wJMxbPY1rlKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793077162;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:X-QQ-mid;
-	bh=8SYyEJOJ46djcKUvr99CVX2BesYXjMvweRysPrPK66s=;
-	b=quaY1L29s6mBD4nFKqG8QyKdRsxwQITkE/CxgqPmTae6eztXcRjOL8nbIvAKcHlcyAiA
-	 A6gD1rTeLC4pqovlLf3nXSp0cYtB6oUPE8bjTE5D1WRllL0vd1nbwctC/t55LFWuAulqx
-	 pcPPAuQeVBXQeEJSuZjWX6429dKIU4JoEwENtAmS/5WYk/mNAOgw9Cdug6wLcODmwf6pL
-	 mgn86G4cgSoeZrZBMF1QXTez90/CcbBtqL79A4LaPzdJw0tBkXYkrbk+c04aUzY6ag2hQ
-	 1SKYar7Yfh5tbme1Vb995eDFZUq95bLz9N+azW8QK6Rl8cGxoyFP/cgO0i18L0pCIPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793077350;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
+	b=ecxQ4YMQRPV4bUr7F7BEX5CIc2G8n8fVIb5FiElnYIS03/TiZJ+DFOoosw2EtnUYf/vN
+	 JckQhSkVFzoRF1WOfMNvTGtmN1l0X3WtbUDFjjnijDvp3qvn2k0U/jaswndYTmtBkwgZR
+	 RC6Q8QNbjg2aeueij1TW8JqmVCWPpR4hhM5P7UvqmnNC+a5QgjN7ijNnY8KyIMbWchANc
+	 Ytpe9XYvXHPKlf9NjAPognHjJyLcrx1e1Purx/Py+oEcL9Zkn7IWpvUvpOTG03Aw2prTd
+	 wK8WaWy6QnmioN/iAAIvwZVsR8P2GkYXCBsraGaN2urJz7ZaCDOhjcTSbh05dB5m9KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=hjEu7h1q;
-	arc=none smtp.remote-ip=203.205.221.164
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c5XSdy4z;
+	arc=none smtp.remote-ip=74.125.82.67
+Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8542D606A31D;
-	Tue, 27 Oct 2026 04:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8542D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E2E606A31D
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 05:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26E2E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=hjEu7h1q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793077157;
-	bh=8SYyEJOJ46djcKUvr99CVX2BesYXjMvweRysPrPK66s=;
-	h=From:To:Cc:Subject:Date;
-	b=hjEu7h1qNaPz+TK1hRVCXb00KP6An2ngcxvVlALKI9olxf5kPgMsl+aDb4/ra6ARh
-	 FiHMZehMFjDQHBTpqv18VBv6hHxsGZJZ1akuwNN3jnsitbj64zUxDt8CmE0+R088lL
-	 nyyCCs4k69EqTp7GiOIQ4sti5GxZnHiom+2Mio0A=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-XMAILINFO: OeyDAh4iGfy7lo8pmkt1bLc0dOtvY5t97BzEmy6YND2j3dHVk0RGzmWJN7VppR
-	 IcGA6VcJyx13XRTKDbyDUJe/m0qYjvhR5FGdw82ZSAwuiaE+vHzn2Ozx6RnbE7igL48ADDuh9H8e1
-	 t3dJztEgCOTxddn7vEFkHbAglMjIyepu4fHPbc3FF+XG95zGn1cKpu0YwPWmPG/LvA7mebotofI44
-	 joMWx8f4zdVrhAFQK7d46PBlgHWyf4cnCV0p1ehVgZNaeCthD0uD4u2YSEgR21lvDijMgVo79rs29
-	 MTsXjhjumE+YT3N2ty/wDzEieBDnpvgPBWv1kCLnt/Xx80ZIr0nzzyPr9jC/kv8JI0oX/+gnqrr+Q
-	 hXDPlnv0+xvvzW0/vsOuxs5CmdHyCP/u3rOGJQdgzXvgdyQmPbD/wSYfd0nAGcHfR52U2zNSlq4N0
-	 EEf+2qgUZgnQFKVGbFo9qN7kbUh5nl7B6m26JTbjHUww2pF2nsXqaYCmmlWEsPtXvOXGl2uke2aP1
-	 bbAvsukvdIGe00uBzUHLBs1u8lTfuafm4MGXi/eSjjAhaWd8Xpc6JkyYwnu4wdemtz405XYgEfQd6
-	 rctB+9n+JTx6+kuTL88JCwivJb3/ijGqB42WfRs2bElw7rX2Gasq63VRwfer45T4GPKvuBigp+wbs
-	 qHgbik3Bnmex4IMteLEkU0H/v5ugk0xTWryFX4fGgzXjvQo/Txk7BM9sQmSzt7ONEXN+D7swtT8nR
-	 +cSGj/xQsA935L2fKyzQ5TZJYHwTwTeTYEHJXG5saBiHpXJ3JzCCudBwpxKOyYmsDjso67qTf9FVv
-	 wHP24hLZ56np2B98p6A24krYC0GWX6u8kOwjpt/Src/SBOy6Vb2t3pA+69btb66LxqO0YRO1njo3Z
-	 apFgrwBTazM/r18+OPMP+hNcMTnlViiTUR9Jp2hfDAY12TcP5BpEV25HCNnhI8m2DrtNNc2MYuCDI
-	 IX2wDcSSSbxpf8xbOb66g1fXXBXJUYfulqC7UZnp+qmC7BR0T0YOHTcb50VEwvaFLXBBoPyd2KKua
-	 bmLf2ZU4NTaA9SV1uP7bX3ooSX3Le1s6NOfrNKkdNjO5KBMVr94agUROyiT7vX5s4aUwXShefvZyJ
-	 n2GBXrIfame05/LnX54ogUaO7q2gDu5r3Xa5DWZE15+rPRYrq1ApG90ILywobsO7npYjYGPfA+1as
-	 mQBSwKEpZfU
-From: "=?utf-8?B?Ym8gY2Fv?=" <treebacker@foxmail.com>
-To: "=?utf-8?B?YnBm?=" <bpf@vger.kernel.org>
-Cc: "=?utf-8?B?YXN0?=" <ast@kernel.org>, "=?utf-8?B?ZGFuaWVs?=" <daniel@iogearbox.net>, "=?utf-8?B?YW5kcmlp?=" <andrii@kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c5XSdy4z
+Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-181516de561so413165c88.1
+        for <stable@vger.kernel.org>; Mon, 26 Oct 2026 22:02:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793077349; x=1793682149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
+        b=c5XSdy4ztScAIiHgbPzGCVSJIwwkHGig0lgK23rWrPwg2l/EKPeyBzJ4Gk4qh1LNAI
+         MqpDU3M93ZSDM+ZfHyQTNPLIYH7LKE6PTt6HVbeNcuEYx91FkUq3yXneMCsmRLiYZyhk
+         COvqB26ApyfjUcwF4LFaatMeEEo8DskjXHgjAbZ1c4pF2HSwBqpsYIherHx/ZA5Qpyto
+         59XFgop9BtU2vW5DsMfa4F4kmX/QOuT6surKOluEPqHhb6F7/B/AaksXrGCW/u/Lfzmg
+         pONuPLkyFV2rhOkOmDTHeBv1j29LBBawuHyOHuKvN8USegNEiNFStaFRuMu8BYEzFllU
+         cipQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793077349; x=1793682149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
+        b=kUBcFOCIlqkZk3s0A2KTLhID8cwrCXOBAlP3urkI7jGSfISuorhxVHbRSOHKEhIef3
+         gj3536ROFnWrpuzin/zskRfMhRhR4y/7Xv5ZNJY9pit+LCSwpt5+Rw8PNMhq1i/FKVpC
+         x3bKyN+GtSh1TRqkkxSoGVrbSr2Z6RUFNA64768XtntW7G98W5QK0CXTOC6sDFcIqXvN
+         P1sz0UmK2neESsloxfnELTHzrPTM3VxJIUaFUv51LB7tyPMwv+Jbjig/sPbcLbcT7RRm
+         uriqw9QiLx21JrUabqaoM3JwitJ99VxKypk+xPg3aJRVbGYpxoNRbc+6+aIRsrJzte4X
+         Aa3g==
+X-Forwarded-Encrypted: i=1; AKwUvBxQN/tikIu/+08KKuS/Nc2srve2AFFpRVzCioTSaWfsBb8Q2mpUxZqfW5f7qIn+OtbAEUCANxg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1GX68Rk/u5LzkG+6Xb/oOoxHnI7UIRaCIxcEMnnzW5cQlelXK
+	N+fCakIvQ3MUUGC4svFEv4OnvHru1gKUgODKdZ0Pp2R9uRtrYRpPQp1e
+X-Gm-Gg: AYBFou2PtJMu6Sb+m5zWGM821BjxYZOex38byHWR27CAzBjYPFzlZCs0IvFbipl0xYr
+	F90kyJRsqgbYDSLI8JkFf47sUrPRZMQ7HngqvSW+wRDTsoA5u/k5KJzN06+6Awx52u2GEHO9mAy
+	utmrHT41JlClxJxfaSFyhvjc2CyEdJM6MRHPUCCxiq5QOZpIKh3iu77WVrf3pNKLfdGgTcFnwgV
+	GTU+RZqdBtJEX52Pqq6V97eYy/yPIBvFBak9Q2vsYiNQyhW260mSzmnBb9LyKrnrplh+v5rkw+j
+	z/2XhiFzuvmL20xWIeNeKYW+0cVhmQvW62zEa+eTEZWEbllsVP8wirfC/c4G/bwz+vP8S/sHC77
+	f7ZEZODd89GfwbjbHTg4Ly1Sb6gm/gXRgUZl/CeXonHRoXyTxzDkak7xFHD6DAMbuRZ5m9wLNXK
+	PRZgPmGsKWVYiTSoQht/Y+AyJWxh14Lv9YR8b+bZJR2MFNhZ4SpWliVX8wPs46ce/NOtuuotgJk
+	Qk878lcc4WKtg8Gc35K2moHY19FRgbagLfVTtbX20UMN8MPpEhQOLR+lnfnKaCth12UMQnADZlq
+	Uo5ZKlHI9zu0wk2U
+X-Received: by 2002:a05:701b:4505:10b0:15b:1959:15e0 with SMTP id a92af1059eb24-1a3c76669abmr2075046c88.4.1793077348863;
+        Mon, 26 Oct 2026 22:02:28 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm35374587c88.6.2026.10.26.22.02.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 22:02:28 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] fbcon: Avoid cancel_delayed_work_sync() in atomic context
+Date: Tue, 27 Oct 2026 13:02:15 +0800
+Message-ID: <20261027050215.612762-1-yyaqia@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,160 +98,166 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 27 Oct 2026 12:59:15 +0800
-X-Priority: 3
-Message-ID: <tencent_E59540D7752F97C21F5A0EA91E4C1BD57908@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-mid: xmseua11-1t1793077155tl7n98hq4
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-VHdvIEJQRiBoZWxwZXJzIHRha2UgYSB0YXJnZXQgQ1BVIGlkIGFzIGEgcmF3IHUzMiAoYXJn
-X3R5cGUKQVJHX0FOWVRISU5HLCBzbyB0aGUgdmVyaWZpZXIgZG9lcyBub3QgY29uc3RyYWlu
-IGl0KSBhbmQgb25seSByZWplY3QKY3B1ID49IG5yX2NwdV9pZHMgYmVmb3JlIHRoZSB2YWx1
-ZSBpcyB1c2VkIGFzIGEgcGVyX2NwdV9wdHIoKSBpbmRleC4KCmJwZl9tYXBfbG9va3VwX3Bl
-cmNwdV9lbGVtKCkgZGlzcGF0Y2hlcyB0byB0aGUgcGVyLWNwdSBtYXAKaW1wbGVtZW50YXRp
-b25zLCBhbmQgYWxsIHRocmVlIG9mIHRoZW0gKHBlcmNwdSBhcnJheSwgcGVyY3B1IGhhc2gs
-CnBlcmNwdSBMUlUgaGFzaCkgY2hlY2sgbm90aGluZyBiZXlvbmQgdGhhdCB1cHBlciBib3Vu
-ZDoKCglpZiAoY3B1ID49IG5yX2NwdV9pZHMpCgkJcmV0dXJuIE5VTEw7CgkuLi4KCXJldHVy
-biBwZXJfY3B1X3B0ciguLi4sIGNwdSk7CgpicGZfcGVyX2NwdV9wdHIoKSBoYXMgdGhlIHNh
-bWUgd2VhayBjaGVjayBiZWZvcmUgcmV0dXJuaW5nCnBlcl9jcHVfcHRyKHB0ciwgY3B1KS4K
-Ck5vdGUgdGhhdCB0aGUgdmVyaWZpZXIgcmV3cml0ZXMgY2FsbHMgdG8gYnBmX21hcF9sb29r
-dXBfcGVyY3B1X2VsZW0oKQp3aXRoIGEga25vd24gbWFwIGludG8gZGlyZWN0IGNhbGxzIHRv
-IHRoZSBtYXAgY2FsbGJhY2sKKGtlcm5lbC9icGYvZml4dXBzLmMsIEJQRl9GVU5DX21hcF9s
-b29rdXBfcGVyY3B1X2VsZW0gY2FzZSksIHNvIGEKY2hlY2sgaW4gdGhlIGhlbHBlcnMuYyB3
-cmFwcGVyIGFsb25lIGRvZXMgbm90IGNvdmVyIEpJVGVkIHByb2dyYW1zOwp0aGUgY2FsbGJh
-Y2tzIHRoZW1zZWx2ZXMgbXVzdCByZWplY3QgdGhlIGhvbGUgQ1BVIGlkLgoKUGVyLWNwdSBt
-ZW1vcnkgaXMgb25seSBhbGxvY2F0ZWQgZm9yIHBvc3NpYmxlIENQVXMsIGFuZApfX3Blcl9j
-cHVfb2Zmc2V0W10gaXMgb25seSBpbml0aWFsaXplZCBmb3IgdGhlbSAob24gYXJtNjQsCnNl
-dHVwX3Blcl9jcHVfYXJlYXMoKSB3YWxrcyBmb3JfZWFjaF9wb3NzaWJsZV9jcHUpLiAgT24g
-YSBzeXN0ZW0Kd2l0aCBhIHNwYXJzZSBwb3NzaWJsZSBtYXNrIC0gZS5nLiBhbiBhcm02NCBn
-dWVzdCB3aXRoIGEgZGV2aWNlLXRyZWUKQ1BVIGhvbGUsIHBvc3NpYmxlIG1hc2sgMCwyLTMg
-d2l0aCBucl9jcHVfaWRzID0gNCAtIGEgY2FsbCB3aXRoIHRoZQpob2xlIENQVSBpZCBwYXNz
-ZXMgdGhlIHdlYWsgY2hlY2tzLCBhbmQgcGVyX2NwdV9wdHIoKSBjb21wdXRlcyB0aGUKcmV0
-dXJuZWQgcG9pbnRlciBmcm9tIHRoZSB1bmluaXRpYWxpemVkIF9fcGVyX2NwdV9vZmZzZXRb
-aG9sZV0uCgpGb3IgYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0oKSB0aGUgcmV0dXJuZWQg
-cG9pbnRlciBsaWVzIG91dHNpZGUKYW55IHZhbGlkIHBlci1jcHUgY2h1bmsgb2YgdGhlIG1h
-cDogcmVhZHMgbGVhayB0aGUgc3RhbGUgYnl0ZXMKdGhyb3VnaCB0aGUgbWFwIHZhbHVlLCBh
-bmQgd3JpdGVzIGNvcnJ1cHQgd2hhdGV2ZXIgdGhlIG9mZnNldApoYXBwZW5zIHRvIGxhbmQg
-b24uICBGb3IgYnBmX3Blcl9jcHVfcHRyKCkgb24gYSBrc3ltIHRoZSByZXN1bHQgaXMKcmVh
-ZC1vbmx5ICh0aGUgcHJvdG8gbWFya3MgaXQgTUVNX1JET05MWSksIGJ1dCBvbiBhIHBlcmNw
-dSBrcHRyCmFsbG9jYXRlZCB3aXRoIGJwZl9wZXJjcHVfb2JqX25ldygpIHRoZSByZXN1bHQg
-aXMgd3JpdGFibGUsIHNvIGEKaG9sZSBDUFUgaWQgbGV0IGEgcHJvZ3JhbSB3cml0ZSB0aHJv
-dWdoIGEgYm9ndXMgYWRkcmVzcyBhcyB3ZWxsLgoKUmVwcm9kdWNlZCBvbiBhbiBhcm02NCBn
-dWVzdCB3aXRoIHBvc3NpYmxlIG1hc2sgMCwyLTMgKFVidW50dQo3LjMuMC05LWdlbmVyaWMp
-OiBhIHNvY2tldCBmaWx0ZXIgcHJvZ3JhbSBwYXNzZXMgdGhlIHBvaW50ZXIKcmV0dXJuZWQg
-YnkgYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0obWFwLCBrZXksIDEpIG9uIGFzIHRoZSB2
-YWx1ZQphcmd1bWVudCBvZiBicGZfbWFwX3VwZGF0ZV9lbGVtKCksIGFuZCB0aGUgY29weSBp
-bnNpZGUKYXJyYXlfbWFwX3VwZGF0ZV9lbGVtKCkgZmF1bHRzIG9uIGl0OgoKICBwYyA6IF9f
-cGlfbWVtY3B5X2dlbmVyaWMrMHgzYy8weDIzMAogIGxyIDogYXJyYXlfbWFwX3VwZGF0ZV9l
-bGVtKzB4MTQ4LzB4MmE4CiAgQ2FsbCB0cmFjZToKICAgX19waV9tZW1jcHlfZ2VuZXJpYysw
-eDNjLzB4MjMwIChQKQogICBicGZfcHJvZ184MzVhNGJhMmVhNjc1NWYwX3BvYysweDkwLzB4
-YzAKICAgYnBmX3Rlc3RfcnVuKzB4MmQwLzB4NDYwCiAgIGJwZl9wcm9nX3Rlc3RfcnVuX3Nr
-YisweDRhYy8weDkyMAogICBfX3N5c19icGYrMHg2MTQvMHhiZTgKICAgX19hcm02NF9zeXNf
-YnBmKzB4MzgvMHg3OAoKdGhlIG1lbWNweSBzb3VyY2UgKHgxID0gMDAwMGI3NzM3ZWM3ZGM4
-OCkgYmVpbmcgdGhlIG91dC1vZi1ib3VuZHMKcG9pbnRlciB0aGUgbG9va3VwIHJldHVybmVk
-IGZvciB0aGUgaG9sZSBDUFUuCgpUaGUgc3lzY2FsbCBzaWRlIG9mIHRoZSBzYW1lIHByb2Js
-ZW0gKEJQRl9GX0NQVSBtYXAgb3BlcmF0aW9uIGZsYWdzKQp3YXMgZml4ZWQgYnkgZWQ1NGJm
-NTY0YWM1ICgiYnBmOiBGaXggQlBGX0ZfQ1BVIHZhbGlkYXRpb24gZm9yIHNwYXJzZQpDUFUg
-SURzIiksIHdoaWNoIGFkZGVkIGNwdV9wb3NzaWJsZSgpIHZhbGlkYXRpb24gdG8KYnBmX21h
-cF9jaGVja19vcF9mbGFncygpLiAgVGhlc2UgcGF0aHMgZG8gbm90IGdvIHRocm91Z2ggdGhh
-dApmdW5jdGlvbiwgc28gdGhlIHNhbWUgY2xhc3Mgb2YgaG9sZSBDUFUgaWQgbmVlZHMgdG8g
-YmUgcmVqZWN0ZWQgaGVyZQphcyB3ZWxsLgoKYnBmX3Blcl9jcHVfcHRyKCkgaGFzIHJldHVy
-bmVkIE5VTEwgZm9yIGNwdSA+PSBucl9jcHVfaWRzIHNpbmNlIGl0cwppbnRyb2R1Y3Rpb24s
-IGJ1dCBmb3IgYSBwZXJjcHUgb2JqIHRoZSB2ZXJpZmllciBkcm9wcyBQVFJfTUFZQkVfTlVM
-TApmcm9tIFIwIChjaGVja19oZWxwZXJfY2FsbCgpLCByZXR1cm5zX2NwdV9zcGVjaWZpY19h
-bGxvY19wdHIgcGF0aCksCnNvIGEgcHJvZ3JhbSB0aGF0IHNraXBzIHRoZSBOVUxMIHRlc3Qg
-YW5kIHdyaXRlcyB0aHJvdWdoIHRoZSByZXN1bHQKcGFzc2VzIHZlcmlmaWNhdGlvbiBhbmQg
-b29wc2VzIG9uIE5VTEwgKyBvZmZzZXQgYXQgcnVuIHRpbWUgLSBhCnByb2JsZW0gb24gaXRz
-IG93biBzaW5jZSAwMWNjNTVhZjkzODgsIG5vIHNwYXJzZSBDUFUgbWFzayByZXF1aXJlZC4K
-S2VlcCBQVFJfTUFZQkVfTlVMTCBvbiBSMCBpbiB0aGF0IHBhdGggc28gdGhlIHZlcmlmaWVy
-IHJlcXVpcmVzIHRoZQpOVUxMIHRlc3Q7IHRoZSBleGlzdGluZyBzZWxmdGVzdHMgYWxyZWFk
-eSBjaGVjaywgc28gdGhleSBrZWVwCnBhc3NpbmcuICBUaGlzIGFsc28gbWFrZXMgdGhlIG5l
-dyBOVUxMIHJldHVybiBmb3IgYSBob2xlIENQVSBzYWZlLgoKQWRkIHRoZSBjaGVjayB0byB0
-aGUgdGhyZWUgbWFwIGNhbGxiYWNrcyAoc28gdGhlIHZlcmlmaWVyJ3MgZGlyZWN0CmNhbGwg
-cGF0aCBpcyBjb3ZlcmVkKSwga2VlcCBpdCBpbiB0aGUgaGVscGVyIGRpc3BhdGNoIGFzIGEg
-Y2VudHJhbApmYWxsYmFjaywgZml4IGJwZl9wZXJfY3B1X3B0cigpIGluIHBsYWNlLCBhbmQg
-a2VlcCBQVFJfTUFZQkVfTlVMTApvbiBSMCBmb3IgcGVyY3B1IG9iaiByZXN1bHRzLgoKRml4
-ZXM6IDA3MzQzMTEwYjI5MyAoImJwZjogYWRkIGJwZl9tYXBfbG9va3VwX3BlcmNwdV9lbGVt
-IGZvciBwZXJjcHUgbWFwIikKRml4ZXM6IGVhYTZiY2I3MWVmNiAoImJwZjogSW50cm9kdWNl
-IGJwZl9wZXJfY3B1X3B0cigpIikKRml4ZXM6IDAxY2M1NWFmOTM4OCAoImJwZjogQWRkIGJw
-Zl90aGlzX2NwdV9wdHIvYnBmX3Blcl9jcHVfcHRyIHN1cHBvcnQgZm9yIGFsbG9jYXRlZCBw
-ZXJjcHUgb2JqIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTog
-Ym8gY2FvIDx0cmVlYmFja2VyQGZveG1haWwuY29tPgotLS0KQ2hhbmdlcyBpbiB2MzoKLSBy
-ZW5hbWUgYXV0aG9yIGFuZCBTaWduZWQtb2ZmLWJ5IHRvIG1hdGNoIHRoZSBzZW5kZXIgKGJv
-IGNhbykuCi0gZHJvcCB0aGUgaW5jb3JyZWN0ICJNRU1fUkRPTkxZLCBzbyByZWFkcyBvbmx5
-IiBjbGFpbSBmb3IKICBicGZfcGVyX2NwdV9wdHIoKTogaXQgb25seSBob2xkcyBmb3Iga3N5
-bSBhcmd1bWVudHM7IHBlcmNwdSBrcHRyCiAgcmVzdWx0cyBhcmUgd3JpdGFibGUuCi0ga2Vl
-cCBQVFJfTUFZQkVfTlVMTCBvbiBSMCBmb3IgYnBmX3Blcl9jcHVfcHRyKCkgb24gcGVyY3B1
-IG9iajoKICBjaGVja19oZWxwZXJfY2FsbCgpIGRyb3BzIHRoZSBmbGFnIG9uIHRoZQogIHJl
-dHVybnNfY3B1X3NwZWNpZmljX2FsbG9jX3B0ciBwYXRoLCBzbyB0aGUgTlVMTCByZXR1cm4g
-KGZvcgogIGNwdSA+PSBucl9jcHVfaWRzIHNpbmNlIDAxY2M1NWFmOTM4OCwgYW5kIG5vdyBh
-bHNvIGZvciBhIGhvbGUKICBDUFUpIGxldCBhIG5vbi1jaGVja2luZyBwcm9ncmFtIG9vcHMg
-b24gTlVMTCArIG9mZnNldC4gIFdpdGggdGhlCiAgZmxhZyBrZXB0LCB0aGUgdmVyaWZpZXIg
-cmVxdWlyZXMgdGhlIE5VTEwgdGVzdDsgZXhpc3Rpbmcgc2VsZnRlc3RzCiAgYWxyZWFkeSBj
-aGVjay4KCkNoYW5nZXMgaW4gdjI6IGFkZCB0aGUgY3B1X3Bvc3NpYmxlKCkgY2hlY2sgdG8g
-dGhlIHRocmVlIHBlci1jcHUgbWFwCmNhbGxiYWNrcyBhcyB3ZWxsLCBiZWNhdXNlIHRoZSB2
-ZXJpZmllciByZXdyaXRlcyBoZWxwZXIgY2FsbHMgd2l0aCBhCmtub3duIG1hcCBpbnRvIGRp
-cmVjdCBjYWxscyB0byB0aGUgY2FsbGJhY2tzIChrZXJuZWwvYnBmL2ZpeHVwcy5jKQphbmQg
-dGh1cyBieXBhc3NlcyB0aGUgaGVscGVycy5jIHdyYXBwZXIuCgpMaW5rOiBodHRwczovL2xv
-cmUua2VybmVsLm9yZy9icGYvYjNkZGMzYTQzNTEyYjMzZmI1MDM1ODVkMzRkZDc1ZWY2MjQy
-MGVhMGUwZDlmMGNlZWNkNjI2MmY3OWZjYjlkMEBtYWlsLmtlcm5lbC5vcmcvCi0tLQoga2Vy
-bmVsL2JwZi9hcnJheW1hcC5jIHwgMiArLQoga2VybmVsL2JwZi9oYXNodGFiLmMgIHwgNCAr
-Ky0tCiBrZXJuZWwvYnBmL2hlbHBlcnMuYyAgfCA2ICsrKysrLQoga2VybmVsL2JwZi92ZXJp
-Zmllci5jIHwgMyArKy0KIDQgZmlsZXMgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgNSBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9rZXJuZWwvYnBmL2FycmF5bWFwLmMgYi9rZXJu
-ZWwvYnBmL2FycmF5bWFwLmMKaW5kZXggMTMzZjE4OWJmNmQyLi5lYWIwM2Y5ODUyODAgMTAw
-NjQ0Ci0tLSBhL2tlcm5lbC9icGYvYXJyYXltYXAuYworKysgYi9rZXJuZWwvYnBmL2FycmF5
-bWFwLmMKQEAgLTMyNyw3ICszMjcsNyBAQCBzdGF0aWMgdm9pZCAqcGVyY3B1X2FycmF5X21h
-cF9sb29rdXBfcGVyY3B1X2VsZW0oc3RydWN0IGJwZl9tYXAgKm1hcCwgdm9pZCAqa2V5LAog
-CXN0cnVjdCBicGZfYXJyYXkgKmFycmF5ID0gY29udGFpbmVyX29mKG1hcCwgc3RydWN0IGJw
-Zl9hcnJheSwgbWFwKTsKIAl1MzIgaW5kZXggPSAqKHUzMiAqKWtleTsKIAotCWlmIChjcHUg
-Pj0gbnJfY3B1X2lkcykKKwlpZiAoY3B1ID49IG5yX2NwdV9pZHMgfHwgIWNwdV9wb3NzaWJs
-ZShjcHUpKQogCQlyZXR1cm4gTlVMTDsKIAogCWlmICh1bmxpa2VseShpbmRleCA+PSBhcnJh
-eS0+bWFwLm1heF9lbnRyaWVzKSkKZGlmZiAtLWdpdCBhL2tlcm5lbC9icGYvaGFzaHRhYi5j
-IGIva2VybmVsL2JwZi9oYXNodGFiLmMKaW5kZXggYmY3OGUwOWY0ZDUxLi4wMDcyNzljMTZi
-NzcgMTAwNjQ0Ci0tLSBhL2tlcm5lbC9icGYvaGFzaHRhYi5jCisrKyBiL2tlcm5lbC9icGYv
-aGFzaHRhYi5jCkBAIC0yNjcwLDcgKzI2NzAsNyBAQCBzdGF0aWMgdm9pZCAqaHRhYl9wZXJj
-cHVfbWFwX2xvb2t1cF9wZXJjcHVfZWxlbShzdHJ1Y3QgYnBmX21hcCAqbWFwLCB2b2lkICpr
-ZXksCiB7CiAJc3RydWN0IGh0YWJfZWxlbSAqbDsKIAotCWlmIChjcHUgPj0gbnJfY3B1X2lk
-cykKKwlpZiAoY3B1ID49IG5yX2NwdV9pZHMgfHwgIWNwdV9wb3NzaWJsZShjcHUpKQogCQly
-ZXR1cm4gTlVMTDsKIAogCWwgPSBfX2h0YWJfbWFwX2xvb2t1cF9lbGVtKG1hcCwga2V5KTsK
-QEAgLTI2OTYsNyArMjY5Niw3IEBAIHN0YXRpYyB2b2lkICpodGFiX2xydV9wZXJjcHVfbWFw
-X2xvb2t1cF9wZXJjcHVfZWxlbShzdHJ1Y3QgYnBmX21hcCAqbWFwLCB2b2lkICprCiB7CiAJ
-c3RydWN0IGh0YWJfZWxlbSAqbDsKIAotCWlmIChjcHUgPj0gbnJfY3B1X2lkcykKKwlpZiAo
-Y3B1ID49IG5yX2NwdV9pZHMgfHwgIWNwdV9wb3NzaWJsZShjcHUpKQogCQlyZXR1cm4gTlVM
-TDsKIAogCWwgPSBfX2h0YWJfbWFwX2xvb2t1cF9lbGVtKG1hcCwga2V5KTsKZGlmZiAtLWdp
-dCBhL2tlcm5lbC9icGYvaGVscGVycy5jIGIva2VybmVsL2JwZi9oZWxwZXJzLmMKaW5kZXgg
-NjQ4YWJlMWJhNjNhLi5mOWYyYmQ2NjUwMzggMTAwNjQ0Ci0tLSBhL2tlcm5lbC9icGYvaGVs
-cGVycy5jCisrKyBiL2tlcm5lbC9icGYvaGVscGVycy5jCkBAIC0xMzMsNiArMTMzLDEwIEBA
-IGNvbnN0IHN0cnVjdCBicGZfZnVuY19wcm90byBicGZfbWFwX3BlZWtfZWxlbV9wcm90byA9
-IHsKIEJQRl9DQUxMXzMoYnBmX21hcF9sb29rdXBfcGVyY3B1X2VsZW0sIHN0cnVjdCBicGZf
-bWFwICosIG1hcCwgdm9pZCAqLCBrZXksIHUzMiwgY3B1KQogewogCVdBUk5fT05fT05DRSgh
-YnBmX3JjdV9sb2NrX2hlbGQoKSk7CisKKwlpZiAoY3B1ID49IG5yX2NwdV9pZHMgfHwgIWNw
-dV9wb3NzaWJsZShjcHUpKQorCQlyZXR1cm4gMDsKKwogCXJldHVybiAodW5zaWduZWQgbG9u
-ZykgbWFwLT5vcHMtPm1hcF9sb29rdXBfcGVyY3B1X2VsZW0obWFwLCBrZXksIGNwdSk7CiB9
-CiAKQEAgLTc1Myw3ICs3NTcsNyBAQCBjb25zdCBzdHJ1Y3QgYnBmX2Z1bmNfcHJvdG8gYnBm
-X2NvcHlfZnJvbV91c2VyX3Rhc2tfcHJvdG8gPSB7CiAKIEJQRl9DQUxMXzIoYnBmX3Blcl9j
-cHVfcHRyLCBjb25zdCB2b2lkICosIHB0ciwgdTMyLCBjcHUpCiB7Ci0JaWYgKGNwdSA+PSBu
-cl9jcHVfaWRzKQorCWlmIChjcHUgPj0gbnJfY3B1X2lkcyB8fCAhY3B1X3Bvc3NpYmxlKGNw
-dSkpCiAJCXJldHVybiAodW5zaWduZWQgbG9uZylOVUxMOwogCiAJcmV0dXJuICh1bnNpZ25l
-ZCBsb25nKXBlcl9jcHVfcHRyKChjb25zdCB2b2lkIF9fcGVyY3B1ICopKGNvbnN0IHVpbnRw
-dHJfdClwdHIsIGNwdSk7CmRpZmYgLS1naXQgYS9rZXJuZWwvYnBmL3ZlcmlmaWVyLmMgYi9r
-ZXJuZWwvYnBmL3ZlcmlmaWVyLmMKaW5kZXggNTYwMWQyMDU2MjE4Li4wY2VkZjM5ZWUyMjYg
-MTAwNjQ0Ci0tLSBhL2tlcm5lbC9icGYvdmVyaWZpZXIuYworKysgYi9rZXJuZWwvYnBmL3Zl
-cmlmaWVyLmMKQEAgLTEyOTU3LDcgKzEyOTU3LDggQEAgc3RhdGljIGludCBjaGVja19oZWxw
-ZXJfY2FsbChzdHJ1Y3QgYnBmX3ZlcmlmaWVyX2VudiAqZW52LCBzdHJ1Y3QgYnBmX2luc24g
-Kmluc24KIAkJCXJlZ3NbQlBGX1JFR18wXS5tZW1fc2l6ZSA9IHRzaXplOwogCQl9IGVsc2Ug
-ewogCQkJaWYgKHJldHVybnNfY3B1X3NwZWNpZmljX2FsbG9jX3B0cikgewotCQkJCXJlZ3Nb
-QlBGX1JFR18wXS50eXBlID0gUFRSX1RPX0JURl9JRCB8IE1FTV9BTExPQyB8IE1FTV9SQ1U7
-CisJCQkJcmVnc1tCUEZfUkVHXzBdLnR5cGUgPSBQVFJfVE9fQlRGX0lEIHwgTUVNX0FMTE9D
-IHwgTUVNX1JDVSB8CisJCQkJCQkgICAgICAgKHJldF9mbGFnICYgUFRSX01BWUJFX05VTEwp
-OwogCQkJfSBlbHNlIHsKIAkJCQkvKiBNRU1fUkRPTkxZIG1heSBiZSBjYXJyaWVkIGZyb20g
-cmV0X2ZsYWcsIGJ1dCBpdAogCQkJCSAqIGRvZXNuJ3QgYXBwbHkgb24gUFRSX1RPX0JURl9J
-RC4gRm9sZCBpdCwgb3RoZXJ3aXNlCi0tIAoyLjM5LjUgKEFwcGxlIEdpdC0xNTQpCgo=
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+
+fbcon_cursor() can be reached from the console printing path, which runs
+in atomic context. When the VT software cursor is enabled
+(vc_cursor_type & CUR_SW), it calls fbcon_del_cursor_work(), which uses
+cancel_delayed_work_sync() and therefore may sleep.
+
+With CONFIG_DEBUG_ATOMIC_SLEEP enabled, the following is reported:
+
+  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
+  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
+  ...
+  __cancel_work_sync
+  fbcon_del_cursor_work
+  fbcon_cursor
+  hide_cursor
+  vt_console_print
+  console_unlock
+  ...
+
+Make the default helper safe: fbcon_del_cursor_work() only stops
+blinking, using cancel_delayed_work(), which is allowed in any context.
+Every "stop blinking" call site keeps using it, including fbcon_cursor().
+Only fbcon_release(), which is about to free @par and must ensure that no
+callback is still using it, calls the separate
+fbcon_del_cursor_work_sync(). New call sites therefore get the safe
+variant by default.
+
+cancel_delayed_work() does not wait for a callback that is already
+running. Since fb_flashcursor() re-arms itself, a callback that has
+already been dequeued by process_one_work() can queue the work again
+after fbcon_del_cursor_work() returns. Add a cursor_blink_on flag to
+struct fbcon_par: fbcon_add_cursor_work() sets it, fbcon_del_cursor_work()
+clears it, and fb_flashcursor() checks it after taking console_lock and
+returns without drawing or re-arming once blinking has been stopped.
+Keep the requeue inside the console_lock section so that the flag check
+and the requeue are not split by a concurrent stop.
+
+Fixes: 3b0fb6ab25dd ("fbcon: Use delayed work for cursor")
+Cc: stable@vger.kernel.org
+Assisted-by: Opencode:deepseek-v4.1-flash
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+---
+
+Changes in v3:
+- Add cursor_blink_on to struct fbcon_par so a callback that has already
+  been dequeued by process_one_work() cannot re-arm the work after
+  fbcon_del_cursor_work() has stopped blinking.
+- Keep the requeue inside console_lock so the flag check and the requeue
+  are atomic with the stop.
+
+Changes in v2:
+- Reworked per review (sashiko-AI): do not guess the context with
+  in_interrupt()/irqs_disabled().  fbcon_del_cursor_work() is now
+  non-synchronizing by default and therefore safe from any context;
+  fbcon_del_cursor_work_sync() is added for fbcon_release(), the only
+  path that frees @par and needs to drain the work.
+- Move the requeue in fb_flashcursor() under console_lock so a running
+  callback cannot re-arm the work after the non-synchronizing cancel.
+
+ drivers/video/fbdev/core/fbcon.c | 41 +++++++++++++++++++++++++++-----
+ drivers/video/fbdev/core/fbcon.h |  1 +
+ 2 files changed, 36 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 94abbb5ac766..0847dcf18416 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -410,7 +410,8 @@ static void fb_flashcursor(struct work_struct *work)
+ 	if (par->currcon != -1)
+ 		vc = vc_cons[par->currcon].d;
+ 
+-	if (!vc || !con_is_visible(vc) ||
++	if (!par->cursor_blink_on ||
++	    !vc || !con_is_visible(vc) ||
+ 	    fbcon_info_from_console(vc->vc_num) != info ||
+ 	    vc->vc_deccm != 1) {
+ 		console_unlock();
+@@ -422,25 +423,53 @@ static void fb_flashcursor(struct work_struct *work)
+ 	par->bitops->cursor(vc, info, enable,
+ 			    get_fg_color(vc, info, c),
+ 			    get_bg_color(vc, info, c));
+-	console_unlock();
+ 
++	/*
++	 * Re-arm under console_lock so that a concurrent
++	 * fbcon_del_cursor_work() cannot race with this requeue.
++	 */
+ 	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+ 			   par->cur_blink_jiffies);
++	console_unlock();
+ }
+ 
+ static void fbcon_add_cursor_work(struct fb_info *info)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 
+-	if (fbcon_cursor_blink)
+-		queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+-				   par->cur_blink_jiffies);
++	if (!fbcon_cursor_blink)
++		return;
++
++	par->cursor_blink_on = true;
++	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
++			   par->cur_blink_jiffies);
+ }
+ 
++/*
++ * Stop the cursor blink.
++ *
++ * Does not wait for a callback that is already running, so it is safe to
++ * call from any context.
++ *
++ * console_lock serializes this with the requeue in fb_flashcursor();
++ * otherwise a running callback could re-arm the work.
++ */
+ static void fbcon_del_cursor_work(struct fb_info *info)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 
++	par->cursor_blink_on = false;
++	cancel_delayed_work(&par->cursor_work);
++}
++
++/*
++ * Stop the cursor blink and wait for a running callback to finish before
++ * @par is freed.  May sleep, only for teardown paths.
++ */
++static void fbcon_del_cursor_work_sync(struct fb_info *info)
++{
++	struct fbcon_par *par = info->fbcon_par;
++
+ 	cancel_delayed_work_sync(&par->cursor_work);
+ }
+ 
+@@ -765,7 +794,7 @@ static void fbcon_release(struct fb_info *info)
+ 	if (info->fbcon_par) {
+ 		struct fbcon_par *par = info->fbcon_par;
+ 
+-		fbcon_del_cursor_work(info);
++		fbcon_del_cursor_work_sync(info);
+ 		kfree(par->cursor_state.mask);
+ 		kfree(par->cursor_data);
+ 		kfree(par->cursor_src);
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index d93a89877d04..6a2f7f6e5a8c 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -97,6 +97,7 @@ struct fbcon_par {
+ 	int    blank_state;
+ 	int    graphics;
+ 	bool   initialized;
++	bool   cursor_blink_on;
+ 	int    rotate;
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+-- 
+2.56.0
 
