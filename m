@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142011;
-	b=EU/uQJ7fbX7iUEOdTLbflhpNp4zDCyIdDhbaLe2ZVVKL5P+fSGIqa/3Z4RdRwEbdsJGF
-	 PVGKAeOuhB4gPEaUwKa6LZTTpQacvstzHVBsRZrUIW2fyywpaEB3zjwne5MFyDXM6LJkq
-	 hNMFRBe31sXTyYMlL10aS75mgV9wnlkvGXx6ZaL/PaR1xOhyLx2FAjkZls3n51ckyF5Qg
-	 6oVv1N5n4cvi1V+E8476D6prt8tYAXg3eew4dHJT7VDfjl+b9U0aT8XazuLiei8URD4QW
-	 AdHeYZfl5ykhVfljwnJtI33ZksnLpWR5PJqpVkKEunsZ6/KozdjuYqS5V0z2Glor2gw==
+	t=1793142609;
+	b=VXgNUDLlGkEX+R/A/EDAMUwL3lqof0EOJarclma8Q1V3QUmFrnpZK/Yr0NYvarEnLFlA
+	 ETEfz/hrAhpbJJ1pvrSQvVTrPU+Cs8Lj163PHLrf7qWb061200B3394jHG7iiBBTTJEdF
+	 wno6Mc5RQukjeaH54VsexKl6Yt/YaOMjiEhgUhydg2VjNioAfMfPHnQuJTmn63a93xGbi
+	 vHMJsSDuHrBSDJfTK5GypHOkXK+5fgTN9dwKPrk1eKpU5GlUazD9ScCqCGep5IqlTpqtP
+	 CK/iu01PQKyJzrpenfFCxjKIVS401PN3HFb7TkXuUKckIrkVl26Ns722berOtacc6jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142609;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=UfWvtemhdP4zJ7uBSCJzg+Qoh/1DBpgY2rm04yLvulg=;
-	b=yb7+fk4KT13Le01FOQmK8KRlVPOyymUEfj9+Lg7gPZJDNBxYGYXeXaHRBgpPrGYSxeYV
-	 OpnkdoIjnxFS7B3Foxtbn1rL/d+GG0w2NWEm5b1tXDbCwXIP0audJcp0W3AR6Rl+ylWVD
-	 IW7tyzVLpSdZhrYSoxXLfzOhz3yjP/m7rDPVfz7I1NjNOoCc70mo4YPFK3yasuKXSilOD
-	 7pSv+TDiY5xRxHAnNrg/Bo/+ivZIBrFugDRo+14bYXSpK+8wCxvIIsoSQ8G62coXEsy17
-	 HWmVyQnCaXzFxHUF11vJJSuzRSpMJ0+0eJOvj6NjKDtc7gQOXnJqtOn5uc1IryrIOLg==
+	bh=aEYfgo0ajs1aVt9QsidrjQR2xD7y1in8x7mxlipZLAg=;
+	b=RnCISxpDZAUXQa5bhcPv3k0QaImw3z2YeaykXmwQ6CdeW6mQ0YzRVKT5cJP7Omvpp6X1
+	 MlctizVxTrVZCPDQYFZ6qGzB+EJDMRuOb2d9X4wrRDj1jBp06hJodKoTol3WNGY2BwcjU
+	 FjXbgRdf/9m+C9QTpBVK80jD1Ey6kzXoOnSulc7J77YQLfT4MT0cht1f2BJP+zJENxPMe
+	 LSKttIAyIhY4rRKHtoB0zNOQGVUU8CXYpUrJEYUG8v08cyQXvX+piXl2dPc9iQ3ykTgDa
+	 5Ygv3qJ7eKIhKwij61ZHkHhJCpDM2j57iQkqENylC/fU4IH7IJOYUXALj3Vs29XAsxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IB0vDJAU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7GfFskg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26514606A31D;
-	Tue, 27 Oct 2026 23:00:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD16606A32C;
+	Tue, 27 Oct 2026 23:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IB0vDJAU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C780A1F01825;
-	Tue, 27 Oct 2026 23:00:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7GfFskg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF221F01825;
+	Tue, 27 Oct 2026 23:10:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793142010;
-	bh=UfWvtemhdP4zJ7uBSCJzg+Qoh/1DBpgY2rm04yLvulg=;
+	s=k20260515; t=1793142608;
+	bh=aEYfgo0ajs1aVt9QsidrjQR2xD7y1in8x7mxlipZLAg=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IB0vDJAUHAIAwbiAIj11wTgxSxuUc0A55SisR7A9yRW4HBDLddSZ6vOLlEdhpUT2w
-	 I8sR6G+Of3d0PDuerBmlR8mGhqF/fp8vt1BnoNeGrE80JzFqNnDgDfKFCSwxZD22Jj
-	 BM3Ul/I9Sv5L9ixqhdQ/n3DJLmqmBIsWilBZqa44aUJoMcnCWJ+omobMTG8hBx7C0u
-	 djKZUdunORNhM5QuQx212tFNzycITy2qxsXy3Vd71U+yX2YEQHIvIvzlOTgwoGBzDa
-	 HB6lcgvvTP3uNLkNM+qj5Bai+SBFvshbWOesIzcH7kJM2Gsy6n52YxJZFSfhuREOw9
-	 PMn6mQ1nVkMIQ==
+	b=l7GfFskgIUa/eK56s5lGK9tbpkvOxu5tbSAD0Hak6CL4ik+asgg+kouXzQ4S10sZ3
+	 PBOkynXcEi9/UHmAJ54RCI9ftoIlon2TtxtMfqEfKJ0lm39NcHdyNmPKAxfZXh1QRF
+	 C/aZ0gIFmMlS+VK8kGyY7J4Q1y9wyOV3PYR2DQw2G+GWAesNDp1WfvV762ReGaj4Nt
+	 NorlreBUdCLNeVXtiQ0VwzxsX0zHC7dkWNgz8rt3evv89I26Ec6XV2lSw2fgMpikpd
+	 CYHkyB5LiFr4f7w6sTiQdXWyjfqM4dMjseorIjhkrLSsBSttQkOX2N5PTxG21QHIE1
+	 BOESdoXgNn2YA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5B33AA940D;
-	Tue, 27 Oct 2026 23:00:10 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 446893AA940D;
+	Tue, 27 Oct 2026 23:10:08 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,39 +54,40 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] macvlan: fix passthru promiscuity accounting while
- down
+Subject: Re: [PATCH net] net: hisilicon: hisi_femac: Stop the receiver before
+ releasing the RX ring
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179314200928.379196.7973940130661793334.git-patchwork-notify@kernel.org>
-Date: Tue, 27 Oct 2026 23:00:09 +0000
-References: <20261022090809.12019-1-yanxia@cmss.chinamobile.com>
-In-Reply-To: <20261022090809.12019-1-yanxia@cmss.chinamobile.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com
+ <179314260682.383254.18077445716959126506.git-patchwork-notify@kernel.org>
+Date: Tue, 27 Oct 2026 23:10:06 +0000
+References: <20261025182022.2959333-1-mmyangfl@gmail.com>
+In-Reply-To: <20261025182022.2959333-1-mmyangfl@gmail.com>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shenjian15@huawei.com,
+ shaojijie@huawei.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ lidongpo@hisilicon.com, xuejiancheng@hisilicon.com,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 22 Oct 2026 17:08:09 +0800 you wrote:
-> macvlan_changelink() adjusts the lower device's promiscuity count when
-> NOPROMISC changes, even if the passthru macvlan is down. The reference
-> is acquired in macvlan_open() and released in macvlan_stop(), so a down
-> interface has no reference to change.
+On Mon, 26 Oct 2026 02:20:18 +0800 you wrote:
+> hisi_femac_net_close() frees the receive ring while the RX address queue
+> still holds every address that was pushed to IQ_ADDR.
 > 
-> Clearing NOPROMISC while down leaves an extra reference after the next
-> open/stop cycle. Setting it while down can remove a reference held by
-> another user of the lower device.
+> A port that keeps receiving then DMAs arrived frames into buffers that
+> other slab caches have already taken back; on an EC6108V9C (hi3798mv100)
+> the queue still held all 52 armed addresses right after the interface
+> was closed, and had dropped to 43 after 15 s of broadcast traffic.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] macvlan: fix passthru promiscuity accounting while down
-    https://git.kernel.org/netdev/net/c/b6743653d134
+  - [net] net: hisilicon: hisi_femac: Stop the receiver before releasing the RX ring
+    https://git.kernel.org/netdev/net/c/d54b21d82430
 
 You are awesome, thank you!
 -- 
