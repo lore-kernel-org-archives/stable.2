@@ -1,85 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213948;
-	b=uHYGX8exIL4F4ja/IxSpZAjLL6icS8/UiFNDpNtfKyF89VViepm5qWwL9TzRzMia+bYh
-	 4zMdSiRYB9suNxZiOTu4wRm6J06baiWNLQclc90mm/x/Jnr7Ox6TPhpSMnJ7dVHOWHSbU
-	 IqIVLSLa2kqDrrr7w7D8MOx3w4Dx0A6vZhJarG2qZyM83h5e9+vdSupHLA9V7VBKmZWcR
-	 pYW3SPcLVn07X+3ndYt1o4nB9z4q00Goru8/azaIgdO4qf/YaOYq8kcFIx5QUxrb6Lb2p
-	 GbgFiPzfXKDxT5EhK6tmnLyVcBFCFoXyhtcYug8D+KktA2WHh5yS+Jmqz9KS45UYXtg==
+	t=1793213949;
+	b=M2wUPRxfZ39vwj9jkYhZ3CSEYJ+V8J9Om8iEKsqUTWNMK59n22lntp/6vHjCFJipLdvN
+	 ULHnLecQ+6QkKbVoA8Tn3xk7fpZUyDR5sBdoCINxdpzcw5a6CbEYIr2rtHUVYW0p4IwLV
+	 tI/AeavUjMOy8DSc3nBLHvUWR8BNQH+nJfMVKL4hxoFji7QaGa2AQGFQfU3os+fITWUf5
+	 g32ILyzEE/e76N6tKTIPQqwmTyIMTbiXk059zvIZZrK/VCbQ5jxJNltOBH5eAELq6RA18
+	 gn2kyxUxjhn9MGUiy8O4XesVICOVTy3+iLcXlhgcdc7G5rxtqSIJx+PIN8WwWspEfyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=Gg0fFyktligmb90w40XfYXM2OtJ+N0bLEtyk+kcjlXc=;
-	b=RfutyINLcdSB6/HeduBo6JaWnolcQJOsAnvwqqKcblJRfGwFWniavhWNdYP1NtkVM1FX
-	 xGp4KCNLXDS2Ylk0mtcbVTBtND45Jv81UkCcnOL7z2hMpSwg5HGOu51rhn5YeXHrJfUxL
-	 trhT2n1RbxVPDymeDekxSVCwVcFS1rymt4jDwof4KM6tM1V2iesOT3hw1VnVrmetgDkKs
-	 MIOS4fUCSCKUQnDl6oHfBQl8AN/3yMpQ3EN3Ll4rPIL4N/sUjDcEOwkBdSl0SSWMWjAgp
-	 5wTlavx4iSqsFl7yWNdGY/lFTd5ZizPPaCWtbZFDxtM8u4khLRfVtxR+Kh5URKz844w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213949;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5XcEKu2nnCJDqi+PSEmfMtLmBMsIdMa26qMPy9JaSVc=;
+	b=SGPqrCPvObr7Pc32Z5uViFsyGygWMjhl8ejoCOKj7hoqTHCGeImGM+VgqMPNncareS1t
+	 DLxWs0t/40NxcRUDzAeyoQclHFRopqmNCXJ9G/MSozMmOR1vm7ggneYsvydPpZL8JyJYB
+	 23ytGlQUOc31Q3DiilzTf6R1l01jnYP5g3we22S87UL+VTiSQFREOUydc2mdTHsLA//Rd
+	 G/gMTf4bSMH9kuylx38X7O/6wVh21fUl4oJdCESHaaDSUkdEwSf08ZbcZnCmSFi66djj2
+	 Fg+0sxmSY3y9/VzgFan8rQ6BUcqTtKaiajLPtBdhtdEeb068EGRqFpJwwNRiLfQpGHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b="N4mv/3fi";
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vAfT5Uab;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1459606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:59:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1459606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B080C606A322;
+	Wed, 28 Oct 2026 18:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=N4mv/3fi
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36661f953e4so2117020eec.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1793213947; x=1793818747; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Gg0fFyktligmb90w40XfYXM2OtJ+N0bLEtyk+kcjlXc=;
-        b=N4mv/3fij/Gmq1tkoCN8AclDcUxzKBGXpJmdylvKfIvchQ9HaXWM+HjCW8v89keeDe
-         Fp2KdO17NTnECIntWC8PMSRHM6dj61cYGolb5CwjyGGhFaNXctZ/8P8diwEE/DPyIfVW
-         J5WSYaPt26U4XPrzSfJPkZRUQt2KzZ/xXR4wHrNQ4IgSQxm8XUJRlxVvrIVfY8BFjiRP
-         oEz0/bo1Xs3dEswDNX44U29hie0lndVM6cBovNa7o0MHTLhPjm3acibCzXkAjqU8vEhu
-         4Xwnma3bmeMbY2t/EIWHAC8cJYcra9MwtUEqHDvHzbffY6mupXo8H10IMY9jRwRoRYfx
-         MOaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793213947; x=1793818747;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gg0fFyktligmb90w40XfYXM2OtJ+N0bLEtyk+kcjlXc=;
-        b=wVP/FIADh69i8/vTLL+wZp3d4oX/4bWhhDTHsKuURLfXlSUI92kYPOUxGmfbMnKgXS
-         WH/f1F8YxCVxEavrLb9iwWMx8ea2KYEojfuTdiFYA2DW6UV3WLom8aUUU2fkGCiy0/0s
-         wWeokFSBSrt/o0GOoe8MuO4ZHlEN9/rpM+FBDBHqXCAwHgP8pP2Txs1h+T0+P9rWNX45
-         LfWg2eYvuJvSQn99YhVx2J7s+XWnegMrK1nKO8knxzqe6xtqt8Q/sBAZ2RS9h6AShWHS
-         99dirJwHc44Xc+w1HhiO/UnolxPh/yiLEnLhkbaDOlEs93WOfZUtLOgxC9ov3i+VdUzp
-         6HrQ==
-X-Gm-Message-State: AFq9FYI324AmvNvZ2LqCWybdsG740a9O2CtRAF72bG+AOG9/y46GPhDw
-	ZzJmIoWTo3A0vq1ZWdYS0rGUdmRi2mQz762DfR+VdGv7+mfZB5+m6I2T3TCheipUze+2h9NWbzw
-	gvjJb
-X-Gm-Gg: AYBFou3u0alsu2tCIrKuECvHHTVOeBeAxsKMSMb00l/oun6nuybrcOYdCZTjLHnJ/j2
-	D/LyLfgL0dmn/MD/N/n6NukW5bBr3wRse/J/5d5LIB+N2V5YWuZHWPlOgN8M/KRQpl7Jh8Wzm25
-	kQF87CfpepUWAI7Ng4e3vPrWFxVzv9lA2mDYkuoRsOEReH9AlrKcMZ6v/c/ty3Fg8F284XOF0CW
-	5feqpxYuWgpQhNiUb9XP787rT58L3dRXdC+504HuCWbe/o2a7bvBkx7oFXCIt7rI2UqQKbTcKxW
-	PF6MTopbmqxdiphkagHfUtSQMduioz5c9mAI9Foer0wZh/mp0eCL6VwtEVfCQ/8Ek47Rp41JNvG
-	zowecY426kI2FjlOiMM6Wn/0teehBBaW9ulLdrPP1cHHeXRJJdIhdkVncEN9Dwj3a9q9AXG0ixD
-	ok2iIqaVtNSOjvlNrXFRvrUdQ3UZ+gXcmpbGY3Z2Fer0+/VUvSj8c7zXM21q1x7cXZ0/P65yxTV
-	yKI3/xaArDaIfIQ2h3fIUrWFcWz9aLp9uB2lmlqsOjEOkOg+Vw6UCR+Frd7ZVeCCtwRbfX0Yr67
-	xk1OsuY4OC272C7ZErVbIA==
-X-Received: by 2002:a05:7301:1925:b0:351:68e8:4646 with SMTP id 5a478bee46e88-36a20469b48mr6043474eec.37.1793213946626;
-        Wed, 28 Oct 2026 11:59:06 -0700 (PDT)
-Received: from 4cb1f8191411 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm7773449eec.19.2026.10.28.11.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:59:06 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vAfT5Uab
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26C81F01825;
+	Wed, 28 Oct 2026 18:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793213948;
+	bh=5XcEKu2nnCJDqi+PSEmfMtLmBMsIdMa26qMPy9JaSVc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=vAfT5Uab/k+8invTLUZTjrDaYPFFcMpMDkSr7p89uoQxhZtW+D4Q6ls7xlPJGXLq7
+	 2QKf2AETmjl2uYWDvUbTjfE13cPEZskBxEN4bfXlj1CnlcUiH3WYEeXj1wbw10X46o
+	 sa48XjEeUWfVCEc2bslX57g9bm53Cja8T9wVtA9U=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0687/1887] firmware: arm_scmi: Move handle get/set helpers
+Date: Wed, 28 Oct 2026 17:46:23 +0100
+Message-ID: <20261028170515.047273166@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,78 +63,161 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjEueTogKGJ1aWxkKWltcGxp?=
- =?utf-8?b?Y2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uIOKAmF9fc3RydWN0X3NpemXigJk7?=
- =?utf-8?b?IGRpZCB5b3UgbWVhbiDigJhzdHIuLi4=?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 28 Oct 2026 18:59:05 -0000
-Message-ID: <179321394555.45576.11735904728867814450@kernelci.org>
 
-New build issue found on stable-rc/linux-6.1.y:
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
+------------------
+
+From: Cristian Marussi <cristian.marussi@arm.com>
+
+[ Upstream commit 971fc0665f1361f23251e4d85fac4aed1b683505 ]
+
+Move handle get/set helpers definitions into driver.c and invoke them
+through the bus notifier helper.
+
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+Link: https://lore.kernel.org/r/20221222185049.737625-7-cristian.marussi@arm.com
+Signed-off-by: Sudeep Holla <sudeep.holla@arm.com>
+Stable-dep-of: 295416091e44 ("firmware: arm_scmi: Fix slab-use-after-free in scmi_bus_notifier()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-implicit declaration of function ‘__struct_size’; did you mean ‘struct_size’? [-Wimplicit-function-declaration] in net/bluetooth/mgmt.o (net/bluetooth/mgmt.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/firmware/arm_scmi/bus.c    | 17 ---------------
+ drivers/firmware/arm_scmi/common.h |  4 ----
+ drivers/firmware/arm_scmi/driver.c | 35 +++++++++++++++++++++---------
+ 3 files changed, 25 insertions(+), 31 deletions(-)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/net/bluetooth/mgmt.c:2188:36: error: implicit declaration of function ‘__struct_size’; did you mean ‘struct_size’? [-Wimplicit-function-declaration]
- 2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-      |                                    ^~~~~~~~~~~~~
-/tmp/kci/linux/include/linux/minmax.h:92:27: note: in definition of macro ‘__careful_cmp_once’
-   92 |         __auto_type ux = (x); __auto_type uy = (y);     \
-      |                           ^
-/tmp/kci/linux/include/linux/minmax.h:105:25: note: in expansion of macro ‘__careful_cmp’
-  105 | #define min(x, y)       __careful_cmp(min, x, y)
-      |                         ^~~~~~~~~~~~~
-/tmp/kci/linux/net/bluetooth/mgmt.c:2188:32: note: in expansion of macro ‘min’
- 2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-      |                                ^~~
+diff --git a/drivers/firmware/arm_scmi/bus.c b/drivers/firmware/arm_scmi/bus.c
+index 7514b3e326114..14f96583b6e0d 100644
+--- a/drivers/firmware/arm_scmi/bus.c
++++ b/drivers/firmware/arm_scmi/bus.c
+@@ -347,27 +347,10 @@ scmi_device_create(struct device_node *np, struct device *parent, int protocol,
+ void scmi_device_destroy(struct scmi_device *scmi_dev)
+ {
+ 	kfree_const(scmi_dev->name);
+-	scmi_handle_put(scmi_dev->handle);
+ 	ida_free(&scmi_bus_id, scmi_dev->id);
+ 	device_unregister(&scmi_dev->dev);
+ }
+ 
+-void scmi_device_link_add(struct device *consumer, struct device *supplier)
+-{
+-	struct device_link *link;
+-
+-	link = device_link_add(consumer, supplier, DL_FLAG_AUTOREMOVE_CONSUMER);
+-
+-	WARN_ON(!link);
+-}
+-
+-void scmi_set_handle(struct scmi_device *scmi_dev)
+-{
+-	scmi_dev->handle = scmi_handle_get(&scmi_dev->dev);
+-	if (scmi_dev->handle)
+-		scmi_device_link_add(&scmi_dev->dev, scmi_dev->handle->dev);
+-}
+-
+ static int __scmi_devices_unregister(struct device *dev, void *data)
+ {
+ 	struct scmi_device *scmi_dev = to_scmi_dev(dev);
+diff --git a/drivers/firmware/arm_scmi/common.h b/drivers/firmware/arm_scmi/common.h
+index feccde5e29650..23f0ab3f2ed7f 100644
+--- a/drivers/firmware/arm_scmi/common.h
++++ b/drivers/firmware/arm_scmi/common.h
+@@ -96,10 +96,6 @@ static inline void unpack_scmi_header(u32 msg_hdr, struct scmi_msg_hdr *hdr)
+ 
+ struct scmi_revision_info *
+ scmi_revision_area_get(const struct scmi_protocol_handle *ph);
+-int scmi_handle_put(const struct scmi_handle *handle);
+-void scmi_device_link_add(struct device *consumer, struct device *supplier);
+-struct scmi_handle *scmi_handle_get(struct device *dev);
+-void scmi_set_handle(struct scmi_device *scmi_dev);
+ void scmi_setup_protocol_implemented(const struct scmi_protocol_handle *ph,
+ 				     u8 *prot_imp);
+ 
+diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_scmi/driver.c
+index 9fa5632aa2c75..f01097b9e953a 100644
+--- a/drivers/firmware/arm_scmi/driver.c
++++ b/drivers/firmware/arm_scmi/driver.c
+@@ -1934,13 +1934,6 @@ static bool scmi_is_transport_atomic(const struct scmi_handle *handle,
+ 	return ret;
+ }
+ 
+-static inline
+-struct scmi_handle *scmi_handle_get_from_info_unlocked(struct scmi_info *info)
+-{
+-	info->users++;
+-	return &info->handle;
+-}
+-
+ /**
+  * scmi_handle_get() - Get the SCMI handle for a device
+  *
+@@ -1952,7 +1945,7 @@ struct scmi_handle *scmi_handle_get_from_info_unlocked(struct scmi_info *info)
+  *
+  * Return: pointer to handle if successful, NULL on error
+  */
+-struct scmi_handle *scmi_handle_get(struct device *dev)
++static struct scmi_handle *scmi_handle_get(struct device *dev)
+ {
+ 	struct list_head *p;
+ 	struct scmi_info *info;
+@@ -1962,7 +1955,8 @@ struct scmi_handle *scmi_handle_get(struct device *dev)
+ 	list_for_each(p, &scmi_list) {
+ 		info = list_entry(p, struct scmi_info, node);
+ 		if (dev->parent == info->dev) {
+-			handle = scmi_handle_get_from_info_unlocked(info);
++			info->users++;
++			handle = &info->handle;
+ 			break;
+ 		}
+ 	}
+@@ -1983,7 +1977,7 @@ struct scmi_handle *scmi_handle_get(struct device *dev)
+  * Return: 0 is successfully released
+  *	if null was passed, it returns -EINVAL;
+  */
+-int scmi_handle_put(const struct scmi_handle *handle)
++static int scmi_handle_put(const struct scmi_handle *handle)
+ {
+ 	struct scmi_info *info;
+ 
+@@ -1999,6 +1993,23 @@ int scmi_handle_put(const struct scmi_handle *handle)
+ 	return 0;
+ }
+ 
++static void scmi_device_link_add(struct device *consumer,
++				 struct device *supplier)
++{
++	struct device_link *link;
++
++	link = device_link_add(consumer, supplier, DL_FLAG_AUTOREMOVE_CONSUMER);
++
++	WARN_ON(!link);
++}
++
++static void scmi_set_handle(struct scmi_device *scmi_dev)
++{
++	scmi_dev->handle = scmi_handle_get(&scmi_dev->dev);
++	if (scmi_dev->handle)
++		scmi_device_link_add(&scmi_dev->dev, scmi_dev->handle->dev);
++}
++
+ static int __scmi_xfer_info_init(struct scmi_info *sinfo,
+ 				 struct scmi_xfers_info *info)
+ {
+@@ -2278,8 +2289,12 @@ static int scmi_bus_notifier(struct notifier_block *nb,
+ 
+ 	switch (action) {
+ 	case BUS_NOTIFY_BIND_DRIVER:
++		/* setup handle now as the transport is ready */
++		scmi_set_handle(sdev);
+ 		break;
+ 	case BUS_NOTIFY_UNBOUND_DRIVER:
++		scmi_handle_put(sdev->handle);
++		sdev->handle = NULL;
+ 		break;
+ 	default:
+ 		return NOTIFY_DONE;
+-- 
+2.53.0
 
-=====================================================
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:7730c5b6a29ea3c3ba6139f7539fe2df233f093a
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  cf976d6a55753dce91f48c978098f1ebfafc42ed
-
-# Builds where the incident occurred:
-
-## defconfig+lab-setup on (arm64):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6ae235ba5c0836a8c2f17961
-
-## defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y on (arm64):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arm64-chromebook-6ae2355f5c0836a8c2f174c2/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ae2355f5c0836a8c2f174c2
-
-## defconfig+netdev+nfs-root-boot on (arm64):
-- compiler: gcc-15
-- config: https://files.kernelci.org/kbuild-gcc-15-arm64-nfsboot-6ae235c45c0836a8c2f17979/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ae235c45c0836a8c2f17979
-
-## defconfig+netdev+nfs-root-boot+ltp on (arm64):
-- compiler: gcc-15
-- config: https://files.kernelci.org/kbuild-gcc-15-arm64-nfsboot-ltp-6ae235c85c0836a8c2f1798b/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ae235c85c0836a8c2f1798b
-
-#kernelci issue maestro:7730c5b6a29ea3c3ba6139f7539fe2df233f093a
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
