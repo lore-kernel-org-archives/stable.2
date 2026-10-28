@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201763;
-	b=EtV8Bzn/Y7bAEqzq1JT1f8WnwkAIUmxQp7l84a8wUR1mHgtPbQuZmh/xZwONynWnONp3
-	 d9EG2xaaN5AVVMwCau6EvmlJYm5FyBKeh2o54IKHKlZTGg9J3Ru2JRT4PBG85k/TpyXvt
-	 xm09a0+XGK3xRW+4tw8VpJNjwEEtkv5ilLFLMOhc2k/8nFSzVTVATPwHnIFdrWOgd8GJZ
-	 AcC2mcMCq9PMoQYB1rQY/io2THRUzlVGjrLEHw+O9vxb605O+U+oe+1eUE54HjqhqX7qa
-	 XCoiZ64X3VVVtDkjGw1wII1bIKHegHiuABjoYAzhV/nrXYwBF6dn9hwmBnV35ivsxCQ==
+	t=1793201772;
+	b=Kyy2sl+mPsn3F+h8bmu9KDGJSJY2vhrMNP/jNVdZiUn8TwvZai8WqdUfYtyh7xfMWNqZ
+	 16HC/ss5XPdD0+GZ9uYn6TijjvVydHZPEunN0BLDYjbqNzOsWpGFBA14REIIyPrI55MNK
+	 2TSZyKYUPjnSbi7In16LKQYXHwMJeo0JcX0ii4rLbFbnHzLmbK0mR7lt/tZF0JQ14Pt74
+	 WAdJGIDLHo+Pzm3W8GX/w9Kt3ygEGEDqLlqL8HvX1eqjaWEYKV7ZYmsnGUuYZ3PXrs/H2
+	 JF3iX8lbQMVf/btJEet5YxMWGUM98gsnMCV35hE6yMez4CZeGOpxN7JyGZ4Uj0oISGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201763;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201772;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JwUCl3AxC9PKGaX02EAEq64dIWiPKEk6Wcm9K1AljlI=;
-	b=M0onsIobBi4ShlAE68cf64DGdOldvHur5h0z/qQGln3doJ7I7KBkpqRbHEzIXV72K/Tn
-	 7HHt/CdN/8LKj+RlBLn5PSAA0ehV5FnHWHQ3L/87d8Sk7I+kIHulq2mpQK5kbvDWgfex+
-	 AVgQuVibs6n8tVj4iipcoRBTB+gUSuKVNtS8b6mlbvaQsMavAT8nA7ZoDla1ghJz2MG/j
-	 kcWQtRDdEhEefhRgBSYG9+l8jfyumXhaIOEGTsaGq9qcudD3sN91YsjE/2zBSiSInWT/q
-	 2X8c6ffhfOuYxRo0+3NrOXMHs2qFnagqWMwcJL/027Kz1zZ0un/AFPmXmLbEpVtg6Dw==
+	bh=Qg+LfE3DCx2d+5VgHOMZNtPnwNxdC1neTq9Nn3QTpvI=;
+	b=fcRnI9ZxznWrZAa5Unf6sADjh5sjfEj9pzIVqLcL5z3xt6MwAQUfI+ql1y2d7vR/a7oM
+	 +7l0Xzinyb5QpCSiilsKGVDvc+WqwXnYIstcKaHb2oQqTgY7tK7+Dhg3lVILE2jim/CIT
+	 S9dJBBs0TkorRGO8FshhDjry0ZShAfKrCbX6sDEGhJiCP+va1/kBjHc/jOt1Ai8lwnFUZ
+	 WchS2/XRIz0hBeJ0LaRzF44foR6URxZndx+FW6S5taGunBNwgpuWNg5qkjrYxDsJOqtXG
+	 ZMzu/uuCG0HtdzpMHdLENhoxVPgaabQOzpW3ZdNuxk0PQm4sb5Q2CBPYWn0kHhFAN6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WCHW21UA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z9G99ye0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D16606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E3360A2618
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WCHW21UA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB571F01825;
-	Wed, 28 Oct 2026 15:36:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z9G99ye0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA19E1F01240;
+	Wed, 28 Oct 2026 15:36:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201762;
-	bh=JwUCl3AxC9PKGaX02EAEq64dIWiPKEk6Wcm9K1AljlI=;
+	s=korg; t=1793201771;
+	bh=Qg+LfE3DCx2d+5VgHOMZNtPnwNxdC1neTq9Nn3QTpvI=;
 	h=Subject:To:Cc:From:Date;
-	b=WCHW21UAut05XBE63hNarFlWRpkOnbgrlAOldDYfcdXGYqcSy479w6Qs2mq+O8CED
-	 Df6bfle6vCuDr/zxh7kAXJrCEf+DrzgB+vGU6nW2ITchPWrN9PULzFzd4NnJF7mDv7
-	 Bkkgvt5TP1I5yePuXd5enXKL3WwqfdYHt2spWBUc=
-Subject: FAILED: patch "[PATCH] fork: release the files of a failed fork after" failed to apply to 6.6-stable tree
+	b=z9G99ye0LywcfmESkd5QdvU7j6Lzgq05Nr4aXU15b61jtHjTutX68uGhbyjrN9vM4
+	 3Hmd3QNNj9s0dGY+xk/VbzD2AFPYbat2O0fckpjfaY2uszaTWrbUqIkF0jZEYtOl/q
+	 yNF9BS20P/eMWM1w3f1YtKxS51YifpL26xvrn0ms=
+Subject: FAILED: patch "[PATCH] fork: release the files of a failed fork after" failed to apply to 6.1-stable tree
 To: brauner@kernel.org,mason@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 28 Oct 2026 16:36:01 +0100
-Message-ID: <2026102801-startle-saddled-529f@gregkh>
+Message-ID: <2026102801-oaf-percolate-96a4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 296a98c1fa50778c3b31eebed1a3f903f9684349
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102801-startle-saddled-529f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102801-oaf-percolate-96a4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
