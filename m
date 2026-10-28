@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217020;
-	b=4hnGoUGkeUahKGblsPVPXGCIZwlQQMUh0KGUttWct37Ku0mEEW/wfsKfKGLURRt/2Lb0
-	 N+voMPIqacyx8AJnsc2EMR2ph30ZdFjkd0YaBYWhCuPxg+w7rI0l8GjJqG7AbxSBMdWyL
-	 TdX2XF/yBllMi94ujzpVYiqz6B0eAdFMvRIqC3xfZXCUVG5WUEuJEePuIPPcwMj1DLAVy
-	 FPIqReaQjPLUOHcw3HLvhJsO2Q6Pea9Rgz+FLvGScmDZanATbJ8Wdw5ALnx7HlzgAeTFg
-	 E8gnQNC4d9+kVJK09t69UXAnmSkSf08B3U9Gdrd57vZUncSzrqK3mKEDj+Jc5tV/n0Q==
+	t=1793217026;
+	b=vxZTKMxwCsD9QNJi44jCqWo2NZHqLAhdOdk5w54b+Ehn2LrIKo+fUQdFNIrz2AzoSQDh
+	 +CK8rLg64INP4J8DO67M1QqVYBShuCga+5YQoccfDRON5ht+aGSdifiYfRididrd6H57H
+	 Nj2siSDwNhRecYvl3OSPz/ruz5LfsP32oP1qjW9HMF4PNJka8mzGQhOA7/Qv1xwnLLI67
+	 gKy6oshtsXKe+7xHX5+jkt1EvdCZAzxZLcChnPNeXmZy3poMpUqvfYCb2ny4gY1gxvHbV
+	 vMguQ47d1Eun+Hkju50ISbJR+IgYsgUfopgd5segohrig2aSFRL9+dtG6TKjSDidyrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217026;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Jdr3LNQk+yNt3iv6LCPNNaMSv7Y4tMkgrR0XuDDAJm8=;
-	b=pP4qgauDMYsbgUWzZxQ7zTqOo9i2AbI8EybdtK6q1OSM8pbVOZ1mvojwJXMCroqDOT7X
-	 1BjDefdicoMa8Phe5MrOivhCOm2XpC1J00b3MLOVtPQlFdzfV4i32Pn8wRYoJfvV0+UhE
-	 XkBIRtivELQMQNuyTlDG4JrqbwP/u8m6sryowq0vbw4FDAxpr+gd6cC4v1VdnCJo1i2kZ
-	 5eh2Cb2ZqF7TztMVZxh6RPw1NdPC9m0jpGtvXQwFHS4978NQTFB0gRjCLrmmBpxl6RrHm
-	 PL3tFuAdz0v1KsSthykPvVkUG4AY9zUrmnHC7YvKhwfhGvNZDP6ZeoU/lKm/Psj2zqQ==
+	bh=oQ3+lhcXyUvqHJuqS2QFdDrEd3V4ZZNFi5yuGfdSnL8=;
+	b=4eFIwV/vhzA6QS7hT0EqjDaXQAZMaiWiFnmNXfCndn+/v26pMbizGXmeyxWfPBic6lxj
+	 +auSKx/Zm2SbmgfMtyZHYRG1asFo+qzi4eziFDxoL7l7E5tLQ1WSeaXhs/5cOryitJ5Tc
+	 CoBri/fB/R3IZkoRIfzgYsC7wt+KBLi/mBNHyPECyfvPLUTQExY+gwbVM9x7ZgZfPtHsq
+	 7IdP50ViLK7ElIqnntot7ZxBKyQRM17o7xriH3DrnFA25e4SkWY9VlTSW/eRV10OHUN6P
+	 xk3QcQYdzZAIzBBUbk/VuS+J6o2Zf3zdF3uzM6FKywqOHgSQJVQsyy5oS9pEPwa/hgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fhTiloXW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q8DJurox;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D36B606A321;
-	Wed, 28 Oct 2026 19:50:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F4260A260C;
+	Wed, 28 Oct 2026 19:50:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fhTiloXW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E6A1F01825;
-	Wed, 28 Oct 2026 19:50:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q8DJurox
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427621F01829;
+	Wed, 28 Oct 2026 19:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793217020;
-	bh=Jdr3LNQk+yNt3iv6LCPNNaMSv7Y4tMkgrR0XuDDAJm8=;
+	s=korg; t=1793217025;
+	bh=oQ3+lhcXyUvqHJuqS2QFdDrEd3V4ZZNFi5yuGfdSnL8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fhTiloXWo13qxuzxxjA1/xsLgiV+7jc+X9hxDA5ZAAisptLxCFUa8VlXceBVBGpLD
-	 SDaMTxG7a6MdbI//FSPka6NqPCC2uFbwcIlDJoMH+FYmBpvQPU7e6rZ1Ubp4tZMDO/
-	 NsvdZui6X7P7Vcr587AaqcdhdeaW+2/oGllyFy/0=
+	b=Q8DJurox8xsdk/6W7BGJdqyb/Sb1fLnAgoyXZHX6IbOo9CIfA0H32UMF5H2uYyiLk
+	 ICW9TMh9KFbyKdpSqyzQzqnNG1eH+/uXTTfbl/19S8WQYI421g0ybuwiQzSJuQSDb0
+	 qyVZVC8dzICbRkfwYnM6jpweMgdGRMT79Jxvm5wM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Tung Nguyen <tung.quang.nguyen@est.tech>,
+	Florian Schauer <florian@schauer.to>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.1 1760/1887] tipc: protect node reset trace dump with node lock
-Date: Wed, 28 Oct 2026 18:04:16 +0100
-Message-ID: <20261028170539.509663994@linuxfoundation.org>
+Subject: [PATCH 6.1 1762/1887] page_pool: keep frag_offset aligned for odd-sized requests
+Date: Wed, 28 Oct 2026 18:04:18 +0100
+Message-ID: <20261028170539.553071738@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -68,74 +69,126 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Florian Schauer <florian@schauer.to>
 
-commit dddf197f29ba5e47a476dde82bf542ca2e0d5e5e upstream.
+commit dc0df5a0c62ccea1d0e08d39a4dc9064de81d411 upstream.
 
-The tipc_node_reset_links trace event asks tipc_node_dump() to walk the
-node's link entries. Unlike the other node events that request link data,
-this event runs without the node lock.
+page_pool_alloc_frag_netmem() rounds the requested fragment size with
 
-This permits bearer teardown to free a link while the trace callback is
-dumping it:
+	size = ALIGN(size, dma_get_cache_alignment());
 
-  CPU 0                                CPU 1
-  trace_tipc_node_reset_links()
-    tipc_node_dump()
-      l = n->links[0].link
-                                       tipc_node_write_lock()
-                                       kfree(l)
-                                       n->links[0].link = NULL
-                                       tipc_node_write_unlock()
-      tipc_link_dump(l)
+dma_get_cache_alignment() returns 1 unless the architecture defines
+ARCH_DMA_MINALIGN, which DMA-coherent architectures such as x86 do not.
+There the ALIGN() is a no-op and pool->frag_offset advances by the raw,
+unrounded size.
 
-tipc_link_dump() then dereferences the stale pointer. KASAN reported:
+A single caller asking for an odd size then leaves frag_offset misaligned
+for every fragment carved out of that page afterwards.  The pool is shared,
+so the damage is not confined to the caller that caused it.
 
-  BUG: KASAN: slab-use-after-free in tipc_link_dump
-  Read of size 4 by task poc/115
+The per-cpu system_page_pool used by generic XDP hits this.
+skb_pp_cow_data() allocates its fragments with the raw packet length:
+
+	size = min_t(u32, len, PAGE_SIZE);
+	truesize = size;
+	page = page_pool_dev_alloc(pool, &page_off, &truesize);
+
+leaving frag_offset odd for whatever is carved out of that page next.  Its
+own head allocation is already aligned -- SKB_HEAD_ALIGN(size) plus the
+XDP_PACKET_HEADROOM its callers pass -- so it is a later user of the shared
+pool that pays: page_pool_dev_alloc_va() returns a misaligned buffer,
+napi_build_skb() installs it as skb->head, and skb_shinfo(skb) ==
+skb->head + skb->end is misaligned with it.
+
+skb_shinfo()->dataref is a 4-byte atomic_t at offset 0x20, so the
+atomic_inc() in __skb_clone() straddles a cache line.  On x86 with split
+lock detection -- fatal for kernel split locks by default -- this panics
+the machine:
+
+  Oops: Split lock detected
+  RIP: 0010:skb_clone+0x154/0x1e0
   Call Trace:
-   tipc_link_dump+0x10cb/0x16b0
-   tipc_node_dump+0x4bb/0x740
-   trace_event_raw_event_tipc_node_class+0x258/0x360
-   tipc_node_reset_links+0x14d/0x1a0
-   tipc_rcv+0x13f5/0x3030
-   tipc_udp_recv+0x4e3/0x670
-  Allocated by task 0:
-   tipc_link_create+0x1e1/0x1020
-   tipc_node_check_dest+0x7d2/0x11a0
-   tipc_disc_rcv+0xdbf/0x1430
-  Freed by task 89:
-   kfree+0x131/0x3c0
-   tipc_node_link_down+0x267/0x4b0
-   tipc_node_delete_links+0xec/0x160
-   bearer_disable+0x107/0x260
+   <IRQ>
+   raw_local_deliver+0x1ed/0x2c0
+   ip_protocol_deliver_rcu+0x54/0x1c0
+   ip_local_deliver_finish+0x85/0x100
+   ip_local_deliver+0x67/0x100
+   __netif_receive_skb_one_core+0x85/0xa0
+   process_backlog+0x87/0x130
 
-Take the node write lock around the trace event. This serializes the
-dump against tipc_node_link_down(delete=true), which frees the link
-under the same write lock.
+Reproduced by attaching any generic-mode XDP program to loopback and
+opening a RAW IPPROTO_UDP socket, which makes raw_local_deliver() clone
+every locally delivered UDP packet; ordinary DNS traffic then triggers it,
+roughly once per 2500 clones.  Observed on 6.12.101 and 7.1.8.
 
-Fixes: eb18a510b5cd ("tipc: add trace_events for tipc node")
+Tracing page_pool_alloc_frag_netmem() over one such run shows the
+amplification -- two odd-sized requests, nine misaligned offsets:
+
+  requested size & 7:   0: 17035    5: 1    7: 1
+  frag_offset & 7:      0: 17028    3: 1    4: 1    5: 1    6: 1    7: 5
+
+and skb_pp_cow_data() returning heads that were aligned on entry:
+
+  head 0xffff8f4c86aeac00 -> 0xffff8f4c53a9a9c4 (&7=4)
+  head 0xffff8f4d6a8a42c0 -> 0xffff8f4c4f7b7a45 (&7=5)
+
+Round the fragment size up to at least the alignment struct skb_shared_info
+requires, so fragments are always suitably aligned for the objects callers
+build on them.  Architectures needing a larger DMA alignment keep it.
+
+This also makes the remainder computed in page_pool_alloc_netmem(),
+
+	*size = max_size - *offset;
+
+aligned, since max_size is a power of two -- which fixes the matching
+misalignment of skb->end.
+
+Verified with a controlled A/B under QEMU/KVM: same tree, same config,
+same compiler, same rootfs and identical traffic, differing only by this
+patch.  A SEC("xdp.frags") XDP_PASS program on lo plus UDP datagrams
+larger than max_head_size drives skb_pp_cow_data()'s fragment loop, which
+passes raw packet lengths to the pool.  Measured at the return of
+skb_pp_cow_data():
+
+                          unpatched   patched
+  skb_pp_cow_data calls       40800     40800
+  misaligned skb->head         1120         0
+  dataref at line offset >60     80         0
+
+The last row counts the accesses that actually fault:
+skb_shinfo()->dataref sits at head+end+0x20 and is a 4-byte atomic, so
+`lock incl` splits a 64-byte cache line only when that address lands at
+offset 61..63.  All 80 occurrences were at offset 61; the panic reported
+above was at offset 62.  Eliminating the misalignment removes every one
+of them.
+
+Same class of bug as commit 3bed3cc4156e ("net: Do not allocate page
+fragments that are not skb aligned"), which fixed the older
+netdev_alloc_frag()/napi_alloc_frag() allocators.
+
+Fixes: 53e0961da1c7 ("page_pool: add frag page recycling support in page pool")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
-Link: https://patch.msgid.link/20260825190141.242219-1-nicoyip.dev@gmail.com
+Signed-off-by: Florian Schauer <florian@schauer.to>
+Acked-by: Jesper Dangaard Brouer <hawk@kernel.org>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260828060822.2628276-1-florian@schauer.to
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/tipc/node.c |    2 ++
- 1 file changed, 2 insertions(+)
+ net/core/page_pool.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/net/tipc/node.c
-+++ b/net/tipc/node.c
-@@ -1335,7 +1335,9 @@ static void tipc_node_reset_links(struct
+--- a/net/core/page_pool.c
++++ b/net/core/page_pool.c
+@@ -727,7 +727,8 @@ struct page *page_pool_alloc_frag(struct
+ 		    size > max_size))
+ 		return NULL;
  
- 	pr_warn("Resetting all links to %x\n", n->addr);
+-	size = ALIGN(size, dma_get_cache_alignment());
++	size = ALIGN(size, max_t(unsigned int, dma_get_cache_alignment(),
++				 __alignof__(struct skb_shared_info)));
+ 	*offset = pool->frag_offset;
  
-+	tipc_node_write_lock(n);
- 	trace_tipc_node_reset_links(n, true, " ");
-+	tipc_node_write_unlock_fast(n);
- 	for (i = 0; i < MAX_BEARERS; i++) {
- 		tipc_node_link_down(n, i, false);
- 	}
+ 	if (page && *offset + size > max_size) {
 
 
