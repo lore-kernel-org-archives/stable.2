@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208340;
-	b=mzZIUgwelHvXbJYqIq1GkR88c69ub1cDSMdJIM386bSSNs+JgfqFcgj53vkArGulKNlg
-	 UUP11Hz2P1AkIRtSWFMmE7ggwE8dJhPeI7x1xNFx3lNgQgVTvNe3iBiyotHaJiu11brjd
-	 adq07gEBNi6/aeedcRxu7jiJcMiOnrqqoeu6cvsqpq4omENRQNmwDK7U5x2nauN9KCA/w
-	 oIQ2rgrOxX4RX/RtaWrxLnR1bXwuhdGqj/78ZjgY4y+Uoyb5328aXVaNA/kCWmSN/+b2N
-	 1ztjRlwm68/9q9/ghTrqhdL0rZ5gA+cpPN4k9DhJaZ3T4eULeK6obO+ZTxGmTZtRqLA==
+	t=1793208346;
+	b=Y6ZYo7Chm2MFOAVpXRT2wg8Yeiyd1byEPiFfO8WG3lQnkrHFzWXdDqhEIq67RZ33jsNH
+	 pAxQYbQI8oiL/ScCR1EvQQUYuOHZMrE/UKeFbVjR4LoJ3C1agckmHrg1/rMn6BvZ8Jc9G
+	 D0g4ggWAlOcs5jSeasAbSXEJp/JLFfnT/hVR9fj2Nxf0QS/YV4YvtXNAJZw95qxd5nIC+
+	 Dx9hLrpkQ5OHSySs9ok/jYtqTRRilLbKqL50XobRZRghywJx8qE+4vQPApeRg+W2VYgzx
+	 evufU81T2wWVoubHy7cuAENXGnVLYMJ0JRDLJ94FS3HZN1J08Ut2s8T4CmlWbvwvIOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208346;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=C/jteOiado5VU1zpa0ggXz3EnQrouy8la9ySolz1elM=;
-	b=R3amyQbFOBHLyQqtT9Eg10gG2C9JCdUmsWYHQW1QmVjdoCk5hEnwz0ZlHv+l95J6TYDO
-	 AUEf96Xjb+ZZ1x3tVBlOOH1njLikwZa6s+qC5hUlvhbaMevS9H3Dbq87qHumIwXHq3l/J
-	 MSLJ6usw0OCi7yNPn6zLE41EF54Wx7vFJPSRG2HUkuuXRbs25QDD1+Z3cG9kX+v1VB441
-	 N7vzpVtUxyfmoZHzhvNdUNkks2mNhXVNQE/NL3tyzPwhT54184SxyiJuSvhOmXcqS88jD
-	 sH7/sWYeDEwJw0hvMUMPsQseqIGpkjS5Nknl/DYgf7gkMOdHfxyuJSDUTHpN0E1LBsg==
+	bh=eLi/rT/SQvOMgROLWLKhkdz3Z9N+KiNPoybKGTt+egg=;
+	b=RaQMHsU2UdICUAptr3bAEecCYz+eLOdJDkQC7V4l5Zs25FCdQMy7wU4L+zEFkQjdNdgd
+	 OiGs5ak2MD58yTWH780ocnqEN+xFPSoAXbMt+ZvBFv8WjCIT7D/a2I5DuIsH2l4mH3K2O
+	 /eF6aVVsgfGai4IUfdBCGNy+qufLSE0NfzhPDQEkShiOQyXstpGOS+FNgx8btLy/sOfQX
+	 +BwObyWWyfYOD+JKhNJNPblFLaMgYksujS1KA/P0aqrxo0L+Yp+ZHtEtTE0hhvU3H9Blt
+	 z1O+fR6OskrS/lsu6vXAIVypIoq9+a+NqwGwxbO1f9Bc2V+BHC6lM+aTsluZEKZPZ0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RzjYeiCt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hy1apd6u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E125606A31A;
-	Wed, 28 Oct 2026 17:25:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104C3606A31F;
+	Wed, 28 Oct 2026 17:25:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RzjYeiCt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8121F01825;
-	Wed, 28 Oct 2026 17:25:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hy1apd6u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F711F01825;
+	Wed, 28 Oct 2026 17:25:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208340;
-	bh=C/jteOiado5VU1zpa0ggXz3EnQrouy8la9ySolz1elM=;
+	s=korg; t=1793208345;
+	bh=eLi/rT/SQvOMgROLWLKhkdz3Z9N+KiNPoybKGTt+egg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RzjYeiCtZ7Uy6CMFY2Csb1BYrxD6FG1E15WXv4zLlzHvAgLEeAXPNMj95su1l03rq
-	 0X1Jjb01x7ydmUbAGwxHjLoVioCeegGPmQYUtTZFCVEnRcFnGBBBGebgV67A40Dt7q
-	 HL+Yyt+EnLt2b7eQDUYZNNdqJEXfEdhVa3tHBtxc=
+	b=Hy1apd6uS98O97KgH2KOsuuYwltx8/M0IJVd6FKKDVHAblxhF+v+rgL9cGRRHKsBL
+	 gk7GB9qlz5NQ1AZc14lMztWr+D/sbHcjKG2PF3FAjWOp1DYP1sAyXH67+GCwXz1zVj
+	 LeLX0lpeitt+dg2dYGYtjvjCssXxVkXB3Plu33Cs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 084/516] ALSA: harmony: initialize locks before requesting IRQ
-Date: Wed, 28 Oct 2026 17:53:56 +0100
-Message-ID: <20261028170005.506309437@linuxfoundation.org>
+Subject: [PATCH 5.10 086/516] KVM: s390: Fix length check __import_wp_info()
+Date: Wed, 28 Oct 2026 17:53:58 +0100
+Message-ID: <20261028170005.555309527@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -68,52 +68,51 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-[ Upstream commit 33abb7491e89285a41565670945293dda841afc4 ]
+[ Upstream commit 4c07680a467e2f7697245bcd11691bffb2a6f0ed ]
 
-snd_harmony_create() registers the IRQ before initializing h->lock and
-h->mixer_lock. A pending interrupt can invoke the handler while these
-locks are uninitialized.
+struct kvm_hw_breakpoint::len is a __u64 that is fully controlled by user
+space. This is then assigned to wp_info->len, which is an int. The bounds
+check is done on the truncated value while the allocation uses the
+untruncated one:
 
-Initialize both locks before requesting the IRQ so the handler always
-sees valid lock state.
+	wp_info->len = bp_data->len;
+	[...]
+	if (wp_info->len < 0 || wp_info->len > MAX_WP_SIZE)
+		return -EINVAL;
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+	wp_info->old_data = kmalloc(bp_data->len, GFP_KERNEL_ACCOUNT);
+
+Use the validated value for the allocation as intended. Without this
+fix userspace can trigger >4GB allocations which will fail and result
+in a WARN due to MAX_PAGE_ORDER.
+
+Fixes: 27291e2165b6 ("KVM: s390: hardware support for guest debugging")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260830063411.2215691-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260805110455.7200-9-borntraeger@linux.ibm.com>
+[ Retained GFP_KERNEL instead of upstream GFP_KERNEL_ACCOUNT in the kmalloc() call. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/parisc/harmony.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/s390/kvm/guestdbg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/parisc/harmony.c b/sound/parisc/harmony.c
-index 1440db8b4177f..f5cbcf7a7469a 100644
---- a/sound/parisc/harmony.c
-+++ b/sound/parisc/harmony.c
-@@ -903,6 +903,9 @@ snd_harmony_create(struct snd_card *card,
- 		goto free_and_ret;
- 	}
- 		
-+	spin_lock_init(&h->mixer_lock);
-+	spin_lock_init(&h->lock);
-+
- 	err = request_irq(padev->irq, snd_harmony_interrupt, 0,
- 			  "harmony", h);
- 	if (err) {
-@@ -912,9 +915,6 @@ snd_harmony_create(struct snd_card *card,
- 	}
- 	h->irq = padev->irq;
+diff --git a/arch/s390/kvm/guestdbg.c b/arch/s390/kvm/guestdbg.c
+index a0d3a1c6cc409..38f9296b7055b 100644
+--- a/arch/s390/kvm/guestdbg.c
++++ b/arch/s390/kvm/guestdbg.c
+@@ -184,7 +184,7 @@ static int __import_wp_info(struct kvm_vcpu *vcpu,
+ 	if (wp_info->len < 0 || wp_info->len > MAX_WP_SIZE)
+ 		return -EINVAL;
  
--	spin_lock_init(&h->mixer_lock);
--	spin_lock_init(&h->lock);
--
- 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, h, &ops);
- 	if (err < 0)
- 		goto free_and_ret;
+-	wp_info->old_data = kmalloc(bp_data->len, GFP_KERNEL);
++	wp_info->old_data = kmalloc(wp_info->len, GFP_KERNEL);
+ 	if (!wp_info->old_data)
+ 		return -ENOMEM;
+ 	/* try to backup the original value */
 -- 
 2.53.0
 
