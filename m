@@ -1,66 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793157085;
-	b=0Eu/2LR3+pUgKmZeWnEGtZ00cTUhXojk4/QBrRuBWdZ5wop0TI3aOwRtcy6GdDeH33oO
-	 NdZgSiHP0kZa0nhYmTmxS+hwherXomsYO0DxCt02nfSjRXZ2HxhZf/Yue/ExWox+L0M/5
-	 qXzrHPQvBa+0B23eN7qwPRhVXTOfMfbeWvU2qouWl0bvW6duhIsZHgRjO0J0CuNF1ejDS
-	 EpWVGRcCeSIWmqKSXWV/vYVkPT3VIFfHvCwtvqOx+dwqQZI8Z9675Gn4Kt2RqtKw1kN/o
-	 sAnhhn/K7Lmlws4CgzH/IAfJmUJcOczmV99SyDtNq4WwIl8vYFcZro9dLYTMQIJHxuw==
+	t=1793157956;
+	b=Yh+rMkSn40w7g46CSQfWdqjRv43qDl++JWVtfb7B4TgLRXnL8xk9P3smG3TkP+1L2G7V
+	 puVdWcaYh5cN+9JlikUZqDQYg1Vy9ka0wjrEdMlP4MO2XH7uTgfiZErD7ho9xyq00G5e+
+	 nN287WYfkBVIQ2SrfdYu/SuxEONYIbsxVK9O7z52DPyL5N1obdmoSf+azg8a9WqjXDF6K
+	 KF7xDNLNLk4m2doO016JxS6d7GbX5ya8/Q1OKSgqvSrNUA4X3ZkT5edAIH4kFzInBxQKN
+	 v46ZXp8+zcke4FJMHd9H4CA5uXVWFgJBHkvoPgj3WIx4ijBzAZPZrL7PA4P8TGxQw2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793157085;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NOidjj5Ml69IXBVDgaaqFA/kPNhQ/xUITVxdD/pzEd8=;
-	b=woGA7rU5Zf/DdZ53DWRRfvlZH7k6XlqAHN0u7rrsWvgv7dK3Gp4R+xDX9J0L0zbPj5zc
-	 /e/D1ZVqgx5OGJBK2chaSbJIWPakEXe0ud9F77gNyUhu0g3Qkc4dRLpbwHwVPq9+h5Bya
-	 VOnCSZ+HOI3ZJ6PmWBs4RpCH6XbSNLrnRitRzWpRbQp/1TphDY/o5SyMaOOyZbArQBd6c
-	 0zRTeeP6DGVH6KR1dGJAePlrvx4gXRIRyypvZea/DL6iqQYh+7LCtPGIkACxpZ0nwyZ/N
-	 Gg2G835b/zrXUdnKC2uM6saaw8l9pY1lK9EGfb1IvUZjv4YShvot6Id+Z4nuoVKhQsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793157956;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=D28JZatR7tRBWGWn+V8up62pSIO1MfVbrWcwRfKoFko=;
+	b=GEXUOa3Jk5grQsEM5A38qlJILSu9f7TNFZahlfg1ITSLkZLZL2SBqGiMx6eVI97pMLq8
+	 TDKjoPUoWtJkjd4ex36NLy+m0rqFEUuw5mED/aiiGaVQEAR1I5Ey5LzgQwyU+8K2dDfXB
+	 lTwye7rkfgEwpopEf78SmRqAUKhCzmdY56/nFSfW7v8A95tgfogxmRwPwKnsnjC/+4B9b
+	 oBnNrnAh1KCXtrsg1NBZKTUvtHyml2uXIrw8JaRPaaVxkZf0fTlUnvrT6BJN0o6nJJk/6
+	 O7kfM6/mHfAqEmsdQJawxSw8Otw1UkTbp70yRgTcFb/nninPj9oNwK3Wsvzt7VjB++w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O72jPzr2;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xmkLNEo4;
+	arc=none smtp.remote-ip=43.163.128.50
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.50])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0F7606A31A;
-	Wed, 28 Oct 2026 03:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C0F7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5E4606A31A;
+	Wed, 28 Oct 2026 03:25:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE5E4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O72jPzr2
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793157082; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=NOidjj5Ml69IXBVDgaaqFA/kPNhQ/xUITVxdD/pzEd8=;
-	b=O72jPzr2bD793SFpqsi7HsCUAp/9pOyTAa+eACVnYdCSsyWOHJzHoZ2dPt1cb1HLIEOMgqvxq6ZdeftLpm4HkXKOCRCLTstRi442JU1EyNU3SUcJV7LSpOnqCpVBzYHmy249F4xFiHwuEcBO1PLYadoU3IQgPz8RZS51YODnZ1I=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R471e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=jinyue.li@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XDfYO0M_1793157079;
-Received: from aa8c952a0f58..(mailfrom:jinyue.li@linux.alibaba.com fp:SMTPD_---0XDfYO0M_1793157079 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 11:11:20 +0800
-From: Li Jinyue <jinyue.li@linux.alibaba.com>
-To: Atish Patra <atish.patra@linux.dev>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>
-Cc: Anup Patel <anup@brainfault.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Xixin Liu <liuxixin@kylinos.cn>,
-	Andrew Jones <ajones@ventanamicro.com>,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drivers/perf: riscv: Fix racy hw.idx use in user access paths
-Date: Wed, 28 Oct 2026 03:11:19 +0000
-Message-Id: <20261028031119.1485928-1-jinyue.li@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xmkLNEo4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793157947; bh=D28JZatR7tRBWGWn+V8up62pSIO1MfVbrWcwRfKoFko=;
+	h=From:To:Cc:Subject:Date;
+	b=xmkLNEo4wTXHuRD3F1b4TycsLbR2lMRxrckbazqcLG7HAGyY9byCDPzDi1ihK38ym
+	 fhmRLs8w8QwFtSLuBswA0lU5Hgeomln46isUg15xndwRFjXpj06LMgLH53jAR7Fiyc
+	 t9sIbM4Tgg1jnX+FcuOKUuM4UbNuMlJMD307R0ZQ=
+Received: from CRASHEDROM.localdomain ([117.147.101.47])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 66D82CB3; Wed, 28 Oct 2026 11:25:45 +0800
+X-QQ-mid: xmsmtpt1793157945tx3sarspn
+Message-ID: <tencent_83B7D10D4DBCC6118AB6F6B83A509FFA5C06@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJfD2lEjmU2RCG47NAwtbr4geX27/x6qT/8eMQr6m+I5/KKD20KS
+	 lQPJVDL/vX63eVQqcP9ADptWl5rbrJstDQfwFvf0oWQDo/+Ad5+s3xSbVNBWx1xb0zACyfJOkUtS
+	 yt0wNHUnUnZlV1osI5T5sgftRzNGplGR4xUoEeYj61p0pMvLAHaW6n/6jVO/tLDz0tEJ1WIs3cqt
+	 H1BRR/AYvIJJ2YJzvhnmSJFxj/DiEXuFTbqcLvxYJs7lR6+VlJopkmYRa99/LUGg+eE27PKrVjOO
+	 80BeQbI97nzja88B+m0Ti9GLfu1NbVAO7/BVdpgaoZUrrbKJthNIGn9EuAXzI+kbwQ/Xs/BLc1ze
+	 tqWjhjIeydivmx2Qab5njtlu11rzODeMI2PkYyp0HO4bVV/W0EdHQjKXu2Uw4kmGUbjoZqC46/dO
+	 bLEeSk/0kdOl2HlKpJmzD3OiyhewHuQYHPL0jmzqvXo6m5cGEeWor4yIW9HYOBtBXyyy6FYzt5dT
+	 OqCzhYP09cSyJ1S7MkGg4A/3SbiTyJfY5QDYx54Zl09JWdd1O6SnZry0AarWBARdogu5g8jXyVjr
+	 6GvM7J4y1/pDk27yVIJjdEzID5vrDvUXL2rH3ht/tHccQokT8TZOvitvkUEPGaAvMcXJxfrRwLF2
+	 1IJZtA12m+NSnD3KbqKOFqhIa1PCJQEp3plw1+3FFK0S2X8enyYgxPK3efoA4/Q6o0qdaJV1fUoD
+	 y97Cse29kQ+E2i/eLMX7DJAQ2piJPtCzuyCRnS+k1mNV7pNV9Sry8CvUggi1td0DD/QA0KfR9EzG
+	 5uFxxxWbJ223gJGZraDZsppIfwf6QS18AfA3ZjkgJLKQySVZAP80InmcT03zll+jW/NdkU1pxHlD
+	 nOmTncoKn23yqgFmh/cuSyveQ/U6eF1h+e3TapKCZLKI6rqiX0Kcca7a3iKTFWeInn6rtxIUCVL4
+	 h8qVGid8hL5G30BUJUO3TvW/ZWoqFvV5BnpZr3oUGnPKgd2hcWoPnOwE4u95C0Qi2oPM5VWmQ/Bs
+	 695QyrixIIfD/1kS19TE3Q4nePcU+kqdrWqD35rmTZlRY5rIDYnkjqZo6dqLeVIMgKO6Py9w==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Chengyu Liu <19290937@qq.com>
+To: khc@pm.waw.pl,
+	netdev@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Chengyu Liu <19290937@qq.com>
+Subject: [PATCH net 0/2] hdlc_cisco/hdlc_fr: shut down protocol timers on ->detach
+Date: Wed, 28 Oct 2026 11:23:08 +0800
+X-OQ-MSGID: <20261028032310.2832307-1-19290937@qq.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,220 +79,318 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-riscv_pmu_event_idx() and arch_perf_update_userpage() are called from
-perf_mmap() through perf_event_update_userpage(), and
-pmu_sbi_set_scounteren()/pmu_sbi_reset_scounteren() run on every CPU in
-mm_cpumask() through IPIs sent by pmu_sbi_event_mapped() and
-pmu_sbi_event_unmapped(). None of them hold the event context lock, so
-the event can be scheduled in or out on another CPU at the same time,
-and riscv_pmu_add()/riscv_pmu_del() change hw.idx underneath them.
+Hi,
 
-Taking the context lock is not an option: perf_event_update_userpage()
-is also called from riscv_pmu_add() and riscv_pmu_del(), which already
-hold it.
+While auditing the HDLC teardown path we found that unregistering an up
+cisco or Frame Relay HDLC device leaves the protocol's keepalive/LMI
+timer armed on top of freed state.  We confirmed both live on current
+master with a KASAN build and a ~100-line fake WAN driver module (no
+hardware needed): the orphaned timer fires into the freed hdlc->state
+seconds after removal (slab-use-after-free in __run_timer_base, then a
+fatal exception in the timer softirq).
 
-Commit 3fec323339a4 ("drivers: perf: Fix panic in riscv SBI mmap
-support") added hw.idx != -1 checks to the scounteren helpers and to
-riscv_perf_user_access(), but hw.idx is loaded again afterwards to
-index pmu_ctr_list, so the check does not cover the access.
-riscv_pmu_event_idx() has no check and relies on perf_event_index(),
-which only looks at the software state (event->state and hw.state) and
-not at hw.idx. event_sched_in() marks the event ACTIVE before calling
-pmu::add(), and hw.state is still zero on the first schedule-in, so
-perf_event_index() can call into the driver with hw.idx == -1.
-event_sched_out() likewise calls pmu::del() before the state changes.
+Root cause, shared by both protocols:
 
-syzkaller hits this on QEMU with KASAN. In every report the faulting
-address is pmu_ctr_list[-1]:
+  unregister_hdlc_device() runs detach_hdlc_protocol() before
+  unregister_netdevice().  detach only invokes the optional ->detach()
+  callback -- it never calls ->stop() -- and then kfree()s
+  hdlc->state.  Neither cisco nor fr implements ->detach, so nothing
+  stops the protocol timer before its container is freed.
 
-  BUG: KASAN: slab-out-of-bounds in pmu_sbi_csr_index+0x80/0x82
-  Read of size 8 at addr ff60000009933bf8 by task syz.0.5217/27313
-  Call Trace:
-   pmu_sbi_csr_index+0x80/0x82
-   riscv_pmu_event_idx+0x9c/0xd8
-   perf_event_update_userpage+0x544/0x6ca
-   riscv_pmu_event_mapped+0x6e/0x98
-   perf_mmap+0xbcc/0x22ae
-   __mmap_region+0x1128/0x2398
-   mmap_region+0x3cc/0x466
-   do_mmap+0xe7c/0x162c
-   vm_mmap_pgoff+0x1e8/0x362
-   ksys_mmap_pgoff+0x338/0x402
-   __riscv_sys_mmap+0x11c/0x18c
+  (Additionally, detach_hdlc_protocol() ends with hdlc_setup_dev(),
+  which reassigns dev->flags and wipes IFF_UP, so the framework's
+  close-on-unregister safety net -- which would have run ->stop via
+  ndo_stop -- is skipped entirely on this path.  Verified empirically:
+  ndo_stop is never called.)
 
-The same read is also reported in pmu_sbi_ctr_get_width() from
-arch_perf_update_userpage(), in pmu_sbi_set_scounteren() from the IPI
-handler and in pmu_sbi_reset_scounteren() from perf_mmap_close().
+This is the same defect class as CVE-2026-63803 ("hdlc_ppp: sync
+per-proto timers before freeing hdlc state").  That fix added
+ppp_timer_release() as ppp's ->detach; cisco and fr have the same hole:
 
-Load hw.idx once with READ_ONCE() in these paths, check that value and
-use it for the lookup. Change the csr_index() callback to take the
-counter index so that the value checked is the value used; neither
-backend needs anything else from the event. Use WRITE_ONCE() for the
-stores in riscv_pmu_add() and riscv_pmu_del().
+ * hdlc_cisco: cisco_start() arms st->timer unconditionally and
+   cisco_timer() re-arms itself.  The proto has no ->detach at all.
 
-Fixes: cc4c07c89aad ("drivers: perf: Implement perf event mmap support in the SBI backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
----
- drivers/perf/riscv_pmu.c        | 22 ++++++++++++++--------
- drivers/perf/riscv_pmu_legacy.c |  4 ++--
- drivers/perf/riscv_pmu_sbi.c    | 14 ++++++++------
- include/linux/perf/riscv_pmu.h  |  2 +-
- 4 files changed, 25 insertions(+), 17 deletions(-)
+ * hdlc_fr: ->detach = fr_destroy() tears down the PVC list but never
+   touches the LMI timer armed by fr_start() when LMI is enabled.
 
-diff --git a/drivers/perf/riscv_pmu.c b/drivers/perf/riscv_pmu.c
-index 8e3cd0f35336..0ec4114595b0 100644
---- a/drivers/perf/riscv_pmu.c
-+++ b/drivers/perf/riscv_pmu.c
-@@ -18,18 +18,23 @@
- 
- #include <asm/sbi.h>
- 
--static bool riscv_perf_user_access(struct perf_event *event)
-+static bool riscv_perf_user_access(struct perf_event *event, int idx)
- {
- 	return ((event->attr.type == PERF_TYPE_HARDWARE) ||
- 		(event->attr.type == PERF_TYPE_HW_CACHE) ||
- 		(event->attr.type == PERF_TYPE_RAW)) &&
- 		!!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT) &&
--		(event->hw.idx != -1);
-+		(idx != -1);
- }
- 
- void arch_perf_update_userpage(struct perf_event *event,
- 			       struct perf_event_mmap_page *userpg, u64 now)
- {
-+	/*
-+	 * hw.idx is updated by pmu::add()/del() on another CPU, so take a
-+	 * snapshot and use it for both the check and the lookup.
-+	 */
-+	int idx = READ_ONCE(event->hw.idx);
- 	struct clock_read_data *rd;
- 	unsigned int seq;
- 	u64 ns;
-@@ -37,7 +42,7 @@ void arch_perf_update_userpage(struct perf_event *event,
- 	userpg->cap_user_time = 0;
- 	userpg->cap_user_time_zero = 0;
- 	userpg->cap_user_time_short = 0;
--	userpg->cap_user_rdpmc = riscv_perf_user_access(event);
-+	userpg->cap_user_rdpmc = riscv_perf_user_access(event, idx);
- 
- 	/*
- 	 * The counters are 64-bit but the priv spec doesn't mandate all the
-@@ -45,7 +50,7 @@ void arch_perf_update_userpage(struct perf_event *event,
- 	 * the cpu vendor.
- 	 */
- 	if (userpg->cap_user_rdpmc)
--		userpg->pmc_width = to_riscv_pmu(event->pmu)->ctr_get_width(event->hw.idx) + 1;
-+		userpg->pmc_width = to_riscv_pmu(event->pmu)->ctr_get_width(idx) + 1;
- 
- 	do {
- 		rd = sched_clock_read_begin(&seq);
-@@ -265,7 +270,7 @@ static int riscv_pmu_add(struct perf_event *event, int flags)
- 	if (idx < 0)
- 		return idx;
- 
--	hwc->idx = idx;
-+	WRITE_ONCE(hwc->idx, idx);
- 	cpuc->events[idx] = event;
- 	cpuc->n_events++;
- 	hwc->state = PERF_HES_UPTODATE | PERF_HES_STOPPED;
-@@ -293,7 +298,7 @@ static void riscv_pmu_del(struct perf_event *event, int flags)
- 	if (rvpmu->ctr_clear_idx)
- 		rvpmu->ctr_clear_idx(event);
- 	perf_event_update_userpage(event);
--	hwc->idx = -1;
-+	WRITE_ONCE(hwc->idx, -1);
- }
- 
- static void riscv_pmu_read(struct perf_event *event)
-@@ -353,12 +358,13 @@ static int riscv_pmu_event_init(struct perf_event *event)
- static int riscv_pmu_event_idx(struct perf_event *event)
- {
- 	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
-+	int idx = READ_ONCE(event->hw.idx);
- 
--	if (!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT))
-+	if (!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT) || idx == -1)
- 		return 0;
- 
- 	if (rvpmu->csr_index)
--		return rvpmu->csr_index(event) + 1;
-+		return rvpmu->csr_index(idx) + 1;
- 
- 	return 0;
- }
-diff --git a/drivers/perf/riscv_pmu_legacy.c b/drivers/perf/riscv_pmu_legacy.c
-index 1b8e4789cb3c..e540bb798fb6 100644
---- a/drivers/perf/riscv_pmu_legacy.c
-+++ b/drivers/perf/riscv_pmu_legacy.c
-@@ -76,9 +76,9 @@ static void pmu_legacy_ctr_start(struct perf_event *event, u64 ival)
- 	local64_set(&hwc->prev_count, initial_val);
- }
- 
--static uint8_t pmu_legacy_csr_index(struct perf_event *event)
-+static uint8_t pmu_legacy_csr_index(int idx)
- {
--	return event->hw.idx;
-+	return idx;
- }
- 
- static void pmu_legacy_event_mapped(struct perf_event *event, struct mm_struct *mm)
-diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-index 2991dd92def2..2360ee5d8843 100644
---- a/drivers/perf/riscv_pmu_sbi.c
-+++ b/drivers/perf/riscv_pmu_sbi.c
-@@ -530,9 +530,9 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *num_hw_ctr)
- }
- EXPORT_SYMBOL_GPL(riscv_pmu_get_hpm_info);
- 
--static uint8_t pmu_sbi_csr_index(struct perf_event *event)
-+static uint8_t pmu_sbi_csr_index(int idx)
- {
--	return pmu_ctr_list[event->hw.idx].csr - CSR_CYCLE;
-+	return pmu_ctr_list[idx].csr - CSR_CYCLE;
- }
- 
- static unsigned long pmu_sbi_get_filter_flags(struct perf_event *event)
-@@ -809,19 +809,21 @@ static u64 pmu_sbi_ctr_read(struct perf_event *event)
- static void pmu_sbi_set_scounteren(void *arg)
- {
- 	struct perf_event *event = (struct perf_event *)arg;
-+	int idx = READ_ONCE(event->hw.idx);
- 
--	if (event->hw.idx != -1)
-+	if (idx != -1)
- 		csr_write(CSR_SCOUNTEREN,
--			  csr_read(CSR_SCOUNTEREN) | BIT(pmu_sbi_csr_index(event)));
-+			  csr_read(CSR_SCOUNTEREN) | BIT(pmu_sbi_csr_index(idx)));
- }
- 
- static void pmu_sbi_reset_scounteren(void *arg)
- {
- 	struct perf_event *event = (struct perf_event *)arg;
-+	int idx = READ_ONCE(event->hw.idx);
- 
--	if (event->hw.idx != -1)
-+	if (idx != -1)
- 		csr_write(CSR_SCOUNTEREN,
--			  csr_read(CSR_SCOUNTEREN) & ~BIT(pmu_sbi_csr_index(event)));
-+			  csr_read(CSR_SCOUNTEREN) & ~BIT(pmu_sbi_csr_index(idx)));
- }
- 
- static void pmu_sbi_ctr_start(struct perf_event *event, u64 ival)
-diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pmu.h
-index ecaa40370830..4690a5646ae9 100644
---- a/include/linux/perf/riscv_pmu.h
-+++ b/include/linux/perf/riscv_pmu.h
-@@ -66,7 +66,7 @@ struct riscv_pmu {
- 	void		(*event_init)(struct perf_event *event);
- 	void		(*event_mapped)(struct perf_event *event, struct mm_struct *mm);
- 	void		(*event_unmapped)(struct perf_event *event, struct mm_struct *mm);
--	uint8_t		(*csr_index)(struct perf_event *event);
-+	uint8_t		(*csr_index)(int idx);
- 
- 	struct cpu_hw_events	__percpu *hw_events;
- 	struct hlist_node	node;
+Both fixes mirror the ppp one (timer_shutdown_sync() in ->detach), and
+both move timer_setup() to the attach path: hdlc state is kmalloc()d
+(not kzalloc), so the timer must be initialized exactly once at attach
+time -- otherwise ->detach() would run timer_shutdown_sync() on an
+uninitialized timer_list for a device that was never brought up.
+Same subtlety the ppp fix had to handle.
+
+Control runs (KASAN kernel with the two patches applied, same
+reproducer): completely clean in both scenarios -- (a) attach + up +
+rmmod, (b) attach + rmmod without ever bringing the device up.
+
+The bugs were found by static analysis and confirmed with the KASAN
+reproducer described above.
+
+KASAN splat (unpatched current master, cisco; fr is the same shape with
+fr_timer):
+
+    BUG: KASAN: slab-use-after-free in __run_timer_base.part.0+0x807/0x900
+    Write of size 8 at addr ffff88800a599110 by task swapper/0/0
+    Call Trace: <IRQ> run_timer_softirq ... __run_timer_base ... </IRQ>
+
+    Allocated by task 69:
+      __kmalloc_noprof
+      attach_hdlc_protocol+0x77/0x140
+      cisco_ioctl+0x184/0x4d0          <- SIOCWANDEV "sethdlc hdlc0 cisco"
+      hdlc_ioctl / dev_ioctl / __x64_sys_ioctl
+
+    Freed by task 74:
+      kfree
+      detach_hdlc_protocol+0x164/0x440
+      unregister_hdlc_device+0x15/0x30
+      __x64_sys_delete_module          <- rmmod of the (fake) card driver
+
+  The orphaned timer fired ~9s after rmmod; a fatal exception in
+  interrupt context follows immediately.
+
+Reproducer (not for merge; ~200 lines, no WAN hardware needed): a fake
+hdlc card driver wired to the contract API plus a tiny userspace
+attachment helper.  Build hdlc_trig.c as an out-of-tree module against a
+KASAN kernel, then:
+
+    insmod hdlc_trig.ko
+    ./poc_attach hdlc0 cisco
+    ip link set hdlc0 up
+    rmmod hdlc_trig                 # splat follows within ~one interval
+
+Source of both files is attached inline at the end of this letter.
+
+Regards,
+Chengyu
+
+
+Chengyu Liu (2):
+  hdlc_cisco: shut down the keepalive timer on ->detach
+  hdlc_fr: shut down the LMI timer in fr_destroy()
+
+ drivers/net/wan/hdlc_cisco.c | 10 +++++++++-
+ drivers/net/wan/hdlc_fr.c    |  5 ++++-
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+---------------------------- reproducer: hdlc_trig.c ----------------------------
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * hdlc_trig.c -- fake HDLC WAN card driver; reproducer for the
+ * remove-while-up teardown bugs in hdlc_cisco / hdlc_fr / hdlc_x25.
+ *
+ * The HDLC API contract says hardware drivers must call hdlc_open() from
+ * ndo_open and hdlc_close() from ndo_stop.  This module does exactly that,
+ * without any hardware.  Attach a protocol from userspace, bring the
+ * interface up, then rmmod (or `echo 1 > trigger`) with the interface
+ * still up:
+ *
+ *   detach_hdlc_protocol()  -> proto->detach is missing (cisco) or
+ *                              incomplete (fr/x25); hdlc->state is
+ *                              kfree()d; hdlc_setup_dev() wipes IFF_UP
+ *   unregister_netdevice()  -> close-on-unregister sees !IFF_UP and
+ *                              skips ndo_stop entirely
+ *   -> the armed protocol timer (cisco keepalive / fr LMI / x25 LAPB T1)
+ *      survives and fires into freed memory seconds later
+ *
+ * *** RUN ONLY INSIDE A THROWAWAY VM.  THIS CRASHES THE KERNEL. ***
+ */
+#include <linux/module.h>
+#include <linux/netdevice.h>
+#include <linux/hdlc.h>
+#include <linux/debugfs.h>
+#include <linux/uaccess.h>
+
+static struct net_device *trig_dev;
+static struct dentry *trig_dir;
+
+static int trig_open(struct net_device *dev)
+{
+	/* contract: hardware open -> hdlc_open; carrier defaults to 1,
+	 * so this calls proto->start (cisco_start arms the keepalive timer,
+	 * fr_start arms the LMI timer when LMI is enabled).
+	 */
+	netif_start_queue(dev);
+	hdlc_open(dev);
+	return 0;
+}
+
+static int trig_close(struct net_device *dev)
+{
+	pr_info("hdlc_trig: close called, IFF_UP=%d proto=%px open=%d carrier=%d\n",
+		!!(dev->flags & IFF_UP), dev_to_hdlc(dev)->proto,
+		dev_to_hdlc(dev)->open, dev_to_hdlc(dev)->carrier);
+	hdlc_close(dev);
+	pr_info("hdlc_trig: hdlc_close returned (proto deref survived?!)\n");
+	netif_stop_queue(dev);
+	return 0;
+}
+
+static netdev_tx_t trig_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+	dev_kfree_skb(skb);
+	return NETDEV_TX_OK;
+}
+
+static int trig_attach(struct net_device *dev,
+		       unsigned short encoding, unsigned short parity)
+{
+	/* pretend the serial hardware accepted encoding/parity */
+	return 0;
+}
+
+static const struct net_device_ops trig_netdev_ops = {
+	.ndo_open		= trig_open,
+	.ndo_stop		= trig_close,
+	.ndo_start_xmit		= trig_xmit,
+	.ndo_siocwandev		= hdlc_ioctl,
+};
+
+static void trig_unregister(void)
+{
+	if (!trig_dev)
+		return;
+	pr_info("hdlc_trig: unregistering, dev flags=%x up=%d\n",
+		trig_dev->flags, !!(trig_dev->flags & IFF_UP));
+	/* === the trigger === */
+	unregister_hdlc_device(trig_dev);
+	pr_info("hdlc_trig: unregister_hdlc_device returned, flags now=%x up=%d proto=%px open=%d\n",
+		trig_dev->flags, !!(trig_dev->flags & IFF_UP),
+		dev_to_hdlc(trig_dev)->proto, dev_to_hdlc(trig_dev)->open);
+	/* if the oops above did not kill us, finish the job */
+	free_netdev(trig_dev);
+	trig_dev = NULL;
+}
+
+static ssize_t trigger_write(struct file *f, const char __user *ubuf,
+			     size_t len, loff_t *ppos)
+{
+	pr_info("hdlc_trig: manual trigger via debugfs\n");
+	trig_unregister();
+	return len;
+}
+
+static const struct file_operations trigger_fops = {
+	.owner = THIS_MODULE,
+	.write = trigger_write,
+};
+
+static int __init trig_init(void)
+{
+	struct net_device *dev;
+	int err;
+
+	dev = alloc_hdlcdev(NULL);
+	if (!dev)
+		return -ENOMEM;
+	dev->netdev_ops = &trig_netdev_ops;
+	dev_to_hdlc(dev)->attach = trig_attach;
+	dev_to_hdlc(dev)->xmit = trig_xmit; /* contract: hw xmit (x25/LAPB uses this) */
+
+	err = register_netdev(dev);
+	if (err) {
+		free_netdev(dev);
+		return err;
+	}
+	trig_dev = dev;
+
+	trig_dir = debugfs_create_dir("hdlc_trig", NULL);
+	debugfs_create_file("trigger", 0200, trig_dir, NULL, &trigger_fops);
+
+	pr_info("hdlc_trig: %s registered. Now: attach proto (poc_attach), "
+		"ip link set up, then rmmod hdlc_trig or "
+		"echo 1 > /sys/kernel/debug/hdlc_trig/trigger\n", dev->name);
+	return 0;
+}
+
+static void __exit trig_exit(void)
+{
+	trig_unregister();
+	debugfs_remove_recursive(trig_dir);
+}
+
+module_init(trig_init);
+module_exit(trig_exit);
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("Fake HDLC WAN card driver (teardown-bug trigger)");
+
+---------------------------- reproducer: poc_attach.c ----------------------------
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * poc_attach.c -- attach cisco, fr or x25 protocol to an hdlc device
+ * via SIOCWANDEV (must run as root, device must be DOWN at attach time;
+ * the up-state switch is correctly blocked by -EBUSY, which is why the
+ * trigger uses the removal path instead).
+ *
+ * usage: poc_attach <ifname> <cisco|fr|x25>
+ */#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/socket.h>
+#include <linux/if.h>
+#include <linux/sockios.h>
+#include <linux/hdlc/ioctl.h>
+
+int main(int argc, char **argv)
+{
+	struct ifreq ifr;
+	struct if_settings ifs;
+	cisco_proto cisco = { .interval = 10, .timeout = 5 };
+	fr_proto fr = {
+		.t391 = 10, .t392 = 15, .n391 = 6, .n392 = 3, .n393 = 4,
+		.lmi = LMI_ANSI, .dce = 0,
+	};
+	x25_hdlc_proto x25 = {
+		.dce = 0, .modulo = 8, .window = 7,
+		.t1 = 10, .t2 = 1, .n2 = 5,
+	};
+	const char *ifname, *proto;
+	int fd, ret;
+
+	if (argc != 3) {
+		fprintf(stderr, "usage: %s <ifname> <cisco|fr>\n", argv[0]);
+		return 2;
+	}
+	ifname = argv[1];
+	proto = argv[2];
+
+	memset(&ifr, 0, sizeof(ifr));
+	memset(&ifs, 0, sizeof(ifs));
+	strncpy(ifr.ifr_name, ifname, IFNAMSIZ - 1);
+
+	if (!strcmp(proto, "cisco")) {
+		ifs.type = IF_PROTO_CISCO;
+		ifs.size = sizeof(cisco);
+		ifs.ifs_ifsu.cisco = &cisco;
+	} else if (!strcmp(proto, "fr")) {
+		ifs.type = IF_PROTO_FR;
+		ifs.size = sizeof(fr);
+		ifs.ifs_ifsu.fr = &fr;
+	} else if (!strcmp(proto, "x25")) {
+		ifs.type = IF_PROTO_X25;
+		ifs.size = sizeof(x25);
+		ifs.ifs_ifsu.x25 = &x25;
+	} else {
+		fprintf(stderr, "unknown proto %s\n", proto);
+		return 2;
+	}
+	ifr.ifr_settings = ifs;
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0) {
+		perror("socket");
+		return 1;
+	}
+	ret = ioctl(fd, SIOCWANDEV, &ifr);
+	if (ret < 0) {
+		perror("SIOCWANDEV");
+		return 1;
+	}
+	printf("%s: protocol %s attached\n", ifname, proto);
+	return 0;
+}
+
 -- 
 2.25.1
 
