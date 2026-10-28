@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173216;
-	b=ebieWp4xd9CbM1kXV3VFLoZjjsL8yXVSTzPN5hQPeuNFr/T7UvHZvBKsMTt7QuE3Dhr7
-	 GnZmnTEBUrfoIcJJdJh7wMPGVy7McCxwMJga4XHD0gqS5DrYocbERKazg4TOQrh133AzR
-	 SBo1K0Pzp6qqhX7UnzCSpAr0oOEkWIF/7a5+8VRkd+ZQ+Nef7zm/ZxufzbrB1d2QtKnds
-	 AIXwF79apDhyEhKdmeAigZeu5Uzu+iHPvqGgxrBweDVyQB0dJWdB/aGVyMy1kSYTsxg1s
-	 nH8SN3SAoOV1cwQHMT8rgAzQQcOQUQNCvszNHpcwVIdmwkd8rzdatpzKJ4oYhpACnJg==
+	t=1793173330;
+	b=y1FaqBOAR6FmlfLg6ICwrlRaywPS4Zy1ou2h4oR8Kl30vABiSVrmwCkTTZPfmZPbRcui
+	 8ptOfKj/woM0axU9QsswF2X753TmPGuESQQoLv9k4ROd8cWQUQzbW6h6cQYYNiJn85VdY
+	 zS1nupxUB8I6hfA9gn7YApW+TROCRrk1vPLiVW8Z22486hH9A2l2c5xXcE7QvvN/gimb0
+	 3iFQ6KltG1N68s/3y51gsaLVKOmonzrWsgRg/eyyIfGBlwNhBmv0T8K2EpBdcZPZxb8TF
+	 Za0QUGfiSchHxff5jasq35nTojcmfOX+YaOy9aa1w73mWHLp1/1v7zMM5wjEvyO1kXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173216;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=Bkq3KKgk1UDWj5HUSb5RnpmLfHpybAznAxoeESK/0zI=;
-	b=gjkenxmdeRyogaP1iDn5JSw/U8jbXaNDUICI+zcQByquDAxNuCqPnZ8mItK3zyMVZfQ3
-	 nStzOkGVl9cEj3LsK3MzA2Xujt0pXS95Be0ObP4TX1YooAxUTF1dVMZ7lv9Uv2oLmD5QG
-	 yM7ragaj1e+B4D1tmyH0AuLgTh+Nr/VPWkHC6/Wnhqo26kC93GEvw7/N30DZHOYsSdhu/
-	 5How+9gWjBi0fVrwJaZcWXTBMr7rK2427B1uzFgb7RkiDZJratuF0YfGCfXmP961hx0YZ
-	 x6CMF2HJCiHs5g6ICAQ10lSbOr9MxXteYBKxo3kXjBM9reTr9+4pWLPB0n3AYrIu4aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173330;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=Q4u5rewkLp38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=;
+	b=QjpfKBEBovs2YZswrnHtnDWbnL0Tl4+SD9waedRN6FQRQfbGzfKzOqSCKVy4I/Q6cX2w
+	 KKGMdMdgj2winVY/WBkhiCNDPzdiFzSsm/YBuCGNeCFvF79QRemSHYoHAVJj2KmUGfsaM
+	 7oySA99n31DWeBK4Kgrrn8V1aU0XoASwZ6Si/MzEODWvGWaLDf+GiBEuch4gOixqRNVfo
+	 /yZ2YLnY7rYZtlO39n+jFgez/kD0ahP8hFSbdAdOSWPuahz86CbVBH9P1D+H2NdWIkWKN
+	 NVK1T0i9LHivxEqLPj61Lct4QYt6YiSZo/HirjqgIR9h4XQQ88lCOO0hUXoxU3ju9aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paragon-software.com;
-	spf=pass smtp.mailfrom=paragon-software.com;
-	dkim=pass header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=GQUxsp7H;
-	arc=none smtp.remote-ip=35.157.23.187
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1F1606A31A;
-	Wed, 28 Oct 2026 07:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C1F1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.a=rsa-sha256 header.s=mail header.b=GQUxsp7H
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id DDB1D1D15;
-	Wed, 28 Oct 2026 07:41:01 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=GQUxsp7H;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 56E12D9;
-	Wed, 28 Oct 2026 07:40:14 +0000 (UTC)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EF51606A31A;
+	Wed, 28 Oct 2026 07:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF51606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1793173214;
-	bh=Bkq3KKgk1UDWj5HUSb5RnpmLfHpybAznAxoeESK/0zI=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=GQUxsp7HCByZY1c2QjSn89awZ4q/dSASImo2Ncg4tkS6SZDzezuOdKsc8HEMNmhEd
-	 df/hqCNrJxIq9AIR8ZXA+fNZU8Bx49j84CGv4yV4QRMX9De4MuJRzZJQNgG4y4J3YP
-	 4G8GVvgh29qhVripRPb+NPoYpaiXV8VJO2qJuDY8=
-Received: from [192.168.95.128] (172.30.20.183) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Wed, 28 Oct 2026 10:40:13 +0300
-Message-ID: <5593517a-a75e-4e03-b74e-0399069c03c5@paragon-software.com>
-Date: Wed, 28 Oct 2026 08:40:11 +0100
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Q4u5rewkLp
+	38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=; b=LF3MonnxQ7JM2tTjDFsPDUO8bJ
+	2xjY7ZC0cG8DNZ89+F9MPYhlLd/91Eb/65TG7eaDRuixPs2/lyJEDOlozxfjkfCi
+	0e9gUBLMuGUAXTNzLgoHfPIcdKKF5E/dogLZLXYrSOjFAKkoUmZm4vclPt37ESJ3
+	7fmOyQRXmByUJR7TI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2WgA4p+FqxLLzAA--.57600S2;
+	Wed, 28 Oct 2026 15:41:46 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	Johan Hovold <johan@kernel.org>
+Subject: [PATCH] ALSA: us122l: Fix NULL dereference at hwdep open and release
+Date: Wed, 28 Oct 2026 15:41:43 +0800
+Message-Id: <20261028074143.14440-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,162 +59,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()
-To: Yuejie Shi <syjcnss@gmail.com>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260803043432.94886-1-syjcnss@gmail.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260803043432.94886-1-syjcnss@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkA2WgA4p+FqxLLzAA--.57600S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCF43WrWrJF15ury7CFyfJFb_yoW5Cr18pF
+	WrurWSyFyDJan3WF1fJa18Za1F9w1kKa43CF97C34rZr1rG34fZ34Yyry5uF17CrW8Cr4F
+	gr98t3WDWFW8Jr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2rgvlNkOwABsy
 
-On 8/3/26 06:34, Yuejie Shi wrote:
+usb_stream_hwdep_open() and usb_stream_hwdep_release() pass the result of
+usb_ifnum_to_if() straight to usb_autopm_get_interface() and
+usb_autopm_put_interface(), without checking it for NULL.
 
-> ntfs_read_ea() checks the $EA list for consistency, but it only
-> recomputes the packed size of an entry when the entry's own size field is
-> zero:
->
->          for (off = 0; off < size; off += ea_size) {
->                  const struct EA_FULL *ef = Add2Ptr(ea_p, off);
->                  u32 bytes = size - off;
->                  ...
->                  if (ef->size) {
->                          ea_size = le32_to_cpu(ef->size);
->                          if (ea_size > bytes)
->                                  goto out1;
->                          continue;              /* <- elength never checked */
->                  }
->                  ...
->                  ea_size = ALIGN(struct_size(ef, name,
->                                              1 + ef->name_len +
->                                                      le16_to_cpu(ef->elength)),
->                                  4);
->                  if (ea_size > bytes)
->                          goto out1;
->          }
->
-> ef->size is non-zero for every entry except the last one, and it is what
-> ntfs3 itself writes (ntfs_set_ea() stores exactly that aligned packed
-> size), so in practice elength is not validated at all.  find_ea() then
-> uses unpacked_ea_size(), which also prefers ea->size when it is set, so
-> it agrees and hands the entry back.
->
-> ntfs_get_ea() copies elength bytes with no further bound of its own:
->
->          len = le16_to_cpu(ea->elength);
->          ...
->          if (len > size) {              /* size is the *caller's* buffer */
->                  err = -ERANGE;
->                  ...
->          }
->          memcpy(buffer, ea->name + ea->name_len + 1, len);
->
-> so a caller that supplies a large enough buffer receives up to 64 KiB of
-> whatever follows the small $EA allocation -- straight to userspace via
-> getxattr(2).
->
-> Compute the packed size unconditionally and require it to fit in the
-> entry.  Hoist the "bytes < offsetof(struct EA_FULL, name)" test above the
-> ef->size branch as well: name_len and elength were being read there
-> without it, which is itself a small over-read of the kmalloc'd buffer
-> when fewer than 8 bytes are left.  The old "bytes < sizeof(ef->size)"
-> test is subsumed by it.
->
->    # mkntfs image; create /mnt/ntfs/poc with user.ntfs6 set, then rewrite
->    # that EA_FULL's elength from 0xf to 0xff00 on the raw device
->    mount -t ntfs3 -o ro /dev/vda /mnt/ntfs
->    getxattr("/mnt/ntfs/poc", "user.ntfs6", buf, 128 * 1024);
->
->    BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x294/0x3e0
->    Read of size 65280 at addr ffff0000cca53acf by task xattr_probe/142
->     __asan_memcpy+0x3c/0xa0
->     ntfs_get_ea+0x294/0x3e0
->     ntfs_getxattr+0x284/0x318
->     __vfs_getxattr+0x104/0x160
->     vfs_getxattr+0x1b4/0x1e0
->     do_getxattr+0xcc/0x230
->     path_getxattrat+0x184/0x270
->     __arm64_sys_getxattr+0x64/0x80
->    Allocated by task 142:
->     __kmalloc_noprof+0x294/0x668
->     ntfs_read_ea+0x1e4/0x420
->     ntfs_get_ea+0x2c8/0x3e0
->    The buggy address belongs to the object at ffff0000cca53a80
->     which belongs to the cache kmalloc-96 of size 96
->
-> The object being over-read is the one ntfs_read_ea() just allocated, and
-> it is 96 bytes.
->
-> Entries written by ntfs3 and by Windows set size to the aligned packed
-> size, so the new test does not reject anything a working filesystem
-> produces.
->
-> Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
-> ---
->   fs/ntfs3/xattr.c | 27 ++++++++++++++++-----------
->   1 file changed, 16 insertions(+), 11 deletions(-)
->
-> diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-> index 04814dd29375..e67a1100d0cd 100644
-> --- a/fs/ntfs3/xattr.c
-> +++ b/fs/ntfs3/xattr.c
-> @@ -146,26 +146,31 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct
->          for (off = 0; off < size; off += ea_size) {
->                  const struct EA_FULL *ef = Add2Ptr(ea_p, off);
->                  u32 bytes = size - off;
-> +               u32 packed_size;
->
-> -               /* Check if we can use field ea->size. */
-> -               if (bytes < sizeof(ef->size))
-> +               /* Check if we can use fields ef->name_len and ef->elength. */
-> +               if (bytes < offsetof(struct EA_FULL, name))
->                          goto out1;
->
-> +               /*
-> +                * The name and the value have to fit in the entry whether or
-> +                * not ef->size is set, because ntfs_get_ea() copies elength
-> +                * bytes out of this buffer and checks them only against the
-> +                * caller supplied buffer size.
-> +                */
-> +               packed_size = ALIGN(struct_size(ef, name,
-> +                                               1 + ef->name_len +
-> +                                                       le16_to_cpu(ef->elength)),
-> +                                   4);
-> +
->                  if (ef->size) {
->                          ea_size = le32_to_cpu(ef->size);
-> -                       if (ea_size > bytes)
-> +                       if (ea_size > bytes || packed_size > ea_size)
->                                  goto out1;
->                          continue;
->                  }
->
-> -               /* Check if we can use fields ef->name_len and ef->elength. */
-> -               if (bytes < offsetof(struct EA_FULL, name))
-> -                       goto out1;
-> -
-> -               ea_size = ALIGN(struct_size(ef, name,
-> -                                           1 + ef->name_len +
-> -                                                   le16_to_cpu(ef->elength)),
-> -                               4);
-> +               ea_size = packed_size;
->                  if (ea_size > bytes)
->                          goto out1;
->          }
-> --
-> 2.51.0
+usb_ifnum_to_if() returns NULL once the device is gone, since
+usb_disable_device() clears udev->actconfig on disconnect.  The hwdep file
+can outlive the disconnect: the card is released with
+snd_card_free_when_closed(), so a process that keeps the character device
+open reaches the driver's release callback after the USB configuration has
+been dropped, and interface_to_usbdev() then dereferences the NULL
+interface at offsetof(struct device, parent).  The open callback has the
+same problem when it races with the disconnect.
 
-Hello,
+Check both lookups and fail the open with -ENODEV; in release, skip the
+runtime PM put when the interface is already gone and still run the rest
+of the per-file cleanup.  Move the us122l->first bookkeeping after the
+checks so that a failed open no longer leaves a stale file pointer behind.
 
-The patch was applied, thank you.
+Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ sound/usb/usx2y/us122l.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
-Regards,
-Konstantin
+diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
+index a5db0d044ef9..d93e3240b1b0 100644
+--- a/sound/usb/usx2y/us122l.c
++++ b/sound/usb/usx2y/us122l.c
+@@ -129,19 +129,26 @@ static const struct vm_operations_struct usb_stream_hwdep_vm_ops = {
+ static int usb_stream_hwdep_open(struct snd_hwdep *hw, struct file *file)
+ {
+ 	struct us122l	*us122l = hw->private_data;
+-	struct usb_interface *iface;
++	struct usb_interface *iface, *iface0 = NULL;
+ 
+ 	if (hw->used >= 2)
+ 		return -EBUSY;
+ 
+-	if (!us122l->first)
+-		us122l->first = file;
+-
+ 	if (us122l->is_us144) {
+-		iface = usb_ifnum_to_if(us122l->dev, 0);
+-		usb_autopm_get_interface(iface);
++		iface0 = usb_ifnum_to_if(us122l->dev, 0);
++		if (!iface0)
++			return -ENODEV;
+ 	}
++
+ 	iface = usb_ifnum_to_if(us122l->dev, 1);
++	if (!iface)
++		return -ENODEV;
++
++	if (!us122l->first)
++		us122l->first = file;
++
++	if (iface0)
++		usb_autopm_get_interface(iface0);
+ 	usb_autopm_get_interface(iface);
+ 	return 0;
+ }
+@@ -153,10 +160,12 @@ static int usb_stream_hwdep_release(struct snd_hwdep *hw, struct file *file)
+ 
+ 	if (us122l->is_us144) {
+ 		iface = usb_ifnum_to_if(us122l->dev, 0);
+-		usb_autopm_put_interface(iface);
++		if (iface)
++			usb_autopm_put_interface(iface);
+ 	}
+ 	iface = usb_ifnum_to_if(us122l->dev, 1);
+-	usb_autopm_put_interface(iface);
++	if (iface)
++		usb_autopm_put_interface(iface);
+ 	if (us122l->first == file)
+ 		us122l->first = NULL;
+ 	guard(mutex)(&us122l->mutex);
+-- 
+2.34.1
 
