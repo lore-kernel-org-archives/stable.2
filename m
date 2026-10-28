@@ -1,68 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173698;
-	b=yDoaIX/oRHv7JeAHmlwUReVOmeCNCWogcZubJHryBIp8aaVfZmaVM0NMLjkEAGQpweLh
-	 36qTSeBhIo9D2MPOfy1FCfaxK0DfqMiJJatoclTYbJecbPRdNGP5S3aA5XCavJQEPuDFT
-	 49o45i2YSS3p2nqKWIGUHnX2OQZuY0iTDTurfHIzjFiwWt9wdkWoYu12GjmDto0Zoc4ib
-	 +D38tEl2l9SQuCsfPGmlldCPptbpuIDBFm02YscTipA7lHis40z5F79mwVXI8y3pZ94oR
-	 50bNrvOodEYnGXJgjkEodflIdc9rp+VPrYhdUIH6j9U3qWwvQKbzLCMDVDt2AzdmksA==
+	t=1793173707;
+	b=JGiaah6V4U+3nJ/nlhmnT14SFbtH0T5Ck6YoAmJZjr8ri84wrmOykFNKlagzC9X5CDx8
+	 SmV2svPyv0VC5GCa2PLVc9mA77cO3wgH86bHbKs0OhdzyTIxgv9GJFvyS4me0eTPapH9w
+	 KONXZ8kSQ+Yxa8bgwm/uSViMSQKRgUrpfqyIUvsPwssHSopFMDEy8egLT7/W8SF1zhtN9
+	 sPRA6D1UowRMOocgeBtArPp9teFvsWaRMxoh16xWZuqhyT/y7383MeY44yVbk2v0ozYha
+	 Hzfa9bK0UqLqIpqEmFSAconKHl4lThjW1FC2JNuHYJZh/e/K2kOWH+DkkQacfmOW0Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173698;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jCl2TmQeyiSmIDMPF2MGOrqFWXsWxkkElgKtLsrXBBo=;
-	b=J9UhQEIymwAEqi5ankNIJt20V1LVceLhkcFXZ5I7FEpn7tKKRYj5ApS7ppVxMoaQdgvs
-	 QFJcQKdLg6xypzjsHe8MclTc9nbXoAExy6z1XJ+NND1i9JLsYSxoq11o4BzaAchJEX3T4
-	 uD9LR/djwZsaO5wZmkDxWSi5NVL6kLIKMfaTpefUr7bPvf1n5f1r4JuQz4dIPCyNIbbDw
-	 mnzGAl9trGb7M0lMY4SE5YZgN9D0oKPInbYJbCBUGu18DC8hBt02v0vElXr5RCO+xGhSL
-	 DblpZz/QU5poRmRPct5OwrRJCfDHYtbFuwYMeukC075QE6ELcHMX8gRsIPrYUG/2q6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173707;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
+	b=t175VMQkBYiyS1H7uhXDWc44tu/eF/9IQKbCSLSzyxoLxinWy6xc59WOoKFJPAEGWsdK
+	 rJedRX6Mk0aTcsoxE69BYym8gfxQLzLtfUOz8ySJgr6AeSZ5oYIl0XZTgt0UAgH64QFGZ
+	 wEK9+JICHZ01htcw+KYtwXMIlbePhlmW4mdGdNXCG3MvQX0AyYl7P/cq2MfUuX2mS7bVR
+	 eh3liBNe0xwmjARACkFEEN75tUnGDmkpPQ2cmOcRM4AXhQnLjqCeR6x0lY0dOkP8mASoF
+	 3COfdXIt05h4p94hSyelmoPAhrgMFRs//EyGFxBEgHzhxy+O2NJO4KaNCgAXHLilCcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oEbvXxMK;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="WJwsi/aP";
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AE8606A331;
-	Wed, 28 Oct 2026 07:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79AE8606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0643606A31F
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:48:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0643606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oEbvXxMK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793173698; x=1824709698;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=CXxFxifzrPn2IDDPxeNmOw7Uu6zmJAFolihpjLJ3g70=;
-  b=oEbvXxMKY6QhRm0mypwH+GDnA1h6uz0BqrxmYWttxLb+enC34k0Sosr5
-   vDg656/Ny3gB8rjBkt0LzP+MbXzCaAJCSM3I+2aK2RJgw26hX1nkOuegJ
-   PHFgpMC+uywDN3KjCWsQCIa3QSaA2bqppCCLvoilkdINP7MoSGIujdNOw
-   RWW7EJ+63rEspUSqb10bsY/sLRTd8fU7ElTTDxT2qA+Nbu9PJstVppwit
-   bf5/WQz2/8HiSYeUUHFkbg0GBLoNfEIscn4DuygbwRBbAltNGPu0k1Ri/
-   QFBuIPXpVekBl1d41soxtAPVEFaor4cljnP45MtFxGCyJUuoRRio/eNAn
-   w==;
-X-CSE-ConnectionGUID: mGZwtFAlQYSiBKCkv4ZqbQ==
-X-CSE-MsgGUID: ev7ReEcfTViHQ0EYOGA4iw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1900440"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1900440"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:48:17 -0700
-X-CSE-ConnectionGUID: 4kIF2y0+T1qlIvX9QdOLfA==
-X-CSE-MsgGUID: PNMSS8WsR+ibOr2oV/S8cw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="5110912"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.126]) ([10.245.244.126])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:48:16 -0700
-Message-ID: <37bd12e8-64dd-41c4-8f5e-0967e7a00759@linux.intel.com>
-Date: Wed, 28 Oct 2026 09:48:49 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WJwsi/aP
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eaae8d29e0so5883065ad.2
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793173706; x=1793778506; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
+        b=WJwsi/aPDlmQuEKdqEBYuYMRnOF0Ys+WLx1d+m9JyaUXGwib3GorzJdcuivp7QkZli
+         zIofH4rrKKKrF8IJ2g0uzdCfbFnuiS2qeaNFbL3eCS8Sdq4zB6Ou/JTDd4jaYB0Pzjjc
+         JALC9Unlvj3ZStTweea5iGCX3+l0ZMMjkI5UJyBcYVONeyCbIJnLwhdepY0UTOpWvgfH
+         uXc0bVnZFBNuDXmyJtNDUA7T6UmwSmwyx97W/Z1H8l/fDfA34gkutmxCL7Paw2YoQB/2
+         ns0mKVANZ60JtEGSfoljBS1MEF+YynsbKhO/fLELjqvntrNjEn5fA5CNxIRDoNgkmbk9
+         boFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173706; x=1793778506;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
+        b=0IdKjc33Nex7ZogsBpAtEYfPXJ/F/djwyD+gtowctITwmYTqmtngynHZgSsHn3sTUR
+         8puW0q9+TmGm6AuRQc+5yWayicRP3tAWBiby4qDoFwDG7+4X1gCEX0ezYfC8pt0jgYRV
+         7TpcO1IGjwdsrrb9k0QJQa0lLo5aU+F9LBR0sqSWnzi12qN9vnQwpy7fT0tcJmLlSZsy
+         /QF0F9iFjL2U0AvszF6SznvpFSDUR7ULRYzPOuTuvm8FiyQpSmJc1iVe37egMybeXyrW
+         UulerpoPLAMdBpXDTipa1yX4+n1EO9vIo7HNETfnZasiYpfY/g2McL06QCh5EvaWh/oR
+         +KZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIYdsanri+kLFqy+7tkcKoX4MQ9c5ko90eHCW4NjUXON00uPjFQHdDnJc0lzVYgZlxscFwc38=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsqvR47A1xTI4UB/FlY2dxNXY4Bsf2Qz5fieCzczFKw9juNxie
+	cj390G4osJlfEkIOJa3JyTnLOVrjRsPMM4WL4bXYxxG271xxverBUeN6cfg86PXRFRQxWkt5zpz
+	jR1XTa94uy88HwOnrqzVPRIHQEx/nwU/NoA==
+X-Received: from pleo1.prod.google.com ([2002:a17:903:2101:b0:2ea:f42f:612a])
+ (user=sonalipradhan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:2cf:b0:2e2:d834:a40f with SMTP id d9443c01a7336-2eb00141a17mr13956705ad.9.1793173705739;
+ Wed, 28 Oct 2026 00:48:25 -0700 (PDT)
+Date: Wed, 28 Oct 2026 07:48:21 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,79 +75,79 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: hdac_hda: Keep runtime PM state in sync across
- codec remove/probe
-To: Mark Brown <broonie@kernel.org>
-Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org,
- kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
- stable@vger.kernel.org, tiwai@suse.com, perex@perex.cz
-References: <20261027144655.31988-1-peter.ujfalusi@linux.intel.com>
- <179312291692.199157.15417382173460679457.b4-review@b4>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <179312291692.199157.15417382173460679457.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261028074821.579450-1-sonalipradhan@google.com>
+Subject: [PATCH v2] usb: gadget: f_midi: fix UAF race during IN request handling
+From: Sonali Pradhan <sonalipradhan@google.com>
+To: nkapron@google.com, gregkh@linuxfoundation.org
+Cc: tiwai@suse.de, balbi@kernel.org, jeffinphilip14@gmail.com, 
+	victor.krawiec@arturia.com, fanwu01@zju.edu.cn, christophe.jaillet@wanadoo.fr, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, sonalipradhan@google.com
+Content-Type: text/plain; charset="UTF-8"
 
+f_midi_disable() drains and frees pre-allocated IN requests from
+in_req_fifo without holding midi->transmit_lock. If f_midi_transmit()
+runs concurrently on the workqueue, f_midi_do_transmit() can peek a
+request from in_req_fifo and write into its buffer while
+f_midi_disable() frees it, leading to a use-after-free.
 
+Additionally, when usb_ep_queue() fails in f_midi_do_transmit() (such
+as with -ESHUTDOWN when the endpoint is disabled concurrently), it
+resets req->length = 0 and returns active instead of the error code,
+causing the do-while loop in f_midi_transmit() to keep spinning under
+midi->transmit_lock until the substream is drained.
 
-On 27/10/2026 19:41, Mark Brown wrote:
->> After the codec has been removed, its runtime PM status is
->> RPM_SUSPENDED while hdac_hda_codec_probe() powers the codec up via
->> snd_hda_codec_device_new(). The pm_runtime_put()/snd_hda_power_down()
->> calls on probe and registration then see an already suspended device,
->> the codec suspend callback is not called and the codec, its HDA link and
->> the codec_powered bit stay set, preventing the controller from runtime
->> suspending.
-> 
->> @@ -554,6 +557,12 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
->>  		return;
->>  	}
->>  
->> +	/*
->> +	 * Resume the codec to have its link reference (dropped below) and
->> +	 * codec_powered bit in the same state as after the probe.
->> +	 */
->> +	pm_runtime_get_sync(&hdev->dev);
-> 
-> What drops the reference that this takes? 
+Fix this by acquiring midi->transmit_lock in f_midi_disable() while
+releasing IN requests from in_req_fifo, and returning the error code
+from f_midi_do_transmit() when usb_ep_queue() fails so f_midi_transmit()
+aborts immediately and drops active substreams.
 
-it is dropped later at hunk 565, I can move it closer, after the
-pm_runtime_disable() for better visibility for v2?
+Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
+---
+Changes in v2:
+- Remove the transmit_lock and ep->enabled checks added in v1 from
+  f_midi_complete() and f_midi_transmit().
+- Return error code from f_midi_do_transmit() when usb_ep_queue() fails
+  so f_midi_transmit() aborts the loop immediately.
+- Link to v1: https://lore.kernel.org/all/20261019135701.2767078-1-sonalipradhan@google.com/
 
-> The probe shouldn't have exited with a runtime reference, AFAICT it doesn't.
+ drivers/usb/gadget/function/f_midi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Correct, the probe exits without a reference.
-
-> There's separate runtime PM managment for the CODEC in the HDA code...
-
-The get_sync() is not for holding a reference, it is to make sure that
-the codec is resumed before the snd_hdac_ext_bus_link_put() below. The
-HDA link refcount follows the codec's runtime PM state on SOF, so the
-put is only balanced if the codec is active at that point.
-
->> @@ -565,6 +574,9 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
->>  
->>  	/* Balances the disable above, cleanup_for_unbind keeps runtime PM disabled */
->>  	pm_runtime_enable(&hdev->dev);
->> +	pm_runtime_put_noidle(&hdev->dev);
->> +	/* The codec is cleaned up, system suspend must skip it from now on */
->> +	pm_runtime_set_suspended(&hdev->dev);
-> 
-> This updates the runtime PM reference tracking but doesn't affect the
-> hardware.  Is that what we want?
-
-Yes. At this point the link reference is dropped and the codec driver
-state is freed, there is nothing left for a suspend callback to do.
-
-This is what the driver core does via pm_runtime_reinit() when the
-codec driver is unbound. It is needed for the case when only the card
-is unbound (machine driver unbind): the codec would stay RPM_ACTIVE
-with runtime PM disabled and a system suspend would call the runtime
-suspend callback on the freed codec state via pm_runtime_force_suspend().
-
+diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
+index 63fb6ee70a3d..48cda34399e8 100644
+--- a/drivers/usb/gadget/function/f_midi.c
++++ b/drivers/usb/gadget/function/f_midi.c
+@@ -420,6 +420,7 @@ static void f_midi_disable(struct usb_function *f)
+ 	struct f_midi *midi = func_to_midi(f);
+ 	struct usb_composite_dev *cdev = f->config->cdev;
+ 	struct usb_request *req = NULL;
++	unsigned long flags;
+ 
+ 	DBG(cdev, "disable\n");
+ 
+@@ -431,8 +432,10 @@ static void f_midi_disable(struct usb_function *f)
+ 	usb_ep_disable(midi->out_ep);
+ 
+ 	/* release IN requests */
++	spin_lock_irqsave(&midi->transmit_lock, flags);
+ 	while (kfifo_get(&midi->in_req_fifo, &req))
+ 		free_ep_req(midi->in_ep, req);
++	spin_unlock_irqrestore(&midi->transmit_lock, flags);
+ 
+ 	f_midi_drop_out_substreams(midi);
+ }
+@@ -661,6 +664,7 @@ static int f_midi_do_transmit(struct f_midi *midi, struct usb_ep *ep)
+ 		ERROR(midi, "%s failed to queue req: %d\n",
+ 		      midi->in_ep->name, err);
+ 		req->length = 0; /* Re-use request next time. */
++		return err;
+ 	} else {
+ 		/* Upon success, put request at the back of the queue. */
+ 		kfifo_skip(&midi->in_req_fifo);
 -- 
-Péter
-
+2.56.0.307.g5fe7bd680c-goog
