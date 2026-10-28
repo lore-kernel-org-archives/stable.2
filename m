@@ -1,57 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212880;
-	b=nriFSR8cQzz6cOaqErvD9pTr8Cu+jG9f93eSbArWWNO7WS/lD6ds5W/9ONhezx62YPrJ
-	 bs8pzonvBwLHJI5OAVbb0yJCDuclClSaJ40pSGJDGmDYevaejbta6r0SH7/HGJ9l+9MkG
-	 eroJSCkHJjDt8I9CitctMPZyHM79570O0HrSrc14obfu9TtUO7l1cM1yhQTr1m6kdur7Y
-	 I6P/h43sY30gbrqs02B96x6q8bveemJtZapQvEdcgYeG+mjJxihLC56o8g4DiOxO4jn30
-	 RCGZnqQwqgMbJ2yFj+HwsRXOMEVUJjlLLniSm7s/XzByYm1q3CnGqKkFVhdO/cReTbA==
+	t=1793212881;
+	b=P+TohFY+W6QBnYo/LNZH00oPEThSafb7RprmiuRH4jJN1a5ZrniyO5rOo1tv4s/wb5fF
+	 XiAAdgTXoHrxMJyrjV8o02YUlAB/9ltTbeqpAsgbbuz7asQEoIUCNONdWJSxYMD4m0Kpj
+	 Mnu7Gsh3ERbEseI0jC3Jhc91ZG/0rDNDxhjvtpHOdURRMUPMyvQMxBDz8xWT9cZtWA2sb
+	 Fss+i3n/RMmJ+A8DHhsWSBP4sZhuGqixhvrMNWjlbQ2axF1fP13mrzaJtbIZhjF9eS+xL
+	 6/7QKrKfhoA9LJgen4IX749+IHkVTrIeJQJOqg+FEDlvP5P1CKruvwJcOpxP728RVTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212880;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BqOooK3pvqHqYbsY/vxAuHpjQ1qxYS4u4Zo7nKYudaY=;
-	b=GjCpEEMxFeCHmM+zJsserrOlKXkcr5ZxFYcXbRREbw6z6z8ArfqOT8ydJIB7/BHQA6A8
-	 s8DA69yTvK9cAcW5vRcHrS1RO+4IB/KVOQMxK3Gs2OYAFtu4NmzWwjW4pfCjrXE3/8cc5
-	 ngMa69TjyCoVjRx+MDTKZk4KQPFr7bSYjOY6UH1kT40xPdSTOk28TMxuE+SP/p1byLExc
-	 Ru8UASYa7gLEb+QHJhBi6yE0HWkehfckIQOZVhk7e1goLiHDxE7AFf+CyRJgjK0r//CX2
-	 fZ0Sva7An/GreNW+6+448rFKeZgkQ3gjBxk+cQhDFqIUkuuUFTI1sVV7h3b9mYuw0QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212881;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=PjhlO6bW9+MSarY6wTfU4M87BNvgFcP6/LMpd2feJeY=;
+	b=2sVu1H3xWe/DFRjfUSAcP2JXvloIR7qsKoNlG+JcbLZzDmXuKBjeIPYFaAUdxGXVyaAV
+	 4E3wqZlnWwXljCKjUJHBbYNNBwSRkz/iZY3u5osqd0m1qJ8tAv8UyrVY8RrIz2Z9iKBFW
+	 XZgY9CH4+97pLaW0/tVDmRJgzDoaXpQN3CwB+EziUroFTZqFzJ3m9ApJZ9G5wgN9HDd1v
+	 qa7z9mLAmT2iNNRgtizperDy/5OTMrLRaYtBb8IDa0AgjKOtIkdUDwY1d1bRkyHoI+JO1
+	 jYq+MiKvS+4e+9Xdj0GJqcCFFeIJGpH473vfTcColZlyhPwgrfKV2NxTaslRtErDBug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jn513JqJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+Ku+Dfy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE507606A31D;
-	Wed, 28 Oct 2026 18:41:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A45606A31E;
+	Wed, 28 Oct 2026 18:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jn513JqJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A49C1F01828;
-	Wed, 28 Oct 2026 18:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793212879;
-	bh=BqOooK3pvqHqYbsY/vxAuHpjQ1qxYS4u4Zo7nKYudaY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jn513JqJq1O+75zUx7STKMXJif4d6h3/rlSbWX+cmK6ORCtbSUD5N5uwfYTxOHBMW
-	 B60Np3D6QtpOVgIHbtINwNOcx1ZNmaVs2BSqqEDsD/mt9NnFryhujjui8ZQ7m+2EUP
-	 gMJ1BwaXQ0ph3D7iq7gLFuQgOEIHW2Ab8oBUwzyw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: [PATCH 6.1 0310/1887] mtd: rawnand: cadence: Initialize IRQ state before requesting IRQ
-Date: Wed, 28 Oct 2026 17:40:06 +0100
-Message-ID: <20261028170506.283562267@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+Ku+Dfy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072BD1F01825;
+	Wed, 28 Oct 2026 18:41:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793212880;
+	bh=PjhlO6bW9+MSarY6wTfU4M87BNvgFcP6/LMpd2feJeY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I+Ku+Dfy9D1rIjDAH01vQDIriIj8Zw42Ol3KsnQQisCDSNUzpgxOB5hpqZiFAyjVs
+	 YGr7Uzn63H4DUG+31UyZfBsNIl4kpzI2WFUDE0Y7FcYO2J2WJABgafFjrjQvasOXZw
+	 ZuEf6nx60b958GRx2QgfzkwisLaoa3x79rs8XurGiU85IAOF5Dhj56+/9KOaikiQkz
+	 PlphaYIDP1LHurqocO+l0yWviduSuuWAoRTEatuKhQkA47rqoPT/iKhPaO+fVK/Yd3
+	 RhECPtQPienO90RuwfI54HwGQdVKukGOO9MmBS6sRPHB6Bx+zFakp3lCKqRBSknDyi
+	 dc4Q326CsbINg==
+Date: Wed, 28 Oct 2026 18:41:13 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] arm64/gcs: release GCS on failed fork
+Message-ID: <85c7637d-f5a8-4d65-a5a7-40b3984094c8@sirena.org.uk>
+References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
+ <20261028154315.1272705-2-ivanrwcm25@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +76,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-6.1-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-
-commit 21f027016b1290d13c30b198ae7a00e6b3d1d5a5 upstream.
-
-The Cadence NAND interrupt handler uses both the IRQ lock and completion
-object. Registering the IRQ before initializing them leaves a window in
-which a pending interrupt can access uninitialized synchronization state.
-
-Initialize them before registering the handler.
-
-Fixes: ec4ba01e894d ("mtd: rawnand: Add new Cadence NAND driver to MTD subsystem")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/mtd/nand/raw/cadence-nand-controller.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
---- a/drivers/mtd/nand/raw/cadence-nand-controller.c
-+++ b/drivers/mtd/nand/raw/cadence-nand-controller.c
-@@ -2847,6 +2847,9 @@ static int cadence_nand_init(struct cdns
- 		goto free_buf_desc;
- 	}
- 
-+	spin_lock_init(&cdns_ctrl->irq_lock);
-+	init_completion(&cdns_ctrl->complete);
-+
- 	if (devm_request_irq(cdns_ctrl->dev, cdns_ctrl->irq, cadence_nand_isr,
- 			     IRQF_SHARED, "cadence-nand-controller",
- 			     cdns_ctrl)) {
-@@ -2855,9 +2858,6 @@ static int cadence_nand_init(struct cdns
- 		goto free_buf;
- 	}
- 
--	spin_lock_init(&cdns_ctrl->irq_lock);
--	init_completion(&cdns_ctrl->complete);
--
- 	ret = cadence_nand_hw_init(cdns_ctrl);
- 	if (ret)
- 		goto disable_irq;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ide9tbszk81fwOPE"
+Content-Disposition: inline
+In-Reply-To: <20261028154315.1272705-2-ivanrwcm25@gmail.com>
+X-Cookie: Pushing 30 is exercise enough.
 
 
+--ide9tbszk81fwOPE
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Oct 28, 2026 at 12:43:12PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
+> copy_thread() can map a CLONE_VM GCS and still return 0. A later
+> copy_process() failure calls exit_thread(), but arm64 did not
+> implement it, so the VMA stayed in the parent's mm. Wire
+> HAVE_EXIT_THREAD to gcs_free().
+
+One extremely minor nit below, I verified that this fails with the
+current kernel and that the kernel change causes it to pass so with or
+without dealing with that:
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Tested-by: Mark Brown <broonie@kernel.org>
+
+> @@ -328,6 +335,7 @@ static int copy_thread_gcs(struct task_struct *p,
+>  {
+>  	return 0;
+>  }
+> +static void gcs_reset_thread(struct task_struct *task) { }
+> =20
+
+This looks like there's a missing blank line but it fits in with the
+missing blank before the stub for copy_thread_gcs().  Possibly slightly
+neater to put this before there next to the similar flush_gcs() stub but
+meh.
+
+--ide9tbszk81fwOPE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriQcgACgkQJNaLcl1U
+h9D9+wf/SHEa+LP5AxakY5iKXz8OEmHkAD3fFP8gBmCVPhIqGctmgQHKjOqdW7kP
+xOfXg/CJU4L6nYqnyiGhiXDZ8vgIWOIJ1kX+6H65vbIQi+Z5BWDuL9V/4tXG+Ue5
+vm493cyci8zp1g/g1ygcvRbPJc622QWP61VWAy1gUnN2IA8ix6/Sdj28+/QAcJ9y
+IcrkwKGQuuJyU2xU/3EIpmW4Y3tL09b8/kunnn1SbvyGTvYRLCc/K2TTdtH+T0Wi
+OvPhpmGzjGQv5OGNX4aHkIW5tx/wqUKcSfqb70IyHGqD8I8srKRZ2UyQNZ9+mU2a
+0Eh6URoZuIVQGFrVDFvxcZqHfpC1CA==
+=Yq1h
+-----END PGP SIGNATURE-----
+
+--ide9tbszk81fwOPE--
