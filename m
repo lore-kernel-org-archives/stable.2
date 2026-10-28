@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214216;
-	b=qwyUucmKMjwmXl/yGwpp17uAl9UHhEW1JfiGG2cCx1JCCBB70HdmdXJFGrSs8k0KFo2t
-	 yVY0EmlhDGW14MjUz4P0RjA7nCqPaIpqH0A8cd7puSYITXsprVkMxx30LC4s7rr9Afw8j
-	 TXc14KDAIJopGBgzbKLGYQfVtA2o7EiwFlkxYTEzahK+9h+ctWa5O+K0e0kP1LgNvJb9Y
-	 h41zyCIErppuRY2fVGYnzMkeIMWSGSZJsD6OzrWuAiCUM+9GTtIlltb0fKoVXhfqPmz1z
-	 i1a9M9kRPJ/7hsFgGpuJq/PrGnCgPaZx/DtjxcHqhMMXM6Ywangq0Efx1gETHQPmSXg==
+	t=1793214217;
+	b=CVHjXsCLKr+DMleQVoLg9ffw3AIe4+jG7b0EzfiA28OA5veBsInLAQg7cy6RY85Jib7/
+	 eiLEcfsRO1OjlbsPlTPBeNI+mQCdlgBWrBj06W8vZyZl6FWUIuHYUe5O7CwZ8Ao4JU02A
+	 nPdskcgQPZqu66PUztYy3KEetDCdbBBpIYpcG9l9S2ToYGTW8CSdDOUStCcytNNB9ibbu
+	 Ud77cWsnEVeStPGsGMvD8sglqlx5ChIXrMVQOI3CncYQEb4xkqKkjw9QX6q329Tng0LcA
+	 0QAfCog1pfduYlpxy4FwXVek5bSWMY7Mz71a/+DYEH1vk4nvFwmbBwl/Bb361w8nZyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214217;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ItA+kX+KJYP4yRXuma4vjqeyf4jPzGo780LPkrPyJFw=;
-	b=Ov6+5pd3o4nty2BMql7hy9Y06K9YBI5olxaVopjr0dJU+QElWcpEciQ5s+ZWuO9kTWZW
-	 dZ4YEEDxtgsXzgT6C18bQXQ5uZWXC2Yldpymbap5nZvfExn7RDS5vUXM9/z0srCmcRowH
-	 l5flHqDt5/dCqJcbs9F7i9V81TE7ZhmLho1mxYAW9vMuldTDASkDBJ4fEi/h3YBfB8uW2
-	 rE/4S+p1vO9ZO0+uy56BYQwudnOJJWJR4/20/Pgq6IgiRLh4byZg1lwBETNYs8LOnjU7h
-	 yc4mKPZRkSRHYm1e7KbLpTF7ACpVgvEsElmXZrWiL+ICNISINzIMJyVtpXbyp+kG5QA==
+	bh=C4ny3E/DJgx+poTEqKzRisjOUtArQtOkrV3V2Ih9C3w=;
+	b=M1K6FqwLvkLW2loNo3DMvNgNPWDpmZAtjLXU3BAaTcDTMkn8W/Yf2v6M4QhDQ2oqt+mt
+	 KvOYjBho7lYgw6IEei6hftGEIG4P5O0nkismhhSYbnpCONu6pvXAhjM0+vSmkluWOSiNy
+	 QzynsSO2fkB2bXik0ujP7NmvYNKEJ3/+19EJf+ZU4lRILcJroy6voyC92mcVNNo+OB7KL
+	 FqysjRC00E5SOkcr6GLU2QxvYzIGoTNruuGjICJzMJ7X6SsBS9w7HebTRjmqeUFX6TVNs
+	 VTYDUc3FWVRl7soAUKuN715FLrR8azuP5oHG4GJYUYsNYCytVCGOnMkROYUq5K+KQmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfjBRBfD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aGRJMFpG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4EE60A2616
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0F560A2620
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:03:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfjBRBfD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B60AA1F013C1;
-	Wed, 28 Oct 2026 19:03:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aGRJMFpG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA041F013CA;
+	Wed, 28 Oct 2026 19:03:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793214216;
-	bh=ItA+kX+KJYP4yRXuma4vjqeyf4jPzGo780LPkrPyJFw=;
+	s=k20260515; t=1793214217;
+	bh=C4ny3E/DJgx+poTEqKzRisjOUtArQtOkrV3V2Ih9C3w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jfjBRBfD5EFfijxw/EnPry7KUwi6zzOwmiQr+H1wezRnx8YB22SPYDZLZN/aoqkVr
-	 XmWA6hocZOY//1nv4HSQ50uhcTUwJerdhowfZ5ArYXQAETNieZMRnSZ1uCACvJgphv
-	 OPnJHrdNi1bjXoKSs/PntEp3DWBTmrCgckU9deIq7/672ajv5dYVu/NZydp8kZxNhw
-	 C7d8PZ5Fc+exQdosWTuBw+sz/ulVrsBQNuUt3HkQQ3CMt0uYwzNnw/Oq5gMhbzUuOA
-	 vZWK+jczTwoFAW7XLPCY5g6fNp76K3HT80cBazTMEj6ggreMYl8uMxzNnLtWvSoafI
-	 NRs8AIv4r3cLg==
+	b=aGRJMFpGxfHYxLDfD7frrEvOGd8RxOJuxylXC9yA17+cfxdJPUJIeMd+pA1VlIJ79
+	 EguWhhR5KFIWzixvcW/K4yGVV1NWo9URYQ0VMb6m9Vui8VYnA9ikqIyz3IpHlsSlVV
+	 iCGfURVSWNQU1dgxw6Bj30bZ/RhUxxmFj25fglhoHvIWnr8t1doe5ZJwl9fkWG3InJ
+	 EgLCbEW3jSeTiMY5lH1zMZIUPGyDZ6I+q6S3PnAF37gEip7CHYxcgTMWyCObKQEjUO
+	 gQXUUvB3pctZm8Rf9UVBItUyUCqfASkg0LEeWWnMwk8egprLEAA494p45D1ka19OMC
+	 Yrp4wZIEmJKcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] fork: move the coredump and exec checks into create_io_thread()
-Date: Wed, 28 Oct 2026 15:03:33 -0400
-Message-ID: <20261028190310.2073874-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] fork: don't create io threads once PF_POSTCOREDUMP is set
+Date: Wed, 28 Oct 2026 15:03:34 -0400
+Message-ID: <20261028190310.2073874-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102850-unleveled-version-e04b@gregkh>
+In-Reply-To: <20261028190310.2073874-1-sashal@kernel.org>
 References: <2026102850-unleveled-version-e04b@gregkh>
+ <20261028190310.2073874-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,47 +64,74 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit e760200370e4de054b6b5f568a7faa911e2956bb ]
+[ Upstream commit 1f978881ce6c9ac4f4d4a7b6a6e52339eadcd350 ]
 
-Only a PF_USER_WORKER thread returns from get_signal() after a fatal
-signal and can go on to create a thread. get_signal() sets PF_SIGNALED
-before it dumps core and before it lets a PF_USER_WORKER thread return.
-That flags sticks.
+zap_process() skips every thread that already has PF_POSTCOREDUMP set.
+Such a thread is past synchronize_group_exit(), so a coredump can't
+catch it anymore. It isn't counted in core_state->threads_remaining and
+it isn't sent SIGKILL.
 
-The exec'ing thread itself is never signaled. But it doesn't need the check
-anyway as we moved cancellation of io_uring requests before de_thread().
-create_io_thread() is the only way a signaled thread creates another
-one. vhost_task_create() is reached from ioctls alone.
+do_exit() sets PF_POSTCOREDUMP in synchronize_group_exit() and calls
+io_uring_files_cancel() right after that. The cancellation runs task
+work and a create_worker_cb() that io-wq queued before the exit creates
+a new io-wq worker from there. If another thread started a coredump in
+the meantime that worker joins a thread-group which is already being
+dumped. zap_process() never saw it so it was never counted. But when it
+exits it sees signal->core_state in synchronize_group_exit() and
+decrements threads_remaining like any other thread.
 
-io_should_retry_thread() doesn't retry -EINTR, so io-wq callers give up
-the same way they did when copy_process() refused.
+So the count reaches zero one thread early and the dumper leaves
+coredump_wait_inactive() while a thread it counted is still running.
 
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/aq0VLTyxNatFmLOK@redhat.com
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-13-8e4adb1619e6@kernel.org
+The task has no fatal signal pending because zap_process() deliberately
+didn't send it one, and it never went through get_signal() so it doesn't
+have PF_SIGNALED either.
+
+Refuse to create an io thread when the creator has PF_POSTCOREDUMP.
+That costs nothing. io_uring_files_cancel() raises IO_WQ_BIT_EXIT
+before it runs any task work, so a worker created from there only ever
+gets to exit again, and io_should_retry_thread() doesn't retry -EINTR.
+
+Clearing PF_POSTCOREDUMP for the new thread in copy_process() was the
+other option. It makes the worker a thread like any other, but it only
+helps while the dump hasn't started. A worker born after zap_process()
+has run is invisible to it whatever its flags say and still decrements
+threads_remaining on the way out. Refusing to create it covers both, and
+then no task is ever born with the flag, so there is nothing to clear.
+
+Moving io_uring_files_cancel() ahead of synchronize_group_exit() closes
+the same window. It runs the cancellation, and whatever that can block
+on, before the thread announces itself to the dumper. A thread that
+blocks there never reaches coredump_task_exit() at all, so the dumper
+ends up waiting for a thread that never parks. Refusing the creation
+leaves the cancellation where it is. But it's very ugly to run io_uring
+work even before we did all the generic exit work.
+
+Fixes: 92307383082d ("coredump:  Don't perform any cleanups before dumping core")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org
 Acked-by: Oleg Nesterov <oleg@redhat.com>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Stable-dep-of: 1f978881ce6c ("fork: don't create io threads once PF_POSTCOREDUMP is set")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/fork.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/fork.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/fork.c b/kernel/fork.c
-index f22b79d9954a8..c82956f8fc9d5 100644
+index c82956f8fc9d5..140a615daf42e 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -2774,6 +2774,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+@@ -2774,8 +2774,8 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
  		.user_worker	= 1,
  	};
  
-+	/* A creator past its fatal signal gets no thread. */
-+	if (current->flags & PF_SIGNALED)
-+		return ERR_PTR(-EINTR);
-+
- 	return copy_process(NULL, 0, node, &args);
- }
+-	/* A creator past its fatal signal gets no thread. */
+-	if (current->flags & PF_SIGNALED)
++	/* A creator past its fatal signal or its coredump point gets no thread. */
++	if (current->flags & (PF_SIGNALED | PF_POSTCOREDUMP))
+ 		return ERR_PTR(-EINTR);
  
+ 	return copy_process(NULL, 0, node, &args);
 -- 
 2.53.0
 
