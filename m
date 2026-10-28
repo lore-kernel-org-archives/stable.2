@@ -1,105 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207851;
-	b=eIZuNEEWzhN9ShVQZmat2ANgdn9BmvzXshnsUfEO/h+69sLYtFG3jETbmRmKT3ujudXM
-	 VX7tBOENR+2KZVdAjgdUuhs8UY1JEvqA+fMvwUtcGNPXoMObrXJiwQhn0lp6e8IhfKjSN
-	 UM9FfUJju16Mo+ygEE8zf3+h531TRPhCPTMWIvIBFsbBrSFwUp4P7aSMfDRimc5fZIGvw
-	 pne2w7sM8/XujVAC3z4aG42KSvD3LJIDegLWcaNMsuQLnnz7+aoxR26SeMhx35szEo1oD
-	 HVUEkyROLG/n18qW6HYg6FKt6MweQLqJCBZMNq63+13WBh3DBko48Ut1qauSEkUkSmw==
+	t=1793207858;
+	b=lC9S7xYgOMZazjTPoyCDgmbJXL2UcJtkgTTcM83ks9ZBpR+LzyOvvTBoosRWPz6C/nA5
+	 KFi0nfZEz292O4dijwzDxuo3eZrEVFN9N420Z2fQzY06zPRoVpSCMedzWf6SXVIlsxdV5
+	 sa9mPI0QTSuEWRiwgVXaNO6RB/LyfqDigHZNJM/qZYngPhusD5BXiSwRlTy19A4rPtBIQ
+	 MdkpEWT8AmGwyx2f/wnBOVNk/rML68JYZKKFV4P+6BBo0qVgJ8zUtHV1/yTaTiwOhjXpv
+	 +1UVC96pyd8R0YD1aHMKHR+a/612VAUtoyC2OyaYCwBRU9T233aA1MHWzi4TFi7b2fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207851;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207858;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=YJiZZYGUYOh8zA+NsUNeXjoG3ihKbYj9buhXSzinHms=;
-	b=dOFE6LU5UB7F0Kz7ZD1TvESnVKOO/DcHIbqd3MxqhxPkGZq8VERozEo+wpPunqjfrsr3
-	 96/35/ihp1cCW0cd8+ZnvZElRphpNqV55ovcri5S3y80r1ludzkiWZltWzYso+6UdpMJy
-	 WcLG2OqbhcJRfIWkY+jsBj4R1WgT4oftc1rlpti0SfZknBhNuFPhBdjTodpTW7DaO6t3C
-	 Z4rF7bOvFF20FpX/YNscsKLdefiMyIujS7M8Wd6NDIaBc1akBxF4wtRDC/eJhhd2cgdj/
-	 VNfgx6FSL7RmrJfuzA42s8ANkrwTanpMuuIzX9OHdZK6WJlk3c4nqqt05jX9pgJipXQ==
+	bh=Zw+qH15qzdC9L+MyufqlbbS9wnU6BNDqJMOfy+Xqva4=;
+	b=c0vy7LyEfVTZ0xHsNkVOow6sj7sDD/vMOsrxhLQQ3mAMqgiDQUt3wSbkXqrLxIugE9Er
+	 SuSLRaLTWURCzZHfNlQsa/Y2oR6KwUQD+HU987utLoGGI5PjhvZl0IfYMQCkUxWQE23/x
+	 rjpbpIByLmshsfxhp9cBl+LYg6FtSSQqBDD3YtBl/DtC5yixs5/K4KIUK2NjmuFbnmb6k
+	 DehFbCcl5U2pgSGeWcYg46qNLgKY2CRxSH7PjUo1ZBszzuX0tn99HJhwSUByeOa6/L57O
+	 zaG1yRALsicZBN4TbST2/1YeAxtixDf0A5Ib0k6VkK8I6TLARVEwZogK4wttgp4a5tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=nJBZ3NdD;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TiLbGkI+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4A3606A326
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:17:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A4A3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F143F606A320;
+	Wed, 28 Oct 2026 17:17:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=nJBZ3NdD
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8aea7b7ca0cso10214697b3.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:17:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793207849; x=1793812649; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YJiZZYGUYOh8zA+NsUNeXjoG3ihKbYj9buhXSzinHms=;
-        b=nJBZ3NdD8NwQYO+4L14dOulGF7vs2dg0OeKUTZd7V54b0lTBAJN+AwciszMl3aJVOg
-         TXjY/NR/YOh1j8DdLKBOUWtVzbOS7dhfi+vOL71phrJSUe+p9cIPu+Cb/Yx9Ljb72Ek9
-         qdGFzxfFAwfOuAKnSfG84ISjR3s9gRhzmZ8xFAIj/1eueCW3MmmM8Cj7gYjsJEKRSRnq
-         mTPpaMW4zVbcdcNW2TKlbYW20V0nd0YA/9Qx5f/ISXew+Uzw5LVfSNqpmJJTeEuPBHDc
-         1Hs+/Pq34K0GWKbqDJobP+T3HMYx5N7a2gLQp/fTJ18DRRuKO7sX/ALTyZqviqljMFKH
-         69Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793207849; x=1793812649;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YJiZZYGUYOh8zA+NsUNeXjoG3ihKbYj9buhXSzinHms=;
-        b=w+sqNPWiDV3gPvDhDvVgRVrBx8NVX4CEoiCEdPoX+a5uRCthL4+tmi/UqZ7gCiMrEg
-         1sWYAbH7+ayJJs5AYp+TYiIuPbEk9HST9i7n9j3WlDRnZmJMrEF8wbIbZ1DRXu4iRoRd
-         5h+BgUKsT+qcAqMyavlsH8HVGk4s6zFJi22Qw0xNeYf+3t0prokIZgnEsBCWe7Rhxdq+
-         8Q/dwip1eLDHTfq7bZzHYCvxEvsZXq970mQPHfXSQ68c8oGoDX6z5fE/PwTWy5UbwT75
-         x/KG9Ewj9+qibIayj+957NQTf73yOqLAaCBp7cYbBcv52OQisgFYs/1PprkPETq27VCH
-         ExCw==
-X-Forwarded-Encrypted: i=1; AKwUvByhBsdKTjD6Rd0DP4K9lVwAoTkWF+H/OkuOlkf+TSeSRjvcktF7uQAEAJFlF9Tt4wt9SUcTnh8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyTKc/pX34EN0Mu7kJ5AHHBJ/uEaWSBC7MKBtBReM0dIav2VBy
-	leW0WhgUm6UIGx4PCCNRH2wbkC3HwvdcVlRQMqBwg1nXEjucSLL2VSmqQKf6ukYe3hc=
-X-Gm-Gg: AYBFou0n5UPeYOIZggmhF77rCqWFsUGIFcMzbonEcAMHz5KyIIm9orvrCgZAvTNQjRM
-	aP8yWsyz52wmgbEEM6VSgCE+vAUMkhZbr0NOcdTTCO9mNNRsvRYORWJlWSUD9xLPKoVUJq0H+kk
-	C9QJKRotdJz++MmD/ScrG9cx+RcukpeRDDvpQvGDh1gQHIk3XWEJTHloyr2vRqlteXjBKPXPlj4
-	l854KOVlsqMrPwOB05Yd4Iq3vmVqHecib66z3h2KKpj6tbDNLITRFFhoMEHOwbgQua+aUzMholC
-	6Lzi6+kckGruhxSydgd/DR3g6IyIpsxuZSE6ZsSCcBLoiNTPAW1Bm3fUnTFRTIzr/mBU8VtsG0n
-	XAKKgthBYK92t/3tDHotXmgGPpdfpGqRtkXlPzKGJZEin0SJE9XYrGTYduZmqDT7IWGrEOjs6wn
-	+YPie0f/vCaY1Agph5KDl0mxEoSdxkQfi6G6YVmxmJNtDBSzA3gT29W2XgKd+76e5750btGtbez
-	GF5XfY8dffFU05ROjKrM8GzQ7kTbKvEKes3T+kL41r8N57VJ90EySWtOtSeJHlJtnfnYc21HLcC
-	itrWorYRcEDq19SAu78zEw9xo9CK
-X-Received: by 2002:a05:690c:930c:20b0:881:a45f:9006 with SMTP id 00721157ae682-8b1b5bd657emr15463867b3.32.1793207849119;
-        Wed, 28 Oct 2026 10:17:29 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e609932sm31617307b3.35.2026.10.28.10.17.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:17:28 -0700 (PDT)
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>,
-	Salvatore Dipietro <dipiets@amazon.it>,
-	Christoph Hellwig <hch@lst.de>,
-	Dave Chinner <dgc@kernel.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-Date: Wed, 28 Oct 2026 13:15:54 -0400
-Message-ID: <20261028171719.2043421-3-hannes@cmpxchg.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TiLbGkI+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DEC61F01825;
+	Wed, 28 Oct 2026 17:17:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793207857;
+	bh=Zw+qH15qzdC9L+MyufqlbbS9wnU6BNDqJMOfy+Xqva4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TiLbGkI+07CIJlED24ogc9dkSt0DwBT1H3Hq1hs/CDqC0XdVQSKXnE7PrYvvlBc/t
+	 Agjixn3YCTIqnB/yv7o4UoMwdZInSy76rSBtLEzNKwLAfIPD4rWwDmn/y3EVZj7X9q
+	 CGij8Kpw6eHpPVxi1meZZUW+Syhli269nHp22T7Y=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mashiro Chen <mashiro.chen@mailbox.org>,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 163/247] net: ax25: fix integer overflow in ax25_rx_fragment()
+Date: Wed, 28 Oct 2026 17:59:26 +0100
+Message-ID: <20261028165951.276288581@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028171719.2043421-1-hannes@cmpxchg.org>
-References: <20261028171719.2043421-1-hannes@cmpxchg.org>
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+References: <20261028165947.349197979@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,90 +64,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out
-reserve access for ALLOC_NON_BLOCK on its own: the extra 25% below the
-min watermark is now only granted on top of ALLOC_MIN_RESERVE. But the
-flag was left in ALLOC_RESERVES, which produces something odd:
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them. So in the slowpath, they
-get to consume regular blocks below the min watermark by the number of
-free highatomic pages. The highatomic reserve is capped at 1% of the
-zone, which on any decently sized machine is a multiple of the min
-watermark: GFP_NOWAIT can drain regular memory to zero.
+------------------
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure. This was found in review and
-reproduced with a synthetic burst, not observed in production, but the
-sequence of events is a realistic one: On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to
-28M, 0.8M and 0.6M in three runs. Swapout failed to allocate its swap
-table, reclaim scanned 13M pages to reclaim 200k, page faults stalled
-for tens to hundreds of milliseconds. The machine survives it, but not
-by design: direct reclaimers eventually fail and start unreserving
-highatomic blocks, until the allocation succeeds or the reserve is
-gone and the OOM killer runs. That reserve exists for high-order
-atomic allocations; here it is destroyed to bail out a GFP_NOWAIT
-consumer that was never entitled to the memory.
+From: Mashiro Chen <mashiro.chen@mailbox.org>
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES. With that, the GFP_NOWAIT
-burst is stopped short at the min watermark. No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact
-for the requests it exists for.
+ax25_rx_fragment() accumulates fragment lengths into ax25_cb->fraglen,
+which is an unsigned short. When the total exceeds 65535, fraglen wraps
+around to a small value. The subsequent alloc_skb(fraglen) allocates a
+too-small buffer, and skb_put() in the copy loop triggers skb_over_panic().
 
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE. Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
+Add pskb_may_pull(skb, 1) at function entry to ensure the segmentation
+header byte is in the linear data area before dereferencing skb->data.
+This also rejects zero-length skbs, which the original code did not
+check for.
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem.
-Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-their watermark check, but rmqueue_buddy() serves them regular pages
-first and only falls back to the reserve once those are gone. They can
-still push regular free memory to 37.5% of min minus the free
-highatomic pages before the reserve is touched. Unlike GFP_NOWAIT they
-are entitled to the reserve, so this needs the watermark check and the
-freelist order reworked together, and is left to a separate patch.
+Two issues in the overflow error path are also fixed:
+First, the current skb, after skb_pull(skb, 1), is neither enqueued
+nor freed before returning 1, leaking it. Add kfree_skb(skb) before
+the return.
+Second, ax25->fraglen is not reset after skb_queue_purge(). Add
+ax25->fraglen = 0 to restore a consistent state.
 
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-Cc: stable@vger.kernel.org
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Mashiro Chen <mashiro.chen@mailbox.org>
+[F6BVP: v4 as posted on netdev; it was set aside only because the
+subsystem was being removed from the kernel. Applied unchanged.]
+Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
+(cherry picked from commit 0674e0f082be20adb8e7eb03718d85e71d8b05de)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_alloc.h | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ net/ax25/ax25_in.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index 9c3c2830acb0..7097ea1805f6 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -32,12 +32,11 @@
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
- #endif
+diff --git a/net/ax25/ax25_in.c b/net/ax25/ax25_in.c
+index 217f9a9b07631..18e15c3c26e46 100644
+--- a/net/ax25/ax25_in.c
++++ b/net/ax25/ax25_in.c
+@@ -35,12 +35,22 @@ static int ax25_rx_fragment(ax25_cb *ax25, struct sk_buff *skb)
+ {
+ 	struct sk_buff *skbn, *skbo;
  
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -58,7 +57,7 @@
- #define ALLOC_NO_CODETAG       0x1000
++	if (!pskb_may_pull(skb, 1))
++		return 0;
++
+ 	if (ax25->fragno != 0) {
+ 		if (!(*skb->data & AX25_SEG_FIRST)) {
+ 			if ((ax25->fragno - 1) == (*skb->data & AX25_SEG_REM)) {
+ 				/* Enqueue fragment */
+ 				ax25->fragno = *skb->data & AX25_SEG_REM;
+ 				skb_pull(skb, 1);	/* skip fragno */
++				if (ax25->fraglen + skb->len > USHRT_MAX) {
++					kfree_skb(skb);
++					skb_queue_purge(&ax25->frag_queue);
++					ax25->fragno = 0;
++					ax25->fraglen = 0;
++					return 1;
++				}
+ 				ax25->fraglen += skb->len;
+ 				skb_queue_tail(&ax25->frag_queue, skb);
  
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
- 
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
 -- 
-2.56.0
+2.53.0
+
+
 
