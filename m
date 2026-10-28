@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214215;
-	b=vffb7Wtu0M1axZZFp9CNKMvhpXF53cA8IM0WtLjjVX0GC/Ed7vTNri9Z540R/lCK/Tzl
-	 q62yAFkceYJwwSshGzZm9tJXaLg8TCqyukZGqkfPgAZiWrc4WIEeVka1gR+HhUPtajvmM
-	 W4RgW/TnG/ixQM1B4qkXxFx0JuaMYHUHdTf/MCgCx91RrAPQEhHHK+peRKQ/svyd15+o7
-	 I2AaD89PjaaTIP6/1hR8g49cxRB/MrL/XzTP9V90ni1tSC2jNKCrV9ej/g1twX1ALv6W1
-	 bam302pZFUX908xIpNh2PgSExwAAtWC0c8W43+bDiqV56y5agoIyzoge0QAUvdn9oVg==
+	t=1793214216;
+	b=qwyUucmKMjwmXl/yGwpp17uAl9UHhEW1JfiGG2cCx1JCCBB70HdmdXJFGrSs8k0KFo2t
+	 yVY0EmlhDGW14MjUz4P0RjA7nCqPaIpqH0A8cd7puSYITXsprVkMxx30LC4s7rr9Afw8j
+	 TXc14KDAIJopGBgzbKLGYQfVtA2o7EiwFlkxYTEzahK+9h+ctWa5O+K0e0kP1LgNvJb9Y
+	 h41zyCIErppuRY2fVGYnzMkeIMWSGSZJsD6OzrWuAiCUM+9GTtIlltb0fKoVXhfqPmz1z
+	 i1a9M9kRPJ/7hsFgGpuJq/PrGnCgPaZx/DtjxcHqhMMXM6Ywangq0Efx1gETHQPmSXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214216;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JnqbBimhoQiFHThi8M15zz5SNoa8WNW7LZcBXiJypM0=;
-	b=X8JyBnpEjNvr2Awbq8uwmu0IRRdA9ZlUbx7YEoW8Jjv0ZNVb1rVflMasXbAQE3lCSUUp
-	 uBBeeOprrqi5AtnDS6vjULcaMbyyBZwJOzxb3iNTfnzlRr6n0zB/UCdwwqm/FOGsHoYM3
-	 CXvrYbAyVz7yv0/qcwoX+LeTRyFt8c1Y2Eqriwc3Wbhk6qdNVK31NjF3A01G2tkDtQGIH
-	 ze6Vbum/Ud28Xhmk4e97Tz6IkWVMvsLfgXdSL1GC1f9JKOcsto5zqk60Zf2yTOk6Smm0g
-	 X6HeWgtzcQvXO13gf1VBVVC0fOT7dTmNxDyH/BG0+gi0OSVoqmKHuEYWndSOaIxj6xw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ItA+kX+KJYP4yRXuma4vjqeyf4jPzGo780LPkrPyJFw=;
+	b=Ov6+5pd3o4nty2BMql7hy9Y06K9YBI5olxaVopjr0dJU+QElWcpEciQ5s+ZWuO9kTWZW
+	 dZ4YEEDxtgsXzgT6C18bQXQ5uZWXC2Yldpymbap5nZvfExn7RDS5vUXM9/z0srCmcRowH
+	 l5flHqDt5/dCqJcbs9F7i9V81TE7ZhmLho1mxYAW9vMuldTDASkDBJ4fEi/h3YBfB8uW2
+	 rE/4S+p1vO9ZO0+uy56BYQwudnOJJWJR4/20/Pgq6IgiRLh4byZg1lwBETNYs8LOnjU7h
+	 yc4mKPZRkSRHYm1e7KbLpTF7ACpVgvEsElmXZrWiL+ICNISINzIMJyVtpXbyp+kG5QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BAm8OQL9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfjBRBfD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8404860A2616;
-	Wed, 28 Oct 2026 19:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4EE60A2616
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BAm8OQL9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86F11F013C0;
-	Wed, 28 Oct 2026 19:03:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793214215;
-	bh=JnqbBimhoQiFHThi8M15zz5SNoa8WNW7LZcBXiJypM0=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jfjBRBfD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B60AA1F013C1;
+	Wed, 28 Oct 2026 19:03:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793214216;
+	bh=ItA+kX+KJYP4yRXuma4vjqeyf4jPzGo780LPkrPyJFw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BAm8OQL9gTy0vubJh3LswKxQ5W+gW0jgzxwhr0V8uwAr65XYsUO8J25eLaQ3ZfCze
-	 llBHF/w/rt1aG1bOhETWx/iAROFpUcJ7ECrkTZla5DrUNdWRRcVG6CNa3RpHsoIGE8
-	 WKWDkobUgYrRSDPjT1HOxadQ7cAygMJPkNd47UyM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=jfjBRBfD5EFfijxw/EnPry7KUwi6zzOwmiQr+H1wezRnx8YB22SPYDZLZN/aoqkVr
+	 XmWA6hocZOY//1nv4HSQ50uhcTUwJerdhowfZ5ArYXQAETNieZMRnSZ1uCACvJgphv
+	 OPnJHrdNi1bjXoKSs/PntEp3DWBTmrCgckU9deIq7/672ajv5dYVu/NZydp8kZxNhw
+	 C7d8PZ5Fc+exQdosWTuBw+sz/ulVrsBQNuUt3HkQQ3CMt0uYwzNnw/Oq5gMhbzUuOA
+	 vZWK+jczTwoFAW7XLPCY5g6fNp76K3HT80cBazTMEj6ggreMYl8uMxzNnLtWvSoafI
+	 NRs8AIv4r3cLg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+5b667f9a1fee4ba3775a@syzkaller.appspotmail.com,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Dominique Martinet <asmadeus@codewreck.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0763/1887] fs/9p: fix NULL pointer dereference on mkdir
-Date: Wed, 28 Oct 2026 17:47:39 +0100
-Message-ID: <20261028170516.805711210@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 1/2] fork: move the coredump and exec checks into create_io_thread()
+Date: Wed, 28 Oct 2026 15:03:33 -0400
+Message-ID: <20261028190310.2073874-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102850-unleveled-version-e04b@gregkh>
+References: <2026102850-unleveled-version-e04b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,77 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Christian Brauner <brauner@kernel.org>
 
-------------------
+[ Upstream commit e760200370e4de054b6b5f568a7faa911e2956bb ]
 
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
+Only a PF_USER_WORKER thread returns from get_signal() after a fatal
+signal and can go on to create a thread. get_signal() sets PF_SIGNALED
+before it dumps core and before it lets a PF_USER_WORKER thread return.
+That flags sticks.
 
-[ Upstream commit 3f61ac7c65bdb26accb52f9db66313597e759821 ]
+The exec'ing thread itself is never signaled. But it doesn't need the check
+anyway as we moved cancellation of io_uring requests before de_thread().
+create_io_thread() is the only way a signaled thread creates another
+one. vhost_task_create() is reached from ioctls alone.
 
-When a 9p tree was mounted with option 'posixacl', parent directory had a
-default ACL set for its subdirectories, e.g.:
+io_should_retry_thread() doesn't retry -EINTR, so io-wq callers give up
+the same way they did when copy_process() refused.
 
-  setfacl -m default:group:simpsons:rwx parentdir
-
-then creating a subdirectory crashed 9p client, as v9fs_fid_add() call in
-function v9fs_vfs_mkdir_dotl() sets the passed 'fid' pointer to NULL
-(since dafbe689736) even though the subsequent v9fs_set_create_acl() call
-expects a valid non-NULL 'fid' pointer:
-
-  [   37.273191] BUG: kernel NULL pointer dereference, address: 0000000000000000
-  ...
-  [   37.322338] Call Trace:
-  [   37.323043]  <TASK>
-  [   37.323621] ? __die (arch/x86/kernel/dumpstack.c:421 arch/x86/kernel/dumpstack.c:434)
-  [   37.324448] ? page_fault_oops (arch/x86/mm/fault.c:714)
-  [   37.325532] ? search_module_extables (kernel/module/main.c:3733)
-  [   37.326742] ? p9_client_walk (net/9p/client.c:1165) 9pnet
-  [   37.328006] ? search_bpf_extables (kernel/bpf/core.c:804)
-  [   37.329142] ? exc_page_fault (./arch/x86/include/asm/paravirt.h:686 arch/x86/mm/fault.c:1488 arch/x86/mm/fault.c:1538)
-  [   37.330196] ? asm_exc_page_fault (./arch/x86/include/asm/idtentry.h:574)
-  [   37.331330] ? p9_client_walk (net/9p/client.c:1165) 9pnet
-  [   37.332562] ? v9fs_fid_xattr_get (fs/9p/xattr.c:30) 9p
-  [   37.333824] v9fs_fid_xattr_set (fs/9p/fid.h:23 fs/9p/xattr.c:121) 9p
-  [   37.335077] v9fs_set_acl (fs/9p/acl.c:276) 9p
-  [   37.336112] v9fs_set_create_acl (fs/9p/acl.c:307) 9p
-  [   37.337326] v9fs_vfs_mkdir_dotl (fs/9p/vfs_inode_dotl.c:411) 9p
-  [   37.338590] vfs_mkdir (fs/namei.c:4313)
-  [   37.339535] do_mkdirat (fs/namei.c:4336)
-  [   37.340465] __x64_sys_mkdir (fs/namei.c:4354)
-  [   37.341455] do_syscall_64 (arch/x86/entry/common.c:52 arch/x86/entry/common.c:83)
-  [   37.342447] entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-
-Fix this by simply swapping the sequence of these two calls in
-v9fs_vfs_mkdir_dotl(), i.e. calling v9fs_set_create_acl() before
-v9fs_fid_add().
-
-Fixes: dafbe689736f ("9p fid refcount: cleanup p9_fid_put calls")
-Reported-by: syzbot+5b667f9a1fee4ba3775a@syzkaller.appspotmail.com
-Signed-off-by: Christian Schoenebeck <linux_oss@crudebyte.com>
-Message-ID: <E1tsiI6-002iMG-Kh@kylie.crudebyte.com>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0VLTyxNatFmLOK@redhat.com
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-13-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Stable-dep-of: 1f978881ce6c ("fork: don't create io threads once PF_POSTCOREDUMP is set")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/9p/vfs_inode_dotl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/fork.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
-index e15ad46833e05..7c261b354379a 100644
---- a/fs/9p/vfs_inode_dotl.c
-+++ b/fs/9p/vfs_inode_dotl.c
-@@ -424,8 +424,8 @@ static int v9fs_vfs_mkdir_dotl(struct user_namespace *mnt_userns,
- 				 err);
- 			goto error;
- 		}
--		v9fs_fid_add(dentry, &fid);
- 		v9fs_set_create_acl(inode, fid, dacl, pacl);
-+		v9fs_fid_add(dentry, &fid);
- 		d_instantiate(dentry, inode);
- 		err = 0;
- 	} else {
+diff --git a/kernel/fork.c b/kernel/fork.c
+index f22b79d9954a8..c82956f8fc9d5 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2774,6 +2774,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+ 		.user_worker	= 1,
+ 	};
+ 
++	/* A creator past its fatal signal gets no thread. */
++	if (current->flags & PF_SIGNALED)
++		return ERR_PTR(-EINTR);
++
+ 	return copy_process(NULL, 0, node, &args);
+ }
+ 
 -- 
 2.53.0
-
-
 
