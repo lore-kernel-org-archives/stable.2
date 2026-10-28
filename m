@@ -1,52 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203470;
-	b=EkWs6LHmydiO4DqfITWV1bCyugvhgLTUppw6SELRcka2F+2WmKbnDcBKk1gkzwa4g/Rt
-	 qqdCCp1A5u5OAgh4ZpVNJD1AfP0H66QWey9ipCTOQ6LeTNskirAuFi7BFQhClPObtvN/9
-	 D1y0fH8t+wp+IdUam7DWVcbDrg2ubTRJjYHbW5XYOuwf/Bem/dw6I7mU8McSdYtxowSom
-	 tTCl/2e9pwWVxAbe1lATk8zvQx4FQSSAXMRyRuegZVAyZJkvEincXr3uRSnng21L7ahkK
-	 9x8Uk1R5CkS+ryC1G+kI2IAH9xk4gAVAa4KPnGRyKaon2uICuX+6eCEHymJgfUJ3X7g==
+	t=1793203516;
+	b=pgT05EwDTzLWTBs1MVU39IplQlB9hFWkiIDGu8R0IQeu9+eCqPxyob7XH9enwVpLvyC+
+	 jlu4h1gZMkiPQ9xquEFCBTRpnOG/C02PEWAC21ICSLKWGaQmDoQNQCdl0tqt8Gie//n1Y
+	 T+dNs2jv6/14UnX4XBtY2FWW69lU/rv5HMmk5f9NstMEQ27rTEoV5bnVRbgnIyxzpb9e7
+	 oqbic5Vw1F17dNZVTCQh7ZzkpRzs/TyiQzJek8B9MUKaDVK+NSD6f6LTSmahQiJT/q8tX
+	 WGXGWG91lkhHzv1lR8pKmkwng+jNRUOzrE+NWiHDwX/OD2V7N/7qlGx/B1WUpk6ZEQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203470;
-	h=DMARC-Filter:DKIM-Signature:X-B4-Tracking:Content-Type:Received:
-	 X-Change-Id:Mime-Version:X-Original-From:From:Subject:Date:Message-Id:
-	 X-Mailer:X-Lms-Return-Path:To:Cc:Content-Transfer-Encoding;
-	bh=vXNF6Bzv4Y//zIOSrBv1uEGQDZqbWWmh+iIAzb9peio=;
-	b=bZZjasZEd8lEHuXiZzhPbezEtay1hS+qis8ent/XKHN+MiYOQ2AUUf/2UYiJwiDM2vrK
-	 VCII9JDbB/FHBNjuk2RmJn9z+5Ggfj5If2B7FXgjQZxI1RrvVghGVA4w93uI2fu1hVFsP
-	 ItFNcuAcg6NdqgkK1togoRAva+r81VuDz5cDQcacb70e95hBiGY1xagFSOuV82IElePj/
-	 DCUMa9ASI3xLLO14sYaR2EE2BEGZEJ55RMdc/l5UQW+6j4zRjybCjkaFuplNFabTenWDe
-	 RuawgP1H1zZRDl09mRyb5rn4thY2vARqf1iQoYa93rBdNURWOLEQZRlU6ILXN6OFOUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203516;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=88sfbrcRMagQo5uewTZLqJVOWmvLIZ7ZDDHfajCvQ8w=;
+	b=b3efSz0M7kC/RNoRtfrO4IoFCeCwElBH+4/+7s8r/KV2dMMNRGnjOiGAxBC7QSz8cPcr
+	 xV34w14tS50zT1NyCPhR94CH4Xr3gG3hKt4qXrFoRxLp2rUygmaN6Mwm5z2VX3wOAhkJL
+	 X1/AIoPdJWKOWvgC4tG599EfVobpPrc8wCFz/GtCfQ5KMGdIGq4g5RmVdvEByQCWYG1LE
+	 nUNoMzyD/aQVSUMl3F/g5+k+AV6nxEZo+rUE77w8XtvxaBii/WOJ4kKH2+uMikiHXDaaG
+	 wNmqqgQ4y8NmbQqvwITNxLf6IN96MwxMJTTaohpGNj5QAxeYwk1oIt/CLLTQ3AyQhRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=k+XjCVTZ;
-	arc=none smtp.remote-ip=71.18.227.2
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEGdvb86;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEEC606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 16:04:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BEEC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8F2606AA59;
+	Wed, 28 Oct 2026 16:05:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=k+XjCVTZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793203456; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=vXNF6Bzv4Y//zIOSrBv1uEGQDZqbWWmh+iIAzb9peio=;
- b=k+XjCVTZMsD65B7ZTc0HCmk2D832CnzhnQcnl/1q+07jnBdiNUbxeG4paFJVLu1C+XBgqs
- u6ICnoOdAMYkmyV0f+NzSMLkm8FLRBTHvxMsTvOg3lXBIvKNYsCacaZqV8WJaw5r10dXk4
- t2V4S8sI3GvbXN2k7P5luFCzshlyty0XppRaYMlAQFkhI6AcuFmuFTDfFAKntT/BIbcn2f
- MBeqs/6xHwajvdV8Y3kMgKI64rivY4YDsqL7bogdf98pI9jygF8SdDQLUY4A7XedXYTFUG
- aeo0LAdGvo1kGjKUOeA24jrIsovMtgbLZPe+tc1wIv6jbPAxRvVhBKC6ayjnUg==
-X-B4-Tracking: v=1; b=H4sIAPoc4moC/yXMQQqDMBBG4avIrDtggor0KqULk/xpp5QYMloE8 e6N7fJbvLeTogiUrs1OBR9RmVOFuTTkn1N6gCVUk23tYFo7sus4S4iRC9RPbzC2PCekhU3ofQd rRgyBap8Lomy/9+3+t67uBb+cQzqOL89qKll9AAAA
-Content-Type: text/plain; charset=UTF-8
-Received: from [127.0.1.1] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 00:04:14 +0800
-X-Change-Id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEGdvb86
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57CF1F01285;
+	Wed, 28 Oct 2026 16:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793203515;
+	bh=88sfbrcRMagQo5uewTZLqJVOWmvLIZ7ZDDHfajCvQ8w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iEGdvb862gVq48UUgyRl/Xm6JMHFkS0Jzxlmh1uQ/FP154kv0/TjitiGESsor5WdQ
+	 C8Ve/mHow4xmhrJmq+PhbjqnTBi5ymT89KYt5rqJvqLtaHs91auSgZty38iRzuAaNY
+	 sGOGJMPqaSegYASCqriuMvHoyhSXhrWH0cznQKI8Z8TELXfHtMN7ZKOD1MT2ckz4xo
+	 lCT7U8xwgQPyPE/kc4kGz4PVC7PcOGpFDQc0DU1uHdID0r52NAIP/kj47a3WIfts6K
+	 K+2/BYbdOrzkQy31h86d4L7UB6r0C0qvkhbPm3Kgu+qXygGQYSsxvoxsYUNq3oppIg
+	 lKbUPV9aoH+oA==
+From: Christian Brauner <brauner@kernel.org>
+To: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	ecryptfs@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	jfs-discussion@lists.sourceforge.net,
+	linux-nilfs@vger.kernel.org,
+	exfat@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	ntfs@lists.linux.dev,
+	ocfs2-devel@lists.linux.dev,
+	linux-btrfs@vger.kernel.org,
+	gfs2@lists.linux.dev,
+	linux-efi@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	linux-xfs@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH RFC 14/28] ntfs: don't set SB_RDONLY after filesystem errors
+Date: Wed, 28 Oct 2026 17:05:06 +0100
+Message-ID: <20261028-fixstern-halunken-skelett-fb3cd0824159@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <atW1VhJXAIvtYPfd@hyunchul-PC02>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org> <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org> <atW1VhJXAIvtYPfd@hyunchul-PC02>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,63 +73,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH] HID: pidff: bound the unit exponent rescaling loop
-Date: Thu, 29 Oct 2026 00:04:11 +0800
-Message-Id: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc>
-X-Mailer: b4 0.16.0
-X-Lms-Return-Path: <lba+26ae21cff+6dea84+vger.kernel.org+me@cherr.cc>
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
-	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
-	"Paul Dino Jones" <paul@spacefreak18.xyz>
-Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2009; i=brauner@kernel.org; h=from:subject:message-id; bh=p94qtq7P6Iyb9ro/ig3qsXfneKNkQl3vnYSgqxFYI4M=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9kjX5zM8Xn3WMa65c5ROjC84Wi7I8Vdelxp8Uknu7e NHt2DMXO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbSfZDhvxvLvOPaJy5+bO6u aPynfMBQpNjbPaLkmuimi/UFjT7r0xgZDpy9vTtgcu3kQxtM9P637q1UPByx2Tj5+w2OmuViLbe MGQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-pidff_rescale_time() walks the device-provided unit exponent one step
-at a time, allowing extreme values to cause billions of iterations
-while ff->mutex is held. In a UHID test with an INT_MIN exponent,
-EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
+On Mon, Oct 19, 2026 at 03:14:46PM +0900, Hyunchul Lee wrote:
+> Before this patch, SB_RDONLY is set, so remount,rw returned -EROFS. With
+> this patch, sb_rdonly(sb) is false, so remount,rw skips the check and
+> return success even though writes are rejected with -EROFS.
 
-Stop rescaling once scaled_time becomes zero, since further
-multiplication or division by 10 cannot change the result. The u32
-value becomes zero within 32 multiplications by 10, and the u16
-input within 5 divisions. This bounds the loops while preserving
-their results for all exponents, including wraparound.
+Yes, that's intended. ntfs_reconfigure() only refuses the transition
+from ro to rw. After an error with errors=remount-ro
+ntfs_handle_error() sets NV_Errors and NV_EmergencyRO. A remount to
+read-only works and a remount to read-write after that fails with
+-EROFS. A "mount -o remount,rw" of a volume that is still read-write
+isn't a transition. It returns 0 but doesn't change anything.
 
-Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field units")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
- drivers/hid/usbhid/hid-pidff.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+That's how ext4 behaves since commit d3476f3dad4a ("ext4: don't set
+SB_RDONLY after filesystem errors"). __ext4_remount() only looks at
+ext4_emergency_state() if the read-only state changes. And every other
+filesystem in this series does the same.
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 22951b7ecd17..1a2fffcf204e 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_field *field)
- 	int exponent = field->unit_exponent;
- 
- 	pr_debug("time field exponent: %d\n", exponent);
--	for (; exponent < FF_TIME_EXPONENT; exponent++)
-+	for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
- 		scaled_time *= 10;
--	for (; exponent > FF_TIME_EXPONENT; exponent--)
-+	for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
- 		scaled_time /= 10;
- 
- 	pr_debug("time calculated from %d to %d\n", time, scaled_time);
+> I think that the condition should be test NVolErrors(), for example
+>
+>     if ((sb_rdonly(sb) || NVolErrors(vol)) &&
+>         !(fc->sb_flags & SB_RDONLY)) {
 
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+NV_Errors is the wrong bit for this. It's also set outside of
+ntfs_handle_error() no matter what errors= says. map_mft_record_folio()
+sets it when an mft record fails its checks and ntfs_read_locked_inode()
+when it marks an inode bad. So with errors=continue (which is the
+default?) a single corrupt mft record leaves NV_Errors set on a volume that is
+still writable.
 
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+With your change every remount that keeps such a volume read-write, e.g. just
+to change another option, would fail with "Volume has errors and is read-only".
+
+If you really want ntfs to refuse remount,rw in the emergency state then
+NVolEmergencyRO() is the bit to test. But then ntfs would behave
+differently from ext4 and the rest of this series. So I'd rather keep it
+as is.
+
+Fwiw, in the next version reconfigure_super() refuses the transition to
+read-write itself. It uses the generic emergency read-only state Jan asked for.
