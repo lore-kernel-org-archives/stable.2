@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164016;
-	b=l7Z8DHzm3rDG3yOElGsyjmR22abjISaA07R7XV+NxA4MjuMnESKh4F9wK9niJzOouiuY
-	 pNoq6dOZePvtfuBDBaNUNQFR44Kd59uUlFcdOrhsQHTq41xi2r1Ji4MjrNC9NvZ6FrrXU
-	 KBa1+FImm4sHTygDe3KL10DCIxO2cJpNHbTQ5bzzbc4h6xZUEjiC5vshyckntRyLimvJG
-	 tBGUTf1JJP2SJBzgsLsLWqTBfnNpWw6/XbSGrx7pyYiKfq9yQA5xYde5H1sF943s4XDNP
-	 ir5NLMBXuOiCVwc5wc3fpkMr8Xkkp25sDT674Tl/q4JOU81MSdLMqvZg6AC1yqeCo1w==
+	t=1793164025;
+	b=Uc+YkHQms7+WDdTglyGeJoMRY9yUH9FePCIuUCWN6P5i1y7/5ZW9c47RImf8Of/38N02
+	 5ZNIBSicA8G0n1EVo/IsadNxZGpKZqFznNpYA+bGY9TjaRTrrE8OhQAepsTYdsPxNAf6Q
+	 Yd4ZOhrEcRm8BghCZj/eg8Rl9dhvbJoVvaf/310cRW/gpVx9pTwNP5Iq5P8bDqNKfeNSA
+	 PhYLvlgpq7huThBB5WVPU6kZkqLia93CgVB4Ep6DL3aLopPrzW7slh0+FMqBzKCRI5U0D
+	 /cqL7xH2ZxzyWXu7yG7Fw6gVwCGTddW6YfDEq8otrJRKWPqavI25ljF64aI1Nl6UcYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164016;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=LiRW6iv3MuIhsNXzrZMEbUs0Az8htm2AbgWP6IOUqWqYaL/HlTZCOXuaTArq7LFUUWLd
-	 wwK4bFy2WZSQ7hb118QNIYNcinTL/p1aiirqijq6MdFJCchCeKFFjBrvCduoqduOhRQho
-	 stD8SIKcVQj/wqINux3YLdX0HZLC1LqouUbIPPv00B+CVwkr/jp/wVmh217qnokIfe1Te
-	 YzFL64D3TQ//mmlfDZmw1AtPEPlVSOZ370C68+ajpYxVcvsH4Z61Bhv+cDBN6tNOfy8Q9
-	 +K805DG28A/TR9JZT8hVx2JKWUf1goY/pGrEm9ogTitd9QFj1r3hLk+Vzk5NWPAr43g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164025;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=Cf9gfNcIiu11cnWlAOGnF/eh2esPSE/DuMDNIb7pmvc=;
+	b=egHhrf+vvBWre1BtfWAbmORfhtAReoVmAwOhfEIO16/j1eOupN6atID6qw1ukHNM0KPZ
+	 0mGb8IWiTGxL51Y3A+ZiChqyy/fmOnvnw07j7SX30x3+kGsCDwSfL8RQ8ypQ35fzhCjZN
+	 2oRHjl2qDCH/vydDjtwURceJtMMu5tIzNQmOKcYokpl3BsASZlLUkiFHTnLkxLivgeMEI
+	 hPqxVSiVAouj3Q3d657Zh7guMvwcVy6fI4RDCpjS6mkdLtr/OOC22+Kg2skq0gQwY9A6t
+	 Gjlu0NrVsRSoZ95e9iDY2MXpLv/tKIOzBDPJAlLN9G1k7l9czDsChTf1kV4jXGNmcfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCk9zlCq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WAJYNrW0;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE9D606A31A;
-	Wed, 28 Oct 2026 05:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E35606A321;
+	Wed, 28 Oct 2026 05:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E35606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCk9zlCq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A121F01825;
-	Wed, 28 Oct 2026 05:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793164016;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gCk9zlCqKFQoDnvknNh8Tt6vir7RWgbV37t2cnL2jsrQUYkBvM8d5bGBfrChWIjSK
-	 60GrI0ZSICji6yKrK472dVdDZYyuz+Qcxj7bQAo8c0pgCa4jbe+5fCPyg0F8uN8HN7
-	 JSOkNerSzIostPvLAjc7g8jnDqgqb/hJWHYrQn+kDtLVzp9WsILAOd870e6nouG7lI
-	 85qyw6uOAEN6mSUa40vSKLcZMrQylSt7QpVoCyeHHi3BlyWLO3C4FmIZsis5MbHgPJ
-	 e4tSA10jXnkPnrch9o//a6mPaGiXPeNyAH/prNPnYOVy13UJTD0CM5XsRz4oErAP+p
-	 +Zo0cCXS98lvQ==
-From: netdev-bot+sinfo@kernel.org
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Christophe Leroy <chleroy@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: phy: only remove owned topology entries
-Date: Wed, 28 Oct 2026 05:06:55 +0000
-Message-ID: <179316401520.3327.16652152694923638855@kernel.org>
-In-Reply-To: <20261028050312.126508-1-yaojiale02@163.com>
-References: <20261028050312.126508-1-yaojiale02@163.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WAJYNrW0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Cf
+	9gfNcIiu11cnWlAOGnF/eh2esPSE/DuMDNIb7pmvc=; b=WAJYNrW08Kv4DQ0T5U
+	3oFGq+opfUHtXHQceZdk3HsYgncdUegaHI6CvBCb4RBbslMRpOIi79FWW7AyL9pU
+	2L64SWxJcjFkvLcbwBV6aix+fJpb6PdNdT/Y3YeG5uOdQ/RTpmQu/z1MkmQj7ypp
+	MeraIcukohG2xrb0/HqJ6jzI4=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgBnkXTtguFqCksJCQ--.34486S2;
+	Wed, 28 Oct 2026 13:06:53 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: MGMT: Free unlisted commands on queue failure
+Date: Wed, 28 Oct 2026 13:06:52 +0800
+Message-Id: <20261028050652.134403-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,25 +61,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgBnkXTtguFqCksJCQ--.34486S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KryxZw1kJF1fZw4rJr45Awb_yoW8GF15pF
+	Wvq3Z8ArWUJF47JF4xtay8uFW7X3Z5uFW2krZ7Z34fArZ8XF4kZry8KFyjvr1YyrZ7Jay0
+	gF10gF13uwnrAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYa0PUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg3uKWrhgu30jgAA3a
 
-Hi!
+mgmt_pending_new() allocates a command without adding it to the pending
+list. set_phy_configuration() and read_local_ssp_oob_req() use this
+helper before queuing synchronous HCI work.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+If hci_cmd_sync_queue() fails, the work item does not take ownership of
+the command. The error paths call mgmt_pending_remove(), which assumes
+the command is linked and calls list_del() on its zeroed list node. This
+can cause a NULL pointer dereference instead of releasing the command.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Free the unlisted command directly on queue failure.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Fixes: 302a1f674c00 ("Bluetooth: MGMT: Fix possible UAFs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ net/bluetooth/mgmt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index 3b9c82bd2f02..66f167849942 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -4432,7 +4432,7 @@ static int set_phy_configuration(struct sock *sk, struct hci_dev *hdev,
+ 				      MGMT_STATUS_FAILED);
+ 
+ 		if (cmd)
+-			mgmt_pending_remove(cmd);
++			mgmt_pending_free(cmd);
+ 	}
+ 
+ unlock:
+@@ -8619,7 +8619,7 @@ static int read_local_ssp_oob_req(struct hci_dev *hdev, struct sock *sk,
+ 				 read_local_oob_ext_data_complete);
+ 
+ 	if (err < 0) {
+-		mgmt_pending_remove(cmd);
++		mgmt_pending_free(cmd);
+ 		return err;
+ 	}
+ 
+-- 
+2.34.1
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
