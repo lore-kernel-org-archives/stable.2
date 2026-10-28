@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209051;
-	b=d+pquzOiuuUMF2EfYseSenTMSzAkWpqoHnuX0p4hYBLF20o6vqV7EoAIQ8Z31ElNfJsq
-	 ONsWBfdnV9AQWDhZfMf1r8mY0uIT64V3TGeCoqgqayJ6LLMTSNu48huPfndYbtal4kad5
-	 cpd6U1Kvyt6nA3uv3U5Gv9iDRT71pY5GWTxNCqRn7a/1rvNI66jR+aPxxEhY/XT4tPpwp
-	 CmCu9cUY984kKqjN+18zy7CuBgI7qKSTa9/6TuE1b8Xs9/pHhVD8JUaNBe3OCcA+Rq4X9
-	 cpve9TPzHSEqNNLapFMDN1hrFd2WnbflhfrFo2o+rZ4+5y9xoRe2tBBqIVyA/KzzNBA==
+	t=1793209062;
+	b=X/sg88plkptwjn0hZQBIPOUy1EB1i22BnH/8dsVr/aAyOPxmeWGRjDApMjnKDeouDLBv
+	 PjznRHSytrbNfdzUfVNrZK6nvUotBhXtUXbhcOt6EJ800RfgFAPMfJF4cwmO+doUOhRl8
+	 dRitU/OEXdhZwVOX4xtvzZ1VqRA/AzMB7T/EGRpHPhi6cyHQ35lFGOuJFnCpzXxDbtEAo
+	 cJYaATffkhkb4rdaX4EkKuac+AL7sQr9dZ5ynwrtvoCfCdaHTjscIvrcl6SP6VgkrKzW9
+	 fSVTauiXZzYu/GZDbNigtwueGQiewrwG+JsW7oRUevKspIppi4NaqCYiC0ZnOnZGv1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209062;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yWZulVmQugojBIYkGDjOPzE8tNzKVytxubLAHfIvl2I=;
-	b=o43e2/ykFZeZFvHJlszsgURD31iEAY7bcyZUbUWyIrAmRgwzRADgzFyuaOnNGp1UzUbD
-	 sjfP7sqSQtx0ghiyNHF3gtN9a1Jy1LqwIRWvjPtpIZnNlaW6448SdDHCeq210lJAv1eQm
-	 Y6T8M46yg7JdItMk7JnbhpFNoNs6fZAnY++bVj8X+A09C4wgvjRiieMzMf+yLbkI5fma6
-	 jn5KQLOQFIl0l1pKds4I1SaN39p31YCZGMBtasApGQKO1MwsNw7/kA4qJmQ2ZJ+uUWkyW
-	 dyz4OyUHO+6bptamAKCWC1O2HO3fT5BCkcdB3TLjwMjQOkn6V9oTl3Pl2V3oe791iGg==
+	bh=y7uY0LPJSPJzhwQ+sNZvzb6vRAulunegIIJTS5bAQZU=;
+	b=T4WsG08jDrSrBwObAPBgk5NQxzq06oHZ3n3ccMX47aZIgU6F4dP8SUR0vHsGefFeYTwu
+	 B8PDfTo9vmtq3z5wlid9srVN6wjgyCEdt1hENGRkkzQvO7FVVgXDVEzXWVtlZFFBWC2dL
+	 rxyBnaxx+fzOihMQAeguXM25eWgPtoy5FaJpWO3hbVdUG2agxfLYRZs3tCx6Ig7UPaujq
+	 HtMBZcU9+15DTyg0Oe2I/ogMipbVt6nQ1CEwvqjWOGWevSgn6N2YTQew5XtXgoM3UOscW
+	 1F8MY2QTBrrnA+KFxFrpGWncBT5HvwXVN+eiEZU2schz0vhPXQTPsQM9Xu58PT9c4ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UAUgMil6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cd7KTlg7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2517160A2606;
-	Wed, 28 Oct 2026 17:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C52760A5BCD;
+	Wed, 28 Oct 2026 17:37:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UAUgMil6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7441A1F031F7;
-	Wed, 28 Oct 2026 17:37:30 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cd7KTlg7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC21C1F031EB;
+	Wed, 28 Oct 2026 17:37:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793209051;
-	bh=yWZulVmQugojBIYkGDjOPzE8tNzKVytxubLAHfIvl2I=;
+	s=korg; t=1793209062;
+	bh=y7uY0LPJSPJzhwQ+sNZvzb6vRAulunegIIJTS5bAQZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UAUgMil68GmjXTRtt/c2H4ZfLoLeS8XeCyGqJ+d987GVRSI3AWD4YwHiqgN9Xwp3a
-	 iSaxWALIhkAIN6013vEbgPTZctSG0L1FJrnbcAU27g7JsKi/UU5Ne02Gyg2LIAKRkF
-	 Tzxec2xfaCVS1yyKFUaGhcgMtSmpjTupr1MUfFEc=
+	b=cd7KTlg7upvm8tyVI6uaURoCgEnz6LJ4FFoLpTwlJ5gCuNtp8mtRbvQT/hcTcBA7c
+	 lQ/DiIhPv0hKGRh7G5LWUxidQuBA9L3FXRn8TcRrNO4N3naP77mnH/0iRBZ+PgPuvV
+	 Pp0FOlHHyMOydrJ30t0xZCKgB6NcSEqWSE0BVrCc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH 5.10 336/516] mmc: sdhci-sprd: disable runtime PM on remove
-Date: Wed, 28 Oct 2026 17:58:08 +0100
-Message-ID: <20261028170011.447489956@linuxfoundation.org>
+	"Denis V. Lunev" <den@openvz.org>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	"David S. Miller" <davem@davemloft.net>
+Subject: [PATCH 5.10 340/516] openvswitch: fix soft lockup in the netlink flow dump
+Date: Wed, 28 Oct 2026 17:58:12 +0100
+Message-ID: <20261028170011.541398771@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -69,46 +68,73 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Denis V. Lunev <den@openvz.org>
 
-commit e1c6c10a6a70a69e29b04fcc1ebe4b9bcbc7a49a upstream.
+commit aaaaf87ea99b8766c9a8aa0e71aa42e6bc8a5320 upstream.
 
-sdhci_sprd_probe() enables runtime PM, while sdhci_sprd_remove() does
-not perform the corresponding runtime PM cleanup.
+A production compute node carrying a few thousand datapath flows hit a
+soft lockup inside a single netlink flow dump and panicked.
 
-The probe failure path disables runtime PM before disabling the clocks,
-but the normal remove path directly disables clocks that are also
-managed by the runtime PM callbacks. If the device is runtime
-suspended, those clocks may already be disabled.
+ovs_flow_cmd_dump() calls ovs_flow_stats_get() for every flow it
+emits, and that releases stats->lock with spin_unlock_bh() once per
+CPU that has touched the flow. Every release is a local_bh_enable(),
+and each one runs the pending softirq backlog in the dumping thread's
+own context.
 
-Resume the device before removal, disable runtime PM and drop the
-temporary runtime PM reference before disabling the clocks.
+The skb bounds the flows one callback emits, but not the softirq work
+it absorbs. On a CPU that carries the box's packet load the backlog
+refills as fast as it drains, so the dumping thread becomes that CPU's
+softirq engine. It never sleeps and it has no reschedule point, so
+under voluntary preemption nothing can take the CPU away from it:
+neither the ksoftirqd the kernel woke to take the work over, nor the
+stopper thread the softlockup detector dispatches to refresh its
+timestamp.
 
-This issue was found by manual code inspection.
+Hold BH off across the whole callback instead, the way
+ctnetlink_dump_table() does, so the nested spin_unlock_bh() stop
+draining softirqs. The loop already runs under rcu_read_lock() and
+cannot sleep. What it gives up is preemption under CONFIG_PREEMPT,
+since a BH-off region is not preemptible outside PREEMPT_RT. The
+region stays short: the skb caps the flows one callback emits, and
+empty buckets cost no skb space but are each visited once per dump, as
+the cursor only moves forward. The table grows on insert and shrinks
+only on flush, so the walk is bounded by the largest flow count the
+datapath has held. The softirq backlog the callback used to absorb has
+no bound at all.
 
-Fixes: fb8bd90f83c4 ("mmc: sdhci-sprd: Add Spreadtrum's initial host controller")
+Fixes: 63e7959c4b9b ("openvswitch: Per NUMA node flow stats.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Adrian Hunter <adrian.hunter@intel.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Denis V. Lunev <den@openvz.org>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/mmc/host/sdhci-sprd.c |    4 ++++
- 1 file changed, 4 insertions(+)
+ net/openvswitch/datapath.c |    8 ++++++++
+ 1 file changed, 8 insertions(+)
 
---- a/drivers/mmc/host/sdhci-sprd.c
-+++ b/drivers/mmc/host/sdhci-sprd.c
-@@ -743,6 +743,10 @@ static int sdhci_sprd_remove(struct plat
- 	struct sdhci_host *host = platform_get_drvdata(pdev);
- 	struct sdhci_sprd_host *sprd_host = TO_SPRD_HOST(host);
+--- a/net/openvswitch/datapath.c
++++ b/net/openvswitch/datapath.c
+@@ -1461,6 +1461,12 @@ static int ovs_flow_cmd_dump(struct sk_b
+ 		return -ENODEV;
+ 	}
  
-+	pm_runtime_get_sync(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
++	/*
++	 * Not needed for safety. Stops every spin_unlock_bh() in
++	 * ovs_flow_stats_get() from running the softirq backlog.
++	 */
++	local_bh_disable();
 +
- 	sdhci_remove_host(host, 0);
- 
- 	clk_disable_unprepare(sprd_host->clk_sdio);
+ 	ti = rcu_dereference(dp->table.ti);
+ 	for (;;) {
+ 		struct sw_flow *flow;
+@@ -1481,6 +1487,8 @@ static int ovs_flow_cmd_dump(struct sk_b
+ 		cb->args[0] = bucket;
+ 		cb->args[1] = obj;
+ 	}
++
++	local_bh_enable();
+ 	rcu_read_unlock();
+ 	return skb->len;
+ }
 
 
