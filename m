@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201846;
-	b=MES8kpCanv4VEZzSOyMl3xbE7oZRexb5iTtVuIwJK5GDWAEiit6d0k4+OhjoU7WNdGmQ
-	 C7VR1T5twi0GSuXp++A57+ayCO+N7aTRrH9vkpUTusCv/ndhCi0aDypS3C6P04Nd0sPu1
-	 b2hUvWk7HZZb9F1ubsn0mBD8UFCc9ghIC5PeeAB4zvx/pCSptlzwaiRmee9eDH9p46TXP
-	 pL7eslPiRH5oYoiXOrZpwXB5Ww1L2GhorQbtByvSoGPUtTm21TY8u2gurmVN0+cnBZtBE
-	 HMzdlBc6g12xhyxsIsDraefHcnFdSVxYugFcKXy0zHBqx7ASptv7TTvPcPcS1oYd4zA==
+	t=1793201849;
+	b=WGKYU9bjL+RAPaYPeiX6hMov+7t34Tl6/R6o3ga1dp1jRfgepuzmKL1Vu45y4z2/ZPba
+	 iKbs1JCoGYs/qkXbZEyJnJhg0ZwSzqpuoJjTZ76y2FZ0LdG6Ma80kESSrxn/G19GPHm/Q
+	 w6XVBoLtoYRbTPyAvduOXxFBtgZDLgYYTRna5kl+E/B8AIN3jT5IHOglQ41ZQHfKylzIY
+	 JYgwTrE142JVohhm08UPWN04eNsCABuPkE06iWq+jfIndhpV1ImIUYRZw2jUHpOp39xcG
+	 GpDEFMViN+um/YvSlU4iHGJr5AuIppBniuyBcznYSpYqZ8RNhPtNamMl6IKx3/qvC5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201849;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Fq9/ZbxGeSdZK5dojfAPa2AhcCWSgbeBKgeWVMlcrI4=;
-	b=gH65Q0Lz5yd7QH7fHSxeNpJ4EhOY5TuQexJa8NCWWrhbpfTXxq+jiMIoLl3A4dLs2ZVw
-	 0q/m+5TLeV3C4ZiPI10gpmFrs4rKyitH4Qhjx8duAkjQh2Z8gWZp2UQoTXosbUCewHHN5
-	 ILOPnJ1dBchQ42MBBFo1gnojdiAotALgd6ol6HhgoxH6Fvjy2/qkma1RfY9gSmjJXIXTo
-	 npoXzlctHYJlZ6OAvxHAMwBaZiTykp5gbWeLudXuelwTLEJ858hjvaBuAtdGfdwClnkGT
-	 TLFTFhUAOprTO6X/iI3eVK3dKme4YiEpBqJABwJYUbOqxvuyhF12T98zzVp+h1DxVmw==
+	bh=Ilb5nIhABRrSIXyDdddoPETaFcO3MsjfQtX+kuQXRhQ=;
+	b=bY3/0HnuIO9t4ocnYqggQCox23+jIe+RlWbJGHP4Dd4q07b2SWglZjTaOwNaVGwJuNpl
+	 C+PZbi1g8GtfkkvPUVqXtm+OKVX9aQwCkiTbyEwcGCeg8qIQcyO6t5VY/ooVCO870zxLk
+	 larSaGwViN7CxPUfdyZJyQAcl6jQp/eqGCy4d1mfl2W3m9UkLbqWRLZLAU1PRd8Ozssqa
+	 57uj04AkjcRykMF/sOthLGEzZs8CC80WNTcyP+7ze3fO/wcGF1RBcAxP4/mMl+SpJTPC0
+	 Q42ixfKT0UKD0VqLCuBOa8/g2wjyEIPZCwnZXjeK2rIRgl9DZCjRwkFj3JlDZDO7Vzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v8rB88V9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vEsyO2xB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE337606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8ECC606A321
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v8rB88V9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368C51F01825;
-	Wed, 28 Oct 2026 15:37:25 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vEsyO2xB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A601F01825;
+	Wed, 28 Oct 2026 15:37:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201845;
-	bh=Fq9/ZbxGeSdZK5dojfAPa2AhcCWSgbeBKgeWVMlcrI4=;
+	s=korg; t=1793201848;
+	bh=Ilb5nIhABRrSIXyDdddoPETaFcO3MsjfQtX+kuQXRhQ=;
 	h=Subject:To:Cc:From:Date;
-	b=v8rB88V9mLD4uF1A3SEU1fCks9UyGG/9ZtlntIuwhINmO3nBrFcbJ4qNe8XzwSM2J
-	 U/1q3Ek+U4/pWptA1LxN7+MayiWWDQCib6O+4BqK6CyBB7lgZfeJSgnuvZTfNbHNb1
-	 UvZSg+kdjoWcej9Bq0aQe6qh+sZrE9mCHTR/I3wg=
-Subject: FAILED: patch "[PATCH] exec: cancel io_uring requests before de_thread()" failed to apply to 6.12-stable tree
+	b=vEsyO2xBwG3K2chjY2ckGMTx11gM/CLyaAKAqPfeHZkDo86XNqV6yqDfbks4jOvpO
+	 MBqmFJXLjdQP6v6fj9FnkzlD80FzqdA8WEYSzL3tOq3x37uLLkMjMGlBZh+kd48Gct
+	 FNaKSyHlBy4TNSiL7v/CJQvL9RvmyEd9u+xO83VA=
+Subject: FAILED: patch "[PATCH] exec: cancel io_uring requests before de_thread()" failed to apply to 6.18-stable tree
 To: brauner@kernel.org,axboe@kernel.dk,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 28 Oct 2026 16:37:19 +0100
-Message-ID: <2026102819-flick-landless-21e4@gregkh>
+Message-ID: <2026102819-underpay-angelic-b6e8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x b42c85c20d84ff3e4f0f027d6596c3b3b4a20657
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102819-flick-landless-21e4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102819-underpay-angelic-b6e8@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
