@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221479;
-	b=IBILB7u8LcxwZxFV9l75vV8rgSlDdbZliykRh81dQJstCn4HoNJWh5kgHy/MQR/n9/lB
-	 tkWGBKFaXAWPWfpX8AfTXHDEX3bWQpSdbXjrUWo644jjqR8Ob2i/ajY55WYThTbTGtiEI
-	 X7F3vvsxofaWNcaVqSndXC3QNODY0tQbok9KqYzH4fzeEtVKK6ACByJvamRaAe/tV8q2T
-	 zLIsP7j2HBmehoSH9iTYj/F+8YEloy4v5anvKs2RZ/l6eCbMJfVlaRy5kjL9sStcuDxvs
-	 /4kWBTS9DyCeq8Rf3ANoay0EmhW1hBMB98WtjaV97NfILkJrGAaW8pC6X9MyKnGqBkg==
+	t=1793221475;
+	b=Et5Osls77uBqni2A5Fc5FVbJy7+CNqT1h7T9Nx6KvXEaxGqc57UDerJWx8a7plYiNTeB
+	 W2LJIFLqo7yJkRGJTH6aYLTmEMecRLGVvwT5jXFsHDVnKZbDA9amsZmt41R80egmvOxVp
+	 D9v0B9jVP6f3UlgnFC/z75CEwSv35vD+kYHT7AG7BxAOU+S96JrJ81p39E2F7cFws3u5Q
+	 y67jCdpiYYjjIThjgU5CdCyxmGG8T9/AsmKEnUokNvvhz8pr/5hZloTaftjam8cXio2GN
+	 u0baOZxTMTCgsQXuDlGCadFEDprf+np/gzABCsE6blSr+VhpzNbgz4fzP/zRvgMz2eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221475;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oQwsM2rcPDHhwHT3K1yRL1U746MXjbnYf7N8fosDrhs=;
-	b=WlHqwITqlPi8rDBhWRm5qbC9g4ATILbsACCjrqFyFnYAYSE6WJYD37FhhzbAVTvL7ay3
-	 48sujPi/qG5HhNQyATZi21WebmPD23IhaiUNNY5NpzDZe5A+UYQLTclRwNvUr/uICPtFT
-	 9TcRmy/emQKTRdBbJHglkydHnzqe7KK7LCJiYFyyH8ZIyTNsZKq3BazWSjJrpPzgoFLHR
-	 xAsP5oFufn6CcM75XziHUDTEpu/x0yU6GMWZthVlXaM91G3UljI+EynUg3JG4AScH3PgW
-	 3XnkTBo7ek4iNte5eH8N2h7pYupuOs29VQTHuipDb9Ay4MMVL0F1j7AtMJInt3Z94nQ==
+	bh=EMYPMS5FO1bwNUoeczH2HUUreu/6T5PLlD+DKwBPIWo=;
+	b=b4WO29l5q8ZtUldMnnZ5gZhUS2gr9cBL5LCnPvHezDifYwoGRkEOjkG1Klu+COjZzQEU
+	 rtosJWgIdXfLuEjEpgZHIuhbVU4zuXk6mkqYy4wtFTFQP48lXCY4OuRyfKt8YZZZrLFOr
+	 /4hs2OFI4SaWI/+i+UYnkqKbeC3aJOZELB5sCH1tGkF0TRGQ4oIl69VN8doeAXzcloXvd
+	 u8yAqJ2bX0eBlHlfZCajNtHsN1VSp0nT5y0d0/us8FuGtrTwvV4TQjVf8Rm98Vd6Ftwij
+	 cbhp9iBeR8V/rzILflUsROSrO/gJLggm76xfBc16Php/w2PAZu6nEForKHy2CMMg9pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJcONwNa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5jGn2Uy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CBF606A323;
-	Wed, 28 Oct 2026 21:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7AF606A31C;
+	Wed, 28 Oct 2026 21:04:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJcONwNa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDBF1F031E6;
-	Wed, 28 Oct 2026 21:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5jGn2Uy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CEF51F01825;
+	Wed, 28 Oct 2026 21:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793221479;
-	bh=oQwsM2rcPDHhwHT3K1yRL1U746MXjbnYf7N8fosDrhs=;
+	s=k20260515; t=1793221474;
+	bh=EMYPMS5FO1bwNUoeczH2HUUreu/6T5PLlD+DKwBPIWo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mJcONwNaqBgDRYLbpV3KhPrN0oev0u22XJQN4UoeFaMtKr/d2cyZNIRvIsk5HNd0n
-	 t7lhcAkTmcqjsaVH1xSz4e3LZMmyvDF9n010/J47kPQYxCN/LrjbPAbaI3UHaaLhpd
-	 s2IFZzyR5DBLqSX3DyjRcRgH/YkzyTQmpeuxWUZ7AfPRxHjrokTY1odvLGr3f6/8Hn
-	 tviCrdi3+srbyf1lYnz3qk1e3+2voZUGQWZGRyhOjRZfr9hDK9Ra7Q2y9psKRmXYHW
-	 hSP7oMdtkgZ5yW5k3ADwub0TF7pT10Jo7YZq/tntLaDfIep2Vfz/i4ruJtcCt5D+M4
-	 +sX9WBrqQpyyw==
+	b=T5jGn2UyEkA8BDqyiSluS0fW9XUoYBNbIWU+LwRgRzxntOVRER+isjJrvyeJ5dOiK
+	 SV9tSi2musBQcoaACMjgljbKfviy+euPxbf9Y3Env5gf+/NqRQRLdSLbPT5+LYN945
+	 MvQVyuyb/FlomK4m4CKdnOe0fxy+U0wTcYFoCF4KGwRJBtCse14MGp/t1ATD4KX1ap
+	 gBTY9yFUdakNV9SUs8xW5lZ65Esg0gEBv7GxSTCB0StvHR0Sax5YXthBsHp1MqSfdK
+	 lWoKZgPlkrJFf6GCG3nmGpq1RjPhOCvqga5UDm7tln+CGgwbr1dLMZk031giQTndjm
+	 LrQvK6jOQcToA==
 From: Sasha Levin <sashal@kernel.org>
-To: Peixin Xie <peixin.xie@linux.spacemit.com>
-Cc: linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	rafael.j.wysocki@intel.com,
-	rafael@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] ACPI: scan: Defer device power initialization
-Date: Wed, 28 Oct 2026 17:04:37 -0400
-Message-ID: <20261028210437.2386175-1-sashal@kernel.org>
+To: Aviv Bakal <avivb@amazon.com>
+Cc: patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	robin.murphy@arm.com,
+	ilkka@os.amperecomputing.com,
+	will@kernel.org,
+	mark.rutland@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18] perf/arm-cmn: Add workarounds for CMN-S3 on Graviton5
+Date: Wed, 28 Oct 2026 17:04:32 -0400
+Message-ID: <20261028210432.2386109-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022093158.739937-1-peixin.xie@linux.spacemit.com>
-References: <20261019135441.1420968-273-sashal@kernel.org> <20261022093158.739937-1-peixin.xie@linux.spacemit.com>
+In-Reply-To: <179250706537.3484860.18363532452101434862@amazon.com>
+References: <20261019135441.1420968-1-sashal@kernel.org> <20261019135441.1420968-145-sashal@kernel.org> <179250706537.3484860.18363532452101434862@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,13 +67,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 05:31:58PM +0800, Peixin Xie wrote:
->Please drop this from AUTOSEL for all targeted stable branches.
->
->This patch has been reverted. And Rafael has started a new thread to
->discuss a replacement fix.
+On Tue, Oct 20, 2026 at 05:37:45PM +0300, Aviv Bakal wrote:
+>Please drop this from AUTOSEL -- it's new-silicon enablement, and its
+>parent commit 56603c28d916 isn't in 6.18.y, so the static_assert in
+>arm-cmn.c would fail.
 
-Dropped from all trees, thanks.
+Dropped, thanks.
 
 -- 
 Thanks,
