@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150406;
-	b=5OxjsUjLjPgRXeGtSNIgUD7ZTjNgJeKfTRm0IMq9JrAXECj+rqe4S3e47ku7pAnYQLyt
-	 S5Xxoc6nFulMj9pmsMnRPJJF1TzahAwWwVptvylHxwXNVz05/QCx0UDXOUcdUBAGkhoe+
-	 G3hqLhkEe83VS/28bTGkZW9WvnQxAKw9cZMGc9OTEo21qK3INNow3ajUgJeCejrwCet7Q
-	 HNBsxvrTEU2jRkMv4M9ZjUufoUkuBVQy5DBl0SXNh5nLWKqPnY6LofYJFRHZK43WccpD7
-	 Xz92gccZhL/MCc6NBF3Vojc4ukwLuV6PLfWcTZqa4/JOrQsG3/LB6YIQI4E+yDYYurA==
+	t=1793150785;
+	b=vvlQJLigXI+Y6HuRhnzZt01m43M0j2E5QabLBvMSs6mx+LF7CU/21qFu6mkAwmrYrwre
+	 umgtjwfMYNoMeYZsI3WlgF3fBZwY0Rn2LxbTL5L/tiRpwqUE1IEjUlA+/jzbeTo4o8alY
+	 7W7OyDyV4HgtDF0kg5D73V33H55e7DGd0IqlCbTo3F7yRqIZ9vuD22mkEm8QWPGlHzLu+
+	 GpvXALqkj49y6nHY610MQ4JAg1uZMxbHkG53LaBb3Aqu1+hOu0ipDc3KaJiVcTr8x5WXi
+	 51mIeLrS+SyRe2QWT2UW3vTv5SVEOMWuCEGRfBfIEDIpIwS8894CxzaUHy6/VLxRDGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150406;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150785;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aLduANwv1S0zzwppHfmO8Zkbjseh7UvsZ5j1k5QDDg4=;
-	b=j5gS/1MTgM6rU2Edea/zlC/wuw1WXTTkhreq9/BRI24v6f68AqCiKm644Xm+iVpVhdos
-	 XhDXyUSYIsxRYUDdy+Fgq3OnllvKWuNSZoqmkPnpzXaYMMm91zwCiy/xUXRM6/s2INg4m
-	 xuWnk5K15/GMtod1uVlqhYc4SdYk9b/AdoHbttte9sivP94enJg3Gfg46B+E63OrhLzB2
-	 TMDpo+LSSbY2ViwKwQnm0y9E/vsBL5BYK7T2y1vPPdJ9iCM9A/88j0VEuUMlSYMI1UHKq
-	 UsEUteAI+aZ2htS1EXv6NWwRUVo7zWlu2RYA292tX560ymFqLjH0s9eugvunKZYSPJQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
+	b=inYruHOirpDqBrEm6JHYN9a+REEVMQvhdSlrMH7V+3N4xMfuCh+VzJxK8fb7UX9fvktr
+	 /1IxQZh0ACv4uCTtlw2lFIEIHdjfU0jHhGbLG3CtI+5/WWWIPu9nF2yBW6p6qO1yHIZEW
+	 ybntFz+s/bxld8tWEuS6TwGlGGDooIrteIQdx32mQfgEJ/iY9eRHDM0AbEwxXNty1qbbp
+	 8eqs9PspoQZAQ5BaKvajcr12WhF5U5xZgDAzPovemcmTCmV3UNzMNH9lKW/YDm8kDIEKN
+	 NuCM9EYm/jR0NjrsnNcxAdkmHVwC/atWYxJo7rowCnsofYbuQLxktYPoUMgnRbB5eXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYuptatW;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wD6nmJjk;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3562A606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3562A606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AED9606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AED9606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYuptatW
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso245323b3a.3
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 18:20:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wD6nmJjk
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so5119335e9.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 18:26:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793150405; x=1793755205; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793150783; x=1793755583; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aLduANwv1S0zzwppHfmO8Zkbjseh7UvsZ5j1k5QDDg4=;
-        b=cYuptatWk3AIwuv9NVY3j83Ne4A61NfgI8j3FYTY6xXx/cFjxGfsLVtWCjrLpzKhWp
-         25pnxHwRFPtQANPLPSGH6YnFdmPfUI1ByFIlZWoMnzHMztZ/lVvNe2lFch8ihM/BdsN6
-         FNlOmF2TkRk+aBvX4uxxQfIaYJXgRnzmG2F5ajawitg5FWu9W7dR7yTKR7GC+WqhGEZT
-         ETGOsO4n+ZVDpYbADgdtN5+dXKuTPl6KIeqfT6ijS9xdocn4JqhBpSZVnQixv+DE98XD
-         ARMp0gSsgVtXbopws1pGy8qq5vbCPhsXYbXHbbAywwhPtySTAYQULmVzvZ3pHY3rdMA8
-         oJ4g==
+        bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
+        b=wD6nmJjkfOYRuScAAjWuroVnw8/yb8cS2myqAQz8AU6cn6hJkgnYxaQpjxl6D9mRMJ
+         ZcFMgRHJ5n73SPLY5hE3oPlainPIQ32aabs5/Mxinv4xNdV0R/0GdT810Kwqc9Wy/EnQ
+         qrMdqyCIlZXQ+Rux1I0L6w7iCGx6F7GJGDyF7v9+KHClhIml6bdDHOIBYwd3mJhMybRo
+         zOIVMSncRPdj2Na19D+2eikNW36sXxRY/PmjRoU1FI9D299oP4KeSoVGJa3t8mtHK8cc
+         E9J6Oj1RDgUTrpn8i3Pnmg/qojF1p5V0l2cjZOyAKigv9Z0dMRnemAUvzY9fLpGiM58T
+         bY6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793150405; x=1793755205;
+        d=1e100.net; s=20260707; t=1793150783; x=1793755583;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aLduANwv1S0zzwppHfmO8Zkbjseh7UvsZ5j1k5QDDg4=;
-        b=Zt6mOncChWDMOKeCEye90gfpLDuS8SJf6AR2gPlT819ygHjW+mANeKXQ91A8/c5Ywn
-         pX+wN3Koyz8Hau1DIAxKrekRqbY/RBa66nPjkFo6Q0t3hMZWx0/SMg0VAGkU5jNaHpAL
-         WwVu60gFRRIpdVNf2PMiq7eu8XJO14wxpriGfZWpSe/iSxVng7CY8hj4hxmH7X33vpSN
-         q6ZaFbh4YFflBVJy758sqxOv5XRye34FCPN8kGE5EWHU64VAsS1G5916wB4DbLpImdyI
-         Gfh9p/yFMHMppgxcBG2MSUf1dRtBYIUgdLm5vMCaT33Fwa/TRdx4zqEr7cemikSvwiXs
-         uVbQ==
-X-Gm-Message-State: AFq9FYKC7CBN3PgXKBkJf4GbozQD2TnTPONhFQNBaDqlQT7FbBarIExg
-	+zWQDREhlpx331TPlcbEdTlzMVQ6/TII1wxMYoH4hxXGqCw5GsmKQDL8
-X-Gm-Gg: AYBFou2Dgc0rcKy6eaSzcGHq4GysYatAOO1MoKJ6TQJVFJFwk/LSmic5VFlzu4e048t
-	49Zr6FQ72x6MGFpJ9ySxwtIfoWbhl6f0k6zG1p1jY+jtdkfC/NpKzJxbxw2dHWGVLsMKz2570UO
-	xjhqlQwLPH6kARA+xZaOFXlpj0WaULGCVM0KFK3Q8e3jwD4NdSt99O+rKsZg267Lf5NLTyVoYcn
-	yV5tzZzfsrnmJYpsUH5V7If2k1KaIIAc0GOYY742S0XM/OmeFv9qqsaq4YelG2+xZgNGTkwYI5z
-	oeODnkWJXDwDmqU3cJrcBCeAEq2gfwkO0JJhG/BZje6AL/AHaWkxraoKta509x4Y6tnU8hQbP3p
-	WY5pysT2m0KPhNih/v3MuxIvHk+nVlY7dukIEwmnKzJ06AsL+t93vww6OMuqcDIM8bAAiXQYUA+
-	5pFHS09CqGnatCa6WTgSsydonVFsnXaZHx3TzRreEc2CtiJ67gjD0uCxRvPIyOXgUIa2CLGB0HF
-	nhYEN492w8xyLGSh5I+zaVh5ZTm8vpeHBXIe5s0eTPzB0z1GJncF1kuVr1p8CXFRPvvM+CG1idf
-	BXHjkaSEKxKwTRnsGuEPZa3CJswHDuK+Do1XfLB7Pkn/fgWaJg==
-X-Received: by 2002:a05:6300:49c:b0:3dd:a197:735a with SMTP id adf61e73a8af0-3e902392eddmr613544637.51.1793150405474;
-        Tue, 27 Oct 2026 18:20:05 -0700 (PDT)
-Received: from localhost ([182.216.53.174])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc8f97esm3272997a12.19.2026.10.27.18.20.04
+        bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
+        b=sFFxeNfWp+yBMuLqu5VONp5u+vwGfUTgnyj4TZVtvLXeDo67lqMJZZGhibuz+34Jh3
+         ip8eBvs1eAMPSo4C0lcZqEVYBTMkOAEpd6cScgZRODdvduJ/g+eIoTI9RnpIxtv2QUTo
+         EmqOoGp4dub9sJROb9UfYPT9FuzvHi7R23Bn7gxmrzD49dBAHfQQzYBAVeH+f/IiAWZ5
+         91BhX5lUPaB2AQ6KsfnLIpb04Zs2e6T4hZb+DOlWXBiyju32pEdy+f5kAg/fMdV/3NeV
+         7Es+05KqAD33kUaha23j2rJ9OBa2hDK3Bz6uTha5YHuTztPIbXDYMWkQyVv+TpivHQiE
+         nIEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxts0/agNy/xYxnLH3xB5TsU0BG3gA6NZhNjgSEpe3iPcXIEQn+akJ3sM27tOoU/E1Fq5ouWoU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoZD6UttUwy0ekQAdFpHoL2hdcDW2q/Z7mohkfATvAnJ3if8Fj
+	bVfehqGQr3aPd2sFNy8ww0cc7v2lKRC4//41WkGxKKXL1ZFF1EJZInw=
+X-Gm-Gg: AYBFou0idOinkrWOvHj4XVwVmTYhbZbgAGrIjGNlHyr/IzNLWGhfJZJvzIeHFrm1+p+
+	MgTNihzIxN4UDKTp8vOok2wu4LPsWpEEmIhSWQvcPeq1OAq3nvoo3vfrVr5xoBTsYlcw7LFVGhd
+	RK+0TeAZoi8v68u4HJA3T/hiw1Bi9xNz1LogU2vnlS/hxSaLQi1JJc9Ig0wZzpXmtSc56Z0yhX+
+	U59zFkqyYzGITh0s6t+/IvvamJ2McWWcp5wSVnT0K0pr7rUGzTGYBX6rx4YwzwDk1vfXdfLov6e
+	yD50zAFKHqS4e4DXwTpR7gUse0dWc6nEDOX9xviWhdIWKqvusp9tyLB2CPvdvaFXv3J7Pag3Z+j
+	U58jYVF3L+RPRG6N5jPUIPhTZaqtlbxnf+5izhyj1ip7M9vzw71y2pHmeCqz447CKXB6SF1yM4D
+	aL+bT8alyBikmn8uLb1q0+EkN700x0bxyNm/RwEtDSAf4xrt0f1koNbjTpE/5wGYo8r02+MMuBX
+	jp4oQmDFKAmdEhiX3nMCMAk8J8XbRu+hxPxfpyqqsSJWROreAZXoB7zPzAWnG0Wn1LB27OUcfzE
+	aqE2rzGMSO8=
+X-Received: by 2002:a05:600c:190a:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4a966586d1bmr13640805e9.12.1793150783182;
+        Tue, 27 Oct 2026 18:26:23 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c9f150fsm7935155e9.10.2026.10.27.18.26.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 18:20:04 -0700 (PDT)
-From: Jaewon Jung <jaewon8868@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: stable@vger.kernel.org,
+        Tue, 27 Oct 2026 18:26:22 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Jeff Chen <jeff.chen_1@nxp.com>,
+	linux-wireless@vger.kernel.org
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v2] selftests/ftrace: Add missing spaces after ! in probe syntax tests
-Date: Wed, 28 Oct 2026 10:18:49 +0900
-Message-ID: <20261028011923.2050009-1-jaewon8868@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261025075044.1750113-1-jaewon8868@gmail.com>
-References: <20261025075044.1750113-1-jaewon8868@gmail.com>
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 wireless] wifi: nxpwifi: validate scan response TLV sizes before indexed access
+Date: Wed, 28 Oct 2026 01:26:20 +0000
+Message-ID: <20261028012620.3762590-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261025181531.3744345-1-tristan@talencesecurity.com>
+References: <20261025181531.3744345-1-tristan@talencesecurity.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,58 +104,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the missing space between ! and grep. Otherwise, the shell tries
-to run !grep and reports "!grep: not found". This always skips the
-conditional checks without checking for kernel return probe argument
-support.
+The scan response handler indexes into TSF and channel-band TLV arrays
+using a loop counter derived from the number of BSS entries, but never
+checks whether the TLV data is large enough. A firmware response with
+fewer TLV entries than BSS entries leads to reads past the TLV buffer.
 
-Fixes: 25f00e40ce79 ("tracing/probes: Support $argN in return probe (kprobe and fprobe)")
+Add bounds checks that verify each indexed access falls within the
+TLV's declared length before dereferencing.
+
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
 Changes in v2:
-- Add Fixes, Cc stable and Acked-by tags as suggested by Masami.
+  - Fix From:/Signed-off-by: email mismatch.
+  - Add missing Cc: recipients (Francesco Dolcini).
+  - No code changes.
 
- .../selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc  | 4 ++--
- .../selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc    | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/wireless/nxp/nxpwifi/scan.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc b/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc
-index 384209968325..70751573e8de 100644
---- a/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc
-+++ b/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc
-@@ -33,7 +33,7 @@ check_error 'f vfs_read ^$stack10000'	# BAD_STACK_NUM
+diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
+index 67d7ff2f10c59..a8d3387320af4 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/scan.c
++++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
+@@ -1999,12 +1999,22 @@ int nxpwifi_ret_802_11_scan(struct nxpwifi_private *priv,
+ 		 * was received.
+ 		 */
+ 		if (tsf_tlv)
+-			memcpy(&fw_tsf, &tsf_tlv->tsf_data[idx * TSF_DATA_SIZE],
+-			       sizeof(fw_tsf));
++			if ((idx + 1) * TSF_DATA_SIZE <=
++			    le16_to_cpu(tsf_tlv->header.len))
++				memcpy(&fw_tsf,
++				       &tsf_tlv->tsf_data[idx *
++							  TSF_DATA_SIZE],
++				       sizeof(fw_tsf));
  
- check_error 'f vfs_read ^$arg10000'	# BAD_ARG_NUM
- 
--if !grep -q 'kernel return probes support:' README; then
-+if ! grep -q 'kernel return probes support:' README; then
- check_error 'f vfs_read $retval ^$arg1' # BAD_VAR
- fi
- check_error 'f vfs_read ^$none_var'	# BAD_VAR
-@@ -100,7 +100,7 @@ if grep -q "<argname>" README; then
- check_error 'f vfs_read args=^$arg*'		# BAD_VAR_ARGS
- check_error 'f vfs_read +0(^$arg*)'		# BAD_VAR_ARGS
- check_error 'f vfs_read $arg* ^$arg*'		# DOUBLE_ARGS
--if !grep -q 'kernel return probes support:' README; then
-+if ! grep -q 'kernel return probes support:' README; then
- check_error 'f vfs_read%return ^$arg*'		# NOFENTRY_ARGS
- fi
- check_error 'f vfs_read ^hoge'			# NO_BTFARG
-diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc
-index b0e6b80ccb01..06efa67e01ff 100644
---- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc
-+++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc
-@@ -108,7 +108,7 @@ if grep -q "<argname>" README; then
- check_error 'p vfs_read args=^$arg*'		# BAD_VAR_ARGS
- check_error 'p vfs_read +0(^$arg*)'		# BAD_VAR_ARGS
- check_error 'p vfs_read $arg* ^$arg*'		# DOUBLE_ARGS
--if !grep -q 'kernel return probes support:' README; then
-+if ! grep -q 'kernel return probes support:' README; then
- check_error 'r vfs_read ^$arg*'			# NOFENTRY_ARGS
- fi
- check_error 'p vfs_read+20 ^$arg*'		# NOFENTRY_ARGS
+ 		if (chan_band_tlv) {
+-			chan_band = &chan_band_tlv->chan_band_param[idx];
+-			radio_type = &chan_band->radio_type;
++			if ((idx + 1) * sizeof(*chan_band) <=
++			    le16_to_cpu(chan_band_tlv->header.len)) {
++				chan_band =
++					&chan_band_tlv->chan_band_param[idx];
++				radio_type = &chan_band->radio_type;
++			} else {
++				radio_type = NULL;
++			}
+ 		} else {
+ 			radio_type = NULL;
+ 		}
 -- 
-2.43.0
+2.47.3
 
