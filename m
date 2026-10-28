@@ -1,57 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209751;
-	b=a2vTOqAFo+0WqTS5RM39E6oQD7T+ocMF/hd9ziOIf3MEpaLKWgmSSjYkw3IbCdxqyCYq
-	 9hq3Hn526OHD8bgGwk84sHDk8hKY5edqZixWsihx3ArtVGM/RdFo7GXAgjQkOBU4tOWKv
-	 qNmI7n1o2LXQNhQpEM8jPIDcp3FFrSNWISnV4ZV2ZTvqsDTUvbUWUiF3omlKtcyNXUouN
-	 sSHHoaZdulXUHRbAfYxtQ9vYzvRjVlbuU7anlFuf947JHM4HD8skQCY0pPIbT+kKaH3oY
-	 x1mi2RZ4FpnoP9in+qt+xtwMrZ0WDHMdmo/fxhHhpS0hiq0ScC9teT69liKn9sas/Mw==
+	t=1793209756;
+	b=d5dsC406lrErosQ2zdXLvG8vBhSgm52rClPFOzOF29o0f9Rt7S4B9egKyzf3s8UbOxrG
+	 /wn0jc0v76nxzFlmKPxfOKKN+88QCiMr7za3e3zybubvmeSaxNAkIJbxjRf31GDBoHUNl
+	 FK/LYXvk4hSlaQEDoQk/sGl2eyZhzEl6gJgQqtccHXUqoiRY12ELr+y8Lj598L80NzFYy
+	 BdlO7VM6N4qvkYDwZinhGsAxFb8qTLKbF6INEcdMZERLISCfixtyCoRIT+aY2dc2tMtkG
+	 px7ogdzrFAML3gqk+QaZRjjpyPNwjy9odtkRtlRB+bay/WF28fykAq5/mzI3LMI7jNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209751;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pW9eO/v1tb4qkYIKMmRIL5Bm3ASG5/6m4HbXbCswpXQ=;
-	b=ENWPolCOdw78b1aPa18i9ShRD3vW5f9QSLr7Mchl8NikssIX/SIFlnRPbg8LzQsMznCD
-	 PfDUhEnMLMOY9+d7NNs7UUfOMTIbrxKBQvrJqnBlIockrQdL9GtXFcvzJJjHg1hZ/b0k+
-	 Gft7TccrC6dEOr85CiKteKhMeJ3mSJpHEob8qw+//t657rUi0BsUrFgJrCrdfHo+iIRip
-	 E4Yto5NaqxerlOHQe6bBe1dTHitpw54W5FGM/rigjHIuOJ3hadL+UXCVl1dN+rvyy1mwo
-	 a2N37uurjNWGI2VvV7CQTljVcR4YdqLZ9KnzF4VkIKnwUbX0/9UMoC7nM5fSI18o8eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209756;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=1PuETIDmWaDFPuxKiqzCWt0cjAowQ4XGmIMamrsovLc=;
+	b=DVQXVnowTcvm84NkvB/sja8TkrvfE0nnL0c5aUAR0lkMtCrr4ONMhsj0EaUqF5QRJF0m
+	 +ejhM9EYbjmnzZx8jn3ySk19oz2+Y7WmI8IzC4J6HZqSRK6ZCCdX2XMUVVJWqA38wFzcA
+	 DBjpQqDg8vNvf7pUOWy/xzzBzCkXPdu3nwjQN+N1rKJN4ZNLxvyt3j7beV02gA8OwHNHV
+	 adiT0TVef/T0ahVt4R3gJEN4IAcstM9WcjxLMdb1qIUtP7oVxJmYNaYg1112TBtvfKK7y
+	 GuZrdtK84m2I4+znp7hty8/9tQxZAKj6bpWj7pV/JcwYx5NAD8SmN9IFxnjAKh+0o5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cyv7xqrN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IsTbZULv;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFCB606A31A;
-	Wed, 28 Oct 2026 17:49:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152C7606A324
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 152C7606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cyv7xqrN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD101F01825;
-	Wed, 28 Oct 2026 17:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793209750;
-	bh=pW9eO/v1tb4qkYIKMmRIL5Bm3ASG5/6m4HbXbCswpXQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cyv7xqrNgCDHWXudofAH7nqqK04VaUC4benwiFnYAubFiazYH2GDM3OCOeihEF7+W
-	 w4lh74LS9isNDdmR3BEH6Wb8+J/4Jpi6by5Uj5Su8BVT1rWOA35HKT9rFk5OiydQ6I
-	 Ha0uVK130H10zJWqxpZK2osmLcYsTgs0HizTLZbE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 6.18 064/109] io_uring/register: dont wrap 32b CQEs when resizing
-Date: Wed, 28 Oct 2026 18:00:48 +0100
-Message-ID: <20261028165943.866232834@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165942.357251485@linuxfoundation.org>
-References: <20261028165942.357251485@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IsTbZULv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793209755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1PuETIDmWaDFPuxKiqzCWt0cjAowQ4XGmIMamrsovLc=;
+	b=IsTbZULvJpBz+1zRQBn+xMcfHddl/gofRiwDWBzB2YPlj+eWWvqh5dfHjNN6QMuyBB9T2/
+	4eoabzjRbtRM5zrsLuZEPyz7EIkTyLmYrDf80151iwYRPcxNgrU0B+EUwfc0vJ+MqFrRsH
+	Bu5J9mblepvXgUgVczK5ADjr5RM5DE8=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-ehdSPHajM5mt-_rfjsYIMA-1; Wed,
+ 28 Oct 2026 13:49:04 -0400
+X-MC-Unique: ehdSPHajM5mt-_rfjsYIMA-1
+X-Mimecast-MFC-AGG-ID: ehdSPHajM5mt-_rfjsYIMA_1793209742
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 426FD19772F3;
+	Wed, 28 Oct 2026 17:48:57 +0000 (UTC)
+Received: from [100.90.222.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6B3A71803A7A;
+	Wed, 28 Oct 2026 17:48:54 +0000 (UTC)
+Message-ID: <d4214249-5ec0-4600-91be-13632b180425@redhat.com>
+Date: Wed, 28 Oct 2026 18:48:51 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,78 +71,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
+ commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO
+ cache")
+To: Sean Christopherson <seanjc@google.com>,
+ Sami Farin <lkml20261027@mifar.in>, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org,
+ kimjw04271234@gmail.com, stable@vger.kernel.org
+References: <2026102314-CVE-2026-99082-e5b1@gregkh>
+ <20261027124140.upuow4a3kv6kssvn@m.mifar.in> <auIy4UZMGxLhBCAn@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Content-Language: en-US
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ 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
+In-Reply-To: <auIy4UZMGxLhBCAn@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On 10/28/26 18:37, Sean Christopherson wrote:
+>> However, address space 0 and address space 1 maintain separate 
+generation counters
+>> starting from 0.
 
-------------------
+This is also incorrect:
 
-From: Josef Bacik <josef@toxicpanda.com>
+         for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
+                 for (j = 0; j < 2; j++) {
+                         slots = &kvm->__memslots[i][j];
 
-Commit 0edf1930b8ed3c398d3cbdbafd8f72dbd1a3d9e4 upstream.
+                         atomic_long_set(&slots->last_used_slot, 
+(unsigned long)NULL);
+                         slots->hva_tree = RB_ROOT_CACHED;
+                         slots->gfn_tree = RB_ROOT;
+                         hash_init(slots->id_hash);
+                         slots->node_idx = j;
 
-On an IORING_SETUP_CQE_MIXED ring, a 32b CQE uses two contiguous CQ
-entries and is never allowed to wrap the end of the ring. When posting,
-io_cqe_cache_refill() inserts a dummy IORING_CQE_F_SKIP entry if only
-one entry is left before the ring wraps, and the application relies on
-that to read a 32b CQE as one contiguous 32 byte slot.
+                         /* Generations must be different for each 
+address space. */
+                         slots->generation = i;
+                 }
 
-io_register_resize_rings() copies pending CQEs to the new ring one 16b
-entry at a time, placing entry i at i & (new_entries - 1). When the CQ
-ring is shrunk, a pending 32b CQE that was contiguous in the old ring
-can land with its first half on the last entry of the new ring and its
-second half on entry 0. For example, with 8 old entries, 4 new entries
-and a 32b CQE at index 3, the halves end up at entries 3 and 0. The
-application then reads the extra data of that CQE from past the end of
-the CQ array, and the CQE content it sees is wrong.
 
-This was found by code inspection and has not been reproduced.
+>>          An MMIO access cached in SMM (e.g., GFN 0xFED40000 with gen = 4) matches in normal mode where gen is also 4.
+> Hmm, this isn't adding up for me.  It should be impossible for the generation to
+> be '4' for SMM, because SMM is supposed to use odd-numbered generations.  From
+> kvm_swap_active_memslots():
 
-Fix by failing the resize with -EOVERFLOW if a pending 32b CQE would
-wrap the new ring, the same way the resize fails when the pending CQEs
-don't fit.
+vcpu_cache_mmio_info() does not use the address space id:
 
-Fixes: e26dca67fde1 ("io_uring: add support for IORING_SETUP_CQE_MIXED")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-25-c1556f5d7bf5@toxicpanda.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- io_uring/register.c |   16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+         u64 gen = kvm_memslots(vcpu->kvm)->generation;
 
---- a/io_uring/register.c
-+++ b/io_uring/register.c
-@@ -406,6 +406,7 @@ static int io_register_resize_rings(stru
- 	size_t size, sq_array_offset;
- 	unsigned i, tail, old_head;
- 	struct io_uring_params p;
-+	bool cqe32_tail = false;
- 	int ret;
- 
- 	/* limited to DEFER_TASKRUN for now */
-@@ -558,6 +559,21 @@ overflow:
- 			src_mask = (ctx->cq_entries << 1) - 1;
- 			dst_mask = (p.cq_entries << 1) - 1;
- 		}
-+		/*
-+		 * A 32b CQE on a CQE_MIXED ring takes two contiguous entries
-+		 * and must not wrap. A smaller ring may place it on the last
-+		 * entry, fail the resize if that happens.
-+		 */
-+		if (ctx->flags & IORING_SETUP_CQE_MIXED) {
-+			if (cqe32_tail) {
-+				cqe32_tail = false;
-+			} else if (READ_ONCE(o.rings->cqes[index & src_mask].flags) &
-+				   IORING_CQE_F_32) {
-+				if ((index & dst_mask) == dst_mask)
-+					goto overflow;
-+				cqe32_tail = true;
-+			}
-+		}
- 		memcpy(&n.rings->cqes[index & dst_mask], &o.rings->cqes[index & src_mask], cq_size);
- 	}
- 	WRITE_ONCE(n.rings->cq.head, old_head);
+Will send a patch soon.
 
+Paolo
 
