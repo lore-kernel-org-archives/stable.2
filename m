@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212533;
-	b=GWI50j036i87iHGpHMq+7B1kF87Fa9a/NfvvmoLXH/7HE6dcA+y9iZYIX3J8BR8J+Pgg
-	 G5rVPZLrHA6cqHPMZelzCTOCdB0LG9mZ4+QDJmZFo5zSqft6yvGedVCLw9l2NCV/h6vWP
-	 wIN1tFFt4dBxDrCc3PBy81qmzinntIHKIOuLiz4fgBrQQaYf4NRymYQ+AT02JNoiLAvik
-	 90tNRqo2v8EVbJQbqvSYrHSVL33zAfXUWoC9/S0CvA3b5NXuPIGW0nzokFiObFi0kmxqK
-	 gfG7S6Ur8BR+sObE2RSIn6+1ertPQDZZb9DGrAd6dUiFoNlUAX6klamjbmai2VCguqQ==
+	t=1793212535;
+	b=oEIuhDCBzbKqrY6qF5T0wkZLeEjy7gEq+J6onY97CgWaQC6B3YS1ROUC+W9amPP1PSOS
+	 LBWGc7hFB+2BhBfDnL+wCLWtc4a3SFqVxx+ydonhe2aJz6JIN1+nbbW5e3s8Bk0tPWLEs
+	 KVmbuJjaHX+TIWz5F2vku3SWdEWI+5T5pTllV2eosD3b69N4T5fFUGNMdqLPrDxlCPJSI
+	 5mM4Ee4wqQ+Q+vb8VAJvwIphtV+Gh3r7E3zHA78U+UdxIj9BhINv40qqNCwkOyYhmZXHV
+	 lkFLe/0tE0ShK2rdtpHjSiiCsDsl0QP96eCcc+N/6AROD8/7PJZngneSkVJexyGtkhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212535;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jP8LvkG3gW1Nuogkrfz/zYbYDOUb2bY4HOSxrA6h7PY=;
-	b=ATgfvE71Wr3ugiYK3WAhGd08hPwRxIx6L1Q/umGCSBpZI3P/NjA9fdCHW7+cGwvuZltT
-	 6+MLY2K6it7S/FF8jmhVhlAgvJL1f3VEh4e+J4bt2rj8nhqGwrwrZZ3Gxrwjmps6Hzg0l
-	 wyGAnwWeaIJpSJ6qbdkFIyMLBQf6UitQyS9MGvj7OquZl2MF2GvvyU9dKYDObwo5Ogvzq
-	 WpaN1KhOX9QQ6Nj0zF8Y3V1CqIYww48t+cg6u3PUbsLIcRA3Pyc3GlDudY0B/3ZsDMjy+
-	 FCNzUnbU9dW/8sQSmLMv19jiEypwb+2Rh+99zylcMSgZ8NG1VlZ7+Yle3GkI/HdozfA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Mr9cTvzp2DJzq4e+c1cnIXzYdS0FNBwPXrbs/G1Zbyw=;
+	b=YYM5kI45t/Mb1qgVYKPORTDSAwof2UfjvYP9obL9XcMrq5BkEp9JKhqgQKiOtwln+X2q
+	 64n2eAXPDVZ0p2x7NSwtyiuEI8uwWfOibi8+PBL89VOSnOgIw0c6RLJ01d98fS/SbcvsH
+	 eAKVhU2y/Tc+TqJtAj+qZtPM9t/5fcUKHHRDrjA0mzuz1ysWUS/P6WJWGK3XLlkA7+ALZ
+	 CP8k2WLPvianJ8PpLTc/shZ1bcoNwfjB5GcAUZDOcnuhaw5AYrSNGtaLdXI2fojhCiYkt
+	 p4na8OBtQvZT4WbMU3gd5fBoKRCLFUs5Qa7vHtceM/QGdiGP7KadwTkv8TxAUFSeZPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZzfcOYtD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQUxM4B8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7D8606A31A;
-	Wed, 28 Oct 2026 18:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358DE606A321
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZzfcOYtD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F349D1F01825;
-	Wed, 28 Oct 2026 18:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793212532;
-	bh=jP8LvkG3gW1Nuogkrfz/zYbYDOUb2bY4HOSxrA6h7PY=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQUxM4B8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F9C1F01828;
+	Wed, 28 Oct 2026 18:35:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793212534;
+	bh=Mr9cTvzp2DJzq4e+c1cnIXzYdS0FNBwPXrbs/G1Zbyw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZzfcOYtDxbxK3LZF0Ri45ZLo1IezPrdZNCN17H8hONQ7RDPSzxJTTldRnKDDNfOYY
-	 c+aNe00DYhvskXhvhMs718HHzfoEuDemdrVvBiOA5vT9k6tBI1lBlqfs9BLMf/8B1m
-	 ZR4p2D5iPU4pUtXkdj0MjzdJPqKQhQ0p15cvF6GA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=YQUxM4B8HQgue7CLME+XiXNG6rHo3ziuePrz5sw/+2A7kU7CUwjNpE3cvuhalVq41
+	 LJK1IzhJcxX5+sYZhhfB4zmjWGzL0AOjR6PGPHl/4tKzPZd1UJW0jI0USz2T/4KKgs
+	 R3R0msz3YxKuKrZ+TGOM2CU78v0RjPFPuqKm1C5EVLLaW4jiE1mHaR3Qc85tOg/VeY
+	 i8eHczTauFVTxJLJ5Q3/jqwEz6nWnq6WXYRjXrxwBnXmnRNSLQZYuyjP9j0ZEv2EvK
+	 dPD66vqTLxV4hN7OR5GzKIEf+qSwb++v7RNs/0zMkXmE6V5LW6AUG9Xg6gfIlMMG8O
+	 oyWdkr/DSTVpQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Artem Dinaburg <artem@trailofbits.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0186/1887] x86/CPU/AMD: Clear virtualized VMLOAD/VMSAVE on Zen4 client
-Date: Wed, 28 Oct 2026 17:38:02 +0100
-Message-ID: <20261028170503.468434197@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.18.y 1/2] fork: move the coredump and exec checks into create_io_thread()
+Date: Wed, 28 Oct 2026 14:35:32 -0400
+Message-ID: <20261028183505.1719907-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102850-pulverize-satin-96a4@gregkh>
+References: <2026102850-pulverize-satin-96a4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,56 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Christian Brauner <brauner@kernel.org>
 
-------------------
+[ Upstream commit e760200370e4de054b6b5f568a7faa911e2956bb ]
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+Only a PF_USER_WORKER thread returns from get_signal() after a fatal
+signal and can go on to create a thread. get_signal() sets PF_SIGNALED
+before it dumps core and before it lets a PF_USER_WORKER thread return.
+That flags sticks.
 
-[ Upstream commit a5ca1dc46a6b610dd4627d8b633d6c84f9724ef0 ]
+The exec'ing thread itself is never signaled. But it doesn't need the check
+anyway as we moved cancellation of io_uring requests before de_thread().
+create_io_thread() is the only way a signaled thread creates another
+one. vhost_task_create() is reached from ioctls alone.
 
-A number of Zen4 client SoCs advertise the ability to use virtualized
-VMLOAD/VMSAVE, but using these instructions is reported to be a cause
-of a random host reboot.
+io_should_retry_thread() doesn't retry -EINTR, so io-wq callers give up
+the same way they did when copy_process() refused.
 
-These instructions aren't intended to be advertised on Zen4 client
-so clear the capability.
-
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Cc: stable@vger.kernel.org
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=219009
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0VLTyxNatFmLOK@redhat.com
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-13-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Stable-dep-of: 1f978881ce6c ("fork: don't create io threads once PF_POSTCOREDUMP is set")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kernel/cpu/amd.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ kernel/fork.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index a61606a614bd7..8d9c067992e5f 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -1161,6 +1161,17 @@ static void init_amd_zen3(struct cpuinfo_x86 *c)
- static void init_amd_zen4(struct cpuinfo_x86 *c)
- {
- 	init_amd_zen_common();
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 6734b94600333..bf0bbd8a569e5 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2559,6 +2559,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+ 		.user_worker	= 1,
+ 	};
+ 
++	/* A creator past its fatal signal gets no thread. */
++	if (current->flags & PF_SIGNALED)
++		return ERR_PTR(-EINTR);
 +
-+	/*
-+	 * These Zen4 SoCs advertise support for virtualized VMLOAD/VMSAVE
-+	 * in some BIOS versions but they can lead to random host reboots.
-+	 */
-+	switch (c->x86_model) {
-+	case 0x18 ... 0x1f:
-+	case 0x60 ... 0x7f:
-+		clear_cpu_cap(c, X86_FEATURE_V_VMSAVE_VMLOAD);
-+		break;
-+	}
+ 	return copy_process(NULL, 0, node, &args);
  }
  
- static void init_amd(struct cpuinfo_x86 *c)
 -- 
 2.53.0
-
-
 
