@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163848;
-	b=TMZywJVKElOg+WX5E3C7Xx/0/wsxtxwNW1JiK2kUtfkur/msDn/VnbSBPVgzjk4UL/TJ
-	 RSCx8pUB/rfOjkp5/waDA5QcT2Yg1TZNRXueqH55hVLTe4kehdnr9vVbCdjdkzrsHZS3P
-	 G8a7a1sRlQzLOK1gwf4w2qMkRiSxPgx+IVGMBEb3Zm/2XTfFs++IFed+Fiuq4enLeKEko
-	 RrkoLfNzfkMQRfSO8imBWfQzstx/yeH8V7z4tU6EPytK3sriNkzLE5Ucb9LlxLnCgUI/S
-	 z34XGwvAXq+aLCA82hEDHKpXjkWwTZduiYMlUMz/gFKtK/kGmz4+Jb/r/XfFTumtF4Q==
+	t=1793163851;
+	b=BOlESuGmRgb3dSFQZ5cGrkNyntcrxVbO+LgmiOc9p1xKNo2jUJQhbAHueOulDKiIKQjg
+	 BPgzy6X1zs+ffTyFjsMZCsfnMpmn/RK5y8JxeQy6Mxq2Rktx2a20nL09SqWQwgUeTkB9l
+	 6UqwsVDLWPVYtgZl9/1mnz/aQVJ8wjUpvFstqS8yOUmyg5NeqL8LIlXbB5Vq+6tSWrtMJ
+	 bKZf4IsOfjti0rTHWSZ9LcCpLwbQnR6BtYiOloR/W+XRL4CQ6F1PTDHleAWq0LXmT0/kB
+	 w77bt3hIbgD/uo/o1hfTGAgVUzazFUaZa135taw9sEBgUu4yI1ituSxQ4VTQJHxMBjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163851;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=FlFLV+LrMOBGmpATjG3z5jE42aeiJSCz2DhkhKzdZJY=;
-	b=JQZch//HGEr0ROXLbY0l57Z2n0IDECC5HXzx2dE8lEvbwb5/gb1CqQa3+S1sOFnlvbFK
-	 azsglvi+BiZUKdVrDx4ztifbxvUaKnCo+Nnlu49mLC9lEQ/HGl9j4Af5Q0IIpz0q1Atko
-	 Ywjop25dzfos6L/Wl1LrYi8vBMXwqQoVPOuqL6MsoCgUqVOTkCPv77HVpaWy5aphMoMQs
-	 eW5hNo6omfXUDdAJ0+GyIunUKsf2jDhpIdnuQY5afKn+ois+8Q7e3JJT6kZ1UBV9PA1nT
-	 Z6rdynJkuQcmd3vpzpc4252OTMg+qFPD9Tq3QFtCQ4/507xB4yhFAgK2wdJPPRt+bww==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=dbh6YGgR0WSkZuJ88x07QU7KuKLYyEQn9r6wPVh799M=;
+	b=HVeV9wQz1XI/kx3bX+nHVKfqUwNK5MoCXUMqNOwC9VeJ6tw2TKVqarMg2H0KhIPiyy7/
+	 XtwUfsjz/81E9cr3JYfhLvfjT3ds9aXnPOciYJVU3tBkSyBWnoNlJIU0BoZ7xVOVk4pJc
+	 gWFbOemmEdWLfqXdqnqrQkLnmYdLc+fylKhBhtkMn29Otz8W7fnENUnYIfeBAZvuAZ4VB
+	 5fEMe+7xwbZQJgS4Rmw/wfEi3oq6c/jjco6KwNAjVdaFzQOcDKkunf0DYguTHpsNA4o9p
+	 QlOM18lpY1H1xoyLU0I09F6mryIGQJ/VQ89tb3q52tmCCa47EXlziDYE3MN365o/o4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aELgK7ws;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VVcrQEw9;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA018606A31D;
-	Wed, 28 Oct 2026 05:04:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA018606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D19B606A337;
+	Wed, 28 Oct 2026 05:04:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D19B606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aELgK7ws
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VVcrQEw9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Fl
-	FLV+LrMOBGmpATjG3z5jE42aeiJSCz2DhkhKzdZJY=; b=aELgK7wseZzANP5nSx
-	6kWzED6BXAEgxjXhIPQZI5+oaNu3QTi/tGDDPd92HW8HE10Uqv66IFz0gL+CWWmT
-	eVSGnPcISzVVCTQSOyVmP1A8Y9zxZzUmUXS8H6VA0+J2ytL4UejSSNMqQjxI3YnU
-	pri/7nsh8JgdMIfm6GuXlX9is=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=db
+	h6YGgR0WSkZuJ88x07QU7KuKLYyEQn9r6wPVh799M=; b=VVcrQEw9lZffUHl8W9
+	sVWxUz66zEK4SYKm0Ac0ge+8zlHe4qLYQ9iRZhSUUgRtRVKD5qCGFEzE5sGHNrY3
+	7p1pmFE5JB3g1dsLQe0KfBUAWfAWBJ+7Ji7o5xoPoiNodhr2Zh2zO8z0SqlAWaxB
+	Gzg7B7+55Tm1P/88Qb6VRWBjA=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXXx0QguFq4jaQDQ--.52556S2;
-	Wed, 28 Oct 2026 13:03:13 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S6;
+	Wed, 28 Oct 2026 13:03:44 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
+	Deren Wu <deren.wu@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH] net: phy: only remove owned topology entries
-Date: Wed, 28 Oct 2026 13:03:12 +0800
-Message-Id: <20261028050312.126508-1-yaojiale02@163.com>
+Subject: [PATCH 4/4] wifi: mt76: mt7925: unwind link restore failures
+Date: Wed, 28 Oct 2026 13:03:37 +0800
+Message-Id: <20261028050337.127464-5-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
+References: <20261028050337.127464-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,44 +74,84 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXXx0QguFq4jaQDQ--.52556S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruw1UAr47Jw45JFyxXFWfAFb_yoWkKFX_C3
-	9rZrW3Zws5Jan0yryfWr4fArySk3Z3J3Wv9r1vg3y5Xa15Gr15Crn5Xrn8Jr9ru3WaqFWD
-	Gw1UCFyxAa45ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU847K3UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhG38WrhghHgUAAA3x
+X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAw43CrWUJw47KFWkWr15Arb_yoW5Gw1rpa
+	1DKa9IkrykJw43Ja18Ga48uFnYvan5G3WUCr13Cw1rZw1kZrn5AF4qkFy3tFyUAFWku3W8
+	WFWqqrn8uwn5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joOJ5UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRC-+WrhgjCqOAAA3w
 
-phy_link_topo_add_phy() can fail to insert a PHY when its saved index is
-already occupied.  Its caller may subsequently run the normal detach
-path.  phy_link_topo_del_phy() then unconditionally removes the entry at
-that index, including its ports, even though the entry belongs to a
-different PHY.
+The reset recovery callback ignores failures while restoring each link in
+firmware and continues configuring the link and remaining interface. A
+failed two-command device addition can leave partial firmware state, while
+links restored earlier in the loop remain active on a partially restored
+interface.
 
-Look up the topology entry first and only remove the PHY and its ports
-when the entry belongs to the PHY being detached.
+Track every attempted link and remove their firmware state if any restore
+operation fails. Stop configuring that interface after the failure.
 
-Fixes: 384968786909 ("net: phy: Introduce ethernet link topology representation")
+Fixes: 14061994184d ("wifi: mt76: mt7925: add link handling in mt7925_vif_connect_iter")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/phy/phy_link_topology.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../net/wireless/mediatek/mt76/mt7925/mac.c   | 26 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
-index 214ccce23cf6..175eef44cf54 100644
---- a/drivers/net/phy/phy_link_topology.c
-+++ b/drivers/net/phy/phy_link_topology.c
-@@ -185,6 +185,10 @@ void phy_link_topo_del_phy(struct net_device *dev,
- 	if (!topo)
- 		return;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+index 7af996abe294..7b29e147b19e 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+@@ -1477,11 +1477,12 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
+ 	unsigned long valid = ieee80211_vif_is_mld(vif) ?
+ 			      mvif->valid_links : BIT(0);
++	unsigned long restored = 0;
+ 	struct mt792x_dev *dev = mvif->phy->dev;
+ 	struct ieee80211_hw *hw = mt76_hw(dev);
+ 	struct ieee80211_bss_conf *bss_conf;
+ 	struct mt792x_bss_conf *mconf;
+-	int i;
++	int i, ret;
  
-+	pdn = xa_load(&topo->phys, phy->phyindex);
-+	if (!pdn || pdn->phy != phy)
-+		return;
+ 	if (vif->type == NL80211_IFTYPE_STATION)
+ 		ieee80211_disconnect(vif, true);
+@@ -1493,8 +1494,13 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 
+ 		mconf = mt792x_vif_to_link(mvif, i);
+ 
+-		mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf, &mconf->mt76,
+-					    &mvif->sta.deflink.wcid, true);
++		restored |= BIT(i);
++		ret = mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf,
++						  &mconf->mt76,
++						 &mvif->sta.deflink.wcid, true);
++		if (ret)
++			goto rollback;
 +
- 	list_for_each_entry(port, &phy->ports, head)
- 		phy_link_topo_del_port(dev, port);
+ 		mt7925_mcu_set_tx(dev, bss_conf);
+ 	}
  
+@@ -1506,6 +1512,20 @@ mt7925_vif_connect_iter(void *priv, u8 *mac,
+ 				      MT76_STA_INFO_STATE_NONE, NULL);
+ 		mt7925_mcu_uni_add_beacon_offload(dev, hw, vif, true);
+ 	}
++
++	return;
++
++rollback:
++	dev_err(dev->mt76.dev, "failed to restore link after reset: %d\n", ret);
++	for_each_set_bit(i, &restored, IEEE80211_MLD_MAX_NUM_LINKS) {
++		bss_conf = mt792x_vif_to_bss_conf(vif, i);
++		if (!bss_conf)
++			continue;
++
++		mconf = mt792x_vif_to_link(mvif, i);
++		mt76_connac_mcu_uni_add_dev(&dev->mphy, bss_conf, &mconf->mt76,
++					    &mvif->sta.deflink.wcid, false);
++	}
+ }
+ 
+ /* system error recovery */
 -- 
 2.34.1
 
