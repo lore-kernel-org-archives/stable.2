@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197100;
-	b=mlDMjEcrMOOxJw8M9bWCgCYR6pXZxARDDHNs4MGizBxTbDxZJdlIoS8PPYGvOE9XIMF7
-	 a57uFTP+MqLtVmamkwAbM449Rup66WCtUPY4ZMQxRBeJHVHJTe/HQacmYNabXxbLXCoqM
-	 oiOfLz6vSUinAVMqqBSg3oOFmILf6kHvJOJWs2SoiCZkIWZgRDu21UbRimgXLAee9cVhW
-	 jKJqczWwYxkYZx3mmoYRF9qiCPqifJNJWNxTOvTyJZJ9saObSIjxxQAdP3ez9OQw6I7rj
-	 ryy/Sb+EcCM8ADK/IsprSxYb7qIAniD2hVo3kU7CsGyDCxYAWDPoFLRldQMuukth5jQ==
+	t=1793197127;
+	b=jmY65mLyDK0uRxHA3VI3B+sawopaxCuoP6O6BnmEFgIDQSowHNQMCwkJOjW2y75Jwg7V
+	 HPzlALUAEYVvCq/7RW8MhGao5xd+3Z2wD6thJvw0UDI/tpm907Doj+zYxJot6PGXF3Dor
+	 /vpwJZVHSYEMPyGPzsnG2aJIt1NbXznedZONTGN7KLM05F80er1C550R0b9mB44QQV6Rm
+	 KQitlB6zgyOT2WsZNxvfSKmuUD1ZjckFfvpDCumS198WaCdapTXDVVeppRgQuJFY6Rlo1
+	 IHVItZCe9J3SqBUplNJJg+AoVnjuVwA0OBiMk0XAfhMsdnDyTyCOMSgE7jeq/KpkRQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197100;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197127;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1ZR9JdhuF78bRej8mJoidoAF0AkalLMRPKfyvzekZdY=;
-	b=HJxQvTSjehAP1qNeQy4QQ79uek1v+lpmJ+n7bpS/UNphsJhXHxYZvbX7q1k6bN75uzIO
-	 MzRxdfvvZ2BTn9mhckc+89aHSK3dRI8nq72qY1snFmiNsjoLCSQmd4gYgkvhAp5ruCHA2
-	 tTqVlzTN7XMiWlfnzwTTjeYM+W64Q2I03+qB5UIiG9YtpI3BqEU7cMZEKljEKptKLPoxq
-	 5RPf6e6cVT2uDkzQuB2lNy0lziZRj2qzG3ARiKxRIwn3LPgbdMq5rifVZmxccDFR2tyMO
-	 cSpozxYgz1UnHSoi9IvbPJzmKv73XsZB4A0qqTIBKR653ia97icwAqHLcaPYn3uaOdQ==
+	bh=x5pMrzNqhnU/C2P6XLQ8m6/Y72S3deTQkrwYq1kdoTA=;
+	b=CzPAFLQkZWVzWQ1BSJTUEmmHwmJfK9w6ZyxgKFY+JoG/ySOiih1fJaJ9od0/h0NBE6Sh
+	 mCjvRmy/A7pBzacmgCJmU5SqeGvF6R+RvSVMMPtznXydb+6faNKu1QWGmU7dmLXAsa5SG
+	 93/cw1v2tdHgiL6Zs3ZkyUJsMqbJJcqlEQn6k2wNxecieJa36d9MLv9VmrfEcZ9A8F8vt
+	 HbOvhIk5/VLKpui8/KkO4rBkeNZ3m1I/p52psGsWghn90CejT3hi8iaQhfHCPpvP0d3ve
+	 XvKDpdGng+kB9MFn7F/iSnfOO4cF1OGPvi9gxsa4/Uv2R8Dzq+slhL0iRrKex7SjLPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VhnqMuww;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D7TLlDew;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630A1606A330
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:18:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 630A1606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA09606A322
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:18:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA09606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VhnqMuww
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06210b29fso543636b3a.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:18:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D7TLlDew
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso664140a91.3
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:18:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197100; x=1793801900; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793197126; x=1793801926; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1ZR9JdhuF78bRej8mJoidoAF0AkalLMRPKfyvzekZdY=;
-        b=VhnqMuwwpYoXUUq8HBDgtbGF2pn4aHei9eYe4dMZ/XjiwQG9KIlkAEc1P/PEjXdQAl
-         vrZtgmBokQIbKuinmrHuw1l/blqSZ21FZvUAIgy57+4phsXU4UdunMk4NiUxSL1HcEIg
-         kM4UDLrgMp2fWJnhx18qRwg6bkic7QJbX44vCt8nmUJAARGPR+p8eHMwjvOXYiGfBjrb
-         WbJEiUWK5Dku3OYJF1eXQT0WkDBaO/JpWsDgLJUH4UKmj4+kl54/rs+SqSt/RCx/bSeH
-         d8iQWQKiuC636Ps3t6Hzrdcu5lMn4NuxQQqCm7nQ6fAQVTpQM4s793VYKCKWJSFMIEOz
-         4wQw==
+        bh=x5pMrzNqhnU/C2P6XLQ8m6/Y72S3deTQkrwYq1kdoTA=;
+        b=D7TLlDewfvGsFRADJTjmPF8rrR4n6LzIhjICYp/le+3pDRjbxkiD4agzf5lGE7L7ND
+         YR0c6Y1GYict88qgmGuJFRmPWpJ12Z5k90qpP0gvG9o5eXazBhdgN9mGxuEh0bAJuu7c
+         FdK3z4RCRPFa6tTjPWCYRIBB9qhxHMaqiYS2BQLZ+YSJfQDtW9VZIDblnPsOFRInnDbq
+         mpth9IY/s1EJ3Q5oKkSz5RLa1wlru717pLCc0xzU5BE8nHJR0faQRHSl3Q0d4U5tmJzi
+         3OndwlReYc5K2q2wXK1BkqnvkmjjeGTyspnt9Kn1T37Cxy7XuABQhZwNDcwwGFd5q7ZD
+         zG+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197100; x=1793801900;
+        d=1e100.net; s=20260707; t=1793197126; x=1793801926;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1ZR9JdhuF78bRej8mJoidoAF0AkalLMRPKfyvzekZdY=;
-        b=azmrWKFD6Qh6SkIOBAQabRJc1X09dSjU2wqpqJCrWIGjvqxg05HVJMQWcjdLYU3UK4
-         mZadP0j0uJbw+cuv2oX8+NlUIGZZLjdJndUa7551KajDCCEmAXAqiFOHw4SfCrtrnYnA
-         nq7qVunxxDBH0bSxj+pMBDENxbK0mkUI54UNYyRoU3YyN92Xn0Co4p3xL0Nev7EX28Vs
-         T5Pbo/CZ+nAv5ueN79A4edAmmlGtqfI4zRq//B55/Cva7ujD9tRmiEu+I4pc2+QZ60dk
-         xiljXruwhfLuRHp0eFo7YB3AgOdU8Ah/yVwcAVvQj9Fp+7PvOaUh0K4URpXlXD5WD2PA
-         vkjA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+dSuLlnLZlztAPnIYv0GoHV8wcn77XdLoTZ8zE6Erk2TB4ZXeP2dU/ZrLxFrFnfkC6ssTjME=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkJetRB5XpXAB/yLi7Unf1RVpG10+ljxPw7KFlWFo7pXAe4GzU
-	81G3JVnsvJ4r+VgoZca/46gPrmJ6rqrOLRzjIP817hiw2i7rDgvvYKmfXBpBqUSI
-X-Gm-Gg: AYBFou2/gLFhwFd5A1dDe1EZ5A1JEVP4/SC3hmrjIrGILBKx1qKZSFA7LZWytTekXJ3
-	7p3UK9NKqhRbdMVlRXVHLjBjQw6OGdeVo5V1hxJirJqJ9NiO7yxHyhfKkPLH4QtIG/HR5v8KXFf
-	TsoPEL6mhPaPQyqnxL2n26SNxDukF6xQfck9UE+02E/qmcmKCBzfocCvs878TB3/2bu32tT2yC/
-	qdKZpE1XrN1/IbzvxDJgGO/tyZs/4SfLbRxFR95Tvq0zJM3fhN+jzUD5gCzVgrKRllNB38QxZzT
-	j5s1eOJD+2dua33SKdwdCyheoAVUgwK6kNbN+SqJCD8hylcuAtjjCBDlWX9PQaJZq1xOMAJm4cY
-	fLghAeQI/zM5pyT7UFid/7+4s03tOQgPeNpc9rkDGQr/e17YCljiqdGEP06gqAWWVgB5RKRNbo+
-	AWBp66+MtRW1NSXpE1vx5x3GworiMJWqdMOOhodduYJXgakemMmr8b/OgENOEPFElPJQ4MtDAIN
-	01HkesQ74+lT/n/oiRezFrUQOCIpHetxIHCM4ecC2ArvBQ4tQt7RaxmrD6qLNA/GvDuvArv4Fjl
-	UfSlqc5ak+IE/v/qX2jSGtDwOYXDEB8ZJvCbwDD6lZPhS1rvbuzdZLjmf2+5YR4izbNBIHOi0ON
-	xDVCOygauDrgKq7g=
-X-Received: by 2002:a05:6a00:2302:b0:8a0:72e8:732e with SMTP id d2e1a72fcca58-8a6e6ff2f26mr1844183b3a.29.1793197099245;
-        Wed, 28 Oct 2026 07:18:19 -0700 (PDT)
+        bh=x5pMrzNqhnU/C2P6XLQ8m6/Y72S3deTQkrwYq1kdoTA=;
+        b=LY9COSIfo69iUGecdDN80CX3gmT68gKxcjoVoeiMvGPUm18iIzt3YkQvOseiPfamQu
+         CaEPfsCNIlwCYeeBfV1R91tQsYDHA1c92rwjBu4PM9VqHI+d5bkMaD1AzWpq81gnD4RA
+         R8NC5FXXGFEktBWq7wJisS8RJ4kw1reuTX0EftNMMRatlJWbcPl4xfogtHanFPLisVE/
+         HWRBlg4vPPIj4x95lX8thGUrDRyV9B28Pcb4ISW+tV8rKhLTB5qX26tnulGyBcVFC2y+
+         l2d2jZNSNdFDR1IFjIkNT1TnvHT3FqDCM+tqw5aFqll3BVyPHg1JStzXQI6ylhx73266
+         K/tA==
+X-Forwarded-Encrypted: i=1; AKwUvBxF3no6uWkGRj/enA2jumE34vAwRbMJhM9eGPO5oaG3jy5NfP8M46c+NWQa9gZvQWVX7pVE3ZE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLauj5Ecxbd2TG11QB/eNEkS9o73HRNJzltKWfzXuzm9iVsaLlT
+	eaIR1daeJ2JUtxQpN5POxw1/4AmKFhg1b2HMiZ7SNmkxu81WVFdGlX9t
+X-Gm-Gg: AYBFou1dPlco+lBHXRZ9PmWXySBc4lt/rAhpcjPfzxeRtxMZXX3FvhHgcICDy6hjsmM
+	JRh6EGbChFAapPTw5mlRcyXs44x0Nzyj4Jbx4jr8ACFH8Gb2CqTwrNGdq42ZUJs+Ysh55tcy4Hq
+	7eZyBznq81MfUQMX/waOSiG65x/U0rAcR1L1HVP9Hb0DnRcrAoySCQuMtNHDegH5YINbuTKev7G
+	Sr9OV4/LMYrNyFscGGJwc8ptTxLbBPNvUlDa6an+JOePeyGlubTB+doEtwIsU+qiDd+XRdw2Yh2
+	czC/4wdJCa+S0bTrBB3RoRyszElBY7UVM3TNzQs+UI3sluqOqJUsue1dCZnUsFGVN4CvWhGlwKf
+	yurNyhCQeqg/XlGLBPfYpVVb9cZqIHZZE8M2P63p8ijyUfIydZFe31L7jn13mKHUkk3GIKhV8bG
+	Qv/1w3EnLC/QLDegHlDrEuaVtVfgftdDP52Zv0FCHXG7EaFpH+WLF1ic3Rb6sM5UVdb4Kxdreet
+	NfNrtjfi+PhEim++u8QF+LC2e5+u2vddHjhZ8k53UlXDBnYNIxNmWrp8zRYfbjxHPhohmrkAYwb
+	GB8NZMQBPqKzpxiK13ovfeC4/m/vu50018V2uN4zOim1pz4RnXfl2R1MtYcJs6AGIbShyg==
+X-Received: by 2002:a17:90b:2886:b0:3ac:9d14:feb2 with SMTP id 98e67ed59e1d1-3ae581d5d09mr1702502a91.35.1793197126435;
+        Wed, 28 Oct 2026 07:18:46 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5e302sm1284996b3a.7.2026.10.28.07.18.15
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a0482e9sm3437223a91.0.2026.10.28.07.18.40
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:18:18 -0700 (PDT)
+        Wed, 28 Oct 2026 07:18:46 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: "John W. Linville" <linville@tuxdriver.com>,
-	Javier Lopez <jlopex@gmail.com>,
-	Jukka Rissanen <jukka.rissanen@linux.intel.com>,
+To: Jeff Chen <jeff.chen_1@nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Linmao Li <lilinmao@kylinos.cn>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: mac80211_hwsim: serialize radio removal with frame commands
-Date: Wed, 28 Oct 2026 22:17:51 +0800
-Message-ID: <20261028141751.6728-3-enderaoelyther@gmail.com>
+Subject: [PATCH 1/4] wifi: nxpwifi: cancel channel switch work on teardown
+Date: Wed, 28 Oct 2026 22:18:16 +0800
+Message-ID: <20261028141819.7556-2-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028141751.6728-1-enderaoelyther@gmail.com>
-References: <20261028141751.6728-1-enderaoelyther@gmail.com>
+In-Reply-To: <20261028141819.7556-1-enderaoelyther@gmail.com>
+References: <20261028141819.7556-1-enderaoelyther@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,132 +107,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Destroying a radio while a frame, TX status, or PMSR command is in
-progress can make the command access the radio after it has been freed.
+Stopping an AP while channel-switch work is pending leaves the delayed
+work armed. After driver removal, the callback runs on freed driver
+state. If the AP is restarted first, the callback switches it to the old
+target channel. Reusing the interface slot can also reinitialize the
+work while it is still pending.
 
-The command handlers keep using the result of an RCU rhashtable lookup
-after the lookup has finished. Socket release and network namespace
-teardown can concurrently remove and free that radio.
-
-Serialize non-dump generic netlink command handlers and asynchronous
-removal paths with an hwsim-private mutex. Use the same serialization for
-virtio dispatch, which invokes the handlers outside generic netlink.
+Cancel the work when the AP stops. Interface deletion, type changes and
+driver removal all stop a running AP first.
 
 LLM assistance was used to find the bug and review.
 
-Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
-Validation: A W=1 module build with MODPOST passed. A forced
-QEMU/KASAN race between HWSIM_CMD_FRAME and socket-close removal changed 13
-unique use-after-free reports to 0, with no lockdep splat after the change.
-Network-namespace, virtio, TX-status and PMSR paths were not run.
-A reproducer is available on request.
+Validation: A W=1 module build with MODPOST passed. Not
+reproduced; IW61x hardware was unavailable.
 Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
 
- .../wireless/virtual/mac80211_hwsim_main.c    | 25 +++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ drivers/net/wireless/nxp/nxpwifi/cfg80211.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index fcbc7f4355bd..61d0e2c1d00c 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -673,6 +673,7 @@ static const struct nl80211_vendor_cmd_info mac80211_hwsim_vendor_events[] = {
- };
+diff --git a/drivers/net/wireless/nxp/nxpwifi/cfg80211.c b/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
+index 473e81304ca8..384ba69dd058 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
++++ b/drivers/net/wireless/nxp/nxpwifi/cfg80211.c
+@@ -1638,6 +1638,7 @@ static int nxpwifi_cfg80211_stop_ap(struct wiphy *wiphy, struct net_device *dev,
+ 	struct nxpwifi_private *priv = nxpwifi_netdev_get_priv(dev);
+ 	int ret;
  
- DEFINE_SPINLOCK(hwsim_radio_lock);
-+static DEFINE_MUTEX(hwsim_radio_mutex);
- LIST_HEAD(hwsim_radios);
- static struct rhashtable hwsim_radios_rht;
- static int hwsim_radio_idx;
-@@ -6310,6 +6311,7 @@ static void mac80211_hwsim_free(void)
- {
- 	struct mac80211_hwsim_data *data;
++	wiphy_delayed_work_cancel(wiphy, &priv->dfs_chan_sw_work);
+ 	nxpwifi_abort_cac(priv);
  
-+	mutex_lock(&hwsim_radio_mutex);
- 	spin_lock_bh(&hwsim_radio_lock);
- 	while ((data = list_first_entry_or_null(&hwsim_radios,
- 						struct mac80211_hwsim_data,
-@@ -6323,6 +6325,7 @@ static void mac80211_hwsim_free(void)
- 		spin_lock_bh(&hwsim_radio_lock);
- 	}
- 	spin_unlock_bh(&hwsim_radio_lock);
-+	mutex_unlock(&hwsim_radio_mutex);
- 	class_unregister(&hwsim_class);
- }
- 
-@@ -7153,12 +7156,28 @@ static const struct genl_small_ops hwsim_ops[] = {
- 	},
- };
- 
-+static int hwsim_genl_pre_doit(const struct genl_split_ops *ops,
-+			       struct sk_buff *skb, struct genl_info *info)
-+{
-+	mutex_lock(&hwsim_radio_mutex);
-+
-+	return 0;
-+}
-+
-+static void hwsim_genl_post_doit(const struct genl_split_ops *ops,
-+				 struct sk_buff *skb, struct genl_info *info)
-+{
-+	mutex_unlock(&hwsim_radio_mutex);
-+}
-+
- static struct genl_family hwsim_genl_family __ro_after_init = {
- 	.name = "MAC80211_HWSIM",
- 	.version = 1,
- 	.maxattr = HWSIM_ATTR_MAX,
- 	.policy = hwsim_genl_policy,
- 	.netnsok = true,
-+	.pre_doit = hwsim_genl_pre_doit,
-+	.post_doit = hwsim_genl_post_doit,
- 	.module = THIS_MODULE,
- 	.small_ops = hwsim_ops,
- 	.n_small_ops = ARRAY_SIZE(hwsim_ops),
-@@ -7172,6 +7191,7 @@ static void remove_user_radios(u32 portid, int netgroup)
- 	struct mac80211_hwsim_data *entry, *tmp;
- 	LIST_HEAD(list);
- 
-+	mutex_lock(&hwsim_radio_mutex);
- 	spin_lock_bh(&hwsim_radio_lock);
- 	list_for_each_entry_safe(entry, tmp, &hwsim_radios, list) {
- 		if (entry->destroy_on_close && entry->portid == portid &&
-@@ -7189,6 +7209,7 @@ static void remove_user_radios(u32 portid, int netgroup)
- 		mac80211_hwsim_del_radio(entry, wiphy_name(entry->hw->wiphy),
- 					 NULL);
- 	}
-+	mutex_unlock(&hwsim_radio_mutex);
- }
- 
- static int mac80211_hwsim_netlink_notify(struct notifier_block *nb,
-@@ -7248,6 +7269,7 @@ static void __net_exit hwsim_exit_net(struct net *net)
- 	struct mac80211_hwsim_data *data, *tmp;
- 	LIST_HEAD(list);
- 
-+	mutex_lock(&hwsim_radio_mutex);
- 	spin_lock_bh(&hwsim_radio_lock);
- 	list_for_each_entry_safe(data, tmp, &hwsim_radios, list) {
- 		if (!net_eq(wiphy_net(data->hw->wiphy), net))
-@@ -7270,6 +7292,7 @@ static void __net_exit hwsim_exit_net(struct net *net)
- 					 wiphy_name(data->hw->wiphy),
- 					 NULL);
- 	}
-+	mutex_unlock(&hwsim_radio_mutex);
- 
- 	ida_free(&hwsim_netgroup_ida, hwsim_net_get_netgroup(net));
- }
-@@ -7364,7 +7387,9 @@ static void hwsim_virtio_rx_work(struct work_struct *work)
- 	skb_reset_tail_pointer(skb);
- 	len = min(len, skb_end_offset(skb));
- 	skb_put(skb, len);
-+	mutex_lock(&hwsim_radio_mutex);
- 	hwsim_virtio_handle_cmd(skb);
-+	mutex_unlock(&hwsim_radio_mutex);
- 
- 	spin_lock_irqsave(&hwsim_virtio_lock, flags);
- 	if (!hwsim_virtio_enabled) {
+ 	if (nxpwifi_del_mgmt_ies(priv))
 -- 
 2.56.0
 
