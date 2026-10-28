@@ -1,59 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213753;
-	b=jQQ2Aqya19jO8yKV15PjVhRtN15AtOksNf+vWKKRl4HTcISgUwqRizE/ahC+FUln+29B
-	 lOuaNqLV98j4i2kP2yLVslaKZZ46OjxZ7+pvqFkELTzj7qQH5oVoFBBedGMbJrhLRdaw0
-	 xg9Mr1Uts2Ic95mIF3zlqUQxj4EVVla1WpWQyEyfisC0UimXI3NT5lpT401LquzmPH74Z
-	 R+lcNDVKEXbFasneOJVOBnRBaL0DMLUEJtYRxA0dnG7wRiYJZkn7Or0zAgXeYRG9kxter
-	 Tjtkr1/gdZkPBQqHV1oFFECbSXd40m2Ro6r1IGaCtWpOLHqbTkEQ+WbC6BK4p5F9pmw==
+	t=1793213759;
+	b=FocEbdyrClu/W+txFRCYrmzqhptmyvH6c93houMesL5RID71wrSgaR1kU0gg1xQP+1w2
+	 0bLKYITE1fmnWeFwZbXtLSBZXNq8F8YZFWbPuCUSw6Aaquurdacji7e+/W+3llcrVEr4A
+	 x0h+lXxeGECFMWralxdGw9e4TOzeGmJtrtsXzUKT1ylMcJvJ8BwxWKzJ/yHrox0OImsbo
+	 dO182InqLi3uHIdR/hsmbnjZ5vEi3HQw6zsuEtT9zj0woY8eRDEy9YZuVoJ+yZ4POKYZB
+	 eN5NCh1d+9WRZYNorjbyxu8v1/WW4VVSwaURgbidOiw2gTujQEoHk0LvZhI2Tse3QnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213753;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0oDMEFhu/JmPLudE7M83PqlDBn/SvgKbYi6IfCMq3dI=;
-	b=B7tmahi7ZJ6OIyKqO899Ch/GnT61PKxcwIZPHnQ8ZIix7RCHP/DVG5nEacKFqOwFAsPs
-	 CRwuJ153lM1J88Nz6qWrDh0zPUAIrAIZkp1bQmpZlwwCRZ/zHMmd2IihG3MH8Q9jM7At2
-	 4YSsaXGtO4AvN+LD8LHLGN1KJEKbAcJAAUndv82Pn64RAUUqFwPukWWefNDHAgAMsWJLk
-	 4HcvJg1aMWiUojzZ6PFzTaZjfgO6YWT7ox7ugEMU7NURymU9CoV5BInlkG9MjwQcInJN2
-	 JRzv6pC1IuIDa4/OBikcinYCCDJXgWqALoQ4ljydoDRCNvdS+fz4wSEQTzoCB4sEngw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213759;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3aRIj1LoQkSP7sZo3/lDU4/pkDpPgo6tPH7KCIp2je0=;
+	b=xE9A8z//MDhP4WgBZ4jEOOtOFq8kVUGJtfMnNn6/+CMYkT9du8khPIYF5MH0m4PmtDz/
+	 kMDM2ZfNJmPfda0A+z3UXHKmjiHWfMHkGCSyon3k+9DiAZK764DeM/L8gPUEvRTnrayGT
+	 KJXXZPn9+t7oJlCTBVAbw+3218SWiFuwDbmio5eP++MhurTN5//U7/ApWZU59CwCueM8J
+	 +5INaNUjjZNgN6Hzdl64pU5oqJn5NJg1MHUc0hLnhYQbXanUqqE09OPD5x4DbJpk4KPZY
+	 DGtCWxQ6D4WpJkOUbUYC9cmghpMVwrHZliQMKmZZn+u5yl6Y4RneXWceid2wtmAiq1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8YVW2ek;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XC37Qd+4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B4B606A31A;
-	Wed, 28 Oct 2026 18:55:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BBC606A31D;
+	Wed, 28 Oct 2026 18:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G8YVW2ek
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12CB11F01825;
-	Wed, 28 Oct 2026 18:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793213752;
-	bh=0oDMEFhu/JmPLudE7M83PqlDBn/SvgKbYi6IfCMq3dI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=G8YVW2ek8N6dHWAFzKmkiVUC7dFQkO050z8QF6JgC2UEEw49pP/G2Pvh6dUDPzU3j
-	 hpA86kZagPl/Ugp6K8892s2n1u3Bz3UExzClmLinG0SO9JVT+aeZKHypJMETvhB1SY
-	 zAImpcxt7mCFZwMiL5/eHt817cPp2auWoqMGyYr0+nwQLSFgRaQHf/b7UtPOceKGDW
-	 F9wFdNdow5MxFUIDS7b+FDAccH96u3vSSciDRCt56yNUV9+UnSV1CAEEIlwYZyffKz
-	 1gWFqrG3wleW5Bud0QhkbH9ai+BuXLCK8aP0rOx/CLnl8x8WCxXhRwRc2trbqJjvWv
-	 EGlgDVgmBl0ug==
-Subject:
- Re: [PATCH net] ipv6: fix dead half of the MTU guard in __ip6_append_data()
-From: netdev-bot+sashiko@kernel.org
-To: treebacker@foxmail.com
-Cc: greg@kroah.com, netdev@vger.kernel.org, davem@davemloft.net,
- yoshfuji@linux-ipv6.org, dsahern@kernel.org, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Wed, 28 Oct 2026 18:55:51 +0000
-Message-ID: <179321375161.3134.12690504630171635307@kernel.org>
-In-Reply-To: <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
-References: <tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08@qq.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XC37Qd+4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82EC11F01825;
+	Wed, 28 Oct 2026 18:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793213759;
+	bh=3aRIj1LoQkSP7sZo3/lDU4/pkDpPgo6tPH7KCIp2je0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XC37Qd+4GX8aoz328tgLt7ZBuG6NMoaW8+jpFxU6zSDJcZMeOJuV5xqJ/O0ulJHcK
+	 0fU+phLC9W5avCkskE03G5z8KVunXFAKHJ2OXqwjnoRns9U7kwaY9ITq0OB0EvDgx3
+	 ML5MYv1dV6tLJYedLcyeO6MGJhS10q4fCmtdBovY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mark Bloch <mbloch@nvidia.com>,
+	Maher Sanalla <msanalla@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0617/1887] net/mlx5: Reload only IB representors upon lag disable/enable
+Date: Wed, 28 Oct 2026 17:45:13 +0100
+Message-ID: <20261028170513.451055037@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,160 +65,212 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+------------------
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+From: Maher Sanalla <msanalla@nvidia.com>
 
-- [High] The fix is incomplete.
-- [Medium] The commit message calls the new expression `mtu -
-  fragheaderlen <= sizeof(struct frag_hdr)` "a direct check of the…
-- [Low] The From: and Signed-off-by: names do not match.
+[ Upstream commit 0f06228d4a2dcc1fca5b3ddb0eefa09c05b102c4 ]
 
---
+On lag disable, the bond IB device along with all of its
+representors are destroyed, and then the slaves' representors get reloaded.
 
-ipv6: fix dead half of the MTU guard in __ip6_append_data()
+In case the slave IB representor load fails, the eswitch error flow
+unloads all representors, including ethernet representors, where the
+netdevs get detached and removed from lag bond. Such flow is inaccurate
+as the lag driver is not responsible for loading/unloading ethernet
+representors. Furthermore, the flow described above begins by holding
+lag lock to prevent bond changes during disable flow. However, when
+reaching the ethernet representors detachment from lag, the lag lock is
+required again, triggering the following deadlock:
 
-This patch replaces the always-false second half of the MTU guard in
-__ip6_append_data() with a direct comparison of mtu - fragheaderlen
-against sizeof(struct frag_hdr). The goal is to reject MTUs that make
-maxfraglen underflow below fragheaderlen, which defeats the datalen clamp
-and leads to skb_over_panic() from skb_put().
+Call trace:
+__switch_to+0xf4/0x148
+__schedule+0x2c8/0x7d0
+schedule+0x50/0xe0
+schedule_preempt_disabled+0x18/0x28
+__mutex_lock.isra.13+0x2b8/0x570
+__mutex_lock_slowpath+0x1c/0x28
+mutex_lock+0x4c/0x68
+mlx5_lag_remove_netdev+0x3c/0x1a0 [mlx5_core]
+mlx5e_uplink_rep_disable+0x70/0xa0 [mlx5_core]
+mlx5e_detach_netdev+0x6c/0xb0 [mlx5_core]
+mlx5e_netdev_change_profile+0x44/0x138 [mlx5_core]
+mlx5e_netdev_attach_nic_profile+0x28/0x38 [mlx5_core]
+mlx5e_vport_rep_unload+0x184/0x1b8 [mlx5_core]
+mlx5_esw_offloads_rep_load+0xd8/0xe0 [mlx5_core]
+mlx5_eswitch_reload_reps+0x74/0xd0 [mlx5_core]
+mlx5_disable_lag+0x130/0x138 [mlx5_core]
+mlx5_lag_disable_change+0x6c/0x70 [mlx5_core] // hold ldev->lock
+mlx5_devlink_eswitch_mode_set+0xc0/0x410 [mlx5_core]
+devlink_nl_cmd_eswitch_set_doit+0xdc/0x180
+genl_family_rcv_msg_doit.isra.17+0xe8/0x138
+genl_rcv_msg+0xe4/0x220
+netlink_rcv_skb+0x44/0x108
+genl_rcv+0x40/0x58
+netlink_unicast+0x198/0x268
+netlink_sendmsg+0x1d4/0x418
+sock_sendmsg+0x54/0x60
+__sys_sendto+0xf4/0x120
+__arm64_sys_sendto+0x30/0x40
+el0_svc_common+0x8c/0x120
+do_el0_svc+0x30/0xa0
+el0_svc+0x20/0x30
+el0_sync_handler+0x90/0xb8
+el0_sync+0x160/0x180
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: bo cao <treebacker@foxmail.com>
+Thus, upon lag enable/disable, load and unload only the IB representors
+of the slaves preventing the deadlock mentioned above.
 
-[Severity: Low]
-This isn't a bug, but the From: name and the Signed-off-by: name don't
-match. The author is "平之 <treebacker@foxmail.com>" and the sign-off is
-"bo cao <treebacker@foxmail.com>". checkpatch.pl reports this as a
-FROM_SIGN_OFF_MISMATCH warning.
+While at it, refactor the mlx5_esw_offloads_rep_load() function to have
+a static helper method for its internal logic, in symmetry with the
+representor unload design.
 
-Could a resend use the same name in both places?
+Fixes: 598fe77df855 ("net/mlx5: Lag, Create shared FDB when in switchdev mode")
+Co-developed-by: Mark Bloch <mbloch@nvidia.com>
+Signed-off-by: Mark Bloch <mbloch@nvidia.com>
+Signed-off-by: Maher Sanalla <msanalla@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://lore.kernel.org/r/20240509112951.590184-4-tariqt@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../net/ethernet/mellanox/mlx5/core/eswitch.h |  4 +--
+ .../mellanox/mlx5/core/eswitch_offloads.c     | 28 ++++++++++++-------
+ .../net/ethernet/mellanox/mlx5/core/lag/lag.c | 12 ++++----
+ 3 files changed, 26 insertions(+), 18 deletions(-)
 
-> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-> index 25fe0ba98b1a6..7d4d4d45e2074 100644
-> --- a/net/ipv6/ip6_output.c
-> +++ b/net/ipv6/ip6_output.c
-> @@ -1500,7 +1500,7 @@ static int __ip6_append_data(struct sock *sk,
->  		     rt->rt6i_nfheader_len;
->  
->  	if (mtu <= fragheaderlen ||
-> -	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
-> +	    mtu - fragheaderlen <= sizeof(struct frag_hdr))
->  		goto emsgsize;
-
-[Severity: High]
-Is this guard enough to close the skb_over_panic() when the route is an
-xfrm transport mode bundle?
-
-This check only sees orig_mtu, which comes from cork->fragsize. When
-DST_XFRM_TUNNEL is not set, ip6_setup_cork() does not subtract
-dst.header_len from fragsize. The first fragment then lowers mtu again
-in ip6_append_data_mtu():
-
-net/ipv6/ip6_output.c:ip6_append_data_mtu() {
-	if (!(rt->dst.flags & DST_XFRM_TUNNEL)) {
-		if (!skb) {
-			/* first fragment, reserve header_len */
-			*mtu = orig_mtu - rt->dst.header_len;
-    ...
-		*maxfraglen = ((*mtu - fragheaderlen) & ~7)
-			      + fragheaderlen - sizeof(struct frag_hdr);
-	}
-}
-
-Nothing checks a lower bound after this recompute.
-
-For ESP, xfrm_bundle_create() adds the header length to dst.header_len.
-It only adds it to nfheader_len for XFRM_TYPE_NON_FRAGMENT types:
-
-	header_len += xfrm[i]->props.header_len;
-	if (xfrm[i]->type->flags & XFRM_TYPE_NON_FRAGMENT)
-		nfheader_len += xfrm[i]->props.header_len;
-
-Also, xfrm_lookup_with_ifid() sets DST_XFRM_TUNNEL only for
-XFRM_MODE_TUNNEL and XFRM_MODE_IPTFS. So for transport mode ESP, the ESP
-header is counted in dst.header_len but not in fragheaderlen.
-
-When orig_mtu - fragheaderlen is in [9, header_len + 7], the new check
-passes. After ip6_append_data_mtu(), mtu - fragheaderlen is then 7 or
-less, or it wraps, and maxfraglen falls below fragheaderlen again.
-
-For example, take fragheaderlen = 1280 (a 1240 byte HOPOPTS cmsg),
-IPV6_MTU = 1289, and an ESP transport SA using AES-CBC (header_len = 24,
-trailer_len = 29):
-
-  orig_mtu - fragheaderlen = 9, so the new guard passes
-  mtu = 1289 - 24 = 1265
-  maxfraglen = ((1265 - 1280) & ~7) + 1280 - 8 = 1256
-
-The clamp in __ip6_append_data() then compares against a wrapped
-bound:
-
-	if (datalen > (cork->length <= mtu ? mtu : maxfraglen) - fragheaderlen)
-		datalen = maxfraglen - fragheaderlen - rt->dst.trailer_len;
-
-It never fires, so datalen stays equal to length. With MSG_MORE on a
-device without NETIF_F_SG, alloclen = mtu. The later
-skb_put(skb, fraglen - pagedlen) then goes past the tailroom and hits
-skb_over_panic().
-
-Every capability involved (CAP_NET_RAW for the raw socket and HOPOPTS,
-CAP_NET_ADMIN for the SA) is namespace scoped.
-
-Would it be better to check the effective first fragment mtu and
-maxfraglen after the header_len reduction? One option is to reject
-maxfraglen <= fragheaderlen after each recompute in
-ip6_append_data_mtu(). Another is to include dst.header_len in this
-guard when DST_XFRM_TUNNEL is clear.
-
->  
->  	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
-
-[Severity: Medium]
-The commit message calls the new expression "a direct check of the
-payload space available in a fragment, which rejects mtu - fragheaderlen
-in [1,8]". Does that account for the & ~7 rounding used here for
-maxfraglen?
-
-For mtu - fragheaderlen in [9,15], the new check passes, but this
-computation:
-
-	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
-		     sizeof(struct frag_hdr);
-
-gives maxfraglen == fragheaderlen. That leaves zero payload space in
-each non-final fragment.
-
-When the message needs fragmentation, the datalen clamp in
-__ip6_append_data() sets datalen to 0, or 0 - trailer_len with IPsec.
-For a raw socket, transhdrlen is 0, copy is 0, and this line never
-shrinks length:
-
-	length -= copy + transhdrlen;
-
-The loop keeps allocating header-only skbs until
-sk_wmem_alloc + wmem_alloc_delta exceeds 2 * sk_sndbuf. sendmsg() then
-fails with -ENOBUFS instead of -EMSGSIZE. For UDP, transhdrlen is 8,
-copy becomes -8, and the call returns -EINVAL instead.
-
-ip6_fragment() uses a stricter bound:
-
-	if (mtu < hlen + sizeof(struct frag_hdr) + 8)
-		goto fail_toobig;
-
-Would checking ((mtu - fragheaderlen) & ~7) <= sizeof(struct frag_hdr),
-or equivalently maxfraglen <= fragheaderlen, match both the commit
-message and ip6_fragment() by rejecting [1,15]?
-
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.h b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.h
+index 00d169a11a0a8..b410e836169fe 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch.h
+@@ -746,7 +746,7 @@ int mlx5_eswitch_offloads_config_single_fdb(struct mlx5_eswitch *master_esw,
+ 					    struct mlx5_eswitch *slave_esw);
+ void mlx5_eswitch_offloads_destroy_single_fdb(struct mlx5_eswitch *master_esw,
+ 					      struct mlx5_eswitch *slave_esw);
+-int mlx5_eswitch_reload_reps(struct mlx5_eswitch *esw);
++int mlx5_eswitch_reload_ib_reps(struct mlx5_eswitch *esw);
+ 
+ static inline int mlx5_eswitch_num_vfs(struct mlx5_eswitch *esw)
+ {
+@@ -798,7 +798,7 @@ mlx5_eswitch_offloads_destroy_single_fdb(struct mlx5_eswitch *master_esw,
+ 					 struct mlx5_eswitch *slave_esw) {}
+ 
+ static inline int
+-mlx5_eswitch_reload_reps(struct mlx5_eswitch *esw)
++mlx5_eswitch_reload_ib_reps(struct mlx5_eswitch *esw)
+ {
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+index 2a64d0fd2fe52..3e2f28c08b2b5 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+@@ -2405,6 +2405,16 @@ int esw_offloads_init_reps(struct mlx5_eswitch *esw)
+ 	return err;
+ }
+ 
++static int __esw_offloads_load_rep(struct mlx5_eswitch *esw,
++				   struct mlx5_eswitch_rep *rep, u8 rep_type)
++{
++	if (atomic_cmpxchg(&rep->rep_data[rep_type].state,
++			   REP_REGISTERED, REP_LOADED) == REP_REGISTERED)
++		return esw->offloads.rep_ops[rep_type]->load(esw->dev, rep);
++
++	return 0;
++}
++
+ static void __esw_offloads_unload_rep(struct mlx5_eswitch *esw,
+ 				      struct mlx5_eswitch_rep *rep, u8 rep_type)
+ {
+@@ -2453,13 +2463,11 @@ int mlx5_esw_offloads_rep_load(struct mlx5_eswitch *esw, u16 vport_num)
+ 	int err;
+ 
+ 	rep = mlx5_eswitch_get_rep(esw, vport_num);
+-	for (rep_type = 0; rep_type < NUM_REP_TYPES; rep_type++)
+-		if (atomic_cmpxchg(&rep->rep_data[rep_type].state,
+-				   REP_REGISTERED, REP_LOADED) == REP_REGISTERED) {
+-			err = esw->offloads.rep_ops[rep_type]->load(esw->dev, rep);
+-			if (err)
+-				goto err_reps;
+-		}
++	for (rep_type = 0; rep_type < NUM_REP_TYPES; rep_type++) {
++		err = __esw_offloads_load_rep(esw, rep, rep_type);
++		if (err)
++			goto err_reps;
++	}
+ 
+ 	return 0;
+ 
+@@ -3102,7 +3110,7 @@ static void esw_destroy_uplink_offloads_acl_tables(struct mlx5_eswitch *esw)
+ 	esw_vport_destroy_offloads_acl_tables(esw, vport);
+ }
+ 
+-int mlx5_eswitch_reload_reps(struct mlx5_eswitch *esw)
++int mlx5_eswitch_reload_ib_reps(struct mlx5_eswitch *esw)
+ {
+ 	struct mlx5_eswitch_rep *rep;
+ 	unsigned long i;
+@@ -3115,13 +3123,13 @@ int mlx5_eswitch_reload_reps(struct mlx5_eswitch *esw)
+ 	if (atomic_read(&rep->rep_data[REP_ETH].state) != REP_LOADED)
+ 		return 0;
+ 
+-	ret = mlx5_esw_offloads_rep_load(esw, MLX5_VPORT_UPLINK);
++	ret = __esw_offloads_load_rep(esw, rep, REP_IB);
+ 	if (ret)
+ 		return ret;
+ 
+ 	mlx5_esw_for_each_rep(esw, i, rep) {
+ 		if (atomic_read(&rep->rep_data[REP_ETH].state) == REP_LOADED)
+-			mlx5_esw_offloads_rep_load(esw, rep->vport);
++			__esw_offloads_load_rep(esw, rep, REP_IB);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+index 4b4d761081115..e127cbdf2bbf7 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+@@ -796,9 +796,9 @@ void mlx5_disable_lag(struct mlx5_lag *ldev)
+ 
+ 	if (shared_fdb) {
+ 		if (!(dev0->priv.flags & MLX5_PRIV_FLAGS_DISABLE_ALL_ADEV))
+-			mlx5_eswitch_reload_reps(dev0->priv.eswitch);
++			mlx5_eswitch_reload_ib_reps(dev0->priv.eswitch);
+ 		if (!(dev1->priv.flags & MLX5_PRIV_FLAGS_DISABLE_ALL_ADEV))
+-			mlx5_eswitch_reload_reps(dev1->priv.eswitch);
++			mlx5_eswitch_reload_ib_reps(dev1->priv.eswitch);
+ 	}
+ }
+ 
+@@ -898,17 +898,17 @@ static void mlx5_do_bond(struct mlx5_lag *ldev)
+ 			dev0->priv.flags &= ~MLX5_PRIV_FLAGS_DISABLE_IB_ADEV;
+ 			mlx5_rescan_drivers_locked(dev0);
+ 
+-			err = mlx5_eswitch_reload_reps(dev0->priv.eswitch);
++			err = mlx5_eswitch_reload_ib_reps(dev0->priv.eswitch);
+ 			if (!err)
+-				err = mlx5_eswitch_reload_reps(dev1->priv.eswitch);
++				err = mlx5_eswitch_reload_ib_reps(dev1->priv.eswitch);
+ 
+ 			if (err) {
+ 				dev0->priv.flags |= MLX5_PRIV_FLAGS_DISABLE_IB_ADEV;
+ 				mlx5_rescan_drivers_locked(dev0);
+ 				mlx5_deactivate_lag(ldev);
+ 				mlx5_lag_add_devices(ldev);
+-				mlx5_eswitch_reload_reps(dev0->priv.eswitch);
+-				mlx5_eswitch_reload_reps(dev1->priv.eswitch);
++				mlx5_eswitch_reload_ib_reps(dev0->priv.eswitch);
++				mlx5_eswitch_reload_ib_reps(dev1->priv.eswitch);
+ 				mlx5_core_err(dev0, "Failed to enable lag\n");
+ 				return;
+ 			}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_E14C00D5FE957DD7E12FFDC2E75A4FA9EE08%40qq.com
+2.53.0
+
+
+
