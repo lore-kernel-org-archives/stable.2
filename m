@@ -1,75 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184719;
-	b=RaXf21aoyRv7CrHXQY7m/w6e3b5HTMgBaNyBY2lG7y4MAXnLGiNs9QvHKDGzGysHQsO5
-	 wqa4bMdVCm00dAZDlzbqQoi9Qp7XBG63Vqmg26YyETwpM8iI3bfT3C3+iMN4hr5pOdZZ5
-	 wUXxoBKZDja6lJIFi3nV6Sgf8d88qUW+CWkmx9x2TZDHc9iiBaJAeOjbGVG/jKP5GxCkA
-	 6RbMef9OSYq7+iXH8grxXkdGwzQk47/fmf5c0f7BJhyWAkjNAgPa5y7FhtjQidYwE69f3
-	 85TfpM7c/SA5tgDR/M6BZ/kovgwQzuOXJMQDDdvJVjmMi/59Ka0cs5grRVdrXJJNzQg==
+	t=1793184925;
+	b=zJ4WGJoB3wkzvQiyqManU0LscpXllfGSBOZEbf08VkVlv79s0Gjf4avMywzOTCLzC69d
+	 FIUc3QZCBlovfj0anJqlJSedFdc16AwCZKWyCbzL7EhkXIVhakq/FqeIdK3gGPpsfR/bZ
+	 pihLMRh3Jn/x/9ZkxW6L6EIYOCDqqyZDcV2G3SVGOiTVvCcrTuYkhOtosE49Q3K2hujmq
+	 9KW4I/szrKqXHf6hs5LW1d37XejUyrJ3qh6G3X2fzHpJE2RiHVqx3PHT5kg0Yv2TfLqQd
+	 nd94IrdCUy1mqShsHMmylaDLJMHx+0A+7igYsI52D/EAQ1XiarKiNzuZFi/58xNr/yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184719;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7VuPLf/Bn8Nq23p16kdsfk/y2q2DGA/iZ/5CkjspwaQ=;
-	b=xOU5YS6JHc8Wt88iXtTLZ+gbOHWxyfU/ry9gOUinSl1gTNwi3WdMqH20fK/8w7Fu+0H6
-	 F5zx2s0Stdm6lOVDtnAEVacrRaWhdcoX1pKGePLWvISLtuIFTLwrYBt/4IFBhRi7kMMN3
-	 +pLlqOhVE0R4+1JN7kkhfEnfhHob9OAlncvlT2KXc5pnlgr7Wl9a8+9nIlmp0e9/JrirH
-	 STajmIzvlkt/yPhi87OJ3VQHbQgzbsveFRBv/WMI25Wo2hnySMxinrT9/06foWBMd2WCL
-	 ZVU5HKtUpfkItrpMq5XKJDDz9wN8dRUxMhhb/rmeHQthXB26x1NT2zithJLahuBkXEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184925;
+	h=DMARC-Filter:DKIM-Signature:Content-Type:Content-Transfer-Encoding:
+	 X-Change-Id:X-Original-From:Received:X-Lms-Return-Path:To:From:
+	 Subject:X-Mailer:X-B4-Tracking:Cc:Date:Message-Id:Mime-Version;
+	bh=xk/LGmqAVOIr9rJ8TkRSY178UNjfbyNnpVZUhnBPxj8=;
+	b=FrHssa2E/SAdbwXjYGZPWmDBNTtF1j/CxvmxQk06klYjWrTITdLklZmy+Xj4HgbjXyB3
+	 4+tU8Ftk4gaejLtsfixEPyLeGzJXreswfYsC0+QUrHNdx1gwk1ZQj3XYtFk86nK7UETON
+	 o0MlGdwFBd0QsFwJTMX/OEXg6Fzo1ueFVxaiuxCOMXIHjZwGhkB9TWLLN90BEiST4OA3e
+	 xTMwT7SecPbIFW/WhdTOS2RWVbXYqjHDaxbVGoNSiXHIIIAlrcdgS5C+2EJ5W1GiIZeaE
+	 10fFro4BK/gFVV9sNwrHCRKqMF+iEPl6rlmbVm03GsOE8s0Rl9hzQHqjM/aUltppuqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBRAr6GD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=y33nZB4j;
+	arc=none smtp.remote-ip=71.18.227.1
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246CB606A31A;
-	Wed, 28 Oct 2026 10:51:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4511606A326
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4511606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBRAr6GD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B691F01825;
-	Wed, 28 Oct 2026 10:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793184718;
-	bh=7VuPLf/Bn8Nq23p16kdsfk/y2q2DGA/iZ/5CkjspwaQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eBRAr6GDX4kET2Ek9hYjPmzPxEQW5sR6uvgI4atic8jFUwlYMWDd8wXV59vQEJmDv
-	 AlVsHhjlRbPVmM+JsGl8xrOaYMa/vGAAwVCuT88dBN9QT0ocy0iENimUTCUqFwHUzd
-	 ZJ/bOQ9MzSg0GY8P6RrZp/Tk7FT655/GKkGHxWGmC8FVsr3NEkAZxuLIuhYNKXJq7s
-	 gtsGCJwJ0TMNg9xCqSlNtCcEP8zMBLGU0NmNcNK5ipdk004Tl8X/UpJrcNXB+ouHLi
-	 z6snhbni4tuYid2Q8J+rBnNdQbMoCFWI3RPJyEfBuFFC6QvzlP9EPVA54/9BYhrquW
-	 L6exRasHRYQtA==
-Date: Wed, 28 Oct 2026 11:51:48 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Vladimir Davydov <vdavydov.dev@gmail.com>,
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Lukas Czerner <lczerner@redhat.com>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Stevens <stevensd@chromium.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	William Kucharski <william.kucharski@oracle.com>,
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-	Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
-	stable@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: Re: [PATCH v3 05/15] hugetlbfs: enforce F_SEAL_EXEC in setattr
-Message-ID: <auHTxApiSnnlY1xt@localhost.localdomain>
-References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
- <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=y33nZB4j
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1793184912; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=xk/LGmqAVOIr9rJ8TkRSY178UNjfbyNnpVZUhnBPxj8=;
+ b=y33nZB4j75a1Z+47KFsLP3yOAEcqAul7Q7z6QXbzm7npLLDNd0mBzD6cqnoAvECSmCUCh9
+ mwkf5j9dBZuX1zbRFGYly/iTvG1uble6BdniNBwM+rYYPzSfU1MYzFeGx6sjtyc7yTJVjc
+ pghjk3JsKEI4yrWSEM6RYB1sOANGswe+7kzB+0exhOayc3aPVA5AIF1A4KBnvkPksKDczP
+ pCxqgLvGHEdjABp+w62KoZ9HHqjTGpxinOZSY0p6e49bc4qGSRKLlzsJqJnUiOR6DzEdiB
+ juMTf49GpXeF3Cf/Vq/K1VdyQAAjcINhjxIMAlb65oZejusKLr/XG9KJ17g7qg==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20261028-b4-pidff-duration-shift-8df4f6451448
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Received: from [127.0.1.1] ([111.42.148.12]) by smtp.feishu.cn with ESMTPS; Wed, 28 Oct 2026 18:55:09 +0800
+X-Lms-Return-Path: <lba+26ae1d48e+516177+vger.kernel.org+me@cherr.cc>
+To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
+	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] HID: pidff: fix undefined shift for infinite duration
+X-Mailer: b4 0.16.0
+X-B4-Tracking: v=1; b=H4sIAIXU4WoC/yXMQQqDQAyF4atI1g04QyqDVyldqJNoXFiZjKUg3 t2xLj9479/BOCkbtNUOib9q+lkK3KOCYeqWkVFjMfjaN672AXvCVaMIxi11uazRJpWMIQpJQ09 HFKC818Siv3/59b5tWz/zkK8cHMcJBidogHsAAAA=
+Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Date: Wed, 28 Oct 2026 18:55:02 +0800
+Message-Id: <20261028-b4-pidff-duration-shift-v1-1-65028c6b4a37@cherr.cc>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,73 +69,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
+Mime-Version: 1.0
 
-On Wed, Oct 28, 2026 at 10:55:03AM +0100, David Hildenbrand (Arm) wrote:
-> From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-> 
-> F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
-> not check it. As a result, fchmod() can change the execute bits of a
-> sealed hugetlbfs memfd.
-> 
-> Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-> to execute bits when F_SEAL_EXEC is set.
-> 
-> This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-> fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
-> 
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-> Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Muchun Song <muchun.song@linux.dev>
-> [ david: use common helper; fixup Fixes:; check only regular files ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+pidff_set_duration() computes the infinite duration as
+(1U << report_size) - 1, but report_size comes from the device's
+report descriptor and can be 32 or greater. This causes an undefined
+shift. A UHID test on x86-64 triggers UBSAN and programs a 32-bit
+duration field as zero instead of 0xffffffff.
 
-Acked-by: Oscar Salvador <osalvador@suse.de>
+For report sizes of 32 or more, store -1 in the s32 field value to
+set all 32 bits without shifting. Keep the existing calculation for
+smaller fields.
 
-> ---
->  fs/hugetlbfs/inode.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-> index 01c4d6f44ebe..02e0a65d596d 100644
-> --- a/fs/hugetlbfs/inode.c
-> +++ b/fs/hugetlbfs/inode.c
-> @@ -28,6 +28,7 @@
->  #include <linux/folio_batch.h>
->  #include <linux/fs_parser.h>
->  #include <linux/mman.h>
-> +#include <linux/memfd.h>
->  #include <linux/slab.h>
->  #include <linux/dnotify.h>
->  #include <linux/statfs.h>
-> @@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
->  	if (error)
->  		return error;
->  
-> +	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
-> +		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-> +					       attr->ia_mode);
-> +		if (error)
-> +			return error;
-> +	}
-> +
->  	trace_hugetlbfs_setattr(inode, dentry, attr);
->  
->  	if (ia_valid & ATTR_SIZE) {
-> 
-> -- 
-> 2.43.0
-> 
+Fixes: 1a575044d516 ("HID: pidff: Compute INFINITE value instead of using hardcoded 0xffff")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+HID: pidff: fix undefined shift for infinite duration
+---
+ drivers/hid/usbhid/hid-pidff.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
--- 
-Oscar Salvador
-SUSE Labs
+diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
+index 22951b7ecd17..25b82e7d0b9e 100644
+--- a/drivers/hid/usbhid/hid-pidff.c
++++ b/drivers/hid/usbhid/hid-pidff.c
+@@ -394,7 +394,11 @@ static void pidff_set_duration(struct pidff_usage *usage, u16 duration)
+ {
+ 	/* PID defines INFINITE as the max possible value for duration field */
+ 	if (pidff_is_duration_infinite(duration)) {
+-		usage->value[0] = (1U << usage->field->report_size) - 1;
++		if (usage->field->report_size >= 32)
++			usage->value[0] = -1;
++		else
++			usage->value[0] =
++				(1U << usage->field->report_size) - 1;
+ 		return;
+ 	}
+ 
+
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261028-b4-pidff-duration-shift-8df4f6451448
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
