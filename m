@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202164;
-	b=vS5KUOAcmw6OKkMBYQHr6d/4tICJ5H6jSCYMahwLX99LBNzQkL4lFxCp+kJLzMrMcjKV
-	 phGVixCxLKBte7xjbHPgDnawaiJgfYJGUu09PcnmsMGdlC+W86aw1GrM0uwVHof0t9PyI
-	 +HzFGBFJ/4ETfyGmhe0a8aUs53YqPeSICvbPGZwYzQ/1oVOl6Py61/4JN423NjFSLyKfe
-	 CGTZWcQXx2Nd9g2eaqFdPCdg50U0BrYCyftDDuj24dJFsISvIYsdCaZAf2dnahZYM2Y9W
-	 Y3CHtztItV2Iy/D05nWu+y+d8x0QmUIUKR1efqQTqQtpKtDX4vMqAPIOGroNOXzjtlw==
+	t=1793202168;
+	b=yK6aEoaWjf++Xc6hMkWA8WrmdI8Yq4vLCdUhAQEdpoOVY5h4JZbR5zAbXh2iO/Ppilyo
+	 ZJxa5CQsEtNCY5WPkkpcNC5iy2PHSNs3PA166fPIQNkQeoN5MNfO10xcQ73pGSsX/NrX1
+	 XRQYE3yqjo5ykmJsm/+193EJW5H06Bhi2MP9XWXYyIPauFNhbAZ/Yr1PMZCt41BIDiD++
+	 oxkBZsHm4b1t0ewjrVZej3qsWBtQA+kh8kiE6bxfReabiNe17boDkJn5D9x8i0IdBmNhQ
+	 C/gZ12BS8MV56ae99qEAxwnQtzA7c4iJPZ2w+6DkmhNgncSjf420a8nY4txt4AQc3fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202164;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202168;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SSuJWtylWOlDXuA/FVzzEuxLRE4GeRLbd69NBkjJQCc=;
-	b=xl3Dtf0MFA57/XPYC+ZuayD849rcLRcxMpE5oLB9mv3K4kDnm/hCeZ/3RpEcT1K8HYO7
-	 Nk8yP6cEjMoV4LGKJZ4hBDgFV/lhNOxYEnvcs5eYdOsZ4/JWlgvD3VBFTITsh/wuHcure
-	 lWf/p/VKtq9CqK70GQzV98j+qMQy7VOFkhgwWsFbj/25U2BaC6qa/5OlnNVMVtBwb4L6F
-	 d3WA0X1yrRcZqeo8FrkehipRXy96jXfmPOkvyohcjvf34HQo5HVc1o8q2J/+cyPk4O+HT
-	 kzPSmZNPqzzce1KUemM/yaOdhpcEyBghg5DRyaytPStjc7Grm4rzfbONvLwZWSjRR7Q==
+	bh=aLcHh9wVCNj0wy7JzbpEj3+SL2vMXcdXR22pTGdylzU=;
+	b=1Ik/dLI/AeeoXAkyDl8hEMJwtwQTLD5EqIZIaOEzypHRCv25gfeHZJ75kd46vpFTKvjA
+	 nV3c0rpTlJudkT6T979FOc1V8YFf74IVU2hPSXRMA8gjTckbmLwQypJ+NvA6ekS944q2k
+	 9E8404hE7yS5qxl3hlvMpgVz6Hc2rVXcOyyHp2R+hpqCvrGA1XUuOJ3sKetwbIqIRSwSp
+	 9K7eqGbGYzF4Vr3S0PzdPNprqmx6zAMeraGcagN0uH2RXRbnLJtkyITqmq+B/kc9J8Oqi
+	 Qe1LSl0RENdOXbpI/wvNCRrBW7Df+KMafetT4e8uCz0yBHpytyC2cH3V29xtQpwZgOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c6nOvNag;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="E/BHRL6D";
 	arc=none smtp.remote-ip=198.137.202.133
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217F1606A31A;
-	Wed, 28 Oct 2026 15:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 217F1606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FB9606A322;
+	Wed, 28 Oct 2026 15:42:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64FB9606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c6nOvNag
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=E/BHRL6D
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=SSuJWtylWOlDXuA/FVzzEuxLRE4GeRLbd69NBkjJQCc=; b=c6nOvNagGiPK6iup26/tck9kCe
-	3qJUrqx6Y3DNuOkd9NZqOEI5hODGWh1m+NVdWg2qHfoxsJqewa+oVpWoN3CzUeYGC31N8QOgfODOH
-	M7Wj+B9GiX/RtW+bPBLvhJprj2enTyiiyWe6tyD6l9NQhnQ4pR77gRQKrHf+VKAihmvbKlwTNHUGa
-	DSYE/OY60xdhHqBIt4qTtVLfhIIHA3CC4VcD4H39UjI/Dj6FB4RgUzdfFdpwTPw+a2XIw4VpxtYry
-	J57km11XeLfupsYV6AlGbXU2wo6M90P7Tg9VTmnvY0nSfhiIpNOoO24x8/UCYdLqiD0AqOaTIZHB+
-	GMM5fvew==;
+	bh=aLcHh9wVCNj0wy7JzbpEj3+SL2vMXcdXR22pTGdylzU=; b=E/BHRL6Du+Fdr3+amsCWlylmKW
+	+LQLxA7qkn4homkLKhl2qvDpFOgYBU1NZrVb6YWxzpe3IsRfZGMLDmLg9wRqqtOIfuN8yG0ccapFO
+	Kxpvxtm6WXotTb46LS2rzAP9ya+rhkKEad1O8UWfRJ3aCmQ/0pWShBjH3VWzNmVGLPEV/7jCLLGLx
+	IM6PQCtzKzhw2eErmBZwP4E3M+yhlSkZ/v6Pbnlf1mFBuxvefTl/8m1PQ31cXq2Y8hmBrOilEKwra
+	9jnQ31VU+3ScBnnxNTxILEesGeROmYACWLMCIdsj87pzzZXl/sF78i6hy6X+ooibEmECOuOECERXK
+	JBMtSBCw==;
 Received: from [38.23.173.23] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xM5nW-00000007Qnq-1ssv;
-	Wed, 28 Oct 2026 15:42:42 +0000
+	id 1xM5na-00000007Qpt-2enj;
+	Wed, 28 Oct 2026 15:42:46 +0000
 From: "Liam R. Howlett (Google)" <liam@infradead.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Thomas Graf <tgraf@suug.ch>,
@@ -60,9 +60,9 @@ Cc: linux-mm@kvack.org,
 	Andrew Ballance <andrewjballance@gmail.com>,
 	"Liam R. Howlett (Google)" <liam@infradead.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] maple_tree: Fix rcu reader NULL dereference after the tree is emptied
-Date: Wed, 28 Oct 2026 11:42:15 -0400
-Message-ID: <20261028154218.1668182-2-liam@infradead.org>
+Subject: [PATCH 3/4] maple_tree: Update internal warning and bug_on code
+Date: Wed, 28 Oct 2026 11:42:17 -0400
+Message-ID: <20261028154218.1668182-4-liam@infradead.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261028154218.1668182-1-liam@infradead.org>
 References: <20261028154218.1668182-1-liam@infradead.org>
@@ -77,218 +77,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RCU readers may hit a NULL dereference if the tree is emptied while the
-walker is restarted from a dead node.  Avoid the NULL dereference by
-checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
-set the maple state limits correctly.
+When CONFIG_DEBUG_MAPLE_TREE is set, call the WARN_ON_ONCE() after the
+custom information is dumped about the tree.  Without using the kernel's
+WARN_ON calls, syzbot will not catch issues detected by this code.
 
-Initial fix was generated by LLM and sent by Chris Mason in private.
+Update the non-debug code to call WARN_ON_ONCE() as well.
 
 Cc: <stable@vger.kernel.org>
-Fixes: fff4a58cc00b ("maple_tree: introduce mas_next_slot() interface")
-Reported-by: Chris Mason <mason@kernel.org>
+Reported-by: Lorenzo Stoakes <ljs@kernel.org>
+Fixes: bf857ddd21d0b ("maple_tree: move debug check to __mas_set_range()")
 Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
 ---
- lib/maple_tree.c | 110 +++++++++++++++++++++++++++++++++++------------
- 1 file changed, 83 insertions(+), 27 deletions(-)
+ include/linux/maple_tree.h | 54 +++++++++++++++++++++-----------------
+ 1 file changed, 30 insertions(+), 24 deletions(-)
 
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index 0b0036c9f8489..22812ed49be5a 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -3891,14 +3891,54 @@ static __always_inline void mas_rewalk(struct ma_state *mas, unsigned long index
- 		goto retry;
- }
+diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
+index e30e57f5f3df9..0f96f1f19eb95 100644
+--- a/include/linux/maple_tree.h
++++ b/include/linux/maple_tree.h
+@@ -680,7 +680,7 @@ void mt_cache_shrink(void);
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
++		BUG_ON(1);						\
+ 	} else {							\
+ 		atomic_inc(&maple_tree_tests_passed);			\
+ 	}								\
+@@ -696,7 +696,7 @@ void mt_cache_shrink(void);
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
++		BUG_ON(1);						\
+ 	} else {							\
+ 		atomic_inc(&maple_tree_tests_passed);			\
+ 	}								\
+@@ -713,62 +713,68 @@ void mt_cache_shrink(void);
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
++		BUG_ON(1);						\
+ 	} else {							\
+ 		atomic_inc(&maple_tree_tests_passed);			\
+ 	}								\
+ } while (0)
  
--static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
--		struct maple_node *node, const unsigned long index)
-+/*
-+ * mas_next_no_node() - Finish a next walk that restarted into a tree without
-+ * nodes.
-+ * @mas: The inactive maple state (ma_none or ma_root)
-+ *
-+ * The arrival here is either because there is a root value or nothing.  Either
-+ * way, the next entry is nothing.  So set the limits and overwrite the status.
-+ *
-+ * Return: NULL
-+ */
-+static inline void *mas_next_no_node(struct ma_state *mas)
- {
--	if (unlikely(ma_dead_node(node))) {
--		mas_rewalk(mas, index);
--		return true;
-+	if (mas_is_ptr(mas))
-+		mas->index = 1;
-+	else
-+		mas->index = 0;
-+
-+	mas->last = ULONG_MAX;
-+	mas->status = ma_none;
-+	return NULL;
-+}
-+
-+/*
-+ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
-+ * nodes.
-+ * @mas: The inactive maple state (ma_none or ma_root)
-+ * @min: The lowest index to return
-+ *
-+ * The arrival here is either because there is a root value or nothing.  With
-+ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
-+ * sits at 0, before the saved index: stop on it as mas_prev_setup() does.
-+ *
-+ * Return: The root entry if @min allows it, NULL otherwise.  A node if the
-+ * root changed again since the walk; the caller restarts.
-+ */
-+static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long min)
-+{
-+	mas->index = 0;
-+	if (mas_is_none(mas)) {
-+		mas->last = ULONG_MAX;
-+		return NULL;
- 	}
--	return false;
-+
-+	mas->last = 0;
-+	if (min)
-+		return NULL;
-+
-+	return mas_root(mas);
- }
+ #define MT_WARN_ON(__tree, __x)  ({					\
++	static bool __warned;						\
+ 	int ret = !!(__x);						\
+ 	atomic_inc(&maple_tree_tests_run);				\
+-	if (ret) {							\
+-		pr_info("WARN at %s:%d (%u)\n",				\
+-		__func__, __LINE__, __x);				\
++	if (!ret) {							\
++		atomic_inc(&maple_tree_tests_passed);			\
++	} else if (!__warned) {						\
++		__warned = true;					\
++		pr_info("WARN at %s:%d\n",				\
++		__func__, __LINE__);					\
+ 		mt_dump(__tree, mt_dump_hex);				\
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
+-	} else {							\
+-		atomic_inc(&maple_tree_tests_passed);			\
++		WARN_ON(1);						\
+ 	}								\
+ 	unlikely(ret);							\
+ })
  
- /*
-@@ -4006,14 +4046,14 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- 	node = mas_mn(mas);
- 	type = mte_node_type(mas->node);
- 	pivots = ma_pivots(node, type);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
+ #define MAS_WARN_ON(__mas, __x) ({					\
++	static bool __warned;						\
+ 	int ret = !!(__x);						\
+ 	atomic_inc(&maple_tree_tests_run);				\
+-	if (ret) {							\
+-		pr_info("WARN at %s:%d (%u)\n",				\
+-		__func__, __LINE__, __x);				\
++	if (!ret) {							\
++		atomic_inc(&maple_tree_tests_passed);			\
++	} else if (!__warned) {						\
++		__warned = true;					\
++		pr_info("WARN at %s:%d\n",				\
++		__func__, __LINE__);					\
+ 		mas_dump(__mas);					\
+ 		mt_dump((__mas)->tree, mt_dump_hex);			\
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
+-	} else {							\
+-		atomic_inc(&maple_tree_tests_passed);			\
++		WARN_ON(1);						\
+ 	}								\
+ 	unlikely(ret);							\
+ })
  
- 	if (mas->min <= min) {
- 		pivot = mas_safe_min(mas, pivots, mas->offset);
+ #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
++	static bool __warned;						\
+ 	int ret = !!(__x);						\
+ 	atomic_inc(&maple_tree_tests_run);				\
+-	if (ret) {							\
+-		pr_info("WARN at %s:%d (%u)\n",				\
+-		__func__, __LINE__, __x);				\
++	if (!ret) {							\
++		atomic_inc(&maple_tree_tests_passed);			\
++	} else if (!__warned) {						\
++		__warned = true;					\
++		pr_info("WARN at %s:%d\n",				\
++		__func__, __LINE__);					\
+ 		mas_wr_dump(__wrmas);					\
+ 		mas_dump((__wrmas)->mas);				\
+ 		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
+-	} else {							\
+-		atomic_inc(&maple_tree_tests_passed);			\
++		WARN_ON(1);						\
+ 	}								\
+ 	unlikely(ret);							\
+ })
+@@ -776,9 +782,9 @@ void mt_cache_shrink(void);
+ #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
+ #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
+ #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
+-#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
+-#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
+-#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
++#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
++#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
++#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
+ #endif /* CONFIG_DEBUG_MAPLE_TREE */
  
--		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--			goto retry;
-+		if (unlikely(ma_dead_node(node)))
-+			goto dead;
- 
- 		if (pivot <= min)
- 			goto underflow;
-@@ -4028,10 +4068,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- 		if (mas->index <= min)
- 			goto underflow;
- 
--		if (mas_prev_node(mas, min)) {
--			mas_rewalk(mas, save_point);
--			goto retry;
--		}
-+		if (mas_prev_node(mas, min))
-+			goto dead;
- 
- 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
- 			return NULL;
-@@ -4045,8 +4083,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- 
- 	slots = ma_slots(node, type);
- 	entry = mas_slot(mas, slots, mas->offset);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (likely(entry))
- 		return entry;
-@@ -4063,6 +4101,17 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
- underflow:
- 	mas->status = ma_underflow;
- 	return NULL;
-+
-+dead:
-+	mas_rewalk(mas, save_point);
-+	if (likely(mas_is_active(mas)))
-+		goto retry;
-+
-+	entry = mas_prev_no_node(mas, min);
-+	if (unlikely(xa_is_node(entry))) /* The root changed again */
-+		goto dead;
-+
-+	return entry;
- }
- 
- /*
-@@ -4176,8 +4225,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 	node = mas_mn(mas);
- 	type = mte_node_type(mas->node);
- 	pivots = ma_pivots(node, type);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (mas->max >= max) {
- 		if (likely(mas->offset < mas->end))
-@@ -4185,8 +4234,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 		else
- 			pivot = mas->max;
- 
--		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--			goto retry;
-+		if (unlikely(ma_dead_node(node)))
-+			goto dead;
- 
- 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
- 			mas->status = ma_overflow;
-@@ -4208,10 +4257,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 			return NULL;
- 		}
- 
--		if (mas_next_node(mas, node, max)) {
--			mas_rewalk(mas, save_point);
--			goto retry;
--		}
-+		if (mas_next_node(mas, node, max))
-+			goto dead;
- 
- 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
- 			return NULL;
-@@ -4226,8 +4273,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 
- 	slots = ma_slots(node, type);
- 	entry = mt_slot(mas->tree, slots, mas->offset);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (entry)
- 		return entry;
-@@ -4244,6 +4291,13 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
- 	}
- 
- 	return entry;
-+
-+dead:
-+	mas_rewalk(mas, save_point);
-+	if (likely(mas_is_active(mas)))
-+		goto retry;
-+
-+	return mas_next_no_node(mas);
- }
- 
- /*
-@@ -5450,7 +5504,9 @@ void *mas_find(struct ma_state *mas, unsigned long max)
- 	/* Retries on dead nodes handled by mas_next_slot */
- 	entry = mas_next_slot(mas, max, false);
- 	/* Ignore overflow */
--	mas->status = ma_active;
-+	if (mas_is_overflow(mas))
-+		mas->status = ma_active;
-+
- 	return entry;
- }
- EXPORT_SYMBOL_GPL(mas_find);
+ /**
 -- 
 2.47.3
 
