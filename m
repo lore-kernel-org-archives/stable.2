@@ -1,53 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210777;
-	b=I5ow7wNrYBxtOSJAT9wyQHUE6d/Ex4yULRBRX2qpt8sZFiO2+8YpFir2QX3ba4uU+dbK
-	 TDSR/ahgsgYS0vA7/p+7oU2gb24BEXqF9GIEG3XhJzAi6VFfMQKxNaqWxjAGstD2YqgPc
-	 qQjNPgQqAuuvznzTR6cqzpNmdt0n6SUCYUjnz9xe/tH2dYrKj9fWbTRdYUaPRXeRke2p6
-	 exU0v9z4kgkWYVXTzDhyEW7JhaX7dih/BqgXmo1NF5zbdHv4My60JxmAeCVTiTBf14H4M
-	 2w2SCCTSBq6WTO0mEqDGfxqAGjOY30rb/Lzlw+WzI4QmFmED2CqecPWFLOH2S58H6Ag==
+	t=1793210778;
+	b=4POp00U4zAIuq5UEMAte1AfqywP0I9+K4sUNJxDMmIMaWIPxXJcZ76rzZwpnnqOMhoV2
+	 NIHstuzHW2jd5E6sEQo7nIeX3EgnZgF4Hl+kG98uuno+TbIl0TooDfieQzj/OsMoWXtnb
+	 5IfffmVz4d21UVRrThkJD9CHkyvWWOMmlf/v6SZQ1gYDXXmKV9Kq8shU8sKZ3ulSO1TmJ
+	 lb7pyOEJ3JK3ui1mpsoRf1DyrceJBswZhk2PM/X2WnYWvOMgwrTm9swU+XUS+R59ql0bp
+	 yN7UiFli8KIJ1Z/K2zZVGk6j/I7y70cKh2SKLPXeJ104BQtJPepLMANf+XwkpFkcysQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210777;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k/LxOHxPUGFXqyOsB9Z3CmBuJ424stUjz+6NUgATtt0=;
-	b=J/wMl0tD43DbvSMxTafuR3zGq7lMr8aG73+6U1ad70ZdiIo3Vw2HOBgWQDS0oJ6lerVR
-	 rcY3NwiW6zYsGMO1huhmWB3sQVLuSitg9S7AOwK0mZVevThxtu3xJRxV93Rbo1TO2Zie/
-	 /oXekkdZfbGb+dmXEO+0Z5eQp+HST+oNVV/u5p0nX9XYBb3mA9qnFribhe6Ghvv3fQh+M
-	 fP0zTUZtMFHEkqlPcAuSceCOxxnoPKOg+kX/VbdOUO/bePuKI7TdbmjiAwR2yXa4itvYH
-	 nYXqGqmVYTRWHOYMBpAh6CiIZC0uXN0Dlf8WZ4MN02DK7NnnrEyjaT1WvCiPqxh3v6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210778;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HOdxJmahu9pCb8fQoV/l55BrB2faxRZxFD9QZVZE0Dc=;
+	b=1K764FVI6dN9IbPMBF22zbW7OjsXhBhNxgBeQzHYjYSncrmQEbf456JbBj9HuFEeyYpl
+	 uVt/KjRWDHXh4TKTPqz0kezrD13aYPL/82rFwFAq7d/lUpWCvuVhU5a8yW/fA194r4PLn
+	 Ay8Y74xbegJ5PyK0dl7YUYpPC4niqVS0+6wvCkh2oLM7YtyiNXOBhdvyoA3fST5TawzoJ
+	 t8xh1EyMr9uP8H472nOuHZHvqJ9GFEtrvxuVR6H4CLLxr/wgSdutPKlmBPJF9ErfHqsdk
+	 W3Kc9CSBbRbeYkET9m31wK+Y4XmEts/fIk5HDIhdXpzj+d/vQatXqtH+h1BQY8H8EVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY3D3g8d;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=umqKQZUI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01A3606A31C;
-	Wed, 28 Oct 2026 18:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50A7606A31A;
+	Wed, 28 Oct 2026 18:06:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY3D3g8d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EB51F01825;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=umqKQZUI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DD71F01829;
 	Wed, 28 Oct 2026 18:06:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793210776;
-	bh=k/LxOHxPUGFXqyOsB9Z3CmBuJ424stUjz+6NUgATtt0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IY3D3g8dZN5RJ428jAworZHlOZrt4hT69OHQijvtIJH9szLSP7xKrAP2adhXoAjBa
-	 Eo6/HlYxhymUnI9u63X45PUmZ3smdikp9FAhsbqGaRm694ycpMalATvZ3rH6cYXW/G
-	 O2M21peS1d+dgIqLkv9aqirgxGiC2y1C5f1cIZRxY36wGAVAyrqdzpTh31faj9JQko
-	 Mq4mx2Nr1mgFj7dkhO6x8DWhOI9e9tTbqUuuRLQwGgi6Jr57D8A4yo1YuX63aN9Ob0
-	 4H+aN2xfFpj5QaAwbzO63dPUPzeZ1yIibyVgp2BUGL5kAmlQ6aABZpv9Og3YNIxoR6
-	 947c3WSAQE7uQ==
-Date: Wed, 28 Oct 2026 11:06:12 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: fsverity@lists.linux.dev
-Cc: linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	Andrey Albershteyn <aalbersh@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] fsverity: Explicitly require FMODE_READ to retrieve
- hashes
-Message-ID: <20261028180612.GA1876@quark>
-References: <20261022211522.1489943-1-ebiggers@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793210777;
+	bh=HOdxJmahu9pCb8fQoV/l55BrB2faxRZxFD9QZVZE0Dc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=umqKQZUIaaIGwdukAWFzN8yVNv5xpNUbdxad+b+NaW6Kbt9bKhvXyKE2R2sTdRdAr
+	 B7CAucqvBIYUt8oiv2RbEsRKCdh1LgVf2DpCnBJcGg34KesQBMFkRUWBeWRlR6p7Af
+	 1gkYNg4xvrcj71v01PYTJzjAwljFfFxAKlzuomqc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Xin Long <lucien.xin@gmail.com>,
+	Aaron Conole <aconole@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 146/571] openvswitch: add nf_ct_is_confirmed check before assigning the helper
+Date: Wed, 28 Oct 2026 17:54:53 +0100
+Message-ID: <20261028170011.480269653@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,17 +64,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022211522.1489943-1-ebiggers@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 09:15:22PM +0000, Eric Biggers wrote:
-> Therefore, just disallow these ioctls on ioctl-only file descriptors,
-> similar to what was already done with FS_IOC_ENABLE_VERITY.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Applied to https://git.kernel.org/pub/scm/fs/fsverity/linux.git/log/?h=for-current
+------------------
 
-Acks from the LSM maintainers would be appreciated as well, given that
-this patch fixes the interaction with certain LSMs.
+From: Xin Long <lucien.xin@gmail.com>
 
-- Eric
+[ Upstream commit 3c1860543fccc1d0cfe3fd6b190e414a418fe60e ]
+
+A WARN_ON call trace would be triggered when 'ct(commit, alg=helper)'
+applies on a confirmed connection:
+
+  WARNING: CPU: 0 PID: 1251 at net/netfilter/nf_conntrack_extend.c:98
+  RIP: 0010:nf_ct_ext_add+0x12d/0x150 [nf_conntrack]
+  Call Trace:
+   <TASK>
+   nf_ct_helper_ext_add+0x12/0x60 [nf_conntrack]
+   __nf_ct_try_assign_helper+0xc4/0x160 [nf_conntrack]
+   __ovs_ct_lookup+0x72e/0x780 [openvswitch]
+   ovs_ct_execute+0x1d8/0x920 [openvswitch]
+   do_execute_actions+0x4e6/0xb60 [openvswitch]
+   ovs_execute_actions+0x60/0x140 [openvswitch]
+   ovs_packet_cmd_execute+0x2ad/0x310 [openvswitch]
+   genl_family_rcv_msg_doit.isra.15+0x113/0x150
+   genl_rcv_msg+0xef/0x1f0
+
+which can be reproduced with these OVS flows:
+
+  table=0, in_port=veth1,tcp,tcp_dst=2121,ct_state=-trk
+  actions=ct(commit, table=1)
+  table=1, in_port=veth1,tcp,tcp_dst=2121,ct_state=+trk+new
+  actions=ct(commit, alg=ftp),normal
+
+The issue was introduced by commit 248d45f1e193 ("openvswitch: Allow
+attaching helper in later commit") where it somehow removed the check
+of nf_ct_is_confirmed before asigning the helper. This patch is to fix
+it by bringing it back.
+
+Fixes: 248d45f1e193 ("openvswitch: Allow attaching helper in later commit")
+Reported-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Acked-by: Aaron Conole <aconole@redhat.com>
+Tested-by: Aaron Conole <aconole@redhat.com>
+Link: https://lore.kernel.org/r/c5c9092a22a2194650222bffaf786902613deb16.1665085502.git.lucien.xin@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/openvswitch/conntrack.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index f0f0204a0e2b6..ff610c320c284 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -1037,7 +1037,8 @@ static int __ovs_ct_lookup(struct net *net, struct sw_flow_key *key,
+ 		 * connections which we will commit, we may need to attach
+ 		 * the helper here.
+ 		 */
+-		if (info->commit && info->helper && !nfct_help(ct)) {
++		if (!nf_ct_is_confirmed(ct) && info->commit &&
++		    info->helper && !nfct_help(ct)) {
+ 			int err = __nf_ct_try_assign_helper(ct, info->ct,
+ 							    GFP_ATOMIC);
+ 			if (err)
+-- 
+2.53.0
+
+
+
