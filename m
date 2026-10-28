@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209048;
-	b=guH5gykkNUVMseCb9DqQvA9NNBlIprn5wI9ZZDc2u8Z2kw6DEAInurRj2gUJWa4HdmHk
-	 APm6G/wuzDW//i0vDsz1f18ceXaUmSmdZINdJ+J6jb0cMaySSr8g8VZMV7zHzDVQCId0l
-	 VwOl6xHnsqyQKrdVD8t4324r2jKOKm01fvEYJsPEZe9Ivb3ARv2khyMBcer3eV0jRhF4G
-	 zQP8PGSU0iQSZA4q739RAzXI0mEKlMDJwk/9S4h9+TQduUUsYelQdyRt4umUA/4P3xuNB
-	 NB7LpIdJYV31LkLS0bZY4rEhlpBpnc32sfzAr31Na3ztYyAL7J/gPKH9cnQq/ZxH5mA==
+	t=1793209054;
+	b=to7dg1T4ZOxhKu5sR7XlOKZ/iGMstSFvl4hmjcVrG96cX3uOFQ0MxMIcDZFCSoa/dS83
+	 qMzzuXPCQWu7yaN7emQEQ54s2Aox9/uiashXIIQzjFNSBgtFJT0RRKp1n4FYWx8ByjWPU
+	 WP3H3vhUT2aW8a6uhAslAfG9uMADAqtXJHxNhTTNQojIRTPCgtBrnjCkJWTKU6yiy5q10
+	 1VHi/MgDqDW2o7Xg88vPh0mE3fGdxwrydOkOIzawMGEkmOO9lCZRDbcM55AAbGb25F6rY
+	 M/Kr/3Tvl7LFPyJxISrLQkp7e0F3dUKaRb5nAvzUPfpbqBh9sLBYz6wJ3rV2qxpTS3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209048;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209054;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FB6qjKot/oMwVO/iyHvWcDEP3ABXMXlJM5euMSygbh0=;
-	b=chM+1gZnKMNhrPbl5mxNTrMwxCk9KJzX6Flr4dhq6+QPc07p2t7Z6z0Yrtwb8A34O9YQ
-	 mJkCI9ONbHwPEjpbxStQTJP/XyIgZ8bt/VPo3kNP7f6Rzw4B/3K/E8iC/Qv4/Bd3zLgDa
-	 PViV7ZKI5DEEtpNVXE5T2rp1jHwlHPsEueCpQfDCajmopBFyOOK2Fi0Ept3/kyLRAEyxn
-	 ut26Ne92H78fraA0k+uo0UWALurbqarOuX8LRF1OjJrWE5ZxYfe7NOFTAiASQW8iLbVTm
-	 prZpZEvZPNNnVpgK5xDbgQSU/fO/xajebeB2CFJ2atJTjfmH1x8UFfI5d7wjp8Z9jog==
+	bh=35V4WsNSI0SgubuVDWXHZrwM0g2THBAgfulds1aBPhE=;
+	b=nxe5eU5r3Af62w/lCiZpVsZxjSGshX3Ven31eVUZpBhwK4ht9u3GV1KGz+ojn6PmhTFe
+	 HQ/uGeSnp6ebuWZUrTKUas70Tc8ijUMM3vABD/WveDhxciDeZpyKM14NILlL8wwtbLPXh
+	 F7uBPNbgk5sdu9YCf4Jdyi4EWIYa+ppeT4RI9Ebp/UGD4SpEUH4T2YDHbi4Zcz6Kv1qOK
+	 /YXwXITil7O8DvLMKTZzihqXBWOlhJe9W7WR0q/NsEjyGuj89/6k3FKJsIPNzkpHuJaA7
+	 Aw6eaGxzJmhuzz0SIBOS28lToUriIDRAK5/1X0aHkx1F2n2TXKtXON544MuINCcvgWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Snb0ku3t;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=isau3zrN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7794060A263C;
-	Wed, 28 Oct 2026 17:37:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D07360A260D;
+	Wed, 28 Oct 2026 17:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Snb0ku3t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DCFC1F01825;
-	Wed, 28 Oct 2026 17:37:27 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=isau3zrN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53DAC1F031EF;
+	Wed, 28 Oct 2026 17:37:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793209048;
-	bh=FB6qjKot/oMwVO/iyHvWcDEP3ABXMXlJM5euMSygbh0=;
+	s=korg; t=1793209053;
+	bh=35V4WsNSI0SgubuVDWXHZrwM0g2THBAgfulds1aBPhE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Snb0ku3tB7F5zMTdbfwc838a211GutueCbLjk3fmvsuBfPRCr3cDaDo9VoVvC9l4U
-	 oGCTSqHkxpBYH06vpkbz0RGIQYImFsVhBwA/j1af7qbhF4HbvqH8eHSVj7n2KXplfh
-	 wNbkCtnGoXlXcthwMS+Awyuluumh6AOy0icD02n4=
+	b=isau3zrNru4yw6fFBtawo/E1x5hf+v/M3PG0+YLt6d4XJFZzXyiDCUEF7bTjkh9qh
+	 fsh1AGrg/8s6CWwz1nOSesdRfyylp5SpvsShk2rPqCVKag6ZxRBp/qEwhgtTGNz7Az
+	 zeV8FrLw0EK2x4uPWgyICVrTZ4dQv5xCh0sUXuy4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Subject: [PATCH 5.10 327/516] keys: finalize persistent keyring timeout after link attempt
-Date: Wed, 28 Oct 2026 17:57:59 +0100
-Message-ID: <20261028170011.233896673@linuxfoundation.org>
+	Quchaosheng <quchaosheng000406@163.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.10 337/516] net/packet: guard the ll header push in packet_rcv_spkt()
+Date: Wed, 28 Oct 2026 17:58:09 +0100
+Message-ID: <20261028170011.470539772@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -67,143 +68,84 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Quchaosheng <quchaosheng000406@163.com>
 
-commit 25bf14f817168079f731975b8998fc2af380f29e upstream.
+commit 28bc1ef699610ee09ce3d46a00552f5a0a0144bd upstream.
 
-When no keyring exists for the requested UID, KEYCTL_GET_PERSISTENT
-creates and registers one before linking it to the requested destination.
-The configured timeout is set only after the destination link succeeds.
+packet_rcv_spkt() restores the link layer header with
 
-A destination restricted with KEYCTL_RESTRICT_KEYRING makes that link fail
-with -EPERM. With persistent_keyring_expiry set to 60 seconds, /proc/keys
-still reports the registered keyring's expiry as "perm".
-The failed call therefore leaves a quota-exempt keyring in the namespace's
-hidden register, where it may remain until namespace teardown.
+	skb_push(skb, skb->data - skb_mac_header(skb));
 
-Rename the write-locked helper to key_get_or_create_persistent() and return
-the key reference through a result parameter. Return 0 when it creates a
-keyring and 1 when the retry finds an existing one. Return a negative error
-on failure. Another caller may create the keyring between the initial
-read-locked lookup and the retry under the write lock.
+That subtraction is only meaningful when the device actually has a link
+layer header.  packet_rcv() and tpacket_rcv() both wrap it in
+dev_has_header(), which is also the predicate the block comment at the
+top of the file states the restore in terms of; packet_rcv_spkt() does
+not.  commit d549699048b4 ("net/packet: fix packet receive on L3
+devices without visible hard header") introduced the helper and changed
+the two call sites, and this one stayed behind.
 
-Set the timeout after permission checking and linking. Do this on success,
-or on failure if the call allocated the keyring. This leaves a new keyring
-collectible after failure without starting its timeout while linking is
-still in progress.
+A device without a visible ll header can leave skb->mac_header at the
+0xFFFF sentinel that __alloc_skb() initialises it to.  A CAN skb does:
+init_can_skb() sets pkt_type and ip_summed but does not reset the
+headers, and commit 9f10374bb024 ("can: remove private CAN skb
+headroom infrastructure") dropped the skb_reset_*_header() calls that
+used to be there.  skb_mac_header() is then 0xFFFF, the length becomes
+a large negative number and skb_push() reports it through
+skb_under_panic() -- from softirq context, so it is a full system panic
+even with panic_on_oops=0:
 
-Cc: stable@vger.kernel.org # v5.10+
-Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://lore.kernel.org/r/20260912095440.79864-1-kmehltretter@gmail.com
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+  skbuff: skb_under_panic: text:ffffffff8bd21bc1 len:-65455 put:-65471 head:... data:... tail:0x50 end:0x180 dev:can0
+  kernel BUG at net/core/skbuff.c:214!
+  RIP: 0010:skb_panic+0x50/0x60
+  Call Trace:
+   <IRQ>
+   skb_push+0x38/0x40
+   packet_rcv_spkt+0xe1/0x170
+   __netif_receive_skb_core.constprop.0+0x7e8/0xd30
+   ...
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+The socket type is reachable: packet_create() accepts SOCK_PACKET
+alongside SOCK_RAW and SOCK_DGRAM behind the same CAP_NET_RAW check,
+and neither the socket length nor a capability check keeps it away
+from a CAN interface.
+
+The missing skb_reset_*_header() calls in init_can_skb() are a
+regression in their own right and are being fixed separately, but a
+packet socket should not turn a link layer that did not initialise its
+mac header into a kernel panic.  Guard the push the way the other two
+receive paths do.
+
+Tested on v7.3-rc5 under QEMU with a slcan device on a pty, which is
+the driver RX path: vcan does not reproduce it, because can_send()
+resets the headers on the way out.  One SOCK_PACKET socket bound to
+can0 and one frame written into the line discipline panics an
+unpatched kernel with the trace above; the same image with this patch
+prints no panic and powers off normally.  Both kernels are this tree,
+defconfig plus CONFIG_CAN_SLCAN=y, differing only in this hunk.
+
+Fixes: d549699048b4 ("net/packet: fix packet receive on L3 devices without visible hard header")
+Cc: stable@vger.kernel.org
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260928113108.2127215-1-quchaosheng000406@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- security/keys/persistent.c |   55 ++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 23 deletions(-)
+ net/packet/af_packet.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/security/keys/persistent.c
-+++ b/security/keys/persistent.c
-@@ -33,25 +33,31 @@ static int key_create_persistent_registe
- }
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1922,7 +1922,8 @@ static int packet_rcv_spkt(struct sk_buf
  
- /*
-- * Create the persistent keyring for the specified user.
-+ * Get or create the persistent keyring for the specified user.
-  *
-  * Called with the namespace's sem locked for writing.
-+ *
-+ * Returns a boolean indicating whether the keyring already existed,
-+ * or a negative error. On success, *persistent_ref holds a reference
-+ * to the keyring.
-  */
--static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
--				       struct keyring_index_key *index_key)
-+static int key_get_or_create_persistent(struct user_namespace *ns, kuid_t uid,
-+					struct keyring_index_key *index_key,
-+					key_ref_t *persistent_ref)
- {
- 	struct key *persistent;
--	key_ref_t reg_ref, persistent_ref;
-+	key_ref_t reg_ref;
+ 	spkt = &PACKET_SKB_CB(skb)->sa.pkt;
  
- 	if (!ns->persistent_keyring_register) {
--		long err = key_create_persistent_register(ns);
-+		int err = key_create_persistent_register(ns);
-+
- 		if (err < 0)
--			return ERR_PTR(err);
-+			return err;
- 	} else {
- 		reg_ref = make_key_ref(ns->persistent_keyring_register, true);
--		persistent_ref = find_key_to_update(reg_ref, index_key);
--		if (persistent_ref)
--			return persistent_ref;
-+		*persistent_ref = find_key_to_update(reg_ref, index_key);
-+		if (*persistent_ref)
-+			return 1;
- 	}
+-	skb_push(skb, skb->data - skb_mac_header(skb));
++	if (dev_has_header(dev))
++		skb_push(skb, skb->data - skb_mac_header(skb));
  
- 	persistent = keyring_alloc(index_key->description,
-@@ -61,9 +67,10 @@ static key_ref_t key_create_persistent(s
- 				   KEY_ALLOC_NOT_IN_QUOTA, NULL,
- 				   ns->persistent_keyring_register);
- 	if (IS_ERR(persistent))
--		return ERR_CAST(persistent);
-+		return PTR_ERR(persistent);
- 
--	return make_key_ref(persistent, true);
-+	*persistent_ref = make_key_ref(persistent, true);
-+	return 0;
- }
- 
- /*
-@@ -78,6 +85,7 @@ static long key_get_persistent(struct us
- 	key_ref_t reg_ref, persistent_ref;
- 	char buf[32];
- 	long ret;
-+	bool created = false;
- 
- 	/* Look in the register if it exists */
- 	memset(&index_key, 0, sizeof(index_key));
-@@ -100,23 +108,24 @@ static long key_get_persistent(struct us
- 	 * also need to create the register.
- 	 */
- 	down_write(&ns->keyring_sem);
--	persistent_ref = key_create_persistent(ns, uid, &index_key);
-+	ret = key_get_or_create_persistent(ns, uid, &index_key,
-+					   &persistent_ref);
- 	up_write(&ns->keyring_sem);
--	if (!IS_ERR(persistent_ref))
--		goto found;
--
--	return PTR_ERR(persistent_ref);
-+	if (ret < 0)
-+		return ret;
-+	created = ret == 0;
- 
- found:
-+	persistent = key_ref_to_ptr(persistent_ref);
- 	ret = key_task_permission(persistent_ref, current_cred(), KEY_NEED_LINK);
--	if (ret == 0) {
--		persistent = key_ref_to_ptr(persistent_ref);
-+	if (ret == 0)
- 		ret = key_link(key_ref_to_ptr(dest_ref), persistent);
--		if (ret == 0) {
--			key_set_timeout(persistent, persistent_keyring_expiry);
--			ret = persistent->serial;
--		}
--	}
-+
-+	if (ret == 0 || created)
-+		key_set_timeout(persistent, persistent_keyring_expiry);
-+
-+	if (ret == 0)
-+		ret = persistent->serial;
- 
- 	key_ref_put(persistent_ref);
- 	return ret;
+ 	/*
+ 	 *	The SOCK_PACKET socket receives _all_ frames.
 
 
