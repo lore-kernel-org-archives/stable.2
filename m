@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211166;
-	b=LeevI2Tec2GmBVpLWnlYo11JtH1SHnLjMImWGQ7bqXEVNyZXlq7t/M97X5pwEjIplfj6
-	 mhIPh/HGWaXgSQQtuhkot4dHJNiUxpRK70uXgvTO1kgpj5VJVGWOqamMl5SfbrwtMSsHc
-	 qkJO6n54PkGmo0SEBVHXHAHwHQ8JKR1AtuUaBA3qr9Y44+LVOIyDDjyj8VBqjbBSuNl6j
-	 SAw5f5BEk1a/meI7swkRrCWkIQv1zMX6RHkqAeHU4NnKkHKOsnqI2CubofdRkGVVPT1k6
-	 fmd9ER4+IcQQ0Xa+1cJh1j/+h+97SBIKrmBkKzrtT1I6mJaBpbcnoN5Raze/AS3tELA==
+	t=1793211169;
+	b=OyR8IGyQzFDsJ5zGNsLLTrAFQa0pjHIzS3skKb5roCmyg3+C0f/rhfrtfFINGkigt1yI
+	 ZE9UKyrnEYPZffspqNS8J4h4/cUPvyiSi/gI4tSQUlA0bk8H3PuDkGmcIExTeL3UA5RUa
+	 utNCxTNY+KRVY1B61tbNT+xw7NlMThw7pd1s6wraTiIKphqZ/3CVQdYx78NNORIVxuK+v
+	 7I2rmw91cokD2yrehMWzXRVi0O7IYVRm1dwUi0wIWMmUeLkvLF9Bnk9emBIB11udUZJnY
+	 1DX1ZrSnpktH7zpEhrP2MZU43uVxQJpE6dkL8q5tFjBwE9OVAEfnbe/9ryR6STvV2Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211169;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WwKqdOYaR47UvYQjnxVuLLtBeZlR1KUFqIGAPxbvnhM=;
-	b=0s5gTxc96FkSPAm2iTzDeu+q7SwHw+XmNuEPtCuV86t2e2aDJUUWtlhme7hLwtapLdV9
-	 RWTet158jVq8/FO4ulw2C+f3kbX0AGoZoBs1ir8T9s7cMvKohx3xpGIjztEcbJ33mIWMk
-	 uv+m67y+aZlpAtQ5+M0VnXY928T/TFp509Y7G5urwBd82E2DvJXHeP1MNu/oiur+8QAQv
-	 0+bMKvsWR49r5xCf1BWH11DHJz2KqNxNVBBSGqXWQjHEo0ADZSiTWVgwLnVRLfQ6GxPiy
-	 byzReP3lO+SDZh9d7JnzPuSkzIUzsms/L+/6jnBb5MnQQTNpjvhz29c5EQ0Wzi5eFuQ==
+	bh=H/Orgqdjl6LfaOaADetSY1irEJztHZxqAlw5sMEabjI=;
+	b=hD8O2WkBYWqiix1esIJL8p3DZS19zEuhxsMd0RQW05xzAtfqUJ8tmSm5vL3HNeVG2bPG
+	 1rhJgS4sH70o36mWvSfD5xNubHaVWjZdNxNcJPNtSp1lngWBaxFR+4aRF4/vBlOW3ZBY+
+	 3T2kfTNAnjb/kTt52iE9tGgnKQwEyxVwAhpD4D7dtTpCPeyxUpN1PVTEtTRxOUXZj9yMX
+	 ZVzQIaAx2ZGu00oEK3EFnyd1YldW+ppy4hhsqAn1wDs6DLcKRskcgMCLB6pTqD0iWihwu
+	 UQ12198mwYi1V9pCV+/7m5+2CBSJHBjHxIIah04HZI35YKrjzKiRCKqYAE7iOwL9xRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dedj/RxE";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZSCRFGvW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317C7606BF57;
-	Wed, 28 Oct 2026 18:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4C9606BF58;
+	Wed, 28 Oct 2026 18:12:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dedj/RxE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF871F01825;
-	Wed, 28 Oct 2026 18:12:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZSCRFGvW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477151F031E2;
+	Wed, 28 Oct 2026 18:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211166;
-	bh=WwKqdOYaR47UvYQjnxVuLLtBeZlR1KUFqIGAPxbvnhM=;
+	s=korg; t=1793211168;
+	bh=H/Orgqdjl6LfaOaADetSY1irEJztHZxqAlw5sMEabjI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dedj/RxEo/S+/38ouAgvEKdOp8uW+j9Uv6r5XL+PHm4EfJiTfmzGP003KZ10odqZU
-	 QViY/G/h/pLM3GTvgXR41scbBz7GiCuzP+I4IpYpJlolyhkbouA7xMUu4iCES40V3j
-	 59uXdgCr+gKbV2eBxlLcXi1WNQ76N+l0VYZOYdHg=
+	b=ZSCRFGvWNoKdvFR0JE+eRw5/2yoRxNTOVN/oqCVBj/KGk42Uj6BnBJtg14q+hxAzF
+	 HkWjrMdMTkAjBiZX3wHlBpMuPPcRc0YuTjRe4xr3MZ8bprfnib5P+qhifj1nRk7ogY
+	 I4JzO33hVacM3u9SWaW4MVeDCmfORSH2oiu6m4QA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Fan Wu <fanwu01@zju.edu.cn>,
+	stable <stable@kernel.org>,
+	Xu Yang <xu.yang_2@nxp.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Amit Sunil Dhamne <amitsd@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 283/571] usb: gadget: at91_udc: drain polled-VBUS timer/work before udc is freed
-Date: Wed, 28 Oct 2026 17:57:10 +0100
-Message-ID: <20261028170014.716266885@linuxfoundation.org>
+Subject: [PATCH 5.15 284/571] usb: typec: tcpm: fix debug accessory mode detection for sink ports
+Date: Wed, 28 Oct 2026 17:57:11 +0100
+Message-ID: <20261028170014.740660566@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -67,97 +70,99 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Xu Yang <xu.yang_2@nxp.com>
 
-[ Upstream commit c27d13ce4bab80fbdf6523928071b6c24b37606c ]
+[ Upstream commit f6ec9bb4acc7182b25a793ad094a764e1cb819a7 ]
 
-In polled-VBUS mode (board.vbus_pin && board.vbus_polled), probe arms a
-self-restarting cycle: at91_vbus_timer() schedules vbus_timer_work, and
-at91_vbus_timer_work() calls at91_vbus_update() and re-arms the timer via
-mod_timer(). Both recover the same udc through container_of and dereference
-it on every iteration.
+The port in debug accessory mode can be either a source or sink. The
+previous tcpm_port_is_debug() function only checked for source port.
 
-Neither teardown path cancels this cycle. udc is devm-allocated, so it is
-freed after at91udc_remove() returns, and is likewise freed when probe
-fails and devres runs. A timer callback or work item that is pending or
-running at either point dereferences the freed udc.
+Commit 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into
+accessory mode debug") changed the detection logic to support both roles,
+but left some logic in _tcpm_cc_change() unchanged, This causes the state
+machine to transition to an incorrect state when operating as a sink in
+debug accessory mode. Log as below:
 
-Add at91_udc_shutdown_vbus_timer() and call it from at91udc_remove() and
-from the usb_add_gadget_udc() failure path in probe; the remaining probe
-error paths fail before the timer is armed. timer_shutdown_sync() waits
-for a running callback and clears timer->function, which makes the work
-handler's mod_timer() a permanent no-op; cancel_work_sync() then drains
-any pending or running work whose re-arm attempt now does nothing. The
-timer must be shut down first, since cancelling the work alone would let
-the timer re-queue it. The guard mirrors probe: in IRQ mode the timer and
-work_struct are never initialized.
+[  978.637541] CC1: 0 -> 5, CC2: 0 -> 5 [state TOGGLING, polarity 0, connected]
+[  978.637567] state change TOGGLING -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
+[  978.637596] pending state change SRC_ATTACH_WAIT -> DEBUG_ACC_ATTACHED @ 180 ms [rev1 NONE_AMS]
+[  978.647098] CC1: 5 -> 0, CC2: 5 -> 5 [state SRC_ATTACH_WAIT, polarity 0, connected]
+[  978.647115] state change SRC_ATTACH_WAIT -> SRC_ATTACH_WAIT [rev1 NONE_AMS]
 
-This does not require a fault; a normal driver unbind can interleave with
-an already queued work item.
+It should go to SNK_ATTACH_WAIT instead of SRC_ATTACH_WAIT state.
 
-This issue was found by an in-house static analysis tool.
+To fix this, add tcpm_port_is_debug_source() and tcpm_port_is_debug_sink()
+helper to explicitly identify the power mode in debug accessory mode.
+Update the state transition logic in _tcpm_cc_change() to ensure the state
+machine transitions comply with Type-C specification. Also update the logic
+in run_state_machine() to keep consistency.
 
-Fixes: 4037242c4f5f ("ARM: 6209/3: at91_udc: Add vbus polarity and polling mode")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260719042839.3167094-1-fanwu01@zju.edu.cn
+Fixes: 8db73e6a42b6 ("usb: typec: tcpm: allow sink (ufp) to toggle into accessory mode debug")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Amit Sunil Dhamne <amitsd@google.com>
+Link: https://patch.msgid.link/20260424074009.2979266-1-xu.yang_2@nxp.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+[Backport to 6.12: This tree lacks 8db73e6a42b6 and the associated
+sink debug-accessory state-machine support. Retain only the source-debug
+macro extraction and source-side call-site updates. Keep
+tcpm_port_is_debug() source-only and omit the sink-debug macro and all
+sink/audio attachment transitions introduced by the upstream dependency.
+This preserves existing detection and state transitions while providing
+tcpm_port_is_debug_source() for cd3b9cea675b ("usb: typec: tcpm: constrain
+TCPM_SOURCING_VBUS event handling"). No functions are added.]
+
+Stable-dep-of: cd3b9cea675b ("usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/gadget/udc/at91_udc.c |   20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/usb/typec/tcpm/tcpm.c |   11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
---- a/drivers/usb/gadget/udc/at91_udc.c
-+++ b/drivers/usb/gadget/udc/at91_udc.c
-@@ -1803,6 +1803,19 @@ static void at91udc_of_init(struct at91_
- 		udc->caps = match->data;
- }
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -514,9 +514,12 @@ static const char * const pd_rev[] = {
+ 	 (tcpm_cc_is_source((port)->cc2) && \
+ 	  !tcpm_cc_is_source((port)->cc1)))
  
-+/*
-+ * The work handler re-arms this timer, so shut the timer down before
-+ * draining the work; otherwise it restarts the polling cycle.
-+ */
-+static void at91_udc_shutdown_vbus_timer(struct at91_udc *udc)
-+{
-+	if (!(udc->board.vbus_pin && udc->board.vbus_polled))
-+		return;
-+
-+	timer_shutdown_sync(&udc->vbus_timer);
-+	cancel_work_sync(&udc->vbus_timer_work);
-+}
-+
- static int at91udc_probe(struct platform_device *pdev)
- {
- 	struct device	*dev = &pdev->dev;
-@@ -1924,7 +1937,7 @@ static int at91udc_probe(struct platform
- 	}
- 	retval = usb_add_gadget_udc(dev, &udc->gadget);
- 	if (retval)
--		goto err_unprepare_iclk;
-+		goto err_shutdown_vbus;
- 	dev_set_drvdata(dev, udc);
- 	device_init_wakeup(dev, 1);
- 	create_debug_file(udc);
-@@ -1932,6 +1945,8 @@ static int at91udc_probe(struct platform
- 	INFO("%s version %s\n", driver_name, DRIVER_VERSION);
- 	return 0;
+-#define tcpm_port_is_debug(port) \
++#define tcpm_port_is_debug_source(port) \
+ 	(tcpm_cc_is_source((port)->cc1) && tcpm_cc_is_source((port)->cc2))
  
-+err_shutdown_vbus:
-+	at91_udc_shutdown_vbus_timer(udc);
- err_unprepare_iclk:
- 	clk_unprepare(udc->iclk);
- err_unprepare_fclk:
-@@ -1950,6 +1965,9 @@ static void at91udc_remove(struct platfo
- 	DBG("remove\n");
++#define tcpm_port_is_debug(port) \
++	tcpm_port_is_debug_source(port)
++
+ #define tcpm_port_is_audio(port) \
+ 	(tcpm_cc_is_audio((port)->cc1) && tcpm_cc_is_audio((port)->cc2))
  
- 	usb_del_gadget_udc(&udc->gadget);
-+
-+	at91_udc_shutdown_vbus_timer(udc);
-+
- 	if (udc->driver) {
- 		dev_err(&pdev->dev,
- 			"Driver still in use but removing anyhow\n");
+@@ -3951,7 +3954,7 @@ static void run_state_machine(struct tcp
+ 			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
+ 		break;
+ 	case SRC_ATTACH_WAIT:
+-		if (tcpm_port_is_debug(port))
++		if (tcpm_port_is_debug_source(port))
+ 			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
+ 				       PD_T_CC_DEBOUNCE);
+ 		else if (tcpm_port_is_audio(port))
+@@ -4954,7 +4957,7 @@ static void _tcpm_cc_change(struct tcpm_
+ 
+ 	switch (port->state) {
+ 	case TOGGLING:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		else if (tcpm_port_is_sink(port))
+@@ -4962,7 +4965,7 @@ static void _tcpm_cc_change(struct tcpm_
+ 		break;
+ 	case SRC_UNATTACHED:
+ 	case ACC_UNATTACHED:
+-		if (tcpm_port_is_debug(port) || tcpm_port_is_audio(port) ||
++		if (tcpm_port_is_debug_source(port) || tcpm_port_is_audio(port) ||
+ 		    tcpm_port_is_source(port))
+ 			tcpm_set_state(port, SRC_ATTACH_WAIT, 0);
+ 		break;
 
 
