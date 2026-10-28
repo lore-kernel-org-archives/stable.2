@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218572;
-	b=OHoajzblJ9GH3wgdnN4T5b49O7ilxPkpGc9GAKpbcB2+YrlUPIASpQqn1Wpu3R/UdH6+
-	 YnfYk+Y4XRqs6PugNVLIX9XO0DvvpIahpZZrCm2/qSQYALKEIHqBYdq/YhuV4xz1gCWdi
-	 lVAIDFRA4afPb1hli6/rMhB7N7ZK6pLwUi1w5xEsOrTAj8PUU5Pw5seOPDXDBdGr+urdN
-	 8eUAn6J1WLr5yGPCRxf1fBVxaGzztZtpwFg1053tbqZWbXbvSlAFYb2kgtc2I9IM34Bni
-	 RgT+Yrot0f8j8iNSg3bJzxbP1BhufLqXzV7GQ6kF++jL6hPQgrBjxgOdbWOeVZzPMUQ==
+	t=1793219215;
+	b=KBadzbGdke+CN8npN/B/hMrsKiyV86XG9thjm/GspeUeSAbpWvpJjeDXycN55tLUmxLa
+	 z/6aHYi+AS9sL+ytgejVuyAf3K9RXJ9Snj+Qa96K5t+kR68jXmMjWTSa0UTDeTtLDkCP1
+	 6a1aC/uQFMQBBpKzh9S6XgWzyhlk8WKQJNoAnOqmOvMK42j6zACgPxBcbQWYujc15egpx
+	 JoV4AR9M2e2kIJ22cja5P6+vI2Am7oPjxGIcPUnrvGeU+7SImkHY0wzaZOaW8qnBaZ10M
+	 4Y8BjN8Go5nVZ5aA4xn/YHzMJ9QXwS5FLrFGj0LMEo3MWFQRgvHs80xjJVaJp+unm4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218572;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YYFSf//7LtffTEdaInzbKHoueC9GaQed5S2F6XZ2m8Q=;
-	b=q+Je7Gd6Rjl1ZqHnZqR9Tx5nYKj0UazniFGYB286WvpD5Ntrf78mKeDLV4KRLEgVL64z
-	 E9rRiD85P0i1cbYHllFMjH4JU38c4GJHh5sZV+81d04vXLP2Edno5875AIRjF06E1Wgvn
-	 eSnze3NtPXkvB4TCfSOtDTau5vduhYVXykT3nTfo1dfjEdtgoskxXW9wM+C4OOL+/grCO
-	 zS6zG+loxzyyIKT/ENrXs+ayLOuu+DxXrRqH4bIZ+VankMBK1MBKxwNiKQALDA1RcWax3
-	 dNgVKoyMhAm0Il798mLqhx9GHC3vousRb5lPD0OeKh19vSmKdHrrlTbJLNOVYioqREA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219215;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=f9jMMzsyGE8ik2YKnuDQiwrOshxrPYBlpSuYyxMmgE8=;
+	b=wsJxOrzii9CCFSambnJAAmNiq7Sa2ZjfCnoADpi8nA+aNgPDRsI1gjpfDl8KqCi1d7V3
+	 RIjYm5ATYrQHgxyB99HSgxaFJ/45a5B4KkA1s/RIynW8Z0ozyisUkzEdOSJvOW5t6TOOn
+	 H40xJlTUCZK2ksDDmx2WYN8S3Sk53PbQ8dcuJ3la0ZOwm8tkMN+KcgriA9EQxGYwwyhv/
+	 5VmYBWX56Ob2mDWg6K/mXJGvE8zGMk9sxHiq7mtgIwkTTCM7Bdk65eq+BGhqQwmdcVBdI
+	 39OEIw1jk1BqiQ4WQCE1GrLDGMZiMlBO+Dgnis2AYWdKL8GRTPb6CR8mlsX5e1DzM6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXDJAgPT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vwT2qUnw;
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFC7606A325;
-	Wed, 28 Oct 2026 20:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC077606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC077606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PXDJAgPT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993821F031E3;
-	Wed, 28 Oct 2026 20:16:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218571;
-	bh=YYFSf//7LtffTEdaInzbKHoueC9GaQed5S2F6XZ2m8Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PXDJAgPThItJ1aq5M+pH6y01S76Edy6t/jgE9JP0iQsIF9nXJwPANyzgeHXcnCzWF
-	 9WbU2KYGlA/tTolQyfpz20oxrC5B2r//RUN+yNwmW9Wrqafi4X8fIDUDQ1synTJy3/
-	 IetUwhBWDYLfW7m65Xnxg3Ye1uWdNnj+3VPqcyWCGVb3pabDO9YhheA+EQpxBPtydQ
-	 hpknUPoxwEvCPWikqi8AYruhvwd50gD9PjWLudMPCCN/HDdSlH41lFNNBngZUQtOBJ
-	 yAF7CwsvjPbdRP34AY9K/fOGK+s/gKBeDChuUf6HSH/Gu5rOV95F8wd/fcjkp3e23U
-	 s9nN+44+zXtHg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 21:13:42 +0100
-Subject: [PATCH 14/15] RFC: mm/hugetlb: account restored reservations
- before freeing folios
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vwT2qUnw
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533861a59b8so19494781cf.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:26:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793219214; x=1793824014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f9jMMzsyGE8ik2YKnuDQiwrOshxrPYBlpSuYyxMmgE8=;
+        b=vwT2qUnwCcyqrBLe5yU2QUhYPFrQky4u/9cc9p/Y7MeNdAzA8l3o9vtn08ilBkQZjw
+         UHrRP3+IBsEod4L+OcsPisU15jdjX9PeqQl0rOgLxhmQeacNXwmO+Tm4yxlJzWoOA8PJ
+         CVlOH45GgL7cR6phz1v0w+ns22coJWF+19Hs4zYWXsz/W1AW7ut49RFSui2n8uDfrzTV
+         pNpWVLt6Mcc+xfJR+mlEoLnaUTVE/WF6DpVFGyux02pXEFdYvoFZy5/UzK60Tls94XAf
+         uD+iwIvBPVUivQJvQQm6FiCfVB6/aec6Z/KPBkfJqGwW5RLVBzJh2w1WYQdZySiY7Z+H
+         lR1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793219214; x=1793824014;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f9jMMzsyGE8ik2YKnuDQiwrOshxrPYBlpSuYyxMmgE8=;
+        b=J2l9yh200cJfjmszQMF/S+OGNDF/+VqSQvDUNfY7QEvmoFF/v6s/1HK5azHc0gODjf
+         5sPgYjhEeQfx5m9kFCsiOEw1sdHk7jBugzu9GpeZx7CLWIgwUZLsywc8SmOsV+O8sHMD
+         NgihvKc4XIcmhhMYjMNmrkXKPZDSUAPqv2n1O1j5XfputtBhHOgD28MPd7PcpyTNveoB
+         V+3GoHMXOKUJmbN76t+5GdC0GsDlZvUVXyyNZYoimngWEMRtlqIY7tgcIrOwc6EIpNG9
+         0/MARFBk+9DUJQaU+hrm6hpQOuIp7CzkLYx525Cub+EZTFgsV4DJ4FdoD4mzFqBL2c9Z
+         LV4A==
+X-Forwarded-Encrypted: i=1; AKwUvBy+g0mYlLQ+tj+EOTopPBmA9iGPXlXDUSQiXetN4+b/PcpUgfwey9AzC4TXR2upQx08cVqUnZM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgqnEZgN8LY9DMWi5+SlRdSHuW8SPreQvceBn0Srak3XqVMwbe
+	gvVEQVCssjuAA26yI1Z79I8glJlu8feoo73cGV16kQ6dQdJGfB9VaJr8
+X-Gm-Gg: AYBFou0EyVdy5VLGE+51URY/CgyXuZXMGk3s27qe/cs1iA9AQc0Vnh4rGwMwI5i36PW
+	/0lynwb8u1VMAOV7hMN7C6oudz9gi7vd0ndvuKcFQJ/00UCT8Qt/Wd3dQblMc5tQfznLVeQ/B+c
+	ycoWSwer5CveqUVwLvXf2oxDlfijT6FSowdWnCTLNC3ZOJeuHSm6rXl6UmWWWlPXFQh9Vj81VGj
+	CM5GrzzN1Mx39niIvXtzlE5lai+LCt41LAHGA4evUOiGOE9JEfe8tQJP/mYO/m1OKC4FM3giCLl
+	5zo/qnJ5c2GErQIPt+3eakDnr69AH95yyW7tyc7R6x2uC8r4rV4Zpk9IxO0vDI0/Rc1g/cN5J8V
+	PWg175ogTv0cf69HplKfNrc0g05OixiMgOYZS1As3ruZEeVJjmsVcRvjR+jjcZxZYxfQVrUTUc+
+	yPZZwsRd3d3qtm0/Z04H2Ie075jVC9UAgVH8plVDxzzkAgpAisO3BSDAc8H46y5hBZWbQPcaQ9q
+	Xrmr6WfyHZ+tJlOwe7aRTbb54uvx+hhvydBvVJzCU3/VeGFUtHg2JhBhLIHxmORPlCIMKy/7KkU
+	+FpkjyqzwiBJGY+P1g2IdtY/K7zwLwRSTnI=
+X-Received: by 2002:a05:622a:90b:b0:535:cc6:659 with SMTP id d75a77b69052e-53fcb7fb52emr58748511cf.37.1793219213813;
+        Wed, 28 Oct 2026 13:26:53 -0700 (PDT)
+Received: from falcon.baltimore.nuwat.tech ([2601:14d:5284:47e0::1262])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c8d5ee885sm10190956d6.41.2026.10.28.13.26.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 13:26:53 -0700 (PDT)
+From: Abdulla Bubshait <darkstego@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	dominik.kaszewski@amd.com,
+	dri-devel@lists.freedesktop.org,
+	Abdulla Bubshait <darkstego@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Abort DPMS ON when enabling the link fails
+Date: Wed, 28 Oct 2026 16:26:41 -0400
+Message-ID: <20261028202641.549955-1-darkstego@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,292 +100,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_hugetlb-v1-14-a0a033db180f@kernel.org>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
-In-Reply-To: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9868; i=david@kernel.org;
- h=from:subject:message-id; bh=d5+zn1Hn3o3pWcjYFV3JXLw3TGIm0oEZelvRVfl19MA=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIehZcpaTl+82X3LJQ/n8zA23Qs4OK75d4RK3M4H2Q7v
- ntwIMino5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIl0BTD8U5Bcw/npDYNsFktN
- aNSUU7uPFB5ccnL9pbUF72Y9v+G4UY2RYYfriTulSxP83qYvtar3ebdPs9+rl7fTV32qsuyXfTU
- 8fAA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-Unmapping an anonymous folio restores its private VMA reservation
-immediately, but the global reservation count is only restored when the
-folio is freed.
+Since commit 843049bac7c0 ("drm/amd/display: Split DPMS ON into
+parts"), link_set_dpms_on_enable_link() returns
+DC_DPMS_FAILED_HANDSHAKE when enable_link() fails and the stream
+enable has to be aborted: any failure other than link training, or a
+link training failure on DP MST. The link has already been disabled at
+that point. The step loop in link_set_dpms_on() treats
+DC_DPMS_FAILED_HANDSHAKE like DC_DPMS_SUCCESS and goes on to
+link_set_dpms_on_post_enable_link().
 
-If any folio reference delays freeing, closing the VMA or refaulting can
-decrement resv_huge_pages before it was incremented. This can underflow
-the counter or hide another mapping's reservation, allowing an unreserved
-allocation to consume its backing.
+Before the split, this path returned right after disable_link(),
+because MST displays can't proceed without link training. Now, for
+failed MST handshakes MST slots are still allocated.  When the link
+trains again later, the new payload starts after the leaked slots so
+ACT never completes, and the display stays black until
+reboot. Replugging or power-cycling the monitor does not recover it.
 
-Increment resv_huge_pages when restoring the reserve map instead. Detach
-the folio from its subpool, since the restored reservation now owns that
-charge. Leave the restore-reserve flag clear so freeing the folio does not
-repeat the accounting. The folio only becomes free after its last reference
-is dropped.
+Seen on Navi 33 (DCN 3.2.1) with a DP 2.1 MST monitor (Odyssey Neo G9)
+at UHBR10 x4 with DSC. Link training sometimes fails on DPMS
+wake. With this change, the failed attempt leaves no payload behind,
+and the next modeset after the sink reconnects bring the monito back
+up.
 
-Reservations can now temporarily outnumber free folios. Clamp available
-pages to zero in that case, including for demotion, and limit surplus
-releases to available pages so they cannot remove backing for remaining
-reservations.
+Return early on DC_DPMS_FAILED_HANDSHAKE, as for
+DC_DPMS_SKIPPED_HANDSHAKE. This restores the pre-split behaviour. Link
+training failures on non-MST signals still return DC_DPMS_SUCCESS and
+continue as before.
 
-Restore reservations even when surplus pages exist. free_huge_folio()
-already retains pages needed to back them. It is unclear why that was
-really added. The comment about i_mmap_lock_write can go as well, that
-doesn't really help for anonymous folios.
-
-Two existing problems remain:
-
-1) Anonymous hugetlb migration temporarily drops the mapcount. A concurrent
-   unmap can observe zero and restore a reservation even though migration
-   will reinstall a mapping. i_mmap_lock_write() does not protect anonymous
-   folio mapcounts, so it does not prevent this race. This change fixes the
-   resulting counter underflow, but leaves premature restoration possible,
-   leading to (2). Maybe that anon_vma lock can help?
-
-2) A fault can allocate a replacement folio using the restored
-   reservation before the old folio is freed. Repeated vmsplice(),
-   MADV_DONTNEED and refaults can retain multiple folios for one
-   reservation and consume pages backing other reservations. This was
-   already possible; counter accounting is now fixed, but early reuse
-   remains. Removing the surplus check also allows it after unmaps that
-   previously skipped restoration.
-
-Deferring reservation-map restoration until the final put is tricky:
-free_huge_folio() has no VMA context to update the private reserve map, and
-that VMA may already have been destroyed.
-
-Fixes: df7a6d1f6405 ("mm/hugetlb: restore the reservation if needed")
-Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/6047
+Fixes: 843049bac7c0 ("drm/amd/display: Split DPMS ON into parts")
+Cc: stable@vger.kernel.org # 7.3
+Signed-off-by: Abdulla Bubshait <darkstego@gmail.com>
 ---
- Documentation/mm/hugetlbfs_reserv.rst |  5 +-
- mm/hugetlb.c                          | 90 ++++++++++++++++-------------------
- mm/hugetlb_internal.h                 | 11 +++++
- mm/hugetlb_sysfs.c                    |  2 +-
- 4 files changed, 57 insertions(+), 51 deletions(-)
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/mm/hugetlbfs_reserv.rst b/Documentation/mm/hugetlbfs_reserv.rst
-index fbca6625ca50..4711029bd067 100644
---- a/Documentation/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/mm/hugetlbfs_reserv.rst
-@@ -34,7 +34,8 @@ resv_huge_pages
- 	This is a global (per-hstate) count of reserved huge pages.  Reserved
- 	huge pages are only available to the task which reserved them.
- 	Therefore, the number of huge pages generally available is computed
--	as (``free_huge_pages - resv_huge_pages``).
-+	as (``free_huge_pages - resv_huge_pages``), clamped to zero when
-+	reservations outnumber free huge pages.
- Reserve Map
- 	A reserve map is described by the structure::
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 75e232ebffe8..b355e29b178d 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -2813,11 +2813,11 @@ enum dc_status link_set_dpms_on(
  
-@@ -155,7 +156,7 @@ are enough free huge pages to accommodate the reservation.  If there are,
- the global reservation count resv_huge_pages is adjusted something like the
- following::
+ 		switch (step_result) {
+ 		case DC_DPMS_SUCCESS:
+-		case DC_DPMS_FAILED_HANDSHAKE:
+ 			// Enum is ordered from "best" to "worst" results
+ 			result = max(result, step_result);
+ 			break;
  
--	if (resv_needed <= (free_huge_pages - resv_huge_pages)
-+	if (resv_needed <= available_huge_pages(h))
- 		resv_huge_pages += resv_needed;
++		case DC_DPMS_FAILED_HANDSHAKE:
+ 		case DC_DPMS_SKIPPED_HANDSHAKE:
+ 			return step_result;
  
- Note that the global lock hugetlb_lock is held when checking and adjusting
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 69a5d2c73ee1..06ef8ba41df7 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1347,11 +1347,6 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
- 	return NULL;
- }
- 
--static unsigned long available_huge_pages(struct hstate *h)
--{
--	return h->free_huge_pages - h->resv_huge_pages;
--}
--
- static unsigned long persistent_huge_pages(struct hstate *h)
- {
- 	return h->nr_huge_pages - h->surplus_huge_pages - h->temporary_huge_pages;
-@@ -2449,7 +2444,8 @@ static void return_unused_surplus_pages(struct hstate *h,
- 	 * Part (or even all) of the reservation could have been backed
- 	 * by pre-allocated pages. Only free surplus pages.
- 	 */
--	nr_pages = min(unused_resv_pages, h->surplus_huge_pages);
-+	nr_pages = min3(unused_resv_pages, h->surplus_huge_pages,
-+			available_huge_pages(h));
- 
- 	/*
- 	 * We want to release as many surplus pages as possible, spread
-@@ -5313,6 +5309,45 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
- 	return len + old_addr - old_end;
- }
- 
-+/* Must be called after rmap removal. */
-+static void hugetlb_folio_restore_rsv_on_unmap(struct vm_area_struct *vma,
-+		struct folio *folio)
-+{
-+	struct hstate *h = hstate_vma(vma);
-+	unsigned long address;
-+	long rc;
-+
-+	/*
-+	 * Restore only on the last unmap, otherwise the owner could reuse
-+	 * the reservation while the folio is still mapped by a child.
-+	 *
-+	 * TODO: Handle migration temporarily dropping the mapcount to zero.
-+	 * TODO: Prevent reservation reuse before the folio is freed.
-+	 */
-+	if (!folio_test_anon(folio) || !__vma_private_lock(vma) ||
-+	    folio_mapped(folio))
-+		return;
-+
-+	address = vma_anon_address(vma, folio->index, 1);
-+	rc = vma_needs_reservation(h, vma, address);
-+	if (!rc)
-+		vma_end_reservation(h, vma, address);
-+	if (rc <= 0)
-+		return;
-+
-+	rc = vma_add_reservation(h, vma, address);
-+	if (rc < 0)
-+		return;
-+
-+	/* The restored reservation owns the subpool charge. */
-+	hugetlb_set_folio_subpool(folio, NULL);
-+
-+	/* Account before the VMA can close or fault again. */
-+	spin_lock_irq(&hugetlb_lock);
-+	h->resv_huge_pages++;
-+	spin_unlock_irq(&hugetlb_lock);
-+}
-+
- void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 			    unsigned long start, unsigned long end,
- 			    struct folio *folio, zap_flags_t zap_flags)
-@@ -5325,7 +5360,6 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 	spinlock_t *ptl;
- 	struct hstate *h = hstate_vma(vma);
- 	unsigned long sz = huge_page_size(h);
--	bool adjust_reservation;
- 	unsigned long last_addr_mask;
- 
- 	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
-@@ -5418,47 +5452,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 		hugetlb_remove_rmap(folio);
- 		spin_unlock(ptl);
- 
--		/*
--		 * Restore the reservation for anonymous page, otherwise the
--		 * backing page could be stolen by someone. Restore only on the
--		 * last unmap, otherwise the owner could empty its resv map
--		 * while the folio is still mapped by a child. Note that holding
--		 * i_mmap_lock_write is needed to check the number of mappings.
--		 * If there we are freeing a surplus, do not set the restore
--		 * reservation bit.
--		 */
--		adjust_reservation = false;
--
--		spin_lock_irq(&hugetlb_lock);
--		if (!h->surplus_huge_pages && __vma_private_lock(vma) &&
--		    !folio_mapped(folio) && folio_test_anon(folio)) {
--			folio_set_hugetlb_restore_reserve(folio);
--			/* Reservation to be adjusted after the spin lock */
--			adjust_reservation = true;
--		}
--		spin_unlock_irq(&hugetlb_lock);
--
--		/*
--		 * Adjust the reservation for the region that will have the
--		 * reserve restored. Keep in mind that vma_needs_reservation() changes
--		 * resv->adds_in_progress if it succeeds. If this is not done,
--		 * do_exit() will not see it, and will keep the reservation
--		 * forever.
--		 */
--		if (adjust_reservation) {
--			int rc = vma_needs_reservation(h, vma, address);
--
--			if (rc < 0)
--				/* Presumably allocate_file_region_entries failed
--				 * to allocate a file_region struct. Clear
--				 * hugetlb_restore_reserve so that global reserve
--				 * count will not be incremented by free_huge_folio.
--				 * Act as if we consumed the reservation.
--				 */
--				folio_clear_hugetlb_restore_reserve(folio);
--			else if (rc)
--				vma_add_reservation(h, vma, address);
--		}
-+		hugetlb_folio_restore_rsv_on_unmap(vma, folio);
- 
- 		tlb_remove_page_size(tlb, folio_page(folio, 0),
- 				     folio_size(folio));
-diff --git a/mm/hugetlb_internal.h b/mm/hugetlb_internal.h
-index 1d2f870deccf..d307d472137c 100644
---- a/mm/hugetlb_internal.h
-+++ b/mm/hugetlb_internal.h
-@@ -10,6 +10,17 @@
- #include <linux/hugetlb.h>
- #include <linux/hugetlb_cgroup.h>
- 
-+static inline unsigned long available_huge_pages(struct hstate *h)
-+{
-+	/*
-+	 * Restored reservations may outnumber free folios until the folios
-+	 * return to the pool.
-+	 */
-+	if (h->resv_huge_pages > h->free_huge_pages)
-+		return 0;
-+	return h->free_huge_pages - h->resv_huge_pages;
-+}
-+
- /*
-  * Check if the hstate represents gigantic pages but gigantic page
-  * runtime support is not available. This is a common condition used to
-diff --git a/mm/hugetlb_sysfs.c b/mm/hugetlb_sysfs.c
-index c89e4c847575..9e0c5d3d0fcb 100644
---- a/mm/hugetlb_sysfs.c
-+++ b/mm/hugetlb_sysfs.c
-@@ -211,7 +211,7 @@ static ssize_t demote_store(struct kobject *kobj,
- 		 * Check for available pages to demote each time thorough the
- 		 * loop as demote_pool_huge_page will drop hugetlb_lock.
- 		 */
--		nr_available = h->free_huge_pages - h->resv_huge_pages;
-+		nr_available = available_huge_pages(h);
- 		if (nid != NUMA_NO_NODE)
- 			nr_available = min(nr_available,
- 					   h->free_huge_pages_node[nid]);
-
 -- 
-2.43.0
+2.56.0
 
