@@ -1,93 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173648;
-	b=a6/nPDkt7gGbFX+WS2fjy6CqGzS5KEKTRjhI3QTnRioewAkFjOg35E9/NiQfYLLLvn25
-	 m+hnMCIyo8rIBWmN1ejcdV7CQbd1xHtH071E4UrLSBMxcLQh+0usWKGGPXou5TJ+r1YIi
-	 k8SSj0LvZdrGtml4DzNouuPQWW+OkwR/DLDzAIWTRfh+PgbNQgbZo2d+954+ZcpReL5A+
-	 mUE8RiJwG3gQ1cX2auTmYkHuddyaJ93SyA5FHNIiXorgDQBDDFPKLND5sV52cpMXoeMPF
-	 ZfyAW/DP66ncn5MxRswS6zuuCraACyPLZwThUdq+WHnj/5woD9zgloEWuGze+hoybcw==
+	t=1793173698;
+	b=yDoaIX/oRHv7JeAHmlwUReVOmeCNCWogcZubJHryBIp8aaVfZmaVM0NMLjkEAGQpweLh
+	 36qTSeBhIo9D2MPOfy1FCfaxK0DfqMiJJatoclTYbJecbPRdNGP5S3aA5XCavJQEPuDFT
+	 49o45i2YSS3p2nqKWIGUHnX2OQZuY0iTDTurfHIzjFiwWt9wdkWoYu12GjmDto0Zoc4ib
+	 +D38tEl2l9SQuCsfPGmlldCPptbpuIDBFm02YscTipA7lHis40z5F79mwVXI8y3pZ94oR
+	 50bNrvOodEYnGXJgjkEodflIdc9rp+VPrYhdUIH6j9U3qWwvQKbzLCMDVDt2AzdmksA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
-	b=OZfncC7Bwnh8Os8d9rbG8rAZOUsbS0p0jZ8jrFczezbj7jWKig4352PFVNDnztjdM98F
-	 fW2M8MV90tkoHUWmFimgANWfGyaM9UYXicwg9rqkb8s+80Gh8gYTqRBuEQvIjvPO/gP/a
-	 ZwtkvxgSemUKpWMZBsKsxl/GM5Rwf04q4hY/0FRh2wh0cjywxJP09t8PtY4KJml37eo4J
-	 jh9Z/sRq/usAKo8kIvSQe2EKkE33+rHasyk2IE8WYfu7If8Qq7ugZ8EIru0knp/x5yOQP
-	 Hot82BvvobGYIFsxljQAfalLUrKv2YKGmxMYNda24/Qj8JoEeLCKY9PZ3MTfRYwSlhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173698;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=jCl2TmQeyiSmIDMPF2MGOrqFWXsWxkkElgKtLsrXBBo=;
+	b=J9UhQEIymwAEqi5ankNIJt20V1LVceLhkcFXZ5I7FEpn7tKKRYj5ApS7ppVxMoaQdgvs
+	 QFJcQKdLg6xypzjsHe8MclTc9nbXoAExy6z1XJ+NND1i9JLsYSxoq11o4BzaAchJEX3T4
+	 uD9LR/djwZsaO5wZmkDxWSi5NVL6kLIKMfaTpefUr7bPvf1n5f1r4JuQz4dIPCyNIbbDw
+	 mnzGAl9trGb7M0lMY4SE5YZgN9D0oKPInbYJbCBUGu18DC8hBt02v0vElXr5RCO+xGhSL
+	 DblpZz/QU5poRmRPct5OwrRJCfDHYtbFuwYMeukC075QE6ELcHMX8gRsIPrYUG/2q6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fvuj5PzM;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oEbvXxMK;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6141F606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:47:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6141F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AE8606A331;
+	Wed, 28 Oct 2026 07:48:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79AE8606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fvuj5PzM
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so350717a12.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:47:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793173648; x=1793778448; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
-        b=Fvuj5PzMLnp511zUOuXtW31L3gHSh9Oxmyc4svNtGfRUcaoB9SyzBMYNXrIyReUD8R
-         Whghg1MpP6ft4GuJiOnRvlfr6lvlXmDN9YG6M4RcQva1FVa07hw2SJ7cAYVMOwUNMeq3
-         kh5rreu+mGVhbp4ng8GL/xeiP0UdZT4oBVoJyV66/46Cgxxy3YR/EPb4yrULEfa1DwX5
-         +bwlDpN6ntqqPY9dV6ceqJMrW/uGjUyvpA/w5Dy5PFaJKtQQ0GNPrZBjoF5/yIuLBqeD
-         pJ1AGvboT+IMFxKUjVJE66tLc4mO3VSbzw3IRtfIOHFwYRYek9V6l+RJ6YnZ52pj7iBI
-         7hmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793173648; x=1793778448;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
-        b=hcydFVXvCkbfo2DE/x+fsatXTGFmD/7lmJfJQ5R3viBxVTA2UEu73oCG3AmTGurfxy
-         Van4g1sn534K0pa4vb8f8M3f5xBpUILli2Mk26PDiW54ksp1XYR3A31XMIg1eywSXMch
-         cmyqxS91zDRX7XTUsP4EA4yfO7FPNRwdz5nMTS6GLSR0m322D7GkBLTCWywLW6A4uWe2
-         RHPUnioJRHByRmklaFWIMKHp3+FRg3pr2xCmgS6CJjvVTOb35ly2yPy7wh0wQ62KxXpf
-         Nph4YHa54YG00SS0MTRCjSuU0U6fSWczoQeTI1SC7tKjqgAEMe9XS7X8jG/5EXUm3X1E
-         oxbA==
-X-Gm-Message-State: AFq9FYLnchghNj2JnI8bZ1xoXVpW/SOa6BLgnkS9u1AEUdt40WI00Hos
-	mXJmIjs9LAFQSxUjk2lILp90O2mh0AbLIACi0xP3p0QHv4SBu1d5Jim6
-X-Gm-Gg: AYBFou3PWkb4pqz3elRi/nuYJYHAIa1P9fnqbDBs2LRccKgSgCj3GK67vyi0S6huHL7
-	2ALuO6nEQjh055YbK3YUxBHoGUetLEidHKCsko2H/WF2DguEt6W/IEprpYw492h03HvfhnVfKIj
-	AggprjiSpov/Z0FCY8y+yAZgOe+1S47+SW9JNMmu+UGp3OlaHASmt31UY5k5kD1zpwSgSBEZpmo
-	TsoXaF8FYfKGo/NCmPnik4spNbhan88rqWmqAEunvgU4IYvcTDHP47PyXzsIeRn5Xz0B1xKZy13
-	3RLoq8i64ysEA6vTLGBze0cNqktvA25cUYiHr2BfEn3uy31uHxdpPhTiGuifZUSyTtF0ty8qIpl
-	6+oIsuLebj4JdcV29DeoOL3I1KylMYTZISbAvWogpgEV+Y/rJRa/8fCU+ocXTaN6+DMAUKJ/MWK
-	5lRviEG47xQuGHhurNl9Y+h/Y+guu1fYGIHRuKiUMvyoH1KZBLx/wl5pUzohWqoDC93q1k7f+VV
-	eH48WuhOJcNhOv2oFg+vPjebJdkI75wtmo2OJ4TTYDEhHcqPyYqj4+t5eMcBOJ6YPhEVy0E0jaP
-	j4FcVXOdo/YBJbLXCwBVV7WBEN3G
-X-Received: by 2002:a17:90b:510f:b0:3ac:adce:60b5 with SMTP id 98e67ed59e1d1-3ae580ae38emr1000839a91.14.1793173647649;
-        Wed, 28 Oct 2026 00:47:27 -0700 (PDT)
-Received: from localhost ([182.216.53.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a27f7c7sm1941127a91.2.2026.10.28.00.47.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:47:27 -0700 (PDT)
-From: Jaewon Jung <jaewon8868@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: [PATCH] tracing: Avoid undefined shifts for zero histogram map size
-Date: Wed, 28 Oct 2026 16:44:54 +0900
-Message-ID: <20261028074610.2212374-1-jaewon8868@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=oEbvXxMK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793173698; x=1824709698;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=CXxFxifzrPn2IDDPxeNmOw7Uu6zmJAFolihpjLJ3g70=;
+  b=oEbvXxMKY6QhRm0mypwH+GDnA1h6uz0BqrxmYWttxLb+enC34k0Sosr5
+   vDg656/Ny3gB8rjBkt0LzP+MbXzCaAJCSM3I+2aK2RJgw26hX1nkOuegJ
+   PHFgpMC+uywDN3KjCWsQCIa3QSaA2bqppCCLvoilkdINP7MoSGIujdNOw
+   RWW7EJ+63rEspUSqb10bsY/sLRTd8fU7ElTTDxT2qA+Nbu9PJstVppwit
+   bf5/WQz2/8HiSYeUUHFkbg0GBLoNfEIscn4DuygbwRBbAltNGPu0k1Ri/
+   QFBuIPXpVekBl1d41soxtAPVEFaor4cljnP45MtFxGCyJUuoRRio/eNAn
+   w==;
+X-CSE-ConnectionGUID: mGZwtFAlQYSiBKCkv4ZqbQ==
+X-CSE-MsgGUID: ev7ReEcfTViHQ0EYOGA4iw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1900440"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1900440"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:48:17 -0700
+X-CSE-ConnectionGUID: 4kIF2y0+T1qlIvX9QdOLfA==
+X-CSE-MsgGUID: PNMSS8WsR+ibOr2oV/S8cw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5110912"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.126]) ([10.245.244.126])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:48:16 -0700
+Message-ID: <37bd12e8-64dd-41c4-8f5e-0967e7a00759@linux.intel.com>
+Date: Wed, 28 Oct 2026 09:48:49 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,45 +72,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: hdac_hda: Keep runtime PM state in sync across
+ codec remove/probe
+To: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org,
+ kai.vehmanen@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ stable@vger.kernel.org, tiwai@suse.com, perex@perex.cz
+References: <20261027144655.31988-1-peter.ujfalusi@linux.intel.com>
+ <179312291692.199157.15417382173460679457.b4-review@b4>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <179312291692.199157.15417382173460679457.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Reject size=0 before calling roundup_pow_of_two().
 
-include/linux/log2.h documents roundup_pow_of_two() as:
 
-  - the result is undefined when n == 0
+On 27/10/2026 19:41, Mark Brown wrote:
+>> After the codec has been removed, its runtime PM status is
+>> RPM_SUSPENDED while hdac_hda_codec_probe() powers the codec up via
+>> snd_hda_codec_device_new(). The pm_runtime_put()/snd_hda_power_down()
+>> calls on probe and registration then see an already suspended device,
+>> the codec suspend callback is not called and the codec, its HDA link and
+>> the codec_powered bit stay set, preventing the controller from runtime
+>> suspending.
+> 
+>> @@ -554,6 +557,12 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+>>  		return;
+>>  	}
+>>  
+>> +	/*
+>> +	 * Resume the codec to have its link reference (dropped below) and
+>> +	 * codec_powered bit in the same state as after the probe.
+>> +	 */
+>> +	pm_runtime_get_sync(&hdev->dev);
+> 
+> What drops the reference that this takes? 
 
-With CONFIG_UBSAN_SHIFT=y, a size=0 histogram trigger reports:
+it is dropped later at hunk 565, I can move it closer, after the
+pm_runtime_disable() for better visibility for v2?
 
-  UBSAN: shift-out-of-bounds in include/linux/log2.h
-  shift exponent 64 is too large for 64-bit type 'long unsigned int'
+> The probe shouldn't have exited with a runtime reference, AFAICT it doesn't.
 
-Tested on x86_64 QEMU: size=0 is rejected without UBSAN warnings,
-and the histogram modifier and parser tests pass.
+Correct, the probe exits without a reference.
 
-Fixes: 7ef224d1d0e3 ("tracing: Add 'hist' event trigger command")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
----
- kernel/trace/trace_events_hist.c | 5 +++++
- 1 file changed, 5 insertions(+)
+> There's separate runtime PM managment for the CODEC in the HDA code...
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index f39fa8942673..3de794c7f5b2 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -1430,6 +1430,11 @@ static int parse_map_size(char *str)
- 	if (ret)
- 		goto out;
- 
-+	if (!size) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	map_bits = ilog2(roundup_pow_of_two(size));
- 	if (map_bits < TRACING_MAP_BITS_MIN ||
- 	    map_bits > TRACING_MAP_BITS_MAX)
+The get_sync() is not for holding a reference, it is to make sure that
+the codec is resumed before the snd_hdac_ext_bus_link_put() below. The
+HDA link refcount follows the codec's runtime PM state on SOF, so the
+put is only balanced if the codec is active at that point.
+
+>> @@ -565,6 +574,9 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
+>>  
+>>  	/* Balances the disable above, cleanup_for_unbind keeps runtime PM disabled */
+>>  	pm_runtime_enable(&hdev->dev);
+>> +	pm_runtime_put_noidle(&hdev->dev);
+>> +	/* The codec is cleaned up, system suspend must skip it from now on */
+>> +	pm_runtime_set_suspended(&hdev->dev);
+> 
+> This updates the runtime PM reference tracking but doesn't affect the
+> hardware.  Is that what we want?
+
+Yes. At this point the link reference is dropped and the codec driver
+state is freed, there is nothing left for a suspend callback to do.
+
+This is what the driver core does via pm_runtime_reinit() when the
+codec driver is unbound. It is needed for the case when only the card
+is unbound (machine driver unbind): the codec would stay RPM_ACTIVE
+with runtime PM disabled and a system suspend would call the runtime
+suspend callback on the freed codec state via pm_runtime_force_suspend().
+
 -- 
-2.43.0
+Péter
 
