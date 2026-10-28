@@ -1,67 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211297;
-	b=Yb+c8EL91eJd4sxOT1mIV+OjzBAI49GGgibxEXQxnqkh5xVeUs2W/dNZ9kZCOpHCG5vT
-	 I1Atb4b43V2BcZyEvUGG/MSruGcvKaEYO1JcLEGj3mXXLjl2tj67ZM/eMb+xJbQ46mqCL
-	 /0fXJR4naNZRgW5DaYanSq8lPQ/yVsLBNMswDgMmy9bTRmJZ525erHVWBS1w3H0kxOBZQ
-	 XV/mZQZ1ygHXyKYyIRmEhD2DPjyrlDe5+wCgLFHffHP6Q7mpRAZxHPQomCGsf4ib8WEWF
-	 eke/ja4xDKlsUciOTac3oFJ/ggPyqAD2a4gJ2xwB7Cjo+WloymCH6lxJsOnRZLRMuQA==
+	t=1793211298;
+	b=snhADt2RhF12Wjn1IAWGpF1MeBLS1QQIXErdQyDkeN0teoCsctcFVKImW4kdROy1KC5S
+	 9hhbnnTuFubQPLfo4cm3MW2SxjvjtP+xaqsKFtyj2wa27TJAnxjfvuAk5ZbpoNTcIZ3dl
+	 bmZGo/p6LZuCqyZt28GKf6MOc80sxLTzIfwGloefbyE0uW98taTMjs8Ah7Sf+9hMWwcWm
+	 sgS8aGF0gZItXKGm6E1IfPuq8QwQDfVuwNWDXZMWk6EEMs7UBT3YXBskvomoi2cJDQLwo
+	 4ISQ+QRzWpz8KR0sAC5Q7HMftzIAL8IUAbkjSUeJQHiTNyCf2u053QbkF97j5Etznlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211297;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211298;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=up+MmZOjvBKyR/Jftz8YyJvgogIma88eXepYXJbMfzg=;
-	b=NP35mBpyUN1Vy7I+n8LlQieuIDu3zw4EV/Slh+d1Xzt8E6GKVsAaeX72Da8a5qwFgwAc
-	 TpdkGA3uhuHsvcj07lt5gErABpmfMaCq8udKdttQPwXrkFtq4fjW3IsfQn4RjlYjdQvTn
-	 iJbw/wskd2gdJ/mH9S09WEGh+3zAwOqkpFo7cA2UQbJlgb8TagW1yXoxMbFEXHGPVInae
-	 futKs4gwbLKKk77ZKvRdagpa3Zw1Dvfy3BFKB9HIrE8FjqpXgHVf2tbXkMlcQVQ/hkfVq
-	 4hTRhP+ZgWMPuL5LE4DgT+gs+jSBRfIj9bnoZ4KbUUXXz7p/930OOmHxqbemIUB2rFw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ORByZDQUFgn0JJEnKfTmOTXNubEmxRahmOuQvTF/0L0=;
+	b=q5ZlgIw3lIfzKFfdAlw1Ik00LuBSmLJzvXC7X9UcJs0fg2RDhovdyA7IJY7Y4SxR5rrp
+	 b80QVnWZqUeZgXE2jq+OTjHb43ZMKb++t6/paD4X2bcGfTPq7fd3t95JJviDwNAHoHo3/
+	 OtruKyplJkHQs1Xe5rbxHoM78K9zDUd45ciyZEu1odCnxGUgpBTr9B3Z2zyJ9AXl7OMxl
+	 3mpzROhcmC2fzC+C8ZvKn3xChqpQfO12mvQOvBbkVvwCBtwJ1AqCav3cqD70jNAP/8M9b
+	 Vu+YY41h6EtS/E1UYS+u4eAjjOMaiS7UWofwK+qHvo+Ym0rEXs8VXPDSk3UzCBTcPoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FC9W8jpK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6jEoKv5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2296960A5BE8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10A760A5BDE;
 	Wed, 28 Oct 2026 18:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FC9W8jpK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5E21F01825;
-	Wed, 28 Oct 2026 18:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211297;
-	bh=up+MmZOjvBKyR/Jftz8YyJvgogIma88eXepYXJbMfzg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FC9W8jpKpp7iAZpamVlRsbuRldbp1IjZDOFiaJ9djUtpS1qi1MrWUFGqvrXy5hcUw
-	 yOhdPsYEWUn7NsokgYK4KNX27kvt89H6O1xcNobMueYSNLHWX8FfnmUSJYX9cXmDLD
-	 NwE191j3iuZnu9aSBa3RCZ6+t1yAkl8aCN4mAEMI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Karsten Keil <isdn@linux-pingi.de>,
-	David Lin <dtwlin@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Ting-Han Hou <ue081723@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 329/571] tty: introduce and use tty_port_tty_vhangup() helper
-Date: Wed, 28 Oct 2026 17:57:56 +0100
-Message-ID: <20261028170015.812152729@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-References: <20261028170008.009143722@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6jEoKv5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6871F01828;
+	Wed, 28 Oct 2026 18:14:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793211297;
+	bh=ORByZDQUFgn0JJEnKfTmOTXNubEmxRahmOuQvTF/0L0=;
+	h=From:To:Cc:Subject:Date;
+	b=e6jEoKv5aihwlkTjfD/G9eavbW9A8L1euwv8Uc0zriHawl8aZ+coOF9wVDkyD8liK
+	 YdRCERmtCBeu1U40bs604IkmoGzeG/ex3tDTSFkOubog3PzY5PIwKb+B6sR/v657dN
+	 nFy2+WhGWxk8yqDe+7RDKrm1mHppJZUpn2B7GWMLeHop4+pFvp9yf0Evz5aP84o+ya
+	 8SOBQMfXLFJivNwccIHZY5UFpUZkyKLIqqAldiUbb1+5Fs0odqFpspL7xYxbkyWmnJ
+	 Un59KKuAdwHL/sJtvyvJOjjK75VPwMGGoeekEa50p1oFYwsYCyRhQR4x7SkgNXreRO
+	 G7j7iLZfX5Dfg==
+From: Eric Dumazet <edumazet@kernel.org>
+To: "David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	netdev@vger.kernel.org,
+	edumazet@kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Subject: [PATCH net] net/packet: check TX_RING fragments before memory accounting
+Date: Wed, 28 Oct 2026 19:14:50 +0100
+Message-ID: <20261028181450.2221013-1-edumazet@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,258 +63,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+From: Kyle Zeng <kylebot@openai.com>
 
-------------------
+tpacket_fill_skb() adds the full non-linear payload length to
+skb->truesize and sk_wmem_alloc before checking MAX_SKB_FRAGS. With
+PACKET_VNET_HDR, userspace can submit a ring-sized frame even when it
+greatly exceeds the device MTU.
 
-From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+A near-INT_MAX frame can saturate sk_wmem_alloc before the fragment
+loop rejects it. A subsequent refcount_add(0x40000001) can temporarily
+turn REFCOUNT_SATURATED into 1. A concurrent TX completion can then
+drop that apparent last reference and free the still-live packet
+socket before refcount_warn_saturate() restores the counter.
 
-[ Upstream commit 2b5eac0f8c6e79bc152c8804f9f88d16717013ab ]
+Check that the remaining payload fits in MAX_SKB_FRAGS pages before
+accounting it. Include the initial page offset in the calculation,
+and move the existing -EFAULT handling out of the fragment loop.
+This preserves the accepted packet sizes and error code while
+preventing an invalid frame from injecting an oversized byte charge.
 
-This code (tty_get -> vhangup -> tty_put) is repeated on few places.
-Introduce a helper similar to tty_port_tty_hangup() (asynchronous) to
-handle even vhangup (synchronous).
-
-And use it on those places.
-
-In fact, reuse the tty_port_tty_hangup()'s code and call tty_vhangup()
-depending on a new bool parameter.
-
-Signed-off-by: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Cc: Karsten Keil <isdn@linux-pingi.de>
-Cc: David Lin <dtwlin@gmail.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Alex Elder <elder@kernel.org>
-Cc: Oliver Neukum <oneukum@suse.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>
-Cc: Johan Hedberg <johan.hedberg@gmail.com>
-Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Link: https://lore.kernel.org/r/20250611100319.186924-2-jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Ting-Han: adjust context in uart_remove_one_port(), which is still
-  called that and keeps its "ret" variable in this version ]
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Cc: stable@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+[edumazet: use net_warn_ratelimited() instead of pr_err(), add a Fixes: tag]
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 ---
- drivers/isdn/capi/capi.c         |  8 +-------
- drivers/staging/greybus/uart.c   |  7 +------
- drivers/tty/serial/serial_core.c |  7 +------
- drivers/tty/tty_port.c           | 12 ++++++++----
- drivers/usb/class/cdc-acm.c      |  7 +------
- drivers/usb/serial/usb-serial.c  |  7 +------
- include/linux/tty_port.h         | 12 +++++++++++-
- net/bluetooth/rfcomm/tty.c       |  7 +------
- 8 files changed, 25 insertions(+), 42 deletions(-)
+ net/packet/af_packet.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/isdn/capi/capi.c b/drivers/isdn/capi/capi.c
-index 0f00be62438d5..973092543eb7a 100644
---- a/drivers/isdn/capi/capi.c
-+++ b/drivers/isdn/capi/capi.c
-@@ -304,15 +304,9 @@ static void capincci_alloc_minor(struct capidev *cdev, struct capincci *np)
- static void capincci_free_minor(struct capincci *np)
- {
- 	struct capiminor *mp = np->minorp;
--	struct tty_struct *tty;
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 823e0911c910fa95d85bdf187eddef802cf65726..cf6429f09477263534b631199aae85c30de2fffe 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2655,6 +2655,12 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 	}
  
- 	if (mp) {
--		tty = tty_port_tty_get(&mp->port);
--		if (tty) {
--			tty_vhangup(tty);
--			tty_kref_put(tty);
+ 	offset = offset_in_page(data);
++	if (unlikely(to_write > MAX_SKB_FRAGS * PAGE_SIZE - offset)) {
++		net_warn_ratelimited("Packet exceed the number of skb frags(%u)\n",
++				     (unsigned int)MAX_SKB_FRAGS);
++		return -EFAULT;
++	}
++
+ 	len_max = PAGE_SIZE - offset;
+ 	len = ((to_write > len_max) ? len_max : to_write);
+ 
+@@ -2666,12 +2672,6 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 	while (likely(to_write)) {
+ 		nr_frags = skb_shinfo(skb)->nr_frags;
+ 
+-		if (unlikely(nr_frags >= MAX_SKB_FRAGS)) {
+-			pr_err("Packet exceed the number of skb frags(%u)\n",
+-			       (unsigned int)MAX_SKB_FRAGS);
+-			return -EFAULT;
 -		}
 -
-+		tty_port_tty_vhangup(&mp->port);
- 		capiminor_free(mp);
- 	}
- }
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 51fab4f3ea1ae..87e9e349b3c61 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -915,7 +915,6 @@ static void gb_uart_remove(struct gbphy_device *gbphy_dev)
- {
- 	struct gb_tty *gb_tty = gb_gbphy_get_data(gbphy_dev);
- 	struct gb_connection *connection = gb_tty->connection;
--	struct tty_struct *tty;
- 	int ret;
- 
- 	ret = gbphy_runtime_get_sync(gbphy_dev);
-@@ -928,11 +927,7 @@ static void gb_uart_remove(struct gbphy_device *gbphy_dev)
- 	wake_up_all(&gb_tty->wioctl);
- 	mutex_unlock(&gb_tty->mutex);
- 
--	tty = tty_port_tty_get(&gb_tty->port);
--	if (tty) {
--		tty_vhangup(tty);
--		tty_kref_put(tty);
--	}
-+	tty_port_tty_vhangup(&gb_tty->port);
- 
- 	gb_connection_disable_rx(connection);
- 	tty_unregister_device(gb_tty_driver, gb_tty->minor);
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 1cba822e068e9..a52e88a750f9e 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3036,7 +3036,6 @@ int uart_remove_one_port(struct uart_driver *drv, struct uart_port *uport)
- 	struct uart_state *state = drv->state + uport->line;
- 	struct tty_port *port = &state->port;
- 	struct uart_port *uart_port;
--	struct tty_struct *tty;
- 	int ret = 0;
- 
- 	mutex_lock(&port_mutex);
-@@ -3064,11 +3063,7 @@ int uart_remove_one_port(struct uart_driver *drv, struct uart_port *uport)
- 	 */
- 	tty_port_unregister_device(port, drv->tty_driver, uport->line);
- 
--	tty = tty_port_tty_get(port);
--	if (tty) {
--		tty_vhangup(port->tty);
--		tty_kref_put(tty);
--	}
-+	tty_port_tty_vhangup(port);
- 
- 	/*
- 	 * If the port is used as a console, unregister it
-diff --git a/drivers/tty/tty_port.c b/drivers/tty/tty_port.c
-index 3afdbe5ea156d..4a146f003fc33 100644
---- a/drivers/tty/tty_port.c
-+++ b/drivers/tty/tty_port.c
-@@ -369,15 +369,19 @@ EXPORT_SYMBOL(tty_port_hangup);
-  * @port: tty port
-  * @check_clocal: hang only ttys with CLOCAL unset?
-  */
--void tty_port_tty_hangup(struct tty_port *port, bool check_clocal)
-+void __tty_port_tty_hangup(struct tty_port *port, bool check_clocal, bool async)
- {
- 	struct tty_struct *tty = tty_port_tty_get(port);
- 
--	if (tty && (!check_clocal || !C_CLOCAL(tty)))
--		tty_hangup(tty);
-+	if (tty && (!check_clocal || !C_CLOCAL(tty))) {
-+		if (async)
-+			tty_hangup(tty);
-+		else
-+			tty_vhangup(tty);
-+	}
- 	tty_kref_put(tty);
- }
--EXPORT_SYMBOL_GPL(tty_port_tty_hangup);
-+EXPORT_SYMBOL_GPL(__tty_port_tty_hangup);
- 
- /**
-  * tty_port_tty_wakeup - helper to wake up a tty
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 2d6817242d350..44820a020e66c 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -1562,7 +1562,6 @@ static int acm_probe(struct usb_interface *intf,
- static void acm_disconnect(struct usb_interface *intf)
- {
- 	struct acm *acm = usb_get_intfdata(intf);
--	struct tty_struct *tty;
- 	int i;
- 
- 	/* sibling interface is already cleaning up */
-@@ -1589,11 +1588,7 @@ static void acm_disconnect(struct usb_interface *intf)
- 	usb_set_intfdata(acm->data, NULL);
- 	mutex_unlock(&acm->mutex);
- 
--	tty = tty_port_tty_get(&acm->port);
--	if (tty) {
--		tty_vhangup(tty);
--		tty_kref_put(tty);
--	}
-+	tty_port_tty_vhangup(&acm->port);
- 
- 	cancel_delayed_work_sync(&acm->dwork);
- 
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 8409f38c72553..e01d5c9373b23 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -1229,7 +1229,6 @@ static void usb_serial_disconnect(struct usb_interface *interface)
- 	struct usb_serial *serial = usb_get_intfdata(interface);
- 	struct device *dev = &interface->dev;
- 	struct usb_serial_port *port;
--	struct tty_struct *tty;
- 
- 	/* sibling interface is cleaning up */
- 	if (!serial)
-@@ -1244,11 +1243,7 @@ static void usb_serial_disconnect(struct usb_interface *interface)
- 
- 	for (i = 0; i < serial->num_ports; ++i) {
- 		port = serial->port[i];
--		tty = tty_port_tty_get(&port->port);
--		if (tty) {
--			tty_vhangup(tty);
--			tty_kref_put(tty);
--		}
-+		tty_port_tty_vhangup(&port->port);
- 		usb_serial_port_poison_urbs(port);
- 		wake_up_interruptible(&port->port.delta_msr_wait);
- 		cancel_work_sync(&port->work);
-diff --git a/include/linux/tty_port.h b/include/linux/tty_port.h
-index 6e86e9e118b6c..03d889398c5ed 100644
---- a/include/linux/tty_port.h
-+++ b/include/linux/tty_port.h
-@@ -186,7 +186,7 @@ int tty_port_carrier_raised(struct tty_port *port);
- void tty_port_raise_dtr_rts(struct tty_port *port);
- void tty_port_lower_dtr_rts(struct tty_port *port);
- void tty_port_hangup(struct tty_port *port);
--void tty_port_tty_hangup(struct tty_port *port, bool check_clocal);
-+void __tty_port_tty_hangup(struct tty_port *port, bool check_clocal, bool async);
- void tty_port_tty_wakeup(struct tty_port *port);
- int tty_port_block_til_ready(struct tty_port *port, struct tty_struct *tty,
- 		struct file *filp);
-@@ -205,4 +205,14 @@ static inline int tty_port_users(struct tty_port *port)
- 	return port->count + port->blocked_open;
- }
- 
-+static inline void tty_port_tty_hangup(struct tty_port *port, bool check_clocal)
-+{
-+	__tty_port_tty_hangup(port, check_clocal, true);
-+}
-+
-+static inline void tty_port_tty_vhangup(struct tty_port *port)
-+{
-+	__tty_port_tty_hangup(port, false, false);
-+}
-+
- #endif
-diff --git a/net/bluetooth/rfcomm/tty.c b/net/bluetooth/rfcomm/tty.c
-index 0f18e42170bc5..02150abe56a2b 100644
---- a/net/bluetooth/rfcomm/tty.c
-+++ b/net/bluetooth/rfcomm/tty.c
-@@ -439,7 +439,6 @@ static int __rfcomm_release_dev(void __user *arg)
- {
- 	struct rfcomm_dev_req req;
- 	struct rfcomm_dev *dev;
--	struct tty_struct *tty;
- 
- 	if (copy_from_user(&req, arg, sizeof(req)))
- 		return -EFAULT;
-@@ -465,11 +464,7 @@ static int __rfcomm_release_dev(void __user *arg)
- 		rfcomm_dlc_close(dev->dlc, 0);
- 
- 	/* Shut down TTY synchronously before freeing rfcomm_dev */
--	tty = tty_port_tty_get(&dev->port);
--	if (tty) {
--		tty_vhangup(tty);
--		tty_kref_put(tty);
--	}
-+	tty_port_tty_vhangup(&dev->port);
- 
- 	if (!test_and_set_bit(RFCOMM_TTY_OWNED, &dev->status))
- 		tty_port_put(&dev->port);
+ 		page = pgv_to_page(data);
+ 		data += len;
+ 		flush_dcache_page(page);
 -- 
 2.53.0
-
-
 
