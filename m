@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211695;
-	b=eEF6S/rkJzKVDSibeNMEwWVEYXM9QnZr1YVrZfJBt2bBqWwaXWqPaQO3n8jabtIjtJNi
-	 T/Fr0940RnNCJ+Q/7lqexn5e774GEz9pt0koQ48nFn5V0K3Y8grWUOp21w3zJNBsaULoy
-	 apt08Y20yH0oJGoIFZQGYe0+TLMY+aQY5V1IR794qa1ItB38uEgREkXTG2Gpu3wwIw2op
-	 maAAL2C9y06C/WFtbP4+Ncq5Yayc9R4FGVJ3Tuko678SUNKEFbZpW5bABsR6fh25XiDNu
-	 KBClbsjpBM0yOVlchwP8XTS5Xi044tFwtpGckA5tPd+gTd6xFznKuUxwanZ9Z0W9f6A==
+	t=1793211701;
+	b=Js05mwopfea++YE4cEdgkTZFlziAaeOmbkEdo1KaHwHCY0YJvfb3bKvedEimoiveS5uh
+	 biE/AfLt3zDCPvijC0G7mzTlPW8cy1giJjM0jmbAM+DhdDCDrv9FpeGdPRQ8NWonI4RxO
+	 sdUnaG/Qx+/azaaXoL0fQ55qweNbD8WEN6Zg89fFjGbeek4P2mgATS1XmZtfc2HEyFftE
+	 AUYjphaG0uxTocdeHJGuZJhOCQz9Rxt7r/VTc8STQsMACryiC92Qi73bp5bqg9kMdCOzc
+	 61tSSb0H1zrj8KsBzlzKGnKambWBucpyRfQxRtxtoLDg1UfD8RVvue4zhkW1pMkYCwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211701;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1D2S10lfIVjOV22EJSs0PkbbGKplHuUQOwNELvZ9igI=;
-	b=at/t/QhkJxsEtWYNUDvFHIccKuZGBdBO7B+TlXnupDtKE82mPdwogXaUod+YSxkY2XM0
-	 xmpNcz0j+NL0JYQgk0a+AbLlN9ZC0K1bEwhQfiOGrcvoNsRQRuyyOgRQ5HroY5Yr6+GlD
-	 xBWfQhH84Iq1+Tx6iH62GBxo3sf9kon+Vm++2Ope442dbjyVtFOoYSiriisTwCtElhYle
-	 tVklm9LZd2MLrj+x4ZkIADU7WSubhWRAkoG1RBhuTS9dagowsc47Eq3xXIEB4Hn6pAnF+
-	 6whrinwWcSQ7VSlXTRs3KLRsZm6tfZGbjhNQt5N4G/Hnmn7J3RIftXkaF/RBBMzQi3Q==
+	bh=jwIhR5LD48T+4yjRFKiW1ojSIvNDuHx7DuQVQQfEw+o=;
+	b=Ez2ZFQSkQi3ImiMyBsdPQq40SC/wK9viVkeMV/C0OFWOldCBn/ywmkWZvEul0q3cjSD1
+	 W+sYtUISPm1U0UQtNUwugvaclfakCmdaMRNihUgRo1mGr+3730KpJjYb6FTZe223vNkAo
+	 h5trQuZLNRbY1zl+Tp8X+xmac3WvMk0bInxCH4IL9eTtXBaNiaVjgJW1Uc2GQJQFzx2me
+	 6/0Ix2J73Ye64aYnZtqHnuy7biph7T3Zn7fKhFia0Ewxss1iWHyMO9apEhaBTp46n/aeb
+	 WC0uKDasiOMGUoEiUZqO06KnWAJltGpRt7FBpf6fHULrhwxPkBrZB/fZqz0MP+xCLXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Sqj8YLU8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P5HF2GOK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD18606A323;
-	Wed, 28 Oct 2026 18:21:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F35606A322;
+	Wed, 28 Oct 2026 18:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Sqj8YLU8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6BE1F01828;
-	Wed, 28 Oct 2026 18:21:34 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P5HF2GOK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29311F01828;
+	Wed, 28 Oct 2026 18:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211694;
-	bh=1D2S10lfIVjOV22EJSs0PkbbGKplHuUQOwNELvZ9igI=;
+	s=korg; t=1793211700;
+	bh=jwIhR5LD48T+4yjRFKiW1ojSIvNDuHx7DuQVQQfEw+o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sqj8YLU8obptVn6VIHDK7chZTzQnSn2eJoUpA5kA06yTkOLos0g5GbWpiw+tatA1o
-	 17PCyCt9qKjaykjbkIAyZ+jM5TZoOWjqZeovruYLWHTcdnKM+Ie/VlRKdA2hMDIKxZ
-	 EjJDxLH3UkURLuIoyttOpWmwuPQwAc4NFrBie9cY=
+	b=P5HF2GOKYSt/hpUjnJuwWK1A4rDE8RZQPVJTwDlCQKymXOQX6QmK/Mqvj47vJ29Dh
+	 cEbUkZlOBkjsdfnJSICv8suNKIa+3VuSfHQCvs4kWrEqZ0sigTfMZTb9AphmoU8KU7
+	 8+lUssjAzOx+TsrCv45IhoPPwkI3bCZZ2+7bycsg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Vicki Pfau <vi@endrift.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Lee Jones <lee@kernel.org>,
+	Dave Chinner <dchinner@redhat.com>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 422/571] HID: steam: Refactor registration
-Date: Wed, 28 Oct 2026 17:59:29 +0100
-Message-ID: <20261028170018.028405609@linuxfoundation.org>
+Subject: [PATCH 5.15 463/571] xfs: rearrange code in xfs_buf_item.c
+Date: Wed, 28 Oct 2026 18:00:10 +0100
+Message-ID: <20261028170019.008924219@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -69,146 +70,222 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Vicki Pfau <vi@endrift.com>
+From: Dave Chinner <dchinner@redhat.com>
 
-[ Upstream commit 6f9b740c31ba7e061b2ebb330d9a3d63f1358f29 ]
+[ Upstream commit d2fe5c4c8d25999862d615f616aea7befdd62799 ]
 
-This refactors and simplifies the registration/unregistration flow. Since
-we now only perform registration when the client isn't opened anymore, the
-logic for handling that can be removed, and the rest of the function
-streamlined.
+The code to initialise, release and free items is all the way down
+the bottom of the file. Upcoming fixes need to these functions
+earlier in the file, so move them to the top.
 
-We also remove the previous assumption that we have a serial number to show
-we're registered, replacing it with a single purpose boolean.
+There is one code change in this move - the parameter to
+xfs_buf_item_relse() is changed from the xfs_buf to the
+xfs_buf_log_item - the thing that the function is releasing.
 
-In a previous refactor the code for unregistering a battery if later
-registration steps failed was accidentally left out. As a result, a
-lingering power_supply object could get left over after the steam object
-was torn down. This is also fixed here.
+Signed-off-by: Dave Chinner <dchinner@redhat.com>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 
-Signed-off-by: Vicki Pfau <vi@endrift.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Omit sensors, steam_get_attributes(), rumble_work,
-      coalesce_rumble_work and mode_switch changes as e133dc99fc07,
-      a0fbd9437d7d and 1d4549fd1115 are not present]
-Signed-off-by: Lee Jones <lee@kernel.org>
+6.6:
+
+Fixed conflict due to the following missing commits:
+	[Continuous range: 10634530f7ba^..d4c75a1b40cd]
+	d4c75a1b40cd ("xfs: convert remaining kmem_free() to kfree()")
+	49292576136f ("xfs: convert kmem_free() for kvmalloc users to kvfree()")
+	afdc115559c5 ("xfs: move kmem_to_page()")
+	f078d4ea8276 ("xfs: convert kmem_alloc() to kmalloc()")
+	10634530f7ba ("xfs: convert kmem_zalloc() to kzalloc()")
+
+Removed ASSERT in favour of existing atomic_read-and-return in
+xfs_buf_item_relse() due to the following missing commit:
+	3762113b597f ("xfs: don't lose solo superblock counter update transactions")
+
+5.15:
+
+Fixed conflict due to the following missing commit:
+	182696fb021f ("xfs: rename _zone variables to _cache")
+
+Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-steam.c | 70 ++++++++++++++++++-----------------------
- 1 file changed, 31 insertions(+), 39 deletions(-)
+ fs/xfs/xfs_buf_item.c | 118 +++++++++++++++++++++---------------------
+ fs/xfs/xfs_buf_item.h |   1 -
+ 2 files changed, 60 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index 628e4ef72b81b..544d45f3fc6b5 100644
---- a/drivers/hid/hid-steam.c
-+++ b/drivers/hid/hid-steam.c
-@@ -119,6 +119,7 @@ struct steam_device {
- 	unsigned long quirks;
- 	struct work_struct work_connect;
- 	bool connected;
-+	bool registered;
- 	char serial_no[STEAM_SERIAL_LEN + 1];
- 	struct power_supply_desc battery_desc;
- 	struct power_supply __rcu *battery;
-@@ -511,9 +512,6 @@ static void steam_battery_unregister(struct steam_device *steam)
- static int steam_register(struct steam_device *steam)
- {
- 	int ret;
--	unsigned long client_opened;
--	unsigned long flags;
--	bool do_add;
- 
- 	/*
- 	 * This function can be called several times in a row with the
-@@ -521,59 +519,53 @@ static int steam_register(struct steam_device *steam)
- 	 * another client send a get_connection_status command, for example.
- 	 * The battery and serial number are set just once per device.
- 	 */
--	if (!steam->serial_no[0]) {
--		/*
--		 * Unlikely, but getting the serial could fail, and it is not so
--		 * important, so make up a serial number and go on.
--		 */
--		mutex_lock(&steam->mutex);
--		if (steam_get_serial(steam) < 0)
--			strlcpy(steam->serial_no, "XXXXXXXXXX",
--					sizeof(steam->serial_no));
--		mutex_unlock(&steam->mutex);
--
--		hid_info(steam->hdev, "Steam Controller '%s' connected",
--				steam->serial_no);
-+	if (steam->registered)
-+		return 0;
- 
--		/* ignore battery errors, we can live without it */
--		if (steam->quirks & STEAM_QUIRK_WIRELESS)
--			steam_battery_register(steam);
-+	/*
-+	 * Unlikely, but getting the serial could fail, and it is not so
-+	 * important, so make up a serial number and go on.
-+	 */
-+	mutex_lock(&steam->mutex);
-+	if (steam_get_serial(steam) < 0 || !steam->serial_no[0])
-+		strlcpy(steam->serial_no, "XXXXXXXXXX",
-+				sizeof(steam->serial_no));
-+	mutex_unlock(&steam->mutex);
- 
--		do_add = true;
--	}
-+	hid_info(steam->hdev, "Steam Controller '%s' connected",
-+			steam->serial_no);
- 
--	spin_lock_irqsave(&steam->lock, flags);
--	client_opened = steam->client_opened;
--	spin_unlock_irqrestore(&steam->lock, flags);
-+	/* ignore battery errors, we can live without it */
-+	if (steam->quirks & STEAM_QUIRK_WIRELESS)
-+		steam_battery_register(steam);
- 
--	if (!client_opened) {
--		mutex_lock(&steam->mutex);
--		steam_set_lizard_mode(steam, lizard_mode);
--		mutex_unlock(&steam->mutex);
--		ret = steam_input_register(steam);
--		if (ret != 0)
--			goto steam_register_input_fail;
--	}
-+	mutex_lock(&steam->mutex);
-+	steam_set_lizard_mode(steam, lizard_mode);
-+	mutex_unlock(&steam->mutex);
-+	ret = steam_input_register(steam);
-+	if (ret != 0)
-+		goto steam_register_input_fail;
- 
--	if (do_add) {
--		mutex_lock(&steam_devices_lock);
--		if (list_empty(&steam->list))
--			list_add(&steam->list, &steam_devices);
--		mutex_unlock(&steam_devices_lock);
--	}
-+	steam->registered = true;
-+	mutex_lock(&steam_devices_lock);
-+	if (list_empty(&steam->list))
-+		list_add(&steam->list, &steam_devices);
-+	mutex_unlock(&steam_devices_lock);
- 	return 0;
- 
- steam_register_input_fail:
-+	steam_battery_unregister(steam);
- 	return ret;
+diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
+index e0c75aa3cca8a..ebcaccc4ad66b 100644
+--- a/fs/xfs/xfs_buf_item.c
++++ b/fs/xfs/xfs_buf_item.c
+@@ -31,6 +31,63 @@ static inline struct xfs_buf_log_item *BUF_ITEM(struct xfs_log_item *lip)
+ 	return container_of(lip, struct xfs_buf_log_item, bli_item);
  }
  
- static void steam_unregister(struct steam_device *steam)
- {
--	if (!steam->serial_no[0])
-+	if (!steam->registered)
- 		return;
++static void
++xfs_buf_item_get_format(
++	struct xfs_buf_log_item	*bip,
++	int			count)
++{
++	ASSERT(bip->bli_formats == NULL);
++	bip->bli_format_count = count;
++
++	if (count == 1) {
++		bip->bli_formats = &bip->__bli_format;
++		return;
++	}
++
++	bip->bli_formats = kmem_zalloc(count * sizeof(struct xfs_buf_log_format),
++				0);
++}
++
++static void
++xfs_buf_item_free_format(
++	struct xfs_buf_log_item	*bip)
++{
++	if (bip->bli_formats != &bip->__bli_format) {
++		kmem_free(bip->bli_formats);
++		bip->bli_formats = NULL;
++	}
++}
++
++static void
++xfs_buf_item_free(
++	struct xfs_buf_log_item	*bip)
++{
++	xfs_buf_item_free_format(bip);
++	kmem_free(bip->bli_item.li_lv_shadow);
++	kmem_cache_free(xfs_buf_item_zone, bip);
++}
++
++/*
++ * xfs_buf_item_relse() is called when the buf log item is no longer needed.
++ */
++static void
++xfs_buf_item_relse(
++	struct xfs_buf_log_item	*bip)
++{
++	struct xfs_buf		*bp = bip->bli_buf;
++
++	trace_xfs_buf_item_relse(bp, _RET_IP_);
++
++	ASSERT(!test_bit(XFS_LI_IN_AIL, &bip->bli_item.li_flags));
++
++	if (atomic_read(&bip->bli_refcount))
++		return;
++
++	bp->b_log_item = NULL;
++	xfs_buf_rele(bp);
++	xfs_buf_item_free(bip);
++}
++
+ /* Is this log iovec plausibly large enough to contain the buffer log format? */
+ bool
+ xfs_buf_log_check_iovec(
+@@ -562,7 +619,7 @@ xfs_buf_item_unpin(
+ 			ASSERT(list_empty(&bp->b_li_list));
+ 		} else {
+ 			xfs_trans_ail_delete(lip, SHUTDOWN_LOG_IO_ERROR);
+-			xfs_buf_item_relse(bp);
++			xfs_buf_item_relse(bip);
+ 			ASSERT(bp->b_log_item == NULL);
+ 		}
+ 		xfs_buf_relse(bp);
+@@ -672,7 +729,7 @@ xfs_buf_item_put(
+ 	 */
+ 	if (aborted)
+ 		xfs_trans_ail_delete(lip, 0);
+-	xfs_buf_item_relse(bip->bli_buf);
++	xfs_buf_item_relse(bip);
+ 	return true;
+ }
  
- 	hid_info(steam->hdev, "Steam Controller '%s' disconnected",
- 			steam->serial_no);
-+	steam->registered = false;
- 	steam_battery_unregister(steam);
- 	steam_input_unregister(steam);
- 	mutex_lock(&steam_devices_lock);
+@@ -792,33 +849,6 @@ static const struct xfs_item_ops xfs_buf_item_ops = {
+ 	.iop_push	= xfs_buf_item_push,
+ };
+ 
+-STATIC void
+-xfs_buf_item_get_format(
+-	struct xfs_buf_log_item	*bip,
+-	int			count)
+-{
+-	ASSERT(bip->bli_formats == NULL);
+-	bip->bli_format_count = count;
+-
+-	if (count == 1) {
+-		bip->bli_formats = &bip->__bli_format;
+-		return;
+-	}
+-
+-	bip->bli_formats = kmem_zalloc(count * sizeof(struct xfs_buf_log_format),
+-				0);
+-}
+-
+-STATIC void
+-xfs_buf_item_free_format(
+-	struct xfs_buf_log_item	*bip)
+-{
+-	if (bip->bli_formats != &bip->__bli_format) {
+-		kmem_free(bip->bli_formats);
+-		bip->bli_formats = NULL;
+-	}
+-}
+-
+ /*
+  * Allocate a new buf log item to go with the given buffer.
+  * Set the buffer's b_log_item field to point to the new
+@@ -1040,34 +1070,6 @@ xfs_buf_item_dirty_format(
+ 	return false;
+ }
+ 
+-STATIC void
+-xfs_buf_item_free(
+-	struct xfs_buf_log_item	*bip)
+-{
+-	xfs_buf_item_free_format(bip);
+-	kmem_free(bip->bli_item.li_lv_shadow);
+-	kmem_cache_free(xfs_buf_item_zone, bip);
+-}
+-
+-/*
+- * xfs_buf_item_relse() is called when the buf log item is no longer needed.
+- */
+-void
+-xfs_buf_item_relse(
+-	struct xfs_buf	*bp)
+-{
+-	struct xfs_buf_log_item	*bip = bp->b_log_item;
+-
+-	trace_xfs_buf_item_relse(bp, _RET_IP_);
+-	ASSERT(!test_bit(XFS_LI_IN_AIL, &bip->bli_item.li_flags));
+-
+-	if (atomic_read(&bip->bli_refcount))
+-		return;
+-	bp->b_log_item = NULL;
+-	xfs_buf_rele(bp);
+-	xfs_buf_item_free(bip);
+-}
+-
+ void
+ xfs_buf_item_done(
+ 	struct xfs_buf		*bp)
+@@ -1087,5 +1089,5 @@ xfs_buf_item_done(
+ 	xfs_trans_ail_delete(&bp->b_log_item->bli_item,
+ 			     (bp->b_flags & _XBF_LOGRECOVERY) ? 0 :
+ 			     SHUTDOWN_CORRUPT_INCORE);
+-	xfs_buf_item_relse(bp);
++	xfs_buf_item_relse(bp->b_log_item);
+ }
+diff --git a/fs/xfs/xfs_buf_item.h b/fs/xfs/xfs_buf_item.h
+index 50aa0f5ef9590..e3ccbf3ca8014 100644
+--- a/fs/xfs/xfs_buf_item.h
++++ b/fs/xfs/xfs_buf_item.h
+@@ -51,7 +51,6 @@ struct xfs_buf_log_item {
+ 
+ int	xfs_buf_item_init(struct xfs_buf *, struct xfs_mount *);
+ void	xfs_buf_item_done(struct xfs_buf *bp);
+-void	xfs_buf_item_relse(struct xfs_buf *);
+ bool	xfs_buf_item_put(struct xfs_buf_log_item *);
+ void	xfs_buf_item_log(struct xfs_buf_log_item *, uint, uint);
+ bool	xfs_buf_item_dirty_format(struct xfs_buf_log_item *);
 -- 
 2.53.0
 
