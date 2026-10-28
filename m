@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793146831;
-	b=XAXqHeujGPv9FMOMkRgkC//fohR/joX+YCqKQVR0wOLfvkgR1BdrKKhuPVOLcruS5SRW
-	 aXOBQ8G4vZYqHNJkmQgt45Mp5FmVwb3LAdm/KFDOQQsAytXpwu70L/9ZDM4CMP1TYnP5V
-	 H5BfdfZ4FATXii+Foq4ilYNH2AHFBuSM5o/+O6ZfKVqmu/bu2ToIJ4bmoeOpY2RhcSgVj
-	 k2hCnBwIf0YhX0FvkgnjlbnHcX/x0QY6FYXteMlJpdb48HNB7lgZawzxa4Id1+MJIRVsK
-	 MOYDj9BlCddC5/yyqJ3VXUUpFmd9htlf6i99cyeRM+i3DgE0EsOAMarmewsegFonnaw==
+	b=fKZLkbb2iOOKcs1L5J+R2K/stEODndApGF/0e2sEvMINO0WTUB9T31vbp1mOKqCa3yX2
+	 dmRpw1841Qco89ioxLFJdLMRkWV3v45TkfN9X326UQfnBTR18Hd/TOYymySaAkYEoXgFD
+	 GoUY/rm6Qu4luft8loT9qnFaJ45NKxVyj3i75dDxHEAdJOjw6/JXIxdJ20ltIGUQy0Fme
+	 KfJP8Qnh7j8Gb1oAoXLWYj5ETcM1dLVy0EWyRkrdIlw6JhGPVn2/fFNKf4Euu6G6Nzrb6
+	 k6AMhd80FW6JzCK4MXNzvbE4yLDvml8sRVSqoCVbTWt0iPEZO4PuzbyIIEVXw9EhULQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793146831;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tJzDohBgQIEeXhbGPUON1R9UnoZ1QEo5Jwi1O8KFilY=;
-	b=Rknc9hkz+GY2BDc4wQaCuJy8iRvNg4xa6vdLWOUEt9tOHRr80EIqe+i/Y9UzWQbHdcsp
-	 L2YdEr/Q31nRvtIzaSB3fd1pATEdT+sLAdo5jQNP5dcoTr77TFrGRr3fBrJ/2efVv1XfZ
-	 vfXw6lb17kH37jZcVUlNaKYUX+Ww9kj0QjGgwkMo7REofbFjbxQsvFbnqsvpKSPVhxiJd
-	 AIqmZeholXUFGtPnLXagtVO6di6xxcEDYKLVvPLpXtGvNcj7smdY6zZY5R8qLjhkTULtX
-	 /gi7qvBpTmidtXVHUZQ//06nXSdm2oz6RhrenPm3Sq7/s5OXSZ7z8nwXHh79N74u3Ww==
+	bh=ySeCeIUpErYVpErE4W6SOlDRjZS0sOGTZt/5WyOWbXU=;
+	b=TIfvB0nXbHS7I+14rtBOsH2k4tVqL4mKzMKVr3NCG5JQIMGrkMakwdkO5S0PNx8XphPE
+	 jxIP8UsQdShIokaSTyBful4Lyh6z2VgDfLP3ktkaR/qDrrN40VCwRnyrW/BTe7ad0NdvT
+	 lNQ+iJ8OwO5BAa+sD0MaAAaIiLXOQUHwC/ktfJcGNQQEEccIpaHL3sqdNINEIB5oURMu1
+	 /hCbb6Ejl+CNahb8pHcrvhpkSt1fM6iX6zhguDwPh8g+CWuAtyd6PPxQcN9uXJyZBoM4P
+	 gPqAAsmqjbordFIpXWQAquAC/wBO/tw2tYcB0fIiPanhiLH+qlf9cOoHyN0gwpt5nbg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcdX+S52;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vrsf1Lay;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AC1606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A1C606A31D;
 	Wed, 28 Oct 2026 00:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcdX+S52
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vrsf1Lay
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793146830;
-	b=p90rWZEBGX1a8KALpsg2Isrw125FaRGoSLVjsUDo9VzOOD/lAbjCl9YPttxSK6FQt/uU
-	 tQfQQGiTPWbXaR+K91XpK5j5ukS5+J8mzfwfWR/HIhiLZlIWgfbIf6+Hu77KSo27thf5y
-	 rQ8oil6KWgVuYX3mqS6UlvIyjP2Dkr7Xq+J16Lj6ITf5GHQ0+FVgOotl50CaA9LaLUWuI
-	 IuaDtcqY4/umVu1dJzeQq2YhyeRkuJHyNhKReGUxtZYN+suuVo+SLwn3KfJE7/0l1oL5+
-	 88Xyn+4qbwXFodKDqtIls1cTgzQXd/pyWwnY5NOncge3rX4l6HfmQ6/IipMVE8VXBHQ==
+	t=1793146831;
+	b=H3Io0UHu9M/oqI/kQhMAkWK2Q92tn61Y5/qE3CrklEewAeyjU5j9yAsZ6okpyQTWsymg
+	 pdYpuGXhiS+YVrLotZ6zxS/yYVmd2FeNTHe8FJkF7iJxX7p2rKBK5vyK7iHk1D9Bdw0yN
+	 VeQPnjgCEPiwr8UzTe9K6euSjoQ7N5pF4n9F4zwV2VluxtFr0xbxM4h9XGMPOwzIKuAmX
+	 dhdmblHnx9zeFRPYkdIh8lKEyYIhZ++/0RqmLzfrmXBvp5XDKQX+s9Wj666Ioc3RUbL97
+	 429vaUFif5ySAvU/IdMk8GJi4lOzRprBkE2hRu0o2dfHQw0qUKQC3wAqN+t+udHYUpQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793146830;
+	c=relaxed/relaxed; t=1793146831;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tJzDohBgQIEeXhbGPUON1R9UnoZ1QEo5Jwi1O8KFilY=;
-	b=H07U5ie5XeOwbcnfl0tKSIO5spZ7TvanYfQlAPkEqN64M5a+NjhZWiUAox6y++b1hA5u
-	 syN6Qb9gwV8JN2wnfDWKLmK1k0Lzcp1+zQ95vYyejhtFripfxPWD3rrtcg3zWdLt/8ZgW
-	 dggvT03ffoDFdIgfmQfnpPdSqFGigRIUfeNwkqBAF1l6QUCrQvI+QNEq24nOaWqWvDp0s
-	 COKexgL5MpkXHKfthiIEZZmzdg7AFmoop8BVRzJ0nvcTVFCX8aKhey90ogFsd/O1DToXs
-	 nLkCp/AJKNMFhIoc+VK15u4qMmkacS8cWyj5xyuO01+a52jbF+S9GV+FYyq7V+3nyPw==
+	bh=ySeCeIUpErYVpErE4W6SOlDRjZS0sOGTZt/5WyOWbXU=;
+	b=R/lbomaO2s6I6KfJV0rnIykH7HoknMFm9tdh0xgokRRTd/q+WX49i+YNeY5HzmRbov4Y
+	 mw2foJnjb0xfAco+A9ZwbAbdJZfPDrLk/jqka+kEcthLPjQePqbLq5aTmk6qsSA/dzQ8W
+	 haovl/ZBLFfPXyYywjx9aMOLTrv7ifSdwKu7eKPaPTQHHKzqR9FayYEtlFReYMfhMfH6f
+	 UXxDHzHYcdR29JfTw1pUUKMfu//KjSHvNi4qGVnpXC0t/FL4+LhMO4ETxme1bV39EesW5
+	 hy3mHqopSdC9GGtJ7b6x51VBfvs7mHv8OAyooYqMq8zCRMeZDI5qXdLjXctrXpP2xLA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BC72F1F01828;
+	by smtp.kernel.org (Postfix) with ESMTPS id BC70B1F01825;
 	Wed, 28 Oct 2026 00:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793146830;
-	bh=tJzDohBgQIEeXhbGPUON1R9UnoZ1QEo5Jwi1O8KFilY=;
+	s=k20260515; t=1793146831;
+	bh=ySeCeIUpErYVpErE4W6SOlDRjZS0sOGTZt/5WyOWbXU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RcdX+S52nBkXSOQNeHrLHNLAgDiwVOnidVXEYRXK1qRvMRfpiGvpaGBZqcy5gJPoA
-	 7jHwNHsOxqKqh/XJLAmwUAPN/flfYsZKjoRSe6U3jrvRQZVrPiZFkgEbDQwQCymgE+
-	 KudL935YOtu3oJ3m5ku9+Q7gVzZiGzD9shvMILmcFYQhotFzkxU1+flEJuhonz7lcV
-	 qCQ3wSoP6lOsgmfGGcrolkUdRHCeB/rXd7i2oB2367ZfC1FUxJeV3sxrsdkTIXQQbJ
-	 DXywPUX4KClGYZrDyfypfJmmjXJt/cQ0HLTl0icQ9hTB/oVeXkhhHUG1tuJfCTk842
-	 GBrcmqQasqMZw==
+	b=Vrsf1Lay/TmrIqKE8SlRXkufI4sx7dB3YkXKveJTct5WWryPQ138LhsMtKyIX0gpM
+	 DSCV29vc4kPQoZH6HqGTX63WZ62IDGeURYRbX0PxE3T3xBS4fQBQfQOVakA7q5cf00
+	 vuNO1/WgLa5CTsltWNfpz+tC2gWpsXug8NcOGHXP/MYsq0mPuyoCLYJV2iDxU+V4R5
+	 DY22En76650vcysRMBByvax6Xi8KyOX3G+rjqSE5KN876Yd8I5fPWYMVsZEiQAFfuJ
+	 QK4vFRYRBed72az/ITXQgVn1qfcwJI904VlWwkWbfz/YM7501vB1+jVmFKqVSOFeTf
+	 mnh2dF/08DAxA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 35A9D452FD;
+	by lkml.kernel.org (Postfix) with ESMTP id 2C122452EA;
 	Wed, 28 Oct 2026 00:20:29 +0000 (UTC)
 From: Jez Ng via B4 Relay <devnull+jez.sfcompute.com@kernel.org>
-Date: Wed, 28 Oct 2026 00:14:46 +0000
-Subject: [PATCH 2/2] thermal: intel: hfi: Disable HFI left enabled by a
- previous kernel
+Date: Wed, 28 Oct 2026 00:14:45 +0000
+Subject: [PATCH 1/2] thermal: intel: hfi: Disable HFI on shutdown and kexec
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-hfi-kexec-v1-2-956234dcfb2b@sfcompute.com>
+Message-Id: <20261028-hfi-kexec-v1-1-956234dcfb2b@sfcompute.com>
 References: <20261028-hfi-kexec-v1-0-956234dcfb2b@sfcompute.com>
 In-Reply-To: <20261028-hfi-kexec-v1-0-956234dcfb2b@sfcompute.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -98,11 +97,11 @@ Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
  stable@vger.kernel.org, Andrew James <ajames@sfcompute.com>, 
  John Ranzie <jranzie@sfcompute.com>, Jez Ng <jez@sfcompute.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793146828; l=3879;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793146828; l=5162;
  i=jez@sfcompute.com; s=20261027; h=from:subject:message-id;
- bh=MFHvCGMUfhFOc56f4vLbDg8eYQ8Wf8YlM3SPBL0W/oY=;
- b=FJFpb2EWq1gVcnPUpk8FY5Wsa6tnVG0gXGdAVE6kOPndaZVq8RYjjKa1x91I8PuEVgSph0pUT
- 01u9WWPekmHDMwIpgx962TDfY1uKUTpXwh0FafqaZ/4YKmk63b0E5VJ
+ bh=dv3+YjTvTdGwFlEMyHW/rKlDFKBOFHdfyscbY7G2KH4=;
+ b=17IUNS718UtNc8J4GnqlzzXMBBYEwGHFZrL8mq+4fhWeNKujtWmPphrbKZOcpaKbolPjE16wc
+ 3NPCe3VNhKnADAO4xZ0EycMqO8XWAZXvfu1p59i6sg49FnvQxAU7DMC
 X-Developer-Key: i=jez@sfcompute.com; a=ed25519;
  pk=e8QxvBomwv96udVoo4EZvgPDtnl1YbPysb3vNdKi8JA=
 X-Endpoint-Received: by B4 Relay for jez@sfcompute.com/20261027 with
@@ -113,87 +112,146 @@ Content-Transfer-Encoding: 7bit
 
 From: Jez Ng <jez@sfcompute.com>
 
-Since commit b33f3d2677b8 ("thermal: intel: hfi: Enable HFI only when
-required"), the kernel only programs HFI when a thermal netlink client
-subscribes to events. Before that, the first CPU of each package to come
-online wrote a fresh table address and enabled HFI, which replaced any
-setup a previous kernel left behind.
+HFI is enabled per package by writing the physical address of a table to
+MSR_IA32_HW_FEEDBACK_PTR and setting the enable bit in
+MSR_IA32_HW_FEEDBACK_CONFIG. From then on, hardware writes performance and
+energy efficiency updates to that table on its own.
 
-Now, if the previous kernel left HFI enabled, for example across kexec,
-nothing touches it. Hardware keeps writing updates into the previous
-kernel's table, which is free memory in this kernel and can be allocated
-for anything. On dual-socket Sapphire Rapids systems kexec'ing from a 6.1
-kernel into 7.0, these writes corrupted the inode hash table and caused
-oopses in find_inode_fast().
+Nothing disables HFI when the kernel shuts down. After a kexec, hardware
+keeps writing to the old kernel's table, which is now ordinary free memory
+in the new kernel. The new kernel does not reprogram HFI unless a thermal
+netlink client subscribes to events, so the writes continue indefinitely.
 
-When the first CPU of a package comes online, check
-MSR_IA32_HW_FEEDBACK_CONFIG and disable HFI if it is already enabled. If
-a client subscribes later, HFI is re-enabled with this kernel's table as
-before.
+This was observed on dual-socket Sapphire Rapids systems (Xeon Platinum
+8462Y+) that boot a Debian 6.1 kernel and kexec into a 7.0 kernel. Both
+packages kept writing HFI updates (a timestamp, a changed flag and one
+row per CPU) into the old kernel's table pages. When the inode hash table
+landed on one of those pages, the new kernel oopsed in find_inode_fast().
+Disabling HFI before kexec made the writes stop.
 
-This narrows the window but cannot close it. Hardware may still write
-to the old table until the package's first CPU reaches the thermal
-online callback, which runs from a device initcall. On the systems
-above that was about 30 seconds after this kernel started, 21 of which
-were spent in acpi_init(). In testing there, hardware wrote the table
-once right after HFI was enabled and not again over several minutes,
-idle or with every CPU busy, but the rate under other loads is
-unknown. The complete fix is for the previous kernel to disable HFI on
-shutdown, as "thermal: intel: hfi: Disable HFI on shutdown and kexec"
-does; this covers previous kernels that do not.
+Add a syscore shutdown callback that disables HFI on every package with an
+online CPU. syscore_shutdown() runs on reboot, power off and kexec, after
+CPU hotplug is disabled and while the other CPUs are still online, so each
+package can be reached with smp_call_function_single().
 
-Also update the kernel-doc of intel_hfi_online(), which still described
-it as always enabling HFI.
+Do not enable HFI again once the callback has run. On kexec, user space
+keeps running on the other CPUs until machine_shutdown() stops them, and
+kernel_kexec() enables CPU hotplug again after syscore_shutdown(). A new
+thermal netlink client, or the first CPU of a package coming online, would
+otherwise enable HFI after it was disabled.
 
-Fixes: b33f3d2677b8 ("thermal: intel: hfi: Enable HFI only when required")
+Skip packages where HFI is already disabled. hfi_disable() waits up to
+2 ms for hardware to set HFI_UPDATED, which a package that is not
+running HFI may never do.
+
+Fixes: ab09b0744a99 ("thermal: intel: hfi: Enable notification interrupt")
 Cc: stable@vger.kernel.org
 Reviewed-by: Andrew James <ajames@sfcompute.com>
 Reviewed-by: John Ranzie <jranzie@sfcompute.com>
 Signed-off-by: Jez Ng <jez@sfcompute.com>
 ---
- drivers/thermal/intel/intel_hfi.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ drivers/thermal/intel/intel_hfi.c | 50 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/thermal/intel/intel_hfi.c b/drivers/thermal/intel/intel_hfi.c
-index 8ff094eccbaf..b97f8113930c 100644
+index 3273b8fe3d4d..8ff094eccbaf 100644
 --- a/drivers/thermal/intel/intel_hfi.c
 +++ b/drivers/thermal/intel/intel_hfi.c
-@@ -413,13 +413,14 @@ static bool hfi_disable_if_enabled(void)
+@@ -161,6 +161,7 @@ static DEFINE_PER_CPU(struct hfi_cpu_info, hfi_cpu_info) = { .index = -1 };
+ 
+ static int max_hfi_instances;
+ static int hfi_clients_nr;
++static bool hfi_shutdown_done;
+ static struct hfi_instance *hfi_instances;
+ 
+ static struct hfi_features hfi_features;
+@@ -398,6 +399,19 @@ static void hfi_disable(void)
+ 	}
  }
  
- /**
-- * intel_hfi_online() - Enable HFI on @cpu
-- * @cpu:	CPU in which the HFI will be enabled
-+ * intel_hfi_online() - Set up HFI on @cpu
-+ * @cpu:	CPU that is coming online
-  *
-- * Enable the HFI to be used in @cpu. The HFI is enabled at the package
-- * level. The first CPU in the package to come online does the full HFI
-- * initialization. Subsequent CPUs will just link themselves to the HFI
-- * instance of their package.
-+ * The HFI is enabled at the package level. The first CPU in the package to
-+ * come online does the full HFI initialization, which includes disabling HFI
-+ * if a previous kernel left it enabled. HFI is enabled only when there are
-+ * thermal netlink clients. Subsequent CPUs will just link themselves to the
-+ * HFI instance of their package.
-  *
-  * This function is called before enabling the thermal vector in the local APIC
-  * in order to ensure that @cpu has an associated HFI instance when it receives
-@@ -462,6 +463,14 @@ void intel_hfi_online(unsigned int cpu)
- 	if (hfi_instance->hdr)
- 		goto enable;
- 
-+	/*
-+	 * A previous kernel may have left HFI enabled across kexec. Hardware
-+	 * would keep writing to that kernel's table, in memory this kernel now
-+	 * owns.
-+	 */
-+	if (hfi_disable_if_enabled())
-+		pr_info("HFI left enabled on package %u, disabled\n", pkg_id);
++/* Caller must hold hfi_instance_lock. */
++static bool hfi_disable_if_enabled(void)
++{
++	u64 msr_val;
 +
- 	/*
- 	 * Hardware is programmed with the physical address of the first page
- 	 * frame of the table. Hence, the allocated memory must be page-aligned.
++	rdmsrq(MSR_IA32_HW_FEEDBACK_CONFIG, msr_val);
++	if (!(msr_val & HW_FEEDBACK_CONFIG_HFI_ENABLE_BIT))
++		return false;
++
++	hfi_disable();
++	return true;
++}
++
+ /**
+  * intel_hfi_online() - Enable HFI on @cpu
+  * @cpu:	CPU in which the HFI will be enabled
+@@ -483,7 +497,8 @@ void intel_hfi_online(unsigned int cpu)
+ 	 * Enable this HFI instance if this is its first online CPU and
+ 	 * there are user-space clients of thermal events.
+ 	 */
+-	if (cpumask_weight(hfi_instance->cpus) == 1 && hfi_clients_nr > 0) {
++	if (cpumask_weight(hfi_instance->cpus) == 1 && hfi_clients_nr > 0 &&
++	    !hfi_shutdown_done) {
+ 		hfi_set_hw_table(hfi_instance);
+ 		hfi_enable();
+ 	}
+@@ -593,6 +608,11 @@ static void hfi_disable_instance(void *ptr)
+ 	hfi_disable();
+ }
+ 
++static void hfi_shutdown_instance(void *ptr)
++{
++	hfi_disable_if_enabled();
++}
++
+ static void hfi_syscore_resume(void *data)
+ {
+ 	/* This code runs only on the boot CPU. */
+@@ -612,9 +632,35 @@ static int hfi_syscore_suspend(void *data)
+ 	return 0;
+ }
+ 
++static void hfi_syscore_shutdown(void *data)
++{
++	struct hfi_instance *hfi_instance;
++	int i;
++
++	/*
++	 * Hardware keeps writing to the HFI table after a kexec, into memory
++	 * that the next kernel owns. Disable HFI in every package, and keep it
++	 * disabled: user space runs until machine_shutdown() stops the other
++	 * CPUs, and kexec enables CPU hotplug again, so a new thermal netlink
++	 * client or a CPU coming online could otherwise enable it.
++	 */
++	mutex_lock(&hfi_instance_lock);
++	hfi_shutdown_done = true;
++	for (i = 0; i < max_hfi_instances; i++) {
++		hfi_instance = &hfi_instances[i];
++		if (cpumask_empty(hfi_instance->cpus))
++			continue;
++
++		smp_call_function_single(cpumask_any(hfi_instance->cpus),
++					 hfi_shutdown_instance, hfi_instance, true);
++	}
++	mutex_unlock(&hfi_instance_lock);
++}
++
+ static const struct syscore_ops hfi_pm_ops = {
+ 	.resume = hfi_syscore_resume,
+ 	.suspend = hfi_syscore_suspend,
++	.shutdown = hfi_syscore_shutdown,
+ };
+ 
+ static struct syscore hfi_pm = {
+@@ -649,7 +695,7 @@ static int hfi_thermal_notify(struct notifier_block *nb, unsigned long state,
+ 		break;
+ 	}
+ 
+-	if (!func)
++	if (!func || hfi_shutdown_done)
+ 		goto out;
+ 
+ 	for (i = 0; i < max_hfi_instances; i++) {
 
 -- 
 2.39.5
