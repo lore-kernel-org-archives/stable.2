@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793178280;
-	b=BzUAL/UQn9kUubaoGoq9O7WCr1lm4FceIxYyxsZCmaIPwoij0sXtgt/+mgVbD2agXoLD
-	 /5xYwtH/0l+2WtdwHqvkYSsvxkSc5Hc8jPcwwjPeobqvhLe9KOoET2k1pVm9dnRoOAZFl
-	 DHpf+xzwdkl/FjAZKrywv7x/PIccViqs1K6NzLDdMMUA8+Bn2v5vHNh+cIIcFDE2jcanm
-	 V8b8PLOQhbnJiLxcPKW70pPD1FujPhV3M5HxpSmZT30UzbNNBsZ6jT62ny1vfwOma+Xnq
-	 fq8fxUko2La9fhM196QQ8HsmN1bgY92974+hLd0Ge5LQkQR7iQkTMXw6qQhb4A6VuHQ==
+	t=1793178358;
+	b=2KbS6hiKuazBeObZCX2JHi2qI6bzHwap3M0ndBLe9uV+PkozreTXBzJY7thVYGKMGDhn
+	 FeH63jNXu+T8xxJsxj23Ir5pysWG5v9TU8u5ztiqpkVzlNE3346iYu477MpBUF7aciedo
+	 yQHLjYtOx5ckEWANCsuUzqzrvM/I+58WHSdUX75QCxkvlEPzq9HqJooRUD2zZriGOXp++
+	 y/gFyLn8q08Gq8ga6wO/Xd05qNRljCDEWm9SODrw628H1bUiiRb6PvSDtdb1Ubs+wjIGD
+	 Sz4dDJyNgI+3949i24WV8bSgFwar38/8SWy5mmX//WzahntbnevSBxX634mWkK1U6RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793178280;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=QgxSQlglSulgYW+zjA2RlQDuafTI1/6f0G7Szlj2ZsU=;
-	b=Idw5sTsMl76z+xntcx1KLN93/gMv0lt9us/b3vXrLNl18Pvk78MsPCj7MHQhFm/ChY3W
-	 W4xPGNREolYtK/Exoy1EQAG8Na6HKyTNwoDhcGaqaLQD7dVxIOz07cTPozVs6mhanHDxF
-	 RHV6B8H8IFUH1kJyEx9kwAbnFZ7jOuZ48BXBnsqBJpGnD9Try1HycpbEDzb1b4sp7o2Om
-	 +UzJR9mZtVGcSSmmFtrqPeCtq4Y1J1UkoIZBrUkgC5cM9trSMhWHLEZE89f1AE5CFJiwj
-	 Fg3OlHRnf1j7HVcuvW5DzTRBvG9FByEQB/3BDHfH2zdE84dsa9hvo/QIXWwKw1HdfiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793178358;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=GP87V0isCS9npBsUJzfzavKuNiOHWjoeDoQLqqwgJds=;
+	b=Bc4aLblZIYCPtHxYQeyVoT/pxrvKgQlhws+oeRBQhfitttgvueA/+Y2R7J9htPWMWJWV
+	 YSnnosXJcw2Qj3TW99qh3HaYJ8kKxG9z09xeLakB/MKyRTpCRcg0sPS0bWdUCnfKOOvn0
+	 mK/JObTpPzKisA0M+esuL2QYdv1xb4uIjsJ26iS6E1SkCToKTwcZo35+5G1lxXS+psYgi
+	 8ptTJpmmdu3DTb1pQaVLY5kHEZmIkynfUo9FbWYe51eSu1xUtHkHISuKCD7F1DqdcTRcd
+	 eVju9PzPT6ov1rQcoqhSnnhlNXKjYSocJPItfXTgr/PsrSs26FRmNK+qkBxgnXHS2Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samba.org;
-	spf=pass smtp.mailfrom=samba.org;
-	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=Lp45J+J0;
-	arc=none smtp.remote-ip=144.76.82.148
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=pDof7GBD;
+	arc=none smtp.remote-ip=117.135.210.6
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0B8606A31A;
-	Wed, 28 Oct 2026 09:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF0B8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76053606A31C;
+	Wed, 28 Oct 2026 09:05:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76053606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=Lp45J+J0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=QgxSQlglSulgYW+zjA2RlQDuafTI1/6f0G7Szlj2ZsU=; b=Lp45J+J0cAMXh8imTFkCtBrZ9G
-	l1S0j23aYnLzLEre0pahLwny+7ueGZZBJHjIJ48/FTT6pT7AbOASF4pOQjS1Q8MmCVSIGfZz2epHv
-	7fLdV72b/9EeZXcEUQVNI0/jqIPCkbdu9jmuBnaVwA4jatIAyGsAJcY4m2ks+bTahRwYF+B3G2iRK
-	hVVYIEngnHHBR5vouv4KfIlqYgAr+C5NWB57NMv9cxmANey2gfad2psWdRwRv5iL3DBPlZfnzMPLk
-	vg4jYKAiamZmMqXpht4jZcoG4nDWiLSfgPEfD4lQA8HXwsy+SUMTuxwrVtKIUDGuwsXmZQ3TPJrZU
-	nBiWKXfTUA7dRugic80pPIEhR6tWSmwF6WDxL23yvWe8uHlU5pNdmZJeR9dM8saRTiTKpkHJFLwoU
-	CS57qKEdzU2vV0R00Yb5ZclMdXzmUSgvNjUsEZ5GYQAgD6sMvDiC1h91G03JDzdFPmgxFGgS2+jK5
-	gh8+ny5RTU+YtCK+8+A73M5o;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1xLza6-000000065tj-0JYg;
-	Wed, 28 Oct 2026 09:04:26 +0000
-Message-ID: <b69a61a6-47b7-40d3-9235-2c34fa0cfc29@samba.org>
-Date: Wed, 28 Oct 2026 10:04:22 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=pDof7GBD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=GP
+	87V0isCS9npBsUJzfzavKuNiOHWjoeDoQLqqwgJds=; b=pDof7GBDaWXL3uDptu
+	p7woJJuDQ930CWjRgR0+CEeJFipKk43uTZkpglPzlkjsoIyoYpCi26fCgrq4jhg2
+	BXRnZBEi8+rhl924WKU5xUz+PVN3j63IAll1b7TDIj7wRVfbvhBfEzpXEGFy8wPd
+	fk1R6gcgqbm8v6jDX9uylDEIM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3ZyS4uuFqDbDtCA--.6527S2;
+	Wed, 28 Oct 2026 17:04:58 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net 2/5] e1000e: do not cache the hwtstamp config before it is applied
+Date: Wed, 28 Oct 2026 17:04:55 +0800
+Message-Id: <20261028090455.2291659-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,40 +68,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Backport request: ksmbd and smbdirect fixes merged in 7.4-rc
-To: =?UTF-8?B?7J207ISx7ZiE?= <ihopenre@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Namjae Jeon <linkinjeon@kernel.org>,
- linux-cifs@vger.kernel.org
-References: <CANTrAmxiBn6GT+N5qivdf=xtGg6yFksK5qN_PhpoNdxXDSpikA@mail.gmail.com>
- <2026102733-sinner-baguette-1d07@gregkh>
- <CANTrAmys9yD+KB4Nhkqo5Z1R7vJCbyoXpizDeV6kM5YA4nEMiw@mail.gmail.com>
-Content-Language: en-US
-From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <CANTrAmys9yD+KB4Nhkqo5Z1R7vJCbyoXpizDeV6kM5YA4nEMiw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3ZyS4uuFqDbDtCA--.6527S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF17Cr47CrW8WF4rKFW8Xrb_yoW8try7pa
+	17CF90krn8tF1aga97JFy8Cr98Wan7tayY9Fyayw1Y93s8Cry8Cry8KFWUurWjyrWkJ34q
+	qrn5Zw12grs8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRrvxmrhurr6ZQAA3O
 
-Am 27.10.26 um 17:47 schrieb 이성현:
-> On Tue, Oct 27, 2026 at 11:44PM, Greg KH wrote:
->> Why no tag?  What happened to prevent that?
-> 
-> For 3) that is on me. When I sent ef85bad39cf2 on 2026-10-15 the
-> commit it fixes, 25e414db7033, was only in 7.3-rc, so I assumed there
-> was no released kernel to backport to and left the tag off. 7.3 was
-> then released with the bug before the fix reached mainline, which is
-> why I am asking now.
-> 
-> For 1) and 2) I am the reporter, not the author, so I cannot say why
-> the tags were not added. Namjae and Stefan are on Cc and can answer
-> that. I only noticed the gap when I checked which of the fixes had
-> reached a stable tree.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Sorry, I thought that a Fixes: tag would be enough to have commits being backported
-as needed.
+e1000e_config_hwtstamp() stores the requested configuration in
+adapter->hwtstamp_config right after the rx filter has been
+translated, but the two register writes that follow are verified by
+reading the registers back and each of them can fail with -EAGAIN.
 
-I read Documentation/process/stable-kernel-rules.rst again
-and will also add stable in addition.
+When one of them does, the driver is left holding a configuration the
+hardware never accepted:
 
-metze
+ - e1000e_hwtstamp_get() hands it back to user space, so an
+   application that reads the configuration back is told that
+   hardware time stamping is in effect while it is not;
+
+ - e1000e_systim_reset() re-applies it after every reset, including
+   the ones the watchdog triggers, and keeps failing;
+
+ - e1000_watchdog() starts polling TSYNCRXCTL_VALID for the cached rx
+   filter, and e1000_xmit_frame() still parks skbs that ask for a Tx
+   time stamp because it only looks at FLAG_HAS_HW_TIMESTAMP, so they
+   are eventually dropped by e1000e_tx_hwtstamp_work() with a
+   "clearing Tx timestamp hang" warning.
+
+Cache the configuration only once both registers have been verified,
+so that adapter->hwtstamp_config always describes what the hardware
+is programmed with.
+
+Fixes: 62d7e3a2d006 ("e1000e: Validate hwtstamp_config completely before applying it")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ drivers/net/ethernet/intel/e1000e/netdev.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+index 35f5590228eb..7ae33273734f 100644
+--- a/drivers/net/ethernet/intel/e1000e/netdev.c
++++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+@@ -3715,8 +3715,6 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter,
+ 		return -ERANGE;
+ 	}
+ 
+-	adapter->hwtstamp_config = *config;
+-
+ 	/* enable/disable Tx h/w time stamping */
+ 	regval = er32(TSYNCTXCTL);
+ 	regval &= ~E1000_TSYNCTXCTL_ENABLED;
+@@ -3763,6 +3761,8 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter,
+ 	er32(RXSTMPH);
+ 	er32(TXSTMPH);
+ 
++	adapter->hwtstamp_config = *config;
++
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
+
