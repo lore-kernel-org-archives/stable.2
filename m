@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211499;
-	b=43i2TD30TcvuKRpPVPnkKq+3WsIq1K2/zd3wxQ9vsgktqlebWhJpEwH1CLfcEHllTmxT
-	 Ah55LpeLIKbcBj9Tx9CppCmBcJkTg1YZRM0AncdcDqlRISuFdKKUHGywoTpPPAvNQQHF3
-	 rh1K5wniesF/LTmgFRwUFTeEfZRO292rfFlgudlSp5wfbClUWjmirjZm5WUBGNLHIWuBS
-	 2/WdyECPtYZIvI6gXSFeTjEZiQetdkk5quk6f0NTexo3pr1PL3jsd1ynhutPYtFmDoxK4
-	 Y2xSpCkLA+tVP4aao2IX39kokSS6Kx3G1k6v5rmEFSDNYjnfDpSsGyUEp0p9NbMEY8w==
+	t=1793211496;
+	b=p3V89WdfTbjCpwMMk35g+jelNSfEGZk/jR3BeVADyHGDHR/BK8vgxxtizx35mhXdpXG8
+	 kWbH8QaG+fIRqJoYHbAdMqJSlb3ufh3ic69OUNA+w/zg/CvQSlvjv2U0dqrIWd/bwqbvk
+	 u6FI0XTSNFivWiMJ3BBgmVfodOZSIthqS+W15YeZGDrMhShPQiWR8FROF8E5zPEQCzmwx
+	 A9sbcDGBwdfiySM5n7Tg63HR6IqQRfLvro97dRGaBjReAG2hYRlqQIA/jTrSdfqSUg0A1
+	 Bn0bNEJD/ohtP4mOZK09f1B4W/bA5fDV8Spmcc0lMxYumuvioRXlpal3LNK/wRtEqTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211499;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0oiry0ZaDpBozgKs3Yn0AN+r5C81GF5EHZ1wjFVYL/k=;
-	b=n+FpbPQHuiorCVy5Wh9dJTepjCK0rYYyh63r/W2ijIaoMUL2thW94aa4vaFP+p6uBee6
-	 0rfa/ujkKi+4gbsego1ns6i4gEbH9iDDMqJDvvUMk9KrhVdcTlKZFdUf7p+RzQ7JodmlE
-	 nWMrcEBCk6SD76MlehYX+Waf40zpus1D+sbO6E/8PoWWENIH1dbnx4PvN/kQfvkJ6c+3K
-	 MM7g6RNf+5kmZr6uHQcZkupR05uEdSumHDsgAV4VVELVGXIXvlKQeVgaxeCs4sev3q3dH
-	 vsD1spidUziqh9m9ouJ+TLXJBISRH7EA5pzc4rbb4Gj7J7fUPznL/hi44BXS723yZrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211496;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+8WnxTysLVF1+HItrdMKYW4yV0cZSYS+SH9CrICsCqo=;
+	b=2YhrufOOVVZUPcMIauctLIZkf9btYclH3l74zg9xZOIhdlsXmQaMst0ltBRIzY7pIM4u
+	 wtGS8fDjKpODYm6lGvnzAu0mU1kVvUajmwWVjNdHYieS8cHx61KpVKjveIzfG2rZ6E1VA
+	 BJFey5DHexGPex84u4IQ3w0xVhcBMTrWn7z+/eOyRwjWdaKQXOaDKuVpQ0tzr8pp7mO83
+	 i7059Lwjf+Q4eLyR9wGQ8NeZ4g80LwDa5aNGD1TUsiu/OX2uqIJTGQOjwsGd/HT7vmU6c
+	 3v3YAYovux7GBE8ZS+dRUSTpwqAAnWdLbfMo16ERfnmFsGqfmXJPmtW2zHNHZ/b4OUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gU0j6S5l;
-	arc=none smtp.remote-ip=91.218.175.123
-Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C+soNXke;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7985606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7985606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411DE606A32D;
+	Wed, 28 Oct 2026 18:18:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gU0j6S5l
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FzSLDoLL3l9c7gMzSXMHTUPkCis4CHxPNrJyJmMFlpk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793211490; v=1; x=1793816290;
- b=gU0j6S5lCSGrqFK3BVUBPVUpoJjMru/bTOQUq6k4s8hYE7pyHyjgIVQVNpixe8IGEYsHiSTo
- Sa9tQgmS5tlXViRJaa2x65+OMlfI5V623xi1qnOcoJVUKz1oQgC6LPcveWygQ0GXNgY6TXjxYXu
- B7nX71X6/VXlzdJeHTaUT5fQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5ad5a2eaaa496885;
-	Wed, 28 Oct 2026 18:18:10 +0000
-X-Mizu-Trace-ID: 5ad5a2eaaa496885
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 28 Oct 2026 11:18:08 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
-	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] ipc/sem: account enlarged sops arrays to memcg
-Message-ID: <auI8CyIxjbLEMeEZ@linux.dev>
-References: <cover.1793207025.git.x-professor@outlook.com>
- <565d855cbd81e0f49018da21df00ff0308f646b1.1793207025.git.x-professor@outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C+soNXke
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48F941F01825;
+	Wed, 28 Oct 2026 18:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793211495;
+	bh=+8WnxTysLVF1+HItrdMKYW4yV0cZSYS+SH9CrICsCqo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C+soNXketL/vrgKsB44RD5f48jUTf1a0+Wo1WwCN+4w/zeNTvin8nKBLoYaRONmce
+	 YG66amPVv6nLxSijYQL5iIHNfnfEbBbVqc/9gOU7MV/I/oyrhqThNbePc57TCoK6PF
+	 cK8Szs6DOfh9GiM8waCHxbQR8HlAMAPcDTUZr5lI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 397/571] ASoC: adau1372: allow sleepy powerdown GPIOs
+Date: Wed, 28 Oct 2026 17:59:04 +0100
+Message-ID: <20261028170017.432688345@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,58 +63,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <565d855cbd81e0f49018da21df00ff0308f646b1.1793207025.git.x-professor@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 05:03:57PM +0000, Yingjie Wang wrote:
-> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
-> do_semtimedop()") removed accounting based on the assumption that sops
-> arrays would remain small, describing a maximum cost of two pages.
-> 
-> SEMOPM is a UAPI default that can be changed when rebuilding the kernel.
-> It must not also define the accounting policy, since changing that default
-> would enlarge the unaccounted range.
-> 
-> Keep the historical small-array range unaccounted with a fixed internal
-> threshold of 1000 operations, and use GFP_KERNEL_ACCOUNT when the actual
-> nsops exceeds it. Requests within that range retain the existing allocation
-> behavior, while larger user-controlled arrays are charged to the caller's
-> memory cgroup.
-> 
-> Commit 50ec499b9a43 ("sysctl: allow change system v ipc sysctls inside ipc
-> namespace") later made the per-namespace limit tunable by IPC namespace
-> owners without capabilities in the initial user namespace.
-> 
-> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
-> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-> ---
->  ipc/sem.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/ipc/sem.c b/ipc/sem.c
-> index 5ec41de7e85b2..a8c9807175520 100644
-> --- a/ipc/sem.c
-> +++ b/ipc/sem.c
-> @@ -176,6 +176,7 @@ static int sysvipc_sem_proc_show(struct seq_file *s, void *it);
->  
->  #define SEMMSL_FAST	256 /* 512 bytes on stack */
->  #define SEMOPM_FAST	64  /* ~ 372 bytes on stack */
-> +#define SEMOPM_NOACCOUNT	1000 /* ~ 2 pages for struct sembuf */
->  
->  /*
->   * Switching from the mode suitable for simple ops
-> @@ -2234,7 +2235,10 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
->  		return -EINVAL;
->  
->  	if (nsops > SEMOPM_FAST) {
-> -		sops = kvmalloc_objs(*sops, nsops);
-> +		gfp_t gfp = nsops > SEMOPM_NOACCOUNT ?
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Instead of making this conditional, can you just GFP_KERNEL_ACCOUNT
-unconditionally and benchmark it. The kmem accounting has changed a lot since
-that patch. If the performance impact is fine then we should just use
-GFP_KERNEL_ACCOUNT.
+------------------
+
+From: Alvin Šipraga <alvin.sipraga@analog.com>
+
+[ Upstream commit 64dd172bbffe6135d79a06ddad53dd2da4d8bd62 ]
+
+gpiod_set_value() emits a WARN when the GPIO provider indicates that it
+can sleep, as is typical for I2C controlled GPIO expanders. Since the
+powerdown GPIO is only manipulated in process context, use the _cansleep
+variant instead. This lets the driver use sleepy GPIOs to power off the
+chip.
+
+Fixes: 6cd4c6459e47 ("ASoC: Add ADAU1372 audio CODEC support")
+Signed-off-by: Alvin Šipraga <alvin.sipraga@analog.com>
+Acked-by: Nuno Sá <nuno.sa@analog.com>
+Link: https://patch.msgid.link/20261006-asoc-adau1372-fixes-v1-1-599cc17fb5f6@analog.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/adau1372.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/codecs/adau1372.c b/sound/soc/codecs/adau1372.c
+index 0dc5381cdc396..4cd30dc35f429 100644
+--- a/sound/soc/codecs/adau1372.c
++++ b/sound/soc/codecs/adau1372.c
+@@ -798,7 +798,7 @@ static int adau1372_set_power(struct adau1372 *adau1372, bool enable)
+ 		if (ret)
+ 			return ret;
+ 		if (adau1372->pd_gpio)
+-			gpiod_set_value(adau1372->pd_gpio, 0);
++			gpiod_set_value_cansleep(adau1372->pd_gpio, 0);
+ 
+ 		if (adau1372->switch_mode)
+ 			adau1372->switch_mode(adau1372->dev);
+@@ -818,8 +818,7 @@ static int adau1372_set_power(struct adau1372 *adau1372, bool enable)
+ 							   ADAU1372_CLK_CTRL_PLL_EN,
+ 							   0);
+ 				regcache_cache_only(adau1372->regmap, true);
+-				if (adau1372->pd_gpio)
+-					gpiod_set_value(adau1372->pd_gpio, 1);
++				gpiod_set_value_cansleep(adau1372->pd_gpio, 1);
+ 				clk_disable_unprepare(adau1372->mclk);
+ 				return ret;
+ 			}
+@@ -836,7 +835,7 @@ static int adau1372_set_power(struct adau1372 *adau1372, bool enable)
+ 			 * map. No need to do any register writes to manually
+ 			 * turn things off.
+ 			 */
+-			gpiod_set_value(adau1372->pd_gpio, 1);
++			gpiod_set_value_cansleep(adau1372->pd_gpio, 1);
+ 			regcache_mark_dirty(adau1372->regmap);
+ 		} else {
+ 			regmap_update_bits(adau1372->regmap, ADAU1372_REG_CLK_CTRL,
+-- 
+2.53.0
+
+
 
