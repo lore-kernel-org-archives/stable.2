@@ -1,82 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793169607;
-	b=yxr7631q3TH1C0N1JxGjldsj70EDUhgOquok/ndkps0S0KpvQfM4+BWiAZg3Mm0yve66
-	 eZWmVbBb7rUCyJmZjx2Blh6ihoyCFo/au8rk8+rNvHyQdQB7ZW9GpxgsSzLGEnSnRw00O
-	 IJsipwCVbLkF7QbkpM1lfAg5a8vvd4mL1pOBimcs5O+PZR8iYkuujkq/1r+/XwH5oEkDb
-	 VLxRK+ddSqrYTFC1m3JqEurJ/AJz/m+H5aHu9CUkjYLfI02pckMrbiFvKehu04L0yDkUQ
-	 0reX85tKqTDmjyvdC++EhM7V2ZstN3inqCJBhosCnIfcITDD+YCh1xwlYvoHfFlXAlA==
+	t=1793169777;
+	b=vRgC4VNS0Q9uzUSUa0uvWvbW4/D+VBItvUH5YAeFylmMvnjSwtFsSX1NcfD3jo1XW6g8
+	 n/hfKGdJyv3EtjqSaLTla9OmDXQ4A5GIxqLMND5paAx8t9sQqNKNO0EruPoNDsl+3Bsg/
+	 R06x9HfpNvbiTSAlFtpr19SWMjEANuCp1Iqcm7/rC6jAbEL9ulkAs6jDDGPyIrXEsqhtG
+	 wnYZeQUlOiIx5ZHF508EDPmq1EmHXwlwNDPwagHglY8+RWJJAECoZDHz2qtUPotARuZhZ
+	 EATmX1dMRJ+PNGfHkBdjcyZIkD/WqHDAFjTsYD4Rq80BzR52CrRzjNS1IzQ7UKRjYqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793169607;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:Content-Language:Cc:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=VRMp0VSYcpSQF97GiENk7UaqrDcmf17j4ys0PVfumL8=;
-	b=A3ckM/7v1557RI8RI/zYz6VzCYcmhhyiJt+gTCx9mElBfaHZt7Kl8UPY3sp5+18o/7GT
-	 8tERv0wHPIMHEisM8xIrIqID+dHJYucqkw/4hT1cWPxcsrYqDJiTTlivdnoII3rtoFvp1
-	 EVTDrn1y4Yle3/hoiFRXYBwYM00Y76rFHhUBgCJBPHcqdWCuiw3C857V/ruA5F54fbLlk
-	 ccbMpFN/XWhDD853JWDAUIjSL+L1FW7fgGSWg6cl75eDSaOB6PggBw13/Ke+GKN5CnFhb
-	 EcCvK97MfbFK/sOEATAvwc9hdEgcWG0Tm5au3lLhoM6PX2RLaXhfgBKwzWNg8nCcu3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793169777;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Q6G3nxFD05ygIwY6v+3uq58Goki6iPih8OOteYGgxqQ=;
+	b=Zh0b4op1RLTvp3pA+9GVNbzD25liiOvGkK9QUXUF0tvGzTahx8OimJOVZ9unVouga8qP
+	 sQvHgCszPapjCq4uW0t0Z6lqT1iKz+rgjkTpCp1HlWmQNgjR7aujwar02/utz/xcCqVsd
+	 2CnzMODInvm8AKVOdl8yEXrBbtkw1m7zh90j0a0F7jP0hP+L3vAfQu9LX3Tf+TmlK44jH
+	 yxzgq5PzMIEnLzL21kHlGGnH+MWxGHhsXYWRvw8VDn0uZRHjxsgxcPHIooXVNDpGAgafP
+	 Z8aWxqouCHXIoii/faaL8mnYGvdstMXQ3ndI5mOD81DvUquuOKpnx0EwxqKqXa2mDng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jRKoeBzF;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ex8kivjK;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47273606A31A;
-	Wed, 28 Oct 2026 06:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47273606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B11606A31A;
+	Wed, 28 Oct 2026 06:42:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B11606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jRKoeBzF
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4i8ZY287718;
-	Wed, 28 Oct 2026 06:39:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=VRMp0V
-	SYcpSQF97GiENk7UaqrDcmf17j4ys0PVfumL8=; b=jRKoeBzFv05HveINtC1jJf
-	z7Tm5NMYmY+SRfV0T/eS9eR973efIjzQnfSE5Pb74vVmqEBaO94/qAEkkTGI6Jav
-	xljPAAk/79W8U9gVvuYDyezUmUGLgw09QI6dQFCadxCXAYCSZOKTLU90eo9bSu99
-	euXLOkgAYnr63j9wffV4gvPRVMV4cCQ7aHkHRn5mVT/IOVF2tCGWT0HKViXWBf3/
-	l3qfvd+RsdX25ZSH261PE9hSQEWkglupJSuXI0Q7Xi7qEMDrTVwSD8db1HU/sKn2
-	ug1yyEO5hW0PcH5+pSwxvXMIqgmGFcuwXAdxPdQRUE+UWiDcpw6Ds0XkpB/8x/4w
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmd73bet-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 06:39:56 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4Z08K973667;
-	Wed, 28 Oct 2026 06:39:55 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hjtnnbwqk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 06:39:55 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69S6d6pZ22872576
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 06:39:06 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3696558058;
-	Wed, 28 Oct 2026 06:39:54 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 46B5C5805C;
-	Wed, 28 Oct 2026 06:39:46 +0000 (GMT)
-Received: from [9.123.14.188] (unknown [9.123.14.188])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 06:39:45 +0000 (GMT)
-Message-ID: <3190b92c-2fdc-41da-b0e2-b8a6945bef64@linux.ibm.com>
-Date: Wed, 28 Oct 2026 12:09:44 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ex8kivjK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1793169775;
+	bh=aLWh42rcMNKepHGFb1obkzRcUt2M03VEF2PDUV87Fpc=;
+	h=From:Date:Subject:To:Cc:From;
+	b=ex8kivjKpCVe3SEW/De1KV7FnRgFJh2XCInhoOieVVGrc3KwwoWpNg71yG4NuLLjL
+	 V2Q43qxbDM2xGhboyKUa+6W4Xs2FD2eoX+qJQ7LpJDiA3WrMMJ0hXAYclVaLJf0UxD
+	 x7NYkedzR/OIceuvbWG9xxv8KmaPdF7AmwQBQp+4=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 8FAB94006C;
+	Tue, 27 Oct 2026 23:42:55 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Tue, 27 Oct 2026 23:42:51 -0700
+Subject: [PATCH v2] ipc/msg: prevent msg_qbytes limit bypass in IPC_SET
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,276 +55,224 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v13] net/smc: fix lgr/lnk lifetime vs diag reader race
-To: netdev-bot+sashiko@kernel.org
-References: <20261023150317.1163397-1-mjambigi@linux.ibm.com>
- <179311414480.3134.15723255171112798704@kernel.org>
-Content-Language: en-US
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
-        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
-        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
-        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
-        stable@vger.kernel.org, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-In-Reply-To: <179311414480.3134.15723255171112798704@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=ZYOIpcVA c=1 sm=1 tr=0 ts=6ae198bd cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=Qo0v_rsg_MSqEvw2p5oA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAyNCBTYWx0ZWRfX2laPY5JtBD8q
- ODucbhtPKhrKxfAO9Y4L94n4NYx1oucQKcXcS9qkNG2ku0sahFWvrKdE6g9+/uPHs5jFGGkjIP9
- G8ooIGgjOHHfBI9SgJk2SrpPfegVSjiFUql+xZMe0xWOcADGmwaO1UbtSIcCBYvsYVEHvenR19e
- H7ygmdCIcUCzVvAp7StaEa3Grdifc9ek3khuITCWzLFUV5m07Hh9Ybeid9lXwcPydeoOsSY7XlS
- zC/DINkW6bUr8kINkjm5lHzPvp42+2ggiD3B0hSzH/aheeXynkACVIeYQ+wNROfet/YesikgEda
- KxUdycJsg4qXpIDnt8Z/e2HnUXuzG8E4Ph9jLJlY8h4a9ZRme3X3GtxuGB+KNHxRJldVKNEezNA
- EdptSFyeLRvJ/4l/h675AtOu4XCE+9cUSawMfYfJrCIyMHF3/fRQ2Pd+27XGlgmmtNSw+5ZUl1N
- kYtumCfqBfr3H7Oq61w==
-X-Proofpoint-GUID: RRc89_Eu-uAZul5hWn6hMIKzKeSvLwU4
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAyNCBTYWx0ZWRfXxl65/ksGd4Wf
- 1E4B9h50iMI8Mmuy2hBQ51n8vGbSYFvZSXDiScgMmXcYw/UyyUhY7HAauWsHtkGW1uUAtXXDclB
- n/zkVktyQBdTAFCqNyRvP8GynPiGUGc=
-X-Proofpoint-ORIG-GUID: uXnhtyT3ZIC84JI04H8SdokQbKW5NO91
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015
- bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280024
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAGqZ4WoC/3XMyw6CMBCF4Vchs3YMU7nVle9hWFgYyiyk2BKUk
+ L67lb3L/yTn2yGwFw5wzXbwvEoQN6VQpwy68TFZRulTg8pVRbmqUeYOn8Hiy2wLByy0oVJfqCt
+ NBek0ex7kc4D3NvUoYXF+O/yVfutfaiUkbBpd9abIaxr0zfK0vN3ZeQttjPELLUAjPa0AAAA=
+X-Change-ID: 20261027-ipc-msg-qbytes-49b15931c5b6
+To: Shuah Khan <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christopher Lameter (Ampere)" <cl@gentwo.org>, 
+ Davidlohr Bueso <dave@stgolabs.net>, 
+ Manfred Spraul <manfred@colorfullife.com>, 
+ Jan Koester <jan.koester@tuxist.de>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ stable@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793169775; l=6756;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=aLWh42rcMNKepHGFb1obkzRcUt2M03VEF2PDUV87Fpc=;
+ b=dRyGaRLst+jniGlRn6ywhZXdc0t6tj9NAKNv4eIKRbJfLNzdmnYSwGFrWBeHuMFjOsKRR/6/9
+ Rlc5Y557XZsAQJyNyRwK3phWekbMlkY/8q4iCQuFhzGtb4WqJ83aZw3
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
+The msg_qbytes field in the msqid64_ds userspace ABI is an unsigned
+long. Commit 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down()
+functions") passed that value to msgctl_down() as an int.
 
+An unprivileged owner can set msg_qbytes to UINT_MAX. The narrowing
+conversion produces -1 on supported Linux targets, so the check against
+the int-valued msg_ctlmnb sysctl does not reject the request:
 
-On 27/10/26 8:45 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] Use-after-free read of the link group in __smc_diag_dump()
->   (net/smc/smc_diag.c, lines 93-94) for hashed SMC_CLOSED sockets that…
-> - [Medium] The new state-based guard in __smc_diag_dump() (smc_diag.c:93
->   and 107-109) can be bypassed by a stale-registration socket that…
-> 
-> --
-> 
-> net/smc: fix lgr/lnk lifetime vs diag reader race
-> 
-> This patch tries to close several windows where the SMC sock_diag dump
-> can dereference a freed or partially freed conn/lgr/lnk on a socket that
-> is still hashed. It adds an SMC_INIT/SMC_CLOSED/fallback guard in
-> __smc_diag_dump(), pairs it with acquire/release on sk_state, and unhashes
-> sockets before smc_conn_free() and smcd_buf_detach() in the teardown
-> paths. It also uses the cached link->ibname for the LGRINFO attribute.
-> 
-> [ ... ]
-> 
->> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
->> index bf0beaa23bdb6..84c45aabc196c 100644
->> --- a/net/smc/smc_diag.c
->> +++ b/net/smc/smc_diag.c
->> @@ -87,10 +87,11 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->>  
->>  	r = nlmsg_data(nlh);
->>  	smc_diag_msg_common_fill(r, sk);
->> -	r->diag_state = sk->sk_state;
->> +	r->diag_state = smp_load_acquire(&sk->sk_state);
->>  	if (smc->use_fallback)
->>  		r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
->> -	else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
->> +	else if (r->diag_state != SMC_INIT &&
->> +		 smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
-> 
-> [Severity: High]
-> Can this still dereference a freed link group for a hashed socket in
-> SMC_CLOSED?
-> 
-> The diag_mode check here only excludes SMC_INIT. The new SMC_INIT /
-> SMC_CLOSED / use_fallback guard comes later, after
-> smc->conn.lgr->is_smcd has already been loaded.
-> 
-> The v13 changelog describes how a stale alert_token_local can survive.
-> Once smc_lgr_terminate_sched() has emptied lgr->list, smc_conn_free()
-> skips the unregister but still drops the references:
-> 
-> net/smc/smc_core.c:smc_conn_free() {
->     ...
-> 	if (!list_empty(&lgr->list)) {
-> 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
-> 		smc_lgr_unregister_conn(conn);
-> 	}
->     ...
-> lgr_put:
-> 	if (!lgr->is_smcd)
-> 		smcr_link_put(conn->lnk); /* link_hold in smc_conn_create() */
-> 	smc_lgr_put(lgr); /* lgr_hold in smc_conn_create() */
-> }
-> 
-> On the server side this looks reachable as:
-> 
-> smc_listen_work()
->   smc_conn_create()          <- joins existing SMC-R lgr L
->                              <- smc_lgr_terminate_sched(L) empties L->list
->   smc_clc_wait_msg()         <- peer resets, rc < 0 (-ECONNRESET/-EPROTO)
->   smc_listen_decline()
->     smc_conn_abort()
->       smc_conn_free()        <- unregister skipped, token stays set
->     smc_listen_out_err()     <- SMC_CLOSED, use_fallback false, hashed
-> 
-> Since rc < 0 there is no fallback. The socket stays hashed in the accept
-> queue or until smc_close_non_accepted() takes the sock lock. Later,
-> terminate_work runs:
-> 
-> __smc_lgr_terminate()
->   smc_conn_kill()            <- clears token under conns_lock
->     smc_close_active_abort() <- SMC_CLOSED case just breaks, no unhash
->   smc_lgr_cleanup()
->   smc_lgr_free()
->     smc_lgr_put()
->       __smc_lgr_free()       <- kfree(lgr)
-> 
-> Nothing in that sequence synchronizes with the hash read_lock that the
-> diag reader holds. A reader could see the non-zero token in
-> smc_conn_lgr_valid() and then load smc->conn.lgr->is_smcd after the
-> kfree. That would read freed memory.
-> 
-> The "Fourth" paragraph of the commit message says this case must not
-> happen: observing SMC_CLOSED and dereferencing an lgr whose reference was
-> already dropped. The smp_store_release() added in smc_listen_out_err()
-> only helps when the token was actually cleared, and here it was not.
-> 
-> The client close() path (SMC_INIT -> SMC_CLOSED in smc_close_active())
-> doesn't seem to be exploitable this way. The reader's read_lock blocks
-> the unhash in __smc_release() while the sock lock is held. The server
-> path above has no such protection.
-> 
-> Could the SMC_INIT / SMC_CLOSED / use_fallback check move ahead of the
-> diag_mode computation? Adding r->diag_state != SMC_CLOSED to this
-> condition would also work.
+	if (msg_qbytes > ns->msg_ctlmnb &&
+	    !capable(CAP_SYS_RESOURCE))
 
-Valid finding, fixed in v14.
+The value is then assigned to the unsigned long q_qbytes field, setting
+it to ULONG_MAX. This bypasses the CAP_SYS_RESOURCE requirement for
+increasing a queue above MSGMNB.
 
-The v13 diag_mode check only excluded SMC_INIT, so a hashed SMC_CLOSED
-socket still loaded smc->conn.lgr->is_smcd. The scenario is reachable.
-If smc_lgr_terminate_sched() empties lgr->list after smc_conn_create(),
-then smc_conn_free() skips the unregister and leaves alert_token_local
-set. A negative rc from smc_clc_wait_msg() then reaches
-smc_listen_out_err() with no fallback. The socket stays hashed in
-SMC_CLOSED, and terminate_work can free the lgr.
+It also bypasses the effective per-queue message-count limit: zero-length
+messages consume kernel memory but not queue bytes. An unprivileged queue
+owner can therefore cause memory pressure or exhaustion beyond the
+configured per-queue allowance, subject to other resource limits.
 
-You are also right that smp_store_release() doesn't help here, since the
-token was never cleared. v14 excludes SMC_CLOSED before conn->lgr is
-read in __smc_diag_dump(), and the commit message now says what the
-release store does and doesn't order.
+Keep msg_qbytes as unsigned long through validation and assignment.
+Also preserve its type in ipcctl_obtain_check(), which supplies it to
+the unsigned-long audit field.
 
-The stale token itself is not new. It comes from smc_conn_free()
-skipping the unregister when lgr->list is empty (2a0674fffb6b).
+Add a regression test which drops CAP_SYS_RESOURCE and verifies that
+IPC_SET with UINT_MAX fails with EPERM. Skip the test when capabilities
+or System V message queues are unavailable.
 
-> 
->>  		r->diag_mode = SMC_DIAG_MODE_SMCD;
->>  	else
->>  		r->diag_mode = SMC_DIAG_MODE_SMCR;
->> @@ -103,6 +104,10 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
->>  		goto errout;
->>  
->> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED ||
->> +	    smc->use_fallback)
->> +		goto out;
->> +
-> 
-> [Severity: Medium]
-> Can a stale-registration socket get past this guard if it leaves
-> SMC_INIT through passive close instead of fallback?
-> 
-> Here is a scenario on an SMC-R client:
-> 
-> smc_connect_rdma()
->   smc_conn_create()             <- registers conn in existing lgr L
->                                 <- smc_lgr_terminate_sched(L) empties
->                                    L->list
->   smc_clc_send_confirm() fails  <- rc < 0
->   smc_conn_abort()
->     smc_conn_free()             <- unregister skipped, lgr/lnk refs
->                                    dropped
-> smc_connect_decline_fallback()  <- rc < 0, returns without fallback
-> 
-> A positive decline code followed by a failing smc_clc_send_decline()
-> ends up in the same place.
-> 
-> The socket stays hashed in SMC_INIT with use_fallback false. The conn is
-> still in L->conns_all with its alert_token_local set, so
-> smc_cdc_rx_handler() -> smc_lgr_find_conn() still finds it. The peer has
-> the token from the confirm, or can guess it from the sequential counter.
-> 
-> A CDC with close or abort flags then queues close_work, which moves the
-> socket out of SMC_INIT:
-> 
-> smc_close_passive_work():
-> 	case SMC_INIT:
-> 		sk->sk_state = SMC_APPCLOSEWAIT1;
-> 
-> smc_close_passive_abort_received():
-> 	case SMC_INIT:
-> 	case SMC_ACTIVE:
-> 	case SMC_APPCLOSEWAIT1:
-> 		sk->sk_state = SMC_PROCESSABORT;
-> 
-> At that point the state is neither SMC_INIT nor SMC_CLOSED, use_fallback
-> is false, and smc_conn_lgr_valid() is true because of the stale token.
-> The reader then dereferences:
-> 
-> - smc->conn.lgr->is_smcd
-> - conn->sndbuf_desc->len and conn->rmb_desc->len (still on L's lists,
->   since smc_buf_unuse() was skipped)
-> - lgr->list and lgr->role
-> - the conn->lnk fields
-> 
-> Meanwhile __smc_lgr_terminate() -> smc_conn_kill() clears the token and
-> calls smc_close_active_abort():
-> 
-> - The ACTIVE/APPCLOSEWAIT branch never unhashes.
-> - The PROCESSABORT branch now unhashes, but smc_conn_free() returns early
->   because conn->freed is already set.
-> 
-> smc_lgr_free() -> __smc_lgr_free() then frees the buffers and kfree()s L.
-> 
-> What makes that free wait for a diag reader that has already passed the
-> token check? The v13 changelog names this stale-registration case, but it
-> seems to handle only the variant where the socket falls back.
-Its a pre-existing issue & I'm not going to address this in this patch.
+Fixes: 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down() functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Changes in v2:
+- Skip the selftest when capability syscalls or System V message queues
+  are unavailable.
+- Describe the queued-message-limit and memory-pressure impact.
 
-It is *not* a regression. The stale token comes from the same old
-smc_conn_free() behaviour (2a0674fffb6b), and before this patch the
-reader was exposed in SMC_INIT with no further action needed. The
-SMC_INIT guard makes this path harder to hit.
+Link to v1: https://lore.kernel.org/r/20261027-ipc-msg-qbytes-v1-1-8896db4071f9@gentwo.org
+---
+ ipc/msg.c                                   |  2 +-
+ ipc/util.c                                  |  3 +-
+ ipc/util.h                                  |  3 +-
+ tools/testing/selftests/ipc/Makefile        |  2 +-
+ tools/testing/selftests/ipc/msgctl_qbytes.c | 81 +++++++++++++++++++++++++++++
+ 5 files changed, 87 insertions(+), 4 deletions(-)
 
-It also needs a misbehaving peer. The socket only leaves SMC_INIT if the
-peer sends, or guesses, a CDC with a close or abort flag for the stale
-token. A well-behaved peer never does that for a connection it saw fail.
-On top of that, a diag reader holding the hash read_lock would have to
-stall through smc_conn_kill(), smc_lgr_cleanup() and smc_lgr_free()
-after passing the token check. The odds of hitting that are very low. A
-peer that can forge CDCs on an established SMC-R link can already abort
-connections on that lgr, so it has far simpler options than this race.
+diff --git a/ipc/msg.c b/ipc/msg.c
+index 62996b97f0ac2137dfc2fa109394d6db1fcb4a0f..116126f1235cd6ce9b819cfd317ef039071b95ca 100644
+--- a/ipc/msg.c
++++ b/ipc/msg.c
+@@ -399,7 +399,7 @@ copy_msqid_from_user(struct msqid64_ds *out, void __user *buf, int version)
+  * NOTE: no locks must be held, the rwsem is taken inside this function.
+  */
+ static int msgctl_down(struct ipc_namespace *ns, int msqid, int cmd,
+-			struct ipc64_perm *perm, int msg_qbytes)
++			struct ipc64_perm *perm, unsigned long msg_qbytes)
+ {
+ 	struct kern_ipc_perm *ipcp;
+ 	struct msg_queue *msq;
+diff --git a/ipc/util.c b/ipc/util.c
+index 1737d776bc089e27495e810569bf302069db3712..c435b2d93a12e92e930358a8bc53a06314d065f5 100644
+--- a/ipc/util.c
++++ b/ipc/util.c
+@@ -718,7 +718,8 @@ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
+  */
+ struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
+ 					struct ipc_ids *ids, int id, int cmd,
+-					struct ipc64_perm *perm, int extra_perm)
++					struct ipc64_perm *perm,
++					unsigned long extra_perm)
+ {
+ 	kuid_t euid;
+ 	int err = -EPERM;
+diff --git a/ipc/util.h b/ipc/util.h
+index a55d6cebe6d3b0974548a497fcb889248aed0f87..55a76f94667cd4bb248fbcea26323db8d2778a44 100644
+--- a/ipc/util.h
++++ b/ipc/util.h
+@@ -180,7 +180,8 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out);
+ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out);
+ struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
+ 					     struct ipc_ids *ids, int id, int cmd,
+-					     struct ipc64_perm *perm, int extra_perm);
++					     struct ipc64_perm *perm,
++					     unsigned long extra_perm);
+ 
+ static inline void ipc_update_pid(struct pid **pos, struct pid *pid)
+ {
+diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
+index fad10f2bb57b0f06f0c741fa89f0489f6952eba6..930a334747a6353c86bebe1f4a521aeee3fe8228 100644
+--- a/tools/testing/selftests/ipc/Makefile
++++ b/tools/testing/selftests/ipc/Makefile
+@@ -12,7 +12,7 @@ endif
+ 
+ CFLAGS += $(KHDR_INCLUDES)
+ 
+-TEST_GEN_PROGS := msgque
++TEST_GEN_PROGS := msgctl_qbytes msgque
+ 
+ include ../lib.mk
+ 
+diff --git a/tools/testing/selftests/ipc/msgctl_qbytes.c b/tools/testing/selftests/ipc/msgctl_qbytes.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..152e3d91557198c468a8d3bd3b05dd82e7e99a50
+--- /dev/null
++++ b/tools/testing/selftests/ipc/msgctl_qbytes.c
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <errno.h>
++#include <limits.h>
++#include <linux/capability.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/msg.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++#include "kselftest.h"
++
++static int drop_cap_sys_resource(void)
++{
++	struct __user_cap_header_struct hdr = {
++		.version = _LINUX_CAPABILITY_VERSION_3,
++	};
++	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3];
++	unsigned int index = CAP_SYS_RESOURCE / 32;
++	__u32 mask = 1U << (CAP_SYS_RESOURCE % 32);
++
++	if (syscall(SYS_capget, &hdr, data))
++		return -1;
++
++	data[index].effective &= ~mask;
++	data[index].permitted &= ~mask;
++
++	return syscall(SYS_capset, &hdr, data);
++}
++
++int main(void)
++{
++	struct msqid_ds ds;
++	int msqid;
++	int ret;
++
++	ksft_print_header();
++	ksft_set_plan(1);
++
++	if (drop_cap_sys_resource()) {
++		if (errno == ENOSYS)
++			ksft_exit_skip("capabilities are unavailable\n");
++		ksft_exit_fail_perror("drop CAP_SYS_RESOURCE");
++	}
++
++	msqid = msgget(IPC_PRIVATE, 0600);
++	if (msqid == -1) {
++		if (errno == ENOSYS)
++			ksft_exit_skip("System V message queues are unavailable\n");
++		ksft_exit_fail_perror("msgget");
++	}
++
++	ret = msgctl(msqid, IPC_STAT, &ds);
++	if (ret == -1) {
++		ksft_perror("msgctl(IPC_STAT)");
++		goto out_fail;
++	}
++
++	/*
++	 * msg_ctlmnb is an int, so UINT_MAX must require
++	 * CAP_SYS_RESOURCE.
++	 */
++	ds.msg_qbytes = UINT_MAX;
++	errno = 0;
++	ret = msgctl(msqid, IPC_SET, &ds);
++	if (ret == -1 && errno == EPERM) {
++		ksft_test_result_pass("IPC_SET rejects oversized msg_qbytes\n");
++		msgctl(msqid, IPC_RMID, NULL);
++		ksft_exit_pass();
++	}
++
++	if (ret == -1)
++		ksft_perror("msgctl(IPC_SET)");
++	else
++		ksft_print_msg("msgctl(IPC_SET) unexpectedly succeeded\n");
++
++out_fail:
++	msgctl(msqid, IPC_RMID, NULL);
++	ksft_test_result_fail("IPC_SET accepted oversized msg_qbytes\n");
++	ksft_exit_fail();
++}
 
-The proper fix is to clear the token in smc_conn_free() when lgr->list
-is empty. That changes lgr lifetime handling, which is where v11 and v12
-got stuck, so it belongs in a separate patch. I'm keeping this one
-limited to the diag reader.
+---
+base-commit: 8a36f53fd5ec3eff01f1b637d42cbdc3821d0493
+change-id: 20261027-ipc-msg-qbytes-49b15931c5b6
 
-pw-bot: cr
+Best regards,
+-- 
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
