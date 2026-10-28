@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209059;
-	b=KUIGe0VktaRrtehXp+7MB1ErmfQkxABFJPzNr7oYy5qbKeSenY8ULTG8qVskECw46Udq
-	 FJnCQQyPGS/SgTaeb/boSwXcGMYcs61ZEGahDR500F+kfvJdSwUkmh/5QAR2mxkq5YsJh
-	 NKUoPbRV7C2B6laGm4cKl82hkHEdlZg6rQd61XxmRsaeSOljaND1qMbxJtNCZ1bIR4Pn/
-	 d0tvFMMr1fEDXfD4DphMZYYCuGFYB6/ddUgoyUMwY5R2McUBqQpcITMmOaL1zdb0gvpJi
-	 cwIPrjCffnATPeG3JOfQylfcZqRDXbdaczoC1cwbeGVqTm1+L/OmmSa84w17mSSea0A==
+	t=1793209060;
+	b=RWw6u2G4OiJO7A5k9HAIqazzf/LZJbynmrDluknNWWfU/AFPxExYgSU0wxbpAwvRZ7Ew
+	 9jjA1uNsglXYtYYp7dw3Rq86kYq7RN7bTM4cSQMP+MOqbnRJEtfR8aowbB4zzgbuyb4f0
+	 GAkMlNoPm0bCfNxw8EDDSdXPYrjgpkBhYVVD/uH2tDnhn2M97zOut/eDvTRqA7DPqvY8R
+	 AGQam4UraxtuDSZI9EXp2xDcZHyb7wfCuBKuy9F2tX8sivgNuQioSyIlOpnhyi9BpM6y8
+	 zahV48sFM2o2/z9K5bnArgVpdKMXD5BbYlOtPYyeJn6pKlEyAInKhjoZqA0zhmoyzWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
-	b=0hmgsghEdZuU6uEvU6EuIB4f6eBdL49gPKxC4omFzhTS0jNIZUT6qDs+zuhaz0ZlDhWe
-	 E+SxUEyIMB2UdLU+XC+hw2sruWWByH0ULoDCFpdBZuitiEOFd1tTG4ZbTNKxoykTqO/hr
-	 SQZJb48hNkWMQxqPf/Yi0mFv1eJDJwp5rN2rHwNHou1uSI1moPvxDmkHPOnIRRD+5Hwy1
-	 JXvqnMg3czjN280KW94hCKN6ObKgDqcFids+OM9y0hWO6lBVYTJlw9aAup3+63aIo+qoi
-	 +TPFAudGMCB5ZWXsGB5E1Vla8tQWe0WCGCnUI7Jrw4rw1Wc62HhOTgUaU/qZ1IcSAow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209060;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lAeVzDqzfC4orOyyEwa0odY5VXpn3UDiz3uuSR/616Q=;
+	b=HJll1Ka1iyls6BZhK+2pGskLs9HoIbzZe948oeiYaEcESRTLyrILYR49yIX+O64vFAgl
+	 3dasK85v5w+RsN5YgdzX1fZJ6cXVVLpA/242fZJe0kIOFE51CRSLfZtCVmBtK37G1iHHz
+	 Nv8dJ6KXARe1RnHZT93Ay9SbH/K4DdhT7g5QQEIcqiYgSg8HisRpmzY+EcWCbNfy5RVPm
+	 6ez6DlY3XTIvP4uYBHaJjhILp+dP0vMdPG3k7nvMpMMbrUpjIpidMF6y+WCNaEpxjoemT
+	 K5hsNgmzE+ljpFoI6GoRClOvmU1vDTB5GYUuQyX/9xh6ACcSRQ5frviJiuKpNOg7tlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K8iv/qok";
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nyAl+rW5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FF060A3831
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1FF060A3831
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DD160A383E;
+	Wed, 28 Oct 2026 17:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K8iv/qok
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a030e0f9c1so1362899b3a.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793209058; x=1793813858; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :references:mime-version:in-reply-to:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
-        b=K8iv/qokqLcqmosxHF8uwyg869NLyQAd2klYldeDFNTuErcIAIQklXhEcLDF3cAFSI
-         yiamH0AHc0D8T+jPua1OXBPPjJ8rzTy8CxbuXwNti5LTXVHl6Hr8K4IGLsk7BSlZ3TVZ
-         A90BKQAghjbUvuHXi4wJvbSTb9OJ/JLoa4T8bGmpazXopDRJW3JwXhKtXAACo2EB4caC
-         kZ1uw1E2R3+oii9u3oirvbMDSJHMayzSztPbr76VU/enXTOyKVT7Je9j8qnvdVDiY1UG
-         9hEJ2CnnUzP2n4djSjMJ7Z4jlp7nylVquRfCQJDXLWs7SROf6w6abh+nUUSG0aw3gClN
-         oU7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793209058; x=1793813858;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :references:mime-version:in-reply-to:date:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
-        b=WXdve8t6GX+yl47TI14ZFYokeLONI0kYkbB6qsTeQ7pwqxGyqze6VfrBgXeX5DXg2u
-         UJ9gdQ40v1wabVHBDEWmqBZIqA2Ou8zDo90B5tTfi12G2HllEkJ7NDNWKWHriRSG8heo
-         2mQ5SUIOGY0kNivrBXBJrU06gTh0eDm1sbwHnwM9NUPDM3rCDMqv8jzKqssmA4n+pWIM
-         K9LCE1Lz35IB/barvltIsBOAegPhnK8YjZ1AfBcFWhYgpzX6+YdNGEcifrbrQNJ/2VGm
-         /IF91baliK6zh83p7WN+973UxaDnywwD1hR0WxlEb1Vwq/Yl5ONwn+2KiG447ovyzK8Y
-         BlIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxdfuRVZ+UToNQlMYfwS0aAlYw83sD2+lhPlzwxdAJ7ltu/gSozBFX46R9+nGuKLSAS7MN44Ss=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyMrm3MS2/JCHximQkvX+kMn28bbOdRgDrcdZY59/ifL+U45i4
-	0ZUxVe8pgD0nxB3k2MO6jTSOI+G4/a3yYVnaTbJW1Q9t5O+z2ZcbJCLyl1GDuUVgXElw5f3F34s
-	6u2IqPA==
-X-Received: from pfbfj6.prod.google.com ([2002:a05:6a00:3a06:b0:89d:3267:4348])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2386:b0:892:a8f1:c53d
- with SMTP id d2e1a72fcca58-8a6e6ff38aamr2448185b3a.22.1793209058009; Wed, 28
- Oct 2026 10:37:38 -0700 (PDT)
-Date: Wed, 28 Oct 2026 10:37:37 -0700
-In-Reply-To: <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nyAl+rW5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6031F01825;
+	Wed, 28 Oct 2026 17:37:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793209059;
+	bh=lAeVzDqzfC4orOyyEwa0odY5VXpn3UDiz3uuSR/616Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nyAl+rW5mFI3wWMkwXyu997yDWI25x7UMrLC5Juv4L0S3Tvo7zEKwdm+i5Ih9lQJM
+	 wkMayWmFr92og77j6FwAz7pvDp1dWXQDnVRYLJCKGo0bKsdq6/a30/zHJICQeZonKZ
+	 ata9V+AgAojKPrJQft/Sevueqf2jlW1i8FAFcIT0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Fredrik Nyberg <fredrik.nyberg@volvocars.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.10 339/516] net: usb: ax88179_178a: fix rx frame length for non-last packets
+Date: Wed, 28 Oct 2026 17:58:11 +0100
+Message-ID: <20261028170011.518645961@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
+References: <20261028170003.522232767@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,88 +61,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <2026102314-CVE-2026-99082-e5b1@gregkh> <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
-Message-ID: <auIy4UZMGxLhBCAn@google.com>
-Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
- commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO cache")
-From: Sean Christopherson <seanjc@google.com>
-To: Sami Farin <lkml20261027@mifar.in>, linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org, kimjw04271234@gmail.com, 
-	pbonzini@redhat.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026, Sami Farin wrote:
-> On Fri, Oct 23, 2026 at 14:45:15 +0200, Greg Kroah-Hartman wrote:
-> > From: Greg Kroah-Hartman <gregkh@kernel.org>
-> >=20
-> > Description
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >=20
-> > In the Linux kernel, the following vulnerability has been resolved:
-> >=20
-> > KVM: x86: Use active memslots for the per-vCPU MMIO cache
->=20
-> Hi all,
->=20
-> (Disclaimer: I am an end user, not a kernel developer. I used an LLM to h=
-elp
-> triage and trace the issue, but the findings, traces, and tests below are=
- verified.)
->=20
-> I hit a guest boot hang after updating my host from 6.18.57 to 6.18.58 (F=
-edora 44).
-> Windows 11 guests using OVMF with Secure Boot and SMM (-machine q35,smm=
-=3Don) hang
-> indefinitely at the TianoCore splash screen, pegging the host vCPU core a=
-t 100%.
->=20
-> The issue bisects/points directly to commit b3e6212dea2e ("KVM: x86: Use =
-active
-> memslots for the per-vCPU MMIO cache"), which was backported into 6.18.58=
- and is
-> also present in 7.3-rc kvm/queue.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-...
+------------------
 
-> ########### patch 1
->     The proper upstream fix requires tagging the per-vCPU MMIO cache with=
- the address space ID (as_id) alongside the generation counter.
->     The Flaw in Commit b3e6212dea2e:
->     The commit attempted to fix stale MMIO cache validation in SMM by che=
-cking kvm_vcpu_memslots(vcpu)->generation. However, its commit message reli=
-ed on an incorrect assumption:
->         "Memslot generations are unique across address spaces, so the gen=
-eration also distinguishes the normal and SMM views."
->     In KVM, each address space maintains an independent struct kvm_memslo=
-ts with its own generation counter initialized to 0. They are not unique ac=
-ross address spaces. During early VM boot, address space 0 (Normal) and add=
-ress space 1 (SMM) frequently have identical generation numbers.
->     Because struct kvm_vcpu_arch only stores a single GVA, GFN, and gener=
-ation counter without an address space identifier:
->         An MMIO access cached in SMM (e.g., GFN 0xFED40000 with gen =3D 4=
-) matches in normal mode where gen is also 4.
+From: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
 
-Hmm, this isn't adding up for me.  It should be impossible for the generati=
-on to
-be '4' for SMM, because SMM is supposed to use odd-numbered generations.  F=
-rom
-kvm_swap_active_memslots():
+commit 9b6c20f788472d2042717a3c2f1bc60b2b77083e upstream.
 
-	/*
-	 * Generations must be unique even across address spaces.  We do not need
-	 * a global counter for that, instead the generation space is evenly split
-	 * across address spaces.  For example, with two address spaces, address
-	 * space 0 will use generations 0, 2, 4, ... while address space 1 will
-	 * use generations 1, 3, 5, ...
-	 */
-	gen +=3D kvm_arch_nr_memslot_as_ids(kvm);=20
+Commit 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about
+skb->truesize") replaced skb_clone() with a copy into a new skb for
+every packet of a bulk-in transfer except the last one. The copy skips
+the 2-byte IP alignment pseudo header but still copies pkt_len bytes,
+and pkt_len includes that header. Each of these frames is therefore
+delivered with two extra trailing bytes: the 0xeeee pseudo header of
+the next slot when the frame ends on an 8-byte boundary, or slot
+padding otherwise. The last packet is still trimmed to pkt_len - 2.
 
-So while both of the suggested fixes seem reasonable, they _should_ be unne=
-cessary.
+IPv4 and IPv6 trim the extra bytes, so most traffic is unaffected.
+Anything that relies on the frame length is not. MACsec takes the ICV
+from the last 16 bytes and drops every such frame as InPktsNotValid. In
+our setup that was 0.2-1.2% of received MACsec frames, depending on how
+many frames shared a transfer, including service discovery multicast.
 
-Paolo, at PUCK I verbally said we could go with the one-line fix, but I'd p=
-refer
-to hold off until we can figure out why the generations collide in the firs=
-t place.
+Allocate and copy pkt_len - 2 bytes, like the last-packet path.
+
+Fixes: 4ce62d5b2f7a ("net: usb: ax88179_178a: stop lying about skb->truesize")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fredrik Nyberg <fredrik.nyberg@volvocars.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20261002-ax88179-rx-len-v1-1-f01a2a295079@volvocars.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/net/usb/ax88179_178a.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- a/drivers/net/usb/ax88179_178a.c
++++ b/drivers/net/usb/ax88179_178a.c
+@@ -1563,11 +1563,11 @@ static int ax88179_rx_fixup(struct usbne
+ 			return 1;
+ 		}
+ 
+-		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len);
++		ax_skb = netdev_alloc_skb_ip_align(dev->net, pkt_len - 2);
+ 		if (!ax_skb)
+ 			return 0;
+-		skb_put(ax_skb, pkt_len);
+-		memcpy(ax_skb->data, skb->data + 2, pkt_len);
++		skb_put(ax_skb, pkt_len - 2);
++		memcpy(ax_skb->data, skb->data + 2, pkt_len - 2);
+ 
+ 		ax88179_rx_checksum(ax_skb, pkt_hdr);
+ 		usbnet_skb_return(dev, ax_skb);
+
+
