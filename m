@@ -1,82 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793153466;
-	b=UUtiKDhdOHhqcPGa58Rtk58UudX7R1LAxU/4aDI5AOH5KYve+tCtzBSwQPaX+AdWxrt4
-	 S3u7GWGur2ZpqL1kg4+p2GCpgFI5ow3ZOnmLiQ2BUjACE62sz9WHf0zv0bqWDrFNbpF6s
-	 yfUgubpJSS7Mw7jHUDtW1sa5nk2h+hzfPDbczHuDnpvITRKLVrFBWHvwemvuMBZV7M71c
-	 BU14zeLR99wk3dpwEc8fceBW3mVQyvH+ZXaKqiX1fN3vbFTE93N4Xf4X9jTuvP+4vuCYZ
-	 Jc+4nRwcxANeq/WEtEMVyiYojsepN6BwCzCE5gnUhQEyXGHZkeZkFL5lDKQyIgm4WAA==
+	t=1793153597;
+	b=siN2B55gOfp0BSBrfgFDaUCGPXp+d1xIGykJjdYKkMQlUrL/9CzTuZD5BHAJH2WDJ7jr
+	 wgbWXthF0gEIkKke3Xd9t7oxduXW2+8mrgJslnwWqIltvVy8Pq4bdR1Z2Wfg779BXUMXy
+	 o8dubtvonq2023N48viIAZX6vuPgcrWRZ1QALKY8Y8CtAlT/3i0PQUOr39uNOdPOPWjDQ
+	 DyV6W/6/qVMCr3CLrzyEdRFlid8RQ4EuTLfPoVU5CF7e26Ui+OUOG96l+vaLZm4rN2Iuk
+	 K0utOXug3QKO3BcyLxZv0XgLNhxIB71jrFCBMVFt2MVA8+4l4yss5PyTxg+JQaIW8bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793153466;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=OdKNt7dMkvQOwgSe6sGW36ar7xpC3kTsYB0qDQnVyDQ=;
-	b=kRxrk2mrr82YcsiXHi15YJk59Ah/iIwIXThAv/EEdwu3jwLVbfAK0lvDe6rjqYCvdBZj
-	 tIvYFJoDElEcH1mgFGpxyW+ut80TlvIDNEv9yxEkKUEolMWAWwV0vqqlqnAYU4MrDGxXd
-	 QAd03vVqhVISu0WjmWR6mSUYKWHVEJ3t1SBaok0saYdFO/D0q5eI0zijGn27PJXLNtF4x
-	 3A3h1fqn20H9KnyjQBP7OSQd7GODKYHrhpmfirELHTXAxeSaojktA5IXVQL2h/1uK5cwk
-	 Vze+TaPJv0piRs+iXhT1Uf7e5cA1YdHJHbzJFFx8Dq6cVSLQgvyfXsGJnOEf/iOHUQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793153597;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ig8MXej4t56mcMXDRuyLj4VjGewCY4AkKZ34lxVRYvc=;
+	b=f1XLDo12rBiqjndk1c+x6fsM+SVNr1sSVlAj8g8cMovejTQMKBkV+hqfYth/JbN2nSFj
+	 pxR/n0rvLSZcdPvEFof/UUqgfxumZaqU8faAXHSYT3KlaONSvQGFS7jqnu0cdukpmAIp9
+	 9gLOj21BZGmzvg6XwdfbKbBh4DGRWqvviY/yuYmwrtYzbbWDyH8MFBv7foLANh/u6Tr6k
+	 mofvVfendBCU0U6vmMf4dgDjwvIjDiFbyWxchIobjnXG+CpDbQiLwLXm6QZ9/QVKzLba+
+	 0dwJerF5u/9DnlqckvOmivgo1Ql88h5Xus+F35c7EgFMn9x7QQvRVpMwGQn6SOWi0Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=AqaxOENW;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K0mQO2/z";
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E566606A31A;
-	Wed, 28 Oct 2026 02:11:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E566606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3E9606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:13:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B3E9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=AqaxOENW
-X-UUID: d15c5484d27411f18dc8c9802ae25ab1-20261028
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=OdKNt7dMkvQOwgSe6sGW36ar7xpC3kTsYB0qDQnVyDQ=;
-	b=AqaxOENWSLsX2xhl6VdtthLp6upyVyBYYvk9qF5vi3rcUkwMntQpwUSCF5p+CcJLPABXHCEIOQLkVl8Fk1UgpklsmMzxnrvAkZXkMQwzEq8QMESPWl8YnQTCPsuBiJ2IngMF2hTILjC5fTsCClQYZRhwChSgyFHY/hPgN2APNb0=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:93ff2724-5797-4434-8080-972b403570d1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:4fa81abb-4006-44bb-949c-6e25a7b8dad4,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d15c5484d27411f18dc8c9802ae25ab1-20261028
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <eason.lai@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1436668998; Wed, 28 Oct 2026 10:10:59 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 28 Oct 2026 10:10:58 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 28 Oct 2026 10:10:58 +0800
-From: Eason Lai <eason.lai@mediatek.com>
-To: <nbd@nbd.name>, <lorenzo@kernel.org>
-CC: <linux-wireless@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
-	<kun.wu@mediatek.com>, <deren.wu@mediatek.com>, <sean.wang@mediatek.com>,
-	<quan.zhou@mediatek.com>, <ryder.lee@mediatek.com>, <leon.yen@mediatek.com>,
-	<litien.chang@mediatek.com>, <jb.tsai@mediatek.com>,
-	<lucid_duck@justthetip.ca>, <eason.lai@mediatek.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v1 1/2] wifi: mt76: flush a partial rx A-MSDU when its station is removed
-Date: Wed, 28 Oct 2026 10:10:52 +0800
-Message-ID: <20261028021053.2220951-2-eason.lai@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261028021053.2220951-1-eason.lai@mediatek.com>
-References: <20261028021053.2220951-1-eason.lai@mediatek.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K0mQO2/z
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so734648a91.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 19:13:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793153596; x=1793758396; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ig8MXej4t56mcMXDRuyLj4VjGewCY4AkKZ34lxVRYvc=;
+        b=K0mQO2/zInwnZeB7V8H3rNpR877JGRE+dWH6CedSdfv4vi8JQKkFgNffkBiVqsqz5i
+         HLpxB4zt7RddlLWaB3H8x6uhtmlxF3CuQ7eOPjtNU3fyuSbN0li/29s1X4Pg+3Y7nyzO
+         JA2tDvi4CnxX2RuYeWKJdAKvj+5IU9jqvb8KjSyAtcrKqBrX57jFbPUjUHYyFctoEPr+
+         s0dOE1geHCodccHZq7iXdAw27WdOQMLE7I5nkt7LR1emywoaAKiKvafrZpAEvksLKvLy
+         0WxJEbiM+MHcaUfP6sv1Y5JR7Gy6ru5X/BYFVN4hpv/9mXCoJ1Cku0dzy1tvnV74KXQr
+         IvOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793153596; x=1793758396;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ig8MXej4t56mcMXDRuyLj4VjGewCY4AkKZ34lxVRYvc=;
+        b=EiGRQIVZ7fl3ZPGpKE4iT04ELcRxOFbpVRuiXee+LBY4qsXa+84rVwvndxV94RauG3
+         vZnPUxzuqECpgEY2DVk+l//+DQ1BqB+ZssPlfyGFyi84l8uQSGDQEjT6v49n4zeoWwm3
+         Mrnkuy4ss1iMJuCDGVMUuYRC4Qt/Az1VH0H8gKEjrVyqfVJBU3lpA+CAGB+keJAXYzLs
+         54MuwqCZ9dDFEw8Ypj5LaFg7TGKEHZDttJ9u3H1LdqS5Tc9TVmIoxfekyrdGncCI00TV
+         1PxgEdvNeTdcHg0zFnPweRAPYEbZ/FFpr6/Td3L5i4D6OOLgNJLvWeTyKwaY2xgANZfR
+         UvIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLqHMuvFynRE55Cluhj7ETKpOhh9Umk7D4WRR1RFu8OSscVmNgZJNNKbJTmdrLerMkcpuhHpA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqV7U84V5ce6xBhWt3BEDKPLWGlyP3AiLDhnoRHvpkM5yCGy9R
+	+8VnYnbxNaRJNAzcWeX8D8QuXEdlsLwfOsv3I8XGL3nvuVFkkHV+aLNxqrSfStKGnWZdWwvWTd+
+	lva0GdA==
+X-Received: from pjbci9.prod.google.com ([2002:a17:90a:fc89:b0:3ad:647f:c1bc])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:ec8e:b0:3ac:8897:7b92
+ with SMTP id 98e67ed59e1d1-3ae58319f5amr650497a91.57.1793153595507; Tue, 27
+ Oct 2026 19:13:15 -0700 (PDT)
+Date: Wed, 28 Oct 2026 02:13:15 +0000
+In-Reply-To: <20261026003804.61923-3-imv4bel@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,118 +77,160 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Mime-Version: 1.0
+References: <20261026003804.61923-1-imv4bel@gmail.com> <20261026003804.61923-3-imv4bel@gmail.com>
+Message-ID: <auFUvRnF2uDgZix8@google.com>
+Subject: Re: [PATCH net v4 2/2] inet: restore refcount ordering for lockless
+ ehash walks
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: edumazet@kernel.org, ncardwell@google.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, martin.lau@linux.dev, 
+	john.fastabend@gmail.com, weiwan@google.com, sd@queasysnail.net, 
+	jiayuan.chen@linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-mt76_rx_release_burst() keeps the first subframe of an A-MSDU in
-phy->rx_amsdu[q] until the last subframe arrives, which can take several
-polls. mt76_rx_status.wcid in that skb is only valid inside the RCU
-section it was filled in.
+On Mon, 26 Oct 2026 09:37:45 +0900, Hyunwoo Kim wrote:
+> Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
+> of refcount_t"), default builds implemented refcount_inc_not_zero() using
+> atomic_add_unless(), which provided full memory ordering on success. The
+> commit removed that ordering on weakly ordered architectures, allowing
+> validation after a successful reference acquisition in lockless ehash
+> walks to be reordered before it.
+> 
+> Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
 
-If the station is removed meanwhile, the wcid is freed together with the
-sta, and mt76_rx_convert() and mt76_check_ccmp_pn() use a dangling
-pointer once the A-MSDU is released. Neither mt76_rx_aggr_stop() nor
-__mt76_sta_remove() looks at rx_amsdu.
+Does bpf_sk_assign() need it too ?
 
-Drop a parked A-MSDU that references the wcid in mt76_wcid_cleanup(),
-which every driver calls on station removal, and protect rx_amsdu with a
-new per-queue lock.
+If the socket is taken from lookup helper, it's safe, but what
+happens if the pointer is taken from BTF (27e5203bd9c5), e.g.
+tp->inet_conn.icsk_accept_queue.rskq_accept_head ?
 
-Fixes: cc4b3c139ad3 ("mt76: mt7915: enable hw rx-amsdu de-aggregation")
-Signed-off-by: Eason Lai <eason.lai@mediatek.com>
----
- drivers/net/wireless/mediatek/mt76/mac80211.c | 43 +++++++++++++++++++
- drivers/net/wireless/mediatek/mt76/mt76.h     |  1 +
- 2 files changed, 44 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/wireless/mediatek/mt76/mac80211.c
-index c9762082f473..19a2e8a26c3e 100644
---- a/drivers/net/wireless/mediatek/mt76/mac80211.c
-+++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
-@@ -428,9 +428,12 @@ mt76_phy_init(struct mt76_phy *phy, struct ieee80211_hw *hw)
- {
- 	struct mt76_dev *dev = phy->dev;
- 	struct wiphy *wiphy = hw->wiphy;
-+	int i;
- 
- 	INIT_LIST_HEAD(&phy->tx_list);
- 	spin_lock_init(&phy->tx_lock);
-+	for (i = 0; i < ARRAY_SIZE(phy->rx_amsdu); i++)
-+		spin_lock_init(&phy->rx_amsdu[i].lock);
- 	INIT_DELAYED_WORK(&phy->roc_work, mt76_roc_complete_work);
- 	INIT_DELAYED_WORK(&phy->scan_work, mt76_scan_work);
- 
-@@ -974,10 +977,48 @@ void mt76_rx(struct mt76_dev *dev, enum mt76_rxq_id q, struct sk_buff *skb)
- 	}
- #endif
- 
-+	spin_lock(&phy->rx_amsdu[q].lock);
- 	mt76_rx_release_burst(phy, q, skb);
-+	spin_unlock(&phy->rx_amsdu[q].lock);
- }
- EXPORT_SYMBOL_GPL(mt76_rx);
- 
-+/* Drop a partially received A-MSDU that still references the wcid of a
-+ * station which is being removed.
-+ */
-+static void mt76_rx_amsdu_flush_wcid(struct mt76_dev *dev,
-+				     struct mt76_wcid *wcid)
-+{
-+	int i, q;
-+
-+	for (i = 0; i < ARRAY_SIZE(dev->phys); i++) {
-+		struct mt76_phy *phy = dev->phys[i];
-+
-+		if (!phy)
-+			continue;
-+
-+		for (q = 0; q < ARRAY_SIZE(phy->rx_amsdu); q++) {
-+			struct sk_buff *skb;
-+			struct mt76_rx_status *status;
-+
-+			spin_lock_bh(&phy->rx_amsdu[q].lock);
-+			skb = phy->rx_amsdu[q].head;
-+			if (skb) {
-+				status = (struct mt76_rx_status *)skb->cb;
-+				if (status->wcid == wcid) {
-+					phy->rx_amsdu[q].head = NULL;
-+					phy->rx_amsdu[q].tail = NULL;
-+				} else {
-+					skb = NULL;
-+				}
-+			}
-+			spin_unlock_bh(&phy->rx_amsdu[q].lock);
-+
-+			dev_kfree_skb(skb);
-+		}
-+	}
-+}
-+
- bool mt76_has_tx_pending(struct mt76_phy *phy)
- {
- 	struct mt76_queue *q;
-@@ -1760,6 +1801,8 @@ void mt76_wcid_cleanup(struct mt76_dev *dev, struct mt76_wcid *wcid)
- 	struct sk_buff_head list;
- 	struct sk_buff *skb;
- 
-+	mt76_rx_amsdu_flush_wcid(dev, wcid);
-+
- 	mt76_tx_status_lock(dev, &list);
- 	mt76_tx_status_skb_get(dev, wcid, -1, &list);
- 	idr_destroy(&wcid->pktid);
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wireless/mediatek/mt76/mt76.h
-index 9e851dea71d9..a4db4a2aaffa 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76.h
-+++ b/drivers/net/wireless/mediatek/mt76/mt76.h
-@@ -913,6 +913,7 @@ struct mt76_phy {
- 	u8 mac_work_count;
- 
- 	struct {
-+		spinlock_t lock;
- 		struct sk_buff *head;
- 		struct sk_buff **tail;
- 		u16 seqno;
--- 
-2.45.2
-
+> lookups and in inet_twsk_purge(), where the network namespace is validated
+> again after taking a reference. Use refcount_set_release() when setting
+> refcounts in the SYN cookie, TCP Fast Open, request migration, and
+> TIME_WAIT paths. Keep the existing TIME_WAIT smp_wmb(), which separately
+> orders the refcount store before ehash publication.
+> 
+> Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> ---
+>  net/ipv4/inet_connection_sock.c | 6 +++---
+>  net/ipv4/inet_hashtables.c      | 2 +-
+>  net/ipv4/inet_timewait_sock.c   | 4 ++--
+>  net/ipv4/syncookies.c           | 2 +-
+>  net/ipv4/tcp_fastopen.c         | 2 +-
+>  net/ipv6/inet6_hashtables.c     | 2 +-
+>  6 files changed, 9 insertions(+), 9 deletions(-)
+> 
+> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+> index bd0bad96c93c3..837cb91e5b173 100644
+> --- a/net/ipv4/inet_connection_sock.c
+> +++ b/net/ipv4/inet_connection_sock.c
+> @@ -1056,8 +1056,8 @@ static void reqsk_timer_handler(struct timer_list *t)
+>  		 * hold another count to prevent use-after-free and
+>  		 * call reqsk_put() just before return.
+>  		 */
+> -		refcount_set(&nreq->rsk_refcnt, 2 + 1);
+>  		timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
+> +		refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
+>  		reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, req);
+>  
+>  		req = nreq;
+> @@ -1441,7 +1441,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
+>  				goto child_put;
+>  			}
+>  
+> -			refcount_set(&nreq->rsk_refcnt, 1);
+> +			refcount_set_release(&nreq->rsk_refcnt, 1);
+>  			if (inet_csk_reqsk_queue_add(sk, nreq, child)) {
+>  				__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQSUCCESS);
+>  				reqsk_migrate_reset(req);
+> @@ -1494,7 +1494,7 @@ void inet_csk_listen_stop(struct sock *sk)
+>  		if (nsk) {
+>  			nreq = inet_reqsk_clone(req, nsk);
+>  			if (nreq) {
+> -				refcount_set(&nreq->rsk_refcnt, 1);
+> +				refcount_set_release(&nreq->rsk_refcnt, 1);
+>  
+>  				rcu_read_lock();
+>  				if (inet_csk_reqsk_queue_add(nsk, nreq, child)) {
+> diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
+> index 58d54965036a2..7ffa9171d6de1 100644
+> --- a/net/ipv4/inet_hashtables.c
+> +++ b/net/ipv4/inet_hashtables.c
+> @@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct net *net,
+>  		if (sk->sk_hash != hash)
+>  			continue;
+>  		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
+> -			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> +			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
+>  				goto out;
+>  			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
+>  				     !inet_match(net, sk, acookie, ports, dif,
+> diff --git a/net/ipv4/inet_timewait_sock.c b/net/ipv4/inet_timewait_sock.c
+> index d4c781a0667fe..74ff40d42e56b 100644
+> --- a/net/ipv4/inet_timewait_sock.c
+> +++ b/net/ipv4/inet_timewait_sock.c
+> @@ -141,7 +141,7 @@ void inet_twsk_hashdance_schedule(struct inet_timewait_sock *tw,
+>  	 * Also note that after this point, we lost our implicit reference
+>  	 * so we are not allowed to use tw anymore.
+>  	 */
+> -	refcount_set(&tw->tw_refcnt, 3);
+> +	refcount_set_release(&tw->tw_refcnt, 3);
+>  
+>  	/* Ensure tw_refcnt has been set before tw is published.
+>  	 * smp_wmb() provides the necessary memory barrier to enforce this
+> @@ -328,7 +328,7 @@ void inet_twsk_purge(struct inet_hashinfo *hashinfo)
+>  			if (check_net(sock_net(sk)))
+>  				continue;
+>  
+> -			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> +			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
+>  				continue;
+>  
+>  			if (check_net(sock_net(sk))) {
+> diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
+> index 6440305615378..4b2d2713653b7 100644
+> --- a/net/ipv4/syncookies.c
+> +++ b/net/ipv4/syncookies.c
+> @@ -205,7 +205,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
+>  	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
+>  						 NULL, &own_req, NULL);
+>  	if (child) {
+> -		refcount_set(&req->rsk_refcnt, 1);
+> +		refcount_set_release(&req->rsk_refcnt, 1);
+>  		sock_rps_save_rxhash(child, skb);
+>  
+>  		if (rsk_drop_req(req)) {
+> diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+> index 471c78be55137..e40477b6b5549 100644
+> --- a/net/ipv4/tcp_fastopen.c
+> +++ b/net/ipv4/tcp_fastopen.c
+> @@ -364,7 +364,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
+>  	tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
+>  			     req->timeout, false);
+>  
+> -	refcount_set(&req->rsk_refcnt, 2);
+> +	refcount_set_release(&req->rsk_refcnt, 2);
+>  
+>  	sk_mark_napi_id_set(child, skb);
+>  
+> diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
+> index aa5fa1dd062f7..1eea584d80df8 100644
+> --- a/net/ipv6/inet6_hashtables.c
+> +++ b/net/ipv6/inet6_hashtables.c
+> @@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct net *net,
+>  			continue;
+>  		if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))
+>  			continue;
+> -		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+> +		if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
+>  			goto out;
+>  
+>  		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
+> -- 
+> 2.43.0
+> 
