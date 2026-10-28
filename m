@@ -1,73 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188649;
-	b=BLopQbroO85SFP2TwN1b+kWqKd+zhxV9O0Wx/GeXShQ+0P6UHUYf+v/mMI9QUuWd94HM
-	 oFDgzjhS7wLJe4j55W4wji1m52jkI+97+ovq25HfgtqQKMfRAwtXpIE/HR3U0gzbMmipu
-	 XcwPFMFR0cpHfCtE7J4BHj6/6rwX9DS6UwnRQmfVGp9v8oc/pdLqUGwkqWrHsUA75e4Xn
-	 zy5w4HtEo6ZnyTro5ojOSa+HZ53OIx0zIyodSxASEWv6SBBXWCnfMle9zP15x0mVVLPwC
-	 FuI1aBd4ZwacZZlSJqyTKIawx2x/ib+0+8HuiY/DpbTowQQFMzSquHliJ2rqLnO2Ibw==
+	t=1793189005;
+	b=gAiZbinf2aOfdIH13MFjzOMAlMIhEPNbNftm8dw6zbm6edpbfztunRByHpaEZQT+u0i2
+	 FdsPjyPsRnq5+W6a/PO/5XwlhDFJLjJ++6sNxzTqdLnoszbRMe3YsSOrZpk9zyDjCgnag
+	 IPZXDoUaIgs1RQ6nxYANV8L3DI7MORIN6PJDjR05sCx63BO29WeFLk2xlr09W2BdEP7pp
+	 //fD088LprZsA6FdgfP2bEexGQUCMZn9hI0+uew9yytWDxh2eMr78xzK/MuUyUFT1IBN7
+	 ncszahRj7eaYmxex2pL1a0fvfIQqAqmhNyqXe4LY7wRUsgyCZI9euDhKd2VqMsdTJlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188649;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189005;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=dE3bjK6V6q7+0Kp3at70qUH5wNVpLQIy6nIGWt4NgU4=;
-	b=2i4MvmvLGZqKRYL5DFXeFrwRbZXKGK/sgnIPOuQnCZEHa4HTGWYAG0V8SBwYXA+AvWTu
-	 MlVwFhgjTqHVaJCNW58SsQYo429kPdCVyMW7WYzzG8lrG20MZJyFgkKienAaTH+sHRNBI
-	 XudsbrW1YzGNoduxK+GbGTogQp31HchrNSbbXkVpf2JXOpOGl7slvEZOGdyZPWh5NUbKb
-	 zH3+KmfnjpV6nKg26ll7UdyjnUYiQAZbRrjrKn3mzqZ4UQJ6YiCGdM455/Qf7l3ExDEt9
-	 rzf+egtsS33QQ4AkcCZEjtlPVdY9WW+6chrud/LOie9yuPyf+ohqXvw69P01fFLAAyA==
+	bh=78YrWNBjFPUJ/rfjtCJQ1848U05YgSyGICYPO5oye7Q=;
+	b=QySIF+CVxBD6KIrOoUUOZFa55vq6VqQPFbjNpE6kA355LQhHkgeKudhI82SR35+WQuAu
+	 MgXOg84jhiOlppx28NdcubJv5li/DsaG/bPgDZ4NoAeB3AZrgeXz5B6RdRfWV694lcpwF
+	 yNKCyZOywI0M0JINWA5VebjyLnoHrgcIrnTP8z2di+juesn5kpcjpmClmWqzhfSjMUt8g
+	 1b0pFNiTCXZpydXZpFO/1x2pZ/984roimjYTHQ9Qr7wTgb/kDVfDY5XvctPpmVc54Oss+
+	 rTeebbSSWPU6W2XOvTQdTdOaB8lVbtMWD4/fMOK25TMGKBgxN+DyOYnqQnLIjnMapAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WqLjdv2z;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD00E606A31A;
-	Wed, 28 Oct 2026 11:57:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD00E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Yw4WBGmS;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909A6606A31A;
+	Wed, 28 Oct 2026 12:03:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 909A6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WqLjdv2z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=WqLjdv2zompj8IeLPNY5GQXZVtfO7iHJdcfU3VXaMtFA9w6GYUDqhOIoCs84LU+14+Q0gKEU7sDEc
-	 +krNQJ1Ud97ZlWRr5xNb8ER4vT1WBaTdPD60DYJ3mBkRifDLu6wi3YF4atGTD9QQp77JT1Au+CbGQG
-	 kE2BBfoITL5X+sSw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae1e31fee2-2e1b7;
-	Wed, 28 Oct 2026 19:57:25 +0800 (CST)
-X-RM-TRANSID:2ee66ae1e31fee2-2e1b7
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[112.23.104.16])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ae1e3230cc-3de32;
-	Wed, 28 Oct 2026 19:57:25 +0800 (CST)
-X-RM-TRANSID:2ee46ae1e3230cc-3de32
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kuniyu@google.com,
-	xeb@mail.ru,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com
-Subject: [PATCH net] ip6_gre: fix changelink conflict checks for L2 tunnels
-Date: Wed, 28 Oct 2026 19:57:10 +0800
-Message-ID: <20261028115710.27806-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Yw4WBGmS
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=78YrWNBjFPUJ/rfjtCJQ1848U05YgSyGICYPO5oye7Q=; b=Yw4WBGmS8DyjEYEgr1tyegbftO
+	EUsTQ1rIjPYYKr7UELpOnuGe29K12ZKyq9hZjlRJoHq0TVPYzpxUidFl3xpJJRsIGXATTtTWlWD/v
+	r6H9k+fUoDcbFNeFk9on0phxi8n4K3+40VS9OO+gVZzX4RpQB9GycBucgfqrRo3FCTTLrEsZo9ifO
+	2dGnkaIhn8XcKGL34auO4E2HaVeyrbnjBXlKn0yTFNVEf+0bdOktmiDMint8d8m45TOxQW8vrrSDJ
+	EQhUqhXOYILe1HJCutjc3XY/PuMmaEXkyd31CP97aqogl65dFcr5zIXTiOdMyoc1XYCHFil+FkL4o
+	DzPNrH8Q==;
+Received: from [188.250.79.109] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xM2NA-00Cq9K-DU; Wed, 28 Oct 2026 13:03:16 +0100
+From: Luis Henriques <luis@igalia.com>
+To: Leon Ming <leonming@meta.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,  <fuse-devel@lists.linux.dev>,
+  <linux-fsdevel@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,  Joanne
+ Koong <joannelkoong@gmail.com>,  <stable@vger.kernel.org>
+Subject: Re: [PATCH] fuse: set dentry epoch before making the dentry visible
+In-Reply-To: <20261026201101.3915217-1-leonming@meta.com>
+References: <20261026201101.3915217-1-leonming@meta.com>
+Date: Wed, 28 Oct 2026 12:04:44 +0000
+Message-ID: <87se1qhvz7.fsf@igalia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,71 +65,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-ip6gre_changelink_common() calls ip6gre_tunnel_locate(), which only
-looks for ARPHRD_IP6GRE devices. The same changelink helper also handles
-ip6gretap and ip6erspan devices.
+On Mon, Oct 26 2026, Leon Ming wrote:
 
-This lets an L2 tunnel change its parameters to match another L2 tunnel,
-since the duplicate check looks for an L3 device instead. Incoming
-packets can then be delivered to the wrong interface. An L3 tunnel with
-matching parameters can also make a valid L2 update fail with EEXIST.
+> fuse_lookup(), create_new_entry(), fuse_create_open() and
+> fuse_direntplus_link() all record the connection epoch in the new dentry
+> only after d_splice_alias() or d_instantiate() has published it.  A new
+> dentry starts with an epoch of zero (fuse_dentry_init()), and the
+> connection epoch starts at one, so in that window the dentry is hashed
+> but fails the epoch check in fuse_dentry_revalidate().
+>
+> d_splice_alias() hashes the dentry and wakes the lookups waiting on it
+> in d_alloc_parallel().  A waiter, or a concurrent lookup_fast() that
+> finds the dentry in the hash, calls ->d_revalidate(), gets 0 and
+> d_invalidate()s the dentry the original lookup is about to return.  The
+> caller still gets a valid dentry, but it is now unhashed.  One visible
+> result is that readlink() of /proc/self/fd/N for an O_PATH fd opened on
+> that path returns "<path> (deleted)" for a file that exists.
+>
+> This shows up when many threads look up the same uncached path at once.
+> TypeScript's native compiler (tsgo) resolves real paths with
+> open(O_PATH) + readlink(/proc/self/fd/N), and when it type-checks a
+> project in a FUSE-backed checkout it intermittently caches the
+> "(deleted)" path and fails to resolve a package that is installed.
+>
+> Before commit 5a6baf204610 ("fuse: fix uninit-value in
+> fuse_dentry_revalidate()") initialised the epoch to zero, it held
+> whatever the slab left there, so the check usually passed by accident.
+>
+> Set the epoch on the new dentry before it is published.  If
+> d_splice_alias() returns an existing alias, keep setting the epoch on
+> that dentry afterwards, as before.
+>
+> Reproducer: N processes start together and each run open(O_PATH) +
+> readlink(/proc/self/fd/N) over the same list of files in a freshly
+> mounted FUSE filesystem, counting results that end in " (deleted)".
+> On this tree under UML (16 CPUs, squashfuse_ll, 6000 files, 32
+> processes, a fresh mount per round):
+>
+>   before: 3519 of 10.75M lookups "(deleted)", in 51 of 56 rounds
+>   after:  0 of 10.75M lookups
+>
+> On v7.1-based production kernels with EdenFS the same test returned
+> "(deleted)" for 5.5% of lookups.
+>
+> Fixes: 2396356a945b ("fuse: add more control over cache invalidation beha=
+viour")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Leon Ming <leonming@meta.com>
+> ---
+>  fs/fuse/dir.c     | 16 ++++++++++++----
+>  fs/fuse/readdir.c |  1 +
+>  2 files changed, 13 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+> index 28516a1760e..b7af3f5a3bb 100644
+> --- a/fs/fuse/dir.c
+> +++ b/fs/fuse/dir.c
+> @@ -644,13 +644,21 @@ static struct dentry *fuse_lookup(struct inode *dir=
+, struct dentry *entry,
+>  	if (inode && get_node_id(inode) =3D=3D FUSE_ROOT_ID)
+>  		goto out_iput;
+>=20=20
+> +	/*
+> +	 * Set the epoch before d_splice_alias() makes the dentry visible.
+> +	 * Otherwise a concurrent lookup can find it with an epoch of zero, fail
+> +	 * fuse_dentry_revalidate() and invalidate it under us.
+> +	 */
+> +	fuse_dentry_set_epoch(entry, epoch);
+>  	newent =3D d_splice_alias(inode, entry);
+>  	err =3D PTR_ERR(newent);
+>  	if (IS_ERR(newent))
+>  		goto out_err;
+>=20=20
+> -	entry =3D newent ? newent : entry;
+> -	fuse_dentry_set_epoch(entry, epoch);
+> +	if (newent) {
+> +		entry =3D newent;
+> +		fuse_dentry_set_epoch(entry, epoch);
+> +	}
 
-Use ip6gre_tunnel_find() with dev->type, as the newlink paths do.
+I believe this is very unlikely to cause problems, but we're slightly
+changing the behaviour here.  Before we were setting the epoch only in one
+of the dentries.  With this patch we're *always* setting the epoch in the
+dentry being looked up, *and* possibly in an alias returned by
+d_splice_alias().
 
-Found while comparing the duplicate checks in newlink and changelink.
-Confirmed with ip link commands. For example, with an IPv6 underlay
-named under already configured:
+Can you see any possible issues with this change?
 
-  ip link add tap1 type ip6gretap local fd26:106::1 \
-      remote fd26:106::2 key 100 dev under
-  ip link add tap2 type ip6gretap local fd26:106::1 \
-      remote fd26:106::2 key 200 dev under
-  ip link set tap1 up
-  ip link set tap2 up
-  ip link set tap2 type ip6gretap key 100
+>  	if (outarg_valid)
+>  		fuse_change_entry_timeout(entry, &outarg);
+>  	else
+> @@ -907,8 +915,8 @@ static int fuse_create_open(struct mnt_idmap *idmap, =
+struct inode *dir,
+>  		goto out_err;
+>  	}
+>  	kfree(forget);
+> -	d_instantiate(entry, inode);
+>  	fuse_dentry_set_epoch(entry, epoch);
+> +	d_instantiate(entry, inode);
+>  	fuse_change_entry_timeout(entry, &outentry);
+>  	fuse_dir_changed(dir);
+>  	err =3D generic_file_open(inode, file);
+> @@ -1030,6 +1038,7 @@ static struct dentry *create_new_entry(struct mnt_i=
+dmap *idmap, struct fuse_moun
+>  		fuse_chan_queue_forget(fm->fc->chan, forget, outarg.nodeid, 1);
+>  		return ERR_PTR(-ENOMEM);
+>  	}
+> +	fuse_dentry_set_epoch(entry, epoch);
+>  	kfree(forget);
+>=20=20
+>  	d =3D d_splice_alias(inode, entry);
+> @@ -1040,7 +1049,6 @@ static struct dentry *create_new_entry(struct mnt_i=
+dmap *idmap, struct fuse_moun
+>  		fuse_dentry_set_epoch(d, epoch);
+>  		fuse_change_entry_timeout(d, &outarg);
+>  	} else {
+> -		fuse_dentry_set_epoch(entry, epoch);
+>  		fuse_change_entry_timeout(entry, &outarg);
+>  	}
+>  	fuse_dir_changed(dir);
+> diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
+> index 83a1cc46fe4..ffce4031892 100644
+> --- a/fs/fuse/readdir.c
+> +++ b/fs/fuse/readdir.c
+> @@ -239,6 +239,7 @@ static int fuse_direntplus_link(struct file *file,
+>  		if (!inode)
+>  			inode =3D ERR_PTR(-ENOMEM);
+>=20=20
+> +		fuse_dentry_set_epoch(dentry, epoch);
+>  		alias =3D d_splice_alias(inode, dentry);
+>  		d_lookup_done(dentry);
+>  		if (alias) {
 
-Before the fix, the last command succeeds and received frames move from
-tap1 to tap2. After the fix, it fails with EEXIST and tap2 is unchanged.
+Personal preference: I'd move the other fuse_dentry_set_epoch() into the
+other branch ("if (!d_in_lookup(dentry) ... " ).
 
-Tested with standalone namespace tests in UML, with three runs each for
-ip6gretap and ip6erspan, and with L3 GRE IPv4/IPv6 traffic and normal
-tunnel updates. Full x86_64 W=1 builds with adjusted configurations
-completed before and after with no new diagnostics.
-
-Fixes: c12b395a4664 ("gre: Support GRE over IPv6")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
----
-Runtime and build tests used net 7076f684d513. The target file is
-identical at the current base.
-
-Kernel selftests were not run.
-
-The allmodconfig- and allyesconfig-derived builds had WERROR,
-KASAN and KCSAN off. The allyesconfig-derived build also had
-KUNIT_ALL_TESTS, MCTP_TEST and MCTP_TRANSPORT_USBLIB_TEST off
-to avoid an existing MCTP test assertion. olddefconfig dropped
-IWLWIFI_KUNIT_TESTS when KUNIT_ALL_TESTS was disabled.
-
- net/ipv6/ip6_gre.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index b5d6ed8f0c369..df490798355de 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -2055,7 +2055,7 @@ ip6gre_changelink_common(struct net_device *dev, struct nlattr *tb[],
- 
- 	ip6gre_netlink_parms(data, p_p);
- 
--	t = ip6gre_tunnel_locate(net, p_p, 0);
-+	t = ip6gre_tunnel_find(net, p_p, dev->type);
- 
- 	if (t) {
- 		if (t->dev != dev)
-
-base-commit: 5d7f3375cd574fc83f0cd30839b21455c0e79ae2
-
-
+Cheers,
+--=20
+Lu=C3=ADs
