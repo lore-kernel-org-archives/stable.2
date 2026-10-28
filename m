@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201798;
-	b=TU46oF4fEhy3o+QztkZ2OE7MOMRHQ7eU7dvTpN/sUB3sQ4DCg1qMcTAU54vozMsSxr9V
-	 GQ8UWocDbOixAtoolV1HM6c86NoOMmd3gMo6GBRWUxa/5K1WoNtxdDFq8ZENFIvlmpxi3
-	 dTF71gjAcLEBALMuV5RwNGMu40285bpJdBPZYDpggbBFTnJqMMV/YnBH0s/ncUsLJ+kFB
-	 bAwUiYYhpOYunXuHdloqzNiH6/pXJZp2g+06qK61D350sOqWJB67FCUvCdCjR/hVcxsBk
-	 D1AE0Lugd6k6M9rjHlOPUSdf5ZlehhKYUOTrrhYHbdlAPNOHzcLDMgq6A0OhxQWf8vg==
+	t=1793201800;
+	b=gzp6Jy1fgjl1+YxKWMebupCUV0hDJIx/vSm3CmGHF9fWbNWMnuXPK/MKUyTfw3HGi/4S
+	 hQ/KItMrucGkeI7qTGwATeW1CNXi7YX0fdCyxUgzvCJ67n3nmkXqiodhHyoTyAj7y4Xe3
+	 yhgaFv+tG4yUQnNyDL8dC3yOgqWWJPtwmSDNtcITBVNAx1BGmAGyKrH6tLfpvlYWOm5Dk
+	 a3yyZnMAeGYsuQWL5lbhfVE6mQDqEpJaeOE8U4ThPx0vPrqyYY2a8G8jTQUYBVPOL1vhE
+	 dyw7jgWB9+DI9WDSO9T0pIyFZ7r1L4avMKQRVnOkAhHbBGrf6Dynx9ULVggwdlvTobw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201798;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201800;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pu+EvDLWy2XsaQYkKCkPQ9Jxll78muB1Xv0mJSRitMM=;
-	b=zSeKYa8cNXZWl8z6kUFoU8oaxM5bdEqHztD5DdxdtrJpmgRDka9khtiug40c1ZI/AynM
-	 NobTw9t++3ZHWUow88RzgIx2cEWKRHaEZjowI6CjbURW0J2yx6cXrij5rrU76VLYj7I+5
-	 OfKvKMCkDB2LwsjGzE6ZErmsjfPogQ+YnPstLFZ+zq6oYmwa2yKdDwMDrwezXVbcywLN0
-	 X6SVzH1gFVzv0ZZcFm5keWJ2y9hl8daEySo26GugzawVNeuuh2G4F8m59kvLrSxDlOnrO
-	 sgdfahMhjjU6F3pvHa9VwkvNvYVfJrFlqPbOcxCALxIxLewKsaRm2kQaE0l7PFA66nA==
+	bh=6SUr8oqU29oJQBgtP6zRZWP3CG5TKqiZPrOy7h5oOps=;
+	b=1zQQlHllYf3itaiQPpM3pTFa0sV6yGIoGUCjkdkeJQuHe2UW5CwJCViWb133+BCX+pC9
+	 J9rg5bW7fA5xQlV3X/PMTEPP3J5qjkSjHmocTCyuI2Fp0tp6LNqOCBp7+3tSqmj/vUOBm
+	 qyKA1Ghy6RMPW0iaBtOil9JV6nJLKNHiJHvKMyK9pnBq0ksldLGlGdj4LLqjJK0xIdA4M
+	 jL0oa9bT9EuRv4Dl+ud2Ore4sWhXjTDlu3wc1Ee71T+e6bIsl60LGOj89riLR2tWn+n0O
+	 ibegn7rTHFm65fnfamKgzXOxx0zeKB3WkX8cLX3wD2OWGWdFBEbfEbJHAI0jIBu7FUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wGbyC8WZ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JwHo560A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8299606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B1C606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wGbyC8WZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAD181F01240;
-	Wed, 28 Oct 2026 15:36:36 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JwHo560A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0BF1F01240;
+	Wed, 28 Oct 2026 15:36:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201797;
-	bh=pu+EvDLWy2XsaQYkKCkPQ9Jxll78muB1Xv0mJSRitMM=;
+	s=korg; t=1793201800;
+	bh=6SUr8oqU29oJQBgtP6zRZWP3CG5TKqiZPrOy7h5oOps=;
 	h=Subject:To:Cc:From:Date;
-	b=wGbyC8WZFoMPM8p4B6CYkqYfgLi92q/IX1gMsOta02cGgk2lj8naOXoV2+62wo0LV
-	 4Wpro+U6pNmTQXKGT7UQFiLZk+xLAQ18EiFoiQtVnL6aRiXjlUYpq/txAK1lKm0cYq
-	 4iZJ9gYtr3hLT3CP8V8sH6HRpGjN7u3q1IQZnOjo=
-Subject: FAILED: patch "[PATCH] exit: hang up the tty before closing the files" failed to apply to 6.6-stable tree
+	b=JwHo560AMJFXa4NiEWwdOOi+AFP8ctFQTRaup5LMOOyHTAaDD1QhBFklZSMNX5w3W
+	 scDchrXdJb1PEKcR3DaOx4kYA8TB0i+55TewGTwkeIQk7F+6JSDWrjd9t/DaVOfQ+P
+	 xFKTn45yLM2WGvOdYHu4dSrvnCbtI/dg0jmzi1fQ=
+Subject: FAILED: patch "[PATCH] exit: hang up the tty before closing the files" failed to apply to 5.15-stable tree
 To: brauner@kernel.org,mason@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 16:36:27 +0100
-Message-ID: <2026102827-compress-dance-a28e@gregkh>
+Date: Wed, 28 Oct 2026 16:36:28 +0100
+Message-ID: <2026102828-impotency-harddisk-0e94@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x ad016f0131ebfec250a3360ea75d35128b3f4aa8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102827-compress-dance-a28e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102828-impotency-harddisk-0e94@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
