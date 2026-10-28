@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217023;
-	b=PDTnD0UIrZ/ahe/ZIbqLDHaGpisPk8jZkkqpgtRMz74j9veIgzkdFPTi1tUyOlUO++Ga
-	 czEGvGY0IOUt2AuZNSsOaA/gV4lfH1nVUXacpDyAUj+52RTvL8iIDjnh6uYT+fppkIbUC
-	 8fJUCgbVt/l+m7WZpU+K2uOOV+cJLfE/XhoJsqlr7FMs/P28uLuZtRgeJuxYs9LhyvcDZ
-	 2Ek+mZbgJVM5oygILSGyJzt2GsuNg6OZz/4lNpbiQ+SrNNCu1DkhAEq91ePfRxQCT0WAV
-	 QO3VaTRBboeoxlzM50yrtEfBmcF5Ctt5NkAeS0w03u/8JFTd1bUjwbsuIvmBWsQeegg==
+	t=1793217029;
+	b=B8dkEx9dURR6cY/gvE38vo9Jf0VS8b3yquIqMHrAEG9VDcBH6GO5pik6Y7Ss5zAjfS9X
+	 Z5po7TOrJm/smRbua0k+qMEMOdSqOF2LxUIpF678r1PNPhPR2IWoU0nGCX25TgyP4Bjd4
+	 goUU64VHvipWSzNFTJKOt54UxTH6PcCiDX7ICLspJoTJvadLj5MQyRtOOKNxGJlqjFJ7q
+	 blXnMcPMcrgauLb+BT76Of2CnhuoWjTT/mQKSyPj7oOj8jL/fOu6+kARMNDtQPoHNa1Lu
+	 7T5x/q/QL+MOlPlZNe1qfKuLaQ7f31KSJwwV06YRQ9jeVKEp7KggEDF6+IQ/PFMk3YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217023;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Wtb0/ytd0dpsw5dx6rJwFGerf4EaV2xAmnnKtC79TRE=;
-	b=Is+e8KVcwko0s+sukIOtQuztBs2YKG8mvE9x+EjgeP5xOeabLs6gims46926eOQdO7VV
-	 8TEjFFSogBIiqom1ZoyiJkr93dVNRsGg/DWlnzvVlqJHq1jCI+K0IGfnSPqGGd6HlVB77
-	 j5YDAVuRM9Zoy+Jkm7pM2ah6myPQuPf14rsdp78I6QlbxDkRI9rv/X4L2898GnE3YC1ie
-	 k1yOspVHDkRoubjXXKRfojxnf+Jlpv4PZXyd/tsruNHnmvszjIo1Yt7ZMgmE20VZIWHad
-	 dmKVl2/0zAgoLTf+ZJhBz/1pIs8gnLHJbVOwnfvoVxiIomMH7/AIYLCa1SKqOT4j/Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217029;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=fom4yvaENzaHnSG42GyLTccOuWuaPzKK86KyGa1FSTI=;
+	b=ILi6fXASAMSMQdkEtrMhz8tLecP8GN6GGWmfG3IDbU9QByYMfTFEEilVWl9dxyeveXKr
+	 PlqFVqxRwCxGnadAopNjS5561UXrYye8ofEIloWlqUR4zpnCuWnrgEhX++EO72ZDGhcbI
+	 JzqMQJgWs87zoSpBz2/jV2vE7RTfaRY5ySq1DuHUMxOi+/AJSN8rIsgrGBYmAexSp4qK9
+	 V6EU7iZmceN9v35NYg2XM5DF5EF688d1JyCvqSD6j9eCSZBTQH3cw91qJyJa7Lb8ot0jj
+	 m7ugJ8pJrip76gdXv78p1kiKkRvm1lQ4G+tl8o1oHEYeRnYzeKxXB4sPXLYP1FKvzQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YatCciCP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TIGq3gNS;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE34606A320;
-	Wed, 28 Oct 2026 19:50:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3D260A260C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD3D260A260C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YatCciCP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4851F01825;
-	Wed, 28 Oct 2026 19:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793217023;
-	bh=Wtb0/ytd0dpsw5dx6rJwFGerf4EaV2xAmnnKtC79TRE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YatCciCPL7a/0BR+R/i/rsONwF18mxwhPyuCq98g5CrKrnS10rFG1axep9qRlE8Ij
-	 G9Kq1iW+pX6kk25E2oGGEFC/DDDcO4g3+0tY6D+Ik+8rI6Tx96oshh7rw3Lw1HcX0j
-	 Ue1u6yM0Ex3i9oqWVypqZ85K4C4UE0Gc5mU6whCA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Charles Vosburgh <theminershive@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.1 1761/1887] sctp: validate chunk length in the inqueue parser
-Date: Wed, 28 Oct 2026 18:04:17 +0100
-Message-ID: <20261028170539.532173279@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TIGq3gNS
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214af2076so11969805e9.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 12:50:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793217027; x=1793821827; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fom4yvaENzaHnSG42GyLTccOuWuaPzKK86KyGa1FSTI=;
+        b=TIGq3gNSEQTGFE8dirwFKRkWnd2Scl2mBdvbI3o75uLkytzDGiMdvcHJ7K+8HBB91j
+         YMCyy5YoVCr6B4L/aMd8GXJ8cWK1y/M7cuXQDJtkpMLRZiNK3HjOXQSJ/naWqYQglkiW
+         3up1GCHSKhOS5YT4aikidg8Qq5XCIxwk6otkmHO9up4rFsuFa3GmujedpuO1x8cLU1O3
+         YrqwJLryCf4dFeXsLlHOkzbCU33UKhzJDCRBO7wD1zi/nEUXqqTaLR7gKm1g/AegosYs
+         P/xLfute2jVjbAycdQdaluXrl7sht7ZYMtoN6we0YeCDrJ1zOYhdrwaI3cQEm9M20xxh
+         GRJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793217027; x=1793821827;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fom4yvaENzaHnSG42GyLTccOuWuaPzKK86KyGa1FSTI=;
+        b=Rs+N2xnf0F8jmAJLehxCE/vxJCDmeabnjM71abvp9dJfOtW0FBckGGcK3eDDVA5T6Z
+         cAalkMME3V1toEftS2w7XjnbJh6qcaEYJkO7bpKhLnPIuVLHiwgw83d28i+4SbPBPu6R
+         mlbwU9JbyvO+MXFwNZU3x21vNh5wzd5PCMURe3Myo9Jou4W47A5YOdcesZ8sUDIfsGJ8
+         /Aac3f/zFIJGb8Grpaekm68Yl1qUcXxiFfn6TNIqGRN+nFWDGnJUjRXfayeLPZs79t8X
+         WiqvWVyhoNu68plyyYd9WuM1V92an/JC88eMgCktR6pj+j3gF7sXwh4gX9hNE9cLFwSn
+         jrCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgM6V82zy1y3TkXXrnpAyaIraXwu3vycK201xBG12pHqHil48CpK+wH69LF+m/FZXqh6uatBc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQdHMursorYNLjY1X9/aX43c3T7tlTCZ5c1qKwzukBgJAfwUo+
+	a3rQ+QCdEZGt6XL56kLaiBULGqOyjL44iGGj98Rk13gKyy4MRZiNAkV0
+X-Gm-Gg: AYBFou3kBI/5PlXRDG8/GMu+0GEUxjToQYTWvTAkteSHFJZqpsgPxGNMtVbAqb3WvYf
+	W5QzXsKiWSAsk13r2A0fsiXIPzGV6mR9Ayn7Q2xSu1+RsxCiDwY15cQzl8V6d+Puia9PxMosxh5
+	zDe9JmTQsTxTsqwKTWVy6Gf8rObFN14bZhvwmONIvDf4udni9oYXLRPu8hv2kJO4uYLQkqj3j8C
+	tJbIrhNFhJSxWl4F9f1ltFpgex2kxDET45sFvzebAScsSHVkwvN+tE7KxE/idrY5mRrD58sipyl
+	4iRy45VLLWTWIqkjxveKlMfUnwYDrz4bu3VuBy2xcImfA/nhrD2+T8fr1SIX3NOtxu+1PlLXyYx
+	Yivk/752Gj7SvyOsBBTSaj+XItaRvRy0D/oXrI96clhRuyQvAltpE6+V+MyIaFDSawf+LM08B8B
+	ld78h/QeL71wrEyYqMJhbMKpTEq+zUiZGNBQQQWJMgLk8pYej0k7MuMszU6Fogkjdlf0Enuk4Gb
+	l/15YR1UIHflgtlCp1Ql1+lDQ2YPSHPrI58JSA5iTFrgXuUM9hD4EITGCh+smhWGh+2d6rbsVoI
+	at0oTzy31bORZ6n+AJvOOruYdbcNS8IZ7K5YXwgtj698NfA+vPm+7szPQUqAi5Ap4yD18HZNYPr
+	kv6ZE+opkVljRfjsDAumXl/p93Bv4u3V9hQam2+b4JPzVxGQV4ffuKEqcwc8a/THYJd8pdnhOX7
+	Va7ATgZ0k8P4DKU1o=
+X-Received: by 2002:a05:600c:530d:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a966774cbemr70339165e9.22.1793217026916;
+        Wed, 28 Oct 2026 12:50:26 -0700 (PDT)
+Received: from PC-Marco.local ([151.59.117.24])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm15170845e9.10.2026.10.28.12.50.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 12:50:26 -0700 (PDT)
+From: Marco Ziliani <rylos78@gmail.com>
+Date: Wed, 28 Oct 2026 20:50:18 +0100
+Subject: [PATCH] ata: libata-pmp: disable the SEMB port on Marvell 88SM9705
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,73 +93,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-pmp-88sm9705-v1-1-cf951fe74573@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyML3YLcAl0Li+JcS3MDU12jNHMTwyQTY9M0QzMloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAWrVLmXAAAAA=
+X-Change-ID: 20261028-pmp-88sm9705-2f741b435f16
+To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>
+Cc: Kyrylo Biryuk <illofspeed@gmail.com>, linux-ide@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Marco Ziliani <rylos78@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793217025; l=3551;
+ i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=jq/bX4Fw2tFf9xoqbWcRl/77+7jumFvnKruLVmfuESM=;
+ b=QmP1T7AMCqTiyXZgs9/3e4KvTqqNeOjWSzyF3W/gT6zMoxHave+E4fbXSsO6v2doE0t3tfwvm
+ sb4mnLBhg4SD/A6vQVZvPszY6XNAoJA+QQ988f7EhJwSRySSHCdbf0B
+X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
+ pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+The Marvell 88SM9705 is a 1-to-5 SATA port multiplier with one
+additional SEMB (SATA Enclosure Management Bridge) port [1].  Ports
+0-4 are device ports and port 5 is the SEMB.  The number of fan-out
+ports in GSCR[2] is 6 when the SEMB is enabled and 5 when it is not,
+so on boards without the SEMB there is no link 5 and this quirk does
+nothing.  That includes the common 8-port PCIe cards that pair an
+88SE9215 with an 88SM9705, which report 5 ports.
 
-------------------
+The SEMB port never answers SRST.  libata probes it like a device
+port, and every EH round on the PMP ends in a retry loop that lasts
+about a minute before EH gives up, then starts over:
 
-From: Charles Vosburgh <theminershive@gmail.com>
+  ata19.15: Port Multiplier 1.2, 0x1b4b:0x9705 r160, 6 ports, feat 0x1/0x1f
+  ata19.05: hard resetting link
+  ata19.05: failed to resume link (SControl 0)
+  ata19.05: softreset failed (1st FIS failed)
+  ata19.05: hard resetting link
+  ...
+  ata20.05: reset failed, giving up
 
-commit 6cfc1b90cb86f4aabc69fb8e30128e07e2cdfa3a upstream.
+Disk discovery waits for this, including disks on other controllers.
 
-SCTP chunks always include a four-byte generic header, but
-sctp_inq_pop() currently accepts shorter declared lengths. A zero-length
-chunk leaves chunk_end at the current header.
+libata.force cannot work around it: the "disable" horkage only takes
+effect after IDENTIFY, which the SEMB link never reaches.
 
-When ASCONF is covered by the association's SCTP-AUTH policy,
-sctp_assoc_bh_rcv() can continue before the state machine performs its
-normal chunk-length check. sctp_inq_pop() then returns the same malformed
-chunk repeatedly and the receive softirq can lock up.
+Treat port 5 the same way as port 4 of the Marvell 88SM4140 and mark
+the link ATA_LFLAG_DISABLED.
 
-A remote SCTP peer can trigger this after establishing an association on
-a kernel built with CONFIG_IP_SCTP and configured with
-net.sctp.addip_enable=1 and net.sctp.auth_enable=1. The reproducer did
-not require application credentials, a shared SCTP AUTH key, or
-net.sctp.addip_noauth_enable=1.
+Tested by the user who found the problem (see the synodeb link below)
+on a Synology DX1215 expansion unit (four 88SM9705 r160 behind a
+Marvell 88SE9235), one disk in the DX1215 and one on a separate AHCI
+controller, one boot each, Debian 6.12 libata with and without this
+change:
 
-On commit f967455fb2a5 ("seg6: reset IP6CB after IPv6 decapsulation"),
-one zero-length ASCONF caused repeated
-watchdog soft-lockup reports in a two-vCPU KVM guest. All 3 pre-trigger
-health probes succeeded, while 36 of 37 post-trigger probes failed. With
-this change, all 37 post-trigger probes succeeded and no equivalent
-soft-lockup signature appeared.
+                                      without     with
+  "softreset failed" lines            60          0
+  disk on the separate controller     200.6 s     18.6 s
+  disk behind an 88SM9705             203.3 s     21.3 s
 
-Reject chunks shorter than the generic SCTP header at the shared inqueue
-parser boundary. Mark the packet for discard before either caller can
-continue processing it, while preserving the four-byte generic minimum.
-Declared-length 1 through 4 controls and kernel-generated ASCONF traffic
-remained healthy. The patched sctp_hello selftest passed for IPv4 and
-IPv6.
+Each PMP still logs one "failed to resume link (SControl 0)" for port 5
+at probe time.
 
-The complete private reproducer and validation evidence are available
-directly to maintainers on request.
-
-Fixes: bbd0d59809f9 ("[SCTP]: Implement the receive and verification of AUTH chunk")
+Link: https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88sm9705-functional-specifications-2015-06.pdf [1]
+Link: https://github.com/rylos/synodeb/discussions/8
 Cc: stable@vger.kernel.org
-Signed-off-by: Charles Vosburgh <theminershive@gmail.com>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20260827-sctp-zero-chunk-inqueue-v2-1-2e7669c6a6cb@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Marco Ziliani <rylos78@gmail.com>
 ---
- net/sctp/inqueue.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+I don't have this hardware myself: the problem was found and measured
+on a DX1215 by a user of synodeb (Debian on Synology NAS units), who
+preferred not to send the patch. It is carried in the synodeb kernels.
 
---- a/net/sctp/inqueue.c
-+++ b/net/sctp/inqueue.c
-@@ -212,8 +212,10 @@ new_skb:
- 	chunk->chunk_end = ((__u8 *)ch) + SCTP_PAD4(ntohs(ch->length));
- 	skb_pull(chunk->skb, sizeof(*ch));
- 	chunk->subh.v = NULL; /* Subheader is no longer valid.  */
--
--	if (chunk->chunk_end + sizeof(*ch) <= skb_tail_pointer(chunk->skb)) {
-+	if (unlikely(ntohs(ch->length) < sizeof(*ch))) {
-+		chunk->pdiscard = 1;
-+	} else if (chunk->chunk_end + sizeof(*ch) <=
-+		   skb_tail_pointer(chunk->skb)) {
- 		/* This is not a singleton */
- 		chunk->singleton = 0;
- 	} else if (chunk->chunk_end > skb_tail_pointer(chunk->skb)) {
+Kyrylo, your DX1222 has the same 88SE9235 + 88SM9705 chain: if it shows
+the same port 5 retry loop, a Tested-by would be very welcome.
+---
+ drivers/ata/libata-pmp.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
+diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
+index 904f418387..72bc458568 100644
+--- a/drivers/ata/libata-pmp.c
++++ b/drivers/ata/libata-pmp.c
+@@ -482,6 +482,19 @@ static void sata_pmp_quirks(struct ata_port *ap)
+ 			if (link->pmp == 4)
+ 				link->flags |= ATA_LFLAG_DISABLED;
+ 		}
++	} else if (vendor == 0x1b4b && devid == 0x9705) {
++		/*
++		 * Marvell 88SM9705 quirks
++		 *
++		 * 1-to-5 PMP with an extra SEMB port.  It reports 6 ports and
++		 * port 5 is the SEMB, which never answers SRST: EH spends about
++		 * a minute per round retrying it, and disk discovery waits for
++		 * that.  Seen behind a Marvell 88SE9235 in the Synology DX1215.
++		 */
++		ata_for_each_link(link, ap, EDGE) {
++			if (link->pmp == 5)
++				link->flags |= ATA_LFLAG_DISABLED;
++		}
+ 	}
+ }
+ 
+
+---
+base-commit: fb2c3f44a7e14627b9dca8e6b568e6cdc234b40b
+change-id: 20261028-pmp-88sm9705-2f741b435f16
+
+Best regards,
+--  
+Marco Ziliani <rylos78@gmail.com>
 
