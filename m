@@ -1,64 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163853;
-	b=SGPSLoYpHpqyZeDvSuRpN7OYIq4n+DPyhlhrBOlMRtpenVvaxBQul4YM2hwt12XlbOSC
-	 v+T1ZrRLdu1sQVhY085gOI0btvJgSLJCT579+JwMAO0rG083n8EGGUW4ifHu1nZpm1f31
-	 msE+/iHY0XmL39Re7jbXzSjPQ/hwV1qYpdhOT2RNa3aB35Q9jzQmWxbZAxxL5kqNbvJl8
-	 KaKZMIkmEVUDFA9umMdTXs+maSim4SM4PA1waUMjZIVtwzyw0VXI3ZawtVJPRb30qIM6T
-	 Zh27RijZmji++IQLe17+Pvdlg9OOfUTfVJgjqXvVe5EKE2zZAr5NzuDidIMaJSebROQ==
+	t=1793163851;
+	b=Gl9CQPJyPXPBqCRBWJjBhHGAueK3QJ3ChlgVJV3SMde67LBQsno1tfsqrQULWVMkoOWA
+	 q/kxYdYRK0n3d4M/KGWc3Sr7N2K84Ri6TqEeLO45y+U5hwUvYLEigUj7j85EMtEVpS1L/
+	 zfvnoPxcQ6wxNCmeIXetUsuuRCajp+FM++AUaEBUEb1akYMtk8erI6OqX4I0DQb8IrmIA
+	 7r0lhmOQQgQQZfvnzS7ZrEaro4ZSVNsRQN50+q28lqfyIOkxkw0YlncZBQoiKW+5QZp83
+	 rtCMsb6Uk+K4+rN7Dzo/4zixAT9vyNhiBEkDwwVrvDOZXY3AIsKh9GjYt6QNYK9Zi8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163851;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=dhv+8FlBddRkoW7HUJioYxqmcNV+Dawhev5ggsbsEWE=;
-	b=KEg9Lt2kDZ6hh5AMnfvrupnMU0u/1zbmPZtb0DQl5KsHuwzNUoJwmjlXY9+Lj8o7b4sy
-	 CUNcsDnq99NWgr2vQHSyeXO9VR2UscY253lWb1Sm+7xJkE9GHRWESt2+AU0xxtRP6Q0xh
-	 iksUxQCmV1PxM+I6oA0VgcpqxsVJ2VuMRjs3zvRqxOXnvkKHrFZcoCBIRqpq+IVrm9WLC
-	 vZnzJRcOtzwR4vw/hPTVDwal8yWZHRULPoLpSgpMVqOOxN5S2RTTZsYrQ7g1bP1q27VwL
-	 F1lJiUCWXVlAnHLxyoXGb1aP/ZlIENyN/UfdA+L2FMiHXw5TNHwySYanHt0JwGW35Tw==
+	bh=iN3NuJW0NrAQeJl8hnA8WPW47zZnm0NMu3n174y6fXM=;
+	b=J0NH9dMc1VEKoywC3yUsY+hDo76lMc7A+YfEKIBU2YtOU3Z2eK3TostLzODcwAc7arpR
+	 i06ry5oQo4G1EuIjGuIGLtzppb3YJc73OCoakjgi8zYZI7J+qte03yQpuqb658C2H/HnK
+	 jZ92DsFsyqMxgVEUFoyZ+kCt25Nguerf0UWuduhexIbJTDaEjgZ2DpEiKjGFTz1WhBAxm
+	 n4ZhPiCXTKzWdZ9G7+7Zo9/fAefSKkmMBl89JalCpZ0VIU76GTDT7RzcUGxWi28huLGlB
+	 aUkJdhqVPh9oSNMb5CJMY8wQU13R9Yh3iIVTeySUA/+xAiUKzu0flB70ioZTF6Kr8NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Oad0yl4O;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HQ6cD0h1;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9703606A327;
-	Wed, 28 Oct 2026 05:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9703606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD24606A333;
+	Wed, 28 Oct 2026 05:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD24606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Oad0yl4O
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HQ6cD0h1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=dh
-	v+8FlBddRkoW7HUJioYxqmcNV+Dawhev5ggsbsEWE=; b=Oad0yl4OirsQ5GShYM
-	hygXEMibdlSmJwexZovzN75xOJNVE5doZxC38Z8aTjxrNz6sTeGdiv7uTsFFSmAU
-	/RXoZBCRWbhE5V+UQn750371DT0scAjGJXQ0GaicYMaOyEn6z3wOtkW/+t+8EaDY
-	fAXE2XKBEN8MxS7uWHUen29BY=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=iN
+	3NuJW0NrAQeJl8hnA8WPW47zZnm0NMu3n174y6fXM=; b=HQ6cD0h1/ga2mBgH7b
+	v4u6RdpotSm66iY/hFJ82F6RHdIpA2JkGmUcZx5vcHTJWp0tc+KG5k+ONejxnTlF
+	FEgVTjtCKnZiQH4jmmo4yLDISNBFGjcjj9UzjbNiO2vq+SCgthrw4cuHwC6v15Eh
+	eEimVhD5r3qe+yaxv9nQBgCzI=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S5;
-	Wed, 28 Oct 2026 13:03:43 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S3;
+	Wed, 28 Oct 2026 13:03:41 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Michal Kazior <michal.kazior@tieto.com>,
+	Kalle Valo <kvalo@qca.qualcomm.com>,
 	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
+	ath10k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 3/4] wifi: mt76: mt7921: unwind interface restore failures
-Date: Wed, 28 Oct 2026 13:03:36 +0800
-Message-Id: <20261028050337.127464-4-yaojiale02@163.com>
+Subject: [PATCH 1/4] wifi: ath10k: clear monitor interface after add failure
+Date: Wed, 28 Oct 2026 13:03:34 +0800
+Message-Id: <20261028050337.127464-2-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
 References: <20261028050337.127464-1-yaojiale02@163.com>
@@ -72,59 +67,38 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr13tryDtFW7CrykWr1rJFb_yoW8CFW3pF
-	47KayYkry8Jw45Ja1xGFW8uF95t3Z5GF1Uury3Aw18Zrn5AryrJF4j9Fy3tFyjyFs7t34f
-	trWvqFn8uwsY9a7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jva0PUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ+++Grhgi+qLAAA3k
+X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S3
+X-Coremail-Antispam: 1Uf129KBjvdXoW7XF4fGw45Gw4fuF4kCrW7Jwb_yoWDCwc_CF
+	4fGwn3Zr47Ar15tF48GayxAry0yF1UXF93try2qrWrAw43XrZYk3sa934UuF97Gr18AF9x
+	CFnrXFyYvwnIgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0sID7UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7w2++Grhgi3cHAAA3A
 
-The reset recovery callback ignores failures while restoring an interface
-in firmware and continues issuing per-vif configuration commands. A failed
-two-command device addition can leave partial firmware state, while the
-following commands operate on an interface that was not restored.
+ath10k_add_interface() publishes the monitor vif before recalculating the
+monitor configuration. If that operation fails, the interface addition is
+unwound but monitor_arvif still points at the vif that mac80211 will free.
 
-Check the restore result, remove any partially created firmware state and
-stop configuring that interface on failure.
+Clear the published pointer before entering the common vdev cleanup path.
 
-Fixes: 0c1ce9884607 ("mt76: mt7921: add wifi reset support")
+Fixes: 500ff9f9389d ("ath10k: implement chanctx API")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7921/mac.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ drivers/net/wireless/ath/ath10k/mac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
-index 6f5e31489e2d..0d19f2d7dd5e 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
-@@ -628,13 +628,23 @@ mt7921_vif_connect_iter(void *priv, u8 *mac,
- 	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
- 	struct mt792x_dev *dev = mvif->phy->dev;
- 	struct ieee80211_hw *hw = mt76_hw(dev);
-+	int ret;
- 
- 	if (vif->type == NL80211_IFTYPE_STATION)
- 		ieee80211_disconnect(vif, true);
- 
--	mt76_connac_mcu_uni_add_dev(&dev->mphy, &vif->bss_conf,
--				    &mvif->bss_conf.mt76,
--				    &mvif->sta.deflink.wcid, true);
-+	ret = mt76_connac_mcu_uni_add_dev(&dev->mphy, &vif->bss_conf,
-+					  &mvif->bss_conf.mt76,
-+					   &mvif->sta.deflink.wcid, true);
-+	if (ret) {
-+		mt76_connac_mcu_uni_add_dev(&dev->mphy, &vif->bss_conf,
-+					    &mvif->bss_conf.mt76,
-+					    &mvif->sta.deflink.wcid, false);
-+		dev_err(dev->mt76.dev,
-+			"failed to restore interface after reset: %d\n", ret);
-+		return;
-+	}
-+
- 	mt7921_mcu_set_tx(dev, vif);
- 
- 	if (vif->type == NL80211_IFTYPE_AP) {
+diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
+index 8e604697d6c2..36b694ae6de4 100644
+--- a/drivers/net/wireless/ath/ath10k/mac.c
++++ b/drivers/net/wireless/ath/ath10k/mac.c
+@@ -5875,6 +5875,7 @@ static int ath10k_add_interface(struct ieee80211_hw *hw,
+ 		ret = ath10k_monitor_recalc(ar);
+ 		if (ret) {
+ 			ath10k_warn(ar, "failed to recalc monitor: %d\n", ret);
++			ar->monitor_arvif = NULL;
+ 			goto err_peer_delete;
+ 		}
+ 	}
 -- 
 2.34.1
 
