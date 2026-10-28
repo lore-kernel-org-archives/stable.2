@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175631;
-	b=ThGZtP26NAyJtmZrcUGiFKw9ENrn1lbIVjiZypfKTRQsCjnuaPI1Ih9MX4mSLfRYYdRF
-	 qmasFD5PfEEY+MhYUWMkWMTJ/euoJRM1n00rPhqTw3aFMBPnjrh2pse3gmAyIblgeYgav
-	 y5l34lhyMYG0VTv3Rfm3ZiBO2g/nKGkQqC9JstwW2Gf6AQuzruz4oOC0VSUJcJXupNn74
-	 1XS7cSerePsw5AacjkCvtsonlYm84AQ6FAapLnZ9IriQOEMdj9nh44jin01Sh2JaFYwP6
-	 xaxsQ9i8R3OlCIgJ4i7cnJQKZgJvKJFPCE5iz5yq9IYmeWSQRD6Q4t9LTj6z0UGMbXw==
+	t=1793175712;
+	b=VKeYLSyiCVRWpQH1Phmvfca73cFuzYJTDVPKLFJigDcmkg9Fwl8xiFBHBqrBcS5pvjmg
+	 ITQ3r/DzMJ4GGutSfyguL+zdTQgS77tL2yHOfy2UZMu/VXGy4bzvzFJNI+VXE1uA9m0Mr
+	 g2ad3J29QnVfDA/i3UuyknOFEJFCuAQZ5OUrQqN0i/lhs8h7u09PeIhqfelHa24+JlU6L
+	 CP2ihxS34uhwDoNPWjUxxaf2p1jZVC6gl2XFHzuVWUv/qAkdnxJ1rLz5ej104dBY47neq
+	 mv7P1PCPfQO1ntJ8V1YBoOTFFh+TPm82xgcGcxQUB1SnwMPon0qU6YqdtZyyzBFqpwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175631;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175712;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=FU6Km7ChT8wB3iaSth+F3/69ecBIaf5N/Fzbc/bbo+s=;
-	b=A5eQvYOn9m6fWSGkaGrlKdIw3Pr4zYAPCYzSqDE2IzfojAOpIgsNA9Za+UNRqYsicmVj
-	 opUWko8vXs3tOhgIwKHW7W+WIcwwCrZ/gnapyexKnhmeV6/oNEqzHLDZmT3o0u05UNP3e
-	 Sg6zgjGTvnxF8P2pRWq5uvZLcj9ZztFXBiaRBoGiBhxsNrbmUrTMeV8poUwm92N16Kubs
-	 Tk5HsA0z58UDYFioguFcsKGwPIDT5svxCbqfxilRR4PDYPdcgT1zF/KB1U5dnTxxtxUjz
-	 ujmlZShET8SScJLvkuwDgB8ILotWfRscVEPOmkEF50DphQwHZutWNM1q/wFhfcMVTWA==
+	bh=JbQ39/f3ASQKleDrdvaHaj6KcDl8Bzg/BJL2F5+HWZw=;
+	b=F54kOahCsbGo6LQ9LX+5GJL5sbPTZVQGQK1qoIbra2z81i3JrlxqiCuQxvudSOQx2EAR
+	 /QnppYUK9U+IxyqmGDeauF3HXYYJdQt6tbZM4xqO85gBadm6nxZ08qeS/k1mKd4IIh6jM
+	 8OTSSrXLwKexSYFI3qxgCFmADZudzrI6L6pvZZ/61Ug9rbs1f7bIY85DKS5egX6BufwPs
+	 1SkHQFFo97JqEscbVIpKe9o9Wl8/53Kw5xRHKtAnXiqg1tYy+V0ljiM6ViLG+AeSBDXtY
+	 cUSizFr6NSVqgDKSsotngT7C6/OeSJjPs0hcA9ID0Ac1O0XpNOyii0LwdajJvsnPbaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNqNQyvg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lo8yN/ZD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2C5606A31A;
-	Wed, 28 Oct 2026 08:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA81606A31D;
+	Wed, 28 Oct 2026 08:21:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNqNQyvg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646B11F01825;
-	Wed, 28 Oct 2026 08:20:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lo8yN/ZD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12961F01828;
+	Wed, 28 Oct 2026 08:21:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793175631;
-	bh=FU6Km7ChT8wB3iaSth+F3/69ecBIaf5N/Fzbc/bbo+s=;
+	s=k20260515; t=1793175711;
+	bh=JbQ39/f3ASQKleDrdvaHaj6KcDl8Bzg/BJL2F5+HWZw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SNqNQyvgTJLYYki1VSd8Hcl0rY46o6Ox7LSXYq2rHJNhZE9s/g3SgZzKk9TbyXUej
-	 QsuLPUFbAhBZHeHF9UWjLtam007zqSERpnh+0tGF74wfWrl+sLxVERrxh0sBw/OOlK
-	 peUvcnC/7tdlAtykO+TZoTPoFFw+PB3f3piMINdC5IaYi/RN6nqY0rSmn8TNYUXbmN
-	 gR3tsZvNx9LO6bnBOLFwK5LVL9+iXZdynSfHTGPwCtgL75QSBCLou55YFOuqsxmPFR
-	 f88pw2cwS9M9t1RMNZr3D4E94Ab0LPajqMQgHoQgM1wtehcupx1k15Uja9JjYn2IIV
-	 l8lmiV4u8XSkQ==
-Message-ID: <6633e2c9-d4c1-49f0-a4a9-433fcd8b3337@kernel.org>
-Date: Wed, 28 Oct 2026 09:20:12 +0100
+	b=lo8yN/ZD7PTJAuyTezKHOR1S2XSvFaPwIb+JSQUm7CJIGxtgbBqO9ScRWAfTIZAdJ
+	 0y1HZBF3TwjbMrS2/R45EENexfZ2zgb8NgBkBGAnFPq6p/o2Bmy+HxMQ0J9OHdVPRx
+	 GvNrAzuywX5nT7wZ5ADy95kzFEf/4k+DFDbkKkyMptMgj2k8qA1uN+yjzn+k68K0R+
+	 cB1bSScHHNP5Ur7Ryx8UMSjpNpUN2j3pr4UOVUsJOoBIdfw629npgMXIO7As1vNdQ5
+	 cH3i8rnIBSFO/suQ9NBdtcGN6BD2jKVcb8ghtfeko/D6TrFZ3x9ZUfliUF5N/v+hKO
+	 35+OqUKYsgaEA==
+Message-ID: <10ae2533-cc4b-4c30-95d7-705815ba7830@kernel.org>
+Date: Wed, 28 Oct 2026 09:21:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,48 +52,31 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
-To: Barry Song <baohua@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
- <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
- <22b819a2-631d-468e-b724-770caf9f94e4@kernel.org>
- <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
+Subject: Re: [PATCH v2 12/14] mm/shmem: fix truncate loop after boundary
+ swapin failure
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+ <20261027-fixes_shmem-v2-12-86a00952acb9@kernel.org>
+ <2d111275-e7a8-4ac5-8618-f068e87145f2@linux.alibaba.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -140,34 +123,37 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
+In-Reply-To: <2d111275-e7a8-4ac5-8618-f068e87145f2@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10/27/26 20:48, Barry Song wrote:
-> On Wed, Oct 28, 2026 at 3:07 AM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
->>
->> On 10/27/26 11:38, Pedro Falcato wrote:
->>>
->>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->>>
->>> FWIW, strictly speaking malloc() isn't usable in a forked
->>> (multi-threaded) child, but glibc/musl provide this in a best-effort way.
->>
->> Yeah, I'm more concerned about other things that can race ... :)
+On 10/28/26 02:30, Baolin Wang wrote:
 > 
-> Regarding the race with memcpy(mm, oldmm, sizeof(*mm)), we
-> still have one [1] even after this patch.
 > 
-> That is, copying mm_struct can happen concurrently with
-> lru_gen_del_mm(). However, this race doesn't seem harmful.
-> I might be missing something here though.
+> On 10/27/26 9:03 PM, David Hildenbrand (Arm) wrote:
+>> If swapping in a large entry at the new EOF fails, shmem_undo_range()
+>> leaves the entry in place. Its final scan skips the entry, then restarts
+>> from the same start index and finds it again. Truncation can loop forever
+>> while holding i_rwsem.
+> 
+> Right. But ...
+> 
+>> Advance start past the skipped entry so that a restarted scan can finish,
+>> as we already do for folios that cannot be split.
+> 
+> IIRC, we originally avoided advancing start because a concurrent swapin fault
+> could split the boundary large swap entry via shmem_split_large_entry(), leaving
+> small swap entries below the new start.
+> 
+> Sigh.
+> 
+> There doesn't seem to be a simple fix. We may need to swap in the large entry as
+> shmem_get_partial_folio() does, and then split the large folio. I'll work on
+> this as a follow-up.
 
-Do you have time to look into the issue, to see if it's actually still
-reproducible afterwards?
+Thanks!
 
-Likely we want a separate fix for that on top. (or mark access as valid racy)
+So you are fine with the patch as is to fix the endless loop?
 
 -- 
 Cheers,
