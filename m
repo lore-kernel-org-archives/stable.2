@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173423;
-	b=m5YYE21Wa7WLp84IkdM/c3Gxx32k+3pnNMdxAbXrTYK9mARjsj1jqVSByP5Xuif033QA
-	 5KBTmYJ36xj5LVfhUIU74aA4BiN223OZjJY3FokFrm+kX6yOnKSIZhg5gv9Q2wX3sWs17
-	 0Qp+5kTlGcOAPwbgi1DJYovvZcKHOXL0KkvhTiJnj9wsrTAyW/dOcQVDKa3bcx/LNYSlI
-	 rmHLTJcVupmbcFworzNxt2scw3w/VgqtXtGD2fZvWpT+fFSr0Jr9BlBGqOUmZEsiEiObq
-	 MY3eEmJ6OEfj9BvaPVvjbofnMjxQ2j8V0GnaRlEQ3LqS9MBQbx3wg7SMccP2YRIqPhw==
+	t=1793173557;
+	b=I+JagDQtYr6A93Plg5LaX/qHy9wxaEt2pwQAUffWc4Cmlbg74jWP5vmvvs9LYja7oAAO
+	 0P/eMCVfwUkOtK93gF67PN4xpm3Ttdc4byE2uY+bAzgURxpdoG6ZsvisexARjCziOIkhl
+	 OjtpHaPE80uMVVTjuz3FZtHvDJbkbbHj6NDQ1f4ehaOA//gDW0+j4ZFQwinkhYZEPN2uQ
+	 twmO7f421e0k5CRMw3m3mg3cQ1Ui/d2mYwcSlFiI1VvPy9taeTEPxD43WyGb+XJdr3w7n
+	 Ho/ltsvEycw0/IGZKx86hB4+AUdS240gBJ0+Z2y15gWvK5NmjFuK+QUydWD6ZhJM6dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173557;
 	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=/vGGhDk2kbYeHylZZAFez92EAdypt/B9D5SYJhls24U=;
-	b=Cg7MF4bfaI5lXB4W0iqsGdU/eopoxIg8HEPUO9Vv4Y5VcKrr15K3hzIhskEtiMkjzW+A
-	 6X+J1bVdQWqf5+//hhiddkRL1jZoLVaijvZg0WtXbmfP0FaXPYR6sy9CyMf4F9QmSVW8k
-	 TJLc/D2EU4BjMvqlxk0CHYcdWyZcOXlnsbOGB57oJQA6fNlPTPYQASQJWWeUkNbOk30/f
-	 s7mYldSmVv90DbAjKj0Y6phcRUwd6kAr51dzKp0Qzlbi8NOmEkclrcEw6uoII+Bz5GMGK
-	 zFpC1VWwRFk7QlHGIAC1R1tukxjN64gFmOfAr/P9tmuuMgV9qriWvFHJocfYpuv2qhA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=jKu2cq7RaKZ/bfx14b0vxiisTRPYsAwPIdF2ERn4E/0=;
+	b=bgL6R+il7W1r5e276DWJai9YlMQwwwNqlr8cXhZdLAOKiEMsc3CZHGH8K7Gjxap3wOm9
+	 JPgZHyvLX72uf67Fhy4GL4VUV7th164cft2TvuL9CzyR6uwYy1SgOB04yASWMjJ6e5Kst
+	 BNuu2m0VdbEKWpCI2DovPKw+QSANnTJ2ZT1XHqhoAi/ZFd/RMRpgoQNPJPEv25ROUtSA/
+	 qxnwmgL38JhJXmb6Ped29K/PuD/5M9/+yukAbyqUZkcDGkt233bII8tVioszTH7D9C4v3
+	 2W+cRRfPLwul/OjrlDUNmOdnZ4Q528f1zWOHoycvPKmgJk97mn2+jgiqO7SG6E/zaoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amlogic.com;
 	spf=pass smtp.mailfrom=amlogic.com;
@@ -24,25 +24,33 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from mailsc.amlogic.com (unknown [64.106.246.77])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E30606A31A;
-	Wed, 28 Oct 2026 07:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E30606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EC2606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:45:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7EC2606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Received: from XA202100-0024.amlogic.com (10.88.19.246) by mailsc.amlogic.com
  (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Wed, 28 Oct
- 2026 00:43:32 -0700
+ 2026 00:45:51 -0700
 From: yao zhang1 <yao.zhang1@amlogic.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
-	<linux-security-module@vger.kernel.org>, <selinux@vger.kernel.org>,
-	<ebpqwerty472123@gmail.com>, <paul@paul-moore.com>,
-	<stephen.smalley.work@gmail.com>, <yao.zhang1@amlogic.com>
-Subject: [PATCH 5.15.y] mm: call the security_mmap_file() LSM hook in remap_file_pages()
-Date: Wed, 28 Oct 2026 15:42:51 +0800
-Message-ID: <20261028074251.1695-1-yao.zhang1@amlogic.com>
+	<roberto.sassu@huawei.com>, <kirill.shutemov@linux.intel.com>,
+	<jannh@google.com>, <paul@paul-moore.com>, <yao.zhang1@amlogic.com>,
+	<syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com>, Lorenzo Stoakes
+	<lorenzo.stoakes@oracle.com>, "Liam R. Howlett" <Liam.Howlett@Oracle.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>, Dmitry Kasatkin
+	<dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, "James
+ Morris" <jmorris@namei.org>, Mimi Zohar <zohar@linux.ibm.com>, "Serge E.
+ Hallyn" <serge@hallyn.com>, Shu Han <ebpqwerty472123@gmail.com>, "Vlastimil
+ Babka" <vbabka@suse.cz>, Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 5.15.y] mm: split critical region in remap_file_pages() and invoke LSMs in between
+Date: Wed, 28 Oct 2026 15:45:27 +0800
+Message-ID: <20261028074528.1720-1-yao.zhang1@amlogic.com>
 X-Mailer: git-send-email 2.56.0.windows.2
+In-Reply-To: <20261028074251.1695-1-yao.zhang1@amlogic.com>
+References: <20261028074251.1695-1-yao.zhang1@amlogic.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,79 +65,163 @@ Content-Type: text/plain
 X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
  (10.8.11.35)
 
-From: Shu Han <ebpqwerty472123@gmail.com>
+From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
 
-The remap_file_pages syscall handler calls do_mmap() directly, which
-doesn't contain the LSM security check. And if the process has called
-personality(READ_IMPLIES_EXEC) before and remap_file_pages() is called for
-RW pages, this will actually result in remapping the pages to RWX,
-bypassing a W^X policy enforced by SELinux.
+Commit ea7e2d5e49c0 ("mm: call the security_mmap_file() LSM hook in
+remap_file_pages()") fixed a security issue, it added an LSM check when
+trying to remap file pages, so that LSMs have the opportunity to evaluate
+such action like for other memory operations such as mmap() and
+mprotect().
 
-So we should check prot by security_mmap_file LSM hook in the
-remap_file_pages syscall handler before do_mmap() is called. Otherwise, it
-potentially permits an attacker to bypass a W^X policy enforced by
-SELinux.
+However, that commit called security_mmap_file() inside the mmap_lock
+lock, while the other calls do it before taking the lock, after commit
+8b3ec6814c83 ("take security_mmap_file() outside of ->mmap_sem").
 
-The bypass is similar to CVE-2016-10044, which bypass the same thing via
-AIO and can be found in [1].
+This caused lock inversion issue with IMA which was taking the mmap_lock
+and i_mutex lock in the opposite way when the remap_file_pages() system
+call was called.
 
-The PoC:
+Solve the issue by splitting the critical region in remap_file_pages() in
+two regions: the first takes a read lock of mmap_lock, retrieves the VMA
+and the file descriptor associated, and calculates the 'prot' and 'flags'
+variables; the second takes a write lock on mmap_lock, checks that the VMA
+flags and the VMA file descriptor are the same as the ones obtained in the
+first critical region (otherwise the system call fails), and calls
+do_mmap().
 
-$ cat > test.c
+In between, after releasing the read lock and before taking the write
+lock, call security_mmap_file(), and solve the lock inversion issue.
 
-int main(void) {
-	size_t pagesz = sysconf(_SC_PAGE_SIZE);
-	int mfd = syscall(SYS_memfd_create, "test", 0);
-	const char *buf = mmap(NULL, 4 * pagesz, PROT_READ | PROT_WRITE,
-		MAP_SHARED, mfd, 0);
-	unsigned int old = syscall(SYS_personality, 0xffffffff);
-	syscall(SYS_personality, READ_IMPLIES_EXEC | old);
-	syscall(SYS_remap_file_pages, buf, pagesz, 0, 2, 0);
-	syscall(SYS_personality, old);
-	// show the RWX page exists even if W^X policy is enforced
-	int fd = open("/proc/self/maps", O_RDONLY);
-	unsigned char buf2[1024];
-	while (1) {
-		int ret = read(fd, buf2, 1024);
-		if (ret <= 0) break;
-		write(1, buf2, ret);
-	}
-	close(fd);
-}
-
-$ gcc test.c -o test
-$ ./test | grep rwx
-7f1836c34000-7f1836c35000 rwxs 00002000 00:01 2050 /memfd:test (deleted)
-
-Link: https://project-zero.issues.chromium.org/issues/42452389 [1]
-Cc: stable@vger.kernel.org
-Signed-off-by: Shu Han <ebpqwerty472123@gmail.com>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-[PM: subject line tweaks]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-(cherry picked from commit ea7e2d5e49c05e5db1922387b09ca74aa40f46e2)
+Link: https://lkml.kernel.org/r/20241018161415.3845146-1-roberto.sassu@huaweicloud.com
+Fixes: ea7e2d5e49c0 ("mm: call the security_mmap_file() LSM hook in remap_file_pages()")
+Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
+Reported-by: syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-security-module/66f7b10e.050a0220.46d20.0036.GAE@google.com/
+Tested-by: Roberto Sassu <roberto.sassu@huawei.com>
+Reviewed-by: Roberto Sassu <roberto.sassu@huawei.com>
+Reviewed-by: Jann Horn <jannh@google.com>
+Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
+Reviewed-by: Paul Moore <paul@paul-moore.com>
+Tested-by: syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com
+Cc: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Shu Han <ebpqwerty472123@gmail.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 58a039e679fe72bd0efa8b2abe669a7914bb4429)
 Signed-off-by: yao zhang1 <yao.zhang1@amlogic.com>
 ---
- mm/mmap.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/mmap.c | 69 +++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 52 insertions(+), 17 deletions(-)
 
 diff --git a/mm/mmap.c b/mm/mmap.c
-index 273e06dad3c6..7f357de8f4d6 100644
+index 7f357de8f4d6..90a5358da10f 100644
 --- a/mm/mmap.c
 +++ b/mm/mmap.c
-@@ -3047,8 +3047,12 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 		flags |= MAP_LOCKED;
+@@ -2991,6 +2991,7 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
+ 	unsigned long populate = 0;
+ 	unsigned long ret = -EINVAL;
+ 	struct file *file;
++	vm_flags_t vm_flags;
  
- 	file = get_file(vma->vm_file);
-+	ret = security_mmap_file(vma->vm_file, prot, flags);
-+	if (ret)
-+		goto out_fput;
+ 	pr_warn_once("%s (%d) uses deprecated remap_file_pages() syscall. See Documentation/vm/remap_file_pages.rst.\n",
+ 		     current->comm, current->pid);
+@@ -3007,12 +3008,60 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
+ 	if (pgoff + (size >> PAGE_SHIFT) < pgoff)
+ 		return ret;
+ 
+-	if (mmap_write_lock_killable(mm))
++	if (mmap_read_lock_killable(mm))
++		return -EINTR;
++
++	/*
++	 * Look up VMA under read lock first so we can perform the security
++	 * without holding locks (which can be problematic). We reacquire a
++	 * write lock later and check nothing changed underneath us.
++	 */
++	vma = vma_lookup(mm, start);
++
++	if (!vma || !(vma->vm_flags & VM_SHARED)) {
++		mmap_read_unlock(mm);
++		return -EINVAL;
++	}
++
++	prot |= vma->vm_flags & VM_READ ? PROT_READ : 0;
++	prot |= vma->vm_flags & VM_WRITE ? PROT_WRITE : 0;
++	prot |= vma->vm_flags & VM_EXEC ? PROT_EXEC : 0;
++
++	flags &= MAP_NONBLOCK;
++	flags |= MAP_SHARED | MAP_FIXED | MAP_POPULATE;
++	if (vma->vm_flags & VM_LOCKED)
++		flags |= MAP_LOCKED;
++
++	/* Save vm_flags used to calculate prot and flags, and recheck later. */
++	vm_flags = vma->vm_flags;
++	file = get_file(vma->vm_file);
++
++	mmap_read_unlock(mm);
++
++	/* Call outside mmap_lock to be consistent with other callers. */
++	ret = security_mmap_file(file, prot, flags);
++	if (ret) {
++		fput(file);
++		return ret;
++	}
++
++	ret = -EINVAL;
++
++	/* OK security check passed, take write lock + let it rip. */
++	if (mmap_write_lock_killable(mm)) {
++		fput(file);
+ 		return -EINTR;
++	}
+ 
+ 	vma = vma_lookup(mm, start);
+ 
+-	if (!vma || !(vma->vm_flags & VM_SHARED))
++	if (!vma)
++		goto out;
++
++	/* Make sure things didn't change under us. */
++	if (vma->vm_flags != vm_flags)
++		goto out;
++	if (vma->vm_file != file)
+ 		goto out;
+ 
+ 	if (start + size > vma->vm_end) {
+@@ -3037,25 +3086,11 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
+ 			goto out;
+ 	}
+ 
+-	prot |= vma->vm_flags & VM_READ ? PROT_READ : 0;
+-	prot |= vma->vm_flags & VM_WRITE ? PROT_WRITE : 0;
+-	prot |= vma->vm_flags & VM_EXEC ? PROT_EXEC : 0;
+-
+-	flags &= MAP_NONBLOCK;
+-	flags |= MAP_SHARED | MAP_FIXED | MAP_POPULATE;
+-	if (vma->vm_flags & VM_LOCKED)
+-		flags |= MAP_LOCKED;
+-
+-	file = get_file(vma->vm_file);
+-	ret = security_mmap_file(vma->vm_file, prot, flags);
+-	if (ret)
+-		goto out_fput;
  	ret = do_mmap(vma->vm_file, start, size,
  			prot, flags, pgoff, &populate, NULL);
-+out_fput:
- 	fput(file);
+-out_fput:
+-	fput(file);
  out:
  	mmap_write_unlock(mm);
++	fput(file);
+ 	if (populate)
+ 		mm_populate(ret, populate);
+ 	if (!IS_ERR_VALUE(ret))
 -- 
 2.46.0
 
