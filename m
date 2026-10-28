@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793216686;
-	b=GugEVYzTfb6YBesL9R9Fx0hTWcHs6uX+goRDwRS50AGB4IWXMDSPBQPeNwd37isYubfN
-	 t3Jyj0uXSrbilIB+kYnzZ6pQXX82uLcZohiTcvhEj6FjgNtZpCLGcizthtPWaO0o1pVFb
-	 LZrJoCyaJSkmCaLdbARgrjltURw44qID66H7H8ldIgOf5ZgA9pQTI/j0ZAFrw2CemhsR0
-	 doqvdNa08N7e3E4S+Fqgk1mrMUerLx2qrOWQW6dPovfy9ZsD0W0fbmE50YlN/VGNVeH9T
-	 7Z4dX4Hw47PIxTfv1CKtmxEK40qh5FwGZFgUVRiwfwm+ts4Wz1S+fJJjYYyIj5IyWzg==
+	b=TkGKrrIxXxX7iAfHDOvtgvG5xCaEYqIzpEPIo5eooe7nXgtdEP/aNkr0OdO9OZFyF08X
+	 M4LSR9yiEhgHZ8uM4FUcrbAmqxPg2PFwqk9SQyOfSl1A5DjFkt0t4z3CVPzVC84/amtkB
+	 yXqECz/qWdHfh9qL1KbIXrILuDT4H4kew4W2Fmczxg/VsU2OrsM3+GgZkXiTenf7ovkzd
+	 ViT9SwBWgnaMoYmufinYU6RZIU6jQkoagjqKVZnqsab/AiaSeW2aHcfR1eKVS4nf6XbCg
+	 Bp1DC9791tozWTomqzKV3R3MHsg+inWdtVMleMsZX9ei8TuKmwAAnAui7irX/fXr5RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793216686;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7j2x9OEEpLbOGzU5X5o7mXYVk11eJRTGq4Qi76xFNAI=;
-	b=JDgeaIKnD/tUdyQMgZFoZh8W1nHMdmj82/yyYXEdENiFnK+rOsVHG1JiX9W3mN0MjCFZ
-	 CzZnwLKQTbPgiLlptPFS1YMI9RW2HAfybe1PUPG3BNL3rPUOxmBsqfG4qv8iHmxy76WnG
-	 qOmJVTALv+K+UD+0dy1rkbF4UbtoV8iPHA8m80QjhIJp19dkWmKNsH+NWlXQF6Z8faGj9
-	 d7rKJvVo8jI/RHW7+BvldC31nFm/zPHCkbX/+0JIpU+SE8GI74f8MVozjJV7Z36whXMcs
-	 W1lmsUW5gNiaM/gNWv+ojuyM1r3bYBH7wmoWydZ5nsnDEJmFPFnj1YJ5mxV9Cta92fA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=aX5yxWLy5UqgCew+TXik/kA3SFLV0ENzFXkHOTx9H70=;
+	b=NHNT+HNHQPLcyEpHm2HqaYUKMD76bmY0v07uqCgm4UHC0yQeV8VCq8vSnr1ggYC0Sklr
+	 f/8RgPpQc+uPFSBXC6SsozC3Cb6ORi3tZkThOA3nIaAgbkKmf3Pdwo7WOX9RLFYvYMCNx
+	 bEhIDGLpwmxYsG0Micfl2Qv/qPpYWShg8lwlGQoGJIPN2xVVxB42S7IkrkSuOADkBPJHV
+	 jUtv8m8g5g+rHbrHovJYTXaj/vxjipenbwio+uo58t7uZsjf+w2IZQRFh/DlWp4jnT01B
+	 r1qVGCIKGYUju1ampXI77hqTH8+xAUr5ehPR/af0OXKuCgOy+29a/GXIklQ4zYyuqqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vwPFfsNI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVUEWX7a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84BB606A31A;
-	Wed, 28 Oct 2026 19:44:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DCB606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:44:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vwPFfsNI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD7E1F01825;
-	Wed, 28 Oct 2026 19:44:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793216685;
-	bh=7j2x9OEEpLbOGzU5X5o7mXYVk11eJRTGq4Qi76xFNAI=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVUEWX7a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D936F1F01828;
+	Wed, 28 Oct 2026 19:44:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793216686;
+	bh=aX5yxWLy5UqgCew+TXik/kA3SFLV0ENzFXkHOTx9H70=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vwPFfsNIUQmTxlq2LY6+V47bGuqrVuy4OAaceu0t6YYlLXEd6orhQ/pBM4eqIAe6V
-	 RZFlYhBQ68q87V4ddgTcVPl8Ys5TZcRO4EW8MqFubJGyICCTly3kVBJnAFQi2wROiG
-	 /Z8l5HcxAoOcapLTW0gOqYYktIF1qHgQUNx141Ds=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=LVUEWX7amI3s3lnD2zPsOFJWFNoXV0QdbYjp31DHY3wYnYpwg2bJy7kZyqozRvDAy
+	 nADJjSLwByA7lmP0QAX2tgQL04ZVc07sDu9jWALaEKrwxkyT552TGjX6Df6435uwD8
+	 3feNgNYUkjb0MTSqEKai4dgkc//Pmf2GIDt5ehtwxGt6T1T0C5Y+yNWEFtU5V9+uuY
+	 K3yCaYZAYVDtcLQSl+cxqQIkPc9FPvlKe7N8PxhzkvJiX/qT9DVpTduSeIotameIOi
+	 i3PN8Bb+n7Zorb8SWXOevJxQiBmn45FiKKH26NOeLW5qWPrdvZb3q1v87x1jR0TREy
+	 E2hg12lQs3nGA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Evgenii Burenchev <evg28bur@yandex.ru>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1641/1887] drm/amd/display: Fix dangling pointer in CRTC reset function
-Date: Wed, 28 Oct 2026 18:02:17 +0100
-Message-ID: <20261028170536.808595658@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y 1/2] fork: move the coredump and exec checks into create_io_thread()
+Date: Wed, 28 Oct 2026 15:44:43 -0400
+Message-ID: <20261028194315.2086603-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102851-facelift-wand-29b0@gregkh>
+References: <2026102851-facelift-wand-29b0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,59 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Christian Brauner <brauner@kernel.org>
 
-------------------
+[ Upstream commit e760200370e4de054b6b5f568a7faa911e2956bb ]
 
-From: Evgenii Burenchev <evg28bur@yandex.ru>
+Only a PF_USER_WORKER thread returns from get_signal() after a fatal
+signal and can go on to create a thread. get_signal() sets PF_SIGNALED
+before it dumps core and before it lets a PF_USER_WORKER thread return.
+That flags sticks.
 
-[ Upstream commit 0aeed866cb938943908c3ba46422128e49d2d080 ]
+The exec'ing thread itself is never signaled. But it doesn't need the check
+anyway as we moved cancellation of io_uring requests before de_thread().
+create_io_thread() is the only way a signaled thread creates another
+one. vhost_task_create() is reached from ioctls alone.
 
-amdgpu_dm_crtc_reset_state() frees the old state before allocating
-a new one. If kzalloc() fails, the function returns without updating
-the state pointer, leaving a dangling pointer to already freed memory.
+io_should_retry_thread() doesn't retry -EINTR, so io-wq callers give up
+the same way they did when copy_process() refused.
 
-Fix this by allocating the new state first. On allocation failure, the
-old state remains untouched and the function safely returns.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_crtc and dm_crtc_state")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Link: https://patch.msgid.link/20260629090435.9729-4-evg28bur@yandex.ru
-[adjust for movement around current amd-staging-drm-next]
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0VLTyxNatFmLOK@redhat.com
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-13-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Stable-dep-of: 1f978881ce6c ("fork: don't create io threads once PF_POSTCOREDUMP is set")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ kernel/fork.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 1ec643a0d00d2..ca2edba4c0f7f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -278,13 +278,13 @@ static void dm_crtc_reset_state(struct drm_crtc *crtc)
- {
- 	struct dm_crtc_state *state;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 396a1d4b05e59..802bccf2dea74 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2867,6 +2867,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+ 		.user_worker	= 1,
+ 	};
  
--	if (crtc->state)
--		dm_crtc_destroy_state(crtc, crtc->state);
--
- 	state = kzalloc(sizeof(*state), GFP_KERNEL);
--	if (WARN_ON(!state))
-+	if (!state)
- 		return;
- 
-+	if (crtc->state)
-+		dm_crtc_destroy_state(crtc, crtc->state);
++	/* A creator past its fatal signal gets no thread. */
++	if (current->flags & PF_SIGNALED)
++		return ERR_PTR(-EINTR);
 +
- 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+ 	return copy_process(NULL, 0, node, &args);
  }
  
 -- 
 2.53.0
-
-
 
