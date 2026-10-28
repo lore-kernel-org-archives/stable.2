@@ -1,51 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793169777;
-	b=vRgC4VNS0Q9uzUSUa0uvWvbW4/D+VBItvUH5YAeFylmMvnjSwtFsSX1NcfD3jo1XW6g8
-	 n/hfKGdJyv3EtjqSaLTla9OmDXQ4A5GIxqLMND5paAx8t9sQqNKNO0EruPoNDsl+3Bsg/
-	 R06x9HfpNvbiTSAlFtpr19SWMjEANuCp1Iqcm7/rC6jAbEL9ulkAs6jDDGPyIrXEsqhtG
-	 wnYZeQUlOiIx5ZHF508EDPmq1EmHXwlwNDPwagHglY8+RWJJAECoZDHz2qtUPotARuZhZ
-	 EATmX1dMRJ+PNGfHkBdjcyZIkD/WqHDAFjTsYD4Rq80BzR52CrRzjNS1IzQ7UKRjYqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793169777;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q6G3nxFD05ygIwY6v+3uq58Goki6iPih8OOteYGgxqQ=;
-	b=Zh0b4op1RLTvp3pA+9GVNbzD25liiOvGkK9QUXUF0tvGzTahx8OimJOVZ9unVouga8qP
-	 sQvHgCszPapjCq4uW0t0Z6lqT1iKz+rgjkTpCp1HlWmQNgjR7aujwar02/utz/xcCqVsd
-	 2CnzMODInvm8AKVOdl8yEXrBbtkw1m7zh90j0a0F7jP0hP+L3vAfQu9LX3Tf+TmlK44jH
-	 yxzgq5PzMIEnLzL21kHlGGnH+MWxGHhsXYWRvw8VDn0uZRHjxsgxcPHIooXVNDpGAgafP
-	 Z8aWxqouCHXIoii/faaL8mnYGvdstMXQ3ndI5mOD81DvUquuOKpnx0EwxqKqXa2mDng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ex8kivjK;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793170646;
+	b=ii+6r+nPxfPKVIrk0cM0ILwAAQwSWnmdowCCq+oqe0PwWqwdazXABxrIemU+0UGt/VL8
+	 uMF6ylMZxGs8V5Y3klIJK/XgD2hfFYByJr4td4VcU+9hDyC77PcsCuZVKdsDuJBC84+vc
+	 q9I9TPoH6IT6wJ2Wk6zje+3nCX8WAutfH1rzjtWflUQB//R4p4Ca1YoL8OMhuTvWPf3CI
+	 I5iZTWAQ/xcwoVkGlAbF0xA1CVhPprbawXgX/kWGNdzFawP5gdEnawHnEqGJMYlLi1lTw
+	 Pys50WrDqrQKK/l0aJxvkf40A3Yg7fE8wcQ4c9prLJgsr3bmWAsVm2SykWQnsS5JwlA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793170646;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8SrW+3hmCu4MaSz+gsxVKVJ3CE3qAcb8qukbx8mEbsE=;
+	b=if2+C7oArl3+89DksCmLn4pszSDNYKS1tDbBhhZ+8GFaM2/ahbtSxDH90LM7Gcx/bkuc
+	 D9lx+uaPC5Sw2yL5xZ98TE73T08xfIicqUBrGNsV8mDYbg5vagQHJE5+95LrAJlqo4MO4
+	 Ta1HCdPDz2nHuRk1heWepCA4mAhbL6kOPgP5oKWSsNxFJ9lPFXMrpVAxfHAuPpMxijo2X
+	 ZG4f4Qbt2chrYKGqQKsI7MUOcQSHPA+LJEjXpQCNMOi7tw3IkZVHRnnxpMe/CwA8gosuw
+	 Kuo/T3gTPNfmAaVSrPScwiJ9n80uR43SyyLPRuw+VR7ViFeEr/u9pzTE9Xz8dnoqmGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oIqI/zDw";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CE0606A31A;
+	Wed, 28 Oct 2026 06:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIqI/zDw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793170645;
+	b=CMmMFOrxdVnr9mmVFzVrhpEB1yxbs8GB1EWPlQeaDL5684eik3lXw9hex6GKM6qBRAUQ
+	 PkN9Tf3hYSzoTqPvD769+1Ej+rEf+tT0d8XirHZa/qgSRkyCCxQUlcGdDTwitk68t8p+7
+	 +t71N67szBC5eUlVJQba2z2XowLxANDWLbGla4y/4NG26F9YN3mXQp4FXC1MrxaQdpI5e
+	 PEMtzEPfR7YZQgcn7QnTrF2nOXyMzyOPeCWmKFL+kDDyFUzNmgpw9/QjW2/mCHehvhdr9
+	 wvfsHFjMcF0svGOvGzO8/krbhHqWR6Bvseckd09cwcoIrnhLqPcn1lbsSHmESghkGuA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793170645;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8SrW+3hmCu4MaSz+gsxVKVJ3CE3qAcb8qukbx8mEbsE=;
+	b=qfRbUEYdcQ8LRdvC11eWlDVFx/hOvi8O8j8Ptf4ndwclEr3nhStojK5bqC2aRAuIvfBl
+	 jXtAMplb//A+QdmrWAytnv0JJQr7ARfS04m9Q986io+yJiMr+nrGq3ft0XBklpZD5Dx5M
+	 nb0lcecrMCiJuaWoED5cfuLQAi0gnTxkIs39/QBaW7QKEx6qhsdQWM+qum1Y1a2GNGANl
+	 8wWxltZZ4BY4s1ECkNu+Ny/Su+J+ZPfUjkrRaRMgq5PGF4aC4+DSfAxygumsqeiHKInMy
+	 pHMhjA3igTP/zdT8LhL6E1/yuuiEQ3bikLO6r3tfV9ZJkBYFs2lEdEjwI362eHNY/4g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B11606A31A;
-	Wed, 28 Oct 2026 06:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B11606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ex8kivjK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1793169775;
-	bh=aLWh42rcMNKepHGFb1obkzRcUt2M03VEF2PDUV87Fpc=;
-	h=From:Date:Subject:To:Cc:From;
-	b=ex8kivjKpCVe3SEW/De1KV7FnRgFJh2XCInhoOieVVGrc3KwwoWpNg71yG4NuLLjL
-	 V2Q43qxbDM2xGhboyKUa+6W4Xs2FD2eoX+qJQ7LpJDiA3WrMMJ0hXAYclVaLJf0UxD
-	 x7NYkedzR/OIceuvbWG9xxv8KmaPdF7AmwQBQp+4=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 8FAB94006C;
-	Tue, 27 Oct 2026 23:42:55 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Tue, 27 Oct 2026 23:42:51 -0700
-Subject: [PATCH v2] ipc/msg: prevent msg_qbytes limit bypass in IPC_SET
+	by smtp.kernel.org (Postfix) with ESMTPS id DFA9B1F01829;
+	Wed, 28 Oct 2026 06:57:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793170645;
+	bh=8SrW+3hmCu4MaSz+gsxVKVJ3CE3qAcb8qukbx8mEbsE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=oIqI/zDwa44BGK8ZRZ5iQ18ZA62Tpm9fLr7gtsDQrbCFehGb6mm0xV5vZAV1sos/l
+	 ld65k8KeLXJ8mVoBCGpJ8zo8CpyX3z46+82bI1MdC42oTGGxbUZFslbOK3hjFUViy/
+	 oftcNQw/If259Ht64wj/z2fLZzgQsml+BdZGhEPsflAhwYx+Yx3sDaGV70AMkRliaa
+	 bNQZtSkfT47ZjvvqK26REzWFaZIDq3T6BhAyqveb41NsK4nahKyPoFwjLUG8xqHJwx
+	 zxz3S3IPrVjWXqFM5QEVN5h1KCGSgCoOMOG9h+VbdrXvUWKDqTpJRPSZTFicc5vCYB
+	 rG/Da+kMHYogg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 616BF4538A;
+	Wed, 28 Oct 2026 06:57:24 +0000 (UTC)
+From: Zhiwei Liang via B4 Relay <devnull+zhiwei.liang.zliang.me@kernel.org>
+Date: Wed, 28 Oct 2026 02:57:22 -0400
+Subject: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,223 +83,123 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3Myw5AMBBG4VeRWZtESxCvIhbFX2bhkqmIEO+us
+ fwW5zwUoIJATfKQ4pQg2xph0oSG2a0TWMZospktTWZr7g/1gb0cKgt7BW4oj8XQO1Oigskpprv
+ Cy/Vv2+59Pw9B65ZmAAAA
+X-Change-ID: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+ Luca Stefani <luca.stefani.ge1@gmail.com>
+Cc: Qu Wenruo <wqu@suse.com>, Filipe Manana <fdmanana@suse.com>, 
+ Robbie Ko <robbieko@synology.com>, linux-btrfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Zhiwei Liang <zhiwei.liang@zliang.me>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793170644; l=3889;
+ i=zhiwei.liang@zliang.me; s=20261028; h=from:subject:message-id;
+ bh=Ad5ltHNBqZJjriNkGAbAzE09HDU828bU7XQWfgn5xEc=;
+ b=l5aVf854cSCkVputMgv0JYK/81X4hxuZ5sdDmE3fJg7kTXs4wErv/xbLQ17SVBAyjy7nPwgFt
+ R72ccD/s9QUA/elO70Yn0HB115xNrFGSHBo6jACTPusKs/MY7vSrXc8
+X-Developer-Key: i=zhiwei.liang@zliang.me; a=ed25519;
+ pk=+Dr+pFt7zVWal4wTkqPegKXbLTdm/ko6GA/XhKr6NO8=
+X-Endpoint-Received: by B4 Relay for zhiwei.liang@zliang.me/20261028 with
+ auth_id=1339
+X-Original-From: Zhiwei Liang <zhiwei.liang@zliang.me>
+Reply-To: zhiwei.liang@zliang.me
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIAGqZ4WoC/3XMyw6CMBCF4Vchs3YMU7nVle9hWFgYyiyk2BKUk
- L67lb3L/yTn2yGwFw5wzXbwvEoQN6VQpwy68TFZRulTg8pVRbmqUeYOn8Hiy2wLByy0oVJfqCt
- NBek0ex7kc4D3NvUoYXF+O/yVfutfaiUkbBpd9abIaxr0zfK0vN3ZeQttjPELLUAjPa0AAAA=
-X-Change-ID: 20261027-ipc-msg-qbytes-49b15931c5b6
-To: Shuah Khan <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christopher Lameter (Ampere)" <cl@gentwo.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- Manfred Spraul <manfred@colorfullife.com>, 
- Jan Koester <jan.koester@tuxist.de>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- stable@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793169775; l=6756;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=aLWh42rcMNKepHGFb1obkzRcUt2M03VEF2PDUV87Fpc=;
- b=dRyGaRLst+jniGlRn6ywhZXdc0t6tj9NAKNv4eIKRbJfLNzdmnYSwGFrWBeHuMFjOsKRR/6/9
- Rlc5Y557XZsAQJyNyRwK3phWekbMlkY/8q4iCQuFhzGtb4WqJ83aZw3
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-The msg_qbytes field in the msqid64_ds userspace ABI is an unsigned
-long. Commit 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down()
-functions") passed that value to msgctl_down() as an int.
+From: Zhiwei Liang <zhiwei.liang@zliang.me>
 
-An unprivileged owner can set msg_qbytes to UINT_MAX. The narrowing
-conversion produces -1 on supported Linux targets, so the check against
-the int-valued msg_ctlmnb sysctl does not reject the request:
+When a suspend starts during FITRIM, fstrim can fail with:
 
-	if (msg_qbytes > ns->msg_ctlmnb &&
-	    !capable(CAP_SYS_RESOURCE))
+  fstrim: /: FITRIM ioctl failed: Unknown error 512
 
-The value is then assigned to the unsigned long q_qbytes field, setting
-it to ULONG_MAX. This bypasses the CAP_SYS_RESOURCE requirement for
-increasing a queue above MSGMNB.
+On a Fedora 44 laptop with kernel 7.2.7, 3 of the last 21 weekly
+fstrim.service runs were in progress when an automatic suspend started.
+All three failed this way and left the filesystem untrimmed.
 
-It also bypasses the effective per-queue message-count limit: zero-length
-messages consume kernel memory but not queue bytes. An unprivileged queue
-owner can therefore cause memory pressure or exhaustion beyond the
-configured per-queue allowance, subject to other resource limits.
+Since commit 69313850dce3 ("btrfs: add cancellation points to trim
+loops"), the trim loops return -ERESTARTSYS when
+btrfs_trim_interrupted() sees freezing(current), and FITRIM returns it
+to userspace. Since commit bfb670b9183b ("btrfs: handle user interrupt
+properly in btrfs_trim_fs()"), btrfs_trim_fs() returns it right away.
 
-Keep msg_qbytes as unsigned long through validation and assignment.
-Also preserve its type in ipcctl_obtain_check(), which supplies it to
-the unsigned-long audit field.
+-ERESTARTSYS is only valid while a signal is pending, because only the
+signal handling on syscall exit turns it into a restart. But
+freeze_processes() first sets pm_freezing, which makes freezing() true
+for every user task. Then it walks the task list and sends each task a
+fake signal. The trim loops check btrfs_trim_interrupted() after every
+extent. If a check falls in this window, the loop returns -ERESTARTSYS
+with no signal pending. Nothing restarts the syscall. On that laptop,
+with a few thousand threads, freezing user space took 2 to 5 ms in each
+of the three suspends above, and all three runs hit this window.
 
-Add a regression test which drops CAP_SYS_RESOURCE and verifies that
-IPC_SET with UINT_MAX fails with EPERM. Skip the test when capabilities
-or System V message queues are unavailable.
+Make btrfs_trim_interrupted() treat a freeze as an interruption only
+once the fake signal has arrived, i.e. when
+freezing(current) && signal_pending(current). freeze_processes() sends
+that signal in the same call. The trim loop stops at the next check
+after it, so suspend is not delayed.
 
-Fixes: 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down() functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+The restarted syscall re-reads struct fstrim_range from user memory.
+When the device phase is interrupted, btrfs_trim_fs() has already stored
+the trimmed byte count in range->len, and btrfs_ioctl_fitrim() copies
+the struct back unconditionally. The restart is then asked to trim
+[start, start + trimmed) instead of the requested range, or fails with
+-EINVAL when nothing was counted yet. Skip the copy_to_user() for
+-ERESTARTSYS. In all other cases the partial count is still copied back.
+
+Tested in a VM with pm_test=freezer. Without the patch, 18 of 20 freezes
+during a trim leaked errno 512, and 10 of 10 restarts after a
+device-phase interruption failed with -EINVAL. With the patch, all 30
+runs restarted and trimmed the full amount.
+
+Fixes: 69313850dce3 ("btrfs: add cancellation points to trim loops")
+CC: stable@vger.kernel.org # 5.15+
+Signed-off-by: Zhiwei Liang <zhiwei.liang@zliang.me>
 ---
-Changes in v2:
-- Skip the selftest when capability syscalls or System V message queues
-  are unavailable.
-- Describe the queued-message-limit and memory-pressure impact.
+ fs/btrfs/free-space-cache.h | 3 ++-
+ fs/btrfs/ioctl.c            | 7 +++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-Link to v1: https://lore.kernel.org/r/20261027-ipc-msg-qbytes-v1-1-8896db4071f9@gentwo.org
----
- ipc/msg.c                                   |  2 +-
- ipc/util.c                                  |  3 +-
- ipc/util.h                                  |  3 +-
- tools/testing/selftests/ipc/Makefile        |  2 +-
- tools/testing/selftests/ipc/msgctl_qbytes.c | 81 +++++++++++++++++++++++++++++
- 5 files changed, 87 insertions(+), 4 deletions(-)
-
-diff --git a/ipc/msg.c b/ipc/msg.c
-index 62996b97f0ac2137dfc2fa109394d6db1fcb4a0f..116126f1235cd6ce9b819cfd317ef039071b95ca 100644
---- a/ipc/msg.c
-+++ b/ipc/msg.c
-@@ -399,7 +399,7 @@ copy_msqid_from_user(struct msqid64_ds *out, void __user *buf, int version)
-  * NOTE: no locks must be held, the rwsem is taken inside this function.
-  */
- static int msgctl_down(struct ipc_namespace *ns, int msqid, int cmd,
--			struct ipc64_perm *perm, int msg_qbytes)
-+			struct ipc64_perm *perm, unsigned long msg_qbytes)
+diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+index e22443598b..cba2f5fd6b 100644
+--- a/fs/btrfs/free-space-cache.h
++++ b/fs/btrfs/free-space-cache.h
+@@ -58,7 +58,8 @@ static inline bool btrfs_free_space_trimming_bitmap(
+ 
+ static inline bool btrfs_trim_interrupted(void)
  {
- 	struct kern_ipc_perm *ipcp;
- 	struct msg_queue *msq;
-diff --git a/ipc/util.c b/ipc/util.c
-index 1737d776bc089e27495e810569bf302069db3712..c435b2d93a12e92e930358a8bc53a06314d065f5 100644
---- a/ipc/util.c
-+++ b/ipc/util.c
-@@ -718,7 +718,8 @@ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
-  */
- struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
- 					struct ipc_ids *ids, int id, int cmd,
--					struct ipc64_perm *perm, int extra_perm)
-+					struct ipc64_perm *perm,
-+					unsigned long extra_perm)
- {
- 	kuid_t euid;
- 	int err = -EPERM;
-diff --git a/ipc/util.h b/ipc/util.h
-index a55d6cebe6d3b0974548a497fcb889248aed0f87..55a76f94667cd4bb248fbcea26323db8d2778a44 100644
---- a/ipc/util.h
-+++ b/ipc/util.h
-@@ -180,7 +180,8 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out);
- int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out);
- struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
- 					     struct ipc_ids *ids, int id, int cmd,
--					     struct ipc64_perm *perm, int extra_perm);
-+					     struct ipc64_perm *perm,
-+					     unsigned long extra_perm);
+-	return fatal_signal_pending(current) || freezing(current);
++	return fatal_signal_pending(current) ||
++	       (freezing(current) && signal_pending(current));
+ }
  
- static inline void ipc_update_pid(struct pid **pos, struct pid *pid)
- {
-diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
-index fad10f2bb57b0f06f0c741fa89f0489f6952eba6..930a334747a6353c86bebe1f4a521aeee3fe8228 100644
---- a/tools/testing/selftests/ipc/Makefile
-+++ b/tools/testing/selftests/ipc/Makefile
-@@ -12,7 +12,7 @@ endif
+ /*
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index ac070c745b..b02c59cbb0 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -529,6 +529,13 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+ 	range.minlen = max(range.minlen, minlen);
+ 	ret = btrfs_trim_fs(fs_info, &range);
  
- CFLAGS += $(KHDR_INCLUDES)
- 
--TEST_GEN_PROGS := msgque
-+TEST_GEN_PROGS := msgctl_qbytes msgque
- 
- include ../lib.mk
- 
-diff --git a/tools/testing/selftests/ipc/msgctl_qbytes.c b/tools/testing/selftests/ipc/msgctl_qbytes.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..152e3d91557198c468a8d3bd3b05dd82e7e99a50
---- /dev/null
-+++ b/tools/testing/selftests/ipc/msgctl_qbytes.c
-@@ -0,0 +1,81 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <errno.h>
-+#include <limits.h>
-+#include <linux/capability.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/msg.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+#include "kselftest.h"
-+
-+static int drop_cap_sys_resource(void)
-+{
-+	struct __user_cap_header_struct hdr = {
-+		.version = _LINUX_CAPABILITY_VERSION_3,
-+	};
-+	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3];
-+	unsigned int index = CAP_SYS_RESOURCE / 32;
-+	__u32 mask = 1U << (CAP_SYS_RESOURCE % 32);
-+
-+	if (syscall(SYS_capget, &hdr, data))
-+		return -1;
-+
-+	data[index].effective &= ~mask;
-+	data[index].permitted &= ~mask;
-+
-+	return syscall(SYS_capset, &hdr, data);
-+}
-+
-+int main(void)
-+{
-+	struct msqid_ds ds;
-+	int msqid;
-+	int ret;
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+	if (drop_cap_sys_resource()) {
-+		if (errno == ENOSYS)
-+			ksft_exit_skip("capabilities are unavailable\n");
-+		ksft_exit_fail_perror("drop CAP_SYS_RESOURCE");
-+	}
-+
-+	msqid = msgget(IPC_PRIVATE, 0600);
-+	if (msqid == -1) {
-+		if (errno == ENOSYS)
-+			ksft_exit_skip("System V message queues are unavailable\n");
-+		ksft_exit_fail_perror("msgget");
-+	}
-+
-+	ret = msgctl(msqid, IPC_STAT, &ds);
-+	if (ret == -1) {
-+		ksft_perror("msgctl(IPC_STAT)");
-+		goto out_fail;
-+	}
-+
 +	/*
-+	 * msg_ctlmnb is an int, so UINT_MAX must require
-+	 * CAP_SYS_RESOURCE.
++	 * A restart re-reads the range from user space, so do not clobber it
++	 * with the partial len the rerun would otherwise take as its input.
 +	 */
-+	ds.msg_qbytes = UINT_MAX;
-+	errno = 0;
-+	ret = msgctl(msqid, IPC_SET, &ds);
-+	if (ret == -1 && errno == EPERM) {
-+		ksft_test_result_pass("IPC_SET rejects oversized msg_qbytes\n");
-+		msgctl(msqid, IPC_RMID, NULL);
-+		ksft_exit_pass();
-+	}
++	if (ret == -ERESTARTSYS)
++		return ret;
 +
-+	if (ret == -1)
-+		ksft_perror("msgctl(IPC_SET)");
-+	else
-+		ksft_print_msg("msgctl(IPC_SET) unexpectedly succeeded\n");
-+
-+out_fail:
-+	msgctl(msqid, IPC_RMID, NULL);
-+	ksft_test_result_fail("IPC_SET accepted oversized msg_qbytes\n");
-+	ksft_exit_fail();
-+}
+ 	if (copy_to_user(arg, &range, sizeof(range)))
+ 		return -EFAULT;
+ 
 
 ---
-base-commit: 8a36f53fd5ec3eff01f1b637d42cbdc3821d0493
-change-id: 20261027-ipc-msg-qbytes-49b15931c5b6
+base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
+change-id: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
 
 Best regards,
 -- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Zhiwei Liang <zhiwei.liang@zliang.me>
+
 
