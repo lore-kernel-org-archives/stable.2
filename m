@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211704;
-	b=2kbZ/zqjBhORce/NCR827eSPc/T+FbRw1h7rjtDf1MSWZpkilFZAjfCbDIQRPEZQzHc8
-	 8G50rDWFsFosZlhwh6rsnx0aCx8WSbTqKh4Wy3FUIHWcFBQaAUvNl4LO8bgGCdQzmVm8u
-	 CEcvSTMxENWQOIT/lhUFHy/ToGMNIk3fQKvFqvlXfZoOqT8oZyIAept/UiXws5KXhMe/5
-	 +23eDqaHgTNXAr8DNvNLbX8eLFgLs5yaMGMyQxBsje5OB7m0WlujbnWGpy8m69cH9JhXy
-	 uSdaHFJbgIe/HGgtQ6bkLfJ8lXmAdShziPiOkAZ1qfJJTnvYH5JtLc27wGYCDMXtI+w==
+	t=1793211709;
+	b=EVkmkpnzZ/5zgdOwwFJPVCpYMW44OYv+fa7eisWTlLGIEZIF50Bm82q7d2xkZm4KSr2r
+	 Uqrr9tHbFLXchv6IWBdZ3MPgGNJ6U6SAtqGDZMXgZvedZ+O+tPLgnkQquUF9kwLYFkxU7
+	 2+FvvYGAx6gaoIMb8cdET0Og8Anon9aPWYBBIu1iu+Vh8FjMf+zkayOL8AN9R8yQxrVXc
+	 ObKLYfpbXIiKvTAW5AMVAQPIt8nqZWnwuokko5MUdTEyW53vUlyg/3xGeFkh/GHBboeW8
+	 U93A0hJ9jLJFNUYSGGD5TYKIMYtcEbr1duOjTWlMFlYhPvNlkCEPWh3AyuqJQUr9R6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211704;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211709;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZITwQFsz24P8y5QzvI7ENnUcWXEya/ZAuiVveWVXWUQ=;
-	b=5OGtxC2iksgKMEhefGLnxDMo/jGLDJJTAwCpE7FiLkOa5MMstkCgmsbpzpLVsSyMYn6o
-	 3FJUYsjT+GbA9wREBRndTtqxCtcx+vIthtyohrzVYqYScRCuos+nXBGjf3+qNy/i8NzHb
-	 uUFfMRQXmaIVO7+yNlnQy/EomRtK/Mb7JFzSSFkoT7FEr/P9iWt/hffhJWKrND/34yY4u
-	 TNO90fEZmHpNCO4RN3TOnhzoiI9Yf7+2T89KVZnQLGFzfHBEDSK6wsi4tQz4rUF8QGY+U
-	 GTRAe68wPaxh3+bjwztTUfz4ELkFkxvJZfpDSeE3al/XzTH706C6Y7THCXPkGHp96TQ==
+	bh=QgzgDbhewHi0FexE7orMsUHpgQ7brg1UWfuWj0sm1zA=;
+	b=1kyj4K6tYR3am9dtjdcfLxKph3wViJj/cuMdizgKvHU04mNO0cHZezi+rW0Tu816ov1t
+	 zdhM+GQOsVi/7Vc0BTOhkuHCkUuBq5ckJwAmmAGfbuH9C+/G99gvQ4I2SB2KPc5ZkdaGI
+	 BlsJB9kC3c5oBZsSA4qeUMPaJ11XGTCbRV5bG2gMw2uQfgCNvteSH9BgwobsOpsmXebCZ
+	 vkZDf59t5ECQp6svGoYer3LE1YlIAswjc35chrNZTxNNZ6tlAp3Xcv+pxFk4HP6FPAy+E
+	 xoc1j5YQTzKGZSEExeG5hy2OFk8q6DTDFr/B6LpaqgGoIy7MX5eb9N0wPHEHR5q7ZyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ksQF+EFG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YPVpsNcL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE23606A31A;
-	Wed, 28 Oct 2026 18:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36ED260A263B;
+	Wed, 28 Oct 2026 18:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ksQF+EFG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDAD1F01825;
-	Wed, 28 Oct 2026 18:21:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YPVpsNcL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EE11F01828;
+	Wed, 28 Oct 2026 18:21:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211703;
-	bh=ZITwQFsz24P8y5QzvI7ENnUcWXEya/ZAuiVveWVXWUQ=;
+	s=korg; t=1793211709;
+	bh=QgzgDbhewHi0FexE7orMsUHpgQ7brg1UWfuWj0sm1zA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ksQF+EFGeR2A+0xzDYF0eGfo4IjwMidx/9nsXIE8NUB1G89YWTJNF++hExbtjXoZn
-	 EZclA47g1ydEGDOgLERo0tcbYxvoDrCwiR6sAChmeOrvOifiQ5Y9T8KX7sG/7eSmHk
-	 5CQv3lBZXp0lyAJbe5mrBJmG+v/JcoDNSATFZnNM=
+	b=YPVpsNcLEqYAxVVOmj0csb3SUsG/is10g/hq4jVjyqN7pIly9hACRvk3gxK4xyhkv
+	 QMLbQXfhGoHfZnWNIzrxOkulETfK/1f28sq9SaCmOhmS/Lxk7NZaGpOY4xeYr6vKge
+	 PFuPeg3KitI48PZrpxHFQ1obMPwSjN7+KPyzK4ho=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Allison Henderson <achender@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 472/571] net/rds: dont let the rdma_cm destroy an id RDS still owns on route failure
-Date: Wed, 28 Oct 2026 18:00:19 +0100
-Message-ID: <20261028170019.221374398@linuxfoundation.org>
+Subject: [PATCH 5.15 474/571] ASoC: cs42l56: Put the Limiter Cushion control on the limiter register
+Date: Wed, 28 Oct 2026 18:00:21 +0100
+Message-ID: <20261028170019.268398335@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -68,61 +68,44 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Allison Henderson <achender@kernel.org>
+From: HyeongJun An <sammiee5311@gmail.com>
 
-[ Upstream commit 98d446b7c013254a8a7b49720557676a3a851fde ]
+[ Upstream commit 203436d2aeb7093290459e344e1912a418a6ebfd ]
 
-rds_rdma_cm_event_handler_cmn() hands the return value of
-rdma_resolve_route() straight back to the rdma_cm on
-RDMA_CM_EVENT_ADDR_RESOLVED.  A synchronous failure there - -ENOMEM
-from the route work allocation, an SA query that cannot be set up, a
-RoCE route with no usable device - makes addr_handler() destroy the
-id the event was delivered on.  That id is ic->i_cm_id, and nothing
-clears the pointer: the connection sits in RDS_CONN_CONNECTING with a
-freed id until its shutdown calls rdma_disconnect() and
-rdma_destroy_id() on it.
+The Limiter Cushion control writes bits 4:2 of the ALC Thresholds
+register. Those bits are ALCMIN, which the ALC MIN control owns. The
+datasheet puts CUSH at bits 4:2 of the Limit Thresholds Control
+register, next to LMAX, which the Limiter MAX control already uses.
 
-The ROUTE_RESOLVED case already avoids this: rds_ib_cm_initiate_connect()
-forces a zero return while ic->i_cm_id == cm_id, as the comment there
-explains.  Do the same here - drop the connection and return 0 - so
-the id stays RDS's to destroy from the shutdown, and the reconnect
-gets a fresh one.
+So setting the limiter cushion changes the ALC minimum threshold, and
+the cushion itself cannot be set.
 
-Fixes: 55b7ed0b582f ("RDS: Common RDMA transport code")
-Assisted-by: LLM
-Signed-off-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20261003163408.250568-3-achender@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Use CS42L56_LIM_THRESHOLD_CTL.
+
+Fixes: 272b5edd3b8f ("ASoC: Add support for CS42L56 CODEC")
+Link: https://statics.cirrus.com/pubs/proDatasheet/CS42L56_F2.pdf
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Link: https://patch.msgid.link/20261008130953.2446692-2-sammiee5311@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/rds/rdma_transport.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ sound/soc/codecs/cs42l56.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
-index f71f073fd27ac..af9510c9e9702 100644
---- a/net/rds/rdma_transport.c
-+++ b/net/rds/rdma_transport.c
-@@ -89,9 +89,19 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm_id *cm_id,
- 		if (conn) {
- 			rdma_set_service_type(cm_id, conn->c_tos);
- 			rdma_set_min_rnr_timer(cm_id, IB_RNR_TIMER_000_32);
--			/* XXX do we need to clean up if this fails? */
- 			ret = rdma_resolve_route(cm_id,
- 						 RDS_RDMA_RESOLVE_TIMEOUT_MS);
-+			if (ret) {
-+				/* A non-zero return has the rdma_cm destroy
-+				 * the id, but it is still ic->i_cm_id, which
-+				 * the connection's shutdown would then
-+				 * disconnect and destroy again.  Drop the
-+				 * connection and keep the id for that
-+				 * shutdown.
-+				 */
-+				rds_conn_drop(conn);
-+				ret = 0;
-+			}
- 		}
- 		break;
+diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
+index f0af8c18e5efa..7e75b98a40059 100644
+--- a/sound/soc/codecs/cs42l56.c
++++ b/sound/soc/codecs/cs42l56.c
+@@ -449,7 +449,7 @@ static const struct snd_kcontrol_new cs42l56_snd_controls[] = {
+ 			0, 0x3f, 0, 0),
+ 	SOC_SINGLE_TLV("Limiter MAX", CS42L56_LIM_THRESHOLD_CTL,
+ 			5, 0x07, 1, alc_tlv),
+-	SOC_SINGLE_TLV("Limiter Cushion", CS42L56_ALC_THRESHOLD,
++	SOC_SINGLE_TLV("Limiter Cushion", CS42L56_LIM_THRESHOLD_CTL,
+ 			2, 0x07, 1, alc_tlv),
  
+ 	SOC_SINGLE("NG Switch", CS42L56_NOISE_GATE_CTL, 6, 1, 1),
 -- 
 2.53.0
 
