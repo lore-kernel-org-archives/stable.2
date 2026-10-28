@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216418;
-	b=tm00SqM16aEn3mN0ZsxQuMzQL0ZcxKpgF5dNb741VSeRtqmCWCwpYiMzZNfSqrbt0o0B
-	 tFNcw5y8J/NWskE4RBNg7qDw0kf8c90ZItksF+uvnA0jDu0DkUssEUoOqa+qGsAeOWhWU
-	 Ye8P0fpPt7c6VE1tI1u0/XmG2PlLGDNUwXQuYoEeeb7yHqMI087vhA9RmGwZWDlUnaq6t
-	 6LISZod1uHI13gn0XZVT7HCxLd4muHtdqlPep5vaRRCQXpjiGgcmdv/dvlFcfSWpeCrXN
-	 qeTyooFoSGUkQhTJsQYIGe/ycWAIFCY2qKvd/fcFG8zW45AtGEMgIkgl7eoFU1M7KtA==
+	t=1793216424;
+	b=3GTZdUjYnCsSTklF8TTszrMRs+mlXJ1VHJESqJspps7h0a+jC//aPqYjhGBi6Bqihd0F
+	 k0DABTN+sWsq+HtlpCxdmhqSIQvOvhKtI67NdhQUGJanklKy2ikgSsOUPzDTTCq2NAAqu
+	 kwIfqQnYoCYuJ1Lfa9yXcuHSB4VJbiMT4VBmhuuKVzqkwDvKgOXN1MlfowUg3G+GgU6wX
+	 /2kVHI4aZo0FXAl1BijUOaY/DFMlFlYiJJdm5BEgK978fMB5Wr1uvga+eUhAmIS1ww5sF
+	 txNfIF8bvVwxIXaIaYDTxfxruanp87YIj6E/AUm5xbA5vSsJki/RYSX9nxVPb1ncVog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216424;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=v5wlOwOXwthGLZ2jPmFgnnMHWopnhCL0pnKJ1GFsv+c=;
-	b=DxrNcJ25QkZPj1KpXZjZ6tSmHw3MOr3cgSqNmoETLO9pCQx1hM0f/KSRRUYBgfNK9rNy
-	 RGg4QtfVSZhn9+L1qJ72gT+WdBi2q4ob/wXXhiFgqLtx0gZS0SGgP03ex0RycLaXppQO8
-	 gswWR1WjIzVgnNhuIP8/Y8cAjuCxadbLxm7RmT+cro+VV7Br0RsZQ+gfj+ChcpwLF+eK9
-	 VcHqqtKkYgxldyfxwFQmvUG6wMi7BzzABDpopgoY7b0xJ2r92BRZcduJLPYe1feyN0U/n
-	 xnb9wueEVmSzjqXEZOZ8552MABF/8MO32eEXbgxTzAlVNognfH0K/isVVQCx8flL1xA==
+	bh=pVUUInu93v8V36I1xc5oN/xdbdSPgnG04rdYpm6Gq78=;
+	b=cOKnFMd0EOQhw0rBJcS6n9wxGs7zt9TV4KJqeD6wxGEvO8+wXv9XSDFtgNdo5Az+RMI1
+	 Co6prGhWQ/clQR8ZlLWf1KADL6IOupNF3Y/uuX/9XHAhbOVF+oYs8DJV6WuR9gEIhD/YZ
+	 ukwu56KC6S9agYrXOwT1ckGjQTQqkLwiIdvU1ZEmAa/CVmDKNVCdefOti6nw36Q8exH5/
+	 kxXv9ThUGkH6TYds9jiVXx6WCd3XR9zT/Yk4eSmYTXg5AMAN5W1UyuEP1/PGbZ9+OKnfT
+	 XREZmLDmCraQRTaOuLfP+0UithbCMoWTlZ7zNhbh4po5jfmz0MY0eSipTqj2orsVXgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZkHoUl73;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v9hRRfF2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AEE60A2604;
-	Wed, 28 Oct 2026 19:40:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2731A606A32F;
+	Wed, 28 Oct 2026 19:40:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZkHoUl73
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BE21F031E0;
-	Wed, 28 Oct 2026 19:40:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v9hRRfF2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464561F01828;
+	Wed, 28 Oct 2026 19:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793216418;
-	bh=v5wlOwOXwthGLZ2jPmFgnnMHWopnhCL0pnKJ1GFsv+c=;
+	s=korg; t=1793216423;
+	bh=pVUUInu93v8V36I1xc5oN/xdbdSPgnG04rdYpm6Gq78=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZkHoUl73WrGyB3lc4ywje639D/HEvrhsAeKttp39Y4KYHIkrwtPZIS+7Vv+VhOLQF
-	 +vxFqBfp6TNVOJJbainCKD454SZvFKbQqSj3Si1THZUpGXwADKQqp/jdFREhsHZA0V
-	 0zcwNRZvK99utzA8o53JvSByEDruzmwDnBIe2cLU=
+	b=v9hRRfF2gnK7+4Yrpv830xCt8VSOAgXClRn5HqXbW0/oUiM1d7ZTrk2KFyxKrQ8gY
+	 BvCZDPqVFCGaPOJXLRlaPETrCisv63HddBLSsT9cyK5MOo12LfIfYBCgwWuqyuTYLY
+	 TyPgKDtCQale0eN/0IgqDenNeyLIf9fVAnukszPw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Usama Arif <usama.arif@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
+	Zizhi Wo <wozizhi@huawei.com>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Bart Van Assche <bvanassche@acm.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1547/1887] blk-iocost: clear delay state when freeing policy data
-Date: Wed, 28 Oct 2026 18:00:43 +0100
-Message-ID: <20261028170534.671291880@linuxfoundation.org>
+Subject: [PATCH 6.1 1549/1887] null_blk: free zones array on device power-off
+Date: Wed, 28 Oct 2026 18:00:45 +0100
+Message-ID: <20261028170534.716602748@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -69,67 +70,92 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Usama Arif <usama.arif@linux.dev>
+From: Zizhi Wo <wozizhi@huawei.com>
 
-[ Upstream commit 97cb95d2148835ae86ff916b145aef332d40439d ]
+[ Upstream commit 2a6357a9b935a34f5508618fee8a7fffbf7722a8 ]
 
-iocg_kick_delay() turns sufficiently large debt into an explicit
-block-cgroup delay with blkcg_set_delay(), setting blkg->use_delay to
--1 and incrementing blkcg->congestion_count.  Clearing it again depends
-on iocg_kick_delay() running from the period timer, the waitq timer or
-the issue path.
+null_init_zoned_dev() allocates dev->zones when a zoned device is powered
+on, but null_del_dev() never frees it on power-off; dev->zones is only
+freed later in null_free_dev(), when the configfs directory is removed. If
+the device is powered off and then on again, null_init_zoned_dev()
+allocates a new array and overwrites the dev->zones pointer, leaking the
+previous allocation each power cycle.
 
-ioc_pd_free() removes the iocg from active_iocgs and cancels its waitq
-timer, and no further bios can arrive, so once it has run nothing is
-left which can reduce the debt and clear the delay.  The blkcg stays
-marked congested for the rest of its life.
+Free dev->zones in null_del_dev() via null_free_zoned_dev() to solve it.
+And calling null_free_zoned_dev() in null_free_dev() is no longer necessary
+because every caller already invokes null_del_dev() first: via
+nullb_group_drop_item() before nullb_device_release(), in the
+null_add_dev() error path of null_create_dev(), and in null_destroy_dev().
+Remove the redundant call.
 
-blk_cgroup_congested() then returns true for every task in that cgroup
-and its descendants: page_cache_sync_ra() cuts readahead to a single
-page, page_cache_async_ra() skips it altogether, and
-__folio_throttle_swaprate() takes swap_avail_lock and schedules a
-throttle on anonymous folio allocation.
+And take &lock around zone_cond_store() in the two store wrappers to
+serialize dev->zones check-and-deref against its alloc/free, which already
+run under &lock. The reason there was no problem before is that only
+nullb_device_release() or null_exit() frees the dev->zones, which
+guarantees that subsequent users won't access the configfs interface.
 
-Clear it explicitly, after the list removal and the synchronous
-hrtimer_cancel() so that neither timer processing nor an I/O path can
-re-arm it.  The free callback can also see policy data which was never
-attached to a blkg, hence the pd->blkg check.
-
-Fixes: 7caa47151ab2 ("blkcg: implement blk-iocost")
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: Tejun Heo <tj@kernel.org>
-Link: https://patch.msgid.link/20260814165712.510132-3-usama.arif@linux.dev
+Fixes: ca4b2a011948 ("null_blk: add zone support")
+Assisted-by: Claude-Code:GLM-5.2
+Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20260725022509.714271-6-wozizhi@huaweicloud.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/blk-iocost.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/block/null_blk/main.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-index eeda41267bd43..814ad657cc56e 100644
---- a/block/blk-iocost.c
-+++ b/block/blk-iocost.c
-@@ -3016,6 +3016,7 @@ static void iocg_release(struct rcu_head *rcu)
- static void ioc_pd_free(struct blkg_policy_data *pd)
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index 237e9a821374c..971dbe77b2947 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -552,8 +552,13 @@ static ssize_t nullb_device_zone_readonly_store(struct config_item *item,
+ 						const char *page, size_t count)
  {
- 	struct ioc_gq *iocg = pd_to_iocg(pd);
-+	struct blkcg_gq *blkg = pd_to_blkg(pd);
- 	struct ioc *ioc = iocg->ioc;
- 	unsigned long flags;
+ 	struct nullb_device *dev = to_nullb_device(item);
++	ssize_t ret;
++
++	mutex_lock(&lock);
++	ret = zone_cond_store(dev, page, count, BLK_ZONE_COND_READONLY);
++	mutex_unlock(&lock);
  
-@@ -3038,6 +3039,12 @@ static void ioc_pd_free(struct blkg_policy_data *pd)
- 		hrtimer_cancel(&iocg->waitq_timer);
+-	return zone_cond_store(dev, page, count, BLK_ZONE_COND_READONLY);
++	return ret;
+ }
+ CONFIGFS_ATTR_WO(nullb_device_, zone_readonly);
+ 
+@@ -561,8 +566,13 @@ static ssize_t nullb_device_zone_offline_store(struct config_item *item,
+ 					       const char *page, size_t count)
+ {
+ 	struct nullb_device *dev = to_nullb_device(item);
++	ssize_t ret;
+ 
+-	return zone_cond_store(dev, page, count, BLK_ZONE_COND_OFFLINE);
++	mutex_lock(&lock);
++	ret = zone_cond_store(dev, page, count, BLK_ZONE_COND_OFFLINE);
++	mutex_unlock(&lock);
++
++	return ret;
+ }
+ CONFIGFS_ATTR_WO(nullb_device_, zone_offline);
+ 
+@@ -746,7 +756,6 @@ static void null_free_dev(struct nullb_device *dev)
+ 	if (!dev)
+ 		return;
+ 
+-	null_free_zoned_dev(dev);
+ 	badblocks_exit(&dev->badblocks);
+ 	kfree(dev);
+ }
+@@ -1825,6 +1834,7 @@ static void null_del_dev(struct nullb *nullb)
  	}
  
-+	/* off ->active_iocgs and timer gone, so nothing can re-arm the delay */
-+	iocg->delay = 0;
-+	iocg->indelay_since = 0;
-+	if (blkg)
-+		blkcg_clear_delay(blkg);
-+
- 	call_rcu(&pd->rcu_head, iocg_release);
- }
- 
+ 	put_disk(nullb->disk);
++	null_free_zoned_dev(dev);
+ 	if (dev->queue_mode == NULL_Q_MQ &&
+ 	    nullb->tag_set == &nullb->__tag_set)
+ 		blk_mq_free_tag_set(nullb->tag_set);
 -- 
 2.53.0
 
