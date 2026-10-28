@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210358;
-	b=PjhzxZeCccfKAImx/g146w20WJKJ1SbbLmV5rIJrx9HWPfOvh4uBMBgV99y3Tm8tfLX8
-	 KFY3OAVU+VBc4nMMtYTU1YIjqHKgcPCwloKP8ePzVKvdTJEDn1VE2XOFmxdlCIP5qCz2P
-	 KKrLePuDz909jWFkAhEPYSct6b5GuzsHn/A9rLskS7qMSrod63dE+UBZdqSJPux+UskiL
-	 Am3yuGLWuZuCs3BzCtZlWTaa5Oj6ttO6vlsCqb7TPwnQQNJz7vtMPT6jGr5cMssfpB1J/
-	 Hy8g/e+n6KGWGIKBxqOJ9F5RFkUrF1bQ1HP0IXRxFbyO8+ETKfsk/7TIyzNzgMdGF+Q==
+	t=1793210361;
+	b=M1KDVskDT/7coGHpkqJhb9YpPMzj8CP/hOf92n00H5cfBOHQ/6eXMGTh/3txwciQBb0d
+	 EYpCz3lt3k+/eZmrx48suCaVV5B6tcAUNAfJQA2+sxuIk2eTgN4TPR9PRYceQizi4gdOO
+	 M71u2fmfCJNNLnG/lKddGGWSfXstv2HRwPkgORJJlKjVGJXKIa8JkzR0QNmAA7prm9xpO
+	 IEqwGtAmQzgKWECA1aZnJgpnHxyK96HuX1RXRrfnfU4mID7LKkVcWoSBg/UQ5Mfl8IHaZ
+	 kdZrW7L95OU8xA/EzB02nTMScn2jGjBLba3DRPpbvT8KpWyDAJecMDOLXmtPt0VgXrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210358;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=Eh9GwoLVMgmNZ62WNytvVSU9PhVgHMPUUYHuzX/DhFs=;
-	b=i+tf4kkJgRXg9W1zvG2QJYS/51lpLCFW7IPnMih3s8728IygXsxKAJRw5LFL3oa9YUDI
-	 8hPx1Rgr5TSFx8g+jEo1/kaQjvnOAF6fzKxx3yzaB9DKV6bpXtIijAzzBe2dNwI8OH5+h
-	 XS6KGrIqHL45ESN3dJ7ONA1UJyuc3IBnDyEzI6V5LCT0BylDKYZZAJ3qv68lCQtLCErEq
-	 8R6pT1ufyvKLoKOOAJY5YXG8OVuG0g0oC25CXKPPXd1uRvZy5Qdmn9q6Z4TNoySDKHqAb
-	 VSmssoTBA2WTeSuV4v9DACzw92Sy4BLN45T0DwxAFKkARxq6aMiYeXiRyQKppdbWm7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210361;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fHmk9IhjDzNGFRQONKeygSRypZO1N4L0Qan3VyXPt+o=;
+	b=eTV+b73YfkP7ZL2aOfX+C+2pWU8rAoGKoAKYMrPvaa803Ntl9jySpJ6VHPuz/SlU6mfC
+	 i9lCyPJ1MpYlT7Y1zC2FDLQ41kRyCYmc+cfSpvId1+nA5dVjvWK6tcuNJwC7Dqj0H2fZn
+	 zXbdYhhL1oBcLXI39lojY5PTgppz7n+PcxUi6FOADxNZo9mk/rIIKvd21aDG+FbYH2O4e
+	 DmpfagdvdUUA4HdLErC3k/z5npkVCWYZfn7vN4isegSHLjAAqNYmA5tU5/1v6jL9uRWba
+	 D/JPSlrhEhCwQjrpp5OTJ7YLaPGXzGQuEvB2wCbpxOhgyU5CoxnU937uOhR83fnZH7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=hGa1Vj7h;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F+Wz5a6d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47486606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47486606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4FC606A31C;
+	Wed, 28 Oct 2026 17:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=hGa1Vj7h
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1789828eec.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:59:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1793210357; x=1793815157; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Eh9GwoLVMgmNZ62WNytvVSU9PhVgHMPUUYHuzX/DhFs=;
-        b=hGa1Vj7hR9r4F/qhRM6dR47k4qUEF/WrrFO74syjl2qbie1CNeNWfdzKaj6Qe97wEe
-         ctcUdGBZkqM/jkbDlCqX8sKigtNMsQfy/D2JMGzryQtuKRWWMHCJ8lprsolMCQSx0W5E
-         qBxOqCQQKLwrxkNiRor8MreviVH3W+kSws9zYZF/ZWIcSfNXm/sLFOl8wtqazDc5GEOp
-         YMY/Qrbjg0d1K5KvRG5+bdjQVs5+s8ljCFoy5o7bEh/0/GpmLfEEdzPS93mspdo+9NKr
-         cGdiSODncL9Mf+HBEfRwSBEMmBh8xqsu/N6rzBdr/XUeuwqCv6mfaulQqXExg799v5HJ
-         jZAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793210357; x=1793815157;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Eh9GwoLVMgmNZ62WNytvVSU9PhVgHMPUUYHuzX/DhFs=;
-        b=rtISnHe9/xKkMNE7JteWNpXlHe0c4xQhCjbYZgQuilX3LI8ZJmWW6J6vH6ZbxjUW5Y
-         9R7739Fbp4eFtC4gqnZQX9G5mj7apIK2rJ1IGY/APPV6tOkWVm3CpTWAu2aVw4SB/0N/
-         bEzF+HcnVsoHTQzwNXbKsI2ZNciy6AvCgJjlZYxvgBjwRhpgL2roXdlt7fKRtn19yHkb
-         5UFJFukFBrOWqJ0h5Gjb0FX37vEIh6iILOsfCSLdDUc6WFGbbtOyHJLsLfWk5lyOpwSc
-         uFuJJp9yUtSvOSdHmBvNIp65lISMNZYwSMeRyOYp7UnmPPWo7jE/gkBHmuPhG8yhMTka
-         6KYQ==
-X-Gm-Message-State: AFq9FYInSKFU2p1JB9mYACs6CkC/fatRnrTMednAl8/XH4RJS8gli3dD
-	nGhEMPMgnInQavVwLaa3yARxTSk73oTPwd9/wp2ctpuEYL48rEUMWjz2eR64sKGfXsFBqkcpp7c
-	7I8nz
-X-Gm-Gg: AYBFou0sJWRfR0vFxyHgyccGGqxT2mSRNoNeHOVhoGgVJovgvdbm3rWoU+OaqcNlP7R
-	v6lu+2lzzKQi/4VA/YbgMcwmRdGL7Fglh+4GbVXBkaevwoczVPNe2bhROCDpgL8LheqlgmHhJ/v
-	65kAW2qyjfBdEs/fS2kd8THA7Yo1A+Ds8FMS52YxGf6q+mvrkGUPOUQ3vZDnI1RyUmKPKXvtB2u
-	LTK22WCfE3bN4H4IlTz1C+G2huSWvm6n0BtF39zcgoyIc/4337qK7bqJNIjZMdFfjXqsA1+dksZ
-	BpiIf4zuAgcc0WiPRQGM/9yMluslE3gWfoFaUn4VRnSA4X3TSiGDFcWahyeuBRkq3NFbB5BjePC
-	w94i9ZedGz6qKfBE1jcNgGWpYmQeFFZBVyoK7FKuUJQx6rM2UuX/H9v4duBul/IZpgKSdUvCt97
-	IJbUHalgLjsVwiEuZHoTMz+EuijeCtsAK3G8dXZaPrhg1Xc/3HV2YQXnrJTVFSDPQnGIT57y090
-	nXZ/ZTDn7Og+ixsvKelJvMqzku0FzXKhgMDTjmkugQZhZPut0kng9yBCvKPYYD93OS6imMQshFT
-	mfv4jWDRxHWTHC13LMAgXw==
-X-Received: by 2002:a05:7301:5401:b0:36a:1c46:2766 with SMTP id 5a478bee46e88-36a1ff47835mr4552507eec.3.1793210356913;
-        Wed, 28 Oct 2026 10:59:16 -0700 (PDT)
-Received: from 4cb1f8191411 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239198c9sm8104848eec.15.2026.10.28.10.59.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:59:15 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F+Wz5a6d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF151F01825;
+	Wed, 28 Oct 2026 17:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793210360;
+	bh=fHmk9IhjDzNGFRQONKeygSRypZO1N4L0Qan3VyXPt+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=F+Wz5a6dVUNA74UWVA+4XvUADNjuVuv9kSnwZFO679gpSopT5yKQA1zV+omYoN06l
+	 vKjglrXuAlGQfweaC4SLKNrjhSiwfIXe1h+0jeM4PjFkcbLawm3BFcpbVTm1IuHI8c
+	 i1wXLTXvDe2jDCzQldFTxaBr6tyoKo4kNuh1nzlE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 6.6 168/168] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+Date: Wed, 28 Oct 2026 18:01:44 +0100
+Message-ID: <20261028165947.064021119@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
+References: <20261028165943.089486480@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,65 +61,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.1.y:
- (build)./include/linux/highmem.h:427:7:
- error: call to undeclared function...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+6.6-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Christian Brauner <brauner@kernel.org>
+
+commit 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21 upstream.
+
+TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
+return to userspace and run task work and then go back to sleep. This
+mechanism works well but breaks e.g., coredumps. dump_interrupted() only
+allows fatal signals to interrupt a coredump and the whole regular write
+path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
+well.
+
+Add PF_NO_NOTIFY_SIGNAL and helpers to raise and restore it. This is the
+same approach as memalloc_nofs_save(). signal_pending() will not report
+a fake pending signal via TIF_NOTIFY_SIGNAL if inside a
+PF_NO_NOTIFY_SIGNAL section.
+
+No functional changes.
+
+Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-1-6609e42b3157@kernel.org
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 28 Oct 2026 17:59:15 -0000
-Message-ID: <179321035478.43309.886260693125590668@kernelci.org>
-
-New build issue found on stable-rc/linux-6.1.y:
-
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-./include/linux/highmem.h:427:7: error: call to undeclared function 'folio_test_highmem'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in arch/x86/kernel/asm-offsets.s (arch/x86/kernel/asm-offsets.c) [logspec:kbuild,kbuild.compiler.error]
----
+ include/linux/sched.h        |    2 +-
+ include/linux/sched/signal.h |   27 +++++++++++++++++++++++++--
+ 2 files changed, 26 insertions(+), 3 deletions(-)
 
-Log excerpt:
-=====================================================
-In file included from arch/x86/kernel/asm-offsets.c:13:
-In file included from ./include/linux/suspend.h:5:
-In file included from ./include/linux/swap.h:9:
-In file included from ./include/linux/memcontrol.h:22:
-In file included from ./include/linux/writeback.h:13:
-In file included from ./include/linux/blk_types.h:10:
-In file included from ./include/linux/bvec.h:10:
-./include/linux/highmem.h:427:7: error: call to undeclared function 'folio_test_highmem'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-  427 |                 if (folio_test_highmem(folio) &&
-      |                     ^
-./include/linux/highmem.h:448:7: error: call to undeclared function 'folio_test_highmem'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-  448 |                 if (folio_test_highmem(folio) &&
-      |                     ^
-2 errors generated.
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1768,7 +1768,7 @@ extern struct pid __rcu *cad_pid;
+ 						 * I am cleaning dirty pages from some other bdi. */
+ #define PF_KTHREAD		0x00200000	/* I am a kernel thread */
+ #define PF_RANDOMIZE		0x00400000	/* Randomize virtual address space */
+-#define PF__HOLE__00800000	0x00800000
++#define PF_NO_NOTIFY_SIGNAL	0x00800000	/* see no_notify_signal_save() */
+ #define PF__HOLE__01000000	0x01000000
+ #define PF__HOLE__02000000	0x02000000
+ #define PF_NO_SETAFFINITY	0x04000000	/* Userland is not allowed to meddle with cpus_mask */
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_SCHED_SIGNAL_H
+ #define _LINUX_SCHED_SIGNAL_H
+ 
++#include <linux/cleanup.h>
+ #include <linux/rculist.h>
+ #include <linux/signal.h>
+ #include <linux/sched.h>
+@@ -389,14 +390,36 @@ static inline int task_sigpending(struct
+ 	return unlikely(test_tsk_thread_flag(p,TIF_SIGPENDING));
+ }
+ 
++/* Prevent TIF_NOTIFY_SIGNAL from interrupting this task. */
++static inline unsigned int no_notify_signal_save(void)
++{
++	unsigned int flags = current->flags;
++
++	current->flags |= PF_NO_NOTIFY_SIGNAL;
++	return flags;
++}
++
++/* Restore the previous PF_NO_NOTIFY_SIGNAL state. */
++static inline void no_notify_signal_restore(unsigned int flags)
++{
++	current_restore_flags(flags, PF_NO_NOTIFY_SIGNAL);
++}
++
++DEFINE_LOCK_GUARD_0(no_notify_signal,
++		    _T->flags = no_notify_signal_save(),
++		    no_notify_signal_restore(_T->flags),
++		    unsigned int flags)
++
+ static inline int signal_pending(struct task_struct *p)
+ {
+ 	/*
+ 	 * TIF_NOTIFY_SIGNAL isn't really a signal, but it requires the same
+ 	 * behavior in terms of ensuring that we break out of wait loops
+-	 * so that notify signal callbacks can be processed.
++	 * so that notify signal callbacks can be processed. Not for a task
++	 * that asked not to be interrupted by it, see no_notify_signal_save().
+ 	 */
+-	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)))
++	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)) &&
++	    likely(!(READ_ONCE(p->flags) & PF_NO_NOTIFY_SIGNAL)))
+ 		return 1;
+ 	return task_sigpending(p);
+ }
 
-=====================================================
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:daaa02ead83cf5a16ca22ac85c78d08cd6a7f510
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  406de00ce2971abe3010eaabc26c71e84b4ee9b3
-
-# Builds where the incident occurred:
-
-## i386_defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (i386):
-- compiler: clang-21
-- config: https://files.kernelci.org/kbuild-clang-21-i386-allmodconfig-6ae228b25c0836a8c2f04add/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ae228b25c0836a8c2f04add
-
-#kernelci issue maestro:daaa02ead83cf5a16ca22ac85c78d08cd6a7f510
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
