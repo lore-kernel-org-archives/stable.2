@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207926;
-	b=4u57iDo9vNwUez8OAXxz4oDyQipDDWHLIShO6E3inqaKUqqRU5jg4AEEsZWtSg/OnGi+
-	 06S0Ap63BJ2fsLDLNO5l+MZhmmwRmKGC+QsLQTPmbbzTpaOs/WM0d3gGxkWItywzRmzmL
-	 5tCZ8vGTkU/j7lUQbVla4tBMpf+36cB6Gm+AQ0aekkfScCzMB9BZAoqTkkbeC5OuMW4sE
-	 Li5Om0pHCdUY14jKVmuuSGOl52HlHoHi5lD8ArShL9sYyQxGplpO/F5e5Kyh5Fnw1weXf
-	 rNs+s5iOQjOfIACRbhOlm/RWWd+9M4Y5ryURsxBPExX1ufWmsb6X/P1DXHJ7HZMKvzA==
+	t=1793207938;
+	b=FFTmOT+HvAbsneLsFdUD7zauEDN2qB6tO143B54e8+t57ZFDm9cl/gbGRbwJ4/wwBEEO
+	 2UJjkV9Zj1eP6vE6omOn4ppnolTim5Pg4ZFm0mMSABIgs48b0eNKWF3f9T3FN4HUSZ1k5
+	 gfrp1La3OH3ri5q2ASM2zvPDevbq36o/7UDMf6jqPPvD35blDgd6osH5Cyzx0WxQLzdq7
+	 Xl+HwJupMOvzst8vs2tkYhrGMZvBVQzowGmVlpsD5qQzdCj+GYMp4HwvM7L06Mov6EodV
+	 QZhPL2P/7WetSih0aWyiG/r9SUo5UhdDrUMm7bcPopRqBir83NJUDc8/qGgLjTRHLYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207926;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207938;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=y/+Va4pp0fMvk3R7MY8CkpT3g2yoQXKI+fmktMZEA1Y=;
-	b=EvKiKLS4tFiCYB0THKDifBq6Zi5v/lwCZG2Tj7l+He+C10hqmWs2eCNTKt7HM50EEFec
-	 lZXYziMHQMSkr4d6jx1ZcfjgvyRiVOLXtgyJIq0I4d0HHXQvDMO+5aFbcxCvEDZ/xLsqV
-	 THwAvNbcSgK5onEt10omonGhQFy3eOuM5T4HR9+slLSuqq5pf2JAD6fa1d/4EaP/q1xy3
-	 Agtxmn50LwdVrvD9o5bQSUqGvJeDLVA+tRCYwwAy5xNUGm4/bh0OeiSh5ASM0FzOcHHau
-	 qe2sJnVFoPYf76O/CYRX27190BBhkR5uWWJBl1BMzLUV5OdKImZ/so0AofczFo/z8Hw==
+	bh=NwNkXY3sjhcB3DI25mOq3EMAnpbghlYra29ElyPCm68=;
+	b=DRCH/T3xYYjEQ97InZXVwJZq0RGDDn+t3DLxoYs8sST3F1AVkGH/DC7X81yaLyPQT1bn
+	 uQNxEXIo72WySIcpod9p+598BA43FwFWS4xsUsUwIlrYyuTg6MIdOKC1EgEM+7DnUvU9b
+	 RC89d5OcsETePQkjS6ZI5inyXpBus6ahYFWP3IAfyHIk+hFOIKHUNe/bH9jmQUnoAELfo
+	 nEW03w3K1+3aXiYlFyzT7IbweqVDz/VIin/M3wMXvbQ6JkODJEQdKXKssW4sq47HQqiob
+	 qrU2lcf5JbXaKyAkfl50I4DTe8QTdbyPCMlF3vSshBLrN3lxlUvUGeGkQVwWeJjixlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mIkGkoT7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dU7BxS89;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A76606A325;
-	Wed, 28 Oct 2026 17:18:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63D3606A31E;
+	Wed, 28 Oct 2026 17:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mIkGkoT7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E101F01828;
-	Wed, 28 Oct 2026 17:18:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dU7BxS89
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13EF71F01825;
+	Wed, 28 Oct 2026 17:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207926;
-	bh=y/+Va4pp0fMvk3R7MY8CkpT3g2yoQXKI+fmktMZEA1Y=;
+	s=korg; t=1793207937;
+	bh=NwNkXY3sjhcB3DI25mOq3EMAnpbghlYra29ElyPCm68=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mIkGkoT7FdMRJHcnpvtmi/JlS8AXfriCdha12I7+GBBrXPVxKlgiMNonDgHsv+dJQ
-	 qia1KU+SwCX3Iuknfy293ikZSwsjrjpd3JpgInecpTr+hIfBgOrnArSGd7gvthB0q0
-	 5tYAcUX0PahCG+bwsIymmNSlL8U0xD3CQCXM5u1U=
+	b=dU7BxS89oRXXQzCGFBQDnPrhQdqFl7jzflq1G2rsT6rgSx0Q3k6sIOQRBDJmzKcWC
+	 lA8ke1ugi4Vi3GKljuWixn1+x8MSSy+QHAN+KjI4vbtG3POYqqLFELMtIOjlmYWCL6
+	 tnvh1q/BCgRvMV7Lh+Kje/jGLJNy81cTyRtREJRE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	sashiko-bot@kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH 6.12 189/247] tracing: Unregister field variable histograms when the command fails
-Date: Wed, 28 Oct 2026 17:59:52 +0100
-Message-ID: <20261028165951.894449201@linuxfoundation.org>
+	syzbot+caa052a0958a9146870d@syzkaller.appspotmail.com,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 175/247] ax25: wait for ax25_send_frame() before detaching the connections of a device
+Date: Wed, 28 Oct 2026 17:59:38 +0100
+Message-ID: <20261028165951.565534342@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
 References: <20261028165947.349197979@linuxfoundation.org>
@@ -68,92 +68,198 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Bernard Pidoux <bernard.f6bvp@gmail.com>
 
-commit 91c14d6c13096091c56304120aaa26e479130b8b upstream.
+A connection created by ax25_send_frame(), for ROSE, NET/ROM or IP
+over AX.25, points to the ax25_dev of its device without holding a
+reference on it. It relies on ax25_kill_by_device() to detach it when
+the device goes down, before ax25_dev_device_down() frees the ax25_dev.
 
-An action that names a field on another event needs that field as a
-variable, so create_field_var_hist() registers a second hist trigger on
-that event to provide it, and records it in
-target_hist_data->field_var_hists[].
+On NETDEV_DOWN the two run one after the other. In between, the
+ax25_dev is still on ax25_dev_list, so ax25_send_frame() still finds
+it, creates a connection and adds it to ax25_list after
+ax25_kill_by_device() has finished walking that list. The connection is
+left with a pointer to an ax25_dev that is freed a moment later, which
+ax25_find_cb() and the AX.25 timers then dereference:
 
-If a later part of the same command fails, create_actions() returns an
-error and event_hist_trigger_parse() jumps to out_free. The write fails
-with -EINVAL and sched_switch gets no trigger, but:
+  BUG: KASAN: slab-use-after-free in ax25_find_cb+0x2ed/0x330 [ax25]
+  Read of size 8 at addr ffff8880031e8c10 by task repro/3287
+   ax25_find_cb+0x2ed/0x330 [ax25]
+   rose_transmit_link+0xea/0x560 [rose]
+   rose_write_internal+0x3ab/0x15b0 [rose]
+   rose_release+0x2b2/0x4b0 [rose]
+  Allocated by: ax25_dev_device_up, ax25_device_event
+  Freed by: kfree_rcu_monitor, queued from ax25_device_event
+  The buggy address is located 16 bytes inside of
+   freed 256-byte region, cache kmalloc-256
 
-  # echo 'hist:keys=pid:ts0=common_timestamp.usecs' >> \
-      events/sched/sched_waking/trigger
-  # echo 'my_synth u64 lat; int a; int b' >> synthetic_events
-  # echo 'hist:keys=next_pid:wakeup_lat=common_timestamp.usecs-$ts0:\
-      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio,nosuchfld)'\
-      >> events/sched/sched_switch/trigger
-  # cat events/sched/sched_waking/trigger
-  hist:keys=pid:vals=hitcount:ts0=common_timestamp.usecs:sort=hitcount:size=2048:clock=global [active]
-  hist:keys=pid:vals=hitcount:synthetic_prio=prio:sort=hitcount:size=2048 [active]
+This is the trace of the syzbot report below. An earlier commit, "rose:
+use timer_shutdown_sync() for t0timer teardown", attributed that
+report to the ROSE t0 timer; the freed object in the report is the
+ax25_dev, as it is here.
 
-The second histogram is the one created for 'prio'. It is still active and
-still counting.
+A connection that is on the list in time is not safe either while it
+is still being set up: ax25_kill_by_device() can detach it, clearing
+its ax25_dev pointer, between the moment ax25_send_frame() adds it and
+the moment it starts the link and queues the frame, which then
+dereference NULL.
 
-out_free reaches destroy_field_var_hists(), which frees the
-field_var_hists[] entries, but never unregister_field_var_hists(), which is
-what removes the triggers and runs only from event_hist_trigger_free(). The
-entry is freed and the trigger is left with nothing tracking it.
+Make the two exclude each other with RCU. ax25_send_frame() now runs
+entirely under rcu_read_lock() and gives up when the device is no
+longer marked up. ax25_kill_by_device() clears device_up and calls
+synchronize_rcu() before it walks the list: once that returns, every
+connection ax25_send_frame() was working on is complete and on the
+list, and no new one can appear behind the walk. This adds one RCU
+grace period to taking an AX.25 interface down.
 
-Unregister the field variable histograms in out_free as well, and record
-each one as soon as its trigger is registered rather than after the lookup
-that follows it, so no exit can leave a registered trigger untracked. The
-entry then belongs to field_var_hists[] and is released by
-destroy_field_var_hists(), so freeing it on that exit would be a double
-free.
+Tested on 6.12.94 with KASAN and lockdep, with the modules of this
+tree and the rest of this series:
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914104036.1768529-1-donggeunyoo.kernel@gmail.com
-Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260913204302.DB2551F000FF@smtp.kernel.org/
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ - with a 100 ms delay inserted between ax25_kill_by_device() and
+   ax25_dev_device_down(), a single "ifconfig bpq0 down" during eight
+   ROSE call requests left connections on the list and ended in a
+   use-after-free in ax25_heartbeat_expiry(); with the series the list
+   is empty after the down and there is no report;
+
+ - the syzbot C reproducer, with the interface brought up again in a
+   loop, caused 217 KASAN reports and a panic after 41 seconds; with
+   the series it ran for 600 seconds without any report;
+
+ - 60 plain "ifconfig bpq0 down" / "up" under 20 ROSE call requests
+   per second, and a ROSE call through a three node chain over mkiss,
+   behave as before;
+
+ - eight ROSE calls started at the same instant still end up on a
+   single AX.25 connection.
+
+Reported-by: syzbot+caa052a0958a9146870d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=caa052a0958a9146870d
+Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
+Assisted-by: Claude:claude-opus-5-5
+(cherry picked from commit 45071a40f7d5db10350dbd177decd3f68fdaaa01)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ net/ax25/af_ax25.c  | 12 +++++++++++-
+ net/ax25/ax25_out.c | 38 ++++++++++++++++++++------------------
+ 2 files changed, 31 insertions(+), 19 deletions(-)
 
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3093,20 +3093,18 @@ create_field_var_hist(struct hist_trigge
+diff --git a/net/ax25/af_ax25.c b/net/ax25/af_ax25.c
+index 0a5cd835d289d..11ac6c83b1442 100644
+--- a/net/ax25/af_ax25.c
++++ b/net/ax25/af_ax25.c
+@@ -81,7 +81,17 @@ static void ax25_kill_by_device(struct net_device *dev)
  
- 	kfree(cmd);
- 
-+	n = target_hist_data->n_field_var_hists;
-+	target_hist_data->field_var_hists[n] = var_hist;
-+	target_hist_data->n_field_var_hists++;
+ 	if ((ax25_dev = ax25_dev_ax25dev(dev)) == NULL)
+ 		return;
+-	ax25_dev->device_up = false;
++	WRITE_ONCE(ax25_dev->device_up, false);
 +
- 	/* If we can't find the variable, something went wrong */
- 	event_var = find_synthetic_field_var(target_hist_data, subsys_name,
- 					     event_name, field_name);
- 	if (IS_ERR_OR_NULL(event_var)) {
--		kfree(var_hist->cmd);
--		kfree(var_hist);
- 		hist_err(tr, HIST_ERR_SYNTH_VAR_NOT_FOUND, errpos(field_name));
- 		return ERR_PTR(-EINVAL);
++	/*
++	 * ax25_send_frame() creates connections that hold no reference on
++	 * the ax25_dev: they rely on the walk below to detach them before the
++	 * ax25_dev is freed. It runs under rcu_read_lock() and gives up when
++	 * device_up is clear, so once this returns every connection it was
++	 * setting up is complete and on the list, and no new one can appear
++	 * behind the walk.
++	 */
++	synchronize_rcu();
+ 
+ 	spin_lock_bh(&ax25_list_lock);
+ again:
+diff --git a/net/ax25/ax25_out.c b/net/ax25/ax25_out.c
+index eeb2aa1e2186f..f082b69126623 100644
+--- a/net/ax25/ax25_out.c
++++ b/net/ax25/ax25_out.c
+@@ -34,34 +34,34 @@ ax25_cb *ax25_send_frame(struct sk_buff *skb, int paclen, const ax25_address *sr
+ 	ax25_dev *ax25_dev;
+ 	ax25_cb *ax25, *existing;
+ 
++	/*
++	 * The connection made or used here holds no reference on the
++	 * ax25_dev. ax25_kill_by_device() clears device_up, waits for the RCU
++	 * readers and only then detaches the connections of the device: stay
++	 * under the RCU read lock until the frame is queued, and do not start
++	 * anything on a device that is going down.
++	 */
++	rcu_read_lock();
++	ax25_dev = ax25_dev_ax25dev(dev);
++	if (!ax25_dev || !READ_ONCE(ax25_dev->device_up)) {
++		rcu_read_unlock();
++		return NULL;
++	}
++
+ 	/*
+ 	 * Take the default packet length for the device if zero is
+ 	 * specified.
+ 	 */
+-	if (paclen == 0) {
+-		rcu_read_lock();
+-		ax25_dev = ax25_dev_ax25dev(dev);
+-		if (!ax25_dev) {
+-			rcu_read_unlock();
+-			return NULL;
+-		}
++	if (paclen == 0)
+ 		paclen = ax25_dev->values[AX25_VALUES_PACLEN];
+-		rcu_read_unlock();
+-	}
+ 
+ 	/*
+ 	 * Look for an existing connection.
+ 	 */
+ 	if ((ax25 = ax25_find_cb(src, dest, digi, dev)) != NULL) {
+ 		ax25_output(ax25, paclen, skb);
+-		return ax25;		/* It already existed */
+-	}
+-
+-	rcu_read_lock();
+-	ax25_dev = ax25_dev_ax25dev(dev);
+-	if (!ax25_dev) {
+ 		rcu_read_unlock();
+-		return NULL;
++		return ax25;		/* It already existed */
  	}
  
--	n = target_hist_data->n_field_var_hists;
--	target_hist_data->field_var_hists[n] = var_hist;
--	target_hist_data->n_field_var_hists++;
--
- 	return event_var;
+ 	if ((ax25 = ax25_create_cb()) == NULL) {
+@@ -69,7 +69,6 @@ ax25_cb *ax25_send_frame(struct sk_buff *skb, int paclen, const ax25_address *sr
+ 		return NULL;
+ 	}
+ 	ax25_fillin_cb(ax25, ax25_dev);
+-	rcu_read_unlock();
+ 
+ 	ax25->source_addr = *src;
+ 	ax25->dest_addr   = *dest;
+@@ -78,6 +77,7 @@ ax25_cb *ax25_send_frame(struct sk_buff *skb, int paclen, const ax25_address *sr
+ 		ax25->digipeat = kmemdup(digi, sizeof(*digi), GFP_ATOMIC);
+ 		if (ax25->digipeat == NULL) {
+ 			ax25_cb_put(ax25);
++			rcu_read_unlock();
+ 			return NULL;
+ 		}
+ 	}
+@@ -91,10 +91,11 @@ ax25_cb *ax25_send_frame(struct sk_buff *skb, int paclen, const ax25_address *sr
+ 	if (existing) {
+ 		ax25_cb_put(ax25);
+ 		ax25_output(existing, paclen, skb);
++		rcu_read_unlock();
+ 		return existing;
+ 	}
+ 
+-	switch (ax25->ax25_dev->values[AX25_VALUES_PROTOCOL]) {
++	switch (ax25_dev->values[AX25_VALUES_PROTOCOL]) {
+ 	case AX25_PROTO_STD_SIMPLEX:
+ 	case AX25_PROTO_STD_DUPLEX:
+ 		ax25_std_establish_data_link(ax25);
+@@ -121,6 +122,7 @@ ax25_cb *ax25_send_frame(struct sk_buff *skb, int paclen, const ax25_address *sr
+ 	ax25_start_heartbeat(ax25);
+ 
+ 	ax25_output(ax25, paclen, skb);
++	rcu_read_unlock();
+ 
+ 	return ax25;			/* We had to create it */
  }
- 
-@@ -6915,6 +6913,8 @@ static int event_hist_trigger_parse(stru
- 
- 	trigger_data_free(trigger_data);
- 
-+	unregister_field_var_hists(hist_data);
-+
- 	destroy_hist_data(hist_data);
- 	goto out;
- }
+-- 
+2.53.0
+
 
 
