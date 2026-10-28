@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187571;
-	b=phq5oHV8Vaz707njLp7bHQGFRPsv6zesAhTZPEUDlORwTELWTeREO34waDMY6tuhMCL8
-	 +mkUOyZb5WxF9mJSjfOb0HC87fkIepTlOkEW2Qe9EZX/7LpA3Qh9mdyR+hfUX/iI14YYq
-	 6YP/jV2YvDbrfIJcZiviBU+IHaOt+dGZ5Z6BzQsNP/ieJfbPMX529LEQdYCvVeGTJNZf3
-	 FDpXLKILdyB6S6/aaqKkFOTeAMGcsG9NMf6ekEp6p00qE9vqBHom4gqDBMdZl8M1dDE8x
-	 jqX63FNWpwgap+kdeJfl1yQZgP/psipRjxUHfPbelLS0lWCKLUahW5Gg0Le5wVLgpwQ==
+	t=1793187637;
+	b=0xGfddvWVnbF4/3I8SBXeREnWnKU5ZaRxhlPs7EcMd2xXnMIQCkMelQwG/IuJig7X2nh
+	 cQ2IH/zEcIKzw87efdV7Go9NGq2/iRHyMmMZw3XLrez7Lm26gtb7dlbNqUdYqGW6uvw7c
+	 1oL1UK11qYBEcnZJRHhqIsCYscykCgjTKjVWImVHNI+TmA5h5JsPElsSd2CHfZIa2BWhY
+	 s2G/+UUYnugfHISOwjtuRgi+B5tsv5jeI2lKg8liE6Ol+OpbgHNbDAdiQ9RX5SgoE+cc7
+	 1S592S/GU9F2D3CtW67WZikzNu+ALurK5OuP8C6f3qJ2XTvUEayZblqfSThXNG18rZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187571;
-	h=DMARC-Filter:DKIM-Signature:To:Cc:Date:Mime-Version:References:
-	 X-Original-From:From:Content-Type:Subject:Message-Id:X-Mailer:
-	 In-Reply-To:X-Lms-Return-Path:Content-Transfer-Encoding;
-	bh=N8AoCKZvvK133MhCYQj3502MyrqrutxmSZ+xIyFehZg=;
-	b=3kKZPINGkPAeQv3ouoN+vjSg9S+yaPs/aDhdI7ctUemriLdJNbpdM6v0VErWaolYYX4X
-	 82z8ODqU/19/t9jRkmbmecZWkiBQZcqk8gFX2jhTeb+rEjp6zt0r+tF4ry7HrL9Wmawyo
-	 8Um0+D6eaYkNY21QixopDEI3Q7cAWnFJm4vxxg/JpC6Eo7mthiklPZVuQ4pSLMd/ItrFH
-	 WE7y+s07r1N7mpmvNVXx+lB1nlVnxaJXUqZjwEfsM8b2lXj3auL6UwJkWUKKyrqbv+Tkt
-	 iOHJOlTTvC4Mk2OBKU7jiGcXtEHzUnjO2cA3ZeC+36upOHVb9wmrvpQhMlWOyAQR0uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187637;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=obR2UEdD7Tns0Z10i+23V+1SlPg/ENB2qI48XfeG2/k=;
+	b=gi53dftBqAuwjlzzduDf6/Glq1AlqFLIEn9Jx2r3jH1+br6rBI/Ofi3z0Secgx99hNYU
+	 2iRZnp25Juqnn/Y2CAdkkfeSNl5Zn/L9WzlyPgYl5VuYwWNNnTdQTMAVqB0+NaVQicVYh
+	 4DskdFTCa1OlCDcGQ6X9uP7iNz/RHJyU0eVqn2puUve+ATTDOQQEsv5xIbwkWFYkD2Fvq
+	 J2mVT2XxobfuPiMOWTFP/oj6fKC3/qQYBQ0hh6bYCN0xPy1cwzkTYCH0wya1ywugkzoe4
+	 kE8nmawJ8lprE/eSA3Uii8yU/jaoX9co98XjxBXvNX5nFKdu1HkTQr+AOAvJDefDN0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=S4sijXbp;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ezr0klfN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E76606A320
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E76606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC845606A321
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:40:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=S4sijXbp
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793187564; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=N8AoCKZvvK133MhCYQj3502MyrqrutxmSZ+xIyFehZg=;
- b=S4sijXbpLGH7GkiCwJoSQnxQXYhxhUYwlvouJtkWPTMFB1XswAaCy0Lu4sQONm0G8Pb42g
- OHxgK06Wo32cD/DGWJ/o2tOvvBnmUnEnPLom3toy3mQ1XS3b43T1YATWV1QhBdV//EUS6C
- xksmSQ6EX0eVgjK4+pJgObuIdqinaIPJ62Vm1hz8EAxxucthvOEnQ+xZzsDMg1Z+qW7f4x
- ZRlC9l0xzS1RYAMSRZI69Z3tQnnR1VFT4tYe8a6kE8Y5nB7ap9GKf1BpH5WpsCM+6JwHoO
- uDPNMEzRajAtgfjTWZ0YYr1wa94xML4Kzpp5JowrQQFBvLry8PsBzAb+vYHk9Q==
-To: "Damien Le Moal" <dlemoal@kernel.org>, 
-	"Niklas Cassel" <cassel@kernel.org>
-Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>, <stable@vger.kernel.org>
-Date: Wed, 28 Oct 2026 19:39:03 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ezr0klfN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B751F031E1
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793187636;
+	bh=obR2UEdD7Tns0Z10i+23V+1SlPg/ENB2qI48XfeG2/k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ezr0klfNxF7Ey0XZOvc/mzvkQZTo8mbVM9GBw1OHHOFyL2e70AIJTb1T6vgvOtVTa
+	 GxQT+GsALQQnX5/tfT1DVyUZErOP0YGFdvnLDVCXPpkvo8VFAwkDwACxtHgMF6PCQ2
+	 0j3ws7DbySoBOQjnHXodMtEJ0svIkuvaxO5KBUjmArZO5+W4qaWEO9W42EnA5utcQL
+	 YJugRcZ+2ed1hBls5s+ieT9dQu6Wqsd6WiRAnlWcmPaZ4SxtOwvx5Ftyzx57Jf1r3O
+	 RbXQ4hCYL2HuWud5IcdSYaFUaXAhtqpbND0lgMHH9JGMGsheW/OyiiNVOSf8gPrAMd
+	 nPslxBQGs9FoQ==
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-704597ef1d8so392859eaf.3
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 04:40:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxPIVWPxQX44vZBMDJrM5YGa75/d7eZ6sTzus32VJ7xzbhGa5/yQNCC/GMZ+WWX4xm374Nx+Vs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjDegmhJX2beJ8H2jXxvTwSZjSxiPDhpnZ4IxrCWWJtCigcgzE
+	u5B/qMcnbrUiSBfCawMoJa9hz5jjG9Pq1FcrRlmn32v/fOGyRZQ6lT56LKcSmfcg4+XG2fkbZgz
+	Y5YnhNiRZhj9KGXNU8b1MDLuF9wzCs/E=
+X-Received: by 2002:a05:6820:151a:b0:70b:9806:c916 with SMTP id
+ 006d021491bc7-713eeb541c3mr1075160eaf.51.1793187635194; Wed, 28 Oct 2026
+ 04:40:35 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,100 +58,162 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027090809.94126-1-zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH v2] ata: libata-scsi: reject data-in commands with a data-out buffer
-Message-Id: <20261028113903.19569-1-zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261027090809.94126-1-zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26ae1deeb+e964b8+vger.kernel.org+zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <bpf_redirect_neigh_short_linear.v1.r0.20261028033717-1@mojatatu.com>
+ <2a0f5ff1d8db81b07fc4b344b8e68e3505fcbf36f72a471d1678b2f1cecd881b@mail.kernel.org>
+In-Reply-To: <2a0f5ff1d8db81b07fc4b344b8e68e3505fcbf36f72a471d1678b2f1cecd881b@mail.kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Wed, 28 Oct 2026 12:40:23 +0100
+X-Gmail-Original-Message-ID: <CAL4WiioEQsckFKbLz8mnZdK9vG93qEj40Ft8fEfqaNDHyB7DTg@mail.gmail.com>
+X-Gm-Features: AclHuK_CEP5bgRzGigT6P04fyHtIPSbz6OTbsbeDJkrmOaj61eVvdu3lBePlTmM
+Message-ID: <CAL4WiioEQsckFKbLz8mnZdK9vG93qEj40Ft8fEfqaNDHyB7DTg@mail.gmail.com>
+Subject: Re: [PATCH net] bpf: Fix skb_pull() BUG in __bpf_redirect_neigh()
+To: bot+bpf-ci@kernel.org
+Cc: jhs@mojatatu.com, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	stable@vger.kernel.org, daniel@iogearbox.net, ast@kernel.org, 
+	dsahern@gmail.com, kafai@fb.com, martin.lau@linux.dev, 
+	john.fastabend@gmail.com, sdf@fomichev.me, andrii@kernel.org, 
+	eddyz87@gmail.com, memxor@gmail.com, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	jiri@resnulli.us, victor@mojatatu.com, martin.lau@kernel.org, 
+	mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ata_scsi_rbuf_fill() copies simulated data-in replies to the SCSI
-scatterlist without checking the request direction. SG_IO can supply a
-data-in CDB with DMA_TO_DEVICE, in which case the pages may have been
-pinned without write access. In the reported case, copying the reply
-into the shared zero page caused a kernel page fault.
+Le mer. 28 oct. 2026 =C3=A0 11:19, <bot+bpf-ci@kernel.org> a =C3=A9crit :
+>
+> > bpf: Fix skb_pull() BUG in __bpf_redirect_neigh()
+>
+> TL;DR: The new skb->mac_len < ETH_HLEN check in __bpf_redirect_neigh() ma=
+y
+> wrongly drop valid packets on tc egress and netkit, where mac_len is ofte=
+n 0;
+> a regression that would reach stable.
+>
+> > diff --git a/net/core/filter.c b/net/core/filter.c
+> > index b7ac145b68b1..95a8a728a71d 100644
+> > --- a/net/core/filter.c
+> > +++ b/net/core/filter.c
+>
+> [ ... ]
+>
+> > @@ -2451,10 +2451,14 @@ static int __bpf_redirect_neigh_v4(struct sk_bu=
+ff *skb, struct net_device *dev,
+> >  static int __bpf_redirect_neigh(struct sk_buff *skb, struct net_device=
+ *dev,
+> >                               struct bpf_nh_params *nh)
+> >  {
+> > -     struct ethhdr *ethh =3D eth_hdr(skb);
+> > +     struct ethhdr *ethh;
+> >
+> >       if (unlikely(skb->mac_header >=3D skb->network_header))
+> >               goto out;
+> > +     if (unlikely(skb->mac_len < ETH_HLEN ||
+> > +                  !pskb_may_pull(skb, ETH_HLEN)))
+> > +             goto out;
+>
+> Does the new skb->mac_len < ETH_HLEN test drop valid packets on tc egress
+> and netkit?
+>
 
-Translated commands can reach the same kind of mismatch. In particular,
-the ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers rewrite
-the receive buffer, including when the device aborts the command.
-Checking the direction only in ata_scsi_rbuf_fill() leaves those paths
-unprotected.
 
-Reject DMA_TO_DEVICE requests in the simulated-command path. After
-translation, reject a DMA_TO_DEVICE request whose ATA taskfile performs
-a data-in transfer, before issuing it to the device. Return ILLEGAL
-REQUEST / INVALID FIELD IN CDB for both cases.
+The bot is right, sorry Jamal, I missed this when looking at your
+first version.
 
-The original reproducer panicked in ata_scsi_rbuf_fill() on all four
-runs with the unpatched kernel. With this patch applied, it completed
-without a crash. A diagnostic run confirmed CHECK CONDITION with
-ILLEGAL REQUEST / INVALID FIELD IN CDB.
+skb->mac_len is only set on the receive path. On tc egress (and netkit),
+it is usually 0 for locally generated packets, so this would drop all
+bpf_redirect_neigh() traffic from egress programs.
 
-Built an x86_64 defconfig kernel from the current Linus tree and booted it
-in QEMU with an ata_piix disk. Normal INQUIRY and READ(10) SG_IO requests
-succeeded. Each command declared as SG_DXFER_TO_DEV returned CHECK
-CONDITION with ILLEGAL REQUEST / INVALID FIELD IN CDB. No kernel
-warnings or oopses appeared. ZBC IN and GET PHYSICAL ELEMENT STATUS
-were checked by code inspection; the test disk does not support them.
+In both cases skb->data is at the MAC header when __bpf_redirect_neigh()
+runs (sch_handle_ingress() pushes skb->mac_len before skb_do_redirect()),
+so you can use skb_network_offset() instead:
 
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
-Changes since v1:
-  - Rebase on Linus' tree and use INVALID_FIELD_IN_CDB with the current
-    ata_scsi_set_sense() signature.
-  - Reject mismatched translated data-in commands before issuing them,
-    as suggested by Niklas Cassel.
-  - Remove the deprecated Assisted-by trailer.
+if (unlikely(skb_network_offset(skb) < ETH_HLEN ||
+     !pskb_may_pull(skb, ETH_HLEN)))
+        goto out;
 
- drivers/ata/libata-scsi.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+This still rejects the 1-byte header from bpf_skb_change_head(skb, 1, 0),
+and also covers the existing mac_header >=3D network_header test.
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index a61fb0331..a5170a36a 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	if (xlat_func(qc))
- 		goto done;
- 
-+	/*
-+	 * A data-out request may contain pages pinned without write access.
-+	 * Reject a translated data-in command before issuing it, since its
-+	 * completion handler may write to the buffer even if the device fails.
-+	 */
-+	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-+		     ata_is_data(qc->tf.protocol) &&
-+		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-+		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+				   INVALID_FIELD_IN_CDB);
-+		goto done;
-+	}
-+
- 	return ata_scsi_qc_issue(ap, qc);
- 
- done:
-@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
- 
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-+				   INVALID_FIELD_IN_CDB);
-+		return;
-+	}
-+
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
- 
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
--- 
-2.39.5 (Apple Git-154)
+
+> skb->mac_len is only set on the receive path, where
+> __netif_receive_skb_core() calls skb_reset_mac_len().  The transmit path
+> only calls skb_reset_mac_header() in __dev_queue_xmit(), and nothing in
+> ip_finish_output2(), neigh_output(), eth_header(), sch_handle_egress(),
+> tcx_run(), cls_bpf_classify() (egress branch), netkit_xmit() or
+> netkit_prep_forward() writes mac_len.
+>
+> A packet built by a local socket starts with mac_len =3D=3D 0, because
+> skbuff_clear() zeroes everything before 'tail', and skb_clone() (used by =
+TCP
+> transmit) copies that 0.
+>
+> For example, with tc egress and a locally generated IPv4/IPv6 packet:
+>
+> ip_finish_output2()
+>   neigh_output()
+>     dev_queue_xmit()
+>       __dev_queue_xmit()          <- skb_reset_mac_header() only
+>         sch_handle_egress()
+>           tc_run() / tcx_run()
+>             prog returns bpf_redirect_neigh() =3D TC_ACT_REDIRECT
+>               skb_do_redirect()
+>                 __bpf_redirect_neigh()
+>
+> Here mac_header < network_header passes, because an Ethernet header was
+> pushed, but mac_len =3D=3D 0 < ETH_HLEN, so the skb goes to 'out', gets
+> kfree_skb() and -ENOTSUPP is returned.
+>
+> The same happens with netkit:
+>
+> netkit_xmit()
+>   netkit_run()
+>     NETKIT_REDIRECT
+>       skb_do_redirect()
+>         __bpf_redirect_neigh()
+>
+> with mac_len still 0.  Netkit programs are BPF_PROG_TYPE_SCHED_CLS, and
+> tc_cls_act_func_proto() allows BPF_FUNC_redirect_neigh.  Forwarded traffi=
+c
+> that arrived on a layer 3 device (mac_len 0 on receive) and leaves throug=
+h
+> an Ethernet device's tc egress would be dropped as well.
+>
+> Before this patch these paths worked, since the Ethernet header is linear
+> (dev_hard_header() pushes it into the head) and skb_pull(skb, ETH_HLEN) w=
+as
+> fine.  bpf_out_neigh_v4/v6() calling sock_confirm_neigh(skb, neigh) also
+> suggests the helper is meant to handle locally generated skbs.
+>
+> Elsewhere the kernel already treats mac_len as unreliable at egress.
+> act_mirred uses:
+>
+>     mac_len =3D at_ingress ? skb->mac_len : skb_network_offset(skb);
+>
+> and act_mpls uses skb_network_offset(skb) when not at ingress.
+>
+> The bpf_redirect_neigh selftests (test_tc_neigh, test_tc_neigh_fib,
+> test_tc_dtime) all attach at tc ingress, where mac_len is valid, so they
+> would not catch this.
+>
+> Would testing the real MAC header length work instead, for example
+> skb_mac_header_len(skb) < ETH_HLEN (network_header - mac_header), or
+> skb_network_offset(skb) < ETH_HLEN with skb->data at the MAC header here?
+>
+> That would still reject the 1-byte header from the commit message (pop_et=
+h
+> followed by bpf_skb_change_head(skb, 1, 0)) without dropping egress and
+> netkit traffic.  Since the patch carries Cc: stable, this regression woul=
+d
+> also reach stable kernels.
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a =
+bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
+E.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/406663=
+97744
