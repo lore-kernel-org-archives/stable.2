@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208833;
-	b=lfzR0m98fAuCoroNVK64GjNJ5LYWDjVx27dK5mgBaU5Nq5LeG37FZveFYJeQAnGWx/pD
-	 o6t/nYIgLltYqrdIku98cX6tlE43drrPAIl8EdjdaoSF/tZp8WCdL17TGk1b04lM2BA4o
-	 8eiejbjdVSrae98tEb25zzOle9ORbieUL27XrGaj+rjvh1zza5NXPKDMyJ56ldGDzrshO
-	 zeRYCtgIU6F7tkl983vefVi5PTagB6fSgnBfou/vBAaLVsKrxZvbIYIH+dfHDHDEuUHvN
-	 eIrKl6vPRa2NhvfJ1AdakhmWbYMoMeCrJbgOub5EsS+igqficph4JA0tFzLAAemtDuQ==
+	t=1793208836;
+	b=VF7dP5Yjftmvykaq77YYQaYNULVD3KOzOztE7/GB4fOFPBJCYZ9APqta3m+kFUcUYO3k
+	 uI1zVKMaDXwjd+cMjb3Max07pH16pxsPPBCTR9qRErIRF0NZk52fxDgJX/Twl68yUyEAE
+	 3SHgCuOc2YTASJpQBDBGZDftkC6ci86khDK3ZxqTJ409ub2IOCzieo+iV9qv3r5xpolA4
+	 Yv/sGMcVYvFr2DjarMaK/r/P1ilLo5YCtIh/1a1uBO7c81qmvmsAUl8mPAAsDb9BcItL2
+	 JJ8CWHZIFr47/F9YWifwhmKk5zA7ZKntjaDLKboVnB9ASz1EtFyeYrwd0hJaXhj9DRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208836;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=8Ew1wPi9TOqiOOOkc0r6DGHu/ZruQ2RWZ0CEBpUBIp8=;
-	b=Xzi+SpHFt0I62Xx20R9pjyO4ZRcP6x2mQNSBDSOAYOmcaJiU6aURUR3FStg1RNSx2snQ
-	 L+0CVuQJs7wG8CdYRA6zInSAd6wPwp+jYtBag5SB282oUVz2wQyU49AVN9zeriXKp8LVB
-	 z3F9gYqSJNE/jMFA3oHrt0fddrcF8LUXuKxPXS2Apb3EVFhmtOGU1cangaOPRrmXFezFZ
-	 bJsbDf2FNXlebu16zRcwVgBO0261DGW4pXJo/L+J38d7f4pcgH7pMMWyCuy60OCJyYy4P
-	 ZUCfxNkvcxRoj/j90YRWa/CMHah1zOb05RbYm/A0PbSZVdD2KSC36IRTC5KkxKiBfNQ==
+	bh=sUjXHGAd9T2CRro4CmgfPZYTYa3LS+mqauai0KYlMvA=;
+	b=WkZN9lt5bHBdIaj7ZjrVMGUyRPS6BfVk+zqijK6H9S3ljtDtTaOjGsdZkeXa7MhFU6aS
+	 AlSNEaqnuuaqPUVnxsO6UcdfnZzvgtxHQqMD7ZFnv8drS79/kEKTtpcAtZS4E9Nz620qG
+	 TuqSLc4jW4y/Hqn4jzSc3XnG1VtXNNBFe8A7qpDcEMBSZsIjshoEIi9AZfXS1HM7Avld8
+	 tWAVqD2sXsZDrMuhQ4SOe39/zZg9oWh5Z0TojOaI+nU1gqf0IC/qWzQuMPhiyaFy0EIgL
+	 2fDRhigdtTb1FSRPHbhjGoLulIyqYf6gCIGuLx7iV9Iq19bWXS8h8/Hx5cLrYG0RyPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yVy3OBVz;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bGH+IbbX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1852C606A32E;
-	Wed, 28 Oct 2026 17:33:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE92606A321;
+	Wed, 28 Oct 2026 17:33:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yVy3OBVz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247941F031E0;
-	Wed, 28 Oct 2026 17:33:51 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bGH+IbbX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040CF1F01825;
+	Wed, 28 Oct 2026 17:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208832;
-	bh=8Ew1wPi9TOqiOOOkc0r6DGHu/ZruQ2RWZ0CEBpUBIp8=;
+	s=korg; t=1793208835;
+	bh=sUjXHGAd9T2CRro4CmgfPZYTYa3LS+mqauai0KYlMvA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yVy3OBVzT58hTidl8QcQGyRnLcuVt83fGWXMQ8bDet+kI15f7JEB0hNb99Du/XMOP
-	 qtVhdvWbWnnk6oQKaHTZSfcsVU+VVonniNnAkN8KzaHj0kVUx2coQ2qHsfxlqikCbv
-	 XA2QeCmoBgLo7F+X0p8S0HCgAfjszbIk4cWpzSD0=
+	b=bGH+IbbXa+oJqxh7NjUwRFrBCiAm7c7Rx+Fwf/iBSJReUzjkeYnQi9lX7939ojvnQ
+	 Ai2QEn64+gTV1/GkNg6ez+lH85XE9A2+b0foQh4WyXmMYtvAdRBvaoCTYj2iCkYRkO
+	 Nn9XBy/WaRBZcJ9cam+s9xukCIiufprCQvf5ERlA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nicolas Saenz Julienne <nsaenz@kernel.org>,
-	Stefan Wahren <stefan.wahren@i2se.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Roman Demidov <roman.demidov.nn@gmail.com>
-Subject: [PATCH 5.10 258/516] staging: vchiq_arm: Avoid NULL ptr deref in vchiq_dump_platform_instances
-Date: Wed, 28 Oct 2026 17:56:50 +0100
-Message-ID: <20261028170009.603801872@linuxfoundation.org>
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Artem Novikov <naa@amicon.ru>,
+	Fedor Pchelkin <pchelkin@ispras.ru>
+Subject: [PATCH 5.10 259/516] vxlan: Fix potential null-ptr-deref in vxlan_gro_prepare_receive().
+Date: Wed, 28 Oct 2026 17:56:51 +0100
+Message-ID: <20261028170009.627184777@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -69,34 +69,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Stefan Wahren <stefan.wahren@i2se.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-commit aa899e686d442c63d50f4d369cc02dbbf0941cb0 upstream.
+commit 30a45c0bffdd62350261e2f2689fdba426a33578 upstream.
 
-vchiq_get_state() can return a NULL pointer. So handle this cases and
-avoid a NULL pointer derefence in vchiq_dump_platform_instances.
+udp_tunnel_sock_release() could set sk->sk_user_data to NULL
+while vxlan_gro_prepare_receive() is running.
 
-Reviewed-by: Nicolas Saenz Julienne <nsaenz@kernel.org>
-Signed-off-by: Stefan Wahren <stefan.wahren@i2se.com>
-Link: https://lore.kernel.org/r/1642968143-19281-17-git-send-email-stefan.wahren@i2se.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+Let's check if rcu_dereference_sk_user_data() is NULL after
+skb_gro_remcsum_init().
+
+Fixes: 5602c48cf875 ("vxlan: change vxlan to use UDP socket GRO")
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260502031401.3557229-7-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Artem Novikov: Apply the check to the older vxlan_gro_receive()
+  implementation. Initialize the remcsum state first and use the
+  existing out path for cleanup when sk_user_data has been cleared. ]
+Signed-off-by: Artem Novikov <naa@amicon.ru>
+Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c |    3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/vxlan/vxlan_core.c |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
---- a/drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c
-+++ b/drivers/staging/vc04_services/interface/vchiq_arm/vchiq_arm.c
-@@ -2063,6 +2063,9 @@ int vchiq_dump_platform_instances(void *
- 	int len;
- 	int i;
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -790,12 +790,16 @@ static struct sk_buff *vxlan_gro_receive
+ 	struct vxlanhdr *vh, *vh2;
+ 	unsigned int hlen, off_vx;
+ 	int flush = 1;
+-	struct vxlan_sock *vs = rcu_dereference_sk_user_data(sk);
++	struct vxlan_sock *vs;
+ 	__be32 flags;
+ 	struct gro_remcsum grc;
  
-+	if (!state)
-+		return -ENOTCONN;
+ 	skb_gro_remcsum_init(&grc);
+ 
++	vs = rcu_dereference_sk_user_data(sk);
++	if (!vs)
++		goto out;
 +
- 	/* There is no list of instances, so instead scan all services,
- 		marking those that have been dumped. */
- 
+ 	off_vx = skb_gro_offset(skb);
+ 	hlen = off_vx + sizeof(*vh);
+ 	vh   = skb_gro_header_fast(skb, off_vx);
 
 
