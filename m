@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195997;
-	b=H9ehfKFZX8QSdHWCZkd4qmZTS+ZqiHZKpW7kgsptqDe6j0vvaLbrJm9UlcnSZVed6iGB
-	 tL078QnKjJNjM07t1B6HFAvJoV8EmCvtz9G9TQnVIF1rJ0/dQ7fg7fgRnVothSIRhvPJX
-	 fHShp4UMlxhtIMZKCW+1st/4ce3rdhoy9Z5zeK7q/t37B7ltaeQzRsoKFQoxkclXXQbuY
-	 wmjcWFsiPK21orjXrVoYDz0a7cTxMZruTrdvKuWTfpGnMTjIweg2sueiBBlfw844GMY52
-	 CZSWgVk+ULnq+2V01v993NaND4Ud1vy88pE46fg9vctVW1TbQDfhzMJgHYWsHHH4ryA==
+	t=1793196156;
+	b=ohevboXjbn5RyhIdaWjTKvob2Zqk/azuquFM+G2uWp3nEsVDTc5mHRP+WCJ2YV/yHKis
+	 YONH+fDvIYff2aySq2UJV/ec5QXeZGX4QlgTaVQQaDchy1EDQ2C6dytHNiC1GPoHe/9yO
+	 3LG2Nj4JOsRtcsV/c94vKczkYaDBL/5HAjI2LtHnNYx/7A+bNG99i0UTp9MxMDF9ULeL+
+	 WFhcwAmh1u0WD4yLfcAC2jNNIWx9CHzPPr9/c5F6LhE5t6FEv6HrT6EP+A+Cn/QeMVrck
+	 lqgAY5cu45jl6lIQin15liP5ceLO8LaoL+NLQNEt1ONYLeC5eQYt82fyKgVXxa4y+sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195997;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WvRNeKAdCM8GQT6dCZadzQJcxQsOaKoimOsC7IxNoGs=;
-	b=ztA6bo+X7yVwLRjFFaTHUtLAO8uMx3wI6CyA9n40+P6fNu0XbzyNVWFyDCKjBdD1zp1J
-	 hot32LCHuXuYSVNXOdQuIv06r7D/1CRN015+A6JnOIF5KzITw+LLblIVbjSvjku4QVvFd
-	 rGjA63uOPJCyEwxtIiK/xelkDHMqmZmJO4pw8vAAg8dMqwGxc4FqbSHpNX2uV+1gs9Veb
-	 huS/MGZufE0qreOM2QoUlFO64jbX7+L0Cp/KEcso6TYqxBa3U5vfv/BcGqZM74kYzewrx
-	 IaV3zM4kfa2JMPgyynH/ZF2w0ApEGY6VjcCxpizyg5twRhfIQVMoIpyZbcYWXGSmORQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196156;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=MhbJRMX4KyE0vdl/l3KEbEyUthhHhbsHZwQfxPaiOrM=;
+	b=ZTJSG7Tmgv2SgnkdRzohIWGpSTBzvyL8Ai9kBhcjA60M1qPmLZirlZHtT6q2OZk+WbSK
+	 QNbhqMJbHPmlotEqPQCys7ysaspZTTuZ47GM4pCntgNMCRFi19ryq+NOBUlcfG4asJKLy
+	 IIqnw49Yct30t+5rywlfcTEN8ZhssiZQdFyUIh0oFmAAzgv3Me/uZNy3+am2vTfDq70EW
+	 PXLlqUF0r91dXrWFlwdL1cn3w3tPDtJ1agnqTDUp8MAE37q5Qgi8kgR3GFrUFrUHs6isX
+	 hGvJkzAupkGhp4OSK2jMqu+PoLCuE2bsz3TxWI4WrpGRXbqmeBWeIObKpKfCEizl4uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUod2IkQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="a/zsbTjz";
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD869606A31F;
-	Wed, 28 Oct 2026 13:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FEA606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:02:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FEA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUod2IkQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2701F01825;
-	Wed, 28 Oct 2026 13:59:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793195996;
-	bh=WvRNeKAdCM8GQT6dCZadzQJcxQsOaKoimOsC7IxNoGs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fUod2IkQGpTIl1fw3p/ejMDWNpisrs4zuoh12HnsD/Kf1l+qah14IsS7czIY/5CFu
-	 h1mzDgrhiDEhkipFHADWiouMwVyAKnjrN9JcPvyMSjE9Ao/WY5gwTMVv585BThtzu+
-	 O1YqMKZGryq3Dmb3bHDSWjZsHiihI/9eF6XpkB+dOmh+tUpHTiCE8wT3cZDwZZLuIb
-	 neNty7e+LT7/qdUNYLF0PmKdZw38UiUhAResiZXmyH8Dg2dK3WXqOBtvngTdDSywPh
-	 fdb9KKd5vfhjWZU/ik+Ii0QgNqJg3KM0452jKAj59jiVqcHhtUjrmXwgbe8T835WL5
-	 Ns4dcGC4O6QqQ==
-Message-ID: <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
-Date: Wed, 28 Oct 2026 20:59:53 +0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a/zsbTjz
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1846bc43c28so1145351c88.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:02:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793196154; x=1793800954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MhbJRMX4KyE0vdl/l3KEbEyUthhHhbsHZwQfxPaiOrM=;
+        b=a/zsbTjzoQEFKXLraCTJ4jsxoZ+TXTYLqDB+MQaOeLkzHWqMoTJC+u+UuEt5nUWBIr
+         IyxhlQxoi39mMAn+GARyXLq8f+mIWD2bcEMwvYwYWFd9c8Js8Y+2wwc8sgFO2mcRriKw
+         48KaQbhEPXAV/W6pNUKxbO4IbpIzCybPXfLhGMouIObosONpPY3ajl3Ivrq2f6LYSUUe
+         k+a0YnyvarS/Sev3zKaimATJOHpeUuE5psqsLG9PXvqBiLKy7MPR+jlkzf8B59UIblDO
+         FYm0dq3OfVtzqMi7En5puNDyWEMKI1pRD5Kd+SbWg3h9XamJSOjgIi5To/kaPxEphqu9
+         6wtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793196154; x=1793800954;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MhbJRMX4KyE0vdl/l3KEbEyUthhHhbsHZwQfxPaiOrM=;
+        b=chYq7i2WGVOC3I6FiKYVOBMqtlI/iUk/mWPiOs6YT1vnslVwL/KrS2UQVyGdlUNHYE
+         5L4L+l1Fwvi+ntJ2yTbZAscyJyJLq4iBtC9LZiEDi0yO5euDvYLG7dMEOLZ16CtJ+uLS
+         uzpBTC/0M4q2lB0fwksHAcBj++/+U8/zgGaeNMfCnXgfozIjm22B9jDe4L4XxQdzY8aK
+         WC4UuK67cuHKHulMKVO1A4O/dpytlNbH7x+Uv0mukv6A4UdkYHvsOPWNEhzQU9tQ/v7b
+         iNxoxbID4rNmdq894p8NWrkx6z3qMadiSCjp9/ZE0K1mpgg6bYf7icTdkGDrPWwAX8WH
+         gbOw==
+X-Gm-Message-State: AFq9FYJ8pcVOK0DZe6I3V7AAKtTeQ15+3jWKUeBaLZ06jXYOrHq8sTVX
+	r/W5E5c42EM4hy9mZXoPOevlgN3c9wz/pHY/m2DGeSlEVY0UuMyOOuI4eKvhm8qNOWQCHuU818W
+	MX5q+hBc=
+X-Gm-Gg: AYBFou2rKuM3SHForeExv8gLS3KBUA2NQx93nEUDIyV5kjLyNGQ+COpULcDITg7+v0M
+	nZd3HcRo/TmVEo9j7Yg6sI9FjjJQesX6gCMR8bqExI8JYcvPu+AtZru+482LIoUwEMpUi8DzUMf
+	P3jv5YKPqQlQg2x7k4+LbQeQwfirxC310RB71JRKWKijiRxxTajFF2IyIHahZ9NPReCAAcLBxos
+	a5w76PBPUl25o6yDzc7n1KYjj6yXqlofKRB1Zyl2kLqLhrBK2wuUNHsPSumAewDXVwzwC8dKcQw
+	AnYZQHXm0nwfFmkJ8So3LFNvEldaWHeg/eha1Zpf8UsE70y1cw+IfMPQiGJvNV+eIv1yShkEMAk
+	2jQGwrmr7yCk5QhUHlw08UuUAMR1HGCtdi2+gZTI5V6mYl3NRL/PVQ0/x8TmvP3BSRTlFaNdJA6
+	08nL0SIKNjbZdsBbRuQNk75X5/WVAltExOo5ZrWCAOadenjKfym2VmlL2TME5cJxVxp/2yBDOZl
+	cu0cS25KZkTQsrEnF+goC40bGsZF3kEPGT7vyjPWub4e0Sx11jDvKT2QfvIjyGqROiMJVge6EME
+	FY1Z7Lv+DF9snD998ApbYuBgzQuSE7LrPAg3/B6866TWltahu3hYESkPyh5t2MG/MZ+RK4F3UmX
+	D2FYA2NlsE4oP
+X-Received: by 2002:a05:701b:4552:20b0:176:2095:1ac4 with SMTP id a92af1059eb24-1a6ce01d7a7mr3181185c88.18.1793196153572;
+        Wed, 28 Oct 2026 07:02:33 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75c814917sm5857015c88.5.2026.10.28.07.02.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 07:02:31 -0700 (PDT)
+Message-ID: <9dad5974-9c5d-42e6-9e5b-daa83f2b8b6e@kernel.dk>
+Date: Wed, 28 Oct 2026 08:02:30 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,128 +93,33 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ata: libata-scsi: reject data-in commands with a
- data-out buffer
-To: Zhao Gongyi <zhaogongyi@bytedance.com>, Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261027090809.94126-1-zhaogongyi@bytedance.com>
- <20261028113903.19569-1-zhaogongyi@bytedance.com>
-From: Damien Le Moal <dlemoal@kernel.org>
+Subject: Re: Queued patches for 7.2-stable
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable <stable@vger.kernel.org>
+References: <42b54e88-8fd3-46d4-9cf4-cf28830cf089@kernel.dk>
+ <2026102818-bazooka-smolder-122f@gregkh>
 Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261028113903.19569-1-zhaogongyi@bytedance.com>
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <2026102818-bazooka-smolder-122f@gregkh>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2026/10/28 18:39, Zhao Gongyi wrote:
-> ata_scsi_rbuf_fill() copies simulated data-in replies to the SCSI
-> scatterlist without checking the request direction. SG_IO can supply a
-> data-in CDB with DMA_TO_DEVICE, in which case the pages may have been
-> pinned without write access. In the reported case, copying the reply
-> into the shared zero page caused a kernel page fault.
-
-Sure that can happen if the user sets up the SG_IO incorrectly.
-
-> Translated commands can reach the same kind of mismatch. In particular,
-
-No they cannot, as long as the kernel is correct for internally issued commands.
-But t is not clear here if you are still talking about commands passed through
-SG_IO.
-
-> the ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers rewrite
-> the receive buffer, including when the device aborts the command.
-> Checking the direction only in ata_scsi_rbuf_fill() leaves those paths
-> unprotected.
+On 10/28/26 7:57 AM, Greg Kroah-Hartman wrote:
+> On Wed, Oct 28, 2026 at 07:53:02AM -0600, Jens Axboe wrote:
+>> Hi,
+>>
+>> Like the 6.1 series, but for 7.2-stable.
+>>
+>> Please apply!
 > 
-> Reject DMA_TO_DEVICE requests in the simulated-command path. After
-> translation, reject a DMA_TO_DEVICE request whose ATA taskfile performs
-> a data-in transfer, before issuing it to the device. Return ILLEGAL
-> REQUEST / INVALID FIELD IN CDB for both cases.
-
-Why is this being checked here and not in the SCSI layer (sg driver and bsg)? It
-seems sensible to check this there.
-
-> The original reproducer panicked in ata_scsi_rbuf_fill() on all four
-> runs with the unpatched kernel. With this patch applied, it completed
-> without a crash. A diagnostic run confirmed CHECK CONDITION with
-> ILLEGAL REQUEST / INVALID FIELD IN CDB.
+> Where's my "YES!" button to pound in response to these?
 > 
-> Built an x86_64 defconfig kernel from the current Linus tree and booted it
-> in QEMU with an ata_piix disk. Normal INQUIRY and READ(10) SG_IO requests
-> succeeded. Each command declared as SG_DXFER_TO_DEV returned CHECK
-> CONDITION with ILLEGAL REQUEST / INVALID FIELD IN CDB. No kernel
-> warnings or oopses appeared. ZBC IN and GET PHYSICAL ELEMENT STATUS
-> were checked by code inspection; the test disk does not support them.
+> thanks so much, I'll go queue them up now.
 
-Test details are not needed in the commit message.
-
-> 
-> Suggested-by: Niklas Cassel <cassel@kernel.org>
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-> ---
-> Changes since v1:
->   - Rebase on Linus' tree and use INVALID_FIELD_IN_CDB with the current
->     ata_scsi_set_sense() signature.
->   - Reject mismatched translated data-in commands before issuing them,
->     as suggested by Niklas Cassel.
->   - Remove the deprecated Assisted-by trailer.
-> 
->  drivers/ata/libata-scsi.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-> index a61fb0331..a5170a36a 100644
-> --- a/drivers/ata/libata-scsi.c
-> +++ b/drivers/ata/libata-scsi.c
-> @@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
->  	if (xlat_func(qc))
->  		goto done;
->  
-> +	/*
-> +	 * A data-out request may contain pages pinned without write access.
-> +	 * Reject a translated data-in command before issuing it, since its
-> +	 * completion handler may write to the buffer even if the device fails.
-> +	 */
-> +	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-> +		     ata_is_data(qc->tf.protocol) &&
-> +		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-> +		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-> +				   INVALID_FIELD_IN_CDB);
-
-The CDB may be perfectly correct. The error is in the SG_IO descriptor setup,
-NOT in the CDB. So returning invalid field in CDB seems very misleading.
-This is not something that SAT defines as far as I know, so we need to find a
-sense code that is more informative. Please have a loo at
-include/scsi/scsi_sense.h to see if something better exist.
-
-
-
-> +		goto done;
-> +	}
-> +
->  	return ata_scsi_qc_issue(ap, qc);
->  
->  done:
-> @@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
->  	unsigned long flags;
->  	unsigned int len;
->  
-> +	/* A data-out request may contain pages pinned without write access. */
-> +	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-> +		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST,
-> +				   INVALID_FIELD_IN_CDB);
-> +		return;
-> +	}
-> +
->  	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
->  
->  	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-
+Hah thanks Greg, honestly these days this is just the easier
+way to handle it, and then you can deliver a tested bundle and
+get it out of your hair...
 
 -- 
-Damien Le Moal
-Western Digital Research
+Jens Axboe
+
