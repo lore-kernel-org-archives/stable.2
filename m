@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207626;
-	b=e8pKFkfB4LRSwo/qDWANfCRnA8Nygj6xpV9hlM9zcdJ5HHQSE+O0TRjR048uGBY8A+8e
-	 0lMD5f4y4K3s0kcfLbqVSlB+28qYdujwCDaSItAYaYlDuvb02gWFy1CtZfSPICPwWD/6D
-	 +aZ7OW+AAlrkPI9UII7pXlnGOh8C1067ZmueHc3kqnmz9shDJKY10DIhI2geoJBKr5mcR
-	 wtzUWpQJcVQ07KHVpl3xWMD8FASkOJlU5eqhSXSb1F/sPitT66a7ocxBSu/CHvZHDrAtF
-	 3bS9nWQvhmTrjjmqtlDlJyAmRDpmuifU//ek9cQMQr3A+/J3464yPn/JCBzcqLjsJbg==
+	t=1793207628;
+	b=CUvjlnYuSVjTSBjz0OIHRnLGg4tpS+MO/VchwdVB+fz3vAkSm+r+jDfariz9j5Io73UW
+	 DHffgTDJATFFMNruGU9SWM8cXkRETHCiLnDge60UrEAnGOn9Gkz3IMNIZ1gBblwmuNhyC
+	 660hq7vNWoq5Ciy2/0KcxuqQfAZLFiinkBKSk5pEuwgXYU7Ls7+Xub/kFu538FaJNc8E2
+	 tOXs3kFFLTTddulj/f8QDwLgGyqcmD3DBvXZ/1Cpz9jlVPoCmvZ+pV+tX6h82gEHYxrzO
+	 cpt7xSorMqJJGYjS1th6CEfXMou+vTJQoGGMA1Jez38CwSCxU2poGh18gBb7VahHiDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207628;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lHE74WmuAc+bvvfMLcXvxqXUljTvFQl7OyL6yPddegA=;
-	b=n9OcWnwVNrXKPVnunwEEHdn9QbcfcCMxizqwWUtr1GiKRurUfQUa6HvdoyaGb5H/nTXN
-	 X2wkS82nTGGVzU/9zwr0fU45BaMCNPf/Dp93wW2pqBzMucmnfU/FC3Y4mYEXlUgaeTzbu
-	 x581MwdCAE6ma1u2IWPHyDe3Kf+O16QZsk3sDWCITMjfstwK1AVFY11cGmiW5odx7XqeE
-	 iURbzm0Lsm8HlgAgsAIzeMGFOjSRvVErAbkiid4Z+sOJPMCe/1cZXazSvSO7wfRKLThDx
-	 rHMvK3CczbDTiNRNEhxZNSGKXWgYQtwwcIql8aIZjMPCOf2wyPdj7NaJy9+sKhdNdNg==
+	bh=Fxpi70qsm8hYFpqYicBgb+DCzRe2fK2pChHfxCYW9R4=;
+	b=AeJ2zqsyr/ThH5VaqfyXqI9tL6dhEpO4d/ieqF7l9vsMiXxKe6W3hHpVENUHyjWo8N0T
+	 YrTgzGNYzTAjYs4pTtMCWbOSkWBwKeMeEPK+2KpBcP18Biv0MrCnI+dPYG/pED4LUG2uq
+	 WXS+ZfUQbPy34LrtqQ9PqOuStDFp3QTKLlyWC825CiapLXyU83Z1nd6Qmr7Yav2owTIsu
+	 X7Armvcl3ODVNS4w6wnIMh2wyQeXtGTMq1aL2+a8D1N4DaAKi0fhECDgoCiilY8nYfNFo
+	 uQN2GNT29kPLejI7dvGKvG/zMnHSXccDcccXmEw6IRFwwNn8M7MJxG/exLoVNhpWFkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGIk8J1l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dqe6wInQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664C1606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:13:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E67606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:13:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGIk8J1l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7283E1F01825;
-	Wed, 28 Oct 2026 17:13:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dqe6wInQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1925C1F01828;
+	Wed, 28 Oct 2026 17:13:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793207626;
-	bh=lHE74WmuAc+bvvfMLcXvxqXUljTvFQl7OyL6yPddegA=;
+	s=k20260515; t=1793207627;
+	bh=Fxpi70qsm8hYFpqYicBgb+DCzRe2fK2pChHfxCYW9R4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gGIk8J1l1Ok8pIszN32qS/5Jt8v/cX3wquZ7qycuE3rDBhn/FnD8frfYEC9aRbWHr
-	 bXDcr3S2Mcg19iiX6EdBS9IQJSjdwkim+wYoMc7HuNV85bOoaaQYtfWdwuNMUrzTOr
-	 MpGbMBY+423BsU2Wygpsurpj7apfJqVRUnX+0oPDe2ns+FJte8JIYg1DJmJEfA83+I
-	 G6UbAPCRRj8A3+fndT9j5Aphpsvw209u7EGRZJ4jT8WjOHhghw45RTDKf7c0hNsC79
-	 I0wdla+wiWvxGha0h8LC1aJCHau5z+2QxN7ngINW5DsuVERWwvfA66yhrOHLprIh2O
-	 iBvCoOfEXaA6A==
+	b=Dqe6wInQH1BbAXfkBFF/iyWiN3yK+Dck554SDMbIJ52YurSfSC18Y3K3sxW70tyxE
+	 DubKk7z6SrxaIU4BN3G/OLnmRJh+Vur3/vEk2qsaLF0GS8/FAVSuBoxtRUKijv+bZW
+	 H6g8sgJwaxC6GBRBjJayaULvUn06woLdB+stxWdsCa80c7i/VzHmag5woHJvL2F2yY
+	 js4IywmfEw616EGaL7hiERujKQv8RBgxxhOrGvth0SJFyacpEosPBojv4A/v2mU1+U
+	 fGH1CU64eY4F26Bs6pJuKqt1iuQWzT5pmX1SpcTnUFuiTPPtRgf3Z5Tlo4noW1pyFW
+	 ThQSFrrf2YDkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weiming Shi <bestswngs@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] asymmetric_keys: reject trust keys without IDs
-Date: Wed, 28 Oct 2026 13:13:44 -0400
-Message-ID: <20261028171309.1530696-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] fork: move the coredump and exec checks into create_io_thread()
+Date: Wed, 28 Oct 2026 13:13:45 -0400
+Message-ID: <20261028171308.1613661-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102818-nearness-dividing-d8eb@gregkh>
-References: <2026102818-nearness-dividing-d8eb@gregkh>
+In-Reply-To: <2026102849-headphone-cattail-5c79@gregkh>
+References: <2026102849-headphone-cattail-5c79@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weiming Shi <bestswngs@gmail.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 9695df3b1db4ac4534274d38ee16e3b9b0bf910e ]
+[ Upstream commit e760200370e4de054b6b5f568a7faa911e2956bb ]
 
-The PKCS#8 parser deliberately leaves the asym_key_ids payload slot
-empty. key_or_keyring_common() unconditionally dereferences that slot
-when a PKCS#8 key is supplied to a key_or_keyring restriction. Both the
-plain and :chain forms reach this branch, allowing an unprivileged caller
-to trigger a NULL pointer dereference through KEYCTL_RESTRICT_KEYRING
-followed by add_key().
+Only a PF_USER_WORKER thread returns from get_signal() after a fatal
+signal and can go on to create a thread. get_signal() sets PF_SIGNALED
+before it dumps core and before it lets a PF_USER_WORKER thread return.
+That flags sticks.
 
- Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
- KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
- RIP: 0010:key_or_keyring_common (crypto/asymmetric_keys/restrict.c:205 crypto/asymmetric_keys/restrict.c:279)
- Call Trace:
-  <TASK>
-  __key_create_or_update (security/keys/key.c:884)
-  key_create_or_update (security/keys/key.c:1021)
-  __do_sys_add_key (security/keys/keyctl.c:134)
-  do_syscall_64 (arch/x86/entry/common.c:52 arch/x86/entry/common.c:83)
-  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
-  </TASK>
- Kernel panic - not syncing: Fatal exception
+The exec'ing thread itself is never signaled. But it doesn't need the check
+anyway as we moved cancellation of io_uring requests before de_thread().
+create_io_thread() is the only way a signaled thread creates another
+one. vhost_task_create() is reached from ioctls alone.
 
-Reject an asymmetric restriction key without key IDs. A PKCS#8 private
-key cannot identify the signer of a candidate certificate and is not a
-valid trust anchor.
+io_should_retry_thread() doesn't retry -EINTR, so io-wq callers give up
+the same way they did when copy_process() refused.
 
-Fixes: 3c58b2362ba8 ("KEYS: Implement PKCS#8 RSA Private Key parser [ver #2]")
-Cc: stable@vger.kernel.org
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Link: https://lore.kernel.org/r/20260429181629.110802-2-bestswngs@gmail.com
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ sashal: Adapted the null check to the existing signer_ids structure pointer. ]
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0VLTyxNatFmLOK@redhat.com
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-13-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Stable-dep-of: 1f978881ce6c ("fork: don't create io threads once PF_POSTCOREDUMP is set")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- crypto/asymmetric_keys/restrict.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/fork.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/crypto/asymmetric_keys/restrict.c b/crypto/asymmetric_keys/restrict.c
-index 77ebebada29c4..45b7fe05d84ef 100644
---- a/crypto/asymmetric_keys/restrict.c
-+++ b/crypto/asymmetric_keys/restrict.c
-@@ -154,6 +154,8 @@ static int key_or_keyring_common(struct key *dest_keyring,
- 			const struct asymmetric_key_ids *signer_ids;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 26485ba0dac7c..73239e4ba6fa4 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2689,6 +2689,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+ 		.user_worker	= 1,
+ 	};
  
- 			signer_ids = asymmetric_key_ids(trusted);
-+			if (!signer_ids)
-+				return -ENOKEY;
++	/* A creator past its fatal signal gets no thread. */
++	if (current->flags & PF_SIGNALED)
++		return ERR_PTR(-EINTR);
++
+ 	return copy_process(NULL, 0, node, &args);
+ }
  
- 			/*
- 			 * The auth_ids come from the candidate key (the
 -- 
 2.53.0
 
