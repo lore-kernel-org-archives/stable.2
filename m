@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793210161;
-	b=XD7tw20goxFeasrLbZ1qm51F3h2Rz9XSXmiv21qeSv+yh0InwlOKmYm/xBpKBfMdEB0O
-	 3h35T0ID7HpPoZ7BL5gVf/hhXbVM34tPVtqI2ZCk/FOWQVfGsahY/mpOaUikXXo2wbpnB
-	 CiegS4zuY0R1hQTxpkh/7smsyfrMnVi/gfp7uewabSyxVYnjsaeVGS8IoUmpujK1XwBTP
-	 TeUa/CfrTZykDKYePCDAhmRO4E2Obc6UnlQ6fapnMMpnuCPugVBp4K/Gc5rmfrdWhNiJ3
-	 Nx3PB9I8ebBQ1gKdlt7ScfCqrQfLH2svGspo/Kf0jO4PqC33I9eamFaLAfC0s8Vpaag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210161;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/7kQZK30vWurR4LOhHkoetB3xKBvRcGAUihhiqGJHYc=;
-	b=LNAiUBzB++VA+As2PGAjRmJF0UcO54AwtM4RrLOOTHRS2d1ltbJSKQwE280W+jdjnf3c
-	 N8NcspWndKSR9BvkAe4xv4zEK4qH6p18Azjjgn2a2qxufl20MbUVb5yWh2rYHpf6MlhGa
-	 9yQxybKJ55Ppm0vhhYkzGM7HX/S1v7kKmYAG6Zy0SyGlgecRq8rlcTt7+EKyh0qMXKOhY
-	 DOrRaSw44lCY2RrbZhz0DNMbxij5QdipRJrrnRdPAA2BEtygsdW1Bvd/L9fCmtwKK3CI+
-	 zGn7imuVmezC2NtslVhgf+oDyhHthhdJsH6P4PCTDS9A9cJaCNirH/1LWFY7auFAjow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jKWuicWj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793210173;
+	b=d2bxDFB/O/NhE6bbEHLzxo1195IZhZi2HUDChzGHyJdgvTszL+wlkcLgg9+OQ3RaOfqy
+	 e+Eg3ANLTLiqC/HZABQJE8GwALmvIA+aLopeJWtMJv6syy5pxV2bjxB65g8UrWPQ+R+WL
+	 OPB7xynP2MmesNxh8MztdppYtHcF5RMiYWzHwUb1PU8nce1Eo+WQ+emYHf6DXkSoeiSaO
+	 40xivmos4WCCufGDK3knk8olmH6zB6qcPq+r9eilUx5HkDkTxCCO+F6+0mLqwFas4jLPf
+	 y8U68CvC/iSGDeByOV4e+qFYSV90j/JJQRy54OTEDqbPlhv6qZbJeuv3Ek8wAZJRE9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210173;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dCOoNtf4HMiNMQjP/XRjCGNNdJNk/0p/ZytAkBC9Y/w=;
+	b=az6i/ljWbBN+mlNCNshLhmwi6+KGH1XN9gKJekyPhXVdZR1ai0nRW1QVZxxfJK89IPWN
+	 nCJojmlAXS1GBYsUOTFflwsSgyNOd9v3ZAmIeiTS/dRlZX9vn1D37e9JLqi+/HyL6utlR
+	 alTkmNrlWXlL0glWn5dH4xOkCn/t9pr22/jlPtoM4mGUwBRjzmPTGPTqSIUdpZ5JCbEU8
+	 38KfILHC92sL+FmCU3pbH6xMrXvCUeboYOLZFkloAn1XtLvWqrZmHXuiEngZAvdB8pNPf
+	 h48OLQVHjoZuM0W3r5Kc7TR9Xb19LS6Ve2LsU/2PvtJJ3gyHnmjNTTkw7359jbJS0QA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D6A34abE;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE37860A263C;
-	Wed, 28 Oct 2026 17:56:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C6360A3836;
+	Wed, 28 Oct 2026 17:56:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jKWuicWj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793210160;
-	b=nTLr5Yguq0b/C3H2OebW5hKxN5fKonxHD2xKVoAvM+3TUNA2vA5aXJOMiA4HHu/OCnrE
-	 /Yn0N1qGuU3orrHTqpQF9Y2L/GXsT76SBuiTflfNDMN4Og0JlUJ7aUR6n4KWwcSDrqIsj
-	 enOFXfcQbZKWQyCOGPbylENstpSUydJyKXx06lj3NnnKOKexf9U/dka7pwNfF63gaQ5yf
-	 ex27Deg+BVKNugAmHyGWjyFbizA2NXLIde7/pguBR6NX9KfiXxq2m7owVjPcDlod6++cl
-	 BLpLlnifDbCuBe+O+DPlqZJ22u5TzdBzwB53nJDddJyrMypFyPEe6exWIRIecwFYdOw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793210160;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/7kQZK30vWurR4LOhHkoetB3xKBvRcGAUihhiqGJHYc=;
-	b=aRRBJ7OtXVPs4okXHaJW9/U0QVJNam24j+jQoinR9t5p3CvsMymxBI0miUqCGOssfgQr
-	 E9yS0tdwZtIZJEYcMd6e2UxhhRcPhhDpDTrrtowRtlPFSmAbmgTGZH/aTjSf4NcC/9OLc
-	 hskRimFO9+ACng3zKISTMPFD13jrnhmxKIeDy/fQaMywICZbbN/wbkee/2rjWDM0DgG+X
-	 dL+ydnkBDzYHbTeoZWefhfqnrlThMPEogNUGDAjIutbqkvpofbMIk8xNLJT0kgJC8UJ5y
-	 I1FKy1TRo0WFSQ2Fp9S8DjTMQAHcNljKlb0AsGoo4Y0vdc58VSLWw8MRJMwsmaRki9w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7D8C31F031E5;
-	Wed, 28 Oct 2026 17:55:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793210160;
-	bh=/7kQZK30vWurR4LOhHkoetB3xKBvRcGAUihhiqGJHYc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jKWuicWjrWioaG8lRJQRktM1sg0hD3rgP1zhB+/dQ59e6I44SI8htGFkuj/Sq3BYp
-	 sesglhHmNXd0GbTR1YkIoi9tEkIH/ZP22N9CQM7/xrMyVVNPWqXxdzJjKs/1JrHKFd
-	 W7kS2Q11VDCnEkRbecauF/kNz+HSPYs9GMCQFbC44iz9zf6TBa57sF58wVEjdKKiWF
-	 0ORiaFv2v27/hE+VRe+hIoWQaHDZeKI49JpWvM46GFG31lnUU+H4EXPfnwKwH9SR09
-	 g51MA7GpQQ7qCEQN8w9j53px5Td/TlSaWhEvNkP3yyBDtr3XcIrx2smpkSto5QWUsy
-	 pHh5xLgg3dR7Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0E9CC45532;
-	Wed, 28 Oct 2026 17:55:59 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Wed, 28 Oct 2026 18:55:41 +0100
-Subject: [PATCH net v3 2/2] vsock/bpf: fix zero-length, MSG_OOB and
- MSG_ERRQUEUE reads in recvmsg
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D6A34abE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F221F01825;
+	Wed, 28 Oct 2026 17:56:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793210173;
+	bh=dCOoNtf4HMiNMQjP/XRjCGNNdJNk/0p/ZytAkBC9Y/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D6A34abEJrBM8ODjzbHxL2XINSqLGrEI51Kxy0dtHPqWtvOxuEceUdGUFxqeY6lw6
+	 rGL8FqE9KHKvT6E+IAhOxqcgHP6koLriPQJAvJAIT3JfMfmGhc6XRxm5gG3AUg/rJt
+	 3mzAzxMGHDuZmxfBmnOqTgZMKc05sYjFN2EJoDbg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mike Christie <michael.christie@oracle.com>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
+Subject: [PATCH 6.6 056/168] scsi: libiscsi: Validate the ITT reflected in a Reject PDU
+Date: Wed, 28 Oct 2026 17:59:52 +0100
+Message-ID: <20261028165944.414191310@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
+References: <20261028165943.089486480@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,114 +62,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-kbh3-1-022-fix-v2-v3-2-bc0752b2d3db@eldare.de>
-References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
-In-Reply-To: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793210158; l=3879;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=Fv6wIyCvdPA88rsjL1PDN9TTHIaiEj+Jl/xpP9BfqoA=;
- b=vmSFC1mMOaV9MgLgItP9fekE1g5KX6bCdGA9DejGXaGzh/80o4zkGJivxjZZg76MZW4/2Kvhn
- Q+3bo60dXw8CHTUDk2ilW9hV1oPL9CmHR01g8x4AnIN03M/z+DgxcQ/
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-vsock_bpf_recvmsg() sends every read that cannot be served from the
-transport's own queue through sk_msg_recvmsg() and its wait loop. Three
-kinds of read do not fit that path:
+------------------
 
- - len == 0: with data queued in the psock ingress queue (for example
-   after an SK_PASS verdict), sk_msg_recvmsg() copies nothing and
-   returns 0, and the wait reports data ready at once, so the loop spins
-   with lock_sock() held. The vsock delivery worker then blocks on the
-   same lock and all rx on the transport stops (hung-task).
-   tcp_bpf, udp_bpf and unix_bpf return 0 early, and
-   __vsock_connectible_recvmsg() handles len == 0 too.
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
- - MSG_ERRQUEUE: the read only reaches sock_recv_errqueue() when the
-   native fallback happens to be taken. With empty queues a blocking
-   recvmsg(MSG_ERRQUEUE) waits for stream data instead of returning
-   -EAGAIN for an empty error queue. Route it to the native path first,
-   as tcp_bpf does, so it is also not caught by the len == 0 check.
+commit c5958c770b2a0ee492414e26b07da9164a0d1f5d upstream.
 
- - MSG_OOB: vsock has no out-of-band data and the native path returns
-   -EOPNOTSUPP, but sk_msg_recvmsg() ignores the flag and consumes
-   ordinary stream bytes; with empty queues the read waits for data.
-   Reject it right after the MSG_ERRQUEUE route and, as
-   unix_bpf_recvmsg() does, before the len == 0 check.
+A Reject PDU carries a copy of the header it rejects, and
+iscsi_handle_reject() takes the ITT out of that copy to find the task to
+clean up:
 
-The len == 0 and MSG_OOB cases were reported by the netdev Sashiko AI
-review of earlier, single-patch versions of this fix; the MSG_ERRQUEUE
-case was found with the help of an LLM coding assistant (Anthropic's
-Claude). Each reproducer is a C program run as root in the guest: it
-adds one end of a vsock-loopback stream connection to a BPF sockmap
-(CAP_BPF and CAP_NET_ADMIN), for the queued-byte cases with an SK_PASS
-stream-verdict program, and issues the reads below. No kernel change or
-error injection is needed. The reproducers are available on request.
+      memcpy(&rejected_pdu, data, sizeof(struct iscsi_hdr));
+      ...
+      task = iscsi_itt_to_task(conn, rejected_pdu.itt);
 
-Testing: on a private VM with a KASAN + lockdep kernel on net, with
-reproducers over vsock-loopback. Before this patch: recv(fd, buf, 0, 0)
-with a byte in the psock ingress queue spins and the delivery worker
-hangs (hung-task); a zero-length recvmsg(MSG_ERRQUEUE) blocks; and
-recv() with MSG_OOB waits for data or returns a queued ordinary byte,
-which a following plain recv() then misses. After: a zero-length recv()
-returns 0 and the next recv() returns the byte; MSG_ERRQUEUE returns
--EAGAIN from the empty error queue; MSG_OOB returns -EOPNOTSUPP at once
-and consumes nothing. With both patches of this series applied, the
-three single-VM tests of tools/testing/selftests/vsock/vmtest.sh
-(vm_server_host_client, vm_client_host_server, vm_loopback; 44
-vsock_test cases each) pass, as on net; on both kernels the host-side
-runs skip the SO_INQ cases (SO_INQ not supported by the host kernel).
-The ns_* tests of vmtest.sh were not run (they need root on the host).
-The BPF test_progs sockmap_basic, sockmap_listen and sockmap_redir tests
-pass (767 of 767 subtests, among them the three vsock subtests of
-sockmap_basic and the 240 AF_VSOCK cases of sockmap_redir).
+That value is whatever the target put there. iscsi_itt_to_task() bounds
+the index against cmds_max and checks nothing else, so any task in the
+pool can be named, and iscsi_nop_out_rsp() then completes it.
 
-Fixes: 634f1a7110b4 ("vsock: support sockmap")
+An index that has never been used gives a NULL task->conn: the pool is
+zeroed at session setup and conn is assigned only when a task is
+allocated. If the task was used and returned, iscsi_complete_task() hits
+its WARN_ON_ONCE(task->state == ISCSI_TASK_FREE) and the refcount
+underflows. An in-flight SCSI command is completed as successful - a 1
+MiB read returned 1048576 with none of its buffer written and no
+warning.
+
+Validate the reflected ITT the way iscsi_itt_to_ctask() validates a
+command ITT, and require the task to be in flight and not a SCSI
+command.
+
+[    6.248477] Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
+[    6.249357] KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+[    6.249951] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.2.0-rc5-ISCSI1-gf5098b6bae76 #1 PREEMPT(lazy)
+[    6.250718] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    6.251616] RIP: 0010:iscsi_nop_out_rsp.constprop.0+0x46/0x160
+[    6.252043] Code: c1 ea 03 48 83 ec 08 80 3c 02 00 0f 85 f5 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 6b 58 48 8d 7d 60 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 c0 00 00 00 48 8b 45 60 48 39 c3 74 50 48 b8 00
+[    6.252813] RSP: 0018:ffff88806c907b80 EFLAGS: 00010206
+[    6.253042] RAX: dffffc0000000000 RBX: ffff88800607e000 RCX: ffffffff8d571a25
+[    6.253345] RDX: 000000000000000c RSI: ffff88806c907c38 RDI: 0000000000000060
+[    6.253642] RBP: 0000000000000000 R08: 0000000000000000 R09: fffffbfff235a504
+[    6.253947] R10: 0000000000000003 R11: 7463656e6e6f6320 R12: 0000000000000000
+[    6.254251] R13: 0000000000000000 R14: ffff88806c907c38 R15: 0000000000000000
+[    6.254549] FS:  0000000000000000(0000) GS:ffff8880d95bc000(0000) knlGS:0000000000000000
+[    6.254887] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    6.255140] CR2: 00007fc393e8ffc0 CR3: 0000000005252006 CR4: 0000000000770ef0
+[    6.255439] PKRU: 55555554
+[    6.255564] Call Trace:
+[    6.255674]  <IRQ>
+[    6.255768]  __iscsi_complete_pdu+0x18bf/0x22a0
+[    6.256733]  iscsi_complete_pdu+0x54/0xa0
+[    6.256905]  iscsi_tcp_data_recv_done+0xf4/0x250
+[    6.257103]  iscsi_tcp_recv_skb+0x31e/0xec0
+[    6.257680]  iscsi_sw_tcp_recv+0x12f/0x390
+[    6.258061]  __tcp_read_sock+0x1ab/0x810
+[    6.258853]  iscsi_sw_tcp_data_ready+0x18b/0x510
+[    6.259808]  tcp_data_queue+0x1f13/0x4cd0
+[    6.260567]  tcp_rcv_established+0x8a5/0x3a00
+[    6.261931]  tcp_v4_do_rcv+0x449/0x960
+[    6.262269]  tcp_v4_rcv+0x2245/0x3bc0
+
+Fixes: 8afa1439fcff ("[SCSI] libiscsi: handle immediate command rejections")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reviewed-by: Mike Christie <michael.christie@oracle.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Link: https://patch.msgid.link/20261007015842.634893-3-yhlee@isslab.korea.ac.kr
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/vmw_vsock/vsock_bpf.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/scsi/libiscsi.c |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 5120911b8143..3edc01268c42 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -111,6 +111,15 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	struct vsock_sock *vsk;
- 	int copied;
- 
-+	if (unlikely(flags & MSG_ERRQUEUE))
-+		return __vsock_recvmsg(sk, msg, len, flags);
-+
-+	if (flags & MSG_OOB)
-+		return -EOPNOTSUPP;
-+
-+	if (!len)
-+		return 0;
-+
- 	psock = sk_psock_get(sk);
- 	if (unlikely(!psock))
- 		return __vsock_recvmsg(sk, msg, len, flags);
-
--- 
-2.56.0
+--- a/drivers/scsi/libiscsi.c
++++ b/drivers/scsi/libiscsi.c
+@@ -1142,13 +1142,15 @@ static int iscsi_handle_reject(struct is
+ 			spin_unlock(&conn->session->frwd_lock);
+ 			spin_lock(&conn->session->back_lock);
+ 		} else {
+-			struct iscsi_task *task;
++			struct iscsi_task *task = NULL;
+ 			/*
+ 			 * Our nop as ping got dropped. We know the target
+ 			 * and transport are ok so just clean up
+ 			 */
+-			task = iscsi_itt_to_task(conn, rejected_pdu.itt);
+-			if (!task) {
++			if (!iscsi_verify_itt(conn, rejected_pdu.itt))
++				task = iscsi_itt_to_task(conn, rejected_pdu.itt);
++			if (!task || task->state == ISCSI_TASK_FREE ||
++			    task->sc) {
+ 				iscsi_conn_printk(KERN_ERR, conn,
+ 						 "Invalid pdu reject. Could "
+ 						 "not lookup rejected task.\n");
 
 
