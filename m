@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793226912;
-	b=nhWpDxzNv4XH89Z50hNHoWW4bKeWzxMnQcOHwUQAn156CnhZg279gqQfWLRfJXX5XH7z
-	 40AEHMcVcYPBcmQbASTnW7PSQ1vLxwzlf55srb/yC6I0MHxoi+RpALfMjDEqJEr68RFPU
-	 ASKth7qa6C6GufhoJmws1hYQyvW9zyEFXKrzUbcuDg/JHi/S98+NPis3SnRj67TsFgypL
-	 D5vPK/tZGQ4tuzoyHdPp8wn+DV3bAYLuxAfu6ki0zjWmqbEqA4ijgOLWPkd4ttYQFxuXY
-	 Ot0YKIGMIjNDwC9tVMqLHOObQsfGxzzxnM1wQ/bVG/YFVkbdA4v44aGQS2xUKvIGIbA==
+	t=1793227278;
+	b=j4RInwWvdLGN0kdBTV0Ij/xJAouobBE5pXKZcijLbqApXG7QpLEP2mo+3UnRHyC6t+il
+	 57vgoiPcA8iL2akIDLJUIByXYLm0KhQkNZHqnTTL+lBNp2kGeViMhoGFvaKnrgZ3fYoiF
+	 7dPGgIZdrUzAgbDxN69YYegSzE+zrpKI+1HIvTxP2q5c6yujmpFGt6lV6VWWelF/xlTF0
+	 H5NTsYQ/tyz2/oWuSo91gcCxqY5jhVlkXblt6rKEC7Z8xRw8Jk+IB6iST4NKp7ezsT9jp
+	 90ltPDF8BZkV8Ur/X3/pNvUSQZQkZDzQAHj/wMgjDPRBhZnFKrNrLEz5cEaOmV/a0sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793226912;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fj1eS4lfc64bEh7OA3VZVWAWNRRiYwPnCuxQ11/d7AU=;
-	b=PXfxACsw4U9XmXu3gS0HG08B+QMwSuQ6cdJ7sudsnQZKlvaHzU1kFLtGrtwl6cKk4sJH
-	 RNkk2Y7ypWW2pBy2pbsAsls6AGRUQEBK39WdJUd8XeNqKIBUUJ562NfB6pCPHGvwt6e7O
-	 MpKUwmeIlBNk+pmuFAatxLgulqMFIhN62vzUeyVUhJKtp+UZiO7JAasHRdu3G+9CoxP/H
-	 ZV9wEekI2i8DTpkKjbn/3q5NFs4L/K4x7r3cV8rZhdMkozWjo2G0qLOxgHm2Pj3r60po4
-	 Y8m1Z8kd4QdDrbn+K7Mtme2tLmqaMvPIHD6moL4jhp3itmQiwe23Z66daqMUafrQtRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793227278;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2JY3WgHQl71TpwFfPN3ajoLGU5Lfhxz2JrBrBuC10ac=;
+	b=YfApAoRQzXwYxpHBd1PIgJysBxrqohRh+V+9DyPi/zun7iGTd4q0jy288C9ncslbZ9US
+	 yy4u2TTzLz4HoOI/hJuBdAZYbInwmyXPcbDvf2RPrK7u96YOUJCEtbwsuQJLO1E8fYdik
+	 NC+DeTPVrHLwkXhgD9EhCTi+i/pqWo/ahddW9yRrxqYpv/KW6S1fC52N6+oRvHLH3c0Xj
+	 lhjRB0II6a3SaMwvHfPNG7BF/Unp2U/W1Q7RNTqJHXjDXA8xIsUSjtOPHA4byhTjoA3Fn
+	 UjqVS0+VoiI7NnmB7VWxm3CsSgvhSXI8by80/VUNeGRJclv8Rn3++/uzFpcZcwlOveQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTipxEk+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVUVWnbu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394C2606A31A;
-	Wed, 28 Oct 2026 22:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146CF606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:41:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTipxEk+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671081F01829;
-	Wed, 28 Oct 2026 22:35:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVUVWnbu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270251F01825;
+	Wed, 28 Oct 2026 22:41:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793226911;
-	bh=fj1eS4lfc64bEh7OA3VZVWAWNRRiYwPnCuxQ11/d7AU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nTipxEk+4XmCj1pqLeR73mgOlf/JKYE9ofgC7PRtRVI8QP9EnEmMVPK6d93IfIpw0
-	 0tNxQQvGh16tRlaGBmj2X1F35Dt+6te05i8wmcWgbdTCFiYrW/nMb23npkocU62h2T
-	 XOOdAsHFko82DeGCpmST/47EdVCuiLU8fecxOSu2JnP8rJFu4hcJQX5LFzdoujOltg
-	 vfwoKyKWFi2K0g4fKeQ8KM1/BTWGD2pnJbAqzhjq6PzsPfIwzhn0TBZyCkv6L7+iFR
-	 7eO6t7mONUb/m78wYlzfHp6sF9oeJVIOFCULbN4mzn+2IvD9yRfH1yv1gZofgfQNKr
-	 mk8yxqV4cpcgA==
-Date: Wed, 28 Oct 2026 15:35:10 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: dhowells@redhat.com
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- marc.dionne@auristor.com, davem@davemloft.net, edumazet@google.com,
- horms@kernel.org, linux-afs@lists.infradead.org,
- linux-kernel@vger.kernel.org, jaltman@auristor.com, stable@vger.kernel.org,
- netdev-bot+sashiko@kernel.org
-Subject: Re: [PATCH net v2 2/3] rxrpc: Fix counting of in-flight transmitted
- packets
-Message-ID: <20261028153510.2c0b0f23@kernel.org>
-In-Reply-To: <0f7f68bf-d02e-4bc5-accf-5f89a599d37f@redhat.com>
-References: <20261020201258.290827-3-dhowells@redhat.com>
-	<179262720290.3135.1509720869529893686@kernel.org>
-	<0f7f68bf-d02e-4bc5-accf-5f89a599d37f@redhat.com>
+	s=k20260515; t=1793227277;
+	bh=2JY3WgHQl71TpwFfPN3ajoLGU5Lfhxz2JrBrBuC10ac=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bVUVWnbuS6d5d+onCivK2WHaQsYgdQYCckkIIa+iVpZZwuMz6pfx5ucPLgcMALjHB
+	 E4eu0fwEABlSqylAYNnNjs26PWvSvkTDinzQ6kZ+W6BVUhoj1D44SGmotZQs3YMMBt
+	 Bv5QnNuOqk5xiU/pgCC/x9uy7UTfVYJB6r4/C4dWN6lufoQxN04y0Zk9aFNNMTrlbA
+	 +YismkFJipfreHDR39xfJIOMolYEhv08Eq1QyLIT1ePLHw3c4stR4dISj/HyX2rerS
+	 wOngYN6FaNJ8LEhM9i/bci933pYrp9gJ6bCL+QEovtfW6PmGa05OPg5CAVBv9zBoWb
+	 G7j/NX9OeOqSg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] exec: cancel io_uring requests before de_thread()
+Date: Wed, 28 Oct 2026 18:41:15 -0400
+Message-ID: <20261028224053.2414973-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102821-deluge-generic-8319@gregkh>
+References: <2026102821-deluge-generic-8319@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,35 +60,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 10:07:14 +0100 Paolo Abeni wrote:
-> On 10/22/26 02:00, netdev-bot+sashiko@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 2 potential
-> > issue(s) to consider.
-> >=20
-> > Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0 (1)
-> >=20
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >=20
-> > - [Medium] Incomplete in-flight accounting: if a segment that is already
-> >    soft-ACKed gets retransmitted, its tq->in_flight bit is set again an=
-d=E2=80=A6
-> > - [Medium] Behaviour change on soft-ACK reneging (ACK->NAK flip). =20
-> Basically sashiko says that the accounting looks still not perfect. Is not
-> clear to me the new status is good enough.
->=20
-> Side notes: sashiko comments on patch 3/3 are not blockers, but you should
-> revisit the commit message in case of a repost (and do not include patch =
-1/3,
-> postponed to net-next).
+From: Christian Brauner <brauner@kernel.org>
 
-David, this posting is almost 9 days old (which is a cut off point for
-some of our trackers). Could you please respond?
+[ Upstream commit b42c85c20d84ff3e4f0f027d6596c3b3b4a20657 ]
+
+begin_new_exec() cancels the exec'ing thread's io_uring requests after
+de_thread() made it the only thread in the thread-group. Now
+io_uring_task_cancel() runs task work after. If it runs a
+create_worker_cb() item then a io-wq queued on the thread before the
+exec creates a new io-wq worker thread.
+
+Said thread joins the thread-group which de_thread() just took down. The
+io-iwq sticks around until it notices that its workqueue is dying. But
+code after de_thread() relies on being single-threaded.
+
+Move io_uring_task_cancel() before de_thread() but behind the point of
+no return. Any worker created during task work run from
+io_uring_task_cancel() is just a sibling thread that de_thread() will
+take down and reap.
+
+Once io_uring_task_cancel() returned the thread has neither a task
+context nor a workqueue left so nothing can add a thread behind
+de_thread()'s back anymore.
+
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0_lvHDViIpX_Mu@redhat.com
+Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Adjusted context around de_thread() to preserve the existing fs->in_exec reset in bprm_execve(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/exec.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/fs/exec.c b/fs/exec.c
+index 6797c8cf88f4f..a495aa064a6d4 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1255,6 +1255,13 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	 */
+ 	bprm->point_of_no_return = true;
+ 
++	/*
++	 * Cancel any io_uring activity across execve. This runs task work
++	 * that may still create an io-wq worker, so do it while de_thread()
++	 * can still zap it.
++	 */
++	io_uring_task_cancel();
++
+ 	/*
+ 	 * Make this the only thread in the thread group.
+ 	 */
+@@ -1262,11 +1269,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	if (retval)
+ 		goto out;
+ 
+-	/*
+-	 * Cancel any io_uring activity across execve
+-	 */
+-	io_uring_task_cancel();
+-
+ 	/* Ensure the files table is not shared. */
+ 	retval = unshare_files();
+ 	if (retval)
+-- 
+2.53.0
+
