@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212519;
-	b=Yk//RDApvYduv9I1hzjpvKX5XQpk2AJcu21qpADaO7mYRme2qp5dHds2zrc/JVYWXCSG
-	 x2E2GwRWwxD+6Kx/YC2Kl8xYDgCU3pVKN+dsZjVZEfFCthLIPXJetD2rSjOg6fTNtPHG0
-	 8asMEZuSqvVoPDcoCTl99jpinL4Y9MFH/+ha2Y6aiYsyGnpT80LM6tgPFZ1GhI2LiZMBN
-	 9AocTeN6rZmsmWbJKo4fi0OGeA+/QsrR/4t4/e6Ob6NE7wwi3stNE2t9uE/Gk9yZXwyNY
-	 biISSIa06H1mHD4NXk7Tg+C0zZwuftT2QPtuyu0Ec5h5vIA3WTuapw5h+mEduT//WKw==
+	t=1793212521;
+	b=HOPMyZcf/dTYEcOwrVMk6yy4uAOM8Ven/H4ytlGnl+lWAnuDe0bz1QbN3TKKNIIeWiGY
+	 mFnpvpm7z1gc4AkTsOSYXzytxxNEkjubEASLPDbHWAZWkmmrN1DzzII2Gh5ss4GqhYxln
+	 CZQm+cQ16zn4u8g2IpGlaw0PkJjPG940r5eQ4+/WIlF8akxMhdTHnLQ51fTVPOmebbGyi
+	 bWBFtket5dmqyw+LnPqSse0ADiQwQp6QM8Jnhweti01JL4Rkb0tw/j3chgc8t8YJzNGPH
+	 xufO4xhz97sQULXhos4Yj5C2AeekPdnaBC1GJEPx7+pDZg4vVSrF/G7NXE1a0/GWrgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212521;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rVb6hAD/54DYNjEeuOXpuBsBpH6T2qGeIYMqAnBgfSk=;
-	b=rQD8U6p2Q5XFKALD4OxXnFiBbCiAaRRbfqrGHppxBYhRruWbfXkBfmGQ2xvL5G+cz2b3
-	 uSVXIMjQ9anhH/mirZUKRONJ5v4OxCtPvgYF+JkDHR0xn3XYUtqLHg6xiodgEZscxbHSS
-	 A83l7lu+K4S5OG6RzrZR3uqJRHyUUAxTu2zcWYpHsJ0AcB+c6s4EV3U7aw8WeMK2muTkK
-	 EvCsj7+oUoa2voKGNFP4ocwwtEi6SsA5EmLGm9THXeGtsOkU9A+w0RGfNFlsbV/5Rx4MP
-	 6tfjFHPHYISBDMRCKvdygdTAalgsBXkM84rgnK7jDUEMqJIbP+UQ4aX1fiaieW6Zzaw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dKlpSfRiecceRt8JjlmIY7Ej8eCeGfLZ167myljRM08=;
+	b=1aN+0nZ+mberuaOghwfk/tQFQuMkhYGN4bwDtiU1PRHbne59HHug58CLXk73p7rObPDD
+	 8TI+N0d3+EIq6ABtbnWt8KYg2AlSYJk6dkujBC663+QDLpZ2brmng2D1xiEUPF+EJC7kt
+	 4jzhXwFuIObCWeooHz4/7ugAYd5wMbi+GLn0Pap+GPr+LakPOPqUcgKWGBnrm/m55G6v5
+	 ZqQMUbGAcRnY/hk2pGLbkO2Mc4epvW4zzQJETxoAoZwuqcLnYlZKAdEmsPczytPqln5Hm
+	 Kl8GlgVQP/AI6CZZBaK9ZczmEy1IlLeSHjXPDbHwbatZ+NzVQ47WWKOI2EfpdV9xtCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUozNoh3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BHNwVLYd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC61606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D2B606A31E;
+	Wed, 28 Oct 2026 18:35:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUozNoh3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD4F1F01825;
-	Wed, 28 Oct 2026 18:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793212519;
-	bh=rVb6hAD/54DYNjEeuOXpuBsBpH6T2qGeIYMqAnBgfSk=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BHNwVLYd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66321F01825;
+	Wed, 28 Oct 2026 18:35:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793212521;
+	bh=dKlpSfRiecceRt8JjlmIY7Ej8eCeGfLZ167myljRM08=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KUozNoh3DhaRvpHqAlzdUdnDE1tSZfSiOt7tH7RDf4DphPgKJD2G+FThQwCBUfsu4
-	 lNdUaAsl65Z0M12yYBBihv29CCM1xisEBvt32nFRnwICTwpIxq/ucJd6SMR5TDkMM1
-	 N6Xpsp4ce75pyc1glrNjnNlu+t4bmQ2xDBIZH6me46bWJm4pI0cagAhZ1vczLgKgHN
-	 n6aXHuDHhKQRrczlg2SuKRYVUz0UoeLJSBPkfa1bVhIUlFHnyWhsvtauAHBYPFho8m
-	 BxTvWmsZGTCdYOODXEZuZ4G+lewRkdvGOXAJzFwvovdcT59Z6vRTGzDwDfshaC+8Dz
-	 Yt4BfV8O75N6A==
-From: Sasha Levin <sashal@kernel.org>
+	b=BHNwVLYd77wVbKosioIl2NhgN9KU+lyz2ehATN6lM2ziA2I9poI1wImSVEe373Awl
+	 ls6yq1UYTp+yZAWZw9AdWVPxW8vK4PFJmABOjqmdf+w0DqklRcQJuhFIuXLENhJWDY
+	 8rovXwpTCe3MXVJlOk1gfecCn4SFnzwWqRxjTk2Y=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Chris Mason <mason@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jan Kara <jack@suse.cz>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Artem Dinaburg <artem@trailofbits.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] fork: release the files of a failed fork after sched_cancel_fork()
-Date: Wed, 28 Oct 2026 14:35:16 -0400
-Message-ID: <20261028183504.1718588-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028183504.1718588-1-sashal@kernel.org>
-References: <2026102801-startle-saddled-529f@gregkh>
- <20261028183504.1718588-1-sashal@kernel.org>
+Subject: [PATCH 6.1 0183/1887] ocfs2: Avoid touching renamed directory if parent does not change
+Date: Wed, 28 Oct 2026 17:37:59 +0100
+Message-ID: <20261028170503.400555827@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,88 +65,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 296a98c1fa50778c3b31eebed1a3f903f9684349 ]
+------------------
 
-Reorder copy_process() cleanup so sched_fork() taking scx_fork_rwsem
-scx_pre_fork() is safe and isn't held around exiting files. Right now, a
-fork that fails while another thread closed the bpf link fd will
-deadlock against its own read side. It also blocks every fork on the
-system:
+From: Jan Kara <jack@suse.cz>
 
-    copy_process()                  holds scx_fork_rwsem for read
-      exit_files()
-        close_files()
-          filp_close_sync()
-            bpf_scx_unreg()
-              kthread_flush_work()  waits for the disable work
-                scx_root_disable()
-                  percpu_down_write(&scx_fork_rwsem)
+[ Upstream commit 9d618d19b29c2943527e3a43da0a35aea91062fc ]
 
-Simply release the child's files after sched_cancel_fork() dropped the
-lock. The task starts out as a copy of its parent so p->files points to
-the parent's table until copy_files() replaces it. exit_files() must not
-run for a fork that failed before that. Clear p->files up front so
-exit_files() is a no-op for those and make copy_files() set it
-explicitly for CLONE_FILES.
+The VFS will not be locking moved directory if its parent does not
+change. Change ocfs2 rename code to avoid touching renamed directory if
+its parent does not change as without locking that can corrupt the
+filesystem.
 
-Reported-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-7-8e4adb1619e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/fork.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ fs/ocfs2/namei.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 7d5ec03d7caca..88315fdd8f847 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1799,6 +1799,7 @@ static int copy_files(unsigned long clone_flags, struct task_struct *tsk,
- 
- 	if (clone_flags & CLONE_FILES) {
- 		atomic_inc(&oldf->count);
-+		tsk->files = oldf;
- 		return 0;
+diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
+index 62f9d976c8fb3..60770904b243b 100644
+--- a/fs/ocfs2/namei.c
++++ b/fs/ocfs2/namei.c
+@@ -1340,7 +1340,7 @@ static int ocfs2_rename(struct user_namespace *mnt_userns,
+ 		goto bail;
  	}
  
-@@ -2401,6 +2402,8 @@ __latent_entropy struct task_struct *copy_process(
- 	INIT_LIST_HEAD(&p->sibling);
- 	rcu_copy_process(p);
- 	p->vfork_done = NULL;
-+	/* Set by copy_files(), exit_files() on the error path skips NULL. */
-+	p->files = NULL;
- 	spin_lock_init(&p->alloc_lock);
+-	if (S_ISDIR(old_inode->i_mode)) {
++	if (S_ISDIR(old_inode->i_mode) && new_dir != old_dir) {
+ 		u64 old_inode_parent;
  
- 	init_sigpending(&p->pending);
-@@ -2503,7 +2506,7 @@ __latent_entropy struct task_struct *copy_process(
- 		goto bad_fork_cleanup_semundo;
- 	retval = copy_fs(clone_flags, p);
- 	if (retval)
--		goto bad_fork_cleanup_files;
-+		goto bad_fork_cleanup_semundo;
- 	retval = copy_sighand(clone_flags, p);
- 	if (retval)
- 		goto bad_fork_cleanup_fs;
-@@ -2782,8 +2785,6 @@ __latent_entropy struct task_struct *copy_process(
- 	__cleanup_sighand(p->sighand);
- bad_fork_cleanup_fs:
- 	exit_fs(p); /* blocking */
--bad_fork_cleanup_files:
--	exit_files(p); /* blocking */
- bad_fork_cleanup_semundo:
- 	exit_sem(p);
- bad_fork_cleanup_security:
-@@ -2794,6 +2795,8 @@ __latent_entropy struct task_struct *copy_process(
- 	perf_event_free_task(p);
- bad_fork_sched_cancel_fork:
- 	sched_cancel_fork(p);
-+	/* ->release() of a file may need scx_fork_rwsem for write. */
-+	exit_files(p); /* blocking */
- bad_fork_cleanup_policy:
- 	lockdep_free_task(p);
- #ifdef CONFIG_NUMA
+ 		update_dot_dot = 1;
+@@ -1357,8 +1357,7 @@ static int ocfs2_rename(struct user_namespace *mnt_userns,
+ 			goto bail;
+ 		}
+ 
+-		if (!new_inode && new_dir != old_dir &&
+-		    new_dir->i_nlink >= ocfs2_link_max(osb)) {
++		if (!new_inode && new_dir->i_nlink >= ocfs2_link_max(osb)) {
+ 			status = -EMLINK;
+ 			goto bail;
+ 		}
+@@ -1601,6 +1600,9 @@ static int ocfs2_rename(struct user_namespace *mnt_userns,
+ 	if (update_dot_dot) {
+ 		status = ocfs2_update_entry(old_inode, handle,
+ 					    &old_inode_dot_dot_res, new_dir);
++	}
++
++	if (S_ISDIR(old_inode->i_mode)) {
+ 		drop_nlink(old_dir);
+ 		if (new_inode) {
+ 			drop_nlink(new_inode);
 -- 
 2.53.0
+
+
 
