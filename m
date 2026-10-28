@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222774;
-	b=EMtc2UBuV7kZCVWEntaaF6N1pgdX2YTORH1fPfeGE2btbYiswLPzPZ37kNVZs4qbIC24
-	 +Lf6UcikWTumKX9sHGY3zaqNZN23S1nfVrenfYXYsnDF22ru1h6az34oSFxVxSAcAu033
-	 yvwE8O8fzAZQOaIMJvB0jNbJbsBsE1Zw23vQMJ4KLgqlCaqenDgz088Dafykp7nn1fw5j
-	 ImLVrZRHJgBSTXC3sxFfv4D7f9oCPzNjjCEG4JvKghOVOdwhhXl3ohmIBIHf8bgq5fJaq
-	 /qHq2fTIVx+U920W0xgFUn7x+Kspl2Sd5TeFNExvUvG1LEJrC9xM0D42BmGyQ00/Lpw==
+	t=1793222950;
+	b=gdJqRBSM70KsVn+ZlfGM+4nK5VNweho4IOT+qL5mSgDj39luxQbwsSqBAF8v0p6F+Edm
+	 Khp2XvQwEibEFZRTF21m68o7OE5e1NuX+P+Pl26u4xegHw7AMzmLvTOS1KthOn32aMrmD
+	 RIM68yHL+YEOPD8ee2DTLbqcwSuG8ixX5vWX/rBNAuC/72Ld8UDi9X/X5ygCpZzIEWVHM
+	 pDP7GYwtXc8ABBJJBU/ft82ztIINcncwa8KOlXxKIJ8Z2/C+5snIDJl09su8muttGr0BC
+	 uvs17m4tM1ZFAs7uI8Xs/PvxOdhSO7X9jwOzIzDSqst31Hx2NXDdzx1kbnFjrIKl8bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222774;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=6gvvAaf5oqzPrIz/4nEh4l4rMyZ25yG9p051XezDf08=;
-	b=DZ/PHsvsTaynXjFRIiioWumt4dLtOgnOlVc0NLGPfc50Pli3MlN1JdfOb/yOgnqmmx9t
-	 JlPaudgsKAW98/igLkKBzUJryTIodt5L/15wV6nhhS4DlN8v8zeitUUEUfTfdYrhT2wL/
-	 V7K0O2ZtCfJK2l4zTEejvvUV2EvI172fiw8AgEM4/LtGXK9D0y+95TflXkQ/NIN97RDP4
-	 Gf8DCO/ajYGBvPjz5x3pBDNTlASKxPA5QC+tm6CfcdMa9GJ7ocuJm7Y3sJx0S7sOZxP37
-	 sk/oyGtqFC2r3PW0HjlnmMPlHsrVvofp/ZJr/MOAgEGbh7KHEHF70n0+tD+zsM4yIZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222950;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DH6Vxuh3Tv9IQWE6F6iKwGK30v1MKjDFrks/fkKBbRg=;
+	b=K/dd6SOQKvcRS00vHpA3/GK+HA+cJAEGSS1wFgk7j7LowjIhNATuduAYao8V4Y7XJ8eN
+	 t2pcCUmomLdkpVH8ZS6cgh3/ONFbVh5EQnvHgKpE1uQHVEIV8R0FwamlemJ+DcVwaH8vd
+	 X1Gwc96TSiv5VHeAYZQs8loAXcVuWHHdEodmM1fA3T1C9HU47sFYXTyTqJ56qm6JU0cgx
+	 kuxzRLwOM2NV2r3SjREbCaTbVESq67skHri/qfpWnBHc8hBKqFqG9OpCTr3PwaJuNqqZF
+	 HEbolO3lCCjGIjtLuFMBNK4VWE7qfefxwiIYg4WdS1k4tZAXfbMyOmPtXPJI9NsBkhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QD9yN87U;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXqQ1nV0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCDB606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:26:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FCDB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766B8606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QD9yN87U
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-14394530ec6so1700659c88.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793222773; x=1793827573; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6gvvAaf5oqzPrIz/4nEh4l4rMyZ25yG9p051XezDf08=;
-        b=QD9yN87Uh1J0d6iiUIj1W6WctIebIfGNxt7h9QYUIeawwYdz7ichnWcdtO//xOQ1v6
-         O+EUX13ENy5pr4wT16aHkRYAJ8eNwYbD1dbMhfegvAuJKb3lTHfMFeRr18Uw3k2eNyLW
-         9eo2FmtbRlFH+4RUAsVFYtsl1VJzdqiww4rD+cnQhAs7lw8NYR7WO8zFIgn3mnJh1Z7Y
-         d8Eamf2elVNEahnBgktHdT7BzWpx+YQ2PkhCQZ54ks9gi5sL14hyK7Y4dN+bbhS/+XW7
-         bQWJAeetcd9ZCv9t8EujP7eCRhN83M0dUeJ+oRNF0P1+ZBG8/OIS67HRYQwDLzZZgbZy
-         Eg+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222773; x=1793827573;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6gvvAaf5oqzPrIz/4nEh4l4rMyZ25yG9p051XezDf08=;
-        b=AJCyRe6zDuvnubgPUPwMUmcwuoj2OJIlIVkh8Og+usr/LBYEAR3Cs5ZA1Gd1sP3IS0
-         7TBVB5h2g2Yyn+1P6VeGnXGcr3ZGrWl4wlhU7mduMTTejdJl+ZvgoQyZz81XCYLHuurZ
-         sHZwGOgxrZxNTWdGRSImajMdoK42bBRfMj8XwwRyXvJiYdkcm3jxCSvYvjXPvvATkFK7
-         pEeBiflUOyVLyraQEALwrg5En8wUsD0H6I84z01sRib+F2b4jmBb2iw+e5Q9og69BcKv
-         +PFHDziii7lUoLRpPHHxvBw+qMfAZGDZPSOurWGpx7v9BrgNXbHMuLeIgKZgQx8VaNYC
-         rO3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxeYUp2UoFQbuCX4juaS5W8X6FmdeImnC13J6WwtmrfbEZ6cOl9YQDQ9pO10kW1VYsn4pp/qwo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJT2vSaYQ2E2pGlwyJlJ5NOKe0QhV80bYPioIQljXB/UHFM/Se3
-	MRin0kbsJm85ZVanUBkk7X1/+sYe0582reNdPRo4sK85I/c90vxSKOod
-X-Gm-Gg: AYBFou3/tT55xnmLVUn0vMODkfjdu4hokmepiZdXE5KRxEPDVUyQJkNWFq2oo78TX/O
-	h11rhx7IeoKZxpySxwRcRKPykpM5uRdjSE0eyjl8SyUuPbhNBj3/2lXK9FXZ17rD8JQo1E5CUGT
-	S0GdW++7maZix72fRqFpbrKrjrEG6XqyX/fCHG049WGqsSdMYe0pyFbclK9gdxqIruNwtbYfEki
-	kJ/mKYvQEMTxKYqHDWzajbBa5tnhIMqkGQnqGxmdV2ta0V8omSIv0+e9o2hXpaziXvD59n9gHkw
-	KGVozB53t3ziamNeODAYd7t4JJPFs2s91frCHPqgXNEIhTTvuQeZwFVZdqigviIgzE5hHxkBdWV
-	Tf1AvtQWOpphC7BQ3Xr9NgTA6ibE/DWE7HHodICrpNCbS7sF4vnwZZfsYODgI8i/Me2jME1Yo98
-	WAhSPj4DXkiySPB0tqvnxr/iWr03oT+PcegekRKfQWN2EmIyYadsUdcZUAkHUrZ45ZMgO1yyZHh
-	TeoOoYM+XuSj33eqvRwWlC/iCG6+E4qkLMQnhg/V11bLNFPQm3WioOWDUyQyt0KKud4zMgK09A4
-	LXa8wuqNpgSlBNmiGT00+Qiim+oHr52K4/7eZK1wpMxhx32n149ek+SN
-X-Received: by 2002:a05:701b:42d1:10b0:1a2:6b9f:f7e1 with SMTP id a92af1059eb24-1a6ced8ff72mr4944038c88.14.1793222772917;
-        Wed, 28 Oct 2026 14:26:12 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm8109314c88.10.2026.10.28.14.26.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 14:26:12 -0700 (PDT)
-Message-ID: <d989cca6-f049-4c87-bacf-8a6a4832dfbd@gmail.com>
-Date: Wed, 28 Oct 2026 14:26:10 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CXqQ1nV0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695BD1F01825;
+	Wed, 28 Oct 2026 21:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793222950;
+	bh=DH6Vxuh3Tv9IQWE6F6iKwGK30v1MKjDFrks/fkKBbRg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CXqQ1nV0Lz+8CTDYlkrLYEiJuEQvv4AJbcp2g6YqRYj7s0n3YtmrmHdzPJAaWoJl5
+	 f3n4X6TDZpyMj3NpncJ+XL7wVlqE84Vf5JGBf4h8vfwgDP1vH40q2CAv9MNhefrr5S
+	 jc7AbFlpWw3zUmKhbflJsm2Q32Kij9zEsaeO89VtGfa08BHp/cg0y0tMxwX0eSy9C9
+	 VVz+qr2zABdUQnNUI69W+xRSW22THmgmE7opP8yBGz/jIogszuFGrQwM4ssIJOceSH
+	 EUmhtYPafbamUDgRNb5WeMfBpLe9IfTUjJxq4ei4ftf9lRqry7nQrrSrTNdUumiEvC
+	 CCVk9OiXakRzw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] exec: cancel io_uring requests before de_thread()
+Date: Wed, 28 Oct 2026 17:29:08 -0400
+Message-ID: <20261028212846.2284935-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102820-emptier-goofiness-f4f7@gregkh>
+References: <2026102820-emptier-goofiness-f4f7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,132 +60,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261028170459.200466217@linuxfoundation.org>
- <f09f94df-c5e7-45d5-86a6-50be145f6655@gmail.com>
-Content-Language: en-US, fr-FR
-In-Reply-To: <f09f94df-c5e7-45d5-86a6-50be145f6655@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/28/26 14:12, Florian Fainelli wrote:
-> On 10/28/26 09:34, Greg Kroah-Hartman wrote:
->> This is the start of the stable review cycle for the 6.1.191 release.
->> There are 1887 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
->>
->> Responses should be made by Fri, 30 Oct 2026 17:02:34 +0000.
->> Anything received after that time might be too late.
->>
->> The whole patch series can be found in one patch at:
->>     https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/ 
->> patch-6.1.191-rc1.gz
->> or in the git tree and branch at:
->>     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable- 
->> rc.git linux-6.1.y
->> and the diffstat can be found below.
->>
->> thanks,
->>
->> greg k-h
-> 
-> The ARM 32-bit kernel fails to build with:
-> 
-> In file included from arch/arm/probes/uprobes/core.c:9:
-> ./include/linux/highmem.h: In function 'memcpy_from_folio':
-> ./include/linux/highmem.h:427:21: error: implicit declaration of 
-> function 'folio_test_highmem'; did you mean 'folio_test_hugetlb'? [- 
-> Werror=implicit-function-declaration]
->    427 |                 if (folio_test_highmem(folio) &&
->        |                     ^~~~~~~~~~~~~~~~~~
->        |                     folio_test_hugetlb
-> cc1: some warnings being treated as errors
-> host-make[6]: *** [scripts/Makefile.build:250: arch/arm/probes/uprobes/ 
-> core.o] Error 1
-> host-make[5]: *** [scripts/Makefile.build:503: arch/arm/probes/uprobes] 
-> Error 2
-> host-make[5]: *** Waiting for unfinished jobs....
->    AS      arch/arm/lib/csumpartial.o
->    CC      lib/math/lcm.o
->    CC      drivers/video/console/dummycon.o
->    CC      sound/core/control.o
-> host-make[4]: *** [scripts/Makefile.build:503: arch/arm/probes] Error 2
-> host-make[4]: *** Waiting for unfinished jobs...
-> 
-> this is due to 341d4e6294d9 ("highmem: add memcpy_to_folio() and 
-> memcpy_from_folio()"). We would need to also back port 00cdf76012ab 
-> ("("mm: add memcpy_from_file_folio()")
+From: Christian Brauner <brauner@kernel.org>
 
-And there is this other build failure caused by 997f9c35fcad 
-("Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete")
+[ Upstream commit b42c85c20d84ff3e4f0f027d6596c3b3b4a20657 ]
 
-net/bluetooth/mgmt.c: In function 'set_mesh_sync':
-net/bluetooth/mgmt.c:2188:36: error: implicit declaration of function 
-'__struct_size'; did you mean 'struct_size'? 
-[-Werror=implicit-function-declaration]
-  2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-       |                                    ^~~~~~~~~~~~~
-./include/linux/minmax.h:92:27: note: in definition of macro 
-'__careful_cmp_once'
-    92 |         __auto_type ux = (x); __auto_type uy = (y);     \
-       |                           ^
-./include/linux/minmax.h:105:25: note: in expansion of macro '__careful_cmp'
-   105 | #define min(x, y)       __careful_cmp(min, x, y)
-       |                         ^~~~~~~~~~~~~
-net/bluetooth/mgmt.c:2188:32: note: in expansion of macro 'min'
-  2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-       |                                ^~~
-In file included from <command-line>:
-././include/linux/compiler_types.h:387:45: error: call to 
-'__compiletime_assert_741' declared with attribute error: 
-min(__struct_size(cp), len) signedness error
-   387 |         _compiletime_assert(condition, msg, 
-__compiletime_assert_, __COUNTER__)
-       |                                             ^
-././include/linux/compiler_types.h:368:25: note: in definition of macro 
-'__compiletime_assert'
-   368 |                         prefix ## suffix(); 
-         \
-       |                         ^~~~~~
-././include/linux/compiler_types.h:387:9: note: in expansion of macro 
-'_compiletime_assert'
-   387 |         _compiletime_assert(condition, msg, 
-__compiletime_assert_, __COUNTER__)
-       |         ^~~~~~~~~~~~~~~~~~~
-./include/linux/build_bug.h:39:37: note: in expansion of macro 
-'compiletime_assert'
-    39 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), 
-msg)
-       |                                     ^~~~~~~~~~~~~~~~~~
-./include/linux/minmax.h:93:9: note: in expansion of macro 
-'BUILD_BUG_ON_MSG'
-    93 |         BUILD_BUG_ON_MSG(!__types_ok(ux, uy),           \
-       |         ^~~~~~~~~~~~~~~~
-./include/linux/minmax.h:98:9: note: in expansion of macro 
-'__careful_cmp_once'
-    98 |         __careful_cmp_once(op, x, y, __UNIQUE_ID(x_), 
-__UNIQUE_ID(y_))
-       |         ^~~~~~~~~~~~~~~~~~
-./include/linux/minmax.h:105:25: note: in expansion of macro '__careful_cmp'
-   105 | #define min(x, y)       __careful_cmp(min, x, y)
-       |                         ^~~~~~~~~~~~~
-net/bluetooth/mgmt.c:2188:32: note: in expansion of macro 'min'
-  2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-       |                                ^~~
-cc1: some warnings being treated as errors
+begin_new_exec() cancels the exec'ing thread's io_uring requests after
+de_thread() made it the only thread in the thread-group. Now
+io_uring_task_cancel() runs task work after. If it runs a
+create_worker_cb() item then a io-wq queued on the thread before the
+exec creates a new io-wq worker thread.
 
+Said thread joins the thread-group which de_thread() just took down. The
+io-iwq sticks around until it notices that its workqueue is dying. But
+code after de_thread() relies on being single-threaded.
 
-We would need to back port 26dd68d293fd but this does not apply cleanly.
+Move io_uring_task_cancel() before de_thread() but behind the point of
+no return. Any worker created during task work run from
+io_uring_task_cancel() is just a sibling thread that de_thread() will
+take down and reap.
+
+Once io_uring_task_cancel() returned the thread has neither a task
+context nor a workqueue left so nothing can add a thread behind
+de_thread()'s back anymore.
+
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0_lvHDViIpX_Mu@redhat.com
+Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Adjusted context around de_thread() to accommodate existing POSIX timer cleanup. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/exec.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/fs/exec.c b/fs/exec.c
+index 7391ec00a1cc1..05356a5122f08 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1261,6 +1261,13 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	 */
+ 	bprm->point_of_no_return = true;
+ 
++	/*
++	 * Cancel any io_uring activity across execve. This runs task work
++	 * that may still create an io-wq worker, so do it while de_thread()
++	 * can still zap it.
++	 */
++	io_uring_task_cancel();
++
+ 	/*
+ 	 * Make this the only thread in the thread group.
+ 	 */
+@@ -1283,11 +1290,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	flush_itimer_signals();
+ #endif
+ 
+-	/*
+-	 * Cancel any io_uring activity across execve
+-	 */
+-	io_uring_task_cancel();
+-
+ 	/* Ensure the files table is not shared. */
+ 	retval = unshare_files();
+ 	if (retval)
 -- 
-Florian
+2.53.0
+
