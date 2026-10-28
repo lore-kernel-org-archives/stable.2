@@ -1,54 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793177429;
-	b=mgFZ7BGkGRFiO6Beh3+wt6vsVI93NBGYVrdsZieAkZcVo2K2i2pUVAhs7SssLpNMKi9y
-	 /4oyNQp06/4NNSTTUKt7ZxGjGgh9NFZbcnS63H/uyBlpcsWY3hVJQ5PWDLW04OYb2Bmta
-	 eZbRMm8fy39OfLVdPgkNLx5VB7oh9idgrOTUYonnIoVdQM3OG8BPQ4qOtGilt/QJJqmgh
-	 QgCRD9aHxBQnZ5kzZeLFChSBCHbs/Rg9doo+c+pYLvMUrL7I1zGIERDr32cSZc4a43yIj
-	 +XyVJZ8nELSIfxZe8eG6ysDPxIgtGfaW2xCj9sIfF8IgAQAj6lVoH0zNrV/j0dZwMMQ==
+	t=1793177457;
+	b=QuktvT0vykQjIw07PwcOIbC+v3geO0h3Q84qD+0ipUzTsXtWj7FrdqCT4wpP0oBC1COD
+	 gzHDzaYrEstLIzDAFhG2nBkST4ClglQEeyi8jFDoWntxHh/XmngPsOqJitEFFsdEeHgGf
+	 4mms0ZYUvvkLkSByWU665OM78goQ2fnkWHBX6bzUhnThm4lQaldWVPh7WP02wd8g1bGY4
+	 qfAveHOF2MUPovj6PZE2TmJ+LrUqreBvBc9KD+NPaEoC+YQLk9skLUXU8eZA+YrOvSXPo
+	 jeXEL/oLA4VXDXWkmwNKlpH+HxKifCkVgms/O+p2o1B1m1Na/LReGIAI76sdUovCsLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793177429;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZzkyzMXwhe6xNno6EsFST7VZQ034OlMe3wk9yXIAjBE=;
-	b=0/k2HJk9DgYw2RjXwhD4lwYeQ3Xl2g5uCrCo74v2KZWfK85d/5YIedmEvTBKo+6gPsGE
-	 GZm7zK+D/u2FFFVm3nhm3vvvYCvjR0AHcRDtF6gFz+nX7R1O/CpDaJYgu3ndk8Tgo+gkY
-	 szjFyGw5AuaLFYn2GxM5tCYX574XR0Jikb19X2T2reFLjK1y2JnHRLl3oxzDrWQFHjxMr
-	 wC7/63ANLgYoustwewBu/di+R74i76Qs0kULa3kFMFrXEmsPxxnHaavgEoCHpWG755oJ1
-	 44pFfhhjJiDPtM4abdcicoC7grkqPRLQdGHTdvLgS1wIN7I9ud1yYBVrfJFR1IaFa3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177457;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
+	 X-CM-SenderInfo;
+	bh=5iohBM+GgU9IICAeS2iaT4fIHKg4GUrBEZRaogQUUjQ=;
+	b=CIQVvtOmsEeBeN24vOAcG3rbj4+L+gJZFxJsoq3OcMJNpvyT9xUOtdv7xBGgyddgRvdl
+	 0aItmK07nmi186idnb+x1LBlhUPqYQjEXfLqlZzLV0d8IKwzeW2XdOuc35PYL2uomZd2Q
+	 M+jDw9NzSbIqO2TljqIDLjXdGNom/A1tBqObhp5UUQpRXj69j/pSxXJDnXyX1uzCFlovW
+	 x2jInRAjbk7egwN5Q9gVhHTxLwPsza5OSSRMvl7X5limY1yi9TSV53J8fusT69ob5j7wE
+	 OrPG0yLVIlYvB4WvP2BqQXJa9npqKN4PkTHGK31wUeGxLFADOzMIttoySVLiU+Gnq5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FLQhd4FH;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B211606A31A;
-	Wed, 28 Oct 2026 08:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B211606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793177422; x=1793436622;
-	bh=ZzkyzMXwhe6xNno6EsFST7VZQ034OlMe3wk9yXIAjBE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Aiv/oyALvt2n3RZQkF31lOr2djiawuA5c9HAMMHEy4LA6yEqY6v3kowkl/zJKev5K
-	 DpHG2UX0a2okCA3gHxrzt6frWe4oZhNA8m4mbeSSmvxiNDKKzGENE7Jm+oMMO4J5Lw
-	 9dUOxcjWPEUjRYW3E78JqSbO0jXBlX1OIutdf9u5flB2JxfNcmFo/JskbET/K//T+b
-	 HF7asdf3zAEPr0iob4qOo/M8Wq91Z8zWdrfA/FzD3oGhbnm3zHhAfDHm9KGjDhBmy/
-	 fXMrg2jIKbNqyniUQMAc7avD0jwf/uEPPlWkrA3n+Io0BE+qU3x21/BRhTi3LnVAoi
-	 Dgazhxj00nXvg==
-Date: Wed, 28 Oct 2026 08:50:17 +0000
-To: intel-wired-lan@lists.osuosl.org
-From: Paul Moses <p@1g4.org>
-Cc: netdev@vger.kernel.org, anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, maciej.fijalkowski@intel.com, andre.guedes@intel.com, jithu.joseph@intel.com, vedang.patel@intel.com, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net v2] igc: return XSK frame copies on XDP_TX failure
-Message-ID: <20261028084919.3059158-1-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 3c834f9f3c809d2e7ba6cca99f25171716b11d0b
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C774B606A31A;
+	Wed, 28 Oct 2026 08:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C774B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FLQhd4FH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=5i
+	ohBM+GgU9IICAeS2iaT4fIHKg4GUrBEZRaogQUUjQ=; b=FLQhd4FHy1z5zA9bUG
+	OjI+qnr1CzNxzeQ5XvHvA7bZRwG+B5ang75+gClvSbJ6Deip+rxtTvWmKMX+PcrK
+	aQCqbgFzwlBS7Bv+Kl58iMnwMdXLMoZOfWurdp4+HGCyfEVjve0MSB5Ipy3dID3u
+	j+MwbuIWKShJ9y19QnVanBQm0=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnPxIgt+FqDMOJDQ--.49242S2;
+	Wed, 28 Oct 2026 16:49:38 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>
+Cc: Dan Williams <djbw@kernel.org>,
+	Ira Weiny <ira.weiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yang Yongxin <yangyongxin@kylinos.cn>
+Subject: [PATCH v2] cxl/core: Create einj_types when EINJ becomes available
+Date: Wed, 28 Oct 2026 16:49:34 +0800
+Message-Id: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
+References: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,65 +71,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnPxIgt+FqDMOJDQ--.49242S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW8tr1fGryfurW7ZF4rAFb_yoWruFy8pa
+	y5Grn8Gr4kCa4xCF9xAryUXw1F93ykW3yDAr95W34aya1Durn8tF1DCFWY9a4DGFWUJryF
+	q3WYyryUGw1jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UgNV9UUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbDAAIJpmrhtyJOTQAA3w
 
-Converting an XSK buffer to an XDP frame allocates a page and returns
-the original buffer to its pool. If the TX ring is full or DMA mapping
-fails, igc_xdp_xmit_back() returns an error without freeing the copy.
-The RX cleaner cannot release it, so the page leaks.
+From: Yang Yongxin <yangyongxin@kylinos.cn>
 
-Return the copied frame on TX failure. Use the RX memory type so native
-frames remain RX-owned on failure.
+The einj_types file under the CXL debugfs directory is never created.
 
-Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Moses <p@1g4.org>
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
+from einj_init() at module_init level. When cxl_core_init() evaluates
+einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
+yet, so the value is always false and the debugfs_create_file("einj_types")
+call below it is never reached. Users have no way to discover which CXL
+error types the platform supports from debugfs.
+
+Create the file from both places that can know EINJ is up: cxl_core_init(),
+which covers the case where cxl_core is a module and einj has already been
+initialized by the time the module is loaded, and the dport probe path,
+which covers the built-in case. The dport probe path can run concurrently
+for different parent ports, each holding only its own device lock, so
+serialize the check and the create to avoid a duplicate
+debugfs_create_file() attempt that would only fail with -EEXIST.
+
+Note that this is still a partial fix: an RCH platform returns early from
+devm_cxl_enumerate_ports() before any dport is added, so einj_types does
+not appear there. Fixing that requires moving cxl_core_init() after EINJ
+is probed, or creating the file from cxl_acpi_probe(), both of which are
+out of scope here.
+
+Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
 ---
-v1..v2
-- Sort declarations
-- Update the description to match the initialization order
+Changes in v2:
+- Create einj_types from cxl_core_init() as well, so that the module case,
+  where einj is already initialized when cxl_core is loaded, keeps working
+  and is not regressed by the lazy path alone.
+- Serialize the check and the create with a mutex, as the dport probe path
+  can run concurrently for different parent ports.
+- Spell out that RCH platforms are still not covered, and why.
+- Rebase onto mainline, so the diff no longer carries the CXL fixes that
+  are queued in linux-next.
 
-v1: https://lore.kernel.org/all/20261023141317.3904442-1-p@1g4.org/
+ drivers/cxl/core/port.c | 34 ++++++++++++++++++++++++++++------
+ 1 file changed, 28 insertions(+), 6 deletions(-)
 
-v1 testing:
-Tested on Intel I225-V with baseline and patched kernels. Physical
-pause-frame backpressure caused 46 leaked copies on the baseline.
-With the fix, all 72 rejected copies were returned once and freed,
-and all 192 copies were accounted for.
-
- drivers/net/ethernet/intel/igc/igc_main.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethern=
-et/intel/igc/igc_main.c
-index 1fb5f3cbe..d10dfbdb1 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -2488,6 +2488,7 @@ struct igc_ring *igc_get_tx_ring(struct igc_adapter *=
-adapter, int cpu)
- static int igc_xdp_xmit_back(struct igc_adapter *adapter, struct xdp_buff =
-*xdp)
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index 625e4aa427db..c1736a00f22f 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -802,6 +802,30 @@ static int cxl_dport_setup_regs(struct device *host, struct cxl_dport *dport,
+ 
+ DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
+ 
++static struct dentry *cxl_debugfs;
++static struct dentry *einj_types_dentry;
++
++/*
++ * einj_types is created from two places: cxl_core_init() catches the case
++ * where cxl_core is a module and einj is already up, while the dport probe
++ * path catches the built-in case, where cxl_core_init() runs at
++ * subsys_initcall level before einj_init() has set einj_initialized.
++ *
++ * The dport probe path can run concurrently for different parent ports, each
++ * holding only its own device lock, so the check and the create need to be
++ * serialized to avoid a duplicate debugfs_create_file() attempt.
++ */
++static DEFINE_MUTEX(einj_types_lock);
++static void cxl_einj_debugfs_add_types(void)
++{
++	mutex_lock(&einj_types_lock);
++	if (!einj_types_dentry && einj_cxl_is_initialized())
++		einj_types_dentry = debugfs_create_file("einj_types", 0400,
++							cxl_debugfs, NULL,
++							&einj_cxl_available_error_type_fops);
++	mutex_unlock(&einj_types_lock);
++}
++
+ static int cxl_einj_inject(void *data, u64 type)
  {
- =09struct xdp_frame *xdpf =3D xdp_convert_buff_to_frame(xdp);
-+=09enum xdp_mem_type mem_type =3D xdp->rxq->mem.type;
- =09int cpu =3D smp_processor_id();
- =09struct netdev_queue *nq;
- =09struct igc_ring *ring;
-@@ -2504,6 +2505,10 @@ static int igc_xdp_xmit_back(struct igc_adapter *ada=
-pter, struct xdp_buff *xdp)
- =09txq_trans_cond_update(nq);
- =09res =3D igc_xdp_init_tx_descriptor(ring, xdpf);
- =09__netif_tx_unlock(nq);
+ 	struct cxl_dport *dport = data;
+@@ -819,6 +843,8 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
+ 	struct cxl_port *parent = parent_port_of(dport->port);
+ 	struct dentry *dir;
+ 
++	cxl_einj_debugfs_add_types();
 +
-+=09if (res && mem_type =3D=3D MEM_TYPE_XSK_BUFF_POOL)
-+=09=09xdp_return_frame(xdpf);
+ 	if (!einj_cxl_is_initialized())
+ 		return;
+ 
+@@ -2501,8 +2527,6 @@ const struct bus_type cxl_bus_type = {
+ };
+ EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
+ 
+-static struct dentry *cxl_debugfs;
+-
+ struct dentry *cxl_debugfs_create_dir(const char *dir)
+ {
+ 	return debugfs_create_dir(dir, cxl_debugfs);
+@@ -2515,10 +2539,6 @@ static __init int cxl_core_init(void)
+ 
+ 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
+ 
+-	if (einj_cxl_is_initialized())
+-		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
+-				    &einj_cxl_available_error_type_fops);
+-
+ 	cxl_mbox_init();
+ 
+ 	rc = cxl_memdev_init();
+@@ -2541,6 +2561,8 @@ static __init int cxl_core_init(void)
+ 
+ 	cxl_ras_init();
+ 
++	cxl_einj_debugfs_add_types();
 +
- =09return res;
- }
-=20
---=20
-2.56.GIT
-
+ 	return 0;
+ 
+ err_region:
+-- 
+2.25.1
 
