@@ -1,133 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793176721;
-	b=jU82OLwRKGj/TgQLsNi49WwY6mAyv3dmcLr6+eWbOxDvT6izwCdZtqCb88qcUvtcICC0
-	 lGWfFcDSNCLe7zSKo/p37y5kmXVWWq6R1BU2DX2y755xk6Z6boucFKO0cNqqz6XNZLV2L
-	 Kp9z0JcioMTB0+16PFFV2CgYcTVzMC6gOBZpZJgdbQQPgnHnNcX38dLgEh/HpDw4zAym0
-	 OpUyVRYWAJ0CTkulA3dVFallXdjbycptLO3D7uwPZItBbv7x/2G0pDTK3mNXL6q7nxEJ2
-	 sX1/gEdUzTDJ2sRSHN0yE5P13vvJe8qrK6JaI8PE4I/PZQXueid8AnFwAH9U7k5Yb1Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176721;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=1gywZxlpWGndBQM7MP3+EjDp0EUbAB/bK9OtVP3toZs=;
-	b=iefXug9XVBoazJmLd9mDgVjQUo3i6MOeqXbcCCAKXFZ89je6M1lJEJEBxZV7pn3y+M4i
-	 QHSURKgL8c+Y82agO7NiTSQD4cfjK7sQej/kc8ZUp/fslpvDH7H4gC9nyoyHqAT0rLn2Q
-	 lY0MgBgxvsCDV13tSdGoBXDSaMCYISmUqDdeDbcdKEK+NKDnQT3u877lmVziU4lo2MQyK
-	 Iuk6fdpkki9+jOyBseEeyb7jQ9UZYbIDNcqAph5IB5pbAIuvsGmWSTi1z9s4AnodfudtL
-	 xvYlO7xOOhHYEP6XDbmuaXK6QKOy1CNeF+HKRpjyK7BhX7F4M/8p/3+itkZgPhXTTUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZNH2nnkV;
-	arc=fail smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E959606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 08:38:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E959606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793176834;
+	b=kHnRXOyZMjjxxyLhZnoM62nhoDrcqryGV+hxAQWKLJiZnH04+luA34lRhjtb65s5QcBO
+	 39HtZYxKJ2HeZAvHeI4K3VYQOUnxzLZ5mIEX0euiX9Ajs1UzZW2q5q4Rq92cEQJhgbjwI
+	 6E+qiK3URHqQNwUAs4SdHWuNoCx9M3y+LXJ6E3dkbmgMKm+19BQo9lgyFtICWR8agLR6E
+	 sgH9R5Xy5j2yNZGc+UsSKZRpUJs2pkdoFK+tLnJ+Gn/2SV2pboNgJyw3N8Fshg7HwsM9M
+	 TNQZwVdJakuNkS0XTf2sfTJkblxfQXYccv7eOkqAJJhSokJU9EfP3eMoj3fHTRbr8PA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176834;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=7LK9eI3BSzDh/Ydak6B+seSA0+AhqCjWKDAfF0KrGwA=;
+	b=p0thJ57azDLU5iXn0r8NJv4Qf8II/KE+E1+uiJs1/3nPJJXcYAdE1SB/nDuSarQVWt24
+	 +95cR49d7QcBPRpVOfn9yWaVLW8/Ab3962T19oVr7+mNSs/oBTxmkfcST6rjOkiL1A/pN
+	 6tXacj8qRquTgXTWcASR9lcxbAsrYMej6aFgvGDlqMlMe3p8OO25qwpiIWtJzZEtQ81+H
+	 cbyVN1iHcZJdC1HMgYBCE/5ApZSJp2ntf8iPtOVuHY9XVn5wrKF0NbhCGGiGTvhUvS6Te
+	 LZO/CjR7FOiwQ7e1SYJtu+CAOVp0YBDHXwMya5Fs3wFWz60I3p7CKedVJhtpov1qvXQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=T+Yt7SFT;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87BBA606A31E;
+	Wed, 28 Oct 2026 08:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BBA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZNH2nnkV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793176719; x=1824712719;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=QQ9T0vs9AgXGjxHnwXirBz7/zHG+RX7vILqzcvjQe3o=;
-  b=ZNH2nnkVTD4dDRn37bPUc5+DpMuIjDNPUNz6EGe7qnjLxpUc8AqWttyM
-   V6uA9KrXjWsN2LallUgihi8k1UIyeyNymtlh2Rcq4gPH756y+kk5l5Kza
-   HW44ywT1MCzlOz+fe/bE1ivwLKQxjdmZr+12UkthR/kg21Ls9tDDWkmcd
-   ZFoU+PrlfbNvklpGYLjodq8JAYhZ6XMHOEQjrGMUCrhCUQrgfo7XyHFJ5
-   giwI9MMsh0Al2FKrUnoRQb7jpeP0W12Sxjh/Geqf7YZtGuJa6Vg61gZyR
-   jm2GFUlsqmaKtIM3BcIHe3IVyF6TsXnN02eu6ImDiToaoSGroY4JSWd4h
-   Q==;
-X-CSE-ConnectionGUID: L+oAe4uBT8+Iqkd3rDrJBw==
-X-CSE-MsgGUID: ahf+nPqVQnO7r/V5ovvQYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1878113"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1878113"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:38:39 -0700
-X-CSE-ConnectionGUID: O5IMUajwRECybc0oL7CGdQ==
-X-CSE-MsgGUID: 9kbWB+6iSk6/bPCfmj1/iw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4763861"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:38:40 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 28 Oct 2026 01:38:38 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 01:38:38 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.43) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 28 Oct 2026 01:38:37 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ijw+jOLbmQ+MB0L7nge1YgWKRRlXeBHPkxab1UFF5vrJstsDfPRFG34oJWBhEfm5vbqBJsrzlIVEVcqEYXtVgciWDe606D+cvxTCJ177NWoEQ9BxgqqK/lLI2m1zkqu77dyH6eQUp2iQSGBiyMXtVQtHJh9Y5dYjPHHQRASu7yHtiMi3IOCvDeqVNeLxnAgnnmEb+5p/NbMX19fotD7+G1dRkdt/apWVqzd/3qFpNPHHvoOyF1Zg1pkgLsrgc2OaU63i08dwEMkX+3ah4XOFdC/vIs8+70QSpAxAbnGkRFovmu0FlJ99BLqKGj7tU/QrMjonVdBNSiygNDVEGxFdIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1gywZxlpWGndBQM7MP3+EjDp0EUbAB/bK9OtVP3toZs=;
- b=Vg/ygnMtoLIl0NLwI3UCJpCGb0B2bntcfo4eFB6XTawMtml3iqjxxDwGJ5xbP98jQyR82K1UGSniAjXhgdg+1EAvFxY95wiWv1y/liUdqm6punBU5nFe/3HigP7mgjnKcZfKtTyqYAfFQgKHW7DJqbwQpoLtnaPmOkJXnTTJ7tJoch+soA5wL2grV7yRlk0awTTrmxEj337nU9aWLd0T6uEd+dfPBTbWv/jcoT+LZvAroFaUjx8YXfpav4SdpdPCtgUUDYyT2tqzw70sKJNeOa7pZut6BNi7NIVXL1Q5nU0aTPNgY4hJChJNggrrdfU7FgnNzrWgbW2lmcDgo0GAsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA2PR11MB5035.namprd11.prod.outlook.com (2603:10b6:806:116::21)
- by PH7PR11MB5793.namprd11.prod.outlook.com (2603:10b6:510:13a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 08:38:29 +0000
-Received: from SA2PR11MB5035.namprd11.prod.outlook.com
- ([fe80::9418:cd60:8ece:69c3]) by SA2PR11MB5035.namprd11.prod.outlook.com
- ([fe80::9418:cd60:8ece:69c3%5]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 08:38:29 +0000
-Message-ID: <94c3c16c-50ce-444c-985f-0fc0fb009242@intel.com>
-Date: Wed, 28 Oct 2026 14:08:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] drm/i915/display: Disable pipe joiner on WCL
-To: Vidya Srinivas <vidya.srinivas@intel.com>,
-	<intel-gfx@lists.freedesktop.org>
-CC: <intel-xe@lists.freedesktop.org>, <stable@vger.kernel.org>,
-	<uma.shankar@intel.com>, <jani.nikula@linux.intel.com>, Charlton Lin
-	<charlton.lin@intel.com>
-References: <20261007072334.1801956-1-vidya.srinivas@intel.com>
- <20261028070404.1913843-1-vidya.srinivas@intel.com>
- <20261028070404.1913843-3-vidya.srinivas@intel.com>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20261028070404.1913843-3-vidya.srinivas@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0041.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:81::15) To SA2PR11MB5035.namprd11.prod.outlook.com
- (2603:10b6:806:116::21)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=T+Yt7SFT
+Received: from kali.mshome.net (unknown [4.213.232.18])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7AC3420B7167;
+	Wed, 28 Oct 2026 01:40:16 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7AC3420B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793176821;
+	bh=7LK9eI3BSzDh/Ydak6B+seSA0+AhqCjWKDAfF0KrGwA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=T+Yt7SFT34fbtAY5Q2d4qP/3hG0MpS45jA2JSztpihsdoxqSNRMcXi8Ix2rHP5jmk
+	 wd1N6unCey86Nwh0U2mh/ltRyflvc9wPhmrh8mUnMD4sCd+uNyagUcn0vcvOSdlM48
+	 MojywI9qSZhjSjwxAByrmWve4icJuBOHIA845pEg=
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	kotaranov@microsoft.com,
+	horms@kernel.org,
+	ernis@linux.microsoft.com,
+	gargaditya@linux.microsoft.com,
+	mawasthi@linux.microsoft.com,
+	leitao@debian.org,
+	linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH net v4] net: mana: Add support to process throttled EQEs
+Date: Wed, 28 Oct 2026 03:40:17 -0500
+Message-ID: <20261028084020.2051254-1-sahilchandna@linux.microsoft.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -137,106 +74,437 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PR11MB5035:EE_|PH7PR11MB5793:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80753207-b4bb-46a3-bcfa-08df34ced74e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|4143699003|11063799006|261009223027099003|56012099006|10067099003|261021121427099003|261021123027099003|261022075727099003|18002099003|261026121527099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: Q78eo37C6eYTxKG1I5jHjZHZ/C5SWEUnrnLdop9K6jJpfRyqssRTWaXbxlui4sib592+p/goc50lcjbhPuGMpyZ0h5EsGT3WX2yyv/JoPIS6Bwi0hpHmlUCPkXQKWYHGgvInUmcjgHplmvGl/t9WCSiVVX/UvLelfJirmbb6xNdAgjh/lUsTB4c+7KDC5WjwsHxJF0wpqJHDhGwvRNvKpSPoS0TpLeux3xQ8zeJe92YPtugDzdUIMAlCbBz/YrBUYQBFQ9/yhnkLZqk4WC7/hKVrlGTb/7ckcp8KtCmF0aTgG2QMBcqqvZ2AaXYMUC7PQEeKtaVISfogbwO8dTwBC2AQRQydlw2Q3AX74W91HUsfJsK/tggxmOEPog3zn0UCC/ZC68AGm+mQ3XTG4nF7Y4N3TDWxqpjHE69RSnF5bf/f3uaUkO//RAklgAo8hBITMNI6R5OsVY/fqzWu9saC0wHSYTHFyb5cQATakBszoIeKtp0SSkUWi3SBAyjYO+KuvK+O9fiavzzYU7Hlor/Spz0Tty9ssbe+edCtIAxFuENZ7u8RgPlNTVdCZG+FdGz4AS3gMOey58euwT3m+1DpP4Fbcdv7HKSxQ/OVaxx7280679DFm+Lfv6GZhRF3t1eSlDMI7jEbTnfL+GrqoZAH/VW3vQqTdQt+aInd5g8opXk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR11MB5035.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(11063799006)(261009223027099003)(56012099006)(10067099003)(261021121427099003)(261021123027099003)(261022075727099003)(18002099003)(261026121527099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0xSOUErYnFvMGRzTUQ3SDdGMHJ6bTZsR2xORDhLNXFSWTd6cjl0SlMxSG10?=
- =?utf-8?B?czRpeEd1emM3VS9MM3BwZU1UcDZ5dU04eGE1WVByNmQwdmU2MDlsdlJ3UzR4?=
- =?utf-8?B?R0MyWDg4Wkwvc21ySDRRTTBCa0JZVzJZY2ErMGRVOE9yOXQyclFvTzcwRzFr?=
- =?utf-8?B?MGZiUXpTa1FjZTNUbnA3TjRZMlJ5Q2NReHBxZ2JkTlhYaGplUG91SEJGWmtY?=
- =?utf-8?B?ZU1GNTRLbUhZdk92L3FLakNVMUsvVUVvWVpzbTRhbWIreVZnNVErNWEwS2VX?=
- =?utf-8?B?ZDhpWEdQOEw4WUoyTDlpSURJVmpmM2FMLzM3RkhxYWZtSnFzMTQrSzYvODVn?=
- =?utf-8?B?aUlra1BleHdQY0tBYUlUNHVLYStqeU50K2ZpK2t0QlpIOWFCTHNNMk85M1RU?=
- =?utf-8?B?c2RNNlVBSU15ZTdPV05CZ2QrWWlUVm5zZEJNVU9BWk5ML1hCd0hLQiszWVlN?=
- =?utf-8?B?MTNuQkpUd21wL3gzaFpORkVkcXhNUzljTk54TmVjY2VVZzhUek9SbEJoQ3g5?=
- =?utf-8?B?eFNiM0NyTEhKRXRSN1ViZWpsaXBVelFxdkU2RncxdlpKUm5hYXJYdjhZK2hG?=
- =?utf-8?B?YUlrR2VDWTNnVVRjcXIrNUpFQTg4NVQyNXhEUHFRamV3Z2JJZDNlOUVWc3FS?=
- =?utf-8?B?VjlacG15MW1kRnJTZE8xdUhnWkVLeDV0OTJqLzFrN1pEVzA0NEY3eW1pKzdX?=
- =?utf-8?B?bXJsU1BwY2o2MnhJdjFwVFkvSE9CL3JKc0ZjMVl4a1ZsZEpleXhscVMzeDRv?=
- =?utf-8?B?bXNvT085WFI0dGtudUIrUWpqMDA3MG13WjduT21MRXk0VFc2SWNXV1VmcDdJ?=
- =?utf-8?B?UTdCN3ZRSEFGZFRvRDYxc25TeDQ2Sk5jMm9IOStOSUxvQU9hTHhFUlJVY09D?=
- =?utf-8?B?TjM5NFRJUkE1ajBUaW9uVTdzYmtKQzFtV3VpU2VwcGc0UTEyWTB6NWRWTEJN?=
- =?utf-8?B?VmR3VDg3clFUdlZDZlpEVjlUQ2E0RXFDYWRwQ2pvU3ltYTBmNkMydWJJK1BC?=
- =?utf-8?B?L282WmxZVUhYT3orV0s1NjBRVXJqNEJJOVRTOGg4VTg4bTZxZE04cjBIZ0cv?=
- =?utf-8?B?UkMxK2hKVTBJVmNYcmMzK2NMWTBBb1FTbUVDZ1dSeU1HVkdnTFRWM3RXRnpC?=
- =?utf-8?B?OTVPZ01LcjYzd1dIRGJHbUw4enFIdHJ5SlBCWEx3Z0hGSGJsQWloazV4eDdO?=
- =?utf-8?B?amJONG43Ym92ZTdMWitXQS9XNTQ4UWdVTnVMQzZqamxqTkhMVTd3L05sbDk5?=
- =?utf-8?B?QXN6bUUrcjd1bDJPeS9pSlRaaXFZV3QyUkpiWnUwTWhEdjNCZVFCS0J2MmJH?=
- =?utf-8?B?V24xOU1qaGhpTlRQbHpMLytVKzIrVERLSHFLL0JXdlgrTkI0cmx0NmkySkFU?=
- =?utf-8?B?alp2Qjg1Yk1iaDJrVWlvZUdMdTNmNmJ0eVJTdnFSNHVvdzYzcEdzbW9zM2JJ?=
- =?utf-8?B?VTVBR3MyRDcyNkJsS3h2cHJWVXBrcXBlZGMwTzZaUDZrbldFakhDeWtFaXFQ?=
- =?utf-8?B?dnVLeWhYS2cvT2JlTTNwWno5S1NjWDBTbGhUazA5R1A5YzJDZUUvVjk5elBZ?=
- =?utf-8?B?RnhzaVRQVFhJTStZOHhoQTdyQ0IvQlByZjVONkE1aGppT1hOMXZVaUo5a1Ex?=
- =?utf-8?B?NGs0ZHl5TUw2YzdPbWR2VTI2VERzSWhwRU9kNkZwMUplQW83aDQ4Y3FDa0dE?=
- =?utf-8?B?amZWZjRHcTdGVWxPVGVHckRtdkwrb3hvMENxNCtFZlJJZUw4cUx5YUx6TXFp?=
- =?utf-8?B?VHgxcENkOHFZbnloc2FpRGRCRGpyWDBnU3BXSnBQZDlpM1BJQzh1L2ZUS0pX?=
- =?utf-8?B?SURxTVJETCsvQzBQVEY1SjRRYWtUaStnQS93bGZaczlUS2Q2WG5CU3EvMjV2?=
- =?utf-8?B?TDBPZTIxSE9nWmtQZzYvSVI0R2dkWVlxUjZsWTd3aWZPS25CN05qVzd5SlZl?=
- =?utf-8?B?UVBhT3RuRVYwSkhjVVJkS1Zua0xvSzhlOFRiZlpFa1ZabFVGZ0hpemZFRjZE?=
- =?utf-8?B?ck4wemd5bEUwaWNpODlNSXRmbzliY1d6dUluWk5RZ05hcytUbUJDQWNBS1VD?=
- =?utf-8?B?dUNhZGRwUldzYXpPS0RyTWxvbDBGUGFEWUFkVXhLd3ZxT1ovMW9hMVNMVi9j?=
- =?utf-8?B?UW9oSGtRcTloTFl1Nmg2TWZ1SkJmalAzUGNBZXI2T3hQZjdIQktjTUVKaWZL?=
- =?utf-8?B?UTMwZ01yclRObnp5eGV4WmVIaHdqTnNqU2tnZktwK3U4czdIaHBmcWQyYjhR?=
- =?utf-8?B?a1JJMFI5NmIxcTVxRXYzRERiZ21xOE9oWWFVeHhHMmM2VWJDZVdlWDNUYVQ0?=
- =?utf-8?B?WWZOcXN2ZVY0TkQxUWErNFZiYm5SaDlnVlA5SjNKdXhHZ3NlQSt2QVdwMGYr?=
- =?utf-8?Q?08qTD3YmWHsCz4rE=3D?=
-X-Exchange-RoutingPolicyChecked: PVqOBfodAvO1UxkyHU9u5Cr+cFb2k94gMy7Cs6iyhHjsKyEiJ6RxL0hYMKvjVE4dsYBbeTb8CqVsMeHTF/OqHiDteDd/C/t5diOzP+6z8ny0uIWx89iWZJsDOgsKLpFYAFlRHYiUMMyI/zBMgO3ZZbHjubc8oSR9edVSDG9Gcif0Ic6OulBC2E2FW9F6q1iktz6071y/9csV7yqmEBV1e+rSKg+GikVuraokAZcHLzsQmGugTVDCqg0IR/MThzn+P3Zuydl4xNc3HDNx57RxCDaV9WockhvJuBj5E8/E0Pki4YRlKqYUsIeVRI/EEuvCCzBSEgk/3r98PMb/Vj/sGw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80753207-b4bb-46a3-bcfa-08df34ced74e
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB5035.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 08:38:29.5646
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V4w7YKUzmp+S90oadfxj6L695VwnKmrzKIlTo23idM554D6p7nTRPGynrW6BdHP7quzgxJSCsDEjvOZmiWBtQEjNwg0krjXwyk8T2vaYuKk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB5793
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
+When an event queue nears full, the hardware coalesces the per-CQ
+GDMA_EQE_COMPLETION notifications into a single throttle EQE (type 4)
+that carries no cq_id. The driver does not handle this event type, so
+it falls through to the default case and is dropped. Any CQ whose
+completion notification was replaced by the throttle EQE can remain
+unserviced, causing its queue to stall.
 
+This was observed internally as a TX stall:
 
-On 10/28/2026 12:34 PM, Vidya Srinivas wrote:
-> Pipe joining is not supported in the WCL display configuration.
-> Report no joiner support on WCL so that modes which would require
-> joining are rejected, matching the 4k 60Hz maximum resolution
-> documented for the platform.
-> 
-> v2: Rebase onto latest upstream
-> v3: Fix up the commit message
-> v4: Split the scaler and joiner changes into separate patches (Jani)
-> 
-> Bspec: 74286
-> Cc: stable@vger.kernel.org
+  ens1: NETDEV WATCHDOG: CPU: 45: transmit queue 1 timed out 15133 ms
+  mana 7870:00:00.0: HWC: Request timed out: 60000 ms
+  mana 7870:00:00.0: Gf stats wk handler: gf stats query timed out.
+  ens1: NETDEV WATCHDOG: CPU: 20: transmit queue 0 timed out 15859 ms
+  ens1: NETDEV WATCHDOG: CPU: 15: transmit queue 0 timed out 31731 ms
+  ens1: NETDEV WATCHDOG: CPU: 21: transmit queue 0 timed out 47603 ms
+  ens1: NETDEV WATCHDOG: CPU: 42: transmit queue 0 timed out 62451 ms
 
-Won't we need a Fixes tag to tell where this change need to go to?
+Handle the throttle EQE:
 
-> Suggested-by: Charlton Lin <charlton.lin@intel.com>
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 00e02e019d25..ef164a797618 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -485,9 +485,9 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
->   			return false;
->   	}
->   
-> -	return DISPLAY_VER(display) >= 12 ||
-> +	return ((DISPLAY_VER(display) >= 12 && DISPLAY_VERx100(display) != 3002) ||
->   		(DISPLAY_VER(display) == 11 &&
-> -		 encoder->port != PORT_A);
-> +		 encoder->port != PORT_A));
->   }
->   
->   static int dg2_max_source_rate(struct intel_dp *intel_dp)
+- Record up to two child CQs per EQ when a CQ is created with a parent
+  EQ. A mana_en EQ serves one TX CQ and one RX CQ, and the HWC EQ
+  serves the HWC CQ.
+- On a throttle EQE, call the callback of each child CQ that is still
+  in cq_table[].
+- Before a child CQ is freed, unlink it from its parent EQ and from
+  cq_table[] in mana_gd_detach_cq(), then wait for an RCU
+  grace period, because mana_gd_intr() reads both under
+  rcu_read_lock(). mana_destroy_txq() and mana_destroy_rxq() detach
+  the CQ before deleting its NAPI, so the synchronize_net() that NAPI
+  deletion already needs also covers the CQ. mana_hwc_destroy_channel()
+  detaches the HWC CQ and waits for a grace period before freeing the
+  HWC queues.
+- Advertise the capability bit for throttled EQE.
+- Add a throttle eqe counter per queue.
+
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+---
+Changes in v4:
+- Resolve additional per cq grace period and hwc wait.
+- Add throttle count per queue instead of accumulated count.
+Link to v3: https://lore.kernel.org/all/20261022145428.323576-1-sahilchandna@linux.microsoft.com/
+
+Changes in v3:
+- Resolve race for cq in mana_gd_destroy_cq and irq handler using cq.
+- Rebase to net branch
+Link to v2: https://lore.kernel.org/all/20261014134304.4177657-1-sahilchandna@linux.microsoft.com/
+
+Changes in v2:
+- Use WRITE_ONCE() when clearing max_num_cqs and add RCU
+  grace period wait during HWC teardown.
+- Use synchronize_net() during CQ destroy only when the CQ was
+  attached to its parent EQ.
+- Use WRITE_ONCE() and READ_ONCE() for the throttle-event counter.
+- Add Fixes tag and net instead of net-next.
+- Fix commit message to describe capability bit and counter.
+Link to v1: https://lore.kernel.org/all/20261008083315.306076-1-sahilchandna@linux.microsoft.com/
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 88 +++++++++++++++++--
+ .../net/ethernet/microsoft/mana/hw_channel.c  |  9 +-
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 22 ++++-
+ .../ethernet/microsoft/mana/mana_ethtool.c    | 19 +++-
+ include/net/mana/gdma.h                       | 19 +++-
+ include/net/mana/mana.h                       |  1 +
+ 6 files changed, 143 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index 8c915e008784..ab942d5bfe05 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -757,6 +757,27 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
+ 	gc->service_wq = NULL;
+ }
+
++static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
++{
++	struct gdma_context *gc = eq->gdma_dev->gdma_context;
++	struct gdma_queue *cq;
++	u8 i;
++
++	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++		cq = rcu_dereference(eq->eq.child_cq[i]);
++
++		if (!cq)
++			continue;
++
++		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
++		    !gc->cq_table || gc->cq_table[cq->id] != cq)
++			continue;
++
++		if (cq->cq.callback)
++			cq->cq.callback(cq->cq.context, cq);
++	}
++}
++
+ static void mana_gd_process_eqe(struct gdma_queue *eq)
+ {
+ 	u32 head = eq->head % (eq->queue_size / GDMA_EQE_SIZE);
+@@ -787,6 +808,14 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
+
+ 		break;
+
++	case GDMA_EQE_THROTTLE:
++		u64_stats_update_begin(&eq->eq.stats.syncp);
++		u64_stats_inc(&eq->eq.stats.throttle_count);
++		u64_stats_update_end(&eq->eq.stats.syncp);
++
++		mana_gd_schedule_eq_cqs(eq);
++		break;
++
+ 	case GDMA_EQE_TEST_EVENT:
+ 		gc->test_event_eq_id = eq->id;
+ 		complete(&gc->eq_test_event);
+@@ -1032,6 +1061,8 @@ static int mana_gd_create_eq(struct gdma_dev *gd,
+ 	queue->eq.msix_index = INVALID_PCI_MSIX_INDEX;
+ 	queue->id = INVALID_QUEUE_ID;
+
++	u64_stats_init(&queue->eq.stats.syncp);
++
+ 	log2_num_entries = ilog2(queue->queue_size / GDMA_EQE_SIZE);
+
+ 	if (spec->eq.log2_throttle_limit > log2_num_entries) {
+@@ -1073,25 +1104,66 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
+ 			      struct gdma_queue *queue)
+ {
+ 	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
++	struct gdma_queue *parent;
++	u8 i;
+
+ 	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
+-	queue->cq.parent = spec->cq.parent_eq;
++	parent = spec->cq.parent_eq;
++	queue->cq.parent = parent;
+ 	queue->cq.context = spec->cq.context;
+ 	queue->cq.callback = spec->cq.callback;
++
++	if (!parent)
++		return;
++
++	/* For throttled EQE store the child CQ */
++	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
++			rcu_assign_pointer(parent->eq.child_cq[i], queue);
++			return;
++		}
++	}
++
++	WARN_ONCE(1, "mana: EQ %u has no free child CQ slot\n", parent->id);
+ }
+
+-static void mana_gd_destroy_cq(struct gdma_context *gc,
+-			       struct gdma_queue *queue)
++/* Unlink queue from its parent EQ's child_cq[] and from gc->cq_table[].
++ *
++ * Return: true if queue was in the parent EQ's child_cq[]. In that case the
++ * caller must wait for an RCU grace period before freeing queue, because
++ * mana_gd_intr() may still be handling a throttle EQE for it.
++ */
++bool mana_gd_detach_cq(struct gdma_context *gc, struct gdma_queue *queue)
+ {
++	struct gdma_queue *eq = queue->cq.parent;
++	bool attached = false;
+ 	u32 id = queue->id;
++	u8 i;
++
++	if (eq) {
++		for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
++			if (rcu_access_pointer(eq->eq.child_cq[i]) == queue) {
++				RCU_INIT_POINTER(eq->eq.child_cq[i], NULL);
++				attached = true;
++			}
++		}
++	}
+
+-	if (id >= gc->max_num_cqs)
+-		return;
++	/* Check if CQ might have been detached already, only clear if
++	 * it still points to same queue .
++	 */
++	if (id < gc->max_num_cqs && READ_ONCE(gc->cq_table[id]) == queue)
++		WRITE_ONCE(gc->cq_table[id], NULL);
+
+-	if (!gc->cq_table[id])
+-		return;
++	return attached;
++}
+
+-	gc->cq_table[id] = NULL;
++static void mana_gd_destroy_cq(struct gdma_context *gc,
++			       struct gdma_queue *queue)
++{
++	/* Wait for irq reader holding the cq */
++	if (mana_gd_detach_cq(gc, queue))
++		synchronize_net();
+ }
+
+ int mana_gd_create_hwc_queue(struct gdma_dev *gd,
+diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+index 3bca4b683134..fb9f38f65911 100644
+--- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+@@ -364,7 +364,7 @@ static void mana_hwc_comp_event(void *ctx, struct gdma_queue *q_self)
+
+ 	completions = hwc_cq->comp_buf;
+ 	comp_read = mana_gd_poll_cq(q_self, completions, hwc_cq->queue_depth);
+-	WARN_ON_ONCE(comp_read <= 0 || comp_read > hwc_cq->queue_depth);
++	WARN_ON_ONCE(comp_read < 0 || comp_read > hwc_cq->queue_depth);
+
+ 	for (i = 0; i < comp_read; ++i) {
+ 		comp_data = *(struct hwc_rx_oob *)completions[i].cqe_data;
+@@ -820,9 +820,14 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
+ 	 */
+ 	if (gc->max_num_cqs > 0) {
+ 		mana_smc_teardown_hwc(&gc->shm_channel, false);
+-		gc->max_num_cqs = 0;
++		WRITE_ONCE(gc->max_num_cqs, 0);
+ 	}
+
++	if (hwc->cq)
++		mana_gd_detach_cq(gc, hwc->cq->gdma_cq);
++
++	synchronize_rcu();
++
+ 	if (hwc->txq)
+ 		mana_hwc_destroy_wq(hwc, hwc->txq);
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 6b7c027e497e..e6d494df22e4 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -2703,6 +2703,7 @@ static void mana_deinit_txq(struct mana_port_context *apc, struct mana_txq *txq)
+
+ static void mana_destroy_txq(struct mana_port_context *apc)
+ {
++	struct gdma_context *gc = apc->ac->gdma_dev->gdma_context;
+ 	struct napi_struct *napi;
+ 	int i;
+
+@@ -2721,8 +2722,6 @@ static void mana_destroy_txq(struct mana_port_context *apc)
+ 			napi_synchronize(napi);
+ 			napi_disable_locked(napi);
+ 			cancel_work_sync(&apc->tx_qp[i]->tx_cq.dim.work);
+-			netif_napi_del_locked(napi);
+-			apc->tx_qp[i]->txq.napi_initialized = false;
+ 		}
+
+ 		/* Forget the SKBs freed without being completed after a drain
+@@ -2735,6 +2734,18 @@ static void mana_destroy_txq(struct mana_port_context *apc)
+ 		if (apc->tx_qp[i]->tx_object != INVALID_MANA_HANDLE)
+ 			mana_destroy_wq_obj(apc, GDMA_SQ, apc->tx_qp[i]->tx_object);
+
++		if (apc->tx_qp[i]->txq.napi_initialized) {
++			/* Detach the CQ only after the WQ object is destroyed,
++			 * so a completion EQE that arrives before then still
++			 * finds the CQ in cq_table[] rather than hitting the
++			 * WARN in mana_gd_process_eqe(). One grace period then
++			 * covers both mana_gd_intr() and NAPI users.
++			 */
++			mana_gd_detach_cq(gc, apc->tx_qp[i]->tx_cq.gdma_cq);
++			netif_napi_del_locked(napi);
++			apc->tx_qp[i]->txq.napi_initialized = false;
++		}
++
+ 		mana_deinit_cq(apc, &apc->tx_qp[i]->tx_cq);
+
+ 		mana_deinit_txq(apc, &apc->tx_qp[i]->txq);
+@@ -2941,7 +2952,6 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
+
+ 		napi_disable_locked(napi);
+ 		cancel_work_sync(&rxq->rx_cq.dim.work);
+-		netif_napi_del_locked(napi);
+ 	}
+
+ 	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq))
+@@ -2950,6 +2960,12 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
+ 	if (rxq->rxobj != INVALID_MANA_HANDLE)
+ 		mana_destroy_wq_obj(apc, GDMA_RQ, rxq->rxobj);
+
++	if (napi_initialized) {
++		/* See the comment in mana_destroy_txq() */
++		mana_gd_detach_cq(gc, rxq->rx_cq.gdma_cq);
++		netif_napi_del_locked(napi);
++	}
++
+ 	mana_deinit_cq(apc, &rxq->rx_cq);
+
+ 	if (rxq->xdp_save_va)
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index 33db79569d3b..a91eb12badca 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -147,7 +147,8 @@ static int mana_get_sset_count(struct net_device *ndev, int stringset)
+ 		return ARRAY_SIZE(mana_eth_stats) +
+ 		       ARRAY_SIZE(mana_phy_stats) +
+ 		       ARRAY_SIZE(mana_hc_stats)  +
+-		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT);
++		       num_queues * (MANA_STATS_RX_COUNT + MANA_STATS_TX_COUNT +
++				       MANA_STATS_EQ_COUNT);
+
+ 	case ETH_SS_PRIV_FLAGS:
+ 		return MANA_PRIV_FLAG_MAX;
+@@ -198,6 +199,9 @@ static void mana_get_strings_stats(struct mana_port_context *apc, u8 **data)
+ 		ethtool_sprintf(data, "tx_%d_csum_partial", i);
+ 		ethtool_sprintf(data, "tx_%d_mana_map_err", i);
+ 	}
++
++	for (i = 0; i < num_queues; i++)
++		ethtool_sprintf(data, "eq_%d_throttle_events", i);
+ }
+
+ static void mana_get_strings_priv_flags(u8 **data)
+@@ -234,6 +238,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 	void *phy_stats = &apc->phy_stats;
+ 	struct mana_stats_rx *rx_stats;
+ 	struct mana_stats_tx *tx_stats;
++	struct gdma_eq_stats *eq_stats;
+ 	unsigned int start;
+ 	u64 packets, bytes;
+ 	u64 xdp_redirect;
+@@ -251,6 +256,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 	u64 csum_partial;
+ 	u64 mana_map_err;
+ 	int q, i = 0, j;
++	u64 throttled;
+
+ 	if (!apc->port_is_up)
+ 		return;
+@@ -325,6 +331,17 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
+ 		data[i++] = csum_partial;
+ 		data[i++] = mana_map_err;
+ 	}
++
++	for (q = 0; q < num_queues; q++) {
++		eq_stats = &apc->eqs[q].eq->eq.stats;
++
++		do {
++			start = u64_stats_fetch_begin(&eq_stats->syncp);
++			throttled = u64_stats_read(&eq_stats->throttle_count);
++		} while (u64_stats_fetch_retry(&eq_stats->syncp, start));
++
++		data[i++] = throttled;
++	}
+ }
+
+ static u32 mana_get_rx_ring_count(struct net_device *ndev)
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 0b52582118e8..29d152e18596 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -60,6 +60,7 @@ enum gdma_work_request_flags {
+
+ enum gdma_eqe_type {
+ 	GDMA_EQE_COMPLETION		= 3,
++	GDMA_EQE_THROTTLE		= 4,
+ 	GDMA_EQE_TEST_EVENT		= 64,
+ 	GDMA_EQE_HWC_INIT_EQ_ID_DB	= 129,
+ 	GDMA_EQE_HWC_INIT_DATA		= 130,
+@@ -291,6 +292,7 @@ struct gdma_dev {
+ #define GDMA_EQE_SIZE 16
+ #define GDMA_MAX_SQE_SIZE 512
+ #define GDMA_MAX_RQE_SIZE 256
++#define GDMA_EQ_MAX_CHILD_CQ 2
+
+ #define GDMA_COMP_DATA_SIZE 0x3C
+
+@@ -318,6 +320,11 @@ struct gdma_event {
+
+ struct gdma_queue;
+
++struct gdma_eq_stats {
++	u64_stats_t throttle_count;
++	struct u64_stats_sync syncp;
++};
++
+ struct mana_eq {
+ 	struct gdma_queue	*eq;
+ 	struct dentry		*mana_eq_debugfs;
+@@ -371,6 +378,10 @@ struct gdma_queue {
+ 			unsigned int irq;
+
+ 			u32 log2_throttle_limit;
++
++			struct gdma_eq_stats stats;
++
++			struct gdma_queue __rcu *child_cq[GDMA_EQ_MAX_CHILD_CQ];
+ 		} eq;
+
+ 		struct {
+@@ -601,6 +612,8 @@ void mana_gd_free_service_wq(struct gdma_context *gc);
+ void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
+ 		      u32 mod_comps, bool mod_comps_vld);
+
++bool mana_gd_detach_cq(struct gdma_context *gc, struct gdma_queue *queue);
++
+ struct gdma_wqe {
+ 	u32 reserved	:24;
+ 	u32 last_vbytes	:8;
+@@ -760,6 +773,9 @@ enum {
+ /* Driver supports non-contiguous queue buffers */
+ #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
+
++/* Driver supports handling throttled EQEs */
++#define GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE BIT_ULL(32)
++
+ /* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
+  * and on the servicing and reset paths reached through
+  * mana_schedule_serv_work(). Transports that provide neither leave
+@@ -784,7 +800,8 @@ enum {
+ 	 GDMA_DRV_CAP_FLAG_1_HANDLE_STALL_SQ_RECOVERY | \
+ 	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
+ 	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
+-	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
++	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
++	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE)
+
+ #define GDMA_DRV_CAP_FLAGS2 0
+
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index e1fa9131c490..715e32d45105 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -90,6 +90,7 @@ enum mana_priv_flag_bits {
+ /* Update this count whenever the respective structures are changed */
+ #define MANA_STATS_RX_COUNT (6 + MANA_CQE_COAL_PKTS_8 - 1)
+ #define MANA_STATS_TX_COUNT 11
++#define MANA_STATS_EQ_COUNT 1
+
+ #define MANA_RX_FRAG_ALIGNMENT 64
+
+--
+2.53.0
 
