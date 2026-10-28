@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215023;
-	b=WOQgFZ8jNI5bnh+G8QkcqBRrovJPPnI2NqPb+YG44L0tGpnCNPgTukN3eg4w/wm+FG7I
-	 nklUlVgm38ukSdX9MyuQnRFjxPxlSa+r3Dr5ys/taAF4McuHZzI+f1Uh/yEcfmfqusgxL
-	 jwn68Xan6JhK9EbkvTBe+5+Nq/mtFNjSGSq4P94rIn9yelCAgc/zRb70oBxeee+fTQnks
-	 CU5mt5ptdOF7belbTVsYmBmsUmiUXWNLKHScLgVk5y/6cVCU589h8lNYfuklYOgsIie3N
-	 B2aAejXH+1M3GphIjkqb+6nZJtD64C6EpuMsJM5PXBb7srCyISZcC9hxwPrwFRtT7lw==
+	t=1793215029;
+	b=L+1Mn9quFZa7tZBJq7dPHuEUyJWmrLQgLx2I2H0jdmkfsffzpGwoborSKO1pdtGBtsgr
+	 WU+7GI6JRnJz8rLa/AMUglw2VN6Ry73EM7hLavK9c9NL4T7A7haQL+Qr4vY9jdDdGXcEG
+	 sR8V95RucI763y/o9XXBJIMp91rFjL4lUNv2gIcuBJarszu7Rx+Ue0kL1/5lpu29gBLj0
+	 m8tEZFDk4EvA6xsdDT95t7LRRmd3rlqlvVinJym9ImKd8iJSF8H+Oj0NWEuWRwpzu14eo
+	 xYQn5GRjlFSIdqsKCD/7Z0C910DwFpLJb7jB9VZTA6UZmy85kNYTaWB/0dRDAxDANCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215029;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VezCQQXo+ECcGVrAKgeCKJoqvumA+EOdgQpKc+E/QPE=;
-	b=Li4uuhGbFF2Pfq9WOFGtY00Ur6vxul+an8V6+BdkOfz2t988R06f5WLarfci2Ot5v71f
-	 sA6W/dCT4Xg3lvYnU0oy4LUSYrgD/HA9Mx09BZd5obsctbwKTg8k1Hwt71T6IcCcRVc9b
-	 mviyJ105xhcUGIp8H1HfVCWKos0nyHp4K9mMQhoyaEsYhy14F4lk9OuIxRNuEaYtFsO2J
-	 Oe13PTYfr6o+4YI9o19OpqlK4Pj1H9+7F0iuMgdbyXtCBIoEWWcAe6niciAN2P7Ao9ouS
-	 7ZNKmzVksgxTEbtlqcjt5FdB6Q5abTiFjJ4oTxU5holruUpu8TPNOgYOPNY5oBZtvxA==
+	bh=UddEvTeuh+V1jhUHZW2MUSAA2bXGJv/LRCfaZzj5Mls=;
+	b=arbrahEgqpiVQCZ8lKL6VnpTbubimCITuLcwN6Gc4ANfU4WvNDQLDIkBDXYfopKp66Eh
+	 SzYjOfKPBZ0ZJgdI0WKOF+EzPP2IB5Ca/Y9m8zCXV+aYYeFEH6EWI/GQ9KUihuPayML5W
+	 wDqZ4tnfOYouvRS35NHCFBYW/4ADUhcaabFlGdfgpQJmCPUpbfCPGcq9xyLuoVkugzSjD
+	 zi0UNCvoByjxnmdP9QEwEebqtJ2cndHiYnwmV/JIWICpguunFY5CL3OgfolyPVuOooSXD
+	 FfYwEap4Etk7FjQUq7CUx2yJGdfNriuuJBuxBZaAZDBiDZ8rVEWCdE4EVex6/o4oC8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vcjDnvNV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dG5EPX4l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CFF606A325;
-	Wed, 28 Oct 2026 19:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1703860A2602;
+	Wed, 28 Oct 2026 19:17:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vcjDnvNV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAD81F01825;
-	Wed, 28 Oct 2026 19:17:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dG5EPX4l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696521F01825;
+	Wed, 28 Oct 2026 19:17:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793215023;
-	bh=VezCQQXo+ECcGVrAKgeCKJoqvumA+EOdgQpKc+E/QPE=;
+	s=korg; t=1793215028;
+	bh=UddEvTeuh+V1jhUHZW2MUSAA2bXGJv/LRCfaZzj5Mls=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vcjDnvNV8a09YFd4M3+KV8cNdyfhivaJEWQGegYBFnobADYFj0bN2+RrAP7vspT0u
-	 bg4VXieltCUNT13KnCyFgPs9+Npf7WSYHFPzfRo9fyPcPNPYUgnm5Du38qirK3c0hT
-	 VvOiQqY7mr4JKeC1tyAc5aspS+Gfs/i8AEmMYED0=
+	b=dG5EPX4lHEFpq4mv7aerKUEu1vpbJEhas727A+EU2Q2u/hWAfZEaVvYPsecU+Ay8m
+	 pU2r5D6cJFKqyeyoTa91paWR1dMkozYWtOpBQ8Qf+0LlBBve2ga7ZTdssNqNK20DA2
+	 wW1DQ7iGzBF2lhjtuzGxxH+HkEpVHaBEa7iQC5jk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1065/1887] selinux: allow multiple opens of /sys/fs/selinux/policy
-Date: Wed, 28 Oct 2026 17:52:41 +0100
-Message-ID: <20261028170523.645156993@linuxfoundation.org>
+Subject: [PATCH 6.1 1067/1887] netfilter: nf_tables: use list_del_rcu for netlink hooks
+Date: Wed, 28 Oct 2026 17:52:43 +0100
+Message-ID: <20261028170523.689961261@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -68,100 +68,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Stephen Smalley <stephen.smalley.work@gmail.com>
+From: Florian Westphal <fw@strlen.de>
 
-[ Upstream commit a02cd6805562305f936e807da83e253b719dd965 ]
+[ Upstream commit f3224ee463f8f6f6ced7dcdf6081add4f8128527 ]
 
-Currently there can only be a single open of /sys/fs/selinux/policy at
-any time. This allows any process to block any other process from
-reading the kernel policy. The original motivation seems to have been
-a mix of preventing an inconsistent view of the policy size and
-preventing userspace from allocating kernel memory without bound, but
-this is arguably equally bad. Eliminate the policy_opened flag and
-shrink the critical section that the policy mutex is held. While we
-are making changes here, drop a couple of extraneous BUG_ONs.
+nft_netdev_unregister_hooks and __nft_unregister_flowtable_net_hooks need
+to use list_del_rcu(), this list can be walked by concurrent dumpers.
 
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/selinux/20100726193414.19538.64028.stgit@paris.rdu.redhat.com/
-Signed-off-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
+Add a new helper and use it consistently.
+
+Fixes: f9a43007d3f7 ("netfilter: nf_tables: double hook unregistration in netns path")
+Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/selinux/selinuxfs.c | 26 ++++----------------------
- 1 file changed, 4 insertions(+), 22 deletions(-)
+ net/netfilter/nf_tables_api.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-index 8fd1428a60e18..5fbb24cce1b51 100644
---- a/security/selinux/selinuxfs.c
-+++ b/security/selinux/selinuxfs.c
-@@ -74,7 +74,6 @@ struct selinux_fs_info {
- 	int *bool_pending_values;
- 	struct dentry *class_dir;
- 	unsigned long last_class_ino;
--	bool policy_opened;
- 	struct dentry *policycap_dir;
- 	unsigned long last_ino;
- 	struct selinux_state *state;
-@@ -401,41 +400,29 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
- 	struct policy_load_memory *plm = NULL;
- 	int rc;
- 
--	BUG_ON(filp->private_data);
--
--	mutex_lock(&fsi->state->policy_mutex);
--
- 	rc = avc_has_perm(&selinux_state,
- 			  current_sid(), SECINITSID_SECURITY,
- 			  SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL);
- 	if (rc)
--		goto err;
--
--	rc = -EBUSY;
--	if (fsi->policy_opened)
--		goto err;
-+		return rc;
- 
--	rc = -ENOMEM;
- 	plm = kzalloc(sizeof(*plm), GFP_KERNEL);
- 	if (!plm)
--		goto err;
-+		return -ENOMEM;
- 
-+	mutex_lock(&fsi->state->policy_mutex);
- 	rc = security_read_policy(state, &plm->data, &plm->len);
- 	if (rc)
- 		goto err;
--
- 	if ((size_t)i_size_read(inode) != plm->len) {
- 		inode_lock(inode);
- 		i_size_write(inode, plm->len);
- 		inode_unlock(inode);
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index 226fedc7477b1..df5573b2babd5 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -308,7 +308,7 @@ static void nft_netdev_unregister_hooks(struct net *net,
+ 	list_for_each_entry_safe(hook, next, hook_list, list) {
+ 		nf_unregister_net_hook(net, &hook->ops);
+ 		if (release_netdev) {
+-			list_del(&hook->list);
++			list_del_rcu(&hook->list);
+ 			kfree_rcu(hook, rcu);
+ 		}
  	}
--
--	fsi->policy_opened = 1;
-+	mutex_unlock(&fsi->state->policy_mutex);
- 
- 	filp->private_data = plm;
- 
--	mutex_unlock(&fsi->state->policy_mutex);
--
- 	return 0;
- err:
- 	mutex_unlock(&fsi->state->policy_mutex);
-@@ -448,13 +435,8 @@ static int sel_open_policy(struct inode *inode, struct file *filp)
- 
- static int sel_release_policy(struct inode *inode, struct file *filp)
- {
--	struct selinux_fs_info *fsi = inode->i_sb->s_fs_info;
- 	struct policy_load_memory *plm = filp->private_data;
- 
--	BUG_ON(!plm);
--
--	fsi->policy_opened = 0;
--
- 	vfree(plm->data);
- 	kfree(plm);
- 
+@@ -8101,7 +8101,7 @@ static void __nft_unregister_flowtable_net_hooks(struct net *net,
+ 		flowtable->data.type->setup(&flowtable->data, hook->ops.dev,
+ 					    FLOW_BLOCK_UNBIND);
+ 		if (release_netdev) {
+-			list_del(&hook->list);
++			list_del_rcu(&hook->list);
+ 			kfree_rcu(hook, rcu);
+ 		}
+ 	}
 -- 
 2.53.0
 
