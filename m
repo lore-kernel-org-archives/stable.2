@@ -1,70 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187116;
-	b=ZQZ+ErhBNkw5lBqV1LtVo3ORbEPtY417bHs7snIoC2YTEM+rM2y2BKPmoqmLxqZC0Hac
-	 jC9Xbadrsd9JuA4UlwV4GPcTH/Kkn3eje4tvIXP4Y63X4qXamyGgQqdsxF+CPLMsx6qZX
-	 i3SHEneHqOAJjScePCJPmwcnPQ+/X+DczeyuXVt6ppzXLRNs5kLmDtz+qgqOgO0OucT5g
-	 oUxOe438JR9iTCF8RY8mHiJzNG6rf3F7JNHB1T67TEi1fFVUpTzE8y6KANsR+G8GKvcM8
-	 qZznWiXArTysA8L+I1zj/INJ49Wb23qEqbNDEhfaaj5xbA6bkSOZ1RkTWjMaVw9+5+g==
+	t=1793187320;
+	b=CY3MN3HzKKRCkTuQuzw5TV6yckcpVs3X5tmPN4s0420Sdv4IrewzxHvIjCtYkbSk/cGW
+	 7jqUTOe5vggu1cfVTFZPcAf36wt7cxnyzrvIVjWOdOTLld6BYu0kj/sQ+JYNSvLQjSHTq
+	 KNxyvVqUELuZ6bugdCFg0p4+oSnUS3KNp6tVHkHb9X51n4vVj2sC4tYb/isIr9LCom2Wv
+	 oDFeuylJ98VOco/6rZ1vPeBfsRXsZoiUZAgageJPCNqwXfm7TEEVSYKjZoInG0XfSMhK7
+	 ZUtSykYbQYYMjOIH4gNYmngLgwQIrVrBonMMHol2lTTMP2pKdrZrSrhr1RXBZUZE3/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187116;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KvuBuwOhhaYmamcTSDk3hPj1rRzQq1G67qxMNZQ6S5g=;
-	b=wXkZQ4HyPoF8rZQDiEcmuakXtdUmI+o2/j/KCdGP3ojHmFUNhLyAUNTzGq66aE4PmyCj
-	 zqiZdzouT9ZSSsKMaXh4YNAT+p7xzbRgV0xiCP4A8B2qYktl1C781CGOyteh00Im9faXH
-	 XBdpIhwDq9N8rjld7foH5B0pzUAxQTWjt+Ft5zVR80TPeuc3AOKnbscfN1qJFH8LWelSx
-	 QpXFkk+VPM7tVEkSdvrgR2CF87abpccilMoiBjc+AnFdsIggYWH9NrYgcntoR87kH5Udq
-	 DGloXbF2Z+8pfdlnu3LOFRASjk2sEF/yYQwqju3r7tWsJGqasqZU4AkhCp5dDA9AZvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187320;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=B8vJFfofHUzZYZ/GbKfSFUlRIzxbI853xLgZK6SUVxEYJnmoP6pOSc0s/o3p4a996jzn
+	 9dCpaUiNoWflC15gWk0kQFtZ9tLcoDgyQYBR12lIUrFIl2elg4NCzrxJtJ5xhiFSRyRrR
+	 kt4MWAr68nQFynI2j52CaNw0TRrW3xmvpi9+JLPG9v5jMK5VbSz9x8HPym4JE7thsxgQe
+	 0Cv/7IT2NJbPiTx2qWJX0NhbDBJUzbjdibFOeWk0aeesYKn5Cj1WngCyFyxac5HMC8r+U
+	 4w5iAPHmuGWd0RKwOpojuhrE3G9Nv81/WXlP2p5js327PWRPB91ExHRTSDeeW7uK4hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BP8JXNnK;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9180D606A321;
-	Wed, 28 Oct 2026 11:31:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9180D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENLrp3x4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF65606A31D;
+	Wed, 28 Oct 2026 11:35:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BP8JXNnK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=BP8JXNnKuF2arqCOCI2pY7Sd5FwvWISknjYYz1omPpVcQygqnEkgB7FTwFVLNGc1aFUgncOedNbjG
-	 aUlXdbgieeaO6k70+bGN9X1l3h8WHAQ1KjtHXtRMb3+17kAJR1onT+r9oxyAK4CFdqIOXmjZ0xLE+E
-	 9iuuRTItbXLuBPA8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae1dd1dd76-2e04b;
-	Wed, 28 Oct 2026 19:31:45 +0800 (CST)
-X-RM-TRANSID:2ee66ae1dd1dd76-2e04b
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHA-W6400298 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae1dd1c768-052d5;
-	Wed, 28 Oct 2026 19:31:44 +0800 (CST)
-X-RM-TRANSID:2ee66ae1dd1c768-052d5
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: andrea.mayer@uniroma2.it,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tangbin@cmss.chinamobile.com,
-	stable@vger.kernel.org
-Subject: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
-Date: Wed, 28 Oct 2026 19:31:41 +0800
-Message-ID: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENLrp3x4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CA81F01829;
+	Wed, 28 Oct 2026 11:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793187319;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ENLrp3x4fVCj2fd8PUkdXs7htbYd0m0ytAAujsddQ9q3EjQ1ctCRP6aUYX4rmHVum
+	 0zTVn+CR1ukkvg0yt+cwOA19es186qwKxG+tp162zBuJurM4Ls89sIn5/HkKFePXsi
+	 5KdjLtvlZsrsBMPu9wqtSd65AIRHfE87A7B65zcCsYCWfQBvE20sTGtobch3RPDRKH
+	 jRB0ZMBftRPl/0qXpCkxLnNBFmudKVqE6xcWNIfzxzXMjuMlu8efMHdkJ8nt8yqjeC
+	 s/bIUKA/5D4fruMpvMZusPJOkyiPeTAX3Wsr7SWFkyKrpjwNwIwvhO72upWi8mtfrz
+	 mu9LLFOapM9kQ==
+From: netdev-bot+sinfo@kernel.org
+To: Tang Bin <tangbin@cmss.chinamobile.com>
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
+Date: Wed, 28 Oct 2026 11:35:18 +0000
+Message-ID: <179318731865.3327.13254506298277087120@kernel.org>
+In-Reply-To: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
+References: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,42 +63,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-advance_nextseg() decrements srh->segments_left and uses it to index
-srh->segments without checking it is non-zero. seg6_validate_srh() permits
-segments_left == 0, so a packet with SRH segments_left==0 reaching an End*
-action underflows the u8 (255) and reads srh->segments[255] (~4KB out of
-bounds); the read bytes are then used as the new IPv6 destination address
-(info leak) or crash on unmapped memory. The decap path
-(decap_and_validate) already checks segments_left > 0, but the standard
-End/End.X/End.T/End.B6.Encap/End.BPF paths do not. Reject segments_left ==
-0 before decrementing.
+Hi!
 
-Fixes: d7a669dd2f8b ("ipv6: sr: add helper functions for seg6local")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- net/ipv6/seg6_local.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index 53f7b2452..1d8312467 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -310,6 +310,10 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
- 	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
- 	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
- 
-+	if (srh->segments_left == 0) {
-+		*reason = SKB_DROP_REASON_NOT_SPECIFIED;
-+		return NULL;
-+	}
- 	srh->segments_left--;
- 	addr = srh->segments + srh->segments_left;
- 	ipv6_hdr(skb)->daddr = *addr;
--- 
-2.52.0.windows.1
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
