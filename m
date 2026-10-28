@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793193748;
-	b=QPGCvkDgcGvi3uJiyv8Bew/TkePrnOIB7+0LPnLcKzZoGzB702yvFX/zI82mQD48tzFb
-	 ed1NhQL3rO04irbqSXeQx7LOEnNhNPmetL0Y9lu2uBBWk+nBrOLM70emRkVZVkiOYDwbw
-	 sqCWFyj81/0eOLd01/HxTEMIge/px1LD6x+e/BlAgZ+8GgW8+35IkBzP3yfQcm45lq3w0
-	 veml7z08UkDs0HSklhzT1ttCqbhhJRMan36p9lN/XwgcGcbwXjv5NRP+Ra2Z+C36mbabO
-	 Vmj9gF30KjqwLn2pOKGfegT791ZhtRzxo0vydjumonhu5lyzEFddM9Xa50HNNWIdu+Q==
+	b=BmFXFyTSNZqlb4bsplzrA/gfte7+Nt4xrXCNwhyVg1W12a96EQxt4DVnLOyR5uoha6/t
+	 GjEXeTmvlxfjoD/nOsK6991RGcKKwnoqUUdxfTivTWmQ0gziE39lVk1ozoO2pBtqOXI9g
+	 9nQqR0GgAmxlZyx4fMSK/MpC+AGdvgY/rG8ckrDUYS7fRRZOpJTxp5Xm9q+xnqhotuY2h
+	 NRl5DNqSlK9deq76KRs08uAmGTKYYuV7dut3H1wwRrEixZPFkDBBoWNDzA9z7pzICHNY9
+	 3pPKg9mbCEL5DTfuzhusfCyN6eVf1pkEbwGMkYZ8QfzGBHFeBQkGN5FHPzH1zaQpJNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793193748;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yhDLlLsOvouwfc6IjVkEz3nLAwJ8aknGVp4Fj47waDc=;
-	b=av9yzgrZzLfg1L2aDV/USEWXF7YsVQHvMgyLmYMjdDGldYiSZnGQOgESU+mqOnj1LT/2
-	 joTxVBxpMpzMeGhxNVrEXIDqQFYV12zvVzTKDA+CqWCnOpYNAiPT4gSyJZzKoRjTg+8iZ
-	 50rwY5VIEQ+xJ7O5FDBt4+Lh1t8nSRaVdtXCLk/MgZeVgk4+AlsvmcnFtYKYhe8/mPurj
-	 S6DkBUmU06IRp+cePWLmacDlWdOXxnlzxHu0FQs94kZt77lvrWOJss4LGTEkTz1kvOp9W
-	 rhjDlslDYrEmM40eh43YROabU7UJbatKVD2kf7LWv0KM/Kt0J36uo7kmQxnfW3NeN9A==
+	bh=XOIpWApm+1y0y5e8wWUvnK4ebxNnpBPEyp9x+DwkePw=;
+	b=ZRKC1Uh8KsNPO3By8kWX6qdajI0LIftFVt65uLB/mTW931fJBsOSVZKr2+0lnxyQClP3
+	 iPt7Wv9IC/zoiXnmW+BtOf0rCPmfVbexU8nhqmvCwZ4lwfi3M/c0ipf4lagg5IFRisNOo
+	 HpmSMopXxiMgRN1X7HKwMPxmRh5w3YqwmsWeLrjUMJaupJgMu33si7KCCkSp9ivNk2IdD
+	 QaWLkRmMKESnz1bpj2jLW8Qium9mSTgDov+kW2xuF2QnEqIwxfiFRdnF620ByD39BmLIY
+	 4OcJqvJW4dNy/uNSvs0JzCtF7QKfJwTJUCPyORKgMKhpGfddpaWnWV3piHBP+PbCrag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=md9hrAVI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cr+nW6UM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0733E606A31F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07213606A31D;
 	Wed, 28 Oct 2026 13:22:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=md9hrAVI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6451F01829;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cr+nW6UM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ADD71F01828;
 	Wed, 28 Oct 2026 13:22:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793193747;
-	bh=yhDLlLsOvouwfc6IjVkEz3nLAwJ8aknGVp4Fj47waDc=;
+	bh=XOIpWApm+1y0y5e8wWUvnK4ebxNnpBPEyp9x+DwkePw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=md9hrAVIUAKTN/SW6oGFgBPihZGkNvy1xdgx2oySyWWfYUjk7ghKIeL6Fo+8n0DJX
-	 x0kRHgX00JAMP64bkmvfmE8Yqw5icZ4j6PE2nyJmN2Xxz/OtzzBf1APoroU0D6V3TO
-	 BHtDvF1dFuaVVHCKKFZvRN452BL+DtYniztDcYQBO/Yk4vSkr1JC4Aqel8V5FrMPL2
-	 3VOHxxVGckrOTcHhXF0jyTfFI7quFOf14MK9DDxUcrBTH/q+0RAQqZty1PxvMhkXWC
-	 5An6Vrn5pcvzJHVFPz9bp7JfHLZii3AQTL88PZj1GJPI8BVeWq6bvu1CBJgUyibojx
-	 PODZaoSjn4nNA==
+	b=cr+nW6UMQyT7j2NM5iRb6iyhZhxKCeyBRLSyY6k2LR2cLNslNqQ+ehBRPc8TX3hri
+	 RVIrIriDmrxkA/rhiegv4ozLswc4cgS9lqntczP1U6WPfE199YaG3GgbrkMXvpM2YP
+	 mhCTMHwc98lFFifeHpn4fXn4nzaLi24ATnjHY3ZqibN+maj5+QCBXpQF9eLp0YB/Rz
+	 Gu+1PEH4tUbaB8IegPJ4pxi1evVluNDAdtdyjZ/bOlpLVHItkKk1PWhDBDYt9qSkcd
+	 ro/tQIfjjNXUo1Db7O1mxEnPv73DD9N7hV7WJxroSnxGHUCeG28O5hi80CruOn82qW
+	 IB1/v46wk3OCQ==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xM3bl-000000033X7-2Yvc;
+	id 1xM3bl-000000033X9-2bWx;
 	Wed, 28 Oct 2026 14:22:25 +0100
 From: Johan Hovold <johan@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -51,9 +51,9 @@ Cc: linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] tty: n_hdlc: fix missing write() hangup check
-Date: Wed, 28 Oct 2026 14:20:47 +0100
-Message-ID: <20261028132049.728457-2-johan@kernel.org>
+Subject: [PATCH 2/3] tty: n_hdlc: fix read() hangup race
+Date: Wed, 28 Oct 2026 14:20:48 +0100
+Message-ID: <20261028132049.728457-3-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261028132049.728457-1-johan@kernel.org>
 References: <20261028132049.728457-1-johan@kernel.org>
@@ -68,38 +68,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the missing hangup check to the n_hdlc write() wait loop so that
-hangups are detected and -EIO is returned as expected.
+Make sure to set the task state before checking the break conditions in
+the read() wait loop to avoid missing a racing wakeup.
 
 Note that before commit c96cf923a98d ("tty: Don't block on IO when ldisc
-change is pending") a task hanging up the tty would get stuck in
-uninterruptible sleep when there are blocked writers, but since then
-write() incorrectly returns -EAGAIN instead.
+change is pending") a racing task hanging up the tty could get stuck in
+uninterruptible sleep when there are blocked readers, but since then
+read() incorrectly returns -EAGAIN instead.
 
 The false-positive stuck hangup issue was flagged by an LLM.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
+Fixes: 1035b63d3c6f ("n_hdlc: fix read and write locking")
+Cc: stable@vger.kernel.org	# 2.6.38
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/tty/n_hdlc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/tty/n_hdlc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/tty/n_hdlc.c b/drivers/tty/n_hdlc.c
-index 895b850a5950..0fbc44968a44 100644
+index 0fbc44968a44..02676ae9b112 100644
 --- a/drivers/tty/n_hdlc.c
 +++ b/drivers/tty/n_hdlc.c
-@@ -529,6 +529,11 @@ static ssize_t n_hdlc_tty_write(struct tty_struct *tty, struct file *file,
- 	for (;;) {
- 		set_current_state(TASK_INTERRUPTIBLE);
+@@ -431,6 +431,8 @@ static ssize_t n_hdlc_tty_read(struct tty_struct *tty, struct file *file,
+ 	add_wait_queue(&tty->read_wait, &wait);
  
-+		if (tty_hung_up_p(file)) {
-+			error = -EIO;
-+			break;
-+		}
+ 	for (;;) {
++		set_current_state(TASK_INTERRUPTIBLE);
 +
- 		tbuf = n_hdlc_buf_get(&n_hdlc->tx_free_buf_list);
- 		if (tbuf)
+ 		if (test_bit(TTY_OTHER_CLOSED, &tty->flags)) {
+ 			ret = -EIO;
+ 			break;
+@@ -438,8 +440,6 @@ static ssize_t n_hdlc_tty_read(struct tty_struct *tty, struct file *file,
+ 		if (tty_hung_up_p(file))
+ 			break;
+ 
+-		set_current_state(TASK_INTERRUPTIBLE);
+-
+ 		rbuf = n_hdlc_buf_get(&n_hdlc->rx_buf_list);
+ 		if (rbuf)
  			break;
 -- 
 2.55.0
