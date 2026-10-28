@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210515;
-	b=3MVdKygbyCz+AvYQT/FUUCErjM1OaO9biZbMFBT/0zDeqN7zwrn43NJn5OW84kvGH+FI
-	 LnQGIPVcwjpPB+gBVZR4NhuDra1FJPwUqD3ivWTp2PIlxnoCE9rWew7zgiF4oVQQPmhGH
-	 VPl0AjfsGq164EkTHUrAlgng7cBajDKLWc7A0yKHESYlvb6mTKWF2Lln+5dM9bebI7LcC
-	 VOdIOuyzrN7N2T1c3cm4Gf6dPwWePa6/VSeS9ztP2LsExHT7pfTKkgaHGOq2ys/CA4qfw
-	 Va8Ov5oA2IOvtayTvLsSkO/exlNr101CJjrzDoeOgGtJv9jNYeXqMUF5kkFy3N5JZrA==
+	t=1793210518;
+	b=q9GzNnYZMnjYEMdDs+qPfr7hzM1XUvBqA/FbK4sseGunqmdnk6fMos6Urio4wDmiExNo
+	 QVEhSI/qvojb9GOlDbreBB/Uz0P4FGhrHopGjH0nYeDFHYxCYCPxOwcH2yoa+gmD3gK3t
+	 igA5MBhOw5B6WiGETWh32hrv9BFZbQZFAUoMvvfhl1mjumAnKHqbJqoO7CW/mZLcnV195
+	 eUc6xoVTC752TFj4vdjxXuArZ4hMTUxlYnYDktcfXZMMB8Dsjo80okgcOkNkG/W5q8nFb
+	 pOERUerr/b4wFkCAKTFBSnMG37dlt9IK68Zjay7tQ8i2q4MV24RsMcSL4UwNm09ZTZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210515;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IFh8UvNS1giZHEP2EPha+DPG33RQP8My3fS1LV0elXo=;
-	b=iB1ufki3rreiuG+wWWKIk6hUIJ9hDL3iZKmgsdyM/MzMRq+eA+YxTGP6gP3Z36XyTteG
-	 9YXHi5cBLdVVALXNsEGnWEYd7/s85/pDPxDztm6yX4jzevA3H+/fyMbMANfllMIBqUs8C
-	 SvhkOvnYTz57pxpirQAWa5rcyRk8YuVDfEuOZQDqYugJuPlveopH5hHvO3eXjy9CuVLnQ
-	 kz0hj/6npK2+FyOm6ClWpaK0rCNMDEjW9JNusQhyX7mJnfX3GYuiQ7KiuBWTIiLjM2VKb
-	 d5hEJMwzm3rzAMdm+DulqFP8Pas/XvIds+99bt9xLcCsXCt9BIh9NUBuXVIoJoxIjhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210518;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yX+I4c3gdTHowZI1UnKHltg+s1kesLc6QnI2pq2xbn8=;
+	b=0gFz2JISTyXbR5EIgJU4XxICH00mAZdppWmkIC5U5rwNOP5LJ2kjgsFRpL7asoHAI92I
+	 js5vXHX9rAnxbPljAGF60/459i+T63T/lWRVsEjvLmGa0OPO/akOzO967WYz52Di8Op52
+	 zw/0R/u7TsoipoeQ4JLXShbn3I2OvxWbGECPIydt/6rTfcDgY6b64xLNZOODPRPlp/FPT
+	 dsAEmm+TUb4aw2dQCIZEM/o1cfLPIcLj7PWwJn6pYR3PGREdeuX5a9HDi/gcqqgFWHV81
+	 4cWlAkhd+RxQIwfXQ1lpgqatHHpZ6O3B45NNYSjPdWRsHfE3kXP1l4admnbBi028EqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="CLu/Ci5K";
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nAMOICnM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70903606A323
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:01:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70903606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCEC606A32F;
+	Wed, 28 Oct 2026 18:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CLu/Ci5K
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89fb6a45c48so1656560b3a.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:01:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793210515; x=1793815315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IFh8UvNS1giZHEP2EPha+DPG33RQP8My3fS1LV0elXo=;
-        b=CLu/Ci5KG1AFekKdu3rDgXoDWhM0y76czwwVT6oQO1nEd87AcvM/FgztRHEkZvFmEk
-         HdbQrb5rRu4JuBMuBt3qNPvD75HnvfEX5dx9gQS1p4Zpl5ObmVX8rRpEjIjAZQUnuXNr
-         RiQsWY7XmGwx0eQ9VLAqho10NXytMEGxWV6rxJHMinGMd7kN/581NX5T3alcYnennFZk
-         C2AqC2eaHHE78DEu+QBBe3xILGE4Ui4+l7tdpnbIy+4ZADJCHzYpmh+61td1Gu7sR8R1
-         e2T7FIDeZlbpp1+DkIGwNH+M/VdSpWcRhd3Xkt992fCmlRWUX0ee1YOkzGOa6gEH86I+
-         r0wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793210515; x=1793815315;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IFh8UvNS1giZHEP2EPha+DPG33RQP8My3fS1LV0elXo=;
-        b=25JMQ4KyJWVRa5GQgoNX0L9tmu6ziJIWGqMti5nBw6sEHXtIIHUWZy07EBnj2qTyR3
-         ak3mH4G/gfn/BitXpYNppRK4C51+edLsiF1OFhqVGUVR0+7URwvEqlTLqT8R7NWWdrQ9
-         QBa2pcY/nJv++lbn7YsIfmHigCI8DqV6QOO1ZFkbnawtQ9XlCzj4R6CVVxDsqeh6YdtR
-         /GU0uGPNuUChF9vku8L3l4RDd4n8sYBQlZNkjCnNLkDrJ4qGps6ZoVbR45CZlGs6VuvB
-         zOUj1wJldH0FWlhqxS+ZW+n67CEUpg0SlELrvQAyixrsqA33eAt+5QewUWTlfgXEL1Mu
-         7OyA==
-X-Forwarded-Encrypted: i=1; AKwUvByJr/ILqlQGrGjn29msGry4Dlhyi7SBSpfzPSAJRtYehTR5BMpaOIVkGq1l1cBt9z6F3xn0iVE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7+hEo46unMqejvt+65WW94/Eq5rWXpaOt6qIdPYNktoCzZSej
-	KP1icag3qi72RHnVtJ8n1HJqSC+nwdjfrSChiKrRPYXmL/bArZFtJl6zhHb9ledCPenTgm6pfYq
-	K2vt1Xw==
-X-Received: from pfog22.prod.google.com ([2002:aa7:8756:0:b0:8a0:7e84:9992])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:288d:b0:89a:5:92a0
- with SMTP id d2e1a72fcca58-8a6e83aa848mr2462444b3a.46.1793210514345; Wed, 28
- Oct 2026 11:01:54 -0700 (PDT)
-Date: Wed, 28 Oct 2026 11:01:53 -0700
-In-Reply-To: <69437bf0-45fc-4701-9144-a208c12423e6@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nAMOICnM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6822D1F01829;
+	Wed, 28 Oct 2026 18:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793210517;
+	bh=yX+I4c3gdTHowZI1UnKHltg+s1kesLc6QnI2pq2xbn8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nAMOICnM+22JClSMm6PRN+6+U9lCx73Siec/a7Yi2C1kLa3g9jio5G36NgwpKc07c
+	 lNq3X3rcljXhvErvay23uFED087KMDOuz8WJMLlQzlhMRKFb/E+DAeTGSmVSnbAkCI
+	 fgzbi/IG3U2M8q+xuWmNIF/15tTRN5GBc4kWiAPA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 054/571] nfsd: gate nfs2 setacl by argp->mask
+Date: Wed, 28 Oct 2026 17:53:21 +0100
+Message-ID: <20261028170009.309330735@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,53 +60,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <2026102314-CVE-2026-99082-e5b1@gregkh> <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
- <auIy4UZMGxLhBCAn@google.com> <d4214249-5ec0-4600-91be-13632b180425@redhat.com>
- <69437bf0-45fc-4701-9144-a208c12423e6@redhat.com>
-Message-ID: <auI4kViOXpqxT3wA@google.com>
-Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
- commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO cache")
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sami Farin <lkml20261027@mifar.in>, linux-kernel@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org, kimjw04271234@gmail.com, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-T24gV2VkLCBPY3QgMjgsIDIwMjYsIFBhb2xvIEJvbnppbmkgd3JvdGU6Cj4gT24gMTAvMjgvMjYg
-MTg6NDgsIFBhb2xvIEJvbnppbmkgd3JvdGU6Cj4gPiBPbiAxMC8yOC8yNiAxODozNywgU2VhbiBD
-aHJpc3RvcGhlcnNvbiB3cm90ZToKPiA+ID4gPiBIb3dldmVyLCBhZGRyZXNzIHNwYWNlIDAgYW5k
-IGFkZHJlc3Mgc3BhY2UgMSBtYWludGFpbiBzZXBhcmF0ZQo+ID4gZ2VuZXJhdGlvbiBjb3VudGVy
-cwo+ID4gPiA+IHN0YXJ0aW5nIGZyb20gMC4KPiA+IAo+ID4gVGhpcyBpcyBhbHNvIGluY29ycmVj
-dDoKPiA+IAo+ID4gIMKgwqDCoMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBrdm1fYXJjaF9ucl9t
-ZW1zbG90X2FzX2lkcyhrdm0pOyBpKyspIHsKPiA+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgZm9yIChqID0gMDsgaiA8IDI7IGorKykgewo+ID4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2xvdHMgPSAma3ZtLT5fX21lbXNsb3RzW2ldW2pd
-Owo+ID4gCj4gPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBhdG9taWNfbG9uZ19zZXQoJnNsb3RzLT5sYXN0X3VzZWRfc2xvdCwKPiA+ICh1bnNpZ25lZCBs
-b25nKU5VTEwpOwo+ID4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgc2xvdHMtPmh2YV90cmVlID0gUkJfUk9PVF9DQUNIRUQ7Cj4gPiAgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzbG90cy0+Z2ZuX3RyZWUgPSBSQl9S
-T09UOwo+ID4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-aGFzaF9pbml0KHNsb3RzLT5pZF9oYXNoKTsKPiA+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNsb3RzLT5ub2RlX2lkeCA9IGo7Cj4gPiAKPiA+ICDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIEdlbmVyYXRpb25z
-IG11c3QgYmUgZGlmZmVyZW50IGZvciBlYWNoCj4gPiBhZGRyZXNzIHNwYWNlLiAqLwo+ID4gIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2xvdHMtPmdlbmVy
-YXRpb24gPSBpOwo+ID4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gPiAKPiA+
-IAo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqAgQW4gTU1JTyBhY2Nlc3MgY2FjaGVkIGluIFNNTSAo
-ZS5nLiwgR0ZOIDB4RkVENDAwMDAgd2l0aAo+ID4gPiA+IGdlbiA9IDQpIG1hdGNoZXMgaW4gbm9y
-bWFsIG1vZGUgd2hlcmUgZ2VuIGlzIGFsc28gNC4KPiA+ID4gSG1tLCB0aGlzIGlzbid0IGFkZGlu
-ZyB1cCBmb3IgbWUuwqAgSXQgc2hvdWxkIGJlIGltcG9zc2libGUgZm9yIHRoZQo+ID4gPiBnZW5l
-cmF0aW9uIHRvCj4gPiA+IGJlICc0JyBmb3IgU01NLCBiZWNhdXNlIFNNTSBpcyBzdXBwb3NlZCB0
-byB1c2Ugb2RkLW51bWJlcmVkCj4gPiA+IGdlbmVyYXRpb25zLsKgIEZyb20KPiA+ID4ga3ZtX3N3
-YXBfYWN0aXZlX21lbXNsb3RzKCk6Cj4gPiAKPiA+IHZjcHVfY2FjaGVfbW1pb19pbmZvKCkgZG9l
-cyBub3QgdXNlIHRoZSBhZGRyZXNzIHNwYWNlIGlkOgo+ID4gCj4gPiAgwqDCoMKgwqDCoMKgwqAg
-dTY0IGdlbiA9IGt2bV9tZW1zbG90cyh2Y3B1LT5rdm0pLT5nZW5lcmF0aW9uOwo+ID4gCj4gPiBX
-aWxsIHNlbmQgYSBwYXRjaCBzb29uLgo+IE5ldmVybWluZCwgd3JvbmcgdHJlZSAtIEkgd2FzIHJl
-aW52ZW50aW5nIHRoZSAoYXBwYXJlbnRseSBidWdneSkgY29tbWl0Cj4gYmVjYXVzZSBpdCdzIHBh
-c3QgNy4zLjAtcmM3Li4uIHN0aWxsIGxvb2tpbmcuCgpIZWgsIEkgZGlkIHRoZSBzYW1lIHRoaW5n
-LiAgSSB3YXMgbGlrZSwgInRoaXMgY29kZSBkb2Vzbid0IGV4aXN0ISEhIiwgdGhlbgpyZWFsaXpl
-ZCB0aGUgY29tbWl0IGlzbid0IGluIGt2bS9uZXh0LiAK
+5.15-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Chuck Lever <chuck.lever@oracle.com>
+
+[ Upstream commit a3a7e20ed66d3f04d37883c398da8a113b430769 ]
+
+The NFSACL v2 SETACL path shares the decoder convention used by its
+v3 sibling: nfsaclsvc_decode_setaclargs() fills in argp->acl_access
+only when NFS_ACL is set in the request mask and argp->acl_default
+only when NFS_DFACL is set, leaving the other pointer NULL because
+the argument buffer is zeroed up to pc_argzero before decode.
+
+nfsacld_proc_setacl() then hands both pointers to set_posix_acl()
+unconditionally. set_posix_acl(idmap, dentry, type, NULL) is the VFS
+"remove this ACL type" operation, so an omitted arm is
+indistinguishable from an explicit request to delete that ACL. A
+SETACL carrying only NFS_ACL silently strips the directory's default
+ACL; mask=0 strips both.
+
+This is the same defect just fixed in nfsd3_proc_setacl(); apply the
+same remedy. Gate each set_posix_acl() call on its mask bit and
+initialize error to 0 so that a request with neither bit set leaves
+the on-disk ACLs untouched and returns success. The out_drop_lock
+path and the unconditional posix_acl_release() in
+nfsaclsvc_release_setacl() already tolerate the skipped arms.
+
+Fixes: a257cdd0e217 ("[PATCH] NFSD: Add server support for NFSv3 ACLs.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ retained the older user-namespace and inode set_posix_acl() API in place of the newer mount-idmap and dentry API. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nfsd/nfs2acl.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/fs/nfsd/nfs2acl.c b/fs/nfsd/nfs2acl.c
+index f8b91aacd8174..cd6de7aca989f 100644
+--- a/fs/nfsd/nfs2acl.c
++++ b/fs/nfsd/nfs2acl.c
+@@ -115,14 +115,19 @@ static __be32 nfsacld_proc_setacl(struct svc_rqst *rqstp)
+ 
+ 	inode_lock(inode);
+ 
+-	error = set_posix_acl(&init_user_ns, inode, ACL_TYPE_ACCESS,
+-			      argp->acl_access);
+-	if (error)
+-		goto out_drop_lock;
+-	error = set_posix_acl(&init_user_ns, inode, ACL_TYPE_DEFAULT,
+-			      argp->acl_default);
+-	if (error)
+-		goto out_drop_lock;
++	error = 0;
++	if (argp->mask & NFS_ACL) {
++		error = set_posix_acl(&init_user_ns, inode, ACL_TYPE_ACCESS,
++				      argp->acl_access);
++		if (error)
++			goto out_drop_lock;
++	}
++	if (argp->mask & NFS_DFACL) {
++		error = set_posix_acl(&init_user_ns, inode, ACL_TYPE_DEFAULT,
++				      argp->acl_default);
++		if (error)
++			goto out_drop_lock;
++	}
+ 
+ 	inode_unlock(inode);
+ 
+-- 
+2.53.0
+
+
+
