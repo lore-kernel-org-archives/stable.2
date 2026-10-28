@@ -1,49 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191699;
-	b=hXm62N2DxkKTjMRA+cVVQq6RSJGWxwn9kelALECcsSDsdUQ4+yqum4q1+Xw7yJR26MEE
-	 26bOdHEbZIE750m4lUELTeiqgaZPRNelPScZE6ifX3BWDSa4uc1YEfpj653c2cPgaYSdU
-	 4zP5tseVTp+smSTfOYtVGsqH4JxCLw93hxXoBPpvpH94el+2Xy1PBsbeEldFDjt3vQT6W
-	 A3dmHtolW8YtWF5B9MrFtEByvDGEinHWq8R838fC7FTR11zDQXE1vxwl1CsoI/Ncx8Oqw
-	 5WuptEhf20+lGAxPbGOJ/DU7dAKb12lqjgjLYLFlOOia0OXuEl6HsywHCzpwVP1ff9Q==
+	t=1793192112;
+	b=J7rKsenMIofZIpyca2HVJH1WM6Fw3JZ8AUL/0ZI1mXiaPv6eKsucOnr7Gr/6UniPruXG
+	 XpNpFQFj+eiPWxOtO1QJTJZjRhUqXQiNlkiZlHG3f24Yx1aoJQ0B+n529qlIBJht3wHb8
+	 QYCKF8x1LhJ+oIEYOHDSvD0caHSSEpggE9RCmbJojEPckDV7kqbKWtxwLR3MXqfGvd7ow
+	 9OSJe5FFG8u4ldTaxAnnWJprrMrR02tDAGF5VyArh1LC6PGgsmgPtav9eavXbB5tLL+n6
+	 qHVy+Z2iueV1jeoKC0FV4f3DcmL7+TsJGOehfFKemZPKVTRGpLkB6d54kdw+71ws+mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191699;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/rp10C9vmYrvZ8n2ETCONDZuve+pgclYyA15cGXRQ9U=;
-	b=PMSHRgR4+YbclU+jvr9bSEIrHUL1L7Y+IPc9kX4CCgXJzu72w2Gxn0R0TNgYWvNw6O5a
-	 wjJIa3/PQkFv3FjkcAtUVhvON46wr/tNjXuKXG0bIN6CqsV6HZglN0HlGWzu+kT+YQUGo
-	 vkImcwe+piwILM/aTNzqQvz1AU9u1+d9TlLtH1W22WZCEImzW4WLyvyjPp6z7lSPKiYkq
-	 HkT9ykfdAKWyB6aufMGoqrxzKaeEOrP9bn5YTfTr6r7uQ3QFcgY8jSM/fI/YQZq01z+HP
-	 F09lAM/qC41c9vGk6shAbsQSjUy4seWJMic1MnyoMtq/ZwZh26xLz3ZpNDU7j1MppdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793192112;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=oHMQ7jThbhsyE45ivREh/BKkvnArBrfhCr6h7QbYevuV1fz3FMx4RPGUp+zVdnidnYgu
+	 QWgDUqYaDEw7PniozHj1HBGX3Tc5Wp3Jf1+KKlbkd7PXTAx+f1Cjt/mTcZwxcLNlioMsQ
+	 c9aSyvS0vPKvG3rkJMfae/7DER08PiJrf29Arvgf6tZYfntfbGdF9XVIDcbQ29pXzy6Zt
+	 xKgPKE2LeLOxFCZLNiMhS+38wntimE0huFCRxCUhyBpFsU3WEg+RoucOqwfMOW6KJ3UTK
+	 HTYucPFYuEdiBT7VRqpryxmC1TMZV3JqfZlLxzxTbHGWtdj9KISewC4bOgIFSSdz44g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=b4txhJpw;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tEm5XV3K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3L4wVEOZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NuxsBLoI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7ad5oBI;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D73606A31A;
-	Wed, 28 Oct 2026 12:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1D73606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D662F606A31A;
+	Wed, 28 Oct 2026 12:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D662F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=b4txhJpw
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793191688; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/rp10C9vmYrvZ8n2ETCONDZuve+pgclYyA15cGXRQ9U=;
-	b=b4txhJpwHmZZaVNsrVSG6XnzxVadk3HQPSZdFNXPAuG4r11vy5T6zenr8uDb5KeazgXNx39vcZyCJr01z/vert8PBe4SJY6J2+lIgXZJYrmZby67vsinjeOcStpPP0nfgGDTmS7sjMB7BKiFCTNhCXN6UHDQca9tJ+7XpPvTLWg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDgpOyF_1793191687;
-Received: from 30.221.129.127(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDgpOyF_1793191687 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 20:48:08 +0800
-Message-ID: <a0c3eeda-f73b-483f-a129-8d45eb120337@linux.alibaba.com>
-Date: Wed, 28 Oct 2026 20:48:07 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=tEm5XV3K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3L4wVEOZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NuxsBLoI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d7ad5oBI
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DA48322140;
+	Wed, 28 Oct 2026 12:55:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793192110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=tEm5XV3KjbEjA41ZoYQtFK15SnyJr/jro2kAD7VcJ5Nd+xXCeh4MOSDOSl4gs16gOuMj1n
+	2xE3J3A8sl5Ltrq85nxbmFf18x515DUo74zEDgzkeO03pvq4GMkN0dvsQ2UQX/6VJbcXMi
+	2SihNsvbiknM4tPeVmrkd8edOj2h7vk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793192110;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=3L4wVEOZnbwLwpiT/6p/yUN1CGm8BCBGENEqGDXYvBfXN4ALX7tkweq+NQgRINIks9l6SY
+	Oj9hq1SccSlw7FDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793192108; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=NuxsBLoIZe0RCX6eCWMO4BBI2zD4MDPTwQN+oGb/8EVr6QFJtbQrfT5EbmRflQ0wO1Fq9+
+	IiN60C3UHKnxFucRljWSZMNVNDbWigF0ESpMoTysxKkpo6/YVc07F+3JRBXFFVsBG8uZ8G
+	IeyoyClDdnZWvRm7F4ix8zVnXzU760c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793192108;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ar7R9QMU32qAcY23nIeGRlAcN3VSNOddD17DmoDp+Wk=;
+	b=d7ad5oBIDy9uyvYJSfVkcYBqi8kIr0BJCTIvUM3nFJwDeXTA5GEVesAI5PARxFiR78fYFd
+	Yu8Y7PsZt+zW+8Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6B0113419;
+	Wed, 28 Oct 2026 12:55:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UmP0JKjw4WpyFgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 12:55:04 +0000
+Date: Wed, 28 Oct 2026 12:55:03 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Barry Song <baohua@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
+Message-ID: <auHve-G8bboW77IZ@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
+ <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
+ <22b819a2-631d-468e-b724-770caf9f94e4@kernel.org>
+ <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,226 +142,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: advance locking_state through the live cursor
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0053-v5-76075d5da2df8108f813@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0053-v5-76075d5da2df8108f813@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux-foundation.org,cmpxchg.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[65];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-
-
-On 10/26/26 10:00 PM, Cen Zhang wrote:
-> locking_state copies each lock resource under ocfs2_dlm_tracking_lock
-> so its containing inode or quota object can be freed during the dump.
-> The copied l_debug_list pointers do not have that lifetime protection.
-> Yet ocfs2_dlm_seq_next() follows them to find the next record.
+On Wed, Oct 28, 2026 at 03:48:09AM +0800, Barry Song wrote:
+> On Wed, Oct 28, 2026 at 3:07 AM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
+> >
+> > On 10/27/26 11:38, Pedro Falcato wrote:
+> > > On Tue, Oct 27, 2026 at 12:17:22AM +0100, David Hildenbrand (Arm) wrote:
+> > >> dup_mm() copies the parent's mm_struct before dup_mmap() takes the
+> > >> mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
+> > >> and newer heap mappings, causing later brk() requests to fail.
+> > >>
+> > >> Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
+> > >> cause inconsistencies.
+> > >>
+> > >> As a simple and robust fix, grab the parent's mmap_lock earlier. This
+> > >> way we don't need to update individual mm fields in dup_mmap() and
+> > >> keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
+> > >> exec_vm, stack_vm), as that is now no longer required.
+> > >>
+> > >> Keep releasing the parent's mmap_lock in dup_mmap(), before
+> > >> userfaultfd completion, to avoid moving the userfaultfd handling into the
+> > >> caller. This should get cleaned up later.
+> > >>
+> > >> Move uprobe_start_dup_mmap() to preserve the lock ordering.
+> > >>
+> > >> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > >> Cc: stable@vger.kernel.org
+> > >> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> > >> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> > >
+> > > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> > >
+> > > FWIW, strictly speaking malloc() isn't usable in a forked
+> > > (multi-threaded) child, but glibc/musl provide this in a best-effort way.
+> >
+> > Yeah, I'm more concerned about other things that can race ... :)
 > 
-> Remounting read-only can free a quota-info object while a debugfs read
-> is between the snapshot and the next iterator callback:
+> Regarding the race with memcpy(mm, oldmm, sizeof(*mm)), we
+> still have one [1] even after this patch.
 > 
->   locking_state reader                Quota suspension
->   --------------------                ----------------
->   snapshot current lock resource
->     copy l_debug_list.next
->                                       remove next resource from live list
->                                       free quota-info object
->   seq_next(): follow copied link
->     read freed lock resource
-> 
-> Advance through the live dummy cursor instead. List removal updates its
-> links under the tracking lock. Position it after the resource being
-> copied before releasing the lock, and never walk the snapshot's links.
-> Rebuild the cursor from the requested position in seq_start() so a
-> seq_file buffer retry or seek starts at that record again.
+> That is, copying mm_struct can happen concurrently with
+> lru_gen_del_mm(). However, this race doesn't seem harmful.
+> I might be missing something here though.
 
-seq_lseek() does not pass the target to ->start. It calls traverse(), which
-resets the index and walks forward through ->next instead.
+I don't think it's harmful as well. mm_init() reinitializes those fields.
 
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->     Read of size 8 at addr ffff888117ea9838 by task python3/489
->     
->     CPU: 3 UID: 0 PID: 489 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy) 
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      kasan_report+0xe0/0x110
->      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
->      ? __pfx_ocfs2_dlm_next_res.isra.0+0x10/0x10
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ocfs2_dlm_seq_next+0xb8/0x4c0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      seq_read_iter+0x92f/0x1110
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      seq_read+0x362/0x5a0
->      ? __pfx_seq_read+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? selinux_file_permission+0x11d/0x540
->      full_proxy_read+0x11f/0x180
->      ? __pfx_full_proxy_read+0x10/0x10
->      vfs_read+0x1a0/0xc20
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? kmem_cache_free+0x242/0x580
->      ? __pfx_vfs_read+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? putname+0x93/0xe0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? do_sys_openat2+0x12a/0x1b0
->      ? __pfx_do_sys_openat2+0x10/0x10
->      ksys_read+0x111/0x200
->      ? __pfx_ksys_read+0x10/0x10
->      ? irqentry_exit+0xbe/0x820
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on_prepare+0x11d/0x150
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     RIP: 0033:0x7f0266dbb687
->     Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
->     RSP: 002b:00007ffccf76fc40 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
->     RAX: ffffffffffffffda RBX: 00007f0266d27780 RCX: 00007f0266dbb687
->     RDX: 0000000000000001 RSI: 00007f0266a53200 RDI: 0000000000000004
->     RBP: 00007f0266d27700 R08: 0000000000000000 R09: 0000000000000000
->     R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000001
->     R13: 00007f0266a53200 R14: 0000000000000004 R15: 00007f0266b651e0
->      </TASK>
->     
->     Allocated by task 547:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_local_read_info+0x181/0x1580
->      dquot_load_quota_sb+0x68b/0x1000
->      dquot_load_quota_inode+0x227/0x3e0
->      ocfs2_enable_quotas+0x27c/0x520
->      ocfs2_fill_super+0x21f9/0x38f0
->      get_tree_bdev_flags+0x35d/0x5f0
->      vfs_get_tree+0x93/0x320
->      fc_mount+0x1d/0x200
->      path_mount+0x592/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     Freed by task 577:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_local_free_info+0x47b/0x800
->      dquot_disable+0x5d9/0x17a0
->      ocfs2_susp_quotas.isra.0+0x22c/0x2b0
->      ocfs2_reconfigure+0x284/0xd00
->      reconfigure_super+0x3ca/0xa70
->      path_mount+0x16ae/0x1e00
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     
->     The buggy address belongs to the object at ffff888117ea9800
->      which belongs to the cache kmalloc-1k of size 1024
->     The buggy address is located 56 bytes inside of
->      freed 1024-byte region [ffff888117ea9800, ffff888117ea9c00)
->     
->     The buggy address belongs to the physical page:
->     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x117ea8
->     head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
->     flags: 0x200000000000040(head|node=0|zone=2)
->     page_type: f5(slab)
->     raw: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
->     raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
->     head: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
->     head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
->     head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
->     head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
->     page dumped because: kasan: bad access detected
->     
->     Memory state around the buggy address:
->      ffff888117ea9700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->      ffff888117ea9780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->     >ffff888117ea9800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                                             ^
->      ffff888117ea9880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->      ffff888117ea9900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->     ==================================================================
-> 
-> Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> 
-> ---
->  fs/ocfs2/dlmglue.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
-> index 88d946466083..5e05e98fb9cb 100644
-> --- a/fs/ocfs2/dlmglue.c
-> +++ b/fs/ocfs2/dlmglue.c
-> @@ -3101,10 +3101,19 @@ static struct ocfs2_lock_res *ocfs2_dlm_next_res(struct ocfs2_lock_res *start,
->  static void *ocfs2_dlm_seq_start(struct seq_file *m, loff_t *pos)
->  {
->  	struct ocfs2_dlm_seq_priv *priv = m->private;
-> -	struct ocfs2_lock_res *iter;
-> +	struct ocfs2_lock_res *iter = NULL;
-> +	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
-> +	loff_t n;
->  
->  	spin_lock(&ocfs2_dlm_tracking_lock);
-> -	iter = ocfs2_dlm_next_res(&priv->p_iter_res, priv);
-> +	list_move(&dummy->l_debug_list,
-> +		  &priv->p_dlm_debug->d_lockres_tracking);
-> +	for (n = 0; n <= *pos; n++) {
-> +		iter = ocfs2_dlm_next_res(dummy, priv);
-> +		if (!iter)
-> +			break;
-> +		list_move(&dummy->l_debug_list, &iter->l_debug_list);
-> +	}
+Though I hate that memcpy. I think that ideally we copy by member and
+data_race() benign races, like what is done in vm_area_init_from().
 
-seq_read_iter() calls ->start once per read and its buffer is a page, so
-reading the whole file with N tracked resources re-enters this loop about
-N/R times at increasing *pos, and a single late ->start holds the lock for
-that many list_move() calls.
+Anyway, KCSAN reports aren't the most serious thing in the world, so this can
+(should?) be cleaned up later.
 
-And ocfs2_dlm_tracking_lock is taken on every lock resource create and
-destroy. So I'm not sure the lock hold time on it is acceptable.
-
-Thanks,
-Joseph
-
->  	if (iter) {
->  		/* Since lockres' have the lifetime of their container
->  		 * (which can be inodes, ocfs2_supers, etc) we want to
-> @@ -3128,12 +3137,12 @@ static void ocfs2_dlm_seq_stop(struct seq_file *m, void *v)
->  static void *ocfs2_dlm_seq_next(struct seq_file *m, void *v, loff_t *pos)
->  {
->  	struct ocfs2_dlm_seq_priv *priv = m->private;
-> -	struct ocfs2_lock_res *iter = v;
-> +	struct ocfs2_lock_res *iter;
->  	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
->  
->  	(*pos)++;
->  	spin_lock(&ocfs2_dlm_tracking_lock);
-> -	iter = ocfs2_dlm_next_res(iter, priv);
-> +	iter = ocfs2_dlm_next_res(dummy, priv);
->  	list_del_init(&dummy->l_debug_list);
->  	if (iter) {
->  		list_add(&dummy->l_debug_list, &iter->l_debug_list);
-
+-- 
+Pedro
