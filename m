@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207613;
-	b=BOb1AsrMOXXj0O/dvtHXvcfuxgeiZMFkUzvG5U76DiKbepYBEcI8Unj1ooXubqhifwet
-	 0wxFInxsvh1tGE/P35ayDWi5f99L4OlGg2IEGv7WqVnBYUmjuizskLtv5KeEyS5kfET1r
-	 4zxO/drOuwYo3AqL7eoAjcLg80T48/oaElV4SrXjbrEGHitn/PlZKFTZBillCuchn8fLu
-	 r+4y73b13Zs24W+2ffD2Hohw7hYQOZP/IvZxIyHdoCeoqRwd3ozou5kW/vpRbn6w5va0W
-	 LtXV4toSrlOhxQiQhXpxAfFy6jbiZJDboUBur3CZ5yMW4YiJtAuC9LCBLOvmZSQ3gOg==
+	t=1793207614;
+	b=Ugai00kG4vaOseg8TLiR1OzJOiGUT+BXEW5gB7Owrt4nUw9sbJ08H5PDIUTQsDdCA90i
+	 ePGknq56fn9nP4+B2JZLEeZkd4scJ1tPdhBJNlAQA4F2RuDp96Vgp20Kau98BZ5rf5/Fg
+	 4e1cP2gc3rkLtTWwHl7CxUExUtHh+eL/TKRZKwIl4qjgHxomiwEB7R6neMvMRT0h7MO8G
+	 lE+VaI5WruQyupb8LLMMB7PRzFaA1BUGPbJ9QqvDEgFvjvWm3Nn4Ywqz2Xnozgfg4CI7M
+	 5TQEoPNImfWHyK89CJiCBVbGhx4JJ99qTS57CfDdQvwq8OygLg1qOJ1z2yJ+K9fU7/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207614;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3uzDpQnEgUk9f9Q6auY2qu5QNonDgKtKQNDSlvFi7go=;
-	b=mrarwS+cz8am31I2VTRt08juzkBIrYA0vCpWlBCl6YAAVeetKesyywJiCDqcOpmESldf
-	 L9WRAs/0OcRGSp/HEZbgGV2BCQFT72H6jq6AREakal5THv5CM7Bh95aX5C3CBVxWBEwRO
-	 w6pmtBb6z3dnybeEikliQyflGZjItxXy+hWSXPchZw2KavL4HzGZ/BvLzb1FuLw8jzmVb
-	 kBO2MAq0LFFS9CLLpUWnzV/pv7W8y+mRmDquS4PndRsGjFm0M81n3urxvQ4d0S46dXoCN
-	 8UL0fwlYK47I35+t6aUkqerevv0S6Hvm9laa9F/lyViul4+F6+PADqt0AyXBMWqfF0w==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LuqqY9efg7Zahvz+N72jxNkYg79ACIlpXhZycaYgTnU=;
+	b=w1GUIk8bZTuzDsa9NuZWDoXcmimdyVqMdXZEPpuzGPwhP+rm3uc2k2tFJ5vPZDNwEHld
+	 3kBeN2BFAN5SP9baBh56Bzn2bW/Or9jEqIrXS9Ctcpw/ssZby/wKcHWBjmehVb4FNy61T
+	 Katxbtm+8ohKDXd/RzlRI+/0ZFXyoq5a0r0cvNNo4DhHvMHLuLkCGnJxeWoFxGA19IRf1
+	 rqv+2hlifWeysOipToROTQFdIbl9ovTsNQ6R31sWsOm5MibWZCppY9VQ6CEY3/qvB5DXR
+	 KyE+cdKCHCXXptIQJDnMgzf1eGUnov2wH3ZyGFJ1F3Ce8HDNnWLgoT2wExO6rfcu1Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gn25ac8A;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dfkIg6ak;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB30606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5720606A327;
+	Wed, 28 Oct 2026 17:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gn25ac8A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B201F01825;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dfkIg6ak
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138B01F01829;
 	Wed, 28 Oct 2026 17:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793207613;
-	bh=3uzDpQnEgUk9f9Q6auY2qu5QNonDgKtKQNDSlvFi7go=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793207613;
+	bh=LuqqY9efg7Zahvz+N72jxNkYg79ACIlpXhZycaYgTnU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gn25ac8ADKoo0F4v7ABUjryxqklZOJDHDmsUBIHYl0pBCyIFTeZRkeIom5/nFjCuq
-	 l7neuIo3SBJWH6lhgarNRaGuHspiwSXlXPuy9fuaYKSC8uXJLm6mB0SBqippIaI//3
-	 /S36nIHoJThVIpqDWVWMV/IkF+RCLHV5hBlVx4dJOytLchHtm4U3sQdSQC66Y5kNdq
-	 faVTUhx3Uv/SCocXv1B1NnqeDq/l/9QDNM8urkfWP3Cds1+JNWB7z17cvAL8uMRbMP
-	 h47rkRG+aBRXhl86HZDxiPnHy1CafoAuT8LB9FgyNthQs08oalAU1cXiS42buyY03N
-	 wVkEp2xbPbGvw==
-From: Sasha Levin <sashal@kernel.org>
+	b=dfkIg6akI05l8w9bzFlNv+5ojtvuya0jKg+BnX70HNT3aUYHGlTLvSE1F475ZhLJC
+	 1+duPcdePl/eXD9jMRamH/KchuB0NkbbYDBiV/WzHwJtQGj5XV/XVy9rwHK5ePyHS3
+	 vWcsRSZtFyHwe9KPbkAcIp7JViOtaxpz8AXNL7rs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] coredump: hold RCU while releasing parked threads
-Date: Wed, 28 Oct 2026 13:13:31 -0400
-Message-ID: <20261028171306.1530342-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102802-parasite-try-a089@gregkh>
-References: <2026102802-parasite-try-a089@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Lee Jones <lee@kernel.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: [PATCH 6.12 076/247] tracing/histograms: Reject non-stacktrace fields for synthetic stacktrace fields
+Date: Wed, 28 Oct 2026 17:57:59 +0100
+Message-ID: <20261028165949.192125722@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+References: <20261028165947.349197979@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,61 +64,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 61d58591aa0188bf2463e263962256316ff8b576 ]
+------------------
 
-coredump_finish() releases the parked threads by clearing ->task in
-their core_thread entry and calling wake_up_process() on each of them.
-It does that without holding a reference on the task and without being
-inside rcu.
+From: Lee Jones <lee@kernel.org>
 
-But calling wake_up_process(task) without rcu here isn't safe. A parked
-thread doesn't need that wakeup to leave. A spurious wakeup or a
-preemption after the store is enough for the task to go away.
+commit a244c241593b5b38a08f0df2cb43c26574efbdcb upstream.
 
-So if the coredump client is preempted between the store and
-wake_up_process() the thread can exit and be freed in the meantime and
-try_to_wake_up() takes pi_lock in freed memory.
+In check_synth_field(), when a synthetic event field is a stacktrace
+(field->is_stack) and the histogram field is not a "long[" stacktrace
+array, validation falls through to the generic size and signedness
+comparison.
 
-Hold rcu across the loop.
+Because parse_synth_field() sets a stacktrace field's type to
+"__data_loc unsigned long[]", its size is sizeof(u64) and
+synth_field_signed() marks it as signed.  Consequently, any 8-byte
+signed scalar histogram field passes the fallback check, and its scalar
+value is subsequently dereferenced as a kernel stacktrace pointer in
+get_field_size() and trace_stack().
 
-Fixes: a94e2d408eae ("coredump: kill mm->core_done")
+Furthermore, checking strstr(hist_field->type, "long[") is insufficient
+because tracepoint fields defined with __bitmask() or __rel_bitmask()
+also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
+long[]", whilst create_hist_field() treats them as 4-byte scalar values
+without HIST_FIELD_FL_STACKTRACE.
+
+Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+variables (whilst excluding variable aliases from per-element
+stacktrace capture), and reject any mismatch between
+HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
+
 Cc: stable@vger.kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-1-8e4adb1619e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Replaced guard(rcu)() with explicit rcu_read_lock() and rcu_read_unlock() calls. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
+Link: https://patch.msgid.link/20261013112449.1006088-1-lee@kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/coredump.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/trace/trace_events_hist.c |   15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/fs/coredump.c b/fs/coredump.c
-index 7e5ac34112bd5..23afc126d4ea6 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -529,6 +529,8 @@ static void coredump_finish(struct mm_struct *mm, bool core_dumped)
- 	spin_unlock_irq(&current->sighand->siglock);
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2098,7 +2098,8 @@ static int init_var_ref(struct hist_fiel
+ 	ref_field->size = var_field->size;
+ 	ref_field->is_signed = var_field->is_signed;
+ 	ref_field->flags |= var_field->flags &
+-		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
++		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
++		 HIST_FIELD_FL_STACKTRACE);
  
- 	next = mm->core_state->dumper.next;
-+	/* A released thread may exit and be freed before it is woken. */
-+	rcu_read_lock();
- 	while ((curr = next) != NULL) {
- 		next = curr->next;
- 		task = curr->task;
-@@ -537,9 +539,11 @@ static void coredump_finish(struct mm_struct *mm, bool core_dumped)
- 		 * ->task == NULL before we read ->next.
- 		 */
- 		smp_mb();
-+		/* Any wakeup now lets the thread exit, rcu keeps it alive. */
- 		curr->task = NULL;
- 		wake_up_process(task);
+ 	if (system) {
+ 		ref_field->system = kstrdup(system, GFP_KERNEL);
+@@ -3286,6 +3287,7 @@ static struct field_var *create_field_va
+ 		ret =  -ENOMEM;
+ 		goto err;
  	}
-+	rcu_read_unlock();
++	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
  
- 	mm->core_state = NULL;
- }
--- 
-2.53.0
+ 	field_var->var = var;
+ 	field_var->val = val;
+@@ -3904,7 +3906,10 @@ static int check_synth_field(struct synt
+ 	    && field->is_dynamic)
+ 		return 0;
+ 
+-	if (strstr(hist_field->type, "long[") && field->is_stack)
++	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
++		return -EINVAL;
++
++	if (field->is_stack)
+ 		return 0;
+ 
+ 	if (strcmp(field->type, hist_field->type) != 0) {
+@@ -4443,7 +4448,8 @@ static int create_var_field(struct hist_
+ 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
+ 		update_var_execname(hist_data->fields[val_idx]);
+ 
+-	if (!ret && hist_data->fields[val_idx]->flags &
++	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
++	    hist_data->fields[val_idx]->flags &
+ 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
+ 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
+ 
+@@ -5184,7 +5190,8 @@ static void hist_trigger_elt_update(stru
+ 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
+ 			var_idx = hist_field->var.idx;
+ 
+-			if (hist_field->flags &
++			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
++			    hist_field->flags &
+ 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
+ 				unsigned int str_start, var_str_idx, idx;
+ 				char *str, *val_str;
+
 
