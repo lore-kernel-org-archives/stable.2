@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210797;
-	b=VrCMG1HPNHnBobV/l0hNgAnnBwmHWkGwLwsU4S1jXqsV+sq8kFaVe3aK+yb3LSnviQ+2
-	 J69lQf3i/nxNR/QXtvPdrXAnSoyw1FYn7o4INiTZlhk1wkGtMvvSrfraljv3ahU4XKbVk
-	 DG0s6Nmko73PjJca60ZH3FT5F0Ucg5SG+6b/jT/v2xkfMGze4kSMoxRdF+vfhKZKPiS7q
-	 42+2fqYDsNvC0xbseERSeSuaimVAuFg/fQVUmCVNap7x7/ZwqRRJY4f4nyDI9mo2vYd0S
-	 M2UnJzggA1U6S8Ah76jZZgUL7HyjZFhoULJgdikM4Lh523xkbwd+0F02pIl4gQziMmg==
+	t=1793210803;
+	b=mYecV0W/blNjf1F2OfC4JpNAKnboteEJ/y1GH+syZ1uE0iL5BYeSmWX5xTUrdDcZDFQt
+	 WMwBxczVG/jvKKntuHNfld4R6lLTlf3FljRNiyMhBbCFkEZtVI6gPUieZIwgq1EYss7De
+	 m/jA0yCNVYIzELjsfhe9Dy1zZ+4HQchbcPtQxwJAtOX1lmUpbXsZumFYioMvcz0q5zK53
+	 9yOD02GDXFdvh2dp35hDaX9X2laI998de29fJYeAgaMIYv+2XLx2gy6jXfRmdKyzFxl2A
+	 dHmp3myaA9b5tbR33DU4bykfWLzRPvvh7Yr09mVA70vf3SZOJvTbZPO02vznROxjTGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210797;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k78neRH3ibX4+Wk6MgKdGnSjaeMI7/ipuLrsNVS2Pkg=;
-	b=wN0IIElUcYm0LAuurgH5w7LHWV8qANuFSzzOaziBMN11+lUZRY7gizdz5pLveYx/HR6T
-	 IFwn/tSQZ/4bM77d/JMFTKi570o5AorLV/dWM016JlkrbQi2qBwW1jJ7OJuBfA6ALrzqi
-	 aVYLoL09xcWrS6IkbrqocB5keaNGAJ5n/1NNFR+uT+NzjBemuEPSgXBDQXnTXX/y8wP4a
-	 hUytD7DBuGwW0Rq7jSq6XHUyIcSVjhe884NjFgOr7YQMnrdFpFI0KB9i2jfZe0K0VhRyC
-	 eJugeByCOeTZ/0uGDwzJbr9ig2Us219WNpZEs+Ru6C0Jip4i/gAE020yMyyR50ry1/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210803;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=eLxdDD2mdkgGzpjPLOgRlMlLILhw8jr6UQtVVxghiIU=;
+	b=LbC+Lc7Yj4JR4OSDu2mzg5SfotzZfU2u9ZJh8vK8WhDSGto4GDciR0tOeoyTvIblTHHp
+	 uM3gBJKsHKGbSJp2rH1zqBh5thFKK/sWel94QG075zumLGrzSFCt48Uzec0ib1VKlHr2W
+	 L1eCwCk4mvSKBD7QQaZgRKZ6TGOFhjXFcu39+hm+7honWeZ8J8pJNd5NkQf8PoFaCRBZW
+	 5qUXfoIYQ/wmZPJu000zxDka/qcSuJtzJ2nvYwvnToSRmwk84d4ybsGrwOQ+K0oB31YYX
+	 1nopSg5uBpMoPOpq3eQ+cyx6t8qQG5ywKXGm15HFrtxjqPQbNAYEA05lYkY6Z7v3Tpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3quYTY+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XECjKdaR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A324606A31A;
-	Wed, 28 Oct 2026 18:06:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABF6606A31F;
+	Wed, 28 Oct 2026 18:06:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c3quYTY+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96951F01828;
-	Wed, 28 Oct 2026 18:06:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793210797;
-	bh=k78neRH3ibX4+Wk6MgKdGnSjaeMI7/ipuLrsNVS2Pkg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c3quYTY+Yipdjoo7yv4khoIjJv3+bmdrTIpnAA5wZj9M4Pesvk3lOpPH/HCspCpzn
-	 1a4kCLXYYCcdGQsRO81tpjhHZLqm/7F9qGJDUTWyEoA65KJQZaVPSQATXH1r/NCAza
-	 6BA3ffoubxaPbNzzMcc7qGP01XG7GSed6M/odK0AhwskO2MFAupPoqCBuz2P5sFNwZ
-	 kAT+miKusGKCbuLeiLOXkb2iL8f5Y43o115qFK7/nznJA4pQXKFgDZhpkchImaFwOH
-	 su4zHqzWLBBXceCeeYIcfA5zyUU22SyqO/46Yc+hQINh4rhvKLu77vUhrQWPeGGcFl
-	 Di1m8XX1cVQjQ==
-Date: Wed, 28 Oct 2026 11:06:35 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: fsverity@lists.linux.dev
-Cc: linux-security-module@vger.kernel.org, Fan Wu <wufan@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] fsverity: Tell LSMs about signature only after verity is
- enabled
-Message-ID: <20261028180635.GB1876@quark>
-References: <20261025204534.122506-1-ebiggers@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XECjKdaR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608EF1F01825;
+	Wed, 28 Oct 2026 18:06:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793210802;
+	bh=eLxdDD2mdkgGzpjPLOgRlMlLILhw8jr6UQtVVxghiIU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XECjKdaR+FPVSunHlXwV3SaWA7wEI+DbOCMngs4Bn8fsnXCf+BWSFOMCO74eIHjtZ
+	 ZDHe6fKNtX6efgFzmi5yfygeQwSkAIHDXuFGcWZr49ykk8WgLaCoySz90ldhBw3O1U
+	 ANioHO3w94SMe6bqxmJTDC7SU8/I7bLSDzCODAJU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Duoming Zhou <duoming@zju.edu.cn>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 154/571] watchdog: cpu5wdt.c: Fix use-after-free bug caused by cpu5wdt_trigger
+Date: Wed, 28 Oct 2026 17:55:01 +0100
+Message-ID: <20261028170011.668884308@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,30 +63,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025204534.122506-1-ebiggers@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 01:45:34PM -0700, Eric Biggers wrote:
-> FS_IOC_ENABLE_VERITY calls security_inode_setintegrity() before verity
-> has finished being enabled.  That's broken because enabling verity can
-> still fail at that point, e.g. due to insufficient xattr space.
-> 
-> Afterwards, arbitrary contents can be written to the file, which doesn't
-> actually have verity enabled.  The in-core inode stays the same, so the
-> LSM considers it to have verity enabled with a valid signature.  (Or
-> rather, in the case of IPE, which is the only LSM that implements
-> security_inode_setintegrity(), it also checks IS_VERITY(), which can be
-> bypassed by enabling verity with no signature after the file writes.)
-> 
-> Fix this by moving the call to security_inode_setintegrity() out of
-> fsverity_verify_signature() and into a new function that is called from
-> the appropriate places.
-> 
-> Fixes: 7c373e4f1445 ("fsverity: expose verified fsverity built-in signatures to LSMs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Applied to https://git.kernel.org/pub/scm/fs/fsverity/linux.git/log/?h=for-current
+------------------
 
-- Eric
+From: Duoming Zhou <duoming@zju.edu.cn>
+
+[ Upstream commit 573601521277119f2e2ba5f28ae6e87fc594f4d4 ]
+
+When the cpu5wdt module is removing, the origin code uses del_timer() to
+de-activate the timer. If the timer handler is running, del_timer() could
+not stop it and will return directly. If the port region is released by
+release_region() and then the timer handler cpu5wdt_trigger() calls outb()
+to write into the region that is released, the use-after-free bug will
+happen.
+
+Change del_timer() to timer_shutdown_sync() in order that the timer handler
+could be finished before the port region is released.
+
+Fixes: e09d9c3e9f85 ("watchdog: cpu5wdt.c: add missing del_timer call")
+Signed-off-by: Duoming Zhou <duoming@zju.edu.cn>
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/20240324140444.119584-1-duoming@zju.edu.cn
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/watchdog/cpu5wdt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/watchdog/cpu5wdt.c b/drivers/watchdog/cpu5wdt.c
+index 688b112e712ba..9f279c0e13a66 100644
+--- a/drivers/watchdog/cpu5wdt.c
++++ b/drivers/watchdog/cpu5wdt.c
+@@ -252,7 +252,7 @@ static void cpu5wdt_exit(void)
+ 	if (cpu5wdt_device.queue) {
+ 		cpu5wdt_device.queue = 0;
+ 		wait_for_completion(&cpu5wdt_device.stop);
+-		del_timer(&cpu5wdt_device.timer);
++		timer_shutdown_sync(&cpu5wdt_device.timer);
+ 	}
+ 
+ 	misc_deregister(&cpu5wdt_misc);
+-- 
+2.53.0
+
+
+
