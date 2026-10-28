@@ -1,57 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793148171;
-	b=UDtPwU8NthbACTzjzHIXex1PtoVqJrTQwSPkebjzUrybM7VaIiuugTdY6p1N6YoFEmLS
-	 C2n/LVMNlBX/QjQ5L6cl2SMMFA1xNPDyyjiE81rBl58qD1Q+obZOMqUwQ2Wk1wVw9zJ86
-	 gl4bimD0dpeEZSAUgGnhuXRPTQIxbeVIIxZRL5JUdwqrJmvswXpJ86SUkTdF9sqOqnZFy
-	 4QovnET6dKWwN0yT2RSdZEBNw7+nZHRbXD48RMgvnCok4PrEbbjx74dvwUhovggN82KNv
-	 ra9s2wdnGGmRDE7WY5nnUmsX39U+f//SkM4ztiV++5Ah+z8KSVuq1aMF10jHxofo4/Q==
+	t=1793148968;
+	b=2BHhrdWO9Ve5uFrvBwD02jLXk9XTrm/kiPpoHekCrnI+QRzXqHZVQA0GylDOgYB5C7FN
+	 gI4O9F5JIhrYJ4RSYEsdoFjD6Jc0+lRyNfHaoYSEAp0od+h2Rvh4obj1oB/dOuuJWfnE4
+	 /5V5uN5iiAUNiPgOUMGZn9ygvQ4l5EmAT378D0QxOR+9xTBy4nZzXtar3rSozMy5MjvWw
+	 7VFgiyUTOc2T6crPMjRviKjAex2L4PF3zpqtDk4BZE0vkUXpCn6OSG2tWFuDjXqbuOmye
+	 1MC7RAFtjpmZpVjtcv9T1409TSoWNSQf7N2JKEP3xHm2jEURanNzluCocHodGqKWUrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793148171;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7ra5EUja+O5y/IsXXX4ZxR+ZhvfGdXSGA1iSsADUCFI=;
-	b=24Hk9AjhK6VQacwiHsWPN/wN4SOKLljoIdoKOHF2osBTn7IGdDwAv6y5AYD23TDpXvEM
-	 4FzPDrw9jnUEsUtfoZamrVvKE421MEE8DrFPkmN6jI1Zgh+cKwN9o6D+vMBTu2T3xYEvz
-	 BxjRInBgvrPKfg/CvVlRQfqOIYyvUAdGaoX6X/d+bglJUCvw7Ej6Q1VnumNohR2jfc4j2
-	 nA9YWKnF27GqAyjOYz6u7DOfFdNvxFB4HQrN/KAGDBFQjFOaZn+BFAxgfIPbBCNiVIrPi
-	 MbYJESZ/3vQFmBArZm9KItQpZfdBa1gqWKwpF5WnzNSwNFGOJxbnL6gP9mdZx5uyMiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793148968;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/lG80DLNu6POZT4VDpp/wyuZACJ7GhkljhIS7mjm8QI=;
+	b=DPrM5S+FJwZlAw93LPylt/ySOTW8d66WsQryzomUlGtn/InTR+P6yqkte0YsHau2TRkO
+	 othvqwFNm5oDikrLNN9pJGCeFBdXWLJXDWTx/HVOwd3KNAk8ZeoxkX7Ldig25VuwuElwf
+	 kRyqq0Avb2zKj2vG4lA0uSupvB0RWDZLQ30wijvWcBfdjqUVyypeRdorA0eBiDw9RJpwm
+	 dx5fp0jBZW/D6K17wRomzMlaYxkxlKoW5jn55+mcEpB4gW0QlLXBKxhJxrMQsqOC5UXKd
+	 cJ3eWd3KvnefLaEfiLIGe4AtdGra1fwkajdB4PjY6Eabsih8Exi7zgSxt2XNbA5OZwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+AytK0O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="k/r/8nyM";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EB9606A31A;
-	Wed, 28 Oct 2026 00:42:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93294606A321
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:56:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93294606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+AytK0O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB5C1F01829;
-	Wed, 28 Oct 2026 00:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793148170;
-	bh=7ra5EUja+O5y/IsXXX4ZxR+ZhvfGdXSGA1iSsADUCFI=;
-	h=From:To:Cc:Subject:Date;
-	b=d+AytK0OzfY39sh5oGoKFE2gWnd8q2yfviI8Q3UNnvKepLrkqPEE8BfT6NYTbjv78
-	 gZh4jFHuGM1dKP75jjISGW7HklFFAulg85HiximmTBxI1VzHS1hPHMq+CbwhIfOpw1
-	 kGDv4IZK0iDSdvxw5/p4hqOSspDbzQHgmjz87aMxz8OHgLVHYbeKt6dRvzOdPt8/T/
-	 PqyZQP0lKnYyGyR5J6ltsHYphoqgSD/rah9zptf07NmtaxBqNlGTSzekhsgrnNF8NB
-	 2A2bOF9E996UzOWcJG2Vy/gqHDeCLGH9jjY2OnpUwqnjTkRfACbRW5gnHwkGy3aCz1
-	 UI7BrZV46BUxg==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-ext4@vger.kernel.org,
-	Yao Kai <yaokai34@huawei.com>,
-	syzbot+5322c5c260eb44d209ed@syzkaller.appspotmail.com,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.6] ext4: validate readdir offset before accessing dirent
-Date: Tue, 27 Oct 2026 17:42:09 -0700
-Message-ID: <20261028004209.58412-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k/r/8nyM
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso3364925e9.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793148966; x=1793753766; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/lG80DLNu6POZT4VDpp/wyuZACJ7GhkljhIS7mjm8QI=;
+        b=k/r/8nyMpl2GvO1At64Ns9lvg+M0uqE8hwCj+ZmnUOcma2wVT13S9++jKuaFcprrSD
+         dMU76qrPbW2SEW/ltRcYsAbgMEMx0g6gDgR65GEXrmXyZaW2GicOtoPNJSLRAWkJbt1F
+         fkYgvsWWKRM5KtbgpTXLiF/OfxgWvAmmodRO7eJCW0xF9FlqlpdmiG1OIALA+ff/knJY
+         bR1BY/AeKQS/wuCg9zZcdFk8ePedG0/s5mEry5qbpwZBlL9o8VloGupVWgc3oMx0xrmE
+         zZ/GzFvz0fuDS0H4UWjrrAbPYy4KL0qSqrY+wLLHQo5oVvEGptVJs9cjC6NwzBBS8HI8
+         qwuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793148966; x=1793753766;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/lG80DLNu6POZT4VDpp/wyuZACJ7GhkljhIS7mjm8QI=;
+        b=ebJ6BEXGPIdSR/r1fli2n9mAQhd5f4050wKyVeEBRzHTr8rgBl3rZnRxhRYvF8v2kQ
+         2xb6KpTJ/kvbhZGRh1VnIW6CjD4NhDhXx+JcmE2mBS1gFtNpcNaxraWBwwOZsKj72fJJ
+         edBgUEjFU1CYAFCwXAZ/ZDfDjwxSeP+4x49wiRnjBviKA/twbdh6P+6iL2saBc5XXqEV
+         zcqR5EqNjxJh5cZadOj22A6nzJpGrEsQyvfOPJOdKhds040C68MTaY8k2aBTdcXrJPRf
+         tOAIP1AsfX+I361u0sDFjNFEGR+9eUKDrd9TmEw89a+VolPFZ2xGLHNJsSID3N8+Kpkq
+         SpSA==
+X-Forwarded-Encrypted: i=1; AKwUvBytxqtrbqqisRMACHBr1F2RaXop2LJNXkFNCV02AvrzTGXYB9gVOTcOUrk0aLjxnv+5qP+IsB0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2Bq4TJQ6MkSqPwe7GF0ImP4eha+h6xF0FEAuH9BmlP+YR9Uai
+	iqBTnfg3hYhB0ywvGNZRuaipxvPM44n3jgfGeFPtuAXBqjZ/nDdQtyI4
+X-Gm-Gg: AYBFou1gbPbOdOz/tOxWN3nG2zrMl5JrZVBfLFMfQhwreP6+LuKOG1qErrYLXZ3y5tS
+	JbHd9KZwyvhiFIOJtlNt8v/P/xQ3p+UP2BxWs7Y9ewD5QeHWfDHUza5GRXGWsdCEPuAhtAqVSCl
+	FPuhr/0pgnxfkAy6HuyfvFBywTcIt69osR1XGT1QqoGFQFjoczvYZ7fDYV7xMq+yJF2egHaZXlw
+	AWsJzVcw03phRwADUjYW6vZpWAZWdjlnod2uadXEoe4n02tUGkCYjhND4MQupRScHXpVUnjTKSz
+	jFHUnfYtrPwx2gxmE80eSBW0ajEVjQF2d/LEuc5SALQ3X4fsHmSaUtW17vVNlMoWUlTfxQeWWWc
+	buPEFstlzQr18idssjbg/pdMSEf3D7PAMj8iMCp9FYFibx/6OdOTXTbK0W5nUvlCq6yr5cVOUI8
+	We0qKPghEWeSMN54P/PFYgoQg81Lh6ofFjxwiZAUAIEsZKT7vWwkZ/c27vqz+8t8G+HSRc5zgZK
+	TP0ljBjMMeEMfN/m3TB4nC6CN/6YjoJlJX93I0bd7xK0Dptqq4G3xwi3g5nbdQ4dq/PKnhgwiUs
+	LMx23rfPjsXJzTFG38C0QPcXZjDJVHqAHp7ThTYp3dci3kQ9saaIqgSs2bBO+4dTApnDyQ2LeWw
+	h6Z+LMXV/DPv0v2tnUJuKQ2zgjf3QU2AfSWC0DL985uDsvNE=
+X-Received: by 2002:a05:600c:1d1a:b0:4a3:59c9:a747 with SMTP id 5b1f17b1804b1-4a966c4111amr12556135e9.17.1793148965902;
+        Tue, 27 Oct 2026 17:56:05 -0700 (PDT)
+Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c42bb6fsm7698165e9.7.2026.10.27.17.56.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 17:56:05 -0700 (PDT)
+From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+To: shawn.lin@rock-chips.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com
+Cc: robh@kernel.org,
+	heiko@sntech.de,
+	dlemoal@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	iav@iav.lv,
+	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+Subject: [PATCH v3] PCI: rockchip: Don't lengthen PERST# when power is already valid
+Date: Wed, 28 Oct 2026 00:56:03 +0000
+Message-ID: <20261028005603.2399220-1-ehbello@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,136 +108,196 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yao Kai <yaokai34@huawei.com>
+Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
+rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
+behind an rk3399 root port is almost never enumerated: the link trains
+normally, but the endpoint's configuration space never answers. On this
+controller a configuration read that gets no usable completion is
+reported as an external abort rather than as an all-ones response, so
+the machine does not merely miss a device -- it dies with an
+asynchronous SError inside rockchip_pcie_rd_conf().
 
-commit bc4b7b0414c33b2c8898eb04386df0d21a13dad8 upstream.
+That change added an unconditional msleep(PCIE_T_PVPERL_MS) to
+rockchip_pcie_host_init_port(). PERST# is asserted much earlier, when
+the line is acquired with GPIOD_OUT_LOW in rockchip_pcie_parse_dt(), so
+the sleep lands inside the assertion and widens it. Measuring the pulse
+in the driver with a ktime delta across the two gpiod_set_value() calls
+gives 1 ms without the sleep and 108 ms with it; msleep(100) rounds up
+to roughly 107 ms. This endpoint does not recover from a reset that
+long.
 
-A corrupted directory can trigger the following KASAN report when
-ext4_readdir() resumes from an invalid position:
+To separate the two things that sleep changes -- how long PERST# is held
+low, and how long the supplies have been valid when it is released --
+both delays were made runtime-adjustable on a single kernel, one before
+the assertion and one after it, and the host driver was rebound to
+re-run the whole probe:
 
-  BUG: KASAN: use-after-free in __ext4_check_dir_entry+0x5ef/0x820
-  Read of size 2 at addr ffff88810a646000 by task repro_linear/509
+  before assert   after assert   pulse       trials   enumerated
+  0 ms            0 ms            1-11 ms         5        5
+  0 ms           10 ms           ~18 ms           3        3
+  0 ms           15 ms           24-47 ms         4        4
+  0 ms           20 ms           ~28 ms           3        1
+  0 ms          100 ms          ~108 ms           4        0
+  200 ms          0 ms            6-11 ms         5        5
+  200 ms        100 ms          ~108 ms           1        0
 
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x53/0x70
-   print_report+0xd0/0x630
-   kasan_report+0xce/0x100
-   __ext4_check_dir_entry+0x5ef/0x820
-   ext4_readdir+0xcde/0x2b70
-   iterate_dir+0x1a1/0x520
-   __x64_sys_getdents64+0x12b/0x220
-   do_syscall_64+0xf9/0x540
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+Delaying the assertion by 200 ms changes nothing, whether the pulse is
+short (5 of 5 either way) or long (0 of 4 and 0 of 1); widening the
+pulse is what decides the outcome. vcc3v3_pcie on this board is
+regulator-always-on and regulator-boot-on, so in every row above --
+the failing ones included -- the supplies have been valid for seconds
+by the time the driver probes, and Tpvperl is met whether the wait runs
+or not. It therefore cannot be what distinguishes them. What this
+endpoint reacts to is the width of the PERST# pulse.
 
-KASAN reports use-after-free because the out-of-bounds access lands in an
-adjacent freed page. The directory buffer itself is still referenced.
+The wait and a short pulse cannot both be had in general: Tpvperl is
+counted from the supplies becoming valid to PERST# being de-asserted
+(PCIe CEM r5.1, sec. 2.9.2), so on a board that powers the slot at
+probe time the assertion does have to last that long. Where the
+supplies are already up, though, the requirement is met before PERST#
+is ever asserted, and the sleep only widens the pulse.
 
-ext4_dir_llseek() invalidates the directory cookie so that ext4_readdir()
-rescans directory entries from the start of the block. The rescan checks
-only the lower bound of rec_len before advancing. A corrupted rec_len can
-therefore place the offset where the block has insufficient space for a
-complete directory entry. The rescan itself may dereference that truncated
-entry, or the main loop may pass it to __ext4_check_dir_entry(). The latter
-reads de->rec_len before validating the range. For example:
+So record whether the supplies were already enabled before the driver
+enabled them, and skip the wait in that case. A supply that is already
+on at probe was brought up either by the bootloader or by the regulator
+core at boot, both of which precede a PCIe probe by far more than
+Tpvperl. When the driver really does bring the rails up the full wait
+still happens, as it does if regulator_is_enabled() cannot tell.
 
-  block offset  0                           4092  4096
-                |---- de1.rec_len = 4092 -----|----|
-                                               de2.inode
-                                                    | de2.rec_len
-                                                    ^ OOB, reported as UAF
+The same check is repeated on resume rather than assuming that power
+was cycled: suspend calls regulator_disable() on the 0.9V supply, which
+only drops a reference, so on a board where that rail is always-on or
+shared with another consumer the power stays valid across the cycle.
 
-de2 starts at offset 4092 in this 4 KiB block. Its four-byte inode fits in
-the block, but its rec_len starts at offset 4096 and crosses the boundary.
+Skipping the wait only when every supply is already on is strictly more
+conservative than what this driver did for years: until the change
+cited above there was no Tpvperl wait at all, and PERST# stayed
+asserted only for as long as the register writes in between took.
 
-The minimum safe length is inode-dependent. Encrypted and casefolded
-directory entries need eight additional hash bytes, while a valid metadata
-checksum tail is only 12 bytes.
+Boot-level counts on the same board agree with the table: unmodified,
+the endpoint enumerated on 0 of 84 boots; with this patch, 3 of 3; with
+other ways of dropping the same wait, 16 of 16. Each of the three
+PERST#-related changes that landed together in v6.11-rc1 was also
+reverted individually, and only removing this wait made a difference.
+Moving the wait later but still inside the assertion did not help
+(0 of 15 boots), which is consistent with the width being what matters.
 
-Cache the metadata checksum feature state and derive the minimum directory
-entry length from the on-disk format. Use it to bound both the rescan and
-the offset passed to the main loop. Report an offset in a truncated block
-tail and skip the remainder of the block, while continuing to accept an
-offset exactly at the block boundary.
+The measurements were taken on 6.18, but the code in question is
+unchanged between v6.11 and v7.2.
 
-Reported-by: syzbot+5322c5c260eb44d209ed@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5322c5c260eb44d209ed
-Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://patch.msgid.link/20260706041313.708346-1-yaokai34@huawei.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
 ---
- fs/ext4/dir.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+v3:
+ - Rewrite the commit message. It now leads with the width of the PERST#
+   pulse, which is what the endpoint reacts to, and demotes the Tpvperl
+   redundancy to the reason the wait can safely be skipped rather than
+   the explanation of the failure. Manivannan was right that those are
+   two different claims and that only the first one was evidenced.
+ - Add the A/B measurement that was missing: one kernel with the delay
+   before and after the PERST# assertion independently adjustable, so
+   pulse width and power-valid time can be varied separately on the
+   same binary. Also note that this board's PCIe supply is always-on,
+   so Tpvperl is met in the failing configurations too.
+ - Note in the comment that the regulator_enable() calls are kept for the
+   reference count and are independent of the Tpvperl question, so the next
+   reader does not have to ask it.
+ - No functional change from v2.
 
-diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index 6682b8ab11f1c..bc53ea82161d3 100644
---- a/fs/ext4/dir.c
-+++ b/fs/ext4/dir.c
-@@ -136,6 +136,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
- 	struct super_block *sb = inode->i_sb;
- 	struct buffer_head *bh = NULL;
- 	struct fscrypt_str fstr = FSTR_INIT(NULL, 0);
-+	bool has_csum = ext4_has_metadata_csum(sb);
+v2:
+ - Re-evaluate the supplies in rockchip_pcie_resume_noirq() instead of
+   assuming that the 0.9V rail was really turned off. On a board where
+   that rail is always-on or shared, regulator_disable() leaves it on,
+   and forcing the wait there would reintroduce on resume exactly the
+   failure this patch fixes. Spotted by an automated review of v1.
+ - Factor the test into rockchip_pcie_supplies_enabled() now that it
+   has two callers.
+
+v1: https://lore.kernel.org/all/20260911104952.4190994-1-ehbello@gmail.com/
+v2: https://lore.kernel.org/all/20260911211559.207990-1-ehbello@gmail.com/
+
+diff --git i/drivers/pci/controller/pcie-rockchip-host.c w/drivers/pci/controller/pcie-rockchip-host.c
+index d203c48..495428b 100644
+--- i/drivers/pci/controller/pcie-rockchip-host.c
++++ w/drivers/pci/controller/pcie-rockchip-host.c
+@@ -314,7 +314,9 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
+ 	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
+ 			    PCIE_CLIENT_CONFIG);
  
- 	err = fscrypt_prepare_readdir(inode);
- 	if (err)
-@@ -147,7 +148,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
- 			return err;
- 
- 		/* Can we just clear INDEX flag to ignore htree information? */
--		if (!ext4_has_metadata_csum(sb)) {
-+		if (!has_csum) {
- 			/*
- 			 * We don't set the inode dirty flag since it's not
- 			 * critical that it gets flushed back to the disk.
-@@ -233,7 +234,10 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
- 		 * dirent right now.  Scan from the start of the block
- 		 * to make sure. */
- 		if (!inode_eq_iversion(inode, file->f_version)) {
--			for (i = 0; i < sb->s_blocksize && i < offset; ) {
-+			for (i = 0;
-+			     i <= sb->s_blocksize -
-+				  ext4_dir_rec_len(1, has_csum ? NULL : inode) &&
-+			     i < offset;) {
- 				de = (struct ext4_dir_entry_2 *)
- 					(bh->b_data + i);
- 				/* It's too expensive to do a full
-@@ -255,6 +259,17 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
- 			file->f_version = inode_query_iversion(inode);
- 		}
- 
-+		if (unlikely(offset < sb->s_blocksize &&
-+			     offset > sb->s_blocksize -
-+			     ext4_dir_rec_len(1, has_csum ? NULL : inode))) {
-+			EXT4_ERROR_FILE(file, bh->b_blocknr,
-+					"bad entry in directory: %s - offset=%u, size=%lu",
-+					"directory entry too close to block end",
-+					offset, sb->s_blocksize);
-+			ctx->pos = round_up(ctx->pos, sb->s_blocksize);
-+			goto next_block;
-+		}
+-	msleep(PCIE_T_PVPERL_MS);
++	if (!rockchip->supplies_pre_enabled)
++		msleep(PCIE_T_PVPERL_MS);
 +
- 		while (ctx->pos < inode->i_size
- 		       && offset < sb->s_blocksize) {
- 			de = (struct ext4_dir_entry_2 *) (bh->b_data + offset);
-@@ -310,6 +325,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
- 			ctx->pos += ext4_rec_len_from_disk(de->rec_len,
- 						sb->s_blocksize);
- 		}
-+next_block:
- 		if ((ctx->pos < inode->i_size) && !dir_relax_shared(inode))
- 			goto done;
- 		brelse(bh);
-
-base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
--- 
-2.56.0
-
+ 	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
+ 
+ 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
+@@ -609,11 +611,39 @@ static int rockchip_pcie_parse_host_dt(struct rockchip_pcie *rockchip)
+ 	return 0;
+ }
+ 
++/*
++ * Tpvperl is counted from the supplies becoming valid, and the driver waits
++ * for it with PERST# asserted, so the wait also lengthens the reset pulse.
++ * Supplies that are already enabled before this driver enables them were
++ * brought up by the bootloader or by the regulator core at boot, both of
++ * which precede this point by far more than Tpvperl, so the requirement is
++ * already met. Treat an error from regulator_is_enabled() as "not known to
++ * be on" so that the caller waits.
++ *
++ * This does not change who owns the supplies: the regulator_enable() calls
++ * below stay, both so that regulator_late_cleanup() cannot switch off a rail
++ * that the bootloader merely left on and so that the regulator_disable() calls
++ * on suspend and in the probe error paths stay balanced. Whether a supply was
++ * already on says only whether Tpvperl has elapsed.
++ */
++static bool rockchip_pcie_supplies_enabled(struct rockchip_pcie *rockchip)
++{
++	return (IS_ERR(rockchip->vpcie12v) ||
++		regulator_is_enabled(rockchip->vpcie12v) > 0) &&
++	       (IS_ERR(rockchip->vpcie3v3) ||
++		regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
++	       regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
++	       regulator_is_enabled(rockchip->vpcie0v9) > 0;
++}
++
+ static int rockchip_pcie_set_vpcie(struct rockchip_pcie *rockchip)
+ {
+ 	struct device *dev = rockchip->dev;
+ 	int err;
+ 
++	rockchip->supplies_pre_enabled =
++		rockchip_pcie_supplies_enabled(rockchip);
++
+ 	if (!IS_ERR(rockchip->vpcie12v)) {
+ 		err = regulator_enable(rockchip->vpcie12v);
+ 		if (err) {
+@@ -890,6 +920,13 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
+ 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
+ 	int err;
+ 
++	/*
++	 * Suspend calls regulator_disable() on the 0.9V supply, but on boards
++	 * where it is always-on or shared the rail does not actually drop, so
++	 * re-evaluate instead of assuming that power was cycled.
++	 */
++	rockchip->supplies_pre_enabled = rockchip_pcie_supplies_enabled(rockchip);
++
+ 	err = regulator_enable(rockchip->vpcie0v9);
+ 	if (err) {
+ 		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
+diff --git i/drivers/pci/controller/pcie-rockchip.h w/drivers/pci/controller/pcie-rockchip.h
+index 3e82a69..e63259a 100644
+--- i/drivers/pci/controller/pcie-rockchip.h
++++ w/drivers/pci/controller/pcie-rockchip.h
+@@ -318,6 +318,7 @@ struct rockchip_pcie {
+ 	struct	regulator *vpcie1v8; /* 1.8V power supply */
+ 	struct	regulator *vpcie0v9; /* 0.9V power supply */
+ 	struct	gpio_desc *perst_gpio;
++	bool	supplies_pre_enabled;
+ 	u32	lanes;
+ 	u8      lanes_map;
+ 	int	link_gen;
