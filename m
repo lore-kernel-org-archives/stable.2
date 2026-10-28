@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208118;
-	b=E7hbXDZdsq6Bqh63YamUQnmsAHV9b5hJ7cLzLVq0Zg9pWMpRiNn9hs9uKt104l90Uyia
-	 xVxuNvMj21s35LKp6nycphry83GxGHoPq2lKjypLjTNYWluIuhO73x5bJg5VgsWcHD2Bc
-	 IYi7jW5mogAAzQgGdXYDd/+TBsSfW8HUi4AjSg1WjBHTsWgbdEpQoIyYp8ir6Ax+FbiLx
-	 E9Uk5a9PPaQiVn6FywKH6uYigM+jzCWx0Sq4VyDl2NQrksj3sONKP3pj3hb5FU+wmY0pL
-	 nTALAV+25fWR34WhSYk+DVC0C2meSGd1GdZ7o0GspIAj1KCLKtcZeao+O/kQIgyoDGA==
+	t=1793208123;
+	b=icsRIrIpDLscpYrig6r5ls46/hldAPQTQozGlnvDLBl4B4ma2Jsk+IOwu5FdhKVgo7Ob
+	 vKhs0+I7dGFc/2AQc5d9EMgEPF7Y/MRdWFKYqkVcJS18U+AcCtDTG2B8H77Jjfsu+vz2c
+	 FllT0AHATeAdAr6JebsxpOBNuMs7SASkIKNi4RwxNeHFqCjUln4ersQWv33G/KEOSXtLd
+	 YokUJWa8dFTUGouN3vUHMABxDZUjD5V1PLYdY9RtHF7rlvxVGmA8n3YHDueREsuYNvc8I
+	 zb1IlDvWr6FdfEZ+godHlGBuS3WHq6DcDDBxvDEziDkjrjINdowGd418nPaeyQCtLKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208123;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tbx9hAZNGVQv1qqSjudAmp4OsNGdD5a1kQyxKo9AOq4=;
-	b=g4V3AH8qOQc7M5AYdqLRoFKa6M6amDvA2kGfTIkhdzUKIR+sEzXpTvsN4K2yK5S33vqh
-	 QlwTZ1/mtP999ubLuvoG4ouW3Pq47KXmIInkNEEtOaFL5C6pefm3fnBmbooDwD7hLdXDA
-	 bW6x6er4MxVhamq24WtN6xKH9/jVYJRkEZqMXtJMfB1xuKtcao/EmvbvaMa1BfmsfOdGq
-	 dTBtqGAcZO95qbILLCI/QK/IHBRBV+3zl/gTboeXh+tEKuai8LREc+t7kLg7Gy+1SXnPP
-	 hf9KhXQj9iVR52sZ+GQjM9n+yq2v+ikrnQqwLaLlDaM9nbmpa/xnbz36SNRYCZ2RfbQ==
+	bh=KeykT/ThodXxARSrYgTpVKPGyHjOE+8KzMUU7CyTBFg=;
+	b=IDSTQ/f5AKHRmtfgfBAj8UcbDIh9y/H6iOvKZRCtaBx5V8eQUq+j9Oe3NliDlWNtKugz
+	 keCigk0ixiziAFWlCSGTRsN6GP3z7ZpPrW0QVvCDUBc4U0mB6QFea3Nvc8TwCS4ezbpOb
+	 bNlz9udotXiCKaddfKa2+esjcChXk0FN9a3QuVHx4G3AMr4VBVa5av9YVpThrFsbXbY66
+	 vh0boA/gBm7DeC04LX4wMPPCRIDi3rgPJTRnR4SZO5qmrnH8fDGZW9s37EfJCeXOSMGJk
+	 MOQOxRrJ/FNnjLWiPXj9fJPzLolhjNO8QdDw/Ksn44NxUxeFCnZyHM3cxZrouIVpkMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Oo8jOvqn;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M5+mvh0e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91DA606A324;
-	Wed, 28 Oct 2026 17:21:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C952606A31E;
+	Wed, 28 Oct 2026 17:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Oo8jOvqn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9411F031E2;
-	Wed, 28 Oct 2026 17:21:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M5+mvh0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1B21F031E2;
+	Wed, 28 Oct 2026 17:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208117;
-	bh=tbx9hAZNGVQv1qqSjudAmp4OsNGdD5a1kQyxKo9AOq4=;
+	s=korg; t=1793208123;
+	bh=KeykT/ThodXxARSrYgTpVKPGyHjOE+8KzMUU7CyTBFg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oo8jOvqnpqfHkngdJj72l6UauFG5EXO4lVgusZGbLtBKHeTl7VeMoYjj9HOSgQZ0z
-	 sQlUibHNnvb5iAL7gvnYcaDrMfZkIxVJwjREoKYK7lDCGJutBTRtMV/WQmX/1lrwqw
-	 SMBembjvd1YmDv6PKL2+q0C3ytg8lPwaYbh3obS0=
+	b=M5+mvh0eYDU1gr0t26fiAIHfMR6I0M3ggjRjcwyc0dkVWqBnDDZ+Jl/I9dU+Iyazg
+	 oPBr7mAU/2FFHmuArg5Zyn3q0mBG1Xt+JS3xepDyeYVT3uSRqT4F0CNJnuVf++lAZb
+	 fEXOmbWFIdTMEG2rpgbHJ1OEUAYJ75yGffhpYxwo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 6.12 219/247] io_uring/timeout: no ABS update of multishot timeouts
-Date: Wed, 28 Oct 2026 18:00:22 +0100
-Message-ID: <20261028165952.608240458@linuxfoundation.org>
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	John Johansen <john.johansen@canonical.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 002/516] apparmor: fix out-of-bounds write when null terminating a label vec
+Date: Wed, 28 Oct 2026 17:52:34 +0100
+Message-ID: <20261028170003.584981324@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-References: <20261028165947.349197979@linuxfoundation.org>
+In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
+References: <20261028170003.522232767@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -63,101 +64,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-Commit b088ae34d4da730dc647261b893a6eb622fe5e1f upstream.
+[ Upstream commit 9f1e40193eef7f047e6b77cfb4b4cafdecd7a123 ]
 
-IORING_TIMEOUT_MULTISHOT can't be combined with IORING_TIMEOUT_ABS, prep
-rejects that, as the request is armed again with the same value each time
-it fires. IORING_TIMEOUT_UPDATE doesn't check and takes an absolute time
-for a multishot timeout. The first expiry is as asked for, but
-io_timeout_complete() then arms the timer with ->mode of the original
-request, i.e. it uses the absolute time as the interval. With
-CLOCK_MONOTONIC the next expiry is an uptime away, with CLOCK_REALTIME
-more than fifty years.
+aa_vec_unique() null terminates at vec[n - dups] when VEC_FLAG_TERMINATE
+is passed. If the components are all distinct no duplicates are dropped,
+dups is 0 and the terminator goes to vec[n], so the caller has to provide
+room for n + 1 entries.
 
-Fail such an update with -EINVAL, and do so before the timeout is
-touched.
+aa_label_strn_parse() sets up its vector with vec_setup(profile, vec, len,
+gfp) and then calls aa_vec_unique(vec, len, VEC_FLAG_TERMINATE), but
+vec_setup() does not reserve the terminator entry. Up to LOCAL_VEC_ENTRIES
+it uses the local array of LOCAL_VEC_ENTRIES pointers, above that it
+allocates exactly len pointers. The terminator therefore lands one entry
+past the end of the local array when len is LOCAL_VEC_ENTRIES, and one
+entry past the end of the allocation when len is larger.
 
-Fixes: ea97f6c8558e ("io_uring: add support for multishot timeouts")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-41-c1556f5d7bf5@toxicpanda.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+len comes from the number of "//&" separated components in the label name
+and label_count_strn_entries() does not bound it. An unprivileged task
+reaches the parse by writing to /proc/self/attr/apparmor/current or through
+lsm_set_self_attr(2), both of which go through do_setattr(), and the name
+is parsed before the change_profile permission is checked.
+The query_label() path behind the securityfs .access file, which is
+mode 0666, performs no permission check at all. Every component has to
+resolve to a loaded profile, so a system with policy loaded is required.
+
+The other two VEC_FLAG_TERMINATE users work on a label vec that
+aa_label_alloc() has already sized with "+ 1 for null terminator entry on
+vec". Reserve the same entry in vec_setup() and DEFINE_VEC(). Passing
+len + 1 from the caller instead would move len == LOCAL_VEC_ENTRIES out of
+the local array and into kzalloc().
+
+Fixes: f1bd904175e8 ("apparmor: add the base fns() for domain labels")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ replaced unavailable kzalloc_objs() with equivalent kcalloc() allocation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/timeout.c |   38 ++++++++++++++++++++++++++------------
- 1 file changed, 26 insertions(+), 12 deletions(-)
+ security/apparmor/include/label.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -254,22 +254,29 @@ static enum hrtimer_restart io_timeout_f
- 	return HRTIMER_NORESTART;
- }
+diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
+index 55986388dfaeb..a987bd117d88d 100644
+--- a/security/apparmor/include/label.h
++++ b/security/apparmor/include/label.h
+@@ -22,7 +22,7 @@ struct aa_ns;
  
--static struct io_kiocb *io_timeout_extract(struct io_ring_ctx *ctx,
--					   struct io_cancel_data *cd)
-+static struct io_kiocb *io_timeout_find(struct io_ring_ctx *ctx,
-+					struct io_cancel_data *cd)
- 	__must_hold(&ctx->timeout_lock)
- {
- 	struct io_timeout *timeout;
--	struct io_timeout_data *io;
--	struct io_kiocb *req = NULL;
+ #define LOCAL_VEC_ENTRIES 8
+ #define DEFINE_VEC(T, V)						\
+-	struct aa_ ## T *(_ ## V ## _localtmp)[LOCAL_VEC_ENTRIES];	\
++	struct aa_ ## T *(_ ## V ## _localtmp)[LOCAL_VEC_ENTRIES + 1];	\
+ 	struct aa_ ## T **(V)
  
- 	list_for_each_entry(timeout, &ctx->timeout_list, list) {
--		struct io_kiocb *tmp = cmd_to_io_kiocb(timeout);
-+		struct io_kiocb *req = cmd_to_io_kiocb(timeout);
+ #define vec_setup(T, V, N, GFP)						\
+@@ -30,10 +30,10 @@ struct aa_ns;
+ 	if ((N) <= LOCAL_VEC_ENTRIES) {					\
+ 		typeof(N) i;						\
+ 		(V) = (_ ## V ## _localtmp);				\
+-		for (i = 0; i < (N); i++)				\
++		for (i = 0; i <= (N); i++)				\
+ 			(V)[i] = NULL;					\
+ 	} else								\
+-		(V) = kzalloc(sizeof(struct aa_ ## T *) * (N), (GFP));	\
++		(V) = kcalloc((N) + 1, sizeof(struct aa_ ## T *), (GFP)); \
+ 	(V) ? 0 : -ENOMEM;						\
+ })
  
--		if (io_cancel_req_match(tmp, cd)) {
--			req = tmp;
--			break;
--		}
-+		if (io_cancel_req_match(req, cd))
-+			return req;
- 	}
-+	return NULL;
-+}
-+
-+static struct io_kiocb *io_timeout_extract(struct io_ring_ctx *ctx,
-+					   struct io_cancel_data *cd)
-+	__must_hold(&ctx->timeout_lock)
-+{
-+	struct io_kiocb *req = io_timeout_find(ctx, cd);
-+	struct io_timeout *timeout;
-+	struct io_timeout_data *io;
-+
- 	if (!req)
- 		return ERR_PTR(-ENOENT);
- 
-@@ -400,14 +407,21 @@ static int io_timeout_update(struct io_r
- 	__must_hold(&ctx->timeout_lock)
- {
- 	struct io_cancel_data cd = { .ctx = ctx, .data = user_data, };
--	struct io_kiocb *req = io_timeout_extract(ctx, &cd);
-+	struct io_kiocb *req = io_timeout_find(ctx, &cd);
- 	struct io_timeout *timeout = io_kiocb_to_cmd(req, struct io_timeout);
- 	struct io_timeout_data *data;
- 
--	if (IS_ERR(req))
--		return PTR_ERR(req);
-+	if (!req)
-+		return -ENOENT;
- 
- 	data = req->async_data;
-+	/* multishot requests only make sense with rel values */
-+	if ((data->flags & IORING_TIMEOUT_MULTISHOT) && mode == HRTIMER_MODE_ABS)
-+		return -EINVAL;
-+
-+	req = io_timeout_extract(ctx, &cd);
-+	if (IS_ERR(req))
-+		return PTR_ERR(req);
- 	/* for a multishot request this isn't a sequence, keep the repeats */
- 	if (!(data->flags & IORING_TIMEOUT_MULTISHOT))
- 		timeout->off = 0; /* noseq */
+-- 
+2.53.0
+
 
 
