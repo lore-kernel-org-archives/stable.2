@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793210153;
-	b=VTWGTUj8E26bgvsID7LLNCXJxu7gIKbZm1zIEBlTmwkIBbP6hfJ/+aJj3O8ihS7NPOec
-	 wlGCE/MutUgNyxYTrOFiZb/MiGAD8rkwbkCr3td5JmQF5ncy6hrxnCw1cLfwCqlMcGCjn
-	 SK/GBLdxg+Vy/+9Cdv1EN6zxZ7+yJrl/4k6NkkaBkgvf/9A45c6tHXvFQnmTBYLOOzIrG
-	 rbITMzRSYKLqmM/XAi2q6sv6CVioKSBsuYy0NGI2YTcRqPbELxPLR7C7x3Ve2ZKN0kQsB
-	 zVtnQr7+kOVcS8nUfI7bvZDiOpGxu1Af1APR5GEc4ym7IdfEpaCDqERoeqwbJ0QLW6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=Exnr3RwQUcSlWQaBOEmVbmaduh5XEL2R1BBKmpHyP9OPoQDsd1+NAmGhdrAgdWfptq8p
+	 h7SWjdTtdgIo0ow1wOz1kCuBsaI5RL2vBoUW7MTvsxluajLnAeEHF7USXNuayhSQDxvL0
+	 M2MYn/BXGrdODsQkr9XljzZcL4+d5DWk8RkW62zmTnCE0GcJv0K90n9/GkrAR7NQ/P4zh
+	 HzjYWa+6k3AWE3iJVM3c849gtndA/4GfffBvwRtc4pBj4VJT8Sb6HmT/so0B7qxEuxE3k
+	 nk7CDNBgfKVFwoCfIpyPp0bYwR7uXBqCkQWknLh/v2jSW9dyiByAMnHWzJRb2+8n+ng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793210153;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kMmhsDfJrpViHw9jBwEBCMIA2KSWANALf73F3shFMxg=;
-	b=uSZRYyludGW5CN8vLogVvg3doQ1W/v0t9eNlrqvYaNcP/7jKOdq9OpAHAUOsq1TGPLlz
-	 oikZqQkquTL2GZ1NxlxGAtms9DwTydsQN5t/xkrx1Fut37GcOct9gLSRfzuHMxwMr8GkT
-	 n8G7Gx0q8miIuYLo8Mf1F8nJXI97b6dB0ERATjXYcX+7q58d5MwWqGCby97ItRt4cLVmf
-	 mFtcOmeMCNN4WJ8I4/g8czgoYXSnK5hbDHw1b0lTjCjSsxNS2Mgfz6gDUlAn5ch2iHAjZ
-	 gua0e7V+EssAlVVtMEAUaigepnMK+SYyqkHAAz4F9cIqkr8Pwhzi0aOUAwYYxOmGB2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TJzjcfCq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=17jbkdkItPENhd4Vh8NAsHyi7gmdt8hZfEFg1sHhfLQ=;
+	b=eqGX29Sqyl700Ai2aqr7cDA8epHbMAi2GhPUY7ZQNtyGXXR10WpW5GOG2Kf72oAnWUMT
+	 LLQK6uwinNn6A1laNlF2olzcK1W7MJIHjhRA1U1tFgei+BB2fjBH4+FO5vpHhtH0tMiy9
+	 QjsqnVmNcLien6OYS6bc12EboWf0r8nvFDdEOTUUTm0FVetxQ+jEPvoUi3hcTvJThX7+H
+	 DwyEj6kjSoxybEzSH24MS7hsBQF9hkzB+pLtNXlkF4FuGuyAJ9LYM8NbPv6H/0HyRBisr
+	 2ZnrPGWESbVNWSyElf9uPQhgy+fL/asgDvOtQ71G9esEf6yCt+a0eHdKh9oYCR7jXIQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=oYzKOgow;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.171
+Received: from mail-200171.simplelogin.co (mail-200171.simplelogin.co [176.119.200.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6F760A260A;
-	Wed, 28 Oct 2026 17:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6196C60A260B
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:55:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6196C60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TJzjcfCq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02FB1F01829;
-	Wed, 28 Oct 2026 17:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210153;
-	bh=kMmhsDfJrpViHw9jBwEBCMIA2KSWANALf73F3shFMxg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TJzjcfCq9P7rhQ6QNG+wC+ESq9XgB30HOOXte+QaceRmYAOP8v3yveARaburGY+G2
-	 puLtnmhevGz7gvjXO24zjN2eh75lDW125vKFJQt4pNjOJWuhVZPvjsaKtz/9VfAqXV
-	 FWdgaAV9YonU1j7ibvxM/XFsF/8CrnKbJib5iQ8Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 093/168] eventfs: fix SRCU read lock leak in eventfs_iterate()
-Date: Wed, 28 Oct 2026 18:00:29 +0100
-Message-ID: <20261028165945.290691264@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=oYzKOgow
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793210146;
+	cv=none; b=UC0eApm5dIZwWLlFOhahU4En3V6504bc3d+Ld4YrJKT7Mvm7cGBnhu/+j4gcA8Ms7e5X3Y9Ycj0qKSDac+qJ7XT8UL4hWOf+ilk8wJUn6lxiCbH9xfntICQGSGXSrtb3Zkgv//9HKW6N0QPhLids/601Z/fVtY9TzO8hxD7fUNyQRHQFCgO7eTtGdzBOe0mB3tB6X/PYFNvHgLenCb3oKRXDUEIzT9C+izFe0dMca3Th0qB1Az63GxfsZw23JxCcRoEyBrq48w1hu+0CFRieeZ69UJqzBHVXOEqruw7UAAfgMABtQtBgkrwaJ3fmH9VZ34NsVpUahgQZ7QDNmDeO2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793210146; c=relaxed/simple;
+	bh=17jbkdkItPENhd4Vh8NAsHyi7gmdt8hZfEFg1sHhfLQ=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=devQZawep+mcr0bC8QBq2v/TQdEOe92b1LEsB6dE1JQZIcotXbooZcZR5T1HgFaU8463yJ4Jp/DeROm+9YGVjsk9CNwkX7gPbtTCK+iCqo7bVXPWrm19rBiqy6tnn1/+Ra6s14SGBtSCnHQnq2UwdzG1AuCT1kv+zDusW/OlUd+75TXMpiGUpumX298/yRAWbEdQe8PU9KkXv1wmAOXiML9TCTiW9E346g9e+7Lv5mH/6iQRufy5SgLMqcbjvGLnMmD19sGJ3pV9bhT0Cykgbvoy+EmLpOKtbNioeD5ZLcwIo23um+Icnz+urkA1Y8zaFUKWMtBJnUsBiLPBEwHWuw==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1793210146;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=17jbkdkItPENhd4Vh8NAsHyi7gmdt8hZfEFg1sHhfLQ=;
+	b=oYzKOgowLD3u3eP2GABrI/IrDqcF1DMga26D88/cif3KN4lxtaKsToGpY7RQhIanEImtDH
+	TRQr4DdXUPQCcJr0UMBNqLuG9BZSjTJvTTOpOBHCrGvfsKQWjJKNNojjOcBriX54k+j+1j
+	0lxL+DNNMP9t3JmldQ7l+hknT7/ijsU=
+Date: Wed, 28 Oct 2026 17:55:35 +0000
+Subject: Re: [PATCH net] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
+In-Reply-To: <4dfb9200-8bd1-4806-90d8-892529b79962@rbox.co>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,61 +64,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
+ <bobbyeshleman@meta.com>,Michal Luczaj <mhal@rbox.co>
+Cc: "David S. Miller" <davem@davemloft.net>,Eric Dumazet
+ <edumazet@google.com>,Jakub Kicinski <kuba@kernel.org>,Paolo Abeni
+ <pabeni@redhat.com>,Simon Horman
+ <horms@kernel.org>,bobby.eshleman@bytedance.com,"Michael S. Tsirkin"
+ <mst@redhat.com>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179321014563.7.16847274233062903088.1728128549@eldare.de>
+References: <20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de>
+ <ar4gvlZL1JyPycg1@sgarzare-redhat>
+ <4dfb9200-8bd1-4806-90d8-892529b79962@rbox.co>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1728128554
+X-SimpleLogin-Want-Signing: yes
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On 10/5/26 09:59, Michal Luczaj wrote:
+> I took a look at v2 and I don't really have any functional comments. Well=
+,
+> besides the use of READ_ONCE, but that's probably something we need to
+> tackle separately?
 
-------------------
+Thanks for looking. Yes, I'd keep it separate. As far as I can see, the
+virtio_transport_common.c writers of vsk->peer_shutdown run under
+lock_sock() from virtio_transport_recv_pkt(); its WRITE_ONCE() is there
+for the lockless vsock_poll(). The writes outside lock_sock() are in the
+reset paths: virtio_vsock_reset_sock() (sk->sk_state, sk->sk_err),
+vhost_vsock_reset_orphans() (those plus peer_shutdown and SOCK_DONE) and
+vmci_transport_handle_detach(). Both wait loops read these fields; the
+state check is new in v3. The native vsock_connectible_wait_data() reads
+sk_err the same plain way, so I'd rather annotate both paths together in
+one patch than only the sockmap copy. Did you have other accesses in
+mind?
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+> A single-patch v2 addresses not only the original bug, but also sashiko's
+> complains about the pre-existing issues (making the subject stale?), but =
+I
+> didn't know if you'd rather have all of that stuffed together, so I
+> refrained from commenting to avoid confusing the author.
 
-Commit 25d27d5fa864 ("eventfs: Use children field for rcu head and add
-memory barriers") added an early bail out to the ei->children loop:
+Good point, thanks. v3 is a two-patch series: 1/2 keeps the subject and is
+the lock release with the wait loop it needs, 2/2 handles the len =3D=3D 0,
+MSG_ERRQUEUE and MSG_OOB reads. It also addresses the Medium and Low
+netdev Sashiko comments on v2; the pre-existing ingress_skb case will be a
+separate patch.
 
-	smp_rmb();
-	if (ei->is_freed)
-		return -EINVAL;
+Bobby, since the vsock sockmap support is yours, a look at v3 would be very
+welcome whenever you find the time.
 
-Upstream wraps eventfs_iterate() in guard(srcu)(&eventfs_srcu), so that
-return still drops the read lock. The 6.6.y backport instead brackets the
-function with srcu_read_lock() and a shared "out" label that calls
-srcu_read_unlock(), so this path returns while still holding eventfs_srcu
-for reading.
-
-The unbalanced reader prevents the grace period from ever completing, so
-the call_srcu() callback queued by free_ei() never runs and the
-eventfs_inode is leaked. Every readdir that races with removal adds
-another reader.
-
-Set ret and jump to "out" like the other bail out paths in this function
-do.
-
-Fixes: 25d27d5fa864 ("eventfs: Use children field for rcu head and add memory barriers")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/tracefs/event_inode.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
-index 880a4d667472b..ca55828e7446d 100644
---- a/fs/tracefs/event_inode.c
-+++ b/fs/tracefs/event_inode.c
-@@ -748,8 +748,10 @@ static int eventfs_iterate(struct file *file, struct dir_context *ctx)
- 		 * Matches the smp_wmb() in free_ei()
- 		 */
- 		smp_rmb();
--		if (ei->is_freed)
--			return -EINVAL;
-+		if (ei->is_freed) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
- 
- 		if (c > 0) {
- 			c--;
--- 
-2.53.0
-
-
+Thanks,
+Jerome
 
