@@ -1,55 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793230466;
-	b=GnrZ/+OA91ZKvdluwB7qmk45tTFH7QsIEsngK5vvy2KtMs4YNjcK3vdzpD6MPuaJnGxl
-	 gH+nPNaKeOXhpVIWP7ZKNQQWE9HKLfVu/FWEpwStsgODh43PVefObnyJXXwVukGSwew9a
-	 ZnfXryre/OLQgV9zP/oLSf3EELFINl5k8+AiTjwkgz4dFPcgUpR5LYg693MQJ0Uw5a0lq
-	 I5KjYAyh+8UqkRgkDlBvW+OecHVas4gQhd4vpJb+1XHTCm0vcqL0n7FWxsy6EWBShopJ7
-	 YeJBzeG6YpfxKJR6F+Lxbd0T0JXpq7akCV4vrOw5zJmObs5nbrOEbeMSocxqRm2oheQ==
+	t=1793230495;
+	b=MjAUBva4Roo2IqCbHpc8rhe87AvIAYUOKrGypOdLmg2XrpR1rRWwOlKaiz5chgOQ7kIf
+	 TNs3m6C+rTLTsA0AzczBxnIg400CCAXfeVASscFSYAaKHJ7eQKoVLWhYFttExhJa0sq+G
+	 RT9sfHRFiXajmtjhONv/CggcnLS82VVqKQ0E/vDuIIYiMGIw575+beYAeGpHg+ITPTrmV
+	 LOSTRSr/7I8jI2Vd4m84r/zXKJAkAwk95TPhtgqgGndYpSXt7qoo59dy4GpTqBTvWhPZj
+	 TEOW5AKKyz7JlfMEk8xIcaeBRlVn73o0Hf4M03JGjRmIPY0EB4fIBK1NMlZVoZgnZVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793230466;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=z+33F51VHug5QneOMKSWWqKefuyMZ97ZR5M8c8brN0o=;
-	b=yYvDrtOclKyRKsXnxICkFM56XoQ+90Mbe2WJQ8cilLSSfGntclOF9WpYUxJ6g/wPGP2a
-	 8542JQTO1k5UBaOVk67DqSCby3yJZoDhi2YjV9OkXYkcKeB/MW2RlWNwmKhB/TM4GDG/e
-	 JgEgJzc4UScQXXS8anAr1VMERnRn9lK/ftRTpVSn9tbUX9iXhMNJko5yNXWYrpPCU0fnc
-	 QhlRFn4V2kJrFJDwrCplNQlJKRPqv9kvdVHo32eKdAaEsPdDel+Snfz2CZW7pxoIw9zB+
-	 q7CxNOVYb3L9dv6FaguTiDqAmiqoplXg5ABdfWDdsEjy61esK0ysyv4aSBL+oTldS1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793230495;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iP41gDW1dDLb62a6TOWXDfDFJDMH1BCLfRYXQKf/pYo=;
+	b=vQlxMZ4lRmFIs/PgXsqZkVOVPDc/VrWW40yAQ86V0b648LfF/dAK3KudQx5TyFPG0Fk8
+	 9LKAD6Us11Z8vS2/Kv+cz4v35KTKGUM7j8FwHBtxdXrFXgiuzIlfSs/wxnJoyw8Pw8N6j
+	 h+MDUQHbBt2dfkctkKY+BJD/VW7n8fMyc1GUNQKu6CBBFDX/Ch09jwMpa/7JQFIBXhI6r
+	 L6p4aaUFOs4RiaNzwVDGKA013qPtd2wBs02+oUxtUVXwaRqGNAdWs0BhNQJHBJ2yZEQDw
+	 mezWpGEhulJcfH2JX8VH4WSQnFsei8W0qcykCkgVRrteOgOrX7v8qGaGKYhz7eYvi6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0l5eJHL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdtMsEtH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82C7606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 23:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48220606A31A;
+	Wed, 28 Oct 2026 23:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k0l5eJHL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24141F01825;
-	Wed, 28 Oct 2026 23:34:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdtMsEtH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347B41F01825;
+	Wed, 28 Oct 2026 23:34:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793230465;
-	bh=z+33F51VHug5QneOMKSWWqKefuyMZ97ZR5M8c8brN0o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k0l5eJHLkL6fIjWm5su02e5y6iif8dSjTuwNpQLNupm9jmlWPgOhFoQIvcEmz2fkZ
-	 QLR0/C7OmJp8zpKWErWnVndoHNfh+Fk0briOQ7jp6YjEOyHdt9Oz5mnz7TSVU9uhCq
-	 S3uRKGfUnam3rBwiHlP5nS/xsM+X/rFO6U2bEwfmyuxQobW5xpBss8b6XPe/kGWRQF
-	 11vOkjdg4n7+USVd/IKoHxzHmF5cmnsiCryA5WVlfOz/B3xb4zmRbhF4XgQ/LdEEPR
-	 KJ9t4XJyIyKJJEJKOl5j6uzGCnRYxWudTX+wLjxX5JcucXO4XL0QdVPIO0Vptbz935
-	 QP2ixRUc9CbXw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] coredump: prevent TIF_NOTIFY_SIGNAL from interrupting coredumps
-Date: Wed, 28 Oct 2026 19:34:23 -0400
-Message-ID: <20261028233404.2437969-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102820-lend-elastic-275c@gregkh>
-References: <2026102820-lend-elastic-275c@gregkh>
+	s=k20260515; t=1793230494;
+	bh=iP41gDW1dDLb62a6TOWXDfDFJDMH1BCLfRYXQKf/pYo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kdtMsEtHmDNzVF4YPu+ZcICl/ZXdKh2G0CtWnlPvKGDdE3v8xuBbC6zXrMLdclWYo
+	 afqbXoVI2Aq17HAOhQ12dH1IgTkxmkhb6F9zPZcQgJpr7DY7tXfrOiqUB/Phl+GZYc
+	 0DbkzFSurp4VOwEo2NLtp+XqNw2P4ttys0hVHicRAMPRsBDtj0f9UTckbATHEBhul6
+	 MSwGskoKkUmFOldVwE9w4g7SFUZhJ/P64vqTjyibrLfSUH5WMOF3pzlbs3a+e6QJUb
+	 UxpD7/mrdg4kITQFE012/68d5CU95sxWJPz6ULdbl7jLxopDYN2T3iMGZJ2iN+Qpb8
+	 RgQCFRZe6bAfA==
+Date: Thu, 29 Oct 2026 10:34:44 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Henry Martin <bsdhenrymartin@gmail.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Hildenbrand <david@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Kairui Song <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>,
+	Rafal Ostrowski <rafal.ostrowski@amd.com>,
+	Likun Gao <Likun.Gao@amd.com>, James Clark <james.clark@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
+ numrecs during log recovery
+Message-ID: <auKGlGJwOSZpioMd@dread>
+References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
+ <auJ2jgIIh8e_JJwn@dread>
+ <87cxsto38m.fsf@trenco.lwn.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,84 +70,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cxsto38m.fsf@trenco.lwn.net>
 
-From: Christian Brauner <brauner@kernel.org>
+On Wed, Oct 28, 2026 at 04:43:37PM -0600, Jonathan Corbet wrote:
+> Dave Chinner <dgc@kernel.org> writes:
+> 
+> > Unless you know how to fix the discovered problem correctly, don't
+> > send what your LLM proposed for review. It will be garbage, and all
+> > that will do is annoy whoever has to review it. Just report the bug,
+> > let the subsystem developers fix it.
+> 
+> Just to be obnoxious...this runs counter to the advice we have in
+> Documentation/process/security-bugs.rst, where reporters are requested
+> to include a proposed fix as well.  It seems we're sending a bit of a
+> mixed message...
 
-[ Upstream commit a58d647acfdc62561f3570d114025b3bf38ae41b ]
+These aren't security bugs. Bugs that result from maliciously
+corrupted filesystem images (i.e. fuzzed) are explicitly stated as
+not covered by the kernel security threat models. IOWs, they are
+just -bugs-, and bugs that just don't ever happen in the real world.
 
-TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
-return to userspace and run task work and then go back to sleep. This
-mechanism works well but breaks coredumps. dump_interrupted() only
-allows fatal signals to interrupt a coredump and the whole regular write
-path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
-well.
+The journal records are CRC'd and location stamped, so any sort of
+real world storage error (e.g.  media corruption, misdirected write,
+etc) will already be caught and rejected. Hence to get to these
+issues, someone has to corrupt the journal stuctures and manually
+rewrite the CRCs to get them to pass verification before we are
+exposed to any of these issues.
 
-However, both the usermodehelper pipe and the coredump socket will bail
-early on TIF_NOTIFY_SIGNAL. This affects the following codepaths:
+Really, though, as someone who has learnt how to make LLMs generate
+decent code, I'm disappointed in how frequently I'm to tell random
+people using LLMs that their code is complete shite. LLMs don't
+generate bad code when they are well directed by a human.  Bad code
+is a sign of a poor coder (i.e. a human failing), regardless of
+whether an LLM generated the code or not.
 
-- coredump_sock_recv() -> unix_stream_read_generic()
-  The request/ack handshake is abandoned before any coredump data is
-  sent.
+However, regardless of the skill and capability of the human driving
+the LLM, LLMs will still generate decent bug reports. I'll take a
+good bug report over bad code every day of the week.
 
-- anon_pipe_write() returning -ERESTARTSYS
-  Once the pipe is full this truncates the coredump.
-
-- unix_stream_sendmsg() returning -ERESTARTSYS
-  Once the send buffer is full this truncates the coredump.
-
-- coredump_sock_wait() -> __kernel_read()
-  This reports a failure that didn't happen.
-
-- wait_for_dump_helpers() -> wait_event_interruptible()
-  This stops waiting for the coredump helpers.
-
-Such truncation is entirely invisible to userspace and all uapi bits
-still indicate that a successful coredump happened. A crashing process
-with a bunch of file backed mappings and io_uring thrown in loses most
-of the coredump data. If the NT_FILE note goes past PAGE_SIZE mappings
-it's gonzo.
-
-TIF_NOTIFY_SIGNAL is sent by io_uring for the common case. And it uses
-poll without sleeping so a completion callback runs task_work_add() from
-interrupt context against the task that submitted the request. This is
-the task that is running the coredump. Since that task hasn't set
-work_exited (it hasn't exited yet after all) TIF_NOTIFY_SIGNAL keeps
-reappearing.
-
-A coredumping task doesn't return to userspace. The task work is run at
-exit. So interrupting it doesn't buy anything and just loses the
-coredump which is quite valuable.
-
-Note that this isn't specific to io_uring. There's also
-klp_send_signals(), bpf_task_work_schedule_signal(), landlock's tsync
-and then  technically, kthread_stop() and the printk kunit test set the
-bit raw.
-
-Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-2-6609e42b3157@kernel.org
-Fixes: 12db8b690010 ("entry: Add support for TIF_NOTIFY_SIGNAL")
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Moved the guard from vfs_coredump() to do_coredump() before override_creds(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/coredump.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/coredump.c b/fs/coredump.c
-index f92376a45cd4f..2e97cda5f0fe4 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -632,6 +632,8 @@ void do_coredump(const kernel_siginfo_t *siginfo)
- 	if (retval < 0)
- 		goto fail_creds;
- 
-+	/* Task work must not cut the dump short, see signal_pending(). */
-+	guard(no_notify_signal)();
- 	old_cred = override_creds(cred);
- 
- 	ispipe = format_corename(&cn, &cprm, &argv, &argc);
+-Dave.
 -- 
-2.53.0
-
+Dave Chinner
+dgc@kernel.org
