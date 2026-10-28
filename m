@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211101;
-	b=NvOICvgIVBasq5aJmiaiPiRNU6DVe9qqfeMshvLbXufimTzQe7ipZ6kBiA8BCzC6nc/I
-	 7Ix4qzAfQ9bTivqCe3WfTst859oYAsR6yqW+uDr8/fJJ5yhQkK2N00KQvGBKEA8zUGLYI
-	 K/GxX8d+0GmkT6Rp17EfUfJVMckLzmIgTlDo0ubOxYHYHfHUEurDxwFwPIArO+x2QRYL8
-	 1HhC2s5KOhxXQv5ZMQAgQrEZn+SZk1UnbEh2uFaBclGTS5EFeTqa+os+8u2j5fc/mdbHJ
-	 32gNIeqCZVza2iba8bYDptCjxHhxthE9r3qR0OrMeAnNptRCmbdnOlPK6CIrqPlP1Yw==
+	t=1793211106;
+	b=5eDgN9BD3xmMD3MpR2ZJQgIKPSrRppiWQTshaqmJYq/Tb2OTj/4i6NO9cbI7FqVjlPU5
+	 wfdu0izK37OBf+zIZD/OvUACmMLyt7hikKIWZOg2Mh7ocwmXCuOWJT99tpHwv9tiligBZ
+	 v03nIwo8AldkNxs8ZKfXOjCH7NZH9FcQiPFSwQZfH7Q3m2s42RppU8CRCLO1KfDaCMtTX
+	 D1XFNfjGxCWFVGY3IU75vcKIlz6nijpPN7P86nbS7pmLHniRaqwS8pOg+pDodZNEZxL5l
+	 EPNNxQiZJUnWtxdtHeOLEtGqkp4TB9FQeI3aTnRZ8betugkXyiV6mctDp6tpPzaCXFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211101;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211106;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Cn1gDMOiDiQUJWM2VlxIMgL58vnA05XYw+JqdbOiOLY=;
-	b=wi7CaBiF2Igy7qAkKn/1S1Wp8NukHIS9vhyN45I8INGKPF2T/ZmcqM5t1JUXhPl+aShv
-	 Yg1yI9yZj3ltYgW4MKvM/NFgdozFnecUBhH330tpiauMeu8TvILrg6ZScj+NWgbXicgWE
-	 AnVMhx37FhrLrV1u2kbB2cw7kM5s2Iylxs6epNPnRowGDYMcYACNN7qVlOMD7satVaheV
-	 D7z+GsCK8DZcx1mn47ud6yVRM1dGHb8F27gM5+BkVKuV54G3QMyq6J2Gro6NjN2FRU7wA
-	 466fdq03J2W3gfgaP51wZGI5SA8wOo483RYuwlMkVTXqDg9NUsFw4GX0AZYuNrFWAZQ==
+	bh=eGnop9lSpAjTVsaaKJaXGK9Hpb5MnyAJQJV/pAh1WUA=;
+	b=x2GSR9EVhA6xNlP9BquSmOX9KNmF2Xg3/649CDIIIFMkls4ayF2/56ShRywQRr88X4l8
+	 e93fhhLZq43cKNqqTJvfqUofPFRMGr20616jXis/rLV1MhCHeWhka7fO1PYqS/XOApkx1
+	 u/9DDHfjHPkgdJOktzS0FE8rEtxoI6uO7KtQg9QS9mUtGo/jaxfjijSpRJ6mNdIy5x1Xc
+	 q4o0pTHeTf5yW2yoCv2tO+jM4hPfMkWo4P6mc8d1KdwEmDIPYGk5iJ3wAsKQLFxVkjQBa
+	 Vvbq+yAPeSasft8x8Tbpg7av0T7Lj8NFC7RCPOsj4IaTm5vPzqtTj2f+tcR/P8jnGcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CXqU0Bei;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KocHjebm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11E060A5BC1;
-	Wed, 28 Oct 2026 18:11:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5185860A2617;
+	Wed, 28 Oct 2026 18:11:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CXqU0Bei
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C8A61F01829;
-	Wed, 28 Oct 2026 18:11:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KocHjebm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E961F01825;
+	Wed, 28 Oct 2026 18:11:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211100;
-	bh=Cn1gDMOiDiQUJWM2VlxIMgL58vnA05XYw+JqdbOiOLY=;
+	s=korg; t=1793211106;
+	bh=eGnop9lSpAjTVsaaKJaXGK9Hpb5MnyAJQJV/pAh1WUA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CXqU0BeiF6RyQpu/u/KtEgRq84NMB3xsPhCNo0BWce/rjrGflmRJa/v25i4hhZ7QI
-	 PHbgCO0OwGLR0LK4eXd1a5bRoa9zI1vRo93g462v2dRF8RA2ZHZodnhY04pW9vu6G2
-	 79bwwxdHVZAGOkRq1AC9xk5x+J9QKSYRUxQtQ67o=
+	b=KocHjebmJ+V9FEnrmevbWfVDt8PDoTT7sjX4p++cePS/PyLKiEZvLAiPlmschC2Xv
+	 U6x9hqLEEvpbEuYTnUwsYWPJfvrDpfbXTr9SV3OgTwV89GOeAgHlae/fDorvEPFWHp
+	 OSJWoXFmP1nBz1YFLbSkVKdanCRd2hfXOIkxfDQk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Fan Wu <fanwu01@zju.edu.cn>,
+	Cong Nguyen <congnt264@gmail.com>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 5.15 258/571] iio: light: gp2ap020a00f: drain irq_work after free_irq
-Date: Wed, 28 Oct 2026 17:56:45 +0100
-Message-ID: <20261028170014.128685401@linuxfoundation.org>
+Subject: [PATCH 5.15 260/571] iio: proximity: pulsedlight: fix iio_device left registered on PM setup failure
+Date: Wed, 28 Oct 2026 17:56:47 +0100
+Message-ID: <20261028170014.175590530@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -67,49 +67,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Cong Nguyen <congnt264@gmail.com>
 
-commit 63213927b141085b6c8719b8037dab3074b7e0fe upstream.
+commit 4daa9ca557b4b98ae1ad38a6d1deaa3e31eb8edf upstream.
 
-The threaded IRQ handler queues data->work through irq_work_queue() so
-the trigger is polled from a per-CPU context.  free_irq() does not flush
-an irq_work the handler already queued, so after gp2ap020a00f_remove()
-returns that work may still run and call iio_trigger_poll() on data->trig,
-which the devm cleanup has already freed, causing a use-after-free.
+pm_runtime_set_active() failing in probe() jumps to error_unreg_buffer,
+which only calls iio_triggered_buffer_cleanup() -- it does not undo the
+iio_device_register() that already succeeded a few lines above. probe()
+then returns the error, the devm-managed indio_dev is freed, but the
+iio core still has it registered: the sysfs/chardev nodes stay live and
+point at freed memory.
 
-Add irq_work_sync(&data->work) after free_irq() in remove() and in the
-probe error path, mirroring commit 78601726d4a5 ("iio: trigger: sysfs:
-fix use-after-free on remove").
+Add an error_unreg_dev label that unregisters the iio device before
+falling through to the existing buffer cleanup, mirroring the teardown
+order already used in lidar_remove().
 
-Found by an in-house static analysis tool, confirmed by manual review.
-
-Fixes: bf29fbeaa13d ("iio: gp2ap020a00f: Add a driver for the device")
+Fixes: 4ac4e086fd8c ("iio: pulsedlight-lidar-lite: add runtime PM")
+Assisted-by: Claude:claude-opus-4
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iio/light/gp2ap020a00f.c |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/iio/proximity/pulsedlight-lidar-lite-v2.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
---- a/drivers/iio/light/gp2ap020a00f.c
-+++ b/drivers/iio/light/gp2ap020a00f.c
-@@ -1570,6 +1570,7 @@ error_trigger_unregister:
- 	iio_trigger_unregister(data->trig);
- error_free_irq:
- 	free_irq(client->irq, indio_dev);
-+	irq_work_sync(&data->work);
- error_uninit_buffer:
+--- a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
++++ b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
+@@ -299,12 +299,14 @@ static int lidar_probe(struct i2c_client
+ 
+ 	ret = pm_runtime_set_active(&client->dev);
+ 	if (ret)
+-		goto error_unreg_buffer;
++		goto error_unreg_dev;
+ 	pm_runtime_enable(&client->dev);
+ 	pm_runtime_idle(&client->dev);
+ 
+ 	return 0;
+ 
++error_unreg_dev:
++	iio_device_unregister(indio_dev);
+ error_unreg_buffer:
  	iio_triggered_buffer_cleanup(indio_dev);
- error_regulator_disable:
-@@ -1592,6 +1593,7 @@ static int gp2ap020a00f_remove(struct i2
- 	iio_device_unregister(indio_dev);
- 	iio_trigger_unregister(data->trig);
- 	free_irq(client->irq, indio_dev);
-+	irq_work_sync(&data->work);
- 	iio_triggered_buffer_cleanup(indio_dev);
- 	regulator_disable(data->vled_reg);
  
 
 
