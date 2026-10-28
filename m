@@ -1,49 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793153958;
-	b=zKx4Srx+8/ekUD9Mw1BNFFUUqYtsHohivDVXFr/JWSd7eI4IuCocKDGBRaE+hho3YvHS
-	 eT0NkuH+kyqs2hAN4adjCaP5Lo0QURf1jxvkFgEKEBVPr0IZsjaTyP5Ctfjc984BbaCRb
-	 A99ndLpgS5rmh0knH1/CldmpgasCazTmGSVPSHSZurZIYbD89Va/xykaGzB3XtpYuwFWS
-	 NtYGIDoya45YfD/N4tFgdBjoGXOhGpGlYk8agu7W8wRi8W1jT3EduOkv40kae9iJ0mkHp
-	 ysXTYKsicB1D0uafsGIJdNCJYY+WolhpHf4/3+1hgoIYQIIAHXnLReIsPIHERUNXxZQ==
+	t=1793154088;
+	b=FNY+VKK1KWnXnDZ5DTKoqPmoH/DBJeV8lJWoRzF5f1N2bTCXC4KMnVVeBZLw1VlYQnuv
+	 AihEI8b5veGuqgUCV2gtMQ9M+BsZIgGE3nRPxdxNaEZtVqgEDermMtHkSx45Nm5wfEkiH
+	 uG4fPAI1XCxnZ2LUMxmLjeSE/zs4UP4QQCvyyXdf88bzV8IkD7Lxxp4T4ciLwDWXndK4s
+	 +j/0y6dXSPUM1MXrc9VDWWcMkyReuxWixHZPLyh1ddjqbjB/k5yuma2zaATOsyYGkWJO6
+	 vITsJ4T90iXa+jqtV6hMOhY+7NEyrzMshXC0NFQJVP70K0Fv+vaZbewgyJ/3jXnAyPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793153958;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=I4S1rdiwU6IQT/YUtWpzMqdCXUjRwC7w0Jq5xGo329U=;
-	b=stxRevQfFgek9LmbjeVpEU/SYRjpU37wVlgc72t4a9yOORN/t1CSZj24imFbk6DPIf0a
-	 sSrvtHhvI0bIhvndmlib9lAf9E3QjnOzfc0VgpQKmWL0NHT2uybTBWHJYacpsFrLW+Tl+
-	 +w8HbUHYe4rbNgGqGcjV7rYJjqpy2JX1180JRYPh1xgQM8qLx0ElZhBl6Z03097ejt8DT
-	 9sGZV+ulkaWMq5ql88VsBtW9pZKn+lyDPc8qUWENDDDHlPL7fiNqSqwjPjiO4UekXV+fL
-	 6Rtk3tBY0rYPTrIcgXtZloj/Hl5Tl7njUiplsm8VTv6UINoxayFhZYyQwRaKAUfMH6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793154088;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=yNHKjhci1gy/pCPG8FfXM4uD8fUDi3UIHMZ1Loq+UU8=;
+	b=HMpdDezEjgc2D6p39KBlm1amBgE6YLSD6GuJ14kmHul5pinE4O9OhGmy92Ou7SHvwTK0
+	 ejvG/GmVG0hJE4gBEvGClaPPODPtd3DhYPTY3yOMGOuZkuJI8QmnqtdlvD6n1RK/rw69N
+	 ++KMbvJuO6qy3qixOQ1qSOqrEphMQ0Dnbv64aQjAomMEG13RWlKVVBbCEpHRrNbXs2B9c
+	 1Eo/FcDUfqx9iL4s6errNAMQcMPVmS99KMLIwgsesFRKjzhr5NOQxnoZRDVV9x4R934xQ
+	 yc/VbvNJ4WpjzvPBPY1ZaKI+5OGVQ6fl2setav6VTiyP9laZsLizgu4e6oSOJ3/Ip8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dIkTsSKq;
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ChbgGRda;
+	arc=none smtp.remote-ip=156.224.81.22
+Received: from mail-m8122.xmail.ntesmail.com (mail-m8122.xmail.ntesmail.com [156.224.81.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A6E606A31A;
-	Wed, 28 Oct 2026 02:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A6E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0845C606A31A;
+	Wed, 28 Oct 2026 02:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0845C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dIkTsSKq
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793153954; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=I4S1rdiwU6IQT/YUtWpzMqdCXUjRwC7w0Jq5xGo329U=;
-	b=dIkTsSKqC2hQNPr6Nzy60MZkWiH9GauF+fH3V/xicogtTSDZS4P7Wv4yup2FhlvtChSUS1eghaVuPVMR+z+ZZP6isbd5fk8c2htD7faFJa2sql+80g1jDJAkKFk8uU3A2jjHseWSn8k1NWixbrdpGxBGXWpFo9wrMTb1I6MWfWw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XDfMfYx_1793153949;
-Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDfMfYx_1793153949 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 28 Oct 2026 10:19:11 +0800
-Message-ID: <93624f6f-7f7b-463f-954c-273b7a15ab5c@linux.alibaba.com>
-Date: Wed, 28 Oct 2026 10:19:09 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ChbgGRda
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 529689659;
+	Wed, 28 Oct 2026 10:21:14 +0800 (GMT+08:00)
+Message-ID: <95aeecc0-2794-4cc6-a635-5c042afc1405@rock-chips.com>
+Date: Wed, 28 Oct 2026 10:21:14 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,58 +49,61 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/14] mm/shmem: fix truncation of files containing
- only swapin-error markers
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Gregory Price
- <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
- <20261027-fixes_shmem-v2-14-86a00952acb9@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261027-fixes_shmem-v2-14-86a00952acb9@kernel.org>
+Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+ mani@kernel.org, manivannan.sadhasivam@oss.qualcomm.com,
+ bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, dlemoal@kernel.org,
+ linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, iav@iav.lv
+Subject: Re: [PATCH v3] PCI: rockchip: Don't lengthen PERST# when power is
+ already valid
+To: =?UTF-8?Q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
+References: <20261028005603.2399220-1-ehbello@gmail.com>
+ <cf541723-eb4c-4ba6-92c5-33baafc20e7c@rock-chips.com>
+ <20261028015923.2436122-1-ehbello@gmail.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261028015923.2436122-1-ehbello@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1804fc91103a4kunma6c4c0125b2f1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHx5DVh1IHh9CHUhJSB4aSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ChbgGRdaxijZR8KSKUvfal1CoRHVY7Efis8YUv4CvZkGOOQ9ep4+V5XBRTk/O3wdft+rGE5oYntRLWujhiU2sBAr2Xq6/IqEK3kaRRClrPQc267MmCJQWAa90mhSb+ath4NiHQnQrpC8uKCcDQkzY2QZNBi3i1FuPkyPoNTC9O0=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=yNHKjhci1gy/pCPG8FfXM4uD8fUDi3UIHMZ1Loq+UU8=;
+	h=date:mime-version:subject:message-id:from;
 
+在 2026/10/28 星期三 9:59, Enrique Hernández Bello 写道:
+> On Wed, 28 Oct 2026 09:34:04 +0800, Shawn Lin wrote:
+> 
 
+...
 
-On 10/27/26 9:03 PM, David Hildenbrand (Arm) wrote:
-> It might not be very common, but we can end up with shmem files that are
-> composed only of swapin-error/poison markers.
 > 
-> Such markers are not counted in info->alloced. Consequently,
-> shmem_setattr() can skip shmem_truncate_range(), leaving the markers
-> behind.
+>> Furthermore, even with the same power supply design, different endpoints
+>> may behave differently. What if a particular device requires a longer
+>> reset pulse to work reliably? How would we handle that?
 > 
-> Truncating the file to zero and growing it again will result in reads
-> failing with -EIO instead of returning zeroes.
+> The only floor the spec gives is T_PERST, 100 us of active PERST#, and v4
+> started guaranteeing that explicitly with an fsleep() rather than relying on
+> the 100 ms. Beyond that there is no required minimum to preserve.
 > 
-> Check whether the mapping contains entries, in addition to
-> info->alloced, before skipping the truncation. Keep the info->alloced
-> check so that shmem_recalc_inode(), called at the end of
-> shmem_undo_range(), can fix up accounting after reclaim has emptied the
-> mapping.
+> And the short pulse is not new behaviour: from the driver's introduction
+> until c47f90be4c89 in v6.11-rc1 there was no wait before the de-assert at
+> all, so the pulse was only as long as the register writes in between took.
+> That is what every endpoint on this driver saw for years. The 100 ms pulse
+> is the recent change, and it is what broke this one. If some device turns
+> out to need longer, that seems like a quirk for that device rather than a
+> reason to keep a default that regressed another.
 > 
-> Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
-> Cc: stable@vger.kernel.org
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Was it possible to add a DT property for configurable delay? I came
+across several EPs need quite a longer wait time, so add it in the
+vendor tree for dwc-based IP[1]. That could be applied here to slove
+your cases and others', and might avoid regression.
+
+[1] 
+https://github.com/rockchip-linux/kernel/blob/develop-6.12/drivers/pci/controller/dwc/pcie-dw-rockchip.c#L865
