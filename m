@@ -1,53 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793166792;
-	b=JEvmDHb01+RPkCQOaWmqheqmsbV3+gDxzMZeXnt0VvCDlFYi7+P3GYiD03/ImklUq2Nl
-	 w5C6ycgyH+hnnLuQPkoUSLaGZHHi22GMgMWnUX7h5EF6iKvQ0oUQ2dtwREG86Puk+BaPs
-	 JoLn+/UURmzDti/sVfP8s6eYWXLNf+TGnZXzWdLd8cBo5PGqLkhktyRvClK7SFQNOhiYV
-	 BgKb9eJlme/L450uTwhqdfs8zEjdEMcPemL5N+/VBKv0XMSZzV6ZNeaU5nRCRStU3CHg7
-	 MQ1T+v1CIvc9jmgEjLlbXA3TXxXmbm2Fo372CCSuh83krbevSxNtbPr4ongaUX/IjEg==
+	t=1793166885;
+	b=ZHxcV5CaQvM9wWKM8o8+r5ivp8B9hDl46tbMXRmXNgTENjzpBePPgya+vETb07YsmDXY
+	 cq33IuoPpD0Bw6wUBvCACufyJUBj2zB824fhbBDgokLeLMbZ9vJZ2jlWkWKDGOGKmNQwo
+	 AbH/K5w0BnXgbEeOvcUtz9eHOQrvEq5yjDDTgecGx/4pfrtAsJAJ9tWLtuHJlmmXbUQUi
+	 tjxb+OOxtmLcDO0vSGd1TyVFDeY2HDd8ZTBBRxXRwRGMObOsUnv2HozuKQG7gmfvht3Ty
+	 WcQVPpR4z/e1XMmCl13SCQ6CMvFK4KZWGRBEtpXYlOu3/ztyHOuUw00jHRKgua5uBYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166885;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:Sender:X-CM-SenderInfo;
 	bh=gS2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=;
-	b=B9qpSDdKbmrjqqz7te8IpHo4z4Jcimd972Fsb1n+rhEdZtS84lgFQlTnUswVH8aupxFK
-	 iESHrXtFhygoZGZj1cwUJno4j1TyRLQqUasNpyEgCf650bzam6Xf4Cd4QqddNiloHMJBY
-	 EewIArxKNoIVEiL4JRvCiZBCiDYuV6lvvSOw5iYEA7vowkc1OVEBhxO0iRpKKxk+ZMY2Y
-	 Um+/MzRVk1Cgnnwf/ihn7/EpGBMAZ6G42d5BcViCQZ1px16C2/Pc390L2QpXYVbrnzR7d
-	 uCeznd1naC+NmX4exK8svS5op6W0zQCQHwBQKFGeb5OX/TkYfumE5byX1/V/0D4h+Kg==
+	b=SVnVCT025ZIXGXv1RbwcoZUOLe3FkvYfLY7YeB2bJWX2iS61xVuKcd4Yuu3wm8fA8tHq
+	 y6SqGI+RQu/O6nS25T8seMYZv/A0mqcnJQ9keBl0JrWHYtR8WV3gFiVzuOCawT5iOiCDN
+	 eJz0dSY7drAdUsP5kHctq2wE5SKHpeyN6nBMqQnSzikyaSWycBiriI2VTsv5P0lX8A5/d
+	 TDxK1PgD001LRP4aFUKC8qPd/cIP30KpZ4uMMS9oZ+er7cCBka9qHmcGv3W7zIuNL8Sgm
+	 Egfv8XyvfxHAvGLo3FsFeUzuRMyCrV7mTfxSa2UNA8FPYvhIlNfFCY4xAuyi4fS4G4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BmsbE5kc;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TOceouPC;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AAD606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0AAD606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A32606A31A;
+	Wed, 28 Oct 2026 05:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15A32606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BmsbE5kc
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TOceouPC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=gS
-	2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=; b=BmsbE5kcGELYv3Bkyy
-	vUDYgsNW5SkTJNtQaeHmzfFXvzFFLaiSHo9v2wvLOc44SvbnFTKiVv4LY6uK6Thz
-	Rhg4TMZa4EZ6C3Iol0WfNfTFh9kH37Aa1mF/JU+Vxsf7p/W8pS3m9YW0M4Fsjlki
-	yYttu9212uMcR7s7jbqJOp2AU=
+	2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=; b=TOceouPCfAll7sSgYH
+	JYp0HzZSGa3x1+uqBUM+m7m8Koa7VYe80VFXIe6ard9yPvGJLxfncrQhVIjHS6N/
+	DVwd+RUw0LEKop8K6qCEf7P/4jXrPW+PI6Md5oflPEFC4NyGw/qZizzHacvC8YdF
+	cIlYGkwPIxBqcq6o2Qt2+RWLQ=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3f_W9jeFqH9PUDA--.19060S2;
-	Wed, 28 Oct 2026 13:53:02 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H1_6jeFqgMpkDQ--.40114S2;
+	Wed, 28 Oct 2026 13:54:03 +0800 (CST)
 From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: yangyongxin@kylinos.cn
-Cc: stable@vger.kernel.org
+To: dave.jiang@intel.com
+Cc: dave@stgolabs.net,
+	jic23@kernel.org,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com,
+	djbw@kernel.org,
+	iweiny@kernel.org,
+	ming.li@zohomail.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yang Yongxin <yangyongxin@kylinos.cn>,
+	stable@vger.kernel.org
 Subject: [PATCH] cxl/core: Create einj_types when EINJ becomes available
-Date: Wed, 28 Oct 2026 13:52:57 +0800
-Message-Id: <20261028055257.1625148-1-yangyongxin@kylinos.cn>
+Date: Wed, 28 Oct 2026 13:54:01 +0800
+Message-Id: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,13 +69,13 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f_W9jeFqH9PUDA--.19060S2
+X-CM-TRANSID:_____wD3H1_6jeFqgMpkDQ--.40114S2
 X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7Cry8KrW5GF1UGry7GFg_yoW5Cr47pa
 	1UGrn5Cr48Aay3Cr9xArWUX34S9rWkW3yDAryrW34ayanrCrn8tF1kJayY9a4DWFWUJryF
 	v3WYyr1DGw1xAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRiZ2hUUUUU=
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uymh7UUUUU=
 Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-x6lQ2rhjb5pZgAA3w
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbDABu0UmrhjftWlgAA3A
 
 From: Yang Yongxin <yangyongxin@kylinos.cn>
 
