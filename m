@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211669;
-	b=JB1kHr/21cvm5K6eAAi3o71CLCBj4cwqr+UtGHPpgjJBBeJUrswmdxIuEOShXcQReSxJ
-	 YmvPvM8lSya1Iw+/2FnB+oryPDFBhKi2G1qL5S4dQBA0eJ+BtaZRImRevb03RISavfcyy
-	 LqvP5IQy8hXtTA+TBQ8Mji3x6reuAEMegAHACmVtVN18wC7Z0YWzeHCB5Z9MxTGmz+nXo
-	 ObKEZMfSNwmqYzfUYp/44mlgtdR1bCr4d6a1t4o0rKNspeBERPiTsZDMYPoEb2ezSWQlw
-	 x3rddZvt+L+W8emdtHu9ZntGxFNaqflmObSIxdSyJcIJ3I+nsyVdCuuDawxsd6B3yIw==
+	t=1793211675;
+	b=aUrFrIh6XJYHnlMSsqXZdGk7bTIruALNk5OO5Pk0jW5GTOm9NL2nWj/P8HqUYzuTXT3i
+	 RZG6jOL4GWp00y4sKZsPeU6uMXjhXEh7p6shcl+K4msPb9jyvvjKMCAJC7LwTU/I/s2sZ
+	 CdU+uH6TSlSYv22kSXit0K2mI8FXvrkG7nLLbH18ZIdQCms357EYBMjmBiNUurNeao8E4
+	 1eaCN5MtI2X0zSe82nXgvkj0e1AHb4Mvt3N1kC7It1RY7aijT0GNmiJcl0S33YQvcZw1d
+	 eYTksx6b+adfAHFQrr3fAyeF2uctoF4TfvkPEtIL5Sw9cWSNSY0wGDlUbPf+l6+t2gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211675;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=PWLzHTVRA3dP5CiehW+AtHY9pNP1hAIZCuMvfGDwM+Y=;
-	b=AoXpBhNMqrj6Q7jH8OmDgyzhb/PVsW9zb3YSNu/9IMhZ2jlUkMQWlGvZwhhO+uoPFx9g
-	 h05N53MYiZ5pA877g+iLAbw5dmOZlP/PcwWWGVBXUx+y4bCtRaD36WZ+mQnm943GiC05A
-	 8qKpG75g3ljuVRozJLC96w1GN5XItK/eS+2qRs1bhz6zpFoZ/oosPEYzo3LpD1GEo4Bdt
-	 qMOv21LvGZIFtAgC72RsO9DrbifNrJ6OgynjxdWJw7gfV0naKS2jUzp/Q7wtOToC+NLVP
-	 6Wu8Dd/bB4XgVktzxuCMj0ihSOcBQD5TBpCghwo/GcGCVMYqLTkuH1VAiP2xL4vlgVg==
+	bh=HzuKAgtLtzGUKLNlhh7AB7TS5a0o3vb1F1jss5uNQIU=;
+	b=NDL+99Q1q8YhH70nGOUBxiHkrA7Sj5HXCJ4UGJ64VeIGe6EUrLbj2g/7AhZXGHbZ3Gem
+	 zQ5/nArypTy+L2BxTsDo6Wt+TU7qDos5cHl4RUr8hSJNHhxnuBl2GD6BWc9fqXCcAdqu5
+	 pzxhMNHeeGmtwN15ANSyudVUCxeFUZmGLdjmR0mkvTidGhIcucMDCSz3zm84/a3dy3w6d
+	 fWFzyA+eIi4oJcErVOzW11h9PeWN7SpnvNqE9uipJuNcgf01VdpUclXANkIVWZbmTYsiO
+	 NGz76ainISPhtAWhl0qmKIy/W89OxAI2Ages/hCDo+pRibZ+gP/siygYkliR+M4/lLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IVyQeMdl;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="y2E/PWbX";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8400A606A31C;
-	Wed, 28 Oct 2026 18:21:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44423606A31A;
+	Wed, 28 Oct 2026 18:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IVyQeMdl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55A81F01825;
-	Wed, 28 Oct 2026 18:21:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y2E/PWbX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931EE1F01825;
+	Wed, 28 Oct 2026 18:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211669;
-	bh=PWLzHTVRA3dP5CiehW+AtHY9pNP1hAIZCuMvfGDwM+Y=;
+	s=korg; t=1793211675;
+	bh=HzuKAgtLtzGUKLNlhh7AB7TS5a0o3vb1F1jss5uNQIU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IVyQeMdlOunrja9nBUCL3EsxpXTrGkFcuYX1tvBWoOgmKhReZhzIQtS8q2SAPd39v
-	 H/AGqmo393IRwQ3vJTe2ysvasO5bv2KSRdXJPUzPHfFT7W9jhtK5EMXbxq337MEFa9
-	 p/eCWSDLaXkOMoChmDuBrh9fft1tOBrrecax7byQ=
+	b=y2E/PWbXdZGoMuJl7Cb/MfXOYNvykSkwb/aJyt0/vGI1HnsZtAfdYmStQnmlv73E2
+	 49sYixMFcqfWvMkTm2d7El4KDaTa+p3tq8swtyBbLIDYs8ZCLODQgp1UwX+Bj1fPah
+	 QvaOiXjhqMpZKdRWXBoMIMKOJdPqW3ex9eGKCHUs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Dave Chinner <dchinner@redhat.com>,
-	Chandan Babu R <chandan.babu@oracle.com>,
+	Guo Xuenan <guoxuenan@huawei.com>,
 	"Darrick J. Wong" <djwong@kernel.org>,
+	Leah Rumancik <leah.rumancik@gmail.com>,
 	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 457/571] xfs: log items should have a xlog pointer, not a mount
-Date: Wed, 28 Oct 2026 18:00:04 +0100
-Message-ID: <20261028170018.869383194@linuxfoundation.org>
+Subject: [PATCH 5.15 459/571] xfs: fix super block buf log item UAF during force shutdown
+Date: Wed, 28 Oct 2026 18:00:06 +0100
+Message-ID: <20261028170018.917546840@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -70,198 +70,151 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Dave Chinner <dchinner@redhat.com>
+From: Guo Xuenan <guoxuenan@huawei.com>
 
-[ Upstream commit d86142dd7c4e10e50bdb3679b405d748214b2c28 ]
+[ Upstream commit 575689fc0ffa6c4bb4e72fd18e31a6525a6124e0 ]
 
-Log items belong to the log, not the xfs_mount. Convert the mount
-pointer in the log item to a xlog pointer in preparation for
-upcoming log centric changes to the log items.
+xfs log io error will trigger xlog shut down, and end_io worker call
+xlog_state_shutdown_callbacks to unpin and release the buf log item.
+The race condition is that when there are some thread doing transaction
+commit and happened not to be intercepted by xlog_is_shutdown, then,
+these log item will be insert into CIL, when unpin and release these
+buf log item, UAF will occur. BTW, add delay before `xlog_cil_commit`
+can increase recurrence probability.
 
-Signed-off-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Chandan Babu R <chandan.babu@oracle.com>
+The following call graph actually encountered this bad situation.
+fsstress                    io end worker kworker/0:1H-216
+                            xlog_ioend_work
+                              ->xlog_force_shutdown
+                                ->xlog_state_shutdown_callbacks
+                                  ->xlog_cil_process_committed
+                                    ->xlog_cil_committed
+                                      ->xfs_trans_committed_bulk
+->xfs_trans_apply_sb_deltas             ->li_ops->iop_unpin(lip, 1);
+  ->xfs_trans_getsb
+    ->_xfs_trans_bjoin
+      ->xfs_buf_item_init
+        ->if (bip) { return 0;} //relog
+->xlog_cil_commit
+  ->xlog_cil_insert_items //insert into CIL
+                                           ->xfs_buf_ioend_fail(bp);
+                                             ->xfs_buf_ioend
+                                               ->xfs_buf_item_done
+                                                 ->xfs_buf_item_relse
+                                                   ->xfs_buf_item_free
+
+when cil push worker gather percpu cil and insert super block buf log item
+into ctx->log_items then uaf occurs.
+
+==================================================================
+BUG: KASAN: use-after-free in xlog_cil_push_work+0x1c8f/0x22f0
+Write of size 8 at addr ffff88801800f3f0 by task kworker/u4:4/105
+
+CPU: 0 PID: 105 Comm: kworker/u4:4 Tainted: G W
+6.1.0-rc1-00001-g274115149b42 #136
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+1.13.0-1ubuntu1.1 04/01/2014
+Workqueue: xfs-cil/sda xlog_cil_push_work
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x4d/0x66
+ print_report+0x171/0x4a6
+ kasan_report+0xb3/0x130
+ xlog_cil_push_work+0x1c8f/0x22f0
+ process_one_work+0x6f9/0xf70
+ worker_thread+0x578/0xf30
+ kthread+0x28c/0x330
+ ret_from_fork+0x1f/0x30
+ </TASK>
+
+Allocated by task 2145:
+ kasan_save_stack+0x1e/0x40
+ kasan_set_track+0x21/0x30
+ __kasan_slab_alloc+0x54/0x60
+ kmem_cache_alloc+0x14a/0x510
+ xfs_buf_item_init+0x160/0x6d0
+ _xfs_trans_bjoin+0x7f/0x2e0
+ xfs_trans_getsb+0xb6/0x3f0
+ xfs_trans_apply_sb_deltas+0x1f/0x8c0
+ __xfs_trans_commit+0xa25/0xe10
+ xfs_symlink+0xe23/0x1660
+ xfs_vn_symlink+0x157/0x280
+ vfs_symlink+0x491/0x790
+ do_symlinkat+0x128/0x220
+ __x64_sys_symlink+0x7a/0x90
+ do_syscall_64+0x35/0x80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+
+Freed by task 216:
+ kasan_save_stack+0x1e/0x40
+ kasan_set_track+0x21/0x30
+ kasan_save_free_info+0x2a/0x40
+ __kasan_slab_free+0x105/0x1a0
+ kmem_cache_free+0xb6/0x460
+ xfs_buf_ioend+0x1e9/0x11f0
+ xfs_buf_item_unpin+0x3d6/0x840
+ xfs_trans_committed_bulk+0x4c2/0x7c0
+ xlog_cil_committed+0xab6/0xfb0
+ xlog_cil_process_committed+0x117/0x1e0
+ xlog_state_shutdown_callbacks+0x208/0x440
+ xlog_force_shutdown+0x1b3/0x3a0
+ xlog_ioend_work+0xef/0x1d0
+ process_one_work+0x6f9/0xf70
+ worker_thread+0x578/0xf30
+ kthread+0x28c/0x330
+ ret_from_fork+0x1f/0x30
+
+The buggy address belongs to the object at ffff88801800f388
+ which belongs to the cache xfs_buf_item of size 272
+The buggy address is located 104 bytes inside of
+ 272-byte region [ffff88801800f388, ffff88801800f498)
+
+The buggy address belongs to the physical page:
+page:ffffea0000600380 refcount:1 mapcount:0 mapping:0000000000000000
+index:0xffff88801800f208 pfn:0x1800e
+head:ffffea0000600380 order:1 compound_mapcount:0 compound_pincount:0
+flags: 0x1fffff80010200(slab|head|node=0|zone=1|lastcpupid=0x1fffff)
+raw: 001fffff80010200 ffffea0000699788 ffff88801319db50 ffff88800fb50640
+raw: ffff88801800f208 000000000015000a 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88801800f280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88801800f300: fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff88801800f380: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                             ^
+ ffff88801800f400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88801800f480: fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+Disabling lock debugging due to kernel taint
+
+Signed-off-by: Guo Xuenan <guoxuenan@huawei.com>
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Stable-dep-of: 7b5f775be14a ("xfs: fix unmount hang with unflushable inodes stuck in the AIL")
+Signed-off-by: Leah Rumancik <leah.rumancik@gmail.com>
+Acked-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 0d889ae85fcf0cf9bc6e998fca2ec760e08e0b46)
+Stable-dep-of: d2fe5c4c8d25 ("xfs: rearrange code in xfs_buf_item.c")
 Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_bmap_item.c     | 2 +-
- fs/xfs/xfs_buf_item.c      | 5 +++--
- fs/xfs/xfs_extfree_item.c  | 2 +-
- fs/xfs/xfs_log.c           | 2 +-
- fs/xfs/xfs_log_cil.c       | 2 +-
- fs/xfs/xfs_refcount_item.c | 2 +-
- fs/xfs/xfs_rmap_item.c     | 2 +-
- fs/xfs/xfs_trace.h         | 4 ++--
- fs/xfs/xfs_trans.c         | 2 +-
- fs/xfs/xfs_trans.h         | 3 ++-
- 10 files changed, 14 insertions(+), 12 deletions(-)
+ fs/xfs/xfs_buf_item.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/xfs/xfs_bmap_item.c b/fs/xfs/xfs_bmap_item.c
-index 51ffdec5e4faa..631dbf9453102 100644
---- a/fs/xfs/xfs_bmap_item.c
-+++ b/fs/xfs/xfs_bmap_item.c
-@@ -465,7 +465,7 @@ xfs_bui_item_recover(
- 	struct xfs_bui_log_item		*buip = BUI_ITEM(lip);
- 	struct xfs_trans		*tp;
- 	struct xfs_inode		*ip = NULL;
--	struct xfs_mount		*mp = lip->li_mountp;
-+	struct xfs_mount		*mp = lip->li_log->l_mp;
- 	struct xfs_map_extent		*bmap;
- 	struct xfs_bud_log_item		*budp;
- 	xfs_filblks_t			count;
 diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
-index 9f8225ed234eb..5eb6d787ed4ee 100644
+index 5eb6d787ed4ee..065bbf03c7b03 100644
 --- a/fs/xfs/xfs_buf_item.c
 +++ b/fs/xfs/xfs_buf_item.c
-@@ -21,6 +21,7 @@
- #include "xfs_dquot.h"
- #include "xfs_trace.h"
- #include "xfs_log.h"
-+#include "xfs_log_priv.h"
+@@ -1019,6 +1019,8 @@ xfs_buf_item_relse(
+ 	trace_xfs_buf_item_relse(bp, _RET_IP_);
+ 	ASSERT(!test_bit(XFS_LI_IN_AIL, &bip->bli_item.li_flags));
  
- 
- kmem_zone_t	*xfs_buf_item_zone;
-@@ -428,7 +429,7 @@ xfs_buf_item_format(
- 	 * occurs during recovery.
- 	 */
- 	if (bip->bli_flags & XFS_BLI_INODE_BUF) {
--		if (xfs_has_v3inodes(lip->li_mountp) ||
-+		if (xfs_has_v3inodes(lip->li_log->l_mp) ||
- 		    !((bip->bli_flags & XFS_BLI_INODE_ALLOC_BUF) &&
- 		      xfs_log_item_in_current_chkpt(lip)))
- 			bip->__bli_format.blf_flags |= XFS_BLF_INODE_BUF;
-@@ -616,7 +617,7 @@ xfs_buf_item_put(
- 	 * that case, the bli is freed on buffer writeback completion.
- 	 */
- 	aborted = test_bit(XFS_LI_ABORTED, &lip->li_flags) ||
--		  xfs_is_shutdown(lip->li_mountp);
-+			xlog_is_shutdown(lip->li_log);
- 	dirty = bip->bli_flags & XFS_BLI_DIRTY;
- 	if (dirty && !aborted)
- 		return false;
-diff --git a/fs/xfs/xfs_extfree_item.c b/fs/xfs/xfs_extfree_item.c
-index a4b8caa2c601d..8833b15903103 100644
---- a/fs/xfs/xfs_extfree_item.c
-+++ b/fs/xfs/xfs_extfree_item.c
-@@ -597,7 +597,7 @@ xfs_efi_item_recover(
- 	struct list_head		*capture_list)
- {
- 	struct xfs_efi_log_item		*efip = EFI_ITEM(lip);
--	struct xfs_mount		*mp = lip->li_mountp;
-+	struct xfs_mount		*mp = lip->li_log->l_mp;
- 	struct xfs_efd_log_item		*efdp;
- 	struct xfs_trans		*tp;
- 	struct xfs_extent		*extp;
-diff --git a/fs/xfs/xfs_log.c b/fs/xfs/xfs_log.c
-index 68473e51593f4..e65bbbde6e37b 100644
---- a/fs/xfs/xfs_log.c
-+++ b/fs/xfs/xfs_log.c
-@@ -1072,7 +1072,7 @@ xfs_log_item_init(
- 	int			type,
- 	const struct xfs_item_ops *ops)
- {
--	item->li_mountp = mp;
-+	item->li_log = mp->m_log;
- 	item->li_ailp = mp->m_ail;
- 	item->li_type = type;
- 	item->li_ops = ops;
-diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
-index eafe30843ff0f..af91ea1025c08 100644
---- a/fs/xfs/xfs_log_cil.c
-+++ b/fs/xfs/xfs_log_cil.c
-@@ -1428,7 +1428,7 @@ bool
- xfs_log_item_in_current_chkpt(
- 	struct xfs_log_item	*lip)
- {
--	struct xfs_cil		*cil = lip->li_mountp->m_log->l_cilp;
-+	struct xfs_cil		*cil = lip->li_log->l_cilp;
- 
- 	if (list_empty(&lip->li_cil))
- 		return false;
-diff --git a/fs/xfs/xfs_refcount_item.c b/fs/xfs/xfs_refcount_item.c
-index 8ef842d17916a..cc9bda6b6277a 100644
---- a/fs/xfs/xfs_refcount_item.c
-+++ b/fs/xfs/xfs_refcount_item.c
-@@ -459,7 +459,7 @@ xfs_cui_item_recover(
- 	struct xfs_cud_log_item		*cudp;
- 	struct xfs_trans		*tp;
- 	struct xfs_btree_cur		*rcur = NULL;
--	struct xfs_mount		*mp = lip->li_mountp;
-+	struct xfs_mount		*mp = lip->li_log->l_mp;
- 	xfs_fsblock_t			new_fsb;
- 	xfs_extlen_t			new_len;
- 	unsigned int			refc_type;
-diff --git a/fs/xfs/xfs_rmap_item.c b/fs/xfs/xfs_rmap_item.c
-index 15e7b01740a77..06d86a6fa128a 100644
---- a/fs/xfs/xfs_rmap_item.c
-+++ b/fs/xfs/xfs_rmap_item.c
-@@ -512,7 +512,7 @@ xfs_rui_item_recover(
- 	struct xfs_rud_log_item		*rudp;
- 	struct xfs_trans		*tp;
- 	struct xfs_btree_cur		*rcur = NULL;
--	struct xfs_mount		*mp = lip->li_mountp;
-+	struct xfs_mount		*mp = lip->li_log->l_mp;
- 	enum xfs_rmap_intent_type	type;
- 	xfs_exntst_t			state;
- 	int				i;
-diff --git a/fs/xfs/xfs_trace.h b/fs/xfs/xfs_trace.h
-index ebd17ddba0243..3682dd11581ab 100644
---- a/fs/xfs/xfs_trace.h
-+++ b/fs/xfs/xfs_trace.h
-@@ -1309,7 +1309,7 @@ DECLARE_EVENT_CLASS(xfs_log_item_class,
- 		__field(xfs_lsn_t, lsn)
- 	),
- 	TP_fast_assign(
--		__entry->dev = lip->li_mountp->m_super->s_dev;
-+		__entry->dev = lip->li_log->l_mp->m_super->s_dev;
- 		__entry->lip = lip;
- 		__entry->type = lip->li_type;
- 		__entry->flags = lip->li_flags;
-@@ -1362,7 +1362,7 @@ DECLARE_EVENT_CLASS(xfs_ail_class,
- 		__field(xfs_lsn_t, new_lsn)
- 	),
- 	TP_fast_assign(
--		__entry->dev = lip->li_mountp->m_super->s_dev;
-+		__entry->dev = lip->li_log->l_mp->m_super->s_dev;
- 		__entry->lip = lip;
- 		__entry->type = lip->li_type;
- 		__entry->flags = lip->li_flags;
-diff --git a/fs/xfs/xfs_trans.c b/fs/xfs/xfs_trans.c
-index 95c183072e7a2..5eec011841b9f 100644
---- a/fs/xfs/xfs_trans.c
-+++ b/fs/xfs/xfs_trans.c
-@@ -648,7 +648,7 @@ xfs_trans_add_item(
- 	struct xfs_trans	*tp,
- 	struct xfs_log_item	*lip)
- {
--	ASSERT(lip->li_mountp == tp->t_mountp);
-+	ASSERT(lip->li_log == tp->t_mountp->m_log);
- 	ASSERT(lip->li_ailp == tp->t_mountp->m_ail);
- 	ASSERT(list_empty(&lip->li_trans));
- 	ASSERT(!test_bit(XFS_LI_DIRTY, &lip->li_flags));
-diff --git a/fs/xfs/xfs_trans.h b/fs/xfs/xfs_trans.h
-index faba74d4c7026..d655abb5c2353 100644
---- a/fs/xfs/xfs_trans.h
-+++ b/fs/xfs/xfs_trans.h
-@@ -8,6 +8,7 @@
- 
- /* kernel only transaction subsystem defines */
- 
-+struct xlog;
- struct xfs_buf;
- struct xfs_buftarg;
- struct xfs_efd_log_item;
-@@ -31,7 +32,7 @@ struct xfs_log_item {
- 	struct list_head		li_ail;		/* AIL pointers */
- 	struct list_head		li_trans;	/* transaction list */
- 	xfs_lsn_t			li_lsn;		/* last on-disk lsn */
--	struct xfs_mount		*li_mountp;	/* ptr to fs mount */
-+	struct xlog			*li_log;
- 	struct xfs_ail			*li_ailp;	/* ptr to AIL */
- 	uint				li_type;	/* item type */
- 	unsigned long			li_flags;	/* misc flags */
++	if (atomic_read(&bip->bli_refcount))
++		return;
+ 	bp->b_log_item = NULL;
+ 	xfs_buf_rele(bp);
+ 	xfs_buf_item_free(bip);
 -- 
 2.53.0
 
