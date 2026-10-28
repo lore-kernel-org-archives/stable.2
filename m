@@ -1,91 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180306;
-	b=LCqM79SL2/ndJQ6eZmvBx5Ln5qx1KmHOVyXDE36vP4y04FKNySFf+MR3S2qRR2KJQvbX
-	 E6YJIULerklwlpb+PsxFSaW4c/sagLYWUvCVtdN+K+e9SjoZNO5DE9YxcIXUXFpvpb4br
-	 32faQXKgiGLsfiUaXEe+K8V50QNgkTqU07vm2jF30s9q01hC2M7CrCTCZcGSxkm+mdNlQ
-	 ZjsV1KgNL16WwO68fGApoWvr6dKbioW53RSlnbywuKI43LmU8BpK1/DetkC/wlGDaKayc
-	 gRWjH59lZurvKy1kRj7JWErad6pYYl3qVmT90GmJyxKvKNMgL+2edrV0pc+x5zump2g==
+	t=1793180557;
+	b=u7iU8ehBEsYIPygg43Gsug/EjImwLz8gFajFkRanhxWeYNwiyYa8YWPsHuIRUHvx97t5
+	 /XRMsXnW+atms7fdqddUb4OlqFmM+6aIPEbn1ssf1ovaNjlRl1ptwzpw9LN7JtaN0qxi7
+	 3W2sb/N1XX0c5U8+k+IF21CR6PX38H4LsxP6E+JkmiZTF6TH0hKBw+gAIfq54mtG/8YDX
+	 V28NwSufxgy9xkqFMME8x0decbLh7PJxgN7DCTAATRWT72MwrZZbOqaaEHd2RYnoOOq2A
+	 ZodZ7LoaFn5qbufFT7xhsuU28rGHTeNBKlVojVub0rWV7MzAtf9sDKoBlwNULnXXE4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180306;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=C5Zve2yUOC8yB0rGIv8b0aK3NGYsoSH80/7cyPpB4hk=;
-	b=qDuqPSFzCYP9eqINkW2kDAolD8XZiFal+r8xG6D+Zb5wfQV6/UfI8Dlf4csCbjQEzUKw
-	 RFHZqRg44mNUbEcliuhUdY9ptpJf9xcnkKbB80tg1WZu4SI+pezK/+gabN6aF7LHMqau9
-	 ii7QUSkwvCuM8gSIa5AbJo/KJnskOssZy3agbli2Qw0NovUWek2DgnNTllE6p9PUMGpvC
-	 SXZgEoHG2cmkt8yVvHE0SJ7HqwZ4QYOocPRxjrks+viHZ6mWFf5w2asli+ZroI6n5+H4w
-	 BBqTcsYHMoSkO07ldiakA28jkrQo3TdGVy3qi0XNIazNZ33jShVcD1RBK8u7gHoR5Gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180557;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Subject:
+	 Mime-Version:Received:Content-Type:To:Cc:Message-Id:X-Original-From:
+	 X-Lms-Return-Path:From:Date:X-Mailer;
+	bh=97j+tFEtM11pGBZ28dKTSeR+vf1vjBcYbRFUL5UqKPY=;
+	b=JZlZ7Wn8TY1EjCiTM8vdvi1+Ns3inIh5hCH12pkyWY8RX5becJ0Tz2mrrzNyfzZyKJh6
+	 gDYIiYm1sn52RqbnvSlbamZe+CuszH4bCkinC77SH7jgZNJAXD/6mV99i2JJ2fhs6YpX+
+	 aoiOrV1ZxDY+IT7+BeKJj+GyJjLgNGETXk9amr0J4fsJMul/rf1Hqg8lDkBv5h0i/qDTJ
+	 Bp6Pj6iBXujCALLDScgLHGfF4ACzt5TMArbc1SD51alEtfV783Ig5ezKAoEirPkIfn9MO
+	 gfHd/llFd6N8CibuErojEBv5MVtmP6AYtxHrxHowCKWIrfYZveSDs905KfpqIJcXknw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mcZ70rbk;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=fnnas.com;
+	spf=pass smtp.mailfrom=fnnas.com;
+	dkim=pass header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=cEAw9UDI;
+	arc=none smtp.remote-ip=209.127.231.18
+Received: from va-2-18.ptr.blmpb.com (va-2-18.ptr.blmpb.com [209.127.231.18])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F0F606A31C;
-	Wed, 28 Oct 2026 09:38:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2F0F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A32E60A3803
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 09:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A32E60A3803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mcZ70rbk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793180304; x=1824716304;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IlSmwz3t4apRrEpsmg5yqaNQ+6v66Gb3F1C490RGPSM=;
-  b=mcZ70rbkNx0D/75sYooY393N+VMsTX7cW2Akt3CeSsVlI4s5OLMVaS+w
-   9O6sytw4jQTh6/2az1yLd4GLmh3RCA1G1hfOoltkhRsvjzo4QUOyXCEa5
-   2M+Et0lKwVRrCr/An1vJJrgBEQ5xv70cc7+YfYxnVgnR25Jg5TdWTvehq
-   iFhLVa6ZF1H6dlgKB3cG4iGAf7CmGPKGNGR0DW+X/pwnf57P+fDTddR2Z
-   pU7Hw9nwQxZkiEKVuM/ewBBXkIEUftSSNHSz+KQZ/tEnFn5Cb1fqR/wUt
-   tXw6cYkoQCX4LL+xfHnNliSL6R3O3Y8ZlxK0A72hZ7zDWghCcbzrOk6LY
-   Q==;
-X-CSE-ConnectionGUID: kgoNT8BxQi6yACqGCkFS+Q==
-X-CSE-MsgGUID: okHjTsC8S0WhD6nphXfFxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1788142"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1788142"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:38:24 -0700
-X-CSE-ConnectionGUID: Q82VjP2sQ7yXQDALF0Wfpw==
-X-CSE-MsgGUID: +1HltY5zThyFajnK6gx61w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4762682"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 28 Oct 2026 02:38:20 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xM06r-00000000YXg-1W4S;
-	Wed, 28 Oct 2026 09:38:17 +0000
-Date: Wed, 28 Oct 2026 17:37:49 +0800
-From: kernel test robot <lkp@intel.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Ferruh Yigit <ferruh.yigit@amd.com>,
-	Antoine Tenart <atenart@redhat.com>,
-	Seungwon Bae <qotmddnjs@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v4 2/2] vxlan: reject VNI add when the default fdb
- entry is nexthop-backed
-Message-ID: <202610281752.nKGCORKp-lkp@intel.com>
-References: <20261027104713.328028-2-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=cEAw9UDI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1793180551;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=97j+tFEtM11pGBZ28dKTSeR+vf1vjBcYbRFUL5UqKPY=;
+ b=cEAw9UDI+weH2ZGggkG2xydJVVgF0zReLnFI/C3cXyJgyTAIHwkQ/Bft3UqJukoh+m+ZNS
+ zJGOwZApkbykLS6FyYnHl4Pqc5QNFl+OvHcE2evk5bNXbenhlZnKdKxVBwVH3tFXs8QtmC
+ 3g7Z4MPXWY9tR7YPusBxiNX6PxZU6ALaXiYDobXEEAcyNhHgk0YkypUj4OpZsvxz/CSRkI
+ uedpRDOBeyDffQZoIjuBJkmVXHUgRVPP3gjX8VAXOifTYWXBdYJImpaEdRPywwVRuyfJ9g
+ Dy6rrDKjlhbc5+EkCBDybpdvtsugF49bFiejFWXcZ4croz6ry37DLQBPoRxhoQ==
+Content-Transfer-Encoding: 7bit
+Subject: [PATCH] bfq: Transfer allocated request counts when moving queues
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,102 +53,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027104713.328028-2-bsdhenrymartin@gmail.com>
+Mime-Version: 1.0
+Received: from debian.localdomain ([183.34.160.114]) by smtp.feishu.cn with ESMTPS; Wed, 28 Oct 2026 17:42:28 +0800
+Content-Type: text/plain; charset=UTF-8
+To: "Yu Kuai" <yukuai@fygo.io>, "Jens Axboe" <axboe@kernel.dk>
+Cc: "sunyangkai" <sunyangkai@fnnas.com>, <linux-block@vger.kernel.org>, 
+	<cgroups@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Tejun Heo" <tj@kernel.org>, "Josef Bacik" <josef@toxicpanda.com>, 
+	"Jan Kara" <jack@suse.cz>, "Paolo Valente" <paolo.valente@linaro.org>, 
+	<stable@vger.kernel.org>
+Message-Id: <20261028094208.716946-1-sunyangkai@fnnas.com>
+X-Original-From: sunyangkai <sunyangkai@fnnas.com>
+X-Lms-Return-Path: <lba+26ae1c385+2fbb7c+vger.kernel.org+sunyangkai@fnnas.com>
+From: "sunyangkai" <sunyangkai@fnnas.com>
+Date: Wed, 28 Oct 2026 17:42:08 +0800
+X-Mailer: git-send-email 2.53.0
 
-Hi Henry,
+bfq_entity::allocated counts the requests allocated in an entity's
+subtree. Request allocation increments the queue entity and its
+ancestors, while request release decrements the queue entity and its
+current ancestors.
 
-kernel test robot noticed the following build errors:
+When bfq_bfqq_move() moves a queue with outstanding requests to another
+group, it changes entity->parent without transferring these charges.
+The old ancestors retain the charges, while subsequent request releases
+decrement the new ancestors even though they were never charged. This
+can leave the destination group's allocated count negative and the
+source group's count inflated after all requests have completed,
+distorting the limits enforced by bfqq_request_over_limit().
 
-[auto build test ERROR on net/main]
+Subtract the queue's outstanding request count from its old ancestors
+before dropping the old group reference, and add it to the new ancestors
+after reparenting. Leave the queue's own count unchanged. Shared
+ancestors have no net change, and bfqd->lock serializes the transfer
+with request accounting.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Henry-Martin/vxlan-reject-VNI-add-when-the-default-fdb-entry-is-nexthop-backed/20261027-184713
-base:   net/main
-patch link:    https://lore.kernel.org/r/20261027104713.328028-2-bsdhenrymartin%40gmail.com
-patch subject: [PATCH net v4 2/2] vxlan: reject VNI add when the default fdb entry is nexthop-backed
-config: riscv-defconfig (https://download.01.org/0day-ci/archive/20261028/202610281752.nKGCORKp-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 1da436a23e613c425fc9b868fc8deb979ede47a4)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261028/202610281752.nKGCORKp-lkp@intel.com/reproduce)
+Fixes: 98f044999ba1 ("bfq: Track number of allocated requests in bfq_entity")
+Cc: stable@vger.kernel.org
+Signed-off-by: sunyangkai <sunyangkai@fnnas.com>
+---
+Validation used a QEMU guest running a 6.18.18-based kernel, with BFQ
+on a virtio block device. The workload submitted direct asynchronous
+reads in /a/child, moved the task to /b, submitted more reads, and waited
+for all completions before repeating. A read-only kretprobe observed
+bfq_bfqq_move() entry and return counters.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610281752.nKGCORKp-lkp@intel.com/
+Without the fix, the drained destination group reached allocated=-1
+and then -2. With the fix, outstanding charges were transferred and
+the drained group counts were zero. Both runs covered migrations with
+outstanding requests, completed all reads successfully, and reported
+zero missed probes. This was not a runtime test of upstream master.
 
-All errors (new ones prefixed by >>):
+ block/bfq-cgroup.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
->> drivers/net/vxlan/vxlan_vnifilter.c:846:33: error: member reference type 'struct vxlan_config *' is a pointer; did you mean to use '->'?
-     846 |             !vxlan_addr_any(&vxlan->cfg.remote_ip)) {
-         |                              ~~~~~~~~~~^
-         |                                        ->
-   1 error generated.
-
-
-vim +846 drivers/net/vxlan/vxlan_vnifilter.c
-
-   819	
-   820	static int vxlan_vni_add(struct vxlan_dev *vxlan,
-   821				 struct vxlan_vni_group *vg,
-   822				 u32 vni, union vxlan_addr *group,
-   823				 struct netlink_ext_ack *extack)
-   824	{
-   825		const struct vxlan_config *cfg = rtnl_dereference(vxlan->cfg);
-   826		struct vxlan_vni_node *vninode;
-   827		__be32 v = cpu_to_be32(vni);
-   828		bool changed = false;
-   829		int err = 0;
-   830	
-   831		if (vxlan_vnifilter_lookup(vxlan, v))
-   832			return vxlan_vni_update(vxlan, vg, v, group, &changed, extack);
-   833	
-   834		err = vxlan_vni_in_use(vxlan->net, vxlan, cfg, v);
-   835		if (err) {
-   836			NL_SET_ERR_MSG(extack, "VNI in use");
-   837			return err;
-   838		}
-   839	
-   840		/* A default fdb entry that is backed by a nexthop group can
-   841		 * never take a remote; reject before the VNI is installed,
-   842		 * otherwise a failure in vxlan_vni_update_group() would leave
-   843		 * the VNI half-installed.
-   844		 */
-   845		if ((group && !vxlan_addr_any(group)) ||
- > 846		    !vxlan_addr_any(&vxlan->cfg.remote_ip)) {
-   847			if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
-   848				NL_SET_ERR_MSG(extack,
-   849					       "Cannot add a remote to a nexthop fdb entry");
-   850				return -EOPNOTSUPP;
-   851			}
-   852		}
-   853	
-   854		vninode = vxlan_vni_alloc(vxlan, v);
-   855		if (!vninode)
-   856			return -ENOMEM;
-   857	
-   858		err = rhashtable_lookup_insert_fast(&vg->vni_hash,
-   859						    &vninode->vnode,
-   860						    vxlan_vni_rht_params);
-   861		if (err) {
-   862			vxlan_vni_free(vninode);
-   863			return err;
-   864		}
-   865	
-   866		__vxlan_vni_add_list(vxlan, vg, vninode);
-   867	
-   868		if (vxlan->dev->flags & IFF_UP)
-   869			vxlan_vs_add_del_vninode(vxlan, vninode, false);
-   870	
-   871		err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
-   872					     extack);
-   873	
-   874		vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
-   875	
-   876		return err;
-   877	}
-   878	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/block/bfq-cgroup.c b/block/bfq-cgroup.c
+index ef9d63e8542e..e3a98244b9f6 100644
+--- a/block/bfq-cgroup.c
++++ b/block/bfq-cgroup.c
+@@ -645,6 +645,7 @@ void bfq_bfqq_move(struct bfq_data *bfqd, struct bfq_queue *bfqq,
+ {
+ 	struct bfq_entity *entity = &bfqq->entity;
+ 	struct bfq_group *old_parent = bfqq_group(bfqq);
++	struct bfq_entity *parent;
+ 	bool has_pending_reqs = false;
+ 
+ 	/*
+@@ -685,11 +686,16 @@ void bfq_bfqq_move(struct bfq_data *bfqd, struct bfq_queue *bfqq,
+ 		bfq_deactivate_bfqq(bfqd, bfqq, false, false);
+ 	else if (entity->on_st_or_in_serv)
+ 		bfq_put_idle_entity(bfq_entity_service_tree(entity), entity);
++	/* Transfer outstanding request charges before dropping the old group. */
++	for (parent = entity->parent; parent; parent = parent->parent)
++		parent->allocated -= entity->allocated;
+ 	bfqg_and_blkg_put(old_parent);
+ 
+ 	bfq_reassign_last_bfqq(bfqq, NULL);
+ 	entity->parent = bfqg->my_entity;
+ 	entity->sched_data = &bfqg->sched_data;
++	for (parent = entity->parent; parent; parent = parent->parent)
++		parent->allocated += entity->allocated;
+ 	/* pin down bfqg and its associated blkg  */
+ 	bfqg_and_blkg_get(bfqg);
+ 
+-- 
+2.53.0
