@@ -1,58 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207852;
-	b=pF/wcS9eXKQ+NPIfbth107lfkvfibkw2LYnF9SohPS6jgs53ObaVL3EkNkmSj525Bi0X
-	 vuRaL1G2c36CoATTHNjgC5XdGee8hr+GahHXB2TLxJi129dFORIYBxD/bc3lJ2grHHyhk
-	 0dx/aa2cRumOURrbmpYi78uqLnDQ/d1bZce6+Rvp1rrG/2yowo2HpOJSsvrts+I2eMx4h
-	 ySePIUtsmAYoazYlMl5+5N74NzdtS2bju0M7Vx3i5aqdhF5B1vh5rjLbIm6sFSUmbyb1u
-	 SuAqE9pyAOFp38RRHy4FvQlua4OVBJEhAePc/XJ/E00RFUwDp42p5Vjoreu2VDfXevg==
+	t=1793207850;
+	b=IR6pkAQmYtpvsfK8J1dxc4DXNaqHG77jaXmwB4TZYot2CWtPEwryYEOzF2O0FF89C8h9
+	 uE2wuvmPmVKeaxWE4TD3oD3iHgZL0pFtxEZNS7C2qKMMNiRjOe0rCP3y75Mrv9CXj66kQ
+	 oz85oQWUvOUNPPhgnRulGdzC58uExLC6jEYkFdw6udMjj3wmWIcWujATCNGvIDsBgYhhr
+	 inxhrRmEyl/31IvJwJAhCGzFaGubr/0D5jCoNosTW6+uN1E/sUI4XVmf2F1WzAH6S/+c2
+	 NXiJp4YA4lXVRAy+rhquMhn07sC8887LL7eoltiq2TOC0PYw7XPcJqhE1z7Sp8REWaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207852;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207850;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=D/gwHeeZBKpxfKZuYui4TkzSl+2XfCJGUNXNSgw67UQ=;
-	b=xov+gDsgxOvna1WLVqOPDu3rNCiVEOAU3cWIrLKNBVKF6HBNXVOW1uGJdjudgCLknrvQ
-	 jgQScyBsT5br+6asss6bnMNTL/jCLdIo2bTNlGp1AxfTVh90Qz15kUxEJbp4WfuPQaCfn
-	 Y/M33oq1TQ9YE/8S8QKDDAyLkzbbl+AvwpOuQexoWWM8Ee7Lh/GajWDlUOBRTq4p8PsGN
-	 n0dhv4mHvtRLLlQnsPupbtswgbIYJb3ZfLsB/HXyicI2CZ1cvlUyISShfmF13u7zSw96N
-	 6tjxO9spv/0peehnPTAe2s5azb3mw4zv/kNzQJvovaofXB5mRv/kWw4/JrxZKQmNBJA==
+	bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
+	b=Xy44pZQLPtNMZNTMj5xIkXa8Au3M4Lck8wL4K/f/v2akZ2na5pqGr0WIZnGle9Ki5y6A
+	 o8bDIQ0yyCg+u/2nxFMeGb5Wd/RuK3oe2JsZjebjWrIy/T3OQ0JyXIMNYBFbTsalVJ6W2
+	 MS4tw/M92yuSt7qbER1q5oZPAbeIcNkX4GeVYRP0SKN71PKHmPamvWykgofFZQn3FGoLy
+	 CfHj1tlxkm6la1y/46t4ptRWJEORMV0h3KguSXKEmCQVFX1gBdMyfmGleMdzh7MMiWih3
+	 7jEuggHy/r2gWJ841dis4dzLIWGh494FvvPVK7pCwUNOyMvnHB05VZeVp3fZTRiA3Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p0X7ihp6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CI8y2eXo;
+	arc=none smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E865606A320;
-	Wed, 28 Oct 2026 17:17:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4E2606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F4E2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p0X7ihp6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB361F031E1;
-	Wed, 28 Oct 2026 17:17:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207852;
-	bh=D/gwHeeZBKpxfKZuYui4TkzSl+2XfCJGUNXNSgw67UQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=p0X7ihp6fazjOm+P5M2WCUhqiylYq9yQgo/SuSEW12D/cypobdwK3fTkzlRAC4ogt
-	 /xvjt+sqj/rmcQFPKxxQhVLD1VaskscuLNAB+M1X6xY5rd/JfQexJBSq+6/6WN97fd
-	 l0GhZU+M6UkX60KqANjTRhpAOkJ+b6rlqQF8yayk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Bernard Pidoux <bernard.f6bvp@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 161/247] ax25: fix OOB read after address header strip in ax25_rcv()
-Date: Wed, 28 Oct 2026 17:59:24 +0100
-Message-ID: <20261028165951.228834419@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CI8y2eXo
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b05bf699easo13139407b3.2
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:17:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1793207848; x=1793812648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
+        b=CI8y2eXovwu/O5fMtk947eXXsHmnlNxwGrTROXV//Q8qMHsfQljEZshE1ytljUjlKT
+         NuYxQaotba5cxDEzyVf4zNqNA0L4/Ey8T9lWccUzBDTk8bwdODKqLL53H67ikao9MUNk
+         d12kOZtlBmk7hCKx1pcI3BeAhbHzCSFpxqWziTGjUD5CABmZGC/DAnvec0L9kMz9Lzuk
+         eCsheYTS3wED3G7AjNheGRs+3o3rVI5PlhIW0TGGeIZoDR3mAloTMzhw3xccnj8oc1ER
+         Zngcqxz0qaR4u/J10Gc5njuMJc69LoT9h8VHZBNL5dFKCsp+lblZdsE88e4Fl3KAF6n1
+         p2zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793207848; x=1793812648;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
+        b=xY+3nsQbpJomerCxooCW05Jh2BeosW3xOToJ0jYovnLlG2dCS3WQZYqyk91rIKdQwY
+         LteHl+B+o2I7mDKIFRCPyYXR7WIUi+03tzCNe9e6+zIBToU4/pa21p1eP3nsd4ibD9px
+         YzVTPjbHLxP4LxlfVAz9uGbjY7B2MMmNhGvQqXBz/6t3rQCcmzw2DnZkiNrJtGvLVgWC
+         Igic0KPtaSu0kNTdn4SKKLJNLZTcFqXwfaizTInP+DiLu6CpS7+Re5ItM+bUwDS9oChw
+         UPL+dcYGu9nM9O0CAP06tL2RUVchYcw00P969go41p8TK7sQ01QNRE3MYWj/i6sketVD
+         +Fqw==
+X-Forwarded-Encrypted: i=1; AKwUvByuLiAcO0z2qELy8IORflulcMgIYsdld0JVkTw3pSqc98CA0V9wiw+jVSqf7f+hQ9tx/Pzop5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVmofSvyCcmguNnOOeP+ih9vnBJFuOOdzTI04JjBBpSDkDwCrT
+	vyTkkWk5kO0urLnrptTIH7F8zKKPpZD9qfrvSio7KJnU9YGzlsHQsVA2TWy2BhO/w5g=
+X-Gm-Gg: AYBFou0/GsMk2pyqcMaNgft/a5XgcYx0LAmSaBbHuSBc8jsvwDC5mBa3RNEtCXzhZFI
+	w0arcJJFQs3lA0ndVEzEI4OaLYR76TN/nDU43XyiGIuAZgjCT8XUHSV7lqBAtFAbVJQTdiMSRDG
+	1dgeO1mlImtRoXNj48V1TOZ1/kpCbKtHi+g6gyjTGrAPTkELTk2pdeJrUKrmNCrpf5DgoCcF8qA
+	DWIP3y2IEd8wfGaBrZZsiOhk9J7LhJSbbiSBp2esi+9wfqBMlteeZka0JBzALPWu+9dxuIs/XEc
+	UOzVw9auDA21JFH1jLQ2sTtHJLfMLub3qmvmG4SO6lNPeF703QPAG4QSpzygY0Kb3zZAerLeFp2
+	SRVVfbBB1awcG0W1P3/Bg386Pv3dvPj4DkK5bIRfiuV6c10zc4+jhNFUaRa2TU7Le/eGpN7Ayce
+	9CDgn2FSP7tuRUXRjJ3Na+ddgokeqPCXj6ruh2BVDbwv5qx0tMDj4GDkWzmz77YwThgGBz/MJO/
+	q3EYq5BazpUBwWDip0aUcVeGpWlexHZt4yC7dLh6RNCUxqBG/vuQqxJfq61+cKwge8n2V4x9+m+
+	8puqacSyAvu35AarSdUQVgkoud1m
+X-Received: by 2002:a53:c30f:0:b0:677:ad01:32b0 with SMTP id 956f58d0204a3-67a7bce93abmr1470801d50.36.1793207847839;
+        Wed, 28 Oct 2026 10:17:27 -0700 (PDT)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a0c31f1sm2058926d50.11.2026.10.28.10.17.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:17:27 -0700 (PDT)
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>
+Cc: Matthew Wilcox <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
+	Christoph Hellwig <hch@lst.de>,
+	Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests reserve access
+Date: Wed, 28 Oct 2026 13:15:53 -0400
+Message-ID: <20261028171719.2043421-2-hannes@cmpxchg.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-References: <20261028165947.349197979@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20261028171719.2043421-1-hannes@cmpxchg.org>
+References: <20261028171719.2043421-1-hannes@cmpxchg.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,70 +112,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+highatomic reserves") accidentally gave all non-blocking allocation
+requests access to highatomic reserves, which includes GFP_NOWAIT and
+other sites clearing __GFP_DIRECT_RECLAIM.
 
-------------------
+While this improved atomic request success rate, it's unintentionally
+broad and can actually worsen highatomic requests by squandering the
+reserves on requests that don't need it.
 
-From: Ashutosh Desai <ashutoshdesai993@gmail.com>
+There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+for costly order __GFP_NORETRY requests, which would then also fall
+into this exemption and deplete reserves even faster.
 
-A crafted AX.25 frame with a valid address header but no control byte
-causes skb->len to reach zero after skb_pull() strips the header.
-The subsequent reads of skb->data[0] (control) and skb->data[1] (PID)
-are then out of bounds.
+What GFP_ATOMIC has over the others is __GFP_HIGH, which
+alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
 
-Linearize the skb after confirming the device is an AX.25 interface.
-Guard with skb->len < 1 after the pull - one byte suffices for LAPB
-control frames which have no PID byte. Add a separate skb->len < 2
-check inside the UI branch before accessing the PID byte.
+Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+ALLOC_MIN_RESERVE.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
-[F6BVP: v5 as posted on netdev; the author withdrew it only because the
-subsystem was being removed from the kernel that day. Applied unchanged.]
-Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
-(cherry picked from commit e653f27001ca2a31a445ee20d9f90be65b85d7e3)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
 ---
- net/ax25/ax25_in.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ mm/page_alloc.c | 4 +++-
+ mm/page_alloc.h | 3 +++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/net/ax25/ax25_in.c b/net/ax25/ax25_in.c
-index f2d66af863595..f105e638611fa 100644
---- a/net/ax25/ax25_in.c
-+++ b/net/ax25/ax25_in.c
-@@ -199,6 +199,9 @@ static int ax25_rcv(struct sk_buff *skb, struct net_device *dev,
- 	if ((ax25_dev = ax25_dev_ax25dev(dev)) == NULL)
- 		goto free;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index a8cac5e01066..8ac2e2bf14fc 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3238,7 +3238,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+ 			 * reserves as failing now is worse than failing a
+ 			 * high-order atomic allocation in the future.
+ 			 */
+-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
++			if (!page &&
++			    ((alloc_flags & ALLOC_OOM) ||
++			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+ 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
  
-+	if (skb_linearize(skb))
-+		goto free;
+ 			if (!page) {
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index e238ee91ed24..9c3c2830acb0 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -60,6 +60,9 @@
+ /* Flags that allow allocations below the min watermark. */
+ #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 
++/* Flags that mean GFP_ATOMIC */
++#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
 +
- 	/*
- 	 *	Parse the address header.
- 	 */
-@@ -217,6 +220,9 @@ static int ax25_rcv(struct sk_buff *skb, struct net_device *dev,
- 	 */
- 	skb_pull(skb, ax25_addr_size(&dp));
- 
-+	if (skb->len < 1)
-+		goto free;
-+
- 	/* For our port addresses ? */
- 	if (ax25cmp(&dest, dev_addr) == 0 && dp.lastrepeat + 1 == dp.ndigi)
- 		mine = 1;
-@@ -227,6 +233,9 @@ static int ax25_rcv(struct sk_buff *skb, struct net_device *dev,
- 
- 	/* UI frame - bypass LAPB processing */
- 	if ((*skb->data & ~0x10) == AX25_UI && dp.lastrepeat + 1 == dp.ndigi) {
-+		if (skb->len < 2)
-+			goto free;
-+
- 		skb_set_transport_header(skb, 2); /* skip control and pid */
- 
- 		ax25_send_to_raw(&dest, skb, skb->data[1]);
+ /*
+  * Structure for holding the mostly immutable allocation parameters passed
+  * between functions involved in allocations, including the alloc_pages*
 -- 
-2.53.0
-
-
+2.56.0
 
