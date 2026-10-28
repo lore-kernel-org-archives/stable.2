@@ -1,59 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209057;
-	b=lDe18pYemWGDiQwm6esYnkvaI6Omr+HUdKegjl7iNplLm4UH+uTyhPjBUtczqDvFCN85
-	 r4GrZ21dAaVwVAcn21P/LpQOs/xeAMLG2zrVmPly1WfywNGvO166ly8zT8JZr2Ohj48vK
-	 04ZMnCh0+5UukFM+DFdcRcgXJ+GgRYkZPSvMUtD5v2xSlF1NE7hYJ7uNsj9S+iz9Vpj/Q
-	 GfaYOCnJTOixDKbnhL5+RbfenxHM8AIZnrmEA3L/KOvgzvA9AP5o7VnBoDgtm6DgCmeTc
-	 vFF6C4QLXOnvGNlaoaPpoXM4wd/jMI0ZUzU5jm8FL6oYymMojK1TvvYE1B0yFRnHeCw==
+	t=1793209059;
+	b=KUIGe0VktaRrtehXp+7MB1ErmfQkxABFJPzNr7oYy5qbKeSenY8ULTG8qVskECw46Udq
+	 FJnCQQyPGS/SgTaeb/boSwXcGMYcs61ZEGahDR500F+kfvJdSwUkmh/5QAR2mxkq5YsJh
+	 NKUoPbRV7C2B6laGm4cKl82hkHEdlZg6rQd61XxmRsaeSOljaND1qMbxJtNCZ1bIR4Pn/
+	 d0tvFMMr1fEDXfD4DphMZYYCuGFYB6/ddUgoyUMwY5R2McUBqQpcITMmOaL1zdb0gvpJi
+	 cwIPrjCffnATPeG3JOfQylfcZqRDXbdaczoC1cwbeGVqTm1+L/OmmSa84w17mSSea0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209057;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VRloFzujeMmVIbOjBBdjOo+EpxYR7FL02wfTomqvoR8=;
-	b=Ms/3U2BxieZx3ZkUBiDLWQ27wRdDEtxyCtc+zggOXz6HpyynA7ZhXLUBXDfsbmSC8V/p
-	 3vPM9q33PaKVZGuIokKlQkYWj7uuAwShvF2EITRcPk2/hOpx5p3cTHw0CuJukwmGWeUGo
-	 Pftyuxxwlc/eoKzv1iKrh5pqRCYanE+LT8LZc0tjy7dGbfCRqA4s5CCavi7g45NGtnUBm
-	 ipizn1nsowOlfwGvtlaXjONXHYQeNGWnWt7Ig5UL0bzWwDx9uTWprdz57LY4zAu24ztQg
-	 3mtWreRNIPnlNiBqJlgvntXbTHzvIMLTxm1oK5N5cy9SzUkz44hruGbGsSlz9Fz8NAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
+	b=0hmgsghEdZuU6uEvU6EuIB4f6eBdL49gPKxC4omFzhTS0jNIZUT6qDs+zuhaz0ZlDhWe
+	 E+SxUEyIMB2UdLU+XC+hw2sruWWByH0ULoDCFpdBZuitiEOFd1tTG4ZbTNKxoykTqO/hr
+	 SQZJb48hNkWMQxqPf/Yi0mFv1eJDJwp5rN2rHwNHou1uSI1moPvxDmkHPOnIRRD+5Hwy1
+	 JXvqnMg3czjN280KW94hCKN6ObKgDqcFids+OM9y0hWO6lBVYTJlw9aAup3+63aIo+qoi
+	 +TPFAudGMCB5ZWXsGB5E1Vla8tQWe0WCGCnUI7Jrw4rw1Wc62HhOTgUaU/qZ1IcSAow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w3wkSIlF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K8iv/qok";
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F9C60A2614;
-	Wed, 28 Oct 2026 17:37:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FF060A3831
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:37:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1FF060A3831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w3wkSIlF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D90B1F031E0;
-	Wed, 28 Oct 2026 17:37:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793209056;
-	bh=VRloFzujeMmVIbOjBBdjOo+EpxYR7FL02wfTomqvoR8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=w3wkSIlFSYhr9Fj+sMSsSpFocYv7NgHI6q0tsrth2kgwH6POf7KQljrsAQP6Z5XU9
-	 b3ZSfzeQV8z8nyP5EFnReTjoRe/bs2XcDw3+eTaLWKRlWnBMFqaLhend/L/DoJ8SKc
-	 pIg3unRTYA5xz7jvoQDBFl9dW08wNbaD+x08pTQo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.10 338/516] net/smc: protect clcsock lifetime in smc_getname
-Date: Wed, 28 Oct 2026 17:58:10 +0100
-Message-ID: <20261028170011.495435585@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
-References: <20261028170003.522232767@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K8iv/qok
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a030e0f9c1so1362899b3a.2
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793209058; x=1793813858; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :references:mime-version:in-reply-to:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
+        b=K8iv/qokqLcqmosxHF8uwyg869NLyQAd2klYldeDFNTuErcIAIQklXhEcLDF3cAFSI
+         yiamH0AHc0D8T+jPua1OXBPPjJ8rzTy8CxbuXwNti5LTXVHl6Hr8K4IGLsk7BSlZ3TVZ
+         A90BKQAghjbUvuHXi4wJvbSTb9OJ/JLoa4T8bGmpazXopDRJW3JwXhKtXAACo2EB4caC
+         kZ1uw1E2R3+oii9u3oirvbMDSJHMayzSztPbr76VU/enXTOyKVT7Je9j8qnvdVDiY1UG
+         9hEJ2CnnUzP2n4djSjMJ7Z4jlp7nylVquRfCQJDXLWs7SROf6w6abh+nUUSG0aw3gClN
+         oU7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793209058; x=1793813858;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :references:mime-version:in-reply-to:date:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cYvri/TspkG2tYIL/heVQtQQlYpPDPdribSzkNzfhow=;
+        b=WXdve8t6GX+yl47TI14ZFYokeLONI0kYkbB6qsTeQ7pwqxGyqze6VfrBgXeX5DXg2u
+         UJ9gdQ40v1wabVHBDEWmqBZIqA2Ou8zDo90B5tTfi12G2HllEkJ7NDNWKWHriRSG8heo
+         2mQ5SUIOGY0kNivrBXBJrU06gTh0eDm1sbwHnwM9NUPDM3rCDMqv8jzKqssmA4n+pWIM
+         K9LCE1Lz35IB/barvltIsBOAegPhnK8YjZ1AfBcFWhYgpzX6+YdNGEcifrbrQNJ/2VGm
+         /IF91baliK6zh83p7WN+973UxaDnywwD1hR0WxlEb1Vwq/Yl5ONwn+2KiG447ovyzK8Y
+         BlIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxdfuRVZ+UToNQlMYfwS0aAlYw83sD2+lhPlzwxdAJ7ltu/gSozBFX46R9+nGuKLSAS7MN44Ss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyMrm3MS2/JCHximQkvX+kMn28bbOdRgDrcdZY59/ifL+U45i4
+	0ZUxVe8pgD0nxB3k2MO6jTSOI+G4/a3yYVnaTbJW1Q9t5O+z2ZcbJCLyl1GDuUVgXElw5f3F34s
+	6u2IqPA==
+X-Received: from pfbfj6.prod.google.com ([2002:a05:6a00:3a06:b0:89d:3267:4348])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2386:b0:892:a8f1:c53d
+ with SMTP id d2e1a72fcca58-8a6e6ff38aamr2448185b3a.22.1793209058009; Wed, 28
+ Oct 2026 10:37:38 -0700 (PDT)
+Date: Wed, 28 Oct 2026 10:37:37 -0700
+In-Reply-To: <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,93 +78,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <2026102314-CVE-2026-99082-e5b1@gregkh> <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
+Message-ID: <auIy4UZMGxLhBCAn@google.com>
+Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
+ commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO cache")
+From: Sean Christopherson <seanjc@google.com>
+To: Sami Farin <lkml20261027@mifar.in>, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org, kimjw04271234@gmail.com, 
+	pbonzini@redhat.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Oct 27, 2026, Sami Farin wrote:
+> On Fri, Oct 23, 2026 at 14:45:15 +0200, Greg Kroah-Hartman wrote:
+> > From: Greg Kroah-Hartman <gregkh@kernel.org>
+> >=20
+> > Description
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >=20
+> > In the Linux kernel, the following vulnerability has been resolved:
+> >=20
+> > KVM: x86: Use active memslots for the per-vCPU MMIO cache
+>=20
+> Hi all,
+>=20
+> (Disclaimer: I am an end user, not a kernel developer. I used an LLM to h=
+elp
+> triage and trace the issue, but the findings, traces, and tests below are=
+ verified.)
+>=20
+> I hit a guest boot hang after updating my host from 6.18.57 to 6.18.58 (F=
+edora 44).
+> Windows 11 guests using OVMF with Secure Boot and SMM (-machine q35,smm=
+=3Don) hang
+> indefinitely at the TianoCore splash screen, pegging the host vCPU core a=
+t 100%.
+>=20
+> The issue bisects/points directly to commit b3e6212dea2e ("KVM: x86: Use =
+active
+> memslots for the per-vCPU MMIO cache"), which was backported into 6.18.58=
+ and is
+> also present in 7.3-rc kvm/queue.
 
-------------------
+...
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ########### patch 1
+>     The proper upstream fix requires tagging the per-vCPU MMIO cache with=
+ the address space ID (as_id) alongside the generation counter.
+>     The Flaw in Commit b3e6212dea2e:
+>     The commit attempted to fix stale MMIO cache validation in SMM by che=
+cking kvm_vcpu_memslots(vcpu)->generation. However, its commit message reli=
+ed on an incorrect assumption:
+>         "Memslot generations are unique across address spaces, so the gen=
+eration also distinguishes the normal and SMM views."
+>     In KVM, each address space maintains an independent struct kvm_memslo=
+ts with its own generation counter initialized to 0. They are not unique ac=
+ross address spaces. During early VM boot, address space 0 (Normal) and add=
+ress space 1 (SMM) frequently have identical generation numbers.
+>     Because struct kvm_vcpu_arch only stores a single GVA, GFN, and gener=
+ation counter without an address space identifier:
+>         An MMIO access cached in SMM (e.g., GFN 0xFED40000 with gen =3D 4=
+) matches in normal mode where gen is also 4.
 
-commit 64a6b36b0e1855288080bc5f89769f27d6dc03c8 upstream.
+Hmm, this isn't adding up for me.  It should be impossible for the generati=
+on to
+be '4' for SMM, because SMM is supposed to use odd-numbered generations.  F=
+rom
+kvm_swap_active_memslots():
 
-smc_getname() dereferences smc->clcsock without holding
-clcsock_release_lock. Link-group termination can release the CLC socket
-through smc_close_active_abort() while the SMC socket is still open,
-for example after shutdown(SHUT_WR).
+	/*
+	 * Generations must be unique even across address spaces.  We do not need
+	 * a global counter for that, instead the generation space is evenly split
+	 * across address spaces.  For example, with two address spaces, address
+	 * space 0 will use generations 0, 2, 4, ... while address space 1 will
+	 * use generations 1, 3, 5, ...
+	 */
+	gen +=3D kvm_arch_nr_memslot_as_ids(kvm);=20
 
-A getsockname() caller can load smc->clcsock, then the termination worker
-can clear the pointer and call sock_release() before the caller accesses
-clcsock->ops or invokes getname(). This causes a use-after-free; if the
-worker clears the pointer before the load, it causes a NULL dereference.
-The syscall's file reference keeps the SMC socket alive but does not
-prevent asynchronous release of its CLC socket.
+So while both of the suggested fixes seem reasonable, they _should_ be unne=
+cessary.
 
-KASAN reported the following with test-only timing instrumentation:
-
-  BUG: KASAN: slab-use-after-free in smc_getname+0x19e/0x1b0
-  Read of size 8 at addr ffff888109abb4e0 by task poc/103
-  Call Trace:
-   smc_getname+0x19e/0x1b0
-   do_getsockname+0xe5/0x170
-   __sys_getsockname+0x8c/0x100
-
-  Allocated by task 95:
-   sock_alloc_inode+0x1e/0x280
-   sock_alloc+0x3d/0x240
-   __sock_create+0x7e/0x430
-   smc_create+0x121/0x240
-
-  Freed by task 0:
-   kmem_cache_free+0xcc/0x340
-   rcu_core+0x50a/0x1850
-
-  Last potentially related work creation:
-   evict+0x446/0x6c0
-   smc_clcsock_release+0xa8/0xd0
-   smc_close_active_abort+0x26a/0x3a0
-   __smc_lgr_terminate.part.0+0x137/0x2e0
-
-Hold clcsock_release_lock across the pointer check and the getname()
-callback to serialize with smc_clcsock_release(). Return -EBADF if the
-CLC socket has already been released, preserving the existing peer
-state check and the callback's return value otherwise.
-
-Fixes: b03faa1fafc8 ("net/smc: postpone release of clcsock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
-Link: https://patch.msgid.link/20261008084444.787449-1-nicoyip.dev@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/smc/af_smc.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -1987,6 +1987,7 @@ static int smc_getname(struct socket *so
- 		       int peer)
- {
- 	struct smc_sock *smc;
-+	int rc = -EBADF;
- 
- 	if (peer && (sock->sk->sk_state != SMC_ACTIVE) &&
- 	    (sock->sk->sk_state != SMC_APPCLOSEWAIT1))
-@@ -1994,7 +1995,11 @@ static int smc_getname(struct socket *so
- 
- 	smc = smc_sk(sock->sk);
- 
--	return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-+	mutex_lock(&smc->clcsock_release_lock);
-+	if (smc->clcsock)
-+		rc = smc->clcsock->ops->getname(smc->clcsock, addr, peer);
-+	mutex_unlock(&smc->clcsock_release_lock);
-+	return rc;
- }
- 
- static int smc_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
-
-
+Paolo, at PUCK I verbally said we could go with the one-line fix, but I'd p=
+refer
+to hold off until we can figure out why the generations collide in the firs=
+t place.
