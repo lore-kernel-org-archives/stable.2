@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793211499;
-	b=As8fg/9qp39vjEOSKkuk4IUgotjMiyGeLoVi28TX/7oiL4aPGcK1c95MctuR79ExOq67
-	 AxYB6dVeOdDgayHyO/k8rk6/F5ESa/Sk7+hUxJxLD3pWHSe22rlr+Jma6CC+WHfTjxRmm
-	 582CJDAVtCmTUV3D7obeGujt/GtN7M/7Ag6vfmpMBXd+74uUYUTTSBIeGrgUyvGRlsHbB
-	 Y9mAlAcamXPFTQWXp0yyPz+4pz0t+NF93ic0eNYOJmL+D6F1dyaQfEzQkBsAwmcSwoTgo
-	 R18lqGfVglQed8H5BNmDmMU+xtC4tAJA8mkjAIS4j9X0YEDK/HZ1Y6n1BoDnfg0Iwwg==
+	b=43i2TD30TcvuKRpPVPnkKq+3WsIq1K2/zd3wxQ9vsgktqlebWhJpEwH1CLfcEHllTmxT
+	 Ah55LpeLIKbcBj9Tx9CppCmBcJkTg1YZRM0AncdcDqlRISuFdKKUHGywoTpPPAvNQQHF3
+	 rh1K5wniesF/LTmgFRwUFTeEfZRO292rfFlgudlSp5wfbClUWjmirjZm5WUBGNLHIWuBS
+	 2/WdyECPtYZIvI6gXSFeTjEZiQetdkk5quk6f0NTexo3pr1PL3jsd1ynhutPYtFmDoxK4
+	 Y2xSpCkLA+tVP4aao2IX39kokSS6Kx3G1k6v5rmEFSDNYjnfDpSsGyUEp0p9NbMEY8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793211499;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZeiupiaVj9TQ6F2S9CJWA2Lr4DLULZv004PKIDXWsV0=;
-	b=HuWk3rIF3d9NvC1B3dy59DihZ3bMZdLdXVy4LVGpCNKs8FAneetWTJgBstji40l6fsqQ
-	 oFGR6WUBXewPwY3+X4xx8Fm+miB/lmyGXc9x6otUtG0689fBNaDZ12Bhndsu8tzSkcUK2
-	 LqeqNyOe8T+k8K7OVMYYe1YEufjk9naTC59VyJreVmdl+7oNYuYzkurRimeGabJYL9uxU
-	 zXUnMEnCbigjxrUZNFh6+TnZ5H6QAEhSIMzgJUvnfBCF3Zk3dYoEWm3+8O1uc+U+ce6wZ
-	 eM99xl9Jx1r0+bwFg6wyZlt58ALSUlmTETLxgajhedMmnmpQi7uEGQSFdhJA747cdMg==
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0oiry0ZaDpBozgKs3Yn0AN+r5C81GF5EHZ1wjFVYL/k=;
+	b=n+FpbPQHuiorCVy5Wh9dJTepjCK0rYYyh63r/W2ijIaoMUL2thW94aa4vaFP+p6uBee6
+	 0rfa/ujkKi+4gbsego1ns6i4gEbH9iDDMqJDvvUMk9KrhVdcTlKZFdUf7p+RzQ7JodmlE
+	 nWMrcEBCk6SD76MlehYX+Waf40zpus1D+sbO6E/8PoWWENIH1dbnx4PvN/kQfvkJ6c+3K
+	 MM7g6RNf+5kmZr6uHQcZkupR05uEdSumHDsgAV4VVELVGXIXvlKQeVgaxeCs4sev3q3dH
+	 vsD1spidUziqh9m9ouJ+TLXJBISRH7EA5pzc4rbb4Gj7J7fUPznL/hi44BXS723yZrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p7+d0HxF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gU0j6S5l;
+	arc=none smtp.remote-ip=91.218.175.123
+Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EF2606A33B;
-	Wed, 28 Oct 2026 18:18:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7985606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7985606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=p7+d0HxF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25DAA1F031E0;
-	Wed, 28 Oct 2026 18:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211498;
-	bh=ZeiupiaVj9TQ6F2S9CJWA2Lr4DLULZv004PKIDXWsV0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=p7+d0HxFzPfKZn2CgybT5o88LSsTeGJNF9rWOW4AAEh/iYKeGQmktuX5qnU7zDkQl
-	 szz28Swlr0LQEb+3Xmvbddo/9ugOdG+kVZA+lxJRTjigGpiAvUEJvwZi/tK2jUujjs
-	 dcmPPgx/Ul2p+7qspPREGHjgdYAK1KDZ/65TU69A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 398/571] ASoC: adau1372: fix invalid default state of output ASRC and DAC muxes
-Date: Wed, 28 Oct 2026 17:59:05 +0100
-Message-ID: <20261028170017.456694174@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-References: <20261028170008.009143722@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gU0j6S5l
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FzSLDoLL3l9c7gMzSXMHTUPkCis4CHxPNrJyJmMFlpk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793211490; v=1; x=1793816290;
+ b=gU0j6S5lCSGrqFK3BVUBPVUpoJjMru/bTOQUq6k4s8hYE7pyHyjgIVQVNpixe8IGEYsHiSTo
+ Sa9tQgmS5tlXViRJaa2x65+OMlfI5V623xi1qnOcoJVUKz1oQgC6LPcveWygQ0GXNgY6TXjxYXu
+ B7nX71X6/VXlzdJeHTaUT5fQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ad5a2eaaa496885;
+	Wed, 28 Oct 2026 18:18:10 +0000
+X-Mizu-Trace-ID: 5ad5a2eaaa496885
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 11:18:08 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] ipc/sem: account enlarged sops arrays to memcg
+Message-ID: <auI8CyIxjbLEMeEZ@linux.dev>
+References: <cover.1793207025.git.x-professor@outlook.com>
+ <565d855cbd81e0f49018da21df00ff0308f646b1.1793207025.git.x-professor@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,85 +71,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <565d855cbd81e0f49018da21df00ff0308f646b1.1793207025.git.x-professor@outlook.com>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Oct 28, 2026 at 05:03:57PM +0000, Yingjie Wang wrote:
+> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
+> do_semtimedop()") removed accounting based on the assumption that sops
+> arrays would remain small, describing a maximum cost of two pages.
+> 
+> SEMOPM is a UAPI default that can be changed when rebuilding the kernel.
+> It must not also define the accounting policy, since changing that default
+> would enlarge the unaccounted range.
+> 
+> Keep the historical small-array range unaccounted with a fixed internal
+> threshold of 1000 operations, and use GFP_KERNEL_ACCOUNT when the actual
+> nsops exceeds it. Requests within that range retain the existing allocation
+> behavior, while larger user-controlled arrays are charged to the caller's
+> memory cgroup.
+> 
+> Commit 50ec499b9a43 ("sysctl: allow change system v ipc sysctls inside ipc
+> namespace") later made the per-namespace limit tunable by IPC namespace
+> owners without capabilities in the initial user namespace.
+> 
+> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
+> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  ipc/sem.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/ipc/sem.c b/ipc/sem.c
+> index 5ec41de7e85b2..a8c9807175520 100644
+> --- a/ipc/sem.c
+> +++ b/ipc/sem.c
+> @@ -176,6 +176,7 @@ static int sysvipc_sem_proc_show(struct seq_file *s, void *it);
+>  
+>  #define SEMMSL_FAST	256 /* 512 bytes on stack */
+>  #define SEMOPM_FAST	64  /* ~ 372 bytes on stack */
+> +#define SEMOPM_NOACCOUNT	1000 /* ~ 2 pages for struct sembuf */
+>  
+>  /*
+>   * Switching from the mode suitable for simple ops
+> @@ -2234,7 +2235,10 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
+>  		return -EINVAL;
+>  
+>  	if (nsops > SEMOPM_FAST) {
+> -		sops = kvmalloc_objs(*sops, nsops);
+> +		gfp_t gfp = nsops > SEMOPM_NOACCOUNT ?
 
-------------------
-
-From: Alvin Šipraga <alvin.sipraga@analog.com>
-
-[ Upstream commit 36d0e05815ce84266c8b138cd4f84c3feeaf15f4 ]
-
-The chip has strange power-on reset values for the registers that
-control the output ASRC and DAC source muxes - the values are actually
-marked "Reserved" in the datasheet [1]. This means that until the
-underlying kcontrols are modified, the codec will not function as
-expected.
-
-The registers in question are:
-
-  register / field       reset value       valid values
-
-  ASRCO_SOURCE_0_1       0x10
-   ASRC_OUT_SOURCE0      0                 4 .. 16
-   ASRC_OUT_SOURCE1      1                 4 .. 16
-  ASRCO_SOURCE_2_3       0x10
-   ASRC_OUT_SOURCE2      2                 4 .. 16
-   ASRC_OUT_SOURCE3      3                 4 .. 16
-  DAC_SOURCE_0_1         0x10
-   DAC_SOURCE_0          0                 12 .. 13
-   DAC_SOURCE_1          1                 12 .. 13
-
-Set some sane defaults during the driver probe:
-
-  ADC Decimator0 -> Output ASRC0
-  ADC Decimator1 -> Output ASRC1
-  ADC Decimator2 -> Output ASRC2
-  ADC Decimator3 -> Output ASRC3
-  Input ASRC0 -> DAC0
-  Input ASRC1 -> DAC1
-
-With this, the chip will behave as advertised by the default kcontrol
-state exposed by the driver.
-
-[1] https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1372.pdf
-
-Fixes: 6cd4c6459e47 ("ASoC: Add ADAU1372 audio CODEC support")
-Signed-off-by: Alvin Šipraga <alvin.sipraga@analog.com>
-Acked-by: Nuno Sá <nuno.sa@analog.com>
-Link: https://patch.msgid.link/20261006-asoc-adau1372-fixes-v1-2-599cc17fb5f6@analog.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/adau1372.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/sound/soc/codecs/adau1372.c b/sound/soc/codecs/adau1372.c
-index 4cd30dc35f429..ede7a94cf16a6 100644
---- a/sound/soc/codecs/adau1372.c
-+++ b/sound/soc/codecs/adau1372.c
-@@ -999,6 +999,17 @@ int adau1372_probe(struct device *dev, struct regmap *regmap,
- 
- 	regmap_write(regmap, ADAU1372_REG_OP_STAGE_MUTE, 0x0);
- 
-+	/*
-+	 * Set sane default values for the Output ASRC and DAC input muxes,
-+	 * since the power-on reset defaults are invalid "Reserved" states.
-+	 */
-+	regmap_write(regmap, ADAU1372_REG_ASRCO_SOURCE_0_1,
-+		     0x54); /* Decimator0, Decimator1 */
-+	regmap_write(regmap, ADAU1372_REG_ASRCO_SOURCE_2_3,
-+		     0x76); /* Decimator2, Decimator3 */
-+	regmap_write(regmap, ADAU1372_REG_DAC_SOURCE,
-+		     0xdc); /* Input ASRC0, Input ASRC1 */
-+
- 	regmap_write(regmap, 0x7, 0x01); /* CLOCK OUT */
- 
- 	return  devm_snd_soc_register_component(dev, &adau1372_driver, &adau1372_dai_driver, 1);
--- 
-2.53.0
-
-
+Instead of making this conditional, can you just GFP_KERNEL_ACCOUNT
+unconditionally and benchmark it. The kmem accounting has changed a lot since
+that patch. If the performance impact is fine then we should just use
+GFP_KERNEL_ACCOUNT.
 
