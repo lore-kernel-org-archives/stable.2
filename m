@@ -1,51 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198515;
-	b=i2xxr20ekIMYlLVHJncvL7AW9CNqsswN1RuGUBLFHsUQikYpUQUYFv9Ri6he0cmstaOp
-	 UPoEi8y7OWhKZHFl1xl+kZL4KqQ6jMVNUfICTISPsNs3lO5bdwBw/kpVmxSQRzYtJhyfb
-	 /vuG3amTK8zyg/BEPZ4C2tg4cRO7P8X/cAaDQBl1i7frjD2JeOnMq+pQscXIs1396nae7
-	 FvjXj9VyhpTg4kSzorHdgdZeVeq9PPYomVsvuJ9IVzAJf+9P8JUbQw9jYdUEyU8bVlG1C
-	 kJdt/U4d4cLwXNFbh5zxW8CieYPilUXD0aAk0KjAcu/tm+7dlSkuLPFUV8LPaiXZyUA==
+	t=1793198549;
+	b=hZPALLSl9VD0q4MLLcZGLqLRam2hFJHK++6qfcQ0P1J2U8P4TO7v8Uj/X1IA/cRBYyB5
+	 T8ojBo/k+TDQRHqkOlQZwh+yzGR1md5/n6Xup7lT3QmwzamXUGFLK1TRZhWW/ifyZUJqb
+	 G5lIJgF0T21Hl49yV/Jq/Pr7cR80RNNH7WE3v0sWeK+Kg24BCi4RK5YNlgyjhKJMeTL+M
+	 B+rHEXMUR/mJwXSR/kSbTW02iQg+0nSEPcJRbOogu883OOZoxs+zr5DRn323o+h54VRMM
+	 R4+HFJX15kOJVnzr1cpBPdic8O5ZnqsnoMAPtwJPgWyRudGkgyxmbAHR4zxDlumn3mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198515;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=8RJ2Yn7WpwUCye9rkv6tfQ0zZ5Kyo7robmi/5qT0aAk=;
-	b=LRevH982gKLUHz2Z9MHT8uglZHTOQ1uWhgEzsc4Wmdn/h3o12I6hpZ7BQh8JQoFOaLGQ
-	 1SvdmcXqX9ZGq+naddLYRIhTrmujHOUaNO3UAxITMAquBAAH6DkWhswSFJXxyDf+hrZBz
-	 U4R9vJDTxrB1o+cd4p22wIX5A/GsI67bx/1oM6mAnQsQtttZdqXNm0GW+c6kVYck91Dht
-	 PfjBNk0dmb8NaU2Hrin7TanQmSaYcBe1JJmfc6+NqmlJWyVc1g/4QnLafgRYoUbmrcHtD
-	 7GNVzQthJZddGrUFFPr1c3EQfDLmpj+9d1ndZXVb8nxgl0+WGsZ8dih7GiKpghpLCYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198549;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=TFJBnND1FRI31n2cTrtgv8IYWoLakQkBsVk708a+dhM=;
+	b=gQG61tvWIfsuO9Z5VDzotSjhaH/kyfiZtn86ylXXJDRmawDdAuPTPZHv2UvqoYCIKeKd
+	 227Lnm94n8oGnBFwk8JMaABHGDNugyq5wFW5AL/Te8WLaAnV7jjuonOYgXnrR09QkQWI4
+	 tSzXR6DHzuVCBfr/5xAhZSVDGDFnSh+7e1XLqoK/GXH8WC+9f51rm9EubG9mGDvSETy5M
+	 Lmdj6rM9tmQHslX34kB5jRGN6gc78IO1snlFYlcrvC7lOkdjjcf2BajXzw4KWnjSp7CKW
+	 sBi0gfeccNsd8UilnReZQ1tPlJyuoVEV9gySu9ExFgxyYCLXRoFRqoxguWfsQL/sR/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKGUnVQl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254E6606A31E;
-	Wed, 28 Oct 2026 14:41:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 254E6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id C578F68AFE; Wed, 28 Oct 2026 15:41:48 +0100 (CET)
-Date: Wed, 28 Oct 2026 15:41:48 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Salvatore Dipietro <dipiets@amazon.it>
-Cc: hannes@cmpxchg.org, abuehaze@amazon.com, akpm@linux-foundation.org,
-	alisaidi@amazon.com, blakgeof@amazon.com, brauner@kernel.org,
-	brendan.jackman@linux.dev, david@redhat.com, dgc@kernel.org,
-	dipietro.salvatore@gmail.com, djwong@kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-xfs@vger.kernel.org,
-	matt@readmodwrite.com, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	vbabka@kernel.org, willy@infradead.org, ziy@nvidia.com
-Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking
- requests reserve access
-Message-ID: <20261028144148.GA14023@lst.de>
-References: <arFBr22V60BMmVpl@cmpxchg.org> <20261027150002.318916-1-dipiets@amazon.it>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334F7606A31A;
+	Wed, 28 Oct 2026 14:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKGUnVQl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E731F01825;
+	Wed, 28 Oct 2026 14:42:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793198549;
+	bh=TFJBnND1FRI31n2cTrtgv8IYWoLakQkBsVk708a+dhM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=JKGUnVQl7ZyavXtT7Kczvq0hvgEijuwKpQeX6Y3YltdL23/t7iXuxD7fyfBh7AUYV
+	 Gn1+X9ULNU1J1D5QfP4X3ElvIvvBZM6yR00qKGlaZhrF5JpQQqtBNfISmpfOHKuttn
+	 HwgS8wbrVxQ+vW+T5NMybHHL00/dJvJ9WnzVqZRFVt5p1xOMK4JicmwJnDtYtviKVS
+	 y06NJL4w0pQ7FcfnQbXI4lqmbX4hhH8Da+bzoWJfw+jG+MoRK9RC7f0d1WdGAGCOqq
+	 H8fW765Dp5jrCmB7DAXvZ6hDI9qPhxqmptHixHWCqOFDyXupTtaQELWirzvXdVggmM
+	 rDVdJ5ka4rnFQ==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ George Neacsu <geocausa@gmail.com>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sashiko AI review <sashiko-bot@kernel.org>
+In-Reply-To: <20261018-qcom-flash-v4l2-release-v3-1-02e18d30b18a@gmail.com>
+References: <20261018-qcom-flash-v4l2-release-v3-1-02e18d30b18a@gmail.com>
+Subject: Re: (subset) [PATCH v3] leds: flash: leds-qcom-flash: Release all
+ V4L2 flash devices
+Message-Id: <179319854743.3749657.15932777477345365666.b4-ty@b4>
+Date: Wed, 28 Oct 2026 14:42:27 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,27 +60,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027150002.318916-1-dipiets@amazon.it>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Tue, Oct 27, 2026 at 03:00:02PM +0000, Salvatore Dipietro wrote:
+On Sun, 18 Oct 2026 22:38:27 +0100, George Neacsu wrote:
+> The probe error path and qcom_flash_led_remove() use leds_count as an
+> array index before decrementing it. Since leds_count is the number of
+> registered LEDs, that first access is one entry past the last registered
+> V4L2 flash device. The loops also stop before index 0, so with a single
+> LED nothing is released at all.
 > 
-> Hi Johannes,
+> The V4L2 flash sub-device then stays registered after the driver is
+> unbound, still pointing at the driver's freed devm memory. On a Surface
+> Pro 11 (X1E80100, PM8550 flash, IR LED linked to a sensor through
+> flash-leds), unloading the module and then setting a flash control on
+> the sub-device triggered UBSAN shift-out-of-bounds reports and a NULL
+> pointer dereference in regmap_field_update_bits_base(), called from
+> update_allowed_flash_current().
 > 
-> Vlastimil asked that v6 of my page_alloc patch [1] not go to mainline
-> before these two patches land, so Andrew parked v6 at the tail of
-> mm-unstable and dropped its Cc: stable until then.
-> 
-> Are you still planning to work on 1/2 and 2/2, and if so, do you have
-> a rough ETA? Or would you rather post them as a separate series as
-> they are? If anything is needed on my side to move them forward, I'm
-> happy to help.
-> 
-> For what it's worth, I ran both stacked under v6 on v7.3-rc1 and saw
-> no performance difference on my benchmark with or without them.
+> [...]
 
-It would be really important to get some fix for this into 7.3.
-We can still perfect it later.
+Applied, thanks!
+
+[1/1] leds: flash: leds-qcom-flash: Release all V4L2 flash devices
+      commit: 4b2f49cc6998dc7fa243eed13cab8c48a4d95138
+
+--
+Lee Jones [李琼斯]
 
