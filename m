@@ -1,74 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793152080;
-	b=KZ0LmSu1/3jNt1BLQsULgrJsBAezA33zuGAD2vZPvoXv6pjUG8WTcniv6ua5Z1wTydgt
-	 sTrCZVeanah6wHnrI9oQJ00WnDP+BS9UhVd4sWa04nUd1TgawkZxOl6JH894SyJUD68JZ
-	 VK3EqqcrZF4Jej5vepROC9lieufTJ/YWbmLsUp7/IaZBpp9Akcq4spD9NMEr4SNP02xoz
-	 XTpRWxPvk/E8kfabR3hMSBKZoXWCel9UhrfZ6JYUNxA35p55o9x+MuJ1pNFiKSoGfgXft
-	 RyLZaTrSAMeXJUbEqB9ArrQiNK5IxgXfzZp2AEd4XH5exFgBVbMUS5ckCDi+tFzlSJw==
+	t=1793152768;
+	b=rZSD9BU6AAS92pVQ1wY/yd143BtsGfr5S/BcYXCLeIoMcnR2sT/fYW6usxBc5O0waiMQ
+	 LPDyuJDI+MJCSzdn2q56u19HKs/h2weyau505N9Fv5AdvJNs5/Xl3Y3D6bnXAmC1k2cIw
+	 36j2kulnw62FY5dI2nsD+tSaHg5qNwJRBLbKKTIJMeSBpQpyIL8udVB0sXJrTfGGz1KQn
+	 IhE1bTHVFGpwkJQZsoLb/SaWolrCwPKv1BnF8+ivlbLSOCE190umZP737RS7hOsDPJvjL
+	 AmFxAgu1HocSpOE/k1JMzJh+IrgfGcSrXE9OplW2Mauopw3cLDir5cDIl/dCQ8W8/Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793152080;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793152768;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=UrWtpTOaprLxw1pdrbzZEPDlusg55RRNNxdXSa9SbLw=;
-	b=r3WCr8dVthY7oE/trQsjL00UfHhz06ck0EGDy/qDpZ5Rr8H9Lg1SqbyzVO2P+5SdGkTz
-	 pGVMIBkq79cBM3wJsKxa/1WnPKveifMa5i2ol9XdJvU1lsBsb7oP/u8pukGBF6nuSMeeX
-	 AQr6R5NJYqph+qpOsxq3sNa3/U3+PcpRGPiSG26HF8geGjsPxlKxfg1vZxaqjyrBB9yzr
-	 82OLu/pHtsnVET23ONne72D6QufCOhBOq5c2LK5YZ4aFmgaeTlDlTuZxce+OTOq5SNh9T
-	 AG7RjKA/bfTVrlkFzVpdyjoP5Da3xu3MuLD+6RY6aOn1gj+8p8HeiSEdACjhIbbwvhg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DHS4IRcRkeGwthYM+/zX9QaAvmyaBpkm4EoH1u9SNX0=;
+	b=NepuoAitd/vkDq9YZjHRl7eGBP6+c9Ovdkq1QaMNid4+qiKzYXoL87OdmOkO26ZR48fC
+	 LsKSjhBu09UsbW9kD814p8ghvRBd9IRzbbujxIC/Z42zqFrZRCraUt1k2TvcI8cHIPsgb
+	 G5eig52zWJSx2wvFilkCsJlhXAGH/6AJ7efGhNyezr/4Qk66b+reD1sUkEta7/mzWSUA+
+	 EEYHKKkGv6+EncqnbIl+97sL13E7svPIxdOP15eXQq05rqkV8ckGKhz12yeCDMlrQ2DSy
+	 b8RiCbvLh+IE9kfnASGyzHy9PJab5qZtKEuPb7pgW1DP/SIISkbdrEpzv7PnDp6e2jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hTgtj1yv;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bXSB0ddo;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7AE606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF7AE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF676606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:59:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF676606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hTgtj1yv
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so480057a91.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 18:47:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bXSB0ddo
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso3693915e9.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 18:59:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793152079; x=1793756879; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UrWtpTOaprLxw1pdrbzZEPDlusg55RRNNxdXSa9SbLw=;
-        b=hTgtj1yvC4cnaEZyDZLNmULuJLMpTdudv4MNafpl8PEdI0dtDP6Yvcuv95HqUodmoz
-         0/v07TzgLkBpHujQnqXe73FzhMFE+m5M2oOdgCi42FQRT3vTvTk6V1wY4mq7aylhoOL2
-         l2Hvh1WnGKS28Uad3h7Zolt5yeqarBv70gQ4vRzFbDMkac+R8O8mF402osj51PMoNwyF
-         SGOTBKZWAOVCC5ONPFRvEq4GxgE1ycJ+v+1lvpYJf/WmwEJtM9clCd7Y7QwadmsQWjUj
-         3ynluaSmAKiibe+kxq56ozzWwNLis+Wn+9Er8qVYa1YubgmP7tpOEzE7GH1sxnujEJ/i
-         Bi7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793152079; x=1793756879;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793152766; x=1793757566; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UrWtpTOaprLxw1pdrbzZEPDlusg55RRNNxdXSa9SbLw=;
-        b=UhDo0vk7BNJDUA+3S6qinitNl17zYx4cVeB2uGExObtJY76SaL7WTnknsqJ8ocT7/Q
-         /gr/ohsxqGCUG+9WWBF2CYEIh9elIigq5z2aFGGKAsbRgEzVJYJ2bPY5cWEDn3wlNgGM
-         h0fYOfqKoxzZpJXuN4adrYeENfQchsbsEhguRiFqnHXIOdxqhd+vAp4wX3qWFDQEEXnM
-         IQB8ZI73SisMd4HsovzpNKpSr6UygVmoP10OZ1n8WUIzYVZZwyb1wTqxgZbOuuwxq26q
-         I6fLdA2xO7HWBG9kngSwf6K0fBmWSQMbF9ADZtrET6iS9Jp7sUVHXcF1BTYyKH2Hdyx4
-         kLeg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYvrDt8SBLXeMj+gxajxPKQgzLzeyK8iKAKHKJ9sX6em33lt8wx1k+2oyHiBMT6cX/ZO/Jlx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBiI1fHqPfsrp7lKUle5OpEn0yvDb9YIu2DncAt/vmuf2/gcH9
-	LcyCh6QVScVGRpmbOcTansHvdGODobh/Jc2vBiNO6Cqfg2XOR3wdC/XuHXbhNgQwl9pPa3vqXgk
-	M9y7axQ==
-X-Received: from plhx12.prod.google.com ([2002:a17:903:2c0c:b0:2ea:829f:27a8])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5348:b0:3ad:25f6:1dd0
- with SMTP id 98e67ed59e1d1-3ae5817100cmr630595a91.11.1793152078926; Tue, 27
- Oct 2026 18:47:58 -0700 (PDT)
-Date: Wed, 28 Oct 2026 01:47:58 +0000
-In-Reply-To: <20261026003804.61923-2-imv4bel@gmail.com>
+        bh=DHS4IRcRkeGwthYM+/zX9QaAvmyaBpkm4EoH1u9SNX0=;
+        b=bXSB0ddoJhJtjXkwdMkJRS/E2I6TCGhZ04ss0GfAyrdWVyHHX+VR4yLNpJ4QJ5o/e2
+         +b0Pea6zANKP+keLpUTqoacpuJ9tTqUPIgVKqSfklDZfI772hui27cWMHH/67fxDRyJ2
+         xv+yPcCieDLS0gmPICYj5dugt8Ndh+5EuQSSyUAspl02u1pszzkz8+aE3qk/x91Mcm/r
+         xTyRiscsTjYAGhnVIfGSJSvcwIyMhcUuN11ZS+DUOQHjN/kPMdnlydL9df/Jr2jw6bgi
+         l215JJHK8cQFTBkTiOT+s12xDCwy8+qc+UMZ7CwJkBvptKgT9HYMalkESpU6Kw2gLeT1
+         BLSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793152766; x=1793757566;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DHS4IRcRkeGwthYM+/zX9QaAvmyaBpkm4EoH1u9SNX0=;
+        b=JuGm5HGQhMK+aNFT2RFVnaCTwSq/cLIf4YCcT0BWMlZPS4o9+9G8uhqvwXu8G6LPij
+         7KMmWYPvdusa1zBY8M0p+sGEW9v5hT6D6WGQyPQmseBgjXgY+5Cl8OmWsieqVJf56WVA
+         V0R49TnIK94H2NRduSq/zGzStBEiMZNRYJ229aOJancXyjBtVfAbz+rxCAYX5JQ5TnaC
+         PBFLXXsZPF7XJtM61FJVO358yBYCHqJolb6PX0u5ENyNdzmQtU+vYSkD2hNcRyesXWXL
+         hZRPmPd2Mv/o5e+WN8Na2kA3YAqxXgEX+fajHQvgUmOtI7uH6cENaH9vc6wxkAixUt3K
+         TJ7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzk5kZx/K/1bUzS21K4a20s9ZEfFuf96Tgr7bLIhQK/6Sn8pJTYJNPyUFCX9uODFdEn8/Yxl2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRxvlBCiOnHKFPZAxTSuqWDB4XpeAsWkel/Kd3JJpCNYJm3nhX
+	ErwxiU+4LlT8xiYA1MM5o6nmL3a4iPButUzU91PGi3NaKjF5tvndqJeT
+X-Gm-Gg: AYBFou13vom31JTuEMglo66lXv0MiuaGKABXSuEzFXh8U5RmCjRaQWZQp5vRkoPRZS1
+	wZvfvLtXQzGrNSv74RU/LuYuYdyqkH7GkwfOZ9gM1RaCizmBmSI5XRNKSX/Zg87C0s5U67c9z/J
+	JkezQ+c37SBP9dsfLsUyx9JKLoU5WU9CnfYnavaugT/GlyEY1XcuqNG006+9WhcislgRFP0RZh0
+	sMd0ZP9hotdylUndInMzRSsq2yvhEhVQ9bls7m9YEXiKnYSA4CnL1zhVv5clO9Dmnk8nw/hsIA2
+	l3HkBd6OxbGK0YZG8FhVtXA49K8Z9F5CR9M7XoG+lpwKnsz2BeRL58TbhFLTy6b1W+b7wIS8THa
+	lAzXzXN6OJTRAC0laxKvRgrajjCgeAo+WrAwtip7Y1AY2YfOyKJfy3WCe3tfrDfdd6/SFmdFURu
+	wR5wvC4QfHr3AedVy88WXSL94yb90ggn8dvXWkha5HQBcxTfel7b26yeQuVG+XZhlxWU9kU8vpJ
+	jiBKNFEovR9xsmTjIaxfW8k/UmXWYnYWDyPQQNu15IPKrgHLFOlL1boOU0VXIiyApuUVeNfV5aW
+	yxaVtoqjsIHyDZMubu0GEtXkG8aRIW1NMZX4GOtnT3YrB7MDnmqo8w2zowuod2lSfdQURncs7Jj
+	oRxcKpINtMsmbCByuzG8QEv0envt3IWrowklJJQoPzoruNmt4mzFf0FeeV4GRIT0Ky7Y=
+X-Received: by 2002:a05:600c:19c8:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4a967201e9dmr16334615e9.27.1793152766074;
+        Tue, 27 Oct 2026 18:59:26 -0700 (PDT)
+Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a976010ca7sm10831475e9.1.2026.10.27.18.59.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 18:59:25 -0700 (PDT)
+From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
+To: shawn.lin@rock-chips.com
+Cc: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	manivannan.sadhasivam@oss.qualcomm.com,
+	bhelgaas@google.com,
+	robh@kernel.org,
+	heiko@sntech.de,
+	dlemoal@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	iav@iav.lv
+Subject: Re: [PATCH v3] PCI: rockchip: Don't lengthen PERST# when power is already valid
+Date: Wed, 28 Oct 2026 01:59:23 +0000
+Message-ID: <20261028015923.2436122-1-ehbello@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cf541723-eb4c-4ba6-92c5-33baafc20e7c@rock-chips.com>
+References: <20261028005603.2399220-1-ehbello@gmail.com> <cf541723-eb4c-4ba6-92c5-33baafc20e7c@rock-chips.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,91 +109,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026003804.61923-1-imv4bel@gmail.com> <20261026003804.61923-2-imv4bel@gmail.com>
-Message-ID: <auFUNX-pPwb9p8zG@google.com>
-Subject: Re: [PATCH net v4 1/2] inet: reject unhashed sockets during
- established lookups
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: edumazet@kernel.org, ncardwell@google.com, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, martin.lau@linux.dev, 
-	john.fastabend@gmail.com, weiwan@google.com, sd@queasysnail.net, 
-	jiayuan.chen@linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 09:37:44 +0900, Hyunwoo Kim wrote:
-> TCP established ehash lookups are lockless. The socket caches involved
-> use SLAB_TYPESAFE_BY_RCU, so memory can be reused before an RCU reader
-> that retained its old address has finished.
-> 
-> After a tuple match, __inet_lookup_established() and
-> __inet6_lookup_established() acquire a reference and repeat the tuple
-> check. They do not check whether the new object is hashed. If the
-> address is reused for a socket with the same tuple, the lookup can
-> acquire a reference to the new object and return it while its nulls node
-> is unhashed.
-> 
-> A PoC that drives reuse with a SYN cookie request socket reproduced the
-> crash. The new request socket is unhashed and has a NULL rsk_listener.
-> A lookup that had loaded the address of the old request socket acquired
-> the reference published by tcp_get_cookie_sock() and returned the new
-> object. tcp_v4_rcv() then read sk_state through the NULL listener.
-> 
-> The resulting crash was:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000012
->   #PF: supervisor read access in kernel mode
->   #PF: error_code(0x0000) - not-present page
->   ...
->   Oops: Oops: 0000 [#1] SMP NOPTI
->   CPU: 4 UID: 0 PID: 0 Comm: swapper/4 Not tainted 7.3.0-00591-g0e135910deec #1 PREEMPT(lazy)
->   ...
->   RIP: 0010:tcp_v4_rcv+0x44e/0x1280
->   ...
->   R10: 0000000000000001 R11: 00000000024ca8c0 R12: 0000000000000000
->   ...
->   CR2: 0000000000000012 CR3: 0000000103d50004 CR4: 0000000000770ef0
->   ...
->   Call Trace:
->    <IRQ>
->    ? raw_local_deliver+0xae/0x240
->    ip_protocol_deliver_rcu+0x2d/0x180
->    ip_local_deliver_finish+0x84/0x100
->    ip_sublist_rcv_finish+0x5f/0x70
->    ip_sublist_rcv+0x12a/0x1d0
->    ip_list_rcv+0xfd/0x130
->    __netif_receive_skb_list_core+0x223/0x250
->    netif_receive_skb_list_internal+0x1d2/0x2c0
->    ? try_fill_recv+0x39/0x7b0
->    napi_complete_done+0x74/0x170
->    virtnet_poll+0x445/0x600
->    __napi_poll+0x27/0x1e0
->    net_rx_action+0x2fe/0x3b0
->    handle_softirqs+0xc2/0x2c0
->    __irq_exit_rcu+0x74/0xd0
->    common_interrupt+0x7f/0x90
->    </IRQ>
->   ...
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> After taking a reference, check whether the nulls node is unhashed in
-> both IPv4 and IPv6 established lookups. If it is unhashed or the tuple
-> no longer matches, drop the reference and restart the lookup.
-> 
-> Lookups racing with the TIME_WAIT hashdance, or with a request being
-> replaced by its child, now restart and find the new socket instead of
-> returning the old one.
-> 
-> Request sockets that were never inserted into ehash can have a nonzero
-> refcount, and a stale lookup can hold a transient reference. Therefore,
-> when SYN cookie, Fast Open, and request migration paths fail after
-> setting a nonzero refcount, release the references held by those paths
-> with reqsk_put() instead of freeing the request directly.
-> 
-> Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+On Wed, 28 Oct 2026 09:34:04 +0800, Shawn Lin wrote:
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+First, an apology for the noise: a v4 went out seven minutes after your mail
+and crossed it. It answers an unrelated review comment about T_PERST-CLK and
+does nothing about the points you raise, so please do not spend time on it:
+
+  https://lore.kernel.org/all/20261028014116.2432425-1-ehbello@gmail.com/
+
+I was respinning too quickly. The next version will wait for this thread to
+settle rather than landing on top of it.
+
+> The assumptions here rely on a very weak constraint. If some designs
+> don't define the 12V and 3.3V regulators in the device tree, but those
+> rails actually do power down along with the rest of the system during
+> suspend, then upon resume the reset wait will be skipped entirely. I'm
+> worried this could cause regressions.
+
+You are right, and it is worse than that. vpcie1v8 and vpcie0v9 come from
+devm_regulator_get(), not the _optional() variant, so when they are absent
+from DT the core substitutes a dummy rather than failing, and
+_regulator_is_enabled() returns 1 for a dummy:
+
+	/* If we don't know then assume that the regulator is always on */
+	if (!rdev->desc->ops->is_enabled)
+		return 1;
+
+Combined with my IS_ERR() checks treating an absent optional supply as
+satisfied, rockchip_pcie_supplies_enabled() is unconditionally true on a
+board that describes none of the four rails. The wait would then be skipped
+on every such board, on resume included. That is a regression and the patch
+should not go in as it stands.
+
+The underlying mistake is that regulator_is_enabled() reports the present
+state, not for how long it has held. Probe can bridge that gap: the system
+has been running for seconds by then and this driver has not touched the
+rails yet, so a rail that reads enabled has been enabled since boot -- and
+that holds for a dummy too, since a dummy means nobody is switching it.
+Resume cannot bridge it at all: the rail may have dropped and come back
+microseconds ago, possibly below the regulator core's visibility.
+
+So the next version drops the resume hunk and sets supplies_pre_enabled to
+false there explicitly, leaving the full wait in place on resume. The change
+then only touches probe, where the inference is sound. That also removes the
+one hunk I had no measurement for: it came out of an automated review of v1,
+not from hardware.
+
+> Intuitively, one would expect that a short reset period prevents the
+> endpoint from recovering fully, that seems more plausible than the
+> opposite. [...] Therefore, the actual observation that a longer reset
+> causes failure is highly counterintuitive.
+
+Agreed, it is counterintuitive, and I cannot explain the endpoint's
+internals -- only what it does. What I can rule out is the reading your "as
+long as the reset is clean" suggests, that something else happening during
+the wait is the real cause. Link training is enabled just before the sleep,
+so the root port spends those 100 ms training against a device held in
+reset, which looked like the obvious suspect. Moving the wait to before the
+link-training enable, keeping the pulse just as long, still failed 0 of 15
+boots. It is the duration, not what the controller does during it.
+
+The v3 table is one kernel with two module parameters, one sleeping before
+the PERST# assertion and one in place of the msleep, and the host driver
+rebound to re-run probe, so nothing varies between rows except where the
+delay sits. A rebind reproduces the cold-boot failure identically, which I
+checked before trusting it.
+
+> Furthermore, even with the same power supply design, different endpoints
+> may behave differently. What if a particular device requires a longer
+> reset pulse to work reliably? How would we handle that?
+
+The only floor the spec gives is T_PERST, 100 us of active PERST#, and v4
+started guaranteeing that explicitly with an fsleep() rather than relying on
+the 100 ms. Beyond that there is no required minimum to preserve.
+
+And the short pulse is not new behaviour: from the driver's introduction
+until c47f90be4c89 in v6.11-rc1 there was no wait before the de-assert at
+all, so the pulse was only as long as the register writes in between took.
+That is what every endpoint on this driver saw for years. The 100 ms pulse
+is the recent change, and it is what broke this one. If some device turns
+out to need longer, that seems like a quirk for that device rather than a
+reason to keep a default that regressed another.
+
+Thanks for the review -- the regulator point in particular is one I would
+not have found.
