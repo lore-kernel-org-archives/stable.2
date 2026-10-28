@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186891;
-	b=kcs+mB2G/Pg9oUeDeSehXnwrRTT+1ZzpAHiQd2yQrr7+Y8YRmxJd3sVgxtO05pjzhDA2
-	 VSMhpSoQrPLXypCn8Ry2bYitT4uALELdqV88C1FbV9KhHwFAIQLhct4GNxMn8+jAy7a9/
-	 d+vFhIELqNVEm5OPpCEjZ+s3PmCpSYs5xIIMAwXBLYkl+ZRupep6BomfGXWcBRiomZgIa
-	 B7fYvBaPP7TB87Dy872QJlAWbKXznN6oL4tERHsPGP3eBvQeiI68T0E9j8H/t1+XzYqi3
-	 heQWxnMmKf7Rxk7C55NSyrBk8VQue3qf+NDafCsbVM90nC/ckZkbcoW97HuBSSx37cg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186891;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=vIWVBmt+g+4k3XTPpYXALk3GxorAmmwSHt+9R0Q0bWc=;
-	b=LzswfdqhQBvavvYZvU7N9iq4OfDLCJzeKJYY1InKc+bye6Do9m7iVPSluk+6IQjvDNAI
-	 0BYAvFYXH0/b/Fg9/w6SS5DysuGKGVURzAE11QpSEywXvTXWCbD1nYcob8lCxm/73xFlQ
-	 boW63mMoZ8xCGyu5tkAvAkZuM4zyLkT0+YStL7L0679EZRssq7TvDQcgjM5bO02QhuOXo
-	 mUYDHSjElCBRoStKgHKIfZ+zzef/L1o65UFyow+qK1hCRqj6ahQftxQgGucbssXYnavQf
-	 yZcVXQ9Qd1vCMuC0lKOFXTJaXwofnOHBaHJQDfw9YdSKpESr0AKjUyRn3MUt7luj0GA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kyxoPVXr;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793186894;
+	b=CJndgCYShsK0q1voc3E6OKa8ANDISAB5Hi86bsa1ZBORufPO1JyktM6Xs2erg031tEvI
+	 Sjhsd6Hu5RPbiNkpF3XVmuAPPNxL6KWXxFUEDT6JVMWxSo1vjB7DIb8x2xX2o2F5A8Tsp
+	 c4IJYIwh/F8ue8OFqv/zZOSYSzBKZmW/7Vie1buUBJOjHO9DKcTyH1qyKCWyhyh3ghbvR
+	 EkYH0uWhdxZXaxVN9JEUbi4vNIJpe039Tgw5lhnAByUoEBwgGSncgsiq6GvG8H92s6dlG
+	 aIS2dTB5WbWk3qgCoYWDw1EDghokYuuWAfYAiM+yMuFnNVJ705H4JuFFF6FvahkrL3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186894;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OraIQ2SDhu0uL8MoTVbZTwStx8G1xutMjL4a8ZJPBog=;
+	b=bKIEk11/3JWO5gt6zLYX4ahS2PQiwDEuFQgcbxZL2pyX4SLFOvagIChmlBl0+2fAlTeo
+	 QfmsPBiZ3v8d8/1gN1KJdorBJIQTRDTdrn4tMoL5z3xHxsaMDcwDzQgm+DiEfAVeXuLvA
+	 MbngmXnbh6mGzWDhta5sQ1j9dy9Qqsscpa4Pib97y4W/NaWjz2s6QvxGDAfoQBco6hw7T
+	 ypjkxsl20qzjUJvePdRB1jC1py0/z+01sm/1H0rNbXuvWdo7LaIGV9LEzDLRW69AjhQqA
+	 Tgmc/lj0OBIXxZQwPkblKFerTQEnd0rEve7VkGu3PdXYewQJbytfSiu0X9WwZABErTg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WI80yjlT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90603606A33A;
-	Wed, 28 Oct 2026 11:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A54606A31C;
+	Wed, 28 Oct 2026 11:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kyxoPVXr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2869C1F01825;
-	Wed, 28 Oct 2026 11:28:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WI80yjlT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793186893;
+	b=Xtgy0jXV1dBkgT0MR4AgjtJYapjc0XsslGvPAie/XSVUqh8I7tbqE/u8yMjN7mOD6KxY
+	 AyXlcIsM2fNdNU1W/Oo0F3ZlngeNBfQ/0cmei03RRX9fXKOKNKPBcny2+v2WKG3TMYs9g
+	 6H67cPg/E8RppFI5kPf96LsjigdJAHAuD00+Pd5EJqEg6J3lGvJ4MdPHsYFumQll0QEQM
+	 +MyvJF0/dg92oUYVXxWOsDQjbmvJ9woyDhNAD/oi9l2RBxkTN+utaQPj7sZBjGNDmOuCV
+	 b+ofnIQZV2rjlxyounPQbm3+QkpxxFXtZ1+uvSOutpqMOaZWnoiRzCBlAKW5i+NbAWA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793186893;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OraIQ2SDhu0uL8MoTVbZTwStx8G1xutMjL4a8ZJPBog=;
+	b=lm3P+IaEa05w+JilVyTnEbwWnllwPz/33RiSZiLGnBTK3NLbo29I7r294wdouEvfCug6
+	 DNzzToIsCGOS17AkdTunpCARTDWgQlbfHtpcUMD0Cwi+qiz6KfODMHcbn1kLHdA/gMAy0
+	 iRHxfKNf+rJTcOFE2B5ye0rAjhWUfzVvjw/Tem8XCUg54bk25NKu12gpA3JyTOh0ogS6W
+	 PzLwW6HVWznmtmiWKOvBzNdN5qK2hfsNRwSy25K9Sg4wAEsnAyYHSFVlrvoJuqVfNDayw
+	 AZe2yX1LJdseTKpP4tDpsiz+y/UQGEGVpT4XU8OIXGxvcJvv9m3uKFMiLR/Z7DkRjVw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 101771F031E3;
+	Wed, 28 Oct 2026 11:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186891;
-	bh=vIWVBmt+g+4k3XTPpYXALk3GxorAmmwSHt+9R0Q0bWc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kyxoPVXrHal6AJLrnmAS8yQ5rW8KFQqwsHHOqjCYJOTabiTlR8XkUvUwL3cXALd2A
-	 XO6sVZ1UGG9/8zO6FYcpt3cJoiyvmL2UN2At5lXqTgBDcg6cw+MXxUKy16G9Dde/DE
-	 c2wS1XAiNoYJVYlqtHOkMNqjn2iMJ156ls9UJfV2uIxmiFjDxOE7PSWxM6eUxSGJJh
-	 3pBwGRXEBuqj5VDXtlJ4GgcFS2h0iOIPPJdqmU6tCjsr/PVDpUxAJADtoq7HsrT6HO
-	 BbwqJMrdDubx1aXJjKG97Z+73Jtlq0qh2EM+ZNS32wZU50j9t5yEt3Ln6GtJFCGaSx
-	 nCbxJ2zbKwHkA==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 6CE9E1FF23E8;
-	Wed, 28 Oct 2026 11:28:09 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: linux-sound@vger.kernel.org, kai.vehmanen@linux.intel.com, 
- yung-chuan.liao@linux.intel.com, stable@vger.kernel.org, tiwai@suse.com, 
- perex@perex.cz
-In-Reply-To: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
-References: <20261027083840.28813-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: hdac_hda: Fix module unbind/bind via sysfs
-Message-Id: <179310201620.199157.14946158307073154268.b4-ty@b4>
-Date: Tue, 27 Oct 2026 11:53:36 +0000
+	s=k20260515; t=1793186893;
+	bh=OraIQ2SDhu0uL8MoTVbZTwStx8G1xutMjL4a8ZJPBog=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=WI80yjlTSkrjldjZt+cbwEWMZJB1f8AAlgBqRvYJ1KGoO105xoAPdLH7EtQDHeawz
+	 aCU2lewYFtggTXpJn9h7aZBh6bg3X8rYepGssMUp7cfvY7HHa5KAWrS30398ypwB+F
+	 hYpyfiuBnxmof0J/5FAKxR/D8rHEpT3xdWT3AiRAyhvyh6tSNAVydTPxX0XTDwl0m8
+	 Q4K+2TAMoTmT80hI3ygHKKkQt6oH66H5i+n31JkId5wydedFOrz61olajaUtoE99FA
+	 3jET8T6OuxIyMnpyoqN1M1SgrhvY/OFzksCD32xAuyrgQqdyeYCFcpFqcQOHdMrCZU
+	 GncwJFVSpisKA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 96E6E4540F;
+	Wed, 28 Oct 2026 11:28:12 +0000 (UTC)
+From: =?utf-8?q?Krzysztof_Soko=C5=82owski_via_B4_Relay?= <devnull+krzysiek.sokolowski.gmail.com@kernel.org>
+Date: Wed, 28 Oct 2026 12:28:11 +0100
+Subject: [PATCH] dmaengine: pl330: drop only the runtime PM reference a
+ channel holds
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +84,83 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1617; i=broonie@kernel.org;
- h=from:subject:message-id; bh=0gWxUMOc8U+aGgj/FaBpD6Hf/YtiHi0nKmV867VQMfI=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIe3vH8sG6eBtMl2bhiCZVDgs6/+q1Opu/Ybr5z7+Nzd
- 6Pf5fpO7ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEOs8y/BXuWS/L5bXt2rqJ
- rc1t+gsfeNhYH5D5y9W93eQp97n7014wMvw12d9dFe0xs0RCmv/4N+PKjgPfN5QK6gv+U51z5pF
- oPDcA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-Id: <20261028-pl330-runtime-pm-v1-1-f0fb5c34a7c4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2Nyw7CIBQFf6VhLcnl3forpgugF8XYh0CNSdN/F
+ 63LSebM2UjGFDGTc7ORhK+Y4zxVYKeG+JudrkjjUJlw4JoBb+nyEAJoWqcSR6TLSJ2yAkCB40G
+ ROlsShvj+JS/9wXl1d/Tl2/kbCZ9r/SqHRpzNSP08jrGcGxuCQm2NCV531njZAZdaatVJGFgrO
+ R+M14KRft8/xOgpXMAAAAA=
+X-Change-ID: 20261028-pl330-runtime-pm-b5a30050b2f5
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Soko=C5=82owski?= <krzysiek.sokolowski@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793186892; l=2072;
+ i=krzysiek.sokolowski@gmail.com; s=20261028; h=from:subject:message-id;
+ bh=N0Dj51bhXIkS3BDw3/lGRjrwPEjdmvZxsqfqjpdUcCU=;
+ b=ehlD/UbuZSYLlj0k3N8mtTulGuMalewB+pRQnS63Q3pr8M5a7lbCppFfroC6Kq/aGDjJJK1ee
+ 1uDkG+C2TppBmzIO7uFxRQQuHlqX9L2yt4eiW5LwDi6NBGvo/2IN8LI
+X-Developer-Key: i=krzysiek.sokolowski@gmail.com; a=ed25519;
+ pk=qeeCHf+lXP5Q+6LakjbiVVxxcDVYb7Op1WMfhoaK2T0=
+X-Endpoint-Received: by B4 Relay for krzysiek.sokolowski@gmail.com/20261028
+ with auth_id=1343
+X-Original-From: =?utf-8?q?Krzysztof_Soko=C5=82owski?= <krzysiek.sokolowski@gmail.com>
+Reply-To: krzysiek.sokolowski@gmail.com
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 10:38:37 +0200, Peter Ujfalusi wrote:
-> ASoC: hdac_hda: Fix module unbind/bind via sysfs
-> 
-> Hi,
-> 
-> While looking at the reconfig lockup reported in
-> https://bugzilla.kernel.org/show_bug.cgi?id=222182
-> I checked whether the same can be done by unbinding and binding the HDA
-> codec driver via sysfs:
-> 
-> [...]
+From: Krzysztof Sokołowski <krzysiek.sokolowski@gmail.com>
 
-Applied to
+pl330_tasklet() drops a runtime PM reference when the channel's work
+list is empty, without checking that the channel still holds one.
+pl330_terminate_all() drops that reference too (power_down =
+pch->active) and clears pch->active. If a completion schedules the
+tasklet and a client terminates the channel before the tasklet runs, the
+tasklet finds an empty work list and drops the reference a second time:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+  Runtime PM usage count underflow!
 
-Thanks!
+after which the controller can be runtime suspended while still in use.
 
-[1/3] ASoC: hdac_hda: Allocate the private data at codec driver bind
-      https://git.kernel.org/broonie/sound/c/7d357eae973a
-[2/3] ASoC: hdac_hda: Restore the codec device type on unbind
-      https://git.kernel.org/broonie/sound/c/08a44bde821d
-[3/3] ASoC: hdac_hda: Balance the runtime PM disable in codec remove
-      https://git.kernel.org/broonie/sound/c/f26c0d5f91d9
+Seen on an RK3128 board (dw_mmc using the PL330 for SD transfers) under
+combined SD and USB load, where the dw_mmc error path terminates the
+channel; the underflow was followed by "pl330_update:1678 Unexpected!"
+and a failure to request the DMA channel again.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Take power_down from pch->active in the tasklet, as pl330_terminate_all()
+does, so the reference taken in pl330_issue_pending() is dropped once.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Fixes: 5c9e6c2b2ba3 ("dmaengine: pl330: Fix runtime PM support for terminated transfers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Krzysztof Sokołowski <krzysiek.sokolowski@gmail.com>
+---
+ drivers/dma/pl330.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+index c2d0b47..b0eced8 100644
+--- a/drivers/dma/pl330.c
++++ b/drivers/dma/pl330.c
+@@ -2090,7 +2090,12 @@ static void pl330_tasklet(struct tasklet_struct *t)
+ 		spin_lock(&pch->thread->dmac->lock);
+ 		_stop(pch->thread);
+ 		spin_unlock(&pch->thread->dmac->lock);
+-		power_down = true;
++		/*
++		 * Drop the runtime PM reference only if this channel still
++		 * holds it: pl330_terminate_all() may already have dropped it
++		 * while this tasklet was scheduled.
++		 */
++		power_down = pch->active;
+ 		pch->active = false;
+ 	} else {
+ 		/* Make sure the PL330 Channel thread is active */
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+---
+base-commit: aff5e6a77fc69a7c490246465940d18422d7c631
+change-id: 20261028-pl330-runtime-pm-b5a30050b2f5
 
-Thanks,
-Mark
+Best regards,
+--  
+Krzysztof Sokołowski <krzysiek.sokolowski@gmail.com>
+
 
