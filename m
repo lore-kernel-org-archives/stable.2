@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201980;
-	b=4V8BDwIRCRaijvZJ4Oew71xu4xYREepjyQjFrhy9pcZX/KMbmzOuHJVwh7v9uqd3lSgl
-	 1wpyGNfqYB6dM86rjLgEhMYcoJ+PVuG6MmJqop/MyXIGQUEGH90JnqtO0DucE2Kjyx6pR
-	 Vzs1XZgmThYWJg6ruF+TMLDcu0IZA8hRB8xPBDw8oLrjE+1Y0gi3XvCVtuBeXwjsgqiS2
-	 TmfV8v4rWqkxJS/yzoMTPtW89Lu5h4BoDXDFs4A+kmZPZZwKVlkN5J7vQ+TYMmy1hmGD9
-	 bepBT3olGBSzqtz1bbiv40ziFnqNMm2vFOC3t6tYW9eE6Lc+UOQlcQN8YhFLvYgA1OQ==
+	t=1793201988;
+	b=gvotz/smeEoqDwF7y2/sUUNXfkO0D+/XcOrKZsbjKIIyWmVLXUTqc5eimhsplYLEZmC/
+	 lBowtyRRbRswFZIh2EIJ1vihCagXSndIcE+2evYyZTr7tgR2DFURkaLK/FwjF9i0AOC5O
+	 F8S4HzWnXASr1DfPLwDCSwrnA2C1NIULhHFuW6+h8zjtRpBjI6oyiDzdQ9TDcqDP0AhVL
+	 Pg/TyaO8WCLrLJ2uvPczuB6TSxpWWpaqO2ClzWVQQPaQUMh3AFeGKsVVzM03+EO3oOc/9
+	 kDQ8QPFzWfiqlxwi+lXtaI+EFkrYHI52+AwiCnscHnUsvIm5x7MpJMSK1GgURi70dqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201988;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jq0m7KnG/AEUud13OeN095lsBtUcc40WcEvACHP31YQ=;
-	b=tS0ny3e6FSHU7UMNBG4yyhzgFgzL2M8Zv4RmypixaAuQW0iXM/JvGl6ReG2AXEF7p6kJ
-	 JqZ5SFWnZS1AiPhb5IVTecVrPm6qv6oM7ziFYzKy8Oa4pB3MoSDkcj7Oh2OAbULc2GC+2
-	 fWYS6D4mWp7ZM0ja/Fh+uo/ZKL1uWvYbsl4nzLmqohEaBmSM1VoR1W/h8SMEAMrm08kGA
-	 JgMAlCJlSDlIgsVOUiWcP3st4gzULAONvLkzwa9OIXPtUZz32m9G2X8IIcXlwLsliYlQ6
-	 gKsew4ohndyNlmb0u3wNMd96S8v4ubMIVASbxiTpYHIB9bYrKVI9lFxU5iv2wzGHMJQ==
+	bh=2iKcK+l7u13R2XKq63G1o5YBL0j7uUm2eO8hCG+5el8=;
+	b=xOy9BMTXl2c43JdZ2m4ri1wmxPLRvUb0rJoNmja7IUR0Vilrfz92gmcKkD1dLjL92o13
+	 8WsKzowqlD0rx8fTZHbH8/062ovleZve6/CZbZAZ1A87NNhpOqvSrGAWB+qUoO6PFyJfR
+	 +vIII6a/HFtCgWi666TjYQ18A85A3jfxRerljuH3jZlLJlVTbNaR0cSkgXkAn14W/UNz6
+	 QtCfRfNwC1vhEoyCRK/P/3ZjjeI6jBWkw5w+XdM/xcA2oQAzS2KlLd9ZNVY2ikP3wi2V8
+	 9438hKA4zVNQGYT4tPcPuQsKMtznpU1fB0ZHZBR5dVCIpt6bsYYLTQVkvdqDBOvDcYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a+bSlG3f;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CUQdCa6k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17C1606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EC0606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:39:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a+bSlG3f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0EA91F01825;
-	Wed, 28 Oct 2026 15:39:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CUQdCa6k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E0F1F01825;
+	Wed, 28 Oct 2026 15:39:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201979;
-	bh=jq0m7KnG/AEUud13OeN095lsBtUcc40WcEvACHP31YQ=;
+	s=korg; t=1793201987;
+	bh=2iKcK+l7u13R2XKq63G1o5YBL0j7uUm2eO8hCG+5el8=;
 	h=Subject:To:Cc:From:Date;
-	b=a+bSlG3fjHtUcL4ytwWFps7qxxtlgN++cCWnCMVEvYQBqvFZfpypIWEsCcFD9mTZD
-	 h7Zb6jPYa1cwKJjyJ9VBDMsJEdaQtRjUuiBsJAjEJIC7t0YdbGVhGu+Tb5FdgvLeBe
-	 caFZ8apC3zRZFSa0GJcxFe4l8Zd4nrZAnOUKtwVY=
-Subject: FAILED: patch "[PATCH] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL" failed to apply to 5.15-stable tree
+	b=CUQdCa6kPscyu7vYLWhFhQpB0ZdZhzZ5vov7gsfLVkVp7+zmU+jApQzJuhDcFUQKQ
+	 rIwgAKJUeYci8ZV6lz/iOzV3DdKt4Tbe38jL/E9Gagf2eArtQ0dbttT8LSVIGhi4Hz
+	 NOBSy6b1VKNkTZ7WJ0d3QUtcQ6tR+TWLIrVWDoVQ=
+Subject: FAILED: patch "[PATCH] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL" failed to apply to 5.10-stable tree
 To: brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 16:39:37 +0100
-Message-ID: <2026102837-poem-blog-9727@gregkh>
+Date: Wed, 28 Oct 2026 16:39:38 +0100
+Message-ID: <2026102838-repayment-hyphen-7ccb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102837-poem-blog-9727@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102838-repayment-hyphen-7ccb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
