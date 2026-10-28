@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222383;
-	b=CwNLrl1nYrfMFOVhf4Vib04HNB5+kRqSidX2a67n49AHPfiZbQ0qtYPw5pueGrwrDNT3
-	 VBWdSqc9UGqK2FVGWiFQg9r11TqCCYwIstfUQkOteV4sBnIKR2XHBz4xifol+/GW4c+9w
-	 JLCWT2jwtXpaGuzlUQ2Q5Wct3X6at3K7CXZnVDdKxH6ceh3ckZOJcLG1u4y8GfNouWQsE
-	 pIkLwJwyLDQrvMQ8+ADS65jZeo8XeDc22YDKD2IPX92H+3CgxDKu9dH1QqU6Jz1UfxEAb
-	 Nw1OGpuAgfKTmsrGDUlHB+EH6/879kB60A7JZaj1XcafuWyfyt1T83Zt2mGa55OVgRw==
+	t=1793222384;
+	b=GW2JqyuC2v14LTDZZ9+GdJpq75RmAf0+3hzlwsaqqjs2YD/aIk1yS4FkmQ0pRnorPbXW
+	 BWPIHNrXG493FLPbYIH8hKpP5F2uXB9nTHVVWRN8rSoRDyvlJD/jh1aq3QRNJrAtg9RjQ
+	 SR4rO4SM517ClwAbDt29CQlOyLw8nTJ7Iq8wfBrh3vo9w1Qa+hInPGVs+m8JWx/E3Y2mK
+	 3IGBe7OLS2vf0aZQoSjlGeHXq2ZbzgT55bpr27gw7qgeZ03UYszVYAW4RXBNBBhVI1+Ih
+	 EvR93ht9iTB2UeWkJH6J7RCxTRUnFUgrkhGnEySW7lpoFG8yDq53yw1q8LMxWk0t2PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222384;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZIgZaCWO7ouB50zgNC7x8DTFvAXbflI8ZAgrOwWkY6A=;
-	b=DM9yiPS6ClnHvRplbItIjYAyoN3BgDx20MG+gh8SsnoeqmXXcDYdPItmJUHbEozty5I1
-	 SZIKaEX/AfkfkYYJnyYiIhZovPP/dr/+YSBiWg2r6lZbM0SYHOTrt+2PnIhhwdNFN3c87
-	 UZAUhKWsd0vafKotGcLI4rdOSLA4BZhi6IQ+hnWQj6Ps94KQIwLINpjvd3IgttkgM07Zp
-	 LlWKpBedsUHu7tp2kIVz1S0TPpozZ3wwFBOSpDP95ZYrymKfGkOSGGnwgAP9wEodtEcZe
-	 X86C5VK6HGunoKpAfyZSaDql2er95lW9s/j6ppk7Pk7EYmkPp2RshLp7ie6UH6A/ERw==
+	bh=zcBSq0z/f2PFtUtjLoqIazx5vf/WTcNJyMg91Vl4fF4=;
+	b=wRJGL73uld+GdKmHa4KnKZTFgoPRfeZrntMWKmRGQA+amxGFPG7JYAhktNNLGbMbOLar
+	 asF2z5S8m6eEkhRr5ZIba9g3NWsQ6LnBDej+42whja/FWBkyzeJhAGrcF+SgxhuUKivpm
+	 jD0NQN0eFfzG+XZFqPz9ezY6H26ddni4Q38zAl7DohXBTYek+xhqtmF+jXEC8+F9i38mq
+	 /HNBvCCn3wSzuEc2SxMHEpXx6VjH/5wERdj70BL/rb6/4zGL9iS5+7p6t3zZj4xZ6LGoj
+	 V21vYpsGp0znUs29QNrY06coEk5PdTGMu+B+suxpZM7q4J1yIScu7aa3vj8tMo/4wYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XobPomqO;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=lzBMaCtX;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9521D60A2635
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:19:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9521D60A2635
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CB6606A338
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:19:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6CB6606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XobPomqO
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f1e5d7450so121903385a.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:19:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=lzBMaCtX
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91c11468b5fso15637006d6.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:19:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793222381; x=1793827181; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1793222383; x=1793827183; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZIgZaCWO7ouB50zgNC7x8DTFvAXbflI8ZAgrOwWkY6A=;
-        b=XobPomqOGjQ2JuRdVXXlnoFmj2MGfcqu2NphESlZ6ykYJ2KjP9b7lKBuKcF8W+3ozx
-         e/rE9lSgiZhGX82YHC+I0n1vz+VW/o91RudyYt9haN9/AByWS8eWjAUw3GqlgSJU6Lx3
-         m6O48aUdjb1KKJKPactK+Mb73t9blmLzbHQoYUeSHg1by1OGRwifOBhVrLf9Y0mxa6el
-         Vjb9xmDQqzfj8kEE37LWWBBiod5wiky3yGS4B1NM3MsKgW1Kgm5W/z40/L4Wk6LV5AVL
-         Eeu3jVtwqiQCPEdGuWLx3RaI7BaXP2PX/X6SH+zwRakr6CTDCkXKv9GpT+SBjXgvQ0WP
-         q7lw==
+        bh=zcBSq0z/f2PFtUtjLoqIazx5vf/WTcNJyMg91Vl4fF4=;
+        b=lzBMaCtXTe4tIpZ/BLXyFwBocpFxb1SXXSkNaR9zcuSy0NtHU2rbYUrKdmmn4mGIP4
+         aAkJ+6vGAjmXXK8CHHnTiWaAbCYWgbuo/kixn/kOSXZpf+4pVg8mgtBL1dUT151qGao5
+         sk+ukapGeh3XMji1zB7jsFjgojOlUINRMi3pCzetjSkjt3oxSw7IkP6FHnJW1uSk3YXc
+         /W48SoaPARvF2f49D7//zXhoVHnHgt1AH/guGluBR3L3lIjX1B583PpOsxX/H7tmxY3X
+         pbWGhzHVfCTH788LRz+gJLzzFve4X0JEiuesbDfMFjTJUe+TcZk5p/JLpIZqH5WN0Tae
+         8HyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222381; x=1793827181;
+        d=1e100.net; s=20260707; t=1793222383; x=1793827183;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZIgZaCWO7ouB50zgNC7x8DTFvAXbflI8ZAgrOwWkY6A=;
-        b=eR534JoAAtGmc/mMIw/wTXEwRSRZwPOFSSjByS8GQCv1Iix8BYT0FNl2IS129yK6Pq
-         HlLgBBYLkH57US+uL9m3U1FDlj6xrU86ZXkpzS0FCp8I/Fg6F1pVjFwIljiMwwdE4VIv
-         zB5hl450yNisRH0lXr446efFuxeiSjFpz7Km5y+o+PdjpL5BuRMNZK109DNAp84iR5z8
-         f91KP6i9aWZYo5zY7QflWeO8pqi473ThFOneasojtSjSIl1TxKrfVQ+TqjKevr2Jr2v8
-         mt/kMiN4p9huqVWa67q/R+92YnZXZIgIsk9J76yliU+cpFDa75TNjH4RSj00j9/N8VRp
-         2mkA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxXNRDKLwLga6pMT5AmQDdPNRZ71EY7kzCqVEEocWN7Iok3okJFsUa/fvq+JdalvJd7sj3PBw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIF057a7/wYacMMiKJeyREcHXyKFBQn5iGFh91uRTgp54QQ63O
-	cKYoONz2GE1aFbLZgkS6AD9Ji570SAHCRL+JuB0LizZXffpOpQ+Ihp8PWTAYhGhissE=
-X-Gm-Gg: AYBFou18ouYcrSgRGNK6S2nADtuM/SRK6TxeR8hqRdCWTsHSATVq3X0C1YblO32gdjv
-	kdgS/oqWo4cS+l+ZnaYi3EJzDm1F+itXFrPk1baRTCZUb+2sJb0x+i5rlMg0c9DQUX/c/yggUhH
-	hJRwg+twLgeqTUNG1bY5ni4xN5SOlC/h4yvnG77rN1Fm1hHn8B1rCJFnysAjqEk12u1zzG/ptQL
-	eiV84+YHlv+yU7NjDFE3WHiWvKNjnNMKxWALvpbhXcejV2pTYs3g24GneqcuvF7EkpCIP5TjTas
-	Q1/Tm9UXqYHJZqNZJDK4BSEkT85uDfAHpdXr1v5/B+JuXMcpKWq3VGg1DdGxNFWsVivRqc1L577
-	8R3e/OVw2ZMMzlO8YZ5Lk/3ezq+sXN5En3m8quFwWTJdwKHOWG4z6Inw13ERIJCZmRki8MPoZdy
-	cuhAGxHZM3wv2lSYuDP0LVBy8fFL0ChDAJpTfyoAhbB7hq4E14H6DFkoTcUqMWmoeXtmjzSHtzW
-	QozTRs2cjhmYitEoKH9M5EsmLb6dvDPcfknJmV7sIXrev175INGa6AXOJzCbvOqssI0AyxTdcsZ
-	FfLvasbfn4Pd0B2s8GH+1b89ZRnN/RnglkPwesTUvrejrdl6vqhnVNbl3Vpl8zUqGU4FbHosN7l
-	CBhYyL2n4IMxtgGM=
-X-Received: by 2002:a05:620a:2629:b0:940:f224:5a85 with SMTP id af79cd13be357-94408d6a286mr556498485a.71.1793222381385;
-        Wed, 28 Oct 2026 14:19:41 -0700 (PDT)
+        bh=zcBSq0z/f2PFtUtjLoqIazx5vf/WTcNJyMg91Vl4fF4=;
+        b=H5liOkc3yYeici7E8PwYNovRjfiuc1TNSwWbjmtubumfJALUOFc8tZW7dIQhuORdl1
+         jpfmzwVukBkDJKaS3Fx2QsiedvhPPblt4ZDWw61n0BBJyKVrsedELtOA5KE4MYKw8Kx+
+         W+jyuab4H0YghqnoZ8Edx/0TM6Ll55QbN72YUbiCVl+BsftUWZQ6ZsuGXBounIvrqZsV
+         vCrr5tfu93wKRnMSegR7Ta/b+y07YPD9SrRjrHnxD7cZGTDuNnpDdMN7m3XIbsFOZaJL
+         ni/FsrgIba35451wuNxPWdgFVBTD+jX4/hSvd9KiOufCM8FUqEgedPRi/tpZovja0iZp
+         Iieg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmRfCkiyE6b/R3EWNjjg5BeflIMIpnRGT68odirTNp9SJ2MY55K8kmHth8WRE+iH2gYYgPSUs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG0OQFEfZXb6Ni/9nMG5ngzWIGiRxnqx5knduSll2NEILo/qti
+	1Mi62nu+JXo171lSTY2snArD5NEpp7HuWpVUM68LEkAuMjYDg1OcN9tCAyK+IHcNOss=
+X-Gm-Gg: AYBFou2UxA7e2tqZqu+JIJHGt4ftT2/NR9XXmvBHhOcEs0Wy8w2qznjK7WB5rrPx6k+
+	PwUwCTHZCkRbrz0TEHuXfFffY/NvEG2o0QDnX+5paZ8sjysis/pXVvwEMEGsrQ4+NE7Nm+XdI1r
+	jUlUvRRRiW+BnYIRVyRnaM49cO5DuyUa0O97biaO0vXH2ELIPTUJYPOZHKfL4cWeOBpsQqY19O2
+	yvxR7b1WCTqeyW2K6ANv+k2+DS4jABrWE7cOu6hehwlv/YjHd4Z1DLhezIBjVnzOxc9kJRU2NDq
+	Ko2fLP1Ihzjn3zeBaej1G874EhP+6a4w4GMQn3Yh8FfBnL9Bm07J0hslmJfh2gDk0MCfKZwOI6q
+	g8oWLliYDjy7u86OOoPud2Fgkk0Y8EcZ43voYUF+Q/G3vp5VTTaS/EDdCBgDohPJMyLaGVntksB
+	XUBaSiQi4Bt1hP2x8zHOApWHprZ7Akv8DtJYP2n2chh9w9X6kKOJBhxM5jaQEwQMIeMHwjvU7Pb
+	FVPdc7ZGADOaVwSBTTbpzW0KyNmbk/Hnt8iTFUPKJeK/YsP21yBR6HSVtwaInPtbVu963GZKV6j
+	Ykg/jCvRLnL20JM46kQJ5MsJDj+6xBwt8WfWZd+ELBO7OA/SVk+wddVwC3cgH7gmcrCAmcLdVcA
+	qMF6CwABD87uo49zaZjqyiI+aJ+XjQBilQw8L
+X-Received: by 2002:a05:6214:21e9:b0:912:517b:844 with SMTP id 6a1803df08f44-91c7d1e7b9amr58841976d6.40.1793222382629;
+        Wed, 28 Oct 2026 14:19:42 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.40
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:19:41 -0700 (PDT)
+        Wed, 28 Oct 2026 14:19:42 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -103,9 +103,9 @@ Cc: linux-kernel@vger.kernel.org,
 	mgorman@techsingularity.net,
 	anshuman.khandual@arm.com,
 	stable@vger.kernel.org
-Subject: [PATCH v4 6/8] mm/hugetlb: retry the pool walk when the zonelist is rebuilt
-Date: Wed, 28 Oct 2026 17:19:28 -0400
-Message-ID: <20261028211930.3504634-7-gourry@gourry.net>
+Subject: [PATCH v4 7/8] mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
+Date: Wed, 28 Oct 2026 17:19:29 -0400
+Message-ID: <20261028211930.3504634-8-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028211930.3504634-1-gourry@gourry.net>
 References: <20261028211930.3504634-1-gourry@gourry.net>
@@ -121,119 +121,79 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Onlining the first block of a zone rebuilds every zonelist in place,
-shifting the slots after the new zone.  dequeue_hugetlb_folio_nodemask()
-approves a slot by its node, then loads the zone from it, so a hugetlb
-fault bound to one node can take a pool page from another:
+shifting the slots after the new zone.
+alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
+and nodemask, then loads the zone from it:
 
   CPU 0                             CPU 1
-  dequeue_hugetlb_folio_nodemask(nodemask {2})
-    slot 3 (NORMAL2) approved
+  alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
+    slot 0 (NORMAL1) approved
                                     online_pages()
                                       build_all_zonelists()
-                                        [.., NORMAL1, NORMAL2]
-                                        -> [.., MOVABLE1, NORMAL1, ...]
-    zone = zonelist_zone(slot 3)    /* NORMAL1 */
-    dequeue_hugetlb_folio_node_exact(h, 1)
+                                        [NORMAL1]
+                                        -> [MOVABLE1, NORMAL1]
+    zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+    alloc_contig_frozen_range(MOVABLE1 pfns)
 
-Check zonelist_update_seq before using each zone, and on the way out
-with nothing found, and restart the walk if it changed.  Checking before
-the dequeue leaves nothing to put back.  Reset the last-tried node on
-restart, so it is not skipped.
+A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
+caller can get a range from another node.  Gigantic pages are kept out
+of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
+non-migrateable gigantic pages from movable zones").
 
-With kprobes holding the walk across the online, a fault bound to node 2
-took a node 1 page in 3 of 3 runs, and a node 2 page in 3 of 3 with this
-change.
+Check zonelist_update_seq before using each zone, and restart the walk
+if it changed, as the hugetlb pool walk does.  Check again before
+escalating to the pass that may migrate hugetlb pages, so a pass a
+rebuild cut short is redone rather than escalated.
 
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+With kprobes holding the walk across the online, the base kernel put the
+1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
+ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
+{2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
+and neither with this change.
+
+Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/hugetlb.c    | 13 ++++++++++---
- mm/page_alloc.c |  4 ++--
- mm/page_alloc.h |  3 +++
- 3 files changed, 15 insertions(+), 5 deletions(-)
+ mm/page_alloc.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index b37d7d0db7fc..8edf323baf0f 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1293,11 +1293,11 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
- static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_mask,
- 							int nid, nodemask_t *nmask)
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 70830689048a..7d06c6c4011a 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -7593,6 +7593,7 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+ 		gfp_t gfp_mask, int nid, nodemask_t *nodemask)
  {
--	unsigned int cpuset_mems_cookie;
-+	unsigned int cpuset_mems_cookie, zonelist_cookie;
+ 	unsigned long ret, pfn, flags;
++	unsigned int zonelist_cookie;
  	struct zonelist *zonelist;
  	struct zone *zone;
  	struct zoneref *z;
--	int node = NUMA_NO_NODE;
-+	int node;
+@@ -7601,8 +7602,13 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
  
- 	/* 'nid' should not be NUMA_NO_NODE. Try to catch any misuse of it and rectifiy. */
- 	if (nid == NUMA_NO_NODE)
-@@ -1306,10 +1306,16 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
+ retry:
  	zonelist = node_zonelist(nid, gfp_mask);
- 
- retry_cpuset:
-+	node = NUMA_NO_NODE;
- 	cpuset_mems_cookie = read_mems_allowed_begin();
 +	zonelist_cookie = zonelist_iter_begin();
- 	for_each_zone_zonelist_nodemask(zone, z, zonelist, gfp_zone(gfp_mask), nmask) {
- 		struct folio *folio;
- 
-+		/* A rebuild may have shifted a node outside @nmask into this slot. */
+ 	for_each_zone_zonelist_nodemask(zone, z, zonelist,
+ 					gfp_zone(gfp_mask), nodemask) {
++		/* A rebuild may have shifted an ineligible zone into this slot. */
 +		if (unlikely(check_retry_zonelist(zonelist_cookie)))
-+			goto retry_cpuset;
++			goto retry;
 +
- 		if (!cpuset_zone_allowed(zone, gfp_mask))
- 			continue;
- 		/*
-@@ -1324,7 +1330,8 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
- 		if (folio)
- 			return folio;
- 	}
--	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-+	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie) ||
-+		     check_retry_zonelist(zonelist_cookie)))
- 		goto retry_cpuset;
+ 		spin_lock_irqsave(&zone->lock, flags);
  
- 	return NULL;
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 33aab9deaaa1..70830689048a 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4411,7 +4411,7 @@ EXPORT_SYMBOL_GPL(fs_reclaim_release);
-  */
- static DEFINE_SEQLOCK(zonelist_update_seq);
- 
--static unsigned int zonelist_iter_begin(void)
-+unsigned int zonelist_iter_begin(void)
- {
- 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		return read_seqbegin(&zonelist_update_seq);
-@@ -4432,7 +4432,7 @@ static unsigned int zonelist_iter_sample(void)
- 	return 0;
- }
- 
--static unsigned int check_retry_zonelist(unsigned int seq)
-+unsigned int check_retry_zonelist(unsigned int seq)
- {
- 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		return read_seqretry(&zonelist_update_seq, seq);
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index 2b1017a91928..53df6b8a0c00 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -265,6 +265,9 @@ extern void zone_pcp_disable(struct zone *zone);
- extern void zone_pcp_enable(struct zone *zone);
- extern void zone_pcp_init(struct zone *zone);
- 
-+unsigned int zonelist_iter_begin(void);
-+unsigned int check_retry_zonelist(unsigned int seq);
-+
- enum fallback_result {
- 	/* Found suitable migratetype, *mt_out is valid. */
- 	FALLBACK_FOUND,
+ 		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
+@@ -7637,6 +7643,9 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+ 	 * second pass, we will try moving HugeTLB pages when those pages are
+ 	 * smaller than the requested contiguous region size.
+ 	 */
++	/* Redo a pass that a rebuild cut short before escalating. */
++	if (unlikely(check_retry_zonelist(zonelist_cookie)))
++		goto retry;
+ 	if (skip_hugetlb && skipped_hugetlb) {
+ 		skip_hugetlb = false;
+ 		goto retry;
 -- 
 2.56.0
 
