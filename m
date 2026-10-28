@@ -1,57 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207346;
-	b=J3k+YkGrjc/nS5UdW19snOVcU0FK2YviZiAm7kVmOb7hvRkvsphb69cwkUwkK+v3u6Us
-	 zt7Ds15beAFMTsH73bADI8W/ibO9tZOZgGGssqh8Z69OYm9CzZsFBc/Lg0cE7XtzKqNvb
-	 FQCkGRrD1XCrtKcDTGe0glNSB7qIY8/q9pTY7a1Rf+B/BN1t8cxV0Bd1OjsPn11JgUsaK
-	 HKUbyuKDyE+0U3Me2BuyOjlKT9T0G+tknIEBHxaX9rpIT77PlgdJy8GPB5a8ah59DRb5p
-	 6XGFXZPcl4teNd1QpcRYAX83COA1ag7e7T6dJF0L84OApf2GWDuDY2KNF/K062uWoEA==
+	t=1793207348;
+	b=5MbieBraZQ6H9dOiYZPAiRBqk8ZGqAOSAPuRPZ7JRg3LeStCwQpcMKFGGrhPqgy3HhmD
+	 MoqycNenfeLTh2u2iMOcANnlgDQozTV4QVBtYSVbbw2PICPOw7HgmInt6C/JoM+nRxsqI
+	 GjmtdtU4t8w7HluHYZDhFx10hcHphaYaJJ27fT9CDlThXdrXI8pykPZZ3wStJzPEHvQep
+	 oTopW2v0ziwkqT9UPQMrmsYTxLQsjEaS5Ay6hjxymHXmEuXHJIwtbM1TJMf5bp0BGjGW8
+	 OpnGLU9LB0DTFomoQSp11PwFdFOeRcYXr6skMhphc0J659oK7QFcJVVBSkPeg2Kte5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207346;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pJO5pjcEsR6Gbn9aIk+eaRT/erK2XXB4jSsTidEqal8=;
-	b=bcmngfkgxqYTNYjBUolnzLn08174KUD8ggog8J2LB/WIhuAFIP00b7myUf3AM8m534rF
-	 XINcjts4HL9T6Vgvt0iwd3ss7NuR1iRchGguyvPhFuhUG1BKlXKmgXxc1bi6CfY27Bb4I
-	 eUZT3F1zl/arMfhC3xGrxsTxCjrbZ9rkvInWu1WoZy+7UDYWknT1Efr6U0poik0kU2YGc
-	 TpCk7kwVWLHCL+PzI9i4pDlJxHHgZwJTrEn1ZtlCLWGwaliE2ADyrUBFxl2+/OHVukNi2
-	 XoXi3e+uQXlLdjZu4eKAlEOZGv4d4AG8ieX0fELLAwqcOvJcV9TdIfumqxTUcAIFG/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207348;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=O0UDAqKLczseG5vwWb+qcEkII4ga7mybPYBMC/i9NRo=;
+	b=hQJOBM/JHV5bAk42N1RtnMOHPMvTMe6oug4MsD1/S5VMWbJDu4fUw7XavoXOD/NbGqvZ
+	 WHoZcGC9rgzyLlJRhQ5qi0xxODBHqWBdKvmJh+9jr/fpTJBZj/1LkVOccoy3ZyAxcEXc0
+	 gUpWmtFL//bB6vTzHfkJbm0Np6LPQy27HwH+s7b+d1x1sYpfJMYpYM365S8m/WTNhdDo3
+	 vgkqd0XpnyUd5nYKwd4k90/G0fTlJttog6rD+OQt+BgLY0Tw6LnyxHwAPAfh+ClxdgXHD
+	 vSfuMaTAahnrrwG0RuJRl4vbRHXlL14Py/EvIrJCC2Bn8axHH6ZCZPhZm9dyIou0uRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=muLq8KHv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9kDxjlf;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39677606A31F;
-	Wed, 28 Oct 2026 17:09:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A566E606A327
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A566E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=muLq8KHv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C741F01825;
-	Wed, 28 Oct 2026 17:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207346;
-	bh=pJO5pjcEsR6Gbn9aIk+eaRT/erK2XXB4jSsTidEqal8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=muLq8KHvbGPOfbO9FWyFKfZIzxJXiBZhf9EwGP2CnTKbZrzsCDzG6P5dpSmCtOPvm
-	 Uab6USKzGxooqbi/SH6+e4v4UN+1LtLGuK7hCVc3UOcvL8gSdhQyN9Dmv/8K7UklE4
-	 t3V4jM2fWILYTIqnOId43unWgdVaFslVUCTD5kvg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Austin Schuh <austin.linux@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 7.2 66/88] io_uring/wait: wake real-time waiters from hard interrupt context
-Date: Wed, 28 Oct 2026 18:00:14 +0100
-Message-ID: <20261028165943.668702739@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
-References: <20261028165942.107695352@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R9kDxjlf
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso669430f8f.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:09:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793207346; x=1793812146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O0UDAqKLczseG5vwWb+qcEkII4ga7mybPYBMC/i9NRo=;
+        b=R9kDxjlfeabjIAx9+fZ+Ftk4ce9PFZEliXk2DS7GHjIEYyta3iN1PbHpEdpzeCTqrs
+         RHo5TOba4alpQcNlbsyIng/dYlKgt0O8qk1eGitHEjgpYsVgJCBhyEijtDLucI7jS3gY
+         Pk72CP7dxVPxcs+7IZ7yqxB+S9bn8b6u97hLKMClRB85F3wceZXNJswZ3vEkgM3DThl2
+         g5fl8DNp4bqopHUhumldknslkfSWAMthLRZlQ+JeKXB3CBgcatUwm3dqbSNXCqQv7MrO
+         XZVTAJvKHSW9hW+dr5TXxTBF4Owd8wNvBebOfD+o9v1IMHJRX0pTGu++U4MfWi3tmqGX
+         Yi8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793207346; x=1793812146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O0UDAqKLczseG5vwWb+qcEkII4ga7mybPYBMC/i9NRo=;
+        b=GVwI6L+VS1EUAdrvNEm7KRdZf9ajgQcqWzKXFb5s7XkKMyVdEiZkN2mLVm3dl7a4HD
+         CLlWx6kNU1K9MCO0jDMFl9Hd/M65Urjd/ZtkxaUzUmP57EhxRwcm4TjwnmRQUcdPlxQM
+         /bzm8JMlPw2fKY3drrOgIyANYg8nB6ck8CXvevRsepg1z1xFeA3lQrGf0R4to8qO8VfX
+         5/rzJCnlQEPqS3MbRw+dFY10+vhylsVvaKXmO1yQsWyaYj1rF5wwABHileyGsVoUkGoa
+         Xp0rK9mbKmcAdtFcnNQH64eRHDLZRhM8WQfp/NT65K4clSAajF1hDQkE3EezfNjABft5
+         QCUg==
+X-Forwarded-Encrypted: i=1; AKwUvByVoCXZok0uO4f5fWafK/XmjEyaw8bzRlgK7uTzJ/8Wz9X6h5MRlYYkBXcnBxmV7Nren763Stc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPDiIoRADzejbsI0K6SMxC+pzyIKFy4Md+0ecuF8Fggn6ZcZW/
+	ArAY10Uu+gIAQVGKNlANb99TX1630ruhhI7jrQlmBPlU2v0il1wFJ+0=
+X-Gm-Gg: AYBFou10VAbIEj26JqS+rB8HKjN0RhXwKItd5AzUa5l8d1wY5CipPGJc9O0jr+U7t3h
+	YlVNBAYtkej5yvCivoiB1WCmX8tOytX6L0LRxmKi28hpD54q0mqkDhBTIwKK6Q1Rvng0spV/MxV
+	enHNtdGylW9wvfCDdhHncbM9lf16i58xoP55Nafe7+yqfUpC1vMzCEUIhrVFoYSVnYlYSCVD3Vy
+	y99gPEQh+xrIWV7EBcFszicjudoCa2coi5EjUEeXIf9hfS9v7WmT77ub5Gdq1dWIW466rpRMtTB
+	fNxfhY5FUe/cp1XF3KgkIxZqE9QStHst91SY8/EVK2rTjWWph0grsgDSB4hwf3dQ3CGaL40PyHd
+	NlweG7jmaws3rAE+pVIU9Hr+HLTYumTk4co1BqSyheNJnuaN50WCRdcX8j1oUCXEaD9PPcMMMO9
+	ugyr3ZuPhmzMaGqDX/TA4FYCgwzncVpPVnYeuLQFGnw5QX4BhqIIf2xihGAMzQ/AadYVdY12pR4
+	BmLbjasFH9dm1VGdUYG/VhGNfhQMM9n2afNVMpyZPATiq86KXT0pxw7Juu298pTS5d+450vBQ==
+X-Received: by 2002:a05:6000:288b:b0:48d:fbf4:895e with SMTP id ffacd0b85a97d-48e5d2e6cd2mr6765330f8f.11.1793207345780;
+        Wed, 28 Oct 2026 10:09:05 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4ba7sm29732715f8f.33.2026.10.28.10.09.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:09:05 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Steven Toth <stoth@kernellabs.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	tristan@talencesecurity.com
+Subject: [PATCH] media: saa7164: cancel workcmd after disabling IRQ in saa7164_finidev
+Date: Wed, 28 Oct 2026 17:09:04 +0000
+Message-ID: <20261028170904.1183502-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,97 +99,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-------------------
+saa7164_finidev() does not cancel the workcmd work item that the IRQ
+handler schedules via schedule_work() for command responses.  If the
+work is still pending when the device structure is freed, the work
+callback runs on stale memory.
 
-From: Austin Schuh <austin.linux@gmail.com>
+Add cancel_work_sync() for workcmd after free_irq() so the interrupt
+source is fully stopped before draining the remaining work.
 
-Commit 5b01d5955ac206e38097f777eff6ab2a8b948c41 upstream.
-
-Since commit cebf123c634a ("io_uring: implement our own schedule timeout
-handling"), a CQ wait with a timeout sleeps on io_uring's own hrtimer
-instead of an hrtimer sleeper.  On PREEMPT_RT, an hrtimer that isn't
-marked for hard interrupt expiry expires in the per-CPU ktimers thread,
-which runs at SCHED_FIFO 1.  A real-time task waiting in io_uring_enter()
-is therefore not woken at its deadline while any other real-time task is
-runnable on its CPU: the wakeup waits until every one of them has blocked.
-
-hrtimer sleepers, which schedule_hrtimeout_range_clock() used to give
-io_uring, don't have this problem: __hrtimer_setup_sleeper() marks the
-timer hard when the sleeping task is in a real-time or deadline class.
-Both of io_uring's callbacks are fine in hard interrupt context:
-io_cqring_timer_wakeup() sets a flag and calls wake_up_process(), and
-io_cqring_min_timer_wakeup() only reads ring state, under RCU, before
-doing the same or re-arming the timer.  Apply the sleeper rule to them.
-
-Measured on a Jetson Orin Nano running 6.18.39-rt with this change
-backported: a SCHED_FIFO 40 task waits in io_uring_enter() for 40,000
-deadlines 500us apart, while a SCHED_FIFO 20 task runs bursts of up to
-1ms on the same CPU.  Before, 6,647 wakeups were more than 100us late,
-the latest by 1,040us, and 2,758 deadlines passed without a wakeup at
-all.  After, none were more than 100us late and the latest was 18us.
-
-This mirrors epoll: epoll_pwait2() waits on an hrtimer sleeper, so its
-timeout is already hard for real-time tasks, and on the same setup it
-was never more than 17us late.
-
-Fixes: cebf123c634a ("io_uring: implement our own schedule timeout handling")
+Fixes: 443c1228d505 ("V4L/DVB (12923): SAA7164: Add support for the NXP SAA7164 silicon")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Austin Schuh <austin.linux@gmail.com>
-Link: https://patch.msgid.link/20261017171726.601443-1-austin.linux@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- io_uring/wait.c |   16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ drivers/media/pci/saa7164/saa7164-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/io_uring/wait.c
-+++ b/io_uring/wait.c
-@@ -3,6 +3,7 @@
-  * Waiting for completion events
-  */
- #include <linux/kernel.h>
-+#include <linux/sched/rt.h>
- #include <linux/sched/signal.h>
- #include <linux/io_uring.h>
- #include <linux/time_namespace.h>
-@@ -120,23 +121,32 @@ out_wake:
- 	return io_cqring_timer_wakeup(timer);
- }
+diff --git a/drivers/media/pci/saa7164/saa7164-core.c b/drivers/media/pci/saa7164/saa7164-core.c
+index ac5eb6b923e21..8c6dd8dfd9a1e 100644
+--- a/drivers/media/pci/saa7164/saa7164-core.c
++++ b/drivers/media/pci/saa7164/saa7164-core.c
+@@ -1518,6 +1518,8 @@ static void saa7164_finidev(struct pci_dev *pci_dev)
+ 	/* unregister stuff */
+ 	free_irq(pci_dev->irq, dev);
  
-+/* Same policy as for hrtimer sleepers, see __hrtimer_setup_sleeper(). */
-+static enum hrtimer_mode io_cqring_timer_mode(void)
-+{
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT) && rt_or_dl_task_policy(current))
-+		return HRTIMER_MODE_ABS_HARD;
-+	return HRTIMER_MODE_ABS;
-+}
++	cancel_work_sync(&dev->workcmd);
 +
- static int io_cqring_schedule_timeout(struct io_wait_queue *iowq,
- 				      clockid_t clock_id, ktime_t start_time)
- {
-+	enum hrtimer_mode mode = io_cqring_timer_mode();
- 	ktime_t timeout;
- 
- 	if (iowq->min_timeout) {
- 		timeout = ktime_add_ns(iowq->min_timeout, start_time);
- 		hrtimer_setup_on_stack(&iowq->t, io_cqring_min_timer_wakeup, clock_id,
--				       HRTIMER_MODE_ABS);
-+				       mode);
- 	} else {
- 		timeout = iowq->timeout;
- 		hrtimer_setup_on_stack(&iowq->t, io_cqring_timer_wakeup, clock_id,
--				       HRTIMER_MODE_ABS);
-+				       mode);
- 	}
- 
- 	hrtimer_set_expires_range_ns(&iowq->t, timeout, 0);
--	hrtimer_start_expires(&iowq->t, HRTIMER_MODE_ABS);
-+	hrtimer_start_expires(&iowq->t, mode);
- 
- 	if (!READ_ONCE(iowq->hit_timeout))
- 		schedule();
-
+ 	if (dev->msi) {
+ 		pci_disable_msi(pci_dev);
+ 		dev->msi = false;
+-- 
+2.47.3
 
