@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181324;
-	b=iybUtsY67RsebWbE1tt3Uf6j+SMibj/X8iTQcJljXyPpp/acdUD2rfAU63rAmYsdnTKL
-	 HhTXOCHqqGAreA7CLn2/61KxzQ5HVXXZI+d02Hsx/4Jc4TRF5zM+VCnRY9bImny9gtEMH
-	 mkF4U+gYOBYq+Rinr1mRyitmH1dI7naQDPFeYjN+wqov9atQVTDvSu0XtL49U2T6GdNn3
-	 Jk8U13fhwB58Nnzh6YupELVE9va0uI/PPMxHTDtQ1ZBPC6/JqI4LQSPtyYQBzSeEa6wxq
-	 mU0QzDfhF4BeToUBUTDAWIx5L6rdfYCeOudMj7O62sBsHZ4ORF002PBp8T1UBHzFw2w==
+	t=1793181332;
+	b=QaOpOvVRderry2ZMq1S0sTgtQ+Xo0xIe3QzVVDoD6kS32NtNb0mCpAqKoKuxew+/f49m
+	 e6EExBLNitpfJJyNUVqx9UDw0rGyz/+cpr393RmQda1A+se82ONshXR2lSW/43kSltNo7
+	 CTkSW+onLl8a/1NO9jPMdAIApCmomKEiBjpKEBEMHdmlUyXfhh10I9WcofNu06+AyTxhs
+	 RfvIMJU9heO25MSeENP+GHNMg6rvLKn53un5JjRHjgB1HA8K6zlNBOKQUVMLo3NgbRC/b
+	 YRe20Oc+S8WEiXIJq3fWzS77XpX+ptxjLLudNAFHQ53I/q6mLZNOUsELww2rsi3g1vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181324;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pqX9rfgmqaJsxylyr7PekQEwW67TR8Idof8IkM9MJmE=;
-	b=e/bjBfDYSK34C7IAFP7ng7xC5O85OW4HPcugluokQ2HMrXCDERXv8wZYcMjo8E6E2F1a
-	 QO4wjnVzmjRNY7o3CwjP5SvIFjW3HIKDxlGmRYkOSDp4/0cDic0vkSxAXiEh7hVfoQWRR
-	 S6/S3AjBZ46WnI1kFs93K73r5Nr/65P3c+pPKiJooOV4/uJ5bab9/xacXyfaFkWIeP7G8
-	 RSzzfQgnsZdDNAhRH9Llo7KbLI4B7VnUQo5Q/Pl/C95qRfG2PPec/gIgmPhfd0vTC/lh5
-	 d0bKaYl1VzWuraphRhtBwN396lhEm65UXXa2i8idBD0ftctMUD4W+RTQAPCwYjIJfYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181332;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=F8pPM/bRUTziIOodg42WNv0yxbRY0HbfS2ntsfLX70E=;
+	b=5TH3m8OF5WXTDhadR9amMDCtolRbvn+j+WFpt4vBcomGKUX8L3WowXV+2SF9ilTug1xE
+	 oEpdHi1c3icbi+LeR2BNyh7m/zsgN3r9USh4N9we2n9YDZVM3avM2wvrtKaa24RfIQ400
+	 bHyk+f9CgxiLLevVAv6r0dPr1jNvlUj9Sa6TcEoNDeMGw82GPfESjnCmzier2ZClXQGcu
+	 wR4qDNfZAKIOI4lgJoNsx9ru68pUykhHhznPq5LIw9SAi0/9+8vGENIiSGMNluxheGAtw
+	 RIBFyN2Jgkh4VZcwzoSSfgQq/IDBXZZj/TZhc2W0BYqpCT6QCkIQp9Ys2AZ97zDvhyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELizeEpW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAohb4eg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE60606A31A;
-	Wed, 28 Oct 2026 09:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54901606A31E;
+	Wed, 28 Oct 2026 09:55:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELizeEpW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3161F01825;
-	Wed, 28 Oct 2026 09:55:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAohb4eg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A703C1F01828;
+	Wed, 28 Oct 2026 09:55:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181324;
-	bh=pqX9rfgmqaJsxylyr7PekQEwW67TR8Idof8IkM9MJmE=;
-	h=From:Subject:Date:To:Cc;
-	b=ELizeEpW0IWW9ALHMAwUdjXES+qCVnseTomqDmrxUdJsA2qI1fN9VpHRkPMHHB/z1
-	 e98N/XcweBbYdDxieObG0MX16FEbZspUHisMJzORsFG2RKQx8fFFQkPbYAFWDzM2ri
-	 5EU7adjS3axw5M15cusfxHELyH9A9jDW3BFaWZZf0Cvzc9OtiEgSXpBwT6DKoZwOMK
-	 YDcs/ClOj2ocpKlASP4GDCXMcRwgGFy8qvPcLXO05pWqmHr72dzqMzxog5X5ziXbmN
-	 fXncLL7O89PPHuccmSvDF6IutEG1BMlNtzJv5mzszHS/JLBJtjeodcuI20GPcZ7Nzx
-	 Xmo41NQzcaIpw==
+	s=k20260515; t=1793181331;
+	bh=F8pPM/bRUTziIOodg42WNv0yxbRY0HbfS2ntsfLX70E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=dAohb4egrc9euupGLmqj2Zinirntj2xoQNsartLNbJPRvK8bxD5jn20KboSV6G4UD
+	 kjBCDJicWJUe3+lR1pn9RbpG2X6cPOTDCM4lW7cOHGmkoGscInpmcQRWnaj7fGrZTM
+	 eJqL8ZfQCl+QdJFER8Wl0opx6v5Jz0BFzkLgK1WJ6xi87CQ2X0wvSDBBXegC9qZGHY
+	 GSLxWxFkMwspJL33RpJIyO4ReBvyVjdfVHuWOPJ+YCZwEPf/6CpH80BP3p2+VIBWvt
+	 zrv7Ywxn8NFEBdFyyeAodSm2Tgzm72mssDrmczMckeNwV+MeSnM6UVfIiL9CK80I5M
+	 3L1BMHU8CWOcg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH v3 00/15] mm/shmem: various (urgent?) fixes
-Date: Wed, 28 Oct 2026 10:54:58 +0100
-Message-Id: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
+Date: Wed, 28 Oct 2026 10:54:59 +0100
+Subject: [PATCH v3 01/15] mm/mempolicy: charge shared policy nodes
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,11 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHPG4WoC/1WNQQ6CMBBFr0K6tmY6hBZceQ9jTCkDVAVMi0RDu
- LstxkSWL/Pfm5l5cpY8OyQzczRZb4c+QLpLmGl13xC3VWCGgFIAZry2L/IX33bUcVQ5KlGUIgV
- iwXg4Ws9BOJ2/7J/llcwYE3HRWj8O7r2+m0Tc/cpyU54EB64gRZBVVmswxxu5nu77wTUspif8l
- 9VWxiDnUgMUGWpTFht5WZYPf46i+fYAAAA=
-X-Change-ID: 20261025-fixes_shmem-2782719b130e
+Message-Id: <20261028-fixes_shmem-v3-1-4ce3baf2db4b@kernel.org>
+References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
+In-Reply-To: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
  Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
@@ -81,89 +78,83 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
  Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, 
- "Pratyush Yadav (Google)" <pratyush@kernel.org>, 
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+ Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2356; i=david@kernel.org;
- h=from:subject:message-id; bh=QKWfbKNTmEUQgDJxMmiHWqIlTxwF0L7tqAj1iugtr3c=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHitX5vxxjbn98MT4SZ/U/rgYd3Umz5A7kLnmyso17
- xgWrteb31HKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBE/JUZ/qnMkuP4+etE9Zmk
- 7pnM3M3aZ5e8l9T+s+TKId42p+g9tU8ZGbYo8d9KvOM4j5O3YcHWxX9//o+6L1PxQ1DSxOHSPR4
- BWz4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2681; i=david@kernel.org;
+ h=from:subject:message-id; bh=8g2Q09MddcGiWaBBqP4q1RNteEaljuHdjt5+KbfoFWM=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHms8eqlr1cuWXaKtM6/v2H5yg/HvY7c3zrU9ss1NM
+ z9r0eOUqI5SFgYxDgZZMUWWoOD7Bi9frqutduNjhpnDygQyhIGLUwAmsm8Cw1+hgMMvFITffrb0
+ fXJv+947Vq6xpReuCSxLcatZvOsm780Ihv91h1yeBBvUVdo+trpZELJH3CdR8ePbN4Hm+ZyrmWS
+ iOnkB
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Hi,
+From: Chris Mason <mason@kernel.org>
 
-see v1 for details. TL;DR various fixes.
+Any local user can bypass memory.max with mbind() on a tmpfs file, and
+allocate unbounded kernel memory.
 
-Rebased on top of latest mm-stable. The dropped fix is now included
-again :)
+mbind() sets a NUMA memory policy for a range of a mapping. If the
+mapping is of a shmem and friends, the kernel also stores the policy on
+the inode, in a tree with one entry per range of the file.
 
-Thanks everyone for the fast review and tests!
+Each mbind() on a single page of a mapping can add one shared policy node
+(struct sp_node) and one struct mempolicy to that tree. They outlive the
+mapping and stay around until the inode is destroyed. The tree is not
+bounded by the file size, so the file can be empty.
 
+Memory that user space can allocate must be charged to a memory cgroup. A
+slab cache does that for all of its objects if it is created with
+SLAB_ACCOUNT. numa_policy_init() creates the slab caches for both
+structs without SLAB_ACCOUNT, so they are not charged to any cgroup.
+
+Reproduced with mbind() on single pages of an empty tmpfs file, from a
+cgroup with memory.max=8M: the global OOM killer killed tasks owned by
+root, and the machine panicked.
+
+Fix this by creating both caches with SLAB_ACCOUNT. This change implies
+that mbind() can now fail when running into memcg limits. Further,
+the policy_cache also serves task and VMA policies, so they are
+similarly accounted now.
+
+Note that per-file limits are not really helpful, as the user could
+simply use many files; having limits per user is tricky as well.
+
+Fix generated by an LLM and submitted by Chris Mason in private.
+
+Fixes: 5d097056c9a0 ("kmemcg: account certain kmem allocations to memcg")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: smaller description tweaks ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Changes in v3:
-- Rebased on mm-stable
- - Fixup for shmem_set_acl() no longer required
-- Re-include the commit I dropped by accident
-- Apply tags
-- Link to v2: https://patch.msgid.link/20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org
+ mm/mempolicy.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Rebased on mm-stable
- - Fixup shmem_set_acl() compilation issue after rebase
- - Dropped: "mm/shmem: avoid moving the truncation start backwards"
- - Fixed up: "mm/shmem: stop retrying folios that cannot be split"
-- In "hugetlbfs: enforce F_SEAL_EXEC in setattr", check for S_ISREG
-- Smaller patch description fixups
-- Picked up tags
-- Link to v1: https://patch.msgid.link/20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 0884c629670d..4da1cb8777f6 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -3372,11 +3372,11 @@ void __init numa_policy_init(void)
+ 
+ 	policy_cache = kmem_cache_create("numa_policy",
+ 					 sizeof(struct mempolicy),
+-					 0, SLAB_PANIC, NULL);
++					 0, SLAB_PANIC | SLAB_ACCOUNT, NULL);
+ 
+ 	sn_cache = kmem_cache_create("shared_policy_node",
+ 				     sizeof(struct sp_node),
+-				     0, SLAB_PANIC, NULL);
++				     0, SLAB_PANIC | SLAB_ACCOUNT, NULL);
+ 
+ 	for_each_node(nid) {
+ 		preferred_node_policy[nid] = (struct mempolicy) {
 
----
-
-Chris Mason (4):
-      mm/mempolicy: charge shared policy nodes
-      mm/shmem: honour F_SEAL_EXEC when an ACL is set
-      mm/shmem: stop retrying folios that cannot be split
-      mm/shmem: preserve data in clean folios when splitting fails
-
-David Hildenbrand (Arm) (7):
-      mm/shmem: discard whole new large folios on fallocate rollback
-      mm/shmem: rescan after nonuniform folio splitting
-      mm/shmem: fix truncate hang in large swap entry
-      mm/shmem: preserve allocation errors when swapping in large entries
-      mm/shmem: fix truncate loop after boundary swapin failure
-      mm/shmem: fix accounting of swapin-error markers
-      mm/shmem: fix truncation of files containing only swapin-error markers
-
-Eva Kurchatova (1):
-      hugetlbfs: enforce F_SEAL_EXEC in setattr
-
-Josef Bacik (3):
-      tmpfs: keep the quota soft limits of an unused id
-      tmpfs: preserve explicitly disabled quota limits
-      mm/shmem: hold off eviction in shmem_writeout()
-
- fs/hugetlbfs/inode.c  |   8 +++
- include/linux/memfd.h |   9 +++
- mm/mempolicy.c        |   4 +-
- mm/shmem.c            | 168 ++++++++++++++++++++++++++++++++++----------------
- mm/shmem_quota.c      |  28 +++++----
- 5 files changed, 149 insertions(+), 68 deletions(-)
-
----
-
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-
-change-id: 20261025-fixes_shmem-2782719b130e
-
---
-
-Cheers,
-
-David
+-- 
+2.43.0
 
