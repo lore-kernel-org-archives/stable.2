@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793156390;
-	b=DoDoqAisUgltJSxvsQFHyrAN9qGJpt5nPDNQYOo9lX+Gq/C6GVA9af3AaftqmWxwXRRJ
-	 Sem9ikDPjLWaTd5+0VhItW3lr/co2NPMNf4PSH1aUwUfr2ifl3J2DHWqap8Vob7+rdXpa
-	 I4rg7aF5THS2QPzlnCQ2y26djjgTT3+vbREygJI2n6wm2rP+zwh5J0PcSDW08a3FUAV1u
-	 QzQrSZgF4E5h/4MWD+qY5L1mzRC9FxYNNhpkB1XJCsxE2CATlnpoZHCwZ2Mlh9+xblHZ4
-	 HJOVb3AAKGbHNBxLCq8UdEd/NZ6gdX1X0AtWtI4ESVtfXJYGqqfriH8Mpwk8XwjJ5LA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156390;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793156855;
+	b=TedNNGujy3M0DRL2QvPUi/LoguZadwj8JH62/VNv+BnWlhr0O0cydUdUjfxG60QnmgC5
+	 9R958iHwKO2cyG/r4jEdbSRagal8ZmPBdQQRgNGrNBdqVH2S5xhWT401MqsfJHk7dUKrA
+	 gau+jCBywi+NUITUiF2sjSBaX3v8qb1RQcR8OK6R4gv4b2Uvmi7UI1v4ilJPSB8gi8Ef5
+	 BHqimZBUihEMf100SHLSKxpNFfIRzj+p5TE2chGsMh7h8UyE2QGgA0jvk3WavLkphkrPA
+	 QcJalpkWx9upM4Osidz2oAXWNTPou+ac5jpG/Tx2Be/gd9M/sUD42RL3L37/APVYRvA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156855;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=zmhLt1fcIW49TsxftipVDOrL5MaEf1i51ozTS3vuQE0=;
-	b=ZOmQfaNhZbj614L5ScL/FtXWNYdbowuvZUR65ki9Gy2eOSqWh2JzuqEPXgGqkP9KfxC6
-	 B9fDEHnWA9DO6a2cIp2RP0QQKU+7AEfa6ueVl+E8imj82QgcGyaEt8SZDAhIeNglvFWu7
-	 pQlJCAgBXg7BKyCmNAmaCa3HCD8ZbA4IyAElxU/dXbbRpLeiUQM/wU6rnFSelo6fRZ3e9
-	 bUaJ+LC+Oz08uGY13MvzWwplBYIMUjG+LW3OR6R7aShHlUejd5ydgIFGcPZT9Z1bQlXyT
-	 4WqqIIOgjgoXKGbpmmSAXF6Vczpv2L9qbBKPnCtUpThieAXz/0BXquS8+QaX7KVIOpA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
+	b=25vBintp0hvFD6mHkrFydn0sFUyq3Wlkw4reegsSkONQlIx5WQBgoZGlWJ5fbETMPQP2
+	 3/mWt49g+kkVivz301npwToE+aqkYf8tE/BNaRPyA6YE5ka58Ix5msbXE7tWkeiZisoBi
+	 /kaRqjHz6B02j9IHT+UwjG4x4j/VqW2nmu6EoM/DqFaKyyczE/HuV4DmdxEUdJm+1Zggf
+	 yertHhsTdjbaV+JXgo+pgrAW5Lzsqmp5D6lOO8i8PnoBzoURfNcm6iOwrerRpcLyAlR+O
+	 z3I9JB/rVmMHc6tB2kJ+PO6GpnRHgNxkokg/ZvYwUGjatWqWAuN73mGpDp9In0+jWOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tiXxZ5B2;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ourcRmkO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCBA606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:59:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DCBA606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD11606A322
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:07:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD11606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tiXxZ5B2
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso900581eec.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 19:59:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ourcRmkO
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so888589a12.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:07:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793156853; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ALxE4Ceak6h8rqHhU3VqSRC8eRFE830yJyfE2ORp/RwipeaEXIF+79K9GXPGzVsLNO
+         biuyjPCCzFr9wUivDx6A6b5ULI3AXpvuaR/kgyvgrViTt1GZNh8vNzS5+VZ5SaDT1v9B
+         kAofgUAD5+evlnGpiIP6zuOCesiViRDfDGnOgzfbqQ+9m+qKCZqMwEdqAmdukVjaeGhX
+         BNJwLoG09q+KSy/wXy7x6RzPbt4mXMaGe+235XXZEeX3A+B3bCS2cA0z6z76EFLVZpgt
+         dhdnTYgdSHvROIGGqtEcgCwAhHrxa4/QM1axQZzLflrMRYxjnCZOsWetud+fPPv5oT6k
+         47dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
+        fh=2fu6Z5VpLh4EDod+iB6I2RIH+hpFY/9XfTxWhlMxwvU=;
+        b=Y9uke7JfvyhBD/oPLztxVn8ITLWwGe7vqYuDFMENEb6C1XKo4YvU1IEGrudr+U4HN2
+         n9u12bkTjsf+I5+8N22MmUtG+t82ox3CLaDeDdNr6JJ+I5GctMQKBDnLZpgciVem1e0Z
+         wB2Qzf7XhzO7ETuhPJ+nqQeqPyw20HuoP/QS7fGvCLOn1uemDEqtgntG9RAnzE56AkQk
+         5qRKKwS1+QiCqeh8RUDSSsCVjWzz+rC/HXthlwWj77gvFlw/fLN/jRmBEXlicFZRYNhH
+         u8+S/JTZH733lbeuknPpsuBpJCsBPlTaMejJASbDd+uKsDWrhVkzg9J8t4WxBjRdhPf7
+         SR4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793156390; x=1793761190; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zmhLt1fcIW49TsxftipVDOrL5MaEf1i51ozTS3vuQE0=;
-        b=tiXxZ5B23CrDdxwaxzsxnGEx/Tmy+ieUOR5s3xjD47whazeW89JHVTusEC3WEyH3sH
-         sDVk/oaCL0wMEI25vEUyDqxLEGKyk2I+ox1vbPuaiMB6FEGn4xWsfPEfGrtIFkH4AJl1
-         4DQrTs7V83Z9e+MtmJQGvhT5q5OpIoQTwhoAyqeOx+HDaixt5Cmr+3oLxYm06nVeVh6D
-         x6MnAVJ9wJdA6pfjTd2ixEaxL40VpD04BiUPh9KynHYksDjwcia6elBYNQPLous61f4r
-         kKISIi/84w/YC6qThME4mO6oKSbkMRzjkcGDbma0TSbjB9VNaWZVPciibd7ffMXdNS6y
-         YWeg==
+        d=gmail.com; s=20260707; t=1793156853; x=1793761653; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
+        b=ourcRmkOH/IjfAvfCJMqpw8JEzyGEQLLpIyM3oq32ZzxtqSCibGO/9Qw/Zk8dFF5D8
+         fq//S7uF6tXiGg9nQZRB6HtoBxFSa2TVcrKRBzBk5be9hIxjLnhroFo6uiFDTIL9+COy
+         GKuGIj4CWW+G7mOqoAXg8EaLp0hk8d9+L0PXgj/Vy028JFOIXvBPPhhEJjYBBEt+u805
+         2+GOsDyCAQDkByjNAJiQzEGqowmLSCJGi0AtsMpvSTEiIVkZ5a9wCJ1grbRnLH9hZBH2
+         l6VXiMFEwb8nUI2eKb8LXhhz+qy0r0h3R++UuQIYJn1PKvc76dEdobFz1zSbnASn4i9m
+         2cvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793156390; x=1793761190;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zmhLt1fcIW49TsxftipVDOrL5MaEf1i51ozTS3vuQE0=;
-        b=gwmaNqTni3lSC1KGw2cusRdIr3EcTvRcINh0UsBAx2ojNAbwZ8vKO013UI6cSpRmaZ
-         TKDvwqTEIGenKMg0O/Z0+lTbs/YyTBViqpmkCY+MTKHb/wyxxcvnWfKgVA1cG627Dp6k
-         1BGF05rifriAACRdUKRd5UdkI34tCUg1tLKBK6EvRbr2gYBjDkOfmHKbF9C3BETeEEap
-         5BxsAktHcaPmjKz1exvc1BYDgA1c/b/WncpBZlQj2gOSoDpEKy0liVdwVsK6keehjFyv
-         Yna4fmL25Xt5ZML4/k/iO8bE84f1+7LbqXmAD9JtMpQ+rLiyILsmRsVk6Gv8Nd4jal9T
-         A49g==
-X-Forwarded-Encrypted: i=1; AKwUvBxxYhTS3QGFvZO1U2XoQ1Mgkex0cWModVc8e4la+HGhoTzfPXSrNzkwpBdto6TnOOsQFNOlL8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhgB5M2U6/MDNw2aQyn5aGNJZB6DlOz8c9tQZZb2I4GXBH9oXO
-	w39l9dWqoLYGNdhq0HLA6NiBSbMsGhxKMrV37pWSPXQvYYl8afKCH/JJ
-X-Gm-Gg: AYBFou2ixPVtyO6didHcLoNhmoMJ5jEKteiBzKC+bo/w3H0ek4J7Q291lMH38zPDIaQ
-	sKF4kGoUr8K8KW123Ng4U+EFTXAo7tKK0UguvYY/AhywgAihf9ThiT6xWxbDzXAHE0jbaVPKy9J
-	+EphpZTqTUq7Lez4jwK6cDK+FvT11H3vAd6Tv4VuAzt8jITm9pZEbXUEBoj4mxedbWMWR3kW/mv
-	G07dW1d877Zj2cTnyX4cvVXpnQ96jWgsNwx22bp8Ofs3R/Oxap/I/QuvqQmkAU7RdbDx5TKOxbn
-	K6ULKp6c0wNe0Ka5pXpHt/ndlsrprLkyh9UHFnJvb6taHKQ4VV/wB02mKJTk9tJAYNHOXMuiQdy
-	UiltYkRQhrZhTqaU/d0QEJRxTMOsywx//xIEaweBlQxIlmc2yTr1vGZb9SWmkaVVGNHzcPCalKM
-	kxRseKIv4vECFafsr2CAv/M4ihOi35pwG57KxGRzEITbw3JX4kPa30xDIZYI+2X5SikbqhdNRBw
-	d2BDwbsczFom0Gacozg2WvdBd3AHC6UL2YRiiPWmIq9yDtOx8GHoA+XFEtOjMOrMZpGyjwgGN2g
-	4l9PzR+RCZNaAFnZdf7ee/GNiYo=
-X-Received: by 2002:a05:7300:c88:b0:369:eec1:1d7e with SMTP id 5a478bee46e88-36a2011245fmr2678360eec.11.1793156389380;
-        Tue, 27 Oct 2026 19:59:49 -0700 (PDT)
-Received: from [127.0.1.1] ([2406:da16:4ab:8700:3d3b:2065:9087:3429])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a237bddb7sm1377850eec.3.2026.10.27.19.59.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 19:59:49 -0700 (PDT)
-From: Liu Yufei <lyf98405@gmail.com>
-Date: Wed, 28 Oct 2026 10:59:26 +0800
-Subject: [PATCH] iio: imu: bmi270: fix zero timestamp in triggered buffer
+        d=1e100.net; s=20260707; t=1793156853; x=1793761653;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
+        b=QgSsh9oEqOWywOoUOtpSeavP4xwOkObZVF5aT7VEyAz7SRr6y64EAuuT0dsZduSFTf
+         FP3KgV5zgM3B2bPCs9QQwUFIL1oy95jt8qP+XDuA0v/2AoKNp0a3kTRG5HbY3KkxuVOA
+         8KUCWG+asm49xJifZs9YuqscSZ/XnCURD55sUn6A+R4ZUZ1ow/WkP9nBRY4I4AJQjb8o
+         jcxdx+RKFWH/aeoxf99/ViNvoYpRdbZ6VQ0rvXG8k1Eb4CBY1jAErIb2aOLzd5uw8VIe
+         MyfBrYdVb0W84y2J9uGRuQvaKB3ZF7LvH0Cfkh3jBpKYcB2LSG3NgsgOJMZ43HapUj1k
+         TeBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzeQoZKHZU7EPkPzuhmJhBuahNpvky+LeYgm2bg+5v23EtXYcoTqoSkbqrfdv/hBpJAmkwIYro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlq1cV06zeq/wfRAqE0mPMbJX7VotPqMz3i+iQ5Kt21ZtVum42
+	RQHDsEDThtKF6pHJGz4Hu8bHFf2YJn7d77wxnbt7wRLS7ENOGIviBfZa/6YkZz5JJP7ZNO3OQE9
+	Kwf7B53+orjVjijpSVUajZ+QA7lSNjH3RNHq42Yw=
+X-Gm-Gg: AYBFou1XdAHpiS3vRHk0CpnCJr1JfQtqlYngSmcHvCPwqusDUfoXdxwXYHmtgXxyDcj
+	jhQt+GdYVbsdVw5PDouqwPmRWccHRb2MWAd2nFaBPjN4DEKNY29+lpKb12jz/0BSaeOgDXLEG9t
+	FgK4QbzA4DK1J0I4FT7+yI/mKeXSpihisjNbOw9x/4d640mNyXENdWLv0/KmXlne5+V3aENpio8
+	jAOGDpvO2m38CVqZuXFS6XvuFijtwPGzavIKkPyR7clOr2PA1mWQUHv0f58RgVFo+zcaHV5IwQp
+	RBBefwOTAvKRCmxR3ZUv7HbkwgS4wXp0NXhzkR+Lane/z/uel1DKVnNate+2L5hvuXVS+GrxB+t
+	/ZysQrE9EDqCmEo8viERctf7iSzD3leE79ir/w/Y5XO/H5DN2/Be+6H5gBPBLAvZbMq8=
+X-Received: by 2002:a05:6402:42c8:b0:6ab:6e:a8e4 with SMTP id
+ 4fb4d7f45d1cf-6b49cc24773mr498856a12.44.1793156852883; Tue, 27 Oct 2026
+ 20:07:32 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,82 +104,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAA1l4WoC/yXMSwqEMBBF0a1IjS1IgvjprYiDREuthqikogji3
- ju2wwPv3QuEApPAJ7sg0MHC65Kg8wz62S4TIQ/JYJQptTI1Os+mUjjyiZE9SbR+w6K2uilc2Qx
- OQ7pugdLgn22717K7L/XxacF9/wCHtErLeAAAAA==
-X-Change-ID: 20261028-bmi270-fix-timestamp-48a194b69db1
-To: Alex Lanzano <lanzano.alex@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Gustavo Silva <gustavograzs@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Liu Yufei <lyf98405@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793156377; l=2048;
- i=lyf98405@gmail.com; s=20261028; h=from:subject:message-id;
- bh=A/1srCpfd1UGOdpJgwH+wipqcVfWHT5hKzmppz1xS28=;
- b=zes8qii00NcuE45PPu4stJ4xIYMjnHPkeaU4SW86Z6Tts6kgcxp+jNZYZKP+DQD8HFWvEzC4v
- ZVUz4JILlhbAuqBUFmVzhyVSvWcFzX6BPQDuPVG3/de4T6fhpBDmLe2
-X-Developer-Key: i=lyf98405@gmail.com; a=ed25519;
- pk=lc+pS6pGKgsSIrWd9Plh5gs4dnZRQT6qkyv+hvAy7hs=
+References: <20261027192027.8617-1-dennylin0707@gmail.com>
+In-Reply-To: <20261027192027.8617-1-dennylin0707@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 28 Oct 2026 05:07:21 +0200
+X-Gm-Features: AclHuK8Zk3JqjSuknFqDZQNv-pnsmVv-lUejnYaLZe-5J4JnZLEJi3oDDiYwgrk
+Message-ID: <CAOQ4uxj3et_cyzD1iWHr3_z1dH1R3WQMCOm+kO2Q90TXjaV9pQ@mail.gmail.com>
+Subject: Re: [PATCH v2] inotify: do not coalesce rename events
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When the device's own data ready trigger is used, the trigger is
-polled with iio_trigger_poll_nested() from the threaded IRQ handler.
-In that path the pollfunc top half, iio_pollfunc_store_time(), is
-never run, so pf->timestamp is left at zero and every sample pushed
-to the buffer carries a zero timestamp.
+On Tue, Oct 27, 2026 at 9:20=E2=80=AFPM Hungyu Lin <dennylin0707@gmail.com>=
+ wrote:
+>
+> inotify compares the mask, watch descriptor and name when coalescing
+> adjacent unread events, but ignores their rename cookies. Distinct
+> IN_MOVED_FROM events can therefore be coalesced, losing the cookie needed
+> to match a later IN_MOVED_TO event.
+>
+> For example, watch two directories with IN_MOVE. Move an entry from the
+> first directory into an unwatched directory, recreate it under the same
+> name, then move it from the first directory into the second watched
+> directory before reading the events. The second IN_MOVED_FROM is merged
+> with the first, while the IN_MOVED_TO retains the second rename's cookie.
+> Userspace can no longer pair the second rename's events.
+>
+> The original inotify implementation compared cookies before coalescing.
+> The fsnotify conversion lost this comparison. Do not coalesce
+> IN_MOVED_FROM or IN_MOVED_TO events, which carry the identity of their
+> respective renames. Leave coalescing of other event types unchanged.
+>
+> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Amir Goldstein <amir73il@gmail.com>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
-Take the timestamp in the trigger handler itself and drop the top
-half, so that a valid timestamp is provided for all triggers.
-
-Fixes: a1854d55f54b ("iio: imu: bmi270: add support for data ready interrupt trigger")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Yufei <lyf98405@gmail.com>
----
- drivers/iio/imu/bmi270/bmi270_core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iio/imu/bmi270/bmi270_core.c b/drivers/iio/imu/bmi270/bmi270_core.c
-index fbcf6bb87acc..40ed1ee5ac58 100644
---- a/drivers/iio/imu/bmi270/bmi270_core.c
-+++ b/drivers/iio/imu/bmi270/bmi270_core.c
-@@ -840,6 +840,7 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
- 	struct iio_poll_func *pf = p;
- 	struct iio_dev *indio_dev = pf->indio_dev;
- 	struct bmi270_data *data = iio_priv(indio_dev);
-+	s64 timestamp = iio_get_time_ns(indio_dev);
- 	int ret;
- 
- 	guard(mutex)(&data->mutex);
-@@ -852,7 +853,7 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
- 		goto done;
- 
- 	iio_push_to_buffers_with_timestamp(indio_dev, &data->buffer,
--					   pf->timestamp);
-+					   timestamp);
- done:
- 	iio_trigger_notify_done(indio_dev->trig);
- 	return IRQ_HANDLED;
-@@ -1630,8 +1631,7 @@ int bmi270_core_probe(struct device *dev, struct regmap *regmap,
- 	if (ret)
- 		return ret;
- 
--	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
--					      iio_pollfunc_store_time,
-+	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
- 					      bmi270_trigger_handler, NULL);
- 	if (ret)
- 		return ret;
-
----
-base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
-change-id: 20261028-bmi270-fix-timestamp-48a194b69db1
-
-Best regards,
---  
-Liu Yufei <lyf98405@gmail.com>
-
+> ---
+>  fs/notify/inotify/inotify_fsnotify.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/ino=
+tify_fsnotify.c
+> index 7c326ec2e8a8..6e3af6452dcc 100644
+> --- a/fs/notify/inotify/inotify_fsnotify.c
+> +++ b/fs/notify/inotify/inotify_fsnotify.c
+> @@ -36,7 +36,7 @@ static bool event_compare(struct fsnotify_event *old_fs=
+n,
+>
+>         old =3D INOTIFY_E(old_fsn);
+>         new =3D INOTIFY_E(new_fsn);
+> -       if (old->mask & FS_IN_IGNORED)
+> +       if (old->mask & (FS_IN_IGNORED | FS_MOVE))
+>                 return false;
+>         if ((old->mask =3D=3D new->mask) &&
+>             (old->wd =3D=3D new->wd) &&
+> --
+> 2.43.0
+>
