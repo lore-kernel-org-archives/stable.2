@@ -1,57 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215329;
-	b=rGEzz1gCZ4t++TRXXvISkO1KJ+vAfgwpswyHnCizPkY2z/UKD7QnwJdtrxzXSnN9yLHr
-	 yJ8TtqyL2QzQia7q3Qd4h4PmMjN4zAB0zikauOS5RY6y/OSWpm5Ip48IV2Kvaz5aTXReV
-	 PQ+P4GrYBl45vmu2qqWqw1B96BnEhSimmO3lCHzZ7+wH2kBJwNQ8XuH9uit6omRVbpmqf
-	 6FmStKixUz+ikO9hjnOqU1VzMh6dozsbnwwKi7TYaBbWzbYBM6fXIO0epvH9ceJwFAhoY
-	 zt+j9MqCvU2NmdCvqgucqoEuZ2262x4XY4vVdPPPhpADTTtFGC6ir1cvRycsEHXwlBw==
+	t=1793215333;
+	b=mjL+1hA5K2YWoHhTbxIS7+dCZV7FMvnlzGzlhTq9JGclOK+ItRNCrvAxo689unOsLhaA
+	 TAeXHY2sS7lKoFX2TOFxmrA8VzJlhkMT/SzPgF6MBXOdPf09tQuca0WyeQnxwQq4hNnga
+	 2PG3zsePJHexlqdWX2aLKfo/dBi6A+6MFVtvtRg9Mm1Y09UZCw6vXS4qV8SXD+7YyQYbN
+	 2MW09k6qZNuaHCWL/tenMa4YvIBwf1XSAg+MFTWU1hgXtrPFUafGo8RfJ2GkRTx0nSlVc
+	 QGEgZnWjpMq9sTbo66rqS3JT+DyxLrFz2K1SX97erVq8Jo8GBqC8xhn66nrY2l1YG+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215329;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215333;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Q8rQNrwpgOr37HD8bm8+9S7/EderCb9xOh9i5DSbIs8=;
-	b=h/SAgO1hmxxzTVlhkLVkCyWmaM2TocMqH7GfhpI40xu7vkhrSOgIADCux8fGojTG855i
-	 sdyEo9hJzbwYD9ICDe+dR0QXaiX22sJxHlq/88Mr+NMMYBiKlswZrfnHVLJsrK5q/e/Tu
-	 XcTxtJGFbZRsIgtXUQWHV0BN2P9t5w593IKSp6+uoNbQ88KUWN484kJjSfdGnVi/oOcOr
-	 7bZLJmCl1kFZfp2cfyKFI1h/6b3InqO2DkjGDWsQAklpUV6MNk4eovathAKoxCYBN2S6F
-	 4nsBKlEggx1uwMZ6yK/SRylnpk6Zsvmr8spLy6Pwpu5qXbbMih5TEiEcqFLuEiGgD8A==
+	bh=BpbmvjQI37CYNQaGvbvGY4lb0P7e3Pa5vD+hddDaKqw=;
+	b=kP71rtBCybIZUWvphu9HSA0iopKmUna7h1RtD7xxTDNRuhJP+BcQnxabT+0sYs80DWrl
+	 6oIOZyK07bUUtGAJllMnlUB5onix5B9foCZxLUxOtU6xGyywTNcQ/VDUWH6nINY8Jh8Sg
+	 yFl8Hr6HR9GzZOMMbYAZ7JneDN7JE3QnvtT/re/wXdaanGXaCmj5b394x7SuKNDAQxBDb
+	 kUG9egF8y/fG4Ug6OtykXwcTdspNj7AO0mPkYo0pN0ZPGE9pLHx7MTOVbgDNzTTC06+GG
+	 wGAWjnVD0C1x4AXta52WzqMx8XKsHUCXZyPNwsevPyPETaVpfymCvxjggAy3EX6jYMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mf9nEqND;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l3BpZRJ8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E04606A31E;
-	Wed, 28 Oct 2026 19:22:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3213606A31D;
+	Wed, 28 Oct 2026 19:22:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mf9nEqND
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97521F01825;
-	Wed, 28 Oct 2026 19:22:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l3BpZRJ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1151F01825;
+	Wed, 28 Oct 2026 19:22:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793215329;
-	bh=Q8rQNrwpgOr37HD8bm8+9S7/EderCb9xOh9i5DSbIs8=;
+	s=korg; t=1793215332;
+	bh=BpbmvjQI37CYNQaGvbvGY4lb0P7e3Pa5vD+hddDaKqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mf9nEqNDf8zPn9NjiJ2TVUG+yCAPLhrCz+gAETUQUJ84B3v+HiwVDtWgKJQtoO7Bq
-	 l9mDPCqVEv3VoTIhn2vZHhy/J1UQ0eOh4sxMHa3r6bx59uq45CjeAyXUARkWUwho5c
-	 I8+vHFQQS5x3q/oepAGzZEtuMZ//UqPGvdbXS8nE=
+	b=l3BpZRJ8Lxq6W+G8lHvP1BMuT2XXUm35XFF2k1Yjr2iz8t1heIhmbcmNNOxThJx3o
+	 a8Y3RyMIyFXbzJSP6+dS3kQUknaJEOFhLQMStrWPrN0KCwaJr3noJnAF+W7zZ2BrLx
+	 WGGU17rE4cMcSHoDRM3LFrRogAHImrGotamsA7ws=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Martin Hodo <martin.hodo@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Andi Shyti <andi.shyti@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tristan Madani <tristan@talencesecurity.com>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1172/1887] drm/i915/gt: Fix NULL deref on sched_engine alloc failure
-Date: Wed, 28 Oct 2026 17:54:28 +0100
-Message-ID: <20261028170526.074980482@linuxfoundation.org>
+Subject: [PATCH 6.1 1137/1887] netfilter: ebtables: move to two-stage removal scheme
+Date: Wed, 28 Oct 2026 17:53:53 +0100
+Message-ID: <20261028170525.278757991@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -73,91 +69,195 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+From: Florian Westphal <fw@strlen.de>
 
-[ Upstream commit 82ec992c404c3dc774c5e9f3d4aa858e97187675 ]
+[ Upstream commit b7f0544d86d439cb946515d2ef6a0a75e8626710 ]
 
-Avoid using intel_context_put() before intel_context_init() in
-execlists_create_virtual() as the kref_put() inside would lead
-to NULL deref on the IOCTL path when sched_engine allocation fails.
+Like previous patches for x_tables, follow same pattern in ebtables.
+We can't reuse xt helpers: ebt_table struct layout is incompatible.
 
-Discovered using AI-assisted static analysis confirmed by
-Intel Product Security.
+table->ops assignment is now done while still holding the ebt mutex
+to make sure we never expose partially-filled table struct.
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 3e28d37146db ("drm/i915: Move priolist to new i915_sched_engine object")
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: <stable@vger.kernel.org> # v5.15+
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
-Link: https://lore.kernel.org/r/20260701114513.221254-1-joonas.lahtinen@linux.intel.com
-(cherry picked from commit 4f2a12f2d50e9f48227656e4dcbd6423506be31d)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Fixes: 87663c39f898 ("netfilter: ebtables: do not hook tables by default")
+Reviewed-by: Tristan Madani <tristan@talencesecurity.com>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ net/bridge/netfilter/ebtable_broute.c |  2 +-
+ net/bridge/netfilter/ebtable_filter.c |  2 +-
+ net/bridge/netfilter/ebtable_nat.c    |  2 +-
+ net/bridge/netfilter/ebtables.c       | 60 +++++++++++++++++----------
+ 4 files changed, 40 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1a396eb13c2e4..ca153f7f19dcd 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3932,11 +3932,11 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
+diff --git a/net/bridge/netfilter/ebtable_broute.c b/net/bridge/netfilter/ebtable_broute.c
+index 8f19253024b0a..33d8640d21ac1 100644
+--- a/net/bridge/netfilter/ebtable_broute.c
++++ b/net/bridge/netfilter/ebtable_broute.c
+@@ -128,8 +128,8 @@ static int __init ebtable_broute_init(void)
+ 
+ static void __exit ebtable_broute_fini(void)
  {
- 	struct virtual_engine *ve;
- 	unsigned int n;
--	int err;
-+	int err = -ENOMEM;
- 
- 	ve = kzalloc(struct_size(ve, siblings, count), GFP_KERNEL);
- 	if (!ve)
--		return ERR_PTR(-ENOMEM);
-+		goto err;
- 
- 	ve->base.i915 = siblings[0]->i915;
- 	ve->base.gt = siblings[0]->gt;
-@@ -3968,10 +3968,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	intel_engine_init_execlists(&ve->base);
- 
- 	ve->base.sched_engine = i915_sched_engine_create(ENGINE_VIRTUAL);
--	if (!ve->base.sched_engine) {
--		err = -ENOMEM;
--		goto err_put;
--	}
-+	if (!ve->base.sched_engine)
-+		goto err_noput;
- 	ve->base.sched_engine->private_data = &ve->base;
- 
- 	ve->base.cops = &virtual_context_ops;
-@@ -3987,10 +3985,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	intel_context_init(&ve->context, &ve->base);
- 
- 	ve->base.breadcrumbs = intel_breadcrumbs_create(NULL);
--	if (!ve->base.breadcrumbs) {
--		err = -ENOMEM;
-+	if (!ve->base.breadcrumbs)
- 		goto err_put;
--	}
- 
- 	for (n = 0; n < count; n++) {
- 		struct intel_engine_cs *sibling = siblings[n];
-@@ -4063,8 +4059,13 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	virtual_engine_initial_hint(ve);
- 	return &ve->context;
- 
-+err_noput:
-+	kfree(ve);
-+	goto err;
-+
- err_put:
- 	intel_context_put(&ve->context);
-+err:
- 	return ERR_PTR(err);
+-	unregister_pernet_subsys(&broute_net_ops);
+ 	ebt_unregister_template(&broute_table);
++	unregister_pernet_subsys(&broute_net_ops);
  }
  
+ module_init(ebtable_broute_init);
+diff --git a/net/bridge/netfilter/ebtable_filter.c b/net/bridge/netfilter/ebtable_filter.c
+index 278f324e67524..fdb988c24916a 100644
+--- a/net/bridge/netfilter/ebtable_filter.c
++++ b/net/bridge/netfilter/ebtable_filter.c
+@@ -109,8 +109,8 @@ static int __init ebtable_filter_init(void)
+ 
+ static void __exit ebtable_filter_fini(void)
+ {
+-	unregister_pernet_subsys(&frame_filter_net_ops);
+ 	ebt_unregister_template(&frame_filter);
++	unregister_pernet_subsys(&frame_filter_net_ops);
+ }
+ 
+ module_init(ebtable_filter_init);
+diff --git a/net/bridge/netfilter/ebtable_nat.c b/net/bridge/netfilter/ebtable_nat.c
+index 9066f7f376d57..8b981b2041b5d 100644
+--- a/net/bridge/netfilter/ebtable_nat.c
++++ b/net/bridge/netfilter/ebtable_nat.c
+@@ -109,8 +109,8 @@ static int __init ebtable_nat_init(void)
+ 
+ static void __exit ebtable_nat_fini(void)
+ {
+-	unregister_pernet_subsys(&frame_nat_net_ops);
+ 	ebt_unregister_template(&frame_nat);
++	unregister_pernet_subsys(&frame_nat_net_ops);
+ }
+ 
+ module_init(ebtable_nat_init);
+diff --git a/net/bridge/netfilter/ebtables.c b/net/bridge/netfilter/ebtables.c
+index ca6f0b7710823..b1846d5c879a5 100644
+--- a/net/bridge/netfilter/ebtables.c
++++ b/net/bridge/netfilter/ebtables.c
+@@ -42,6 +42,7 @@
+ 
+ struct ebt_pernet {
+ 	struct list_head tables;
++	struct list_head dead_tables;
+ };
+ 
+ struct ebt_template {
+@@ -1164,11 +1165,6 @@ static int do_replace(struct net *net, sockptr_t arg, unsigned int len)
+ 
+ static void __ebt_unregister_table(struct net *net, struct ebt_table *table)
+ {
+-	mutex_lock(&ebt_mutex);
+-	list_del(&table->list);
+-	mutex_unlock(&ebt_mutex);
+-	audit_log_nfcfg(table->name, AF_BRIDGE, table->private->nentries,
+-			AUDIT_XT_OP_UNREGISTER, GFP_KERNEL);
+ 	EBT_ENTRY_ITERATE(table->private->entries, table->private->entries_size,
+ 			  ebt_cleanup_entry, net, NULL);
+ 	if (table->private->nentries)
+@@ -1269,13 +1265,15 @@ int ebt_register_table(struct net *net, const struct ebt_table *input_table,
+ 	for (i = 0; i < num_ops; i++)
+ 		ops[i].priv = table;
+ 
+-	list_add(&table->list, &ebt_net->tables);
+-	mutex_unlock(&ebt_mutex);
+-
+ 	table->ops = ops;
+ 	ret = nf_register_net_hooks(net, ops, num_ops);
+-	if (ret)
++	if (ret) {
++		synchronize_rcu();
+ 		__ebt_unregister_table(net, table);
++	} else {
++		list_add(&table->list, &ebt_net->tables);
++	}
++	mutex_unlock(&ebt_mutex);
+ 
+ 	audit_log_nfcfg(repl->name, AF_BRIDGE, repl->nentries,
+ 			AUDIT_XT_OP_REGISTER, GFP_KERNEL);
+@@ -1341,7 +1339,7 @@ void ebt_unregister_template(const struct ebt_table *t)
+ }
+ EXPORT_SYMBOL(ebt_unregister_template);
+ 
+-static struct ebt_table *__ebt_find_table(struct net *net, const char *name)
++void ebt_unregister_table_pre_exit(struct net *net, const char *name)
+ {
+ 	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
+ 	struct ebt_table *t;
+@@ -1350,30 +1348,36 @@ static struct ebt_table *__ebt_find_table(struct net *net, const char *name)
+ 
+ 	list_for_each_entry(t, &ebt_net->tables, list) {
+ 		if (strcmp(t->name, name) == 0) {
++			list_move(&t->list, &ebt_net->dead_tables);
+ 			mutex_unlock(&ebt_mutex);
+-			return t;
++			nf_unregister_net_hooks(net, t->ops, hweight32(t->valid_hooks));
++			return;
+ 		}
+ 	}
+ 
+ 	mutex_unlock(&ebt_mutex);
+-	return NULL;
+-}
+-
+-void ebt_unregister_table_pre_exit(struct net *net, const char *name)
+-{
+-	struct ebt_table *table = __ebt_find_table(net, name);
+-
+-	if (table)
+-		nf_unregister_net_hooks(net, table->ops, hweight32(table->valid_hooks));
+ }
+ EXPORT_SYMBOL(ebt_unregister_table_pre_exit);
+ 
+ void ebt_unregister_table(struct net *net, const char *name)
+ {
+-	struct ebt_table *table = __ebt_find_table(net, name);
++	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
++	struct ebt_table *t;
+ 
+-	if (table)
+-		__ebt_unregister_table(net, table);
++	mutex_lock(&ebt_mutex);
++
++	list_for_each_entry(t, &ebt_net->dead_tables, list) {
++		if (strcmp(t->name, name) == 0) {
++			list_del(&t->list);
++			audit_log_nfcfg(t->name, AF_BRIDGE, t->private->nentries,
++					AUDIT_XT_OP_UNREGISTER, GFP_KERNEL);
++			__ebt_unregister_table(net, t);
++			mutex_unlock(&ebt_mutex);
++			return;
++		}
++	}
++
++	mutex_unlock(&ebt_mutex);
+ }
+ 
+ /* userspace just supplied us with counters */
+@@ -2594,11 +2598,21 @@ static int __net_init ebt_pernet_init(struct net *net)
+ 	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
+ 
+ 	INIT_LIST_HEAD(&ebt_net->tables);
++	INIT_LIST_HEAD(&ebt_net->dead_tables);
+ 	return 0;
+ }
+ 
++static void __net_exit ebt_pernet_exit(struct net *net)
++{
++	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
++
++	WARN_ON_ONCE(!list_empty(&ebt_net->tables));
++	WARN_ON_ONCE(!list_empty(&ebt_net->dead_tables));
++}
++
+ static struct pernet_operations ebt_net_ops = {
+ 	.init = ebt_pernet_init,
++	.exit = ebt_pernet_exit,
+ 	.id   = &ebt_pernet_id,
+ 	.size = sizeof(struct ebt_pernet),
+ };
 -- 
 2.53.0
 
