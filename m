@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210498;
-	b=s3JTIbUe3U8KwsCxFSvldUwKVy3LxUd5L6PPXucRmM6OAZ0Wys2srsFFAhiEpUJQQ9jI
-	 XNXmJeYmIdFz1FrR8i3sqBssJ2C1Lo3ZHsDwIYzE/ov2DczDxXwIvfHd2x/Ulloi9BFh4
-	 2iBKXrLixqYjvWzLo9BHjEfmzRuhnUqeJw6UtUwt7+NMbNFxdbgtv7QsGyMjAdJ2hMRb4
-	 Nf+eQVEHl1AiQ3ubnZ7d+bpTabB2kV/rWiyzDbwyU+DB5bodX8uglREltPp3UvcHTDWnN
-	 3YqNqNes2guHAAoBQAgBN0Bwisv/vffjUyfIQCtH6JzLHpV/md2c6JHW3tKObdi/Rtw==
+	t=1793210504;
+	b=IRa+FqqFpO2yZeRjmX4R7EtPV+ghdTI0WaCKC5LAlYQz88QRMt2YtYZBA0ZQvRCw649P
+	 1IvwM9SlDc0jvYAY5wEtyHm3faY0AA+QA5l9ZVyPiT39Up1WeGtBjMatPLgLvsA++PRSt
+	 IawgsW7E+jgnCrqIAbCMWUQVr6AzQcbWOXG9lcIV01xxK6UO6AAWtWm9OEvHHeJjPzknI
+	 KD5BvFW2voVW8lk6N2+8Mk7I5dZNARDMp88weVRcnSB5nW1nFZeGMnaHvIJ6yu9LN8Dak
+	 QW5EZT+JNmDlufY3rHvKIabMCQ6CRxpnqsY9oMJAxrqgGmezVDxng5jpZ8Wu0e6Wvow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210504;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=iRYRqK8yWVSeyTdfv605RNVIOnwsrDc4CXS0pcIk7rg=;
-	b=r0zvxlfj+jiws+LAHNL2EVFVyaEaMg2sL9S+aP9CqRsop2SRXrxk3lpzby6DhWl41Eeq
-	 lPlL1A/UfPhxvZ0rrTR0Nq9vtTRIM1RVltzhUs9mHi2U+F8D4/C3C070npbKZccMWgxu/
-	 8Y0GUHmlLEzKHnQCybxhQfp6qfWXgpeXOMo5ojYJgvXvcoYqBydYRLxolEaa8I5d8tkI9
-	 prC1GzgEs0ptMhVulXtsD7nU2UJzfoXKmyNa53m7jgBveoS70gxl2lMNvbMrAvS4Mmhh7
-	 WC8/QL0mvpe/w9wrSWQ0d4+nnJrTWsx0sEWcPT57RTv7hIu+ipMJ4EF2fG/GPTUWIWA==
+	bh=+NRqH3cTJwyIslGEYzYYfJ4qdfgcyw+ZGVHhdEBSHvY=;
+	b=qr+tolM9POs53bt+FqaH3FoSN+AE1Nwjxy439xoMAqcjRBpcuNSEEHRXIffQF1AOjk+1
+	 g+mkr0liXUoATdgplQUKzy7AThfQSz+NtYWnQlEk11pM06hXCzbx+hgQgmaubYTsA8ZAj
+	 7vrG9ELHsVrCdj/3f4+XImoebVPo0cHF+YwqqooXvD9Od2Qa9sWDfwyk+9dBfWuDOwvr5
+	 1JtFoDrD6LD1Ue3yajtsdOpqVB0Vc3OUJVmP6k+KJs8OkssarY7Hbm47us11vxCLGEEgq
+	 G+1rQH93k5BHG1cVALHMY4OzCyEAzdocB7PCDi+vVnbv+7MyyiVvRlI+DSsuFpcSRww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0H+Wqkmb;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y3GJjWA0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A463606A31A;
-	Wed, 28 Oct 2026 18:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E1F606A31A;
+	Wed, 28 Oct 2026 18:01:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0H+Wqkmb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FB821F01825;
-	Wed, 28 Oct 2026 18:01:37 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y3GJjWA0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AD51F01825;
+	Wed, 28 Oct 2026 18:01:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210498;
-	bh=iRYRqK8yWVSeyTdfv605RNVIOnwsrDc4CXS0pcIk7rg=;
+	s=korg; t=1793210503;
+	bh=+NRqH3cTJwyIslGEYzYYfJ4qdfgcyw+ZGVHhdEBSHvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0H+Wqkmb2FgwvM9Gi/E6LAxGgtoP+rKjUP1jDClbfNFVOD8YO1j83FQZ4aig/b+jS
-	 dSyPTFUm0yPf85OF47Iv5ljwKi/ZA96Y3rWz69+Wqq+eJCamj6+gLh2MksqVzAr/qk
-	 1ghhB33OSndYNW0vt52GMZ0bQQofDA7H8/DqD470=
+	b=y3GJjWA0hn2M1CU0Z0oSR2rGZJr/ziygicKiHkD9OcieP6+ZMYXN+dkh0xwY0vQg1
+	 2h1Fg1FOQKCd4K9vsRT6crfGZ50yjHJqqFvnpaHPsj1x2VH4/xTu988iHsARq06gPg
+	 HXGETloe6q2e4Qi1GVIuIpXW9CnNS5cLNw3V9qg0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Chris Mason <clm@meta.com>,
-	Brian Geffon <bgeffon@google.com>,
-	David Stevens <stevensd@google.com>,
-	Minchan Kim <minchan@google.com>,
-	Richard Chang <richardycc@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 048/571] zram: fixup read_block_state()
-Date: Wed, 28 Oct 2026 17:53:15 +0100
-Message-ID: <20261028170009.168326476@linuxfoundation.org>
+Subject: [PATCH 5.15 050/571] nfsd: release path refs on follow_down() error
+Date: Wed, 28 Oct 2026 17:53:17 +0100
+Message-ID: <20261028170009.216494038@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -73,55 +68,62 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+From: Chris Mason <clm@meta.com>
 
-[ Upstream commit 8b05d2d8af817c6a1e23032df51e7ad83030d543 ]
+[ Upstream commit 6cba08dc1922140d260cfeb30bbda4ee1bf869d8 ]
 
-ac_time is now in seconds, do not use ktime_to_timespec64()
+nfsd_cross_mnt() initializes a local struct path with mntget() and
+dget() before calling follow_down(). On a negative return the error
+arm jumps to out without releasing those references:
 
-[akpm@linux-foundation.org: remove now-unused local `ts']
-[akpm@linux-foundation.org: fix build]
-Link: https://lkml.kernel.org/r/20260115033031.3818977-1-senozhatsky@chromium.org
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reported-by: Chris Mason <clm@meta.com>
-Closes: https://lkml.kernel.org/r/20260114124522.1326519-1-clm@meta.com
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: David Stevens <stevensd@google.com>
-Cc: Minchan Kim <minchan@google.com>
-Cc: Richard Chang <richardycc@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+    err = follow_down(&path, follow_flags);
+    if (err < 0)
+            goto out;
 
-[ Stable tree note: The ac_time conversion described above is not present
-  here, so retain the ktime_t conversion and microsecond output.  Move the
-  timespec64 temporary into the scan loop instead, allowing the follow-up
-  bounds fix to move nr_pages initialization under init_lock cleanly. ]
+follow_down() never drops the caller's entry-time refs on any error
+sub-case; for example a pre-cross d_manage() failure leaves path
+untouched, so the mntget()/dget() taken on entry survive the call.
 
-Stable-dep-of: 391f057f44a5 ("zram: fix out-of-bounds access in read_block_state()")
+Every other early-exit arm in nfsd_cross_mnt() (other-namespace
+return, IS_ERR(exp2), and the success tail after the swap) already
+calls path_put(&path); the err < 0 arm is the lone omission. The
+leak inflates mnt_count and d_count on each failed cross-mount,
+blocking umount and pinning dentries against the shrinker, and is
+reachable by any authenticated NFS client through nfsd_lookup_dentry
+or the NFSv4 READDIR encode path.
+
+Fix by calling path_put(&path) before the goto out in the err < 0
+arm so the entry-time refs are released on all follow_down() error
+returns.
+
+Fixes: cc53ce53c869 ("Add a dentry op to allow processes to be held during pathwalk transit")
+Cc: stable@vger.kernel.org
+Assisted-by: kres:claude-opus-4-7
+Signed-off-by: Chris Mason <clm@meta.com>
+Link: https://patch.msgid.link/20260531-nfsd-testing-v1-2-7bfa481b0540@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ retained the older single-argument follow_down(&path) API ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/zram/zram_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/nfsd/vfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index a9f71b27d235a..d1f4b61509a0c 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -886,7 +886,6 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
- 	ssize_t index, written = 0;
- 	struct zram *zram = file->private_data;
- 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
--	struct timespec64 ts;
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index 7b0bc4507ad04..225916fc0c8d3 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -129,8 +129,10 @@ nfsd_cross_mnt(struct svc_rqst *rqstp, struct dentry **dpp,
+ 	int err = 0;
  
- 	kbuf = kvmalloc(count, GFP_KERNEL);
- 	if (!kbuf)
-@@ -901,6 +900,7 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
- 
- 	for (index = *ppos; index < nr_pages; index++) {
- 		int copied;
-+		struct timespec64 ts;
- 
- 		zram_slot_lock(zram, index);
- 		if (!zram_allocated(zram, index))
+ 	err = follow_down(&path);
+-	if (err < 0)
++	if (err < 0) {
++		path_put(&path);
+ 		goto out;
++	}
+ 	if (path.mnt == exp->ex_path.mnt && path.dentry == dentry &&
+ 	    nfsd_mountpoint(dentry, exp) == 2) {
+ 		/* This is only a mountpoint in some other namespace */
 -- 
 2.53.0
 
