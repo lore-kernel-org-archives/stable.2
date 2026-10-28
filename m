@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190079;
-	b=NFMun2mDYIT8GNnIhxZ3EEq+BY5BhKsO+PAFnvp2KolsHeT95dOmEKOvjSNGnXL16UPF
-	 an7QWJQNh7VT84PSkOsI7MrXbIwr+2PACgoFZGFChIh1nxAmS0PsiuLkG6Wd7t6fGfSNM
-	 3+v0xIq6j2TPxBC5sJuQXzLyxq40MMUCsHyJN26EnqaWCDwZFza05ORDN9QpXuR4hUiLu
-	 rEIuFaiRbu1y1VhEdj123SFmpBScTaP30vJIaMbNHn6mj6/7sVB/EvJZCwiB+J6ICyGQh
-	 rV8hVw6wt3Jzavs+Si+w10KNdFWTArw8ejICNVUVXSOrdahGdvnFSTcVAyXC/kh8Q0A==
+	t=1793190082;
+	b=HFvqiR7034rmMqqVUWqge9wnsXbYDUvGZbi5P619VLQcNwQtZtExRLDOZjnQgo4s5erV
+	 yspw4BluNA/pW9VExHYDbVboMhKQBW3/SUDt/SStwODUT12Po/Nheb7xon6Wdn+FML9U5
+	 Xj4+k3AJKzkLEsx3JQ+cJ452Jx/KxFTyIgQiQ5BluikfC8Aftc2KaFEGnCTDI2aKP9UVy
+	 j6x7j/qOD5xWDAzp5AKyPUTOyarslbVTUbpqH6mopQoN/YwrMRqg4dq8nUB4g1MSkDxQW
+	 VN8YSRQfFehUHc3XpLENFtBTcCScPCj0eyQYwv5uoA94n0U9c+XEjYbA9MtEYIlIehQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190082;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=POFTP/JURJS04WunI6m5dVp5z76P4GfyBi0I7yizAPs=;
-	b=1thVWEUGcjf6ZafGXcZjax8lw1kSn8OVvoIY5lVoaSKxhiGMBTDaNW1bKCkeHVFS7anW
-	 D/MbZu6cRFcve79fu6aaSxsRRVg1o+GgPopsVzsYdPeP3bmpF+J2siyifjpEqWAQPmvky
-	 h4cbW+q9WIvaM/ISXsSh9qyAa1FX4g3shD9cUBLp4gYXX4wOQN/dxjsQs1+dNM25HxmTy
-	 AwfUd5wiOmdhTlAzDrJ4RNl/CJNJtfB7GokWKHK620ttR9IIEhhLkV5hXJaTmidxr6H5c
-	 6a/pYXxJOE8W0oRHdaNwYKFDiCpSSaFGb2f66bOjUk/rdmD646FDWjZd6kfKHiaGdfQ==
+	bh=3bsaBJ8E6DSwrTTnrWjO3rWYrTilvI7ak2QL0ZcC0Mc=;
+	b=1DjN3bKkJ3wk4XN7/rZB8ha8ApP3AzgT5U1z8fus/Z2Mm9AeZqXgfIygL8PXkzbBf3nl
+	 mTQFRUxv1b5KbYX9C7PuIaIuxBLTonajKOuzblBk4uo6cG1TKtfbvTSxKWtXgsAGl3X3d
+	 +xeoWJw/1oZN9Le/uJY90WGFNeoizS7D5rHR4UVP/O3kQV1OHFfaMsy/6j4ErQUQlJJVB
+	 wRRBHyVeZD8OJw6d34SwpA4GNIq9FnpTKi4FxUmObk10tyaVMTRiBE7v3zvO02UhWu+HY
+	 JLSa1vfgUMqM9k2sELidng6GN6ti7rC7Ilj/EQWxY/bu30Y0d9bC2LSigNv6AbNzy0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3qbEVXJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5M4rM4U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA137606A32E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 12:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64242606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 12:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3qbEVXJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECBE61F031E0;
-	Wed, 28 Oct 2026 12:21:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5M4rM4U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F521F01828;
+	Wed, 28 Oct 2026 12:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793190078;
-	bh=POFTP/JURJS04WunI6m5dVp5z76P4GfyBi0I7yizAPs=;
+	s=k20260515; t=1793190082;
+	bh=3bsaBJ8E6DSwrTTnrWjO3rWYrTilvI7ak2QL0ZcC0Mc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A3qbEVXJJO5UIg7L39bzJccddR77Y+nMKUXdF3/gu8AAkQSpudmzNLaGYXCDxwMFF
-	 SZpjAqiiagSuPixfncCWBf5yEfZXgnPam0VBFLn8duScNw5hTXwFQZNox7olJT+O+3
-	 pyEbDsCn0IctCAsdfJNET/wg624tpYUbj+TawfPzniAXOerSTkluJih/niH/BdIIJ+
-	 2N4dj1Yavpl3elDkOR/2N+7tEa7uEDFZQJ6Q16mcASBWFTtbYm0nUCFnN/t4JGjDzs
-	 xgefUK7dX7MNzTrVgR/rVc2gcdUomQ/KmZDIMIWZ4h5BOIiQl/ng7vvX9it6ub2vWj
-	 GHSLEaufWdpFw==
+	b=Q5M4rM4UADANAlyun70btYo8tO6dMGNGa3nQ9cYl3KaKzF+25VvQQ2bE4pOd0F5KA
+	 jKlzRABBOdrX49yAt+sypYqNXcuXy8qvK0ON/mvQis+zIvWzD6Ohkl10mlAlRUtaDc
+	 mw5VVZ1R/ojpZYleR4q3bimq0pvcBslvt7nCty5THeJ5XRM3NnvvjKgHKIaeoTvmZr
+	 XVV5Fj9p0XwqMNh96idwkaT0YIk39fKy6+xpukKXbamkeyNt3wuP1Z116ZhSKnnmRj
+	 UuzZZkucdNTjKWDBQ3Erj35a0MPRVywFvD6F73JqbLK/+SPpOV05sYEFqKe6l1sjUd
+	 xm8lJ89aXp+5g==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
 Cc: stable@vger.kernel.org,
@@ -49,9 +49,9 @@ Cc: stable@vger.kernel.org,
 	Kijo Park <red993688@gmail.com>,
 	Oleg Nesterov <oleg@redhat.com>,
 	Frederic Weisbecker <frederic@kernel.org>
-Subject: [STABLE v5.15] exec: Cleanup POSIX timers right after de_thread()
-Date: Wed, 28 Oct 2026 12:21:14 +0000
-Message-ID: <20261028122114.3429846-1-lee@kernel.org>
+Subject: [STABLE v5.10] exec: Cleanup POSIX timers right after de_thread()
+Date: Wed, 28 Oct 2026 12:21:18 +0000
+Message-ID: <20261028122118.3429939-1-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
 In-Reply-To: <2026092225-humongous-ultimate-9930@gregkh>
 References: <2026092225-humongous-ultimate-9930@gregkh>
@@ -139,7 +139,7 @@ Signed-off-by: Lee Jones <lee@kernel.org>
  1 file changed, 20 insertions(+), 8 deletions(-)
 
 diff --git a/fs/exec.c b/fs/exec.c
-index 6797c8cf88f4..5efe7ae6f968 100644
+index a2f72a503b7a..5980f577026d 100644
 --- a/fs/exec.c
 +++ b/fs/exec.c
 @@ -1234,6 +1234,17 @@ void __set_task_comm(struct task_struct *tsk, const char *buf, bool exec)
@@ -173,10 +173,10 @@ index 6797c8cf88f4..5efe7ae6f968 100644
 +	 */
 +	posixtimer_exec(me);
 +
- 	/*
- 	 * Cancel any io_uring activity across execve
- 	 */
-@@ -1310,14 +1330,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	/* Ensure the files table is not shared. */
+ 	retval = unshare_files();
+ 	if (retval)
+@@ -1303,14 +1323,6 @@ int begin_new_exec(struct linux_binprm * bprm)
  
  	bprm->mm = NULL;
  
