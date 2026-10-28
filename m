@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164274;
-	b=iwR3zLEHC+09cGUIrG2xlJsS/g4InDZ8uHPQMVywK0QIU17f7qeU6NyJCapXf0qjp8os
-	 +OYeZB7nrQkwPBYAqACqSieh21sYyi4ohmPbbFsIkybqeorlhAbs9fY6GuwoooxyWNELp
-	 4AY0BPWiwBXgkgtNKEMjLGADXXCLI/8c2b3bJGrZDpswYcRZZRM2ae5ba8YjKvYKMj82E
-	 1/HGysU8NqvzrCFHbGw9z97SkoRHSiCYYd5CDT0iyT1p0gGi3aBgzPlgKVVEo7Qy1R8ov
-	 wU+jDJawdKGaMP3H4Vs4QjqUNHKJuYRgxuNwc6iy8vmisrzcO9cXp5UCgDd0GgFJJZA==
+	t=1793164294;
+	b=vE/ytMSvvV9cZQgIHHg/oCRtMmp4wa22W2HPAV3IWhmVAcbRndEYEPBl9JRUMAnNseWy
+	 Yy0Gsgv7AQFVH28oGucTUkJC+26s8XXcFqFTzM/v5o4plRAvKzRl7XjyaPxC0UhBjZkhq
+	 CrHMxVXxVV1bbOV2XyprRblyoP4rf+FAgo6XQbEdEb21jKTlTrp8BRIF/rW39K1b3um8a
+	 h/br4Vk/ElqduIwQMZPUgW8QMD8OTyNmeqVZGEDGOSCU21H0wiF/x5EMOu5zcO7SPuBqj
+	 x2Te4ce4UYRfAIPCvsgxHXDUCn8ynoB2Sk99rKnyeLt/G3MVjBObrGGKsblR8gorFXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164274;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DUbseAYEE+G1IqK7aQUzVK/2OJ86R8Gy/7HvczyR3XM=;
-	b=qqIDHEnumgEx1h5pjSWGBHiyNFXRQXzrjN3mv/ktK4/tGZOcKp+K3/Fx0i8E+eBaqlQB
-	 MgAM/lSZGgYEiB2brgz3UJjB9mVWPRBfYaF1kGJsAlBGkKp0tiSFmg0r9WusXLOlX4oIq
-	 YhfXr+r7JgPAqSSt54cbLdG36nwFETK9tD3QSbivxb+loBnuSGRFburD8CAPQTV4mBlXj
-	 hsBwb85KS93S1wubjzzXOXFZEZK+fmw7ronYfSREcEhmZSQ7Mt0n+AqEk0bIkGazeiVT3
-	 7U9Hw6J7VS787NNvOEIIVlgdCdpVT0nA5jP3wFdY4IcB32BZFHTfeA0cCeg+0PYWKYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164294;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=nYsLqUlsjGDEPJYA9NcU3HBE54LgzTei1eQnGwkc7PU=;
+	b=3tEVz/muIR3Zch3M+Zrj+jgU5AQDlPQN+WmeNDfH2QINA3ReWXMf/zVhk9yvUe5UDtpI
+	 HmeiChYiu/CBiyMjamcW7+kByZQfEN7jnK7AUFS5B/tArj2oWHbofw+Ext8Xireix/gps
+	 HJa99Fx43mKfP10bL2Jx3ZNbeng9OY53HE0virkVQ/eLYB5rjFFnmFxbMsNRvBR5npgGc
+	 gU2UR3dpUd7qdKQcoHxOOsLoIgjXhvipZn6v0tFTyV5ZpkbVlHMKNCrko11AzxwiXTqRb
+	 tmTVRKKC3lEVNPM6YIaXJRpxjI6p4GG4kUq22mp823bjhm5DMvUNbAwL/Bpbma5RPuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj0smSbf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eMsD6tmn;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23A7606A321;
-	Wed, 28 Oct 2026 05:11:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E813606A31A;
+	Wed, 28 Oct 2026 05:11:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E813606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj0smSbf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E22E1F031E1;
-	Wed, 28 Oct 2026 05:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793164273;
-	bh=DUbseAYEE+G1IqK7aQUzVK/2OJ86R8Gy/7HvczyR3XM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kj0smSbfq765ieYkOtcDNKd21m74Hmrgr9h4jcU744iWhuoJ1yOnbBrSOso1/1DPR
-	 Ra5iRzvNxojssI+OjwgF0qYzn/xHQLvquuKVW7yUskugHLlEw0wh8ny/eqLSfGBLTF
-	 nbvjfhwZp+4GdHwGUjydfITMVQNO/CJrovr2mQkjfe2r4ZqOcD93WNGxYBwJUff8LH
-	 uPW+lAI2IqkPN0CfwOy4P6Sz6W0O2FiLBITI7r6RzPoqQ+5Bfl66eqGDDUgKhMlyiU
-	 CHfPcVEM4RyMzEJpxRoomp4o7IGm5NOoyZSUyi1vOpPawVWceFme2fyWe3ZvcUAlNy
-	 qZoaaWZEGJ+IQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6.1.y 2/2] mm/damon/sysfs: put target pids for apply_inputs() failure
-Date: Tue, 27 Oct 2026 22:11:03 -0700
-Message-ID: <20261028051104.154232-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028051104.154232-1-sj@kernel.org>
-References: <20261028051104.154232-1-sj@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eMsD6tmn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nY
+	sLqUlsjGDEPJYA9NcU3HBE54LgzTei1eQnGwkc7PU=; b=eMsD6tmnGUEywxZmTu
+	LNzSoXZpZnM7WLRAC/o9T6sIXdMH0GpvCmV2D1BnTQHTVzm6bJ/pZNySwHx7q0e3
+	IYo8fzhACrPx0d9oYg0GkscEoumw+KN19aR3TIfaPPLU+4/5xVEDXWAHeJYIoVQx
+	+kG+DbYYxkeIE+XS5ny92gW5Y=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnr6Tlg+Fqeq+RDQ--.25782S2;
+	Wed, 28 Oct 2026 13:11:01 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: =?UTF-8?q?=C5=81ukasz=20Bartosik?= <ukaszb@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Enric Balletbo i Serra <eballetbo@kernel.org>,
+	Prashant Malani <pmalani@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 2/2] platform/chrome: cros_usbpd_notify: check ACPI companion
+Date: Wed, 28 Oct 2026 13:10:59 +0800
+Message-Id: <20261028051059.143646-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,40 +67,40 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnr6Tlg+Fqeq+RDQ--.25782S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GrWxJFWDGryDGrW7Jr4rAFb_yoWkXrgE9w
+	s7uF4xArn5Kr1kKr1Yyrn3ury3Krn8tr1fKFnagr1ay3s5JryxXFyqva4Dur4rJF9xZrnx
+	Jw4UWrsa9F1SyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbIPfJUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQUtZ2rhg+XTfQAA3B
 
-damon_sysfs_build_ctx() invokes damon_sysfs_apply_inputs() for setting
-damon_ctx object with user inputs.  If it is configured for virtual
-address spaces monitoring, the setup also increases reference counts of
-monitoring target pids.  If the setup is failed, damon_sysfs_build_ctx()
-deallocates the damon_ctx object without decreasing the reference counts
-of the pids.  If the failure happened after increasing reference counts
-of pids, the pids can be leaked.
+The ACPI probe installs a notification handler through the device ACPI
+companion without checking that the companion exists. A force-bound
+platform device can therefore cause a NULL pointer dereference.
 
-Fix the leaks by decreasing the pid reference counts before deallocating
-the damon_ctx object.
+Return -ENODEV before allocating probe resources when the companion is
+missing.
 
-The issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260730040740.140836-1-sj@kernel.org
-
-Fixes: 74bd8b7d2f8e ("mm/damon/sysfs: move targets setup code to a separated function")
-Cc: <stable@vger.kernel.org> # 5.19.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: 7e91e1ac60bb ("platform/chrome: cros_usbpd_notify: Amend ACPI driver to plat")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- mm/damon/sysfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/platform/chrome/cros_usbpd_notify.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 4b28bb9ba0a24..b9b80d58e5bd6 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -2515,6 +2515,7 @@ static struct damon_ctx *damon_sysfs_build_ctx(
+diff --git a/drivers/platform/chrome/cros_usbpd_notify.c b/drivers/platform/chrome/cros_usbpd_notify.c
+index 25da31ec1996..1d82c74583cb 100644
+--- a/drivers/platform/chrome/cros_usbpd_notify.c
++++ b/drivers/platform/chrome/cros_usbpd_notify.c
+@@ -105,6 +105,8 @@ static int cros_usbpd_notify_probe_acpi(struct platform_device *pdev)
+ 	acpi_status status;
  
- 	err = damon_sysfs_apply_inputs(ctx, sys_ctx);
- 	if (err) {
-+		damon_sysfs_destroy_targets(ctx);
- 		damon_destroy_ctx(ctx);
- 		return ERR_PTR(err);
- 	}
+ 	adev = ACPI_COMPANION(dev);
++	if (!adev)
++		return -ENODEV;
+ 
+ 	pdnotify = devm_kzalloc(dev, sizeof(*pdnotify), GFP_KERNEL);
+ 	if (!pdnotify)
 -- 
-2.47.3
+2.34.1
+
