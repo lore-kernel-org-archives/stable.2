@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208946;
-	b=dlhXFrnNyglAr4ICagbStqVVZxLNrEM9YsI5I8geGnyF0UDPlxzwuK/AYgfA2FjtdRjz
-	 kKm08vOfZT5/7UOufqNlfBl0k1n2O9fC7EsT2VNbRhPswYhKikkLRKoQQbQtzQQVvpEgj
-	 7oUG3spuRJqJoF6OUjLB1zU+MUrXEQ27TJFNNwITvKTw8DDIEd7rXP7oKLwOXKWhD+7rt
-	 Mkjj7tZeb6zKARF1LX01S3WiSUXtB8bVhAbdtpMF2h85WOLbCELsSI/uRH9ecExxt4jRa
-	 4zAB7mYBVBjWM4/ESNsAvP5gWh89NDapwr1jFLl6GNGjLeCTawSSP7iQ9uYwiagg2fA==
+	t=1793208949;
+	b=Z1o+4X/YxwzvtKW/GTJlq0Sx53Zs8Dd8N5YkS3hTCDiv+ogL/aaIJ0bomowhqYXz0LDX
+	 v3z/cW0ixZWk56ZmJHNOZ0N+5TRUTkPeFuh21JwVCg7cX33tmgt3vpRXOKk2DkFdutttJ
+	 1yP/f1M8cEDsbGux5fz82qIr1d3lyHAq95oUC/OGZAbbuwtWcpumJgCr7HrPCt/Eu7/x2
+	 6MyMu6mpMf9oP6oVlDDRvpnPL1IvI12q0fTOc7+1/6otospwjXSQ3C8hEDLSZgrJBIGvD
+	 K7dnn+WXt4n5mxRVmLC/oCI9o8SwNKMWIuMP8wodxADrlnx092Zmquvh45/caSlw0uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208946;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208949;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JfN1ai2FQH4K8ksVGKn+Oq2LFawicx8XN/7NfYe3yLI=;
-	b=Z3GOeOWf5sNJjXUFbxFPV+uqA+O7Sl3UZB/B7HzUL6yaToPsTUL8deHelzFL16Ijek7+
-	 /nczlB3oLpouQNS24BQBh7Lo8c5GSmGQT74lMCDvOOhrPXJzELHz7li4bz4wcxKn4o/72
-	 HThA1ZgkzaSB13ZCMzravFf7aiyU7SiZrKwpkvnTR0GGj+U+pdy/HRapHq+vtRLSfqvzY
-	 VZB1HRvyPE5mAnwxBHkp28C56kCZEpeoQ3p5wYbj3P++2oPuJSHm26bpBoktx9ffWmHm0
-	 WQJJoEcTaQERsE62E0FCslJhaKu6Z0TNZdCV1TsbrxvXWhKIcbxVK4ejkL7CT2O6fcw==
+	bh=bVwlHc/cEAu4rcq05XRlOBbLtS/qN5a+eJ8hnRhO/Bw=;
+	b=o5/pBElpSM3t6b3rLLaYJjqwAho/nAMF1nC3RwVRDSeg/hZ2QKw86C/EpCrNz8l/YizH
+	 rHvmdXrWJ5G4stqDKgQbx7ZvFxqhN6AquEwTVbUiEsqZFCgw74UtSRMgBeUVQNu2f/Rya
+	 u+h/cBrxKvBnSJ12FRVkrRji7/82wrH7iLyfVYEYObsVlXiJxgnwbcRLqSc3bpW7GXLxc
+	 vSY8qMfEYOOpGAF0tW4L41jmN+NnxXUgel10k1sTF+vhwi4VRdGYJuztQMQsyvXIUEC1Z
+	 LhhhtSrYXQLnqbL9jARyql/abzl6qfzgEQ1Z1/5ZOyUuePLdCZNpgd6FrbSeQhViYwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C15VWoAb;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Mh2IqA0w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1747D606A32E;
-	Wed, 28 Oct 2026 17:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA59606A32D;
+	Wed, 28 Oct 2026 17:35:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C15VWoAb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D7C1F031E2;
-	Wed, 28 Oct 2026 17:35:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Mh2IqA0w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416931F01825;
+	Wed, 28 Oct 2026 17:35:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208946;
-	bh=JfN1ai2FQH4K8ksVGKn+Oq2LFawicx8XN/7NfYe3yLI=;
+	s=korg; t=1793208948;
+	bh=bVwlHc/cEAu4rcq05XRlOBbLtS/qN5a+eJ8hnRhO/Bw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C15VWoAbMcRVDmemOS+7thhaDd2gJH3UNqAS/IEmc6C3lCgxobj27tNQM9Rsvr4F+
-	 24TW5rwQh0fLxtsL0v2lbjbfbmGnZrglSysravcvTRdLuQtjf1dcREGCLmLYyhzcrE
-	 y9mQ68a+/HIXb37+daZkRbaC4wPqdoRrm0uWhYqg=
+	b=Mh2IqA0wyh9pIsp4TUS16O6ix7EzFX7XXVemTTlF049zDtI3TOYdSzfIkiZApnRbf
+	 mwcOFN4dWHdVo17BJoXmXK6amwHikIgGkWYRfOi04G4rV7k+/XYb7blnJu/+cP98qP
+	 1R1LDtKljXWPBegkGD0ArtwgfLM0yt8L8XhgjDzE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Johan Hovold <johan@kernel.org>,
+	Chen Ni <nichen@iscas.ac.cn>,
+	Alan Stern <stern@rowland.harvard.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 299/516] USB: serial: clean up core error labels
-Date: Wed, 28 Oct 2026 17:57:31 +0100
-Message-ID: <20261028170010.575050701@linuxfoundation.org>
+Subject: [PATCH 5.10 282/516] usb: ohci-spear: Remove unnecessary NULL check before clk_disable_unprepare()
+Date: Wed, 28 Oct 2026 17:57:14 +0100
+Message-ID: <20261028170010.172742753@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -67,131 +68,37 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Johan Hovold <johan@kernel.org>
+From: Chen Ni <nichen@iscas.ac.cn>
 
-[ Upstream commit 96a83c95c3da5ba55ea2cf6ce87de10fc03417a9 ]
+[ Upstream commit a891b9aebcc7406fe2f439d184bac3948fb08645 ]
 
-Clean up the core error labels by consistently naming them after what
-they do rather than after from where they are jumped to.
+clk_disable_unprepare() already checks NULL by using IS_ERR_OR_NULL.
+Remove unneeded NULL check for clk here.
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Stable-dep-of: 646e5b28b4fd ("USB: serial: fix driver deregistration order")
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://lore.kernel.org/r/20250617042050.1930940-1-nichen@iscas.ac.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: b1b0f8bdbbc8 ("usb: ohci-spear: disable controller wakeup on removal")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/serial/usb-serial.c | 34 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 18 deletions(-)
+ drivers/usb/host/ohci-spear.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index aad5e167d1eab..338fd0d5e65e1 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -187,17 +187,17 @@ static int serial_install(struct tty_driver *driver, struct tty_struct *tty)
+diff --git a/drivers/usb/host/ohci-spear.c b/drivers/usb/host/ohci-spear.c
+index 5cc05449281c8..ed019c459ea0d 100644
+--- a/drivers/usb/host/ohci-spear.c
++++ b/drivers/usb/host/ohci-spear.c
+@@ -105,8 +105,7 @@ static int spear_ohci_hcd_drv_remove(struct platform_device *pdev)
+ 	struct spear_ohci *sohci_p = to_spear_ohci(hcd);
  
- 	serial = port->serial;
- 	if (!try_module_get(serial->type->driver.owner))
--		goto error_module_get;
-+		goto err_put_serial;
+ 	usb_remove_hcd(hcd);
+-	if (sohci_p->clk)
+-		clk_disable_unprepare(sohci_p->clk);
++	clk_disable_unprepare(sohci_p->clk);
  
- 	retval = usb_autopm_get_interface(serial->interface);
- 	if (retval)
--		goto error_get_interface;
-+		goto err_put_module;
- 
- 	init_termios = (driver->termios[idx] == NULL);
- 
- 	retval = tty_standard_install(driver, tty);
- 	if (retval)
--		goto error_init_termios;
-+		goto err_put_autopm;
- 
- 	mutex_unlock(&serial->disc_mutex);
- 
-@@ -209,11 +209,11 @@ static int serial_install(struct tty_driver *driver, struct tty_struct *tty)
- 
- 	return retval;
- 
-- error_init_termios:
-+err_put_autopm:
- 	usb_autopm_put_interface(serial->interface);
-- error_get_interface:
-+err_put_module:
- 	module_put(serial->type->driver.owner);
-- error_module_get:
-+err_put_serial:
- 	usb_serial_put(serial);
- 	mutex_unlock(&serial->disc_mutex);
- 	return retval;
-@@ -1287,7 +1287,7 @@ static int __init usb_serial_init(void)
- 	result = bus_register(&usb_serial_bus_type);
- 	if (result) {
- 		pr_err("%s - registering bus driver failed\n", __func__);
--		goto exit_bus;
-+		goto err_put_driver;
- 	}
- 
- 	usb_serial_tty_driver->driver_name = "usbserial";
-@@ -1308,25 +1308,23 @@ static int __init usb_serial_init(void)
- 	result = tty_register_driver(usb_serial_tty_driver);
- 	if (result) {
- 		pr_err("%s - tty_register_driver failed\n", __func__);
--		goto exit_reg_driver;
-+		goto err_unregister_bus;
- 	}
- 
- 	/* register the generic driver, if we should */
- 	result = usb_serial_generic_register();
- 	if (result < 0) {
- 		pr_err("%s - registering generic driver failed\n", __func__);
--		goto exit_generic;
-+		goto err_unregister_driver;
- 	}
- 
- 	return result;
- 
--exit_generic:
-+err_unregister_driver:
- 	tty_unregister_driver(usb_serial_tty_driver);
--
--exit_reg_driver:
-+err_unregister_bus:
- 	bus_unregister(&usb_serial_bus_type);
--
--exit_bus:
-+err_put_driver:
- 	pr_err("%s - returning with error %d\n", __func__, result);
- 	put_tty_driver(usb_serial_tty_driver);
- 	return result;
-@@ -1471,13 +1469,13 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
- 
- 	rc = usb_register(udriver);
- 	if (rc)
--		goto failed_usb_register;
-+		goto err_free_driver;
- 
- 	for (sd = serial_drivers; *sd; ++sd) {
- 		(*sd)->usb_driver = udriver;
- 		rc = usb_serial_register(*sd);
- 		if (rc)
--			goto failed;
-+			goto err_deregister_drivers;
- 	}
- 
- 	/* Now set udriver's id_table and look for matches */
-@@ -1485,11 +1483,11 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
- 	rc = driver_attach(&udriver->drvwrap.driver);
+ 	usb_put_hcd(hcd);
  	return 0;
- 
-- failed:
-+err_deregister_drivers:
- 	while (sd-- > serial_drivers)
- 		usb_serial_deregister(*sd);
- 	usb_deregister(udriver);
--failed_usb_register:
-+err_free_driver:
- 	kfree(udriver);
- 	return rc;
- }
 -- 
 2.53.0
 
