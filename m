@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201775;
-	b=Do707gplET/DB607jswD40zwPPvL34clZ6FmFYLVMWvjCcIM1Sj+uqiJkDv43tq3VHyi
-	 0Pi1jxrbPbUjbpNhUMA7pJrQzvn1i1sdvwm63KVRhAIRbwUT/quN831Yd0h7BmeTymVL2
-	 P5UdzfVYYzLbUQ3jZpSPwFwaYlAekcPWwooFFvGj0QseiuAnrN8jHXGH6jpCYzlfEtaG6
-	 kcEqREMs4PqJoap0lRLrlBZQW3ykQ82RcheKZXddyW0FapMCmkr+zXInnHSxXB5QshhsG
-	 +K9XJZdOtcs6BLbmz6hUDDH5gvQ0BKcifzMtM7AGy57NrfQ3LO7QlqaIwZHKGX94hEw==
+	t=1793201789;
+	b=xus0gnfEApDKpcs50LkuPFMu53hr+Xt5X8tOaJ4T9NQeU0AIXCRxlStdOEdwV++IRI6t
+	 jJpVBJqcpvC7aoA/b7LyDP69Z9tt8JtOlo897aXnzSbyR9qcBWHhYm15huDWIvjy50MIy
+	 EdJYKy43bpt5mLrcTGLTzP0oAySouKDP78THQG5VEUPhYmeyivyDC+3MvebSWixoQjDNe
+	 sI7Hz7bC6sG3yWUgXCbbVUUryWtYUQfseKhIUUVSD/kPR5II4/6DjtoTEzU/q1kB99KNi
+	 d89uNxjufYT9pI/truipgZuqq5scVmh63ZSbjCMjkGiYLxm+uUPsdp4Cl/lGSVqynqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201789;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0N8eT8glS/RLVbHg1ps+ZMaooTmSZp3jZ0TQ+u+DQD0=;
-	b=Bk7iz9hO78NHX4gglSr320kvZW8Q9WPLa6SczH8edYkvHPJqJfHOA1U8FlJEbdAoutj7
-	 eiTf6iGeOjrEkpoeT5UfuYK7HacjM/Fqe6Op1TEhsZfJhxcVOlBQqMBmyiq/uodp7S+/c
-	 sDpsdiv7tE19qLaOInqPqniBp7y12AtBF/xJpjNc341ExLdPaM6XkIl1CTgqw+wtbBNgC
-	 FUXTCXrJDaTKN1jW5QVOMgTRgKIL8T2GpKlH5dBuQ85hm7RDx03BqPmA6KQ19FoJ3Cb1j
-	 oAD81Fv9nOMUOyRknyVLKgzDP+kyw912T6lNtK6Vgm0NxM7bAHvidlRiy1bp4FOQjLw==
+	bh=tWiB7szRXIvvgEUqB0vryxRuyc++nOKFp1nm5KTr5Bg=;
+	b=BaHkc3BliNJBt0VUOg9vMx3EtZWfML/ZZHL2Njqqj3T/vgBRxbqK2V3Zuwsu1100fFjb
+	 3wMQMfsBidvCVhSItBDM5tnlhGtfgFLeSXlg76aZqMuLekp+QOkAHMBGe+wsY3fRdjmO6
+	 G0VAlyhFe/S4ePrXMVDc7qdZpWcsShWTUMWHeg1WJZrE3DS/XBP62xpNJ2m3jbr2mMsXu
+	 +naVDJq7hP7qbrG3S1Yq8m+cRJeCaHlSXcUQdHKYimnXMonuCDPZeq6T2rM6ycupWV785
+	 OyqNQbxS7XAafQRrdhbbzAO8HfNvyM6ujMrB8pbcxM6Laf3/uhENwCxZtFjHLJQKV5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aTuIVxVP;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RPgwrwjW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6670606A324
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2111606A327
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aTuIVxVP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55101F01254;
-	Wed, 28 Oct 2026 15:36:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RPgwrwjW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FAF11F01242;
+	Wed, 28 Oct 2026 15:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201774;
-	bh=0N8eT8glS/RLVbHg1ps+ZMaooTmSZp3jZ0TQ+u+DQD0=;
+	s=korg; t=1793201788;
+	bh=tWiB7szRXIvvgEUqB0vryxRuyc++nOKFp1nm5KTr5Bg=;
 	h=Subject:To:Cc:From:Date;
-	b=aTuIVxVPASeRkHKS5uklqaouWAxI3/GLki+Fw66Ige9WloA32Hkj50HwSfO065HeA
-	 3Fyc9ve591B6539gIr3qqX4mnS4WI1GJWjG2+KdCsxG5vHbFOy8aF//dWotp49wp8B
-	 4sDQxi8PZX1pQK7/fXh78w1iGLPolnRCMehYIdj8=
-Subject: FAILED: patch "[PATCH] fork: release the files of a failed fork after" failed to apply to 5.15-stable tree
-To: brauner@kernel.org,mason@kernel.org
+	b=RPgwrwjWlvG4KV4qGGOE/DDrPvR/jn05MAs/w5/jdaAFO06UdIgASmVAEDnG/jFyE
+	 QQLF/ZfsTzvk1mxBgyZokeEsi+lzNNXwgJmbd5X5AWrfGTQTr+p/jr6BM6mOE44+dq
+	 uzJjvvFw4tijLudVvbuIP+g4/ILvUJ7/eZIG4/h8=
+Subject: FAILED: patch "[PATCH] exit: hang up the tty before closing the files" failed to apply to 6.12-stable tree
+To: brauner@kernel.org,mason@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 16:36:02 +0100
-Message-ID: <2026102802-progress-trodden-c504@gregkh>
+Date: Wed, 28 Oct 2026 16:36:26 +0100
+Message-ID: <2026102826-sierra-parted-e606@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 296a98c1fa50778c3b31eebed1a3f903f9684349
+git cherry-pick -x ad016f0131ebfec250a3360ea75d35128b3f4aa8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102802-progress-trodden-c504@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102826-sierra-parted-e606@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,84 +79,75 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 296a98c1fa50778c3b31eebed1a3f903f9684349 Mon Sep 17 00:00:00 2001
+From ad016f0131ebfec250a3360ea75d35128b3f4aa8 Mon Sep 17 00:00:00 2001
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 21 Sep 2026 15:44:56 +0200
-Subject: [PATCH] fork: release the files of a failed fork after
- sched_cancel_fork()
+Date: Mon, 21 Sep 2026 15:44:57 +0200
+Subject: [PATCH] exit: hang up the tty before closing the files
 
-Reorder copy_process() cleanup so sched_fork() taking scx_fork_rwsem
-scx_pre_fork() is safe and isn't held around exiting files. Right now, a
-fork that fails while another thread closed the bpf link fd will
-deadlock against its own read side. It also blocks every fork on the
-system:
+do_exit() closes the task's files in exit_files() and hangs up the
+controlling tty of a session leader in disassociate_ctty(1) after
+that. Since commit d99d38540bf0 ("fs: make close_files() synchronous")
+the final __fput() of every file runs inside exit_files(). So when the
+session leader holds the last open of its tty the tty is released
+before disassociate_ctty() runs. tty_release() clears signal->tty for
+the whole session in session_clear_tty() once the count drops to zero
+and sends no signal doing so. disassociate_ctty(1) then finds neither a
+tty nor a tty_old_pgrp and does nothing. The foreground process group
+loses its SIGHUP:
 
-    copy_process()                  holds scx_fork_rwsem for read
+    do_exit()
       exit_files()
         close_files()
-          filp_close_sync()
-            bpf_scx_unreg()
-              kthread_flush_work()  waits for the disable work
-                scx_root_disable()
-                  percpu_down_write(&scx_fork_rwsem)
+          tty_release()             tty->count == 0
+            session_clear_tty()     signal->tty = NULL, no signal
+      disassociate_ctty(1)
+        get_current_tty()           NULL
+        signal->tty_old_pgrp        NULL, nothing sent
 
-Simply release the child's files after sched_cancel_fork() dropped the
-lock. The task starts out as a copy of its parent so p->files points to
-the parent's table until copy_files() replaces it. exit_files() must not
-run for a fork that failed before that. Clear p->files up front so
-exit_files() is a no-op for those and make copy_files() set it
-explicitly for CLONE_FILES.
+That only affects real ttys. For a pty the master's open keeps the
+slave's count above zero. And it only affects a foreground job that
+holds no descriptor to the tty anymore while its session leader exits.
+Everything else is unchanged. The DTR drop on the last close happens in
+tty_port_shutdown() regardless, stopped jobs get their SIGHUP from
+kill_orphaned_pgrp() and signal->tty is cleared either way.
+
+Before that commit the final __fput() ran from exit_task_work() which
+comes after disassociate_ctty(). That order isn't old. Until v3.14
+exit_task_work() came right after exit_files() and before v3.6 fput()
+was synchronous, so the tty was always released first. Commit
+c39df5fa37b0 ("exit: call disassociate_ctty() before
+exit_task_namespaces()") moved disassociate_ctty() up to fix a pppd
+crash and in front of exit_task_work() as a side effect. The hangup in
+this case has worked since then and that's eleven years of userspace
+being able to rely on it.
+
+Hang the tty up before closing the files. This is the ordinary hangup
+with the file still open: __tty_hangup() swaps in hung_up_tty_fops and
+tty_release() runs from the close afterwards as it does when a modem
+drops the line. disassociate_ctty() stays in front of
+exit_task_namespaces() which the pppd fix needs.
 
 Reported-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-7-8e4adb1619e6@kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-8-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 10be4a0ecb3f..50f5b3e2ca87 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1676,6 +1676,7 @@ static int copy_files(u64 clone_flags, struct task_struct *tsk,
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 55dbea3b242e..9ed5eb03d0e1 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -1003,10 +1003,11 @@ void __noreturn do_exit(long code)
  
- 	if (clone_flags & CLONE_FILES) {
- 		atomic_inc(&oldf->count);
-+		tsk->files = oldf;
- 		return 0;
- 	}
- 
-@@ -2199,6 +2200,8 @@ __latent_entropy struct task_struct *copy_process(
- 	INIT_LIST_HEAD(&p->sibling);
- 	rcu_copy_process(p);
- 	p->vfork_done = NULL;
-+	/* Set by copy_files(), exit_files() on the error path skips NULL. */
-+	p->files = NULL;
- 	spin_lock_init(&p->alloc_lock);
- 
- 	init_sigpending(&p->pending);
-@@ -2300,7 +2303,7 @@ __latent_entropy struct task_struct *copy_process(
- 		goto bad_fork_cleanup_semundo;
- 	retval = copy_fs(clone_flags, p, args->umh);
- 	if (retval)
--		goto bad_fork_cleanup_files;
-+		goto bad_fork_cleanup_semundo;
- 	retval = copy_sighand(clone_flags, p);
- 	if (retval)
- 		goto bad_fork_cleanup_fs;
-@@ -2613,8 +2616,6 @@ __latent_entropy struct task_struct *copy_process(
- 	__cleanup_sighand(p->sighand);
- bad_fork_cleanup_fs:
- 	exit_fs(p); /* blocking */
--bad_fork_cleanup_files:
--	exit_files(p); /* blocking */
- bad_fork_cleanup_semundo:
- 	exit_sem(p);
- bad_fork_cleanup_security:
-@@ -2625,6 +2626,8 @@ __latent_entropy struct task_struct *copy_process(
- 	perf_event_free_task(p);
- bad_fork_sched_cancel_fork:
- 	sched_cancel_fork(p);
-+	/* ->release() of a file may need scx_fork_rwsem for write. */
-+	exit_files(p); /* blocking */
- bad_fork_cleanup_policy:
- 	lockdep_free_task(p);
- #ifdef CONFIG_NUMA
+ 	exit_sem(tsk);
+ 	exit_shm(tsk);
+-	exit_files(tsk);
+-	exit_fs(tsk);
++	/* Hang the tty up before the last close of it can clear the session. */
+ 	if (group_dead)
+ 		disassociate_ctty(1);
++	exit_files(tsk);
++	exit_fs(tsk);
+ 	exit_nsproxy_namespaces(tsk);
+ 	exit_task_work(tsk);
+ 	exit_thread(tsk);
 
