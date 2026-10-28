@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180882;
-	b=vlErl00NU5gN/NXynxtKErkRe3sZlt/L6xDO3D2blpiNvLDx8Nf1Bv21QUMB8rq+rf86
-	 vEDs/mt/GlSUcxAKwWtMzRwvJq7l7n3IZ4bTbikR1kitr5SFJiU/RSGCKkwd2c0arUo2c
-	 wQOBzEdadlPnPeEvpNnU/JTuxp/wndVnS9sS4ABu00yfnjIF/gVinuvGRJzpa9aIU34KD
-	 0nLtDY6yunKSCaAfX29xl8D/jlCWnAdjtywQuiBlQ9ArtHr02WoMFo6ktJQkntHudumwv
-	 4o/ueRz1MTzHyva6tp0Ug8eFoxvbtlciagJacY0GkRKk1oJOMXciKXHNMoJiimOd+aQ==
+	t=1793181324;
+	b=iybUtsY67RsebWbE1tt3Uf6j+SMibj/X8iTQcJljXyPpp/acdUD2rfAU63rAmYsdnTKL
+	 HhTXOCHqqGAreA7CLn2/61KxzQ5HVXXZI+d02Hsx/4Jc4TRF5zM+VCnRY9bImny9gtEMH
+	 mkF4U+gYOBYq+Rinr1mRyitmH1dI7naQDPFeYjN+wqov9atQVTDvSu0XtL49U2T6GdNn3
+	 Jk8U13fhwB58Nnzh6YupELVE9va0uI/PPMxHTDtQ1ZBPC6/JqI4LQSPtyYQBzSeEa6wxq
+	 mU0QzDfhF4BeToUBUTDAWIx5L6rdfYCeOudMj7O62sBsHZ4ORF002PBp8T1UBHzFw2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180882;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aN0PCVme+wt47kiYd4k29CFoRxw88qU3QpIuYf12IDE=;
-	b=mb3eTwpYopQSu7Lwvt7XgGZfkdiLnx7ZcR4mr6az/5T9lNCYLgqM4j15lCWeS3JaV/Zo
-	 wzSn8aXhA5UcTmrU5CezDuCEgefFXL4ujr8MR0FUnUQ3hhfD9npeH/rW/VZF0HoTEiQEf
-	 b9iYRrGaGOqcpb4ZuSfgyrtUtjqrWKgpjpzqONV3qLxoIkEabZjA+zn7QwpAGXkY753+u
-	 eb1fgllJfJPEBuREcAQ/mzedv7OyyMLae0kjcToyNCRDFXH3TRek6O3b9Le7ZimQDx3db
-	 /uhaf1e7XgyRedN+n2MBji4dvP9XnLUxmZpUY0wBuWzA0/K79nPDvNcniZb05g5cNaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181324;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=pqX9rfgmqaJsxylyr7PekQEwW67TR8Idof8IkM9MJmE=;
+	b=e/bjBfDYSK34C7IAFP7ng7xC5O85OW4HPcugluokQ2HMrXCDERXv8wZYcMjo8E6E2F1a
+	 QO4wjnVzmjRNY7o3CwjP5SvIFjW3HIKDxlGmRYkOSDp4/0cDic0vkSxAXiEh7hVfoQWRR
+	 S6/S3AjBZ46WnI1kFs93K73r5Nr/65P3c+pPKiJooOV4/uJ5bab9/xacXyfaFkWIeP7G8
+	 RSzzfQgnsZdDNAhRH9Llo7KbLI4B7VnUQo5Q/Pl/C95qRfG2PPec/gIgmPhfd0vTC/lh5
+	 d0bKaYl1VzWuraphRhtBwN396lhEm65UXXa2i8idBD0ftctMUD4W+RTQAPCwYjIJfYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="SS536KN/";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELizeEpW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5935B606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 09:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5935B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE60606A31A;
+	Wed, 28 Oct 2026 09:55:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SS536KN/
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so6835765e9.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:48:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793180881; x=1793785681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aN0PCVme+wt47kiYd4k29CFoRxw88qU3QpIuYf12IDE=;
-        b=SS536KN/FNb5ZcLsLsAYO46h/5MEOlP+vGqlqfGkkILFUt+I4S7V9CFmqXZF8Jf/4v
-         JvOgGdgHX8kN0hPDIvDCbYR2Gv+V22vOuKrhezQQqWxTveWH1fOY3XdGaEH/PZlebHP8
-         yb8TMuHEN+DBGkOWtVvqCc4SclYN6wEjUh0WE8WyavAPdJMvgwlmcmoK7ZNKUDnV6Q2y
-         4hWdCi3ItZN5RJBEXjP/BgkmHI/a/J5nclWfU8V76GCE1KtEh3ns116DvOnStV3t9Yvc
-         L7rWbxYybvUByz/fEzvWlKjprfc6u5ulkeTKtXKIUUQPf1xiTh3R04s1mhzjq2tQ6GK6
-         6Jdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180881; x=1793785681;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aN0PCVme+wt47kiYd4k29CFoRxw88qU3QpIuYf12IDE=;
-        b=xh8QkOvlC4RIbBMUC7L+Aj1+vsKsrdDqgS3r7KiNuwiheFmm4iztRIR7g8FG9pwhv7
-         /ShbNQkL04QnpM+bACtegj7ilIk+SugwGrObFBvY/71dcq/ACehrMLb8LMd5SHf9rcLt
-         /J6enxVsE6c/EtPyE9TwWc3FnC0UuCm9TEci+en4rHc1n0wCFFIVlM1SJje8p054WvdC
-         rCUQ/FNlSsHRcftJyHvdtoLAlQ3SefG19nJtEpAzdHnRUbKBADTHwSdOcfrJDKr+wud4
-         y7uHo1RDB+0MTOA9yNxwlSfQGFF5ZBjwgQ/bvIB0sHNoj//9xJk8y9gPmiWxDTl2X11U
-         2+xA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtB2n6tzQwOOWp7RFWf+ZnSBATk1J8bup3dBcdE3ei/YQ3EMTdXmJ1mN3QcAKI4gr7+2pIMcE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVPOXZj2rHYdKuKsJE1sRggbE4tnSlOZu4VvNM4PSfDJAW9JbE
-	o2if1uehmJmHU9AyatFu8a9bKBEgSptDS/5Z/jYehN7G86mw9me532uP
-X-Gm-Gg: AYBFou3EI51kgjC1SvKoxEGkXDYgNt4MH1kGq5YHC8XqgoS4nRNGeQX+AGUkZho/SmS
-	agCtzer8NKvHEu1FPylsd6Do3V9BIuPOqKkrJIWITH95hwJZ3guQ3GBxgXy+OYRbxjk6M9dLMS6
-	1KLvk2XODwblJAcLuo9PPu5jnoRKqlrdpdMQ/0Td3C9+kz/k/GCE8Dk9DsXpSkjHgB7DT1Nbs3J
-	j+9MeHGtfRpu6obktflbo4YvZ7jNJFY4x5yEPbSdegQtRACN/+ua5+j5XtqlYpbbNMfO9xig3UW
-	qMA5lsx6mhyr+bqBJcFjoeLSsVhl1qR1WjZKhJI77rB7gUIf5HDNQscxM/pXcuGuYlkS/qpTW/o
-	KZ5cjruZzUe8kcCSFRXGttcf75AlmdPZlIV95AfyKvO+S5SNJ6aIZIMNtxnTXyPodEnWffHAvin
-	uKrJkcw344kMHaWaLCJx0pzPqcUUPrcTDMBDV3EDl+Y5ueOd6Ius0T8l327E/JrVQLn2qnCDMsp
-	7KJiA66vTPB/Qx3HbEkDwIfIF5JHU+l1QKhOerQkEDMxi89yMv2GHDXHqRuTEMwDqYpboh38Mg1
-	n37ox8v348zRRIXGB30wWCF1m6Q26VXoE/Nbsjx6yCU0wPpQw81lGzBcHAVqQKOdBSKiOj0uQLD
-	2cKUIlg==
-X-Received: by 2002:a05:600c:8b63:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-4a961892781mr34341255e9.0.1793180880339;
-        Wed, 28 Oct 2026 02:48:00 -0700 (PDT)
-Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm26957431f8f.39.2026.10.28.02.47.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 02:47:59 -0700 (PDT)
-From: Zak Brighton Knight <zakbrightonknight@gmail.com>
-To: linux-pm@vger.kernel.org,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Len Brown <lenb@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Doug Smythies <dsmythies@telus.net>,
-	linux-kernel@vger.kernel.org,
-	Zak Brighton Knight <zakbrightonknight@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] cpufreq: intel_pstate: Restore P-state request on resume without HWP
-Date: Wed, 28 Oct 2026 09:46:59 +0000
-Message-ID: <20261028094659.2321491-1-zakbrightonknight@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
-References: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ELizeEpW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3161F01825;
+	Wed, 28 Oct 2026 09:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793181324;
+	bh=pqX9rfgmqaJsxylyr7PekQEwW67TR8Idof8IkM9MJmE=;
+	h=From:Subject:Date:To:Cc;
+	b=ELizeEpW0IWW9ALHMAwUdjXES+qCVnseTomqDmrxUdJsA2qI1fN9VpHRkPMHHB/z1
+	 e98N/XcweBbYdDxieObG0MX16FEbZspUHisMJzORsFG2RKQx8fFFQkPbYAFWDzM2ri
+	 5EU7adjS3axw5M15cusfxHELyH9A9jDW3BFaWZZf0Cvzc9OtiEgSXpBwT6DKoZwOMK
+	 YDcs/ClOj2ocpKlASP4GDCXMcRwgGFy8qvPcLXO05pWqmHr72dzqMzxog5X5ziXbmN
+	 fXncLL7O89PPHuccmSvDF6IutEG1BMlNtzJv5mzszHS/JLBJtjeodcuI20GPcZ7Nzx
+	 Xmo41NQzcaIpw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH v3 00/15] mm/shmem: various (urgent?) fixes
+Date: Wed, 28 Oct 2026 10:54:58 +0100
+Message-Id: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,161 +53,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHPG4WoC/1WNQQ6CMBBFr0K6tmY6hBZceQ9jTCkDVAVMi0RDu
+ LstxkSWL/Pfm5l5cpY8OyQzczRZb4c+QLpLmGl13xC3VWCGgFIAZry2L/IX33bUcVQ5KlGUIgV
+ iwXg4Ws9BOJ2/7J/llcwYE3HRWj8O7r2+m0Tc/cpyU54EB64gRZBVVmswxxu5nu77wTUspif8l
+ 9VWxiDnUgMUGWpTFht5WZYPf46i+fYAAAA=
+X-Change-ID: 20261025-fixes_shmem-2782719b130e
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ "Pratyush Yadav (Google)" <pratyush@kernel.org>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2356; i=david@kernel.org;
+ h=from:subject:message-id; bh=QKWfbKNTmEUQgDJxMmiHWqIlTxwF0L7tqAj1iugtr3c=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHitX5vxxjbn98MT4SZ/U/rgYd3Umz5A7kLnmyso17
+ xgWrteb31HKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBE/JUZ/qnMkuP4+etE9Zmk
+ 7pnM3M3aZ5e8l9T+s+TKId42p+g9tU8ZGbYo8d9KvOM4j5O3YcHWxX9//o+6L1PxQ1DSxOHSPR4
+ BWz4A
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
-the CPUs stop using turbo after every suspend to RAM when intel_pstate
-is in passive mode with the performance governor: they stay at the
-2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
-policy limits change or the system is rebooted.
+Hi,
 
-During resume, the platform firmware sets each CPU's P-state request
-register, MSR_IA32_PERF_CTL, to the base ratio (28).  Without
-hardware-managed P-states (HWP), nothing in the passive mode writes it
-again afterwards:
+see v1 for details. TL;DR various fixes.
 
- - When the nonboot CPUs go offline during suspend,
-   intel_cpufreq_cpu_offline() bails out because cpu->suspended is
-   set, so the cached P-state (cpu->pstate.current_pstate) and
-   policy->cur keep the values from before suspend.
+Rebased on top of latest mm-stable. The dropped fix is now included
+again :)
 
- - When they come back online, cpufreq_set_policy() does not start the
-   governor, because cpufreq_suspended is still set at that point.
+Thanks everyone for the fast review and tests!
 
- - cpufreq_resume() then calls intel_pstate_resume(), which does not
-   touch the register without HWP, and starts the governor.  The
-   performance governor asks for policy->max, which is equal to
-   policy->cur, so __cpufreq_driver_target() returns without calling
-   the driver.  Even if it did, intel_cpufreq_update_pstate() would
-   skip the write, because the requested P-state matches the cached
-   one.
-
-Governors that change the request often, like schedutil, write the
-register again shortly after resume, so they mostly hide the problem.
-In the active mode, intel_pstate_set_policy() writes the register for
-the nonboot CPUs when they come back online.
-
-Fix this by adding a ->resume() callback to intel_cpufreq that writes
-the cached P-state back to the register when HWP is not used, before
-calling intel_pstate_resume().  The governor of the policy is not
-running at that point, and the write is done under the policy rwsem,
-so it cannot race with updates of the policy limits either.
-
-The problem was found and root-caused, and this patch was drafted, with
-the help of an AI coding assistant (Claude, by Anthropic) during a
-performance review of the machine described above.
-
-Fixes: 4adcf2e5829f ("cpufreq: intel_pstate: Add ->offline and ->online callbacks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
+Changes in v3:
+- Rebased on mm-stable
+ - Fixup for shmem_set_acl() no longer required
+- Re-include the commit I dropped by accident
+- Apply tags
+- Link to v2: https://patch.msgid.link/20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org
+
 Changes in v2:
-- Only restore the request in the passive mode, from a new ->resume()
-  callback of intel_cpufreq, and do it there unconditionally, as
-  suggested by Rafael.  v1 did it in intel_pstate_resume() for both
-  modes, where it could race with the active-mode util update hook, as
-  reported by Sashiko.
-- Hold the policy rwsem around the write.  The governor of the policy
-  is stopped at that point, but cpufreq_resume() has already cleared
-  cpufreq_suspended, so a policy->update work item (handle_update() ->
-  refresh_frequency_limits() -> cpufreq_set_policy() ->
-  cpufreq_governor_limits() -> ->limits()) can still get to
-  intel_cpufreq_target() for the same CPU, for example after a limit
-  change during resume, and its write could then be overwritten with
-  the stale request.  This is the second case in Sashiko's report;
-  please drop the lock if that cannot happen there.
-- Describe the suspend/resume flow in the changelog, based on Rafael's
-  explanation.  When the nonboot CPUs come back online during resume,
-  cpufreq_init_governor() and cpufreq_start_governor() return early
-  because cpufreq_suspended is still set, so the request is only
-  dropped later, by the target_freq == policy->cur check in
-  __cpufreq_driver_target() (see the debug messages below).
-- Fixes: 4adcf2e5829f, after which the nonboot CPUs no longer go
-  through ->init on online.  Before it, intel_cpufreq_cpu_init() reset
-  PERF_CTL and policy->cur to the minimum when they came back, so the
-  request after resume was written.
+- Rebased on mm-stable
+ - Fixup shmem_set_acl() compilation issue after rebase
+ - Dropped: "mm/shmem: avoid moving the truncation start backwards"
+ - Fixed up: "mm/shmem: stop retrying folios that cannot be split"
+- In "hugetlbfs: enforce F_SEAL_EXEC in setattr", check for S_ISREG
+- Smaller patch description fixups
+- Picked up tags
+- Link to v1: https://patch.msgid.link/20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org
 
-v1: https://lore.kernel.org/linux-pm/20261027143725.3763827-1-zakbrightonknight@gmail.com/
+---
 
-Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
-with v7.3 plus this patch and a temporary module parameter, not part
-of this patch, to turn the new write off, built with PROVE_LOCKING.
-intel_pstate.c and the cpufreq core functions involved are the same
-in v7.3 and in the base commit below.  Passive mode, performance
-governor, one suspend to RAM and resume per row (rtcwake -m mem
--s 25), PERF_CTL read on all eight CPUs:
+Chris Mason (4):
+      mm/mempolicy: charge shared policy nodes
+      mm/shmem: honour F_SEAL_EXEC when an ACL is set
+      mm/shmem: stop retrying folios that cannot be split
+      mm/shmem: preserve data in clean folios when splitting fails
 
-  fix  before resume   5 and 17 s after resume   single-thread clock
-  off  38 on all       28 on all                 2.8 GHz
-  on   28 on all       38 on all                 3.8 GHz
-  on   38 on all       38 on all                 3.8 GHz
+David Hildenbrand (Arm) (7):
+      mm/shmem: discard whole new large folios on fallocate rollback
+      mm/shmem: rescan after nonuniform folio splitting
+      mm/shmem: fix truncate hang in large swap entry
+      mm/shmem: preserve allocation errors when swapping in large entries
+      mm/shmem: fix truncate loop after boundary swapin failure
+      mm/shmem: fix accounting of swapin-error markers
+      mm/shmem: fix truncation of files containing only swapin-error markers
 
-The second row started from the state the first one left: the restore
-writes the cached request, which was still 38.  No lockdep reports,
-and debug_locks was still 1 after the three cycles.
+Eva Kurchatova (1):
+      hugetlbfs: enforce F_SEAL_EXEC in setattr
 
-With dynamic debug enabled for cpufreq.c, cpufreq_performance.c and
-intel_pstate.c, the online part of resume logged "governor switch" and
-"governor change" for CPUs 1-7, but no cpufreq_init_governor() or
-cpufreq_start_governor() messages and no frequency requests.  After
-"Resuming Governors", every CPU logged cpufreq_start_governor(),
-"setting to 3800000 kHz" and "CPU n: cur 3800000 kHz -> target
-3800000 kHz", and there were no transition notifications at all, so
-intel_cpufreq_target() was not called during resume.
+Josef Bacik (3):
+      tmpfs: keep the quota soft limits of an unused id
+      tmpfs: preserve explicitly disabled quota limits
+      mm/shmem: hold off eviction in shmem_writeout()
 
-In v1's testing, the active mode was back at 38 on all CPUs after
-resume on this machine even without a restore.  Doug Smythies saw the
-same on an i5-10600K with HWP disabled (passive mode affected, active
-mode fine) and tested v1 there; v2 has not been tested on that
-machine yet.  sparse was not run.
-The tests were scripted and run by the same AI assistant.
+ fs/hugetlbfs/inode.c  |   8 +++
+ include/linux/memfd.h |   9 +++
+ mm/mempolicy.c        |   4 +-
+ mm/shmem.c            | 168 ++++++++++++++++++++++++++++++++++----------------
+ mm/shmem_quota.c      |  28 +++++----
+ 5 files changed, 149 insertions(+), 68 deletions(-)
 
- drivers/cpufreq/intel_pstate.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+---
 
-diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index 17158cb..67a3015 100644
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -3408,6 +3408,27 @@ static int intel_cpufreq_suspend(struct cpufreq_policy *policy)
- 	return 0;
- }
- 
-+static int intel_cpufreq_resume(struct cpufreq_policy *policy)
-+{
-+	struct cpudata *cpu = all_cpu_data[policy->cpu];
-+
-+	/*
-+	 * Without HWP, PERF_CTL is only written when the requested P-state
-+	 * changes, but the platform firmware may have changed it during
-+	 * resume, so write the last request back.  The governor is not
-+	 * running yet, and holding the policy rwsem serializes this with
-+	 * updates of the policy limits.
-+	 */
-+	if (!hwp_active && cpu->suspended) {
-+		guard(cpufreq_policy_write)(policy);
-+
-+		intel_cpufreq_perf_ctl_update(cpu, cpu->pstate.current_pstate,
-+					      false);
-+	}
-+
-+	return intel_pstate_resume(policy);
-+}
-+
- static struct cpufreq_driver intel_cpufreq = {
- 	.flags		= CPUFREQ_CONST_LOOPS,
- 	.verify		= intel_cpufreq_verify_policy,
-@@ -3418,7 +3439,7 @@ static struct cpufreq_driver intel_cpufreq = {
- 	.offline	= intel_cpufreq_cpu_offline,
- 	.online		= intel_pstate_cpu_online,
- 	.suspend	= intel_cpufreq_suspend,
--	.resume		= intel_pstate_resume,
-+	.resume		= intel_cpufreq_resume,
- 	.update_limits	= intel_pstate_update_limits,
- 	.scale_freq_ref = intel_pstate_scale_freq_ref,
- 	.name		= "intel_cpufreq",
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
--- 
-2.56.0
+change-id: 20261025-fixes_shmem-2782719b130e
+
+--
+
+Cheers,
+
+David
 
