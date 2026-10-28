@@ -1,116 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202244;
-	b=FDD3q509ff93/7Yg103AoNvudYbABfphI4za5apeHRr4BW3E6eIa2qD4Itjkseba+HYK
-	 Q0gt7d02Psx4NNpIrdT+22oMVk/aAlHcn0k2+mSlB6Sq/El4VuamwVdPr4cXDPk6DHUmi
-	 T7VdvgU70t//oFN98uYHEpsEXXND6xIpVV78b0xe7GvPwp9whkIG4SkKBSFEs8g9DX4Kw
-	 mp766ve4R8NtTv9pRQm0yDVlLT8b5hpys7Wx2xtdd0OaWa9/3pbu2Rfh9nLHulQRHhTdW
-	 zl3p6TA1vTQ5pJT/FSyJPN1DnFkaDF2mcSZhmHXLeJAXQe7sXcYwsoBNUP4cu31cZwg==
+	t=1793202246;
+	b=RCN7E9JG95dLlFt2rR/S1gNMv+7oVvCewaBDs+nbDr4xmSeK71tvcEr+ijlOfhqWfLqP
+	 9o4rbfsMMWRqmM8K1KKzfHEO3jrkeT6EFk7hEbsdVcwEsGIE4zb/R0Kd5YjBTy+bfY5ot
+	 6ru9Xp09E+0Grp3mSJIuK281ooAL0xD7rZjoxQwrUSBvUqgbO9h1p2cOs89LfGlNGdYab
+	 jArQVhWLoYfwa916FmFT5d1S1lZXsbXkjZfI0cFeWkPBdSmY+fOjggw6qkn6ZTKIFoyuM
+	 KgcW8FEL4Tk6SrEF2nNYx0M32r/pWjvqkq10Qf7NcjZR/EtSCjAwGy1Yg++rGVBwVPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202244;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LtVK1tZIhPZZzO5/CiK34fSmqjpUW0luLWU4OXZFlqA=;
-	b=uO28erdtxVSfEhHg05gKH2mIXnclODsWRuA3QrX1vDfycKzYzdu9vYjuI/8qsXEJzbad
-	 BuJlOnCb9YQAN+Xgfv4OmMBgWVvdYw+wOnRDdjwBNyWyPy9zaCy20sMVszhHq02E8ZjJF
-	 q8UIBEYLSEE3hTDYTlOpudwB9Ub61xyiyEs3PFxgIzUUBcAOK3hFJsI9KYjoXl5hlJrs2
-	 G+OYLUs8ErFzVZEOCUoa2+mHcbKj6T8yxYDX5V0rNtedp4qxJAgsdvWYrdCYk3QhsuZoa
-	 RP5C6fIV+WnKes+saAcjDMID7udekrlMxPAl0/D/G8j4hJUkhCY0AIlIP8h1f/NxzWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202246;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ugy1MPPX4rX1hKJ3Iu+kcccg2ZINH127EjdwX5suMt0=;
+	b=D4fQvPqJxsuIFT9YxPH59NiaOqYfFJvUogIfYQXNzz08zWWmfRGc1txL+8HbT5TpmyTC
+	 D+GLjLWwvH3DqeqDC1rxizEbWkihgDe8V2iO9vFgWWay+pybz4dWF0FPM3OvJTilFl5NE
+	 L1zE3uRyFCqEnZlmEDUW/mmoYLdB9/rC+nc6suKY+468JUZ5JVdE3xtcWqebCXYBzOQ1k
+	 mb/Yw9O0vC2vRn8m6vYQ17ywp7cGb9Ng5U7+LIA4culWGHCF2p21GXtaxp0BrzAKM0r+j
+	 nnvYHpLub0zySh9JH4V0dyMeeuLBBrr9a6IzTKNsXNMlACwhh6W5XhudgSsKq/GtUHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhNhf4Bj;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XCxbKWJH;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F7C606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:44:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F7C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D3660A2602;
+	Wed, 28 Oct 2026 15:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D3660A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhNhf4Bj
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so10169435e9.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 08:44:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793202242; x=1793807042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LtVK1tZIhPZZzO5/CiK34fSmqjpUW0luLWU4OXZFlqA=;
-        b=OhNhf4BjuSG3e/6VN6GivJmIl/+gJb/TUjJc9z+vBd7CbssvdrIGIH1vG4k+ZfuDpJ
-         p81CwXU0OCpslFV70v/D66L0u6pYrg5/WjZNwTPRpJVoE1MHqRJrAvD/nLF5sn/Rwh4T
-         BnLwDX91KamNaosDa04cISQoCfHTzRDMW2cEXoKS26/NrJaZ4w3fwAhcDoE3MmD1nBdA
-         ds3t6FTpp0UdeBAr7Lq6vbjtA8gTPoCpf9bkLKWJB0diWmPNCIrNFDiOEnDxyAU0GKFW
-         ZkpzXaupcEaw34ti0Y7HcfqGFhPINTamCbaEJya7l3ZC+xuTe6W6BPXlk1yHXA1LuRKx
-         2jLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793202242; x=1793807042;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LtVK1tZIhPZZzO5/CiK34fSmqjpUW0luLWU4OXZFlqA=;
-        b=vG856Xur/+X4mghZMtH28yjS8+lVYFY0D88UuFa1isW7s+Yj8LWzJ4PKULF914m+87
-         S6rtYmlmKPKjj3V0JKFCKdvINBD/vavFf/C6LRPV80ZctohiCFwzh4rvfvKnKstEKkJZ
-         JKrAtb2isdiZFqSjPCqGZTlifgor5A+i/IYctIlm+ULtWbF6MC02iAZrWzQwUggAApfA
-         Dwh8Qi3IJHUOjIca9pnR9GTc4oIt0ekO1qzIl0f5xVTaJLJDame9pxYx6K+T8XhANePU
-         bULrlmIXGYnpS3XorNtF/nGSenFuQo8QHZdRM/dzfKXr9b6s4EKFgZT9HGDHQgoXam8m
-         +76Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzPjqzjCpivL+5qHUE2ZyRth6rL9Eehmo/3Df0Tl9eS/MmL/cimTbVd977YsngmK93SgBF6j28=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUrlgLX/HHHfRlDeqLyvGwec6cuUjW7BeyUkukYySS/eM2aH1N
-	cFXsJmfKqLxYWUabjP2gcZqPSndMPeRnGTtp6ObfJZwom81VDVwaiISV
-X-Gm-Gg: AYBFou1Ylb1LeeNri/kGOS6MsFNFnfIWWghBeVTco8MZ2r0eYsACZs5eRabPKJgbiGE
-	+xd83uqlY1wRerMqMwD4jbwh1rRzfWgSY0vxenBIpewObmStzeDxkIH6c6GdpsXZ6vwef4kCVJg
-	FuPcvO1YGYfHARBf1F+ZKRqwuWY3VHxBYimpmU89qCxz7Fv45Y8Ys9pWAaLLB7OKYjx3jT7lCm5
-	25jsXI92TSdKKBLX5knJG9/ZEWyIjN3pV1gUhK+Qaq/No9etbFsd9LAorhp2kvzkC1Ld+QAEaVb
-	RZVkeX9i9X6Z+CXCoCnaMhqYhf+QeREysM4BZJtM+7UnMEcCd8S5/rVc2EBWa3v2ma3QAWPJz+/
-	kGrTbHbdS/XWJ/dCa/GbJDjYRiT9QxSRFpStkGaIXoo+r3Et4rtvcHy3nP7zw/7lnU4tbvMB+QG
-	X14x+ctF6B8VPAbSLfS8mh7Klh+8TArjhsfVENotlK+woBEomj7zIeJXM+DXW3OkERqAG6bsJcA
-	veX6dbLbj0kLH9FjvXE+2CBHd/fJepzZpCJSdc1Pan/XIwn/hvAn/VG9jq+2e/VruO/BlQnHsZt
-	zIs/9to6ijicEANnCipDOad4XoisqjtPBIhtRoUT7QXejMgfIthQqVYN9XyTqwVHVA==
-X-Received: by 2002:a05:600c:a48:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a9661ab4e9mr59192805e9.11.1793202242297;
-        Wed, 28 Oct 2026 08:44:02 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8c05sm37044493f8f.49.2026.10.28.08.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:44:00 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Deepak Gupta <debug@rivosinc.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Yury Khrustalev <yury.khrustalev@arm.com>,
-	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Zong Li <zong.li@sifive.com>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/4] arm64/gcs: release GCS on failed fork
-Date: Wed, 28 Oct 2026 12:43:12 -0300
-Message-ID: <20261028154315.1272705-2-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
-References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XCxbKWJH
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFEsrC425223;
+	Wed, 28 Oct 2026 15:44:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=Ugy1MPPX4rX1hKJ3I
+	u+kcccg2ZINH127EjdwX5suMt0=; b=XCxbKWJHDaCCIqgeeRdAboIUEhOVPQdkL
+	87TaSfmCozZCp/bIrG7yiKHBeLJe2CH0zY2N11E1idKjRBaMZ78CrZgHPGR5D0uw
+	FUWxtX3KVr9WTRYsfxogWgdgE0Fh1xfqIIOZLAlJOhhOjoaN4rx4frpDo2aK8hdn
+	f2dzV+6VKE/YKxDh59WkTKancOimjwMUYnY20dMQLugJyk8zjuUi0yp3rmB7+x0d
+	jlN8FwhfMaRDZqQSpK0SGs6GJCBhA1Z1m1aQR6xQVloCJRZziOMorVHWxZ8xCNkA
+	niVmw+F+3dIaJ9zUtf5MoJMZo0feyyOn3/LAXoPJsffCnBlyKlTbw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3g5c7g-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:44:03 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFK9LR1784823;
+	Wed, 28 Oct 2026 15:44:03 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8gh7xnc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:44:03 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFi01L28181002
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 15:44:00 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 452395805E;
+	Wed, 28 Oct 2026 15:44:00 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1898458050;
+	Wed, 28 Oct 2026 15:43:58 +0000 (GMT)
+Received: from Mac.ibm.com (unknown [9.61.240.205])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 15:43:57 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        gbayer@linux.ibm.com, pasic@linux.ibm.com, alex@shazbot.org,
+        frankja@linux.ibm.com, imbrenda@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v11 1/5] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
+Date: Wed, 28 Oct 2026 11:43:48 -0400
+Message-ID: <20261028154352.15108-2-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028154352.15108-1-oelghoul@linux.ibm.com>
+References: <20261028154352.15108-1-oelghoul@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,92 +96,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae21843 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5NbLduwtq9nBFWGw9KEA:9
+X-Proofpoint-ORIG-GUID: 9oxKnwSWUzLArmNrO_QO0DPj7wZVDS7K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX4oufj4Ei8NiT
+ U1RFkbeS5gYaPOtjZv+1vViDK3yQbKTSrz8Lw+FELSNGLmSqGNDzssIoMQ2I4LjFd2hNOZ3iEpZ
+ UEe/vSCjOTq0bgdmEf7QFNcY7CdllzXgROAohhQhbzOAH0O7hBxVCXgdJdkG8+GhSmlCH2gUxz3
+ rokAd0ZNgq1N37eINOvZ4KmYMpLZtqbRnD4GhoWWexyNqIOVXfz6kl87clAJYn+h2+ewosObvGZ
+ fK8u8+wiojSCW4e2lC3a+HrGDlrpsuUCH8FQRIGLu3TRY80y7jsNrpWlkX3GRVXBaNW6+k6lIeT
+ G/g0x7sf0kNn/Mxv/KWZp+/xi5rnOZh1chtAqvdCRl98nWyGgijPLNzPFKZZMkM+CWQxcOlCcG9
+ lasLDlELH/psJnpsyoXwj5WbihYkXigvVFuKAE1Mx+snCyZynjsYqC5VLTZ/xptAATyOU+ZJ8Ay
+ y9NOSRkhwO+UOgc4kQg==
+X-Proofpoint-GUID: 9oxKnwSWUzLArmNrO_QO0DPj7wZVDS7K
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MiBTYWx0ZWRfX48Yrauan3JUU
+ sWKttM8B/e9CJ2rVFqs2hzDmQDzYbYS6Kc/1LL/LLvYDzScEeqqdfayWl+aXrFNPWhHvpMkBeuW
+ ikjuXazx/ioQ7nf2zlmY8kTMvtfdBSs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280062
 
-copy_thread() can map a CLONE_VM GCS and still return 0. A later
-copy_process() failure calls exit_thread(), but arm64 did not
-implement it, so the VMA stayed in the parent's mm. Wire
-HAVE_EXIT_THREAD to gcs_free().
+Ensure that fmb_lock is held by pcibios_enable_device() and
+pcibios_disable_device() when calling zpci_fmb_enable_device() or
+zpci_fmb_disable_device(), respectively. Additionally, assert that the
+fmb_lock is held within the latter two functions to prevent future race
+conditions regarding new callers.
 
-x86 already does this via exit_thread() -> shstk_free(). The separate
-x86 TLS leak is different: copy_thread() itself fails after the
-alloc, so copy_process() skips exit_thread().
-
-args->fn tasks inherit GCS tracking without allocating; clear it so
-a failed CLONE_VM copy_process() cannot gcs_free() the caller's
-stack. Keep that helper in process.c with the other fork helpers.
-
-Fixes: 506496bcbb42 ("arm64/gcs: Ensure that new threads have a GCS")
+Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
+Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
 Cc: stable@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
 ---
- arch/arm64/Kconfig          |  1 +
- arch/arm64/kernel/process.c | 16 ++++++++++++++++
- 2 files changed, 17 insertions(+)
+ arch/s390/pci/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index cfef22aee709..3010ced4b4f2 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -177,6 +177,7 @@ config ARM64
- 	select HAVE_ARM_SMCCC
- 	select HAVE_ASM_MODVERSIONS
- 	select HAVE_EBPF_JIT
-+	select HAVE_EXIT_THREAD
- 	select HAVE_C_RECORDMCOUNT
- 	select HAVE_CMPXCHG_DOUBLE
- 	select HAVE_CMPXCHG_LOCAL
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 581f80e9b9b7..d17172e60acb 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -320,6 +320,13 @@ static int copy_thread_gcs(struct task_struct *p,
- 	return 0;
- }
+diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+index d64c544b32b0..c055a9ad0972 100644
+--- a/arch/s390/pci/pci.c
++++ b/arch/s390/pci/pci.c
+@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+ 	unsigned long flags;
+ 	u8 cc, status;
  
-+static void gcs_reset_thread(struct task_struct *task)
-+{
-+	task->thread.gcs_base = 0;
-+	task->thread.gcs_size = 0;
-+	task->thread.gcspr_el0 = 0;
-+}
++	lockdep_assert_held(&zdev->fmb_lock);
 +
- #else
+ 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+ 		return -EINVAL;
  
- static void flush_gcs(void) { }
-@@ -328,6 +335,7 @@ static int copy_thread_gcs(struct task_struct *p,
- {
- 	return 0;
- }
-+static void gcs_reset_thread(struct task_struct *task) { }
+@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+ 	struct zpci_fib fib = {0};
+ 	u8 cc, status;
  
- #endif
- 
-@@ -341,6 +349,12 @@ void flush_thread(void)
- 	flush_gcs();
- }
- 
-+void exit_thread(struct task_struct *tsk)
-+{
-+	/* Failed fork after copy_thread(); deactivate_mm() does not run. */
-+	gcs_free(tsk);
-+}
++	lockdep_assert_held(&zdev->fmb_lock);
 +
- void arch_release_task_struct(struct task_struct *tsk)
+ 	if (!zdev->fmb)
+ 		return -EINVAL;
+ 
+@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
+ 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_enable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 
+ 	return pci_enable_resources(pdev, mask);
+ }
+@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
  {
- 	fpsimd_release_task(tsk);
-@@ -503,6 +517,8 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
  
- 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
- 		p->thread.cpu_context.x20 = (unsigned long)args->fn_arg;
-+		/* No user GCS alloc here; drop inherited tracking for CLONE_VM. */
-+		gcs_reset_thread(p);
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_disable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 	zpci_debug_exit_device(zdev);
+ }
  
- 		if (system_supports_poe())
- 			p->thread.por_el0 = POR_EL0_INIT;
 -- 
-2.43.0
+2.56.0
 
