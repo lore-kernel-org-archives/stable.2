@@ -1,81 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183335;
-	b=loohWh34hez/V8VwzRc1asHc/WD6s3tAfUyeuS/DMvqOid+F9EJSwKUXhhk7nbSABgI1
-	 1au7j4HaxnL5HYFuWaNBm9Yb01zTH3NhT8sDPgKfMnzYNJI5nnDix51EXe5hpv3TJxzeE
-	 jVElTKhNOQojHgYuJa0swLuqjBB2+QJ4BmZPobf7GqgQapBSQcJYLRn2ppYrz8vMqAoJN
-	 Eg+jMWUKS5M9vfDzvqQpLPOEvL/3AIxW+JwiBG7KAMWhl66lEqWPnS1WOF8UICvdOOAR3
-	 CmTUOTLduahgRo/aFp8z0kVPgzXlLzrbJqJXYK3t5j8ZTOfUkQ4KI1jtpWi1WBSH6Fg==
+	t=1793183378;
+	b=ZuzjyA1bP/TQiCowbHT39C5YOzokvMOA1+CYEF577lFciIe3164cMQ8KN3mMavwnmybq
+	 e2nvudqKN0cczSufDDl775RSmcZUCYFFt2A6dISmVUpPlKO8sRvoM5txT9M6Lw+Qt+4MH
+	 p0G7VP7S9ErHhk9MV8icUuT1lUHS7qywPIQNU6Qtyj2cza5CksS1r3SolD1QAlQhfSvcu
+	 yO3vjXu2TvuphsP/m1guaAFwnx3k6MIYG9NcG7eOG+SPdKgzqzM/mjlEFbYjkaFXaC2gh
+	 DzxoBW+2JO/QkEAuPCTjvq+wn/KSEuo5+FgQMJqU4kN+Rcu5pFlBsGN5VxqXT7rnXQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183335;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=t2VG8ghbsZ2ehmH3QK6+4qnOak7PHYZ/7p13exiaPw4=;
-	b=BTxXJpVeZ0PgUImpN9YBuhLzvEpBN3GRKsz+qveGYYW6zGTQMHppyuBL8Q3m11/olYpF
-	 pxusgijAGlFOBIhRCASVaYZk0TijTkzixSU002FIQSk5DHCBc/j7ML06hUIbK7hKFc3Dy
-	 MRaVsnyqsiZ94D1xuFPWQh6RK1Wil0Wyrfsvz8is9LvEkFEFFN+DyW+sOaHJdZaier5fb
-	 M6lLdfVS+w7A0pGotpblZtDTmDyRxNKjSitNr+3UIC9mGOGyxVWAt+yBSRIc+uwaWonwB
-	 lY3Sc6KToH8omH5FhUUbRl2uTYeN36yOaPH3PHFNuM+UPMUT+D8VW4HeaFnm0b2MFWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183378;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
+	b=VohrFoztSGfGZ3WTL4JzlDb7PzmZHpxs4gdPIB5ruDwI1e3nEin6P7Ib467NtAbvO1cT
+	 XuBL/ZK/mQQVgGH2MifA6NEH6y0hXbdOgA6LI8N1d/L7jXe1p2kc6PY+4Poy6eYTewEV+
+	 g23BXsQ0zQrzJHnSFqgCBMdZvyLCh2xnka6pkSUj1eqvkl+d/r5eD+k6o1PUXirCSCPHm
+	 N0QOgI+XR+Xllgp9tIywL5P7nhBzsxjnGrbphHZkPjWv+onrkZIXWzIvCHoF3MAJjtC19
+	 U9KixE58+G6mKbiC1M0Jg3I0mZj7wcYOuqc0/kSsLUnUTbnl9aI6ZsOS73if2dXRGzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FwjAGgEk;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vAXE/qwo";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vAXE/qwo";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C5B606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C5B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF73606A31D;
+	Wed, 28 Oct 2026 10:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDF73606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FwjAGgEk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793183334;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t2VG8ghbsZ2ehmH3QK6+4qnOak7PHYZ/7p13exiaPw4=;
-	b=FwjAGgEkky3QAsStShkKwl6LS5+a3RNga7E4plxH9VVo4mx9LYqPqRCa8ZJNAdcY13psBy
-	oVGFwojp6I50PQkZqhEy9S4puFcNRulENyYU2nu+MsYT35+a2Lv7EEE/NiVkGtjm9vPnlI
-	5mUtubbv9lwwt93jcimrL1lqpM4RoeE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-0aQtWSHpOb2hD8VZTNTAEA-1; Wed,
- 28 Oct 2026 06:28:52 -0400
-X-MC-Unique: 0aQtWSHpOb2hD8VZTNTAEA-1
-X-Mimecast-MFC-AGG-ID: 0aQtWSHpOb2hD8VZTNTAEA_1793183331
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vAXE/qwo;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vAXE/qwo;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6C7C81955E8F;
-	Wed, 28 Oct 2026 10:28:50 +0000 (UTC)
-Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CA2BD1800444;
-	Wed, 28 Oct 2026 10:28:45 +0000 (UTC)
-From: Seiji Nishikawa <snishika@redhat.com>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Seiji Nishikawa <snishika@redhat.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chris Leech <cleech@redhat.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 88C2122124;
+	Wed, 28 Oct 2026 10:29:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793183375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
+	b=vAXE/qwoncXkM8TjOqZD2PIHsIovoiM/SvbdhsXt0+wjo2xHO7fkVXopC/X0M7wR3APhgO
+	lT679EqGmlYnedSYKV5P+MfhfKjwupcDvlsD8UcgfqcK1e+Bn1s7axpBpdMnGcZLUWN6/Y
+	OK0ITJIYX3Q/Zt01cm8+foVENpnPz3k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793183375;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
+	b=cF3JBpXFOM8H++ei+gdBD6WtRJzOmbHmWfsG16glxpCb5uw7cI1wy/fckjlev/r063Zcn7
+	3hUkITI3RqQxxMDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793183375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
+	b=vAXE/qwoncXkM8TjOqZD2PIHsIovoiM/SvbdhsXt0+wjo2xHO7fkVXopC/X0M7wR3APhgO
+	lT679EqGmlYnedSYKV5P+MfhfKjwupcDvlsD8UcgfqcK1e+Bn1s7axpBpdMnGcZLUWN6/Y
+	OK0ITJIYX3Q/Zt01cm8+foVENpnPz3k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793183375;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
+	b=cF3JBpXFOM8H++ei+gdBD6WtRJzOmbHmWfsG16glxpCb5uw7cI1wy/fckjlev/r063Zcn7
+	3hUkITI3RqQxxMDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81CFD1321C;
+	Wed, 28 Oct 2026 10:29:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id XiQoFIvO4WqxewAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 10:29:31 +0000
+Date: Wed, 28 Oct 2026 10:29:29 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held
-Date: Wed, 28 Oct 2026 19:28:42 +0900
-Message-ID: <20261028102842.2192925-1-snishika@redhat.com>
-In-Reply-To: <20261023122351.977034-1-snishika@redhat.com>
-References: <20261014064524.4015025-1-snishika@redhat.com> <526673b4-a090-47a4-9181-e30813a8cbe5@suse.de> <20261023122351.977034-1-snishika@redhat.com>
+Subject: Re: [PATCH 01/46] mm/mglru: don't use stack pointers when walking
+ PUD and PMD tables
+Message-ID: <auHOYcRfFFs3xhXa@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,28 +135,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[65];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,toxicpanda.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.80
 
-Hello Keith,
+On Tue, Oct 27, 2026 at 12:17:21AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> MGLRU passes stack copies of page-table entries in walk_pud_range() and
+> walk_pmd_range() when walking to the next level. These copies can become
+> stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
+> table concurrently.
+> 
+> This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
+> support page table walks"). Likely, earlier locking masked the latent
+> bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
+> retract_page_tables() without mmap or vma lock") allowed concurrent
+> retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
+> for MGLRU") dropped the walker's outer RCU protection.
+> 
+> The fix is simple, so just fix the original commit so we don't have to
+> speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
+> RCU-protected lookup and validation against the live PMD. Note that the PUD
+> handling is required as well to handle folded page tables correctly in all
+> cases.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: handle walk_pud_range() as well, clarify+simplify description,
+>          adjust Fixes: ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-A short follow-up on this patch.
+I see we're already trying to beat the R-b record set by Gregory's patch.
 
-The problem is a regression in v6.16 and later, and this is the minimal
-fix for it. It applies cleanly on the current nvme-7.4 branch. On the
-customer system, the unpatched kernel hung every time. With this patch,
-there has been no hang since October 15. blktests nvme over tcp passes
-with it, with the same results as without it.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-Hannes suggested removing the direct send path instead. I agree with
-that as a follow-up, and I will send it as a separate RFC patch for the
-next merge window, as I wrote in my previous mail. I can only test it on
-VMs, so the performance side needs testing by someone with a real
-nvme-tcp setup. It is a bigger change and not something for stable.
-
-Could this fix go into nvme-7.4, so that it can reach stable and the
-distro kernels? Please let me know if anything is missing.
-
-Thanks,
-Seiji
-
+-- 
+Pedro
