@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207505;
-	b=uS9ODtKMlcT49JuE8ASETxnPok2Jhvgu3t5ojtOvMyGjPOkEByAcSPHxGkofHux9qxUj
-	 1DsepTgnhRyrUx0awcI6h0N3Alsloc8Cvwc9aVw9iI8s9GbdZUfld4I8cAaZf46D0F49n
-	 o3TxOdM7jqCf1eo5tdBM5GSZakamuIN7mwigA4Tx3C4jn6GHszCMYlS2nwklwrAsuN3+i
-	 aEqQHYk/JmE+Tern2trVi7M6u7JJRb0hskdgWaPvXOL3VG8eKCA1I8gPbILrWDZNR6HKt
-	 7eWcFGWHtllp+xOlZle3hI81kQmEAM/Fqrx+lbXdNAf1PundLTrhJrY3JTKHXNJte4g==
+	t=1793207511;
+	b=BQ4YRgz5D915fRR/SqrQPCaLrC4nvPtCkV56HZBaD0MvffFO2niDFUgYF0T6laTUqO3R
+	 z25SqcLcKhRiJYaorwsSsCuxhF5XCb/MhM+SUBQvR0CuehO4QyK5i3irM1BzpBDa//j4O
+	 Rzx2Rtg7yzlb5q1egMNGTcntd7iRVMiTVHa9xlP3vffRsQ32Bndh1LERQE0w674Bw0izd
+	 wnGoTmsFnZlrZtoggdSfSW1UiJ1Q/f8zpKZdeitkBr0qapfULYOcxrqRtloDvcIvYyYjq
+	 TySSJBJqXEP1wml9O/DgTYnJo3/9kqImIMglVHwX4jMp4ILdHMLLfhDEGcyYPNF022A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207511;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ydmkOs6B9KEW4WLtK6QfU428SKZ68NdjQzMLhjrSuh8=;
-	b=xwu6p3LAcsqo6G+z9/NR2kpiIpXPDMx4i7hDTkVl9Ki8rY0gcBv/9T4HSdxtUM1bym88
-	 Ba44ndgq/itnz2LfOvDG5qt+TNdxVRfYwuUmbpr0/nn+QHAhsAtKij2aVzoSBwLUeElAR
-	 4anmZvR3Cxc+xXr0ZesOfGPpVthCpq5J3xOUfW2dKpP7qSx1UOCJ71kR3zCoM8y4FBRuw
-	 mOhYMztW0spTFqUg6TE4C0/KVka16xHjzxMTM/QJiwFELWwDrIQqqu2x2iAe2xAxBlWbk
-	 AA3PHmUSgf7jFvdZnMT0jb9Jl1RKLjbQ8xOYzEloW4MOHUFvM9JlfS5Gf/3DrH/d6HQ==
+	bh=5aWLLmF57AkPk8sjY1SclMTfcdJ/iHBIKZmmlsFU7z4=;
+	b=XQggsfy3doJBpVn/MmbRZ+ccYGKD8CYeCmDN/bBcqC2Lf+u9VzmFMDTZSG15bGYqdnkT
+	 kuMIo0xKJgZC3JbEA5DHpidca11K9uKF9ai3/aB3749KF5X8p5Zs2SF5cQcLp1GoppEmi
+	 Lc/oq4LS16ohO4Cj1Q3/WXMhOwUnC79F2YcXGz0JNGkPMzrGUnXRFvtYmDilO6wTVF+dU
+	 lFbdIDZyw5NOzzh4SeYwwy97QIoyLY/KHhKFmNrDJAoUX0QAmH4X4OQ4LVVfFUFRpZrxq
+	 5itshBo22taniFy0uBRXFxnOvzBLgFaZjFMTnYRofK90zrfzw8gI8Wxqk2E/xNrMiJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CprlNXT+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UieVEAgX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458D9606A31C;
-	Wed, 28 Oct 2026 17:11:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3190D606A320;
+	Wed, 28 Oct 2026 17:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CprlNXT+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9794C1F01825;
-	Wed, 28 Oct 2026 17:11:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UieVEAgX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D0E1F01825;
+	Wed, 28 Oct 2026 17:11:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207505;
-	bh=ydmkOs6B9KEW4WLtK6QfU428SKZ68NdjQzMLhjrSuh8=;
+	s=korg; t=1793207511;
+	bh=5aWLLmF57AkPk8sjY1SclMTfcdJ/iHBIKZmmlsFU7z4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CprlNXT+kP3Ce+qW3pUVJ+fwHVWnlh+p2ATdFotTkMOVf5uwZUFQKsRfukfr5WPxd
-	 EAp+CoNiAWOStYHudzs4YtjLHy9vPWJRrzzyN+E9TTC0R1C2OGec3B6EC0Dk2ipKMI
-	 qssjR26lTxbi2ORDRyNRKA3V6PDiwVLK/oIP8TIs=
+	b=UieVEAgXZR06S2F61YpGGjuclC4tXNYTlgTFROkrtj3cviG78bR/SZVxDUrVSy6m5
+	 ZsAmjPzD9gtQxt30jhNd52rlCnsFAEciOr/gAB9B0cSgQ7ocSKIcvm9cXpf2eCMxFc
+	 atvv2noUkKxeL9flsLMdH12QKQkTZRy1SCWiJFU0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bernard Pidoux <bernard.f6bvp@gmail.com>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 009/247] rose: dont warn on stray CALL_ACCEPTED/CLEAR_CONFIRMATION in state 3
-Date: Wed, 28 Oct 2026 17:56:52 +0100
-Message-ID: <20261028165947.578843684@linuxfoundation.org>
+Subject: [PATCH 6.12 035/247] ASoC: wm8978: Fix the 128x oversampling switch bits
+Date: Wed, 28 Oct 2026 17:57:18 +0100
+Message-ID: <20261028165948.199258164@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
 References: <20261028165947.349197979@linuxfoundation.org>
@@ -67,59 +68,47 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bernard Pidoux <bernard.f6bvp@gmail.com>
+From: HyeongJun An <sammiee5311@gmail.com>
 
-rose_state3_machine() logs "ROSE: unknown %02X in state 3" at
-KERN_WARNING for any frame type it does not handle during data
-transfer. Two of them reach that default arm routinely on real AX.25
-links and alarm sysops watching the console, even though they are
-harmless:
+[ Upstream commit d0567ca9a2faa33efbe5ae84ef7b86423a93bffd ]
 
-  - CALL_ACCEPTED (0x0F): a late or duplicated Call Accepted that
-    arrives after the socket has already moved to STATE_3, typically a
-    retransmission on a slow link.
+The DAC and ADC 128x Oversampling Switches use bit 5 of R10 and R14.
+Table 66 of the WM8978 datasheet puts DACOSR128 and ADCOSR128 at bit 3
+of those registers.
 
-  - CLEAR_CONFIRMATION (0x17): crossed clearing, or a clear confirmation
-    left over from a previous incarnation of a reused logical channel.
+In R14, bit 5 is inside HPFCUT[6:4], which the High Pass Cut Off
+control owns. So turning on ADC oversampling changes the high pass
+cut-off, and the oversampling bit cannot be set. In R10, bit 5 is
+reserved, so the DAC switch has no effect.
 
-In both cases the frame is simply dropped: no state change, no
-teardown, nothing freed. Only the noise is a problem.
+Use bit 3 for both.
 
-Drop these two frame types silently. Keep reporting any other,
-genuinely unexpected frame type, but through net_warn_ratelimited() so
-a misbehaving peer cannot flood the kernel log.
-
-Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
-(cherry picked from commit 8649e4074ca29a6a8ef0076c2892ebc980b7153f)
+Fixes: 823dba519122 ("ASoC: Fix broken bitfield definitions in WM8978")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Link: https://patch.msgid.link/20261008130953.2446692-6-sammiee5311@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/rose/rose_in.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm8978.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/rose/rose_in.c b/net/rose/rose_in.c
-index 666153a3dd8f7..69b2af24e85a6 100644
---- a/net/rose/rose_in.c
-+++ b/net/rose/rose_in.c
-@@ -202,7 +202,18 @@ static int rose_state3_machine(struct sock *sk, struct sk_buff *skb, int framety
- 		break;
+diff --git a/sound/soc/codecs/wm8978.c b/sound/soc/codecs/wm8978.c
+index 40d22b36b7a96..a80538722dfdb 100644
+--- a/sound/soc/codecs/wm8978.c
++++ b/sound/soc/codecs/wm8978.c
+@@ -255,9 +255,9 @@ static const struct snd_kcontrol_new wm8978_snd_controls[] = {
  
- 	default:
--		printk(KERN_WARNING "ROSE: unknown %02X in state 3\n", frametype);
-+		/*
-+		 * CALL_ACCEPTED (0x0F) and CLEAR_CONFIRMATION (0x17) may show
-+		 * up in state 3 as a late or duplicated Call Accepted, or as
-+		 * crossed clearing / a reused logical channel on a slow AX.25
-+		 * link. These are harmless protocol races, so drop them
-+		 * silently. Any other frame type is genuinely unexpected and
-+		 * is still reported, rate limited to avoid flooding the log.
-+		 */
-+		if (frametype != ROSE_CALL_ACCEPTED &&
-+		    frametype != ROSE_CLEAR_CONFIRMATION)
-+			net_warn_ratelimited("ROSE: unknown %02X in state 3\n",
-+					     frametype);
- 		break;
- 	}
+ 	/* DAC / ADC oversampling */
+ 	SOC_SINGLE("DAC 128x Oversampling Switch", WM8978_DAC_CONTROL,
+-		   5, 1, 0),
++		   3, 1, 0),
+ 	SOC_SINGLE("ADC 128x Oversampling Switch", WM8978_ADC_CONTROL,
+-		   5, 1, 0),
++		   3, 1, 0),
+ };
  
+ /* Mixer #1: Output (OUT1, OUT2) Mixer: mix AUX, Input mixer output and DAC */
 -- 
 2.53.0
 
