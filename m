@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201988;
-	b=gvotz/smeEoqDwF7y2/sUUNXfkO0D+/XcOrKZsbjKIIyWmVLXUTqc5eimhsplYLEZmC/
-	 lBowtyRRbRswFZIh2EIJ1vihCagXSndIcE+2evYyZTr7tgR2DFURkaLK/FwjF9i0AOC5O
-	 F8S4HzWnXASr1DfPLwDCSwrnA2C1NIULhHFuW6+h8zjtRpBjI6oyiDzdQ9TDcqDP0AhVL
-	 Pg/TyaO8WCLrLJ2uvPczuB6TSxpWWpaqO2ClzWVQQPaQUMh3AFeGKsVVzM03+EO3oOc/9
-	 kDQ8QPFzWfiqlxwi+lXtaI+EFkrYHI52+AwiCnscHnUsvIm5x7MpJMSK1GgURi70dqQ==
+	t=1793202023;
+	b=myfeGIloA5snWSdnOKOMXIqt/eJZNtxWILBwcWwktXWy+6MHACv+0l5EvtnWj7qokbwK
+	 OWQU5eODPrtXuAyDaf6mm7fjEMeHwKqcp32bbZF0e9g1/lv35WOA/VctKQEqFBMn/nLw6
+	 hLurHCooseexhcVC1t58laWfjYS6eImewenVwgZjs9ZSupq4+CLYbrrTxmfqHVeqfmWVQ
+	 oce25/utxteK0CUoxKt/nqkNUzB0szqfjmih6bDRg2h2PF3ozaTgsu1dDTsJ/dOxdPiWQ
+	 09+N/Ni7lp+O3GKjGgq2ZOhpfQIhFZPPbdc6Pc66NXr6sgnnKqcCn7U1WeZI91cRBnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201988;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202023;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2iKcK+l7u13R2XKq63G1o5YBL0j7uUm2eO8hCG+5el8=;
-	b=xOy9BMTXl2c43JdZ2m4ri1wmxPLRvUb0rJoNmja7IUR0Vilrfz92gmcKkD1dLjL92o13
-	 8WsKzowqlD0rx8fTZHbH8/062ovleZve6/CZbZAZ1A87NNhpOqvSrGAWB+qUoO6PFyJfR
-	 +vIII6a/HFtCgWi666TjYQ18A85A3jfxRerljuH3jZlLJlVTbNaR0cSkgXkAn14W/UNz6
-	 QtCfRfNwC1vhEoyCRK/P/3ZjjeI6jBWkw5w+XdM/xcA2oQAzS2KlLd9ZNVY2ikP3wi2V8
-	 9438hKA4zVNQGYT4tPcPuQsKMtznpU1fB0ZHZBR5dVCIpt6bsYYLTQVkvdqDBOvDcYQ==
+	bh=CuU9wE17heteMnzxDDNaaCT6vuQKTNZeLdKeogLAHqs=;
+	b=hq53J80LMS/pKigu8BmVLFavKa4qyAkPn1vqIE/TFdgpIojMFOQyFjA3+K4vn2jlDsrT
+	 63wk/RAOe2F4wr/E0bEhalqYTR7mn42mQ4Z+W6ZGc6gNdzyMyU/GysA4z6W/pNzvrO7Lx
+	 QWj9vvsjN2urmamn04AIoeu6y61zr8ZpagDpFLC1mF00KEm8rpbvfkvq3IRNDoQDYOByb
+	 tIUwIR4GXS8NmtfVQpiwyAtBD1ZnCcujGkpvzWlPkRtWvnwFQe30WAwk/eOtAzXKu6BKy
+	 mLMGrrpLS7PMZ03dEVqpMNtZM+nLS293ENftWOiIRL+zkjrVaiXQpp0exSV2F9T9IZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CUQdCa6k;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sIBIc91U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EC0606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:39:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A40A606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:40:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CUQdCa6k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E0F1F01825;
-	Wed, 28 Oct 2026 15:39:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sIBIc91U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595031F01825;
+	Wed, 28 Oct 2026 15:40:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201987;
-	bh=2iKcK+l7u13R2XKq63G1o5YBL0j7uUm2eO8hCG+5el8=;
+	s=korg; t=1793202022;
+	bh=CuU9wE17heteMnzxDDNaaCT6vuQKTNZeLdKeogLAHqs=;
 	h=Subject:To:Cc:From:Date;
-	b=CUQdCa6kPscyu7vYLWhFhQpB0ZdZhzZ5vov7gsfLVkVp7+zmU+jApQzJuhDcFUQKQ
-	 rIwgAKJUeYci8ZV6lz/iOzV3DdKt4Tbe38jL/E9Gagf2eArtQ0dbttT8LSVIGhi4Hz
-	 NOBSy6b1VKNkTZ7WJ0d3QUtcQ6tR+TWLIrVWDoVQ=
-Subject: FAILED: patch "[PATCH] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL" failed to apply to 5.10-stable tree
+	b=sIBIc91Ubg0mfZfwX9hXy7Y1HV4Y6bZb2U4xAqJ/us4j74g8phOpuTLTmEUunx8te
+	 iyxwUcIO86fmJRiNNXcNwYhTHNagJWZx+LamUf4TuC8H0pVa3ObwiGf9eFWnpOfCnk
+	 ZEhLZu1ArC+LicLmXPR/pB6lhuB60Abft9FAmSYg=
+Subject: FAILED: patch "[PATCH] ptrace: refuse to change the signal mask of a user worker" failed to apply to 6.1-stable tree
 To: brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 16:39:38 +0100
-Message-ID: <2026102838-repayment-hyphen-7ccb@gregkh>
+Date: Wed, 28 Oct 2026 16:40:21 +0100
+Message-ID: <2026102821-foam-upper-ae17@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21
+git cherry-pick -x cabc249e6560bee7bdfee9fbcb7ce4e951dcfd41
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102838-repayment-hyphen-7ccb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102821-foam-upper-ae17@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,92 +79,54 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21 Mon Sep 17 00:00:00 2001
+From cabc249e6560bee7bdfee9fbcb7ce4e951dcfd41 Mon Sep 17 00:00:00 2001
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 24 Aug 2026 14:08:16 +0200
-Subject: [PATCH] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+Date: Mon, 21 Sep 2026 15:44:58 +0200
+Subject: [PATCH] ptrace: refuse to change the signal mask of a user worker
 
-TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
-return to userspace and run task work and then go back to sleep. This
-mechanism works well but breaks e.g., coredumps. dump_interrupted() only
-allows fatal signals to interrupt a coredump and the whole regular write
-path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
-well.
+A user worker is created with every signal other than SIGKILL and
+SIGSTOP blocked. It never runs user code and that mask is what keeps
+get_signal() from dequeuing anything else for it. complete_signal()
+never picks a thread that blocks the signal, tkill() queues on the
+worker but nothing dequeues it. ptrace_signal() requeues an injected
+signal that the tracee blocks.
 
-Add PF_NO_NOTIFY_SIGNAL and helpers to raise and restore it. This is the
-same approach as memalloc_nofs_save(). signal_pending() will not report
-a fake pending signal via TIF_NOTIFY_SIGNAL if inside a
-PF_NO_NOTIFY_SIGNAL section.
+PTRACE_SETSIGMASK is the only way to change that mask from the outside.
+A tracer that clears it makes the worker eligible for every signal.
+Whatever the worker then dequeues it can only act on by leaving.
 
-No functional changes.
+Refuse PTRACE_SETSIGMASK for a user worker with -EPERM, the way
+ptrace_attach() refuses a kernel thread. A worker is guaranteed to only
+ever dequeue SIGKILL or SIGSTOP and an injected signal stays pending on
+it, which is what already happens when the mask isn't touched.
 
-Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-1-6609e42b3157@kernel.org
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Taking the request and quietly leaving the mask alone was the other
+option, the way set_current_blocked() keeps SIGKILL and SIGSTOP
+unblocked whatever userspace asks for. But then a tracer gets success
+back with nothing changed and no way to tell that apart from a mask that
+took effect.
+
+Fixes: e8b33b8cfafc ("Revert "kernel: treat PF_IO_WORKER like PF_KTHREAD for ptrace/signals"")
 Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-9-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cc..e431c4195bf0 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1816,7 +1816,7 @@ extern struct pid *cad_pid;
- 						 * I am cleaning dirty pages from some other bdi. */
- #define PF_KTHREAD		0x00200000	/* I am a kernel thread */
- #define PF_RANDOMIZE		0x00400000	/* Randomize virtual address space */
--#define PF__HOLE__00800000	0x00800000
-+#define PF_NO_NOTIFY_SIGNAL	0x00800000	/* see no_notify_signal_save() */
- #define PF__HOLE__01000000	0x01000000
- #define PF__HOLE__02000000	0x02000000
- #define PF_NO_SETAFFINITY	0x04000000	/* Userland is not allowed to meddle with cpus_mask */
-diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
-index 584ae88b435e..6164995da980 100644
---- a/include/linux/sched/signal.h
-+++ b/include/linux/sched/signal.h
-@@ -2,6 +2,7 @@
- #ifndef _LINUX_SCHED_SIGNAL_H
- #define _LINUX_SCHED_SIGNAL_H
+diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+index d041645d9d17..4e9822a87aab 100644
+--- a/kernel/ptrace.c
++++ b/kernel/ptrace.c
+@@ -1227,6 +1227,12 @@ int ptrace_request(struct task_struct *child, long request,
+ 	case PTRACE_SETSIGMASK: {
+ 		sigset_t new_set;
  
-+#include <linux/cleanup.h>
- #include <linux/rculist.h>
- #include <linux/signal.h>
- #include <linux/sched.h>
-@@ -384,14 +385,36 @@ static inline int task_sigpending(struct task_struct *p)
- 	return unlikely(test_tsk_thread_flag(p,TIF_SIGPENDING));
- }
- 
-+/* Prevent TIF_NOTIFY_SIGNAL from interrupting this task. */
-+static inline unsigned int no_notify_signal_save(void)
-+{
-+	unsigned int flags = current->flags;
++		/* A user worker only ever takes SIGKILL and SIGSTOP. */
++		if (child->flags & PF_USER_WORKER) {
++			ret = -EPERM;
++			break;
++		}
 +
-+	current->flags |= PF_NO_NOTIFY_SIGNAL;
-+	return flags;
-+}
-+
-+/* Restore the previous PF_NO_NOTIFY_SIGNAL state. */
-+static inline void no_notify_signal_restore(unsigned int flags)
-+{
-+	current_restore_flags(flags, PF_NO_NOTIFY_SIGNAL);
-+}
-+
-+DEFINE_LOCK_GUARD_0(no_notify_signal,
-+		    _T->flags = no_notify_signal_save(),
-+		    no_notify_signal_restore(_T->flags),
-+		    unsigned int flags)
-+
- static inline int signal_pending(struct task_struct *p)
- {
- 	/*
- 	 * TIF_NOTIFY_SIGNAL isn't really a signal, but it requires the same
- 	 * behavior in terms of ensuring that we break out of wait loops
--	 * so that notify signal callbacks can be processed.
-+	 * so that notify signal callbacks can be processed. Not for a task
-+	 * that asked not to be interrupted by it, see no_notify_signal_save().
- 	 */
--	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)))
-+	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)) &&
-+	    likely(!(READ_ONCE(p->flags) & PF_NO_NOTIFY_SIGNAL)))
- 		return 1;
- 	return task_sigpending(p);
- }
+ 		if (addr != sizeof(sigset_t)) {
+ 			ret = -EINVAL;
+ 			break;
 
