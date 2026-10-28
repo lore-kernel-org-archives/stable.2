@@ -1,57 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793208087;
-	b=x63UjjV2QfeAbDfZgn+x3dEW93WNER48in87vGl0+ic8hTOF2VgpI2j4i798+RuFU1WE
-	 95KQxcdf/DpS8r77X0FmRcrnuZ9TVKNLpWoonJIkeYuZL7aUXehjN2gcoo1WehiATgXGs
-	 ILbKAWbGvC3woi7gwQ/ATLCdfvbuB3n0QxnoaZBN2fktQVzrbpvVsuNnP3+smHVzysPXl
-	 D+aNoI7xgvyfiZTmxH+tf86cljc5RfBNqHJFqlcy2CYJFM0mk82XeXAWzuOZ0jgXmhy6b
-	 h1WCMnQJNEqS8KuGtfIvG1M3fBE0NpoVDtLoroNBVmOMJ9UkZnw4TD/mFPmqoy57FAQ==
+	b=WP3wuG86nzi4Ht8Xk8FOY+EhqjEbPY8iEeN3YjRtCQOEBcYMTKhKqOSVrQdfr/xKnTUp
+	 b+EAai1ULZMilpG4+Tva3G7a34se/jvNZA16v/yhoiG76TJ0jTLofLOmu+W2bBgxjQHhn
+	 spVmgSaHqREQiAGs6Zdj+Y+oamk3CRxa4w6Cf+rvqt7S1UdbFcT4levL8KCGuhuLoKlfa
+	 FrbxQzNmRiTmt8TUSoe7zpwAa8DgWaIpmm7FpIDgM8487EhPBmrn4fa9zdMyLbQMjIpmX
+	 WSSx6GY47IsN3ATROcFOMwZIKdxb5KtPdUgzaTmbWyrt/R2VyldjyUzzEDsn53qddzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793208087;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WcSUhhye/BoWLE6VWtyf5+x+qLv6CWZ+XZ/CvPeL07Q=;
-	b=UU1THS+lqr5RDa7oOp/hqZOL0hyxAiiG6T3tLmLNTMUVJS6bR8DD5arCXvHAgKMlasxs
-	 JNWlbdwYWxQmk5+UA8Q2iCd0xAKp2JQe9yC/UduUwwCCTd1M5wQHCILdzRTv1N4nS37+o
-	 TYdczOnYaBKajLtRfq0IlftoqODNQnuIL2JigU1bP8IbJ7fDOCwPR+n80DfsGkgoq9Srg
-	 L4JVXyc/WBL/qWzGtoxYX+B/EItyKmnEwRNx1rPpNvxT3hC44JUcTO0YZqy2XmJW6bGbC
-	 Tc6bcbVjH2k+PMXJL3wdPAO4bazTW7L9hBsl9+ut9QBHsEwacWOdV6OPICM8d1hxdRw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=gKWv/vfGN+v0zoryVVsOrqbU4hq0g1uoOUtfYF5rLd4=;
+	b=CJqg5tjr6B/rpFosYdyNtXlDvj7OBJNitpAg/lXTgnD4Sri8biNAdBBkZmKoeDkr8Uhv
+	 pw0jtCqHY/DNXJ+qb7/OuiLDQ2RdOL/msr5h80F+BcUmqr31C2UJzXpjEdogFzmrU+uza
+	 XusNBRT87mrzJ2cwwjeO2+KL99DYEacInGNoBZ/rXlyDdu8Jwa3eg7Zh6uLcpW1vNUxZd
+	 O65nCHZU+DUnmNkT0bUzeeG+ZM55c75lkhD/b6XKxJS3G1AwZ89UEIAWRfEB9Vk8oQm8i
+	 1YTzYouPvKQEP7BxHjvqiUouLyEBW83GrY2W/hHk/xd23mQX9o4HSsYK3ZeRN6gLVTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zDoAlGkI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=SQlFBLtW;
+	arc=none smtp.remote-ip=74.125.224.49
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7A5606A31A;
-	Wed, 28 Oct 2026 17:21:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215DA606A31F
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:21:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 215DA606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zDoAlGkI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D546F1F01825;
-	Wed, 28 Oct 2026 17:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208086;
-	bh=WcSUhhye/BoWLE6VWtyf5+x+qLv6CWZ+XZ/CvPeL07Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zDoAlGkIdpo6a5hOVL5Mfm+dh3cSWz8NcmLcXbLH2sfPjhTPfHcnL99f7Wbgfkxl0
-	 RYXbpxbeF7MQQJBlr+q1NC0zXGlGYyKnd5WCoB9Km71hNTt4KsRM7BD9FVchxsuuxG
-	 SbAJi51e05B+DHnLuLt7cSrdsKsMunlVsMFm/cRA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chris Mason <mason@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: [PATCH 6.12 244/247] fork: release the files of a failed fork after sched_cancel_fork()
-Date: Wed, 28 Oct 2026 18:00:47 +0100
-Message-ID: <20261028165953.199400067@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-References: <20261028165947.349197979@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=SQlFBLtW
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6774639a8a4so1186404d50.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:21:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1793208086; x=1793812886; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gKWv/vfGN+v0zoryVVsOrqbU4hq0g1uoOUtfYF5rLd4=;
+        b=SQlFBLtWetvrAOGwtD51xhjKHJMBmuVVhKXJUHggsefbsTBeA9lSUtBHLEvFQVQpwk
+         5rxgza6m/fEullx3LCe/5EOf9NitilOHi/ZmD+JZoZrLhue8TEStDNUqIv6MnHIQn4BL
+         ASJwtOkabzww4BdFogItYgHjFyEYahE+mlqAedNSjHJcjtmSyL93pQIFRzgVKyVw/q9Q
+         81abU0Nq7hvVg258F3rlDeN1MY2edyUC5XbswXKuXMO7fBepqm0oxBuoEywcY0tTHB7W
+         viLo1aeiP6zlrKoB9h1bFeSUMb6NEqE315HFQ0S5k0SQT/BxI3ijsPyYAnSyXqISjRVX
+         A9cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793208086; x=1793812886;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gKWv/vfGN+v0zoryVVsOrqbU4hq0g1uoOUtfYF5rLd4=;
+        b=QJHANSP8NrmQ5I/mhpHL+tJgoYfoOBsB9Y9p+4LmyRZuq6MKw5M6dJcIOYXm9bkEjO
+         omk7uL4JX+yqNm2PIsOLx0EArSz07gVrH6oPlKbO0dCy0Fb3PvnwzXhRnKJcpmFAXWJ6
+         uMnPh3GKKwk7fsvqNS71+yi+oONba4R2KMSJzFKRhUf1y7TxEfcFRCajjun5BKG22aad
+         9IpvP2z/E2lmqosgNdjZ7bK53zLARRXF//d2NPygvad59bKwsV9yjmOFiskEqngdTPqG
+         tKLLihnp4rR/QnMjIvGrqtwGIyPKmqAUcWrQBkqOT4/MNH/pLd0OerJkKD82/9IfCdc9
+         3DiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPSK0TaY1AuPYhb3bWCqlLyg6megNq0WcxrbOfaPrp3DNacPyJ2XyGC4dtFG9NX4ojtxY6epU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIz6KAxtANjyFpQ8XIoxCz5Lq8/hYKCVDab4+LL6jT3xsloU+V4
+	EZXsU7UaYMs0JL3vaT/uYzS/kilb8M8j7xHeAzt2Uyuqlf9elAbKTOJYF9M5fgu4tjU=
+X-Gm-Gg: AYBFou1MrwxaXXW+BIO0VFtUpS+Beq6EE1BVbUbgPMRg35Sl+Eah9DpyZI+TKPbZXSl
+	D79WkOejab4z97Q1UzDX4vEapIeI9IhkDRWifOEdMB9wjtFC7Gft7TktMGzcMuXkl47beCOsGT0
+	Uxf7OnCE5/uYyD/UAYxt6MEZQXg/nM50uCwCGB4cwiZfrQZyNDqoKCaDJip8piJqedDsnTXBzPY
+	JwIObSqDCub+YMo2zYP999htE40q9VwhrN0H8d0vHx45ddph+niVSc6wIjfixOzRkLI3lF2sQH4
+	6U23m4JiO3Hy03YtTgnm+Lj1nIZzuXxrdeSSIn1Ymc70ws33OfY6V4BtSGwOhPHHiRoOYOwuP3v
+	GGefqxJ/MWieCWJyXnwLObsqKio7CvoUGpii4/LQ2VNjasaf3Z3JrjVgWSaCqaTumaq1y9DxXEA
+	jAH0TGfd8kJsga/glps7V5e8Oa5nEeW7mdmPS+Ku35vJqoLBcEXn0fzFAGGsWk4sgxWhNWju8au
+	W2CsWzlFTTzp8bWSlgh+0YKaI9LPjKSyS/W1rcv5RSNxXpdm6gOg0eSf9/qsXYRcYJthi3Ta+s0
+	OlvcqL2MPPiT+8D3toMep/xjAv/+
+X-Received: by 2002:a05:690e:1183:b0:678:fa71:301c with SMTP id 956f58d0204a3-67a7b992b9amr1910178d50.7.1793208085931;
+        Wed, 28 Oct 2026 10:21:25 -0700 (PDT)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a0c31cfsm2144554d50.9.2026.10.28.10.21.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:21:25 -0700 (PDT)
+Date: Wed, 28 Oct 2026 13:21:24 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Salvatore Dipietro <dipiets@amazon.it>
+Cc: abuehaze@amazon.com, akpm@linux-foundation.org, alisaidi@amazon.com,
+	blakgeof@amazon.com, brauner@kernel.org, brendan.jackman@linux.dev,
+	david@redhat.com, dgc@kernel.org, dipietro.salvatore@gmail.com,
+	djwong@kernel.org, hch@infradead.org, hch@lst.de,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-xfs@vger.kernel.org,
+	matt@readmodwrite.com, mhocko@suse.com, ritesh.list@gmail.com,
+	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
+	vbabka@kernel.org, willy@infradead.org, ziy@nvidia.com
+Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking
+ requests reserve access
+Message-ID: <auIvFBlNU5N_PVyd@cmpxchg.org>
+References: <arFBr22V60BMmVpl@cmpxchg.org>
+ <20261027150002.318916-1-dipiets@amazon.it>
+ <auISZ5w318zwUZuc@cmpxchg.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,91 +106,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auISZ5w318zwUZuc@cmpxchg.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Oct 28, 2026 at 11:19:08AM -0400, Johannes Weiner wrote:
+> On Tue, Oct 27, 2026 at 03:00:02PM +0000, Salvatore Dipietro wrote:
+> > 
+> > Hi Johannes,
+> > 
+> > Vlastimil asked that v6 of my page_alloc patch [1] not go to mainline
+> > before these two patches land, so Andrew parked v6 at the tail of
+> > mm-unstable and dropped its Cc: stable until then.
+> > 
+> > Are you still planning to work on 1/2 and 2/2, and if so, do you have
+> > a rough ETA? Or would you rather post them as a separate series as
+> > they are? If anything is needed on my side to move them forward, I'm
+> > happy to help.
+> > 
+> > For what it's worth, I ran both stacked under v6 on v7.3-rc1 and saw
+> > no performance difference on my benchmark with or without them.
+> > 
+> > [1] https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/
+> 
+> I'll work on this today, will have patches before EOD. Sorry for
+> dropping this.
 
-------------------
-
-From: Christian Brauner <brauner@kernel.org>
-
-commit 296a98c1fa50778c3b31eebed1a3f903f9684349 upstream.
-
-Reorder copy_process() cleanup so sched_fork() taking scx_fork_rwsem
-scx_pre_fork() is safe and isn't held around exiting files. Right now, a
-fork that fails while another thread closed the bpf link fd will
-deadlock against its own read side. It also blocks every fork on the
-system:
-
-    copy_process()                  holds scx_fork_rwsem for read
-      exit_files()
-        close_files()
-          filp_close_sync()
-            bpf_scx_unreg()
-              kthread_flush_work()  waits for the disable work
-                scx_root_disable()
-                  percpu_down_write(&scx_fork_rwsem)
-
-Simply release the child's files after sched_cancel_fork() dropped the
-lock. The task starts out as a copy of its parent so p->files points to
-the parent's table until copy_files() replaces it. exit_files() must not
-run for a fork that failed before that. Clear p->files up front so
-exit_files() is a no-op for those and make copy_files() set it
-explicitly for CLONE_FILES.
-
-Reported-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-7-8e4adb1619e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- kernel/fork.c |    9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1814,6 +1814,7 @@ static int copy_files(unsigned long clon
- 
- 	if (clone_flags & CLONE_FILES) {
- 		atomic_inc(&oldf->count);
-+		tsk->files = oldf;
- 		return 0;
- 	}
- 
-@@ -2305,6 +2306,8 @@ __latent_entropy struct task_struct *cop
- 	INIT_LIST_HEAD(&p->sibling);
- 	rcu_copy_process(p);
- 	p->vfork_done = NULL;
-+	/* Set by copy_files(), exit_files() on the error path skips NULL. */
-+	p->files = NULL;
- 	spin_lock_init(&p->alloc_lock);
- 
- 	init_sigpending(&p->pending);
-@@ -2402,7 +2405,7 @@ __latent_entropy struct task_struct *cop
- 		goto bad_fork_cleanup_semundo;
- 	retval = copy_fs(clone_flags, p);
- 	if (retval)
--		goto bad_fork_cleanup_files;
-+		goto bad_fork_cleanup_semundo;
- 	retval = copy_sighand(clone_flags, p);
- 	if (retval)
- 		goto bad_fork_cleanup_fs;
-@@ -2681,8 +2684,6 @@ bad_fork_cleanup_sighand:
- 	__cleanup_sighand(p->sighand);
- bad_fork_cleanup_fs:
- 	exit_fs(p); /* blocking */
--bad_fork_cleanup_files:
--	exit_files(p); /* blocking */
- bad_fork_cleanup_semundo:
- 	exit_sem(p);
- bad_fork_cleanup_security:
-@@ -2693,6 +2694,8 @@ bad_fork_cleanup_perf:
- 	perf_event_free_task(p);
- bad_fork_sched_cancel_fork:
- 	sched_cancel_fork(p);
-+	/* ->release() of a file may need scx_fork_rwsem for write. */
-+	exit_files(p); /* blocking */
- bad_fork_cleanup_policy:
- 	lockdep_free_task(p);
- #ifdef CONFIG_NUMA
-
-
+https://lore.kernel.org/all/20261028171719.2043421-1-hannes@cmpxchg.org/
