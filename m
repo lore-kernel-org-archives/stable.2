@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217003;
-	b=bnXd/ooX7c64GYKBPRDujFu5pZfz8jtDJaZgcow8SGnuHcM8iIxPLuyaJ8i3J29h8VeB
-	 3VRsSCdjJ5/RlkkBtb1MnBqt7+y6/Ac6LPHLSai9phQMocVK6gGAQoeLy23ays/5yVnZ5
-	 IDhvOQg8go2y0D+So1G9OOoxIdy5UosQzgHIkKVBAlhW+IsK2pTukLm3WfAU+LIvZLxIR
-	 +8QSbUQBz13pabI2a/+9ULPw3TsFPPyaR65tdqYZG357w4EzbHmCvF+VgPL2RQjNCpjtw
-	 3Qn4gOCiGktIR35sMVX9HzXKRb2YhTst0EC+RzYW1254ToqHgAesAOsOiSqT3G8GVtA==
+	t=1793217009;
+	b=SOwBxeGM9N9gQRF4QhxJOfflorHFnBAGAbnPbp8lshF0fE60WMT+OYeHQpaaAiY1JEN4
+	 mqElfpDbbyBBalN4kRtVHg2ZXhw4zAjgorvQwR/tyLdVtUJskiWHdTrp55pBQJooKlepH
+	 dRVhLaIMsi5YuBJX4Tkh2ASzkNpxAChXilySHGU/JraVaSatxSWBbietUatogsXbDMaFp
+	 Jo13sZRBkqPEYRaDOhx7gqsUo1FOO4RsxyLAz9w/2NtoyniVyHrbH16NvohnuC2r/htFw
+	 Va454nMNTJHMR9tRwaF7nZEl7hp3s08zUuud1moTselGRLKt4PXqszgfQyN3JqGtOHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217009;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ro1bWSetlSDkjfajpbbQkJlSxIbPlC1c571LTLO3llU=;
-	b=tCtwbUhKHAJTv/iKezUPXJiRaBsg/0wG21pCEzMf0xrT6M1AvgqBGoTjjxUyuvQqPbX9
-	 gsXZEJfjqc1Wfd3CIExlFH3whfdr8Qa+BE7qz9G1t2I7PDB4N/xxEc7XHXoAbKh8/jZLk
-	 9r88a2bYNg0a7o/JL6G/KN+TdHZftzrwqilgO/vJh4XfGJYKHbYzTlUD0D/LvJ9wPcQmV
-	 VaK7M3TtGV4aNAm1loRdU3XaefGJMSrbJ/CvFFdhpbk9HZcmg8Raxa0quSk017yueaAUH
-	 +fLAynYsX0KPbzvB2lFy5kdc9h84HgdYY0pli/R42H9sOZPTpD0jkSgaJMP0suS3pUw==
+	bh=m6YFy8FzWASa1f6ILHAVE6ONXLe1n20qP/4h651CduU=;
+	b=BwChZc1xKAscZpdu08AxcQJ+PNFO936wW4DQ66AEHzXY5FxhjMztLQe5dgWy83z22bvF
+	 +BchrdHFJtdLVwlj3VdHi/9jWEGZN34RGi/HMPBFdzgdvkfLuus/CxVyrM0JBxjxFhX/o
+	 +yukrqu08juzMEHI7KWW+19+AcJ/B79G2V9MDbR9Gw8zeeGJ166zjUhA8CwCYIbY/1jR5
+	 2RIwMq5kEOVxmfkL2mayoZPmcvYuJ1pDeKbt22ivGXFFS3qaBYUlQXs4LxzanlUy9ra6O
+	 /DgNXmbdDTzp/HA81+mBn+0QPeCOs7rngX1I2p6k8PH7sTODXWDTjUgto8EfVknk62A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XUyZ1LpA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EOPUCZBs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3F2606A32D;
-	Wed, 28 Oct 2026 19:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A4660A2602;
+	Wed, 28 Oct 2026 19:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XUyZ1LpA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FB11F01825;
-	Wed, 28 Oct 2026 19:50:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EOPUCZBs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F4B1F031E4;
+	Wed, 28 Oct 2026 19:50:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793217002;
-	bh=Ro1bWSetlSDkjfajpbbQkJlSxIbPlC1c571LTLO3llU=;
+	s=korg; t=1793217008;
+	bh=m6YFy8FzWASa1f6ILHAVE6ONXLe1n20qP/4h651CduU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XUyZ1LpA/qbLqVr3lXeiuESW014aDdAX1uizjSRQJ2khuc4JbedVezjRFpqY807I9
-	 hHPzAlk+o1KCNB3/m22oHgd2S3tusemdsAnGaelfvi2uRQwNVCaFyX68gJKpo8G8M/
-	 33rdnuwiKjHuiooqSClfEOYd0qI3iJDTQK0Rpq4w=
+	b=EOPUCZBs24kBOMDNwq8CM61QMJjzZ4mIgQ8f9qEslHpxe9wC3clluzPXhEDkjnmph
+	 j4lZ6LEA0SuxBaRArhiSOeQzSF3ISK4/iDs2qkDFR90ghSscL2iJdMe8JUx7uKDRob
+	 vHhnpn0qVdZY0inHPzkkwNxjh5sPlfLB/cuadU6g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Matthew Sakai <msakai@redhat.com>,
-	Ming-Hung Tsai <mtsai@redhat.com>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Subject: [PATCH 6.1 1755/1887] dm cache: fix issue with background work locking
-Date: Wed, 28 Oct 2026 18:04:11 +0100
-Message-ID: <20261028170539.396411672@linuxfoundation.org>
+	Sasha Levin <sashal@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH 6.1 1739/1887] tools: gpio: fix building from the top level with O=
+Date: Wed, 28 Oct 2026 18:03:55 +0100
+Message-ID: <20261028170539.027652933@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -69,158 +67,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Benjamin Marzinski <bmarzins@redhat.com>
+From: Sasha Levin <sashal@kernel.org>
 
-commit bc9781c0247de107876f32929f1637db93a42b34 upstream.
+commit 52336337f1a01ad803c7f3ddb23f40222e9ad58d upstream.
 
-dm cache used a rw_semaphore for background_work_lock. Write locks on
-rw_semaphores have strict owner semantics, but there was no guarantee
-that the process that locked background_work_lock was the same process
-that unlocked it. This can be easily seen using a kernel compiled with
-CONFIG_DEBUG_RWSEMS. Given a dm cache device <cache>, run: 'dmsetup
-suspend <cache> && dmsetup resume <cache>'. This will trigger a kernel
-warning:
+"make O=<dir> tools/gpio" fails:
 
-DEBUG_RWSEMS_WARN_ON((rwsem_owner(sem) != current) && !rwsem_test_oflags(sem, RWSEM_NONSPINNABLE))
+  Makefile:27: /tools/build/Makefile.include: No such file or directory
 
-triggered by cache_resume(). To fix this, switch from a rw_semaphore to
-a spinlock and a wait queue. dm cache already has a wait queue and
-associated counter, migration_wait and nr_allocated_migrations, that was
-getting woken up when background work was getting completed, but wasn't
-actually used by anything. This is replaced by the background_work queue
-and counter.
+tools/Makefile clears srctree, and the gpio Makefile only works it out
+again when building_out_of_srctree is not set, which the top-level
+Makefile sets for O= builds.
 
-Fixes: b29d4986d0da ("dm cache: significant rework to leverage dm-bio-prison-v2")
+Also work out srctree when it is empty, as tools/bpf/Makefile does
+since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
+tools/bpf O=<dir>'").
+
+Fixes: 4a6a6f5c4aeed ("tools: gpio: Use !building_out_of_srctree to determine srctree")
 Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-Reviewed-by: Matthew Sakai <msakai@redhat.com>
-Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Assisted-by: LLM
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://patch.msgid.link/20261011223358.2327625-5-sashal@kernel.org
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/md/dm-cache-target.c |   55 +++++++++++++++++++++----------------------
- 1 file changed, 28 insertions(+), 27 deletions(-)
+ tools/gpio/Makefile |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -338,8 +338,6 @@ struct cache {
- 	struct list_head invalidation_requests;
- 
- 	sector_t migration_threshold;
--	wait_queue_head_t migration_wait;
--	atomic_t nr_allocated_migrations;
- 
- 	/*
- 	 * The number of in flight migrations that are performing
-@@ -395,7 +393,11 @@ struct cache {
- 	bool loaded_mappings:1;
- 	bool loaded_discards:1;
- 
--	struct rw_semaphore background_work_lock;
-+	/* background work management */
-+	bool background_work_allowed;
-+	unsigned background_work_nr;
-+	spinlock_t background_work_lock;
-+	wait_queue_head_t background_work_wait;
- 
- 	struct batcher committer;
- 	struct work_struct commit_ws;
-@@ -486,19 +488,13 @@ static struct dm_cache_migration *alloc_
- 	memset(mg, 0, sizeof(*mg));
- 
- 	mg->cache = cache;
--	atomic_inc(&cache->nr_allocated_migrations);
- 
- 	return mg;
- }
- 
- static void free_migration(struct dm_cache_migration *mg)
- {
--	struct cache *cache = mg->cache;
--
--	if (atomic_dec_and_test(&cache->nr_allocated_migrations))
--		wake_up(&cache->migration_wait);
--
--	mempool_free(mg, &cache->migration_pool);
-+	mempool_free(mg, &mg->cache->migration_pool);
- }
- 
- /*----------------------------------------------------------------*/
-@@ -1029,34 +1025,39 @@ static void calc_discard_block_range(str
- 
- static void prevent_background_work(struct cache *cache)
- {
--	lockdep_off();
--	down_write(&cache->background_work_lock);
--	lockdep_on();
-+	spin_lock_irq(&cache->background_work_lock);
-+	cache->background_work_allowed = false;
-+	wait_event_lock_irq(cache->background_work_wait,
-+			    cache->background_work_nr == 0,
-+			    cache->background_work_lock);
-+	spin_unlock_irq(&cache->background_work_lock);
- }
- 
- static void allow_background_work(struct cache *cache)
- {
--	lockdep_off();
--	up_write(&cache->background_work_lock);
--	lockdep_on();
-+	spin_lock_irq(&cache->background_work_lock);
-+	cache->background_work_allowed = true;
-+	spin_unlock_irq(&cache->background_work_lock);
- }
- 
- static bool background_work_begin(struct cache *cache)
- {
- 	bool r;
- 
--	lockdep_off();
--	r = down_read_trylock(&cache->background_work_lock);
--	lockdep_on();
--
-+	spin_lock_irq(&cache->background_work_lock);
-+	r = cache->background_work_allowed;
-+	if (r)
-+		cache->background_work_nr++;
-+	spin_unlock_irq(&cache->background_work_lock);
- 	return r;
- }
- 
- static void background_work_end(struct cache *cache)
- {
--	lockdep_off();
--	up_read(&cache->background_work_lock);
--	lockdep_on();
-+	spin_lock_irq(&cache->background_work_lock);
-+	if (--cache->background_work_nr == 0)
-+		wake_up(&cache->background_work_wait);
-+	spin_unlock_irq(&cache->background_work_lock);
- }
- 
- /*----------------------------------------------------------------*/
-@@ -2517,9 +2518,7 @@ static int cache_create(struct cache_arg
- 
- 	spin_lock_init(&cache->lock);
- 	bio_list_init(&cache->deferred_bios);
--	atomic_set(&cache->nr_allocated_migrations, 0);
- 	atomic_set(&cache->nr_io_migrations, 0);
--	init_waitqueue_head(&cache->migration_wait);
- 
- 	r = -ENOMEM;
- 	atomic_set(&cache->nr_dirty, 0);
-@@ -2601,8 +2600,10 @@ static int cache_create(struct cache_arg
- 		     issue_op, cache, cache->wq);
- 	dm_iot_init(&cache->tracker);
- 
--	init_rwsem(&cache->background_work_lock);
--	prevent_background_work(cache);
-+	init_waitqueue_head(&cache->background_work_wait);
-+	spin_lock_init(&cache->background_work_lock);
-+	cache->background_work_allowed = false;
-+	cache->background_work_nr = 0;
- 
- 	*result = cache;
- 	return 0;
+--- a/tools/gpio/Makefile
++++ b/tools/gpio/Makefile
+@@ -7,7 +7,13 @@ bindir ?= /usr/bin
+ # isn't set and when invoked from selftests build, where srctree
+ # is set to ".". building_out_of_srctree is undefined for in srctree
+ # builds
++ifeq ($(srctree),)
++update_srctree := 1
++endif
+ ifndef building_out_of_srctree
++update_srctree := 1
++endif
++ifeq ($(update_srctree),1)
+ srctree := $(patsubst %/,%,$(dir $(CURDIR)))
+ srctree := $(patsubst %/,%,$(dir $(srctree)))
+ endif
 
 
