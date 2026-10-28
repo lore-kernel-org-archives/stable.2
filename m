@@ -1,98 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150785;
-	b=vvlQJLigXI+Y6HuRhnzZt01m43M0j2E5QabLBvMSs6mx+LF7CU/21qFu6mkAwmrYrwre
-	 umgtjwfMYNoMeYZsI3WlgF3fBZwY0Rn2LxbTL5L/tiRpwqUE1IEjUlA+/jzbeTo4o8alY
-	 7W7OyDyV4HgtDF0kg5D73V33H55e7DGd0IqlCbTo3F7yRqIZ9vuD22mkEm8QWPGlHzLu+
-	 GpvXALqkj49y6nHY610MQ4JAg1uZMxbHkG53LaBb3Aqu1+hOu0ipDc3KaJiVcTr8x5WXi
-	 51mIeLrS+SyRe2QWT2UW3vTv5SVEOMWuCEGRfBfIEDIpIwS8894CxzaUHy6/VLxRDGg==
+	t=1793150896;
+	b=NR/MY61TjNkQrq5fk9TS/vH0DyctnpuwTp3Ms6M9/KKuvnc2PPgOole/tPyiPi12ze+r
+	 upWjtO0PQ2HbywchwAnolaQlKFLxCLYerfj87mgAgAh/GufJs3L/uiS7mGvizCuDdhe2F
+	 k9U+DOzD7iSiVxbngVb1XNdBWg51hYSiUBgVWOeF/KiZ6fojWKeN335Bm7q7DYxzMAkZZ
+	 jwhZDCX64zpWM4Z/A9/EiPaB10SkKesQOLEs1hB3z/fGDLYCqLEMthH2pMHFLk1cSv5/E
+	 j+DlJVHCroFO6AfcRHALj/a/WjXHJxIN3kTNZpRNzFJ5O4MBetjLvBM5HG/Cq20BXPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150785;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
-	b=inYruHOirpDqBrEm6JHYN9a+REEVMQvhdSlrMH7V+3N4xMfuCh+VzJxK8fb7UX9fvktr
-	 /1IxQZh0ACv4uCTtlw2lFIEIHdjfU0jHhGbLG3CtI+5/WWWIPu9nF2yBW6p6qO1yHIZEW
-	 ybntFz+s/bxld8tWEuS6TwGlGGDooIrteIQdx32mQfgEJ/iY9eRHDM0AbEwxXNty1qbbp
-	 8eqs9PspoQZAQ5BaKvajcr12WhF5U5xZgDAzPovemcmTCmV3UNzMNH9lKW/YDm8kDIEKN
-	 NuCM9EYm/jR0NjrsnNcxAdkmHVwC/atWYxJo7rowCnsofYbuQLxktYPoUMgnRbB5eXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150896;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OoEszvGm7Jt8r2Hgps9BAadui447M2pxW0SiVZm0x7s=;
+	b=bPDqD5PVoXZIo+4Ss0u5GRhRFjHu3UpHX2d/EGKa8eqVAB8PBGbOMMC9vup5o4lvw1st
+	 vzCjL0WK5GZu+lIrFnDaCT3ht7Lv6gKeb+gOBbrGWqKXhR8Wi01/oCkXlhpU7FXEwUdIY
+	 J+kH0HfE6Nmgb/BpWjXOywYgajeHpzP1uPeOd+YPw4CVJO0ShTJvwQt0WwJEdyLt1lSxD
+	 yVTv9MaSJDlj+YpJm/ByJia0D9DHbCRhnfNQJ/HSxaWAAyraMQuv2rdTIxb/nS+b8WjwF
+	 RoxVLUecZEhx/FNPmxNnknL9TRNdat9uCJvYDLGJNTzJ4R8Sf/J1ek20Go4T6/08W3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wD6nmJjk;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rkp7nNL0;
+	arc=none smtp.remote-ip=91.218.175.118
+Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AED9606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:26:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AED9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1581C606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1581C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wD6nmJjk
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so5119335e9.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 18:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793150783; x=1793755583; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
-        b=wD6nmJjkfOYRuScAAjWuroVnw8/yb8cS2myqAQz8AU6cn6hJkgnYxaQpjxl6D9mRMJ
-         ZcFMgRHJ5n73SPLY5hE3oPlainPIQ32aabs5/Mxinv4xNdV0R/0GdT810Kwqc9Wy/EnQ
-         qrMdqyCIlZXQ+Rux1I0L6w7iCGx6F7GJGDyF7v9+KHClhIml6bdDHOIBYwd3mJhMybRo
-         zOIVMSncRPdj2Na19D+2eikNW36sXxRY/PmjRoU1FI9D299oP4KeSoVGJa3t8mtHK8cc
-         E9J6Oj1RDgUTrpn8i3Pnmg/qojF1p5V0l2cjZOyAKigv9Z0dMRnemAUvzY9fLpGiM58T
-         bY6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793150783; x=1793755583;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uOuX8lmp0xof0e0xCWW+uMkqG0cNoPc1tk+upESwVAA=;
-        b=sFFxeNfWp+yBMuLqu5VONp5u+vwGfUTgnyj4TZVtvLXeDo67lqMJZZGhibuz+34Jh3
-         ip8eBvs1eAMPSo4C0lcZqEVYBTMkOAEpd6cScgZRODdvduJ/g+eIoTI9RnpIxtv2QUTo
-         EmqOoGp4dub9sJROb9UfYPT9FuzvHi7R23Bn7gxmrzD49dBAHfQQzYBAVeH+f/IiAWZ5
-         91BhX5lUPaB2AQ6KsfnLIpb04Zs2e6T4hZb+DOlWXBiyju32pEdy+f5kAg/fMdV/3NeV
-         7Es+05KqAD33kUaha23j2rJ9OBa2hDK3Bz6uTha5YHuTztPIbXDYMWkQyVv+TpivHQiE
-         nIEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxts0/agNy/xYxnLH3xB5TsU0BG3gA6NZhNjgSEpe3iPcXIEQn+akJ3sM27tOoU/E1Fq5ouWoU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoZD6UttUwy0ekQAdFpHoL2hdcDW2q/Z7mohkfATvAnJ3if8Fj
-	bVfehqGQr3aPd2sFNy8ww0cc7v2lKRC4//41WkGxKKXL1ZFF1EJZInw=
-X-Gm-Gg: AYBFou0idOinkrWOvHj4XVwVmTYhbZbgAGrIjGNlHyr/IzNLWGhfJZJvzIeHFrm1+p+
-	MgTNihzIxN4UDKTp8vOok2wu4LPsWpEEmIhSWQvcPeq1OAq3nvoo3vfrVr5xoBTsYlcw7LFVGhd
-	RK+0TeAZoi8v68u4HJA3T/hiw1Bi9xNz1LogU2vnlS/hxSaLQi1JJc9Ig0wZzpXmtSc56Z0yhX+
-	U59zFkqyYzGITh0s6t+/IvvamJ2McWWcp5wSVnT0K0pr7rUGzTGYBX6rx4YwzwDk1vfXdfLov6e
-	yD50zAFKHqS4e4DXwTpR7gUse0dWc6nEDOX9xviWhdIWKqvusp9tyLB2CPvdvaFXv3J7Pag3Z+j
-	U58jYVF3L+RPRG6N5jPUIPhTZaqtlbxnf+5izhyj1ip7M9vzw71y2pHmeCqz447CKXB6SF1yM4D
-	aL+bT8alyBikmn8uLb1q0+EkN700x0bxyNm/RwEtDSAf4xrt0f1koNbjTpE/5wGYo8r02+MMuBX
-	jp4oQmDFKAmdEhiX3nMCMAk8J8XbRu+hxPxfpyqqsSJWROreAZXoB7zPzAWnG0Wn1LB27OUcfzE
-	aqE2rzGMSO8=
-X-Received: by 2002:a05:600c:190a:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4a966586d1bmr13640805e9.12.1793150783182;
-        Tue, 27 Oct 2026 18:26:23 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97c9f150fsm7935155e9.10.2026.10.27.18.26.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 18:26:22 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>,
-	linux-wireless@vger.kernel.org
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 wireless] wifi: nxpwifi: validate scan response TLV sizes before indexed access
-Date: Wed, 28 Oct 2026 01:26:20 +0000
-Message-ID: <20261028012620.3762590-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261025181531.3744345-1-tristan@talencesecurity.com>
-References: <20261025181531.3744345-1-tristan@talencesecurity.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rkp7nNL0
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sbvDgc3joPyy/j914OEP6tCwRBpNWUQikTAlXej1Uq4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793150886; v=1; x=1793755686;
+ b=rkp7nNL0OLdSYcb59MXeFHASOBTGrfoVXSeiDOAzcm6l2NlZvGUgzPFj1S+1o86f7XPYvI3/
+ 6bb/0LcC7zO+bwkuQX2rgJIdUS3cr0StXRACoH///yv4lMgTmRbdiNo4WddWx4oIaVa3w7WWiNw
+ qraOAe9NEp20TCritt5BRty8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 47897f4e5ab642e4;
+	Wed, 28 Oct 2026 01:28:06 +0000
+X-Mizu-Trace-ID: 47897f4e5ab642e4
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 09:27:49 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Antoine Tenart <atenart@kernel.org>, David Ahern <dsahern@kernel.org>
+Cc: Zhou Qiuyue <n0ps1edzz@gmail.com>, netdev@vger.kernel.org,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] ipv6: raw: fix use-after-free in
+ rawv6_send_hdrinc()
+Message-ID: <auFPlcB4VfQ76NYC@fedora>
+References: <20261026044808.613-1-n0ps1edzz@gmail.com>
+ <at7uk8gXtzNufuQF@fedora>
+ <at9sKRSEJLVGj9OK@kwain>
+ <auAAmqXcxmC6BDrR@fedora>
+ <auBs0Xn5yVJ1NtdK@kwain>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,59 +73,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auBs0Xn5yVJ1NtdK@kwain>
 
-The scan response handler indexes into TSF and channel-band TLV arrays
-using a loop counter derived from the number of BSS entries, but never
-checks whether the TLV data is large enough. A firmware response with
-fewer TLV entries than BSS entries leads to reads past the TLV buffer.
+On Tue, Oct 27, 2026 at 10:43:48AM +0100, Antoine Tenart wrote:
+> On Tue, Oct 27, 2026 at 09:38:34AM +0800, Hangbin Liu wrote:
+> > On Mon, Oct 26, 2026 at 04:07:40PM +0100, Antoine Tenart wrote:
+> > > On Mon, Oct 26, 2026 at 02:09:23PM +0800, Hangbin Liu wrote:
+> > > > On Mon, Oct 26, 2026 at 12:48:08PM +0800, Zhou Qiuyue wrote:
+> > > > > diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+> > > > > index b965258cf..bdea82543 100644
+> > > > > --- a/net/ipv6/raw.c
+> > > > > +++ b/net/ipv6/raw.c
+> > > > > @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
+> > > > >  	if (unlikely(!skb))
+> > > > >  		return 0;
+> > > > >  
+> > > > > +	/* l3mdev_ip6_out() may have replaced the skb dst. */
+> > > > > +	rt = dst_rt6_info(skb_dst(skb));
+> > > > > +
+> > > > >  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
+> > > > >  	 * in the error path. Since skb has been freed, the dst could
+> > > > >  	 * have been queued for deletion.
+> > > > 
+> > > > Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> > > 
+> > > Doesn't this change the device seen by the nf hook / used for the stats?
+> > 
+> > Should we still use the old/released rt->dst.dev after the VRF output
+> > path replace skb->dst? vrf_ip6_out_redirect() said it allows the nf hook
+> > use vrf device.
+> 
+> Right, but then in the direct path the NF_INET_LOCAL_OUT hook would be
+> run twice with the same dev. Looking at other call sites for
+> l3mdev_ip6_out, it's not clear either,  __ip6_local_out reloads the dev
+> while ip6_xmit does not. I'm not sure what is the expected behavior.
 
-Add bounds checks that verify each indexed access falls within the
-TLV's declared length before dereferencing.
+Hmm, me neither. David might know.
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-Changes in v2:
-  - Fix From:/Signed-off-by: email mismatch.
-  - Add missing Cc: recipients (Francesco Dolcini).
-  - No code changes.
-
- drivers/net/wireless/nxp/nxpwifi/scan.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
-index 67d7ff2f10c59..a8d3387320af4 100644
---- a/drivers/net/wireless/nxp/nxpwifi/scan.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
-@@ -1999,12 +1999,22 @@ int nxpwifi_ret_802_11_scan(struct nxpwifi_private *priv,
- 		 * was received.
- 		 */
- 		if (tsf_tlv)
--			memcpy(&fw_tsf, &tsf_tlv->tsf_data[idx * TSF_DATA_SIZE],
--			       sizeof(fw_tsf));
-+			if ((idx + 1) * TSF_DATA_SIZE <=
-+			    le16_to_cpu(tsf_tlv->header.len))
-+				memcpy(&fw_tsf,
-+				       &tsf_tlv->tsf_data[idx *
-+							  TSF_DATA_SIZE],
-+				       sizeof(fw_tsf));
- 
- 		if (chan_band_tlv) {
--			chan_band = &chan_band_tlv->chan_band_param[idx];
--			radio_type = &chan_band->radio_type;
-+			if ((idx + 1) * sizeof(*chan_band) <=
-+			    le16_to_cpu(chan_band_tlv->header.len)) {
-+				chan_band =
-+					&chan_band_tlv->chan_band_param[idx];
-+				radio_type = &chan_band->radio_type;
-+			} else {
-+				radio_type = NULL;
-+			}
- 		} else {
- 			radio_type = NULL;
- 		}
--- 
-2.47.3
-
+Thanks
+Hangbin
+> 
+> Regardless of that, the change in behavior (if right) would be worth
+> mentioning in the commit log.
