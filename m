@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213549;
-	b=QBU7FyTWtxe4j836CVuetORoVklMXvI6T1+1nHpJLiY/3Qr4fjnmelSGtCHriaVtW1Db
-	 Rr5A17pAR47QiCNCukVgJ3Gd+WBLJJUKS8wEOO0aWLe3jbPgoAfDDgmm1EjrEAvC0ppUL
-	 D6PTZvLQ5ta603IcSDBJOJuGxZz0G8LzMgmNwIOsAfEhIQWTDFQBVvj0VxOwgvBHNjg6g
-	 1PqNHbuYpc1OltJ3rRVcLfgWY2OHJgS0xS7J2cdKUhVBO/hmi7CyYAorkt6B/0gqVUQfQ
-	 0MPRF7kGvcuGzMiQWZXibm9eryosjU56T6E/SZLfmBXYxvldbHK+v0zSSB7iN8tVtww==
+	t=1793213555;
+	b=gtYIZ5ez1fNqhGcuK6fiE7gpsR9yVbs9tJcybUZPdaUqO+alJiMD/AU/ijo0RO9jRpFU
+	 nL0EU0ORd/9yVLtcmlzLAlCnMnfJVu8RXriwW33XNrvlRM4lYlI1Itq7WStGn2JLgQMwU
+	 Ps/JOcoiSs1cvIChyBa71JGmOt7HoWiXEKQ5i+sgWR70vW5FruYxDv4uFOPkj6fWaEGG8
+	 JsK4oD/staJMgFldTB9hHmAGWvoHJq1/hT84odR22Xqzm1l8EZEG0xoBWDN+19ec0qWYU
+	 c16x3AwL9cWrXC0yF4I5sNhZkC+EILJL/7SQmMppCNds769YX63Rp/2+BiL3bZMjDPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213555;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=LGzGuARhVid6Y8P7Z2itqVaTtmtJz+qoOMfl57e+6Ps=;
-	b=B5ryM/q2ZOCNayUu4GxIQHqvn6Ia9GKkiA2p8qnEA5gY8gzxV0cyaqVUGFwuvc7rQFny
-	 qMgRGvetBF12MxvGWI5gKnxtmkQ/YMtZ2REppOribyZsqXjdK6CqTQSf0aBif8PAmosoh
-	 FmCxKDz2U/D1nv7RiMNUYXNLhMt1gxv3/o5v86tSV9Ui78Mb1/DZHSxCTbuBJR0X5XO4v
-	 LvtKNcbOtSw8Bh3634eRiTq05CmLD/qyny5y9nuM8oJmZFZ2qF7feLawW2aFZ5qK0z1Oy
-	 1UgcJozWMa/49y6EeX6ct6MEcsdBhnJd20HggUdksWsUeJ75GbuUthaui7sX2QdaZbw==
+	bh=ekkkkqZQTj5W7/MgqugwREYDIOXLrcpsJOCyNO00/pQ=;
+	b=39fxUr3x/pBmJm9+22udQGHf4uugqvlYcinvUVtuQ1ilyHzO0vlgZYQ9oqml/C/IVgEw
+	 GZ3y52pUGnHLAWeIyEtaub6lmWK4UaplEPfbJuclZehlDdwenr5OYlKCn/5ZALI8WAvdx
+	 424quDYfCCJu9fncuDpTR5p7iH4WmSrAWqeTYQXK8kN5rAjkZfBTp1JGYizQgRdK56krD
+	 jDVs6FR2TeE55K1ZtZP5pO9iy9YMKG4j8IDHSjey2tok4DxjxIM8oGWr7d3iTJrlYXcRK
+	 uoYlgSmJtrZVe09FE0jWoKpDK3kVr+maNkjcang25MMIn9iTOhhv4TMbm5wLmj0sCtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iA1wNin7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RNWYNE9O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A728606A31C;
-	Wed, 28 Oct 2026 18:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107A8606A320;
+	Wed, 28 Oct 2026 18:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iA1wNin7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E011F01825;
-	Wed, 28 Oct 2026 18:52:28 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RNWYNE9O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2191F01828;
+	Wed, 28 Oct 2026 18:52:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793213549;
-	bh=LGzGuARhVid6Y8P7Z2itqVaTtmtJz+qoOMfl57e+6Ps=;
+	s=korg; t=1793213554;
+	bh=ekkkkqZQTj5W7/MgqugwREYDIOXLrcpsJOCyNO00/pQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iA1wNin7NrvuwDYIhU84xs/fWtlkUkIuv1UIyq0e7ZwTsbMMI0RTnz5PD4Ksrqz9E
-	 EAS4B8puKc2sK0Pc7rMn6WC4rWx52aiEqDI+BjJBimyajeRa51V/8vpztyAy+9Vs5w
-	 Q/+A337loXD7Si3DRgu9/xRGS7kyNrOofVBUMkwo=
+	b=RNWYNE9ObgLrK7n5O5yDoR8Wh1A0NSomL3SkQnMzj21G6jbhMn4vCSX6eqZBKcSVS
+	 P1nWps3OvXzQdl8QDDRRn4XmF4ETmsNbXorlTD4PMRAqfVEj6JDJsCNOo2Jft0niUQ
+	 kxAt9C+9N9BoQb8jJEZIlFub8j8jbdoCxbNvViUg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Dave Chinner <dchinner@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0546/1887] xfs: xfs_ifree_cluster vs xfs_iflush_shutdown_abort deadlock
-Date: Wed, 28 Oct 2026 17:44:02 +0100
-Message-ID: <20261028170511.787687430@linuxfoundation.org>
+Subject: [PATCH 6.1 0530/1887] dm: fix reading free memory in do_resume
+Date: Wed, 28 Oct 2026 17:43:46 +0100
+Message-ID: <20261028170511.400852675@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -71,158 +68,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Dave Chinner <dchinner@redhat.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit 09234a632be42573d9743ac5ff6773622d233ad0 ]
+[ Upstream commit c9417c1c5269e2bd0570fbe53e4ec03a8d31f008 ]
 
-Lock order of xfs_ifree_cluster() is cluster buffer -> try ILOCK
--> IFLUSHING, except for the last inode in the cluster that is
-triggering the free. In that case, the lock order is ILOCK ->
-cluster buffer -> IFLUSHING.
+When do_resume calls dm_table_get_mode(new_map), the call is done without
+holding any locks (it only holds a reference to the md). It may be
+possible that another concurrent ioctl on the same device will swap table
+after dm_swap_table and before dm_table_get_mode. In this case,
+dm_table_get_mode(new_map) reads freed memory.
 
-xfs_iflush_cluster() uses cluster buffer -> try ILOCK -> IFLUSHING,
-so this can safely run concurrently with xfs_ifree_cluster().
+This race condition was triggered by syzbot.
 
-xfs_inode_item_precommit() uses ILOCK -> cluster buffer, but this
-cannot race with xfs_ifree_cluster() so being in a different order
-will not trigger a deadlock.
+This commit fixes the race by reading mode of the new table before
+dm_swap_table. Note that new_map is also passed to dm_ima_need_measure,
+but this function doesn't attempt to dereference it, so this call should
+be safe.
 
-xfs_reclaim_inode() during a filesystem shutdown uses ILOCK ->
-IFLUSHING -> cluster buffer via xfs_iflush_shutdown_abort(), and
-this deadlocks against xfs_ifree_cluster() like so:
+Note that this is not a security bug because only root can trigger it and
+the commonly used tools such as lvm or cryptsetup do not call the ioctls
+concurrently, so that they can't trigger it acceidentally.
 
- sysrq: Show Blocked State
- task:kworker/10:37   state:D stack:12560 pid:276182 tgid:276182 ppid:2      flags:0x00004000
- Workqueue: xfs-inodegc/dm-3 xfs_inodegc_worker
- Call Trace:
-  <TASK>
-  __schedule+0x650/0xb10
-  schedule+0x6d/0xf0
-  schedule_timeout+0x8b/0x180
-  schedule_timeout_uninterruptible+0x1e/0x30
-  xfs_ifree+0x326/0x730
-  xfs_inactive_ifree+0xcb/0x230
-  xfs_inactive+0x2c8/0x380
-  xfs_inodegc_worker+0xaa/0x180
-  process_scheduled_works+0x1d4/0x400
-  worker_thread+0x234/0x2e0
-  kthread+0x147/0x170
-  ret_from_fork+0x3e/0x50
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
- task:fsync-tester    state:D stack:12160 pid:2255943 tgid:2255943 ppid:3988702 flags:0x00004006
- Call Trace:
-  <TASK>
-  __schedule+0x650/0xb10
-  schedule+0x6d/0xf0
-  schedule_timeout+0x31/0x180
-  __down_common+0xbe/0x1f0
-  __down+0x1d/0x30
-  down+0x48/0x50
-  xfs_buf_lock+0x3d/0xe0
-  xfs_iflush_shutdown_abort+0x51/0x1e0
-  xfs_icwalk_ag+0x386/0x690
-  xfs_reclaim_inodes_nr+0x114/0x160
-  xfs_fs_free_cached_objects+0x19/0x20
-  super_cache_scan+0x17b/0x1a0
-  do_shrink_slab+0x180/0x350
-  shrink_slab+0xf8/0x430
-  drop_slab+0x97/0xf0
-  drop_caches_sysctl_handler+0x59/0xc0
-  proc_sys_call_handler+0x189/0x280
-  proc_sys_write+0x13/0x20
-  vfs_write+0x33d/0x3f0
-  ksys_write+0x7c/0xf0
-  __x64_sys_write+0x1b/0x30
-  x64_sys_call+0x271d/0x2ee0
-  do_syscall_64+0x68/0x130
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-We can't change the lock order of xfs_ifree_cluster() - XFS_ISTALE
-and XFS_IFLUSHING are serialised through to journal IO completion
-by the cluster buffer lock being held.
-
-There's quite a few asserts in the code that check that XFS_ISTALE
-does not occur out of sync with buffer locking (e.g. in
-xfs_iflush_cluster). There's also a dependency on the inode log item
-being removed from the buffer before XFS_IFLUSHING is cleared, also
-with asserts that trigger on this.
-
-Further, we don't have a requirement for the inode to be locked when
-completing or aborting inode flushing because all the inode state
-updates are serialised by holding the cluster buffer lock across the
-IO to completion.
-
-We can't check for XFS_IRECLAIM in xfs_ifree_mark_inode_stale() and
-skip the inode, because there is no guarantee that the inode will be
-reclaimed. Hence it *must* be marked XFS_ISTALE regardless of
-whether reclaim is preparing to free that inode. Similarly, we can't
-check for IFLUSHING before locking the inode because that would
-result in dirty inodes not being marked with ISTALE in the event of
-racing with XFS_IRECLAIM.
-
-Hence we have to address this issue from the xfs_reclaim_inode()
-side. It is clear that we cannot hold the inode locked here when
-calling xfs_iflush_shutdown_abort() because it is the inode->buffer
-lock order that causes the deadlock against xfs_ifree_cluster().
-
-Hence we need to drop the ILOCK before aborting the inode in the
-shutdown case. Once we've aborted the inode, we can grab the ILOCK
-again and then immediately reclaim it as it is now guaranteed to be
-clean.
-
-Note that dropping the ILOCK in xfs_reclaim_inode() means that it
-can now be locked by xfs_ifree_mark_inode_stale() and seen whilst in
-this state. This is safe because we have left the XFS_IFLUSHING flag
-on the inode and so xfs_ifree_mark_inode_stale() will simply set
-XFS_ISTALE and move to the next inode. An ASSERT check in this path
-needs to be tweaked to take into account this new shutdown
-interaction.
-
-Signed-off-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reported-by: syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+[ sashal: Replaced blk_mode_t and BLK_OPEN_WRITE with fmode_t and FMODE_WRITE. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_icache.c | 8 ++++++++
- fs/xfs/xfs_inode.c  | 2 +-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/md/dm-ioctl.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/xfs_icache.c b/fs/xfs/xfs_icache.c
-index 5f6c2a1f32993..d4eb83e7934d4 100644
---- a/fs/xfs/xfs_icache.c
-+++ b/fs/xfs/xfs_icache.c
-@@ -916,7 +916,15 @@ xfs_reclaim_inode(
- 	 */
- 	if (xlog_is_shutdown(ip->i_mount->m_log)) {
- 		xfs_iunpin_wait(ip);
-+		/*
-+		 * Avoid a ABBA deadlock on the inode cluster buffer vs
-+		 * concurrent xfs_ifree_cluster() trying to mark the inode
-+		 * stale. We don't need the inode locked to run the flush abort
-+		 * code, but the flush abort needs to lock the cluster buffer.
-+		 */
-+		xfs_iunlock(ip, XFS_ILOCK_EXCL);
- 		xfs_iflush_shutdown_abort(ip);
-+		xfs_ilock(ip, XFS_ILOCK_EXCL);
- 		goto reclaim;
- 	}
- 	if (xfs_ipincount(ip))
-diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-index 3ccbc31767b3c..3139363d892bf 100644
---- a/fs/xfs/xfs_inode.c
-+++ b/fs/xfs/xfs_inode.c
-@@ -2225,7 +2225,7 @@ xfs_ifree_mark_inode_stale(
- 	iip = ip->i_itemp;
- 	if (__xfs_iflags_test(ip, XFS_IFLUSHING)) {
- 		ASSERT(!list_empty(&iip->ili_item.li_bio_list));
--		ASSERT(iip->ili_last_fields);
-+		ASSERT(iip->ili_last_fields || xlog_is_shutdown(mp->m_log));
- 		goto out_iunlock;
- 	}
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 4cfdd50e32d70..57d0bc1545b73 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1166,6 +1166,7 @@ static int do_resume(struct dm_ioctl *param)
+ 	/* Do we need to load a new map ? */
+ 	if (new_map) {
+ 		sector_t old_size, new_size;
++		fmode_t new_map_mode;
  
+ 		/* Suspend if it isn't already suspended */
+ 		if (param->flags & DM_SKIP_LOCKFS_FLAG)
+@@ -1193,6 +1194,7 @@ static int do_resume(struct dm_ioctl *param)
+ 			}
+ 		}
+ 
++		new_map_mode = dm_table_get_mode(new_map);
+ 		old_size = dm_get_size(md);
+ 		old_map = dm_swap_table(md, new_map);
+ 		if (IS_ERR(old_map)) {
+@@ -1205,7 +1207,7 @@ static int do_resume(struct dm_ioctl *param)
+ 		if (old_size && new_size && old_size != new_size)
+ 			need_resize_uevent = true;
+ 
+-		if (dm_table_get_mode(new_map) & FMODE_WRITE)
++		if (new_map_mode & FMODE_WRITE)
+ 			set_disk_ro(dm_disk(md), 0);
+ 		else
+ 			set_disk_ro(dm_disk(md), 1);
 -- 
 2.53.0
 
