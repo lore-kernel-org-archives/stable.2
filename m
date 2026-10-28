@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202063;
-	b=fTfmsHzv65/76nRdAp8pSp0wXsS71reO0SfYbfkvEVhZPMLdZCRZLDwlStmF4nXoRFuT
-	 HOCePY40QfzNczUU4H3f6iV++psYQQSOjLqc6z0MvFJ3tYTSoHMqW+7UfrfqvlwwjW4xX
-	 DsmFp2oItyT/pt2Ip8nnS3mDCnx+/HKFky1IPoKepaMAmmNFog+QFxie7WRjkid8Gq+6e
-	 cuAwX4LLDeOuLS1rp8SVboH+lBSmCrZTE5NHuQvtqUw8e62/VxKeGj7pTwNz8hOYxVIMY
-	 xIJs8iV8Z4R/NxSDGDA6UhrOXDC3Yyo3A79z5z0VyvIZY4aUmuyjdbkVIClD9lozOGw==
+	t=1793202083;
+	b=E3MHKsphPPQLMikB9yeiHZxWbs2KsFhcsU4MIY0tb2ryD0bVRx9MKdb5EIv9wPT20ISe
+	 j9mweuVnZ5ngKoti40+clsJtiHQ9RYjSAPKXiT5lEn8MKxJm/ZPda+DSfgDihn3ddKRZI
+	 tpAgmizff/BA5+25CiGOlzLbWdF4pVkh9lTIAyKzq4pkEgxbrd4qsvG53XrEZEda+7USg
+	 WZZg0bmWrfe5NR6z5Ie1OriFNZ25TN+uvpfltUoozSWrRlfIjqrt7XCUaabnM7f5zol09
+	 ZR642Lz0JIxO704qE5NBAng/COhRZhaKw9gsKR4yeLJPZ1Y3KkpTMVOzpCSqvXLLoRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202063;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m7g1ib8E/0JVseSD1L6xPryKDxZDRg0LxTuFEcloAFU=;
-	b=RCu2jeI4N9UHRUupIRJuB1hJMOhYQApaU8h+uKENmTuTFp1oW6fwQqVOceKq4iB3MJwx
-	 WEtObG47yAR3QNYUncmCD2BtCLOZSBbIytIZH103QG5JpDJhybj/WHEeMPAEbQMP6WGgN
-	 7Dpw/rtN70cBKPKZoDhm/6FBd9muq1ghXn3EsLg0Mg8DrlmaoHawEyCo3gGYcO/r81Rcd
-	 rRC0mCSDBLIflXfs6Tj8r5WDPGzQT7SAwbTmilQGh3G+JnrPlX9Chk/ebW6mBccZt6PEN
-	 fYXV1Vuxk+QfScfIV6ZXZ+TzxZA9MYvWCh1B+mDgkCipdGR2eIqlxTe3tE3VRff8+Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202083;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=VB9My0XZkmNfDNzvXuQrlmV8tJuxQWBfRh6GF92ZzrY=;
+	b=yqi0wwfWt5AGnes0J5k2qrNLgpTzbIGN1nLsVb4NMv6/mtxoU2/KJvN94dWLGfbkEtja
+	 3cw5T5q9HCZCurSfUsIhn+0rjl9f4e7DO6fcRztD0TmZx4Zv9AqZRuFou0xwBloHpiZnD
+	 BL7cX5Qqw6T0bdbBXFf1uyViNLICcB2dMy2K3zL4jyOJSXzlhqO3F/WiiVHeVdHK7gZhN
+	 Tt8OZZDiNDhkxw/QvB5XDfM/YRRjap4x0ooXDj0GMKHewW2bjlGhlqFgu+pYHMWA0v/0j
+	 JZ50kDqcBnYeKE0hixmIeHSESx+xVjloN1TmlBvHkqq5EYFn9MD+BapRvKW1p+t3rew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csmUhEkJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=EGl1QNCI;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720E7606A323;
-	Wed, 28 Oct 2026 15:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAA7606A331;
+	Wed, 28 Oct 2026 15:41:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FAA7606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csmUhEkJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086FF1F01825;
-	Wed, 28 Oct 2026 15:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793202063;
-	bh=m7g1ib8E/0JVseSD1L6xPryKDxZDRg0LxTuFEcloAFU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=csmUhEkJnOdNn/F3SJNE/vQF/2r05kOdPKLukpIjUL+uJqKSlacid2wqXK2EgQRgW
-	 umGY4mJiPafLEOZigxHGyrEiso9zHLQAf5sO36M1jyFtFpYkiAYkldS/ROtVZD4yY9
-	 pDUBvAO0BjRHZ2cB/5YmAZJAvFXWVURd8KUK6Y/Nm6rLo3LnKqggzcQeKl6feB6kXD
-	 s05RTvv7HpmJflR4Ty5pcgIichklw1V86Y03dMH3R0EdJrWr9PWfAHL2sig2qvPp7t
-	 aXbo7gEdx3SZO83Y4QHtAkL9mF5244qxDScJMOjiCG4Xc26aJBhOkQfa67Inu9WBcU
-	 vVVxBQXaKbCKw==
-Date: Wed, 28 Oct 2026 15:40:59 +0000
-From: Simon Horman <horms@kernel.org>
-To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, krzysztof.kozlowski@linaro.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+1c5368988052dc2d8201@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] nfc: pn533: add timeout to USB frame send
- completion wait
-Message-ID: <20261028154059.GZ257209@horms.kernel.org>
-References: <20261027070136.1339-1-zhaofeng2@cmss.chinamobile.com>
- <20261027070136.1339-3-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=EGl1QNCI
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFEKGJ1787895;
+	Wed, 28 Oct 2026 15:41:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=VB9My0
+	XZkmNfDNzvXuQrlmV8tJuxQWBfRh6GF92ZzrY=; b=EGl1QNCIwloqOBqp3+1VOA
+	fR+YkZZguOPETAcx9xciv6Fabc8FoLw9XERzCAbNvbgYWpGlcVogxBcmmsm6/2Sx
+	JMBNxk9PqFbrPLo/w1QLOrVkj8LvndNezlgfEIElEj8uWcgLoRwYjsmFeSn+4sv4
+	0X8WuOlIKDelYXV7JKFl8+hpeY4WF8rTMxbqRM9o3PaX5ziDl5xpZxGJWr9SvuhU
+	Q38jQVmAn4kYLjq5ob5PdNiKIX26hI2e1cGSLXfBsxErcwW3x9+OVNT2XVPeWdoe
+	MM2D8OohTzXvpAExHuUH5hCOGGntny/NIbDUT2zytRpGUDMMMeXLRWEABCl6V5ng
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm645jud-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:41:20 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFYn5C1760082;
+	Wed, 28 Oct 2026 15:41:19 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pawev-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 15:41:19 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFfI6T27198096
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 15:41:18 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 775055805A;
+	Wed, 28 Oct 2026 15:41:18 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 081C558052;
+	Wed, 28 Oct 2026 15:41:18 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 15:41:17 +0000 (GMT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,35 +83,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027070136.1339-3-zhaofeng2@cmss.chinamobile.com>
+Date: Wed, 28 Oct 2026 10:41:17 -0500
+From: Wen Xiong <wenxiong@linux.ibm.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: mathias.nyman@intel.com, Bjorn Helgaas <bhelgaas@google.com>,
+        gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        wenxiong@us.ibm.com, linux-pci@vger.kernel.org
+Subject: Re: [PATCH V3] xhci: Reset TI USB controller on xhci shutdown
+In-Reply-To: <20261028103616.29110069.michal.pecio@gmail.com>
+References: <20261021160608.8229-1-wenxiong@linux.ibm.com>
+ <20261028103616.29110069.michal.pecio@gmail.com>
+Message-ID: <eae289a8f872d508c1b3c411f69aec74@linux.ibm.com>
+X-Sender: wenxiong@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX0ShXA69wQOg8
+ FV1S5dfzBclqB9+l2pkU20vWiyfNnz8Lh8rOOSf4LVN0PUnJolnKo9hEXJicYQpb5kJ0uMgKyu2
+ HLEBac4RfXmQadqY1eYxZgTS9o10EGg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX2bb8SOfT0/O0
+ yvQwpSfpMZgoKD85yhcdF8Ib8yKlWMKVpk0J5y5G9aqlvFKGmu0Lwf2kxqtT8IapRcDyHHiD/Fn
+ EaM4MVXQOVQBKhcKhIYUVz49SMAJgcnv5Nbt8O9M325VMLUam8qEJdYQ/xjQq+wuo7VzinGxjYd
+ gup1WSuC8dLwvWuDlqhci585M6IQYsrMhiiZkRhFULhUnGti9TH0KKJ/6XgGbn7c+jY84Eg+bJU
+ xLuShpjXQZKYblKHa4tF6lfYnzPMUjPJ4WOMnEPhcOPSWYdsVNNtFOC4smDvp7tHbehtU6GxMXD
+ 5oWaVOJdCdiE9mRhPmUwVOKa8Tuw1fBIdoPAewqt1ANPIyDlYoKVxz3Vtfy1cGdGPScTVfCe++9
+ RadJ6F4XjQD6XMJLsIGtCUgEOff8my+aK+WyBippum+KGriB0ZU2vZ0GCNFauDwwbNVc+VigDsV
+ iqZrtWTjBkMvHWesJPA==
+X-Proofpoint-ORIG-GUID: yOhEpvqXZ0XVoGy1c12pZJvwX0fFm7nR
+X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae217a0 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=JRXGqj2KNVXaf7dXr9oA:9
+ a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10
+X-Proofpoint-GUID: PH3qXawjFdyzvCVyMJwwcFhNzBXOGo-o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1011 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280060
 
-On Tue, Oct 27, 2026 at 03:01:35PM +0800, Zhao Feng wrote:
-> pn533_usb_send_frame() waits unboundedly for the out URB to complete.
-> A device that never completes the transfer makes the task sleep
-> forever in TASK_UNINTERRUPTIBLE while holding the command mutex, as
-> reported by syzbot (hung task in pn533_usb_send_frame).
-> 
-> Use a 1 second timeout instead.  On timeout, kill the URB and return
-> -ETIMEDOUT so the command in progress fails gracefully instead of
-> hanging the task.
-> 
-> The transfer may complete between the timeout expiring and
-> usb_kill_urb(); in that case urb->status is 0 after the kill and the
-> send proceeds normally instead of reporting a spurious failure,
-> mirroring what usb_start_wait_urb() does.
-> 
-> Fixes: 9dab880d675b ("nfc: pn533: Wait for out_urb's completion in pn533_usb_send_frame()")
-> Reported-by: syzbot+1c5368988052dc2d8201@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=1c5368988052dc2d8201
-> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-> Cc: <stable@vger.kernel.org>
-> ---
-> v2: check urb->status after killing the URB on timeout and carry on if
->     the transfer completed in the race window; add Fixes tag and Cc
->     stable; the pn533_wq_cmd() error handling fix is now patch 1/2.
->     Issues reported by the Sashiko AI review.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+> 
+> I tried to make this code a bit more "proper", by moving the
+> pci_reset_function_locked() call to xhci-pci.c from xhci.c.
+> 
+> I found that when I actually run this, I get a warning from PCI:
+> 
+>   unlocked secondary bus reset via: __pci_reset_function_locked
+> 
 
+Thanks for your reviewing!
+Can we do?
+if device is TI/0x8241 device, we just reset it in xhci-pci.c.
+We don't need to bother other USB devices.
+
+Thanks,
+Wendy
+> Bjorn, any tips what would be a proper way to whack a malfunctioning
+> PCI device with a heavy hammer to ensure it will work after kexec?
+> Seems we have pci_reset_function(), which locks the parent bridge for
+> us, but it also preserves some "state". Do we want that?
+> 
+> I'm also starting to wonder if we shouldn't do this reset after kexec,
+> to cover for kdump. Or maybe both, because shutdown() is supposed to
+> quiesce the chip and keep it from doing DMA, and we have no idea what
+> such chip is doing (if anything) when it refuses to halt.
+> 
+> Thanks,
+> Michal
+> 
+>> [...]
+>> +	/*
+>> +	 * TI xHCI controllers fail to initialize in a kexec
+>> +	 * kernel without a PCI function reset
+>> +	 */
+>> +	if (err && (xhci->quirks & XHCI_RESET_ON_SHUTDOWN))
+>> +		pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
+>> [...]
