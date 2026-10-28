@@ -1,50 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208103;
-	b=hziLKZXyeitSBxACzgNVpwNjze2m1Npo48REx3SNCGpaC7ZKger0jYocrVja3CBhs+4g
-	 c1DYmSUx/kEV5A7RJBi16y72tpBqAXbRo5MyDwcK5lP5Fzr0xYuODYnCrcNsYBQVvq4BP
-	 +39Dug9DcYb4xZx0sxB7dNTnwFZbqFlnw+UV1UXV82Hq/nWD6YnFX6cwTucsThOjp9XKs
-	 5g6Ngm8SunTBOgXXbSjhcjMuRHzGk6n7fwZvGot2tUOOauYHPdamatT/LulzmNYs7RdDH
-	 rIl3F0M/HHvTACVMRTzpeC0wk6AxdPLzlHIkuRHRuqOcCOSpPCR2pnKsg5jQR7sTCNQ==
+	t=1793208109;
+	b=PsvtX4USKYkc88v4NqIuGA3plAPJLSW1IIz+J1ONv2NKi1Ky3NwBDzQyqm3CyWqWLSH2
+	 FEuAc0O6q8Zav3aVl138vx37NYPliQ9potNzHVuFo9+TUA8P0mFpFe0ts8Cy4XK1k/UzO
+	 AlNX6DNhk2Bo3skNIkFkZ4Uso8gAcpYAV8bQSPwfbhxsf9h32GYfMY6adgvLbrdKFHN1A
+	 M19FZpYbuUoEfA8jzlwAlZxxB2dAO+MCTyWp+dGUnSVVoL+oI8MmRQkIcJlHBsWUkMJtp
+	 L8HgaKV6Q74Vg42l4VJVIIyKQQsHzX6Dc2nAzfyLKlY/fM2rdAVLuWlTBcYXdOdA3Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208109;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=O0/50c/aGoV8+M4BiCySUhNWirk2xtS/tgdDYZaU3oY=;
-	b=NGXc20h9mT8hnNouS8qQFt3kYUGrTMKH4xCPN/3nqVOXnTv6/w+0TC+sd7FH+BceWOhr
-	 iV5hfIvvpHL2hDdcQ8LyQlSZWNOZGW+HaxB1LIWv8bIDp2GPp1JkAGY0V+o2aRavX9w/D
-	 oFA+37KtmmPzH/iqqx2nFolUS1Hy3KNSwADcuhYFNMa0QJF2j5bQ4SLpWj7EtB8+E8eHy
-	 NFny+5agxq1wG9dAArOMU52IDao/0UZs9pGa2k4rfX7C0x7ks7TS3QE7/DGitDewv1mSX
-	 utw71TP75HyN0rNkF4Zqe8/JtWaT/BRn9LH6W+dEQ8yvxmCNPJs5FB4Dzle35N1VhPg==
+	bh=2v7xeNzQ4URpmVMkdH5zrGtD1YVBag7gTHV1iWUfRRY=;
+	b=vU5Ig27XUBhHREbz9VoWifbLYs6cT58JyIZny6G+LXhYI880bCC0SYiF/NwFmSuIErsZ
+	 JnVurxSnd4IEW1z+/JOwVbkJDAnIjZNbRnobOUabmITnY6hjUHXOQgV5haLDQemDf33eH
+	 vrZh5/pWeMcQLzusma6JYesmNaHPgNdUHYfbCp/kOaklCaYi6UNhf9DF+qPgE1b+w8QSQ
+	 03zytVbfA2QuQgx4g7ENquhZ0CAwz8Tz1UpjaXuvYR6Jy+hWC+pdutA+IoBxkheIuB04d
+	 p0nle71S18BJjN8O+sZYvb4WzV3QX+W8RZvcPMN7tH62vheyzv8dI7oRGgRl5U5Xh+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wKK6v+6W;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x52RHmEU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB88606A31A;
-	Wed, 28 Oct 2026 17:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750FA606A31F;
+	Wed, 28 Oct 2026 17:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wKK6v+6W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEBD71F01825;
-	Wed, 28 Oct 2026 17:21:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x52RHmEU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909451F01828;
+	Wed, 28 Oct 2026 17:21:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208103;
-	bh=O0/50c/aGoV8+M4BiCySUhNWirk2xtS/tgdDYZaU3oY=;
+	s=korg; t=1793208109;
+	bh=2v7xeNzQ4URpmVMkdH5zrGtD1YVBag7gTHV1iWUfRRY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wKK6v+6WVA+nbW+NLqpCp7nEnygcOa8ub4UcLWYQlIdeLZSOv5NE7kppV7h34R9v7
-	 ETVR5Wi8LHvoRMmkR9do14/4BsuAu4ns7xzvTdR4mQtrRddhbtwPTuIudO8jUy9hEj
-	 gBMHhydEc3mY7MOLoC3Nq2M6ufuXaxeoyF2ilTw0=
+	b=x52RHmEUQSe0hnxuX/xV0ROacvhD1qTfnAD94g9LRIxawRYMKRSSWBu03Yu3ZQZnJ
+	 G+kH+GLKf1s3R9hsyTm5AdHRcpTNE1zeAsAdjdb2xT7C7W/0Gp7otD0Wh1IigyhP+D
+	 EEpe6H8fiVW4mWa1LnI+fKPL2fd56FCL45ZKL0Fs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 6.12 224/247] io_uring/timeout: dont flush with the sequence behind the last flush
-Date: Wed, 28 Oct 2026 18:00:27 +0100
-Message-ID: <20261028165952.725765107@linuxfoundation.org>
+	Jens Axboe <axboe@kernel.dk>,
+	"Claude Fable 5.1" <noreply@anthropic.com>
+Subject: [PATCH 6.12 226/247] io_uring/poll: dont loop on HUP with multiple references
+Date: Wed, 28 Oct 2026 18:00:29 +0100
+Message-ID: <20261028165952.771621503@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
 References: <20261028165947.349197979@linuxfoundation.org>
@@ -68,50 +69,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Jens Axboe <axboe@kernel.dk>
 
-Commit 85f85d573ffa7772e1ad4504d0cec5113a5c5cf1 upstream.
+Commit cf1d5c9d335e2c673811da641531da82cb01393a upstream.
 
-io_flush_timeouts() measures the events since the last flush as the
-distance of the current sequence from ->cq_last_tm_flush. A fired
-timeout bumps ->cq_timeouts before its CQE is posted, so until it is
-the sequence can be behind the last flush, and the distance wraps:
+io_poll_check_events() drops down to one reference when a multishot
+request sees HUP with more than one, so that the loop goes around once
+more. It did so by subtracting one less than it had. With the cmpxchg
+that only takes the local count down: the exchange fails, the next pass
+reads the unchanged count, and goes through the same motions again. The
+loop then only ends once io_poll_issue() stops the request.
 
-  last flush: seq 100, cq_last_tm_flush = 100
-  Y: IORING_OP_TIMEOUT, off 50, target_seq 150
-  pure timeout A fires, cq_timeouts = 1
-  task_work posts A's CQE, cached_cq_tail = 101
-  pure timeout B fires before the flush, cq_timeouts = 2
-  io_flush_timeouts(): seq = 99, events_got = 0xffffffff
+Drop the extra references from the counter instead, and loop once more
+without trying the exchange. The next pass sees one reference, like it
+did before, and ends unless a wake up came in.
 
-Y, and every sequence timeout behind it, is ended with -ETIME although
-no event happened. Two timeouts expiring close together is all it takes,
-a completion with IOSQE_CQE_SKIP_SUCCESS after a single one does it too.
-
-Nothing but those in flight CQEs separates the two, so count from the
-last flush when the sequence is behind it, as io_timeout() does.
-
-Fixes: f010505b78a4 ("io_uring: flush timeouts that should already have expired")
+Fixes: 937d38dcacd6 ("io_uring/poll: avoid retry wakeup loss when dropping ownership")
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- io_uring/timeout.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
+ io_uring/poll.c |   16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -113,6 +113,14 @@ __cold void io_flush_timeouts(struct io_
- 	spin_lock_irq(&ctx->timeout_lock);
- 	seq = ctx->cached_cq_tail - atomic_read(&ctx->cq_timeouts);
+--- a/io_uring/poll.c
++++ b/io_uring/poll.c
+@@ -264,12 +264,14 @@ static inline void io_poll_execute(struc
+  */
+ static int io_poll_check_events(struct io_kiocb *req, struct io_tw_state *ts)
+ {
++	bool again;
+ 	int v;
  
-+	/*
-+	 * A fired timeout bumps ->cq_timeouts before its CQE is posted, which
-+	 * leaves the sequence behind the last flush until it is. No event has
-+	 * happened then, see io_timeout().
-+	 */
-+	if ((s32)(seq - ctx->cq_last_tm_flush) < 0)
-+		seq = ctx->cq_last_tm_flush;
-+
- 	list_for_each_entry_safe(timeout, tmp, &ctx->timeout_list, list) {
- 		struct io_kiocb *req = cmd_to_io_kiocb(timeout);
- 		u32 events_needed, events_got;
+ 	if (unlikely(io_should_terminate_tw(req->ctx)))
+ 		return -ECANCELED;
+ 
+ 	do {
++		again = false;
+ 		v = atomic_read(&req->poll_refs);
+ 
+ 		if (unlikely(v != 1)) {
+@@ -331,9 +333,15 @@ static int io_poll_check_events(struct i
+ 		} else {
+ 			int ret;
+ 
+-			/* multiple refs and HUP, ensure we loop once more */
+-			if ((req->cqe.res & (POLLHUP | POLLRDHUP)) && v != 1)
+-				v--;
++			/*
++			 * Multiple refs and HUP, ensure we loop once more. Drop
++			 * down to one ref now, so the next pass ends unless a
++			 * wake up came in.
++			 */
++			if ((req->cqe.res & (POLLHUP | POLLRDHUP)) && v != 1) {
++				atomic_sub(v - 1, &req->poll_refs);
++				again = true;
++			}
+ 			ret = io_poll_issue(req, ts);
+ 			if (ret == IOU_STOP_MULTISHOT)
+ 				return IOU_POLL_REMOVE_POLL_USE_RES;
+@@ -351,7 +359,7 @@ static int io_poll_check_events(struct i
+ 		 * task_work while we were executing it.
+ 		 */
+ 		v &= IO_POLL_REF_MASK;
+-	} while (atomic_cmpxchg(&req->poll_refs, v, 0) != v);
++	} while (again || atomic_cmpxchg(&req->poll_refs, v, 0) != v);
+ 
+ 	io_napi_add(req);
+ 	return IOU_POLL_NO_ACTION;
 
 
