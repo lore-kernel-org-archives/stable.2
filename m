@@ -1,61 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164254;
-	b=alnwntjOt6vsBo3pqmjiwvMorsaDke/Wt9pVkWouiQjYcvnafNW0YlP00De/QJtdfhM2
-	 X6Xw52PNcmL560cUA7+6mTEdeA921KFlXx1m+O0J5kUreRbAVEwZ715KVE7MtNowJKGzS
-	 WP2xpnW7k23LAfGpeR6ZH9f6WFTfUPKsrJd8L1mCRVN/rLUbJWDqoRIYu9xbdtbFcaNZu
-	 5GUO3ZlZcMvhcdqgii28+SuW9E9o/X4PGrPbwqxhkmXFo9TXJdrMLT1ikYpaCSwuby23f
-	 TlG9woKEHbS9NZuv78fowpfshm8UatETzjtQ5jUpMyLWlv90DfnEsAM0ux+t6VgKx4Q==
+	t=1793164273;
+	b=MS3bQdqcmInpES7IrWFRSnoGonyHTl6Ge1YHZWYIDHvdr+O93Texl+5kJsaOFKNT9iAI
+	 hwYXLl8HvQWEXmnU0PXDZity5muZ0UTkWcGhokwx8QJkS+8phpdHUS2kZHVoOfvn6eChT
+	 emA+vU37W/X0+MAZJtuvELN9+TLiSIOQz+8nf4YjMQNq798BBO1iDcDBIbtzyBXHJm664
+	 f/goq0ISt/2Ovxa63DOhcYN94NSL40LzOh1S6UMD8AAGkWsUHmA1XMou+vV+BPNus9NYV
+	 PwuMw0aJfvjQ1CKKF2+k0Lb7yrXMc9/mUxOfBDi1ecsUe+p8ea7hel0s9D8n8kwzdog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164254;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Qle6PKpbLiG+C4WiRNBNTT2whjds2n+JexlNVDlzam0=;
-	b=FYWG4yojy2gZUUYM6L0AtaNk85YW7b6Xy9hb0J9DO91FmgpOJ0gQVZwqVVttiB/Wogyy
-	 8PyFRKSFXW0l7PABr309cvyrvLiXA7AT83QbVxSPmw/tHKTlyTPDck8nCSehfaqI/HiRt
-	 0Ba69avLdKXnpGX+YbvwJ0hpepIO5481LdarJevsP/4ZHxsMc/zcVnwZDR7QAHmf2yafW
-	 /QWIaAaG+ONQu0pGDKlRiguG2o5DYdDID/MpXUmDj1quthG1ClLO9SziIg+6Mx18PfrLi
-	 Aw3L2kjeO09Si1X0ybMr89f/YkchoB/ieBDiKU9OL0cCXF9+0OC1dXuqkDggrKzotDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164273;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3pS9CAQrAJLVnQcJS9FSWP6kxBvqhToAiMsGHORpn34=;
+	b=uLjq/EM/NfhXjsjF8QZv6CKqNUNxg2kkEUnDvXXD89hQuGt672xTdMLg5ldTyPY2Bsig
+	 GpFaoQfEjkAIpnrWYEVjde5tzXTuNuMiaJhe8x5qJ4ewKeZ3JtH4FJKrKUNuEo8E8eRwS
+	 NcL6q/Z3Wi/aWPXZnvVUJVB7UwLGOISB9AMA5MpfGmRcUmqii6DZ82B+wwT0ljeINfWKm
+	 bWeJCqJn0lf/AhjXzZTOyhSAZxRR5dnoJ0uRDW+jG1h1XsnIPOTnSEt0m5Yrc2+3zeojo
+	 cxLdasNErze9DLiwYsz7yGUNhJdWB7dSZ7lW1QbyysE4FZo2+8v8MWJymGUshiYa5eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ChhhHpem;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PM7+JxHl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974B6606A31A;
-	Wed, 28 Oct 2026 05:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 974B6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87700606A31A;
+	Wed, 28 Oct 2026 05:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ChhhHpem
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ql
-	e6PKpbLiG+C4WiRNBNTT2whjds2n+JexlNVDlzam0=; b=ChhhHpemiPhjJ7QdbR
-	YocXYpYfTKGORXS+QOP/QukFFZn7tY57629/AghK9OpvcNEugXZ6wZML9MZp31Sb
-	rNLNiZFAjc965gH/azNwvhuTLa/WQdWqe9kZEUFej4SA8S52MTrR/vJ/M98/KuV0
-	3BykzNdqsLVIsDfzEzFC4f29k=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3f_nFg+Fq9cgwDg--.58935S2;
-	Wed, 28 Oct 2026 13:10:30 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Bhanu Prakash Maiya <bhanumaiya@chromium.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Prashant Malani <pmalani@chromium.org>,
-	Mark Hasemeyer <markhas@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 1/2] platform/chrome: cros_ec_uart: check ACPI companion before use
-Date: Wed, 28 Oct 2026 13:10:28 +0800
-Message-Id: <20261028051028.142416-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PM7+JxHl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0B71F01828;
+	Wed, 28 Oct 2026 05:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793164273;
+	bh=3pS9CAQrAJLVnQcJS9FSWP6kxBvqhToAiMsGHORpn34=;
+	h=From:To:Cc:Subject:Date;
+	b=PM7+JxHlWTwo2Ik9zg/BlT5FVYX/ie60vqdCZjcrhWFWWzCyH6ykp93wUbG+o75oY
+	 Gw4ehDJsaYvSWssTO51ia3ZeKLh5GLLECO+RywpdBtah8+lTKRGi1sPTl831Oh5lYI
+	 s9xLvllWJrbMj41XwUYMZM8HA01P/b4u8j402n6/HSWn+IxVMJz6pzrxV62U0gGEd2
+	 v2w7WQEu+DIORlwX/JNamAzGpntaT1sfC2kt7UlYqHnt03DJwms9HUGsa9TQoMABxM
+	 SxfsPp3KrIXD86L5mFA2JA0QIFA4RQeRIZDHfP8wFqy5D8ivgigHHXgmzDOwPW+2RN
+	 3/zasmou6Hcdg==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.1.y 0/2] mm/damon/sysfs: fix pid leaks from wrong error handlings
+Date: Tue, 27 Oct 2026 22:11:01 -0700
+Message-ID: <20261028051104.154232-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,46 +61,22 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f_nFg+Fq9cgwDg--.58935S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWkWw18Xw48ZF1DAw18Xwb_yoW8Gr17pF
-	97Ka1DJa1jgr1kGw4UJw4j9FWY93y2yw4UWFWxZa43Aw45XFyUtFyYya90yryFy3s7KFy2
-	vrWDtF1UZasxXF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uv38nUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgYlX2rhg8YI8wAA3H
 
-cros_ec_uart_acpi_probe() passes the ACPI companion to resource helpers
-without checking it. A serdev force-bound without an ACPI companion can
-therefore cause a NULL pointer dereference during probe.
+DAMON sysfs interface can leak pids due to wrong error handlings.  The
+issue in the mainline has been fixed with code refactoring.  The
+refactoring is done with commits including 7114bc5e01cf ("mm/damon/core:
+add cleanup_target() ops callback").   Porting all the refactoring
+changes to old stable kernels will be challenging.  Hence submitting
+this non-mainline hotfix series.
 
-Reject devices without an ACPI companion before parsing their resources.
+SJ Park (2):
+  mm/damon/sysfs: put target pids for damon_start() failure
+  mm/damon/sysfs: put target pids for apply_inputs() failure
 
-Fixes: 04a8bdd135cc ("platform/chrome: cros_ec_uart: Add transport layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/platform/chrome/cros_ec_uart.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/damon/sysfs.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/platform/chrome/cros_ec_uart.c b/drivers/platform/chrome/cros_ec_uart.c
-index d5b37414ff12..779aabd16674 100644
---- a/drivers/platform/chrome/cros_ec_uart.c
-+++ b/drivers/platform/chrome/cros_ec_uart.c
-@@ -223,9 +223,13 @@ static int cros_ec_uart_resource(struct acpi_resource *ares, void *data)
- 
- static int cros_ec_uart_acpi_probe(struct cros_ec_uart *ec_uart)
- {
--	int ret;
-+	struct acpi_device *adev;
- 	LIST_HEAD(resources);
--	struct acpi_device *adev = ACPI_COMPANION(&ec_uart->serdev->dev);
-+	int ret;
-+
-+	adev = ACPI_COMPANION(&ec_uart->serdev->dev);
-+	if (!adev)
-+		return -ENODEV;
- 
- 	ret = acpi_dev_get_resources(adev, &resources, cros_ec_uart_resource, ec_uart);
- 	if (ret < 0)
+
+base-commit: 969f73b24b91eb0b5042d4d7b26b4bece1f27d18
 -- 
-2.34.1
-
+2.47.3
