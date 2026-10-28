@@ -1,54 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190595;
-	b=0M/A1NS7E+VxOVoLf1jAaNBB5MaOrtTgaGh/JqwBLqjZXZN+3Z2fPUIrnNRMlgATlqGU
-	 KmLj8kZM4wqmCmD7BIsk1x18fszLiKmD6HyDdtyFrJL2sdXt4Qe7WEYbNSW3Z1ueC+9PN
-	 MN9urIOF8WhUIzgnvqc8Npx7zlgmM2o/XgvtvT0/mVg7HfNl1BG3dTOCNdEV7dXOI7WUb
-	 hG8BwQ2YfeEs1NM3Aog/cG3l8xkSFnGUE98P9LqNJ8hRbrz04WZ/epni9WtAy3m/A4ipj
-	 PE7fEtyU+jlPy2RUUyOU3aorY2slya3AcOsLL/fsM+x/U0M9wVv4ebnuJcFmnrnNfkQ==
+	t=1793191415;
+	b=mhhWcLqlZh9wTBa0LstNpuXUOOhkwyC7aygTeH1z0BQrRx3IVjJ3ymdHEUd228nhq5iK
+	 zaQioY7kMf+FDv7FSKxF22mIA+GMjh+CWl5vrL+zXOZ/2GVoGmPmCQkD2wawgqhkobp6z
+	 G8jn4Fu3l5EH9j2kmGrrwsjDZ2sEbXvVtUsUcy90XILQ32AM7+9y0dCPv/gKWW3WitE7i
+	 xAj5UtkbJ3NoZ2e/rJ9iHK1ZZ3yralE8rmVjt1N2g8vzdJQk1KV55spOUWNfKQBdlk+3l
+	 IxfgEVqhsoIFOeYFe7IWtRxTdOf/brzCwPJ9578HOHpQiLXk0ZhTILHmd13Di1Nj9yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190595;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191415;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=QQ6ryj6wxEaWrQOLX8GVV94I03IXi50AK/ppVCfDOCY=;
-	b=L0ogVIrUrxBQMnGg/td7mQ9Rd1XVbKzek3cpqNatTT3UryhrMg2lXd9c29rd14/E10G1
-	 1a3h8tAnvwLc3yn7qGFyc83viZuJedfcR9qa4+7mDVDHzosTiNsGeQdT31HzcZJpFedLW
-	 yo1+7+64RJ/qv40xMMRRVnzwZglAPqqkmQRmvpMEOFLjuPFyaGOC20snQzBEUK0ZRuMCH
-	 gBzpAphpUYj6MNQdunhm7wmzLuVs6a0Ngw4pIWkw4zkBJk4H4NYd7Tff6MIRbAmU2kj0Q
-	 CCPCixTcY1VF+pCkiSwsjhBMSO1U6iSYp3RbI5VOrwlOTFbi76S/umyThSzD8Ffu1sg==
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=SIZVjq4hJ3t1VQV9XqvU6Y6r776YU0NJyxVEAhuGGa8=;
+	b=tp69eaGXm1j9a3LGt+psgTAYZaVy8L7BEECQhdunQqFTQa7E/jtDh/y4UeR8I6vajHtw
+	 siXsl9BVeN7kkLFS0Y1NYgrq/hbZWUlfAeFvQG+dkeFwq7GBI3fRKwD6ANI6NsF4H2QFd
+	 X8sPiqlXdVl4acpp3gUwF8jE9sv8Vh/Hq/wLihl5k6gDKmzc8q7Jc0Aqy6CtMyXddO8Di
+	 L3n95cXoBPt0gd6YTLRYLtt3VELvABZX4K39fElNcf1MlQ1DWCWOAKdV/T8Kw7iC6uzJJ
+	 HSi1WR7zR6NDDuf7mQJl4Hrqaye4oXGE7SRAHmKG0K7TtDJFIFbw1zt2cX7mW59qpdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcSffzHM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DVvoiYFN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FAqoZbGv;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Cf2Osd4z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=p9+PcCPJ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580CB606A31A;
-	Wed, 28 Oct 2026 12:29:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1413606A31C;
+	Wed, 28 Oct 2026 12:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1413606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcSffzHM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC151F01825;
-	Wed, 28 Oct 2026 12:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793190594;
-	bh=QQ6ryj6wxEaWrQOLX8GVV94I03IXi50AK/ppVCfDOCY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XcSffzHMfjKyFtwnFYsLgam+DiDOpjLX31Q8yYPac8tTrcoK9IP/hwDyoklAQlYUL
-	 9I2a7znKpOvK2ysVTauJCS+lsZDdVfRlrp8upFETyQCAxJwl2JMw/CSmujG4KaoeUz
-	 LlssXLETM5jcZgLRBRKoXT2RgkDYJ9KPJFDzvkXOI4VUPQiHsZN+5jVv7busSlFilR
-	 uN6n5t/jeAUQpfN1Zv/3eGIwJhARt1+Ne1c9myAoTZ3LqZnDuouBEvtBB+B+60qnQ+
-	 t6ukOqpw7OF8GPMOVh5ryjishjN8XEixUb1TUC6VvXBa2lw6DWHIIr09lA/Jk1OaZl
-	 JFjKhSoTVf4nQ==
-Date: Wed, 28 Oct 2026 12:29:51 +0000
-From: Lee Jones <lee@kernel.org>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DVvoiYFN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FAqoZbGv;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Cf2Osd4z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=p9+PcCPJ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E20FE1F7AF;
+	Wed, 28 Oct 2026 12:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793191413; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIZVjq4hJ3t1VQV9XqvU6Y6r776YU0NJyxVEAhuGGa8=;
+	b=DVvoiYFNHh5XTFT1JwNGFQl49KVYetJWc7meB1CHoaHnT+LPC0mbUoAnDEIpZEQrbSEHsS
+	FvEntye5b12nndi70rfOOOBbV1Stui2APdvxUAAj95hL5JxdUyEmRiPV3GSo9X3Ltts95x
+	qV2N1A+6Fzw56utZ223yUEqcsWGEiTs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793191413;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIZVjq4hJ3t1VQV9XqvU6Y6r776YU0NJyxVEAhuGGa8=;
+	b=FAqoZbGvZaKzPhXAkP6jX5bf/4TMMTqW4k2zUaSfpzbzD8NQPyZoMFDswfnT9emRo+Aj5w
+	KVUQCY8EAOL+bXAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793191412; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIZVjq4hJ3t1VQV9XqvU6Y6r776YU0NJyxVEAhuGGa8=;
+	b=Cf2Osd4zyVG7l6XYjmWmttp3P+ahTrSv9HT3W3msjARcHfAmKuajToUZqb4RRCOKnW1Zik
+	wPTT1/MnJ4/dVnkN89WxELP0Alff01WggTTtH25XTS66mkwjMqt+ru2y0sRG5FzCaoEbxc
+	6w1ND0zMc4PEGkv/GX4wZgk6+iVZyRY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793191412;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SIZVjq4hJ3t1VQV9XqvU6Y6r776YU0NJyxVEAhuGGa8=;
+	b=p9+PcCPJhGehydbjM2LDrQmjdW4NIlHsU4oPUukpcTl/iLExPoPe1fBvMQAUHM6ukWW7O2
+	NL4NDdQbXtnY6kAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDC9F13419;
+	Wed, 28 Oct 2026 12:43:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DdBgIPDt4WoWCgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 12:43:28 +0000
+Date: Wed, 28 Oct 2026 12:43:27 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] leds: tca6507: Fix use-after-free on unbind
-Message-ID: <179213356828.2581328.5085333261240588869@kernel.org>
-References: <20261015144033.56519-1-danishkhateeb03@gmail.com>
+Subject: Re: [PATCH 13/46] mm/huge_memory: fix truncate racing with PMD
+ zapping
+Message-ID: <auHt3OOD7lFwVpCg@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-13-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,116 +137,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015144033.56519-1-danishkhateeb03@gmail.com>
-X-AI-Review-Draft: <20261015144033.56519-1-danishkhateeb03@gmail.com>
+In-Reply-To: <20261027-fixes_core-v1-13-6f74bec9a5bb@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[65];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.80
 
-On Thu, 15 Oct 2026, Danish Khateeb wrote:
-
-Please review, explain or fix the Sashiko review(s).
-
-> Since the LEDs are registered with devm_led_classdev_register(), they
-> are unregistered only after tca6507_remove() has cancelled the work.
-> Unregistering an LED that is on turns it off, which queues the work
-> again from led_assign(), and the work then runs after devres has freed
-> the chip:
->
->   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
->   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
->   ...
->   Last potentially related work creation:
->    ...
->    queue_work_on+0xb6/0xc0
->    led_assign+0x223/0x340 [leds_tca6507]
->    led_classdev_unregister+0x26b/0x340
->    release_nodes+0xb3/0x140
->    devres_release_group+0x247/0x470
->    i2c_device_remove+0xbf/0x1b0
->
-> Set up the work with devm_work_autocancel() before the LEDs are
-> registered, so that devres cancels it after they are gone, and drop
-> tca6507_remove().
->
-> Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
+On Tue, Oct 27, 2026 at 12:17:33AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
+> If this was the last mapping, truncation can skip unmapping the folio
+> and proceed without waiting for the PMD lock, racing with dirtying.
+> 
+> ifs_set_range_dirty() can oops if MADV_DONTNEED races with
+> ftruncate() on XFS, when we get the folio set dirty after it was found
+> to not be mapped anymore.
+> 
+> Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
+> matching the PTE zap path. This keeps the folio mapped while updating
+> its state, so truncation must wait for the page table lock.
+> 
+> Fix generated by an LLM and sent by Chris Mason in private.
+> 
+> Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
 > Cc: stable@vger.kernel.org
-> Acked-by: Andrew Davis <afd@ti.com>
-> Assisted-by: LLM
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-> ---
->
-> Notes:
->     Changes in v2:
->     - Move the new include to the top of the list, where it sorts
->       alphabetically (Lee)
->     - Drop the comment above devm_work_autocancel() (Lee)
->     - Add Andrew's Acked-by
->     - Link to v1: https://lore.kernel.org/all/20260926172115.543800-1-danishkhateeb03@gmail.com/
->
->     Tested in QEMU on a next-20260925 KASAN kernel, with the driver built as
->     a module and a test-only module that adds a fake I2C adapter and a
->     software node for a TCA6507 with two LEDs. With the LEDs on, unbinding
->     hits the report above (38 reports in 20 unbind/bind cycles), and so does
->     unloading the driver in 2 of 3 runs. With this patch there are no
->     reports in 20 cycles or 3 unloads, and the LEDs come back after each
->     rebind. A W=1 build with GPIOLIB is clean.
->
->     v2 was retested the same way on next-20260930: 39 reports in 20 cycles
->     without the patch, none with it in 20 cycles or 3 unloads.
->
->  drivers/leds/leds-tca6507.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
-> index 9afe2722986c..0f987e551f03 100644
-> --- a/drivers/leds/leds-tca6507.c
-> +++ b/drivers/leds/leds-tca6507.c
-> @@ -71,6 +71,7 @@
->   * not recognised when matching.
->   */
->
-> +#include <linux/devm-helpers.h>
->  #include <linux/module.h>
->  #include <linux/slab.h>
->  #include <linux/leds.h>
-> @@ -735,9 +736,11 @@ static int tca6507_probe(struct i2c_client *client)
->  		return -ENOMEM;
->
->  	tca->client = client;
-> -	INIT_WORK(&tca->work, tca6507_work);
->  	spin_lock_init(&tca->lock);
-> -	i2c_set_clientdata(client, tca);
-> +
-> +	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
-> +	if (err)
-> +		return err;
->
->  	for (i = 0; i < NUM_LEDS; i++) {
->  		struct tca6507_led *l = tca->leds + i;
-> @@ -766,20 +769,12 @@ static int tca6507_probe(struct i2c_client *client)
->  	return 0;
->  }
->
-> -static void tca6507_remove(struct i2c_client *client)
-> -{
-> -	struct tca6507_chip *tca = i2c_get_clientdata(client);
-> -
-> -	cancel_work_sync(&tca->work);
-> -}
-> -
->  static struct i2c_driver tca6507_driver = {
->  	.driver   = {
->  		.name    = "leds-tca6507",
->  		.of_match_table = of_match_ptr(of_tca6507_leds_match),
->  	},
->  	.probe    = tca6507_probe,
-> -	.remove   = tca6507_remove,
->  	.id_table = tca6507_id,
->  };
->
->
-> base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
-> -- 
-> 2.56.0
->
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify comment and description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
 -- 
-Lee Jones
+Pedro
