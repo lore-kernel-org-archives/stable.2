@@ -1,60 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176522;
-	b=oE9DjovDAVz0PPazeFclk/WdQM5C75pkNTwC/mGnRkOm+6iqZ0QB5aVA17sXz90fUhLq
-	 n/WlT2YABobpzZU5gw0nsOTraJVa6AdrByrdcW1j4XhDOZZcJRNTU4jPiRREi64pAHpGp
-	 t6/AMwFCHsmVHFfLXtmbDW7nB4xQeCzF/NUoqrHQ28tvNcagd2dVPyi0EbYf8w2lrWcKq
-	 7B0VspjQdXEyptEcbrhU4Y4vB30KBn48J8S0m14onU+XcrWLeqrvRn+N8JjZj+v9IqrVA
-	 odqzHqUYcS9AAPc5DH9cSTqGtiwU08sNKEAIYp3W/BQxjaAPKDOQuG0qHmVGof3O9ww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176522;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HngzdtMkaQYMbxt2oHzsqKb38Y5j6eD3ic4/a/KrYdo=;
-	b=13EV3p74lA1O10g80A2B/gbJeZeN0BhVPrG9o6RagYSVy67y7FJZ2uBtAWh9Wunw4tpF
-	 ayu2FfPlR1KWgfvC/pRBXzD+J5aShdgW5205n3NLTalVt5uy7caQraBhRiRaq88bpNl98
-	 KwWe+bfvRgG0ZL074Buf3D6E8o/zpb1dLZ8NjcurxWpijcXCb+UXMtHT1Dp3W6rtcxjZU
-	 1ltcGtVeSeN7QfuyY9nvCQBNlUHnNfe7SFQiF7wP10ORL6Wf+ftgE7y9rd5Wr6zwSzJpI
-	 hY+YefDjHrGikWUtkdAB1mnvbPAxIzbDcEvY1q+PDaqmJKSFIY+KrAwYC2rmGXFMbwg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=avh7A5Ax;
-	arc=none smtp.remote-ip=109.224.244.20
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793176721;
+	b=jU82OLwRKGj/TgQLsNi49WwY6mAyv3dmcLr6+eWbOxDvT6izwCdZtqCb88qcUvtcICC0
+	 lGWfFcDSNCLe7zSKo/p37y5kmXVWWq6R1BU2DX2y755xk6Z6boucFKO0cNqqz6XNZLV2L
+	 Kp9z0JcioMTB0+16PFFV2CgYcTVzMC6gOBZpZJgdbQQPgnHnNcX38dLgEh/HpDw4zAym0
+	 OpUyVRYWAJ0CTkulA3dVFallXdjbycptLO3D7uwPZItBbv7x/2G0pDTK3mNXL6q7nxEJ2
+	 sX1/gEdUzTDJ2sRSHN0yE5P13vvJe8qrK6JaI8PE4I/PZQXueid8AnFwAH9U7k5Yb1Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176721;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=1gywZxlpWGndBQM7MP3+EjDp0EUbAB/bK9OtVP3toZs=;
+	b=iefXug9XVBoazJmLd9mDgVjQUo3i6MOeqXbcCCAKXFZ89je6M1lJEJEBxZV7pn3y+M4i
+	 QHSURKgL8c+Y82agO7NiTSQD4cfjK7sQej/kc8ZUp/fslpvDH7H4gC9nyoyHqAT0rLn2Q
+	 lY0MgBgxvsCDV13tSdGoBXDSaMCYISmUqDdeDbcdKEK+NKDnQT3u877lmVziU4lo2MQyK
+	 Iuk6fdpkki9+jOyBseEeyb7jQ9UZYbIDNcqAph5IB5pbAIuvsGmWSTi1z9s4AnodfudtL
+	 xvYlO7xOOhHYEP6XDbmuaXK6QKOy1CNeF+HKRpjyK7BhX7F4M/8p/3+itkZgPhXTTUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZNH2nnkV;
+	arc=fail smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD36606A32E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 08:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD36606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E959606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 08:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E959606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=avh7A5Ax
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793176519; x=1793435719;
-	bh=HngzdtMkaQYMbxt2oHzsqKb38Y5j6eD3ic4/a/KrYdo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=avh7A5Ax0jWQ66VAFqlx/uTUK5s7ru3RsqJ+yVCJcFAx3EB0LpRvXfcZJr6EgFqcB
-	 mTQvvo7znYeGaPbzG/9FRrmaTSTKXHZzLfs9QHPaUMX/KA8NHiCDW/GHmKtoOpjAmX
-	 2i041iR13+F3x/KtPjsevsTYkoFGCx4X0G7hE0JK0jHkA91eCDCQDiOVnxmmAzN2Hk
-	 K/YT3r52EMgWFF0tOVjMV8886NxSWpOEWyT55Zn96epFm9arB6+NSbR0+de54p9gZP
-	 7Q9Xhit8EN7YdygrGJRPcYaCoO9y4NG3a0R5iHXcaQVnY8nM0HobZxE5dBHKzstQO8
-	 Z47wZFxjynLmg==
-Date: Wed, 28 Oct 2026 08:35:14 +0000
-To: intel-wired-lan@lists.osuosl.org
-From: Paul Moses <p@1g4.org>
-Cc: netdev@vger.kernel.org, anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, vedang.patel@intel.com, jithu.joseph@intel.com, maciej.fijalkowski@intel.com, andre.guedes@intel.com, aleksandr.loktionov@intel.com, avigailx.dahan@intel.com, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net v3 2/2] igc: fix AF_XDP receive buffer size for 2K UMEM chunks
-Message-ID: <20261028083344.3047350-3-p@1g4.org>
-In-Reply-To: <20261028083344.3047350-1-p@1g4.org>
-References: <20261028083344.3047350-1-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: d759728150bb8cbe67e82d639351f824e9829844
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZNH2nnkV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793176719; x=1824712719;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=QQ9T0vs9AgXGjxHnwXirBz7/zHG+RX7vILqzcvjQe3o=;
+  b=ZNH2nnkVTD4dDRn37bPUc5+DpMuIjDNPUNz6EGe7qnjLxpUc8AqWttyM
+   V6uA9KrXjWsN2LallUgihi8k1UIyeyNymtlh2Rcq4gPH756y+kk5l5Kza
+   HW44ywT1MCzlOz+fe/bE1ivwLKQxjdmZr+12UkthR/kg21Ls9tDDWkmcd
+   ZFoU+PrlfbNvklpGYLjodq8JAYhZ6XMHOEQjrGMUCrhCUQrgfo7XyHFJ5
+   giwI9MMsh0Al2FKrUnoRQb7jpeP0W12Sxjh/Geqf7YZtGuJa6Vg61gZyR
+   jm2GFUlsqmaKtIM3BcIHe3IVyF6TsXnN02eu6ImDiToaoSGroY4JSWd4h
+   Q==;
+X-CSE-ConnectionGUID: L+oAe4uBT8+Iqkd3rDrJBw==
+X-CSE-MsgGUID: ahf+nPqVQnO7r/V5ovvQYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1878113"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1878113"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:38:39 -0700
+X-CSE-ConnectionGUID: O5IMUajwRECybc0oL7CGdQ==
+X-CSE-MsgGUID: 9kbWB+6iSk6/bPCfmj1/iw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4763861"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:38:40 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 01:38:38 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 01:38:38 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.43) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 01:38:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ijw+jOLbmQ+MB0L7nge1YgWKRRlXeBHPkxab1UFF5vrJstsDfPRFG34oJWBhEfm5vbqBJsrzlIVEVcqEYXtVgciWDe606D+cvxTCJ177NWoEQ9BxgqqK/lLI2m1zkqu77dyH6eQUp2iQSGBiyMXtVQtHJh9Y5dYjPHHQRASu7yHtiMi3IOCvDeqVNeLxnAgnnmEb+5p/NbMX19fotD7+G1dRkdt/apWVqzd/3qFpNPHHvoOyF1Zg1pkgLsrgc2OaU63i08dwEMkX+3ah4XOFdC/vIs8+70QSpAxAbnGkRFovmu0FlJ99BLqKGj7tU/QrMjonVdBNSiygNDVEGxFdIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1gywZxlpWGndBQM7MP3+EjDp0EUbAB/bK9OtVP3toZs=;
+ b=Vg/ygnMtoLIl0NLwI3UCJpCGb0B2bntcfo4eFB6XTawMtml3iqjxxDwGJ5xbP98jQyR82K1UGSniAjXhgdg+1EAvFxY95wiWv1y/liUdqm6punBU5nFe/3HigP7mgjnKcZfKtTyqYAfFQgKHW7DJqbwQpoLtnaPmOkJXnTTJ7tJoch+soA5wL2grV7yRlk0awTTrmxEj337nU9aWLd0T6uEd+dfPBTbWv/jcoT+LZvAroFaUjx8YXfpav4SdpdPCtgUUDYyT2tqzw70sKJNeOa7pZut6BNi7NIVXL1Q5nU0aTPNgY4hJChJNggrrdfU7FgnNzrWgbW2lmcDgo0GAsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA2PR11MB5035.namprd11.prod.outlook.com (2603:10b6:806:116::21)
+ by PH7PR11MB5793.namprd11.prod.outlook.com (2603:10b6:510:13a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 08:38:29 +0000
+Received: from SA2PR11MB5035.namprd11.prod.outlook.com
+ ([fe80::9418:cd60:8ece:69c3]) by SA2PR11MB5035.namprd11.prod.outlook.com
+ ([fe80::9418:cd60:8ece:69c3%5]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 08:38:29 +0000
+Message-ID: <94c3c16c-50ce-444c-985f-0fc0fb009242@intel.com>
+Date: Wed, 28 Oct 2026 14:08:21 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] drm/i915/display: Disable pipe joiner on WCL
+To: Vidya Srinivas <vidya.srinivas@intel.com>,
+	<intel-gfx@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, <stable@vger.kernel.org>,
+	<uma.shankar@intel.com>, <jani.nikula@linux.intel.com>, Charlton Lin
+	<charlton.lin@intel.com>
+References: <20261007072334.1801956-1-vidya.srinivas@intel.com>
+ <20261028070404.1913843-1-vidya.srinivas@intel.com>
+ <20261028070404.1913843-3-vidya.srinivas@intel.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20261028070404.1913843-3-vidya.srinivas@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0041.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:81::15) To SA2PR11MB5035.namprd11.prod.outlook.com
+ (2603:10b6:806:116::21)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,170 +137,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PR11MB5035:EE_|PH7PR11MB5793:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80753207-b4bb-46a3-bcfa-08df34ced74e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|4143699003|11063799006|261009223027099003|56012099006|10067099003|261021121427099003|261021123027099003|261022075727099003|18002099003|261026121527099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Q78eo37C6eYTxKG1I5jHjZHZ/C5SWEUnrnLdop9K6jJpfRyqssRTWaXbxlui4sib592+p/goc50lcjbhPuGMpyZ0h5EsGT3WX2yyv/JoPIS6Bwi0hpHmlUCPkXQKWYHGgvInUmcjgHplmvGl/t9WCSiVVX/UvLelfJirmbb6xNdAgjh/lUsTB4c+7KDC5WjwsHxJF0wpqJHDhGwvRNvKpSPoS0TpLeux3xQ8zeJe92YPtugDzdUIMAlCbBz/YrBUYQBFQ9/yhnkLZqk4WC7/hKVrlGTb/7ckcp8KtCmF0aTgG2QMBcqqvZ2AaXYMUC7PQEeKtaVISfogbwO8dTwBC2AQRQydlw2Q3AX74W91HUsfJsK/tggxmOEPog3zn0UCC/ZC68AGm+mQ3XTG4nF7Y4N3TDWxqpjHE69RSnF5bf/f3uaUkO//RAklgAo8hBITMNI6R5OsVY/fqzWu9saC0wHSYTHFyb5cQATakBszoIeKtp0SSkUWi3SBAyjYO+KuvK+O9fiavzzYU7Hlor/Spz0Tty9ssbe+edCtIAxFuENZ7u8RgPlNTVdCZG+FdGz4AS3gMOey58euwT3m+1DpP4Fbcdv7HKSxQ/OVaxx7280679DFm+Lfv6GZhRF3t1eSlDMI7jEbTnfL+GrqoZAH/VW3vQqTdQt+aInd5g8opXk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR11MB5035.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(4143699003)(11063799006)(261009223027099003)(56012099006)(10067099003)(261021121427099003)(261021123027099003)(261022075727099003)(18002099003)(261026121527099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0xSOUErYnFvMGRzTUQ3SDdGMHJ6bTZsR2xORDhLNXFSWTd6cjl0SlMxSG10?=
+ =?utf-8?B?czRpeEd1emM3VS9MM3BwZU1UcDZ5dU04eGE1WVByNmQwdmU2MDlsdlJ3UzR4?=
+ =?utf-8?B?R0MyWDg4Wkwvc21ySDRRTTBCa0JZVzJZY2ErMGRVOE9yOXQyclFvTzcwRzFr?=
+ =?utf-8?B?MGZiUXpTa1FjZTNUbnA3TjRZMlJ5Q2NReHBxZ2JkTlhYaGplUG91SEJGWmtY?=
+ =?utf-8?B?ZU1GNTRLbUhZdk92L3FLakNVMUsvVUVvWVpzbTRhbWIreVZnNVErNWEwS2VX?=
+ =?utf-8?B?ZDhpWEdQOEw4WUoyTDlpSURJVmpmM2FMLzM3RkhxYWZtSnFzMTQrSzYvODVn?=
+ =?utf-8?B?aUlra1BleHdQY0tBYUlUNHVLYStqeU50K2ZpK2t0QlpIOWFCTHNNMk85M1RU?=
+ =?utf-8?B?c2RNNlVBSU15ZTdPV05CZ2QrWWlUVm5zZEJNVU9BWk5ML1hCd0hLQiszWVlN?=
+ =?utf-8?B?MTNuQkpUd21wL3gzaFpORkVkcXhNUzljTk54TmVjY2VVZzhUek9SbEJoQ3g5?=
+ =?utf-8?B?eFNiM0NyTEhKRXRSN1ViZWpsaXBVelFxdkU2RncxdlpKUm5hYXJYdjhZK2hG?=
+ =?utf-8?B?YUlrR2VDWTNnVVRjcXIrNUpFQTg4NVQyNXhEUHFRamV3Z2JJZDNlOUVWc3FS?=
+ =?utf-8?B?VjlacG15MW1kRnJTZE8xdUhnWkVLeDV0OTJqLzFrN1pEVzA0NEY3eW1pKzdX?=
+ =?utf-8?B?bXJsU1BwY2o2MnhJdjFwVFkvSE9CL3JKc0ZjMVl4a1ZsZEpleXhscVMzeDRv?=
+ =?utf-8?B?bXNvT085WFI0dGtudUIrUWpqMDA3MG13WjduT21MRXk0VFc2SWNXV1VmcDdJ?=
+ =?utf-8?B?UTdCN3ZRSEFGZFRvRDYxc25TeDQ2Sk5jMm9IOStOSUxvQU9hTHhFUlJVY09D?=
+ =?utf-8?B?TjM5NFRJUkE1ajBUaW9uVTdzYmtKQzFtV3VpU2VwcGc0UTEyWTB6NWRWTEJN?=
+ =?utf-8?B?VmR3VDg3clFUdlZDZlpEVjlUQ2E0RXFDYWRwQ2pvU3ltYTBmNkMydWJJK1BC?=
+ =?utf-8?B?L282WmxZVUhYT3orV0s1NjBRVXJqNEJJOVRTOGg4VTg4bTZxZE04cjBIZ0cv?=
+ =?utf-8?B?UkMxK2hKVTBJVmNYcmMzK2NMWTBBb1FTbUVDZ1dSeU1HVkdnTFRWM3RXRnpC?=
+ =?utf-8?B?OTVPZ01LcjYzd1dIRGJHbUw4enFIdHJ5SlBCWEx3Z0hGSGJsQWloazV4eDdO?=
+ =?utf-8?B?amJONG43Ym92ZTdMWitXQS9XNTQ4UWdVTnVMQzZqamxqTkhMVTd3L05sbDk5?=
+ =?utf-8?B?QXN6bUUrcjd1bDJPeS9pSlRaaXFZV3QyUkpiWnUwTWhEdjNCZVFCS0J2MmJH?=
+ =?utf-8?B?V24xOU1qaGhpTlRQbHpMLytVKzIrVERLSHFLL0JXdlgrTkI0cmx0NmkySkFU?=
+ =?utf-8?B?alp2Qjg1Yk1iaDJrVWlvZUdMdTNmNmJ0eVJTdnFSNHVvdzYzcEdzbW9zM2JJ?=
+ =?utf-8?B?VTVBR3MyRDcyNkJsS3h2cHJWVXBrcXBlZGMwTzZaUDZrbldFakhDeWtFaXFQ?=
+ =?utf-8?B?dnVLeWhYS2cvT2JlTTNwWno5S1NjWDBTbGhUazA5R1A5YzJDZUUvVjk5elBZ?=
+ =?utf-8?B?RnhzaVRQVFhJTStZOHhoQTdyQ0IvQlByZjVONkE1aGppT1hOMXZVaUo5a1Ex?=
+ =?utf-8?B?NGs0ZHl5TUw2YzdPbWR2VTI2VERzSWhwRU9kNkZwMUplQW83aDQ4Y3FDa0dE?=
+ =?utf-8?B?amZWZjRHcTdGVWxPVGVHckRtdkwrb3hvMENxNCtFZlJJZUw4cUx5YUx6TXFp?=
+ =?utf-8?B?VHgxcENkOHFZbnloc2FpRGRCRGpyWDBnU3BXSnBQZDlpM1BJQzh1L2ZUS0pX?=
+ =?utf-8?B?SURxTVJETCsvQzBQVEY1SjRRYWtUaStnQS93bGZaczlUS2Q2WG5CU3EvMjV2?=
+ =?utf-8?B?TDBPZTIxSE9nWmtQZzYvSVI0R2dkWVlxUjZsWTd3aWZPS25CN05qVzd5SlZl?=
+ =?utf-8?B?UVBhT3RuRVYwSkhjVVJkS1Zua0xvSzhlOFRiZlpFa1ZabFVGZ0hpemZFRjZE?=
+ =?utf-8?B?ck4wemd5bEUwaWNpODlNSXRmbzliY1d6dUluWk5RZ05hcytUbUJDQWNBS1VD?=
+ =?utf-8?B?dUNhZGRwUldzYXpPS0RyTWxvbDBGUGFEWUFkVXhLd3ZxT1ovMW9hMVNMVi9j?=
+ =?utf-8?B?UW9oSGtRcTloTFl1Nmg2TWZ1SkJmalAzUGNBZXI2T3hQZjdIQktjTUVKaWZL?=
+ =?utf-8?B?UTMwZ01yclRObnp5eGV4WmVIaHdqTnNqU2tnZktwK3U4czdIaHBmcWQyYjhR?=
+ =?utf-8?B?a1JJMFI5NmIxcTVxRXYzRERiZ21xOE9oWWFVeHhHMmM2VWJDZVdlWDNUYVQ0?=
+ =?utf-8?B?WWZOcXN2ZVY0TkQxUWErNFZiYm5SaDlnVlA5SjNKdXhHZ3NlQSt2QVdwMGYr?=
+ =?utf-8?Q?08qTD3YmWHsCz4rE=3D?=
+X-Exchange-RoutingPolicyChecked: PVqOBfodAvO1UxkyHU9u5Cr+cFb2k94gMy7Cs6iyhHjsKyEiJ6RxL0hYMKvjVE4dsYBbeTb8CqVsMeHTF/OqHiDteDd/C/t5diOzP+6z8ny0uIWx89iWZJsDOgsKLpFYAFlRHYiUMMyI/zBMgO3ZZbHjubc8oSR9edVSDG9Gcif0Ic6OulBC2E2FW9F6q1iktz6071y/9csV7yqmEBV1e+rSKg+GikVuraokAZcHLzsQmGugTVDCqg0IR/MThzn+P3Zuydl4xNc3HDNx57RxCDaV9WockhvJuBj5E8/E0Pki4YRlKqYUsIeVRI/EEuvCCzBSEgk/3r98PMb/Vj/sGw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80753207-b4bb-46a3-bcfa-08df34ced74e
+X-MS-Exchange-CrossTenant-AuthSource: SA2PR11MB5035.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 08:38:29.5646
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V4w7YKUzmp+S90oadfxj6L695VwnKmrzKIlTo23idM554D6p7nTRPGynrW6BdHP7quzgxJSCsDEjvOZmiWBtQEjNwg0krjXwyk8T2vaYuKk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB5793
+X-OriginatorOrg: intel.com
 
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
 
-SRRCTL.BSIZEPKT has a granularity of 1 KiB. With a 2 KiB UMEM
-chunk and the default XDP headroom, xsk_pool_get_rx_frame_size()
-returns 1792. Programming this value truncates the hardware receive
-buffer size to 1 KiB, even though an MTU-sized frame fits in the
-usable UMEM area.
 
-XDP on igc is limited to MTU 1500, so configure a 2 KiB receive
-buffer for XSK rings. Limit RLPML to the maximum supported Ethernet
-frame size while XDP is attached, regardless of PAGE_SIZE, to avoid
-oversized frames spanning descriptors or exceeding the usable UMEM
-space.
+On 10/28/2026 12:34 PM, Vidya Srinivas wrote:
+> Pipe joining is not supported in the WCL display configuration.
+> Report no joiner support on WCL so that modes which would require
+> joining are rejected, matching the 4k 60Hz maximum resolution
+> documented for the platform.
+> 
+> v2: Rebase onto latest upstream
+> v3: Fix up the commit message
+> v4: Split the scaler and joiner changes into separate patches (Jani)
+> 
+> Bspec: 74286
+> Cc: stable@vger.kernel.org
 
-RLPML is currently programmed from igc_set_rx_mode(), which can run
-without RTNL, for example on an IPv6 multicast join, and could then
-use a stale XDP state. RLPML does not depend on the address lists.
-Program it from igc_setup_rctl() instead, next to RCTL.LPE, and from
-igc_xdp_set_prog() while the rings are disabled. This avoids
-netif_addr_lock_bh() usage.
+Won't we need a Fixes tag to tell where this change need to go to?
 
-Validate that the XSK frame size accommodates a maximum-size frame
-with two VLAN tags, FCS and the optional inline RX timestamp. Check
-against the maximum supported XDP MTU, rather than the current MTU,
-which can change after the socket is bound.
-
-Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
-Signed-off-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Signed-off-by: Paul Moses <p@1g4.org>
----
- drivers/net/ethernet/intel/igc/igc.h      |  1 +
- drivers/net/ethernet/intel/igc/igc_main.c | 33 +++++++++++++++++------
- drivers/net/ethernet/intel/igc/igc_xdp.c  | 11 +++++---
- 3 files changed, 33 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/igc/igc.h b/drivers/net/ethernet/in=
-tel/igc/igc.h
-index 17f213cc9..ad1062f85 100644
---- a/drivers/net/ethernet/intel/igc/igc.h
-+++ b/drivers/net/ethernet/intel/igc/igc.h
-@@ -765,6 +765,7 @@ static inline s32 igc_read_phy_reg(struct igc_hw *hw, u=
-32 offset, u16 *data)
- =09return -EOPNOTSUPP;
- }
-=20
-+void igc_set_rlpml(struct igc_adapter *adapter);
- void igc_reinit_locked(struct igc_adapter *);
- struct igc_nfc_rule *igc_get_nfc_rule(struct igc_adapter *adapter,
- =09=09=09=09      u32 location);
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethern=
-et/intel/igc/igc_main.c
-index 41b293dc1..6b418dc71 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -674,8 +674,11 @@ static void igc_configure_rx_ring(struct igc_adapter *=
-adapter,
- =09ring->next_to_clean =3D 0;
- =09ring->next_to_use =3D 0;
-=20
-+=09/* igc's XDP limits MTU to 1500; all XSK RX buffers can use 2kb;
-+=09 * RLPML limits the receive length to fit after UMEM headroom.
-+=09 */
- =09if (ring->xsk_pool)
--=09=09buf_size =3D xsk_pool_get_rx_frame_size(ring->xsk_pool);
-+=09=09buf_size =3D IGC_RXBUFFER_2048;
- =09else if (ring_uses_large_buffer(ring))
- =09=09buf_size =3D IGC_RXBUFFER_3072;
- =09else
-@@ -830,6 +833,25 @@ static void igc_setup_mrqc(struct igc_adapter *adapter=
-)
- =09wr32(IGC_MRQC, mrqc);
- }
-=20
-+void igc_set_rlpml(struct igc_adapter *adapter)
-+{
-+=09struct igc_hw *hw =3D &adapter->hw;
-+=09u32 rlpml =3D MAX_JUMBO_FRAME_SIZE;
-+
-+#if (PAGE_SIZE < 8192)
-+=09if (adapter->max_frame_size <=3D IGC_MAX_FRAME_BUILD_SKB)
-+=09=09rlpml =3D IGC_MAX_FRAME_BUILD_SKB;
-+#endif
-+=09/* igc's XDP currently does not support jumbo frames. Limit the
-+=09 * accepted packet size regardless of PAGE_SIZE so it fits in a 2kb
-+=09 * XSK chunk.
-+=09 */
-+=09if (igc_xdp_is_enabled(adapter))
-+=09=09rlpml =3D ETH_FRAME_LEN + VLAN_HLEN * 2 + ETH_FCS_LEN;
-+
-+=09wr32(IGC_RLPML, rlpml);
-+}
-+
- /**
-  * igc_setup_rctl - configure the receive control registers
-  * @adapter: Board private structure
-@@ -874,6 +896,7 @@ static void igc_setup_rctl(struct igc_adapter *adapter)
- =09=09=09  IGC_RCTL_CFIEN); /* Disable VLAN CFIEN Filter */
- =09}
-=20
-+=09igc_set_rlpml(adapter);
- =09wr32(IGC_RCTL, rctl);
- }
-=20
-@@ -4117,7 +4140,7 @@ static void igc_set_rx_mode(struct net_device *netdev=
-)
- {
- =09struct igc_adapter *adapter =3D netdev_priv(netdev);
- =09struct igc_hw *hw =3D &adapter->hw;
--=09u32 rctl =3D 0, rlpml =3D MAX_JUMBO_FRAME_SIZE;
-+=09u32 rctl =3D 0;
- =09int count;
-=20
- =09/* Check for Promiscuous and All Multicast modes */
-@@ -4147,12 +4170,6 @@ static void igc_set_rx_mode(struct net_device *netde=
-v)
- =09/* update state of unicast and multicast */
- =09rctl |=3D rd32(IGC_RCTL) & ~(IGC_RCTL_UPE | IGC_RCTL_MPE);
- =09wr32(IGC_RCTL, rctl);
--
--#if (PAGE_SIZE < 8192)
--=09if (adapter->max_frame_size <=3D IGC_MAX_FRAME_BUILD_SKB)
--=09=09rlpml =3D IGC_MAX_FRAME_BUILD_SKB;
--#endif
--=09wr32(IGC_RLPML, rlpml);
- }
-=20
- /**
-diff --git a/drivers/net/ethernet/intel/igc/igc_xdp.c b/drivers/net/etherne=
-t/intel/igc/igc_xdp.c
-index 9eb47b4be..a0f1ecb2e 100644
---- a/drivers/net/ethernet/intel/igc/igc_xdp.c
-+++ b/drivers/net/ethernet/intel/igc/igc_xdp.c
-@@ -34,6 +34,8 @@ int igc_xdp_set_prog(struct igc_adapter *adapter, struct =
-bpf_prog *prog,
- =09}
-=20
- =09old_prog =3D xchg(&adapter->xdp_prog, prog);
-+=09if (if_running && need_update)
-+=09=09igc_set_rlpml(adapter);
- =09if (old_prog)
- =09=09bpf_prog_put(old_prog);
-=20
-@@ -69,11 +71,12 @@ static int igc_xdp_enable_pool(struct igc_adapter *adap=
-ter,
- =09=09return -EINVAL;
-=20
- =09frame_size =3D xsk_pool_get_rx_frame_size(pool);
--=09if (frame_size < ETH_FRAME_LEN + VLAN_HLEN * 2) {
-+=09if (frame_size < ETH_FRAME_LEN + VLAN_HLEN * 2 +
-+=09=09=09 ETH_FCS_LEN + IGC_TS_HDR_LEN) {
- =09=09/* When XDP is enabled, the driver doesn't support frames that
--=09=09 * span over multiple buffers. To avoid that, we check if xsk
--=09=09 * frame size is big enough to fit the max ethernet frame size
--=09=09 * + vlan double tagging.
-+=09=09 * span multiple buffers. Check the maximum supported MTU, not
-+=09=09 * current MTU, as it may change while the pool is bound. Account
-+=09=09 * for double VLAN tags, FCS and inline RX timestamping.
- =09=09 */
- =09=09return -EOPNOTSUPP;
- =09}
---=20
-2.56.GIT
-
+> Suggested-by: Charlton Lin <charlton.lin@intel.com>
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 00e02e019d25..ef164a797618 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -485,9 +485,9 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
+>   			return false;
+>   	}
+>   
+> -	return DISPLAY_VER(display) >= 12 ||
+> +	return ((DISPLAY_VER(display) >= 12 && DISPLAY_VERx100(display) != 3002) ||
+>   		(DISPLAY_VER(display) == 11 &&
+> -		 encoder->port != PORT_A);
+> +		 encoder->port != PORT_A));
+>   }
+>   
+>   static int dg2_max_source_rate(struct intel_dp *intel_dp)
 
