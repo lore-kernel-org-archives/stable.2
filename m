@@ -1,68 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198365;
-	b=BXbbkP4y+qtdBXqGzfYjwppA/R1bogKl8dIMnuNPO6iZK3W6ZiXEqQ8mDkFaPuQGnniv
-	 dTxKQ8EkFIkO2ltWX815t1XXZDd3F4ERCrXIfRoVzqbTFJ1Lz8xPIXXEFMBlliPf+Eo/p
-	 eM6YENF569oKBPyMbbiV0pyrJd6c+UtH86HFNaYMR/+c5kacSYWb+sksOq5hHclNO0/ou
-	 Q87YVLVh9tA419e8t9Ds15lIlGTCGR7YG3hpjzblwAiYib01/i9lHE2NX4RUUCCsdMjSO
-	 S1ZmpqfHbcEA/c/g48PXslgSRYFtTpdJXIydCSej13tlpzESsKKFr03/0yDo3xcXTWg==
+	t=1793198463;
+	b=Vvatqms/7AkcGIwhAChQB7xdsovRvOptK4/kzTonqQBzElAO8/pSbpTpR3AhQu0quwc4
+	 dan/9VSY+Shix3P3dUu633prGev9HilFG1j4nkLbixFzQp6HprCw5YIM8tOvyr082yYhi
+	 VuBIs1oTgwMvUbg0WhP6pcfgElEGWQkUFGzbATFZEvgGdLvQ/P4ELvQf6C+ZAkCWq20XI
+	 LvxDf2TXSfZBOANhr1nj71NxeOEfY+h5urajCgkxaEv6ojXBQvKBefXb4lSYd015m/m/H
+	 IWdOXbnzefDJgx4ob9zXZ0dz06hZHWTk7gej+hxm3EmIylWR1vXtcLHtXEeOV9xhNEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198365;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198463;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eCisLb2VRu0iADmHFVpreIQCwjhWOtNKh8jVGOYf+aI=;
-	b=mwAuih+drqCMF/8YCu1KYyt5ue9C1Y4un1jDQo8wmLFm151EY5D2q6smzNbkA0xip5b5
-	 BMYvVfoh02zkoSCnGGC9cZR+Y6+x/7tn5IWWB0RJtYRlxvWl58nmbdycisf2Rgwsqs2gg
-	 vHVCjOhiJ+CTQ9UaOCiW8rG7gcgKz+J6YmzxyVoBaWpL/J7I79rUy7q9YK7LKuD+Wr/Pm
-	 vv5EZ7euWOrUKo2/C6r1puTw58vd0zvByYb5RnXX7INySm3t2ctdbE1euuou/H+2LhJqP
-	 ufxwV+DMyUz+r17i/IAVDzpJjDLaZ5yzrRThQTtyzTCOplSX6uMnngANN73e58wS2Pw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=SJDODn+Daxete0vXNEeSBNeEHTwbpeBhwXO3acT8Jjc=;
+	b=CjAjRGHwt6+oJlHhKDvEWSDCIKqS9CP0IBP/AZ/DeFYdUJ3bWmmbKY4fm9KTKJEgxbVR
+	 xofGE+4qfnDUOvffk5+OBYO4UG+HlclKxhrVn52r/+5XYNxZfhhs+smNcrK8tVpN1qAuK
+	 yNIa9pnj0enzWJ+UcFDQbuu6lC+HWl78OjY5+B3qMCwNnfvdii8RLQHBGOVR58VR4K/Hj
+	 pDT08gjHT+XvMpXhfFCw/jqjZmrmfwVV38TH3lmZ2d5HjMW/PaR7Q5ANDUoA1b/tfGjzd
+	 AQzK/rlVs67eMCgOgOEA0brwPQsd2oUpn8JDDqY3wVkgTLqqsasCSRKSKL9toTUDVlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSkH9Agj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YirwpN8N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D4606A321;
-	Wed, 28 Oct 2026 14:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D986606A31A;
+	Wed, 28 Oct 2026 14:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSkH9Agj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E39C1F01825;
-	Wed, 28 Oct 2026 14:39:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YirwpN8N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB3E1F01829;
+	Wed, 28 Oct 2026 14:40:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793198364;
-	bh=eCisLb2VRu0iADmHFVpreIQCwjhWOtNKh8jVGOYf+aI=;
+	s=k20260515; t=1793198463;
+	bh=SJDODn+Daxete0vXNEeSBNeEHTwbpeBhwXO3acT8Jjc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZSkH9Agjre8913zHh4b1HLO9CLoDWHGYpW+eB4gbdBiovVJe478t24Jn9yGHNxstR
-	 NP3qWYlZcSww8LVEBJOay+6O1zVCQb6abwW/yWG4rGwnOdaZEGKWV9TWCiRcQCL1Iu
-	 ZxCZ7HPgK+ObNzmXs5+bwip4YNAuEJerqJYRdb3ojfheEifO+CePt7FLeoKRUuWYt4
-	 BV2heYqLTv8c1MrxPK5dWzc/kblnBlMKbNVu/dmqaJjvCzMsPCOO3YeB2DJSPpQJ1g
-	 ninPoUCoeJstjgmxEhmJCf2v43wqA6MB5Aqf56sdir1SyzSj5+WAzPGa9MdivRK4kQ
-	 asfMvotu/x3Og==
-Date: Wed, 28 Oct 2026 15:39:16 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Frank van der Linden <fvdl@google.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, kernel-team@meta.com,
-	linux-mm@kvack.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
-Message-ID: <auIJFHg1haY5c937@localhost.localdomain>
-References: <20261028132623.2560146-1-kirill@shutemov.name>
+	b=YirwpN8NTIcpR91bbQZOawatQgF7WOZribCgtbQv3D9/IEwAE5fo0kroa8564+nYm
+	 6mlIYEBpfTW8Hqn/astGPJWT6TccQlGtF8K2Obc9yA7PSFBQ5ZI4xyquuc/F+pHVtR
+	 6mfQBL/ylb+NNAYpULUdWpufa1il/FmWMeO/5fdDmtuolhmVdvOYx+ccHFXLe62LO5
+	 N2u3xI5LUJgVwLhHVABfH8nV9r726sROrQ1qjsm6R9Ky251dULE/J4o5RQ/SajqFaa
+	 jY4c95rf9MSoJ+RZnUy0WvNnTVDAJMXFPA3JdsdcWtIEamSQ3buF1Xsw0gfKRvBcD3
+	 P3On2k6G6xutA==
+Date: Wed, 28 Oct 2026 14:40:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] arm64/gcs: release GCS on failed fork
+Message-ID: <fc71b59b-aeee-4d68-9d48-9eb9ba707321@sirena.org.uk>
+References: <cover.1792519121.git.ivanrwcm25@gmail.com>
+ <8522b8d3d3ecda7474d0af8b8517c1f5d708ecc2.1792519121.git.ivanrwcm25@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,63 +76,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JK4egr7oBGvhaW3C"
 Content-Disposition: inline
-In-Reply-To: <20261028132623.2560146-1-kirill@shutemov.name>
-
-On Wed, Oct 28, 2026 at 01:26:21PM +0000, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> page_ref_add_unless_zero() reads the refcount and then updates it with
-> a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
-> scanner, can read a non-zero refcount from a page that is then freed
-> and reused as a hugetlb tail page.  If HVO remaps its struct page to
-> the shared tail page in between, the cmpxchg writes to read-only
-> vmemmap:
-> 
->     CPU0 (lockless get)               CPU1
->     c = atomic_read(&page->_refcount)
->                                       page freed
->                                       page allocated as a hugetlb tail
->                                       HVO remaps the struct page RO
->     try_cmpxchg(&page->_refcount, &c, c + 1)
->       -> write fault on read-only vmemmap
-> 
-> The refcount is zero by then and the compare fails, but a
-> compare-and-swap instruction needs write access whether or not it
-> succeeds.  The kernel oopses when hugetlb pages are allocated at
-> runtime with HVO enabled while a lockless get races with it.
-> 
-> Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
-> walkers") closed the window with RCU on both sides.  The RCU was removed
-> together with fake heads, on the wrong belief that it was only needed
-> for them.
-> 
-> Map the shared tail page writable instead of restoring the RCU.  Every
-> struct page on it is a tail with a zero refcount, so a late cmpxchg
-> fails and leaves the page unchanged.  RCU would put rcu_read_lock()
-> back around every get and synchronize_rcu() back into hugetlb
-> allocation and freeing.
-> 
-> The cost is the protection against stray writes to tail struct pages.
-> The shared page is shared by all hugetlb folios of the same order in
-> the zone, so such a write now corrupts all of them instead of oopsing.
-> 
-> Bootmem folios optimized when the memmap is set up keep their tails
-> read-only.  Nothing does a lockless get on them before hugetlb takes
-> them over.
-> 
-> Fixes: 32c440d67e6c ("mm: drop fake head checks")
-> Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
-> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-> Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
+In-Reply-To: <8522b8d3d3ecda7474d0af8b8517c1f5d708ecc2.1792519121.git.ivanrwcm25@gmail.com>
+X-Cookie: Pushing 30 is exercise enough.
 
 
+--JK4egr7oBGvhaW3C
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Oscar Salvador
-SUSE Labs
+On Tue, Oct 20, 2026 at 03:19:30PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
+
+> +++ b/arch/arm64/include/asm/gcs.h
+> @@ -67,6 +67,13 @@ void gcs_preserve_current_state(void);
+>  unsigned long gcs_alloc_thread_stack(struct task_struct *tsk,
+>  				     const struct kernel_clone_args *args);
+> =20
+> +static inline void gcs_reset_thread(struct task_struct *task)
+> +{
+> +	task->thread.gcs_base =3D 0;
+> +	task->thread.gcs_size =3D 0;
+> +	task->thread.gcspr_el0 =3D 0;
+> +}
+> +
+
+The other process.c specific helpers are all in process.c.  Otherwise
+this looks OK, though I'm still not clear about the analysis for why
+x86 is not also affected.
+
+Note that since you sent this in reply to the old thread is was buried
+in my inbox.
+
+--JK4egr7oBGvhaW3C
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmriCXcACgkQJNaLcl1U
+h9DyKwf/f0wQRzWGs4z7w3rL3l/aDet1CHGvYQeENmeNCwRcMkxKv7+aoLzrNWJX
+ZlLAXfNLCaK0SG3xcaLnerecwFSW/K+zwNIqFQf7E3czUrYNyZ6QyuUeY1sWKkni
+fD8xwhMCQeDCKMrIJvAYMYNgT6sFI5r0TrowwJjKsFgitHpQ9+QU05extDSJ6JoH
+Mqn0oOauMbIXl7F25YhJ63+d1nlTajtFiq5VoI5tIjcWosAdpaEmySSpBX1pqBF3
+90lzfVTXtNPpv1qJHoHhFhfttnlVCvwGp/lgwQK1kw+fw2wlfHdR/PXLR5hnkqA5
+fhLzMJjBO1oi0mpX+FfxV5lWZTHuaA==
+=qGVS
+-----END PGP SIGNATURE-----
+
+--JK4egr7oBGvhaW3C--
