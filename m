@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197869;
-	b=svgPkdK5yw/4Bob6eCdgCTXqgAbnZa1c/S2ZVNThxw1bYzF9o8fqZ75ZnFh4OjUfRFTi
-	 IvTKDUov//yA4a/BtiTQ915a3NR5rnFZroQ9q9/51xa8QKf+CQgHxnu2UrPNvIBC/fLAU
-	 dF8i4X1mVVEq005oBBFnjz75U6MEuT5e0Td/G20nYKR3OYq5Sl5a0h3CTqXUDSz6TiU7u
-	 WaIvd+JwmtHBrRD/oaXVr9HEJcXrDSUer4Ji1uBKKv3xeo5nzPHOmHNv3CGJz0YPboX+n
-	 +OVFX/qZAr276/olDJo/dDp6l3PgJgUEw22htFRhcQnKc7jEkXMAnNaW+p7CpPqZf5g==
+	t=1793197865;
+	b=yHp3Fcw8i1ipAW1GW7fjyG+STH1gbnKf9CgGb7cudGUbO4doPS7dQcke2i/ZgQ+K+3ly
+	 1dwcYTt/t64iVES4qQNHRc1OiR5E3Idul+4PUl3cFWDC2QIAP1hWy6pmlHmRfhHSMqvcb
+	 ZtAdCOHXNRGSWCltMBcBlr4aLW+9x56u7ztm4PqtLxKF2UbOH1Q+Vao5lTCMNJccDDVzc
+	 0LBJzUkXpEH/lx+eFl7lFXXqiUr4Wi0q/LohkR1ALjQ/b2JOW9qS52fqmekaQkmcEpm6y
+	 TH4j9CKBX5/wCBiyeYSeKzEbgzO+VPsMwAGv6HsaCwV4V887JnE2+fkipQvDhWcBIrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197869;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=J0QK1OpEj8MOc+a4Z8C3tyBKSqbXKVT+nLcJzaXcaM4=;
-	b=ETjVwwppzDpbmqBtpA92AmxCWw0tekqelFDIJQYtrEIbv77pXWRjfJHL/dBfEck7Toef
-	 ZJKQgLD0mo33foNwdgYqfrSfsiXfrQ9mPmVHKWytmRmFh7WAbFpwaZMQSbILVuCunLveT
-	 02YrPlonBRnwGFf8OtEpsOzQlaZekZ5cK9vWnZwZ+IBLcmQ2oomNpaP6qhKdwRZZz+W52
-	 Dfr7wFpKSWsfXa7qs2fkdkBRl6iGBizcXpifYr6TZd/eclN78Xil0WhnDJZ1ciGaRK0a7
-	 OOah+o4dI76+hbWKbFQVyS6F0w59Pf8vH5rBmY+mwgS2yBm0qcTkDwp+kZ/RppXy5PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197865;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ESMBCrK+R+S7NiTpN1OIZeRqPKju7V65s3ZpCgR6s24=;
+	b=ImbgxcFGKmrn9Yi8xiAPV4h2msAywRXzKnTLg4pMWEtvbHh8HDez4AgX7xQVgijoDfJG
+	 +14HCfg+8tIlp/dICEQQ0RmJnnDXvSuEBw/IUe1XXVNSdLwFJZj0RTN7+fRjvCZSiurtO
+	 ZI5VYXT3DbgDRiHWYFRY60vlRJxs6Z42e25V09C0ioeXxjjU6EQzOGMFHlYko/JvjqGda
+	 rINqvd6wkL3RNfM4PoaIjlqyrut0HwQZo1D4dxXBbMPMKaUKReEkTWkiu+tBA1XmQbhx4
+	 8dMUZjJ2CPZuZtf93YLTMExJJuLJcDHbREp1Cijo+ijx/ttVbxHJDiM3xyxh3JFF+2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WHQ0DFE+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MJQrC/5c";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F68606A31A;
-	Wed, 28 Oct 2026 14:31:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B370E606A31C;
+	Wed, 28 Oct 2026 14:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WHQ0DFE+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF52E1F01825;
-	Wed, 28 Oct 2026 14:31:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MJQrC/5c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5B91F01825;
+	Wed, 28 Oct 2026 14:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793197868;
-	bh=J0QK1OpEj8MOc+a4Z8C3tyBKSqbXKVT+nLcJzaXcaM4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WHQ0DFE+ngDULGY7SoOzQLb5JEeGdErVNhDqVG1i02G6JyRlVlF9azX9OwFZmKojv
-	 MeyuPm9MErnp2nd52ldGNYSE2ga10rvgxgRMwHUJGi4/gVZ5jt0hnKty5GImpszU2R
-	 +T1qf5AobyIKmXo90/2APMAugzQr6j5zy7Tkv9ON72gm4fhGUbVhfEft/h7k+ikkhP
-	 XiM1xMtRM2u0PXJqoQqZYddBlaDgmfF9q8jZXnpuDH8mXwMIz07IIB4cKOQtOO/lb9
-	 1ZdPEZeiG17zqifcu6Cyrppc/r0LL/VKfTbFZVerzTodNOU0yIXKpMLwx2vG+ifWAo
-	 UkCDyyb2Lr4Hw==
+	s=k20260515; t=1793197864;
+	bh=ESMBCrK+R+S7NiTpN1OIZeRqPKju7V65s3ZpCgR6s24=;
+	h=From:Subject:Date:To:Cc;
+	b=MJQrC/5cCA1v8JpBCSIArdzVEh0x1p1dbEQYCkJKUP/cnv25NObhnYz1KGSC8AOmN
+	 TTwOewTJZwio56M3ZVFWJJBbxl9dY/5ysIlo59L42G5B6Zwe5Pn8fPPKk45NSWv1uY
+	 fjjpj66wAcWwZzIiuu6JUeBs30TkrvW0BeGtXUGe0JQFh2w6owiMZD2/l5GeWcCw/m
+	 c6OO7M7uwxf5PjNlXa5JjYrnyTFBWE8tZUGzzkimHdzTFtnBOHDPRHeYHHAuQBWwUj
+	 i0zfPfMLKyRGDae92o36Z6K0YP2Bk8gqKiZIeZxftMWAkJKwM0ocXPseDE1Z8rhhC1
+	 EH6ho0WBkGaYw==
 From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 28 Oct 2026 15:30:38 +0100
-Subject: [PATCH 2/4] namespace: don't reveal overmounted dentries that lost
+Subject: [PATCH 0/4] mount: don't reveal overmounted dentries that lost
  their mounts
+Date: Wed, 28 Oct 2026 15:30:36 +0100
+Message-Id: <20261028-work-mount-trap-b4-v1-0-f20d9d0730d6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,370 +56,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-work-mount-trap-b4-v1-2-f20d9d0730d6@kernel.org>
-References: <20261028-work-mount-trap-b4-v1-0-f20d9d0730d6@kernel.org>
-In-Reply-To: <20261028-work-mount-trap-b4-v1-0-f20d9d0730d6@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBBFr0Jm7RioWtSrGBdtGaQaWzJT0IRwd
+ 1tZvp//3gJC7EngWi3ANHvxMWRodhW4wYQHoe8yg6qVbmrV4ifyC99xCgkTmxHtEXV7UJeOzk6
+ dNGRxZOr99x+93TeWyT7JpVIqD2uE0LIJbijT3Mt+M9b1B5mn0SWSAAAA
+X-Change-ID: 20261027-work-mount-trap-b4-67329de8c256
 To: linux-fsdevel@vger.kernel.org
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
  Miklos Szeredi <miklos@szeredi.hu>, NeilBrown <neil@brown.name>, 
  Chris Mason <mason@kernel.org>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13718; i=brauner@kernel.org;
- h=from:subject:message-id; bh=tzex1Pf4Ujz5WK1WW7OeAJREF7TfOH74Zx9frE/CfhQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9Ylep+bjU8t9MqRVzn/jExbVpX7nJYRl3/E6BcXlS7
- L8nHA1LO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZyVZ2RYXe1ys5/s6+tkVs0
- qTJ+l11v+fVNpR+jT1y/9To6fGbHn+uMDG2szdo9r/ImzBXZ9y3YWu2DZlAb478tr80Tz1VdlOs
- 6wAcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6165; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=1GgfrL8blBX3DAPyjTedoyF9pOu0UGPTD9X0JfskRxI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9Yle56NjzcHq34g2hOr3FlZfm5y27kNumoPV/+w3Gr
+ z11DD9PdpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExEVJbhf71g/cmfQQ4PF/Ob
+ nr2pY7R8q5qTuVbJHw3RLwv86949mcDI8NxuTaDDvtlall5VgQvVVkr/sJJsU45actzu/eSdIeL
+ iLAA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-unlink(), rmdir() and rename() may remove a name that is a mountpoint in
-another mount namespace. The mounts on it are detached and the dentry is
-unhashed.
+In case you are hoping this is going to be the last patch on this
+subject rest assured it won't be.
 
-But a lookup that found the name before the removal still holds the
-dentry. If it takes the mount step after the mounts are gone it ends up
-on what they covered. And as is customary, FUSE makes that window as
-wide as the server wants.
+A name that is a mountpoint in one mount namespace can be removed in
+another. unlink(), rmdir() and rename() refuse only a mountpoint in the
+caller's own namespace. Since 8ed936b5671b mounts in other mount
+namespaces are unmounted lazily.
 
-An earlier variant tried to catch this in the refwalk but it's brittle
-as hell. So fix it in the mount handling of lookup itself. The remover
-marks the dentry with DCACHE_CANT_MOUNT before it detaches the mounts.
-DCACHE_MOUNTED is kept when the last mount leaves such a dentry so that
-every walk still takes the mount step on it. We then let
-__traverse_mounts() fail when the hash has nothing for a removed name
-once it is unhashed. The walk is redone with LOOKUP_REVAL and can't find
-the unhashed name again.
+This allows a host to rm -rf a tree a container has masked bits of with
+mounts. This is a "security mechanism"... The premise is that nobody can
+reach the name once it is gone.
 
-RCU lookup needs no changes. The unhash invalidates d_seq and a lockless
-walk never grabs a dentry whose d_seq changed. So it ends up in the
-refwalk on its own.
+But alas, a lookup that found the name before it was removed can and can
+get access to the covered entry because the mounts are gone.
 
-The trap only fires once the name is unhashed. Until __detach_mounts()
-unhashes the name the mounts are still there and a walk through a mount
-with nothing on the name must get the name itself. __lookup_mnt() stays
-as it is because the propagation code must see nothing where nothing is
-mounted.
+Here's an example:
 
-One thing that the original connected mount stuff happily ignored is the
-case of a mount on the root of it's parent. That's not reached by name.
-The parent is a bind mount of the removed dentry and keeps working like
-a file descriptor on it does. So such a mount stays as long as its
-parent does and the trap skips the root. Covers on the root of their
-parent stay for the same reason. All other covers are dropped as before.
+  The host has /srv/app with the file secret in it. A container gets
+  /srv/app bind-mounted and the runtime hides "secret" from it by
+  binding /dev/null on top. The container's mount namespace is owned by
+  its user namespace. So the mount is MNT_LOCKED and the container can't
+  unmount it:
 
-A stale name loses all its mounts and covers in d_invalidate() as
-before. find_submount() skips removed names since they keep
-DCACHE_MOUNTED and d_invalidate() would loop on them forever. d_delete()
-clears DCACHE_MOUNTED with DCACHE_CANT_MOUNT when nobody else holds the
-dentry.
+    host                             container
+    ----                             ---------
+                                     open("/srv/app/secret") finds the
+                                     dentry and goes to sleep in
+                                     ->d_revalidate()
+    rm /srv/app/secret
+      nothing is mounted on it
+      here, so the kernel unmounts
+      the mask in the container
+                                     takes the mount step: nothing is
+                                     mounted on the dentry anymore and
+                                     the open lands on secret itself
 
-A walk that already holds the dentry didn't find a name and isn't
-trapped. That specifically means ".." from below, ".." at the root of a
-chroot or of an openat2() walk with RESOLVE_IN_ROOT and the in-place
-step of umount("."). They pass WALK_HELD to the mount step and work like
-a file descriptor on the removed object does. This prevents any
-large-scale userspace visible regressions.
+  On a local filesystem that window is a few instructions. A FUSE
+  server in the container's path makes it as wide as the server likes it
+  to be. The reproducer I have does exactly that.
 
-nfsd and ksmbd get the ESTALE from follow_down() like every other
-lookup. ksmbd with crossmnt answers ENOENT, nfsd NFS4ERR_STALE.
+An earlier attempt I had tried to fix this in refwalk but it was really
+brittle. So let's fix this crap in the mount resolution that every
+lookup does. We can reuse two existing dentry bits for this.
 
-The reproducers of commit 528b383dc35d ("namespace: unhash a dentry
-before detaching the mounts on it") and of the reverted refwalk check
-(cf. [1]) and the stacked and self-bind overmounts in qemu, KASAN and
-lockdep on, 8 CPUs:
+The remover marks the removed name with DCACHE_CANT_MOUNT before it
+detaches anything. Instead of clearing it, the mount detach keeps
+DCACHE_MOUNTED on such a dentry. A lookup that found the name keeps
+talking the mount step this way.
 
-                                                     before   after
-  unlink_covered, 4 walkers, 60 s, SECRET reads           31       0
-  unlink_symlink, 20 rounds, followed the symlink         20       0
-  reval_reveal, read through the ESTALE link           UNDER  ESTALE
-  stacked bind, root name unlinked or renamed over    SECRET    MASK
-  self-bind race, 1000 rounds, SECRET reads               32       0
+The lockless walk doesn't need any changes. The unhash invalidates d_seq
+and a lockless walk never legitimizes a dentry whose d_seq changed.
 
-reval_reveal needs root and fuse. F is a fuse mount it serves itself
-with the file f1 and the symlink lnk -> f1. F' is an open_tree() copy of
-F with a tmpfs file mounted on F'/f1. The server answers the
-revalidation of f1 in the LOOKUP_REVAL walk only after it had F/f1
-unlinked, which detaches the mount. UNDER is the content of f1. With the
-trap the open fails and the child prints "Stale file handle":
+That's half the story. The other part of this insane mechanism is that
+we can't actually detach all mounts. Take the same container but now the
+runtime binds "secret" somewhere first and masks the bind:
 
-[1]: https://lore.kernel.org/linux-fsdevel/20261012-work-namei-reval-v1-0-515664de33b5@kernel.org
+    mount --bind /srv/app/secret /run/secret    (P, a bind of the file)
+    mount --bind /dev/null /run/secret          (K, the mask on its root)
 
-Fixes: 8ed936b5671b ("vfs: Lazily remove mounts on unlinked files and directories.")
-Cc: stable@vger.kernel.org # v7.3+
+  P's root and K's mountpoint are both the dentry of secret. Before
+  this series the removal of /srv/app/secret took every mount on that
+  dentry away including K.
+
+  P stayed, since it is mounted on /run/secret and not on the removed
+  name. So /run/secret showed the deleted secret where the mask had
+  been. IOW, the removal uncovered it.
+
+The thing is that K isn't reached through the name the host removed. It
+is reached by crossing onto P. So K has to stay and so does a cover that
+a lazily unmounted bind of the object left on its root for a locked
+child.
+
+I've been struggling with this but it is safe from all I can see.
+detach_mounts() exists for two reasons:
+
+(1) the removal must not fail with EBUSY because of somebody else's
+    mount as this amounts to a DOS.
+(2) the mounts must not leak since nobody can reach them once the name
+    is gone and they'd dangle until the namespace dies
+
+This change keeps (1) and (2) in tact. K isn't reachable anymore through
+the removed name. It is reached through P as before and P was never
+reachable through that name either. A bind-mount of an entry keeps
+working even after the entry is deleted - like a fd does.
+
+It's root show up as //deleted in mountinfo as it always has. K lives
+exactly as long as P.
+
+umount of /run/secret takes K first and P second like any stack. umount
+-l of P or of an ancestor takes K along and so does the death of the
+namespace. And in the namespace that holds K the removal of the name is
+refused with EBUSY as it always was.
+
+Also, nothing new becomes reachable. K sits on the same dentry under the
+same parent as before. The only change is that a removal in another
+namespace no longer unmounts it. So a removal detaches less than it did
+but never more. Every mount reached by the removed name is still
+detached.
+
+Verified in qemu with KASAN and lockdep. The reproducers of 528b383dc35d
+and 8189ab688f5a, the stacked and self-bind overmounts, the chroot and
+".." cases, 150 kselftest binaries, and a CRIU dump and restore of the
+kept stack. I also added two selftests that cover the stacked and
+self-bind versions of this bug on tmpfs and the LOOKUP_REVAL walk
+against a raw fuse server. The reveal cases fail without the trap.
+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/dcache.c    |  5 +++--
- fs/namei.c     | 36 +++++++++++++++++++++++++++---------
- fs/namespace.c | 50 ++++++++++++++++++++++++++++++++++++++++----------
- 3 files changed, 70 insertions(+), 21 deletions(-)
+Christian Brauner (4):
+      namei: make the walk flags a named enum
+      namespace: don't reveal overmounted dentries that lost their mounts
+      selftests/filesystems: test the removal of a name that is a mountpoint elsewhere
+      selftests/filesystems: test walks racing the unlink of covered names
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index efd9332c8407..711b96cb0fed 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -1862,7 +1862,8 @@ void shrink_dcache_for_umount(struct super_block *sb)
- static enum d_walk_ret find_submount(void *_data, struct dentry *dentry)
- {
- 	struct dentry **victim = _data;
--	if (d_mountpoint(dentry)) {
-+	/* Skip mounted and removed but still mounted dentries. */
-+	if (d_mountpoint(dentry) && !cant_mount(dentry)) {
- 		*victim = dget_dlock(dentry);
- 		return D_WALK_QUIT;
- 	}
-@@ -2779,7 +2780,7 @@ void d_delete(struct dentry * dentry)
- 	if (dentry->d_lockref.count == 1) {
- 		if (dentry_negative_policy)
- 			__d_drop(dentry);
--		dentry->d_flags &= ~DCACHE_CANT_MOUNT;
-+		dentry->d_flags &= ~(DCACHE_CANT_MOUNT | DCACHE_MOUNTED);
- 		dentry_unlink_inode(dentry);
- 	} else {
- 		__d_drop(dentry);
-diff --git a/fs/namei.c b/fs/namei.c
-index 0fa9a5b7b377..267a98af4742 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -1565,12 +1565,20 @@ static int follow_automount(struct path *path, int *count, unsigned lookup_flags
- 	return finish_automount(dentry->d_op->d_automount(path), path);
- }
- 
-+/* WALK_HELD: the walk holds @dentry already, it didn't find it by name */
- enum walk_flags {
- 	WALK_TRAILING	= (1 << 0),
- 	WALK_MORE	= (1 << 1),
- 	WALK_NOFOLLOW	= (1 << 2),
-+	WALK_HELD	= (1 << 3),
- };
- 
-+static inline bool mountpoint_removed(const struct path *path)
-+{
-+	return unlikely(cant_mount(path->dentry)) &&
-+	       d_unhashed(path->dentry) && !path_mounted(path);
-+}
-+
- /*
-  * mount traversal - out-of-line part.  One note on ->d_flags accesses -
-  * dentries are pinned but not locked here, so negative dentry can go
-@@ -1578,7 +1586,8 @@ enum walk_flags {
-  * sufficient for ->d_inode and ->d_flags consistency.
-  */
- static int __traverse_mounts(struct path *path, unsigned flags, bool *jumped,
--			     int *count, unsigned lookup_flags)
-+			     int *count, unsigned lookup_flags,
-+			     enum walk_flags walk_flags)
- {
- 	struct vfsmount *mnt = path->mnt;
- 	bool need_mntput = false;
-@@ -1615,6 +1624,11 @@ static int __traverse_mounts(struct path *path, unsigned flags, bool *jumped,
- 				}
- 				continue;
- 			}
-+			if (!(walk_flags & WALK_HELD) &&
-+			    mountpoint_removed(path)) {
-+				ret = -ESTALE;
-+				break;
-+			}
- 		}
- 
- 		if (!(flags & DCACHE_NEED_AUTOMOUNT))
-@@ -1639,7 +1653,8 @@ static int __traverse_mounts(struct path *path, unsigned flags, bool *jumped,
- }
- 
- static inline int traverse_mounts(struct path *path, bool *jumped,
--				  int *count, unsigned lookup_flags)
-+				  int *count, unsigned lookup_flags,
-+				  enum walk_flags walk_flags)
- {
- 	unsigned flags = smp_load_acquire(&path->dentry->d_flags);
- 
-@@ -1650,7 +1665,8 @@ static inline int traverse_mounts(struct path *path, bool *jumped,
- 			return -ENOENT;
- 		return 0;
- 	}
--	return __traverse_mounts(path, flags, jumped, count, lookup_flags);
-+	return __traverse_mounts(path, flags, jumped, count, lookup_flags,
-+				 walk_flags);
- }
- 
- int follow_down_one(struct path *path)
-@@ -1678,7 +1694,7 @@ int follow_down(struct path *path, unsigned int flags)
- {
- 	struct vfsmount *mnt = path->mnt;
- 	bool jumped;
--	int ret = traverse_mounts(path, &jumped, NULL, flags);
-+	int ret = traverse_mounts(path, &jumped, NULL, flags, 0);
- 
- 	if (path->mnt != mnt)
- 		mntput(mnt);
-@@ -1732,7 +1748,7 @@ static bool __follow_mount_rcu(struct nameidata *nd, struct path *path)
- }
- 
- static inline int handle_mounts(struct nameidata *nd, struct dentry *dentry,
--			  struct path *path)
-+			  struct path *path, enum walk_flags flags)
- {
- 	bool jumped;
- 	int ret;
-@@ -1752,7 +1768,8 @@ static inline int handle_mounts(struct nameidata *nd, struct dentry *dentry,
- 		if (unlikely(!try_to_unlazy_next(nd, dentry)))
- 			return -ECHILD;
- 	}
--	ret = traverse_mounts(path, &jumped, &nd->total_link_count, nd->flags);
-+	ret = traverse_mounts(path, &jumped, &nd->total_link_count, nd->flags,
-+			      flags);
- 	if (jumped)
- 		nd->state |= ND_JUMPED;
- 	if (unlikely(ret)) {
-@@ -2105,7 +2122,7 @@ static noinline const char *step_into_slowpath(struct nameidata *nd,
- 	struct inode *inode;
- 	int err;
- 
--	err = handle_mounts(nd, dentry, &path);
-+	err = handle_mounts(nd, dentry, &path, flags);
- 	if (unlikely(err < 0))
- 		return ERR_PTR(err);
- 	inode = path.dentry->d_inode;
-@@ -2245,7 +2262,7 @@ static const char *handle_dots(struct nameidata *nd, enum last_type type)
- 			parent = follow_dotdot(nd);
- 		if (IS_ERR(parent))
- 			return ERR_CAST(parent);
--		error = step_into(nd, WALK_NOFOLLOW, parent);
-+		error = step_into(nd, WALK_NOFOLLOW | WALK_HELD, parent);
- 		if (unlikely(error))
- 			return error;
- 
-@@ -2799,7 +2816,8 @@ static int handle_lookup_down(struct nameidata *nd)
- 	if (!(nd->flags & LOOKUP_RCU))
- 		dget(nd->path.dentry);
- 	nd->next_seq = nd->seq;
--	return PTR_ERR(step_into(nd, WALK_NOFOLLOW, nd->path.dentry));
-+	return PTR_ERR(step_into(nd, WALK_NOFOLLOW | WALK_HELD,
-+				 nd->path.dentry));
- }
- 
- /* Returns 0 and nd will be valid on success; Returns error, otherwise. */
-diff --git a/fs/namespace.c b/fs/namespace.c
-index e5feb4e48290..0325fc8db4c4 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -221,7 +221,10 @@ struct mnt_cover {
- 	struct hlist_node pin;		/* mp->m_covers, keeps the mountpoint */
- 	struct dentry *dentry;
- 	struct mountpoint *mp;
--	struct rcu_head rcu;
-+	union {
-+		bool root;		/* mount sat on its parent's root */
-+		struct rcu_head rcu;	/* valid once the cover is dropped */
-+	};
- };
- 
- static int mnt_alloc_id(struct mount *mnt)
-@@ -970,13 +973,18 @@ static int get_mountpoint(struct dentry *dentry, struct pinned_mountpoint *m)
- /*
-  * vfsmount lock must be held.  Additionally, the caller is responsible
-  * for serializing calls for given disposal list.
-+ *
-+ * A removed name keeps DCACHE_MOUNTED so that a walk which found the
-+ * name earlier continues walking mounts and fails. The bit dies with the
-+ * dentry or in d_delete().
-  */
- static void maybe_free_mountpoint(struct mountpoint *mp, struct list_head *list)
- {
- 	if (hlist_empty(&mp->m_list) && hlist_empty(&mp->m_covers)) {
- 		struct dentry *dentry = mp->m_dentry;
- 		spin_lock(&dentry->d_lock);
--		dentry->d_flags &= ~DCACHE_MOUNTED;
-+		if (!cant_mount(dentry))
-+			dentry->d_flags &= ~DCACHE_MOUNTED;
- 		spin_unlock(&dentry->d_lock);
- 		dput_to_list(dentry, list);
- 		hlist_del(&mp->m_hash);
-@@ -1060,6 +1068,15 @@ static void umount_mnt(struct mount *mnt)
- 	__umount_mnt(mnt, &ex_mountpoints);
- }
- 
-+/*
-+ * Is @m reached through the name of its mountpoint? A mount on the root
-+ * of its parent isn't: the walk gets there by crossing onto the parent.
-+ */
-+static bool reached_by_name(const struct mount *m)
-+{
-+	return m->mnt_mountpoint != m->mnt_parent->mnt.mnt_root;
-+}
-+
- /*
-  * @mnt is unmounted together with its parent and would have stayed attached
-  * to it. Leave its cover behind before it is detached so that a lookup on the
-@@ -1074,6 +1091,7 @@ static void leave_cover(struct mount *mnt)
- 	mnt->mnt_cover = NULL;
- 	cover->dentry = mnt->mnt_mountpoint;
- 	cover->mp = mnt->mnt_mp;
-+	cover->root = !reached_by_name(mnt);
- 	/* keeps the mountpoint once @mnt has let go of it */
- 	hlist_add_head(&cover->pin, &cover->mp->m_covers);
- 	hlist_add_head_rcu(&cover->node, &mnt->mnt_parent->mnt_covers);
-@@ -2019,23 +2037,24 @@ static int do_umount(struct mount *mnt, int flags)
- }
- 
- /*
-- * __detach_mounts - lazily unmount all mounts on the specified dentry
-+ * __detach_mounts - lazily unmount the mounts on the specified dentry
-  *
-  * During unlink, rmdir, and d_drop it is possible to loose the path
-  * to an existing mountpoint, and wind up leaking the mount.
-  * detach_mounts allows lazily unmounting those mounts instead of
-  * leaking them.
-  *
-- * The dentry is unhashed before the mounts go so that no lookup finds
-- * what they covered. The caller removes it for good afterwards.
-+ * A cover on the root of its parent dies with the parent like an fd
-+ * would for regular mounts.
-  *
-  * The caller may hold dentry->d_inode->i_rwsem.
-  */
- void __detach_mounts(struct dentry *dentry)
- {
- 	struct pinned_mountpoint mp = {};
-+	bool removed = cant_mount(dentry);
-+	struct hlist_node *node, *n;
- 	struct mnt_cover *cover;
--	struct hlist_node *n;
- 	struct mount *mnt;
- 
- 	guard(namespace_excl)();
-@@ -2047,13 +2066,24 @@ void __detach_mounts(struct dentry *dentry)
- 	/* the name goes first, what covered it goes second */
- 	d_drop(dentry);
- 	event++;
--	while (mp.node.next) {
--		mnt = hlist_entry(mp.node.next, struct mount, mnt_mp_list);
-+	/* the mounts after the pin still need a look */
-+	while ((node = mp.node.next)) {
-+		mnt = hlist_entry(node, struct mount, mnt_mp_list);
-+		if (removed && !reached_by_name(mnt)) {
-+			/* it stays, move the pin past it */
-+			hlist_del(&mp.node);
-+			hlist_add_behind(&mp.node, node);
-+			continue;
-+		}
-+		/* goes, umount_tree() takes it and its children off the list */
- 		umount_tree(mnt, UMOUNT_COVER);
- 	}
--	/* the dentry goes away, so do the covers left behind on it */
--	hlist_for_each_entry_safe(cover, n, &mp.mp->m_covers, pin)
-+	hlist_for_each_entry_safe(cover, n, &mp.mp->m_covers, pin) {
-+		/* same rule as for the mounts above */
-+		if (removed && cover->root)
-+			continue;
- 		drop_cover(cover, &ex_mountpoints);
-+	}
- 	unpin_mountpoint(&mp);
- }
- 
-
--- 
-2.53.0
+ fs/dcache.c                                        |   5 +-
+ fs/namei.c                                         |  57 +-
+ fs/namespace.c                                     |  50 +-
+ .../testing/selftests/filesystems/fuse/.gitignore  |   1 +
+ tools/testing/selftests/filesystems/fuse/Makefile  |   2 +
+ .../selftests/filesystems/fuse/unlink_reval_test.c | 617 ++++++++++++++
+ .../selftests/filesystems/mount_cycle/.gitignore   |   1 +
+ .../selftests/filesystems/mount_cycle/Makefile     |   2 +
+ .../filesystems/mount_cycle/detach_mounts_test.c   | 914 +++++++++++++++++++++
+ 9 files changed, 1620 insertions(+), 29 deletions(-)
+---
+base-commit: b14fcabd34e02c40f72d3cd1e9bd4fd18df40ff1
+change-id: 20261027-work-mount-trap-b4-67329de8c256
 
