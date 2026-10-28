@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181363;
-	b=5KpverYI25YhlGCqs/+QQwiFLxJqt6OFsFpp/RygIJo/3HqdVviaWkoo+8R679Nu9/uc
-	 29YXxB7mdT9kLWy35Gnzy8dOJ6qLwKragjv2dFsMimHC+kfJRnlz+etkZJSLLe4SJn5IV
-	 sRcHdSPhcfisLi4y6YlSi6JYLiHeUQOJ6WlZE/mhX5ofdGJ1UInsaG96AnB1NoyMOrU7B
-	 +7FIIQxQul5qtq53rrFaSbO9Y51YG6WHm5/MTWDBlHdJMy8yJHwUSCrpOa5bilf7Ldx5u
-	 djv/14v3zqtYryqBgstepXxkZGkX9N3KM12anii90Xufem2069nZwOsYFfwNofhf5NA==
+	t=1793181371;
+	b=QFLcWseqNME6htGTNxeYBBEnr1GFD3ZMmO4ewTkYhiQehWinCHjyU5uMcJodyV+2KI3C
+	 FstKJIRYZe603WrsdlGAhOhIOHWJ+IfQTJk2GEgZSbeX+IFXPRHzz0CkX1g/KUuzf0H6B
+	 R0pNM+ZEFahOxcy0quH1bGGbwRBaSwou6An5FhxUVUOvCVTE5+j2P5jEPBtnJxZ0i+Vl3
+	 2oXnDiBc4JANfONOTR6Xx8tFPa0w/9yEpdBbgK5M2f+lq6QGfu7gh/6wyd1MEJCOJzYvg
+	 WDmgq5AWY+yEwrXcEJO9+T8830i4/beSI3U4Vy5LcFwOKxh0PitPwCYpE65E+5E7Xng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181371;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CIildARgeqLV5Iv54/CNVDjST3eNjwaUwngHh+RJ76o=;
-	b=0UoYEVHZGVKjrSflb+CjNRBE5/45YvA49lzkM12R0qDPtsJ+lEJvR8A5GT42bIK4UR8W
-	 gnzd1u3/0wB9ezpUg4rBli8dGWkiCz94qPkQueqmcLOcBc4F6bb5IcIOxLzpYfjl1gqSD
-	 ru17dJ5MRaZ6BtA/gfdkSbmyYbD5UzNpP6x0/i35ZvclINzp7QdrZAaMozmiTZyyrvdu5
-	 gF7yWAI+prhp42aQRx4NKue71w4fEJbn86Ux4VjyeoRwKJF3ciVl5krx4qu38vBvk7dxh
-	 RTFK3Gq8zWQALLPFXak//G1/LJjynenXBdrJwtK5h+Ls8aSPrEPcz8Ts1Ls/fj9Fkng==
+	bh=p9j3nRPXAYyZeyCseSaJF4UAcNQcHHRM87quWK0Zl5E=;
+	b=WgL9F7HZYXotF+oo5srXs5PehgZ7x7nSzoAwqH7S0MVNoeFOYrSrujWwyQlZCxuKgGSa
+	 RZOQUbOAviajBGy3WiaxbWczJ6T/k7DNPUY/4maEO2y//DzqHQ4Vvv3pFps1p2q4w1giU
+	 Z1NFGi2ov6BTse2ynFBr5UF8zg0HfGTWmcsQ2aTp4FYwtAbIW4LdIwh8BehuZbHV/Rh7e
+	 oKAol/swnoCM79svt3lk/b2wrlraGyXNwptUYFj0LUe9PqRGOwgeNRptxig1r+YzB3Q5O
+	 1Hnf0zoIn5yQ6Q4cUngy8ULrKlzPyiA6QH2+IGIce6EsH5EyX+6rGC4WDCJibtAM2ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6MS+iEP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+LOYwYD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17607606A31C;
-	Wed, 28 Oct 2026 09:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0C7606A320;
+	Wed, 28 Oct 2026 09:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6MS+iEP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942CD1F031E3;
-	Wed, 28 Oct 2026 09:55:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+LOYwYD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626B31F01825;
+	Wed, 28 Oct 2026 09:56:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181362;
-	bh=CIildARgeqLV5Iv54/CNVDjST3eNjwaUwngHh+RJ76o=;
+	s=k20260515; t=1793181370;
+	bh=p9j3nRPXAYyZeyCseSaJF4UAcNQcHHRM87quWK0Zl5E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=F6MS+iEPGzqzyPG0YiNnFEMzL6u752n2vzQwod3dzSAmRc5ClKGMqr9yZV8DPqiB0
-	 JoFD7GHfazp0A3rgJNb+arC4AeZRJQlWLj6yteINTFj1vZN0ay6MvS6EjSiUaTVFQQ
-	 b4DeWwOQvlt1CKYiV/RxfNrVLQ3us7A22tinlr2SdT9PXAxo3Lj/w5uyzIW54pN2I+
-	 GTk3CHoavcX+xynwZJOqLN+ZO2NSrZLjU/b8QWVtsivdustYcf7938EQI3P1gfy2Q2
-	 ExlUq0+IsbrWmifup4zHJhumVWuFenw642l8B9RvJOLlYNq2zm10Tj4avBNFGY2wkK
-	 4NIQ/Vr5cN4Gw==
+	b=H+LOYwYD68mgaDcU1XuGGCbEvC2jziJLo6mDaI2/lqJvoI/K7k5xh2HaET6OQf8UJ
+	 zuxOtfH5V9+r+h9zC3gYL7+kTwjYLfQD9BGwQwx3TmfJsKi/bJnSW64SM90w8SZR8w
+	 8GPG+BszKgBo+IflOgBS6ox0Phsd6d6nlffU4kPstFuSlORrvYwuO27TSvVEv3FZk/
+	 5yB7i4KEBaMKPoE67Xxu62sMmlm6JTmQT4wexklFTg3UlQMNacEQDIc3ZYM/NYTEFq
+	 7LTOEobWWyDMtFWiDeh9+lihoT3/dSjTJNyc8iFKF64LedHq/xibuWHSBLSyCuwNHV
+	 trUixsDor0PeQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 10:55:03 +0100
-Subject: [PATCH v3 05/15] hugetlbfs: enforce F_SEAL_EXEC in setattr
+Date: Wed, 28 Oct 2026 10:55:04 +0100
+Subject: [PATCH v3 06/15] mm/shmem: hold off eviction in shmem_writeout()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
+Message-Id: <20261028-fixes_shmem-v3-6-4ce3baf2db4b@kernel.org>
 References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 In-Reply-To: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -77,71 +77,164 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
  Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1864; i=david@kernel.org;
- h=from:subject:message-id; bh=VibnqfVc/i5QlUy5RzJlhfYS1+yzH9kwQCXwNrw3dIY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHmucd4+v+mna+4UPgk6VZzh6iwQ17WBewDLBcgHL8
- 3CDk9OFO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZgIuxTDP4OXWuqTNi7d5eOW
- z5Y4i33Tx7+O8ouedXp4Hr8pW8ndOofhf0K6usbcP6Gf3vg3dRdVeyckiuzwU6s4entx1PM/L7o
- +8QAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5605; i=david@kernel.org;
+ h=from:subject:message-id; bh=zzh9IGJps/yyCZLRquCkr7f7izRh7fedg/TKI2tiALY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHms845jhvnFy8V6DTPGX1RO2hW8tWhko8cwpdub3Z
+ AmxN/vaO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZhIoTsjw3Qn9oXHThR7TVh4
+ Yc36/Edt7T0zEncs4Y6crvuwnu9LiRcjw9tDDofr3xXr2CtxbrVbMp9tVkZxXeXMa1eETpRu1Qy
+ TYwAA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
-not check it. As a result, fchmod() can change the execute bits of a
-sealed hugetlbfs memfd.
+Once shmem_writeout() has moved the folio from the page cache to the
+swap cache, the folio lock no longer keeps the inode alive: truncation
+and eviction find a swap entry, free it and do not wait for anybody.
+That did not matter as long as swap_writeout() was the last thing the
+function did.  But since it puts the folio back when swap_writeout()
+returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
+afterwards:
 
-Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-to execute bits when F_SEAL_EXEC is set.
+  reclaim                               last close of an unlinked file
+  shmem_writeout()
+    shmem_delete_from_page_cache()
+    swap_writeout()
+      zswap_store() fails               shmem_evict_inode()
+      writeback is disabled               shmem_truncate_range()
+      return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
+                                        destroy_inode()
+                                        ... RCU grace period, freed
+    shmem_add_to_page_cache(mapping)
+      xas_lock_irq()            <- use after free
 
-This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+swap_writeout() behaves that way if zswap is enabled, cannot take the
+folio and the memcg or one of its ancestors has memory.zswap.writeback
+set to 0.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+shmem_unuse() already added infrastructure to deal with that.
+Reuse info->stop_eviction to protect the inode during writeout. Increment
+it before removing the folio from the page cache, and decrement it after
+swap_writeout() and any attempted reinsertion and inode accounting.
+In shmem_evict_inode(), wait for the counter to reach zero even if
+swapoff has already removed the inode from the swap list. Add some helpers
+to make the code easier to digest.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Acked-by: Pedro Falcato <pfalcato@suse.de>
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+[ david: code cleanups; improve description ]
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-[ david: use common helper; fixup Fixes:; check only regular files ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/hugetlbfs/inode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ mm/shmem.c | 36 ++++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe..02e0a65d596d 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -28,6 +28,7 @@
- #include <linux/folio_batch.h>
- #include <linux/fs_parser.h>
- #include <linux/mman.h>
-+#include <linux/memfd.h>
- #include <linux/slab.h>
- #include <linux/dnotify.h>
- #include <linux/statfs.h>
-@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index e3e4bbbe1d80..eddd5870be07 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1616,6 +1616,17 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
+ 	return error;
+ }
  
-+	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
-+	}
++static void shmem_disallow_eviction(struct shmem_inode_info *info)
++{
++	atomic_inc(&info->stop_eviction);
++}
 +
- 	trace_hugetlbfs_setattr(inode, dentry, attr);
++static void shmem_allow_eviction(struct shmem_inode_info *info)
++{
++	if (atomic_dec_and_test(&info->stop_eviction))
++		wake_up_var(&info->stop_eviction);
++}
++
+ static void shmem_evict_inode(struct inode *inode)
+ {
+ 	struct shmem_inode_info *info = SHMEM_I(inode);
+@@ -1628,16 +1639,21 @@ static void shmem_evict_inode(struct inode *inode)
+ 		mapping_set_exiting(inode->i_mapping);
+ 		shmem_truncate_range(inode, 0, (loff_t)-1);
+ 		shmem_unused_huge_del(inode);
+-		while (!list_empty(&info->swaplist)) {
+-			/* Wait while shmem_unuse() is scanning this inode... */
++		/*
++		 * Writeout may still use the inode after swapoff has removed it
++		 * from the swaplist, so always wait at least once.
++		 */
++		do {
+ 			wait_var_event(&info->stop_eviction,
+ 				       !atomic_read(&info->stop_eviction));
++			if (list_empty(&info->swaplist))
++				break;
+ 			spin_lock(&shmem_swaplist_lock);
+ 			/* ...but beware of the race if we peeked too early */
+ 			if (!atomic_read(&info->stop_eviction))
+ 				list_del_init(&info->swaplist);
+ 			spin_unlock(&shmem_swaplist_lock);
+-		}
++		} while (!list_empty(&info->swaplist));
+ 	}
  
- 	if (ia_valid & ATTR_SIZE) {
+ 	simple_xattrs_free(&sbinfo->xa_cache, &info->xattrs, sbinfo->max_inodes ? &freed : NULL);
+@@ -1776,15 +1792,14 @@ int shmem_unuse(unsigned int type)
+ 		 * remove placeholder inode from swaplist, nor let it be freed
+ 		 * (igrab() would protect from unlink, but not from unmount).
+ 		 */
+-		atomic_inc(&info->stop_eviction);
++		shmem_disallow_eviction(info);
+ 		spin_unlock(&shmem_swaplist_lock);
+ 
+ 		error = shmem_unuse_inode(&info->vfs_inode, type);
+ 		cond_resched();
+ 
+ 		spin_lock(&shmem_swaplist_lock);
+-		if (atomic_dec_and_test(&info->stop_eviction))
+-			wake_up_var(&info->stop_eviction);
++		shmem_allow_eviction(info);
+ 		if (error)
+ 			break;
+ 		if (list_empty(&info->swaplist))
+@@ -1915,6 +1930,13 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
+ 			spin_unlock(&shmem_swaplist_lock);
+ 		}
+ 
++		/*
++		 * Once the folio has left the page cache, its lock no longer
++		 * keeps the inode from being evicted and freed: hold eviction
++		 * off, in case the folio has to be put back below.
++		 */
++		shmem_disallow_eviction(info);
++
+ 		folio_dup_swap(folio, NULL);
+ 		shmem_delete_from_page_cache(folio, swp_to_radix_entry(folio->swap));
+ 
+@@ -1922,6 +1944,7 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
+ 		error = swap_writeout(ctx, folio);
+ 		if (error != AOP_WRITEPAGE_ACTIVATE) {
+ 			/* folio has been unlocked */
++			shmem_allow_eviction(info);
+ 			return error;
+ 		}
+ 
+@@ -1938,6 +1961,7 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
+ 			shmem_recalc_inode(inode, 0, -nr_pages);
+ 			folio_put_swap(folio, NULL);
+ 		}
++		shmem_allow_eviction(info);
+ 
+ 		/*
+ 		 * The swap_cache_del_folio() below could be left for
 
 -- 
 2.43.0
