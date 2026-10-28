@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793146831;
-	b=fKZLkbb2iOOKcs1L5J+R2K/stEODndApGF/0e2sEvMINO0WTUB9T31vbp1mOKqCa3yX2
-	 dmRpw1841Qco89ioxLFJdLMRkWV3v45TkfN9X326UQfnBTR18Hd/TOYymySaAkYEoXgFD
-	 GoUY/rm6Qu4luft8loT9qnFaJ45NKxVyj3i75dDxHEAdJOjw6/JXIxdJ20ltIGUQy0Fme
-	 KfJP8Qnh7j8Gb1oAoXLWYj5ETcM1dLVy0EWyRkrdIlw6JhGPVn2/fFNKf4Euu6G6Nzrb6
-	 k6AMhd80FW6JzCK4MXNzvbE4yLDvml8sRVSqoCVbTWt0iPEZO4PuzbyIIEVXw9EhULQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793146831;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ySeCeIUpErYVpErE4W6SOlDRjZS0sOGTZt/5WyOWbXU=;
-	b=TIfvB0nXbHS7I+14rtBOsH2k4tVqL4mKzMKVr3NCG5JQIMGrkMakwdkO5S0PNx8XphPE
-	 jxIP8UsQdShIokaSTyBful4Lyh6z2VgDfLP3ktkaR/qDrrN40VCwRnyrW/BTe7ad0NdvT
-	 lNQ+iJ8OwO5BAa+sD0MaAAaIiLXOQUHwC/ktfJcGNQQEEccIpaHL3sqdNINEIB5oURMu1
-	 /hCbb6Ejl+CNahb8pHcrvhpkSt1fM6iX6zhguDwPh8g+CWuAtyd6PPxQcN9uXJyZBoM4P
-	 gPqAAsmqjbordFIpXWQAquAC/wBO/tw2tYcB0fIiPanhiLH+qlf9cOoHyN0gwpt5nbg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vrsf1Lay;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A1C606A31D;
-	Wed, 28 Oct 2026 00:20:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vrsf1Lay
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793146831;
-	b=H3Io0UHu9M/oqI/kQhMAkWK2Q92tn61Y5/qE3CrklEewAeyjU5j9yAsZ6okpyQTWsymg
-	 pdYpuGXhiS+YVrLotZ6zxS/yYVmd2FeNTHe8FJkF7iJxX7p2rKBK5vyK7iHk1D9Bdw0yN
-	 VeQPnjgCEPiwr8UzTe9K6euSjoQ7N5pF4n9F4zwV2VluxtFr0xbxM4h9XGMPOwzIKuAmX
-	 dhdmblHnx9zeFRPYkdIh8lKEyYIhZ++/0RqmLzfrmXBvp5XDKQX+s9Wj666Ioc3RUbL97
-	 429vaUFif5ySAvU/IdMk8GJi4lOzRprBkE2hRu0o2dfHQw0qUKQC3wAqN+t+udHYUpQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793146831;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ySeCeIUpErYVpErE4W6SOlDRjZS0sOGTZt/5WyOWbXU=;
-	b=R/lbomaO2s6I6KfJV0rnIykH7HoknMFm9tdh0xgokRRTd/q+WX49i+YNeY5HzmRbov4Y
-	 mw2foJnjb0xfAco+A9ZwbAbdJZfPDrLk/jqka+kEcthLPjQePqbLq5aTmk6qsSA/dzQ8W
-	 haovl/ZBLFfPXyYywjx9aMOLTrv7ifSdwKu7eKPaPTQHHKzqR9FayYEtlFReYMfhMfH6f
-	 UXxDHzHYcdR29JfTw1pUUKMfu//KjSHvNi4qGVnpXC0t/FL4+LhMO4ETxme1bV39EesW5
-	 hy3mHqopSdC9GGtJ7b6x51VBfvs7mHv8OAyooYqMq8zCRMeZDI5qXdLjXctrXpP2xLA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793147839;
+	b=LyIxWCeFbBG9WIEiZLtomUuch5qChCcHAByrlX2+FHxwyNf9H8i13jjkBEL0HYY8y252
+	 Se3erfiWEuqvHuocBx/cmoEcXg0BMj5cuG41K8b1hG92jaGqmn3qE3SF6Imkks1ut/5iV
+	 GRXF/CMgRYC0B2kZAYAlZjWIh97Etjxt94fW+T0G03zhvVgHPm4LmF9lTOZ5uiIjbkQBN
+	 uZQBwIQRtE+X2pC3NDAMuecckyyC92RPjDKJdBGRgDDmGL9+3FxKguWv7okdv/Ty6niz9
+	 X9bi5V8fx/ktRN66PImO6OREIV/7MiFLUa9FTcvuFHnN5vZH8c7ivaxFDkT34ue4p9w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147839;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SqYvixOaSSJQbje2En+O9XHXdXx9PhvsbeVvjhj94Ss=;
+	b=jgqrwqisA+JINU/vf7is6e8rXvHs96xerDQfo0XAg07SyzpX+Fm7JUHSkTASlzRyFjoY
+	 1dXjr87hHSIAn3mFwiYZm942AJCVyQS/GW8wgLJa8pzeV7Um3dcnnBuFrK1ipAPdq65BI
+	 u6HnD4BCtPeTVtf0JxWK+z3SSofRuXUmymGrOaQrzFqx6ykXkzyuUqWPqxq7cNpdRRkIU
+	 ZLgWPrSdAydp/kvahx1z5a61jls/JJ8a/e4uY/l6aOZ/uBBEArXeQsVHzDXK6pecnYQ9O
+	 q24NPMRlFKm5itydmhpJs/znZu6IODVbiUscs21znrtS1mP2VW/xQCey4aaaiEWYLcg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=XqGSRFCW;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BC70B1F01825;
-	Wed, 28 Oct 2026 00:20:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793146831;
-	bh=ySeCeIUpErYVpErE4W6SOlDRjZS0sOGTZt/5WyOWbXU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Vrsf1Lay/TmrIqKE8SlRXkufI4sx7dB3YkXKveJTct5WWryPQ138LhsMtKyIX0gpM
-	 DSCV29vc4kPQoZH6HqGTX63WZ62IDGeURYRbX0PxE3T3xBS4fQBQfQOVakA7q5cf00
-	 vuNO1/WgLa5CTsltWNfpz+tC2gWpsXug8NcOGHXP/MYsq0mPuyoCLYJV2iDxU+V4R5
-	 DY22En76650vcysRMBByvax6Xi8KyOX3G+rjqSE5KN876Yd8I5fPWYMVsZEiQAFfuJ
-	 QK4vFRYRBed72az/ITXQgVn1qfcwJI904VlWwkWbfz/YM7501vB1+jVmFKqVSOFeTf
-	 mnh2dF/08DAxA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2C122452EA;
-	Wed, 28 Oct 2026 00:20:29 +0000 (UTC)
-From: Jez Ng via B4 Relay <devnull+jez.sfcompute.com@kernel.org>
-Date: Wed, 28 Oct 2026 00:14:45 +0000
-Subject: [PATCH 1/2] thermal: intel: hfi: Disable HFI on shutdown and kexec
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D324A606A32C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D324A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=XqGSRFCW
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso4063295e9.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:37:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793147836; x=1793752636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SqYvixOaSSJQbje2En+O9XHXdXx9PhvsbeVvjhj94Ss=;
+        b=XqGSRFCWBECA4t134CNMPUEh6JdnMwR/r4aoxTsdni/ipcinmlCn3WQqkCwLtzEoFa
+         P3pOHXVO0tQZ6nJst6Frk1Um7+vFPinom49jvksShnL2tEKtQys7PiSFjKC1mZg+G1FG
+         F1KaI9rtqP+2S0dQShMANYGlyVWNtrwwjtlGvI6bCjjx4rjJFQiDVfOorCBunFZHo0eo
+         Qjcv0dZFfpXlhx1en+nok1ISUiaDLe1VimpHGKaVEERSs9E2CVkgsZcFjXQdLt+Go9KY
+         WIqydPmwRthBlNWaucBLRWLl/SC6JI66tqBqrkwEleCO+68X9hik4BHbwhhK+sc1WtFg
+         S1EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793147836; x=1793752636;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SqYvixOaSSJQbje2En+O9XHXdXx9PhvsbeVvjhj94Ss=;
+        b=mwJEBTLOzsewGQrEaDwp2NkXe5l+5NVgWC9hkj+IYqW/Rt4XDhmODV37OWT/q7N1Eh
+         n18/mbbAaziX//htjXaGZtPZ+F2HTsViV3TlJGqQNgOxLY4E9mLHBOg3e9pjk9+PH9oK
+         7/6GDYf34RtEG4CEuzxG8vDkJD6cgcd4SXtLq+UFE5zCvGNlHg7GGpbAbfGSeuJWhA+I
+         2TwagR2Is091VYmTaTY+QMDwIP/vPsiDDrgFGpETFfEGNXZW5yaGY0WdGV/HDn92v+79
+         kftZG6ZQ6XEt7aHZEQ5B5UE5lic4Rxz+aHV6Rd/9J9zibvq3V5TkJ8vAof042ZWOhIT7
+         euMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCFBdEDTofafxzrO/Oo+KOSzsRHQ0+J/Gag51AoVNc8D89UyHuh+8+LpdD5V1Hh2hkw8lMVsI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwSWT4pBd1swIdwDT7rR7Z9C5lokK4ZK/Zu0sBawCAKy+o9Pxg
+	2nUMtPFFQaTtIx+eJqqhzN5oaBXAKln8TJ87rc5Suv0csjhgWGmEwyPHoTBm8P0EpHs=
+X-Gm-Gg: AYBFou3vRsLo5ibiKXst1IaMmRpgtBqDGjim0A859K8IyoDGDD0VwlRQdt0tgIVlSYz
+	l2HhA12/3mC555AS/4tszpwAOHkKsgF8HdCVtIr9kedTeO6RqvDcZXCOZFE1PQrxpbneukozbHx
+	jbbonmnrEWrcBLdEz1mAJ63caM1B51Kh9nIXPCDyN3tg7VJ40j/rGXoiGv68WKUJRSRsc9eetI6
+	OyvUM4kIVMJq1qMpNkIWeoCNGvrS/zbNTMRPwrMVce67xs+hM5SEbcgXJ9uJUQRYh/SUDtA0SVz
+	nuFtMS/AYc7AxwC55T/bhD4SNQBzNJL2+JQknbszdui+4IAOuoJ7/Lg80hDfm4LxKAFMcWHAjcT
+	jBFTA+mh3PZdo0VVismnW1MCJDlmwuOYKXm3Gh8XDYqh7fM1DpjFYO1x/zG2QsF0+ufytxQpOg9
+	HwWgfeqp7kGlg92oWM4LWoEJvTHOXAs5O0mrsrHWvnhAGvT31J2bOl3Pl5KgVhAF/8fQ0btEMC7
+	2Abc5tslvSzfhcStXuhERxOvdyq5hjekughFmclNSlHzI32FVb3U9UNEPthwgIhB1H9MVAVdKet
+	Eadjd6V3F7N0Y2g7Nk4eV8GRs7TweZe1z3jTPa278ER5e0UTb0WU6OosGQ01bY9lAQp5zZCPwkY
+	/ezFW9H5RBFo=
+X-Received: by 2002:a05:600c:1387:b0:4a4:4d57:8487 with SMTP id 5b1f17b1804b1-4a96667b9f7mr12466015e9.5.1793147836309;
+        Tue, 27 Oct 2026 17:37:16 -0700 (PDT)
+Received: from irdv-jinli.dev.purestorage.com ([208.88.158.128])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a976010d2csm8395245e9.2.2026.10.27.17.37.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 17:37:15 -0700 (PDT)
+From: Jingyi Li <jinli@purestorage.com>
+To: vkoul@kernel.org,
+	vinicius.gomes@intel.com
+Cc: dave.jiang@intel.com,
+	xueshuai@linux.alibaba.com,
+	fenghuay@nvidia.com,
+	Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jingyi Li <jinli@purestorage.com>
+Subject: [PATCH 1/2] dmaengine: idxd: fix double free in idxd_free()
+Date: Wed, 28 Oct 2026 00:37:06 +0000
+Message-ID: <20261028003708.834341-2-jinli@purestorage.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028003708.834341-1-jinli@purestorage.com>
+References: <20261028003708.834341-1-jinli@purestorage.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,178 +105,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-hfi-kexec-v1-1-956234dcfb2b@sfcompute.com>
-References: <20261028-hfi-kexec-v1-0-956234dcfb2b@sfcompute.com>
-In-Reply-To: <20261028-hfi-kexec-v1-0-956234dcfb2b@sfcompute.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, 
- Ricardo Neri <ricardo.neri-calderon@linux.intel.com>, 
- Len Brown <len.brown@intel.com>, 
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Andrew James <ajames@sfcompute.com>, 
- John Ranzie <jranzie@sfcompute.com>, Jez Ng <jez@sfcompute.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793146828; l=5162;
- i=jez@sfcompute.com; s=20261027; h=from:subject:message-id;
- bh=dv3+YjTvTdGwFlEMyHW/rKlDFKBOFHdfyscbY7G2KH4=;
- b=17IUNS718UtNc8J4GnqlzzXMBBYEwGHFZrL8mq+4fhWeNKujtWmPphrbKZOcpaKbolPjE16wc
- 3NPCe3VNhKnADAO4xZ0EycMqO8XWAZXvfu1p59i6sg49FnvQxAU7DMC
-X-Developer-Key: i=jez@sfcompute.com; a=ed25519;
- pk=e8QxvBomwv96udVoo4EZvgPDtnl1YbPysb3vNdKi8JA=
-X-Endpoint-Received: by B4 Relay for jez@sfcompute.com/20261027 with
- auth_id=1337
-X-Original-From: Jez Ng <jez@sfcompute.com>
-Reply-To: jez@sfcompute.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Jez Ng <jez@sfcompute.com>
+idxd_free() calls put_device() on the conf device, which drops the last
+reference and runs idxd_conf_device_release(). The release callback
+already frees idxd->opcap_bmap, the IDA id and idxd itself, so the
+subsequent bitmap_free(), ida_free() and kfree() in idxd_free() operate
+on freed memory.
 
-HFI is enabled per package by writing the physical address of a table to
-MSR_IA32_HW_FEEDBACK_PTR and setting the enable bit in
-MSR_IA32_HW_FEEDBACK_CONFIG. From then on, hardware writes performance and
-energy efficiency updates to that table on its own.
+idxd_free() is called from the error path of idxd_pci_probe_alloc()
+when idxd_probe() fails, for example when the device reports HALTED
+after reset. We hit this in a kdump crash kernel, where the DSA device
+fails to reset: the double free corrupts the slab and the crash kernel
+dies before the dump is saved. With slub_debug=FZPU it shows up as
+general protection faults on 0x6b6b6b6b6b6b6b6b.
 
-Nothing disables HFI when the kernel shuts down. After a kexec, hardware
-keeps writing to the old kernel's table, which is now ordinary free memory
-in the new kernel. The new kernel does not reprogram HFI unless a thermal
-netlink client subscribes to events, so the writes continue indefinitely.
+Let the release callback do all the freeing.
 
-This was observed on dual-socket Sapphire Rapids systems (Xeon Platinum
-8462Y+) that boot a Debian 6.1 kernel and kexec into a 7.0 kernel. Both
-packages kept writing HFI updates (a timestamp, a changed flag and one
-row per CPU) into the old kernel's table pages. When the inode hash table
-landed on one of those pages, the new kernel oopsed in find_inode_fast().
-Disabling HFI before kexec made the writes stop.
-
-Add a syscore shutdown callback that disables HFI on every package with an
-online CPU. syscore_shutdown() runs on reboot, power off and kexec, after
-CPU hotplug is disabled and while the other CPUs are still online, so each
-package can be reached with smp_call_function_single().
-
-Do not enable HFI again once the callback has run. On kexec, user space
-keeps running on the other CPUs until machine_shutdown() stops them, and
-kernel_kexec() enables CPU hotplug again after syscore_shutdown(). A new
-thermal netlink client, or the first CPU of a package coming online, would
-otherwise enable HFI after it was disabled.
-
-Skip packages where HFI is already disabled. hfi_disable() waits up to
-2 ms for hardware to set HFI_UPDATED, which a package that is not
-running HFI may never do.
-
-Fixes: ab09b0744a99 ("thermal: intel: hfi: Enable notification interrupt")
+Fixes: 90022b3a6981 ("dmaengine: idxd: fix memory leak in error handling path of idxd_pci_probe")
 Cc: stable@vger.kernel.org
-Reviewed-by: Andrew James <ajames@sfcompute.com>
-Reviewed-by: John Ranzie <jranzie@sfcompute.com>
-Signed-off-by: Jez Ng <jez@sfcompute.com>
+Signed-off-by: Jingyi Li <jinli@purestorage.com>
 ---
- drivers/thermal/intel/intel_hfi.c | 50 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 2 deletions(-)
+ drivers/dma/idxd/init.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/thermal/intel/intel_hfi.c b/drivers/thermal/intel/intel_hfi.c
-index 3273b8fe3d4d..8ff094eccbaf 100644
---- a/drivers/thermal/intel/intel_hfi.c
-+++ b/drivers/thermal/intel/intel_hfi.c
-@@ -161,6 +161,7 @@ static DEFINE_PER_CPU(struct hfi_cpu_info, hfi_cpu_info) = { .index = -1 };
+diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
+index 4b827a329756..1577d22b299c 100644
+--- a/drivers/dma/idxd/init.c
++++ b/drivers/dma/idxd/init.c
+@@ -581,9 +581,6 @@ static void idxd_free(struct idxd_device *idxd)
+ 		return;
  
- static int max_hfi_instances;
- static int hfi_clients_nr;
-+static bool hfi_shutdown_done;
- static struct hfi_instance *hfi_instances;
- 
- static struct hfi_features hfi_features;
-@@ -398,6 +399,19 @@ static void hfi_disable(void)
- 	}
+ 	put_device(idxd_confdev(idxd));
+-	bitmap_free(idxd->opcap_bmap);
+-	ida_free(&idxd_ida, idxd->id);
+-	kfree(idxd);
  }
  
-+/* Caller must hold hfi_instance_lock. */
-+static bool hfi_disable_if_enabled(void)
-+{
-+	u64 msr_val;
-+
-+	rdmsrq(MSR_IA32_HW_FEEDBACK_CONFIG, msr_val);
-+	if (!(msr_val & HW_FEEDBACK_CONFIG_HFI_ENABLE_BIT))
-+		return false;
-+
-+	hfi_disable();
-+	return true;
-+}
-+
- /**
-  * intel_hfi_online() - Enable HFI on @cpu
-  * @cpu:	CPU in which the HFI will be enabled
-@@ -483,7 +497,8 @@ void intel_hfi_online(unsigned int cpu)
- 	 * Enable this HFI instance if this is its first online CPU and
- 	 * there are user-space clients of thermal events.
- 	 */
--	if (cpumask_weight(hfi_instance->cpus) == 1 && hfi_clients_nr > 0) {
-+	if (cpumask_weight(hfi_instance->cpus) == 1 && hfi_clients_nr > 0 &&
-+	    !hfi_shutdown_done) {
- 		hfi_set_hw_table(hfi_instance);
- 		hfi_enable();
- 	}
-@@ -593,6 +608,11 @@ static void hfi_disable_instance(void *ptr)
- 	hfi_disable();
- }
- 
-+static void hfi_shutdown_instance(void *ptr)
-+{
-+	hfi_disable_if_enabled();
-+}
-+
- static void hfi_syscore_resume(void *data)
- {
- 	/* This code runs only on the boot CPU. */
-@@ -612,9 +632,35 @@ static int hfi_syscore_suspend(void *data)
- 	return 0;
- }
- 
-+static void hfi_syscore_shutdown(void *data)
-+{
-+	struct hfi_instance *hfi_instance;
-+	int i;
-+
-+	/*
-+	 * Hardware keeps writing to the HFI table after a kexec, into memory
-+	 * that the next kernel owns. Disable HFI in every package, and keep it
-+	 * disabled: user space runs until machine_shutdown() stops the other
-+	 * CPUs, and kexec enables CPU hotplug again, so a new thermal netlink
-+	 * client or a CPU coming online could otherwise enable it.
-+	 */
-+	mutex_lock(&hfi_instance_lock);
-+	hfi_shutdown_done = true;
-+	for (i = 0; i < max_hfi_instances; i++) {
-+		hfi_instance = &hfi_instances[i];
-+		if (cpumask_empty(hfi_instance->cpus))
-+			continue;
-+
-+		smp_call_function_single(cpumask_any(hfi_instance->cpus),
-+					 hfi_shutdown_instance, hfi_instance, true);
-+	}
-+	mutex_unlock(&hfi_instance_lock);
-+}
-+
- static const struct syscore_ops hfi_pm_ops = {
- 	.resume = hfi_syscore_resume,
- 	.suspend = hfi_syscore_suspend,
-+	.shutdown = hfi_syscore_shutdown,
- };
- 
- static struct syscore hfi_pm = {
-@@ -649,7 +695,7 @@ static int hfi_thermal_notify(struct notifier_block *nb, unsigned long state,
- 		break;
- 	}
- 
--	if (!func)
-+	if (!func || hfi_shutdown_done)
- 		goto out;
- 
- 	for (i = 0; i < max_hfi_instances; i++) {
-
+ static struct idxd_device *idxd_alloc(struct pci_dev *pdev, struct idxd_driver_data *data)
 -- 
-2.39.5
-
+2.43.0
 
