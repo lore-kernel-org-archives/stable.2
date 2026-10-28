@@ -1,55 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200801;
-	b=GHj2jwVqWa+7HO8F6CZNyrMtOBU/mTpX9QXAILB928mFprZTzvZNb9xx18iKEob9mbV6
-	 1pC9U6B7WFkvdZQ6p5xOAAAMtSUPirfL6w3qgKnpKyVnL57YDozljmn0wbeyURj2/xNiX
-	 mnbXYQe5WJ2BbVCirF7Vca1rux/u/uTc/gi13a9LJ8dKYrTTf5xuTdBGYpTpCaDpsjsJb
-	 v1jc6TdE0Q8PmiQBqzKeloAUZruL23kiMFgIYvVwl93tEVgxXd3OwGmJn/8ygS90HGOhJ
-	 fiQmCVVWW8k8HkWw+nEprE+h33xOtusUAstOEL5YP/dBHCYVolcgkr4NH1rrHpAy6lg==
+	t=1793201068;
+	b=FCeHr2xrYqgk3UrM4MIndQzi27UlwegbsI8F3n0dcC6okvqdP5zHrxkcoh9UQ/oD1h7b
+	 IlWZgqbAQmLWJfRc5jBxCrLOLP8GJLgTwsAF2Qt/woqbQ05mZx9JrrcDKsdswmpngPdbK
+	 BXRraHd69wFcfESus/VqsdKzMPciaPbjtybnio+4SjGULfHoLdFsq/m2mHmEmpu+bV2HO
+	 tHwnHUXGOJWKBNZ2FKcySfr7D09f/f9ZsFo/hfIC7LRqb+TPINlwtPtl0Tka8Cdo3JaWB
+	 Bw5AvtMccFOt298BHQ97PDLkBQ7/ZSphfKdInckqdqB4Fne2I/I4glZjflV49duGtqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200801;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=A9z9mPc50c9zcO2nI8W5ZaxJzLIoB0ucd+UQZfv8iz8=;
-	b=0gGIt5DsCSQfGOO4eJ3ksRg0pmeGhtvIyT7qJwMs3pfwB7pE0h4EbOVeKQsHfKmoduKX
-	 gLtGaOn3PV5EomqANIyJ58OI05igGvoDyeDdJkBsqjrzQWNhPQP1qvsTPymqRIa9BGKH/
-	 py7L1twAP801rFQcmz2JWkH9vLt3fuL5xuYx9WmdQRcgk1qHt7xC46z0ty7PjkLHzh5fh
-	 4hv+R5I0o4PueJcLWovhzyRnaAX2tA81fnkvjmHdxY6+9jFiLMb15n4N5bStXOGuOzcv3
-	 3OLGl9CsJ9RJeBTxT88ZgcIHixmZgKi/zdGCcHbf9YOFvLDpOQnC28dxXisWMcYYR1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201068;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BfcD0yOfpZZxJBlt6VkljjUOnhbxWsFVe42FO5P3KKw=;
+	b=1SDJFPscuTHqAmKUvVulWKEUp9h8McF2PFMoikgpgvBu8AdEpYGGioekOdAMvLDZGye2
+	 yybvo9jT65BMauRt/U6y3wFnV5e3bZNZ+8M1b/J0tlmuEqrpquKCy054yVWSc5AYVXD1P
+	 puddLXrAFSgepnqrZeJJc6+MQaIM2yGTuy0WA1ksRuQ0MKIyGXn2gATe/okuZaggKOA9q
+	 ZjGiF7hK7dQ5cINjleyMDxMuXnF3hdI9xwuieZBFXTu2GOh/iPitRHVQth7F72cVRyHtb
+	 cowE0ah09JhuSugxk/znT4KOdbmXC2Pqw+tIh5xLYSX2JejdEldAjN2oi49MDZCuCYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBmlPsG3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=JcUN2xkx;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=J4be2ifz;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5060606A325;
-	Wed, 28 Oct 2026 15:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045F0606A322
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 045F0606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBmlPsG3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66D71F01825;
-	Wed, 28 Oct 2026 15:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793200800;
-	bh=A9z9mPc50c9zcO2nI8W5ZaxJzLIoB0ucd+UQZfv8iz8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZBmlPsG36+63vfQ43cx6IG1M4sJcNfI+nj8gsLrSK7Fc3QS3Uc9M4jNJ2H7Iprlr6
-	 BBMSjBED/JD4PYOiq6CBIPGIf8wsT1o5XQFwQskPRTEuk59C2VJnIrS8sBH327+w5a
-	 18pxBHcvp8Gd1vsWyVU2gbEpP6fKutCmA5FA+y/sLBgEvag7IYlFqVCp5VoDqdDS6O
-	 4RX8GLMvLSFG3o8tWOHy3jRbd0z1dLMB+SA3vN8cs1+6TwZLBxW/8TbxznEF3pOBge
-	 hWyxV76Ef+1QRdBx2IrOCyftW4r3op9sAXOH58uOmV6NahosQnzZ04rHgyXZlPk4Zu
-	 u8/o27dYDsO9A==
-Date: Wed, 28 Oct 2026 15:19:56 +0000
-From: Lee Jones <lee@kernel.org>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Pavel Machek <pavel@kernel.org>, Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] leds: tca6507: Fix use-after-free on unbind
-Message-ID: <20261028151956.GA3774906@google.com>
-References: <20261015144033.56519-1-danishkhateeb03@gmail.com>
- <179213356828.2581328.5085333261240588869@kernel.org>
- <20261028134857.36086-1-danishkhateeb03@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=JcUN2xkx;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=J4be2ifz
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 38B38140015D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:24:26 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 28 Oct 2026 11:24:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793201066; x=1793287466; bh=BfcD0yOfpZZxJBlt6Vklj
+	jUOnhbxWsFVe42FO5P3KKw=; b=JcUN2xkxM5/GOXJ2pYFDP8kA3BN/fXopFzKGF
+	n+EHGEjltXH7Gg5FRUSE4pL5UFHhsgf1ia8sW5e6x+A4qKshjx/6LtRcH/JgnL8d
+	haP+8JCY+eird06MQFFwb6M3s6fZMd/1eTDStR6loLik1BmTvzFqRecsh5q1gSfs
+	nEFa8r4gw3bev04cVQHYjCbBfNlYbfmGMlZmTjvqp2YH/iGAklmu6mSgV40t5NCN
+	6MqL7LTMyZD8ZrQCzyIyHrPiEObIso2Wc2mdlNGdjRSYo3mWQ4Jf+tMOCzmxe0B/
+	Mdh+Vg3fZ4ULF8+gm7mugh27mvUqZFrO589YDMz4ZuL2j4apw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793201066; x=1793287466; bh=BfcD0yOfpZZxJBlt6VkljjUOnhbxWsFVe42
+	FO5P3KKw=; b=J4be2ifzmTDmdV6n0pd9nUyUMhMX5GQ6JtvoLQT6q5JJRX2gA+N
+	ew5y+PiWOIEPYf7slgI8SXgyvU9sNqCf/GH1I5tG1wW1k0aoUlQz/V0oRyjRhUXc
+	OiXO5wKCyfGS4nAyZ8nq7qVdSv0fcb46RquTrx+uNeBIRKolcpY2qN0tOYI4IjWT
+	XPR2QE65ggxNVeBe1fwsBmnz6Ol7+1tLIJ+z8GaO/TntKSdvUPNGgqPcxiNYKaIx
+	DkLhrh2wXctRldH1O6baJVkhfYKNX+2anDdGI9x/9U7/Tb1lvGcrIiWXUqGuG+7B
+	vrp1crJLEvFqh1sYIkx5XEMnMUxmXEWcB8w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793201066; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Ql8YGAuYp6Ott/CiuFYR1SH0hs1j2Nq0tsbNig1cRMNVN9d
+	BrhJXyFZYYsQT1HVLkdAS0ngzlUt0zicvLmjqnZ5x8dyF6XqRndV2uMp4TBkr+VV
+	BoKnEpryf1n6fxi10w7VzC8C1EqNYFhNojzTNL9BthZRkzSp+cjkMsfsOfwl8qec
+	Ka45gYpkh3k0ZDp12EbUG83X9SLLoW2qv/k4HtJ/LJPjW4gyKy6bNsk9f7loCAHZ
+	tq3kPYFmG11SduHS6GXVBQpVFW4E67XljnYfEHikMalSISAC+KxO0Z9THk66PG+H
+	fFOqnv1nF0PleOSl6hW3HgX1NjK0oRfzDqQCBBw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:3OhkKizlT/OXYX+iSaPAuKVcUUPYGDMX8uXN0zIjV8g=:fVgbAePJvHSidSOXCkpdSAsmYCQPcvgfO9+rfnamlms=;
+X-ME-Sender: <xms:qRPiavX3MtWHEfp8G_dyL4O0FMt941IkbZexMGplt5IAFdeBD2K2eQ>
+    <xme:qRPiaoBn967E35qf_i-bPp-WP846MoDbg80tNehck7p9-oUa5J7NKm_6YUWmPbSC9
+    3qHRY5ZCawE6GWRhhf0aTN2Myy3nvY5b9OrVud0HldceWS8rPQw6l0yLg>
+X-ME-Received: <xmr:qRPiasENW_lI3MTZ5cM92Y8WjSCqVhL6LcG2P8Xqt7Wi1gJY0-6FhvAuFhVS5rTu>
+X-ME-Proxy-Cause: dmFkZTGJGW5ZmYWtjJzszk8ZC/D2ik/dKkFR69w9/H9a+W4qwaOtZbsZMuUb27wvfx07c5
+    Fn6QRalC38iUHNmRL0iZUpLJ73ZyrYevJEddJmNcSX3k8MstygdQRPsulrih9+0t3A9e8x
+    W+OL9nBX+iFVmNT9ZlirSMIixFyLFq7acW44x4A5oKcLoJwZRxz9YjwDG/WnX30/a8+KKI
+    7q5jSmqKnYmbLqVimOmwItGikM845oDAeGuiikkNaVkYgVBR8pwVGDKaRnrt0US7usXT/u
+    64Uv+Zo4tDL8ZImXmoGubo0NYMidklUIlXwNGCKIv61Rm3yT5M9Ngybcob2hpNSLB5a4Ju
+    ITaf2cA5bp7MCoi9yEMlXYxchofXKedClkNY6CTEVgBcqqW6yKBnilTu50P0lRoxDITQCT
+    ms8VZfkYu+8ZHtYiR2gjzEp1kadBX547vB+cdM/7c3CAvlPtY7WSXyE9ZngfYJxGLwAB4w
+    GvkCICIBfSuNXoukbyTwvsg+SgO410OazrTpxVDdAiw3QpUxidJDHtZZIJ/kgsV3FHm/YR
+    C3pn5aHah5c8G5SSnIZgysJk4DuaNRl8+0qub9zcps6x9wMrQG3GmD3xcclgeZ5oBJe9kM
+    fZ02cjQ+WqJQ0uoajoMZvmn2u6haCk5TLzgGwz5LByj2p+Q6pF2nW8TxylsQ
+X-ME-Proxy: <xmx:qRPiah4o2H2KAmV5qFXw5K-e5KX228gh65fWiPCFPtREfAWS-N6WEw>
+    <xmx:qRPiaqlBYjyklEHNwNIHgHTZ8DSm6-wIN7fSJX9P7xor4LXBz3Ve1Q>
+    <xmx:qRPiak7MFENzNc5qm5mpOYEmx7cP7_v92z7llARaNe7gzNUuErKvOw>
+    <xmx:qRPiajTpbpf5TyLBOPu_Lk3x0GLRnkiQV1JewBrQD46VpfsR7Zuwtg>
+    <xmx:qhPiarzg6weHXKxtkLMysbeycGy4pJ7X6ENBbqGXFIzXFBtcRZttMYpT>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 11:24:24 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: [PATCH] ksmbd: require DELETE access for delete-on-close opens
+Date: Wed, 28 Oct 2026 10:24:13 -0500
+Message-ID: <20261028152413.183380-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,23 +127,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028134857.36086-1-danishkhateeb03@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026, Danish Khateeb wrote:
+smb2_open() accepts FILE_DELETE_ON_CLOSE on an existing file without
+DELETE in DesiredAccess. When the request asks only for
+FILE_READ_ATTRIBUTES or READ_CONTROL, it also skips inode_permission()
+and the parent directory MAY_WRITE | MAY_EXEC check that delete-on-close
+is meant to get. The file is then marked for deletion by a caller who
+could not delete it.
 
-> On Wed, 28 Oct 2026, Lee Jones wrote:
-> > Please review, explain or fix the Sashiko review(s).
-> 
-> Sashiko is right that the "LED off" write queued on unbind gets
-> cancelled, but that predates 1b5c2fa7081c: remove() used to call
-> led_classdev_unregister() and then cancel_work_sync(), the same order
-> this patch restores. Since 1b5c2fa7081c that write only ran on freed
-> memory. If you'd like the LEDs turned off on unbind, I can send a
-> separate patch that flushes the work instead of cancelling it.
+The unlink happens later, in __ksmbd_inode_close(), when the last handle
+on the inode is closed, and it runs with the credentials of that handle.
+If the caller closes last, the unlink fails. If another user who can
+write the parent directory, such as the file's owner, still has the file
+open, the file is deleted when that user closes it. Until then new opens
+of the file fail with STATUS_DELETE_PENDING. So a user with only search
+permission on a directory can delete a file in it, or block opens of it,
+while the owner has it open.
 
-Submit them as a set.
+A MAXIMUM_ALLOWED open that also requests DELETE has the same problem.
+The requested access is replaced with the maximal access, which does not
+include DELETE when the caller cannot write the parent directory, and the
+later permission checks are skipped as already done.
 
+MS-FSA 2.1.5.1 requires an open with FILE_DELETE_ON_CLOSE and without
+DELETE in DesiredAccess to fail with STATUS_INVALID_PARAMETER, and Samba
+does the same. Add that check to the CreateOptions validation, using
+the generic-mapped DesiredAccess so that GENERIC_ALL still qualifies.
+This also refuses MAXIMUM_ALLOWED with FILE_DELETE_ON_CLOSE but no
+explicit DELETE, as MS-FSA and Samba do. When MAXIMUM_ALLOWED is
+requested with DELETE but the maximal access does not include DELETE,
+fail with STATUS_ACCESS_DENIED. With DELETE requested, delete-on-close
+opens go through the existing parent directory check.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+Notes:
+    Reachable by any authenticated user on a writable share, with no
+    acl_xattr or other special configuration. The caller needs search
+    permission on the directory, and the file must be open by a user who can
+    write the directory when the caller closes. Impact is unauthorized
+    deletion of files that are in use, and denial of new opens while the
+    delete is pending. It does not expose file contents and is not a
+    privilege escalation.
+    
+    Reproduced on ksmbd-for-next 206fc30f71b0. tester2 owns a 0755 directory
+    and a 0600 file in it, and holds the file open with ShareAccess
+    READ | WRITE. tester is denied open(DELETE) and open(GENERIC_READ), but
+    opens the file with FILE_READ_ATTRIBUTES, or with MAXIMUM_ALLOWED |
+    DELETE, plus FILE_DELETE_ON_CLOSE, and closes it. tester2's next open
+    fails with STATUS_DELETE_PENDING and the file is unlinked when tester2
+    closes. With this change those opens fail with STATUS_INVALID_PARAMETER
+    and STATUS_ACCESS_DENIED and the file survives. Delete-on-close with
+    DELETE, GENERIC_ALL or MAXIMUM_ALLOWED | DELETE on existing files, new
+    files and directories still works, as do smbclient rm, rmdir, rename and
+    deltree. The Linux client always requests DELETE with delete-on-close.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance.
+
+ fs/smb/server/smb2pdu.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index be226664b8af..c626cb3bece1 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -4606,6 +4606,14 @@ int smb2_open(struct ksmbd_work *work)
+ 				goto err_out2;
+ 			}
+ 		}
++
++		/* MS-FSA 2.1.5.1: delete-on-close requires DELETE access */
++		if (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE &&
++		    !(smb_map_generic_desired_access(req->DesiredAccess) &
++		      FILE_DELETE_LE)) {
++			rc = -EINVAL;
++			goto err_out2;
++		}
+ 	}
+ 
+ 	if (le32_to_cpu(req->CreateDisposition) >
+@@ -4875,6 +4883,13 @@ int smb2_open(struct ksmbd_work *work)
+ 		maximal_access = daccess;
+ 	}
+ 
++	/* MAXIMUM_ALLOWED may not have granted the requested DELETE */
++	if (req->CreateOptions & FILE_DELETE_ON_CLOSE_LE &&
++	    !(daccess & FILE_DELETE_LE)) {
++		rc = -EACCES;
++		goto err_out;
++	}
++
+ 	open_flags = smb2_create_open_flags(file_present, daccess,
+ 					    req->CreateDisposition,
+ 					    &may_flags,
+
+base-commit: 206fc30f71b005156085fd8523ccc84a2c67791b
 -- 
-Lee Jones
+2.47.3
+
