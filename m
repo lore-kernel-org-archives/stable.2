@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217745;
-	b=WjPxGcaiPWWLtRQAJYEtm0UOh4bJee697v+YIOkyFtr61iz69cdfCl8i/GtAxXyBp90V
-	 Et8Xeg5X0tP6EDc0nECWs2tcuaFYpvTKDLbN5wRG19riy/bHUU55ICi20+/2mn5/CBTK+
-	 bnMwE0sfmR9FFeoK90MaFBk94CxWXWjLIEvL5JxQXtjRFoY4dv7nI9ZWdpC53GNnX6yK6
-	 87HqAHIg3oe5PU/c58z+yGOkKVBBuYcvYA3qmAn6OIB/IGeeDHVQCXdLYdSkV6GrWrhpt
-	 5uC2Jgz7FDhqYoaG/sUjvwbdnI4XB0MrbUw2qZDa5x0kmleK9WX4vRvRjV4XVqxULzw==
+	t=1793218170;
+	b=iM2CKu6EF+veGAOQdaTdaA14H+DjGtxnTefe+vmLpDl1aBdL9BoeycppqHw3iph1Gkbf
+	 9LK7wqO43ZYHNyQ4pq8qh7YoHArs3wUQYRZUQX7rxORBf9B9AwBOZTZ+AIs9jMQziu0y0
+	 yfwoMjy4CWq+PSrBqPuGePp8RSvRdzjQJleDl+hXa/n2GEj2EMfvWgIAe/xPdDV2WV3qa
+	 31dymozjZCZjRUKlP6vontgGCKt6uY3I+RL67r75IJcPX6hU1mA9jEvwQwuzLnzVci7ok
+	 kpBOeeq0h4XCJQeNyUyoJgB4kqR53v8AkXInwroh0YTBUmKQp7VkJWL4sHylMxnSJaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217745;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=eMGL/SfdPd4JTRR79GZx0ANHe3xXx+490kcRSCW/wB0=;
-	b=CvoyNUc32YkChVBGqtSLDuz/DS+fPYk3FdWjUi0T/Tf2byPq4JC7CJdUBv0rQAEDMnHr
-	 stCDuhLd2YHBOWk6tL5i+p4a/+hTOV6dvw0BYJP+ciZCU9Ri0uODhbNBG6sb84IiZbj4p
-	 PTM1rEcFe336BxgWO+5b1aYmgcn7gA7DVglWB3Av7lsKp/leQAinoTguciGeXjAoULaWB
-	 m/8u25eYqYSQAFkMUKwp2Vps9yJYBfYUMnAOG3tTsiRPWYK8VObtbzA6nuxKacxLc7/lq
-	 2NfhuiIp0xIpgEsT5RxLLf8Ew3L8aETOhO90pv5kwdnj3DadShf5B1HrsXXGWcqVIsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218170;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:
+	 X-Original-From:X-Mailer:Received:To:Subject:Message-Id:Content-Type:
+	 From:Mime-Version:X-B4-Tracking:X-Change-Id:Cc:Date:
+	 X-Lms-Return-Path;
+	bh=P9v5gomtHM+UM7ktgSnN33eoEYmTkj5Bo7NGWriI0nc=;
+	b=jiRAgH914jVfV5ioisimn+4N9rfigxoX6pnqmRMcE+z/MbhyzdOfsCLiAHVFmkLFQwlv
+	 ganR3FKiwn51dmN2QTdwzS8Fw3/qylnss2FNUNSeLCrJZNsAX/iwHQVCTmymWCfBoJJ7P
+	 mHf9zmUcCog+MJ4M8soWnVPkyp32gTBRyLD2qya+jhhWZAXvEqE05FgabJJoAS1spI/a0
+	 QRYr4v80tAX50HHhzaxsmaJPGsyq2Jh0esifVYDDg5qnsDB8JzYrYRxxaVPHix2hm7EsG
+	 McM8DBpuRLz47hdbU9gWW7CLiFj8O21EMfHagnzxJJXcURRDZW81ayHzRQwM6KP+dNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oA079Fvs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=XcC1dZxC;
+	arc=none smtp.remote-ip=71.18.227.5
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDE4606A31A;
-	Wed, 28 Oct 2026 20:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0A460A2613
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0A460A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oA079Fvs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2812A1F01825;
-	Wed, 28 Oct 2026 20:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793217744;
-	bh=eMGL/SfdPd4JTRR79GZx0ANHe3xXx+490kcRSCW/wB0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oA079FvsZbwlsepEf+HHdspm11+1XJ8lfzgtz7lxfozsRQxpLIHBTboTQqPUrLGu2
-	 6ZF049Zhac13ByiMtXbzjwHnhQEOEA1yTXQYe352FhTpeOgkF7yBjDlCo3aBaEgVQc
-	 /PkAppdQd24ZfISs/BTQ2iY8vRciGvvWCzKTKwnByj8wDvEiV/XW0sqK1nQzfQ5yoO
-	 JryWv9gRGXMR95gIKLwj2rH2BycnDa15GDQRR1fNjDcDLHkblPLDS72OHmSqDxq2kb
-	 +5tR1GwnsHjYfv4A+TDA0o4/4682txschBMFIhTJgCw9tvK3jUXJAgLpDDgU7rUVqa
-	 8KSgwJHU3OwlQ==
-Subject: Re: [PATCH v8 2/2] can: dev: can_tdc_fill_info(): don't read
- automatic TDCV if interface is down
-From: netdev-bot+sashiko@kernel.org
-To: chunyuzhiqiang@yinhe.ht
-Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
- linux-can@vger.kernel.org, mkl@pengutronix.de, mailhol@kernel.org,
- kernel@pengutronix.de, haibo.chen@oss.nxp.com, shawnguo@kernel.org,
- imx@lists.linux.dev, stable@vger.kernel.org, kuba@kernel.org
-Date: Wed, 28 Oct 2026 20:02:23 +0000
-Message-ID: <179321774368.3130.12586646136802755223@kernel.org>
-In-Reply-To: <20261027065012.191348-2-chunyuzhiqiang@yinhe.ht>
-References: <20261027065012.191348-2-chunyuzhiqiang@yinhe.ht>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=XcC1dZxC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1793218163; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=P9v5gomtHM+UM7ktgSnN33eoEYmTkj5Bo7NGWriI0nc=;
+ b=XcC1dZxCpezEigz/exLwbpTt8YPBE+Iw/METqBr+UwNl/EN9xKZPS4RNCbkoy6tJHOsW4O
+ InmVNrqPI7y71335YRnjoi2b2BwTtVGeYjEFEvv9PGT6Gwb0f7Xxhm02fdZGsB2zlZdxsR
+ WUXpCpxVPdCAJWWiImlnN1jI4hSq/JAHkhCSZTZD/rnG9ygUlVegrw4JKidogVrrxkomkP
+ docqjpylhzbnadVymLeKCPWBYdlhj/GD2xKkkYthzcKYdLEKETi7YUuQODUa+iq3JXz6OM
+ auUYmiKHH9+em/jGWdmvqztCpGBhz/nmOsFizlAT8grHU+nLyjdKgXahmiAULA==
+Content-Transfer-Encoding: 7bit
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-Mailer: b4 0.16.0
+Received: from [127.0.1.1] ([111.42.148.156]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 04:09:20 +0800
+To: "Namjae Jeon" <linkinjeon@kernel.org>, 
+	"Hyunchul Lee" <hyc.lee@gmail.com>
+Subject: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
+Message-Id: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+From: "Shengzhuo Wei" <me@cherr.cc>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,189 +62,115 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAG1W4moC/yXMwQ6CMAwA0F8hPduELQODv2I8dKPTapxknWJC+ HcHHt/lLaCchRVOzQKZP6LyShXm0EC4UboyylgNtrW9ae2A3mEqUdFLedKEc5bCnsIDZ5KCo+t 6E6lzYThCPabMUb77f778rW9/51C2FNb1B/jXAemBAAAA
+X-Change-Id: 20261029-b4-ntfs-bitmap-writeback-wait-d4561fa54c97
+Cc: <ntfs@lists.linux.dev>, <linux-kernel@vger.kernel.org>, 
+	<linux-fsdevel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 29 Oct 2026 04:09:18 +0800
+X-Lms-Return-Path: <lba+26ae25671+5f788d+vger.kernel.org+me@cherr.cc>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+The bitmap update paths lock their page cache folios before modifying
+them, but the folio lock does not wait for an earlier writeback to
+finish.  Writeback can release the lock while its BIO still references
+the folio memory, allowing bitmap changes to race with that I/O and
+expose partially updated contents to it.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Wait for existing writeback after locking each folio and before
+modifying it in ntfs_attr_set(), both bitmap setter loops, the cluster
+allocator, and the two MFT bitmap allocation paths.  This follows the
+lock-then-wait sequence already used for attribute and raw MFT updates.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+The change was checked against the existing attribute/MFT waits and
+the iomap completion path.  Existing base and patched NTFS object
+builds with W=1 and CONFIG_WERROR=y complete without warnings.  No
+runtime reproduction or filesystem stress test was performed.
+---
+ fs/ntfs/attrib.c   | 2 ++
+ fs/ntfs/bitmap.c   | 4 ++++
+ fs/ntfs/lcnalloc.c | 2 ++
+ fs/ntfs/mft.c      | 4 ++++
+ 4 files changed, 12 insertions(+)
 
-- [Medium] The commit message calls this change "defensive hardening
-  based on code inspection" and has no Fixes: tag.
-- [Medium] netif_running() is used as a stand-in for "the controller is
-  clocked", but in xilinx_can it can be true while the clocks are gated.
-- [Low] The modified can_tdc_get_size() prototype in
-  drivers/net/can/dev/netlink.c (lines 723-725) has continuation lines…
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index fce7144d7bef..b460d2223314 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -2332,6 +2332,8 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
+ 		attr_len = min_t(size_t, (size_t)cnt, folio_size(folio) - offset);
+ 
+ 		folio_lock(folio);
++		if (folio_test_writeback(folio))
++			folio_wait_writeback(folio);
+ 		addr = kmap_local_folio(folio, offset);
+ 		memset(addr, val, attr_len);
+ 		kunmap_local(addr);
+diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
+index af86fb1c199b..057b315789ec 100644
+--- a/fs/ntfs/bitmap.c
++++ b/fs/ntfs/bitmap.c
+@@ -213,6 +213,8 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+ 	}
+ 
+ 	folio_lock(folio);
++	if (folio_test_writeback(folio))
++		folio_wait_writeback(folio);
+ 	kaddr = kmap_local_folio(folio, 0);
+ 
+ 	/* Set @pos to the position of the byte containing @start_bit. */
+@@ -277,6 +279,8 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+ 		}
+ 
+ 		folio_lock(folio);
++		if (folio_test_writeback(folio))
++			folio_wait_writeback(folio);
+ 		kaddr = kmap_local_folio(folio, 0);
+ 		/*
+ 		 * Depending on @value, modify all remaining whole bytes in the
+diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
+index 3ebcac4c2864..aac8627a9283 100644
+--- a/fs/ntfs/lcnalloc.c
++++ b/fs/ntfs/lcnalloc.c
+@@ -348,6 +348,8 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
+ 		}
+ 
+ 		folio_lock(folio);
++		if (folio_test_writeback(folio))
++			folio_wait_writeback(folio);
+ 		buf = kmap_local_folio(folio, 0) + pg_off;
+ 		ntfs_debug("Before inner while loop: buf_size %i, lcn 0x%llx, bmp_pos 0x%llx, need_writeback %i.",
+ 				buf_size, lcn, bmp_pos, need_writeback);
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index 89288b794348..b8aa8b0891dc 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -1206,6 +1206,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
+ 				return PTR_ERR(folio);
+ 			}
+ 			folio_lock(folio);
++			if (folio_test_writeback(folio))
++				folio_wait_writeback(folio);
+ 			buf = (u8 *)kmap_local_folio(folio, 0) + folio_ofs;
+ 			bit = data_pos & 7;
+ 			data_pos &= ~7ull;
+@@ -1402,6 +1404,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+ 
+ 	down_write(&vol->lcnbmp_lock);
+ 	folio_lock(folio);
++	if (folio_test_writeback(folio))
++		folio_wait_writeback(folio);
+ 	b = (u8 *)kmap_local_folio(folio, 0) + (ll & ~PAGE_MASK);
+ 	tb = 1 << (lcn & 7ull);
+ 	/*
 
---
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261029-b4-ntfs-bitmap-writeback-wait-d4561fa54c97
 
-can: dev: can_tdc_fill_info(): don't read automatic TDCV if interface is down
-
-This commit makes can_tdc_fill_info() call do_get_auto_tdcv() only when
-netif_running() is true. Drivers such as xilinx_can then no longer read
-controller registers while the interface is down. can_tdc_get_size() and
-can_data_bittiming_get_size() now take the net_device, so IFLA_CAN_TDCV
-space is reserved only under the same condition.
-
-> This is a defensive hardening based on code inspection; the automatic
-> TDCV path has not been triggered on hardware.
-
-[Severity: Medium]
-Is "defensive hardening" an accurate description here? The path this patch
-closes looks reachable by an unprivileged user on current mainline and
-stable kernels.
-
-xcan_probe() ends with pm_runtime_put(). The controller then stays
-runtime-suspended, with bus_clk and can_clk disabled, until xcan_open()
-takes a reference. xcan_get_auto_tdcv() reads a register without taking a
-runtime PM reference:
-
-drivers/net/can/xilinx_can.c:xcan_get_auto_tdcv() {
-    ...
-	*tdcv = FIELD_GET(XCAN_SR_TDCV_MASK, priv->read_reg(priv, XCAN_SR_OFFSET));
-    ...
-}
-
-xcan_get_berr_counter(), by comparison, wraps its reads in
-pm_runtime_get_sync()/pm_runtime_put().
-
-TDC_AUTO also gets turned on while the interface is down.
-can_dbt_changelink() accepts data bittiming only when the device is not
-IFF_UP. It calls can_calc_tdco(), which sets TDC_AUTO whenever the data BRP
-is 1 or 2. Take the usual setup sequence:
-
-  ip link set canX type can bitrate ... dbitrate ... fd on
-  ip -d link show canX
-
-Before this patch, that sequence reaches the following path with the
-clocks gated:
-
-  rtnl_getlink()->can_fill_info()->can_tdc_fill_info()->xcan_get_auto_tdcv()
-
-The callback was added in commit 1010a8fa96086d ("can: xilinx_can: add
-Transmitter Delay Compensation (TDC) feature support"). Should this patch
-carry a Fixes: tag for that commit, plus Cc: stable?
-
-The companion patch "can: dev: can_fill_info(): don't wake up controller if
-interface is down" fixes the same kind of access, and it has both tags.
-
-The changelog note says:
-
-> Split out of the berr-counter patch so that the stable backport only
-> carries the hardware-tested change.
-
-Without a Fixes: tag, the stable tooling cannot tell that kernels
-containing 1010a8fa96086d also need this change.
-
-> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-> index b958c04d53db6..613beee9e9362 100644
-> --- a/drivers/net/can/dev/netlink.c
-> +++ b/drivers/net/can/dev/netlink.c
-> @@ -720,8 +720,9 @@ static int can_changelink(struct net_device *dev, struct nlattr *tb[],
->  	return 0;
->  }
->  
-> -static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
-> -			       u32 tdc_flags)
-> +static size_t can_tdc_get_size(const struct net_device *dev,
-> +				 struct data_bittiming_params *dbt_params,
-> +			     u32 tdc_flags)
-
-[Severity: Low]
-This isn't a bug, but the continuation lines no longer line up with the
-open parenthesis. The dbt_params line is two columns to the right of it,
-and the tdc_flags line is two columns to the left. checkpatch --strict will
-report "Alignment should match open parenthesis".
-
-can_data_bittiming_get_size(), later in the same patch, is aligned
-correctly.
-
->  {
->  	bool tdc_manual = tdc_flags & CAN_CTRLMODE_TDC_MANUAL_MASK;
->  	size_t size;
-> @@ -742,7 +743,8 @@ static size_t can_tdc_get_size(struct data_bittiming_params *dbt_params,
->  	}
->  
->  	if (tdc_flags) {
-> -		if (tdc_manual || dbt_params->do_get_auto_tdcv)
-> +		if (tdc_manual ||
-> +		    (dbt_params->do_get_auto_tdcv && netif_running(dev)))
->  			size += nla_total_size(sizeof(u32));	/* IFLA_CAN_TDCV */
->  		size += nla_total_size(sizeof(u32));		/* IFLA_CAN_TDCO */
->  		if (dbt_params->tdc_const->tdcf_max)
-
-[ ... ]
-
-> @@ -910,7 +913,7 @@ static int can_tdc_fill_info(struct sk_buff *skb, const struct net_device *dev,
->  		if (tdc_manual) {
->  			tdcv = tdc->tdcv;
->  			err = 0;
-> -		} else if (dbt_params->do_get_auto_tdcv) {
-> +		} else if (dbt_params->do_get_auto_tdcv && netif_running(dev)) {
->  			err = dbt_params->do_get_auto_tdcv(dev, &tdcv);
->  		}
-
-[Severity: Medium]
-Can netif_running() be true while the xilinx_can clocks are still gated?
-If so, xcan_get_auto_tdcv() can still read XCAN_SR_OFFSET from unclocked
-hardware.
-
-xcan_suspend() stops and detaches a running interface, then calls
-pm_runtime_force_suspend(). That runs xcan_runtime_suspend(), which
-disables bus_clk and can_clk. __LINK_STATE_START stays set:
-
-drivers/net/can/xilinx_can.c:xcan_suspend() {
-    ...
-	if (netif_running(ndev)) {
-		netif_stop_queue(ndev);
-		netif_device_detach(ndev);
-		xcan_chip_stop(ndev);
-	}
-
-	return pm_runtime_force_suspend(dev);
-}
-
-If pm_runtime_force_resume() fails during resume, xcan_resume() returns
-early. This can happen, for example, when clk_prepare_enable() fails in
-xcan_runtime_resume():
-
-drivers/net/can/xilinx_can.c:xcan_resume() {
-    ...
-	ret = pm_runtime_force_resume(dev);
-	if (ret) {
-		dev_err(dev, "pm_runtime_force_resume failed on resume\n");
-		return ret;
-	}
-    ...
-}
-
-At that point the clocks are off, the netdev is still IFF_UP and detached,
-and netif_running() still returns true. An unprivileged
-"ip -d link show canX" then passes the new check in can_tdc_fill_info()
-and reads XCAN_SR_OFFSET in xcan_get_auto_tdcv().
-
-rcar_canfd looks similar. rcar_canfd_suspend() calls
-rcar_canfd_global_deinit(), which disables clkp and asserts reset. If
-rcar_canfd_global_init() then fails in rcar_canfd_resume(),
-rcar_canfd_get_auto_tdcv() reads cfdsts from a block that is unclocked or
-held in reset.
-
-Would it be more robust to take a runtime PM reference in
-xcan_get_auto_tdcv(), as xcan_get_berr_counter() does?
-
-Another option is to gate on netif_running(dev) && netif_device_present(dev).
-Both drivers call netif_device_attach() only after the hardware is back up.
-
-With either approach, can_tdc_get_size() needs the same condition so the
-size estimate stays consistent with can_tdc_fill_info().
-
->  		if (!err && nla_put_u32(skb, IFLA_CAN_TDC_TDCV, tdcv))
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027065012.191348-1-chunyuzhiqiang%40yinhe.ht
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
