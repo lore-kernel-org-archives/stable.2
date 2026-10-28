@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150896;
-	b=NR/MY61TjNkQrq5fk9TS/vH0DyctnpuwTp3Ms6M9/KKuvnc2PPgOole/tPyiPi12ze+r
-	 upWjtO0PQ2HbywchwAnolaQlKFLxCLYerfj87mgAgAh/GufJs3L/uiS7mGvizCuDdhe2F
-	 k9U+DOzD7iSiVxbngVb1XNdBWg51hYSiUBgVWOeF/KiZ6fojWKeN335Bm7q7DYxzMAkZZ
-	 jwhZDCX64zpWM4Z/A9/EiPaB10SkKesQOLEs1hB3z/fGDLYCqLEMthH2pMHFLk1cSv5/E
-	 j+DlJVHCroFO6AfcRHALj/a/WjXHJxIN3kTNZpRNzFJ5O4MBetjLvBM5HG/Cq20BXPQ==
+	t=1793151073;
+	b=fHH1RsxlKsyp2/bWclUfDLXMOuS298q3EF0qLj0jPHtVaJyKXM6UgaiAIjlbJ3boif61
+	 6yMwVt4EJVqyRGf39LqEAvHzhKtHHqqMACzhe1lhM0yZeUhkSX4Ki5CIfbDSvaCTo4FUv
+	 +7E4Et98mrdavp1GmXQiojSKiHm71jsgImvTNOEJi0MMjqB9sfHK0zUMtqhQ8F4wB6eyc
+	 KkU+zznoToScAhK8pijlmWERkmYYGi60FCc9BiPbEmV3yuEjhjDDs6wgDlTDjo9lpKjad
+	 boITM/rsbOfM5hJhuiT4mD3nBfNUN/JoxYdToB0FC1IT2pCpmAAkl69bSjIGh3U0ivA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150896;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OoEszvGm7Jt8r2Hgps9BAadui447M2pxW0SiVZm0x7s=;
-	b=bPDqD5PVoXZIo+4Ss0u5GRhRFjHu3UpHX2d/EGKa8eqVAB8PBGbOMMC9vup5o4lvw1st
-	 vzCjL0WK5GZu+lIrFnDaCT3ht7Lv6gKeb+gOBbrGWqKXhR8Wi01/oCkXlhpU7FXEwUdIY
-	 J+kH0HfE6Nmgb/BpWjXOywYgajeHpzP1uPeOd+YPw4CVJO0ShTJvwQt0WwJEdyLt1lSxD
-	 yVTv9MaSJDlj+YpJm/ByJia0D9DHbCRhnfNQJ/HSxaWAAyraMQuv2rdTIxb/nS+b8WjwF
-	 RoxVLUecZEhx/FNPmxNnknL9TRNdat9uCJvYDLGJNTzJ4R8Sf/J1ek20Go4T6/08W3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793151073;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=+s8dDKZ4dMb+kRwqacBsw98RYGi6uf2pwBAWjpaxZWo=;
+	b=qk+uMzT9RBz/sPEKU4QbJIYKr2y6WS7/B80mP6/BVnSlx15mBbjy8ZkIBXrAvfe6fChI
+	 9NTrpfQfN8nkutzp9rDTJUgE4/dUdTtFE40qxxFgf8lk16T1rawVke2Da3FGK0UqaOvoh
+	 BisxAF+4Q6EJk74TiXLzmIp5gnw8CXqgGUgi+OHPm6ZTFEbeBKwRI364IpsnMPki8A6DN
+	 m1Khr9TjvvWor3uGgXSE3IwfGxHyfHN/+L2abdbakOwiZ1W7v0WfcpiMVSu4Z+PR9noWQ
+	 5dzrsYtNbHsyGTcO0EKqoiGAgBK6tCb3jn0HakRqKcB121JJUAmfyTSARC6hHEkCBYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rkp7nNL0;
-	arc=none smtp.remote-ip=91.218.175.118
-Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fak75bFc;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1581C606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1581C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33387606A31A;
+	Wed, 28 Oct 2026 01:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33387606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rkp7nNL0
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sbvDgc3joPyy/j914OEP6tCwRBpNWUQikTAlXej1Uq4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793150886; v=1; x=1793755686;
- b=rkp7nNL0OLdSYcb59MXeFHASOBTGrfoVXSeiDOAzcm6l2NlZvGUgzPFj1S+1o86f7XPYvI3/
- 6bb/0LcC7zO+bwkuQX2rgJIdUS3cr0StXRACoH///yv4lMgTmRbdiNo4WddWx4oIaVa3w7WWiNw
- qraOAe9NEp20TCritt5BRty8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 47897f4e5ab642e4;
-	Wed, 28 Oct 2026 01:28:06 +0000
-X-Mizu-Trace-ID: 47897f4e5ab642e4
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 28 Oct 2026 09:27:49 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Antoine Tenart <atenart@kernel.org>, David Ahern <dsahern@kernel.org>
-Cc: Zhou Qiuyue <n0ps1edzz@gmail.com>, netdev@vger.kernel.org,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ipv6: raw: fix use-after-free in
- rawv6_send_hdrinc()
-Message-ID: <auFPlcB4VfQ76NYC@fedora>
-References: <20261026044808.613-1-n0ps1edzz@gmail.com>
- <at7uk8gXtzNufuQF@fedora>
- <at9sKRSEJLVGj9OK@kwain>
- <auAAmqXcxmC6BDrR@fedora>
- <auBs0Xn5yVJ1NtdK@kwain>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fak75bFc
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793151064; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=+s8dDKZ4dMb+kRwqacBsw98RYGi6uf2pwBAWjpaxZWo=;
+	b=fak75bFcoGWlNra/g4irAv5g3GeUYq0AF1JJYCw7StsWQc1UhoI3X5EoXZ8YiD3ax3vmVqj9BnxbQcT4UyVZJ+CaMgxfQlIUBWAWGZLYOr2w29jslK2tnBxKAMrP56yH01GKD4z6FoYrKtInPkpeQbU3Zrx1rvgRgS3XncxxGNM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R951e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=31;SR=0;TI=SMTPD_---0XDfHy5f_1793151060;
+Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDfHy5f_1793151060 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 28 Oct 2026 09:31:01 +0800
+Message-ID: <2d111275-e7a8-4ac5-8618-f068e87145f2@linux.alibaba.com>
+Date: Wed, 28 Oct 2026 09:30:59 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,47 +53,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auBs0Xn5yVJ1NtdK@kwain>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/14] mm/shmem: fix truncate loop after boundary
+ swapin failure
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+ <20261027-fixes_shmem-v2-12-86a00952acb9@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261027-fixes_shmem-v2-12-86a00952acb9@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 10:43:48AM +0100, Antoine Tenart wrote:
-> On Tue, Oct 27, 2026 at 09:38:34AM +0800, Hangbin Liu wrote:
-> > On Mon, Oct 26, 2026 at 04:07:40PM +0100, Antoine Tenart wrote:
-> > > On Mon, Oct 26, 2026 at 02:09:23PM +0800, Hangbin Liu wrote:
-> > > > On Mon, Oct 26, 2026 at 12:48:08PM +0800, Zhou Qiuyue wrote:
-> > > > > diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-> > > > > index b965258cf..bdea82543 100644
-> > > > > --- a/net/ipv6/raw.c
-> > > > > +++ b/net/ipv6/raw.c
-> > > > > @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
-> > > > >  	if (unlikely(!skb))
-> > > > >  		return 0;
-> > > > >  
-> > > > > +	/* l3mdev_ip6_out() may have replaced the skb dst. */
-> > > > > +	rt = dst_rt6_info(skb_dst(skb));
-> > > > > +
-> > > > >  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
-> > > > >  	 * in the error path. Since skb has been freed, the dst could
-> > > > >  	 * have been queued for deletion.
-> > > > 
-> > > > Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> > > 
-> > > Doesn't this change the device seen by the nf hook / used for the stats?
-> > 
-> > Should we still use the old/released rt->dst.dev after the VRF output
-> > path replace skb->dst? vrf_ip6_out_redirect() said it allows the nf hook
-> > use vrf device.
+
+
+On 10/27/26 9:03 PM, David Hildenbrand (Arm) wrote:
+> If swapping in a large entry at the new EOF fails, shmem_undo_range()
+> leaves the entry in place. Its final scan skips the entry, then restarts
+> from the same start index and finds it again. Truncation can loop forever
+> while holding i_rwsem.
+
+Right. But ...
+
+> Advance start past the skipped entry so that a restarted scan can finish,
+> as we already do for folios that cannot be split.
+
+IIRC, we originally avoided advancing start because a concurrent swapin 
+fault could split the boundary large swap entry via 
+shmem_split_large_entry(), leaving small swap entries below the new start.
+
+Sigh.
+
+There doesn't seem to be a simple fix. We may need to swap in the large 
+entry as shmem_get_partial_folio() does, and then split the large folio. 
+I'll work on this as a follow-up.
+
+> Note that this does not fix the missing zeroing when boundary swapin fails,
+> it merely prevents the endless loop.
 > 
-> Right, but then in the direct path the NF_INET_LOCAL_OUT hook would be
-> run twice with the same dev. Looking at other call sites for
-> l3mdev_ip6_out, it's not clear either,  __ip6_local_out reloads the dev
-> while ip6_xmit does not. I'm not sure what is the expected behavior.
-
-Hmm, me neither. David might know.
-
-Thanks
-Hangbin
+> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
+> Cc: stable@vger.kernel.org
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>   mm/shmem.c | 10 ++++++----
+>   1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> Regardless of that, the change in behavior (if right) would be worth
-> mentioning in the commit log.
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 9a11de010ed7b..4ece296a1ccf1 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1434,14 +1434,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+>   					order = shmem_confirm_swap(mapping, indices[i],
+>   								   radix_to_swp_entry(folio));
+>   					/*
+> -					 * If found a large swap entry cross the end or start
+> -					 * border, skip it as the truncate_inode_partial_folio
+> -					 * above should have at least zerod its content once.
+> +					 * Skip boundary entries when restarting
+> +					 * the scan to avoid endless loops after
+> +					 * swapin failure.
+>   					 */
+>   					if (order > 0) {
+>   						base = round_down(base, 1 << order);
+> -						if (base < start || base + (1 << order) > end)
+> +						if (base < start || base + (1 << order) > end) {
+> +							start = max(start, base + (1 << order));
+>   							continue;
+> +						}
+>   					}
+>   					/* Swap was replaced by page or extended, retry */
+>   					index = base;
+> 
+
