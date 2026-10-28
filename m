@@ -1,98 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158156;
-	b=HQCS5ecCL1Nl0f0EOzgW5BAfpSN7hR9rY2okU9F7ZGrxz2sILGkIrhIBAU7CwpoF88pe
-	 Yhpiaag9/+ic8RaThWwc+xuQDYXa6J3ubfCnXmmaGolEsOizJoV048dqEAh8hsnBI6iM1
-	 jsa68GTlXsQqGVcnCF8XKqM8DiD7ikNpkyBRMomPPcqPyGqdyG+H10p2eolx9DsESWkAw
-	 fsN89v8s2CgNhIIgAKZ/LD06H0b72ie6pHWAbYrXFWjeJGWkJNTEszJ1/OItlvtRVk+RL
-	 PMDXOK7WuKZOOCaDLZJtkXRr+VFzwqz8w+alTXjsQ2L+JO+F1zlwyksd+PuklY4XGqA==
+	t=1793158520;
+	b=dk4siEu596TEXK25szQaLSPGjKJphcc41M1vYeoGm8MbgJE6U4KA8gNBooORQv61V0mn
+	 viFZr9H+Le3lLULhQjG7y1kmVMe2bhQB4Gg2GFSewPL+2AWH1rx6fP+9RDE186UQSCQnY
+	 u8zlOWQrr5DzK7NvpGlVlc4mpq5H8/3XPNa1FBUpa48Q8eCc9b3eU6M8uyunJquLAvxuM
+	 8Yavrw1FQ1KAKF56zKT74DghfIoKQnmLGfDrekloPXE5ubJyMGH2FZtkyAGYY6qMgFDnr
+	 l1+GBEqR88IEWSv7WckhLEg0Rk7aZ0DIHRO5gOHVMyd1pQqq/sInc7L5MA73P6FJRwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158156;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Kk+1t0b0DKZaul87Zv25lHrAh2UEd2PmUOMEfr4aozc=;
-	b=sUCydDTKShfTz4dBEvsQuP6IxbksWtWCbgqgvHiJdxI0186TSkVSvAY5bRrhp+1wou6n
-	 aa9U22B6Uv/0vN7KQXP1m5xwg0MEtQpTNCVDt9n8Kax9B3HfTlixw6fPg/jLfwTpGhiTq
-	 vRIbnI5cUH9Vgt4YiVzeFpZfS+QHpwyQQvQF5ZpuUb53SrTMrMZUHEpe+s6sik+L9uBdV
-	 VEBLkV5qr9ZTS0iA9K3jOOdIXr7yUs7PtBb9eTar/QMGul1NNAIeP72ERdy1UP63osQon
-	 DdPgtaPGDFwvOr4WCu7bkt5EopPMSHlU6JxfTzfDlyYwV/lhI7aHIlT7G7Oadic+/8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158520;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+6+ZmAOlkSbAffkax0H4w142jOZ7rGgjTheEVRQjlm8=;
+	b=RHvxUnZajfLPOGPAhnu4JrpdtCBlojKG/AGIA6XyLa216ByCA0e402U0K1FywEF5WNQT
+	 2O822IUJl2L2RBEvM+mYDH0exr0+m127Ilzf3L2dThiGxk9dzI9mRWwJ1GoAynbax+EkT
+	 eo32DEIJFTfqd8O/JijkiFMtSjwDLrRJpiQt/vIFksi4a2yxvVD1DcXzT+2dDV0a8TnS1
+	 2MiMtyNecByfc9qqQYnqKXxU8IAh+DtjnEEcazlR/noh5xlLaFgye69YVIhL4x8c9tUCD
+	 RRIuGBnTWiD6LpxPD7sSRctt5yeq8jEdoyUSeT5rHMGpdqlZ2fdPceY3dqK9KBoRy+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MmiW5xRr;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=YZTviRCf;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693B6606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:29:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 693B6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F57606A31A;
+	Wed, 28 Oct 2026 03:35:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2F57606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MmiW5xRr
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e60f9af6e6so3775755ad.3
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793158156; x=1793762956; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kk+1t0b0DKZaul87Zv25lHrAh2UEd2PmUOMEfr4aozc=;
-        b=MmiW5xRrJU9cQwWwzg4G+OihR8WEy/IgFwb12nmHXnySG+vB6UOOZtbjtAhzeFYhpx
-         dKAyeLcY7ucK1JBCorSfRpjbZjjnSgbTX/DZs/wmvhh7wrEfa/fk6YVqfcPlM/rgzEAI
-         X5dB2NsSENnufyMdoCDTVkKdVF4PsHdz4WA06lNVTM2pBBRXJiWk8+LXhCRHYPHwsQDF
-         QxDdvLRQlXzb5KLwz6ZIOFQUkoLPju9usIxDdpWWrdQegQUdJqqU4+8YL+UajXf4U577
-         2B409dXk63yiaTkLPa9oc3Nb+sab5zyudZRJrOLmd0+jmJkpoCz30rH+mmpEBG+LAwBL
-         44/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793158156; x=1793762956;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kk+1t0b0DKZaul87Zv25lHrAh2UEd2PmUOMEfr4aozc=;
-        b=Ib9k1UiPYU2J5mHGINeH7eP2jC8bq4l3CB+/wgka1Sb2PM5NxTkKbBMDlB4Sh+hrcL
-         Yydj/r2GEPsA0U+sWht2aM6qRC72q5bAp95fGG/h7qoTUl2CuM6bIl1fsw4E4wPGM0aS
-         JG5p7rtQchdreCLxdLvcFtI2/0zYS+AZjC0PnQMzQcRN6xYfxp0kIiKurC01HUibUaVb
-         fBFxKUbhg2YL+bL9knkn4FecSjCq2ytYqB1Z6f5lSY+XPPli8zx3PwcmscOkpG8hgy0L
-         ZydzFmpJQSBR9Ha+/ekLfl1+1da2pM1Rm9El3vNhj/KxA97zXZaBLlb8VqL2o/d/tPpM
-         Hr6A==
-X-Forwarded-Encrypted: i=1; AKwUvByqa8sl/Z9C998nY7iiZ44EFuq+XHW730NVVWpUC8FLJ0ZikYh0EGg5Q2vn5c0W2z0q0Dd2GDY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLu1V1moXFMAbz3q/0Zelofjmns/93E/5oj19Hj/zBfAW0A14Id
-	PRLT/LIvvTiSZXVOqtV6/ilZJyniSiul9WGWv6YDLPIXMKl8BTNlqgZ1
-X-Gm-Gg: AYBFou22IwCMQ9bgMU7fcPbuHIZwXtemjQVB9AiGJsBGayido5EJxf2dBs+3da+AOg9
-	95b8J7MhMmdX0/CIMEfE+aKKpmx/o18oQ8s9Y+g1S3jSGXPfoW2mrcLvQHsihQc6AhBUavdFgrs
-	AP+gmmVDfGO7pLU3aKWSMWKyYzemK8vTYK8zZBBvne5n+RDLNjb60tGVVyLtCOdSKSPhcs07RXV
-	OHKJHV/x6WdL2bsZ5aJgdGlfOQUy1BwdzPcrP/Et3ffZodR+vkVMMm2Tzcy82WIebQJMos15VQO
-	T79SGdSC15XbMoE0YKC/C53U/XVBwDJa3ywGBS9xtBgwuuOOKDbo9oElHOLPORqEk0LIgiRSfm0
-	L/hSIuzALYamCoAv1MxLlwpSDTj95EPXIkaXW4HEtT62MmNT+TVVpc+TOX416rwdeXl7h13tJbX
-	EwQ1lBJf0kvLl3fQyXZ6oHBcT3tBbfYqK94FZCLWQ9NQ7hkGbsNzdfeb+f+RkdrdwlKUaty/VAo
-	YezXt+hmvkosEZ2L3xkTUPCZeYBcd7qaQqcjn0OKwzGMnocsCecshojoCZdHaDiz2fXBB2R3EZq
-	2A5n0UM/DtemXOwCBWEDNI/9qj9b+1mcblIEYKpWtAb1xG6H
-X-Received: by 2002:a17:90b:510f:b0:3ad:eb34:4c6c with SMTP id 98e67ed59e1d1-3ae57f629camr769035a91.13.1793158155725;
-        Tue, 27 Oct 2026 20:29:15 -0700 (PDT)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a48d7basm869780a91.3.2026.10.27.20.29.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 20:29:15 -0700 (PDT)
-Date: Wed, 28 Oct 2026 12:29:10 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: edumazet@kernel.org, ncardwell@google.com, davem@davemloft.net,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	martin.lau@linux.dev, john.fastabend@gmail.com, weiwan@google.com,
-	sd@queasysnail.net, jiayuan.chen@linux.dev, netdev@vger.kernel.org,
-	stable@vger.kernel.org, imv4bel@gmail.com
-Subject: Re: [PATCH net v4 2/2] inet: restore refcount ordering for lockless
- ehash walks
-Message-ID: <auFsBkQInOabvUEd@v4bel>
-References: <20261026003804.61923-1-imv4bel@gmail.com>
- <20261026003804.61923-3-imv4bel@gmail.com>
- <auFUvRnF2uDgZix8@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=YZTviRCf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1793158513;
+	bh=82gnrqAbMN/j/oiUaNerKwoaFIuTx6jNuqEcLbbSJU8=;
+	h=From:Date:Subject:To:Cc:From;
+	b=YZTviRCfyQ6hWXM3UUpF8ZF4CW712sgjaiYk6fKyhA++jNpbQTulMDgdP02cRDwql
+	 f+FASId+jv6tYlXX5nNeh3yA8b4o+o+KQ9NfF1B1QRTZt9Mjd1jTWwUPebbYU7AMFA
+	 RKLUfRYsLOHf1at7L+7ZfB6L5843uZv/XbRfXlao=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id C8C504006C;
+	Tue, 27 Oct 2026 20:35:12 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Tue, 27 Oct 2026 20:35:00 -0700
+Subject: [PATCH] ipc/msg: prevent msg_qbytes limit bypass in IPC_SET
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,159 +55,203 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auFUvRnF2uDgZix8@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-ipc-msg-qbytes-v1-1-8896db4071f9@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAGNt4WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNz3cyCZN3c4nTdwqTKktRiXRPLJENTS2PDZNMkMyWgpoKi1LTMCrC
+ B0bG1tQCAbjBEYAAAAA==
+X-Change-ID: 20261027-ipc-msg-qbytes-49b15931c5b6
+To: Shuah Khan <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christopher Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ stable@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793158512; l=6042;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=82gnrqAbMN/j/oiUaNerKwoaFIuTx6jNuqEcLbbSJU8=;
+ b=KsqYGsCN68ZaBbZALdJUom7FivnRqGKflfvHSpYXVN7Wms+g2b6El9gIIRVMECL7gXUMBE6ID
+ DwHVs3Z9LuAB3cWXCH8LifjNzgNyWcf/joJfyRYP7eUI9Vt763Df8vy
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-On Wed, Oct 28, 2026 at 02:13:15AM +0000, Kuniyuki Iwashima wrote:
-> On Mon, 26 Oct 2026 09:37:45 +0900, Hyunwoo Kim wrote:
-> > Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
-> > of refcount_t"), default builds implemented refcount_inc_not_zero() using
-> > atomic_add_unless(), which provided full memory ordering on success. The
-> > commit removed that ordering on weakly ordered architectures, allowing
-> > validation after a successful reference acquisition in lockless ehash
-> > walks to be reordered before it.
-> > 
-> > Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
-> 
-> Does bpf_sk_assign() need it too ?
-> 
-> If the socket is taken from lookup helper, it's safe, but what
-> happens if the pointer is taken from BTF (27e5203bd9c5), e.g.
-> tp->inet_conn.icsk_accept_queue.rskq_accept_head ?
+The msg_qbytes field in the msqid64_ds userspace ABI is an unsigned
+long. Commit 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down()
+functions") passed that value to msgctl_down() as an int.
 
-Yeah the same ordering issue remains when the pointer is obtained from 
-BTF without a reference. Fixes: 27e5203bd9c5.
+An unprivileged owner can set msg_qbytes to UINT_MAX. The narrowing
+conversion produces -1 on supported Linux targets, so the check against
+the int-valued msg_ctlmnb sysctl does not reject the request:
 
-However, I think this is better handled in a separate follow-up patch. 
-What do you think?
+        if (msg_qbytes > ns->msg_ctlmnb &&
+            !capable(CAP_SYS_RESOURCE))
 
-> 
-> 
-> > lookups and in inet_twsk_purge(), where the network namespace is validated
-> > again after taking a reference. Use refcount_set_release() when setting
-> > refcounts in the SYN cookie, TCP Fast Open, request migration, and
-> > TIME_WAIT paths. Keep the existing TIME_WAIT smp_wmb(), which separately
-> > orders the refcount store before ehash publication.
-> > 
-> > Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> > ---
-> >  net/ipv4/inet_connection_sock.c | 6 +++---
-> >  net/ipv4/inet_hashtables.c      | 2 +-
-> >  net/ipv4/inet_timewait_sock.c   | 4 ++--
-> >  net/ipv4/syncookies.c           | 2 +-
-> >  net/ipv4/tcp_fastopen.c         | 2 +-
-> >  net/ipv6/inet6_hashtables.c     | 2 +-
-> >  6 files changed, 9 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-> > index bd0bad96c93c3..837cb91e5b173 100644
-> > --- a/net/ipv4/inet_connection_sock.c
-> > +++ b/net/ipv4/inet_connection_sock.c
-> > @@ -1056,8 +1056,8 @@ static void reqsk_timer_handler(struct timer_list *t)
-> >  		 * hold another count to prevent use-after-free and
-> >  		 * call reqsk_put() just before return.
-> >  		 */
-> > -		refcount_set(&nreq->rsk_refcnt, 2 + 1);
-> >  		timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
-> > +		refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
-> >  		reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, req);
-> >  
-> >  		req = nreq;
-> > @@ -1441,7 +1441,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
-> >  				goto child_put;
-> >  			}
-> >  
-> > -			refcount_set(&nreq->rsk_refcnt, 1);
-> > +			refcount_set_release(&nreq->rsk_refcnt, 1);
-> >  			if (inet_csk_reqsk_queue_add(sk, nreq, child)) {
-> >  				__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQSUCCESS);
-> >  				reqsk_migrate_reset(req);
-> > @@ -1494,7 +1494,7 @@ void inet_csk_listen_stop(struct sock *sk)
-> >  		if (nsk) {
-> >  			nreq = inet_reqsk_clone(req, nsk);
-> >  			if (nreq) {
-> > -				refcount_set(&nreq->rsk_refcnt, 1);
-> > +				refcount_set_release(&nreq->rsk_refcnt, 1);
-> >  
-> >  				rcu_read_lock();
-> >  				if (inet_csk_reqsk_queue_add(nsk, nreq, child)) {
-> > diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-> > index 58d54965036a2..7ffa9171d6de1 100644
-> > --- a/net/ipv4/inet_hashtables.c
-> > +++ b/net/ipv4/inet_hashtables.c
-> > @@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct net *net,
-> >  		if (sk->sk_hash != hash)
-> >  			continue;
-> >  		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
-> > -			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-> > +			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
-> >  				goto out;
-> >  			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
-> >  				     !inet_match(net, sk, acookie, ports, dif,
-> > diff --git a/net/ipv4/inet_timewait_sock.c b/net/ipv4/inet_timewait_sock.c
-> > index d4c781a0667fe..74ff40d42e56b 100644
-> > --- a/net/ipv4/inet_timewait_sock.c
-> > +++ b/net/ipv4/inet_timewait_sock.c
-> > @@ -141,7 +141,7 @@ void inet_twsk_hashdance_schedule(struct inet_timewait_sock *tw,
-> >  	 * Also note that after this point, we lost our implicit reference
-> >  	 * so we are not allowed to use tw anymore.
-> >  	 */
-> > -	refcount_set(&tw->tw_refcnt, 3);
-> > +	refcount_set_release(&tw->tw_refcnt, 3);
-> >  
-> >  	/* Ensure tw_refcnt has been set before tw is published.
-> >  	 * smp_wmb() provides the necessary memory barrier to enforce this
-> > @@ -328,7 +328,7 @@ void inet_twsk_purge(struct inet_hashinfo *hashinfo)
-> >  			if (check_net(sock_net(sk)))
-> >  				continue;
-> >  
-> > -			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-> > +			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
-> >  				continue;
-> >  
-> >  			if (check_net(sock_net(sk))) {
-> > diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-> > index 6440305615378..4b2d2713653b7 100644
-> > --- a/net/ipv4/syncookies.c
-> > +++ b/net/ipv4/syncookies.c
-> > @@ -205,7 +205,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
-> >  	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
-> >  						 NULL, &own_req, NULL);
-> >  	if (child) {
-> > -		refcount_set(&req->rsk_refcnt, 1);
-> > +		refcount_set_release(&req->rsk_refcnt, 1);
-> >  		sock_rps_save_rxhash(child, skb);
-> >  
-> >  		if (rsk_drop_req(req)) {
-> > diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-> > index 471c78be55137..e40477b6b5549 100644
-> > --- a/net/ipv4/tcp_fastopen.c
-> > +++ b/net/ipv4/tcp_fastopen.c
-> > @@ -364,7 +364,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
-> >  	tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
-> >  			     req->timeout, false);
-> >  
-> > -	refcount_set(&req->rsk_refcnt, 2);
-> > +	refcount_set_release(&req->rsk_refcnt, 2);
-> >  
-> >  	sk_mark_napi_id_set(child, skb);
-> >  
-> > diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
-> > index aa5fa1dd062f7..1eea584d80df8 100644
-> > --- a/net/ipv6/inet6_hashtables.c
-> > +++ b/net/ipv6/inet6_hashtables.c
-> > @@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct net *net,
-> >  			continue;
-> >  		if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))
-> >  			continue;
-> > -		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-> > +		if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
-> >  			goto out;
-> >  
-> >  		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
-> > -- 
-> > 2.43.0
-> > 
+The value is then assigned to the unsigned long q_qbytes field, setting
+it to ULONG_MAX. This bypasses the CAP_SYS_RESOURCE requirement for
+increasing a queue above MSGMNB and lets an unprivileged user increase
+queue capacity without the configured per-queue limit.
+
+Keep msg_qbytes as unsigned long through validation and assignment.
+Also preserve its type in ipcctl_obtain_check(), which supplies it to
+the unsigned-long audit field.
+
+Add a regression test which drops CAP_SYS_RESOURCE and verifies that
+IPC_SET with UINT_MAX fails with EPERM.
+
+Fixes: 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down() functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+ ipc/msg.c                                   |  2 +-
+ ipc/util.c                                  |  3 +-
+ ipc/util.h                                  |  3 +-
+ tools/testing/selftests/ipc/Makefile        |  2 +-
+ tools/testing/selftests/ipc/msgctl_qbytes.c | 75 +++++++++++++++++++++++++++++
+ 5 files changed, 81 insertions(+), 4 deletions(-)
+
+diff --git a/ipc/msg.c b/ipc/msg.c
+index 62996b97f0ac2137dfc2fa109394d6db1fcb4a0f..116126f1235cd6ce9b819cfd317ef039071b95ca 100644
+--- a/ipc/msg.c
++++ b/ipc/msg.c
+@@ -399,7 +399,7 @@ copy_msqid_from_user(struct msqid64_ds *out, void __user *buf, int version)
+  * NOTE: no locks must be held, the rwsem is taken inside this function.
+  */
+ static int msgctl_down(struct ipc_namespace *ns, int msqid, int cmd,
+-			struct ipc64_perm *perm, int msg_qbytes)
++			struct ipc64_perm *perm, unsigned long msg_qbytes)
+ {
+ 	struct kern_ipc_perm *ipcp;
+ 	struct msg_queue *msq;
+diff --git a/ipc/util.c b/ipc/util.c
+index 1737d776bc089e27495e810569bf302069db3712..c435b2d93a12e92e930358a8bc53a06314d065f5 100644
+--- a/ipc/util.c
++++ b/ipc/util.c
+@@ -718,7 +718,8 @@ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
+  */
+ struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
+ 					struct ipc_ids *ids, int id, int cmd,
+-					struct ipc64_perm *perm, int extra_perm)
++					struct ipc64_perm *perm,
++					unsigned long extra_perm)
+ {
+ 	kuid_t euid;
+ 	int err = -EPERM;
+diff --git a/ipc/util.h b/ipc/util.h
+index a55d6cebe6d3b0974548a497fcb889248aed0f87..55a76f94667cd4bb248fbcea26323db8d2778a44 100644
+--- a/ipc/util.h
++++ b/ipc/util.h
+@@ -180,7 +180,8 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out);
+ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out);
+ struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
+ 					     struct ipc_ids *ids, int id, int cmd,
+-					     struct ipc64_perm *perm, int extra_perm);
++					     struct ipc64_perm *perm,
++					     unsigned long extra_perm);
+ 
+ static inline void ipc_update_pid(struct pid **pos, struct pid *pid)
+ {
+diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
+index fad10f2bb57b0f06f0c741fa89f0489f6952eba6..930a334747a6353c86bebe1f4a521aeee3fe8228 100644
+--- a/tools/testing/selftests/ipc/Makefile
++++ b/tools/testing/selftests/ipc/Makefile
+@@ -12,7 +12,7 @@ endif
+ 
+ CFLAGS += $(KHDR_INCLUDES)
+ 
+-TEST_GEN_PROGS := msgque
++TEST_GEN_PROGS := msgctl_qbytes msgque
+ 
+ include ../lib.mk
+ 
+diff --git a/tools/testing/selftests/ipc/msgctl_qbytes.c b/tools/testing/selftests/ipc/msgctl_qbytes.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..fdf3420173de99ece66c69ff8418a46878d56dbd
+--- /dev/null
++++ b/tools/testing/selftests/ipc/msgctl_qbytes.c
+@@ -0,0 +1,75 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <errno.h>
++#include <limits.h>
++#include <linux/capability.h>
++#include <stdio.h>
++#include <string.h>
++#include <sys/msg.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++#include "kselftest.h"
++
++static int drop_cap_sys_resource(void)
++{
++	struct __user_cap_header_struct hdr = {
++		.version = _LINUX_CAPABILITY_VERSION_3,
++	};
++	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3];
++	unsigned int index = CAP_SYS_RESOURCE / 32;
++	__u32 mask = 1U << (CAP_SYS_RESOURCE % 32);
++
++	if (syscall(SYS_capget, &hdr, data))
++		return -1;
++
++	data[index].effective &= ~mask;
++	data[index].permitted &= ~mask;
++
++	return syscall(SYS_capset, &hdr, data);
++}
++
++int main(void)
++{
++	struct msqid_ds ds;
++	int msqid;
++	int ret;
++
++	ksft_print_header();
++	ksft_set_plan(1);
++
++	if (drop_cap_sys_resource())
++		ksft_exit_fail_perror("drop CAP_SYS_RESOURCE");
++
++	msqid = msgget(IPC_PRIVATE, 0600);
++	if (msqid == -1)
++		ksft_exit_fail_perror("msgget");
++
++	ret = msgctl(msqid, IPC_STAT, &ds);
++	if (ret == -1) {
++		ksft_perror("msgctl(IPC_STAT)");
++		goto out_fail;
++	}
++
++	/*
++	 * msg_ctlmnb is an int, so UINT_MAX must require
++	 * CAP_SYS_RESOURCE.
++	 */
++	ds.msg_qbytes = UINT_MAX;
++	errno = 0;
++	ret = msgctl(msqid, IPC_SET, &ds);
++	if (ret == -1 && errno == EPERM) {
++		ksft_test_result_pass("IPC_SET rejects oversized msg_qbytes\n");
++		msgctl(msqid, IPC_RMID, NULL);
++		ksft_exit_pass();
++	}
++
++	if (ret == -1)
++		ksft_perror("msgctl(IPC_SET)");
++	else
++		ksft_print_msg("msgctl(IPC_SET) unexpectedly succeeded\n");
++
++out_fail:
++	msgctl(msqid, IPC_RMID, NULL);
++	ksft_test_result_fail("IPC_SET accepted oversized msg_qbytes\n");
++	ksft_exit_fail();
++}
+
+---
+base-commit: 8a36f53fd5ec3eff01f1b637d42cbdc3821d0493
+change-id: 20261027-ipc-msg-qbytes-49b15931c5b6
+
+Best regards,
+-- 
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
