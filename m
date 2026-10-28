@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197383;
-	b=WasiCSC2+hfyrDQA1KIC0kxy5T03Rssm6eVJYfWMPnmarBAf8uby2+t1xyMXp7VPlwYz
-	 gNFghAnrmwtI8JSsZ0pGXytgo7ItogerTSn/ZPZhEcay2z5gYOKGXNCzsJRNtS+XABK0+
-	 YZSgh/Z2d3VYtiiBAu9csyUA9Xn8U/q/qHMuzRcxtKEfF0vJr9qJS3PG3DpzE8eEWMJ/L
-	 Jh/r1vc4nwtS6O+XR1wu+UitukDGzQc9bg8nrdAd0guLMwReOzk50WXFuHpc7O4SGj9Bw
-	 17KXJjnoivB944wpim3sjUTWmaXX6sgrNp7WBlOaxHjFBawS7Jtd7odXPtQ0QFO3nTw==
+	t=1793197384;
+	b=KSBiVS3tr3ol982y5B+xJxYDsGlgi/XVS+0oh+ouIDiNJFJv3fV9fVlkFr+8Mj5i8wbO
+	 RP67okDyeU/oBr6+kadwzdsPmdAUP/31EBZ2YmAw7m9mQX6N8S0VURAugfZrEHBAKG/Im
+	 q/XpFmF/VQdWh59RQes8pCxabvqunHxSYmV278qHr3SYMSfyTF81BwncarWtUs2PWy7az
+	 Ley52XAamUH18IOBRF28wIJB3KPPENZhOio+W2FcS9V2EI/dwHmps0ZHCWIOJBWMCLzV8
+	 uUxLNtxzJKs1yeQ9A+dx6wxWthy7pLjPuy8CETZS3BP7bJ6WYJqbyN1z5NoVn6wPq5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197383;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2EjwqmUAG4LVpCIBaqLuA4imatC8t7BVaBsfJCHKdeI=;
-	b=mkyCT4eehoUJ8tfT6OXWazbP8Uzd+AaiZ7JwFE3hbM5z6w7QPCFuAs2jQ2sc4fwFg3TB
-	 TZFdm9+XPjOsXcip29/0gofjwfkXcXLeWqa5oMlr1JtqYr0+TGOpTB+2lJj9HFJkRTWkc
-	 nsIUZhiQgWCBmC1qxzwvknrb4UWpiKPkQglRQ6Zez4PL7oClaxKKrc53WyoNL9qSM5PZ4
-	 zoT6ysCtJBmJbTY8EiU1X6XjlZMO4LJMoK5zF6UDzvoo3Im2waiEdY59Iz7fRQo20uc2A
-	 1cYomtcNINRx1G5cxUerGhotooo2wpzbthsVMB11ncIRWTsqen1FQui2OVA3HubDfbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197384;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=EzKMRVCE/zgr3QV3iFI+46sBPKeKcqZHABUYeJAZNDE=;
+	b=yAVvh9s6rsQEzERsk3QCrfqJ8FOZ1Nl5zp/URpUklIZY8syWhMrIKHkntZAVAH7gGIfP
+	 kxEVcerqnEReGZdF7PpBlbUfDGxhsF5S4R/G78OwYO84VvP2FTV1weF/+vk0rYhb9wGah
+	 3WUdnhJc97E+0kKFnY450OZY3IydEtwcSliF5zhUqmz4SY9CbCGQTRYQvnQ9ywn1oj5nN
+	 9XgEshQgzLpE1kLitZSVSFn/rLL8szeZeqEDDEzNaOkUT9B+8AjFtqtXqXW+Pf96le9Sm
+	 45A8FG3UUMF8PQwrU0/YdFofOZvwPAg7lrhGfkgyeaM69BWk/eD99Z7ZCdpyEsw+s5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WTvJrCSC;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ekg5EM+l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C853606A335
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:23:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C853606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1558A606A33D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WTvJrCSC
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a070755c8cso591838b3a.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:23:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197382; x=1793802182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2EjwqmUAG4LVpCIBaqLuA4imatC8t7BVaBsfJCHKdeI=;
-        b=WTvJrCSCS5fiZvdk5coryFKio7Svqrh5ARAM/N3GbSRvPoDa2woYMG7vyYstYCZplJ
-         k7fS3rAuRu9410kE3ITExIHLH4rl1XVvrguUGqSgj3Cd5W6N5Y5qQuG/fqAleC+0g6oW
-         YZy6UipYhbYzZNc8/ylnpQeTuDWnAu5ZIYCF3DTqz3RHiZB9eeO/TFKA3m4sNua0ST7z
-         7b1TXpm2r+Yk6q/RwVrUlWxQp0BZ2WYpl5Qlw4JP1d0oAM9NZzqNWXyaW1kDY2/96A5F
-         UJWBCD/nAwks0yEZwmYXf8G312w9vakk8UvlFDQldpGsq9RrlJlZ/xuFdNQTBSidRu8/
-         dEsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197382; x=1793802182;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2EjwqmUAG4LVpCIBaqLuA4imatC8t7BVaBsfJCHKdeI=;
-        b=0912D0BFxenvR0E6xZfGUsXzVCzpgzEj2qx7IBW4G7tf5Kp2wk9ZHqRK8iLFQpaObG
-         XOTZLAnIbcVXFXy2SqmtTHWPp+ZzVAGABKwGkKPfHhsu1jNUw+Cv29TxpudsrO08ULEv
-         XSgATxvEcJohp/EynX2OXMC1sSojVGLb6aeGtcIRuWpXSgN4bl/pxdILvCBz7DR7Vjeo
-         u/1CSHWiECJpsTWbBDrbzjcxE8dsn1HmnX9Q1b1ZeNWdkoDKv4htgAlAv3yNzvggq4mB
-         STpnnKF5IKyYA5dlUx9WjYyP5jN798ohseGvLXwE/CfmrkSuc7eVJaJujaADdkvtRtRw
-         WQtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwVCQ0BjO0IRHjjV+a1gfB+6upuTiU2JGVinQ4FTNT86aJXOrnHkMkIE8IXGqIkJhtQld6gRNA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTocW8pA6smudRwN6Qx9HOQGFG2B7J1FanN1XvadrBVPLU5FZb
-	g7mbmwJxo+5jqxIWySe+wrHC2UFo05RZwzKiuW8xnMrT0QTwN6SaeROe
-X-Gm-Gg: AYBFou2w6eYIt3TXp/OcCPMPiN2fcH3TRoOIm3604EonxKGfCygtFU8qRxojDbMebBP
-	IjfTpMGMi11u4k6N4jnl9g0h192Fv1U45il1VogFrfa/sOony/amApEHRB4/LJvr0OWjxCvC0Xb
-	U5KWZo9c2V2ggpqJgmPskwCpIFwgB5g0cQGoTjrP4olwk/mT41BWOEGH6gJU13gW4/4qq7OQqs3
-	Lx5ZtodCE3DzMz789SA5H1lNirhJhp9ZBegi3s3eNl3LnDaRAmlUp5xGbHPzoEVzFKn6ffjyXvL
-	ehzgmc6WyVg4jHXnj8jIxm2IzYH01qL1tQRAI8Y+RnMp5Al18U7V92sQaYf2vK8WhUk2HQxy/zb
-	lZvL18X7NzQLwaUOXFO5kIBNQJjhxB4YeOR69ej2RXCu9LprX9UoAvunbD92ESq0tGYta34E7xG
-	fW9NAdndInliYXnDVRdBmvmoasRI2GwjRHoWa3TkQOSy/pK0hGW49qlUq75lGqQVoPCxnIuzwUT
-	iVNngH9cvVm7v7sg//PuqOU+Aw3t+kv33WpXAdOrEFy6JG9kL3p0/4iSfWtys5M6oYjy7gY2X9A
-	RwfGQ9y/4/WBKLehuSFHCDRQuFDaO7AfYbUEN+DNRvqjO/ueCmdpkMXZcXH3n0azHB0L
-X-Received: by 2002:a05:6a00:b56:b0:899:394d:2976 with SMTP id d2e1a72fcca58-8a6e78d158bmr1990970b3a.39.1793197381902;
-        Wed, 28 Oct 2026 07:23:01 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662ba00sm1245181b3a.23.2026.10.28.07.22.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:23:01 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: "John W. Linville" <linville@tuxdriver.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: mac80211: bound pending IBSS station allocations
-Date: Wed, 28 Oct 2026 22:22:35 +0800
-Message-ID: <20261028142235.15428-3-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028142235.15428-1-enderaoelyther@gmail.com>
-References: <20261028142235.15428-1-enderaoelyther@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ekg5EM+l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7C91F01828;
+	Wed, 28 Oct 2026 14:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793197383;
+	bh=EzKMRVCE/zgr3QV3iFI+46sBPKeKcqZHABUYeJAZNDE=;
+	h=Subject:To:Cc:From:Date;
+	b=Ekg5EM+lkTcBNicIvGoukBTacDG8Lp+5BDhz//xsiRoZSjiZ3GV7S3iz8t3YQ+uO4
+	 9bGgjppvhw3c5gPxKw4ukuRT4+OUYb7DCNsKo5grshTdDEiLWAZ9cXW7JEkKXG8VRR
+	 Gx+0Tk3ptQ1qjIofmUSfEasrNxvUBJtEfkyCBskw=
+Subject: FAILED: patch "[PATCH] coredump: hold RCU while releasing parked threads" failed to apply to 5.15-stable tree
+To: brauner@kernel.org,oleg@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 28 Oct 2026 15:23:01 +0100
+Message-ID: <2026102801-afford-shock-9e90@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,87 +51,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Delaying the IBSS station worker while frames arrive from new peers can
-retain an unbounded number of station allocations.
 
-The receive-side limit counts installed stations, while new allocations
-wait on incomplete_stations until process context inserts them. The list
-lock does not cover the interval between allocation and list insertion.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reserve one of 128 pending slots per interface before allocation. Release
-the reservation on allocation failure, after the worker inserts or frees
-the station, and when disconnect frees the pending list.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-LLM assistance was used to find the bug and review.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 61d58591aa0188bf2463e263962256316ff8b576
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102801-afford-shock-9e90@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Fixes: 8bf11d8d0811 ("mac80211: delay IBSS station insertion")
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 61d58591aa0188bf2463e263962256316ff8b576 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 21 Sep 2026 15:44:50 +0200
+Subject: [PATCH] coredump: hold RCU while releasing parked threads
+
+coredump_finish() releases the parked threads by clearing ->task in
+their core_thread entry and calling wake_up_process() on each of them.
+It does that without holding a reference on the task and without being
+inside rcu.
+
+But calling wake_up_process(task) without rcu here isn't safe. A parked
+thread doesn't need that wakeup to leave. A spurious wakeup or a
+preemption after the store is enough for the task to go away.
+
+So if the coredump client is preempted between the store and
+wake_up_process() the thread can exit and be freed in the meantime and
+try_to_wake_up() takes pi_lock in freed memory.
+
+Hold rcu across the loop.
+
+Fixes: a94e2d408eae ("coredump: kill mm->core_done")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Validation: A W=1 module build with MODPOST passed. In a QEMU
-hwsim guest, a 2048-address flood left 293 IBSS stations before the series
-and 128 after it, with no KASAN report. This is a resource bound, not a
-memory-safety result. A reproducer is available on request.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-1-8e4adb1619e6@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
- net/mac80211/ibss.c        | 13 ++++++++++++-
- net/mac80211/ieee80211_i.h |  1 +
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/net/mac80211/ibss.c b/net/mac80211/ibss.c
-index bd7dbaa942fa..e7d69869772b 100644
---- a/net/mac80211/ibss.c
-+++ b/net/mac80211/ibss.c
-@@ -680,6 +680,7 @@ static void ieee80211_ibss_disconnect(struct ieee80211_sub_if_data *sdata)
- 		spin_unlock_bh(&ifibss->incomplete_lock);
+diff --git a/fs/coredump.c b/fs/coredump.c
+index 7c0f276c3e0d..d88a65e37ee1 100644
+--- a/fs/coredump.c
++++ b/fs/coredump.c
+@@ -562,6 +562,8 @@ static void coredump_finish(bool core_dumped)
+ 	current->signal->core_state = NULL;
+ 	spin_unlock_irq(&current->sighand->siglock);
  
- 		sta_info_free(local, sta);
-+		atomic_dec(&ifibss->incomplete_sta_count);
- 		spin_lock_bh(&ifibss->incomplete_lock);
++	/* A released thread may exit and be freed before it is woken. */
++	guard(rcu)();
+ 	while ((curr = next) != NULL) {
+ 		next = curr->next;
+ 		task = curr->task;
+@@ -570,6 +572,7 @@ static void coredump_finish(bool core_dumped)
+ 		 * ->task == NULL before we read ->next.
+ 		 */
+ 		smp_mb();
++		/* Any wakeup now lets the thread exit, rcu keeps it alive. */
+ 		curr->task = NULL;
+ 		wake_up_process(task);
  	}
- 	spin_unlock_bh(&ifibss->incomplete_lock);
-@@ -1173,9 +1174,18 @@ void ieee80211_ibss_rx_no_sta(struct ieee80211_sub_if_data *sdata,
- 	band = chanctx_conf->def.chan->band;
- 	rcu_read_unlock();
- 
-+	if (!atomic_add_unless(&ifibss->incomplete_sta_count, 1,
-+			       IEEE80211_IBSS_MAX_STA_ENTRIES)) {
-+		net_info_ratelimited("%s: No room for a new IBSS STA entry %pM\n",
-+				     sdata->name, addr);
-+		return;
-+	}
-+
- 	sta = sta_info_alloc(sdata, addr, GFP_ATOMIC);
--	if (!sta)
-+	if (!sta) {
-+		atomic_dec(&ifibss->incomplete_sta_count);
- 		return;
-+	}
- 
- 	/* make sure mandatory rates are always added */
- 	sband = local->hw.wiphy->bands[band];
-@@ -1632,6 +1642,7 @@ void ieee80211_ibss_work(struct ieee80211_sub_if_data *sdata)
- 			ieee80211_ibss_finish_sta(sta);
- 			rcu_read_unlock();
- 		}
-+		atomic_dec(&ifibss->incomplete_sta_count);
- 		spin_lock_bh(&ifibss->incomplete_lock);
- 	}
- 	spin_unlock_bh(&ifibss->incomplete_lock);
-diff --git a/net/mac80211/ieee80211_i.h b/net/mac80211/ieee80211_i.h
-index 9374c2942489..cc0d02ca56eb 100644
---- a/net/mac80211/ieee80211_i.h
-+++ b/net/mac80211/ieee80211_i.h
-@@ -682,6 +682,7 @@ struct ieee80211_if_ibss {
- 
- 	spinlock_t incomplete_lock;
- 	struct list_head incomplete_stations;
-+	atomic_t incomplete_sta_count;
- 
- 	enum {
- 		IEEE80211_IBSS_MLME_SEARCH,
--- 
-2.56.0
 
