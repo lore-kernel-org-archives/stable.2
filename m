@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163779;
-	b=bGx3Zr64MldLZnYo4nQOYbJm8xHacMFIo22UqamVsJIgocUV4NAhjltR6kRzI92h7WkH
-	 vF0yekXW++fj6Q9VNudJa63bH6c9AeKHxsyhyTI8BlQLxD+2wvs1HjpZEchh+i5mxSvth
-	 AKq3otMkQTnGpn+eM0JVqLFld6IRHCc0wYcvp/oKwUQ98R9FtxHk3YIuBACuyxHqV3PrO
-	 Xqr5Dw33Oa4QqPloG8KbOTpcXo9xE2eMpBgVrPyFS+zinQOn3I5WvrqmwX+Cu44oIgZ5o
-	 KNQ49Ar70dkhaN7P9crbnE7lf1rXXt5serbVkainTxHpERegqYuwgbmjahWAUFnHu3g==
+	t=1793163786;
+	b=EalinLJ5oTIZMhimPXNc2EW5jQjzZRk2Qp6LYqEWEJ8gDf2i6IUFXsi03CKYWidxOGuC
+	 SVbJtw+Pq7iz1lo7VyhvONrIW4uE4hr1rAgMoH2lgrMx4ffB/5Rli0jAl4nWHsZCUu/w8
+	 jDIm/OR/lEv7ce9xilpwwVkUQGotlp8nIOj/J79Ar8LyfD+dcqEEPcmxTAmRhZlgZGtH6
+	 6lU/SgDlbfa4wzG/YPlzGWqzEKekw9A+OKz0r1d3GUySXZAA+KuqjYdfJPwAsRGbtIF8Y
+	 w6YDIR/VkXQW5WCYPkQJiC0DlKdk5nqYvNUo+uZ/HU8UBoug+jbtioqqYyBd3boC8dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163786;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=KZd18GbnGU4FjPw5U6MyhamIQSEO0JvH+SDs2B8FAk0=;
-	b=PVpwKzhHBmbf8tRl9o9WihXPWn8uINpwV1M/fgoI9oRI8vyoyJ+9xlq6jdAguc5LUV3W
-	 2X6dTayy7P91b7U9l19coItkkNvIcDIcm2ynuRoR85HVz+6ISi7O2IEoV2EgicY83FrK2
-	 U1arTWfB4PTbTN8pR2fZdesWQ/HS2oVVCYjkg6zFK53m/MjFDAZq+hMFjH5yFiPCY68/u
-	 SwfgFcOeDto0sDysqBw0HFouZuY3Aq9j1JOcJAyaGTAbuB9oHYeuLnFyuC8NT01iHMkFe
-	 IlGI22coPPxM07yKwDPfFwxS2kwcyWml5d2ecVoMlhQeF/hytaJdzdAX67FKub9mJng==
+	bh=Rr2WJEdTQgGpHBcJecdClBEvFz4TlW63veoXIe5tkYM=;
+	b=YsyJX1h4jFI4LJi//DENU2yyp4ScqM8gLeWhBf3M+ADnXXy+zKf3sAw4IWHfauMxX/Vv
+	 ADakK29PAl2nFjFy61GKGV9wWLaCtsGUKA/rjs4UII6tmtSWljtGORbW1TKun/ZHppWbQ
+	 CKq/E0rmYw6qn4ZpisCHj88ZAkoXwBve5lTBOlbmkoxlQSz4twvI7hCq0Mv+wg1CQXI3o
+	 ILYM85FqVr7r8KACgyPH23R2NVUfvckV7XPH3gDlFHCLOBBKO4Efj8ryS68tF4w1JFpcV
+	 szkVG/RPg4CZPvkj+rnLMdYcuZcd44Cd97X5SYT3TSgMYrJAbYpkfrwnOyoImiWPMtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="O/G3Zrj6";
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pnl+6fb3;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82AC606A31A;
-	Wed, 28 Oct 2026 05:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D82AC606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7B2606A32D;
+	Wed, 28 Oct 2026 05:03:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B7B2606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=O/G3Zrj6
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pnl+6fb3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=KZ
-	d18GbnGU4FjPw5U6MyhamIQSEO0JvH+SDs2B8FAk0=; b=O/G3Zrj69LGrSAGHXx
-	7DdCb1z1GnEuSQOSZtB22xbY0w2oLmgFqHd1QcCutmCJirCu1MzA/jtiBsgHpj/g
-	2syXnNWAKNlafffpjk/y4X0zcBsesMjXe77dk4M3QNuBEyoG5N2ig2rKZlwOaJC1
-	Ie/0gjLr3hKZRtvcS+i0Nr58c=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rr
+	2WJEdTQgGpHBcJecdClBEvFz4TlW63veoXIe5tkYM=; b=pnl+6fb30MpIyxA1Sp
+	Ex3BZx9q/aUuK7RfxEeU+1xvF3xNi8bwVU3lxenLeXgnun+1GDz8Inm75sebK4r8
+	HzPh4RtI1TItQMbjda5XbeWbzRhjbrGttNbcJQajw/QmTHd9eqOQVjM1stNDNHJT
+	Zkr67TD+SR9uqR/54vJiEeeZ8=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3P6n1geFqL2RoDQ--.23510S2;
-	Wed, 28 Oct 2026 13:02:46 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3X6XmgeFqS1hoDQ--.3415S2;
+	Wed, 28 Oct 2026 13:02:31 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Parav Pandit <parav@mellanox.com>,
-	linux-rdma@vger.kernel.org,
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Tao Ma <tao.ma@oracle.com>,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH] RDMA/core: skip compat cleanup for init_net
-Date: Wed, 28 Oct 2026 13:02:44 +0800
-Message-Id: <20261028050245.125370-1-yaojiale02@163.com>
+Subject: [PATCH] ocfs2: validate xattr bucket count against extent size
+Date: Wed, 28 Oct 2026 13:02:29 +0800
+Message-Id: <20261028050229.124718-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,46 +65,92 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P6n1geFqL2RoDQ--.23510S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryxKr1DCFWDWw4kJry5Jwb_yoW8JFykpF
-	4qya90krnrGF47Ka1UWa48uFy3Jas5J34agrWDt34kuF15WFyYvryrtFy0yFWkAryUJF13
-	tFWDZrs5G3s3XaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYa0PUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Baw6mrhgfZhmQAA34
+X-CM-TRANSID:_____wD3X6XmgeFqS1hoDQ--.3415S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCw1UAw43WF4fAryktw1UWrg_yoW5AFy8pF
+	4UKF15tr18t3Z7uF93Ar1DZw1Skr48XF4DXry3tw1avF1DJw1SqFy0qwn0kF1rXryrWrsI
+	gF4Ykw1UCa43XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joKZAUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQes5mrhgeejTgAA3A
 
-rdma_dev_init_net() does not allocate an rdma_nets XArray entry or
-create compatibility devices for init_net.  rdma_dev_exit_net() still
-runs the common cleanup, using the zero-initialized rnet->id to hide and
-erase an entry and removing compatibility devices with that ID.  ID zero
-may belong to a non-default network namespace.
+The first xattr bucket stores the number of valid buckets in its extent.
+Lookup and iteration trust this on-disk value even when it exceeds the
+number of buckets covered by the extent record. A corrupted value can
+therefore make them read blocks beyond the extent.
 
-Handle init_net separately on exit, mirroring the initialization path.
-Only tear down its netlink state and leave the XArray and compatibility
-devices untouched.
+Validate the count against the extent cluster count before using it.
+Reject zero as well because every xattr extent contains at least its first
+bucket.
 
-Fixes: 1d2fedd8561d ("RDMA/core: Support netlink commands in non init_net net namespaces")
+Fixes: 589dc2602f2a ("ocfs2: Add xattr lookup code xattr btrees")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/infiniband/core/device.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/ocfs2/xattr.c | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/infiniband/core/device.c b/drivers/infiniband/core/device.c
-index 29af9fe860e2..74460850ccba 100644
---- a/drivers/infiniband/core/device.c
-+++ b/drivers/infiniband/core/device.c
-@@ -1153,6 +1153,11 @@ static void rdma_dev_exit_net(struct net *net)
- 	unsigned long index;
- 	int ret;
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index b2bd06083a14..6b2fc8337c51 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -328,6 +328,22 @@ static inline u16 ocfs2_blocks_per_xattr_bucket(struct super_block *sb)
+ 	return OCFS2_XATTR_BUCKET_SIZE / (1 << sb->s_blocksize_bits);
+ }
  
-+	if (net_eq(net, &init_net)) {
-+		rdma_nl_net_exit(rnet);
-+		return;
-+	}
++static int ocfs2_validate_xattr_bucket_count(struct inode *inode,
++					     struct ocfs2_xattr_header *xh,
++					     u32 num_clusters)
++{
++	u32 num_buckets = le16_to_cpu(xh->xh_num_buckets);
++	u32 max_buckets = num_clusters *
++		ocfs2_xattr_buckets_per_cluster(OCFS2_SB(inode->i_sb));
 +
- 	down_write(&rdma_nets_rwsem);
- 	/*
- 	 * Prevent the ID from being re-used and hide the id from xa_for_each.
++	if (!num_buckets || num_buckets > max_buckets)
++		return ocfs2_error(inode->i_sb,
++				   "Inode %llu has invalid xattr bucket count %u (max %u)\n",
++				   inode->i_ino, num_buckets, max_buckets);
++
++	return 0;
++}
++
+ #define bucket_blkno(_b) ((_b)->bu_bhs[0]->b_blocknr)
+ #define bucket_block(_b, _n) ((_b)->bu_bhs[(_n)]->b_data)
+ #define bucket_xh(_b) ((struct ocfs2_xattr_header *)bucket_block((_b), 0))
+@@ -4295,6 +4311,10 @@ static int ocfs2_xattr_bucket_find(struct inode *inode,
+ 	}
+ 
+ 	xh = bucket_xh(search);
++	ret = ocfs2_validate_xattr_bucket_count(inode, xh, num_clusters);
++	if (ret)
++		goto out;
++
+ 	high_bucket = le16_to_cpu(xh->xh_num_buckets) - 1;
+ 	while (low_bucket <= high_bucket) {
+ 		ocfs2_xattr_bucket_relse(search);
+@@ -4480,6 +4500,7 @@ static int ocfs2_iterate_xattr_buckets(struct inode *inode,
+ 	int i, ret = 0;
+ 	u32 bpc = ocfs2_xattr_buckets_per_cluster(OCFS2_SB(inode->i_sb));
+ 	u32 num_buckets = clusters * bpc;
++	struct ocfs2_xattr_header *xh;
+ 	struct ocfs2_xattr_bucket *bucket;
+ 
+ 	bucket = ocfs2_xattr_bucket_new(inode);
+@@ -4503,8 +4524,14 @@ static int ocfs2_iterate_xattr_buckets(struct inode *inode,
+ 		 * The real bucket num in this series of blocks is stored
+ 		 * in the 1st bucket.
+ 		 */
+-		if (i == 0)
+-			num_buckets = le16_to_cpu(bucket_xh(bucket)->xh_num_buckets);
++		if (i == 0) {
++			xh = bucket_xh(bucket);
++			ret = ocfs2_validate_xattr_bucket_count(inode, xh, clusters);
++			if (ret)
++				break;
++
++			num_buckets = le16_to_cpu(xh->xh_num_buckets);
++		}
+ 
+ 		trace_ocfs2_iterate_xattr_bucket((unsigned long long)blkno,
+ 		     le32_to_cpu(bucket_xh(bucket)->xh_entries[0].xe_name_hash));
 -- 
 2.34.1
 
