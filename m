@@ -1,55 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173330;
-	b=y1FaqBOAR6FmlfLg6ICwrlRaywPS4Zy1ou2h4oR8Kl30vABiSVrmwCkTTZPfmZPbRcui
-	 8ptOfKj/woM0axU9QsswF2X753TmPGuESQQoLv9k4ROd8cWQUQzbW6h6cQYYNiJn85VdY
-	 zS1nupxUB8I6hfA9gn7YApW+TROCRrk1vPLiVW8Z22486hH9A2l2c5xXcE7QvvN/gimb0
-	 3iFQ6KltG1N68s/3y51gsaLVKOmonzrWsgRg/eyyIfGBlwNhBmv0T8K2EpBdcZPZxb8TF
-	 Za0QUGfiSchHxff5jasq35nTojcmfOX+YaOy9aa1w73mWHLp1/1v7zMM5wjEvyO1kXA==
+	t=1793173423;
+	b=m5YYE21Wa7WLp84IkdM/c3Gxx32k+3pnNMdxAbXrTYK9mARjsj1jqVSByP5Xuif033QA
+	 5KBTmYJ36xj5LVfhUIU74aA4BiN223OZjJY3FokFrm+kX6yOnKSIZhg5gv9Q2wX3sWs17
+	 0Qp+5kTlGcOAPwbgi1DJYovvZcKHOXL0KkvhTiJnj9wsrTAyW/dOcQVDKa3bcx/LNYSlI
+	 rmHLTJcVupmbcFworzNxt2scw3w/VgqtXtGD2fZvWpT+fFSr0Jr9BlBGqOUmZEsiEiObq
+	 MY3eEmJ6OEfj9BvaPVvjbofnMjxQ2j8V0GnaRlEQ3LqS9MBQbx3wg7SMccP2YRIqPhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173330;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Q4u5rewkLp38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=;
-	b=QjpfKBEBovs2YZswrnHtnDWbnL0Tl4+SD9waedRN6FQRQfbGzfKzOqSCKVy4I/Q6cX2w
-	 KKGMdMdgj2winVY/WBkhiCNDPzdiFzSsm/YBuCGNeCFvF79QRemSHYoHAVJj2KmUGfsaM
-	 7oySA99n31DWeBK4Kgrrn8V1aU0XoASwZ6Si/MzEODWvGWaLDf+GiBEuch4gOixqRNVfo
-	 /yZ2YLnY7rYZtlO39n+jFgez/kD0ahP8hFSbdAdOSWPuahz86CbVBH9P1D+H2NdWIkWKN
-	 NVK1T0i9LHivxEqLPj61Lct4QYt6YiSZo/HirjqgIR9h4XQQ88lCOO0hUXoxU3ju9aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173423;
+	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=/vGGhDk2kbYeHylZZAFez92EAdypt/B9D5SYJhls24U=;
+	b=Cg7MF4bfaI5lXB4W0iqsGdU/eopoxIg8HEPUO9Vv4Y5VcKrr15K3hzIhskEtiMkjzW+A
+	 6X+J1bVdQWqf5+//hhiddkRL1jZoLVaijvZg0WtXbmfP0FaXPYR6sy9CyMf4F9QmSVW8k
+	 TJLc/D2EU4BjMvqlxk0CHYcdWyZcOXlnsbOGB57oJQA6fNlPTPYQASQJWWeUkNbOk30/f
+	 s7mYldSmVv90DbAjKj0Y6phcRUwd6kAr51dzKp0Qzlbi8NOmEkclrcEw6uoII+Bz5GMGK
+	 zFpC1VWwRFk7QlHGIAC1R1tukxjN64gFmOfAr/P9tmuuMgV9qriWvFHJocfYpuv2qhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EF51606A31A;
-	Wed, 28 Oct 2026 07:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF51606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Q4u5rewkLp
-	38VujxKGzKyAkhCo4Np7g9KIM5/qYxhIM=; b=LF3MonnxQ7JM2tTjDFsPDUO8bJ
-	2xjY7ZC0cG8DNZ89+F9MPYhlLd/91Eb/65TG7eaDRuixPs2/lyJEDOlozxfjkfCi
-	0e9gUBLMuGUAXTNzLgoHfPIcdKKF5E/dogLZLXYrSOjFAKkoUmZm4vclPt37ESJ3
-	7fmOyQRXmByUJR7TI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2WgA4p+FqxLLzAA--.57600S2;
-	Wed, 28 Oct 2026 15:41:46 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	Johan Hovold <johan@kernel.org>
-Subject: [PATCH] ALSA: us122l: Fix NULL dereference at hwdep open and release
-Date: Wed, 28 Oct 2026 15:41:43 +0800
-Message-Id: <20261028074143.14440-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	arc=none smtp.remote-ip=64.106.246.77
+Received: from mailsc.amlogic.com (unknown [64.106.246.77])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E30606A31A;
+	Wed, 28 Oct 2026 07:43:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E30606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Received: from XA202100-0024.amlogic.com (10.88.19.246) by mailsc.amlogic.com
+ (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Wed, 28 Oct
+ 2026 00:43:32 -0700
+From: yao zhang1 <yao.zhang1@amlogic.com>
+To: <stable@vger.kernel.org>
+CC: <gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
+	<linux-security-module@vger.kernel.org>, <selinux@vger.kernel.org>,
+	<ebpqwerty472123@gmail.com>, <paul@paul-moore.com>,
+	<stephen.smalley.work@gmail.com>, <yao.zhang1@amlogic.com>
+Subject: [PATCH 5.15.y] mm: call the security_mmap_file() LSM hook in remap_file_pages()
+Date: Wed, 28 Oct 2026 15:42:51 +0800
+Message-ID: <20261028074251.1695-1-yao.zhang1@amlogic.com>
+X-Mailer: git-send-email 2.56.0.windows.2
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,106 +53,83 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkA2WgA4p+FqxLLzAA--.57600S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCF43WrWrJF15ury7CFyfJFb_yoW5Cr18pF
-	WrurWSyFyDJan3WF1fJa18Za1F9w1kKa43CF97C34rZr1rG34fZ34Yyry5uF17CrW8Cr4F
-	gr98t3WDWFW8Jr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2rgvlNkOwABsy
+Content-Type: text/plain
+X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
+ (10.8.11.35)
 
-usb_stream_hwdep_open() and usb_stream_hwdep_release() pass the result of
-usb_ifnum_to_if() straight to usb_autopm_get_interface() and
-usb_autopm_put_interface(), without checking it for NULL.
+From: Shu Han <ebpqwerty472123@gmail.com>
 
-usb_ifnum_to_if() returns NULL once the device is gone, since
-usb_disable_device() clears udev->actconfig on disconnect.  The hwdep file
-can outlive the disconnect: the card is released with
-snd_card_free_when_closed(), so a process that keeps the character device
-open reaches the driver's release callback after the USB configuration has
-been dropped, and interface_to_usbdev() then dereferences the NULL
-interface at offsetof(struct device, parent).  The open callback has the
-same problem when it races with the disconnect.
+The remap_file_pages syscall handler calls do_mmap() directly, which
+doesn't contain the LSM security check. And if the process has called
+personality(READ_IMPLIES_EXEC) before and remap_file_pages() is called for
+RW pages, this will actually result in remapping the pages to RWX,
+bypassing a W^X policy enforced by SELinux.
 
-Check both lookups and fail the open with -ENODEV; in release, skip the
-runtime PM put when the interface is already gone and still run the rest
-of the per-file cleanup.  Move the us122l->first bookkeeping after the
-checks so that a failed open no longer leaves a stale file pointer behind.
+So we should check prot by security_mmap_file LSM hook in the
+remap_file_pages syscall handler before do_mmap() is called. Otherwise, it
+potentially permits an attacker to bypass a W^X policy enforced by
+SELinux.
 
-Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+The bypass is similar to CVE-2016-10044, which bypass the same thing via
+AIO and can be found in [1].
+
+The PoC:
+
+$ cat > test.c
+
+int main(void) {
+	size_t pagesz = sysconf(_SC_PAGE_SIZE);
+	int mfd = syscall(SYS_memfd_create, "test", 0);
+	const char *buf = mmap(NULL, 4 * pagesz, PROT_READ | PROT_WRITE,
+		MAP_SHARED, mfd, 0);
+	unsigned int old = syscall(SYS_personality, 0xffffffff);
+	syscall(SYS_personality, READ_IMPLIES_EXEC | old);
+	syscall(SYS_remap_file_pages, buf, pagesz, 0, 2, 0);
+	syscall(SYS_personality, old);
+	// show the RWX page exists even if W^X policy is enforced
+	int fd = open("/proc/self/maps", O_RDONLY);
+	unsigned char buf2[1024];
+	while (1) {
+		int ret = read(fd, buf2, 1024);
+		if (ret <= 0) break;
+		write(1, buf2, ret);
+	}
+	close(fd);
+}
+
+$ gcc test.c -o test
+$ ./test | grep rwx
+7f1836c34000-7f1836c35000 rwxs 00002000 00:01 2050 /memfd:test (deleted)
+
+Link: https://project-zero.issues.chromium.org/issues/42452389 [1]
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Shu Han <ebpqwerty472123@gmail.com>
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+[PM: subject line tweaks]
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+(cherry picked from commit ea7e2d5e49c05e5db1922387b09ca74aa40f46e2)
+Signed-off-by: yao zhang1 <yao.zhang1@amlogic.com>
 ---
- sound/usb/usx2y/us122l.c | 25 +++++++++++++++++--------
- 1 file changed, 17 insertions(+), 8 deletions(-)
+ mm/mmap.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index a5db0d044ef9..d93e3240b1b0 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -129,19 +129,26 @@ static const struct vm_operations_struct usb_stream_hwdep_vm_ops = {
- static int usb_stream_hwdep_open(struct snd_hwdep *hw, struct file *file)
- {
- 	struct us122l	*us122l = hw->private_data;
--	struct usb_interface *iface;
-+	struct usb_interface *iface, *iface0 = NULL;
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 273e06dad3c6..7f357de8f4d6 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -3047,8 +3047,12 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
+ 		flags |= MAP_LOCKED;
  
- 	if (hw->used >= 2)
- 		return -EBUSY;
- 
--	if (!us122l->first)
--		us122l->first = file;
--
- 	if (us122l->is_us144) {
--		iface = usb_ifnum_to_if(us122l->dev, 0);
--		usb_autopm_get_interface(iface);
-+		iface0 = usb_ifnum_to_if(us122l->dev, 0);
-+		if (!iface0)
-+			return -ENODEV;
- 	}
-+
- 	iface = usb_ifnum_to_if(us122l->dev, 1);
-+	if (!iface)
-+		return -ENODEV;
-+
-+	if (!us122l->first)
-+		us122l->first = file;
-+
-+	if (iface0)
-+		usb_autopm_get_interface(iface0);
- 	usb_autopm_get_interface(iface);
- 	return 0;
- }
-@@ -153,10 +160,12 @@ static int usb_stream_hwdep_release(struct snd_hwdep *hw, struct file *file)
- 
- 	if (us122l->is_us144) {
- 		iface = usb_ifnum_to_if(us122l->dev, 0);
--		usb_autopm_put_interface(iface);
-+		if (iface)
-+			usb_autopm_put_interface(iface);
- 	}
- 	iface = usb_ifnum_to_if(us122l->dev, 1);
--	usb_autopm_put_interface(iface);
-+	if (iface)
-+		usb_autopm_put_interface(iface);
- 	if (us122l->first == file)
- 		us122l->first = NULL;
- 	guard(mutex)(&us122l->mutex);
+ 	file = get_file(vma->vm_file);
++	ret = security_mmap_file(vma->vm_file, prot, flags);
++	if (ret)
++		goto out_fput;
+ 	ret = do_mmap(vma->vm_file, start, size,
+ 			prot, flags, pgoff, &populate, NULL);
++out_fput:
+ 	fput(file);
+ out:
+ 	mmap_write_unlock(mm);
 -- 
-2.34.1
+2.46.0
 
