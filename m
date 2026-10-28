@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163833;
-	b=eMCXa3CQBGD+pzjyVGXDNO0G8LqcFl47wR35uwkxkx4VtmdR3d1I+4hHwMhd0DutEQuh
-	 DeM9Rr8m8oWWgwWNoIePNG0CSKtxg3N9YrhiTPayyRHBHHkUlSIo+zASQ5rQHlDMR5lcT
-	 CLYr9DJeRGFjw7FKGTW+7lKkIvC00Zcp9mZ/VGw2Bh/29ARaAIbzPlMoxM8idTnlWznk5
-	 p6nIWTqWXVRY4l+jDLxkDu5+nJUYUatat3Ofss4WaD92E4YyuuiHyeGj6g0j/9UKgppuw
-	 bkpH/QcZVGoYIrZAXWaF0C4D6pjMTqW9qVFpzAwW9elehLhH0/kT21roGlpxlUrsrYQ==
+	t=1793163848;
+	b=TMZywJVKElOg+WX5E3C7Xx/0/wsxtxwNW1JiK2kUtfkur/msDn/VnbSBPVgzjk4UL/TJ
+	 RSCx8pUB/rfOjkp5/waDA5QcT2Yg1TZNRXueqH55hVLTe4kehdnr9vVbCdjdkzrsHZS3P
+	 G8a7a1sRlQzLOK1gwf4w2qMkRiSxPgx+IVGMBEb3Zm/2XTfFs++IFed+Fiuq4enLeKEko
+	 RrkoLfNzfkMQRfSO8imBWfQzstx/yeH8V7z4tU6EPytK3sriNkzLE5Ucb9LlxLnCgUI/S
+	 z34XGwvAXq+aLCA82hEDHKpXjkWwTZduiYMlUMz/gFKtK/kGmz4+Jb/r/XfFTumtF4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163848;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=K1YZ6fRD5stM9wVm0/hkmxvxcUi/OB/8Xg9oORiLlfw=;
-	b=gmdjStaoRMjYoxyWAK6rsM+Lr0mY05puQVrxT3dG3HXR9d4pSS0KO6NRxHALwdGPtlQh
-	 vqhQSUiFE88peT2UgCF+RhpUYnM1vOjOfsoP6NuEC8+iJnwfQCzOOCh4rTl4D4h/qSiL+
-	 l2ePCfsz0NAvGewpxwnusUeuDwugyxv0NYyJh/RXIbuUTYB1eEhYWXlGmXZzJnmtegHVA
-	 0+i/K1LTXv6hu4bqcCOcVY+6xJ44cmBxwwGzj5D+5lPYN5wJNuqrDsw7uiXr0Y1kwQUox
-	 fGrkyFQT5+zA/0514AwO+7IUndpSHxWOv2Xy8NNtkmUWbRGvIsjO4UEt3U565se2ZIw==
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=FlFLV+LrMOBGmpATjG3z5jE42aeiJSCz2DhkhKzdZJY=;
+	b=JQZch//HGEr0ROXLbY0l57Z2n0IDECC5HXzx2dE8lEvbwb5/gb1CqQa3+S1sOFnlvbFK
+	 azsglvi+BiZUKdVrDx4ztifbxvUaKnCo+Nnlu49mLC9lEQ/HGl9j4Af5Q0IIpz0q1Atko
+	 Ywjop25dzfos6L/Wl1LrYi8vBMXwqQoVPOuqL6MsoCgUqVOTkCPv77HVpaWy5aphMoMQs
+	 eW5hNo6omfXUDdAJ0+GyIunUKsf2jDhpIdnuQY5afKn+ois+8Q7e3JJT6kZ1UBV9PA1nT
+	 Z6rdynJkuQcmd3vpzpc4252OTMg+qFPD9Tq3QFtCQ4/507xB4yhFAgK2wdJPPRt+bww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YgDtqLXI;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aELgK7ws;
 	arc=none smtp.remote-ip=220.197.31.5
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA7E606A31A;
-	Wed, 28 Oct 2026 05:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEA7E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA018606A31D;
+	Wed, 28 Oct 2026 05:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA018606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YgDtqLXI
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aELgK7ws
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=K1
-	YZ6fRD5stM9wVm0/hkmxvxcUi/OB/8Xg9oORiLlfw=; b=YgDtqLXIFkkPZhv6RU
-	BVvm8hYOXvi8B23GrN2iCr2HAxErBDD46q30b+CeTfzz7uCu4EYnK/Jajax767sG
-	zioI9Yh128v/pH63CddAbSX4eFdUFJf+S1Mp9nd1pmwM/R3iYTc/C6jEloxfJBU9
-	uOOl+A98mKAPYP0bslLfJbjLc=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Fl
+	FLV+LrMOBGmpATjG3z5jE42aeiJSCz2DhkhKzdZJY=; b=aELgK7wseZzANP5nSx
+	6kWzED6BXAEgxjXhIPQZI5+oaNu3QTi/tGDDPd92HW8HE10Uqv66IFz0gL+CWWmT
+	eVSGnPcISzVVCTQSOyVmP1A8Y9zxZzUmUXS8H6VA0+J2ytL4UejSSNMqQjxI3YnU
+	pri/7nsh8JgdMIfm6GuXlX9is=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S4;
-	Wed, 28 Oct 2026 13:03:42 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXXx0QguFq4jaQDQ--.52556S2;
+	Wed, 28 Oct 2026 13:03:13 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Ilan Peer <ilan.peer@intel.com>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	linux-wireless@vger.kernel.org,
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 2/4] wifi: iwlwifi: mvm: clear P2P device pointer on add failure
-Date: Wed, 28 Oct 2026 13:03:35 +0800
-Message-Id: <20261028050337.127464-3-yaojiale02@163.com>
+Subject: [PATCH] net: phy: only remove owned topology entries
+Date: Wed, 28 Oct 2026 13:03:12 +0800
+Message-Id: <20261028050312.126508-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
-References: <20261028050337.127464-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,42 +69,43 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWrKw15urWfAFWxAr4Dur4rZrb_yoW8JrWkpF
-	WDKFyqgr15Ka1UWayUGa1fCas8Xa12kws8CFyUJw43CF18tFySvw1v9Fy3Jw10kFW8Jw4S
-	yrn8tF43WFnY937anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jD8n5UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A6++Grhgi5m3wAA3m
+X-CM-TRANSID:_____wDXXx0QguFq4jaQDQ--.52556S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWruw1UAr47Jw45JFyxXFWfAFb_yoWkKFX_C3
+	9rZrW3Zws5Jan0yryfWr4fArySk3Z3J3Wv9r1vg3y5Xa15Gr15Crn5Xrn8Jr9ru3WaqFWD
+	Gw1UCFyxAa45ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU847K3UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhG38WrhghHgUAAA3x
 
-The MLD add_interface path publishes p2p_device_vif before updating power
-configuration. If that update fails, the remaining interface state is
-unwound but the pointer still refers to the vif that mac80211 will free.
+phy_link_topo_add_phy() can fail to insert a PHY when its saved index is
+already occupied.  Its caller may subsequently run the normal detach
+path.  phy_link_topo_del_phy() then unconditionally removes the entry at
+that index, including its ports, even though the entry belongs to a
+different PHY.
 
-Clear the P2P device pointer before entering the common cleanup path.
+Look up the topology entry first and only remove the PHY and its ports
+when the entry belongs to the PHY being detached.
 
-Fixes: 84ef7cbe90e9 ("wifi: iwlwifi: mvm: Don't always bind/link the P2P Device interface")
+Fixes: 384968786909 ("net: phy: Introduce ethernet link topology representation")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/phy/phy_link_topology.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c b/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c
-index 6ea9a7c8da0c..b1d4419a236c 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c
-@@ -74,8 +74,11 @@ static int iwl_mvm_mld_mac_add_interface(struct ieee80211_hw *hw,
- 		mvm->p2p_device_vif = vif;
+diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
+index 214ccce23cf6..175eef44cf54 100644
+--- a/drivers/net/phy/phy_link_topology.c
++++ b/drivers/net/phy/phy_link_topology.c
+@@ -185,6 +185,10 @@ void phy_link_topo_del_phy(struct net_device *dev,
+ 	if (!topo)
+ 		return;
  
- 	ret = iwl_mvm_power_update_mac(mvm);
--	if (ret)
-+	if (ret) {
-+		if (vif->type == NL80211_IFTYPE_P2P_DEVICE)
-+			mvm->p2p_device_vif = NULL;
- 		goto out_free_bf;
-+	}
- 
- 	iwl_mvm_tcm_add_vif(mvm, vif);
++	pdn = xa_load(&topo->phys, phy->phyindex);
++	if (!pdn || pdn->phy != phy)
++		return;
++
+ 	list_for_each_entry(port, &phy->ports, head)
+ 		phy_link_topo_del_port(dev, port);
  
 -- 
 2.34.1
