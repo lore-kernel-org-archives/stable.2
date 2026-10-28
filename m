@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793174931;
-	b=ogFcmIG2wahDLTx6FSBZN3U51kehCce+7fEodXfDShINhCWXKJDqyQxTmHGEMePksaPF
-	 exNQe+ppyqM2VQ3ccko58xiHawjmlAYPQxrhW4448xiNMH5aOG1pO8Ze/AeZF47fd5Y3D
-	 e3dpABTeauikJ5+qaQJ5MaGgxNP+LTAEKaNgWp0qUceYYwBWh378ewpQ/NEgXIXsuNDle
-	 rFS12UI1ynVcYscVVJSm+nX9Kg44oRJo2bKrnQ6+1Ozl75ypFDXw+wMZUMjl2WqtSjyVb
-	 SN9YmNPNl3PmLYGDNGJs+1YCztZPlNrOsCgZ/hqder7dajvNGENT0V9mZzCOyDVl77Q==
+	t=1793175070;
+	b=jBp/V5AXPd5g+Y/I4xbBNdU0KsF+4/3FNjeZWsV7e84eyjMMI+7YL732b7eQ9K4gGHJ3
+	 WzAaCbaWX5alYXgvl3YrybuYyAX8OcFtYONKwuvXIj/ZHsRJtR6CGOrlJsldrNniOjADo
+	 FQxA1mbc/DE/fOQ8dIi0/hqX6AZlUreyP3VUQ8n3ovg9T3iKxOazYmy1ZlXN5eLF8oMTV
+	 ee+nrM0Ngq9a5CQqPpWKLcbKZXlmVO/HrZlI/3nLNHMBGFcvsRjWC2NncOWUf7obRDBsU
+	 2NX0yBnA0ZGnJrp/3UYTjH5TRDpuoTTTCjhDh7h2kZX81FhsMZQxd1SO2xw1w2jILxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174931;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=KOge3QbpemeNjgjVFlRXW6zSTDOId9PsJBtVEBvQu0c=;
-	b=q4gKyNZHEQYqx9oi9+kcXzPp8lS/9lh8P9sV+E9/Yz9BiD5W4Tya/l2fQGtL4XOwm3Hk
-	 8oy9Ich3ptoolGC4KnNAPTaL0dKkzd7JZOyuvFjDBXfAljZ8utoiC4UuFlwNZqOGwMf8C
-	 vDVLkVPYD5QzcEiHi/6hdWb/lhAtoWM/IuNr8QKe708iJ2NBms13Ba5g18dgPgYzIVdsF
-	 m5hPkGYQb6FYcGtAOQFc2nJxQfgiXyMrqMXXSqMxxJELfr4XNzA0+X9RDz5W/fY5mdqqz
-	 C/vTUqPKVLD3v++D+cB7eIP1M9Vl9G2Evd5Bknn0VJdhrxLree1ZRTt+PXqO8gqBJ7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175070;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=JP4KfsVX3G3pDEhHGD62pQlYeAuCHGaVp+P1DEP+rJc=;
+	b=TqROREKaBkM0FnpgDppMUJpFpr8o1huf0Id2OL+QUKxUazmkNLBlPFbHWLoAEy+qsKA/
+	 wqsyIu3ChourY925xwjWpTyAkH9ZkVbNNxs8Q2apYUP9LIuk63lXnbyotP4qj1lCsSTlH
+	 jeND+HJbB8mmPgAX7/oFLGcdmXgQLkw9zNEthnQJghHnykrABWrapvF1YuU7LdM8RRPTp
+	 HTNTI4Z5aar5QVbg3zkCVL5iIX0ZY6GeIno4eVbrw0yInT21X0p3KBlyGUOm5jO0INAgH
+	 24vFtNS7p7+AjVGvz0CEldXQeu0xHal3dWJolxyAen5xi7KvVRvzYQoemtzd16FbgkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	arc=none smtp.remote-ip=64.106.246.77
-Received: from mailsc.amlogic.com (unknown [64.106.246.77])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B601606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 08:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B601606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from XA202100-0024.amlogic.com (10.88.19.246) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Wed, 28 Oct
- 2026 01:08:46 -0700
-From: yao zhang1 <yao.zhang1@amlogic.com>
-To: <stable@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
-	<roberto.sassu@huawei.com>, <kirill.shutemov@linux.intel.com>,
-	<jannh@google.com>, <paul@paul-moore.com>, <yao.zhang1@amlogic.com>,
-	<syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com>, Lorenzo Stoakes
-	<lorenzo.stoakes@oracle.com>, "Liam R. Howlett" <Liam.Howlett@Oracle.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>, Dmitry Kasatkin
-	<dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, "James
- Morris" <jmorris@namei.org>, Mimi Zohar <zohar@linux.ibm.com>, "Serge E.
- Hallyn" <serge@hallyn.com>, Shu Han <ebpqwerty472123@gmail.com>, "Vlastimil
- Babka" <vbabka@suse.cz>, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 5.15.y] mm: split critical region in remap_file_pages() and invoke LSMs in between
-Date: Wed, 28 Oct 2026 16:08:35 +0800
-Message-ID: <20261028080835.1852-1-yao.zhang1@amlogic.com>
-X-Mailer: git-send-email 2.56.0.windows.2
-In-Reply-To: <20261028080719.1821-1-yao.zhang1@amlogic.com>
-References: <20261028080719.1821-1-yao.zhang1@amlogic.com>
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="mOF/KkVp";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3277606A31D;
+	Wed, 28 Oct 2026 08:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3277606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=mOF/KkVp
+Received: from [10.26.7.43] (unknown [4.213.232.22])
+	by linux.microsoft.com (Postfix) with ESMTPSA id A9D7620B7166;
+	Wed, 28 Oct 2026 01:10:52 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A9D7620B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793175057;
+	bh=JP4KfsVX3G3pDEhHGD62pQlYeAuCHGaVp+P1DEP+rJc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mOF/KkVpNeai9SicOkRnmsfo8w60U4/clLuC9CDezx+kHETKUfknBUt+S2K3FT+xZ
+	 9/snIy9HlxCtpo/lzfxIE6q7+NOh44tGmCMNe88xZkjC3L2qaUQ64/PAI8Ux9bCkBs
+	 wXIrR5Nl1u2O9hJk3N0hg7Wq/yL4uD2TLS4470hA=
+Message-ID: <abeb55bf-20d6-4b62-b2a0-baa3649657eb@linux.microsoft.com>
+Date: Wed, 28 Oct 2026 13:41:01 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,170 +53,242 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] net: mana: Add support to process throttled EQEs
+To: netdev-bot+sashiko@kernel.org
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, kotaranov@microsoft.com,
+ horms@kernel.org, ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
+ mawasthi@linux.microsoft.com, leitao@debian.org,
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ stable@vger.kernel.org, weh@linux.microsoft.com
+References: <20261022145428.323576-1-sahilchandna@linux.microsoft.com>
+ <179302835318.3134.6374899091861716214@kernel.org>
+Content-Language: en-US
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+In-Reply-To: <179302835318.3134.6374899091861716214@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
 
-From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
+On 26-10-2026 20:55, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] Incomplete fix: a throttle EQE never services RDMA (mana_ib)
+>   CQs, so the CQ-stall bug the patch claims to fix is still reachable.
+> - [Medium] mana_gd_destroy_cq() now calls synchronize_net() for every CQ
+>   that was attached to a parent EQ, which is every mana_en TX and RX CQ.
+> - [Low] Claimed race: mana_create_txq() and mana_create_rxq() write
+>   gc->cq_table[] (mana_en.c:2855, 3181) before netif_napi_add_*() (2860,…
+> 
+> --
+> 
+> net: mana: Add support to process throttled EQEs
+> 
+> This patch handles GDMA_EQE_THROTTLE (type 4) events. Each EQ records
+> up to two child CQs, and their callbacks are invoked when a throttle EQE
+> arrives. It also advertises a new driver capability bit, adds an
+> eq_throttle_events ethtool counter, and adds RCU grace period waits to
+> the CQ and HWC teardown paths.
+> 
+>> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+>> index 8e9bfc1d6a2ae..d74ed00bb7834 100644
+>> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+>> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+>> @@ -904,6 +904,27 @@ ssize_t mana_gd_read_ring(struct gdma_queue *q, char __user *buf,
+>>  	return copied;
+>>  }
+>>  
+>> +static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
+>> +{
+>> +	struct gdma_context *gc = eq->gdma_dev->gdma_context;
+>> +	struct gdma_queue *cq;
+>> +	u8 i;
+>> +
+>> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
+>> +		cq = rcu_dereference(eq->eq.child_cq[i]);
+>> +
+>> +		if (!cq)
+>> +			continue;
+>> +
+>> +		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
+>> +		    !gc->cq_table || gc->cq_table[cq->id] != cq)
+>> +			continue;
+>> +
+>> +		if (cq->cq.callback)
+>> +			cq->cq.callback(cq->cq.context, cq);
+> 
+> [Severity: Low]
+> This may not be reachable today, but is cq_table membership enough to
+> show that the CQ is ready for its callback?
+> 
+> mana_create_txq() and mana_create_rxq() publish the CQ in cq_table
+> before they add NAPI. For example, in mana_create_rxq():
+> 
+>     gc->cq_table[cq->gdma_id] = cq->gdma_cq;
+> 
+>     netif_napi_add_weight_locked(ndev, &cq->napi, mana_poll, 1);
+> 
+> If a GDMA_EQE_THROTTLE arrived on the parent EQ in that window, this
+> loop would call mana_schedule_napi()->napi_schedule_irqoff() on a
+> napi_struct that is not initialized yet.
+> 
+> In mana_alloc_queues() the EQs are freshly created. During the RX
+> window, the only other CQ on EQ i is TX CQ i. That CQ carries no
+> traffic while port_is_up is still false, so with the throttle semantics
+> described in the commit message this looks unreachable. It does depend
+> on that ordering, and on the hardware never sending a throttle EQE
+> without pending completions.
+> 
+> Would it be more robust to publish the cq_table entry only after
+> netif_napi_add_*() has run?
+> 
+This is not reachable path for throttle eqe to fire at startup before
+adding NAPI. I prefer to keep this as is.>> +	}
+>> +}
+> 
+> [ ... ]
+> 
+>> @@ -1220,25 +1246,49 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
+>>  			      struct gdma_queue *queue)
+>>  {
+>>  	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
+>> +	struct gdma_queue *parent;
+>> +	u8 i;
+>>  
+>>  	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
+>> -	queue->cq.parent = spec->cq.parent_eq;
+>> +	parent = spec->cq.parent_eq;
+>> +	queue->cq.parent = parent;
+>>  	queue->cq.context = spec->cq.context;
+>>  	queue->cq.callback = spec->cq.callback;
+>> +
+>> +	if (!parent)
+>> +		return;
+>> +
+>> +	/* For throttled EQE store the child CQ */
+>> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++)
+>> +		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
+>> +			rcu_assign_pointer(parent->eq.child_cq[i], queue);
+>> +			return;
+>> +		}
+>>  }
+> 
+> [Severity: High]
+> Can a throttle EQE leave the mana_ib CQs unserviced?
+> 
+> child_cq[] is only filled here, and only when spec->cq.parent_eq is
+> set. In practice that covers the mana_en TX/RX CQs and the HWC CQ.
+> 
+> The RDMA CQs never get here with a parent:
+> 
+> - mana_ib_create_kernel_queue() in drivers/infiniband/hw/mana/main.c
+>   builds its spec as below, so parent_eq is NULL:
+> 
+>     struct gdma_queue_spec spec = {};
+> 
+> - User CQs from mana_ib_create_queue() never go through
+>   mana_gd_create_cq().
+> 
+> - mana_ib_install_cq_cb() only does:
+> 
+>     gc->cq_table[cq->queue.id] = gdma_cq;
+> 
+> The hardware still binds these CQs to GDMA EQs. In
+> mana_ib_gd_create_cq():
+> 
+>     req.eq_id = mdev->eqs[cq->comp_vector]->id;
+> 
+> and in mana_ib_create_qp_rss() and mana_ib_create_qp_raw():
+> 
+>     cq_spec.attached_eq = eq->eq->id;
+> 
+> where those EQs are created by mana_ib_cfg_vport() when RDMA owns the
+> vport.
+> 
+> These EQs are serviced by mana_gd_intr()->mana_gd_process_eqe(). On a
+> GDMA_EQE_THROTTLE, mana_gd_schedule_eq_cqs() walks an all-NULL
+> child_cq[], and mana_ib_cq_handler() never runs.
+> 
+> Wouldn't that leave RDMA consumers waiting on comp_handler with
+> completions pending? That is the same queue stall the commit message
+> describes.
+> 
+> GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE is added to
+> GDMA_DRV_CAP_FLAGS1. mana_gd_verify_vf_version() sends that once for
+> the whole device, which mana_en and mana_ib share. If firmware only
+> emits type 4 EQEs after this bit is set, does this add a new stall for
+> RDMA CQs? If firmware always emits them, is the fix incomplete for
+> those EQs?
+> 
+The RDMA CQs are going to be handled separately in different patch
+series from Wei Hu. For the cap bits, the throttle EQE fire irrespective
+of whether they are present or not, this change adds support to handle
+them.> Separately, once both GDMA_EQ_MAX_CHILD_CQ slots are taken, the loop
+> above returns without recording the CQ and without any warning. Many
+> RDMA CQs can share one comp_vector EQ, and that seems to be the case
+> most likely to fill an EQ and trigger throttling.
+> 
+> Would this need a per-EQ list of CQs, or a walk over every CQ whose
+> parent is this EQ, rather than a fixed 2-entry array?
+> 
+>>  
+>>  static void mana_gd_destroy_cq(struct gdma_context *gc,
+>>  			       struct gdma_queue *queue)
+>>  {
+> 
+> [ ... ]
+> 
+>> -	gc->cq_table[id] = NULL;
+>> +	/* Wait for irq reader holding the cq */
+>> +	if (attached)
+>> +		synchronize_net();
+>>  }
+> 
+> [Severity: Medium]
+> Does this add one RCU grace period per CQ to every port teardown?
+> 
+> Every mana_en TX and RX CQ is attached to a parent EQ, and they are
+> destroyed one at a time:
+> 
+> mana_dealloc_queues()
+>   mana_destroy_txq()        /* loops over apc->num_queues */
+>     mana_deinit_cq()
+>       mana_gd_destroy_queue()
+>         mana_gd_destroy_cq()
+>           synchronize_net()
+> 
+> The same happens for each RX CQ through
+> mana_destroy_rxqs()->mana_destroy_rxq().
+> 
+> These paths run under RTNL: mana_close(), and mana_detach() from
+> ethtool -L/-G, MTU changes, XDP setup, and queue reset. Under RTNL,
+> synchronize_net() does:
+> 
+>     if (from_cleanup_net() || rtnl_is_locked())
+>         synchronize_rcu_expedited();
+> 
+> With MANA_MAX_NUM_QUEUES at 64, one teardown can run up to 128
+> expedited grace periods back to back while RTNL is held.
+> 
+> The HWC path also waits twice: once here for its CQ, and once in the
+> new synchronize_rcu() in mana_hwc_destroy_channel().
+> 
+> Could the child_cq[] and cq_table entries be cleared for all CQs first,
+> with a single grace period before the queues are freed?
+> 
+> [ ... ]
+> 
+I will fix this in v4.
 
-commit 58a039e679fe72bd0efa8b2abe669a7914bb4429 upstream.
-
-Commit ea7e2d5e49c0 ("mm: call the security_mmap_file() LSM hook in
-remap_file_pages()") fixed a security issue, it added an LSM check when
-trying to remap file pages, so that LSMs have the opportunity to evaluate
-such action like for other memory operations such as mmap() and
-mprotect().
-
-However, that commit called security_mmap_file() inside the mmap_lock
-lock, while the other calls do it before taking the lock, after commit
-8b3ec6814c83 ("take security_mmap_file() outside of ->mmap_sem").
-
-This caused lock inversion issue with IMA which was taking the mmap_lock
-and i_mutex lock in the opposite way when the remap_file_pages() system
-call was called.
-
-Solve the issue by splitting the critical region in remap_file_pages() in
-two regions: the first takes a read lock of mmap_lock, retrieves the VMA
-and the file descriptor associated, and calculates the 'prot' and 'flags'
-variables; the second takes a write lock on mmap_lock, checks that the VMA
-flags and the VMA file descriptor are the same as the ones obtained in the
-first critical region (otherwise the system call fails), and calls
-do_mmap().
-
-In between, after releasing the read lock and before taking the write
-lock, call security_mmap_file(), and solve the lock inversion issue.
-
-Link: https://lkml.kernel.org/r/20241018161415.3845146-1-roberto.sassu@huaweicloud.com
-Fixes: ea7e2d5e49c0 ("mm: call the security_mmap_file() LSM hook in remap_file_pages()")
-Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
-Reported-by: syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-security-module/66f7b10e.050a0220.46d20.0036.GAE@google.com/
-Tested-by: Roberto Sassu <roberto.sassu@huawei.com>
-Reviewed-by: Roberto Sassu <roberto.sassu@huawei.com>
-Reviewed-by: Jann Horn <jannh@google.com>
-Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Reviewed-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
-Reviewed-by: Paul Moore <paul@paul-moore.com>
-Tested-by: syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com
-Cc: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: Mimi Zohar <zohar@linux.ibm.com>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: Shu Han <ebpqwerty472123@gmail.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 58a039e679fe72bd0efa8b2abe669a7914bb4429)
-Signed-off-by: yao zhang1 <yao.zhang1@amlogic.com>
----
- mm/mmap.c | 69 +++++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 52 insertions(+), 17 deletions(-)
-
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 7f357de8f4d6..90a5358da10f 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -2991,6 +2991,7 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 	unsigned long populate = 0;
- 	unsigned long ret = -EINVAL;
- 	struct file *file;
-+	vm_flags_t vm_flags;
- 
- 	pr_warn_once("%s (%d) uses deprecated remap_file_pages() syscall. See Documentation/vm/remap_file_pages.rst.\n",
- 		     current->comm, current->pid);
-@@ -3007,12 +3008,60 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 	if (pgoff + (size >> PAGE_SHIFT) < pgoff)
- 		return ret;
- 
--	if (mmap_write_lock_killable(mm))
-+	if (mmap_read_lock_killable(mm))
-+		return -EINTR;
-+
-+	/*
-+	 * Look up VMA under read lock first so we can perform the security
-+	 * without holding locks (which can be problematic). We reacquire a
-+	 * write lock later and check nothing changed underneath us.
-+	 */
-+	vma = vma_lookup(mm, start);
-+
-+	if (!vma || !(vma->vm_flags & VM_SHARED)) {
-+		mmap_read_unlock(mm);
-+		return -EINVAL;
-+	}
-+
-+	prot |= vma->vm_flags & VM_READ ? PROT_READ : 0;
-+	prot |= vma->vm_flags & VM_WRITE ? PROT_WRITE : 0;
-+	prot |= vma->vm_flags & VM_EXEC ? PROT_EXEC : 0;
-+
-+	flags &= MAP_NONBLOCK;
-+	flags |= MAP_SHARED | MAP_FIXED | MAP_POPULATE;
-+	if (vma->vm_flags & VM_LOCKED)
-+		flags |= MAP_LOCKED;
-+
-+	/* Save vm_flags used to calculate prot and flags, and recheck later. */
-+	vm_flags = vma->vm_flags;
-+	file = get_file(vma->vm_file);
-+
-+	mmap_read_unlock(mm);
-+
-+	/* Call outside mmap_lock to be consistent with other callers. */
-+	ret = security_mmap_file(file, prot, flags);
-+	if (ret) {
-+		fput(file);
-+		return ret;
-+	}
-+
-+	ret = -EINVAL;
-+
-+	/* OK security check passed, take write lock + let it rip. */
-+	if (mmap_write_lock_killable(mm)) {
-+		fput(file);
- 		return -EINTR;
-+	}
- 
- 	vma = vma_lookup(mm, start);
- 
--	if (!vma || !(vma->vm_flags & VM_SHARED))
-+	if (!vma)
-+		goto out;
-+
-+	/* Make sure things didn't change under us. */
-+	if (vma->vm_flags != vm_flags)
-+		goto out;
-+	if (vma->vm_file != file)
- 		goto out;
- 
- 	if (start + size > vma->vm_end) {
-@@ -3037,25 +3086,11 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 			goto out;
- 	}
- 
--	prot |= vma->vm_flags & VM_READ ? PROT_READ : 0;
--	prot |= vma->vm_flags & VM_WRITE ? PROT_WRITE : 0;
--	prot |= vma->vm_flags & VM_EXEC ? PROT_EXEC : 0;
--
--	flags &= MAP_NONBLOCK;
--	flags |= MAP_SHARED | MAP_FIXED | MAP_POPULATE;
--	if (vma->vm_flags & VM_LOCKED)
--		flags |= MAP_LOCKED;
--
--	file = get_file(vma->vm_file);
--	ret = security_mmap_file(vma->vm_file, prot, flags);
--	if (ret)
--		goto out_fput;
- 	ret = do_mmap(vma->vm_file, start, size,
- 			prot, flags, pgoff, &populate, NULL);
--out_fput:
--	fput(file);
- out:
- 	mmap_write_unlock(mm);
-+	fput(file);
- 	if (populate)
- 		mm_populate(ret, populate);
- 	if (!IS_ERR_VALUE(ret))
--- 
-2.46.0
-
+pw-bot: cr
