@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210979;
-	b=WDvxT4djBqfM71ItWfxhsupw2nBqrkUSdVGPmQi6QDU4IVfcKhFuyL+tuhOwxKlAPnbq
-	 fvOAbISOuM6CbHxjrdvf7QzhvYxlxMox37t64id4p1/O3M/DNkZqc53EV0s+elgiL7rXU
-	 o0fxIwoHIYCLQ7iI33k0cr2TZhBqN54ZduOgQI+EqinM3Xt40PBmNZZU4x5G8Yf5K77+b
-	 FGuVXHRy9Q5s1OR6t/DU3L/+O4pzIFaBVQC9i8nNnKwtZZTG4nYwKZAm0Oc4/rJmnT8eb
-	 fvjNkubXqYmkDfg/Ee3P+MQjZTTpYOJtZMcMvrmxKNv4qdngY8gosbP9akTkOq1H7OA==
+	t=1793210984;
+	b=JZQLBJh7VoIlwuoKbIqG2BOFiizD5yL/bO7j6DtJGF8CKYQP63J8kDhF+Ke9qgGctZN3
+	 /Le8LElrS0Y+LDEQeBS67tc1YFtD9Vc2hgZaa7eJK2UCdi2J75xQokTvAmY6HD8E+wHgM
+	 Md8qWufulT2KSDd0oDumZqRspPM23gMYAqEkIey2AHJ16DSHDXtx7VaPeRiAFBKZ9oviG
+	 s61NQzJd1BblfizNGYBcdpQToXFErt+PvlZUzXIiK7KmQ+o+Gzud5KZvz8EOq2gwDqbCU
+	 h9EygIK6Y1GC/BGMIyihODN9FEaCZhl+CjBbcc3bMYlDFvpbh8xihIBTCjSNQ4bmjmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210984;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wz7YeS12uyH2PVEy0he3rGGcxUUhh+YirIEe5vUT5HU=;
-	b=o6qso5L0DDyxo6ULW/LpeJo+Lhu9fGR0ITwJ/egFug19kUGJQGg0xhDIbeT/ishD4KuW
-	 F/m0G5pPk3VibxFi46E1jcjawVrEh6H/ULFoOc0NbuIlJgia4areyhsS27BMsd8vkE9DZ
-	 ijzJ3VsYRK/BXuE7Gc7F0Ddy+NF3EbNv0rsGZYGgGl8OppRED8mFqUEtpqA+ubC5IfQe6
-	 Qp1mVA77b6yH0P0BDbIRmJlNBqUdRQrj8pUGS5wN6uhuo+OEXLiERHKHQI5Yp4aL9Msi7
-	 OpkY/0NaP0nxyKJLESxUWusyovm2R/GptmLbseGNjrOfIXrcyjJIEAwrsrE60024cZQ==
+	bh=d6f3aiG9bG80rueTJkbIrC0drBwkFtqyxsLWLVaYzVg=;
+	b=1GhyxdpVbG6lPqlfdaMt6kj6NXbPU2idbF53sMxqHoEnj4R9L+OVzkHQVooWKXYyEXYg
+	 FupGHAJNnzRemjkOVMfkqRa5pgxzhLwz9JiDHdNjNBVkoSAo3eHTQ2sTwN2VBx90t4YC+
+	 HehDXA6eTP0o/Unjwop45R3PoJ1pB5XJbXDaI8EAtx8cmNSI31sYOBPWXcXPBr7gtZCjJ
+	 pq1BgV9Ffn/aifGGJAnwVHUKcbX4LiwC225ZaYeGHNYwQ6zoH7c0MstM0MaoB7H8EpNtm
+	 PjNazGeeFB9TZ0tDdaYVOc5tfIG0QZBoTvwy7WgbVCb7vMi2+/F105kvLy8xmausTVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=q9Z1xa44;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GqjEBbag;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6460606A321;
-	Wed, 28 Oct 2026 18:09:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FD6606A31E;
+	Wed, 28 Oct 2026 18:09:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=q9Z1xa44
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42DD01F031E7;
-	Wed, 28 Oct 2026 18:09:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GqjEBbag
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E3D1F031E6;
+	Wed, 28 Oct 2026 18:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210978;
-	bh=wz7YeS12uyH2PVEy0he3rGGcxUUhh+YirIEe5vUT5HU=;
+	s=korg; t=1793210984;
+	bh=d6f3aiG9bG80rueTJkbIrC0drBwkFtqyxsLWLVaYzVg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=q9Z1xa447VjcxDyUMSioPNWkTrXb9/5lErqO3FlT1te6EGNf/64n3z0uxWmZJxIta
-	 eYdhPIsTEFkE1XAMpfQXQFIP7XTaGN/9Tyx273Xj5gE0XjuCQV7meYEb7k4jMkwRy8
-	 nNFoLk2t4Wvx5G6p5ruDxz5RAUaWbaUTSSSsRRlU=
+	b=GqjEBbagLDzXANf+8ebvqw4OazBOqVAcDT7enoycTFu27DSxmb85HjkWsziQz+jmX
+	 rxGirhqBxn/RJaBOTopDbDItshyvKAf8iQ8tHbElbHtXcpUqZYXTspdAE9JDyimmUX
+	 aa4ixqAcnsLSpSRah39gMgyeoiyiOxVzeaFDEFb4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Sicong Huang <congei42@163.com>,
-	Song Li <songl@zju.edu.cn>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Peter Chen <peter.chen@kernel.org>
-Subject: [PATCH 5.15 214/571] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
-Date: Wed, 28 Oct 2026 17:56:01 +0100
-Message-ID: <20261028170013.080502903@linuxfoundation.org>
+	sashiko-bot@kernel.org,
+	Arnd Bergmann <arnd@arndb.de>,
+	Johan Hovold <johan@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	stable@kernel.org
+Subject: [PATCH 5.15 216/571] tty: amiserial: fix broken TIOCMIWAIT
+Date: Wed, 28 Oct 2026 17:56:03 +0100
+Message-ID: <20261028170013.127336554@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -70,55 +70,54 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Johan Hovold <johan@kernel.org>
 
-commit ebe9b68c396792c15d0ac690d592e449e74ed804 upstream.
+commit 615f35fd5aee169cc4881a8594f2fa234a4d0bb8 upstream.
 
-cdns3_gadget_start() arms two works on system_freezable_wq:
-pending_status_wq for the deferred ep0 status stage and aligned_buf_wq
-for realigned request buffers. Both handlers use the cdns3_device the
-works are embedded in, and cdns3_pending_setup_status_handler() also
-calls the ep0 request completion.
+A change replacing interruptible_sleep_on() inadvertently broke the
+TIOCMIWAIT implementation which now immediately returns -EIO (unless
+there is a racing modem status update).
 
-cdns3_gadget_exit() does not wait for these works. It frees all
-endpoints and aligned buffers and drops the last reference to the
-gadget device, which frees priv_dev, so a work queued before the exit
-can run after the free.
+Replace the old hangup (and signal) detection with a check for the
+TTY_IO_ERROR flag which is set on hangup.
 
-Fix this by waiting for both works after the gadget driver is unbound
-and the IRQ is freed, when no new work can be queued, and before the
-endpoints and buffers are released.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-Cc: stable <stable@kernel.org>
-Reported-by: Sicong Huang <congei42@163.com>
-Closes: https://lore.kernel.org/linux-usb/7f5719b.8700.18f67b324d3.Coremail.congei42@163.com/
-Suggested-by: Sicong Huang <congei42@163.com>
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Acked-by: Peter Chen <peter.chen@kernel.org>
-Link: https://patch.msgid.link/20260909095655.694527-1-fanwu01@zju.edu.cn
+Fixes: 591cee0a3563 ("tty/amiserial: avoid interruptible_sleep_on")
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/20260910132029.D80801F00898@smtp.kernel.org
+Cc: stable@kernel.org	# 3.14
+Cc: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Reviewed-by: Jiri Slaby <jirislaby@kernel.org>
+Link: https://patch.msgid.link/20260911090132.723531-1-johan@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/cdns3/cdns3-gadget.c |    4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/tty/amiserial.c |    9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
---- a/drivers/usb/cdns3/cdns3-gadget.c
-+++ b/drivers/usb/cdns3/cdns3-gadget.c
-@@ -3265,6 +3265,10 @@ static void cdns3_gadget_exit(struct cdn
- 	usb_del_gadget(&priv_dev->gadget);
- 	devm_free_irq(cdns->dev, cdns->dev_irq, priv_dev);
- 
-+	/* The works can still be queued until the IRQ is freed. */
-+	cancel_work_sync(&priv_dev->pending_status_wq);
-+	cancel_work_sync(&priv_dev->aligned_buf_wq);
-+
- 	cdns3_free_all_eps(priv_dev);
- 
- 	while (!list_empty(&priv_dev->aligned_buf_list)) {
+--- a/drivers/tty/amiserial.c
++++ b/drivers/tty/amiserial.c
+@@ -1144,11 +1144,6 @@ static int rs_ioctl(struct tty_struct *t
+ 				local_irq_save(flags);
+ 				cnow = info->icount; /* atomic copy */
+ 				local_irq_restore(flags);
+-				if (cnow.rng == cprev.rng && cnow.dsr == cprev.dsr && 
+-				    cnow.dcd == cprev.dcd && cnow.cts == cprev.cts) {
+-					ret = -EIO; /* no change => error */
+-					break;
+-				}
+ 				if ( ((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
+ 				     ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
+ 				     ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
+@@ -1156,6 +1151,10 @@ static int rs_ioctl(struct tty_struct *t
+ 					ret = 0;
+ 					break;
+ 				}
++				if (tty_io_error(tty)) {
++					ret = -EIO;
++					break;
++				}
+ 				schedule();
+ 				/* see if a signal did it */
+ 				if (signal_pending(current)) {
 
 
