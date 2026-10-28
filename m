@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212672;
-	b=21OK/rbBWyXrv93Y3UVElGNOkAEMDWK0Whq2xMhaaX4bFT5ALMesM70gHimfM4sxJJkn
-	 0uevKPAiVpg8Gwqu5yoTvPmGPYZJZuroLcGCwvEKCBkz/Omi11b+6bvaTnLL6gXlLC0kF
-	 5aeN98cG868Gem+5zEjYEjgujJsvUiOV8bHZHfjM0yxEGK+VqypxVXEmWNf08LcszgxyK
-	 3EMKBW2UyfQWsYmGY7E6tJxfwyWIYZMcayGgWwAoKyigfDkjsXetPoZxnv3tsmIq5eZid
-	 O7tpZQ6Lh7Z1hg2iMOnwnaEPgU3sqkq/zLUew9dP0Xioqc9cWif5URC6MirudyRU1AA==
+	t=1793212667;
+	b=Jjn3q6Tq3WCktXVDIOzGuQKqshvj1tk+ln2RR+n/3c1jINywL5mv+ytcoA1QyKTEWRSQ
+	 1Ch1lcmw+ewdg0R8D4MCOs4/0IAW8QAcz1QgE3Gp6ex865qcc03oZfDmWcU/DzQfmRFIW
+	 oef5rPCrCIH8yzcHmSRXp6CdVFWHQ5cFweO3eTnJQeM09rPOjJq6EddPA6ifhqrLUpU05
+	 j5odixmtVLn90RnycCRlYP4TYD67VQ0pCniteswMR53kfG1ejvFhAIQ3I0Cop5HqCb7Qg
+	 3BuG6HqC29w6A9G3ohp5VXuxP9XVgnQ/HFaYSGEbiCYFqbt1/OWtSEtVcK6leXQfoHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212667;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/FHjOgp7VOcoQZqRiMLt08Nd2hA+68kV6c7xwDWDekw=;
-	b=AwEVkAqS38OMYEK4pwiwSFpKwT17jjbQBVNmBo3q3IMffle+L+KSttArevpAetMzEzLT
-	 savr/OPhw3O1qEdcYkeKIzbo7NnV/KvbrgBk08pgBaGN9RXBZEinF4W/bow4oQzZ8kFtx
-	 SPUGKYmG9dOBnM/DvQCC/cKTcqJvRepmoNW1wDX7F+BBi0zVfM1f4N18AT85w3H8kMYDd
-	 urxO7tui+TSl6/EkPUSbkCpRr7CToEKjITk6PaGSHn+oDTaQc/GSJ+/8TaEwRGPhg4LWL
-	 Yzr70mhQL+pUuPqOZY5UwbV5r0xvDPF0EZyP5AI1BCRSQFEkfcL5wJr4IWj41whUOCg==
+	bh=QikC9QCsldawvabFOEGWBN8UgxtXcgsdIu6E1z7a7Ls=;
+	b=JFtgTxl95RAEucyAWL4U90UV/cUlW+fOVeHpfg/QM6KEep+2/8iZXKRsFyix1miB1AJ2
+	 IfmT/rIp8GlGGfsMFUQOQ0nKvwQowiL9qfHOy6lprqHWZVlzhBq9I6aMFF7AeBV+5J27B
+	 X4dTl7vdEXJmn8T5KCHL48fM1KYY1GKHSl8QwXgVi6mSvKG6PTfBtr6KBRswvBVMmjPSK
+	 6DudPTriRi6xm9/Sinu6uuyVJ5LHVcAs1ldvt0mGaB1DBhX9ClvnRmfaye98nA5SVMiXU
+	 xDwoOii+ymOo+cOr/JgVENVmj5IPbvt1QJq1ceuprwHfQr5oeBq7/aE9PDcJfRw3v3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SOSp2Ei4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zMF5mq76;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DB7606A320;
-	Wed, 28 Oct 2026 18:37:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA198606A324;
+	Wed, 28 Oct 2026 18:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SOSp2Ei4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819B21F01828;
-	Wed, 28 Oct 2026 18:37:51 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zMF5mq76
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09311F01828;
+	Wed, 28 Oct 2026 18:37:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793212672;
-	bh=/FHjOgp7VOcoQZqRiMLt08Nd2hA+68kV6c7xwDWDekw=;
+	s=korg; t=1793212666;
+	bh=QikC9QCsldawvabFOEGWBN8UgxtXcgsdIu6E1z7a7Ls=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SOSp2Ei4ZKcPpxCpravai+aG2ZgVMAnZzTfJX1GLKrrgFA1CQy43qDUSZwX3Gu6ob
-	 jvH0Ytr6qV6Xb3VRqjpyAMayV5pL7LcxYr2qTBMsrPa2f8G9oFoJv8j0PeapSoKdwE
-	 nClnUqU5RYMklwWN6DRYVHatXN8eDcc+BBhoEL0I=
+	b=zMF5mq76N+mT8o21wlPIcUbSwPe2hEh4e58DQ9bTiZhYC9oU5D0d2ZGKADyKBSpaI
+	 zKGOvf2KNLs1YKhGPnETEIJmlknnZaNnfClrd7Nmb5V0QYosAmQqOnGDboLujNUdJ+
+	 si5uWCdjIVZwaUPvWAXyccQCmusdEzziLht+S/Wg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Baha Mesleh <baha.mesleh@nokia.com>,
-	Subrat Pandey <subratp@marvell.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+	syzbot+217e3f1283cafe80586e@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0235/1887] octeontx2-af: mcs: Fix SC resource cleanup loop
-Date: Wed, 28 Oct 2026 17:38:51 +0100
-Message-ID: <20261028170504.579922999@linuxfoundation.org>
+Subject: [PATCH 6.1 0233/1887] Bluetooth: hci_sync: dont drain cmd_sync backlog on unregister
+Date: Wed, 28 Oct 2026 17:38:49 +0100
+Message-ID: <20261028170504.534152081@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -70,48 +69,74 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Baha Mesleh <baha.mesleh@nokia.com>
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-[ Upstream commit cdef07f3002f708a345392ee28d0d9bfac8383a1 ]
+[ Upstream commit b1f24c1ab52345e810c42a1a81286cb5a7c92252 ]
 
-The SC resource cleanup and statistics loops were incorrectly
-iterating over secy.max instead of sc.max, so the highest SC id
-could be left allocated across teardown or FLR. Use sc.max as
-the loop bound.
+hci_unregister_dev() disables cmd_work and cmd_timer, then calls
+hci_cmd_sync_clear(), whose cancel_work_sync() waits for
+hci_cmd_sync_work() to return. That worker dequeues and runs every
+entry on cmd_sync_work_list. With cmd_work disabled nothing reaches
+the controller, so each queued HCI command waits the full
+HCI_CMD_TIMEOUT (2s).
 
-Fixes: cfc14181d497 ("octeontx2-af: cn10k: mcs: Manage the MCS block hardware resources")
-Signed-off-by: Baha Mesleh <baha.mesleh@nokia.com>
-Signed-off-by: Subrat Pandey <subratp@marvell.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260922102149.2078168-3-subratp@marvell.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+The backlog has no bound. Userspace can keep queuing MGMT commands
+such as MGMT_OP_GET_CLOCK_INFO against a controller that doesn't
+answer. Closing /dev/vhci then blocks in vhci_release() for
+backlog * 2s:
+
+  INFO: task syz-executor:5749 blocked for more than 143 seconds.
+   cancel_work_sync
+   hci_cmd_sync_clear
+   hci_unregister_dev
+   vhci_release
+
+In a local reproduction the backlog held more than 5000 entries,
+which comes to hours of hang.
+
+Stop the worker from taking new entries once HCI_UNREGISTER is set,
+and wake any request still waiting with -ENODEV before cancelling
+the work. The entries left over are destroyed with -ECANCELED by the
+existing sweep in hci_cmd_sync_clear(). They stay on the list until
+the work has stopped, so hci_cmd_sync_dequeue() and friends still see
+them. A callback already running may still issue another command,
+which delays unregister by at most one timeout per remaining command,
+not by the whole backlog.
+
+Fixes: 008ee9eb8a11 ("Bluetooth: hci_sync: Fix not processing all entries on cmd_sync_work")
+Reported-by: syzbot+217e3f1283cafe80586e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=217e3f1283cafe80586e
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/marvell/octeontx2/af/mcs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/bluetooth/hci_sync.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/mcs.c b/drivers/net/ethernet/marvell/octeontx2/af/mcs.c
-index 211c10aa5880f..30c672d526a0c 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/mcs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/mcs.c
-@@ -314,7 +314,7 @@ int mcs_clear_all_stats(struct mcs *mcs, u16 pcifunc, int dir)
- 	}
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 5825ab89eb22a..4e4eae12ee3fb 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -308,6 +308,10 @@ static void hci_cmd_sync_work(struct work_struct *work)
+ 	while (1) {
+ 		struct hci_cmd_sync_work_entry *entry;
  
- 	/* Clear SC stats */
--	for (id = 0; id < map->secy.max; id++) {
-+	for (id = 0; id < map->sc.max; id++) {
- 		if (map->sc2pf_map[id] != pcifunc)
- 			continue;
- 		mcs_clear_stats(mcs, MCS_SC_STATS, id, dir);
-@@ -738,7 +738,7 @@ int mcs_free_all_rsrc(struct mcs *mcs, int dir, u16 pcifunc)
- 	}
++		/* Leave the backlog to hci_cmd_sync_clear() */
++		if (hci_dev_test_flag(hdev, HCI_UNREGISTER))
++			break;
++
+ 		mutex_lock(&hdev->cmd_sync_work_lock);
+ 		entry = list_first_entry_or_null(&hdev->cmd_sync_work_list,
+ 						 struct hci_cmd_sync_work_entry,
+@@ -677,6 +681,8 @@ void hci_cmd_sync_clear(struct hci_dev *hdev)
+ {
+ 	struct hci_cmd_sync_work_entry *entry, *tmp;
  
- 	/* free sc entries */
--	for (id = 0; id < map->secy.max; id++) {
-+	for (id = 0; id < map->sc.max; id++) {
- 		if (map->sc2pf_map[id] != pcifunc)
- 			continue;
- 		mcs_free_rsrc(&map->sc, map->sc2pf_map, id, pcifunc);
++	/* cmd_work is disabled, the pending request can only time out */
++	hci_cmd_sync_cancel_sync(hdev, ENODEV);
+ 	cancel_work_sync(&hdev->cmd_sync_work);
+ 	cancel_work_sync(&hdev->reenable_adv_work);
+ 
 -- 
 2.53.0
 
