@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186998;
-	b=FwxxV+0EQMHYA+LbDRfzuRV7VzB+VzfT86uczbnmtR7Npha4XABJKKGB2rUGdix1M79v
-	 qBOq39qZ9QhXBZscgsjD0qH/9Hh9zFhJTVl0efExqZM1MceCYF/tFjQYfSdEUtGWlSbbx
-	 7A5j2VnKuakkdH4oK8MLJn6nf+9EsQDFKuId88ixMWd0f9Hhe6ibt8vUqIn41T7bAfZFE
-	 +PsMxp8cSXhOMBmevt0UTlEgU8lWYoTmxL7/k7nlang/CcQUH6aa24iCgC7CmLns1rzep
-	 tMp9p2YoLKyufgWi20VfhLPn1yoqudqLdTx3H3GJ4XyRLszCpvAh32Ef4QW7Uy/aGIg==
+	t=1793187116;
+	b=ZQZ+ErhBNkw5lBqV1LtVo3ORbEPtY417bHs7snIoC2YTEM+rM2y2BKPmoqmLxqZC0Hac
+	 jC9Xbadrsd9JuA4UlwV4GPcTH/Kkn3eje4tvIXP4Y63X4qXamyGgQqdsxF+CPLMsx6qZX
+	 i3SHEneHqOAJjScePCJPmwcnPQ+/X+DczeyuXVt6ppzXLRNs5kLmDtz+qgqOgO0OucT5g
+	 oUxOe438JR9iTCF8RY8mHiJzNG6rf3F7JNHB1T67TEi1fFVUpTzE8y6KANsR+G8GKvcM8
+	 qZznWiXArTysA8L+I1zj/INJ49Wb23qEqbNDEhfaaj5xbA6bkSOZ1RkTWjMaVw9+5+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186998;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=1JNEW8HYvKizQjvMBvCBCVcaKnMKRs6NVB4+hVWjxFU=;
-	b=F28KnsMer2Ci4GXjDLYfVrojFyH2bkd5RisnhzWG2EJYBCEqSNq8CzWEUVMwCYtchDdC
-	 rRr1Mugmk+Bjx3EjfzI92nHj+QQP79h2wFOLbX0bbvYM+Fbv7EnlVlXb49w35EywDRPgn
-	 xAQnRMABipk6nFw+dTlqNxT2f5RSBSIj/V7XHD+Q972mp3SCtmhS+7Uk1wghw0g5cTyIf
-	 X12d2CzW8Gik7QccwHGIlEsPqGQCvoAdWrgfxdviJ03cd+fsfSMBtKRhZiBrm4zHA8HlX
-	 7rBopePutSEoNILMFgQMMs8b5Gxg2R+trTwZtH/7Fp0NPprCJ1+DYUPlOJQ5lSTrTsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187116;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KvuBuwOhhaYmamcTSDk3hPj1rRzQq1G67qxMNZQ6S5g=;
+	b=wXkZQ4HyPoF8rZQDiEcmuakXtdUmI+o2/j/KCdGP3ojHmFUNhLyAUNTzGq66aE4PmyCj
+	 zqiZdzouT9ZSSsKMaXh4YNAT+p7xzbRgV0xiCP4A8B2qYktl1C781CGOyteh00Im9faXH
+	 XBdpIhwDq9N8rjld7foH5B0pzUAxQTWjt+Ft5zVR80TPeuc3AOKnbscfN1qJFH8LWelSx
+	 QpXFkk+VPM7tVEkSdvrgR2CF87abpccilMoiBjc+AnFdsIggYWH9NrYgcntoR87kH5Udq
+	 DGloXbF2Z+8pfdlnu3LOFRASjk2sEF/yYQwqju3r7tWsJGqasqZU4AkhCp5dDA9AZvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="faqz6oT/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B163606A31D;
-	Wed, 28 Oct 2026 11:29:58 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BP8JXNnK;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9180D606A321;
+	Wed, 28 Oct 2026 11:31:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9180D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faqz6oT/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51221F01825;
-	Wed, 28 Oct 2026 11:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186997;
-	bh=1JNEW8HYvKizQjvMBvCBCVcaKnMKRs6NVB4+hVWjxFU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=faqz6oT/ri0wt8eoSK6ioOgDFgh9ZvAJAa1CKbOnfrClm+6aij041uZW3YtcJbNnF
-	 W/AgVn1gBM35OxuIe8YWZJP3W3vhhdVYZJVoTv7CTyY2spKNND1OVEG00KThWZeLZG
-	 kzRv08m+QeFeMAEjxbWCRCFA21xbdokB0ioPC1uMeqxDJb6wnzdVU3hpI+DhujgDHe
-	 +h2kub+2REIjiwAx95+YKz7HvFbaEkv17AzSpxrdKDYaZGcjJkGPchSV0/kzjNbBy4
-	 mikAWPfvGxYImEiMhW+5n6ObFWWo6T6KRi0mMAF+YIu5gwAxT8p8TC++oTiumqrzoV
-	 7cSLznagM2CqQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 06D4A1FF2804;
-	Wed, 28 Oct 2026 11:29:56 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: linux-sound@vger.kernel.org, kai.vehmanen@linux.intel.com, 
- yung-chuan.liao@linux.intel.com, stable@vger.kernel.org, tiwai@suse.com, 
- perex@perex.cz
-In-Reply-To: <20261027144655.31988-1-peter.ujfalusi@linux.intel.com>
-References: <20261027144655.31988-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: hdac_hda: Keep runtime PM state in sync across
- codec remove/probe
-Message-Id: <179317803129.199157.18051933667376321116.b4-ty@b4>
-Date: Wed, 28 Oct 2026 09:00:31 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=BP8JXNnK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=BP8JXNnKuF2arqCOCI2pY7Sd5FwvWISknjYYz1omPpVcQygqnEkgB7FTwFVLNGc1aFUgncOedNbjG
+	 aUlXdbgieeaO6k70+bGN9X1l3h8WHAQ1KjtHXtRMb3+17kAJR1onT+r9oxyAK4CFdqIOXmjZ0xLE+E
+	 9iuuRTItbXLuBPA8=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae1dd1dd76-2e04b;
+	Wed, 28 Oct 2026 19:31:45 +0800 (CST)
+X-RM-TRANSID:2ee66ae1dd1dd76-2e04b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae1dd1c768-052d5;
+	Wed, 28 Oct 2026 19:31:44 +0800 (CST)
+X-RM-TRANSID:2ee66ae1dd1c768-052d5
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: andrea.mayer@uniroma2.it,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tangbin@cmss.chinamobile.com,
+	stable@vger.kernel.org
+Subject: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
+Date: Wed, 28 Oct 2026 19:31:41 +0800
+Message-ID: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,46 +74,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1162; i=broonie@kernel.org;
- h=from:subject:message-id; bh=I1zDWshIiKrvzWcZvIZe162fxBcerYrg3VGUYq0/AUM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIe3tlssynr0+UVxVG8CYtVf979HRdp6/qspOAR266vt
- 5XS3kjO6ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBErpcx/NOy3/XfQWcpk2HO
- cuNuWf0nXio3d23M9mk7f2h/KbPXv3yGP5wP30x+bV29XkfeT/X3Up6sOMfXvplXlVg09uSuE6p
- NZAQA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 16:46:55 +0200, Peter Ujfalusi wrote:
-> ASoC: hdac_hda: Keep runtime PM state in sync across codec remove/probe
+advance_nextseg() decrements srh->segments_left and uses it to index
+srh->segments without checking it is non-zero. seg6_validate_srh() permits
+segments_left == 0, so a packet with SRH segments_left==0 reaching an End*
+action underflows the u8 (255) and reads srh->segments[255] (~4KB out of
+bounds); the read bytes are then used as the new IPv6 destination address
+(info leak) or crash on unmapped memory. The decap path
+(decap_and_validate) already checks segments_left > 0, but the standard
+End/End.X/End.T/End.B6.Encap/End.BPF paths do not. Reject segments_left ==
+0 before decrementing.
 
-Applied to
+Fixes: d7a669dd2f8b ("ipv6: sr: add helper functions for seg6local")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ net/ipv6/seg6_local.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index 53f7b2452..1d8312467 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -310,6 +310,10 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
+ 	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
+ 	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
+ 
++	if (srh->segments_left == 0) {
++		*reason = SKB_DROP_REASON_NOT_SPECIFIED;
++		return NULL;
++	}
+ 	srh->segments_left--;
+ 	addr = srh->segments + srh->segments_left;
+ 	ipv6_hdr(skb)->daddr = *addr;
+-- 
+2.52.0.windows.1
 
-Thanks!
 
-[1/1] ASoC: hdac_hda: Keep runtime PM state in sync across codec remove/probe
-      https://git.kernel.org/broonie/sound/c/99203e8d8968
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
