@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222376;
-	b=X5YmuqZR3EkEV1tHiVpPafd0RrR8sqBFH/Fjw/rkAaSRIkQQAI34TEcXdh4VZfaM7Mz9
-	 vxZvtec78Md+RmLJYcAMCYc1QTYAw7wxKRmMaTbV4Qskg4MDRDSXEgDvXuKTmnfdVXlNs
-	 H3yOwKjzdPV6iM1w6hSB4q4gSYg54opZAJXDKP1HpZY/LgavX9DSaVbSb4ArsaTme5YjS
-	 evAIsBp0Ig6+0XGg/B35E+ivA2b6gRcPvAeZGycUNBJsU0fYa+xi3tA8nCCE2TfMLeYL4
-	 GIc4WEUIUjWs5vMtoYqgdG7dB3EKnq3M6GKifcNvSxQgah5EW6y/p2aICu0dDm6ooIw==
+	t=1793222377;
+	b=s2vxzZFE3C3P6cgkoF7Lw2WpLxZ+YSUhzOa+u0NmF8xgf1f0cW4njH9GB/t023BeN2Gf
+	 JnnI9DFmhEg2C4SJU2B7qmgwJsw30bezUtc0Ih5o66wtTPyILtPCRSHWW7+FWn0ZzDUwd
+	 4NH8qDrBMugMWBYu15xV2PYnPGLztIr3BtAER8Wmw/pOaDDLnzBS7ASRUAVKl23xjJNb2
+	 6ZWuzX5lBDCGLGt4DnGvoOY4T6LD8eGIl2ehMO3ry8sw1PBaxRSXJ4HBROtJr+2I1wTff
+	 H91AFQUftxRMRQEq8C7hNDYMntzh63v4cSXy0kdb36+brVAQ8AEKHXJeRvfzftj54cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222377;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qyE3BvZ22dE3cQ/ON5Q1I/RqepT+3oR0Tr4bDbH+x1w=;
-	b=jlIbqVmxRhRa2USrfvBxHI2AhzXHGtfxPbPnOL+97qtnGzjJkz3PinV2cIeDQyqU2y2E
-	 hEseuvRNYyHdrSpLAtMcP0PoiKZAutZv75VclDHADNYFXFheJ0q0QYYcuLzw9kZSJVWHD
-	 8ESCBgsnrzhBZXvnysheaTwLGLlgsuRJL5RKMGsxzcszz0VFu2EB6y2baob6oAcOzk1Dc
-	 aps4q8Vac3yR4NN4KqaLyLpshR1m2gi+uEV4tLJOwYsahkotjD9i45kyijpAbECh9DFa/
-	 DtkgURbG2bA23ppEjcBHSbsz1sM7Iyi3FfiFKf4kjQiUrmVQPrLWw3eQC8YcYQIk7Kg==
+	bh=PNVblBHL+6qDLjWQDk2wT/AjEGUD/LVbbIDhYzYguRI=;
+	b=OeTqdvVr45nAMpujznDEx8OmVQaAAkFJhwkSmn23qm6W+vlS1pWeutFeAyGfBcfmlDKz
+	 sFaRv17T6462sJLDH6cBTSbK2pMMOgr9+h+ApVmiA23uWPOgDiirpYgWfYrvGWAVtf4Rn
+	 u0SRdttYwUN+b1J5LVE9l+RGxflsZkp2HCFj1nwPI8Gk1xulQ+3dm6SNcuHRxsbP1VkwG
+	 d/Zv5lORfXP2WYFVZ6uoHFghGKQdx5PVwXX2hzgV8YHQxrw6d2mmoG+4zCNsYqxM/lnQX
+	 eWwAiRi8Oq/tYelAe/3CYd8fEW7khbOZN5yuhSIUakPaqVPN9mt5ubKttbCYg4WZpxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EvUYa4qw;
-	arc=none smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EzU32Fgy;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD110606A327
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD110606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB04606A325
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:19:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB04606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EvUYa4qw
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53664b4860bso16367481cf.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:19:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EzU32Fgy
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5365d26ccbdso19306621cf.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:19:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793222375; x=1793827175; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1793222376; x=1793827176; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qyE3BvZ22dE3cQ/ON5Q1I/RqepT+3oR0Tr4bDbH+x1w=;
-        b=EvUYa4qwi5SXGlC+UBEqHZqCvIE+YN7S91MM+EArmzp+wW6PtPPCdYah7QR7pPuEV1
-         kW0ErYOPNz8OBaNREFnU+5/l4NXYle4OV5lMBrS6/iuI0UH8XrYurRwujjvxt7sccV2t
-         rBW1i3lzdelTGrdAvLBNW2jwZkoAVVtKoYb2pXtBGt2TPjXRUoDWOr9Fyq3xSbnGmemV
-         Fdz4M/IVO9zxmsmKbX/Fct7EtbxHXLsO+aUgGOtWukXy/6y+wLR5cnQAUnjpDiv27wWG
-         bLvnB7x3ITeoxdCPJM9AD6+RjehjMiZOhwFdXioBjZsPb82u+HGkdPsZRWjZ7Qdez4ho
-         tezg==
+        bh=PNVblBHL+6qDLjWQDk2wT/AjEGUD/LVbbIDhYzYguRI=;
+        b=EzU32Fgyn9m+vjrhYLpr0nTYWcdrW/2pw3szh9TumHoA+fskhE22xGAHn+OvSu7L/I
+         YqTA2qA3O28e903prE3UMIvrpp7A9YZnUf7pxmsegfKQdPPh30v5i/J30FwglhSKlJBt
+         4Q1E8zsNbsfX6bmU+6w4aBeoORx12zVFRjpoue7xaE72RbcBFPzndWTCa8fdmWDYR6zu
+         hEwPyHxuB1FbxbBJ1ASOtJ8BthHmLFM5BhO5C3eAbfFokMmnA2Qcok5xoEcdk2NZ6WIp
+         YdVQ0RDLupxrAImbjLzE1xiInSHet62tRsz6K9viwBxmF4UkzQRLuRkN1IOy8cWKENUo
+         IIdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222375; x=1793827175;
+        d=1e100.net; s=20260707; t=1793222376; x=1793827176;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qyE3BvZ22dE3cQ/ON5Q1I/RqepT+3oR0Tr4bDbH+x1w=;
-        b=OWiKGmZ+KulWNsGsToqzRJ4EEFuLflSvmpwlnt/JEOUSup07UNo5CjieaVW6VnXmYb
-         lgyzyTfvJ5rhwGR9KD7HKaYksQsHG8VmiVnggc2zJ9QQneEgKw3DzixckZ3h2c4youkQ
-         argpdBdTVa31u5sgHAaKAMHOrYNCdKvBnGHMcRrhl6r4kfDwt1r/0B4XGBMkWOfq2Sqe
-         j4Y4jVXRpmdA+crRBO/IQorWLRMu0CZFrpuwxb2Z6Q7r05Och6YfNgw9ZeosEwHDXi1H
-         UMHgP6QTOj7beEPYB+7MEVm3JB9OG66L2+bnMX6Gf9M/inFjisf62Ev7LK8Z5A57olb3
-         MjcQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIv2GwqHRCXTjcVGnfdPq5yFjhVPGYeuDVj1bNWmGdkE+A/FMZloeH4PnAd41xqFeNQVVnWhs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEiOIhvQkQSi7q2RbLVJ5xm4pqnOzZd97tBm/Jp4YddpKrl5m9
-	QPW6HykovooCVJPX4Ha2gdFhHTsdr23QE8DtZQzDFa+++6NIaK8+YrvQBXIxdm7G6m0=
-X-Gm-Gg: AYBFou1aXm1rRTAzeUzHDyHK4xBYgtqJcL/V8mcEUjjC3M8h4yricb94QBY3Yw/7pC7
-	BiCj0ZGgRvk6w+MSlJDQAMt1jtREg5LC6ePl2h+7KSpnzRBWcS2AEdJNhF2rOAiwLUuvBxxrT/W
-	cTwxVXNMEeL8/HRpho6050j0ZessFaW3HfqHqlOo3QhQHsYf1J3BnB/deNqNiBoiWH0lQ9YoxBG
-	Sa39ko8WQlAtlxVLWDOyEubbO153Uxe2mrVwdvT7gAcf2i6z87w1+KFQy+HRtbm2OrKg++9qI9i
-	dP+mYdEOe3jobglneagdVzUFcOvwG+j7/0SHWjoN6ZbC153jTYccVg0A828xiuHpBNO7NXJJU59
-	bVmmevc8cPy+cnsAvWbRqM+PcrQc/3az3wYJ1GvBsS/QH/t35/PskjGIE3tU7oF9XnkTL3/OgK+
-	fFu1X48Z3g+s0BHfuTrZRTwOZmkVgPh4F2DlYTMY5Z9TBRPUoMOwlm2xFfk3MfI2DMlRijsHyLR
-	idnoAgWs8xR9mKvPXre5m0DEXJSLgtAfaXo6OregFYbgFYCacDLunixUZDSLDg92Bm8TIv4mdHl
-	am7bzymUkiJ7RMy8Dso/6ZXLMD6TPric4FrT3/tIjmwYvrNacFXsN6lxIzl/wIBycquqVpeSESc
-	In3aUT/T+RGAXA2U=
-X-Received: by 2002:ac8:5d47:0:b0:535:b506:11c6 with SMTP id d75a77b69052e-53fcc7ca8e2mr64934561cf.57.1793222374554;
-        Wed, 28 Oct 2026 14:19:34 -0700 (PDT)
+        bh=PNVblBHL+6qDLjWQDk2wT/AjEGUD/LVbbIDhYzYguRI=;
+        b=Njfy0lXarCQkMYwVAHuOdC2LNTLgWAN0iVHuyaQmZQAOg8iYWk3Mgkt/Uw49sRYAqL
+         qGKCNB6c9BaZ5kw74MCqXY+OSEjFUT7/uDQXbLXVYhkxcbIuVrv687Ds/0FN+7qdYEb7
+         n5LzWqarzfX3QQfG/bZdYKhebbZJMKXawXsTqANJ04ZO/vTufexchpXJE2fB+Ji42KyG
+         gPqb+8G9Mf6/ZwlnSpwnpMSyMm5j1eJytns4MSUu/wDzELgMKMr2F4dacYpzcL1v3zpf
+         hi5Z7/l/iox8BZ8m02UAzWUfAdh2ibqTVkU23D+O6+274/7OoZdwAvDbqOf/LTcXsn0E
+         Nx+g==
+X-Forwarded-Encrypted: i=1; AKwUvBxWtYS/ESV/Fnrj3t9hQD3Leh57aiM/f7RljkFBcsZhROvr56EWQRjPD2mRgtG/lvgyVaXjskI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgjE8aYUn4Z8XzoI87ylGKIM2XZePO2Vx3JN3WjOKfeNWaWdn8
+	w5Qxrzx42/Nz3vPT6tVFD0NZ72l90ok4xTCicKzefUQYsxMawfUY29NUQLrQFEDm/1Q=
+X-Gm-Gg: AYBFou1YOi9KV5Ta81r+pDqVtr494K07R5K6rl4E4f9Z/8HIx13F209Nq/a33PD/7ZR
+	c5cVFGTZiLSXHq6q+DtKdPzfCRK2HhT8ElJrj1Gjctn9mJXrBIiNagq9VhzwMqWGPQ6uQfC4WPd
+	Uo4yxfSZ7eXi20qNapOUtvlVJv/ShyI7BBqTXT0OwlDDsBzhHPuqEotGLwnN1GFrURAXUiMH1qm
+	kWFi1FAwcv8EGHwmeSCmR1009ByZNtC5PC2LCVGwXNBlsMm6z/309ia7ZBTdDOTIeuzA6pJhHpg
+	KHaNd99CRDcyqQUf6vzs2GfH+AZ/SXkIdzM03ZcXOiAhBvULEmY2HZXt3UHJ/AZSMGwUhH3PZ/V
+	kZYVK8eTyOwZxH7hytLWmqhukDoCIyLeDtqQVxoyml7eQx777l8Hf6DFBxBj/QZOu8QaTH9j7xy
+	2MsotewApoKNeT4Jl2b3HXKDgv7VjQ7sXzLeaE5qnM9rDzCKC6cmg4xGQacslqXZ/KcKo+IwGvA
+	tuFJzUGhD8B1e10zoP9iLepFDBll0IQxde6LGo2Bk6zn0STN24vM66MqUV435aY0nRlGnYlimF6
+	d59l9rWg7oanZjTwq/zSWyrsziLww0KlDRwJVe3Fx6y7puanj1a1v+okxdcb0LL7vZ8PlK9dWDU
+	NHTkRTiK2g3vMBLQ=
+X-Received: by 2002:a05:622a:1a97:b0:536:1f7a:610e with SMTP id d75a77b69052e-53fc8ac8719mr64026671cf.6.1793222375961;
+        Wed, 28 Oct 2026 14:19:35 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.33
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:19:34 -0700 (PDT)
+        Wed, 28 Oct 2026 14:19:35 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -103,9 +103,9 @@ Cc: linux-kernel@vger.kernel.org,
 	mgorman@techsingularity.net,
 	anshuman.khandual@arm.com,
 	stable@vger.kernel.org
-Subject: [PATCH v4 1/8] mm/page_alloc: reset can_retry_reserves when the slowpath restarts
-Date: Wed, 28 Oct 2026 17:19:23 -0400
-Message-ID: <20261028211930.3504634-2-gourry@gourry.net>
+Subject: [PATCH v4 2/8] mm/page_alloc: detect zonelist rebuilds from memory hot-add
+Date: Wed, 28 Oct 2026 17:19:24 -0400
+Message-ID: <20261028211930.3504634-3-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028211930.3504634-1-gourry@gourry.net>
 References: <20261028211930.3504634-1-gourry@gourry.net>
@@ -120,51 +120,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath()
-flow") retries an allocation once with reserve_flags when the caller
-becomes eligible for reserves, guarded by can_retry_reserves.  The flag
-is set at its declaration and never reset.
+The zonelist_update_seq retry was limited to CONFIG_MEMORY_HOTREMOVE,
+presumably because only hot-remove takes zones out of a zonelist.
 
-A restart after a cpuset update or a zonelist rebuild drops
-reserve_flags and comes back with can_retry_reserves already false, so a
-caller that cannot reclaim, such as GFP_NOWAIT | __GFP_MEMALLOC, fails
-without trying the reserves again.
+However, build_zonerefs_node() rewrites the zonelists in place, so
+onlining the first block of a zone shifts the entries that follow it
+in every zonelist containing that zone.  This can cause a spurious
+allocation failure for a __GFP_THISNODE caller.
 
-Reset can_retry_reserves at restart.  Only a cpuset or zonelist change
-restarts the slowpath, so the retry still runs at most once per change.
+For a node with only ZONE_NORMAL, onlining its first ZONE_MOVABLE block
+rewrites the node's ZONELIST_NOFALLBACK list as:
 
-With kprobes failing every attempt without reserves and the first with
-them, and a memory block onlined during the walk, the allocation
-returned NULL in 3 of 3 runs, and a page in 3 of 3 with this change.
+  [NORMAL, NULL] -> [MOVABLE, NULL] -> [MOVABLE, NORMAL, NULL]
 
-Fixes: 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath() flow")
+A concurrent GFP_KERNEL | __GFP_THISNODE allocation can observe the
+intermediate list, skip ZONE_MOVABLE, and find no eligible zone. With
+CONFIG_MEMORY_HOTREMOVE=n, check_retry_zonelist() returns 0 and the
+allocation fails even though the node has free ZONE_NORMAL memory.
+
+Gate the sequence checks on CONFIG_MEMORY_HOTPLUG, which covers every
+configuration that rebuilds zonelists after boot.
+
+Fixes: 3d36424b3b58 ("mm/page_alloc: fix race condition between build_all_zonelists and page allocation")
 Cc: stable@vger.kernel.org
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/page_alloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/page_alloc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 2daf358269ae..78569ac6f2d9 100644
+index 78569ac6f2d9..52533992ea16 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -4783,7 +4783,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	unsigned int zonelist_iter_cookie;
- 	int reserve_flags;
- 	bool compact_first = false;
--	bool can_retry_reserves = true;
-+	bool can_retry_reserves;
- 	unsigned long alloc_start_time = jiffies;
+@@ -4404,7 +4404,7 @@ static DEFINE_SEQLOCK(zonelist_update_seq);
  
- 	/*
-@@ -4817,6 +4817,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	no_progress_loops = 0;
- 	compact_result = COMPACT_SKIPPED;
- 	compact_priority = DEF_COMPACT_PRIORITY;
-+	can_retry_reserves = true;
- 	cpuset_mems_cookie = read_mems_allowed_begin();
- 	zonelist_iter_cookie = zonelist_iter_begin();
+ static unsigned int zonelist_iter_begin(void)
+ {
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+ 		return read_seqbegin(&zonelist_update_seq);
  
+ 	return 0;
+@@ -4412,7 +4412,7 @@ static unsigned int zonelist_iter_begin(void)
+ 
+ static unsigned int check_retry_zonelist(unsigned int seq)
+ {
+-	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
++	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
+ 		return read_seqretry(&zonelist_update_seq, seq);
+ 
+ 	return seq;
 -- 
 2.56.0
 
