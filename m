@@ -1,114 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793222385;
-	b=XNUlQ0LHAZ0V2phEm7RszbBAOvjI5PRVNcw/eUGhTJZKD4BHvcbKmMcEjubRPfgvsOSs
-	 CC2K+sJOwmIkIwbI+TUlZoprD3QuUUK0E6NoQKj8AMZAIzNYTeC1JW2MRjhy3Mbpo64IM
-	 mUV2wHSe15J4JHpeRbt98Vx32A2LZRtodSNFZOJo7nFAjbYXNMXhpUQ9k086CEVtFp06t
-	 Ep/4n6cPWnMxfOE3oqkFL8ARx9n++mrdXr6Y4GuiNvq0pFa5QRIgUwf2xZ8I3SvS6A8jz
-	 /4RVAfbZ1pC3mB8FXKQFrX5vAYmSuyPMVfrh6Ru05p2evkYgReFvs6j2UUAkIIuY3kw==
+	t=1793222617;
+	b=Ks81hsS57m0iv/eJhvIKSlzJVWaq7v/uOX4SWaHTzjvQYJyZvJHUgGEB7PUvA5Uqbuvn
+	 u7V1t2r5JsQ83o2Krs/hAfy+nRZwSUxK7a7GVPTySf9478UfUXG8BrSafzIRE3MGiZTiG
+	 1rMDtBXclz4K0MBe+0vhz2Ru/wYwQ/ErowtQIFI/ERPfQXLOslrhuvK89LDdid4xDxo7K
+	 0t28xJu5rPLLw+fj8VEShknQJMOKV3BEZSVijaKRhaaxlYQ7Uo2OeQYgAsVs/QN5my0Z0
+	 hwrVBMFO6uOq1sfGc68xb3ryxj8oY13ruBEbutVmajtYRex7/dbkARZ5By0/1/vYINA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RAcEs6XFMJPdLRK7Qq6ZCf1PAdLxwqRv800fWic7tw0=;
-	b=ABXCsqXbbQLrpO7AYEGA8CXnLyy5rxWMBl1UKeRZc4RsaVKNVp0+CXQQ8DJxjWlEsBmf
-	 T/hlB7WcAc7CjbwQEqLhKAP5DIdTWcEhqJKZNq8nBIt7UDmbgSlNDD86oABvq2pQLjoEr
-	 qkR4U43aV3qXmMVrvxlhPv22HzFyqjeTSVDU6zNF19MddqDXcZ7ZcvFL79Q5MWVVEypM7
-	 tBVslNs1YV7OrK/be/Vd/MDqF2e611CjySuR5gntBd1P/bdWCjvOLARag8IPDtezYb4fb
-	 wlxmRsudLqbMWU7B/dNQ23eVstJV4KXxs6GWtOigLfgHhWslSjZY2829Cs/I9rh4jUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222617;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=FQcCz7kORXSYgc7G1jAsRlvMGdpA/Kf4rXJDDVpXV2c=;
+	b=4sH05vhUzcTGLngIgx5pbF4S6uRliaddDdANVV1olbZPfHe4B+8srk/RgWhn6x9nj2Fa
+	 ElFmMGXnjUgyttGwvdQnckmxAPFsTmOMSc3z6N8wfdtGrSx7/rndjL77g4nCyPf2NMDaL
+	 gPywPFEesN0pnSv4LO+dBg6+QtsnygmlaQkdFLHYPnFljOPyYcNGJ3yGEllsgmkHZFHLN
+	 IJqzE6p8xma5r+WKZDCvCsG8N+gJdeS+UkZs92onqkHPh5j89kWUm0C1bfLgnBV4zrInq
+	 ovfXurK23aADXTahg7GUR11B5mYZlPG3OqJK4z8epahKkD2xnSvpyEVUtVnGAPC8ewQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tnG8wVFH;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwByTERy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0196D60A3804
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:19:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0196D60A3804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05348606A330
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:23:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tnG8wVFH
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91c7a706b1fso1349606d6.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:19:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793222384; x=1793827184; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RAcEs6XFMJPdLRK7Qq6ZCf1PAdLxwqRv800fWic7tw0=;
-        b=tnG8wVFH4NLWp9aJT+EUYbhzQF6Ujc6IyXZlUanZKP9zUdilvBGVN+6NDyzOk3Abin
-         +bxMXs49MeTe89mMu25saDec4vh8EC4/ZWO3+rTC0whpv0Ev7q9ShrUMXMciN10sUONH
-         CC6siFQjj7jc8zir5yQqIJlJrHJDYwhV79/aFxkoiDpsHcCB+ZN6GObu/toWd0Ih5a2N
-         aRb+yFLh6HWA94zQ7gybUGhrEclHyayErZGaCgnAlTh6nZRNS/oOYiyu6+rTrblYM1ry
-         o7b9f1neJs6YLEM1qfA5aPOFpdJE/tIcIzeHpsLajfhf+5nm3ZxyBbRBWCpudNuKFEOn
-         fryw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222384; x=1793827184;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RAcEs6XFMJPdLRK7Qq6ZCf1PAdLxwqRv800fWic7tw0=;
-        b=JDY/ey53N6Z7w0HbhzOYvhWRh0idDyfGpq81EuuNgejWwyrNXoTlvV8exFIIbZI9NZ
-         5138E23sQfzqFw2gwIdVgQMT2OiQdfWFsoK7M5ow98p+wtd36JDxMQPUuxwWYsrbMgoQ
-         sDFxWUPXocnm9t1Zt/hMVYWgwrlZsIxA2+VZDpfparn6R4S/iTx51AsPn0waXhXumtWZ
-         MfSt+44lq6pllg6OCCE5ph4dXdJvWWNfpzkWUEIoOCEaGpYYifigEeIVA4SxHKf6xa6m
-         39vnZDQgH1zpferEtJoNRlPk0rB1eCq1E1UweqiBu0wH+v2FeEsohlYqMwcKmfvzjkal
-         e9SA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjqKGg/zcbhk9zTH7dCicPgygySA5HeJlduAubkVKgENgW1Up5+s0wM5a4cwwb54MzUqivML8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhlLADuEz6EehcDmEiTSV8h9v0eiW56aGqVXEiVn0ioz3MFZLI
-	FPSdfQrxRwRfOuXFzwTnpNJmBzdNQjrDDLOlmKJqWJTahOdAkk+MV+exP3KOZR//z0o=
-X-Gm-Gg: AYBFou0xXhygZ4UpLn8rmFzs06daaoIevJg3KlpKq0HXOlycinnmWKpK55mxu3DPEet
-	ED+Nfw3I7zzm7RFvH5Iq+dkfQAtbP+WJJi5LKxFSYp1eUl/L0RrVAK1BpXPx5V+m1kBH696xruc
-	ZWJZMxqvWyIstySL6EwikVNxZiV3ekLaCIJbQv4mxOSkw9QoAVYCXLa289C1vorDGA/NWEdj4OH
-	Y9P8MmamyvHRixs7cFEohwoOCKeV7ixiFcewzZi4d8drvO3cOIs2tTAP01CkGXb0usB44+raTyf
-	qKXbf2MyCvYb6wf31iHS8CDqCJ76o1mXZsSV6KQUzydw1L3MOj9rvzQEjxp6p+oOWtiX/CFN6G1
-	Zu0W3Sotv6DWepPzpiwZzpINVQ2VMwhhbbtngUIkGA//UqnVowEmgNy2f89VO/m+gHfqzxoNqGH
-	FFcD+wFVnAlPMIM7FwwqDohUaH0/AjTM2g6xejRb3K9fwPavCnkk6cJjDPF/HhQZ2/ptiOcv1UK
-	5/j+GmpZjUwsrcJ5TmsKAXzosFBhVoIOIidD8F9D9+xj3VwBV1rD1vuAnFAG7V3XIQvjkELX1Nv
-	/6nGUddFPLBhQ7DigRaLipfD+ieHTkoId58vL2bnM+5MuUZC8WFqQ6SBZQe3v8t/dJ54LrhsIFf
-	w9Ck9gDswDOGsMCav7JxOCDnIAw5AUcqbr/1Z
-X-Received: by 2002:a05:6214:ccf:b0:91c:7ae8:fa2c with SMTP id 6a1803df08f44-91c90431fcfmr12968936d6.14.1793222383945;
-        Wed, 28 Oct 2026 14:19:43 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a6d598sm139778966d6.3.2026.10.28.14.19.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 14:19:43 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	mgorman@techsingularity.net,
-	anshuman.khandual@arm.com,
-	stable@vger.kernel.org
-Subject: [PATCH v4 8/8] mm/mempolicy: read the zoneref slot once in mempolicy_slab_node()
-Date: Wed, 28 Oct 2026 17:19:30 -0400
-Message-ID: <20261028211930.3504634-9-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028211930.3504634-1-gourry@gourry.net>
-References: <20261028211930.3504634-1-gourry@gourry.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwByTERy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FABA1F01829;
+	Wed, 28 Oct 2026 21:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793222616;
+	bh=FQcCz7kORXSYgc7G1jAsRlvMGdpA/Kf4rXJDDVpXV2c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GwByTERyefoOLTDBHbXyoGizKkhiUEVPBunWdakCLEjsgFUYlJyL6BdotSqf6Dpq/
+	 z6PH8cHl90kx6Rj9bHxWsW5Bi5dcRrWlIwb0hNdmL91OEdOfP5VXSttsBAFBTLNPS1
+	 DgxEibJsM8UaDNCmLn5UrSm5kQ9+GFxJ3tOWNftoWhKhGUCl82/gfSbQMJGnWYEGf3
+	 l+CDEnDD7OrivjNOgNJOBYSkxavE/3QtTk5Zh6JAZZuRZEQcQ2rw5uXvZEp6BzePPk
+	 d982hxILnK1TY3DMm5/X1jkZKKaHL9YBsLcUKwmA9F4JzCfjPX0CIbulKWqGOeKYjZ
+	 SajHcmUXmDG+w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+Date: Wed, 28 Oct 2026 17:23:34 -0400
+Message-ID: <20261028212317.2257095-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102837-poem-blog-9727@gregkh>
+References: <2026102837-poem-blog-9727@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,66 +61,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For a bind or preferred-many policy, mempolicy_slab_node() tests the
-first matching slot's zone for NULL, then reads the slot again to look
-up the zone's node. Offlining a zone's last block rebuilds the
-zonelists in place, so the second read can return the terminator:
+From: Christian Brauner <brauner@kernel.org>
 
-  CPU 0                             CPU 1
-  mempolicy_slab_node()
-    zonelist_zone(slot 4)
-      = node 2 NORMAL
-                                    offline_pages()
-                                      build_all_zonelists()
-                                        slot 4 = NULL
-    zonelist_node_idx(slot 4)
-      zone_to_nid(NULL)
+[ Upstream commit 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21 ]
 
-Current GCC merges the two reads, but nothing requires it. With
-mm/mempolicy.o built with -fno-inline -fno-ipa-sra, holding a bound
-task's slab_strict_numa allocation between the reads while a movable
-block earlier in the zonelist goes offline oopses every time:
+TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
+return to userspace and run task work and then go back to sleep. This
+mechanism works well but breaks e.g., coredumps. dump_interrupted() only
+allows fatal signals to interrupt a coredump and the whole regular write
+path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
+well.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:zone_to_nid+0x0/0x10
-  Call Trace:
-   kmem_cache_alloc_noprof+0x294/0x610
-   do_getname+0x34/0x230
+Add PF_NO_NOTIFY_SIGNAL and helpers to raise and restore it. This is the
+same approach as memalloc_nofs_save(). signal_pending() will not report
+a fake pending signal via TIF_NOTIFY_SIGNAL if inside a
+PF_NO_NOTIFY_SIGNAL section.
 
-mempolicy_slab_node() and zonelist_node_idx() are tail calls here, so
-neither appears in the trace.
+No functional changes.
 
-Read the slot once and use that zone.
-
-Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-1-6609e42b3157@kernel.org
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Assigned PF_NO_NOTIFY_SIGNAL to 0x01000000 instead of 0x00800000 to avoid colliding with PF_SWAPWRITE. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mempolicy.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ include/linux/sched.h        |  1 +
+ include/linux/sched/signal.h | 27 +++++++++++++++++++++++++--
+ 2 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 0884c629670d..cd63c3e2c029 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2176,6 +2176,7 @@ unsigned int mempolicy_slab_node(void)
- 	case MPOL_PREFERRED_MANY:
- 	{
- 		struct zoneref *z;
-+		struct zone *zone;
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 561fb81675fa5..523d727d27a70 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1703,6 +1703,7 @@ extern struct pid *cad_pid;
+ #define PF_KTHREAD		0x00200000	/* I am a kernel thread */
+ #define PF_RANDOMIZE		0x00400000	/* Randomize virtual address space */
+ #define PF_SWAPWRITE		0x00800000	/* Allowed to write to swap */
++#define PF_NO_NOTIFY_SIGNAL	0x01000000	/* see no_notify_signal_save() */
+ #define PF_NO_SETAFFINITY	0x04000000	/* Userland is not allowed to meddle with cpus_mask */
+ #define PF_MCE_EARLY		0x08000000      /* Early kill for mce process policy */
+ #define PF_MEMALLOC_PIN		0x10000000	/* Allocation context constrained to zones which allow long term pinning. */
+diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+index 324a3fd0f3c3e..19298445a6ce6 100644
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_SCHED_SIGNAL_H
+ #define _LINUX_SCHED_SIGNAL_H
  
- 		/*
- 		 * Follow bind policy behavior and start allocation at the
-@@ -2186,7 +2187,8 @@ unsigned int mempolicy_slab_node(void)
- 		zonelist = &NODE_DATA(node)->node_zonelists[ZONELIST_FALLBACK];
- 		z = first_zones_zonelist(zonelist, highest_zoneidx,
- 							&policy->nodes);
--		return zonelist_zone(z) ? zonelist_node_idx(z) : node;
-+		zone = zonelist_zone(z);
-+		return zone ? zone_to_nid(zone) : node;
- 	}
- 	case MPOL_LOCAL:
- 		return node;
++#include <linux/cleanup.h>
+ #include <linux/rculist.h>
+ #include <linux/signal.h>
+ #include <linux/sched.h>
+@@ -365,14 +366,36 @@ static inline int task_sigpending(struct task_struct *p)
+ 	return unlikely(test_tsk_thread_flag(p,TIF_SIGPENDING));
+ }
+ 
++/* Prevent TIF_NOTIFY_SIGNAL from interrupting this task. */
++static inline unsigned int no_notify_signal_save(void)
++{
++	unsigned int flags = current->flags;
++
++	current->flags |= PF_NO_NOTIFY_SIGNAL;
++	return flags;
++}
++
++/* Restore the previous PF_NO_NOTIFY_SIGNAL state. */
++static inline void no_notify_signal_restore(unsigned int flags)
++{
++	current_restore_flags(flags, PF_NO_NOTIFY_SIGNAL);
++}
++
++DEFINE_LOCK_GUARD_0(no_notify_signal,
++		    _T->flags = no_notify_signal_save(),
++		    no_notify_signal_restore(_T->flags),
++		    unsigned int flags)
++
+ static inline int signal_pending(struct task_struct *p)
+ {
+ 	/*
+ 	 * TIF_NOTIFY_SIGNAL isn't really a signal, but it requires the same
+ 	 * behavior in terms of ensuring that we break out of wait loops
+-	 * so that notify signal callbacks can be processed.
++	 * so that notify signal callbacks can be processed. Not for a task
++	 * that asked not to be interrupted by it, see no_notify_signal_save().
+ 	 */
+-	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)))
++	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)) &&
++	    likely(!(READ_ONCE(p->flags) & PF_NO_NOTIFY_SIGNAL)))
+ 		return 1;
+ 	return task_sigpending(p);
+ }
 -- 
-2.56.0
+2.53.0
 
