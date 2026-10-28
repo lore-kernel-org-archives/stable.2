@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181401;
-	b=ZjxZxNfNR98qIAM1ilYntNsJyAVHiZCIsQSEeJ8D41KMXZ/ek/fn0s7HO/vBaMzL8K3m
-	 OHLyCm095n7sRzdosK1rTWvpOy/CmMtF9dhjHpoKv93DhUNqMSJOWzDjND+npfmxryWGy
-	 5KqoEXaDyod9GMSu1FZ0Gd/robt9/pN+Bppknza9mvzNXwU+mc6kOrmNuPKovc+SCXArw
-	 6cu2XD5goxgqZ73IaVTlE5XDb7n67ERYrKGRMneNBLofN7m6AoJ1/F0SimWOcrhKKeW6U
-	 XtbT/fwURRfOedaFpIrF6q9k1J2am/ndsCU7FHKPb02rW5y9dMfNriGIuMHIm1LxEJw==
+	t=1793181416;
+	b=vyloZtLU4C4eKLokysramI7IUqzYzYRdkFsc5D55JB01gs13gXklqUiVMZzp5EBGt+Ur
+	 SiTlJyJzR4hJMh1koS8KnuDVYbtH59MKeRI+WbTF5Fv6vrZzmMVEDA42VrPuz3B0YrBZ0
+	 lCL17dS6Ie+JItI65xJI6MuP6vhMyaKNxGszSN6efFipwMnjjXAdjXooHNFvETPROk8eB
+	 4k8ue1Yf9RbQbePSzRSS/SF65mIJEf4/drMT9d8S3BtFqC+5v0+rOjVRPALP8ABOV2UFA
+	 0k31j0/jRdMM2pbS3HhrDTzmJpj2pLkI5rp1iFQDFW9P02IYcZBajIRlw6vUmqsK+cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181416;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=tTONV0wfYTEoLkmIvz7RQ+tH1UPTg8CBB7eyk2nMDtc=;
-	b=1MjTCJZYJVzYXso4VXNcV6zBcbet3zdnZTHPnGp2LBAi9nnole4QiTwosTI3F4cNrp0J
-	 EGHBx3tN9WFhZxK1Zv0am9QsqflUVNZukz3ba0i075+LrObl0XZpLELSPH3YaNrfTxgS9
-	 1QWo2FS5JfrjyASJXpuKI5+w/8z/vXT4fsc7yIUqYZr8YDqSBVjIfemXKHRuvYXgS+fjA
-	 QBM/yJgz/Hxyx9ZIhTAOMNKycljaHk5nPHWhkU+cL8vexPFDm52gTqdDy6y+UooFKsJYm
-	 3ljHFTvJYUHJZSmxeUal5TfvS595kEDzgBY/dynvEqoOmxAdqPUN0lWvkOcK5CAX4RQ==
+	bh=fBVhEWu9nfuqFZTQHurOtPzvVYkt3WEwnKrb2ymcoTk=;
+	b=qdFS/bPDG/tfDSkuTTczi7JFPiKgpt/DFoSt6NlzeJ4Qk6d2+ALc9BfJyGIq8OaXkAHv
+	 J36Eb3quhEc5lOSuzMpQ9fp/d0tLbEK455rEkYN5jDiUV9QjNWV9Zc6C3x3+qZPvrxlKi
+	 Zt7pUqB606WxtxB/wpgPAvywNV3greeNEQdFzKpeeUU05bwKN5yfBYzXxHadB46h5idj3
+	 A1ecmso+0GyvKx9N3OR+bQCNlPlwl5npqu4S7gFA7PC9ky0yC1R5B9k2FoztrGm+tzqxA
+	 /msT5sDOx5mdMn8dW9yzl0dnTHSL+R7iwgRxyOhokSdH7sS9KZQGmLeryW1L9vHgy2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7LvDeA4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnuvrBYU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E90606A31C;
-	Wed, 28 Oct 2026 09:56:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795B1606A31A;
+	Wed, 28 Oct 2026 09:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7LvDeA4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9411F01828;
-	Wed, 28 Oct 2026 09:56:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnuvrBYU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F8F1F01828;
+	Wed, 28 Oct 2026 09:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181401;
-	bh=tTONV0wfYTEoLkmIvz7RQ+tH1UPTg8CBB7eyk2nMDtc=;
+	s=k20260515; t=1793181416;
+	bh=fBVhEWu9nfuqFZTQHurOtPzvVYkt3WEwnKrb2ymcoTk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=T7LvDeA4NM/lf+CB9jzmQfHAxXqaA3Ilna6y11k3BHwLYimyi8th7awsune2nKO06
-	 9H2OBF61PJCX3HYXXz+7XH7SmhmgJeweeG5IpaOZaOOv1yL7SH0nhtRdSMcr96rkQS
-	 NF2FrV2WybzV8IXuBcvvCxOANd7SfGQAjGm4WVcU8DkfAFzoZJ68tcUhc2LYaBDsb0
-	 td7m++OEXW8bXS7MrcK8hBRbby4mcy4stf+J8LYOQswXRivoQ3g64SXlYFVta8lg1Z
-	 Oq951tfV3xmBNNEkjbAxrjVA2tfiA/V5JEhPYhZcV7gRc3neSLCOlNU5YwgMJDMH8K
-	 anruem1gGbZyg==
+	b=BnuvrBYUBhtuVudpLVQFk7PTkGc1/2OHBORTKrrdUPdhyyLTA+aEAFCQYcKtVsqpq
+	 JyeJUGzh0K9NYkWa1FeM/X/0fw+efw5OHCwcktCgxNrZZXOvOvgU+zU/C4cRREShNE
+	 yQQBbF0QlOATqnnD0cXbnSfnREofEE/T0eX2KY3pRTpuDfCD915Y23fkcVQhPITddk
+	 3MI2Kf7CEVUuU4AJVd4AaMeARN99dDGPGgd1nz4sNveyeRSIZr/QJ65dhUWebuOTPm
+	 hBCASdPeTl7vqkF1rcwl7TKhrB3aFt6aXQerIW+szxb60QiDAxTGOPsbLpRAubdySg
+	 6znWiHu38tJxg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 10:55:08 +0100
-Subject: [PATCH v3 10/15] mm/shmem: rescan after nonuniform folio splitting
+Date: Wed, 28 Oct 2026 10:55:10 +0100
+Subject: [PATCH v3 12/15] mm/shmem: preserve allocation errors when
+ swapping in large entries
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_shmem-v3-10-4ce3baf2db4b@kernel.org>
+Message-Id: <20261028-fixes_shmem-v3-12-4ce3baf2db4b@kernel.org>
 References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 In-Reply-To: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -77,68 +78,57 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, 
  "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2061; i=david@kernel.org;
- h=from:subject:message-id; bh=kDSUfEl5ZNv/axp1FN2MBeYxXzEoqliEBOqbPl2MeRo=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHmu6oaGktF8mefv+O1eUsyMWHqrtO7JsXqaBY+PcJ
- 6u8DunkdpSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjARd1ZGhlkzfM/qP2F9KKC8
- gnEd0y+FevO9fEtWz1a59/90bW1m30mG3+yfNC47XDzyfNKO7SsaMry3Pm3dc/Giy+E/DhJcd+d
- G72MGAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1547; i=david@kernel.org;
+ h=from:subject:message-id; bh=4yVKTbJ/EVLH2SOhJr916+b19DoqdwAsmSvxp0HdkpE=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHmuqMu2y/ehinHT12ZFezdr10RHv3XUbr0t9D9bnk
+ m1tfBbQUcrCIMbBICumyBIUfN/g5ct1tdVufMwwc1iZQIYwcHEKwERaZBj+h1zZd2pVrdKq//NY
+ xWZNiEgx+ucawuTzgW239SHxP5MePWL4p/fu7+SNXUE8P4rW/s1/bm/NvCzr7pEpCb/uJfMeysg
+ y4gMA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-The final scan in shmem_undo_range() restarts after a successful split
-only if the original folio is no longer large. A nonuniform split can
-leave that folio large, so the scan skips the newly created folios.
-Hole punching then leaves pages within the hole allocated even though
-they could be discarded.
+shmem_swapin_folio() adjusts swap to the requested slot within a large
+swap entry before allocating a folio. If allocation or charging fails,
+the error path compares this adjusted value with the original entry
+still stored in the XArray in shmem_confirm_swap().
 
-For example, a fault below the hole can allocate a 2 MiB folio after
-boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
-folio successfully but leaves the original folio at order 4. The scan
-continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
-The hole reads as zero, but the pages and their block charges remain.
+Unless the index is at the start of the entry, this turns -ENOMEM into
+-EEXIST even though nothing changed.
 
-Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+The caller retries -EEXIST, so persistent allocation failures can leave
+the task spinning instead of returning the error.
+
+Restore swap to index_entry on allocation failure so the existing error
+path checks the original entry. This preserves the allocation error if
+the entry is unchanged and still retries if it changed concurrently.
+
+Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
 Cc: stable@vger.kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/shmem.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+ mm/shmem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/mm/shmem.c b/mm/shmem.c
-index a686b3d77647..21983cce9fcb 100644
+index 59907556369f..da2f5cd37eee 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -1478,18 +1478,12 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 				} else if (truncate_inode_partial_folio(folio,
- 						lstart, lend, NULL, NULL)) {
- 					/*
--					 * If we split a page, reset the loop so
--					 * that we pick up the new sub pages.
--					 * Otherwise the THP was entirely
--					 * dropped or the target range was
--					 * zeroed, so just continue the loop as
--					 * is.
-+					 * The folio was split. Retry the scan
-+					 * to find the split folios.
- 					 */
--					if (!folio_test_large(folio)) {
--						folio_unlock(folio);
--						index = start;
--						break;
--					}
-+					folio_unlock(folio);
-+					index = start;
-+					break;
- 				} else if (folio->mapping) {
- 					/*
- 					 * Splitting failed, but the part in the
+@@ -2552,6 +2552,8 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+ 			else
+ 				error = -ENOMEM;
+ 			folio = NULL;
++			/* Make sure to validate the original value. */
++			swap = index_entry;
+ 			goto failed;
+ 		}
+ 		if (fault_type) {
 
 -- 
 2.43.0
