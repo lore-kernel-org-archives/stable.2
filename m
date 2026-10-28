@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201900;
-	b=XjTSkzwBaL0C8GrydmKyi1Y/7NUebmGVFg8DSc8dW9ElIJl9MuWgyj1ovVzWzb8fOdgG
-	 7WSKA8HV87IjIMfwERITYsvIKSwZCEAYklKfWOOslvy7hnNNsKlEuK4I0XDt2Y5No20cm
-	 zEmeaoj1PZseA4T+5pzdq/5YzAvHsZVCinmxNSnz/4cydQ/AFtGA9fB6t3hczrRylPRLe
-	 nQAOH5DSizqkQZOy7HcfaUlUudzXSDHOp2B/2QYBYAR0IlVkTOlqNmZzMrNaGOAEOZr+J
-	 Z9sXHUxY0bfe55qpKgr8w5ylPZFpSkmswQJsfvdVuazAstAd64uXbSf/Y8qP7Sh9w4g==
+	t=1793201903;
+	b=ylNR/mmpou+gI8FdWZT49CtwtUOoCT+BEjFzg9ZrsqKHUxRRwn2bGE2xWDb9R7NKVtBB
+	 vJvw3v7rirVdtpUW6jbEY6dVuL+1b0hVtR0aaKqhY/THPBJTvFfWAd0miDE9ewAY5pyyO
+	 DZK4f1CQuvcDhLHWvEZuTl0daxov92gAMxGWnd7MUprmC2k/OWiyIUtQZxRWG8/uzA/n9
+	 JfIi/2PLsAa4PYwpDrh0kSEGrcz3zw/1Y/f/Sw9cfg81qmIXV6Yy0Tt9/ZDENEgFVguyQ
+	 9vYLhh3y3865RBCBfisu4Y4nwaWuBfVGAymz9UnpqS/FAe/DaNPCFn3yfXRtyQS3/7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201903;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zVUJDbgqlqC1O90xK21cuYfa+YewgFyS45fWDAHH8To=;
-	b=K4RcIlfs+fsVeujENLxK4Kl/mnbuHX9tAwflO/XtroOaAvRtkriIA7parpWl6x8Ph/A+
-	 22VZJ++rt1RhMovjxc9Ke4hCFOa28jIUsY3Wh+CkAfcooRJzTCLg62/LJ9VPUXScsf8zk
-	 AQYjJxZ+SD3ClqLbRyDHhjz6M+r3yulCRtLZdbtkYlfjGb0hCwJKH5qgWOjWiPkmY1w31
-	 jEEC70G6/Ozj+yE+LRMB63LY7GTCkEc4taJ6pU7drritsZzc5rSYO3hzJ9pIJTNdMLkn8
-	 AGKZmIigmfCj203ALcZ819X2/WnYqpnY9QLj36t2k/r0FDoQ02qrsAFILypCBqCKA3w==
+	bh=UfJffWPuaZ0tZq7fETpvyD3jC+HrJdntPFg+w2CdaVg=;
+	b=jueVb0Qv/abZrPGGxszUemKSYNHVk7q7eOXz38HSbMVWuD33y1JQqaZZoIaXunUHYqNl
+	 649/CjF5Fi/jW2d4lGITAC1sOlDf+pQnivX3PmNZdDUhUhG8IiVu+/EwPe1sMxkgCRgDj
+	 XUHSeBhRGLkDC1igyMLqCmHlPLfzhoE27DPBxq4mmn1weF9kfvcn0RRrYCXM+ixu0zDZ6
+	 t39uDaRg+febrPV5ljCHaHH0/Ytb8hKszOKDpso6zvA3SDopbSbpCK7qbxYJHUi/0McIv
+	 6FobTOUkEs783NCcPp/zF8ajERBVMiEVvSjiRpOzoqfhieIMRUMBmJO9j3rSnz4X5wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZKEKtdHw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Qk4+MDK9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215D8606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81398606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZKEKtdHw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 407AD1F01829;
-	Wed, 28 Oct 2026 15:38:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Qk4+MDK9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A123B1F01828;
+	Wed, 28 Oct 2026 15:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201899;
-	bh=zVUJDbgqlqC1O90xK21cuYfa+YewgFyS45fWDAHH8To=;
+	s=korg; t=1793201903;
+	bh=UfJffWPuaZ0tZq7fETpvyD3jC+HrJdntPFg+w2CdaVg=;
 	h=Subject:To:Cc:From:Date;
-	b=ZKEKtdHwg0gXRNak23kc4KPdQOHkHcIYKUAgzbofuzuzFaLMLt65BUpB/MXmL/iLJ
-	 LaVB/51tQVxfCKxXJLr6Hjq6a61KpBOFKJpK50m93WXneUKTgddsapB8/1pBxHjajk
-	 S7pqqyW1l+H6jZ2oKzv8wwW2Aa8zP8/eYNJstKXE=
-Subject: FAILED: patch "[PATCH] coredump: prevent TIF_NOTIFY_SIGNAL from interrupting" failed to apply to 6.18-stable tree
+	b=Qk4+MDK9NFv5oTSRib9cn+1P50Eg0mOuWPttHIO4ITDL2iiXjYlX0vphoQn2a37oe
+	 nwTBxBiAkVM4MKWCTCnOWmgRT/51lRvQMXP1081F83oeVWAAiKYpzrEnIypbJO1PQw
+	 S/D+7UYs6CB1zLCtPrhqhGxk8TigRhlipRMzpuME=
+Subject: FAILED: patch "[PATCH] coredump: prevent TIF_NOTIFY_SIGNAL from interrupting" failed to apply to 6.12-stable tree
 To: brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 28 Oct 2026 16:38:18 +0100
-Message-ID: <2026102818-slander-stove-d034@gregkh>
+Message-ID: <2026102818-graded-prancing-5aef@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x a58d647acfdc62561f3570d114025b3bf38ae41b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102818-slander-stove-d034@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102818-graded-prancing-5aef@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
