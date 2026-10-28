@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220617;
-	b=UEuQwDkM/3djMmgA3IQlxddFbbehyp3FFsCBUV2NEK05BunkqFRSl9lBUiEEiXtgCg78
-	 5bAUJQ2269Ei1jknbb2x2llc6DcMGV+HsFzSz2oDjF41tRcx7Z9A28Q3QIF5KSBFOAppf
-	 Uiyd9XZPVvWF/EpnHg5e2x2pia9utvGdLA7FzFhRx1pU7Z4np8/VXmLyjofretm7NKdKW
-	 cRHh7Em2nkPxzvghLlSDEncrfFjiEgU6Xp520y11C1DTv4b+JzEh6jCOcEuC9PJM734R7
-	 xYTskYLJPJBCxhOtpiSvqxvMuEU9QowQxSwTEQWTOp7KQBpZEo4sYHWUxK6DKxJE5rA==
+	t=1793221029;
+	b=SvnbMzkIPVJtTcqKadTpfx9NafqYC5lYBAT6PneTIPpCAeG78fLiW+KNTCRntzmiPLav
+	 E3jUwYmwD2yE4Z5LKo+PFvbgtnayUGNxEiaktFI0Bw6QbGHVSOoY2CUUMfjWzscNCXdwI
+	 t+JGSNwD6ejnP8+Ue4lC8WACqj2Y6v40Zr0RuIp6hTGiKwbYmXqr1ek9J8CsQgtyYgj9n
+	 +uG0n6nFk8t2lC+EpyXI6+laRNYhNksk/qUeDxu4zJwdGn8HrtMFNqf2o1St3yc8x2MyC
+	 A5gkr1U+/XIV0FWWgU9C+4cnEhAf7IGZZ8w6pGHcVHzhqRgluQ76lEGYFkh3vYO0e+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220617;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=3J+m5zssHO30+gGvjgsMEVpbwVkuGxWjmnZLOzezkqg=;
-	b=pQQDeVX6YIXiVCgdIiQTXZjmbH8OUEfZEfp94MI7g4Li343TUo5IeIh9UqzfX20BQQ2U
-	 QDcH2Wv6N720hASB50zkHnKmjszpQh9yaTDqUQVdwBwUkPa9KSw1AgneGSJWGhrs60+Ae
-	 Jd3+1pMx/hkcbzDYt8xfZQch2R6LV/YHkofJHGwAu7y7fV450f/uNH6zt8Bo0F6A3oBgN
-	 Prk7Sn9LYP4Fxo//j0vyNiMg0Gns1DXv/Dz0Gsc+hpQQTRjNGVACHf+lKvPYm2asiuBH/
-	 0QWzZ3yPCNNT0J2PxlrHE9q896RTeweNb6U7Emr7t4WHu7O1KhsTK8OplU2aQObjXfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221029;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VBRXJGFXK0qCkmji9XuilGdSC6PWUqjPX0mT1B8+Dew=;
+	b=CQPqI6AT/BuiRazp1myyc9Ae1zAuRlqSazuzLPp/5M2e3/x6iywOHPUPTYlDViahmDi1
+	 YGDFzwb/Efwx7sbJfTqyidmyIO4Fc970ZcHmeRPG04MtIMKsH1wrwprxTdfAJ5ovXqYzR
+	 i7qS4KFJUpl3XHhL6g+2zOqquWMbcL+J50TOlxpdF/vz/td/5oZrDQHy77XMIF13vXN4S
+	 ZLUVI+DLvLFMeTYSfvzddH4enMwZZMweZmVPpRoLkKNYWRyxjuRngnRYfjWejHzhJEUhU
+	 /5SSpYSZxFVi3UedOR2L6gK/L3rhs4I2wv/k1E8ZAiZ/uPquIIYiycTmK5Q6bUN57vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=go0Fx3+N;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6++6R92;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0091606A31E;
-	Wed, 28 Oct 2026 20:50:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0091606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44309606A322;
+	Wed, 28 Oct 2026 20:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=go0Fx3+N
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SJYsnp2340162;
-	Wed, 28 Oct 2026 20:50:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=3J+m5z
-	ssHO30+gGvjgsMEVpbwVkuGxWjmnZLOzezkqg=; b=go0Fx3+NOkNNIrw4Ln4G5+
-	n1hVw44Bg5eoxTwZuoZ1R8LgTQbs6pxo9Pyx77Kqpglb/tAN5HtBfVkzBPbTtg+S
-	lM8gxpWaLWvaZEwC6TrV7UkdWbJDmj0mBrz6YyMf89fwA4thgPY86YsIWVtBONqt
-	AzKDOgfZdanBt4b7QJjxPvSRblpD8+vCnWwa/W3cnyMQVObeIbf+XJEFCUhIwpcV
-	tAGpd0tz12wl7SHtYL80zcN/4F125F5OM0qWl8D905bYiiWvzFWyYLLQoAvyTjJO
-	45eenpUAlPJww7erptCqOOBuPeDXQbmNLQI13+eeU0USi4g00NjOIirTq5AAlRoA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm646y1u-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 20:50:14 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SInkCG1983966;
-	Wed, 28 Oct 2026 20:50:13 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pc1wu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 20:50:13 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SKoCPs22545028
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 20:50:12 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7F9075805C;
-	Wed, 28 Oct 2026 20:50:12 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A589058054;
-	Wed, 28 Oct 2026 20:50:11 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 20:50:11 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6++6R92
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08141F01825;
+	Wed, 28 Oct 2026 20:56:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793221028;
+	bh=VBRXJGFXK0qCkmji9XuilGdSC6PWUqjPX0mT1B8+Dew=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=d6++6R92Y9pW/L7qdwwXGd0u/fINnIlp1NYiXwaft8WuvM2tnh59aB+MIfDwM3CYs
+	 7OBmLdZ2yf/hpA8zpc7z5GdDAf3CTGmZVsA0hpoyhtF6kc1L6FM9QY6FPQzJGgCNiM
+	 9Gle+WZku0sAgiTcOS5G2JnLcI+qrDvkcNMlVF6RCTWmoNWW7uHd+G1PGIIff8zlHa
+	 fPM56Qjn7U5XHgFTGxseW76jmouqIFti8WxpybzmVtUdGoYf7HNRmalUpxMtAY3Qao
+	 mgALZ2krEDvrdX6MlU+nCOicB8+IQASXlEKAHYsbgLpoWmWmdQnVWuDP0TEVs7UF1Z
+	 xjngcVGllnCNA==
+Message-ID: <b90cd9a6-4303-4ea6-b76a-8cece1ca0284@kernel.org>
+Date: Wed, 28 Oct 2026 21:56:42 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,107 +51,215 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 28 Oct 2026 15:50:11 -0500
-From: Wen Xiong <wenxiong@linux.ibm.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, Bjorn Helgaas <bhelgaas@google.com>,
-        gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        wenxiong@us.ibm.com, linux-pci@vger.kernel.org
-Subject: Re: [PATCH V3] xhci: Reset TI USB controller on xhci shutdown
-In-Reply-To: <20261028103616.29110069.michal.pecio@gmail.com>
-References: <20261021160608.8229-1-wenxiong@linux.ibm.com>
- <20261028103616.29110069.michal.pecio@gmail.com>
-Message-ID: <c10dd783a61e66023b04aac7829c66ae@linux.ibm.com>
-X-Sender: wenxiong@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/46] mm/filemap: finish fault cleanup before dropping
+ the fault lock
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-8-6f74bec9a5bb@kernel.org>
+ <auJMY1xFp6EkhXbZ@quatroqueijos.cascardo.eti.br>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auJMY1xFp6EkhXbZ@quatroqueijos.cascardo.eti.br>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX601frCAB19/q
- uI/YX55lZDL46lwWnclqvOCWBrF4GSZJ30O7k5FmAE90xoWvjJVKtmQ0K4njkWF1eXM7fbBBMy/
- iku+wZ3kD7Efj5mY0LIdQ/Xaam08lZY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX43KXMdpUq/rL
- 9e3OQmfoHHGFh0wSriTm+Nzt4QfloGu4utUAL3uPGrNk0hxV/ye4mgAbixY8zYrxzHLcVq0jHMx
- gWA8zrb5IcCT4gLxCAfRBgkYHlD2OjyXrvIsTFixdnFIRZEvmgItbWxe48XLXMeTSHOaozSf57p
- 82xJf3zeouc/3adjbj01urlfnoinAdAzLFe0/1XvXysBgJvbsH5YGps7ViLk90FyF3JwGQCvxCi
- FVqYf1vMCJNFg5uvOAc/Ivtnq1c97UpVAQaGpmlbFM9FrFRhemAXgre80fgT5prRcDQl0Hw9uOb
- 65yhfZpAl3VqwkquCM4vJebV+ctsQVfyw+j3qgsyL6HgdZzDFydY+1r9QVskr7CgvAfOY+E62EX
- VVOZ65TvVtGhv8rAxCYzyrbQar/W6To9wWA1Dx7aK+kyKacUDF4WYXGYaO/41iAZ3EgBcB7BJV4
- R9GZZ2n60kVt/mCviXw==
-X-Proofpoint-ORIG-GUID: w1D2aPIGsQzg6O2eGCeEIUcG8ZgfXFVc
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae26006 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1VaoIupEdHR5eMkdamIA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: ochY4GT0oiw3AJipYFMkE2_mabINeyr9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280082
 
-
-> I tried to make this code a bit more "proper", by moving the
-> pci_reset_function_locked() call to xhci-pci.c from xhci.c.
+On 10/28/26 20:26, Thadeu Lima de Souza Cascardo wrote:
+> On Tue, Oct 27, 2026 at 12:17:28AM +0100, David Hildenbrand (Arm) wrote:
+>> On a retried fault, a fatal signal interrupting the folio lock wait
+>> makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
+>> the file. However, filemap_fault() may still need to release
+>> mapping->invalidate_lock. A concurrent munmap() can release the last
+>> file reference and free the mapping before that unlock.
+>>
+>> Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
+>> releasing invalidate_lock. If the fault lock was already dropped for
+>> I/O, release the existing file reference instead. Keep the fault lock
+>> held for FAULT_FLAG_RETRY_NOWAIT as before.
+>>
+>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/filemap.c | 37 +++++++++++++------------------------
+>>  1 file changed, 13 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/mm/filemap.c b/mm/filemap.c
+>> index 6b5e1d866a9e0..b04be64a5069f 100644
+>> --- a/mm/filemap.c
+>> +++ b/mm/filemap.c
+>> @@ -3308,11 +3308,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
+>>   * @folio - the folio to lock.
+>>   * @fpin - the pointer to the file we may pin (or is already pinned).
+>>   *
+>> - * This works similar to lock_folio_or_retry in that it can drop the
+>> - * mmap_lock.  It differs in that it actually returns the folio locked
+>> - * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
+>> - * to drop the mmap_lock then fpin will point to the pinned file and
+>> - * needs to be fput()'ed at a later point.
+>> + * Returns 1 with the folio locked, or 0 if locking failed.
+>> + *
+>> + * On both entry and return, a non-NULL *fpin means the fault lock has
+>> + * already been dropped and the caller must eventually fput() the file.
+>> + * Otherwise the fault lock is still held, including on failure.
+>>   */
+>>  static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+>>  				     struct file **fpin)
+>> @@ -3329,21 +3329,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+>>  		return 0;
+>>  
+>>  	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
+>> -	if (vmf->flags & FAULT_FLAG_KILLABLE) {
+>> -		if (__folio_lock_killable(folio)) {
+>> -			/*
+>> -			 * We didn't have the right flags to drop the
+>> -			 * fault lock, but all fault_handlers only check
+>> -			 * for fatal signals if we return VM_FAULT_RETRY,
+>> -			 * so we need to drop the fault lock here and
+>> -			 * return 0 if we don't have a fpin.
+>> -			 */
+>> -			if (*fpin == NULL)
+>> -				release_fault_lock(vmf);
+>> -			return 0;
+>> -		}
+>> -	} else
+>> -		__folio_lock(folio);
+>> +	if (vmf->flags & FAULT_FLAG_KILLABLE)
+>> +		return !__folio_lock_killable(folio);
+>> +	__folio_lock(folio);
+>>  
+>>  	return 1;
+>>  }
+>> @@ -3572,7 +3560,7 @@ static vm_fault_t filemap_fault_recheck_pte_none(struct vm_fault *vmf)
+>>   * vma->vm_mm->mmap_lock must be held on entry.
+>>   *
+>>   * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
+>> - * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
+>> + * may be dropped before doing I/O or when aborting an interrupted wait.
+>>   *
+>>   * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
+>>   * has not been released.
+>> @@ -3728,9 +3716,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+>>  
+>>  out_retry:
+>>  	/*
+>> -	 * We dropped the mmap_lock, we need to return to the fault handler to
+>> -	 * re-find the vma and come back and find our hopefully still populated
+>> -	 * page.
+>> +	 * With fpin set, the fault lock was already dropped. Otherwise it is
+>> +	 * still held. Release invalidate_lock before dropping either protection.
+>>  	 */
+>>  	if (!IS_ERR(folio))
+>>  		folio_put(folio);
+>> @@ -3738,6 +3725,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+>>  		filemap_invalidate_unlock_shared(mapping);
+>>  	if (fpin)
+>>  		fput(fpin);
+>> +	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
+>> +		release_fault_lock(vmf);
+>>  	return ret | VM_FAULT_RETRY;
+>>  }
+>>  EXPORT_SYMBOL(filemap_fault);
+>>
+>> -- 
+>> 2.43.0
+>>
+>>
 > 
-> I found that when I actually run this, I get a warning from PCI:
+> If I understood this correctly, the invariant is that if fpin is set, then
+> the fault lock has been dropped.
 > 
->   unlocked secondary bus reset via: __pci_reset_function_locked
-> 
+> At first, I was confused that maybe_unlock_mmap_for_io drops the fault
+> lock, but in that case, it also gets a reference to the file, so fpin is
+> set and the invariant is kept.
 
-Hi Michal,
+lock_folio_maybe_drop_mmap() and the other functions here are horrible, horrible
+stuff, really :(
 
-How about we add check TI/failling usb controller in xhci_halt and 
-xhci_pci_shutdown?
+Thanks!
 
-Thanks,
-Wendy
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index a8889081ae82..af6ca5447f22 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -950,6 +950,10 @@ static void xhci_pci_shutdown(struct usb_hcd *hcd)
-         /* Yet another workaround for spurious wakeups at shutdown with 
-HSW */
-         if (xhci->quirks & XHCI_SPURIOUS_WAKEUP)
-                 pci_set_power_state(pdev, PCI_D3hot);
-+
-+       /* TI XHCI controllers do not come back after kexec without this 
-hack */
-+       if (xhci->quirks & XHCI_HALT_FAIL_TO_RESET)
-+               pci_reset_function_locked(pdev);
-  }
-  
-/*-------------------------------------------------------------------------*/
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.cW
-index a9e47e178c28..67108692a354 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -120,6 +120,8 @@ void xhci_quiesce(struct xhci_hcd *xhci)
-   */
-  int xhci_halt(struct xhci_hcd *xhci)
-  {
-+       struct usb_hcd *hcd = xhci_to_hcd(xhci);
-+       struct pci_dev *pdev = to_pci_dev(hcd->self.controller);
-         int ret;
+-- 
+Cheers,
 
-         xhci_dbg_trace(xhci, trace_xhci_dbg_init, "// Halt the HC");
-@@ -130,6 +132,11 @@ int xhci_halt(struct xhci_hcd *xhci)
-         if (ret) {
-                 if (!(xhci->xhc_state & XHCI_STATE_DYING))
-                         xhci_warn(xhci, "Host halt failed, %d\n", ret);
-+
-+               if (pdev->vendor == PCI_VENDOR_ID_TI &&
-+                               pdev->device == 0x8241)
-+                       xhci->quirks |= XHCI_HALT_FAIL_TO_RESET;
-+
-                 return ret;
-         }
-
-
+David
