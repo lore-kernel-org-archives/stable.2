@@ -1,86 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158725;
-	b=cC7ngvLW0A3ifbkmeP0p22aFMXlPILwhmJDx7td35bDLVHWd5rpDuLlGzknPce3m14Ux
-	 li1RECh3SP+0BEkXuHprNfhEe2UcGiX+XaoLDx394BYDZjGKBmFePwbX16Wo/NhetbOe3
-	 2BndJecsJryCIy29xvMaz29bZqGvGtK6rFwCs7hxWHCMZGNincXLBhBIeXDEMMqgYbNad
-	 FoI/fC4sa66XtugRX3hCEbovIe5UeQF0aD57Q+rEKMYfy1j9r8mXEDbSPRZYcrCXOgsXU
-	 BbpfvuylZLK/Fg93ev0Ju4jAA3I3xbRxlr6+vrUzJ1IxguLtJnV+6zXHkZIhu1tWh8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158725;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793159130;
+	b=1o9s/PA5B7aM7jbKo76+w5cAV9peAQTkV4x+ooOjfpk0aROnksnTUbDnUEpVajDbHoPp
+	 FF5JeHJ5Q0dTV/XvEeVD6Ru0EazjFdo2uYKCJku9xyAXRQ5yDjFIZqmqSDzhlzwtVCZ45
+	 8NMiwvWBKoFwDcPwzflCvtvsJpZB2ErDpQgga6aRk7sOaqiwRs00xhreWQGSklaZB9rJy
+	 F5oddPRT+S8NxzQQzz1c0dqb02ysnuIbhri5c9t/nr8BDGbw0CpKN5gknEJyr/pyI9Er4
+	 7q+S2fgb99MqA4dGbs0v53pAC5b16LmAXWPz0dLRfT/pY2CDqMt7JfapOr0ALAbA1rg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793159130;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=VQJFWsO2O0YbolYW05VDBIkhficw7DwnVaUUdw0UKuM=;
-	b=JrX522pH6lRI1IUGIZDAbv+ZbZ+JawFKhq7/JAaeCPHH5PS1P8w84uvwKrpSjIJ/Gy1u
-	 6PIk8WV4RS/eBuTIlWwEm3mTtiReR6WZxRBUwkn8O0S9sSrXJV1u2/tIxnA9hfZza295y
-	 kAaWwx37/AXpPH75bH/r7K+h2ilkR3AeLVBO+lyAchAKhjUQ5+xbsHIxNpDlY1yyK1kIz
-	 ZegRZHM5LudO5/Ed4Y1ILBgJ70Nh039l8LmP9KC7V8G6Az9P06M+WjpjWvZETm1TIh5hY
-	 5d4fMl7mNPDvkQm/OfsEx5Qd2J5fDjJ/hepC81NtiXbvZKe0/ty3QdL2Rt6iJQ/Ytkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kpXTMhRh;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
+	b=nQF5FRX/R1dn/A8i9AWPlaItxAncZy1OOuWVpbHrTslMnSbV79MU7ZcCkDIXs4Li6rSx
+	 lLh/Ci3lYx0O/v3r33am9MBTjlkbLwjnWW3Sr9fn3kAOAG3OCylGubNyuojN892cMfs+c
+	 feT/VZgLy6okwQ89PROpSJ9RImTC/1bPby27r95oqAeBnoMiKK7GdHdwsl9hZZLH9tAre
+	 5sfDxyR929Pn3UghjIyzDd2+G25etYBzVyswgZCtsALZGUZHYaRpEKotG89LN8fB25Ns2
+	 hq8ya0+kfQ1qpNSEMy9fvcVUlH1+caGx5Ce0U9uHNlUzTS+Y/gGYG7bub4bcEqSXeRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H5vlzOq8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8136606A31F
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8136606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89885606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89885606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kpXTMhRh
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2eac4877accso1553265ad.2
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:38:44 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H5vlzOq8
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b125371596so14001787b3.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:45:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793159128; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rOnZaJl9TQwTYPf9CmGy9cQbiUyRojqxyvN40SGT2oh5i0rK9/zqxk7XZFJe4hhiE7
+         SC2u2yiQMNzYM4D3i1pHt0Sx5PyFc1vMti2ZXNXbV/zVIeMn0TwSZAAOPd2AWLtScdNK
+         FpLf1LBsPohKANVIaxt4dhEMKmzT8xQqowkNvi/IxnnuFwSUD/opMfYlurnfIeUanogC
+         8VX0Z8Rr+cm6Hnbfv5hSWSmD39WnJ0IVfxRu0iib8SX3HWGEr6lFGLhAHgVIYZEBweAD
+         8CbDYvWH91XBOyWC3AtNtvj6GSp9FG3HO3djzERpS1LYtVUZsNxXQm2dn5e6IqcGMkuf
+         9IlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
+        fh=ehLBqCO/ZiRa4OTqTikOX1vh04u6oc2RLwLtyrkXyo8=;
+        b=a1lHEK2KCSDoax/30UGGyVlc+C+jyRBQv80tX6Pln42z1Q1brgnDBTr3eehjoUMEgl
+         vV+qxa2d2W5Ud8lzqBmYjM0qHymTaIvmHV3OXg+rk4Cno00b/frZ6dTUNNM9iULR59Y1
+         v/1FvbX/6jhtArPU+Yvd+6Dwc7p/FI3cLg1GeMXIlUb93v91fGKQYTPVQsvPFNYcOBnO
+         3sjBOxMoBQTaqklV9kNiFTq1AJ/uMx/3YO1LAZoYA0ofX2adtQm042u7v9X/Wei0gXwm
+         2rsdn7oKTNUJSUXroFSx/4lAawxPKLIW3P6KyfUfngvIXo/X6ABwguByI1EVsxTi0xTa
+         8rgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793158724; x=1793763524; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VQJFWsO2O0YbolYW05VDBIkhficw7DwnVaUUdw0UKuM=;
-        b=kpXTMhRhTD0FmK0+Tjl0Em4BWm/lyKJb+frQFOxvez1rlXCx39Mwq++SjA21V0vDEx
-         Rsgjc2ofwsAUcM8LYToGox3wv4FFBgo4U5UmA8c73iXaHbkcn05wIsJnE7Nxab5aZQVr
-         OBIFEe8rYgqsKEQXvfygKrbJh9S04b1Si1sAadYfYJVEevNDvex+hiYBwSlu6nqWCyaA
-         BS5iHOlxoj5z9reaALRU1FXhS17w4BQWqYd4U+6425KuO+rThn4nNkiuERSOFJrnoGLt
-         X9WYqaXBlHChn6/K5DMWMT+yz1xqsXP2zwE3pCaptODUD4DUcJ8S7r5ixJXN/gVpXvhF
-         Bu0A==
+        d=chromium.org; s=google; t=1793159128; x=1793763928; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
+        b=H5vlzOq86fPpSki1zWRFOTb4zgk+97w08kNBOW/3IqCdyax/WWeKa2xp/gVT6oLv9/
+         Db7KrNBwf+GxM2kv3Fze1Em56xazErYJyXdagscS83wrvmyp3od+t/Ma2zquSH8xEcQ4
+         ddZUme6Sni+Bd6/W23Lq595h+TGbVnhmbScmE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793158724; x=1793763524;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1793159128; x=1793763928;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VQJFWsO2O0YbolYW05VDBIkhficw7DwnVaUUdw0UKuM=;
-        b=xjulyX9PJWWQAEZOwTyRTdwcx5sL9bfKZlVctue7VYuN5GYv9MXGiogpT/LnI+BPtH
-         HDIN8/xsxoDeFPMM4+STENTGUiKK1Z8l3FzTiULFsyehSecnr8x1MxUfKkYRxNerY+2Z
-         2SsQ4UPH80xEJiU8Km2J2afGJSz306d1aGsJVqJ45OS7bOSruBrryvtE2TrDu0uyvqqz
-         gq+hkBrQ56laS1sYVX98ULbUSs2rLRouZxs/tdEAzO76caOqFydBmLVu4RkgA1o8DkzY
-         ngIBMisMbpNIlpDtJ8Z+Cvfd0a7p7znfIGXwWZ8bUOsEP/62gD/64PeROfzDcqvVEQp4
-         MOqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxxw3GDJJXvhl/ofg8L6x3jpD6/CgMtPicfaOgK75B0PlSscV5hnzdIFxMf0EPmIUuYjF+IeC4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2J0drRttjfu8O22Pu3rask0W/CaYR/j6s0tGRe32WlhhsNBO5
-	VRXHuWvR5Izn/+4mB2idu0RmoWXzFtdgTfROzGLgBng95JRF+omI3Bt/
-X-Gm-Gg: AYBFou3GYlb7UjULRwKdiOsNLuvJC3Gi+Hfa3LqJXgy3rrU3U3SWPsw9oUMrdI4ZjyR
-	RQB0/ijdUgBcncqlhP40IrBoMEVuZw0/SxvW8ONzuNycnmhB4c4VKVgxYZOXJatRr6uCxVtkNt2
-	cUyekgR8/F0pLbydQTUmop1Kf0rA5Ks/e/KiOoQYGBW4SGDiTmew/cyepwY3uYvMl9FKT3e4IaF
-	6LiDcWZuuNuqc0bKkc7MkSNhft97Hz2RaA+w24E/PXEIUnMJ/GAKeEi/2XKZw2AC581o5aRGfFv
-	paubOCa0LumHzv0XVf0DaSe7BiHL44E1sRgUuIJQhqdbSYI5hJB0WTA+6kuysnqrjy8vrDfO3BA
-	nUXV+yYfBGQ3vDqRjCyuzaVEW2uXny6/oKq9wrRlUJ+lASOQg/RplcSNT/0C33ScWaySjGgf9DJ
-	r/oXRs3sp1UP5QzNLdpsQji4575ZEXsuf8T7zQf6IloPcecLsE+S86qsnii3iV2DMnT62hVKQiS
-	s379KnKLnaXOSvrF2jk77GUUpu11BsjeiclqKrCbQ7cWXcf9qn9sCvvbdMhsujl4LQ7MJPbRula
-	UfJ7ijTxWltSRv3kiHLfp6yTctw1Yevf6ThJTD37yfB7LEbkscjqXJpE3TvDKkBI2oI=
-X-Received: by 2002:a17:902:c40e:b0:2e9:8202:5083 with SMTP id d9443c01a7336-2eb0051eb1emr13234255ad.55.1793158723876;
-        Tue, 27 Oct 2026 20:38:43 -0700 (PDT)
-Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bdde77sm15882685ad.31.2026.10.27.20.38.37
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 20:38:43 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+        bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
+        b=CcpreebTap658Uf/EWG1uNESlPMmYc4RJ+Xuf4MpM3Zhaem+FlRCbAniLsF9LsRXV/
+         xDVVidxytPPnqQpo7/I6GT1jXSK74nWz3Xsl5jYWT2nk5JAjkBzCH6rD0V/xivUrzMC9
+         kXyY9G1FKdRW0NZ+iu09TdZ7ZPC9MS1RLKrgRuP+N6oT7cUgYAO6heepHMhk00r87GV8
+         tKBEaGcsGigYYa1q2HtS3jBXjmlSsAaQfAZeGrJFw5kCIqNos2hghW942H42pDKsTCiP
+         8KLDUl+SESYuO4/p0Q8rBf9V3h7xx/xoamN1JtnGxdU7Ya7nPNLwrx8vidiPRm+5jjGi
+         29Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBy1El39Zbwog2Brwxsw8tGhBTHfMfSKihcBG+n5HfElA+4n4OFY1AYaQ54gzxLwfGQ681H3eRs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKb9usGrJAUJ2bTF4DPnCw0ZBnWs1RtdCbQJS4QdMlImyOhk3wA
+	uyxJM2JFczgLe+aNX4GmSDPdBtQ44g36vczjufgBESA2jd+y/S5wZB7KhS70VBOswcActgOq5dZ
+	PuAipd7rhAxXo+WSAstCe8Vqu2yc5H9CfpCqHOsvU
+X-Gm-Gg: AYBFou3Grep9kQQE17UKSlsBn/MbTHfJyi60suLBt1JbTdI+LxjhbYpBjULCecFvNa1
+	uQ7dh7O6M75Pf1XV3bVxnrIdsG1ZuMavkTzIDKUs3gf4QTKkHc5bKcbxewO92dht3ScaULDWopS
+	wLVDUp/QR0KMTfdbModZ02uKaES8vNRuzTVvVHX3B/AVlw9KOnZk2KU+vCG0m+MGxoXJNyXFTKc
+	Q4UzN4rFOjiaQuIOsqjue1w/4pNG9S6U2LcuHYignkgaDN2nO2amcJwROhuypbX4z4jssQ8lTKL
+	v2DbZ8zP5UHrf1I/sNPQ1eEFkjT6/jBxBFZGRtgpMMz7HWvDcpHrd+u8+zJlYvmEs17M59xR4jH
+	pHj1RHiqPdF10oCKNOUwqWYXvdv7dHK5wXOs94pP/5r/Qb5ToPCPrOJrC8fTQEvhxw+c=
+X-Received: by 2002:a05:690c:d86:b0:8b0:a5d3:71c1 with SMTP id
+ 00721157ae682-8b19caaac51mr35421007b3.37.1793159128558; Tue, 27 Oct 2026
+ 20:45:28 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,45 +100,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-From: Esko Mobius <echoowall@gmail.com>
-In-Reply-To: <20261027161813.3092f32c@kernel.org>
-Date: Wed, 28 Oct 2026 11:38:24 +0800
-Cc: netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>,
- Jiayuan Chen <jiayuan.chen@linux.dev>,
- Shuah Khan <shuah@kernel.org>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Eric Dumazet <edumazet@kernel.org>
-Content-Transfer-Encoding: 7bit
-Message-Id: <D0F0DCA1-9CAB-4BB3-92CF-223C9ECA9BF5@gmail.com>
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
- <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
- <20261027161813.3092f32c@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+References: <20261027093306.2812695-1-lee@kernel.org> <20261027093306.2812695-25-lee@kernel.org>
+In-Reply-To: <20261027093306.2812695-25-lee@kernel.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 28 Oct 2026 11:45:17 +0800
+X-Gm-Features: AclHuK_qoKOPS0Bqly0_GwH5QpE5HmWgWi0Q-7IU47_qa8u_hGoz7lpTqegB0HI
+Message-ID: <CAGXv+5FWZQ1zM=mZm22qcqU86QO2oXQs0wtnGn1H9TrdFvfW1A@mail.gmail.com>
+Subject: Re: [PATCH v2 24/27] mfd: mt6397: Manage IRQ domain lifecycle with devres
+To: Lee Jones <lee@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 28 Oct 2026, Jakub Kicinski wrote:
-> Is this your real name? We need a real names for code contributions.
+On Tue, Oct 27, 2026 at 6:38=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+>
+> mt6397_irq_init() and mt6358_irq_init() create chip->irq_domain with
+> irq_domain_create_linear() before registering the parent interrupt via
+> devm_request_threaded_irq().  If devm_mfd_add_devices() fails in
+> mt6397_probe(), irq_domain_remove() is called before devres frees the
+> threaded IRQ and without disposing child IRQ mappings, allowing an
+> in-flight interrupt handler or late IRQ lookup to dereference the
+> removed domain.  Conversely, when the driver is unbound, the IRQ
+> mappings and domain are never removed at all.
+>
+> Register a devres action immediately after irq_domain_create_linear() to
+> dispose all mapped hardware interrupts and remove chip->irq_domain so
+> that the domain is torn down after child MFD devices and the managed IRQ
+> handler have been released on both probe failure and unbind.
+>
+> Fixes: 6df8dd5c185b ("mfd: Add support for the MediaTek MT6397 PMIC")
+> Closes: https://sashiko.dev/#/bug/linux-b296fbe4-6e83-40c0-91c7-2c31e8d22=
+6d0
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Sorry, it is not. My real name is Yongjian Wang. If you can fix it up
-when applying, please use this identity as the author and sign-off on
-both patches (and in the Reported-by of patch 2):
-
-Signed-off-by: Yongjian Wang <echoowall@gmail.com>
-
-Otherwise I am happy to resend a v2 with the corrected identity.
-
-Thanks,
-Yongjian
-
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
