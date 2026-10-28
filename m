@@ -1,97 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793194114;
-	b=yYOvdGiJUiM8zdCD8AfFvD6vg74jIH54F3JRehFwSqElEZ6i+LtJmJl25i11Rm1xCsvT
-	 hjr3a2EVQje3ggMbNj+UcdHANPls4qjz5ngZP14nIywIO9nzZy6Sjo9xpLzrdfAgW/Fdb
-	 7umV19mWC/5NmUFoMAuUpgIKvDV2VuVeP4I17xMLrDFF3FzZR81btBzMS/JJ5c8ZBtTUn
-	 Jg5YPU6KW1tTRhmlNifX8wwdTADRvDXpDKQ22wAPGEj6eNgCuRGF5s1ppqNvygmF4TJXd
-	 5ALrVAj0izMo52MwbTtb7SbEXJNorhrLSb5RV/7bdO4EFdD56tPcvz7Q0l+rka1tnDg==
+	t=1793194208;
+	b=GMQL4zSGjrx/cfglssu43Gqb5Q4fvgLvbmnxM4cNPXDkqSkG5ABy7+8dHt771t4PMLgN
+	 IQDtUnlkCjhaLjFHPmhaOza8dX1FWhHSQa9nzd7DKSk7U3e4G8f0nhfnwY1SrGsup0eP0
+	 nI940y+HW2eMHzM2nCmNWSyJ8LE22WReYCH5s+7vnaJuUwLiUo18dBTvxjTAu1ipTCtCY
+	 cLDWjdSvkhz96F6Et8wSeIpzxqzj+1qiVQBtvATlIL7McDAK6G+uBezQRb9xoEggRaXWM
+	 O3Mj7cOdQ5UGDd7IIeb6JUJ9FwS556oLvnu+PezvH23qV61GXDSDSJ5j6ANuN5RK2bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793194114;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/qtnZvOuU8MhlvJHegjHxSWlFaXlL/NnoXGGQM+IOGA=;
-	b=eRKrCtEVenELal9K8+dGcE753HDiJp/l3c3L/i+yoUTFIRS2pYUkVqXD16IhORRHfoQQ
-	 FM6n/DL6ZtRTs+UcPS1AdFDc/nOUi/w9iTHyPXapeQ80NT0Akm1WDv0Pb9n01etNZ6aAW
-	 UzWuPemI2CKaayeJdopo/FabZunBF6jc6udQeluBUD71yBTt99PRV2Ww138RulMxKsFz5
-	 EDfN0/3+462Fe4wcFgkW1Nr2CdVwmRDwGazVLaPzOB+xaS0yHHbLiPNpvdIjrK53HpSaw
-	 PdexVwdoGHF3D/rRf2INkWyOFuEt1/4k8aVxBt9ld1/0zxepvGJwwP1GRtGMuNuqEeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793194208;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
+	b=IMGVQV2/Hc4JOX9ePriB0VaI0uu7NZ9aYYAanqYzZU1TVdcUfBBBG3xRnWb9JFlBkTma
+	 4vslY0+4ARZZZghAosT4abhtWQYxv/n8LeZ25aP4byIL2u2OTxqHOERkmS3ElLO5hyv7Z
+	 vaFTuUNaqYvqLAjSTnHL+B0Bwd0R1ARH+SLwVtUaKc5IVVU6kodKcVm/zn1zdEJdEJZTL
+	 f+0loF9BLhMTrPEYy5OGqS5tEfOl3cLRm5T2kO+Q9FB1pilji66YaX83LTZ5vxifJ2q6b
+	 MJA4fQXDMmpP0AXrcY7HYecM5KZkbtiSgorpjHmCuH2XEBqXy9390COp7PVr7qKQXuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jr1r+QIH;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Pfvj/4IU";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Pfvj/4IU";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ADE606A32E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4ADE606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D916C606A31E;
+	Wed, 28 Oct 2026 13:30:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D916C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jr1r+QIH
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eaaa9b1591so644795e0c.3
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 06:28:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793194113; x=1793798913; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/qtnZvOuU8MhlvJHegjHxSWlFaXlL/NnoXGGQM+IOGA=;
-        b=jr1r+QIH9SF8KtcfX9BXZIHaTISyWChxSbxtk2nQq/HpZxq55eiafMQmivcjOYIsn7
-         h2qTJ6u26kwNCEpWvOqoCy6eXKsRJUtjuvajaCzMcFb9JBIp1tzPDOU62NwP1fpm/Ct5
-         M+zBG07CeU+BBuL/0F8Y08csE5QigbGYSElY4VEUohVPJz/qtmyNASR9EC12577NET5s
-         eMEzhI+f9wQLdSDxiqHdX6Qw7dpIHdd+Q14xV77sYfPNv2zJgRY12MtqLg0zOzu4hZsT
-         CXMAKNko1WX759zarCC5VWO5mf1uOdDt+/b0lA3rulT4dM0LcCWJQ2tYIb0sMtlmFcYu
-         iM6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793194113; x=1793798913;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/qtnZvOuU8MhlvJHegjHxSWlFaXlL/NnoXGGQM+IOGA=;
-        b=TykYIAG/5sb+2F6qFWvm7wqbCY27AESYWp9Lwjf9j8VYV4lwbK1nMPYDMBXyHa1yV/
-         jz+GcQg937sVglhykram8ItMXRitHouKCZhbpvl6haTD3Afh6v0jKS72UbDodseR2e6P
-         bNOdd/va7ENJQXPudpcc2nkOjd6WGcinJTLgHMQdBW+YKLNEHtSHXvDjeUQDYoVNU5cX
-         fapbFzLxOb9BeoFvZmsQAIMs+z1yTf2SX6vJBDslLh+cY0AsbspYnJEHEQYSHKu/YM+o
-         D+qQlP2Om/tyqXVv2IHBY8p67RmhiyOMUQPgjZXzImL9FPG8RnEEQkyryZPzWQAxF3Zz
-         bw6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxA/wQUKetmpdNM8hePr83H3YjOzXaAgJPLU3Enboi6a1zYD7uNHtal3lTQMHyTGHYNNuiSNSw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTs7i1aPAZKlMzlSNH+HWG01eKDFUU1a4x/VU1KpAZfCljwvHk
-	gQx8upj6hyQ6RLZQJH/GbfJVuefzYjlKbHOTX1HhruNDB5cf/sdHxOTm
-X-Gm-Gg: AYBFou3Cgx8BfDbpWenbzfI9eOeKXzH5xSeozCkGWpOwYWfU8HH3QIa/ONI15dxjo9y
-	gpeZgIDzmvVrhe0iRZIAgw65UtQEFns4J7wUFwgSVOi/Nf5/DMBjJq0LI10d6qBA7ryVzVm8eUI
-	KfWHOwwJTAfDdCeOZ8Zoj7pmjoDRh6Rs9TEUgQ6endGNZ0o7DxIwulGRPqWu3jBZd/nb9rKd7tI
-	I9LTIjhpgmuO+Tf5oCBUqryvwoHLwWDDCLsLtvnWkTBmOpX4NXbDsfrzG57otH8f1N45Nakqr9i
-	WpyHKSiEP9M2PsGqWx55veZ53mCIQH72rO5sToi17//5wB+Ny+y0T6PhtN3PxMRq00JkLLSsyIe
-	89M9jRrmE4r/I0S1GB9vtnprZqeIYJkEtt7zHde2jrKQpq9Hsp9WavjnR2DI7sMl+IcRZL5yPwo
-	DdGPyhzZNT0VLEp3Un02ejMb0aNhJ2Gl1YK9EQhR5exRUtspU2DDwH28r8YlsZST99owjjOq4L2
-	7m02h1p4MGuw76TyUGghxF2mrK5dLFc5XAxhjNIjsh9PMl/Wld0xjw4hVEdzgGKv9ZysUnYI9GG
-	HndRc3sl66+AWVHpHcbT1tnpGDkOALK4KiLkigcXYJ1KE66HhiFlgosn06lhEZBh7h4nhyFuC3W
-	QEv+R/10jZpawVpPGpKVAQiI=
-X-Received: by 2002:a05:6122:c93:b0:5ea:c37b:450 with SMTP id 71dfb90a1353d-5ec4cc5343cmr1027395e0c.20.1793194112610;
-        Wed, 28 Oct 2026 06:28:32 -0700 (PDT)
-Received: from fabio-X870-EAGLE-WIFI7.tail2bb604.ts.net ([2804:1b3:a801:e068:c468:5e04:829b:4378])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f99442fsm1720000e0c.15.2026.10.28.06.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:28:31 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: herbert@gondor.apana.org.au
-Cc: horia.geanta@nxp.com,
-	pankaj.gupta@nxp.com,
-	sahil.malhotra@nxp.com,
-	gaurav.jain@nxp.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fabio Estevam <festevam@nabladev.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pfvj/4IU;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mRyYh38z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Pfvj/4IU
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 187361F7AF;
+	Wed, 28 Oct 2026 13:30:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793194206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
+	b=mRyYh38zGNqTdDzU2IBgubLvN6qxwLaC4yFWHklZIKqU26TyZ4oRQY7PAOrHeC8vFtNPfh
+	tcu52wSZ2Uc0egE7xLAaTMsq7kNtqVi5AcopCj8oycgRjtrCAgktm5lNVefPGRrF3AzCBi
+	EJzcNw70UCWj9ijZwZO8mecYSsw/20I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793194206;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
+	b=Pfvj/4IUnhBaGC3rOJuYYnvHJWbGlsw4oQr9Z6uxVKVb+noUK+iNaGhZ7KFB1kZMqC9m+b
+	WQDtLt4MDXAFB/Cg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793194206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
+	b=mRyYh38zGNqTdDzU2IBgubLvN6qxwLaC4yFWHklZIKqU26TyZ4oRQY7PAOrHeC8vFtNPfh
+	tcu52wSZ2Uc0egE7xLAaTMsq7kNtqVi5AcopCj8oycgRjtrCAgktm5lNVefPGRrF3AzCBi
+	EJzcNw70UCWj9ijZwZO8mecYSsw/20I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793194206;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2uDU7TgA2jvFg6264ATbsfhpdhHYSRjVLVOATZ2t540=;
+	b=Pfvj/4IUnhBaGC3rOJuYYnvHJWbGlsw4oQr9Z6uxVKVb+noUK+iNaGhZ7KFB1kZMqC9m+b
+	WQDtLt4MDXAFB/Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B299213419;
+	Wed, 28 Oct 2026 13:30:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id R8HKH9n44WrwOgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:30:01 +0000
+Date: Wed, 28 Oct 2026 13:30:00 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
 	stable@vger.kernel.org
-Subject: [PATCH] crypto: caam: jr: Use dedicated shutdown callback
-Date: Wed, 28 Oct 2026 10:28:25 -0300
-Message-ID: <20261028132825.657546-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH 17/46] mm/khugepaged: preserve dirty bits when collapsing
+ PTE-mapped THPs
+Message-ID: <auH4sb2pq-LpAUI3@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-17-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,66 +135,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-17-6f74bec9a5bb@kernel.org>
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[65];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Fabio Estevam <festevam@nabladev.com>
+On Tue, Oct 27, 2026 at 12:17:37AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
+> bits to the folio. A shmem read fault can map a clean folio writable, so
+> a later store only dirties the PTE. Losing that dirty bit allows reclaim
+> to discard modified data.
+> 
+> The assumption that regular files are read-only is also obsolete since
+> commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
+> for writable files"). In any case, transferring PTE dirty bits to the folio
+> when removing mappings (and while the folio is still mapped) is the right
+> thing to do.
+> 
+> Use get_and_clear_ptes() to collect the dirty bits and mark the folio
+> dirty before unmapping it. Update the comment.
+> 
+> This was reproduced with shmem using MADV_COLLAPSE followed by
+> MADV_PAGEOUT.
+> 
+> Fix generated by an LLM and sent by Chris Mason in private.
+> 
+> Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
+> Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: adjust comment; simplify description; cover file-thp as well ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-The CAAM job ring platform driver uses caam_jr_remove() as its
-shutdown callback.
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-The remove path refuses to shut down a job ring while crypto
-consumers still hold references to it. This is necessary during
-driver unbinding, but causes the following warning on reboot:
-
-caam_jr 30903000.jr: Device is busy; consumers might start to crash
-
-Unlike driver removal, system shutdown does not require
-unregistering crypto algorithms or releasing driver resources.
-
-Introduce a dedicated platform shutdown callback that shuts down
-the hardware job ring without checking consumer references.
-
-Keep the reference checks and algorithm unregistration in the
-remove path.
-
-Tested on a i.MX8MP custom-board.
-
-Cc: stable@vger.kernel.org 
-Fixes: c007e720989e ("crypto: caam/jr - add .shutdown hook")
-Signed-off-by: Fabio Estevam <festevam@nabladev.com>
----
- drivers/crypto/caam/jr.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/crypto/caam/jr.c b/drivers/crypto/caam/jr.c
-index cf725a6ac0fb..75be668b74b8 100644
---- a/drivers/crypto/caam/jr.c
-+++ b/drivers/crypto/caam/jr.c
-@@ -178,6 +178,15 @@ static int caam_jr_shutdown(struct device *dev)
- 	return ret;
- }
- 
-+static void caam_jr_platform_shutdown(struct platform_device *pdev)
-+{
-+	int ret;
-+
-+	ret = caam_jr_shutdown(&pdev->dev);
-+	if (ret)
-+		dev_err(&pdev->dev, "Failed to shut down job ring: %d\n", ret);
-+}
-+
- static void caam_jr_remove(struct platform_device *pdev)
- {
- 	int ret;
-@@ -812,7 +821,7 @@ static struct platform_driver caam_jr_driver = {
- 	},
- 	.probe       = caam_jr_probe,
- 	.remove      = caam_jr_remove,
--	.shutdown    = caam_jr_remove,
-+	.shutdown    = caam_jr_platform_shutdown,
- };
- 
- static int __init jr_driver_init(void)
 -- 
-2.43.0
-
+Pedro
