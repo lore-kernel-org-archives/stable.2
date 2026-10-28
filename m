@@ -1,48 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.210.215.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793166345;
-	b=rX47+CxJL1SysTtKIReKjBRL7CZE/rrBFzTr9SeAnpz3OMFeJSgmXf52rWTit568Zfbn
-	 5DF0SnrZKTcCTggNXbsG9Qzwys7Q+qxcPMLAEdn7sGs6bDkWOsiBcNN9kfKtBNRJdbcqt
-	 Hr2JIaFNCjZ2Ntzk2/q8H3e80h7H2K/7gBA/fd5ESuPn999Upe8y7w+/L25eRVu+hmz9r
-	 L+E7XDXAHOTmhVypjT1DiL1jZvF51/7yXK99jZrgX9/6YxcEQAJ1Ms2AMO3+4/+/1ERK2
-	 5JrmS3E8k4PTei9NyaReJubJVWpS0TVS1M9WbUCEGH14YQiScOcAZOMoRjQzDK0Zrag==
+	t=1793166792;
+	b=JEvmDHb01+RPkCQOaWmqheqmsbV3+gDxzMZeXnt0VvCDlFYi7+P3GYiD03/ImklUq2Nl
+	 w5C6ycgyH+hnnLuQPkoUSLaGZHHi22GMgMWnUX7h5EF6iKvQ0oUQ2dtwREG86Puk+BaPs
+	 JoLn+/UURmzDti/sVfP8s6eYWXLNf+TGnZXzWdLd8cBo5PGqLkhktyRvClK7SFQNOhiYV
+	 BgKb9eJlme/L450uTwhqdfs8zEjdEMcPemL5N+/VBKv0XMSZzV6ZNeaU5nRCRStU3CHg7
+	 MQ1T+v1CIvc9jmgEjLlbXA3TXxXmbm2Fo372CCSuh83krbevSxNtbPr4ongaUX/IjEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166345;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=G8t8K0BNcBywklR1jfvKhkc/aMcOv846axN2KeVHWag=;
-	b=LXT0esvkc70n1RAnfrqiMPzXoJy+sxOY6m+EDZE1eJqMCBbIb/MROzBMFKB8BjnzWSAm
-	 2zsGStUIaxdu/MmLlEfFyQYQ88WCINNi0e70kfoYFh9EXhP4CxX1Y601e5QNDt8sCE+Fa
-	 y2gQVfCRsXThcklms47w41HSitltdhYpecPJho6Lota8Bu6oEeeF+3JtMAciUn3ESHbcs
-	 9Ir6iCvARLyTliVI411/UJD2vyBqOsBzH+VDVLEG32tF37duU7bfEAfdMPmg6C4k/lxu1
-	 mDxtbsOZ/UAlEHSJq0hoAzHS+BTtYlHzRtPe9srYj4l3X/wDQhdZI/XT54BCSL9FzZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166792;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:Sender:X-CM-SenderInfo;
+	bh=gS2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=;
+	b=B9qpSDdKbmrjqqz7te8IpHo4z4Jcimd972Fsb1n+rhEdZtS84lgFQlTnUswVH8aupxFK
+	 iESHrXtFhygoZGZj1cwUJno4j1TyRLQqUasNpyEgCf650bzam6Xf4Cd4QqddNiloHMJBY
+	 EewIArxKNoIVEiL4JRvCiZBCiDYuV6lvvSOw5iYEA7vowkc1OVEBhxO0iRpKKxk+ZMY2Y
+	 Um+/MzRVk1Cgnnwf/ihn7/EpGBMAZ6G42d5BcViCQZ1px16C2/Pc390L2QpXYVbrnzR7d
+	 uCeznd1naC+NmX4exK8svS5op6W0zQCQHwBQKFGeb5OX/TkYfumE5byX1/V/0D4h+Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=miraclelinux.com;
-	spf=pass smtp.mailfrom=miraclelinux.com;
-	arc=none smtp.remote-ip=202.210.215.66
-Received: from smtp.priv.miraclelinux.com (202x210x215x66.ap202.ftth.ucom.ne.jp [202.210.215.66])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BmsbE5kc;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BB3606A31F
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BB3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miraclelinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraclelinux.com
-Received: from iot-shnota-vm.. (iot-shnota-vm.priv.miraclelinux.com [10.2.1.238])
-	by smtp.priv.miraclelinux.com (Postfix) with ESMTP id 08F00140088;
-	Wed, 28 Oct 2026 14:45:34 +0900 (JST)
-From: Shun Ota <shun.ota@miraclelinux.com>
-To: stable@vger.kernel.org
-Cc: Liu Jian <liujian56@huawei.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@amazon.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Shun Ota <shun.ota@miraclelinux.com>
-Subject: [PATCH 6.1.y] sunrpc: fix one UAF issue caused by sunrpc kernel tcp socket
-Date: Wed, 28 Oct 2026 14:45:05 +0900
-Message-ID: <20261028054505.146963-1-shun.ota@miraclelinux.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AAD606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0AAD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BmsbE5kc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=gS
+	2AMFJs3oFtyBSm2RKJOJAdZEycyNVD9u0HcQSd0n4=; b=BmsbE5kcGELYv3Bkyy
+	vUDYgsNW5SkTJNtQaeHmzfFXvzFFLaiSHo9v2wvLOc44SvbnFTKiVv4LY6uK6Thz
+	Rhg4TMZa4EZ6C3Iol0WfNfTFh9kH37Aa1mF/JU+Vxsf7p/W8pS3m9YW0M4Fsjlki
+	yYttu9212uMcR7s7jbqJOp2AU=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3f_W9jeFqH9PUDA--.19060S2;
+	Wed, 28 Oct 2026 13:53:02 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: yangyongxin@kylinos.cn
+Cc: stable@vger.kernel.org
+Subject: [PATCH] cxl/core: Create einj_types when EINJ becomes available
+Date: Wed, 28 Oct 2026 13:52:57 +0800
+Message-Id: <20261028055257.1625148-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,168 +59,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f_W9jeFqH9PUDA--.19060S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAry7Cry8KrW5GF1UGry7GFg_yoW5Cr47pa
+	1UGrn5Cr48Aay3Cr9xArWUX34S9rWkW3yDAryrW34ayanrCrn8tF1kJayY9a4DWFWUJryF
+	v3WYyr1DGw1xAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRiZ2hUUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-x6lQ2rhjb5pZgAA3w
 
-From: Liu Jian <liujian56@huawei.com>
+From: Yang Yongxin <yangyongxin@kylinos.cn>
 
-[ Upstream commit 3f23f96528e8fcf8619895c4c916c52653892ec1 ]
+The einj_types file under the CXL debugfs directory is never created.
 
-BUG: KASAN: slab-use-after-free in tcp_write_timer_handler+0x156/0x3e0
-Read of size 1 at addr ffff888111f322cd by task swapper/0/0
+cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
+from einj_init() at module_init level. When cxl_core_init() evaluates
+einj_cxl_is_initialized() the EINJ driver has not been initialized yet, so
+the value is always false and the debugfs_create_file("einj_types") call
+below it is never reached. Users have no way to discover which CXL error
+types the platform supports from debugfs.
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 6.12.0-rc4-dirty #7
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1
-Call Trace:
- <IRQ>
- dump_stack_lvl+0x68/0xa0
- print_address_description.constprop.0+0x2c/0x3d0
- print_report+0xb4/0x270
- kasan_report+0xbd/0xf0
- tcp_write_timer_handler+0x156/0x3e0
- tcp_write_timer+0x66/0x170
- call_timer_fn+0xfb/0x1d0
- __run_timers+0x3f8/0x480
- run_timer_softirq+0x9b/0x100
- handle_softirqs+0x153/0x390
- __irq_exit_rcu+0x103/0x120
- irq_exit_rcu+0xe/0x20
- sysvec_apic_timer_interrupt+0x76/0x90
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20
-RIP: 0010:default_idle+0xf/0x20
-Code: 4c 01 c7 4c 29 c2 e9 72 ff ff ff 90 90 90 90 90 90 90 90 90 90 90 90
- 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d 33 f8 25 00 fb f4 <fa> c3 cc cc cc
- cc 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90
-RSP: 0018:ffffffffa2007e28 EFLAGS: 00000242
-RAX: 00000000000f3b31 RBX: 1ffffffff4400fc7 RCX: ffffffffa09c3196
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff9f00590f
-RBP: 0000000000000000 R08: 0000000000000001 R09: ffffed102360835d
-R10: ffff88811b041aeb R11: 0000000000000001 R12: 0000000000000000
-R13: ffffffffa202d7c0 R14: 0000000000000000 R15: 00000000000147d0
- default_idle_call+0x6b/0xa0
- cpuidle_idle_call+0x1af/0x1f0
- do_idle+0xbc/0x130
- cpu_startup_entry+0x33/0x40
- rest_init+0x11f/0x210
- start_kernel+0x39a/0x420
- x86_64_start_reservations+0x18/0x30
- x86_64_start_kernel+0x97/0xa0
- common_startup_64+0x13e/0x141
- </TASK>
+Create the file lazily, from the first place where EINJ is known to be up.
+Note that this is a partial fix: if no injectable dport is ever added, the
+file still does not appear. Fixing the initcall ordering itself would
+require moving cxl_core_init() after EINJ is probed, which risks the CXL
+bus registration order, so it is left out of scope here.
 
-Allocated by task 595:
- kasan_save_stack+0x24/0x50
- kasan_save_track+0x14/0x30
- __kasan_slab_alloc+0x87/0x90
- kmem_cache_alloc_noprof+0x12b/0x3f0
- copy_net_ns+0x94/0x380
- create_new_namespaces+0x24c/0x500
- unshare_nsproxy_namespaces+0x75/0xf0
- ksys_unshare+0x24e/0x4f0
- __x64_sys_unshare+0x1f/0x30
- do_syscall_64+0x70/0x180
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-Freed by task 100:
- kasan_save_stack+0x24/0x50
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x54/0x70
- kmem_cache_free+0x156/0x5d0
- cleanup_net+0x5d3/0x670
- process_one_work+0x776/0xa90
- worker_thread+0x2e2/0x560
- kthread+0x1a8/0x1f0
- ret_from_fork+0x34/0x60
- ret_from_fork_asm+0x1a/0x30
-
-Reproduction script:
-
-mkdir -p /mnt/nfsshare
-mkdir -p /mnt/nfs/netns_1
-mkfs.ext4 /dev/sdb
-mount /dev/sdb /mnt/nfsshare
-systemctl restart nfs-server
-chmod 777 /mnt/nfsshare
-exportfs -i -o rw,no_root_squash *:/mnt/nfsshare
-
-ip netns add netns_1
-ip link add name veth_1_peer type veth peer veth_1
-ifconfig veth_1_peer 11.11.0.254 up
-ip link set veth_1 netns netns_1
-ip netns exec netns_1 ifconfig veth_1 11.11.0.1
-
-ip netns exec netns_1 /root/iptables -A OUTPUT -d 11.11.0.254 -p tcp \
-	--tcp-flags FIN FIN  -j DROP
-
-(note: In my environment, a DESTROY_CLIENTID operation is always sent
- immediately, breaking the nfs tcp connection.)
-ip netns exec netns_1 timeout -s 9 300 mount -t nfs -o proto=tcp,vers=4.1 \
-	11.11.0.254:/mnt/nfsshare /mnt/nfs/netns_1
-
-ip netns del netns_1
-
-The reason here is that the tcp socket in netns_1 (nfs side) has been
-shutdown and closed (done in xs_destroy), but the FIN message (with ack)
-is discarded, and the nfsd side keeps sending retransmission messages.
-As a result, when the tcp sock in netns_1 processes the received message,
-it sends the message (FIN message) in the sending queue, and the tcp timer
-is re-established. When the network namespace is deleted, the net structure
-accessed by tcp's timer handler function causes problems.
-
-To fix this problem, let's hold netns refcnt for the tcp kernel socket as
-done in other modules. This is an ugly hack which can easily be backported
-to earlier kernels. A proper fix which cleans up the interfaces will
-follow, but may not be so easy to backport.
-
-Fixes: 26abe14379f8 ("net: Modify sk_alloc to not reference count the netns of kernel sockets.")
-Signed-off-by: Liu Jian <liujian56@huawei.com>
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-[ In 6.1, sk_alloc does not create the non-refcounted netns tracker
-  released by __netns_tracker_free(..., false), so omit that call. ]
-Signed-off-by: Shun Ota <shun.ota@miraclelinux.com>
+Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
 ---
-Attempted to reproduce the crash using the reproduction script from the
-original commit, but could not trigger the UAF in my 6.1.y environment.
-Build-tested only (x86_64).
+ drivers/cxl/core/port.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
- net/sunrpc/svcsock.c  | 3 +++
- net/sunrpc/xprtsock.c | 6 ++++++
- 2 files changed, 9 insertions(+)
-
-diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
-index 23b4c728de59..69d40d0980cf 100644
---- a/net/sunrpc/svcsock.c
-+++ b/net/sunrpc/svcsock.c
-@@ -1457,6 +1457,9 @@ static struct svc_xprt *svc_create_socket(struct svc_serv *serv,
- 	newlen = error;
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index 625e4aa427db..7de08063469f 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -802,6 +802,27 @@ static int cxl_dport_setup_regs(struct device *host, struct cxl_dport *dport,
  
- 	if (protocol == IPPROTO_TCP) {
-+		sock->sk->sk_net_refcnt = 1;
-+		get_net_track(net, &sock->sk->ns_tracker, GFP_KERNEL);
-+		sock_inuse_add(net, 1);
- 		if ((error = kernel_listen(sock, 64)) < 0)
- 			goto bummer;
- 	}
-diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
-index b9dc8e197dde..74689050038a 100644
---- a/net/sunrpc/xprtsock.c
-+++ b/net/sunrpc/xprtsock.c
-@@ -1855,6 +1855,12 @@ static struct socket *xs_create_sock(struct rpc_xprt *xprt,
- 		goto out;
- 	}
+ DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
  
-+	if (protocol == IPPROTO_TCP) {
-+		sock->sk->sk_net_refcnt = 1;
-+		get_net_track(xprt->xprt_net, &sock->sk->ns_tracker, GFP_KERNEL);
-+		sock_inuse_add(xprt->xprt_net, 1);
-+	}
++static struct dentry *cxl_debugfs;
++static struct dentry *einj_types_dentry;
 +
- 	filp = sock_alloc_file(sock, O_NONBLOCK, NULL);
- 	if (IS_ERR(filp))
- 		return ERR_CAST(filp);
++/*
++ * einj_types cannot be created from cxl_core_init(): that runs at
++ * subsys_initcall level, before einj_init() has set einj_initialized.
++ * Create it lazily, from the first place where EINJ is known to be up.
++ */
++static void cxl_einj_debugfs_add_types(void)
++{
++	if (einj_types_dentry)
++		return;
++
++	if (!einj_cxl_is_initialized())
++		return;
++
++	einj_types_dentry = debugfs_create_file("einj_types", 0400, cxl_debugfs,
++						NULL,
++						&einj_cxl_available_error_type_fops);
++}
++
+ static int cxl_einj_inject(void *data, u64 type)
+ {
+ 	struct cxl_dport *dport = data;
+@@ -819,6 +840,8 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
+ 	struct cxl_port *parent = parent_port_of(dport->port);
+ 	struct dentry *dir;
+ 
++	cxl_einj_debugfs_add_types();
++
+ 	if (!einj_cxl_is_initialized())
+ 		return;
+ 
+@@ -2501,8 +2524,6 @@ const struct bus_type cxl_bus_type = {
+ };
+ EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
+ 
+-static struct dentry *cxl_debugfs;
+-
+ struct dentry *cxl_debugfs_create_dir(const char *dir)
+ {
+ 	return debugfs_create_dir(dir, cxl_debugfs);
+@@ -2515,10 +2536,6 @@ static __init int cxl_core_init(void)
+ 
+ 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
+ 
+-	if (einj_cxl_is_initialized())
+-		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
+-				    &einj_cxl_available_error_type_fops);
+-
+ 	cxl_mbox_init();
+ 
+ 	rc = cxl_memdev_init();
 -- 
-2.43.0
+2.25.1
 
