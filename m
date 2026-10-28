@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202170;
-	b=uA6Uo1rLXdS9CM5QcleRKoIcQ/PLdwtViIEwjsw0WThDhoDwEL9EDW5jhnMbbnXXXCe6
-	 9M1KnEf/df4SKgrP2inFufKEWEgpJAR7Fap4c4Mzsrb/+5Nujf0CCtopg5fy+k25p0kgB
-	 xlwxel9mLyGEmgZ1nKHI4UFFHCRrteOFhJ2M3B6UGUJHtJ75IQHfDGdhToNLciikC7l2+
-	 sHpxLNyqEy55rJTWcItC93CtexdxPzO9wfKTgYHsgPIo7UlM9I5lghMzwFtrLJZGXzPoM
-	 6DshE+4qvqV69qopoQBnnbmqhDwU7KcL8cepg0ay34GfnVhs8dZgklrw6dd+eNu3Ijg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202170;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=laIB3FyK7mnPgkdSTmIIOXUp7l8bl3ekGNuGdqFlOuU=;
-	b=1ejr+rEF0I5ZZogo/eKbKcrsU0zXl6iqamiwViu1BJCVfoIxjreoCpSkzHYCt79uN2Dl
-	 I8Cm/AuEMQKVMXgfAx3BUi/VmqjXRlLG0/y1dsNdCw5OEyJtDMRcIxtOpIzKAc7dZ4yi7
-	 5U3XrZaFizcWzsAblt0bfq26mS2jhHqXEMOsz/MdGMVjtObVEAjTDs++lRBUGg8qLRCOh
-	 AfI7/FIXv5ZdgFsrr20qpnalR7iMhR1FZAjkaTnrk01pvzhtEfNlo1uZdGLr85Rv3foVT
-	 bVQfd8ceEuN9RfTQHz49zH55XyOnASmEpl/VIFiAwA0NXMDt+XlT620YMART9oNqxgQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=nkmMZXJf;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793202201;
+	b=XL/69ZVPRNsMnvtfq5SZyrHlfjOjeF/UzNQSFjuYev1UAkGo4WpQ8vT+B08RkdvQGjN3
+	 BiTzvCzvSo83JdHoWHeLxAgoQ0aXl22LEt8tQXIa7C9QvbTVhULP/bC5NJcb/M0YDU0S1
+	 P0RgzHVljcPt7TCiBlffemi5Y7ARYqvKs2WfGrCaRxdXorV/xCQFkfYar1G4CrPirQFAo
+	 /KK8j6BOZJkoNHtPjKo9bwjvUXkm4PWR8inP0uXBjJ1NFR72ffLzQA6bkmkhUZ0BCwVZU
+	 vLySuPmZFTNr1pU1vSrcoe7tezZOiGpO59xCyqdzaPw3o7zvBix2dB7/1zJyWb2qBdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202201;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=dVyo0oflSI5I95og9CttAPWdFzUAxu6w0ea9EU03XNI=;
+	b=b+V9slAkVuiKdI/E1vJVplxHAv4nZO7Uv3dMbC4OsRHJcizU+G6jnDlU5DDQYlO+OJQ/
+	 u8z0HJR5SXQM16Jk8d7YVvsoFaqsD+dM/FGt+YhfTAerSIw+rEPwLRHOpslfvmb8/C4bn
+	 0I0DUtTme/MFMKeXSObFfMniNlMksFl+f9VNBAwricPpyODl4+wac3niLU7UlECOjaXFJ
+	 crFZvaKgsHwgSmtePdBZ5TRvb0QjALiUlnGtG+LCwbSLm6cXTDS64aNMh8iDSShPIgUK0
+	 /zfzU7mdPoiOSLwMDAT6zChApctV+DyCG8aanugiKpAZWMjaGz5G4k1t0ZNDUiGUprw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kYzroclk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A356606A31C;
+	Wed, 28 Oct 2026 15:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kYzroclk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793202200;
+	b=OFHRwNeGbmaivyCowhc1zEB0TrVQxWAZWXyeuJy/QttxPPT+R0KbnduHoggrxHuUf/J0
+	 NW3aCNEDUBlL7wQzSs2XX9sl+fs4WJRbW6D6bhjzZUtMk7ejDkkN2uEoGmXPaMKwTln/+
+	 yVrDBvmu2XOcvVh7lX6Mq8FcK7sjwKV/mvYoeQfrC2S8kdWfpza5tyXPs+wGFF+AJouBg
+	 iHYvqw+A6NP1zHQ4F1atSEdDP6f581JM9Ht0k1SKb1dk4KA9FFy8lQUVGCVQJHOCakdaw
+	 mrHfais5uPFXDufx7jeRaMRUfTEZvR5BkGNqGOJupUBEXK3tpKgsw+USJ338BfM8WOg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793202200;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=dVyo0oflSI5I95og9CttAPWdFzUAxu6w0ea9EU03XNI=;
+	b=hmhqHaPMm0SUBtJvzFHhf+fvsUn/+RBcDXJvi+NBOxChRlsPP1XP9pAIi5evsCcBiH+x
+	 Tugqjo8mFbCztzTz3csjc0nue3cEu+RSZ++6u7KCMzN8kH2RkLlbSH8eqlnlM1Vci+sAd
+	 VDnc+CPMiSULSe5SFLGKkoFjJGMMZqCGPkY4p6Tv7sA8lpEvOzlVosB/KUEipulapAHjt
+	 BYo/N1mTBBiFHu9XmDgrnbmTbzaMVidtPhQLZCsKGH0NncZZKo69jzbLYH6B29JHtrpBc
+	 8wkOS1gAl4U4CCAAXZi6uG/e8L7/ND27ZVfy9SfBSs3Os7KbCOggjW53hEBhwE8dsgQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F7C606A323;
-	Wed, 28 Oct 2026 15:42:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F7C606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=nkmMZXJf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=laIB3FyK7mnPgkdSTmIIOXUp7l8bl3ekGNuGdqFlOuU=; b=nkmMZXJfeGqa7UScd2rHUQdC+A
-	dsV0cxZYlPh1r37Yh6z4vUoKYuinfS+v/XHrjmBV7mEZo4VeAzSz/TsOjw62Wn7wXMX3KhU3cEDX5
-	hZWyvcOirsc/PgH4DmrxNkhFOqShkMGDGO7RszWaDIVl6kCdkO6gvZIf6ZEJyZwXmwFitw5o4jm77
-	bFEN//pS/GhetmM5UMMKQFYnhrG5TJ14Xa0zJt/7rtq8AP/OgPPJU6v+FpaPWnRmtR8rhHQ8sMGt3
-	xb+C/W5TwSGBfVGmxLGp+0vU9g+JCd7533QORT3HzIcEjcMWzGE7rBsf01364yRKvXO/ruZWWT5Z2
-	fZDQfB4g==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xM5nc-00000007Qqk-3bP3;
-	Wed, 28 Oct 2026 15:42:49 +0000
-From: "Liam R. Howlett (Google)" <liam@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>,
-	stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>
-Subject: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Date: Wed, 28 Oct 2026 11:42:18 -0400
-Message-ID: <20261028154218.1668182-5-liam@infradead.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028154218.1668182-1-liam@infradead.org>
-References: <20261028154218.1668182-1-liam@infradead.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 14A251F01825;
+	Wed, 28 Oct 2026 15:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793202200;
+	bh=dVyo0oflSI5I95og9CttAPWdFzUAxu6w0ea9EU03XNI=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=kYzroclkeaKBXDQnM6MGPDG4l8EW82mBn6Sd+DgR9flAtdFtYTjEZ2YCcuySkS8je
+	 4J+UzLa79/K0PGrWumITzGM3ROPWdqoQekJ0SgBT80GqnrpffHTBaEUHc4R+G62XyB
+	 VS4YSlfKAT1w+tqNSEdoIF8xyFJ7yDaPSIeistUGBOGD7PM9I4BIBt8k4ZCB6p0WUR
+	 vN0gVDGypOorEJ5k5Jngq/SoFGsBrkf/UO9KOxlJc48ZiOmODgim+xVGyr5eM5Uee3
+	 uFBKkW5jrUt2JI6CtcTH+vafthJC9jwuIHsGYA6Evb+eN1lVp8JSoWnZI6uLWzCLcU
+	 bHweSbZ/ZNRww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6C11F454DD;
+	Wed, 28 Oct 2026 15:43:19 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Wed, 28 Oct 2026 11:43:19 -0400
+Subject: [PATCH] mm/hugetlb: clear the hugetlb flag before leaking a
+ hwpoisoned folio
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,141 +83,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261028-hugetlb-hwpoison-leak-v1-1-77ce56002523@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDtgfhDpVUoXRkczKolktC2Id
+ 2/U5bd4bwehxCTwLHZI9GHhGDLUo4DWN2Eg5C4bdKkrVeoa/TbQOjv03yWyxIAzNRO6ujPWmkp
+ ZZSC3S6Kef9f39b4tmxupXc8ZHMcfructq3kAAAA=
+X-Change-ID: 20261028-hugetlb-hwpoison-leak-b8d344361413
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Wilcox <willy@infradead.org>, Jane Chu <jane.chu@oracle.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
+ stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793202199; l=3284;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=cR+00jv6nY1jeTNTofLkwvXHeYkHwgr3Q37wQeBJJMc=;
+ b=7irmncB/MpzPKA+QIZm3X8VvaXcSQlPwA5I1tfMDuVathOhu4bTIGXc1RMBaZ0+e8m0O4VpxI
+ n/xTBuSAbwMD8aRZrhG/rRQ2efGKNk1aNOuGkEjCtXgDCpu0FheUsHv
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-From: Chris Mason <mason@kernel.org>
+From: Mani Tofigh <mt4022@columbia.edu>
 
-An unprivileged user can deadlock two CPUs by filling the forwarding
-database (FDB) of a bridge in their own network namespace. A peer that
-floods a bridge port with frames from new source addresses can fill the
-FDB too. The flood alone was never seen to cause a deadlock. Together
-with local tasks that call vmalloc() in a loop on the CPU that receives
-the frames, it can deadlock that CPU. Other CPUs that call vmalloc() or
-vfree() after that can hang too.
+If hugetlb_update_hwpoison() fails to allocate a raw_hwp_page, the folio
+is marked raw_hwp_unreliable and __update_and_free_hugetlb_folio() leaks
+it intentionally.  With hugetlb_free_vmemmap=on, it's leaked before the
+hugetlb flag is cleared, since commit 32c877191e02 ("hugetlb: do not
+clear hugetlb dtor until allocating vmemmap") doesn't remove the flag
+until the vmemmap is restored.  The leaked folio is then a hugetlb folio
+with refcount 0 and on no list (the same state as a hugetlb folio that
+is being freed), but nothing is freeing it, and
+dissolve_free_hugetlb_folio() keeps retrying on it.  Offlining its
+memory block then never completes:
 
-The FDB holds the MAC addresses that the bridge knows. It is an
-rhashtable, a hash table that grows as it fills.
+  [    3.271255] Memory failure: 0x20007: recovery action for free huge page: Failed
+  [   41.729695] INFO: task hugeoffline:77 blocked for more than 20 seconds.
+  ...
+  [   41.733014]  get_online_mems+0xc1/0xd0
+  [   41.733026]  soft_offline_page+0xfd/0x9b0
 
-An rhashtable normally grows from a worker. If an insert finds the table
-too full before the worker has run, rhashtable_insert_rehash() allocates
-the larger table immediately, with GFP_ATOMIC, in the context of the
-insert. bucket_table_alloc() uses kvmalloc() for that.
+alloc_and_dissolve_hugetlb_folio() loops on it the same way.
 
-kvmalloc() tries kmalloc() first. Since v6.19, if kmalloc() fails, it
-falls back to vmalloc() for non-blocking GFP flags too, and kmalloc()
-always fails above KMALLOC_MAX_SIZE.
+Check raw_hwp_unreliable after the hugetlb flag is cleared so that the
+folio is leaked as a non-hugetlb folio, as without vmemmap
+optimization.  With the fix, no task hangs.
 
-vmalloc() and vfree() take their spinlocks with bottom halves enabled.
-Such a lock must not be taken in a softirq, or while holding a lock that
-a softirq takes. In the bridge, an insert that falls back to vmalloc()
-breaks the second rule: the bridge inserts into its FDB under
-br->hash_lock, and its receive softirq takes br->hash_lock as well.
+This bug was identified and confirmed with the help of fault-injection
+testing on a deterministic hypervisor currently under development.  The
+C reproducer below however chains the specific events that trigger it.
 
-Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
-while another CPU is inside vmalloc() or vfree():
-
-    RTM_NEWNEIGH                      vmalloc() or vfree()
-    ============                      ====================
-    spin_lock_bh(&br->hash_lock)
-                                      spin_lock(&vn->busy.lock)
-    rhashtable_insert_rehash()
-      kvmalloc(GFP_ATOMIC)
-        vmalloc()
-          spin_lock(&vn->busy.lock)
-            waits for the other CPU
-                                      softirq: a frame for the bridge
-                                        spin_lock(&br->hash_lock)
-                                          waits for RTM_NEWNEIGH
-
-The receive softirq also inserts into the FDB itself: on a learning
-port, br_fdb_update() adds the source address of a frame if the FDB does
-not have it yet. If that insert falls back to vmalloc(), it breaks the
-first rule. The CPU then deadlocks with itself if the softirq has
-interrupted a task that holds the same vmalloc lock.
-
-Reproduced on x86-64 under emulation, with three things going on at the
-same time:
-
-- RTM_NEWNEIGH requests filled an FDB past 262,144 entries, where the
-  next table is too large for kmalloc() on x86-64.
-- Frames arrived on a veth port.
-- Tasks called vmalloc() in a loop.
-
-Two CPUs ended up spinning on each other's lock.
-
-The softirq path was reproduced too, on x86-64 under emulation and with
-RPS set by root. Repeated floods of 280,000 source addresses on a veth
-port, while tasks called vmalloc() in a loop on the CPU that received
-the frames, ended in a soft lockup in alloc_vmap_area() in 6 of 6 boots.
-Without these tasks, on a kernel with no debug options, none of 33
-floods reached vmalloc().
-
-Fix this by calling kmalloc() instead of kvmalloc() in
-bucket_table_alloc() if the GFP flags do not allow blocking.
-
-Known gaps:
-- By code inspection, bpf_iter_tcp_realloc_batch() and the dm-bufio
-  clients that set no_sleep also call a non-blocking vmalloc() under
-  spin_lock_bh(), and can still deadlock in the same way. The later
-  commit "mm/vmalloc: fix deadlock in softirq and BH-off callers" fixes
-  them.
-- If kmalloc() fails, the atomic rehash falls back to a nested table, as
-  before v6.19. A nested table is built from single pages, so it needs
-  no large allocation. An insert then fails in two cases. If the nested
-  table cannot get a page, the insert fails with -ENOMEM or -EBUSY. If
-  the new table has 512 buckets, that is too few for a nested table, and
-  the insert fails with -ENOMEM.
-- A lookup in a nested table follows up to three more pointers until the
-  worker has rehashed once more.
-
-Changes from the LLM patch:
-
-Dropped the __GFP_NOWARN from the kmalloc_noprof() when
-gfpflags_allow_blocking() is false since the only non-blocking caller
-already sets the flag.
-
-Tried to make the alloc_hooks_tag() multi-line call more readable
-(whitespace changes only).
-
-Cc: <stable@vger.kernel.org>
-Fixes: c6307674ed82 ("mm: kvmalloc: add non-blocking support for vmalloc")
-Assisted-by: LLM
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+Fixes: 32c877191e02 ("hugetlb: do not clear hugetlb dtor until allocating vmemmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- lib/rhashtable.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+This changes the same lines as patch 07/15 of Matthew's "Use
+generic_file_read_iter() in hugetlbfs" series [1].  On top of that
+series, the check goes right after the folio_clear_hugetlb() call.
 
-diff --git a/lib/rhashtable.c b/lib/rhashtable.c
-index 6362896e4f099..f8ec85bc6e8af 100644
---- a/lib/rhashtable.c
-+++ b/lib/rhashtable.c
-@@ -193,9 +193,21 @@ static struct bucket_table *bucket_table_alloc(struct rhashtable *ht,
- 	int i;
- 	static struct lock_class_key __key;
+[1] https://lore.kernel.org/all/20260805210557.1118966-8-willy@infradead.org/
+
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/hugeoffline.c
+---
+ mm/hugetlb.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4a008afaedf9..4d6b7ab49502 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1472,13 +1472,6 @@ static void __update_and_free_hugetlb_folio(struct hstate *h,
+ 		return;
+ 	}
  
--	tbl = alloc_hooks_tag(ht->alloc_tag,
--			kvmalloc_node_align_noprof(struct_size(tbl, buckets, nbuckets),
--					     1, gfp|__GFP_ZERO, NUMA_NO_NODE));
+-	/*
+-	 * If we don't know which subpages are hwpoisoned, we can't free
+-	 * the hugepage, so it's leaked intentionally.
+-	 */
+-	if (folio_test_hugetlb_raw_hwp_unreliable(folio))
+-		return;
+-
+ 	/*
+ 	 * If folio is not vmemmap optimized (!clear_flag), then the folio
+ 	 * is no longer identified as a hugetlb page.  hugetlb_vmemmap_restore_folio
+@@ -1506,6 +1499,14 @@ static void __update_and_free_hugetlb_folio(struct hstate *h,
+ 		spin_unlock_irq(&hugetlb_lock);
+ 	}
+ 
 +	/*
-+	 * vmalloc() takes locks that are not safe against interrupts, and the
-+	 * emergency rehash runs in whatever context the insert runs in. So a
-+	 * caller that cannot block gets slab memory, or else a nested table.
++	 * If we don't know which subpages are hwpoisoned, we can't free
++	 * the hugepage, so it's leaked intentionally, but only once it is
++	 * no longer a hugetlb folio.
 +	 */
-+	if (gfpflags_allow_blocking(gfp))
-+		tbl = alloc_hooks_tag(ht->alloc_tag,
-+				      kvmalloc_node_align_noprof(
-+					struct_size(tbl, buckets, nbuckets),
-+					1, gfp | __GFP_ZERO, NUMA_NO_NODE));
-+	else
-+		tbl = alloc_hooks_tag(ht->alloc_tag,
-+				      kmalloc_noprof(
-+					struct_size(tbl, buckets, nbuckets),
-+					gfp | __GFP_ZERO));
- 
- 	size = nbuckets;
- 
--- 
-2.47.3
++	if (folio_test_hugetlb_raw_hwp_unreliable(folio))
++		return;
++
+ 	/*
+ 	 * Move PageHWPoison flag from head page to the raw error pages,
+ 	 * which makes any healthy subpages reusable.
+
+---
+base-commit: bae9a042b03b27924c6fd5bdc00a20d6a44d6041
+change-id: 20261028-hugetlb-hwpoison-leak-b8d344361413
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
