@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211121;
-	b=uiHLl1CgoHx/T9lhiLppYWBfUUcbBogYCkdMxa+vHdPW69Q+flApULUXv0ua5hOCWdF2
-	 ROpjguxJdYW+NRrOZ0FpNj4+EPLQHtv6QoJVRuNQQnPEW7Z0rsyokNtG660Dizc9GK64w
-	 SkY1QLVyYzJ4/+E7X8P8cYhYuXOLpX630WDSmKDQ2wi8Pef7Xhg5T9S9PreIR+y0LEk1Q
-	 xK9LhH2XEXrAXxbWa7IRIJRCI2evp2/tfNPxamRUkKx2VRDft65OQtMu8Nu+3hlS3A/kO
-	 35PVeZ6F0Up4E4Cjql/K0TyIxLEi8+KVejT9szd2Nc5jrGUIYgDpv+jNo1KSx9OnGTA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211121;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4exrs0XwAEfiDoBvjBBUHisZ+ZV5dRYbl3lOwMI2G0E=;
-	b=wmbT6+PC3/rwV3iY//enoC4IQ8KqMWdJYxHExDrDgxXYiSmH7N0QJSgSyMQVJDh1cDf7
-	 1jv+UG0yISem6xspOe4K+R+zul82k159tKJMrcIxfapmjeG+89ZQjgaKNB+t5B6Bk0fdx
-	 YRH5Hqdw5FiCwOat8p+IZxWACgRzqvOQzqV4+opNV2pmGJbkvKilla7rdwGaRW8BU9eAi
-	 nn1FYGb3JHd+2n1QiUk5JiKGLR5sIkBA/AD/hmLA0vP3hUdTtu+T42V4RJk/bNmSTgWsh
-	 88xeohRc51iM8fPmh3/KD4UO2ZYZzisHRAV5LzuB46FbO1yW6yESFVlnHFD/QzYbGfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VeLs+yzz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=79.135.107.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793211123;
+	b=4iKzyOxZ3QxzwyMDKettGId0c0KlmNFdqT4Lb/c9HQOppUpOSyUrE87jN6nmNvL4dHnT
+	 40UN84v5+sODE0KUkp/6E8g7+PvHGEp3R8Lh97G3CYb0vNWOipJtSrR/exT6W1Y5CF8hD
+	 hwnIMYjKqKelzJcV9JJL6O3Z3Yb+B7YA/SzMUoSqrQqC6jqfIflkCgbfTQyU2oiIetHgG
+	 Y195NtILHUjqMl1zhZen5D6qA4rxzd1g2Vv+a5YjgJeVZJmQnVFNzHFUO6SbuPsj1KlmU
+	 qVvTETvg75Ip5ynbN1FfmjvS7oMhJNS6PfMUkuD/9nYFczzu433DmIKtvkUQ+UuvtDQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211123;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=gcTBoDoZodNeEIG1NJv/Cf9hQ2tDZQXR8IELFFZ5LJg=;
+	b=vnR/ina+B8BLKTww2iHwO5FZKfk7f90bxC2vvl0JnFWQEMWb6VpFIFlozq83ccO333a5
+	 QFFwtueH0YDMvIHCsdbBf53lWQyIR2e+s59e5vpqXkPuZlsvvGPjO0iMB23c+X3xaZGVy
+	 K+2lmHfaSEcs9zWLO/023q7HNH+8hO8EcQ66uoSDnUMLo7Gd1WYKOYTkXmOSwAEXBg1sR
+	 7qQfQ2WNlUM7kWK5zswc8RUOnBNOFf4AxhUgiCAe4/qC2cj1FO4K3KIGEmJGq9yVKMvDH
+	 h1I1EojwuIqvDQdx1izOv4V2TyDPyLz77rU1rrLeL2Tz2L9+AjCpKa8WZai48/JAFgQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=nMYwWowe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=79.135.107.169
+Received: from mail-107169.simplelogin.co (mail-107169.simplelogin.co [79.135.107.169])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8277360A6F4C;
-	Wed, 28 Oct 2026 18:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6C760A6F55
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6C760A6F55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VeLs+yzz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93A31F01828;
-	Wed, 28 Oct 2026 18:11:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211120;
-	bh=4exrs0XwAEfiDoBvjBBUHisZ+ZV5dRYbl3lOwMI2G0E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VeLs+yzzMOctDPhIK7URa6l9jMDCiixrM2syclpPpYNrBrKQwuocHYTbiLTSw6PqQ
-	 4pj/pCxK9UyWEZggLgZIb5BpcTxHwc2OdJ+3AbQXRBaIkjvTuIS4XT0jPx+JlyyUPM
-	 d6MP4mzJZPaouABr6JjRbwXyykt6KE8NEvzB2IWc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Simon Liebold <simonlie@amazon.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 264/571] Revert "scsi: sd: sd_zbc: Use logical blocks as unit when querying zones"
-Date: Wed, 28 Oct 2026 17:56:51 +0100
-Message-ID: <20261028170014.267491845@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-References: <20261028170008.009143722@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=nMYwWowe
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793211121;
+	cv=none; b=BzG0lB8P4zva5dAFDcBP+oC74Bj5FI4S0vz8Exbm9fognNCIp0i44ovzsAMrbyegfCjprDKnWYcG2OgEYb+ipD8ITje4d+lktTWXMZJGozgnXfIV6HBtBg2/DA35FDyz5c8ZQDpgirojpgtGlvWtZzG15JD6fYO6cpYILhsL+96CpfaJUpSyQhM10ZNx+Fg4paMchKrTh2c5GVuH14Y4xpWZHI5p/vww7xuG0l9Pw8DSPeMkFpZLwCOnucTM3S+EPlFsbuO0vxVMWCUc3lXgJCH7zWe46539gN0ym8BWgqBgxm9isE6i/OqWbOaWaC0VgQImbSqIzFHnqsbwY2AnDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793211121; c=relaxed/simple;
+	bh=gcTBoDoZodNeEIG1NJv/Cf9hQ2tDZQXR8IELFFZ5LJg=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=2EiSOJHJF7wPWN19/b2/NO73fwlhIlaarJDH7BZKyCThGF92u+rV6qjDWW69mgiU8FMMUy7xR4QpMDBe0rI66getPwTvVHhe5MBO0qGrSUgWlQCrX5ci9u18mDBPM3p5ejBqMDsbT9uIwNvChoCtIdeIK/Tw1B+sEHQqY+Zgd1Pf6LV2af9A7UQW/aFub2HfoNpdwmc/McDm7YoRnErHm6vzVZucvRCl9ArqPkBpa7LQTuvycQgNtrTonghocu0FJJAvyCAXi5fzamvvDB80+8f2XNxUp1KD2YCMBIB+1agnTcBdE0FQs5VCkkbhopUNNRLiIvAR18/VYicvsJ/RaA==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1793211121;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gcTBoDoZodNeEIG1NJv/Cf9hQ2tDZQXR8IELFFZ5LJg=;
+	b=nMYwWoweV5C8iF5Ujdap//+3tlKAtTL3Ld/Aor3RClh5/JuBn9vLAlyJvlRwRakfL8F7lu
+	Gjal9LiExFhPSVT3KwMngG5iyA1JXh9tt+5OuQq10b+0wzV9sVMcJuzWdpw7f62Jsw6sgl
+	goPdLFeotMzo+1OkshnM8VriX+aYAxw=
+Date: Wed, 28 Oct 2026 18:11:53 +0000
+Subject: Re: [PATCH net] vsock/virtio: clear vqs[] to avoid a UAF on a failed
+ PM restore
+In-Reply-To: <179122121054.434549.15763347362425052652@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,111 +64,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: netdev-bot+sashiko@kernel.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,Jason Wang
+ <jasowangio@gmail.com>,=?utf-8?q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>,Xuan Zhuo <xuanzhuo@linux.alibaba.com>,Stefan Hajnoczi
+ <stefanha@redhat.com>,Stefano Garzarella <sgarzare@redhat.com>,"David S.
+ Miller" <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub
+ Kicinski <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
+ <horms@kernel.org>,kvm@vger.kernel.org,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179321112009.7.11441275993569600318.1728181970@eldare.de>
+References: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
+ <179122121054.434549.15763347362425052652@kernel.org>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1728182020
+X-SimpleLogin-Want-Signing: yes
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+On Mon, 05 Oct 2026 17:26:50 +0000, netdev-bot+sashiko@kernel.org wrote:
+> The detach loops now handle NULL vqs, but del_vqs() still runs
+> unconditionally. Is a second del_vqs() safe on every transport?
+[...]
+> Won't __free_irq() hit WARN(1, "Trying to free already-free IRQ %d") here=
+?
 
-------------------
+Yes. I reproduced it with a virtio-mmio vsock device (QEMU microvm): after
+the failed restore, both an unbind and a second freeze warn "Trying to free
+already-free IRQ" from vm_del_vqs(). v2 treats an empty vqs[] as "no
+virtqueues are live" and then skips the detach loops and del_vqs(), while
+still resetting the device.
 
-From: Simon Liebold <simonlie@amazon.de>
+> Are the virtio_rtc and virtio_console references accurate?
 
-This reverts commit 9c78f3cf77855600c0d27f5b5acdf918bc61328e, the 5.15.y
-backport of upstream 43af5da09efb.
+They are not, thanks. v2 cites only the virtio_blk commit and keeps the
+commit ID out of the code comment.
 
-43af5da09efb is a cleanup ("slightly simplifies sd_zbc_report_zones()"),
-not a fix. It entered 5.15.y only as a Stable-dep-of: 93dde0bf2f39
-("scsi: scsi_debug: Fix REPORT ZONES alloc_len underflow OOB write"),
-which touches only scsi_debug.c and does not actually depend on it.
+I'll send v2 as a new thread.
 
-On its own it zeroes the capacity of host-managed SMR drives at boot. It
-changed the REPORT ZONES loop advance from
-
-	sector += sd_zbc_zone_sectors(sdkp) * i;	/* sector_t, 64-bit */
-to
-	lba += sdkp->zone_blocks * i;			/* u32, wraps */
-
-(zone_info.zone_blocks on 5.15.y after bffcb7d6a287). zone_blocks is
-u32, so the product is computed in 32 bits and wraps before being
-widened into the 64-bit lba. A drive returning >= 8192 zones in one
-REPORT ZONES (~2 TiB+ at 256 MiB zones, i.e. any modern HM-SMR part)
-overflows on the first iteration; the next batch is requested at a
-wrapped LBA, the block layer rejects the backward jump, and sd truncates
-the device to zero:
-
-	sdX: Zone gap at sectors 18219532288..1039663104
-	sdX: failed to revalidate zones
-
-(524288 * 34751 = 18219532288, mod 2^32 = 1039663104.)
-
-Mainline never shipped this: in the same series, patch 7 c976e588b34e
-("scsi: sd: sd_zbc: Hide gap zones") rewrote the loop to advance per
-descriptor from 64-bit device values. 5.15.y took patch 4 and the
-intervening 628617be8968 but not c976e588b34e, keeping the broken
-intermediate state.
-
-Reverting is preferred over pulling in c976e588b34e: it is a ZBC-2
-feature (gap zones, constant zone-starting-LBA granularity) adding ~130
-lines across sd_zbc.c, sd.h and include/scsi/scsi_proto.h. It gains
-nothing for the constant-zone-size HM-SMR drives 5.15.y serves, which
-the restored sector_t advance already handles correctly.
-
-The revert conflicted with bffcb7d6a287 (which renamed the field on the
-advance line); resolved by keeping the restored "sector +=
-sd_zbc_zone_sectors(sdkp) * i", which reads zone_info.zone_blocks via
-logical_to_sectors() and is 64-bit. 93dde0bf2f39 stays in place and is
-unaffected.
-
-Signed-off-by: Simon Liebold <simonlie@amazon.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/sd_zbc.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/scsi/sd_zbc.c b/drivers/scsi/sd_zbc.c
-index 90d0f8ddd179c..d84a9c1d76c5a 100644
---- a/drivers/scsi/sd_zbc.c
-+++ b/drivers/scsi/sd_zbc.c
-@@ -223,7 +223,7 @@ int sd_zbc_report_zones(struct gendisk *disk, sector_t sector,
- 			unsigned int nr_zones, report_zones_cb cb, void *data)
- {
- 	struct scsi_disk *sdkp = scsi_disk(disk);
--	sector_t lba = sectors_to_logical(sdkp->device, sector);
-+	sector_t capacity = logical_to_sectors(sdkp->device, sdkp->capacity);
- 	unsigned int nr, i;
- 	unsigned char *buf;
- 	size_t offset, buflen = 0;
-@@ -234,7 +234,7 @@ int sd_zbc_report_zones(struct gendisk *disk, sector_t sector,
- 		/* Not a zoned device */
- 		return -EOPNOTSUPP;
- 
--	if (!sdkp->capacity)
-+	if (!capacity)
- 		/* Device gone or invalid */
- 		return -ENODEV;
- 
-@@ -242,8 +242,9 @@ int sd_zbc_report_zones(struct gendisk *disk, sector_t sector,
- 	if (!buf)
- 		return -ENOMEM;
- 
--	while (zone_idx < nr_zones && lba < sdkp->capacity) {
--		ret = sd_zbc_do_report_zones(sdkp, buf, buflen, lba, true);
-+	while (zone_idx < nr_zones && sector < capacity) {
-+		ret = sd_zbc_do_report_zones(sdkp, buf, buflen,
-+				sectors_to_logical(sdkp->device, sector), true);
- 		if (ret)
- 			goto out;
- 
-@@ -261,7 +262,7 @@ int sd_zbc_report_zones(struct gendisk *disk, sector_t sector,
- 			zone_idx++;
- 		}
- 
--		lba += sdkp->zone_info.zone_blocks * i;
-+		sector += sd_zbc_zone_sectors(sdkp) * i;
- 	}
- 
- 	ret = zone_idx;
--- 
-2.53.0
-
-
+pw-bot: cr
 
