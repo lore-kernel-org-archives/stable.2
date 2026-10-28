@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793163371;
-	b=mQXfdICOxZFWk4BMgKHmxfDgrnPClBf+9fSVqiehbiQe0S8rcWV3KFK/nGEcJC8B8iXR
-	 TJzoZbkiH6FPWj+perQ5KObORPtqwDN+iBAM8OIFnF5BZ4FrdMVSTUK508mtN/WZreNOn
-	 k4+vzukylPZ23PlkE5Kg/1ckLgk8eUPhGOZfdvdCzZDtZbN1q52YVeHCLyY58b7bqVJpK
-	 u8sVM80injBqlkdig+NQSSVPvupL1WV8wIPgCRz7kKBkOR79DAbiFrCFvoJDgGH5cczne
-	 +JmAy15u/W6Febyss9+M3MwAljOgpYl45dYgvvl2QX0Ucj2GnqxVHQiVroKepAe5lFg==
+	b=MSTnPm6FvXcMj0r7etGJnIDNcRbU7MPzITt9ef54s93jVpJrTqBYhyK5Fgv1O2nixXca
+	 Def3H+VgA+S6RkfyC9RNWOVsRic46wrLoWyrm3JWm2YT/O+OzSHDKzkpahvYZQM0fiySR
+	 z5XRqlZQRj+ICcihHDoG9oBjf7SCgVtME7DnhG3za+rGmasjEYEf0hQFg64Kz4Rc21UF5
+	 6j/ukLLvxS1WA5QRAIn4IaFzUZLtLa/flP29ILtHo2jZWHnUTIkvDyQWn5p7ZgYP15ELA
+	 kFMuthU/BEHQAKsaHHFDbTYRbIDn4hDCPuVI2G14qljX64DCW79oxDkWSyWz09xIcfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793163371;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=lx5lK1VQQr4KB+C37H+5kgyd83ZxV4Y58Bkd4eULmJo=;
-	b=Syupi/yoNPB01A6PuQ5U/uyYCeBx/nmnxjj6NT3GWiys34giumTnUXlbfZs/siCQQ48e
-	 1zSCzonblSCJ/Hd7yzGsj5GNQsRqJDYWylv8oNeqlTvFDDaKBACni3A0cnNMUpnDh0RVW
-	 ErrHJWPXmLArQGdPTcr8feh8fhbk7dQkTC+X1uarYXXZesgTR2cvaqRFFOPgQXJUqFJPM
-	 tpGYzNK5bpziaMJKO2wLrvhEH24W8w+xJPdLGJBoqVZYmTQzknof/aJWXR1/JMTXnasno
-	 W7/fy7GgFYKHAwH9JinFDGKTvofeT1tAxE8OUm8ODM609Qqp2Wfs746GlHay7Xwc8ww==
+	bh=ta7lEblSOhyp/ykI6yMGs5HNz9TNjeUSd8o/9QM2Bsc=;
+	b=pZMHW5J3wFLU3VnFmxlXZw7qIP5Z1uPbzRwQGUQK1tx1vs7QY5xooHkNann0Bbqo+B4L
+	 V7k2UFB9pVM07VieO99hsYYObfWlqJphXZNHrxtVxxV4U/LNez0yDYwCkLR5tGRK9p4cg
+	 U5Poh4+NlF2zmn09WyImMV11agWLodG/JReZD13EdG4hMDZPUDtzE9EPQWQDIxvVSWggT
+	 +86eQ5NJIUIVnsbN9XvdQuGYU3Xjfrf5oD5TSmfTxx+BNuNXfjsDyZn++iu/fqMXVoXLi
+	 5RDVXDkm1/9udYHLNYXu1+0HehIhX0WLK9jdW1FuVvirUdSCVXS9gtpDoZ2Z3I/3+0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VO14DnkD;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kc0PsBKe;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F061606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8F1606A31D;
 	Wed, 28 Oct 2026 04:56:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F061606A31E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C8F1606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VO14DnkD
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kc0PsBKe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=lx
-	5lK1VQQr4KB+C37H+5kgyd83ZxV4Y58Bkd4eULmJo=; b=VO14DnkDkLjqTXaUqF
-	SQ9gUU44QdiaZR2C5xPZOE56NgtBuqEoOMnL956A0MNWlrJjMT4iErl3nA2yZdwQ
-	/eqVuCfI9aqkW8PyNqEqaZyEQUXDEnbPlrJFed7Yrn3FBW5V7udaEisrB4oxdEKS
-	JVQUyULxTMqoIjT122ZqWkAY0=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ta
+	7lEblSOhyp/ykI6yMGs5HNz9TNjeUSd8o/9QM2Bsc=; b=kc0PsBKeC1s7TN/6Ws
+	pQSAg07H86kvUZJ0SF24RzdgM7tUy77xMwpYpLWc7Ru22JcPt8UhXcc0yqsmFUmS
+	SplRGTV1nOQyyda6HyHu0VV2V5jIlJR3Wa3epJb/Bd9LvwSGNxJ889bXX2W4L3hi
+	RmvbnKX7HHuvr2xTamoWNf4fM=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3P1NkgOFq_DBWDA--.43191S4;
-	Wed, 28 Oct 2026 12:56:06 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3P1NkgOFq_DBWDA--.43191S3;
+	Wed, 28 Oct 2026 12:56:05 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Stanislav Yakovlev <stas.yakovlev@gmail.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: ipw2200: drain IRQ tasklet during teardown
-Date: Wed, 28 Oct 2026 12:56:02 +0800
-Message-Id: <20261028045602.111668-3-yaojiale02@163.com>
+Subject: [PATCH 1/2] wifi: ipw2100: drain IRQ tasklet during teardown
+Date: Wed, 28 Oct 2026 12:56:01 +0800
+Message-Id: <20261028045602.111668-2-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028045602.111668-1-yaojiale02@163.com>
 References: <20261028045602.111668-1-yaojiale02@163.com>
@@ -64,58 +64,60 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P1NkgOFq_DBWDA--.43191S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4fKr1rKF4xur4xtFWrXwb_yoW8Ary3p3
-	yrCayjkryftrsFga4kJa15X3WrXa1aqrW5GryrtwnxZa1avFyFqay09FyYqay8tFZYqa1Y
-	qFWqyF45Wrs8Wa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UKAp5UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wZMhmrhgGay9AAA3I
+X-CM-TRANSID:_____wD3P1NkgOFq_DBWDA--.43191S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7urW3JrykZFy5GFWkZFWDurg_yoW8Ary3pa
+	9Iyay5Kry8tr47Wa48AF45J3W3Xay3trWUCryFgw1rXw40vFyFqFW09a45Jw10q395Wa45
+	JF1YyF43Wws5JFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPCzNUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQVMhmrhgGWADgAA3i
 
-The interrupt handler can queue irq_tasklet just before teardown frees
-the IRQ.  free_irq() prevents further hard IRQ handlers, but a tasklet
-that is already queued can still run while the remove and probe failure
-paths release its queues, command log, MMIO mapping, and private data.
+The interrupt handler can queue irq_tasklet immediately before teardown
+frees the IRQ.  free_irq() prevents new hard IRQ handlers, but it does
+not drain a tasklet that was already queued.  The tasklet can therefore
+access queues or MMIO after the remove and probe failure paths release
+them.
 
 Kill the tasklet after freeing the IRQ and before releasing resources it
 can access.
 
-Fixes: 43f66a6ce8da ("Add ipw2200 wireless driver.")
+Fixes: 2c86c275015c ("Add ipw2100 wireless driver.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/net/wireless/intel/ipw2x00/ipw2200.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/wireless/intel/ipw2x00/ipw2100.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/ipw2x00/ipw2200.c b/drivers/net/wireless/intel/ipw2x00/ipw2200.c
-index 8249d493ee22..e8112ef3150e 100644
---- a/drivers/net/wireless/intel/ipw2x00/ipw2200.c
-+++ b/drivers/net/wireless/intel/ipw2x00/ipw2200.c
-@@ -11720,6 +11720,7 @@ static int ipw_pci_probe(struct pci_dev *pdev,
- 	sysfs_remove_group(&pdev->dev.kobj, &ipw_attribute_group);
-       out_release_irq:
- 	free_irq(pdev->irq, priv);
-+	tasklet_kill(&priv->irq_tasklet);
-       out_iounmap:
- 	iounmap(priv->hw_base);
-       out_pci_release_regions:
-@@ -11751,6 +11752,9 @@ static void ipw_pci_remove(struct pci_dev *pdev)
+diff --git a/drivers/net/wireless/intel/ipw2x00/ipw2100.c b/drivers/net/wireless/intel/ipw2x00/ipw2100.c
+index 43b4e432956b..44c76f1789d2 100644
+--- a/drivers/net/wireless/intel/ipw2x00/ipw2100.c
++++ b/drivers/net/wireless/intel/ipw2x00/ipw2100.c
+@@ -6300,6 +6300,7 @@ static int ipw2100_pci_init_one(struct pci_dev *pci_dev,
  
- 	unregister_netdev(priv->net_dev);
+ 		if (dev->irq)
+ 			free_irq(dev->irq, priv);
++		tasklet_kill(&priv->irq_tasklet);
  
-+	free_irq(pdev->irq, priv);
+ 		ipw2100_kill_works(priv);
+ 
+@@ -6346,6 +6347,9 @@ static void ipw2100_pci_remove_one(struct pci_dev *pci_dev)
+ 	 * FIXME: remove the comment above. */
+ 	unregister_netdev(dev);
+ 
++	free_irq(dev->irq, priv);
 +	tasklet_kill(&priv->irq_tasklet);
 +
- 	if (priv->rxq) {
- 		ipw_rx_queue_free(priv, priv->rxq);
- 		priv->rxq = NULL;
-@@ -11802,7 +11806,6 @@ static void ipw_pci_remove(struct pci_dev *pdev)
- 	ipw_prom_free(priv);
- #endif
+ 	ipw2100_kill_works(priv);
  
--	free_irq(pdev->irq, priv);
- 	iounmap(priv->hw_base);
- 	pci_release_regions(pdev);
- 	pci_disable_device(pdev);
+ 	ipw2100_queues_free(priv);
+@@ -6353,8 +6357,6 @@ static void ipw2100_pci_remove_one(struct pci_dev *pci_dev)
+ 	/* Free potential debugging firmware snapshot */
+ 	ipw2100_snapshot_free(priv);
+ 
+-	free_irq(dev->irq, priv);
+-
+ 	pci_iounmap(pci_dev, priv->ioaddr);
+ 
+ 	/* wiphy_unregister needs to be here, before free_libipw */
 -- 
 2.34.1
 
