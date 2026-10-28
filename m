@@ -1,53 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210865;
-	b=ZMXNRbXtRNSdYE87hz401e8Tj/Gb37d2tvuDYhG79MB5Lqb7I65vr3UHOF/T6sjSKkKP
-	 cTjOdBsELZpL6uYoPW5ZaIhQN+xIyyIFEXr8kEpjYsZ/W7ivSl1zhQVAm9uoSfUx072z1
-	 ujV7xmMn4iHM6FkEaw6HzqShzkROdU6C9gOlEw+B7kUAYk1R0H2xqRhRlir/EuAmqdJPV
-	 Ybo7wJYcvCHGDqkbUEBJemd3DPkOncTvRizjfsZ49ukU08NEdsLPTLSfhdgTjfwM1MAGv
-	 EtSIh73buaPs4iRT19JYQccta811mGsOUXqkiqcnvY0Oazd6RKmGlUdFp0PHVmwRAIA==
+	t=1793210871;
+	b=E7tg6jn6a/XVJHXdTdbNIl2T0zEkSPaN/INLHySYxw0NgUc36vv52YK+1L3eFGOoxogr
+	 jhdLgMTx2D+ftZwv/F/wPw+nqYIFH1iJefQv7jA6G4hsBuCiINwZieIE6yxHA7j3ym6il
+	 OzJaZyjeNx7vfsRnentFhiGc3phiv/BHT3k7yxGXAUO1rmyEyfOu24C7Rg2otxIBtUxeU
+	 86f9zSQD84GwnB8Ies6u6NYj3JeyE0OiK7i1ZEQvW6h9/0b3z2vIqfyd4iicg3q1RTMub
+	 6rhNQNYGV/8EfvtGZBJZpZbpSpjFjE8DkBKZdhKp3kNFNnEBUy1B8aPcwbyNUSCZSMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210865;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1QymhgOg/76tJKj+piGg4eRtQ0QyG1Y+W8oL9ZVUd0s=;
-	b=xFB8fiX3y9YcJWvna/tk4RyIBrI82fMAp3Yl/B6eG1ddbnecfhVJgjRayTtyvaAdElsz
-	 CdXgiVUbhXWF+hDhbdnilOylTVCf8FWFdZkjnITSL+AijSL06Eg6K0U1UfrRYm0zCe9Qd
-	 /F1xeuAG4AY77aM9qPJXfVrnf08BkuH3LJz9tvT6H4sYSJGF47qlZW8TaD0dk9oYlwonk
-	 OFh/xZYBBi3xYwNvg0iqh94w6Q4iQWkhERiwXESWY3cwzcUawMVitENIaBQJfM4WvXNk4
-	 QN/dipqFIBrstcoe8uTNn3RjNhyPxoGP6fvv2V8r/zZ2+85Ri/h+eM6zJvq7JNjBTPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210871;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HFMvUmp/NIWERb8IUfdQOlSq+ysu2mkUop2fTzc+w+4=;
+	b=QNIrdxB90AEJVbrlX+DHX912fXl5r0dXsQWOszJ3AjAuN5rRP6SpQUlzOWtQUhCFkeqS
+	 RpVpSi0d9ragBsq3qgbjvOfHWXeFwtXf8JqLzscOQzlBYUAKmKMjhSElzo0PB/qugu+3O
+	 MtBS/XNyMZVX5ET3dfuOoN3dyRFjlh9nxoy25CbSZd4JxfQGRb6bBahUzmyq2tsD5xNHI
+	 Lo5yNfe5ifO4KH7+vS4h0bRd8V80xBpnePeXMdDCBklKGfEpLGSgulBtRINbvlwtPq+Xk
+	 igoPd3a4y6t8SHIp2mOoELjfsbc7o0reLU0u9yQYo0XPBqKQxaAgMR8DL2Ge9K6rYNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B2MBID+h;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NKCnaWRV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E8A606A31A;
-	Wed, 28 Oct 2026 18:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D81E606A31C;
+	Wed, 28 Oct 2026 18:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B2MBID+h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B63C1F01825;
-	Wed, 28 Oct 2026 18:07:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793210864;
-	bh=1QymhgOg/76tJKj+piGg4eRtQ0QyG1Y+W8oL9ZVUd0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B2MBID+h5JXphOHFX4EjjP5TGNlc2R/fSyqoRU9W9KNvjSp7JIstOtAxppz9j49wa
-	 +TwFNSs79rS5qKmO08xnqr9p89KK2NeIsdRKgEwMlIMV+hgIyvNTMq6sNSmeW9fmvO
-	 4ik8PWQP3XaGr9QMwBbtSyAvm6rSs8Ui+CA+mDhxKm9BE5UfN1WI+Q6yQT0/f7EQtL
-	 WdEK/w6psIVF6nkrFHO7ro26OVvH46YVNgaW2dHjsyPJxWg3UCs7+20rwE48zGS2ue
-	 tmagc6CXl1YtkosYW44oqYa1MT8oxzt6iV+0/VFEpDWJa0BA5pOa7BT8uJtsGIgd7w
-	 ftDck6ngIk+Tw==
-Date: Wed, 28 Oct 2026 11:07:42 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: fsverity@lists.linux.dev
-Cc: linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>, stable@vger.kernel.org
-Subject: Re: [PATCH] fsverity: Set S_VERITY only after rollback is no longer
- possible
-Message-ID: <20261028180742.GD1876@quark>
-References: <20261025204807.122875-1-ebiggers@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NKCnaWRV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2931F01828;
+	Wed, 28 Oct 2026 18:07:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793210870;
+	bh=HFMvUmp/NIWERb8IUfdQOlSq+ysu2mkUop2fTzc+w+4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NKCnaWRVuyNad0v1kkYxleo+ElKq24Sb1Ariu4P5I3uk4WKXAhtn3GFoS+X1BPgzc
+	 uJm0gZ3cuAwUyCwBRD0C8IdR6znZN0xdEuu838taiLbR2TCDE9nXIrrpbMz/z4RjYb
+	 BCeCrO7XMpOb4OVgBQcBPRlYvHa1wClEWBFv4NXM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>,
+	Faaris Ansari <faarisansari@googlemail.com>
+Subject: [PATCH 5.15 134/571] ALSA: usb-audio: Apply IGNORE_CTL_ERROR quirk to all Audient devices
+Date: Wed, 28 Oct 2026 17:54:41 +0100
+Message-ID: <20261028170011.197324620@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,20 +62,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025204807.122875-1-ebiggers@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 01:48:07PM -0700, Eric Biggers wrote:
-> However, ext4 and btrfs can roll back verity after they set S_VERITY,
-> causing a use-after-free.
-> 
-> Fix that by making ext4 and btrfs set S_VERITY only after rollback is no
-> longer possible.  On failure, don't roll back S_VERITY, but do roll back
-> the filesystem-specific verity flag.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Applied to https://git.kernel.org/pub/scm/fs/fsverity/linux.git/log/?h=for-current
+------------------
 
-Acks from the ext4 and btrfs maintainers would be appreciated.
+From: Takashi Iwai <tiwai@suse.de>
 
-- Eric
+[ Upstream commit a154f7b9f197b3d5e41fa3ad62083f5aa93b1fe8 ]
+
+Faaris reported a problem with Audient EVO4 device and it turned out
+to be a regression by the recent fix commit 87a6f2fa6e6c ("ALSA:
+usb-audio: Propagate write errors in generic mixer put callbacks").
+It exhibited that the hardware gives errors at accessing the mixer
+unit 10 on certain channels, and the change above made it a fatal
+error.
+
+We had already a quirk for Audient iD14 to work around such errors
+from the mixer controls, and we can simply apply the same for EVO4.
+OTOH, it's highly possible that other Audient devices suffer from the
+same issue; they must be using similar firmware, after all.
+
+So, in this patch, we apply the quirk generically to all devices with
+the vendor ID Audient (2708), instead.  Ignoring the control error
+isn't usually less critical than overreaction to the firmware
+misbehavior.
+
+Fixes: 87a6f2fa6e6c ("ALSA: usb-audio: Propagate write errors in generic mixer put callbacks")
+Reported-and-tested-by: Faaris Ansari <faarisansari@googlemail.com>
+Closes: https://lore.kernel.org/CANBVYRCL=8QdLxGg4S6qrahrFtwJxhv-aSGpW7-1S=+iOe4ZGA@mail.gmail.com
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260929144132.1521617-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/quirks.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 1278d8a3cc128..112b9d5410849 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1947,8 +1947,6 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_SET_IFACE_FIRST),
+ 	DEVICE_FLG(0x262a, 0x9302, /* ddHiFi TC44C */
+ 		   QUIRK_FLAG_DSD_RAW),
+-	DEVICE_FLG(0x2708, 0x0002, /* Audient iD14 */
+-		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x2772, 0x0502, /* Musical Fidelity M6s DAC */
+ 		   0), /* for avoiding QUIRK_FLAG_DSD_RAW with vendor match */
+ 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
+@@ -2006,6 +2004,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_DSD_RAW),
+ 	VENDOR_FLG(0x25ce, /* Mytek devices */
+ 		   QUIRK_FLAG_DSD_RAW),
++	VENDOR_FLG(0x2708, /* Audient devices */
++		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	VENDOR_FLG(0x278b, /* Rotel? */
+ 		   QUIRK_FLAG_DSD_RAW),
+ 	VENDOR_FLG(0x292b, /* Gustard/Ess based devices */
+-- 
+2.53.0
+
+
+
