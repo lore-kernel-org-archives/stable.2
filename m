@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163786;
-	b=EalinLJ5oTIZMhimPXNc2EW5jQjzZRk2Qp6LYqEWEJ8gDf2i6IUFXsi03CKYWidxOGuC
-	 SVbJtw+Pq7iz1lo7VyhvONrIW4uE4hr1rAgMoH2lgrMx4ffB/5Rli0jAl4nWHsZCUu/w8
-	 jDIm/OR/lEv7ce9xilpwwVkUQGotlp8nIOj/J79Ar8LyfD+dcqEEPcmxTAmRhZlgZGtH6
-	 6lU/SgDlbfa4wzG/YPlzGWqzEKekw9A+OKz0r1d3GUySXZAA+KuqjYdfJPwAsRGbtIF8Y
-	 w6YDIR/VkXQW5WCYPkQJiC0DlKdk5nqYvNUo+uZ/HU8UBoug+jbtioqqYyBd3boC8dw==
+	t=1793163833;
+	b=eMCXa3CQBGD+pzjyVGXDNO0G8LqcFl47wR35uwkxkx4VtmdR3d1I+4hHwMhd0DutEQuh
+	 DeM9Rr8m8oWWgwWNoIePNG0CSKtxg3N9YrhiTPayyRHBHHkUlSIo+zASQ5rQHlDMR5lcT
+	 CLYr9DJeRGFjw7FKGTW+7lKkIvC00Zcp9mZ/VGw2Bh/29ARaAIbzPlMoxM8idTnlWznk5
+	 p6nIWTqWXVRY4l+jDLxkDu5+nJUYUatat3Ofss4WaD92E4YyuuiHyeGj6g0j/9UKgppuw
+	 bkpH/QcZVGoYIrZAXWaF0C4D6pjMTqW9qVFpzAwW9elehLhH0/kT21roGlpxlUrsrYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163786;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163833;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Rr2WJEdTQgGpHBcJecdClBEvFz4TlW63veoXIe5tkYM=;
-	b=YsyJX1h4jFI4LJi//DENU2yyp4ScqM8gLeWhBf3M+ADnXXy+zKf3sAw4IWHfauMxX/Vv
-	 ADakK29PAl2nFjFy61GKGV9wWLaCtsGUKA/rjs4UII6tmtSWljtGORbW1TKun/ZHppWbQ
-	 CKq/E0rmYw6qn4ZpisCHj88ZAkoXwBve5lTBOlbmkoxlQSz4twvI7hCq0Mv+wg1CQXI3o
-	 ILYM85FqVr7r8KACgyPH23R2NVUfvckV7XPH3gDlFHCLOBBKO4Efj8ryS68tF4w1JFpcV
-	 szkVG/RPg4CZPvkj+rnLMdYcuZcd44Cd97X5SYT3TSgMYrJAbYpkfrwnOyoImiWPMtg==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=K1YZ6fRD5stM9wVm0/hkmxvxcUi/OB/8Xg9oORiLlfw=;
+	b=gmdjStaoRMjYoxyWAK6rsM+Lr0mY05puQVrxT3dG3HXR9d4pSS0KO6NRxHALwdGPtlQh
+	 vqhQSUiFE88peT2UgCF+RhpUYnM1vOjOfsoP6NuEC8+iJnwfQCzOOCh4rTl4D4h/qSiL+
+	 l2ePCfsz0NAvGewpxwnusUeuDwugyxv0NYyJh/RXIbuUTYB1eEhYWXlGmXZzJnmtegHVA
+	 0+i/K1LTXv6hu4bqcCOcVY+6xJ44cmBxwwGzj5D+5lPYN5wJNuqrDsw7uiXr0Y1kwQUox
+	 fGrkyFQT5+zA/0514AwO+7IUndpSHxWOv2Xy8NNtkmUWbRGvIsjO4UEt3U565se2ZIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pnl+6fb3;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YgDtqLXI;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7B2606A32D;
-	Wed, 28 Oct 2026 05:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B7B2606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA7E606A31A;
+	Wed, 28 Oct 2026 05:03:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEA7E606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pnl+6fb3
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=YgDtqLXI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rr
-	2WJEdTQgGpHBcJecdClBEvFz4TlW63veoXIe5tkYM=; b=pnl+6fb30MpIyxA1Sp
-	Ex3BZx9q/aUuK7RfxEeU+1xvF3xNi8bwVU3lxenLeXgnun+1GDz8Inm75sebK4r8
-	HzPh4RtI1TItQMbjda5XbeWbzRhjbrGttNbcJQajw/QmTHd9eqOQVjM1stNDNHJT
-	Zkr67TD+SR9uqR/54vJiEeeZ8=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=K1
+	YZ6fRD5stM9wVm0/hkmxvxcUi/OB/8Xg9oORiLlfw=; b=YgDtqLXIFkkPZhv6RU
+	BVvm8hYOXvi8B23GrN2iCr2HAxErBDD46q30b+CeTfzz7uCu4EYnK/Jajax767sG
+	zioI9Yh128v/pH63CddAbSX4eFdUFJf+S1Mp9nd1pmwM/R3iYTc/C6jEloxfJBU9
+	uOOl+A98mKAPYP0bslLfJbjLc=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3X6XmgeFqS1hoDQ--.3415S2;
-	Wed, 28 Oct 2026 13:02:31 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X28rguFqvXzDCw--.30877S4;
+	Wed, 28 Oct 2026 13:03:42 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Tao Ma <tao.ma@oracle.com>,
-	ocfs2-devel@lists.linux.dev,
+To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Ilan Peer <ilan.peer@intel.com>,
+	Gregory Greenman <gregory.greenman@intel.com>,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH] ocfs2: validate xattr bucket count against extent size
-Date: Wed, 28 Oct 2026 13:02:29 +0800
-Message-Id: <20261028050229.124718-1-yaojiale02@163.com>
+Subject: [PATCH 2/4] wifi: iwlwifi: mvm: clear P2P device pointer on add failure
+Date: Wed, 28 Oct 2026 13:03:35 +0800
+Message-Id: <20261028050337.127464-3-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028050337.127464-1-yaojiale02@163.com>
+References: <20261028050337.127464-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,92 +66,43 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X6XmgeFqS1hoDQ--.3415S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCw1UAw43WF4fAryktw1UWrg_yoW5AFy8pF
-	4UKF15tr18t3Z7uF93Ar1DZw1Skr48XF4DXry3tw1avF1DJw1SqFy0qwn0kF1rXryrWrsI
-	gF4Ykw1UCa43XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joKZAUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQes5mrhgeejTgAA3A
+X-CM-TRANSID:_____wD3X28rguFqvXzDCw--.30877S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWrKw15urWfAFWxAr4Dur4rZrb_yoW8JrWkpF
+	WDKFyqgr15Ka1UWayUGa1fCas8Xa12kws8CFyUJw43CF18tFySvw1v9Fy3Jw10kFW8Jw4S
+	yrn8tF43WFnY937anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jD8n5UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A6++Grhgi5m3wAA3m
 
-The first xattr bucket stores the number of valid buckets in its extent.
-Lookup and iteration trust this on-disk value even when it exceeds the
-number of buckets covered by the extent record. A corrupted value can
-therefore make them read blocks beyond the extent.
+The MLD add_interface path publishes p2p_device_vif before updating power
+configuration. If that update fails, the remaining interface state is
+unwound but the pointer still refers to the vif that mac80211 will free.
 
-Validate the count against the extent cluster count before using it.
-Reject zero as well because every xattr extent contains at least its first
-bucket.
+Clear the P2P device pointer before entering the common cleanup path.
 
-Fixes: 589dc2602f2a ("ocfs2: Add xattr lookup code xattr btrees")
+Fixes: 84ef7cbe90e9 ("wifi: iwlwifi: mvm: Don't always bind/link the P2P Device interface")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- fs/ocfs2/xattr.c | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index b2bd06083a14..6b2fc8337c51 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -328,6 +328,22 @@ static inline u16 ocfs2_blocks_per_xattr_bucket(struct super_block *sb)
- 	return OCFS2_XATTR_BUCKET_SIZE / (1 << sb->s_blocksize_bits);
- }
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c b/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c
+index 6ea9a7c8da0c..b1d4419a236c 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/mld-mac80211.c
+@@ -74,8 +74,11 @@ static int iwl_mvm_mld_mac_add_interface(struct ieee80211_hw *hw,
+ 		mvm->p2p_device_vif = vif;
  
-+static int ocfs2_validate_xattr_bucket_count(struct inode *inode,
-+					     struct ocfs2_xattr_header *xh,
-+					     u32 num_clusters)
-+{
-+	u32 num_buckets = le16_to_cpu(xh->xh_num_buckets);
-+	u32 max_buckets = num_clusters *
-+		ocfs2_xattr_buckets_per_cluster(OCFS2_SB(inode->i_sb));
-+
-+	if (!num_buckets || num_buckets > max_buckets)
-+		return ocfs2_error(inode->i_sb,
-+				   "Inode %llu has invalid xattr bucket count %u (max %u)\n",
-+				   inode->i_ino, num_buckets, max_buckets);
-+
-+	return 0;
-+}
-+
- #define bucket_blkno(_b) ((_b)->bu_bhs[0]->b_blocknr)
- #define bucket_block(_b, _n) ((_b)->bu_bhs[(_n)]->b_data)
- #define bucket_xh(_b) ((struct ocfs2_xattr_header *)bucket_block((_b), 0))
-@@ -4295,6 +4311,10 @@ static int ocfs2_xattr_bucket_find(struct inode *inode,
- 	}
+ 	ret = iwl_mvm_power_update_mac(mvm);
+-	if (ret)
++	if (ret) {
++		if (vif->type == NL80211_IFTYPE_P2P_DEVICE)
++			mvm->p2p_device_vif = NULL;
+ 		goto out_free_bf;
++	}
  
- 	xh = bucket_xh(search);
-+	ret = ocfs2_validate_xattr_bucket_count(inode, xh, num_clusters);
-+	if (ret)
-+		goto out;
-+
- 	high_bucket = le16_to_cpu(xh->xh_num_buckets) - 1;
- 	while (low_bucket <= high_bucket) {
- 		ocfs2_xattr_bucket_relse(search);
-@@ -4480,6 +4500,7 @@ static int ocfs2_iterate_xattr_buckets(struct inode *inode,
- 	int i, ret = 0;
- 	u32 bpc = ocfs2_xattr_buckets_per_cluster(OCFS2_SB(inode->i_sb));
- 	u32 num_buckets = clusters * bpc;
-+	struct ocfs2_xattr_header *xh;
- 	struct ocfs2_xattr_bucket *bucket;
+ 	iwl_mvm_tcm_add_vif(mvm, vif);
  
- 	bucket = ocfs2_xattr_bucket_new(inode);
-@@ -4503,8 +4524,14 @@ static int ocfs2_iterate_xattr_buckets(struct inode *inode,
- 		 * The real bucket num in this series of blocks is stored
- 		 * in the 1st bucket.
- 		 */
--		if (i == 0)
--			num_buckets = le16_to_cpu(bucket_xh(bucket)->xh_num_buckets);
-+		if (i == 0) {
-+			xh = bucket_xh(bucket);
-+			ret = ocfs2_validate_xattr_bucket_count(inode, xh, clusters);
-+			if (ret)
-+				break;
-+
-+			num_buckets = le16_to_cpu(xh->xh_num_buckets);
-+		}
- 
- 		trace_ocfs2_iterate_xattr_bucket((unsigned long long)blkno,
- 		     le32_to_cpu(bucket_xh(bucket)->xh_entries[0].xe_name_hash));
 -- 
 2.34.1
 
