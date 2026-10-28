@@ -1,67 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793177457;
-	b=QuktvT0vykQjIw07PwcOIbC+v3geO0h3Q84qD+0ipUzTsXtWj7FrdqCT4wpP0oBC1COD
-	 gzHDzaYrEstLIzDAFhG2nBkST4ClglQEeyi8jFDoWntxHh/XmngPsOqJitEFFsdEeHgGf
-	 4mms0ZYUvvkLkSByWU665OM78goQ2fnkWHBX6bzUhnThm4lQaldWVPh7WP02wd8g1bGY4
-	 qfAveHOF2MUPovj6PZE2TmJ+LrUqreBvBc9KD+NPaEoC+YQLk9skLUXU8eZA+YrOvSXPo
-	 jeXEL/oLA4VXDXWkmwNKlpH+HxKifCkVgms/O+p2o1B1m1Na/LReGIAI76sdUovCsLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793177457;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=5iohBM+GgU9IICAeS2iaT4fIHKg4GUrBEZRaogQUUjQ=;
-	b=CIQVvtOmsEeBeN24vOAcG3rbj4+L+gJZFxJsoq3OcMJNpvyT9xUOtdv7xBGgyddgRvdl
-	 0aItmK07nmi186idnb+x1LBlhUPqYQjEXfLqlZzLV0d8IKwzeW2XdOuc35PYL2uomZd2Q
-	 M+jDw9NzSbIqO2TljqIDLjXdGNom/A1tBqObhp5UUQpRXj69j/pSxXJDnXyX1uzCFlovW
-	 x2jInRAjbk7egwN5Q9gVhHTxLwPsza5OSSRMvl7X5limY1yi9TSV53J8fusT69ob5j7wE
-	 OrPG0yLVIlYvB4WvP2BqQXJa9npqKN4PkTHGK31wUeGxLFADOzMIttoySVLiU+Gnq5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FLQhd4FH;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793177505;
+	b=toJuL1Z3XlXK01rt0y2afYh3lfoSpPrDhqGaNsQMQ1oqAQGsQ93LutsOXxMSVm2B64Dm
+	 1wT7XHFdChRjCS5cvipseGGdNP+eUiBu3ng6841g7Y2vmBS8FcItSRO+aXgPqwc6oDmau
+	 P+iyven4XfUv/CXAHbaXbyuGmAGOvL3cBynxOu9kyzU216nDtnqiJ1VNWLUrh4ElY/NCn
+	 e9KHc1kLt8sT41e+7kWDs7IOkTQd7fTTXsWIjduACGDJinBOcpYSGqn2oVy62SY3V0P8D
+	 RUdRoytCbzvtvZaTuAjZks/+AtYjmk5G7wHooFJqbdkzHI+Z8WkrfFyeZ2tmYFM2qDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177505;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+	b=GXIMzJSGI+IWX76RFMLiymUnr8q2NFW+dHqIWo62iKHLsnhGzgkCSmX5Ww60yuu0nf9s
+	 SO4dAtOohhQs7YQEDZfPVShxtD0bM+h82/RTzu7u/YkQI9M6iWzuDr09jrjDm8jenPqGw
+	 2/7ozU7vc9Hn2aBzNjXHkc8fBqLDUNWja/ybVRl2jcaz0+mV8iX+NbAwEoyss7FvfK99O
+	 ZQqNZLU9vb/pEpNmhPdgd4EThfnj4QyFX34lAc5qLEwj+uiyLbVt4fcC1m0lsT3v5m95+
+	 MBG0dAMBiSZQlE7+FGn556154KIAlOgjmp4po0MZG0/02LlS10eKZhwRCWnxtkvWaeA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZQP1Ay8w;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C774B606A31A;
-	Wed, 28 Oct 2026 08:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C774B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62812606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 08:51:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62812606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FLQhd4FH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=5i
-	ohBM+GgU9IICAeS2iaT4fIHKg4GUrBEZRaogQUUjQ=; b=FLQhd4FHy1z5zA9bUG
-	OjI+qnr1CzNxzeQ5XvHvA7bZRwG+B5ang75+gClvSbJ6Deip+rxtTvWmKMX+PcrK
-	aQCqbgFzwlBS7Bv+Kl58iMnwMdXLMoZOfWurdp4+HGCyfEVjve0MSB5Ipy3dID3u
-	j+MwbuIWKShJ9y19QnVanBQm0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnPxIgt+FqDMOJDQ--.49242S2;
-	Wed, 28 Oct 2026 16:49:38 +0800 (CST)
-From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>
-Cc: Dan Williams <djbw@kernel.org>,
-	Ira Weiny <ira.weiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yang Yongxin <yangyongxin@kylinos.cn>
-Subject: [PATCH v2] cxl/core: Create einj_types when EINJ becomes available
-Date: Wed, 28 Oct 2026 16:49:34 +0800
-Message-Id: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
-References: <20261028055401.1626640-1-yangyongxin@kylinos.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZQP1Ay8w
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e812e2b31bso3714315ad.3
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:51:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793177504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Gw5CS06JpsO+R/6WkT/7gEoK95s7XNqb9+Q1ctf6omY1kFtYKZzNNLT7Kq48cdQrVK
+         9ikfDZ4js073GxvS2LYhd2xic1WIe/vA/T9KLA8ukBv4UnmqRgcZarNGT48RragqYwd5
+         Er6GDm9pk3llDLSq/b2LNHroc2fDfZpUnifG8YaJNiTT6Lb2aCzwirWEzIwlm1iFj0xO
+         zi8LxBJsaOYGz0mrnnbIhgzcL6hS73yTWAtwTGBUxHsq3vF/dtvqzxvAMXUAABugFxva
+         m5sERqlR3cu+riEyWWnweDorAdBDEdOZQxHK5TlxIry15KGTVNl4swsPYCB3svXime7f
+         b3Cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+        fh=9dGfERAu+KxOyzX++Ta1TapFf/a/VzU578vzKgfJ6wM=;
+        b=ZZTcapW6G15b5XMUqFAltPcADH+wonhJQ8pgl9WwzwEEhcrKNXrckpWQLxtxzDW5Wn
+         iMjL4kmrs4nkrcV6J3GSeu/TRQ4a3tvqJcVCGmJ+EwG92d7R9NI2GFoKorTFGavUKB0J
+         /A6lePQyILW6MKEYw9wTYp9WmaTTC7XrdaedcReTYxJZM6gTTGu6vtYkb6SwHGcMurCS
+         h8lDArIFgznb54hlHrI2FkNH8At/S8g6M7EHXSNaqew1ZBq16DKF9hzbvmGQ1QAokidN
+         m+4j8FNXps6yKQj7uQNp9WDRvUfvQ1NFmftJ/KprPxMdSdQweWSHxvlQH9wEWYJPyd6Z
+         arhw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793177504; x=1793782304; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+        b=ZQP1Ay8wd6LeEZqlcy8Mzgpc1cJNvzlAcc9GY/nFpF5MJMCMiwbItrR7g8j5zdKbNB
+         wuJbcNsp1LhPspb1Fu0Gn7zIVq7+3UwMcfqXzriyCRfYQfJfkNvM9R+qBq6YY4YfHEyQ
+         +R4GAOtt1KZm6VjJWrUezRrss7HHXtxOD3OB8CY5XS/a1U1rQZ8hprmaJQ8ArM9z/u+3
+         sQiQcUyvZoUefKgbj5nZkSIa9WQRX+ZKqcVhejOQZRpUiixmZD6lpNQHimMVl4iDyQfX
+         zYIqS6PP6U+jBLjL7Eu3pKqMko7NbZRBZo0cMWD15/YCPzUSfiiUIb61XTd7pAmQ8yo9
+         GBYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793177504; x=1793782304;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1EeFooAMcisDZaa57XJjifs27WOCXklcXpVtOXVSG6s=;
+        b=lgDqDv0t8NDkVRy9IQKhyPRuhkgcJ0cYtdXHd6CiiCh434KaodaVbr05Ou/K2eQGbt
+         g0MjAGZGDfsQi0gGWqvvKiiEuN9/BwNaX/M9buPVyvsZO6S/gtBm8BuWM80ScmKBrD3Q
+         9jfovK/GGPxgXU8qN+0e4zMefTpZVz8uwWlUQRflTFpvT4svuU4Cy4AWYKW9kHhdbQhG
+         c/g3m7SzU50/gi+NLmeORL9sUsoK8SNl0yyYtpZNc/FwBPmbgvEatehdvM0fpxWMN6D/
+         CJi2uKxH4biszN7mocgpVM0YDMl+DaQyiXkGkK9g5NGuHbYmfGEIESqxBmlOd+WwNJ0n
+         k1Tg==
+X-Forwarded-Encrypted: i=1; AKwUvByxcCwzWBEH9NjHn2w2wVBnEXoUvu6kv1NpebtEWJy1fVh3qN6c0FWVN9OqyzFNmNC5y9zRAfI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh+XiJncU1C0IuL2ni5FSxyZa0QyBuOpWqTyF5s5YA96Z+lgto
+	pI0CZm+uhlWezxuBZQrrJpQ+u+i6HV4u/7FZ0EH3b0abPHIDy7A0u8WfaImQdN8AVgPuGsWvnxq
+	bJxtAgwypJo6a3LZ4kPADtKAP8wsBvOk=
+X-Gm-Gg: AYBFou0ZFdskAfc2tIt/AeHJ4J0VE2vuH9vBTpACLAh8FDQ8rYG4l8pxAuGZj8B9Q/I
+	Veva5ALRCWJszxJgIvTn4pO+98Ch78N+5DOXvrSFnnNkNHX0qh9aQtr05YqgcvCN54ZA5VOMm3A
+	LNRbsPtiHaUg6M+IOKiusprIKYJR97ydOPWOaXj4iK/MorMRfI1jeDHSVnZQkKMyZ7Kq7Im6w7p
+	X3BRAQtafnRZzh6yuSb083tF6Q5f0hmpfvZAT5uvbRNToyqFeUJtEJhZys5yUlsQDQjIVb93DzV
+	igIFvQ7LWNv6l645dP01fwX9UezLPakLUjihMRMA6QbfxUfQGU07WlsDPRulNXURmSHAAzKYnYP
+	6ZirNzluM1Q29Iz+jHoOBcXWQvueLs7eTfL3GUYs3uuMTuz0zLpkRhs/V
+X-Received: by 2002:a17:902:d546:b0:2e8:486d:fa00 with SMTP id
+ d9443c01a7336-2eb00374563mr16912315ad.29.1793177503597; Wed, 28 Oct 2026
+ 01:51:43 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,130 +103,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnPxIgt+FqDMOJDQ--.49242S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW8tr1fGryfurW7ZF4rAFb_yoWruFy8pa
-	y5Grn8Gr4kCa4xCF9xAryUXw1F93ykW3yDAr95W34aya1Durn8tF1DCFWY9a4DGFWUJryF
-	q3WYyryUGw1jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UgNV9UUUUU=
-Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbDAAIJpmrhtyJOTQAA3w
+References: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+In-Reply-To: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+From: Luca Stefani <luca.stefani.ge1@gmail.com>
+Date: Wed, 28 Oct 2026 09:51:32 +0100
+X-Gm-Features: AclHuK-W7tQ9BUgY6zXhq61ZHhZ-QvaVHjA4WXgAGEYQXLZpdA0nUbFDuHHyB6w
+Message-ID: <CAO0HQ0UE5BtevPHHfV9mQo5HoqzxzDDjAkj9e=pD_0AaXmSYFQ@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
+To: zhiwei.liang@zliang.me
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Qu Wenruo <wqu@suse.com>, 
+	Filipe Manana <fdmanana@suse.com>, Robbie Ko <robbieko@synology.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Yang Yongxin <yangyongxin@kylinos.cn>
+On Wed, 28 Oct 2026 at 07:57, Zhiwei Liang via B4 Relay
+<devnull+zhiwei.liang.zliang.me@kernel.org> wrote:
+>
+> From: Zhiwei Liang <zhiwei.liang@zliang.me>
+>
+> When a suspend starts during FITRIM, fstrim can fail with:
+>
+>   fstrim: /: FITRIM ioctl failed: Unknown error 512
+>
+> On a Fedora 44 laptop with kernel 7.2.7, 3 of the last 21 weekly
+> fstrim.service runs were in progress when an automatic suspend started.
+> All three failed this way and left the filesystem untrimmed.
+>
+> Since commit 69313850dce3 ("btrfs: add cancellation points to trim
+> loops"), the trim loops return -ERESTARTSYS when
+> btrfs_trim_interrupted() sees freezing(current), and FITRIM returns it
+> to userspace. Since commit bfb670b9183b ("btrfs: handle user interrupt
+> properly in btrfs_trim_fs()"), btrfs_trim_fs() returns it right away.
+>
+> -ERESTARTSYS is only valid while a signal is pending, because only the
+> signal handling on syscall exit turns it into a restart. But
+> freeze_processes() first sets pm_freezing, which makes freezing() true
+> for every user task. Then it walks the task list and sends each task a
+> fake signal. The trim loops check btrfs_trim_interrupted() after every
+> extent. If a check falls in this window, the loop returns -ERESTARTSYS
+> with no signal pending. Nothing restarts the syscall. On that laptop,
+> with a few thousand threads, freezing user space took 2 to 5 ms in each
+> of the three suspends above, and all three runs hit this window.
+>
+> Make btrfs_trim_interrupted() treat a freeze as an interruption only
+> once the fake signal has arrived, i.e. when
+> freezing(current) && signal_pending(current). freeze_processes() sends
+> that signal in the same call. The trim loop stops at the next check
+> after it, so suspend is not delayed.
+Looking at how ext4 handles this scenario it seems to me they don't set
+the error code to -ERESTARTSYS and (from a quick glance) return the
+bytes discarded to the caller.
+And like before they continue the discard (which will skip/fail again) until
+there's nothing to be done.
 
-The einj_types file under the CXL debugfs directory is never created.
-
-cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
-from einj_init() at module_init level. When cxl_core_init() evaluates
-einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
-yet, so the value is always false and the debugfs_create_file("einj_types")
-call below it is never reached. Users have no way to discover which CXL
-error types the platform supports from debugfs.
-
-Create the file from both places that can know EINJ is up: cxl_core_init(),
-which covers the case where cxl_core is a module and einj has already been
-initialized by the time the module is loaded, and the dport probe path,
-which covers the built-in case. The dport probe path can run concurrently
-for different parent ports, each holding only its own device lock, so
-serialize the check and the create to avoid a duplicate
-debugfs_create_file() attempt that would only fail with -EEXIST.
-
-Note that this is still a partial fix: an RCH platform returns early from
-devm_cxl_enumerate_ports() before any dport is added, so einj_types does
-not appear there. Fixing that requires moving cxl_core_init() after EINJ
-is probed, or creating the file from cxl_acpi_probe(), both of which are
-out of scope here.
-
-Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
----
-Changes in v2:
-- Create einj_types from cxl_core_init() as well, so that the module case,
-  where einj is already initialized when cxl_core is loaded, keeps working
-  and is not regressed by the lazy path alone.
-- Serialize the check and the create with a mutex, as the dport probe path
-  can run concurrently for different parent ports.
-- Spell out that RCH platforms are still not covered, and why.
-- Rebase onto mainline, so the diff no longer carries the CXL fixes that
-  are queued in linux-next.
-
- drivers/cxl/core/port.c | 34 ++++++++++++++++++++++++++++------
- 1 file changed, 28 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 625e4aa427db..c1736a00f22f 100644
---- a/drivers/cxl/core/port.c
-+++ b/drivers/cxl/core/port.c
-@@ -802,6 +802,30 @@ static int cxl_dport_setup_regs(struct device *host, struct cxl_dport *dport,
- 
- DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
- 
-+static struct dentry *cxl_debugfs;
-+static struct dentry *einj_types_dentry;
-+
-+/*
-+ * einj_types is created from two places: cxl_core_init() catches the case
-+ * where cxl_core is a module and einj is already up, while the dport probe
-+ * path catches the built-in case, where cxl_core_init() runs at
-+ * subsys_initcall level before einj_init() has set einj_initialized.
-+ *
-+ * The dport probe path can run concurrently for different parent ports, each
-+ * holding only its own device lock, so the check and the create need to be
-+ * serialized to avoid a duplicate debugfs_create_file() attempt.
-+ */
-+static DEFINE_MUTEX(einj_types_lock);
-+static void cxl_einj_debugfs_add_types(void)
-+{
-+	mutex_lock(&einj_types_lock);
-+	if (!einj_types_dentry && einj_cxl_is_initialized())
-+		einj_types_dentry = debugfs_create_file("einj_types", 0400,
-+							cxl_debugfs, NULL,
-+							&einj_cxl_available_error_type_fops);
-+	mutex_unlock(&einj_types_lock);
-+}
-+
- static int cxl_einj_inject(void *data, u64 type)
- {
- 	struct cxl_dport *dport = data;
-@@ -819,6 +843,8 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
- 	struct cxl_port *parent = parent_port_of(dport->port);
- 	struct dentry *dir;
- 
-+	cxl_einj_debugfs_add_types();
-+
- 	if (!einj_cxl_is_initialized())
- 		return;
- 
-@@ -2501,8 +2527,6 @@ const struct bus_type cxl_bus_type = {
- };
- EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
- 
--static struct dentry *cxl_debugfs;
--
- struct dentry *cxl_debugfs_create_dir(const char *dir)
- {
- 	return debugfs_create_dir(dir, cxl_debugfs);
-@@ -2515,10 +2539,6 @@ static __init int cxl_core_init(void)
- 
- 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
- 
--	if (einj_cxl_is_initialized())
--		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
--				    &einj_cxl_available_error_type_fops);
--
- 	cxl_mbox_init();
- 
- 	rc = cxl_memdev_init();
-@@ -2541,6 +2561,8 @@ static __init int cxl_core_init(void)
- 
- 	cxl_ras_init();
- 
-+	cxl_einj_debugfs_add_types();
-+
- 	return 0;
- 
- err_region:
--- 
-2.25.1
-
+I don't know what the intention of btrfs: handle user interrupt
+properly in btrfs_trim_fs()
+was, maybe we should just swallow the ERESTARTSYS case in those scenarios.
+>
+> The restarted syscall re-reads struct fstrim_range from user memory.
+> When the device phase is interrupted, btrfs_trim_fs() has already stored
+> the trimmed byte count in range->len, and btrfs_ioctl_fitrim() copies
+> the struct back unconditionally. The restart is then asked to trim
+> [start, start + trimmed) instead of the requested range, or fails with
+> -EINVAL when nothing was counted yet. Skip the copy_to_user() for
+> -ERESTARTSYS. In all other cases the partial count is still copied back.
+>
+> Tested in a VM with pm_test=freezer. Without the patch, 18 of 20 freezes
+> during a trim leaked errno 512, and 10 of 10 restarts after a
+> device-phase interruption failed with -EINVAL. With the patch, all 30
+> runs restarted and trimmed the full amount.
+>
+> Fixes: 69313850dce3 ("btrfs: add cancellation points to trim loops")
+> CC: stable@vger.kernel.org # 5.15+
+> Signed-off-by: Zhiwei Liang <zhiwei.liang@zliang.me>
+> ---
+>  fs/btrfs/free-space-cache.h | 3 ++-
+>  fs/btrfs/ioctl.c            | 7 +++++++
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+> index e22443598b..cba2f5fd6b 100644
+> --- a/fs/btrfs/free-space-cache.h
+> +++ b/fs/btrfs/free-space-cache.h
+> @@ -58,7 +58,8 @@ static inline bool btrfs_free_space_trimming_bitmap(
+>
+>  static inline bool btrfs_trim_interrupted(void)
+>  {
+> -       return fatal_signal_pending(current) || freezing(current);
+> +       return fatal_signal_pending(current) ||
+> +              (freezing(current) && signal_pending(current));
+>  }
+>
+>  /*
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index ac070c745b..b02c59cbb0 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -529,6 +529,13 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+>         range.minlen = max(range.minlen, minlen);
+>         ret = btrfs_trim_fs(fs_info, &range);
+>
+> +       /*
+> +        * A restart re-reads the range from user space, so do not clobber it
+> +        * with the partial len the rerun would otherwise take as its input.
+> +        */
+> +       if (ret == -ERESTARTSYS)
+> +               return ret;
+> +
+>         if (copy_to_user(arg, &range, sizeof(range)))
+>                 return -EFAULT;
+>
+>
+> ---
+> base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
+> change-id: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
+>
+> Best regards,
+> --
+> Zhiwei Liang <zhiwei.liang@zliang.me>
+>
+>
