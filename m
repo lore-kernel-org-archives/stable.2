@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181424;
-	b=qNshRjOyUd+uOz73wDUwVN1CYpLbyNggyXGjBiB1ooxaN6o/tl/0LlJ4exdKOp6ZIE28
-	 bSOjBUTLrsPxhu5B0D1nOTgEPiuxyXZPIuorGexG+MHflf8W6JYzxS1+ZJfYpV490Vvp9
-	 HfSyh4tyAxMS2EnOjRaa/WHavNhAEBqCxidzhUKuKOsT/qQBbYuE3eYP1vckWJZADTL51
-	 IqDskqaX3QuCsNk/HwH+xDepAMrTVwATDD2PwSenIC/Cqfh2qRJdOTg245IuH19Bsa4XY
-	 /SPU6kVaEzC4a1tntI77CFTqvWDBwVutNDhfr8V6VxIxtmKfKbz9+0XawrXZ9Qep/4g==
+	t=1793181439;
+	b=J0oVB9jZkysn5+6MHQRlTsbWy6QMM9Z8sMLt31nmtkDq+7ICWEUPyL7AaFaKUsH2h4NY
+	 wFEgxz7bwBEpHL4mVKZV4iQYpRs7+abl38nhc+bgrMWQGr5FWhw9s3Oo/7YWyTy4l5LkW
+	 BEQvD18igkJDneCKgtoa6ktNoNVgly/krLof0NY6fW118n62H9LWDxZ4esy5OdbQR8Xw2
+	 eBYfgNR+Axv8x2SMV6CBlMtnGrIdwXdTSbVNFWFDutCkPDWdxWVSURDub9Vxh3jxE3z4Q
+	 Qrvu7d69Hu2iU1UZ42jxoj8l6prmajwzmFLDzyHlNaor0L3Mu+dLOKccz9Rr5AMXqGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181439;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/I7kmqBQ5Rj+UdU9RkgYygl6ZVbcADLceo09ZpBcid8=;
-	b=erEJ5xZWCTCzCXBIHLYHgQwIoJOidl6YueRmm0cM5dtOwBDeeKXoOkwWKTSaTqM6+Z64
-	 dsjYghGP7RGMX77Pcf6p8EVSJ78EFs+D5E+IuuRv5cM/+Idb1o82YgomP2LBFvuszrhYD
-	 so28bdUDFR77KfKdTN129pwR4uF/X+2yvu+kqjFwVmOpp+bDU4DDOy0QwrgVAVq6NcB9f
-	 NeSpKM4mS0jli/TSuxl/jEwUMaJQt+lx6xxZo3gMTTMh0YiSg4ln/iXw5RAA4lnUbmO6O
-	 fISUsuYBvFhvi8AqC3Ja+CwIynq/clLWzleNHADkeP7bs/YBcYy4aD0ItuwlcsR84vQ==
+	bh=SpR5d9py3XMD/Kz0n214N+JOZVrkF2xRnFstJsjKg1c=;
+	b=4yJx+WVnJbsJn/ZW+vvoq2EPYt8z3mgKwT6mfqWlaveai4NDVa8CjWbaKXnfvjL5Awck
+	 JM1/QWuOzIKlKsy2Ij5bNBsbR2yivQ8c9/6sKh3QOx5evt7JOu5R3P7sJjy1TSdUro3DS
+	 +yaWn37AevyHsaJt+eeKaMdJZ6OzUsjowUf86MoWKxJZOE8v0IV5KBy5nH9YhhUMQxdy8
+	 PpOIRpEjhIn13UWHA2UIOf8wYv3p77d67bJyOAE09AjltvsChGqRHzxjERzl3GnHXzSyQ
+	 GL/90puJgg703QHSQDxcahu3mGdIeiJIFiyO+VR9SNQ+Abl+OhfHJS5Q+84sR3qoWvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvhTdMYe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a61qc6fn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5AA606A325;
-	Wed, 28 Oct 2026 09:57:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C939F606A31A;
+	Wed, 28 Oct 2026 09:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvhTdMYe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97261F01825;
-	Wed, 28 Oct 2026 09:56:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a61qc6fn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCBC1F01829;
+	Wed, 28 Oct 2026 09:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181424;
-	bh=/I7kmqBQ5Rj+UdU9RkgYygl6ZVbcADLceo09ZpBcid8=;
+	s=k20260515; t=1793181438;
+	bh=SpR5d9py3XMD/Kz0n214N+JOZVrkF2xRnFstJsjKg1c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mvhTdMYeQE1SZlZGRbDzPEePCKXGHcOqwQU4FxxGTa8ULa2BI+M1yI6MGKCnlfYZU
-	 gfsLbkzye3qlsB8yllb4Qp5PYhA4/kVpCDhlO2QgyJGoODoPa8JY90XgUzAc+6e6ZV
-	 KrweLv8zYRfx/C86rLEsU7ShEZ6i0eQMoZ+R7ZQephWinoxt4X/pQk34mVzeHeY2CQ
-	 Ds+vTdSb6NiwE+5l5cCGbtz8RRunI3BgxzvF8u+eMgKfSM0uAzMAorobIkdI8g99Qq
-	 2IR5KmO3fDQ7tDV2W7YapgHXXORcvAqNvRnmnRzrYQiTgp8JmQ1u6/PQZGSLjZH0t/
-	 b6aC+z6a8paOw==
+	b=a61qc6fnEZc3xfx550jc2D95XA3KZeNfm/bD3tKIVBm+O5o6v1jStX9B7HgcN4iq+
+	 +TRzHNpBrQBzOe5eM5GSjvKmBC8PrOtIhuNY9Kf9xZVOcU65M/aneykg/oRvmHOOZt
+	 xNgr59mTt/fCCc8G4cUeYGGFR1oul1MpnAnDAO+NCyHQ+HvJupBKhgDn9umn6xVcT4
+	 vif3vXjMAIYShwthmy9MNfWM0uMOOx7gzDrxyDWALD//imvaXzDmvkmmtCGZk9sAIi
+	 H8o5lTZ0LHxadSVYVYYcRBD9wnvESt48tHBXS5vAVBLKBvdyrBD8LcR5dm2XympuY8
+	 XS2s/Ze4Frubg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 28 Oct 2026 10:55:11 +0100
-Subject: [PATCH v3 13/15] mm/shmem: fix truncate loop after boundary swapin
- failure
+Date: Wed, 28 Oct 2026 10:55:13 +0100
+Subject: [PATCH v3 15/15] mm/shmem: fix truncation of files containing only
+ swapin-error markers
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-fixes_shmem-v3-13-4ce3baf2db4b@kernel.org>
+Message-Id: <20261028-fixes_shmem-v3-15-4ce3baf2db4b@kernel.org>
 References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 In-Reply-To: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -77,64 +77,56 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1913; i=david@kernel.org;
- h=from:subject:message-id; bh=28Zzh0mRi1ZJZ32G5y3wlP8eTabvStSa92BGfBa1RpA=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHmvyvrB3QckS5hwVvVP28Zw5HmGMl3KZeISffVr5T
- eioxqzEjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACbCwcTwT+VfT3LoU8vyCYqH
- 3+t0+d6tm2st1Fi1JmNysvTfoHsz7jP8ZlWbKNc478+zP7dUVv4Q2ctcekuJ+Q2v4N3Ah9ulf9a
- c5gYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1609; i=david@kernel.org;
+ h=from:subject:message-id; bh=v1KTmyDVJ6BZ1dQ/IfjBTs7H2skt+1ukgSl8cYUbwr0=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeHmt+W2Ky6O7HP87/qpyWdgqc8xUobY1eufv8irofL
+ CYepR63OkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIs0mMDL//7jPQktD//Zxv
+ +gLZ1OrLp3LOfOLkm7Hk1JKfjjGTgu0ZGd5+Z1jHfcxZ2tmq6N99j+1spQJtKQpTuJ0nPBWctWz
+ LJh4A
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-If swapping in a large entry at the new EOF fails, shmem_undo_range()
-leaves the entry in place. Its final scan skips the entry, then restarts
-from the same start index and finds it again. Truncation can loop forever
-while holding i_rwsem.
+It might not be very common, but we can end up with shmem files that are
+composed only of swapin-error/poison markers.
 
-Advance start past the skipped entry so that a restarted scan can finish,
-as we already do for folios that cannot be split.
+Such markers are not counted in info->alloced. Consequently,
+shmem_setattr() can skip shmem_truncate_range(), leaving the markers
+behind.
 
-Note that this does not fix the missing zeroing when boundary swapin fails,
-it merely prevents the endless loop.
+Truncating the file to zero and growing it again will result in reads
+failing with -EIO instead of returning zeroes.
 
-Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
+Check whether the mapping contains entries, in addition to
+info->alloced, before skipping the truncation. Keep the info->alloced
+check so that shmem_recalc_inode(), called at the end of
+shmem_undo_range(), can fix up accounting after reclaim has emptied the
+mapping.
+
+Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
 Cc: stable@vger.kernel.org
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/shmem.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ mm/shmem.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/mm/shmem.c b/mm/shmem.c
-index da2f5cd37eee..63f7fccf2ff5 100644
+index 11c3ac313c55..9e51768ef46c 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -1434,14 +1434,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 					order = shmem_confirm_swap(mapping, indices[i],
- 								   radix_to_swp_entry(folio));
- 					/*
--					 * If found a large swap entry cross the end or start
--					 * border, skip it as the truncate_inode_partial_folio
--					 * above should have at least zerod its content once.
-+					 * Skip boundary entries when restarting
-+					 * the scan to avoid endless loops after
-+					 * swapin failure.
- 					 */
- 					if (order > 0) {
- 						base = round_down(base, 1 << order);
--						if (base < start || base + (1 << order) > end)
-+						if (base < start || base + (1 << order) > end) {
-+							start = max(start, base + (1 << order));
- 							continue;
-+						}
- 					}
- 					/* Swap was replaced by page or extended, retry */
- 					index = base;
+@@ -1591,7 +1591,8 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
+ 			if (oldsize > holebegin)
+ 				unmap_mapping_range(inode->i_mapping,
+ 							holebegin, 0, 1);
+-			if (info->alloced)
++			/* Swapin-error markers are not counted in alloced. */
++			if (info->alloced || !mapping_empty(inode->i_mapping))
+ 				shmem_truncate_range(inode,
+ 							newsize, (loff_t)-1);
+ 			/* unmap again to remove racily COWed private pages */
 
 -- 
 2.43.0
