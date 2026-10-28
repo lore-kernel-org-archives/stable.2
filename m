@@ -1,79 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202083;
-	b=E3MHKsphPPQLMikB9yeiHZxWbs2KsFhcsU4MIY0tb2ryD0bVRx9MKdb5EIv9wPT20ISe
-	 j9mweuVnZ5ngKoti40+clsJtiHQ9RYjSAPKXiT5lEn8MKxJm/ZPda+DSfgDihn3ddKRZI
-	 tpAgmizff/BA5+25CiGOlzLbWdF4pVkh9lTIAyKzq4pkEgxbrd4qsvG53XrEZEda+7USg
-	 WZZg0bmWrfe5NR6z5Ie1OriFNZ25TN+uvpfltUoozSWrRlfIjqrt7XCUaabnM7f5zol09
-	 ZR642Lz0JIxO704qE5NBAng/COhRZhaKw9gsKR4yeLJPZ1Y3KkpTMVOzpCSqvXLLoRQ==
+	t=1793202164;
+	b=vS5KUOAcmw6OKkMBYQHr6d/4tICJ5H6jSCYMahwLX99LBNzQkL4lFxCp+kJLzMrMcjKV
+	 phGVixCxLKBte7xjbHPgDnawaiJgfYJGUu09PcnmsMGdlC+W86aw1GrM0uwVHof0t9PyI
+	 +HzFGBFJ/4ETfyGmhe0a8aUs53YqPeSICvbPGZwYzQ/1oVOl6Py61/4JN423NjFSLyKfe
+	 CGTZWcQXx2Nd9g2eaqFdPCdg50U0BrYCyftDDuj24dJFsISvIYsdCaZAf2dnahZYM2Y9W
+	 Y3CHtztItV2Iy/D05nWu+y+d8x0QmUIUKR1efqQTqQtpKtDX4vMqAPIOGroNOXzjtlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202083;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=VB9My0XZkmNfDNzvXuQrlmV8tJuxQWBfRh6GF92ZzrY=;
-	b=yqi0wwfWt5AGnes0J5k2qrNLgpTzbIGN1nLsVb4NMv6/mtxoU2/KJvN94dWLGfbkEtja
-	 3cw5T5q9HCZCurSfUsIhn+0rjl9f4e7DO6fcRztD0TmZx4Zv9AqZRuFou0xwBloHpiZnD
-	 BL7cX5Qqw6T0bdbBXFf1uyViNLICcB2dMy2K3zL4jyOJSXzlhqO3F/WiiVHeVdHK7gZhN
-	 Tt8OZZDiNDhkxw/QvB5XDfM/YRRjap4x0ooXDj0GMKHewW2bjlGhlqFgu+pYHMWA0v/0j
-	 JZ50kDqcBnYeKE0hixmIeHSESx+xVjloN1TmlBvHkqq5EYFn9MD+BapRvKW1p+t3rew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202164;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SSuJWtylWOlDXuA/FVzzEuxLRE4GeRLbd69NBkjJQCc=;
+	b=xl3Dtf0MFA57/XPYC+ZuayD849rcLRcxMpE5oLB9mv3K4kDnm/hCeZ/3RpEcT1K8HYO7
+	 Nk8yP6cEjMoV4LGKJZ4hBDgFV/lhNOxYEnvcs5eYdOsZ4/JWlgvD3VBFTITsh/wuHcure
+	 lWf/p/VKtq9CqK70GQzV98j+qMQy7VOFkhgwWsFbj/25U2BaC6qa/5OlnNVMVtBwb4L6F
+	 d3WA0X1yrRcZqeo8FrkehipRXy96jXfmPOkvyohcjvf34HQo5HVc1o8q2J/+cyPk4O+HT
+	 kzPSmZNPqzzce1KUemM/yaOdhpcEyBghg5DRyaytPStjc7Grm4rzfbONvLwZWSjRR7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=EGl1QNCI;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c6nOvNag;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAA7606A331;
-	Wed, 28 Oct 2026 15:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FAA7606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217F1606A31A;
+	Wed, 28 Oct 2026 15:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 217F1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=EGl1QNCI
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFEKGJ1787895;
-	Wed, 28 Oct 2026 15:41:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=VB9My0
-	XZkmNfDNzvXuQrlmV8tJuxQWBfRh6GF92ZzrY=; b=EGl1QNCIwloqOBqp3+1VOA
-	fR+YkZZguOPETAcx9xciv6Fabc8FoLw9XERzCAbNvbgYWpGlcVogxBcmmsm6/2Sx
-	JMBNxk9PqFbrPLo/w1QLOrVkj8LvndNezlgfEIElEj8uWcgLoRwYjsmFeSn+4sv4
-	0X8WuOlIKDelYXV7JKFl8+hpeY4WF8rTMxbqRM9o3PaX5ziDl5xpZxGJWr9SvuhU
-	Q38jQVmAn4kYLjq5ob5PdNiKIX26hI2e1cGSLXfBsxErcwW3x9+OVNT2XVPeWdoe
-	MM2D8OohTzXvpAExHuUH5hCOGGntny/NIbDUT2zytRpGUDMMMeXLRWEABCl6V5ng
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm645jud-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 15:41:20 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFYn5C1760082;
-	Wed, 28 Oct 2026 15:41:19 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pawev-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 15:41:19 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SFfI6T27198096
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 28 Oct 2026 15:41:18 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 775055805A;
-	Wed, 28 Oct 2026 15:41:18 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 081C558052;
-	Wed, 28 Oct 2026 15:41:18 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 28 Oct 2026 15:41:17 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=c6nOvNag
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=SSuJWtylWOlDXuA/FVzzEuxLRE4GeRLbd69NBkjJQCc=; b=c6nOvNagGiPK6iup26/tck9kCe
+	3qJUrqx6Y3DNuOkd9NZqOEI5hODGWh1m+NVdWg2qHfoxsJqewa+oVpWoN3CzUeYGC31N8QOgfODOH
+	M7Wj+B9GiX/RtW+bPBLvhJprj2enTyiiyWe6tyD6l9NQhnQ4pR77gRQKrHf+VKAihmvbKlwTNHUGa
+	DSYE/OY60xdhHqBIt4qTtVLfhIIHA3CC4VcD4H39UjI/Dj6FB4RgUzdfFdpwTPw+a2XIw4VpxtYry
+	J57km11XeLfupsYV6AlGbXU2wo6M90P7Tg9VTmnvY0nSfhiIpNOoO24x8/UCYdLqiD0AqOaTIZHB+
+	GMM5fvew==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xM5nW-00000007Qnq-1ssv;
+	Wed, 28 Oct 2026 15:42:42 +0000
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	"Liam R. Howlett (Google)" <liam@infradead.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] maple_tree: Fix rcu reader NULL dereference after the tree is emptied
+Date: Wed, 28 Oct 2026 11:42:15 -0400
+Message-ID: <20261028154218.1668182-2-liam@infradead.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261028154218.1668182-1-liam@infradead.org>
+References: <20261028154218.1668182-1-liam@infradead.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,86 +75,220 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 28 Oct 2026 10:41:17 -0500
-From: Wen Xiong <wenxiong@linux.ibm.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, Bjorn Helgaas <bhelgaas@google.com>,
-        gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        wenxiong@us.ibm.com, linux-pci@vger.kernel.org
-Subject: Re: [PATCH V3] xhci: Reset TI USB controller on xhci shutdown
-In-Reply-To: <20261028103616.29110069.michal.pecio@gmail.com>
-References: <20261021160608.8229-1-wenxiong@linux.ibm.com>
- <20261028103616.29110069.michal.pecio@gmail.com>
-Message-ID: <eae289a8f872d508c1b3c411f69aec74@linux.ibm.com>
-X-Sender: wenxiong@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX0ShXA69wQOg8
- FV1S5dfzBclqB9+l2pkU20vWiyfNnz8Lh8rOOSf4LVN0PUnJolnKo9hEXJicYQpb5kJ0uMgKyu2
- HLEBac4RfXmQadqY1eYxZgTS9o10EGg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MCBTYWx0ZWRfX2bb8SOfT0/O0
- yvQwpSfpMZgoKD85yhcdF8Ib8yKlWMKVpk0J5y5G9aqlvFKGmu0Lwf2kxqtT8IapRcDyHHiD/Fn
- EaM4MVXQOVQBKhcKhIYUVz49SMAJgcnv5Nbt8O9M325VMLUam8qEJdYQ/xjQq+wuo7VzinGxjYd
- gup1WSuC8dLwvWuDlqhci585M6IQYsrMhiiZkRhFULhUnGti9TH0KKJ/6XgGbn7c+jY84Eg+bJU
- xLuShpjXQZKYblKHa4tF6lfYnzPMUjPJ4WOMnEPhcOPSWYdsVNNtFOC4smDvp7tHbehtU6GxMXD
- 5oWaVOJdCdiE9mRhPmUwVOKa8Tuw1fBIdoPAewqt1ANPIyDlYoKVxz3Vtfy1cGdGPScTVfCe++9
- RadJ6F4XjQD6XMJLsIGtCUgEOff8my+aK+WyBippum+KGriB0ZU2vZ0GCNFauDwwbNVc+VigDsV
- iqZrtWTjBkMvHWesJPA==
-X-Proofpoint-ORIG-GUID: yOhEpvqXZ0XVoGy1c12pZJvwX0fFm7nR
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae217a0 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=JRXGqj2KNVXaf7dXr9oA:9
- a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-GUID: PH3qXawjFdyzvCVyMJwwcFhNzBXOGo-o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1011 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280060
+Content-Transfer-Encoding: 8bit
 
+RCU readers may hit a NULL dereference if the tree is emptied while the
+walker is restarted from a dead node.  Avoid the NULL dereference by
+checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
+set the maple state limits correctly.
 
-> 
-> I tried to make this code a bit more "proper", by moving the
-> pci_reset_function_locked() call to xhci-pci.c from xhci.c.
-> 
-> I found that when I actually run this, I get a warning from PCI:
-> 
->   unlocked secondary bus reset via: __pci_reset_function_locked
-> 
+Initial fix was generated by LLM and sent by Chris Mason in private.
 
-Thanks for your reviewing!
-Can we do?
-if device is TI/0x8241 device, we just reset it in xhci-pci.c.
-We don't need to bother other USB devices.
+Cc: <stable@vger.kernel.org>
+Fixes: fff4a58cc00b ("maple_tree: introduce mas_next_slot() interface")
+Reported-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+---
+ lib/maple_tree.c | 110 +++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 83 insertions(+), 27 deletions(-)
 
-Thanks,
-Wendy
-> Bjorn, any tips what would be a proper way to whack a malfunctioning
-> PCI device with a heavy hammer to ensure it will work after kexec?
-> Seems we have pci_reset_function(), which locks the parent bridge for
-> us, but it also preserves some "state". Do we want that?
-> 
-> I'm also starting to wonder if we shouldn't do this reset after kexec,
-> to cover for kdump. Or maybe both, because shutdown() is supposed to
-> quiesce the chip and keep it from doing DMA, and we have no idea what
-> such chip is doing (if anything) when it refuses to halt.
-> 
-> Thanks,
-> Michal
-> 
->> [...]
->> +	/*
->> +	 * TI xHCI controllers fail to initialize in a kexec
->> +	 * kernel without a PCI function reset
->> +	 */
->> +	if (err && (xhci->quirks & XHCI_RESET_ON_SHUTDOWN))
->> +		pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
->> [...]
+diff --git a/lib/maple_tree.c b/lib/maple_tree.c
+index 0b0036c9f8489..22812ed49be5a 100644
+--- a/lib/maple_tree.c
++++ b/lib/maple_tree.c
+@@ -3891,14 +3891,54 @@ static __always_inline void mas_rewalk(struct ma_state *mas, unsigned long index
+ 		goto retry;
+ }
+ 
+-static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
+-		struct maple_node *node, const unsigned long index)
++/*
++ * mas_next_no_node() - Finish a next walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ *
++ * The arrival here is either because there is a root value or nothing.  Either
++ * way, the next entry is nothing.  So set the limits and overwrite the status.
++ *
++ * Return: NULL
++ */
++static inline void *mas_next_no_node(struct ma_state *mas)
+ {
+-	if (unlikely(ma_dead_node(node))) {
+-		mas_rewalk(mas, index);
+-		return true;
++	if (mas_is_ptr(mas))
++		mas->index = 1;
++	else
++		mas->index = 0;
++
++	mas->last = ULONG_MAX;
++	mas->status = ma_none;
++	return NULL;
++}
++
++/*
++ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ * @min: The lowest index to return
++ *
++ * The arrival here is either because there is a root value or nothing.  With
++ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
++ * sits at 0, before the saved index: stop on it as mas_prev_setup() does.
++ *
++ * Return: The root entry if @min allows it, NULL otherwise.  A node if the
++ * root changed again since the walk; the caller restarts.
++ */
++static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long min)
++{
++	mas->index = 0;
++	if (mas_is_none(mas)) {
++		mas->last = ULONG_MAX;
++		return NULL;
+ 	}
+-	return false;
++
++	mas->last = 0;
++	if (min)
++		return NULL;
++
++	return mas_root(mas);
+ }
+ 
+ /*
+@@ -4006,14 +4046,14 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->min <= min) {
+ 		pivot = mas_safe_min(mas, pivots, mas->offset);
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot <= min)
+ 			goto underflow;
+@@ -4028,10 +4068,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ 		if (mas->index <= min)
+ 			goto underflow;
+ 
+-		if (mas_prev_node(mas, min)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_prev_node(mas, min))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
+ 			return NULL;
+@@ -4045,8 +4083,8 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mas_slot(mas, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (likely(entry))
+ 		return entry;
+@@ -4063,6 +4101,17 @@ static void *mas_prev_slot(struct ma_state *mas, unsigned long min, bool empty)
+ underflow:
+ 	mas->status = ma_underflow;
+ 	return NULL;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	entry = mas_prev_no_node(mas, min);
++	if (unlikely(xa_is_node(entry))) /* The root changed again */
++		goto dead;
++
++	return entry;
+ }
+ 
+ /*
+@@ -4176,8 +4225,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->max >= max) {
+ 		if (likely(mas->offset < mas->end))
+@@ -4185,8 +4234,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 		else
+ 			pivot = mas->max;
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
+ 			mas->status = ma_overflow;
+@@ -4208,10 +4257,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 			return NULL;
+ 		}
+ 
+-		if (mas_next_node(mas, node, max)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_next_node(mas, node, max))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
+ 			return NULL;
+@@ -4226,8 +4273,8 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mt_slot(mas->tree, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (entry)
+ 		return entry;
+@@ -4244,6 +4291,13 @@ static void *mas_next_slot(struct ma_state *mas, unsigned long max, bool empty)
+ 	}
+ 
+ 	return entry;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	return mas_next_no_node(mas);
+ }
+ 
+ /*
+@@ -5450,7 +5504,9 @@ void *mas_find(struct ma_state *mas, unsigned long max)
+ 	/* Retries on dead nodes handled by mas_next_slot */
+ 	entry = mas_next_slot(mas, max, false);
+ 	/* Ignore overflow */
+-	mas->status = ma_active;
++	if (mas_is_overflow(mas))
++		mas->status = ma_active;
++
+ 	return entry;
+ }
+ EXPORT_SYMBOL_GPL(mas_find);
+-- 
+2.47.3
+
