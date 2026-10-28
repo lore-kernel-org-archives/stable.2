@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793207628;
-	b=qzfuu9JuG05pGOgpqCbYOw3m1caF5vuHpSOJFqiIt5sbN5hD6CONsviAjb0fQJIE0pnQ
-	 Wyjetsn1OBF0QgOppoFxh0Y38J/QykhmGe3pJKyDBeoZSqyfgeMA6i2KimB7j9VOr8kh3
-	 Y3VpivYWpvJ7p4CqqLoZ6E6w6m1AEZJnLgpvMFtQQWdJBxij1ALKA+kLPEgF0AUYihDN5
-	 Ezaln2DIWPYhdVuhz8fOoDBJ+gry9irf0fs5L5UUdh08+CTpTSQ1h3DDBwRCmJi2DYytn
-	 Rmhu+1kU71kq3dK9OEB5M6P+YeOkcTl8//qp8o1NblS8j4c6hzBogN4lojZqXvPYUgw==
+	b=HIOfrR5w7aYGxTYMFwpQbWwBz2+F1xQE11MzpXVJEsG9bDQv31o2ryrtlcpa3m7zg4Lx
+	 8JY0e846Vkpdrzv4oBmjkRJZSGKrsdHM4sqB0Xy1nyBqIYv13XNeIGUtTXcHz+OVPkcED
+	 +Owo7XofWPnqDpF9B+E91wjOmzrNznNPXkXg398Oh1FkiYtr4tiMvyicbvbCxFZ+F+4ug
+	 2vmo2RedVMTWEmNd7vEamhY9F6bUiw0KoXE6IDcyv1OhFqyy08KFdHh3fkmBjjU/rgTEW
+	 p3yKSd/CI2qvaE8wA78rhdquBuKpuS4kqG2ZJRls0zukqcvR2GqbaH1PE5LpvtpueMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793207628;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NAbRhoIXbxlfldWULqnnaPRlaaX+D9j3kKhNuHthMdo=;
-	b=ouCOsqCiBz29hsnVKmgMGQKhZhmaAYHC0QTcZA72JbpA37vk/KTlM9UUPu0j9slzYoNJ
-	 kGGr2Do6iVywe3plFyPlxEUvlnH2PKC/KNh3WNk3DHKtgQmfbD6airEMDttk+TrLNpZ6p
-	 Fqn7rl0+E0CDbz32O0bH8v2t3orBSG2uUV87483ov0gFU4t1MkRdw1eProOIpvCa2duO7
-	 c/E9B2Tw+7Om94KcWSoXYbsxYsYMrh63tHjdHIAQqp0VHz2LdQZqlUlsFXLSyuOO60FrX
-	 zJP2nrIWG29shygY5h4JeMjnaFXA5R41UpyllvC6OtEHIivmVUTCthyfPNJW4So62Mg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1FFZLlxlYjtOhAC0d3CJurEuQhAKb3ZmKX1diPj0Cns=;
+	b=PHZxySJ4oun9MHEsulZ/DAy5OdrJ7VBhe85DkmAzjOvR1J1iAC75AgNsIpeCUjfzCpGw
+	 FmRveKs5zZOKWMluwFhyWWJCl8vrt2OMI9WBg3M58/KMFIVh4EemveACGmxmVJvE0NzA7
+	 hVR/SFwhVMSnopLkqgq0W0uVJkTrwuRslNarIs6CQPIEbMLDBXvq8vyuul1Yr7w7Y6EDO
+	 xtn1cW5aACC1RVrS7+VbrJEvoTc2u8hlB09idbb5lISmi2QDCMWZcEJArp4p7Avvg/UEc
+	 RND/pZW0QGVHTV81+ceSXYG5/wLV02/XXrqcYrlASEqUpLJpaHgCxtUwEyKcWXLgNhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BKJTnQo5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjX7AO1Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F022A606A31D;
-	Wed, 28 Oct 2026 17:13:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F95606A326
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BKJTnQo5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365DA1F01825;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjX7AO1Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C985F1F031E2;
 	Wed, 28 Oct 2026 17:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207627;
-	bh=NAbRhoIXbxlfldWULqnnaPRlaaX+D9j3kKhNuHthMdo=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793207628;
+	bh=1FFZLlxlYjtOhAC0d3CJurEuQhAKb3ZmKX1diPj0Cns=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BKJTnQo51rdKrS1UHnSGe8HAksoYbXeMSvxFmYgB8/x3J1OMc1B2d9IRaXIpCzLHk
-	 bSssjD67cClnr1hyjrPIhX8IYFz1jaiMlIVJMKOZ8osmSXL39iAWGaKSMIejrvImIU
-	 nAcZC/g/QhtIcRbh9LsRVDjF0nvsTXOyGE6YkOQw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=gjX7AO1Z+50qDDkjCy67Sv7aNa8MN+X5lBEdGZqw2RsKYFXWy1aaPVK4zfpQk3Rju
+	 Gh1t/NZzUQCaImjZW44CwK6bfObGLMSMbgqFQNt7VKZ3WY2IvDqePxy4OW868C3Ept
+	 skzs/PMp66BIAa5HseNi9V4H5M9l1S/fLcWx9113jeTTLPObrg/wZqzoowUuSC4ixv
+	 6GEv7IkIIsSqdPPajnSDJedOagbHKJK3oJHHh8QCIA2RxBvfY0QlDPgrt/tq0og1p2
+	 VObmHu6/d+jX0vKjE/WfCP92YMsmxBAw5YZjiW2lVnLtK5i9Hzen19Nco6WBdlnRLm
+	 zRkliA6JAwk7Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kyle Zeng <kylebot@openai.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 040/247] netlink: reset skb headers before unicast and multicast filtering
-Date: Wed, 28 Oct 2026 17:57:23 +0100
-Message-ID: <20261028165948.319069352@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-References: <20261028165947.349197979@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 7.2.y 2/2] fork: don't create io threads once PF_POSTCOREDUMP is set
+Date: Wed, 28 Oct 2026 13:13:46 -0400
+Message-ID: <20261028171308.1613661-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028171308.1613661-1-sashal@kernel.org>
+References: <2026102849-headphone-cattail-5c79@gregkh>
+ <20261028171308.1613661-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,64 +62,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Christian Brauner <brauner@kernel.org>
 
-------------------
+[ Upstream commit 1f978881ce6c9ac4f4d4a7b6a6e52339eadcd350 ]
 
-From: Kyle Zeng <kylebot@openai.com>
+zap_process() skips every thread that already has PF_POSTCOREDUMP set.
+Such a thread is past synchronize_group_exit(), so a coredump can't
+catch it anymore. It isn't counted in core_state->threads_remaining and
+it isn't sent SIGKILL.
 
-[ Upstream commit 8bf659bd54e1f00e34cf5244b1d289c506fa47c0 ]
+do_exit() sets PF_POSTCOREDUMP in synchronize_group_exit() and calls
+io_uring_files_cancel() right after that. The cancellation runs task
+work and a create_worker_cb() that io-wq queued before the exit creates
+a new io-wq worker from there. If another thread started a coredump in
+the meantime that worker joins a thread-group which is already being
+dumped. zap_process() never saw it so it was never counted. But when it
+exits it sees signal->core_state in synchronize_group_exit() and
+decrements threads_remaining like any other thread.
 
-Socket filters can use SKF_NET_OFF and SKF_LL_OFF to read relative to
-an skb's network and MAC headers. Netlink producers may reserve
-headroom without resetting those headers, allowing a receiving socket's
-filter to read data before the initialized message.
+So the count reaches zero one thread early and the dumper leaves
+coredump_wait_inactive() while a thread it counted is still running.
 
-For example, IWPM HELLO replies are allocated with dev_alloc_skb(),
-which reserves NET_SKB_PAD bytes. An unprivileged NETLINK_RDMA user can
-attach a classic socket filter and disclose this headroom through the
-length of the delivered reply. The resets in netlink_dump() do not help
-because IWPM sends a separately allocated skb through netlink_unicast().
+The task has no fatal signal pending because zap_process() deliberately
+didn't send it one, and it never went through get_signal() so it doesn't
+have PF_SIGNALED either.
 
-Reset both headers before running the receiver's filter in unicast and
-broadcast delivery, as is already done for dump skbs. This also covers
-other netlink producers that reserve headroom without changing their
-allocation or message-building code.
+Refuse to create an io thread when the creator has PF_POSTCOREDUMP.
+That costs nothing. io_uring_files_cancel() raises IO_WQ_BIT_EXIT
+before it runs any task work, so a worker created from there only ever
+gets to exit again, and io_should_retry_thread() doesn't retry -EINTR.
 
-Fixes: b1153f29ee07 ("netlink: make socket filters work on netlink")
-Assisted-by: LLM
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Link: https://patch.msgid.link/20261006224232.50724-1-kylebot@openai.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Clearing PF_POSTCOREDUMP for the new thread in copy_process() was the
+other option. It makes the worker a thread like any other, but it only
+helps while the dump hasn't started. A worker born after zap_process()
+has run is invisible to it whatever its flags say and still decrements
+threads_remaining on the way out. Refusing to create it covers both, and
+then no task is ever born with the flag, so there is nothing to clear.
+
+Moving io_uring_files_cancel() ahead of synchronize_group_exit() closes
+the same window. It runs the cancellation, and whatever that can block
+on, before the thread announces itself to the dumper. A thread that
+blocks there never reaches coredump_task_exit() at all, so the dumper
+ends up waiting for a thread that never parks. Refusing the creation
+leaves the cancellation where it is. But it's very ugly to run io_uring
+work even before we did all the generic exit work.
+
+Fixes: 92307383082d ("coredump:  Don't perform any cleanups before dumping core")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netlink/af_netlink.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/fork.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index e250d4a3d0309..a0a8f185ccdeb 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -1338,6 +1338,8 @@ int netlink_unicast(struct sock *ssk, struct sk_buff *skb,
- 	if (netlink_is_kernel(sk))
- 		return netlink_unicast_kernel(sk, skb, ssk);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 73239e4ba6fa4..00159e2898d55 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2689,8 +2689,8 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+ 		.user_worker	= 1,
+ 	};
  
-+	skb_reset_network_header(skb);
-+	skb_reset_mac_header(skb);
- 	if (sk_filter(sk, skb)) {
- 		err = skb->len;
- 		kfree_skb(skb);
-@@ -1472,6 +1474,8 @@ static void do_one_broadcast(struct sock *sk,
- 		goto out;
- 	}
+-	/* A creator past its fatal signal gets no thread. */
+-	if (current->flags & PF_SIGNALED)
++	/* A creator past its fatal signal or its coredump point gets no thread. */
++	if (current->flags & (PF_SIGNALED | PF_POSTCOREDUMP))
+ 		return ERR_PTR(-EINTR);
  
-+	skb_reset_network_header(p->skb2);
-+	skb_reset_mac_header(p->skb2);
- 	if (sk_filter(sk, p->skb2)) {
- 		kfree_skb(p->skb2);
- 		p->skb2 = NULL;
+ 	return copy_process(NULL, 0, node, &args);
 -- 
 2.53.0
-
-
 
