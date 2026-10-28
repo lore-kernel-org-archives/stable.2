@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213473;
-	b=yVmSodazK2pYu/fQnL844cbQz9KGZ+Ay9Y6QbmT+UoPL7dqidZnWbf7kon/yNPvo2JUM
-	 ZNHy7zjZADojYHjZN3e0IC7Yc8m227qq8ozudCqLNILUQGPUXIYeifm/LPhTGhXdp0J0d
-	 2zFva5OGWJLvcINN7DjKbR0pK/N03J7rkmxuA1nr2+ZOZMzzL5+zJaFMtqKNfD7poyULr
-	 dWfqSQhiyAqNgx9WP19Hdx9hypfgQY65I/k4TsXbiUC7nGrmUkMvsQyNQmGRQPszy4l0C
-	 nsDbXQrTV+iOgaCJqiC7FjB1PEmNBKttM+jLW3wkAf3WT1yWVBjwRh9POoiD00bYGVw==
+	t=1793213476;
+	b=jPFfAY/cTDZ0sPjD3JzuLF7hjN1KDjxUzfuFpD2czG790Zx0Y/pCKTknzPf8PEh8Xsed
+	 JI1cdLHXAyeHq0Ck/jEhoiVlvNAZwhOOVq5rELl9y7v75XmEJaWEzZtqghpnjGv9L+dEs
+	 ZOteJHobHXMuOoQT0SYXZF4L4+iPJ+TvT+AnxWgrkz3ljnhknyUEqoIzWJkjhRaCzxK24
+	 0kYBy1ylsJ7ZAee/q/za97YsJAl4UlX73MsVMEdY65Kcb8qwlUK99NnBJ91DntGH1FSgA
+	 t0Sf0/ZXe+/IsnzbCf19RhXVXC01BIkdDhwhU7SLp3K2zQhRY360Z/BEgnR3oXmngew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213476;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=A7rE/TNfAypJtMC1OuujUdC461Obv8C3BA77Rr71ikw=;
-	b=ujC6NPhliaZAi8so76M3lN0XOBmZD+yFL3pxT/IQ0iggHU7HvIkoqclr8PLPxyifhUat
-	 6sAJTM3DwH8UV0nMPYN6gw8BuDONrndAyeU09T0lLgcSWY6WyWD6q/dapiG7VElG9Mnfk
-	 efJOoyan6nZ4oxsn4qoRNTMqHPzZJBqF6yHPL80CRsGMxAoFBQKGwOWTusKu+V0LbeS0i
-	 L3Gd4Oxu84L4/XP37/wQMhdb1UYM0WlP/7c5VI2FHY/r36BWuG3EIV5WRPO7fV64+Q8JN
-	 qFS9En0MGAf6A4k3yLpi3mfqF1rtooqhUSC6ljMKd2gd1mFy8Do6DdPF3fG2wl8sdvA==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=wPrpzzhrGEcXi3IMuFJTwsLRX1pwQS1D70lwV0auEso=;
+	b=h6v5gXW2eiSF1TMLxVfGkLNhGeGAClHPf/TmkNMK7uL2xIpmVfJSbDQDi7pdqLOyatK/
+	 QpqaldROhAFMZdlWstWDym06089jIS9XcJ62nSeJuOf4oN8CYvrHwwLf4qSKiIXpGbDab
+	 P9sZmVoSD4Z7vmFannFSOcKGs26dM48+Fhp/aKMl0XRjN3FA03ysZ/SeRLYfpRuLTDz9u
+	 30wKdOQk9Meh3MNjagEU6wAqyTunWLfv5qA494DppU4jXwptX3HB7Ot0pZU5RVULdyy/H
+	 gx+AmNFN94IpjIEVRi6WzQNLrUbAN3UsyIYfRIYY2onG9wJeJMRHkhn0Us29/iawBow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j78l++C4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TBmMBq0K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A86606A31A;
-	Wed, 28 Oct 2026 18:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5155606A332;
+	Wed, 28 Oct 2026 18:51:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j78l++C4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677961F01828;
-	Wed, 28 Oct 2026 18:51:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TBmMBq0K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291441F01829;
+	Wed, 28 Oct 2026 18:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793213472;
-	bh=A7rE/TNfAypJtMC1OuujUdC461Obv8C3BA77Rr71ikw=;
+	s=korg; t=1793213475;
+	bh=wPrpzzhrGEcXi3IMuFJTwsLRX1pwQS1D70lwV0auEso=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j78l++C4k44kCBAwoPcn7VMA1ujMO51Q+fkQoab6xWXaqVvOIvKPOn4fH1yRCKxNI
-	 oR0Tx2uVPonEYIfHbDC5IfCojFkGmcwIey661Lf3RWlomTxNBrBmbb7AgxaKxRHRgl
-	 qm14SXZ5o2ksffx41jo585ZWbSI6u0vQHBE+ARHk=
+	b=TBmMBq0KlryoCOgo0G81U7Zf8kty70T0CFNI4vivKs5XRwuBbVZ+E9bEMdB1MTAaL
+	 uXG3C9BQ3b0I/6oC0MhkRQ3DCe03RNHCsYxY/T/tZMGpWMvd/2fQ6T23AhTEvQALuD
+	 vPrxpdnonoGua2Q9966r3kJbhCIzygbB2LhOdJyI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Ramses de Norre <ramses@well-founded.dev>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0517/1887] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
-Date: Wed, 28 Oct 2026 17:43:33 +0100
-Message-ID: <20261028170511.086529899@linuxfoundation.org>
+Subject: [PATCH 6.1 0518/1887] wireguard: queueing: preserve tstamp_type when encapsulating packet
+Date: Wed, 28 Oct 2026 17:43:34 +0100
+Message-ID: <20261028170511.110430009@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -66,176 +65,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Ramses de Norre <ramses@well-founded.dev>
 
-[ Upstream commit 838bb60dc21553e32df90f2f3bac5b905376e7aa ]
+[ Upstream commit 65ab9de4bdd4c05d8277cfc20ae0b9f5aff60897 ]
 
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
+Sending traffic through a wireguard tunnel on a host using the fq
+qdisc fills the log with:
 
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
+  fq: likely mono tstamp with tstamp_type 0
 
-Fix another of these - self-merge.
+An skb carries a timestamp in skb->tstamp and, separately, a
+skb->tstamp_type field recording which clock that timestamp came from.
+The two have to agree.
 
-Self-merge occurs when a VMA is moved in front of or behind itself and the
-attributes of the VMA permit such a merge.
+When wireguard encapsulates a packet it calls wg_reset_packet(), which
+clears the fields that must not leak from the inner packet into the
+tunnel packet. It does so in two steps:
 
-Practically this can only happen for unfaulted anonymous VMAs due to the
-page offset equality requirement for merge:
+  skb_scrub_packet(skb, true);
+  memset(&skb->headers, 0, sizeof(skb->headers));
 
-                           |------------|
-                           |            |
-                           |            v
-        |...........||-----------||...........|
-        |           || unfaulted ||           |
-        |...........||-----------||...........|
-              ^            |
-              |            |
-              |------------|
+skb_scrub_packet() deliberately keeps skb->tstamp when it holds a
+monotonic timestamp: that value is the time the packet is scheduled to
+be sent, and the qdisc still needs it. The memset then zeroes
+skb->tstamp_type, because that field sits inside the headers group
+while skb->tstamp does not. The packet therefore leaves wireguard
+carrying a monotonic timestamp labelled as a realtime one.
 
-This becomes problematic if the VMA is configured by the user to
-mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-set.
+Nothing noticed until commit c4f796c4f16b ("net_sched: sch_fq: convert
+skb->tstamp if not monotonic"): fq used to assume every timestamp was
+monotonic. It now consults tstamp_type, spots the mismatch, warns, and
+falls back to treating the value as monotonic. Pacing still ends up
+correct, so the log spam is the actual problem.
 
-MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-for the destination VMA.
+Save tstamp_type before the memset and restore it when encapsulating,
+next to the hash fields that are already carried over this way. When
+decapsulating it stays zeroed, which is right: an incoming packet's
+timestamp is a realtime receive timestamp.
 
-Self-merge makes this impossible (there is only one VMA) and incorrectly
-clears the destination VMA's mlock flags.
-
-This causes a leak in mm->locked_vm as clearing this flag does not
-decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-is not decremented on unmap.
-
-Resolve this by simply disallowing a self-merge in this case - the source
-and destination VMAs are kept distinct and then are able to have distinct
-mlock() flags.
-
-Update to make the now-redundant self-merge check a VM_WARN_ON_ONCE()
-instead to guard against future regressions.
-
-Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: <stable@vger.kernel.org>
-[ ljs - Converted to work with vma_merge(), tweaked commit msg. ]
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: d98d58a00261 ("net: Set skb->mono_delivery_time and clear it after sch_handle_ingress()")
+Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+Reviewed-by: Toke Høiland-Jørgensen <toke@kernel.org>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Link: https://patch.msgid.link/20261008130124.724119-3-Jason@zx2c4.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Replaced `skb->tstamp_type` with the older `skb->mono_delivery_time` field. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mm.h |  2 +-
- mm/mmap.c          | 23 +++++++++++++++++++----
- mm/mremap.c        |  7 +++++--
- 3 files changed, 25 insertions(+), 7 deletions(-)
+ drivers/net/wireguard/queueing.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 4f0aa81257c58..279c121ef6b3c 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2822,7 +2822,7 @@ extern int insert_vm_struct(struct mm_struct *, struct vm_area_struct *);
- extern void unlink_file_vma(struct vm_area_struct *);
- extern struct vm_area_struct *copy_vma(struct vm_area_struct **,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks);
-+	bool *need_rmap_locks, bool keep_source);
- extern void exit_mmap(struct mm_struct *);
- 
- void vma_mas_store(struct vm_area_struct *vma, struct ma_state *mas);
-diff --git a/mm/mmap.c b/mm/mmap.c
-index d39e31f15e86c..54c73823fba33 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -3337,13 +3337,14 @@ int insert_vm_struct(struct mm_struct *mm, struct vm_area_struct *vma)
-  */
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks)
-+	bool *need_rmap_locks, bool keep_source)
- {
- 	struct vm_area_struct *vma = *vmap;
- 	unsigned long vma_start = vma->vm_start;
- 	struct mm_struct *mm = vma->vm_mm;
- 	struct vm_area_struct *new_vma, *prev;
- 	bool faulted_in_anon_vma = true;
-+	bool can_self_merge = false;
- 
- 	validate_mm_mt(mm);
- 	/*
-@@ -3353,15 +3354,29 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	if (unlikely(vma_is_anonymous(vma) && !vma->anon_vma)) {
- 		pgoff = addr >> PAGE_SHIFT;
- 		faulted_in_anon_vma = false;
-+		can_self_merge = true;
+diff --git a/drivers/net/wireguard/queueing.h b/drivers/net/wireguard/queueing.h
+index 3ce70db9dd3fe..50ceff8d107ec 100644
+--- a/drivers/net/wireguard/queueing.h
++++ b/drivers/net/wireguard/queueing.h
+@@ -78,12 +78,14 @@ static inline void wg_reset_packet(struct sk_buff *skb, bool encapsulating)
+ 	u8 l4_hash = skb->l4_hash;
+ 	u8 sw_hash = skb->sw_hash;
+ 	u32 hash = skb->hash;
++	u8 mono_delivery_time = skb->mono_delivery_time;
+ 	skb_scrub_packet(skb, true);
+ 	memset(&skb->headers, 0, sizeof(skb->headers));
+ 	if (encapsulating) {
+ 		skb->l4_hash = l4_hash;
+ 		skb->sw_hash = sw_hash;
+ 		skb->hash = hash;
++		skb->mono_delivery_time = mono_delivery_time;
  	}
- 
- 	new_vma = find_vma_prev(mm, addr, &prev);
- 	if (new_vma && new_vma->vm_start < addr + len)
- 		return NULL;	/* should never get here */
- 
--	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
--			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),
--			    vma->vm_userfaultfd_ctx, anon_vma_name(vma));
-+	/*
-+	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
-+	 * destination VMA must be treated distinctly.
-+	 *
-+	 * A merge violates this, so in this case disallow a self-merge. A
-+	 * self-merge can only occur if the new range is immediately adjacent to
-+	 * the source VMA, so simply do not attempt to merge in that case.
-+	 */
-+	if (can_self_merge && keep_source &&
-+	    (addr == vma->vm_end || vma->vm_start == addr + len))
-+		new_vma = NULL;
-+	else
-+		new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
-+				    vma->anon_vma, vma->vm_file, pgoff,
-+				    vma_policy(vma), vma->vm_userfaultfd_ctx,
-+				    anon_vma_name(vma));
- 	if (new_vma) {
- 		/*
- 		 * Source vma may have been merged into new_vma
-diff --git a/mm/mremap.c b/mm/mremap.c
-index e1d7047f6ee5e..5eca7534e8706 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -639,7 +639,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 
- 	new_pgoff = vma->vm_pgoff + ((old_addr - vma->vm_start) >> PAGE_SHIFT);
- 	new_vma = copy_vma(&vma, new_addr, new_len, new_pgoff,
--			   &need_rmap_locks);
-+			   &need_rmap_locks, flags & MREMAP_DONTUNMAP);
- 	if (!new_vma) {
- 		if (vm_flags & VM_ACCOUNT)
- 			vm_unacct_memory(to_account >> PAGE_SHIFT);
-@@ -700,6 +700,9 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		untrack_pfn_clear(vma);
- 
- 	if (unlikely(!err && (flags & MREMAP_DONTUNMAP))) {
-+		/* Self-merge is disallowed. */
-+		VM_WARN_ON_ONCE(new_vma == vma);
-+
- 		/* We always clear VM_LOCKED[ONFAULT] on the old vma */
- 		vma->vm_flags &= VM_LOCKED_CLEAR_MASK;
- 
-@@ -707,7 +710,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		 * anon_vma links of the old vma is no longer needed after its page
- 		 * table has been moved.
- 		 */
--		if (new_vma != vma && vma->vm_start == old_addr &&
-+		if (vma->vm_start == old_addr &&
- 			vma->vm_end == (old_addr + old_len)) {
- 			const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
- 
+ 	skb->queue_mapping = 0;
+ 	skb->nohdr = 0;
 -- 
 2.53.0
 
