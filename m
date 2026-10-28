@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210204;
-	b=M8h2vBZ4d2rdNZTT8Jr3Src2Qwo3bjFGINcbtw8t1enRhZkKvvCSWh6h5kZ+bLrhuQkl
-	 5KN/zkPn2bTa90w8tGpgNSd9Rlp+/VeFFEWqdwIxvPYB89YeVMp6LIbuZKQ5a2gof6QoK
-	 QjuglwmsEfVPZcOEFcWjbGyd1dEV/Uw34eOcLr3taOpUEbXvL3Sk/2TIf+wEqL3pHBOwW
-	 19aVUsHP93Io27RhFGjgBlB4os+AfurrfLNA6tzwzvHDX/8KqXcHl4myK8U9tqO3ubY/j
-	 Ie5d/82tk2ys2As02D2kIosUBBDB9AhjUOKwVZjF2uJn3X2wegf6NQJ2edmFWTTEDPg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210204;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9u6fZfdgN5Bqfu4ouPZnnwpfP7xNf+GxQ1guAmLb0tI=;
-	b=bR2/25bkI2kxN8wGWxFJKPfJ4NYLYVH1nUl+c4LC4AJmswmNo0wDwbYGNrM9zp6LZi+Y
-	 HMP3tlcf5vsP4bcJrnKZ0lSe4E4iKPFAkZ2QE2R5frPAvHh8JoWGdZ3KDUFNpe/IneiBP
-	 wyCV6nk3L1Y6VO+vg267Yq/HzvR33ITKSF+lu23eZ3Ek7EmQqpxWQGV1QMDWpnNHVBtvW
-	 s3Qo+zX+k05okIae12m1A64tswcqgrY68zpujlVDB/gJpSOv0wnApgCzkW0RPlst6OLLz
-	 VauhS/3Ht6h+9zAQleIWBM5fEj5dDGdPiz3/zYqCh9YbqDhT4d7OJNsFmrIVh9AyfRQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y2SBviNF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793210205;
+	b=B/lp2et6s2YML7bfROpnUvP0EsLs6/u0f0KYwgXaF+L6Mq2ClQO73fAtbs8w863zcuoA
+	 w7Ywx8Uif2fr3PIWYkP0btKatBGW0YWIe+S2XWGJQmZWkALJM8dzLirpjzsXurvgjACu/
+	 o9ELo4GCxlp+oPlMRlMgmJ3nJpHfrlrgeiN9vPMSj4Y0M9EK8WGljoHxUvtBSwTfPEpJi
+	 KbtHkjGVBPK16WSXnFZI1/cfeVq3p0zvlq+a7y0Upo8p7GwMcGoCN5W4sHcRu2aiHJE67
+	 K91XozwkodTSjYUzfxGAmBfRwO6T1m7oBVSk9RwaAvMWZlCGqU6g5ozI/Gwas/dOgGA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210205;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+7QuCpMDuaPEn/821Gdh04dyOpLKWIkef/TiSBsZIMo=;
+	b=Iujtz2FJpT316dNS1L1pQU4cZQO5Sb7tR2bwkqFzJBCgOkk0Bm8EbDEtMgT3yfFu6aHl
+	 wswX/kS5kO+6RCORiBMXQPxyIdAUSZqQQEU1sI9AGWiqjbgKYw10012kc9o2GNXmZCkEF
+	 AYi6NNqV11VXLUxDd4qDCIMFdmjJYhiOQTzrNjluozbjXeJ9qRUQeJPmLK1sM2scIx8nE
+	 Ib26Oz7SgCnV9BocIWJleRtz4StdZk+CevRWn2D+SjYdQivDrLLoAq2LXrQS4Umx6vSRi
+	 ZnyfT58j7/0ZWnKl5gNbLq8SjHmqL3bOCPpAoPfleLLebvDqVj64k1yXw/JZug4F5yw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cBmABpD2;
+	arc=fail smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E490606A31E;
-	Wed, 28 Oct 2026 17:56:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648B2606A333
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648B2606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y2SBviNF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C11D91F01825;
-	Wed, 28 Oct 2026 17:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210204;
-	bh=9u6fZfdgN5Bqfu4ouPZnnwpfP7xNf+GxQ1guAmLb0tI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=y2SBviNFalv72S1W6EN8bSjh7VshaDWs+mXPiabDsD5B5bvDtYUT9FanWtY2z5zMB
-	 FnKQT0+4hbymFJsnOcO71QctzujIXu9KWO8lexZn6POsAN0cT8fhC7jsFzCrXtS55X
-	 TMjdyvoPAnt13hI8vuh/P7sjgzmW1DjIrYyVi6Gk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Frank Sorenson <sorenson@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 114/168] cifs: add revalidation on FSCTL failure in smb2_duplicate_extents()
-Date: Wed, 28 Oct 2026 18:00:50 +0100
-Message-ID: <20261028165945.785892585@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cBmABpD2
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so1571319a12.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:56:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793210204; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b54px9d1YnK0wvoBjfgdwjQTDZEzaKBIdNpc1bJ1Ajs78h5RR2T/MpiuLnyxQQG56v
+         DlO328Vh4XE8aEiyqJrn3kVmSuj3Iwah4e/f0mbxd7qCys239DBJ0Fehcldont+2+ukP
+         k/TJI7bqYIqsvWEoGV5TQdjrUx2nakGi7AwkZ97SUwWQy1iCAn+UbTAysmND+TLuH54i
+         nsn7MuXr70dQVC4yp7qqIJW7m2NJmTBGLpfsdrxv/0kI4iN2e7cAIjDJnhVxbDt+MxCo
+         0JnyOtVou1sYOvf4CS8NFxtxtojMDldawk5Z1++EYf/5VJ1/DTSbLcE9d+Y5Hm+8F88d
+         6r4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+7QuCpMDuaPEn/821Gdh04dyOpLKWIkef/TiSBsZIMo=;
+        fh=4n4q2BmShAqr1ze1N3MBbclm8HOzsM1KNJ8zZjRITn8=;
+        b=BaXL+7lnJlCfU6Yv+Rq23oJ6YnonGamG3fwNm6qI4FQZMxU874ApO//OtQIDJ0sEEb
+         Rv+npflCyRxZqe8DJWF3JZka+GrU8B+kOQMMXd7WA4VHdfkdlkGsRHyIbnv+/Xd8eorr
+         Ufes2+YNB9Czo3ProvQX7uqmGjtx/pCsx+yDDlp4DuDP/9tjYbEHNK43jDvM092tVSRd
+         ZMyNs3TZkzROFx7+zFv1bXtxmu6EWsdAPpokhDjjRng4EZefvWkcdqbMskDUoP//q6Ze
+         XV3oHJNIWdKTaOxdu1Eh2xKs8ACBsa0ba3nj7It0efLPyZ/KwOBjE3mRgWxd4xZsClnE
+         mUYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793210204; x=1793815004; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+7QuCpMDuaPEn/821Gdh04dyOpLKWIkef/TiSBsZIMo=;
+        b=cBmABpD2dTbyN8N3Nkx9RhLc3X+FY/sh5ng0uHcOzmWu1KrIcemCqswmovukJCLQTw
+         p9YOtz/ycR1U0L2FW1+KufDeIpysFXBqROFzeJ/m3jDBtozvsBMbsS4IJyxiWQSWtO2A
+         YdtA60A0oIbeOR3Qs3R8hPAIme288xlTLmYS6IfDYncv2GcRcV1rVYp30S6t0M8UjTwc
+         NFHT9g+vPsDEMkgOcnV+fe96b7lX5NxJtSHVCPGG7acE3JFTboEunEKHiezUly7Efa7J
+         9ypmTy8F5vMI4PiTbpWP6U0OLjqnWPdT9Q4AOmaI5KTZ94HNferCcSQbdV6bC5qNgyew
+         c4vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793210204; x=1793815004;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+7QuCpMDuaPEn/821Gdh04dyOpLKWIkef/TiSBsZIMo=;
+        b=M1Xvsn2Vy/n7K3Wd6es8CmlE8BsXzWfSO35bVZ8T142Rk+izIb8yoCwdAEwdQrRBiH
+         KTamHqOVWJUqWZ+izX+iVt3/UmrRE/XQResKQfBQLWlFpvaFy0unDsjGc/T3Bg+fIJfJ
+         Lob8InwEh8WQEFz9TraV2EBGQSKVO4jE+3egCL74tIXdhthI6smlgbaEpK4xH81K1TDG
+         ovlTB028Bb2eW24/DvbbWaOYjHQXaC0RiZFleZT9aj0KCyimJV+6mcDNL6aD/9YzALgW
+         cV74tCe7UtpckIJVlV5SQ2kTLyVNGMvk3whpp4UtcRjmEWrRAVEUUd1TrOnkbJhTgYOj
+         BxYg==
+X-Gm-Message-State: AFq9FYL8hS/z2J0SJRiPUZV6532D664EevfyQwGitaD465yZlXNicsHK
+	1re8BmwfEFf2Q2RR1yw3gHOV5atnQchjs7Aq63R8CwHYDQSnteTOesNwp6U5u3Rd/YPQQqbfAV5
+	KMWQ7kGi0xtV6Vnjc/cNU0RPg6TGSilo=
+X-Gm-Gg: AYBFou0I+Asiew1UF2NtNWTlKI7gGw+M8VZsWNxbkw09gEKTMDUdUBLZcb4E62HyoRq
+	vOoCEZkjxUtADXpT/ZFTImf/W/Mg/+6hRAwZyGL4XrAnlc07fVLC+Qd4kMKxG3NgO84Hs+HFtEY
+	iNqK9X/5vsy2Mdm/XaP30SgvOFDyOHzl7SRDOQQwlPMgQ/SVrLD6Z/RR/BclN2iOfFWNG2t6dfQ
+	URS8znYvbUdf8ttWoIT4X0FwCu15+TeMjPtQ+3maN6UIlNEMQ1hBT688mGAqdVA6y9c8+mwv92j
+	8AL5HD5WjOBrJx59vLuAI/MAW4Y3TSthqylwV5LPCDVY2ZCjZUMcLLGrYa0HlICNaMzr/EVHzBV
+	/AwRAq1ESb7g7iIO6FtB42wvuWMeju4xAYcsiwg7XI42i8/n/tRAicog2INgAmbu+TtiN8w==
+X-Received: by 2002:aa7:d152:0:b0:6b4:21b3:a407 with SMTP id
+ 4fb4d7f45d1cf-6b49cbec0d5mr1632982a12.22.1793210203401; Wed, 28 Oct 2026
+ 10:56:43 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +103,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261028165947.349197979@linuxfoundation.org> <20261028165950.290722602@linuxfoundation.org>
+In-Reply-To: <20261028165950.290722602@linuxfoundation.org>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 28 Oct 2026 19:56:32 +0200
+X-Gm-Features: AclHuK-tumKlKRu862aY7gzIO6eryO1Aqbm0yAf8iy9yxR8Czrude8p5hPdV6F4
+Message-ID: <CAOQ4uxjuTuVpx9GV86vt8JwKk9qOPayV7dx_86EofozKkK_kWQ@mail.gmail.com>
+Subject: Re: [PATCH 6.12 122/247] fs: get rid of __FMODE_NONOTIFY kludge
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Guenter Roeck <linux@roeck-us.net>, Edvard Conrad <edvard@tuta.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Oct 28, 2026 at 7:15=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> 6.12-stable review patch.  If anyone has any objections, please let me kn=
+ow.
 
-------------------
+Objection.
 
-From: Frank Sorenson <sorenson@redhat.com>
+This causes a (potential) deadlock regression:
 
-[ Upstream commit 53676a5e28231186c9f56d87b7998b640699bc15 ]
+https://lore.kernel.org/linux-unionfs/P4sl5iz--F-9@tuta.io/
 
-smb2_duplicate_extents() has no handling for
-FSCTL_DUPLICATE_EXTENTS_TO_FILE failure: when the FSCTL fails, local
-inode metadata may be stale from the pre-extension or from concurrent
-remote writes, but is never refreshed.
+Working on a fix, but no reason to backport a commit, which is essentially
+code cleanup that causes a regression.
 
-Force revalidation on FSCTL failure and use i_size_read() for the
-pre-extension check.
+Not sure if this already hit other LTS kernels.
 
-Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate extents (reflink)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Made the failure check standalone because the existing code lacks the SMB2_query_info() success branch. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/smb2ops.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 4da027ee4b99b..21a2b265ae7c4 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2070,7 +2070,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 		src_off, dest_off, len);
- 
- 	inode = d_inode(trgtfile->dentry);
--	if (inode->i_size < dest_off + len) {
-+	if (i_size_read(inode) < dest_off + len) {
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
-@@ -2095,6 +2095,11 @@ smb2_duplicate_extents(const unsigned int xid,
- 	if (ret_data_len > 0)
- 		cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
- 
-+	if (rc) {
-+		CIFS_I(inode)->time = 0; /* force reval */
-+		cifs_invalidate_cache(inode, 0);
-+	}
-+
- duplicate_extents_out:
- 	return rc;
- }
--- 
-2.53.0
-
-
-
+Thanks,
+Amir.
