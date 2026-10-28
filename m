@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793154464;
-	b=psuqvxVR6rPp+P0MgQNpMBt0AYSgVBX5gum45QlHc9Y6SPExJS9YJXRTZmaWnohrlULI
-	 1L0OJGGOOKfgW3C/jU3svAm9qGq16Gpet7WqLXvtem45UTM5/EhNuUCbYDjOxDKHTgcWg
-	 F0OpqkoHdW3IUKYee5YbLJ6+721MKJ+Gawpt/c8FP43yfcZrPqlpjDigHJwrzmRbFLfnp
-	 kN+ruioGayMXvNaosaj8YdxpkQ9+uZ2PSDlFcNKPStj/CBSwdrYFCwkmG8eORRhBDOpF0
-	 1DBN7ekxM7jmQBy+1r3X22rUoVRNkH5sV4fe8mJ6FRczLKNXV/KlLGpLOmnY4HM1TJQ==
+	t=1793155017;
+	b=0FFX1N1la5cnZ89lMQiZ9JiCivJkmSPye8OrlETb1dXFi/sZx9T4ZqRhIqw/Q2Qyb+qp
+	 kqtKaTuk4Xphp8TbdTMBaJPv2StnPHwGEaW/O1TOml6yesQL2OmFQXzDgmtf17cdeGafD
+	 r3LrHSd3Hfo78ffbNvMw3UQ/E8dN6aMRV7WCVFXzgNjt8Kn8hz3TylOsaKORqycpN0tHr
+	 BsfIennUW91wezsOWR0y6COmJLjzm1e/ikus5iNxZoXYU52yGyUKbNAr/vNLGxROWfy/4
+	 AQqYOo5p+ayCtK0FYscop2Hq6mG/KO78JW5KCAOIdSD4nh/uQFT75GLNZGj7ICmUkeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154464;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=f2V+QhR3ouV+4TSh8wb5W05ywr0Fs0XryAtmuVyoRSs=;
-	b=NE5j7pJufGOJ3KQIKz+N4+icFBp37GjBrpMEJzr+XB5mmfJugT+invM7xm5wjw31ESQ0
-	 r5iCcXougVHdQyH3hYSXEA4cNYz7kDbwmO3eTDwodQiTfixR9r88W2WELEnMT+QKj97jQ
-	 dKqlOfaL2nLfNsRMUMUjxdPdWIfF/GsUpuGgGFVEtqI6O4/TvJbJZLAzl2lOYUTWqM6mv
-	 GGWnF9Yr3gVf2k7zBf91+wK8IKiNjy55+NKLeZB1bad7atKjs13BinWaJm/bsMQAlu0Ku
-	 YknzEp8710RAJw5vv9dxM4op6G/nTWxU61XEHUJvujv+jGNGSU/43OEfdMWyLAKWnyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793155017;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z0OSDcJuGoiVpog7HD3YMgsCa/cRBsgA/6QWbSk+j6E=;
+	b=a4rtg/QUmlf6c5xSOmyt1QJEVW0Rd8IChvs/PzgmY0Qz3vO9OEreqtdPn1VHIRMo1EI8
+	 FdpXOJ1y1DR2R5Z7n4DM5jGx6mND9dQuSLv+DR5w5VOz7rpSFbmZxzojKoqY3BBAujGQa
+	 XTkxex1gyoQrXM2y0bSJJBhYqNLNXmRtjet12amcD2o0PlH/TweKi8kp+ziS/tNJ2oCXd
+	 jjhE/YGhZrbu4H0dZZsEQSQ+/oboVf9jtOC77ijZ6/Wj/mByN3aJTrqTzKpDQhGLCYj3F
+	 hhH3cKpNV0cktj6WNjgL8jknovQhjFZjaFPDI4/9ew1N/wmzSAbYI1em2i90tfyN+5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0A9OvlS+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nakEMdqa;
+	arc=none smtp.remote-ip=74.125.231.201
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB15606A31F;
-	Wed, 28 Oct 2026 02:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32536606A31F
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32536606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0A9OvlS+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70C81F01829;
-	Wed, 28 Oct 2026 02:27:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nakEMdqa
+Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f61e12e8e0so106824b6e.0
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 19:36:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793154464;
-	bh=f2V+QhR3ouV+4TSh8wb5W05ywr0Fs0XryAtmuVyoRSs=;
-	h=Date:To:From:Subject;
-	b=0A9OvlS+JxUiHBPb9vXDTpKpWxq+0VQIhsQ38B9S6k/Ryna4tGQAUaRpf/KdiPqWY
-	 C+vfuVXJfxvJuuJ5mGyroM0jBH4oFUSNgZL3pJ3gS/gORarho/V4c7cDOqdz3sfHS1
-	 pdFy8mLf1TYsnJxjXoZlxq2hEMYyo3IH+aI2pwaQ=
-Date: Tue, 27 Oct 2026 19:27:43 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,rppt@kernel.org,qi.zheng@linux.dev,pfalcato@suse.de,
-	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jack@suse.cz,
-	david@kernel.org,ayushr@modal.com,baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-memory-fix-truncation-removing-mapped-folios.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261028022743.E70C81F01829@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1793155016; x=1793759816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z0OSDcJuGoiVpog7HD3YMgsCa/cRBsgA/6QWbSk+j6E=;
+        b=nakEMdqaUeTld5vVcr7Yy0fq4SnRBp79o6/Xs5DxMJlXF/Hk+AAJ2x3S+0QLpLRuP5
+         3ngIGa5xKn/rVgxzv6SuxZ4SGtfbe2l+Kq03UlGeyS4pORiwiZyQgMOxJ+wYJzBiB6dQ
+         7F3AJNeEN0je5DoOXrDZwoph0wkahsPf0K7WRyrsWyVih5rlWbeesi0t1E6IcBVlKeJi
+         3f7j8+nt9U1YyJU/NoPJVIJ9IpKtyTVIiyFBbkUvSZhswSYbb9QEwvmEoGWCwVtn4DkB
+         88Kl5kg2KQuH5SjHlztEFy31cjtlcxYbcA+FIIjVB+gUucXqSe80DVvQ4/TuFNl3AH9a
+         aHHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793155016; x=1793759816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z0OSDcJuGoiVpog7HD3YMgsCa/cRBsgA/6QWbSk+j6E=;
+        b=GMRv6GNr4hwXWc0lYIdvBTjngvBEj8RWVzieBwjCm60mAosoOJAei30U2IPHKrxfVO
+         1Q+LP1lcBQKmzras7JGOeT5p2ogSBfoF3wxcbR8NDomg2IByppcaFLw21lO34FFZWlUW
+         RAqgljLVPH5vs8XIZV2gMYDU1Z6GKMoBmV26zsUmhDdPdRxV0+J95Tn5ShcUJBJ5e9qR
+         521/PNyMoqLqK2+j0Vtv11uK26Zq8AL0B10RIS9Au6+x+MlFqAYvdCtpQjVg5N7VEv+Q
+         UEsvzlQviYYPjc8yku18grcQI1Nny2a2ISY/UiJcbEqAgFd3fuLFGWpITxwicBDlTNju
+         s01A==
+X-Forwarded-Encrypted: i=1; AKwUvBzZHGtBRVtKIqYMqK9tHMuh1cL8lj7VBVQ+O/av7oPKhHMYQcRxQd7Oh5D3Usj78tlcj+8TCfs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJ9mc8mcZhb5M7byzSGjjPJJIF0o8VLOOpVPbHOnH18RiDwVnD
+	d56srTBMf02hkc7wD84XSDDiqCoqo/ZUePAxqVl3Ecq3k3iwjNhyZO65
+X-Gm-Gg: AYBFou0q/Tldt128Z9C5pkZFJ6w+IxcFJdp3KA3az+fymbVNQkJM2+i3kYdx/XPDU2F
+	19nJ65Y/XCHmEFYpe8jYBu8uI/z3U1fxEAuhGZrUSGzBSc/sbwPUMKJhtS/63bjqLSHuX0dFoA/
+	8VD+RyQlNgSpCm1ebQGv7PxBPtIkN1xWZGHq3G2EX1+YohceaNrWvyDuiEqQCOPeg9IEoqwUIx2
+	x3rbHxd3otIW2hg4L2ThmkDOm8gWJL1vW9epAEpTY4DZmFLJ/Lm3X8ZL15JoNXEpC/fN55grTYm
+	NkG7Yd+LZOPH47PQGcWa/BrdBcY7scTmBN/XFDSVmfaqzBhLabulllK7azJCpR2J+4AOA27veuR
+	jdNi0cQ4jMcoCterAjxDNyZoO/XFfXzIiW53uPBwdAHu4ipW3SOTJs5IJCZ3fwtKNuxPu34cjfh
+	lUePNkmku5c2z314X/yd7paHiQGbp7wLcXHv5NlY7ZmeWxck6uKuk68uQVtDAfPtnFD+zVDHrsS
+	A4hBl4myBKmaPiLZIJlYAOjSMV2WF4JaCZ3Fv34eecJv248IYbCpvFiNkvMfnxBCtB5sSW5xzqL
+	AQeTlQIqUVGcSAsKlL9Zbitir47ynzhwJ/RcXWRW6kx44u/+eYZWDl1HT6k26r/xBne3EUKLMPu
+	UgLeJ13A6k4TS42s=
+X-Received: by 2002:a05:6870:8a09:b0:48f:e25e:e202 with SMTP id 586e51a60fabf-4a8bb5e13e9mr920244fac.61.1793155016073;
+        Tue, 27 Oct 2026 19:36:56 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.38])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b785d108sm1478108fac.9.2026.10.27.19.36.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 19:36:54 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: qedi: fix OOB read in login/text response completion
+Date: Wed, 28 Oct 2026 10:36:46 +0800
+Message-ID: <20261028023646.2151626-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,219 +100,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+qedi_process_text_resp() and qedi_process_login_resp() take the payload
+length straight from the CQE field (hdr_second_dword &
+ISCSI_{LOGIN,TEXT}_RESPONSE_HDR_DATA_SEG_LEN_MASK, 24 bits) written
+back by the adapter.  The same raw value feeds the PDU header's
+dlength field and the amount of payload buffered, and neither is
+bounded:
 
-The patch titled
-     Subject: mm: memory: fix truncation removing mapped folios
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-memory-fix-truncation-removing-mapped-folios.patch
+    hton24(resp_hdr_ptr->dlength, <raw 24-bit value>);
+    ...
+    pld_len = <raw 24-bit value>;
+    qedi_conn->gen_pdu.resp_wr_ptr = qedi_conn->gen_pdu.resp_buf + pld_len;
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memory-fix-truncation-removing-mapped-folios.patch
+resp_buf is an 8192-byte buffer (qedi_iscsi.c).  A CQE whose data
+segment length exceeds the buffer makes resp_wr_ptr point past its end:
+the data segment is delivered to __iscsi_complete_pdu() with a
+fabricated length, an out-of-bounds read of the buffer delivered to the
+iscsi userspace daemon over the iscsi_recv_pdu netlink unicast.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Clamp the payload length to the response buffer size once, before the
+header is populated, and use the clamped value for both dlength and the
+buffer pointer, so the header always matches the bytes actually
+delivered.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+This issue was discovered by Tencent CodeBuddy Security.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: mm: memory: fix truncation removing mapped folios
-Date: Wed, 28 Oct 2026 08:52:57 +0800
-
-Ayush reported an issue that shmem/tmpfs folios are still mapped when
-truncating them on production:
-"
-BUG: Bad page cache in process ...  pfn:...
-page dumped because: still mapped when deleted
-"
-
-I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
-branch, and I got the following crash info. From the dump message, we can
-see that truncate_inode_folio() is really trying to remove mapped folios,
-which is incorrect.
-
-"
-[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
-index:0x3880 pfn:0x191647
-[  189.171995] memcg:ffff0000cc073d40
-[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
-[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
-workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
-.......
-[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
-[  189.172026] ------------[ cut here ]------------
-[  189.172027] kernel BUG at mm/filemap.c:155!
-[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-.......
-[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
-7.3.0-rc4+ #277 PREEMPT(lazy)
-.......
-[  189.183986] Call trace:
-[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
-[  189.184391]  __filemap_remove_folio+0x34/0x160
-[  189.184633]  filemap_remove_folio+0x4c/0xb0
-[  189.184859]  truncate_inode_folio+0x34/0x58
-[  189.185087]  shmem_undo_range+0x220/0x658
-[  189.185308]  shmem_fallocate+0x2f0/0x470
-[  189.185527]  vfs_fallocate+0x128/0x328
-......
-[  189.187078]  el0t_64_sync+0x184/0x188
-"
-
-After analysis, I believe the race exists between truncation and MADV_DONTNEED,
-and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
-MADV_DONTNEED synchronously releases the pagetable page before calling
-tlb_flush_rmaps(), this could cause another thread's truncation to skip
-zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
-as non-zero. A possible race scenario is as follows:
-
-CPU 0                           CPU 1
-shmem_fallocate                 madvise_dontneed_single_vma
-  unmap_mapping_range            .......
-  ......
-  (filemap_map_pages() remap folios)
-				  zap_pte_range
-  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
-    unmap_mapping_folio
-    ......
-      zap_pmd_range (saw pmd none, skip)
-
-  filemap_remove_folio
-    BUG_ON(folio_mapped)
-                                    tlb_flush_rmaps(remove rmaps)
-
-To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
-to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
-concurrent zapping, so that when we find a pmd_none() while unmapping a folio
-without holding the PTL, the folio's mappings are guaranteed to have been
-removed via tlb_flush_rmaps().
-
-Meanwhile move the second pmd_none() check to where it belongs: if splitting
-zapped the PMD.
-
-Link: https://lore.kernel.org/14ebbd556cc4941f0ebc43da59fa6a2fdca25dc8.1793148609.git.baolin.wang@linux.alibaba.com
-Link: https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/ [1]
-Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Ayush Ranjan <ayushr@modal.com>
-Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jan Kara <jack@suse.cz>
-Cc: <stable@vger.kernel.org>
+Fixes: ace7f46ba5fd ("scsi: qedi: Add QLogic FastLinQ offload iSCSI driver framework.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
 
- mm/internal.h |   10 ++++++----
- mm/memory.c   |   35 ++++++++++++++++++++---------------
- 2 files changed, 26 insertions(+), 19 deletions(-)
+v2: Clamp before populating resp_hdr_ptr->dlength and feed the clamped
+    value to hton24(), so the embedded header does not advertise more
+    payload than iscsi_recv_pdu() copies after the buffer bound is
+    enforced (sashiko review).
 
---- a/mm/internal.h~mm-memory-fix-truncation-removing-mapped-folios
-+++ a/mm/internal.h
-@@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tl
- void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+---
+ drivers/scsi/qedi/qedi_fw.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/scsi/qedi/qedi_fw.c b/drivers/scsi/qedi/qedi_fw.c
+index 854efa4f61d87..ddab627826180 100644
+--- a/drivers/scsi/qedi/qedi_fw.c
++++ b/drivers/scsi/qedi/qedi_fw.c
+@@ -102,9 +102,11 @@ static void qedi_process_text_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->flags = cqe_text_response->flags;
+ 	resp_hdr_ptr->hlength = 0;
  
- /**
-- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
-+ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
-  * @mm: The mm_struct.
-  * @pmdp: Pointer to the pmd that was found to be pmd_none().
-  *
-  * When we find a pmd_none() while unmapping a folio without holding the PTL,
-- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
-- * indicate that it's unmapped. Skipping the PMD without synchronization could
-- * make folio unmapping code assume that unmapping failed.
-+ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
-+ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
-+ * for the table have been removed, but nothing orders the pmd_none() read
-+ * against later mapcount reads. Skipping the PMD without synchronization
-+ * could make folio unmapping code assume that unmapping failed.
-  *
-  * Wait for concurrent zapping to complete by grabbing the PTL.
-  */
---- a/mm/memory.c~mm-memory-fix-truncation-removing-mapped-folios
-+++ a/mm/memory.c
-@@ -2073,6 +2073,15 @@ retry:
- 		}
- 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+-	hton24(resp_hdr_ptr->dlength,
+-	       (cqe_text_response->hdr_second_dword &
+-		ISCSI_TEXT_RESPONSE_HDR_DATA_SEG_LEN_MASK));
++	pld_len = cqe_text_response->hdr_second_dword &
++		  ISCSI_TEXT_RESPONSE_HDR_DATA_SEG_LEN_MASK;
++	if (pld_len > qedi_conn->gen_pdu.resp_buf_size)
++		pld_len = qedi_conn->gen_pdu.resp_buf_size;
++	hton24(resp_hdr_ptr->dlength, pld_len);
  
-+	add_mm_rss_vec(mm, rss);
-+	lazy_mmu_mode_disable();
-+
-+	/* Do the actual TLB flush before dropping ptl */
-+	if (force_flush) {
-+		tlb_flush_mmu_tlbonly(tlb);
-+		tlb_flush_rmaps(tlb, vma);
-+	}
-+
- 	/*
- 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
- 	 *
-@@ -2080,18 +2089,12 @@ retry:
- 	 * to hold the pmd lock failed, then we need to recheck all pte entries
- 	 * to ensure they are still none, thereby preventing the pte entries
- 	 * from being repopulated by another thread.
-+	 *
-+	 * Clear the PMD after the rmaps for the table have been removed, in case
-+	 * an incorrect mapcount is observed after unmapping the folio.
- 	 */
- 	if (can_reclaim_pt && direct_reclaim && addr == end)
- 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
--
--	add_mm_rss_vec(mm, rss);
--	lazy_mmu_mode_disable();
--
--	/* Do the actual TLB flush before dropping ptl */
--	if (force_flush) {
--		tlb_flush_mmu_tlbonly(tlb);
--		tlb_flush_rmaps(tlb, vma);
--	}
- 	pte_unmap_unlock(start_pte, ptl);
+ 	resp_hdr_ptr->itt = build_itt(cqe->cqe_solicited.itid,
+ 				      conn->session->age);
+@@ -113,8 +115,6 @@ static void qedi_process_text_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->exp_cmdsn = cpu_to_be32(cqe_text_response->exp_cmd_sn);
+ 	resp_hdr_ptr->max_cmdsn = cpu_to_be32(cqe_text_response->max_cmd_sn);
  
- 	/*
-@@ -2138,13 +2141,15 @@ static inline unsigned long zap_pmd_rang
- 				addr = next;
- 				continue;
- 			}
-+			/* We already synchronized with concurrent zapping. */
-+			if (pmd_none(*pmd)) {
-+				addr = next;
-+				continue;
-+			}
- 			/* fall through */
--		} else if (details && details->single_folio &&
--			   folio_test_pmd_mappable(details->single_folio) &&
--			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--			sync_with_folio_pmd_zap(tlb->mm, pmd);
--		}
--		if (pmd_none(*pmd)) {
-+		} else if (pmd_none(*pmd)) {
-+			if (details && details->single_folio)
-+				sync_with_folio_pmd_zap(tlb->mm, pmd);
- 			addr = next;
- 			continue;
- 		}
-_
-
-Patches currently in -mm which might be from baolin.wang@linux.alibaba.com are
-
-mm-memory-fix-truncation-removing-mapped-folios.patch
-
+-	pld_len = cqe_text_response->hdr_second_dword &
+-		  ISCSI_TEXT_RESPONSE_HDR_DATA_SEG_LEN_MASK;
+ 	qedi_conn->gen_pdu.resp_wr_ptr = qedi_conn->gen_pdu.resp_buf + pld_len;
+ 
+ 	memset(task_ctx, '\0', sizeof(*task_ctx));
+@@ -279,9 +279,11 @@ static void qedi_process_login_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->flags = cqe_login_response->flags_attr;
+ 	resp_hdr_ptr->hlength = 0;
+ 
+-	hton24(resp_hdr_ptr->dlength,
+-	       (cqe_login_response->hdr_second_dword &
+-		ISCSI_LOGIN_RESPONSE_HDR_DATA_SEG_LEN_MASK));
++	pld_len = cqe_login_response->hdr_second_dword &
++		  ISCSI_LOGIN_RESPONSE_HDR_DATA_SEG_LEN_MASK;
++	if (pld_len > qedi_conn->gen_pdu.resp_buf_size)
++		pld_len = qedi_conn->gen_pdu.resp_buf_size;
++	hton24(resp_hdr_ptr->dlength, pld_len);
+ 	resp_hdr_ptr->itt = build_itt(cqe->cqe_solicited.itid,
+ 				      conn->session->age);
+ 	resp_hdr_ptr->tsih = cqe_login_response->tsih;
+@@ -290,8 +292,6 @@ static void qedi_process_login_resp(struct qedi_ctx *qedi,
+ 	resp_hdr_ptr->max_cmdsn = cpu_to_be32(cqe_login_response->max_cmd_sn);
+ 	resp_hdr_ptr->status_class = cqe_login_response->status_class;
+ 	resp_hdr_ptr->status_detail = cqe_login_response->status_detail;
+-	pld_len = cqe_login_response->hdr_second_dword &
+-		  ISCSI_LOGIN_RESPONSE_HDR_DATA_SEG_LEN_MASK;
+ 	qedi_conn->gen_pdu.resp_wr_ptr = qedi_conn->gen_pdu.resp_buf + pld_len;
+ 
+ 	spin_lock(&qedi_conn->list_lock);
+-- 
+2.43.7
