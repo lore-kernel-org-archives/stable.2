@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216182;
-	b=Tpjlop1EN8MFqJ3e49TpeZSbWxUbuRW61cXBGVS4a7O4fEGETnpGk9n8cid7G+Kt+X7c
-	 HKZfUgYG91Dj/99vXi1avOoX2jaUftTJHedGRQMvXg9p2LRX9rfJAltCMNKdFt0knIdCp
-	 X5FksBWblkkzPbYI/Pu6CLD1e3+b7An2OQ7z8Z04PE+2aLjynlTQ3KCWqwzhjRkbRSrr0
-	 cqAMtO1GP/LljYg1ND3R0GMbqhfLYIe2dTpds4rMjUVrJO4Vz9e7MI9EDHfw86wW1E5/i
-	 +69Nv2J7qbmXA1RPl6sx6dW/r8/iHXnZpgeY2eepnz1AZ45zFHAa0bqHdu0TOZTCgBA==
+	t=1793216187;
+	b=pfRKO8eU6ENh1klSZRwMHbZw94eOw2r7GEHlScjm/GcHnTKURWp7H9kJYjk73+6UpNDf
+	 sw0bzwUOJupr1tfyVtBhuaxhiFq7xxRzWijQ/lQdgsgScDtxxtsjv3kt8UexR5j6seoje
+	 z+JwZWhx0cC9VDrCSN5XCoZ26I5XIGW+pJAPbUToozjsk+jPiqgDxi2W5L6TCkyFqJdqW
+	 9LjbrGblEu0vKpGOpNfoC+xibmT5Gi77nGjuC7pVkeL9ecM49RR3hWTwnrJGctrJFVZJf
+	 2RApbS7DIyu14o+VKaNICjR9P5LaTeJCKfihFMpCLRZ5BdcYNouS2C8ri7Pa09rfoig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216187;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=p6To0uV/nrNoUN8tGXGhjH+6m94EtxzPn1gnDySWeqw=;
-	b=Fw3lZUA5rvbZOLqgvRKX1Yd5pIsM6UjGgCH8jnSR6liwZpRgu3yT50kj3lsqYVfrJsOI
-	 ItkK+CfRMLbOc2akIRUwRhxB2OZ/JspaZQ8gvptHiTGyYUbGLJIDxsGfLflLtPIim18jF
-	 B37RH6SVBUhwLpeBldvjBXtxRENKYmT710JxU175BVfKDRv/B39io/OVI0vpwzxEHsUoc
-	 6rXFwYGdRqbOEwp0CsJsLbTv1PUZxKehtwOtXoCwCHIRIK+IomDof5VHKGmBmy5Td/+KJ
-	 PbyoOXXjeJ6PQRrvlltjzmHwa0zoj7LyvXGXEXbsIXLbiGhsIqx/20ev0rQEEyrPy5Q==
+	bh=EC+8sK4c8PQiEDsCxoaBw8KxasiEYKzhTIqw9XvkPQc=;
+	b=bny8QliP8nCrTw078FyiGuulPCyenZriDucD4CwINFN/4A/RLSL5k66z1W7sFMERTH11
+	 SnkDc98IwVpXrvoqDtSvNAFeGEW78eWmdS6n7S417taISx/9JPqCZdDuBKAMCWNzVaNQu
+	 VzSboo0tkxZSOc+xadx03GYM/3bUgNG92EBHL1jcI/PohLbNMVVbCYM2hM+eDtdaVRzo6
+	 uXMmuJlZ/kdQXm3eQEu3fqYJDWqnvRMH01YXtH2cgpjUEoRL4+hv1vYolGuPBY622hP11
+	 1aGKtlqWt3u6kuBE5Z3pi5aH1czN8yvZolufBoH38bbhG+JD8xJp3AUaSpX3/g76bsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XmxDcEap;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xWyWxmgV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F097C606A321;
-	Wed, 28 Oct 2026 19:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A151B606A31C;
+	Wed, 28 Oct 2026 19:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XmxDcEap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568FA1F01825;
-	Wed, 28 Oct 2026 19:36:21 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xWyWxmgV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFAF71F01825;
+	Wed, 28 Oct 2026 19:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793216181;
-	bh=p6To0uV/nrNoUN8tGXGhjH+6m94EtxzPn1gnDySWeqw=;
+	s=korg; t=1793216187;
+	bh=EC+8sK4c8PQiEDsCxoaBw8KxasiEYKzhTIqw9XvkPQc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XmxDcEap4zWeoaSf37pcbXtPs4Eo4/aC7V+4JbvpcBTkrO7r9vMOP9bILHB3daOjQ
-	 OM/UEj7QkQegwx79tHWyD2/RrUmFx3GkJ7zqEnYohvf2izJd2nvlS2jum2szKt3J4D
-	 +17cYo/PXedccNU1CybGZjDpIf5JwI1jPWsR69bU=
+	b=xWyWxmgVIaH0HCMv522bqtBdjiuB0KseGZqbKQuOckZauGJDfxpeb0PFgyltKiWKr
+	 2NlKj2QW4MWCaSjrvIy9MihxpjTYKOWhrHFxpC2DyK6H2NyReOnG7g1mn1R/QIqDkH
+	 01FTQXHXNY3YkrXZaiGEZdSWjMcL2LvUDIlXjqpY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jim Cromie <jim.cromie@gmail.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	Quanfa Fu <quanfafu@gmail.com>,
+	"Tyler Hicks (Microsoft)" <code@tyhicks.com>,
+	John Johansen <john.johansen@canonical.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1470/1887] kmemleak: drop (age <increasing>) from leak record
-Date: Wed, 28 Oct 2026 17:59:26 +0100
-Message-ID: <20261028170532.907796723@linuxfoundation.org>
+Subject: [PATCH 6.1 1472/1887] apparmor: make aa_set_current_onexec return void
+Date: Wed, 28 Oct 2026 17:59:28 +0100
+Message-ID: <20261028170532.953432158@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -69,92 +69,74 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jim Cromie <jim.cromie@gmail.com>
+From: Quanfa Fu <quanfafu@gmail.com>
 
-[ Upstream commit 88f9ee2b3040991ff40628fa9e3516ebe36dd6fa ]
+[ Upstream commit 0897fcb1c1e7316375166e0a665237bce2391a09 ]
 
-Patch series "tweak kmemleak report format".
+Change the return type to void since it always return 0, and no need
+to do the checking in aa_set_current_onexec.
 
-These 2 patches make minor changes to the report:
-
-1st strips "age <increasing>" from output.  This makes the output
-idempotent; unchanging until a new leak is reported.
-
-2nd adds the backtrace.checksum to the "backtrace:" line.  This lets a
-user see repeats without actually reading the whole backtrace.  So now
-the backtrace line looks like this:
-
-  backtrace (crc 603070071):
-
-I surveyed for un-wanted effects upon users:
-
-Syzkaller parses kmemleak in executor/common_linux.h:
-static void check_leaks(char** frames, int nframes)
-
-It just counts occurrences of "unreferenced object", specifically it
-does not look for "age", nor would it choke on "crc" being added.
-
-github has 3 repos with "kmemleak" mentioned, all are moribund.
-gitlab has 0 hits on "kmemleak".
-
-This patch (of 2):
-
-Displaying age is pretty, but counter-productive; it changes with
-current-time, so it surrenders idempotency of the output, which breaks
-simple hash-based cataloging of the records by the user.
-
-The trouble: sequential reads, wo new leaks, get new results:
-
-  :#> sum /sys/kernel/debug/kmemleak
-  53439    74 /sys/kernel/debug/kmemleak
-  :#> sum /sys/kernel/debug/kmemleak
-  59066    74 /sys/kernel/debug/kmemleak
-
-and age is why (nothing else changes):
-
-  :#> grep -v age /sys/kernel/debug/kmemleak | sum
-  58894    67
-  :#> grep -v age /sys/kernel/debug/kmemleak | sum
-  58894    67
-
-Since jiffies is already printed in the "comm" line, age adds nothing.
-
-Notably, syzkaller reads kmemleak only for "unreferenced object", and
-won't care about this reform of age-ism.  A few moribund github repos
-mention it, but don't compile.
-
-Link: https://lkml.kernel.org/r/20231116224318.124209-1-jim.cromie@gmail.com
-Link: https://lkml.kernel.org/r/20231116224318.124209-2-jim.cromie@gmail.com
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 5d10d4e19e6d ("mm/kmemleak: avoid soft lockup when scanning task stacks")
+Signed-off-by: Quanfa Fu <quanfafu@gmail.com>
+Reviewed-by: "Tyler Hicks (Microsoft)" <code@tyhicks.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+Stable-dep-of: 3f4ae5fab613 ("apparmor: fix cred UAF caused by begin_current_label_crit_section()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/kmemleak.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ security/apparmor/domain.c       | 2 +-
+ security/apparmor/include/task.h | 2 +-
+ security/apparmor/task.c         | 5 +----
+ 3 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index ca1a3855de07c..448c2267551fa 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -355,14 +355,12 @@ static void print_unreferenced(struct seq_file *seq,
- 	int i;
- 	unsigned long *entries;
- 	unsigned int nr_entries;
--	unsigned int msecs_age = jiffies_to_msecs(jiffies - object->jiffies);
+diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+index a6308d103f764..52e16e75e63fa 100644
+--- a/security/apparmor/domain.c
++++ b/security/apparmor/domain.c
+@@ -1463,7 +1463,7 @@ int aa_change_profile(const char *fqname, int flags)
+ 		}
  
- 	nr_entries = stack_depot_fetch(object->trace_handle, &entries);
- 	warn_or_seq_printf(seq, "unreferenced object 0x%08lx (size %zu):\n",
- 			  object->pointer, object->size);
--	warn_or_seq_printf(seq, "  comm \"%s\", pid %d, jiffies %lu (age %d.%03ds)\n",
--			   object->comm, object->pid, object->jiffies,
--			   msecs_age / 1000, msecs_age % 1000);
-+	warn_or_seq_printf(seq, "  comm \"%s\", pid %d, jiffies %lu\n",
-+			   object->comm, object->pid, object->jiffies);
- 	hex_dump_object(seq, object);
- 	warn_or_seq_printf(seq, "  backtrace:\n");
+ 		/* full transition will be built in exec path */
+-		error = aa_set_current_onexec(target, stack);
++		aa_set_current_onexec(target, stack);
+ 	}
  
+ 	goto audit;
+diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
+index 13437d62c70f4..01717fe432c3b 100644
+--- a/security/apparmor/include/task.h
++++ b/security/apparmor/include/task.h
+@@ -30,7 +30,7 @@ struct aa_task_ctx {
+ };
+ 
+ int aa_replace_current_label(struct aa_label *label);
+-int aa_set_current_onexec(struct aa_label *label, bool stack);
++void aa_set_current_onexec(struct aa_label *label, bool stack);
+ int aa_set_current_hat(struct aa_label *label, u64 token);
+ int aa_restore_previous_label(u64 cookie);
+ struct aa_label *aa_get_task_label(struct task_struct *task);
+diff --git a/security/apparmor/task.c b/security/apparmor/task.c
+index 503dc0877fb1a..cd9d43a277314 100644
+--- a/security/apparmor/task.c
++++ b/security/apparmor/task.c
+@@ -93,9 +93,8 @@ int aa_replace_current_label(struct aa_label *label)
+  * aa_set_current_onexec - set the tasks change_profile to happen onexec
+  * @label: system label to set at exec  (MAYBE NULL to clear value)
+  * @stack: whether stacking should be done
+- * Returns: 0 or error on failure
+  */
+-int aa_set_current_onexec(struct aa_label *label, bool stack)
++void aa_set_current_onexec(struct aa_label *label, bool stack)
+ {
+ 	struct aa_task_ctx *ctx = task_ctx(current);
+ 
+@@ -103,8 +102,6 @@ int aa_set_current_onexec(struct aa_label *label, bool stack)
+ 	aa_put_label(ctx->onexec);
+ 	ctx->onexec = label;
+ 	ctx->token = stack;
+-
+-	return 0;
+ }
+ 
+ /**
 -- 
 2.53.0
 
