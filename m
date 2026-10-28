@@ -1,125 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184078;
-	b=2ni0S4xZsm+qd2mVBfKVOFkGQwaJHOs9koWWCuHZABQi2iqDifmB6Jhb1QRcZ2IrgSe9
-	 HhPsDP14AuuihtrQhB/Tz4/ff6eA4PcW56od4HfcuMXHvjq/c55zv/S+3IxzWytyrB5ge
-	 2FzBAcZEPEuX5iFDGmM4k1t9hMu01kO8/aPJFB6ktANgFaJ0IQp/kwBSetjYwBg7qyT82
-	 loYNxMPP6pcNycytPl9l326zYMhhsLNaEKgmjlO0gXadw+6S00eSG0WX958+ZNnRJ+SOr
-	 TMzIqZjd85vVrh3TlHhYFL+iSAfv0Akehw7nCgQgl6gZO7+1snLBCAUiiYJs4Ht+81g==
+	t=1793184719;
+	b=RaXf21aoyRv7CrHXQY7m/w6e3b5HTMgBaNyBY2lG7y4MAXnLGiNs9QvHKDGzGysHQsO5
+	 wqa4bMdVCm00dAZDlzbqQoi9Qp7XBG63Vqmg26YyETwpM8iI3bfT3C3+iMN4hr5pOdZZ5
+	 wUXxoBKZDja6lJIFi3nV6Sgf8d88qUW+CWkmx9x2TZDHc9iiBaJAeOjbGVG/jKP5GxCkA
+	 6RbMef9OSYq7+iXH8grxXkdGwzQk47/fmf5c0f7BJhyWAkjNAgPa5y7FhtjQidYwE69f3
+	 85TfpM7c/SA5tgDR/M6BZ/kovgwQzuOXJMQDDdvJVjmMi/59Ka0cs5grRVdrXJJNzQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184078;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7ohDeqYAoftxje+G2/ZUXITZjGtasxeCYee/Ib/dRfM=;
-	b=x1rKVV5OYgc4cFEIofTMh3As8hJEB+rOIk6s8vtfrc2r/J4+RzAthlLLLx5qbWtWzO+6
-	 aK3wyK0Cka2jpCIm1knWDxoyYe6HlDggWVSZWBAlbcaWJQXjRKGy7ihcjtaSc18MtzWAf
-	 ql4L9c3Yd5OVnDBWaF3x1C0b2OiyU0KTQ7iw02K83r7cOk2JN9dvgoXmOPkcYsNmBDzFa
-	 wFOXtt8F0xUuk7Lp6x7nfmQGXjBW9GI9ywJqZV2ThKAfVJ0v24Jt/9XWAb81+8V76qcYL
-	 uyn/P7bu+bRG9yvb+/ldBUL8SVLjXnG7RHQuoluOXora6HvBxsUXzaQ5emAYbEwh1dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184719;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7VuPLf/Bn8Nq23p16kdsfk/y2q2DGA/iZ/5CkjspwaQ=;
+	b=xOU5YS6JHc8Wt88iXtTLZ+gbOHWxyfU/ry9gOUinSl1gTNwi3WdMqH20fK/8w7Fu+0H6
+	 F5zx2s0Stdm6lOVDtnAEVacrRaWhdcoX1pKGePLWvISLtuIFTLwrYBt/4IFBhRi7kMMN3
+	 +pLlqOhVE0R4+1JN7kkhfEnfhHob9OAlncvlT2KXc5pnlgr7Wl9a8+9nIlmp0e9/JrirH
+	 STajmIzvlkt/yPhi87OJ3VQHbQgzbsveFRBv/WMI25Wo2hnySMxinrT9/06foWBMd2WCL
+	 ZVU5HKtUpfkItrpMq5XKJDDz9wN8dRUxMhhb/rmeHQthXB26x1NT2zithJLahuBkXEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uW0yxWCj;
-	arc=none smtp.remote-ip=95.215.58.222
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBRAr6GD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69DD606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:41:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B69DD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246CB606A31A;
+	Wed, 28 Oct 2026 10:51:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uW0yxWCj
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=da6hytzw+BnB+C5CyqKjthZJsFrZnHpNjbdkzPMyrmc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793184074; v=1; x=1793788874;
- b=uW0yxWCjiuY/QAk36l36xDIbaSJ/T96tA0HP6WqCEveTeJBUYemWYRj/4Kdrl9erGZEE7or5
- sUiXKW8oNGaHZWY2AFZKIRSJoe9vBiTzTCKv4/3aisN/9I/naSVMw40cQwofFWY2LRNiPMMzlhF
- fBex+2wJ8adqN7qch7lrDyRo=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b2f499d91e478fa4;
-	Wed, 28 Oct 2026 10:41:14 +0000
-X-Mizu-Trace-ID: b2f499d91e478fa4
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eBRAr6GD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B691F01825;
+	Wed, 28 Oct 2026 10:51:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793184718;
+	bh=7VuPLf/Bn8Nq23p16kdsfk/y2q2DGA/iZ/5CkjspwaQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eBRAr6GDX4kET2Ek9hYjPmzPxEQW5sR6uvgI4atic8jFUwlYMWDd8wXV59vQEJmDv
+	 AlVsHhjlRbPVmM+JsGl8xrOaYMa/vGAAwVCuT88dBN9QT0ocy0iENimUTCUqFwHUzd
+	 ZJ/bOQ9MzSg0GY8P6RrZp/Tk7FT655/GKkGHxWGmC8FVsr3NEkAZxuLIuhYNKXJq7s
+	 gtsGCJwJ0TMNg9xCqSlNtCcEP8zMBLGU0NmNcNK5ipdk004Tl8X/UpJrcNXB+ouHLi
+	 z6snhbni4tuYid2Q8J+rBnNdQbMoCFWI3RPJyEfBuFFC6QvzlP9EPVA54/9BYhrquW
+	 L6exRasHRYQtA==
+Date: Wed, 28 Oct 2026 11:51:48 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Vladimir Davydov <vdavydov.dev@gmail.com>,
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Lukas Czerner <lczerner@redhat.com>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Stevens <stevensd@chromium.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	William Kucharski <william.kucharski@oracle.com>,
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	stable@vger.kernel.org,
-	josef@toxicpanda.com
-Subject: Re: [PATCH 10/46] mm/huge_memory: fix list corruption when deferred_split_scan() races with deferred_split_folio()
-Date: Wed, 28 Oct 2026 18:41:07 +0800
-Message-ID: <20261028104107.31470-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	stable@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: Re: [PATCH v3 05/15] hugetlbfs: enforce F_SEAL_EXEC in setattr
+Message-ID: <auHTxApiSnnlY1xt@localhost.localdomain>
+References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
+ <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,52 +79,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-fixes_shmem-v3-5-4ce3baf2db4b@kernel.org>
 
+On Wed, Oct 28, 2026 at 10:55:03AM +0100, David Hildenbrand (Arm) wrote:
+> From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+> 
+> F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
+> not check it. As a result, fchmod() can change the execute bits of a
+> sealed hugetlbfs memfd.
+> 
+> Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+> to execute bits when F_SEAL_EXEC is set.
+> 
+> This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+> fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+> 
+> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+> Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
+> Acked-by: Pedro Falcato <pfalcato@suse.de>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
+> [ david: use common helper; fixup Fixes:; check only regular files ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-On Tue, Oct 27, 2026 at 12:17:30AM +0100, David Hildenbrand (Arm) wrote:
->Since the deferred split queue became a list_lru, the isolate callback
->moves the folios it took a reference on to an on-stack list, linked
->through folio->_deferred_list, and deferred_split_scan() takes them off
->that list with list_del_init() without holding the list_lru lock.
->
->deferred_split_folio() does not know about the on-stack list. It only
->holds the list_lru lock when it looks at the same list_head, and it can
->run for such a folio: a THP is queued when it is mapped, as a candidate
->for the underused check, and is queued "again" when a part of it gets
->unmapped:
->
->  CPU0 deferred_split_scan()          CPU1 deferred_split_folio()
->  list_del_init(&folio->_deferred_list)
->    next->prev = prev
->    prev->next = next
->    entry->next = entry
->                                      list_lru_lock_irqsave()
->                                      folio_set_partially_mapped()
->                                      __list_lru_add()
->                                        list_empty(item)  -> true
->                                        list_add_tail(item, &l->list)
->                                          item->next = &l->list
->                                          item->prev = tail
->    entry->prev = entry
->
->The folio now sits on the list_lru with ->prev pointing to itself. The
->next removal leaves the neighbours pointing to it, and they still do so
->after the folio has been freed. With CONFIG_DEBUG_LIST:
->
->  list_del corruption. prev->next should be ffd4000000270090, but was
->  ffd4000000278090. (prev=ffd4000000270090)
->
->Fix it by grabbing the lock around list_del_init() so
->deferred_split_folio() cannot race with it.
->
->Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
->Cc: stable@vger.kernel.org
->Reported-by: Josef Bacik <josef@toxicpanda.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Acked-by: Oscar Salvador <osalvador@suse.de>
 
-Nice work!
+> ---
+>  fs/hugetlbfs/inode.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 01c4d6f44ebe..02e0a65d596d 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/folio_batch.h>
+>  #include <linux/fs_parser.h>
+>  #include <linux/mman.h>
+> +#include <linux/memfd.h>
+>  #include <linux/slab.h>
+>  #include <linux/dnotify.h>
+>  #include <linux/statfs.h>
+> @@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+>  	if (error)
+>  		return error;
+>  
+> +	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
+> +		error = memfd_check_seals_mode(info->seals, inode->i_mode,
+> +					       attr->ia_mode);
+> +		if (error)
+> +			return error;
+> +	}
+> +
+>  	trace_hugetlbfs_setattr(inode, dentry, attr);
+>  
+>  	if (ia_valid & ATTR_SIZE) {
+> 
+> -- 
+> 2.43.0
+> 
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+-- 
+Oscar Salvador
+SUSE Labs
