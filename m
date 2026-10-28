@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212667;
-	b=Jjn3q6Tq3WCktXVDIOzGuQKqshvj1tk+ln2RR+n/3c1jINywL5mv+ytcoA1QyKTEWRSQ
-	 1Ch1lcmw+ewdg0R8D4MCOs4/0IAW8QAcz1QgE3Gp6ex865qcc03oZfDmWcU/DzQfmRFIW
-	 oef5rPCrCIH8yzcHmSRXp6CdVFWHQ5cFweO3eTnJQeM09rPOjJq6EddPA6ifhqrLUpU05
-	 j5odixmtVLn90RnycCRlYP4TYD67VQ0pCniteswMR53kfG1ejvFhAIQ3I0Cop5HqCb7Qg
-	 3BuG6HqC29w6A9G3ohp5VXuxP9XVgnQ/HFaYSGEbiCYFqbt1/OWtSEtVcK6leXQfoHA==
+	t=1793212675;
+	b=5Z8mYo4TPiOVjyQVhhWocPAcO1kRCA8idsZr8WgHtzisr43/L1CqwMeA0SyBzXXl09bd
+	 RqN4N4gqT6FquNCv6B7/oWmk9cs7PD3laf/Doyhs7uXdIACm2GUOOYLGHUka/0Z7avCxz
+	 oxkiIq9FwCwjssW2lwCRnOVV8rYxwCOmau3w1xHC9Jb6hTHbW4211ScNmGKZ4JV4+CuIl
+	 dPHTJhLlJNXOKopratl/6A6UQr6JLLjBkuIp5Ehij4SYjfKjcw8f8s2hM9a/yF8i6j6a+
+	 yblFSa6AuBqHAncMSaH6M0UQwFfajJsJ64+5HVTOhyIjpPah62iMLQLkjD8nBgk8N8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212675;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QikC9QCsldawvabFOEGWBN8UgxtXcgsdIu6E1z7a7Ls=;
-	b=JFtgTxl95RAEucyAWL4U90UV/cUlW+fOVeHpfg/QM6KEep+2/8iZXKRsFyix1miB1AJ2
-	 IfmT/rIp8GlGGfsMFUQOQ0nKvwQowiL9qfHOy6lprqHWZVlzhBq9I6aMFF7AeBV+5J27B
-	 X4dTl7vdEXJmn8T5KCHL48fM1KYY1GKHSl8QwXgVi6mSvKG6PTfBtr6KBRswvBVMmjPSK
-	 6DudPTriRi6xm9/Sinu6uuyVJ5LHVcAs1ldvt0mGaB1DBhX9ClvnRmfaye98nA5SVMiXU
-	 xDwoOii+ymOo+cOr/JgVENVmj5IPbvt1QJq1ceuprwHfQr5oeBq7/aE9PDcJfRw3v3g==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=qfJVnSkeKTs9t8+Xde+mZdxK+P79UY2lv2nLrRse/AE=;
+	b=G9f+UU+LorD9d26ISA204YkujFfe2BGmngRP/mJ31WujAHxfh7X+Tb61uIuE9gBJF1hN
+	 LBsAHLTuxrekFh7LJB0mRxK2M8MyhANLIcUV6Smn90hJCjda8S00BRaoyXImzcfPOu12q
+	 8vVOYZFmxjW6RB1H45BaDBlw7HV0q8r87/Zll+hAFhXrQb2FRUNCsbp1crd6hTmWnwpCW
+	 NoMNT0geW2Q4Rp2R4flOu0K64Xxes+GN+v0GLmhsxMUKQV7XbG6fkpqMq8QeEvvG+W9FC
+	 +nCOu874oC9I1A1c0pVd/dfhGLvUQ7f/eSX66Ni+CN7Ec3s64z/Hze4DSP87OA+KufA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zMF5mq76;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s97p1X3f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA198606A324;
-	Wed, 28 Oct 2026 18:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB06606A324;
+	Wed, 28 Oct 2026 18:37:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zMF5mq76
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09311F01828;
-	Wed, 28 Oct 2026 18:37:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s97p1X3f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B3C1F031E2;
+	Wed, 28 Oct 2026 18:37:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793212666;
-	bh=QikC9QCsldawvabFOEGWBN8UgxtXcgsdIu6E1z7a7Ls=;
+	s=korg; t=1793212675;
+	bh=qfJVnSkeKTs9t8+Xde+mZdxK+P79UY2lv2nLrRse/AE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zMF5mq76N+mT8o21wlPIcUbSwPe2hEh4e58DQ9bTiZhYC9oU5D0d2ZGKADyKBSpaI
-	 zKGOvf2KNLs1YKhGPnETEIJmlknnZaNnfClrd7Nmb5V0QYosAmQqOnGDboLujNUdJ+
-	 si5uWCdjIVZwaUPvWAXyccQCmusdEzziLht+S/Wg=
+	b=s97p1X3fAWmEEIBl2GWK3ug0BAvRraNeP2bJ4vMdjtFHO6FWQgvkWtS26ewd7TtMT
+	 P2lONLr8mwV22Cilf6tCUwZI41m3jTCr1dkmj1IGqTI9WHlhuJy3Fq65I9iQNxidSb
+	 RAvv22SKo0elRk+8WoZUh1li6U2qWXIa9S4ikmOo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+217e3f1283cafe80586e@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Tung Nguyen <tung.quang.nguyen@est.tech>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0233/1887] Bluetooth: hci_sync: dont drain cmd_sync backlog on unregister
-Date: Wed, 28 Oct 2026 17:38:49 +0100
-Message-ID: <20261028170504.534152081@linuxfoundation.org>
+Subject: [PATCH 6.1 0236/1887] tipc: prevent GCM nonce reuse on peer key changes
+Date: Wed, 28 Oct 2026 17:38:52 +0100
+Message-ID: <20261028170504.602697181@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -63,80 +63,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-[ Upstream commit b1f24c1ab52345e810c42a1a81286cb5a7c92252 ]
+[ Upstream commit 512ccd3d0e91e791fb37442aa0a2599aca19783d ]
 
-hci_unregister_dev() disables cmd_work and cmd_timer, then calls
-hci_cmd_sync_clear(), whose cancel_work_sync() waits for
-hci_cmd_sync_work() to return. That worker dequeues and runs every
-entry on cmd_sync_work_list. With cmd_work disabled nothing reaches
-the controller, so each queued HCI command waits the full
-HCI_CMD_TIMEOUT (2s).
+TIPC can encrypt traffic between nodes using a different transmit key
+for each node. In this mode, the AES-GCM nonce for a packet sent to a
+known peer consists of a 32-bit prefix (a per-key salt XOR the peer's
+address) followed by a 64-bit counter. That counter is stored in the
+peer's RX crypto object. When the peer reports a change in which key
+it uses to receive packets, TIPC resets this counter. The sender can
+still be using the same TX key and salt, so subsequent packets reuse
+earlier nonces. This nonce reuse breaks confidentiality and exposes
+GCM's authentication key. This makes forgeries trivial: an attacker
+can exploit CTR malleability to alter captured ciphertexts and use the
+recovered authentication key to compute a valid tag for the modified
+ciphertext, under the same key and nonce.
 
-The backlog has no bound. Userspace can keep queuing MGMT commands
-such as MGMT_OP_GET_CLOCK_INFO against a controller that doesn't
-answer. Closing /dev/vhci then blocks in vhci_release() for
-backlog * 2s:
+Use the TX key's existing aead->seqno counter instead. All encryptions
+using that key object share the same atomic counter, so concurrent
+encryptions get distinct nonce counter values. The counter survives
+key activation and peer reconnection, and peer key-status reports
+cannot reset it. This prevents those transitions from causing nonce
+reuse while the same TX key remains installed.
 
-  INFO: task syz-executor:5749 blocked for more than 143 seconds.
-   cancel_work_sync
-   hci_cmd_sync_clear
-   hci_unregister_dev
-   vhci_release
+The nonce format is unchanged, and receivers do not require consecutive
+counter values, so sharing the counter across peers remains compatible
+with existing receivers. A pre-existing check still invokes key
+revocation in the unlikely event that the counter wraps to zero.
 
-In a local reproduction the backlog held more than 5000 entries,
-which comes to hours of hang.
-
-Stop the worker from taking new entries once HCI_UNREGISTER is set,
-and wake any request still waiting with -ENODEV before cancelling
-the work. The entries left over are destroyed with -ECANCELED by the
-existing sweep in hci_cmd_sync_clear(). They stay on the list until
-the work has stopped, so hci_cmd_sync_dequeue() and friends still see
-them. A callback already running may still issue another command,
-which delays unregister by at most one timeout per remaining command,
-not by the whole backlog.
-
-Fixes: 008ee9eb8a11 ("Bluetooth: hci_sync: Fix not processing all entries on cmd_sync_work")
-Reported-by: syzbot+217e3f1283cafe80586e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=217e3f1283cafe80586e
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+Link: https://patch.msgid.link/20260924202105.3722778-1-Jeremy.Jean@oss.cyber.gouv.fr
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_sync.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/tipc/crypto.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 5825ab89eb22a..4e4eae12ee3fb 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -308,6 +308,10 @@ static void hci_cmd_sync_work(struct work_struct *work)
- 	while (1) {
- 		struct hci_cmd_sync_work_entry *entry;
+diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
+index d86b3a8f7078b..dc2239b2cf852 100644
+--- a/net/tipc/crypto.c
++++ b/net/tipc/crypto.c
+@@ -144,7 +144,7 @@ struct tipc_tfm {
+  * @rcu: struct rcu_head
+  * @key: the aead key
+  * @gen: the key's generation
+- * @seqno: the key seqno (cluster scope)
++ * @seqno: the per-key TX nonce counter
+  * @refcnt: the key reference counter
+  */
+ struct tipc_aead {
+@@ -190,7 +190,6 @@ struct tipc_crypto_stats {
+  * @rekeying_intv: rekeying interval (in minutes)
+  * @stats: the crypto statistics
+  * @name: the crypto name
+- * @sndnxt: the per-peer sndnxt (TX)
+  * @timer1: general timer 1 (jiffies)
+  * @timer2: general timer 2 (jiffies)
+  * @working: the crypto is working or not
+@@ -219,7 +218,6 @@ struct tipc_crypto {
+ 	struct tipc_crypto_stats __percpu *stats;
+ 	char name[48];
  
-+		/* Leave the backlog to hci_cmd_sync_clear() */
-+		if (hci_dev_test_flag(hdev, HCI_UNREGISTER))
-+			break;
-+
- 		mutex_lock(&hdev->cmd_sync_work_lock);
- 		entry = list_first_entry_or_null(&hdev->cmd_sync_work_list,
- 						 struct hci_cmd_sync_work_entry,
-@@ -677,6 +681,8 @@ void hci_cmd_sync_clear(struct hci_dev *hdev)
+-	atomic64_t sndnxt ____cacheline_aligned;
+ 	unsigned long timer1;
+ 	unsigned long timer2;
+ 	union {
+@@ -1060,14 +1058,11 @@ static int tipc_ehdr_build(struct net *net, struct tipc_aead *aead,
+ 	WARN_ON(skb_headroom(skb) < ehsz);
+ 	ehdr = (struct tipc_ehdr *)skb_push(skb, ehsz);
+ 
+-	/* Obtain a seqno first:
+-	 * Use the key seqno (= cluster wise) if dest is unknown or we're in
+-	 * cluster key mode, otherwise it's better for a per-peer seqno!
++	/*
++	 * Keep the nonce unique for the lifetime of the TX key,
++	 * including key state changes and peer reconnection.
+ 	 */
+-	if (!__rx || aead->mode == CLUSTER_KEY)
+-		seqno = atomic64_inc_return(&aead->seqno);
+-	else
+-		seqno = atomic64_inc_return(&__rx->sndnxt);
++	seqno = atomic64_inc_return(&aead->seqno);
+ 
+ 	/* Revoke the key if seqno is wrapped around */
+ 	if (unlikely(!seqno))
+@@ -1246,7 +1241,6 @@ void tipc_crypto_key_flush(struct tipc_crypto *c)
+ 	tipc_crypto_key_set_state(c, 0, 0, 0);
+ 	for (k = KEY_MIN; k <= KEY_MAX; k++)
+ 		tipc_crypto_key_detach(c->aead[k], &c->lock);
+-	atomic64_set(&c->sndnxt, 0);
+ 	spin_unlock_bh(&c->lock);
+ }
+ 
+@@ -1393,8 +1387,6 @@ static struct tipc_aead *tipc_crypto_key_pick_tx(struct tipc_crypto *tx,
+  * It also considers if peer has no key, then we need to make own master key
+  * (if any) taking over i.e. starting grace period and also trigger key
+  * distributing process.
+- *
+- * The "per-peer" sndnxt is also reset when the peer key has switched.
+  */
+ static void tipc_crypto_key_synch(struct tipc_crypto *rx, struct sk_buff *skb)
  {
- 	struct hci_cmd_sync_work_entry *entry, *tmp;
+@@ -1445,7 +1437,6 @@ static void tipc_crypto_key_synch(struct tipc_crypto *rx, struct sk_buff *skb)
+ 		if (cur)
+ 			tipc_aead_users_dec(tx->aead[cur], 0);
  
-+	/* cmd_work is disabled, the pending request can only time out */
-+	hci_cmd_sync_cancel_sync(hdev, ENODEV);
- 	cancel_work_sync(&hdev->cmd_sync_work);
- 	cancel_work_sync(&hdev->reenable_adv_work);
+-		atomic64_set(&rx->sndnxt, 0);
+ 		/* Mark the point TX key users changed */
+ 		tx->timer1 = jiffies;
  
+@@ -1510,7 +1501,6 @@ int tipc_crypto_start(struct tipc_crypto **crypto, struct net *net,
+ 	tipc_crypto_key_set_state(c, 0, 0, 0);
+ 	atomic_set(&c->key_distr, 0);
+ 	atomic_set(&c->peer_rx_active, 0);
+-	atomic64_set(&c->sndnxt, 0);
+ 	c->timer1 = jiffies;
+ 	c->timer2 = jiffies;
+ 	c->rekeying_intv = TIPC_REKEYING_INTV_DEF;
 -- 
 2.53.0
 
