@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793214797;
-	b=jhEIilxH6XLSKVwp+aPqXz1dkkguTbLuWt57fXXCiJPqU8bGheIo34ItaK2JaGnTkekm
-	 +1vFzx6V9OC4lXMqnZ3XJCBRPvE/LKLmM8LfJi39O6YpgXZflm9Ji07pukTVEDfxi6LJT
-	 QPyB6BfQ6ShQnNlYAXg2SBjSywreW7tfHU7YuZbgdsrZT5W+NKGiBeD1aE9hZD77j9M0d
-	 Nw/PD7yCreU5LsGUSblZg+e7fBfBjGH3sh4jfofNFHklQwDaC8FurHOgxAwWXwKa9bJLO
-	 nja+rvJq1uJJ2kxFs1Ep/c2Na54J8qCzKvD3Jw5EJHT4UYs7PcQ+QMdnAWHY+Pd8oMA==
+	b=tFKN3PulsABNOSBEPQzXJQgphvF7cKhjwXBsqzdrSAdgyY15bA4YP89JuHN2qUi5r1/Y
+	 0/e8w99B1VTxPpOPY/NF+TqZp5HFXHvg6JbUceW0no+y4z4fOvOUERro+LZtMcVhJ57l0
+	 gSFB31Nnf7fzHgOcOFU2yJs9PnRPjKiQhrOXRTUhUsO2qhOp5P7RkN1+0HLkuBLekY519
+	 4BZuoFgQHYfNljaRum3DV9aKMwrS6N0FJJZ2RsBF9cNucGKNvI6wYTyJ+BzMmEPs0oCok
+	 6jAWB7N83+NP9dixTdfYhL4DNSK5srNpKRH+Xy3J2C+lrKy4QUEu+m/o960LULGvAng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793214797;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SM+i+CaDHFv4uXXTdYpR7ewVTJ5eiSjb1SdwgdAHkkk=;
-	b=xjEbQ1LyDtG4tmJYpbZD49dZ71Pf22sWvR6/Yzbl8bOyxrSPDaGuSGZalXzv5TFF1P9O
-	 xvXnvxJ+jO264mSL6VhlgFomwlmuMvaS47O+tlqj/xcDrNdGYrnPtKeZKpkC+vnspMaC0
-	 OnkMTwHuBRYYYomZWgs5wvMtRbNugfNW4PQtiXGIqTn/ZnUNkroqJSp1vQkB/5Cy1bHvp
-	 sxNI3BepO2A9Yns29DtS1x0PgYEcMhz6MymgOI1IwpXED5wttJqkoobraa8KS4qSoimym
-	 U/M+uALsuqFbmuZmN9YesVEYj7tqFdUekf4ddLTCHfSeXfode1gjOHwLR5J7nh3wfMA==
+	h=DMARC-Filter:DKIM-Signature:Cc:Date:X-Change-Id:X-Lms-Return-Path:To:
+	 Mime-Version:Content-Transfer-Encoding:Message-Id:Received:
+	 X-Original-From:X-B4-Tracking:From:Subject:X-Mailer:Content-Type;
+	bh=5Ho613DEFXGKANIja0pHs3tOiqG6nqaHpNl0UxzSoSQ=;
+	b=XEmQoFolGpY4mfc6URslI3x0vHiHl9qSwkgi88zWZCK59IzBXgkoclWM+axh4oEvEk+K
+	 HbstjjiLqmzhpXBkcO8E+GhxVatAcbwOOYRT28G641A5xgpQeLu3ywGq92eqf0pTu/rAB
+	 Z6TYUJx83AvFgKpvm4SmKQdWGQcovs4HZUS+McWUHPxQUmBAq3tK64BHVA0pk1pwnE/3Q
+	 epC9N5sABRuO8PXhXTGaQVhEf5IVoNUkLedIaDRNYA7SQZerMYI89ownqgXvnywSdZ84g
+	 H+dyv5U21V0PepNWMcZweGPUC//m82XxgYYi23lddekhzDeNhXIZtUDJuc3at5BJcug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fk3dhEN1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=sdaAd5sD;
+	arc=none smtp.remote-ip=71.18.227.2
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A1D606B7EB;
-	Wed, 28 Oct 2026 19:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DA3606A32F
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9DA3606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fk3dhEN1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC921F01825;
-	Wed, 28 Oct 2026 19:13:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793214796;
-	bh=SM+i+CaDHFv4uXXTdYpR7ewVTJ5eiSjb1SdwgdAHkkk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fk3dhEN1GP1wfhbthKGCPTQxC0YPczUZGJTqpNtV5+yjMP5pZYDA6Sh+aE9OwJuXE
-	 zTKu4sB4PsimhVyZicklVcLpSzW5AHj/B5ujfbmIEGyYVGNt5smk571ii5H3VQql06
-	 T0uRM1SCz3zP2+0lF8CfePU1j9SxHH1ytW1iYDlU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0984/1887] btrfs: fix zero size inode with non-zero size after log replay
-Date: Wed, 28 Oct 2026 17:51:20 +0100
-Message-ID: <20261028170521.802800706@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=sdaAd5sD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1793214790; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=5Ho613DEFXGKANIja0pHs3tOiqG6nqaHpNl0UxzSoSQ=;
+ b=sdaAd5sDasqUo/v9Ym1bRsiUTApO5wNunRezUl98f0W08jjDFL2OqooCervkoa/WJXK9Nb
+ G4yzXZvHatjk2rzkLrtvHtMxfn8O7LKiwBk/GLGNEBKbd+28grC3sotl1kbm9aYiGR0l3c
+ EZ2i/zAxn5l7Qo23pXBQGx+YgkVwz5wSzMUeqrlNYrLr+Wl4jPVDTzViNF05olX6xWEEn3
+ QUQP8YkWPXeN47ne5XBZJVUSjaNWXcDsy0sjj+N1OAPOEXvqItDTBG1i9V4Hm0esz2vfNy
+ Puc55z+aXE32uePaRvCJ+yoD4mtSj9ECPiUvnAdZ6WTaqaLRa2auChqTttu/sA==
+Cc: <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Jiale Yao" <yaojiale02@163.com>, "Maoyi Xie" <maoyixie.tju@gmail.com>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 29 Oct 2026 03:13:05 +0800
+X-Change-Id: 20261028-b4-goodix-attachment-pkg-size-3c7a69d6d4c4
+X-Lms-Return-Path: <lba+26ae24944+5a1453+vger.kernel.org+me@cherr.cc>
+To: "Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	"Dmitry Torokhov" <dmitry.torokhov@gmail.com>, 
+	"Charles Wang" <charles.goodix@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,228 +61,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-b4-goodix-attachment-pkg-size-v1-1-ada7dda20f75@cherr.cc>
+Received: from [127.0.1.1] ([111.42.148.226]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 03:13:07 +0800
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIAEBJ4moC/yXMSw7CIBAA0Ks0s3aSFgl+rmK6oDDS0QgNg6ax6 d1Ldfk2bwGhzCRwbRbI9GHhFCu6QwNutDEQsq8G1SrTteqMg8aQkucZbSnWjS+KBadnQOEv4dG drLl447XTUI8p053n33/r/5b38CBX9hTWdQMD+TE8gQAAAA==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] HID: goodix: validate attachment package length
+X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+goodix_hid_irq() reads the attachment package using the event header's
+length, but passes the independent pkg->size to hid_input_report()
+without checking it against the bytes read.  An oversized package can
+forward stale buffer contents or cause an out-of-bounds read, exposing
+those bytes to hidraw readers.
 
-------------------
+Reject package sizes smaller than the two-byte length field or larger
+than the requested read length.
 
-From: Filipe Manana <fdmanana@suse.com>
-
-[ Upstream commit 5254d4181add9dfaa5e3519edd71cc8f752b2f85 ]
-
-When logging that an inode exists, as part of logging a new name or
-logging new dir entries for a directory, we always set the generation of
-the logged inode item to 0. This is to signal during log replay (in
-overwrite_item()), that we should not set the i_size since we only logged
-that an inode exists, so the i_size of the inode in the subvolume tree
-must be preserved (as when we log new names or that an inode exists, we
-don't log extents).
-
-This works fine except when we have already logged an inode in full mode
-or it's the first time we are logging an inode created in a past
-transaction, that inode has a new i_size of 0 and then we log a new name
-for the inode (due to a new hardlink or a rename), in which case we log
-an i_size of 0 for the inode and a generation of 0, which causes the log
-replay code to not update the inode's i_size to 0 (in overwrite_item()).
-
-An example scenario:
-
-  mkdir /mnt/dir
-  xfs_io -f -c "pwrite 0 64K" /mnt/dir/foo
-
-  sync
-
-  xfs_io -c "truncate 0" -c "fsync" /mnt/dir/foo
-
-  ln /mnt/dir/foo /mnt/dir/bar
-
-  xfs_io -c "fsync" /mnt/dir
-
-  <power fail>
-
-After log replay the file remains with a size of 64K. This is because when
-we first log the inode, when we fsync file foo, we log its current i_size
-of 0, and then when we create a hard link we log again the inode in exists
-mode (LOG_INODE_EXISTS) but we set a generation of 0 for the inode item we
-add to the log tree, so during log replay overwrite_item() sees that the
-generation is 0 and i_size is 0 so we skip updating the inode's i_size
-from 64K to 0.
-
-Fix this by making sure at fill_inode_item() we always log the real
-generation of the inode if it was logged in the current transaction with
-the i_size we logged before. Also if an inode created in a previous
-transaction is logged in exists mode only, make sure we log the i_size
-stored in the inode item located from the commit root, so that if we log
-multiple times that the inode exists we get the correct i_size.
-
-A test case for fstests will follow soon.
-
-Reported-by: Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>
-Link: https://lore.kernel.org/linux-btrfs/af8c15fa-4e41-4bb2-885c-0bc4e97532a6@gmail.com/
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Link: https://lore.kernel.org/all/178212703386.2270604.12694603282649418418@maoyixie.com/
+Link: https://lore.kernel.org/all/20261028050901.139292-1-yaojiale02@163.com/
+Fixes: 75e16c8ce283 ("HID: hid-goodix: Add Goodix HID-over-SPI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 ---
- fs/btrfs/tree-log.c | 99 +++++++++++++++++++++++++++++----------------
- 1 file changed, 65 insertions(+), 34 deletions(-)
+Validated by source analysis, simulated SPI/HID callbacks and object
+compilation. No kernel/hardware runtime A/B was performed.
+---
+ drivers/hid/hid-goodix-spi.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
-index e361a608f3ae9..c7697a77e770c 100644
---- a/fs/btrfs/tree-log.c
-+++ b/fs/btrfs/tree-log.c
-@@ -4200,24 +4200,34 @@ static void fill_inode_item(struct btrfs_trans_handle *trans,
- 			    u64 logged_isize)
- {
- 	struct btrfs_map_token token;
-+	u64 gen = BTRFS_I(inode)->generation;
- 	u64 flags;
+diff --git a/drivers/hid/hid-goodix-spi.c b/drivers/hid/hid-goodix-spi.c
+index 03d549efbdce..b7092b85dda2 100644
+--- a/drivers/hid/hid-goodix-spi.c
++++ b/drivers/hid/hid-goodix-spi.c
+@@ -575,6 +575,7 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
+ 	struct goodix_hid_report_event *event;
+ 	struct goodix_hid_report_package *pkg;
+ 	u16 report_size;
++	u32 pkg_len;
  
- 	btrfs_init_map_token(&token, leaf);
- 
- 	if (log_inode_only) {
--		/* set the generation to zero so the recover code
--		 * can tell the difference between an logging
--		 * just to say 'this inode exists' and a logging
--		 * to say 'update this inode with these values'
-+		/*
-+		 * Set the generation to zero so the recover code can tell the
-+		 * difference between a logging just to say 'this inode exists'
-+		 * and a logging to say 'update this inode with these values'.
-+		 * But only if the inode was not already logged before.
-+		 * We access ->logged_trans directly since it was already set
-+		 * up in the call chain by btrfs_log_inode(), and data_race()
-+		 * to avoid false alerts from KCSAN and since it was set already
-+		 * and one can set it to 0 since that only happens on eviction
-+		 * and we are holding a ref on the inode.
- 		 */
--		btrfs_set_token_inode_generation(&token, item, 0);
-+		ASSERT(data_race(BTRFS_I(inode)->logged_trans) > 0);
-+		if (data_race(BTRFS_I(inode)->logged_trans) < trans->transid)
-+			gen = 0;
-+
- 		btrfs_set_token_inode_size(&token, item, logged_isize);
- 	} else {
--		btrfs_set_token_inode_generation(&token, item,
--						 BTRFS_I(inode)->generation);
- 		btrfs_set_token_inode_size(&token, item, inode->i_size);
+ 	if (!test_bit(GOODIX_HID_STARTED, &ts->flags))
+ 		return IRQ_HANDLED;
+@@ -620,14 +621,21 @@ static irqreturn_t goodix_hid_irq(int irq, void *data)
  	}
  
-+	btrfs_set_token_inode_generation(&token, item, gen);
-+
- 	btrfs_set_token_inode_uid(&token, item, i_uid_read(inode));
- 	btrfs_set_token_inode_gid(&token, item, i_gid_read(inode));
- 	btrfs_set_token_inode_mode(&token, item, inode->i_mode);
-@@ -5033,42 +5043,63 @@ static int btrfs_log_changed_extents(struct btrfs_trans_handle *trans,
- 	return 0;
- }
- 
--static int logged_inode_size(struct btrfs_root *log, struct btrfs_inode *inode,
--			     struct btrfs_path *path, u64 *size_ret)
-+static int get_inode_size_to_log(struct btrfs_trans_handle *trans,
-+				 struct btrfs_inode *inode,
-+				 struct btrfs_path *path, u64 *size_ret)
- {
- 	struct btrfs_key key;
-+	struct btrfs_inode_item *item;
- 	int ret;
- 
- 	key.objectid = btrfs_ino(inode);
- 	key.type = BTRFS_INODE_ITEM_KEY;
- 	key.offset = 0;
- 
--	ret = btrfs_search_slot(NULL, log, &key, path, 0, 0);
--	if (ret < 0) {
--		return ret;
--	} else if (ret > 0) {
--		*size_ret = 0;
--	} else {
--		struct btrfs_inode_item *item;
-+	/*
-+	 * Our caller called inode_logged(), so logged_trans is up to date.
-+	 * Use data_race() to silence any warning from KCSAN. Once logged_trans
-+	 * is set, it can only be reset to 0 after inode eviction.
-+	 */
-+	if (data_race(inode->logged_trans) == trans->transid) {
-+		ret = btrfs_search_slot(NULL, inode->root->log_root, &key, path, 0, 0);
-+	} else if (inode->generation < trans->transid) {
-+		path->search_commit_root = true;
-+		path->skip_locking = true;
-+		ret = btrfs_search_slot(NULL, inode->root, &key, path, 0, 0);
-+		path->search_commit_root = false;
-+		path->skip_locking = false;
- 
--		item = btrfs_item_ptr(path->nodes[0], path->slots[0],
--				      struct btrfs_inode_item);
--		*size_ret = btrfs_inode_size(path->nodes[0], item);
--		/*
--		 * If the in-memory inode's i_size is smaller then the inode
--		 * size stored in the btree, return the inode's i_size, so
--		 * that we get a correct inode size after replaying the log
--		 * when before a power failure we had a shrinking truncate
--		 * followed by addition of a new name (rename / new hard link).
--		 * Otherwise return the inode size from the btree, to avoid
--		 * data loss when replaying a log due to previously doing a
--		 * write that expands the inode's size and logging a new name
--		 * immediately after.
--		 */
--		if (*size_ret > inode->vfs_inode.i_size)
--			*size_ret = inode->vfs_inode.i_size;
-+	} else {
-+		*size_ret = 0;
-+		return 0;
+ 	/* Read the package behind the coordinate data */
++	pkg_len = report_size - GOODIX_HID_COOR_PKG_LEN;
+ 	pkg = goodix_get_event_report(ts, ts->hid_report_addr + sizeof(*event),
+-				      ts->event_buf,
+-				      report_size - GOODIX_HID_COOR_PKG_LEN);
++				      ts->event_buf, pkg_len);
+ 	if (!pkg) {
+ 		dev_err(ts->dev, "failed read attachment data content");
+ 		return IRQ_HANDLED;
  	}
  
-+	/*
-+	 * If the inode was logged before or is from a past transaction, then
-+	 * its inode item must exist in the log root or in the commit root.
-+	 */
-+	ASSERT(ret <= 0);
-+	if (WARN_ON_ONCE(ret > 0))
-+		ret = -ENOENT;
++	if (le16_to_cpu(pkg->size) < GOODIX_HID_PKG_LEN_SIZE ||
++	    le16_to_cpu(pkg->size) > pkg_len) {
++		dev_err(ts->dev, "invalid attachment event package size, %d",
++			le16_to_cpu(pkg->size));
++		return IRQ_HANDLED;
++	}
 +
-+	if (ret < 0)
-+		return ret;
-+
-+	item = btrfs_item_ptr(path->nodes[0], path->slots[0],
-+			      struct btrfs_inode_item);
-+	*size_ret = btrfs_inode_size(path->nodes[0], item);
-+	/*
-+	 * If the in-memory inode's i_size is smaller then the inode size stored
-+	 * in the btree, return the inode's i_size, so that we get a correct
-+	 * inode size after replaying the log when before a power failure we had
-+	 * a shrinking truncate followed by addition of a new name (rename / new
-+	 * hard link). Otherwise return the inode size from the btree, to avoid
-+	 * data loss when replaying a log due to previously doing a write that
-+	 * expands the inode's size and logging a new name immediately after.
-+	 */
-+	if (*size_ret > inode->vfs_inode.i_size)
-+		*size_ret = inode->vfs_inode.i_size;
-+
- 	btrfs_release_path(path);
- 	return 0;
- }
-@@ -6573,7 +6604,7 @@ static int btrfs_log_inode(struct btrfs_trans_handle *trans,
- 			ret = drop_inode_items(trans, log, path, inode,
- 					       BTRFS_XATTR_ITEM_KEY);
- 	} else {
--		if (inode_only == LOG_INODE_EXISTS && ctx->logged_before) {
-+		if (inode_only == LOG_INODE_EXISTS) {
- 			/*
- 			 * Make sure the new inode item we write to the log has
- 			 * the same isize as the current one (if it exists).
-@@ -6587,7 +6618,7 @@ static int btrfs_log_inode(struct btrfs_trans_handle *trans,
- 			 * (zeroes), as if an expanding truncate happened,
- 			 * instead of getting a file of 4Kb only.
- 			 */
--			ret = logged_inode_size(log, inode, path, &logged_isize);
-+			ret = get_inode_size_to_log(trans, inode, path, &logged_isize);
- 			if (ret)
- 				goto out_unlock;
- 		}
--- 
-2.53.0
+ 	hid_input_report(ts->hid, HID_INPUT_REPORT, pkg->data,
+ 			 le16_to_cpu(pkg->size) - GOODIX_HID_PKG_LEN_SIZE, 1);
+ 
 
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261028-b4-goodix-attachment-pkg-size-3c7a69d6d4c4
 
-
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
