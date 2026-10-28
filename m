@@ -1,64 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221477;
-	b=ae5/TTMiMFcsCoMee3PuoGxSVSMPw+1W7LS3wg6cep1gMYGoeplaDQff5teitgRhcsvm
-	 VmunYy4I9HEp5QIl7k/Gm5i4gB5N4kXIMZ15vNUUPBovgUXNK+jqCPWgia0Ka5F+hafSG
-	 eSG+tyrSm3IxwpAjnYMT50VhvpHE3wyi6dRqNAlks0HqpMqNlGiwlEuhP4YQopN6hMPtF
-	 T3JSGWo3ZrjZul7B0efcAUIrUbIxNYSFOhdCG9Smgffd51b+fFg+NfI5jfAcGSSNAeL5Q
-	 Z46kxDRTHuOYDx6Ir2aWPQRjHq+ydPlT/9bJwxtzWgNf6f1hBnleId9x5OyRgeilJyw==
+	t=1793221582;
+	b=inj9Jx5RSEDSDULbcLzmQA0Qzgtn16fjFvc+E0r3a+ya6ZUgtWpD31xVjaf23SOz1J7j
+	 oweFQ8zxE9ch1+9I2F/qpim+onzgf1+BSGHSGApphEgGBHTcL0DcqOJ1LWx/lLyXRXqq+
+	 2qCNVy7CK8NAur2L5xb5fjNuJ9Y2IH7nPE/FobaHaelTvnAeJpNHaeIg0z777Sg04ICtX
+	 AUESTtmb9NrUWFymMJJnW9mu1CwbW7n8Is2QVDFMZmuwE0x75bgBFszVppK2OAPDHn7ev
+	 Y2zq0q/rM14okO1MTi8uOUaQzVrjiQnVJjbdceHHZVzUOsUuHJviFhFQUmhDkdXRBXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221477;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xdQrfkFhosIRmS2TBqm8mdJ/rffuErfIkgzT+1USxTI=;
-	b=PdamE/nPM1BBIOeHKWhz8/iW//0WJ+H6ZykfIz257T4mJXKEqejlaoTGBVwdxXOI781n
-	 GMcwpoga9KFbet6OwFpTkgNbHTnXwYIrw+TAoieLSNxUrZF2x51as8jJflce+7uv6pm5E
-	 PnBF/1qwkoSTe3qir16ArFsZqs/i52OSjNBQeYsGWSdm5s7VCxIfVLV3qusLAX4DWuFl5
-	 17o+Fm6+YnxXWrKM+4casJkp9yBNqKQQOqIiJI6PmCaniZV6Uk8aBZeVsMgmqCu5db3LO
-	 j2lM5Qn+myilmbHQ9KbyKLUoVWy8ofwmo4Xvx061XHfgwO/MyG5xLLULA5KdoBzESkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221582;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=1U4kkjWGgsDvjjFH6rA1YeOtK+lamjZuaWRgy38Z+iY=;
+	b=xsKnDdOF6DY8bPNPK0U/YoRG7Udhh/v5Mx/BGRF7rpNQ+TuAzokKxMbV3VvOKX8WwLer
+	 NvqFu70AooF89NeQlzcUhEeEe+xV/Yg+XC+M0zuy1YQUECuXfPmc7TjLDQzA0aA5yxWsL
+	 Z1duQgfHjZeJQ0w6PKLoS5ZRoyPOFeHJ5ReLg79w32PRD9W6dgzHXaeknN4+IEwn5N3aP
+	 T3iVNBKanIwnK42x5jo9hnpwwfAGdXH3k5SdE0pHTOgU5s97kgouSJZIOcXvTKd9jHh1A
+	 7FlS61ELvkhSOSmemtEXNSTAItLIy3OH461m2YK5BoOk2gQiGlHMmdLbh2bezMBf5AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abSLiHSC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=zfhRCywQ;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A7C606A31E;
-	Wed, 28 Oct 2026 21:04:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746F2606A31D;
+	Wed, 28 Oct 2026 21:06:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 746F2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abSLiHSC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9AD61F031E0;
-	Wed, 28 Oct 2026 21:04:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793221477;
-	bh=xdQrfkFhosIRmS2TBqm8mdJ/rffuErfIkgzT+1USxTI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=abSLiHSCaHOXvXGxNHr9btOIwh2pPi6KL8O4aRKei9+CfVz5xYcpl/gSDAY1AqcH2
-	 iYUJ13d3p+CdQuizpvNh6x8isL/gjYM4ai32h0X5E+04YX+1YZVR6OgkwCrzHI3HMF
-	 lX4Fa70aaDs9DPO0Z1vqzf0yBBiJ97emHKJWIgqkeL2Wqy202CJTFvxJONtPirNk73
-	 7USlqQ3qahMZ4K88eM8FzCxEKFuCSBQb+i1fEoH2u/RtQjvaa83+JvbO5SsVynVR7o
-	 +EGgnNwDqM7C87oIiJf4K8LS36L/W4MwxPxk+2f5wR7JkmYjOGvizyqElxPMnztMKI
-	 itxTUwfOF1Gbg==
-From: Sasha Levin <sashal@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Sean Christopherson <seanjc@google.com>
-Cc: patches@lists.linux.dev,
-	stable@vger.kernel.org,
-	Paul Durrant <paul@xen.org>,
-	pbonzini@redhat.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] KVM: x86/xen: Prevent runstate times from becoming negative
-Date: Wed, 28 Oct 2026 17:04:34 -0400
-Message-ID: <20261028210434.2386138-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3bc2d742e0fa4944c5da6b4d2932225a1c1761d7.camel@infradead.org>
-References: <20261019135441.1420968-1-sashal@kernel.org> <20261019135441.1420968-127-sashal@kernel.org> <atkdzsPJgcu123DO@google.com> <3bc2d742e0fa4944c5da6b4d2932225a1c1761d7.camel@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=zfhRCywQ
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 5555814C2D6;
+	Wed, 28 Oct 2026 22:06:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1793221579;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1U4kkjWGgsDvjjFH6rA1YeOtK+lamjZuaWRgy38Z+iY=;
+	b=zfhRCywQm397mApgZmVGmGOur7Ab9RM9b73cQf81jpGS2JpQ0H7LFelfeZ4xziGR9tqxHP
+	eDS26RIkkmvE5T86bUJaddC82b3ABEnmrM1VyXQ/stLD7xs/vOBRRa/dm9zBWVUC2tr8my
+	69fePCmEK4ZpsJgOSjtVQy1vFbroO359N4t166tnP2k9lb+Z0gijXGRWaNHCqGcH2FVznb
+	viEeBDt5KuHOjXWo+po/nipEwiduyWk8qXen61oyTtfudYvFmKw09Enfx6fGT11LpMSKRk
+	jv9h3nVBT5IqkNsJsGiM4RZS5TtLF03h2KjdPG3RKk14e2JPPFFhaC4fIMQG9w==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 370ff9f9;
+	Wed, 28 Oct 2026 21:06:13 +0000 (UTC)
+Date: Thu, 29 Oct 2026 06:05:58 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>, v9fs@lists.linux.dev,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] 9p/xen: drain response work after unbinding IRQ
+Message-ID: <auJjtiJbYfZnVxbC@codewreck.org>
+References: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <aqagvTnrIOGl8nfi@codewreck.org>
+ <4d97500e-a489-4e64-aa11-29c3430909f3@suse.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,14 +77,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <4d97500e-a489-4e64-aa11-29c3430909f3@suse.com>
 
-On Wed, Oct 21, 2026 at 10:01:53PM +0100, David Woodhouse wrote:
->Backporting this one to LTS kernels doesn't help anyone. The risk is
->low, but the benefit is lower.
+Juergen Gross wrote on Thu, Oct 08, 2026 at 12:42:21PM +0200:
+> > This one makes sense to me and I've picked it up, but I think
+> > "9p/xen: fix use-after-free in p9_xen_request"[1] adding a refcount to
+> > the front_priv is too much complexity vs. my understanding of the
+> > current threat model -- I can pick it up if someome who understands xen
+> > better than me has a proper look.
+> > 
+> > Stefano or Jürgen if you care / have time?
+> > 
+> > [1] https://lore.kernel.org/r/20260529103416.81378-1-zhaoyz24@mails.tsinghua.edu.cn
+> 
+> I think [1] should be taken.
+> 
+> We try to harden frontends against potentially malicious backends running
+> in a driver domain. Such a backend could cause the device to be removed on
+> the frontend side, so the attack vector is present.
+> 
+> The only reason this doesn't qualify as a Xen security issue is that the
+> 9pfs frontend hasn't been yet declared to be security supported regarding
+> attacks by the backend. Hopefully we will get there.
 
-Dropped, thanks.
+As said above I'm happy to take it under the condition that someone who
+can validate the patch has a proper look; I don't have much time for 9p
+right now and my setup doesn't include any test for xen so I'd rather be
+cautious
 
--- 
 Thanks,
-Sasha
+-- 
+Dominique Martinet | Asmadeus
