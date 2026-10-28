@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210928;
-	b=lUMKi/QqDtNrQKwY/jJ9HOM9zViGf7U8wdKOuBpgZWLbPpwis3JH97rCVJ8nfhuvR/qu
-	 Fwx9fDoK7eAq8gSR4vdLnerD3j6ZQcfMxccb9WVZOTPS1eg3MXNxymkSY4UKwMuB/W+ys
-	 bxheJQiD9JSwQwmaBT6JYm1xP2MLUqjwrSOtPlxxFQ7d0sBW+68VlkWeItrwb7Ekg9vNZ
-	 99HBwHysCIKfSHHCSYYwar94Rm3eqK88DUmvwDCQVBVzoufyWLX/KuP0PanfIOQrpCFeK
-	 IFxtryulhd1G4cGXf2yJFg1qTJlKXXKARQsns37vyYrJocvrYJBDNyrcc2kz7N1rtnw==
+	t=1793210930;
+	b=C8RyuDX6oW6n0M6LvISMT2xxnRwgOn5enLbGZLgFmvWGOsf17cYIWE15W+Gf/wcE6Wz1
+	 uDuduA8K+aBgscwEn93SjsESuO7+9e5rHFr8mvHfW2AUng7pIWrUB3DXT8BprpMcrxfeS
+	 oCzfDfSag4eL53rP8bjhKKllx6H9+5PT8HMJi/P/zfLxn8Iy1TaCWaDtZ+kch/aBiwhoE
+	 mgcq3hSJaOqCV59o/qiLS87ckKbtVaJw45W8cZFOjV3zOnwF3VR9W2gC21LmNkusYpVt+
+	 DHv+05TNi9tZydctsAjErAbcnoQxRMMaWIDrTaC7/WxNepu0YvEKj+cN8pE1ORbufQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210930;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vDJYLd3zF7X1JOp/T3/Wh2Na4tJL+NV1ZyjIU6HEeYc=;
-	b=BXyX9mynIAk6BQh6JQIGITlMHElLVUFeDdXR3At+N8fk/mY5iagC3V+4PouZEGapya63
-	 Ot2HVQXjilg9+wbiw86Mg50JyPejhEF9iA9Aikyd8NudVj0GtxoGT6QQbQbvZmXcFGHF2
-	 /aRlVYxD2HCK4aPjmgubkQ1BMHgnLdwgfIYojIFOt4ciE1Y2kNbI1rWKAQL/EwIdNUro+
-	 jM1WQAcXtOljbwpZNxm0do8fdIQWMEnY347A0gmghE6X64De9nW3z1/5pi7cpwNrdjjAH
-	 tlf4+RB5WgGPZ4y45LZ7IhN+xOx0niSnhpHIaAhqoOoAz6BYO9VJwsxsXnnGGCsJxWw==
+	bh=nIfN2AaWBqFJJ5GuYIp3z5E+K4EUXB03fvk//DXYwg0=;
+	b=gpFqBZfr7fBZe1VprZhGD0gfcF0aZqB8tNgE+ZLHA2mxw7qk4nSJFpfEQcGgkhhRK9qI
+	 AKv3y7eGAB8d9mWAAuzRgx3vxjbvIoel54gRcQ5B64N4RodO3DJ3lfHMw1SYlL+Sjr5GD
+	 x4GkYdyOfDByVoGMrs9rE4GxxZ3fXGeNM5OiX9k50w/hw47cpYR47uNIcIh24N9fnN3eJ
+	 +i1lqlSwLKDwAKiZcpVix7fctQhS8NHi8riObTcHomduTXa94Igyg6CMP63Ho0CxoR2IS
+	 YUE8PcalYCo+v+cBR4d6ilemhMw/PY6vcjyr+nv92yqw5UkPCMYbqwRzgnMNlNzmSzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pc8HOzPX;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=faBNLikS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B522D606A31D;
-	Wed, 28 Oct 2026 18:08:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BADB606A31E;
+	Wed, 28 Oct 2026 18:08:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pc8HOzPX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F551F01825;
-	Wed, 28 Oct 2026 18:08:46 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=faBNLikS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE141F01825;
+	Wed, 28 Oct 2026 18:08:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210927;
-	bh=vDJYLd3zF7X1JOp/T3/Wh2Na4tJL+NV1ZyjIU6HEeYc=;
+	s=korg; t=1793210930;
+	bh=nIfN2AaWBqFJJ5GuYIp3z5E+K4EUXB03fvk//DXYwg0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pc8HOzPXvB3cgiciubPz49t+b6EDzyOTBu2JMtpaS4QEoUjF2+sFq/dW5+PFjZk2l
-	 RVNg504SZwAdyyK+a1/+ZfPYtdZPUqE9LeEoyRJ9uCy8K4547gn/0p29Tr9m6uMgps
-	 YnGbnGfnDWrbrWjhbGHfmhz2SqkzqFyifWI2Cdio=
+	b=faBNLikSIVsyUiV6RIrEnZ3NQalH47hQNvZdYMkQG2VrJaZC39Eks0e5TlA9o8tyt
+	 iGeDUvlyei2zNWQGE3zUhHixJDMwLX4FUx9/QWvCZNDD/KugoJ4E5Z4XhCFCk+H7J3
+	 g43eScbgMxKfLSay8aoeIzrkDaAgOL0sjQGIKWW8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Oliver Neukum <oneukum@suse.de>,
+	syzbot+e5e28c3e953b2eebb16e@syzkaller.appspotmail.com,
+	Alan Stern <stern@rowland.harvard.edu>,
 	Johan Hovold <johan@kernel.org>
-Subject: [PATCH 5.15 198/571] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-Date: Wed, 28 Oct 2026 17:55:45 +0100
-Message-ID: <20261028170012.705560481@linuxfoundation.org>
+Subject: [PATCH 5.15 199/571] USB: serial: fix port tear down use-after-free
+Date: Wed, 28 Oct 2026 17:55:46 +0100
+Message-ID: <20261028170012.728830387@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -70,100 +70,53 @@ Content-Transfer-Encoding: 8bit
 
 From: Johan Hovold <johan@kernel.org>
 
-commit be4219dd98608736e13e0b790ef742b76a13254d upstream.
+commit 33c920f7c5952dfc42d1b8ea6efe16b1f0bb0c5b upstream.
 
-Check the wakeup condition after adding the task to the waitqueue and
-updating the task state to avoid missing a racing modem status update or
-disconnect.
+Some drivers for multiport devices access port driver data from
+completion handlers of shared URBs submitted at attach() or first open()
+and stopped at disconnect() or last close(), respectively.
 
-Store the old icount on entry and do not update it in the completion
-handler to avoid missing events or reporting spurious ones (due to modem
-status changes before TIOCMIWAIT was called).
+A simple NULL check before accessing the driver data makes sure that a
+port state container has at least been allocated, but a completion
+handler can still race with port tear down.
 
-Fixes: 5a6a62bdb925 ("cdc-acm: add TIOCMIWAIT")
-Cc: stable <stable@kernel.org>
-Cc: Oliver Neukum <oneukum@suse.de>
+Reorder the disconnect handling so that ports are not deregistered (and
+their driver data freed) until after all ports have been hung up and the
+driver disconnect() callback has run so that all I/O has been stopped.
+
+Fixes: 2d93148ab698 ("USB: serial: fix lifetime and locking problems")
+Reported-by: syzbot+e5e28c3e953b2eebb16e@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6a7e6fb9.ec5dc6cc.21cb3f.00c0.GAE@google.com/
+Cc: stable@vger.kernel.org	# 2.6.30
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260907095130.130636-1-johan@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/class/cdc-acm.c |   36 +++++++++++++++++++-----------------
- drivers/usb/class/cdc-acm.h |    1 -
- 2 files changed, 19 insertions(+), 18 deletions(-)
+ drivers/usb/serial/usb-serial.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -320,7 +320,6 @@ static void acm_process_notification(str
- 		difference = acm->ctrlin ^ newctrl;
- 		spin_lock_irqsave(&acm->read_lock, flags);
- 		acm->ctrlin = newctrl;
--		acm->oldcount = acm->iocount;
- 
- 		if (difference & ACM_CTRL_DSR)
- 			acm->iocount.dsr++;
-@@ -994,11 +993,16 @@ static int wait_serial_change(struct acm
- 	DECLARE_WAITQUEUE(wait, current);
- 	struct async_icount old, new;
- 
--	do {
-+	spin_lock_irq(&acm->read_lock);
-+	old = acm->iocount;
-+	spin_unlock_irq(&acm->read_lock);
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -1198,12 +1198,17 @@ static void usb_serial_disconnect(struct
+ 		usb_serial_port_poison_urbs(port);
+ 		wake_up_interruptible(&port->port.delta_msr_wait);
+ 		cancel_work_sync(&port->work);
+-		if (device_is_registered(&port->dev))
+-			device_del(&port->dev);
+ 	}
 +
-+	add_wait_queue(&acm->wioctl, &wait);
-+	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		spin_lock_irq(&acm->read_lock);
--		old = acm->oldcount;
- 		new = acm->iocount;
--		acm->oldcount = new;
- 		spin_unlock_irq(&acm->read_lock);
+ 	if (serial->type->disconnect)
+ 		serial->type->disconnect(serial);
  
- 		if ((arg & TIOCM_DSR) &&
-@@ -1011,22 +1015,20 @@ static int wait_serial_change(struct acm
- 			old.rng != new.rng)
- 			break;
- 
--		add_wait_queue(&acm->wioctl, &wait);
--		set_current_state(TASK_INTERRUPTIBLE);
--		schedule();
--		remove_wait_queue(&acm->wioctl, &wait);
- 		if (acm->disconnected) {
--			if (arg & TIOCM_CD)
--				break;
--			else
--				rv = -ENODEV;
--		} else {
--			if (signal_pending(current))
--				rv = -ERESTARTSYS;
-+			rv = -ENODEV;
-+			break;
- 		}
--	} while (!rv);
- 
--	
-+		schedule();
-+
-+		if (signal_pending(current)) {
-+			rv = -ERESTARTSYS;
-+			break;
-+		}
++	for (i = 0; i < serial->num_ports; ++i) {
++		port = serial->port[i];
++		if (device_is_registered(&port->dev))
++			device_del(&port->dev);
 +	}
-+	__set_current_state(TASK_RUNNING);
-+	remove_wait_queue(&acm->wioctl, &wait);
++
+ 	release_sibling(serial, interface);
  
- 	return rv;
- }
---- a/drivers/usb/class/cdc-acm.h
-+++ b/drivers/usb/class/cdc-acm.h
-@@ -118,7 +118,6 @@ struct acm {
- 	unsigned int ctrlin;				/* input control lines (DCD, DSR, RI, break, overruns) */
- 	unsigned int ctrlout;				/* output control lines (DTR, RTS) */
- 	struct async_icount iocount;			/* counters for control line changes */
--	struct async_icount oldcount;			/* for comparison of counter */
- 	wait_queue_head_t wioctl;			/* for ioctl */
- 	unsigned int writesize;				/* max packet size for the output bulk endpoint */
- 	unsigned int readsize,ctrlsize;			/* buffer sizes for freeing */
+ 	/* let the last holder of this object cause it to be cleaned up */
 
 
