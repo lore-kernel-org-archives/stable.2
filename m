@@ -1,56 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173557;
-	b=I+JagDQtYr6A93Plg5LaX/qHy9wxaEt2pwQAUffWc4Cmlbg74jWP5vmvvs9LYja7oAAO
-	 0P/eMCVfwUkOtK93gF67PN4xpm3Ttdc4byE2uY+bAzgURxpdoG6ZsvisexARjCziOIkhl
-	 OjtpHaPE80uMVVTjuz3FZtHvDJbkbbHj6NDQ1f4ehaOA//gDW0+j4ZFQwinkhYZEPN2uQ
-	 twmO7f421e0k5CRMw3m3mg3cQ1Ui/d2mYwcSlFiI1VvPy9taeTEPxD43WyGb+XJdr3w7n
-	 Ho/ltsvEycw0/IGZKx86hB4+AUdS240gBJ0+Z2y15gWvK5NmjFuK+QUydWD6ZhJM6dQ==
+	t=1793173648;
+	b=a6/nPDkt7gGbFX+WS2fjy6CqGzS5KEKTRjhI3QTnRioewAkFjOg35E9/NiQfYLLLvn25
+	 m+hnMCIyo8rIBWmN1ejcdV7CQbd1xHtH071E4UrLSBMxcLQh+0usWKGGPXou5TJ+r1YIi
+	 k8SSj0LvZdrGtml4DzNouuPQWW+OkwR/DLDzAIWTRfh+PgbNQgbZo2d+954+ZcpReL5A+
+	 mUE8RiJwG3gQ1cX2auTmYkHuddyaJ93SyA5FHNIiXorgDQBDDFPKLND5sV52cpMXoeMPF
+	 ZfyAW/DP66ncn5MxRswS6zuuCraACyPLZwThUdq+WHnj/5woD9zgloEWuGze+hoybcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173557;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=jKu2cq7RaKZ/bfx14b0vxiisTRPYsAwPIdF2ERn4E/0=;
-	b=bgL6R+il7W1r5e276DWJai9YlMQwwwNqlr8cXhZdLAOKiEMsc3CZHGH8K7Gjxap3wOm9
-	 JPgZHyvLX72uf67Fhy4GL4VUV7th164cft2TvuL9CzyR6uwYy1SgOB04yASWMjJ6e5Kst
-	 BNuu2m0VdbEKWpCI2DovPKw+QSANnTJ2ZT1XHqhoAi/ZFd/RMRpgoQNPJPEv25ROUtSA/
-	 qxnwmgL38JhJXmb6Ped29K/PuD/5M9/+yukAbyqUZkcDGkt233bII8tVioszTH7D9C4v3
-	 2W+cRRfPLwul/OjrlDUNmOdnZ4Q528f1zWOHoycvPKmgJk97mn2+jgiqO7SG6E/zaoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
+	b=OZfncC7Bwnh8Os8d9rbG8rAZOUsbS0p0jZ8jrFczezbj7jWKig4352PFVNDnztjdM98F
+	 fW2M8MV90tkoHUWmFimgANWfGyaM9UYXicwg9rqkb8s+80Gh8gYTqRBuEQvIjvPO/gP/a
+	 ZwtkvxgSemUKpWMZBsKsxl/GM5Rwf04q4hY/0FRh2wh0cjywxJP09t8PtY4KJml37eo4J
+	 jh9Z/sRq/usAKo8kIvSQe2EKkE33+rHasyk2IE8WYfu7If8Qq7ugZ8EIru0knp/x5yOQP
+	 Hot82BvvobGYIFsxljQAfalLUrKv2YKGmxMYNda24/Qj8JoEeLCKY9PZ3MTfRYwSlhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	arc=none smtp.remote-ip=64.106.246.77
-Received: from mailsc.amlogic.com (unknown [64.106.246.77])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fvuj5PzM;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EC2606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:45:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7EC2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from XA202100-0024.amlogic.com (10.88.19.246) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Wed, 28 Oct
- 2026 00:45:51 -0700
-From: yao zhang1 <yao.zhang1@amlogic.com>
-To: <stable@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
-	<roberto.sassu@huawei.com>, <kirill.shutemov@linux.intel.com>,
-	<jannh@google.com>, <paul@paul-moore.com>, <yao.zhang1@amlogic.com>,
-	<syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com>, Lorenzo Stoakes
-	<lorenzo.stoakes@oracle.com>, "Liam R. Howlett" <Liam.Howlett@Oracle.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>, Dmitry Kasatkin
-	<dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, "James
- Morris" <jmorris@namei.org>, Mimi Zohar <zohar@linux.ibm.com>, "Serge E.
- Hallyn" <serge@hallyn.com>, Shu Han <ebpqwerty472123@gmail.com>, "Vlastimil
- Babka" <vbabka@suse.cz>, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 5.15.y] mm: split critical region in remap_file_pages() and invoke LSMs in between
-Date: Wed, 28 Oct 2026 15:45:27 +0800
-Message-ID: <20261028074528.1720-1-yao.zhang1@amlogic.com>
-X-Mailer: git-send-email 2.56.0.windows.2
-In-Reply-To: <20261028074251.1695-1-yao.zhang1@amlogic.com>
-References: <20261028074251.1695-1-yao.zhang1@amlogic.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6141F606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6141F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fvuj5PzM
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so350717a12.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:47:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793173648; x=1793778448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
+        b=Fvuj5PzMLnp511zUOuXtW31L3gHSh9Oxmyc4svNtGfRUcaoB9SyzBMYNXrIyReUD8R
+         Whghg1MpP6ft4GuJiOnRvlfr6lvlXmDN9YG6M4RcQva1FVa07hw2SJ7cAYVMOwUNMeq3
+         kh5rreu+mGVhbp4ng8GL/xeiP0UdZT4oBVoJyV66/46Cgxxy3YR/EPb4yrULEfa1DwX5
+         +bwlDpN6ntqqPY9dV6ceqJMrW/uGjUyvpA/w5Dy5PFaJKtQQ0GNPrZBjoF5/yIuLBqeD
+         pJ1AGvboT+IMFxKUjVJE66tLc4mO3VSbzw3IRtfIOHFwYRYek9V6l+RJ6YnZ52pj7iBI
+         7hmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173648; x=1793778448;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8idl/HtLxFU4RXc5SRlZ1K4xdbzJi8/5nFcYdaBFYqU=;
+        b=hcydFVXvCkbfo2DE/x+fsatXTGFmD/7lmJfJQ5R3viBxVTA2UEu73oCG3AmTGurfxy
+         Van4g1sn534K0pa4vb8f8M3f5xBpUILli2Mk26PDiW54ksp1XYR3A31XMIg1eywSXMch
+         cmyqxS91zDRX7XTUsP4EA4yfO7FPNRwdz5nMTS6GLSR0m322D7GkBLTCWywLW6A4uWe2
+         RHPUnioJRHByRmklaFWIMKHp3+FRg3pr2xCmgS6CJjvVTOb35ly2yPy7wh0wQ62KxXpf
+         Nph4YHa54YG00SS0MTRCjSuU0U6fSWczoQeTI1SC7tKjqgAEMe9XS7X8jG/5EXUm3X1E
+         oxbA==
+X-Gm-Message-State: AFq9FYLnchghNj2JnI8bZ1xoXVpW/SOa6BLgnkS9u1AEUdt40WI00Hos
+	mXJmIjs9LAFQSxUjk2lILp90O2mh0AbLIACi0xP3p0QHv4SBu1d5Jim6
+X-Gm-Gg: AYBFou3PWkb4pqz3elRi/nuYJYHAIa1P9fnqbDBs2LRccKgSgCj3GK67vyi0S6huHL7
+	2ALuO6nEQjh055YbK3YUxBHoGUetLEidHKCsko2H/WF2DguEt6W/IEprpYw492h03HvfhnVfKIj
+	AggprjiSpov/Z0FCY8y+yAZgOe+1S47+SW9JNMmu+UGp3OlaHASmt31UY5k5kD1zpwSgSBEZpmo
+	TsoXaF8FYfKGo/NCmPnik4spNbhan88rqWmqAEunvgU4IYvcTDHP47PyXzsIeRn5Xz0B1xKZy13
+	3RLoq8i64ysEA6vTLGBze0cNqktvA25cUYiHr2BfEn3uy31uHxdpPhTiGuifZUSyTtF0ty8qIpl
+	6+oIsuLebj4JdcV29DeoOL3I1KylMYTZISbAvWogpgEV+Y/rJRa/8fCU+ocXTaN6+DMAUKJ/MWK
+	5lRviEG47xQuGHhurNl9Y+h/Y+guu1fYGIHRuKiUMvyoH1KZBLx/wl5pUzohWqoDC93q1k7f+VV
+	eH48WuhOJcNhOv2oFg+vPjebJdkI75wtmo2OJ4TTYDEhHcqPyYqj4+t5eMcBOJ6YPhEVy0E0jaP
+	j4FcVXOdo/YBJbLXCwBVV7WBEN3G
+X-Received: by 2002:a17:90b:510f:b0:3ac:adce:60b5 with SMTP id 98e67ed59e1d1-3ae580ae38emr1000839a91.14.1793173647649;
+        Wed, 28 Oct 2026 00:47:27 -0700 (PDT)
+Received: from localhost ([182.216.53.174])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a27f7c7sm1941127a91.2.2026.10.28.00.47.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 00:47:27 -0700 (PDT)
+From: Jaewon Jung <jaewon8868@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH] tracing: Avoid undefined shifts for zero histogram map size
+Date: Wed, 28 Oct 2026 16:44:54 +0900
+Message-ID: <20261028074610.2212374-1-jaewon8868@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,167 +98,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
 
-From: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
+Reject size=0 before calling roundup_pow_of_two().
 
-Commit ea7e2d5e49c0 ("mm: call the security_mmap_file() LSM hook in
-remap_file_pages()") fixed a security issue, it added an LSM check when
-trying to remap file pages, so that LSMs have the opportunity to evaluate
-such action like for other memory operations such as mmap() and
-mprotect().
+include/linux/log2.h documents roundup_pow_of_two() as:
 
-However, that commit called security_mmap_file() inside the mmap_lock
-lock, while the other calls do it before taking the lock, after commit
-8b3ec6814c83 ("take security_mmap_file() outside of ->mmap_sem").
+  - the result is undefined when n == 0
 
-This caused lock inversion issue with IMA which was taking the mmap_lock
-and i_mutex lock in the opposite way when the remap_file_pages() system
-call was called.
+With CONFIG_UBSAN_SHIFT=y, a size=0 histogram trigger reports:
 
-Solve the issue by splitting the critical region in remap_file_pages() in
-two regions: the first takes a read lock of mmap_lock, retrieves the VMA
-and the file descriptor associated, and calculates the 'prot' and 'flags'
-variables; the second takes a write lock on mmap_lock, checks that the VMA
-flags and the VMA file descriptor are the same as the ones obtained in the
-first critical region (otherwise the system call fails), and calls
-do_mmap().
+  UBSAN: shift-out-of-bounds in include/linux/log2.h
+  shift exponent 64 is too large for 64-bit type 'long unsigned int'
 
-In between, after releasing the read lock and before taking the write
-lock, call security_mmap_file(), and solve the lock inversion issue.
+Tested on x86_64 QEMU: size=0 is rejected without UBSAN warnings,
+and the histogram modifier and parser tests pass.
 
-Link: https://lkml.kernel.org/r/20241018161415.3845146-1-roberto.sassu@huaweicloud.com
-Fixes: ea7e2d5e49c0 ("mm: call the security_mmap_file() LSM hook in remap_file_pages()")
-Signed-off-by: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
-Reported-by: syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-security-module/66f7b10e.050a0220.46d20.0036.GAE@google.com/
-Tested-by: Roberto Sassu <roberto.sassu@huawei.com>
-Reviewed-by: Roberto Sassu <roberto.sassu@huawei.com>
-Reviewed-by: Jann Horn <jannh@google.com>
-Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Reviewed-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
-Reviewed-by: Paul Moore <paul@paul-moore.com>
-Tested-by: syzbot+1cd571a672400ef3a930@syzkaller.appspotmail.com
-Cc: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: Mimi Zohar <zohar@linux.ibm.com>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: Shu Han <ebpqwerty472123@gmail.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 58a039e679fe72bd0efa8b2abe669a7914bb4429)
-Signed-off-by: yao zhang1 <yao.zhang1@amlogic.com>
+Fixes: 7ef224d1d0e3 ("tracing: Add 'hist' event trigger command")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
 ---
- mm/mmap.c | 69 +++++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 52 insertions(+), 17 deletions(-)
+ kernel/trace/trace_events_hist.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 7f357de8f4d6..90a5358da10f 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -2991,6 +2991,7 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 	unsigned long populate = 0;
- 	unsigned long ret = -EINVAL;
- 	struct file *file;
-+	vm_flags_t vm_flags;
- 
- 	pr_warn_once("%s (%d) uses deprecated remap_file_pages() syscall. See Documentation/vm/remap_file_pages.rst.\n",
- 		     current->comm, current->pid);
-@@ -3007,12 +3008,60 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 	if (pgoff + (size >> PAGE_SHIFT) < pgoff)
- 		return ret;
- 
--	if (mmap_write_lock_killable(mm))
-+	if (mmap_read_lock_killable(mm))
-+		return -EINTR;
-+
-+	/*
-+	 * Look up VMA under read lock first so we can perform the security
-+	 * without holding locks (which can be problematic). We reacquire a
-+	 * write lock later and check nothing changed underneath us.
-+	 */
-+	vma = vma_lookup(mm, start);
-+
-+	if (!vma || !(vma->vm_flags & VM_SHARED)) {
-+		mmap_read_unlock(mm);
-+		return -EINVAL;
-+	}
-+
-+	prot |= vma->vm_flags & VM_READ ? PROT_READ : 0;
-+	prot |= vma->vm_flags & VM_WRITE ? PROT_WRITE : 0;
-+	prot |= vma->vm_flags & VM_EXEC ? PROT_EXEC : 0;
-+
-+	flags &= MAP_NONBLOCK;
-+	flags |= MAP_SHARED | MAP_FIXED | MAP_POPULATE;
-+	if (vma->vm_flags & VM_LOCKED)
-+		flags |= MAP_LOCKED;
-+
-+	/* Save vm_flags used to calculate prot and flags, and recheck later. */
-+	vm_flags = vma->vm_flags;
-+	file = get_file(vma->vm_file);
-+
-+	mmap_read_unlock(mm);
-+
-+	/* Call outside mmap_lock to be consistent with other callers. */
-+	ret = security_mmap_file(file, prot, flags);
-+	if (ret) {
-+		fput(file);
-+		return ret;
-+	}
-+
-+	ret = -EINVAL;
-+
-+	/* OK security check passed, take write lock + let it rip. */
-+	if (mmap_write_lock_killable(mm)) {
-+		fput(file);
- 		return -EINTR;
-+	}
- 
- 	vma = vma_lookup(mm, start);
- 
--	if (!vma || !(vma->vm_flags & VM_SHARED))
-+	if (!vma)
-+		goto out;
-+
-+	/* Make sure things didn't change under us. */
-+	if (vma->vm_flags != vm_flags)
-+		goto out;
-+	if (vma->vm_file != file)
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f39fa8942673..3de794c7f5b2 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1430,6 +1430,11 @@ static int parse_map_size(char *str)
+ 	if (ret)
  		goto out;
  
- 	if (start + size > vma->vm_end) {
-@@ -3037,25 +3086,11 @@ SYSCALL_DEFINE5(remap_file_pages, unsigned long, start, unsigned long, size,
- 			goto out;
- 	}
- 
--	prot |= vma->vm_flags & VM_READ ? PROT_READ : 0;
--	prot |= vma->vm_flags & VM_WRITE ? PROT_WRITE : 0;
--	prot |= vma->vm_flags & VM_EXEC ? PROT_EXEC : 0;
--
--	flags &= MAP_NONBLOCK;
--	flags |= MAP_SHARED | MAP_FIXED | MAP_POPULATE;
--	if (vma->vm_flags & VM_LOCKED)
--		flags |= MAP_LOCKED;
--
--	file = get_file(vma->vm_file);
--	ret = security_mmap_file(vma->vm_file, prot, flags);
--	if (ret)
--		goto out_fput;
- 	ret = do_mmap(vma->vm_file, start, size,
- 			prot, flags, pgoff, &populate, NULL);
--out_fput:
--	fput(file);
- out:
- 	mmap_write_unlock(mm);
-+	fput(file);
- 	if (populate)
- 		mm_populate(ret, populate);
- 	if (!IS_ERR_VALUE(ret))
++	if (!size) {
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	map_bits = ilog2(roundup_pow_of_two(size));
+ 	if (map_bits < TRACING_MAP_BITS_MIN ||
+ 	    map_bits > TRACING_MAP_BITS_MAX)
 -- 
-2.46.0
+2.43.0
 
