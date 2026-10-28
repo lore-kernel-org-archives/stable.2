@@ -1,70 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793228879;
-	b=YsdrV8TxMsAj9orPPUSn1z/xpu67sbsvpvv0vHEXtUGOGwXxuufmKrVHrZvHAimkBUYV
-	 cmpa3aL5gZyDHR5b2Q4b7bPMGtqLLIUhKLbPv6ItTcBLuD5+er5SPm9L1YSVKOXCpMCsS
-	 4bcKOVBFWkBA7kHUkopd1/iI2CKTVLmU1fLaJJFTx75LEJ2D8QB0gluabVMFaefwbITpD
-	 nqiGchuLEmGAOtt/RckuDDisRkOJUcwTRlcjVpK5Z1ZqyHpxBr70WRjjY93ToQH6ZNMPn
-	 lSv7pmUBQxH6zHMv8zt0jh9NEOsOTSTRPQ34b6ddOxSOL23d7/Iw6yyVw0YWLmleMWw==
+	t=1793228985;
+	b=t0mJE4gAiZyMa+k4iJX43YedL38aPD5VdUdkLavxgrDWforvOzcxFtoK8wtIiCsZJbVg
+	 7je7Bnvo3icGfWB0EtB9NOKA/kjJLM5Ezp4I7iz/PY/zgqGmeoE7HbxT2JkvpQGvOC+c5
+	 AzZKd96pI8hNEBN1Nc0W7N1APcf/3XIcphVqGytaBLGrm1L64VzhzYjdu31QmYxz2RpKu
+	 4oePI1qleVdBz9SMSa14MA9rURlSx4g7lUB4fCUA3bwX45WXhNu2cY/d5lEfQ8fHrWezZ
+	 8SU3Cgd45P1a2+u05Y/ykHOOx9kED0RZpNcSeu6rGsUo5LPG5iRX5sqY2piYp3DeI8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793228879;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1yPRzjaxwAbdXrP6KueZlpcv3HyJ0rJfktwvgjDHlp0=;
-	b=q9YHmTdX374C57ky9dQg2LN645zs3ZsV/KVEg1mSHubrVIVZ7awUxYG14xo1rIToelyj
-	 G9jGpFKOqv3FyvRoVTx7k6mliF9aKl0Eu2iUhbuyfOB7NcNUtxrTyadoc5isS6uhds0ay
-	 X1y/td0GybpStnsYvihiX/goMtWJlE5Rn3Z22O0dsIne/CerO9GydgyqtNpNJbsHfUuKc
-	 Y3WV4GmMCRhhR7BUvhZ6Te8tLtv+AbivKTfYT52W48Bj4DYjzB1mXd0xm1fv/gRV5/oLl
-	 mJgcYH9SRSQYXbNgoY2FqWXQ/UNXLuE/CXNduYRzD4SKlJquu/4/XYnZEpWb1Y18USA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793228985;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=zgMKlO6hJ7BlOiBhlUKcx1eBr3Vryr4lwGePzp9S/W4=;
+	b=hI+xu11VWB4dwSPynsCatjj/j5Ro/o0uLS4f8KA1emFIgZSq/GmNBlzMVOAhlweXUqBC
+	 lSJUCOSbxz1HBlZ/Kxq/9O5emBdLzNl/eVoEkAwE6UeXvUqMYym9JHF6K66iVPTd4CxQ8
+	 ++4K/2/D6fdvhsG+arL0XT6ZrL/+7/UFIIpNJ1aAIT3xBQEreAD0ljmlMxv8Emu47VDRo
+	 6vtrD3mCl4dabkK0xfE+Auu2aNiE4ZTNMPO6rsj3fnvnjFYzt1y94+hBlW0qmgHkdmYBS
+	 6wXH44Q/C/nUx2l0pIGVd9kDKdy184xgJpVBFCKTSSJEVEcFhVREg6OUquEcY1KwSFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OunRAseH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	arc=none smtp.remote-ip=185.128.210.58
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F818606A31A;
-	Wed, 28 Oct 2026 23:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OunRAseH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE51F1F01825;
-	Wed, 28 Oct 2026 23:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793228878;
-	bh=1yPRzjaxwAbdXrP6KueZlpcv3HyJ0rJfktwvgjDHlp0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OunRAseH8A/nYOGi6fAES1iTRjW/jWJHaN7aZklbbr+1XX8+afO+r75A6+z4YEo45
-	 p6SRpDGXlpho/SyhaP9mQIG/qLAPjRhZT95JKvwO6JuVxbb28XAr8zixAVJbnpgQ9P
-	 /hU0LX150h+D1Wez70uR1XqjohWfESWosz/YK/sL1D3tat4kauivySlYi3gw6K8X9r
-	 3Gy+26G/Ph/jw2rBKsjOR6ozj1Bcjr1qfim6YVSx2AaH2z7tLmz7NySA9qdHEAlXIo
-	 E6+FZvX5eS08venim34c07ahmHUrjkjMNva+Eb1QemIVzr7po7P5EdOLbXlFjt5ivF
-	 DhjDgPwNPSKIg==
-Date: Wed, 28 Oct 2026 16:07:57 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, Joel Granados
- <joel.granados@kernel.org>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, David
- Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, Thomas
- Gleixner <tglx@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, Kuniyuki
- Iwashima <kuniyu@google.com>, Fernando Fernandez Mancera
- <fmancera@suse.de>, Willem de Bruijn <willemb@google.com>, Maoyi Xie
- <maoyi.xie@ntu.edu.sg>, Gerd Rausch <gerd.rausch@oracle.com>, Zhan Xusheng
- <zhanxusheng1024@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Chia-Yu Chang
- <chia-yu.chang@nokia-bell-labs.com>, Yung Chih Su <yuuchihsu@gmail.com>,
- Wyatt Feng <bronzed_45_vested@icloud.com>, Hannes Frederic Sowa
- <hannes@stressinduktion.org>, Flavio Leitner <fbl@redhat.com>, Petr Mladek
- <pmladek@suse.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 5/5] net: restrict message_cost and message_burst
- to non-negative values
-Message-ID: <20261028160757.210f99bf@kernel.org>
-In-Reply-To: <20261027104701.296240-6-jiayuan.chen@linux.dev>
-References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
-	<20261027104701.296240-6-jiayuan.chen@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74611606A31A;
+	Wed, 28 Oct 2026 23:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74611606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 5.15 000/571] 5.15.224-rc1 review
+Date: Wed, 28 Oct 2026 23:09:27 +0000
+Message-ID: <20261028230930.128308-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,12 +66,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 18:45:33 +0800 Jiayuan Chen wrote:
-> + * Returns 0 on success.
+# Librecast Test Results
 
-kdoc format needs an explicit : after "Return"
--- 
-pw-bot: cr
+044/044 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
+
+CPU/kernel: Linux auntie 5.15.224-rc1-00572-gb52fab5d514d #1 SMP Wed Oct 28 22:59:51 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
+
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
