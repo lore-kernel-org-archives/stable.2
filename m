@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216635;
-	b=Fbqon9klkA+CjNhBqYVOLp7bdB6AnoKq2XHG5vwUne3BFo0iS3m9eY6+o3Jk2H42vgN7
-	 BEVn9NHgOlnDJCh52zD4WPwf+nrenJNF09wpZx8iPHGBtmC1BTDRNBEaPICXFoUuhopz4
-	 nd2Uo5nEQ8OT8wSWbB7xxYpPgRYonf17+4HFC3kTKXmh0ZQSrb6FuFwJAGdeX2csvv+Ys
-	 wjvqE2RGRyIgU9z0lPRqsyBrYyK2AM2g+3ZFLj0B79nVr5URWhowoyF7d78mCheLPEu3z
-	 /88IZh/vc5RNyCr7RUqn4K6UW53q6dCM9sCeme+kyZETwMCTVYcncrf0HztjYRRrOpw==
+	t=1793216637;
+	b=EJ2lfKJG/xLY4DSX//BUEBWRQtnu80U0a2cscEUyRfv6L199GrjI6zjkGXjFLgKDH4Dv
+	 dQbYQQNRvkc+AzQGtAbUwuyuxkTIXSEnxX2ABMxG+NKQa/C/eLNG4T2XY72SecdFuMwF5
+	 o9K/gUU9qlJb8qqf83Xj20vTzflDGJfeSQVYYH0Wmx7uDO5e+G/nPWn5kuBSoz4R9K5G4
+	 W/68X7NvAJSpzXAAuCj4WTT6Mv/wLwEvwVz0WrZsTnKv3cxQjHcXez0b5K0VmpUmXHXlU
+	 CkVWeWYYuLqmN9jiLzUwMrLgU/X1CMc7m6O0KBBSPskdhqpFEKBQzqhjpx/dqSeu1Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216637;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IMzawOVSemx/cygt8hWtvNdg9Waa1LAl7gzh3vgtl2Y=;
-	b=t0DxBsjeIYM/twalE6uTA7SWIvkULGLVTMFz1ZpdyFKTF2jJPWzZnQsMBj8kGvOHK8KN
-	 MU3pyxgJet9mSe414PHRDvoGEehCsNpcSol0Ysk5xdR+Hh+qQaUyYcrXlSXYm7kTZRgsV
-	 2hlu7YzgF55rxFyqBunqVPwSnX//Neewdx3q4XfF7qdwzyiLRkTNHl6Je8fgrtYRGB758
-	 5e4OLdQPOGukimb+t2cccgyqGURQv5CUpLeVDAvzqZtIUzqt8f3uv/LKMPrR81X70Aqe0
-	 JARaqHbGhwMLeCNr5Oam+YRLdJfnbzNs9ZLAKoP1N/gcj6SxSzefPMnfZ1kaot68lzg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iF9+nHPmvgHuKbAlCDqElPbFe58vx7wb1nyP8mOH/QM=;
+	b=ZyXhpiVreg1ztRbksrksqoflZ8TyovvyswN1BCpOR31bDKvqzD3GosUywzFlDM064/nZ
+	 hnhX3vAifJyPE2G+lRMn0+9zGNZ5UUmebFM/jYkJ5Io9hLFE8PZsUiPnmFbmV0PZ9G2Mx
+	 dwQKI/I6hGsr5wQR1FZFlRfbjW1jgMxOsHxXeRU7DIcBmpSCJgZQ7fAReEg+dDQgXKg1a
+	 Yo2gkbMie1EnGBN6EX6Q0zeS4O92ASwtZHIDV5vCzsqAM98xS8bhkTDzXxAN9d3AW2M6M
+	 YzCepJfh8xDb79IywmZScGS9PIo/1EDrjVZR0hD8+dTaamOtPjKXZPOqxpXV2Noh7lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmNmx29k;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AM6NMkSn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A1C606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F0A606A31A;
+	Wed, 28 Oct 2026 19:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmNmx29k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056881F01828;
-	Wed, 28 Oct 2026 19:43:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793216634;
-	bh=IMzawOVSemx/cygt8hWtvNdg9Waa1LAl7gzh3vgtl2Y=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AM6NMkSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A3D1F01825;
+	Wed, 28 Oct 2026 19:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793216637;
+	bh=iF9+nHPmvgHuKbAlCDqElPbFe58vx7wb1nyP8mOH/QM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hmNmx29kMOUNfd3lZfD9dScay/YXgwZAaTcIE9Q73pl2XLTkw12bAg7H09IG682vj
-	 c2zGINbGNFbPkjM9UcRdHj5F7uUxp6fvURBIf1vZ4GHtyJ5VuaUz+uNeMU3NucRgvK
-	 gselJIUSUktBHIkyBJuEOGlPkQpqBjBPhOnVxjQGKW+zVh+v40UnCaNjVkWVSYA8Za
-	 smJvpeKgnJ/9FwCqiAxmsAX2PouM5F5sMxt1mKV2R3IlZtfHN5AM1XaWgMSXcrqhN/
-	 RpVR+DfEhBWxrExyJuUIQvmbD6wGhbD7jFatup6+AcdK3A/0ECsuBoXCmZJ7b0hOKc
-	 hcfbBTiUiS/vg==
-From: Sasha Levin <sashal@kernel.org>
+	b=AM6NMkSnE3GnmU/YnJV66NEy2a6l4+jt4bduQzlJ9R/iY8hIvsJylx4zWhcsv7Hxe
+	 IVP7Pc34hoQ1ydi3dWsCEQ4iaNglffQ/svPSXARSYEqS7DLAedvlE745avpOtMri2w
+	 eQh0LDFbnrXu1lYihVtquZIrtFub4/SLxPjI6RiU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Maher Azzouzi <maherazz04@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] exit: hang up the tty before closing the files
-Date: Wed, 28 Oct 2026 15:43:52 -0400
-Message-ID: <20261028194316.2073000-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102827-compress-dance-a28e@gregkh>
-References: <2026102827-compress-dance-a28e@gregkh>
+Subject: [PATCH 6.1 1626/1887] esp: do not unref managed frag pages in esp_ssg_unref()
+Date: Wed, 28 Oct 2026 18:02:02 +0100
+Message-ID: <20261028170536.468256898@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,81 +64,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ad016f0131ebfec250a3360ea75d35128b3f4aa8 ]
+------------------
 
-do_exit() closes the task's files in exit_files() and hangs up the
-controlling tty of a session leader in disassociate_ctty(1) after
-that. Since commit d99d38540bf0 ("fs: make close_files() synchronous")
-the final __fput() of every file runs inside exit_files(). So when the
-session leader holds the last open of its tty the tty is released
-before disassociate_ctty() runs. tty_release() clears signal->tty for
-the whole session in session_clear_tty() once the count drops to zero
-and sends no signal doing so. disassociate_ctty(1) then finds neither a
-tty nor a tty_old_pgrp and does nothing. The foreground process group
-loses its SIGHUP:
+From: Maher Azzouzi <maherazz04@gmail.com>
 
-    do_exit()
-      exit_files()
-        close_files()
-          tty_release()             tty->count == 0
-            session_clear_tty()     signal->tty = NULL, no signal
-      disassociate_ctty(1)
-        get_current_tty()           NULL
-        signal->tty_old_pgrp        NULL, nothing sent
+[ Upstream commit 21697720ff43b8dfa25b8e8d9ca7f56f4597fc80 ]
 
-That only affects real ttys. For a pty the master's open keeps the
-slave's count above zero. And it only affects a foreground job that
-holds no descriptor to the tty anymore while its session leader exits.
-Everything else is unchanged. The DTR drop on the last close happens in
-tty_port_shutdown() regardless, stopped jobs get their SIGHUP from
-kill_orphaned_pgrp() and signal->tty is cleared either way.
+esp_ssg_unref() releases the page references held on the source
+scatterlist after the AEAD operation completes.  It calls
+skb_page_unref() on every frag page for an out-of-place transform
+(req->src != req->dst), and in the error path of esp_output_tail()
+(already_unref == true) on the request's own scatterlist.
 
-Before that commit the final __fput() ran from exit_task_work() which
-comes after disassociate_ctty(). That order isn't old. Until v3.14
-exit_task_work() came right after exit_files() and before v3.6 fput()
-was synchronous, so the tty was always released first. Commit
-c39df5fa37b0 ("exit: call disassociate_ctty() before
-exit_task_namespaces()") moved disassociate_ctty() up to fix a pppd
-crash and in front of exit_task_work() as a side effect. The hangup in
-this case has worked since then and that's eleven years of userspace
-being able to rely on it.
+This is wrong when the skb carries managed frags
+(SKBFL_MANAGED_FRAG_REFS).  Managed frags are owned by a zerocopy ubuf
+and the skb does not hold a per-frag page reference; io_uring SEND_ZC
+with a registered buffer attaches the bvec pages this way via
+io_sg_from_iter().  The rest of the stack honours this invariant:
+skb_release_data() skips the per-frag unref when SKBFL_MANAGED_FRAG_REFS
+is set, and skb_zcopy_managed() is the guard used at the other unref
+sites.
 
-Hang the tty up before closing the files. This is the ordinary hangup
-with the file still open: __tty_hangup() swaps in hung_up_tty_fops and
-tty_release() runs from the close afterwards as it does when a modem
-drops the line. disassociate_ctty() stays in front of
-exit_task_namespaces() which the pppd fix needs.
+esp_ssg_unref() is missing that guard, so for a managed-frag skb it
+drops a page reference the skb never acquired.  This can underflow the
+page reference count and free a page that is still in use.
 
-Reported-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-8-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adjusted context for exit_task_namespaces() instead of exit_nsproxy_namespaces() ]
+Guard the function with skb_zcopy_managed() so both unref paths are
+skipped for managed-frag skbs, matching skb_release_data().
+
+Fixes: cac2661c53f3 ("esp4: Avoid skb_cow_data whenever possible")
+Fixes: 03e2a30f6a27 ("esp6: Avoid skb_cow_data whenever possible")
+Signed-off-by: Maher Azzouzi <maherazz04@gmail.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/exit.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ net/ipv4/esp4.c | 7 +++++++
+ net/ipv6/esp6.c | 7 +++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/kernel/exit.c b/kernel/exit.c
-index e2dae48578d96..97b0dc8c05558 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -882,10 +882,11 @@ void __noreturn do_exit(long code)
+diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
+index 55b5c890b15a8..908775cdb8fc6 100644
+--- a/net/ipv4/esp4.c
++++ b/net/ipv4/esp4.c
+@@ -103,6 +103,13 @@ static void esp_ssg_unref(struct xfrm_state *x, void *tmp, struct sk_buff *skb)
+ 	struct aead_request *req;
+ 	struct scatterlist *sg;
  
- 	exit_sem(tsk);
- 	exit_shm(tsk);
--	exit_files(tsk);
--	exit_fs(tsk);
-+	/* Hang the tty up before the last close of it can clear the session. */
- 	if (group_dead)
- 		disassociate_ctty(1);
-+	exit_files(tsk);
-+	exit_fs(tsk);
- 	exit_task_namespaces(tsk);
- 	exit_task_work(tsk);
- 	exit_thread(tsk);
++	/* Managed frags are owned by the zerocopy ubuf; the skb holds no
++	 * per-frag page reference, so we must not drop one here.  Mirrors
++	 * the SKBFL_MANAGED_FRAG_REFS handling in skb_release_data().
++	 */
++	if (skb_zcopy_managed(skb))
++		return;
++
+ 	if (x->props.flags & XFRM_STATE_ESN)
+ 		extralen += sizeof(struct esp_output_extra);
+ 
+diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
+index 72490d27d15f5..a90c9f4c5fd02 100644
+--- a/net/ipv6/esp6.c
++++ b/net/ipv6/esp6.c
+@@ -120,6 +120,13 @@ static void esp_ssg_unref(struct xfrm_state *x, void *tmp, struct sk_buff *skb)
+ 	struct aead_request *req;
+ 	struct scatterlist *sg;
+ 
++	/* Managed frags are owned by the zerocopy ubuf; the skb holds no
++	 * per-frag page reference, so we must not drop one here.  Mirrors
++	 * the SKBFL_MANAGED_FRAG_REFS handling in skb_release_data().
++	 */
++	if (skb_zcopy_managed(skb))
++		return;
++
+ 	if (x->props.flags & XFRM_STATE_ESN)
+ 		extralen += sizeof(struct esp_output_extra);
+ 
 -- 
 2.53.0
+
+
 
