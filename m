@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215774;
-	b=x7L/yluVCXJYac4sWNJ924UzDO2I5LXbOkjmtJNKb9dRnJUCvNmCHtDc2oOz7EVQoe+0
-	 dZjtcwhV05wT3K4YsBLu3u56NLdVuzqW5vNeygpfbMaRrfqhulf3uQVyXZUP3uZW/vJqd
-	 cIogirwBw1/0E1nM+cwTxqp2x0V5CCouqby9dZ/0KIE/+boLDPaKzQR/WBJHqIIMhy7N1
-	 X/qmMbSxvQHhGenE5kcJWiJQZbX1BvoJb1/EUNrEASKXaVhSurS/47d8r6fCuCKRWz9mA
-	 jBzGqtxAgsiKcL+Zxz4iXaSOArJhfFQgvAmqaIIkqR4iiGhff9Vj1qLNza+e3gV99YA==
+	t=1793215772;
+	b=rprm72P24Ya+FYe68ZTNMYxtFIpWa8xxc6fgXachW/Vwyn6UUOZNNQ/Ch+jMn0Lst+pC
+	 JSLExtTpcWmULsjL/NRDSOaW8LFLFDSoI30uVvF9PPEV2/x+9tDEJwrAD1vtqxYPvItdx
+	 2kDoHy0Y3ZuQ2yJgj0KdODmywe04WzaQv/mybSHae+DFMxXLaap6fpH2NbCzXvooWrgkz
+	 wX5d5PddHx7lm0SorBYpG69MkZ11seH0scymdTzN4FfbTbKgEtWYnLcVpwDjHwnnzkiim
+	 2gZah9bqj4kjwKeJS6r4kkkK8jmXy5fl67/v6dGrKEHXF51P8gJ+XqZUbnbztQSxHFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215774;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CKGWkc7VIGEabykoGgjB7Mi20n20ma49JRiwy9CxZy4=;
-	b=bhCwflTsXIoejwgN9c3kUVT2cIZO6Vxm4DJBoydWYt3/43PH+YhzR+dYSWRus10hyK5W
-	 bOs8mTdIWgOu8t5yqLwFOcodfdkso8b7BSJMOviYw6ozBvRBuf8CkMjTQstfRpIHjThVj
-	 +jUVy739c7KjdQeUdo5NTzmxAQjSspr/aHQDqlblpYYdN4VTLBMuW58J0wi7Y/db7MD6F
-	 kOMWHPZj5GlfMYbWOkmi+TRWyEc2z0TdLYLAC5ktoPEO50HIna4DzNMwB6zz+eWkLnaGS
-	 EzHdtVbqomkCPTbKIzcsWzpgOSyI1lrBjka8T/08HHJWeqiSWJtdUqDj1eN9ZiA8xMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215772;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=fhIxlpuFJcBXrphNeNwx+YcRvaFe0jopB+8JEZHNr+M=;
+	b=CiL0YVlA/96l1pOGfaJduNYK0iqh1lN6Zbdln2jxnMZijhqWVVH/ArelZPvUbrzlCrhB
+	 uOdTRqH18DK9JCczMkLW2y+oZ7bUeM6cPlxqEx0hqS9oeWnZd8tzou2eT/MrwUw2vNt0h
+	 /+O+FTekneU6Ixjgn7RwIeUnTwF1mwdrOwPiPRz5W7rnzMh8i+C3df+fncSxSIyaoq0sK
+	 hfbEv7sL8VOBOJRe6y8RPHv7ELhVuWScz+aukc2BJEnVJaSMVn1XN3t8zeR6b5Hb+RChd
+	 EyOf7rqYrw16F6tspDrUpd3rCjkHWDnJfjRggG7A7wsd0v5s94Exq5PtS0W5e8egvIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B+rv1m6y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nDyVVPpZ;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C5E606A31A;
-	Wed, 28 Oct 2026 19:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D065606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:29:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D065606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B+rv1m6y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36A61F01828;
-	Wed, 28 Oct 2026 19:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793215774;
-	bh=CKGWkc7VIGEabykoGgjB7Mi20n20ma49JRiwy9CxZy4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B+rv1m6ynk/dg55Cmt16VRvMXtpedB/tesPhmppb6JJA7s7p5coLTG46Ca9VKF20e
-	 b2k4UVbtkA8ZYR2ZBtVhpF7quroroHsawbxYYhIR/tcZqIWJNBiKhcYUyb7JmNYrWo
-	 k0WR7Saz8qSaypTdAeE70ZNFFzfE7NRN6FVddtcI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yuho Choi <dbgh9129@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1329/1887] media: atomisp: gc2235: fix UAF and memory leak
-Date: Wed, 28 Oct 2026 17:57:05 +0100
-Message-ID: <20261028170529.673091298@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nDyVVPpZ
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e93f67358eso12393825ad.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 12:29:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793215771; x=1793820571; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fhIxlpuFJcBXrphNeNwx+YcRvaFe0jopB+8JEZHNr+M=;
+        b=nDyVVPpZ2XLMVcMcMfu3Ju2+6ZjLyfZ3SxeUgOM8o0tSDQfHLG1jgqSLCFvlis7uOZ
+         wo1/C87w0qBPcfvh051AN4U/I9OnnvEZhF0Jwep420UsCNWlevoCr154K8dmYSBfTmmx
+         XHhcoFj9eBHEsvE3CefF/Vyiuyo/+XOpSi1R0OFeX19g2CroLgDWu11IZUyTN6kqH7Om
+         G+EXIQfNuZHLnlDEiLVdX/4+GIiZoT1r4ndYW0cMi7NcGxiajgEZbMOlxbacOCTAWEbp
+         J6ZtvDRUsYzYQb/jJaoSuC7KS8zTLk8JspOkALI1Y1kUkqwoTwLL3QLe7Xkyu14EXDz4
+         eULg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793215771; x=1793820571;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fhIxlpuFJcBXrphNeNwx+YcRvaFe0jopB+8JEZHNr+M=;
+        b=ZZgTMWv1JWYLIi7wZKC92W90CVsHuBOQw0/WmfFSFCrzDZKK+rtGBt0shSqkZarzkT
+         B80qvb0XkcTU+lS8XFdqcNUgGbuJvTNz5nKDpITl35jXfeJWaYVX1NjvxS9moCImvkfZ
+         OVFPxF/3xTMj4AKGaa0u6v6v0ZqiuvbURqqXCx/V7VpaQCqsU2/w4nTT5h7LzeVX+m9K
+         QT2Up8ts7YOvz6zBpH7Tx3W2XbqxPdKfKcxtSMvZOnlkbebbj85wsP0cORpOyMqwCMiR
+         rpsI5i7CeS8BMk+polffFAYD61rJE1B1V7o9V8lKT0n20dHGzpi97cvVMjAX9kFp/QEi
+         o3OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz2TiJJRmo1w+9xJM6hR73u/sWr2jyXZxIZwFeqJTBddwzH3BvLnyazuTpwIRY/mFkPLyi4H7k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKIGa+RR7mnjElrM67F17NaVHRasON3FeCtsFLSF3V2QFwWz84
+	hDbdFsNIcVw2FYf03vK5gbJX5XMeHubi8NO6kVokvXBV26RxxWdHGoYdIpg2AhQzYuBqePMreZa
+	nG+a1QQ==
+X-Received: from plic6.prod.google.com ([2002:a17:903:3706:b0:2e8:7c6f:de6a])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1cb:b0:2e9:5714:608e
+ with SMTP id d9443c01a7336-2eb00487c87mr32243115ad.49.1793215770650; Wed, 28
+ Oct 2026 12:29:30 -0700 (PDT)
+Date: Wed, 28 Oct 2026 19:29:30 +0000
+In-Reply-To: <20261028160226.2170244-1-edumazet@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,109 +77,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261028160226.2170244-1-edumazet@kernel.org>
+Message-ID: <auJNDPw54Ojurqqq@google.com>
+Subject: Re: [PATCH net] tcp: fix reordering addition overflow in MTU probing
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Neal Cardwell <ncardwell@google.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, Kyle Zeng <kylebot@openai.com>, 
+	stable@vger.kernel.org, Wyatt Feng <bronzed_45_vested@icloud.com>, 
+	Ren Wei <n05ec@lzu.edu.cn>
+Content-Type: text/plain; charset="us-ascii"
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Wed, 28 Oct 2026 17:02:26 +0100, Eric Dumazet wrote:
+> From: Kyle Zeng <kylebot@openai.com>
+> 
+> Commit efb8763d7bbb ("net: ipv4: bound TCP reordering sysctl writes and
+> MTU probe sizes") widened size_needed and the MSS multiplication, but
+> tp->reordering + 1 is still evaluated as u32. RTAX_REORDERING accepts
+> an unrestricted u32, and tcp_init_metrics() can install U32_MAX.
+> 
+> In that case the extra-data requirement becomes zero. A write queue
+> with probe_size - 1 data bytes and a FIN satisfies the sequence-space
+> check. The coalescing walk can pass the queue head to
+> tcp_skb_can_collapse(), and tcp_clone_payload() can produce an skb
+> whose advertised payload exceeds the data in its fragments. Local
+> delivery followed by TCP_ZEROCOPY_RECEIVE can then walk beyond the
+> fragment array. KASAN reports a slab-out-of-bounds read in
+> can_map_frag().
+> 
+> Cast reordering before incrementing it so the arithmetic handles the
+> entire u32 metric range. For U32_MAX, the required size exceeds the
+> 32-bit queue and window limits, so the existing checks skip the probe.
+> The calculation is unchanged for all other reordering values.
+> 
+> Fixes: efb8763d7bbb ("net: ipv4: bound TCP reordering sysctl writes and MTU probe sizes")
+> Cc: stable@vger.kernel.org
+> Cc: Wyatt Feng <bronzed_45_vested@icloud.com>
+> Cc: Ren Wei <n05ec@lzu.edu.cn>
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 
-------------------
-
-From: Yuho Choi <dbgh9129@gmail.com>
-
-[ Upstream commit 628f763aee0047ff44974388d6f70f75a763026b ]
-
-gc2235_probe() handles its error paths incorrectly.
-
-If media_entity_pads_init() fails, gc2235_remove() is called, which
-tears down the subdev and frees dev, but then still falls through to
-atomisp_register_i2c_module(). This results in use-after-free.
-
-If atomisp_register_i2c_module() fails, the media entity and control
-handler are left initialized and dev is leaked.
-
-gc2235_remove() unconditionally calls media_entity_cleanup() and
-v4l2_ctrl_handler_free(), but these are not initialized at every
-error path in gc2235_probe().
-
-Replace gc2235_remove() calls in the probe error paths with explicit
-unwind labels that free only the resources initialized at each point
-of failure, in reverse order of initialization.
-
-Fixes: a49d25364dfb ("staging/atomisp: Add support for the Intel IPU v2")
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-Reviewed-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../media/atomisp/i2c/atomisp-gc2235.c        | 29 ++++++++++++-------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-index 4d5a7e335f85f..5b8c7eafbf45c 100644
---- a/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-+++ b/drivers/staging/media/atomisp/i2c/atomisp-gc2235.c
-@@ -989,7 +989,7 @@ static int gc2235_probe(struct i2c_client *client)
- 
- 	ret = gc2235_s_config(&dev->sd, client->irq, gcpdev);
- 	if (ret)
--		goto out_free;
-+		goto err_unregister_subdev;
- 
- 	dev->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
- 	dev->pad.flags = MEDIA_PAD_FL_SOURCE;
-@@ -998,18 +998,16 @@ static int gc2235_probe(struct i2c_client *client)
- 	ret =
- 	    v4l2_ctrl_handler_init(&dev->ctrl_handler,
- 				   ARRAY_SIZE(gc2235_controls));
--	if (ret) {
--		gc2235_remove(client);
--		return ret;
--	}
-+	if (ret)
-+		goto err_csi_cfg;
- 
- 	for (i = 0; i < ARRAY_SIZE(gc2235_controls); i++)
- 		v4l2_ctrl_new_custom(&dev->ctrl_handler, &gc2235_controls[i],
- 				     NULL);
- 
- 	if (dev->ctrl_handler.error) {
--		gc2235_remove(client);
--		return dev->ctrl_handler.error;
-+		ret = dev->ctrl_handler.error;
-+		goto err_ctrl_handler;
- 	}
- 
- 	/* Use same lock for controls as for everything else. */
-@@ -1018,14 +1016,23 @@ static int gc2235_probe(struct i2c_client *client)
- 
- 	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
- 	if (ret)
--		gc2235_remove(client);
-+		goto err_ctrl_handler;
-+
-+	ret = atomisp_register_i2c_module(&dev->sd, gcpdev, RAW_CAMERA);
-+	if (ret)
-+		goto err_media_cleanup;
- 
--	return atomisp_register_i2c_module(&dev->sd, gcpdev, RAW_CAMERA);
-+	return 0;
- 
--out_free:
-+err_media_cleanup:
-+	media_entity_cleanup(&dev->sd.entity);
-+err_ctrl_handler:
-+	v4l2_ctrl_handler_free(&dev->ctrl_handler);
-+err_csi_cfg:
-+	dev->platform_data->csi_cfg(&dev->sd, 0);
-+err_unregister_subdev:
- 	v4l2_device_unregister_subdev(&dev->sd);
- 	kfree(dev);
--
- 	return ret;
- }
- 
--- 
-2.53.0
-
-
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
