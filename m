@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195111;
-	b=2lXZKnE/yriFOhQeEzuRVIBHRZZ8eTPzsmP5PZjT3cId2bHKNUyxJiN893dLPccNh/H1
-	 Vf9oM13PZoMlIat07ovUVakH6PjOVfTCrHvj2ZCUSV917Dux/rXdWBUrcjtmfbz9uLMZv
-	 ykfUEQpxez+IZE3A4fcCGPzTaUw/iBGO/Y+4l1pGyu/c84Rt1+0vT3owls6/r6d1mD4UY
-	 A5W7BJD1QgJFcz3avWtoFvuBnHzeiGZVSkhEoKKw2P5sqO9+ohFWI/dX0esxio3Lrlco8
-	 lP1hQdJKMlCNuX4AE6uEOy1fGLO1W7bgj74uoLsRR5HZdZpAYfDwlU1EZLSISSIOtOQ==
+	t=1793195340;
+	b=oUXeIbSn5J/nHtbps2mY14eTOrZZTjOkdMNejKH72pUXTsLnXm5pXq8QgsxulH0FMKsQ
+	 qN6MJcD5wmN0nvVrHJws9ycDGoOiPZQxqLWdW9BIIy0GvT4mM51TGz5ldq5LtdtL6Xsl6
+	 EjpgQ7+8jo6d/9O9rEnIWbkdjYJKyiYP+SJXbK+nMlztV4s8+Qk//mq3HG1D9Th0ibfDM
+	 1rfXmfUQ/VhdzLYaf8Vo4jWBVQS27tj+PtrEjEyvwtB7zrL8bQeumOC35AldjEhYVmVU2
+	 HdIezgo0zYMddIKg06ib3xDgSi2ouxYQCubKL0i+Yg8ehJoqZZWNdnIQCTjfzLkDntA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195111;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=opzdp3tWFUH++3YejJs1b5n63O1y8G6hkh2Ie5rQjiE=;
-	b=fhOClhaNylqLXVtXzjWavkFo+HB+9MegBpmGqOKf3paRPMSiP5AwMoRqNKPPunyky7hG
-	 JZsuKDiYaC5Th/luuqou1eVp+tS5qAJXrGehT7s9ahoX6HiW6Kll+w8ApjvqCQg9WETL6
-	 rfYugMffAJ+YPgFXw74G3IA3LWpxqEH3Df/HkqX8huGT0HP4LWH1RKFdBVkFB1Bue6x0A
-	 jsMw7h0dTL4PcdqwleRQTA4/ScfZ/52PLr3gO/Xrvge6HIp4c3uhoAPHcT9JHmOkbZeKJ
-	 mCN2A9bufRTwDTEbuNey2RIiHreshMrxW7W5VvCshvAznBIgVuaX7NZirGld7GNOLXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195340;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1YuJ53WOk7jrtj0trQZSUgggEA4iaV0qdnW5q4z5Yxk=;
+	b=PSKH+NvNGPoCW7k6aPwHLowChx8LdJ6TZb84LXi04VmK00IiZjlkD99q0tZuXywWC1jJ
+	 Ye9Frc8fzOTeX/p/gtW9DGPaf7yyLou2VlKHnIddXbgisdyq/cNILHzP0yvo6AHeP4swP
+	 HMcEoUf0GmOgqrWSOgvCJ69tgxbwVnTe2Traz0gbrODWmR18sh8Q4iSFY7cAfBU3f098X
+	 VE15hIV70ku48Gq/JQmgqVJM7eRycTKCU1/ROGKUbW063WP9KPEL38Yse8nWst3JRY8LC
+	 5BedvoVxn14K+EOCbglTjxzaVuZo5quFWav6zZz2E/TskFwvNJblNb7B9QkKSDuZU0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1PqISLP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=apmeTwME;
+	arc=none smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D6A606A31F
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:45:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1915E606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:48:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1915E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E1PqISLP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F3711F01828;
-	Wed, 28 Oct 2026 13:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793195111;
-	bh=opzdp3tWFUH++3YejJs1b5n63O1y8G6hkh2Ie5rQjiE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E1PqISLP8cDUH0xiLKVCe1dUiyqgJZzXkvENl4jaC8sop0yNs9oN16+TbkvtU8AEV
-	 IYX876mVolBqqCP3UXJRWjvxfGyP0kkYOlpRbz77oS4ce7wQ6AWyDEGZ4TARKKR0Ks
-	 vaepkmaTk2LHD7AJcCudrA4uYr8OV63JIa3HUVrJrRexGqOWaws6D1QqbUPXK1qCkt
-	 Ki7L8Z1sU2A2wabQ7OfcFZsx0gRsPxB6tgDNVSTMb3P7NnyySm7d6lnfMadPBY6Isa
-	 kSBZVGjkRdrnEQoXRuUDUKIYEvB9lBCxSGBz1LcWWdKyNNUKiAVt+/xcHVRt22lBbI
-	 5kRrEBD5hAkYw==
-Date: Wed, 28 Oct 2026 13:45:05 +0000
-From: Will Deacon <will@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org,
-	catalin.marinas@arm.com, broonie@kernel.org,
-	linux-arm-kernel@lists.linux.dev, Zhang Kunbo <absoler@qq.com>,
-	mark.rutland@arm.com, tabba@google.com
-Subject: Re: [PATCH] arm64/cpufeature: Fix malformed SME I8I32 hwcap entry
-Message-ID: <auH8YYUGAZblhf5r@willie-the-truck>
-References: <tencent_7F47B27F7FE811035796A0AFC61993769409@qq.com>
- <2026-10-19-1-daily-reply-0021-arm64-sme-hwcap-held-6-6@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=apmeTwME
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6ddef424972so804708eaf.3
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 06:48:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793195339; x=1793800139; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1YuJ53WOk7jrtj0trQZSUgggEA4iaV0qdnW5q4z5Yxk=;
+        b=apmeTwMEm7Er4RiiqptHiz26E8hD/INQ3q5n5r9r9rcJQ24FsKAzrfsc6yRE8hcFGV
+         g7pUEMwhgEqcgWHsgW4LhmiDEPnRRuEIcz04lWjkq/1zxTucRWdRiPvtcrfdIDEJT9Uo
+         UhdzOhTsphug2En4UvmxPYdE4i3WR72Dyt23Pb01/5fxRdxU7SrhSRjMHpzP8JONhr7u
+         WXNLqAB/YC7hxIPgiSDjDb4vZvIp5Wzpw+Cx/P/HLmb1/wbVFFT8tCQJCYxOEP21WlHH
+         6jghq5Q9o+r/ZqWSJILVxnG7GlU+T/WIS9MnM5ImdRY7Y7km3vr+hy5qjD3MzbFYe8iN
+         GwqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793195339; x=1793800139;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1YuJ53WOk7jrtj0trQZSUgggEA4iaV0qdnW5q4z5Yxk=;
+        b=oyIushZ26dh+zuU7K/j0qArF8MYRS+Nu4uQcDcUw6FZeVWZgHPlslkWcnAe4vYujqI
+         tAo8jk7Yaf7eWQuG3S2qBNT+eWInR1KMoOrv5g2HuKI3iHx0xFx+BDBWdlgKcaelzCX9
+         kWWUw0sToUnegJRu41UycTsW1rtaT1ATn9UQChdbGU0S4fJEf3GBksM++OwGZti8FYWe
+         NuuhhtTcGtu8UbIu4MCtkqo797YQZOMeZSnoSs7erhEfdgVoKoEKAxi5EKJpcVpMp5HD
+         phw6erjlDdJR3hc2CVE+m6itgfPH/2s0DwhmPeuIvBz4t0+cb1tV96WG4T7BC+bT7N64
+         iOrg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpKMoOqqPIKGrvI1DcSpaOwPPEwLyySlrp1X5uraINSC8/0wSG6vy+I4R5pa0pqhP13x5IkTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv4GMiZRYmU9nrGvn2KHyZvkct2ARMiIEpnNc2dnyMIEI9XAmp
+	pGFKtG2RY/iTppQfORTEx+vL3kxT14RwpBCJkQBQ9wFhRHLbEEnvHKqO
+X-Gm-Gg: AYBFou1LxWZhRfp54C4Zsy9fCU87ir31K/CSXEqZYITctNTDmAVWHu7C4XHEzG4+xJs
+	NmlNf7MMXE/ob8wFMRlh6KYWyY8fIBw01BGcEhmOGypGl5rqj1a97F6ief1fjAb41H68p7o1p+b
+	nTc0Ar0T7HBjpNnPDsXo2TMQS9dgPyPX5IqjrB69WLrAnhxkN/PspMLrdJWBPOuSd7WQewY7Vr+
+	whePb8wZ48Op6Dxkf6izVlCEA9uTryLSN05MSkM0pac9Kh5BH0bxUpVYi6Q3uCLnwrkG6038IRv
+	DhsaGpVKS1ozMwGB/LtNs1p48DIOYmq/q/nhinuD4ogEjXQ4WR4kpr62pKAOYR0TwJyeWeUcD8N
+	aEPsNdBmh/EVzJo96Go/4br0EHpwDU35jDt6zWwSzfR4n65kpLUQQGO0mN34dHS33BCrtgQRNCT
+	EI5b7Q/fu+t5NGiGly5PDfuzjrKo+PIN9TCZqNfy9aJnRXTmFMBy4yBmYuxsZcVwGUzLxMefo44
+	K21pA/7+Kq1wtD403HlhjSqefWK05WoUgsKoQORCLPufER7gm6CgfV4xeP1c0RsvJKMkU8o3Rf/
+	jtF/HEGgLMBDZ6esr1+1lfJL2b1JInTr/BFERewG/uwWfGuraOIk+Mziuf7olzAPGIbAC2M=
+X-Received: by 2002:a05:6820:450f:b0:6fc:373a:176a with SMTP id 006d021491bc7-713efb16571mr1090755eaf.77.1793195338875;
+        Wed, 28 Oct 2026 06:48:58 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7142d124f03sm1409758eaf.13.2026.10.28.06.48.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 06:48:58 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Danish Khateeb <danishkhateeb03@gmail.com>,
+	Pavel Machek <pavel@kernel.org>,
+	Andrew Davis <afd@ti.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] leds: tca6507: Fix use-after-free on unbind
+Date: Wed, 28 Oct 2026 08:48:57 -0500
+Message-ID: <20261028134857.36086-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <179213356828.2581328.5085333261240588869@kernel.org>
+References: <20261015144033.56519-1-danishkhateeb03@gmail.com> <179213356828.2581328.5085333261240588869@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,24 +101,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026-10-19-1-daily-reply-0021-arm64-sme-hwcap-held-6-6@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 04:55:46PM -0400, Sasha Levin wrote:
-> > During the backport of a75ad2fc76a2 ("arm64: Filter out SME hwcaps when
-> > FEAT_SME isn't implemented") to v6.6, the I8I32 hwcap entry was mangled
-> > into:
-> 
-> This is a stable-only fix for 6.6 with no upstream commit, and it has no
-> Acked-by or Reviewed-by from an arm64 maintainer or reviewer, so I am holding
-> it until one of them has looked at it.
+On Wed, 28 Oct 2026, Lee Jones wrote:
+> Please review, explain or fix the Sashiko review(s).
 
-If you're removing the 'depends on BROKEN' for SME in a 6.6-based kernel,
-then you should be grateful for the build error. The runtime errors will
-be much, much worse.
+Sashiko is right that the "LED off" write queued on unbind gets
+cancelled, but that predates 1b5c2fa7081c: remove() used to call
+led_classdev_unregister() and then cancel_work_sync(), the same order
+this patch restores. Since 1b5c2fa7081c that write only ran on freed
+memory. If you'd like the LEDs turned off on unbind, I can send a
+separate patch that flushes the work instead of cancelling it.
 
-In Android, we put the effort into enabling it for 6.12 and that involved
-~50 hairy backports.
-
-Will
+Thanks,
+Danish
