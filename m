@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214198;
-	b=0o2orPDsPdvyagq4MIhexd+JgVQ/WZEtHYalUaAB6n9X3MnLwoTj8YUZ5+kFkw2ipXIN
-	 qJ6lYs39/yb3tGnm7cdtP9V++mKF+pp0HTSm19qAHgQZJrXE218uFXq53eGKpUPoVU+SD
-	 2dvnFyzPl8XQBi9HLjdvyz4IWhpUvtd7r+10f4b+jd8iaFzWNhL0/quO8DtKo4xFxnqIK
-	 heAi43xupHYzVjWp5yUHSdSKLChwiVZss8ATu1s8VDN2tUaJLC7RPn2mDJkiGZZxd649g
-	 57z64Q1FpzEtuR0eEqLgk9TGrw4URjy7K6ZB/IxmonnoUvsKlzhTkqmk3F2QKbWIj7A==
+	t=1793214201;
+	b=VH2B3aBHoXyIi6eH2qq9XUoX8nZ0UOum/2MsIleT3ySLAo29sBR8U+U5PiV4LhGv4whX
+	 fJQL5h1YcB3C5nsTsfBQtiEU1ZnhogsG6AcnNTRoCHuVI2pgbqev9YtfBKzDJPIx5TwLR
+	 jxGe6c+HOmOuJrCOv/gt/shN29NEUUR1qEYW8PWGJNkhJoirVrjxus8A2Sqv98RfLPkZ3
+	 HNj0+8wEj/umglte9Gie+8pA6QnFs4vGC80sJ2SrO9xpYb04/U+DsVpDEaoXLFvQFoUoA
+	 dbaKA7qml04eLR6HhlKc8jd1lNZTRaF4/Mkx0bjRXW6tdOvfew/CQ/Znz+kPwwadGHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214201;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yFcxbGlBkH1yKn6lZl2pRY2SmXAu0vxDQYHWXvlzvGM=;
-	b=fKy9Tu9Pjx7VzFHKvFLIje1Jm4D60UtkNrcJcImYd8HTbytp3bsieeuHxNYqzwXY3f9r
-	 3kO934K9977uvgR5hSz+uaso4sHKZ/MGSGhBm6o7ehyqvVW9s2xZxYieKUkBlGPavB3OO
-	 2N/fSf2sLvWHqiF+yYPTEswfnNTyCn2pbz9vK32fObluDKit8CpkfpuQJf1bKxRtey/Vt
-	 y0FDt9SW1/0rKzXb1bXFiqTdg1ZPEpPoG9XaZynAq/PEV6NKCFJFsgyi/4TOIkGnXS0sm
-	 Ra0L43I8bf/aBeveSZjkby01yPW3gKNklAffEpW7bmVIO+lvk3Qqz7MDQmwNqB+umSg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=3NKg7E602YNWIS7gNqk7cF6kW5vAxqI0J5F8mbPed8g=;
+	b=upMWD9Wlh+AMheuXsdpz9krbItGq/wCLhJkxK+gblDZ/xNHt9waB2dAzDIyuHN5/SVcB
+	 4Qzg5gLahhKaxVa6LjUn99DFtivljowp93PMpX9dczfAscK7qL+FtoHfO7rtzXE5djn88
+	 /Zk20elscJ8EXzNW0EHaBhzWhqnMOXvVETktrpbdajPORhd4lth0Ti7n/fEUhMoL+cq+O
+	 dZrTwOm+qwzW5dn473z5iPoJj0HbL0QquasNy8p07XuqMOg7UKedTXMK6mondGUHh3i9U
+	 Yc8qo0Zq/kn6hkE6dGsc0AH6skznKRT3NzVFJGuU9Zt6qW+XTbtJ36pkMdkzGw1RUHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z7sce28Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu8p9hwG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90009606A33C;
-	Wed, 28 Oct 2026 19:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02570606BF93
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:03:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z7sce28Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E078E1F013C7;
-	Wed, 28 Oct 2026 19:03:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793214198;
-	bh=yFcxbGlBkH1yKn6lZl2pRY2SmXAu0vxDQYHWXvlzvGM=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu8p9hwG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382F81F013C2;
+	Wed, 28 Oct 2026 19:03:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793214200;
+	bh=3NKg7E602YNWIS7gNqk7cF6kW5vAxqI0J5F8mbPed8g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=z7sce28YZl6Y1X+DYD5kFKqFu9P7X2GNEoRjVDQ96EDfNvdKXZUo2NvdJnd6WbN+D
-	 G2wAzoXaqntw02hsbKcTTTZweXMTBfNgxtSrXDmKhUHZqiuLUzliJs2dlHh6f8ddJ0
-	 yySGDkhggPn5HxY4l0OUHXB/3PgGU3Re8uQlLgEw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Lu8p9hwGJJL01gG4czJzzRG1nXRJvhkxsXZFiLRC7323aPKJFt0oOWpJ2701BF5Ds
+	 3bPB3w7Ze03qspvVt/Zp2tsnEkFTVRkTP0xT1fj9Xr1pw82UgVkiEdOcM8y5BtFtFd
+	 bpww4wEcqAJJlMuOqPeEgg6uK0ZSKmN1EKTMGvmcNSLSbVCOJ+gD4qZtv6ZSq/ROJH
+	 DMXbysFdu+TLCQOjrvaqX7RFSBIKWFLfI5dEikfSrIKais1FO3p2pev5bESSp1vXEy
+	 aDHhl3eDv+GCsajmNB5o5nZ9oNktJvibaeIngcJo9zs6wvVouWCXukCZ3FD4K0XI01
+	 t6IPc4NvBLZRg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kyungwook Boo <bookyungwook@gmail.com>,
-	Edward Cree <ecree.xilinx@gmail.com>,
-	Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0775/1887] sfc: fix NULL dereferences in ef100_process_design_param()
-Date: Wed, 28 Oct 2026 17:47:51 +0100
-Message-ID: <20261028170517.075098241@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 7.2.y] exec: cancel io_uring requests before de_thread()
+Date: Wed, 28 Oct 2026 15:03:19 -0400
+Message-ID: <20261028190311.2073244-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102818-halt-spruce-26fc@gregkh>
+References: <2026102818-halt-spruce-26fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,161 +62,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Christian Brauner <brauner@kernel.org>
 
-------------------
+[ Upstream commit b42c85c20d84ff3e4f0f027d6596c3b3b4a20657 ]
 
-From: Edward Cree <ecree.xilinx@gmail.com>
+begin_new_exec() cancels the exec'ing thread's io_uring requests after
+de_thread() made it the only thread in the thread-group. Now
+io_uring_task_cancel() runs task work after. If it runs a
+create_worker_cb() item then a io-wq queued on the thread before the
+exec creates a new io-wq worker thread.
 
-[ Upstream commit 8241ecec1cdc6699ae197d52d58e76bddd995fa5 ]
+Said thread joins the thread-group which de_thread() just took down. The
+io-iwq sticks around until it notices that its workqueue is dying. But
+code after de_thread() relies on being single-threaded.
 
-Since cited commit, ef100_probe_main() and hence also
- ef100_check_design_params() run before efx->net_dev is created;
- consequently, we cannot netif_set_tso_max_size() or _segs() at this
- point.
-Move those netif calls to ef100_probe_netdev(), and also replace
- netif_err within the design params code with pci_err.
+Move io_uring_task_cancel() before de_thread() but behind the point of
+no return. Any worker created during task work run from
+io_uring_task_cancel() is just a sibling thread that de_thread() will
+take down and reap.
 
-Reported-by: Kyungwook Boo <bookyungwook@gmail.com>
-Fixes: 98ff4c7c8ac7 ("sfc: Separate netdev probe/remove from PCI probe/remove")
-Signed-off-by: Edward Cree <ecree.xilinx@gmail.com>
-Reviewed-by: Michal Swiatkowski <michal.swiatkowski@linux.intel.com>
-Link: https://patch.msgid.link/20250401225439.2401047-1-edward.cree@amd.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Once io_uring_task_cancel() returned the thread has neither a task
+context nor a workqueue left so nothing can add a thread behind
+de_thread()'s back anymore.
+
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/r/aq0_lvHDViIpX_Mu@redhat.com
+Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/sfc/ef100_netdev.c |  6 ++--
- drivers/net/ethernet/sfc/ef100_nic.c    | 47 +++++++++++--------------
- 2 files changed, 25 insertions(+), 28 deletions(-)
+ fs/exec.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/sfc/ef100_netdev.c b/drivers/net/ethernet/sfc/ef100_netdev.c
-index c6b9ba6803c8d..258e31ef7f2ce 100644
---- a/drivers/net/ethernet/sfc/ef100_netdev.c
-+++ b/drivers/net/ethernet/sfc/ef100_netdev.c
-@@ -354,6 +354,7 @@ int ef100_probe_netdev(struct efx_probe_data *probe_data)
- {
- 	struct efx_nic *efx = &probe_data->efx;
- 	struct efx_probe_data **probe_ptr;
-+	struct ef100_nic_data *nic_data;
- 	struct net_device *net_dev;
- 	int rc;
- 
-@@ -379,8 +380,9 @@ int ef100_probe_netdev(struct efx_probe_data *probe_data)
- 	net_dev->hw_enc_features |= efx->type->offload_features;
- 	net_dev->vlan_features |= NETIF_F_HW_CSUM | NETIF_F_SG |
- 				  NETIF_F_HIGHDMA | NETIF_F_ALL_TSO;
--	netif_set_tso_max_segs(net_dev,
--			       ESE_EF100_DP_GZ_TSO_MAX_HDR_NUM_SEGS_DEFAULT);
-+	nic_data = efx->nic_data;
-+	netif_set_tso_max_size(efx->net_dev, nic_data->tso_max_payload_len);
-+	netif_set_tso_max_segs(efx->net_dev, nic_data->tso_max_payload_num_segs);
- 	efx->mdio.dev = net_dev;
- 
- 	rc = efx_ef100_init_datapath_caps(efx);
-diff --git a/drivers/net/ethernet/sfc/ef100_nic.c b/drivers/net/ethernet/sfc/ef100_nic.c
-index fa1f7039a8e28..5bf264414b9e0 100644
---- a/drivers/net/ethernet/sfc/ef100_nic.c
-+++ b/drivers/net/ethernet/sfc/ef100_nic.c
-@@ -866,8 +866,7 @@ static int ef100_process_design_param(struct efx_nic *efx,
- 	case ESE_EF100_DP_GZ_TSO_MAX_HDR_NUM_SEGS:
- 		/* We always put HDR_NUM_SEGS=1 in our TSO descriptors */
- 		if (!reader->value) {
--			netif_err(efx, probe, efx->net_dev,
--				  "TSO_MAX_HDR_NUM_SEGS < 1\n");
-+			pci_err(efx->pci_dev, "TSO_MAX_HDR_NUM_SEGS < 1\n");
- 			return -EOPNOTSUPP;
- 		}
- 		return 0;
-@@ -880,32 +879,28 @@ static int ef100_process_design_param(struct efx_nic *efx,
- 		 */
- 		if (!reader->value || reader->value > EFX_MIN_DMAQ_SIZE ||
- 		    EFX_MIN_DMAQ_SIZE % (u32)reader->value) {
--			netif_err(efx, probe, efx->net_dev,
--				  "%s size granularity is %llu, can't guarantee safety\n",
--				  reader->type == ESE_EF100_DP_GZ_RXQ_SIZE_GRANULARITY ? "RXQ" : "TXQ",
--				  reader->value);
-+			pci_err(efx->pci_dev,
-+				"%s size granularity is %llu, can't guarantee safety\n",
-+				reader->type == ESE_EF100_DP_GZ_RXQ_SIZE_GRANULARITY ? "RXQ" : "TXQ",
-+				reader->value);
- 			return -EOPNOTSUPP;
- 		}
- 		return 0;
- 	case ESE_EF100_DP_GZ_TSO_MAX_PAYLOAD_LEN:
- 		nic_data->tso_max_payload_len = min_t(u64, reader->value,
- 						      GSO_LEGACY_MAX_SIZE);
--		netif_set_tso_max_size(efx->net_dev,
--				       nic_data->tso_max_payload_len);
- 		return 0;
- 	case ESE_EF100_DP_GZ_TSO_MAX_PAYLOAD_NUM_SEGS:
- 		nic_data->tso_max_payload_num_segs = min_t(u64, reader->value, 0xffff);
--		netif_set_tso_max_segs(efx->net_dev,
--				       nic_data->tso_max_payload_num_segs);
- 		return 0;
- 	case ESE_EF100_DP_GZ_TSO_MAX_NUM_FRAMES:
- 		nic_data->tso_max_frames = min_t(u64, reader->value, 0xffff);
- 		return 0;
- 	case ESE_EF100_DP_GZ_COMPAT:
- 		if (reader->value) {
--			netif_err(efx, probe, efx->net_dev,
--				  "DP_COMPAT has unknown bits %#llx, driver not compatible with this hw\n",
--				  reader->value);
-+			pci_err(efx->pci_dev,
-+				"DP_COMPAT has unknown bits %#llx, driver not compatible with this hw\n",
-+				reader->value);
- 			return -EOPNOTSUPP;
- 		}
- 		return 0;
-@@ -925,10 +920,10 @@ static int ef100_process_design_param(struct efx_nic *efx,
- 		 * So the value of this shouldn't matter.
- 		 */
- 		if (reader->value != ESE_EF100_DP_GZ_VI_STRIDES_DEFAULT)
--			netif_dbg(efx, probe, efx->net_dev,
--				  "NIC has other than default VI_STRIDES (mask "
--				  "%#llx), early probing might use wrong one\n",
--				  reader->value);
-+			pci_dbg(efx->pci_dev,
-+				"NIC has other than default VI_STRIDES (mask "
-+				"%#llx), early probing might use wrong one\n",
-+				reader->value);
- 		return 0;
- 	case ESE_EF100_DP_GZ_RX_MAX_RUNT:
- 		/* Driver doesn't look at L2_STATUS:LEN_ERR bit, so we don't
-@@ -940,9 +935,9 @@ static int ef100_process_design_param(struct efx_nic *efx,
- 		/* Host interface says "Drivers should ignore design parameters
- 		 * that they do not recognise."
- 		 */
--		netif_dbg(efx, probe, efx->net_dev,
--			  "Ignoring unrecognised design parameter %u\n",
--			  reader->type);
-+		pci_dbg(efx->pci_dev,
-+			"Ignoring unrecognised design parameter %u\n",
-+			reader->type);
- 		return 0;
- 	}
- }
-@@ -978,13 +973,13 @@ static int ef100_check_design_params(struct efx_nic *efx)
+diff --git a/fs/exec.c b/fs/exec.c
+index a598d48b5ffcc..bd3e3aac90efd 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1145,6 +1145,13 @@ int begin_new_exec(struct linux_binprm * bprm)
  	 */
- 	if (reader.state != EF100_TLV_TYPE) {
- 		if (reader.state == EF100_TLV_TYPE_CONT)
--			netif_err(efx, probe, efx->net_dev,
--				  "truncated design parameter (incomplete type %u)\n",
--				  reader.type);
-+			pci_err(efx->pci_dev,
-+				"truncated design parameter (incomplete type %u)\n",
-+				reader.type);
- 		else
--			netif_err(efx, probe, efx->net_dev,
--				  "truncated design parameter %u\n",
--				  reader.type);
-+			pci_err(efx->pci_dev,
-+				"truncated design parameter %u\n",
-+				reader.type);
- 		rc = -EIO;
- 	}
- out:
+ 	bprm->point_of_no_return = true;
+ 
++	/*
++	 * Cancel any io_uring activity across execve. This runs task work
++	 * that may still create an io-wq worker, so do it while de_thread()
++	 * can still zap it.
++	 */
++	io_uring_task_cancel();
++
+ 	/* Make this the only thread in the thread group */
+ 	retval = de_thread(me);
+ 	if (retval)
+@@ -1161,10 +1168,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 
+ 	/* see the comment in check_unsafe_exec() */
+ 	current->fs->in_exec = 0;
+-	/*
+-	 * Cancel any io_uring activity across execve
+-	 */
+-	io_uring_task_cancel();
+ 
+ 	/* Ensure the files table is not shared. */
+ 	retval = unshare_files();
 -- 
 2.53.0
-
-
 
