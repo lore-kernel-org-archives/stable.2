@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208557;
-	b=mjsILOIVYTEW45dE1kFlcv9If++5Tp8o9/lVLSsKTM+nHLfoxc1n0Wn3oUlRHkIbo1Tz
-	 ejoFYduQR9uE+mQAlkHHq/5aLH4OqA294WUK+iThjTjlclmA9pWz4o5dPcgTYd3FZqib0
-	 yJAuar842ZpubaE9bhkwQ4SzLcXK27q+fG+Bns5nJD5neqKPgNiO7EEvCxfqbAyk2VedL
-	 +hSVSEmJQr7UQ/C6JO6wVpoPK5pgvYe99qTuiuSjBVXQIC74I91m4sa/6J6ukweCs4/2h
-	 JQ35sP9UfZ4S7BQYBtM0A7ZAQuWdnAsQ7cxl+N28hHb/II/sn4mbYrxHA/wnYuVlP1A==
+	t=1793208559;
+	b=idfUhpI0aPVUTdM7ZbQ8dgZbtcEOEDparrM4cFFxBPkRWxBIsf3cavyF5yft78/Mghh3
+	 ULJCo+bas/NN1+NTeJ/LJEeZTPR9/a+hsfW5+cdRm0GLkokjGLKCj6syKCu3JbxTh140o
+	 QRsX6h5G23atjk9TQV8b9UjvEW2n77d2Kvqgrvis5lMp4sc84RpEl74Jqrc/mL4pABy89
+	 VQj/9rYSJYVg6nW2g+yHyRC+NHBSJe1e2lLVViQpjWBKuDwqMFNb22EFx9qnoFLMz5FmG
+	 Mt9YL4WbYIU77xHmDRa+Ptifu00QYNU3ymR1f3L/lWkTV1ZgQQPMUYk4FoGdifhkQ6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208559;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ruDnsJDz8Rv6kkDcP4ynYHRxnOlvqCDzVNjsuxokZUg=;
-	b=RWahOGedUkofnSScofQoARU7O8M+3WavrN1BHbCvWxpMvUXgeoDxCEC5ILjTv/8uLHIl
-	 xI9XTZveqs9LRVBqjggj7i5qvbY8fGEXt7jn8MgnQi8VVSBGanshkgdwBbVsi7nJ+lkBN
-	 lfYFAnwO241LAugEzWAn6IOq0CalGU7BbXvjLkx5UkEc40bNU3eFdQop7atJ0ZLjSk3re
-	 QYRFIKRG5Lc2WOExSBiLYGXyVZuHvTjXsfZr5Gm8qe1Rvq9D9mhKRA8dWkHKX+ALeuSeh
-	 B+opvEL7VG15bWkmwkG4q/wIt1ea5rYonVszFssrOKPdZ8qEu0NMHifPZsx87p11BBg==
+	bh=rUA8O4jMee0UaV02h3GAO9u1SiSQeIBrKwW+a+uwSTg=;
+	b=aoTG075zsQyxyUlt3bY/lgv6VFQK3hX2g9i6TT2tGMkfdiBaf4alNXWJ+LZy/2JQTQEg
+	 M5w3OZDfKYTkVgFmZ7b4dsoRhne7bD8mSC8nxegxxDOX+pfsO9JKxXmVauW8NKYoMcP0O
+	 /9PBeVS7vvSzhGst2l3DQBGg+2kLK2ksXKyESvtPV1xcl+oHZ3vx1vbBJ2P9Dm5FZfu2S
+	 37kXYeMg08kQS5PFeF2aD86SvZsiND7NYDiHX5s4e/sFNeBZBpR00TTWAyyq5X5RNVpOB
+	 w6eYhDQDpteZLangubvSFh26bvJpPv/GuZoDpEYGLiIj0J10oPBeKlpedh4BS80NMyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="C/xCHm+n";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aV5QX4FP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AD7606A31C;
-	Wed, 28 Oct 2026 17:29:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E31F606A31A;
+	Wed, 28 Oct 2026 17:29:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C/xCHm+n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C021F01825;
-	Wed, 28 Oct 2026 17:29:15 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aV5QX4FP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA011F01825;
+	Wed, 28 Oct 2026 17:29:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208556;
-	bh=ruDnsJDz8Rv6kkDcP4ynYHRxnOlvqCDzVNjsuxokZUg=;
+	s=korg; t=1793208559;
+	bh=rUA8O4jMee0UaV02h3GAO9u1SiSQeIBrKwW+a+uwSTg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C/xCHm+nguPL7JWvh4j7Hf+YsUdUN45+rzYvGRQj5sUZLlmgU4HNw+iwb8WSQyvcn
-	 rZceXHpqe3aju++P8+sKmr7Clou+yQsPY7zlmTBmUFgJiTSUHmO8BucmQH/Q3Dafd1
-	 4BvovXEQNrIRZHV0IBBJUWGsAJ70G+5QgiRLVjOM=
+	b=aV5QX4FPn1VWOhrF02Ae9NHNdYe17QI2VAvgBR4HB6zP0c5ZpSzBRR+vImeeKl8CU
+	 SHty9Ep7wuf/O3AHv7tBUxWoO5m0MzSNrQZ+RwUJbbLyE2ARzLXE6S5Jhbf0NIjYjx
+	 RgsQ5HBpXxVxbMLnnXjAMDU1RU9853swfCQMscHo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nicolas Escande <nico.escande@gmail.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Yilin Zhang <yilinzhang@moonshot.ai>,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 161/516] wifi: ath11k: reset ar->num_stations on hardware start
-Date: Wed, 28 Oct 2026 17:55:13 +0100
-Message-ID: <20261028170007.319825825@linuxfoundation.org>
+Subject: [PATCH 5.10 162/516] wifi: cfg80211: preserve hidden-group beacon IE ownership
+Date: Wed, 28 Oct 2026 17:55:14 +0100
+Message-ID: <20261028170007.343524864@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -70,56 +69,73 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Nicolas Escande <nico.escande@gmail.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-[ Upstream commit 7e0ad05ebc72fffba2bdf2400400902d94ed7272 ]
+[ Upstream commit cc45f313d85533d647ce619326302aad6f797c14 ]
 
-When (multiple) hw restart occurs, we end up in a situation where we
-cannot accept new stations / mesh peers. This seems to be the
-'num_stations' in 'struct ath11k' that did not get reset properly in
-this case. In ath11k_mac_op_start(), it was indeed the only accounting var
-that did not get reset so let's clear it too.
+A hidden-group probe-response entry borrows its beacon IEs from the
+group's beacon entry. cfg80211_update_assoc_bss_entry() can pass such
+an entry to cfg80211_update_known_bss() when merging scan entries
+after a channel switch.
 
-This avoids problems like those:
+Copying the borrowed beacon_ies into the associated entry gives the
+same allocation two owners. Releasing the group's beacon entry can
+then leave the associated entry pointing to freed IEs, which are
+freed again when that entry is released.
 
-	[1248828.088023] WARNING: CPU: 0 PID: 12281 at net/mac80211/util.c:1682 ieee80211_reconfig_stations+0x98/0xc0
-	[1248828.088115] Call trace:
-	[1248828.088116]  ieee80211_reconfig_stations+0x98/0xc0 (P)
-	[1248828.088119]  ieee80211_reconfig+0x774/0x1438
-	[1248828.088123]  ieee80211_restart_work+0x10c/0x178
-	[1248828.088127]  process_one_work+0x178/0x3c0
-	[1248828.088130]  worker_thread+0x280/0x440
-	[1248828.088133]  kthread+0xe0/0xf8
-	[1248828.088137]  ret_from_fork+0x10/0x20
-	[1248828.088141] ---[ end trace 0000000000000000 ]---
-	[1248836.686604] ath11k_pci 0000:04:00.0: refusing to associate station: too many connected already (128)
-	[1248836.686609] ath11k_pci 0000:04:00.0: Failed to add station: xx:xx:xx:xx:xx:xx for VDEV: 1
+Skip beacon IE replacement when the source entry belongs to a hidden
+group. Preserve probe-response processing, the subsequent metadata
+updates, and the existing rejection path for conflicting hidden
+beacon updates.
 
-Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.9.0.1-01977-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Signed-off-by: Nicolas Escande <nico.escande@gmail.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260812-num-station-v3-1-871d20e043f6@gmail.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Fixes: 0afd425b1b64 ("cfg80211: fix duplicated scan entries after channel switch")
+Reported-by: Yilin Zhang <yilinzhang@moonshot.ai>
+Closes: https://lore.kernel.org/linux-wireless/20260901080427.1983015-1-yilinzhang@moonshot.ai/
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/ath/ath11k/mac.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/wireless/scan.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index b66b6a7072d82..f09b926df9033 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -4242,6 +4242,7 @@ static int ath11k_mac_op_start(struct ieee80211_hw *hw)
- 	ar->num_started_vdevs = 0;
- 	ar->num_created_vdevs = 0;
- 	ar->num_peers = 0;
-+	ar->num_stations = 0;
- 	ar->allocated_vdev_map = 0;
+diff --git a/net/wireless/scan.c b/net/wireless/scan.c
+index 7e6e72ae6d5a9..c798991714d8a 100644
+--- a/net/wireless/scan.c
++++ b/net/wireless/scan.c
+@@ -1765,20 +1765,22 @@ cfg80211_update_known_bss(struct cfg80211_registered_device *rdev,
+ 			return false;
+ 		}
  
- 	/* Configure monitor status ring with default rx_filter to get rx status
+-		old = rcu_access_pointer(known->pub.beacon_ies);
++		if (!new->pub.hidden_beacon_bss) {
++			old = rcu_access_pointer(known->pub.beacon_ies);
+ 
+-		rcu_assign_pointer(known->pub.beacon_ies, new->pub.beacon_ies);
++			rcu_assign_pointer(known->pub.beacon_ies, new->pub.beacon_ies);
+ 
+-		/* Override IEs if they were from a beacon before */
+-		if (old == rcu_access_pointer(known->pub.ies))
+-			rcu_assign_pointer(known->pub.ies, new->pub.beacon_ies);
++			/* Override IEs if they were from a beacon before */
++			if (old == rcu_access_pointer(known->pub.ies))
++				rcu_assign_pointer(known->pub.ies, new->pub.beacon_ies);
+ 
+-		cfg80211_update_hidden_bsses(known,
+-					     rcu_access_pointer(new->pub.beacon_ies),
+-					     old);
++			cfg80211_update_hidden_bsses(known,
++						     rcu_access_pointer(new->pub.beacon_ies),
++						     old);
+ 
+-		if (old)
+-			kfree_rcu((struct cfg80211_bss_ies *)old, rcu_head);
++			if (old)
++				kfree_rcu((struct cfg80211_bss_ies *)old, rcu_head);
++		}
+ 	}
+ 
+ 	known->pub.beacon_interval = new->pub.beacon_interval;
 -- 
 2.53.0
 
