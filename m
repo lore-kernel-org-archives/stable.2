@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201642;
-	b=LXNQPJT8x+1S1lyP9XyK+0wnaHjn9EdajqOJI3QW2HJaKB+HTCZCofe93Z8GRi03B5Sj
-	 N240CPVd5NrJbLOd3dYF0ZNvcJnqo8RNCQ2BtIVPXYZ8EC5BvpbbhZ4/Ya51FTtza9PkC
-	 YtwxHB9vlunbMC8viAEt21r7i0F8p6Cc7EqHE9jXcpgK+tcWEI+m8A1LOrwPmoCXWn/zn
-	 D3gcIx8mlcl4sEI0zDJYfjiL9mOsIYzqQs7TrvCV4KgksD5GgLd7vpINlfcolR/r7dveQ
-	 SnWeiA3FqFkPXr+b0NzTsTuisX2n3A7aYyWoVCrTcQSA6vH29vcj787/P7jQW1i6IrA==
+	t=1793201647;
+	b=fmr4I3AhyGW8PDE7rXLj5Wnkz50oOPMHCAFYo5QSPssqaOLZMSlVLwseLorj1+Yz4Q1Y
+	 I2m0Bd3rTPnBzHlkUGsogLTub6TGE5VmW8qnrCMTaFeTD9VDm9CM2g85EBhVA8/0+2sEr
+	 N9dzbllzMw32td7upgWAkXG0GASae/mFkXCmLQGLjgtNAOsqtbcU4ps4OcoGK/I9TLYl3
+	 UI/G018QQ8BdgAlHxynx1nJ0tF2pOrVdVssYK4lPEta/9mYtua7JAJkr5wYzflmCULgmw
+	 u9djvTmF3czXkHZc0JSEhX69i0QJdpRCo7E0+orlm5oYJMYmAmMHRbxVfbeCIGSQLYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201647;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2MaGqhARvZxL2nqhSRopcPrzst9zPuCHnO6j0XyktL0=;
-	b=DZfNdN7uxdEy7j+lfWng8dibjeawg9l3lUVg2+TLbgrIEfJIAD2yFoQnULoZUrddvX+Z
-	 8VDExZ2HrDGzim2TL6kVKPkjRbat8I/cJoFa2UyHXOj56egEWZW9wcTwdHQ6uVpKlt2w0
-	 vsknEeqVw8Yr2h/wzBAfaD47/RnjHVEHZp1+CZ0/XjmtZE1oo1x1J8h2etNsaJGPam0vM
-	 HylSkjAFsCOcGOq1i9uvza3kCGkfL6opO3M9kNqdWNjFaiKeSpo0cFPYDq7+vBSEZY8XM
-	 o3nbdluibdkJ4DmCbK+G0vGGZZNEQG4uDDi7cwjspLxFzcHxqh/b8ANIxGYTOw9oXMw==
+	bh=KXTSigW9LtYfPxLTSHMEtEctTv2VqQw2oikU6uo+Dv4=;
+	b=bZZYZcQKZ78LlbGAhZdhKonwgTB0EdN0Y25ciF89UpbgvhIlny9UvOWX8/Cn9W3EHNl5
+	 ieDPLoJUiYE5HTifSA74ckfuo7NQ9ndySod/MbZoho3sHx9b4gMyHVPUS6I+Qy+hBYoDW
+	 cWNHiJS9lbxcpNbdO49JF0EFmmo4fyPRxTPI45mxF5AzpEtt9eRwtoWwj8/h0JjuS9lBA
+	 Ia+I0QfTOCjFnz+wykfMSyZ2QwMJQ9znm7sIEUxcph89pJpdZ8ARZ5rZfGmfRwNqmKJAQ
+	 NE2Avrqg8inq9oDrHvcYXodbaom0gF+FbVtClQAGYmIZkqorrBSxsCKo1coRlXuCQnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RN2+XdEE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y+qeHKJu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DBE606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:34:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91231606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:34:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RN2+XdEE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3BA1F01825;
-	Wed, 28 Oct 2026 15:34:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Y+qeHKJu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A793B1F01825;
+	Wed, 28 Oct 2026 15:34:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201641;
-	bh=2MaGqhARvZxL2nqhSRopcPrzst9zPuCHnO6j0XyktL0=;
+	s=korg; t=1793201647;
+	bh=KXTSigW9LtYfPxLTSHMEtEctTv2VqQw2oikU6uo+Dv4=;
 	h=Subject:To:Cc:From:Date;
-	b=RN2+XdEEyHm5ru2zP9Qtx+EXEPbVtBHRKg3GP1N8Dec0+CYgTt7caQtq360+yzVd2
-	 tBFPeGQXRExzA357bb0XQJearjQ5sq7XFxNaEjdj4yCoC7m43FKfn8zim0nPXHjXIy
-	 TIxw2G0/yOs8y/e3/4N5HlI5JfoiQo8uSMV/flyI=
-Subject: FAILED: patch "[PATCH] fork: don't create io threads once PF_POSTCOREDUMP is set" failed to apply to 6.6-stable tree
+	b=Y+qeHKJudtnh14CjFXrWzxdGxQvJ/wTiD6tz2SmY34CYMZzCk6wnh+/Uizl2BYbj+
+	 TxKZHV/YksVBzMzKyhALQQhqL/1s2Egjx25N/Yxeeu4PlrstJCn9BL7/p332kX8+5l
+	 On8x2yv3Tvc/BhfvKHXEILYuT2pJHvwSWRPvFB1w=
+Subject: FAILED: patch "[PATCH] fork: don't create io threads once PF_POSTCOREDUMP is set" failed to apply to 6.1-stable tree
 To: brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 16:33:51 +0100
-Message-ID: <2026102851-facelift-wand-29b0@gregkh>
+Date: Wed, 28 Oct 2026 16:33:52 +0100
+Message-ID: <2026102852-deprive-survive-f09d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1f978881ce6c9ac4f4d4a7b6a6e52339eadcd350
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102851-facelift-wand-29b0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102852-deprive-survive-f09d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
