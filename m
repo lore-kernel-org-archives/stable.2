@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793147842;
-	b=EzkJMmLKKgSac055MxH/gOmzIDxTpfY14lZ3a5p3nit6ZUxnCGZNAmMYaOmI7RdBbW+a
-	 Q4rwYKPedRJTJfRJVZfsFc/z/ukRLH08A0u77FRJ76B4dUohBOeDH2bG9TIZavOdQWdTE
-	 6qk/fnRU/kQ9qiRxJNpD54s7ARDp5N2EKxNfz25b/+Nt9+KpHtbd/2tRRwRVdfTkFGjho
-	 eaTEOmihs2HmIu7vH2ILlocXYI0/PADerl+tgnZv+WeTkMgFhguW4K9uS53znLmpLeoR7
-	 cjK/uCZZdjN/4Otn7rg7OXR6ufrx+bvOQ/gJD7Ax4r+Oao+IGh7l4qO3H9Rj6JbUBjw==
+	t=1793147937;
+	b=I8zegipR8sFsKnd0ri2ZRQVkQZiGjQBHfBZBYyTN+uzPPNIa/iNhVHdWCvsOiIZjGRdm
+	 DPw0Lj2DW+/VA9nRjoqteWqHtYLzJafd8/GOi+R7lW1ofFiD62VadYuyqptXvKOzAAPAR
+	 9C0Juck9odsV6skLI7YKY+yTISwfhr1oCQQdK8to+8/ux3C5uoNrsFUPhOJhRBtzWkojZ
+	 T9fEkIls0XC0iZmkDLm87L1mzPKHGIfKJy5RKTPacOCZpIoCRXUYVaBlraKjIpVuBfW95
+	 wG7GEzVwba31Qt17d5L+7SPKK6C5DamdzIJ8aVa+PSTciA3u9xjL8Xr0XysBiYhvfCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793147842;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793147937;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6z3QohFwrl9/yr27qFYsYBSnTw/3E1beDpN8A1lFb2w=;
-	b=GWurA8l2zdTSqWA1Yng9BVfu0KcFQ+JDg2WzZY8TsAYXOIB50B/g5/cPb8EXxQDOS3zu
-	 08pMQjgsDHADynG/BN9IcHYw0uy60XtdQKBjWw4+FuvlEnKvJTpl43AqTPG8nIQEW0g83
-	 /btApfzTFsucaZOZcQUjEleyIR7agvIk+Zz85Buw0et9Awx35O5BtMK9YfX4snLIsqqup
-	 u0Oh+GR7XpnsgFIdiQuwyhiLWYJw9eXGvWE0D+/yiCDAYq8GuWEKLljMuCTYDoeXA04lQ
-	 fzbWiwhUxnURuuc9TsLYk0wBVE2XE6U9e6WRoeU2OF5euUnvxrcIFUTLAUkVRdF9frQ==
+	bh=ve+vCzEn2RessCc6Gkbpr2RSC04/z/xF8lspYJwg+fA=;
+	b=JJqhTX6bizihQzyPOhUUffiNlxdWIFIAb/QVm0UgmVTehG13e492mpxXOSzXuYiz+4xJ
+	 LLWAyvDDZi/tByIETsmtsb00lCslwDjAu2b4Pb0y4ohfKxI6a1xQlsWAX6fPtISSfuq0M
+	 A/p4Qz1QKzO1bql+P8kvb78t3iS83xo6FjXBMOlcz5qyca8AaWobPtxh3Wy8o03SloqJZ
+	 uMiq0VqFWN1ojZNy1Tk9/u1j80++M82vyKuqwplgHvZFLCX4ZJurzdut79A10QupZbW31
+	 AaKbK4oNJpaZOArgWXR8SixiFMTpY97QA5/PR81P7D3F985lWia6qENT1TD/doxOraQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Us3BQ6Oe;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcjQ4Y+g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA8D606A336
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:37:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA8D606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD8D606A31A;
+	Wed, 28 Oct 2026 00:38:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Us3BQ6Oe
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so2825175e9.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:37:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793147840; x=1793752640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6z3QohFwrl9/yr27qFYsYBSnTw/3E1beDpN8A1lFb2w=;
-        b=Us3BQ6OeRGuRLKCh4A/xtwYUHovES9okx+gEuRziZgqPd+whmms6vJJv/aAT7oMEJ2
-         3rCugxLgKUVvC706v+s9kTo6ahP81FDSnV1qrL9ABg7JTwdbjmUglOFXrlP0E64jrRfo
-         nMxpepUMNBqgrb253CsbpMePH9H8wEJTZgaVb503dpyFixRl6qhgpQ1iFaJQeWTKChxW
-         P1BYLKCna4TSyR3tdO6hLCwBPqrW4H44+KlDyU1joaYrtoOLQWw8T2t5psyRfsKl3w25
-         R6/A7nd0IPcIKGML4ixFDkBiYai4YeJpvW7E5kTa5klSmbCNsipZkgWAAqUjgS+6AFmm
-         +hlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793147840; x=1793752640;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6z3QohFwrl9/yr27qFYsYBSnTw/3E1beDpN8A1lFb2w=;
-        b=1PMa48hQRkN8rm/oNGsSH5MYR1VAHd2/2xioe57Dmqqm/OHlHI/dvZnpHj9CIaBg/s
-         PxN7DGflYZuaMxLp5htdv1nNXQvCBFuGtjJl2JDlVu7nZ7xp1C008q2t8XI3isN1Dfrm
-         0Vxvo9DdzcqXfyHx3U6Jj/caC5GEqjLzZ4h1fsT86BYee9Vhd+S+W1taa/1fwhjAg47P
-         gEsi3YS1sPePDRCPi1nLjtYELLQtWND4rHH73OETfN3y3+AkICW6po0IB+ibjT8Zn4Zu
-         pDU+1GwWCgimScDq3pvACxKNF4C8AVEuol6tiAmYp5Ue34aVRoonj5gXVzkxpZu4wm5n
-         3WSg==
-X-Forwarded-Encrypted: i=1; AKwUvByk+veOy6N9qS/Ecs8wOwWnwsFjW3JdV8sfUH5PehXKtAUJ5Rj3W1HLyjHvmb2E12VQjgEeCT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWlQJpjFMnnrmXeSwfNJI411t9lD3MvfMWtdRfkBI+0+5V13S2
-	Vfeu7hhUTzZWuQmPQcaVs2o54yNO/Lg/Me0lVbKti7bP8qlyHPfO2iuQGT1h0t9OFt8=
-X-Gm-Gg: AYBFou3ZhYrZHMhNoUCoY9o0JTRcB/y1Qf4vB/377FqXbeQYZYWnk0ANwk2xwjMEWol
-	GMSahyrbnqT4kh0VwQezltiQfYIT06SCKQ3/thGW+kKOnSX6MAD1raOomcFrzcy1DCK04vYw/3w
-	smXGlS3ex3FpVLy/3QDn81ZLFDCrVkpXOxoC0/06+SI0dm11i0rxjjOb9svB4MAf6OR96tBikWn
-	bRU40b9UszggTkgtvSMFNi6P04xKifpuo2CW4uTUI6m6Z4rN9Z+DYwdVkrO/+U3EK0GaENq5BeB
-	ty3jdp3o32gp66SdmUOAbS0NC66+CSTVH4qATR15qz3zYQbg3GESZRjMapLR12eGBrfXw9FgkSx
-	rt5pqm5DeX6m4kmmoeHRInKObiaKiFwwM3NS70NcFy8dP2fsy/uZ79vYDdQYHwwssFM5pkLrmuF
-	R3w5PIXoaACM7q7wkIQFksZcx1nQ3xCc+ACaUdoycGNUdhvXfQKxhonIhwTndd0oG6+O6qK/p+5
-	u2CSiPJ+4nkLH802pxtLN8BxQYqRTb51IqTG7dWP/0qsIN6IGojyrGuz0nYBGZKKytd+6jh2yhF
-	8sWOxlRVEFt+qmQKuzbSHnDe1bQmkp1KzLXOD48W7WKaBzD3sVFWLPn8MlkEtHuO6C5rXF4Atzw
-	l01gYHCWXT0g=
-X-Received: by 2002:a05:600c:3e15:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4a9961f3d36mr3510115e9.6.1793147840030;
-        Tue, 27 Oct 2026 17:37:20 -0700 (PDT)
-Received: from irdv-jinli.dev.purestorage.com ([208.88.158.128])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a976010d2csm8395245e9.2.2026.10.27.17.37.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 17:37:18 -0700 (PDT)
-From: Jingyi Li <jinli@purestorage.com>
-To: vkoul@kernel.org,
-	vinicius.gomes@intel.com
-Cc: dave.jiang@intel.com,
-	xueshuai@linux.alibaba.com,
-	fenghuay@nvidia.com,
-	Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jingyi Li <jinli@purestorage.com>
-Subject: [PATCH 2/2] dmaengine: idxd: fix destroy of NULL or already destroyed workqueue
-Date: Wed, 28 Oct 2026 00:37:07 +0000
-Message-ID: <20261028003708.834341-3-jinli@purestorage.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028003708.834341-1-jinli@purestorage.com>
-References: <20261028003708.834341-1-jinli@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcjQ4Y+g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76CF01F01825;
+	Wed, 28 Oct 2026 00:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793147936;
+	bh=ve+vCzEn2RessCc6Gkbpr2RSC04/z/xF8lspYJwg+fA=;
+	h=From:To:Cc:Subject:Date;
+	b=bcjQ4Y+gTEDgZOZGGq8C4AVGj2PpGDH5htg6xguugzDuEb9jG0hNgkYCC/mTglGUN
+	 hSt2a4WNjSdYWLjJ3bUbIGgirpyMWw9nYRhJvO+vH9UII0bhD62DO41jaq1stkY6BH
+	 rHiUoSvViXf24qWHhBcl1EN9tcMISMZoPonICZQdH29F00LJ+UcVoK2jhwdtdGGfcU
+	 aJ/zfvjJUJdZh7otnDv58vL0g2EsBG/0quihqh/1vksWPSB7lBVFOtp0ISW5CcEN9w
+	 jVmOcMxMIRbDhgS7/+lSlvAiEjcc7LOnzQWzVzEMwCmOop/2vhpPqrH1UpQvMcgSou
+	 qvPdqYcwxVMaw==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-ext4@vger.kernel.org,
+	Yao Kai <yaokai34@huawei.com>,
+	syzbot+5322c5c260eb44d209ed@syzkaller.appspotmail.com,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 6.12] ext4: validate readdir offset before accessing dirent
+Date: Tue, 27 Oct 2026 17:37:46 -0700
+Message-ID: <20261028003746.31943-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,78 +64,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-idxd_conf_device_release() unconditionally calls
-destroy_workqueue(idxd->wq). This is wrong in two cases:
+From: Yao Kai <yaokai34@huawei.com>
 
- - If idxd_probe() fails before idxd_setup_internals() has created the
-   workqueue, for example when the device reports HALTED after reset,
-   idxd->wq is still NULL and the final put_device() in the probe error
-   path oopses:
+commit bc4b7b0414c33b2c8898eb04386df0d21a13dad8 upstream.
 
-   BUG: kernel NULL pointer dereference, address: 00000000000000d0
-   RIP: 0010:destroy_workqueue+0xe/0x300
-   Call Trace:
-    <TASK>
-    idxd_conf_device_release+0x15/0x90 [idxd]
-    device_release+0x3c/0x90
-    kobject_put+0x7e/0x1e0
-    idxd_pci_probe_alloc+0x300/0x15e0 [idxd]
-    local_pci_probe+0x22/0x60
-    pci_device_probe+0xd4/0x260
+A corrupted directory can trigger the following KASAN report when
+ext4_readdir() resumes from an invalid position:
 
- - idxd_cleanup_internals() and the err_evl path of
-   idxd_setup_internals() destroy the workqueue but leave idxd->wq
-   pointing to it, so the release callback destroys it a second time.
+  BUG: KASAN: use-after-free in __ext4_check_dir_entry+0x5ef/0x820
+  Read of size 2 at addr ffff88810a646000 by task repro_linear/509
 
-Clear idxd->wq after the early destroys and skip the destroy in the
-release callback when there is no workqueue.
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xd0/0x630
+   kasan_report+0xce/0x100
+   __ext4_check_dir_entry+0x5ef/0x820
+   ext4_readdir+0xcde/0x2b70
+   iterate_dir+0x1a1/0x520
+   __x64_sys_getdents64+0x12b/0x220
+   do_syscall_64+0xf9/0x540
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-We hit the NULL case in a kdump crash kernel, where the DSA device
-fails to reset and the oops kills the crash kernel before the dump is
-saved.
+KASAN reports use-after-free because the out-of-bounds access lands in an
+adjacent freed page. The directory buffer itself is still referenced.
 
-Fixes: 3d33de353b1f ("dmaengine: idxd: Fix not releasing workqueue on .release()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jingyi Li <jinli@purestorage.com>
+ext4_dir_llseek() invalidates the directory cookie so that ext4_readdir()
+rescans directory entries from the start of the block. The rescan checks
+only the lower bound of rec_len before advancing. A corrupted rec_len can
+therefore place the offset where the block has insufficient space for a
+complete directory entry. The rescan itself may dereference that truncated
+entry, or the main loop may pass it to __ext4_check_dir_entry(). The latter
+reads de->rec_len before validating the range. For example:
+
+  block offset  0                           4092  4096
+                |---- de1.rec_len = 4092 -----|----|
+                                               de2.inode
+                                                    | de2.rec_len
+                                                    ^ OOB, reported as UAF
+
+de2 starts at offset 4092 in this 4 KiB block. Its four-byte inode fits in
+the block, but its rec_len starts at offset 4096 and crosses the boundary.
+
+The minimum safe length is inode-dependent. Encrypted and casefolded
+directory entries need eight additional hash bytes, while a valid metadata
+checksum tail is only 12 bytes.
+
+Cache the metadata checksum feature state and derive the minimum directory
+entry length from the on-disk format. Use it to bound both the rescan and
+the offset passed to the main loop. Report an offset in a truncated block
+tail and skip the remainder of the block, while continuing to accept an
+offset exactly at the block boundary.
+
+Reported-by: syzbot+5322c5c260eb44d209ed@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5322c5c260eb44d209ed
+Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Link: https://patch.msgid.link/20260706041313.708346-1-yaokai34@huawei.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- drivers/dma/idxd/init.c  | 2 ++
- drivers/dma/idxd/sysfs.c | 3 ++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ fs/ext4/dir.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index 1577d22b299c..5962cacef060 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -389,6 +389,7 @@ static void idxd_cleanup_internals(struct idxd_device *idxd)
- 	idxd_clean_engines(idxd);
- 	idxd_clean_wqs(idxd);
- 	destroy_workqueue(idxd->wq);
-+	idxd->wq = NULL;
- }
+diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
+index b278b5703c197..265e544cc3482 100644
+--- a/fs/ext4/dir.c
++++ b/fs/ext4/dir.c
+@@ -137,6 +137,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+ 	struct buffer_head *bh = NULL;
+ 	struct fscrypt_str fstr = FSTR_INIT(NULL, 0);
+ 	struct dir_private_info *info = file->private_data;
++	bool has_csum = ext4_has_metadata_csum(sb);
  
- static int idxd_init_evl(struct idxd_device *idxd)
-@@ -460,6 +461,7 @@ static int idxd_setup_internals(struct idxd_device *idxd)
+ 	err = fscrypt_prepare_readdir(inode);
+ 	if (err)
+@@ -148,7 +149,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+ 			return err;
  
-  err_evl:
- 	destroy_workqueue(idxd->wq);
-+	idxd->wq = NULL;
-  err_wkq_create:
- 	idxd_clean_groups(idxd);
-  err_group:
-diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-index 6d251095c350..d5ffc641c856 100644
---- a/drivers/dma/idxd/sysfs.c
-+++ b/drivers/dma/idxd/sysfs.c
-@@ -1836,7 +1836,8 @@ static void idxd_conf_device_release(struct device *dev)
- {
- 	struct idxd_device *idxd = confdev_to_idxd(dev);
+ 		/* Can we just clear INDEX flag to ignore htree information? */
+-		if (!ext4_has_metadata_csum(sb)) {
++		if (!has_csum) {
+ 			/*
+ 			 * We don't set the inode dirty flag since it's not
+ 			 * critical that it gets flushed back to the disk.
+@@ -234,7 +235,10 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+ 		 * dirent right now.  Scan from the start of the block
+ 		 * to make sure. */
+ 		if (!inode_eq_iversion(inode, info->cookie)) {
+-			for (i = 0; i < sb->s_blocksize && i < offset; ) {
++			for (i = 0;
++			     i <= sb->s_blocksize -
++				  ext4_dir_rec_len(1, has_csum ? NULL : inode) &&
++			     i < offset;) {
+ 				de = (struct ext4_dir_entry_2 *)
+ 					(bh->b_data + i);
+ 				/* It's too expensive to do a full
+@@ -256,6 +260,17 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+ 			info->cookie = inode_query_iversion(inode);
+ 		}
  
--	destroy_workqueue(idxd->wq);
-+	if (idxd->wq)
-+		destroy_workqueue(idxd->wq);
- 	kfree(idxd->groups);
- 	bitmap_free(idxd->wq_enable_map);
- 	kfree(idxd->wqs);
++		if (unlikely(offset < sb->s_blocksize &&
++			     offset > sb->s_blocksize -
++			     ext4_dir_rec_len(1, has_csum ? NULL : inode))) {
++			EXT4_ERROR_FILE(file, bh->b_blocknr,
++					"bad entry in directory: %s - offset=%u, size=%lu",
++					"directory entry too close to block end",
++					offset, sb->s_blocksize);
++			ctx->pos = round_up(ctx->pos, sb->s_blocksize);
++			goto next_block;
++		}
++
+ 		while (ctx->pos < inode->i_size
+ 		       && offset < sb->s_blocksize) {
+ 			de = (struct ext4_dir_entry_2 *) (bh->b_data + offset);
+@@ -311,6 +326,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+ 			ctx->pos += ext4_rec_len_from_disk(de->rec_len,
+ 						sb->s_blocksize);
+ 		}
++next_block:
+ 		if ((ctx->pos < inode->i_size) && !dir_relax_shared(inode))
+ 			goto done;
+ 		brelse(bh);
+
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
 -- 
-2.43.0
+2.56.0
 
