@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171107;
-	b=Mg927AXnAaAFTLeETJPUMaFJI8DIXDcJuRQ0/UnTNlEme1Lr4DX7Gt7HMMsK/Y5RuHIU
-	 dZo/jkL5Co0sLpwVgqxLOHJntIbwlCnYZJdj921i/NWsDKX3E+eiaWWgk58F3F/k4lM80
-	 e/3m1xU6wYhQcNy8lYovundZLkarekJwwGlOGgJfw/vJUDlCyHz3DKM48tMoUzH/NdNea
-	 oP2Oa7/NgV52w6VLM2qqUiyrfJXFhSzYH5bD5neaxUCFpncSxWATRgYauq3xbTQCd1iwF
-	 IKhtDNd1WqmgRyT3DH5c8YP4X5gpYjvyqylu+bBjSuLX06sBMhiKaojnQlGgVVoxXVg==
+	t=1793171448;
+	b=J3b7c8yieZ5FQuRXhlc3d4Tk6ZMYSepd35R7JM/yoxRXoDaL0eTbORsCLJ6ch2QhEt9U
+	 GnInX7rHHo66oHnpf1zhWbUzdn7Jcp4RJpp4Xt2rtGww/lesyuDUSJx9ZxH4sxw2Edf0p
+	 FLnUCKeymdjEJXD8cb1dl8B8t/RA/UCn3HbUeChkWdi0uwdge5F8FWi9p674Psv/NtdUd
+	 nlDll7d88s3Ue3JAKbaLQZ4I2urznRQ9KcldVn6yoCu6kPdvqkoaJRobEYC9xwLayCS3z
+	 9OVpJoOt1+VMUCcmALdYDWPQ/RV3w9ILDs1xQNjRb6HakSd1iQMLYvp5SUNYW8UkcuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171107;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=hxtukN8vLMbgPxheR+Gz5VbuD7pOBjN5QZLywwUeEcn4JI9J7EUfGGvv1huMvc5zf8pK
-	 kO05nhd3hsFv/mI/ePY0HVx3SSBRB0JI7We00jNbqZOrZ8veGTWRWvuVwv/QYQyJj0E0X
-	 oIFAJ2jtLByHJgynOkcGwn8YmUd7VM0csAmo+qSJiov6PZaTR+zZpsqWL1G54Yl0TCefV
-	 1sqfDkye4aPgsNQD81e5F5w2ESGCYVgu36GK4CW6xR3A5UjZ6iQQG0Z1iKhFTUmDXSFFX
-	 kotDvTLeFaa2xG8fHDGk5oQUk8PTM6PfRDE5AcY5ajcPx6bjaJD4smhgbHorQwDmEyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793171448;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=mVXDNhTKpePvAbfVkDflQLmXiubREs0zcPgQC9SEqXU=;
+	b=ijpZyJyHkKrlBenpki7BQNgDU7LZ9V2FJBsh6RTC10JuMFdCg80c9UPSFoSxcMyxR970
+	 eL/RJf2eWVTnSQevIqWQbLYDSXoyp7Nn7zTyuPie2HyINwqwwMKF37qRl70GGCQLOovTZ
+	 zWIi0RVKgll5KVUV7jLRStqBkXZBwAduOg4xef6OPvb2Pr7zq5VPGaS8S0VNpy9Cwbyk/
+	 D8SbbBA5BILKf7Eb0lx/3brerd+oRoU5OywQgUioG8YjhUpfKm4fNUAeAdpaPxhtvFYuP
+	 f82jbB7JiggxL8sNNcTjt0bXarGyTSckm/Sq3+qT3mjxCpPedwa2XAHxQ772zmxdXoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NtEIePh/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sLEF9R0R;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F06606A31A;
-	Wed, 28 Oct 2026 07:05:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E932606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E932606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtEIePh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1A11F01825;
-	Wed, 28 Oct 2026 07:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793171107;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NtEIePh/4VU0pQ6RJJArgaTkNONldbb/wLXiw3l2Bk0+GyH5tGTHUTe3wp4BpOfAZ
-	 /09vYGt5aCXsf5CPFRApo7YSLg3wYH6rZ8uY1Vh0eL0ds6GfsLyzfXI51kbaHwS8y8
-	 9oJdMoRUSFANcVYJjWLOK7oL+M5qM1XEF8FOUC2xhKnQQ50kcqUJXGFUbHIskwbT0x
-	 M7LVsRqV4ueAxEXu+ggt5VAWJq7Qu+daB8w+y3K5FqUURAiRT+mn3rYkhX47lbWr3E
-	 CiFHf42PHszCUcdfb3/XiZbLz7QdiI5DgJixSgX90VrvRrhmLkRMYaJYdV7Py7QTFz
-	 qb6BgVvuECVKA==
-From: netdev-bot+sinfo@kernel.org
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net v14] net/smc: fix lgr/lnk lifetime vs diag reader race
-Date: Wed, 28 Oct 2026 07:05:05 +0000
-Message-ID: <179317110565.3327.10865585380988219772@kernel.org>
-In-Reply-To: <20261028070210.1685136-1-mjambigi@linux.ibm.com>
-References: <20261028070210.1685136-1-mjambigi@linux.ibm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sLEF9R0R
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B11554E4135E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:10:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6576E60769;
+	Wed, 28 Oct 2026 07:10:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E157C1032906B;
+	Wed, 28 Oct 2026 08:10:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793171437; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=mVXDNhTKpePvAbfVkDflQLmXiubREs0zcPgQC9SEqXU=;
+	b=sLEF9R0RDNzj94mlaiGX3kLFC8vDBqXa9MkaM91CyiLp9QKvQ0zj3vVjHB+qIxWs499vEc
+	u2aIG0WlfK49GieNuz5L8PeZBMVAd1RgfH4QVotVgOwjtjf6c9oTxdSqix5T5KETjDFcBN
+	uJssD8pgYpUlV7z0Udf2Ubvn06la8mshtrfduWw5nS0PtFvyS0LqotvdCLliOO264DAouP
+	eGSXlqBgIyB+vrfa0cvujftw+FYOeRZXVur8WpZEzwgZ8hTVdFm0ij4wRCB1YNMP3RVPuI
+	HRHHw2d+7GfkngSuJ72jakqfGEak/5t6tVEAyjtI0qZ01iMp+b4y+xkYctuIRw==
+Message-ID: <51f5f79a-ed6a-4c7a-809a-f0507ae7a561@bootlin.com>
+Date: Wed, 28 Oct 2026 08:10:30 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,25 +62,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: phy: only remove owned topology entries
+To: Jiale Yao <yaojiale02@163.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Christophe Leroy <chleroy@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261028050312.126508-1-yaojiale02@163.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261028050312.126508-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+On 10/28/26 06:03, Jiale Yao wrote:
+> phy_link_topo_add_phy() can fail to insert a PHY when its saved index is
+> already occupied.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+It's unclear to me how this can happen in real life...
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+>  Its caller may subsequently run the normal detach
+> path.  phy_link_topo_del_phy() then unconditionally removes the entry at
+> that index, including its ports, even though the entry belongs to a
+> different PHY.
+> 
+> Look up the topology entry first and only remove the PHY and its ports
+> when the entry belongs to the PHY being detached.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Maxime
+
