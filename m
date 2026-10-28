@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201800;
-	b=gzp6Jy1fgjl1+YxKWMebupCUV0hDJIx/vSm3CmGHF9fWbNWMnuXPK/MKUyTfw3HGi/4S
-	 hQ/KItMrucGkeI7qTGwATeW1CNXi7YX0fdCyxUgzvCJ67n3nmkXqiodhHyoTyAj7y4Xe3
-	 yhgaFv+tG4yUQnNyDL8dC3yOgqWWJPtwmSDNtcITBVNAx1BGmAGyKrH6tLfpvlYWOm5Dk
-	 a3yyZnMAeGYsuQWL5lbhfVE6mQDqEpJaeOE8U4ThPx0vPrqyYY2a8G8jTQUYBVPOL1vhE
-	 dyw7jgWB9+DI9WDSO9T0pIyFZ7r1L4avMKQRVnOkAhHbBGrf6Dynx9ULVggwdlvTobw==
+	t=1793201803;
+	b=LCG8golDp8wfmmMbZJ7YrDluUOjFJZBBhWgTihxRweyuMcRyTN68ec+n/NgegO7nyJRa
+	 pFo58i5sxMgh0yCoyUONb1NmFOrSz6VC8A8LSHmllrBlbdSbW1pIIBmf1wU6/r7po3+Ic
+	 A9QVpth0/o/l/Uf59Rn62KiYt4tH1FawJWy4Bs7okdDq1rMMRr5wjWx2ZQZneo3NzRGHo
+	 /hOhT4GgbCcciKzXw1p4SR8XEa2Qzib6mvYTBfImmv5ndf+Ga1rD+tWGnQWXC/Eqk/wYk
+	 +BfwFPu7dk3k4EfQOrs6bRc3PZ/R7vZkuxawjjEQmcOYJJAx2PjY1gqkftIGCiDpOaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201800;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201803;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6SUr8oqU29oJQBgtP6zRZWP3CG5TKqiZPrOy7h5oOps=;
-	b=1zQQlHllYf3itaiQPpM3pTFa0sV6yGIoGUCjkdkeJQuHe2UW5CwJCViWb133+BCX+pC9
-	 J9rg5bW7fA5xQlV3X/PMTEPP3J5qjkSjHmocTCyuI2Fp0tp6LNqOCBp7+3tSqmj/vUOBm
-	 qyKA1Ghy6RMPW0iaBtOil9JV6nJLKNHiJHvKMyK9pnBq0ksldLGlGdj4LLqjJK0xIdA4M
-	 jL0oa9bT9EuRv4Dl+ud2Ore4sWhXjTDlu3wc1Ee71T+e6bIsl60LGOj89riLR2tWn+n0O
-	 ibegn7rTHFm65fnfamKgzXOxx0zeKB3WkX8cLX3wD2OWGWdFBEbfEbJHAI0jIBu7FUA==
+	bh=dIj+Gru6FLS4bLlo6upre+P5ztizpswgFcuxUKDDBVg=;
+	b=BA8T9P2hzlub2i2AYbHDOvS7LLbM+4YucX5dK91BPYJ4nolYJyv8Bntn3j3oeJV6qIo4
+	 AZdfJU5dMzvQ6xlry83eishARmeIcB1255hxMOVSlgSNUH0u2S5EMIPktm4QzZmtpIy8G
+	 Fv+CWOQzYd9IJn1dUd/HsSSy/CpaFG+W8e+ZtmvQ0KDq4fsCdLogbQAz8DccH51VErEp9
+	 GxugLHEAUPNf04BZphevZHVjzOmZ45irqktGRYxRy4N+d7PACmTM2apWNkNCrqZgGAoyt
+	 Sm3lSsOY1UYZVCH9gpqd3JEm/F8lHYe9alB03imuShhwrBK+qWij5RXyKqdjaktUYnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JwHo560A;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ig5b80Qa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B1C606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C43D606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JwHo560A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0BF1F01240;
-	Wed, 28 Oct 2026 15:36:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ig5b80Qa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D9D1F01825;
+	Wed, 28 Oct 2026 15:36:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201800;
-	bh=6SUr8oqU29oJQBgtP6zRZWP3CG5TKqiZPrOy7h5oOps=;
+	s=korg; t=1793201802;
+	bh=dIj+Gru6FLS4bLlo6upre+P5ztizpswgFcuxUKDDBVg=;
 	h=Subject:To:Cc:From:Date;
-	b=JwHo560AMJFXa4NiEWwdOOi+AFP8ctFQTRaup5LMOOyHTAaDD1QhBFklZSMNX5w3W
-	 scDchrXdJb1PEKcR3DaOx4kYA8TB0i+55TewGTwkeIQk7F+6JSDWrjd9t/DaVOfQ+P
-	 xFKTn45yLM2WGvOdYHu4dSrvnCbtI/dg0jmzi1fQ=
-Subject: FAILED: patch "[PATCH] exit: hang up the tty before closing the files" failed to apply to 5.15-stable tree
+	b=ig5b80QaZzELPUY0RKCJDGAMNNmDhT8etEcPidFvhEOwgxppLlgG7XI9xhEnoLZld
+	 OOcTFLhan/tJdbgvI6j0FbvEoLeePL7SCANUGUuJhYazyJUyc356yPJTNYPmsCYiir
+	 piUVgqXNelyFxAnQ4op21QqlF/ISwI3NYd3nizEY=
+Subject: FAILED: patch "[PATCH] exit: hang up the tty before closing the files" failed to apply to 6.1-stable tree
 To: brauner@kernel.org,mason@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 28 Oct 2026 16:36:28 +0100
-Message-ID: <2026102828-impotency-harddisk-0e94@gregkh>
+Message-ID: <2026102828-playable-stallion-c6ad@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x ad016f0131ebfec250a3360ea75d35128b3f4aa8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102828-impotency-harddisk-0e94@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102828-playable-stallion-c6ad@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
