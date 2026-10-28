@@ -1,56 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793227278;
-	b=j4RInwWvdLGN0kdBTV0Ij/xJAouobBE5pXKZcijLbqApXG7QpLEP2mo+3UnRHyC6t+il
-	 57vgoiPcA8iL2akIDLJUIByXYLm0KhQkNZHqnTTL+lBNp2kGeViMhoGFvaKnrgZ3fYoiF
-	 7dPGgIZdrUzAgbDxN69YYegSzE+zrpKI+1HIvTxP2q5c6yujmpFGt6lV6VWWelF/xlTF0
-	 H5NTsYQ/tyz2/oWuSo91gcCxqY5jhVlkXblt6rKEC7Z8xRw8Jk+IB6iST4NKp7ezsT9jp
-	 90ltPDF8BZkV8Ur/X3/pNvUSQZQkZDzQAHj/wMgjDPRBhZnFKrNrLEz5cEaOmV/a0sw==
+	t=1793227426;
+	b=C/mnrFr1/UnQwyMrd0OVrypcZVWsuMggSYaMGP+EGc5AZLVVnRFp3/0D/7Nh7x33ZKx0
+	 vzndEBHvKyb4tWh8PMZ3eslLK1V6P3ROgtakfEiCdH6xFDEo/he8l9OfZEkK6YdxNtMRT
+	 3qbxyWMLN/rHojZIpwR6io1/MHE/5WIGrQ0UkNi8rwLwYZYLoYVvrIE6YSOxzLRFkpMjz
+	 t+O1QFJWxJ+2NzjWpglSORaGYUgxznPClt/+F7gDI8It1euqO9sg5PZPsMv+Z95PI6udw
+	 oAukTUXeMPyl0iULeU7yEBG75SroDfPpeslCvC9iX7AOEDKrnroM5hFjKa5m0ktliEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793227278;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2JY3WgHQl71TpwFfPN3ajoLGU5Lfhxz2JrBrBuC10ac=;
-	b=YfApAoRQzXwYxpHBd1PIgJysBxrqohRh+V+9DyPi/zun7iGTd4q0jy288C9ncslbZ9US
-	 yy4u2TTzLz4HoOI/hJuBdAZYbInwmyXPcbDvf2RPrK7u96YOUJCEtbwsuQJLO1E8fYdik
-	 NC+DeTPVrHLwkXhgD9EhCTi+i/pqWo/ahddW9yRrxqYpv/KW6S1fC52N6+oRvHLH3c0Xj
-	 lhjRB0II6a3SaMwvHfPNG7BF/Unp2U/W1Q7RNTqJHXjDXA8xIsUSjtOPHA4byhTjoA3Fn
-	 UjqVS0+VoiI7NnmB7VWxm3CsSgvhSXI8by80/VUNeGRJclv8Rn3++/uzFpcZcwlOveQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793227426;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=j7f5LaVF7LK/0yFyUEEAwY1tZa6hpbG308Dw7fIa7rU=;
+	b=GG5b3skJlQ05Z0ruUMlK8d+lVpRg81xkKi9xBY8p9JbP+boCTS53hjZMXh9574vd2IYd
+	 ROXOqY//vIE73eCVBWZi4sEPI0G4Mrzoa5Ftss5m62kssEp88rQBROuMsrKUv29yn/4do
+	 R4e1+8remhckPbzqK+16EkZQqQBG38xqrnvSTnfS+4OU5fr6mjnMQcShWiwd1PrW9ZKTb
+	 iV4WLLe8MILPAF3gV3PMjGbxIx2/1krePcbyIMgm/m5YN9Ak8LgIayjdtX+arrMQYTMxk
+	 M9I5XivUbQgnh7rSzrK04TasfA9s0TkQf83SbuJ5/F54D1sfkbJPqnkw4dshmTvtTfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVUVWnbu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=Ay00vNkW;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146CF606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F55606A31D;
+	Wed, 28 Oct 2026 22:43:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F55606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVUVWnbu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270251F01825;
-	Wed, 28 Oct 2026 22:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793227277;
-	bh=2JY3WgHQl71TpwFfPN3ajoLGU5Lfhxz2JrBrBuC10ac=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bVUVWnbuS6d5d+onCivK2WHaQsYgdQYCckkIIa+iVpZZwuMz6pfx5ucPLgcMALjHB
-	 E4eu0fwEABlSqylAYNnNjs26PWvSvkTDinzQ6kZ+W6BVUhoj1D44SGmotZQs3YMMBt
-	 Bv5QnNuOqk5xiU/pgCC/x9uy7UTfVYJB6r4/C4dWN6lufoQxN04y0Zk9aFNNMTrlbA
-	 +YismkFJipfreHDR39xfJIOMolYEhv08Eq1QyLIT1ePLHw3c4stR4dISj/HyX2rerS
-	 wOngYN6FaNJ8LEhM9i/bci933pYrp9gJ6bCL+QEovtfW6PmGa05OPg5CAVBv9zBoWb
-	 G7j/NX9OeOqSg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] exec: cancel io_uring requests before de_thread()
-Date: Wed, 28 Oct 2026 18:41:15 -0400
-Message-ID: <20261028224053.2414973-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102821-deluge-generic-8319@gregkh>
-References: <2026102821-deluge-generic-8319@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=Ay00vNkW
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 7796F40917
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1793227418; bh=j7f5LaVF7LK/0yFyUEEAwY1tZa6hpbG308Dw7fIa7rU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=Ay00vNkWXKz/a3v3C1SmUHLS84UNrjr4dRFLPEW3FqSxgzSVfZeLjC304WIpKE+Z5
+	 89/gK5bA2fv5Gz0y2UNlEQyIIZCdSSdAHbUkMJYINODdA/K1n/ECaIDInGCKcYJsQm
+	 O8BqhYWmUXSilPiFwryHObnT8gJmbibI9NOUH3wVIMHtYAMIjYw93piYHin6l9XMBJ
+	 LMAKyA7hhagBl9uEJghH/ERSQ67ywfxJ7C6U9/k4HhuNDCrdAtr5olDleUYAB/rMmB
+	 bA14CqPnxfZ5BXQGKg1JWjdTssLlG7GBKJY9AFshXjHxmZWYoyUwOZgtDDO18I8qpo
+	 PChgw6IN07bWg==
+Received: from localhost (mdns.lwn.net [45.79.72.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 7796F40917;
+	Wed, 28 Oct 2026 22:43:38 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Dave Chinner <dgc@kernel.org>, Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, "Darrick J . Wong" <djwong@kernel.org>, Alex
+ Deucher <alexander.deucher@amd.com>, David Hildenbrand <david@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Kairui Song
+ <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>, Rafal Ostrowski
+ <rafal.ostrowski@amd.com>, Likun Gao <Likun.Gao@amd.com>, James Clark
+ <james.clark@linaro.org>, Anshuman Khandual <anshuman.khandual@arm.com>,
+ Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
+ numrecs during log recovery
+In-Reply-To: <auJ2jgIIh8e_JJwn@dread>
+References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
+ <auJ2jgIIh8e_JJwn@dread>
+Date: Wed, 28 Oct 2026 16:43:37 -0600
+Message-ID: <87cxsto38m.fsf@trenco.lwn.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,75 +75,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Christian Brauner <brauner@kernel.org>
+Dave Chinner <dgc@kernel.org> writes:
 
-[ Upstream commit b42c85c20d84ff3e4f0f027d6596c3b3b4a20657 ]
+> Unless you know how to fix the discovered problem correctly, don't
+> send what your LLM proposed for review. It will be garbage, and all
+> that will do is annoy whoever has to review it. Just report the bug,
+> let the subsystem developers fix it.
 
-begin_new_exec() cancels the exec'ing thread's io_uring requests after
-de_thread() made it the only thread in the thread-group. Now
-io_uring_task_cancel() runs task work after. If it runs a
-create_worker_cb() item then a io-wq queued on the thread before the
-exec creates a new io-wq worker thread.
+Just to be obnoxious...this runs counter to the advice we have in
+Documentation/process/security-bugs.rst, where reporters are requested
+to include a proposed fix as well.  It seems we're sending a bit of a
+mixed message...
 
-Said thread joins the thread-group which de_thread() just took down. The
-io-iwq sticks around until it notices that its workqueue is dying. But
-code after de_thread() relies on being single-threaded.
-
-Move io_uring_task_cancel() before de_thread() but behind the point of
-no return. Any worker created during task work run from
-io_uring_task_cancel() is just a sibling thread that de_thread() will
-take down and reap.
-
-Once io_uring_task_cancel() returned the thread has neither a task
-context nor a workqueue left so nothing can add a thread behind
-de_thread()'s back anymore.
-
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/aq0_lvHDViIpX_Mu@redhat.com
-Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adjusted context around de_thread() to preserve the existing fs->in_exec reset in bprm_execve(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/exec.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/fs/exec.c b/fs/exec.c
-index 6797c8cf88f4f..a495aa064a6d4 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1255,6 +1255,13 @@ int begin_new_exec(struct linux_binprm * bprm)
- 	 */
- 	bprm->point_of_no_return = true;
- 
-+	/*
-+	 * Cancel any io_uring activity across execve. This runs task work
-+	 * that may still create an io-wq worker, so do it while de_thread()
-+	 * can still zap it.
-+	 */
-+	io_uring_task_cancel();
-+
- 	/*
- 	 * Make this the only thread in the thread group.
- 	 */
-@@ -1262,11 +1269,6 @@ int begin_new_exec(struct linux_binprm * bprm)
- 	if (retval)
- 		goto out;
- 
--	/*
--	 * Cancel any io_uring activity across execve
--	 */
--	io_uring_task_cancel();
--
- 	/* Ensure the files table is not shared. */
- 	retval = unshare_files();
- 	if (retval)
--- 
-2.53.0
-
+jon
