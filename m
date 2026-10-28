@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204202;
-	b=MhPnjEZ2ILJB4A8UdUjzDckbnQ9HhhhIG3aatRoXRsqQuT/8MmvSRmZ7DgIDZp3Talt3
-	 AGlOYkWK4IIjHW8ub+GNZb2rpEAtMpaI+90F17Q2VVUV3P+utEBYB4EJRlrIx8+mi/VXU
-	 snWpGzlhXaodbxvkXOyvfjLYj12SROOPhITorY9JJLLX1yl/ZS7J4ZNUrNfTBCyH+/0kG
-	 zs5hWKQhaqcRfrwmyam301jAwY0ZMTFSX1kDpFhh0yISEnZ/CLxA2wpLd/9aA86B04iz1
-	 pDDOBehaftu3tPMiQsTwpTWXbpBBroWnGHbnb6YUiwJK81sRgBH8lL+L+6rrXh8Osfw==
+	t=1793204207;
+	b=h9t13tg7etZzfIRpJOvei9svMh/XAdqBCsHVLx8kPj4COcF9finQqJORbt3bRXahGP2T
+	 8SjHD6W4lhVEauQdjZcwDHyp5niV4VqtTK+MJYUaTL65m/I0ZgjD4Qq6ZmWjNRaxEP/Jp
+	 EFPDLGwNl5K0EnoKrjJIju6cKLALu7UVl4Dy6cFxQ2zuIb7AtszxcXArv1Qz+GWa+3KUj
+	 6LWBwIbjVVvOTI3cPDNUpBH9GLHqtjhVVnKoPnzSoxC5WnLpwvG+8uFfiMrkZE17kZAGQ
+	 zRUtUgwHps6+EZcHnbp8DraY5po+QSmrKCaiq9E8cgMOIjvQogqE3N6Y89Sfdqh8c9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204207;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z896i9qTYmyMSQUmAyeYbIwULgZv0k7jyQ0XCA30rXg=;
-	b=lsJiwbPliWHAuQCpi7WrhETc++uAx2NHPU5QruOpcfl4rnQauY4lAxiuU0B2Xm2MQyBg
-	 4y4sfWZd1QV8DqrhW/qASiGFf/X0xt7eu7BP3cWUE7rYdLhkVC/01fVmRJyyP9IAxBAwH
-	 /ffKXiM20Tat8sN2/SClR0g16guKSbPEbvfUNwA6OiLM74KeN1oQCIQVoKt7oR80hgu/B
-	 InQPi0ArBcAIFc4v2OE1HPN3ubcBPK6fWon9oZL45im2uUyS45YQyZDsWm9NthTMFDifS
-	 elguZDQNuygAmy+lea6a3llVH1oTq7T1AD8r3gZ6+gXxQLoD5cTbq5u4atmFjyuyTmw==
+	bh=kKLLlX8oLQEGdJFeoVEjt38VZPFlRJO3E5XzPYqYqW8=;
+	b=CQvUNPnRnJ3ophZAbjSyTpVxZAo/vw0PbI5FBTpx9OAS5FCdMeG66t+TVvnUJdSndZBu
+	 zPMa87p7higTx/h85zfOVzp4SXpE9Q23as3W9cqmBO3GmQeixzXUYt7k0jGVxyD/7m3NP
+	 NpNdSb/zzJ6f4XdlXFAXoAwnc8ECeUSOkVMxSv0rHfoZ7cx+Ixjp1gaE7XX0bjkRc8Cwq
+	 3binigVajsPdZ9yBTOBFbrhxz6j2Ri35MvNLEahlFi6MKYLvZNdnN7Yt1N83BfOcFfLQO
+	 YLOw6NaTXsAd0HV+cL3QGDOx4rnJTyUJx2iHVd5NeI8SOG8Ll1/x0RPrDJ4flKNQKPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3bt4TD8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MO0TU1RQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86BC606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 16:16:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E02D606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 16:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3bt4TD8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19DB1F01825;
-	Wed, 28 Oct 2026 16:16:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MO0TU1RQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7341F01825;
+	Wed, 28 Oct 2026 16:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793204201;
-	bh=Z896i9qTYmyMSQUmAyeYbIwULgZv0k7jyQ0XCA30rXg=;
+	s=k20260515; t=1793204207;
+	bh=kKLLlX8oLQEGdJFeoVEjt38VZPFlRJO3E5XzPYqYqW8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h3bt4TD8A244v1k7RfvZ6qZ46F2fM5lWmb8dnxdI+XraRW9F29sgT/AQiXjr4LJtx
-	 GjEOTBrHeYI2sqaAQRJPUJstfIOof9exK3z0V/TCR+FubHisPAH+WemvkG3BBJslWD
-	 kJPSNJBiKfuIn7lspuTZSDRHMnHMw9CqpZYKRSJJGxERWCtBW2ckGwD+Y3RVlTqBEp
-	 z1BQhP228bnsDQfYPc/L0KPkJOMswZxD04NvNfj2BukF0R1wFchYbek9c/hsyj9HMO
-	 SSYgypExnJWyAj86j7nLjiUqA3rxYnqaV+daOclbnF5blAMCjrHmug6mF+oEdVHPbC
-	 Yd5UHRIrzEdFA==
+	b=MO0TU1RQqoyBIIEBdOe+fyxaIaOTkrUxkf9COgpAEDwirDiiRTwrrQ/hAX9VHntgE
+	 4/FuInTEdcZzgo9mjPXVaG7VGu49Ffn2vKOMoadKidDAFxPpbjKBpK3oBUHaM/3E1r
+	 Z5f15A1HDHw0iYnl/j9DrD/thtJummAyRpZx984KzsshLO6QSR6PQzsrjDERWvKqD5
+	 GJKoOqx1pIIa1k8caGiJhd3L6kncXevsBT11UoA182HpqG09SqaQbmBoMtcCMou9ow
+	 N47bJGmGdtmYs2UNFRvtFQcLSON85JPn9VYk5w7pQB36KUCx+7RqXuYRR9tTVDUQfp
+	 gZ/nwOUUa8KeQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
+Cc: Weiming Shi <bestswngs@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] coredump: hold RCU while releasing parked threads
-Date: Wed, 28 Oct 2026 12:16:39 -0400
-Message-ID: <20261028161609.943590-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] asymmetric_keys: reject trust keys without IDs
+Date: Wed, 28 Oct 2026 12:16:45 -0400
+Message-ID: <20261028161610.943036-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102801-afford-shock-9e90@gregkh>
-References: <2026102801-afford-shock-9e90@gregkh>
+In-Reply-To: <2026102817-causation-protozoan-b0fc@gregkh>
+References: <2026102817-causation-protozoan-b0fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,61 +62,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Weiming Shi <bestswngs@gmail.com>
 
-[ Upstream commit 61d58591aa0188bf2463e263962256316ff8b576 ]
+[ Upstream commit 9695df3b1db4ac4534274d38ee16e3b9b0bf910e ]
 
-coredump_finish() releases the parked threads by clearing ->task in
-their core_thread entry and calling wake_up_process() on each of them.
-It does that without holding a reference on the task and without being
-inside rcu.
+The PKCS#8 parser deliberately leaves the asym_key_ids payload slot
+empty. key_or_keyring_common() unconditionally dereferences that slot
+when a PKCS#8 key is supplied to a key_or_keyring restriction. Both the
+plain and :chain forms reach this branch, allowing an unprivileged caller
+to trigger a NULL pointer dereference through KEYCTL_RESTRICT_KEYRING
+followed by add_key().
 
-But calling wake_up_process(task) without rcu here isn't safe. A parked
-thread doesn't need that wakeup to leave. A spurious wakeup or a
-preemption after the store is enough for the task to go away.
+ Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
+ KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+ RIP: 0010:key_or_keyring_common (crypto/asymmetric_keys/restrict.c:205 crypto/asymmetric_keys/restrict.c:279)
+ Call Trace:
+  <TASK>
+  __key_create_or_update (security/keys/key.c:884)
+  key_create_or_update (security/keys/key.c:1021)
+  __do_sys_add_key (security/keys/keyctl.c:134)
+  do_syscall_64 (arch/x86/entry/common.c:52 arch/x86/entry/common.c:83)
+  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
+  </TASK>
+ Kernel panic - not syncing: Fatal exception
 
-So if the coredump client is preempted between the store and
-wake_up_process() the thread can exit and be freed in the meantime and
-try_to_wake_up() takes pi_lock in freed memory.
+Reject an asymmetric restriction key without key IDs. A PKCS#8 private
+key cannot identify the signer of a candidate certificate and is not a
+valid trust anchor.
 
-Hold rcu across the loop.
-
-Fixes: a94e2d408eae ("coredump: kill mm->core_done")
+Fixes: 3c58b2362ba8 ("KEYS: Implement PKCS#8 RSA Private Key parser [ver #2]")
 Cc: stable@vger.kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-1-8e4adb1619e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Replaced guard(rcu)() with explicit rcu_read_lock() and rcu_read_unlock() calls. ]
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Link: https://lore.kernel.org/r/20260429181629.110802-2-bestswngs@gmail.com
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ sashal: Reused the existing signer_ids structure pointer for the NULL check instead of introducing a separate kids variable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/coredump.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ crypto/asymmetric_keys/restrict.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/coredump.c b/fs/coredump.c
-index 5e5c1d72d63bc..9e97756be4381 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -528,6 +528,8 @@ static void coredump_finish(struct mm_struct *mm, bool core_dumped)
- 	spin_unlock_irq(&current->sighand->siglock);
+diff --git a/crypto/asymmetric_keys/restrict.c b/crypto/asymmetric_keys/restrict.c
+index 84cefe3b35856..d95002812bb84 100644
+--- a/crypto/asymmetric_keys/restrict.c
++++ b/crypto/asymmetric_keys/restrict.c
+@@ -154,6 +154,8 @@ static int key_or_keyring_common(struct key *dest_keyring,
+ 			const struct asymmetric_key_ids *signer_ids;
  
- 	next = mm->core_state->dumper.next;
-+	/* A released thread may exit and be freed before it is woken. */
-+	rcu_read_lock();
- 	while ((curr = next) != NULL) {
- 		next = curr->next;
- 		task = curr->task;
-@@ -536,9 +538,11 @@ static void coredump_finish(struct mm_struct *mm, bool core_dumped)
- 		 * ->task == NULL before we read ->next.
- 		 */
- 		smp_mb();
-+		/* Any wakeup now lets the thread exit, rcu keeps it alive. */
- 		curr->task = NULL;
- 		wake_up_process(task);
- 	}
-+	rcu_read_unlock();
+ 			signer_ids = asymmetric_key_ids(trusted);
++			if (!signer_ids)
++				return -ENOKEY;
  
- 	mm->core_state = NULL;
- }
+ 			/*
+ 			 * The auth_ids come from the candidate key (the
 -- 
 2.53.0
 
