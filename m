@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175513;
-	b=1Vi340hCk2Dog713Y9P01ncGIpvOEvQeJ9DuqltGTJYNYj+CKkYqdwku7U9NSYWFajnT
-	 ghgXTfyNPZi2Y/h+W/Uqb/X7KrAdeMQFsZYT8jP1lePWl7D8mc+cUi5Ona3bSC2W09zdm
-	 qQddMPvRGS1arp8FrQFjhU1CXaialMDtxcH6gsxGc+tbED2T9yt2msCxdZPVf3CQfM+cP
-	 a+Ae+bO3/JERKbzvin7UR8x0i79kL5dprUaeRm6wpFjVArKXfNSleypZlINbl4Zpzmvd+
-	 JftO1Vpz5bm3v8AGqlqi7neicb7LQmABrW50TolN+mjXSYPZsRVNmeUq7Of/xWRHpJw==
+	t=1793175631;
+	b=ThGZtP26NAyJtmZrcUGiFKw9ENrn1lbIVjiZypfKTRQsCjnuaPI1Ih9MX4mSLfRYYdRF
+	 qmasFD5PfEEY+MhYUWMkWMTJ/euoJRM1n00rPhqTw3aFMBPnjrh2pse3gmAyIblgeYgav
+	 y5l34lhyMYG0VTv3Rfm3ZiBO2g/nKGkQqC9JstwW2Gf6AQuzruz4oOC0VSUJcJXupNn74
+	 1XS7cSerePsw5AacjkCvtsonlYm84AQ6FAapLnZ9IriQOEMdj9nh44jin01Sh2JaFYwP6
+	 xaxsQ9i8R3OlCIgJ4i7cnJQKZgJvKJFPCE5iz5yq9IYmeWSQRD6Q4t9LTj6z0UGMbXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793175631;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=rfg1cZlJEwCYeHTThqQx/kzAjyEawogFMalQMObgNNs=;
-	b=Qr7Z0HWB4J2BOwske2rW7WVQTZc7bWUnoHoS/n3KXGPVJGp5mqRCBPRDH89tT42s6eDA
-	 WGw+7H9PYRqJVSLP5ftL4MzSQrORiTuojQeyRCZ86NCXOtQXZ5HDQ+xPCoYKtz2doU2TY
-	 E9T3qyxwQkDDYuwgsxFtczwjB45LpfpwJCNbLT1SBAYApLrInG/lfxzM19mS8sq9OzXIW
-	 3Tx7oLOgtniJxCP/jQ8wZQ3zZnCKd4rYRVEnxZV85IwNEo1gXdBgTo0cUN9P/Cgn6cuQE
-	 JPIRDAmVY7oXA8bnQpI/ljtuCPmOup3w0SwjpqoEKdITRFBfDe1pzXaPaZCrGPcVzSA==
+	bh=FU6Km7ChT8wB3iaSth+F3/69ecBIaf5N/Fzbc/bbo+s=;
+	b=A5eQvYOn9m6fWSGkaGrlKdIw3Pr4zYAPCYzSqDE2IzfojAOpIgsNA9Za+UNRqYsicmVj
+	 opUWko8vXs3tOhgIwKHW7W+WIcwwCrZ/gnapyexKnhmeV6/oNEqzHLDZmT3o0u05UNP3e
+	 Sg6zgjGTvnxF8P2pRWq5uvZLcj9ZztFXBiaRBoGiBhxsNrbmUrTMeV8poUwm92N16Kubs
+	 Tk5HsA0z58UDYFioguFcsKGwPIDT5svxCbqfxilRR4PDYPdcgT1zF/KB1U5dnTxxtxUjz
+	 ujmlZShET8SScJLvkuwDgB8ILotWfRscVEPOmkEF50DphQwHZutWNM1q/wFhfcMVTWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izn1ZkeJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNqNQyvg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7361606A31A;
-	Wed, 28 Oct 2026 08:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2C5606A31A;
+	Wed, 28 Oct 2026 08:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izn1ZkeJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE98A1F01825;
-	Wed, 28 Oct 2026 08:18:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNqNQyvg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646B11F01825;
+	Wed, 28 Oct 2026 08:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793175512;
-	bh=rfg1cZlJEwCYeHTThqQx/kzAjyEawogFMalQMObgNNs=;
+	s=k20260515; t=1793175631;
+	bh=FU6Km7ChT8wB3iaSth+F3/69ecBIaf5N/Fzbc/bbo+s=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=izn1ZkeJiAVyrZlZw/L12WrwvmU9O9TkhkIMYNeFuVV3QwF+dw6E6BnNte8AiawuX
-	 V4xa+DjVJZXhwb5An4LGNvsgrUubDnomzrscpG6wexo/M14K7qD7WbjYWr1SfVEaTd
-	 AMkXsm0mtFAhikKH3fvL5DsiOpBnOYXnOslQmQLqvPGzEO+Fzs5Jel7RNmnq/bYJFW
-	 wzwgIjUhuSDrcUKqPEirYiuau8fXKzIffDyoMU2KiJUhvgXXCjqI2ADqU4XbpQD0Tn
-	 pYDUfJZhkBy630Bqk8DYa2RyUOuVUbSxoXiHNg6m5Poej1wzj+GJCLIhuEFesgWzl1
-	 NnCJrrGyNgccw==
-Message-ID: <7193e4ee-c5c7-456d-91f8-ef6f465f9803@kernel.org>
-Date: Wed, 28 Oct 2026 09:18:14 +0100
+	b=SNqNQyvgTJLYYki1VSd8Hcl0rY46o6Ox7LSXYq2rHJNhZE9s/g3SgZzKk9TbyXUej
+	 QsuLPUFbAhBZHeHF9UWjLtam007zqSERpnh+0tGF74wfWrl+sLxVERrxh0sBw/OOlK
+	 peUvcnC/7tdlAtykO+TZoTPoFFw+PB3f3piMINdC5IaYi/RN6nqY0rSmn8TNYUXbmN
+	 gR3tsZvNx9LO6bnBOLFwK5LVL9+iXZdynSfHTGPwCtgL75QSBCLou55YFOuqsxmPFR
+	 f88pw2cwS9M9t1RMNZr3D4E94Ab0LPajqMQgHoQgM1wtehcupx1k15Uja9JjYn2IIV
+	 l8lmiV4u8XSkQ==
+Message-ID: <6633e2c9-d4c1-49f0-a4a9-433fcd8b3337@kernel.org>
+Date: Wed, 28 Oct 2026 09:20:12 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,32 +52,32 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 43/46] mm/vma: don't leak the charge for stack growth
-To: Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
+Subject: Re: [PATCH 02/46] fork: take mmap_lock before copying mm_struct
+To: Barry Song <baohua@kernel.org>
+Cc: Pedro Falcato <pfalcato@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
  Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
  Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
  Pratyush Yadav <pratyush@kernel.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Alistair Popple <apopple@nvidia.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
  Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
  Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
  Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
@@ -90,8 +90,10 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-cxl@vger.kernel.org, stable@vger.kernel.org,
  Josef Bacik <josef@toxicpanda.com>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-43-6f74bec9a5bb@kernel.org>
- <auEJGq46amG5oPVQ@thinkstation>
+ <20261027-fixes_core-v1-2-6f74bec9a5bb@kernel.org>
+ <auB-3BQn_rR6IfY8@pedro-suse.tail5790ac.ts.net>
+ <22b819a2-631d-468e-b724-770caf9f94e4@kernel.org>
+ <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -138,35 +140,34 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <auEJGq46amG5oPVQ@thinkstation>
+In-Reply-To: <CAGsJ_4z3qgCPBpCDitVTq+xiGsS=-yEhKSbEO4Lbdn9MVAHK0g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/27/26 21:32, Harry Yoo wrote:
-> On Tue, Oct 27, 2026 at 12:18:03AM +0100, David Hildenbrand (Arm) wrote:
->> acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
->> This can happen for read-only or MAP_NORESERVE mappings created with
->> MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
->> Committed_AS.
+On 10/27/26 20:48, Barry Song wrote:
+> On Wed, Oct 28, 2026 at 3:07 AM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
 >>
->> Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
->> Unaccounted growth skips the overcommit check while remaining subject
->> to the other stack-growth limits.
+>> On 10/27/26 11:38, Pedro Falcato wrote:
+>>>
+>>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>>>
+>>> FWIW, strictly speaking malloc() isn't usable in a forked
+>>> (multi-threaded) child, but glibc/musl provide this in a best-effort way.
 >>
->> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->> Cc: stable@vger.kernel.org
->> Reported-by: Josef Bacik <josef@toxicpanda.com>
->> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
+>> Yeah, I'm more concerned about other things that can race ... :)
 > 
-> Looks good to me,
-> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> Regarding the race with memcpy(mm, oldmm, sizeof(*mm)), we
+> still have one [1] even after this patch.
 > 
-> Maybe worth having a warning when it's accounting w/o VMA_ACCOUNT_BIT
-> or let those helpers skip when there's no VMA_ACCOUNT_BIT set... 
+> That is, copying mm_struct can happen concurrently with
+> lru_gen_del_mm(). However, this race doesn't seem harmful.
+> I might be missing something here though.
 
-You mean passing the VMA instead of the MM?
+Do you have time to look into the issue, to see if it's actually still
+reproducible afterwards?
+
+Likely we want a separate fix for that on top. (or mark access as valid racy)
 
 -- 
 Cheers,
