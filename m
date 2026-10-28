@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173707;
-	b=JGiaah6V4U+3nJ/nlhmnT14SFbtH0T5Ck6YoAmJZjr8ri84wrmOykFNKlagzC9X5CDx8
-	 SmV2svPyv0VC5GCa2PLVc9mA77cO3wgH86bHbKs0OhdzyTIxgv9GJFvyS4me0eTPapH9w
-	 KONXZ8kSQ+Yxa8bgwm/uSViMSQKRgUrpfqyIUvsPwssHSopFMDEy8egLT7/W8SF1zhtN9
-	 sPRA6D1UowRMOocgeBtArPp9teFvsWaRMxoh16xWZuqhyT/y7383MeY44yVbk2v0ozYha
-	 Hzfa9bK0UqLqIpqEmFSAconKHl4lThjW1FC2JNuHYJZh/e/K2kOWH+DkkQacfmOW0Lg==
+	t=1793173846;
+	b=UBQYh/k2egla4oHG9619TZElmEKWHjhSdWP/3aFrzEDcF0TEvNfaMIv7H0gctCMn/7Q5
+	 dYyA0ohWoP3QTDAoEV930Jw4BuH852OrvBC5vTlD6WT36MRT0l2o4xLjSRmPAZx+92pzR
+	 dnD3lc1623wUElOgJJMmQZWPCChg4ORrEFTjycM4mI6O3IyZytPDxIEV9CPDGFqS/blGl
+	 E1hpQuDm8f918CM9lhw/bJqGWfsQYNxp/POTDEiN4zYbmecQz9v9PTsVXaGk5fgwFY9sn
+	 k/pJhI2RhvP2ZHOd/onwKXVMtog4A0bOZvS5d6UFCJ66DePgSkRWUDdBK9oSH/kd2kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173707;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
-	b=t175VMQkBYiyS1H7uhXDWc44tu/eF/9IQKbCSLSzyxoLxinWy6xc59WOoKFJPAEGWsdK
-	 rJedRX6Mk0aTcsoxE69BYym8gfxQLzLtfUOz8ySJgr6AeSZ5oYIl0XZTgt0UAgH64QFGZ
-	 wEK9+JICHZ01htcw+KYtwXMIlbePhlmW4mdGdNXCG3MvQX0AyYl7P/cq2MfUuX2mS7bVR
-	 eh3liBNe0xwmjARACkFEEN75tUnGDmkpPQ2cmOcRM4AXhQnLjqCeR6x0lY0dOkP8mASoF
-	 3COfdXIt05h4p94hSyelmoPAhrgMFRs//EyGFxBEgHzhxy+O2NJO4KaNCgAXHLilCcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173846;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZRNxV+ctHGQkJGUcTRrGxGBFcfBRjwGvBSmUNqUGh4s=;
+	b=0Mx+vz88ZnNoUdbkN/ft8ugOFrm+pc1gQSeIqgh0TByLbN5fiPBkBYC2n3e0x8XZnWLJ
+	 0hnU50LL4ZTYShVIDwL3wsua0pfWV2wwsLEiEPqlJBj2hlhQQ/7lILVZo+U2YafxBC16p
+	 fB3lijTlGdSaQ7kbxYFY28nSoB1kRcyCAelkKso5oAzmHPsO5cvb6yNwhG2aV7K9AIGoY
+	 Uufq7N52fc6UaQVBYhizRMxOlN62fa78ejwgod73N8eGfryDuSsQLoJcjutdhnMg3pIWd
+	 NLS2d3lEN9sVCNn7vaZ2a5Q+MaYrTI3N35YJ5Et7E6b+ZCDARZ2CRcwhZjs3pe1aWIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="WJwsi/aP";
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgLqA7LE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0643606A31F
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0643606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CED3606A31A;
+	Wed, 28 Oct 2026 07:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WJwsi/aP
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eaae8d29e0so5883065ad.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:48:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793173706; x=1793778506; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
-        b=WJwsi/aPDlmQuEKdqEBYuYMRnOF0Ys+WLx1d+m9JyaUXGwib3GorzJdcuivp7QkZli
-         zIofH4rrKKKrF8IJ2g0uzdCfbFnuiS2qeaNFbL3eCS8Sdq4zB6Ou/JTDd4jaYB0Pzjjc
-         JALC9Unlvj3ZStTweea5iGCX3+l0ZMMjkI5UJyBcYVONeyCbIJnLwhdepY0UTOpWvgfH
-         uXc0bVnZFBNuDXmyJtNDUA7T6UmwSmwyx97W/Z1H8l/fDfA34gkutmxCL7Paw2YoQB/2
-         ns0mKVANZ60JtEGSfoljBS1MEF+YynsbKhO/fLELjqvntrNjEn5fA5CNxIRDoNgkmbk9
-         boFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793173706; x=1793778506;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7JDiLc3LwKorBdxIG2fO2JqwT8cJrgK3MbYLow1HkeE=;
-        b=0IdKjc33Nex7ZogsBpAtEYfPXJ/F/djwyD+gtowctITwmYTqmtngynHZgSsHn3sTUR
-         8puW0q9+TmGm6AuRQc+5yWayicRP3tAWBiby4qDoFwDG7+4X1gCEX0ezYfC8pt0jgYRV
-         7TpcO1IGjwdsrrb9k0QJQa0lLo5aU+F9LBR0sqSWnzi12qN9vnQwpy7fT0tcJmLlSZsy
-         /QF0F9iFjL2U0AvszF6SznvpFSDUR7ULRYzPOuTuvm8FiyQpSmJc1iVe37egMybeXyrW
-         UulerpoPLAMdBpXDTipa1yX4+n1EO9vIo7HNETfnZasiYpfY/g2McL06QCh5EvaWh/oR
-         +KZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIYdsanri+kLFqy+7tkcKoX4MQ9c5ko90eHCW4NjUXON00uPjFQHdDnJc0lzVYgZlxscFwc38=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsqvR47A1xTI4UB/FlY2dxNXY4Bsf2Qz5fieCzczFKw9juNxie
-	cj390G4osJlfEkIOJa3JyTnLOVrjRsPMM4WL4bXYxxG271xxverBUeN6cfg86PXRFRQxWkt5zpz
-	jR1XTa94uy88HwOnrqzVPRIHQEx/nwU/NoA==
-X-Received: from pleo1.prod.google.com ([2002:a17:903:2101:b0:2ea:f42f:612a])
- (user=sonalipradhan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2cf:b0:2e2:d834:a40f with SMTP id d9443c01a7336-2eb00141a17mr13956705ad.9.1793173705739;
- Wed, 28 Oct 2026 00:48:25 -0700 (PDT)
-Date: Wed, 28 Oct 2026 07:48:21 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgLqA7LE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4300C1F01825;
+	Wed, 28 Oct 2026 07:50:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793173845;
+	bh=ZRNxV+ctHGQkJGUcTRrGxGBFcfBRjwGvBSmUNqUGh4s=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mgLqA7LE1hT8ifeFCdgKjxs07zUMgblZj0t3wZSKxr2lqKSEgLV6wZpDGHMDmH8vg
+	 dizIhqzKwtrjbGBS2t8dWYyN5k7a/3AwdNQAmKvMf8GnNoIlL3bvmm78wfgE41zb/d
+	 O3XjszQs6Y3Rb+xAN+uwfp2Hl5sl9aqdL+NkdrVEzug0sF6FhlQBQZo4KGbaswucSN
+	 T0BsZhXDXAW4365g1b5/MOxv9rKdnYn6zsMP6rXlIHlYIjtC39CX5tA6WdeN1jt4Fr
+	 4kNtOTJ2ITRIj7n4tQLBvvNOQWTLBjWdFQrPj/+Q3IqIcTHZI900ho1+JWqe5sZQTA
+	 qg7BHBvw5Lunw==
+Subject:
+ Re: [PATCH net v2] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
+From: netdev-bot+sashiko@kernel.org
+To: n0ps1edzz@gmail.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, hangbin.liu@linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Wed, 28 Oct 2026 07:50:44 +0000
+Message-ID: <179317384479.3134.10802512477499125760@kernel.org>
+In-Reply-To: <20261026044808.613-1-n0ps1edzz@gmail.com>
+References: <20261026044808.613-1-n0ps1edzz@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,79 +63,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261028074821.579450-1-sonalipradhan@google.com>
-Subject: [PATCH v2] usb: gadget: f_midi: fix UAF race during IN request handling
-From: Sonali Pradhan <sonalipradhan@google.com>
-To: nkapron@google.com, gregkh@linuxfoundation.org
-Cc: tiwai@suse.de, balbi@kernel.org, jeffinphilip14@gmail.com, 
-	victor.krawiec@arturia.com, fanwu01@zju.edu.cn, christophe.jaillet@wanadoo.fr, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, sonalipradhan@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-f_midi_disable() drains and frees pre-allocated IN requests from
-in_req_fifo without holding midi->transmit_lock. If f_midi_transmit()
-runs concurrently on the workqueue, f_midi_do_transmit() can peek a
-request from in_req_fifo and write into its buffer while
-f_midi_disable() frees it, leading to a use-after-free.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Additionally, when usb_ep_queue() fails in f_midi_do_transmit() (such
-as with -ESHUTDOWN when the endpoint is disabled concurrently), it
-resets req->length = 0 and returns active instead of the error code,
-causing the do-while loop in f_midi_transmit() to keep spinning under
-midi->transmit_lock until the substream is drained.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Fix this by acquiring midi->transmit_lock in f_midi_disable() while
-releasing IN requests from in_req_fifo, and returning the error code
-from f_midi_do_transmit() when usb_ep_queue() fails so f_midi_transmit()
-aborts immediately and drops active substreams.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: e1e3d7ec5da3 ("usb: gadget: f_midi: pre-allocate IN requests")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
----
-Changes in v2:
-- Remove the transmit_lock and ep->enabled checks added in v1 from
-  f_midi_complete() and f_midi_transmit().
-- Return error code from f_midi_do_transmit() when usb_ep_queue() fails
-  so f_midi_transmit() aborts the loop immediately.
-- Link to v1: https://lore.kernel.org/all/20261019135701.2767078-1-sonalipradhan@google.com/
+- [Medium] In VRF redirect mode, rawv6_send_hdrinc() (net/ipv6/raw.c) no
+  longer charges per-interface IPv6 SNMP counters to the slave interface.
 
- drivers/usb/gadget/function/f_midi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+--
 
-diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-index 63fb6ee70a3d..48cda34399e8 100644
---- a/drivers/usb/gadget/function/f_midi.c
-+++ b/drivers/usb/gadget/function/f_midi.c
-@@ -420,6 +420,7 @@ static void f_midi_disable(struct usb_function *f)
- 	struct f_midi *midi = func_to_midi(f);
- 	struct usb_composite_dev *cdev = f->config->cdev;
- 	struct usb_request *req = NULL;
-+	unsigned long flags;
- 
- 	DBG(cdev, "disable\n");
- 
-@@ -431,8 +432,10 @@ static void f_midi_disable(struct usb_function *f)
- 	usb_ep_disable(midi->out_ep);
- 
- 	/* release IN requests */
-+	spin_lock_irqsave(&midi->transmit_lock, flags);
- 	while (kfifo_get(&midi->in_req_fifo, &req))
- 		free_ep_req(midi->in_ep, req);
-+	spin_unlock_irqrestore(&midi->transmit_lock, flags);
- 
- 	f_midi_drop_out_substreams(midi);
- }
-@@ -661,6 +664,7 @@ static int f_midi_do_transmit(struct f_midi *midi, struct usb_ep *ep)
- 		ERROR(midi, "%s failed to queue req: %d\n",
- 		      midi->in_ep->name, err);
- 		req->length = 0; /* Re-use request next time. */
-+		return err;
- 	} else {
- 		/* Upon success, put request at the back of the queue. */
- 		kfifo_skip(&midi->in_req_fifo);
+ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
+
+This patch reloads rt from skb_dst(skb) after l3mdev_ip6_out() returns in
+rawv6_send_hdrinc(). The VRF output path can replace the skb dst and
+release the original route, which leaves the cached pointer stale. It fixes
+a KASAN slab-use-after-free reported in rawv6_sendmsg().
+
+> diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+> index b965258cf9e5f..bdea825434ea7 100644
+> --- a/net/ipv6/raw.c
+> +++ b/net/ipv6/raw.c
+> @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
+>  	if (unlikely(!skb))
+>  		return 0;
+>  
+> +	/* l3mdev_ip6_out() may have replaced the skb dst. */
+> +	rt = dst_rt6_info(skb_dst(skb));
+> +
+
+[Severity: Medium]
+Does this reload move the per-interface IPv6 counters off the slave device
+in VRF redirect mode?
+
+When the VRF device has a non-default qdisc and the packet is not
+xfrm-transformed, vrf_ip6_out() calls vrf_ip6_out_redirect(), which swaps
+in the VRF's private route:
+
+drivers/net/vrf.c:vrf_ip6_out_redirect() {
+    ...
+	skb_dst_drop(skb);
+	skb_dst_set(skb, &rt6->dst);
+    ...
+}
+
+That vrf->rt6 comes from ip6_dst_alloc() in vrf_rt6_create().
+rt6_info_init() zeroes everything after dst, and rt6i_idev is never set
+afterwards. So after this reload, rt->rt6i_idev is NULL when the function
+gets here:
+
+	IP6_INC_STATS(net, rt->rt6i_idev, IPSTATS_MIB_OUTREQUESTS);
+	...
+		IP6_INC_STATS(net, rt->rt6i_idev, IPSTATS_MIB_OUTDISCARDS);
+
+_DEVINC handles a NULL idev by skipping the per-device counter, so this
+does not crash. Only the netns-wide counter gets bumped. The second
+LOCAL_OUT pass in vrf_process_v6_outbound()->vrf_ip6_local_out() does no
+OUTREQUESTS accounting either.
+
+As a result, raw IPV6_HDRINCL packets sent on a VRF slave in this mode
+would not show up in /proc/net/dev_snmp6/<slave> Ip6OutRequests or
+Ip6OutDiscards, and no other device counts them.
+
+The other IPv6 senders count OUTREQUESTS against the original route's idev
+before the l3mdev diversion. ip6_xmit() does it before l3mdev_ip6_out().
+__ip6_make_skb() does it before ip6_local_out(), and that covers raw
+sockets without HDRINCL too.
+
+Would it work to follow the ip6_xmit() pattern instead? That means taking
+rcu_read_lock() before l3mdev_ip6_out() and counting OUTREQUESTS while the
+skb still holds its reference on the original rt.
+
+dst_release() frees through call_rcu_hurry(dst_destroy_rcu), and that
+callback is also where rt6i_idev is dropped. So the original rt and its
+idev should stay valid inside the read-side section. This would fix the
+use-after-free without changing which device gets the stats.
+
+>  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
+>  	 * in the error path. Since skb has been freed, the dst could
+>  	 * have been queued for deletion.
+
 -- 
-2.56.0.307.g5fe7bd680c-goog
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026044808.613-1-n0ps1edzz%40gmail.com
