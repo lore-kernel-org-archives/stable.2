@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793213949;
-	b=M2wUPRxfZ39vwj9jkYhZ3CSEYJ+V8J9Om8iEKsqUTWNMK59n22lntp/6vHjCFJipLdvN
-	 ULHnLecQ+6QkKbVoA8Tn3xk7fpZUyDR5sBdoCINxdpzcw5a6CbEYIr2rtHUVYW0p4IwLV
-	 tI/AeavUjMOy8DSc3nBLHvUWR8BNQH+nJfMVKL4hxoFji7QaGa2AQGFQfU3os+fITWUf5
-	 g32ILyzEE/e76N6tKTIPQqwmTyIMTbiXk059zvIZZrK/VCbQ5jxJNltOBH5eAELq6RA18
-	 gn2kyxUxjhn9MGUiy8O4XesVICOVTy3+iLcXlhgcdc7G5rxtqSIJx+PIN8WwWspEfyg==
+	b=1xkZFGdJPIcAiMkJSEbh5Y0zmlG9I3CKU37J212tlwNH6uku1wppfJtt2VLzZnJxiHdI
+	 iGqweLCVq+WZTGPXloSZ51vp9GpdPnqrp7YheXF5XswjJrnhCs49IUksBNkeS6yYVL6+h
+	 3vuTc6CNogKSfkIkTODNZ3LwLfezAJpHw3a/HiNgJ+nqCelnLOrDN9oBnYO4at/fcxG4f
+	 t7W7OWiCKi5/uKPssydmWECKGwDrJmYiBVsEJ7o1m5vy9TOKizFVeQrEzIT9qySsbBI1u
+	 8d4tltWCASF2rkygYhvrEP+VstEkti70gXCc7bnehqLsUKlKZ2euqCajtdc7IGd1AAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793213949;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=5XcEKu2nnCJDqi+PSEmfMtLmBMsIdMa26qMPy9JaSVc=;
-	b=SGPqrCPvObr7Pc32Z5uViFsyGygWMjhl8ejoCOKj7hoqTHCGeImGM+VgqMPNncareS1t
-	 DLxWs0t/40NxcRUDzAeyoQclHFRopqmNCXJ9G/MSozMmOR1vm7ggneYsvydPpZL8JyJYB
-	 23ytGlQUOc31Q3DiilzTf6R1l01jnYP5g3we22S87UL+VTiSQFREOUydc2mdTHsLA//Rd
-	 G/gMTf4bSMH9kuylx38X7O/6wVh21fUl4oJdCESHaaDSUkdEwSf08ZbcZnCmSFi66djj2
-	 Fg+0sxmSY3y9/VzgFan8rQ6BUcqTtKaiajLPtBdhtdEeb068EGRqFpJwwNRiLfQpGHg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=ZhQiI6ISi82nrkkkvTbUiuz2A4v8vR4aUaNLgAhsw/M=;
+	b=hce/Ab5HIjgNfay8QONvAY90iZEKusgIzrotpFVbdQundGpT2CS+skondKu1GYoLjziY
+	 rkZi5xBCBqAlEbCMAa/SmeNE/6avNCS0aXkH3ZGwGe72xXLeSr+oAiG0DkX2CUzq6qX5u
+	 Md6nfDkTIywVfZ2UaDGtjVNUSLDgox88ciPVCjyHYfcFChglc+JJq3bQgdBWo4v7+HJIk
+	 zKfhukiKQajJW5SZUjVF+PQ63xAa6jEAB9pkmrUgRh7IoXf6AAAfLT31ahDZSRKtk2v7T
+	 KUOkwl6He+GemhX6/KadmZEDUlkcqa4cInpM2bUKdwAsGfnkSY+FeF2s1x1Ewn43BJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vAfT5Uab;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=BCVDr1bN;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B080C606A322;
-	Wed, 28 Oct 2026 18:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BECB606A323
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:59:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BECB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vAfT5Uab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26C81F01825;
-	Wed, 28 Oct 2026 18:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793213948;
-	bh=5XcEKu2nnCJDqi+PSEmfMtLmBMsIdMa26qMPy9JaSVc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vAfT5Uab/k+8invTLUZTjrDaYPFFcMpMDkSr7p89uoQxhZtW+D4Q6ls7xlPJGXLq7
-	 2QKf2AETmjl2uYWDvUbTjfE13cPEZskBxEN4bfXlj1CnlcUiH3WYEeXj1wbw10X46o
-	 sa48XjEeUWfVCEc2bslX57g9bm53Cja8T9wVtA9U=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0687/1887] firmware: arm_scmi: Move handle get/set helpers
-Date: Wed, 28 Oct 2026 17:46:23 +0100
-Message-ID: <20261028170515.047273166@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=BCVDr1bN
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-170135e43c7so248380c88.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:59:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1793213948; x=1793818748; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZhQiI6ISi82nrkkkvTbUiuz2A4v8vR4aUaNLgAhsw/M=;
+        b=BCVDr1bNxO31diAHHK3mNbWrE9Z6EGXQYHU/lqvw6SVqFvMvTMEnaFxwY7GOztMjvb
+         lwrdYYSVOBiuz0oR+EcUS+1EwHXr0UtPeO+V1SK1H7kAuIozFPaZRRLZCfCvUBZbBO2S
+         eBFfU5v36AnaTMUxJ6xzLqv1m6H0CP0VTsFEx/rmfTPe05Cg16e0913uwNfoA8HM2wzc
+         4jWB1fagUP1P9ETsOmboGHuQpj8gt8j2+dowsFx6bECWlEu2ZEaWA4QQtuvFvQt+6bjB
+         Yaq6BFRenZI4pm/T5cgLANpajkwVXZgMiI22BPVePSuFEeVicpJ2/5penh5QjU/X2QA9
+         g8zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793213948; x=1793818748;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZhQiI6ISi82nrkkkvTbUiuz2A4v8vR4aUaNLgAhsw/M=;
+        b=Kclz0yJnAFNvpDBeIlfRimETxM9lONDIbjPQOQyr4CcjX7Qfzp2j9O7/oe5b/RiAts
+         W2XKZgNttz32vTBBD+f7zZL8cYQblpOMZjvocPnxxImosRaFX/Za+zqfrhX8jjyei0ZA
+         HGhgb2jCXMb3Sufmin+XUWZlLDsuQbOOgF9L0mx39dBXalDccfjERcV77wg2tLJ5FGRA
+         Ebt9kTP5GnLelXGD7EtdOp8qqCi5u7e4XItVkUUGNmf9+YJ1PMQPr/x8omue8WBvP0BY
+         aHc0TGjMBrAQLCa0xJQBTrv6xcgj7cY+lRtJSiV1OdapKF8Fkg4QLTbC/0pp8lTue1qk
+         vaeQ==
+X-Gm-Message-State: AFq9FYJVmu2HgsxT9bfLov7uz2hlEQeTElw9mgptMql1rlg8+POaLp8C
+	OpBufwr7+whtQkmpwu8wPQKRT7EYwSAwXJIdndty1HJfwA7Hedah+jFyJOLw9Y5d/YPncxKUtWR
+	naDzL
+X-Gm-Gg: AYBFou35cWEJxBqTqbiMbxOXdqtLR+BBtcYVzW6PlW1dtcMZ5hwLqvCQoHey2t0w9NO
+	pWQqKPBn8XO9DJi3TnzNTAayVrg4Kr9l+/Ub/QsqP1WgTcm72bzGQlHslClzi9d3j2XicI0NOup
+	Vk0JtHwWqDSxICzCt1cXV8p5oyukNDi2SqnAp4FqZNhfSbqjy/AymGdIbzfBUQPudm5YBioMUCy
+	HGS/fV7VBIyzUnSOJIDUB2vVbzUuLO+dx741n6XORS9T1SnJEN0VogA4WyJJwlGwOdftfi1MYKv
+	cK6qjBUWwYuwXsDcEVqXjr8s1/ng2L1rgqSLYq78UZkGyMtCOORjvbA32ovA86cc0yNdSoo/gWh
+	Nl36c8nZvk/kINMOvG4beb3pAukLa3ssEJJy+ZDPzcc190+Dv/O+OMrgr2rac6aIXBQJXe8iHAj
+	m7NPGgf+e9ZaXPiMEorgqPfRituR6mDbzL8eTfrdlSxqV6I0MVYc+SkEkSgdbl9JgV/7TY2D68d
+	lMGL8yZ5/X1/AvHfhl5wyt7oT4BL31wyeX6EurAFt+re/TY5r9hhq99QLAVmAIj4kq1s1wNsQEn
+	Wpo5R3EmGjR+kGMa0VUbww==
+X-Received: by 2002:a05:7022:289:b0:18d:96e8:b913 with SMTP id a92af1059eb24-1a6cffd2ca3mr3612410c88.47.1793213947858;
+        Wed, 28 Oct 2026 11:59:07 -0700 (PDT)
+Received: from 4cb1f8191411 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a76056a001sm10800251c88.22.2026.10.28.11.59.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 11:59:07 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,161 +90,72 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: [REGRESSION] stable-rc/linux-6.1.y:
+ (build)/tmp/kci/linux/include/linux/highmem.h:427:21: error: implicit decl...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 28 Oct 2026 18:59:07 -0000
+Message-ID: <179321394684.45576.5719804702713084928@kernelci.org>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+New build issue found on stable-rc/linux-6.1.y:
 
-------------------
-
-From: Cristian Marussi <cristian.marussi@arm.com>
-
-[ Upstream commit 971fc0665f1361f23251e4d85fac4aed1b683505 ]
-
-Move handle get/set helpers definitions into driver.c and invoke them
-through the bus notifier helper.
-
-Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-Link: https://lore.kernel.org/r/20221222185049.737625-7-cristian.marussi@arm.com
-Signed-off-by: Sudeep Holla <sudeep.holla@arm.com>
-Stable-dep-of: 295416091e44 ("firmware: arm_scmi: Fix slab-use-after-free in scmi_bus_notifier()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/arm_scmi/bus.c    | 17 ---------------
- drivers/firmware/arm_scmi/common.h |  4 ----
- drivers/firmware/arm_scmi/driver.c | 35 +++++++++++++++++++++---------
- 3 files changed, 25 insertions(+), 31 deletions(-)
+/tmp/kci/linux/include/linux/highmem.h:427:21: error: implicit declaration of function ‘folio_test_highmem’; did you mean ‘folio_test_hugetlb’? [-Wimplicit-function-declaration] in init/do_mounts_rd.o (init/do_mounts_rd.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/firmware/arm_scmi/bus.c b/drivers/firmware/arm_scmi/bus.c
-index 7514b3e326114..14f96583b6e0d 100644
---- a/drivers/firmware/arm_scmi/bus.c
-+++ b/drivers/firmware/arm_scmi/bus.c
-@@ -347,27 +347,10 @@ scmi_device_create(struct device_node *np, struct device *parent, int protocol,
- void scmi_device_destroy(struct scmi_device *scmi_dev)
- {
- 	kfree_const(scmi_dev->name);
--	scmi_handle_put(scmi_dev->handle);
- 	ida_free(&scmi_bus_id, scmi_dev->id);
- 	device_unregister(&scmi_dev->dev);
- }
- 
--void scmi_device_link_add(struct device *consumer, struct device *supplier)
--{
--	struct device_link *link;
--
--	link = device_link_add(consumer, supplier, DL_FLAG_AUTOREMOVE_CONSUMER);
--
--	WARN_ON(!link);
--}
--
--void scmi_set_handle(struct scmi_device *scmi_dev)
--{
--	scmi_dev->handle = scmi_handle_get(&scmi_dev->dev);
--	if (scmi_dev->handle)
--		scmi_device_link_add(&scmi_dev->dev, scmi_dev->handle->dev);
--}
--
- static int __scmi_devices_unregister(struct device *dev, void *data)
- {
- 	struct scmi_device *scmi_dev = to_scmi_dev(dev);
-diff --git a/drivers/firmware/arm_scmi/common.h b/drivers/firmware/arm_scmi/common.h
-index feccde5e29650..23f0ab3f2ed7f 100644
---- a/drivers/firmware/arm_scmi/common.h
-+++ b/drivers/firmware/arm_scmi/common.h
-@@ -96,10 +96,6 @@ static inline void unpack_scmi_header(u32 msg_hdr, struct scmi_msg_hdr *hdr)
- 
- struct scmi_revision_info *
- scmi_revision_area_get(const struct scmi_protocol_handle *ph);
--int scmi_handle_put(const struct scmi_handle *handle);
--void scmi_device_link_add(struct device *consumer, struct device *supplier);
--struct scmi_handle *scmi_handle_get(struct device *dev);
--void scmi_set_handle(struct scmi_device *scmi_dev);
- void scmi_setup_protocol_implemented(const struct scmi_protocol_handle *ph,
- 				     u8 *prot_imp);
- 
-diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_scmi/driver.c
-index 9fa5632aa2c75..f01097b9e953a 100644
---- a/drivers/firmware/arm_scmi/driver.c
-+++ b/drivers/firmware/arm_scmi/driver.c
-@@ -1934,13 +1934,6 @@ static bool scmi_is_transport_atomic(const struct scmi_handle *handle,
- 	return ret;
- }
- 
--static inline
--struct scmi_handle *scmi_handle_get_from_info_unlocked(struct scmi_info *info)
--{
--	info->users++;
--	return &info->handle;
--}
--
- /**
-  * scmi_handle_get() - Get the SCMI handle for a device
-  *
-@@ -1952,7 +1945,7 @@ struct scmi_handle *scmi_handle_get_from_info_unlocked(struct scmi_info *info)
-  *
-  * Return: pointer to handle if successful, NULL on error
-  */
--struct scmi_handle *scmi_handle_get(struct device *dev)
-+static struct scmi_handle *scmi_handle_get(struct device *dev)
- {
- 	struct list_head *p;
- 	struct scmi_info *info;
-@@ -1962,7 +1955,8 @@ struct scmi_handle *scmi_handle_get(struct device *dev)
- 	list_for_each(p, &scmi_list) {
- 		info = list_entry(p, struct scmi_info, node);
- 		if (dev->parent == info->dev) {
--			handle = scmi_handle_get_from_info_unlocked(info);
-+			info->users++;
-+			handle = &info->handle;
- 			break;
- 		}
- 	}
-@@ -1983,7 +1977,7 @@ struct scmi_handle *scmi_handle_get(struct device *dev)
-  * Return: 0 is successfully released
-  *	if null was passed, it returns -EINVAL;
-  */
--int scmi_handle_put(const struct scmi_handle *handle)
-+static int scmi_handle_put(const struct scmi_handle *handle)
- {
- 	struct scmi_info *info;
- 
-@@ -1999,6 +1993,23 @@ int scmi_handle_put(const struct scmi_handle *handle)
- 	return 0;
- }
- 
-+static void scmi_device_link_add(struct device *consumer,
-+				 struct device *supplier)
-+{
-+	struct device_link *link;
-+
-+	link = device_link_add(consumer, supplier, DL_FLAG_AUTOREMOVE_CONSUMER);
-+
-+	WARN_ON(!link);
-+}
-+
-+static void scmi_set_handle(struct scmi_device *scmi_dev)
-+{
-+	scmi_dev->handle = scmi_handle_get(&scmi_dev->dev);
-+	if (scmi_dev->handle)
-+		scmi_device_link_add(&scmi_dev->dev, scmi_dev->handle->dev);
-+}
-+
- static int __scmi_xfer_info_init(struct scmi_info *sinfo,
- 				 struct scmi_xfers_info *info)
- {
-@@ -2278,8 +2289,12 @@ static int scmi_bus_notifier(struct notifier_block *nb,
- 
- 	switch (action) {
- 	case BUS_NOTIFY_BIND_DRIVER:
-+		/* setup handle now as the transport is ready */
-+		scmi_set_handle(sdev);
- 		break;
- 	case BUS_NOTIFY_UNBOUND_DRIVER:
-+		scmi_handle_put(sdev->handle);
-+		sdev->handle = NULL;
- 		break;
- 	default:
- 		return NOTIFY_DONE;
--- 
-2.53.0
+Log excerpt:
+=====================================================
+                 from /tmp/kci/linux/init/do_mounts_rd.c:12:
+/tmp/kci/linux/include/linux/highmem.h: In function ‘memcpy_from_folio’:
+/tmp/kci/linux/include/linux/highmem.h:427:21: error: implicit declaration of function ‘folio_test_highmem’; did you mean ‘folio_test_hugetlb’? [-Wimplicit-function-declaration]
+  427 |                 if (folio_test_highmem(folio) &&
+      |                     ^~~~~~~~~~~~~~~~~~
+      |                     folio_test_hugetlb
+In file included from /tmp/kci/linux/include/linux/bvec.h:10,
+                 from /tmp/kci/linux/include/linux/blk_types.h:10,
+                 from /tmp/kci/linux/include/linux/writeback.h:13,
+                 from /tmp/kci/linux/include/linux/memcontrol.h:22,
+                 from /tmp/kci/linux/include/linux/swap.h:9,
+                 from /tmp/kci/linux/include/linux/suspend.h:5,
+                 from /tmp/kci/linux/init/do_mounts.c:7:
+/tmp/kci/linux/include/linux/highmem.h: In function ‘memcpy_from_folio’:
+/tmp/kci/linux/include/linux/highmem.h:427:21: error: implicit declaration of function ‘folio_test_highmem’; did you mean ‘folio_test_hugetlb’? [-Wimplicit-function-declaration]
+  427 |                 if (folio_test_highmem(folio) &&
+      |                     ^~~~~~~~~~~~~~~~~~
+      |                     folio_test_hugetlb
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:5f55b9dc3276827314b6c565f6596ed143f04cff
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  cf976d6a55753dce91f48c978098f1ebfafc42ed
+
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ae235a75c0836a8c2f178fd
+
+## multi_v7_defconfig+kselftest on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ae2359d5c0836a8c2f178ec
+
+#kernelci issue maestro:5f55b9dc3276827314b6c565f6596ed143f04cff
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
