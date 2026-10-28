@@ -1,57 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210349;
-	b=tLVjcO2tQ9S7knJ+q+PUfq5ZY3pKkqK6XWSBglkSi8kmFS/6ELGdlFJ+TygcVEIgMRON
-	 Neobwcfqgrba5OCoJzfRKPDL/zCciQHGCkFzWIETIURbzOnPj0kWyYYlaMHVYggKh1nYQ
-	 Ra/nXD5PmheacXbphieLeOCWNbmitzmbZV68XnKGd0unHJ+ishU6Q2GRF7/XvcBmpPtjL
-	 IoPOmVxr7POlq/quxRr0nOUhyEXsocAFEstjtTEG3tVGr5Z6lautI0y8u0C+Y9JfaUXdZ
-	 XO51nQkCL/5ZmSiAibj6bR4iY9GeUbuyLIAjkob/lSj11VtXNXQ2y4HV5UNtgKy0txw==
+	t=1793210350;
+	b=f+/Ndw64XJu5Nah0cCRJTdKNO3FjK/1ypG7nIWG9b7Qd+CRN5QLDhpjInAn0diYUBZ+t
+	 LST3OQlz71h279UXuK+pYP6Nm9OqMoxe0QUSWnPKfjhUekwo5mWVTwFIxm8p9TUChZPsm
+	 s2xeSlrXf+TgmfrGYfH0ZlbU+aqbqHnyYMcfwm2aDTNVeAuCHKHcrOgj3eg691ICLQ5Dd
+	 6lvTcT9eUgq2rxOfh5eOi+gqlLqKAaQRrFeotZCZftkIP1bwlFzyOtfb4ETFyt8q91BQQ
+	 pOC3XOMPJdYTnh/p6GYlfF2696kovkIZh6+EteriGTAC199czivSR7EcaSbAJCW72dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210349;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9b2jj4R89APblUemIE4wwyGtR2Uw+qODLxvgEyCSezw=;
-	b=hR1kH2Lj+kdptkv/AwH5zBy1tF5lVEq+V/9HkUx1WhamZJMXUiBQI5ot+CxbcxlA2Z/L
-	 hARIoTEmOXfkTzlg0PbMJM2g8kq7JUFH+tCgJeVDHY58KZp4LIxwawFRImrx0WRWGWhSw
-	 0HqdsyPIYMC8yqUuA5WIUSWwCrdsOHip9PjmXNQ5VwGlk1Y6k8pjzuDlfZ97XtG1F3LXV
-	 sibkEQAGlwzgFus6Vk92cnSoAc/rnOeTuk7ylNjra9x7sqjy8Jtv5OjfGBDRqOJQ3+Uq2
-	 1jogea1fByraxW9R4qV/wXQtSNCOPRs1TgtzNeFs7V31AwaLKtcxjGAKI+20/Kg2i7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210350;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=WSkGX42WfGdX69olvoEpu3biG1g+lIj/Jeu9pF+3lmo=;
+	b=zf1ISVFxEl7WSXTNuy2tSbV1Bg/SthLInGvA1C/OY0WJmT21epbOOoW9GNm6MHAbJhyg
+	 Q4ZbA2qcfTEVqGllrL7DF5XQQddGkuX5mRAcmqiyJNjueBk7DUhVT9fMUtGrDccQE5M70
+	 kjnbwN2U3bebpdYkYp63itHL+9DpvevC17lq5L6YRH+vVfMJ4Sp8PgaUFXNjRR17f3U6Y
+	 l7Z9Viryj0tsvVCRqMvkREOqJrGQLq4+CPIp43mcKTWzFi8MEfU7CbrEk6Yk5wsp5EreM
+	 8isCTjo9LivZ8LNTfLF9x40Zz+MWxwuBgi57nXsamiaqoxeQA9pM015Rj3Mjq+gPstA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jnuCx8L3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=WD0ossUf;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68893606A31E;
-	Wed, 28 Oct 2026 17:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E929606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E929606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jnuCx8L3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C461F01825;
-	Wed, 28 Oct 2026 17:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210349;
-	bh=9b2jj4R89APblUemIE4wwyGtR2Uw+qODLxvgEyCSezw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jnuCx8L3eU5WsCwWTqhBWHtwe9Lh1rWCSsjSXOA/v+bAUh1xo0RMc9Yz2F+Jtieie
-	 bp7xVEgFbpEj2n+5rv4jlK9IpNpIr7F13JDD1jcIexhUY2MPSuFzOc8ywlQWEbI0+x
-	 v7H2LK3d2PHKkVmoLfURtTlc5j89y9Eha8scN2fg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 6.6 147/168] io_uring: look up the file before queueing to io-wq
-Date: Wed, 28 Oct 2026 18:01:23 +0100
-Message-ID: <20261028165946.565126820@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=WD0ossUf
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-14394530ec6so1477007c88.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:59:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1793210349; x=1793815149; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WSkGX42WfGdX69olvoEpu3biG1g+lIj/Jeu9pF+3lmo=;
+        b=WD0ossUfupL6jDfF/pC7QSfFYpDWIa98B23X/vG9DsWgAA8A1txtDAR8GpEUPBjaQO
+         aSe6LyO7jolpIFSSMlU2w0L1rnC27srklGso0fq1sQ2w+NTjQM0sP/cB4bRpupbMTTtD
+         0A09miuFDvzx2VyrUtgT6c/ied1F04dA/G1JmUuZ1EP4XOzAqGZzlgk4rnrmliYHTobK
+         hp34/PiRwcgg6jmnYIMFdwBWLJs9zOeoqQDnfv3SzxIyAXg9MWL9Oxsc2JnImakvnSdI
+         v0rlUUNFBqh2FW0CL1/162LctTtpnK5Pe3lpqIS4MlFj0gbVeHL8yQ7OGA6jdza1c+C6
+         CsOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793210349; x=1793815149;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WSkGX42WfGdX69olvoEpu3biG1g+lIj/Jeu9pF+3lmo=;
+        b=FfIn904zwpZT3zc4zNOOk21o3vaOwBDPCJP1E46KnZUVS/nWhClM2pqJPhtD3svoYR
+         7/4SgxuCExA8AnaIK067IHBCNuYXeGCfQTktsx3980JUItthMMRcse/JY5qxE2P5iT63
+         eI228aFDpaQIN4RfyQr7uCOO1DlMXmmvGzVdXxG3upWLwCsE5ZW6l87pwLdRcRNvbSVT
+         /P2QiFvoKJaLmS+PH1csLRKBvetsJrmjtGiRFlwF+DbyMGeJ5oX2RVllHnWnH2T6wS06
+         GvjKnd9UShA9QWw1KDdsC2X4qh4JkqNa6XtY38EpU7YcB6GVmIpngkSSx2zOnXApIhxh
+         ajxg==
+X-Gm-Message-State: AFq9FYK3KmgQadAegqWHJHa/W3D8LdMtUzY8ieN6tGBO5uE1q8g7MsHZ
+	al3flRlqRGyeFCPvUFkTsdB7PL8y/am7hiXikrktW7Ng3Bffu+DlO3RoIGH3RRsk1Ds=
+X-Gm-Gg: AYBFou0+JDyBVZ2xP5YfcYCmfxNniLnTfEWqeKG6l07sDUJkf7CKYvoNX21G6AYHeJn
+	s5TyCrsdobL8nyq1iRR33kIt9joWyXBg17gFQin9ywmvWN8hUm7+8Qi8NuSadkHZFGetdC8rJIe
+	gTwujq7aJIHiEjOpK+oeaYbUjFmyzIYlwY1SeDS7+y8jflOgFpBJPCcePQkhc31beaBonzZ5fKh
+	6DMJ3yp9btFQrJ2CYTbHjZBw//xO4mF+OLDMeXDSw/HqWTKz6W8GjRdK6tdywt+J3ou1bFTfQCN
+	sKX88G7QC/IfDQ0y16hJNw/63508zK0yQkQZ1Ar1atN5v8A5viSYfbnp3YhUnBHlY2ac8iB8lXT
+	+ogXG3ii3NhjbyIlPmzYSMlT4847LBV+Xd3UYUpSggBNTA5hc29V2nH/hrKp9tr6+BHnTAz3Cr1
+	9L534FxE6ByZMOd3WcvbCWrsxhekWRgORdnQ709KpRciLrb/4SWQLI5+Va8dWZ+902Q1Zuua+s7
+	U2mTyJN0fh8bMYNHPklcOGpiJYLh0f4LXLhO0nmVnebiYU8Ygid7HY/NfPE2wHmYRfzKAsPNN+p
+	IOVDf+kOvms4bnqFmtxm7kc=
+X-Received: by 2002:a05:701b:4302:b0:1a4:4194:fc04 with SMTP id a92af1059eb24-1a6d0d4dc27mr3977885c88.28.1793210348926;
+        Wed, 28 Oct 2026 10:59:08 -0700 (PDT)
+Received: from 4cb1f8191411 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d85f23dsm6060326c88.11.2026.10.28.10.59.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:59:08 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,143 +89,56 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: [REGRESSION] stable-rc/linux-6.1.y:
+ (build)./include/linux/highmem.h:427:21:
+ error: implicit declaration of fu...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 28 Oct 2026 17:59:08 -0000
+Message-ID: <179321034779.43309.2420164541440725034@kernelci.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+New build issue found on stable-rc/linux-6.1.y:
 
-------------------
-
-From: Josef Bacik <josef@toxicpanda.com>
-
-Commit 98bc044d5a5374f8d3605fe55a8e2df6d6fc3f82 upstream.
-
-io_prep_async_work() decides by the file of a request what kind of work
-it is for io-wq. I/O on regular files and block devices is bounded work,
-limited to min(SQ entries, 4 * CPUs) workers, for anything else that may
-block indefinitely the limit is RLIMIT_NPROC. Writes to a regular file
-are hashed by the inode, so that they are run one after the other instead
-of having a bunch of workers fight for the inode lock.
-
-Since the file is only assigned when a request is issued, a request that
-is queued without an attempt to issue it, REQ_F_FORCE_ASYNC, doesn't have
-one at that point. io_prep_async_work() takes that for "not a regular
-file or block device":
-
-- Reads and writes end up as unbound work. 32 reads with IOSQE_ASYNC from
-  a slow block device on a ring with 4 SQ entries get 32 workers, not 4.
-- Writes aren't hashed. Four buffered writes to one file get four
-  workers, three of which do nothing but wait for the lock.
-
-The late assignment is for the benefit of links, where a request may use
-a fixed file that one of its predecessors installs. By the time a request
-gets to io_queue_iowq() these are done, it is as good as issued. Assign
-the file there.
-
-io_assign_file() moves up and is forced inline. With a third caller the
-compiler may stop inlining it, and every request that is issued would
-pay for a call.
-
-IORING_OP_SPLICE is left as it is, unbound and not hashed. The file of
-the request is where it writes to, which says nothing about how long it
-takes: a splice from an empty pipe or a socket into a regular file waits
-for its input. As bounded work, four of these on a ring with 4 SQ entries
-keep all other bounded work of the task from running, and as hashed work
-one of them blocks all writes to that file.
-
-REQ_F_FORCE_ASYNC is not only set for IOSQE_ASYNC. What changes, and
-brings back what was the case before the file assignment was deferred:
-
-- Requests with IOSQE_ASYNC or IOSQE_IO_DRAIN, and all requests that are
-  submitted while a drain is active: reads and writes on regular files
-  and block devices count against the limit for bounded workers, including
-  the one set with IORING_REGISTER_IOWQ_MAX_WORKERS, so fewer of them run
-  at the same time.
-- Of these, writes to one regular file are run one at a time, unless they
-  are O_DIRECT and the filesystem has FOP_DIO_PARALLEL_WRITE.
-- IORING_OP_FALLOCATE and IORING_OP_FTRUNCATE, which always go to io-wq,
-  are run one at a time per file, and in turn with these writes.
-- The descriptor or the fixed file slot is looked up when the request is
-  queued, not when a worker gets around to it, so closing or replacing it
-  in between no longer has an effect on the request.
-
-Fixes: 6bf9c47a3989 ("io_uring: defer file assignment")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-43-c1556f5d7bf5@toxicpanda.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- io_uring/io_uring.c |   43 +++++++++++++++++++++++++++++--------------
- 1 file changed, 29 insertions(+), 14 deletions(-)
+./include/linux/highmem.h:427:21: error: implicit declaration of function ‘folio_test_highmem’; did you mean ‘folio_test_hugetlb’? [-Wimplicit-function-declaration] in arch/mips/kernel/asm-offsets.s (arch/mips/kernel/asm-offsets.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -472,17 +472,46 @@ static void io_prep_async_link(struct io
- 	}
- }
- 
-+/* Called for every request that is issued: keep it inline */
-+static __always_inline bool io_assign_file(struct io_kiocb *req,
-+					   const struct io_issue_def *def,
-+					   unsigned int issue_flags)
-+{
-+	if (req->file || !def->needs_file)
-+		return true;
-+
-+	if (req->flags & REQ_F_FIXED_FILE)
-+		req->file = io_file_get_fixed(req, req->cqe.fd, issue_flags);
-+	else
-+		req->file = io_file_get_normal(req, req->cqe.fd);
-+
-+	return !!req->file;
-+}
-+
- static void io_queue_iowq(struct io_kiocb *req)
- {
- 	struct io_uring_task *tctx = req->task->io_uring;
- 
- 	BUG_ON(!tctx);
-+	lockdep_assert_held(&req->ctx->uring_lock);
- 
- 	if ((current->flags & PF_KTHREAD) || !tctx->io_wq) {
- 		io_req_task_queue_fail(req, -ECANCELED);
- 		return;
- 	}
- 
-+	/*
-+	 * The file is looked up as late as possible, as it may be the result
-+	 * of an earlier request of the link. This one is up now, and what kind
-+	 * of work it is depends on the file. If that fails, leave the error
-+	 * handling to the worker.
-+	 *
-+	 * Not for a splice: whatever it writes to, it may wait for its input
-+	 * for ever. It has to remain unbound work that isn't hashed.
-+	 */
-+	if (req->opcode != IORING_OP_SPLICE)
-+		io_assign_file(req, &io_issue_defs[req->opcode], 0);
-+
- 	/* init ->work of the whole link before punting */
- 	io_prep_async_link(req);
- 
-@@ -1857,20 +1886,6 @@ queue:
- 	spin_unlock(&ctx->completion_lock);
- }
- 
--static bool io_assign_file(struct io_kiocb *req, const struct io_issue_def *def,
--			   unsigned int issue_flags)
--{
--	if (req->file || !def->needs_file)
--		return true;
--
--	if (req->flags & REQ_F_FIXED_FILE)
--		req->file = io_file_get_fixed(req, req->cqe.fd, issue_flags);
--	else
--		req->file = io_file_get_normal(req, req->cqe.fd);
--
--	return !!req->file;
--}
--
- #define REQ_ISSUE_SLOW_FLAGS	(REQ_F_CREDS | REQ_F_ARM_LTIMEOUT)
- 
- static int io_issue_sqe(struct io_kiocb *req, unsigned int issue_flags)
+Log excerpt:
+=====================================================
+                 from arch/mips/kernel/asm-offsets.c:19:
+./include/linux/highmem.h: In function ‘memcpy_from_folio’:
+./include/linux/highmem.h:427:21: error: implicit declaration of function ‘folio_test_highmem’; did you mean ‘folio_test_hugetlb’? [-Wimplicit-function-declaration]
+  427 |                 if (folio_test_highmem(folio) &&
+      |                     ^~~~~~~~~~~~~~~~~~
+      |                     folio_test_hugetlb
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:2f28b78cc7e9ab65aab395a4b33d537d560b09cc
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  406de00ce2971abe3010eaabc26c71e84b4ee9b3
+
+# Builds where the incident occurred:
+
+## 32r2el_defconfig on (mips):
+- compiler: gcc-14
+- config: https://files.kernelci.org/kbuild-gcc-14-mips-32r2el_defconfig-6ae228c35c0836a8c2f04c07/.config
+- dashboard: https://d.kernelci.org/build/maestro:6ae228c35c0836a8c2f04c07
+
+#kernelci issue maestro:2f28b78cc7e9ab65aab395a4b33d537d560b09cc
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
