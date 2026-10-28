@@ -1,47 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.210.215.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793166196;
-	b=iRtiIQaKrdZT9IXgVqWTdsnpTE9Ash4oZB3b4wicz5hPdJMdhBiUQh+IIQ3hlOeUtX8M
-	 WOuE0GNfTn0WrNIXnE1PfAcJaptkaB5BkNOuJcMaxZcS3xJnNOes4TNGjy9TaYqmUvnXN
-	 QVSuTvINPKrG3gExNy5B3dL8AYMQ5E0kCvtqAsYuqfPLvMuQzJ+peQnh82MLN+mR9meZc
-	 /OhHWzF2/1XXk+kcz6sELTgGxsWtEo0ej7I5CjkOwOo/2rde02M1N3HboHyoeRvieYx5G
-	 BMDiNVOl48jFtjj+meP/lK7JCtvT2OJTYDc9/sZDmdhw9mG5pKAENvjQxQbn9FAXlKg==
+	t=1793166345;
+	b=rX47+CxJL1SysTtKIReKjBRL7CZE/rrBFzTr9SeAnpz3OMFeJSgmXf52rWTit568Zfbn
+	 5DF0SnrZKTcCTggNXbsG9Qzwys7Q+qxcPMLAEdn7sGs6bDkWOsiBcNN9kfKtBNRJdbcqt
+	 Hr2JIaFNCjZ2Ntzk2/q8H3e80h7H2K/7gBA/fd5ESuPn999Upe8y7w+/L25eRVu+hmz9r
+	 L+E7XDXAHOTmhVypjT1DiL1jZvF51/7yXK99jZrgX9/6YxcEQAJ1Ms2AMO3+4/+/1ERK2
+	 5JrmS3E8k4PTei9NyaReJubJVWpS0TVS1M9WbUCEGH14YQiScOcAZOMoRjQzDK0Zrag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166196;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YRtK6/iSkvBe4J0QekzCUTUBP5rNz7fil5+2g/DwFVs=;
-	b=paQuB4pEhGLSUTEqZFxhn658sRrG/cah0mQ84XrFoDDEtQR1rUaJPSGhILpxHRfQT7Ix
-	 7YslF3GmhirCy+mBGDpumjNiuJRaCeosVEnVzPCCggr8do4D6nzkekgE/ah/WGUPJ74Uj
-	 CHzQHawLtktCmr3Lp6pnAfSRehyXBCnMa9Ne4djLrhlDicPT6FTN2bOa8ycj70aiD/uyM
-	 ARDHD9J8QEEDlByTWd8yVSqcfK52kQ3ovyF0k1R6SCl/5p1fTa6LtcP7T4jebhIjk6Oji
-	 +L79ckxbZskdUKBPcfeF7hVWrwTW4xNo4shCnEmiYBGiBF9yPGN6mXbYNWIWt0mXuEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166345;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=G8t8K0BNcBywklR1jfvKhkc/aMcOv846axN2KeVHWag=;
+	b=LXT0esvkc70n1RAnfrqiMPzXoJy+sxOY6m+EDZE1eJqMCBbIb/MROzBMFKB8BjnzWSAm
+	 2zsGStUIaxdu/MmLlEfFyQYQ88WCINNi0e70kfoYFh9EXhP4CxX1Y601e5QNDt8sCE+Fa
+	 y2gQVfCRsXThcklms47w41HSitltdhYpecPJho6Lota8Bu6oEeeF+3JtMAciUn3ESHbcs
+	 9Ir6iCvARLyTliVI411/UJD2vyBqOsBzH+VDVLEG32tF37duU7bfEAfdMPmg6C4k/lxu1
+	 mDxtbsOZ/UAlEHSJq0hoAzHS+BTtYlHzRtPe9srYj4l3X/wDQhdZI/XT54BCSL9FzZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vWGBhpRn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=miraclelinux.com;
+	spf=pass smtp.mailfrom=miraclelinux.com;
+	arc=none smtp.remote-ip=202.210.215.66
+Received: from smtp.priv.miraclelinux.com (202x210x215x66.ap202.ftth.ucom.ne.jp [202.210.215.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D2F606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vWGBhpRn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6014F1F01825;
-	Wed, 28 Oct 2026 05:43:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793166196;
-	bh=YRtK6/iSkvBe4J0QekzCUTUBP5rNz7fil5+2g/DwFVs=;
-	h=Subject:To:Cc:From:Date;
-	b=vWGBhpRnGVgB+QCUePxnUYEiewugWCrz/BHVN7mWztzbBF9kaB0kg6hKmeXDXDf+5
-	 Mjw/7VEFNHLMznFdeg2DWehf2TC02iJNP2EjWasKgEefPlUSLvr4TNvc3JH64uWQ9c
-	 JDJIcRE0bIjAJN1NEdiZcwW+l0qcmrNg4bzIBoeo=
-Subject: FAILED: patch "[PATCH] tracing/histograms: Verify event_call identity when updating" failed to apply to 5.10-stable tree
-To: lee@kernel.org,rostedt@goodmis.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 06:43:06 +0100
-Message-ID: <2026102806-dugout-opposing-1f15@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BB3606A31F
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:45:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BB3606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miraclelinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraclelinux.com
+Received: from iot-shnota-vm.. (iot-shnota-vm.priv.miraclelinux.com [10.2.1.238])
+	by smtp.priv.miraclelinux.com (Postfix) with ESMTP id 08F00140088;
+	Wed, 28 Oct 2026 14:45:34 +0900 (JST)
+From: Shun Ota <shun.ota@miraclelinux.com>
+To: stable@vger.kernel.org
+Cc: Liu Jian <liujian56@huawei.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Shun Ota <shun.ota@miraclelinux.com>
+Subject: [PATCH 6.1.y] sunrpc: fix one UAF issue caused by sunrpc kernel tcp socket
+Date: Wed, 28 Oct 2026 14:45:05 +0900
+Message-ID: <20261028054505.146963-1-shun.ota@miraclelinux.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,143 +52,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Liu Jian <liujian56@huawei.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 3f23f96528e8fcf8619895c4c916c52653892ec1 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+BUG: KASAN: slab-use-after-free in tcp_write_timer_handler+0x156/0x3e0
+Read of size 1 at addr ffff888111f322cd by task swapper/0/0
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 3403d9bb27ebc3572bd048620746b4414e073bf9
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102806-dugout-opposing-1f15@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 6.12.0-rc4-dirty #7
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0x68/0xa0
+ print_address_description.constprop.0+0x2c/0x3d0
+ print_report+0xb4/0x270
+ kasan_report+0xbd/0xf0
+ tcp_write_timer_handler+0x156/0x3e0
+ tcp_write_timer+0x66/0x170
+ call_timer_fn+0xfb/0x1d0
+ __run_timers+0x3f8/0x480
+ run_timer_softirq+0x9b/0x100
+ handle_softirqs+0x153/0x390
+ __irq_exit_rcu+0x103/0x120
+ irq_exit_rcu+0xe/0x20
+ sysvec_apic_timer_interrupt+0x76/0x90
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20
+RIP: 0010:default_idle+0xf/0x20
+Code: 4c 01 c7 4c 29 c2 e9 72 ff ff ff 90 90 90 90 90 90 90 90 90 90 90 90
+ 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d 33 f8 25 00 fb f4 <fa> c3 cc cc cc
+ cc 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90 90 90
+RSP: 0018:ffffffffa2007e28 EFLAGS: 00000242
+RAX: 00000000000f3b31 RBX: 1ffffffff4400fc7 RCX: ffffffffa09c3196
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff9f00590f
+RBP: 0000000000000000 R08: 0000000000000001 R09: ffffed102360835d
+R10: ffff88811b041aeb R11: 0000000000000001 R12: 0000000000000000
+R13: ffffffffa202d7c0 R14: 0000000000000000 R15: 00000000000147d0
+ default_idle_call+0x6b/0xa0
+ cpuidle_idle_call+0x1af/0x1f0
+ do_idle+0xbc/0x130
+ cpu_startup_entry+0x33/0x40
+ rest_init+0x11f/0x210
+ start_kernel+0x39a/0x420
+ x86_64_start_reservations+0x18/0x30
+ x86_64_start_kernel+0x97/0xa0
+ common_startup_64+0x13e/0x141
+ </TASK>
 
-Possible dependencies:
+Allocated by task 595:
+ kasan_save_stack+0x24/0x50
+ kasan_save_track+0x14/0x30
+ __kasan_slab_alloc+0x87/0x90
+ kmem_cache_alloc_noprof+0x12b/0x3f0
+ copy_net_ns+0x94/0x380
+ create_new_namespaces+0x24c/0x500
+ unshare_nsproxy_namespaces+0x75/0xf0
+ ksys_unshare+0x24e/0x4f0
+ __x64_sys_unshare+0x1f/0x30
+ do_syscall_64+0x70/0x180
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
+Freed by task 100:
+ kasan_save_stack+0x24/0x50
+ kasan_save_track+0x14/0x30
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x54/0x70
+ kmem_cache_free+0x156/0x5d0
+ cleanup_net+0x5d3/0x670
+ process_one_work+0x776/0xa90
+ worker_thread+0x2e2/0x560
+ kthread+0x1a8/0x1f0
+ ret_from_fork+0x34/0x60
+ ret_from_fork_asm+0x1a/0x30
 
+Reproduction script:
 
-thanks,
+mkdir -p /mnt/nfsshare
+mkdir -p /mnt/nfs/netns_1
+mkfs.ext4 /dev/sdb
+mount /dev/sdb /mnt/nfsshare
+systemctl restart nfs-server
+chmod 777 /mnt/nfsshare
+exportfs -i -o rw,no_root_squash *:/mnt/nfsshare
 
-greg k-h
+ip netns add netns_1
+ip link add name veth_1_peer type veth peer veth_1
+ifconfig veth_1_peer 11.11.0.254 up
+ip link set veth_1 netns netns_1
+ip netns exec netns_1 ifconfig veth_1 11.11.0.1
 
------------------- original commit in Linus's tree ------------------
+ip netns exec netns_1 /root/iptables -A OUTPUT -d 11.11.0.254 -p tcp \
+	--tcp-flags FIN FIN  -j DROP
 
-From 3403d9bb27ebc3572bd048620746b4414e073bf9 Mon Sep 17 00:00:00 2001
-From: Lee Jones <lee@kernel.org>
-Date: Mon, 19 Oct 2026 12:07:29 +0000
-Subject: [PATCH] tracing/histograms: Verify event_call identity when updating
- synth_event refcount
+(note: In my environment, a DESTROY_CLIENTID operation is always sent
+ immediately, breaking the nfs tcp connection.)
+ip netns exec netns_1 timeout -s 9 300 mount -t nfs -o proto=tcp,vers=4.1 \
+	11.11.0.254:/mnt/nfsshare /mnt/nfs/netns_1
 
-In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-registration and unregistration paths look up find_synth_event() using
-trace_event_name(file->event_call) and adjust se->ref if a match is
-found.
+ip netns del netns_1
 
-Because find_synth_event() only compares the event basename, registering
-or removing a histogram on a non-synthetic trace event whose basename
-matches a synthetic event erroneously modifies the synthetic event's
-reference count.  If a histogram is registered on the non-synthetic
-event before the synthetic event is created and removed afterwards,
-se->ref is decremented without a matching increment, allowing the
-synthetic event to be freed while an active histogram action still holds
-a pointer to it.
+The reason here is that the tcp socket in netns_1 (nfs side) has been
+shutdown and closed (done in xs_destroy), but the FIN message (with ack)
+is discarded, and the nfsd side keeps sending retransmission messages.
+As a result, when the tcp sock in netns_1 processes the received message,
+it sends the message (FIN message) in the sending queue, and the tcp timer
+is re-established. When the network namespace is deleted, the net structure
+accessed by tcp's timer handler function causes problems.
 
-Introduce find_synth_event_call() to verify that &se->call matches
-file->event_call before adjusting se->ref.
+To fix this problem, let's hold netns refcnt for the tcp kernel socket as
+done in other modules. This is an ugly hack which can easily be backported
+to earlier kernels. A proper fix which cleans up the interfaces will
+follow, but may not be so easy to backport.
 
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261019120730.2342739-1-lee@kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Fixes: 26abe14379f8 ("net: Modify sk_alloc to not reference count the netns of kernel sockets.")
+Signed-off-by: Liu Jian <liujian56@huawei.com>
+Acked-by: Jeff Layton <jlayton@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+[ In 6.1, sk_alloc does not create the non-refcounted netns tracker
+  released by __netns_tracker_free(..., false), so omit that call. ]
+Signed-off-by: Shun Ota <shun.ota@miraclelinux.com>
+---
+Attempted to reproduce the crash using the reproduction script from the
+original commit, but could not trigger the UAF in my 6.1.y environment.
+Build-tested only (x86_64).
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 42b89171134d..f39fa8942673 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6812,7 +6812,6 @@ static void hist_unreg_all(struct trace_event_file *file)
- 	struct event_trigger_data *test, *n;
- 	struct hist_trigger_data *hist_data;
- 	struct synth_event *se;
--	const char *se_name;
+ net/sunrpc/svcsock.c  | 3 +++
+ net/sunrpc/xprtsock.c | 6 ++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
+index 23b4c728de59..69d40d0980cf 100644
+--- a/net/sunrpc/svcsock.c
++++ b/net/sunrpc/svcsock.c
+@@ -1457,6 +1457,9 @@ static struct svc_xprt *svc_create_socket(struct svc_serv *serv,
+ 	newlen = error;
  
- 	lockdep_assert_held(&event_mutex);
+ 	if (protocol == IPPROTO_TCP) {
++		sock->sk->sk_net_refcnt = 1;
++		get_net_track(net, &sock->sk->ns_tracker, GFP_KERNEL);
++		sock_inuse_add(net, 1);
+ 		if ((error = kernel_listen(sock, 64)) < 0)
+ 			goto bummer;
+ 	}
+diff --git a/net/sunrpc/xprtsock.c b/net/sunrpc/xprtsock.c
+index b9dc8e197dde..74689050038a 100644
+--- a/net/sunrpc/xprtsock.c
++++ b/net/sunrpc/xprtsock.c
+@@ -1855,6 +1855,12 @@ static struct socket *xs_create_sock(struct rpc_xprt *xprt,
+ 		goto out;
+ 	}
  
-@@ -6825,8 +6824,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 			list_del_rcu(&test->list);
- 			trace_event_trigger_enable_disable(file, 0);
- 
--			se_name = trace_event_name(file->event_call);
--			se = find_synth_event(se_name);
-+			se = find_synth_event_call(file->event_call);
- 			if (se)
- 				se->ref--;
- 
-@@ -6850,7 +6848,6 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	struct hist_trigger_data *hist_data;
- 	char *param, *filter, *p, *start;
- 	struct synth_event *se;
--	const char *se_name;
- 	bool remove;
- 	int ret = 0;
- 
-@@ -6944,8 +6941,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 		}
- 
- 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
--		se_name = trace_event_name(file->event_call);
--		se = find_synth_event(se_name);
-+		se = find_synth_event_call(file->event_call);
- 		if (se)
- 			se->ref--;
- 		ret = 0;
-@@ -6980,8 +6976,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	if (ret)
- 		goto out_unreg;
- 
--	se_name = trace_event_name(file->event_call);
--	se = find_synth_event(se_name);
-+	se = find_synth_event_call(file->event_call);
- 	if (se)
- 		se->ref++;
-  out:
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index dc15658a887c..e2870212e58d 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -914,6 +914,16 @@ struct synth_event *find_synth_event(const char *name)
- 	return NULL;
- }
- 
-+struct synth_event *find_synth_event_call(struct trace_event_call *call)
-+{
-+	struct synth_event *se;
-+	const char *name;
++	if (protocol == IPPROTO_TCP) {
++		sock->sk->sk_net_refcnt = 1;
++		get_net_track(xprt->xprt_net, &sock->sk->ns_tracker, GFP_KERNEL);
++		sock_inuse_add(xprt->xprt_net, 1);
++	}
 +
-+	name = trace_event_name(call);
-+	se = find_synth_event(name);
-+	return se && &se->call == call ? se : NULL;
-+}
-+
- static struct trace_event_fields synth_event_fields_array[] = {
- 	{ .type = TRACE_FUNCTION_TYPE,
- 	  .define_fields = synth_event_define_fields },
-diff --git a/kernel/trace/trace_synth.h b/kernel/trace/trace_synth.h
-index 43f6fb6078db..d4ebf01b7049 100644
---- a/kernel/trace/trace_synth.h
-+++ b/kernel/trace/trace_synth.h
-@@ -37,5 +37,6 @@ struct synth_event {
- };
- 
- extern struct synth_event *find_synth_event(const char *name);
-+extern struct synth_event *find_synth_event_call(struct trace_event_call *call);
- 
- #endif /* __TRACE_SYNTH_H */
+ 	filp = sock_alloc_file(sock, O_NONBLOCK, NULL);
+ 	if (IS_ERR(filp))
+ 		return ERR_CAST(filp);
+-- 
+2.43.0
 
