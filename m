@@ -1,130 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793192713;
-	b=aH1rbRzQukzBwX2Mre7XmoiDMqdb3qEXAJZoI3JM6TYAEl4riih0TjHt+eulSdc/uCci
-	 nkztkU5tyIq3KlRaMbTsonn9jHBGrvUGl2AT1U4QsWRMfSeU7Er9SkUEBXwQHxfvcAd1W
-	 UAUoPSVGr/s7jIUuqcJILhj6uvb/tqP7wYwePiAMdhjQfuM9yGTETqjC+KD3xF4IBKPCA
-	 kMszdVFiB5lqCWIqc5UfGjNXGUcaPLnGdU98dhPm1Y4FWFMLfTCTTNB+tgbsw6fsQfpcE
-	 80SY18nUZF4TMokI7lobkt7vli7284CjUx6vh4oEdExOgU42WovNwbInstr9okTHRew==
+	t=1793193085;
+	b=TV/5Hxs4eBNP69a6C4xx+pL1JKwKMSyJElkYbmkoRoG2EsXf+5zIDY8j7hkl0za2eD3n
+	 tnBowvvBHT2H9S1YrvavdC0tsoRRBOFD306hfPeeMqNW3iZQ25e/MRsc21yPbSmwOBiKS
+	 td4bPR3vzSg5TDeP7niaJMQN0FpRz5x+5g4BkNQijw3v34d3Y8ANgKUnvTsxWwLzd2qAj
+	 5tlhS8ZurkIt0pevZ4yImxgDyXE43dk2WJfdUSbrKYQjue/4Sd7O4U1sZWZiOsNmfAtk4
+	 SNx+AO2hJA0GraRQg9rpn1mmlo6S66IRkgqL+6CYuaJTKrgzsts8hsVQT/0Th3AtF8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793192713;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
-	b=ltfxMhAYhh/wfdmrv5030d9HbpC2XAh7Chh1eKekyCDqf22tDA5t1ccCl87JVDijhQhI
-	 oJqCotneBuZCFr7+TMhJnoZsg3HHR5NjdRR2SA7CTBNHcPnSEsO8pnAgQ4b2vGGD+7I8D
-	 JT2lU9zI3orMYWi/0irS0ZfhyNEQ0oZ0K7AZaX172cFnKTkKKvuVNd6WFaGPGbaiakSuH
-	 L7xk2naxDndlDnPYtIQ7qmemxXw/NSM3RkQtnIeNHbqhkMFLUnMAbXpPsdliiuspnAGAJ
-	 dIIUQGSSvMk+Pok8eXoO02QaJbK1NrRY8efTEnky/7EZOiiZf5o68BZpqEsAxwCQ93w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193085;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NyEZvQChmpUEviU3rY8DmvUGfLadj5H8ux0zdPUq4io=;
+	b=iy7qjKxPhh4HMfhXZRWkbCqwLJPSZ2qiGyKy8bu16XbUQYmy34n0BLdZf9gkuUKisIBr
+	 pNp6/4D2JUHjkwhpiFpDQYd9K7ONZN1Ngkq2Bvwxg2x5ZbGgorpzE2SqF/1eycp/zTAMp
+	 V9XT4vsBVALi0BuK3q2/Tjq6izD6Y/Uomid6HYUC9IXKR8sckJtdjdyq1+FdpENwEntIR
+	 gmJAh019LCoUezxz5LGavGXrVn/Y/9cgNmXPNpnBwZqeLZn92v+vABLI619KLjUKSL6YJ
+	 iGlTRAdmsjoY6ktWaMLgAqdFK3RBZESel2qsUHUIMtJz5w4gP24fIKW6HcKyTzANOqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IkyIrlCN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=h5eyniOO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="2FB/MODf";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4dic7x3T;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A4KU+Ndr;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="JDs/SelQ";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51431606A31A;
-	Wed, 28 Oct 2026 13:05:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51431606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BAA606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:11:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1BAA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IkyIrlCN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=h5eyniOO;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2FB/MODf;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4dic7x3T
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6CF5C2213E;
-	Wed, 28 Oct 2026 13:05:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793192710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
-	b=IkyIrlCN7G+xZvqNgVghwMpBI8ng2bOlKjOdDzhEfMRQg6rt8YafWJYQp4jgsQ9w/lB33H
-	9FBPHphhQPAOp/XOKHNr+fu5p9eYndRTrRcFNq/0Op99xtiVrbRQFMThClRVauNxgN6V6X
-	wfczOgguTF4x3tTmDUcStTIG3Iah8x4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793192710;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
-	b=h5eyniOOwdXc2q7T7Pk7UL3no1bmGUgM+F/72NEfzo9ftuBZSX85MPbkgavJ2oP0IWltjD
-	1iXG9iI4uKqlVkCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793192709; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
-	b=2FB/MODfxpZ0ilwA5PHgCW7NNYtSrq/W5boCvDL1GRtYqDPKkanrGQkl2gpE9zCifdCSBB
-	nXXGSTtLKo5Qg9iFAVvIlvlt2JPsj5aQlGkeHsfbUV/bRZhcWaORCRSTbSoRnb8rfrtgqf
-	Zw/R3EHhTn49+ohBRC96Ycd2MjnI+KA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793192709;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
-	b=4dic7x3TPMbFvoBJ+if+DDgdTri1Ltf7/N9AT6Le0B5ucrxb0ojV3Z+Ip1NOCne3m0B14q
-	S8AEDvM3JKZPQnCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4FA2E13419;
-	Wed, 28 Oct 2026 13:05:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7Zm8CQHz4WrpIAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:05:05 +0000
-Date: Wed, 28 Oct 2026 13:05:03 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 11/46] mm/huge_memory: properly handle refcounted PUD
- mappings on fork
-Message-ID: <auHy17vcHxNIAlCF@pedro-suse.tail5790ac.ts.net>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A4KU+Ndr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JDs/SelQ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBeB341053585
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:11:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NyEZvQChmpUEviU3rY8DmvUGfLadj5H8ux0zdPUq4io=; b=A4KU+NdrY5SWcHMH
+	AXdRRFZ8KYnGZdgJm/3Ak9itR5CUTDWPK7Q/T5779I1OfCGJoUIQUutrJYU5ChC+
+	xGw/OOvy2MtG8ehXdN5ARNhAYnDqxXV5ZgAz2oFacTqj4tGv+98RKqwnCsaPeNwM
+	+1dnkwpZ4pa13I4k/BXc2MpknB//bSGRZ28XcVB8pKolM8BlaBm+HD7Z3mNPIGhH
+	MA7H7GFMI0/NrJ1uxcMlrKsQsWYm4xajrF8xO9IQC54zpDWm1Gvz8D8mUy3mPsRU
+	5Lv97QuJDyCuI3JE0rb2H8EabK0/Vz9mMycAdTKQ3QgsYnAiNKJ21c86UONjMwHr
+	4IeOrw==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhw9h7t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:11:23 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eabddbb650so35021e0c.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 06:11:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793193083; x=1793797883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NyEZvQChmpUEviU3rY8DmvUGfLadj5H8ux0zdPUq4io=;
+        b=JDs/SelQPxnsIF6VYKq/R2bGxs7amcNTNX2a26zG3WU3oGFGe0VUZI/g7OfsYDRKxg
+         mdkeMt3IMkpPWZvAcQCmIMAgaZg2E7a8Gxw5Rg/2vCG3z+bQKpK8WerDRaMgwU/FvXzO
+         wAWM/SY9oYIiwiH5a76mbPqE4jhHonShuKdxIvZjaCsgPkbmVAvoPqGlBNwgPbAgyXS4
+         U/7LfEh3A4iPW9jLG3f5qDD/9gWGoNEnD4KrSJBUKCqllLNjqUvBt0EfINcz/ywgutG9
+         4dh6NnJXAD9wp7kkk3KT9LZ718wKq6AVdG6zKdkpxttcZjnf7mKrXqZUYu2lzsQ4dSgC
+         lbng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793193083; x=1793797883;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NyEZvQChmpUEviU3rY8DmvUGfLadj5H8ux0zdPUq4io=;
+        b=MnI8xEbeHIHzM4ep1kCD6DyjlEEWD8r+Tr/xgMKEZqbXIhHQQ3WHBcNbK16HT+joxF
+         oQhbGk784730sKOiYPIuVpVevMa7RcZsQ/7LBSqHx1HQbmsXzBpT9I86n3D5Jd/0lGCD
+         PpI+oachKxEuIZWu2nfFdCwEMMrUGPEpfmQtNewuywasD5zncDZmZMCP3yQXLoo8yn68
+         sJdytC61F7pH95hfQZGinLtRq0HEudGXg6Cr3Dwv7YzEWx+xzjqKsjh8rvlqeSIiRcKH
+         q5KBezbz+lWD4oHG2vQa/Yc56DmWaPwvKY9zSle8Zy/U57rz17af8/GJWpw+xZil1rny
+         VHVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwfJ4eqd98dGpf9DJMkczcHt8bTXelIJRuo6XPrJiikgq2cKhgvcE/LoORd/YRoxVVh3M1w2vE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdIruWbXjX4g3YD6VXhTGQgSuPYv/hGcC9a9sNO7jflatjr9YD
+	AYlZc39ZWE4L601+m0YvvtEPvg/0Cd91SzTz+Rt9gS/hrGigtgDD0UUeusRHF3NyXDNh1fJt9Rj
+	/KJ2iEALAmnxmqxtkgjtS33hzMAR+tpBudK08LIzEhiUXcrZsCZqdFuxw6crUvgRVR80=
+X-Gm-Gg: AYBFou2okBIfT9+Lf5U01Z+XToZsCu7NNrrUfdhEwBCUDd22oTRsJYM6a1dA6tT4RCz
+	rhrek7WjgVDwgt526hjuEUeMGrK+q5SZZVFeIlqmGMSN+pnfY/NXR4kO/7M7x42b6gAgFLZclSd
+	QHeXPo76dU/6CzRxF62A0fjzUAjNIajeu+gNDfXiQfBGfRw20YDcwls5ZqvTkuyHlXu+Txz6vVk
+	xCcnq6UFHCA9DUIKtqPEDGz6RuCyos++pU0klfquj0nJ6Hw+NnfIU2RB2k+2UslO21nBz/q5zsc
+	jrsAWNS8w2NvKVEUXaPNJY8EgGl5ykFaCBztinXR/C9PXefnYKDYpQjmSosWWoOnuFdrMBPhXcx
+	lMrBnBsqgvSHGjJ6hNN5/HJSyCRIVNknixYs+4VHjWkNTT+KWXJ1bDf8ptfee9rToWIqv13M=
+X-Received: by 2002:a05:6122:698:b0:5ea:cc1d:173e with SMTP id 71dfb90a1353d-5ec4caa5fd2mr840686e0c.1.1793193082914;
+        Wed, 28 Oct 2026 06:11:22 -0700 (PDT)
+X-Received: by 2002:a05:6122:698:b0:5ea:cc1d:173e with SMTP id 71dfb90a1353d-5ec4caa5fd2mr840624e0c.1.1793193082038;
+        Wed, 28 Oct 2026 06:11:22 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7ac041sm596435066b.82.2026.10.28.06.11.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 06:11:21 -0700 (PDT)
+Message-ID: <cebc3404-1f9b-49d8-b459-0e31d648d989@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 14:11:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -134,54 +115,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[64];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_mss: Fix proxy regulator array
+ overflow
+To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Luca Weiss
+ <luca@lucaweiss.eu>,
+        =?UTF-8?Q?Matti_Lehtim=C3=A4ki?=
+ <matti.lehtimaki@gmail.com>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261027-b4-q6v5_mss_proxy_regs-v1-1-6c5557e42462@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261027-b4-q6v5_mss_proxy_regs-v1-1-6c5557e42462@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: lzjIcjp07h_njtJ0LUEtaMHk4xzuhK7W
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MiBTYWx0ZWRfX1s9W/30lOTyQ
+ ZeTp2hRGx8ueRjS96IeKDzSUOWK+aJpQAkGWN/EYqDpUE4CUScyLv9JsP47x5TDaQlPcsr3KAMD
+ UCEGva1BOCVpnrhQayvGBUUQ4wE1xis=
+X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae1f47b cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=lYDSAuwiKccqTb-b3IIA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: lzjIcjp07h_njtJ0LUEtaMHk4xzuhK7W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MiBTYWx0ZWRfX9nDBX9C8+VZE
+ n7V3PcZElsB4UnZeWYV0LdHRpHL2El+2O30TwIrEe6hA2SC+OvMPSKZKQChZEUYzW4FhVRNq8cm
+ J+tuhIwh9BWZ2mPEFt5CQEDxvov12xZZsjoK5u/1h+4go/UfOSFHl2pNUSbpaI8kl3knZkkSwtC
+ wMFr/4oyWJPdu/ZniXz8TcFP7IxT3qGFlDFCBgVVEoBGvNp/iQoAR6Q6TsASHMLnUg2vZ3ezwEJ
+ ehA5Huxfe5KOEfkVuYNI2bKheH/W73VWgPEsI2StlFSycOUFPV9yj1Nc8qlkNvHl0Mvnswbzmo4
+ SiF3TYZF3kPxRHUTd29nZWtg60f6dMm+ZW+1j3P/WzDKnv1Vyc1aYLK8MO7L0ZmR7WmmGjWdiF3
+ PJXg5Zv6L2OS7dbxnqxIxNlCn+sLjrkqb7gKu9bJcNDJ4twzJDW3U57P8+l/I0WGQfPOlaiCtZ0
+ ZzwRXzP8HzOjADac1Mg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280052
 
-On Tue, Oct 27, 2026 at 12:17:31AM +0100, David Hildenbrand (Arm) wrote:
-> copy_huge_pud() copies device-DAX entries without taking a folio reference
-> or updating mapcounts and the child's RSS.
+On 10/27/26 1:01 PM, Anup Vishwakarma wrote:
+> The proxy supply tables of msm8974, msm8226 and msm8926 list two
+> regulators (pll and mx), but proxy_regs[] has room for one. The second
+> entry written by q6v5_regulator_init() lands in fallback_proxy_regs[0].
 > 
-> For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
-> forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
-> huge PUDs are then copied without accounting for the new mappings.
-> Unmapping them in the child decrements accounting that was never added.
+> On msm8974 with a device tree that has no cx power domain, the
+> fallback table then overwrites that entry with cx, so mx is never
+> enabled and cx is enabled twice.
 > 
-> Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
-> reference and add the child's PUD rmap and RSS accounting before installing
-> the copied entry. Pass src and dst VMAs consistently instead of src and
-> dst MM. Move the TODO.
+> Make proxy_regs[] large enough for the largest proxy supply table.
 > 
-> Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
+> Fixes: 4641840341f3 ("remoteproc: qcom_q6v5_mss: Handle platforms with one power domain")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+> ---
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
--- 
-Pedro
+Konrad
