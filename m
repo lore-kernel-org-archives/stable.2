@@ -1,64 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793178358;
-	b=2KbS6hiKuazBeObZCX2JHi2qI6bzHwap3M0ndBLe9uV+PkozreTXBzJY7thVYGKMGDhn
-	 FeH63jNXu+T8xxJsxj23Ir5pysWG5v9TU8u5ztiqpkVzlNE3346iYu477MpBUF7aciedo
-	 yQHLjYtOx5ckEWANCsuUzqzrvM/I+58WHSdUX75QCxkvlEPzq9HqJooRUD2zZriGOXp++
-	 y/gFyLn8q08Gq8ga6wO/Xd05qNRljCDEWm9SODrw628H1bUiiRb6PvSDtdb1Ubs+wjIGD
-	 Sz4dDJyNgI+3949i24WV8bSgFwar38/8SWy5mmX//WzahntbnevSBxX634mWkK1U6RQ==
+	t=1793178599;
+	b=Q9xxfsA1Usl4SCYIgqOfYA2Cfzf8NcNvq3Tczj48Vcq7xK0vKxi9OPPKPI8/9eTYmi/p
+	 +kOkRWcJ9xprioMN4ULmhKn3LTMsmWGhaYdotwkpb3Y/jDQXOfT6Ti6uKonYbmejVsNkw
+	 yuyQYOnM5MOKHEJLSs7H5QHcT2IRWqRprGIG+Wr9acNt9b3xmkXjXh1Q3rjo/YgmRoBUw
+	 zSAQubc/DKr+caeaApJOtKpe0iTx4sIrq0W+7c5HaZDSoJnESeLcUmkZdFjL1iihrQ19E
+	 njCjbte+iF5j8WlvPyJUQ1BM8k/5BXbhtgbfnT2oVNCr1M155hnUmLE1WWgyYOgwAMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793178358;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=GP87V0isCS9npBsUJzfzavKuNiOHWjoeDoQLqqwgJds=;
-	b=Bc4aLblZIYCPtHxYQeyVoT/pxrvKgQlhws+oeRBQhfitttgvueA/+Y2R7J9htPWMWJWV
-	 YSnnosXJcw2Qj3TW99qh3HaYJ8kKxG9z09xeLakB/MKyRTpCRcg0sPS0bWdUCnfKOOvn0
-	 mK/JObTpPzKisA0M+esuL2QYdv1xb4uIjsJ26iS6E1SkCToKTwcZo35+5G1lxXS+psYgi
-	 8ptTJpmmdu3DTb1pQaVLY5kHEZmIkynfUo9FbWYe51eSu1xUtHkHISuKCD7F1DqdcTRcd
-	 eVju9PzPT6ov1rQcoqhSnnhlNXKjYSocJPItfXTgr/PsrSs26FRmNK+qkBxgnXHS2Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793178599;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bLZSl7G53VjRTMzaR+4ybREso2p4MLSxqwNzQhyf3As=;
+	b=nuGYCQbCmQBoRwLptFc7Du8bvY1hngiyb5bOoNHOa1kWmqoi5kCxu31zJ1iYEeo+AjGQ
+	 F6aSwAdJXcFyubpKDPX4kJePeW+Wys+k8FVCHUkRYKymOGZKekxHwzsmES2mCftKC4eBr
+	 FHqcBKX0pDLgtcYPUOzjzVRhKjT5rsXzDHfq/ugtM9QyvlaF5+SdskZ/sQuRcxdA0Tomb
+	 0be3+tuetWjeISKNbiv9AFUZF33MmmefmZS6xbf0vHZaw12XYFd025n/6i6B+8ZVqKxkt
+	 TrGMR86Z3wJ9zq91qdNb3osj71cZQdQw8FlaWtcQ0/ZP7v2E4CLCrlm0o6nSfWwIj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=pDof7GBD;
-	arc=none smtp.remote-ip=117.135.210.6
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQLvv5Vy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76053606A31C;
-	Wed, 28 Oct 2026 09:05:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76053606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29E2606A31D;
+	Wed, 28 Oct 2026 09:09:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=pDof7GBD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=GP
-	87V0isCS9npBsUJzfzavKuNiOHWjoeDoQLqqwgJds=; b=pDof7GBDaWXL3uDptu
-	p7woJJuDQ930CWjRgR0+CEeJFipKk43uTZkpglPzlkjsoIyoYpCi26fCgrq4jhg2
-	BXRnZBEi8+rhl924WKU5xUz+PVN3j63IAll1b7TDIj7wRVfbvhBfEzpXEGFy8wPd
-	fk1R6gcgqbm8v6jDX9uylDEIM=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3ZyS4uuFqDbDtCA--.6527S2;
-	Wed, 28 Oct 2026 17:04:58 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/5] e1000e: do not cache the hwtstamp config before it is applied
-Date: Wed, 28 Oct 2026 17:04:55 +0800
-Message-Id: <20261028090455.2291659-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQLvv5Vy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CEF1F01825;
+	Wed, 28 Oct 2026 09:09:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793178598;
+	bh=bLZSl7G53VjRTMzaR+4ybREso2p4MLSxqwNzQhyf3As=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IQLvv5VyEW9W822k4mht+xeLq3S4XizAu+yULPQZsw/IVShZGFw4v2DipYDdBsIDM
+	 ZuO9nCZm9CpX8w5ml0a91JdjeCai4IiV9QbHxDf8RJ5flGZR1CGm3IoGtSym8UApk4
+	 Csg/F36qW6LxKG3+BIRu5428gBcRYr7WkphITq9nSu15oEzQk7PBodVhHzdvwyKAsU
+	 L0DDpJRkU7kCsCA8XIudNovrwViAworRTX8BBm8mzz3lW+kK0r+b10tnjOyJB2Z4jA
+	 ml2WMykb/ecw+qvzqKMXuJLLemM/U4ijkpfsw/rwxPj03zXiSs2jn466I+8Fyr4hbl
+	 WjWlEy8zwut6w==
+Date: Wed, 28 Oct 2026 09:09:42 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 09/46] mm/rmap: handle device-exclusive entries in
+ folio_referenced_one()
+Message-ID: <auG7p94aT3SynuWy@gremlin>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-9-6f74bec9a5bb@kernel.org>
+ <e32a19c4-76c4-40ba-83a4-781333af7b0a@arm.com>
+ <f5b90920-5923-45a6-be2b-f558801781c5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,70 +86,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3ZyS4uuFqDbDtCA--.6527S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF17Cr47CrW8WF4rKFW8Xrb_yoW8try7pa
-	17CF90krn8tF1aga97JFy8Cr98Wan7tayY9Fyayw1Y93s8Cry8Cry8KFWUurWjyrWkJ34q
-	qrn5Zw12grs8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UlhFsUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRrvxmrhurr6ZQAA3O
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f5b90920-5923-45a6-be2b-f558801781c5@kernel.org>
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+On Wed, Oct 28, 2026 at 09:08:04AM +0100, David Hildenbrand (Arm) wrote:
+> >> -		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
+> >> +		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
+> >> +		    pte_present(pteval)) {
+> >>  			if (lru_gen_look_around(&pvmw, nr))
+> >>  				referenced++;
+> >>  		} else if (pvmw.pte) {
+> >> -			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
+> >> +			bool young = false;
+> >> +
+> >> +			/*
+> >> +			 * PFN swap PTEs, such as device-exclusive ones, that
+> >
+> > You mean "PFN softleaf PTEs"? Better expressed as "softleaf PTEs embedding a PFN" ...
+>
+> Lorenzo raised this off-list as well; I'm using the existing text we use
+> elsewhere for consistency.
+>
+> This needs a cleanup that adjusts all of them :)
 
-e1000e_config_hwtstamp() stores the requested configuration in
-adapter->hwtstamp_config right after the rx filter has been
-translated, but the two register writes that follow are verified by
-reading the registers back and each of them can fail with -EAGAIN.
+*like a proud dad of his softleaf name :P*
 
-When one of them does, the driver is left holding a configuration the
-hardware never accepted:
+Yeah, agreed, not a big deal, and easier for me to just do a bigger pass
+finishing off what I started :P
 
- - e1000e_hwtstamp_get() hands it back to user space, so an
-   application that reads the configuration back is told that
-   hardware time stamping is in effect while it is not;
-
- - e1000e_systim_reset() re-applies it after every reset, including
-   the ones the watchdog triggers, and keeps failing;
-
- - e1000_watchdog() starts polling TSYNCRXCTL_VALID for the cached rx
-   filter, and e1000_xmit_frame() still parks skbs that ask for a Tx
-   time stamp because it only looks at FLAG_HAS_HW_TIMESTAMP, so they
-   are eventually dropped by e1000e_tx_hwtstamp_work() with a
-   "clearing Tx timestamp hang" warning.
-
-Cache the configuration only once both registers have been verified,
-so that adapter->hwtstamp_config always describes what the hardware
-is programmed with.
-
-Fixes: 62d7e3a2d006 ("e1000e: Validate hwtstamp_config completely before applying it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
- drivers/net/ethernet/intel/e1000e/netdev.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 35f5590228eb..7ae33273734f 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -3715,8 +3715,6 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter,
- 		return -ERANGE;
- 	}
- 
--	adapter->hwtstamp_config = *config;
--
- 	/* enable/disable Tx h/w time stamping */
- 	regval = er32(TSYNCTXCTL);
- 	regval &= ~E1000_TSYNCTXCTL_ENABLED;
-@@ -3763,6 +3761,8 @@ static int e1000e_config_hwtstamp(struct e1000_adapter *adapter,
- 	er32(RXSTMPH);
- 	er32(TXSTMPH);
- 
-+	adapter->hwtstamp_config = *config;
-+
- 	return 0;
- }
- 
--- 
-2.25.1
-
+--
+Cheers, Lorenzo
