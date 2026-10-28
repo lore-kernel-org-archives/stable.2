@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.210.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216406;
-	b=MDT68PYtwSXPEgq1JYFPUiAYH4mb+Jt/dMYr7kNINGrru7UJdFQcEt8owb5QNsYufFQ/
-	 vrpKNgUE55FddhqNSpysxaDgRpG4Ag6+dFOcq/F7+4CWar7LS2naoqqUAqzH9kKdgK4vx
-	 jQyOnACDV5APReVRsQHVd0mRO+ZGSC2owf9esADC6LPEXAeFVJn99KNLBE11KAzp1cSsK
-	 86l4XnhcnOHxLj2mKQ6I7P5aV8ATcv+RwQd22ssxgr0te9k2m8D/Kw9T/quqQLPE+dG20
-	 +TTSFlKIaMWn3IJ8BqsqpKvxVcGpfNsAQh/dEoN/bu/p7mKQAFCnCA7BhVGrhVa/rVg==
+	t=1793216403;
+	b=Vy6KtYoCJA/h30w45gc1Py9+Rm2fyqBf6nRJSM2E8j7Pf1n0pQcgCc3MJGm+Tzmf/6LN
+	 DfHXkr3OYzzH6T6XRIwcT5E03rsxgBQmGd3hGKtsM0cQiEaQ7si8GMCFWxkdbnZurv37R
+	 vR+Ou3uTkKWk9O5TPtikFMnn+FTPwZ1baDQC5ZHSJSVBf6H5KlJ1Kbjqs4nvr1H9fBkZ5
+	 IEwGXPqqkMSmUjBjzt6tlH2c1QPzlRWHsiV+RtKf0vYbEE5+mP0RxaYUMHld4w2WHK890
+	 gtABvalqkiUUqPFWOkVApEBASp9VnW81U+ejoIc8qoSqey9EtIDlD2X3ylApuJsjAsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216406;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IIEjDcI6b6iH3mjprLA+rx/rKLunTfnyMKPDy0e9qE4=;
-	b=y7kgYV9GqGOV+TfrRL/g2aKFtjT+CUFCiRI36RJ6t3LJt3GpuSey9wC5dFvq6X6rytQ6
-	 UGMZoxrUimgEJ6afpUorFBi89TfMfOIU7YcdZKflOcZixvfjBEuKjnm/wyeyU1iaxVVSl
-	 PvHHSc3GSrwR9dt8SXzHJY6ptgFJVdnMQKMt8QyaoHsgy/c5GQIDD1UXlWs9vUBFntvjH
-	 aJV2akUDX95FWbEeo0Hw7C0yQ2pHhLDmk7V/tqo6UqZK5CGBtIQdXOSTRCoE0NmEbCegj
-	 x1+Fl5z/lqvAAPgFhSmrVXhihdPWu0LFhFx1g6f5/xSc/hGPE3WFjCSu64nabju2C4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216403;
+	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=DbZrs6QE5TY/aRLEnexnq/XF0yw7kphb7f5Ao6KxKBs=;
+	b=PL07KnzanHHiEG9SgisRxyrqmWMn9Jw3bGl131ZqQvFA2Q9kAiS7tguawR0FkMmbBkTh
+	 Wx1vXpGXBWbIpZpvkVjL5vPUaNbNn2la55QujWCmXolA6NALUQV9UjPbeOZCTd/xlev3C
+	 30mmj7sLpNysf65+m1/CGBC22lx9qov9VYB9kT+lJKAVIz/PTAkaWPu2S8bh0hzM8ay3f
+	 C7BwK9xRo6c4Zp/6AUwbJNiTpgTkiE8EgprlYgvxZ+tiiy7uYeYYRWgu1KP6RaUX1YF9I
+	 gqWBBFTtyr/sLLnVwuBTtBiL4rnrcLzi6Xfb0pcV0RkpW0LvEHMKCd/F7GO1UBmpQQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RLCksp3w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	arc=none smtp.remote-ip=185.128.210.58
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C73606A325;
-	Wed, 28 Oct 2026 19:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RLCksp3w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84B71F01825;
-	Wed, 28 Oct 2026 19:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793216406;
-	bh=IIEjDcI6b6iH3mjprLA+rx/rKLunTfnyMKPDy0e9qE4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RLCksp3wnDtbgfcQXfAavQTXlEz5mQLmCwVnDi5R1/+BPabnPuFcu4pyzubdu6unv
-	 w6HKpyeqzj9IxNahV5XFEamOh6vj5N6lKdgxNd4eQd0f2eVHzjBsdFHmqnVl6eRYp6
-	 Zv9kMp80tCjrG/Ku1kIoOb1oTnsDVf6WnIbjUhDA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29E4606A31E;
+	Wed, 28 Oct 2026 19:40:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B29E4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
 	patches@lists.linux.dev,
-	syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com,
-	stable <stable@kernel.org>,
-	Jeffin Philip <jeffinphilip14@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1508/1887] usb: gadget: f_midi: initialize work in f_midi_alloc()
-Date: Wed, 28 Oct 2026 18:00:04 +0100
-Message-ID: <20261028170533.778741987@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 5.10 000/516] 5.10.273-rc1 review
+Date: Wed, 28 Oct 2026 19:39:42 +0000
+Message-ID: <20261028193945.85857-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
+References: <20261028170003.522232767@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,57 +68,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+# Librecast Test Results
 
-------------------
+044/044 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-From: Jeffin Philip <jeffinphilip14@gmail.com>
+CPU/kernel: Linux auntie 5.10.273-rc1-00517-g827e3840d937 #1 SMP Wed Oct 28 17:48:41 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
-[ Upstream commit 7e07d3e4c389217d7d7171d80edf2e23ac70f1ea ]
-
-f_midi_alloc initializes free_ref to 1 and it can only be incremented
-when a sound card is registered via f_midi_register_card().
-f_midi_register_card() is only called in f_midi_bind() which actually
-performs INIT_WORK. If f_midi_bind() is never run, work is not
-initialized and the if condition in f_midi_free becomes true,
-this results in a warning later in __flush_work as work->func = 0.
-Fix this by moving INIT_WORK from f_midi_bind() to f_midi_alloc().
-
-Reported-by: syzbot+d5fa3d224505c8610702@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d5fa3d224505c8610702
-Fixes: 8653d71ce376 ("usb/gadget: f_midi: Replace tasklet with work")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260815054006.102325-1-jeffinphilip14@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/gadget/function/f_midi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-index c060e797de6f4..f556fe7163c00 100644
---- a/drivers/usb/gadget/function/f_midi.c
-+++ b/drivers/usb/gadget/function/f_midi.c
-@@ -877,7 +877,6 @@ static int f_midi_bind(struct usb_configuration *c, struct usb_function *f)
- 	int status, n, jack = 1, i = 0, endpoint_descriptor_index = 0;
- 
- 	midi->gadget = cdev->gadget;
--	INIT_WORK(&midi->work, f_midi_in_work);
- 	status = f_midi_register_card(midi);
- 	if (status < 0)
- 		goto fail_register;
-@@ -1371,6 +1370,7 @@ static struct usb_function *f_midi_alloc(struct usb_function_instance *fi)
- 		status = -ENOMEM;
- 		goto midi_free;
- 	}
-+	INIT_WORK(&midi->work, f_midi_in_work);
- 	midi->out_ports = opts->out_ports;
- 	midi->index = opts->index;
- 	midi->buflen = opts->buflen;
--- 
-2.53.0
-
-
-
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
