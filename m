@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209290;
-	b=acahuhVeuB90QUhg2MLj+70c4uVNr//vXi0ne7/O51GmLfrcDrKrw+uHVjqkuLz65vD+
-	 voXshMzSOLZcWM2LuTLzPDff52rUdqygD1aKHkAT9aCQhI2rd4tI1PON//BH1tIuUXqid
-	 DJ/YQ4B2089glgwvGhgHVGWNlhZBcQI8ecUi3a2Xd6knzrRXYY6f1kCYMo+Pt3QPZPLNw
-	 046VXhFR6m4pU4ebQw1X/TPWU4OjGk1vR6qz02ea9a+wc18uuFYmjkVdZ+ncZn8L1Nib3
-	 p5YepgsLAiLY5QYHnse/ICX14wEnr9KVmO6rb+J7bo9imEsiQKlwl9GQivxLGzoKVeg==
+	t=1793209293;
+	b=dw7PCgrQld7Ss+d+s+uZMNM9jUetKP3NDx1o/v7zIoMGQUPetUkJy+Z10DlMaloOCkD3
+	 Hyn48CYeoW5RniQ2XGXk333uKXE6aKpmTxso949a+WwDzAm7h8L6AC8r0CK3y//efYPIY
+	 v6PYEyEKIZtaK2cL4gMYnAW1921ilKEKvyY5KcxQ507q6tl2sT1/26QH/7tNDU3i4lbBN
+	 zzdmrz66Qth8gU0i0NKcnI36C+yQIJeD+d+X0MAHyrxmLrIv6iRjETLO/h3TSdM52XHGN
+	 GeJ7YlxabW1mGurtIomHIUdImmm4rS6RkAEv7SOl2w8rQnw89hJycY9ih5mVuz5PBdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209290;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209293;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=h/xpUaYwbemA25Y/cDV2NnUXGVBwmt0Qofnm22roLfw=;
-	b=wfi4dna9Dx+Dr7Fpro6MIUE7OAcOadStjb6T9RryMviIF0O/69RidKe9Mp4W4n9I8maF
-	 SJLgboNI1Mf/Q2XVMFc/oDUp1Oos1dIGnVsrPLGaE1GQiSqYBS0aVAILE/DXreKlKj5ZR
-	 7or87VbjSgNrDwi+QWk9KxeDEnYJMj6kjQ0wDNQ6q9AEhLfJ5+qVju9LE3RpNK9FawY64
-	 ioGbybQ/r5Oiy/xxe+Cs5lwcJwz5/hkkc0ENujAdFMvpF8qTIoCNjbjW76fSzCtCfG/3z
-	 3K4uUNB5MqG7FR3JHL+6AaV/V1M6AR7lni3CGBO5qW0zomvFGjbJ0pL2XzqPCB1sjfQ==
+	bh=djTqyRwueCHQlNLEeoxpIrkz3zb95qIRI63lIsfYKCY=;
+	b=xlofWTqX9lt27/CI0xQr2xhOdmYEn7g0KajxP6DROZN6D11XfmYxAVzrA1/mF10IOt8r
+	 ac88W6UvMY/XyvYivs0K68Edz/lKeWOFfjhVH7Tp6vbONJEQiq15I9Dhngs4Pw9ym59n8
+	 /hoadwO2t8ZkIYn66l8EY+pTlwXQ3+vtyy1piQJug/1ki/SYnXtsYUhcGPuzrgsBoZgFe
+	 w2NJ8AmApe7zgb21NwbHRavde8ETfu3xExEA7cKrB79Dv3NBApJmCg2ksAmRzhs8e6mpq
+	 NzZykRW7lkfBGG2htWY42VBsMeFS3O3SjFg37XMVauSIIVy1xVIFhn93Z17o7cmJhLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Iqjbdb4j;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r+UM+GyB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C01606A31E;
-	Wed, 28 Oct 2026 17:41:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390E1606A31E;
+	Wed, 28 Oct 2026 17:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Iqjbdb4j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAA31F01825;
-	Wed, 28 Oct 2026 17:41:29 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r+UM+GyB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375811F01825;
+	Wed, 28 Oct 2026 17:41:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793209289;
-	bh=h/xpUaYwbemA25Y/cDV2NnUXGVBwmt0Qofnm22roLfw=;
+	s=korg; t=1793209292;
+	bh=djTqyRwueCHQlNLEeoxpIrkz3zb95qIRI63lIsfYKCY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iqjbdb4jqO4kj0w3d6wdUdy6/AIXg07n4aAdm1A3vrLpc7Vo4ujG9esc+5Z5WmRxq
-	 UvRRp65FtZXEBGSc3G5UzMTST3v+SflEoes64hb01rzZUX5mjNLOXsSrW2nxzMQ1N2
-	 izSe/ZkA5+o3BIvheeb8sWAK1hwPRk/xj9QBK9fQ=
+	b=r+UM+GyBbnKM31W3xRdJFJhzejkhQrIRasZZt+P56tpiP5JSpvahdYYqM3vYPFKXo
+	 UKaU/LEe5GW84Uf04bkaZV2Nr6+bDLLeOnen/NUjgZmeM00avGzBZMLibFEWjftmFl
+	 iXnk0PKdrgVINmmdezXXwZAJsVYn3nMsQnlGve8A=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Dave Chinner <dchinner@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
+	Vlad Buslov <vladbu@nvidia.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Felix Fietkau <nbd@nbd.name>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 417/516] xfs: xfs_ifree_cluster vs xfs_iflush_shutdown_abort deadlock
-Date: Wed, 28 Oct 2026 17:59:29 +0100
-Message-ID: <20261028170013.365413363@linuxfoundation.org>
+Subject: [PATCH 5.10 377/516] netfilter: nf_tables: fix bidirectional offload regression
+Date: Wed, 28 Oct 2026 17:58:49 +0100
+Message-ID: <20261028170012.414812998@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -71,169 +70,37 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Dave Chinner <dchinner@redhat.com>
+From: Felix Fietkau <nbd@nbd.name>
 
-[ Upstream commit 09234a632be42573d9743ac5ff6773622d233ad0 ]
+[ Upstream commit 84443741faab9045d53f022a9ac6a6633067a481 ]
 
-Lock order of xfs_ifree_cluster() is cluster buffer -> try ILOCK
--> IFLUSHING, except for the last inode in the cluster that is
-triggering the free. In that case, the lock order is ILOCK ->
-cluster buffer -> IFLUSHING.
+Commit 8f84780b84d6 ("netfilter: flowtable: allow unidirectional rules")
+made unidirectional flow offload possible, while completely ignoring (and
+breaking) bidirectional flow offload for nftables.
+Add the missing flag that was left out as an exercise for the reader :)
 
-xfs_iflush_cluster() uses cluster buffer -> try ILOCK -> IFLUSHING,
-so this can safely run concurrently with xfs_ifree_cluster().
-
-xfs_inode_item_precommit() uses ILOCK -> cluster buffer, but this
-cannot race with xfs_ifree_cluster() so being in a different order
-will not trigger a deadlock.
-
-xfs_reclaim_inode() during a filesystem shutdown uses ILOCK ->
-IFLUSHING -> cluster buffer via xfs_iflush_shutdown_abort(), and
-this deadlocks against xfs_ifree_cluster() like so:
-
- sysrq: Show Blocked State
- task:kworker/10:37   state:D stack:12560 pid:276182 tgid:276182 ppid:2      flags:0x00004000
- Workqueue: xfs-inodegc/dm-3 xfs_inodegc_worker
- Call Trace:
-  <TASK>
-  __schedule+0x650/0xb10
-  schedule+0x6d/0xf0
-  schedule_timeout+0x8b/0x180
-  schedule_timeout_uninterruptible+0x1e/0x30
-  xfs_ifree+0x326/0x730
-  xfs_inactive_ifree+0xcb/0x230
-  xfs_inactive+0x2c8/0x380
-  xfs_inodegc_worker+0xaa/0x180
-  process_scheduled_works+0x1d4/0x400
-  worker_thread+0x234/0x2e0
-  kthread+0x147/0x170
-  ret_from_fork+0x3e/0x50
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
- task:fsync-tester    state:D stack:12160 pid:2255943 tgid:2255943 ppid:3988702 flags:0x00004006
- Call Trace:
-  <TASK>
-  __schedule+0x650/0xb10
-  schedule+0x6d/0xf0
-  schedule_timeout+0x31/0x180
-  __down_common+0xbe/0x1f0
-  __down+0x1d/0x30
-  down+0x48/0x50
-  xfs_buf_lock+0x3d/0xe0
-  xfs_iflush_shutdown_abort+0x51/0x1e0
-  xfs_icwalk_ag+0x386/0x690
-  xfs_reclaim_inodes_nr+0x114/0x160
-  xfs_fs_free_cached_objects+0x19/0x20
-  super_cache_scan+0x17b/0x1a0
-  do_shrink_slab+0x180/0x350
-  shrink_slab+0xf8/0x430
-  drop_slab+0x97/0xf0
-  drop_caches_sysctl_handler+0x59/0xc0
-  proc_sys_call_handler+0x189/0x280
-  proc_sys_write+0x13/0x20
-  vfs_write+0x33d/0x3f0
-  ksys_write+0x7c/0xf0
-  __x64_sys_write+0x1b/0x30
-  x64_sys_call+0x271d/0x2ee0
-  do_syscall_64+0x68/0x130
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-We can't change the lock order of xfs_ifree_cluster() - XFS_ISTALE
-and XFS_IFLUSHING are serialised through to journal IO completion
-by the cluster buffer lock being held.
-
-There's quite a few asserts in the code that check that XFS_ISTALE
-does not occur out of sync with buffer locking (e.g. in
-xfs_iflush_cluster). There's also a dependency on the inode log item
-being removed from the buffer before XFS_IFLUSHING is cleared, also
-with asserts that trigger on this.
-
-Further, we don't have a requirement for the inode to be locked when
-completing or aborting inode flushing because all the inode state
-updates are serialised by holding the cluster buffer lock across the
-IO to completion.
-
-We can't check for XFS_IRECLAIM in xfs_ifree_mark_inode_stale() and
-skip the inode, because there is no guarantee that the inode will be
-reclaimed. Hence it *must* be marked XFS_ISTALE regardless of
-whether reclaim is preparing to free that inode. Similarly, we can't
-check for IFLUSHING before locking the inode because that would
-result in dirty inodes not being marked with ISTALE in the event of
-racing with XFS_IRECLAIM.
-
-Hence we have to address this issue from the xfs_reclaim_inode()
-side. It is clear that we cannot hold the inode locked here when
-calling xfs_iflush_shutdown_abort() because it is the inode->buffer
-lock order that causes the deadlock against xfs_ifree_cluster().
-
-Hence we need to drop the ILOCK before aborting the inode in the
-shutdown case. Once we've aborted the inode, we can grab the ILOCK
-again and then immediately reclaim it as it is now guaranteed to be
-clean.
-
-Note that dropping the ILOCK in xfs_reclaim_inode() means that it
-can now be locked by xfs_ifree_mark_inode_stale() and seen whilst in
-this state. This is safe because we have left the XFS_IFLUSHING flag
-on the inode and so xfs_ifree_mark_inode_stale() will simply set
-XFS_ISTALE and move to the next inode. An ASSERT check in this path
-needs to be tweaked to take into account this new shutdown
-interaction.
-
-Signed-off-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-5.10: Add header.
-
-Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+Cc: Vlad Buslov <vladbu@nvidia.com>
+Fixes: 8f84780b84d6 ("netfilter: flowtable: allow unidirectional rules")
+Reported-by: Daniel Golle <daniel@makrotopia.org>
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_icache.c | 8 ++++++++
- fs/xfs/xfs_inode.c  | 3 ++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ net/netfilter/nft_flow_offload.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/xfs/xfs_icache.c b/fs/xfs/xfs_icache.c
-index d973eca1a8815..f52737051b496 100644
---- a/fs/xfs/xfs_icache.c
-+++ b/fs/xfs/xfs_icache.c
-@@ -1040,7 +1040,15 @@ xfs_reclaim_inode(
- 
- 	if (XFS_FORCED_SHUTDOWN(ip->i_mount)) {
- 		xfs_iunpin_wait(ip);
-+		/*
-+		 * Avoid a ABBA deadlock on the inode cluster buffer vs
-+		 * concurrent xfs_ifree_cluster() trying to mark the inode
-+		 * stale. We don't need the inode locked to run the flush abort
-+		 * code, but the flush abort needs to lock the cluster buffer.
-+		 */
-+		xfs_iunlock(ip, XFS_ILOCK_EXCL);
- 		xfs_iflush_shutdown_abort(ip);
-+		xfs_ilock(ip, XFS_ILOCK_EXCL);
- 		goto reclaim;
- 	}
- 	if (xfs_ipincount(ip))
-diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-index 5c04c61964cec..a36843bfb6efd 100644
---- a/fs/xfs/xfs_inode.c
-+++ b/fs/xfs/xfs_inode.c
-@@ -33,6 +33,7 @@
- #include "xfs_symlink.h"
- #include "xfs_trans_priv.h"
- #include "xfs_log.h"
-+#include "xfs_log_priv.h"
- #include "xfs_bmap_btree.h"
- #include "xfs_reflink.h"
- 
-@@ -2553,7 +2554,7 @@ xfs_ifree_mark_inode_stale(
- 	iip = ip->i_itemp;
- 	if (__xfs_iflags_test(ip, XFS_IFLUSHING)) {
- 		ASSERT(!list_empty(&iip->ili_item.li_bio_list));
--		ASSERT(iip->ili_last_fields);
-+		ASSERT(iip->ili_last_fields || xlog_is_shutdown(mp->m_log));
- 		goto out_iunlock;
+diff --git a/net/netfilter/nft_flow_offload.c b/net/netfilter/nft_flow_offload.c
+index fd3788d655356..570f235f802f8 100644
+--- a/net/netfilter/nft_flow_offload.c
++++ b/net/netfilter/nft_flow_offload.c
+@@ -127,6 +127,7 @@ static void nft_flow_offload_eval(const struct nft_expr *expr,
+ 		ct->proto.tcp.seen[1].flags |= IP_CT_TCP_FLAG_BE_LIBERAL;
  	}
  
++	__set_bit(NF_FLOW_HW_BIDIRECTIONAL, &flow->flags);
+ 	ret = flow_offload_add(flowtable, flow);
+ 	if (ret < 0)
+ 		goto err_flow_add;
 -- 
 2.53.0
 
