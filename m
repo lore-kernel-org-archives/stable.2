@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208380;
-	b=N7XWCbZRkEOmnabQlZrzESXEUW00HTBpRrttPhPOWLy3DbTzC0sbFsqThCe9Ye1dn3mq
-	 6yXRPljdqkJ9x/+5fodxjDLDu1TCS8FIUBpn0yms2I3PTdf6JvZSIKxT2ppC/j8A2xuiw
-	 ksPbY/yX0jTPeJCB4ba/sc6D6SIjUWIdKv2iomQZcstrh71BPz9MrV/px3VZwxvDtYjr+
-	 /Fgd0jnEiegOqWG5iacS2lydfZO4fki/54L07vhCdQvsL1OtyDIUjSwOmZfV8Z7Sb+wVk
-	 E87daRhLXZf5kxFGTCpYjdRc5hk4VDx0+vmNi0yAwsZKMn23wFy45reHGaz3G0gzpaw==
+	t=1793208386;
+	b=31mJHFIvx6HRJbEt2IbpwKpWt5Ad+EtNcvK72nZg/YKaPT9y0aj3BDfJuRPyzaJaKG99
+	 LZzDjvziQYlJ7bbCeIkJRaFx5gPtoA6pB5iQBwDHYJSgkoV7R1DlnysWJKRhd/Z/XDjD5
+	 Lh71AtvTe5GjZPxUODPFuX0A3D+jgwo/2PCaNNtatwpbtHHOHxo3IlwmGGQXoxY0A9RiJ
+	 U7wxWnoXKmOqolv/Kom7WFwUdwEIqbPgzN4/26gL3ejTZIQ7pn0/kuSNi6YkYc1obxGGj
+	 pTxPal6x/gn8qgilNKUPxSv9F/LfAhzTE9ApIVB0sgW7RdmJBmfJmv4qvAv2DMCkCbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208386;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oJkFOodxG63wb4KBfnFMTEkYStWVWJ6fFPBnnos15jc=;
-	b=0ElbHpF7lI28smTOfuL9mDDmSN6lo1HexZEELs9/kL3yE4IkxqtWqsMRbRBCVb2E8XMs
-	 +oVrj526nd96RkrXW/GA07Pyt913pEaZ4YhoQfBsOCasW8BpY9QfG3J8XsBimXdZNYPOF
-	 0LTAKfWRGxTNQ5UguLyz2dt6OG2z0Gv1vQx8InNVvR9WELtnuVVb8oD4Rq9uc4R1qA2gd
-	 wye5jf7Z4Cn7Cf72BWzHzkJJNbdxwVkf/VqdCYeFGzwjsbRLoKzGM4qTG2KmSItzxDJLr
-	 l2eTP9IkEF/MPBHBn9vk64BJErLkuZtTCWhA2JXFHGkI26JYRhMTHbLXbDP7MuqW4Gg==
+	bh=QpEes12LQW9bJfpQWkPHqAimNC11wtqIVqOSsUjUujc=;
+	b=G77PMGDAA+KcmQ3I2wnPQz+I5I6GbQE952JKYcEfvX0gb604VjF2wpbFPNHKOdf9EvYz
+	 pEr0vODI2lzBPASQGLzWiQW50pPOTNO4HO8ACvfTnGjA3cT6P/I/H8VnGZzjPBJUWHn3F
+	 gpEkvc3GVmcfty1ZtBC4hF4LPeQFoR6bKwB0meI4O18rLqXGjK776VIrHpSXYuKJNPg6k
+	 q8Mq0DKB1TVUJHYOnabPy36+LORtILpo83KpYmKDdaL0YlPPxBniMw9B7p8uIlvj2ra+w
+	 mVppLGF/SxAdIWurmv0O5OjdWC3pH7frBJuVkQ/EEHbTBMxxhq7jOZr23qdsAwrAAnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZN5GTbmx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lUhkcaGY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75976606A320;
-	Wed, 28 Oct 2026 17:26:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8CB606A320;
+	Wed, 28 Oct 2026 17:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZN5GTbmx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40051F01828;
-	Wed, 28 Oct 2026 17:26:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lUhkcaGY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B341F01825;
+	Wed, 28 Oct 2026 17:26:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208380;
-	bh=oJkFOodxG63wb4KBfnFMTEkYStWVWJ6fFPBnnos15jc=;
+	s=korg; t=1793208386;
+	bh=QpEes12LQW9bJfpQWkPHqAimNC11wtqIVqOSsUjUujc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZN5GTbmxtLT3gFUlh86qrN2hWfTj464+7aCv7n13SQpAwB4IsLMdZDeY9SVl5qbEk
-	 e8rEoJW9cu4GFqaVb6HREVN4QYDiMP/md65MSOLkzUtJPuSnO2O9H28sTvmFjO4Cdq
-	 aLzUZd8OXkLt6U2q7wwseS/N805WtWWJwYS+lx+8=
+	b=lUhkcaGYyv8eK1Tad/oBKkmlxf3P8wiv2iMoGsX4bIwOhvFL9mb2x2pcwn1B0+r/x
+	 J+3RJhl1VFVnN09VvP2ZYGaCvApFTNEzNil2xd4zvIhX75gEdpeRKATfdGLAOs0uMN
+	 poL1/x96MWlSDcjXoC47dNGy+Jqncn5HBIMUk/6I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Kees Cook <keescook@chromium.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jiacheng Yu <yujiacheng3@huawei.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 056/516] params: Sort headers
-Date: Wed, 28 Oct 2026 17:53:28 +0100
-Message-ID: <20261028170004.856222801@linuxfoundation.org>
+Subject: [PATCH 5.10 058/516] params: fix charp corruption on allocation failure
+Date: Wed, 28 Oct 2026 17:53:30 +0100
+Message-ID: <20261028170004.902836743@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -69,53 +68,81 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Jiacheng Yu <yujiacheng3@huawei.com>
 
-[ Upstream commit a05f096c2c0ca52e8fd34740c7d4b53ab3e7123e ]
+[ Upstream commit 3dfaae04243cde460d82dfc2a7dd0bb6664d20ae ]
 
-Sort the headers in alphabetic order in order to ease
-the maintenance for this part.
+param_set_charp() stores charp parameters in allocated memory after slab is
+available, and releases the previous value when the parameter is updated.
 
-Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://lore.kernel.org/r/20231120151419.1661807-5-andriy.shevchenko@linux.intel.com
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Stable-dep-of: 3dfaae04243c ("params: fix charp corruption on allocation failure")
+The previous value is released before the replacement allocation succeeds.
+If kmalloc_parameter() fails, the setter returns -ENOMEM with the parameter
+left as NULL.
+
+Failing zswap's compressor update before zswap is initialized can later
+trigger:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:strcmp+0x10/0x30
+  Call Trace:
+    zswap_setup+0x3b1/0x490
+    zswap_enabled_param_set+0x5b/0xa0
+    param_attr_store+0x93/0xe0
+    module_attr_store+0x1c/0x30
+    kernfs_fop_write_iter+0x116/0x1f0
+
+Allocate and copy the replacement first, then replace the parameter value
+only after allocation succeeds.
+
+Fixes: e180a6b7759a ("param: fix charp parameters set via sysfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiacheng Yu <yujiacheng3@huawei.com>
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/params.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ kernel/params.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/params.c b/kernel/params.c
-index b930d3a4677cc..94ee86e6f8fe1 100644
+index e6d96f84ac1b5..ca87641c289f1 100644
 --- a/kernel/params.c
 +++ b/kernel/params.c
-@@ -3,18 +3,18 @@
-    Copyright (C) 2001 Rusty Russell.
+@@ -265,6 +265,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
  
- */
-+#include <linux/ctype.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
- #include <linux/kernel.h>
- #include <linux/kstrtox.h>
--#include <linux/string.h>
--#include <linux/errno.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
--#include <linux/device.h>
--#include <linux/err.h>
- #include <linux/overflow.h>
--#include <linux/slab.h>
--#include <linux/ctype.h>
- #include <linux/security.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
+ int param_set_charp(const char *val, const struct kernel_param *kp)
+ {
++	char *tmp;
+ 	size_t len, maxlen = 1024;
  
- #ifdef CONFIG_SYSFS
- /* Protects all built-in parameters, modules use their own param_lock */
+ 	len = strnlen(val, maxlen + 1);
+@@ -273,19 +274,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
+ 		return -ENOSPC;
+ 	}
+ 
+-	maybe_kfree_parameter(*(char **)kp->arg);
+-
+ 	/*
+ 	 * This is a hack. We can't kmalloc() in early boot, and we
+ 	 * don't need to; this mangled commandline is preserved.
+ 	 */
+ 	if (slab_is_available()) {
+-		*(char **)kp->arg = kmalloc_parameter(len + 1);
+-		if (!*(char **)kp->arg)
++		tmp = kmalloc_parameter(len + 1);
++		if (!tmp)
+ 			return -ENOMEM;
+-		strcpy(*(char **)kp->arg, val);
++		memcpy(tmp, val, len + 1);
+ 	} else
+-		*(const char **)kp->arg = val;
++		tmp = (char *)val;
++
++	maybe_kfree_parameter(*(char **)kp->arg);
++	*(char **)kp->arg = tmp;
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
