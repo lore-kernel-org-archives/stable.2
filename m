@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208645;
-	b=ChS1MrsRROfBCp5ujpgzPcDv/4tlKJFE3Yan2StgK7CZwbmPTED1Rp3rZkFzGn07dxiM
-	 oTvjcIJy5+ItTp8N4tHd6YYFFhUS9bJFuStKzPoiiCcy6RA1weNc4D3drVBrn+dd70iih
-	 kb+sq6ygdrM/OL3Ag8xAa+GOmYtWCUq1118qixg0FdWao9KOo7VsBPxM7Gan0I0yx4Vsa
-	 EBZwcrNIIAbm0z2aAZaj9ir4lag8EpSkLFlNCa+TKlRV/8xff2P4u5//tXQfznpoBP8nO
-	 ZyXZYLzstngpOZIRjWdpQroaU7cEBNaz+UkIMWQAF9z6lnLZU9UwBwwFsTwOIrpYcXw==
+	t=1793208650;
+	b=Kjwoc/wm56IpqnNElD6YNUV7Zz6dGzL8CV+bYG+jxTLu7DgMs8vRBdsX2SAaxBwJiueu
+	 1grdRHMG9WDHXtX8GTcCzsVFKZW0ZdQJgKOKkAlIfmPHSxxuvR3xUVpg8rYIwKeWNHZ0N
+	 nk6E0Gls/6HYGeen+QRL6m2XWtNXAAoiBS2qjrci+xDkIvk9DaDw+ZpM3nOVSwYea0h1P
+	 vCAx2/uvQKOucnlRhZkcISI2yODKD3mKL8IRk+FttCRcdRtcbO6zbungKthJ2fA56bIQn
+	 na1ZyUwCYNLS4gkI5DV+KV8xA1mkcYT2EgcpjF4MDidHJ9GDggGAIARpSYzt0bZhCpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208650;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2pY+lDuPmhghb34j90Gvwk2/XaobvpKQOOiu6rpC9ho=;
-	b=bkP3MSNcNI7SveoPayA4dXsAEcuLdQroR+JKvdUA++wV0czI08doD5DBrZAqQ3rH4NgV
-	 xDgCYKWiGm5cz8oNyrU1MV4vdCDDYf10LcKXeNLV+vMrWdTsIMdH9hNf9IzOMlR38+dwh
-	 7l73TyS8LTTKcqAphSxBS2XorPmXCXhDjQnBAWXwiUHqya7wJ2rGDcpLdg9VsUAmmQUwY
-	 tzDLmBBZo/P0U4JwjiVsbDepvS+J+meTP3NeguDWx7yiXF8aDU8H6IjoAMx/v18hAqxu4
-	 qhd2MbFysrI8VTRXnWLVGx525xte+Dec+HbJphMtP/86YoLEA/OZI0YqIhg+GonKyqg==
+	bh=2/ib+AaOaPE3iGbq0Aini9LA4hsHXaRnTkE4yQF04ME=;
+	b=vv7gO3nbN02wb/4tHL5J3jLdUVwoPT5Uv7pX1VMvsjwpqO/NOwKVOC7CQZQRs/b/wx2E
+	 JsiYiIvSrRM4Rqb4UuCvtkSe1QG/r1F2xFKpLkOFzZ8gwgCq6LGSFgeKvcLTKxzzah3GN
+	 qitu70GrI9bl0mXggnwUMpdRox5KVQLtNuL1TL60f9EoHYOysSLFCeXvA68r5zeLnNkSo
+	 xImqWNQVT1yI/veKzWwR71bkMgICEDq1kAa3IiEe+cCjnEXk9yqEIs8r9w8CGaI0elkRS
+	 2bqy+Xsi8Bghcp0TaRzsUJbj9bRAT7SVP+8XS/YDQectsmac1qKjlzfUCwt225Vg8SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y68PsHzh;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a2e81R66;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32B7606A31A;
-	Wed, 28 Oct 2026 17:30:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95416606A31A;
+	Wed, 28 Oct 2026 17:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y68PsHzh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF361F01825;
-	Wed, 28 Oct 2026 17:30:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a2e81R66
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58BC1F031E0;
+	Wed, 28 Oct 2026 17:30:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208644;
-	bh=2pY+lDuPmhghb34j90Gvwk2/XaobvpKQOOiu6rpC9ho=;
+	s=korg; t=1793208650;
+	bh=2/ib+AaOaPE3iGbq0Aini9LA4hsHXaRnTkE4yQF04ME=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=y68PsHzhbkBd89LZfap01iT7XQsK5h0UtnlGkBKsVb9rQjSExyoXD5DF8GMDFSfa3
-	 ORvl+X3UJLqvHBd0rPrUjzK3xe9LiwTrkTeoOkqInvTmLu84jfp+BSUQ3jJ7unWrOA
-	 /qg6m6dc/hlq2GWKyWzlEOS+mzqKW667fGhsDicQ=
+	b=a2e81R66lKjR7KII+lVKn75/6g+JoBtOP1DC+IqTZ9JMSGjkYO1JyRS96TwCp3dPi
+	 BrdxBKNIC3w4Yx2P+Qgr8izuew4loJlMTQ/UyAsbEZCD/mvZCdjHczlL3XRxP3+ebG
+	 KNeBqKql7WyD/mP2gbHZotHCH+LplsRC9Mohqk9I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sanghyun Park <sanghyun.park.cnu@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 149/516] vxlan: use one headroom snapshot for neighbour replies
-Date: Wed, 28 Oct 2026 17:55:01 +0100
-Message-ID: <20261028170007.037323937@linuxfoundation.org>
+	TencentOS Corvus AI <corvus@tencent.com>,
+	Aohan Mei <henrymei@tencent.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Subject: [PATCH 5.10 141/516] netfilter: nft_flow_offload: drop flowtable reference on init error path
+Date: Wed, 28 Oct 2026 17:54:53 +0100
+Message-ID: <20261028170006.849915951@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -68,65 +68,62 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sanghyun Park <sanghyun.park.cnu@gmail.com>
+From: Aohan Mei <henrymei@tencent.com>
 
-[ Upstream commit 481506a756dcd828ef42391cb08f38d8d96d38fc ]
+commit 747928b5d4ff8c8de55138a54c13980e4bb88578 upstream.
 
-vxlan_na_create() samples LL_RESERVED_SPACE() to size the reply skb and then
-samples it again to reserve headroom. A concurrent vxlan_changelink() can
-update needed_headroom between the two reads, creating a TOCTOU race. The
-second value can exceed the allocation and make the Ethernet header write out
-of bounds.
+nft_flow_offload_init() bumps the flowtable use count with
+nft_use_inc() before calling nf_ct_netns_get().  When the latter
+fails, the error is returned as-is and the reference is leaked.
 
-The race is reproducible on the unpatched kernel. It occurred when
-vxlan_na_create() generated a neighbour reply while vxlan_changelink() changed
-the link headroom. KASAN caught a four-byte write two bytes beyond a 704-byte
-skbuff_small_head allocation.
+The upper layers do not balance it either: nf_tables_newexpr()
+clears expr->ops when the expression init callback fails, so the
+nft_expr_more() iteration in nft_rule_expr_deactivate() and
+nf_tables_rule_destroy() stops right before the failed expression
+and its ->destroy callback, which would drop the reference, never
+runs.
 
-Snapshot the headroom once and use that value for both allocation and
-reservation.
+Each failed rule addition therefore leaks one flowtable reference
+and the flowtable can no longer be removed: NFT_MSG_DELFLOWTABLE
+keeps reporting -EBUSY even though no rule references it.
 
-Fixes: 4b29dba9c085 ("vxlan: fix nonfunctional neigh_reduce()")
-Signed-off-by: Sanghyun Park <sanghyun.park.cnu@gmail.com>
-Link: https://patch.msgid.link/20260918032842.502409-2-sanghyun.park.cnu@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Save the nf_ct_netns_get() return value and undo the nft_use_inc()
+when it fails, restoring the inc/dec pairing within
+nft_flow_offload_init() itself.
+
+Fixes: a3c90f7a2323 ("netfilter: nf_tables: flow offload expression")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/vxlan/vxlan_core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ net/netfilter/nft_flow_offload.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index a2955729998cd..ac45cf9eea836 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -2085,13 +2085,15 @@ static struct sk_buff *vxlan_na_create(struct sk_buff *request,
- 	struct ipv6hdr *pip6;
- 	u8 *daddr;
- 	int na_olen = 8; /* opt hdr + ETH_ALEN for target */
-+	int headroom;
- 	int ns_olen;
- 	int i, len;
+--- a/net/netfilter/nft_flow_offload.c
++++ b/net/netfilter/nft_flow_offload.c
+@@ -170,6 +170,7 @@ static int nft_flow_offload_init(const s
+ 	struct nft_flow_offload *priv = nft_expr_priv(expr);
+ 	u8 genmask = nft_genmask_next(ctx->net);
+ 	struct nft_flowtable *flowtable;
++	int err;
  
- 	if (dev == NULL || !pskb_may_pull(request, request->len))
- 		return NULL;
+ 	if (!tb[NFTA_FLOW_TABLE_NAME])
+ 		return -EINVAL;
+@@ -184,7 +185,11 @@ static int nft_flow_offload_init(const s
  
--	len = LL_RESERVED_SPACE(dev) + sizeof(struct ipv6hdr) +
-+	headroom = LL_RESERVED_SPACE(dev);
-+	len = headroom + sizeof(struct ipv6hdr) +
- 		sizeof(*na) + na_olen + dev->needed_tailroom;
- 	reply = alloc_skb(len, GFP_ATOMIC);
- 	if (reply == NULL)
-@@ -2099,7 +2101,7 @@ static struct sk_buff *vxlan_na_create(struct sk_buff *request,
+ 	priv->flowtable = flowtable;
  
- 	reply->protocol = htons(ETH_P_IPV6);
- 	reply->dev = dev;
--	skb_reserve(reply, LL_RESERVED_SPACE(request->dev));
-+	skb_reserve(reply, headroom);
- 	skb_push(reply, sizeof(struct ethhdr));
- 	skb_reset_mac_header(reply);
+-	return nf_ct_netns_get(ctx->net, ctx->family);
++	err = nf_ct_netns_get(ctx->net, ctx->family);
++	if (err < 0)
++		nft_use_dec(&flowtable->use);
++
++	return err;
+ }
  
--- 
-2.53.0
-
+ static void nft_flow_offload_deactivate(const struct nft_ctx *ctx,
 
 
