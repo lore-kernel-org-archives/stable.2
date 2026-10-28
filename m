@@ -1,97 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793159130;
-	b=1o9s/PA5B7aM7jbKo76+w5cAV9peAQTkV4x+ooOjfpk0aROnksnTUbDnUEpVajDbHoPp
-	 FF5JeHJ5Q0dTV/XvEeVD6Ru0EazjFdo2uYKCJku9xyAXRQ5yDjFIZqmqSDzhlzwtVCZ45
-	 8NMiwvWBKoFwDcPwzflCvtvsJpZB2ErDpQgga6aRk7sOaqiwRs00xhreWQGSklaZB9rJy
-	 F5oddPRT+S8NxzQQzz1c0dqb02ysnuIbhri5c9t/nr8BDGbw0CpKN5gknEJyr/pyI9Er4
-	 7q+S2fgb99MqA4dGbs0v53pAC5b16LmAXWPz0dLRfT/pY2CDqMt7JfapOr0ALAbA1rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793159130;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793160009;
+	b=enENqWbqGBLAyPV/tYyUPGf0NHk5juohZFmT1NpnKKjcrkfJjsGUXYmBvELI+PJsOl4G
+	 G0T9/lSYZmzf21BGPImKz0fOImT7zto6fg+bSp5uhP9K68cleJV/XQkOMyd+uH+yMx9cS
+	 kYpxWIdOQnOWX02I0o2Pj2wXLmwrjYgS1eGHKlTwkirf9Tlh3MGjCAFo4lR2AKXXHYo/E
+	 cpaqvuzZ1Alvg7lpmvmVNcaaMk2f3IHnipL6lMmGQQC3Pd+21U1d1BZkctukVzIWRowOx
+	 MWInvat0vpinWKDYSBeismKJ9kQqhd9C57HpKnG4n+59yZbWIFccYdxYaYbprnsF7UA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793160009;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
-	b=nQF5FRX/R1dn/A8i9AWPlaItxAncZy1OOuWVpbHrTslMnSbV79MU7ZcCkDIXs4Li6rSx
-	 lLh/Ci3lYx0O/v3r33am9MBTjlkbLwjnWW3Sr9fn3kAOAG3OCylGubNyuojN892cMfs+c
-	 feT/VZgLy6okwQ89PROpSJ9RImTC/1bPby27r95oqAeBnoMiKK7GdHdwsl9hZZLH9tAre
-	 5sfDxyR929Pn3UghjIyzDd2+G25etYBzVyswgZCtsALZGUZHYaRpEKotG89LN8fB25Ns2
-	 hq8ya0+kfQ1qpNSEMy9fvcVUlH1+caGx5Ce0U9uHNlUzTS+Y/gGYG7bub4bcEqSXeRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H5vlzOq8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9PnQ2xaZr3mufSI+K6dKdlREXH8U5SwjpmTIIDKwMRc=;
+	b=nYFH15E3WSHOnpvYVa88CdSwVJgS8fpu49CAmU/DRGVVp9GHmVBwD5h9Nu8cYyccojqg
+	 F1x4HSneoMM/IH7RAAR1KmX8a8zyqleBlbVfSKEs6NYG2Iy63+QsI6QS2iHkL2MifkMpo
+	 aQevMsXva1gVhF6TbRu4UL7fzRTzoxOBn0TM+9iT+Wmp/mNLU3YlwL3/VWl9HQlTSBy2C
+	 Iom15av4+SQYJnBsNcPUV/ImVftm8grd6vV1Vjb9i5ysVbL8Iya9Ird6jbRcnmhgJhjyj
+	 r/zMxxFABNiXwUTy174FtAFgpcQBE1VL6gtKNmOPfuhQRX4ZwUmGSbsURX4wg8kloTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89885606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:45:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89885606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H5vlzOq8
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b125371596so14001787b3.0
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:45:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793159128; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rOnZaJl9TQwTYPf9CmGy9cQbiUyRojqxyvN40SGT2oh5i0rK9/zqxk7XZFJe4hhiE7
-         SC2u2yiQMNzYM4D3i1pHt0Sx5PyFc1vMti2ZXNXbV/zVIeMn0TwSZAAOPd2AWLtScdNK
-         FpLf1LBsPohKANVIaxt4dhEMKmzT8xQqowkNvi/IxnnuFwSUD/opMfYlurnfIeUanogC
-         8VX0Z8Rr+cm6Hnbfv5hSWSmD39WnJ0IVfxRu0iib8SX3HWGEr6lFGLhAHgVIYZEBweAD
-         8CbDYvWH91XBOyWC3AtNtvj6GSp9FG3HO3djzERpS1LYtVUZsNxXQm2dn5e6IqcGMkuf
-         9IlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
-        fh=ehLBqCO/ZiRa4OTqTikOX1vh04u6oc2RLwLtyrkXyo8=;
-        b=a1lHEK2KCSDoax/30UGGyVlc+C+jyRBQv80tX6Pln42z1Q1brgnDBTr3eehjoUMEgl
-         vV+qxa2d2W5Ud8lzqBmYjM0qHymTaIvmHV3OXg+rk4Cno00b/frZ6dTUNNM9iULR59Y1
-         v/1FvbX/6jhtArPU+Yvd+6Dwc7p/FI3cLg1GeMXIlUb93v91fGKQYTPVQsvPFNYcOBnO
-         3sjBOxMoBQTaqklV9kNiFTq1AJ/uMx/3YO1LAZoYA0ofX2adtQm042u7v9X/Wei0gXwm
-         2rsdn7oKTNUJSUXroFSx/4lAawxPKLIW3P6KyfUfngvIXo/X6ABwguByI1EVsxTi0xTa
-         8rgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB284606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:59:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB284606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91c63449320so6291756d6.1
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793159128; x=1793763928; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=cs.unc.edu; s=google; t=1793159998; x=1793764798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
-        b=H5vlzOq86fPpSki1zWRFOTb4zgk+97w08kNBOW/3IqCdyax/WWeKa2xp/gVT6oLv9/
-         Db7KrNBwf+GxM2kv3Fze1Em56xazErYJyXdagscS83wrvmyp3od+t/Ma2zquSH8xEcQ4
-         ddZUme6Sni+Bd6/W23Lq595h+TGbVnhmbScmE=
+        bh=9PnQ2xaZr3mufSI+K6dKdlREXH8U5SwjpmTIIDKwMRc=;
+        b=Rx4wB/LhE02EKCirrNsMf/bIC/Ktzo7u3dwF+S3HlsfNKW3SPrW2onMGaHbLVMuF2p
+         4AH0RuZkBkR7r/pDtqMhDUw3WMcpMR3dsbSuiWFkU0TALoGcxaf3VMIToOZA+szp5Tlo
+         J7UitxxoUAiQGw5jIZ1jWLRG/fNUCVXwtfQx42QZH5jpPmIV3Vd1OKa8LUp7alfhsq8M
+         JK5jCeuAYLAtjaSYyPe0lPSbUj7Hl2R0PurD6aLtQX0w5cOEiVUUD9BS5RMuE92CT4cy
+         xPJdYgbky6NRWJ0i4Lrl0B/7Bus4+THeU+YgMcjp3eHhVipME+Z/i6RTlxi28j9X43Vb
+         X+pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793159128; x=1793763928;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793159998; x=1793764798;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pM7VE/CerBkoBPkh4V5PjX+Bg9INjgdsKmYYksDXboE=;
-        b=CcpreebTap658Uf/EWG1uNESlPMmYc4RJ+Xuf4MpM3Zhaem+FlRCbAniLsF9LsRXV/
-         xDVVidxytPPnqQpo7/I6GT1jXSK74nWz3Xsl5jYWT2nk5JAjkBzCH6rD0V/xivUrzMC9
-         kXyY9G1FKdRW0NZ+iu09TdZ7ZPC9MS1RLKrgRuP+N6oT7cUgYAO6heepHMhk00r87GV8
-         tKBEaGcsGigYYa1q2HtS3jBXjmlSsAaQfAZeGrJFw5kCIqNos2hghW942H42pDKsTCiP
-         8KLDUl+SESYuO4/p0Q8rBf9V3h7xx/xoamN1JtnGxdU7Ya7nPNLwrx8vidiPRm+5jjGi
-         29Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1El39Zbwog2Brwxsw8tGhBTHfMfSKihcBG+n5HfElA+4n4OFY1AYaQ54gzxLwfGQ681H3eRs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKb9usGrJAUJ2bTF4DPnCw0ZBnWs1RtdCbQJS4QdMlImyOhk3wA
-	uyxJM2JFczgLe+aNX4GmSDPdBtQ44g36vczjufgBESA2jd+y/S5wZB7KhS70VBOswcActgOq5dZ
-	PuAipd7rhAxXo+WSAstCe8Vqu2yc5H9CfpCqHOsvU
-X-Gm-Gg: AYBFou3Grep9kQQE17UKSlsBn/MbTHfJyi60suLBt1JbTdI+LxjhbYpBjULCecFvNa1
-	uQ7dh7O6M75Pf1XV3bVxnrIdsG1ZuMavkTzIDKUs3gf4QTKkHc5bKcbxewO92dht3ScaULDWopS
-	wLVDUp/QR0KMTfdbModZ02uKaES8vNRuzTVvVHX3B/AVlw9KOnZk2KU+vCG0m+MGxoXJNyXFTKc
-	Q4UzN4rFOjiaQuIOsqjue1w/4pNG9S6U2LcuHYignkgaDN2nO2amcJwROhuypbX4z4jssQ8lTKL
-	v2DbZ8zP5UHrf1I/sNPQ1eEFkjT6/jBxBFZGRtgpMMz7HWvDcpHrd+u8+zJlYvmEs17M59xR4jH
-	pHj1RHiqPdF10oCKNOUwqWYXvdv7dHK5wXOs94pP/5r/Qb5ToPCPrOJrC8fTQEvhxw+c=
-X-Received: by 2002:a05:690c:d86:b0:8b0:a5d3:71c1 with SMTP id
- 00721157ae682-8b19caaac51mr35421007b3.37.1793159128558; Tue, 27 Oct 2026
- 20:45:28 -0700 (PDT)
+        bh=9PnQ2xaZr3mufSI+K6dKdlREXH8U5SwjpmTIIDKwMRc=;
+        b=S2y0Z80BWuizEBRrWy39q/g0ikh0IRHWn1Mx++zjyxRWItaYwvCwtTDNl47IZJFoaV
+         tEqhBHO6/YribJhTlJrXdmKBHPi3EFc1ZNE/AyZtfQap6Ym8/5gc6dkd2+PTmjPQAX4l
+         JRiXCzF2Rreg/P3zyCVxlmAM3LtV0eETc9d7QO50pTCV2cS/T4UAnWlGhab5+qmwT5a4
+         azV7VdvqEKUzsDzdj9u9ckAutm0F7K8Ov57jqoqSnsekgOuJ0hjN9Nc1PPKrFUx141dJ
+         wy4UFnTp1E1ee7sLGgxUbkAKVxI0YXaB0fnjv1Os4BLgzkL+7EC88gcHg9jQL8VTcVno
+         UEmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxUOh/TMGyuWRN1ofbLO7bQ9VrgitwnwmmTCbf1LG0U5HvVbY4H/QF5ryukokzUW6dpyXMeg8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfb3iN9gWaiQe5KPDgXn4ezRzIxEoE9bAKy95HzB+ZrY3CJEQH
+	ps85cG36W8XG/VT7RaEgky69YZCwJYnwjKz2bOqR7LOPwLe0eeLRC1Ojq0I/2s/pGQ==
+X-Gm-Gg: AYBFou2tj1NMIL9D9dsbVjGNiFVGyszREKtJXn1Xg1ntDt30b0WP60+MfS/WEjGxvOU
+	2tWNt0Pww+23xKNQkHp4QoVZmSmQywRdtpAHqqatzzfLtCqIwwrGA/w7p+iEDt3O30u8pKgBGfN
+	6g6hpFkdxRkwt7YNIOflhux531Mt7aFCUbbh+qFYT61LGEUCkQ4TxSda6GReYkh4QkqFFsmQ9Px
+	1diafiBsgOUAITA5RrbRJ3j9MGsPNRdUiPppG1wgn4vGDb99vwSuay7m1GV6Q2yfARo5BO5OWy0
+	hlfCfTFPTUxJ21nG57xIbNYO3lrrhFr0kYUZdliY0TQH9wUFb1ZVMKF+KnQeD9/lg8Qay2ry85I
+	4+NO1gbL8ZxW8tuQlFC5KeIp9qIf67bpMeJky6e2wbht8NKco2dtVdYzSY2GcedCW3y/ykdvQEo
+	ggye9PQzIsmB34s0V8y1ntdDfHO9unslxgkdHhbadDXe2OeCnam2xlCKtlZE5sJ24hLyRGx2U0o
+	5h5kjPq1wMCM7fTlZ+EGOXLVls65shEpPIvIIYdHAGCyuVCEWM62uC3zCogqzbx81g5x/qW8S7j
+	xbf+gt6HLIwglR3J26nOZAmgrgRC/5sBrmO40Nxk2D50AN5HJSqN
+X-Received: by 2002:a05:6214:3201:b0:91c:7549:f377 with SMTP id 6a1803df08f44-91c7cf9035cmr18524006d6.29.1793159997516;
+        Tue, 27 Oct 2026 20:59:57 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cd9dcesm119808666d6.42.2026.10.27.20.59.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 20:59:57 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+Date: Tue, 27 Oct 2026 23:59:19 -0400
+Message-ID: <20261028035919.733823-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <e2ee251e8ad47c6f1e2faf9ed1be787eccf5215c.camel@dubeyko.com>
+References: <20261015110114.1649059-1-hengyul@cs.unc.edu> <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com> <20261021153141.311425-1-hengyul@cs.unc.edu> <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com> <20261022120658.1328124-1-hengyul@cs.unc.edu> <cd6cc32dd2aae90b88b4c3d19e1fb35a5be6f4ac.camel@dubeyko.com> <20261023173259.3275078-1-hengyul@cs.unc.edu> <e2ee251e8ad47c6f1e2faf9ed1be787eccf5215c.camel@dubeyko.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,42 +98,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027093306.2812695-1-lee@kernel.org> <20261027093306.2812695-25-lee@kernel.org>
-In-Reply-To: <20261027093306.2812695-25-lee@kernel.org>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 28 Oct 2026 11:45:17 +0800
-X-Gm-Features: AclHuK_qoKOPS0Bqly0_GwH5QpE5HmWgWi0Q-7IU47_qa8u_hGoz7lpTqegB0HI
-Message-ID: <CAGXv+5FWZQ1zM=mZm22qcqU86QO2oXQs0wtnGn1H9TrdFvfW1A@mail.gmail.com>
-Subject: Re: [PATCH v2 24/27] mfd: mt6397: Manage IRQ domain lifecycle with devres
-To: Lee Jones <lee@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 6:38=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
->
-> mt6397_irq_init() and mt6358_irq_init() create chip->irq_domain with
-> irq_domain_create_linear() before registering the parent interrupt via
-> devm_request_threaded_irq().  If devm_mfd_add_devices() fails in
-> mt6397_probe(), irq_domain_remove() is called before devres frees the
-> threaded IRQ and without disposing child IRQ mappings, allowing an
-> in-flight interrupt handler or late IRQ lookup to dereference the
-> removed domain.  Conversely, when the driver is unbound, the IRQ
-> mappings and domain are never removed at all.
->
-> Register a devres action immediately after irq_domain_create_linear() to
-> dispose all mapped hardware interrupts and remove chip->irq_domain so
-> that the domain is torn down after child MFD devices and the managed IRQ
-> handler have been released on both probe failure and unbind.
->
-> Fixes: 6df8dd5c185b ("mfd: Add support for the MediaTek MT6397 PMIC")
-> Closes: https://sashiko.dev/#/bug/linux-b296fbe4-6e83-40c0-91c7-2c31e8d22=
-6d0
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Hi Slava,
 
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+On Mon, 2026-10-26 at 10:20 -0700, Viacheslav Dubeyko wrote:
+> I am not suggesting to change the on-disk format. All modifications
+> should be in-core metadata structures only.
+
+Sorry, I misread that.
+
+> The algorithm only solution will be inefficient and it can hide bugs,
+> anyway.
+
+The table below is about efficiency. On bugs: in both variants below,
+a lookup or walk error leaves next_id unchanged, so it can only stay
+too high, never fall onto a CNID in use. Which bugs did you have in
+mind?
+
+> I am thinking about adding to the struct hfs_bnode (b-tree node) a
+> special field: u32 max_cnid. [...] What do you think? Does it make
+> sense for you?
+
+Yes, it makes sense, and it works. I wrote a prototype (max_cnid
+rebuilt when a node is read, raised on insert, rescanned on remove and
+after a split) and compared it with the unmount walk I suggested last
+time. Deleting 8000 files in KVM on v7.3 (KASAN):
+
+                                unpatched  max_cnid  unmount walk
+    newest first                14 s       7.0 s     0.4 s
+    odd ones, then even ones
+    newest first                4.1 s      3.0 s     0.2 s
+
+Both are correct: no duplicate CNID in any run, including the
+threadless case from my last mail.
+
+> If you believe that this approach will not work, please, explain your
+> vision of solution in details.
+
+The unmount walk, on a delete:
+(1) do nothing unless cnid == next_id - 1 (your step (1));
+(2) if cnid - 1 has a thread, set next_id = cnid;
+(3) otherwise keep next_id, which is still above all CNIDs in use, and
+    set a flag.
+At unmount, if the flag is set, hfs_mdb_close() walks the leaf nodes
+once and writes max + 1 to drNxtCNID. The walk cannot run in sync_fs:
+hfs_new_inode() takes a CNID before the catalog records are inserted,
+so a walk there could miss that CNID and lower next_id onto it.
+
+Your max_cnid
+  Pros:
+  - next_id was exact after every delete in every run, so drNxtCNID
+    on disk is right even after a crash or remount ro.
+  - Nothing to do at unmount.
+  Cons:
+  - A delete of next_id - 1 still visits every leaf node (about 3000
+    here); the per-node max only saves parsing their records.
+    Checking the thread of cnid - 1 first brings the first row to
+    0.4 s, but not the second.
+  - max_cnid must stay right on insert, remove, split and node read
+    (hooks in bnode.c and brec.c). A missed update would let next_id
+    fall onto a CNID in use.
+
+Unmount walk
+  Pros:
+  - A delete never walks the catalog; the one walk at unmount costs
+    17 ms here (cold cache).
+  - Only catalog.c and mdb.c change, not the b-tree code.
+  Cons:
+  - next_id is not lowered during a mount: after deleting all 8000
+    files oldest first, the next file gets CNID 8016, not 16.
+  - After a crash or remount ro the high value stays on disk. In my
+    8000-file crash test drNxtCNID stayed at 8015 on the empty volume,
+    more than 4096 above the largest CNID, and fsck.hfs -fn asked for
+    a minor MDB repair.
+
+Which do you prefer? I can turn either into the next version.
+
+Thanks,
+Hengyu
