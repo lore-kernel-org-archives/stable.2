@@ -1,57 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210346;
-	b=CIi0clUgXuYKv+VWq4H5sF967EJJ3+DwXJHZkLyuAfiVieoOZrA8zryBJQ+19BT8EOFN
-	 LxG3pDF+9ZlPmRfFIgqAsDtgMhVoxhJmgqpjDH8hO/7BV8V0viU9P70M13XUg60nMMrcX
-	 8fnlxtfZeLPyN8jC7/YBM0VBIUZAIIE0/ce18bXK5ithft0xuXIdkzORApgAC7R2dnfEE
-	 mH3GO++I/+to7dJ2apwgb/JU0tOjKQW7DJ1Ywa1A5rpSEkUiVqcwjK7w+aLdhCOs27ij2
-	 mTa+kbngDdxgDLcJDlx8iIIXcG+I0q16kVOEpRBcVaJPQ79e4y1PWd6ZsVKAtOcfm4A==
+	t=1793210347;
+	b=K2TAHrP5y7+4kd+lOdVsc+0ttq8ExL4e0IZatC3KpzUQKyUdBEMqoajHLvDBQ3t32sxg
+	 EoejMWgWkBBGhMf//HmmzgNHfG5z4B/+RreyDIcvrqdJdXFHEjIEsiHvFJ2iRwgBpzOD2
+	 mfo5uPDOmpNAFFO457feEox5JvS0RQnKIRGBUGf7TrekzNtmRkOZcJImsV/LhSJUTqPgi
+	 f5mIdxD8ILKpZs8b/azU0IxY448befyRf8O05StEcAdEg7SlITBQJq7KkHxHPrjlN1R7i
+	 ov0DJ4jn3pyLHGgBKQqEdSe1gx+YnQXpLDc8ocamQAzsxllQaCVs0xIKeasx+7gB65Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210346;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=v4eVjPMztWjitYxEISFGx/Na7UZAowYBc1JvyL+XsEQ=;
-	b=SjjSX3CY0m2Ahz6xZ+y1fcESlwC58QBUR8ryetFq0q0vz/zQncJWEnjgMr9bVaDEF77v
-	 WpsVATWNGRWdKex+aVDltpwqfeVZuhck1Y4AXYWYY0wg0ieoNx3sgp+uAJ6QSBPMHUmOr
-	 eakjcZm9W3odS/nNeg9CRsufPYG+awzBWytPQFGY+dRSC8DFybPOgqDWlt+CuOmS2GZDH
-	 8/Ydkxpog1leeAm4uMLpfuhzBs+AHP8pVlAT3vL6T5xxdIAUYJSGRMQXasRiD5odV735I
-	 1xZPZA0sgt7G5SzQ//5BYy/WcxLAK4FIB4pXvrXZr6qFGDyocL4IG/U/dPn5xijV8OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210347;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=SnVYEbvwsNSQmiu+vZ+rpMOaEIYSL63cLX8ppYdNFzo=;
+	b=z3buNqo6CIVEs11yF9Txwe/c9MM//ux8KhLKRwzi+gcAla2YYAHinuHwVtYQfqlQ2LAo
+	 B24oOWj0gNYxy/ZE+c/9h08zyk45P3aIAVi7aW9fXwhMuGxFbswi5pGQbJ1Th1okdrbtC
+	 YhCFxeHLg1L4geeuta1bVhjLfJASGwWw6JhiSXUMsBX1TByVd0ZXJn9szsxunE5KZEtvw
+	 xU1QjZ0YAWanRRvZKa7+KO8xYYa+O/Upng//huFX7svhKf9YZ9+j9gm4PkHwc83imOPla
+	 uNfxMzmBZmVwD8kA3ARaHDYeLlfiojHOv+PBsAfvveuazLQP9bFISJK/q2AQIpL/6oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VrzOO5Rb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=F6aEJTuX;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912D7606A31A;
-	Wed, 28 Oct 2026 17:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7B606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VrzOO5Rb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17271F01829;
-	Wed, 28 Oct 2026 17:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210346;
-	bh=v4eVjPMztWjitYxEISFGx/Na7UZAowYBc1JvyL+XsEQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VrzOO5Rbx0BamK1FtZJaNoSRCJYTW1jFXIjMmdMTzIX8+KhkFLJmu/bGhXtgGEAq4
-	 75x7VxpkPR3qvEW+BGODr59gAbsMtKM8YKPa/bLVigvkfmYhSrTLrBcIHbwKtmA3lV
-	 42SrPOOhUUptMjRofMH94wu4UbKc7oeprIlIo1fQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Oleg Nesterov <oleg@redhat.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: [PATCH 6.6 164/168] signal: only SIGKILL and the freezers interrupt a coredumping task
-Date: Wed, 28 Oct 2026 18:01:40 +0100
-Message-ID: <20261028165946.970437982@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=F6aEJTuX
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3282db206d3so1144821eec.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1793210346; x=1793815146; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SnVYEbvwsNSQmiu+vZ+rpMOaEIYSL63cLX8ppYdNFzo=;
+        b=F6aEJTuXzISB0h5d5T5TkZLuiwZXx+hVp7Xm1mF7QmormrF8FdQhgfhJq1eZRwG8IR
+         OJz3I72gmLjsnLSMLu3R+mGkzlBL11O8aju5kjJm22utwUOvXNgiaqEMe2WaJO3ZoU/J
+         AC8gtYfIYcD0xv0BjpoNgGPEiupWxZlxGpcWrTARYaBJ0y6dVMy8bRkiOfyPB2uk4lLI
+         637+RUajyn6PA0fxQ8gLlQHbJtnO81L61yCpA2Qs7DUebUh2NeU2qBJs1IB1kkaERFR1
+         yOXy6IBPvoc2uLuBygfygLg8rcMu6LRYbcrxKz6VAgkbpaft3c+zJNY9130G3EVfsVtu
+         eTdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793210346; x=1793815146;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SnVYEbvwsNSQmiu+vZ+rpMOaEIYSL63cLX8ppYdNFzo=;
+        b=VHy9z9/1f+euVcBOnWxs6uIcjc7tg5FiWHv8HcgIX3/0+N7B52iKzipmwTQqcGWRkD
+         AthVs43elmb8B8Bjszak4ZT6421KPoSaODM62EYlr77fLowgnMMcCPw23FXIKvD14cwB
+         pxff3GyIv++PRtGaZQhIyb1pjoBBKoljb+ctPU/hUkk4kTsaJYFhTW9BUcO2GGiDbq3v
+         jg/qbA5CFbbcvbALvav3JEF6cn9TDZ2OTr+F0G55KRO8+LddYRTsHyRajBcBoKBHct/+
+         0+y0mmZgyj8R8Q9XPNIUB0ZVWjSkTnkDVQkDDplBX1Njv1DCm01I+uw7Q5WBpGLIbfu+
+         iR6w==
+X-Gm-Message-State: AFq9FYIBR74yrfDAzPIHnRCAvmhUMJ2Zuzu6UQwnNjvUeTHuQbKb5H8O
+	I2EuvA24GAJZyl5QUqlu7tOTnd3uaL6DihRRdgMxDcwX6TW+pjUy3q81kGmT7SYl+Ew=
+X-Gm-Gg: AYBFou3e9rHz/agLxlK4FN3+tqO5lCidnphr2KsG+mpX5APmPdB1yDjNB3UHz19uw9I
+	VqcaJ+UgWrWgIDTr8LKrWMQXKX31sUJRYbnhYhCNWXR6pUct9FYN+s/lApPb8mX4HsX92jXtK3N
+	b6o0mU+IhNEa7lFkB7MgA1loJObYgnVbIo83Mhz2E/2tQCsMCQD/F3tfOL+DbV/QJQD7zkI+Zed
+	4rSIoocQrR27A36ooJ9BlAu8YI75qU+IJAKCtpcdIigjcPRInKORbKxaP0gILM026cQAw8tHMFM
+	u6RBqHQDWC9/3tgce+S7nIOV/BxdgzR4t/dJyYHZJv2iRSVw9bFiDWIFsvMe2NRucc2l2awgGZm
+	9riZjw2hgHoSF3AJpWKxIjD/jDZuti2Opda6nY+jxCnsxvWIwNqJuWdUPtuEvKT+ArsKU6kz1O7
+	sLCwBODeWST6xIFjraDqrvvow7R18C2A2avr/BlROxOjlwSGZ2QLAn/ZA9T+q9Ox/YwYlHcBTBr
+	Voo7kIKxqAGWmOukIFoS6DGRjRAb26icllqdkgSOGtMB3Qlnb492Ges2pDQENBH0vjY4kLPID7s
+	HkeALzO79VZb0wZ9WdnawQ==
+X-Received: by 2002:a05:7300:cf96:b0:368:2548:c078 with SMTP id 5a478bee46e88-36a203d36b0mr3936484eec.17.1793210345562;
+        Wed, 28 Oct 2026 10:59:05 -0700 (PDT)
+Received: from 4cb1f8191411 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238d9c14sm7920930eec.7.2026.10.28.10.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 10:59:05 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,98 +88,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-6.6-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Christian Brauner <brauner@kernel.org>
-
-commit 563d606b93d7a1d23512832fc252d32c68860d87 upstream.
-
-For quite a while now coredump has allowed either SIGKILL or freezing to
-interrupt an ongoing coredump. Since we seem to like it complicated
-"freezing" can mean a lot of things:
-
-(1) Power Management induced freezing
-(2) cgroup v1 freezer controller induced freezing
-(3) cgroup v2 freezer controller induced freezing
-
-So (1) and (2) are handled by checking freezing() but (3) isn't.
-(3) uses cgroup_freeze_task() which sets JOBCTL_TRAP_FREEZE and calls
-signal_wake_up() on every task in the cgroup. The trap isn't handled by
-the coredump code.
-
-Which means the current logic is inconsistent. Power and cgroup v1
-freeze and abort the coredump. With cgroup v2 it depends on where the
-core goes. A dump to a file completes and the cgroup v2 freeze has to
-wait for it to finish. When dumping to a pipe or socket the dump is
-interrupted at the next write because of trap's TIF_SIGPENDING. Which is
-it? Let's be consistent and align (1)-(3): freezing interrupts an
-ongoing coredump and doesn't make it wait until the dump is done.
-
-All three freezers go through signal_wake_up() and so set
-TIF_SIGPENDING on the dumper. And once zap_threads() has set core_state
-that flag can't mean anything else anymore. prepare_signal() drops every
-signal but SIGKILL for the group, the dying threads don't retarget
-shared signals to the dumper, and zap_process() cleared the pending job
-control traps. So the flag is the thing to check. Let dump_interrupted()
-test task_sigpending() and nothing else. That is also what the pipe and
-socket writes already fail on. TIF_NOTIFY_SIGNAL is left out on
-purpose, task work must not cut a dump short.
-
-A seized tracee that gets PTRACE_INTERRUPT during the dump is cut short
-the same way. It already was for pipes and sockets.
-
-The one freeze that check can miss is one requested before the dump
-started. zap_threads() clears TIF_SIGPENDING and the cgroup v2 freezer
-only wakes a task once while its JOBCTL_TRAP_FREEZE isn't part of
-JOBCTL_PENDING_MASK and survives zap_process(). So refuse to start the
-dump when freezing() is true or the trap is pending. The task then exits
-without dumping, which is what happens today when the freeze interrupts
-the dump at the first write.
-
-Fixes: 403bad72b67d ("coredump: only SIGKILL should interrupt the coredumping task")
-Fixes: 76f969e8948d ("cgroup: cgroup v2 freezer")
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.1.y:
+ (build)/tmp/kci/linux/include/linux/highmem.h:427:7: error: call to undecl...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/arJ6zZuI59BJnXpl@redhat.com
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-2-8e4adb1619e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 28 Oct 2026 17:59:04 -0000
+Message-ID: <179321034405.43309.7676621121049933717@kernelci.org>
+
+New build issue found on stable-rc/linux-6.1.y:
+
 ---
- fs/coredump.c |   13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+/tmp/kci/linux/include/linux/highmem.h:427:7: error: call to undeclared function 'folio_test_highmem'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in init/do_mounts_initrd.o (init/do_mounts_initrd.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -416,7 +416,9 @@ static int zap_threads(struct task_struc
- 	int nr = -EAGAIN;
- 
- 	spin_lock_irq(&tsk->sighand->siglock);
--	if (!(signal->flags & SIGNAL_GROUP_EXIT) && !signal->group_exec_task) {
-+	/* A freeze requested before the dump would be lost with TIF_SIGPENDING. */
-+	if (!(signal->flags & SIGNAL_GROUP_EXIT) && !signal->group_exec_task &&
-+	    !freezing(tsk) && !(tsk->jobctl & JOBCTL_TRAP_FREEZE)) {
- 		signal->core_state = core_state;
- 		nr = zap_process(tsk, exit_code);
- 		clear_tsk_thread_flag(tsk, TIF_SIGPENDING);
-@@ -487,13 +489,8 @@ static void coredump_finish(bool core_du
- 
- static bool dump_interrupted(void)
- {
--	/*
--	 * SIGKILL or freezing() interrupt the coredumping. Perhaps we
--	 * can do try_to_freeze() and check __fatal_signal_pending(),
--	 * but then we need to teach dump_write() to restart and clear
--	 * TIF_SIGPENDING.
--	 */
--	return fatal_signal_pending(current) || freezing(current);
-+	/* Only SIGKILL and the freezers set it after zap_threads(). */
-+	return task_sigpending(current);
- }
- 
- static void wait_for_dump_helpers(struct file *file)
+Log excerpt:
+=====================================================
+In file included from /tmp/kci/linux/init/do_mounts_initrd.c:13:
+In file included from /tmp/kci/linux/init/do_mounts.h:3:
+In file included from /tmp/kci/linux/include/linux/blkdev.h:9:
+In file included from /tmp/kci/linux/include/linux/blk_types.h:10:
+In file included from /tmp/kci/linux/include/linux/bvec.h:10:
+/tmp/kci/linux/include/linux/highmem.h:427:7: error: call to undeclared function 'folio_test_highmem'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  427 |                 if (folio_test_highmem(folio) &&
+      |                     ^
+/tmp/kci/linux/include/linux/highmem.h:448:7: error: call to undeclared function 'folio_test_highmem'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  448 |                 if (folio_test_highmem(folio) &&
+      |                     ^
+2 errors generated.
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:78556695026d12066b10d53b0e5ab522e54b7c52
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  406de00ce2971abe3010eaabc26c71e84b4ee9b3
+
+# Builds where the incident occurred:
+
+## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ae228475c0836a8c2f04365
+
+#kernelci issue maestro:78556695026d12066b10d53b0e5ab522e54b7c52
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
