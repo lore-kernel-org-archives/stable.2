@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197356;
-	b=UnpIY+M+1YgOplyykjri4OHBEOR5kC6iy08IvWuTMx16sUaGG1qMJfisTERTZaWh0v8V
-	 Aj/1ldrrGNqrgUaU0HfPzmOxCku6x/Ic2qlPlzk7CuWgt6QoYbDUn3V7S2TomqVWtkK/3
-	 tZ/bhsR4pXqvxPU4lXj//75aHNYIM7hrKyzlevVQW+hyAx5lg2xaFbNsaKp6XeOBSn7SK
-	 kcTMVPRpiS55fewaGYVIxI8wyKX8a/nvOY8r0dkyfoubTt3VX2NxwXtb+vq0S6olTXSXQ
-	 6GNlJnHrYkU05KQsDLjcxzTgZgByiGC5SjVdWS9deErRPr/Ej44XHOsxxHjKDkbtJwA==
+	t=1793197383;
+	b=WasiCSC2+hfyrDQA1KIC0kxy5T03Rssm6eVJYfWMPnmarBAf8uby2+t1xyMXp7VPlwYz
+	 gNFghAnrmwtI8JSsZ0pGXytgo7ItogerTSn/ZPZhEcay2z5gYOKGXNCzsJRNtS+XABK0+
+	 YZSgh/Z2d3VYtiiBAu9csyUA9Xn8U/q/qHMuzRcxtKEfF0vJr9qJS3PG3DpzE8eEWMJ/L
+	 Jh/r1vc4nwtS6O+XR1wu+UitukDGzQc9bg8nrdAd0guLMwReOzk50WXFuHpc7O4SGj9Bw
+	 17KXJjnoivB944wpim3sjUTWmaXX6sgrNp7WBlOaxHjFBawS7Jtd7odXPtQ0QFO3nTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197356;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197383;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=R/mNeciGEDV4oliH8vu2vu4EuuS7Y9Kms2mXuzaoLDE=;
-	b=QWAqUE6RpJh4AAELSSxJjKXDMPDHLe0lj3RfoAYTOoE69ePg4E9UU5HJzceUGjM1AZqo
-	 52Dc0k1eqsqgEdsBvZgPjnQttyUCBQNFaUeLAy+byD64iSuudIHLgb5p03QaNyosjaX1W
-	 G2/1pWjW2w02cjdfe9oTB6j0fcP3x8kKqFW/n0ZA1kiUkEH0D/6km8uynwPEqC/zGXlho
-	 mQ3idEteyC6p6ynRrqc/h/g/i7/yUbJPzKWA2gvPXgVWx0lrw8MifdeDpoM66NnA+oX9V
-	 UAEppnp959LSLpyCWnTKJKKgz6TEx2u2oEu0PS+m2Bt8owvdhadD38y/4TJTF1cbQYQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2EjwqmUAG4LVpCIBaqLuA4imatC8t7BVaBsfJCHKdeI=;
+	b=mkyCT4eehoUJ8tfT6OXWazbP8Uzd+AaiZ7JwFE3hbM5z6w7QPCFuAs2jQ2sc4fwFg3TB
+	 TZFdm9+XPjOsXcip29/0gofjwfkXcXLeWqa5oMlr1JtqYr0+TGOpTB+2lJj9HFJkRTWkc
+	 nsIUZhiQgWCBmC1qxzwvknrb4UWpiKPkQglRQ6Zez4PL7oClaxKKrc53WyoNL9qSM5PZ4
+	 zoT6ysCtJBmJbTY8EiU1X6XjlZMO4LJMoK5zF6UDzvoo3Im2waiEdY59Iz7fRQo20uc2A
+	 1cYomtcNINRx1G5cxUerGhotooo2wpzbthsVMB11ncIRWTsqen1FQui2OVA3HubDfbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G+B9NVDk;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WTvJrCSC;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1114E606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:22:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1114E606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C853606A335
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C853606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G+B9NVDk
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so855691a91.3
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:22:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WTvJrCSC
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a070755c8cso591838b3a.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:23:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197355; x=1793802155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/mNeciGEDV4oliH8vu2vu4EuuS7Y9Kms2mXuzaoLDE=;
-        b=G+B9NVDk35WhIetAeOybgWF5FUaVx4PLG54HD67lQ+AB9SFBfBsLJ5qsiuhIJCKZiu
-         E2zE29XFq3TMc4dc4HVw2SsISFGT30LsXCL9Hu+xtBhwOTXru0BJRqd26LmexPZQlRjo
-         uEFruBiTze1LG7QV3EkRWIU24AwrEroLcjLJryAPk7GC2viNF2+DuyKqvV8N4xEiGId0
-         f1tr0Vcfs5Se9zzStoE14FYUd78LkBnu+GfrnxqtGB1k0SjLtbWi6UCi54+cAJwFRsVz
-         /HagYHytdWo2ObgfDZ0nsdduG0hRcGCk4ixMuATQrzPp76vab96/Et9Ishw25yN/L41F
-         dDJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197355; x=1793802155;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793197382; x=1793802182; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=R/mNeciGEDV4oliH8vu2vu4EuuS7Y9Kms2mXuzaoLDE=;
-        b=LT3hQ/Nrfs3h7cCCaIeDuDvw7UiqKiYHP3VahNztrXScX53KKMAXO2HtTyNuaLxLtw
-         a3FmkNZ46FSpFqoBnENHRMIP+18nbcb2Le8Kyp0HjH9L/6Le5rApcMIq4GrL0DxQSh+V
-         27+kFZ4tmWi/KQLUg2xRQ2J+0EOncdVfGFq8d1Bl0OSa8175f+vHLh9i2VynhunOS6fv
-         ga6dyCSY0snuUVFhtKmPbbMVaOCIo7GXzwHgwEXiWWBvsuLSqwCpIxCj/EJ+Eul+xF1A
-         izJB3Mv9Oeb3+KvwlwUIhob/j1BGXQRZL8511jXngwMIWNllvG542Px5oPg67AKMxzYb
-         16nQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAbM0bu/s4gzd0aUD+O7ZDzj84o3wUUCqmz6x6RDSykVc91rYz/NDcC4iT0E9njHD5/8rESls=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFHqibU0f5EJqb8DcHi/De8DtgbYes+Jutz1NDb7fKV0vEkz4U
-	qBtR4HSKHfNIFc8u32c6t3C3j0tadFThX1O3pS8eiYatrTYRo8MH6rFf
-X-Gm-Gg: AYBFou08KcXoSntZCVZQJ8yjdzKxHL36sfkql191NpxQBZMc6cUUtIzHrh/m+TeXdt4
-	Ews30tq8cyONpzOXa8ydpU9Rka2bxoUZO2iYF5KMrysif3fPzfs0eJRupyfSJSFV9EyfD0ryKLF
-	Dg/4AzKX5QQYEm8GjU0cqb8qyOvUZ6kfEwkMTJ9UxC9Gr4BJ9V2O3e86fGuy9BDEF501L4tGJ/w
-	ZLS4CfmJIVe7KYvGeIdOti7axf5yYe8Zsv/xwf8iGLCcQJskgXn5KIf5LCIWkeq5t2i1LoPhBlX
-	rtcoFzUlr3RyUNdum9bq5oJfSTBjuiPF6XuFAvAv0fgDuuTdYKwNBVctwUbnH8qJ1nGypyg3zIx
-	VRDIX0ZoyPqoyiNSzdy1+B/44GwkoeNxv1uuy0+8vMuzUqScge438U8QwxxKdvBjQF0v8yb4xdo
-	x2SyNFVy9Ml1ZArtSix4Pdx+2Ig0I3tuXyy+VV9dD7v0ZjnYzz71JRr9YCmYqPbtb1YqO2RbHwp
-	qKJJduETLcR38s12D1AuWSPbZk0vY0+SnwX2XV5M+iTLXS5hEFyogw1XSgRSK+nMNPH4TyJgWQN
-	+qBK0qsYgsr4orP4JoF9wY26MVrQBOm9EnjyEfTEcUVj5ibe/CiNsnsKvaZUbEAk85YC
-X-Received: by 2002:a17:90b:264c:b0:3a8:10e2:ad08 with SMTP id 98e67ed59e1d1-3ae580dd95fmr2042875a91.48.1793197355157;
-        Wed, 28 Oct 2026 07:22:35 -0700 (PDT)
+        bh=2EjwqmUAG4LVpCIBaqLuA4imatC8t7BVaBsfJCHKdeI=;
+        b=WTvJrCSCS5fiZvdk5coryFKio7Svqrh5ARAM/N3GbSRvPoDa2woYMG7vyYstYCZplJ
+         k7fS3rAuRu9410kE3ITExIHLH4rl1XVvrguUGqSgj3Cd5W6N5Y5qQuG/fqAleC+0g6oW
+         YZy6UipYhbYzZNc8/ylnpQeTuDWnAu5ZIYCF3DTqz3RHiZB9eeO/TFKA3m4sNua0ST7z
+         7b1TXpm2r+Yk6q/RwVrUlWxQp0BZ2WYpl5Qlw4JP1d0oAM9NZzqNWXyaW1kDY2/96A5F
+         UJWBCD/nAwks0yEZwmYXf8G312w9vakk8UvlFDQldpGsq9RrlJlZ/xuFdNQTBSidRu8/
+         dEsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197382; x=1793802182;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2EjwqmUAG4LVpCIBaqLuA4imatC8t7BVaBsfJCHKdeI=;
+        b=0912D0BFxenvR0E6xZfGUsXzVCzpgzEj2qx7IBW4G7tf5Kp2wk9ZHqRK8iLFQpaObG
+         XOTZLAnIbcVXFXy2SqmtTHWPp+ZzVAGABKwGkKPfHhsu1jNUw+Cv29TxpudsrO08ULEv
+         XSgATxvEcJohp/EynX2OXMC1sSojVGLb6aeGtcIRuWpXSgN4bl/pxdILvCBz7DR7Vjeo
+         u/1CSHWiECJpsTWbBDrbzjcxE8dsn1HmnX9Q1b1ZeNWdkoDKv4htgAlAv3yNzvggq4mB
+         STpnnKF5IKyYA5dlUx9WjYyP5jN798ohseGvLXwE/CfmrkSuc7eVJaJujaADdkvtRtRw
+         WQtg==
+X-Forwarded-Encrypted: i=1; AKwUvBwVCQ0BjO0IRHjjV+a1gfB+6upuTiU2JGVinQ4FTNT86aJXOrnHkMkIE8IXGqIkJhtQld6gRNA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTocW8pA6smudRwN6Qx9HOQGFG2B7J1FanN1XvadrBVPLU5FZb
+	g7mbmwJxo+5jqxIWySe+wrHC2UFo05RZwzKiuW8xnMrT0QTwN6SaeROe
+X-Gm-Gg: AYBFou2w6eYIt3TXp/OcCPMPiN2fcH3TRoOIm3604EonxKGfCygtFU8qRxojDbMebBP
+	IjfTpMGMi11u4k6N4jnl9g0h192Fv1U45il1VogFrfa/sOony/amApEHRB4/LJvr0OWjxCvC0Xb
+	U5KWZo9c2V2ggpqJgmPskwCpIFwgB5g0cQGoTjrP4olwk/mT41BWOEGH6gJU13gW4/4qq7OQqs3
+	Lx5ZtodCE3DzMz789SA5H1lNirhJhp9ZBegi3s3eNl3LnDaRAmlUp5xGbHPzoEVzFKn6ffjyXvL
+	ehzgmc6WyVg4jHXnj8jIxm2IzYH01qL1tQRAI8Y+RnMp5Al18U7V92sQaYf2vK8WhUk2HQxy/zb
+	lZvL18X7NzQLwaUOXFO5kIBNQJjhxB4YeOR69ej2RXCu9LprX9UoAvunbD92ESq0tGYta34E7xG
+	fW9NAdndInliYXnDVRdBmvmoasRI2GwjRHoWa3TkQOSy/pK0hGW49qlUq75lGqQVoPCxnIuzwUT
+	iVNngH9cvVm7v7sg//PuqOU+Aw3t+kv33WpXAdOrEFy6JG9kL3p0/4iSfWtys5M6oYjy7gY2X9A
+	RwfGQ9y/4/WBKLehuSFHCDRQuFDaO7AfYbUEN+DNRvqjO/ueCmdpkMXZcXH3n0azHB0L
+X-Received: by 2002:a05:6a00:b56:b0:899:394d:2976 with SMTP id d2e1a72fcca58-8a6e78d158bmr1990970b3a.39.1793197381902;
+        Wed, 28 Oct 2026 07:23:01 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6453ea6sm23723645ad.10.2026.10.28.07.22.30
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662ba00sm1245181b3a.23.2026.10.28.07.22.59
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:22:34 -0700 (PDT)
+        Wed, 28 Oct 2026 07:23:01 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Deren Wu <deren.wu@mediatek.com>,
-	Quan Zhou <quan.zhou@mediatek.com>,
-	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
-	Bo Jiao <Bo.Jiao@mediatek.com>,
+Cc: "John W. Linville" <linville@tuxdriver.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: mac80211: reject invalid EHT guard intervals in airtime estimates
-Date: Wed, 28 Oct 2026 22:22:12 +0800
-Message-ID: <20261028142212.14523-1-enderaoelyther@gmail.com>
+Subject: [PATCH 2/2] wifi: mac80211: bound pending IBSS station allocations
+Date: Wed, 28 Oct 2026 22:22:35 +0800
+Message-ID: <20261028142235.15428-3-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028142235.15428-1-enderaoelyther@gmail.com>
+References: <20261028142235.15428-1-enderaoelyther@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,50 +101,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An invalid EHT guard interval can select the wrong airtime group and, at
-320 MHz, read beyond airtime_mcs_groups.
+Delaying the IBSS station worker while frames arrive from new peers can
+retain an unbounded number of station allocations.
 
-Guard interval 3 advances EHT_GROUP_IDX() into the next bandwidth group
-at narrower widths. With one spatial stream and 320 MHz, it evaluates to
-264, one past the 264-entry table. RX rate parsing rejects the value, but
-the common TX-status validator has no EHT check and last_rate_info can
-carry it to the airtime helper.
+The receive-side limit counts installed stations, while new allocations
+wait on incomplete_stations until process context inserts them. The list
+lock does not cover the interval between allocation and list insertion.
 
-Reject values above NL80211_RATE_INFO_EHT_GI_3_2 in the helper. This also
-protects exported ieee80211_calc_rx_airtime() callers that do not pass
-through the TX-status validator.
+Reserve one of 128 pending slots per interface before allocation. Release
+the reservation on allocation failure, after the worker inserts or frees
+the station, and when disconnect frees the pending list.
 
 LLM assistance was used to find the bug and review.
 
-Fixes: 3702a33216e6 ("wifi: mac80211: introduce EHT rate support in AQL airtime")
+Fixes: 8bf11d8d0811 ("mac80211: delay IBSS station insertion")
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
-Validation: A W=1 module build with MODPOST passed. A QEMU
-KASAN guest calling ieee80211_calc_rx_airtime() with a synthetic EHT status
-changed 8 global-out-of-bounds reports to 0; guard interval 3 returned zero
-instead of a wrong neighbouring-bandwidth estimate. A real device TX-status
-path was not run. A reproducer is available on request.
+Validation: A W=1 module build with MODPOST passed. In a QEMU
+hwsim guest, a 2048-address flood left 293 IBSS stations before the series
+and 128 after it, with no KASAN report. This is a resource bound, not a
+memory-safety result. A reproducer is available on request.
 Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
 
- net/mac80211/airtime.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/mac80211/ibss.c        | 13 ++++++++++++-
+ net/mac80211/ieee80211_i.h |  1 +
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/net/mac80211/airtime.c b/net/mac80211/airtime.c
-index a4e1f33c0377..c31540ff42e0 100644
---- a/net/mac80211/airtime.c
-+++ b/net/mac80211/airtime.c
-@@ -550,6 +550,8 @@ static u32 ieee80211_get_rate_duration(struct ieee80211_hw *hw,
- 		group = HE_GROUP_IDX(streams, status->he_gi, bw);
- 		break;
- 	case RX_ENC_EHT:
-+		if (status->eht.gi > NL80211_RATE_INFO_EHT_GI_3_2)
-+			return 0;
- 		streams = status->nss;
- 		idx = status->rate_idx;
- 		group = EHT_GROUP_IDX(streams, status->eht.gi, bw);
-
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+diff --git a/net/mac80211/ibss.c b/net/mac80211/ibss.c
+index bd7dbaa942fa..e7d69869772b 100644
+--- a/net/mac80211/ibss.c
++++ b/net/mac80211/ibss.c
+@@ -680,6 +680,7 @@ static void ieee80211_ibss_disconnect(struct ieee80211_sub_if_data *sdata)
+ 		spin_unlock_bh(&ifibss->incomplete_lock);
+ 
+ 		sta_info_free(local, sta);
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+@@ -1173,9 +1174,18 @@ void ieee80211_ibss_rx_no_sta(struct ieee80211_sub_if_data *sdata,
+ 	band = chanctx_conf->def.chan->band;
+ 	rcu_read_unlock();
+ 
++	if (!atomic_add_unless(&ifibss->incomplete_sta_count, 1,
++			       IEEE80211_IBSS_MAX_STA_ENTRIES)) {
++		net_info_ratelimited("%s: No room for a new IBSS STA entry %pM\n",
++				     sdata->name, addr);
++		return;
++	}
++
+ 	sta = sta_info_alloc(sdata, addr, GFP_ATOMIC);
+-	if (!sta)
++	if (!sta) {
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		return;
++	}
+ 
+ 	/* make sure mandatory rates are always added */
+ 	sband = local->hw.wiphy->bands[band];
+@@ -1632,6 +1642,7 @@ void ieee80211_ibss_work(struct ieee80211_sub_if_data *sdata)
+ 			ieee80211_ibss_finish_sta(sta);
+ 			rcu_read_unlock();
+ 		}
++		atomic_dec(&ifibss->incomplete_sta_count);
+ 		spin_lock_bh(&ifibss->incomplete_lock);
+ 	}
+ 	spin_unlock_bh(&ifibss->incomplete_lock);
+diff --git a/net/mac80211/ieee80211_i.h b/net/mac80211/ieee80211_i.h
+index 9374c2942489..cc0d02ca56eb 100644
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -682,6 +682,7 @@ struct ieee80211_if_ibss {
+ 
+ 	spinlock_t incomplete_lock;
+ 	struct list_head incomplete_stations;
++	atomic_t incomplete_sta_count;
+ 
+ 	enum {
+ 		IEEE80211_IBSS_MLME_SEARCH,
 -- 
 2.56.0
 
