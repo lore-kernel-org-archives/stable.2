@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214190;
-	b=rmktsFnsraiezOfroBsgboeMp9DwVm/1TogMmHiFBEAdZMTx+9LwiyX8JgwHX+Jyeu/f
-	 LnbZR0w2tIc0L6qibQz/rP/NykngDtHcNzsvGbrAmwJADwqnrctMqQO1IdkE5OoGlimBv
-	 3pqGgz4XewGqCLqWOu7Pmp9jOWhI+70Q+IhqUmpeO4AxX8q4j/ctVGFWpqvat6XmoLhx0
-	 FDoNA8nmkbRxlk5nlKrQEiZ05etgWt8l2bpEUx9FojxUUssgeg4Ei+p6HT+SpnwaDJ6rK
-	 4CR/K2V8xYJjWnGzTyF+BSd0TCMSovWgKeNhRCGjRmcfERqbBIZ4Z3/U2jQup2H56zg==
+	t=1793214196;
+	b=v3fDEhloQXoweE85UCNRaMLKFVX5MZHo2TAzcwYHbyjTygkQBJ6qO9DiSAPDB9S/c1sQ
+	 S6RsZheg3Z/4uJFWClilONjlZwyBDBoG8shSdPFO1shg8F8D4HbKRjaUGpQBc93ExppzH
+	 mZ7jRn3U1VK1ExodyRjH5HqazVAu74XbK4lv3weORUdhIOem6f6x78csSYwcVdOeAfwwU
+	 Ix37k08gOfGiGsFtRz4Mjms1qITyiJwOpawyMhxCRyAtZmEhO4qyG+zMXIOFqG/OZkSlH
+	 eP4+s5vEnqAwt0ekC2Og+Mxj0wOuaLSYvRrCah7aVTw8AnrQ+BOnj14IwAmzn3mLGaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214196;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=MUEJotimO2SpwfGHvghMBhsU/NR/hwaOP+21Z/nBrl8=;
-	b=kbTo1DM5wGLpIYczwgKgA9Wkn0CjP8FCv2xzeQAeMbB+ULOjs2ix9j2WzSkTWRHgfuO1
-	 ljLDecaS7tDFalqxmhhXacMeaW/xF1pKDZEbdeYcvJD57BhUMcjktZGH5ysn9DUDGHjsK
-	 cMCmZl+V6bWYhoslAM3H7vniCU5VklkVeVyOhRCl/YdIWSTrHPT5eVo7rvX2+6CKlNqTJ
-	 fsaM3kSOH31b9xWZPcZMIiw9Nqw0xRpICPE3QxtvRyRZUa07OW8FCYeQptkcfTWmAo9ry
-	 Yun1CLEHEe9n1L52v61K7N3B/IFmHdJbwbAMP+MJOA7Prh5m0OZigUzLNj9Q70rqKYQ==
+	bh=OgasbLjIAbVaj2RSxxUsZNX3iQFbkU0p6mpJJTXcP0A=;
+	b=IEuK7Z4BNIKF16OL/MKoU/+F7DtyqoNpyXXQHRJ4rXlgOpVAUYHqbv2GijCesmpY6yJC
+	 1br+6M4DdNCIN9oOuuTl4eRn74ZPmGt1EF4Lvzg8k3DIXR48I/CCcTyBzAnd9nIKHeriH
+	 Pl6xZscwWSJ75abLW6TJM6DsHopS8Eto9tUW2aTqYR4IzNFRWiTtjwbiS9/7DQ3NiVOxZ
+	 wXl/PQDlc8qal0SJ/eEAmNh9kS7Kv6sD1JwpWFCvmBo+ASZgi2d7bLB7icsz2GKOikPYZ
+	 u8voO/MbaTUTumnHgvh0POM8xVm1muFvlC95lks3HPjC7CRSyLDC/P0OULfAifEm4sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FkZ7xcG6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FUOez5m4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D68960A5BC5;
-	Wed, 28 Oct 2026 19:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC53460A6F6C;
+	Wed, 28 Oct 2026 19:03:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FkZ7xcG6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9BB1F031F1;
-	Wed, 28 Oct 2026 19:03:09 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FUOez5m4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190461F013DA;
+	Wed, 28 Oct 2026 19:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793214189;
-	bh=MUEJotimO2SpwfGHvghMBhsU/NR/hwaOP+21Z/nBrl8=;
+	s=korg; t=1793214195;
+	bh=OgasbLjIAbVaj2RSxxUsZNX3iQFbkU0p6mpJJTXcP0A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FkZ7xcG6MkCymyV/bcj3j+rfH3WhtswTfBoqO2jjUdaxg4u4x+s4nkvUKA3iDi44P
-	 UsBPZRjGH33Tn/HordSc2GrmPkehn7kmW1CkTpBUxAPZ/Ii0Gzv02SR2Zd4dv7a48/
-	 //r4Oe7mxJGpPM5oHlSFC+nVIXebJb2FXKLvthTk=
+	b=FUOez5m4Aj82fIKtmEUFuzJ/myIB+D0ZQ60ZnhM/6KJ7+qhW4L141Ve6rEZO6mafW
+	 QTa74T0tEEYumN0iJAHQlMbEQPQUtdcBBPSNA4D4xOgbr9tPDM/Q3GfJKFkuW2/D5D
+	 UqkEIDyHqhi2tNNuCF2IJuGyqSKGderXjyHQ9mWc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kevin Hao <haokexin@gmail.com>,
-	Han Xu <han.xu@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Mark Brown <broonie@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0772/1887] spi: fsl-qspi: use devm function instead of driver remove
-Date: Wed, 28 Oct 2026 17:47:48 +0100
-Message-ID: <20261028170517.008143496@linuxfoundation.org>
+Subject: [PATCH 6.1 0774/1887] btrfs: harden block_group::bg_list against list_del() races
+Date: Wed, 28 Oct 2026 17:47:50 +0100
+Message-ID: <20261028170517.052579882@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -70,117 +70,95 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Han Xu <han.xu@nxp.com>
+From: Boris Burkov <boris@bur.io>
 
-[ Upstream commit 40369bfe717e96e26650eeecfa5a6363563df6e4 ]
+[ Upstream commit 7511e29cf1355b2c47d0effb39e463119913e2f6 ]
 
-Driver use devm APIs to manage clk/irq/resources and register the spi
-controller, but the legacy remove function will be called first during
-device detach and trigger kernel panic. Drop the remove function and use
-devm_add_action_or_reset() for driver cleanup to ensure the release
-sequence.
+As far as I can tell, these calls of list_del_init() on bg_list cannot
+run concurrently with btrfs_mark_bg_unused() or btrfs_mark_bg_to_reclaim(),
+as they are in transaction error paths and situations where the block
+group is readonly.
 
-Trigger kernel panic on i.MX8MQ by
-echo 30bb0000.spi >/sys/bus/platform/drivers/fsl-quadspi/unbind
+However, if there is any chance at all of racing with mark_bg_unused(),
+or a different future user of bg_list, better to be safe than sorry.
 
-Cc: stable@vger.kernel.org
-Fixes: 8fcb830a00f0 ("spi: spi-fsl-qspi: use devm_spi_register_controller")
-Reported-by: Kevin Hao <haokexin@gmail.com>
-Signed-off-by: Han Xu <han.xu@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20250326224152.2147099-1-han.xu@nxp.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Otherwise we risk the following interleaving (bg_list refcount in parens)
+
+T1 (some random op)                       T2 (btrfs_mark_bg_unused)
+                                        !list_empty(&bg->bg_list); (1)
+list_del_init(&bg->bg_list); (1)
+                                        list_move_tail (1)
+btrfs_put_block_group (0)
+                                        btrfs_delete_unused_bgs
+                                             bg = list_first_entry
+                                             list_del_init(&bg->bg_list);
+                                             btrfs_put_block_group(bg); (-1)
+
+Ultimately, this results in a broken ref count that hits zero one deref
+early and the real final deref underflows the refcount, resulting in a WARNING.
+
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Boris Burkov <boris@bur.io>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-fsl-qspi.c | 42 +++++++++++++++++---------------------
- 1 file changed, 19 insertions(+), 23 deletions(-)
+ fs/btrfs/extent-tree.c |  8 ++++++++
+ fs/btrfs/transaction.c | 12 ++++++++++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
-index aee9993fe09db..665ce836c72f6 100644
---- a/drivers/spi/spi-fsl-qspi.c
-+++ b/drivers/spi/spi-fsl-qspi.c
-@@ -840,6 +840,19 @@ static const struct spi_controller_mem_ops fsl_qspi_mem_ops = {
- 	.get_name = fsl_qspi_get_name,
- };
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index a09ac37f7cf48..3ecb3d0018a18 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -2834,7 +2834,15 @@ int btrfs_finish_extent_commit(struct btrfs_trans_handle *trans)
+ 						   block_group->length,
+ 						   &trimmed);
  
-+static void fsl_qspi_cleanup(void *data)
-+{
-+	struct fsl_qspi *q = data;
++		/*
++		 * Not strictly necessary to lock, as the block_group should be
++		 * read-only from btrfs_delete_unused_bgs().
++		 */
++		ASSERT(block_group->ro);
++		spin_lock(&fs_info->unused_bgs_lock);
+ 		list_del_init(&block_group->bg_list);
++		spin_unlock(&fs_info->unused_bgs_lock);
 +
-+	/* disable the hardware */
-+	qspi_writel(q, QUADSPI_MCR_MDIS_MASK, q->iobase + QUADSPI_MCR);
-+	qspi_writel(q, 0x0, q->iobase + QUADSPI_RSER);
-+
-+	fsl_qspi_clk_disable_unprep(q);
-+
-+	mutex_destroy(&q->lock);
-+}
-+
- static int fsl_qspi_probe(struct platform_device *pdev)
- {
- 	struct spi_controller *ctlr;
-@@ -849,7 +862,7 @@ static int fsl_qspi_probe(struct platform_device *pdev)
- 	struct fsl_qspi *q;
- 	int ret;
+ 		btrfs_unfreeze_block_group(block_group);
+ 		btrfs_put_block_group(block_group);
  
--	ctlr = spi_alloc_master(&pdev->dev, sizeof(*q));
-+	ctlr = devm_spi_alloc_master(&pdev->dev, sizeof(*q));
- 	if (!ctlr)
- 		return -ENOMEM;
+diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
+index af7b5aae842a8..6b9a41c939d28 100644
+--- a/fs/btrfs/transaction.c
++++ b/fs/btrfs/transaction.c
+@@ -148,7 +148,13 @@ void btrfs_put_transaction(struct btrfs_transaction *transaction)
+ 			cache = list_first_entry(&transaction->deleted_bgs,
+ 						 struct btrfs_block_group,
+ 						 bg_list);
++			/*
++			 * Not strictly necessary to lock, as no other task will be using a
++			 * block_group on the deleted_bgs list during a transaction abort.
++			 */
++			spin_lock(&transaction->fs_info->unused_bgs_lock);
+ 			list_del_init(&cache->bg_list);
++			spin_unlock(&transaction->fs_info->unused_bgs_lock);
+ 			btrfs_unfreeze_block_group(cache);
+ 			btrfs_put_block_group(cache);
+ 		}
+@@ -2104,7 +2110,13 @@ static void btrfs_cleanup_pending_block_groups(struct btrfs_trans_handle *trans)
  
-@@ -930,40 +943,24 @@ static int fsl_qspi_probe(struct platform_device *pdev)
- 
- 	ctlr->dev.of_node = np;
- 
-+	ret = devm_add_action_or_reset(dev, fsl_qspi_cleanup, q);
-+	if (ret)
-+		goto err_put_ctrl;
-+
- 	ret = devm_spi_register_controller(dev, ctlr);
- 	if (ret)
--		goto err_destroy_mutex;
-+		goto err_put_ctrl;
- 
- 	return 0;
- 
--err_destroy_mutex:
--	mutex_destroy(&q->lock);
--
- err_disable_clk:
- 	fsl_qspi_clk_disable_unprep(q);
- 
- err_put_ctrl:
--	spi_controller_put(ctlr);
--
- 	dev_err(dev, "Freescale QuadSPI probe failed\n");
- 	return ret;
+        list_for_each_entry_safe(block_group, tmp, &trans->new_bgs, bg_list) {
+                btrfs_delayed_refs_rsv_release(fs_info, 1);
++		/*
++		* Not strictly necessary to lock, as no other task will be using a
++		* block_group on the new_bgs list during a transaction abort.
++		*/
++	       spin_lock(&fs_info->unused_bgs_lock);
+                list_del_init(&block_group->bg_list);
++	       spin_unlock(&fs_info->unused_bgs_lock);
+        }
  }
- 
--static int fsl_qspi_remove(struct platform_device *pdev)
--{
--	struct fsl_qspi *q = platform_get_drvdata(pdev);
--
--	/* disable the hardware */
--	qspi_writel(q, QUADSPI_MCR_MDIS_MASK, q->iobase + QUADSPI_MCR);
--	qspi_writel(q, 0x0, q->iobase + QUADSPI_RSER);
--
--	fsl_qspi_clk_disable_unprep(q);
--
--	mutex_destroy(&q->lock);
--
--	return 0;
--}
--
- static int fsl_qspi_suspend(struct device *dev)
- {
- 	return 0;
-@@ -1001,7 +998,6 @@ static struct platform_driver fsl_qspi_driver = {
- 		.pm =   &fsl_qspi_pm_ops,
- 	},
- 	.probe          = fsl_qspi_probe,
--	.remove		= fsl_qspi_remove,
- };
- module_platform_driver(fsl_qspi_driver);
  
 -- 
 2.53.0
