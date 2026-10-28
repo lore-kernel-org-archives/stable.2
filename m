@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208198;
-	b=kYHXj5gCPt5oxqIfdsFYBwsErYNXEC2KvIP5b3apiK6lch1ARy4uyAv1ICK/5MZ1zjJc
-	 1DpkaQw1CIuHJ+2Te8a/P/3qVPJ8SfI8xbeUlzdr/PHAWcfa4Ep1y5IYncjpo1uMML7ME
-	 Wpy9w8gTrayZNjpo3AzcFiVhRN234QY+gtd4Z6MBDKQkMnhFx+5xhwZjaimqi/UceLGuF
-	 FZDAWGt7hJQ2fD/++ulMRY9kP/Oo5l776gx1aTyyVnYWUGIJhfQ7sdPSx9M/bgpQB7+d/
-	 7YaanLA1UJ/rUKNHeDzUyUWsIqv2FLwW2Dw1jyLgeKOKlIjbbz7YfxCrYBewwX9P/pQ==
+	t=1793208203;
+	b=wX2JWdJzhm2LtELhPO/WH4wbL3X8ukaISUYw+qglBLYe8IWzBgYJfrCAo52CVHhCcDli
+	 fr5odJ+G8GolDgCDqIKmHH2hJUpsfwi7ufn3jp5Gv58zDFBenP32mHWG2LTTq4FR56PQ5
+	 3nAHrI5wJCXbvgcsGW7SNvSgCSihVxSek8nYZLrVFydRbfxNyjag72FEPVThivx7OHIX5
+	 aN9yiT8sYZEu+iRfmRO69mUbD3BSGqWYLKtdkmXJbJCD1Wy6d3JtwjBKQLT7eWuUR2JCW
+	 zxkfMLT2ozB2pOl3uAXhlO5e8lKY3ft7MA3JkG0DLKHOpPeteu9UP4wAFwO/UrSxHGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208203;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dUuLYM9R77P2i0oSTZgxIKqK22AyLNxLKyFb3PxfXDQ=;
-	b=dRzEBN/FCF2etviTz76gSXtdwR8Z6AXfEJg4yOZH+kIqZVIeKvyeDMYb8/DGDF1qdwel
-	 pIxR0l8AcQ0uf01AnZIbwMBXAryhl6ERgL0kLuOtHtrJfyELc9bQlOu3ZrAHqpXv4+z4v
-	 jWoiiG4niJbD7x1ZVsk9DbaEasrgWh6t5Pf+wqTaha7N/K1AFf9YGXHXM92AppBWl6FJ5
-	 SulLP4uJKXszbRPgknDR6dreHJpVXK7MhWevgXVGQDX1tKoc0G2ZDpgq8UvUotiQzdPYy
-	 kLsCxcXUPYghWLoDPWsQuDC9h6K9Bi1owMNt0XodGGkMmfrYJzxfwAkuzX5GuZxGJeQ==
+	bh=o6vhZKsUPTEXMaV2itdjy05DiEsWxCcoFKfdYhnP+kM=;
+	b=pSB3kDwN9MTYpjlX7AdKxxEqBxK8spsdsubGpG256JOta9vwY1DQt7E6U/MEM7fpDCcT
+	 79NuBH0/EI0+Kop7r+95mWmrR2sLTvn/c68vkesYpMeAnpxiQsSmk0OrJQPKETjfgCdmC
+	 DuKtu42bsphD/2QmznEORqs2jQBgvlhnepRDYRRAm32wjngXCaDLOkkw8tCGn6cpHhtTG
+	 NKPGlPtPWVvOh8S/BMeX6rJzlOWYd/ibFenMmojSVd0YIYKh5MdX5mNEBTLnYMICXONyP
+	 WGP8Gg943ySryZ84vmm5KMUn2nA9USkdUq8FWsAVuU/w+Tgt//PBIt4C56l+j5GN1Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xoM8QhE+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CZ6Y+JQT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB265606A32E;
-	Wed, 28 Oct 2026 17:23:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FF3606A31D;
+	Wed, 28 Oct 2026 17:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xoM8QhE+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A191F01825;
-	Wed, 28 Oct 2026 17:23:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CZ6Y+JQT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79311F01825;
+	Wed, 28 Oct 2026 17:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208197;
-	bh=dUuLYM9R77P2i0oSTZgxIKqK22AyLNxLKyFb3PxfXDQ=;
+	s=korg; t=1793208203;
+	bh=o6vhZKsUPTEXMaV2itdjy05DiEsWxCcoFKfdYhnP+kM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xoM8QhE+EuBl4wauJk4TnvCSFSFg9+ZW/Y9MWeuj2uw57/jxioMs48dfH7Jmj/qu9
-	 Ng6oorzVTn99Z2nmEv1jD2lGshzug68kqMIH77gdmNie0+JKc6/j0ZlJUQb8H4olH9
-	 aDVzaBNVrw4arbofVTRHMMV5rmL3NKOiEb+t8urg=
+	b=CZ6Y+JQTZzMDgjBlI6VR98fC5Nz9Lm6j8b4kUdpeBhpzTZp/UwkBGOdPNZIaaoMQx
+	 nyGAx//lLmjuGMbZ/f1jPlpU/JhxD8tf+UhcdAkTa0cZYHnTMLL9YE0d0CH+ECPVib
+	 E+FRlhojlvyVBj2/rUNEpJwf78pEI8Zx+CIIUrNc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bjoern Doebel <doebel@amazon.de>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+	Frank Sorenson <sorenson@redhat.com>,
+	David Howells <dhowells@redhat.com>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 034/516] smb: client: avoid leaking refcount in cifs_queue_oplock_break()
-Date: Wed, 28 Oct 2026 17:53:06 +0100
-Message-ID: <20261028170004.337356832@linuxfoundation.org>
+Subject: [PATCH 5.10 036/516] smb: client: fix potential OOB read in smb3_enum_snapshots()
+Date: Wed, 28 Oct 2026 17:53:08 +0100
+Message-ID: <20261028170004.384819817@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -69,64 +69,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bjoern Doebel <doebel@amazon.de>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit 9f2e63f1b2d5fc5b5423424902c091123e220e7e ]
+[ Upstream commit 4775c3b7a597907e0b97556c7986fda238a377ae ]
 
-cifs_queue_oplock_break() unconditionally takes a reference on the
-target file before queueing cifs_oplock_break(). Only that work item
-decreases the reference counter again.
+If snapshot_array_size is smaller than GMT_TOKEN_SIZE,
+smb3_enum_snapshots() sets ret_data_len to
+sizeof(struct smb_snapshot_array) without verifying the actual length
+of the server's reply.
 
-If another oplock break arrives while that work is still queued,
-queue_work() will return false and not queue this second work item. As a
-result, we will never reach the point to drop the file reference again
-and are leaking this reference. This can be triggered when interacting
-with a slow-responding server.
+Because SMB2_ioctl() places no lower bound on the server-supplied
+OutputCount and allocates retbuf to exactly that length, a short reply
+results in ret_data_len exceeding the size of retbuf. The subsequent
+copy_to_user() then reads past the end of retbuf, leaking adjacent slab
+memory to userspace.  The subsequent clamp check is ineffective as it
+only reduces ret_data_len.
 
-As a result, later unmount operations for this file system will fail with
+Fix this by rejecting replies shorter than
+sizeof(struct smb_snapshot_array) with -EIO. Note that the bound is set
+to the 12-byte struct size rather than the 16-byte
+MIN_SNAPSHOT_ARRAY_SIZE defined in MS-SMB2 3.3.5.15.1, because 12 bytes
+is exactly what copy_to_user() attempts to read.
 
-  BUG: Dentry ... still in use (1) [unmount of cifs cifs]
-  VFS: Busy inodes after unmount of cifs (cifs)
-  kernel BUG at fs/super.c:777!
-
-Fix this by only incrementing the reference count if the work has been
-queued successfully. Taking it after queue_work() is safe because all
-three callers hold tcon->open_file_lock across the call and
-_cifsFileInfo_put() decrements under that same lock, so a worker that
-starts the handler in the window cannot drop the reference before it has
-been taken.
-
-Fixes: b98749cac4a69 ("CIFS: keep FileInfo handle live during oplock break")
+Fixes: e02789a53d71 ("smb3: enumerating snapshots was leaving part of the data off end")
 Cc: stable@vger.kernel.org
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Adjusted the patch path from fs/smb/client/misc.c to fs/cifs/misc.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/misc.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/cifs/smb2ops.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
-index b4199b4085db3..e9be60ca34454 100644
---- a/fs/cifs/misc.c
-+++ b/fs/cifs/misc.c
-@@ -628,10 +628,11 @@ void cifs_queue_oplock_break(struct cifsFileInfo *cfile)
- 	 * open_file_lock to enforce the validity of it for the oplock
- 	 * break handler. The matching put is done at the end of the
- 	 * handler.
-+	 *
-+	 * Only take a reference if the work is actually queued.
- 	 */
--	cifsFileInfo_get(cfile);
--
--	queue_work(cifsoplockd_wq, &cfile->oplock_break);
-+	if (queue_work(cifsoplockd_wq, &cfile->oplock_break))
-+		cifsFileInfo_get(cfile);
- }
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 51f8ea0c89065..8fb3db801d3ab 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -2165,8 +2165,14 @@ smb3_enum_snapshots(const unsigned int xid, struct cifs_tcon *tcon,
+ 		 * and retry the ioctl again with larger array size sufficient
+ 		 * to hold all of the snapshot GMT tokens on the second try.
+ 		 */
+-		if (snapshot_in.snapshot_array_size < GMT_TOKEN_SIZE)
++		if (snapshot_in.snapshot_array_size < GMT_TOKEN_SIZE) {
++			if (ret_data_len < sizeof(struct smb_snapshot_array)) {
++				rc = -EIO;
++				kfree(retbuf);
++				return rc;
++			}
+ 			ret_data_len = sizeof(struct smb_snapshot_array);
++		}
  
- void cifs_done_oplock_break(struct cifsInodeInfo *cinode)
+ 		/*
+ 		 * We return struct SRV_SNAPSHOT_ARRAY, followed by
 -- 
 2.53.0
 
