@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793166163;
-	b=YezjlJ1PDaShQTsT6oGfb2EaM74pROuuFWdlw/YCYlwim58IW8g/uK4nTOOXss8j2bdc
-	 k1r2F1r0KNGKrpHiZD2chJ0JyOYKrlJI4Ww74+Tm0d/Eu5m8QPuJ2UiR4in6kTdWoO0yr
-	 9ktwNXyXJf29trLGSkxIj+NM7/vg+uEBKCo3r1WzOS565sHGFazDRAlE5EdNOGEO3IICd
-	 VgfI14RaKxKjm/ZWr9Y9gAaRSUKyhojFyy9HInwGr6SrtBMAMaWeFp2r++1aedg8ZxoXj
-	 5HKxq40FiD/BRhwk2hQ2CXIZ9a+a0inpegiio++1Mv2Yve3H0g23WH+SuIUicuScNhQ==
+	t=1793166166;
+	b=rCRCjjCA+F9P3kzj6Xl2nj2nOvbUCXLSKxkDt1mknH+CrDL+opzV2rpgCN5Uq4a/Coqu
+	 +PQZjec3OsZZOLoJ/YTmXmVfoA+g8pUYz9vNX686t5GLzUYBnHByjN5TnPVWlogyf0PNI
+	 0KeygUVzAgHm76pxqeMNspB3xUBl5TTp9905/LyboqylKAV0sgrQ3ZpfIQNHOVyLHxnRJ
+	 P9f7TBtah5xR/DNoBhmy+0YOCcBNOf8JQRn85l0ZvK/QvGBwiO5SfV7g8MQ3eLIZe7cqg
+	 nYYCcNXSHt5F/2hKIQNd3GezwzTQKzqvB9L1MvAN/RCnHgnGARPT9qgSHj9iYjl2frg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166163;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166166;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xFl0go1Rt/XZg/UL3vYvI0sBGlrUpRft942jlbk9A7M=;
-	b=lvPg8WRaThHgH3GQUJSqkAeYsznb9uxET5EEHv3/oLzHHZIGJkkRP8SmeusNxlkhVHY3
-	 02bKF6zg2wAUhdfe7RPE8c6PAwTFSD8dioIfkGIvBd8p1s3sR2lrGO86L97/AVUrtS1J8
-	 ft//ZsKCBvGotMnQU8+zJM38LS4HEBFkz1oSL0JWt5k8CjmlmbdZKUZdWIGEwvoC1rJM0
-	 fKZEwCzunfr4KNqs6huIBqCr96v6KxH08r3wnbzK/x8v594ix6aD/zd7BYacC0EQABhVc
-	 S5jw0AWTXzuayE+aB0FKxo9XRbvBjCNroixCDcv39AsgQRoJGsYBYD+d8Hep1QiRBUA==
+	bh=mWxv+AM5u93WA62jFENB3xHKk4tt6GmJ8nyFXf9SFto=;
+	b=BeTIFW2ZOcxOl5n0/IPmg4y2QoA05TRoYme/1rnLti5Mbz6NSfPmHL4DA2xjemIUO6wT
+	 kxMRgiZ1hotZikiW4D863yA9YRcyWqn0DMR3PXR/PUWSDtZApdXzDQZr4K24lTfl/7hOZ
+	 yOz0iljU+40bkbHmBJ3FGnMZ3DRVlhqKFuPl/+uAzUcpLy8Vu9CuMLYy23t9NVi5PvITQ
+	 ZQhLBD87Dabo/fVcvvqCGVgwwlEnUrD5WVpmXS+HJ3qCpd0vSzo2g2p57rtAy4s0mQ6G0
+	 Oc+dibmETBMFW9f5hjOgjbw3JYhvugeLg51xWlan1b2HOmEFspsCLsTfl5ExPNxHb0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u+7QSPbJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GXpelgGA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94061606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:42:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2B5606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:42:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u+7QSPbJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F5A1F01828;
-	Wed, 28 Oct 2026 05:42:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GXpelgGA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA931F01828;
+	Wed, 28 Oct 2026 05:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793166163;
-	bh=xFl0go1Rt/XZg/UL3vYvI0sBGlrUpRft942jlbk9A7M=;
+	s=korg; t=1793166166;
+	bh=mWxv+AM5u93WA62jFENB3xHKk4tt6GmJ8nyFXf9SFto=;
 	h=Subject:To:Cc:From:Date;
-	b=u+7QSPbJH2+dmmdv2GkrDDwo8xEbWdg09ex3WfzgW2MUkzyzE3V2QxjCQiEE7BkGD
-	 ghajrEdj2qv6lwhuOxy2nQLB9cYyeHLBQ5cEKtOIIKqjKAlrhsQ+2rms97jBDC4puD
-	 EZXID0cSmth63nIyVGNYAuXM+1iwrK0zWYZZS+Ik=
-Subject: FAILED: patch "[PATCH] tracing: Add the bucket size to expr_field_str()" failed to apply to 6.18-stable tree
+	b=GXpelgGAkb/tErjcbiG3logI32tc8l7jNSqy0gD8bswe6g/vJ14QEc8H63R24oEfG
+	 DXIas7M67YMJi1/U1ajUIH7l7P6A73lwHVBO/jryH8oZ0uXK/JgcXYsehSNSySOK2p
+	 rDAtXk3edRWinirEVt1D91e1i98ixEl1uC6gUgJw=
+Subject: FAILED: patch "[PATCH] tracing: Add the bucket size to expr_field_str()" failed to apply to 6.6-stable tree
 To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 06:42:33 +0100
-Message-ID: <2026102833-repeated-divinely-f6fc@gregkh>
+Date: Wed, 28 Oct 2026 06:42:34 +0100
+Message-ID: <2026102834-proximity-conjoined-4fdf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x c027ed03bc03a0e82fc368eaad657584a4480c7a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102833-repeated-divinely-f6fc@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102834-proximity-conjoined-4fdf@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
