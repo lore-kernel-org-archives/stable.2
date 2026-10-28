@@ -1,74 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215772;
-	b=rprm72P24Ya+FYe68ZTNMYxtFIpWa8xxc6fgXachW/Vwyn6UUOZNNQ/Ch+jMn0Lst+pC
-	 JSLExtTpcWmULsjL/NRDSOaW8LFLFDSoI30uVvF9PPEV2/x+9tDEJwrAD1vtqxYPvItdx
-	 2kDoHy0Y3ZuQ2yJgj0KdODmywe04WzaQv/mybSHae+DFMxXLaap6fpH2NbCzXvooWrgkz
-	 wX5d5PddHx7lm0SorBYpG69MkZ11seH0scymdTzN4FfbTbKgEtWYnLcVpwDjHwnnzkiim
-	 2gZah9bqj4kjwKeJS6r4kkkK8jmXy5fl67/v6dGrKEHXF51P8gJ+XqZUbnbztQSxHFw==
+	t=1793215777;
+	b=DwpNCRpY7RxdtYEVspXCrZ9vodLpRFepUBOqJJ9EZ1Q54hMtIUfzbcPqtMp05U1n7f35
+	 l73fYNtKP4TFNVHQHObmBKCEbt6Im4ewRknyUh3ltstUv+asZh0VQVZFQjXDwYehQsP+z
+	 r4BvgjHOabHxGWmAyCWXsZLkscpxzr9SyrpaIIRGccslwuYI7bRwJCFJvIPPeTtGGvNWw
+	 dyJCaf4FbxD4Qeyxr2/EjbcWnuggZHR7JfjyPwEN0IUbsfZz6lPog+x6OEFMTEdmcx17b
+	 KxZs6muXp/erZPhjIJqSqN+K+fcRuncZHt8utX/jcvMx0M/V8ogKpiodlhax3Q73oVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215772;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=fhIxlpuFJcBXrphNeNwx+YcRvaFe0jopB+8JEZHNr+M=;
-	b=CiL0YVlA/96l1pOGfaJduNYK0iqh1lN6Zbdln2jxnMZijhqWVVH/ArelZPvUbrzlCrhB
-	 uOdTRqH18DK9JCczMkLW2y+oZ7bUeM6cPlxqEx0hqS9oeWnZd8tzou2eT/MrwUw2vNt0h
-	 /+O+FTekneU6Ixjgn7RwIeUnTwF1mwdrOwPiPRz5W7rnzMh8i+C3df+fncSxSIyaoq0sK
-	 hfbEv7sL8VOBOJRe6y8RPHv7ELhVuWScz+aukc2BJEnVJaSMVn1XN3t8zeR6b5Hb+RChd
-	 EyOf7rqYrw16F6tspDrUpd3rCjkHWDnJfjRggG7A7wsd0v5s94Exq5PtS0W5e8egvIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215777;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LNtjjtcHGyvR68Dd2djINTEL3QWk0Q0rhDAy6Q8W7to=;
+	b=G1LqTocaUW/w5BoszwxXG0M+8B1xopISaKfFxxYawUpOzkxWJxPgiUtoGwPybb/hMd28
+	 qSFs65+SdrbicEBMxiyEEP19NY6nvqTO2Z2AMJI1FfnwfckiBhM72dbQEaFJqA/nsEYlP
+	 YLUzxkrW/t4iZ+yTIuNgKRdJGWTdZRJADEOAU/7G1Ft0TRAhRjuDY3PAOywRh89JLMQms
+	 01FjxwbcF+LoWwZg0vsXSeZfJGQNR+WgOyQ33U0Ow7IlYAj71t+CsNVVThDbLYN9OnqXF
+	 W2o1Om7NPxZmb+VCutRnxLdQ92xz2GkCC/0BQgWeCIgODrbslWf6NPzpVlMzrGIm4HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nDyVVPpZ;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NpA3g43n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D065606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D065606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E9A606A31A;
+	Wed, 28 Oct 2026 19:29:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nDyVVPpZ
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e93f67358eso12393825ad.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 12:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793215771; x=1793820571; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fhIxlpuFJcBXrphNeNwx+YcRvaFe0jopB+8JEZHNr+M=;
-        b=nDyVVPpZ2XLMVcMcMfu3Ju2+6ZjLyfZ3SxeUgOM8o0tSDQfHLG1jgqSLCFvlis7uOZ
-         wo1/C87w0qBPcfvh051AN4U/I9OnnvEZhF0Jwep420UsCNWlevoCr154K8dmYSBfTmmx
-         XHhcoFj9eBHEsvE3CefF/Vyiuyo/+XOpSi1R0OFeX19g2CroLgDWu11IZUyTN6kqH7Om
-         G+EXIQfNuZHLnlDEiLVdX/4+GIiZoT1r4ndYW0cMi7NcGxiajgEZbMOlxbacOCTAWEbp
-         J6ZtvDRUsYzYQb/jJaoSuC7KS8zTLk8JspOkALI1Y1kUkqwoTwLL3QLe7Xkyu14EXDz4
-         eULg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793215771; x=1793820571;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fhIxlpuFJcBXrphNeNwx+YcRvaFe0jopB+8JEZHNr+M=;
-        b=ZZgTMWv1JWYLIi7wZKC92W90CVsHuBOQw0/WmfFSFCrzDZKK+rtGBt0shSqkZarzkT
-         B80qvb0XkcTU+lS8XFdqcNUgGbuJvTNz5nKDpITl35jXfeJWaYVX1NjvxS9moCImvkfZ
-         OVFPxF/3xTMj4AKGaa0u6v6v0ZqiuvbURqqXCx/V7VpaQCqsU2/w4nTT5h7LzeVX+m9K
-         QT2Up8ts7YOvz6zBpH7Tx3W2XbqxPdKfKcxtSMvZOnlkbebbj85wsP0cORpOyMqwCMiR
-         rpsI5i7CeS8BMk+polffFAYD61rJE1B1V7o9V8lKT0n20dHGzpi97cvVMjAX9kFp/QEi
-         o3OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2TiJJRmo1w+9xJM6hR73u/sWr2jyXZxIZwFeqJTBddwzH3BvLnyazuTpwIRY/mFkPLyi4H7k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKIGa+RR7mnjElrM67F17NaVHRasON3FeCtsFLSF3V2QFwWz84
-	hDbdFsNIcVw2FYf03vK5gbJX5XMeHubi8NO6kVokvXBV26RxxWdHGoYdIpg2AhQzYuBqePMreZa
-	nG+a1QQ==
-X-Received: from plic6.prod.google.com ([2002:a17:903:3706:b0:2e8:7c6f:de6a])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1cb:b0:2e9:5714:608e
- with SMTP id d9443c01a7336-2eb00487c87mr32243115ad.49.1793215770650; Wed, 28
- Oct 2026 12:29:30 -0700 (PDT)
-Date: Wed, 28 Oct 2026 19:29:30 +0000
-In-Reply-To: <20261028160226.2170244-1-edumazet@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NpA3g43n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23471F01825;
+	Wed, 28 Oct 2026 19:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793215777;
+	bh=LNtjjtcHGyvR68Dd2djINTEL3QWk0Q0rhDAy6Q8W7to=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NpA3g43n+AVs5E7CTrYDQpz/+qhWqTghFiUEw7UPlvZ2p3TFLIwvGXvR/1rA0ghW+
+	 GATXOe7oRACtNyPx6y53M3eiAW6ycg/TBBTrcz0m5E8aRPRC3bnmIDmV4IksGQmPib
+	 3H6mPgCfLAp4He74HvCKsnuyTsxgTeET5GMEq3rc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yihang Li <liyihang9@huawei.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 1330/1887] scsi: hisi_sas: Add slave_destroy interface for v3 hw
+Date: Wed, 28 Oct 2026 17:57:06 +0100
+Message-ID: <20261028170529.696586331@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,46 +61,95 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028160226.2170244-1-edumazet@kernel.org>
-Message-ID: <auJNDPw54Ojurqqq@google.com>
-Subject: Re: [PATCH net] tcp: fix reordering addition overflow in MTU probing
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Neal Cardwell <ncardwell@google.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, Kyle Zeng <kylebot@openai.com>, 
-	stable@vger.kernel.org, Wyatt Feng <bronzed_45_vested@icloud.com>, 
-	Ren Wei <n05ec@lzu.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 17:02:26 +0100, Eric Dumazet wrote:
-> From: Kyle Zeng <kylebot@openai.com>
-> 
-> Commit efb8763d7bbb ("net: ipv4: bound TCP reordering sysctl writes and
-> MTU probe sizes") widened size_needed and the MSS multiplication, but
-> tp->reordering + 1 is still evaluated as u32. RTAX_REORDERING accepts
-> an unrestricted u32, and tcp_init_metrics() can install U32_MAX.
-> 
-> In that case the extra-data requirement becomes zero. A write queue
-> with probe_size - 1 data bytes and a FIN satisfies the sequence-space
-> check. The coalescing walk can pass the queue head to
-> tcp_skb_can_collapse(), and tcp_clone_payload() can produce an skb
-> whose advertised payload exceeds the data in its fragments. Local
-> delivery followed by TCP_ZEROCOPY_RECEIVE can then walk beyond the
-> fragment array. KASAN reports a slab-out-of-bounds read in
-> can_map_frag().
-> 
-> Cast reordering before incrementing it so the arithmetic handles the
-> entire u32 metric range. For U32_MAX, the required size exceeds the
-> 32-bit queue and window limits, so the existing checks skip the probe.
-> The calculation is unchanged for all other reordering values.
-> 
-> Fixes: efb8763d7bbb ("net: ipv4: bound TCP reordering sysctl writes and MTU probe sizes")
-> Cc: stable@vger.kernel.org
-> Cc: Wyatt Feng <bronzed_45_vested@icloud.com>
-> Cc: Ren Wei <n05ec@lzu.edu.cn>
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+------------------
+
+From: Yihang Li <liyihang9@huawei.com>
+
+[ Upstream commit 67b85a88265df19f049241d8c00571a5408f4eeb ]
+
+WARNING is triggered when executing link reset of remote PHY and rmmod
+SAS driver simultaneously. Following is the WARNING log:
+
+WARNING: CPU: 61 PID: 21818 at drivers/base/core.c:1347 __device_links_no_driver+0xb4/0xc0
+ Call trace:
+  __device_links_no_driver+0xb4/0xc0
+  device_links_driver_cleanup+0xb0/0xfc
+  __device_release_driver+0x198/0x23c
+  device_release_driver+0x38/0x50
+  bus_remove_device+0x130/0x140
+  device_del+0x184/0x434
+  __scsi_remove_device+0x118/0x150
+  scsi_remove_target+0x1bc/0x240
+  sas_rphy_remove+0x90/0x94
+  sas_rphy_delete+0x24/0x3c
+  sas_destruct_devices+0x64/0xa0 [libsas]
+  sas_revalidate_domain+0xe4/0x150 [libsas]
+  process_one_work+0x1e0/0x46c
+  worker_thread+0x15c/0x464
+  kthread+0x160/0x170
+  ret_from_fork+0x10/0x20
+ ---[ end trace 71e059eb58f85d4a ]---
+
+During SAS phy up, link->status is set to DL_STATE_AVAILABLE in
+device_links_driver_bound, then this setting influences
+__device_links_no_driver() before driver rmmod and caused WARNING.
+
+Add the slave_destroy interface to make sure link is removed after flush
+workque.
+
+Fixes: 16fd4a7c5917 ("scsi: hisi_sas: Add device link between SCSI devices and hisi_hba")
+Signed-off-by: Yihang Li <liyihang9@huawei.com>
+Link: https://patch.msgid.link/20260425082056.2749910-1-liyihang9@huawei.com
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/hisi_sas/hisi_sas_v3_hw.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
+index 3979e1cc43572..bfd4639b11987 100644
+--- a/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
++++ b/drivers/scsi/hisi_sas/hisi_sas_v3_hw.c
+@@ -2860,7 +2860,7 @@ static int slave_configure_v3_hw(struct scsi_device *sdev)
+ 		return 0;
+ 
+ 	if (!device_link_add(&sdev->sdev_gendev, dev,
+-			     DL_FLAG_PM_RUNTIME | DL_FLAG_RPM_ACTIVE)) {
++			     DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME | DL_FLAG_RPM_ACTIVE)) {
+ 		if (pm_runtime_enabled(dev)) {
+ 			dev_info(dev, "add device link failed, disable runtime PM for the host\n");
+ 			pm_runtime_disable(dev);
+@@ -2870,6 +2870,15 @@ static int slave_configure_v3_hw(struct scsi_device *sdev)
+ 	return 0;
+ }
+ 
++static void hisi_sas_sdev_destroy(struct scsi_device *sdev)
++{
++	struct Scsi_Host *shost = dev_to_shost(&sdev->sdev_gendev);
++	struct hisi_hba *hisi_hba = shost_priv(shost);
++	struct device *dev = hisi_hba->dev;
++
++	device_link_remove(&sdev->sdev_gendev, dev);
++}
++
+ static struct attribute *host_v3_hw_attrs[] = {
+ 	&dev_attr_phy_event_threshold.attr,
+ 	&dev_attr_intr_conv_v3_hw.attr,
+@@ -3258,6 +3267,7 @@ static struct scsi_host_template sht_v3_hw = {
+ 	.eh_device_reset_handler = sas_eh_device_reset_handler,
+ 	.eh_target_reset_handler = sas_eh_target_reset_handler,
+ 	.slave_alloc		= hisi_sas_slave_alloc,
++	.slave_destroy		= hisi_sas_sdev_destroy,
+ 	.target_destroy		= sas_target_destroy,
+ 	.ioctl			= sas_ioctl,
+ #ifdef CONFIG_COMPAT
+-- 
+2.53.0
+
+
+
