@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210019;
-	b=PtuVcTCYTSAmuVoIIF9fAD4AfGT2TbbPQjvEvBz5aBNgn0pIFgkQNzaKG1zO1TbRe/xu
-	 9MdXDQE48NiC56YfCX1fvq+utP4/zwqd4AWasuK8rpeK8jrpCTaPPr0ciH67LPJ2HwzVu
-	 N4fuTLvEs4ZnK/jiBMoX3gG8HSZJvUB71va1Phq1Q83UfQZ3SyNml5ST7UVhm52BrbEy5
-	 8vn3gmcMDlNu9rbldzfTXnz3f8dUrpg8myz0wYqZ8z3b2Me4rWDNlmxmyHUTC9q4XMvyS
-	 LRiv0X7Z2yzlxuxFPHCiFOwRFw0QFjTuInI9425ObLn5VL4heQJFKgeTcuW+eToZZtg==
+	t=1793210025;
+	b=aJZW18+cpJdpt4vTOUKQo6/7fwQfFdsVWJiI6FIDsGCBxyry2/hoVyL52uG3EtrZTHZU
+	 o+wBocjzWFX+91mF1JYh8WROWEsZlu7lxfKNA/O4Q8OA1plMmXijALoxSpNB46vm7t0bo
+	 eDen48XuX+iu8tdRFzxKGmhUDM80AolSZIcromdmywyFHKThYO/KkcbZbDr1ZuxI3Hz/G
+	 b7sM/uZ+NXiXj0LGPRPxJ2QfJMz9UOCun3O2eVhVJPvpuGE9EVo9YxHxT1AxOaxRJ9nf2
+	 O6cVpoBycAIGTiaB/97f26HxTwwvSMV8NP9X6yhJsxOCp7PIUbZ9cWBY0OLciQO2iXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210025;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xHODMfOiil3nRHr/pPDXxqr6cIfmhieMvixqcltdqzE=;
-	b=In9JqpXSA9Q/h6blJNISWIMR6+J6vpf7t22r9ChX+ErVEDU+SEO7ZCT1hqz3VZC7gjjp
-	 AwoQQdu0Hv6OCWUAdxVya6PMvYt3KEB90TyHiLomqRg0T8WFIo4B444qnrT6rj7GYSok6
-	 ZAspHYvKW4tVBgWJ3XC8tBlA4QKt6k5LZRccZmAV/6NmLv6WaaEF4/MB85T8lBsios6oa
-	 zO/LMkxZpwyDTrKETWxu9xNTHRE1/L+es3PIg/WJoHq0eanuF349yVuGnFirnvaRxZbGr
-	 Mt9dK+vuS1K7iWf7ViHPxqCyIlpFQOdzNYeCmdU/7h6lUqdA8hl0/wQ51UvKdpYf2QA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bBt1xYl6JoqijT7TOnMdx6DVcInHw6Y5Cb5k/RfWFS8=;
+	b=02liaEkGijyJ23ioycshWRX0xW2Jaq+RWqLZ66g0espri6Vp0U2//7jxSVSQ7aFy7dYq
+	 lNA5GfwjmDLGEJTsMiokQVb4elYaHf8LGSwr/3tWTO4vPXDH3ophBFDlUT0HYZ59DRmx6
+	 KwBCJiIFoy0Oh3/gbKBz/2pikG4cmsbntP0om49okEvXVaQtInPEkvmo/pDvtHU8xNw3n
+	 /5FUnKoqrW8e5OqS1K6oYmXx7dqmpz/inthOS8PGQMckWTkd7psAIvmoLMBoFrF7c/6a1
+	 EQ3YtRo7TayrnYv6aaALEVYaCrOZEKjAp8cC5+mL3RrrNL59WKSna+i+8zIHFKjQz4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N8HzziOW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CvxDIS9P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E923606A31E;
-	Wed, 28 Oct 2026 17:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12506606A31F;
+	Wed, 28 Oct 2026 17:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N8HzziOW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B194E1F01828;
-	Wed, 28 Oct 2026 17:53:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CvxDIS9P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60EEA1F01825;
+	Wed, 28 Oct 2026 17:53:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210019;
-	bh=xHODMfOiil3nRHr/pPDXxqr6cIfmhieMvixqcltdqzE=;
+	s=korg; t=1793210024;
+	bh=bBt1xYl6JoqijT7TOnMdx6DVcInHw6Y5Cb5k/RfWFS8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N8HzziOWF0i41IAJREpsHJy1yi0gDsu7SqBtXEYYfpslcr+m4uOHsHYefUEkIUuii
-	 kFZpakEzU2HvB+YmVHyQc0VYSVTJ6ehziNxUtV7iOQ3IU/Fo+lFRsVELDgAT+/5c5b
-	 rfoQuEUV84pqsj91CoMtED7EwZfQ/vZbU5IilnDY=
+	b=CvxDIS9PvAMjuF2/jaepXvLU2PGQv9hYQeAZugdV+LC2s0R5of0f6fVrA1TjbP3Ta
+	 QN6rCrfwByvM64YGUOkf/YbhqhDW1Rjb1ziAIeJG8yIpxaO+Ehr2mqbuwZsQgbshfg
+	 g6IJH6Ay8dgbm4psZo8ZS1EtyIT/JTAFyCrDIMt0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.6 046/168] net/sched: fix use-after-free in __tcf_action_put()
-Date: Wed, 28 Oct 2026 17:59:42 +0100
-Message-ID: <20261028165944.179703032@linuxfoundation.org>
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 005/168] power: supply: Fix maintenance charge table kernel-doc
+Date: Wed, 28 Oct 2026 17:59:01 +0100
+Message-ID: <20261028165943.221487979@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
 References: <20261028165943.089486480@linuxfoundation.org>
@@ -62,66 +62,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.6-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-commit 7b16eb911091aae237a8673da94e4dfb9cd21d54 upstream.
+[ Upstream commit 45d4af4e80a25881b6b75e8e34872c555c43a41d ]
 
-__tcf_action_put() decrements the reference count before decrementing the
-binding count. Another thread can free the action between these operations,
-causing the binding-count update to access freed memory. KASAN reports it
-as:
+struct power_supply_maintenance_charge_table contains
+charge_safety_timer_minutes, but its kernel-doc describes
+safety_timer_minutes. This leaves the real member undescribed and adds a
+nonexistent member to the generated documentation.
 
-  BUG: KASAN: slab-use-after-free in __tcf_action_put+0x327/0x340
-  Write of size 4 at addr ff11000000d46420 by task tc-put-pause/64
+Use the member's actual name.
 
-Hold the action IDR mutex across both counter updates and IDR removal,
-keeping cleanup outside the lock.
-
-Fixes: 16af6067392c ("net: sched: implement reference counted action release")
-Cc: stable@vger.kernel.org
+Fixes: d72ce7d32478 ("power: supply: ab8500: Standardize maintenance charging")
 Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20261008181348.527035-2-Jeremy.Jean@oss.cyber.gouv.fr
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://patch.msgid.link/20260909064623.90737-1-kmehltretter@gmail.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/act_api.c |   11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ include/linux/power_supply.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
---- a/net/sched/act_api.c
-+++ b/net/sched/act_api.c
-@@ -372,9 +372,10 @@ static int __tcf_action_put(struct tc_ac
- {
- 	struct tcf_idrinfo *idrinfo = p->idrinfo;
- 
--	if (refcount_dec_and_mutex_lock(&p->tcfa_refcnt, &idrinfo->lock)) {
--		if (bind)
--			atomic_dec(&p->tcfa_bindcnt);
-+	mutex_lock(&idrinfo->lock);
-+	if (bind)
-+		atomic_dec(&p->tcfa_bindcnt);
-+	if (refcount_dec_and_test(&p->tcfa_refcnt)) {
- 		idr_remove(&idrinfo->action_idr, p->tcfa_index);
- 		mutex_unlock(&idrinfo->lock);
- 
-@@ -382,9 +383,7 @@ static int __tcf_action_put(struct tc_ac
- 		return 1;
- 	}
- 
--	if (bind)
--		atomic_dec(&p->tcfa_bindcnt);
--
-+	mutex_unlock(&idrinfo->lock);
- 	return 0;
- }
- 
+diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+index 85b86768c0b91..aa20bf8c3366d 100644
+--- a/include/linux/power_supply.h
++++ b/include/linux/power_supply.h
+@@ -365,9 +365,9 @@ struct power_supply_vbat_ri_table {
+  * @charge_voltage_max_uv: maintenance charging voltage that is usually a bit
+  *   lower than the constant_charge_voltage_max_uv. We can apply this settings
+  *   charge_current_max_ua until we get back up to this voltage.
+- * @safety_timer_minutes: maintenance charging safety timer, with an expiry
+- *   time in minutes. We will only use maintenance charging in this setting
+- *   for a certain amount of time, then we will first move to the next
++ * @charge_safety_timer_minutes: maintenance charging safety timer, with an
++ *   expiry time in minutes. We will only use maintenance charging in this
++ *   setting for a certain amount of time, then we will first move to the next
+  *   maintenance charge current and voltage pair in respective array and wait
+  *   for the next safety timer timeout, or, if we reached the last maintencance
+  *   charging setting, disable charging until we reach
+-- 
+2.53.0
+
 
 
