@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180183;
-	b=oIrnPOMlY7tquhPVqU0nm2Qi9Ot0cbUQ6LclqMGRC0+QdmvaCl2BNGBJB+WaCiUsb9Bm
-	 P/qg0vuCDcpG2JtszM8bLmNscd3MqTXs/LG2b4Mi9hk/STd3l9QGGjab5O2ajf2YC8L/+
-	 gstyIbIppQAQipxkOzfh3Mhns08XnPO9SwvwThj3ZSC7QIKH2BCpy65QI3KRHLBpDct5t
-	 SuVCEPCNIoxl0rgKVfD433JgCtoayiH3Wy9TUAbJsWvOhQo4Q8WkqwNpavqXFC8bfKrzM
-	 QeWrxXX9aFgJAuwqj58IJn0ttRdEvKq98HPp1fUtWNKHbXomZqqTbnZDUB+aOJTQ70Q==
+	t=1793180231;
+	b=EDhHUm5huKdw/Crmmxf1/UseaMCOa8u4+e7bILkBNUMOb2L15oVaOWTrq9jsrj81OU28
+	 V2u04RcEPjcHTF4N7O988Ag50OEqF1D80QHfMr/nx6sb+9+3LwM4uajYDzb1lY9PpMbsM
+	 0o9WD1IWFoGvfOR5ab90tRt1u5qSuOLBnh2uI3bLeBZ5vz0UCxKZbUb8SvU3hlNZijeNr
+	 Uhz/Q9rKs3d4p4tisldjZGHaNUruBBRSTpVricCfvPCqWzIM8/g46jgonC8MWJjnrFVmj
+	 NMlDDqkOdvS4rsC+sE1TAPMykL3b5ZdkEO0u44VAqxSs4Ar9R4/cCtYaZrs91me5gbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180183;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RasCjunpCh/NnC9QmLv8I/gSUP58pKx7xFWImX02RhM=;
-	b=0AGX2865OyloskbJ17LQOmORaLMnErq+d6YBQ88XVe/IO0srAfIC0P77HjB1q6nts+B2
-	 cezhmZnZlskzO1S4NduM0mUUwjtNBkbHQ8LGLZWZmnMIhmwaNhtg66J9EteL6wXPhiXF/
-	 54iH7B0WpomfYGKioBdcWwMQrhMdRXgAklsluF2NN+alU7RCM5wyAX6fvnpxYOKBsHDVu
-	 bwPzvy4P9uDTUgrY2LP/NPSVDdHZL5ZqAR2O7lLI/414ThkybuOBo3U0AmgxMlv/tKfdY
-	 95Sa/mVz5YHy5lsb9vpUcn34KXst5djW4QnwR4d3It7NgfG/+7QJsJdV2eIRB+AH8nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180231;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hkt3J7o6BQgO40vmJfQcUjJjdHsbv2iE23eksw80Rug=;
+	b=Ditz8HRQLnd22HBrHCC3NUhcfO6RAvO0cfNF8+OffaAN0JB2VOeqcaxbCfpfqCApm208
+	 qekuFBhF9Z2LCh7eBwaPZb5cB9Bj/3jNnN6LhS7ezyfqJDkDsDclrr/DiLp8UpOmGMrgv
+	 kPGsD6AU0FG8kJ02BnKVbNKfPZ+eA90wn+UooPCwDOW79iyHpXOM+v2eqtitehShtqI3G
+	 w4TI0CgZcbRg2DSozGRZuN0WqXuQ8+XvLyDY030aeLIBmSBnnMBkePqnYijRVdDq/hX7E
+	 MyF3shlrVaTIl8tIMRck3hRXCkk519EThPwY5x3oGnmpRXSuX8GELY+gCTicbTTyDtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IO5fdKi4;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWzv57eo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B41606A31F
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 09:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B41606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DD5606A327;
+	Wed, 28 Oct 2026 09:37:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IO5fdKi4
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso6110565e9.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:36:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793180181; x=1793784981; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RasCjunpCh/NnC9QmLv8I/gSUP58pKx7xFWImX02RhM=;
-        b=IO5fdKi4z0OLJU7M88/lVVb6oujx+gY8duIyBx8erfI51FuYBuaXd1yPV1ZBI7NoOg
-         cFY0Q9LmITOxTsPeS93gOoaQMCziY4PA+/tncE48IFF9LRHTnwxXwMQSi1gc07DrcAbi
-         +US+GjuAJFUTxb7VS9qX69A4UheQ8Tgm1cVq+w8nMetORtjcvnGD62cFm6SRwrBbCKL1
-         g9UzJ8T5x2+Vtp4TIh5aYPMoUosdmIv3WRAbx8W3euHH7pulvB1/YJ6i8Awr7pYR/oHe
-         c4lRhn/5iZk5jZALIdNkyQ6p7gvoh5Qy/qH+OqYHc3QhTOdURJfLl3LX214CvBTHizv1
-         US5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180181; x=1793784981;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RasCjunpCh/NnC9QmLv8I/gSUP58pKx7xFWImX02RhM=;
-        b=jeh6YYB0aYtgIqSi0RD/oUIFD0rD8GIRUBcaQC6Nupuv7uSh2I6rRxk9JnD9riz1rd
-         5m0TSNEe/XV5dxNMkfsdqY4EfegqpSqLBSMfDI3xdfh/STixt/JjcWebOAjauuU+hooB
-         7GUSLRw8jkoSaaYvn8mpob/KPWv4O9F5FA5QIODzNgPaX+4D7qw1q7IzNgDLZdqFkqad
-         MAdlm4UX4ACc2hmTse3efCBXAeq8DS1vnV/1SQyqn+w04SIrHvi/hhNzp/i0snG+uTKj
-         BDYrKluc0ArFbZwnO5JqGdDiuJxXz+y37gMH/AGs+rhP2hl7AbjORg8hTLmuAo1agw6S
-         bsMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzLiwaMHlwMHW3vspue+DePZax2eNwTtPNhsXhy1YqmgzBcI9ifYwdbiTzWR0vAP//affDAxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1zIhMIX8ZfxxNPB0h39q918ZATIsoSehl0mc5dTEpbQ/qThU6
-	Sn1KyN6kBeo7aE3OatB4rL34XQJb10KO4lcQ8bpZoisdkJudY9AUcXNd
-X-Gm-Gg: AYBFou2fuCnMVoaaFMviZiLxt6B+2+F+mUHp1okERSyv7D0scvsU9lUExHtBmhxYw+/
-	4dZe1PrRy8SwrfG1wS0PlcMfTB9BK6rXQ1RlJcKZ35J39c3iRPEs2OM0b2pVRLkQY0K9eyxsN3F
-	LRWm/9aXT8/mzxPoQYlEAE31iRWjWeP+AwqM0mvu2Hdh0Vio9QmPYR+ztcygj5QNhnwhrEwI1Sn
-	kXi1v2+TkbP6fs9dqraBA3tGDhItOkGUb/n/qBSwWc5NNBjICxcAk+nG9b5QpJ59zG+oYOtEX6/
-	UAsAK+gvZXJKcRy4l4mMTCE3Y9AaGkoKPM7U0kwD6JmvDQssuzZf8sSGpkcI2tbBjlI3lY1y9B5
-	3qQfgLyc5mxbt7YLXaTpfpJTblFGH+u+u/qWINaD/MX+QgNSLVgaU6EAilNaImfbtbmGp59YWHv
-	Q/iLTqHKAfpuleier7wZdrLvUsA8IgKttW3k0qgHtG66VFx5V1Xq0moIYopPD9+AMrWFMrklem/
-	7Z2PDSDTqWGg0IUjvh2EitOhcLkyDdGc8O+UWoe3+XEzEsIwopTYBGZFOtlGNAijkidTR9KLfo9
-	0CqyaapwtR64wSKPdU0Z73KDToCvpVKEAIU7+g==
-X-Received: by 2002:a05:600c:609b:b0:4a9:2a92:231f with SMTP id 5b1f17b1804b1-4a965ec941cmr33454985e9.7.1793180180835;
-        Wed, 28 Oct 2026 02:36:20 -0700 (PDT)
-Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a9ead8aa0fsm5886335e9.4.2026.10.28.02.36.19
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 28 Oct 2026 02:36:20 -0700 (PDT)
-Date: Wed, 28 Oct 2026 10:36:16 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: wenxiong@linux.ibm.com, mathias.nyman@intel.com, Bjorn Helgaas
- <bhelgaas@google.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, wenxiong@us.ibm.com,
- linux-pci@vger.kernel.org
-Subject: Re: [PATCH V3] xhci: Reset TI USB controller on xhci shutdown
-Message-ID: <20261028103616.29110069.michal.pecio@gmail.com>
-In-Reply-To: <20261021160608.8229-1-wenxiong@linux.ibm.com>
-References: <20261021160608.8229-1-wenxiong@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWzv57eo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A121F031E3;
+	Wed, 28 Oct 2026 09:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793180231;
+	bh=hkt3J7o6BQgO40vmJfQcUjJjdHsbv2iE23eksw80Rug=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gWzv57eoVREIE6uyRZgZdIiciEl7WLnQhOONFi+w9KDK3Uw2DwGDKIqmwozZ5u164
+	 G2OU1cFTYutESW96OZgJMn/OT8s1QMfi015khHuFvNahrjuFJVsgyX7HcUtZBUXkVa
+	 SJQPChGv6ukztUUTlkXWIm6FiS7k2Hez40MBg7Ml7wFjlWw6vtgUdjXfWG6DFr40Iw
+	 O3xCIvQevAQOTO6mVEmTBaSNyNltMjtPzq4bQZtTsR6g7NcupBtxzAm0AsCcxDOTDh
+	 9kyF6FOzzK4pXsZF3pjixNiFjUS0gXRzfl0mUwtxnUGx9ukcHRtM/XHGFL4/hhU/Pq
+	 hp3koq66nDdhw==
+Date: Wed, 28 Oct 2026 09:37:05 +0000
+From: Lee Jones <lee@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Mark Brown <broonie@opensource.wolfsonmicro.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>, linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
+Message-ID: <20261028093705.GK2195460@google.com>
+References: <20261027032609.119226-1-lgs201920130244@gmail.com>
+ <179310015976.2808517.13064510476219400398@kernel.org>
+ <CANUHTR8Ypwpm+Qqmk-fob1=e040rRH5QGTs7gN6MWRKQYyOdCw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,44 +65,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANUHTR8Ypwpm+Qqmk-fob1=e040rRH5QGTs7gN6MWRKQYyOdCw@mail.gmail.com>
 
-On Wed, 21 Oct 2026 12:06:08 -0400, wenxiong@linux.ibm.com wrote:
-> From: Wen Xiong <wenxiong@linux.ibm.com>
+On Wed, 28 Oct 2026, Guangshuo Li wrote:
+
+> Hi Lee,
 > 
-> Fixes kexec boot. Without a hard reset, TI pci usb chips will fail to
-> initialize in a kexec booted kernel.
+> On Wed, 28 Oct 2026 at 00:26, Lee Jones <lee@kernel.org> wrote:
+> >
+> > On Tue, 27 Oct 2026, Guangshuo Li wrote:
+> >
+> > > twl6040_remove() currently removes the regmap IRQ chip before
+> > > removing the MFD child devices. This destroys the IRQ mappings
+> > > before the child drivers can release their interrupt handlers.
+> > >
+> > > The parent driver also registers READY and thermal interrupt
+> > > handlers using devm_request_threaded_irq(). These handlers are
+> > > normally released by device-managed cleanup after remove returns,
+> > > when the corresponding IRQ descriptors have already been removed.
+> > >
+> > > Consequently, free_irq() cannot find the IRQ descriptors and the
+> > > allocated struct irqaction objects are not freed. The associated
+> > > IRQ threads also cannot be stopped through the normal cleanup path.
+> > >
+> > > The probe error paths have a similar issue, as they destroy the IRQ
+> > > chip before the device-managed IRQ handlers are released.
+> > >
+> > > Remove the MFD child devices first, then explicitly free the
+> > > parent's READY and thermal IRQ handlers using devm_free_irq()
+> > > before removing the regmap IRQ chip.
+> > >
+> > > Also update the probe error paths to release successfully requested
+> > > IRQs before destroying their mappings.
+> > >
+> > > This issue was found by our static analysis tool under development.
+> > >
+> > > Fixes: ab7edb149c75 ("mfd: twl6040: Convert to use regmap_irq")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > > ---
+> > >  drivers/mfd/twl6040.c | 13 +++++++++----
+> > >  1 file changed, 9 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/mfd/twl6040.c b/drivers/mfd/twl6040.c
+> > > index 562a0f939f6e..7b05d21cd17d 100644
+> > > --- a/drivers/mfd/twl6040.c
+> > > +++ b/drivers/mfd/twl6040.c
+> > > @@ -745,7 +745,7 @@ static int twl6040_probe(struct i2c_client *client)
+> > >                                       "twl6040_irq_th", twl6040);
+> > >       if (ret) {
+> > >               dev_err(twl6040->dev, "Thermal IRQ request failed: %d\n", ret);
+> > > -             goto readyirq_err;
+> > > +             goto thirq_err;
+> > >       }
+> > >
+> > >       /*
+> > > @@ -791,10 +791,14 @@ static int twl6040_probe(struct i2c_client *client)
+> > >       ret = mfd_add_devices(&client->dev, -1, twl6040->cells, children,
+> > >                             NULL, 0, NULL);
+> > >       if (ret)
+> > > -             goto readyirq_err;
+> > > +             goto mfd_err;
+> > >
+> > >       return 0;
+> > >
+> > > +mfd_err:
+> > > +     devm_free_irq(twl6040->dev, twl6040->irq_th, twl6040);
+> > > +thirq_err:
+> > > +     devm_free_irq(twl6040->dev, twl6040->irq_ready, twl6040);
+> > >  readyirq_err:
+> > >       regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
+> > >  gpio_err:
+> > > @@ -809,9 +813,10 @@ static void twl6040_remove(struct i2c_client *client)
+> > >       if (twl6040->power_count)
+> > >               twl6040_power(twl6040, 0);
+> > >
+> > > -     regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
+> > > -
+> > >       mfd_remove_devices(&client->dev);
+> > > +     devm_free_irq(twl6040->dev, twl6040->irq_th, twl6040);
+> > > +     devm_free_irq(twl6040->dev, twl6040->irq_ready, twl6040);
+> > > +     regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
+> >
+> > Why not use more devm_*() handlers?
+> >
+> > devm_regmap_add_irq_chip()
+> >
+> > devm_free* eeks me out.  The point of devm_*() is that it's managed.
+> >
+> > >       regulator_bulk_disable(TWL6040_NUM_SUPPLIES, twl6040->supplies);
+> > >  }
+> > > --
+> > > 2.43.0
+> > >
+> >
+> > --
+> > Lee Jones
 > 
-> Signed-off-by: Wen Xiong <wenxiong@linux.ibm.com>
+> Thanks for your suggestion. I'll look into using devm_*() APIs in v2.
+> 
+> Would you prefer that I submit the twl6040 and hi655x-pmic fixes as a
+> single patch series in v2, or separately?
 
-[ Adding linux-pci and Bjorn Helgaas ]
+I'm not overly concerned.
 
-I tried to make this code a bit more "proper", by moving the
-pci_reset_function_locked() call to xhci-pci.c from xhci.c.
-
-I found that when I actually run this, I get a warning from PCI:
-
-  unlocked secondary bus reset via: __pci_reset_function_locked
-
-Bjorn, any tips what would be a proper way to whack a malfunctioning
-PCI device with a heavy hammer to ensure it will work after kexec?
-Seems we have pci_reset_function(), which locks the parent bridge for
-us, but it also preserves some "state". Do we want that?
-
-I'm also starting to wonder if we shouldn't do this reset after kexec,
-to cover for kdump. Or maybe both, because shutdown() is supposed to
-quiesce the chip and keep it from doing DMA, and we have no idea what
-such chip is doing (if anything) when it refuses to halt.
-
-Thanks,
-Michal
-
-> [...]
-> +	/*
-> +	 * TI xHCI controllers fail to initialize in a kexec
-> +	 * kernel without a PCI function reset
-> +	 */
-> +	if (err && (xhci->quirks & XHCI_RESET_ON_SHUTDOWN))
-> +		pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
-> [...]
+-- 
+Lee Jones
