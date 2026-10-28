@@ -1,109 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793143456;
-	b=KlF3+jtI78jpre2pVSp+yVeULtAjshj4HbtDKioiexLIzFA93DJET+7IuPcrusOvM/Eq
-	 T3q+CGiU1CUu87btABSUU/2CAaNbbiMeoBnHwC2F6oO5WNF8Lo0i/q5xoJ9blqWW8d8YF
-	 3R6HZl4r7xALwRe8Vj0aUtbFIEucJVVecHwps4b/vk+n9QLRhG60hzW2j4LJzLouQyX35
-	 9ZiH9eCKit3yasNOjD25uuF/d8BKThNtH+eOZ6CCyQRvgsoKKa183prBiHxXJ/nv4Vm8x
-	 EkcKW97PdlqUOC7QKycXkFaThVjMTC6AKBCMKI29J+Dxj8OWGL42/JEj6Bl52VMlU+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793143456;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=K1ndogGsTWbFDLVgM+axPSOmgQbR3hyd1uA1SABlBm8=;
-	b=VIUsqccxYdx1wGV+aeV2kk9s9rdZKW1XgCyY0P/0f4t9HB6BeqbEGwYF22+pa0wvwe7Q
-	 HNIm56tPY3f8XiS2K+5T/B+9cmeGyYnuxQWBIQbZ7hXL8zaLelROuI5rGniGeljyfyUAi
-	 m+bIB/w7qKa4nrB/ZJO6so7bJxATw4VB4Fg7doD4uT8LzwfLgY6oPHyJhYxzhdbGfS0jj
-	 2icrF5mfhlgZHOo077sY7Tga5M9Cqnwj+EqWwX4HwhQRK/7M292bnKOI18yD30duFLjNN
-	 7URHfDSGlpNLZLLnH/0fhwyFFJ/ULVrQXA1TPKM69vX2qgGifeoHRSN506hEc+gGTxA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3bUqRRJ4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.52
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012052.outbound.protection.outlook.com [52.101.48.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793146461;
+	b=xblJ6DcjLTBK1dl7av5Eatk3EKdvq29gEePU+lm7Fh49dXXEVjf8Rugy2egSwzHDHVyi
+	 Gb4r9e+qVdVY4tY0LJ8CBT1sCCUNkbZcxcM0w7YysfkkfmG0A6ZdTpMeVzPrAM9q/W3iV
+	 5RvR206NBBRp4sFI99m1b6vC9ozoQge/xSbM/k663/mFAjBhdzdXGra0+azcOmphonKgM
+	 VGnX+ZMcnscQkiHU4ROekc1hMNSJkzW1YL6S3q6TGK/PvyNb68fTueSaF5n/MNpC4+65y
+	 LCeSInK7J2j590KjYg3+ICwBUCbfnCaIQQA7tHWnI37LVB/U2B8l/zFcUXIqfTdKUTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793146461;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=7p1ucq/Ny8UBz6ghlqYuLhKrCHyG8ylaL7otql1jOZ8=;
+	b=EMO+xatj9q1RqmKztg+eS2FCt3EYtNK7JjygJhvqCc3ASjuMgivTeuMndrEqY44zmsfA
+	 G6g6vCyYsSpg7XRNZ0kCOhucIXG8BjIXDMmdHuj3qB0hV+PcYpDhrSpUbMzgAKY4k67Ol
+	 /vvZ56jTyWvO4lexpvT8zra5mEBzRAXXWqS+vdXip3LpDKfM5IXrsoMFghqXF9D8JR3n8
+	 F48jG5+vQO9Z38aWwhyBy0CtZyKTVbS+hK1x1hxKVGJVI/EyS5l9Ua8skZ+8A1w8XKXIi
+	 HKVpl37i9lbV1YQ0SfQo0r4P4Cz1WuQs0qCvzfvNQ11U3ZLzV5k+4Vu6PneO2bNumHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=lsovCs6I;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=Q4NLyjW1;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2832E606A31A
-	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 23:24:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2832E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818AA606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:14:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 818AA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3bUqRRJ4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NxEIuZu2px2rcfu2Q45ausGLnmpij3qjClOMM2cFKIkM72oxsWceMIhp5VlwrET3FvHVoCVYouSMMlOM/HPwdOASv7DNFg9U9sT/fbhMwp2To1b0TdJLTWYoOHFsTIl4UHSeI39OJSfV7Art/TYJi34R5+K4BJREFqkdGNUzuTejcTw4DEk1yXXT8QEzfXmWbaLPuMwCqGdfAgFhHVBXzgya+4dn2lVniRAxH3H79uFz3tysgx4IYLLZ2TOakKi4uQnoq3G4IjBKH7LoqoPLF/DKcWJis75SXeYA3VrbQBdFvfV1/eCi62lww0+4N7IqBzBb7zdxd+1tf4XaqA2SEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K1ndogGsTWbFDLVgM+axPSOmgQbR3hyd1uA1SABlBm8=;
- b=ZcOjaXMYl68xVjF71KAAJYguuGAUrisU9XkY5TzsztFkg4b/g0JRF8rhOcKCKCJS3GmDlTUiovTGcGAZeZE0F1U00Kb1YAM7QtsqDB1V9b++vq5INlwIDCsYLXNpsVtelZcGivdsnl4V+ioH6UNpwyO9d2qsZ3JsLihsVo6D7auMVhe42KUJhYtDndLNfk9mASuyY+lVosKHyLxyETPg83N4CvGwNgEgZHFdIeXtuzRFyGGbmlytwpIagnhGcnwC+sHS2SwigGhTrE5IBZE/x2XzuA3m8jyE0c4FKNdHZr+DrE2VTbFeYi8ObTd8MeNRdxmnCNP1/oHutI9tn74+nA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K1ndogGsTWbFDLVgM+axPSOmgQbR3hyd1uA1SABlBm8=;
- b=3bUqRRJ4oms37J8F3MgMcjYNd/HH7xk6pIevGBefyZ1o/MNycSvnjd0HGRVEXBqp/bbuujghJrQPBOE+EdG3+6H9ssIUXPnZ3kTXTxNQAHW9SQTbdSyEbhE+S+35oN4nVKbHxlasf8ayyrgpiHUTvCyOJ/r+tMsavj+bFmreapI=
-Received: from CH5P223CA0022.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::12)
- by DS0PR12MB6656.namprd12.prod.outlook.com (2603:10b6:8:d2::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 23:24:13 +0000
-Received: from CH01EPF000BE943.namprd02.prod.outlook.com
- (2603:10b6:610:1f3:cafe::4f) by CH5P223CA0022.outlook.office365.com
- (2603:10b6:610:1f3::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 23:24:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE943.mail.protection.outlook.com (10.167.244.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 23:24:13 +0000
-Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 18:24:10 -0500
-From: Alex Hung <alex.hung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
-	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
-	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
-	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
-	<Chen-Yu.Chen@amd.com>, Dmitry Artemenko <dmitry.artemenko@amd.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Alex Deucher
-	<alexander.deucher@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH 17/28] drm/amd/display: Add missing OTG_CRC1 reg/mask entries for DCN3.1.2
-Date: Tue, 27 Oct 2026 17:17:13 -0600
-Message-ID: <20261027232005.2879750-18-alex.hung@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027232005.2879750-1-alex.hung@amd.com>
-References: <20261027232005.2879750-1-alex.hung@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=lsovCs6I;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=Q4NLyjW1
+Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RNsQHo2298975
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:14:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=7p1u
+	cq/Ny8UBz6ghlqYuLhKrCHyG8ylaL7otql1jOZ8=; b=lsovCs6IxaWMyufeHyab
+	UGnNVfqeJNBrnilLDH1hmBBzIDO1Xw2PYSUP6AO5lBNUxpxEQbs+32FmrWqXgs2U
+	tOPH30t80MNHG2qpSiuiuflnpzM+Fl8MrVaIQ/TzOQwsV3+8EA9G3C0UHn/qCG3Q
+	PQj237pzIWWLwXlIO/8itmTx5LzX4mvdorMSSEhTUlDiVt+iAvZg3DPutnck/E72
+	SD4t4EgnBW4hfXCWuhw5rDgUQrr386PNS4Nzie4yCvvMNEyT2eeHSzgksDyKzRBz
+	69BiiAg+4Y9BSAZh6oP9aUSXMEnXOkAGEduwN+78Gc0cdd8YkiEvb2dw4F4cmelV
+	dQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hk144jsds-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:14:12 -0400 (EDT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c7d79203cso4149336d6.2
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 17:14:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793146451; x=1793751251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7p1ucq/Ny8UBz6ghlqYuLhKrCHyG8ylaL7otql1jOZ8=;
+        b=Q4NLyjW19/i3ait1GGvuGUivPbsqagcGPGP+qWcDf7njdgRSJuYGwHwfXBRn6+WApZ
+         u2dU/OtMje0X9b8UevuOY8/zp+xcTBSlA+AQPyXfpQIFvqXQkrx7HvxUuLeKu1xIjmOz
+         kiBinAtDG9/rbdMBTxkVC2eZ+5y6Lcu8Hj86h5xFKIuiV8Oo+uj+Ulbj4qOr85BrMbkh
+         EyxD2Q8Thz/bitPJU4cocw8Ol6X7hbw2JlkPyQ66x5sGjM+qvJmR/qMkUXyApTT34u/s
+         sZcQJdUwxGiWQoZpZVBv/TUZjOGT3aT0Y0GxHW03AK0xQsXqWosKF43hPhwNOMY3TfSO
+         p3Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793146451; x=1793751251;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7p1ucq/Ny8UBz6ghlqYuLhKrCHyG8ylaL7otql1jOZ8=;
+        b=i+ZOvtzLC/L2tJww8uk2ZI2p+WotAO3T5FCdS+EqNjmgvNNovad9XrsLDcfGYq1v1f
+         zhgfLhGCDgB/fMWotBODXeOqV+fp4hN6PuvwDh0uhrwB+YKJaR11mmG++mDInmdrpyra
+         oKon263NiH92cNVtBV5ctCUymv1nm4csh4C4b9AucYcyf/Lr+JIqUrtCqj2YGeGGkYOQ
+         yhVF7tSxhDAUBl86lLkYkekCOGuI6yMs4SnvdD3hKPK9gIZ7zYOhSjwLERTAXdgdQqk/
+         xgq3rP9hO2e4/okBhXLGbspIaT9tSlnBgJ5BhyXN3gtVj6z8ZRpFNXLnuIAn4ByPg5H8
+         mtKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+eGrQZcSk0NVTEHANfBGnRjUsqdV6Zi3w4I7TnU0oEUHIuCzdpcHkxclFfcXKgrr5GHlQ8xA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBKf/NE0kF1vlaKDEB9i6kwLA6oGGqcWbm+eiRDSJYjC+k+IRB
+	wde2KoOQSMPp3Uo7t0HNDZHLgsuwCI51KDn5fS/owg0VNoXx+jN0UwcRe0Y01lvGlGRkBVYK8rq
+	4Y4QweASFa8VOetTnajqI8Ji97WOOdUyou1hE1ZSRUdHqKV3Z6Bg0ZA==
+X-Gm-Gg: AYBFou0wLo5hbcll4FR/fxZpU1p8Ne2k9pPjT95ZEZJMpHsD3qGEeXRMpkdpzV72bZ2
+	TxCyUvuYa0uvmIJOTFIE650vZPTeMpRnD3atnPJGvXzqLRHKtLhtL9iyHiA+32BWlu8aMYgoMi4
+	69fYh4yrayIKcy3IewjFEkvZpeIWCL6CknSEBvZDETiUYDDIP9iXZDy0tdIEHjJORcTnjzCpLDG
+	BS7KrKrTUMBqAZcZeT1U3Lz0rsAsUGFYbDUHdEiFg/Md8ffmp/wtOLUZGW+XcaPpf8QzbuFi9dD
+	A4PlsJHwatufx/45H2eoVMehUAG6ALLRK/4apreXT1JhGdOtKYpez88rzdQ9t4Bv3LyVv38oMU1
+	AN2plpELivNkHLvXXM0P3HErWJK/XyjprhlYZUDIU7AiKQGlcqtoGdWfSNqwRsh07yEN2ChB5Z+
+	SMS18ok5v3Sz5f7ewfDkTIWsgVoB3w/vInDih/EvdxLyUp8TonGWhhDgkjgHlfWLW1kf1RcDLZy
+	SsULs7qHxas1ggmen9ySAvpOLd096bDiu9dFZdglLDb2kaZ6XoluLhwUVHk1abh
+X-Received: by 2002:a05:6214:21e7:b0:91c:76aa:2c67 with SMTP id 6a1803df08f44-91c7d1aaecbmr12070786d6.39.1793146451424;
+        Tue, 27 Oct 2026 17:14:11 -0700 (PDT)
+X-Received: by 2002:a05:6214:21e7:b0:91c:76aa:2c67 with SMTP id 6a1803df08f44-91c7d1aaecbmr12069876d6.39.1793146450883;
+        Tue, 27 Oct 2026 17:14:10 -0700 (PDT)
+Received: from [10.206.51.58] ([129.236.225.183])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c6d8103b1sm40645156d6.44.2026.10.27.17.14.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 17:14:09 -0700 (PDT)
+Message-ID: <3c754c36-86de-44a6-ab3f-5c86e4bf83a6@columbia.edu>
+Date: Tue, 27 Oct 2026 20:14:07 -0400
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,94 +117,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE943:EE_|DS0PR12MB6656:EE_
-X-MS-Office365-Filtering-Correlation-Id: 049769bc-3ece-4cce-eadc-08df3481695c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|261009223027099003|56012099006|261021121427099003|10067099003|261026121527099003|6133799003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	e6UJzNs61hDj3qhPJmcYf7XxEIweW3EiV/1FgakiikI5+wJ+4eZTdXwD3IqMLal6+UMTCLqExL7tTCDGum99BZZjZP3EyTjrmr5sfqeo5RTpjXvaBwZNyE65cD8lwaoRKx2IlY9PhZhuaJJAgKSsvGHST9FDis4oyHNAHtrgcUeMICFSvSWLH9n+9FoSoxMYfU2xomFITS/fj3POrCdZDOItKz03SBpdW9z+GeOU+X+fzrEU/NVC4tXnkQ6EbwgSydUTX65IxQRVbIUIvfpxdkKDhLn0OzX0jijpDUETqQCAuZogVw07EiWg408bOq4jt+N8WCELdhbYn8emWgV3cXp4aypHkDS7iDFo5g+f3ORSp8YJkxSCSZrkZE69EPuO4Wm42kVeumIN/iE3647kHQn7xX5Ww3WN0dPC+cBayBRKD8vI7VdO9m5Rfamt8fKMA2GAr9OCy8IdI0SDRbqWre6g+QxrW8AWQyYpjtaGnEbTr04FmS4EYkDVr4/7BiqHwaRTQqdW8T/3/cIfNAedJepk7kK4pCKCTy3I1VVU4wAHmZeNzb393sHfIH1XUK4J9STRQPc22BMFkwcbLQRXB66zeCLj3PC8d+Mqj10OK+12/WUERrq1QOxeJPSTf7sG0SOhfd2D/JXgI/wVdBMD6BYeJajItYb7qyLrk8SuNqgyZlCKBFa52yoLStlvmdk1Cvy9LneVOK8YYkvdQuj7zg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(261009223027099003)(56012099006)(261021121427099003)(10067099003)(261026121527099003)(6133799003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RUnyiX+9oMNejnPoDBJSqnF78PuJ8hwZqr5E5nEhs9rxSTItvJ9VcptyBqrge4PK9DsTLtnmaSI4aKlsSl9UwM2n3nxlXmUyZQgcgCJxvbeXrO0SxGljNQ0zP4e/+AqD0M99lRr6XWns78TdXCDgmFVbv1PCeeRrKZr3PHw3CwCIrAg3uCqOY1GGLvKbZ8X+FkHJGToCcs+7KFX8NOp9uAX3X+XbKM3scPX9ilwqhGr/OhT/tsuNWWuvew7VNHq0AcH26AxGboopEk3XFJeEnvELfud5BmVhS8O7IqT5DO1OWJTMuh3y4nBQGXgjsV8XDSKUZT3tPVP4ZFRAaj+OzEbjwkSQxdBEmEMTEIiT1cNsNpBMFjOnJz8XdbmFSNExm9NWjECsa1sOCjzuyBflaSJCP9ZSkXFoXSnnLBJkBPWdeYi0YvrRhZT+2t9lf6H8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:24:13.2740
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 049769bc-3ece-4cce-eadc-08df3481695c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH01EPF000BE943.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6656
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/46] mm/huge_memory: fix list corruption when
+ deferred_split_scan() races with deferred_split_folio()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+        Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+        Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+        Barry Song <baohua@kernel.org>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+        Baoquan He <baoquan.he@linux.dev>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Hugh Dickins <hughd@google.com>,
+        Pasha Tatashin <pasha.tatashin@soleen.com>,
+        Pratyush Yadav <pratyush@kernel.org>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+        Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>,
+        Harry Yoo <harry@kernel.org>, Alistair Popple <apopple@nvidia.com>,
+        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
+        Kiryl Shutsemau <kas@kernel.org>,
+        Matthew Brost <matthew.brost@intel.com>,
+        John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+        Will Deacon <will@kernel.org>,
+        "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+        Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+        Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+        Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+        Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+        Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+        Gregory Price <gourry@gourry.net>,
+        Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+        Ying Huang <ying.huang@linux.alibaba.com>,
+        Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+        linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+        stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
+Content-Language: en-US
+From: Mani Tofigh <mt4022@columbia.edu>
+In-Reply-To: <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: yNyPZnFfS1eSqa_l0cT6n0fQtxANxpuA
+X-Proofpoint-ORIG-GUID: yNyPZnFfS1eSqa_l0cT6n0fQtxANxpuA
+X-Authority-Analysis: v=2.4 cv=DdaCOftW c=1 sm=1 tr=0 ts=6ae13e54 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=TdXXog4ttPu8yHJGq4T0ug==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
+ a=VwQbUJbxAAAA:8 a=maIFttP_AAAA:8 a=_zromwrzjHPDTWxWFBQA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=qR24C9TJY6iBuJVj_x8Y:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAwMCBTYWx0ZWRfX4HMF9GBAE2lQ
+ wrueofDxHUboO1GCf7q4ehUX2ynfZEus3axn+wG5p+8LAYnkifMKll9AoAcc4obZoXc55H21Bt3
+ Ar9w8OPasqyxRTmHcMC1/VhNI8jGG25i0Jm57lgRn9Uf+YVw1Wuh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAwMCBTYWx0ZWRfX65QX/ht1TZAh
+ 8dX75WANXfj5Nc30MTB7TgJkmAp1SRlCCXAhYGiTQIhe+R/6udy0k+K57wAR1bN4TDOD5l/xuaY
+ 73FNn1FoxCZAajPzaQZmueZ8NaNHoIuB+ZPti7cy2Bb/XSPgNOaUeokkNwVEuPkkfOVtOlHUsUj
+ lgiWowyTFE2yq9YKm5gwjsjyq06FSNIWKVdsznUCnRFEXnSgyDf5iND4w6U9Ol0MM53BI8Nm4GE
+ Hi3kKEdYxo0IwNCgW6egLMIHVqHwhJ1i56PvVpEf5/sroN9q68FLM2luSr5KGq5xv4kNzz7la03
+ IYsMgYLXwjzq8PoH/jJPhKAatBk0837EYdu3kKxJi8nAeq2r3YSK7Ls0rRgbVAbHBGq//25T8Zg
+ bcpJ39i+OfskN5vZhYJCaWiAxdTftLYRv98jCLY9F8QwIG2RveCbJMr0qEr0JTO5FlWzXQwRZ/3
+ oMT+R5z79cpFepETbTQ==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11948
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 impostorscore=10 lowpriorityscore=10 adultscore=0
+ priorityscore=1501 clxscore=1015 malwarescore=0 phishscore=0 bulkscore=10
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280000
 
-From: Dmitry Artemenko <dmitry.artemenko@amd.com>
 
-[WHY]
-amd_hotplug@basic emits a kernel WARN + Call Trace in
-optc1_configure_crc / set_reg_field_values on DCN3.1.x.
 
-[HOW]
-Add the OTG_CRC1 data and window registers to the DCN3.1 OPTC
-lists, matching the DCN3.1.4 fix. DCN3.1.2 hardware supports CRC
-engine 1 but the mask list only enrolled CRC0.
-
-Cc: Roman Li <roman.li@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org # 6.14+
-Signed-off-by: Dmitry Artemenko <dmitry.artemenko@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
----
- .../drm/amd/display/dc/optc/dcn31/dcn31_optc.h | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
-index 19d90c65a22b..a60a96075d3b 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn31/dcn31_optc.h
-@@ -83,6 +83,12 @@
- 	SRI(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),\
- 	SRI(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),\
- 	SRI(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),\
-+	SRI(OTG_CRC1_DATA_RG, OTG, inst),\
-+	SRI(OTG_CRC1_DATA_B, OTG, inst),\
-+	SRI(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),\
-+	SRI(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),\
-+	SRI(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),\
-+	SRI(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),\
- 	SR(GSL_SOURCE_SELECT),\
- 	SRI(OTG_TRIGA_MANUAL_TRIG, OTG, inst),\
- 	SRI(OTG_GLOBAL_CONTROL1, OTG, inst),\
-@@ -217,6 +223,18 @@
- 	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
- 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
- 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
-+	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
-+	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
-+	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
-+	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
-+	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
- 	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
- 	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
- 	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
--- 
-2.53.0
-
+On 10/26/26 7:17 PM, David Hildenbrand (Arm) wrote:
+> Since the deferred split queue became a list_lru, the isolate callback
+> moves the folios it took a reference on to an on-stack list, linked
+> through folio->_deferred_list, and deferred_split_scan() takes them off
+> that list with list_del_init() without holding the list_lru lock.
+> 
+> deferred_split_folio() does not know about the on-stack list. It only
+> holds the list_lru lock when it looks at the same list_head, and it can
+> run for such a folio: a THP is queued when it is mapped, as a candidate
+> for the underused check, and is queued "again" when a part of it gets
+> unmapped:
+> 
+>    CPU0 deferred_split_scan()          CPU1 deferred_split_folio()
+>    list_del_init(&folio->_deferred_list)
+>      next->prev = prev
+>      prev->next = next
+>      entry->next = entry
+>                                        list_lru_lock_irqsave()
+>                                        folio_set_partially_mapped()
+>                                        __list_lru_add()
+>                                          list_empty(item)  -> true
+>                                          list_add_tail(item, &l->list)
+>                                            item->next = &l->list
+>                                            item->prev = tail
+>      entry->prev = entry
+> 
+> The folio now sits on the list_lru with ->prev pointing to itself. The
+> next removal leaves the neighbours pointing to it, and they still do so
+> after the folio has been freed. With CONFIG_DEBUG_LIST:
+> 
+>    list_del corruption. prev->next should be ffd4000000270090, but was
+>    ffd4000000278090. (prev=ffd4000000270090)
+> 
+> Fix it by grabbing the lock around list_del_init() so
+> deferred_split_folio() cannot race with it.
+> 
+> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Mani Tofigh <mt4022@columbia.edu>
+Tested-by: Mani Tofigh <mt4022@columbia.edu>
