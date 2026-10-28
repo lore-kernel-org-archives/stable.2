@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219859;
-	b=Jnx73JeU+ee/P1TB1GTNzV1Z+/AIqw95WeYjKmWYNV2slqkVU7RZaMIEHcXGYi/xifHX
-	 v6ieIdk1K6//9cT8S+8m5f8DdbdrTltXX7fJWxNCvGk98cnuUcy5ZEd9E6xu9GoaOIvS0
-	 BmIu8D8n7MVyfvdLlwk7+bzoVz0c1YP7Hz8/Ib7/uE5CLnfO+r+Qnafy2ic4F1GFNc8hb
-	 c1Fj5vb8dSsDVDwirUd2uFmRbzYzvUgIBJXczmiLWLskBJsOjCiELuT8yYd+XwxWzIQCF
-	 hSDK3GPTKNcPqaiaDpOf8tJdHG1z7qDXPOhBCgfTMcBxq/4WeLzkogWVBO3QTjNZGKQ==
+	t=1793220071;
+	b=5XoAPzT6DYrEr+/axImJhmFPbJlrruaK/Lk9WuOFKjVXqCVJa0DaIzBcup9rbWrsRF09
+	 p8+ujAp4EC+CUk1fYV9/2qU7O4VeG2ABpkVvS4bWCoaQqIif9236T7P4zCiWdIGbuCVLp
+	 FJOw33JqFWWLamRz8Nr/1E0DFdKKnjzZyJ2lKJIGJsMukuqfQzOZvDVVBrbIQTB1CbM5k
+	 OBCv9Rhe7Kzr0AAmKDh5/VPYm+2xs/4Ov5m9PCws2j3x6IXz4U6vTmRz0h3PR5kx+M2tT
+	 5MJNmam0zIl9DnZUnnuv/7kUy+A77zh/Lk6DhAJoy2lBgoVVJoYj6Jm1LH1on00aCtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219859;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=oj1lyO8CIX4oSXtDos3MWpr0D3srxGl+35ySEqyQsvE=;
-	b=eMxMxPEwCi4Up/fVuS58jTu0RMSLyy/aL1TEbx/MKwRTZSRJPNa9bahqd1dFbwDFxbl0
-	 TupYz/o5Dmr2Zt77LoT+6A3PMHswfccLZ7vucSh9CEExUVF+BEzOl6UWhQikK0CqaUSaK
-	 azpSGVyVvVV6XDnrYJSWaWKdutd/addXQVzV/JZ9p0Bl/+NqnYSvMs6Ogtpc0yJrBSiKw
-	 rC1DZAw7VcX57VtGyQtnrf8Hr+x9B4JwVNWYJp52JtXXzZFjfTvvhkBoT2rBi1fAbTSIE
-	 QWVhxbI3Mndl2OB1roJxRro/aKKXW5eycFR2k1ZcN87xhBYQ/EIXy0tzthg+ZoEtLZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220071;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=QQbnberAPvhpqCGxCiSNoM/4Q0uvQCUHKyLHQU+7Pq4=;
+	b=NlDcOIw/+frG92SXey6fviek8yKaVyWIG/ty+ICv7+YsP7X8Y0ZbLdp23sTz1APyjWDc
+	 HaLYjQFngQixCxRAgCFBYUa9EOf+VyXGc065NxZi/pYuGl+eN6DNud6dfiwsxoZxBdLvb
+	 Gx+jZwh1mseMFR29H54ZsmGpGkeSTw46nBbWPLVP2lY3Clii4hfWx/rD8RAK6WyxkBZjl
+	 0lhc5fjpHpjybRuViOVpAMD1CSrqiCAFHfmXtM6bPgWSxJYlsfNwenAH9cRwzh+5J85hL
+	 VUaz+Sp/bVk1CUoe9ZLipkUpLVs+m/I2vsWB4Uoxqwiu0l5Pdthrpl2b06PV+TjNTLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncu9Dfir;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k71fndNz;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1BA606A31A;
-	Wed, 28 Oct 2026 20:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76D3606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:41:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A76D3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncu9Dfir
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3BD1F01825;
-	Wed, 28 Oct 2026 20:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793219858;
-	bh=oj1lyO8CIX4oSXtDos3MWpr0D3srxGl+35ySEqyQsvE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ncu9DfiraLPRvKYf9kIaxfvp9YfD75C18sih8ao/6wCR9R9vSlJTBFBm9GdvKGokr
-	 m/aayADpprvj20FDNqr5t8oeXaEFiwRgwug9HCS5lSBNB3Txi2XYK2ZRw0eFg+YbZI
-	 0LqcD1hd4crcaN/sD6MfHbAYNef4emqvR9G2c5ClaXbyl5vwKMllJll/Iazr3Sb1dP
-	 QEy9qMqyWl1TLeLfi1Q1+Wln7fdiH+YluiW66Nragd6QEu7WfhBciIBgWro9tyI5aM
-	 kHQmXhXZOHLEIkZIOqUz3clJqx5v6ccce5a71r1rcHPaJLK37oYnLmGSlZFSwUwleP
-	 UiHbVtxm7v04w==
-Message-ID: <ce84acad-fbc9-430c-9be4-c9e86e615fef@kernel.org>
-Date: Wed, 28 Oct 2026 21:37:27 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k71fndNz
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ea381ce04fso951315ad.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:41:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793220070; x=1793824870; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QQbnberAPvhpqCGxCiSNoM/4Q0uvQCUHKyLHQU+7Pq4=;
+        b=k71fndNzImv15347i3hHJi/2OkPcsYc9oFYlTg8lZAZCJQ8BWnwbVFniv68Ajk2r/4
+         kRZp6dst/PKTGzkkq+gbUk+5FzcJUrT0VB/Zo3b5AD/dpbHWRk/5IxJnyOMG176l59sD
+         4IPHHmH5kR/F2LyCWEG9tDLDsHfgzQKGQa9ITHZWtGketwh9th8ECLwisaDFyv75FwgD
+         1QU1zgiSgh+XAScIlIe8CdX9DVJN1B2pGB0z76rGazNYa22h4hJExYluhurhcypBWiu0
+         uxYpZ7bOGUF12z0bEJ0I/6nxXQtMkLDIZ5L4tcrQ+z6Hzgsc5qkX/6fVflzs1v+/ucEe
+         yH6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793220070; x=1793824870;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QQbnberAPvhpqCGxCiSNoM/4Q0uvQCUHKyLHQU+7Pq4=;
+        b=0Mp+caOk1ycu1OnikUwU8ohax2xcHNOWu0c1bu3mjOt51XPjP2NZaF/HsHsYF03ovW
+         q0LAuHyBTJFq1Chr46L9AyO1LX0wfAvahXV9hd9QiUg0QcP6ANeUsKNYDjHKkXpw9CUd
+         klH0+pW5Mg+xfNfBX5NZFEylCAXRRQrpbu70ZgmfRn7s4kzqd9SmFQgS7NojoO7EYC37
+         O9ktK4MK9ARGTtFDy7Dd9erylNM7/szqEh7hYlexEWoWF9jzmV1ksWSEhqGHIB+qEXZk
+         Rj5y3FayF3zHM+FKoGZ/BVzpeZAPRshTb83qSg7fUQ2ZJiO3wupYW10/1x8YdASuMXtL
+         fNUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlVnREAQp4KhD4hPFYjWE6eJ8gdZAN07V7eWoOTMxtsRA+LUJb2WKBwo4vghYpIYW9sVn3hR0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJC1+RoW/lCx/9bHhkY66ty9OGJaPq1/CRZiLSdUYzspb32cC1u
+	590RWicm3DnARCyIra2UxFovDQ5Pk984bcmONbkF1Rd7j04OUZGrI+30bf64RiDiVHUvWHvHV4r
+	yjIIKbw==
+X-Received: from plri15.prod.google.com ([2002:a17:903:32cf:b0:2e8:44b9:5c18])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:fc4e:b0:2ea:1b5d:9efc
+ with SMTP id d9443c01a7336-2eb1ac94a4cmr3362155ad.34.1793220069849; Wed, 28
+ Oct 2026 13:41:09 -0700 (PDT)
+Date: Wed, 28 Oct 2026 20:41:09 +0000
+In-Reply-To: <20261028173533.2658096-2-rjethwani@purestorage.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,210 +77,190 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/15] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-To: Balbir Singh <balbirs@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
- stable@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "Pratyush Yadav (Google)" <pratyush@kernel.org>
-References: <20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org>
- <20261028-fixes_shmem-v3-4-4ce3baf2db4b@kernel.org> <auHJOSkggc-V9dVi@parvat>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auHJOSkggc-V9dVi@parvat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261028173533.2658096-1-rjethwani@purestorage.com> <20261028173533.2658096-2-rjethwani@purestorage.com>
+Message-ID: <auJcgy0IIfavE37T@google.com>
+Subject: Re: [PATCH net v3 1/2] kcm: reject attaching sockets with a ULP, and
+ TLS on KCM sockets
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Rishikesh Jethwani <rjethwani@purestorage.com>
+Cc: netdev@vger.kernel.org, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
+	Shuah Khan <shuah@kernel.org>, Hannes Reinecke <hare@suse.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On 10/28/26 11:06, Balbir Singh wrote:
-> On Wed, Oct 28, 2026 at 10:55:02AM +0100, David Hildenbrand (Arm) wrote:
->> From: Chris Mason <mason@kernel.org>
->>
->> The owner of a memfd sealed with F_SEAL_EXEC can still change its
->> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
->> this lets an unprivileged owner make a non-executable memfd executable,
->> bypassing vm.memfd_noexec=2.
->>
->> simple_set_acl() updates i_mode directly, bypassing the seal check in
->> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
->> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
->> in include/linux/memfd.h.
->>
->> Fix generated by an LLM and sent by Chris Mason in private.
->>
->> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Chris Mason <mason@kernel.org>
->> Acked-by: Pedro Falcato <pfalcato@suse.de>
->> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->> Acked-by: Zi Yan <ziy@nvidia.com>
->> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
->> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->> [ david: use common helper; simplify description ]
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  include/linux/memfd.h |  9 +++++++++
->>  mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
->>  2 files changed, 39 insertions(+), 5 deletions(-)
->>
->> diff --git a/include/linux/memfd.h b/include/linux/memfd.h
->> index c159e40e3f34..272479317cf1 100644
->> --- a/include/linux/memfd.h
->> +++ b/include/linux/memfd.h
->> @@ -2,10 +2,19 @@
->>  #ifndef __LINUX_MEMFD_H
->>  #define __LINUX_MEMFD_H
->>  
->> +#include <linux/fcntl.h>
->>  #include <linux/file.h>
->>  
->>  #define MEMFD_ANON_NAME "[memfd]"
->>  
->> +static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
->> +		umode_t new_mode)
->> +{
->> +	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
->> +		return -EPERM;
->> +	return 0;
->> +}
->> +
->>  #ifdef CONFIG_MEMFD_CREATE
->>  extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
->>  struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
->> diff --git a/mm/shmem.c b/mm/shmem.c
->> index af21a89abb0f..e3e4bbbe1d80 100644
->> --- a/mm/shmem.c
->> +++ b/mm/shmem.c
->> @@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
->>  #include <linux/magic.h>
->>  #include <linux/syscalls.h>
->>  #include <linux/fcntl.h>
->> +#include <linux/memfd.h>
->>  #include <uapi/linux/memfd.h>
->>  #include <linux/rmap.h>
->>  #include <linux/uuid.h>
->> @@ -1546,10 +1547,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
->>  	if (error)
->>  		return error;
->>  
->> -	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
->> -		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
->> -			return -EPERM;
->> -		}
->> +	if (attr->ia_valid & ATTR_MODE) {
->> +		error = memfd_check_seals_mode(info->seals, inode->i_mode,
->> +					       attr->ia_mode);
->> +		if (error)
->> +			return error;
->>  	}
->>  
->>  	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
->> @@ -5404,12 +5406,35 @@ static const struct file_operations shmem_file_operations = {
->>  #endif
->>  };
->>  
->> +#ifdef CONFIG_TMPFS_POSIX_ACL
->> +static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
->> +		struct posix_acl *acl, int type)
->> +{
->> +	struct inode *inode = d_inode(dentry);
->> +	umode_t mode = inode->i_mode;
->> +	int error;
->> +
->> +	if (type == ACL_TYPE_ACCESS) {
->> +		error = posix_acl_equiv_mode(acl, &mode);
->> +		if (error < 0)
->> +			return error;
->> +		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
->> +					       inode->i_mode, mode);
->> +		if (error)
->> +			return error;
->> +	}
->> +	return simple_set_acl(idmap, dentry, acl, type);
->> +}
->> +#else
->> +#define shmem_set_acl NULL
->> +#endif
->> +
->>  static const struct inode_operations shmem_inode_operations = {
->>  	.getattr	= shmem_getattr,
->>  	.setattr	= shmem_setattr,
->>  #ifdef CONFIG_TMPFS_XATTR
->>  	.listxattr	= shmem_listxattr,
->> -	.set_acl	= simple_set_acl,
->> +	.set_acl	= shmem_set_acl,
+On Wed, 28 Oct 2026 11:35:32 -0600, Rishikesh Jethwani wrote:
+> KCM and kTLS RX do not work together, in either order.
 > 
-> If CONFIG_TMPFS_POSIX_ACL is not defined, do we want to set the set_acl
-> callback to NULL? Earlier it was simple_set_acl
+> KCM's psock_data_ready() is the lower socket's data_ready callback. It
+> can run in softirq context under read_lock_bh(&sk->sk_callback_lock),
+> and calls strp_data_ready(), which invokes sock->ops->read_sock()
+> inline. With kTLS RX, that is tls_sw_read_sock(), which can sleep: it
+> allocates with sk->sk_allocation, waits for async crypto, flushes the
+> socket backlog, and may wait in tls_rx_reader_acquire().
+> 
+> Found by code review. On an unmodified kernel with
+> CONFIG_DEBUG_ATOMIC_SLEEP, sending TLS records over loopback to a socket
+> with software kTLS RX attached to a KCM mux reports:
+> 
+>   BUG: sleeping function called from invalid context at include/linux/sched/mm.h:321
+>   in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 189, name: ksoftirqd/34
+>   Call Trace:
+>    __might_resched
+>    kmem_cache_alloc_node_noprof
+>    __alloc_skb
+>    alloc_skb_with_frags
+>    tls_rx_one_record
+>    tls_sw_read_sock
+>    strp_read_sock
+>    strp_data_ready
+>    psock_data_ready [kcm]
+> 
+> Before commit 662fbcec32f4 ("net/tls: implement ->read_sock()"), TLS
+> inherited tcp_read_sock(), so KCM parsed the ciphertext in the TCP
+> receive queue as messages. HW TLS RX uses the same proto_ops as SW
+> RX, so it is affected the same way.
+> 
+> The two also stack socket callbacks and neither restores the other's:
+> with TLS RX configured after the attach, kcm_unattach() overwrites
+> tls_data_ready(), and releasing TLS RX later reinstalls
+> psock_data_ready() on a socket no longer attached to KCM. On TX,
+> kcm_unattach() restores its saved sk_write_space, dropping
+> tls_write_space().
+> 
+> There is no known user of this combination, so reject it, as was done
+> for sockmap in commit 460e6486617c ("tls: reject the combination of TLS
+> and sockmap"):
+> 
+>  - kcm_attach() refuses sockets that already have any ULP, not only
+>    TLS, as sk_psock_init() does for sockmap, with -EOPNOTSUPP like its
+>    other refusals;
+>  - tls_init() refuses sockets attached to KCM with -EINVAL, like
+>    __tcp_set_ulp() and the sockmap check, tracked by a new SOCK_KCM
+>    flag set on attach and cleared on unattach.
+> 
+> sk_user_data cannot serve as the marker: sunrpc and nvme-tcp set it on
+> sockets that tlshd later upgrades to TLS, so it is already set when
+> tls_init() runs. Unlike sockmap, both sides run under the lower
+> socket's lock (tcp_set_ulp() asserts this), so the check is made at ULP
+> install rather than at key configuration.
+> 
+> This is a user-visible change that will also reach stable kernels:
+> attaching a socket with a ULP now fails with -EOPNOTSUPP, and installing
+> TLS on an attached socket fails with -EINVAL. Every refused setup was
+> already broken as described above, except one where only kTLS TX is
+> configured. Such a socket still passes data, because read_sock() stays
+> tcp_read_sock() until kTLS RX is configured, and KCM transmits with
+> sock_sendmsg(), so records reach tls_sw_sendmsg(). It is still wrong: if
+> TLS was armed before the attach, psock_write_space() shadows
+> tls_write_space() and does not chain to it, so a record deferred on a
+> full send buffer waits for the next send; if TLS was armed after the
+> attach, the chain works until kcm_unattach() drops tls_write_space(), as
+> above. The direction is not known at ULP install, so refusing it keeps
+> one rule for both orders and matches sk_psock_init().
+> 
+> Tested with CONFIG_DEBUG_ATOMIC_SLEEP: both orders are now rejected,
+> plain KCM still delivers messages, and the TLS ULP can be installed
+> after SIOCKCMUNATTACH.
+> 
+> Fixes: 662fbcec32f4 ("net/tls: implement ->read_sock()")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
+> Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+> ---
+>  include/net/sock.h |  1 +
+>  net/kcm/kcmsock.c  | 12 ++++++++++++
+>  net/tls/tls_main.c |  6 ++++++
+>  3 files changed, 19 insertions(+)
+> 
+> diff --git a/include/net/sock.h b/include/net/sock.h
+> index 173b37b2b8bb..e579a4a96c8e 100644
+> --- a/include/net/sock.h
+> +++ b/include/net/sock.h
+> @@ -1024,6 +1024,7 @@ enum sock_flags {
+>  	SOCK_RCVMARK, /* Receive SO_MARK  ancillary data with packet */
+>  	SOCK_RCVPRIORITY, /* Receive SO_PRIORITY ancillary data with packet */
+>  	SOCK_TIMESTAMPING_ANY, /* Copy of sk_tsflags & TSFLAGS_ANY */
+> +	SOCK_KCM, /* Attached to a KCM mux as a lower socket */
 
-Excellent question: because simple_set_acl is NULL for !CONFIG_FS_POSIX_ACL.
-It's clearer to jsut keep using shmem_set_acl here, thanks!
+I guess this does not compile for 32-bit ?
 
--- 
-Cheers,
 
-David
+>  };
+>  
+>  #define SK_FLAGS_TIMESTAMP ((1UL << SOCK_TIMESTAMP) | (1UL << SOCK_TIMESTAMPING_RX_SOFTWARE))
+> diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
+> index a7f94d42036f..546d5b563382 100644
+> --- a/net/kcm/kcmsock.c
+> +++ b/net/kcm/kcmsock.c
+> @@ -27,6 +27,7 @@
+>  #include <linux/sched/signal.h>
+>  #include <linux/uio.h>
+>  
+> +#include <net/inet_connection_sock.h>
+>  #include <net/kcm.h>
+>  #include <net/netns/generic.h>
+>  #include <net/sock.h>
+> @@ -1272,6 +1273,15 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+>  		goto out;
+>  	}
+>  
+> +	/* KCM and ULPs are mutually exclusive. A ULP such as kTLS replaces
+> +	 * read_sock() and stacks its own socket callbacks with ours. tls_init()
+> +	 * rejects sockets already attached to KCM, see SOCK_KCM.
+> +	 */
+> +	if (inet_csk_has_ulp(csk)) {
+> +		err = -EOPNOTSUPP;
+> +		goto out;
+> +	}
+> +
+>  	psock = kmem_cache_zalloc(kcm_psockp, GFP_KERNEL);
+>  	if (!psock) {
+>  		err = -ENOMEM;
+> @@ -1305,6 +1315,7 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+>  	psock->save_write_space = csk->sk_write_space;
+>  	psock->save_state_change = csk->sk_state_change;
+>  	csk->sk_user_data = psock;
+> +	sock_set_flag(csk, SOCK_KCM);
+>  	WRITE_ONCE(csk->sk_data_ready, psock_data_ready);
+>  	WRITE_ONCE(csk->sk_write_space, psock_write_space);
+>  	csk->sk_state_change = psock_state_change;
+> @@ -1382,6 +1393,7 @@ static void kcm_unattach(struct kcm_psock *psock)
+>  	 */
+>  	write_lock_bh(&csk->sk_callback_lock);
+>  	csk->sk_user_data = NULL;
+> +	sock_reset_flag(csk, SOCK_KCM);
+>  	WRITE_ONCE(csk->sk_data_ready, psock->save_data_ready);
+>  	WRITE_ONCE(csk->sk_write_space, psock->save_write_space);
+>  	csk->sk_state_change = psock->save_state_change;
+> diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
+> index b8d5a843f761..e45062841950 100644
+> --- a/net/tls/tls_main.c
+> +++ b/net/tls/tls_main.c
+> @@ -1067,6 +1067,12 @@ static int tls_init(struct sock *sk)
+>  	if (sk->sk_state != TCP_ESTABLISHED)
+>  		return -ENOTCONN;
+>  
+> +	/* TLS and KCM are mutually exclusive. kcm_attach() rejects sockets
+> +	 * with a ULP; both run under the socket lock, so this cannot race.
+> +	 */
+> +	if (sock_flag(sk, SOCK_KCM))
+> +		return -EINVAL;
+> +
+>  	/* allocate tls context */
+>  	write_lock_bh(&sk->sk_callback_lock);
+
+Perhaps move sk_psock() check in do_tls_setsockopt_conf() here.
+
+
+
+>  	ctx = tls_ctx_create(sk);
+> -- 
+> 2.50.1
+> 
