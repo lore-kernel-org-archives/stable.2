@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207605;
-	b=N8qC0LwegDtfRxn83ov1TorEi4ClL/AEP8IDg6xrfUHXRRVHzHYAskZQzmbLGV3/makQ
-	 9AUEqSANRl+A0Za418BqSrQgvBMuBaHHzPfU9Uud2cXgZjQ6NaKSr4TrF9ADi+TqrZFyq
-	 XBcW9mEkyyzcgvBJrWVJ/XWu88VRHHNQH1384oreYzr/03CobSf/jht5blQtvUr2wY6BT
-	 Z8qv0cGGmUg2W4kMEXycizVhp0dEKYCOt6xhHJ476HJjoW26X7zGuzlY1Xb7WhtKKuez1
-	 BF99RnAgQ4YrwVo2BU5cD+S8GNzoitfshT5D6HZLN2MMM6UKcvHyzmCopP5exqUP1LA==
+	t=1793207608;
+	b=TDbxV64hJeD3SeRLDyt5ZkAraQ0hAJiO92+QDOmhVlR+9OeDGRwRf6LyncBk77SWjCLE
+	 2BuOZts8ruI2dwtHNZJbNmHdSerbwwpeIcoP38p8HRX2CY9OX5XoBybQDgDtkXxtMPFoz
+	 hGFim1bBE/d+3iqOLLhLF3i5c2k4QjccuD+kffnpUcIIlolWPjKRR8O5eoSetqJl5UtJ5
+	 TOQKg0tOMZN12anODumpxNVmW9o/CMP9M4d+rsvRYC9ARgKLOrfFN7sWeipxqYvBPu/OF
+	 iiTT3gs3hd+jyobohTDp9nVqOFgv5jARZI/m+N53EuvIcDv3+V0ZMvRyyYwjOmtipSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207605;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207608;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4msmo3hG3pma8LU2SGhtl6Tejwl+54T3teg6GhEvnLs=;
-	b=Wr7BOKBdcxrQDLu1GOofB/s5YSCYjL48RQZhxakU5okcGj7JbGIovJzE7lfbc0/FAOvA
-	 qP2Q80MxvA+7LUQQ0XVtvN9ZpaBeiT2b6xRXvyALVtlD4LcijI2tH9wfhAqU3XK204lEs
-	 sj2zdJNalHaAKoa88aDEZb7IgOl9fKL1zhlW5eVCp8/Z4eAFB4vprRcL1gK1gX5eWUmtC
-	 aE8yd6UKfflgM2009JXGAOspSOuC5pcb/kElnR0vBQt88u4NTD8tuAEPROJ1U5uFtNxMG
-	 1wNHdcELFXgWnCwDGnkVDPf0KKZ00KWHbMjkucvRUwDiK7UimiA0YwMp/vtmKC94eVQ==
+	bh=YoICpxg4LeCY/dP8uE/awvKo2BcYpFXSPRbK8N/26RI=;
+	b=eqhZxcCHYSeqzqPr2pHJKeo2kA1CXAFsBve0aCEsDXrt5i4kXuowLKEF3VJ4Roai83P0
+	 DIIq+4wkHRpS7Dk5xTenD0VEVoFw8mcToM5k4Q9mSzoj2E3E5cTpooqAHC1uUyJUceTyf
+	 RCVp0pzc+NPULVOzW3sAwk/XbmoqAA1KDBFAyOjy4t7rAcdeYyxV7/507bkZnQ+dUsBTK
+	 bNHrBBqeEm1qepYDq9/KJc2GAounTeFxgZRHOhhPf8whdFtVfv+u/VvZzrrv3xwb4h8O6
+	 QDXIAP/jJVYys8hQ0t2/IL8bQG5GDXuUl5XCo8i7TaNSSq1+AjqDqloNycYEp5acsIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iMkee+nb;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XmQxagbE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C9B606A32F;
-	Wed, 28 Oct 2026 17:13:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658C6606A329;
+	Wed, 28 Oct 2026 17:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iMkee+nb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856F61F01828;
-	Wed, 28 Oct 2026 17:13:24 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XmQxagbE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4AF1F01828;
+	Wed, 28 Oct 2026 17:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207605;
-	bh=4msmo3hG3pma8LU2SGhtl6Tejwl+54T3teg6GhEvnLs=;
+	s=korg; t=1793207608;
+	bh=YoICpxg4LeCY/dP8uE/awvKo2BcYpFXSPRbK8N/26RI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iMkee+nbAMf2Zdq4H/8+Cyu52Kgq9/xQkodSsKtLaxJMYqD/5qJ/0o2TyvmSia4Su
-	 4yB0TCqSCVwJL6TjNxIHiCOPGirR0CtJJvYL/7hPvpa38EdSLVmTYa+3giUgX/ZYs3
-	 rGcCOhTQY2kYQ2vl4PlkhGVYEmlC33ytfJMcubug=
+	b=XmQxagbECTwqdAGr8nMfDMitysxIRQAC+ttB2jP9isL9eN3lhVuHtxPfS/f+E4hVv
+	 yf9fu2TcBI3GXxsKXEtsRH6RzzrTwFfTaafDXPIYb8H2fCdAvBOprmm3w8AcO6xnbr
+	 Lydo5It3MEk2gMiEjhf4YBzgJeDocp8dSQUuKXB0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Francesco Lavra <flavra@baylibre.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 038/247] regcache: Do not overwrite error code when finalizing cache after error
-Date: Wed, 28 Oct 2026 17:57:21 +0100
-Message-ID: <20261028165948.269563483@linuxfoundation.org>
+	Daehyeon Ko <4ncienth@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 6.12 074/247] sctp: revalidate output stream after association connect wait
+Date: Wed, 28 Oct 2026 17:57:57 +0100
+Message-ID: <20261028165949.146189326@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
 References: <20261028165947.349197979@linuxfoundation.org>
@@ -68,42 +68,118 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Francesco Lavra <flavra@baylibre.com>
+From: Daehyeon Ko <4ncienth@gmail.com>
 
-[ Upstream commit 9108f7fa493b4c88cbc09503e0c164244456bad5 ]
+commit b7ad72414c673ce1fa1f463e807cd4f34f8be9bf upstream.
 
-During regcache initialization, if an error occurs in the
-cache_ops->populate callback, and if cache operations include an exit
-callback, the error code from populate() is overwritten with the return
-value from exit(). This hides the error condition from the caller of
-regcache_init(), and can cause NULL pointer dereferences when the regcache
-is later accessed.
+When message interleaving is enabled, the first send waits for association
+establishment before building its data chunks.  The wait drops the socket
+lock, and handshake processing can reduce the output stream count to the
+peer-advertised inbound stream count.  sctp_stream_init() then frees the
+extension of every removed stream.
 
-Fixes: 94a3a95f0315 ("regcache: Add ->populate() callback to separate from ->init()")
-Signed-off-by: Francesco Lavra <flavra@baylibre.com>
-Link: https://patch.msgid.link/20260616114429.1852456-1-flavra@baylibre.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Stable-dep-of: abff0a48b110 ("regmap: Drop map lock during cache init and exit")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The sender resumes with the stream that it checked before the wait.  If the
+peer removed that stream, sctp_outq_tail() later dereferences its NULL
+extension.  Fatal-oops policies then panic the host.
+
+KASAN: null-ptr-deref in range [0x38-0x3f]
+RIP: sctp_outq_tail+0x49e/0xaa0
+Call Trace:
+ sctp_primitive_SEND
+ sctp_sendmsg_to_asoc
+ sctp_sendmsg
+
+A range check alone is insufficient.  Stream reconfiguration can grow the
+output count again while the lock is released without recreating extensions
+freed by the earlier shrink.  The stream can then be in range while its
+extension remains NULL.  The send-buffer wait has the same issue.
+
+Factor the range and extension checks into a helper and repeat both after
+each send-path wait that drops the socket lock.  Once the lock is
+reacquired, the validation remains stable through data creation and
+queueing.
+
+If validation fails after the connect wait, the auto-created association is
+already established.  Return ESRCH so the existing caller path keeps it
+under state-machine ownership instead of freeing it directly, which would
+leave protocol, counter and socket state inconsistent.
+
+Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261007035739.3472432-1-4ncienth@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/base/regmap/regcache.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sctp/socket.c |   33 +++++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
-index d2630a55bb50b..0e929e7ac68aa 100644
---- a/drivers/base/regmap/regcache.c
-+++ b/drivers/base/regmap/regcache.c
-@@ -216,7 +216,7 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
- 	if (map->cache_ops->exit) {
- 		dev_dbg(map->dev, "Destroying %s cache\n", map->cache_ops->name);
- 		map->lock(map->lock_arg);
--		ret = map->cache_ops->exit(map);
-+		map->cache_ops->exit(map);
- 		map->unlock(map->lock_arg);
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(str
+ 	return 1;
+ }
+ 
++static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
++				     struct sctp_sndrcvinfo *sinfo)
++{
++	if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt))
++		return -EINVAL;
++
++	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
++		return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
++
++	return 0;
++}
++
+ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
+ 				struct msghdr *msg, size_t msg_len,
+ 				struct sctp_transport *transport,
+@@ -1800,16 +1812,9 @@ static int sctp_sendmsg_to_asoc(struct s
+ 	long timeo;
+ 	int err;
+ 
+-	if (sinfo->sinfo_stream >= asoc->stream.outcnt) {
+-		err = -EINVAL;
++	err = sctp_sendmsg_check_stream(asoc, sinfo);
++	if (err)
+ 		goto err;
+-	}
+-
+-	if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext)) {
+-		err = sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_stream);
+-		if (err)
+-			goto err;
+-	}
+ 
+ 	if (sp->disable_fragments && msg_len > asoc->frag_point) {
+ 		err = -EMSGSIZE;
+@@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct s
+ 		err = sctp_wait_for_sndbuf(asoc, transport, &timeo, msg_len);
+ 		if (err)
+ 			goto err;
+-		if (unlikely(sinfo->sinfo_stream >= asoc->stream.outcnt)) {
+-			err = -EINVAL;
++		err = sctp_sendmsg_check_stream(asoc, sinfo);
++		if (err)
+ 			goto err;
+-		}
  	}
- err_free:
--- 
-2.53.0
-
+ 
+ 	if (sctp_state(asoc, CLOSED)) {
+@@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct s
+ 				err = -ESRCH;
+ 				goto err;
+ 			}
++			err = sctp_sendmsg_check_stream(asoc, sinfo);
++			if (err) {
++				err = -ESRCH;
++				goto err;
++			}
+ 		} else {
+ 			wait_connect = true;
+ 		}
 
 
