@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163675;
-	b=kjsAmxIOa8c2640t1xhVK+72Pk9FVvtd5Llhzelxq13TXImJQP3y3HPA8IGNQRyRpUqs
-	 WTlZjLJnUhZfmp+G6Kuh+hnesYm6Wn52q1nr8MAYAAOxrvVZ7/Au6bkxje+T2iBk4HPzn
-	 UOxnsMhDYPfILi+p5z2TKKHdg8P1GAF1h62Q4/TlIB/+n5vL44y94L9VgYsw2S/XVSU4u
-	 QcvGxd8Zbe8ZMMiZpjtfhy0xv2Xxm1b+QEPptPZWCogYUYqBslxWFBLzhSAAFkGlZMfj3
-	 0uWwcvOHg65jPY58QzXskIEhZTekMDXD80Ak/p0UC672OnZrgp3u5vGxOg1rkHzPpDQ==
+	t=1793163679;
+	b=1B5Sir3O62W0FQ2CeUAQixCm7m7fBAJhGXls8d+hnfViDSYZTcFqaQXISmlxBJ5RfzHS
+	 7ZwqJXhoThPQAM69dxd4Hrco3QnJRjq0ZDnsE0OMT/NjJsoONPnP8Yilrtw2TnNxutDXS
+	 VemD46ASnAVYwSLTBen+Dksd86VHM9ubwxuOrGQ/83CVu3h0XM43W4/C6IytC6OJLpF4W
+	 Kqe7fccx6KJJZE1ldNc27IYuV6FLnL9zZfQMfVEDkph5tk/jbMhhTiPGtthCfAJXoe4XN
+	 To8TCAvGqIjZ8sp8dEsYxkItQTsOu3Daodfg+BJRp7g2xHwrNeTfg09wjceEDJj+neA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163679;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=GRoKOdBuy8yrogjEG1E1/pNl5KdS5hR+N9bAYyEDzRk=;
-	b=mWdr55KqaGh6k1ZIfl1moq3pFZ1vHO6u6mBWpj9rMtmIv4xKQSGqL9nY4e8yZ1BkQQck
-	 9ECSUgkmhuu05PVsJT3CysiRCcrf+3ury+rMdLY6pmKBEnDQuE9DGZt3a+3TJFReNjkrW
-	 S5O7i+BI4cZ/8iR6Y/raeSLOS2V0GWjL13W2b7S7LBK2lA3Tna1O4YkaFrUlCjnJet+w/
-	 BO3ZapdeSVEV+0veOrijZbeKxnu/1Oe6yiLoJMKyxVq7Wf4YSMIkfxcLO1rzdcJVeEfY0
-	 TKiovqYwBWRhz9bqPIsEAOX1r4iqptdPvRNMhRbasStc54NBFFNy9QxqKWRHyHtiizQ==
+	bh=hfpC3MC6bWV21eYYyaHQZe9yRDhpAr3URrO90cqjckM=;
+	b=nJeJq0TOic5QaugC0wYw4bTMMh3BcKssW6fLqFa5TaOG+JCFHj0jEP+Fa5yVy0hWZw7O
+	 UCAZN3oEDQnUwLZKiE2969HYKKUAaTGN0LiqzLpy56ECHIADnw6v3f5vK7oMwRx7LiOSv
+	 QlargyV6N5DGTvPrZxJc/HLnVILiJJovtcs85kzzMG0a02UARM/MMJvaCkI+OLB7uc7ju
+	 WXFCGb3wPn5HGHw9DMn7ff/ePuarqZSZfeVdtxL/visrAlXhxD0YCL3JrmhP/COXVDGdo
+	 Qmr2+54JAJmgKSXTIdqKEHHuhhUQGo54ELfq+96ZxmxbnU6lUKqtIjnTw+IUEVNujLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oZYxiNy7;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FNaLc9Wr;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CF0606A31F;
-	Wed, 28 Oct 2026 05:01:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94CF0606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7241960A2620;
+	Wed, 28 Oct 2026 05:01:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7241960A2620
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oZYxiNy7
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=FNaLc9Wr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=GR
-	oKOdBuy8yrogjEG1E1/pNl5KdS5hR+N9bAYyEDzRk=; b=oZYxiNy7rcduNPUpwE
-	o6pDmJbU7MgxvAwkh1w1W5xdQf/kxDPGhfVXiBuNhC2u/SXKPwsKERPCt+DTnyGB
-	72ExVuJN1d2OgcgYsg14dccOmWyqUegsGSRneQNpBowxuHBC5qMJZT3tpkAmaq9/
-	njeBWfKHcN81EkPa6pjo1XRYA=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hf
+	pC3MC6bWV21eYYyaHQZe9yRDhpAr3URrO90cqjckM=; b=FNaLc9WrFHfncNS9mm
+	xHBhz+ffwbDgMAPiY8v69rX9lVwRLOtv3OgqCJMIE0HSdNAZwVrOeYzJMmu9kLQm
+	2QG8vXW/U03XReoJh/nTt2LfaqP3OCpefHGbotqvTxfFDEthI6RcRqeU+GpiuMcw
+	+G0ClY0B/gyuG/506MKufStII=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_V5geFquXTKDA--.16748S12;
-	Wed, 28 Oct 2026 13:00:51 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_V5geFquXTKDA--.16748S8;
+	Wed, 28 Oct 2026 13:00:48 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
 To: Huacai Chen <chenhuacai@kernel.org>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	WANG Xuerui <kernel@xen0n.name>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Radu Rendec <radu@rendec.net>,
-	Marc Zyngier <maz@kernel.org>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>,
 	Jianmin Lv <lvjianmin@loongson.cn>,
-	linux-mips@vger.kernel.org,
+	Liupu Wang <wangliupu@loongson.cn>,
+	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 10/12] irqchip/loongson-liointc: validate MADT HT-PIC entries
-Date: Wed, 28 Oct 2026 13:00:37 +0800
-Message-Id: <20261028050039.121080-11-yaojiale02@163.com>
+Subject: [PATCH 06/12] irqchip/loongarch-avec: validate MADT MSI-PIC entries
+Date: Wed, 28 Oct 2026 13:00:33 +0800
+Message-Id: <20261028050039.121080-7-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261028050039.121080-1-yaojiale02@163.com>
 References: <20261028050039.121080-1-yaojiale02@163.com>
@@ -69,38 +70,38 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD31_V5geFquXTKDA--.16748S12
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKFWkCFy7Jw13WFy7JFyftFb_yoWkGrXEkw
-	n2vrs3JryUGF1rtF92yr15XFyavrW8u3WY9F4IvFWrCw4rJw15ArZrAws3Ja1UKrW0vFn3
-	Grs8urySyw17KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbyCJPUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AOTzWrhgYNWkQAA3j
+X-CM-TRANSID:_____wD31_V5geFquXTKDA--.16748S8
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZF4xZw13WFyfArW7uF17Wrg_yoWDuFXE9F
+	1293srGrWjgr4UGw10qry5Zry3K3WkuFnY9r4fta9xW348Ar43Zr47Zw1fAr4DKan2vFn3
+	Grs8uF1S9347tjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbyE_tUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8ACTzWrhgYBWPAAA3O
 
-The LIOINTC cascade callback passes a typed HT-PIC record to
-initialization code without checking that the complete structure is
-present. Reject truncated entries before dispatching them.
+The MSI-PIC callback reads the message address from a typed MADT record
+without checking its size. Reject incomplete records before accessing
+the field.
 
-Fixes: 70f7b6c008b3 ("irqchip/loongson-htvec: Add ACPI init support")
+Fixes: ae16f05c928a ("irqchip/loongarch-avec: Add AVEC irqchip support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/irqchip/irq-loongson-liointc.c | 3 +++
+ drivers/irqchip/irq-loongarch-avec.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/irqchip/irq-loongson-liointc.c b/drivers/irqchip/irq-loongson-liointc.c
-index cf44a333b9c8..2b6fdf9eff42 100644
---- a/drivers/irqchip/irq-loongson-liointc.c
-+++ b/drivers/irqchip/irq-loongson-liointc.c
-@@ -378,6 +378,9 @@ static int __init htintc_parse_madt(union acpi_subtable_headers *header,
- 	struct acpi_madt_ht_pic *htintc_entry = (struct acpi_madt_ht_pic *)header;
- 	struct irq_domain *parent = irq_find_matching_fwnode(liointc_handle, DOMAIN_BUS_ANY);
+diff --git a/drivers/irqchip/irq-loongarch-avec.c b/drivers/irqchip/irq-loongarch-avec.c
+index 53d7d23af9bb..ae12541dd167 100644
+--- a/drivers/irqchip/irq-loongarch-avec.c
++++ b/drivers/irqchip/irq-loongarch-avec.c
+@@ -399,6 +399,9 @@ static int __init pch_msi_parse_madt(union acpi_subtable_headers *header,
+ {
+ 	struct acpi_madt_msi_pic *pchmsi_entry = (struct acpi_madt_msi_pic *)header;
  
-+	if (BAD_MADT_ENTRY(htintc_entry, end))
++	if (BAD_MADT_ENTRY(pchmsi_entry, end))
 +		return -EINVAL;
 +
- 	return htvec_acpi_init(parent, htintc_entry);
- }
+ 	loongarch_avec.msi_base_addr = pchmsi_entry->msg_address - AVEC_MSG_OFFSET;
  
+ 	return pch_msi_acpi_init_avec(loongarch_avec.domain);
 -- 
 2.34.1
 
