@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205833;
-	b=OZVhFVHtaCTV1EYmRH23y20C8K+LayWERcdkSI3QQZwYH+hbIGIQFYp7kICVL+IPPdro
-	 IaqLUo946Ze7nHPQx+oE3XBLKsVUNUau0HJ+go/YcpCuuOPBtv00XZWLxmry7UM1Abc9d
-	 /8ON+fCyNh24fEGimDQ/dFUOrLfRoB8NwIThVQQudoWaafexZn0BVSiaUXjR2kunIEOol
-	 yoZZFWP+T2pttHqCLpNtO14P2uVHAaO3XC320LYhxFN6WkbpsutvBDSrEZXHYkSaDJVnx
-	 3vfJbYUzqcnCooofo7XBDRfroQlRzRQkMl9pVjTFNaiZcK0iz0TYqEk6w3whItsfAlA==
+	t=1793205979;
+	b=lLCzqNzw1/j2AZ9nIIE1y0a5XPa1Wp4r1VxgpRCdPrHF4t5YUeCK/tGdUsssQ7JUvqld
+	 Zg7VyWtku2Nei3Mi7jOFnsbV8H4gvC01x8RlwpebUAhOqlA8EUOS2emBlP7kVKmQswLgv
+	 C4o/KMOyK4KDEC3/b4TmHgZj8Tx1RmHOfzeR4b1+oolWeUoAdTbH8m3LL8Lqf04/bzaOd
+	 9+9yS91N3B+6FOBFkd+rvtrc+Qybt+vzZxmN7X0IfQ3Hk1JvPV3aBoUnNNxN/g9AsPuP/
+	 8SFTBYF5u9gHRtv4Q7nl+K1ZVWMloYcWY8zcwn5snSXM6/t89MofpxIEi1YYA39FkTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205833;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=H4FXbOMrQwHPjSXYjhPmjTipUGSadJjyvVYbeZGAZ4E=;
-	b=IK35BOWmpUH9kyMCrQYbTBzS2DPe4/9jVXgRqSgM89OKhg+AcgwpmV3W2+ClKVUv0ulp
-	 oyJpODwdA8szUmVckYXhz0tVl9VyMDolsr86sY7z2fMwKu6fyrPYv9WboEr0waKM8/4/5
-	 qiBulnkQVEF0jOY43E8PskHReqtEoKpOJhzU9Tcq8n17bFq5s2ku4VXb8dhyC9Ch0WiFH
-	 UHal98mvkGj/u8GsN0aRjiendOnBndoqK60Fs0zQrKZHzEzRhX5sf6g9GX0e8hUqwttf2
-	 dR30Qg3wBM+36XQIjy/64ja5pMipumQ25QUhvdNmn0G4uR8UEwSMkAwGv3USJIKqk8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205979;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=y1bk3hauGmSlVbbzTKUs6ZWOzx+ReD4F+CcFEDKQX6A=;
+	b=bGrKItLZrbgGC+IAhek5wBZ0kMZOoDo/bDAFa7pbo1aA+x2E+sDlR9A0vpZc552OWk8y
+	 27qVMeRRokGSyDS5FwV4XTKCyPZGX+LLaahu8B0yLinSXZAuaKioW3KWfrBroKcFerUL3
+	 3G6AEB6G3PBnClOv5kMdkx5K3hC0aRIZxyxXpQiPKDk0M3lDJ1nWBqqDa4azflCAx+e6o
+	 niK2ZIrvKmU6rO54QtwCgLdIPsMK7Lq5Fi/AwjSsnVRAosx/BQ2pQ/n6snDlA7so3dgnc
+	 oLnzYZR4HecLhRMjoC5TkLA5/ODRHI5e5d+ofhQXLASbpds66VG98rfOs4zutSwTCeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DV4VmOtp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kXJQWLIF;
+	arc=none smtp.remote-ip=209.85.210.44
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832F3606A31A;
-	Wed, 28 Oct 2026 16:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B305460A2613
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 16:46:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B305460A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DV4VmOtp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF391F01825;
-	Wed, 28 Oct 2026 16:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793205833;
-	bh=H4FXbOMrQwHPjSXYjhPmjTipUGSadJjyvVYbeZGAZ4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DV4VmOtp2WEjv8Z56nlf0ndwa1HDvr7MZUAdl25hNyGS5VLcbQWV++OyI/rKBbEeU
-	 4nqBo7fbZSoeiA4Vq1/efQN/Sy7WzO7za4+iysDk/I3635Z8ZaN0h6zWo6L5O9KmJB
-	 n20/MlfJ5O0jN5CyFk2PRzLQhX+PZNjDRJ2t1JSQz8pSLirtgAeRlg/yJcnR0TqvUG
-	 6ojgVs+G7cwGih5wTjDjZH7Gd1vUk4ztEPgAj68nMYH9TOuD64gR/dPPNlxO/+eEw7
-	 zYbE51rUJz5PSNiz7VZOFCLRZgE89Qr2AySk0CV0jikT2/9+i9/tpCHdsYD95UlKKI
-	 j8r5usN0Ud6lQ==
-Date: Wed, 28 Oct 2026 16:43:49 +0000
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: shubham@octane.security, netdev@vger.kernel.org, david@ixit.cz,
-	oe-linux-nfc@lists.linux.dev, gio@octane.security,
-	stable@vger.kernel.org, kuba@kernel.org
-Subject: Re: [PATCH net v6 3/6] nfc: nci: uart: quiesce callbacks during
- teardown
-Message-ID: <20261028164349.GA257209@horms.kernel.org>
-References: <20261021032443.44412-4-shubham@octane.security>
- <179290103732.3134.18298634182061634234@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kXJQWLIF
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-85c1135c286so72775a34.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 09:46:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793205978; x=1793810778; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y1bk3hauGmSlVbbzTKUs6ZWOzx+ReD4F+CcFEDKQX6A=;
+        b=kXJQWLIFpD5Nsx6x4rXVEufZJ7Bgw4knS+PMYq9J/5rvTETexWthvhedXPaDLDOEED
+         kv/TKmPmcDme9DbpHUJzPRfzqFFutX9hFF1t9dUyuFoOpYKf+wFj+K4BCAs8tcymXOP8
+         sOORwoP0Qes551mtwxH5cr0VLbhXRkw7/KsjEBAN9PSarhVh90xbLUwzzv0siAAzzXwK
+         zh/inoy3DsRnoHryAEtj93QYEraJ9AmZu29dUh4Md2MIbA1lI7E0ij1lmwpSD2RISDgP
+         Oe2y9w2hGK+9RWBLeKtIH0GNQsT3xzS6zVT3tU6UgEupL0kGqafv2F1p/bgVZOXqSecn
+         Zgow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793205978; x=1793810778;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y1bk3hauGmSlVbbzTKUs6ZWOzx+ReD4F+CcFEDKQX6A=;
+        b=mPleFCBwQEeUTPlfsfKnR0GH0BXJaCKS1FRJg1z6HLETKBCTZG5Z4cLvL0G2MbHAZ2
+         32i03xriyMjByaBHUR8GoMrwkz+Edl6yPUHvXqHpfnMZj6reII1pCigaiUMt2MX3y6AW
+         kkVYLDOyHqTDIDvoDtPyYyqZdk0VrXAb5A0ehVknjI3DUwxsYlNGkLOda9yrD+XW/H7M
+         IAs39oHeSoz9EiiT0H2Hmy3PtKbdz+/QW3+4X/0sRxarvaIsGN+UtRGaOW1EpK5pWmQY
+         FavAE12cm+rQYYvpLSJTYo9luNaFUjb4ueu9Q3CL7iNdZS3rfig3hBfE2TZJTK+GwT2t
+         EYlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwELiUG5FfKJzJExUCMkwEahBO6RcV8b+0rwld3zT8WAsbvpQCt31sEtyvMdBJS5QDJzDv1qxk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNZDPsp9zX0wGy/WQ4C2BJzgbhX3Rq8cCx6SIvCW369fJGiei8
+	r94y/lU43dtswTOVCHV1YPZnReYUT6vqK/6sQBNCd8ew/T/AHLmfIc8IzjqwrSmuw57WTG9ZdHa
+	L3rt//1c=
+X-Gm-Gg: AYBFou1Z1ww9Yawy8k+8iOmaYLB1QYzI6KB3rN6SoPD/y+Q1Cctb0h3rkOm32OFLW6H
+	Fjq4tXd8EnoTLl8OHj0jJ+88fvJF43MWhrFPy/6WwetdqYlzeOScBtgUaFvZ1kJ0c3phFXrBEk9
+	Rq9NL5GltqGVu0PxLyPAc/0FiEGZmvJpkTkjqztRNA8/SWFYmxflm+MUQXPR8nhLxPo26p+pj9f
+	9vjUVNvZGWx4GUDBqwP34HB4A/mqaIeI7ZOf2NLZ03z995+SbMm9V6SXUQBiywtMKSxJH9y6ZZR
+	dTxxc28fYxsdqAEPXSa3go+0+R5WgbQCrlD/j9xyk1yLcUZFTLIRErFB0izAYIws+B3qul1AgPI
+	Ym5GOdYDSn/G6joR9oWvlNkj4LTkc+I5+tGdZY+c9jQ5zUhwVi8iCb1s44r6fG+tfldGX/wP37B
+	7D1jH1vOEWKyddzOdNtPPn1nI/qx0mViz2vkzwq4q3cD32GP8mq//TNn4I1MqFBiSgFOhMI30gz
+	Owjf4PMZSm44gNLLZKMwLj9lc6p9KLG0LpitIbrQMvwhgoe59o3FUq5y3nOMNb0xOafZUbEgblg
+	yuNnAwSxK2tbRLq/JLl+I3nwCXO1poAPWBkVb8RdD5JWodCTabID3uEfi9adHaYorGDwZQ74PA=
+	=
+X-Received: by 2002:a05:6830:2304:b0:80c:d30f:97a with SMTP id 46e09a7af769-85abe8bb687mr2574281a34.27.1793205977633;
+        Wed, 28 Oct 2026 09:46:17 -0700 (PDT)
+Received: from xps16 ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85b20216828sm2416941a34.19.2026.10.28.09.46.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:46:17 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: linux-block@vger.kernel.org
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	stable@vger.kernel.org,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH 93/98] nvmet-fc: only send read data for successful commands
+Date: Wed, 28 Oct 2026 10:42:36 -0600
+Message-ID: <20261028164415.1262013-94-axboe@kernel.dk>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028164415.1262013-1-axboe@kernel.dk>
+References: <20261028164415.1262013-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,44 +106,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179290103732.3134.18298634182061634234@kernel.org>
 
-On Sun, Oct 25, 2026 at 04:03:57AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 (3) · Medium: 2 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+From: Andrea Parri <parri.andrea@gmail.com>
 
-Hi Shubham,
+__nvmet_fc_fcp_nvme_cmd_done() pushes the whole data buffer of a read
+to the host even when the command failed. The buffer comes from
+sgl_alloc() without __GFP_ZERO, and a command rejected by
+nvmet_check_transfer_len() never touches it, so the host receives stale
+target memory, as much as it asked for.
 
-The text above requests a response to this email, and similar ones sent
-for other patches of this patch-set. And I would appreciate it if you could
-provide such responses.
+The tcp and rdma targets only send data when cqe->status is zero. Do
+the same for fc. The ERSP then reports fod->offset, which is 0, as the
+transferred length, matching what the host checks.
 
-FWIIW, the Medium issue immediately below is of most concern to me.
+Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+Cc: stable@vger.kernel.org
+Cc: Justin Tee <justin.tee@broadcom.com>
+Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>
+Cc: Paul Ely <paul.ely@broadcom.com>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Sagi Grimberg <sagi@grimberg.me>
+Cc: Chaitanya Kulkarni <kch@nvidia.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+---
+ drivers/nvme/target/fc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> 
-> - [Medium] When nci_uart_tty_close() tears down an NCI UART whose NCI
->   device is up, the NFC controller (NFCC) is left running in whatever RF…
-> - [Medium] Baseline decision: fixed later in the series.
-> - [Low] Baseline decision: not a bug in practice.
-> 
-> Pre-existing issues:
-> - [High] Pre-existing problem, not introduced by this patch: during a
->   Marvell firmware download, the UART peer (NFCC) controls a 16-bit…
-> - [High] Pre-existing problem, not introduced by this patch: the Marvell
->   firmware download copies from the firmware image at a peer-advanced…
-> - [High] Baseline decision: pre-existing and fixed later in the series.
-> 
-> --
+diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
+index eecdffefa24f..b95893adae36 100644
+--- a/drivers/nvme/target/fc.c
++++ b/drivers/nvme/target/fc.c
+@@ -2487,11 +2487,11 @@ __nvmet_fc_fcp_nvme_cmd_done(struct nvmet_fc_tgtport *tgtport,
+ 	} else {
+ 
+ 		/*
+-		 * try to push the data even if the SQE status is non-zero.
+-		 * There may be a status where data still was intended to
+-		 * be moved
++		 * A failed command may not have filled its read buffer, so
++		 * only push data for success, as the tcp and rdma targets do.
+ 		 */
+-		if ((fod->io_dir == NVMET_FCP_READ) && (fod->data_sg_cnt)) {
++		if (fod->io_dir == NVMET_FCP_READ && fod->data_sg_cnt &&
++		    !cqe->status) {
+ 			/* push the data over before sending rsp */
+ 			nvmet_fc_transfer_fcp_data(tgtport, fod,
+ 						NVMET_FCOP_READDATA);
+-- 
+2.56.0
 
-...
