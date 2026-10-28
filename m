@@ -1,55 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224991;
-	b=qfexD8MB+Ff9pf/Lo355aBUy0OW4WLe1NhCbdLjhbpQBBAlCFNHf/e4LP8hned/EzBD1
-	 RxEKEeQ9wkOHOMlwzLp/ByKgOhDBOQxiY3+3SwniW3bjwAosi42qztuxPc+j+nQjClsIf
-	 J9/dxCU62pBGXl/iODgGyiMdJ3hnV5OqE6/GljowSjwVcA/3n9IGF0ln+sFdYZ4AgDXDR
-	 XQcytYSC8zVO65A2ZqNEh/hs7f3udVcOzHWEYr+ck5TC5Ypv5r8xxmAGMr7SOFsz+T2uU
-	 HJAgXiylvWd/zQ1Ec+c2Q5UthVv1jj11ZuPOmK7nu9c6irSQrJ+tzelIZYOOS/w+kUA==
+	t=1793225083;
+	b=VXX/EjH+ZdnZUMjFhvu84bmxkiH1idgkz81LRE2QUyEUaqxGiDJaKUsRC+oWsZ/YcP+P
+	 T4kEdQGriR9Go0chsN6KYZP/kNXTN1Vhl3bJzzz/kp8HBxJItdDH51WDrzvIGgisaUtLK
+	 2HpAdKRB5gQbI9v4bsu8OQEcYosEBRV6twQvg/W1gVAS2CtWBtKE7izoh5T7Jb//VfLgj
+	 7PZmLmG1UzcEFQeHtdRH40PyTYdOAWkrVewYe+RGsW2ZLrcW51jvD6R6DsninFSKqRBxK
+	 DTBepbU2MC5YdL8aqKzBsWxjKk6PxzVDKGX4UGa7o6AC0HA4deYHZ7E48UCwne889EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224991;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vu1CDYa2AZZDg2qn5u+xXfq/PiA9saJn2/0cY4wqbL0=;
-	b=O7JI24MtvLMXzHVeHlGAK4YbOfS5AwyU9Gz8511rKOTkzna+t/yW1snU7hXi/k2g1/dq
-	 0J/uWBucuL6uZ9fyKxTLYtYohTzDC0T+vN/JMJSFRgs3aUgVz0RfB64P8c/UGrb1vO83S
-	 xcTCqU163Tod5CgVkVzX90vggaXHivVBNSdr6BJ15bVtVpc+JV7T4vjEdACSTHM7hp/x0
-	 lgf7Y8qf6s8C2ARwUvMkFmm1Ksq10Fwl2DwbE5kUI19hdGwS/b5B28HK7dEOLIKZywk4O
-	 dnACfMuqBpok8/VWeFokFTqfWwsa3h8kPwMsi7vzzziFZcIhSbX4iAnJgGtmFHMn7pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225083;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=bbh7ro44JUZscSvhfLF662noRd/zDD1qgxDlfqHkslM=;
+	b=1Dbqr9LgxHMRB66XDp06euJbYGalynbZeMC7Xg5YOzqs3bnt90NGc5CEkIutB0Avlu5e
+	 lFtKLpC7wMllPh5mg1OjJgvNTSh6TziYzUoysF8kQLkQaMIYGKulm9erEbTYESOcp/CXS
+	 gJXntXudD55pTM/wmGr3ob/yF5KjdTb8uzc3W68cMqZd0bheDGuPHKrScWeLdmfolscbD
+	 kvoIb2GM/xeQisbJCT6Kznyw5L1u+LskGcO7CWZqNsqfRhpgDC9W2xMzIRl9rraywR93U
+	 XPC/NKP0uH37SjU5HnN7wwNQ5wiP1Be5ctWdmOvVhTChHwXRMrVEEtYzQ4COh22ITAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNwJrUZQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=unstable.cc;
+	spf=pass smtp.mailfrom=unstable.cc;
+	dkim=pass header.d=unstable.cc header.i=@unstable.cc header.a=rsa-sha256 header.s=MBO0001 header.b=zOmZeaQW;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E14606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F76606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:04:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70F76606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=unstable.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unstable.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNwJrUZQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214AD1F01825;
-	Wed, 28 Oct 2026 22:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793224990;
-	bh=vu1CDYa2AZZDg2qn5u+xXfq/PiA9saJn2/0cY4wqbL0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dNwJrUZQqF+XD3ul4fEtzeuqXD7/zmN+Y0gegFHCK6ouvcaauYQyudLjUgjDTv6fG
-	 QTvEjO7UbdYLSzrt0ebteHy3yu/U1BnB5tR9ZyAFevTuLR0FYcOGqXSKCI7qYcXjdg
-	 yCttR73Vwp9o0BRWbNzDqWVdAj2rm+ETC+H/F3gRtUlX1ip1dVVTFP46DOWrbkQ+lx
-	 b591a60vzyZd5XNSUVz5Z9A+j7nmSdfPF+l6E+5aZSqY+9uEieWsFOuTd+InAyMNvB
-	 wsHZWqa6zvgFeXNUcuFzYbtpWy5Vlo/nGKdK+JXQKsP+6qjnemiqqXbAzRpFrZwpXj
-	 YyjIuZZ06grxA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] coredump: prevent TIF_NOTIFY_SIGNAL from interrupting coredumps
-Date: Wed, 28 Oct 2026 18:03:08 -0400
-Message-ID: <20261028220250.2366334-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102818-graded-prancing-5aef@gregkh>
-References: <2026102818-graded-prancing-5aef@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=unstable.cc header.i=@unstable.cc header.a=rsa-sha256 header.s=MBO0001 header.b=zOmZeaQW
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jFLxd1KBLzKnB8;
+	Wed, 28 Oct 2026 23:04:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unstable.cc; s=MBO0001;
+	t=1793225077;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=bbh7ro44JUZscSvhfLF662noRd/zDD1qgxDlfqHkslM=;
+	b=zOmZeaQWQhAa00nQ5Gp3+f+x+qbwM/jaSdzwYM3FiuwYDzDI0Pb6ceqqgEJFjji+p/Irdx
+	lqxqHNJuDEEbEz4bA3VYCE7xf4oCQS7UUKCz01Hw3hD6vC5TNVWmGaBG/zWkVIXB11pruB
+	3c1yv6IbuNtodiDYxNF98M/gOs/HBg/ekf7VUKcQI2caywtqqRPrU0c+B00J0Z5/RDN9hy
+	aGPFDoNBj7rxdP0FVx6xLMh7Yh2wAeJjdXL1MyKyBoHKWHeAP7vR1+631ZQF93dCqeZCeW
+	YtK7AejclTpUVgP4OKt1MrLuc5WIwhrYtmRsbW2txVUJrVYhpjQVE8sCnQ4Mvw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of a@unstable.cc designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=a@unstable.cc
+From: Antonio Quartulli <a@unstable.cc>
+To: openvpn-devel@lists.sourceforge.net
+Cc: Antonio Quartulli <antonio@openvpn.net>,
+	stable@vger.kernel.org,
+	Bernhard Schmidt <berni@birkenwald.de>
+Subject: [PATCH ovpn net] ovpn: drop packets looping back into their own TCP transport socket
+Date: Wed, 28 Oct 2026 23:04:30 +0100
+Message-ID: <20261028220430.968756-1-a@unstable.cc>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,83 +72,77 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jFLxd1KBLzKnB8
 
-From: Christian Brauner <brauner@kernel.org>
+From: Antonio Quartulli <antonio@openvpn.net>
 
-[ Upstream commit a58d647acfdc62561f3570d114025b3bf38ae41b ]
+If the outer packets of a TCP peer are routed into the ovpn interface,
+ovpn_net_xmit() selects that same peer and ovpn_tcp_send_skb() tries to
+take sk->sk_lock.slock, which the TCP transmit path already holds.
+The CPU deadlocks.
 
-TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
-return to userspace and run task work and then go back to sleep. This
-mechanism works well but breaks coredumps. dump_interrupted() only
-allows fatal signals to interrupt a coredump and the whole regular write
-path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
-well.
+Drop such packets in ovpn_net_xmit().
 
-However, both the usermodehelper pipe and the coredump socket will bail
-early on TIF_NOTIFY_SIGNAL. This affects the following codepaths:
-
-- coredump_sock_recv() -> unix_stream_read_generic()
-  The request/ack handshake is abandoned before any coredump data is
-  sent.
-
-- anon_pipe_write() returning -ERESTARTSYS
-  Once the pipe is full this truncates the coredump.
-
-- unix_stream_sendmsg() returning -ERESTARTSYS
-  Once the send buffer is full this truncates the coredump.
-
-- coredump_sock_wait() -> __kernel_read()
-  This reports a failure that didn't happen.
-
-- wait_for_dump_helpers() -> wait_event_interruptible()
-  This stops waiting for the coredump helpers.
-
-Such truncation is entirely invisible to userspace and all uapi bits
-still indicate that a successful coredump happened. A crashing process
-with a bunch of file backed mappings and io_uring thrown in loses most
-of the coredump data. If the NT_FILE note goes past PAGE_SIZE mappings
-it's gonzo.
-
-TIF_NOTIFY_SIGNAL is sent by io_uring for the common case. And it uses
-poll without sleeping so a completion callback runs task_work_add() from
-interrupt context against the task that submitted the request. This is
-the task that is running the coredump. Since that task hasn't set
-work_exited (it hasn't exited yet after all) TIF_NOTIFY_SIGNAL keeps
-reappearing.
-
-A coredumping task doesn't return to userspace. The task work is run at
-exit. So interrupting it doesn't buy anything and just loses the
-coredump which is quite valuable.
-
-Note that this isn't specific to io_uring. There's also
-klp_send_signals(), bpf_task_work_schedule_signal(), landlock's tsync
-and then  technically, kthread_stop() and the printk kunit test set the
-bit raw.
-
-Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-2-6609e42b3157@kernel.org
-Fixes: 12db8b690010 ("entry: Add support for TIF_NOTIFY_SIGNAL")
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Fixes: 11851cbd60ea ("ovpn: implement TCP transport")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: moved the guard from vfs_coredump() to do_coredump() before override_creds() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Bernhard Schmidt <berni@birkenwald.de>
+Closes: https://lore.kernel.org/openvpn-devel/auJj5Ld6uMjPb2eS@fliwatuet.svr02.mucip.net/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Antonio Quartulli <antonio@openvpn.net>
 ---
- fs/coredump.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ovpn/io.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/fs/coredump.c b/fs/coredump.c
-index d23c57eb2e058..6418f3eeeae7e 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -630,6 +630,8 @@ void do_coredump(const kernel_siginfo_t *siginfo)
- 	if (retval < 0)
- 		goto fail_creds;
+diff --git a/drivers/net/ovpn/io.c b/drivers/net/ovpn/io.c
+index f14eb4e6c46a..57cdea45dce7 100644
+--- a/drivers/net/ovpn/io.c
++++ b/drivers/net/ovpn/io.c
+@@ -349,6 +349,31 @@ static void ovpn_send(struct ovpn_priv *ovpn, struct sk_buff *skb,
+ 	ovpn_peer_put(peer);
+ }
  
-+	/* Task work must not cut the dump short, see signal_pending(). */
-+	guard(no_notify_signal)();
- 	old_cred = override_creds(cred);
++/**
++ * ovpn_skb_is_looping - check if skb comes from the peer's own socket
++ * @peer: the peer the skb is about to be sent to
++ * @skb: the packet to check
++ *
++ * Return: true if @skb was generated by the transport socket of @peer,
++ * false otherwise
++ */
++static bool ovpn_skb_is_looping(struct ovpn_peer *peer,
++				const struct sk_buff *skb)
++{
++	struct ovpn_socket *sock;
++	bool ret;
++
++	if (!skb->sk)
++		return false;
++
++	rcu_read_lock();
++	sock = rcu_dereference(peer->sock);
++	ret = sock && sock->sk == skb->sk;
++	rcu_read_unlock();
++
++	return ret;
++}
++
+ /* Send user data to the network
+  */
+ netdev_tx_t ovpn_net_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -386,6 +411,13 @@ netdev_tx_t ovpn_net_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		}
+ 		goto drop_no_peer;
+ 	}
++
++	if (unlikely(ovpn_skb_is_looping(peer, skb))) {
++		net_warn_ratelimited("%s: recursive routing detected, dropping TCP packet to peer %u\n",
++				     netdev_name(ovpn->dev), peer->id);
++		goto drop;
++	}
++
+ 	/* dst was needed for peer selection - it can now be dropped */
+ 	skb_dst_drop(skb);
  
- 	ispipe = format_corename(&cn, &cprm, &argv, &argc);
 -- 
-2.53.0
+2.55.0
 
