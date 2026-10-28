@@ -1,73 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180818;
-	b=TXSjeDlt7Q6Z9BqBYsiCbqDPL2/XQDNGPEkmw+xTaGPAUCBT3QPuFlH7kY2mkw32xaYy
-	 lHc0H6LhdQA4rQ06a6O+uSFIcGiF+IWN6mmTxl2P5ORxhJEBFrzdwz4MX7kPSoRC++DM2
-	 rUffUHA1RIiWYedefISklacfHBgUv8mHp5APdQk/2MMCZMD5nX1lOIhVTHHZ5Gw96jlRk
-	 //Ca/EMO0QcTYeGHfdB3yfA+3e4CSIgnKq7JFrz8CjvShkzB+AyQ6m1pNh4DYo5p9xy1h
-	 sMzmQsgPUuTksShQ4nULOnF1aWsT1Na7xSRUbiicVg+1wotLcM+Oi/stQ3OYhsiPWJA==
+	t=1793180831;
+	b=kLuyg0Fyi0xrQE5fFembInTAhLXJlXGTbY6ZtoQjUDYnOzmVA2o7cqC0XAb7M9OYM3HW
+	 KOuXOJJIhyY1t7zuY7ZNcp2ruCxXUoMAgX3bARyVYdloZGsjiBWWAK+5znuSOvgvEgOyF
+	 Rc3cZt4Z9fAEAut+oZIyP/+Q0YEsRl8tMQTTqPnE1oF+VUopkqEE0QByW2vpuL9k2ONQz
+	 04a5IpCdiW7tVGXFMcrXoHP3EfAwmhZbszlpM27VVYaT9Vmj1LRtf9U8xo6nEjg+0Jzvs
+	 NFpGwszDBTvu65kGDTQ+v8Ab5OpezzrwEwyvT4sKtQdnIjllTS2Q15YjLv76pbb8h0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180831;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=qc9QNDM7x+nu+pbyI3Fb4dwfjZ18Z0ovze28f0XG1NE=;
-	b=1TLbqdJZJPN7dnyP2Ng6KuRxvvXotEOjsEV98ZDSzmtn6rhMCuoYCW50AOJaV4w7csDs
-	 yE4URS5s5LeaGx0VFpUwDmzppyJLEla5UtLH+/sFDs7rchQMAoEHzdB4pvrWbDxFQdpV+
-	 nzOtYQabLH2HNll93FEETSgkiz/mLnbxPCSWaMYT4PHNT02JMNRXIKXQAxuk2bnroi/E8
-	 KqpMYeIa+kLfnZzzuMosvQOgZMIwOvKWa2Y9ct1Yt97UPReadFcrZYabwlC146iFZjVVf
-	 XjQaVjgqCnY4Jf223XSSNN92df9y/sEaTLYaeGOz9NtEHfDYTzC8e1gDganVUocvlgw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ObsB3jKiA1dfTV0A4Ddm+ILKkKhn0WdS/9g9Axdfzxk=;
+	b=WhXCsD8QZTi0AVLqRjYVW5Aiqo33xqRdo5F/RngdQN7gl2aDZ1D3MJb9H3treI8Mg71I
+	 NtywcHPTBlEWhSwc7lKXUyVXVSeH7+chRIqu01mJOYa2KCw+sJzKWeD2E/y13QTHQYKqZ
+	 dcfxkCqgEEFp4QIdT2FXdCygSZAxbP2BlQ6F8XQ99lKaaS1qzlEpa8s36zLL5ayOGwfGV
+	 3M+YwtctGripRnxAWTLpqY7KTUxCiW7VU0LHr0iWPZmedN3pXMOPBEb1czIjLguLrQXjh
+	 WuckBGKdPUMoATnTFRCQ4HCIin5bljkb1tR2R/JYdh6Q9ypdvETUhtV66IRjTi/VGrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hZtv7ih7;
-	arc=none smtp.remote-ip=209.85.128.72
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Q3Df3SoZ;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F91D606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 09:46:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F91D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AFF606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 09:47:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99AFF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hZtv7ih7
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1d1f26a63so7021445e9.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:46:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Q3Df3SoZ
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so6032155e9.2
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 02:47:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793180816; x=1793785616; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qc9QNDM7x+nu+pbyI3Fb4dwfjZ18Z0ovze28f0XG1NE=;
-        b=hZtv7ih7RNGMRPSgtb8dlLDoJiKVkqYtG45M1ZwpO2tZOMaQZXLTR5aFwgCudP1LRb
-         KgxW3CKawRD6tCKkHfTpeGsUBnp6Mgg5LaDO0ZHRV7i8NWIm8ve3Lrwcj2J1FrGQBUo1
-         LNh6RweppZEzRTj6LElcOqAEODV3XZJihb2i06yfpRNVjXSRYVRBdOaAI63BGh+dU6wj
-         XoNlE2JfrkGJ2V04hTzcntFXJZVA7TfSrPe3v5oFDyS2I7i67F21JiC+eelXSIMiyVAT
-         QXoHQXAwOc8lElnA25NttV9FpodJc7FFkal3i7Coq2uafNNNGBsYQbnoysmybZn2Wuho
-         GoBw==
+        d=suse.com; s=google; t=1793180829; x=1793785629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ObsB3jKiA1dfTV0A4Ddm+ILKkKhn0WdS/9g9Axdfzxk=;
+        b=Q3Df3SoZK5woo8kHQuBq/Jg9S1oEy0tgKJ7ACe+UiwXeVyiyMwbaB0LTuYJt44dkh5
+         gOXHZykAYjOkCoBxm5ItKBzUWLU02tIz3v2RQ9qbuW32NFFAm/H1PGz+4kCXWPqYfUq1
+         aK7/1Vxyou+EV90WRKKlX52Ct9N6mINe8mWbCbF7DZHsD6xRI/bPp6umcUfJ0o+z/ZOL
+         35DH0B4bi3Qnm8X2j2OdI1ZwYGKyJowwIoRB0yok0tjcKs9Adbawf5vNVObMMgKh6+hh
+         8dSuIRZAnSs7/poNXCDER3OCUmaKyUV9kLle81CLnTYg47dKR8if6CDVQIxZbtdBCaX7
+         34bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180816; x=1793785616;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qc9QNDM7x+nu+pbyI3Fb4dwfjZ18Z0ovze28f0XG1NE=;
-        b=Hshx00/BbrRj89u/sJ715etTTUklwupJHlLkew1YId1jLaZr0ss6txmGlTeep916Fw
-         jg11pL5hru+jit2TzhTbTzzcDIj9J7NUHH0EsQfKsiJoxfywdmGc55ozNQF5kJ9C4Rfa
-         sAz0ag9cKGP8B+ymb2bvHvmZCIubwoD4PPlfxhTUtOxnjhJ5QQZwwJeJSCespLABZdl5
-         zdtyJUvoOErhnA4rjkAynd2wWO1zLWtYTpcFLZyE1hyz8jTIYbpw7MHapf6vnY404ayl
-         3i6akzUlj1CJ4gneyLcjPxDup7R/+OQf3bVWPETPX6WyEwyhpfZf3GDrWBkVIWK4qfAC
-         x3+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx+n17/XDAZdxQyLuOxbHZ8QK5G57eHbI+4VPn1OIBJ506Ak6eILYUFJfV5OgTNrJGQ2ByLDTc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGu7r8fdW5qA+zX+vBOHNwIlgkIhkEG/1N6+z/hP+xjRapZ0bB
-	mrAlt7GLYI6VPz8CIf7UU7Bc6wC0rcGAh1nbTi9TKghA1T3TMEo54HbHKTUL6ZUrT1nV+7F34sD
-	sEz5oeKA3oc3lPmL4aQ==
-X-Received: from wmbjr24.prod.google.com ([2002:a05:600c:5618:b0:4a2:677:24c])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1909:b0:4a2:1e1:d55 with SMTP id 5b1f17b1804b1-4a9675dc5cfmr32574775e9.28.1793180815855;
- Wed, 28 Oct 2026 02:46:55 -0700 (PDT)
-Date: Wed, 28 Oct 2026 09:46:45 +0000
+        d=1e100.net; s=20260707; t=1793180829; x=1793785629;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ObsB3jKiA1dfTV0A4Ddm+ILKkKhn0WdS/9g9Axdfzxk=;
+        b=QC44yHyS2sEp5mcermIGPoypMsOwxzupjHZIZ1FfEayUKS7YRx1Af27XoYuW7Ffcyl
+         p2hhHL8n8wTjEKo241EEizeXt5431am29HL9Jz22/+Idjeh9X5s38Fl+aExrLsX4yLO3
+         qqxLJXiAh+U31ggLqhxqZRHrVIceDgUupI+Pjae1hZrA2wTCwzTHPe4VOeTYfQoMgFGb
+         ksYgFqOQGekvXh07csmJSyBTMTNhBhYHBe4TN7o8Q28mtImmbdkjm7xF1LDCi1QZnppS
+         eK84P3Dg/yISBW761Njpl2cb4/lyWi4Xo9hD46oyoyhZB/06rBI76u+14DPRYXJdK/Re
+         fZow==
+X-Forwarded-Encrypted: i=1; AKwUvByiJinCDhROpKT3fmbdPiKyDxUqcPeoVwofJs5vX6IP5piClw5ceUNUx56FZ4rh9V8VwIlXHhs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGbSDYP+fsV1FYZdnN/j0tqOg3XM5D2KdfStLllMdi6xwlc29t
+	7Mkz2lXvdEAoXPICr1oPnwb9jS4UNJsuITvrTyXExR6P8ZxmjZadh7d7kOWjpWPV+JHhHnU7FxF
+	M88O8TtiH9Q==
+X-Gm-Gg: AYBFou2UmQMLH1US2Yd7QJYUygUSH0ggc9cdwQsCcY9l4JzSlAUW+pDAvuVfdMnB8HV
+	6fGPmqiN+kvES5agfnJeuUI7FXPNCXwCLch2zY9832c00BCghsH5hE1R1gp5/+vq3GiFERhzBXA
+	C7luG6KJ+D5KcrO5XykFv/CpECO9ZDK+9HXESW7ABKb/OScjKKuxMB3vR9UPfNd3yPko5Kg2DIm
+	dXj+vtGdvOlfE8pk1iIP3Xm9xbXFph44mzm4xQad1Ll7AmJg+KqCx5fwnruglBDSi5jtnPMwkTz
+	WdGUdi1B8dCl4BWTfeEM4DudFHLMiX9atpeK/Wevx6inmTiEpCn7FjzBiDiTW1YvZYMDeoWC0nY
+	6ozIJKouw3tH78eNr0F+MP2UCmLQVCrPjqNFAq2ZuAXGGK8Vg2GbuBUxwJ8S0unkz0k0RV0cMrV
+	DHWTDADhIK/PeGhFAwt98r4YTqk+8g+HGK1YrF0UFnqF4U92T8RSDERxTTzaatrDmdbhP7Dib37
+	517e/fdKR8jAUXbPwIvu0eKW0ld/gpjZrLXfEriKFfJ39+flVqtklaocP7a0/FsDcPNn9mhORPO
+	15kAg7S29ejrLZCKZSk2qg==
+X-Received: by 2002:a05:600c:34d3:b0:4a1:e0db:8cf8 with SMTP id 5b1f17b1804b1-4a9643d37f7mr35973865e9.3.1793180828727;
+        Wed, 28 Oct 2026 02:47:08 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a4fc578sm2341111a91.9.2026.10.28.02.47.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 02:47:07 -0700 (PDT)
+Message-ID: <84084d31-eb64-4c11-a3f9-dc5ceaced6c2@suse.com>
+Date: Wed, 28 Oct 2026 20:17:01 +1030
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,150 +92,94 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAITE4WoC/x3MQQqEMAxG4atI1gZsFo71KuJC7d8xIFVSEAfx7
- pZZfov3bsowRaa+uslwatY9Fbi6omWd0hesoZikkdY10vGsKcDYcGw/jpNu/BHvfAQE3lHpDkP U6/8cxud5AQli0r5jAAAA
-X-Change-Id: 20261028-binder-reply-fail-72919fee2e91
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5146; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=RUZByvUcjyzeqZHggXsmkTssVcxmp2+6pk7Hv3i2Eyc=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq4cSJODrtqV0yAebXWylM6jXo/Q6HF0dovNdpl
- bo0zkGjwhOJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCauHEiQAKCRAEWL7uWMY5
- RgZ2EACBV/V1ON06gGEbZ9FGpAYO6YUrXOYrCsaLVvjEvkLzMgG8ZX6bDwjHvDB+HS2SdBvqVKm
- gcJCEPPGoRlOS+kUng4hUWKunyxxvYCL8W8pwPdnItuZaaTY8A3XAddPTwDM5lIn4ArTThx2jmK
- XVwvICSF7HXsOOrZVbUz+KUEU4ge9vIWm7oN9ixRKZOol5bcGS94RTFnP9r7cb2QpMgZBK0o49h
- wIuwk6RFbVY4vs+cAxi5J9GiY1n7lypOU9/cvXB3Nyf3HKzDncBxOs5IVJlZB90NBI+peyjo2pf
- naKlJf+oAtWjyuv5cYLPrZKZ9qEghjkDxW6viwuetHyXLc9KzBTdHNO7IjfbXLLnr/aLE6MSzHJ
- nU7HSoK5qyRXGb8TFVG3ymBJJ1FszdR0C6/LklwPhNl3cFDLDmTXCroMfHglpRevUcZi40hIYMN
- YDhDBtYTmujy/E4v5Z3DLqtsLR5Ik1T6k6IYKUVpn1ZVr+EBES3S13t0u1I3KOhLNd9JhaekOCG
- Gc/KAeKNcLlrnd3w0URy0G7X4JvWnb6o7GEVyG/du5aY8oT7evzm+f1YQUCTPkJuxrfM0roe5Zo
- gZxeiNdsRKKMqapZD8s83Ttwu2BocWcfDvH77OSEwpT2COP3L91uBZIKkfCfGPAC6g9dBmKk7SL E3Ty7XkpBn2vCTg==
-X-Mailer: b4 0.14.3
-Message-ID: <20261028-binder-reply-fail-v1-1-8b71d4daaf1d@google.com>
-Subject: [PATCH] rust_binder: push BR_TRANSACTION_COMPLETE before BR_FAILED_REPLY
-From: Alice Ryhl <aliceryhl@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
+From: Qu Wenruo <wqu@suse.com>
+To: Luca Stefani <luca.stefani.ge1@gmail.com>
+Cc: zhiwei.liang@zliang.me, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>,
+ Robbie Ko <robbieko@synology.com>, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+ <CAO0HQ0UE5BtevPHHfV9mQo5HoqzxzDDjAkj9e=pD_0AaXmSYFQ@mail.gmail.com>
+ <65fd2260-78e1-4521-9df1-b042788ae7bc@suse.com>
+ <CAO0HQ0W3rALzPX59mVONjDtK1otyS8bo6_hGG6og3qwyLepmnA@mail.gmail.com>
+ <84d8eb19-4264-49a5-b9b0-733c4e971433@suse.com>
+Content-Language: en-US
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <84d8eb19-4264-49a5-b9b0-733c4e971433@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-When building a reply fails in Thread::reply_inner(), BR_FAILED_REPLY is
-delivered to the caller before BR_TRANSACTION_COMPLETE is pushed to the
-replying thread's work list.
 
-In a nested transaction, the caller can wake up upon receiving
-BR_FAILED_REPLY and send an outer reply to the replying thread before
-BR_TRANSACTION_COMPLETE is queued. This causes the outer BR_REPLY to
-arrive ahead of BR_TRANSACTION_COMPLETE, which is not legal. This leads
-to userspace tripping on an assertion.
 
-Thus, push BR_TRANSACTION_COMPLETE in Thread::reply_inner() before
-delivering BR_FAILED_REPLY to the caller.
+在 2026/10/28 20:12, Qu Wenruo 写道:
+> 
+> 
+> 在 2026/10/28 19:50, Luca Stefani 写道:
+>> On Wed, 28 Oct 2026 at 09:57, Qu Wenruo <wqu@suse.com> wrote:
+> [...]
+>>>> I don't know what the intention of btrfs: handle user interrupt
+>>>> properly in btrfs_trim_fs()
+>>>> was, maybe we should just swallow the ERESTARTSYS case in those 
+>>>> scenarios.
+>>>
+>>> I agree on that btrfs is the exception, we should follow ext4/xfs, not
+>>> rely on some tricky signal handling behavior for suspension.
+>> When I updated btrfs_trim_interrupted I used the same "checks" as
+>> seen in ext4 so at least on that part it's identical.
+>>
+>> What differs is our error handling: we set/handle -ERESTARTSYS, ext4 
+>> does not.
+>> ext4_try_to_trim_range only ever succeeds by returning the count of
+>> trimmed bytes
+>> even if it checks for trim interruptions.
+>>
+>> I think if we remove ret = -ERESTARTSYS; from the
+>> btrfs_trim_interrupted branches
+>> we'd align the behavior (plus reverting the previous change as that's
+>> now useless)
+> 
+> I think that's would work for most call sites, but there are some call 
+> sites that we may want to know if it's interrupted.
+> 
+> E.g. btrfs_issue_discard() is very deep inside all trim calls, if we 
+> drop the return value without any other extra way to notify the caller, 
+> it will incorrectly return 0, which is definitely not a good idea.
+> 
+> A safer solution would be keep the existing ERESTARTSYS, but change it 
+> to return 0 for now.
 
-As a nice side effect, this lets us remove the now-unused
-BR_TRANSACTION_COMPLETE error path in Thread::transaction().
+Sorry, I mean to return 0 at the fstrim entrance, btrfs_trim_fs().
 
-Cc: stable@vger.kernel.org
-Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- drivers/android/binder/error.rs  |  1 -
- drivers/android/binder/thread.rs | 33 +++++++++++++--------------------
- 2 files changed, 13 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/android/binder/error.rs b/drivers/android/binder/error.rs
-index 89077c5baeaf..acf0aa09c555 100644
---- a/drivers/android/binder/error.rs
-+++ b/drivers/android/binder/error.rs
-@@ -114,7 +114,6 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-             BR_DEAD_REPLY => f.pad("BR_DEAD_REPLY"),
-             BR_FROZEN_REPLY => f.pad("BR_FROZEN_REPLY"),
-             BR_TRANSACTION_PENDING_FROZEN => f.pad("BR_TRANSACTION_PENDING_FROZEN"),
--            BR_TRANSACTION_COMPLETE => f.pad("BR_TRANSACTION_COMPLETE"),
-             _ => match self.source.as_ref() {
-                 Some(source) => source.fmt(f),
-                 None => self.reply.fmt(f),
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index f5965e838a96..4ce6fc533203 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -1332,20 +1332,16 @@ fn transaction(self: &Arc<Self>, cmd: u32, reader: &mut UserSliceReader) -> Resu
-             self.transaction_inner(&mut info)
-         };
- 
--        // This runs when return work is passed to the caller. This is not
--        // always the same as the transaction failing, as reply errors are
--        // delivered to the remote process.
-+        // This runs when a transaction fails with an error returned to the caller.
-         if let Err(err) = ret {
-             self.push_return_work(err.reply);
--            if err.reply != BR_TRANSACTION_COMPLETE {
--                info.reply = err.reply;
--                info.error_line = Some(err.line);
--                if let Some(source) = err.source {
--                    info.errno = Some(source);
--
--                    self.inner.lock().extended_error =
--                        ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
--                }
-+            info.reply = err.reply;
-+            info.error_line = Some(err.line);
-+            if let Some(source) = err.source {
-+                info.errno = Some(source);
-+
-+                self.inner.lock().extended_error =
-+                    ExtendedError::new(info.debug_id as u32, err.reply, source.to_errno());
-             }
-         }
- 
-@@ -1450,7 +1446,7 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-         info.to_pid = orig.from.process.task.pid();
- 
-         // We need to complete the transaction even if we cannot complete building the reply.
--        let out = (|| -> BinderResult<_> {
-+        if let Err(err) = (|| -> BinderResult<_> {
-             let completion = DTRWrap::arc_try_new(DeliverCode::new(
-                 BR_TRANSACTION_COMPLETE,
-                 self.process.task.pid(),
-@@ -1471,11 +1467,10 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             }
-             orig.from.deliver_reply(Ok(reply), &orig, None);
-             Ok(())
--        })()
--        .map_err(|mut err| {
-+        })() {
-             // At this point we only return `BR_TRANSACTION_COMPLETE` to the caller, and we must let
-             // the sender know that the transaction has completed (with an error in this case).
--
-+            self.push_return_work(BR_TRANSACTION_COMPLETE);
-             let param = err.source.as_ref().map_or(0, |e| e.to_errno());
-             let ee = ExtendedError::new(info.debug_id as u32, err.reply, param);
-             orig.from
-@@ -1483,11 +1478,9 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             info.reply = BR_FAILED_REPLY;
-             info.errno = err.source;
-             info.error_line = Some(err.line);
--            err.reply = BR_TRANSACTION_COMPLETE;
--            err
--        });
-+        }
- 
--        out
-+        Ok(())
-     }
- 
-     fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261028-binder-reply-fail-72919fee2e91
-
-Best regards,
--- 
-Alice Ryhl <aliceryhl@google.com>
+> 
+> But if you have a better solution and can completely remove ERESTARTSYS, 
+> I can't be more happier.
+> 
+> Thanks,
+> Qu
 
