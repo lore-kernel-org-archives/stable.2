@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207628;
-	b=HIOfrR5w7aYGxTYMFwpQbWwBz2+F1xQE11MzpXVJEsG9bDQv31o2ryrtlcpa3m7zg4Lx
-	 8JY0e846Vkpdrzv4oBmjkRJZSGKrsdHM4sqB0Xy1nyBqIYv13XNeIGUtTXcHz+OVPkcED
-	 +Owo7XofWPnqDpF9B+E91wjOmzrNznNPXkXg398Oh1FkiYtr4tiMvyicbvbCxFZ+F+4ug
-	 2vmo2RedVMTWEmNd7vEamhY9F6bUiw0KoXE6IDcyv1OhFqyy08KFdHh3fkmBjjU/rgTEW
-	 p3yKSd/CI2qvaE8wA78rhdquBuKpuS4kqG2ZJRls0zukqcvR2GqbaH1PE5LpvtpueMw==
+	t=1793207631;
+	b=TuyYd/nmUHGjh1Wzv1mbTvISyXiNIlEn+C26LqU85xGIqqqBkcoYRlRWDM6/SvBqBbFN
+	 VWuy36MUUe2xIbQmGROW2LX0FtA0EqlwVpMNuKgp3osBY6Q5eTxIfrqL045qELnBt7sei
+	 QWy3foLC66DbExfNT0Ke8V46tPFNTxZeT2gFGXydgep/ZVZJsGfomRnTNMnxrj1PCKI6b
+	 G7UGUv8XtpsgfWZdiH6rk1xn6Pmn8ef04yWOC+dHypg1XBHixzwcpHl58yqor9sMzNH+8
+	 Yjk+3OLBBNMIERM7Q74EquJJTgxpkH6kFKD60fXU6ZEbWqP8+46yC8lwLyrQzzSmClA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207631;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1FFZLlxlYjtOhAC0d3CJurEuQhAKb3ZmKX1diPj0Cns=;
-	b=PHZxySJ4oun9MHEsulZ/DAy5OdrJ7VBhe85DkmAzjOvR1J1iAC75AgNsIpeCUjfzCpGw
-	 FmRveKs5zZOKWMluwFhyWWJCl8vrt2OMI9WBg3M58/KMFIVh4EemveACGmxmVJvE0NzA7
-	 hVR/SFwhVMSnopLkqgq0W0uVJkTrwuRslNarIs6CQPIEbMLDBXvq8vyuul1Yr7w7Y6EDO
-	 xtn1cW5aACC1RVrS7+VbrJEvoTc2u8hlB09idbb5lISmi2QDCMWZcEJArp4p7Avvg/UEc
-	 RND/pZW0QGVHTV81+ceSXYG5/wLV02/XXrqcYrlASEqUpLJpaHgCxtUwEyKcWXLgNhg==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2iasT7TztrNV86BzwlxGq7EL+vsg0w+1Se08QBOH5ys=;
+	b=CHwHsXKO3Dr9PUFZqBTF03PU4GNvWhQDkh3/OpspEs18FG3zr0CWbKwkeT936chhI3g7
+	 Y4h5hAGAIZL9wZSq/7CqFfYkZ4C7T8GGnPpGy3/Ctc+dY0kxY4Rdr7BkVFe+GcCDYBICU
+	 ukwQirT+OtphMbPWKK0ealLs9d9WwENJdDb9mZPZHpWGcNxMA7EstFeQPFk5A65jSb/1V
+	 hStAD5QpRJW82TLHr1Mw68juQP6C+Qf9pWUrDbHgJXntU8/L+brTxa0d776tZuodGYuhK
+	 6+n7BjlB6MU29HorjoaT+ZlZWSyHBizUF7eyKyW4dIx1FNFqCr7mVUH/VqDjpSA2IRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjX7AO1Z;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sfvJucSK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F95606A326
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E1B606A323;
+	Wed, 28 Oct 2026 17:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjX7AO1Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C985F1F031E2;
-	Wed, 28 Oct 2026 17:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793207628;
-	bh=1FFZLlxlYjtOhAC0d3CJurEuQhAKb3ZmKX1diPj0Cns=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sfvJucSK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC4F1F01828;
+	Wed, 28 Oct 2026 17:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793207630;
+	bh=2iasT7TztrNV86BzwlxGq7EL+vsg0w+1Se08QBOH5ys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gjX7AO1Z+50qDDkjCy67Sv7aNa8MN+X5lBEdGZqw2RsKYFXWy1aaPVK4zfpQk3Rju
-	 Gh1t/NZzUQCaImjZW44CwK6bfObGLMSMbgqFQNt7VKZ3WY2IvDqePxy4OW868C3Ept
-	 skzs/PMp66BIAa5HseNi9V4H5M9l1S/fLcWx9113jeTTLPObrg/wZqzoowUuSC4ixv
-	 6GEv7IkIIsSqdPPajnSDJedOagbHKJK3oJHHh8QCIA2RxBvfY0QlDPgrt/tq0og1p2
-	 VObmHu6/d+jX0vKjE/WfCP92YMsmxBAw5YZjiW2lVnLtK5i9Hzen19Nco6WBdlnRLm
-	 zRkliA6JAwk7Q==
-From: Sasha Levin <sashal@kernel.org>
+	b=sfvJucSKsY01u8TsLCikcy+c8kGfFmaNBcHhH+sgXj8HK178vZyPSJywHrswlq+4Y
+	 CMQ65TzAzuDQsvC+t1okN8YYg4d8RuN7my9ps/vTZErmsHpTDv95ueWLqdaTh86P/g
+	 bTNoheHTCux81KBBnjK0zQYrVXKeIwaNpi2iueFg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Carlos Jones Jr <carlosjr.jones@analog.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] fork: don't create io threads once PF_POSTCOREDUMP is set
-Date: Wed, 28 Oct 2026 13:13:46 -0400
-Message-ID: <20261028171308.1613661-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028171308.1613661-1-sashal@kernel.org>
-References: <2026102849-headphone-cattail-5c79@gregkh>
- <20261028171308.1613661-1-sashal@kernel.org>
+Subject: [PATCH 6.12 041/247] spi: tegra114: assert CS GPIO for every transfer in a message
+Date: Wed, 28 Oct 2026 17:57:24 +0100
+Message-ID: <20261028165948.343883113@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+References: <20261028165947.349197979@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,76 +64,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 1f978881ce6c9ac4f4d4a7b6a6e52339eadcd350 ]
+------------------
 
-zap_process() skips every thread that already has PF_POSTCOREDUMP set.
-Such a thread is past synchronize_group_exit(), so a coredump can't
-catch it anymore. It isn't counted in core_state->threads_remaining and
-it isn't sent SIGKILL.
+From: Carlos Jones Jr <carlosjr.jones@analog.com>
 
-do_exit() sets PF_POSTCOREDUMP in synchronize_group_exit() and calls
-io_uring_files_cancel() right after that. The cancellation runs task
-work and a create_worker_cb() that io-wq queued before the exit creates
-a new io-wq worker from there. If another thread started a coredump in
-the meantime that worker joins a thread-group which is already being
-dumped. zap_process() never saw it so it was never counted. But when it
-exits it sees signal->core_state in synchronize_group_exit() and
-decrements threads_remaining like any other thread.
+[ Upstream commit 8980bc573ae2d2b9d86d76aeb86c76e1597070bf ]
 
-So the count reaches zero one thread early and the dumper leaves
-coredump_wait_inactive() while a thread it counted is still running.
+The driver provides its own transfer_one_message() and therefore drives
+the chip-select GPIO itself rather than through the SPI core. The GPIO is
+asserted only in the is_first_of_msg path of
+tegra_spi_setup_transfer_one(), but tegra_spi_transfer_end() deasserts it
+whenever a transfer has cs_change set. For a multi-transfer message whose
+earlier transfers request cs_change -- for example a register read that
+sends the address in one transfer and clocks the data back in the next --
+the CS GPIO is released after the first transfer and never re-asserted,
+so the remaining transfers are clocked with chip-select inactive and the
+peripheral never drives the bus.
 
-The task has no fatal signal pending because zap_process() deliberately
-didn't send it one, and it never went through get_signal() so it doesn't
-have PF_SIGNALED either.
+This was observed with an ADIS16470 IMU (adis16475 driver), whose
+register read is a two-transfer, cs_change-framed exchange: a logic
+analyzer showed the data frame clocked with CS high, and the driver read
+0 while the device drove 0x4056 on the wire.
 
-Refuse to create an io thread when the creator has PF_POSTCOREDUMP.
-That costs nothing. io_uring_files_cancel() raises IO_WQ_BIT_EXIT
-before it runs any task work, so a worker created from there only ever
-gets to exit again, and io_should_retry_thread() doesn't retry -EINTR.
+Re-assert the CS GPIO for every transfer so that multi-transfer messages
+keep chip-select active across the whole message. gpiod_set_value() is
+idempotent and polarity-aware, so this is a no-op for the first transfer
+and for messages that keep CS asserted throughout.
 
-Clearing PF_POSTCOREDUMP for the new thread in copy_process() was the
-other option. It makes the worker a thread like any other, but it only
-helps while the dump hasn't started. A worker born after zap_process()
-has run is invisible to it whatever its flags say and still decrements
-threads_remaining on the way out. Refusing to create it covers both, and
-then no task is ever born with the flag, so there is nothing to clear.
-
-Moving io_uring_files_cancel() ahead of synchronize_group_exit() closes
-the same window. It runs the cancellation, and whatever that can block
-on, before the thread announces itself to the dumper. A thread that
-blocks there never reaches coredump_task_exit() at all, so the dumper
-ends up waiting for a thread that never parks. Refusing the creation
-leaves the cancellation where it is. But it's very ugly to run io_uring
-work even before we did all the generic exit work.
-
-Fixes: 92307383082d ("coredump:  Don't perform any cleanups before dumping core")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 63c1440596ff ("spi: tegra114: add support for gpio based CS")
+Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
+Link: https://patch.msgid.link/20261002085540.1625-1-carlosjr.jones@analog.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/fork.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/spi/spi-tegra114.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 73239e4ba6fa4..00159e2898d55 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2689,8 +2689,8 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
- 		.user_worker	= 1,
- 	};
+diff --git a/drivers/spi/spi-tegra114.c b/drivers/spi/spi-tegra114.c
+index 5b8bd34e6bfd9..622bcaa0fe6e9 100644
+--- a/drivers/spi/spi-tegra114.c
++++ b/drivers/spi/spi-tegra114.c
+@@ -859,6 +859,13 @@ static u32 tegra_spi_setup_transfer_one(struct spi_device *spi,
+ 		command1 |= SPI_BIT_LENGTH(bits_per_word - 1);
+ 	}
  
--	/* A creator past its fatal signal gets no thread. */
--	if (current->flags & PF_SIGNALED)
-+	/* A creator past its fatal signal or its coredump point gets no thread. */
-+	if (current->flags & (PF_SIGNALED | PF_POSTCOREDUMP))
- 		return ERR_PTR(-EINTR);
++	/*
++	 * Re-assert the CS GPIO for every transfer: transfer_end() drops it
++	 * on cs_change, and the assert above only covers is_first_of_msg.
++	 */
++	if (spi_get_csgpiod(spi, 0))
++		gpiod_set_value(spi_get_csgpiod(spi, 0), 1);
++
+ 	return command1;
+ }
  
- 	return copy_process(NULL, 0, node, &args);
 -- 
 2.53.0
+
+
 
