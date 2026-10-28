@@ -1,61 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217080;
-	b=1HRJcBLhi65SFsMk9fGK2wUo9+JVcaO0eY7uuHwVjM2oLLkRP6E+uUGw9lNGQGZsKrsn
-	 S9Uc1hC046O8ImVd8UOp60qPOVevGm+QpIfow3PsxuQve0HVgrTLrHaUbmcCqi4xDJwLQ
-	 itqT6QhSVngcchwCqc3SWPxJGuHVMaZ2yD1bTN93yAdcRNsfdpmq65yAEaaRLOMXeJ/Ri
-	 O2B8Axlgpma/rqz31lxJsf6R40VZTktPSyP7fp44iRzOO2ojS3tKmHHC+YIHg4dsmKvZ5
-	 /ib4OqmvPNkJNt8NMQTFKVjyWq60I/8whY4qqDiXaSbmHZRO2+4aoIoq4HMl+Okm5vA==
+	t=1793217097;
+	b=f0zSUO4qC0oAuNplKWzxgq3DAsZJwQAFmYpvgSWGKfY0TUHeWTcZvtukvv1P3Jmr9z4Z
+	 pi/HDSSbBVOP0JXC/p5lrFoUhQyINrImSayD6b2Qj89TTTq5Ycb0Xxz0bGiLvDzGjnnxx
+	 U9QJojaK0ojL23OpqycRE58aChzBAlbwKx5j6WMJetT7y5ePZrUQM+KoFHRn5MfBX5dkZ
+	 BMFonA4TAjFrM8ab7RVGcR35mvyMp+8MBwn9vTQCjloQ94yj0IwiohnEK8YTXvSPVRJZ1
+	 oqnrddriC1ulbfCjUp760Mns2zpdxFs6qBNFPhxK56lXF7FY4tzIEX+l5+TiHmoAYVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217080;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217097;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=i6f0QeEq1H2S/vNkISekiiOHHXnBUKuLQOaQmB90gW8=;
-	b=B1Maooa+z99G3CGfPfyaHH4uWQ9Ry+W1X1jhAOM4u+NQgV7v7cFRkKURQcMD9j72OAIw
-	 Z+qy9zIsB4r9rWl+J7xB70LvzVlurHvmsnc5BeANiIllr0vkunLWF7ANQiKzVRqh/hm+a
-	 /Y/Qw05DDfIspUV9PB/td1p8/BH9PWs2MqnQR2Oy/mGsyY5xgVkdg2P4Ac/H7kz+N1LGs
-	 4VM8/pmCRRvSbQ8elleeFsx+79gIE9IkxGsK163S9T5WaXD6ZHuxLVf4lsHuRYIe4DO7O
-	 Izl83dBG1jsh8xFxVcKVLUPjvpUVI3gAztYXrVvWQlvxIYnJVZceYyumpti0ynwRkJA==
+	bh=H2S2+2dbLORKlR+Ni1EVtdVEG/O3V5CMeiBbsMxVGeM=;
+	b=Wy0BEqUhw8XPDQPEoyy4opTAUlxNJvTWPZwGIR9vHgLmxwNCKNfUFrRs2fM2apet8Qs9
+	 eQEf9anm9X4bXtMQWtwWgQ8z3yEH0Kv0u4fwPJtR3NDhr7I1Cktc/JJn3hrINt+pDgsTc
+	 RFRcmnTj1WtHmcrqB7VUi+KiU9llydSvKm/2E7XZ9Z+c/gMLGFSza5P/ns7hPoatYENjz
+	 0Q5LR/GHRPFIbXvG+PQl7isjmOl29EAnINlmbCvmc3FqIjrqsWBuojTIBAn8RbOdxu0Ho
+	 ZxTIbpjdqC/+3bs6TeNkDtVODluyBwMLonPBLyM5CqwA5m0KzHzMPG9lgyAS90n6Akg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cEA3Knjf;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="T/66sgXd";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0013606A31C;
-	Wed, 28 Oct 2026 19:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC40606A321;
+	Wed, 28 Oct 2026 19:51:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cEA3Knjf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292521F01825;
-	Wed, 28 Oct 2026 19:51:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=T/66sgXd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0931F01825;
+	Wed, 28 Oct 2026 19:51:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793217079;
-	bh=i6f0QeEq1H2S/vNkISekiiOHHXnBUKuLQOaQmB90gW8=;
+	s=korg; t=1793217096;
+	bh=H2S2+2dbLORKlR+Ni1EVtdVEG/O3V5CMeiBbsMxVGeM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cEA3Knjfro/xa3uY/aqbHrDvleEL0bjiAqx5XJ0BYGiDcDil+KFVzhTMRNe4a+vjm
-	 mEkKvILMoUaI9INn62v7yeVbA7BXapoCjMZWa3DemmJjbmEFp3K7u3jvoWPt0x8yPV
-	 5FdNlbWEeQoye4M58+qFUsIDppBgT7Qj0f5LNQ64=
+	b=T/66sgXdrzVUNUeIVm+Ri3OdC+mVUrO12IGY+yakxzQhqJpYPjXHe9sbAA7G2IVOO
+	 JX6wltP9t32C5TLIhgzSMQlRLzMFlXpFjTZ+eC+atUvymNgNgiTnUGVihV4g2rvzz/
+	 HgWBe8qehW2Tk73gGAO3KuOiiCPVbC8YJ6rdtjIw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Daniil Stas <daniil.stas@posteo.net>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Chris Healy <cphealy@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-ide@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	"Nobuhiro Iwamatsu (CIP)" <nobuhiro.iwamatsu.x90@mail.toshiba>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1779/1887] hwmon: (drivetemp) Fix driver producing garbage data when SCSI errors occur
-Date: Wed, 28 Oct 2026 18:04:35 +0100
-Message-ID: <20261028170539.934442300@linuxfoundation.org>
+	Mike Christie <michael.christie@oracle.com>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>
+Subject: [PATCH 6.1 1744/1887] scsi: libiscsi: Validate the task named by a management response
+Date: Wed, 28 Oct 2026 18:04:00 +0100
+Message-ID: <20261028170539.142420378@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -77,72 +68,82 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Daniil Stas <daniil.stas@posteo.net>
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-commit 82163d63ae7a4c36142cd252388737205bb7e4b9 upstream.
+commit 11bffcd9cb346732eab2914ef44fe777a3f0b585 upstream.
 
-scsi_execute_cmd() function can return both negative (linux codes) and
-positive (scsi_cmnd result field) error codes.
+__iscsi_complete_pdu() fetches the task for five response types from one
+place and checks only that the index resolved:
 
-Currently the driver just passes error codes of scsi_execute_cmd() to
-hwmon core, which is incorrect because hwmon only checks for negative
-error codes. This leads to hwmon reporting uninitialized data to
-userspace in case of SCSI errors (for example if the disk drive was
-disconnected).
+      case ISCSI_OP_LOGOUT_RSP:
+      case ISCSI_OP_LOGIN_RSP:
+      case ISCSI_OP_TEXT_RSP:
+      case ISCSI_OP_SCSI_TMFUNC_RSP:
+      case ISCSI_OP_NOOP_IN:
+              task = iscsi_itt_to_task(conn, hdr->itt);
+              if (!task)
+                      return ISCSI_ERR_BAD_ITT;
 
-This patch checks scsi_execute_cmd() output and returns -EIO if it's
-error code is positive.
+iscsi_itt_to_task() bounds the index against cmds_max and looks at
+nothing else, so a target can name any slot in the pool, including one
+that has never been used. task->conn is then NULL, and both
+iscsi_nop_out_rsp() and iscsi_complete_task() dereference it. One
+unsolicited NOP-In is enough; a Text Response carrying the same ITT
+crashes in iscsi_complete_task() instead.
 
-Fixes: 5b46903d8bf37 ("hwmon: Driver for disk and solid state drives with temperature sensors")
-Signed-off-by: Daniil Stas <daniil.stas@posteo.net>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: Chris Healy <cphealy@gmail.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Martin K. Petersen <martin.petersen@oracle.com>
-Cc: Bart Van Assche <bvanassche@acm.org>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-ide@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org
-Link: https://lore.kernel.org/r/20250105213618.531691-1-daniil.stas@posteo.net
-[groeck: Avoid inline variable declaration for portability]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Require the task to be in flight and not a SCSI command, the way
+iscsi_itt_to_ctask() does for the command opcodes.
+
+[    6.298634] Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
+[    6.298642] KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+[    6.298652] CPU: 1 UID: 0 PID: 111 Comm: iscsistart Not tainted 7.2.0-rc5-ISCSI1-gf5098b6bae76 #1 PREEMPT(lazy)
+[    6.298654] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    6.298656] RIP: 0010:iscsi_nop_out_rsp.constprop.0+0x46/0x160
+[    6.298691] Code: c1 ea 03 48 83 ec 08 80 3c 02 00 0f 85 f5 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 6b 58 48 8d 7d 60 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 c0 00 00 00 48 8b 45 60 48 39 c3 74 50 48 b8 00
+[    6.298698] RSP: 0018:ffff88806c907be8 EFLAGS: 00010206
+[    6.298701] RAX: dffffc0000000000 RBX: ffff888006116800 RCX: 0000000000000020
+[    6.298702] RDX: 000000000000000c RSI: ffff88800525d578 RDI: 0000000000000060
+[    6.298703] RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+[    6.298706] R10: 0000000000000020 R11: 0000000000000000 R12: 0000000000000000
+[    6.298706] R13: 000000000000002e R14: ffff8880056eb440 R15: ffff888006116800
+[    6.298707] FS:  00007fc02d1c2740(0000) GS:ffff8880b29bc000(0000) knlGS:0000000000000000
+[    6.298710] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    6.298711] CR2: 000055fe3b56ddf8 CR3: 00000000053b9004 CR4: 0000000000770ef0
+[    6.298712] PKRU: 55555554
+[    6.298713] Call Trace:
+[    6.298714]  <IRQ>
+[    6.298714]  __iscsi_complete_pdu+0x13a8/0x22a0
+[    6.298758]  iscsi_complete_pdu+0x54/0xa0
+[    6.298759]  iscsi_tcp_hdr_recv_done+0x870/0x2c80
+[    6.298778]  iscsi_tcp_recv_skb+0x31e/0xec0
+[    6.298800]  iscsi_sw_tcp_recv+0x12f/0x390
+[    6.298804]  __tcp_read_sock+0x1ab/0x810
+[    6.298812]  iscsi_sw_tcp_data_ready+0x18b/0x510
+[    6.298814]  tcp_rcv_established+0x1f56/0x3a00
+[    6.298842]  tcp_v4_do_rcv+0x449/0x960
+[    6.298847]  tcp_v4_rcv+0x2245/0x3bc0
+
+Fixes: 7996a778ff8c ("[SCSI] iscsi: add libiscsi")
+Cc: stable@vger.kernel.org
+Reviewed-by: Mike Christie <michael.christie@oracle.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Link: https://patch.msgid.link/20261007015842.634893-4-yhlee@isslab.korea.ac.kr
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hwmon/drivetemp.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/scsi/libiscsi.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/drivetemp.c b/drivers/hwmon/drivetemp.c
-index 5bac2b0fc7bb6..b3de637a3a1f2 100644
---- a/drivers/hwmon/drivetemp.c
-+++ b/drivers/hwmon/drivetemp.c
-@@ -165,6 +165,7 @@ static int drivetemp_scsi_command(struct drivetemp_data *st,
- {
- 	u8 scsi_cmd[MAX_COMMAND_SIZE];
- 	int data_dir;
-+	int err;
- 
- 	memset(scsi_cmd, 0, sizeof(scsi_cmd));
- 	scsi_cmd[0] = ATA_16;
-@@ -192,9 +193,12 @@ static int drivetemp_scsi_command(struct drivetemp_data *st,
- 	scsi_cmd[12] = lba_high;
- 	scsi_cmd[14] = ata_command;
- 
--	return scsi_execute_req(st->sdev, scsi_cmd, data_dir,
--				st->smartdata, ATA_SECT_SIZE, NULL, HZ, 5,
--				NULL);
-+	err = scsi_execute_req(st->sdev, scsi_cmd, data_dir,
-+			       st->smartdata, ATA_SECT_SIZE, NULL, HZ, 5,
-+			       NULL);
-+	if (err > 0)
-+		err = -EIO;
-+	return err;
- }
- 
- static int drivetemp_ata_command(struct drivetemp_data *st, u8 feature,
--- 
-2.53.0
-
+--- a/drivers/scsi/libiscsi.c
++++ b/drivers/scsi/libiscsi.c
+@@ -1286,7 +1286,7 @@ int __iscsi_complete_pdu(struct iscsi_co
+ 	case ISCSI_OP_SCSI_TMFUNC_RSP:
+ 	case ISCSI_OP_NOOP_IN:
+ 		task = iscsi_itt_to_task(conn, hdr->itt);
+-		if (!task)
++		if (!task || task->state == ISCSI_TASK_FREE || task->sc)
+ 			return ISCSI_ERR_BAD_ITT;
+ 		break;
+ 	default:
 
 
