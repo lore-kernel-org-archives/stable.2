@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216615;
-	b=jhJu7Hslypiyz/dMmxLJcVGdc2nu7aqAB3EEdEqJH/quQqRxmI/5Mf0Eaa2YhIUkRmf6
-	 T3+bQm3Mx/v9wz+7M+DX3q6e6CWnrDST9IwkYr4dtnlIHTBbP8pgC3oLb5/xAMbatYUlR
-	 SLf3mGYaw+s8ovZKJee2dHx+GM94YBAAqk7ZGoiPGTTv03mun67LgfyPUmu5WIwXKNrOK
-	 tcrdknezLdtkHi82d7NAFx1jpoWZcsqyY0919ZNx4/XbFFpbdwGxQZkImQDe6cjDu93Wc
-	 ivjCMAWNM527Lu2VHkT05K4jud8nynLY63tI1D8fpJMUqWAg77Z1vMmOnZKjW56i8lQ==
+	t=1793216616;
+	b=W3uw4kQkNZX+Qa2KcsgOGHwpFak+qP7znMNVugxsnrpAS1E3R9xwnxFM2nYFX0wrTOkk
+	 MTXQ+2F0OwXwhn8T/cVIlKV37T8+JBfpZG/he4jVNGar7jJz2AO5lQFHuu+wmKj5ykS/a
+	 FowYCVzVRN0DeZdb9Hk1ggwBH9XbYgh4F6JIjravwJvak4rnuRqKTqsDi7JrHpOPfb9jh
+	 ARpLAGDS8Iq23pwgrE/cN/nX96zZ43gQJb/6SNM4zOaJwJ9VAdSl0rPHiNj8hGaMmpPQX
+	 USCX59QIxsaVk9k3fiKLdp0YO/q/nt7kC25Rk15M0kpYZwqbIGcS9mzjlz80Xn7urpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216616;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=5UR2YCNCLZj2V93eIYurPZ89d6hjX57JgZHSG2ZFfoI=;
-	b=ngVknCX4ZD2qdaGBszccXUBcJUXV57m5fqC+3AHmmFdSA21NW4NEs+OsUkWOi2WUBd1q
-	 MOnDhPqjPf56Ykga6/Qki6dmjkP/Q4/2hYxOQGxxZv7lIwUfRneeqFQVgGbFDVApHsHu8
-	 VDghYZh8p6aEaJPFm+DvmhfJJQN10rcY3JM2fCS+LJuCtkTG/uq+XAOLvt1QNoZI/rvCK
-	 pgJAC/5zPr7pcHtqChV+lkxDj4jhMeR2WEfS+g5h49v8LIWM1Th+TRlxV9WqWmEoNw1+4
-	 TK9y0jvo3YGHmCa+8oV8BvSHQJbPfxnv25ATPgJ68CPw1A2Fl+P7dfEzvBTpFUUVULw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=LJf9863IflwDAnnqoFf/i350ar3ByqJyKHGVy6EzDFA=;
+	b=Y6WXZgNJJ+naaEBZ3DGIEGjPcef9ft//VDFReBpbVez8hsXoJu66Y/amjRyBuXaOxC8p
+	 7ss9G05NmiE5LQjkU4CgdK1i2ITB0I4stF17hiXrlcd3VwC3sM3Rz3sbWAm6zgDIdB4d/
+	 fD/wvxElMyqoNhwKWrlHzldUgcghIjj6NpNhCXBBS6FK//72BGWsSFPZwM7FPxbKGohjA
+	 Yb2vwuZC/gGjCcbNQb5pzG0zJidFaBqb/xwwhvvJrPDu65r/JkVSa0ZrOiDF40nKfXnCQ
+	 YLSlNv54A/Ca3lo4mPK6Y77Y7PUxjE+rDDaIwhwhTaZf+wb2lhocpzBfzZ17IxMSHaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NtHqK742;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCrXIGs4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA147606A31A;
-	Wed, 28 Oct 2026 19:43:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7CD606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:43:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NtHqK742
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1670C1F01825;
-	Wed, 28 Oct 2026 19:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793216614;
-	bh=5UR2YCNCLZj2V93eIYurPZ89d6hjX57JgZHSG2ZFfoI=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCrXIGs4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD611F01828;
+	Wed, 28 Oct 2026 19:43:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793216615;
+	bh=LJf9863IflwDAnnqoFf/i350ar3ByqJyKHGVy6EzDFA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NtHqK742ifvMezsaIfxj2EzuSwBmaRHo2RHp1MpKxfP4E+lkbKPxdypjWOTt+mBxd
-	 K+sbQEvd8vCxlfgHc1NL9KLDLLUXytos3EgShFNuZD3Bepv0n40ne2vcSu3cEXNdsE
-	 Z+/u6C6iosxg9NgwSKl3+K+8EmWMfIuhQCSd2MxM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=NCrXIGs4dAM9P9owAAzYM7hJau3JBr9nqCAgm+W9uflaon2NxDpBNZmxA9zxGImSZ
+	 Adg7d0tZvVBpT2NU1LSV9e9xqQiNx/jyBbjQUWWJwO9gQOJtjPPdeRa9KjuqjJzzmK
+	 WWLZjyF3xy6GMo88HeD5aAfJV4szmsCBpilFj//3Jj2t78EA0/00QrwlukyYEfLub9
+	 bkwRErY5U3hmAK8JySeKaCBL5ikS/Vj0uzHBDhaSuZTLt+q10BCeAIOBdv7ljlwG7O
+	 EM9QSsCtm2Ci3inZFopmqPH3MevxJVckTdi+4cC4veVdmSPnm0rBd7CjKCqN2zc8hP
+	 R9Oqt6TWA7s3Q==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>,
-	Koichiro Den <den@valinux.co.jp>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: Tejun Heo <tj@kernel.org>,
+	David Vernet <dvernet@meta.com>,
+	Josh Don <joshdon@google.com>,
+	Hao Luo <haoluo@google.com>,
+	Barret Rhoden <brho@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1618/1887] dmaengine: dw-edma: Terminate all descriptors without callbacks
-Date: Wed, 28 Oct 2026 18:01:54 +0100
-Message-ID: <20261028170536.287440337@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y 1/2] sched: Allow sched_cgroup_fork() to fail and introduce sched_cancel_fork()
+Date: Wed, 28 Oct 2026 15:43:32 -0400
+Message-ID: <20261028194315.2086000-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026102802-progress-trodden-c504@gregkh>
+References: <2026102802-progress-trodden-c504@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,210 +64,139 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Tejun Heo <tj@kernel.org>
 
-------------------
+[ Upstream commit 304b3f2bc07ba7c74a1ebc7917a8f0549e6b8d54 ]
 
-From: Koichiro Den <den@valinux.co.jp>
+A new BPF extensible sched_class will need more control over the forking
+process. It wants to be able to fail from sched_cgroup_fork() after the new
+task's sched_task_group is initialized so that the loaded BPF program can
+prepare the task with its cgroup association is established and reject fork
+if e.g. allocation fails.
 
-[ Upstream commit 99109a51efd28c9a661fbfb9469b023c517b31d1 ]
+Allow sched_cgroup_fork() to fail by making it return int instead of void
+and adding sched_cancel_fork() to undo sched_fork() in the error path.
 
-The DMA Engine client documentation says in the "Terminate APIs" section
-of Documentation/driver-api/dmaengine/client.rst:
+sched_cgroup_fork() doesn't fail yet and this patch shouldn't cause any
+behavior changes.
 
-"No callback functions will be called for any incomplete transfers."
+v2: Patch description updated to detail the expected use.
 
-dw-edma instead calls vchan_cookie_complete() when a deferred STOP reaches
-the interrupt handler. This schedules a callback for the active descriptor
-and leaves other issued or submitted descriptors queued. A late callback
-after dmaengine_terminate_sync() can dereference client state that has
-already been freed, while leftover descriptors may later restart into
-reused buffers or leak.
-
-Move all issued and submitted descriptors to the terminated list whenever
-termination completes. For a pending STOP, do this from both the DONE and
-ABORT paths. Complete their cookies in order without scheduling callbacks.
-
-A STOP can remain pending until the running transfer raises an
-interrupt. Make device_synchronize() wait for such a pending STOP to
-complete before releasing terminated descriptors. Reuse it from
-free_chan_resources(), then release the remaining virt-dma resources.
-Sleep instead of busy-polling while waiting, and warn if the existing
-timeout expires.
-
-Fixes: e63d79d1ffcd ("dmaengine: Add Synopsys eDMA IP core driver")
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Link: https://patch.msgid.link/20260717180639.2643243-3-den@valinux.co.jp
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: David Vernet <dvernet@meta.com>
+Acked-by: Josh Don <joshdon@google.com>
+Acked-by: Hao Luo <haoluo@google.com>
+Acked-by: Barret Rhoden <brho@google.com>
+Stable-dep-of: 296a98c1fa50 ("fork: release the files of a failed fork after sched_cancel_fork()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/dw-edma/dw-edma-core.c | 90 +++++++++++++++++++++++++-----
- 1 file changed, 76 insertions(+), 14 deletions(-)
+ include/linux/sched/task.h |  3 ++-
+ kernel/fork.c              | 15 ++++++++++-----
+ kernel/sched/core.c        |  8 +++++++-
+ 3 files changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
-index e68cb0ea76977..d46d3f89f9963 100644
---- a/drivers/dma/dw-edma/dw-edma-core.c
-+++ b/drivers/dma/dw-edma/dw-edma-core.c
-@@ -7,6 +7,7 @@
-  */
+diff --git a/include/linux/sched/task.h b/include/linux/sched/task.h
+index ff5aaed609695..50774dc8709c1 100644
+--- a/include/linux/sched/task.h
++++ b/include/linux/sched/task.h
+@@ -55,7 +55,8 @@ extern asmlinkage void schedule_tail(struct task_struct *prev);
+ extern void init_idle(struct task_struct *idle, int cpu);
  
- #include <linux/module.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
- #include <linux/dmaengine.h>
-@@ -199,6 +200,35 @@ static int dw_edma_start_transfer(struct dw_edma_chan *chan)
- 	return 1;
- }
+ extern int sched_fork(unsigned long clone_flags, struct task_struct *p);
+-extern void sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs);
++extern int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs);
++extern void sched_cancel_fork(struct task_struct *p);
+ extern void sched_post_fork(struct task_struct *p);
+ extern void sched_dead(struct task_struct *p);
  
-+static void dw_edma_terminate_vdesc(struct virt_dma_desc *vd)
-+{
-+	list_del(&vd->node);
-+	dma_cookie_complete(&vd->tx);
-+	vchan_terminate_vdesc(vd);
-+}
-+
-+static void dw_edma_terminate_vdesc_list(struct list_head *head)
-+{
-+	struct virt_dma_desc *vd, *_vd;
-+
-+	list_for_each_entry_safe(vd, _vd, head, node)
-+		dw_edma_terminate_vdesc(vd);
-+}
-+
-+/* Must be called with vc.lock held. */
-+static void dw_edma_terminate_all_descs(struct dw_edma_chan *chan)
-+{
-+	/*
-+	 * This order must not be reversed. Cookies are assigned when
-+	 * descriptors are submitted, so desc_issued contains older cookies
-+	 * than desc_submitted. Completing desc_submitted first could move
-+	 * chan->vc.chan.completed_cookie backwards when desc_issued is
-+	 * terminated afterwards.
-+	 */
-+	dw_edma_terminate_vdesc_list(&chan->vc.desc_issued);
-+	dw_edma_terminate_vdesc_list(&chan->vc.desc_submitted);
-+}
-+
- static int dw_edma_device_config(struct dma_chan *dchan,
- 				 struct dma_slave_config *config)
- {
-@@ -256,20 +286,22 @@ static int dw_edma_device_terminate_all(struct dma_chan *dchan)
- 	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
- 	int err = 0;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 25fb13362d38c..8f925267e9c2d 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2280,7 +2280,7 @@ static __latent_entropy struct task_struct *copy_process(
  
-+	guard(spinlock_irqsave)(&chan->vc.lock);
-+
- 	if (!chan->configured) {
--		/* Do nothing */
-+		dw_edma_terminate_all_descs(chan);
- 	} else if (chan->status == EDMA_ST_PAUSE) {
-+		dw_edma_terminate_all_descs(chan);
- 		chan->status = EDMA_ST_IDLE;
--		chan->configured = false;
- 	} else if (chan->status == EDMA_ST_IDLE) {
--		chan->configured = false;
-+		dw_edma_terminate_all_descs(chan);
- 	} else if (dw_edma_v0_core_ch_status(chan) == DMA_COMPLETE) {
- 		/*
- 		 * The channel is in a false BUSY state, probably didn't
- 		 * receive or lost an interrupt
- 		 */
-+		dw_edma_terminate_all_descs(chan);
- 		chan->status = EDMA_ST_IDLE;
--		chan->configured = false;
- 	} else if (chan->request > EDMA_REQ_PAUSE) {
- 		err = -EPERM;
- 	} else {
-@@ -626,8 +658,7 @@ static void dw_edma_done_interrupt(struct dw_edma_chan *chan)
- 			break;
+ 	retval = perf_event_init_task(p, clone_flags);
+ 	if (retval)
+-		goto bad_fork_cleanup_policy;
++		goto bad_fork_sched_cancel_fork;
+ 	retval = audit_alloc(p);
+ 	if (retval)
+ 		goto bad_fork_cleanup_perf;
+@@ -2410,7 +2410,9 @@ static __latent_entropy struct task_struct *copy_process(
+ 	 * cgroup specific, it unconditionally needs to place the task on a
+ 	 * runqueue.
+ 	 */
+-	sched_cgroup_fork(p, args);
++	retval = sched_cgroup_fork(p, args);
++	if (retval)
++		goto bad_fork_cancel_cgroup;
  
- 		case EDMA_REQ_STOP:
--			list_del(&vd->node);
--			vchan_cookie_complete(vd);
-+			dw_edma_terminate_all_descs(chan);
- 			chan->request = EDMA_REQ_NONE;
- 			chan->status = EDMA_ST_IDLE;
- 			break;
-@@ -648,7 +679,9 @@ static void dw_edma_abort_interrupt(struct dw_edma_chan *chan)
+ 	/*
+ 	 * From this point on we must avoid any synchronous user-space
+@@ -2454,13 +2456,13 @@ static __latent_entropy struct task_struct *copy_process(
+ 	/* Don't start children in a dying pid namespace */
+ 	if (unlikely(!(ns_of_pid(pid)->pid_allocated & PIDNS_ADDING))) {
+ 		retval = -ENOMEM;
+-		goto bad_fork_cancel_cgroup;
++		goto bad_fork_core_free;
+ 	}
  
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 	vd = vchan_next_desc(&chan->vc);
--	if (vd) {
-+	if (vd && chan->request == EDMA_REQ_STOP) {
-+		dw_edma_terminate_all_descs(chan);
-+	} else if (vd) {
- 		dw_hdma_set_callback_result(vd, DMA_TRANS_ABORTED);
- 		list_del(&vd->node);
- 		vchan_cookie_complete(vd);
-@@ -727,21 +760,49 @@ static int dw_edma_alloc_chan_resources(struct dma_chan *dchan)
+ 	/* Let kill terminate clone/fork in the middle */
+ 	if (fatal_signal_pending(current)) {
+ 		retval = -EINTR;
+-		goto bad_fork_cancel_cgroup;
++		goto bad_fork_core_free;
+ 	}
+ 
+ 	/* No more failure paths after this point. */
+@@ -2536,10 +2538,11 @@ static __latent_entropy struct task_struct *copy_process(
+ 
+ 	return p;
+ 
+-bad_fork_cancel_cgroup:
++bad_fork_core_free:
+ 	sched_core_free(p);
+ 	spin_unlock(&current->sighand->siglock);
+ 	write_unlock_irq(&tasklist_lock);
++bad_fork_cancel_cgroup:
+ 	cgroup_cancel_fork(p, args);
+ bad_fork_put_pidfd:
+ 	if (clone_flags & CLONE_PIDFD) {
+@@ -2578,6 +2581,8 @@ static __latent_entropy struct task_struct *copy_process(
+ 	audit_free(p);
+ bad_fork_cleanup_perf:
+ 	perf_event_free_task(p);
++bad_fork_sched_cancel_fork:
++	sched_cancel_fork(p);
+ bad_fork_cleanup_policy:
+ 	lockdep_free_task(p);
+ #ifdef CONFIG_NUMA
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index c4e9fac7507a9..36580fe4ccfc0 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -4457,7 +4457,7 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
  	return 0;
  }
  
--static void dw_edma_free_chan_resources(struct dma_chan *dchan)
-+static void dw_edma_wait_termination(struct dma_chan *dchan)
+-void sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
++int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
  {
-+	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
- 	unsigned long timeout = jiffies + msecs_to_jiffies(5000);
--	int ret;
-+	bool stopping;
+ 	unsigned long flags;
  
-+	/*
-+	 * A STOP may be deferred to a later interrupt while the channel is still
-+	 * running. Wait until that handler completes the termination.
-+	 */
- 	while (time_before(jiffies, timeout)) {
--		ret = dw_edma_device_terminate_all(dchan);
--		if (!ret)
--			break;
-+		scoped_guard(spinlock_irqsave, &chan->vc.lock)
-+			stopping = chan->request == EDMA_REQ_STOP;
- 
--		if (time_after_eq(jiffies, timeout))
-+		if (!stopping)
- 			return;
- 
--		cpu_relax();
-+		fsleep(1000);
- 	}
+@@ -4484,6 +4484,12 @@ void sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
+ 	if (p->sched_class->task_fork)
+ 		p->sched_class->task_fork(p);
+ 	raw_spin_unlock_irqrestore(&p->pi_lock, flags);
 +
-+	dev_warn(chan->dw->chip->dev,
-+		 "timeout waiting for channel termination\n");
++	return 0;
 +}
 +
-+static void dw_edma_device_synchronize(struct dma_chan *dchan)
++void sched_cancel_fork(struct task_struct *p)
 +{
-+	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
-+
-+	dw_edma_wait_termination(dchan);
-+	vchan_synchronize(&chan->vc);
-+}
-+
-+static void dw_edma_free_chan_resources(struct dma_chan *dchan)
-+{
-+	struct dw_edma_chan *chan = dchan2dw_edma_chan(dchan);
-+
-+	dw_edma_device_terminate_all(dchan);
-+	dw_edma_device_synchronize(dchan);
-+
-+	scoped_guard(spinlock_irqsave, &chan->vc.lock)
-+		chan->configured = false;
-+
-+	vchan_free_chan_resources(&chan->vc);
  }
  
- static int dw_edma_channel_setup(struct dw_edma *dw, bool write,
-@@ -853,6 +914,7 @@ static int dw_edma_channel_setup(struct dw_edma *dw, bool write,
- 	dma->device_pause = dw_edma_device_pause;
- 	dma->device_resume = dw_edma_device_resume;
- 	dma->device_terminate_all = dw_edma_device_terminate_all;
-+	dma->device_synchronize = dw_edma_device_synchronize;
- 	dma->device_issue_pending = dw_edma_device_issue_pending;
- 	dma->device_tx_status = dw_edma_device_tx_status;
- 	dma->device_prep_slave_sg = dw_edma_device_prep_slave_sg;
+ void sched_post_fork(struct task_struct *p)
 -- 
 2.53.0
-
-
 
