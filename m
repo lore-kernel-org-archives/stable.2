@@ -1,74 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217108;
-	b=Ks6JR2GxyTh5zpTrrJiUc3DTLug7xfwP7vdvamGhju/RJ2fu/8RfEwn5BhfXfWkuXsUt
-	 3nIA3HGwh9LCHDI/+bhBW5PHO797FfywXEPXiLzhWxqe2/qdU+mZph8SVJIsPkSnLVllM
-	 brmRb8Mv54zpbmStWeTDhRsPlT5YF1wp9fOa6/th+es3RPsSjxNyLBy+w0Y2HGPIymIli
-	 wjZGUkGiONIjC7/R6NUo8QM+dzPuQlsgyFj8BAKxrm4irjKnFg6rX3AUe823VUQKHCn8+
-	 gkEQviVjWpsCzro6Ikd293NaSA26RadCeWEBsZxag6kgjlQ2CmQ2Nu1KG1fk6/sPKIQ==
+	t=1793217111;
+	b=cWsQPbaR/iAGitOjxfXiPay68sJ11RNn9YvIsXKAyNAe7KtGW5VOjr1FeELrIEs6HnCI
+	 5nRN0de96c17DynpH3NN0RYR+DDWLy+gMI3oqPaTD7ui8JWnLC3AqusU9RKo9JhpoN7Yq
+	 ntcL9V8KsW4R+TCTdq2CGpcbFV+AFAkSp4YLSopLBWzjj9JyVXgH1JjdAXx+/8PmHGa6T
+	 DCaJTrsJ+PSxGQDhQX7AUHBJ/NXh0YNvm1PHiKwriHmu4wN49z8qvWy4V8yAgY6PwkBN0
+	 4i9+TbsQaJPQCgCyRQe5XzaydlSw0l/1nv1kQAxPtyg8kzLZ0JiEmMjT6vqWjFLAdRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217108;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=M/WqyTcrckJ2Vv1FjKVDyGCnmuQqEp27lazby6zbzAQ=;
-	b=hhw4wXG+bwIkeEBjrtg/6t5UJHlyA16fDvx86oL2mq2kcwNTDGbCSJXdL9KaIDA8vVMm
-	 1tVAHxpKeC83g/Io5DgWkxcmKaR3JjqjFBfkwT3xJwJnLwqXDOhUn+eE0yvPJEQuhY3LI
-	 ZZor9F6RVf58XYi7FeCjSgsJ1FWu8nHR3MeXCcxyAshqkQ3SwDXtmV5g1hMIYHXc90DeY
-	 0E6w47QwEKP4jgU7Q/2+vY5O8TTEVRO52yuKKyY/XGM9VIZgQ9m3FEIsk4TJRWg51ikWt
-	 sulwt4t058hh6aqJ7/OXWWNvp4VY3GRPGdsTLNRT7W4YYv7Lc7k4lHGiYDmehhOV+dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217111;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Nvrn4WRxmRYyXZvqlPwtDdIMr3RH/GbiGM7fkNtVFmY=;
+	b=e0H/fs4ggjMpl2fyST5iOlW3jpWhdxmpButn4kWZOraj9XRitzYCFpYEqWCB8ZuOEhQv
+	 X5dLT7xESY2zrKYjVxsE2an/S1SfEvErBPh0AseQGBo1ws8W9sV7DijEmZk1JpFp3oavn
+	 UkvVbbGQAQHB3ghhE2ma8xdrusGZFCZuP2qAvCKxjHYSPxelDX7PWcXoQ01XrJBw4OCSL
+	 KlG5VC6xeGlZynMck1bRDadIrl2zhbTw6bpxPxVXLy6FIzNVaBwQjJOmA+/7KNV0/152/
+	 FRET0BvVwpFsu9Eawc6WFQBScxlaj5d4T9wtbt6D8+tzpKcFy7ybEPjtymw2ym9lkyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nNWG5rLj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdi9apkS;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F75606A31A;
-	Wed, 28 Oct 2026 19:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF66F606A31E
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:51:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF66F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nNWG5rLj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B241F01825;
-	Wed, 28 Oct 2026 19:51:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793217108;
-	bh=M/WqyTcrckJ2Vv1FjKVDyGCnmuQqEp27lazby6zbzAQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nNWG5rLjnO8RljD7VWqa3ogn4A73bg0qdklET1epr5sAUrbfkO8PXXBhaMgrPQDxh
-	 sktAGtKHtnVHeBunRMBG9zf+SkaaD6as0AGMm4ABfgP6CDT3k1o8+TBIhVYBwyLROg
-	 Nd0m1uAIl4OqZp4jCsHW1H7jzxVyJz4nBhOTBHd4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Usama Arif <usama.arif@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Hugh Dickins <hughd@google.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Rik van Riel <riel@surriel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ting-Han Hou <ue081723@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1784/1887] mm/huge_memory: transfer the pmd dirty bit to the folio on zap
-Date: Wed, 28 Oct 2026 18:04:40 +0100
-Message-ID: <20261028170540.047851648@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdi9apkS
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so416875eec.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 12:51:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793217110; x=1793821910; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nvrn4WRxmRYyXZvqlPwtDdIMr3RH/GbiGM7fkNtVFmY=;
+        b=wdi9apkSCNG+WQgHHVCA4gASRfPqBR9MTVe5qJGMyZ/AQVSrF/+6IyE6JTTMYREoU5
+         dh5hKPiIf3d9eihVt6bFn/5qBCWy3fQ0Y0c1dQET5FZd4Hx/n2u/rGunZ8DJdy77wfrC
+         pylW7aaWBmHles8P7pDCGhBgXvs2yzBcwChqiEhig98DyfPrDBmsW5OLmJ4kh0bv0v7v
+         oHaxe4oKD3m6Qa6aP6I44Q5MCbSTrg07nfXV5jxdhcG+/4EeWJuMu+BQyjkt672S+Q0m
+         iqwbyRP0jyqgyX7gXhhLtLhSCZfgfvD6skxxJKH158WN1xTnGgXPpKf28gaFsJl+ov7H
+         HGgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793217110; x=1793821910;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nvrn4WRxmRYyXZvqlPwtDdIMr3RH/GbiGM7fkNtVFmY=;
+        b=YguAoFHDn/hmd86wSTX9tiVegpTlae+XEa+YXyBeLMc80uDjzagZMYegg6C9G7ifgH
+         1RsgmHU9TI3dCfQ+9P6gYcMeF5P2yOyH4gBlfGcFqIzeGB6ocwYaDgOXve0plGIaYYt9
+         tqhfMV4YOtSXerUQWAqeeAue5OW7g/XzGg8DBDc4S/ysXYAN7Fq5nzz8QSwkIVKPyHhD
+         ZxekSPq1seQTlaBggwINKOfLXve6x+urSYTOnZfUjVbWP2s8MoLzaNUQYCB7f7v67zGk
+         vPbt6hQGGtRCr3x3mQalUHSVtAfFDwt4wjY7sIjV5IlEWR5H9a3uXE/QxPfIdbm/Oq+W
+         DHlw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9RxDFsMG/SbqYs7W1GUHosW/v41lOLSrPRoJhhlLDUrKe+o4dTZwo1mYPJo0ZXqrwp6QqVyk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISxOzHpl5n6DdnhyzvKZ4HTLke72VP1a5u0bu2jvIkxY6qYrrS
+	nMivUDYQTo8ExBx1heyTbx3xgixac4ggSIX0SjOWRqx9G0gFoZhcmeV5
+X-Gm-Gg: AYBFou0/kpbheKPJXqlr7GYkABiqyAh3iqIhLH57cdrPH0y4W2TeiWvpub/BXxXAquN
+	YYWi0xPI36nF3W4nuJdID/o7kiD/ZS4qt91BcNK30YfP+5QbttTrLET2kcWxFSG+XMrQ2is/6iP
+	RM4Z1icdXfjNMmundlNhlpTw5lFoQ/1PIDf69WmTl27SLKGWIRI1GCg4SKkJF5xa79OrfOSYi7n
+	vvQb5tn13G96QJbaX1mfpsDxMf5kxUHEbzeaTOzxKcZhuZohuuFoDAZox3aJm0cUwjAWuMU9gL1
+	tTmw2RWwSseZSLjxG0KqazIeWtPLFzNZxb8w7TwWUn2peMb5JlaMZs+DiJ1F6FvLgZMgwq6IC2E
+	c9Jhkl9X4sz4Y7lw1WYud7CLIJgV8/9Anw2ao6I7HcAMx0siamZnAR61CkNaC1lHfSA9XZ1Eai7
+	C4dMGDJhNxgINhHCIHMcY+cgh5Uoh+Sf+23VsiKg62PXYDtuVOeh+QqRrmq8CYfZZcLPP6ltTJG
+	Jaxf6WQnDMvXmKPg3V+esFS3XDxz7a/1MyO/UWMi50F1wLKpVZM/azcwWQ3S+tE0rl9Tvmo5kSj
+	m21DJwJx/9eDsynBatALIzpbMIXZ0SK3VtROkJosPd8t8huYfBZmvLbc
+X-Received: by 2002:a05:7301:1622:b0:36a:1807:75a4 with SMTP id 5a478bee46e88-36a20075471mr4923982eec.20.1793217109527;
+        Wed, 28 Oct 2026 12:51:49 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2398fa4csm10895569eec.24.2026.10.28.12.51.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 12:51:48 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: miklos@szeredi.hu
+Cc: amir73il@gmail.com,
+	andrealmeid@igalia.com,
+	linux-unionfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH] ovl: reserve space for the casefolded name terminator
+Date: Wed, 28 Oct 2026 19:51:33 +0000
+Message-ID: <20261028195133.86636-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,106 +101,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+ovl_casefold() allocates NAME_MAX bytes and passes that capacity to
+utf8_casefold(), which also needs room for a terminating NUL. A valid
+name whose folded form is exactly NAME_MAX bytes therefore fails to
+fold, and ovl_fill_merge() falls back to comparing the original bytes.
 
-------------------
+For example, when two casefolded layers contain directories named with
+255 uppercase and lowercase ASCII letters respectively, readdir lists
+both names even though lookup treats them as the same directory. The
+same names merge correctly at 254 bytes.
 
-From: Usama Arif <usama.arif@linux.dev>
+Reserve one additional byte in both the allocation and the folding
+capacity so that NAME_MAX-byte folded names use the canonical merge key.
 
-[ Upstream commit fe6cf984939d8e12cb33a99673c8d026c5135e68 ]
-
-zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
-file case, but not the dirty bit.  The pte path does propagate it, in
-zap_present_folio_ptes() and so does the pmd split path, in
-__split_huge_pmd_locked().
-
-For most file mappings the omission is harmless, because writing to a
-shared file mapping goes through page_mkwrite(), which dirties the folio.
-tmpfs is different: it has no page_mkwrite(), and vma_wants_writenotify()
-is false for it, so a *read* fault on a MAP_SHARED tmpfs mapping installs
-a writable pmd via do_read_fault().  do_read_fault() does not call
-fault_dirty_shared_page(), so subsequent stores through that mapping set
-only the hardware dirty bit in the pmd and never call folio_mark_dirty().
-A shmem folio allocated by a fault is marked uptodate but not dirty (see
-the clear: block in shmem_get_folio_gfp()), so PG_dirty is never set at
-all.
-
-Unmapping such a folio - munmap(), or exit_mmap() when the process dies -
-then loses the only record that it was written, because zap_huge_pmd()
-drops the pmd without transferring the dirty bit.  Reclaim afterwards sees
-a clean shmem folio: the whole swap-out block in shrink_folio_list() is
-inside "if (folio_test_dirty(folio))", so pageout() is skipped and the
-folio falls into __remove_mapping().  There, folio_is_file_lru() is false
-for a swapbacked folio, so no shadow entry is created and
-__filemap_remove_folio(folio, NULL) simply empties the i_pages slot.  The
-data is freed without ever being written to swap, and the next fault on
-that index returns a freshly zeroed folio.
-
-This is silent data loss for any process that keeps state in a MAP_SHARED
-tmpfs segment across an unmap - for example a cache handed from one
-process generation to the next through /dev/shm.  It requires the folio to
-be PMD-mapped, so it only shows up once shmem THP is enabled (which is
-what we did in Meta fleet and started noticing crashes); with THP off the
-pte path transfers the dirty bit correctly.  It also only becomes visible
-when swap is enabled, because with no swap device shmem folios (which are
-on the anon LRU) are not scanned by reclaim at all, so the clean folio is
-never dropped.
-
-Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
-2MB-backed region, write a known pattern through the resulting mapping,
-munmap, force reclaim of the cgroup, then re-map and read back.  Without
-this patch the region reads back as zeros and vmstat shows zswpout 0 - the
-data was discarded rather than swapped.  With this patch the region reads
-back correctly and the pages are swapped out as expected.  With
-huge=never, or when the first touch is a write, the test passes either
-way.
-
-Link: https://lore.kernel.org/20260819101222.3732660-1-usama.arif@linux.dev
-Fixes: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
-Acked-by: Hugh Dickins <hughd@google.com>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ Ting-Han: zap_huge_pmd_folio() does not exist in this tree; the file
-  branch is open-coded in zap_huge_pmd(), so transfer the dirty bit
-  there, as the 6.6.y backport does ]
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: ee95c5fc86dd ("ovl: Create ovl_casefold() to support casefolded strncmp()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- mm/huge_memory.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/overlayfs/readdir.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 339f2986f2c6a..5807f276fe228 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1701,6 +1701,9 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 			if (arch_needs_pgtable_deposit())
- 				zap_deposited_table(tlb->mm, pmd);
- 			add_mm_counter(tlb->mm, mm_counter_file(page), -HPAGE_PMD_NR);
-+
-+			if (pmd_present(orig_pmd) && pmd_dirty(orig_pmd))
-+				folio_mark_dirty(page_folio(page));
- 		}
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 7d6f7f6022eb..6113d690f8ad 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -81,13 +81,13 @@ static int ovl_casefold(struct ovl_readdir_data *rdd, const char *str, int len,
+ 	    name_is_dot_dotdot(str, len))
+ 		return 0;
  
- 		spin_unlock(ptl);
+-	cf_name = kmalloc(NAME_MAX, GFP_KERNEL);
++	cf_name = kmalloc(NAME_MAX + 1, GFP_KERNEL);
+ 	if (!cf_name) {
+ 		rdd->err = -ENOMEM;
+ 		return -ENOMEM;
+ 	}
+ 
+-	cf_len = utf8_casefold(rdd->map, &qstr, cf_name, NAME_MAX);
++	cf_len = utf8_casefold(rdd->map, &qstr, cf_name, NAME_MAX + 1);
+ 	if (cf_len > 0)
+ 		*dst = cf_name;
+ 	else
 -- 
-2.53.0
-
-
+2.43.0
 
