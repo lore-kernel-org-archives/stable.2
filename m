@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793227825;
-	b=ltSdluDFB7KFbYdQ+hyf4YIHPszig9qKLVHB93uy1Dftk5jehRl21aGPo1zsIbNO5lVX
-	 5ZfGqBtUpjqxz3ebD6Meq8JIfPeYMTW98dVLe9R46cSnO7q0AN4IMvtsLgzQXsnH8IfDV
-	 orUt8eSPZ0VFbMiacjqoc3b0ia2g0Gag1iiTBfkEQnQyJLGT/VzpikR6Sllfhm+PhRZpS
-	 z5djpSmv7LqTrqvdHMv16T3gja3YfOuPjKFPnKyPNIFLKrCvh50aRnVDtyFqGrpfiBejQ
-	 vabiywa/NdXe3gtEleolD9BjX1ppkSOCHFUMhYJkcCA187SWzZ4tSrxg1Vftg6TYefA==
+	t=1793227828;
+	b=R5qbNOukSm/UtKgUu3yyAjBeKDz//TyzuXVXiuBAD1D9EwjobuYBZgvhQWDMbpS96VtJ
+	 K0bbgSKTlXB5TSxq3CFiYo6C+fxDMuao22DBX1qpSAY/S3APNiNVvJTMpOThfw0Xof3an
+	 lZVCLjpoPM4/zLO0kfROxs+WASkrOFdgtZ+k+8kZkeJUKyRfC9i2Gej5Eu4E3iWxItcCS
+	 LPjI2JaW8PwF9ga5bDX2JekY/jHsBauYreuxBwtEjrQmbGAoif2F4nxCTK5Za+qXFffN3
+	 6vWpuvoTLfglbq9XU14qyjUBvgkzUbLoX+zByE8mxcYfOker0f/lo8IXfKUmC7ySPWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793227825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793227828;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sLBkOKAo4Btus7+LZUplgPCWssAMm6YIDFeAEyJbIEU=;
-	b=LK+NvoXuxFGC5WG8Bv4vXzaFrbaaOfSi9F1b89miKT3BwbKtfFtFaEu/wWP1DP3O9OvQ
-	 4W9h9xJKZY7KS5wZcbpEX0QhugEYnDb6tPi7al+vvTuGPDzbANCDoPbJmvYzsQaKLwQzH
-	 L5oXGnrISeteW+MdIdSKfRaftwIyLBWUza+20ZcUxrc8dlOAMY93OpDQVinwqPzvpPf2L
-	 JuMSRsy4CoU/WARTYDQw80qRJsmhhyrMRTm/eYTQpIhjoC/bCUaSejIXi9CT/MjU7Cw60
-	 UtKNHekRf+93x6tteVNh2+ux+BhtHp5G2/mVcw3mmwiLpDLvkHK162hjEDZZUX43YEQ==
+	bh=0d6Qs0FvC4wuXk+s1dtFS35yJ1qNS4dLH/otZy61PIE=;
+	b=TaaN2K7jgMImiVwJD5VplI39qyN8bHlYIDG9oZdYetEvb7wwMdz3uJBmPDZwP1C0Yt+J
+	 0B/IN7uglPnadyGASALHfBp62yhbZ5WjE1QI2BF3V0IuapS7o8ovJf/vOY0VUEVpamtF4
+	 eN9iyPhSOWoUxu1NKI760v1CSTfrZdLoqb16qKjSNwK1lELgIAAP1nmU9sYuGJ7p4c2jY
+	 KTXdvjBjrEFiDXoDRwDEoGU0OeN9qdWX5hDb7Kws3U8jiQCTLMTVxE2MK5VwOk+jv5nTW
+	 dUwMLX1VafZG3a2LcJ6E1vA/VcZUksEaRh58cOaf4aNWGrdShv7OWG7H/Qh+bDLc5iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BAIVXdEc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGXmRI1N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BD6606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC2C606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BAIVXdEc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D7E1F01825;
-	Wed, 28 Oct 2026 22:50:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGXmRI1N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D541B1F01825;
+	Wed, 28 Oct 2026 22:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793227825;
-	bh=sLBkOKAo4Btus7+LZUplgPCWssAMm6YIDFeAEyJbIEU=;
+	s=k20260515; t=1793227827;
+	bh=0d6Qs0FvC4wuXk+s1dtFS35yJ1qNS4dLH/otZy61PIE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BAIVXdEcYlbG8vt8141nTgXlIWBqdP9jtnnhb5TyiDfMpn7ohEv49A4OrmIbfiftD
-	 Y6K1IGXM3HvK+2SItzSkqwc04ZVUboAjHNUras42/ZU/rbuvrBFLJTBe7IYK8wHRDz
-	 JH1qX+OlC7Lwx7rkm5tya5qM0N87XtUkXe33crG0CKzAUI5wKmUfwMjBFQGBgHgk7A
-	 ltY+TC9oE9J3fftUDjGczjJl+OprqlglIO4V2jahvlvJlmd1RFivFYyCD8Yjkn5sX/
-	 HGR4bhkO//mKIDCzn9rwP3XNllL4c8Sx8u7sjDS5FD1iaJ1SRsHTLQmdUjjFlkMAu8
-	 8HGqTXYECkEyQ==
+	b=ZGXmRI1N2Hs+MwyDpdgHzZb+9mQ3cZOKPD3+xJw5NaNaQ4gIkIFR/3UdrR7/jnkAG
+	 tAepsFByAmne6OkPjmy3JteaDCq21OAnVt5dMXTBWadEaQwTArV6yntqD80fpHZGHN
+	 P28/6OHPRbdun14RmMldqdY2q38ngcLBHIHnCg6oVQ2K393HbqehThUkOq3GeTkbts
+	 LsaGcoT9n1JXYtN8ri5BtWcpFg3o+dw5p6U59B7d600O1lQuxyef8Aoagf5JKTl1hX
+	 I8gkZWVnRA5fXlSrl7C45uEiJEJXKFkg2AhQofxdxaDj5/UqMlPWx10r9iP7nQmIBJ
+	 zNEwPjHdkN8+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Oleg Nesterov <oleg@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] coredump: prevent TIF_NOTIFY_SIGNAL from interrupting coredumps
-Date: Wed, 28 Oct 2026 18:50:23 -0400
-Message-ID: <20261028225002.2428149-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+Date: Wed, 28 Oct 2026 18:50:25 -0400
+Message-ID: <20261028224958.2405498-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102819-progress-massager-b75a@gregkh>
-References: <2026102819-progress-massager-b75a@gregkh>
+In-Reply-To: <2026102838-repayment-hyphen-7ccb@gregkh>
+References: <2026102838-repayment-hyphen-7ccb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,80 +63,96 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit a58d647acfdc62561f3570d114025b3bf38ae41b ]
+[ Upstream commit 22b7f491be8f93ff72de0a3fe02b8ee9e64d3f21 ]
 
 TIF_NOTIFY_SIGNAL is used to kick a task in uninterruptible sleep to
 return to userspace and run task work and then go back to sleep. This
-mechanism works well but breaks coredumps. dump_interrupted() only
+mechanism works well but breaks e.g., coredumps. dump_interrupted() only
 allows fatal signals to interrupt a coredump and the whole regular write
 path going to actual filesystems is impervious to TIF_NOTIFY_SIGNAL as
 well.
 
-However, both the usermodehelper pipe and the coredump socket will bail
-early on TIF_NOTIFY_SIGNAL. This affects the following codepaths:
+Add PF_NO_NOTIFY_SIGNAL and helpers to raise and restore it. This is the
+same approach as memalloc_nofs_save(). signal_pending() will not report
+a fake pending signal via TIF_NOTIFY_SIGNAL if inside a
+PF_NO_NOTIFY_SIGNAL section.
 
-- coredump_sock_recv() -> unix_stream_read_generic()
-  The request/ack handshake is abandoned before any coredump data is
-  sent.
+No functional changes.
 
-- anon_pipe_write() returning -ERESTARTSYS
-  Once the pipe is full this truncates the coredump.
-
-- unix_stream_sendmsg() returning -ERESTARTSYS
-  Once the send buffer is full this truncates the coredump.
-
-- coredump_sock_wait() -> __kernel_read()
-  This reports a failure that didn't happen.
-
-- wait_for_dump_helpers() -> wait_event_interruptible()
-  This stops waiting for the coredump helpers.
-
-Such truncation is entirely invisible to userspace and all uapi bits
-still indicate that a successful coredump happened. A crashing process
-with a bunch of file backed mappings and io_uring thrown in loses most
-of the coredump data. If the NT_FILE note goes past PAGE_SIZE mappings
-it's gonzo.
-
-TIF_NOTIFY_SIGNAL is sent by io_uring for the common case. And it uses
-poll without sleeping so a completion callback runs task_work_add() from
-interrupt context against the task that submitted the request. This is
-the task that is running the coredump. Since that task hasn't set
-work_exited (it hasn't exited yet after all) TIF_NOTIFY_SIGNAL keeps
-reappearing.
-
-A coredumping task doesn't return to userspace. The task work is run at
-exit. So interrupting it doesn't buy anything and just loses the
-coredump which is quite valuable.
-
-Note that this isn't specific to io_uring. There's also
-klp_send_signals(), bpf_task_work_schedule_signal(), landlock's tsync
-and then  technically, kthread_stop() and the printk kunit test set the
-bit raw.
-
-Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-2-6609e42b3157@kernel.org
-Fixes: 12db8b690010 ("entry: Add support for TIF_NOTIFY_SIGNAL")
+Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-1-6609e42b3157@kernel.org
 Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: moved the guard from vfs_coredump() to do_coredump() before override_creds() ]
+[ sashal: Moved PF_NO_NOTIFY_SIGNAL to 0x01000000 because PF_SWAPWRITE occupies 0x00800000. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/coredump.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/sched.h        |  1 +
+ include/linux/sched/signal.h | 27 +++++++++++++++++++++++++--
+ 2 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/fs/coredump.c b/fs/coredump.c
-index 326b30421eec3..cf0a41044d71f 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -642,6 +642,8 @@ void do_coredump(const kernel_siginfo_t *siginfo)
- 	if (retval < 0)
- 		goto fail_creds;
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 1c5bd595f560c..52624ff4a1f5e 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1564,6 +1564,7 @@ extern struct pid *cad_pid;
+ #define PF_KTHREAD		0x00200000	/* I am a kernel thread */
+ #define PF_RANDOMIZE		0x00400000	/* Randomize virtual address space */
+ #define PF_SWAPWRITE		0x00800000	/* Allowed to write to swap */
++#define PF_NO_NOTIFY_SIGNAL	0x01000000	/* see no_notify_signal_save() */
+ #define PF_NO_SETAFFINITY	0x04000000	/* Userland is not allowed to meddle with cpus_mask */
+ #define PF_MCE_EARLY		0x08000000      /* Early kill for mce process policy */
+ #define PF_MEMALLOC_NOCMA	0x10000000	/* All allocation request will have _GFP_MOVABLE cleared */
+diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+index 3a1b4c5118cd2..dd468059ce713 100644
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_SCHED_SIGNAL_H
+ #define _LINUX_SCHED_SIGNAL_H
  
-+	/* Task work must not cut the dump short, see signal_pending(). */
-+	guard(no_notify_signal)();
- 	old_cred = override_creds(cred);
++#include <linux/cleanup.h>
+ #include <linux/rculist.h>
+ #include <linux/signal.h>
+ #include <linux/sched.h>
+@@ -366,14 +367,36 @@ static inline int task_sigpending(struct task_struct *p)
+ 	return unlikely(test_tsk_thread_flag(p,TIF_SIGPENDING));
+ }
  
- 	ispipe = format_corename(&cn, &cprm, &argv, &argc);
++/* Prevent TIF_NOTIFY_SIGNAL from interrupting this task. */
++static inline unsigned int no_notify_signal_save(void)
++{
++	unsigned int flags = current->flags;
++
++	current->flags |= PF_NO_NOTIFY_SIGNAL;
++	return flags;
++}
++
++/* Restore the previous PF_NO_NOTIFY_SIGNAL state. */
++static inline void no_notify_signal_restore(unsigned int flags)
++{
++	current_restore_flags(flags, PF_NO_NOTIFY_SIGNAL);
++}
++
++DEFINE_LOCK_GUARD_0(no_notify_signal,
++		    _T->flags = no_notify_signal_save(),
++		    no_notify_signal_restore(_T->flags),
++		    unsigned int flags)
++
+ static inline int signal_pending(struct task_struct *p)
+ {
+ 	/*
+ 	 * TIF_NOTIFY_SIGNAL isn't really a signal, but it requires the same
+ 	 * behavior in terms of ensuring that we break out of wait loops
+-	 * so that notify signal callbacks can be processed.
++	 * so that notify signal callbacks can be processed. Not for a task
++	 * that asked not to be interrupted by it, see no_notify_signal_save().
+ 	 */
+-	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)))
++	if (unlikely(test_tsk_thread_flag(p, TIF_NOTIFY_SIGNAL)) &&
++	    likely(!(READ_ONCE(p->flags) & PF_NO_NOTIFY_SIGNAL)))
+ 		return 1;
+ 	return task_sigpending(p);
+ }
 -- 
 2.53.0
 
