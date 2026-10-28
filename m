@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793150009;
-	b=RRHV132Ku9WMwXjS82nuROq/V+LDYTUYnjb902hMS3jomhpSEaHBJxbgNxfOdV2rPc1p
-	 tht7tqOSya/Agz/iot7qpMMhra9rLwe1Z18zfuS4Z0nHcb1SEQz2t5opoQZqrDd9BX8eK
-	 tdNpOCGIFJo3/oQ1QNKN0oMn8W0AzsdYfc1PLu78p5MYkDyXBsLq9w1AfAnZ3x6ELXPbv
-	 Gkx0is5pHrBx/B3RBHgMXPZFHAdKZ4AGkB78madwhxkbXg1ZS+GwRHdy6Uoqxa/jPtHp2
-	 Xk5BxxC1sqapngRkb+bAw+R8XNLtKb3R5KyX8lLcMG3OYYUiYb5S6udpK57BEpLAPqg==
+	t=1793150406;
+	b=5OxjsUjLjPgRXeGtSNIgUD7ZTjNgJeKfTRm0IMq9JrAXECj+rqe4S3e47ku7pAnYQLyt
+	 S5Xxoc6nFulMj9pmsMnRPJJF1TzahAwWwVptvylHxwXNVz05/QCx0UDXOUcdUBAGkhoe+
+	 G3hqLhkEe83VS/28bTGkZW9WvnQxAKw9cZMGc9OTEo21qK3INNow3ajUgJeCejrwCet7Q
+	 HNBsxvrTEU2jRkMv4M9ZjUufoUkuBVQy5DBl0SXNh5nLWKqPnY6LofYJFRHZK43WccpD7
+	 Xz92gccZhL/MCc6NBF3Vojc4ukwLuV6PLfWcTZqa4/JOrQsG3/LB6YIQI4E+yDYYurA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793150009;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sFo8TCnrO7TJ2lKbVEd0YQroZ7AW4x/RtCUnc2uNLcA=;
-	b=JL0h2zByZcsBrZXtkRJgvzftXHg0RTfUbdCqxcUr9XHTLS/RaHmJLMgrjvLumgEFy+mS
-	 dQjOx3lPlFhvvSFvXpSU8VOqccz24g8t7wGhyDGrMNM83nNVmvnlfODM3FAtk2WT/hrS1
-	 CfDGLJf3eFMz8zdE4mpa6z2IDf+zAXprsYosmNUXpywS2/mEGpveqaxfFRekqnh7ox3xy
-	 cYmneq93U4NFNJqVb8txdNIpEhQ5+VDGAlKBAcurW0XZRNhi5cAXbqiDeOxrgewKirsNC
-	 2m1Fts2kMiVVSQ2Fy8INw4UDumpt47lqwxQuKqqeUIGkm29joiB5/1H7Sc6zqimTYUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793150406;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aLduANwv1S0zzwppHfmO8Zkbjseh7UvsZ5j1k5QDDg4=;
+	b=j5gS/1MTgM6rU2Edea/zlC/wuw1WXTTkhreq9/BRI24v6f68AqCiKm644Xm+iVpVhdos
+	 XhDXyUSYIsxRYUDdy+Fgq3OnllvKWuNSZoqmkPnpzXaYMMm91zwCiy/xUXRM6/s2INg4m
+	 xuWnk5K15/GMtod1uVlqhYc4SdYk9b/AdoHbttte9sivP94enJg3Gfg46B+E63OrhLzB2
+	 TMDpo+LSSbY2ViwKwQnm0y9E/vsBL5BYK7T2y1vPPdJ9iCM9A/88j0VEuUMlSYMI1UHKq
+	 UsEUteAI+aZ2htS1EXv6NWwRUVo7zWlu2RYA292tX560ymFqLjH0s9eugvunKZYSPJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZylZybYp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYuptatW;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2691A606A31D;
-	Wed, 28 Oct 2026 01:13:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3562A606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 01:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3562A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZylZybYp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9EC01F01825;
-	Wed, 28 Oct 2026 01:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793150009;
-	bh=sFo8TCnrO7TJ2lKbVEd0YQroZ7AW4x/RtCUnc2uNLcA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZylZybYppaKvUBpFJWOx+h9hZDGGvXJ9HVhSeXCSLP+IHvoMBN6mH3SXRdZLYkfz2
-	 26vNjAvJvyyHa+piM1NwTPBdg8ISXDXUlwfvazgpGPGg7xenIvP+runEoDL170tAe9
-	 1dPXPCCGmG3oY/0zPR/jRPn2tC7pDdfVj70aVGLRCcZa5fWGtf/wcmU68tFklqc/e/
-	 S+GYZGyOaZqZdR1+rzeWdzR4CumCFj4pzfPaWbtbsokQzWB3pJp+HW8tDc8z3h1l3M
-	 0EQDp0lSP7fxpNWTV7vvJJ1tgQHR5JxcQeu0R+Nrl92b5BHq93Itv0hdodxKd5Zgvf
-	 p2ZhYvCenDYZg==
-Date: Tue, 27 Oct 2026 18:13:27 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-ext4@vger.kernel.org, stable@vger.kernel.org,
-	Zhihao Cheng <chengzhihao1@huawei.com>, Jan Kara <jack@suse.cz>,
-	Yao Kai <yaokai34@huawei.com>, Zhang Yi <yi.zhang@huawei.com>,
-	Theodore Ts'o <tytso@mit.edu>
-Subject: Re: [PATCH 6.12] ext4: validate readdir offset before accessing
- dirent
-Message-ID: <20261028011327.GA1893@quark>
-References: <20261028003746.31943-1-ebiggers@kernel.org>
- <sashiko-outbox-187298@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYuptatW
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso245323b3a.3
+        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 18:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793150405; x=1793755205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aLduANwv1S0zzwppHfmO8Zkbjseh7UvsZ5j1k5QDDg4=;
+        b=cYuptatWk3AIwuv9NVY3j83Ne4A61NfgI8j3FYTY6xXx/cFjxGfsLVtWCjrLpzKhWp
+         25pnxHwRFPtQANPLPSGH6YnFdmPfUI1ByFIlZWoMnzHMztZ/lVvNe2lFch8ihM/BdsN6
+         FNlOmF2TkRk+aBvX4uxxQfIaYJXgRnzmG2F5ajawitg5FWu9W7dR7yTKR7GC+WqhGEZT
+         ETGOsO4n+ZVDpYbADgdtN5+dXKuTPl6KIeqfT6ijS9xdocn4JqhBpSZVnQixv+DE98XD
+         ARMp0gSsgVtXbopws1pGy8qq5vbCPhsXYbXHbbAywwhPtySTAYQULmVzvZ3pHY3rdMA8
+         oJ4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793150405; x=1793755205;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aLduANwv1S0zzwppHfmO8Zkbjseh7UvsZ5j1k5QDDg4=;
+        b=Zt6mOncChWDMOKeCEye90gfpLDuS8SJf6AR2gPlT819ygHjW+mANeKXQ91A8/c5Ywn
+         pX+wN3Koyz8Hau1DIAxKrekRqbY/RBa66nPjkFo6Q0t3hMZWx0/SMg0VAGkU5jNaHpAL
+         WwVu60gFRRIpdVNf2PMiq7eu8XJO14wxpriGfZWpSe/iSxVng7CY8hj4hxmH7X33vpSN
+         q6ZaFbh4YFflBVJy758sqxOv5XRye34FCPN8kGE5EWHU64VAsS1G5916wB4DbLpImdyI
+         Gfh9p/yFMHMppgxcBG2MSUf1dRtBYIUgdLm5vMCaT33Fwa/TRdx4zqEr7cemikSvwiXs
+         uVbQ==
+X-Gm-Message-State: AFq9FYKC7CBN3PgXKBkJf4GbozQD2TnTPONhFQNBaDqlQT7FbBarIExg
+	+zWQDREhlpx331TPlcbEdTlzMVQ6/TII1wxMYoH4hxXGqCw5GsmKQDL8
+X-Gm-Gg: AYBFou2Dgc0rcKy6eaSzcGHq4GysYatAOO1MoKJ6TQJVFJFwk/LSmic5VFlzu4e048t
+	49Zr6FQ72x6MGFpJ9ySxwtIfoWbhl6f0k6zG1p1jY+jtdkfC/NpKzJxbxw2dHWGVLsMKz2570UO
+	xjhqlQwLPH6kARA+xZaOFXlpj0WaULGCVM0KFK3Q8e3jwD4NdSt99O+rKsZg267Lf5NLTyVoYcn
+	yV5tzZzfsrnmJYpsUH5V7If2k1KaIIAc0GOYY742S0XM/OmeFv9qqsaq4YelG2+xZgNGTkwYI5z
+	oeODnkWJXDwDmqU3cJrcBCeAEq2gfwkO0JJhG/BZje6AL/AHaWkxraoKta509x4Y6tnU8hQbP3p
+	WY5pysT2m0KPhNih/v3MuxIvHk+nVlY7dukIEwmnKzJ06AsL+t93vww6OMuqcDIM8bAAiXQYUA+
+	5pFHS09CqGnatCa6WTgSsydonVFsnXaZHx3TzRreEc2CtiJ67gjD0uCxRvPIyOXgUIa2CLGB0HF
+	nhYEN492w8xyLGSh5I+zaVh5ZTm8vpeHBXIe5s0eTPzB0z1GJncF1kuVr1p8CXFRPvvM+CG1idf
+	BXHjkaSEKxKwTRnsGuEPZa3CJswHDuK+Do1XfLB7Pkn/fgWaJg==
+X-Received: by 2002:a05:6300:49c:b0:3dd:a197:735a with SMTP id adf61e73a8af0-3e902392eddmr613544637.51.1793150405474;
+        Tue, 27 Oct 2026 18:20:05 -0700 (PDT)
+Received: from localhost ([182.216.53.174])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc8f97esm3272997a12.19.2026.10.27.18.20.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 18:20:04 -0700 (PDT)
+From: Jaewon Jung <jaewon8868@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v2] selftests/ftrace: Add missing spaces after ! in probe syntax tests
+Date: Wed, 28 Oct 2026 10:18:49 +0900
+Message-ID: <20261028011923.2050009-1-jaewon8868@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025075044.1750113-1-jaewon8868@gmail.com>
+References: <20261025075044.1750113-1-jaewon8868@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,25 +101,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-187298@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-[+Cc recipients that Sashiko dropped]
+Add the missing space between ! and grep. Otherwise, the shell tries
+to run !grep and reports "!grep: not found". This always skips the
+conditional checks without checking for kernel return probe argument
+support.
 
-Should the Sashiko configuration for linux-ext4 be updated to enable
-reply-all?  That would be my preference, and various other lists already
-use that setting.
+Fixes: 25f00e40ce79 ("tracing/probes: Support $argN in return probe (kprobe and fprobe)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+Changes in v2:
+- Add Fixes, Cc stable and Acked-by tags as suggested by Masami.
 
-On Wed, Oct 28, 2026 at 01:02:25AM +0000, sashiko-bot@kernel.org wrote:
-> [Severity: Medium]
-> What happens in ext4_readdir() if a corrupted de->rec_len in the rescan loop
-> advances i past sb->s_blocksize?
-> 
-> In fs/ext4/dir.c:ext4_readdir(), when !inode_eq_iversion(inode, info->cookie)
-> triggers a rescan (for instance after ext4_dir_llseek()), the loop only checks
-> the lower bound of de->rec_len before adding it to i and updating ctx->pos:
+ .../selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc  | 4 ++--
+ .../selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc    | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Sounds like this fix was incomplete but the backport is still safe.
+diff --git a/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc b/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc
+index 384209968325..70751573e8de 100644
+--- a/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc
++++ b/tools/testing/selftests/ftrace/test.d/dynevent/fprobe_syntax_errors.tc
+@@ -33,7 +33,7 @@ check_error 'f vfs_read ^$stack10000'	# BAD_STACK_NUM
+ 
+ check_error 'f vfs_read ^$arg10000'	# BAD_ARG_NUM
+ 
+-if !grep -q 'kernel return probes support:' README; then
++if ! grep -q 'kernel return probes support:' README; then
+ check_error 'f vfs_read $retval ^$arg1' # BAD_VAR
+ fi
+ check_error 'f vfs_read ^$none_var'	# BAD_VAR
+@@ -100,7 +100,7 @@ if grep -q "<argname>" README; then
+ check_error 'f vfs_read args=^$arg*'		# BAD_VAR_ARGS
+ check_error 'f vfs_read +0(^$arg*)'		# BAD_VAR_ARGS
+ check_error 'f vfs_read $arg* ^$arg*'		# DOUBLE_ARGS
+-if !grep -q 'kernel return probes support:' README; then
++if ! grep -q 'kernel return probes support:' README; then
+ check_error 'f vfs_read%return ^$arg*'		# NOFENTRY_ARGS
+ fi
+ check_error 'f vfs_read ^hoge'			# NO_BTFARG
+diff --git a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc
+index b0e6b80ccb01..06efa67e01ff 100644
+--- a/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc
++++ b/tools/testing/selftests/ftrace/test.d/kprobe/kprobe_syntax_errors.tc
+@@ -108,7 +108,7 @@ if grep -q "<argname>" README; then
+ check_error 'p vfs_read args=^$arg*'		# BAD_VAR_ARGS
+ check_error 'p vfs_read +0(^$arg*)'		# BAD_VAR_ARGS
+ check_error 'p vfs_read $arg* ^$arg*'		# DOUBLE_ARGS
+-if !grep -q 'kernel return probes support:' README; then
++if ! grep -q 'kernel return probes support:' README; then
+ check_error 'r vfs_read ^$arg*'			# NOFENTRY_ARGS
+ fi
+ check_error 'p vfs_read+20 ^$arg*'		# NOFENTRY_ARGS
+-- 
+2.43.0
 
-- Eric
