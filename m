@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793208985;
-	b=UPG8dWf9twCRzQeIhxjXmo7FAdMneGxkpDauKm2kI7XJ5VgO4TcQTKgFt6W6bIwqOcrv
-	 FSVW19Ve3ypLctOXKupvGW/bCKRxwQpkDVdLGfHPgv9am5adq5ZbEUlb64TFVVzhTtSqE
-	 HpZuKlolefdB7tAeaIWcerOZ7MqADVZlgYEDCqfTByvdSmna31LVscJHBHiHgrqGNlhpg
-	 1q7lYKU2rAhl7prm/KYfAg1RZcwIi1xKoUjiX1hCaXkqKdLxDlu63GpRIoJERJ5mxG8ep
-	 lP9Xcjrb9Gigs0JahPRUy2EgvaVS0eipsUXumTA9IRYfr/zpHvRJP26RQvurlapYPAQ==
+	t=1793208991;
+	b=bffadO5ih+bzXsaQ+n3qZ01IP3CxWxK9OjMSoak2sbK5ZhJAhJEujLx5SVS0ZnVBXmKH
+	 jPItioyZiUMvwE3Ix4mkjgv7L1EFdl0Deck+KlhS2AMzmilTh9xV7Dq5kzirYu9atzVM/
+	 GIxiwiSV/rkC3TWiwtvWaAD+JsOFzjmkPXFPBCdeBeQxGVfAmNX35Dc26By1sJYYq5pwd
+	 wEUK7Nz9iY/kIQhcZvF9cZvOhVyGa5lTXAH0UApM0u0UV4n7jG3PF+AQdbjP7Z1kRXPrP
+	 vWu7iSXsJIMSrqPpobqXhl3z4K6XVMip3cFZIlKhPzpMOu6EyVkVCu+nKbqSGVJYjHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793208985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793208991;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oM8Hc2qNoXE1v27Zi7mZ1/ykBrHpAr6rLgOFeb0A5n8=;
-	b=quj6hz0ZOz1UL6TPgLzIjWaTYjXVmNOL7gypkpda69Ljp0SpXsD2g2LhDD+4V9CVXy7K
-	 tNE/EpiDjjtJuJHtR//jPYDmmuH2Vn3BCZie7GQ7UjUV4IApK6y/OgJxAFRAeCOyt2FEp
-	 Abmaq9MIejH316OUso91M6miCf2wQ6y9mgZogettetnBfwMnU9ilb+DSMNXelKlJoFHRs
-	 47prxysIpf3t8t7Iw19TsllESDssZ3IeyaXptD9eSWIpyQE4aPILXZ+PF2ehe/wwcCci1
-	 ZuP6JpTL+2szBvZC7M93u3mySwGuKKo5/PyZTd+K68TEV3mgobMchb+Mlq78OsFpjZQ==
+	bh=zpS5V9Z6PUzcKVRgow9O1zLY3ki7Acp9ef7ItMmaER0=;
+	b=K8R38Vtdb/Yyka4RKTev2FRulOiESsKXUPFmWWDb9wRK+0FExFeVirmuQWcrcESZeIzd
+	 /HbYnDLjKHgvGFzdoDGUBqHyW14qa77VdsrtKLBtFSuFqCv+0P6Ia8BXvNng6TLbnKVpU
+	 VfwhhjjKnW/oFrbUIUjCevo/9/F8SgxpbEK/yZYJT7PoTYXxvY4jwtK29k880NpSxnPIU
+	 p8uu2srhtjNq4UjKa5RvLPyAN4hz61rEZsSUz4mC0y9hy/A3pFuBWjjDAQHk7c2T8aHq0
+	 t//uvxI2fYM8VySmfkh59FGSQSqJke3Sdk53u55mVbQKxtsGyH+OwqBJDECPuzBzn7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fzvQeApo;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RybssuC1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A64606A31A;
-	Wed, 28 Oct 2026 17:36:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3399E606A31E;
+	Wed, 28 Oct 2026 17:36:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fzvQeApo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39CD1F01828;
-	Wed, 28 Oct 2026 17:36:24 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RybssuC1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823941F01825;
+	Wed, 28 Oct 2026 17:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793208985;
-	bh=oM8Hc2qNoXE1v27Zi7mZ1/ykBrHpAr6rLgOFeb0A5n8=;
+	s=korg; t=1793208991;
+	bh=zpS5V9Z6PUzcKVRgow9O1zLY3ki7Acp9ef7ItMmaER0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fzvQeApoyyfqGqfAq0UNopof+c8IorlChU9S7PQNrRHeiDznCTIic+YsHKpZQOkU6
-	 ktbOK2ahm0DNktl53p3s6E5c1L5xyGjAOUlkNaLRvtnQK+iRzhQA0lV5tEmivGG1Oy
-	 TEr+boFm1MFGakoWoV9d2YiRQDCH3Kv0TDhAouko=
+	b=RybssuC17Ad163DP0RkQYkEHKx9uc7KYIGUHQUBfWxVUkRUVCpF3PKUGNk65Rs6Ry
+	 Rfy/ThKm4oi+Wsw5Mw/zwu5d4TY6VRqZpct7onRjuBlSNAKmvyCipykoB8O7vUri5e
+	 9Ph1OeklFw/7ajuVlMxv6ryUwZP7x5hDOK8BCzDg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Cong Nguyen <congnt264@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Carlos Llamas <cmllamas@google.com>,
+	Lee Jones <lee@kernel.org>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 311/516] iio: adc: max1363: sign-extend bipolar differential channel reads
-Date: Wed, 28 Oct 2026 17:57:43 +0100
-Message-ID: <20261028170010.857229986@linuxfoundation.org>
+Subject: [PATCH 5.10 313/516] HID: uhid: convert to hid_safe_input_report()
+Date: Wed, 28 Oct 2026 17:57:45 +0100
+Message-ID: <20261028170010.904856747@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -69,48 +69,68 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Cong Nguyen <congnt264@gmail.com>
+From: Carlos Llamas <cmllamas@google.com>
 
-[ Upstream commit 91908c0a78baddc8572aa3ab69e62ee2eb496ba4 ]
+[ Upstream commit 63a694c51bf120a37550890b8e7736b4888985e9 ]
 
-MAX1363 differential channels are bipolar, but max1363_read_single_chan()
-masks the raw value to the ADC resolution without sign-extending it.
-Negative differential readings are therefore reported to userspace as
-large positive values (e.g. -1 as 4095 on a 12-bit part).
+Commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
+bogus memset()"), added a check in hid_report_raw_event() to reject
+reports if the received data size is smaller than expected. This was
+intended to prevent OOB errors by no longer allowing zeroing-out of
+shorter reports due to the lack of buffer size information.
 
-Sign-extend the masked value from the resolution bit for differential
-channels. Single-ended channels are unipolar and are left unchanged.
+However, this leads to regressions in hid_report_raw_event(), where
+shorter than expected reports are rejected, even though their buffers
+are sufficiently large to be zero-padded.
 
-Fixes: d1325cf45077 ("Staging: IIO: max1363 ADC driver")
+To solve this issue, Benjamin introduced a safer alternative in commit
+206342541fc8 ("HID: core: introduce hid_safe_input_report()"), which
+forwards the buffer size and allows hid_report_raw_event() to safely
+zero-pad the data.
+
+Convert uhid to use hid_safe_input_report() and pass UHID_DATA_MAX as
+the buffer size. This prevents the reported regressions [1], allowing
+hid core to zero-pad the shorter reports safely as expected.
+
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
+Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/ [1]
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Reviewed-by: Lee Jones <lee@kernel.org>
+Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Lee Jones <lee@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/max1363.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/hid/uhid.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/adc/max1363.c b/drivers/iio/adc/max1363.c
-index 29c1824162cd0..c427fdf93dcbd 100644
---- a/drivers/iio/adc/max1363.c
-+++ b/drivers/iio/adc/max1363.c
-@@ -409,6 +409,14 @@ static int max1363_read_single_chan(struct iio_dev *indio_dev,
- 		}
- 		data = rxbuf[0];
- 	}
-+
-+	/*
-+	 * Differential channels are bipolar and the device returns the sample
-+	 * in two's complement, so sign-extend it from the resolution bit.
-+	 */
-+	if (chan->differential)
-+		data = sign_extend32(data, st->chip_info->bits - 1);
-+
- 	*val = data;
+diff --git a/drivers/hid/uhid.c b/drivers/hid/uhid.c
+index ba0ca652b9dab..30d533ada00b3 100644
+--- a/drivers/hid/uhid.c
++++ b/drivers/hid/uhid.c
+@@ -597,8 +597,8 @@ static int uhid_dev_input(struct uhid_device *uhid, struct uhid_event *ev)
+ 	if (!uhid->running)
+ 		return -EINVAL;
  
- error_ret:
+-	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data,
+-			 min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
++	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data, UHID_DATA_MAX,
++			      min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
+ 
+ 	return 0;
+ }
+@@ -608,8 +608,8 @@ static int uhid_dev_input2(struct uhid_device *uhid, struct uhid_event *ev)
+ 	if (!uhid->running)
+ 		return -EINVAL;
+ 
+-	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data,
+-			 min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
++	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data, UHID_DATA_MAX,
++			      min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
