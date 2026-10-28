@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215333;
-	b=mjL+1hA5K2YWoHhTbxIS7+dCZV7FMvnlzGzlhTq9JGclOK+ItRNCrvAxo689unOsLhaA
-	 TAeXHY2sS7lKoFX2TOFxmrA8VzJlhkMT/SzPgF6MBXOdPf09tQuca0WyeQnxwQq4hNnga
-	 2PG3zsePJHexlqdWX2aLKfo/dBi6A+6MFVtvtRg9Mm1Y09UZCw6vXS4qV8SXD+7YyQYbN
-	 2MW09k6qZNuaHCWL/tenMa4YvIBwf1XSAg+MFTWU1hgXtrPFUafGo8RfJ2GkRTx0nSlVc
-	 QGEgZnWjpMq9sTbo66rqS3JT+DyxLrFz2K1SX97erVq8Jo8GBqC8xhn66nrY2l1YG+Q==
+	t=1793215335;
+	b=CkRHrCwZ0Z/Cf5ni+ppp4azg19EgoZT0X3ipwqQVPV63Hj1oXjEKsc2b1CD//jPiq3vd
+	 QCc70meB5pVi6SjLl0NTtkq8gD1IQkKhGGV10beSUhGphZqhuHIhzjoPjr2PX7NzLvQ2J
+	 IDZ/lMWQ0aZcPb3jKh50gSFMrSgSk7Z/KFte4YRZsEOoT4xkft+KipAgl/thdhNoPoyhO
+	 U7Xnwv+NKybHLjaGO4/wuN0A5HgjVfxFoXy0gujVPrkepHjLWtXbuF+pKE4QcY8fXTHS8
+	 LJ52kIZOqCTsApQVGjjm7NpK7/rTXd35Xe0sCs7BD7NlzSVUzbCd2v3GtUB5ua4/dow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215335;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BpbmvjQI37CYNQaGvbvGY4lb0P7e3Pa5vD+hddDaKqw=;
-	b=kP71rtBCybIZUWvphu9HSA0iopKmUna7h1RtD7xxTDNRuhJP+BcQnxabT+0sYs80DWrl
-	 6oIOZyK07bUUtGAJllMnlUB5onix5B9foCZxLUxOtU6xGyywTNcQ/VDUWH6nINY8Jh8Sg
-	 yFl8Hr6HR9GzZOMMbYAZ7JneDN7JE3QnvtT/re/wXdaanGXaCmj5b394x7SuKNDAQxBDb
-	 kUG9egF8y/fG4Ug6OtykXwcTdspNj7AO0mPkYo0pN0ZPGE9pLHx7MTOVbgDNzTTC06+GG
-	 wGAWjnVD0C1x4AXta52WzqMx8XKsHUCXZyPNwsevPyPETaVpfymCvxjggAy3EX6jYMQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=kvBmzT7eapWWXIcMTnWD3Mp8l6EQHjLokm0qR6kqJxE=;
+	b=P/SWgol4yDnFXwdc+oY/j2HXhEnXWyIz2VLYZzw096iAQPKHXaYenEN5f7CBRVq4A6LV
+	 dzyrcAUON9S2HFS354FckSeTzm6YrkkP6YQyu/NisIk2g1p0w7GelCyhxoaDBQf/JxVNA
+	 LeLxtu0Q3toMqvG4EdNr6EbVcSm9MZw6X/131iv2mkldEa7BugsnERFU53htWkJ8UPTyL
+	 H+cuP1LyI0pimtO/+UhB689LXZ1U60jVaZYfptuhjdbQxfpaVsyk4B4WVTzmb0qMOm0bs
+	 Gx5z2w2rrgsMQvdgvQSyNPoLLQ/L56zTTWpbUEfIpMTMMg+I0il+LVgZ4qMkuWRt6ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l3BpZRJ8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0iZSSQ2O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3213606A31D;
-	Wed, 28 Oct 2026 19:22:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0BF606A31A;
+	Wed, 28 Oct 2026 19:22:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l3BpZRJ8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1151F01825;
-	Wed, 28 Oct 2026 19:22:11 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0iZSSQ2O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866911F01825;
+	Wed, 28 Oct 2026 19:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793215332;
-	bh=BpbmvjQI37CYNQaGvbvGY4lb0P7e3Pa5vD+hddDaKqw=;
+	s=korg; t=1793215335;
+	bh=kvBmzT7eapWWXIcMTnWD3Mp8l6EQHjLokm0qR6kqJxE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l3BpZRJ8Lxq6W+G8lHvP1BMuT2XXUm35XFF2k1Yjr2iz8t1heIhmbcmNNOxThJx3o
-	 a8Y3RyMIyFXbzJSP6+dS3kQUknaJEOFhLQMStrWPrN0KCwaJr3noJnAF+W7zZ2BrLx
-	 WGGU17rE4cMcSHoDRM3LFrRogAHImrGotamsA7ws=
+	b=0iZSSQ2OUPTlbDekaML7lla4wB4gOdJG7SXqAEBnhYbCr59KxhcJ6pwLao2tcyEBE
+	 MHWZ++H7zWPC5d8qwzksWOLaqt1MlBOseQrH+wxo3Tqz6d5RfTXWBV1UlpFDOIJ4z9
+	 dhxZHnEeAry0z1vKZxYkHGIwaK1msfgKRlOzXJj0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Tristan Madani <tristan@talencesecurity.com>,
-	Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1137/1887] netfilter: ebtables: move to two-stage removal scheme
-Date: Wed, 28 Oct 2026 17:53:53 +0100
-Message-ID: <20261028170525.278757991@linuxfoundation.org>
+	Martin Hodo <martin.hodo@intel.com>,
+	Animesh Manna <animesh.manna@intel.com>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@intel.com>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>,
+	=?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
+Subject: [PATCH 6.1 1173/1887] drm/i915/bios: range check LFP Data Block panel_type2
+Date: Wed, 28 Oct 2026 17:54:29 +0100
+Message-ID: <20261028170526.099385449@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -63,201 +67,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Florian Westphal <fw@strlen.de>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit b7f0544d86d439cb946515d2ef6a0a75e8626710 ]
+[ Upstream commit 2084503f2d087bf956198e7f6eb25b03a7049cb2 ]
 
-Like previous patches for x_tables, follow same pattern in ebtables.
-We can't reuse xt helpers: ebt_table struct layout is incompatible.
+While the panel_type from LFP Data Block is range checked, panel_type2
+is not. Add a few helpers for range checking, and use them to not only
+check panel_type2, but also improve clarity and correctness in the panel
+type selection.
 
-table->ops assignment is now done while still holding the ebt mutex
-to make sure we never expose partially-filled table struct.
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
-Fixes: 87663c39f898 ("netfilter: ebtables: do not hook tables by default")
-Reviewed-by: Tristan Madani <tristan@talencesecurity.com>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+v2:
+- Fix commit message typo (Michał)
+- Add is_panel_type_pnp() (Ville)
+
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
+Cc: stable@vger.kernel.org # v6.0+
+Cc: Animesh Manna <animesh.manna@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@intel.com>
+Reviewed-by: Michał Grzelak <michal.grzelak@intel.com> # v1
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patch.msgid.link/20260626140155.1389655-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+(cherry picked from commit c9ebe5d2f25729d6cfbbb1235d640bf67f9275df)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bridge/netfilter/ebtable_broute.c |  2 +-
- net/bridge/netfilter/ebtable_filter.c |  2 +-
- net/bridge/netfilter/ebtable_nat.c    |  2 +-
- net/bridge/netfilter/ebtables.c       | 60 +++++++++++++++++----------
- 4 files changed, 40 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 36 ++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 8 deletions(-)
 
-diff --git a/net/bridge/netfilter/ebtable_broute.c b/net/bridge/netfilter/ebtable_broute.c
-index 8f19253024b0a..33d8640d21ac1 100644
---- a/net/bridge/netfilter/ebtable_broute.c
-+++ b/net/bridge/netfilter/ebtable_broute.c
-@@ -128,8 +128,8 @@ static int __init ebtable_broute_init(void)
- 
- static void __exit ebtable_broute_fini(void)
- {
--	unregister_pernet_subsys(&broute_net_ops);
- 	ebt_unregister_template(&broute_table);
-+	unregister_pernet_subsys(&broute_net_ops);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index efbb0cffd3bc9..3ccbe6026946e 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -618,6 +618,21 @@ static void dump_pnp_id(struct drm_i915_private *i915,
+ 		    pnp_id->mfg_week, pnp_id->mfg_year + 1990);
  }
  
- module_init(ebtable_broute_init);
-diff --git a/net/bridge/netfilter/ebtable_filter.c b/net/bridge/netfilter/ebtable_filter.c
-index 278f324e67524..fdb988c24916a 100644
---- a/net/bridge/netfilter/ebtable_filter.c
-+++ b/net/bridge/netfilter/ebtable_filter.c
-@@ -109,8 +109,8 @@ static int __init ebtable_filter_init(void)
- 
- static void __exit ebtable_filter_fini(void)
- {
--	unregister_pernet_subsys(&frame_filter_net_ops);
- 	ebt_unregister_template(&frame_filter);
-+	unregister_pernet_subsys(&frame_filter_net_ops);
- }
- 
- module_init(ebtable_filter_init);
-diff --git a/net/bridge/netfilter/ebtable_nat.c b/net/bridge/netfilter/ebtable_nat.c
-index 9066f7f376d57..8b981b2041b5d 100644
---- a/net/bridge/netfilter/ebtable_nat.c
-+++ b/net/bridge/netfilter/ebtable_nat.c
-@@ -109,8 +109,8 @@ static int __init ebtable_nat_init(void)
- 
- static void __exit ebtable_nat_fini(void)
- {
--	unregister_pernet_subsys(&frame_nat_net_ops);
- 	ebt_unregister_template(&frame_nat);
-+	unregister_pernet_subsys(&frame_nat_net_ops);
- }
- 
- module_init(ebtable_nat_init);
-diff --git a/net/bridge/netfilter/ebtables.c b/net/bridge/netfilter/ebtables.c
-index ca6f0b7710823..b1846d5c879a5 100644
---- a/net/bridge/netfilter/ebtables.c
-+++ b/net/bridge/netfilter/ebtables.c
-@@ -42,6 +42,7 @@
- 
- struct ebt_pernet {
- 	struct list_head tables;
-+	struct list_head dead_tables;
- };
- 
- struct ebt_template {
-@@ -1164,11 +1165,6 @@ static int do_replace(struct net *net, sockptr_t arg, unsigned int len)
- 
- static void __ebt_unregister_table(struct net *net, struct ebt_table *table)
- {
--	mutex_lock(&ebt_mutex);
--	list_del(&table->list);
--	mutex_unlock(&ebt_mutex);
--	audit_log_nfcfg(table->name, AF_BRIDGE, table->private->nentries,
--			AUDIT_XT_OP_UNREGISTER, GFP_KERNEL);
- 	EBT_ENTRY_ITERATE(table->private->entries, table->private->entries_size,
- 			  ebt_cleanup_entry, net, NULL);
- 	if (table->private->nentries)
-@@ -1269,13 +1265,15 @@ int ebt_register_table(struct net *net, const struct ebt_table *input_table,
- 	for (i = 0; i < num_ops; i++)
- 		ops[i].priv = table;
- 
--	list_add(&table->list, &ebt_net->tables);
--	mutex_unlock(&ebt_mutex);
--
- 	table->ops = ops;
- 	ret = nf_register_net_hooks(net, ops, num_ops);
--	if (ret)
-+	if (ret) {
-+		synchronize_rcu();
- 		__ebt_unregister_table(net, table);
-+	} else {
-+		list_add(&table->list, &ebt_net->tables);
-+	}
-+	mutex_unlock(&ebt_mutex);
- 
- 	audit_log_nfcfg(repl->name, AF_BRIDGE, repl->nentries,
- 			AUDIT_XT_OP_REGISTER, GFP_KERNEL);
-@@ -1341,7 +1339,7 @@ void ebt_unregister_template(const struct ebt_table *t)
- }
- EXPORT_SYMBOL(ebt_unregister_template);
- 
--static struct ebt_table *__ebt_find_table(struct net *net, const char *name)
-+void ebt_unregister_table_pre_exit(struct net *net, const char *name)
- {
- 	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
- 	struct ebt_table *t;
-@@ -1350,30 +1348,36 @@ static struct ebt_table *__ebt_find_table(struct net *net, const char *name)
- 
- 	list_for_each_entry(t, &ebt_net->tables, list) {
- 		if (strcmp(t->name, name) == 0) {
-+			list_move(&t->list, &ebt_net->dead_tables);
- 			mutex_unlock(&ebt_mutex);
--			return t;
-+			nf_unregister_net_hooks(net, t->ops, hweight32(t->valid_hooks));
-+			return;
- 		}
- 	}
- 
- 	mutex_unlock(&ebt_mutex);
--	return NULL;
--}
--
--void ebt_unregister_table_pre_exit(struct net *net, const char *name)
--{
--	struct ebt_table *table = __ebt_find_table(net, name);
--
--	if (table)
--		nf_unregister_net_hooks(net, table->ops, hweight32(table->valid_hooks));
- }
- EXPORT_SYMBOL(ebt_unregister_table_pre_exit);
- 
- void ebt_unregister_table(struct net *net, const char *name)
- {
--	struct ebt_table *table = __ebt_find_table(net, name);
-+	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
-+	struct ebt_table *t;
- 
--	if (table)
--		__ebt_unregister_table(net, table);
-+	mutex_lock(&ebt_mutex);
-+
-+	list_for_each_entry(t, &ebt_net->dead_tables, list) {
-+		if (strcmp(t->name, name) == 0) {
-+			list_del(&t->list);
-+			audit_log_nfcfg(t->name, AF_BRIDGE, t->private->nentries,
-+					AUDIT_XT_OP_UNREGISTER, GFP_KERNEL);
-+			__ebt_unregister_table(net, t);
-+			mutex_unlock(&ebt_mutex);
-+			return;
-+		}
-+	}
-+
-+	mutex_unlock(&ebt_mutex);
- }
- 
- /* userspace just supplied us with counters */
-@@ -2594,11 +2598,21 @@ static int __net_init ebt_pernet_init(struct net *net)
- 	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
- 
- 	INIT_LIST_HEAD(&ebt_net->tables);
-+	INIT_LIST_HEAD(&ebt_net->dead_tables);
- 	return 0;
- }
- 
-+static void __net_exit ebt_pernet_exit(struct net *net)
++static bool is_panel_type_valid(int panel_type)
 +{
-+	struct ebt_pernet *ebt_net = net_generic(net, ebt_pernet_id);
-+
-+	WARN_ON_ONCE(!list_empty(&ebt_net->tables));
-+	WARN_ON_ONCE(!list_empty(&ebt_net->dead_tables));
++	return panel_type >= 0 && panel_type < 16;
 +}
 +
- static struct pernet_operations ebt_net_ops = {
- 	.init = ebt_pernet_init,
-+	.exit = ebt_pernet_exit,
- 	.id   = &ebt_pernet_id,
- 	.size = sizeof(struct ebt_pernet),
- };
++static bool is_panel_type_pnp(int panel_type)
++{
++	return panel_type == 0xff;
++}
++
++static bool is_panel_type_valid_or_pnp(int panel_type)
++{
++	return is_panel_type_valid(panel_type) || is_panel_type_pnp(panel_type);
++}
++
+ static int opregion_get_panel_type(struct drm_i915_private *i915,
+ 				   const struct intel_bios_encoder_data *devdata,
+ 				   const struct edid *edid, bool use_fallback)
+@@ -635,15 +650,21 @@ static int vbt_get_panel_type(struct drm_i915_private *i915,
+ 	if (!lvds_options)
+ 		return -1;
+ 
+-	if (lvds_options->panel_type > 0xf &&
+-	    lvds_options->panel_type != 0xff) {
++	if (!is_panel_type_valid_or_pnp(lvds_options->panel_type)) {
+ 		drm_dbg_kms(&i915->drm, "Invalid VBT panel type 0x%x\n",
+ 			    lvds_options->panel_type);
+ 		return -1;
+ 	}
+ 
+-	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
++	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
++		if (!is_panel_type_valid_or_pnp(lvds_options->panel_type2)) {
++			drm_dbg_kms(&i915->drm, "Invalid VBT panel type 2 0x%x\n",
++				    lvds_options->panel_type2);
++			return -1;
++		}
++
+ 		return lvds_options->panel_type2;
++	}
+ 
+ 	drm_WARN_ON(&i915->drm, devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
+ 
+@@ -755,13 +776,12 @@ static int get_panel_type(struct drm_i915_private *i915,
+ 				    panel_types[i].name, panel_types[i].panel_type);
+ 	}
+ 
+-	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
++	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
+ 		i = PANEL_TYPE_OPREGION;
+-	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
+-		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
++	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
++		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
+ 		i = PANEL_TYPE_PNPID;
+-	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
+-		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
++	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
+ 		i = PANEL_TYPE_VBT;
+ 	else
+ 		i = PANEL_TYPE_FALLBACK;
 -- 
 2.53.0
 
