@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793161534;
-	b=AFsQBailSMnkrzk0hQgveSuV7/8PUBGqNy3jht9n3PNipH+9cRl8B5z0wFt+MxYbX2LQ
-	 MIbhUutJbKgnaNt5vw4hk0blyXuRVdG1fRVcprVPzbglEWgivQXvPpBoLw16F+01AJDQz
-	 exEY70b7CT8fkx0ErZ7OKzqztks57hgUleU6rZM98Rkce5PhuUs4lEqYn2X+w4PUGoGrh
-	 RjJHeHs7ltj9RbWTDFlyOUMir0t9F3wTWE5SLOVDir/Ar0RMlQjAX7Yim97ydXk104sRb
-	 nLe9rMWRuudaFCj4OEyedDVPgmpflYxKaXImhP85YTCTtLBTQy/WyaLLs31eCEAgUDQ==
+	t=1793161564;
+	b=aPmTGMI0/LlB3aROaAn2ZySh4M7A6VdDj1vQmPLP9I8JxWjkGtqiQjhFcEF1NLipft1F
+	 gml3haWcQjWTUQdDmfdSckcYxnzKkL/48HqJNHEnOk/kjHRlUWSnwjvQPpU0gKl8YDq52
+	 7t2FeJEMx1A78eSZWEkPt4RUb7DaIF3WThE/kor4+BqjXIs4LmfcRf23EMLBUmu+X9kCi
+	 yA9O1FSJc43M3C0hP+0pG0yAQ9I3+bKTobrKj2Ed76OwxutnkUbq5B4ZZDbO6e1FAp0/O
+	 cFW2ZbUWd2OcZhVA6DXsR2VaRhg+/zKdwNE0Tx7qh6KpsqCpUW78Vm+MpdZdhs1Zv6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793161534;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=EHNhuc96HLFzFHehXSSUJIzpWm6INtH/7YymMk0hd+I=;
-	b=y3we6craIUHuGIxTNaiU2uDdc3zl+eYASfNKTPJ8KlQGLp5mZWEPYgZenEzk5TBbpDyV
-	 p+fJtkRodcuDvhULIIYoegQxGCXamRbHhvsqtTJ3EoYmNLIvIpqG2LR/myIsiQYw4nMj+
-	 aKtaP67S7JteD8s6t/H1rltnZglHl/aa5fYOLdAnVydIda/ovtX8g2KGUiszM0VAiOdeo
-	 fKXj4koQzp34xV7GSWWx9GS/Cg2cRz2SNvPqmVz35uAKZa8s7Sa61Wc+byCWM+8NxQ2F4
-	 WL5MF/rhFyycNlsma2C+jtFW6uByhnFtjkWCKBBL4LrnVXWd3VKuIWFZYXxFNnG7zrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793161564;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+tA0EsUf22weBiJ+LMGUgfYrWb2VIx2xFegNiivuIJ8=;
+	b=ey1uinNKy9utjXA4ncuiIimSzFEsyemftW2eQj7nEe2Kx+0s3O3M5DLf4aqyoMqV1FiL
+	 1iROyLVHxFoxsJoQuiC69tOuxRRoAKiTT519oCFIKq4pEuZx1JZKB1lQLKFYL/8C2D35Q
+	 4XoM18q78tyff5kfj1ZK7Ea/AYkMkeP9gDZxPdhH6c5uX0JbIrM8jtwlRUBv3lCGvi/y8
+	 vP6LvvwDJm1YMuunXTDzJXgxhdzE8QUv4mk4X+zzKcNroK9hYPBXCKEB3RLqH7lsQbj+0
+	 V49NT7GbJNDeUb9/l9luYvtw6qbxVGzodEuxkeA5JwCQgezh9+Np+kLCerrk2NMxzxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A05A8606A31A;
-	Wed, 28 Oct 2026 04:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A05A8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=o2rXvuMU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA38606A31A;
+	Wed, 28 Oct 2026 04:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=o2rXvuMU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58E61F01828;
+	Wed, 28 Oct 2026 04:26:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=EHNhuc96HL
-	FzFHehXSSUJIzpWm6INtH/7YymMk0hd+I=; b=bjZSIIDoafc8oRpjJmIw3uwyPy
-	YRI11LDTbP1YZJqFFc2YVdNvuX7eV1W4MhH4CM8rntWqdtQJUisu2WwilJIJ/W3L
-	d1gGJq7o4XABcsU4ZvmfE2ZstVprW61MRhrqQ/2dmsKjRNJADTE/GDrtaRxPJHlM
-	NBwAI+BhSZGgchn1A=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkD2GgE1eeFqquXyAA--.58159S2;
-	Wed, 28 Oct 2026 12:25:26 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] ALSA: us122l: Add missing NULL check in usb_stream_hwdep_mmap()
-Date: Wed, 28 Oct 2026 12:25:25 +0800
-Message-Id: <20261028042525.8737-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	d=linux-foundation.org; s=korg; t=1793161563;
+	bh=+tA0EsUf22weBiJ+LMGUgfYrWb2VIx2xFegNiivuIJ8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=o2rXvuMUFT4dGkW8gpCdpx+wA7Xq6eznJfQHt/NGheE7Pm62TIG0DJe0lxc9q+h7b
+	 1D1e6ic4wOdAwwLn6LibXpUnv6917w8IM9oXGG79EXOSVv4tpUOCRq0IRTdczSrvai
+	 C3fRlSjEoEZLoWu/x5LiSMC7SpGdFdhSYnSeX2LI=
+Date: Tue, 27 Oct 2026 21:26:02 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Shuah Khan <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>,
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+ "Christopher Lameter (Ampere)" <cl@gentwo.org>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ stable@vger.kernel.org, Manfred Spraul <manfred@colorfullife.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Koester <jan.koester@tuxist.de>
+Subject: Re: [PATCH] ipc/msg: prevent msg_qbytes limit bypass in IPC_SET
+Message-Id: <20261027212602.e839932c4f7841c007332ab8@linux-foundation.org>
+In-Reply-To: <20261027-ipc-msg-qbytes-v1-1-8896db4071f9@gentwo.org>
+References: <20261027-ipc-msg-qbytes-v1-1-8896db4071f9@gentwo.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,68 +59,216 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkD2GgE1eeFqquXyAA--.58159S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZrWkKw17Cw15Ary3tF13urg_yoW8CFWkpr
-	s3urWfKFW3Jr4v9r13Wa13tw40yw4qyFy5Cryqvw15Zry5ZF4fJ34rCryYgryfWrW8CrW5
-	Krn8XasI9w1UA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJV
-	W8JbIYCTnIWIevJa73UjIFyTuYvjxUxl1vUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2rgvlNkOwAAsz
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-usb_stream_hwdep_mmap() reads us122l->sk.s and dereferences it without
-checking for NULL.  The stream object is released by usb_stream_free(),
-which is reached through us122l_stop() both when the device is
-disconnected and when us122l_start() fails, and it leaves us122l->sk.s
-set to NULL.  The hwdep file stays usable after that, so a later mmap()
+On Tue, 27 Oct 2026 20:35:00 -0700 "Shubhang Kaushik (Ampere)" <sh@gentwo.org> wrote:
 
-	KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-	RIP: 0010:usb_stream_hwdep_mmap+0x107/0x890 sound/usb/usx2y/us122l.c:182
+> The msg_qbytes field in the msqid64_ds userspace ABI is an unsigned
+> long. Commit 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down()
+> functions") passed that value to msgctl_down() as an int.
+> 
+> An unprivileged owner can set msg_qbytes to UINT_MAX. The narrowing
+> conversion produces -1 on supported Linux targets, so the check against
+> the int-valued msg_ctlmnb sysctl does not reject the request:
+> 
+>         if (msg_qbytes > ns->msg_ctlmnb &&
+>             !capable(CAP_SYS_RESOURCE))
+> 
+> The value is then assigned to the unsigned long q_qbytes field, setting
+> it to ULONG_MAX. This bypasses the CAP_SYS_RESOURCE requirement for
+> increasing a queue above MSGMNB and lets an unprivileged user increase
+> queue capacity without the configured per-queue limit.
+> 
+> Keep msg_qbytes as unsigned long through validation and assignment.
+> Also preserve its type in ipcctl_obtain_check(), which supplies it to
+> the unsigned-long audit field.
+> 
+> Add a regression test which drops CAP_SYS_RESOURCE and verifies that
+> IPC_SET with UINT_MAX fails with EPERM.
 
-crashes while reading s->read_size, which sits at offset 0x10.
+Thanks.
 
-That NULL is an expected state for this field: usb_stream_hwdep_vm_fault(),
-usb_stream_hwdep_poll(), usb_stream_hwdep_ioctl(), usb_stream_stop() and
-usb_stream_free() all test it before use.  Only the mmap callback misses
-the check, so let it return -ENODEV, matching what the other hwdep mapping
-in usx2yhwdeppcm.c does when its shared buffer has not been allocated.
+Manfred and Davidlohr help out with ipc/, although MAINTAINERS keeps
+that secret (I'm working on changing this).
 
-Fixes: 030a07e441296c372f946cd4065b5d831d8dc40c ("ALSA: Add USB US122L driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- sound/usb/usx2y/us122l.c | 2 ++
- 1 file changed, 2 insertions(+)
+My AI sidekick said:
 
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index a5db0d044ef9..27b6b0bd5768 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -179,6 +179,8 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
- 	offset = area->vm_pgoff << PAGE_SHIFT;
- 	guard(mutex)(&us122l->mutex);
- 	s = us122l->sk.s;
-+	if (!s)
-+		return -ENODEV;
- 	read = offset < s->read_size;
- 	if (read) {
- 		if (area->vm_flags & VM_WRITE)
--- 
-2.34.1
+: The kernel change looks right. One small selftest fix: please report
+: SKIP for ENOSYS from either capability setup or msgget(). With
+: CONFIG_MULTIUSER=n, capget/capset are unavailable and the unprivileged
+: case cannot be exercised. CONFIG_SYSVIPC=n makes msgget unavailable.
+: Other setup and creation errors should still fail.
+: 
+: Please mention the practical consequence in the changelog: an
+: unprivileged queue owner can bypass both the byte limit and the queued
+: message-count limit. Even zero-length messages consume kernel memory.
+: Subsequent sends can cause memory pressure or exhaustion beyond the
+: configured per-queue allowance, subject to the other resource limits.
+: 
+: The Fixes tag is correct and this warrants stable. Don't add a v5.6+
+: restriction: the introducing change was backported, and the bug is
+: present in v5.4.19 and v4.19.103 too.
+: 
+: I found no second confirmed capacity bypass in the adjacent IPC paths.
+: Jan Koester's "[RFC PATCH v2 30/41] ipc: add IPC_STAT_R and IPC_SET_R"
+: touches these same signatures and retains int qbytes. Please preserve
+: this unsigned-long correction when the two changes are integrated.
+: 
+: https://lists.openwall.net/linux-kernel/2026/10/21/347
 
+> Fixes: 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down() functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> ---
+>  ipc/msg.c                                   |  2 +-
+>  ipc/util.c                                  |  3 +-
+>  ipc/util.h                                  |  3 +-
+>  tools/testing/selftests/ipc/Makefile        |  2 +-
+>  tools/testing/selftests/ipc/msgctl_qbytes.c | 75 +++++++++++++++++++++++++++++
+>  5 files changed, 81 insertions(+), 4 deletions(-)
+> 
+> diff --git a/ipc/msg.c b/ipc/msg.c
+> index 62996b97f0ac2137dfc2fa109394d6db1fcb4a0f..116126f1235cd6ce9b819cfd317ef039071b95ca 100644
+> --- a/ipc/msg.c
+> +++ b/ipc/msg.c
+> @@ -399,7 +399,7 @@ copy_msqid_from_user(struct msqid64_ds *out, void __user *buf, int version)
+>   * NOTE: no locks must be held, the rwsem is taken inside this function.
+>   */
+>  static int msgctl_down(struct ipc_namespace *ns, int msqid, int cmd,
+> -			struct ipc64_perm *perm, int msg_qbytes)
+> +			struct ipc64_perm *perm, unsigned long msg_qbytes)
+>  {
+>  	struct kern_ipc_perm *ipcp;
+>  	struct msg_queue *msq;
+> diff --git a/ipc/util.c b/ipc/util.c
+> index 1737d776bc089e27495e810569bf302069db3712..c435b2d93a12e92e930358a8bc53a06314d065f5 100644
+> --- a/ipc/util.c
+> +++ b/ipc/util.c
+> @@ -718,7 +718,8 @@ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
+>   */
+>  struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
+>  					struct ipc_ids *ids, int id, int cmd,
+> -					struct ipc64_perm *perm, int extra_perm)
+> +					struct ipc64_perm *perm,
+> +					unsigned long extra_perm)
+>  {
+>  	kuid_t euid;
+>  	int err = -EPERM;
+> diff --git a/ipc/util.h b/ipc/util.h
+> index a55d6cebe6d3b0974548a497fcb889248aed0f87..55a76f94667cd4bb248fbcea26323db8d2778a44 100644
+> --- a/ipc/util.h
+> +++ b/ipc/util.h
+> @@ -180,7 +180,8 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out);
+>  int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out);
+>  struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
+>  					     struct ipc_ids *ids, int id, int cmd,
+> -					     struct ipc64_perm *perm, int extra_perm);
+> +					     struct ipc64_perm *perm,
+> +					     unsigned long extra_perm);
+>  
+>  static inline void ipc_update_pid(struct pid **pos, struct pid *pid)
+>  {
+> diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
+> index fad10f2bb57b0f06f0c741fa89f0489f6952eba6..930a334747a6353c86bebe1f4a521aeee3fe8228 100644
+> --- a/tools/testing/selftests/ipc/Makefile
+> +++ b/tools/testing/selftests/ipc/Makefile
+> @@ -12,7 +12,7 @@ endif
+>  
+>  CFLAGS += $(KHDR_INCLUDES)
+>  
+> -TEST_GEN_PROGS := msgque
+> +TEST_GEN_PROGS := msgctl_qbytes msgque
+>  
+>  include ../lib.mk
+>  
+> diff --git a/tools/testing/selftests/ipc/msgctl_qbytes.c b/tools/testing/selftests/ipc/msgctl_qbytes.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..fdf3420173de99ece66c69ff8418a46878d56dbd
+> --- /dev/null
+> +++ b/tools/testing/selftests/ipc/msgctl_qbytes.c
+> @@ -0,0 +1,75 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <errno.h>
+> +#include <limits.h>
+> +#include <linux/capability.h>
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include <sys/msg.h>
+> +#include <sys/syscall.h>
+> +#include <unistd.h>
+> +
+> +#include "kselftest.h"
+> +
+> +static int drop_cap_sys_resource(void)
+> +{
+> +	struct __user_cap_header_struct hdr = {
+> +		.version = _LINUX_CAPABILITY_VERSION_3,
+> +	};
+> +	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3];
+> +	unsigned int index = CAP_SYS_RESOURCE / 32;
+> +	__u32 mask = 1U << (CAP_SYS_RESOURCE % 32);
+> +
+> +	if (syscall(SYS_capget, &hdr, data))
+> +		return -1;
+> +
+> +	data[index].effective &= ~mask;
+> +	data[index].permitted &= ~mask;
+> +
+> +	return syscall(SYS_capset, &hdr, data);
+> +}
+> +
+> +int main(void)
+> +{
+> +	struct msqid_ds ds;
+> +	int msqid;
+> +	int ret;
+> +
+> +	ksft_print_header();
+> +	ksft_set_plan(1);
+> +
+> +	if (drop_cap_sys_resource())
+> +		ksft_exit_fail_perror("drop CAP_SYS_RESOURCE");
+> +
+> +	msqid = msgget(IPC_PRIVATE, 0600);
+> +	if (msqid == -1)
+> +		ksft_exit_fail_perror("msgget");
+> +
+> +	ret = msgctl(msqid, IPC_STAT, &ds);
+> +	if (ret == -1) {
+> +		ksft_perror("msgctl(IPC_STAT)");
+> +		goto out_fail;
+> +	}
+> +
+> +	/*
+> +	 * msg_ctlmnb is an int, so UINT_MAX must require
+> +	 * CAP_SYS_RESOURCE.
+> +	 */
+> +	ds.msg_qbytes = UINT_MAX;
+> +	errno = 0;
+> +	ret = msgctl(msqid, IPC_SET, &ds);
+> +	if (ret == -1 && errno == EPERM) {
+> +		ksft_test_result_pass("IPC_SET rejects oversized msg_qbytes\n");
+> +		msgctl(msqid, IPC_RMID, NULL);
+> +		ksft_exit_pass();
+> +	}
+> +
+> +	if (ret == -1)
+> +		ksft_perror("msgctl(IPC_SET)");
+> +	else
+> +		ksft_print_msg("msgctl(IPC_SET) unexpectedly succeeded\n");
+> +
+> +out_fail:
+> +	msgctl(msqid, IPC_RMID, NULL);
+> +	ksft_test_result_fail("IPC_SET accepted oversized msg_qbytes\n");
+> +	ksft_exit_fail();
+> +}
+> 
+> ---
+> base-commit: 8a36f53fd5ec3eff01f1b637d42cbdc3821d0493
+> change-id: 20261027-ipc-msg-qbytes-49b15931c5b6
+> 
+> Best regards,
+> -- 
+> Shubhang Kaushik (Ampere) <sh@gentwo.org>
