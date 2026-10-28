@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197199;
-	b=rohMmFLV2HT+EP1SHFBAMtELXedZiwXA5IkYY1NamvKEM2dKCfytzL5+YbE7zIWg1m10
-	 fpBKNy95c5IhTCKR+bIUWDBsi4K+q4TvhJGGqN9u4EfD4G4m2l7TCONjhpnSSUCVv7IBK
-	 DkLP5LyFLjWZsutPTQDUvGGr5e0sKvfilofuxXCZ+lEnC/3G8p482leJZ49OgMS2RD/Q2
-	 GmfnnCol0QGBe/GPMuOi9AtWJ80I2SY8lq1bPjrVYQMrfV0Oob274BmKptavdhXeuJLCK
-	 ZuLkjhUwYst/1Gbs03UbApC32PaXWu2k2fKzpwBt0VtDzisuppJgOc+tEeVYWMSLp9w==
+	t=1793197207;
+	b=w+HNG/mjkmAg9sa2GVrKjzVxmgWpn4L76ReeNzf6QK50Qg6G/dLVTX5z54bbpE3axO/U
+	 QYUjhcpibtvd3NWf7wcpezrSWcCp1XMtllaezPDX/zLBCBpfyk2qwWMyst1SChLjcxV3I
+	 KuPgi7RWCBNNfnphUC1utP4qmw/T6gjQ5Ti2OEQEz5fDoe/6ZNLvstMOwF5Q8zCMuPxBj
+	 PwijsaZdEXcgeXp1asp0zCaAinxLAptBnuCeEM47/VOC5VZwmuzQayTE/44NN3E5KPMWb
+	 Eoe7OqYl5ms9mMHWPmq0cNMeATWMlelzNdOgP2j2YsILz9YKcUFsrJ1ur3X+kzV9KLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197207;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=66KvjC7o9TYJVmk4sgr3wFJ9czeGpidCIDPzYdjOH+U=;
-	b=CKjdM3LjGc7WnUjMUlCBRVEiOZN8JFil6L49PK6QDylbNpaD+/UdmDthWdFuOsdgl+Xb
-	 Q/AHK3mMikwsw1Bw0K7bi841veyBkmCRucZSToLcY/2VM4WxnraYaHznFheVWChipYegQ
-	 rwgXChnyyNURtW8CuExVQk8lMeYoq/Lb5wOJg3Fn/g2JCv+C0ZkjEIh0qNFfMOuzGEhd/
-	 ScazwtUryn4fWh7xbRjb6d3jiq84YbzxnsVcWxu2kJrPwDzivejrp+y1umHTBHf70n/rK
-	 576Mx9/9MRE3XXy0KOOPZSoO6f8F8d7TQFY96NrafPmD6D0BkYe4wvdDGY7+LeIyp+Q==
+	bh=w0FuKmqjAAxc2G36lErL/3fM5DHNQeeC+jY9FSXhzZU=;
+	b=w/9jYcooPrv+7eNh6dS60xGBm5NAhSYjdw9nsmrXS0kn0ZVojB2GF0e19TjaRx3vxOsh
+	 pYcARSMsqVJDeAwZ1gQu84wKZbE4ONIl3WskZ7XLfWqKZQzuw9xTNoq0iagTVQVh8iBXG
+	 nAWevjsMFFDp5TscedF33cfXdP1gf/AHmf4QMUKMkTUwbOYcrlWgLAy/pr6uBaDIMoC0d
+	 C1UEpVu1x5sUglPGEJpFj1E6IwAI1BGpj66KQUUZfv9siam/w6wm9SBU2ylEgwavU7jIz
+	 bswfzykAzDvpydy+EXqeJXcUmfIw/2+p7ugyTB2wlOp1LrSGd0hMpgwkr10G7XVC2uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peCWJaLY;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yCc+nva5;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A4A606A324
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50A4A606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66416606A324
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:20:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66416606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peCWJaLY
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so852419a91.3
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yCc+nva5
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd8ca57ef64so1016237a12.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:20:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793197199; x=1793801999; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793197207; x=1793802007; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=66KvjC7o9TYJVmk4sgr3wFJ9czeGpidCIDPzYdjOH+U=;
-        b=peCWJaLYkOWLaEP6XA9dqQ39bpY31PQXgMA9w6j96UyOMBTw1LPEDgGfTcj4Y0CieM
-         9IUt6G1CLYh755RA47HELiwSG4SVtmqf3taQBQVIy3JEiSDo+dQ+VykLg3sVy5MGt3f0
-         SIVTnRm1avW0IuFhxWilD8khuW1A/Fu3+x7TEZ0SdCsA97iK/O+GXTC9GiztqB3qYpbc
-         0J6vumpZX5jN/i6X3DBPRyPIoU1E2SM+bWo/2ODUNSOMoTpugjqxrnQo9Cw3Yc4oenXl
-         oG6fK0v9sWEBGa02TnL4OmiJC8BarEN6ZgcKS2akv0RwCfL2ywYyF3eh70VumnHe+EXv
-         VClA==
+        bh=w0FuKmqjAAxc2G36lErL/3fM5DHNQeeC+jY9FSXhzZU=;
+        b=yCc+nva5YiTEVaq1YUYP+cS7RYAm+YZnTgtCkpztxgFAzXPaQCUPS11qNaxU1ZJdDx
+         mZQ9zZfEXvr4Oj8rXA413TUukEUjPx8KNgURIik6NBj4r7lfhYwE7X2oKrBL1dFM6cYi
+         coLoKkiB3zzWvTHYWNG/AGTvRcm9zq7iMwJtyU2kciUOIE1HYo9HpSbDQvf3bToytnkh
+         70LX2PQNSUGFNyYI3283IjlFu4XyOyxCMNMQBhBesmzXgRL/FephHrFIH5eEYuX9D9BE
+         8d1nvq+QDrSiJTr4PxFa/4HaC7CUTYIB24uNkh17lrDNwRpBnWeH89F2tXlSLgfUWzeZ
+         EiXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793197199; x=1793801999;
+        d=1e100.net; s=20260707; t=1793197207; x=1793802007;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=66KvjC7o9TYJVmk4sgr3wFJ9czeGpidCIDPzYdjOH+U=;
-        b=TBuAzWpaJXmLQhol7lcdnGDAg73taDesMIkd32VI6ZqQEE21XO3pFl8vnNP/0QQNL7
-         3Rlp//Yw8+yKBed6SNnNn7Q/MtlO+hIo4W3Y/vwKhWuT3r740mC65M5Xf95ELw1E/flp
-         5CO65fWAGqGzIF6UyPCMFwBz3SBVqsS+rBSZHo8D07DfIRduCUH8m/kQwHIEfzsZdQxT
-         62QkgKHNEADIUQNaN5hg0/sN3QMcjhpj3UpveKrYwFd64CHxvUWoIXFI/vnqMw+o10Zz
-         kyQUwHpvNj49vJVQpzYTUFvH9zIaCewvAq3GL+YEEMfLSi5FosZHaBJ7lA3W90XnduHv
-         Vm2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxI+M0aYJP+hysNlfdgvqT0sja4ovi98hnPMitxdGyeaBOsrrvCbw4VhtRuEfHG2eEbwiL2ILc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKD6EvTHaJ+S4z4vtvvSwjFOcl/MMOxumX+YnAuqRB7swvuJApO
-	H1zibjFsVuBmuvax5NQlFk1sxAILKAi5nryTzDBN97JfkxerN8tKJTfi
-X-Gm-Gg: AYBFou2Mr3BdiLgWWnrdeVUBS6IW5Rh1iFvGY978KVEzrWHKqb8pnZdAfQ1wcFXlcQ+
-	XC1GQz3OyLptlgVVT8BfxDcC9Jkq3NtKMJ5Fiww3dlG1j4pNtF3X8si8z/I9C8J/TbXJA9UQPGk
-	cB9/6ZR6CPWDz+6m2sU407+g2n3dHeMXhZZi1Yas0feDeIYaotR3XQ6XVGI+4fqFXcKceZUESt7
-	594k7H9/mFBt7VGz8cNOnSOXtnqADE1ZaZGnyraGxYsV/y6D0iTFLurvBQWxYm/zWxGFygDmdSQ
-	m4BKrm67XAMRqTRvO6zA39jgnF39IfbCo+D6+HZd5ZnkjJgDDZjIVzjf9R2PAK2yhyern96AK3+
-	N3DZ+w+YP9wfexKTd6koqEPEK22DbHlGjnpb4OwUjexEu1i28xq4u3d/9hCx7jfeVPwQcoQpXDq
-	2oaG1/ntsbFjffaDpjIEEZJCAe8aT1m5i/yxEm4qifv/Bl7sxVzp/qVFSBdFz+0eFdprRofE4Qu
-	Icj/oK7jBxG3hi4nxv/LmfduyqMjM/awVmBLvyFkPVmS5OlY2t14TFfEeJ2NCT4rB/IG7mOjbs+
-	MdnG1i8YdqEjr66dhxP4c4i14yFbU76StO97irOMJy1+xlz1TRyOxWnPPGtzqljIsD5e
-X-Received: by 2002:a17:90b:1d44:b0:3ad:ce24:acfa with SMTP id 98e67ed59e1d1-3ae57f638cbmr1762004a91.20.1793197198315;
-        Wed, 28 Oct 2026 07:19:58 -0700 (PDT)
+        bh=w0FuKmqjAAxc2G36lErL/3fM5DHNQeeC+jY9FSXhzZU=;
+        b=KfpHAVCjIgz9wOwsNi+Qc68y/PIPqBLNLdy40wKjeWTxlHCWA0XqW4TcRLJX0QUgmS
+         vAbTVN4sqOPichNmxbUE6lsz8mgQCwQasIFeEfZ5r8xCg5ujqga6/mGd4mVEWUPE72e4
+         R37IXASMDz/3az/poHy10sxXJD5j5JxNFUh8rZdGltTMj0vhcGiVPjqzxIAfJxleUqeA
+         oqbc2/9YQT9jAJvKqBnM3MGWhUNQDyQonk0rDwv7XrbHWPTlb/Lw6PwxtvWCArKF0Pma
+         tDMvp2FZfxy4YeD9mLmC3tkieTKdjvKjZ2FUx5eR2R987TvLKDVVihqZgw/nYMmAF1Vw
+         ckOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV2A4GoOGoSE5VA0qpEOZrL0fVeXYKOu3dRtQNen286GujOs9yLNOZbDXwogJzERRKQoPaf3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTy1P2xV4qUC6TFyQvyBBCdU3scSZl/7HMZOl+7xuLEVHU48gv
+	DHbSEwZ3ksPttFf4xjN00CcKfnbPZXFmFSrH+3xNotxTdibFV83yZewK
+X-Gm-Gg: AYBFou3CP7CpkcK9HMB0i92nDvbTwFbKQoLMwJQN1nD+ewjVy4Eo6ySscF25tsTv2bO
+	AjHIgwVZbnDdEhAZnTyLUSMMm2U1X3F/PTl3bLfF2I0UQMJM8mOwpBqQgqGdcN0ANSF3AZyhWRh
+	k7PdbmEntUgt1E8NsmV5LpwQepjBJvErstsGdeEb8HeHhabeB7xaR1jOXGNk4FS+LtmZRVJymkP
+	vXIcw4HtTNnHus7JUJXEaMmT4sQEnLOZJPRC8WCFKdnrMFgWvf9Ry9hAdg9t8koFsKtRbLWDjRX
+	yM7WWBNjN1nedqDhF/hrIDtccSo+9p5L8GfjyPyeIToYjfQs0ZrVLLdW++gberwOJHTLKo4tHbv
+	0ySBf1plesEgRhg9L1mGe8vyIqOCYAirn5F5yMaJjlGNMFUllflZ5CIc+DED8hn6sJU+1BKBv6P
+	nSeo9jQhTXcNdFOirDEG5XzVsUwe8KjAxiU3WkgCJtt2Jwxh0IMjdVPDdKfib5msCQ3YxOQrxvU
+	ZNdDWbGnQksPE1VMVoF7h6l/POEQ3iVYgWWS1ZispvpBeY/qTmmUBav3zIadfPzu126BZPlh+a3
+	+Y/UO6PYQWn0nFtPAZt3ifunoUHLzrxXz26WnAd2dvaS/oTYyTraE92AjHMU/Ygjw7uH
+X-Received: by 2002:a17:90b:5150:b0:3ac:a6a5:5757 with SMTP id 98e67ed59e1d1-3ae5c801c2emr953367a91.11.1793197206400;
+        Wed, 28 Oct 2026 07:20:06 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9f286fsm3290141a91.15.2026.10.28.07.19.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9f286fsm3290141a91.15.2026.10.28.07.19.58
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 07:19:57 -0700 (PDT)
+        Wed, 28 Oct 2026 07:20:06 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
@@ -97,9 +97,9 @@ Cc: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] wifi: rsi: initialize background scan completion data
-Date: Wed, 28 Oct 2026 22:19:25 +0800
-Message-ID: <20261028141927.9306-2-enderaoelyther@gmail.com>
+Subject: [PATCH 2/3] wifi: rsi: report background scan start failures
+Date: Wed, 28 Oct 2026 22:19:26 +0800
+Message-ID: <20261028141927.9306-3-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028141927.9306-1-enderaoelyther@gmail.com>
 References: <20261028141927.9306-1-enderaoelyther@gmail.com>
@@ -114,14 +114,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Background scan completion can expose uninitialized timestamp and BSSID
-fields to userspace, while cancellation is reported as a successful scan.
+rsi_mac80211_hw_scan_start() returns success when a background-scan
+command cannot be prepared. The driver never marks the scan active in
+that case, so neither cancellation nor the firmware-event path reports
+completion and mac80211 keeps the request pending.
 
-Both completion paths allocate cfg80211_scan_info on the stack but set
-only aborted. mac80211 copies the other fields, and nl80211 can emit the
-14 uninitialized bytes when the stack value interpreted as TSF is nonzero.
-
-Zero-initialize the result and mark cancellation aborted.
+Build the probe request before queueing the start parameters, propagate
+preparation errors, and clear the saved request before mac80211 frees it.
+Successful scans keep the existing firmware command order.
 
 LLM assistance was used to find the bug and review.
 
@@ -134,50 +134,96 @@ enabled and disabled. Not reproduced; RS9113/RS9116 hardware was
 unavailable.
 Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
 
- drivers/net/wireless/rsi/rsi_91x_mac80211.c | 5 +++--
- drivers/net/wireless/rsi/rsi_91x_mgmt.c     | 3 +--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/wireless/rsi/rsi_91x_mac80211.c | 14 ++++++++------
+ drivers/net/wireless/rsi/rsi_91x_mgmt.c     | 13 ++++++++-----
+ drivers/net/wireless/rsi/rsi_mgmt.h         |  3 +--
+ 3 files changed, 17 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/net/wireless/rsi/rsi_91x_mac80211.c b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-index 3faf2235728b..27bfdb6affaf 100644
+index 27bfdb6affaf..a2e981e261d6 100644
 --- a/drivers/net/wireless/rsi/rsi_91x_mac80211.c
 +++ b/drivers/net/wireless/rsi/rsi_91x_mac80211.c
-@@ -276,7 +276,9 @@ static void rsi_mac80211_cancel_hw_scan(struct ieee80211_hw *hw,
- {
+@@ -237,6 +237,7 @@ static int rsi_mac80211_hw_scan_start(struct ieee80211_hw *hw,
+ 	struct cfg80211_scan_request *scan_req = &hw_req->req;
  	struct rsi_hw *adapter = hw->priv;
  	struct rsi_common *common = adapter->priv;
--	struct cfg80211_scan_info info;
-+	struct cfg80211_scan_info info = {
-+		.aborted = true,
-+	};
++	int ret;
  
- 	rsi_dbg(INFO_ZONE, "***** Hardware scan stop *****\n");
+ 	rsi_dbg(INFO_ZONE, "***** Hardware scan start *****\n");
+ 	common->mac_ops_resumed = false;
+@@ -260,15 +261,16 @@ static int rsi_mac80211_hw_scan_start(struct ieee80211_hw *hw,
+ 
  	mutex_lock(&common->mutex);
-@@ -284,7 +286,6 @@ static void rsi_mac80211_cancel_hw_scan(struct ieee80211_hw *hw,
- 	if (common->bgscan_en) {
- 		if (!rsi_send_bgscan_params(common, RSI_STOP_BGSCAN))
- 			common->bgscan_en = false;
--		info.aborted = false;
- 		ieee80211_scan_completed(adapter->hw, &info);
- 		rsi_dbg(INFO_ZONE, "Back ground scan cancelled\n");
+ 	common->hwscan = scan_req;
+-	if (!rsi_send_bgscan_params(common, RSI_START_BGSCAN)) {
+-		if (!rsi_send_bgscan_probe_req(common, vif)) {
+-			rsi_dbg(INFO_ZONE, "Background scan started...\n");
+-			common->bgscan_en = true;
+-		}
++	ret = rsi_start_bgscan(common, vif);
++	if (ret) {
++		common->hwscan = NULL;
++	} else {
++		rsi_dbg(INFO_ZONE, "Background scan started...\n");
++		common->bgscan_en = true;
  	}
+ 	mutex_unlock(&common->mutex);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static void rsi_mac80211_cancel_hw_scan(struct ieee80211_hw *hw,
 diff --git a/drivers/net/wireless/rsi/rsi_91x_mgmt.c b/drivers/net/wireless/rsi/rsi_91x_mgmt.c
-index d9dcbb255317..9ceb6cba3546 100644
+index 9ceb6cba3546..165423313c5f 100644
 --- a/drivers/net/wireless/rsi/rsi_91x_mgmt.c
 +++ b/drivers/net/wireless/rsi/rsi_91x_mgmt.c
-@@ -2107,11 +2107,10 @@ static int rsi_handle_ta_confirm_type(struct rsi_common *common,
- 	case BG_SCAN_PROBE_REQ:
- 		rsi_dbg(INFO_ZONE, "BG scan complete event\n");
- 		if (common->bgscan_en) {
--			struct cfg80211_scan_info info;
-+			struct cfg80211_scan_info info = {};
+@@ -1862,11 +1862,8 @@ int rsi_send_bgscan_params(struct rsi_common *common, int enable)
+ 	return rsi_send_internal_mgmt_frame(common, skb);
+ }
  
- 			if (!rsi_send_bgscan_params(common, RSI_STOP_BGSCAN))
- 				common->bgscan_en = 0;
--			info.aborted = false;
- 			ieee80211_scan_completed(adapter->hw, &info);
- 		}
- 		rsi_dbg(INFO_ZONE, "Background scan completed\n");
+-/* This function sends the probe request to be used by firmware in
+- * background scan
+- */
+-int rsi_send_bgscan_probe_req(struct rsi_common *common,
+-			      struct ieee80211_vif *vif)
++/* Send the firmware commands that start a background scan. */
++int rsi_start_bgscan(struct rsi_common *common, struct ieee80211_vif *vif)
+ {
+ 	struct cfg80211_scan_request *scan_req = common->hwscan;
+ 	struct rsi_bgscan_probe *bgscan;
+@@ -1875,6 +1872,7 @@ int rsi_send_bgscan_probe_req(struct rsi_common *common,
+ 	u16 frame_len = sizeof(*bgscan);
+ 	size_t ssid_len = 0;
+ 	u8 *ssid = NULL;
++	int ret;
+ 
+ 	rsi_dbg(MGMT_TX_ZONE,
+ 		"%s: Sending bgscan probe req frame\n", __func__);
+@@ -1928,6 +1926,11 @@ int rsi_send_bgscan_probe_req(struct rsi_common *common,
+ 	skb_put(skb, frame_len + probereq_skb->len);
+ 
+ 	dev_kfree_skb(probereq_skb);
++	ret = rsi_send_bgscan_params(common, RSI_START_BGSCAN);
++	if (ret) {
++		dev_kfree_skb(skb);
++		return ret;
++	}
+ 
+ 	return rsi_send_internal_mgmt_frame(common, skb);
+ }
+diff --git a/drivers/net/wireless/rsi/rsi_mgmt.h b/drivers/net/wireless/rsi/rsi_mgmt.h
+index 236b21482f38..6a4907e6bca9 100644
+--- a/drivers/net/wireless/rsi/rsi_mgmt.h
++++ b/drivers/net/wireless/rsi/rsi_mgmt.h
+@@ -753,6 +753,5 @@ int rsi_send_ps_request(struct rsi_hw *adapter, bool enable,
+ 			struct ieee80211_vif *vif);
+ void init_bgscan_params(struct rsi_common *common);
+ int rsi_send_bgscan_params(struct rsi_common *common, int enable);
+-int rsi_send_bgscan_probe_req(struct rsi_common *common,
+-			      struct ieee80211_vif *vif);
++int rsi_start_bgscan(struct rsi_common *common, struct ieee80211_vif *vif);
+ #endif
 -- 
 2.56.0
 
