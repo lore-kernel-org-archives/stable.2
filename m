@@ -1,59 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212712;
-	b=GC43jGn21XsjB7dgSePElXjt3DR7aWNKjxjbo5UJ85btNXLF6P4iB9HFdMOm8FFpTv6G
-	 JLu6nYKQeD82D4qny+/Gizgk5g4APKEahm4nPdDkm/frAbSzrwpBaDNl4FnJn89G4mH3G
-	 l1EIchofqi2WgEqb7kAUQ9g6ukTJZD8N5r5ceKDFxpcXLmShVxE+SaLo9dx+UF8rsHzDu
-	 V15rXwIbsPdX0qNfJwme1kINb6iRijAkaVt4KldTaCE6lK7WL7Yz0j1NMMn2WCxm9TmtM
-	 uX2KWh18clcu8mYu1iTlwWicqX5Ps4AimrvlZc1I+cNeFPXBpYyFuWkibI4Le4Tq9AA==
+	t=1793212715;
+	b=tcUKxLAIHBqE18qnWRKnP7t3eaITLF9Kem78lNPCU89cyF7uq2R+XSjtfvlsMK75kXoM
+	 zyqyfp52YnFrogJ/dYKtqJmdzAHZljHOmwAozXLSvbsfnNQKkT1tmPjf2KUB4ViXGRcUB
+	 A2Nxae1taTIHlUOV5VqNS5nQGtNxyJUQG/7TLdIpTHF+5esM7FgXdDzmrzUMnwWpmnl5e
+	 ck1Fx9sg8T/uPOxkRbYbLCwPuszCvjsbD44qNqVzO1VcSKN14q1rWT8EQq6ALlVHPdcgM
+	 4lBNVEXxlDIj7oeBN2W7EcA9w42oSkFfZ5dYklabAgXhOfbZOczh71DsFCp5YoPi2Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212712;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RN9EQw6KCFj1wivwvQ/eOUuWbrkslv5MAtTgroiMUUQ=;
-	b=nH1pk+Jemo6E9fj2290xlZu2McIL7n1PFsNBqK1ol15fZ2S6JsBwk2EXQppYcsnNsajC
-	 GO3SFibMTtyCb2TpmDKmJ6kKmWd85CldLFx/yPpbzMl0tujAE0doV8UlYrLL48LvZYeZ0
-	 ucxEHC2gIalPNwty/F8pI2T5irFNz8pLVDx9Z9UHEg32LZKUM5MmYlOcpw1lUmJXrKcj8
-	 R7C5j8zsXLNyZ3R62ZMEkiGzPhyyhjEoE3SrPrMMowJ9f8/KN5HetuIyYefky0/2tWkq1
-	 JH/OcolpiUER3jd2YfFHGgywCGc6869zMxcmdELmJ780oKIt3YQ5hkRrKp/GZLnVH0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212715;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=VpA17SHHGuwrQBIEjd+s24NC7TfJ/mBAwe7vJ4GIKtI=;
+	b=q9Rrwn51tvLY1lGMLbHgxgCQXmPjdi0g7R+Xd25Pz6BqhL+aonTl8i2gXlSpgdBms9Je
+	 2tOyPqrluYhC6ra6A2eEMn17uOFxaf/ExMvCtdqZqy/NHd/wP6ISAg8eT1x9CLoVAimgg
+	 ykn0Wf/iNfpiGoZ8o183wOXAESdre2VqRbomLvCq4P6CB4MEejxDX6ix2OZ0K3oLv7Ct8
+	 hoP4oYc/rsCDjP46SWWfD9DU33ncpbb4QlE8VlOA6iZmFSKglYosLLe0WZ5wYslhChDZf
+	 yNb6ZX3jgci/vlNw2cvR96ntykWpryG3MrUYd7TL7iHlhwGLmHtREtHxyOD5OYqq/lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ldq1e7uC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E83B606A326;
-	Wed, 28 Oct 2026 18:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ldq1e7uC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90F6A1F01829;
-	Wed, 28 Oct 2026 18:38:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793212712;
-	bh=RN9EQw6KCFj1wivwvQ/eOUuWbrkslv5MAtTgroiMUUQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ldq1e7uCbntg1CIY3SfladnwUVmsZHX54QkFc/pJx9T1JgcOpJDycegst8sdZddT9
-	 ynSqzKJrxfoiab9Yuoi/wGB024L1ZeUg8EMp7AxTso2v20n6dqLb5QbfRJyN/JttUu
-	 dv8bUwZWKM3pp9pZ3y4eIX91Nb67ljsaenUU1Zeg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kang Yang <quic_kangyang@quicinc.com>,
-	Jeff Johnson <quic_jjohnson@quicinc.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0206/1887] wifi: ath11k: add srng->lock for ath11k_hal_srng_* in monitor mode
-Date: Wed, 28 Oct 2026 17:38:22 +0100
-Message-ID: <20261028170503.921717768@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E588606A323
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:38:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E588606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso9379325e9.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:38:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793212713; x=1793817513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VpA17SHHGuwrQBIEjd+s24NC7TfJ/mBAwe7vJ4GIKtI=;
+        b=aQeeVIPMUiqwk6WocMaK2fvqFwOXq4+ME7x7LUdhEWRKNeI+L7qE3SAenqbAKKHIEu
+         /dZzO+hCGRCttUuyJao2yyEMffqXY1XcIVpeVQuXvPFmqDkY/EY33VTXhu43HGxq74ZO
+         +6o+Q/0xUxxMomTwd00jaif3ZMEwJPorfnEKewH/nJ0b6ROCYffVkQq5ewb6SwNj4ve/
+         LINfOhDwFhSEUcRKmkKUyBqhxHlvw/7HKboI/1J3227wiS+ln5iiwurOKfFN9Tl/kmUo
+         s1Tx15RkKcq9clTXL2z/wjGiazmRXGXXnDvJaRXjBuvJ+RyHV7TfQw4joB+c0v7Pzi8L
+         iDIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793212713; x=1793817513;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VpA17SHHGuwrQBIEjd+s24NC7TfJ/mBAwe7vJ4GIKtI=;
+        b=OGyhjSN6NNZ/bS8IDTU0bYhDnO5JKZCEL+dgrkVq0LXViwrNopFz8OQhavKYbsW4V0
+         u/83Ul+HM8KmXy5Do3Vxx8mbS+s5JM5el+JKNFB3mjpTtnroJrbJqiTzKEMaoOcMY2cF
+         z1+0/9a51K5UzYyP+drTxT6bkD9hfhivoGldVfL+Fx7nAEBw24t87tWScwDROFr/uk4O
+         PIAm7kJje8fT12Ia1dtzvQ4rxUOCHg5RJo+t5NjA8nZOEvx/pLfsDW6mt0DdFi+cOvTQ
+         uKCpG6Nd9Cd08nT2dR6/GWOCyS+C8cEz0UGg3BNeRosxnQDw/SBiPQA0l2QlSAgLudqg
+         5uOA==
+X-Forwarded-Encrypted: i=1; AKwUvBxahxYxPAd3mW+E6SPshdRVdJDlfGM5uI6IoWNZYPATM4CAiOyg2+LY5OuRXuycRoC5DWUGWjk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLp7AWlN4joOVRFciLh9FU/vd+PygEhiPsT94qg9987TzO8YLNH
+	OIlmkqod1SVuow22GwYNXMMiels23XpIVCd2P3uIyC9GlfPcfT50+RtX
+X-Gm-Gg: AYBFou3NP/PL1N3/XajHWF9AnD/nH9+fPjsNFJSOvm/q97TDnzasYiMrA76TKRza+rs
+	CrBKevHNISOPWE3DcL/0JLYYgsseSPTLjL1rV57BBDJg22AaLJQsM+21wDUWBzZ1C1ZrQ4GtvqG
+	iZ8ou9MZ6N3xmfkFgLF8rQnLJ9YIcTNqkq22yAdul/DzAAqd3loIjZUkx9NwEnifuxpsBqUuxr/
+	SXNPvOu6GDaU6qcJ94OvKzr0B4cAJ0GRzdZQn98JRLYVXEVbK3Mur3DeXrcCIrdn46HdPpntWY8
+	nLbwZTjGB6/1A5vdZn3dlZKZ/ADodjP3XJsdC6D3+Cwr5Gq4rsWd33rKvvd94gNDzddrYTu3lBx
+	LxRvu5kOS+W45RYx4rMBp29xOdeDaRIC2rY/Ne6TVqaVvwHhXCQdcPBWoYDPZkAXrB+q3sn8zD5
+	R6yZf0q/BxY5Q604oIRxFG+Gmf2ZcLrm+HdRj4cyJsZxWneAqUDcoG7kDEX5o1GxuSnqlkJe//j
+	0GpDCYm9dTj18S7bNj4SuGUVYWBv6XeTf0Yp4AuD4mTVI8LQK3tyk0FsLXL7ebf+FScv3KI8j9q
+	aW1YbUluoS9OwUbJk8b7Fa0n23HMg86jNW2db5/Ajtp8vrcE1p/YhKVixgjqyhE1QA==
+X-Received: by 2002:a05:600c:3541:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4a9675dc907mr75026265e9.30.1793212712626;
+        Wed, 28 Oct 2026 11:38:32 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04723sm10842695e9.5.2026.10.28.11.38.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 11:38:32 -0700 (PDT)
+Date: Wed, 28 Oct 2026 18:38:30 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Reid Downing <skibletz@gmail.com>, Carlos Maiolino <cem@kernel.org>,
+ linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, "Darrick J . Wong"
+ <djwong@kernel.org>, Eric Sandeen <sandeen@redhat.com>, Christoph Hellwig
+ <hch@lst.de>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] xfs: fix wrong compat fields in
+ xfs_ioctl32_bstat_copyin()
+Message-ID: <20261028183831.055627aa@pumpkin>
+In-Reply-To: <auISUBmIMQr7fesW@infradead.org>
+References: <20261027161748.2760321-1-skibletz@gmail.com>
+	<20261027164911.578ef6e7@pumpkin>
+	<auISUBmIMQr7fesW@infradead.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,112 +100,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Wed, 28 Oct 2026 08:18:40 -0700
+Christoph Hellwig <hch@infradead.org> wrote:
 
-------------------
+> On Tue, Oct 27, 2026 at 04:49:11PM +0000, David Laight wrote:
+> > On Tue, 27 Oct 2026 12:17:48 -0400
+> > Reid Downing <skibletz@gmail.com> wrote:
+> >   
+> > > bs_blocks and bs_xflags were both read from bstat32->bs_size.
+> > > Read each one from its own field instead.  
+> > 
+> > It would be much better to do a single copy_from_user() of the entire
+> > compat structure and copy the fields to the standard one.  
+> 
+> Care to explain why it would be "much better" to do two copies instead of
+> one?  The only benefits from copy_from/to_user over the current
+> get_put/user is avoidind the conctant user access disabling/enabling,
 
-From: Kang Yang <quic_kangyang@quicinc.com>
+That is a massive hit.
+The current code also has all the conditionals from access_ok().
 
-[ Upstream commit 63b7af49496d0e32f7a748b6af3361ec138b1bd3 ]
+> but the scoped uaccess thing would do the same.
 
-ath11k_hal_srng_* should be used with srng->lock to protect srng data.
+True, but unnecessarily 'technical' for this bit of code.
+You also save all the exception table entries - so the code size
+would be rather smaller.
 
-For ath11k_dp_rx_mon_dest_process() and ath11k_dp_full_mon_process_rx(),
-they use ath11k_hal_srng_* for many times but never call srng->lock.
-
-So when running (full) monitor mode, warning will occur:
-RIP: 0010:ath11k_hal_srng_dst_peek+0x18/0x30 [ath11k]
-Call Trace:
- ? ath11k_hal_srng_dst_peek+0x18/0x30 [ath11k]
- ath11k_dp_rx_process_mon_status+0xc45/0x1190 [ath11k]
- ? idr_alloc_u32+0x97/0xd0
- ath11k_dp_rx_process_mon_rings+0x32a/0x550 [ath11k]
- ath11k_dp_service_srng+0x289/0x5a0 [ath11k]
- ath11k_pcic_ext_grp_napi_poll+0x30/0xd0 [ath11k]
- __napi_poll+0x30/0x1f0
- net_rx_action+0x198/0x320
- __do_softirq+0xdd/0x319
-
-So add srng->lock for them to avoid such warnings.
-
-Inorder to fetch the srng->lock, should change srng's definition from
-'void' to 'struct hal_srng'. And initialize them elsewhere to prevent
-one line of code from being too long. This is consistent with other ring
-process functions, such as ath11k_dp_process_rx().
-
-Tested-on: WCN6855 hw2.0 PCI WLAN.HSP.1.1-03125-QCAHSPSWPL_V1_V2_SILICONZ_LITE-3.6510.30
-Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Signed-off-by: Kang Yang <quic_kangyang@quicinc.com>
-Acked-by: Jeff Johnson <quic_jjohnson@quicinc.com>
-Link: https://patch.msgid.link/20241219110531.2096-3-quic_kangyang@quicinc.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/ath/ath11k/dp_rx.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
-index 7e59260a30b89..413b24275a848 100644
---- a/drivers/net/wireless/ath/ath11k/dp_rx.c
-+++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
-@@ -5123,7 +5123,7 @@ static void ath11k_dp_rx_mon_dest_process(struct ath11k *ar, int mac_id,
- 	struct ath11k_mon_data *pmon = (struct ath11k_mon_data *)&dp->mon_data;
- 	const struct ath11k_hw_hal_params *hal_params;
- 	void *ring_entry;
--	void *mon_dst_srng;
-+	struct hal_srng *mon_dst_srng;
- 	u32 ppdu_id;
- 	u32 rx_bufs_used;
- 	u32 ring_id;
-@@ -5147,6 +5147,7 @@ static void ath11k_dp_rx_mon_dest_process(struct ath11k *ar, int mac_id,
- 
- 	spin_lock_bh(&pmon->mon_lock);
- 
-+	spin_lock_bh(&mon_dst_srng->lock);
- 	ath11k_hal_srng_access_begin(ar->ab, mon_dst_srng);
- 
- 	ppdu_id = pmon->mon_ppdu_info.ppdu_id;
-@@ -5205,6 +5206,7 @@ static void ath11k_dp_rx_mon_dest_process(struct ath11k *ar, int mac_id,
- 								mon_dst_srng);
- 	}
- 	ath11k_hal_srng_access_end(ar->ab, mon_dst_srng);
-+	spin_unlock_bh(&mon_dst_srng->lock);
- 
- 	spin_unlock_bh(&pmon->mon_lock);
- 
-@@ -5594,7 +5596,7 @@ static int ath11k_dp_full_mon_process_rx(struct ath11k_base *ab, int mac_id,
- 	struct hal_sw_mon_ring_entries *sw_mon_entries;
- 	struct ath11k_pdev_mon_stats *rx_mon_stats;
- 	struct sk_buff *head_msdu, *tail_msdu;
--	void *mon_dst_srng = &ar->ab->hal.srng_list[dp->rxdma_mon_dst_ring.ring_id];
-+	struct hal_srng *mon_dst_srng;
- 	void *ring_entry;
- 	u32 rx_bufs_used = 0, mpdu_rx_bufs_used;
- 	int quota = 0, ret;
-@@ -5610,6 +5612,9 @@ static int ath11k_dp_full_mon_process_rx(struct ath11k_base *ab, int mac_id,
- 		goto reap_status_ring;
- 	}
- 
-+	mon_dst_srng = &ar->ab->hal.srng_list[dp->rxdma_mon_dst_ring.ring_id];
-+	spin_lock_bh(&mon_dst_srng->lock);
-+
- 	ath11k_hal_srng_access_begin(ar->ab, mon_dst_srng);
- 	while ((ring_entry = ath11k_hal_srng_dst_peek(ar->ab, mon_dst_srng))) {
- 		head_msdu = NULL;
-@@ -5653,6 +5658,7 @@ static int ath11k_dp_full_mon_process_rx(struct ath11k_base *ab, int mac_id,
- 	}
- 
- 	ath11k_hal_srng_access_end(ar->ab, mon_dst_srng);
-+	spin_unlock_bh(&mon_dst_srng->lock);
- 	spin_unlock_bh(&pmon->mon_lock);
- 
- 	if (rx_bufs_used) {
--- 
-2.53.0
-
+David
 
 
