@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173941;
-	b=LeXvswjqMz/+7eYAx4tKEjncyItjiaqCMS003QtIGBhObreTRbZi2y1LWzc9iHnxWZwL
-	 Ew8GaPNHukLaFAn6A+LDG1hS1nI0Y5UJdfGNV3CqbF7CIP6X8qWSheQWs8IVS5M0mLeSh
-	 W4fOxCfnnBvwy9lekJUt1vqgQvz587kv/Qmr28h3iN4oa8mhV7O3vKgNQ+ogDDII3ztAt
-	 S6Lf0Y6o5Dcr1SkIqRnsMtc9N68pTLcYHKLHfTJ2sm6aM4SYsOmDKI+qlpP7pT3BDUiS5
-	 ttYao102JpoTWuKXhbI2eTpmYIZX1FmL9G0fu7jRUmN1EgxEbABlYYFwrxSenVGNS3A==
+	t=1793174090;
+	b=3g7Ljz+AG08bTkQiTh/eFsSDV7x4sM6ygkuQiuW/LGe1Rh2l0wLyCH/xY4MO2NGP/n+N
+	 pQs7BNtnAe5VylS2H3K/G/Fjo3R4k7OGrdEqahmyouK9gF3FSCoA5kAaV9IdT1CSqvsXV
+	 0lDB6Lu5anZXvaaod0FwhVuEU2LQAUF2ILliZo8CLyt4GJvdk2AauTGaCw08r8p/K0XW6
+	 98q+E6sRFbFMVCmX7Vu7akJvg6iAi46k6epBEo982pnMBsVh6tWY/DEojqjt0bwFRt1Wu
+	 sfXSR6oTusQosMbQy/gyQ6+hgz+ZfFnSFjaZQvglN3lDS2TWt8NuT+KZjt17u4h6sJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173941;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=C2MebSDm+AGzraIelTihisR4wHMyVkbMMbZmgrZJ7WY=;
-	b=LPkyzcTZcQti5CbA4YgBzLxmPv2ZQfXLXEYRu790di0RlUz5TZJcF7Y5/vWIRh7jjOkM
-	 ufbgoWocLZr6LmnwIn7dxeLFUhS1OygNC0a6MHHbwuOQfvpgASaLFhdIfA45+5ZSydUTR
-	 9rXddrwd/w5GVMZEO77diVGFdyqxFPWuBKuGM3qtOTqpZPd1B8z230IIB08iw0PweaAmd
-	 ykTOYepb1oPbDeUaLf6uUjuOnhet2aGXFDUcWt9ujz9YH28xiB7nClipJPKBiMCrh5itW
-	 Dt+JbiQgnAQ2b8zu1PSCq7Wog9/TpJQt2EzmgIa+lh7/bO5eGAqlh+9H+cIZ1aQuAHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174090;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DgpTX+N69CPuJBqSnT9cmchssSidaciumXGKTnRd2lg=;
+	b=i0y4MP4wPVrycw7rX7ipjI4g9pdaCdIQo83+v281KW4jaSqJL6a7fmHrj3wfQOsZjEgg
+	 maUIFv9KZpKstAmqbLlEBQVD4JE/WkYqPGf9Tx+EQ01NCvwIEOHXDGtk77yMa4SC67I0g
+	 J0u/9H3pD6CBHq7Bv8FhVb13FFPLStwVzKsx+3Bngnpzu9sWCmqaUuKbaZVSyBze8/TF0
+	 l1PqHarMa5xrsEJa4aT19eTWtTfFzR9aP5yyR2utdHKBkAwfVJ3dx+GkAuKRUOU71V635
+	 sXXB1D4hREYzyThO25NkvpPRVSsvLV9AsVEfGj/AsNtrKLp3g4wK6wx8ZjMamwkt4RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qAO7tgcE;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A45E606A31D;
-	Wed, 28 Oct 2026 07:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A45E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JuXq3SN0;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533EE606A31A;
+	Wed, 28 Oct 2026 07:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 533EE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qAO7tgcE
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09F282ECB;
-	Wed, 28 Oct 2026 00:52:16 -0700 (PDT)
-Received: from [10.163.164.200] (unknown [10.163.164.200])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 046D23F673;
-	Wed, 28 Oct 2026 00:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793173939; bh=wGe8fo0LsEeNmyXuE7t5RJoQX1lGKJltqCDxnR+anGM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qAO7tgcEvyo0Q3H3HaTM1nwzy8/QBeW1tnF4JOXa8qF71VXcIH8niSLEX8yBfM9DY
-	 y3XuPsTISI5OiWjvg0v6LudaMoMHfe0T+fQRVNRKQDaWP3kjmosTINe/S2/q5eMvvF
-	 XylgVFbGPVK2/y+rwaLieJ3EjGQdsqqHDKUNnM9o=
-Message-ID: <e32a19c4-76c4-40ba-83a4-781333af7b0a@arm.com>
-Date: Wed, 28 Oct 2026 13:21:55 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JuXq3SN0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793174088; x=1824710088;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=POeJ3we7ldSUr1gxytX9ShjD5E9HCMSZ0AlF3Ov4bEo=;
+  b=JuXq3SN0/Hx23bUjf/FNkN8QH3ZPpaEHnvz+thWCK+bGYjyh+VD7i0i+
+   BPo7r1zRkUcykRfrP8G1mA9dKUPxaWDEHKpdycObGfobSyZVMiDz4ar/8
+   rBWZb5fsILEnWX/Z1p7R0BVnwYlQGA3+C3XvY5Yz+gdyU6buJxk3K7Jrh
+   bEOjAMPUsZEefPWBRzzS3IHYFh4sJ1dID/qU3X99QRRX6pKIBarOYOPRp
+   R1Udpef85YNoYlGMRd0xK1zJRSM1wg/hmhOI5c7sNGfrosluM+AW2DNde
+   fhsimc0iFEQPlF/RJfdsGw84nVcTzSTreHuz8i5S8IfHkxv/Fza85XZ2u
+   w==;
+X-CSE-ConnectionGUID: pc9PPC0DQYWxm/GXsd4ESA==
+X-CSE-MsgGUID: HItxolguT62StuNSaIvHRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1763108"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1763108"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 00:54:47 -0700
+X-CSE-ConnectionGUID: Frj+XhxhTsiEh1aHp1QQhw==
+X-CSE-MsgGUID: 72FvaIViRLC10nKsD5pmAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5162711"
+Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
+  by fmviesa007.fm.intel.com with ESMTP; 28 Oct 2026 00:54:46 -0700
+From: Even Xu <even.xu@intel.com>
+To: bentiss@kernel.org,
+	jikos@kernel.org,
+	sammiee5311@gmail.com
+Cc: srinivas.pandruvada@linux.intel.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Even Xu <even.xu@intel.com>,
+	Rui Zhang <rui1.zhang@intel.com>
+Subject: [PATCH v3] HID: intel-thc-hid: intel-quickspi: validate GET REPORT response size
+Date: Wed, 28 Oct 2026 15:55:12 +0800
+Message-ID: <20261028075512.597589-1-even.xu@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,146 +83,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/46] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-9-6f74bec9a5bb@kernel.org>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261027-fixes_core-v1-9-6f74bec9a5bb@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: HyeongJun An <sammiee5311@gmail.com>
 
+quickspi_handle_input_data() copies GET_FEATURE and
+GET_INPUT_REPORT responses into qsdev->report_buf. The response length
+is derived from data supplied by the controller, but was not checked
+against the destination buffer size.
 
-On 27/10/26 4:47 am, David Hildenbrand (Arm) wrote:
-> page_vma_mapped_walk() can return non-present device-exclusive entries,
-> but folio_referenced_one() passes them to PTE young-bit accessors that
-> require present PTEs.
-> 
-> We must neither call clear_flush_young_ptes_notify() nor
-> folio_pte_batch() with non-present entries. For example, clearing the
-> young bit on non-present PTEs can corrupt the entry: on arm64
-> PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-> entry into an ordinary swap entry.
-> 
-> folio_pte_batch() will VM_WARN_ON_FOLIO.
-> 
-> Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-> treat these entries as old from the CPU's perspective and obtain their
-> young state through the MMU notifier.
-> 
-> Skip PTE batching and MGLRU look-around for non-present entries, and
-> don't modify non-present PTEs.
-> 
-> Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+Adjust qsdev->report_buf_size to store the data length of report buffer,
+reject responses that exceed it before copying. This prevents an
+oversized response from overflowing report_buf. The rejected response
+does not complete the GET REPORT request, so quickspi_get_report()
+follows its existing timeout path.
 
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI protocol implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: Even Xu <even.xu@intel.com>
+Tested-by: Rui Zhang <rui1.zhang@intel.com>
+---
+Change log:
+V3:
+ - Correct the data size used in the get report check
 
-But nit below.
+V2:
+ - Rebased on top of latest mainline kernel
+ - Adjust qsdev->report_buf_size to store the data length of report buffer
 
+---
+ .../intel-thc-hid/intel-quickspi/pci-quickspi.c  | 16 ++++++++--------
+ .../intel-thc-hid/intel-quickspi/quickspi-dev.h  |  1 +
+ .../intel-quickspi/quickspi-protocol.c           | 12 ++++++++++--
+ 3 files changed, 19 insertions(+), 10 deletions(-)
 
->  mm/rmap.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/rmap.c b/mm/rmap.c
-> index 1131b76bbbc28..0faef46806e5c 100644
-> --- a/mm/rmap.c
-> +++ b/mm/rmap.c
-> @@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
->  	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
->  	int ptes = 0, referenced = 0;
->  	unsigned int nr;
-> +	pte_t pteval;
->  
->  	while (page_vma_mapped_walk(&pvmw)) {
->  		address = pvmw.address;
-> @@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
->  			return false;
->  		}
->  
-> -		if (pvmw.pte && folio_test_large(folio)) {
-> +		if (pvmw.pte)
-> +			pteval = ptep_get(pvmw.pte);
-> +
-> +		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
->  			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
->  			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
-> -			pte_t pteval = ptep_get(pvmw.pte);
->  
->  			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
->  		}
-> @@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
->  		 * are. —they could be on active/inactive lists or on MGLRU. So the
->  		 * simplest approach is to disable this look-around optimization.
->  		 */
-> -		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
-> +		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
-> +		    pte_present(pteval)) {
->  			if (lru_gen_look_around(&pvmw, nr))
->  				referenced++;
->  		} else if (pvmw.pte) {
-> -			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
-> +			bool young = false;
-> +
-> +			/*
-> +			 * PFN swap PTEs, such as device-exclusive ones, that
-
-You mean "PFN softleaf PTEs"? Better expressed as "softleaf PTEs embedding a PFN" ...
-
-
-> +			 * actually map pages are "old" from a CPU perspective.
-> +			 * The MMU notifier takes care of any device aspects.
-> +			 */
-> +			if (pte_present(pteval))
-> +				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
-> +			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-> +								address + nr * PAGE_SIZE);
-> +			if (young)
->  				referenced++;
->  		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
->  			if (pmdp_clear_flush_young_notify(vma, address,
-> 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index 53023e30cf8d..d0aa66a8a4b4 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -562,17 +562,17 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 	max_report_len = max(le16_to_cpu(qsdev->dev_desc.max_output_len),
+ 			     le16_to_cpu(qsdev->dev_desc.max_input_len));
+ 
+-	/*
+-	 * write_cmd_to_txdma() writes the output report header ahead of the
+-	 * content in this buffer, so it has to hold both.
+-	 */
+-	qsdev->report_buf_size = HIDSPI_OUTPUT_REPORT_SIZE(max_report_len);
+-
+-	qsdev->report_buf = devm_kzalloc(qsdev->dev, qsdev->report_buf_size,
+-					 GFP_KERNEL);
++	qsdev->report_buf = devm_kzalloc(qsdev->dev,
++					 HIDSPI_OUTPUT_REPORT_SIZE(max_report_len), GFP_KERNEL);
+ 	if (!qsdev->report_buf)
+ 		return -ENOMEM;
+ 
++	/*
++	 * Store the max data length of this report buffer, then compare it with output/input
++	 * packet content when write or read into this report buffer to avoid buffer overflow.
++	 */
++	qsdev->report_buf_size = max_report_len;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+index fe51ff51d8c0..4362ac568bda 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+@@ -115,6 +115,7 @@ struct acpi_device;
+  * @input_buf: store a copy of latest input report data
+  * @input_len: the data size of the input report buffer
+  * @report_buf: store a copy of latest input/output report packet from set/get feature
++ * @report_buf_size: the data size of input/output buffer
+  * @report_len: the length of input/output report packet
+  * @reset_ack_wq: workqueue for waiting reset response from device
+  * @reset_ack: indicate reset response received or not
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+index 0df33c44fbff..f8b455fd3939 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+@@ -30,7 +30,7 @@ static int write_cmd_to_txdma(struct quickspi_device *qsdev,
+ 
+ 	write_buf = (struct output_report *)qsdev->report_buf;
+ 
+-	if (HIDSPI_OUTPUT_REPORT_SIZE(report_buf_len) > qsdev->report_buf_size)
++	if (report_buf_len > qsdev->report_buf_size)
+ 		return -EINVAL;
+ 
+ 	write_buf->output_hdr.report_type = report_type;
+@@ -161,6 +161,7 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 	struct input_report_body *input_body;
+ 	u8 *input_report;
+ 	u32 input_len;
++	u32 report_len;
+ 	int ret = 0;
+ 
+ 	input_body = (struct input_report_body *)qsdev->input_buf;
+@@ -210,7 +211,14 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 
+ 	case GET_FEATURE_RESPONSE:
+ 	case GET_INPUT_REPORT_RESPONSE:
+-		qsdev->report_len = sizeof(body_hdr->content_id) + input_len;
++		report_len = sizeof(body_hdr->content_id) + input_len;
++		if (input_len > qsdev->report_buf_size) {
++			dev_err_once(qsdev->dev, "Get report response too big: %u\n",
++				     input_len);
++			return;
++		}
++
++		qsdev->report_len = report_len;
+ 		input_report = input_body->content - sizeof(body_hdr->content_id);
+ 
+ 		memcpy(qsdev->report_buf, input_report, qsdev->report_len);
+-- 
+2.43.0
 
