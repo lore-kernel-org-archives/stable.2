@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210956;
-	b=Sl2VMDCZbJ7pKDslowiUJWsFVjLcoNUu3oUrtF2rLp7Ka0QHt7iJYpYI81O+JnjZqnRe
-	 66W5Pmdt8nsYv0oIIj8ildk+VSzZ3n1svqw11si/C2IPXKrlAu6WYItOWplcvwSDINNen
-	 CtFRqNOonoSYC2nK8JIQJjH+bbF1S/KfNII3L8tcWrzuOOmBhnae06MvsyAHhF75W73V1
-	 HPzexVAfd/MDexK6y+v1u6vV7GR35tPfqsV74IvebxsRQwgc5W+heOjvS7qLkzTEmUhm3
-	 fJX4O4hGc7+HRtydKgoUHmUcbkkvOQ79muiR6UoXTFIZTRvvnMY434hXTEM4AcvcyGg==
+	t=1793210959;
+	b=1NHX/XYdAgJOsjGpWApsXkhkCmwNND2Thcc0CPD7iKS/E8JeoVqjtDhD4FMNB36M/CpL
+	 y9thuxHQy1FeGWAj51ICZWyQOBoEntVlBkC6zxVk9iPynFpugvg3R0esLmBoae9jHQK8b
+	 EMTnsn9P5lnSoPcMlDd1dx6fWPvhI9Udr2OVEGxVzWvKAuBRzBIFURr/GTwzh5o+7wxGN
+	 7AbDeVU2llEldVvu2gVTWZ3wc+Nh1joQuRSySv4Kc0FdPPH0WF6dPde7d3BORIhm5eFhM
+	 11lUpR+jRYUcyAs/F130CwXDlbLR2siCRbNGvTvOk4U+hXkzbOkDBx5MZfeb0NYVovQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210956;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210959;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UoPYkeWMGgTYwIHfVGNFvL87fLN9Pc/KyO7Y4TbEYXk=;
-	b=fDcTBGYI+pllL9Tq2a7uYmSQ0808+Bw7NjSIHzBVpTVWl2NqoYgx2ahA2ToYof7/uKhz
-	 kqs8sAIommCOAnZny7aIMsu0HuNcJWnVin2hciEIoacboU87jx5VOAtuwl0VjwILZ8ZJ7
-	 ICj+HsxC7VIbX2+3m9lbhl7NJXYFlbOGqfKffAtrqJlmMoWypnvg41nZInFqi7iGYNi6u
-	 mXd8g5bUFO9YSvsvsrpwtrZnAUid8UD3VapR0OjgOXYa/lCoce/+40vn/OpNaIDrfyQjb
-	 7Ev3L0imSi6zNkn5jFq035SglA/Oo2olCb9rQ3cGH7FQ9c1aQnEGghod6IXSk+8XOQQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=IeONskHq/Htz7VDUskedKTohiF9/TsRn7i2K6Ajsy6g=;
+	b=nJ/pRjT9RBsLBv6u2PumYuGmu1PnS3v+5JWoR6xZoLYwS1B6geB5SKStSVcGUZzv5fm8
+	 s678S1bVxb4sOKEVbuCICCxERw4M1P2diLDWfJh+/qwU+kdAWPqCTEqRUgBRQ6NAVls+Z
+	 gOBPOE5TRey7Ar3cvKpNjR/JwVfbJxGUO3+jX8DANfHzOgcZElSCy2IODCzku69qbza5i
+	 98yhqOZ2YUbK99a2Mgfsn2PW3sFOGh5/rMtgFBWuhyW8pf9JCTXfBG8escbohYBTKm6om
+	 5skFAHff9mDKxBumIcsJ2FhQ0SnltpPfhi6v33uFzhIpaXKsXDka8NZADG5PxiWuXnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IKDQGdRA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RBdiJ+71;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26895606A326;
-	Wed, 28 Oct 2026 18:09:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BC9606A31D;
+	Wed, 28 Oct 2026 18:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IKDQGdRA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778D81F01825;
-	Wed, 28 Oct 2026 18:09:15 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RBdiJ+71
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7FD1F01825;
+	Wed, 28 Oct 2026 18:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210956;
-	bh=UoPYkeWMGgTYwIHfVGNFvL87fLN9Pc/KyO7Y4TbEYXk=;
+	s=korg; t=1793210958;
+	bh=IeONskHq/Htz7VDUskedKTohiF9/TsRn7i2K6Ajsy6g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IKDQGdRA+nZv1HKWhWwOGwez39BRBzv0v42FFxLl6p1Q4w5WWFrFHIxiixHsT+q/n
-	 6UKouNO5qkjzTgqDvJ5Z1zVC8qD8gIxwr6yNRgcs6o7O7I9cZcBTcDBzWhb9GDTygt
-	 KmXm/FuPxsOin4nYShYSyVyGXIKdypdaMkUKtcH0=
+	b=RBdiJ+71NitFMoFA9non2GAX6bXNyAJJjetjyYTqtntog8Sb4YUhn2Z3GmzzxOWx6
+	 9Hj3up5tfgEbinnuA80ETaBemu3Fb/vj08z2kpioXgwIRyV5X3rEviXYesEMZWvFpF
+	 HhIme52lqLQWR0X1MXkSJ2bN482EL2thVdXw6sQM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Minseo Kim <neck3922@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	stable <stable@kernel.org>
-Subject: [PATCH 5.15 207/571] USB: gadget: dummy-hcd: Fix wait for outstanding request completions
-Date: Wed, 28 Oct 2026 17:55:54 +0100
-Message-ID: <20261028170012.915444993@linuxfoundation.org>
+	stable@kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>,
+	=?UTF-8?q?Micha=C5=82=20Nazarewicz?= <mina86@mina86.com>
+Subject: [PATCH 5.15 208/571] usb: gadget: f_fs: Fix NULL pointer dereference in FUNCTIONFS_ENDPOINT_DESC
+Date: Wed, 28 Oct 2026 17:55:55 +0100
+Message-ID: <20261028170012.938941228@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -62,72 +62,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.15-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Alan Stern <stern@rowland.harvard.edu>
+From: Yuchao Zhang <ndaugoing@gmail.com>
 
-commit b263ff9b0fc5c1f371d65c4eb196b31263d039ff upstream.
+commit 9cd072788c76595529eb38f42bf94d23852f8534 upstream.
 
-The dummy-hcd driver emulates synchronize_irq() by waiting until its
-private callback_usage counter drops to 0 (with the private lock not
-held).  This counter is incremented whenever a gadget driver callback
-occurs (which requires the private lock to be dropped), but not when a
-request completion handler is called.
+When user space sets up FunctionFS with only full-speed descriptors
+(e.g., flags = FUNCTIONFS_HAS_FS_DESC) and the gadget operates at a
+higher speed (such as USB_SPEED_HIGH or USB_SPEED_SUPER),
+config_ep_by_speed() detects that the function lacks descriptors for
+the current speed, logs a warning, and falls back to full-speed
+descriptors. The endpoint is then successfully enabled via
+usb_ep_enable(), and epfile->ep becomes valid.
 
-This is an oversight.  Request completion is triggered by timer
-interrupts (emulating device IRQs in a real UDC), and the interrupt
-handlers are supposed to have completed when the synchronize_irq()
-emulation routine returns -- they aren't supposed to be in the middle
-of a completion callback.  If this happens it can lead to a gadget
-driver's unbind routine running before all outstanding request
-completions have finished, maybe even allowing the gadget driver's
-module to be unloaded while a completion handler is still running.
+However, when user space subsequently issues the FUNCTIONFS_ENDPOINT_DESC
+ioctl to query the endpoint descriptor, ffs_epfile_ioctl() selects the
+descriptor index solely based on gadget->speed:
 
-Fix the oversight by incrementing the callback_usage value across
-request completion callbacks.
+	switch (epfile->ffs->gadget->speed) {
+	case USB_SPEED_SUPER:
+	case USB_SPEED_SUPER_PLUS:
+		desc_idx = 2;
+		break;
+	case USB_SPEED_HIGH:
+		desc_idx = 1;
+		break;
+	default:
+		desc_idx = 0;
+	}
+	desc = epfile->ep->descs[desc_idx];
+	memcpy(&desc1, desc, desc->bLength);
 
-Link: https://lore.kernel.org/linux-usb/7a87e293-633c-4100-aa8d-91560ba5e5c5@rowland.harvard.edu/
-Fixes: 7dbd8f4cabd9 ("USB: dummy-hcd: Fix erroneous synchronization change")
-Tested-by: Minseo Kim <neck3922@gmail.com>
-Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
-Cc: stable <stable@kernel.org>
-Link: https://patch.msgid.link/f23b9e1a-f110-441a-a1d8-95f442ec09d5@rowland.harvard.edu
+Because user space only supplied full-speed descriptors,
+epfile->ep->descs[1] is NULL. Dereferencing desc->bLength triggers an
+immediate kernel NULL pointer dereference panic.
+
+Fix this by falling back through lower speed descriptors if the current
+speed descriptor was not supplied, matching the fallback logic in
+config_ep_by_speed() and historical f_fs behavior. If still missing,
+fall back to epfile->ep->ep->desc (the active descriptor), and return
+-EINVAL safely if no valid descriptor is found. In addition, mark desc
+as const to match struct usb_ep::desc and avoid discarding qualifiers.
+
+Fixes: c559a3534109 ("usb: gadget: f_fs: add ioctl returning ep descriptor")
+Cc: stable@kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+Acked-by: Michał Nazarewicz <mina86@mina86.com>
+Link: https://patch.msgid.link/20260918005438.81263-2-ndaugoing@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/gadget/udc/dummy_hcd.c |    4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/gadget/function/f_fs.c |   15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
---- a/drivers/usb/gadget/udc/dummy_hcd.c
-+++ b/drivers/usb/gadget/udc/dummy_hcd.c
-@@ -339,9 +339,11 @@ static void dummy_giveback(struct dummy
- {
- 	bool fifo = req == &dum->fifo_req;
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -1351,8 +1351,9 @@ static long ffs_epfile_ioctl(struct file
+ 		break;
+ 	case FUNCTIONFS_ENDPOINT_DESC:
+ 	{
++		const struct usb_endpoint_descriptor *desc;
++		struct usb_endpoint_descriptor desc1;
+ 		int desc_idx;
+-		struct usb_endpoint_descriptor desc1, *desc;
  
-+	++dum->callback_usage;
- 	spin_unlock(&dum->lock);
- 	usb_gadget_giveback_request(_ep, &req->req);
- 	spin_lock(&dum->lock);
-+	--dum->callback_usage;
- 	if (fifo)
- 		dum->fifo_req_busy = 0;
- }
-@@ -755,11 +757,13 @@ static int dummy_queue(struct usb_ep *_e
- 		req->req.complete = fifo_complete;
+ 		switch (epfile->ffs->gadget->speed) {
+ 		case USB_SPEED_SUPER:
+@@ -1366,7 +1367,17 @@ static long ffs_epfile_ioctl(struct file
+ 			desc_idx = 0;
+ 		}
  
- 		list_add_tail(&req->queue, &ep->queue);
-+		++dum->callback_usage;
- 		spin_unlock(&dum->lock);
- 		_req->actual = _req->length;
- 		_req->status = 0;
- 		usb_gadget_giveback_request(_ep, _req);
- 		spin_lock(&dum->lock);
-+		--dum->callback_usage;
- 	}  else
- 		list_add_tail(&req->queue, &ep->queue);
- 	spin_unlock_irqrestore(&dum->lock, flags);
+-		desc = epfile->ep->descs[desc_idx];
++		do {
++			desc = epfile->ep->descs[desc_idx];
++		} while (!desc && --desc_idx >= 0);
++
++		if (!desc)
++			desc = epfile->ep->ep->desc;
++		if (!desc) {
++			ret = -EINVAL;
++			break;
++		}
++
+ 		memcpy(&desc1, desc, desc->bLength);
+ 
+ 		spin_unlock_irq(&epfile->ffs->eps_lock);
 
 
