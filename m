@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217077;
-	b=RRI1BlDqGsnCeABTV5IlhzForJAzbr4PFRB531XB2fl/LFpQfqjfYBE3F24BXvWIjNDn
-	 v0KRBUqiecbFyM7AgUJrJAknL8XEi9I8DjtYvMGBBIyg2Nm4nnPAak+Jqh0h60S6+qv+e
-	 Nya4lU83fDHo9965/ZzXaiklqP/kEdJ7lsilJkkr0bQDJvTapyO4yCXjRSp3HzLxNP0Oz
-	 +sDTtPslK/X4/ir9wNMN+BdNmXG3qU9RazbVe+5dA74yLbCWbpa1m9JZk13f44NSi2JVa
-	 N9jVmEBafvX0EmnHKr//uUatVkiIFGy1JWD3tzqMWacGVV/6nGA5LeA9tYhKWi+nACg==
+	t=1793217083;
+	b=oG2XPd+sJ0DGNRimIcHyNZ2zvK38hSiLiCBqz0hruyG099S1tNRgzydTp0qCl8BO0wvU
+	 PUaWa03HwzNZMIjTk7d5msfKY57cCX3M6HxxOmoGb9ag0SMMFdR0RRCRca6pX1+Q6h7yt
+	 5dPLeU3KSXhn1ag3Lz285Us9eJtFtEG5ZawT6ztblqBONMGbNqzFeO76kfKRCzd45YJG9
+	 Yp7ChQ7Os4KrkaqetxdAG0kpTP4gDxYZjAgn116FoUJAqJxwL1+aeWOVFsC1ay6D591jI
+	 ediffdcSNFi3bELlApjU2DrYjMCpVYRtDu4vgVp2UYD1XBCZmg8EaJ1VmBcTQAdvABw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217083;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=CTSE+l+bcJafI50zhjcZ1h9XpP5A9KTeYqEL8wCwkuc=;
-	b=uYfxiTgs4lSIuxLE9uTS8vhcHFCaqWDIKhJL0lUxpTORWsRv15dMLNBut6Eu3AtAPrxn
-	 CNcPbHjN6ysJ0Ys0CNCFHWuSUqnyPHDui3TkzzTY6D2BdjbQq9vgJV+pMqR1kIFg1xtKN
-	 /JcDBUetcxPC40Hqw5ZZVnaT45s7bh4jBEH5caBYKg00nwDhVAHTLdxTfp2UyK08D+Uco
-	 NpvZeq22C27HWVbaMEKmpTvFiTWnjAMp5dVww94OT5aRLqpA+JmMOY+HsVC9wnHblpF6w
-	 gDh00AyEDUed6aM4XXcvxijJUqpwRsI3bVVR7OqDNL0zxWUiGR5Sg0QI5Zke3PoP5rg==
+	bh=INjtBxSpuM6FdsOIWWMsp8ewDhcpy+yBYNHvrEa6D88=;
+	b=cvhgLokbBSwhA3L1ttRSm7ECcDFvZoOjh7Jl6OoUMW+FF/5Md41o2knbKKpfnfK21hwH
+	 9JlyWmA5TVjjuGZDD4jrydcF85J8A+zASjTz5BN4cfGkw46Nmnt8NALbM3XruUfp1e9Lg
+	 b0gS51u+k+ZZ9bZPBMZQCKcQJdaV+174p7rMQNXDJPDOGKD2GqvjQZ5hgXjqnkjVbLRTT
+	 CCxKG7OdVcy6/vdaV6ipg33sUKkiwQBzALIK9LPudcGKSfr+kF9OHfYcrUsAcsmBnaNjX
+	 rO5PxGQDZpVfLs9Ox01uZ6dD0hP4jZSrxR4qhnLqL9lNi7e3LeobnnO3aUUC4eZQmbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D6AkUwd6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m8IuWK6n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFF8606A31A;
-	Wed, 28 Oct 2026 19:51:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A49606A320;
+	Wed, 28 Oct 2026 19:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D6AkUwd6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B0B1F01825;
-	Wed, 28 Oct 2026 19:51:16 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m8IuWK6n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068E51F01825;
+	Wed, 28 Oct 2026 19:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793217077;
-	bh=CTSE+l+bcJafI50zhjcZ1h9XpP5A9KTeYqEL8wCwkuc=;
+	s=korg; t=1793217082;
+	bh=INjtBxSpuM6FdsOIWWMsp8ewDhcpy+yBYNHvrEa6D88=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D6AkUwd6ZR+pfZJp4+ISSa56MHZhdPBwXUJHrXdGJamSoDcYTuFJ6z32iB4K3aHuE
-	 q/4wAQMrClcN8PJM966CC+BTw4uwOY5+W6DtWSg7M/UgmTPNk1bW2JWioGs0l/waMo
-	 UzbAs9L7mu7HrA+EqqhEdjHvCFTdRBLRteowYWUA=
+	b=m8IuWK6nvNM0crtrshwnqHnsvbn5cd107cW3hpsL4kRTzikVGJMXToo4vT0Vyem3k
+	 Se5CBYqGVXKHCjN61JukAnXEAzw1Kx3gsV5yM2KIfh+WKafRsGpIOg/IpBlxp0ftKN
+	 LxIFIllDCwS0hLfC33Z3LYC8QlrifhQkwaUMKuuQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ameer Hamza <ameer.hamza@truenas.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	"Dae R. Jeong" <threeearcat@gmail.com>,
+	AutonomousCodeSecurity@microsoft.com,
+	"Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1778/1887] perf: Track the perf mlock gift separately
-Date: Wed, 28 Oct 2026 18:04:34 +0100
-Message-ID: <20261028170539.912578192@linuxfoundation.org>
+Subject: [PATCH 6.1 1780/1887] watch_queue: Fix note pool publication race in watch_queue_set_size()
+Date: Wed, 28 Oct 2026 18:04:36 +0100
+Message-ID: <20261028170539.958012375@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -69,140 +71,93 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
 
-commit 78436f3882fb8d848c823bf8cf754988202c5ca5 upstream.
+[ Upstream commit 5e531d62f1f8834faf7a4eed0d41105cf6570a8f ]
 
-The locked_vm field in struct user_struct was originally introduced by
-commit 789f90fcf6b0 ("perf_counter: per user mlock gift") to provide an
-mlock-like budget for perf measured against mm->pinned_vm (since 2011).
+There is a race between watch_queue_set_size() and post_one_notification().
+watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
+nr_notes with plain stores, and post_one_notification() reads them with
+plain loads under a different lock, so nothing orders the four stores
+against the poster's loads: depending on the build, notes can be stored
+last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
+attach to a queue before it is sized, post_one_notification() can already
+be running on another CPU at that moment: it reads nr_notes > 0, passes
+its bounds check, and then reads notes while it is still NULL,
+dereferencing notes[0].
 
-perf grants each user a 'gift' of perf_event_mlock_kb * online CPUs of
-buffer pages which is charged to user->locked_vm without any RLIMIT_MEMLOCK
-check.
+An unprivileged user triggers this reliably by watching one of its own
+keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
+on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
+triggering:
 
-Only pages beyond the gift are checked against RLIMIT_MEMLOCK, per-mm, via
-mm->pinned_vm, which makes it different from the standard mlock() check,
-which is per-mm and made against RLIMIT_MEMLOCK.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
+  Call Trace:
+   __post_watch_notification+0x148/0x180
+   keyctl_setperm_key+0x119/0x130
+   do_syscall_64+0x108/0x4c0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-However, since this was introduced, a number of other components have
-utilised this field where a shared resource needed to be limited against
-RLIMIT_MEMLOCK.
+Fix this by publishing nr_notes last with smp_store_release(), and by
+reading it once with smp_load_acquire() in post_one_notification() before
+the bitmap and the page array are touched.  A poster that observes a
+non-zero nr_notes then also observes the pool behind it; one that observes
+zero drops the notification as before.
 
-The other users are currently MSG_ZEROCOPY, io_uring, AF_XDP, iommufd,
-s390 KVM zPCI and most recently, secretmem in commit 97d34aa65c29
-("mm/secretmem: properly account locked pages").
-
-This field is shared between all of these, but because the gift is not
-checked against RLIMIT_MEMLOCK, user->locked_vm alone can exceed it - 16
-CPUs * 516 KiB is already more than the default 8 MiB - after which every
-other user of the field fails unconditionally.
-
-This was reported by a user who saw secretmem failing while running a
-simultaneous perf record.
-
-Resolve the issue by simply giving perf its own field separate from the
-rest.
-
-BPF used user->locked_vm up until commit 80ee81e0403c ("bpf: Eliminate
-rlimit-based memory accounting infra for bpf maps") which landed in 5.11.
-
-Thus also eliminate the now-defunct ifdef for CONFIG_BPF_SYSCALL for
-user->locked_vm.
-
-This issue exists between all of the components which use user->locked_vm
-and perf, however secretmem is the first user who has caused a report over
-many years and has been backported, so target the fix at that.
-
-Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
-Closes: https://lore.kernel.org/20261002175651.811343-1-ameer.hamza@truenas.com
-Reported-by: Ameer Hamza <ameer.hamza@truenas.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: stable@vger.kernel.org
-[ ljs - Applied to open-coded accounting in perf_mmap()/perf_mmap_close(). ]
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: c73be61cede5 ("pipe: Add general notification queue support")
+Reported-by: Dae R. Jeong <threeearcat@gmail.com>
+Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Link: https://patch.msgid.link/20261009224715.46121-1-cenzhang@linux.microsoft.com
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Retained the mask variable in post_one_notification() for direct ring-buffer indexing. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched/user.h |  8 +++++---
- kernel/events/core.c       | 12 ++++++------
- 2 files changed, 11 insertions(+), 9 deletions(-)
+ kernel/watch_queue.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 8d7e5521f7cdd..ec262b605437c 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -23,11 +23,13 @@ struct user_struct {
- 	struct hlist_node uidhash_node;
- 	kuid_t uid;
+diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
+index a72ea1c2f59fe..506776c113794 100644
+--- a/kernel/watch_queue.c
++++ b/kernel/watch_queue.c
+@@ -102,7 +102,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
+ 	struct pipe_inode_info *pipe = wqueue->pipe;
+ 	struct pipe_buffer *buf;
+ 	struct page *page;
+-	unsigned int head, tail, mask, note, offset, len;
++	unsigned int head, tail, mask, note, offset, len, nr_notes;
+ 	bool done = false;
  
--#if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
--	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
-+#if defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
- 	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
- 	defined(CONFIG_SECRETMEM)
--	atomic_long_t locked_vm;
-+	atomic_long_t locked_vm;	/* pinned pages charged to RLIMIT_MEMLOCK */
-+#endif
-+#ifdef CONFIG_PERF_EVENTS
-+	atomic_long_t perf_mlock;	/* perf buffer pages within perf_event_mlock_kb */
- #endif
- #ifdef CONFIG_WATCH_QUEUE
- 	atomic_t nr_watches;	/* The number of watches this user currently has */
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 95dcc8e6907e2..e256ad0bfa4c6 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -6195,7 +6195,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 		perf_pmu_output_stop(event);
+ 	spin_lock_irq(&pipe->rd_wait.lock);
+@@ -113,8 +113,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
+ 	if (pipe_full(head, tail, pipe->ring_size))
+ 		goto lost;
  
- 		/* now it's safe to free the pages */
--		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->locked_vm);
-+		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->perf_mlock);
- 		atomic64_sub(rb->aux_mmap_locked, &vma->vm_mm->pinned_vm);
+-	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
+-	if (note >= wqueue->nr_notes)
++	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
++	nr_notes = smp_load_acquire(&wqueue->nr_notes);
++	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
++	if (note >= nr_notes)
+ 		goto lost;
  
- 		/* this has to be the last one */
-@@ -6270,7 +6270,7 @@ static void perf_mmap_close(struct vm_area_struct *vma)
- 	 */
+ 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
+@@ -299,7 +301,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
+ 	wqueue->notes = pages;
+ 	wqueue->notes_bitmap = bitmap;
+ 	wqueue->nr_pages = nr_pages;
+-	wqueue->nr_notes = nr_notes;
++	/* Pairs with the smp_load_acquire() in post_one_notification(). */
++	smp_store_release(&wqueue->nr_notes, nr_notes);
+ 	return 0;
  
- 	atomic_long_sub((size >> PAGE_SHIFT) + 1 - mmap_locked,
--			&mmap_user->locked_vm);
-+			&mmap_user->perf_mlock);
- 	atomic64_sub(mmap_locked, &vma->vm_mm->pinned_vm);
- 	free_uid(mmap_user);
- 
-@@ -6430,11 +6430,11 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
- 	 */
- 	user_lock_limit *= num_online_cpus();
- 
--	user_locked = atomic_long_read(&user->locked_vm);
-+	user_locked = atomic_long_read(&user->perf_mlock);
- 
- 	/*
- 	 * sysctl_perf_event_mlock may have changed, so that
--	 *     user->locked_vm > user_lock_limit
-+	 *     user->perf_mlock > user_lock_limit
- 	 */
- 	if (user_locked > user_lock_limit)
- 		user_locked = user_lock_limit;
-@@ -6442,7 +6442,7 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
- 
- 	if (user_locked > user_lock_limit) {
- 		/*
--		 * charge locked_vm until it hits user_lock_limit;
-+		 * charge perf_mlock until it hits user_lock_limit;
- 		 * charge the rest from pinned_vm
- 		 */
- 		extra = user_locked - user_lock_limit;
-@@ -6494,7 +6494,7 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
- 
- unlock:
- 	if (!ret) {
--		atomic_long_add(user_extra, &user->locked_vm);
-+		atomic_long_add(user_extra, &user->perf_mlock);
- 		atomic64_add(extra, &vma->vm_mm->pinned_vm);
- 
- 		atomic_inc(&event->mmap_count);
+ error_p:
 -- 
 2.53.0
 
