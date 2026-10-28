@@ -1,57 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793164025;
-	b=Uc+YkHQms7+WDdTglyGeJoMRY9yUH9FePCIuUCWN6P5i1y7/5ZW9c47RImf8Of/38N02
-	 5ZNIBSicA8G0n1EVo/IsadNxZGpKZqFznNpYA+bGY9TjaRTrrE8OhQAepsTYdsPxNAf6Q
-	 Yd4ZOhrEcRm8BghCZj/eg8Rl9dhvbJoVvaf/310cRW/gpVx9pTwNP5Iq5P8bDqNKfeNSA
-	 PhYLvlgpq7huThBB5WVPU6kZkqLia93CgVB4Ep6DL3aLopPrzW7slh0+FMqBzKCRI5U0D
-	 /cqL7xH2ZxzyWXu7yG7Fw6gVwCGTddW6YfDEq8otrJRKWPqavI25ljF64aI1Nl6UcYw==
+	t=1793164075;
+	b=DDfV0Lj5XEWb46MSrs90aLnF17tHvHTPPiBkIK+U343KiOjRs1TqzIOF8hOlQT4QNeox
+	 xOHZd7viAzADquVz7H5sFrmmFXTNFDadF288TaspQ3U7kLP10gMruPmLXZuLqhGbQLwEj
+	 RqKUdc6AHqDbJ7u+/VziRAsRfKCg24RmbZcsEq0AFGA4R9gaFX8k2SauujTutGLlwj56J
+	 Af9tvMungy0ksPO0B+B+jLIXR3neFllsvhFDXD7NGiEq/VqgImmoE6RBr3CE8aKcLtS/a
+	 GWbFbJroP037JUtakD1MOK6I6nL52UkpAFnsTGh1SbO0xWCfrN3GQkd1SWAr0Jrn8Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793164025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793164075;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Cf9gfNcIiu11cnWlAOGnF/eh2esPSE/DuMDNIb7pmvc=;
-	b=egHhrf+vvBWre1BtfWAbmORfhtAReoVmAwOhfEIO16/j1eOupN6atID6qw1ukHNM0KPZ
-	 0mGb8IWiTGxL51Y3A+ZiChqyy/fmOnvnw07j7SX30x3+kGsCDwSfL8RQ8ypQ35fzhCjZN
-	 2oRHjl2qDCH/vydDjtwURceJtMMu5tIzNQmOKcYokpl3BsASZlLUkiFHTnLkxLivgeMEI
-	 hPqxVSiVAouj3Q3d657Zh7guMvwcVy6fI4RDCpjS6mkdLtr/OOC22+Kg2skq0gQwY9A6t
-	 Gjlu0NrVsRSoZ95e9iDY2MXpLv/tKIOzBDPJAlLN9G1k7l9czDsChTf1kV4jXGNmcfA==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=MTIAVEb2k2hh86gcLrq0Ks4EmnWvWMm36zR/JvnNe0E=;
+	b=HMYPHB3aDrHpWPdNZ83AJQR8Ja1kkBPXasHi4CSaMPSZeWP+6K3gKUGhwLty0hiY4Ayz
+	 XMbseKs+wYQK9qSjbcNtrjFdE3FXtEjZ8KC1ie6gapuoHQwpSE39HeNxcSLfMGELXeRA0
+	 2nemYLm28lmyKja7Fw5bhnRAqs/DRioGn5R/uVMq7DM2ylKsGT4vJvxRB/USYcZy0soZA
+	 +2brBIswzPg4wYbYmNvLAKBHBnOXrRgiAkxCHWvyFOnn0tT+/IAAEy063+bdUDKNkyYic
+	 4Jiudnp9bhYG9hc5e1LYZD6Wv550501YZ4qiVSIk+wj91T4vd+uSS+PFsjcp8AhAv5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WAJYNrW0;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nrNkqtu8;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E35606A321;
-	Wed, 28 Oct 2026 05:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E35606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90830606A327;
+	Wed, 28 Oct 2026 05:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90830606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WAJYNrW0
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nrNkqtu8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Cf
-	9gfNcIiu11cnWlAOGnF/eh2esPSE/DuMDNIb7pmvc=; b=WAJYNrW08Kv4DQ0T5U
-	3oFGq+opfUHtXHQceZdk3HsYgncdUegaHI6CvBCb4RBbslMRpOIi79FWW7AyL9pU
-	2L64SWxJcjFkvLcbwBV6aix+fJpb6PdNdT/Y3YeG5uOdQ/RTpmQu/z1MkmQj7ypp
-	MeraIcukohG2xrb0/HqJ6jzI4=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=MT
+	IAVEb2k2hh86gcLrq0Ks4EmnWvWMm36zR/JvnNe0E=; b=nrNkqtu8fhkkFEswyo
+	5jC53CibVwNMeuTwwxIPK5GhoGBJ5QhERYZUqAh3NQg6svcqL+1EERLpf3jlDmSE
+	uh56lqO5C0w8K95PS9/wQeWbUoRmDicQkKooX4LxHUDku7w9wzO66RhNSEeIYu31
+	Z9qI5QEFvp3KltohOrzo2Fvmw=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgBnkXTtguFqCksJCQ--.34486S2;
-	Wed, 28 Oct 2026 13:06:53 +0800 (CST)
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDn31cMg+FqswGRDQ--.35366S5;
+	Wed, 28 Oct 2026 13:07:28 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Leon Yen <leon.yen@mediatek.com>,
+	Quan Zhou <quan.zhou@mediatek.com>,
+	Rong Yan <rong.yan@mediatek.com>,
+	Hao Zhang <hao.zhang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: MGMT: Free unlisted commands on queue failure
-Date: Wed, 28 Oct 2026 13:06:52 +0800
-Message-Id: <20261028050652.134403-1-yaojiale02@163.com>
+Subject: [PATCH 3/3] wifi: mt76: mt7925: validate NIC capability payload lengths
+Date: Wed, 28 Oct 2026 13:07:22 +0800
+Message-Id: <20261028050722.135598-4-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028050722.135598-1-yaojiale02@163.com>
+References: <20261028050722.135598-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,53 +76,141 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgBnkXTtguFqCksJCQ--.34486S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KryxZw1kJF1fZw4rJr45Awb_yoW8GF15pF
-	Wvq3Z8ArWUJF47JF4xtay8uFW7X3Z5uFW2krZ7Z34fArZ8XF4kZry8KFyjvr1YyrZ7Jay0
-	gF10gF13uwnrAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYa0PUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg3uKWrhgu30jgAA3a
+X-CM-TRANSID:_____wDn31cMg+FqswGRDQ--.35366S5
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWF17Kr4xJFyxZr15XrWfAFb_yoWrJr4Upa
+	yagFW5Kry8trsrWw4Iyw4fArWay3s8Kw47JFyfJwn0vws7Awn5Ga18Z34vvr1ak395ur1I
+	vr4UtFn8W34DuF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jwb18UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xH3MmrhgxHxmgAA3J
 
-mgmt_pending_new() allocates a command without adding it to the pending
-list. set_phy_configuration() and read_local_ssp_oob_req() use this
-helper before queuing synchronous HCI work.
+The NIC capability parser only checks whether a declared TLV length fits
+in the skb. It does not reject lengths shorter than the TLV header or
+ensure that known payloads contain the fields consumed by the driver. A
+truncated firmware response can therefore stall the parser on a zero
+length TLV or cause out-of-bounds reads from fixed-size payloads.
 
-If hci_cmd_sync_queue() fails, the work item does not take ownership of
-the command. The error paths call mgmt_pending_remove(), which assumes
-the command is linked and calls list_del() on its zeroed list node. This
-can cause a NULL pointer dereference instead of releasing the command.
+Reject undersized TLVs and validate every known payload before accessing
+it.
 
-Free the unlisted command directly on queue failure.
-
-Fixes: 302a1f674c00 ("Bluetooth: MGMT: Fix possible UAFs")
+Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- net/bluetooth/mgmt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../net/wireless/mediatek/mt76/mt7925/mcu.c   | 43 +++++++++++++++----
+ 1 file changed, 35 insertions(+), 8 deletions(-)
 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 3b9c82bd2f02..66f167849942 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -4432,7 +4432,7 @@ static int set_phy_configuration(struct sock *sk, struct hci_dev *hdev,
- 				      MGMT_STATUS_FAILED);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
+index c612fda55eb7..41138203ada2 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
+@@ -1039,8 +1039,8 @@ int mt7925_mcu_get_temperature(struct mt792x_phy *phy)
+ 	return temperature;
+ }
  
- 		if (cmd)
--			mgmt_pending_remove(cmd);
-+			mgmt_pending_free(cmd);
+-static void
+-mt7925_mcu_parse_phy_cap(struct mt792x_dev *dev, char *data)
++static bool
++mt7925_mcu_parse_phy_cap(struct mt792x_dev *dev, char *data, int len)
+ {
+ 	struct mt76_phy *mphy = &dev->mt76.phy;
+ 	struct mt76_dev *mdev = mphy->dev;
+@@ -1064,16 +1064,21 @@ mt7925_mcu_parse_phy_cap(struct mt792x_dev *dev, char *data)
+ 		WF0_5G
+ 	};
+ 
++	if (len < sizeof(*cap))
++		return false;
++
+ 	cap = (struct mt7925_mcu_phy_cap *)data;
+ 
+ 	mdev->phy.antenna_mask = BIT(cap->nss) - 1;
+ 	mdev->phy.chainmask = mdev->phy.antenna_mask;
+ 	mdev->phy.cap.has_2ghz = cap->hw_path & BIT(WF0_24G);
+ 	mdev->phy.cap.has_5ghz = cap->hw_path & BIT(WF0_5G);
++
++	return true;
+ }
+ 
+-static void
+-mt7925_mcu_parse_eml_cap(struct mt792x_dev *dev, char *data)
++static bool
++mt7925_mcu_parse_eml_cap(struct mt792x_dev *dev, char *data, int len)
+ {
+ 	struct mt7925_mcu_eml_cap {
+ 		u8 rsv[4];
+@@ -1081,9 +1086,14 @@ mt7925_mcu_parse_eml_cap(struct mt792x_dev *dev, char *data)
+ 		u8 rsv2[6];
+ 	} __packed * cap;
+ 
++	if (len < sizeof(*cap))
++		return false;
++
+ 	cap = (struct mt7925_mcu_eml_cap *)data;
+ 
+ 	dev->phy.eml_cap = le16_to_cpu(cap->eml_cap);
++
++	return true;
+ }
+ 
+ static int
+@@ -1121,36 +1131,53 @@ mt7925_mcu_get_nic_capability(struct mt792x_dev *dev)
+ 
+ 	for (i = 0; i < le16_to_cpu(hdr->n_element); i++) {
+ 		struct tlv *tlv = (struct tlv *)skb->data;
+-		int len;
++		int data_len, len;
+ 
+ 		if (skb->len < sizeof(*tlv))
+ 			break;
+ 
+ 		len = le16_to_cpu(tlv->len);
+-		if (skb->len < len)
++		if (len < sizeof(*tlv) || skb->len < len)
+ 			break;
++		data_len = len - sizeof(*tlv);
+ 
+ 		switch (le16_to_cpu(tlv->tag)) {
+ 		case MT_NIC_CAP_6G:
++			if (len < sizeof(*tlv) + sizeof(tlv->data[0]))
++				goto invalid;
++
+ 			mphy->cap.has_6ghz = !!tlv->data[0];
+ 			break;
+ 		case MT_NIC_CAP_MAC_ADDR:
++			if (len < sizeof(*tlv) + ETH_ALEN)
++				goto invalid;
++
+ 			memcpy(mphy->macaddr, (void *)tlv->data, ETH_ALEN);
+ 			break;
+ 		case MT_NIC_CAP_PHY:
+-			mt7925_mcu_parse_phy_cap(dev, tlv->data);
++			if (!mt7925_mcu_parse_phy_cap(dev, tlv->data, data_len))
++				goto invalid;
+ 			break;
+ 		case MT_NIC_CAP_CHIP_CAP:
++			if (len < sizeof(*tlv) + sizeof(__le64))
++				goto invalid;
++
+ 			dev->phy.chip_cap = le64_to_cpu(*(__le64 *)tlv->data);
+ 			break;
+ 		case MT_NIC_CAP_EML_CAP:
+-			mt7925_mcu_parse_eml_cap(dev, tlv->data);
++			if (!mt7925_mcu_parse_eml_cap(dev, tlv->data, data_len))
++				goto invalid;
+ 			break;
+ 		default:
+ 			break;
+ 		}
+ 		skb_pull(skb, len);
  	}
- 
- unlock:
-@@ -8619,7 +8619,7 @@ static int read_local_ssp_oob_req(struct hci_dev *hdev, struct sock *sk,
- 				 read_local_oob_ext_data_complete);
- 
- 	if (err < 0) {
--		mgmt_pending_remove(cmd);
-+		mgmt_pending_free(cmd);
- 		return err;
- 	}
- 
++
++	goto out;
++
++invalid:
++	ret = -EINVAL;
+ out:
+ 	dev_kfree_skb(skb);
+ 	return ret;
 -- 
 2.34.1
 
