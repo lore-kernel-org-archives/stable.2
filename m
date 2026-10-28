@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216687;
-	b=eURBI5m6oXOAHF4KMMqiOsDaLcV89e+yoJ0W8SaslRujokxWLA6iJyKuk/Okw2KSLFE4
-	 vuF5+yrRRnPpwWr95Vh387RN0K954E6ycW4578afTS14EJPNyjfd1V68pcNUkMdXvsS6J
-	 ud/ZYrc9Og5iM1E2xDRn84zMKLy4UpLAk6Gbod06JuljuYuX0YEITs8rWcuukGLuMZ2qP
-	 GKKx5d+0scM5xDkBVkRecbIM2Li9TZrz32sxUmA5F0wQLy8WXdtd2x/4uSp2rYW8XFh+m
-	 TLc3PgfmOtds5z49BP0kwy85ESwfLwxnJzMTPGrfqKaOBHrG6CsmDefb0M+lpZ0yQQQ==
+	t=1793216688;
+	b=BFpuHyUcV8aQizK7d47Ie5JQIzs35DFJyHOT9NCRHBGstr6qu3KTiq+kzkZHS7hOn8Vi
+	 /YN5l3sSCrpy+hVSchF8cIxo/c6FPkA+JQ9K2y36eIUk6QVj7hZg8LeWXk8tznOkYDEGE
+	 Qh0AXE/r8hF0mXJR5yRwOJWyA+5PA0A2l7NYIlk/IB6zzsFbFiwV1RXrQD0nVjsTfC6iG
+	 XeWyyCrJybtu+q/J+xnpENlulFS1UfevxihJ6b0tfDqehPOOyWNTGVN1EjjRXVxWl0PDR
+	 c2AJdQWZwoaB/hbn319gIRIyAubRg70PQuCSRDOQTGqn2GWjn3SvpOCcYDyCr8OgLcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216687;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216688;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f6p9sSFYMTFlABD/3wtyGpv+vgICjzwWvJEdcTAImTA=;
-	b=IL/3pNY0IC6mzzQBIhV/5mkcMZPja0EqJf6sbUFvdV0KKoxl3/YJQEO2xArLKuo7C/6O
-	 8mNaaR8YNSjmVLkgR30vn1l34wTl7y9uHhy2WTkC1UMS2i0+M2KP5+jPIfwoeZSkxKoZm
-	 c3ZMT/gUVm4Sqhe6+RyERxT3zqUlyIIineLBJVDCqmqIBjKjGXZQgvc8U8/yV0p+oO3Tz
-	 k0tSqYRO1aTCCvnzzrTn6xnSfO8JX2ijVG1LJvJ6zVh9MeNNoABNyKYThUEl73evOuaVI
-	 6U0x9TQqsjJBFOrjnHt66F+1syL7MINmGuvoFbhinYlfZgwluJhpX30h9b3HEJUs1OA==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NKa8r24WrLHnZEbVNxoeBxgIAiah1Svoxa9f8VreJBY=;
+	b=Vj1c03kJsGGlXSFoCynjFeOSHBMIsGh2jrvyEIuSybsYrCrhIidyYtiGa4N6eNVLeCQj
+	 A7DXp2f/r9s6C85deSTl3VDyLW07l5rSV7L8j+AF1Di6R2rdd10hNEU+y0BwRza1Zv2QE
+	 k2xupzjnuz6/tLJtmqQyHMQLmqe1Y/1lElS2YKukELjgOiQN9PIzj5wMv7o1Ifjn6FY5z
+	 ioaEHqzic2B0MgKuU3mmw92iX+BslRMx08ZVuQ9HGGY1Q/iqEQOW45rKlak7V4eyj4WfF
+	 B3Yoa7fMYUjsG792yVpR1soVCLFAyu6CG+muL1ZQy1T9RdeZXAy+55AF0+RXD4eDhYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mrbe/c3f";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="y/hUzsa6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDB2606A320
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:44:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F9D606A320;
+	Wed, 28 Oct 2026 19:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mrbe/c3f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A548E1F031E0;
-	Wed, 28 Oct 2026 19:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793216687;
-	bh=f6p9sSFYMTFlABD/3wtyGpv+vgICjzwWvJEdcTAImTA=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y/hUzsa6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29BB1F01825;
+	Wed, 28 Oct 2026 19:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793216688;
+	bh=NKa8r24WrLHnZEbVNxoeBxgIAiah1Svoxa9f8VreJBY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mrbe/c3fukymh8doFlc4+lcFGfeJfhpHEdm0EPe70kJ7O34IMGKx8M9HaW6uSFnxp
-	 JNUutwWS0bW+CUUcclC4hEJi5m1W5zkBQdP6EOhJVLmCcMnHFZokorBreXqm5qFCQ4
-	 DU1jwFxXAjqVowUfaIWHZzwcvbPSLfu+23epoWu7syvcCCUrtuPJmgSdvrsyVurd5I
-	 gETaxPNvRFDLEVoWFGoH1VD5kO8th9oZixn6TSFnoBy7Bk7h5tPnFYNghcTObKCmjr
-	 UlPrhqY05cPJWYFwr/IAzaB4BxNhVJ7ZKikMT4vAGx4MnEgpN6M040pOuVI0TOp/su
-	 KZAhc1I/8e9Cg==
-From: Sasha Levin <sashal@kernel.org>
+	b=y/hUzsa6IbLhV8z6MSLeoZfh9INMOgxhoZLGw6bjtng9VdpH/vHZT52a4Yff1K9IA
+	 q9c9nTS8jY+FxArlof4DNhNYFi6O6Zn6J1J7owVIjnEwI8JE/Al5/EIDSzOxU0oR+2
+	 Q3OFq9PjCfw+zDvUHj7rPoSOzL349x79MXbfM9SQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Evgenii Burenchev <evg28bur@yandex.ru>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] fork: don't create io threads once PF_POSTCOREDUMP is set
-Date: Wed, 28 Oct 2026 15:44:44 -0400
-Message-ID: <20261028194315.2086603-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028194315.2086603-1-sashal@kernel.org>
-References: <2026102851-facelift-wand-29b0@gregkh>
- <20261028194315.2086603-1-sashal@kernel.org>
+Subject: [PATCH 6.1 1642/1887] drm/amd/display: Fix dangling pointer in plane reset function
+Date: Wed, 28 Oct 2026 18:02:18 +0100
+Message-ID: <20261028170536.830509480@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,76 +66,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 1f978881ce6c9ac4f4d4a7b6a6e52339eadcd350 ]
+------------------
 
-zap_process() skips every thread that already has PF_POSTCOREDUMP set.
-Such a thread is past synchronize_group_exit(), so a coredump can't
-catch it anymore. It isn't counted in core_state->threads_remaining and
-it isn't sent SIGKILL.
+From: Evgenii Burenchev <evg28bur@yandex.ru>
 
-do_exit() sets PF_POSTCOREDUMP in synchronize_group_exit() and calls
-io_uring_files_cancel() right after that. The cancellation runs task
-work and a create_worker_cb() that io-wq queued before the exit creates
-a new io-wq worker from there. If another thread started a coredump in
-the meantime that worker joins a thread-group which is already being
-dumped. zap_process() never saw it so it was never counted. But when it
-exits it sees signal->core_state in synchronize_group_exit() and
-decrements threads_remaining like any other thread.
+[ Upstream commit 98cad4bd1443975d972f4c7f705980da03722a22 ]
 
-So the count reaches zero one thread early and the dumper leaves
-coredump_wait_inactive() while a thread it counted is still running.
+amdgpu_dm_plane_drm_plane_reset() frees the old state before allocating
+a new one. If kzalloc() fails, the function returns without updating
+the state pointer, leaving a dangling pointer to already freed memory.
 
-The task has no fatal signal pending because zap_process() deliberately
-didn't send it one, and it never went through get_signal() so it doesn't
-have PF_SIGNALED either.
+Fix this by allocating the new state first. On allocation failure, the
+old state remains untouched and the function safely returns.
 
-Refuse to create an io thread when the creator has PF_POSTCOREDUMP.
-That costs nothing. io_uring_files_cancel() raises IO_WQ_BIT_EXIT
-before it runs any task work, so a worker created from there only ever
-gets to exit again, and io_should_retry_thread() doesn't retry -EINTR.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Clearing PF_POSTCOREDUMP for the new thread in copy_process() was the
-other option. It makes the worker a thread like any other, but it only
-helps while the dump hasn't started. A worker born after zap_process()
-has run is invisible to it whatever its flags say and still decrements
-threads_remaining on the way out. Refusing to create it covers both, and
-then no task is ever born with the flag, so there is nothing to clear.
-
-Moving io_uring_files_cancel() ahead of synchronize_group_exit() closes
-the same window. It runs the cancellation, and whatever that can block
-on, before the thread announces itself to the dumper. A thread that
-blocks there never reaches coredump_task_exit() at all, so the dumper
-ends up waiting for a thread that never parks. Refusing the creation
-leaves the cancellation where it is. But it's very ugly to run io_uring
-work even before we did all the generic exit work.
-
-Fixes: 92307383082d ("coredump:  Don't perform any cleanups before dumping core")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Link: https://patch.msgid.link/20260629090435.9729-3-evg28bur@yandex.ru
+[adjust for movement around current amd-staging-drm-next]
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/fork.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 802bccf2dea74..fd10c6e0dcfa3 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2867,8 +2867,8 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
- 		.user_worker	= 1,
- 	};
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index b3a1dbeac4839..bf80846192641 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1336,19 +1336,18 @@ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
  
--	/* A creator past its fatal signal gets no thread. */
--	if (current->flags & PF_SIGNALED)
-+	/* A creator past its fatal signal or its coredump point gets no thread. */
-+	if (current->flags & (PF_SIGNALED | PF_POSTCOREDUMP))
- 		return ERR_PTR(-EINTR);
+ static void dm_drm_plane_reset(struct drm_plane *plane)
+ {
+-	struct dm_plane_state *amdgpu_state = NULL;
++	struct dm_plane_state *amdgpu_state;
++
++	amdgpu_state = kzalloc(sizeof(*amdgpu_state), GFP_KERNEL);
++	if (!amdgpu_state)
++		return;
  
- 	return copy_process(NULL, 0, node, &args);
+ 	if (plane->state)
+ 		plane->funcs->atomic_destroy_state(plane, plane->state);
+ 
+-	amdgpu_state = kzalloc(sizeof(*amdgpu_state), GFP_KERNEL);
+-	WARN_ON(amdgpu_state == NULL);
+-
+-	if (amdgpu_state)
+-		__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
++	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ #ifdef CONFIG_DRM_AMD_DC_HDR
+-	if (amdgpu_state)
+-		amdgpu_state->sdr_boost = DEFAULT_SDR_BOOST;
++	amdgpu_state->sdr_boost = DEFAULT_SDR_BOOST;
+ #endif
+ }
+ 
 -- 
 2.53.0
+
+
 
