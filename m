@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793212522;
-	b=xKX7aIDghPLcsq/LjnBIttaA+PLKjG5DKe2JHLOK7oRuOvLJD+guj9i8S6mgVwaoLDBk
-	 x6mp2mTesMozn5TaOeGzoDZRs/NQQybJsX9YzlG2Tw6TpQelUk85UA6kKGEP3RpouRjri
-	 XbVbF8pdlYe1x5MJb917jfiqY5uB/+/BdpHVbiXZr/OuURt897lW/t8CbVEkWnh79QG5m
-	 svI/KcDHE0mE7eEttYwJEa2VBQMySPJtOFxAT+8zKuLOKwhvpnSI5yZ4fAuyE5QDYGaLU
-	 WU3aSx91PjEcBO2qRiYfkWPug+JTP/PmHKjCUa7ugFNKOZm6ITdRzQYFXApex0DXOsw==
+	t=1793212524;
+	b=5CPEqixC7ZSgs5aOUCG5SSCam8ElEf9l0xKkUCW/tqojwsmGkXDKtoeasphKtUacUayS
+	 uPKWgGuSJt/isaCHuthXk6aKbXHJ5p+WuzhJ9O7eQTE+d6eigI7y+XUFEWlEjDVnjkuvt
+	 qbBxS9q3zB1n+Q6QlSxrwrB6mWpkEBI8U7oVynIwqUppbTdRqi5qGUeewA2brce4ut6Dz
+	 Z41Tj0nZPiypLbJm2o1SRqM3PG4Rgm0+d8xJGeC+pFnak7jTMGUMOqowl42fSzzYG/s4l
+	 3JWWSeLV/fbAYFJR6aGWbf67NMdJNenXGS/vU4CI31EuEjwPr5bN1ZqMFBtrTFGF+9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793212522;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793212524;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=a9KyGvb3BFnTO2v34ic6gbb9wPaeNP8aywO2Ns4A3DA=;
-	b=e1JsOcYOeiAY26LRHeUueEDMnhzS0ACuESgXNIHmnRNh0QXUp6Xooh5HB88f+GVC0sgE
-	 Z/0G6JpVbuKqinwL4L+R17knS3y4R8B3SaPQpsytjK7gAw4LfaEl4KhPTOWuPk8WLrAw4
-	 K0RklvnUEO0nsCxjXDQnd7FCMtcBFXG9+qllo831WaHDSI8rC/06RpSl6llLPODqy9+NU
-	 gvKWu6HrW+8jpSI7ZKacMhe0JKH7Ms1u2UBJX6KAWZO4vVD+9swLnJPq+vbFAjsmcI3pA
-	 b1gnsK1ifn+DEfril4MzvEASEDoNJc9gfSHXuxo91ZlDlFp7Wh135EbVt+zeGNCn42Q==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UiNTKiC7Kv7H/Knr8D6Uyltjlo146IMFZPiyhKI7Fto=;
+	b=pIKQOuZXMCbTjHekxfRQ9/fE+90XGSBzl65n/eIdahbwfVAv8ZbrcpX8tBnlipFUNSXz
+	 Bi9FdL1Ik+F8QsqzhzCtT3A+yrNyWV/dJOvv4jjHbGqfw9PB9Yo9ArnQ29dCBrz3RKXDP
+	 ojsPRwWzUZTJLqmp8tkx+8dhIlGlGQV2kkHpeaq3LL8szGVfTMDKd5TeX34sfqytvoyMz
+	 Ss04gWszXpcQPfrF+PyDrZbuFlj+Ni6kgqe6xMdw2ja2SPjQiPcTW9jkNE4OzyL1khLgT
+	 RSMOi7RzHb14NiPvDy3qy1s/noF+tPqeFXRPCADmGdW7I/N5UE3F06iDAregW7R/kiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCqEkkm7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pfGeKNnC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B1B606A31E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:35:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F66606A31A;
+	Wed, 28 Oct 2026 18:35:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCqEkkm7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7001F01828;
-	Wed, 28 Oct 2026 18:35:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793212522;
-	bh=a9KyGvb3BFnTO2v34ic6gbb9wPaeNP8aywO2Ns4A3DA=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pfGeKNnC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823F51F01825;
+	Wed, 28 Oct 2026 18:35:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793212524;
+	bh=UiNTKiC7Kv7H/Knr8D6Uyltjlo146IMFZPiyhKI7Fto=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QCqEkkm75Nmj5yL/oqgValM1a/mNMScAakBIhvqXetbdkE4Sy10V13URoPPRxArPE
-	 EY9ul/8WfJRf3o5AwcQQ7j2CtJ+dPKGXxqpCp77+u0inDkXbFmvQ4LZ5XsvcWQAP88
-	 N5WhOcJWyCQblKPEt1DNSd3ZrK4UYVUNnrjasHdLzu86py5adnZ91P7NOmgHnImp3y
-	 u9Cmq0XWTGRWNK49SO1FZVw2Q88VxFVcwadlYxQhesd0ei2lKUVPNNB/5cUgn8Qw9F
-	 LSVqiVmWnUdlgWA92/StBmBYwLJykm+07qqVtNUGgzpTmQGbNh7rSVbVIWWKXnv08P
-	 4K1CC6HYDosRA==
-From: Sasha Levin <sashal@kernel.org>
+	b=pfGeKNnClxOK7yS7ai8NuLxZFBTOfPxcljkuIJCJQx4bkqot2w8Kgb32fSC8iYIXe
+	 z7LYz4kpdXsLQEVPz+N5Iz20OXWghIHebD+zk0iazEJUEHbuhoyi8ehNNlkHW9x+06
+	 jpyQhZ0sVlTrxSRHHY4Kej58BI9pA0LtNkdtpf/4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] exit: hang up the tty before closing the files
-Date: Wed, 28 Oct 2026 14:35:20 -0400
-Message-ID: <20261028183506.1720832-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102826-sierra-parted-e606@gregkh>
-References: <2026102826-sierra-parted-e606@gregkh>
+Subject: [PATCH 6.1 0157/1887] perf/x86/intel: Update event constraints and cache_extra_regsfor ADL
+Date: Wed, 28 Oct 2026 17:37:33 +0100
+Message-ID: <20261028170502.806113084@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,81 +64,193 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ad016f0131ebfec250a3360ea75d35128b3f4aa8 ]
+------------------
 
-do_exit() closes the task's files in exit_files() and hangs up the
-controlling tty of a session leader in disassociate_ctty(1) after
-that. Since commit d99d38540bf0 ("fs: make close_files() synchronous")
-the final __fput() of every file runs inside exit_files(). So when the
-session leader holds the last open of its tty the tty is released
-before disassociate_ctty() runs. tty_release() clears signal->tty for
-the whole session in session_clear_tty() once the count drops to zero
-and sends no signal doing so. disassociate_ctty(1) then finds neither a
-tty nor a tty_old_pgrp and does nothing. The foreground process group
-loses its SIGHUP:
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-    do_exit()
-      exit_files()
-        close_files()
-          tty_release()             tty->count == 0
-            session_clear_tty()     signal->tty = NULL, no signal
-      disassociate_ctty(1)
-        get_current_tty()           NULL
-        signal->tty_old_pgrp        NULL, nothing sent
+[ Upstream commit 4ef863352bcde482d65722ed721c3fd3967a67d6 ]
 
-That only affects real ttys. For a pty the master's open keeps the
-slave's count above zero. And it only affects a foreground job that
-holds no descriptor to the tty anymore while its session leader exits.
-Everything else is unchanged. The DTR drop on the last close happens in
-tty_port_shutdown() regardless, stopped jobs get their SIGHUP from
-kill_orphaned_pgrp() and signal->tty is cleared either way.
+Update perf hard-coded event constraints and cache_extra_regs[] for
+Alderlake according to the latest ADL perfmon events (V1.39).
 
-Before that commit the final __fput() ran from exit_task_work() which
-comes after disassociate_ctty(). That order isn't old. Until v3.14
-exit_task_work() came right after exit_files() and before v3.6 fput()
-was synchronous, so the tty was always released first. Commit
-c39df5fa37b0 ("exit: call disassociate_ctty() before
-exit_task_namespaces()") moved disassociate_ctty() up to fix a pppd
-crash and in front of exit_task_work() as a side effect. The hangup in
-this case has worked since then and that's eleven years of userspace
-being able to rely on it.
+One important note is that ADL has differences on the L3/node related
+OCR events although it shares same uarch with SPR server, e.g.,
+ADL has different extra MSR values and no node events. So some variants
+of structures and functions are introduced to reflect these
+differences, like adl_glc_hw_cache_event_ids[],
+adl_glc_hw_cache_extra_regs[] and intel_pmu_init_glc_hybrid(), etc.
 
-Hang the tty up before closing the files. This is the ordinary hangup
-with the file still open: __tty_hangup() swaps in hung_up_tty_fops and
-tty_release() runs from the close afterwards as it does when a modem
-drops the line. disassociate_ctty() stays in front of
-exit_task_namespaces() which the pppd fix needs.
+Please note these changes would temporarily impact other platforms like
+MTL/ARL-U which shares hard-coded event structures, but it would be
+fixed soon in subsequent patches.
 
-Reported-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-8-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adjusted context to use exit_task_namespaces() instead of exit_nsproxy_namespaces(). ]
+ADL perfmon events:
+https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_goldencove_core.json
+https://github.com/intel/perfmon/blob/main/ADL/events/alderlake_gracemont_core.json
+
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260515061143.338553-5-dapeng1.mi@linux.intel.com
+
+[Backport preparation for 89dc568e8c0b on Linux 6.1:
+ Retain the Gracemont STORE_LATENCY counter-mask update to 0x3f.
+ Drop the upstream cache/extra-register and fixed-counter changes: they
+ depend on newer PMU initialization infrastructure and are not needed
+ by the target's PEBS sample-classification fix.
+
+ Prepare the target's existing-function context without adding functions.
+ Rename and adapt adl_latency_data_small() as __grt_latency_data(), with
+ its record fields supplied by the caller. Rename load_latency_data()
+ as grt_latency_data() and reuse it for Gracemont dispatch as well as
+ its existing non-Gracemont load-latency path. Preserve the original
+ TLB/lock/block decoding and update the callback and prototype names.
+ Guard the hybrid-only assertion for non-hybrid Gracemont systems.
+
+ Provide the upstream INTEL_HYBRID_LDLAT/STLAT_CONSTRAINT macros so the
+ unmodified target can set direction flags while retaining hybrid
+ latency decoding. The target itself remains a separate backport.]
+
+Stable-dep-of: 89dc568e8c0b ("perf/x86/intel: Fix GRT PEBS load/store direction for latency events, to fix sample classification")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/exit.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ arch/x86/events/intel/core.c |  4 ++--
+ arch/x86/events/intel/ds.c   | 34 ++++++++++++++++++----------------
+ arch/x86/events/perf_event.h | 10 +++++++++-
+ 3 files changed, 29 insertions(+), 19 deletions(-)
 
-diff --git a/kernel/exit.c b/kernel/exit.c
-index 5b1b1c52e72c5..0d6c5c76403e0 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -946,10 +946,11 @@ void __noreturn do_exit(long code)
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 4615a21b9e852..6f5805ad723bf 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -6195,7 +6195,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu.flags |= PMU_FL_INSTR_LATENCY;
  
- 	exit_sem(tsk);
- 	exit_shm(tsk);
--	exit_files(tsk);
--	exit_fs(tsk);
-+	/* Hang the tty up before the last close of it can clear the session. */
- 	if (group_dead)
- 		disassociate_ctty(1);
-+	exit_files(tsk);
-+	exit_fs(tsk);
- 	exit_task_namespaces(tsk);
- 	exit_task_work(tsk);
- 	exit_thread(tsk);
+ 		intel_pmu_pebs_data_source_grt();
+-		x86_pmu.pebs_latency_data = adl_latency_data_small;
++		x86_pmu.pebs_latency_data = grt_latency_data;
+ 		x86_pmu.get_event_constraints = tnt_get_event_constraints;
+ 		x86_pmu.limit_period = spr_limit_period;
+ 		td_attr = tnt_events_attrs;
+@@ -6578,7 +6578,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu.flags |= PMU_FL_MEM_LOADS_AUX;
+ 		x86_pmu.lbr_pt_coexist = true;
+ 		intel_pmu_pebs_data_source_adl();
+-		x86_pmu.pebs_latency_data = adl_latency_data_small;
++		x86_pmu.pebs_latency_data = grt_latency_data;
+ 		x86_pmu.num_topdown_events = 8;
+ 		static_call_update(intel_pmu_update_topdown_event,
+ 				   &adl_update_topdown_event);
+diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
+index 4b7faa3180e57..d1cf9876c931d 100644
+--- a/arch/x86/events/intel/ds.c
++++ b/arch/x86/events/intel/ds.c
+@@ -221,24 +221,19 @@ static inline void pebs_set_tlb_lock(u64 *val, bool tlb, bool lock)
+ }
+ 
+ /* Retrieve the latency data for e-core of ADL */
+-u64 adl_latency_data_small(struct perf_event *event, u64 status)
++static u64 __grt_latency_data(struct perf_event *event, u64 status,
++			       u8 dse, bool tlb, bool lock, bool blk)
+ {
+-	union intel_x86_pebs_dse dse;
+ 	u64 val;
+ 
+-	WARN_ON_ONCE(hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
++	WARN_ON_ONCE(is_hybrid() &&
++		     hybrid_pmu(event->pmu)->cpu_type == hybrid_big);
+ 
+-	dse.val = status;
++	val = hybrid_var(event->pmu, pebs_data_source)[dse];
+ 
+-	val = hybrid_var(event->pmu, pebs_data_source)[dse.ld_dse];
++	pebs_set_tlb_lock(&val, tlb, lock);
+ 
+-	/*
+-	 * For the atom core on ADL,
+-	 * bit 4: lock, bit 5: TLB access.
+-	 */
+-	pebs_set_tlb_lock(&val, dse.ld_locked, dse.ld_stlb_miss);
+-
+-	if (dse.ld_data_blk)
++	if (blk)
+ 		val |= P(BLK, DATA);
+ 	else
+ 		val |= P(BLK, NA);
+@@ -246,15 +241,22 @@ u64 adl_latency_data_small(struct perf_event *event, u64 status)
+ 	return val;
+ }
+ 
+-static u64 load_latency_data(struct perf_event *event, u64 status)
++u64 grt_latency_data(struct perf_event *event, u64 status)
+ {
+ 	union intel_x86_pebs_dse dse;
+ 	u64 val;
+ 
+ 	dse.val = status;
+ 
++	/* Gracemont uses bit 4 for lock and bit 5 for TLB access. */
++	if (event->hw.flags & PERF_X86_EVENT_PEBS_LAT_HYBRID)
++		return __grt_latency_data(event, status, dse.ld_dse,
++					  dse.ld_locked, dse.ld_stlb_miss,
++					  dse.ld_data_blk);
++
+ 	/*
+-	 * use the mapping table for bit 0-3
++	 * For non-Gracemont load-latency events, use the mapping table
++	 * for bit 0-3 and retain the legacy TLB, lock and block decoding.
+ 	 */
+ 	val = hybrid_var(event->pmu, pebs_data_source)[dse.ld_dse];
+ 
+@@ -838,7 +840,7 @@ struct event_constraint intel_glm_pebs_event_constraints[] = {
+ struct event_constraint intel_grt_pebs_event_constraints[] = {
+ 	/* Allow all events as PEBS with no flags */
+ 	INTEL_HYBRID_LAT_CONSTRAINT(0x5d0, 0x3),
+-	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0xf),
++	INTEL_HYBRID_LAT_CONSTRAINT(0x6d0, 0x3f),
+ 	EVENT_CONSTRAINT_END
+ };
+ 
+@@ -1511,7 +1513,7 @@ static u64 get_data_src(struct perf_event *event, u64 aux)
+ 	bool fst = fl & (PERF_X86_EVENT_PEBS_ST | PERF_X86_EVENT_PEBS_HSW_PREC);
+ 
+ 	if (fl & PERF_X86_EVENT_PEBS_LDLAT)
+-		val = load_latency_data(event, aux);
++		val = grt_latency_data(event, aux);
+ 	else if (fl & PERF_X86_EVENT_PEBS_STLAT)
+ 		val = store_latency_data(event, aux);
+ 	else if (fl & PERF_X86_EVENT_PEBS_LAT_HYBRID)
+diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+index 5f93316c60216..897d0abd94105 100644
+--- a/arch/x86/events/perf_event.h
++++ b/arch/x86/events/perf_event.h
+@@ -468,6 +468,14 @@ struct cpu_hw_events {
+ 	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
+ 			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID)
+ 
++#define INTEL_HYBRID_LDLAT_CONSTRAINT(c, n)	\
++	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
++			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_LD_HSW)
++
++#define INTEL_HYBRID_STLAT_CONSTRAINT(c, n)	\
++	__EVENT_CONSTRAINT(c, n, INTEL_ARCH_EVENT_MASK|X86_ALL_EVENT_FLAGS, \
++			  HWEIGHT(n), 0, PERF_X86_EVENT_PEBS_LAT_HYBRID|PERF_X86_EVENT_PEBS_ST_HSW)
++
+ /* Event constraint, but match on all event flags too. */
+ #define INTEL_FLAGS_EVENT_CONSTRAINT(c, n) \
+ 	EVENT_CONSTRAINT(c, n, ARCH_PERFMON_EVENTSEL_EVENT|X86_ALL_EVENT_FLAGS)
+@@ -1497,7 +1505,7 @@ void intel_pmu_disable_bts(void);
+ 
+ int intel_pmu_drain_bts_buffer(void);
+ 
+-u64 adl_latency_data_small(struct perf_event *event, u64 status);
++u64 grt_latency_data(struct perf_event *event, u64 status);
+ 
+ extern struct event_constraint intel_core2_pebs_event_constraints[];
+ 
 -- 
 2.53.0
+
+
 
