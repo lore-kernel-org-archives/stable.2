@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213465;
-	b=0jPKgsk/1VnWQuyJeaP2dhLi4v21G9MnW1lA4lq+wkGG2nNSmdnj5jcRMPiTjiQw38EH
-	 2qjwD1VBsaiAnMQuudZT+o4szIn0aL+COont+VEdtGRxUIHTALGrBApTGh2xWG4Fs3mFU
-	 nTqa9EdlPP5JaF+U4oUf9+5MHF7F0qDIVkD6mnS1/BRDCljNMhtcThk9z+LjqSfCyiCAM
-	 Ch7bPeaxzDODsmdpiBf3HbubWYjqzeUxeO3HWpjrqJT5T2SLb+UPmuGdrts8b/9Rt0s66
-	 VMhoVAtxDw2i5sUI7xarnumGTWPIhkDjkNN9n64mBC4VsO8+cnazlrvewON4gPiU+VQ==
+	t=1793213468;
+	b=w8KWLK8pIvAxCars1VYhAC+vILiA1Ga90W1n5t/xGRzIvypBSK8R95ygOKXacHiJO2SV
+	 9pnBK6oeqsBGeB0FpAaS6EUuy8oroSIK9NAwSoyWfs9VBsOWscP7zbg1OIwbYZoJzZLre
+	 mWWL6FNfND/tu+6L+bf7nrLCraSCcLOBjwf84soKkfMDavE/oX1AGNf2MFY7obvZw/e62
+	 +sC6NJxrdlMdFcgVMnB1kSFS3F18LUf0CLu+N8tosnm/c/o2zDKksyKBgCD7cut1PkLJf
+	 cJw4Jw8OotCizEzl/K6ZzMdaWo8KRJUpZp6OVEep5zzClJr9t9YBqjAfnmPwiQxEs1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213468;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4owXaLYm4QKex6De2JPAneIYhiWgqz3KfcGtJB5sY2w=;
-	b=PqsZenduzYlvk7yiG8LjGMdoiE2ZlbDL9AKKGrb6NB65ijcxsPiShYXybr95RkOl1X1S
-	 214N2OJjHtudRP/SLDpeSRxdhhvnwysg0gbFmlAJfN06q1M7jlr9Z0kzMmsf3ZA10JpE9
-	 D3ys1q5sFK8eDYueno4OJmPovh5217YkyNwvU6rJhh/PO2M8j7GpM32IBl4LZKHskL2sO
-	 jJGOSuQ762GuTXC2LXpvKXGQkbAd+8kL0wIolgaYrqwHnfDTj/QMcLcZvcFwAhQau01Aq
-	 3aLQUz/Z16fj4mKT5fkMAM8WtXMEigPRzieIH0KmkUllCg6xDeWCOh/2BkbNR0Gi9wA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HOE/SemSK95goGs/ISkHbr+d/PXaH/0NIwHDmknMyCk=;
+	b=26uvTzV/RgG+vR/31efkiuRxoztmlIZxXjL60ZTFb9BajOGqWckdpWNDRyYT8Ds396UX
+	 kuPqSy2SM8c8cueayM7/FQcp6KgFptMr0UTRUWOx+tSOfGukv0PdyGjRmwaVJv2YNigUX
+	 3WxmQFPANhbQL4BMdMElAvGoPDRUpiz/JUn3OCkmLYRYgK9svUcsNOVZ2b0Bmh2mSXrdR
+	 NVzobE3o/UyDC55Es+fHZ4TbSw2Ymww3FCZohpV0RJQpI32iUfsUWgqofeFJ40Yb9OUGn
+	 wC5L0CTUHf4/KSqKR3aVE4hFiKy/0pp+yreN4qdRbbrN5kvkG6YRjWc639Atmo7MgiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="kat0/dcB";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lbIvfHBj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134C4606A31A;
-	Wed, 28 Oct 2026 18:51:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD15606A31F;
+	Wed, 28 Oct 2026 18:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kat0/dcB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2235C1F01825;
-	Wed, 28 Oct 2026 18:51:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lbIvfHBj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFE0E1F01825;
+	Wed, 28 Oct 2026 18:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793213464;
-	bh=4owXaLYm4QKex6De2JPAneIYhiWgqz3KfcGtJB5sY2w=;
+	s=korg; t=1793213467;
+	bh=HOE/SemSK95goGs/ISkHbr+d/PXaH/0NIwHDmknMyCk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kat0/dcBiC1O3oxvZRqFD2mXUPS7KiGJ5B33OKBrb2HIa0TVIeFXcnl8FtJPuDqVK
-	 tFkCiPNZ80mKGALIpLd4f06Yqafdjticx7myQoQ4pygCQTF7BUzHX95QqtEapU8jMS
-	 t0QQVE/XdWzcaJEc3yKhGYa51mxhpj/PsTZ8oxrM=
+	b=lbIvfHBj4WI3rQRK2M37Pm5WUz1zOpqMfgwbh4GO18FwyhqpLkgsGkUuUZ08KHuNp
+	 eFEWwjktoqg83wXim/kQcV1Cl0H0JrOjbLgGFFyAcHOFz3YhW8AXaBvg/stR5dt1Kp
+	 tQ/K4wwVoPoXotnXJrtXIVt6wt7fVHcYy54IpmsU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com,
-	=?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Vishal Badole <Vishal.Badole@amd.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0514/1887] selinux: fix data race on AVC latest_notif
-Date: Wed, 28 Oct 2026 17:43:30 +0100
-Message-ID: <20261028170511.012619123@linuxfoundation.org>
+Subject: [PATCH 6.1 0515/1887] EDAC/amd64: Mask UMC chip select to the four implemented selects
+Date: Wed, 28 Oct 2026 17:43:31 +0100
+Message-ID: <20261028170511.036568016@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -64,66 +63,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Christian Göttsche <cgzones@googlemail.com>
+From: Vishal Badole <Vishal.Badole@amd.com>
 
-[ Upstream commit 1ca924044bf0de879a1648be93a56939652267d3 ]
+[ Upstream commit 7484bc43ba6b8e189b482db5b75e7842890a82b1 ]
 
-avc_policy_seqno() reads latest_notif without holding notif_lock, while
-avc_latest_notif_update() can update it under that lock. KCSAN reports
-these concurrent accesses during policy boolean updates and permission
-checks.
+For DRAM ECC errors, the chip select value can be found in the
+MCA_SYND[ErrorInformation] field.
 
-Use READ_ONCE() for the lockless read and WRITE_ONCE() for the update.
-The spinlock continues to serialize the comparison and update against
-other writers. Reads made while holding notif_lock cannot race with a
-writer and can remain plain accesses.
+ErrorInformation[2:0] was first documented in Zen1. The 3 bit field
+implied that up to 8 chip selects may be used.
 
-This marks both sides of the intentional concurrent access and constrains
-compiler transformations, without suppressing checking with data_race().
+However, all Zen-based systems have only ever had up to 4 chip selects.
+So only bits [1:0] would contain a valid chip select value.
 
-Cc: stable@vger.kernel.org
-Fixes: 788e7dd4c22e ("SELinux: Improve read/write performance")
-Reported-by: syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a7f7cb0737bd91aa698c
-Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-[ sashal: Adapted direct selinux_avc accesses to the existing avc and state->avc pointers. ]
+Future systems are redefining the field to ErrorInformation[1:0]. This
+matches the existing 'up to 4 chip selects' implementations. And it
+frees up the extra bit for other decoding.
+
+Change the current chip select mask from 0x7 to 0x3 to prepare for the
+decode change.
+
+Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
+Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20261002113204.3358815-2-Vishal.Badole@amd.com
+[ sashal: Applied the change in decode_umc_error() instead of the absent umc_get_err_info() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/selinux/avc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/edac/amd64_edac.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/security/selinux/avc.c b/security/selinux/avc.c
-index dcc8e1df4d7c5..e26f9b01b7305 100644
---- a/security/selinux/avc.c
-+++ b/security/selinux/avc.c
-@@ -589,7 +589,7 @@ static int avc_latest_notif_update(struct selinux_avc *avc,
- 		}
- 	} else {
- 		if (seqno > avc->avc_cache.latest_notif)
--			avc->avc_cache.latest_notif = seqno;
-+			WRITE_ONCE(avc->avc_cache.latest_notif, seqno);
+diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+index 2f854feeeb237..7b3d3615de5cd 100644
+--- a/drivers/edac/amd64_edac.c
++++ b/drivers/edac/amd64_edac.c
+@@ -3300,7 +3300,7 @@ static void decode_umc_error(int node_id, struct mce *m)
+ 			err.err_code = ERR_CHANNEL;
  	}
- 	spin_unlock_irqrestore(&notif_lock, flag);
  
-@@ -1202,7 +1202,8 @@ int avc_has_perm(struct selinux_state *state, u32 ssid, u32 tsid, u16 tclass,
+-	err.csrow = m->synd & 0x7;
++	err.csrow = m->synd & 0x3;
  
- u32 avc_policy_seqno(struct selinux_state *state)
- {
--	return state->avc->avc_cache.latest_notif;
-+	/* Writers hold notif_lock; readers only sample the sequence number. */
-+	return READ_ONCE(state->avc->avc_cache.latest_notif);
- }
- 
- void avc_disable(void)
+ 	if (umc_normaddr_to_sysaddr(m->addr, pvt->mc_node_id, err.channel, &sys_addr)) {
+ 		err.err_code = ERR_NORM_ADDR;
 -- 
 2.53.0
 
