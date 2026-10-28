@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207162;
-	b=rXIRA1/0+hm9LYFD27G2A9lGU3XgnmT66z+mjVWnk72S+oztpa/M1BwHXwW+gzRZ0c+1
-	 z69Ycyv90D5ZaIxMsnwzwJXe7+8qAux4o8hErpnXFdZFdmp9q7Hu/fQo5s7Yu6nSHwVCp
-	 EpuvrED6r0p6wPGiDfB9TzRyhUUmd+nJyduRoev4qw8omJEpArNQr6IGd2SREw5MYSX/Q
-	 XM/7CgB1COV6ptxXNC2+UkAdqmxoz6lPYzMAsfkX28X+NawBhiOTHapjft4wqo5NaPpv4
-	 Pc/9X20+AV1gzkFU7mwZZK2wSta2bR975xZd71g6lcD/q2o8ELwOvbE7ZIWWeHq+O+w==
+	t=1793207154;
+	b=jGBoiyGj0L5xmR9afX16j0op3KRVoft94bqCm4wmhSRxrLVYC5WZwfO5MtiIJmPliGY8
+	 zwbm+FhPCiY63HXO53sx47TTEccXQPng0wecMmQfsOv4Hkrh9e8lKaWM6u5e7du8Rz/6B
+	 J6tUaEXkee5d9nC+ixE7cmDp0j3bkoZSnirzn532DOF+wvlGX/xBKMjIZxiKqTJZrN3Og
+	 Vzun0veiCN8D4DBzcVM74C4qgKHskRyogFPYsimMzdPA1mKaedFZOpSsI3I0eOoiBPRGr
+	 yoEWhjWfke2BwMlSZ2embAULDMdbGSOiKXPg5O/DIKHYHeRpS989O5Ix55qE7dcIXhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207162;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207154;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5DSzloH2Yqil2PllG4BcS7fWixJtF9LGJWq9RePWD8U=;
-	b=Q8e/aUGNdQZnVSczpInzJ/9SgGujFjIbx/9zqDSpNGO+jtZsFXtfAkcPxx9kOjabiWYH
-	 ztlpodQ2ncwfBYPmUuzo+AuNfk2MCFtiLnoL1tJlcCmNHNM8dcKzW0sHrPB9MeMEzpzZn
-	 9zl7iDcgzhk7udMvP9vu0PbjKYQnmnGIr36doSYeHlBRc0QEVybeOGe9UpHOqVQMeiIPz
-	 UQvGf9wZ4NQTWOmzRY6HavOuwVPqKaxRH/DbN9bA9/3ala0p2SZ8wZhxgndGhEIkKqu4z
-	 ewACSYBd4xjsw5dHWtcAgucKtkYXLlwp/es2uttywepRs2LkL9aizzp0kXbIgtddAMA==
+	bh=fcNckhyBkqx2ZymkBjyKPc6HVkzxkSolO6Ut8Vcyfog=;
+	b=zUcpnBVytWRGFY6tZk5PR7koOA2c+wYhM/JZXWxMwmj8GylNT+7fz+DIGtj3Bdzr/2Uv
+	 GnFXYHYwGukFYNPbDPe0R0wqZCVc6d40G+QpVtMtG25/AVnmhPkFjjP+FQROR/MzTP3PS
+	 43pVWTWx699aQZ0puWTfonFI1M36GrdgoaNmQbPPLR3ONVs5dln4Uxvk9HjBv5wde5+P5
+	 c+Vpq3gsbzccROBIiKTFKrlMbUPSROWq1y8Fl6QrtF4mC91zAnsgf5F5g7Q+oEaj2O1w8
+	 RXHpm2abhevNwHh5nuXkN21CwJIODKOuJ9Z/9PS6uEXU68GSPNKN9oP/8E8i22Bb+pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yGXO0eEG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hRMBWcXA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C74606A31F;
-	Wed, 28 Oct 2026 17:06:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE26606A31C;
+	Wed, 28 Oct 2026 17:05:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yGXO0eEG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443471F01828;
-	Wed, 28 Oct 2026 17:06:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hRMBWcXA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE91C1F01825;
+	Wed, 28 Oct 2026 17:05:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207161;
-	bh=5DSzloH2Yqil2PllG4BcS7fWixJtF9LGJWq9RePWD8U=;
+	s=korg; t=1793207153;
+	bh=fcNckhyBkqx2ZymkBjyKPc6HVkzxkSolO6Ut8Vcyfog=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yGXO0eEGxzpHHtaoIbb3d3F5AJJqX9qrwb5iyh4sVWI2tl7Tk4PZxcyvHO7GQJYui
-	 3tuBlePtf4PeqghOfpl9dSoUDzoAVMy5OfGs0CA/eRq6w0w7JL4MZJGzaLFLPBbXpp
-	 PciHB8HJEjvxW0Kq9sZq/SlnHrw8/5uyIimBj17g=
+	b=hRMBWcXAREhTbj8qMHV5sVAIdxvl/t2JjFz8g5LlpfFjVsiwDhp8w4wMdbrX+AfTb
+	 AGd4env/0EOl3q19fDcMBZffkoNXq5d+VM25Yw7+7B9KKZ4ge8/jYN1z74KuPGJdrY
+	 s6lCMRBjoMFLgpeihdLRtQLpYLL28I0X5se0x/Mw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Andrea Righi <arighi@nvidia.com>,
-	Kuba Piecuch <jpiecuch@google.com>,
-	Tejun Heo <tj@kernel.org>,
-	Cheng-Yang Chou <yphbchou0911@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 01/88] sched_ext: Wait for SCX_OPSS_DISPATCHING before moving tasks off DSQs
-Date: Wed, 28 Oct 2026 17:59:09 +0100
-Message-ID: <20261028165942.145347695@linuxfoundation.org>
+	Oleg Nesterov <oleg@redhat.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 7.3 37/38] pid_namespace: prevent TIF_NOTIFY_SIGNAL from interrupting the reaper
+Date: Wed, 28 Oct 2026 18:00:24 +0100
+Message-ID: <20261028165941.335037989@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
-References: <20261028165942.107695352@linuxfoundation.org>
+In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
+References: <20261028165940.394092994@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -66,83 +63,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Kuba Piecuch <jpiecuch@google.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 2935062be77113c1c4565ca9d0c72180449aafee ]
+commit 5c0985dd3c32fc2bbd0e8beaf13cf52cd97376a2 upstream.
 
-A task can be found on a non-local DSQ while the CPU which dispatched it
-is still running ops.dequeue() and hasn't cleared SCX_OPSS_DISPATCHING.
-The DSQ consume and move paths don't wait for the dispatch to finish and
-can operate on the task concurrently with the dispatcher.
+Since commit 7fea700e04bd ("zap_pid_ns_processes: clear
+TIF_NOTIFY_SIGNAL along with TIF_SIGPENDING") zap_pid_ns_processes()
+clears TIF_NOTIFY_SIGNAL before every kernel_wait4() call. Otherwise
+kernel_wait4() doesn't sleep and returns -ERESTARTSYS if
+signal_pending() is true and the reaper busy-waits.
 
-Call scx_wait_dispatching() in scx_move_local_task_to_local_dsq(),
-unlink_dsq_and_switch_rq_lock() and move_task_between_dsqs() before they
-operate on the task. In scx_move_local_task_to_local_dsq(), wait before
-scx_resolve_local_dsq() as it may update p->scx.flags.
+But clearing TIF_NOTIFY_SIGNAL doesn't fix it. It can get raised again.
+For example, klp_send_signals() sets it raw against any task that hasn't
+transitioned yet. And it keeps sending it until the livepatch finishes.
 
-Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
-Fixes: cb86607ada73 ("sched_ext: Don't run ops.dequeue() with a DSQ lock held")
-Cc: stable@vger.kernel.org # v7.1+
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-[ Inlined scx_wait_dispatching(), which 7.2.y doesn't have, into
-  move_local_task_to_local_dsq(), unlink_dsq_and_lock_src_rq() and
-  move_task_between_dsqs(), as was done for the reenqueue paths in
-  7.2.y. 7.2.y has no scx_resolve_local_dsq(), so
-  move_local_task_to_local_dsq() waits before linking the task. ]
-Signed-off-by: Cheng-Yang Chou <yphbchou0911@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The sleep loop waiting for pid_allocated to drop has the same problem
+and it doesn't even clear anything. So a schedule() in
+TASK_INTERRUPTIBLE returns immediately.
+
+Use a no_notify_signal guard. signal_pending() will ignore
+TIF_NOTIFY_SIGNAL and the pid namespace reaper sleeps until a child
+exits or free_pid() wakes it.
+
+Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-5-6609e42b3157@kernel.org
+Fixes: 7fea700e04bd ("zap_pid_ns_processes: clear TIF_NOTIFY_SIGNAL along with TIF_SIGPENDING")
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: stable@vger.kernel.org
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/sched/ext/ext.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ kernel/pid_namespace.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 3ee16f7f22cde..c117cf172dfca 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2292,6 +2292,8 @@ static void move_local_task_to_local_dsq(struct scx_sched *sch,
- 	lockdep_assert_rq_held(dst_rq);
+--- a/kernel/pid_namespace.c
++++ b/kernel/pid_namespace.c
+@@ -238,9 +238,10 @@ void zap_pid_ns_processes(struct pid_nam
+ 	 * kernel_wait4() will also block until our children traced from the
+ 	 * parent namespace are detached and become EXIT_DEAD.
+ 	 */
++	/* Task work must not busy-loop the reaper, see signal_pending(). */
++	guard(no_notify_signal)();
+ 	do {
+ 		clear_thread_flag(TIF_SIGPENDING);
+-		clear_thread_flag(TIF_NOTIFY_SIGNAL);
+ 		rc = kernel_wait4(-1, NULL, __WALL, NULL);
+ 	} while (rc != -ECHILD);
  
- 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
-+	if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+		wait_ops_state(p, SCX_OPSS_DISPATCHING);
- 
- 	if (enq_flags & (SCX_ENQ_HEAD | SCX_ENQ_PREEMPT))
- 		list_add(&p->scx.dsq_list.node, &dst_dsq->list);
-@@ -2462,8 +2464,13 @@ static bool unlink_dsq_and_lock_src_rq(struct task_struct *p,
- 	raw_spin_rq_lock(src_rq);
- 
- 	/* task_rq couldn't have changed if we're still the holding cpu */
--	return likely(p->scx.holding_cpu == cpu) &&
--		!WARN_ON_ONCE(src_rq != task_rq(p));
-+	if (likely(p->scx.holding_cpu == cpu) && !WARN_ON_ONCE(src_rq != task_rq(p))) {
-+		if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+			wait_ops_state(p, SCX_OPSS_DISPATCHING);
-+		return true;
-+	}
-+
-+	return false;
- }
- 
- static bool consume_remote_task(struct rq *this_rq,
-@@ -2511,6 +2518,9 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
- 	lockdep_assert_held(&src_dsq->lock);
- 	lockdep_assert_rq_held(src_rq);
- 
-+	if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-+		wait_ops_state(p, SCX_OPSS_DISPATCHING);
-+
- 	if (dst_dsq->id == SCX_DSQ_LOCAL) {
- 		dst_rq = container_of(dst_dsq, struct rq, scx.local_dsq);
- 		if (src_rq != dst_rq &&
--- 
-2.53.0
-
 
 
