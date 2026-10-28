@@ -1,107 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.202
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186213;
-	b=DvYuRZ1YZ4Miz/Z/Ifuk229wflQ267Lbx5hnY78PUBjGv+b2UKCVrLLOjJiwVbeUkIK3
-	 aIeAw5qsrXbjQXQvP0AoPPYTh4k1wi+Qm00hXHxxYXaTqSNxDL9vE7aRtOd+HM3gXNVFy
-	 2iBdjhLoEHXcRXCXxBuK3UcDoYDnRJixJY/SHQPhka+/Gy2wkCfGaTjS+vrm3d3gh9UIV
-	 suc+qMM6hduVfJ/kJakEHGmgXhiMWbP6jFO7asKdWR5YC4EazQoCT+/FKFja2cANWaaJ9
-	 DPcVTS4HMpf5DIrmp90AFlJym0yNXZLGhrusGtl9nC0ZHTH2KHSO4n7dXYdUFgdXIMw==
+	t=1793186522;
+	b=49XnujuvUGQDn9HNadYskK+FE4A13nBr/TxZu+kPwQycCGABBgJuXKX8OJQwZedPocYH
+	 P//rCowJz7C5QFrFY1ACfEYW7layOsdIc4JEeKZTmlgAOJcyQMA5soVEMdtw1REwsnQUJ
+	 xtu8EWd1pp2FSO+wNNhGvGVcyCB6JloIta+I2DoqHxhxkz6/1lVxCUPs4hCIZQfzthFl8
+	 eoxLAHZ2S5aAk9WcMe0XrhuofN36mrHfA33LK1VAqBoDiSDU7c9r+AgF+IaZ8AaoEn/aU
+	 L7yUKDqeNoq1ceZTWd8DTGRNn+pmYSL7GebWplhapyl7Mkdl+CQepLK5HUha1deTZ/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186522;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=GR/yFWtGsd7tJ+Usqsgdls8RQ503SxfITShiJgwMejs=;
-	b=P+wPToeqNW/rcX4REoar/YiKeiOprCIonlmGByh7L2YD1Z/wCOqnrU25oaPby5l2E7as
-	 7Pud/iVpeQPfmrK2fQ+PfawkCfPwhyGDNp/FwvEGeUC0MZ70MiGtV47maDOfTkWedBv37
-	 5Xa99pODLDu3QGtg6yZ4QLDrLYtxtc3fGCsRfOwQdcLKnNe8NdGCaPKQXKhXEFN01wc1y
-	 4r3WQtAp/sjQEOpj5O8qMWVwZtOLbXvs+qJHLxMTVg2ChOsbtKwUuj9zdAnE1Uh634nNJ
-	 TcNZSvLNLFw0ryq0yrb1nIU29WDnhSY7x47dEbw4vJ/kFBR8EafH0Oucm66JFR1IAvg==
+	bh=YZt3QP8+mi+VPf5GhbK5xfKxIiB6KJlPF+IJ1iRM9OU=;
+	b=yIJxqwWxQXCAu8uSM3j320WruQXF2FORnMWTvRFWaxO5UhWGw99WX1zf6nX0mFx5RM4n
+	 y08qRaJ+WJHNp2Y3i0V5eR1WyyjrzDG+k51oMU1ZIVkVP8I985jYarODX7U1WSsIxb+X3
+	 HTXlJ/YELeaNTyf22JWTbkaARFyHaD3iVbHoBAW6uAGy81iqNRIon7G1BxlhgrJ3RlTKX
+	 GaDCD4BDtbPiQTZvEyxnJYN8CWzLOO7uJ7pgsTQsyILU7p0cJy+PHCV6+duWN0gK+c2qp
+	 z/ZI7Ripwi1QrTB2MZvibntfIXHbo1JCHtK2OzsbTboiL1ImIX8qXV8H5WTLLb6I8lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TuFDdViG;
-	arc=none smtp.remote-ip=74.125.231.202
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cr57bwch;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899F4606A323
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:16:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 899F4606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0A1606A335
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 11:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C0A1606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TuFDdViG
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4f742fc5d09so229598b6e.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 04:16:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cr57bwch
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9ae47b00cso1345355ad.3
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 04:22:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793186211; x=1793791011; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793186522; x=1793791322; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GR/yFWtGsd7tJ+Usqsgdls8RQ503SxfITShiJgwMejs=;
-        b=TuFDdViGJGEL+b0nZfQKqmZyadWwdWMzBmFH+Mn7eeNaUHjaDgL07albXg0moMw9or
-         9+JnvbXMRY6g0zpKWR8JMQ42xGk5CNHlmUj/wJkDMVIGSfuCf62/EwBaUIbB6CGDC0Ct
-         cRRYLOBnhn+a1dyNi9s1oq/Ct4znyKZrx46NhV2gQhuDiEgOGEjkLp5guXAz3sUjbDKx
-         icJWDFuwZdM+esbT/v1I1mXHJPIiH6N//3grhqxjAe4CIN4W+6sxnaVFF9gq93XKOKKq
-         XHY1R737tLhs0APhGCAPhqF2V7EzZPPt18ruafFAY7KQxTCJPS3wmSYZgHCn+6DO8FmP
-         p0Rg==
+        bh=YZt3QP8+mi+VPf5GhbK5xfKxIiB6KJlPF+IJ1iRM9OU=;
+        b=cr57bwchlryahrYxmNM2IoqPJ2Q1T9K1P+TYBPbvlnRmohF5Z7bJDwV9TpkzIlZwO2
+         ZbUyZLrP9t6ilN2/MGN016dF5bOAlTAhs22bhG4OLIs4qcaHQ71fLB/OAvF4Kp0NyUdS
+         34EveiuL6ccRDMdenmBrlRJxhoWjsiZv2uahLIUaIh6WNQRe3JuX+17uXOZss7g2joP+
+         bv6Be6vCb6FvTV9yVA+FT+Llt4sgyA3LrJc/oNNEJgw390LqDVYQdnwqFAgySeXSpgw7
+         GM+Zeo06Asi8oqJ0KmFm8Ge6gRuvZqRd4R4q6+93svq3JUtSQmEQlJi6Uil7JUxrCnGl
+         ZVGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793186211; x=1793791011;
+        d=1e100.net; s=20260707; t=1793186522; x=1793791322;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GR/yFWtGsd7tJ+Usqsgdls8RQ503SxfITShiJgwMejs=;
-        b=KoeJUeqGHPSKvH+t6SYMJpRQDS0s7M4+kcqICjtqnv2AhunJOUDYcX658BLLOPzXY8
-         RVjjegK4MtG01+5tyWPSDp3jvyc6lITj/MnMLM5YdLkhFRher+WZGNLP9/zzV0ABZa7R
-         rHUnLHDmnzAwDjVOxaUl6K/usuF+yAlbAlps2KVv5Tc1SAS1cOh3JLB4+1ZWNj/zy5tu
-         FlDcV1O8P7Kx+Wx/g87roDzCNZ6guB92MtJOPWPC9cUoIN7EnO1pv5w/0213yvBIQBaF
-         Wugelg4aloppAVwTVSBr55fXC3m8ho44PH/9nEJ1pJS7cBF3VGFFXpC31Onj+vqqHj0n
-         AYoA==
-X-Forwarded-Encrypted: i=1; AKwUvBznwKQZ9I79QzWHjaxEsaJ8spww9zC6wjUaPKgwNckWP0tYAU9N+D+saMSTqoPy+Zsw+4TFxEc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOp0SRuY11HFrOuMEDaiVnx74IopcI9cRTLPzH51esY4kUyZrj
-	N4g+7OyhHX67s6kBGbZ5qZx2u8rHZS74j8Dh14VYMGJUsfnLT4RtnLFMUTHXQrGbI57pjQ==
-X-Gm-Gg: AYBFou3qipD4jT5qMJdObiCvO0eQ9O11Bq+8m1MhSV8ii2d47f274RDVOHXgLbsLC9Y
-	/laEy9Hhai+0fOQmaI1GgUlIPzK9kj+ertttrdUhVgzN1H8m6kHxqJ7b8lsEP+OTe8dS2fw+E4V
-	vYj61Z48xyBGz6635q63sG3lqxlACIRhwTqtL7lnNUk6cZ22adS7DzgMw8Qg81yGvo+5+4haVVe
-	icjlmKFNIDXh8926VATqt5Z9xOaiqYw8BvlaufXLOGp1wIH+a8qSrOE+O0OxawA3EhHAaKmfI4W
-	ITyOSt1Rk9hjUes4e8dTbUZWWFyWnsoXptox+/xoJkdxYXKdTxmY5e8UNnvSndEc+k86U5kN4pg
-	rC374BB3TETa5XE+1ve87dqbUbEJ9yCmtR9luwKJ+ARrZYeKcthAjVuI2vELUce3o5h9Fbo1Vgq
-	dpA+Nz2lhP4ohr4VyU4q0mgvvHzKanyuXvswHT53OyUyS7ZbptqZiE+UrEIyLNbh3iEtQRuqUPe
-	OGQjnWckyCWYCwh8t8VHw0Zf6A0DBZCwNs72J/XvdUdrzPngZ1cymHXD3J/2KGbMkgEMSgaIbZa
-	0LyCQKdsyZaFCvOBVlMvwktP2V6xZM+bxdxFRIynEh3otJIXup6DWm0S3HJlkqH5luE7
-X-Received: by 2002:a05:6808:2229:b0:4c3:6d56:77c2 with SMTP id 5614622812f47-56382d8e3b4mr1287682b6e.41.1793186211387;
-        Wed, 28 Oct 2026 04:16:51 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.34])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b77ac4e4sm2003351fac.3.2026.10.28.04.16.43
+        bh=YZt3QP8+mi+VPf5GhbK5xfKxIiB6KJlPF+IJ1iRM9OU=;
+        b=igTSZzsBu3jpyGW0S60IYzmsqWlV+raZsFmlWJscQ4xlVfX/czrkRBWOs/hIwfoFuW
+         Jmj/yJclhedAR0l4Eajv26UzZPpNyzqHWgSe6PCPzuYpdRZziuhdJS0KhBpkNU77cWiL
+         QFpXBfI1jDhtvXLNM+Bkw4+BGQgVxCjupdB6UGallDBIFbfWqq9HZTP0ZM7xdesX2CIo
+         8b/BZdBGZozsWiaaMIK77sChOcmvOoZ1Ww5iXDe9q5QGmYu3dbDy40z2u6dV8ElJJo2s
+         bQGcrF27EpkfMLvx4my+9aQ8fzlWN82/rVkUpTprr+gFOEl5OzUH6igDbsHdjyyxVKAS
+         pxIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLdCQkFZtjQRCokVTB+CRumjGM/Rg8iJmekXwTTPfR1Lt7wS/aMxkW31M0ULx6q3SlsQD/ByE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmcm9t6SY46V7Rcw1EiuCBIFtIhfv1dvtHpMMp0E+RMbQXf6UH
+	xDbdNl/pPeoDCuq2ZTAssJl6mCB8lIIGaa+B/nxDdqrc9LsjiJdLuZIh
+X-Gm-Gg: AYBFou2UqvUi7Cv3gb+UT6vDapH05ky/wOvn2qs9xaOZOssFZIbdsucU+a125sVfb53
+	0L0ccC1YCyu2e6joskbgZwZH21ta6aLajoKnhWTqtr8kA8PIErhF76A9DxwB4SvpoRAKIYbHoni
+	R8sECVio+3aMnxcRCFwEMsh23WRPITC13bGNMIqpY3XKb3FqpuSESfR8djAsq9uu3pK17lAQjv0
+	uZeP98p+Pd6Npxg+IP34gbvc9nNqZV/2Wi/5WscaytmWfBMJQ845yT24JH7GZO1g4M8COMOaKDo
+	t2uDn6JO1UczLyxQhL5IvLor1tAjKtNYRuoIklXNHJtJ8jHStSLN2zmkL92QAjFOc9CzO0i5R5r
+	+mqrG+3y7ZNl7tP7rD2QDw1hjc+yxF1FMJ4o7eAV1sJEefRCvPQHGFgX/AJ5oQ1Z5gcAeoa531y
+	HUki1rkP1H87CRf8AvzI2GD8Y6AMlj55WqD7ML4ZOcOHyNlGUcbyXo7nFHZBhH3+lZye8lkVBzs
+	Ctyd0sS4fYyts00Xj1CcqSKkOci9jt/O1igLHWhWIMCluGziNfHyaZ/itnkwrnwKUaLdREeuaHm
+	SvsH8yuRWS8P8D6v8zWyEAVoojxRzPhQ5NANrybOq2SvwHkjUyEqzir48wgPR0GwNtuXVnk3tO5
+	KUSE+FPyXahINPGUEYVyEj7gLUPkEt0pE410wykZ5WyPtWCIgqGsn0wjOUWRDy4C08ropW+qdAk
+	x3Z0mkkqfgnC3oCspafAo=
+X-Received: by 2002:a17:903:46cd:b0:2e9:9263:a58 with SMTP id d9443c01a7336-2eb0008e281mr37278295ad.1.1793186521680;
+        Wed, 28 Oct 2026 04:22:01 -0700 (PDT)
+Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eafcdb52e6sm10157945ad.74.2026.10.28.04.21.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:16:49 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Ido Schimmel <idosch@nvidia.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Ferruh Yigit <ferruh.yigit@amd.com>,
-	Antoine Tenart <atenart@redhat.com>,
-	Seungwon Bae <qotmddnjs@gmail.com>
-Cc: netdev@vger.kernel.org,
+        Wed, 28 Oct 2026 04:22:01 -0700 (PDT)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	djrscally@gmail.com,
+	dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com,
 	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v5 2/2] vxlan: reject VNI add when the default fdb entry is nexthop-backed
-Date: Wed, 28 Oct 2026 19:16:26 +0800
-Message-ID: <20261028111626.3460759-2-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
-References: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
+Subject: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for the 319.2 MHz link
+Date: Wed, 28 Oct 2026 20:21:46 +0900
+Message-ID: <20261028112154.855185-2-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028112154.855185-1-antoine.pichot@gmail.com>
+References: <20261028112154.855185-1-antoine.pichot@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,105 +109,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vxlan_vni_add() installs the new VNI - hash table insert, group list,
-socket attach and the RTM_NEWTUNNEL notification - before calling
-vxlan_vni_update_group(), which in turn calls
-vxlan_update_default_fdb_entry() to store the group (or the device's
-default remote) into the all-zeros fdb entry of that VNI.
+The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
+pre-divider of 1 before the multiplier of 133 and a divider of 4 after
+it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
+2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
+datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
 
-Now that vxlan_fdb_update_existing() rejects appending a remote to a
-nexthop-backed default entry, the group store can fail with
--EOPNOTSUPP after the VNI has already been installed and announced,
-leaving it half-installed: present in the tables and announced, but
-with no remote stored and no multicast join.
+Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
+0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
+range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
+not change. The Windows driver programs these values for the Surface
+Book 2's Windows Hello mode.
 
-Check whether the default fdb entry for the VNI is backed by a
-nexthop before installing the VNI, and reject the add up front.
+On ACPI systems this table has been unreachable since it was added,
+because ov7251_check_hwcfg() selects the wrong index. The next patch
+fixes the index, so the two must go in together. With the index fix
+alone, a Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10 150-frame
+runs, 3 of them stalls; with this change 0 of 13. A Surface Book 2
+(IPU3) streams clean with either table. Dave Stevenson measured on a
+24 MHz Raspberry Pi board that the out-of-range tables miss their
+nominal frequency and proposed the same values. The 24 MHz tables are
+left alone because nobody in the thread can test a change to them.
 
-Note: the missing unwind in vxlan_vni_add() predates this series;
-this check avoids giving user space a deterministic way to reach it.
-
+Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
 Cc: stable@vger.kernel.org
-Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Link: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
+Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
 ---
+ drivers/media/i2c/ov7251.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v5: fix a build error on current net/main: vxlan->cfg became an
-    RCU-managed pointer, so reference the function-local cfg
-    (reported by kernel test robot).
-
-v4: new patch; the failure path was made reachable by patch 1, so
-    guard it before the VNI is installed (sashiko review of v2).
-
- drivers/net/vxlan/vxlan_core.c      | 14 ++++++++++++++
- drivers/net/vxlan/vxlan_private.h   |  2 ++
- drivers/net/vxlan/vxlan_vnifilter.c | 14 ++++++++++++++
- 3 files changed, 30 insertions(+)
-
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 3390e341d1e58..13143085065f6 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -422,6 +422,20 @@ static struct vxlan_fdb *vxlan_find_mac(struct vxlan_dev *vxlan,
- 	return f;
- }
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index fce6344b5120..f429de5f1f7c 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -174,9 +174,9 @@ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_240_mhz = {
+ };
  
-+bool vxlan_fdb_entry_nh_backed(struct vxlan_dev *vxlan, const u8 *mac,
-+			       __be32 vni)
-+{
-+	struct vxlan_fdb *f;
-+	bool ret;
-+
-+	spin_lock_bh(&vxlan->hash_lock);
-+	f = vxlan_find_mac(vxlan, mac, vni);
-+	ret = f && rcu_access_pointer(f->nh);
-+	spin_unlock_bh(&vxlan->hash_lock);
-+
-+	return ret;
-+}
-+
- /* caller should hold vxlan->hash_lock */
- static struct vxlan_rdst *vxlan_fdb_find_rdst(struct vxlan_fdb *f,
- 					      union vxlan_addr *ip, __be16 port,
-
-diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
-index b1eec22163608..0454689965aeb 100644
---- a/drivers/net/vxlan/vxlan_private.h
-+++ b/drivers/net/vxlan/vxlan_private.h
-@@ -11,6 +11,8 @@
- 
- extern unsigned int vxlan_net_id;
- extern const u8 all_zeros_mac[ETH_ALEN + 2];
-+bool vxlan_fdb_entry_nh_backed(struct vxlan_dev *vxlan,
-+			       const u8 *mac, __be32 vni);
- extern const struct rhashtable_params vxlan_vni_rht_params;
- 
- #define PORT_HASH_BITS	8
-
-diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-index dd94085e08865..f07ae2a6a59ed 100644
---- a/drivers/net/vxlan/vxlan_vnifilter.c
-+++ b/drivers/net/vxlan/vxlan_vnifilter.c
-@@ -737,6 +737,20 @@ static int vxlan_vni_add(struct vxlan_dev *vxlan,
- 		return err;
- 	}
- 
-+	/* A default fdb entry that is backed by a nexthop group can
-+	 * never take a remote; reject before the VNI is installed,
-+	 * otherwise a failure in vxlan_vni_update_group() would leave
-+	 * the VNI half-installed.
-+	 */
-+	if ((group && !vxlan_addr_any(group)) ||
-+	    !vxlan_addr_any(&cfg->remote_ip)) {
-+		if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
-+			NL_SET_ERR_MSG(extack,
-+				       "Cannot add a remote to a nexthop fdb entry");
-+			return -EOPNOTSUPP;
-+		}
-+	}
-+
- 	vninode = vxlan_vni_alloc(vxlan, v);
- 	if (!vninode)
- 		return -ENOMEM;
+ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
+-	.pre_div = 0x01,
++	.pre_div = 0x04,
+ 	.mult = 0x85,
+-	.div = 0x04,
++	.div = 0x01,
+ 	.pix_div = 0x0a,
+ 	.mipi_div = 0x05,
+ };
 -- 
-2.43.7
+2.56.0
+
