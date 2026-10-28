@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793214006;
-	b=ACkfJ2Dxg4gJkexS4fos9XgOIrb+GhUCc9Wibkex6hsl4oyDjkxx1yEV2v879/6q7LA5
-	 0t1pYItK6VGMySU8iugq8v8m04r7v/dVuTGkpmHsk8M1ipLSUDX7w2hOq6KXS7zTjTsNo
-	 bk1qeHM7heN3TFbUxTRbUthP+QcsAtOsqlM4lV5zGZNNu5bdqnKkbhGlJcxQa314i/52t
-	 kU//B8Tpl8j4/jRgitJM0/0ZvjRzANCuYP9+QH4jy6cDb3lUZU/tTtQhqj1ONXI5GjWpo
-	 7VgtqzVCC76xBl0/hJK5BZqJZX28k0YEmUJfcrCSy4cSEhIvjAzh3Cz0h1F7Owf8j2A==
+	t=1793214007;
+	b=MnTdRbGVp0fXYsb/ak8run0HskRPp6471rW2VzBMQcZ7Jhg9qVRszaKg6iY6pu7ECgSM
+	 eK2By6ujZyJ0BrP8fOC99/kqcfo1351DRhsLDBCbslNMj8jKzwnETPgc5+jFur7z7pDWA
+	 e05BR7LO8nTk9lHyx0fhbCLGR8o/pxr19u6vA1vaBsZN/m5i2EsFXsnSj6O62dnEpXGI7
+	 h/x0malZbnNevMIPDaqeZ1ddYs1Y9jrBk983IFqhh82v5gSU84QnM1hmjkw+i1k1Vk3wd
+	 AgSn2dPHV+aNMXuaz3KItgXX0YsRqAU8hpi3BFwqifBfPyNqUpNAhDG5G1uNMaX0PUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793214006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793214007;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wQqVgTXSXYUWTiRjW1lZEcIjOsDGYrN6t0lIvs2z9yU=;
-	b=gfxSw5r2kGgQT00CbT2JThCjXK2iUFUTGONHjpu1aOGbbvsjsd3mEHM0UuBNdPdJ/Zoh
-	 zU1mydYGuURhHgRYgmaV/NzdTJvPAx4PvsT5cylezxPrMzSyASCM38gR2HIxD+mhpeIux
-	 vUks7dIWKNBFu0Vng+oi7kFct587OXk5z+QdZcz2Qti3VT7jAvxzvseJNVaToPeApZHpj
-	 G5qxmMNGIJqJycsbccAxHDQmkMDZmBgaWzbooXu7SqHVvDqQICs1VGOVuc547JW5Y8v0j
-	 KrnjUQtQjkdvPijCLhmM3qxk7mAfAkz88Qj+ZVi/+vZ3BoukWmurET7h+XaCwffhkNA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ol7FKfusB4tFAUQx45a/yRdaJGgULjBuaFt/SytYTok=;
+	b=LsWV6yyh/RHl89czlo2hcXLzLcCNiGo6u8NUY9dqrztSyGZbb+1BWHJWRuaY2USy6ZoP
+	 GyfUcNuCqaKmhSnOlrWOppyCGWwvdpjgzJrvoBn4t5w7VBbtHbo2eBvBAwz6pHlRp+Q3F
+	 puF12GzO/GZcHX59h/455JHjSGot2j3y+ETqO8Wn7LLPoedF+W+z2dvN6wacQdbaGtC0T
+	 SJEU9MkJR6uKpj8rTpA3Aa4yE2zY9x9j4IY254OlQoR8VmzDB9iKLpwMcGhwQNQQp024K
+	 8Udtwh7GeIqj0znQvyQZtNarARTExo4PCuGPWu4OnXZGXpbgRGsvHEDhbeVnrkwbB2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o8k361ic;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1G6ehDf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C16606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D342F606A32A;
 	Wed, 28 Oct 2026 19:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=o8k361ic
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875771F031E1;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1G6ehDf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D8F1F031E2;
 	Wed, 28 Oct 2026 19:00:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793214006;
-	bh=wQqVgTXSXYUWTiRjW1lZEcIjOsDGYrN6t0lIvs2z9yU=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793214006;
+	bh=ol7FKfusB4tFAUQx45a/yRdaJGgULjBuaFt/SytYTok=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o8k361icL3bVBTyoncbGsNRBTPYTIL5/Eubdqkq90e22kzTGDumxg/lmCzMcqvS47
-	 1WSV+uMVOLiah8+N8GjZHMBtkwvYSawMAj65I8UOlu6CsQsQsczIb2ojXx9YAdabKf
-	 dknMgp3WYs7vyMBkCdMYjK/HhJEe2RpWP8a+W58k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sean Anderson <sean.anderson@linux.dev>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0705/1887] drm: zynqmp_kms: Unplug DRM device before removal
-Date: Wed, 28 Oct 2026 17:46:41 +0100
-Message-ID: <20261028170515.454128744@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-References: <20261028170459.200466217@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	b=S1G6ehDfXx9bRbWmBH/C5z6BTE7uuear7WOBZ7oV3L1LMQR9AQdrpriKH0pUfWg6v
+	 uBpNzoJbL0UXMLm8gPWwOW6G8ILuwz9KP1+XzBbSjLnjn8nGCA2Rjr6u4Yr5fR09eW
+	 j6xRqW0VGihndRihgsuliSDPfAB6oMt/E/G+mkRDOcqeI+uYPr9XMWS/YRLozPJ2k/
+	 QhJFjNBpUm2qd71+BN1qzWDLnS6mEQxU4hNxd+2SNXjGPOAX+XI93Ntze8VYLW+cRL
+	 OXe1y71SiY3c7hAChuCAjUGYGoMsrs/tipx3XOlEK5+y4V/c4VYgbprts8CkJ6eOdY
+	 KQYARC+2i98JA==
+From: Sasha Levin <sashal@kernel.org>
+To: Mikkel Sejdelin <mikkel.sejdelin@proton.me>
+Cc: Sasha Levin <sashal@kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"rafael@kernel.org" <rafael@kernel.org>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Ting-Han Hou <ue081723@gmail.com>
+Subject: Re: [REGRESSION] 6.18.57: resume from s2idle triggers poweroff and hangs when tiny_power_button is built as a module
+Date: Wed, 28 Oct 2026 15:00:02 -0400
+Message-ID: <20261028-rc-reply-0001-tiny-power-button-f4203@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <dyJyEj-TY1YtRVdDYPD4xnYF_aIP78z9wliSc3251tj6aZEZxux0c81AiZAFPpZvbg6rjgqivtHTFfY29YHTS9WZmw569IbyVF0NPVTxqrA=@proton.me>
+References: <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me> <20261024-rc-reply-0001-tiny-power-button-s2idle@kernel.org> <dyJyEj-TY1YtRVdDYPD4xnYF_aIP78z9wliSc3251tj6aZEZxux0c81AiZAFPpZvbg6rjgqivtHTFfY29YHTS9WZmw569IbyVF0NPVTxqrA=@proton.me>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,44 +65,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Oct 28, 2026 at 09:15:22 +0000, Mikkel Sejdelin wrote:
+> Now that ab06eb920401 is queued for 6.18 again [1], could f4203ec64e11
+> be queued with it?
 
-------------------
+Yes. ab06eb920401 stays queued for 6.18, and f4203ec64e11 ("ACPI:
+tiny-power-button: Convert the driver to a platform one") is now queued
+for 6.18 after it.
 
-From: Sean Anderson <sean.anderson@linux.dev>
+> Tested-by: Mikkel Sejdelin <mikkel.sejdelin@proton.me>
 
-[ Upstream commit 2e07c88914fc5289c21820b1aa94f058feb38197 ]
+Thanks for testing this.
 
-Prevent userspace accesses to the DRM device from causing
-use-after-frees by unplugging the device before we remove it. This
-causes any further userspace accesses to result in an error without
-further calls into this driver's internals.
+Your stack also included Ting-Han's 2/3 and 3/3. f234fdaae1ca stays
+queued, and I added its upstream follow-ups edfaa81d5da5 and
+7617cc05df28 as well, so the nested-resource regression (arm-cmn) that
+7617cc05df28 fixed upstream does not come along.
 
-Fixes: d76271d22694 ("drm: xlnx: DRM/KMS driver for Xilinx ZynqMP DisplayPort Subsystem")
-Closes: https://lore.kernel.org/dri-devel/4d8f4c9b-2efb-4774-9a37-2f257f79b2c9@linux.dev/
-Signed-off-by: Sean Anderson <sean.anderson@linux.dev>
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240809193600.3360015-2-sean.anderson@linux.dev
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-index f34d4ec1d92f3..463407d5f6600 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
-@@ -253,7 +253,7 @@ static int zynqmp_dpsub_remove(struct platform_device *pdev)
- 	struct zynqmp_dpsub *dpsub = platform_get_drvdata(pdev);
- 	struct drm_device *drm = &dpsub->drm;
- 
--	drm_dev_unregister(drm);
-+	drm_dev_unplug(drm);
- 	drm_atomic_helper_shutdown(drm);
- 	drm_kms_helper_poll_fini(drm);
- 
 -- 
-2.53.0
-
-
-
+Thanks,
+Sasha
