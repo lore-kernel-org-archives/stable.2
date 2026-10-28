@@ -1,111 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793192520;
-	b=rZs1GIjU1KObJQziN/BTNO33Mvm5Fr3CFWTt5AXKNDRjIT4tcB0uTbV3P5l+Zm6ZSXU5
-	 6pc7+UDyo5G4AJO2wcVOJH+i9KRqyGWVhAVwV0z8xoPo7tZkjqwwwDHVZGwJuQ5g5G4MR
-	 CeiF5OOX/KAmZbcZNYBIMNd76APz7oTxswwEaK7VNw/0FdRDindAOAKpUnwLsXy4XzoHD
-	 X+8HdVViAexB3carjkEmUTaDOtvpnUhmcPEpeVOePNzS/YuwbzHCCxLuq3OvZxhPGDW1c
-	 79+IL5nnHxx39XFYMl4aXieM2rOoGNKp/5ujn8jbKqvH10k+SzeyMdDoyX6HM9cG/lw==
+	t=1793192713;
+	b=aH1rbRzQukzBwX2Mre7XmoiDMqdb3qEXAJZoI3JM6TYAEl4riih0TjHt+eulSdc/uCci
+	 nkztkU5tyIq3KlRaMbTsonn9jHBGrvUGl2AT1U4QsWRMfSeU7Er9SkUEBXwQHxfvcAd1W
+	 UAUoPSVGr/s7jIUuqcJILhj6uvb/tqP7wYwePiAMdhjQfuM9yGTETqjC+KD3xF4IBKPCA
+	 kMszdVFiB5lqCWIqc5UfGjNXGUcaPLnGdU98dhPm1Y4FWFMLfTCTTNB+tgbsw6fsQfpcE
+	 80SY18nUZF4TMokI7lobkt7vli7284CjUx6vh4oEdExOgU42WovNwbInstr9okTHRew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793192520;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=JF+E1/98bAILDGzRZuRXRNPmaGCH431NnNIaFq3b5kE=;
-	b=kOwNqe+S56i9ubzTUqFOcV65HEZcEKPscr6QD+S2Ggp6knGD6f55kbyU5P58Dn35m35J
-	 OSdxU9TWzi7RbmTff7JdkBYieuKhZWnDG0HZaty2TnbUyK2PJU43CNNQT1bZEsD9agwlz
-	 yn1EMVs5d1EA3D2SC2AXwSQS/OwKzKLSHZeXiKcklxoBM/W/uUHlsJrOCMO+Aj2G995sG
-	 vRc2ma9+iW4ALtAsZk0mEvdRY3bLvPeUg+mvmcTIAiEYQKIBeHVRY5F5Y3NykaISNT5nr
-	 Qgk2iVLmqsXVYOa3Hx8I/dwv8Nz2eYsSPmR+v8mJhDsCadGu374EDbM//isuiTj0syw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793192713;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
+	b=ltfxMhAYhh/wfdmrv5030d9HbpC2XAh7Chh1eKekyCDqf22tDA5t1ccCl87JVDijhQhI
+	 oJqCotneBuZCFr7+TMhJnoZsg3HHR5NjdRR2SA7CTBNHcPnSEsO8pnAgQ4b2vGGD+7I8D
+	 JT2lU9zI3orMYWi/0irS0ZfhyNEQ0oZ0K7AZaX172cFnKTkKKvuVNd6WFaGPGbaiakSuH
+	 L7xk2naxDndlDnPYtIQ7qmemxXw/NSM3RkQtnIeNHbqhkMFLUnMAbXpPsdliiuspnAGAJ
+	 dIIUQGSSvMk+Pok8eXoO02QaJbK1NrRY8efTEnky/7EZOiiZf5o68BZpqEsAxwCQ93w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V+FumsiE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QRJl1SXw;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IkyIrlCN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=h5eyniOO;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="2FB/MODf";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4dic7x3T;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A41606A327
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A41606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51431606A31A;
+	Wed, 28 Oct 2026 13:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51431606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V+FumsiE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QRJl1SXw
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe4nE994733
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:01:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JF+E1/98bAILDGzRZuRXRNPmaGCH431NnNIaFq3b5kE=; b=V+FumsiE/zr12OpI
-	DFvA1swVDcmHoCFSMeuxf6gR1hYAK3aJg97AZw2yDP8OeufhK62kJmBEp+gboxx1
-	Xi8hsGiR7zyDrktr8xN1m+uBKHMwOk0wsVM4aOMATdrICf0ZBxCkne7RMXAuFAel
-	1VqbuFP5so8wBEgNwGEGTT62Ja/jZflNjlLHbbs3hzqsW1EnUosHDzGsRCRCTegy
-	lQEJAimnmTgBR3b3cY61BBkHS69zt7vwihB1XmsBSxJ5+ZO2Il1k5qFEQFIBDRU6
-	FV9pQGaazuPUkMWvLM4kNU+rv1EWa0FWnbLxg1cUjm4II6mvSE8yAjrkmjcsi5yH
-	96TlTQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk82tt585-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 13:01:58 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c97957d83bso77186e0c.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 06:01:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793192518; x=1793797318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JF+E1/98bAILDGzRZuRXRNPmaGCH431NnNIaFq3b5kE=;
-        b=QRJl1SXwTC+/ycdHpnyfytE2F5CpRqYoOGkIGcN2a4cr2Ha3VgdWTPUto9uQ7Yvv9x
-         vhvMHBeck42b19kdVRpjlGBm9j/XpfYVX4t2Xmsxicy2eTen5kbovrW61KzFM+RjUcXy
-         hinmG5Ds78vcGID3RvHE/zTso4oIz861xipNiAYtI+twPbdpltfBMAo8pfQUlTPFYaqR
-         k0oVf1KMJUf2sLpEm9uCBk4898I0yrFCwIBagjmgt4Upm5E2vMfjRylps5Mp7BT/1uGJ
-         4sMmgzr7PLEUW+hf92dlT+2F+1G+F9E/pyqS3jB0YJCSeetf+I/dGKS7FMcRbD22gpmI
-         3wcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793192518; x=1793797318;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JF+E1/98bAILDGzRZuRXRNPmaGCH431NnNIaFq3b5kE=;
-        b=nsUyP7kVNBRpu3mZQCAl9OP6z+NfD2gvUlsed3QaaShhP/1P66O9RvvbyNXYqePfOm
-         i9FCoh94/MSVNn82xKATGz0MVjESNaFYnkOIBNzhc0PjCaqQaC9xAH6hnIlz2Rj2ichS
-         gw45nq+l1odPKK+hwa6f+yMTxGDOlUgGG4wMdcDWzP7puThgZS1gE4BK6Jx24Xijjgsp
-         5BpAiRrvzO1Mb5OiS1wuhhnp1zsSz9YTbbDokd1fyv9h669XXD4eUlFAVY8waoI3fnoE
-         hBNphopi3rYcu9Ohf0L+0LiuZbBWLuffhGLl/o+1LqrI/kNKmGNhL21KYfRBzK0YJfWu
-         O9ag==
-X-Forwarded-Encrypted: i=1; AKwUvBwKJs1Hvte3ERTtUAea4BtozRMmT7C9i5rBXX8vABJ2E+wMTA9MTTEQjOcmMzf0uFYQRz2KRhU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJid82vVFkui+A8Qidsdx/0ak4cyuWAZzLrhwuMxI+rJcs7416
-	swyN/4ff1zidobjv4XeaPEq8JiA3vVGn5WvUX2kg8J7oLQjVNcUssDXhGlpSHrdqlaTWG2xhNHy
-	ovTA+VtfG+S3VgS42qwzn55oZGOaoio8t0+teHSACmJiGqcJ5T34pUxU9Cbw=
-X-Gm-Gg: AYBFou1ZoxJvUx+jhcSVGy1fvMoDxN6hw4e26sLDkAg/hm8vNYxAtw2jJ2Nhd6mgc8o
-	wJ32EOWQtQEq0eQ+Ef1qevkJI0g0RA937zBmlZ/nvm55jzKhuaSKBMWBFnHsyCBdvs9hqPKLdQw
-	csP8wf3Tzne2alh56AFfBtYlF70AdmZNGeQZQFWHYXjt91wpjE25ttjuIQMBya1I2aYrgVSUIEH
-	OVq/phE7Z4sRgO01xJl/f9xsvc3xwNt31mvoYvZ22LL0EaKGmckwwVqzWm9A+KjQLyYH79iRPBy
-	3Oo1TIgdyDR9vKv6PPDPV7gNlKc+xFteX1fzj724qTKe84D8Tdv4nwr4l2yPFyLg/7zsfBvx5EV
-	2CKlb14SL4LUp6v/josPRLo0cvvGUlwPt6jkUctpuUD0yX2dXJ3MewpZDXXhtAzVPcPW/9no=
-X-Received: by 2002:a05:6123:553:20b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec4cc714a5mr883541e0c.4.1793192517795;
-        Wed, 28 Oct 2026 06:01:57 -0700 (PDT)
-X-Received: by 2002:a05:6123:553:20b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec4cc714a5mr883211e0c.4.1793192515300;
-        Wed, 28 Oct 2026 06:01:55 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4eabadsm610575566b.14.2026.10.28.06.01.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 06:01:54 -0700 (PDT)
-Message-ID: <4b373217-d4ee-494d-a5a0-244fc9181b75@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 14:01:50 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=IkyIrlCN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=h5eyniOO;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2FB/MODf;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4dic7x3T
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6CF5C2213E;
+	Wed, 28 Oct 2026 13:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793192710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
+	b=IkyIrlCN7G+xZvqNgVghwMpBI8ng2bOlKjOdDzhEfMRQg6rt8YafWJYQp4jgsQ9w/lB33H
+	9FBPHphhQPAOp/XOKHNr+fu5p9eYndRTrRcFNq/0Op99xtiVrbRQFMThClRVauNxgN6V6X
+	wfczOgguTF4x3tTmDUcStTIG3Iah8x4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793192710;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
+	b=h5eyniOOwdXc2q7T7Pk7UL3no1bmGUgM+F/72NEfzo9ftuBZSX85MPbkgavJ2oP0IWltjD
+	1iXG9iI4uKqlVkCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793192709; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
+	b=2FB/MODfxpZ0ilwA5PHgCW7NNYtSrq/W5boCvDL1GRtYqDPKkanrGQkl2gpE9zCifdCSBB
+	nXXGSTtLKo5Qg9iFAVvIlvlt2JPsj5aQlGkeHsfbUV/bRZhcWaORCRSTbSoRnb8rfrtgqf
+	Zw/R3EHhTn49+ohBRC96Ycd2MjnI+KA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793192709;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZFm+LF82pi5PZQRWnWdZtQasBy7k0lWkzPhNGbo8lwQ=;
+	b=4dic7x3TPMbFvoBJ+if+DDgdTri1Ltf7/N9AT6Le0B5ucrxb0ojV3Z+Ip1NOCne3m0B14q
+	S8AEDvM3JKZPQnCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4FA2E13419;
+	Wed, 28 Oct 2026 13:05:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7Zm8CQHz4WrpIAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 13:05:05 +0000
+Date: Wed, 28 Oct 2026 13:05:03 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 11/46] mm/huge_memory: properly handle refcounted PUD
+ mappings on fork
+Message-ID: <auHy17vcHxNIAlCF@pedro-suse.tail5790ac.ts.net>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,80 +134,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] clk: qcom: clk-alpha-pll: fix Zonda L value
- rounding
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Satya Priya Kakitapalli <quic_skakitap@quicinc.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261027-nords_dprx-v3-0-5d98b2c6c263@oss.qualcomm.com>
- <20261027-nords_dprx-v3-1-5d98b2c6c263@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261027-nords_dprx-v3-1-5d98b2c6c263@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: wiaPovTmxgiSasBfQoVeS06Y4cmRi5J8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MSBTYWx0ZWRfX6oAjTk5gxDFP
- 2RKlByjjlKPJJ1VXC9lEpfk7rLsBsm86vlyjz6xeIVy09yQ7ISPe/0bgus1G01y1Z0FOdSHiszT
- QQHCt1+lgFWEE4+1xcOTgyVVUv9KRf4=
-X-Authority-Analysis: v=2.4 cv=Tr1zFzXh c=1 sm=1 tr=0 ts=6ae1f246 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IYGMUUFy9tKC-wNfIDcA:9 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-ORIG-GUID: wiaPovTmxgiSasBfQoVeS06Y4cmRi5J8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MSBTYWx0ZWRfX94HrjJ9NQEsj
- 95A7PQu2te2kyXZ7lfkPNmm/0QfM4GB3QSqFVJ6DiCm4wVOKBZh9urrz/g+BFIaaTu4Or+yrHQp
- WWePEgTcB0MdKnxMyO11ZXs9g/P9xzPuRtESJIh5wz8lOX94oBEPG6jRxutV9qbHQtpD5+F1u1e
- AFXRW9TxMIiKsxyiwYmyuzu1VuLnsmVGZAFURTkRzM3ZcwExt//kjSWMqUbikmqCe3nhsPaQJvn
- QfsNeNk2QkSAcNMobDyrFrBtPjsLxxus5RKYxtMgDLbSRRfJLh/IHmWrV4ZDvmGNS3Hll2FfhEH
- I95NhzTRTf1Jy/GhyUDWtNzS2XwZbxAAU58KJil6ogcj9CZfYU965IoqVPMUzBaSLhzfAA9haPW
- JKDAG9IH4JfgjU64BKi/tS0O99NcBjgRd/V3DX/1BshTNwoymLuC7hf8r0y+Yq6VF3fsHcTDNA5
- nzgyN6BCEhxUxFKW2Lg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 clxscore=1015 phishscore=0
- impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280051
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[64];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 10/27/26 7:08 PM, Taniya Das wrote:
-> zonda_pll_adjust_l_val() obtains the integer quotient of the requested
-> rate and parent rate in quotient, but writes the requested rate to L_VAL
-> when the fractional alpha value requires rounding.  This programs a
-> nonsensical integer divider.  For example, a 1.2 GHz rate with a 19.2 MHz
-> parent requires L = 63, but programs L = 1200000001.
+On Tue, Oct 27, 2026 at 12:17:31AM +0100, David Hildenbrand (Arm) wrote:
+> copy_huge_pud() copies device-DAX entries without taking a folio reference
+> or updating mapcounts and the child's RSS.
 > 
-> Use quotient when calculating the rounded L value.
+> For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
+> forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
+> huge PUDs are then copied without accounting for the new mappings.
+> Unmapping them in the child decrements accounting that was never added.
 > 
-> A GPT-assisted review reported this issue.
+> Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
+> reference and add the child's PUD rmap and RSS accounting before installing
+> the copied entry. Pass src and dst VMAs consistently instead of src and
+> dst MM. Move the TODO.
 > 
-> Fixes: a4d89b11aca3 ("clk: qcom: clk-alpha-pll: Simplify the zonda_pll_adjust_l_val()")
+> Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
 > Cc: stable@vger.kernel.org
-> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Link: https://lore.kernel.org/9dc66fa5-47a9-417b-b8ff-b3a61ea75678@oss.qualcomm.com
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-Konrad
+-- 
+Pedro
