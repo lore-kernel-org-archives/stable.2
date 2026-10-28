@@ -1,70 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203516;
-	b=pgT05EwDTzLWTBs1MVU39IplQlB9hFWkiIDGu8R0IQeu9+eCqPxyob7XH9enwVpLvyC+
-	 jlu4h1gZMkiPQ9xquEFCBTRpnOG/C02PEWAC21ICSLKWGaQmDoQNQCdl0tqt8Gie//n1Y
-	 T+dNs2jv6/14UnX4XBtY2FWW69lU/rv5HMmk5f9NstMEQ27rTEoV5bnVRbgnIyxzpb9e7
-	 oqbic5Vw1F17dNZVTCQh7ZzkpRzs/TyiQzJek8B9MUKaDVK+NSD6f6LTSmahQiJT/q8tX
-	 WGXGWG91lkhHzv1lR8pKmkwng+jNRUOzrE+NWiHDwX/OD2V7N/7qlGx/B1WUpk6ZEQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203516;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=88sfbrcRMagQo5uewTZLqJVOWmvLIZ7ZDDHfajCvQ8w=;
-	b=b3efSz0M7kC/RNoRtfrO4IoFCeCwElBH+4/+7s8r/KV2dMMNRGnjOiGAxBC7QSz8cPcr
-	 xV34w14tS50zT1NyCPhR94CH4Xr3gG3hKt4qXrFoRxLp2rUygmaN6Mwm5z2VX3wOAhkJL
-	 X1/AIoPdJWKOWvgC4tG599EfVobpPrc8wCFz/GtCfQ5KMGdIGq4g5RmVdvEByQCWYG1LE
-	 nUNoMzyD/aQVSUMl3F/g5+k+AV6nxEZo+rUE77w8XtvxaBii/WOJ4kKH2+uMikiHXDaaG
-	 wNmqqgQ4y8NmbQqvwITNxLf6IN96MwxMJTTaohpGNj5QAxeYwk1oIt/CLLTQ3AyQhRg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEGdvb86;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793203621;
+	b=C9KEyHmgPQKwD+bYAc45k48MroSK0BssGe4vpLsPpEHFKz3vOquM53WTK0J4138GMF7+
+	 7GZkM1+B0Pl6EodCOGmHbgSTdC6FdHO5F5Gq0L4BCj2XCtAHm3j9ggL3vYlHjNtWrnGct
+	 xVhI4Jmrp1jicyg+o0yUAjsSDuSpFrw5oXerUMxwowxjXCR31RFG1dDCHAZV9eNhC0+JT
+	 N8oQKC8lO57phBXUM/Mrnmu56Mu0ppmHIOKeTIiiTfB1TIvu84D/ELQcnzCQ3oK1UgmnH
+	 Xg62ue/GNchFooGdUP4mAvEfYGIq01hIekhY/35SDRfzEIApZMnXRuOxUAtR0wf82Kg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793203621;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=G3xez6l6UmcmjmiTXS2jjEVOasCGigrtkIzLD00rUJM=;
+	b=Sl4oi8xKdh1gxVbzofk+sQlDS8mpvj3jP4jOU3lkNyP2qhmhzuwrIsqsYXiRnrKHobP5
+	 ZgpuLBeVGLL7Pg34OHYn6luZnwkANbL3GgNR67Am8w504abrkSR63uF9yIFjHlKgKSJaY
+	 lyAy+wziHk0BwcCsbn4rI1Nvcp/ktVuRWc4J1E5WUFP47k0xHcdqnMNBHBaBub8LkUZVm
+	 1BUWqoAAr2k1ikkuwxIbRHedjmy77oUF1Aj+XIrEvfUiSRgcrWUDRQ8FjwHCZNt0Php7x
+	 LTDwa3pCkpOqvNB7SxX/fsYzcTqVem5gG6rKEbixAWRnZ58CwyxLPNH+w0eWrrRQCVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qQuQl8ls;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.37
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8F2606AA59;
-	Wed, 28 Oct 2026 16:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE12606A323;
+	Wed, 28 Oct 2026 16:07:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DE12606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEGdvb86
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57CF1F01285;
-	Wed, 28 Oct 2026 16:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793203515;
-	bh=88sfbrcRMagQo5uewTZLqJVOWmvLIZ7ZDDHfajCvQ8w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iEGdvb862gVq48UUgyRl/Xm6JMHFkS0Jzxlmh1uQ/FP154kv0/TjitiGESsor5WdQ
-	 C8Ve/mHow4xmhrJmq+PhbjqnTBi5ymT89KYt5rqJvqLtaHs91auSgZty38iRzuAaNY
-	 sGOGJMPqaSegYASCqriuMvHoyhSXhrWH0cznQKI8Z8TELXfHtMN7ZKOD1MT2ckz4xo
-	 lCT7U8xwgQPyPE/kc4kGz4PVC7PcOGpFDQc0DU1uHdID0r52NAIP/kj47a3WIfts6K
-	 K+2/BYbdOrzkQy31h86d4L7UB6r0C0qvkhbPm3Kgu+qXygGQYSsxvoxsYUNq3oppIg
-	 lKbUPV9aoH+oA==
-From: Christian Brauner <brauner@kernel.org>
-To: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	ecryptfs@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	jfs-discussion@lists.sourceforge.net,
-	linux-nilfs@vger.kernel.org,
-	exfat@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	ntfs@lists.linux.dev,
-	ocfs2-devel@lists.linux.dev,
-	linux-btrfs@vger.kernel.org,
-	gfs2@lists.linux.dev,
-	linux-efi@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	linux-xfs@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qQuQl8ls
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GDUBFu9QjbXoyZiv7K5PJObRJ7eQ+Iyw8beXl8SwezK5FMfCgT5yLjnGgv/OSS3oBra/UnzbJykXrk+nOIMNOyWdTlX+mltyZTAOxrWV12CdwYYBjfmq7Gw9QNfYxdXtoxoQBRkhtjh8v6e2lvqj0Nxi0wHBdSpt751jldRAZN+T5M4vUwJFPhqoE9G1IBf/WIm4SS4WD/MW8X4NcSWSkIHFVeQfGXXNo+gdG2cnovt9OB1P9jbml+vgBgP4mlq/SuaG+982qpbOhtBgX4fk2eVkkKyk1rBuTJgcFOi8WscnJzwkKr1WylYW9vhimogbe9NUwYUiiq2mXDiRSU6RyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G3xez6l6UmcmjmiTXS2jjEVOasCGigrtkIzLD00rUJM=;
+ b=VvhWfAMoG85Lvphs5FPALHWZ+Bk3EYLYMHY6ETmnftQADxlB5mv7wy+x3wa/DEr/063qs3e7rsHR+kafSUYl7Yl3vdNgaUDjgCyvG/1Mf4UhYnO+7tIi/zmOJhElvEDA14hX7zqix33XB1r8zu4sYH8rrQEtCvexdcsLjZe9oQ1pi5nNDjfxDi3F/sxTXNQJQCUgBeIy5gNFkR6EyX1Px1j0zvK8wk4RJef/2nvy4ouEspx5tjNkk78YsuSLHOE5SpZWpTz3gaWEPf4C9G2ZdS9DRaSXtZNXTu33jIMNL6iIhV1p2gaWfQl3Hl08RmRdfZLd85VqKsAim0yJBn67qA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G3xez6l6UmcmjmiTXS2jjEVOasCGigrtkIzLD00rUJM=;
+ b=qQuQl8lsznDRZlHl/3B2Lr10mTSn1N5kiSg7DA+AKOaA+AozVdQ6RbBPWxTkPvqK/536WcnQsqmdwrJUkUPMJpRC9UOcvleb9RWB+cltKJqP6dlUYJGg1MuBTZQIgSJZ/aDjV04rbIPvz10lQFF+NB2RVRys0GLzpUKnt1iAam7k4tOwlU3KsmIIPAmSma0SOukjdC2hDs6pFd9THHVIUVHNi9ckHoXzXSh1Yrsw0NCUm0UVJh11sSiB3lfD3Iaya1EKkqE2QPNuCA0Mcmxaq7MTM2TgSAbf6QuXM/2Ryrp6B7T98rlNP/uXP0Wz16BpKwE2NnBaThRlDok73ptPNA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV2PR04MB11921.eurprd04.prod.outlook.com (2603:10a6:150:2f9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 16:06:56 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 16:06:56 +0000
+Date: Wed, 28 Oct 2026 12:06:48 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH RFC 14/28] ntfs: don't set SB_RDONLY after filesystem errors
-Date: Wed, 28 Oct 2026 17:05:06 +0100
-Message-ID: <20261028-fixstern-halunken-skelett-fb3cd0824159@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atW1VhJXAIvtYPfd@hyunchul-PC02>
-References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org> <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org> <atW1VhJXAIvtYPfd@hyunchul-PC02>
+Subject: Re: [PATCH 2/4] dmaengine: loongson: loongson2-apb-cmc-dma: Fix
+ residue for queued descriptors
+Message-ID: <auIdmAvMsz193TLx@lizhi-Precision-Tower-5810>
+References: <cover.1792988985.git.zhoubinbin@loongson.cn>
+ <bd120f2c1ab291645a21b1cf9babdfcc0412cac7.1792988985.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bd120f2c1ab291645a21b1cf9babdfcc0412cac7.1792988985.git.zhoubinbin@loongson.cn>
+X-ClientProxiedBy: DS7P220CA0113.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:25f::15) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,46 +104,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2009; i=brauner@kernel.org; h=from:subject:message-id; bh=p94qtq7P6Iyb9ro/ig3qsXfneKNkQl3vnYSgqxFYI4M=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9kjX5zM8Xn3WMa65c5ROjC84Wi7I8Vdelxp8Uknu7e NHt2DMXO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbSfZDhvxvLvOPaJy5+bO6u aPynfMBQpNjbPaLkmuimi/UFjT7r0xgZDpy9vTtgcu3kQxtM9P637q1UPByx2Tj5+w2OmuViLbe MGQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV2PR04MB11921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25a6ab4a-24d3-4b9d-ce81-08df350d7d77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|366016|19092799006|376014|23010399003|261009223027099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|10067099003|56012099006|261026140227099003|261028144727099003|18002099003|22082099003|261026121527099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	bG8QplTp+dsUzohujHNPOQev6yt9DggxWMotAkCbHIynlQBJO4wgWKcEBLqcRfiRZcHP0vqf6WBUDlP96FCzlnuqgGsV1IWSIuoMbPNIVVvrqvaHZsPju+cgcyQ3vSCk+OMS42NN8Fi4YdLg3HrhCVRjtwaFvMIM+opfMj2VOnZ13uqSnUDHWjcRLdnIyJ1wAtJxp0oeQQx75Ohyzc5TbS8j/ZzWf8LhxNTsCUhP5O+xPFSM9XUbb5OJPlLZt43fWS7PLFzsqkQdS2iBRgxCjHd/NCtbB3niHf7K+WNJKhFeEna8qIrRZr3inO5BSnWYBbFMEYGCrO87j0DikSqmaYN2XSn9Jc3b1I6jhrDrIEwLtZhmFR3DATJeri2MMgci+lnnj64EXyD4dfIRCvbNcXvyFKx5d4sJ8lL2WylfEvSKGk03LNTH1tBkqnFFgIaec1CqF6UfHaLex0pSVfV8zwuzyWP7Tk8QK2ckDePS4OpY8NIzs7SS7aGyacmUdbWVaz8OvlWReCCwlsDG4puiAszR/agelRxzPz81ICK63WA57WMr4QxCkIt7j2cqsijqBnwfQ4eQsgzWNNamF/5gjtdJTFJdWslJ23h0AcyfEuC/1YrguUKFn+QJ3+8+sMSAw1r6TCKebAQczIzRORQqMMWqq60Ku7s9VPhzdi7sTWQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(19092799006)(376014)(23010399003)(261009223027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(261026121527099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Vn87ZHnQP4iEbYjQatGowTSQr4s279ZR9dYocCIjOVaeKb5Y6xGJYYb/vJ9i?=
+ =?us-ascii?Q?H4agBNdQtNwPyun71/4Gvq7SPdkSmz3KPHlkgD67lckWrXkNiVbtLjnpfZGn?=
+ =?us-ascii?Q?7BXaXUSOd30+o53TAjFMZ6foWfi9X5mQc48MuyG1Yffwer0i7jUKd9NWs66p?=
+ =?us-ascii?Q?dQ5+3pxFrrkzHQKMWcRQzeGMlWm9Ygt1Vy7nN/4QSo6Tqoblv2d9S19NwAaC?=
+ =?us-ascii?Q?u/W6uILBLykVHONJQdWzWo5X7kf7YAnPJLxbWdNIR+dfucaxKJWyv1u+BlM+?=
+ =?us-ascii?Q?J2IFJ+w5NtTDMQ+idDwNfCAshEXyFnl3XjSeiYEbDAZ1Ii5ZZzJh+Wp33erF?=
+ =?us-ascii?Q?shZkY4Uzm0Amc22aTh8RweN8aE6Q0NudClRxUbP2kkS64w6N6YYBts1wyu9G?=
+ =?us-ascii?Q?+rd303V55dMJcSOBzS8DjMXNPPf80mIc5rORcsiTz5OfbRbwuTzzDthmhVGc?=
+ =?us-ascii?Q?GDgIQiS0+Brb7V/qP7yD1mc39RUMPjS4D4LqtqmPzkXLSG7J493JnoImieOt?=
+ =?us-ascii?Q?9jNAYD3V6yHdk+piJLs02FnJ4gIIAY71PY6g/xc3jPwKH7kemxNcIKUtEe0p?=
+ =?us-ascii?Q?p5ZJ1VgWd+X1oB5dXMqOvz09U96qd6dzedqBvJPvGIGeykOFb3VT//lQLOFI?=
+ =?us-ascii?Q?dKexQjMr08YZ3OSl4CX8OjrfqliAKUA2FDbFoJ7qitCSEMteY7lJII44hB7Y?=
+ =?us-ascii?Q?EFlSDDjohenXkmKeWuOBkdS0gBo1fV0ogKRV98opRu5OB0tMV+dznK3UubNr?=
+ =?us-ascii?Q?+qPVEkJ5DgNAwLShPvb8EkaZncTST6h+gICOp/xrGz0nG8bTGDiwOKpBCyi2?=
+ =?us-ascii?Q?72OqgKrsJ/qlvETpubvYuXyhgXsxKH9rE+Wvbl3yCgbj1hd5M2nYuwSxpuhy?=
+ =?us-ascii?Q?XTSvp/jawMxzagaPIQh9yeVNI5H8IfVJBWzcPennqrJz0VMqZ/C/KZq5sq7f?=
+ =?us-ascii?Q?OocfqE6tc5qo3/Vf/dOqx4yHR9kDF9pjZyq0TUB29jUdy+NekL5OoRUoopan?=
+ =?us-ascii?Q?giSv4QxYtypBbZmenDqSc6LaOe78ORx+eoqq6dnZOBegz8biIplh6hYeotzt?=
+ =?us-ascii?Q?0GFz07kJs67EdGPdC026lupi37gRva2G+RWJADPrVsJX11u9LJTQkEbtsdyv?=
+ =?us-ascii?Q?mM+lnCoeY7cC1eQy9TQNtJu4uz3kZR3KXMUXGoObnS4iqT2kKBIV3acEpQNv?=
+ =?us-ascii?Q?mHh7k+jdPCPtMt/TxctQ4tHR8yk4tNFoEM9ZgtV8nVUPMNZHn2HWfWL9SS13?=
+ =?us-ascii?Q?uH/kq3fk9qYBIvUDKvUzW98W9vOyprGqno0842U0KD0AvKv9j7sonnMMBTSp?=
+ =?us-ascii?Q?93oUsRsHErrcNxBfij12xsPaYujd5IIFG6Y55l+qgyVe4R30ouxj5KI/0YoM?=
+ =?us-ascii?Q?5IX0WsW0Sps12asKWZXL0bPMxuJdZjiboO5GO2pN18wAHzxLLPzCgmiWtqOx?=
+ =?us-ascii?Q?2iew6Uh9petpBvU/9i6SR+vHyhCcrriadwGdFYQMLliY/z6BjppdjpmPRxdc?=
+ =?us-ascii?Q?5gX9aOIURwxPVF4AtCe+QEeKMiOndF7Ng9fxArVEKB1Wk5kBX+LzE8yebm5A?=
+ =?us-ascii?Q?H7kUHSlF4G6iXFAy0U5ZSZLXkwDyZo/Xe9XX8CCWQkX7uMPj5QBI3lfJssZZ?=
+ =?us-ascii?Q?hNq+vAYNqwiw4JG6mMT+MaDNZ7KSGdFuW2GzknljC4d9v4fXY0uWsz5bbkxS?=
+ =?us-ascii?Q?c2PIY8zChbnPUujmK3dyl3nFT2SMP1NDBWN8Zl42/0Dn2OZHOY9ZcdSUu+1m?=
+ =?us-ascii?Q?MBxZwGciEU/CjyJiiHtjH5oqp2tknGjKvP1Do+ZW0dxb63cABQiS?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25a6ab4a-24d3-4b9d-ce81-08df350d7d77
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 16:06:56.6435
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t3Qe+iUEsbM93p+g5gD9k/WnoxoYyDn9JbBPSDCTSnDnYsAeOg21/Lvcybj5zMYnmehrqUqOJNSUkMZf1bk3cjk8ifb5i4U60pSe8nwMe+HTt8gnLHq972fWyghuVG4G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11921
 
-On Mon, Oct 19, 2026 at 03:14:46PM +0900, Hyunchul Lee wrote:
-> Before this patch, SB_RDONLY is set, so remount,rw returned -EROFS. With
-> this patch, sb_rdonly(sb) is false, so remount,rw skips the check and
-> return success even though writes are rejected with -EROFS.
+On Mon, Oct 26, 2026 at 12:31:21PM +0800, Binbin Zhou wrote:
+> tx_status() computes residue for both the active and the queued
+> descriptors through loongson2_cmc_dma_desc_residue(), which reads the
+> hardware CNDTR register. For a descriptor that has not started yet that
+> register does not describe its transfer, so clients can observe a
+> residue that does not match the amount of data still to be moved.
 
-Yes, that's intended. ntfs_reconfigure() only refuses the transition
-from ro to rw. After an error with errors=remount-ro
-ntfs_handle_error() sets NV_Errors and NV_EmergencyRO. A remount to
-read-only works and a remount to read-write after that fails with
--EROFS. A "mount -o remount,rw" of a volume that is still read-write
-isn't a transition. It returns 0 but doesn't change anything.
+why this happen, suppose write CNDTR at loongson2_cmc_dma_start_transfer()
+when issue pending.
 
-That's how ext4 behaves since commit d3476f3dad4a ("ext4: don't set
-SB_RDONLY after filesystem errors"). __ext4_remount() only looks at
-ext4_emergency_state() if the read-only state changes. And every other
-filesystem in this series does the same.
+Maybe there are raise condition, between send to issue list and start_transfer()
 
-> I think that the condition should be test NVolErrors(), for example
+suppose loongson2_cmc_dma_tx_status() should not find vdesc by cookie id
+if issue pending have not complete yet.
+
+Maybe move loongson2_cmc_dma_start_transfer() into lchan->vchan.lock, you
+will not see this problem.
+
+Frank
 >
->     if ((sb_rdonly(sb) || NVolErrors(vol)) &&
->         !(fc->sb_flags & SB_RDONLY)) {
-
-NV_Errors is the wrong bit for this. It's also set outside of
-ntfs_handle_error() no matter what errors= says. map_mft_record_folio()
-sets it when an mft record fails its checks and ntfs_read_locked_inode()
-when it marks an inode bad. So with errors=continue (which is the
-default?) a single corrupt mft record leaves NV_Errors set on a volume that is
-still writable.
-
-With your change every remount that keeps such a volume read-write, e.g. just
-to change another option, would fail with "Volume has errors and is read-only".
-
-If you really want ntfs to refuse remount,rw in the emergency state then
-NVolEmergencyRO() is the bit to test. But then ntfs would behave
-differently from ext4 and the rest of this series. So I'd rather keep it
-as is.
-
-Fwiw, in the next version reconfigure_super() refuses the transition to
-read-write itself. It uses the generic emergency read-only state Jan asked for.
+> Report residue from the descriptor length for queued transfers, and keep
+> the hardware-based calculation only for the active descriptor.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson Multi-Channel DMA controller")
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> ---
+>  drivers/dma/loongson/loongson2-apb-cmc-dma.c | 23 ++++++++++++++++----
+>  1 file changed, 19 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> index f090fbe0b8a1..8b8d530d60c3 100644
+> --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> @@ -472,6 +472,17 @@ loongson2_cmc_dma_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t buf_addr, si
+>  	return vchan_tx_prep(&lchan->vchan, &desc->vdesc, flags);
+>  }
+>
+> +static size_t loongson2_cmc_dma_desc_total_len(struct loongson2_cmc_dma_desc *desc)
+> +{
+> +	size_t total = 0;
+> +	u32 i;
+> +
+> +	for (i = 0; i < desc->num_sgs; i++)
+> +		total += desc->sg_req[i].len;
+> +
+> +	return total;
+> +}
+> +
+>  static size_t loongson2_cmc_dma_desc_residue(struct loongson2_cmc_dma_chan *lchan,
+>  					     struct loongson2_cmc_dma_desc *desc, u32 next_sg)
+>  {
+> @@ -518,12 +529,16 @@ static enum dma_status loongson2_cmc_dma_tx_status(struct dma_chan *chan, dma_co
+>
+>  	scoped_guard(spinlock_irqsave, &lchan->vchan.lock) {
+>  		vdesc = vchan_find_desc(&lchan->vchan, cookie);
+> -		if (lchan->desc && cookie == lchan->desc->vdesc.tx.cookie)
+> +		if (lchan->desc && cookie == lchan->desc->vdesc.tx.cookie) {
+> +			/* Active descriptor: compute residue from hardware progress */
+>  			state->residue = loongson2_cmc_dma_desc_residue(lchan, lchan->desc,
+>  									lchan->next_sg);
+> -		else if (vdesc)
+> -			state->residue = loongson2_cmc_dma_desc_residue(lchan,
+> -									to_lmdma_desc(vdesc), 0);
+> +		} else if (vdesc) {
+> +			/* Queued descriptor not yet started: residue is the total length */
+> +			struct loongson2_cmc_dma_desc *ldesc = to_lmdma_desc(vdesc);
+> +
+> +			state->residue = loongson2_cmc_dma_desc_total_len(ldesc);
+> +		}
+>  	}
+>
+>  	return status;
+> --
+> 2.52.0
+>
