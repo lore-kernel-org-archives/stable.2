@@ -1,106 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207850;
-	b=IR6pkAQmYtpvsfK8J1dxc4DXNaqHG77jaXmwB4TZYot2CWtPEwryYEOzF2O0FF89C8h9
-	 uE2wuvmPmVKeaxWE4TD3oD3iHgZL0pFtxEZNS7C2qKMMNiRjOe0rCP3y75Mrv9CXj66kQ
-	 oz85oQWUvOUNPPhgnRulGdzC58uExLC6jEYkFdw6udMjj3wmWIcWujATCNGvIDsBgYhhr
-	 inxhrRmEyl/31IvJwJAhCGzFaGubr/0D5jCoNosTW6+uN1E/sUI4XVmf2F1WzAH6S/+c2
-	 NXiJp4YA4lXVRAy+rhquMhn07sC8887LL7eoltiq2TOC0PYw7XPcJqhE1z7Sp8REWaA==
+	t=1793207855;
+	b=F5wV3r+GcCTSXc84SAI59SIWkv/rMDLhX7OA3wbq/5J3Ncqo/0j/bEW1fOtBBEhlMNIj
+	 RxLH/PeFNxlDGqww14HHu90IX1OPlVefZKBQlePZdln3kjIZ+oLq75pUyHIv+QcQYO66m
+	 afCbZv34F9VQxTLTVCO0oH/Qh66TX7vc5QBzuPFym6KS6tpCg7R78RoFM+Od0dilh9jfy
+	 gNPSGvjuKNUB6EDBE/ei999IcQjnaaF7Jsj3TMIaYAGep/jB5tYWB4/egnPrDNsfgdqKf
+	 Wg4MT4lOn+fX4A+g08HCaX8OLrpYErpj2wkO1Tcual82pSpakqL1SH/5A3gcrGf7Bug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207850;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207855;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
-	b=Xy44pZQLPtNMZNTMj5xIkXa8Au3M4Lck8wL4K/f/v2akZ2na5pqGr0WIZnGle9Ki5y6A
-	 o8bDIQ0yyCg+u/2nxFMeGb5Wd/RuK3oe2JsZjebjWrIy/T3OQ0JyXIMNYBFbTsalVJ6W2
-	 MS4tw/M92yuSt7qbER1q5oZPAbeIcNkX4GeVYRP0SKN71PKHmPamvWykgofFZQn3FGoLy
-	 CfHj1tlxkm6la1y/46t4ptRWJEORMV0h3KguSXKEmCQVFX1gBdMyfmGleMdzh7MMiWih3
-	 7jEuggHy/r2gWJ841dis4dzLIWGh494FvvPVK7pCwUNOyMvnHB05VZeVp3fZTRiA3Og==
+	bh=nN+Vh/buCVTI/ltlCMkuNABa+yPpHWOQutDp5HaejOM=;
+	b=JUBiAybjY8zMpZAfpZcurMTLKdpdTxXDGdp764dQmjA3gnAkPULJQOMMxv+PTcC2WpxO
+	 j8lUl0bFtlME1KiBmPRJEI79D6eqcX2SE482zQ+Nbp2qCEJzcoX9rGEiKNsYjuwHhF6wN
+	 POgP4EueaBKWmyIgWXIahxr0776K0IzyDjSbVdaNpfE1Hr7JawmRf/ZUe0lceOAgzALQJ
+	 aJxwz3P6A2+0InGpzBO7kbaIEinVAWhFmKZ2k1s1CwNbdr+5lXhKOOZ6d/UA1Hl8pYxqg
+	 xmPLH9FjJ4AMkCN4/mE4h6QyT9mAPNnt2DDE3ClDS7A220aeurKoQW74OCh0LR5yDgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CI8y2eXo;
-	arc=none smtp.remote-ip=209.85.128.173
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ILp7/bFF";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4E2606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F4E2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21903606A31E;
+	Wed, 28 Oct 2026 17:17:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CI8y2eXo
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b05bf699easo13139407b3.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 10:17:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793207848; x=1793812648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
-        b=CI8y2eXovwu/O5fMtk947eXXsHmnlNxwGrTROXV//Q8qMHsfQljEZshE1ytljUjlKT
-         NuYxQaotba5cxDEzyVf4zNqNA0L4/Ey8T9lWccUzBDTk8bwdODKqLL53H67ikao9MUNk
-         d12kOZtlBmk7hCKx1pcI3BeAhbHzCSFpxqWziTGjUD5CABmZGC/DAnvec0L9kMz9Lzuk
-         eCsheYTS3wED3G7AjNheGRs+3o3rVI5PlhIW0TGGeIZoDR3mAloTMzhw3xccnj8oc1ER
-         Zngcqxz0qaR4u/J10Gc5njuMJc69LoT9h8VHZBNL5dFKCsp+lblZdsE88e4Fl3KAF6n1
-         p2zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793207848; x=1793812648;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8zJ+CABCBU45JUBR07bzfuVV9dkmnMA2f9ZOSTtAqbg=;
-        b=xY+3nsQbpJomerCxooCW05Jh2BeosW3xOToJ0jYovnLlG2dCS3WQZYqyk91rIKdQwY
-         LteHl+B+o2I7mDKIFRCPyYXR7WIUi+03tzCNe9e6+zIBToU4/pa21p1eP3nsd4ibD9px
-         YzVTPjbHLxP4LxlfVAz9uGbjY7B2MMmNhGvQqXBz/6t3rQCcmzw2DnZkiNrJtGvLVgWC
-         Igic0KPtaSu0kNTdn4SKKLJNLZTcFqXwfaizTInP+DiLu6CpS7+Re5ItM+bUwDS9oChw
-         UPL+dcYGu9nM9O0CAP06tL2RUVchYcw00P969go41p8TK7sQ01QNRE3MYWj/i6sketVD
-         +Fqw==
-X-Forwarded-Encrypted: i=1; AKwUvByuLiAcO0z2qELy8IORflulcMgIYsdld0JVkTw3pSqc98CA0V9wiw+jVSqf7f+hQ9tx/Pzop5s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVmofSvyCcmguNnOOeP+ih9vnBJFuOOdzTI04JjBBpSDkDwCrT
-	vyTkkWk5kO0urLnrptTIH7F8zKKPpZD9qfrvSio7KJnU9YGzlsHQsVA2TWy2BhO/w5g=
-X-Gm-Gg: AYBFou0/GsMk2pyqcMaNgft/a5XgcYx0LAmSaBbHuSBc8jsvwDC5mBa3RNEtCXzhZFI
-	w0arcJJFQs3lA0ndVEzEI4OaLYR76TN/nDU43XyiGIuAZgjCT8XUHSV7lqBAtFAbVJQTdiMSRDG
-	1dgeO1mlImtRoXNj48V1TOZ1/kpCbKtHi+g6gyjTGrAPTkELTk2pdeJrUKrmNCrpf5DgoCcF8qA
-	DWIP3y2IEd8wfGaBrZZsiOhk9J7LhJSbbiSBp2esi+9wfqBMlteeZka0JBzALPWu+9dxuIs/XEc
-	UOzVw9auDA21JFH1jLQ2sTtHJLfMLub3qmvmG4SO6lNPeF703QPAG4QSpzygY0Kb3zZAerLeFp2
-	SRVVfbBB1awcG0W1P3/Bg386Pv3dvPj4DkK5bIRfiuV6c10zc4+jhNFUaRa2TU7Le/eGpN7Ayce
-	9CDgn2FSP7tuRUXRjJ3Na+ddgokeqPCXj6ruh2BVDbwv5qx0tMDj4GDkWzmz77YwThgGBz/MJO/
-	q3EYq5BazpUBwWDip0aUcVeGpWlexHZt4yC7dLh6RNCUxqBG/vuQqxJfq61+cKwge8n2V4x9+m+
-	8puqacSyAvu35AarSdUQVgkoud1m
-X-Received: by 2002:a53:c30f:0:b0:677:ad01:32b0 with SMTP id 956f58d0204a3-67a7bce93abmr1470801d50.36.1793207847839;
-        Wed, 28 Oct 2026 10:17:27 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a7a0c31f1sm2058926d50.11.2026.10.28.10.17.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 10:17:27 -0700 (PDT)
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>,
-	Salvatore Dipietro <dipiets@amazon.it>,
-	Christoph Hellwig <hch@lst.de>,
-	Dave Chinner <dgc@kernel.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests reserve access
-Date: Wed, 28 Oct 2026 13:15:53 -0400
-Message-ID: <20261028171719.2043421-2-hannes@cmpxchg.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ILp7/bFF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73BDB1F031E4;
+	Wed, 28 Oct 2026 17:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793207855;
+	bh=nN+Vh/buCVTI/ltlCMkuNABa+yPpHWOQutDp5HaejOM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ILp7/bFFplvYyBf9nGcab43v9QjzyhM6fZ92FU5SzQg/rUAiIvBYoNSCw9RR08XKJ
+	 Dw7SyIDoFxY9N93I+ZU1s8v5BSG9KyM4FWFPgcohKPWhvqtelZr7tBObe+zP9F2lAL
+	 L9Pk9yMrqAciDEAx8FdkBNLYKJQl7yeYKoytveRE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 162/247] ax25: check frame length in ax25_decode() and ax25_rx_iframe()
+Date: Wed, 28 Oct 2026 17:59:25 +0100
+Message-ID: <20261028165951.252362061@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028171719.2043421-1-hannes@cmpxchg.org>
-References: <20261028171719.2043421-1-hannes@cmpxchg.org>
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+References: <20261028165947.349197979@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,64 +63,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
-highatomic reserves") accidentally gave all non-blocking allocation
-requests access to highatomic reserves, which includes GFP_NOWAIT and
-other sites clearing __GFP_DIRECT_RECLAIM.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-While this improved atomic request success rate, it's unintentionally
-broad and can actually worsen highatomic requests by squandering the
-reserves on requests that don't need it.
+------------------
 
-There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
-for costly order __GFP_NORETRY requests, which would then also fall
-into this exemption and deplete reserves even faster.
+From: Bernard Pidoux <bernard.f6bvp@gmail.com>
 
-What GFP_ATOMIC has over the others is __GFP_HIGH, which
-alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+Two more reads on the receive path assume bytes that a short frame
+does not have:
 
-Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
-ALLOC_MIN_RESERVE.
+- On a connection set up with SABME (modulo 128), ax25_decode() reads
+  a two-byte control field for I and S frames (frame[1]) without
+  checking that the second byte is there.
+- ax25_rx_iframe() reads the PID byte of an I frame without checking
+  that anything is left after the control field, so an I frame made of
+  its control field alone is dispatched on a byte past its end. The
+  same function also receives reassembled segments.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
-Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
-Cc: stable@vger.kernel.org
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Return AX25_ILLEGAL from ax25_decode() when the control field is
+incomplete, which the state machines already handle as a malformed
+frame, and drop an I frame that has no PID byte. The first check in
+ax25_decode() also covers an empty frame on its own, independently of
+the length check proposed for ax25_rcv().
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
+(cherry picked from commit 5b010290c0e627fd09b92eb8d690f0726d7cfe7c)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_alloc.c | 4 +++-
- mm/page_alloc.h | 3 +++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ net/ax25/ax25_in.c   | 4 ++++
+ net/ax25/ax25_subr.c | 7 +++++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index a8cac5e01066..8ac2e2bf14fc 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3238,7 +3238,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
- 			 * reserves as failing now is worse than failing a
- 			 * high-order atomic allocation in the future.
- 			 */
--			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
-+			if (!page &&
-+			    ((alloc_flags & ALLOC_OOM) ||
-+			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
- 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+diff --git a/net/ax25/ax25_in.c b/net/ax25/ax25_in.c
+index f105e638611fa..217f9a9b07631 100644
+--- a/net/ax25/ax25_in.c
++++ b/net/ax25/ax25_in.c
+@@ -104,6 +104,10 @@ int ax25_rx_iframe(ax25_cb *ax25, struct sk_buff *skb)
  
- 			if (!page) {
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index e238ee91ed24..9c3c2830acb0 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -60,6 +60,9 @@
- /* Flags that allow allocations below the min watermark. */
- #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 	if (skb == NULL) return 0;
  
-+/* Flags that mean GFP_ATOMIC */
-+#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
++	/* An I frame must at least carry its PID byte */
++	if (skb->len < 1)
++		return 0;
 +
- /*
-  * Structure for holding the mostly immutable allocation parameters passed
-  * between functions involved in allocations, including the alloc_pages*
+ 	ax25_start_idletimer(ax25);
+ 
+ 	pid = *skb->data;
+diff --git a/net/ax25/ax25_subr.c b/net/ax25/ax25_subr.c
+index 9ff98f46dc6be..d0719267e5484 100644
+--- a/net/ax25/ax25_subr.c
++++ b/net/ax25/ax25_subr.c
+@@ -102,6 +102,9 @@ int ax25_decode(ax25_cb *ax25, struct sk_buff *skb, int *ns, int *nr, int *pf)
+ 	frame = skb->data;
+ 	*ns = *nr = *pf = 0;
+ 
++	if (skb->len < 1)
++		return frametype;
++
+ 	if (ax25->modulus == AX25_MODULUS) {
+ 		if ((frame[0] & AX25_S) == 0) {
+ 			frametype = AX25_I;			/* I frame - carries NR/NS/PF */
+@@ -118,6 +121,10 @@ int ax25_decode(ax25_cb *ax25, struct sk_buff *skb, int *ns, int *nr, int *pf)
+ 		}
+ 		skb_pull(skb, 1);
+ 	} else {
++		/* I and S frames carry a two-byte control field here */
++		if ((frame[0] & AX25_U) != 3 && skb->len < 2)
++			return frametype;
++
+ 		if ((frame[0] & AX25_S) == 0) {
+ 			frametype = AX25_I;			/* I frame - carries NR/NS/PF */
+ 			*ns = (frame[0] >> 1) & 0x7F;
 -- 
-2.56.0
+2.53.0
+
+
 
