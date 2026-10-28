@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220429;
-	b=JOdHrQayX6NB0gDcKc4E2hS9/ziCCpZ9OixZTT6LiO+dAn2hEixafLNESUE3BnqFUeyg
-	 ZBrdJr3HnKHk6G7y3p7cVxLu6HNmq08EAHdAw8l6P6bjq1kbBoQIdeDngpSjzlvI2wcdY
-	 XNr/L3sxKUVdJKugR9Q/g5/iJDE8KPPI1aMJSmndybkOWzbWLuQ+a3eGytYFX+23Aq0n2
-	 YNINkx3frCwJdUpYJcL/CkgezAMQp4W+OksnCDRaxsvRGwLd4+8fS+DRFs8lHpakFxBoq
-	 Y1cbL9rp6+lU3h4veN3rX4OvcAkUm8pZdIEObkB4+IHTl6pgaR4vSyw+ScKTvoU+13A==
+	t=1793220617;
+	b=UEuQwDkM/3djMmgA3IQlxddFbbehyp3FFsCBUV2NEK05BunkqFRSl9lBUiEEiXtgCg78
+	 5bAUJQ2269Ei1jknbb2x2llc6DcMGV+HsFzSz2oDjF41tRcx7Z9A28Q3QIF5KSBFOAppf
+	 Uiyd9XZPVvWF/EpnHg5e2x2pia9utvGdLA7FzFhRx1pU7Z4np8/VXmLyjofretm7NKdKW
+	 cRHh7Em2nkPxzvghLlSDEncrfFjiEgU6Xp520y11C1DTv4b+JzEh6jCOcEuC9PJM734R7
+	 xYTskYLJPJBCxhOtpiSvqxvMuEU9QowQxSwTEQWTOp7KQBpZEo4sYHWUxK6DKxJE5rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220429;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+KrBiM1e/3Dxrjo3VjzM4b5Xz9mDtR9CBdPVOp2te00=;
-	b=TGirSNzPT+deonT2ZzHdiGerqsJvnwnvdI218ZuAakrcz+TZQYlpdLPZ1zm9YvpdIUqf
-	 kB0p4VgPM+3Iuza0l+5MzxXFAFrmclewN1MtRKBICtTI5wmxz+3pP6CL7kmDhEZdNJWXj
-	 WZrQ/NM3AnPLhLGvwhfLd0egV4DT35a40ggYL5EzJdTpOWNBaO5+rxuVAAMooIlqtdAzB
-	 GatWFFhz2TBuZUqdyWn18LQ/q44Gk4J66Rpp782jYkzOvo2jfv9NM7h+UFqBZbUp5VilG
-	 KDDt77rs9c0ejdZ0P1FJoyb/40iT/rxtAHWYz5VAYp1QIdR6VHi1nEFI9AMx3s++Ikg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220617;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=3J+m5zssHO30+gGvjgsMEVpbwVkuGxWjmnZLOzezkqg=;
+	b=pQQDeVX6YIXiVCgdIiQTXZjmbH8OUEfZEfp94MI7g4Li343TUo5IeIh9UqzfX20BQQ2U
+	 QDcH2Wv6N720hASB50zkHnKmjszpQh9yaTDqUQVdwBwUkPa9KSw1AgneGSJWGhrs60+Ae
+	 Jd3+1pMx/hkcbzDYt8xfZQch2R6LV/YHkofJHGwAu7y7fV450f/uNH6zt8Bo0F6A3oBgN
+	 Prk7Sn9LYP4Fxo//j0vyNiMg0Gns1DXv/Dz0Gsc+hpQQTRjNGVACHf+lKvPYm2asiuBH/
+	 0QWzZ3yPCNNT0J2PxlrHE9q896RTeweNb6U7Emr7t4WHu7O1KhsTK8OplU2aQObjXfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDG5o8B2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=go0Fx3+N;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F61606A32D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:47:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0091606A31E;
+	Wed, 28 Oct 2026 20:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0091606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GDG5o8B2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18911F01825;
-	Wed, 28 Oct 2026 20:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793220428;
-	bh=+KrBiM1e/3Dxrjo3VjzM4b5Xz9mDtR9CBdPVOp2te00=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GDG5o8B2WZJjZmXs/dx1bcDnWe0Q2W9X9igW5cmwoPLaXQnedA0Xntd1+8PoiXgbO
-	 pkhHOtqXD6Z5vUpnp9Q7lS+/sFJ3dQeHzCiYhEVc6V4AC4o45ERam5SFrS76OWdIwN
-	 39cgD+rJN2vvHgByOy/UGvmmv5h3WqlKMNAeSrBJ4KnBzQo1TJ6dOhd6okbxXCgM07
-	 1+OA7IHmJvVjuyPiY0NZor/GLz+OtfmeCjYLlwJw8Y2EVlC1XnHQTkz5YIJ3yhVPBr
-	 V6EMsXygTMnhF+lq3qYBUAsTZK0Fj2+wTItzTO/pojFGMLy6SO7JrZ9wqV2XMC86gJ
-	 8Z2s41CkVLoHw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] exit: hang up the tty before closing the files
-Date: Wed, 28 Oct 2026 16:47:06 -0400
-Message-ID: <20261028204648.2123515-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102828-playable-stallion-c6ad@gregkh>
-References: <2026102828-playable-stallion-c6ad@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=go0Fx3+N
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SJYsnp2340162;
+	Wed, 28 Oct 2026 20:50:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=3J+m5z
+	ssHO30+gGvjgsMEVpbwVkuGxWjmnZLOzezkqg=; b=go0Fx3+NOkNNIrw4Ln4G5+
+	n1hVw44Bg5eoxTwZuoZ1R8LgTQbs6pxo9Pyx77Kqpglb/tAN5HtBfVkzBPbTtg+S
+	lM8gxpWaLWvaZEwC6TrV7UkdWbJDmj0mBrz6YyMf89fwA4thgPY86YsIWVtBONqt
+	AzKDOgfZdanBt4b7QJjxPvSRblpD8+vCnWwa/W3cnyMQVObeIbf+XJEFCUhIwpcV
+	tAGpd0tz12wl7SHtYL80zcN/4F125F5OM0qWl8D905bYiiWvzFWyYLLQoAvyTjJO
+	45eenpUAlPJww7erptCqOOBuPeDXQbmNLQI13+eeU0USi4g00NjOIirTq5AAlRoA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm646y1u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 20:50:14 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SInkCG1983966;
+	Wed, 28 Oct 2026 20:50:13 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pc1wu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 20:50:13 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69SKoCPs22545028
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 28 Oct 2026 20:50:12 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7F9075805C;
+	Wed, 28 Oct 2026 20:50:12 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A589058054;
+	Wed, 28 Oct 2026 20:50:11 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 28 Oct 2026 20:50:11 +0000 (GMT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,83 +83,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 28 Oct 2026 15:50:11 -0500
+From: Wen Xiong <wenxiong@linux.ibm.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: mathias.nyman@intel.com, Bjorn Helgaas <bhelgaas@google.com>,
+        gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        wenxiong@us.ibm.com, linux-pci@vger.kernel.org
+Subject: Re: [PATCH V3] xhci: Reset TI USB controller on xhci shutdown
+In-Reply-To: <20261028103616.29110069.michal.pecio@gmail.com>
+References: <20261021160608.8229-1-wenxiong@linux.ibm.com>
+ <20261028103616.29110069.michal.pecio@gmail.com>
+Message-ID: <c10dd783a61e66023b04aac7829c66ae@linux.ibm.com>
+X-Sender: wenxiong@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX601frCAB19/q
+ uI/YX55lZDL46lwWnclqvOCWBrF4GSZJ30O7k5FmAE90xoWvjJVKtmQ0K4njkWF1eXM7fbBBMy/
+ iku+wZ3kD7Efj5mY0LIdQ/Xaam08lZY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4MiBTYWx0ZWRfX43KXMdpUq/rL
+ 9e3OQmfoHHGFh0wSriTm+Nzt4QfloGu4utUAL3uPGrNk0hxV/ye4mgAbixY8zYrxzHLcVq0jHMx
+ gWA8zrb5IcCT4gLxCAfRBgkYHlD2OjyXrvIsTFixdnFIRZEvmgItbWxe48XLXMeTSHOaozSf57p
+ 82xJf3zeouc/3adjbj01urlfnoinAdAzLFe0/1XvXysBgJvbsH5YGps7ViLk90FyF3JwGQCvxCi
+ FVqYf1vMCJNFg5uvOAc/Ivtnq1c97UpVAQaGpmlbFM9FrFRhemAXgre80fgT5prRcDQl0Hw9uOb
+ 65yhfZpAl3VqwkquCM4vJebV+ctsQVfyw+j3qgsyL6HgdZzDFydY+1r9QVskr7CgvAfOY+E62EX
+ VVOZ65TvVtGhv8rAxCYzyrbQar/W6To9wWA1Dx7aK+kyKacUDF4WYXGYaO/41iAZ3EgBcB7BJV4
+ R9GZZ2n60kVt/mCviXw==
+X-Proofpoint-ORIG-GUID: w1D2aPIGsQzg6O2eGCeEIUcG8ZgfXFVc
+X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae26006 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1VaoIupEdHR5eMkdamIA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: ochY4GT0oiw3AJipYFMkE2_mabINeyr9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280082
 
-From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit ad016f0131ebfec250a3360ea75d35128b3f4aa8 ]
+> I tried to make this code a bit more "proper", by moving the
+> pci_reset_function_locked() call to xhci-pci.c from xhci.c.
+> 
+> I found that when I actually run this, I get a warning from PCI:
+> 
+>   unlocked secondary bus reset via: __pci_reset_function_locked
+> 
 
-do_exit() closes the task's files in exit_files() and hangs up the
-controlling tty of a session leader in disassociate_ctty(1) after
-that. Since commit d99d38540bf0 ("fs: make close_files() synchronous")
-the final __fput() of every file runs inside exit_files(). So when the
-session leader holds the last open of its tty the tty is released
-before disassociate_ctty() runs. tty_release() clears signal->tty for
-the whole session in session_clear_tty() once the count drops to zero
-and sends no signal doing so. disassociate_ctty(1) then finds neither a
-tty nor a tty_old_pgrp and does nothing. The foreground process group
-loses its SIGHUP:
+Hi Michal,
 
-    do_exit()
-      exit_files()
-        close_files()
-          tty_release()             tty->count == 0
-            session_clear_tty()     signal->tty = NULL, no signal
-      disassociate_ctty(1)
-        get_current_tty()           NULL
-        signal->tty_old_pgrp        NULL, nothing sent
+How about we add check TI/failling usb controller in xhci_halt and 
+xhci_pci_shutdown?
 
-That only affects real ttys. For a pty the master's open keeps the
-slave's count above zero. And it only affects a foreground job that
-holds no descriptor to the tty anymore while its session leader exits.
-Everything else is unchanged. The DTR drop on the last close happens in
-tty_port_shutdown() regardless, stopped jobs get their SIGHUP from
-kill_orphaned_pgrp() and signal->tty is cleared either way.
+Thanks,
+Wendy
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index a8889081ae82..af6ca5447f22 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -950,6 +950,10 @@ static void xhci_pci_shutdown(struct usb_hcd *hcd)
+         /* Yet another workaround for spurious wakeups at shutdown with 
+HSW */
+         if (xhci->quirks & XHCI_SPURIOUS_WAKEUP)
+                 pci_set_power_state(pdev, PCI_D3hot);
++
++       /* TI XHCI controllers do not come back after kexec without this 
+hack */
++       if (xhci->quirks & XHCI_HALT_FAIL_TO_RESET)
++               pci_reset_function_locked(pdev);
+  }
+  
+/*-------------------------------------------------------------------------*/
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.cW
+index a9e47e178c28..67108692a354 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -120,6 +120,8 @@ void xhci_quiesce(struct xhci_hcd *xhci)
+   */
+  int xhci_halt(struct xhci_hcd *xhci)
+  {
++       struct usb_hcd *hcd = xhci_to_hcd(xhci);
++       struct pci_dev *pdev = to_pci_dev(hcd->self.controller);
+         int ret;
 
-Before that commit the final __fput() ran from exit_task_work() which
-comes after disassociate_ctty(). That order isn't old. Until v3.14
-exit_task_work() came right after exit_files() and before v3.6 fput()
-was synchronous, so the tty was always released first. Commit
-c39df5fa37b0 ("exit: call disassociate_ctty() before
-exit_task_namespaces()") moved disassociate_ctty() up to fix a pppd
-crash and in front of exit_task_work() as a side effect. The hangup in
-this case has worked since then and that's eleven years of userspace
-being able to rely on it.
+         xhci_dbg_trace(xhci, trace_xhci_dbg_init, "// Halt the HC");
+@@ -130,6 +132,11 @@ int xhci_halt(struct xhci_hcd *xhci)
+         if (ret) {
+                 if (!(xhci->xhc_state & XHCI_STATE_DYING))
+                         xhci_warn(xhci, "Host halt failed, %d\n", ret);
++
++               if (pdev->vendor == PCI_VENDOR_ID_TI &&
++                               pdev->device == 0x8241)
++                       xhci->quirks |= XHCI_HALT_FAIL_TO_RESET;
++
+                 return ret;
+         }
 
-Hang the tty up before closing the files. This is the ordinary hangup
-with the file still open: __tty_hangup() swaps in hung_up_tty_fops and
-tty_release() runs from the close afterwards as it does when a modem
-drops the line. disassociate_ctty() stays in front of
-exit_task_namespaces() which the pppd fix needs.
-
-Reported-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-8-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adjusted context for exit_task_namespaces() instead of exit_nsproxy_namespaces() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/exit.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/exit.c b/kernel/exit.c
-index b3cfeba72dc02..ca606f1b68720 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -879,10 +879,11 @@ void __noreturn do_exit(long code)
- 
- 	exit_sem(tsk);
- 	exit_shm(tsk);
--	exit_files(tsk);
--	exit_fs(tsk);
-+	/* Hang the tty up before the last close of it can clear the session. */
- 	if (group_dead)
- 		disassociate_ctty(1);
-+	exit_files(tsk);
-+	exit_fs(tsk);
- 	exit_task_namespaces(tsk);
- 	exit_task_work(tsk);
- 	exit_thread(tsk);
--- 
-2.53.0
 
