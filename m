@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213223;
-	b=E5YkBxXhmfcmPcTt3PaRifdKPMDQ8w/3Ps++rW5br1rODHErG/tL8A+rCu+98LbGwBVx
-	 E8OZZhqwrdf8m6/vgty/n7yCt733obsWix1cnuPWWwLTvl+ih4t123DP/Ns4sUU13CbAQ
-	 ofU0UcD+yuLgS2bwh/EWwXX7QvoUt2X67Vg4QXNrJEyNGKPyac/oCCS7xChQ5+rVEZPql
-	 u+rzTSbiwMMiedW/LPi03NcOk5UmwLRgGafWRo+RLvvLneJma+k7tbcKYffijAxyqoKXM
-	 hsrYIlf0mv9s36Doxii70PVqvc1lgiuOuH/B6oFGLORk/ZZCH6/x1tIXB4a8Tdkb03Q==
+	t=1793213229;
+	b=GvHJqvuF7ggGkbbgXWTgAAzO2RjnktS8OM4y4rQeOgE6zJW+EVdFYCbh5dyJSjd4L7s+
+	 pTzwl9chHjYCx+TFRH1PMe+t8S0C6UgOqds4PB3kjE3TNNR9nGPcDDOLIfhSZPDcCekuB
+	 2PCA2C+EobreA+qmbXZCg+oULa6f0U87/nL+yl2FHTfPBdvp6K/yXhONb0N2cJ9EOqbPu
+	 iZL6UKbQs5GHOClssdqxGqmrbiZXxwdmE9C8RGs7vWgmtJUmIuu+WQuCMQyWo7FzH2b/Q
+	 G1zcezDKhcgPSu+oT4vcNeKCXhP7wwGX622aH7wmejLO4Y+Q0ovFgq6Lx48XPK233Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213229;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=glCu55NO53tq3uyYWSjzT73KJ8aoLRwG207+3zsmhXI=;
-	b=L2EUeXSBKIKJ7jH3hj/kwlv0jKHw1FIlXxwsK1O1OUwRlLfJraHTON0fNMBdVfaA56Fv
-	 DURdVjaMD9I4tfrzvTixE04BWE8PoPaG5OMRiDRTG8YWVdxeoKX8fXZS1olF4fr06zDPt
-	 4rClJbnBoMhFip42eQ6tSySEnSp+jbFKlkE1RGSMi3PKorjk1dorTBcwmX6DrrKg9wgvc
-	 uULQLWjDyUfQbNyIHb5Dawq5WxFL7z71yzEwKBFUxZV3bJP/Zb/YvQxPPtFZxyNSrmw8h
-	 lUnwRI9Tu0saR8PpmZcLp0IpwY0vsr7w9jdlW6Hf8bnHsdQS/dLCzPed0gsll6Xy69A==
+	bh=N6alm3d/Ut8FryBbKDV3oce+j0HILng//SD4KcDYK68=;
+	b=El3W7fFua00WQXGfpQ7XVRSnOlieVyVAwNuphTrmzLn8OpAm3QwlfmcWOJFF6XCRA86K
+	 Ag7yGUSb0YSMfs5OeMbdvjF0OklKfJsrrNkO3fglTjL1J3RliikX4CbUMEpKs/QUyoijy
+	 5E4bYoZDb7mXHLcfA7qCEI7YwUcv0F0IKduJMTx4j+uiZdPHzqoghuR/e6cMz5dJJcnIG
+	 uzPRdfA6jsFpsnRjbLRfF5NnhnGlxJyfh1H1EPUTKlBhjjeGLRBGf6RrMMLIDG5gLfofm
+	 vVzd8UTpiT5dUuJJs82sGtuLXl3zkkJegqE3KexSS4VVjal5xy5Ejs+zoH6pwYVlpSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uVCX0ltD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gZbbw3P2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B8A606A31E;
-	Wed, 28 Oct 2026 18:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121B9606A31C;
+	Wed, 28 Oct 2026 18:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uVCX0ltD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B6D1F01825;
-	Wed, 28 Oct 2026 18:47:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gZbbw3P2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6357A1F01825;
+	Wed, 28 Oct 2026 18:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793213223;
-	bh=glCu55NO53tq3uyYWSjzT73KJ8aoLRwG207+3zsmhXI=;
+	s=korg; t=1793213228;
+	bh=N6alm3d/Ut8FryBbKDV3oce+j0HILng//SD4KcDYK68=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uVCX0ltDYs8LfzbUui1IKrCBzz13YNNHuNsMV6W5oKZ7zdwQPJmMyx0IrxvcPRGW/
-	 JrwGcNR92GSfL0Qnp+9F7nNpyr9avVG/u+KIRAdGMrU5HFvhHk70lW2ExQc1V3H8wF
-	 1YG+vzoA84Udde8p7IJo449cpjLho0zspt1Zdl7A=
+	b=gZbbw3P2ej6srSSNgE9yb5pRQ+auaNIOJV+xZ/jhdbCq4UHW99SaFjrAxhUQsn+Xg
+	 2HDBGRUajdF5KRFjRtOArYUwjlJlSwkSXqm07zPRs06k4SqpBSh2z+Bk5fiJ7BWMYF
+	 ySfOtrjxjEnuOsW+7tJRZzgK23yB3JJrfmj0zBM4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0428/1887] netfilter: nft_set_pipapo: restore cloned mapping table memcg accounting
-Date: Wed, 28 Oct 2026 17:42:04 +0100
-Message-ID: <20261028170508.974470096@linuxfoundation.org>
+	Daehyeon Ko <4ncienth@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.1 0430/1887] ipv4: stop PMTU walk when nexthop group shrinks
+Date: Wed, 28 Oct 2026 17:42:06 +0100
+Message-ID: <20261028170509.017977910@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -67,49 +68,57 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Daehyeon Ko <4ncienth@gmail.com>
 
-The 6.1.y backport of commit 69e687cea79f
-("netfilter: nf_tables: missing objects with no memcg accounting")
-changed the pipapo_clone() mapping-table allocation to
-GFP_KERNEL_ACCOUNT.
+commit 6619e01855e65ef35723685a557e3eb106f4ecf5 upstream.
 
-The later stable backport of commit 07ace0bbe03b ("netfilter:
-nft_set_pipapo: do not rely on ZERO_SIZE_PTR") rewrote this allocation
-and changed the flag back to GFP_KERNEL. Upstream applied the
-ZERO_SIZE_PTR change before the memcg accounting change and retains
-GFP_KERNEL_ACCOUNT after both.
+Commit 7d3f3b4367f3 ("net: ipv4: Cache pmtu for all packet paths if
+multipath enabled") made __ip_rt_update_pmtu() update every path.
 
-nft_pipapo_deactivate() clones a populated set before looking up an
-element to delete. If the element is absent, priv->dirty remains false
-and the clone is retained. Its mapping tables therefore remain allocated
-without being charged to the requesting memory cgroup.
+For nexthop objects, fib_info_num_path() and fib_info_nhc()
+independently load nh->nh_grp.  RCU protects each group's lifetime but
+does not make the loads observe the same group.  If replacement shrinks
+the group after the loop accepts an index, fib_info_nhc() returns NULL
+and update_or_create_fnhe() dereferences it.
 
-Restore GFP_KERNEL_ACCOUNT for the cloned mapping table.
+A deterministic probe only widened the existing window between the real
+operations.  On v7.2, an RTM_NEWNEXTHOP replacement published a
+one-member group after the PMTU reader accepted index 1 from a two-member
+group, producing:
 
-Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  RIP: update_or_create_fnhe+0x45/0x15b0
+
+Stop when the indexed path is absent.  Groups are dense, so no later
+index exists in that snapshot.  The same real-writer window completed
+114,423 PMTU iterations without an oops with this check.  A reproducer
+is available on request.
+
+Replacement requires CAP_NET_ADMIN in the network namespace.  Where
+unprivileged user namespaces are permitted, a local user can obtain it
+in a new user and network namespace.
+
+Fixes: 7d3f3b4367f3 ("net: ipv4: Cache pmtu for all packet paths if multipath enabled")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/4fb87ed994dfc067178fc845cdd8bc9b5446b039.1790915964.git.4ncienth@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/netfilter/nft_set_pipapo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv4/route.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index c27ba1c5ae5da..2e98592a04288 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -1466,7 +1466,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
- 				goto out_mt;
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -1089,6 +1089,8 @@ static void __ip_rt_update_pmtu(struct r
  
- 			dst->mt = kvmalloc_array(src->rules, sizeof(*src->mt),
--						 GFP_KERNEL);
-+						 GFP_KERNEL_ACCOUNT);
- 			if (!dst->mt)
- 				goto out_mt;
- 
--- 
-2.53.0
-
+ 			for (nhsel = 0; nhsel < fib_info_num_path(res.fi); nhsel++) {
+ 				nhc = fib_info_nhc(res.fi, nhsel);
++				if (!nhc)
++					break;
+ 				update_or_create_fnhe(nhc, fl4->daddr, 0, mtu, lock,
+ 						      jiffies + net->ipv4.ip_rt_mtu_expires);
+ 			}
 
 
