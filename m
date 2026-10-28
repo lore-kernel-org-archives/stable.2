@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218415;
-	b=EyUrbggVFqWioIAF5SnqZcIzvt2ZQDAipnKzYwbilQ4dBMfBOWX2B0wz6h5T8EYQ1nNV
-	 2i18rSC7z0LOsCl8AlplVpLSKgL2HYp19zvod8mPgvEdeUtpmRzz12Yje6hUGo8JiApyI
-	 /THcFOytR+b0y5Yy+B1vuycFqFJtA4QcqGVPBbRfiU5JGFSegc58z/p0Srdy+4kKhR0aP
-	 +v1MmBum/HKSU6Y+KdmtIXGoFzdNvc60lJZsBRnuOGWo8CgBGCL7qgtRxFoUj9U5EcH/I
-	 NwtjRjM1viFOxXboS/sI16Sd6fq7hGMF2LkDV3Xt/8XjMhZYoJJQU1MCZEvgodXf4TQ==
+	t=1793218432;
+	b=j09od8rF751Ail/GCfZi+mY0MWfd2qvuRpzFQCuN5pwPfH6F1J36kU+08jEATH5Jph7l
+	 T0OdcF8IYuKzEZ7AJ4nYl9azAiDMu7r2w928wmVPMH7UyfiPbaUA4clkYWvZmgw96ZjPq
+	 Lf5zwL0i4ZcJ5rb7cUzZ0kllaSYGXANMCG1a0/wmX3iQM7N2RPfw5jQU/FGfcBDjXpc4h
+	 jrUFdk7ZPYez+9ODWgFPSp5kJtITbr9Bn1XwdyZT/U+6FhiZ8HTZSpG87z/eMA7p2ko+e
+	 jtq+inWEJzf8Ra5NDbXQmEKGq152T2WDN70vBSHSyMIb9+PcBPiVqA2xB2msFHKCiUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218415;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218432;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FxrjgfXmb0WFPqD0MLL3SKSNt9ImyVAxft9uZqXlK7Y=;
-	b=FCKuejcYlV+xnxgcrQqaCF+MDoXYrVFNmzcNzyh3DnG8BYy3Fj9RtvIPZvCO+lit+RSq
-	 M0G3jfG+A5RIWuf9UuLvc6ndAkkJ94SeNjKl23kyt2zJZea2LO4bwYuKEl+doWaV92JOx
-	 eJXgXMhffJzCpMuai2V8Ap4gEgXHDlPfv0iAaKn+t+bZ6jMyyuF8eAzKp0ucSTwawDfo5
-	 +vi5wfHVtp9/FXKiN/twcA6Ltid5aPTM09PhHKk1fd3bGr2yNzmBhzf63IEM/J2vMAPEO
-	 Ag7Oc8R6XRg33C2AnpMgfQRED98lJCyOqBHWLg+0iwJhJs43lFBwmDIyNO8Mks4VUbQ==
+	bh=URdRqICX8m+dqDt1YkS4vifkLf3JR3q8LozRp/GzypE=;
+	b=xYKdRlR4BMOLYJRWCoFpEYfnAkK+bIHyBv3CtbLhDoXz6gpiq8x0qG/KKL/gpJm+ux9y
+	 AJyCC4G02KBjing+1chXl7SKXLeqBe+v9S7QCO+x2jhCwyeZBoKn2DFROyvUP5KWmFHqw
+	 +OhRTEIHWNkediiYq7PDaU29eNtl3mS1E7w97BFvxI4cWwgKuMiUI5+kGHDNKjpcl7WMf
+	 0B1tdGYVzoBirUb/9zhNvSB+JpCTr04WW9EvmuwqUMLTGAtO8LSDPrThCPYPUM6mLgDDL
+	 xEvTEL8nFM8hXv8Ee0LkYXqtXWZajm+85boA/gt8wilbl0iuHv4pBFJNZx/c7bIZT/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FernHeF6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKqrad2J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFEA606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:13:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF97606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FernHeF6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544101F01825;
-	Wed, 28 Oct 2026 20:13:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKqrad2J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383231F01828;
+	Wed, 28 Oct 2026 20:13:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218414;
-	bh=FxrjgfXmb0WFPqD0MLL3SKSNt9ImyVAxft9uZqXlK7Y=;
+	s=k20260515; t=1793218431;
+	bh=URdRqICX8m+dqDt1YkS4vifkLf3JR3q8LozRp/GzypE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FernHeF6QGO7frZjhqQMSf8vJe4pZu9+kWRxFzVTFnBezVSJ3PaA6UEOE28RPFgcx
-	 BI/dLXgU5npu5IaWrAg1T4/F8UXyG8Jk//XLeVD5tfPIXs9foSnLPyq3IOZ+mHWo7i
-	 +k8Ox8K8SvhT0fDNS9cx6t+T3fZK+/yCBRvXifeoj7fQqL39liG27KpnjV6W8DmhBV
-	 Jd4B8PZkO9WzZa+TV24kftG0hTY6CRH3sqlyupAbCvAR+hCBSkgVt55pm06QNfIbzv
-	 hi/iX8N0rm7+xb35vx3x5pZRu02uFMfKxo4EcRr/1OQUVP9YVy2LY4MH0ktP4dpOdH
-	 xQb+QA2VESBqA==
+	b=AKqrad2JrUWhJByMbYmGN9KNfO9Ppv+SpU+SpcytKUlb2cYqgvyjWkxdbE0sSlfUC
+	 a3jweiq5vhIcOsNr9auC1KF7U9irAGQ++sM425URXDz1eqW9rOYzm/CTmi9D7py5Mf
+	 0LoRaYa9fSr9LFxwBot1V66+YDcQFGhHQtfwxQlYPkYPYJhTxh9o/vIx8xV+ngOhiQ
+	 kwbe+fwcZ1GriVr3r7qobiEw4ZuhQjenxqA+ClqbIdjD5hvgj349bz7+ejXzNgq0un
+	 g+3eRJU2yUX0N/vDOzON/4VdBQoYLuflohlXYIk/EU4CwgDJebXGMUOsvZvLtPIG8j
+	 wlKzmDHMzikAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Oleg Nesterov <oleg@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] exec: cancel io_uring requests before de_thread()
-Date: Wed, 28 Oct 2026 16:13:33 -0400
-Message-ID: <20261028201322.2122828-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] fork: move the coredump and exec checks into create_io_thread()
+Date: Wed, 28 Oct 2026 16:13:49 -0400
+Message-ID: <20261028201321.2133809-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102819-flick-landless-21e4@gregkh>
-References: <2026102819-flick-landless-21e4@gregkh>
+In-Reply-To: <2026102852-deprive-survive-f09d@gregkh>
+References: <2026102852-deprive-survive-f09d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,69 +63,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit b42c85c20d84ff3e4f0f027d6596c3b3b4a20657 ]
+[ Upstream commit e760200370e4de054b6b5f568a7faa911e2956bb ]
 
-begin_new_exec() cancels the exec'ing thread's io_uring requests after
-de_thread() made it the only thread in the thread-group. Now
-io_uring_task_cancel() runs task work after. If it runs a
-create_worker_cb() item then a io-wq queued on the thread before the
-exec creates a new io-wq worker thread.
+Only a PF_USER_WORKER thread returns from get_signal() after a fatal
+signal and can go on to create a thread. get_signal() sets PF_SIGNALED
+before it dumps core and before it lets a PF_USER_WORKER thread return.
+That flags sticks.
 
-Said thread joins the thread-group which de_thread() just took down. The
-io-iwq sticks around until it notices that its workqueue is dying. But
-code after de_thread() relies on being single-threaded.
+The exec'ing thread itself is never signaled. But it doesn't need the check
+anyway as we moved cancellation of io_uring requests before de_thread().
+create_io_thread() is the only way a signaled thread creates another
+one. vhost_task_create() is reached from ioctls alone.
 
-Move io_uring_task_cancel() before de_thread() but behind the point of
-no return. Any worker created during task work run from
-io_uring_task_cancel() is just a sibling thread that de_thread() will
-take down and reap.
-
-Once io_uring_task_cancel() returned the thread has neither a task
-context nor a workqueue left so nothing can add a thread behind
-de_thread()'s back anymore.
+io_should_retry_thread() doesn't retry -EINTR, so io-wq callers give up
+the same way they did when copy_process() refused.
 
 Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/aq0_lvHDViIpX_Mu@redhat.com
-Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org
+Link: https://lore.kernel.org/r/aq0VLTyxNatFmLOK@redhat.com
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-13-8e4adb1619e6@kernel.org
 Acked-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Stable-dep-of: 1f978881ce6c ("fork: don't create io threads once PF_POSTCOREDUMP is set")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/exec.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ kernel/fork.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/exec.c b/fs/exec.c
-index 829c74c7690d8..3c84578f48db0 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1257,6 +1257,13 @@ int begin_new_exec(struct linux_binprm * bprm)
- 	 */
- 	bprm->point_of_no_return = true;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 37c5d6123cf62..21e37a4ecc9de 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2714,6 +2714,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+ 		.io_thread	= 1,
+ 	};
  
-+	/*
-+	 * Cancel any io_uring activity across execve. This runs task work
-+	 * that may still create an io-wq worker, so do it while de_thread()
-+	 * can still zap it.
-+	 */
-+	io_uring_task_cancel();
++	/* A creator past its fatal signal gets no thread. */
++	if (current->flags & PF_SIGNALED)
++		return ERR_PTR(-EINTR);
 +
- 	/* Make this the only thread in the thread group */
- 	retval = de_thread(me);
- 	if (retval)
-@@ -1273,10 +1280,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	return copy_process(NULL, 0, node, &args);
+ }
  
- 	/* see the comment in check_unsafe_exec() */
- 	current->fs->in_exec = 0;
--	/*
--	 * Cancel any io_uring activity across execve
--	 */
--	io_uring_task_cancel();
- 
- 	/* Ensure the files table is not shared. */
- 	retval = unshare_files();
 -- 
 2.53.0
 
