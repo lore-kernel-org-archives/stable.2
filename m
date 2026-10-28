@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793221029;
-	b=SvnbMzkIPVJtTcqKadTpfx9NafqYC5lYBAT6PneTIPpCAeG78fLiW+KNTCRntzmiPLav
-	 E3jUwYmwD2yE4Z5LKo+PFvbgtnayUGNxEiaktFI0Bw6QbGHVSOoY2CUUMfjWzscNCXdwI
-	 t+JGSNwD6ejnP8+Ue4lC8WACqj2Y6v40Zr0RuIp6hTGiKwbYmXqr1ek9J8CsQgtyYgj9n
-	 +uG0n6nFk8t2lC+EpyXI6+laRNYhNksk/qUeDxu4zJwdGn8HrtMFNqf2o1St3yc8x2MyC
-	 A5gkr1U+/XIV0FWWgU9C+4cnEhAf7IGZZ8w6pGHcVHzhqRgluQ76lEGYFkh3vYO0e+w==
+	t=1793221094;
+	b=1+LOVYpArkC7rEbNc9mw3aQgWgUQQdBkvPgBkzOyZVCue/4CSAtxgMXChfBPPFZ9xwM2
+	 M2ap121CznkBw271Xq5U3uD0nSQ9xD1tsJciVMlwAaRsCyppep6/RoCX2jMMZ//4KV9lX
+	 ftsSWDXcVYo2oLiPCteTyAgTSCKIgFXU7hTQO9WRp6+r0r2M8hXAdQUUjp8i+HWGA7DVv
+	 +nkkq9AAF/aJEE1qDywAoMctAaZcxtYuqB6W+T1v4Xw44zInvIY4MmpPyPezSuq+Zt/M8
+	 AtI5RVHzE9BeZ95T2sqRz+LGEiBiAQkeRtNlV5E6HXxFS4ANdKda6BfUhfs20eLzCsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793221029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793221094;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=VBRXJGFXK0qCkmji9XuilGdSC6PWUqjPX0mT1B8+Dew=;
-	b=CQPqI6AT/BuiRazp1myyc9Ae1zAuRlqSazuzLPp/5M2e3/x6iywOHPUPTYlDViahmDi1
-	 YGDFzwb/Efwx7sbJfTqyidmyIO4Fc970ZcHmeRPG04MtIMKsH1wrwprxTdfAJ5ovXqYzR
-	 i7qS4KFJUpl3XHhL6g+2zOqquWMbcL+J50TOlxpdF/vz/td/5oZrDQHy77XMIF13vXN4S
-	 ZLUVI+DLvLFMeTYSfvzddH4enMwZZMweZmVPpRoLkKNYWRyxjuRngnRYfjWejHzhJEUhU
-	 /5SSpYSZxFVi3UedOR2L6gK/L3rhs4I2wv/k1E8ZAiZ/uPquIIYiycTmK5Q6bUN57vg==
+	bh=OkkxJXamG/EOg1fXbdxdVy//NPlViTUZPyzdPBS0XNI=;
+	b=YYvdg4V21mbG2lq8bgxjuDv2gYyRGUJ6D3R2IiKygwKQcVzVhoDyNhl04rVF1cswtL6N
+	 zeEzdIXcPUhf2FAZOhgHDJcloOoKJj3gEJsgz3q2YzdJxmhKkZxdKNQVxzZib9syCU4FC
+	 NSDrh/JkUJetG42mS/Y9E2qixrgbwhLsZYF79UiXDDj8twojQ4X+0CyusWyL8AF4I26g9
+	 tf7THCkLq38zKOOyrWY6F5BrDIp2rn8tQYt/zjWHMvdDqkzMVGHzPshAVVsR8eQohqA/F
+	 K9vKjoOPyoRNuG4JblkRctwYxe5Vk9WUiHRP7rUw3N2BHeTOKv1DGNQIBoaTM0fdfBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6++6R92;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WpZXmrJh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44309606A322;
-	Wed, 28 Oct 2026 20:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91833606A320;
+	Wed, 28 Oct 2026 20:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6++6R92
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08141F01825;
-	Wed, 28 Oct 2026 20:56:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WpZXmrJh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385F51F031E1;
+	Wed, 28 Oct 2026 20:57:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793221028;
-	bh=VBRXJGFXK0qCkmji9XuilGdSC6PWUqjPX0mT1B8+Dew=;
+	s=k20260515; t=1793221094;
+	bh=OkkxJXamG/EOg1fXbdxdVy//NPlViTUZPyzdPBS0XNI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=d6++6R92Y9pW/L7qdwwXGd0u/fINnIlp1NYiXwaft8WuvM2tnh59aB+MIfDwM3CYs
-	 7OBmLdZ2yf/hpA8zpc7z5GdDAf3CTGmZVsA0hpoyhtF6kc1L6FM9QY6FPQzJGgCNiM
-	 9Gle+WZku0sAgiTcOS5G2JnLcI+qrDvkcNMlVF6RCTWmoNWW7uHd+G1PGIIff8zlHa
-	 fPM56Qjn7U5XHgFTGxseW76jmouqIFti8WxpybzmVtUdGoYf7HNRmalUpxMtAY3Qao
-	 mgALZ2krEDvrdX6MlU+nCOicB8+IQASXlEKAHYsbgLpoWmWmdQnVWuDP0TEVs7UF1Z
-	 xjngcVGllnCNA==
-Message-ID: <b90cd9a6-4303-4ea6-b76a-8cece1ca0284@kernel.org>
-Date: Wed, 28 Oct 2026 21:56:42 +0100
+	b=WpZXmrJhfZ4oFqEjPk/JBXWd575607dk5zGyo1rvpwVg3yy5YfXeNqH5w4vNIuQ0d
+	 ktOBD8dQNFzWnH3XPl6qzKMN2hP2/vyEl+46oFkRGa6BZf7drUChBa82kCuH/c0DUS
+	 4CdKqDnR8j5WZaqwqSM2nFlx0ftJBuLWGr4Lbh/2VrlOFq7ZhO68etuPzFcaxVfO9F
+	 ZsFMFRIJFcw/2vEWbBe/tqJrUBZIpK95m9X3L3KY24CdVU5OCiwKZO7X6MQczUDuDg
+	 AGEl/ld/sByznq2EWDJP+O/uKfdSVS5eGuApV6Jdg6Ibbm/bAgkmLKnbgUaCwCgLH9
+	 zwTicYTUGAKpQ==
+Message-ID: <da631095-bc93-4b18-b5b3-c68644f9ee0f@kernel.org>
+Date: Wed, 28 Oct 2026 21:57:56 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,9 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/46] mm/filemap: finish fault cleanup before dropping
- the fault lock
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Subject: Re: [PATCH 20/46] mm/gup: fix clearing folios in memfd_pin_folios()
+To: Pratyush Yadav <pratyush@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
@@ -69,7 +68,6 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
  Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
  Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
  Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
@@ -89,11 +87,13 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
  linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>
+ linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-8-6f74bec9a5bb@kernel.org>
- <auJMY1xFp6EkhXbZ@quatroqueijos.cascardo.eti.br>
+ <20261027-fixes_core-v1-20-6f74bec9a5bb@kernel.org>
+ <2vxzbj8fp4sn.fsf@kernel.org>
+ <ec55c760-f099-48e1-900b-9f8e2e5315da@kernel.org>
+ <2vxzld7injcv.fsf@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -140,125 +140,38 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <auJMY1xFp6EkhXbZ@quatroqueijos.cascardo.eti.br>
+In-Reply-To: <2vxzld7injcv.fsf@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 20:26, Thadeu Lima de Souza Cascardo wrote:
-> On Tue, Oct 27, 2026 at 12:17:28AM +0100, David Hildenbrand (Arm) wrote:
->> On a retried fault, a fatal signal interrupting the folio lock wait
->> makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
->> the file. However, filemap_fault() may still need to release
->> mapping->invalidate_lock. A concurrent munmap() can release the last
->> file reference and free the mapping before that unlock.
->>
->> Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
->> releasing invalidate_lock. If the fault lock was already dropped for
->> I/O, release the existing file reference instead. Keep the fault lock
->> held for FAULT_FLAG_RETRY_NOWAIT as before.
->>
->> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
->> Cc: stable@vger.kernel.org
->> Reported-by: Chris Mason <mason@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/filemap.c | 37 +++++++++++++------------------------
->>  1 file changed, 13 insertions(+), 24 deletions(-)
->>
->> diff --git a/mm/filemap.c b/mm/filemap.c
->> index 6b5e1d866a9e0..b04be64a5069f 100644
->> --- a/mm/filemap.c
->> +++ b/mm/filemap.c
->> @@ -3308,11 +3308,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
->>   * @folio - the folio to lock.
->>   * @fpin - the pointer to the file we may pin (or is already pinned).
->>   *
->> - * This works similar to lock_folio_or_retry in that it can drop the
->> - * mmap_lock.  It differs in that it actually returns the folio locked
->> - * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
->> - * to drop the mmap_lock then fpin will point to the pinned file and
->> - * needs to be fput()'ed at a later point.
->> + * Returns 1 with the folio locked, or 0 if locking failed.
->> + *
->> + * On both entry and return, a non-NULL *fpin means the fault lock has
->> + * already been dropped and the caller must eventually fput() the file.
->> + * Otherwise the fault lock is still held, including on failure.
->>   */
->>  static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
->>  				     struct file **fpin)
->> @@ -3329,21 +3329,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
->>  		return 0;
->>  
->>  	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
->> -	if (vmf->flags & FAULT_FLAG_KILLABLE) {
->> -		if (__folio_lock_killable(folio)) {
->> -			/*
->> -			 * We didn't have the right flags to drop the
->> -			 * fault lock, but all fault_handlers only check
->> -			 * for fatal signals if we return VM_FAULT_RETRY,
->> -			 * so we need to drop the fault lock here and
->> -			 * return 0 if we don't have a fpin.
->> -			 */
->> -			if (*fpin == NULL)
->> -				release_fault_lock(vmf);
->> -			return 0;
->> -		}
->> -	} else
->> -		__folio_lock(folio);
->> +	if (vmf->flags & FAULT_FLAG_KILLABLE)
->> +		return !__folio_lock_killable(folio);
->> +	__folio_lock(folio);
->>  
->>  	return 1;
->>  }
->> @@ -3572,7 +3560,7 @@ static vm_fault_t filemap_fault_recheck_pte_none(struct vm_fault *vmf)
->>   * vma->vm_mm->mmap_lock must be held on entry.
->>   *
->>   * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
->> - * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
->> + * may be dropped before doing I/O or when aborting an interrupted wait.
->>   *
->>   * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
->>   * has not been released.
->> @@ -3728,9 +3716,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
->>  
->>  out_retry:
->>  	/*
->> -	 * We dropped the mmap_lock, we need to return to the fault handler to
->> -	 * re-find the vma and come back and find our hopefully still populated
->> -	 * page.
->> +	 * With fpin set, the fault lock was already dropped. Otherwise it is
->> +	 * still held. Release invalidate_lock before dropping either protection.
->>  	 */
->>  	if (!IS_ERR(folio))
->>  		folio_put(folio);
->> @@ -3738,6 +3725,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
->>  		filemap_invalidate_unlock_shared(mapping);
->>  	if (fpin)
->>  		fput(fpin);
->> +	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
->> +		release_fault_lock(vmf);
->>  	return ret | VM_FAULT_RETRY;
->>  }
->>  EXPORT_SYMBOL(filemap_fault);
->>
->> -- 
->> 2.43.0
->>
->>
+On 10/28/26 12:40, Pratyush Yadav wrote:
+> On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
 > 
-> If I understood this correctly, the invariant is that if fpin is set, then
-> the fault lock has been dropped.
+>> On 10/27/26 16:00, Pratyush Yadav wrote:
+>>>
+>>>
+>>> Nit: this logic is repeated in a couple places in shmem.c and in
+>>> memfd_luo.c. Perhaps it deserves a helper?
+>>>
+>>> Anyway, sounds like an important fix so don't make my nitpick stop you
+>>> from landing this if you don't want to bother.
+>>
+>> Thanks! yeah, I had the same thought when trying to improve this. We should have
+>> an easier way to just not hand out unzeroed folios outside of shmem core
+>> functions in the first place ...
 > 
-> At first, I was confused that maybe_unlock_mmap_for_io drops the fault
-> lock, but in that case, it also gets a reference to the file, so fpin is
-> set and the invariant is kept.
+> Normally this should use shmem_read_folio() to get all the folios, which
+> does zero the folios before handing them out. I guess memfd_pin_folios()
+> uses filemap_get_folios_contig() for performance reasons. 
 
-lock_folio_maybe_drop_mmap() and the other functions here are horrible, horrible
-stuff, really :(
+That is my recollection from back then, yes.
 
-Thanks!
+> It does the
+> lookup under RCU and doesn't need to take the folio lock. Perhaps we
+> need a shmem_get_folios_contig()?
 
+That sounds like a reasonable cleanup I think, without looking into some
+of the nasty details. :)
 -- 
 Cheers,
 
