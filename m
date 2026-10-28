@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793209480;
-	b=VQSVEVKgil+L9ntBbyLbiHIfrRB1DRJaz/bsLnuevcyNcNBqwl+PeW6Y+RYbD9HY6xh0
-	 YOzxmMCFJnYK4zm4tkgrZmSX3/Z+nIS1ZjYqwX/qEFkE/8+mxRcaNj+uaifOIIj+d//mA
-	 IK6s0rzWmkTwWDJrQK2zPwqe31XCzwPBRSxXMEHBLBXJll9J5SF9X2yHLAeRuPrjJCYrm
-	 TLaajo66BSXMHbHdrnNDUJ3wdhSq/CxMVZiLYMr92+OD6eSMCxObt4x1b9Ay8AnvydIyJ
-	 1AkA7ZpyZvnWJWO91rrWSKcMUTq1AC5+vcnG+uxhwKQPy+8G7tJ8Qg9OsqSvH1YRQAg==
+	t=1793209486;
+	b=1FKwGbkHIO/HweOXMjWyrctT3WZA75y6VZUru37Ja9BsrNhIYnVsLLGnxaX/hNBucsgm
+	 l+qGS4tkBAhFPE4VJ2niWLrdRL6Nl20ahp/qpwDmtaOEjmkijBaGsz149lEp5BZZjy/6M
+	 5q3HEkgXi8dh5MMrAYZu2xIdN65c0cnc91B9RqaUUrRp3Buixq71FT9GqlXQ0AEg+o4M4
+	 gV+TopVAlzkquSSpyajnlN5H7FS/v73uyXlpRH7wFIHvdVRfL7LMEi8qvspUa/pSOQv1N
+	 haKFDL+rESd7jxJxftciYTwzWoDCPJa1xd3SZojqhgScWbULq1lGcw6TPl2p9qjRC8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793209480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793209486;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HJDHrEWwOXXeU1aQG/kNje4mzbFhqQRAhZt024CCZbY=;
-	b=GGeDcIaEotFqC3IUm7StkfCK7/0iQfrckdfscSD7aYOCh9IyQ2ZrkXVftAAZdnF//AK7
-	 HlAVLi04gg3PF43N1KAnDoZIJI/a8eLBc+GXCCs8xFrud63fCL2y3HNqBEwfd9D+WdrIM
-	 ZYfWWfkk4ZaZoG4D7fB0orLAdzfv2un0yad2vQWE2E5wTRK1y8CoCj4PQbeh7FfnzkL4e
-	 Hh5f5jStYOO6KZ8eyS0QToXVzFGHa73Q2SACA6XsHV2X0a8+d51iPhd+9w99S7t/k7xk9
-	 XxJmRWW3L9l8Y5ezGs0p1/o0ILGq1gy4zM/wcw+6WwlOX85EGdHFAUmnM41VXzzNHQw==
+	bh=WOnUkKtibxl541VdVuM8ULp46CqxI+xwd+Op0LzEqBs=;
+	b=NLDV47G+oVYE83BpjHZoK9PMYToSwdNouyeEkzo7GO1M99oktRgLMb8jsp10j8sQUdpX
+	 nAH523v8JYtdKXU1ELNW64uK3fLmblMaXXjKTTa39EryBAMzKVqExvb+69uLDdkM9l+8a
+	 ulULgBstC66EMTPKOEtJiL+wPKWC9cbwrzFveBtq+88DAh/wH31dI+8sA8Tv6xTqi8Ttm
+	 OWWBgrhXoX5kZNWrDtCFCs4E4W8z14JVZkWhjRH7Lbe39k1+RyJdUisC+VpAo5ipZ11CT
+	 PMKqX2bSzM4q8MQeMRXfJtzzRVqEEPSCuuf0yk0Pr7Fl4DB5T2+3AvQAw8uOpyQ3YuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vX77r4Qz;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Kt+Ensn+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84943606A324;
-	Wed, 28 Oct 2026 17:44:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FD1606A32D;
+	Wed, 28 Oct 2026 17:44:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vX77r4Qz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC3501F01828;
-	Wed, 28 Oct 2026 17:44:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Kt+Ensn+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EE11F01829;
+	Wed, 28 Oct 2026 17:44:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793209480;
-	bh=HJDHrEWwOXXeU1aQG/kNje4mzbFhqQRAhZt024CCZbY=;
+	s=korg; t=1793209486;
+	bh=WOnUkKtibxl541VdVuM8ULp46CqxI+xwd+Op0LzEqBs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vX77r4QzNhJdTRpTc/6aKIcVR8dON9EPqbcXo1mjJLPufLHWpsx3KsdyXjg6PWSwJ
-	 BvuYEoclZ7bNGqEl00jy2QK4iUR7CyV4ARSe3N5iCV/IQyCFXmcOvWhngviPjuzuGY
-	 f+XAUbQJJ73XHe1BnlrM/CrGfH51p/gVHNg+E/Kg=
+	b=Kt+Ensn+k4f5a8V7hQn2LEr12kmd5p6QIzlbN4y+rKyooAZzmlMgYUdie+TM3ktyV
+	 PgElerRiBNpFfqI5ZU5odW2001b6qJi4S6kz0X0eKgwC2CJXgZR88cSatMhQvd6b5b
+	 PeadYvj8K59xzgzK5IBbVluKtZJaxVlwfPZz0OYE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Dae R. Jeong" <threeearcat@gmail.com>,
-	AutonomousCodeSecurity@microsoft.com,
-	"Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Linmao Li <lilinmao@kylinos.cn>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 486/516] watch_queue: Fix note pool publication race in watch_queue_set_size()
-Date: Wed, 28 Oct 2026 18:00:38 +0100
-Message-ID: <20261028170014.991136929@linuxfoundation.org>
+Subject: [PATCH 5.10 488/516] Input: byd - synchronize timer deletion before freeing private data
+Date: Wed, 28 Oct 2026 18:00:40 +0100
+Message-ID: <20261028170015.038066033@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170003.522232767@linuxfoundation.org>
 References: <20261028170003.522232767@linuxfoundation.org>
@@ -71,93 +68,43 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+From: Linmao Li <lilinmao@kylinos.cn>
 
-[ Upstream commit 5e531d62f1f8834faf7a4eed0d41105cf6570a8f ]
+[ Upstream commit c83e79c0842ed29860648bcce5022ef0ba5001c6 ]
 
-There is a race between watch_queue_set_size() and post_one_notification().
-watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
-nr_notes with plain stores, and post_one_notification() reads them with
-plain loads under a different lock, so nothing orders the four stores
-against the poster's loads: depending on the build, notes can be stored
-last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
-attach to a queue before it is sized, post_one_notification() can already
-be running on another CPU at that moment: it reads nr_notes > 0, passes
-its bounds check, and then reads notes while it is still NULL,
-dereferencing notes[0].
+byd_disconnect() uses timer_delete() before freeing the driver's private
+data.  This does not wait for a running byd_clear_touch() callback, which
+dereferences the private data and its psmouse pointer.  A callback racing
+with disconnect can therefore access the private data after it has been
+freed.  The timer can also still be re-armed by byd_process_byte() while
+the disconnect is in progress.
 
-An unprivileged user triggers this reliably by watching one of its own
-keys through a notification pipe and racing ioctl(IOC_WATCH_QUEUE_SET_SIZE)
-on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
-triggering:
+Use timer_shutdown_sync() before freeing the private data: it waits for
+a running callback and turns any later re-arm attempt into a no-op.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
-  Call Trace:
-   __post_watch_notification+0x148/0x180
-   keyctl_setperm_key+0x119/0x130
-   do_syscall_64+0x108/0x4c0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Fix this by publishing nr_notes last with smp_store_release(), and by
-reading it once with smp_load_acquire() in post_one_notification() before
-the bitmap and the page array are touched.  A poster that observes a
-non-zero nr_notes then also observes the pool behind it; one that observes
-zero drops the notification as before.
-
-Fixes: c73be61cede5 ("pipe: Add general notification queue support")
-Reported-by: Dae R. Jeong <threeearcat@gmail.com>
-Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Link: https://patch.msgid.link/20261009224715.46121-1-cenzhang@linux.microsoft.com
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: retained the existing mask variable when adding nr_notes to the local declaration ]
+Fixes: 2d5f5611dd0d ("Input: byd - enable absolute mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Link: https://patch.msgid.link/20260720061259.1601281-1-lilinmao@kylinos.cn
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/watch_queue.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/input/mouse/byd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
-index 37da8647b4ecb..978c29b1fa427 100644
---- a/kernel/watch_queue.c
-+++ b/kernel/watch_queue.c
-@@ -102,7 +102,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	struct pipe_inode_info *pipe = wqueue->pipe;
- 	struct pipe_buffer *buf;
- 	struct page *page;
--	unsigned int head, tail, mask, note, offset, len;
-+	unsigned int head, tail, mask, note, offset, len, nr_notes;
- 	bool done = false;
+diff --git a/drivers/input/mouse/byd.c b/drivers/input/mouse/byd.c
+index 6e0c5f5a2713d..1a0956520dcbe 100644
+--- a/drivers/input/mouse/byd.c
++++ b/drivers/input/mouse/byd.c
+@@ -426,7 +426,7 @@ static void byd_disconnect(struct psmouse *psmouse)
+ 	struct byd_data *priv = psmouse->private;
  
- 	if (!pipe)
-@@ -116,8 +116,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
- 	if (pipe_full(head, tail, pipe->ring_size))
- 		goto lost;
- 
--	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
--	if (note >= wqueue->nr_notes)
-+	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
-+	nr_notes = smp_load_acquire(&wqueue->nr_notes);
-+	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
-+	if (note >= nr_notes)
- 		goto lost;
- 
- 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
-@@ -305,7 +307,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
- 	wqueue->notes = pages;
- 	wqueue->notes_bitmap = bitmap;
- 	wqueue->nr_pages = nr_pages;
--	wqueue->nr_notes = nr_notes;
-+	/* Pairs with the smp_load_acquire() in post_one_notification(). */
-+	smp_store_release(&wqueue->nr_notes, nr_notes);
- 	return 0;
- 
- error_p:
+ 	if (priv) {
+-		del_timer(&priv->timer);
++		timer_delete_sync(&priv->timer);
+ 		kfree(psmouse->private);
+ 		psmouse->private = NULL;
+ 	}
 -- 
 2.53.0
 
