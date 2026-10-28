@@ -1,58 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210817;
-	b=PzofFw/S5o8GRU7sz6V8jRrWP9AbTj2zL2zps+8M5VyFf6aMPdxRxOOpD1UYrqudr81N
-	 AdnHTx+i04QRLqHKflS1wqS5FOClrtFLBhPYjjoXqRf36pxPtySBJpk11TEduYc53qiOV
-	 FRR8bd/oTV11MQQDNXEYm9iqaC32op2bfp8Dm0UsxQDRrOaKbVpqAtydekODqvEzUsAWv
-	 QSvAGSj4v/6CSPW+QH7ljFPw4pFEPXb4vQrP5UjXlAVneR1XW1aZUkpu9H+yLbhodzuVo
-	 z5OdsPft/D4PANZoOBTgoT7vqU/OExM9U2+2IVw4a7fKJOesr+zov6Ll8L5bWM3U3dA==
+	t=1793210818;
+	b=zpm83IPEsRvE5TUf+70EYIyOZX+//I9geJdsGQo7TbVIg/WEvllzECiOjSTjD7M74Qif
+	 /sXojq7LisF19BStv+7lwNVC7WbDpUBKxuQs9BgPglj4KAKYaoHuLpnvqOpMhpDAwF4/i
+	 ZcIMBSNVZTCfslNoUFF7BdqpzkY2wnQdIGjw//Nn4kVbJrFFuF0bSEommxuIuvcVlumlv
+	 //51a5SKDa/Pn/+Cju8zLPILxGGvE9VYoMjxbOW1ILl7HH5O7CdSiObXf9L+WjJNh7hlH
+	 mLDsjmJQlvq5O6z4v1GuIw8IG/tzzD5kkoii2EOQGe39XBTJ11Delg2UWunyD6Fp0uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210817;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tlYwtDPXEaAfbnmPmxiUSHM771olpcpKFFeYIZWYHqo=;
-	b=fqtn0dta8ZXSj4N8JVIlag0CfNhpc7QXeuecw1zi8OoUxcZkNMDLdYLcbxxTqmFF0LZM
-	 m0aa7oK+RLXsxzVLHMGFd6+KNYh9D9TXOm1FKApNSFrvEgqKfQ6lHL3I97rShucENCEtZ
-	 YUl2IxnZLj5zLogdzyJr4dJJpdK9FsCmK1w4ILpf9LA9HIe4PypaOmqmL9ejjyDXn3YG3
-	 2BpPwQb/y1HS3/piwRodWoGtvs7yDwcp+Bj6813CCdRzXM77Y/AALzM6DyzA6TwLwQ9Tj
-	 ip1n/DICP074tXZ/k+TeweMY0kCT+s9IXGUEvrlfxqRsKpc4g4fjEkz3UwLi9N3etiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210818;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=z4L3nEOGF+qxkGkMn6bRtZnF7sFx5d4JUIfh1IpPOZI=;
+	b=xQfKNNmDU8lhpUrsDD+SxLC+QtiO4WnrcdrYD9YRmcdIRNbR35yTngXkfM3sJFOaRhGm
+	 /dvQH3NMknuxmM4KD78fC4iMC/riJn/T4HhPnL1EMV5UTBRxrojqMSIfkTOOeEaqeh4nD
+	 N8qUZRvN3EG0GZRTrVqtrpi5T7kfE62yLnbs+zNL2CqZ1g65RZUhXyb2Li+pqpW6PPiAf
+	 gvAYBxcrlCl7mmCzHcp2tVFExpSABgVape2SGeUmFb+Ltt+0fHhLstIoPSbWuiB+zRG0t
+	 ntDnhAD7IA5PBo/82KvEHEcj+NmbrfUsrUbNSp9xqLuir76ddRzsRaQfzmZnJwHuOpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="bp6/A40D";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OePYN9Rv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5227D606A322;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08698606A321;
 	Wed, 28 Oct 2026 18:06:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bp6/A40D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA7E1F01828;
-	Wed, 28 Oct 2026 18:06:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210817;
-	bh=tlYwtDPXEaAfbnmPmxiUSHM771olpcpKFFeYIZWYHqo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bp6/A40D0ryFMsKpnF4MmtzPcR7Wz06U9w3+eKtKOat021NCKBaN8RtAbtF+999gZ
-	 a1hE9iioIXsoIebYL4OPLu01WX5lnX2+QyYpyEG3H3rCClvE0zHqrkYRqFEY6WC6Lp
-	 lz/79za/YJucjYw54UteG6IsLTRKWEfPuP9jXEUQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Zev Weiss <zev@bewilderbeest.net>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 158/571] mtd: core: clear out unregistered devices a bit more
-Date: Wed, 28 Oct 2026 17:55:05 +0100
-Message-ID: <20261028170011.765573663@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-References: <20261028170008.009143722@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OePYN9Rv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A85D81F031E0;
+	Wed, 28 Oct 2026 18:06:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793210817;
+	bh=z4L3nEOGF+qxkGkMn6bRtZnF7sFx5d4JUIfh1IpPOZI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OePYN9Rvv0YAMMAc1zL6t3lYVnztxSYIpNBqx56kavAWJbVUADgpDMfnuj7Ql2/Zp
+	 sd4IeBtthoNuyT506ZpiEYyshzMT5RowzeHrx9sM6zl0jSvxoaIYOfGV/PyFqy0hjR
+	 eU1anzCHz8pIriKfUIlbaErBp/yuPQOaiQE/wvZXiGMDdNV3MjqbXbzGtV6pX3W7Ve
+	 aw1T8v5sEeJBgSogs2giVIvWJve+/Vtj8vLHBAdHl+GfanNvMFeJZ3KWRXsySilAV7
+	 8oN8nFomVKlfx4pvxFj5EF0p/ZA7CPgXnl2S8PJBlONmzuWcEe+TjdMlGL5DisTDd1
+	 J0TQuKqDRhD8Q==
+Date: Wed, 28 Oct 2026 11:06:56 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: fsverity@lists.linux.dev
+Cc: linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+	linux-btrfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fsverity: Be more careful with return value of
+ ->get_verity_descriptor()
+Message-ID: <20261028180656.GC1876@quark>
+References: <20261025203831.120095-1-ebiggers@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,57 +57,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025203831.120095-1-ebiggers@kernel.org>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+On Sun, Oct 25, 2026 at 01:38:31PM -0700, Eric Biggers wrote:
+> If fsverity_operations::get_verity_descriptor() returns that the verity
+> descriptor has 0 size, then a zero-size buffer is allocated to hold it,
+> and it's called again with bufsize=0.
+> 
+> But bufsize=0 is a special case that says to return the actual size.  If
+> in the meantime the filesystem has decided that the size is some
+> actually valid size, it will return that size, and then
+> validate_fsverity_descriptor() will read from ZERO_SIZE_PTR and crash.
+> 
+> Of course, for the filesystem to misbehave in that strange way, it
+> generally would require direct writes to the block device.
+> 
+> Regardless, fsverity_get_descriptor() might as well guard against it.
+> Make it do so.  Specifically, validate that the first call to
+> ->get_verity_descriptor() returns at least the minimum descriptor size,
+> and validate that the second call returns the same size as the first.
+> 
+> Fixes: fd2d1acfcadf ("fs-verity: add the hook for file ->open()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 
-------------------
+Applied to https://git.kernel.org/pub/scm/fs/fsverity/linux.git/log/?h=for-current
 
-From: Zev Weiss <zev@bewilderbeest.net>
-
-[ Upstream commit 00596576a05145a1b5672897a82ef87af00becf4 ]
-
-This allows an MTD device that has been unregistered to be easily
-re-registered later without triggering spurious "already registered"
-warnings in mtd_device_parse_register() and add_mtd_device().
-
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://lore.kernel.org/linux-mtd/20211015185049.3318-1-zev@bewilderbeest.net
-Stable-dep-of: 12b31d1acd20 ("mtd: core: call _get_device() with the master MTD")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mtd/mtdcore.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 16077e5a2df1c..cd49719ca3410 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -750,6 +750,9 @@ int del_mtd_device(struct mtd_info *mtd)
- 
- 		device_unregister(&mtd->dev);
- 
-+		/* Clear dev so mtd can be safely re-registered later if desired */
-+		memset(&mtd->dev, 0, sizeof(mtd->dev));
-+
- 		idr_remove(&mtd_idr, mtd->index);
- 		of_node_put(mtd_get_of_node(mtd));
- 
-@@ -1031,8 +1034,10 @@ int mtd_device_unregister(struct mtd_info *master)
- {
- 	int err;
- 
--	if (master->_reboot)
-+	if (master->_reboot) {
- 		unregister_reboot_notifier(&master->reboot_notifier);
-+		memset(&master->reboot_notifier, 0, sizeof(master->reboot_notifier));
-+	}
- 
- 	if (master->otp_user_nvmem)
- 		nvmem_unregister(master->otp_user_nvmem);
--- 
-2.53.0
-
-
-
+- Eric
