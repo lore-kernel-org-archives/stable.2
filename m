@@ -1,56 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198358;
-	b=U87t7xMwKkUhSwTqEG6BMospACwMpViE6rP1OCLr1wdCLocFl34j2JZeO9+PVRiATMWT
-	 NW5Uvz5cKTzCUhUWVUAOIZVIdfrvzHrfKlUp2GI/JeKf1N55fqw8zBtEHSzt3KSemrvCX
-	 P7NtmNA0wFWaZQtxRZc9ZWGhRylx7ON7E96+pcm5A7w9l9EDZxEaq2cNQqEW+zuEE0iJo
-	 tIwV3Z60xTTpyAupjAT1UvCNfNo/1isjB/CWznyvS0pI0udpHM7a2gCcIeJGtgifY3P5i
-	 r1gcunsJ8gCle5CWXaF8KnIbqFaRLyfuaRMMR4aHk502+eH7jEHDid9dDMNHPbYwPJw==
+	t=1793198365;
+	b=BXbbkP4y+qtdBXqGzfYjwppA/R1bogKl8dIMnuNPO6iZK3W6ZiXEqQ8mDkFaPuQGnniv
+	 dTxKQ8EkFIkO2ltWX815t1XXZDd3F4ERCrXIfRoVzqbTFJ1Lz8xPIXXEFMBlliPf+Eo/p
+	 eM6YENF569oKBPyMbbiV0pyrJd6c+UtH86HFNaYMR/+c5kacSYWb+sksOq5hHclNO0/ou
+	 Q87YVLVh9tA419e8t9Ds15lIlGTCGR7YG3hpjzblwAiYib01/i9lHE2NX4RUUCCsdMjSO
+	 S1ZmpqfHbcEA/c/g48PXslgSRYFtTpdJXIydCSej13tlpzESsKKFr03/0yDo3xcXTWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198358;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=7C2dxR+nSVKI6ig9BzzXD4gecQSomoKQXcjtQPbdAnY=;
-	b=I0lXe6kMuGxKb8YEcL/Q18QjTLwy3TocDr0BtUB+kIu9o/9j++UGtlA+FtSXlT724PhD
-	 Q8ymggzWHiIhEdDGsjjp82MWXO725CfQweKjmxoWiqr9j5OyriRTrywZtS2MR0YmZfZha
-	 tQG3yV3LZ39NMNr/5fww6qPZf4/W4+zxLNnwMqXGx0NuORI1ld9SFc/tNSdwzJe5yHde1
-	 auFsQfdJr/YehflqG/qKDbOG/kCbPV+BvkTphR2KD0uR6bqxbzuZf2n/Etw0+u3/R+toa
-	 sjDkCLWFd1tn46zXys+hRxgd8hNBFiWSs/J54cFcJtJa+7vQBJ4KXcxiov6ckFzbnuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198365;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=eCisLb2VRu0iADmHFVpreIQCwjhWOtNKh8jVGOYf+aI=;
+	b=mwAuih+drqCMF/8YCu1KYyt5ue9C1Y4un1jDQo8wmLFm151EY5D2q6smzNbkA0xip5b5
+	 BMYvVfoh02zkoSCnGGC9cZR+Y6+x/7tn5IWWB0RJtYRlxvWl58nmbdycisf2Rgwsqs2gg
+	 vHVCjOhiJ+CTQ9UaOCiW8rG7gcgKz+J6YmzxyVoBaWpL/J7I79rUy7q9YK7LKuD+Wr/Pm
+	 vv5EZ7euWOrUKo2/C6r1puTw58vd0zvByYb5RnXX7INySm3t2ctdbE1euuou/H+2LhJqP
+	 ufxwV+DMyUz+r17i/IAVDzpJjDLaZ5yzrRThQTtyzTCOplSX6uMnngANN73e58wS2Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lst.de;
-	spf=pass smtp.mailfrom=lst.de;
-	arc=none smtp.remote-ip=213.95.11.211
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSkH9Agj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BAF606A321;
-	Wed, 28 Oct 2026 14:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1BAF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 3620668AFE; Wed, 28 Oct 2026 15:39:12 +0100 (CET)
-Date: Wed, 28 Oct 2026 15:39:11 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Armen Baloyan <armenx.baloyan@intel.com>,
-	Jay Freyensee <james.p.freyensee@intel.com>,
-	Anthony Knapp <anthony.j.knapp@intel.com>,
-	Ming Lin <ming.l@ssi.samsung.com>, Jens Axboe <axboe@kernel.dk>,
-	Max Gurtovoy <maxg@mellanox.com>,
-	Steve Wise <larrystevenwise@gmail.com>,
-	Guixin Liu <kanie@linux.alibaba.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Israel Rukshin <israelr@nvidia.com>,
-	Aurelien Aptel <aaptel@nvidia.com>,
-	James Smart <james.smart@broadcom.com>,
-	Hannes Reinecke <hare@suse.de>, linux-nvme@lists.infradead.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D4606A321;
+	Wed, 28 Oct 2026 14:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZSkH9Agj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E39C1F01825;
+	Wed, 28 Oct 2026 14:39:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793198364;
+	bh=eCisLb2VRu0iADmHFVpreIQCwjhWOtNKh8jVGOYf+aI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZSkH9Agjre8913zHh4b1HLO9CLoDWHGYpW+eB4gbdBiovVJe478t24Jn9yGHNxstR
+	 NP3qWYlZcSww8LVEBJOay+6O1zVCQb6abwW/yWG4rGwnOdaZEGKWV9TWCiRcQCL1Iu
+	 ZxCZ7HPgK+ObNzmXs5+bwip4YNAuEJerqJYRdb3ojfheEifO+CePt7FLeoKRUuWYt4
+	 BV2heYqLTv8c1MrxPK5dWzc/kblnBlMKbNVu/dmqaJjvCzMsPCOO3YeB2DJSPpQJ1g
+	 ninPoUCoeJstjgmxEhmJCf2v43wqA6MB5Aqf56sdir1SyzSj5+WAzPGa9MdivRK4kQ
+	 asfMvotu/x3Og==
+Date: Wed, 28 Oct 2026 15:39:16 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Frank van der Linden <fvdl@google.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, kernel-team@meta.com,
+	linux-mm@kvack.org, linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] nvmet: serialize port attribute updates with enable
-Message-ID: <20261028143911.GA13737@lst.de>
-References: <20261028051329.149005-1-yaojiale02@163.com>
+Subject: Re: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
+Message-ID: <auIJFHg1haY5c937@localhost.localdomain>
+References: <20261028132623.2560146-1-kirill@shutemov.name>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,12 +74,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261028051329.149005-1-yaojiale02@163.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20261028132623.2560146-1-kirill@shutemov.name>
 
-On Wed, Oct 28, 2026 at 01:13:29PM +0800, Jiale Yao wrote:
-> +	scoped_guard(rwsem_write, &nvmet_config_sem) {
+On Wed, Oct 28, 2026 at 01:26:21PM +0000, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> page_ref_add_unless_zero() reads the refcount and then updates it with
+> a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
+> scanner, can read a non-zero refcount from a page that is then freed
+> and reused as a hugetlb tail page.  If HVO remaps its struct page to
+> the shared tail page in between, the cmpxchg writes to read-only
+> vmemmap:
+> 
+>     CPU0 (lockless get)               CPU1
+>     c = atomic_read(&page->_refcount)
+>                                       page freed
+>                                       page allocated as a hugetlb tail
+>                                       HVO remaps the struct page RO
+>     try_cmpxchg(&page->_refcount, &c, c + 1)
+>       -> write fault on read-only vmemmap
+> 
+> The refcount is zero by then and the compare fails, but a
+> compare-and-swap instruction needs write access whether or not it
+> succeeds.  The kernel oopses when hugetlb pages are allocated at
+> runtime with HVO enabled while a lockless get races with it.
+> 
+> Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
+> walkers") closed the window with RCU on both sides.  The RCU was removed
+> together with fake heads, on the wrong belief that it was only needed
+> for them.
+> 
+> Map the shared tail page writable instead of restoring the RCU.  Every
+> struct page on it is a tail with a zero refcount, so a late cmpxchg
+> fails and leaves the page unchanged.  RCU would put rcu_read_lock()
+> back around every get and synchronize_rcu() back into hugetlb
+> allocation and freeing.
+> 
+> The cost is the protection against stray writes to tail struct pages.
+> The shared page is shared by all hugetlb folios of the same order in
+> the zone, so such a write now corrupts all of them instead of oopsing.
+> 
+> Bootmem folios optimized when the memmap is set up keep their tails
+> read-only.  Nothing does a lockless get on them before hugetlb takes
+> them over.
+> 
+> Fixes: 32c440d67e6c ("mm: drop fake head checks")
+> Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
+> Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+> Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Please use normal locking primitives instead of turning the functions
-into a mess with the guards.
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 
+
+
+-- 
+Oscar Salvador
+SUSE Labs
