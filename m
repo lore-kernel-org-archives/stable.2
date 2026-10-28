@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197475;
-	b=0NuVbLO8uOdmUwXaEJnv5iiSqtSkLMHVNPx9rXBQxatL1iv2slWXwfiNryzPY1yH1fzz
-	 L5ZZSDI09b/N6VHGVHE2KePlcbelAs/x7J2Jf4oh7p+MhDxwo+ywns3B4grEYU57MibnS
-	 vYujLzrruHXILl2oTAD82FnGeFtZkh5B1ZerdAvhj8CnjLtzKmkiwqtOzdIGrGaket6Wd
-	 BqrZv04Gd4N9hDa0clEdzkHVXJZL/B7+ZP2fg1wQqeoOzhyU7O8NH0fa7pILptwaD+q/P
-	 eeXoD1IpnxP4Y7PjzlwoMDBe2+8en11G8cdMEbwp10Bkzo4855FIwqbUkIihQrzke0Q==
+	t=1793197474;
+	b=Qdwxbs+tQuvNICOyHjIjnj98ROODmuOmt1gmIHTefGPzzj77uVSrGstIaVbKTIhZ4mal
+	 yf5oVT8Na6XxbIdtTqlmSUYBa/1f2f4pcdILY87nuZLC0MWuH5kpPLuzTS6KgwlxlW6U7
+	 aDIoB7MbF+sjK2nVwTorGEnZrr8/lihNm8zRBRHe+DGUJEVqNuwM2agFY9xHQkAzakIjO
+	 ugcgPCg81F6lfr64yxKEYifeyXNktMgu1qUaIpwD5797oEWTrvZ4XvyLQ2XVmc2AKkilN
+	 gbDPBPLJAM8Dz5FDzvF5tJS5PjKj4Y6qgjtZSk1JIE94BeBgCaf+hO78wqCBv07Vwzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197475;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=B3/jNBlYva7lo4ECejDAwW74V2EJKumNikmiaHS9uZE=;
-	b=tF/V6IzHYqes71FnDfrdeAOZlCtw8+9rljTncPcLpcvKvsJcKUHTnNXcXtvFHYrv+un6
-	 KW+h8M56WwzZtD+672+EjwOtFB7lEZpA/RReHYAQlqGCz/BgCTWvt7O3ex+2WYmGpiFDy
-	 rv0ay5nk3i6SpcOIe10NsuMW2x7eV9kXLHPEj371YA7pasTwxFiBqpPb71jExFEErQkjJ
-	 2X966pJDbXwP8G3YhmGx9dGNdsIMZ/vpXFqYfCnhjuefC8OJOfDs62JGGDnknRt3Blaz2
-	 ZWkal7TIWGOiT1EZXKgVJYpKge615vQBYUwi+YP1ZYotim47AKh1s54bdHt5IDgdRrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197474;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=2lNc3TmeFA42z/vlls1GtDaaIwnrmScSpoxbIc0sB0I=;
+	b=0Zw4z+9w7sw7iWC/b+uXYaNehJ52Rw0GKbRIrOH6YmrELGXTyCpq0AZxDtVCm3o+L1ya
+	 HNBg7MrL6ou1q/QR/fiQtH+2D0tfk+vUG0CGIpOqT25VHVKM3AJlRKLJ59cu3yEUUiNbb
+	 pJ7UjpqGU629Xuf+J8KjdI8ygXf+25JoNdw98qvknGNADJSqAkDKhaMvKPnaQc/2bCd+8
+	 AmPqEW1bH77MaaaAG7A1RdRqGWmExE+rdSRLYfg1YAcbIf3SpaU6WpETT/+caNUxYiKpu
+	 nxxWsyi5WC+xxGsT5EqT9J4lri4DV/qX/w6y/MiLYlLRlTujEZcrxaIjPboTkZDHeNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="BuU+Zv/8";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Iuj+M89E;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3449060A382E
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA390606A32A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 14:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA390606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BuU+Zv/8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639F31F01829;
-	Wed, 28 Oct 2026 14:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793197474;
-	bh=B3/jNBlYva7lo4ECejDAwW74V2EJKumNikmiaHS9uZE=;
-	h=Subject:To:Cc:From:Date;
-	b=BuU+Zv/8kRfnfKgcAt6zqp3ehWawaxjfc1Sul2lUL294GZgvIuS4wPVyQKV/gA0p7
-	 8zSzh8rAzWgRx0fnF7lq9TlIWuRzjDP4tPUCO5q1aw4aAZDxYdih2qPLctVQrpNkTl
-	 fum7KB676FG4ePkmeQnmKv5HaBiGIWr2lcPfLD4Q=
-Subject: FAILED: patch "[PATCH] signal: only SIGKILL and the freezers interrupt a coredumping" failed to apply to 5.15-stable tree
-To: brauner@kernel.org,oleg@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 15:24:33 +0100
-Message-ID: <2026102833-anagram-laundry-e618@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Iuj+M89E
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535a54bed9so1488867eec.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:24:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793197473; x=1793802273; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2lNc3TmeFA42z/vlls1GtDaaIwnrmScSpoxbIc0sB0I=;
+        b=Iuj+M89E2C4BUXp3d/YGDW8L0zBd/79sxNVHYvvpUsD8kuWPNu6jNoS9QAPi137XQ8
+         Max3lgZ+9dS9GfQvT2IO0vN766ns5hz4aqX5Ck3PUkO7Z92AgV5A8d5KvC8beg4uEfyM
+         N5FRVYkT9vwajGJYW9KocJ+ufbhfArqdcWUMVtYaZP3s3M3FQUOAFS6beBv/iWrMr1VI
+         upDYD7SS3VWgn9Kf0jjK4vCUCMxvQAz7oQoAav/wzyOUbiYc1y5NcPJ1d/0VxDnDM1rH
+         jkDzlEBO6MQ2LaPaR3nV5j5T9qDMweomiegT5pVWV2QSrGcvxkT6cnbN/RRN8FvHCVuU
+         3uxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197473; x=1793802273;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2lNc3TmeFA42z/vlls1GtDaaIwnrmScSpoxbIc0sB0I=;
+        b=DewIebhotyLSz/9s7K5FGvzXdBFlnqrV+9+q5/5KfJAU/Vs1ZHTjMYmiGGDL6L+Icv
+         6+buw+a55zanQHbVtVh3ZwNJrw5Ig1+e1eoslGR+oL5V5NxP+hvPi6EqEIiVIjlLn+2C
+         0ykzObqRCADNWo+jNlPpiOzb1Yl2gUkrc1eSyTUVwiBNl5o/k6+s7yteCxyq0aXN9zOs
+         aKu7wahuz8shocqTHGRU7MafjkYd1DvNtx3A8i1I5sVg7eCskZ1lIYhQGsCXBSYP4FNr
+         kMIxWL+OoMKNAhh/8/med2xb5LgnpJtQyAeCyYPj9FQWV55hDRNWazbFR3ZJ7m8TNuUe
+         rl1w==
+X-Forwarded-Encrypted: i=1; AKwUvBzDWp3iQ5+Qd0/WX0pLbm8RyJYqOEgmVze+NuhjZFeEaK8BLdqLCHjLaCWghsWAyn9jHA+hpgE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMqg2z2xFB4uA28qCOO8pesYAWzpQkOxGuob4NOTDSbKvPHxHw
+	H9dM2k9SROHFkVstptLrJZmKS41QFP6saN0+8WLTlpfEvSZkXmncHh6Q
+X-Gm-Gg: AYBFou3xjltBUuXZifqi7/mxFUwcsev7tLKFqZ1ICeE6Z677n9/RyFfN+tUgLlKmEyS
+	egpEf2ggqYLwbTBSJNJ4aLKU9DhIqj6xMnF/dZWsK5Apqdchwukj+Ys+Jto8KLbvelFkE4x0C+f
+	LHwfC5vNWIlcllTKHUeEx+zX8AycBB7YxaYKS9aBv0Kk5zFexZWWea6L9I7ZxMC3CiWgiPv2FKT
+	bT4xXXIXc99EL5D6E1A/kqV1nhf2V7zpIU1EmPPR43WnZRwf9nGUMCNHpcsJnyfwAeyXmbNFP97
+	tPx8EvpYuBH0hxoaS610qz61RamD8PBTZQUBW1Q7ZcvIusNgD7TGaTRsGNvHMUyAsCNklW6QhPF
+	c4ihYlTDvYBKHQjfXVgX8M71j6mqLzlpCCxa5Vp+49tfCLlN+oEsQvluBpI9QeDcogcfcmQH2HT
+	egj7gbKtBvRKwdZLPHUgks8V1a6lo1ZbRU2kWbInBy3j0gUOPO6mqtK49uLZwikc9KJyKuJp7uD
+	+e7UfoTqfUD6DhS/9IUs+JHbrso5N7kG11xnfm6N8Js+z3cV7O8lXZcCHUUEP8joRb3uljZvoKg
+	PnQWvw81zM8giA==
+X-Received: by 2002:a05:693c:87dc:20b0:368:4acb:f8a with SMTP id 5a478bee46e88-36a203af6d1mr3477586eec.17.1793197465873;
+        Wed, 28 Oct 2026 07:24:25 -0700 (PDT)
+Received: from l ([2406:da14:1f64:300:5751:346d:db2a:88a0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239198c9sm6895930eec.15.2026.10.28.07.24.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 07:24:25 -0700 (PDT)
+Date: Wed, 28 Oct 2026 22:24:11 +0800
+From: Liu Yufei <lyf98405@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Alex Lanzano <lanzano.alex@gmail.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
+	Gustavo Silva <gustavograzs@gmail.com>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: bmi270: fix zero timestamp in triggered buffer
+Message-ID: <auID4_vQSZXuNk0Q@gmail.com>
+References: <20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com>
+ <auG5MXTh9ZkXMw55@ashevche-desk.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,119 +100,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auG5MXTh9ZkXMw55@ashevche-desk.local>
 
+On Wed, Oct 28, 2026 at 10:58:25AM +0200, Andy Shevchenko wrote:
+> On Wed, Oct 28, 2026 at 10:59:26AM +0800, Liu Yufei wrote:
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+...
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> > +	s64 timestamp = iio_get_time_ns(indio_dev);
+>
+> Do we need this variable? Why not call it directly?
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 563d606b93d7a1d23512832fc252d32c68860d87
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102833-anagram-laundry-e618@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+The intent was to capture the timestamp before the bus read, so it is
+as close as possible to the data ready event rather than after the
+regmap_bulk_read() over I2C/SPI.
 
-Possible dependencies:
+If that difference is not considered significant here, I'm happy to
+call it directly in v2.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 563d606b93d7a1d23512832fc252d32c68860d87 Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 22 Sep 2026 15:26:16 +0200
-Subject: [PATCH] signal: only SIGKILL and the freezers interrupt a coredumping
- task
-
-For quite a while now coredump has allowed either SIGKILL or freezing to
-interrupt an ongoing coredump. Since we seem to like it complicated
-"freezing" can mean a lot of things:
-
-(1) Power Management induced freezing
-(2) cgroup v1 freezer controller induced freezing
-(3) cgroup v2 freezer controller induced freezing
-
-So (1) and (2) are handled by checking freezing() but (3) isn't.
-(3) uses cgroup_freeze_task() which sets JOBCTL_TRAP_FREEZE and calls
-signal_wake_up() on every task in the cgroup. The trap isn't handled by
-the coredump code.
-
-Which means the current logic is inconsistent. Power and cgroup v1
-freeze and abort the coredump. With cgroup v2 it depends on where the
-core goes. A dump to a file completes and the cgroup v2 freeze has to
-wait for it to finish. When dumping to a pipe or socket the dump is
-interrupted at the next write because of trap's TIF_SIGPENDING. Which is
-it? Let's be consistent and align (1)-(3): freezing interrupts an
-ongoing coredump and doesn't make it wait until the dump is done.
-
-All three freezers go through signal_wake_up() and so set
-TIF_SIGPENDING on the dumper. And once zap_threads() has set core_state
-that flag can't mean anything else anymore. prepare_signal() drops every
-signal but SIGKILL for the group, the dying threads don't retarget
-shared signals to the dumper, and zap_process() cleared the pending job
-control traps. So the flag is the thing to check. Let dump_interrupted()
-test task_sigpending() and nothing else. That is also what the pipe and
-socket writes already fail on. TIF_NOTIFY_SIGNAL is left out on
-purpose, task work must not cut a dump short.
-
-A seized tracee that gets PTRACE_INTERRUPT during the dump is cut short
-the same way. It already was for pipes and sockets.
-
-The one freeze that check can miss is one requested before the dump
-started. zap_threads() clears TIF_SIGPENDING and the cgroup v2 freezer
-only wakes a task once while its JOBCTL_TRAP_FREEZE isn't part of
-JOBCTL_PENDING_MASK and survives zap_process(). So refuse to start the
-dump when freezing() is true or the trap is pending. The task then exits
-without dumping, which is what happens today when the freeze interrupts
-the dump at the first write.
-
-Fixes: 403bad72b67d ("coredump: only SIGKILL should interrupt the coredumping task")
-Fixes: 76f969e8948d ("cgroup: cgroup v2 freezer")
-Cc: stable@vger.kernel.org
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/arJ6zZuI59BJnXpl@redhat.com
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-2-8e4adb1619e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/coredump.c b/fs/coredump.c
-index d88a65e37ee1..af09a4660341 100644
---- a/fs/coredump.c
-+++ b/fs/coredump.c
-@@ -508,7 +508,9 @@ static int zap_threads(struct task_struct *tsk,
- 	int nr = -EAGAIN;
- 
- 	spin_lock_irq(&tsk->sighand->siglock);
--	if (!(signal->flags & SIGNAL_GROUP_EXIT) && !signal->group_exec_task) {
-+	/* A freeze requested before the dump would be lost with TIF_SIGPENDING. */
-+	if (!(signal->flags & SIGNAL_GROUP_EXIT) && !signal->group_exec_task &&
-+	    !freezing(tsk) && !(tsk->jobctl & JOBCTL_TRAP_FREEZE)) {
- 		/* Allow SIGKILL, see prepare_signal() */
- 		signal->core_state = core_state;
- 		nr = zap_process(signal, exit_code);
-@@ -580,13 +582,8 @@ static void coredump_finish(bool core_dumped)
- 
- static bool dump_interrupted(void)
- {
--	/*
--	 * SIGKILL or freezing() interrupt the coredumping. Perhaps we
--	 * can do try_to_freeze() and check __fatal_signal_pending(),
--	 * but then we need to teach dump_write() to restart and clear
--	 * TIF_SIGPENDING.
--	 */
--	return fatal_signal_pending(current) || freezing(current);
-+	/* Only SIGKILL and the freezers set it after zap_threads(). */
-+	return task_sigpending(current);
- }
- 
- static void wait_for_dump_helpers(struct file *file)
-
+Thanks,
+Liu Yufei
