@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215026;
-	b=A8gQExvnSZntKxFgkIFIp2CZHZus6VBQ4+jwFu6meCY9H+ZD9HWivt11swnrR5ueq1hU
-	 zXbOcBuH/RsiGJ6PMILMuitk6dfmGzaFbc/Y0NIbgRj4ndD64SExYOULqVu9/9elJmMbb
-	 ZpvHl7lvxobho+ox+tTFb1dC3Dday9cjLCu/p8uFFP3P9QquRj4YsTZ92JgFhRzhZBUgh
-	 QVszJdHeg4OE3VuVcEbgptG3UWFPuLIjf2GZJPpWBaY15YQr5Z4Kbl3LZrsCrGnHM+k3l
-	 69SnpwxXaIro5/WOCoQ0bqW0ms43Pa5BOViOri9VpgC/1UCD70iiH6koCZ9gdq6MVDw==
+	t=1793215032;
+	b=GZGlsdRhEe1FcbVFP8L++xjFRqI1mPPOChxmN4jaNA+RRqQeA0JIg4j4k+7WPR4sYj4w
+	 0h19lVdo68GEKRZcibxexFm7RtUFrQ6HaEFRlW74BaXG1F6L7TI+TxpNu6Ewq8apiA+po
+	 NFfrb0qZMfIdKbsqhiYrght2JJ5+AH4NCCvO6ZsjL89q/uWEWHfBkPGPOdnS4E3LA1oMG
+	 nKdliBjYH6zf02Nnf9NgRHHAghFygk3CpIJ2Nd2otXBLCrvlCq9imNgTlfK1uOweK3BO/
+	 he5+3TnkTcyQKrchQjbdwMWKCeoO3l4uOXeC3AK1iWefecg29VMa9E/+FQ7InitNYYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215026;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793215032;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DjuNgKBekYDAAps3dyGLpEyUs1ZFYEaSe3dpQ00OcA8=;
-	b=kbZoRCJoqBbIhR/mL+7cdF18KqhvpHuUVlgZ3qS5YdZF7KqjGM0/aw7UtlVtHCkJKPOI
-	 xYljfyWgyFjW/QfjHVIR4Q07wIrpiF39MSO+uQqAPTiZlkFqaENz7NzSW+LSYUxgXKpqk
-	 yNT9jLI00+7zSdS+u43xNV2O/tz4oxrO8acoDNcSyDReziWUt4deXfcv3Q7TImYxsFPXd
-	 hzahXO0eTgwMj4W8hC8G/TzPDFSEZKeO1lcaJOwyrWTGPfg2c1vT6WJfdzlFcX28ZyXXp
-	 1wogg+2qVLlxmCG1lC93VEYIqoBQ9/Mwn8obYDBYGCrnRLY+k+q7g0P4KAIx801Hevw==
+	bh=pJU+Bx5Q9gv7q8Q6r33VAV3wKDK4XBtDKUc8c9dAJnI=;
+	b=TWzO0MZykb/flWGfr3ubOq9LPZOs+qfiehl85qlfT1llMEEc8o5PWMAv+t/R6IeK/ETI
+	 NVHNWVcQeIppOJZRW4XKOP+w8/ZUoZKUynCpzfCrC7TCfhShd/YLQticwHe/cUYpcVm5p
+	 jJatouO3gSsE+pmcY26k5NDqdH38RmGPFdapSzAAsx9wtxexVhbG3jCbMGQxygigapnPY
+	 8JVav+1HjGlUX5+yfLKnBOQZrErGDr1rOeVoqzyPpb4ULjhgcj8EdCbKKrR0fCfgaMroT
+	 Py3hZp+yAn77MFn9xDtAgl0A77FNT0vyo/Eu4pkusXM7XNZMLAXMBn0bozzfcAVdhLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uBry9Tjj;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="w8/jzy1J";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885AA606A32A;
-	Wed, 28 Oct 2026 19:17:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD691606A31A;
+	Wed, 28 Oct 2026 19:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uBry9Tjj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF0E1F031E2;
-	Wed, 28 Oct 2026 19:17:05 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w8/jzy1J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4751F01825;
+	Wed, 28 Oct 2026 19:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793215026;
-	bh=DjuNgKBekYDAAps3dyGLpEyUs1ZFYEaSe3dpQ00OcA8=;
+	s=korg; t=1793215031;
+	bh=pJU+Bx5Q9gv7q8Q6r33VAV3wKDK4XBtDKUc8c9dAJnI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uBry9TjjFYJwh1dzClJEXIZ1AyWZfSB9CVUF3RlmbZCJsLc3ucQj2lCCVXPZXBQAY
-	 pbRGHiItnKXMWhWb5N/pS+PqisoHxYHI1lY0iK+rsJGxK4+ekfe6lLEf1nnJtKq8Hz
-	 +50i4b8P/WkJRji9DTPdfTbH8mKGZ0s9Jrs/9WQM=
+	b=w8/jzy1JaAuX80ASqXIy3q9g5H32oFoIxXFeBWYvC/lQpq0iAYydWOtnJnvelkdfP
+	 w0swBB89S1/H0pwG2et8Kt5JSZReX+9EXp8LVGULwx/GHLN/6Afo3qZVX/f4n4FuG0
+	 /dwtamShQhz5g1ZBb8/R8EsGu5yHbz4IRRwkS1og=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Janne Grunau <j@jannau.net>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1066/1887] media: videobuf2: Set vma_flags in vb2_dma_sg_mmap
-Date: Wed, 28 Oct 2026 17:52:42 +0100
-Message-ID: <20261028170523.667703613@linuxfoundation.org>
+Subject: [PATCH 6.1 1068/1887] Revert "net/smc: Introduce TCP ULP support"
+Date: Wed, 28 Oct 2026 17:52:44 +0100
+Message-ID: <20261028170523.712451367@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
 References: <20261028170459.200466217@linuxfoundation.org>
@@ -69,102 +72,203 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Janne Grunau <j@jannau.net>
+From: D. Wythe <alibuda@linux.alibaba.com>
 
-[ Upstream commit 7254b31a13aaa0c2c0f9ffbc335b718656117ff4 ]
+[ Upstream commit df31a6b0a3057e66994ad6ccf5d95b9b9514f033 ]
 
-vb2_dma_contig sets VMA flags VM_DONTEXPAND and VM_DONTDUMP and I do not
-see a reason why vb2_dma_sg should behave differently. This avoids
-hitting `WARN_ON(!(vma->vm_flags & VM_DONTEXPAND));` in
-drm_gem_mmap_obj() during mmap() of an imported dma-buf from the out of
-tree Apple ISP camera capture driver which uses vb2_dma_sg_memops.
+This reverts commit d7cd421da9da2cc7b4d25b8537f66db5c8331c40.
 
-gst-launch-1.0 v4l2src ! gtk4paintablesink
+As reported by Al Viro, the TCP ULP support for SMC is fundamentally
+broken. The implementation attempts to convert an active TCP socket
+into an SMC socket by modifying the underlying `struct file`, dentry,
+and inode in-place, which violates core VFS invariants that assume
+these structures are immutable for an open file, creating a risk of
+use after free errors and general system instability.
 
-[   38.201528] ------------[ cut here ]------------
-[   38.202135] WARNING: CPU: 7 PID: 2362 at drivers/gpu/drm/drm_gem.c:1144 drm_gem_mmap_obj+0x1f8/0x210
-[   38.203278] Modules linked in: rfcomm snd_seq_dummy snd_hrtimer
-snd_seq snd_seq_device uinput nf_conntrack_netbios_ns
-nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib
-nft_reject_inet nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat
-nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables qrtr bnep
-nls_ascii i2c_dev loop fuse dm_multipath nfnetlink brcmfmac_wcc
-hid_magicmouse hci_bcm4377 brcmfmac brcmutil bluetooth ecdh_generic
-cfg80211 ecc btrfs xor xor_neon rfkill hid_apple raid6_pq joydev
-aop_als apple_nvmem_spmi industrialio snd_soc_aop apple_z2
-snd_soc_cs42l84 tps6598x snd_soc_tas2764 macsmc_reboot spi_nor
-macsmc_hwmon rtc_macsmc gpio_macsmc macsmc_power regmap_spmi
-macsmc_input dockchannel_hid panel_summit appledrm nvme_apple dwc3
-snd_soc_macaudio drm_client_lib nvme_core phy_apple_atc hwmon
-apple_sart apple_dockchannel macsmc apple_rtkit_helper
-spmi_apple_controller aop apple_wdt mfd_core nvmem_apple_efuses
-pinctrl_apple_gpio apple_isp apple_dcp videobuf2_dma_sg mux_core
-spi_apple
-[   38.203300]  videobuf2_memops i2c_pasemi_platform snd_soc_apple_mca videobuf2_v4l2 videodev clk_apple_nco videobuf2_common snd_pcm_dmaengine adpdrm asahi apple_admac adpdrm_mipi drm_dma_helper pwm_apple i2c_pasemi_core drm_display_helper mc cec apple_dart ofpart apple_soc_cpufreq leds_pwm phram
-[   38.217677] CPU: 7 UID: 1000 PID: 2362 Comm: gst-launch-1.0 Tainted: G        W           6.17.6+ #asahi-dev PREEMPT(full)
-[   38.219040] Tainted: [W]=WARN
-[   38.219398] Hardware name: Apple MacBook Pro (13-inch, M2, 2022) (DT)
-[   38.220213] pstate: 21400005 (nzCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
-[   38.221088] pc : drm_gem_mmap_obj+0x1f8/0x210
-[   38.221643] lr : drm_gem_mmap_obj+0x78/0x210
-[   38.222178] sp : ffffc0008dc678e0
-[   38.222579] x29: ffffc0008dc678e0 x28: 0000000000042a97 x27: ffff8000b701b480
-[   38.223465] x26: 00000000000000fb x25: ffffc0008dc67d20 x24: ffffc0008dc67968
-[   38.224402] x23: ffff8000e3ca5600 x22: ffff8000265b7800 x21: ffff80003000c0c0
-[   38.225279] x20: 0000000000000000 x19: ffff8000b68c5200 x18: ffffc0008dc67968
-[   38.226151] x17: 0000000000000000 x16: 0000000000000000 x15: ffffc000810a30a8
-[   38.227042] x14: 00007fff637effff x13: 00005555de91ffff x12: 00007fff63293fff
-[   38.227942] x11: 0000000000000000 x10: ffff8000184ecf08 x9 : ffffc0007a1900c8
-[   38.228824] x8 : ffffc0008dc67968 x7 : 0000000000000012 x6 : ffffc0015cf1c000
-[   38.229703] x5 : ffffc0008dc676a0 x4 : ffffc00081a27dc0 x3 : 0000000000000038
-[   38.230607] x2 : 0000000000000003 x1 : 0000000000000003 x0 : 00000000100000fb
-[   38.231488] Call trace:
-[   38.231806]  drm_gem_mmap_obj+0x1f8/0x210 (P)
-[   38.232342]  drm_gem_mmap+0x140/0x260
-[   38.232813]  __mmap_region+0x488/0x9a0
-[   38.233277]  mmap_region+0xd0/0x148
-[   38.233703]  do_mmap+0x350/0x5c0
-[   38.234148]  vm_mmap_pgoff+0x14c/0x200
-[   38.234612]  ksys_mmap_pgoff+0x150/0x208
-[   38.235107]  __arm64_sys_mmap+0x34/0x50
-[   38.235611]  invoke_syscall+0x50/0x120
-[   38.236075]  el0_svc_common.constprop.0+0x48/0xf0
-[   38.236680]  do_el0_svc+0x24/0x38
-[   38.237113]  el0_svc+0x38/0x168
-[   38.237507]  el0t_64_sync_handler+0xa0/0xe8
-[   38.238034]  el0t_64_sync+0x198/0x1a0
-[   38.238491] ---[ end trace 0000000000000000 ]---
+Given the severity of this design flaw and the fact that cleaner
+alternatives (e.g., LD_PRELOAD, BPF) exist for legacy application
+transparency, the correct course of action is to remove this feature
+entirely.
 
-There were discussions in [1] at the end of 2023 that mmap() on imported
-dma-bufs should not be supported but as of v6.17 drm_gem_shmem_mmap() in
-drm_gem_shmem_helper.c still supports it.
-This might affect all gpu or accel drivers using drm_gem_shmem_mmap() or
-the wrapper drm_gem_shmem_object_mmap().
-
-[1] https://lore.kernel.org/dri-devel/bc7f7844-0aa3-4802-b203-69d58e8be2fa@linux.intel.com/
-
-Cc: stable@vger.kernel.org
-Fixes: 5ba3f757f059 ("[media] v4l: videobuf2: add DMA scatter/gather allocator")
-Signed-off-by: Janne Grunau <j@jannau.net>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Fixes: d7cd421da9da ("net/smc: Introduce TCP ULP support")
+Link: https://lore.kernel.org/netdev/Yus1SycZxcd+wHwz@ZenIV/
+Reported-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: D. Wythe <alibuda@linux.alibaba.com>
+Reviewed-by: Tony Lu <tonylu@linux.alibaba.com>
+Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260128055452.98251-1-alibuda@linux.alibaba.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/common/videobuf2/videobuf2-dma-sg.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/smc/af_smc.c | 113 +++++++----------------------------------------
+ 1 file changed, 17 insertions(+), 96 deletions(-)
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-index 7442fa7367249..7ef8d224d8ef6 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-@@ -343,6 +343,7 @@ static int vb2_dma_sg_mmap(void *buf_priv, struct vm_area_struct *vma)
- 		return err;
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index 75d9036282298..4c158cde1f504 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -3275,8 +3275,8 @@ static const struct proto_ops smc_sock_ops = {
+ 	.splice_read	= smc_splice_read,
+ };
+ 
+-static int __smc_create(struct net *net, struct socket *sock, int protocol,
+-			int kern, struct socket *clcsock)
++static int smc_create(struct net *net, struct socket *sock, int protocol,
++		      int kern)
+ {
+ 	int family = (protocol == SMCPROTO_SMC6) ? PF_INET6 : PF_INET;
+ 	struct smc_sock *smc;
+@@ -3306,102 +3306,33 @@ static int __smc_create(struct net *net, struct socket *sock, int protocol,
+ 	/* default behavior from limit_smc_hs in every net namespace */
+ 	smc->limit_smc_hs = net->smc.limit_smc_hs;
+ 
+-	rc = 0;
+-	if (!clcsock) {
+-		rc = sock_create_kern(net, family, SOCK_STREAM, IPPROTO_TCP,
+-				      &smc->clcsock);
+-		if (rc) {
+-			sk_common_release(sk);
+-			goto out;
+-		}
+-
+-		/* smc_clcsock_release() does not wait smc->clcsock->sk's
+-		 * destruction;  its sk_state might not be TCP_CLOSE after
+-		 * smc->sk is close()d, and TCP timers can be fired later,
+-		 * which need net ref.
+-		 */
+-		sk = smc->clcsock->sk;
+-		sk->sk_net_refcnt = 1;
+-		get_net_track(net, &sk->ns_tracker, GFP_KERNEL);
+-		sock_inuse_add(net, 1);
+-	} else {
+-		smc->clcsock = clcsock;
++	rc = sock_create_kern(net, family, SOCK_STREAM, IPPROTO_TCP,
++			      &smc->clcsock);
++	if (rc) {
++		sk_common_release(sk);
++		goto out;
  	}
  
-+	vma->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP;
- 	/*
- 	 * Use common vm_area operations to track buffer refcount.
- 	 */
++	/* smc_clcsock_release() does not wait smc->clcsock->sk's
++	 * destruction;  its sk_state might not be TCP_CLOSE after
++	 * smc->sk is close()d, and TCP timers can be fired later,
++	 * which need net ref.
++	 */
++	sk = smc->clcsock->sk;
++	sk->sk_net_refcnt = 1;
++	get_net_track(net, &sk->ns_tracker, GFP_KERNEL);
++	sock_inuse_add(net, 1);
++
+ out:
+ 	return rc;
+ }
+ 
+-static int smc_create(struct net *net, struct socket *sock, int protocol,
+-		      int kern)
+-{
+-	return __smc_create(net, sock, protocol, kern, NULL);
+-}
+-
+ static const struct net_proto_family smc_sock_family_ops = {
+ 	.family	= PF_SMC,
+ 	.owner	= THIS_MODULE,
+ 	.create	= smc_create,
+ };
+ 
+-static int smc_ulp_init(struct sock *sk)
+-{
+-	struct socket *tcp = sk->sk_socket;
+-	struct net *net = sock_net(sk);
+-	struct socket *smcsock;
+-	int protocol, ret;
+-
+-	/* only TCP can be replaced */
+-	if (tcp->type != SOCK_STREAM || sk->sk_protocol != IPPROTO_TCP ||
+-	    (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
+-		return -ESOCKTNOSUPPORT;
+-	/* don't handle wq now */
+-	if (tcp->state != SS_UNCONNECTED || !tcp->file || tcp->wq.fasync_list)
+-		return -ENOTCONN;
+-
+-	if (sk->sk_family == AF_INET)
+-		protocol = SMCPROTO_SMC;
+-	else
+-		protocol = SMCPROTO_SMC6;
+-
+-	smcsock = sock_alloc();
+-	if (!smcsock)
+-		return -ENFILE;
+-
+-	smcsock->type = SOCK_STREAM;
+-	__module_get(THIS_MODULE); /* tried in __tcp_ulp_find_autoload */
+-	ret = __smc_create(net, smcsock, protocol, 1, tcp);
+-	if (ret) {
+-		sock_release(smcsock); /* module_put() which ops won't be NULL */
+-		return ret;
+-	}
+-
+-	/* replace tcp socket to smc */
+-	smcsock->file = tcp->file;
+-	smcsock->file->private_data = smcsock;
+-	smcsock->file->f_inode = SOCK_INODE(smcsock); /* replace inode when sock_close */
+-	smcsock->file->f_path.dentry->d_inode = SOCK_INODE(smcsock); /* dput() in __fput */
+-	tcp->file = NULL;
+-
+-	return ret;
+-}
+-
+-static void smc_ulp_clone(const struct request_sock *req, struct sock *newsk,
+-			  const gfp_t priority)
+-{
+-	struct inet_connection_sock *icsk = inet_csk(newsk);
+-
+-	/* don't inherit ulp ops to child when listen */
+-	icsk->icsk_ulp_ops = NULL;
+-}
+-
+-static struct tcp_ulp_ops smc_ulp_ops __read_mostly = {
+-	.name		= "smc",
+-	.owner		= THIS_MODULE,
+-	.init		= smc_ulp_init,
+-	.clone		= smc_ulp_clone,
+-};
+-
+ unsigned int smc_net_id;
+ 
+ static __net_init int smc_net_init(struct net *net)
+@@ -3521,17 +3452,9 @@ static int __init smc_init(void)
+ 		goto out_sock;
+ 	}
+ 
+-	rc = tcp_register_ulp(&smc_ulp_ops);
+-	if (rc) {
+-		pr_err("%s: tcp_ulp_register fails with %d\n", __func__, rc);
+-		goto out_ib;
+-	}
+-
+ 	static_branch_enable(&tcp_have_smc);
+ 	return 0;
+ 
+-out_ib:
+-	smc_ib_unregister_client();
+ out_sock:
+ 	sock_unregister(PF_SMC);
+ out_proto6:
+@@ -3561,7 +3484,6 @@ static int __init smc_init(void)
+ static void __exit smc_exit(void)
+ {
+ 	static_branch_disable(&tcp_have_smc);
+-	tcp_unregister_ulp(&smc_ulp_ops);
+ 	sock_unregister(PF_SMC);
+ 	smc_core_exit();
+ 	smc_ib_unregister_client();
+@@ -3585,5 +3507,4 @@ MODULE_AUTHOR("Ursula Braun <ubraun@linux.vnet.ibm.com>");
+ MODULE_DESCRIPTION("smc socket address family");
+ MODULE_LICENSE("GPL");
+ MODULE_ALIAS_NETPROTO(PF_SMC);
+-MODULE_ALIAS_TCP_ULP("smc");
+ MODULE_ALIAS_GENL_FAMILY(SMC_GENL_FAMILY_NAME);
 -- 
 2.53.0
 
