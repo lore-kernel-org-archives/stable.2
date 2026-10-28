@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793163656;
-	b=E7lKW/47WqaJ1iTjRhPEmFjPDjBclepCY9bWe5Ry41CPxQXEgm7mLGvb/rnN11DU4Flu
-	 g+QsNEn+FvEY4ANgeZozizXqq+odNMjawEDlpun93w4HDRB9bytfq4R6CkaHdRsmEFfVO
-	 711HOnC1GZ/i4k3qG4TwM/GpB0nMlARbr1nm4FgnXETXUsOUEVzQS+nvXeRmvt2WHLTxv
-	 PlMMixJOHxarGiH6celAoMIf/RERgdgCYdUYnIdDU3ueLWOwC0N1vEGrjGiT4OkH3uJOf
-	 MEIo7jmkfkttlWsJlELrvGxRJEX5OuTmXKItrnIHcOWhQxiQ+fQzuREGwvbCG6D7uQg==
+	t=1793163675;
+	b=AK2sfcfKPhnMtuZTQh6joOd1OvZPTUonQvXDP5OIakH1L5eJyv5Dl4oLIOLzHKCztVls
+	 +vKi0bNHb1KcYKDaiK9AyWhyRkj/CPmqF+D1MOGSz7fWYyiCS74FfQHdE0uRZhRtangnu
+	 M0tMZ1vkwUHUcShgl3YIO1PrWi0vnrDI5KOgLrtwaqBlpbIJbwucD8f9bGmGEV5Oo/3Nk
+	 FUCWPjVNdFVWs0DF95SB3eL/eVSnOCTq4O+d0h+r8mYn0p6WVVakqxcIY/hOmF0nhT08E
+	 ek+UID0gdksAtXbH5oxRCsmKSUQ5IhJ8VSn3gfdUCtTBVa2e8/4Vshxcv2jyLxR3H2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793163656;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=hJYiQXyp1lH/y/qQMz2Wkw6ewVNI7oDPXq7rWrmR2YAfjzqysLIGZHqoeiKyxTXIRdN2
-	 8UgrWFTU01LMYvKlPO1Q8RQZ0/mmja72IHcLaG7YtBiQYOIcBGFtd+Luh2JpzCoQKnVF9
-	 nKWbIvwkdPQFDpOMEUYT4idLWpA96P8ibMg07sBMohhnPdC1CSV41X3FNXVP4ySWebnTO
-	 bjGskhZHqSX30jVqko+jGQPxZ58Gba2sWDxeh2QCjY0EQvbl+tRXBG/Jh7a6XULn/1imW
-	 mB5ECXMj3LDa5gyl8au31BgI0fzr/K8oNDYlIQXL0pZ+Vp1Y293WfCTsNmF6LZcwcsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163675;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=KxVNeIJrGr9qlmIQvjAJsM9SSTFfUCnp2tPgwkRft/4=;
+	b=12DzTjViVoqWQpId2yNhkDr5Kkqcwg1+i1oAn92zJdicpq0KDfP5qFU4yOg8b2riHwfd
+	 Ie01JSEcCkCdBculTEGBf3IvEPkC4Ws34tB8UvyTwobo9FGUBYgf5TDewOqCQMUkTXMzy
+	 zDp4BgMnS4udgz4GJthqHoLaMWgcxVaffKVB+xl8FXo5XdDMVlblddOvSAJ6KFzlVsRzg
+	 t/6ZQX7pWds3C644zIEO/VmJyWrRZGi5FJy/cCbF5cxXrn6912z9D4IS71xoXx6MDDh73
+	 5qMFAGcjyuWPKz0NwFdA/awHuXfOhOoIE/EPvSPagHeqKIazcSQETCIMGeHezCHeW+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EI/kQeMy";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="HG4sy2A/";
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D44606A31A;
-	Wed, 28 Oct 2026 05:00:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F65606A31E;
+	Wed, 28 Oct 2026 05:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F65606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EI/kQeMy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7A51F031E0;
-	Wed, 28 Oct 2026 05:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793163655;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EI/kQeMy+yW2553ckcoHDO5Ae5sOsjhBImzDjBOSJAJnORY2l47kbQg+FFpw8FvpP
-	 RVaWRuybHaCluvs6cvVAdnOU4pV9hfOfLchAbz2pMSo/L+iksBjPM6uh/bDhIWAiG9
-	 Nh+LZnnwuCxrsCZt3V6fxpefRnBikPjJCytQlvigxDpGDBSx/L+iY8+xzUZPIuMBRX
-	 mErd9142ZE9HzvjXGUao1W9qfkev6/NsmVccRSk/b0hnvgyFbWSk7hT4wbwecCDhf/
-	 eyClPANXZhuf34GDCuNe54LMJ5JBewVF61pyvx/HscCmmZBhNnwRW0K2ADE+o7bAyX
-	 WnAw3sdPO6WkA==
-From: netdev-bot+sinfo@kernel.org
-To: Jiale Yao <yaojiale02@163.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Ariel Elior <Ariel.Elior@qlogic.com>, Yuval Mintz <Yuval.Mintz@qlogic.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] qed: drain slowpath tasklets during teardown
-Date: Wed, 28 Oct 2026 05:00:54 +0000
-Message-ID: <179316365462.3327.8032613341391656021@kernel.org>
-In-Reply-To: <20261028045535.110688-1-yaojiale02@163.com>
-References: <20261028045535.110688-1-yaojiale02@163.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HG4sy2A/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Kx
+	VNeIJrGr9qlmIQvjAJsM9SSTFfUCnp2tPgwkRft/4=; b=HG4sy2A/u+9RAt4kne
+	YiPpvjeiq8OW+A/yQtRmsB2xcvFi8hKc26BU93FlrYhOBZye4zXQlWRWyFHZ9iyN
+	crMQw7FY6zpHextZtdZn/BRK2kYKpv4MPgaXfFo7IzRZHvKn528lWF3t3wYsPjeE
+	rBI1tuCrT2CvO41Tm2/YrL6ws=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD31_V5geFquXTKDA--.16748S11;
+	Wed, 28 Oct 2026 13:00:50 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Jianmin Lv <lvjianmin@loongson.cn>,
+	Marc Zyngier <maz@kernel.org>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 09/12] irqchip/loongson-htvec: validate MADT MSI-PIC entries
+Date: Wed, 28 Oct 2026 13:00:36 +0800
+Message-Id: <20261028050039.121080-10-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028050039.121080-1-yaojiale02@163.com>
+References: <20261028050039.121080-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,29 +68,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD31_V5geFquXTKDA--.16748S11
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Jw4DuFWrGrWfJF1fCF18uFg_yoWDCrbEkr
+	n29rs7GryUuF4xJ340yry3XFyaqw48u3Z09F4SqFy8X340yr1rArnrAr4fGF4UGw1SyF93
+	GrZ8CryFkw4IyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbkhL5UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AOTzWrhgYNWgAAA3y
 
-Hi!
+The HT-vector cascade callback passes a typed MSI-PIC record to
+initialization code without checking that the complete structure is
+present. Reject truncated entries before dispatching them.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Fixes: 70f7b6c008b3 ("irqchip/loongson-htvec: Add ACPI init support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/irqchip/irq-loongson-htvec.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+diff --git a/drivers/irqchip/irq-loongson-htvec.c b/drivers/irqchip/irq-loongson-htvec.c
+index 725f30b7574b..1f5bf01c3183 100644
+--- a/drivers/irqchip/irq-loongson-htvec.c
++++ b/drivers/irqchip/irq-loongson-htvec.c
+@@ -280,6 +280,9 @@ static int __init pch_msi_parse_madt(union acpi_subtable_headers *header,
+ {
+ 	struct acpi_madt_msi_pic *pchmsi_entry = (struct acpi_madt_msi_pic *)header;
+ 
++	if (BAD_MADT_ENTRY(pchmsi_entry, end))
++		return -EINVAL;
++
+ 	return pch_msi_acpi_init(htvec_priv->htvec_domain, pchmsi_entry);
+ }
+ 
+-- 
+2.34.1
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
