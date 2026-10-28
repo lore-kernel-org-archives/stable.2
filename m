@@ -1,71 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793224914;
-	b=Q0Y14SJ4a0vMpGuejlCm23f//1h0zso1QVvOOwTqMY9RiD6UFoft7RiIUHXPuCHWBA0s
-	 Pp2yXnZcvgQN0PbIolcADV0roZDQpfrF34uXTrvQPrBQTFKnD77YugZOENtt3TFsHun7a
-	 7a1aDrNiuQCfCKomAC+teoyOTs87CAbobtEioSEHYK6XGXaIXfJjtj3gHbPj5kwqGQ4bU
-	 flmkjHoiNmBbuqQnx6IjeY9moczGMyUKuXyt7BKIQVzkCZykM1xFS2sDxy43Bv2JKZakG
-	 HAbUWCgXK9E1Q3OiQaN6UuHfotEnsWoB8qk/W22lthlbFFrGgvtroYYAiEARF/ggflA==
+	b=GKvyv3hqYXkIDuzAofDWS9/j8c4D+ItSUUR5wxJIbcndp6X1elhtP+PYFvTGX8fb6+2A
+	 ROiVUsXAlKFXi83H/eohJl9VTWbpenAuccN0XuDrAYZ1tAjaQDCkk1CnZm868ONUQBc2f
+	 9KqDAKlJEOXsc64N8fqKvq171v70laKoyiwf0Rxd8Qq+3WeGwQUvme4AOVTYOAUSE0U7f
+	 NNEajUWqeSXJVp9cWEEc4/v7iSknhIMECzUBTjCENEGN50dOVzWUn95INlxtT2JrmJU34
+	 w1LuC8Kyji2Z2nyPHwq7o6nkB9ywbIr0OwKunhchs6O9K/eokqhjDdaayTAsQIUFrFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793224914;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
-	bh=3Rv7tQbRsvuq3WAIi5GyIt3wKvxrSuLpMHj9oOG4vyY=;
-	b=5CSX7tAgQo3jRCPcrZuiIKetOjLUOUfqiJ0dX+K8C/YeBpbsyoqQoNslouG8Tz381Nxp
-	 8Uui3bjT5Cuot2rW7bTd7RrGbW8YaDn86TWkqdMCYHtSRWzsLnSJQU5GQnnPecytqgkPn
-	 picf2jjJ//dPCZjsZ2NjiAMLYsW6skGAXrdLEsxp5cHuFMEmxc28cTolhSeGwIu6RbUx9
-	 vQN3A57JYFnC0FgRBp8yPBuZcnurT5O5m9dZ1Clq5vgkNuLUJFZRqa7piPCh88iKyIM6P
-	 FY1b4BAQo6t4f02m5j4ROA6VLSKZxDKP/5y8xoRs6g3wvkuLu+oQ0aTwdKFy0azQQXA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=olz9/JuFGtTWQqY0Xh4tmWjM5lmLEdh9/zXH3C2ydprrMZf+/l+e4LZlDxMViopeq5sA
+	 ba8YB1qDg/unaqXEYnqreesRyfIVBJ/Mmfuub5AOPYfWBR+jH5bBTtJHvVyqRgRXr2vxX
+	 gADu7Aqwots5s6R/ITsVrvgbfcEbbxkoORzAjbxKzjpsR1rczVqO+ubwKAtxQQAiaAIaM
+	 GhPGHXjARsqiJ67JbY4Rl3rHz7eQHM3Zfk4mw6if1fYNxUO0H33YZe5o5owfyhnhQZeE+
+	 yvNH7bbGAKSB8hJIQWHj6KcAul29waJbaUf+tm1qOEMs6NAkeaHTcpQHo8aW4dZdyEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=ktV5xYwt;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50D66606A322;
-	Wed, 28 Oct 2026 22:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D66606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XKMO+/FM";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEEB606A31D;
+	Wed, 28 Oct 2026 22:01:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=ktV5xYwt
-Received: from mac.lan (unknown [4.194.122.170])
-	by linux.microsoft.com (Postfix) with ESMTPSA id DFD2020B7167;
-	Wed, 28 Oct 2026 15:01:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DFD2020B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793224902;
-	bh=3Rv7tQbRsvuq3WAIi5GyIt3wKvxrSuLpMHj9oOG4vyY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ktV5xYwtlIvls/LNLrf7a+eEGSve62NydD225Q+Xq0stHH+N8u5g9QcJY1H2mlAhN
-	 2eF0I8FWVp2MKrCR10ckmacldRzPiFbQzDKpXruD1l3P4eZ8jf2fhgfkeKTeclbXq2
-	 qjNUWkdVCA5jsvwh1N0rU43LYLxzaCNujELEZjCc=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	"Vitaly E. Lavrov" <lve@guap.ru>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: Re: [PATCH net] netfilter: xt_recent: do not call remove_proc_entry() under recent_lock
-Date: Wed, 28 Oct 2026 18:01:36 -0400
-Message-ID: <20261028220136.50921-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179322419201.3327.14972314584790214914@kernel.org>
-References: <179322419201.3327.14972314584790214914@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKMO+/FM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD84D1F01828;
+	Wed, 28 Oct 2026 22:01:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793224913;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XKMO+/FMDZApYX6lUaZ2BM1xTBQ2S47xscp94+yOWwHlemFhFSs1MfP00E0gtxlmu
+	 OOVEhd7CsJhVjPEld2gKvct6qmX1sl/8C82xtmbmY0A/+whIreBjwfwF+TcC5J+ykv
+	 4TCZ+PF1464Ngo0CPDHvospQPTtfw11QoSrH+y5TKyuLGT4VLJSW6QEGvwiaiTOygX
+	 lLUPbMHeUbByOvHP1gxo5PPomxnEwL2M09hTVWzXW0yMf00aTLsaPMS9Z8MU/YsAGa
+	 NT8/LmLzhlQxxeHcL8cxY1o9hlf+ReFeuZt+F0/iQh9E7Ykiloa/S7S8DMT1m+wYez
+	 Btf+E0h09tm0g==
+From: netdev-bot+sinfo@kernel.org
+To: Manjunath Patil <manjunath.b.patil@oracle.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Willem de Bruijn <willemb@google.com>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net] tcp: restrict SO_ATTACH_BPF to privileged users
+Date: Wed, 28 Oct 2026 22:01:52 +0000
+Message-ID: <179322491231.3327.15319780841099571485@kernel.org>
+In-Reply-To: =?utf-8?q?=3CCY8PR10MB66609715D3216D1B10CC186ACF6F2=40CY8PR10MB?=
+ =?utf-8?q?6660=2Enamprd10=2Eprod=2Eoutlook=2Ecom=3E?=
+References: =?utf-8?q?=3CCY8PR10MB66609715D3216D1B10CC186ACF6F2=40CY8PR10MB6?=
+ =?utf-8?q?660=2Enamprd10=2Eprod=2Eoutlook=2Ecom=3E?=
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,23 +68,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi!
 
-This was found by LLM-assisted code review.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-We confirmed it in QEMU on mainline f0100363d8c3 with a reproducer:
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-- With DEBUG_ATOMIC_SLEEP enabled, we see the "sleeping function
-  called from invalid context" warning quoted in the commit message.
-- On a non-debug build, we see "scheduling while atomic", followed by an
-  RCU stall, and the netns workqueue remains stuck.
-- After the patch, the same reproducer completes and reads
-  return -EIO as expected.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-We could not find a syzbot report or an earlier public report. The
-reproducer is available on request.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Thanks,
-Cen
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
