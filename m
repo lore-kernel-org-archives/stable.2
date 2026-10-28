@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173846;
-	b=UBQYh/k2egla4oHG9619TZElmEKWHjhSdWP/3aFrzEDcF0TEvNfaMIv7H0gctCMn/7Q5
-	 dYyA0ohWoP3QTDAoEV930Jw4BuH852OrvBC5vTlD6WT36MRT0l2o4xLjSRmPAZx+92pzR
-	 dnD3lc1623wUElOgJJMmQZWPCChg4ORrEFTjycM4mI6O3IyZytPDxIEV9CPDGFqS/blGl
-	 E1hpQuDm8f918CM9lhw/bJqGWfsQYNxp/POTDEiN4zYbmecQz9v9PTsVXaGk5fgwFY9sn
-	 k/pJhI2RhvP2ZHOd/onwKXVMtog4A0bOZvS5d6UFCJ66DePgSkRWUDdBK9oSH/kd2kg==
+	t=1793173853;
+	b=c4P+apx3g6KrJmvj7yC+R6A0GN+xhCRzQh7DnER5DOqnIzMqjkRXrm+GVAtA93QgazjW
+	 IcLghp2wg3vi5T1YoIruFWKwoOcnVfL8t+/+LWdCVdRdwB+pX/XHWp8WqTEP9UPJevIoc
+	 Ry1+5brNBmunqLZa0LBNEGGvPwpZPXKm1qToCO9WsltWKsi85k19Jk6sagpbE41JZjW0z
+	 0zKaXxFwmsdnxJoxxU21nh+E8eUHxkEIWRJ3DVcRzY6AdARvJDWIEWGQhAdFZMF2zDiuM
+	 oj9+KYanU7wT+FOf7Wub+tpCrLUDUWN5neRsGnzlg/n7ZcXnPdctUUhWGsFHrEMolDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173846;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ZRNxV+ctHGQkJGUcTRrGxGBFcfBRjwGvBSmUNqUGh4s=;
-	b=0Mx+vz88ZnNoUdbkN/ft8ugOFrm+pc1gQSeIqgh0TByLbN5fiPBkBYC2n3e0x8XZnWLJ
-	 0hnU50LL4ZTYShVIDwL3wsua0pfWV2wwsLEiEPqlJBj2hlhQQ/7lILVZo+U2YafxBC16p
-	 fB3lijTlGdSaQ7kbxYFY28nSoB1kRcyCAelkKso5oAzmHPsO5cvb6yNwhG2aV7K9AIGoY
-	 Uufq7N52fc6UaQVBYhizRMxOlN62fa78ejwgod73N8eGfryDuSsQLoJcjutdhnMg3pIWd
-	 NLS2d3lEN9sVCNn7vaZ2a5Q+MaYrTI3N35YJ5Et7E6b+ZCDARZ2CRcwhZjs3pe1aWIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QabUepZshTuWcPWLH/f6M3OiVm66qar29q1ZiPFt4co=;
+	b=bvKRBY2cQbe6lUR6Fb8rhtkvPd3A+apROFzTJ6t6wu/D+Y01AXNnxOMHTOyURfnRppMd
+	 a2oyworPlAbZbVV4bmVKrh0pMNV+9WoUaPZMuC75X/TRMgixGNiYEpQe41bO5Olnp8hcX
+	 xenn9pXCWn28/hP9/a88gqRhuK8UFwLIWFSLXPk13gx6L0pNobuQv3n/Sg1JX4qD2RcTX
+	 mdduDEi1PuI5BkBevqDztIfkW4gyE/8tJrRxJg67YLzFfuOo5L2x+Fd0O/7wm5Ig9uZ6a
+	 Wsy6Ip8+tgKqicm5ceook3cBv7D/IR6o0Hy6VZvmcBQnj+2J9liSda8NfbdClHfVwLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgLqA7LE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cIzTfwvI;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CED3606A31A;
-	Wed, 28 Oct 2026 07:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FA0606A333
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 07:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0FA0606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mgLqA7LE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4300C1F01825;
-	Wed, 28 Oct 2026 07:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793173845;
-	bh=ZRNxV+ctHGQkJGUcTRrGxGBFcfBRjwGvBSmUNqUGh4s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mgLqA7LE1hT8ifeFCdgKjxs07zUMgblZj0t3wZSKxr2lqKSEgLV6wZpDGHMDmH8vg
-	 dizIhqzKwtrjbGBS2t8dWYyN5k7a/3AwdNQAmKvMf8GnNoIlL3bvmm78wfgE41zb/d
-	 O3XjszQs6Y3Rb+xAN+uwfp2Hl5sl9aqdL+NkdrVEzug0sF6FhlQBQZo4KGbaswucSN
-	 T0BsZhXDXAW4365g1b5/MOxv9rKdnYn6zsMP6rXlIHlYIjtC39CX5tA6WdeN1jt4Fr
-	 4kNtOTJ2ITRIj7n4tQLBvvNOQWTLBjWdFQrPj/+Q3IqIcTHZI900ho1+JWqe5sZQTA
-	 qg7BHBvw5Lunw==
-Subject:
- Re: [PATCH net v2] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-From: netdev-bot+sashiko@kernel.org
-To: n0ps1edzz@gmail.com
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, hangbin.liu@linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Wed, 28 Oct 2026 07:50:44 +0000
-Message-ID: <179317384479.3134.10802512477499125760@kernel.org>
-In-Reply-To: <20261026044808.613-1-n0ps1edzz@gmail.com>
-References: <20261026044808.613-1-n0ps1edzz@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cIzTfwvI
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so10752785e9.1
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 00:50:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793173851; x=1793778651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QabUepZshTuWcPWLH/f6M3OiVm66qar29q1ZiPFt4co=;
+        b=cIzTfwvIeV2p3+HZONnaLs8OrALR1BiQZsuEHFv22k5tMpn87c699RB4pXtpO1BknZ
+         w7mFc/NBuJ/LAraXW70R5EtX0MqSS4DHIYhaaK3x8RDhKQETu2gPyFaLw8QlT07DFmBy
+         h4TeAG55cDuS9WgM/KuuXL/YnXqyY0QDsLIj4e3bPqq5OyiMw+/0Mfdyk6LGeGLmZyaE
+         I2kApHS+fxHb6U8Xha4YMCFI9beSJ/0SgvmgggOctUagsh08ImbV+oTWYJfOT6s0xrWL
+         t3VuHw/TDKPR6xf82IXNxdgzIU0r5Nf2P+iQ1/pq4Zq3Ps5LagWwiwVa+Ej2c5BIOp/V
+         usRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173851; x=1793778651;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QabUepZshTuWcPWLH/f6M3OiVm66qar29q1ZiPFt4co=;
+        b=KjBypAPpXu47B3bd7QptRPhnaRrBmXeAVjfgop9Lg+C1587n+AnUo2xr/3rowPk9tA
+         cNABR5ggwKASxmM4rYQuzP/Co+I78gE/zW3aXaR6F9PJCQng8ZNonzLcgDC8I9IFVkWg
+         41yUoUYYxuytkfpaErUolX1+ktTDpVVif4UbTw2bQNIEMpozBb54hsesDYLZxHMwsXjQ
+         q/pVZ2nnWz6F4mtH5GyAzme7x+S2Hsu8R3QZ7ghhILB4R1NOT3QLFV/G4GSOvfJviHxu
+         fLwHS57drZhpdc8wYKUce1l8SgLcdJp6F4bQu7jZFeCCDh6olszrcTyOO0NhrIr84myL
+         pohw==
+X-Forwarded-Encrypted: i=1; AKwUvBxI/r5w6nuTYMcaTo5uvuGd+s934q9qddF32kDvuE+vDJRMkDZ4/lwuTCWPgtfsOJ4ghO9TcwM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQy2U3mQNmW3/+jiabuFH81X5+puX1w6XM5Qxt7dI3ZZIGcjbB
+	aD7T+tj/Aou3rHLkNc+IT0KbtIeVashtYf5yFFckcHG0NDGbHFuIETjo2VFaJ8PopCw=
+X-Gm-Gg: AYBFou22Bjxp+9xOdbY5anx8MSqv7666iXnz70RGl2BTNUfcKYIfo1zoSqXd6pSNCwZ
+	6BL/e5cpRAVZ0Gyp9tRCX9+GeXhealGuzpcA3VxZBIaYNihP3k1wwweO/eDM9Q5ftUk8uwnm52E
+	NPfzJNc6tR2P6ge+9HYWnxkFaCdsc8QMmVpKouYvg7zxCC4phSskqQR7Pz8k3UbnT5MAD9IJ0aI
+	bUngg4Pnw6bOTqorCKk96RxjHGn2oFMUEJevKY4VXhcOhCth/2uAMVj8VD7HMlqASW4mwNfiJyh
+	hpAgoXD5eSydXnnXXsRwoDgKoThZuW3JG0FPkucXw2PgqydLffmY1gF/jDTCvIJrofAfPL2zoh2
+	Gk5w5WgkDaIhVXCzTGmKRL4VsrweMRyMo2IemYjxWC4/hNIUA6m2/Pv8+231KrGxN8SNh6O3i+V
+	MN3CGVjnnKsOQQoEUESXzkHLzK6Ez7pNippU5zgm556tLF9tt256f+Atp5JaRSmGRXAZgcL/zkO
+	RDwwS9Xl7ZCk1awCFim5sdNMj3oj2sZppeQjmhpcBOaPMy3J+3oe3Ny5XJA3+88tkbbdhrgdSDR
+	bHsLcrYcbLdr74iUWoH5Cg==
+X-Received: by 2002:a05:600c:6dc2:b0:4a3:5d64:e063 with SMTP id 5b1f17b1804b1-4a7c4c7e93dmr87769765e9.9.1793173851270;
+        Wed, 28 Oct 2026 00:50:51 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a4fc46csm1876135a91.7.2026.10.28.00.50.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 00:50:50 -0700 (PDT)
+Message-ID: <8ac505b5-cb6c-46ae-8791-c39de5babe66@suse.com>
+Date: Wed, 28 Oct 2026 18:20:42 +1030
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,92 +92,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: do not leak -ERESTARTSYS from FITRIM to userspace
+To: zhiwei.liang@zliang.me, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>, Luca Stefani <luca.stefani.ge1@gmail.com>
+Cc: Filipe Manana <fdmanana@suse.com>, Robbie Ko <robbieko@synology.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261028-btrfs-fitrim-freezer-v1-1-0ad1d58aa94d@zliang.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+在 2026/10/28 17:27, Zhiwei Liang via B4 Relay 写道:
+> From: Zhiwei Liang <zhiwei.liang@zliang.me>
+> 
+> When a suspend starts during FITRIM, fstrim can fail with:
+> 
+>    fstrim: /: FITRIM ioctl failed: Unknown error 512
+> 
+> On a Fedora 44 laptop with kernel 7.2.7, 3 of the last 21 weekly
+> fstrim.service runs were in progress when an automatic suspend started.
+> All three failed this way and left the filesystem untrimmed.
+> 
+> Since commit 69313850dce3 ("btrfs: add cancellation points to trim
+> loops"), the trim loops return -ERESTARTSYS when
+> btrfs_trim_interrupted() sees freezing(current), and FITRIM returns it
+> to userspace. Since commit bfb670b9183b ("btrfs: handle user interrupt
+> properly in btrfs_trim_fs()"), btrfs_trim_fs() returns it right away.
+> 
+> -ERESTARTSYS is only valid while a signal is pending, because only the
+> signal handling on syscall exit turns it into a restart. But
+> freeze_processes() first sets pm_freezing, which makes freezing() true
+> for every user task. Then it walks the task list and sends each task a
+> fake signal. The trim loops check btrfs_trim_interrupted() after every
+> extent. If a check falls in this window, the loop returns -ERESTARTSYS
+> with no signal pending. Nothing restarts the syscall. On that laptop,
+> with a few thousand threads, freezing user space took 2 to 5 ms in each
+> of the three suspends above, and all three runs hit this window.
+> 
+> Make btrfs_trim_interrupted() treat a freeze as an interruption only
+> once the fake signal has arrived, i.e. when
+> freezing(current) && signal_pending(current). freeze_processes() sends
+> that signal in the same call. The trim loop stops at the next check
+> after it, so suspend is not delayed.
+> 
+> The restarted syscall re-reads struct fstrim_range from user memory.
+> When the device phase is interrupted, btrfs_trim_fs() has already stored
+> the trimmed byte count in range->len, and btrfs_ioctl_fitrim() copies
+> the struct back unconditionally. The restart is then asked to trim
+> [start, start + trimmed) instead of the requested range, or fails with
+> -EINVAL when nothing was counted yet. Skip the copy_to_user() for
+> -ERESTARTSYS. In all other cases the partial count is still copied back.
+> 
+> Tested in a VM with pm_test=freezer. Without the patch, 18 of 20 freezes
+> during a trim leaked errno 512, and 10 of 10 restarts after a
+> device-phase interruption failed with -EINVAL. With the patch, all 30
+> runs restarted and trimmed the full amount.
+> 
+> Fixes: 69313850dce3 ("btrfs: add cancellation points to trim loops")
+> CC: stable@vger.kernel.org # 5.15+
+> Signed-off-by: Zhiwei Liang <zhiwei.liang@zliang.me>
+> ---
+>   fs/btrfs/free-space-cache.h | 3 ++-
+>   fs/btrfs/ioctl.c            | 7 +++++++
+>   2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/free-space-cache.h b/fs/btrfs/free-space-cache.h
+> index e22443598b..cba2f5fd6b 100644
+> --- a/fs/btrfs/free-space-cache.h
+> +++ b/fs/btrfs/free-space-cache.h
+> @@ -58,7 +58,8 @@ static inline bool btrfs_free_space_trimming_bitmap(
+>   
+>   static inline bool btrfs_trim_interrupted(void)
+>   {
+> -	return fatal_signal_pending(current) || freezing(current);
+> +	return fatal_signal_pending(current) ||
+> +	       (freezing(current) && signal_pending(current));
 
-- [Medium] In VRF redirect mode, rawv6_send_hdrinc() (net/ipv6/raw.c) no
-  longer charges per-interface IPv6 SNMP counters to the slave interface.
+What if pm freeze has began but a real signal is also pending before the 
+fake pm signal?
 
---
-
-ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-
-This patch reloads rt from skb_dst(skb) after l3mdev_ip6_out() returns in
-rawv6_send_hdrinc(). The VRF output path can replace the skb dst and
-release the original route, which leaves the cached pointer stale. It fixes
-a KASAN slab-use-after-free reported in rawv6_sendmsg().
-
-> diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-> index b965258cf9e5f..bdea825434ea7 100644
-> --- a/net/ipv6/raw.c
-> +++ b/net/ipv6/raw.c
-> @@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
->  	if (unlikely(!skb))
->  		return 0;
->  
-> +	/* l3mdev_ip6_out() may have replaced the skb dst. */
-> +	rt = dst_rt6_info(skb_dst(skb));
+>   }
+>   
+>   /*
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index ac070c745b..b02c59cbb0 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -529,6 +529,13 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+>   	range.minlen = max(range.minlen, minlen);
+>   	ret = btrfs_trim_fs(fs_info, &range);
+>   
+> +	/*
+> +	 * A restart re-reads the range from user space, so do not clobber it
+> +	 * with the partial len the rerun would otherwise take as its input.
+> +	 */
+> +	if (ret == -ERESTARTSYS)
+> +		return ret;
 > +
+>   	if (copy_to_user(arg, &range, sizeof(range)))
+>   		return -EFAULT;
+>   
+> 
+> ---
+> base-commit: e17e64baf63f7c85bec209ed73f14c1b2a7e39fb
+> change-id: 20261028-btrfs-fitrim-freezer-d4cba16e7e13
+> 
+> Best regards,
 
-[Severity: Medium]
-Does this reload move the per-interface IPv6 counters off the slave device
-in VRF redirect mode?
-
-When the VRF device has a non-default qdisc and the packet is not
-xfrm-transformed, vrf_ip6_out() calls vrf_ip6_out_redirect(), which swaps
-in the VRF's private route:
-
-drivers/net/vrf.c:vrf_ip6_out_redirect() {
-    ...
-	skb_dst_drop(skb);
-	skb_dst_set(skb, &rt6->dst);
-    ...
-}
-
-That vrf->rt6 comes from ip6_dst_alloc() in vrf_rt6_create().
-rt6_info_init() zeroes everything after dst, and rt6i_idev is never set
-afterwards. So after this reload, rt->rt6i_idev is NULL when the function
-gets here:
-
-	IP6_INC_STATS(net, rt->rt6i_idev, IPSTATS_MIB_OUTREQUESTS);
-	...
-		IP6_INC_STATS(net, rt->rt6i_idev, IPSTATS_MIB_OUTDISCARDS);
-
-_DEVINC handles a NULL idev by skipping the per-device counter, so this
-does not crash. Only the netns-wide counter gets bumped. The second
-LOCAL_OUT pass in vrf_process_v6_outbound()->vrf_ip6_local_out() does no
-OUTREQUESTS accounting either.
-
-As a result, raw IPV6_HDRINCL packets sent on a VRF slave in this mode
-would not show up in /proc/net/dev_snmp6/<slave> Ip6OutRequests or
-Ip6OutDiscards, and no other device counts them.
-
-The other IPv6 senders count OUTREQUESTS against the original route's idev
-before the l3mdev diversion. ip6_xmit() does it before l3mdev_ip6_out().
-__ip6_make_skb() does it before ip6_local_out(), and that covers raw
-sockets without HDRINCL too.
-
-Would it work to follow the ip6_xmit() pattern instead? That means taking
-rcu_read_lock() before l3mdev_ip6_out() and counting OUTREQUESTS while the
-skb still holds its reference on the original rt.
-
-dst_release() frees through call_rcu_hurry(dst_destroy_rcu), and that
-callback is also where rt6i_idev is dropped. So the original rt and its
-idev should stay valid inside the read-side section. This would fix the
-use-after-free without changing which device gets the stats.
-
->  	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
->  	 * in the error path. Since skb has been freed, the dst could
->  	 * have been queued for deletion.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026044808.613-1-n0ps1edzz%40gmail.com
