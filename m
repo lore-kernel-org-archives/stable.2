@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201840;
-	b=P3b5DUP6oKjcy4i6J8cQElf28rEuq0+8ZHl8DRRbHrHaLYcTmdviX1zF2v4FQhT8MRzW
-	 aCwz8nUbU76U1M7JrXCp4sI3Zeh+bRy/rpkqPF/VmzK9Yj3XD4uLMNGXZ86Ej9yzG32BB
-	 vR8h0PeF5Lr5LJvXwM/SsjQwIrsvnOcQXNPtYGIcj9SGaolf69MDma6vf3aGhMqZF1RjS
-	 hkHJ/4cYvZLll45XKW6TuCDEeIY2vJ7lgW0fXO+/j2NIryCUyFV2dSDRuGwXcjHBYRJKF
-	 CBLowuw0NjmFYa4qvM1X7P7H7OmTXAuzCOrXQ0bPdGGBm1Y5tHKT4RkjNNVtrmag5bw==
+	t=1793201843;
+	b=TT+AYCdAnkPYfv4SoOW/YjSnoiAR7x2cTh98C+5BsCF5oQ7B7UC6Be+skEVvAbPeSDST
+	 LnpFCoFUc9J+kTLMBGGdAYrZiKvCXmakWjtl94fe6OPYTEO4D3xOoWBFljW/DXp6kntMY
+	 pAxFdHWDMav8xyKxwAs21ISk3PgmMBZ698JwYCoHms0lhLMvEpw9TiJUWRxOyi6eNQDtD
+	 KeufyrnxH5ixpIG0ZvGoyKAhJgVAvD1T4g1te7CmbOUrAe4UCcibtGL2up01rvUCz33P8
+	 4vs8dGBLaLYMmTbIcPOkA+mT/ewGipVirSOH6327F22bJ2p4LnOvtaCuH197Y8REGaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201843;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UaxJsQxI6P+KN8QUBb/0zvjO+eAtP/4lyX44Lovc9B0=;
-	b=ruGVh7xVsMI5zFo+9fJDJAgj7ko3XOcjCedb7/lmSifKMdYL3VYdZ9//PQuTMqsTP8T0
-	 51tsfUMKZcPPR8Orip7289QMGGQUnGBfhNb2j03K+VAMGFNWOWJatqjADGzPyXgbi4VzF
-	 Fa+5WJyakgAqtQPb1FTVXwxRJp+gn1O867xVnR7T7jl4gZOqIoz8+2U1PeUI04qiDZT/x
-	 79in5AH7MGMfNZknqNcQafxGo5voEAx1pT2m2SBr+7C8NFpjWz8Pyp9NH96rxDoeJImoT
-	 uBv6H7ExKVe/Qzf6uoNKXRNeM08gvO2ABsPNCRSjMPQfbZ063zN9G/uOHqxfRa/tqcg==
+	bh=Y033NXx+ZJ81bnbiYCYsUpj/r8id/IoCvlBFVueduDM=;
+	b=HzBkNQ6sRlpObNovuwM12HHgTT+mGJ1CmsKjEaFeaVWPyL7+R/JlJRF6+dgxLQhSIqUm
+	 /jlDPFY8C00YQW5YAD5S3Tjnqu6Bljb5swFlTS5B0ScnLukDbVNsKqzmiIblNqBh9+0QQ
+	 sMxyCUal0QMoySgHsmlR1pRSXrnacPTzDaLANQmc8U7bmlFf73/bH6b66JMUgvcYYuA1d
+	 GcamN+M2k3bUAD74SSw/p8YfwtbB3S29pnHP3A9pAQ5finSd2h8Q7w/wmWUXtIRXcqsOw
+	 DV0bx4OHubiUhbOqzcJMzu2Tc6/4SP77a0e0eCQNkmuH350KggvZDcdK/Zc01ksELpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=scuNp4MV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SbBPyEgI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D98F606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:37:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E23B606A31F
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=scuNp4MV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686441F01825;
-	Wed, 28 Oct 2026 15:37:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SbBPyEgI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EBD1F01825;
+	Wed, 28 Oct 2026 15:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793201839;
-	bh=UaxJsQxI6P+KN8QUBb/0zvjO+eAtP/4lyX44Lovc9B0=;
+	s=korg; t=1793201842;
+	bh=Y033NXx+ZJ81bnbiYCYsUpj/r8id/IoCvlBFVueduDM=;
 	h=Subject:To:Cc:From:Date;
-	b=scuNp4MV/Q+KljYeGD34zbW04Lm4k77UEhS5LuSRUy2axKhZZkhG9dK0KkxnERoGp
-	 9/oz3hMrmu1kPXXUOZ2iZ/A2kd0oTP5QktUn5NOlGCsxzVsD0kUJP9loKjaxziePn8
-	 E1NyMmfzvVSyc81GRX56Z0Ui6YbhcXyOw/u9c/zI=
-Subject: FAILED: patch "[PATCH] exec: cancel io_uring requests before de_thread()" failed to apply to 7.3-stable tree
+	b=SbBPyEgIdtIG1Gaoo6/zoz9buqXQsCYt7+OnolEmwmmKjnrHNmo8PqCFNV87V/iej
+	 cc8PUgdUF1hGyEAFUDILrrB4r2X39CmvvDhYXnwbktBJX42VTo3FV8DI17PpKo+sQl
+	 NadMfgrjL7pTUik5YCzO0oSNHm40NMLGG7QzmaPE=
+Subject: FAILED: patch "[PATCH] exec: cancel io_uring requests before de_thread()" failed to apply to 7.2-stable tree
 To: brauner@kernel.org,axboe@kernel.dk,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 28 Oct 2026 16:37:18 +0100
-Message-ID: <2026102818-cauterize-secluded-dd6b@gregkh>
+Message-ID: <2026102818-halt-spruce-26fc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
 git cherry-pick -x b42c85c20d84ff3e4f0f027d6596c3b3b4a20657
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102818-cauterize-secluded-dd6b@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102818-halt-spruce-26fc@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
