@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793207154;
-	b=jGBoiyGj0L5xmR9afX16j0op3KRVoft94bqCm4wmhSRxrLVYC5WZwfO5MtiIJmPliGY8
-	 zwbm+FhPCiY63HXO53sx47TTEccXQPng0wecMmQfsOv4Hkrh9e8lKaWM6u5e7du8Rz/6B
-	 J6tUaEXkee5d9nC+ixE7cmDp0j3bkoZSnirzn532DOF+wvlGX/xBKMjIZxiKqTJZrN3Og
-	 Vzun0veiCN8D4DBzcVM74C4qgKHskRyogFPYsimMzdPA1mKaedFZOpSsI3I0eOoiBPRGr
-	 yoEWhjWfke2BwMlSZ2embAULDMdbGSOiKXPg5O/DIKHYHeRpS989O5Ix55qE7dcIXhQ==
+	t=1793207165;
+	b=agOw1SPErw5O0Esq3cOUz8etU+wT/cQSNhxutbhIsiEipT2EKW5VfGRc5jZ8lJoDCy4L
+	 BAghD3VPPWY+EIpcdEe7GUTmo23u3QPY54ImayZzjonVVAGn1yK8VQSHqE+/US4e8+elZ
+	 by/v6KUM0Sl78+MdAtvnn3Ww7eTLIOwN9Syt3BFix7YODz7X9sBfD9hK6rvnYUb5POpvp
+	 +BVwWy03tq6VBJHza2ARKwrn6SHArh8xO60ppCAqGjvVDZcG3u693p86zD2QdB5I92zwD
+	 SqL40H2wrekSvhuPpWvHXxXBUiV89my5+vW/yulGY1Tw2Q61XoqZyInbxRZXHXyHaLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793207154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793207165;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fcNckhyBkqx2ZymkBjyKPc6HVkzxkSolO6Ut8Vcyfog=;
-	b=zUcpnBVytWRGFY6tZk5PR7koOA2c+wYhM/JZXWxMwmj8GylNT+7fz+DIGtj3Bdzr/2Uv
-	 GnFXYHYwGukFYNPbDPe0R0wqZCVc6d40G+QpVtMtG25/AVnmhPkFjjP+FQROR/MzTP3PS
-	 43pVWTWx699aQZ0puWTfonFI1M36GrdgoaNmQbPPLR3ONVs5dln4Uxvk9HjBv5wde5+P5
-	 c+Vpq3gsbzccROBIiKTFKrlMbUPSROWq1y8Fl6QrtF4mC91zAnsgf5F5g7Q+oEaj2O1w8
-	 RXHpm2abhevNwHh5nuXkN21CwJIODKOuJ9Z/9PS6uEXU68GSPNKN9oP/8E8i22Bb+pw==
+	bh=bfU3IXUNXOhjRaAj7gO3yM36sZbFWIC68bNdOyMthqQ=;
+	b=NHv8sGJr+pibEL+9BrYWrHVD77KysvqNw5KiFySG7i0WTDulWwgWpwaFhDltOtJM24Lh
+	 OMc/3GAfKRt4gCb5VqEnuazvewK0ISirPMlP0x1Y7/3hHzykAZ9+IPJ3hgz4vI/FDb4oB
+	 cUvGWFn/eO6DCWkJ5HE3XRllVzwTMQIjzmR37G5Tuf21sB/Ht8t+VW+4DHPFGtNjtkmfY
+	 9irh5vu/5/0fIJW7vXJoVRK3XbFbi2uX+ykIqn04nfULEzh38kzvsxmt61lFqi8raXCAJ
+	 s6SbckSvhckXDanjo6JUHk5p2ub8xmgEsxPh8CuyOm6/2pt5Rl6mnJurjkFc7gAAR6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hRMBWcXA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cYdLU+74;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE26606A31C;
-	Wed, 28 Oct 2026 17:05:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE9A606A31C;
+	Wed, 28 Oct 2026 17:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hRMBWcXA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE91C1F01825;
-	Wed, 28 Oct 2026 17:05:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cYdLU+74
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26EB41F01828;
+	Wed, 28 Oct 2026 17:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793207153;
-	bh=fcNckhyBkqx2ZymkBjyKPc6HVkzxkSolO6Ut8Vcyfog=;
+	s=korg; t=1793207164;
+	bh=bfU3IXUNXOhjRaAj7gO3yM36sZbFWIC68bNdOyMthqQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hRMBWcXAREhTbj8qMHV5sVAIdxvl/t2JjFz8g5LlpfFjVsiwDhp8w4wMdbrX+AfTb
-	 AGd4env/0EOl3q19fDcMBZffkoNXq5d+VM25Yw7+7B9KKZ4ge8/jYN1z74KuPGJdrY
-	 s6lCMRBjoMFLgpeihdLRtQLpYLL28I0X5se0x/Mw=
+	b=cYdLU+7454NQcg0B4qSbHBn3r43VsenW+l9/x+O4kzWYztunVPVItsiC5G3WGA9IB
+	 GMaVLgQPC5MA+/+J0dVA9Kjl/l7M6YzKfRt0/hM3yXDmJ7SB1MIxfi+Bhzg7atL+QI
+	 VsWh7ICP737kDO4xKZaF/U/xSjKqscbZ50fs/bO4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Oleg Nesterov <oleg@redhat.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: [PATCH 7.3 37/38] pid_namespace: prevent TIF_NOTIFY_SIGNAL from interrupting the reaper
-Date: Wed, 28 Oct 2026 18:00:24 +0100
-Message-ID: <20261028165941.335037989@linuxfoundation.org>
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	"JongHyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: [PATCH 7.2 10/88] tracing: Reject incomplete event filter expressions
+Date: Wed, 28 Oct 2026 17:59:18 +0100
+Message-ID: <20261028165942.356429813@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
-References: <20261028165940.394092994@linuxfoundation.org>
+In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
+References: <20261028165942.107695352@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -63,56 +65,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Christian Brauner <brauner@kernel.org>
+From: Kyle Zeng <kylebot@openai.com>
 
-commit 5c0985dd3c32fc2bbd0e8beaf13cf52cd97376a2 upstream.
+commit 1fdc4164e488916402badddbb1f51e9380dabb91 upstream.
 
-Since commit 7fea700e04bd ("zap_pid_ns_processes: clear
-TIF_NOTIFY_SIGNAL along with TIF_SIGPENDING") zap_pid_ns_processes()
-clears TIF_NOTIFY_SIGNAL before every kernel_wait4() call. Otherwise
-kernel_wait4() doesn't sleep and returns -ERESTARTSYS if
-signal_pending() is true and the reaper busy-waits.
+A non-empty expression normally finishes in predicate_parse()'s inner
+loop, which resolves the pending logical operators before jumping to
+finalization. If the input ends after an operator, possibly followed by
+unary '!' tokens, the outer loop instead falls through with unresolved
+operator state.
 
-But clearing TIF_NOTIFY_SIGNAL doesn't fix it. It can get raised again.
-For example, klp_send_signals() sets it raw against any task that hasn't
-transitioned yet. And it keeps sending it until the livepatch finishes.
+For example, "common_pid == 1 || common_pid == 2 &&" leaves
+prog[0].target equal to -1. The second pass then reads prog[-1] before
+the forward-jump check can reject it. Depending on adjacent slab
+contents, it can also copy an out-of-bounds word into a branch target
+that passes the forward-only check. A self-targeted perf tracepoint
+counting event can reach this path through PERF_EVENT_IOC_SET_FILTER.
 
-The sleep loop waiting for pid_allocated to drop has the same problem
-and it doesn't even clear anything. So a schedule() in
-TASK_INTERRUPTIBLE returns immediately.
+Reject the outer-loop fallthrough when a predicate has already been
+parsed. This ensures that non-empty expressions only reach finalization
+after the inner loop has resolved their operators. Keep the existing
+no-filter error for input that has no predicates. Add a regression test
+for trailing logical operators and unary negations.
 
-Use a no_notify_signal guard. signal_pending() will ignore
-TIF_NOTIFY_SIGNAL and the pid namespace reaper sleeps until a child
-exits or free_pid() wakes it.
-
-Link: https://patch.msgid.link/20260824-work-tif_notify_signal-v2-5-6609e42b3157@kernel.org
-Fixes: 7fea700e04bd ("zap_pid_ns_processes: clear TIF_NOTIFY_SIGNAL along with TIF_SIGPENDING")
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Fixes: 80765597bc587 ("tracing: Rewrite filter logic to be simpler and faster")
 Cc: stable@vger.kernel.org
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Link: https://patch.msgid.link/20261023174620.91969-1-kylebot@openai.com
+Assisted-by: Codex:gpt-6-astra
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Tested-by: JongHyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/pid_namespace.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/trace/trace_events_filter.c                                      |    6 ++
+ tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc |   24 ++++++++++
+ 2 files changed, 30 insertions(+)
+ create mode 100644 tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
 
---- a/kernel/pid_namespace.c
-+++ b/kernel/pid_namespace.c
-@@ -238,9 +238,10 @@ void zap_pid_ns_processes(struct pid_nam
- 	 * kernel_wait4() will also block until our children traced from the
- 	 * parent namespace are detached and become EXIT_DEAD.
- 	 */
-+	/* Task work must not busy-loop the reaper, see signal_pending(). */
-+	guard(no_notify_signal)();
- 	do {
- 		clear_thread_flag(TIF_SIGPENDING);
--		clear_thread_flag(TIF_NOTIFY_SIGNAL);
- 		rc = kernel_wait4(-1, NULL, __WALL, NULL);
- 	} while (rc != -ECHILD);
- 
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -595,6 +595,12 @@ predicate_parse(const char *str, int nr_
+ 			top--;					/* #12 */
+ 		}
+ 	}
++	/* Only the inner loop can complete a non-empty expression. */
++	if (N) {
++		ret = -EINVAL;
++		parse_error(pe, FILT_ERR_INVALID_FILTER, ptr - str);
++		goto out_free;
++	}
+  out:
+ 	if (top != op_stack) {
+ 		/* Too many '(' */
+--- /dev/null
++++ b/tools/testing/selftests/ftrace/test.d/filter/event-filter-incomplete.tc
+@@ -0,0 +1,24 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++# description: event filter - reject incomplete logical expressions
++# requires: events/sched/sched_switch/filter
++# flags: instance
++
++filter=events/sched/sched_switch/filter
++
++for base in \
++    'common_pid == 1' \
++    'common_pid == 1 || common_pid == 2' \
++    'common_pid == 1 && common_pid == 2' \
++    '!(common_pid == 1 || common_pid == 2)'
++do
++    printf '%s' "$base" > "$filter"
++    for tail in '&&' '||' '&& !' '|| !' '&& !! ' '|| !! '; do
++        if printf '%s' "$base $tail" > "$filter" 2>/dev/null; then
++            echo "Accepted incomplete filter: $base $tail"
++            exit_fail
++        fi
++    done
++done
++
++echo 0 > "$filter"
 
 
