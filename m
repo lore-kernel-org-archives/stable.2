@@ -1,53 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.59.206.189
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179841;
-	b=Evz/RBRe19GT0UiPlvuldueouRVPvlT17QxNrIa0hZgdJ4br6xkQRCQAI3rgA9HMSg4N
-	 o70u3kL+4wgIxSc5TzBNFbdjzVwCOOoW24PhEl+FJpOMexqGsDlEt7IjKoGc++sSzVuAp
-	 juAZi4cJ+cT456YtL3UXbNPKZ9N7Pgxkwn7MOrK8JnAkwFqHtmh3C1rRWj3+idP9fr+Sc
-	 IrY9T/Xo2IIbKZZQw1dTUOE+8h4FH6erjeo9tFMOg8hr0UpbMnyu3/FugthBzryS5bvHe
-	 PrGK5eQi68ZGH7oSf4qBgwTvsa6svJhs81cQ09qqIEOhZM2m87QOURYxhFzErwZVxhw==
+	t=1793179849;
+	b=FoPZC0hkm37HcptHt8dHMZPtnYpQG/Ap4bEChLE6tq+Wxcj0UnH60Bd9bCmDurjGZ2WG
+	 p5pmMg8IBTDnm4Y8LmoO8dUwqT1D93pu6eZKDPud98WXOjFFeOFVzKSM1UddcmjIJQp8K
+	 tb6U8IhUJSBJKxibqfhbVhjMaa/uuJfCV2OdoQOAiNs5UClSxk+2CAVpp/w4whwudrYX5
+	 /68wS0z1ox/2rWwATjWpFrzu2PGVoUtdvLha3Sm2P5eeXPO5bbt3R6ktuvY9IFdVLK5Hz
+	 h5UaWowaqPJIL7PniiLf8l8wjkddJLk7I8poWPBsZSOfgyQa0yxtsksi7j2qY39Pq8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179841;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=BzY/9GS+8grFtALrDXv5eWekSLwpjFUB0KHUPTwIMLU=;
-	b=UQ77FJfXAwMlqzeAEhPKqFoOWgfH1oQu/PwtKN4y1uOgBlFDsD5SBDpG/UOFEUEDmjVJ
-	 T8L46Mi3s4lrrOwxFRjvTe6jlO8eJPhWX72Bm77/MToIUl0U6vk2rCM3SqpqjpTGlu4ZR
-	 DWFhLN0DfeQvQVy4dGm9otccDS8Pp56tij3z2hjEeTeTcQ+t1PQsEg/LbM1YvLQVUUHjU
-	 OlmjMauwCpm0wRwS23dvejn6EqIBAWxdDAJE40W2ooF0kILVWU054h/2YqWrxZ7vLBPhH
-	 pxxRAYNFSeLG/YWY79FSz45CK0qJNwO7xH8VzBEfv265JZvSiBHpmWqfhP0mlzVGq9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179849;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=Yz76oOmF8BT8+08e1VGZ0CzES0UkXP8ivIRndu1Jn+I=;
+	b=WnX6HI79anIws+LWcyMbekYKSH+yjZlhkz3zhCbroU/0s/3gbm2BAnMLTBK12NMcQj5P
+	 n0AkLCk/AbNrwqVXc7ExV2UmNRcEfnqTWj3S3BDnnekHqaMoBPwuDFMqGCX4/tEzM/vMs
+	 B1zOv76TIbOhl+qZMbaQRtZsFlMIhwe2KBLIT6EJm9hMQMwa3bfyfHA+uUXK8c0f1Mr8L
+	 N7WHYZAqdJSOpawdaljlih3EYQfOmFbfE2aE6jxszOMblYOZfhRWIr8LoNhmMImEAkIfm
+	 zSCAwGtLwkNNBdFiI5yA/EnXGdQgA4KOgHt0vSy5RdvKXnlnmwypslBbXBwrQAqaYOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=XXOkfy8f;
+	arc=none smtp.remote-ip=194.59.206.189
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F7460A2608;
-	Wed, 28 Oct 2026 09:30:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F7460A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4E560A2605;
+	Wed, 28 Oct 2026 09:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA4E560A2605
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=XXOkfy8f
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jF2Cg4wlZz4gB3;
+	Wed, 28 Oct 2026 10:30:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793179839;
+	bh=b98VBHicFPHHWx0A6xKSF3YDtQW4jPChJfnqgGAgdKc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XXOkfy8fZr3BIlV3qgmG8ps5OhHwzPHvJpy0Ier9Bf9UswfxqJDtmuWYNKux+ouA+
+	 aIH/1NCvf6WUFtwIxReelu6Yjq9ES7osjoM/Uz/V5OJI4x0Q0tl9dgCMn5vtJyXGnd
+	 g9eDe77cwur6eIgHjwaWM4V0U2xHdEVjjCxwiVcRTnKe25vvSw3zXlpUwAt7BrKJyr
+	 zHSjbnWZPIqNX+mBoUTjR1p5EuzrD96cMQEnNzoTCTenxXm5wsEB+WWGDPCoK2r4O/
+	 IFcSL1rD3uPw+qhk+qSqVz7081OVeyB4ZFK1NLAOWhBN8IZNqOc3vJryBVhaXIS4y+
+	 RTfUtpH081gLQ==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4jF2Cg4FHXz7yvw;
+	Wed, 28 Oct 2026 10:30:39 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jF2CL5V15z4yjjX;
-	Wed, 28 Oct 2026 17:30:22 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 69S9U8U0063881;
-	Wed, 28 Oct 2026 17:30:08 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 28 Oct 2026 17:30:11 +0800 (CST)
-X-Zmail-TransId: 2afb6ae1c0a3191-f6b36
-X-Mailer: Zmail v1.0
-Message-ID: <2026102817301132485IE4Ia6aXSqUo5KZUvgW@zte.com.cn>
-Date: Wed, 28 Oct 2026 17:30:11 +0800 (CST)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jF2Cd4rrqz8thr;
+	Wed, 28 Oct 2026 10:30:37 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 533C85F8B3;
+	Wed, 28 Oct 2026 10:30:36 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <fe5a4a48-3054-4a53-8487-d968b3983d89@leemhuis.info>
+Date: Wed, 28 Oct 2026 10:30:35 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,127 +78,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogeGF0dHI6IGZpeCBvdXQtb2YtYm91bmRzIHdyaXRlIGluIHViaWZzX2xpc3R4YXR0cigp?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 69S9U8U0063881
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 28 Oct 2026 17:30:22 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE1C0AE.001/4jF2CL5V15z4yjjX
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] 6.18.57: resume from s2idle triggers poweroff and
+ hangs when tiny_power_button is built as a module
+To: Mikkel Sejdelin <mikkel.sejdelin@proton.me>,
+ Sasha Levin <sashal@kernel.org>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ "rafael@kernel.org" <rafael@kernel.org>, Ting-Han Hou <ue081723@gmail.com>
+References: 
+ <1kU98bgDqqEMGUcpGahaBYlaPiP2ssSCZj1uIKq1MEaGpNv2exGeJc3VWzXxB8-VJQ1Uk62W19oByt2KC-v1bSA4Sux9fBhnlA_IHWjV2Zw=@proton.me>
+ <20261024-rc-reply-0001-tiny-power-button-s2idle@kernel.org>
+ <dyJyEj-TY1YtRVdDYPD4xnYF_aIP78z9wliSc3251tj6aZEZxux0c81AiZAFPpZvbg6rjgqivtHTFfY29YHTS9WZmw569IbyVF0NPVTxqrA=@proton.me>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: 
+ <dyJyEj-TY1YtRVdDYPD4xnYF_aIP78z9wliSc3251tj6aZEZxux0c81AiZAFPpZvbg6rjgqivtHTFfY29YHTS9WZmw569IbyVF0NPVTxqrA=@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179317983672.1123909.5267239163159569902@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 533C85F8B3
+X-NC-CID: 8BhwjSnzVcSoDK9NTl/C+VSzlBdyli9V1RllZ+Cn/TkMRJGgSi8=
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On 10/28/26 10:15, Mikkel Sejdelin wrote:
+> On Sat, Oct 24, 2026 at 10:26:52 -0400, Sasha Levin wrote:
+>> I have dropped f4203ec64e11 ("ACPI: tiny-power-button: Convert the
+>> driver to a platform one") from the 6.18 queue. It cannot go out without
+>> ab06eb920401 ("ACPI: scan: Register platform devices for fixed event
+>> buttons")
+> 
+> Now that ab06eb920401 is queued for 6.18 again [1], could f4203ec64e11
+> be queued with it? ab06eb920401 alone does not fix this report: on my
+> machine (control-method power button, PNP0C0C) it changes nothing, and
+> tiny-power-button keeps binding next to button until it is a platform
+> driver too. 6.18.59 is still affected.
+> 
+> I tested v6.18.58 + ab06eb920401 (with Ting-Han's 2/3 and 3/3) +
+> f4203ec64e11 on this laptop: platform devices and bindings unchanged
+> from 6.18.57, acpi-button binds PNP0C0C:00, acpi-tiny-power-button
+> stays unbound, 3/3 s2idle resumes OK, no SIGRTMIN+4.
+> 
+> Tested-by: Mikkel Sejdelin <mikkel.sejdelin@proton.me>
+> 
+> Thorsten: regzbot has ab06eb920401 as the fix for this report, but it
+> needs f4203ec64e11 as well:
+> 
+> #regzbot fix: ACPI: tiny-power-button: Convert the driver to a platform one
+> 
+> [1] https://lore.kernel.org/all/20261024105710.593-2-ue081723@gmail.com/
+Thx for fixing this up -- and sorry, my fault, got that wrong, the cover
+letter from Ting-Han Hou (now CCed) sounded to me like f4203ec64e11
+would not be needed anymore.
 
-ubifs_listxattr() derives the size of the name list from
-ui->xattr_names + ui->xattr_cnt and uses it to reject a call whose
-buffer is too small.  It then copies every visible xattr name returned
-by ubifs_tnc_next_ent() without checking @size again.
-
-Both counters are read from the on-flash inode node and are only
-accounting values.  A modified image can make them under-report the
-number of xattr entries while the TNC still contains more entries: the
-node CRC only protects against accidental corruption, it is recomputed
-for a crafted image.
-
-The usual caller first invokes listxattr(path, NULL, 0), which returns
-the too small size computed from those counters, then allocates a
-buffer of that size and invokes listxattr() again.  In the second
-system call fs/xattr.c:listxattr() allocates the kernel buffer with
-kvmalloc(size) and passes it to ubifs_listxattr(), which copies the
-names past its end.  The copied bytes are the xattr names from the
-image, so part of the overflow content is attacker controlled.
-
-Bound each copy by @size and return -ERANGE when the list does not fit.
-With a corrupt image the reported size may now be too small, but the
-following call fails cleanly instead of overflowing.  Note that nlen
-itself is already bounded by ubifs_validate_entry(), which every node
-returned by ubifs_tnc_next_ent() has passed; the missing check is only
-against the caller's buffer.
-
-While here, validate the two counters individually.  Their sum is
-computed in 32 bits, so the existing check is bypassed when it wraps
-around; rejecting the oversized values at mount time keeps the O(1)
-size query in listxattr() from returning a wrapped (possibly negative)
-length.
-
-Mounting UBIFS requires CAP_SYS_ADMIN in the initial user namespace, so
-this is only reachable with a crafted image.  Compile tested with W=1
-and checkpatch --strict.  Runtime reproduction needs a modified UBI
-image: change xattr_cnt/xattr_names in an inode node and recompute its
-CRC; a KASAN kernel then reports the overflow on the second
-listxattr() call.
-
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..fe24e1949bb3 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -82,7 +82,15 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
- 		return 2;
- 	}
-
--	if (ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
-+	/*
-+	 * Both counters are read from the on-flash inode node.  Check them
-+	 * individually first: the addition is performed in 32 bits and can
-+	 * wrap around, which would make the check below pass for absurd
-+	 * values.
-+	 */
-+	if (ui->xattr_cnt > XATTR_LIST_MAX ||
-+	    ui->xattr_names > XATTR_LIST_MAX ||
-+	    ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
- 		return 3;
-
- 	if (ui->data_len < 0 || ui->data_len > UBIFS_MAX_INO_DATA)
-diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index 3b0e8a270f59..8efe2c545bf4 100644
---- a/fs/ubifs/xattr.c
-+++ b/fs/ubifs/xattr.c
-@@ -421,8 +421,25 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		fname_len(&nm) = le16_to_cpu(xent->nlen);
-
- 		if (xattr_visible(xent->name)) {
--			memcpy(buffer + written, fname_name(&nm), fname_len(&nm) + 1);
--			written += fname_len(&nm) + 1;
-+			int nlen = fname_len(&nm);
-+
-+			/*
-+			 * nlen is bounded by ubifs_validate_entry(): the
-+			 * node length is nlen + UBIFS_DENT_NODE_SZ + 1 and
-+			 * is itself bounded by UBIFS_MAX_DENT_NODE_SZ, so
-+			 * the name cannot run past the node.
-+			 *
-+			 * The missing bound is the caller's buffer: the
-+			 * on-flash xattr counters are not authoritative and
-+			 * a crafted image can under-report them.
-+			 */
-+			if (written + nlen + 1 > size) {
-+				kfree(xent);
-+				err = -ERANGE;
-+				break;
-+			}
-+			memcpy(buffer + written, fname_name(&nm), nlen + 1);
-+			written += nlen + 1;
- 		}
-
- 		kfree(pxent);
-@@ -432,6 +449,9 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	kfree(pxent);
- 	up_read(&host_ui->xattr_sem);
-
-+	if (err == -ERANGE)
-+		return err;
-+
- 	if (err != -ENOENT) {
- 		ubifs_err(c, "cannot find next direntry, error %d", err);
- 		return err;
+Ciao, Thorsten
