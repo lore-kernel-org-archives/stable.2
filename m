@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216628;
-	b=1f+srn9z5dbhPCb4aa9NaOIUEhPR0YJRtafnVjuqKywktIAL4e/Xvp4eRUE6p8avXprT
-	 IKWPsRCdQzJp7stIzfLpcLVf+SQ5BD5/os1sok4mjCkb2ug96OMgOFxXg6w8do5abX7MQ
-	 9LdRbVa/+DeXZJ2ctTVnGtO5eUXO5jxJJxRokeTPgOwaIGrfA+VeLYdcjsRWd/KIPygDq
-	 yHtCsUE9frcTvrPGuMg0h19OAF5RTz7TrDMoi+CGiKoBcmHHb0JbMBrlXFs0ICdBHK8f8
-	 lYHcbPq07t1Iv992u43J0swTyqc9GJRu4z3G8Z7G3C+ZLDUMfB5IcJSNfOTin5CEo9Q==
+	t=1793216629;
+	b=ZA3VCtsXkzbidepgQJVGKHWgdcjG51aUCjiczC91X/0lGyK/6VdulAAOetzZO/CEce7C
+	 wYCZlR6lWpaoaZHhqQdOVJAEnTzXqzRMRDgpBt5MD1fsOQqsOKyGPrbYaKs+uymC1d7Uv
+	 Tc6M9ppEdDTbj2gQMcD+obBmV2ylZ3/VhdPqTGhRHFVg8/VDEa9XrMPqKa5LczErS6Vbe
+	 p67AV6/L8KXZlfAH98FVIFd0P39/vlH3i2TsLGNEHCHh8Es+nCe7p7C1jTEMwyNW+zrf2
+	 PCQe5mU6Jxsw9uMUBgmn1pxcnqyS08Oa3QkV8kjAKcVeHCAk4XiylgkL5aohQYtFezA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216629;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aYSkEtpq0pCqdur7sMsZg7kyohvC33OpGa17kLyyUbo=;
-	b=bORJr7KUAYQH3N/W5h4gRMUHbk747e9IOtmmcXp7dFUbHM6nJrRkGNb5GaOCtOkauvPD
-	 RMBKg4B9QuI4440CRAHk2eJbQi9j7I0pVTxDor9dRyyPGKKP73vY5A8xLZS69WGyYE0S5
-	 M9Fb3hGM5rjaTYGF4vLp94ViH47RNaQH68Cq18XB64u9dHHl7at19OVDUXF1AdNQEnVnI
-	 u4g1wgXWHS4mQpFlIps9Jay27NfPmNyUGBPv7Y1NUPdPqORwXXLMaLPJdd2DERuhhvfdV
-	 KcCTSMrZGTO6G6hovbRY4LVC2MGyAzePVlx2DUgiEo2JBozEw3UoVNpqT8h/zOvpQBw==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hY3Jalp8kjqRpgLSdlziTJ1jakq6a1Fte/UW5hVjBRs=;
+	b=T/tSnj7in0MV82V6TSXKO+qsFSgSVRRod6mO98pwYlXppRQU+LmK58W6CA1ZgPSoLLSF
+	 X0R7Rjr0njhOebGcAm/rZnM1NQ9plIxVsKjdfUHbNhPC7Kf9uCR1jtViGd//jh/7hdRsy
+	 J581RwG56toGvjAWj70mN333TZW69232VF45HSgofxH0sfI2/ajoUccDQ/D/qa3/LmnbL
+	 LAHZA18dS2ByGXiwABH1qLw1gqY/KQfctHaNTx9MeHUpFbmNwfBl83rdRWmSUFtpCFhkp
+	 Ncn8eRJtAR2f/gcsxTMGHAzf0lr3noKDsnb6Y2nT+PvrC0UEJXFQUH57toFPo8s4Z0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8QhqTw6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=djKR3pnu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EFE606A31D
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E87606A31D;
+	Wed, 28 Oct 2026 19:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8QhqTw6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2EF71F01828;
-	Wed, 28 Oct 2026 19:43:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793216627;
-	bh=aYSkEtpq0pCqdur7sMsZg7kyohvC33OpGa17kLyyUbo=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=djKR3pnu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205371F01825;
+	Wed, 28 Oct 2026 19:43:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793216628;
+	bh=hY3Jalp8kjqRpgLSdlziTJ1jakq6a1Fte/UW5hVjBRs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T8QhqTw6rMIdxsdxh2nphNIzAE0Wr62nrOTisuwmAXkf6NoS894Vr15eBMbSlw2H4
-	 rNX+k7hApC9uuJP82CfH6m6XzTHqwVXKoFcd9o6T+FK4u3LzCKhYwpCQXy9OIjD22J
-	 CSCTv8aJLpCFir8gv7PbYEPSyjmywHpMbxeLVFSNy0hECl1fHhEqU/sAS48L42BjiE
-	 WOuHqE8wIeE8b7mjwe6TEjueaRcifvl6xd/MsYoWoGY+fskVoHpKaCiXuhWOgzrPVm
-	 r4ZtvemaaBStDqgXgkgQ+u9onT0TqTaaEK8kNsRQYjxpaWH9+5hFm/VqLMPmVJW7gn
-	 mgf303/46ydyA==
-From: Sasha Levin <sashal@kernel.org>
+	b=djKR3pnuLfalHaDE5s4N/3qVCF9qpNn4sbqmhPgqYJTXGMpGJ4FstF1vUNaO9YBl9
+	 nsuljPo7W3BZ0nTt3OCQ12C+XfGSBS9RiqvBdYPuMNpm1eZoPkUFHT/LoUqcFQrw+Y
+	 TWldRFyv71CLlhaOnNqW+nLpGIFhxgEgWS7atdAQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] exec: cancel io_uring requests before de_thread()
-Date: Wed, 28 Oct 2026 15:43:45 -0400
-Message-ID: <20261028194317.2085969-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102819-underpay-angelic-b6e8@gregkh>
-References: <2026102819-underpay-angelic-b6e8@gregkh>
+Subject: [PATCH 6.1 1623/1887] firmware: arm_scmi: Publish channel state before callbacks
+Date: Wed, 28 Oct 2026 18:01:59 +0100
+Message-ID: <20261028170536.401679119@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
+References: <20261028170459.200466217@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,71 +64,141 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit b42c85c20d84ff3e4f0f027d6596c3b3b4a20657 ]
+------------------
 
-begin_new_exec() cancels the exec'ing thread's io_uring requests after
-de_thread() made it the only thread in the thread-group. Now
-io_uring_task_cancel() runs task work after. If it runs a
-create_worker_cb() item then a io-wq queued on the thread before the
-exec creates a new io-wq worker thread.
+From: Sudeep Holla <sudeep.holla@kernel.org>
 
-Said thread joins the thread-group which de_thread() just took down. The
-io-iwq sticks around until it notices that its workqueue is dying. But
-code after de_thread() relies on being single-threaded.
+[ Upstream commit 0314900dcdde044af0208fed212035dbfaa55843 ]
 
-Move io_uring_task_cancel() before de_thread() but behind the point of
-no return. Any worker created during task work run from
-io_uring_task_cancel() is just a sibling thread that de_thread() will
-take down and reap.
+Transport setup can enable callbacks before the setup routine returns.
+mailbox_chan_setup() registers the mailbox client with
+mbox_request_channel(), and the mailbox controller startup path can enable
+interrupt delivery before SCMI mailbox channel state has been published.
+Similarly, smc_chan_setup() requests the optional A2P completion IRQ before
+the SMC transport has made its cinfo pointer visible.
 
-Once io_uring_task_cancel() returned the thread has neither a task
-context nor a workqueue left so nothing can add a thread behind
-de_thread()'s back anymore.
+If a pending or spurious callback fires in those windows, the transport RX
+callback can dereference a NULL transport cinfo pointer. Publishing only
+the transport-private pointer is not sufficient either: an early callback
+can enter the SCMI core before scmi_chan_setup() has assigned
+cinfo->handle.
+The core derives scmi_info from cinfo->handle in the RX path, so a NULL
+handle can still fault even when the transport-private cinfo is valid.
 
-Suggested-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/aq0_lvHDViIpX_Mu@redhat.com
-Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-12-8e4adb1619e6@kernel.org
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Assign cinfo->handle before invoking the transport setup callback. Publish
+the mailbox and SMC transport-private channel state before requesting the
+mailbox channels or IRQ, and clear the early-published pointers again on
+setup failure. Also unwind mailbox setup devres resources on failure so an
+optional RX setup error that is ignored by the core does not leave stale
+transport state behind.
+
+Fixes: 5c8a47a5a91d ("firmware: arm_scmi: Make scmi core independent of the transport type")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://patch.msgid.link/20260714-scmi_core_fixes-v6-1-3afe499d46e3@kernel.org
+Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/exec.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/firmware/arm_scmi/driver.c  |  2 +-
+ drivers/firmware/arm_scmi/mailbox.c | 16 ++++++++++++----
+ drivers/firmware/arm_scmi/smc.c     | 12 +++++++-----
+ 3 files changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/fs/exec.c b/fs/exec.c
-index 4aa6905259591..3f301138e65a0 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1134,6 +1134,13 @@ int begin_new_exec(struct linux_binprm * bprm)
- 	 */
- 	bprm->point_of_no_return = true;
+diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_scmi/driver.c
+index 4c3677a205a8f..c88b8d4aae926 100644
+--- a/drivers/firmware/arm_scmi/driver.c
++++ b/drivers/firmware/arm_scmi/driver.c
+@@ -2143,6 +2143,7 @@ static int scmi_chan_setup(struct scmi_info *info, struct device_node *of_node,
+ 	of_node_get(of_node);
  
-+	/*
-+	 * Cancel any io_uring activity across execve. This runs task work
-+	 * that may still create an io-wq worker, so do it while de_thread()
-+	 * can still zap it.
-+	 */
-+	io_uring_task_cancel();
+ 	cinfo->dev = &tdev->dev;
++	cinfo->handle = &info->handle;
+ 	ret = info->desc->ops->chan_setup(cinfo, info->dev, tx);
+ 	if (ret) {
+ 		of_node_put(of_node);
+@@ -2175,7 +2176,6 @@ static int scmi_chan_setup(struct scmi_info *info, struct device_node *of_node,
+ 		return ret;
+ 	}
+ 
+-	cinfo->handle = &info->handle;
+ 	return 0;
+ }
+ 
+diff --git a/drivers/firmware/arm_scmi/mailbox.c b/drivers/firmware/arm_scmi/mailbox.c
+index 3cd731cbe9b88..41edb639cf929 100644
+--- a/drivers/firmware/arm_scmi/mailbox.c
++++ b/drivers/firmware/arm_scmi/mailbox.c
+@@ -146,19 +146,27 @@ static int mailbox_chan_setup(struct scmi_chan_info *cinfo, struct device *dev,
+ 	cl->tx_block = false;
+ 	cl->knows_txdone = tx;
+ 
++	cinfo->transport_info = smbox;
++	smbox->cinfo = cinfo;
 +
- 	/* Make this the only thread in the thread group */
- 	retval = de_thread(me);
- 	if (retval)
-@@ -1150,10 +1157,6 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	smbox->chan = mbox_request_channel(cl, tx ? 0 : 1);
+ 	if (IS_ERR(smbox->chan)) {
+ 		ret = PTR_ERR(smbox->chan);
++		smbox->chan = NULL;
+ 		if (ret != -EPROBE_DEFER)
+ 			dev_err(cdev, "failed to request SCMI %s mailbox\n",
+ 				tx ? "Tx" : "Rx");
+-		return ret;
++		goto err_clear_cinfo;
+ 	}
  
- 	/* see the comment in check_unsafe_exec() */
- 	current->fs->in_exec = 0;
--	/*
--	 * Cancel any io_uring activity across execve
--	 */
--	io_uring_task_cancel();
+-	cinfo->transport_info = smbox;
+-	smbox->cinfo = cinfo;
+-
+ 	return 0;
++
++err_clear_cinfo:
++	cinfo->transport_info = NULL;
++	smbox->cinfo = NULL;
++	devm_iounmap(dev, smbox->shmem);
++	devm_kfree(dev, smbox);
++	return ret;
+ }
  
- 	/* Ensure the files table is not shared. */
- 	retval = unshare_files();
+ static int mailbox_chan_free(int id, void *p, void *data)
+diff --git a/drivers/firmware/arm_scmi/smc.c b/drivers/firmware/arm_scmi/smc.c
+index 7413dda373d40..d2abe71b98833 100644
+--- a/drivers/firmware/arm_scmi/smc.c
++++ b/drivers/firmware/arm_scmi/smc.c
+@@ -141,6 +141,11 @@ static int smc_chan_setup(struct scmi_chan_info *cinfo, struct device *dev,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	scmi_info->func_id = func_id;
++	scmi_info->cinfo = cinfo;
++	smc_channel_lock_init(scmi_info);
++	cinfo->transport_info = scmi_info;
++
+ 	/*
+ 	 * If there is an interrupt named "a2p", then the service and
+ 	 * completion of a message is signaled by an interrupt rather than by
+@@ -152,17 +157,14 @@ static int smc_chan_setup(struct scmi_chan_info *cinfo, struct device *dev,
+ 				  IRQF_NO_SUSPEND, dev_name(dev), scmi_info);
+ 		if (ret) {
+ 			dev_err(dev, "failed to setup SCMI smc irq\n");
++			cinfo->transport_info = NULL;
++			scmi_info->cinfo = NULL;
+ 			return ret;
+ 		}
+ 	} else {
+ 		cinfo->no_completion_irq = true;
+ 	}
+ 
+-	scmi_info->func_id = func_id;
+-	scmi_info->cinfo = cinfo;
+-	smc_channel_lock_init(scmi_info);
+-	cinfo->transport_info = scmi_info;
+-
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
+
+
 
