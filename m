@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793210090;
-	b=TRYd9wZcQT+VDvziXhyu59PdlZxxzHOHQ67pyJHjX9YMOjsQ2vSuFzdVggtPCfG7ve55
-	 l0Hd+irmcKcNJfGXL251daCoi6WfkHVbATyGAfZVXr2/t36KDEYaOk/1IrNvunk0hvJ4i
-	 VCGJJOa+BcFxEAfSbFnFcuwk5tJZ+ewX09FhVA8wHo5sYWpGfmfrw2zID2On+cKMm3JWG
-	 Enmu3xg0seOZV4vcSe1LeAePdHKChHl0oj25JWel5s87dzEfmgrRC7F6Y0H8gYf7JRdyt
-	 uj27AhXBWe3INb+aN+ewofcs4F5bGbXTFAi8J9XAmKKLrchmI8MTQVOdg2CntlU59Dg==
+	t=1793210093;
+	b=TSk/N4o73U7OQA6kv+Byga2cKv8mHMxLzQ3DvRqimF98yfTmy71uLTwETtb/bSPA6CZP
+	 KuK133dFuHeLVqgHCxR6W1msyxiLEW5FEuG2A0rMXZQIXvbIl1KbZ0BsrOgd8osFBnm5Q
+	 OJtD9rtxBGl95T0WRbHBDa+Ncrqb1kcZIAS6dbyJa4E63HDse5rH11HIdAu4L1qKTtTtv
+	 dQFptozLXb6DqO7P8Qws7av7+LKHKDXUik7gu7lLbVxw3Vk2dMjC0JpsgvFgMvHw4SLnj
+	 ZMTggUNG9WTG+z8AicudkF+kHpA0wPY5Hjc0E644l73MG5iTJetKcaBYuABmoaClv2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793210090;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=frLMbWVBnyIRWbIRj/zfqqgGvFsyJWu2/1g7XXDr3jY=;
-	b=WpP9G+6j6mxacufyu/36YOGGGQ/ZKdHpKi3RO9n3o31JsLoGntr5ZhE69WYDUbkrGg5C
-	 OcdYO2+/s1KeL1TnXHLOFtYjNJyAFSL7tGRsANd4358knMBsoOLWWtWwMjvM5rI9+9VxF
-	 nX65WLI9TaiJdJvNFI0Xlh6iwvLlEd173ASI2OGJTfTpcLLCHiGkN90B+VVTf6bW8Bxpi
-	 QAsFX9dtOk0MqKGOWG2AtHvGwU08h9CEDV57K9yVh0dKXPxsA7MNRT7wX59R3Ddx1wVKY
-	 EmSf/SSXZjVq9NPrQz2Vgl+jB2CrKi1XJ+8hVH2HWrD9JfOdddi3oCu96HRc8VvQXXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793210093;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=v6lgge4WdsOVmOEXha6YU4EWcAVpqL0HGPQBV5WSBkY=;
+	b=lSOtuMtu8WbYTMtY/UFXdR20W+0caNbAGyXOsqMn/lv0RvvBJHj9E7nh221RJkU4aBDx
+	 wX/MzaIdsG97vWodOzSzp7cpvi285sw37S4EQ41OvcZeDh7vF3PtdEcLuFp65jvpIR2Wt
+	 /EMie3IabC4Tji1ZEjSGTWrJ8GxEPOx0wErnkm+dACt5L8oxV8apXVfyIfJhtO2M8TAgI
+	 /DA5LHYWfQzYm76s4u8jHMgcesR/qXUu1Ll2D2v0fkDlz/gubQ1Y2LYejVWO4T7xEd+5d
+	 wmzYBQA49aTc8cXI5s/ypiE7UsPuGxbRkLzl+Pl7aqV54x6QnPsYfsx/swGg9x3MMmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SUwu4s22;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khWkVIOI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF7F606A31C;
-	Wed, 28 Oct 2026 17:54:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C45606A32C;
+	Wed, 28 Oct 2026 17:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SUwu4s22
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F0F1F01825;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=khWkVIOI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8A01F01828;
 	Wed, 28 Oct 2026 17:54:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793210090;
-	bh=frLMbWVBnyIRWbIRj/zfqqgGvFsyJWu2/1g7XXDr3jY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SUwu4s224805il3ue1XecvUfJsRc2gccvIhMOMFaaMPle1BQzgF3eoGpkMcy23R6I
-	 UU7HL7EjSpCIDVzBua9/SVWIt5xiI3iELnPtmVHwcO50PS4xXWFhDrsKyiy08nuPAW
-	 kznNDYESsJafH6IVptxo5VSc+2h2LLod5HnW7wKE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Serge Hallyn <sergeh@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 6.6 073/168] xfs: fix capability check in xfs
-Date: Wed, 28 Oct 2026 18:00:09 +0100
-Message-ID: <20261028165944.812921884@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793210092;
+	bh=v6lgge4WdsOVmOEXha6YU4EWcAVpqL0HGPQBV5WSBkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=khWkVIOIxNRfDHMWRxAQtKPepjJau1mWH1tfNKVk66Ch1Lv9J7cPoDH51yRVQkwQe
+	 lm9acNXE11ARvqj46A/Jyhi7EbsCe7jxWNp+QA+oIQecZm/cowX6xbtuw2ZcnMLeZW
+	 F66i8Mn634THVYeZ8kW0a7P38yefWynfUloLYRA+QdcLjo8wWma67XNK0XQZydnh42
+	 /vDm0n3McPffCVHg9YW7z8haJZkTA8RlJPH1/umGHKF2jPmhag50YsXMCtLexT4VbV
+	 Ii/RzfMxlGoN8SWgNRUNR0nsu7SeT0M1r10FoZv6ArCr77yMxsJQbPadK4R3ESzy4a
+	 4ho1RTRTgtRxw==
+Date: Wed, 28 Oct 2026 17:54:47 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	maple-tree@lists.infradead.org, Chris Mason <mason@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/4] maple_tree: Update internal warning and bug_on code
+Message-ID: <auImniguGIVq6c_L@gremlin>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-4-liam@infradead.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,86 +60,209 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028154218.1668182-4-liam@infradead.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+ma
+ On Wed, Oct 28, 2026 at 11:42:17AM -0400, Liam R. Howlett (Google) wrote:
+> When CONFIG_DEBUG_MAPLE_TREE is set, call the WARN_ON_ONCE() after the
+> custom information is dumped about the tree.  Without using the kernel's
+> WARN_ON calls, syzbot will not catch issues detected by this code.
 
-------------------
+Mega nit but commit message doesn't mention the BUG_ON() bits :)
 
-From: Carlos Maiolino <cem@kernel.org>
+>
+> Update the non-debug code to call WARN_ON_ONCE() as well.
+>
+> Cc: <stable@vger.kernel.org>
+> Reported-by: Lorenzo Stoakes <ljs@kernel.org>
+> Fixes: bf857ddd21d0b ("maple_tree: move debug check to __mas_set_range()")
 
-commit e2f62a9744ebad3bcb6347a648e615026e9efeff upstream.
+LLM overlord says bf857ddd21d0b only moved it, and f0a1f866aba1 actually
+implemented it.
 
-An user reported a bug where he managed to evade group's quota
-by changing a file's gid to a different group id the same user
-belonged to, even though quotas were enforced on both gids and the
-file's size was big enough to exceed the quota's hardlimit.
+> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
 
-Commit eba0549bc7d1 replaced a capable() call by a
-has_capability_noaudit() to prevent unnecessary selinux audit messages.
-Turns out that both calls have slightly different semantics even though
-their documentation seems similar. Where in a nutshell:
+Looks sensible to me from kernel perspective, but LLM overlord tells me this
+changes the userland tests from asserting on dump_stack() to just printing
+something out on WARN_ON().
 
-capable() - Tests the task's effective credentials
-has_ns_capability_noaudit() - Tests the task's real credentials
+(BUG_ON() is OK, it asserts already).
 
-This most of the time has no practical difference but in some cases like
-changing attrs (specifically group id in this case) through a NFS client
-this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
-bypassing quota accounting checks.
+However we really do need this for the kernel so CONFIG_DEBUG_MAPLE_TREE
+triggers syzbot and such, so maybe the userland bit can be a follow-up?
 
-Using instead ns_capable_noaudit() should fix this issue and prevent
-selinux audit messages.
+On that basis:
 
-This also fix the remaining calls to has_capability_noaudit()
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Fixes: eba0549bc7d1 ("xfs: don't generate selinux audit messages for capability testing")
-Cc: stable@vger.kernel.org # v5.18
-Reported-by: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
-Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Reviewed-by: Serge Hallyn <sergeh@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- fs/xfs/xfs_fsmap.c |    2 +-
- fs/xfs/xfs_ioctl.c |    2 +-
- fs/xfs/xfs_iops.c  |    2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Or... maybe just respin with something actually, can fix it by updating the
+shared maple tree testing header to make warn do something like this
+(schlopped, apologies):
 
---- a/fs/xfs/xfs_fsmap.c
-+++ b/fs/xfs/xfs_fsmap.c
-@@ -902,7 +902,7 @@ xfs_getfsmap(
- 		return -EINVAL;
- 
- 	use_rmap = xfs_has_rmapbt(mp) &&
--		   has_capability_noaudit(current, CAP_SYS_ADMIN);
-+		   ns_capable_noaudit(&init_user_ns, CAP_SYS_ADMIN);
- 	head->fmh_entries = 0;
- 
- 	/* Set up our device handlers. */
---- a/fs/xfs/xfs_ioctl.c
-+++ b/fs/xfs/xfs_ioctl.c
-@@ -1218,7 +1218,7 @@ xfs_ioctl_setattr_get_trans(
- 		goto out_error;
- 
- 	error = xfs_trans_alloc_ichange(ip, NULL, NULL, pdqp,
--			has_capability_noaudit(current, CAP_FOWNER), &tp);
-+			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
- 	if (error)
- 		goto out_error;
- 
---- a/fs/xfs/xfs_iops.c
-+++ b/fs/xfs/xfs_iops.c
-@@ -712,7 +712,7 @@ xfs_setattr_nonsize(
- 	}
- 
- 	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
--			has_capability_noaudit(current, CAP_FOWNER), &tp);
-+			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
- 	if (error)
- 		goto out_dqrele;
- 
+diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
+index 2a1e9a8594a2..112052e7201f 100644
+--- a/tools/testing/shared/maple-shared.h
++++ b/tools/testing/shared/maple-shared.h
+@@ -10,6 +10,30 @@
+ #include <time.h>
+ #include "linux/init.h"
 
++/*
++ * The tools/include/asm/bug.h WARN*() family only prints a message and
++ * carries on.  Nothing in the maple tree or VMA tests expects a warning, so
++ * treat one as a failure and abort at the site.
++ */
++#undef WARN
++#undef WARN_ON
++#undef WARN_ON_ONCE
++#undef WARN_ONCE
++
++#define WARN(condition, format...) ({					\
++	int __ret_warn_on = !!(condition);				\
++	if (unlikely(__ret_warn_on)) {					\
++		fprintf(stderr, "WARN at %s:%d: ", __FILE__, __LINE__);	\
++		fprintf(stderr, format);				\
++		abort();						\
++	}								\
++	unlikely(__ret_warn_on);					\
++})
++
++#define WARN_ON(condition)	WARN(condition, "%s\n", #condition)
++#define WARN_ON_ONCE(condition)	WARN_ON(condition)
++#define WARN_ONCE(condition, format...)	WARN(condition, format)
 
+> ---
+>  include/linux/maple_tree.h | 54 +++++++++++++++++++++-----------------
+>  1 file changed, 30 insertions(+), 24 deletions(-)
+>
+> diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
+> index e30e57f5f3df9..0f96f1f19eb95 100644
+> --- a/include/linux/maple_tree.h
+> +++ b/include/linux/maple_tree.h
+> @@ -680,7 +680,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -696,7 +696,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -713,62 +713,68 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+>  } while (0)
+>
+>  #define MT_WARN_ON(__tree, __x)  ({					\
+> +	static bool __warned;						\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (!__warned) {						\
+> +		__warned = true;					\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mt_dump(__tree, mt_dump_hex);				\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+>
+>  #define MAS_WARN_ON(__mas, __x) ({					\
+> +	static bool __warned;						\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (!__warned) {						\
+> +		__warned = true;					\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mas_dump(__mas);					\
+>  		mt_dump((__mas)->tree, mt_dump_hex);			\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+>
+>  #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
+> +	static bool __warned;						\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (!__warned) {						\
+> +		__warned = true;					\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mas_wr_dump(__wrmas);					\
+>  		mas_dump((__wrmas)->mas);				\
+>  		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -776,9 +782,9 @@ void mt_cache_shrink(void);
+>  #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
+>  #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
+>  #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
+> -#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
+> -#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
+> -#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
+> +#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
+> +#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
+> +#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
+>  #endif /* CONFIG_DEBUG_MAPLE_TREE */
+>
+>  /**
+> --
+> 2.47.3
+>
+
+--
+Cheers, Lorenzo
