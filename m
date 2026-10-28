@@ -1,131 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793183378;
-	b=ZuzjyA1bP/TQiCowbHT39C5YOzokvMOA1+CYEF577lFciIe3164cMQ8KN3mMavwnmybq
-	 e2nvudqKN0cczSufDDl775RSmcZUCYFFt2A6dISmVUpPlKO8sRvoM5txT9M6Lw+Qt+4MH
-	 p0G7VP7S9ErHhk9MV8icUuT1lUHS7qywPIQNU6Qtyj2cza5CksS1r3SolD1QAlQhfSvcu
-	 yO3vjXu2TvuphsP/m1guaAFwnx3k6MIYG9NcG7eOG+SPdKgzqzM/mjlEFbYjkaFXaC2gh
-	 DzxoBW+2JO/QkEAuPCTjvq+wn/KSEuo5+FgQMJqU4kN+Rcu5pFlBsGN5VxqXT7rnXQg==
+	t=1793183535;
+	b=scgyB2wa6CnVno7CZpdAxp0tIm4jt1gE2qU7Ep6HdspKGoUPwLDABOp5wwFQyceFmSkK
+	 qsXYPbjlC3UCK0yGzYIzEc9A9TUJlOtiNO6/UyNUrzbhrUeyUHC9W7dywoR5pDunSEa0C
+	 u0bF9i9ULvBtKWZTeMsR0EO0/0TOLAP3AbkrV555lku9T2rYttBNXwXqffYa1qUXOzbUw
+	 Zf8vEyIk2AORMLVa+hR4LNGN3xSB7lXvSkrItFALhvndto235XjGjcdpGD+kAsc+sT3e2
+	 RvtScYOOQcJ6YTBKlNJsQl5lQC/R3AUMG/NKveOQ8P04HBpT6YT40X2oxV8cwY/NSYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793183378;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=VohrFoztSGfGZ3WTL4JzlDb7PzmZHpxs4gdPIB5ruDwI1e3nEin6P7Ib467NtAbvO1cT
-	 XuBL/ZK/mQQVgGH2MifA6NEH6y0hXbdOgA6LI8N1d/L7jXe1p2kc6PY+4Poy6eYTewEV+
-	 g23BXsQ0zQrzJHnSFqgCBMdZvyLCh2xnka6pkSUj1eqvkl+d/r5eD+k6o1PUXirCSCPHm
-	 N0QOgI+XR+Xllgp9tIywL5P7nhBzsxjnGrbphHZkPjWv+onrkZIXWzIvCHoF3MAJjtC19
-	 U9KixE58+G6mKbiC1M0Jg3I0mZj7wcYOuqc0/kSsLUnUTbnl9aI6ZsOS73if2dXRGzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183535;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=imlfzvrCRMQxeaQQncu4VyU/9UrFX8jx/rWPamL1cMI=;
+	b=i6qbF7TzTs0NnB6XsuSIbIjyKeOQbzL7Xenz8gJY9ucxu2UkrVTE4W2eVI1itq5GHuBT
+	 QY3w2TS8zkO5odmy7sqJwiXWtjpgWB6VQtoh1YMCP9dFZwXX30cIWTzRJP37Ri/sFxD8H
+	 ASssiWlbEIT7GTFAwe0N5Yt1CLW+8rxjmWBLHyu3+qF5udhm4IXPoJ0hED3xcHU4ZCFGW
+	 D3YhzGN5nCp4yt0ilM3dHLR7QKhQ/SVhX9xnjIHZiFjt5H9UQjgI6bS3MtZ/WmvPrkiIz
+	 nUJXX9jgr43KavzCX3Uq/Mg0Mzu8EVru717g1zYAbXZED4BD4HjVTVxdUlFzqqw+X5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vAXE/qwo";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vAXE/qwo";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF73606A31D;
-	Wed, 28 Oct 2026 10:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDF73606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vAXE/qwo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vAXE/qwo;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cF3JBpXF
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 88C2122124;
-	Wed, 28 Oct 2026 10:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793183375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=vAXE/qwoncXkM8TjOqZD2PIHsIovoiM/SvbdhsXt0+wjo2xHO7fkVXopC/X0M7wR3APhgO
-	lT679EqGmlYnedSYKV5P+MfhfKjwupcDvlsD8UcgfqcK1e+Bn1s7axpBpdMnGcZLUWN6/Y
-	OK0ITJIYX3Q/Zt01cm8+foVENpnPz3k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793183375;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=cF3JBpXFOM8H++ei+gdBD6WtRJzOmbHmWfsG16glxpCb5uw7cI1wy/fckjlev/r063Zcn7
-	3hUkITI3RqQxxMDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793183375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=vAXE/qwoncXkM8TjOqZD2PIHsIovoiM/SvbdhsXt0+wjo2xHO7fkVXopC/X0M7wR3APhgO
-	lT679EqGmlYnedSYKV5P+MfhfKjwupcDvlsD8UcgfqcK1e+Bn1s7axpBpdMnGcZLUWN6/Y
-	OK0ITJIYX3Q/Zt01cm8+foVENpnPz3k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793183375;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EEL5oDWhHEdjo8Sxn2zwfAAZ42ECkaHCg/0wpruTF+0=;
-	b=cF3JBpXFOM8H++ei+gdBD6WtRJzOmbHmWfsG16glxpCb5uw7cI1wy/fckjlev/r063Zcn7
-	3hUkITI3RqQxxMDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81CFD1321C;
-	Wed, 28 Oct 2026 10:29:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XiQoFIvO4WqxewAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 28 Oct 2026 10:29:31 +0000
-Date: Wed, 28 Oct 2026 10:29:29 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 01/46] mm/mglru: don't use stack pointers when walking
- PUD and PMD tables
-Message-ID: <auHOYcRfFFs3xhXa@pedro-suse.tail5790ac.ts.net>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51D28606A31A;
+	Wed, 28 Oct 2026 10:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D28606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=imlfzvrCRM
+	QxeaQQncu4VyU/9UrFX8jx/rWPamL1cMI=; b=Zx8Ben1E6JpTne+GJnM5n72U0X
+	ELj39p1SHTMntK+mKrmajzSC3TahVBNWK0ncdyFaLokUln2wKw7fw5cycLPMQnjg
+	RBkJydtm7IOuOhIb6CTwP0IsD2t7PH0G83nwWaz1Xb3h/HPcNSSQhq974i4K9UX6
+	HRPgcZUwAamloghds=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmiwEfz+FqVU30AA--.58458S2;
+	Wed, 28 Oct 2026 18:32:00 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] ALSA: usx2y: Initialize idle URBs before submitting streams
+Date: Wed, 28 Oct 2026 18:31:58 +0800
+Message-Id: <20261028103158.22996-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -135,68 +58,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-1-6f74bec9a5bb@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[65];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,toxicpanda.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.80
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkBmiwEfz+FqVU30AA--.58458S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF1kWw4xZFW8Gr15CryxAFb_yoW5ZFyxpF
+	Zav345KFZ7JF1Fvw4UAw1YvryFya1kCayUKFy0ka13Arn8JF1Fka40yF1FgrW8trWkCw4x
+	ArsrtrWag3y5A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8qZX5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUAD2rgwMGjhQAAsl
 
-On Tue, Oct 27, 2026 at 12:17:21AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> MGLRU passes stack copies of page-table entries in walk_pud_range() and
-> walk_pmd_range() when walking to the next level. These copies can become
-> stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
-> table concurrently.
-> 
-> This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
-> support page table walks"). Likely, earlier locking masked the latent
-> bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
-> retract_page_tables() without mmap or vma lock") allowed concurrent
-> retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
-> for MGLRU") dropped the walker's outer RCU protection.
-> 
-> The fix is simple, so just fix the original commit so we don't have to
-> speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
-> RCU-protected lookup and validation against the live PMD. Note that the PUD
-> handling is required as well to handle folded page tables correctly in all
-> cases.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: handle walk_pud_range() as well, clarify+simplify description,
->          adjust Fixes: ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+usb_stream_start() submits the first two capture and playback URBs and
+only afterwards assigns sk->idle_inurb, sk->idle_outurb,
+sk->completed_inurb and sk->completed_outurb to the remaining two URBs
+of each direction.
 
-I see we're already trying to beat the R-b record set by Gregory's patch.
+A transfer can complete as soon as usb_submit_urb() has been called, so
+the completion handler i_capture_start() or i_playback_start() may run
+before those pointers are set.  While the stream is still being
+synchronized (state below usb_stream_sync1), stream_start() then calls
+playback_prep_freqn(sk, sk->idle_outurb) with sk->idle_outurb still
+NULL, and the packet descriptors are written through that NULL pointer:
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000018: 0000 [#1] SMP KASAN
+  KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
+  RIP: 0010:playback_prep_freqn+0x11c/0x4a0 sound/usb/usx2y/usb_stream.c:33
+  Call Trace:
+   <IRQ>
+   stream_start+0x5dc/0x8d0 sound/usb/usx2y/usb_stream.c:596
+   i_capture_start+0x3da/0x710 sound/usb/usx2y/usb_stream.c:654
+   __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
+   usb_giveback_urb_bh+0x20b/0x530 drivers/usb/core/hcd.c:1691
+   tasklet_hi_action+0xa/0x20 kernel/softirq.c:994
+   handle_softirqs+0x16f/0x440 kernel/softirq.c:645
+   </IRQ>
 
+The four URBs referenced by these pointers are allocated long before and
+do not depend on any transfer state, so assign them before the submit
+loop.  Keeping the assignment inside the retry path also restores a
+well-defined URB rotation when the start frame mismatch handling kills
+and resubmits the streams.
+
+Fixes: 030a07e441296c372f946cd4065b5d831d8dc40c ("ALSA: Add USB US122L driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ sound/usb/usx2y/usb_stream.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/sound/usb/usx2y/usb_stream.c b/sound/usb/usx2y/usb_stream.c
+index 3122cf653273..7d621280fba3 100644
+--- a/sound/usb/usx2y/usb_stream.c
++++ b/sound/usb/usx2y/usb_stream.c
+@@ -682,6 +682,10 @@ int usb_stream_start(struct usb_stream_kernel *sk)
+ 	s->sync_packet = -1;
+ 	s->inpacket_head = -1;
+ 	sk->iso_frame_balance = 0;
++	sk->idle_inurb = sk->inurb[USB_STREAM_NURBS - 2];
++	sk->idle_outurb = sk->outurb[USB_STREAM_NURBS - 2];
++	sk->completed_inurb = sk->inurb[USB_STREAM_NURBS - 1];
++	sk->completed_outurb = sk->outurb[USB_STREAM_NURBS - 1];
+ 	++try;
+ 	for (u = 0; u < 2; u++) {
+ 		struct urb *inurb = sk->inurb[u];
+@@ -739,11 +743,6 @@ int usb_stream_start(struct usb_stream_kernel *sk)
+ 		return -EFAULT;
+ 	}
+ 
+-	sk->idle_inurb = sk->inurb[USB_STREAM_NURBS - 2];
+-	sk->idle_outurb = sk->outurb[USB_STREAM_NURBS - 2];
+-	sk->completed_inurb = sk->inurb[USB_STREAM_NURBS - 1];
+-	sk->completed_outurb = sk->outurb[USB_STREAM_NURBS - 1];
+-
+ /* wait, check */
+ 	{
+ 		int wait_ms = 3000;
 -- 
-Pedro
+2.34.1
+
