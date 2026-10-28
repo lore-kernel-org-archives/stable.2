@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793196718;
-	b=AvQviCCttp6SP+JJEG77I0YGuwX1K2RIHFjiu4my7AhQW15eRMNQCGJo4sH+msp9CGOv
-	 um/H4UdYnSWZObAT2ui+ggZ3STAoFP4OuR23Y+kNTA6xj2dz9tiCXIysCNXIfQoBeEcTU
-	 A0YYltadQkHmoRBvx2CxANWj9BUY30hG/EaZlaeXk8Krlsp/1j7EdEkGuspxIRTVkq6m0
-	 b4V1aLIkqbQacGvkM3ELvD62TTQBGIxfZKvXGRGzeiexZjDjfaIyQdrgcRf4WY3aLRl8Q
-	 2PtNOC4GPAbyX7gqhnK2strrR1AUWEGkMrVr4Jwe7Ggx9+qwKfxvPBbIMsIw+QKb5Fw==
+	t=1793196878;
+	b=0PB1ngkwlsTDNRPFWE17vDabQ/CwJpfP+Gswv0oGoRkmC5st0NvbR/e1hok/OxwQX2Ga
+	 3fR3573BenlOgK/pTJju7WEgPnzNjqty2UOshFvRVUbsg8PyoTMei5ZnHw+X45qjBG+Nq
+	 ZYatKOyKHpE6qLrtRX349XIjypt1mS/o0Gt53Bb8JiqMSX/cRGmZ+dutpHf32NK+Y/gpB
+	 GVRinq/Cn4zhLBUv9TI6TPpQxGLlgb4PljXExJPdclNayohZ4rc8GpDFUq+ourw/kr4lz
+	 2aMyp692E99srOqz67bP5j9uLyrUmbknEtSHHW0/e810UATBVsx4s7cQERzmAC51uUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196718;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196878;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Aj6NKlEI/katth2wIESymczEJETsapNVp1gfTJSIOI4=;
-	b=n8SQAD+cdtqeEkxN1wtvWk3AtvukWXI2IpN+sDNhiS368xaxEFD36+RxD3tXPKD3eHZh
-	 Q1afVtqnEA8orCDXTgdWi+3y8jlpJOqrSt+LWzTapGcdX5xZkByz4Zobv9ArNuEnVHsNx
-	 NF/dlY7yW5lTznrbRULXdYlWhMbxui1RgMBOaGIf6sw94PAHPVLpeQv9ASowldVYMxKLD
-	 2HFln5o/GdW6/rGlMqX+0as7vJeoWlg3QJaxzULt9ggq3TxcsBAV41c2jaEd+gVAXxWRI
-	 JFKyhRYkblF4jqmuSMMW8j+DClq3b0RhY3pZaGzDskkCjJn2jLb6prMrvq8WGFHYieA==
+	bh=hPBW/7zRH6GMUll1hA8NAc0pSWv7wG1/hRY77ehO/Hk=;
+	b=Ggnit3X6779TgVxuhkTVqCEG0yGWyP1kRKES2noX3j/ebAIAUavjZdIsB/iaE+ishapz
+	 XSW+yWQkjr3Ln9S6jHIm/aqnEUY6StgKrzy/dIZ0Cky/la4SXWdoiij3ioQiztxy48iz0
+	 v1YHox/l97oxPfsXO+t7WU7S6R+8t0XqGnDDyuIpfVMiqjRMA1B4hyrFlt6QeRNT5Z3zI
+	 qHycYhoZH0Lfl1irGr1+GhbjGov4INU+RcXzN+QjeVG7ekHVQS+JXvkXvO9nAOQsJoF2V
+	 s58tgyXcm04tVfpyWDG497cEvaSMZ6vcKfUbqltTPXEfotJIZ8q5kvAirRdeTFx4RZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggbZR6Ok;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QngqSkRO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C732606A323;
-	Wed, 28 Oct 2026 14:11:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C384606A321;
+	Wed, 28 Oct 2026 14:14:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggbZR6Ok
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2371F01829;
-	Wed, 28 Oct 2026 14:11:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QngqSkRO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400CE1F01828;
+	Wed, 28 Oct 2026 14:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793196717;
-	bh=Aj6NKlEI/katth2wIESymczEJETsapNVp1gfTJSIOI4=;
+	s=k20260515; t=1793196878;
+	bh=hPBW/7zRH6GMUll1hA8NAc0pSWv7wG1/hRY77ehO/Hk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ggbZR6Ok/naZyBXDs/7zovL9VXOUbN2ItXbN3g+z++nLTPY4u2+ZTFAsyfMKR7amD
-	 vSZk620hsvA2AVSmX5WnHEo9iF0bReERm8m3chFlU5YJhnSPuoiMsnZeVkO6nm/pqx
-	 IRgzNKHGWbDrqiNPg9TlENI1G2Pmi+8ZKHZ930hLdiTtBze4VYDp2p8HVHz0nREz4A
-	 mvoJLBlUkdanhnG63CXapTPmfhpkbY1dTtTmnF7TC5c9bA2m/qHZpR39jOh9k6w/IK
-	 h8/SHHEiYMtoe/a+wRbcpDxANKc+mo3zg//FjvrhF4oquLROvBZ2MxS3RCq8tnQnif
-	 I2TdLbCQdxJgA==
+	b=QngqSkROpFbKx0iJsex49+S4ybLbfMAzkuqorTHIDs7qAu5EWm6H+4yPLkgShGtgN
+	 eT5qVSh5xtm2glCQIsvBTFD0L+InUjEGfwZ519gp1nClEGE+60ZtlGphCMZGmpuBa2
+	 CGEOtW/QggNxLfMSOV9NG6UKTAY3nS/6Qoq+HlnUy8CzYsnj2znxTMy+wN76RVq5vN
+	 GB+PQP8ep9bnbxQJJ9AEoTDf+DizgRAdMFNXDkZ80m1YWyNgDWo7yixnRmFp/mkMEf
+	 Mhwt69njQ8ylNbvLDODXcP2hx8lA/gRu/LKupzDE9EDeRTWcIFKyO6rICE/eGSo1AQ
+	 1wAIBfiRs9QnQ==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
@@ -46,12 +46,12 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.12.y 1/2] mm/damon/sysfs: put target pids for damon_start() failure
-Date: Wed, 28 Oct 2026 07:11:48 -0700
-Message-ID: <20261028141150.160711-2-sj@kernel.org>
+Subject: [PATCH 6.6.y 1/2] mm/damon/sysfs: put target pids for damon_start() failure
+Date: Wed, 28 Oct 2026 07:14:28 -0700
+Message-ID: <20261028141430.161175-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028141150.160711-1-sj@kernel.org>
-References: <20261028141150.160711-1-sj@kernel.org>
+In-Reply-To: <20261028141430.161175-1-sj@kernel.org>
+References: <20261028141430.161175-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,10 +81,10 @@ Signed-off-by: SJ Park <sj@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 5aa23c6545cb8..107a28557afe2 100644
+index 46980a4bef23a..d95fda1054a00 100644
 --- a/mm/damon/sysfs.c
 +++ b/mm/damon/sysfs.c
-@@ -1519,6 +1519,7 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+@@ -1465,6 +1465,7 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
  		return PTR_ERR(ctx);
  	err = damon_start(&ctx, 1, false);
  	if (err) {
