@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211289;
-	b=5RrNqhfaVgxQWMgtGKT0WIQ4MWzwSBVwV7KuGEiEx66lWJZpFOnHFpZZsyNFpdLhFQX+
-	 p5teEHd8SY6/66hV/rvDEjN3/TbSyN/lC7zf3SvQwoQkHVHWhB3qyxUNTIIxrw74mP8WS
-	 4duwF61eBb4OXQVIF/AFhW8KDeEClZzggfkrA5v0XHrzX+pyBDMn9AWO1R13a/NWn5Lw+
-	 S3/AW2kE5NBxx3i0QJpQNryWZ4lS/BsZOEIX9wOn8N7NrKy8NsxoEb/5jCtTTyLXN6t5g
-	 iJ9IDR3PIffzEW0BMG2+Ky940MIZ1kJNsoWYuroz5OW8PiLbKfAuV2rFFIrEoNGZE0Q==
+	t=1793211295;
+	b=qrlAGEFR3ZMe8ORL3hqV1XzjEq8kaM+YVwlgHA+AQO3u9UZzp3NFbBo6A7+Z9vO+ZZio
+	 7nr6FM5lBkQwX/QWcn2aZIx11F0Y32Dtl7mF4TpUy5i3MsnT0agpXgDx3pusw+nlSJal4
+	 e361WM1OmrEdwj3BGi4YYPA1rZ8h+GPn+HIAHX4ERJofgsn8q9XwHL1bu3EWelsHQsDgb
+	 PV0N0nw/nZToNyOe/3C5EAhCksN8paW1BqQi7y2SeG4T2ePC89+FiAC57ZY9VtNC5dAwe
+	 kfEacRcovMtOhbSxxQQQgYvSu7jUw3L45iFLjVOCgJ+uFK4Mfs+fC1KjeaFGkFkoNtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211295;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=M8iuBNcmqafoo+mO2XY4GAvdGQX4UoRK5UKf42BN784=;
-	b=BuevnBs+s12vPDhigjXf8kyFeof8WqlJ3PqQdOZgkxn7G9Ez0Swoxr6BQkN3tz4UK1S/
-	 gPgCVNa/1V6OZSzpcFwh9UVe8o3KiQnlGXYvUyT7T6hEsTH2AGrLh1Hly3GZUrWC11LHe
-	 OjQfv+KPrgylxMMZK6j4UGjETyLJH5VAZykfCUj/iT2ewtA23GTALNc4Twz8eYbF/MSi/
-	 WXHA2daR0rKFXbreJ2QW9HZ5H/WNdX//p5WtePjPU2ZPb1pp6f2a6Fvg44G68gFa9emuN
-	 QoTEdgacbsI+EoWrh9+wneTYh5NXBDXosLKAQM0fEb5PCgxGgMcf6/Lsf3/7N2LwOBw==
+	bh=pQVaRwSnqAPRsvhcSah6c3FkA4/6xjb2GC4NuHaniME=;
+	b=y/enKd6dotVmORXRrJIYfMqQ4usqZl0TLUBLkD/CmWpGNg0vkza7/ZhdS1pffl49jRmM
+	 SYdqfoWGOh5E8jTI22fNa1AsdYvr7FAaDkAp81qoDZ3md1QIIaQ1cu9dd7LD2ljKn2uCX
+	 dgwB7AXZR5JYYT2MyjYv1K6PB2A+1CN4bxkWDgZJU0ZHDWT4Tj15U5kc5sZXle8IjU0+O
+	 3OtpMMuQhICCQuRFVw+C639eL+WnFxW/BFeKcwFLgEaJYemfBOriiUL/8SMggTU3RmnvL
+	 xhCFhTiemsj5BKg+9r80X/+oQ6E5/jH70wKAWyNz/K60ToqDSBb6cFGPWUSTzkQkYPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kYEkvmH7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oez4TVk0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE47060A5BCD;
-	Wed, 28 Oct 2026 18:14:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D9B60A2622;
+	Wed, 28 Oct 2026 18:14:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kYEkvmH7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7901F01825;
-	Wed, 28 Oct 2026 18:14:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oez4TVk0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFE7C1F01828;
+	Wed, 28 Oct 2026 18:14:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793211288;
-	bh=M8iuBNcmqafoo+mO2XY4GAvdGQX4UoRK5UKf42BN784=;
+	s=korg; t=1793211294;
+	bh=pQVaRwSnqAPRsvhcSah6c3FkA4/6xjb2GC4NuHaniME=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kYEkvmH7idPviMqSRnl1c9eYZHlzIZY57ok9TZBc4YDur2SRtBV/pijKT33a2bxfE
-	 kFpOPKZQS3X7NR0lat7rgFZsrstiC5zdJ9QUQTuenh3SoHtG4ujFxBALlulLn/8hwW
-	 OgYRKSJ7K9RH2EgOqlEt4DfdGGzIOF6SR40wb5lA=
+	b=oez4TVk0VePOdDKbRhsyhEt5In6xs5kYfjK4qjBSLP+3UjlqwrJ5RURqFr0P7F/Cp
+	 38klHVJLJ7vw5z+nSSaE60sUel8l9o59FgbNsT91gMrfddmdR8mIf7cMfx+88vDhia
+	 6qVzDnCh8T2GejwfPeVpiyLMcvT7KbMyTJG/Jycs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Johan Hovold <johan@kernel.org>,
+	Stefan Fleischmann <sfle@kth.se>,
+	Eric Dumazet <edumazet@google.com>,
+	Michael Chan <michael.chan@broadcom.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 326/571] USB: serial: clean up core error labels
-Date: Wed, 28 Oct 2026 17:57:53 +0100
-Message-ID: <20261028170015.740086709@linuxfoundation.org>
+Subject: [PATCH 5.15 328/571] bnxt_en: fix DMA mapping length for padded small packets
+Date: Wed, 28 Oct 2026 17:57:55 +0100
+Message-ID: <20261028170015.788154071@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
 References: <20261028170008.009143722@linuxfoundation.org>
@@ -67,131 +70,144 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Johan Hovold <johan@kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
 
-[ Upstream commit 96a83c95c3da5ba55ea2cf6ce87de10fc03417a9 ]
+[ Upstream commit a51d233ccd4889aadb71dace863525cc2b00271e ]
 
-Clean up the core error labels by consistently naming them after what
-they do rather than after from where they are jumped to.
+Stefan Fleischmann reported Intel IOMMU DMA Read faults on BCM57412
+NetXtreme-E NICs when transmitting packets on VLAN/macvlan interfaces:
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Stable-dep-of: 646e5b28b4fd ("USB: serial: fix driver deregistration order")
+  DMAR: [DMA Read NO_PASID] Request device [18:00.0] fault addr 0xfc499000
+        [fault reason 0x06] PTE Read access is not set
+  bnxt_en 0000:18:00.0 eno1np0: Abandoning msg {0xb4 0x41a} len: 0 due to firmware status: 0x2000001
+  ...
+  NETDEV WATCHDOG: eno1np0 (bnxt_en): transmit queue 0 timed out
+
+The fault address (0xfc499000) is on an exact 4KB page boundary,
+pointing to a DMA read buffer overrun.
+
+In bnxt_start_xmit(), packets smaller than BNXT_MIN_PKT_SIZE (52 bytes),
+such as 42-byte untagged ARP frames, are padded:
+
+    if (length < BNXT_MIN_PKT_SIZE) {
+        pad = BNXT_MIN_PKT_SIZE - length;
+        if (skb_pad(skb, pad))
+            goto tx_kick_pending;
+        length = BNXT_MIN_PKT_SIZE;
+    }
+
+    mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
+    ...
+    dma_unmap_len_set(tx_buf, len, len);
+
+However, 'len' was initialized earlier to skb_headlen(skb) (e.g. 42 bytes)
+and is left unadjusted after padding. Consequently, dma_map_single() and
+dma_unmap_len_set() map and track only 42 bytes.
+
+Later, the hardware TX buffer descriptor is programmed with the padded length:
+
+    txbd->tx_bd_len_flags_type =
+        cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
+                    TX_BD_FLAGS_PACKET_END);
+
+The NIC DMA engine is thus instructed to read 52 bytes from a region where
+only 42 bytes were DMA-mapped. If skb->data ends near the boundary of a 4KB
+page (within 'pad' bytes of the next page), the hardware DMA read overruns
+into the unmapped adjacent page, triggering an IOMMU fault.
+
+This issue was exposed after commit 447cbe95ebb9 ("vlan: fix skb_under_panic
+and races when toggling HW VLAN offload") because reserving extra VLAN
+headroom rounded LL_RESERVED_SPACE from 48 up to 64 bytes, shifting skb->data
+offsets and potentially causing small frames to land right against page
+boundaries.
+
+Fix this by using skb_put_padto(skb, BNXT_MIN_PKT_SIZE) in
+bnxt_start_xmit(), before skb_shinfo(skb)->nr_frags is sampled,
+because padding might linearize the skb.
+This ensures skb->len and skb_headlen(skb) reflect the padded size so
+that dma_map_single() maps the full buffer and the descriptor length is
+consistent. This also removes the temporary 'pad' variable and masking logic.
+
+The padding is done after the SW USO branch, otherwise
+bnxt_sw_udp_gso_xmit() would account the padding as UDP payload
+and send it in extra segments.
+
+Note that SW USO segments are still not padded: with IPv4, a segment
+carrying less than 10 bytes of UDP payload (small gso_size, or a short
+last segment) is sent as a frame shorter than BNXT_MIN_PKT_SIZE.
+This is a separate issue, left for a followup patch.
+
+Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
+Cc: stable@vger.kernel.org
+Reported-by: Stefan Fleischmann <sfle@kth.se>
+Closes: https://lore.kernel.org/netdev/20261004122616.56714cbd@nargothrond/
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+Link: https://patch.msgid.link/20261007051747.455273-1-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+[ sashal: Dropped the SW USO and fragment linearize context, which this tree does not have. ]
+
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/serial/usb-serial.c | 34 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 18 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index ec84825d45aae..7301cd519bd4f 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -225,17 +225,17 @@ static int serial_install(struct tty_driver *driver, struct tty_struct *tty)
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 9ea0d6e78ca6d..8fb7b98232706 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -439,7 +439,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct netdev_queue *txq;
+ 	int i;
+ 	dma_addr_t mapping;
+-	unsigned int length, pad = 0;
++	unsigned int length;
+ 	u32 len, free_size, vlan_tag_flags, cfa_action, flags;
+ 	u16 prod, last_frag;
+ 	struct pci_dev *pdev = bp->pdev;
+@@ -458,6 +458,14 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	txr = &bp->tx_ring[bp->tx_ring_map[i]];
+ 	prod = txr->tx_prod;
  
- 	serial = port->serial;
- 	if (!try_module_get(serial->type->driver.owner))
--		goto error_module_get;
-+		goto err_put_serial;
- 
- 	retval = usb_autopm_get_interface(serial->interface);
- 	if (retval)
--		goto error_get_interface;
-+		goto err_put_module;
- 
- 	init_termios = (driver->termios[idx] == NULL);
- 
- 	retval = tty_standard_install(driver, tty);
- 	if (retval)
--		goto error_init_termios;
-+		goto err_put_autopm;
- 
- 	mutex_unlock(&serial->disc_mutex);
- 
-@@ -247,11 +247,11 @@ static int serial_install(struct tty_driver *driver, struct tty_struct *tty)
- 
- 	return retval;
- 
-- error_init_termios:
-+err_put_autopm:
- 	usb_autopm_put_interface(serial->interface);
-- error_get_interface:
-+err_put_module:
- 	module_put(serial->type->driver.owner);
-- error_module_get:
-+err_put_serial:
- 	usb_serial_put(serial);
- 	mutex_unlock(&serial->disc_mutex);
- 	return retval;
-@@ -1388,7 +1388,7 @@ static int __init usb_serial_init(void)
- 	result = bus_register(&usb_serial_bus_type);
- 	if (result) {
- 		pr_err("%s - registering bus driver failed\n", __func__);
--		goto exit_bus;
-+		goto err_put_driver;
++	/* Must be done before skb_shinfo(skb)->nr_frags is sampled,
++	 * because skb_put_padto() might linearize the skb.
++	 */
++	if (skb_put_padto(skb, BNXT_MIN_PKT_SIZE)) {
++		/* SKB already freed. */
++		goto tx_kick_pending;
++	}
++
+ 	free_size = bnxt_tx_avail(bp, txr);
+ 	if (unlikely(free_size < skb_shinfo(skb)->nr_frags + 2)) {
+ 		/* We must have raced with NAPI cleanup */
+@@ -586,14 +594,6 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
  	}
  
- 	usb_serial_tty_driver->driver_name = "usbserial";
-@@ -1406,25 +1406,23 @@ static int __init usb_serial_init(void)
- 	result = tty_register_driver(usb_serial_tty_driver);
- 	if (result) {
- 		pr_err("%s - tty_register_driver failed\n", __func__);
--		goto exit_reg_driver;
-+		goto err_unregister_bus;
- 	}
- 
- 	/* register the generic driver, if we should */
- 	result = usb_serial_generic_register();
- 	if (result < 0) {
- 		pr_err("%s - registering generic driver failed\n", __func__);
--		goto exit_generic;
-+		goto err_unregister_driver;
- 	}
- 
- 	return result;
- 
--exit_generic:
-+err_unregister_driver:
- 	tty_unregister_driver(usb_serial_tty_driver);
+ normal_tx:
+-	if (length < BNXT_MIN_PKT_SIZE) {
+-		pad = BNXT_MIN_PKT_SIZE - length;
+-		if (skb_pad(skb, pad))
+-			/* SKB already freed. */
+-			goto tx_kick_pending;
+-		length = BNXT_MIN_PKT_SIZE;
+-	}
 -
--exit_reg_driver:
-+err_unregister_bus:
- 	bus_unregister(&usb_serial_bus_type);
--
--exit_bus:
-+err_put_driver:
- 	pr_err("%s - returning with error %d\n", __func__, result);
- 	tty_driver_kref_put(usb_serial_tty_driver);
- 	return result;
-@@ -1569,13 +1567,13 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
+ 	mapping = dma_map_single(&pdev->dev, skb->data, len, DMA_TO_DEVICE);
  
- 	rc = usb_register(udriver);
- 	if (rc)
--		goto failed_usb_register;
-+		goto err_free_driver;
- 
- 	for (sd = serial_drivers; *sd; ++sd) {
- 		(*sd)->usb_driver = udriver;
- 		rc = usb_serial_register(*sd);
- 		if (rc)
--			goto failed;
-+			goto err_deregister_drivers;
+ 	if (unlikely(dma_mapping_error(&pdev->dev, mapping)))
+@@ -668,10 +668,7 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		txbd->tx_bd_len_flags_type = cpu_to_le32(flags);
  	}
  
- 	/* Now set udriver's id_table and look for matches */
-@@ -1583,11 +1581,11 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
- 	rc = driver_attach(&udriver->drvwrap.driver);
- 	return 0;
+-	flags &= ~TX_BD_LEN;
+-	txbd->tx_bd_len_flags_type =
+-		cpu_to_le32(((len + pad) << TX_BD_LEN_SHIFT) | flags |
+-			    TX_BD_FLAGS_PACKET_END);
++	txbd->tx_bd_len_flags_type |= cpu_to_le32(TX_BD_FLAGS_PACKET_END);
  
-- failed:
-+err_deregister_drivers:
- 	while (sd-- > serial_drivers)
- 		usb_serial_deregister(*sd);
- 	usb_deregister(udriver);
--failed_usb_register:
-+err_free_driver:
- 	kfree(udriver);
- 	return rc;
- }
+ 	netdev_tx_sent_queue(txq, skb->len);
+ 
 -- 
 2.53.0
 
