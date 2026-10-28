@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216616;
-	b=W3uw4kQkNZX+Qa2KcsgOGHwpFak+qP7znMNVugxsnrpAS1E3R9xwnxFM2nYFX0wrTOkk
-	 MTXQ+2F0OwXwhn8T/cVIlKV37T8+JBfpZG/he4jVNGar7jJz2AO5lQFHuu+wmKj5ykS/a
-	 FowYCVzVRN0DeZdb9Hk1ggwBH9XbYgh4F6JIjravwJvak4rnuRqKTqsDi7JrHpOPfb9jh
-	 ARpLAGDS8Iq23pwgrE/cN/nX96zZ43gQJb/6SNM4zOaJwJ9VAdSl0rPHiNj8hGaMmpPQX
-	 USCX59QIxsaVk9k3fiKLdp0YO/q/nt7kC25Rk15M0kpYZwqbIGcS9mzjlz80Xn7urpQ==
+	t=1793216617;
+	b=HBh07LHaUmOoJKfz6xOQAMII/auHdbcBmQjVLYCIqjZHf+TNik/Eab7CkHvrwf/VzmQx
+	 8oi45Vvcoq3lLlejKA0nE38mp68BB8eNpCOIs92a3T4PwrIiOAjbStODObYfxUXdtJf+c
+	 KoCwQhsldGXpYEVFagoLsHICEfbc66Ep5wEtn+MNhlrj62EDr5Mh/XVbbGpgi11d7/zeJ
+	 KUDzRPdFi1Pm491UXEnkzDyU+2tN4SmyquE+952bX9W/kKRgC2GBxIoqSuDUAPjUjRire
+	 93YtjFPAt0pYdEJqcBQd5FdvTYPjfnkW3bbLNKVHvbIcofuvgJVqsXlckXBmNkc7yPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216617;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LJf9863IflwDAnnqoFf/i350ar3ByqJyKHGVy6EzDFA=;
-	b=Y6WXZgNJJ+naaEBZ3DGIEGjPcef9ft//VDFReBpbVez8hsXoJu66Y/amjRyBuXaOxC8p
-	 7ss9G05NmiE5LQjkU4CgdK1i2ITB0I4stF17hiXrlcd3VwC3sM3Rz3sbWAm6zgDIdB4d/
-	 fD/wvxElMyqoNhwKWrlHzldUgcghIjj6NpNhCXBBS6FK//72BGWsSFPZwM7FPxbKGohjA
-	 Yb2vwuZC/gGjCcbNQb5pzG0zJidFaBqb/xwwhvvJrPDu65r/JkVSa0ZrOiDF40nKfXnCQ
-	 YLSlNv54A/Ca3lo4mPK6Y77Y7PUxjE+rDDaIwhwhTaZf+wb2lhocpzBfzZ17IxMSHaQ==
+	bh=GctOGWF+MGHHlKuM+rkMHlIP4T6r5rESJqlr7XA6+Hc=;
+	b=u+ECxxpgf2XKfE2Ej/saqNcrYDwFAiDGaOoRakAmVqkCpyQg21ZqVyzOo3Kx+rezdAAc
+	 5m49k3cIPEQqtfpch4ingJtzbyrBNID51GWgTW6emplYd6l2r8s/AseEZNp+ob9lYA8RC
+	 A/brWSR4P1L3Zt5rYd7GdLwsfLHaQLSkzbPbf6+axsTQUTbcMKmVuv8pUU4d+v3fDAncX
+	 debQwT5kNDaQPj0vJQyN2gwi/BBYr6iep4g4jZ0pchazmC2YaZ5UQKpNINLZ4uxefMKd7
+	 z21lrL4PcycoKRZdaThcf6R1Tv/AO03gy9BesKqBkRNdnect2NV7TGgZrhs/xhEPDxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCrXIGs4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhLK869P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7CD606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB41606A322
 	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:43:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCrXIGs4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD611F01828;
-	Wed, 28 Oct 2026 19:43:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhLK869P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CBD1F01825;
+	Wed, 28 Oct 2026 19:43:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793216615;
-	bh=LJf9863IflwDAnnqoFf/i350ar3ByqJyKHGVy6EzDFA=;
+	s=k20260515; t=1793216616;
+	bh=GctOGWF+MGHHlKuM+rkMHlIP4T6r5rESJqlr7XA6+Hc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NCrXIGs4dAM9P9owAAzYM7hJau3JBr9nqCAgm+W9uflaon2NxDpBNZmxA9zxGImSZ
-	 Adg7d0tZvVBpT2NU1LSV9e9xqQiNx/jyBbjQUWWJwO9gQOJtjPPdeRa9KjuqjJzzmK
-	 WWLZjyF3xy6GMo88HeD5aAfJV4szmsCBpilFj//3Jj2t78EA0/00QrwlukyYEfLub9
-	 bkwRErY5U3hmAK8JySeKaCBL5ikS/Vj0uzHBDhaSuZTLt+q10BCeAIOBdv7ljlwG7O
-	 EM9QSsCtm2Ci3inZFopmqPH3MevxJVckTdi+4cC4veVdmSPnm0rBd7CjKCqN2zc8hP
-	 R9Oqt6TWA7s3Q==
+	b=DhLK869Pm3wceRNzOGasJkivKMd37K0bOFeJ39OAOSQSYmW15fIbbsH1Pn1vJRGUM
+	 nMA7vyE1GKHNPREHCabmE2JQPnn5Nr1l0QOi63GTBQ5jIwOZdcIdlqP+gspVEI9ZRv
+	 9X+jQ4+ywKWKigeboFVyQlDtEWl9NNiuReEptrrp40W2bKmAD5DbdB0E7/4dfNnHeP
+	 Jh6Z4hceJk/fpqagdxMFi0LOBe++2anpY7Kf0eXQo4OdubgjinfHTbLmURku03tyPc
+	 DIg4YHkf13WQt+mRD+yN0qWAKfUmoECob8PQY/gfKlATGxfE6XsByz1XnrheubRwvU
+	 fLzr5EQxyQPOg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	David Vernet <dvernet@meta.com>,
-	Josh Don <joshdon@google.com>,
-	Hao Luo <haoluo@google.com>,
-	Barret Rhoden <brho@google.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
+	Chris Mason <mason@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] sched: Allow sched_cgroup_fork() to fail and introduce sched_cancel_fork()
-Date: Wed, 28 Oct 2026 15:43:32 -0400
-Message-ID: <20261028194315.2086000-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] fork: release the files of a failed fork after sched_cancel_fork()
+Date: Wed, 28 Oct 2026 15:43:33 -0400
+Message-ID: <20261028194315.2086000-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026102802-progress-trodden-c504@gregkh>
+In-Reply-To: <20261028194315.2086000-1-sashal@kernel.org>
 References: <2026102802-progress-trodden-c504@gregkh>
+ <20261028194315.2086000-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,139 +62,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 304b3f2bc07ba7c74a1ebc7917a8f0549e6b8d54 ]
+[ Upstream commit 296a98c1fa50778c3b31eebed1a3f903f9684349 ]
 
-A new BPF extensible sched_class will need more control over the forking
-process. It wants to be able to fail from sched_cgroup_fork() after the new
-task's sched_task_group is initialized so that the loaded BPF program can
-prepare the task with its cgroup association is established and reject fork
-if e.g. allocation fails.
+Reorder copy_process() cleanup so sched_fork() taking scx_fork_rwsem
+scx_pre_fork() is safe and isn't held around exiting files. Right now, a
+fork that fails while another thread closed the bpf link fd will
+deadlock against its own read side. It also blocks every fork on the
+system:
 
-Allow sched_cgroup_fork() to fail by making it return int instead of void
-and adding sched_cancel_fork() to undo sched_fork() in the error path.
+    copy_process()                  holds scx_fork_rwsem for read
+      exit_files()
+        close_files()
+          filp_close_sync()
+            bpf_scx_unreg()
+              kthread_flush_work()  waits for the disable work
+                scx_root_disable()
+                  percpu_down_write(&scx_fork_rwsem)
 
-sched_cgroup_fork() doesn't fail yet and this patch shouldn't cause any
-behavior changes.
+Simply release the child's files after sched_cancel_fork() dropped the
+lock. The task starts out as a copy of its parent so p->files points to
+the parent's table until copy_files() replaces it. exit_files() must not
+run for a fork that failed before that. Clear p->files up front so
+exit_files() is a no-op for those and make copy_files() set it
+explicitly for CLONE_FILES.
 
-v2: Patch description updated to detail the expected use.
-
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: David Vernet <dvernet@meta.com>
-Acked-by: Josh Don <joshdon@google.com>
-Acked-by: Hao Luo <haoluo@google.com>
-Acked-by: Barret Rhoden <brho@google.com>
-Stable-dep-of: 296a98c1fa50 ("fork: release the files of a failed fork after sched_cancel_fork()")
+Reported-by: Chris Mason <mason@kernel.org>
+Link: https://patch.msgid.link/20260921-work-coredump-fixes-v3-7-8e4adb1619e6@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sched/task.h |  3 ++-
- kernel/fork.c              | 15 ++++++++++-----
- kernel/sched/core.c        |  8 +++++++-
- 3 files changed, 19 insertions(+), 7 deletions(-)
+ kernel/fork.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/sched/task.h b/include/linux/sched/task.h
-index ff5aaed609695..50774dc8709c1 100644
---- a/include/linux/sched/task.h
-+++ b/include/linux/sched/task.h
-@@ -55,7 +55,8 @@ extern asmlinkage void schedule_tail(struct task_struct *prev);
- extern void init_idle(struct task_struct *idle, int cpu);
- 
- extern int sched_fork(unsigned long clone_flags, struct task_struct *p);
--extern void sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs);
-+extern int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs);
-+extern void sched_cancel_fork(struct task_struct *p);
- extern void sched_post_fork(struct task_struct *p);
- extern void sched_dead(struct task_struct *p);
- 
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 25fb13362d38c..8f925267e9c2d 100644
+index 8f925267e9c2d..032b969e32b18 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -2280,7 +2280,7 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1567,6 +1567,7 @@ static int copy_files(unsigned long clone_flags, struct task_struct *tsk)
  
- 	retval = perf_event_init_task(p, clone_flags);
- 	if (retval)
--		goto bad_fork_cleanup_policy;
-+		goto bad_fork_sched_cancel_fork;
- 	retval = audit_alloc(p);
- 	if (retval)
- 		goto bad_fork_cleanup_perf;
-@@ -2410,7 +2410,9 @@ static __latent_entropy struct task_struct *copy_process(
- 	 * cgroup specific, it unconditionally needs to place the task on a
- 	 * runqueue.
- 	 */
--	sched_cgroup_fork(p, args);
-+	retval = sched_cgroup_fork(p, args);
-+	if (retval)
-+		goto bad_fork_cancel_cgroup;
- 
- 	/*
- 	 * From this point on we must avoid any synchronous user-space
-@@ -2454,13 +2456,13 @@ static __latent_entropy struct task_struct *copy_process(
- 	/* Don't start children in a dying pid namespace */
- 	if (unlikely(!(ns_of_pid(pid)->pid_allocated & PIDNS_ADDING))) {
- 		retval = -ENOMEM;
--		goto bad_fork_cancel_cgroup;
-+		goto bad_fork_core_free;
+ 	if (clone_flags & CLONE_FILES) {
+ 		atomic_inc(&oldf->count);
++		tsk->files = oldf;
+ 		return 0;
  	}
  
- 	/* Let kill terminate clone/fork in the middle */
- 	if (fatal_signal_pending(current)) {
- 		retval = -EINTR;
--		goto bad_fork_cancel_cgroup;
-+		goto bad_fork_core_free;
- 	}
+@@ -2199,6 +2200,8 @@ static __latent_entropy struct task_struct *copy_process(
+ 	INIT_LIST_HEAD(&p->sibling);
+ 	rcu_copy_process(p);
+ 	p->vfork_done = NULL;
++	/* Set by copy_files(), exit_files() on the error path skips NULL. */
++	p->files = NULL;
+ 	spin_lock_init(&p->alloc_lock);
  
- 	/* No more failure paths after this point. */
-@@ -2536,10 +2538,11 @@ static __latent_entropy struct task_struct *copy_process(
- 
- 	return p;
- 
--bad_fork_cancel_cgroup:
-+bad_fork_core_free:
- 	sched_core_free(p);
- 	spin_unlock(&current->sighand->siglock);
- 	write_unlock_irq(&tasklist_lock);
-+bad_fork_cancel_cgroup:
- 	cgroup_cancel_fork(p, args);
- bad_fork_put_pidfd:
- 	if (clone_flags & CLONE_PIDFD) {
-@@ -2578,6 +2581,8 @@ static __latent_entropy struct task_struct *copy_process(
- 	audit_free(p);
- bad_fork_cleanup_perf:
+ 	init_sigpending(&p->pending);
+@@ -2297,7 +2300,7 @@ static __latent_entropy struct task_struct *copy_process(
+ 		goto bad_fork_cleanup_semundo;
+ 	retval = copy_fs(clone_flags, p);
+ 	if (retval)
+-		goto bad_fork_cleanup_files;
++		goto bad_fork_cleanup_semundo;
+ 	retval = copy_sighand(clone_flags, p);
+ 	if (retval)
+ 		goto bad_fork_cleanup_fs;
+@@ -2571,8 +2574,6 @@ static __latent_entropy struct task_struct *copy_process(
+ 	__cleanup_sighand(p->sighand);
+ bad_fork_cleanup_fs:
+ 	exit_fs(p); /* blocking */
+-bad_fork_cleanup_files:
+-	exit_files(p); /* blocking */
+ bad_fork_cleanup_semundo:
+ 	exit_sem(p);
+ bad_fork_cleanup_security:
+@@ -2583,6 +2584,8 @@ static __latent_entropy struct task_struct *copy_process(
  	perf_event_free_task(p);
-+bad_fork_sched_cancel_fork:
-+	sched_cancel_fork(p);
+ bad_fork_sched_cancel_fork:
+ 	sched_cancel_fork(p);
++	/* ->release() of a file may need scx_fork_rwsem for write. */
++	exit_files(p); /* blocking */
  bad_fork_cleanup_policy:
  	lockdep_free_task(p);
  #ifdef CONFIG_NUMA
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index c4e9fac7507a9..36580fe4ccfc0 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4457,7 +4457,7 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
- 	return 0;
- }
- 
--void sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
-+int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
- {
- 	unsigned long flags;
- 
-@@ -4484,6 +4484,12 @@ void sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
- 	if (p->sched_class->task_fork)
- 		p->sched_class->task_fork(p);
- 	raw_spin_unlock_irqrestore(&p->pi_lock, flags);
-+
-+	return 0;
-+}
-+
-+void sched_cancel_fork(struct task_struct *p)
-+{
- }
- 
- void sched_post_fork(struct task_struct *p)
 -- 
 2.53.0
 
