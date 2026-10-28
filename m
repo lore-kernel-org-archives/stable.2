@@ -1,63 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793225824;
-	b=DcoxXI7xJjOoSzIim8NVkITtXehcE+MGqjnCri5EaJzvmUgVT/zp2vVgyM0VWUZWzGeA
-	 fO7LBfWaWYs1mIhJ0sZwdiYO0RTS4u8O6HED2IJjiu8vwEq7G/NZOyWrjq2BSLHh68xh2
-	 2P4Bcsyxj7lKKiXNgf0+/dmHE7bjJivp1F2NjJMb0jFFMeAS9ar1DtVYE2xZnr1cbicRs
-	 7RGulA4erM7Ufqp17rdAFtQRJ+prUjFbBjF9NyRVcLN7C2hHJ1REZQEOPF7sqhfUB01HG
-	 ezJ9dxP2QjHNqPYQ1sbhs4uLKggSeuB2kfZbgA95C/FNCLT+ETwzMajMEr0wrhZgq5A==
+	t=1793225878;
+	b=vvfbAe/CPVT1dSUktSEqkuJLNCck7xqz6bLxqjtAxWVZaRzD7OzDU8osh8wvFKoq6cof
+	 7WkWeP4HKDEheA3SLJgnaBd+iO+hOrNrjO5VXjVagljB3LoDNiLKsXLnRGbSSQHvdNAuM
+	 33eKvPlMYMbitVI3sNWYwKvYB6+xmYUWL2hyGnOEg53iG20QDlAFS4viceirDtzVKZIvC
+	 rsHttXusYA9ZBvUDb8iSnaIrstNkcfGamUm4dfDRCx+VUNYrg9ZvuF/oBRooRu6306fJa
+	 jDolv1HFKJE+sjwpKpq3fqOr7oTvojowlZ1zO49UupnNvwbadtuE3mfaJ+ex2yuQzzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793225824;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=AIOYJkWwbEOOkbiH4WpG1xz2/8Lkxz/T8mPLVYlLKnY=;
-	b=HuQN3LbE11xVlAAGwsdzDBvIJ52pbcAKurj4D0mrdmX9jHoeqjtumvlhp7fQjxBvrW1O
-	 RVQLX1kX6sQR6WR8vYSlyDWMh1T8U6xSF9kna+eP7fPPHLhJcJ62pVE+XtkAys26Pp/od
-	 7ojw48IlyEwgoQX0BNF35tpmkSRPHUczPNtaJ+amKKECbNRFTZMBAn7OSWI14diFSUomK
-	 HEJ9DV4iC6LkC2aHqOH3+lXPLmvv/5U0Ymxn6a+HQLNhi2n8Xul23so6coI3pq3z9Z+yF
-	 b8YOCVv2/TP5Z+3cv99XrDa8jF70bzV4O3oqrvSUXV6kYkN2TlJgwh8RN8h7r8YrgSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793225878;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dpSWS7Ui06hAkpcNHbyDS5vZBaaQrLDiEklt5UkbYFg=;
+	b=1++NLXSx43uvIy1XO55F2hCm3xRA/XlmiUFAGyA98laN4iYql3qxhxqIKu8lpl5k9F26
+	 BV3JIGfp8SXacOy/acpptciPRHtJznndOzmRuhHYbCwWs6W/lhLBJbIzlkKO251Y861tS
+	 ls12QXv9ZVWdxKau27K4VeSFnPfDxIqSGfuE0+DB5ievxWT9ePV1kKVPWJJTb5cefQS9K
+	 I4PiNoLfiGt75GvvErv6Z5EDV1xSe6jWz4MInq5fUF5gsOohhd0/P+Az1jLXWLl8Hk72k
+	 QggsSK0nezgRclsv5Y0Fo0QVY0YgF+qAk/WIM4VTZlxb3lzO+d1KuftgHQ88qhOXCog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Ms1SYUza;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BX8B97Hi;
+	arc=none smtp.remote-ip=95.215.58.13
+Received: from mta1.migadu.com (out-13.mta1.migadu.com [95.215.58.13])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08A9606A31C;
-	Wed, 28 Oct 2026 22:17:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E08A9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FB8606A31A
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FB8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Ms1SYUza
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 155EF10BBEA;
-	Wed, 28 Oct 2026 23:16:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793225811;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=AIOYJkWwbEOOkbiH4WpG1xz2/8Lkxz/T8mPLVYlLKnY=;
-	b=Ms1SYUzaEvtxsqJTPN28S5O+IA2XTkNAs091NLwFWs8H3ASD0N50hIahpi5OXUIf5OJ3ku
-	evesGvygvdHfGEi0kdLyoxL2RKBSaMXHiJtaPTDW0UXA7KZ/xfIPzhZyoxS7F2v/yMa7UW
-	LHNi3JMkmwYPL1dM7CN72wyWt3pxZzPMqhlK4xr0cJmECL7DFTkUu7iI3RhV91d0y9aaJO
-	191pTaJie8uRKxSS1B68SF8YbBWfbkumePY7/V1WsCG4fe95RKSEJvzPe4eIH9DR8CC4OI
-	fPIjFkof2skBkywO2qDtec94sfHjCsk8px9cjd6FzsPky5I04ZwxygmI4dulSA==
-Date: Wed, 28 Oct 2026 23:16:47 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
-Message-ID: <auJ0T2vTCe4Jhomj@duo.ucw.cz>
-References: <20261028170459.200466217@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BX8B97Hi
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VbaNcvUi+j2V6eONn/0BAQOhapdmIMHXd3ZJF4C31UQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793225876; v=1; x=1793830676;
+ b=BX8B97Hi7wNu7DjxSnBywnPU+HKyUFgEUY6o0EcB6QN632dfmrfbTfsR9rILE36huILNYGUj
+ ZKEuC520hgLHtN1EbPAA0oexgnAxZDbjINlsxeHbvZlxa0oV3q0vPIP9b7JTua4a5d1iHbsFyJB
+ Lox1/rz76dT4ZyGXvx5zFT60=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c3003cbc5a0837a4;
+	Wed, 28 Oct 2026 22:17:55 +0000
+X-Mizu-Trace-ID: c3003cbc5a0837a4
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 15:17:50 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	muchun.song@linux.dev, zhengqi.arch@bytedance.com, akpm@linux-foundation.org, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm: memcontrol: fix NULL pointer deref from
+ high_work_func() on dying memcg
+Message-ID: <auJyok6AZtRqNtt4@linux.dev>
+References: <20261028183537.605854-1-tjmercier@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,80 +66,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="9ogCmrLrndZmYNnj"
-Content-Disposition: inline
-In-Reply-To: <20261028170459.200466217@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
-
---9ogCmrLrndZmYNnj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261028183537.605854-1-tjmercier@google.com>
 
-Hi!
+On Wed, Oct 28, 2026 at 11:35:37AM -0700, T.J. Mercier wrote:
+> When memory.high is exceeded in non-task context, try_charge_memcg()
+> schedules memcg->high_work without taking a reference on the memcg, and
+> high_work_func() invokes reclaim_high() without pinning the memcg.
+> 
+> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
+> mem_cgroup_css_free(), so high_work_func() can start or still be running
+> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
+> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
+> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
+> NULL pprev pointer.
+> 
+> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
+> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
+> reparented to its parent in mem_cgroup_css_offline() instead of holding
+> a reference on the child until uncharged. Subsequent uncharges of those
+> objects go to the parent, which can leave the child's memory use
+> permanently above its high limit, so any later charge on the offlined
+> memcg in non-task context schedules high_work.
+> 
+> This problem was first exposed when commit e4dde56cd208 ("mm: multi-gen
+> LRU: per-node lru_gen_folio lists") introduced the memcg LRU, and was
+> later widened from kernel memory to LRU folios when
+> commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying
+> memory cgroup for LRU folios") converted LRU folios to use obj_cgroup
+> reparenting.
+> 
+> Fix this by acquiring a reference with css_tryget_online() in
+> high_work_func() before calling reclaim_high(), and by resetting
+> memory.high and swap.high to PAGE_COUNTER_MAX in
+> mem_cgroup_css_offline() so that charges via references on an offlined
+> memcg do not trigger high_work on the dead child or skip checking live
+> ancestors in try_charge_memcg().
+> 
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
+> Tainted: [B]=BAD_PAGE, [W]=WARN <- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+> Workqueue: events high_work_func
+> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
+> Call Trace:
+>  <TASK>
+>  ? read_ctrl_pos+0x22f/0x3f0
+>  shrink_lruvec+0x16cb/0x1b80
+>  ? ret_from_fork_asm+0x1a/0x30
+>  ? lapic_next_event+0x15/0x20
+>  ? clockevents_program_event+0x2bb/0x6f0
+>  ? lapic_next_event+0x15/0x20
+>  ? __pfx_shrink_lruvec+0x10/0x10
+>  ? __pfx_clockevents_program_event+0x10/0x10
+>  ? _raw_spin_lock+0x84/0xe0
+>  ? __pfx__raw_spin_lock+0x10/0x10
+>  ? kasan_save_stack+0x30/0x50
+>  ? psi_group_change+0x381/0x740
+>  ? __pfx_sched_clock_cpu+0x10/0x10
+>  ? save_fpregs_to_fpstate+0xc4/0x2c0
+>  ? finish_task_switch.isra.0+0x1de/0xac0
+>  ? __schedule+0xf62/0x42c0
+>  ? __pfx___schedule+0x10/0x10
+>  ? __pfx___irq_work_queue_local+0x10/0x10
+>  ? shrink_node+0x626/0x31e0
+>  shrink_node+0x626/0x31e0
+>  ? ring_buffer_unlock_commit+0x11d/0x5c0
+>  ? kswapd_clear_hopeless+0xa0/0x150
+>  ? __pfx_shrink_node+0x10/0x10
+>  ? 0xffffffffc0000095
+>  do_try_to_free_pages+0x255/0x13b0
+>  ? ring_buffer_unlock_commit+0x11d/0x5c0
+>  ? reclaim_high+0x10a/0x1b0
+>  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
+>  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
+>  ? irqentry_exit+0xc6/0x670
+>  reclaim_high+0x10a/0x1b0
+>  ? __pfx_reclaim_high+0x10/0x10
+>  ? process_one_work+0x5ff/0x1030
+>  ? __pfx_high_work_func+0x10/0x10
+>  process_one_work+0x6e2/0x1030
+>  ? __pfx___schedule+0x10/0x10
+>  ? __pfx_process_one_work+0x10/0x10
+>  worker_thread+0x422/0xbb0
+>  ? __pfx_worker_thread+0x10/0x10
+>  kthread+0x2cd/0x3a0
+>  ? recalc_sigpending+0x15c/0x200
+>  ? __pfx_kthread+0x10/0x10
+>  ret_from_fork+0x368/0x590
+>  ? __pfx_ret_from_fork+0x10/0x10
+>  ? __switch_to+0x588/0xf50
+>  ? __pfx_kthread+0x10/0x10
+>  ret_from_fork_asm+0x1a/0x30
+>  </TASK>
+> 
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> ---
+> Changes since V1 (https://lore.kernel.org/all/20261023222313.3979455-1-tjmercier@google.com/)
+> - Switch to Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+>   from Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
+>   per Muchun Song.
+> - Reorder and update commit message content to describe reparenting
+>   separately from the commits that exposed and then widened the problem.
+> - Trim the backtrace a bit.
+> 
+>  mm/memcontrol.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index a05d9a8baa1b..84f4a8fd4d16 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
+>  	struct mem_cgroup *memcg;
+>  
+>  	memcg = container_of(work, struct mem_cgroup, high_work);
+> +	if (!css_tryget_online(&memcg->css))
+> +		return;
+>  	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
 
-> This is the start of the stable review cycle for the 6.1.191 release.
-> There are 1887 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+The patch is correct but I think there are two very specific subtleties which
+the commit message is not very explicit about.
 
-We get build failure in Bluetooth (we probably see the other reported
-bugs, too, I did not check):
+First, I was wondering shouldn't we take reference before schedule_work() and
+why this is safe. This is safe due to cancel_work_sync() in the
+mem_cgroup_css_free() which will not free memcg until this there is no high
+worker.
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/17550762421
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3000620758
+Second, cgroup core calls css_free() after percpu_ref_exit(). So, is it safe to
+call css_tryget_online() on such css->refcnt. Yes css_tryget_online() is safe
+but css_tryget() is not safe.
 
-Best regards,
-									Pavel
-
-
-net/bluetooth/mgmt.c: In function 'set_mesh_sync':
-3514
-18:36:58
-net/bluetooth/mgmt.c:2188:36: error: implicit declaration of function '__struct_size'; did you mean 'struct_size'? [-Werror=implicit-function-declaration]
-3515
-18:36:58
- 2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-3516
-18:36:58
-      |                                    ^~~~~~~~~~~~~
-3517
-18:36:58
-./include/linux/minmax.h:92:27: note: in definition of macro '__careful_cmp_once'
-3518
-18:36:58
-   92 |         __auto_type ux = (x); __auto_type uy = (y);     \
-3519
-18:36:58
-      |                           ^
-3520
-18:36:58
-./include/linux/minmax.h:105:25: note: in expansion of macro '__careful_cmp'
-3521
-18:36:58
-  105 | #define min(x, y)       __careful_cmp(min, x, y)
-3522
-18:36:58
-      |                         ^~~~~~~~~~~~~
-3523
-18:36:58
-net/bluetooth/mgmt.c:2188:32: note: in expansion of macro 'min'
-3524
-18:36:58
- 2188 |         memcpy(cp, cmd->param, min(__struct_size(cp), len));
-3525
-18:36:58
-      |                                ^~~
-
---9ogCmrLrndZmYNnj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauJ0TwAKCRAw5/Bqldv6
-8lNxAKCNwro5vRWYmGRoD7hzhrUD9bvdcwCggV4vp62bwTvnZs4qwPmR+wYsufE=
-=SIkp
------END PGP SIGNATURE-----
-
---9ogCmrLrndZmYNnj--
