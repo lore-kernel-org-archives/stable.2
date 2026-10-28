@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793166188;
-	b=ud09YNFcd3y8GLAaCbhgdxcDuoVZqxCpCyVpgGZ4EJPRcL+5Gp1+pe9tUKQMdLA2G41y
-	 yXQ7azxfuUBh8GNiOB5JoazslG89WAmPKg9i/B6PPAv/iulRBIraKKgfakUVtTmg3HPxD
-	 UUD0+y7W7+AxkC3uI4igIU0syTm9hEo6qvSf0hRohI64yseSorjZq34TM/aWusJHbvgU/
-	 77/Iup8B/0egDE8Szd82opp+MYwLT6tuu/PnbF469kSqzu0Mg6mVOIUf09s1q4u5Zmufg
-	 KVntK8C5rcEjonqtZNKKwLhR0mkEKGQLF4ULDMVWINbS1IaAW1lqPeWx4sffY73tqHg==
+	t=1793166196;
+	b=iRtiIQaKrdZT9IXgVqWTdsnpTE9Ash4oZB3b4wicz5hPdJMdhBiUQh+IIQ3hlOeUtX8M
+	 WOuE0GNfTn0WrNIXnE1PfAcJaptkaB5BkNOuJcMaxZcS3xJnNOes4TNGjy9TaYqmUvnXN
+	 QVSuTvINPKrG3gExNy5B3dL8AYMQ5E0kCvtqAsYuqfPLvMuQzJ+peQnh82MLN+mR9meZc
+	 /OhHWzF2/1XXk+kcz6sELTgGxsWtEo0ej7I5CjkOwOo/2rde02M1N3HboHyoeRvieYx5G
+	 BMDiNVOl48jFtjj+meP/lK7JCtvT2OJTYDc9/sZDmdhw9mG5pKAENvjQxQbn9FAXlKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793166188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793166196;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JKSX/QDPiM2sEr9XTWreBYydgF9/T83qhu6VFRhHwmM=;
-	b=cv83lqX9wqh2hf/F6V0WfrOuqcgr1y1xx39OyQLFq6GZNeeBtv+vSqFGhEacWtySDxtv
-	 HtDAl47AnUHGyaYEyFAZ8ntdjtwbLMBHv5y0/xbUfyowO9TP2t3/O9h4R8Wjgec3Lj8C0
-	 x7DPMQGC6fgBWed7W/+6TaNFYp3S20EQ4eLDa1Xfjgp6r+4nDGFmE/clFN9/MA3f++6uo
-	 PYrSGIm5ceRzxplwpN/E+3B0CoeGF0/BJoPmAruOPPFZpuDnIYLOroxj9eHAeAuPMlGEE
-	 IS8ibOtLVCHQWSiAqbP0kEEa+9Y0hD2bPOdJoKwyGUzFGKCiqImOTFCF54YLpRblazg==
+	bh=YRtK6/iSkvBe4J0QekzCUTUBP5rNz7fil5+2g/DwFVs=;
+	b=paQuB4pEhGLSUTEqZFxhn658sRrG/cah0mQ84XrFoDDEtQR1rUaJPSGhILpxHRfQT7Ix
+	 7YslF3GmhirCy+mBGDpumjNiuJRaCeosVEnVzPCCggr8do4D6nzkekgE/ah/WGUPJ74Uj
+	 CHzQHawLtktCmr3Lp6pnAfSRehyXBCnMa9Ne4djLrhlDicPT6FTN2bOa8ycj70aiD/uyM
+	 ARDHD9J8QEEDlByTWd8yVSqcfK52kQ3ovyF0k1R6SCl/5p1fTa6LtcP7T4jebhIjk6Oji
+	 +L79ckxbZskdUKBPcfeF7hVWrwTW4xNo4shCnEmiYBGiBF9yPGN6mXbYNWIWt0mXuEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qKz3C17i;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vWGBhpRn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96E4606A31A
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D2F606A31D
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 05:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qKz3C17i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57B21F01825;
-	Wed, 28 Oct 2026 05:43:06 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vWGBhpRn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6014F1F01825;
+	Wed, 28 Oct 2026 05:43:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793166187;
-	bh=JKSX/QDPiM2sEr9XTWreBYydgF9/T83qhu6VFRhHwmM=;
+	s=korg; t=1793166196;
+	bh=YRtK6/iSkvBe4J0QekzCUTUBP5rNz7fil5+2g/DwFVs=;
 	h=Subject:To:Cc:From:Date;
-	b=qKz3C17iivhyFZN7AyH59BcOY1AjdBhAgvTAIDGt4ENJcLxcN/8RfZ6CkuIJRP5GF
-	 CgWTJQ4cwVxPLN2KoKT+Gt7IMHgtFK5ihCsYre3bun/NW+BkgWcbucn1BsVgJ6i3tT
-	 /u0JHl3PfAAJ6QhqFH6LOV++3xTBWV1cVudBatPI=
-Subject: FAILED: patch "[PATCH] tracing/histograms: Verify event_call identity when updating" failed to apply to 5.15-stable tree
+	b=vWGBhpRnGVgB+QCUePxnUYEiewugWCrz/BHVN7mWztzbBF9kaB0kg6hKmeXDXDf+5
+	 Mjw/7VEFNHLMznFdeg2DWehf2TC02iJNP2EjWasKgEefPlUSLvr4TNvc3JH64uWQ9c
+	 JDJIcRE0bIjAJN1NEdiZcwW+l0qcmrNg4bzIBoeo=
+Subject: FAILED: patch "[PATCH] tracing/histograms: Verify event_call identity when updating" failed to apply to 5.10-stable tree
 To: lee@kernel.org,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 06:43:05 +0100
-Message-ID: <2026102805-estate-dragster-adef@gregkh>
+Date: Wed, 28 Oct 2026 06:43:06 +0100
+Message-ID: <2026102806-dugout-opposing-1f15@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3403d9bb27ebc3572bd048620746b4414e073bf9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102805-estate-dragster-adef@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102806-dugout-opposing-1f15@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
