@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202023;
-	b=myfeGIloA5snWSdnOKOMXIqt/eJZNtxWILBwcWwktXWy+6MHACv+0l5EvtnWj7qokbwK
-	 OWQU5eODPrtXuAyDaf6mm7fjEMeHwKqcp32bbZF0e9g1/lv35WOA/VctKQEqFBMn/nLw6
-	 hLurHCooseexhcVC1t58laWfjYS6eImewenVwgZjs9ZSupq4+CLYbrrTxmfqHVeqfmWVQ
-	 oce25/utxteK0CUoxKt/nqkNUzB0szqfjmih6bDRg2h2PF3ozaTgsu1dDTsJ/dOxdPiWQ
-	 09+N/Ni7lp+O3GKjGgq2ZOhpfQIhFZPPbdc6Pc66NXr6sgnnKqcCn7U1WeZI91cRBnw==
+	t=1793202033;
+	b=hKyt4hOqOToVVHx9/dc3BvzY+2ovNyUg4HizywEnNj+r5LSJstY/c0sHnU6z78e22OnR
+	 qLohr5kvae7MIHMdxOJWg42+uvaoUf6QdBRGtUu4IGM2qobs+894RjlQypJyfOvujOdD2
+	 n4mJxG+6x3Y6PeRqDobIkNC9DUwPFf0ZoSCSQ3h3UcvsL9ABrDNFRMW4J66MU6FfRfLs4
+	 2nY6Uhjb+xKqtU4OiCFZ4T9cfTC5LO6mCNu2IWixGmiy6YyD+5jKegm3g0gXakNIJV/7Q
+	 SJHet2Xxm0tAOBDfd5Vf/Xc6bDk1DUAqV2P+ePz0XEvbcbAMJxHwxmBrwvSsZOnVQjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202033;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CuU9wE17heteMnzxDDNaaCT6vuQKTNZeLdKeogLAHqs=;
-	b=hq53J80LMS/pKigu8BmVLFavKa4qyAkPn1vqIE/TFdgpIojMFOQyFjA3+K4vn2jlDsrT
-	 63wk/RAOe2F4wr/E0bEhalqYTR7mn42mQ4Z+W6ZGc6gNdzyMyU/GysA4z6W/pNzvrO7Lx
-	 QWj9vvsjN2urmamn04AIoeu6y61zr8ZpagDpFLC1mF00KEm8rpbvfkvq3IRNDoQDYOByb
-	 tIUwIR4GXS8NmtfVQpiwyAtBD1ZnCcujGkpvzWlPkRtWvnwFQe30WAwk/eOtAzXKu6BKy
-	 mLMGrrpLS7PMZ03dEVqpMNtZM+nLS293ENftWOiIRL+zkjrVaiXQpp0exSV2F9T9IZw==
+	bh=i8g9vFAp+517qFb4w4M+GCCvBD1TCFjZ/mTs3Z4AkMo=;
+	b=WPKVzC4ch6kxGeXq3Je/oqVB9YQGCZK1uPs/6fu4yrs2imKejuy7XsqWLIgrHDsL7CRb
+	 UDJGfl5aJIhKxcT4nlo4akhI8HjUd4BYhbDAg7Y8JU40/rpIh286ibL/rOT4rpfHJ+mtY
+	 afQYYWlSXG4umPtxnYEszMRJr0a08rfb9mel2yckHwcpjJpfh8LLyyOdtU1K4hb3qCANt
+	 tdRyq/vnDjPsNMT1IJ9Qkm09X3jinzFQNr35fbr9hMMHvL8TlR+n7Np2WAfZmxYvS4po7
+	 XdxrJX9fJFCEZ8CavlFoe2WChGxGzWMTx2Evxh0LmV82X2oRqnPCDsD4UPcQ8yu0IkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sIBIc91U;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AtQMCoBr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A40A606A31C
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:40:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A7F606A31C
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 15:40:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sIBIc91U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595031F01825;
-	Wed, 28 Oct 2026 15:40:22 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AtQMCoBr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035741F01829;
+	Wed, 28 Oct 2026 15:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793202022;
-	bh=CuU9wE17heteMnzxDDNaaCT6vuQKTNZeLdKeogLAHqs=;
+	s=korg; t=1793202032;
+	bh=i8g9vFAp+517qFb4w4M+GCCvBD1TCFjZ/mTs3Z4AkMo=;
 	h=Subject:To:Cc:From:Date;
-	b=sIBIc91Ubg0mfZfwX9hXy7Y1HV4Y6bZb2U4xAqJ/us4j74g8phOpuTLTmEUunx8te
-	 iyxwUcIO86fmJRiNNXcNwYhTHNagJWZx+LamUf4TuC8H0pVa3ObwiGf9eFWnpOfCnk
-	 ZEhLZu1ArC+LicLmXPR/pB6lhuB60Abft9FAmSYg=
-Subject: FAILED: patch "[PATCH] ptrace: refuse to change the signal mask of a user worker" failed to apply to 6.1-stable tree
+	b=AtQMCoBrdk6vntNJBV7nU6WYVxiUCE5u5ZFb35w/KcbS45fCXWW57Ec1YqFV5Ss4M
+	 j4oxmGFHtQR2o7Bfn/qVqLTLEh/SG+xjE+8PzfWgeUiS4NUyb+mYCxxA60B1nKd/Ng
+	 HEhZ7QIW87K5jYf7+e+Cr40nbnfsmOpqJk1KVgpY=
+Subject: FAILED: patch "[PATCH] ptrace: refuse to change the signal mask of a user worker" failed to apply to 5.15-stable tree
 To: brauner@kernel.org,oleg@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 28 Oct 2026 16:40:21 +0100
-Message-ID: <2026102821-foam-upper-ae17@gregkh>
+Date: Wed, 28 Oct 2026 16:40:22 +0100
+Message-ID: <2026102822-outthink-wince-02e8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x cabc249e6560bee7bdfee9fbcb7ce4e951dcfd41
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102821-foam-upper-ae17@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026102822-outthink-wince-02e8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
