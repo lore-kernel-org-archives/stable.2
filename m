@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793156855;
-	b=TedNNGujy3M0DRL2QvPUi/LoguZadwj8JH62/VNv+BnWlhr0O0cydUdUjfxG60QnmgC5
-	 9R958iHwKO2cyG/r4jEdbSRagal8ZmPBdQQRgNGrNBdqVH2S5xhWT401MqsfJHk7dUKrA
-	 gau+jCBywi+NUITUiF2sjSBaX3v8qb1RQcR8OK6R4gv4b2Uvmi7UI1v4ilJPSB8gi8Ef5
-	 BHqimZBUihEMf100SHLSKxpNFfIRzj+p5TE2chGsMh7h8UyE2QGgA0jvk3WavLkphkrPA
-	 QcJalpkWx9upM4Osidz2oAXWNTPou+ac5jpG/Tx2Be/gd9M/sUD42RL3L37/APVYRvA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793156855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-	b=25vBintp0hvFD6mHkrFydn0sFUyq3Wlkw4reegsSkONQlIx5WQBgoZGlWJ5fbETMPQP2
-	 3/mWt49g+kkVivz301npwToE+aqkYf8tE/BNaRPyA6YE5ka58Ix5msbXE7tWkeiZisoBi
-	 /kaRqjHz6B02j9IHT+UwjG4x4j/VqW2nmu6EoM/DqFaKyyczE/HuV4DmdxEUdJm+1Zggf
-	 yertHhsTdjbaV+JXgo+pgrAW5Lzsqmp5D6lOO8i8PnoBzoURfNcm6iOwrerRpcLyAlR+O
-	 z3I9JB/rVmMHc6tB2kJ+PO6GpnRHgNxkokg/ZvYwUGjatWqWAuN73mGpDp9In0+jWOg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ourcRmkO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793157085;
+	b=0Eu/2LR3+pUgKmZeWnEGtZ00cTUhXojk4/QBrRuBWdZ5wop0TI3aOwRtcy6GdDeH33oO
+	 NdZgSiHP0kZa0nhYmTmxS+hwherXomsYO0DxCt02nfSjRXZ2HxhZf/Yue/ExWox+L0M/5
+	 qXzrHPQvBa+0B23eN7qwPRhVXTOfMfbeWvU2qouWl0bvW6duhIsZHgRjO0J0CuNF1ejDS
+	 EpWVGRcCeSIWmqKSXWV/vYVkPT3VIFfHvCwtvqOx+dwqQZI8Z9675Gn4Kt2RqtKw1kN/o
+	 sAnhhn/K7Lmlws4CgzH/IAfJmUJcOczmV99SyDtNq4WwIl8vYFcZro9dLYTMQIJHxuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793157085;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NOidjj5Ml69IXBVDgaaqFA/kPNhQ/xUITVxdD/pzEd8=;
+	b=woGA7rU5Zf/DdZ53DWRRfvlZH7k6XlqAHN0u7rrsWvgv7dK3Gp4R+xDX9J0L0zbPj5zc
+	 /e/D1ZVqgx5OGJBK2chaSbJIWPakEXe0ud9F77gNyUhu0g3Qkc4dRLpbwHwVPq9+h5Bya
+	 VOnCSZ+HOI3ZJ6PmWBs4RpCH6XbSNLrnRitRzWpRbQp/1TphDY/o5SyMaOOyZbArQBd6c
+	 0zRTeeP6DGVH6KR1dGJAePlrvx4gXRIRyypvZea/DL6iqQYh+7LCtPGIkACxpZ0nwyZ/N
+	 Gg2G835b/zrXUdnKC2uM6saaw8l9pY1lK9EGfb1IvUZjv4YShvot6Id+Z4nuoVKhQsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O72jPzr2;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD11606A322
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 03:07:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BD11606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0F7606A31A;
+	Wed, 28 Oct 2026 03:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C0F7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ourcRmkO
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so888589a12.1
-        for <stable@vger.kernel.org>; Tue, 27 Oct 2026 20:07:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793156853; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ALxE4Ceak6h8rqHhU3VqSRC8eRFE830yJyfE2ORp/RwipeaEXIF+79K9GXPGzVsLNO
-         biuyjPCCzFr9wUivDx6A6b5ULI3AXpvuaR/kgyvgrViTt1GZNh8vNzS5+VZ5SaDT1v9B
-         kAofgUAD5+evlnGpiIP6zuOCesiViRDfDGnOgzfbqQ+9m+qKCZqMwEdqAmdukVjaeGhX
-         BNJwLoG09q+KSy/wXy7x6RzPbt4mXMaGe+235XXZEeX3A+B3bCS2cA0z6z76EFLVZpgt
-         dhdnTYgdSHvROIGGqtEcgCwAhHrxa4/QM1axQZzLflrMRYxjnCZOsWetud+fPPv5oT6k
-         47dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-        fh=2fu6Z5VpLh4EDod+iB6I2RIH+hpFY/9XfTxWhlMxwvU=;
-        b=Y9uke7JfvyhBD/oPLztxVn8ITLWwGe7vqYuDFMENEb6C1XKo4YvU1IEGrudr+U4HN2
-         n9u12bkTjsf+I5+8N22MmUtG+t82ox3CLaDeDdNr6JJ+I5GctMQKBDnLZpgciVem1e0Z
-         wB2Qzf7XhzO7ETuhPJ+nqQeqPyw20HuoP/QS7fGvCLOn1uemDEqtgntG9RAnzE56AkQk
-         5qRKKwS1+QiCqeh8RUDSSsCVjWzz+rC/HXthlwWj77gvFlw/fLN/jRmBEXlicFZRYNhH
-         u8+S/JTZH733lbeuknPpsuBpJCsBPlTaMejJASbDd+uKsDWrhVkzg9J8t4WxBjRdhPf7
-         SR4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793156853; x=1793761653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-        b=ourcRmkOH/IjfAvfCJMqpw8JEzyGEQLLpIyM3oq32ZzxtqSCibGO/9Qw/Zk8dFF5D8
-         fq//S7uF6tXiGg9nQZRB6HtoBxFSa2TVcrKRBzBk5be9hIxjLnhroFo6uiFDTIL9+COy
-         GKuGIj4CWW+G7mOqoAXg8EaLp0hk8d9+L0PXgj/Vy028JFOIXvBPPhhEJjYBBEt+u805
-         2+GOsDyCAQDkByjNAJiQzEGqowmLSCJGi0AtsMpvSTEiIVkZ5a9wCJ1grbRnLH9hZBH2
-         l6VXiMFEwb8nUI2eKb8LXhhz+qy0r0h3R++UuQIYJn1PKvc76dEdobFz1zSbnASn4i9m
-         2cvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793156853; x=1793761653;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J0Be1q2Mf9sv1KZdHv7WT6uB4RENkXIH8A5t3SCQfjk=;
-        b=QgSsh9oEqOWywOoUOtpSeavP4xwOkObZVF5aT7VEyAz7SRr6y64EAuuT0dsZduSFTf
-         FP3KgV5zgM3B2bPCs9QQwUFIL1oy95jt8qP+XDuA0v/2AoKNp0a3kTRG5HbY3KkxuVOA
-         8KUCWG+asm49xJifZs9YuqscSZ/XnCURD55sUn6A+R4ZUZ1ow/WkP9nBRY4I4AJQjb8o
-         jcxdx+RKFWH/aeoxf99/ViNvoYpRdbZ6VQ0rvXG8k1Eb4CBY1jAErIb2aOLzd5uw8VIe
-         MyfBrYdVb0W84y2J9uGRuQvaKB3ZF7LvH0Cfkh3jBpKYcB2LSG3NgsgOJMZ43HapUj1k
-         TeBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzeQoZKHZU7EPkPzuhmJhBuahNpvky+LeYgm2bg+5v23EtXYcoTqoSkbqrfdv/hBpJAmkwIYro=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlq1cV06zeq/wfRAqE0mPMbJX7VotPqMz3i+iQ5Kt21ZtVum42
-	RQHDsEDThtKF6pHJGz4Hu8bHFf2YJn7d77wxnbt7wRLS7ENOGIviBfZa/6YkZz5JJP7ZNO3OQE9
-	Kwf7B53+orjVjijpSVUajZ+QA7lSNjH3RNHq42Yw=
-X-Gm-Gg: AYBFou1XdAHpiS3vRHk0CpnCJr1JfQtqlYngSmcHvCPwqusDUfoXdxwXYHmtgXxyDcj
-	jhQt+GdYVbsdVw5PDouqwPmRWccHRb2MWAd2nFaBPjN4DEKNY29+lpKb12jz/0BSaeOgDXLEG9t
-	FgK4QbzA4DK1J0I4FT7+yI/mKeXSpihisjNbOw9x/4d640mNyXENdWLv0/KmXlne5+V3aENpio8
-	jAOGDpvO2m38CVqZuXFS6XvuFijtwPGzavIKkPyR7clOr2PA1mWQUHv0f58RgVFo+zcaHV5IwQp
-	RBBefwOTAvKRCmxR3ZUv7HbkwgS4wXp0NXhzkR+Lane/z/uel1DKVnNate+2L5hvuXVS+GrxB+t
-	/ZysQrE9EDqCmEo8viERctf7iSzD3leE79ir/w/Y5XO/H5DN2/Be+6H5gBPBLAvZbMq8=
-X-Received: by 2002:a05:6402:42c8:b0:6ab:6e:a8e4 with SMTP id
- 4fb4d7f45d1cf-6b49cc24773mr498856a12.44.1793156852883; Tue, 27 Oct 2026
- 20:07:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=O72jPzr2
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793157082; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=NOidjj5Ml69IXBVDgaaqFA/kPNhQ/xUITVxdD/pzEd8=;
+	b=O72jPzr2bD793SFpqsi7HsCUAp/9pOyTAa+eACVnYdCSsyWOHJzHoZ2dPt1cb1HLIEOMgqvxq6ZdeftLpm4HkXKOCRCLTstRi442JU1EyNU3SUcJV7LSpOnqCpVBzYHmy249F4xFiHwuEcBO1PLYadoU3IQgPz8RZS51YODnZ1I=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R471e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=jinyue.li@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XDfYO0M_1793157079;
+Received: from aa8c952a0f58..(mailfrom:jinyue.li@linux.alibaba.com fp:SMTPD_---0XDfYO0M_1793157079 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 28 Oct 2026 11:11:20 +0800
+From: Li Jinyue <jinyue.li@linux.alibaba.com>
+To: Atish Patra <atish.patra@linux.dev>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>
+Cc: Anup Patel <anup@brainfault.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Xixin Liu <liuxixin@kylinos.cn>,
+	Andrew Jones <ajones@ventanamicro.com>,
+	linux-riscv@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drivers/perf: riscv: Fix racy hw.idx use in user access paths
+Date: Wed, 28 Oct 2026 03:11:19 +0000
+Message-Id: <20261028031119.1485928-1-jinyue.li@linux.alibaba.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,64 +71,222 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027192027.8617-1-dennylin0707@gmail.com>
-In-Reply-To: <20261027192027.8617-1-dennylin0707@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 28 Oct 2026 05:07:21 +0200
-X-Gm-Features: AclHuK8Zk3JqjSuknFqDZQNv-pnsmVv-lUejnYaLZe-5J4JnZLEJi3oDDiYwgrk
-Message-ID: <CAOQ4uxj3et_cyzD1iWHr3_z1dH1R3WQMCOm+kO2Q90TXjaV9pQ@mail.gmail.com>
-Subject: Re: [PATCH v2] inotify: do not coalesce rename events
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 9:20=E2=80=AFPM Hungyu Lin <dennylin0707@gmail.com>=
- wrote:
->
-> inotify compares the mask, watch descriptor and name when coalescing
-> adjacent unread events, but ignores their rename cookies. Distinct
-> IN_MOVED_FROM events can therefore be coalesced, losing the cookie needed
-> to match a later IN_MOVED_TO event.
->
-> For example, watch two directories with IN_MOVE. Move an entry from the
-> first directory into an unwatched directory, recreate it under the same
-> name, then move it from the first directory into the second watched
-> directory before reading the events. The second IN_MOVED_FROM is merged
-> with the first, while the IN_MOVED_TO retains the second rename's cookie.
-> Userspace can no longer pair the second rename's events.
->
-> The original inotify implementation compared cookies before coalescing.
-> The fsnotify conversion lost this comparison. Do not coalesce
-> IN_MOVED_FROM or IN_MOVED_TO events, which carry the identity of their
-> respective renames. Leave coalescing of other event types unchanged.
->
-> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Amir Goldstein <amir73il@gmail.com>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+riscv_pmu_event_idx() and arch_perf_update_userpage() are called from
+perf_mmap() through perf_event_update_userpage(), and
+pmu_sbi_set_scounteren()/pmu_sbi_reset_scounteren() run on every CPU in
+mm_cpumask() through IPIs sent by pmu_sbi_event_mapped() and
+pmu_sbi_event_unmapped(). None of them hold the event context lock, so
+the event can be scheduled in or out on another CPU at the same time,
+and riscv_pmu_add()/riscv_pmu_del() change hw.idx underneath them.
 
-> ---
->  fs/notify/inotify/inotify_fsnotify.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/ino=
-tify_fsnotify.c
-> index 7c326ec2e8a8..6e3af6452dcc 100644
-> --- a/fs/notify/inotify/inotify_fsnotify.c
-> +++ b/fs/notify/inotify/inotify_fsnotify.c
-> @@ -36,7 +36,7 @@ static bool event_compare(struct fsnotify_event *old_fs=
-n,
->
->         old =3D INOTIFY_E(old_fsn);
->         new =3D INOTIFY_E(new_fsn);
-> -       if (old->mask & FS_IN_IGNORED)
-> +       if (old->mask & (FS_IN_IGNORED | FS_MOVE))
->                 return false;
->         if ((old->mask =3D=3D new->mask) &&
->             (old->wd =3D=3D new->wd) &&
-> --
-> 2.43.0
->
+Taking the context lock is not an option: perf_event_update_userpage()
+is also called from riscv_pmu_add() and riscv_pmu_del(), which already
+hold it.
+
+Commit 3fec323339a4 ("drivers: perf: Fix panic in riscv SBI mmap
+support") added hw.idx != -1 checks to the scounteren helpers and to
+riscv_perf_user_access(), but hw.idx is loaded again afterwards to
+index pmu_ctr_list, so the check does not cover the access.
+riscv_pmu_event_idx() has no check and relies on perf_event_index(),
+which only looks at the software state (event->state and hw.state) and
+not at hw.idx. event_sched_in() marks the event ACTIVE before calling
+pmu::add(), and hw.state is still zero on the first schedule-in, so
+perf_event_index() can call into the driver with hw.idx == -1.
+event_sched_out() likewise calls pmu::del() before the state changes.
+
+syzkaller hits this on QEMU with KASAN. In every report the faulting
+address is pmu_ctr_list[-1]:
+
+  BUG: KASAN: slab-out-of-bounds in pmu_sbi_csr_index+0x80/0x82
+  Read of size 8 at addr ff60000009933bf8 by task syz.0.5217/27313
+  Call Trace:
+   pmu_sbi_csr_index+0x80/0x82
+   riscv_pmu_event_idx+0x9c/0xd8
+   perf_event_update_userpage+0x544/0x6ca
+   riscv_pmu_event_mapped+0x6e/0x98
+   perf_mmap+0xbcc/0x22ae
+   __mmap_region+0x1128/0x2398
+   mmap_region+0x3cc/0x466
+   do_mmap+0xe7c/0x162c
+   vm_mmap_pgoff+0x1e8/0x362
+   ksys_mmap_pgoff+0x338/0x402
+   __riscv_sys_mmap+0x11c/0x18c
+
+The same read is also reported in pmu_sbi_ctr_get_width() from
+arch_perf_update_userpage(), in pmu_sbi_set_scounteren() from the IPI
+handler and in pmu_sbi_reset_scounteren() from perf_mmap_close().
+
+Load hw.idx once with READ_ONCE() in these paths, check that value and
+use it for the lookup. Change the csr_index() callback to take the
+counter index so that the value checked is the value used; neither
+backend needs anything else from the event. Use WRITE_ONCE() for the
+stores in riscv_pmu_add() and riscv_pmu_del().
+
+Fixes: cc4c07c89aad ("drivers: perf: Implement perf event mmap support in the SBI backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+---
+ drivers/perf/riscv_pmu.c        | 22 ++++++++++++++--------
+ drivers/perf/riscv_pmu_legacy.c |  4 ++--
+ drivers/perf/riscv_pmu_sbi.c    | 14 ++++++++------
+ include/linux/perf/riscv_pmu.h  |  2 +-
+ 4 files changed, 25 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/perf/riscv_pmu.c b/drivers/perf/riscv_pmu.c
+index 8e3cd0f35336..0ec4114595b0 100644
+--- a/drivers/perf/riscv_pmu.c
++++ b/drivers/perf/riscv_pmu.c
+@@ -18,18 +18,23 @@
+ 
+ #include <asm/sbi.h>
+ 
+-static bool riscv_perf_user_access(struct perf_event *event)
++static bool riscv_perf_user_access(struct perf_event *event, int idx)
+ {
+ 	return ((event->attr.type == PERF_TYPE_HARDWARE) ||
+ 		(event->attr.type == PERF_TYPE_HW_CACHE) ||
+ 		(event->attr.type == PERF_TYPE_RAW)) &&
+ 		!!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT) &&
+-		(event->hw.idx != -1);
++		(idx != -1);
+ }
+ 
+ void arch_perf_update_userpage(struct perf_event *event,
+ 			       struct perf_event_mmap_page *userpg, u64 now)
+ {
++	/*
++	 * hw.idx is updated by pmu::add()/del() on another CPU, so take a
++	 * snapshot and use it for both the check and the lookup.
++	 */
++	int idx = READ_ONCE(event->hw.idx);
+ 	struct clock_read_data *rd;
+ 	unsigned int seq;
+ 	u64 ns;
+@@ -37,7 +42,7 @@ void arch_perf_update_userpage(struct perf_event *event,
+ 	userpg->cap_user_time = 0;
+ 	userpg->cap_user_time_zero = 0;
+ 	userpg->cap_user_time_short = 0;
+-	userpg->cap_user_rdpmc = riscv_perf_user_access(event);
++	userpg->cap_user_rdpmc = riscv_perf_user_access(event, idx);
+ 
+ 	/*
+ 	 * The counters are 64-bit but the priv spec doesn't mandate all the
+@@ -45,7 +50,7 @@ void arch_perf_update_userpage(struct perf_event *event,
+ 	 * the cpu vendor.
+ 	 */
+ 	if (userpg->cap_user_rdpmc)
+-		userpg->pmc_width = to_riscv_pmu(event->pmu)->ctr_get_width(event->hw.idx) + 1;
++		userpg->pmc_width = to_riscv_pmu(event->pmu)->ctr_get_width(idx) + 1;
+ 
+ 	do {
+ 		rd = sched_clock_read_begin(&seq);
+@@ -265,7 +270,7 @@ static int riscv_pmu_add(struct perf_event *event, int flags)
+ 	if (idx < 0)
+ 		return idx;
+ 
+-	hwc->idx = idx;
++	WRITE_ONCE(hwc->idx, idx);
+ 	cpuc->events[idx] = event;
+ 	cpuc->n_events++;
+ 	hwc->state = PERF_HES_UPTODATE | PERF_HES_STOPPED;
+@@ -293,7 +298,7 @@ static void riscv_pmu_del(struct perf_event *event, int flags)
+ 	if (rvpmu->ctr_clear_idx)
+ 		rvpmu->ctr_clear_idx(event);
+ 	perf_event_update_userpage(event);
+-	hwc->idx = -1;
++	WRITE_ONCE(hwc->idx, -1);
+ }
+ 
+ static void riscv_pmu_read(struct perf_event *event)
+@@ -353,12 +358,13 @@ static int riscv_pmu_event_init(struct perf_event *event)
+ static int riscv_pmu_event_idx(struct perf_event *event)
+ {
+ 	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
++	int idx = READ_ONCE(event->hw.idx);
+ 
+-	if (!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT))
++	if (!(event->hw.flags & PERF_EVENT_FLAG_USER_READ_CNT) || idx == -1)
+ 		return 0;
+ 
+ 	if (rvpmu->csr_index)
+-		return rvpmu->csr_index(event) + 1;
++		return rvpmu->csr_index(idx) + 1;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/perf/riscv_pmu_legacy.c b/drivers/perf/riscv_pmu_legacy.c
+index 1b8e4789cb3c..e540bb798fb6 100644
+--- a/drivers/perf/riscv_pmu_legacy.c
++++ b/drivers/perf/riscv_pmu_legacy.c
+@@ -76,9 +76,9 @@ static void pmu_legacy_ctr_start(struct perf_event *event, u64 ival)
+ 	local64_set(&hwc->prev_count, initial_val);
+ }
+ 
+-static uint8_t pmu_legacy_csr_index(struct perf_event *event)
++static uint8_t pmu_legacy_csr_index(int idx)
+ {
+-	return event->hw.idx;
++	return idx;
+ }
+ 
+ static void pmu_legacy_event_mapped(struct perf_event *event, struct mm_struct *mm)
+diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+index 2991dd92def2..2360ee5d8843 100644
+--- a/drivers/perf/riscv_pmu_sbi.c
++++ b/drivers/perf/riscv_pmu_sbi.c
+@@ -530,9 +530,9 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *num_hw_ctr)
+ }
+ EXPORT_SYMBOL_GPL(riscv_pmu_get_hpm_info);
+ 
+-static uint8_t pmu_sbi_csr_index(struct perf_event *event)
++static uint8_t pmu_sbi_csr_index(int idx)
+ {
+-	return pmu_ctr_list[event->hw.idx].csr - CSR_CYCLE;
++	return pmu_ctr_list[idx].csr - CSR_CYCLE;
+ }
+ 
+ static unsigned long pmu_sbi_get_filter_flags(struct perf_event *event)
+@@ -809,19 +809,21 @@ static u64 pmu_sbi_ctr_read(struct perf_event *event)
+ static void pmu_sbi_set_scounteren(void *arg)
+ {
+ 	struct perf_event *event = (struct perf_event *)arg;
++	int idx = READ_ONCE(event->hw.idx);
+ 
+-	if (event->hw.idx != -1)
++	if (idx != -1)
+ 		csr_write(CSR_SCOUNTEREN,
+-			  csr_read(CSR_SCOUNTEREN) | BIT(pmu_sbi_csr_index(event)));
++			  csr_read(CSR_SCOUNTEREN) | BIT(pmu_sbi_csr_index(idx)));
+ }
+ 
+ static void pmu_sbi_reset_scounteren(void *arg)
+ {
+ 	struct perf_event *event = (struct perf_event *)arg;
++	int idx = READ_ONCE(event->hw.idx);
+ 
+-	if (event->hw.idx != -1)
++	if (idx != -1)
+ 		csr_write(CSR_SCOUNTEREN,
+-			  csr_read(CSR_SCOUNTEREN) & ~BIT(pmu_sbi_csr_index(event)));
++			  csr_read(CSR_SCOUNTEREN) & ~BIT(pmu_sbi_csr_index(idx)));
+ }
+ 
+ static void pmu_sbi_ctr_start(struct perf_event *event, u64 ival)
+diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pmu.h
+index ecaa40370830..4690a5646ae9 100644
+--- a/include/linux/perf/riscv_pmu.h
++++ b/include/linux/perf/riscv_pmu.h
+@@ -66,7 +66,7 @@ struct riscv_pmu {
+ 	void		(*event_init)(struct perf_event *event);
+ 	void		(*event_mapped)(struct perf_event *event, struct mm_struct *mm);
+ 	void		(*event_unmapped)(struct perf_event *event, struct mm_struct *mm);
+-	uint8_t		(*csr_index)(struct perf_event *event);
++	uint8_t		(*csr_index)(int idx);
+ 
+ 	struct cpu_hw_events	__percpu *hw_events;
+ 	struct hlist_node	node;
+-- 
+2.25.1
+
