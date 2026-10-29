@@ -1,71 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.83.148.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240227;
-	b=SqD+evpwSIOoFiSdrDDvVgzdtaPT+NdHtespF8wXbkC83zZei51Eq0urwQmqXhCfA33+
-	 eXGoF1fyUMZXBM6mBazX839kcV3YS/uFFSQwB4EvoXR4chA0FiajiYc9dtFLk9z1Xt2M3
-	 B7Fnxljy3PZt2eErE8RCJEteVfvmZzGTHIhwnOk17BFQ0+N9XuWm0VKWrVPQe3ETBHsaB
-	 xyFtr6wbzYZje/3gJkYj3pl7gpEb3C0jYFjAcAbwZVh/UZWlOduMb1oMGbsF3VZbp0jxm
-	 Iya8+Hmo8AScAindc2JhGiXp2ekmWOAFU8RI85krW2Xb6BuNU44SX7XUt9V8n6Ud0Zg==
+	t=1793240423;
+	b=0IUwEAhnuDbDluDjm/+dUcjfWlgGcWN97+3rwW8s5W3XH1V9pVcHjRgnc+cc5WBO2Nkm
+	 vzdL3bOyVBYILhoMr7Ss7yGUKhGReFMio5/KVJLUGBfqR06uayIM3flICDp4mOHKeu1Ni
+	 iiHeLcsqYPqckPW9WKfBs+6ImqZXWT0IFmAatf9ThFZeDctfxREk2v3Afn1hCkcj0+3k4
+	 0WBdMUvm9TFgA76OdSO1RHHSoDC4xArMTs86au8oIMHcjVn/8BCXUE2BhnOOWU/guXXOt
+	 Tdo577VlsGDEI1xj0xXbdU98qFYjMs1ix4tKJa8/u0Uh69THFpGdqgOA6XbgueZ28vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240227;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=m9kc8yIzx2usw0N2+/yj9nIikY372WFees0PGb9Zlj0=;
-	b=RtEf6eN6TaPqgrfR9KC49jpnMkWlYEiLbl/miQBwVXkvqkpaGpK/dkf99tMnY1qZTCwU
-	 iEQ14ewIgHJBeaD+kKIGu4gl/QWyc3o0sYISax6Pfi0eaYc4Jf/bOP4TteA2rGnk/aDDc
-	 bAy25DP1h8cv5qy3MnNha0+hm1AKqKR1wA6OCVgSRlNRVS0nbGXdZz2zlJ+4rJRPp8XLy
-	 1QQ3ARzp+pNWG3SeVd7rc6+djaCggzoc3irfSVILeItvtM4i9ZE1n1mNM5zBHRKiiALj8
-	 ubpw7zXZuIuDK/zGUkp9nImqtiHpunQisHNAopefMEiXQpSD2MT9lJMux0FI54ccx/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240423;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=xGhyFxjRHb1TptDTOCDC99GQjSqfpaVZAZkMO4GnZtE=;
+	b=svHImpo0ynA6pW294p3yzNXhtIxCwpI31K9Zv/c0KzbFDYs74gwnFaBVyHbIY+Ayr2eN
+	 XG84JcfgKKJMUTtKdMhG0lb1WGL3G8Y0Dir+fERij/JBXkEv8ka6fWDU6RUkpJRmOjoLJ
+	 PGtXhnRopY3nRilGUsNXhHTOOx7dlVn/3bC9npa/giPvUq8FHeEScL2n9iuhbKbT7d0tS
+	 r9x/aHTaWkNLm4mhsmPILDU2oW0/Uubl+9Xr5Q8F2OxfhXrQ+GyRMHa6dwBwdMucRdm9O
+	 GYgT46nWo78PuZrXE8NvJ7CgdCVMgA7YyZB84iesA5wvpGLp5fbC+owi6qCfTeT5unw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=BulVXfD7;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=jTt2x6XG;
+	arc=none smtp.remote-ip=35.83.148.184
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85995606A31A;
-	Thu, 29 Oct 2026 02:17:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85995606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC3C606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:20:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DC3C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=BulVXfD7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=m9kc8yIzx2usw0N2+/yj9nIikY372WFees0PGb9Zlj0=; 
-	b=BulVXfD773yLT3qc9u1NANNhJ98Vm6/aRxcwh5PfDZELbo1U/FSB2M/85ZgFhlhiBCV2IvuwAM+
-	RvNJIsDMBW/NCmIYF/xef7aWde69p7ClT0iqQY7Lu0MjujY1pK8DLGdr5YwRbgqIID1pc8tLx/sQC
-	Izh291VahFbHvOu6WEzhVy7BZOfCUnK5ylxT0cAbh9T4j+b6AlTNngiUvXcQvIrA+2rthRivGcZuB
-	NNMsNYkt3FtQEZLRM/nlMsVyeOBmfcEjf2loV3mHj5UYVQ8drR+LgID2bwLDoSLvqe8gUgcburL8P
-	tIjNocrWc2A34HmdV5jrxW9im4x2We6R30RQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xMFgy-00000008bSP-0k3I;
-	Thu, 29 Oct 2026 10:16:37 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 29 Oct 2026 10:16:36 +0800
-Date: Thu, 29 Oct 2026 10:16:36 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: "Liam R. Howlett (Google)" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>,
-	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <auKshDXKQXt1kvjy@gondor.apana.org.au>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=jTt2x6XG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1793240423; x=1824776423;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=xGhyFxjRHb1TptDTOCDC99GQjSqfpaVZAZkMO4GnZtE=;
+  b=jTt2x6XGh1XW5PxYKVxONmf5bMDgIb6vumQhsrXVrBwSG+jFvtZUDmpt
+   TPx06humPiMzd7BdseXJa4/hiDmxGTxfUt+53Kw6GCeIYTB0TYxKZVwMQ
+   eEmoTCkOlr9cRXyWl2UNEifHfGk2W7a8wITyLfsqz1Cso9l0tWt9c8wIr
+   5ZID7WX76hkpXSfakqW5laiZEhcvHqw2k8n6/hkloM/CWGWIcu5u1K+Va
+   DvxbRAKVsOFeN7WezhRRNi0uMIJLHFhaPOQdx7etaBVR8iHWMR+uNMO2m
+   vSzorUFdT1YylbMOA9gCTex6smeA5+7Mqg5tB+xESIGa27k8AbW6KlyUv
+   g==;
+X-CSE-ConnectionGUID: OEUXt15fTw2jPLRPgENR2A==
+X-CSE-MsgGUID: urJ+1TOITHKrq4ewX5trdg==
+X-IronPort-AV: E=Sophos;i="6.27,183,1787011200"; 
+   d="scan'208";a="32321792"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 02:20:22 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:29923]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.63.21:2525] with esmtp (Farcaster)
+ id 888d6ea5-f3dc-409d-9bac-2cd38575d6d5; Thu, 29 Oct 2026 02:20:22 +0000 (UTC)
+X-Farcaster-Flow-ID: 888d6ea5-f3dc-409d-9bac-2cd38575d6d5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 29 Oct 2026 02:20:22 +0000
+Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 29 Oct 2026 02:20:22 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <stable@vger.kernel.org>
+CC: Fuad Tabba <fuad.tabba@linux.dev>, Hiroyuki Katsura <hk590@cam.ac.uk>,
+	Vincent Donnefort <vdonnefort@google.com>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Subject: [PATCH 6.12.y] KVM: arm64: Transfer the hyp stack pages out of the host stage-2
+Date: Thu, 29 Oct 2026 02:19:18 +0000
+Message-ID: <20261029021918.2596937-1-mkbund@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,42 +83,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028154218.1668182-5-liam@infradead.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
->
-> Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
-> while another CPU is inside vmalloc() or vfree():
-> 
->     RTM_NEWNEIGH                      vmalloc() or vfree()
->     ============                      ====================
->     spin_lock_bh(&br->hash_lock)
->                                       spin_lock(&vn->busy.lock)
->     rhashtable_insert_rehash()
->       kvmalloc(GFP_ATOMIC)
->         vmalloc()
->           spin_lock(&vn->busy.lock)
->             waits for the other CPU
->                                       softirq: a frame for the bridge
->                                         spin_lock(&br->hash_lock)
->                                           waits for RTM_NEWNEIGH
+From: Fuad Tabba <fuad.tabba@linux.dev>
 
-I think this is a fundamental bug in the kvmalloc non-blocking
-support patch.  How can it be used at all if it is susceptible
-to such dead-locks?
+[ Upstream commit 3a8c562892b96f35bba1e00d5e455a15963bbb92 ]
 
-And if you can't use it safely why don't we just get rid of the
-broken kvmalloc non-block path and have it always go to kmalloc
-like it did before?
+fix_host_ownership() walks only the linear-map alias of each memblock
+region, and the per-CPU hyp stack, mapped in the private VA range for
+its guard page, has none.
+
+Walk each stack's VA range with the same walker.
+
+Fixes: 1a919b17ef012 ("KVM: arm64: Add guard pages for pKVM (protected nVHE) hypervisor stack")
+Reported-by: Hiroyuki Katsura <hk590@cam.ac.uk>
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Tested-by: Vincent Donnefort <vdonnefort@google.com>
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20260908110713.1540304-2-fuad.tabba@linux.dev
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+[ 38f9e4b905a0 ("arm64: kvm: Introduce nvhe stack size constants") is
+  not backported because it converts nvhe stack code in eight files to
+  NVHE_STACK_SIZE, and the hyp stack here is one page, so PAGE_SIZE
+  replaces it. ]
+Assisted-by: LLM
+---
+ arch/arm64/kvm/hyp/nvhe/setup.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/kvm/hyp/nvhe/setup.c b/arch/arm64/kvm/hyp/nvhe/setup.c
+index 08770d7cba4b0..2763bf8dd105f 100644
+--- a/arch/arm64/kvm/hyp/nvhe/setup.c
++++ b/arch/arm64/kvm/hyp/nvhe/setup.c
+@@ -264,6 +264,16 @@ static int fix_host_ownership(void)
+ 			return ret;
+ 	}
  
-> Fixes: c6307674ed82 ("mm: kvmalloc: add non-blocking support for vmalloc")
++	/* The stacks sit in the private VA range, not the linear map. */
++	for (i = 0; i < hyp_nr_cpus; i++) {
++		struct kvm_nvhe_init_params *params = per_cpu_ptr(&kvm_init_params, i);
++		u64 start = params->stack_hyp_va - PAGE_SIZE;
++
++		ret = kvm_pgtable_walk(&pkvm_pgtable, start, PAGE_SIZE, &walker);
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
 
-BTW, rhashtable patches should be sent to linux-crypto.
-
-Thanks,
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.50.1
+
