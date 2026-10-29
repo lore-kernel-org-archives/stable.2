@@ -1,66 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239387;
-	b=iHB9RPOqVQxRqtJ5KIM3VsdXzPwvEstAcxvV3KRbo6tdFiLPfpkFJz9EgPxxSOJpufJj
-	 wcHf7BgxhwseGlqc6diKDwLmW5o4eiZxUaq+mDa9b3vDNNH7EfclIto4NmbLUtm8izsYz
-	 gaEJDkzHx/LbdMPvKNl2D1L+cV2Gue1EeyyA3sqlNLzyPx1z2M44hN+sefyjBKsnjpHUD
-	 e3NCR4NWb1KYSMGV+gQ3To35J6k56mG8T2ZP3fAg0andxIw24IqcAPq4oP8w0R2w4pxPd
-	 kqSpDywov+fyUcogVnEUHZ91v3Imiy3BB9/UxdkLd3bVzqqM1blRrmbcGN1vi5O6R/A==
+	t=1793239392;
+	b=aPZTRY4+g/Wv7Qd7V2V/0HD/yLlaAtaYnaOk27TQmAxTfQe/BW+iJWYZMgryut8qAHt/
+	 7ejmoYukiaFQzneOYDrbf+SrqNKycWx/tqYP+RTpZqdMXun2KJmuJXsDC0quDSoMjSkpe
+	 hRSOZxSa98MKETDxh+D0v2cF3lZxoQyTK1oludPIzUdfCDklB9E8TqxPvkKDhSL4lyRMH
+	 bxTbHImkowjx6ep7W+xj2MGp9rGzzO+18MV+NZk60XQQ6WGbAO4/RuPRXXc3UcESCdNx9
+	 3cJSKaxqjhqNp/RHEzQJ9tnAO5moeBkM6mWuVOzadH6MIg+dzyyIvm+3R510YM7+y3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239387;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239392;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=82EWEmTBFTHlp3Xbk9DdfBWQDqYO1PeqHpfQuSaH6o8=;
-	b=Q5yMS6XwOdl1bHzg9TkNR3cbyPDenwPyTZJ5CfjdE94HXyB1UsJf29XI8D/jsX1zIQfl
-	 xCydqEevisakWn8/8tyUicIBXzV+eMpWlYBbPJfoabWLdf2Up2WMJonOmS26e7A5suh9m
-	 iIcn9wQXv90v5XhSy+N4/sYkC976iYZ+UFfUPo0ly0wihHUjngWflVnMbIcf70e/JJXir
-	 G3/75usJkK92X0fIOwm57+S77OPL8QBy+vipXC/eol90x8B9ak5vkr+ZMTzm3kGULfvKw
-	 KlH5FyusCvsWkkg6/g3V2OdycuPScpirVMKZ9BFmfbRaSbDBb2jDA3RvKMHnA8oGYmA==
+	bh=3JFRAUkzRhTG7w07ynQ3Bn9PUKRkX+0anMF1vW2pBVc=;
+	b=iuJwuQ9bpu8vnw69w2HjTQibSliouX6Ys5tj3ahXDvxFsEIVLK+9GfDZptUgyVfyG79k
+	 K8HPFh28PnQ4qQJiR1V5vCUK+8yKRTT77zoiBFb6dkngOkNgB5CS4/SMUtC3rhHdisvIb
+	 yrGFuuBeGU4f0zW2rOiTW1z8qx5IMvbDwq83Dvf8qKPZAVy5lDQwO46Gc0a0KVz1vLS/k
+	 arRcr8zVNVkowGQ60nXi249z9DpQnIh8t+JJuCfeUIT2tjJT9wx5mZamWHF1zVPb3LlHA
+	 IWNXOyfwmgajEK3PDaYcjvS8iyNF8RTHqp0bnts7gzLy2BewaVpMfAkWnZSU9mfqrlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCXGBdls;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcY6GK0H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B6E606A31C;
-	Thu, 29 Oct 2026 02:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843FF606A330;
+	Thu, 29 Oct 2026 02:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCXGBdls
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5937F1F01829;
-	Thu, 29 Oct 2026 02:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcY6GK0H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640D01F031E0;
+	Thu, 29 Oct 2026 02:03:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793239386;
-	bh=82EWEmTBFTHlp3Xbk9DdfBWQDqYO1PeqHpfQuSaH6o8=;
+	s=k20260515; t=1793239392;
+	bh=3JFRAUkzRhTG7w07ynQ3Bn9PUKRkX+0anMF1vW2pBVc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DCXGBdls4rNx+a5PDTFNAov6fZxMx8gV51xcRKLX9ieFKyMYjnNT/p5N973wDwERG
-	 wYTe8o4yQynY7q6ihffPul38/8wj3TuDPWHCTmP9kmHnok7yjaO/stXmzPNTSn3JVG
-	 6fKCfZBXMgj585GRyek361zkvugL6eHkW0arf5qYr2NuZPptsvrCi58a5rcrFVRyJK
-	 Lw/6HFqXxyxRDDXt3zI8kYIjkHcEEceO/tAWtY7wvTvy4FqmyEB+YWQI+VdYrDgszf
-	 Mu8cThzts2uR7cwbE8FFhQ9lRg0tUsepaswmp0i4gJMYa3Bmx+0EZDNbBOjPA6aho1
-	 8L/svisLTTUIQ==
+	b=fcY6GK0HVBXdHkTSiSjD35v4hvrFhGt/2LzuFBDhOMPQIC2OIh7GvHSQVIKDH2Q/V
+	 DmB2cWBiTay6a2JORalKm6VJYI8QxJ74Ox6RvStVxzrCEzRmRJROUGnDxKHVie15wD
+	 H4YDC9znfYcsr8/QvulN7+mgKg/pzXRhaHIuRKnf31SUOZvdrwbfUg053dn19oBn+m
+	 8DO86zKgjgdMrVfYKfM25AnhHarz77r99tqclLcyDB0GGNP6a3v8pPtn559JiUJiCT
+	 pW0JfcB4O+BV2mBFDFJzZDgdmWnu703tcdc8H7gIxYGbI1iELWXM+icDCQaloY5zln
+	 PIzux/M8Fx8RQ==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: James.Bottomley@HansenPartnership.com,
-	Joonhoe Kim <26rote@gmail.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	alim.akhtar@samsung.com,
-	bvanassche@acm.org,
-	beanhuo@micron.com,
-	stanleyjhu@google.com,
-	peter.wang@mediatek.com,
-	can.guo@oss.qualcomm.com,
-	mani@kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+To: "Martin K. Petersen" <mkp@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>
+Cc: linux-scsi@vger.kernel.org,
+	John Garry <john.garry@linux.dev>,
+	Christoph Hellwig <hch@lst.de>,
+	Lianqin Hu <hulianqin@vivo.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: ufs: core: Fix a deadlock between clock scaling and device commands
-Date: Wed, 28 Oct 2026 22:02:44 -0400
-Message-ID: <179323465378.491807.15412315305334194970.b4-ty@b4>
+Subject: Re: [PATCH] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
+Date: Wed, 28 Oct 2026 22:02:49 -0400
+Message-ID: <179323465385.491807.4200261615139182816.b4-ty@b4>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016124608.46-1-26rote@gmail.com>
-References: <20261016124608.46-1-26rote@gmail.com>
+In-Reply-To: <2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org>
+References: <2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,27 +66,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 21:46:08 +0900, Joonhoe Kim wrote:
+On Mon, 19 Oct 2026 14:55:32 -0700, Bart Van Assche wrote:
 
-> Since commit 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()"), device management commands go through
-> blk_execute_rq() on the pseudo SCSI device, which shares the tagset
-> with the logical units, while ufshcd_dev_man_lock() holds
-> clk_scaling_lock for reading.
-> 
-> ufshcd_clock_scaling_prepare() and ufshcd_pause_command_processing()
-> quiesce the tagset before taking clk_scaling_lock for writing. A device
-> management command holding the lock for reading at that point is never
-> dispatched and never times out, so the writer waits forever with all
-> logical units quiesced. On a Lenovo Legion Tab Y700 Gen 5 this ended in
-> a hung task panic.
+> If a SCSI disk is unplugged while runtime suspended, its request queue
+> is still in the pm-only state when sd_remove() is called. The runtime
+> resume attempted by scsi_autopm_get_device() fails because the parent
+> device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
+> resumed. Hence, sdev_runtime_resume() is not called and the pm-only
+> state is not cleared. Next, del_gendisk() calls
+> blk_report_disk_dead(disk, false), which calls sync_filesystem(). Any
+> bio submitted by the filesystem waits forever in __bio_queue_enter()
+> because the queue will never leave the pm-only state and because
+> GD_DEAD has not yet been set:
 > 
 > [...]
 
 Applied to 7.4/scsi-queue, thanks!
 
-[1/1] scsi: ufs: core: Fix a deadlock between clock scaling and device commands
-      https://git.kernel.org/mkp/scsi/c/2327df6d2a29
+[1/1] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
+      https://git.kernel.org/mkp/scsi/c/085bb18a0b91
 
 -- 
 Martin K. Petersen
