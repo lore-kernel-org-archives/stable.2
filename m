@@ -1,82 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.52.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241865;
-	b=q2YTxqDuP+ihBvHDM+C2dEvB9kQ6KChjXkPwpxg/dyGhMyli9hgwMOPXmpHerq+HvcSQ
-	 aCaB6jyorf/XPLaZuQtRAiSjyJfsFKAEk2NIDPNoGychZeB+u23xzwQ3pIElJvX6lfYHb
-	 TUOciCmpBsWC0+ONFhdwnSLVvHxeLiGhVjrIjuU084MaCRf3/Z1GGpmTasb0AAzzaZTVZ
-	 syk7O1fJQIq+Fh5uxeVNSRsBCHcSmSvWNpFUOWm9oJN/FlxH0GgkFHOsWxow8ZBRgPjfP
-	 mM967qXRuGoRMHlMOmuuAXhvcMyxY6n5ZpuzB8hGVbK6Ftnpl4qYk1NKhbz9hbzNi4w==
+	t=1793242057;
+	b=RdqHNbWjc/hkA0boAQyhOdYrvW3CmgZS8PevZtfSA9/onesmev3USofw1gBmWxF4u/G9
+	 bFZQMuSkHkga+cRXf4ZfzAFBykXTDUK3AZrqWueYjyzXtZbbeHz+CS/LqxWWBb1juTV2P
+	 mjTRatEnNVuoE54G/U8GSrIT8+lnLa5VQLJMla3+BUSH/FKQ0w6vjI4DR85t1gK8eXFQd
+	 8fDo15wIWkhmLTg6h8g29TISYrV1FfR7gZ7sL770JmD/YNgco7epLTrwcgDnOD0uFDJ11
+	 Td4Th+yJOOzw35HgA7RzKCuXxBZU9YReXrrCNvpcbWL0K7H1ZnZVoiEoZXb7Qj4tW5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241865;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/C3ujp+ELk6cWY49J49ntJXJJ00OgMPF/+VSpV20OUw=;
-	b=eQG74xgnceE1IXem1IOaJR6u3bw+iuahVefGbL4o+QuOLn65pAKAOdLTPILhfT34QxmM
-	 /mLvmsKgPAmYZlq1WgWtt4vDZXIIgtxpbdnQsNZZQNXVhGe2qSSG+fuQ3hIsYVW4FN2q2
-	 s3bfd3UKSp3thAgj7JagKoNtZmIbpGSHS2zvocqR9fTv0JGXKkYIad2yj0g61tRBKgXwZ
-	 kOs7dlfI9ge+BFDaTuYo/rz21xcOC6YWSwD8+4v4iqBdhQk6Hn9+REy3aaZY4gSkPbymr
-	 sI2kLuxhJEOGGNsq6P+Xdl7c3QQXvG4JxSGzCBW7gwskmY3OgCTT6UMMuv1CF41wq+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793242057;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=P4kFPjdmmuMnKWuiUCtc2eA601bnJ5qrrs2UlBY4bxw=;
+	b=1h2C3nCn30gienGJXWnYBNA2qpvGjV6lZ41afn9Ua2HxhsqYsvKIur+Oe/LGeG/od+tH
+	 g7ETrVE2OH1lY7pBy88tvY+/vxdiWVcf/Vbxe+fPppEKyNdm/5nNAJLBNIY+GSdpoQRSw
+	 TD2T2MlW2zvKffB/UFfgp1Sd5VLYAW0stcG/QVYZS1H6aiEd9lHNSlnoi5Oxm1UUoTvj9
+	 CnMj6NKQAyqLv6ouw6eDRPF1JmN5CCYGmRg/dOsSWIcCY4GaP2PBpri/6v6Gf6+2qazI5
+	 SP0T4LQId6mG2Y5lwA1bbEoa3X1/iOvemko8dUlHJfm9VjXx4l39d3HVfY4pMMPZxGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b="Y156L0/R";
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=GVdu7rDm;
+	arc=none smtp.remote-ip=160.236.52.230
+Received: from mail-m16023652230.xmail.ntesmail.com (mail-m16023652230.xmail.ntesmail.com [160.236.52.230])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9E5606A31D;
-	Thu, 29 Oct 2026 02:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F9E5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F102D606A31C;
+	Thu, 29 Oct 2026 02:47:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F102D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=Y156L0/R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793241858;
-	bh=/C3ujp+ELk6cWY49J49ntJXJJ00OgMPF/+VSpV20OUw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y156L0/RA4vBrOpqSKuRn0XxErIB/85DOZrztqR3BCEUtDLTPMFi/D96joES+62Ga
-	 j4+WC0xAqrI0GeQubLmD8e9VVMYe7N8vMBg3GLPfnbiMQ1XrPcWJb94gSq6zr+OImj
-	 de4l4FvP+H4F9OLCe9L6d6YWXUrz0zZGk1tW+FrY=
-Received: from HAPYCAO-MC1.tencent.com ([61.151.228.146])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id B101D0E5; Thu, 29 Oct 2026 10:44:16 +0800
-X-QQ-mid: xmsmtpt1793241856t59axzimr
-Message-ID: <tencent_365DE7BE440AE36819A526302155B355CE0A@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoeHYdrtKaC9TgtzSqfUBYydqPt+7wm7Vhf3I5yzRiKgUYP8QohXp
-	 qjoXJ4O8FQ2dN/ZXA9egApEPQuJL8ibgPyfgLcG0gMmq3Ae5mPWy7wCKQ83CN51PQ2oJ5Dyxt1j2
-	 XOBiCFNsb0/un8ZWFn0sYVVhfCdJdvr97Ja00ZCXOZe6H5gAY0s0wqlNDTIRBDZOVqL275AkCsr+
-	 +0fE8WRy5IFJc+HEnTFG1dXl9fRgQBKYObaN93kukgFtQRoqHzgqKNnMeAx2IO+pHR1QmMP7hXD0
-	 9dJwFyyJSom1L1yKy1fNMisPWcXHFzPBdlOd8CM6aTg2H9b9vJBR5JeikOuQ7LU293CQVu1EDaLK
-	 2FLqV2Qdr3uJYOZq3hEKoD4MX2sSnCFKvW6NuAuCKYAUn7CcMMJn4uAHXIgWWScPJZCSbqrS8c+U
-	 cF0TIUNHV3NsQ3z02zqdCjqP+VeMjs9+iptFC9VAXhkCHT23rs4KQDFm736M4tz1tbc3U2tgyXAQ
-	 MsOcdnyx3Ax3+WdygV1IICT0GjPKB3tbdR/uJ0/ezTsssHmmPlSiMjHnp7CBMXRdN4AslqXQPA18
-	 NLfriL+UuJSxO3s4I2HDEBvCtg4BWg5P1Pa+fxqzYi0cAWjtsgjFu50zl8lC+By7pCrvrFaNQxUx
-	 MuGiDJt1gQIZ9NTxTZLCyCoHIBDSfTyKzSieSRoVNmlSKvE11MoFRPPkMISyXXLGWIbsA71UI5lW
-	 a/W/7n+3PC5IdfRi8I+1hF6BvXroW1YmG+p7EhOMH28bTB00l32zMtw3s36I/YelUZy1CqD2Xp1+
-	 ZZ6lzCtpjIxP83VmGxBHek982y964pT6BMFncQbfrm+egPVtc5h/dd+NbpwbU08EBTQ2xEUMK1QG
-	 mNtTXO1kCwGVNx0XOAtaUravMxk8i92lePMAZvqOsEDk7ZlPFU0vft76vM7z4Z4jhsiigPUdUH/d
-	 ThfJiqZNO7CoIoItTC+sIwe3QQGob/MxS1Av6zmeVlUk7QRHTnruMFNPay8ZahZ0X3WXki5510rO
-	 WG1K453JfehIpXVbhe7s+EOMoa9AI8Y+4FWdt39Usncz2+UsLEMMESnJU2zBBA9B+OLDrX8WssuA
-	 wpQhhh
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: bo cao <treebacker@foxmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: davem@davemloft.net,
-	dsahern@kernel.org,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ipv6: fix dead half of the MTU guard in __ip6_append_data()
-Date: Thu, 29 Oct 2026 10:44:15 +0800
-X-OQ-MSGID: <20261029024415.33250-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <179324160941.3327.14128311361745862229@kernel.org>
-References: <179324160941.3327.14128311361745862229@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=GVdu7rDm
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52bb79f0a;
+	Thu, 29 Oct 2026 10:47:23 +0800 (GMT+08:00)
+Message-ID: <ae7dfffd-1158-4c64-b092-b1daee468a05@rock-chips.com>
+Date: Thu, 29 Oct 2026 10:47:19 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,56 +48,171 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Manivannan Sadhasivam <mani@kernel.org>,
+ linux-rockchip@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>,
+ linux-pci@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI/ASPM: Fix NULL pointer dereference in sysfs
+ show/store callbacks
+To: Bjorn Helgaas <bhelgaas@google.com>
+References: <1791596305-153177-1-git-send-email-shawn.lin@rock-chips.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <1791596305-153177-1-git-send-email-shawn.lin@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1858e145003a4kunmb39a80931137a4
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSE1IVh0fTklOQ09JHh1MHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=GVdu7rDmLDTnuxmsfcUG6qP3YA8PQrnkBCdzP9LSwH20xV2Yj865P6A7aDC19bypHzMSzSdoiv0i6c85+Y8mghuhqVjMMYI27DAZFf8GwhTC9tk0VWD/Unz7i/FNP0kG/MSyeEKpT4VWkO58hhfFZqmeFSYha8aacCECkdTJlqI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=P4kFPjdmmuMnKWuiUCtc2eA601bnJ5qrrs2UlBY4bxw=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi!
+Hi Bjorn
 
-Both points, for the record:
+在 2026/10/10 星期六 9:38, Shawn Lin 写道:
+> Reading or writing a link state sysfs attribute after the upstream
+> bridge's pcie_link_state has been freed triggers a NULL pointer
+> dereference.
+> 
 
-How it was found: LLM-assisted manual review of the MTU guard in
-__ip6_append_data().  The second half of the guard,
-((mtu - fragheaderlen) & ~7) + fragheaderlen <=
-sizeof(struct frag_hdr), is trivially false for any real
-fragheaderlen (it compares an expression dominated by fragheaderlen
-against the constant 8), which led to a closer look at what that
-comparison was supposed to protect against.
+Gentle ping...
 
-It was actually triggered.  Reproduced on a stock Ubuntu
-7.3.0-9-generic kernel (arm64, QEMU) with a plain raw socket
-(CAP_NET_RAW), no KASAN needed:
 
-  - setsockopt(IPV6_MTU, 1281) on a route whose fragheaderlen is 1280
-    (a 1240-byte Hop-by-Hop options cmsg), MSG_MORE, egress device
-    without NETIF_F_SG:
-
-    skbuff: skb_over_panic: text:... len:61280 put:61280
-            head:... tail:0xef78 end:0x6c0 dev:<NULL>
-    ------------[ cut here ]------------
-    kernel BUG at net/core/skbuff.c:214!
-    Internal error: Oops - BUG: 00000000f2000800 [#1] SMP
-    CPU: 3 UID: 0 PID: 1378 Comm: ipv6_maxfraglen
-    pc : skb_panic+0x5c/0x60
-    Call trace:
-     skb_panic+0x5c/0x60 (P)
-     skb_put+0x9c/0xa8
-     __ip6_append_data+0xf80/0x1948
-     ip6_append_data+0x94/0x2a8
-     rawv6_sendmsg+0x588/0x988
-     inet_sendmsg+0x4c/0xa8
-     __sock_sendmsg+0x78/0x100
-     ____sys_sendmsg+0x268/0x308
-     ...
-
-    (put:61280 = 60000 payload + 1280 fragheaderlen, exactly the wrap
-    predicted by the dead comparison)
-
-  - negative control, same setup with IPV6_MTU = 1288 (delta 8, just
-    outside the broken window): sendmsg() returns -EMSGSIZE cleanly,
-    no crash.  The crash/-EMSGSIZE boundary sits exactly where the
-    dead comparison should have been checking.
-
-The v2 guard rejects both: maxfraglen < fragheaderlen +
-sizeof(struct frag_hdr) + 8 -> -EMSGSIZE.  The xfrm transport-mode
-variant pointed out in the review of v1 is code-inspection only; it
-was not triggered at runtime.
+> This was first seen on a 6.12 based kernel by userspace stress testing a
+> PCIe endpoint on an RK3588 EVB1 (Intel I350 dual-port NIC behind the
+> root port). The same NULL pointer dereference exists in upstream and can
+> be reproduced reliably on:
+> 
+>    # lspci
+>    00:00.0 PCI bridge: Rockchip Electronics Co., Ltd RK3588 (rev 01)
+>    01:00.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+>    01:00.1 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+> 
+> by running:
+> 
+>    echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
+>    cat /sys/bus/pci/devices/0000:01:00.1/link/l1_aspm
+> 
+> Unable to handle kernel NULL pointer dereference at virtual address 0000000000000030
+> Mem abort info:
+>    ESR = 0x0000000096000004
+>    EC = 0x25: DABT (current EL), IL = 32 bits
+>    SET = 0, FnV = 0
+>    EA = 0, S1PTW = 0
+>    FSC = 0x04: level 0 translation fault
+> Data abort info:
+>    ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+>    CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+>    GCS = 0, Overlay = 0, DirtyBit = 0
+> user pgtable: 4k pages, 48-bit VAs, pgdp=0000000106959000
+> [0000000000000030] pgd=0000000000000000, p4d=0000000000000000
+> Internal error: Oops: 0000000096000004 [#1]  SMP
+> Modules linked in:
+> CPU: 3 UID: 0 PID: 646 Comm: cat Not tainted 7.3.0-rc6-next-20261007-00007-gf2fe32674ebe-dirty #134 PREEMPT(full)
+> Hardware name: Rockchip RK3588 EVB1 V10 Board (DT)
+> pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : l1_aspm_show+0x64/0x88
+> lr : dev_attr_show+0x24/0x68
+> sp : ffff800086f9bbf0
+> x29: ffff800086f9bbf0 x28: ffff0001036c0000 x27: 0000000000000000
+> x26: 0000000000000000 x25: 000000007ffff001 x24: 0000000000000001
+> x23: ffff800081781630 x22: ffff0001008d3c00 x21: ffff0001053b9000
+> x20: ffff0001020880d0 x19: ffff800082441c28 x18: 0000000000000000
+> x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+> x14: 0000000000000000 x13: 0000000000000000 x12: 00000000ffffe000
+> x11: ffff0001053b9000 x10: 0000000000c00010 x9 : 0000000000000070
+> x8 : 0000000000000000 x7 : 0000000000000000 x6 : 000000000000003f
+> x5 : 0000000000000040 x4 : 0000000000000000 x3 : 0000000000000004
+> x2 : ffff0001053b9000 x1 : ffff800082441c28 x0 : ffff0001053b9000
+> Call trace:
+>   l1_aspm_show+0x64/0x88 (P)
+>   dev_attr_show+0x24/0x68
+>   sysfs_kf_seq_show+0xb8/0x138
+>   kernfs_seq_show+0x2c/0x38
+>   seq_read_iter+0x120/0x3e0
+>   kernfs_fop_read_iter+0x60/0x188
+>   vfs_read+0x200/0x2b8
+>   ksys_read+0x74/0xe8
+>   __arm64_sys_read+0x1c/0x28
+>   invoke_syscall+0x44/0xec
+>   el0_svc_common+0x8c/0xd8
+>   do_el0_svc+0x1c/0x28
+>   el0_svc+0x3c/0x98
+>   el0t_64_sync_handler+0x84/0x12c
+>   el0t_64_sync+0x198/0x19c
+> Code: aa1f03e8 d503233f a9bf7bfd 910003fd (b9403108)
+>   ---[ end trace 0000000000000000 ]---
+> Kernel panic - not syncing: Oops: Fatal exception
+> SMP: stopping secondary CPUs
+> Kernel Offset: disabled
+> CPU features: 0x0,70000000,0070002a,01180a42,0800e20b
+> Memory Limit: none
+>   ---[ end Kernel panic - not syncing: Oops: Fatal exception ]---
+> 
+> The sysfs attributes are created for every device below the link, but
+> the link state is freed by pcie_aspm_exit_link_state() when function 0
+> of the downstream component is removed. A sibling function or a sysfs
+> reader still holding a reference can then call into the show/store
+> callbacks while pcie_aspm_get_link() returns NULL.
+> 
+> aspm_attr_show_common(), aspm_attr_store_common(), clkpm_show() and
+> clkpm_store() all dereference the link pointer unconditionally. Add the
+> missing NULL checks, mirroring pcie_aspm_enabled(), and return -ENODEV.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 72ea91afbfb0 ("PCI/ASPM: Add sysfs attributes for controlling ASPM link states")
+> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+> ---
+> 
+>   drivers/pci/pcie/aspm.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
+> index f8e6497..0e0ba0e6 100644
+> --- a/drivers/pci/pcie/aspm.c
+> +++ b/drivers/pci/pcie/aspm.c
+> @@ -1777,6 +1777,9 @@ static ssize_t aspm_attr_show_common(struct device *dev,
+>   	struct pci_dev *pdev = to_pci_dev(dev);
+>   	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
+>   
+> +	if (!link)
+> +		return -ENODEV;
+> +
+>   	return sysfs_emit(buf, "%d\n", (link->aspm_enabled & state) ? 1 : 0);
+>   }
+>   
+> @@ -1788,6 +1791,9 @@ static ssize_t aspm_attr_store_common(struct device *dev,
+>   	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
+>   	bool state_enable;
+>   
+> +	if (!link)
+> +		return -ENODEV;
+> +
+>   	if (kstrtobool(buf, &state_enable) < 0)
+>   		return -EINVAL;
+>   
+> @@ -1836,6 +1842,9 @@ static ssize_t clkpm_show(struct device *dev,
+>   	struct pci_dev *pdev = to_pci_dev(dev);
+>   	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
+>   
+> +	if (!link)
+> +		return -ENODEV;
+> +
+>   	return sysfs_emit(buf, "%d\n", link->clkpm_enabled);
+>   }
+>   
+> @@ -1847,6 +1856,9 @@ static ssize_t clkpm_store(struct device *dev,
+>   	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
+>   	bool state_enable;
+>   
+> +	if (!link)
+> +		return -ENODEV;
+> +
+>   	if (kstrtobool(buf, &state_enable) < 0)
+>   		return -EINVAL;
+>   
 
