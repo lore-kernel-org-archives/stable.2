@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287291;
-	b=IWSKszI8l5Y2/wKys4t6qEl/8AmRBTFp+G8nT6Pfy/E5mJtRVeuQf0+sJygqrA+yq97a
-	 dp9BexMC5kcVn0do+NezJZu8tl9BKbnPi4Bf5gCndhTeCGBv0q6RxaeLVTqg/gTmtZ9vx
-	 zWCKqD/JG36i2bArTzJ3RPgnSu1ClzWWB43IyZxuzj5qaGUXL4tKGReHsDzl68i7q6PMm
-	 en9HNLZQj5Ruq9f5BZjuFZkqL2/jqRua/jfxGsw/x3HB7tX5Oo0Fvp0aUCQqJ6XdRls+w
-	 Rw6zF8ARxpk4SZGDcQI86NHgJjzRh7BISFkMT4b4EuUulRfE8XkXZgl3NzDuJ1DR9+w==
+	t=1793287298;
+	b=0EVkBd+QpRz4VGHbuf18xak8Ul4Rzvoa2mNiyfT6g9249xvvFTtTa8WpFzoLFIzOWuu2
+	 ZbW0GaZ1+uR/Gmq2HdHiWGOWYbI5yUDsW/f6/HR+OG4ROBQYMpHf5FpAbfHv2nrQXxEgL
+	 wyOtNsvxtf8B4pFmsTVnyf/L4L2OPK2jmuShwYO7IZB9Q2Rvq/Ajd8/iHcFfZZWMurL1J
+	 xuakcicQCdniyt+Q+P8V0lpNO/OgSwok+y4xnKYaG8TCzJZZ1E7Bj+O+3RRoWWOd6z8Rl
+	 bNCL69BLIKVYoHw53VND7g6YPjPJM8S8PJH2WQ2kUY1h69wi3lqHybms3UYVe7dcJjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287291;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6BGV7yfySv9YIO2Ud9WZxlpBcZd34hv06GQf4K+p8/M=;
-	b=ziUbBqa7DFAC8gJC/FhITwjv9TcGPEKuk6gck1rXRXGd3pi/Aqda53FT8nyDoi+6/GqY
-	 RG/PwKjpYGvT8B+U2QtcG0y87I9cCvrClfikhxbayi7XoivM4rclQBt0DV7FA0YOfmL/S
-	 ROLdlQCCnLDsEjzopVB0SbQZSBqJ/WlZUuPLo65EZLqEIO70FHEkheyifKx3/L0ydPnaZ
-	 4xTl8RfLpGTjM4Jp+QoyrpWEPIRa9wuEg5Rz9YDJSJoIvYrQFe/G0ZnDtV0KsGGRlguAc
-	 TKt+ELdYlLu/4Rf8y0pgYnHVRtrEgpn/wTvdOmKUC5BQtqruat9t+gZy8rhlVPk7KZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287298;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=B+9rlXcZZ8g+5YiYdei6kbu9KZrhPovwLjwJuy+h7zs=;
+	b=k8dA7f3jj+na64A1KHZZCsoSmXXQzCr701C9oO9E+x+fnrMyowKTanKW8mIZYX1lvsuK
+	 e/hsy9zwsjbxmQNzTHHZhMWDms8Md8yZBbE6sGO1LF865Fupd3QPj29B+2tOVplN7z/FD
+	 fXt2A/bt/PKQzbjeaNc7MNFIHqluP8FkRQ73et5ygK+SL9tFWd637+kdzwR+2P/62AjAW
+	 7oAMNRiW4g47WG2p/nB9vaycE6gZKb4yWmOHNesznRTNGNCICnCZI1rv/Wmeq1iefH27O
+	 kHtyzlA8BY4u+8IN+eoM/DBA4Up82Gw34/9Pmrm8OTELTR+n7K/oMoM0YD+ou/yT8rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Sd2Ig+jR;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNBXzeZb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7AB606A322
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D7AB606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577DA606A31A;
+	Thu, 29 Oct 2026 15:21:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Sd2Ig+jR
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-49e1251674cso970419fac.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:21:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793287289; x=1793892089; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6BGV7yfySv9YIO2Ud9WZxlpBcZd34hv06GQf4K+p8/M=;
-        b=Sd2Ig+jRlj0gwJiZf9tIz9kq5GBJN19m4AKJzvz4b/KgC676Pp+Xvo0fFYCgbjGpMD
-         q3vd/j+3VBCDQsqhMAgMQKVIE+jIg65CcmQKQHadG9hO7c3gx9p9ciSeeZOGKEnxyBGy
-         +XRggzEQQncfkYoRVVm5p9UwPN1ZJeiHz/Bw8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287289; x=1793892089;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6BGV7yfySv9YIO2Ud9WZxlpBcZd34hv06GQf4K+p8/M=;
-        b=k1Za4N1e7ZvRvc6k5HO/wAbGtHLRjNeH7ZJhgE+g8bOby6lsfDfQEO527eSmjHtEyP
-         ILgDMSAsCgVk0n3Jft4iz1uXJmotbpe/9Xh41ho8SCs3O+Rlp/25jwjpJJUbwb0GlRxc
-         7UFy6vcQkjANKv3jad/fUm9Y15MPrHAoUTUjrboH25IQeFGZWQVgvwvGmpL9Q68aUC5u
-         XhiwScELl7MvmmEAxrQovLLq9P3kzbHozU4GcI3Dq6W6t5Qah5277xuifUqTsjfl/HTY
-         IZZfU2qNcJt2qQr5MKDoXvYdZn6w/TipjbHbkzO2kT4UQlSiYDGMHgbMCPlRmCoMUiIu
-         +hfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxR49qBJTD2c6Vvlc7XvaI/QBSdjtjtser4jrcN6ok9tRTHF5jSxyQpE6fAoaB74wjiRA1zwi8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPhN4v8wGSrtm/dqqY17xVC1ldpo8SUg9LUtoZEpmn1+bc92+A
-	vqFhSggBFIezw+cnU65BHhQSoj8rzF/O6OQpDmVcA+zgxW9S3n1YJqWLAgHFSsl58U0=
-X-Gm-Gg: AYBFou0ZggcIRuJH+Ut+GkDS9U6CpGzKpRIXtYbgxi1UWe2nW6D6Pmi/xaUREoObcfs
-	J1O9liUemJjbjjVCz0BK8os53gfH7BFZnoDwkpD98H1hW0ZI6YYLaW37gzfGgVuCvahiXOtcHLk
-	/i+65z3e7f+aX3RwtRdvUnZ3A7ScAn0Iy+Mq2DBPdvmw+NZuEOSZRL8xw+Ad2SmvQWS/L88mnfg
-	ypIiaAbFbB+u6ztjhF/kiKo25iwyFgOcJarcIQ0KuYdtwFWuT9fwQWZUi/PsWVTX+6eK+5ACLMr
-	sywjr2abdp9JclQTYr8fiNvuDzIGSmlTglByuSPUcViIj9UhCmfiqvRqrVPY7mF4u2MVF1iRgsC
-	OX619ET/eKk37WWLlHNuofZcPLM4E66J1sEaEeUYga9CiMZWJM1Ced0ivpH/VinNaKeNXoiZInp
-	OrFTLB4Chb6JSgnaZlT54/F3r7JvT+DAjuHLx3XNeRv6gi4KrXsCAiLUb2Qi7z9txwqYbZkhTQW
-	nvoB9u07hLcCHaVA6PuXh+wBjhJME0aIk/9Avh2BhbDCvnaUzeur9PF3Afox67fNhmFVn5BgHd5
-	F4qGXi4YVMomtIuhHk6+T/AgETbHKM5S2mCVVCM=
-X-Received: by 2002:a05:6870:314:b0:47d:b8a7:40f5 with SMTP id 586e51a60fabf-4a8bb9f0b69mr3976866fac.22.1793287285561;
-        Thu, 29 Oct 2026 08:21:25 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a901ff3779sm1006fac.4.2026.10.29.08.21.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:21:24 -0700 (PDT)
-Message-ID: <111e33a2-72a8-43a9-8a10-a065339c3ca0@linuxfoundation.org>
-Date: Thu, 29 Oct 2026 09:21:21 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNBXzeZb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02AB1F01816;
+	Thu, 29 Oct 2026 15:21:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793287297;
+	bh=B+9rlXcZZ8g+5YiYdei6kbu9KZrhPovwLjwJuy+h7zs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dNBXzeZbES6os+Zzxui4Zil8McbII2bpInSLLpLPFqT3WfE1SIJWJYlObDU+BBTZK
+	 Gh6iiURODXPC1QRKVZDzmn3d2LU4ytwmxhfM/FyYPCluGvotplbNmJDiavNEB8BxZg
+	 +1SrGz6edGBVHkAxzh1yNgQ7GXB6jzVpbOKR0CruZsbG8blRbZUgNhMuMqVMLZ0upW
+	 4DaKpkJS0gyDiFy/06rFV5JRjs+2lcqXcfUoeBtt+BpZ8bI6wKGaV3VinksrsvCJN3
+	 kfTb1LDe3Ksd2U5r0eca1UJBICmH8/eRDhOGgTcpzj34W5HOSotrHSBF93Iu877Z8i
+	 W2csXA5IB2N2w==
+Message-ID: <de5cfd94-279d-4640-95ab-97f44b6b9841@kernel.org>
+Date: Thu, 29 Oct 2026 16:21:31 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,46 +52,90 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/109] 6.18.60-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261028165942.357251485@linuxfoundation.org>
+Subject: Re: [PATCH v4 3/8] mm/page_alloc: snapshot the preferred zone against
+ shrink rebuilds
 Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261028165942.357251485@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20261028211930.3504634-1-gourry@gourry.net>
+ <20261028211930.3504634-4-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028211930.3504634-4-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 10:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.60 release.
-> There are 109 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 10/28/26 22:19, Gregory Price (Meta) wrote:
+> get_page_from_freelist() and alloc_pages_bulk_noprof() reread
+> ac->preferred_zoneref->zone at every use. Offlining a zone's last block
+> rebuilds the zonelists in place, and the shrunk list's NULL terminator
+> can land on the preferred slot mid-walk:
 > 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+>   CPU 0                             CPU 1
+>   get_page_from_freelist(GFP_KERNEL | __GFP_THISNODE)
+>     zone = NORMAL (slot 1)
+>                                     offline_pages()
+>                                       build_all_zonelists()
+>                                         [MOVABLE, NORMAL, NULL]
+>                                         -> [NORMAL, NULL]
+>     rmqueue(zonelist_zone(slot 1), zone)
+>       zone_statistics(NULL, zone)
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.60-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
+>   BUG: kernel NULL pointer dereference, address: 0000000000000060
+>   RIP: 0010:get_page_from_freelist+0x6a5/0x15f0
+>   Call Trace:
+>    __alloc_frozen_pages_noprof+0x125/0x330
 > 
-> thanks,
+> Read the slot once. Zones are never freed, so a stale zone is safe, and
+> a NULL slot fails the same way as walking off the end.
 > 
-> greg k-h
-> 
+> Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Compiled and booted on my test system. No dmesg regressions.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
-
-thanks,
--- Shuah
