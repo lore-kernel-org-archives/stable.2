@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286574;
-	b=UjDOyRW5hu5ok/jsoectRJVH8req0eCMIERiqkuMqPSrCSbWybM4gbtQfKrmK8jC1prr
-	 0hzqm3czvoPrRtsLFEvnUXIJH/xwA7qU8u+ijCKIK80eK6Djf6o+Jm61OEdGUwTpMRd74
-	 /yw/jOgVd7V1K0av64dV26Xof+17Tx30G1oU9bSyPyfgYyzXIXuY8Qk0w0ex4Je2Rnwz8
-	 2l28lzt0HI3ydVJrccdOz3f80jzrrDrrjFWtjwB5cWjD0NIhKcKFEqlTIOgRsf2GC4Tr+
-	 yPUyo9W0tAZ2SSi3JVJJJYe77vvGHT6fuDSHOpihlJNTeLFOfOZwBmw5ZKSlsjAMwUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286574;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wJXojSw9qP8FXSFkukZa6P6UQUwCdSDvKOXG7gKlvXo=;
-	b=CYkY0apg9r14r2gNghbtH5z8AJ3QqLPKMXUVnwlSs6a+PnYfpuLJ5zHDAnpTwsRkzc61
-	 31ojpnTG1hs8j9BRiyDs0oXau1vbTg7lW5c3MVW3PG90zE8NNprPIO2iXdIoYy1YzYzw9
-	 tpcqJoovxlacuzUsRGPI0BroITWH7H/qmdy2EGaIOTDZbfildni4G5RAjBpm55Me368dw
-	 vWPR86xgdt6RUPQkOnFQ0kDIpEKEyZZt2VU0UFQtxu1rEvBEFn+ML2vZBUt03Ic3Hb4/6
-	 8wGfvqmOzG7eai+VVZR6v21c/qpzoH8muPLS9FrzqehalE9FlWw2UogMc/PDYWy0M+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FwAJsR1u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793286627;
+	b=qBlgvgT3TJxvXaBGSSMhwkmu5eH1irnoQPqoO8gm+k4zIrbJC6zMiVLw0V/mv4qWLkJh
+	 W90YE8r4V0ohXy30cOvVUap4aJXzCEksk+bzSjJdT4SnUpSCUna1V31Trrc9imiOuqA71
+	 vKClHWGBTMDvDyoCF2ndZP6FmWyYD8vwCvTA/77TXhL6xeUsNxsVroWxq47YL1bJ3x2Ld
+	 QtS2mt60JmZcVqmTlq8Z1t3x+jPiS1jpD+LIP1nviPoRGS32+BAHQMn32giHyxI/2PpU/
+	 rWfUQ2eWZPGadS1DULtfwnpkEcXOqKLX2O9/IGipYsbN7Nls1gdGuznoAaufnpIwJ3A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286627;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+	b=Y62PGWcnuKGpPiUq9ByV93HWR4ZKwT+O2a5uAwzcfs2+nTsdsEPpy9WbBax2eRuksUv3
+	 geNdn8MOwnUVDOur6ZIdsIzQGJPdvadnQyW3NZegQGmQOmr8nIU213e56y2VXppu1R/Z9
+	 O/6lUIk1QwCdp4rSRcoq4BQt1PGyzXXI1kaJ+EAXyt2MSkeRG1S6EJPcT8039+YGkceuV
+	 wfSXWNACqZ+TKXBfyGUIJ46iaf0pMxv0rO6yKYHjpaKt415TjMXVSpwM4nBVplEuT93ww
+	 vGQIUxkmoGaVqfZ4dede4CouGy1NC/DkYQor92tr9TltKikhGJPc9HyCAtJHjWtEs9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9814606A31A;
-	Thu, 29 Oct 2026 15:09:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7F7606A31C
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7F7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FwAJsR1u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8381F01825;
-	Thu, 29 Oct 2026 15:09:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793286573;
-	bh=wJXojSw9qP8FXSFkukZa6P6UQUwCdSDvKOXG7gKlvXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FwAJsR1uCat1zYnUc+9XrIUng8neQ93WX+oJssSQamxW7XdsWlDgN2JbP4Q/fVdeg
-	 cGP7Ts7Jpfw1soWH5FYzXJxIjoNYoLRjnKI3BIactUd/IotJC27t1+Y1AZiUWcuifT
-	 nfZCYKYy78ooamMwd9jJ2W9YmbdCwJu6rsgnuZCaES/h5usStyw77SCMkSDxyQVFGz
-	 yLqkwlgbJcOXMD7bltLghjynLWfua13ASHisU91N5CmOOLGPMJRsmfM9hJCD5s1UVu
-	 hEr9oJpUCCpIrTGjLpfvCTLs9cXkyw3XNa7EzlmKCNqa/CyNMoosK+l4cLt8p44XuA
-	 d2ERAS5go1XhQ==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xMRkx-00000004AY3-0fIU;
-	Thu, 29 Oct 2026 16:09:31 +0100
-Date: Thu, 29 Oct 2026 16:09:31 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kevin Lloyd <linux@sierrawireless.com>, linux-usb@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v2] USB: serial: sierra: validate URB length in instat
- callback
-Message-ID: <auNhq32ChleGKQWz@hovoldconsulting.com>
-References: <20261019103849.3716324-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4a755bbe158so541623fac.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:10:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793286625; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ej2a6YEKVYIPvjdVwn6TXRUs1GxBzmnFY2ZSIuz5T/Fx7zAj1cCwHTYr7LAnRoFE6D
+         v/0Bt6Cgf7/0HseeH8CmkAnJeBYhStQZPAxz+qL9h8uA1gpDuOg8dvliqxiyZHTENuTD
+         1/zsaJrfMlPaDAyCkd8rtRsnMVmVmVrUhCDioZ952kZYnoFy0Aw5lnIDlIiXl5kmkSGI
+         O0AQijjBgjJE7oD0akHZ2JBd86dwoXlwD+Kv85p4unRNJrjrzIKuL5ZC3t8kd5bWlsKq
+         8AKBlpPuB80Zr7fpDWMQRjxs40NvqkEujkP3GBYet75AL9GeUvB+4pdNOB6NLgMA1p3m
+         B8Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+        fh=MxKuxcjp5zxcHuaL8mxsFc5x4QOAZ8rI0s1skq+Cpp8=;
+        b=VJ0SCJ4ulzIGB9YKTstB3OpQfVjjLr0KZXxprIXYXEn7oTeoDShvWyMEc1oZbXIJwy
+         nBbFv778WhpBs7ekNwl/pEeWight/G6lnT9nxEz+aA6fma20jzYZNZe0nePn2WFxHGW8
+         fBQb6lk88x1i1/AuQ4zvkpge/c2qIJNKnexJ2hpVrSH/+xB1u+V5sSN35+1OZaR2451Z
+         Qe9WLjY90ro0mRfCoJTZ/5Sb3XLomWJ1buiP+FaLyX5hgiuku0jwg4woI6jO8aFbDDN4
+         IXRZB22nAq9G7hY2BwbUODiQQrzNY/oadGSSoGOZH2jWDSJnKda9JuZSicd+F42yrs57
+         pqHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793286625; x=1793891425; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+        b=t0HEKi3JEuYusOJQ2BlME+lteEzd9dpBkx0PYrvDTF6m0Gk0Q+n2i1EUE9nTUzuobE
+         jgmDRB3BuFqDIcfk3pKSMf2ZVBNUYhnBJi4AQOlRU1v3BE8YfrL4dMUtUtwXzB/LkkKh
+         W7hTXlaauGp2j3cYctzuHfnaObEhfhmydvxsoNvTEELOKG/xAuPZi8zu3cSrRxrthG9T
+         avMlZ8RsvJk4iVIODKrTJFIFU/7bXBHJevI9/zHVtmfcpFhc6TuQMMeYsurZ/VZCOEbo
+         gau2V+U2q/NGCK5o+dlwIHFTFBtIjsuOXnSt/D3Csq8dhKQoq2F4U0glozDN4haqHNSm
+         PwoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793286625; x=1793891425;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+        b=rTPZ/gegWH4ybeQExEMOTnwOVvY6hn1P+sTRarkwxjqF31rRkgUsaguYx1+Yk/Gbnl
+         L0DduPrkahg0ZlMRwINcYVfb01NtKGiNlzUyzEsP/jQAYcIv0uggIujuQ8svjdSgsbc+
+         alzQOBni3JvU4LLh8wLW5ueyMB4jxPxecA1IfoN8qKTGB3lk9tu+mjVIQrLyjDhWq2x8
+         +yH1qiOh+c0O+I2r6NElAqHPYXqxpfbsjtfxCDKieJVe3z6cfp0EMkPLwgOOAQfPK3xj
+         cQnW05r00t37AvnhrcyG0jRdiar4bMR6bm+7hRFoHKnRhN9FleY6oIhLXteuP6uOufaE
+         sDVw==
+X-Forwarded-Encrypted: i=1; AKwUvByaTXZqKiGK0Npt1Cb8dbefnfpMcYeLgsrPthEIURzKeZj5xqNfcCSQ4aiHNz8OnFcTiVa+STM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdCVSFm7ZVIxzStPj88qSUjIDx2syr2NtSCeAn0eLbEDP3Szla
+	ajNFsTe1Ml+IvEfNdEW9Yfasz5Zsv5AzLsSXv1XqzvqbktWbg9Wt8GmB7f3gZReKeKOfLcqsVNn
+	olIAM1EQSy5FHglmlGkCaRcqS6ekxFVj4uMMKMWYnOw==
+X-Gm-Gg: AYBFou36mFXf3R0Gv653i8CsovVjKbf4uaVwfQ5dizlgfInnOV3mr9+QtM9zMchAJfH
+	ZXd/0Uk1v1G7PvN4sle64p/AXka1EWWE554HkdA/D18Wv+pPuZfadA2nWwFDI7nqhGeh5N03kA6
+	ntbhXuI/OBUKCrXh4tsIRAzy5DEw5NAnH5O+Ib7he71YScouZ1xyRAtzgpYI3aTzuBA5LWQpQbD
+	eJUfZp5jvi6EwFyiim3odbRszPD11TGpdipjOFUmyvmHMn+69NdlZRcJeB8ybiCa6iup/iVGpVp
+	Aw2+R8kmlADlITGvTm5VvH+e541B0//lcZo9P7C5jbkkYCleQ1UVetwq10QjNDWc5xmdKFspG8c
+	A4zcqB2wINBnS6WvDtBXYhO8yREAwAqvmNdSdLJR/rQtgWlyO6uheVu/pxXigyjQnWBnjlx2/hr
+	79TDkvQsMqClGlQq8BJzkV78y8TpQEUOa8gLbdrA2m0zl4+waxGIb7kA==
+X-Received: by 2002:a05:6871:2102:b0:49e:33ff:6bda with SMTP id
+ 586e51a60fabf-4a8e06a7791mr1577014fac.16.1793286625298; Thu, 29 Oct 2026
+ 08:10:25 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +104,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019103849.3716324-1-tristmd@gmail.com>
+References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
+In-Reply-To: <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 15:10:09 +0000
+X-Gm-Features: AclHuK-NCoRP1AFBwcEcpT9lZOpueGQS9GFk1YygW8gcMAFUBjXyhMvfoBBBJz0
+Message-ID: <CAPY8ntC1G0Q=MFGkLNSC+bCq-iJh+estq1FeDgE7aV4UksyuyQ@mail.gmail.com>
+Subject: Re: [PATCH v2 6/8] media: i2c: ov9282: recalculate strobe span on
+ HBLANK change
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 10:38:49AM +0000, Tristan Madani wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> sierra_instat_callback() reads request fields and one byte past the
-> usb_ctrlrequest header without first checking that urb->actual_length
-> is large enough.  A short USB interrupt transfer could cause an
-> out-of-bounds read.
-> 
-> Add two length checks matching the pattern already present in the
-> option driver (option_instat_callback): one for the request header
-> before accessing bRequestType, and one for the line-state data byte
-> inside the serial-state notification handler.  Use dev_err() since
-> failing these checks causes the interrupt URB not to be resubmitted.
-> 
-> Fixes: 033a3fb980b041 ("USB: Sierra Wireless driver update")
+On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
+>
+> When HBLANK changes the line time changes. This means the time base for
+> the strobe duration calculation changed. This results in the v4l2
+> strobe_duration control value and the strobe_span register value being
+> out of sync.
+>
+> Fix this by recalculating the strobe_span register value on HBLANK
+> writes using the currently configured strobe_duration. This results in
+> the strobe_duration configured by userspace being kept, but the
+> underlying register value being changed. To ensure the values are
+> applied on the same frame guard the writes with OV9282_REG_HOLD.
+
+Group hold will do what is intended, but if control updates from
+userspace for eg gain and exposure generally get too widely spread
+then, we've got much bigger problems.
+
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+
+> Fixes: 84ec7597ae1af ("media: i2c: ov9282: add strobe_duration v4l2 control")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 > ---
-> Changes in v2 (Johan Hovold):
->  - Split into two checks: one for the header before accessing
->    bRequestType, and one for the line-state data byte inside
->    the serial-state handler, matching the option driver pattern
->  - Use dev_err() instead of dev_dbg() since early return prevents
->    further interrupts
-
-Thanks for the update.
-
-Now applied, with one change below.
-
->  drivers/usb/serial/sierra.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/serial/sierra.c b/drivers/usb/serial/sierra.c
-> index 6e443aacae07d..03ed76dfbb2e3 100644
-> --- a/drivers/usb/serial/sierra.c
-> +++ b/drivers/usb/serial/sierra.c
-> @@ -575,10 +575,23 @@ static void sierra_instat_callback(struct urb *urb)
->  				__func__);
->  			return;
->  		}
-> +		if (urb->actual_length < sizeof(*req_pkt)) {
-> +			dev_err(&port->dev, "%s: short transfer\n",
-> +				__func__);
-> +			return;
-> +		}
->  		if ((req_pkt->bRequestType == 0xA1) &&
->  				(req_pkt->bRequest == 0x20)) {
->  			int old_dcd_state;
-> -			unsigned char signals = *((unsigned char *)
-> +			unsigned char signals;
-> +
-> +			if (urb->actual_length < sizeof(*req_pkt) + 1) {
-> +				dev_err(&port->dev,
-> +					"%s: short interrupt transfer\n",
-> +					__func__);
-> +				return;
-> +			}
-> +			signals = *((unsigned char *)
->  					urb->transfer_buffer +
->  					sizeof(struct usb_ctrlrequest));
-
-I used sizeof(*req_pkt) here too for consistency.
-
-Johan
+>  drivers/media/i2c/ov9282.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index b48c959b9c908..5114fbf28a26c 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -625,6 +625,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>         u32 exposure;
+>         u32 lpfr;
+>         int ret;
+> +       int ret_hold;
+>
+>         switch (ctrl->id) {
+>         case V4L2_CID_VBLANK:
+> @@ -677,8 +678,14 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                                       OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
+>                 break;
+>         case V4L2_CID_HBLANK:
+> -               ret = cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
+> -                               (ctrl->val + ov9282->cur_mode->width) >> 1, NULL);
+> +               ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
+> +               cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
+> +                         (ctrl->val + ov9282->cur_mode->width) >> 1, &ret);
+> +               cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
+> +                         ov9282_us_to_lines(ov9282, ov9282->flash_duration->cur.val),
+> +                         &ret);
+> +               ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
+> +               ret = ret ? ret : ret_hold;
+>                 break;
+>         case V4L2_CID_FLASH_STROBE_OE:
+>                 ret = cci_update_bits(ov9282->regmap, OV9282_REG_OUTPUT_ENABLE6,
+>
+> --
+> 2.53.0
+>
+>
