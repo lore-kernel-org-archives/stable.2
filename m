@@ -1,110 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793273883;
-	b=kgRr68HO1abuugtYnkt004mJi/zwTRudYJtpxyckZaBepnoWv+OzdNEfJKCq8OlszIxJ
-	 rmbdGgJYBSx8lQWMOWvrZFDkcVFj4jvOEHFiTmmiWt+JFbg5yxDxDF/9OBs8LA3ubZb6G
-	 Gq3+QCa5W+Y03F/E/7vnirIl4CMFqohqc+EZ4IuSKbH+WOdUZgj2kQTXQJU1lMBcygOH5
-	 7v6Zql7gvnlRjkn62sDllnV825pShsthVO8MqpyJbEkh0Z9j+mxZJv7sJYdGKVmW2BtVf
-	 zJB2UuGsxayObCTXd5EDdo6mvR6o6NT047axkZ1kyXRbx6D9/tvGYwOhB2Y1DM4OPRA==
+	t=1793274006;
+	b=xidZZl4iLRXovar+GNQqQVrSIw9Axd7YcwbawXh4qZcAysfPg8KqocLDBrHRoE7iIqcm
+	 DrgTuYVH/oREvCoekM49qM4Nsj1KLzzPH5HjTLR7bYwdwAB7BZFgK4jeePLp0TqBeOZXM
+	 smVqJZtYrQ4GjL7JwGwXFAywGGPhvX3Uo7KLUflr/CfV/hOwJw/uvXkkbduRPpDW8fsS5
+	 yklcKuZHBu0T27BsYtCi3vO8cjim220mP79BHjGqHQ9yGAg3ZdNegO9SoYTm1COaUumWd
+	 u6JR4qTfafbUg4UBZyXW30BEwApCOkCDtIJuOGg0T8UB8qfq5FvyUGe8nskWe1DiYAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273883;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hNCQwk1kVwwDQd6YdP9bn0F2tzwSBJGnMYrpsz+xroI=;
-	b=VVNiGnnnLCgWdHamS+EKYVBU5JbKb2xRMZZiWOmJcrBAnyVr4lTNh+SJN0WGbGwdK/30
-	 RQsn48DMyj5oPuOGVf+KGTOaLRHCd8uSMfNxnIHyvQw8UAmIgNObpt/8ZhxSHJJ+TX7ii
-	 oTyjcHR2E7MCVqzNu/fDdVzWm6CMy9N3SR3DTynolpEizGLegW/zvz525k7rPfFPmu6v+
-	 ifOddl4iyu2Rh18tTH0s/p0RIWskrkoDN9pPTptIi/iGUOYbuuNJ4fbiVPou4l41jriiG
-	 adlKAmuXdH+FmR5DefUpw/4JBo2BztjQU33UaxY2GGW2Sbbx0ZNnM9ITIJDSkYXC/aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274006;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=TBOcWCeRyE09SQV0o/JzcTqZh/y/wDE6C2jnFIHWhYc=;
+	b=bz5Be9sLlUbq20JDLxoO9VWjtTN5Ts3/EqucVpfPRoP5d0kzWDTuwXMsRfvkesv38wsI
+	 +ROy9qiLMdIE6ARz3Hil6oTfl0dZXX4lqLAoHsIGV2R7lLv1Hxyq3G0y0swlnJVGi+AM3
+	 Vlbzm2uWuNQUnu1p8ioR8ZpeDL8xge9c6ZEhF64u8CfDNTBuRFg1ZqyV3/nmNWVJXAeQF
+	 3mJTPzglT1k/SD38eDiBet0XLKCFkflcq+rLA/7zoRbEXHcSJRnWEq6pz23qTAV4c9THs
+	 OffxsePIyOm8FzTg/Y6aOEGpqJerDDNqY7cC35qP9LjZ8pqAlS6Rj1n6D2nZeoJQRLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ail9VJBd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebtBqStV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FB9606A320;
-	Thu, 29 Oct 2026 11:38:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDE9606A31A;
+	Thu, 29 Oct 2026 11:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ail9VJBd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3801F01825;
-	Thu, 29 Oct 2026 11:37:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebtBqStV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4C01F01825;
+	Thu, 29 Oct 2026 11:40:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793273882;
-	bh=hNCQwk1kVwwDQd6YdP9bn0F2tzwSBJGnMYrpsz+xroI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ail9VJBdWbIaFY6FctxLtUgYRHgBXtvqpup5RxHjX8Kun5bgSmdWKaIGvUbl/H67D
-	 EtchMfmh++7c58rAzzIcOZJlh7lU068ve+224x/vgneSfQv01jqM2Wo4b1vgV5PkQV
-	 p1wGA6vLiXNJvxW4IlD096ZyNX3LzYYrCECa15A67f/Y3MyckPpiJSZQCM9WofsF1h
-	 dNLVrxG6X+4vXWm3hjvcfoKWjvFUJFbtcZd9TwphSLT6L7gTvVao+jRJGI2iJ7TQ6k
-	 Iqx3OJ8IZ43B5gnVKp4CY6HGbSbA7r7q2m7qWPekZSqeQFYt6ZRDde2QXdTZrHksaG
-	 hRFiEsxBGnmWw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 61199198003A;
-	Thu, 29 Oct 2026 07:37:47 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 29 Oct 2026 07:37:57 -0400
-X-ME-Sender: <xms:CjDjajshZPeHtuir7v6mreGhAT4TgwhDFbd67W8lqX6eL1H1h2Hveg>
-    <xme:CjDjapxTdjr1qMNJTi5jiBAbPeUL8WNi-rLAE_SEgVpbUTGclmUKEQ760n5h0fqeV
-    hy4NTYi59RMULuyZS8aZ2YEk4SsTRY2j-0YZqzoSiY2c-6zrTJ_WiZa>
-X-ME-Received: <xmr:CjDjah4JZaAhw-Fk9PScSG2a10e8jvqhDX8C23W0UBFCIs08u9qC86Fq1ss>
-X-ME-Proxy-Cause: dmFkZTEJDAstCk+7zNgejakM4nNk+p9JZpQkZ6Wp/ORPY45DYJ9sLHFzb2OSqjFNCrREyO
-    88yfN6Bm2PU/BZ+n9uLJeM8IQCx6gh4dmoBjtrR/gRMQnW1vav0T4U3R0wWLGH7ILSJz0U
-    jdMa6OkiVebfbkVm5JCCWeL4Bgmn1pDydwYsJOPck3Qdns4HPrCASx59vSMT+/j+yF0qvX
-    G2BRvU5cIsoY70+iA26gBsYSOUUpx4hNQp6J+87EVccCZ9Ae0yLIol7hi0rblFUAevpiPd
-    uHrIkD9QzQyn3BgarrdLD501N6XdbeMUSrCRkW1q1L/F8zcqlxf0OSCgggqIu+bFPdnmVK
-    NcNYxpSkwWOCwZcLOuaYHRTsxYx6D85JDsOHrpKL1vEhmUAKDtUhCnUAlLFqot1DM9q/eV
-    ZTIcjPJqq14fF0zy0HGkF60Z4NFN+bSz/WNKQw6f5WcVzsXmI0zvI1J66w/XqmME697OXQ
-    zERHpQf1f2P1KpVc8eIXbHuzD/SOd6B+KE+lUnfFtKDQN9VNcFcye2oj8ZEx6A7qEAQffs
-    IUWqlyPo0fg/2eaM6xeJ2DOITKhJqU9srQCSgILo9WyD2HhperaR62DEVqvtfMq6CL02UO
-    uYQhCBNO5b6ROgC+/K/MpQZdw9fNc5YCZUTnJbGBtnaHKfxJROTOsVpYwzvA
-X-ME-Proxy: <xmx:CjDjanSS7Mx8TZPiU7heer_Q9SPTwHVFNB-SMCwAJ9aut0b1vRFrUw>
-    <xmx:CjDjag-PYdm5Aer_OhpqtOoZx_SwLxAY07eLDmtLNEeq-uTx5hq8eg>
-    <xmx:CjDjauzsU80bWiXzCsXzA_QbCjiGNW-gGh7_khHqQIP9Mv30v0qhhg>
-    <xmx:CjDjaqzuB5gcDCgx7-WAvZUa70Eg8YXQlUPcy8ONATKcSf71OQuvVg>
-    <xmx:CjDjah0f_57xCcmxZRGSyxLW9vwtr4aZedU-FEl-YETeEd7d6gRBRj2j>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 07:37:45 -0400 (EDT)
-Date: Thu, 29 Oct 2026 11:37:44 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
-Message-ID: <auMvYdTd_e9O9kDj@thinkstation>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
- <auIniV8YSpA4_oxg@thinkstation>
- <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
+	s=k20260515; t=1793274005;
+	bh=TBOcWCeRyE09SQV0o/JzcTqZh/y/wDE6C2jnFIHWhYc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ebtBqStVzefn5r9pL2B+YSX4ivaLjiFbAjHRIUHa2j1ZiKtKCxtR0PPeDxwshLvfI
+	 twUW6jLLjNClS63IE2sZCth9evRZSucCjrp0ZjLeNf77IVmqfsMNYUalKVtrQaWVOJ
+	 UVoHQYr0SIsTLn7DbM1Whw1E7C5/+ORYBBWcF7rBcWPpg1HeAsPqnud/PQB/VowmzS
+	 kzLacAKFIsJlh3SJ/5v0LAevl/LmMwzsLl9sl5Y6vvQvqhH/zz5ew6O7tb1S8fY9bk
+	 TXEC/rKGM17E1Vna76DgkbMZhJIrElH+XgK7i84kmlT6yuGYpdcUPV4prYboEF34vT
+	 kAsfI6IhHBXCg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5323ABD290;
+	Thu, 29 Oct 2026 11:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,37 +53,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] tg3: Invert restart quirk logic to restrict SNP
+ power-down bypass
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179327400457.1773334.15430060848515366036.git-patchwork-notify@kernel.org>
+Date: Thu, 29 Oct 2026 11:40:04 +0000
+References: <20261026220955.473247-1-noam.d.eliyahu@gmail.com>
+In-Reply-To: <20261026220955.473247-1-noam.d.eliyahu@gmail.com>
+To: Noam D. Eliyahu <noam.d.eliyahu@gmail.com>
+Cc: netdev@vger.kernel.org, pavan.chebbi@broadcom.com,
+ michael.chan@broadcom.com, kuba@kernel.org, edumazet@kernel.org,
+ davem@davemloft.net, pabeni@redhat.com, andrew+netdev@lunn.ch,
+ horms@kernel.org, stable@vger.kernel.org
 
-On Wed, Oct 28, 2026 at 10:45:34PM +0100, David Hildenbrand (Arm) wrote:
-> My brain hurts, does the above make sense?
+Hello:
 
-Yes, I missed that the loop only goes back to start when a lookup
-comes back empty below end. When the last batch reaches end, it exits
-without another look. It doesn't need the split either: any punch hole
-whose last page is in the page cache gets there.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
-truncates that split large folios") turned the "if (start >= end) goto
-out" early exit into the loop condition. Before it, the loop went back
-to start until a lookup from start found nothing; Hugh kept that on
-purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
-hole-punching pagecache").
+On Tue, 27 Oct 2026 00:09:56 +0200 you wrote:
+> Commit 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
+> bypassed `tg3_power_down()` on system restarts to prevent reboot hangs and
+> NMIs on servers where NICs were initialized via SNP (such as Dell PowerEdge
+> R650 and R750).
+> 
+> However, skipping the power-down flow globally causes the ACPI _PTS method
+> to trigger fatal PCIe AER events and hangs on other models. Commit
+> e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot") attempted to
+> mitigate this by adding an AER-disable DMI quirk table. Maintaining a
+> growing list of models for a secondary symptom misses the root cause,
+> leaving systems like the PowerEdge T440 (sharing the BCM5720 NIC) exposed.
+> 
+> [...]
 
-Restoring it is enough, and makes the "restart to make sure all gone"
-comment true again:
+Here is the summary with links:
+  - [net] tg3: Invert restart quirk logic to restrict SNP power-down bypass
+    https://git.kernel.org/netdev/net/c/d7314b51341c
 
-+       if (start >= end)
-+               return;
-+
-        index = start;
--       while (index < end) {
-+       for (;;) {
-
-Then a replaced folio is found on the next round, and truncate needs no
-special case for it.
-
+You are awesome, thank you!
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
