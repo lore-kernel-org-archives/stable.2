@@ -1,65 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793308722;
-	b=Y3YUyAptW5S8MTmhmkwbIbsARW9M3wOVd08DB+uFD0mYEVnZ14LiCluAjF2iBDH2sr7S
-	 2l0R2keEyi4iKfMdoUSU74DNYrWse+iLNRrex9kDVNtiJ9xYEmAFbewvEXtQJAu29x+vV
-	 gfGsy0nRMHc868y//vND8aHBk1nlcmaRPFxsk2jqN+lyRjwHD6JfdWynS0ashp7LSRVxB
-	 WITGA+hLu5jAbJa3looxfWbtC1tLKVy9E5fXROY4c4YDgIucF3GNkIi5ee92sunAoxqAL
-	 INIy6+kMX2yv+AMU/0+cdkvBHoEojTi8Bj1wjmmeJu8BGjS0yuQmG3IRj74jXgFmaNg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308722;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Feedback-ID;
-	bh=I5X+ZmPO3CQba0esVboJm4mky7PH5KkFaOsJl1sLn5g=;
-	b=roDZGOoEY5IudY79+dLWoX3exXZZOqMkdDFoOk8ir1tnUg3yeAcG3F0VjPF4z9+i5Zux
-	 PdsumNgu4rOaUy8jYusSa6LLrm0P5+AcR0espPYOGR+NjlwQjz35GM6SfOp8i6QTGmooq
-	 BIjixUB7v5w7ZItfE/fSWg57uCEEUdSf30Dr471TRrAltaPPNI97R728XgaK26p09R51h
-	 9a6WI1amq16sIOz8V3AKToiplzjVBjx2y/lHrTHFy5jHD9id/3WNCzHwOvWd4Emxz38dt
-	 rNeMqM1zFnc+XEfIsz9DtvliuW0ng0FABP1gEYsxsX7Q/Oy9cvmkLxAR+QnjvZewZgQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuta.io;
-	spf=pass smtp.mailfrom=tuta.io;
-	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=utQ9KhMm;
-	arc=none smtp.remote-ip=185.205.69.214
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793308877;
+	b=RjqvpOWL70wqjsIvi7aPzgCrhPNqjtUrqxroZahCTb4T0wGi8jHwQ7pSWqOatRO5/L9Y
+	 w960tcoHU5Wsii3tVd3qGcd3nyd1wwAXX4hWAOvOaCj5YSeSsPWK5aqsXGsYSFVcuENrc
+	 yY2c/GCPVqtM4vGkf8QOk7t5gvqDFvdHViru2NMnFFnZeNN6EStQDYKEqRqd+Ex7cDrwc
+	 7EymI6kXxXz7LenDKIroDJ7ZzQRMzzqr31W01nem1ENCCQkjC2CY+NTSQLU8G6iqlWzgU
+	 +GbQnSxoZlnBU9mgDYs91ziLOstT/G2EiVdHilhmDjdR/qsQjZWkLeuLdVFZdMXEgYA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308877;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
+	b=btJhkpfEJoJhvomoAfSVPwQ74CFCXZB7kEJuVo4l8nZ0cwKKLDiBCl6EdXR76i3U0Yzq
+	 Js7pU5nnS0zblWoWSNiVjvyucec6vepMeCFK0gZED5hYTd1H3PcVswoo28e9diPkJH3nR
+	 WAYPokM/c9ww3x6rVAkmuYeCnmyH1LdxkZIFORx3rxyfhdGltLbog2RWSykFiT6S0tWXN
+	 K4eM22gLM7ORpwvveSpXmocN6ZzfVapSCd3GzKo3CW5TyhnQpoBSfrEsobq09U3nzhYnL
+	 muk+S0sJ4do3JblQEhIfAPtP7KG7EzHigqNw/s9O/zpVPqQT+FWo5XJpPM+op3FtOlA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b187zlaV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF98D606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF98D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504EA606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 504EA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=utQ9KhMm
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 7142719EEEF86
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:18:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793308720;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:Sender;
-	bh=I5X+ZmPO3CQba0esVboJm4mky7PH5KkFaOsJl1sLn5g=;
-	b=utQ9KhMmUiayjU7ShO6AXmX5GpP/0UNEEvpiSsWJQYWaqVmXR1ymstTjp4VPlWDG
-	szoBccsqPpfHzCBZBt8cR3RfuN4OEVGnBc1gAekVq4e6p4e8OVoWISfwNx3F/h2HkQN
-	NYMIvkt3n1hMQ8YCnkBsB5k6w8I0ZQiNscLpIQJ2A0CWONm1pEx8UCFa41DUkZ0EMsK
-	OLHOytO85DZLF6GqypfCDBMBPh//J8v1Rg4b+FB3fjrshYxDC1wF5KqpwieHAoGNlA1
-	jElNYjM3AMnHov5L0S6vENoAIUK8A2BzHtwMucp+e7VUO+ovL+nP1eBznUt97DPjAxM
-	Vtyec9edBg==
-Date: Thu, 29 Oct 2026 22:18:40 +0100 (CET)
-From: Edvard Conrad <edvard@tuta.io>
-To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Edvard Conrad <edvard@tuta.io>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Message-ID: <P58Wrer--F-9@tuta.io>
-Subject: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from the
- user file
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b187zlaV
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso99685e9.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:21:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793308876; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RjFghjui/TeNihxdFHez1tT5D9X8uMoB3TyxPPXby8gvH11aYf2yDHMYfjIb2AIvjH
+         jVKyLhr7UBhQLqVwjVADsQoJZXtbfpLFQezEVQlCRkqDJR1w98L5rRrVpLF78F3Fo1D0
+         3FmbLSaYYNR6sV4OpHvFpYXWoctNvNMKih0mbzirGWbXsNaiWmzB0rCkXvTKIDHXE07z
+         QG+Dwj+Zvzw0lXxAcSq20iiFNH6rCEal4Bnygq6sqzos+FDnaNFwv763TS18EgTsUfVz
+         7HMGegqVa2uToms29KkjCDsbEf6dC6Hrj0ITTuBLlvBYiu8U55VABkjScoz30KSyfiKB
+         /t9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
+        fh=rTk9PaSN7HdFMSe6tXp9C7TcgbPzHA9FM6jN4mjkaEw=;
+        b=dWCwbEEh09qxj1krgYxzKap6S3OeeS8gV+xe/O/l1+vVVtPwJRo8eFbfdX8FIck5zp
+         wl/YBlSyjZt2YpP4EBY6x7Xgfd5q+2pMP4eEFWTBdYcbjKmspk9oXyDMFnTBE9oiSr3y
+         FWPB4ECsk8EgUBDbw8XA8jVMnK75Z5HmPDCqt28OEwqVuXq3x/+gfrvlP40+vqxKzp9Q
+         vioWZilIFxcRovsObQZgP0KxzXmmoE1szBc9izzA8Lq/3nDqEjWzZbon/bgbaeNTElJU
+         3Pt1AhSwPja12+pZjQKC5oOozUs6+G7psDDX2b+bag4jeqCtH/mya/65b64T1CJO/R8X
+         wJ4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793308876; x=1793913676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
+        b=b187zlaVHnz5lzU40qztJ6pRtgry5HkMLZIj05AbLmiUPaDNznWYKFk20cs739b5mO
+         sKBdIdaG+F1j9SokDMS63l/DAQnIUNS/LG+RVmHF+ycrEj8fSzzMPaCj6FfLiBPwcg20
+         KLF/714jYYxoLl0Ot4y3yQLq4W52oW+g0YUwvF/NpgswQ1xazDgrqQwvCUlCTmvQwmwy
+         sTG1DEOWw5gJuqjqt3/DYeSJx9n1MJi+LhDqUufo8t9K9/kAccYEWLwpVUkHpAnS0l20
+         /hOphx2OLVPwByqB5ltoD3uf4kEqxU3W9EkXm3bDpgWTiH3oLYrNXuQthFcSXq4IDCNu
+         mHtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793308876; x=1793913676;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
+        b=fLlPhrbuAw7Vg1ivmEIjxbPoiGhQwg+CBFo2bf/hSjFtkCa5tnFiWYuYdIWT/EcTe3
+         Jcr/itikoQEDZYtLouvl/Ens4xgnF8s+XWN/NgYH25SdEJzyTSpLusDPzdfIVQBsM7Cx
+         A/tTIudNN5HbLs/neKeeytPxK4eZNuZ31/0tj0IXIVhyGLwJ+8uueqg5pJWQTWIQpudq
+         9ByCfOAgE81MVvwyBFi3J5s9CJWMFQLdnoLzfUUJewgv+OGyU/kH93YMDHb9Oyl33bf0
+         s2heZznlvM6ivcJnqXOKWLIDXYGP0CJZQNPnhe8WfRz8Hvu+dJKS3MhQDN/9WB3af4N4
+         sXhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwk6YBoMQG5QxHfUnRoNAKHJah8+J1EsdJXoWxyhTbVaXa3axAIAdWzUXOY9sNM7ypvTIDWXVE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKduZfSe9LeKu5N+l8vcNWMLHXQ0VBO6WF956JNXIhPiNOLfKed
+	LlwetK0reSrQ2gfRKlCP3EIfdBisS/7cacMzw4FbAmmOGWclZ1SFKOORfuledgBjbzXBSuDcIbP
+	a8oNsFp9DA/M51/vV2nNxFVndjYf9K54=
+X-Gm-Gg: AYBFou2DCcUwScQsWIl2d1VfuCN+23zI1Mws8U5rFJyP4Xomd7End+kMK/Bkar1Meex
+	3fX6VOFHjxiS1DZDq6IssYwUDii5XlUQwt+wvql1rcs7aviUMyNfK7wFl0a1LXr0lmakEnYzNPs
+	YO+yWO/XCSe9Ph+1cwpbqZHdu4qQGBbGJ8wNGsXY6od77PrdFcH6dDFqVdoLkLtVqWCDw3mdEQQ
+	rQE+rBYFe4vTmgQk95iLGE706A5+izw1/wP5jyLQesgeLw3Ew3YlmyK3u029iYJZvv1caYdrzvv
+	i0D5bT93wvSUahLVy+ts0/kKCKr6z5cY6p7oxDc1CwJulUbXutuV7HlVSyS9hptVF/AIeU5D7KL
+	6Iq5e8o3RkaSVY3t/ZftV3Y0T0BQ9ho9LO/TkWtKPFuPqIchRlEw4XAXGzext8LfEGVdtfGBK44
+	IOOW8ZN+aa45CHmyYZH4POK6Ggz9bDK5fLfN4YsJrBn87lOBX11IxHwlkw5sUkw9vcJJ1jwIrP8
+	A==
+X-Received: by 2002:a05:600c:8b46:b0:4a0:4a8:d444 with SMTP id
+ 5b1f17b1804b1-4ac18c73238mr4750555e9.33.1793308875581; Thu, 29 Oct 2026
+ 14:21:15 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,138 +106,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Feedback-ID: 0127f977f5e13e8051b46c6e7f57d0f95a0470d24b79d7c31d07fdf611cc427ab823e0f4692a810119c92d8768973a9281:TurnOnPrivacy!:tutamail
+References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com> <20261030-swap-fixes-v1-3-73f73a59f2fc@tencent.com>
+In-Reply-To: <20261030-swap-fixes-v1-3-73f73a59f2fc@tencent.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Thu, 29 Oct 2026 14:21:02 -0700
+X-Gm-Features: AclHuK94IG0mhXQQjpw3RIi-A5xAWBQBwS6QINbigt5Lm9tPUmEat0F26KqQrPE
+Message-ID: <CAKEwX=MJcyr1GjKNQ81x+fUS07T=THXGivjebt=W0ayjjZ3fgQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] mm, swap: fix large swap-in across swap file extents
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Usama Arif <usamaarif642@gmail.com>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When fanotify reports a permission event, copy_event_to_user() creates
-the event fd with dentry_open_nonotify(), so that the listener's use of
-that fd does not generate further events. If the event's path is on a
-stacked filesystem, the stacked filesystem's ->open() opens the real
-file with backing_file_open(). Since commit ebe559609d78 ("fs: get rid
-of __FMODE_NONOTIFY kludge"), FMODE_NONOTIFY lives in f_mode only and
-the backing file does not inherit it: it is allocated with the default
-fsnotify mode, and fsnotify_open_perm_and_set_mode() raises FS_OPEN_PERM
-on the real path if the backing filesystem has permission event
-watchers.
+On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
+<devnull+kasong.tencent.com@kernel.org> wrote:
+>
+> From: Chris Mason <mason@kernel.org>
+>
+> A page fault can give an unprivileged process blocks of other users'
+> files instead of its own swapped-out data. This affects systems with a
+> swap file on a synchronous block device, such as brd or zram. For an
+> anonymous mapping it also takes a huge page size below the PMD size
+> (mTHP), such as 64 KiB, that is enabled for anonymous memory.
+>
+> A swap area is divided into slots of one page each. A swap file is a
+> regular file, so adjacent swap slots can lie in two extents, far apart
+> on disk. A folio is read from swap with a single bio that starts at the
+> sector of the folio's first slot. So all slots of a large folio must be
+> contiguous on disk.
+>
+> The swap allocator knows this: it only hands out a run of slots for a
+> large folio if the swap area is a block device (SWP_BLKDEV).
+>
+> The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO),
+> one that always completes I/O in the submitter's context, do_swap_page()
+> can read several swapped-out pages as one large folio (a large swap-in).
+> thp_swapin_suitable_orders() makes that decision, and looks only at the
+> swap offsets (the slot numbers) in the page table.
+>
+> Pages that were swapped out one at a time can end up in consecutive,
+> aligned slots, and are then read as one large folio. If the extent of
+> the first slot ends inside that folio, the rest of the folio is filled
+> from the blocks that follow the extent on disk. These blocks can belong
+> to other files.
+>
+> Reproduced with a fragmented swap file on brd and 64 KiB folios enabled.
+> After single pages were swapped out, a fault returned blocks of a
+> root-owned file with mode 0600.
+>
+> Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
+>
+> Known gaps:
+> - A swap file on zram, brd, pmem or btt is now read one page at a time,
+>   even where its slots lie in one extent. Its swpin counters in
+>   /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
 
-Before that commit __FMODE_NONOTIFY travelled in f_flags, and overlayfs
-copies the user file's f_flags into the backing open
-(ovl_open_realfile()), so the backing file was exempt implicitly. Commit
-bc2473c90fca ("ovl: enable fsnotify events on underlying real files")
-relied on that when it dropped FMODE_NONOTIFY from OVL_OPEN_FLAGS.
 
-The nested event is queued to the same group, from inside the
-listener's read(2), and can only be answered by another reader thread
-of that group. A listener holding filesystem marks on both the stacked
-and the backing filesystem therefore deadlocks as soon as all of its
-reader threads are inside such a read(2) at the same time, and every
-other task that touches a marked filesystem queues up behind it.
+I guess we can check for this right? Look for the swap extent of the
+first offset, then get extent's size (swap_extent->nr_pages).
 
-Observed with a commercial anti-malware agent (16 reader threads) on an
-ostree/composefs host: / is an overlayfs whose data layer is the ostree
-object store on the same btrfs that holds /etc and /home, and a
-systemd-sysext overlay sits on /usr. Every on-demand scan of /usr wedged
-the whole machine until the group was killed. Stack of a blocked reader
-thread on 7.2.7:
+Not sure if these users use swap file here though.
 
-  fanotify_get_response
-  fanotify_handle_event
-  send_to_group
-  fsnotify
-  __fsnotify_parent
-  do_dentry_open
-  vfs_open
-  backing_file_open
-  ovl_open_realfile [overlay]
-  ovl_open [overlay]
-  do_dentry_open
-  vfs_open
-  backing_file_open
-  ovl_open_realfile [overlay]
-  ovl_open [overlay]
-  do_dentry_open
-  vfs_open
-  dentry_open_nonotify
-  copy_event_to_user
-  fanotify_read
-  vfs_read
-  ksys_read
+> - With the posted "mm, swap: enable THP swapin for xswap entries"
+>   applied as well, the large swap-in that it adds never happens. That
+>   patch gives its swap device SWP_SYNCHRONOUS_IO but not SWP_BLKDEV, so
+>   the new check would have to let that device pass.
 
-Userspace cannot avoid this: the backing open happens while the kernel
-builds the fd, before the event is reported, and fid reporting is not
-available for permission event classes.
+Mentioning unmerged patches in changelog? ;)
 
-Make a backing file inherit FMODE_NONOTIFY when the user file it is
-opened for must not generate events. This restores the pre-6.14
-behaviour for the fds that fanotify creates (and for any other
-FMODE_NONOTIFY file), while ordinary opens through a stacked filesystem
-keep generating events on the real path, as intended by bc2473c90fca.
+>
+> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io device=
+s")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  mm/memory.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/memory.c b/mm/memory.c
+> index b65b56fe9714..944f57153c89 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4863,7 +4863,8 @@ static inline unsigned long thp_swap_suitable_order=
+s(pgoff_t swp_offset,
+>         return orders;
+>  }
+>
+> -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
+> +static unsigned long thp_swapin_suitable_orders(struct swap_info_struct =
+*si,
+> +                                               struct vm_fault *vmf)
+>  {
+>         struct vm_area_struct *vma =3D vmf->vma;
+>         unsigned long orders;
+> @@ -4888,6 +4889,14 @@ static unsigned long thp_swapin_suitable_orders(st=
+ruct vm_fault *vmf)
+>         if (!zswap_never_enabled())
+>                 return 0;
+>
+> +       /*
+> +        * Neighbouring slots of a swap file can lie in two extents, and =
+a folio
+> +        * is read with one bio. The flag is set in swapon() and stays, s=
+o the
+> +        * race is benign.
+> +        */
+> +       if (!data_race(si->flags & SWP_BLKDEV))
+> +               return 0;
+> +
+>         entry =3D softleaf_from_pte(vmf->orig_pte);
+>         /*
+>          * Get a list of all the (large) orders below PMD_ORDER that are =
+enabled
+> @@ -4924,7 +4933,8 @@ static unsigned long thp_swapin_suitable_orders(str=
+uct vm_fault *vmf)
+>         return orders;
+>  }
+>  #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
+> -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
+> +static unsigned long thp_swapin_suitable_orders(struct swap_info_struct =
+*si,
+> +                                               struct vm_fault *vmf)
 
-Verified with a self-contained reproducer (private tmpfs lower layers, an
-overlayfs over them, FAN_OPEN_PERM filesystem marks on the overlay and on
-one lower layer, a child opening a file through the overlay) in a qemu
-VM on this tree built with defconfig plus OVERLAY_FS, FANOTIFY and
-FANOTIFY_ACCESS_PERMISSIONS: without this patch the listener's read(2)
-never returns and the child's open is released only by the listener's
-death; with it read(2) returns, the event is answered and the open
-completes.
+Nice, I think Sashiko is complaining about it on one of my vswap
+patches lol, and I was wondering how on earth is correct in non-vswap
+case.
 
-backing_tmpfile_open() is left alone: its only caller is
-ovl_create_tmpfile(), whose user file is a regular overlayfs file.
+Fix LGTM:
 
-Fixes: ebe559609d78 ("fs: get rid of __FMODE_NONOTIFY kludge")
-Cc: stable@vger.kernel.org
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Edvard Conrad <edvard@tuta.io>
----
-v3:
-- Back to the v1 change in backing_file_open(). The init_file()
-  variant posted as v2 was larger without being more general; Amir
-  withdrew that suggestion and reviewed v1 instead.
-- Add Amir's Reviewed-by. Drop the Assisted-by and Suggested-by
-  trailers and the blank line in the trailer block, as asked.
-- Keep the subject line from v2, which is the prefix used for
-  fs/backing-file.c.
-- The reproducer posted inline with v1 is now an LTP test, under
-  review as syscalls/fanotify26:
-  https://lore.kernel.org/ltp/P50G-yE--F-9@tuta.io/
-
-v2: https://lore.kernel.org/all/P4wV1J9--F-9@tuta.io/
-v1: https://lore.kernel.org/all/P4sl5iz--F-9@tuta.io/
-
-Tool disclosure (Documentation/process/generated-content.rst): the
-stack analysis, the git-history search for the regressing commit, the
-patch text, the commit message and the reproducer were produced with
-an AI coding assistant (Anthropic Claude Code) under my direction over
-interactive sessions; I reviewed, built and tested the result. No
-static analysis tools beyond checkpatch were used.
-
- fs/backing-file.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/fs/backing-file.c b/fs/backing-file.c
-index 5614cb7801e..24357bf9328 100644
---- a/fs/backing-file.c
-+++ b/fs/backing-file.c
-@@ -43,6 +43,17 @@ struct file *backing_file_open(const struct file *user_file, int flags,
- 	if (IS_ERR(f))
- 		return f;
- 
-+	/*
-+	 * A user file that must not generate fsnotify events (e.g. the fd
-+	 * that fanotify creates for a permission event with
-+	 * dentry_open_nonotify()) must not generate them through its backing
-+	 * file either. Otherwise a listener watching the backing filesystem
-+	 * gets a nested permission event from its own read(2), which only
-+	 * another reader of the same group can answer.
-+	 */
-+	if (FMODE_FSNOTIFY_NONE(user_file->f_mode))
-+		file_set_fsnotify_mode(f, FMODE_NONOTIFY);
-+
- 	path_get(user_path);
- 	backing_file_set_user_path(f, user_path);
- 	error = vfs_open(real_path, f);
--- 
-2.56.0
-
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
