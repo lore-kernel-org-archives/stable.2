@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307061;
-	b=KX7zqEsMBhwOZE37F/LKHuvkevYgq2mo77sHQO/kOBK6q+M33sqf8wKuuihFVyCVmSiU
-	 5SMwI0Xp8I0dKY5SgbaAw9gY5KSZQaGfTw5YtnvDycpmlQ4TpwtGeJhMRbyKU+dSnNQnO
-	 5yMY84Xvmuy7ysGdGxSZ7vvVMzRWV6JbxKnowMlrOw/j4+EU5lLixCK2wlOESp0zDEch+
-	 +wEw6rhU8C5IfHYXAxDMTEmMZ19BUY97uDqRJqK3Tn0jhg9y1UsRQXO+z6XH4M3xFSftx
-	 NmCvFDgqqtEtDxUFUPok+KNuEJWlvrONG9ckpohWiYIrJeAUT4hmW4KUI7nTiPlsHJw==
+	t=1793307060;
+	b=XUUxGnC/wfvgqehvoCDU+0FKEzsLHjlyH4oKmdt7GOgKtleerAq2kNlRoi45OC7Zs/Pa
+	 rk0P1fWYnqtySNA8gbeQj5iiBggXIpHK08yXyLBApZ5ZI9hfNeboAOYGtmPzft/UPa/PO
+	 Zh3nQaVvkvoEK2uts3CinTQN2XGxBcCuY20NUwkJofZ+1sEDGONqrjP/MxS7Lvo9pxOMs
+	 hPtiYVvnXrOIC/DXZ4vE7AS8PEXeNKAK8DcfwZVROz1yvtpecpb3BvyE5vQ0BOiKu7IYw
+	 vg11+lWcP2R+IE4Jav6RO0zx5dxp5ku9nabxLc4DDDfZn/Bfowr67fbkxltpKcQYHoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307061;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307060;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=OmrddnalYvKzrQnN9N4Fpu9NVAES2TsOMe4SsI3z9gU=;
-	b=V+W5SXee/wznbgY93xY44lZulWKC4GGkLBDBOT9DPbyKuK9BsHyug5AQFuZO3WtvMJjj
-	 P6d+2oScW72YqfTNKtX4WY5STKSlZwE8RAJFEhXHykZ4iHrmcavJVw7o/5PxDAlm8dElY
-	 2y9xyqoN/YfKkMviV7KChM7UVc6RwFpQ/nM9oYSLIi/9IaiLX622d4bBDR3SAnA4a7aGE
-	 vt2awu5jyvkPMMisH0H4DWMjxXVYLaZsOSF4VuoJlB6kXtgeWhBUTSpk6oPudHkYDG6wb
-	 kuw1lvDsVVXcbckhbDcUxip/F5tKvnDHJXuPNFFG/Ek5abwdbeWL94ehx59CgxdRBDw==
+	bh=f99FBG9cmwfw/aEnFPXgwYaEgH0mqzP7LaMxLWErvlM=;
+	b=hj6JeJuXR92R9/CgoeKmh/lECYo5Tw+Cqg2jxyveCzDCdPMZQhBXH6a2sEMCSSQh2QNt
+	 Pi2WJaOA5zCsoSfN3epJoBX7FbNjb1wzKEf4WZ6YjqFLL0YiXZEWTcT2Ymw0rXzvUOJJV
+	 hGsu4NYcjlEYgfs/Vez0J3+2ja6Ywj/L2Yyy9wiexBQ+gixqb2wguUqN9rYNfPqLP/s99
+	 a9wfxhQvqkXmYdeTjDAM7798/RFdM/UnK4IKAapqXXYJhNavKmh0DCsRU64dsxZr3+Uh1
+	 QNdwNuN6gOmGxjnIimhnOlxiMmKxcM+T1OdGFaEPnupaEYvvouRwXLdoJrHBeDUUIDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GauLCy/1";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISvCpW1n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529C260A2601;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52920606A339;
 	Thu, 29 Oct 2026 20:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GauLCy/1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00911F01825;
-	Thu, 29 Oct 2026 20:44:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISvCpW1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4EBC1F01816;
+	Thu, 29 Oct 2026 20:44:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306675;
-	bh=OmrddnalYvKzrQnN9N4Fpu9NVAES2TsOMe4SsI3z9gU=;
+	s=k20260515; t=1793306660;
+	bh=f99FBG9cmwfw/aEnFPXgwYaEgH0mqzP7LaMxLWErvlM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GauLCy/1HrYbdieZoYJGY/PpIUS1vgONUu0M4PlXJvY7eY+GegQj06Bc3k52Nn7Cw
-	 5pUOiZmQPSa/agrZVJmrfiWcTl/MEWxkZ9UQsk7lluRie9slFArS3/SevT9Xccdva3
-	 jp2ZFiK7k5Rm5+WgEwWwD32w960RLwKV1pQDqkERuQqbjtkTQtpbzWr7jdja43hl2C
-	 c8k7J5I4N2CU6YXX6Fvp4i5opY3LoX3l2OPr87naVfONU+oHtwZSXt5gIoOIzHgVXo
-	 jtFFykZR1o4q1kxv0399ek+IcViDhuU9YWAlcP+xsYEpMNrWrwGCMJzm0kwU8GDd9N
-	 c2NA3KmLJdFDw==
+	b=ISvCpW1noMZ/QA9Jr4U4ciYvPBlggN3Z+6JfPPsgt7+DBM//0I+sSMG7BKDe4mOYJ
+	 0LzS18/0vo2MIyIc1gbIO4QitWdoMYUlqgluemT6WVI5mMdz1prqImIRZLHagRYJPl
+	 APjbqHJGcwwUeuXSaijEVSo7Ic8ccUPMCoJrbjRImpYt3b1GIpeOsoLwSbcKWxWMBE
+	 ImzDkrq/DeJ6vMi5OW4WJWRj+jRdW1Nm5Ct5iDGzqfdhTgeO72u6sQV4AW0hawlICs
+	 itcUaU3Clq0Apdq2pQxRfxTHxoFtftXWanHxoliGkrRBX9nEQXTMchpzwz3AWsjlCH
+	 Kcs9Gjc6eZC6w==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:40 +0100
-Subject: [PATCH v2 45/47] mm/cma: don't release CMA pages still in use
+Date: Thu, 29 Oct 2026 21:33:39 +0100
+Subject: [PATCH v2 44/47] mm/vma: don't leak the charge for stack growth
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-45-a64ce7f83abb@kernel.org>
+Message-Id: <20261029-fixes_core-v2-44-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,79 +92,52 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2252; i=david@kernel.org;
- h=from:subject:message-id; bh=3kpfFp5NOxLKJV7MN0qgqEyHjOOrTqFsf7HE3Qur7Ks=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+16LPZT4EOJ2H3DwG0neWorjk3wfGRVsoy7nXl93
- YOjzLF9HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzk7zaG/wGvIi2+nrw7edI2
- i513/4c0ZS6asqr28e2KUp2fNmp7rUMZfrPoSJ2ovysSvbya44cCH9+H3rqFRjUPV/WUWk7Yv/V
- nMCsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1286; i=david@kernel.org;
+ h=from:subject:message-id; bh=o0mheINR978z1uD1ZHGsTx1VSvH13fE2UEr82UlnsHQ=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+36aHqh4IJVheeK896X0nMzPQ/Pi5JZtIppO0NnM
+ HNBz/a2jlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACYi68XI8EL/YelpBxn2YMEy
+ +RgRwdSk2d/+utfpP5UtN9XV+bL/IMP/sMpy4djuF7d6rH8c1XGs5FY9Uao3xdh947d5D4VsGSb
+ xAQA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Rik van Riel <riel@surriel.com>
+acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
+This can happen for read-only or MAP_NORESERVE mappings created with
+MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
+Committed_AS.
 
-When a driver calls dma_free_contiguous() before quiescing DMA, the
-page might still have a reference from the device.
-put_page_testzero() there returns false, WARN fires, but the code proceeds
-to free_contig_frozen_range() putting a live page onto buddy and clearing
-the bitmap. A subsequent allocation can hand the same PFN to a new
-owner while the original holder still references it.
+Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
+Unaccounted growth skips the overcommit check while remaining subject
+to the other stack-growth limits.
 
-A concurrent put_page() that drops the last reference between the
-testzero loop and free_contig_frozen_range() can double-queue the page
-via page->lru, corrupting buddy lists.
-
-Avoid the corruption by not freeing a CMA region if any of the
-pages inside are still in use.
-
-Make it explicit in the warning that the driver allowed a leak.
-
-While at it, use page_ref_freeze() to make the semantics clearer and
-switch to pr_warn_ratelimited().
-
-Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rik van Riel <riel@surriel.com>
-Link: https://patch.msgid.link/20260811132045.5f114772@fangorn
-[ david: use page_ref_freeze() + pr_warn_ratelimited() ]
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/cma.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ mm/vma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/cma.c b/mm/cma.c
-index a10ea37a261d..871f95c9ae9f 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -1020,7 +1020,7 @@ bool cma_release(struct cma *cma, const struct page *pages,
- 		 unsigned long count)
- {
- 	struct cma_memrange *cmr;
--	unsigned long ret = 0;
-+	unsigned long leaked = 0;
- 	unsigned long i, pfn;
+diff --git a/mm/vma.c b/mm/vma.c
+index acdf00346cda..695d0be85ac8 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -3391,7 +3391,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
+ 	 * Overcommit..  This must be the final test, as it will
+ 	 * update security statistics.
+ 	 */
+-	if (security_vm_enough_memory_mm(mm, grow))
++	if (vma_test(vma, VMA_ACCOUNT_BIT) &&
++	    security_vm_enough_memory_mm(mm, grow))
+ 		return -ENOMEM;
  
- 	cmr = find_cma_memrange(cma, pages, count);
-@@ -1029,9 +1029,13 @@ bool cma_release(struct cma *cma, const struct page *pages,
- 
- 	pfn = page_to_pfn(pages);
- 	for (i = 0; i < count; i++, pfn++)
--		ret += !put_page_testzero(pfn_to_page(pfn));
-+		leaked += !page_ref_freeze(pfn_to_page(pfn), 1);
- 
--	WARN(ret, "%lu pages are still in use!\n", ret);
-+	if (leaked) {
-+		pr_warn_ratelimited("%lu pages are still in use, not freeing CMA region!\n",
-+				   leaked);
-+		return true;
-+	}
- 
- 	__cma_release_frozen(cma, cmr, pages, count);
- 
+ 	return 0;
 
 -- 
 2.43.0
