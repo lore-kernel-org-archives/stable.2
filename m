@@ -1,64 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.111.35.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793251866;
-	b=HKda5eZz8uCpCUoIkCfVnpZTVfEDBfSmoB4sv0CHkc6UZgMdtLewNRwpguHZGWaiDHHs
-	 DpOghzuVssWPpPWihfCQGTe7VEpgRnD8LNQsqJ6nC0/It2S21sPufpfgx8LobVIyIPG+t
-	 LBkLmv5ESghf84WL6/LcSDu9MsH7S8QFhogI/Zs7VZkfgnVvxo1x8VP7yqUkztU1pTSYD
-	 yj+iaZYbqvarrbVnhmjvHTo56JLMPaZR+3PLhLnzHk/J9oXVx1zEug3WIZqUSVSc6hZIy
-	 VGyzipxjziAsUFCulogGgcKyJDBE+KHQO4soZYCrx8rnd50xy/aOEOQva3c1i5KHC4g==
+	t=1793252532;
+	b=peyO3ASrYIUIaDoXH3Y5KmOLowxRVg8LwmVwuPt2VZYhxoMgDGlNU4M5or2mV210V23s
+	 /r0JlJqqPm9rUo7E68Q6F5qhhzbo+Rr2V/UtVaY0CpyK5aO0dG/cWz4yNf0yqovTtazPl
+	 KEBMXtWU2kpa/m/p15Ypvehoml13i4KwoPw8l1gEdyE2lu3mjB4UvIaMOC+LIb/fzOPtC
+	 l/B0NWYZWhQbQo85oMkx7WT5wKmGfmlBI3IFTQSh02BJvzdxdHjx0ZZKjv3jd9Mw3ZBPN
+	 IIJIqXshrBAy6V1ui6IpfUhC6m3b1OGMlUluSBKWEVppHlt9ytLi67NsDqA00hal1Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793251866;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=2WMOO2p95M9ThYIGbReouUB1EEEiCid5uIcZXbX1JvU=;
-	b=KwW3eKkvPZJJs7rQL6xmHSw1UlgdRLYL6qwzcW9d/hIHdyUYIkx3nTCPJlJYYuo/i04r
-	 3ZS2Fh3xi1smVu/B6bRnESyP3oHznl+/PjZtqDWOzha8gc6aQKPDupw7Ub7e5KczBSt6T
-	 SconKvH2i7DN7kwNHz5HvjSNBc+qHW5LDb7IRTuyCnffy/Q9HCWvGeSDdYYScPRE/fs9H
-	 OzinUeZUC8RzviDy9Xj/4HdEhc0fN8gp1cEgUnw4GXby792Z1MSPTodcfmr7nyKFrW4G5
-	 ZUVjJfRSbWAXN4an+To72TCFGFreW0ym6yfZ/kpel7Q72kak8+gheB5bcfLJUvS5ZtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793252532;
+	h=DMARC-Filter:X-Originating-IP:Received:DKIM-Signature:X-Session-ID:
+	 X-Originating-IP:X-Works-Send-Opt:X-Works-Smtp-Source:Received:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8cUldOFx96eMbu0IrP5ywGI1BLDLAlGd12WAjz4GjNk=;
+	b=hJ5mh0E5isTow+ryRPwFMOE9MkYwpEo6+MHvwVK6lauZ4VMrzyT/Ps+wM/GGFz4gGYiR
+	 /NPdNNSE1SWN5gPKXzdt9fyIcAJobEXC/xBgv7glA5KPDwHtAiQGVLrX5BxB+sv60bWSj
+	 PG3A0k7BjALw6Mfz77tU73EyTOAgpXL0P704IRAk0iZKR4zLMD9FGPVzNgblno2VQB3JM
+	 fZEwibEwlCyM3u4esdnnWjerOrAdTZFVzTRdpjA09IfmrCzfxHJpWNP/VflqxsvZBtr8e
+	 iPHbASqO5huvCUtag3l/teFksDDTMU+CUUNav92ic1UXvEZCOJYb6BehNH2/YBzgAQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Y3vU77yn;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dmarc=pass header.from=navercorp.com;
+	spf=pass smtp.mailfrom=navercorp.com;
+	dkim=pass header.d=navercorp.com header.i=@navercorp.com header.a=rsa-sha256 header.s=s20171120 header.b=mn2KBRQK;
+	arc=none smtp.remote-ip=114.111.35.60
+Received: from cvsmtppost02.nmdf.navercorp.com (cvsmtppost02.nmdf.navercorp.com [114.111.35.60])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFE4606A31F;
-	Thu, 29 Oct 2026 05:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AFE4606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1129606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 05:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1129606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=navercorp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=navercorp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Y3vU77yn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2W
-	MOO2p95M9ThYIGbReouUB1EEEiCid5uIcZXbX1JvU=; b=Y3vU77ynFsjqZ9ZqEY
-	5/ycXmO/8NQqHDoOXjWKuVGuVo3kTQkXpy7hiDfNUd3a+BDGOGKv3UD20YEcZFnW
-	2tcmJ2fboq/TJ0GtMbCwQnMET2w/Vo0P82InuILekOACobvnJbglKE2qJ/SAYweF
-	x5ZY1ti4sqMQ0dXBqcnZIGrWY=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3X7zw2eJqnygTDQ--.62701S2;
-	Thu, 29 Oct 2026 13:30:25 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=navercorp.com header.i=@navercorp.com header.a=rsa-sha256 header.s=s20171120 header.b=mn2KBRQK
+Received: from kr0m-hmac-real-0 ([10.111.46.243])
+  by cvsmtppost02.nmdf.navercorp.com with ESMTP id Qvjmd5LCSiqbdOuxUhIApQ
+  for <stable@vger.kernel.org>;
+  Thu, 29 Oct 2026 05:42:02 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=navercorp.com;
+	s=s20171120; t=1793252522;
+	bh=UdeNdqqvjEGuQioDVmuUirg0BGsMU+r/jEd3GK64aGA=;
+	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=mn2KBRQKS9ySIgZBSXtHDbmnyJ6EG1/JDw+NL3ZMznMC9BRUzT5TZl+5OtZ3B1hhl
+	 fveJXjhv9EwgBl7i2kguQ5AAe9EMkpsP5CXPK2SMaThczAJ7rQgp/xcrc3DeL+5325
+	 nQM3BZJQUWuJ+ApgflLUDShrN4ZxakIET88JFhkoqXG2+PEH2agffybl+Ubu3830S3
+	 48ifvYNKO2D2wXxQge5j8ki1gy+TvlGX+fsVxVImBkmYwihZoYEwLYAtmFGRsttHvh
+	 kS3FB6U1F+sqwujKFVzbOW/AKI7aCF0Ui1uiiLjbNjBh1GLwT0fdEVqgBqT+Nq1p2u
+	 fjTx0mwibbOmA==
+X-Session-ID: 23gjFADbTNGa3DEO39y9vQ
+X-Works-Send-Opt: TdYwjAumKAumKAbZjAgmKqKXKoJYFHmwKBwYjHmm
+X-Works-Smtp-Source: /mbZKoKlFqJZ+HmZKoum+6E=
+Received: from localhost.localdomain ([10.25.69.129])
+  by cvnsmtp02.nmdf.navercorp.com with ESMTP id 23gjFADbTNGa3DEO39y9vQ
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_CHACHA20_POLY1305_SHA256);
+  Thu, 29 Oct 2026 05:42:02 -0000
+From: Gyutae Bae <gyutae.opensource@navercorp.com>
+To: stable@vger.kernel.org
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: vcodec: NUL-terminate debugfs input
-Date: Thu, 29 Oct 2026 13:30:23 +0800
-Message-Id: <20261029053024.2526059-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	Minsu Jeon <minsu.jeon@navercorp.com>,
+	Jonghyeon Kim <jong-hyeon.kim@navercorp.com>,
+	Siwan Kim <siwan.kim@navercorp.com>,
+	Gyutae Bae <gyutae.bae@navercorp.com>
+Subject: Backport request: Revert "softirq: Let ksoftirqd do its job" (d15121be7485)
+Date: Thu, 29 Oct 2026 14:42:00 +0900
+Message-Id: <20261029054200.97234-1-gyutae.opensource@navercorp.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,44 +87,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X7zw2eJqnygTDQ--.62701S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFyfWFWUCw15XF1fuF47XFb_yoW8WryfpF
-	Z8Kw17Ar1kJr9Fvr18Cw47ua45C393XFW8CrW3Ww13Zwn0qFW2g340yay3JFZ2yr9FkFnr
-	Jrs8uryxWw4jyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07USkskUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzREGQGri2fHwZQAA3v
 
-mtk_vdec_dbgfs_write() allows userspace to overwrite every byte in the
-persistent debugfs buffer. The read handler later searches that buffer with
-strstr(), which can read past its end when no NUL remains.
+Hi,
 
-Reserve one byte and terminate the copied input at the updated file
-position before releasing the debugfs lock.
+Please backport the following upstream commit to 6.1.y and 5.15.y:
 
-Fixes: 5e488a4fd859 ("media: mediatek: vcodec: Add a debugfs file to get different useful information")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- .../media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+  d15121be7485655129101f3960ae6add40204463
+  Revert "softirq: Let ksoftirqd do its job"
 
-diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
-index 2da11521fc7b..8528534e41ef 100644
---- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
-+++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
-@@ -77,8 +77,11 @@ static ssize_t mtk_vdec_dbgfs_write(struct file *filp, const char __user *ubuf,
- 	struct mtk_vcodec_dbgfs *dbgfs = &vcodec_dev->dbgfs;
- 
- 	mutex_lock(&dbgfs->dbgfs_lock);
--	dbgfs->buf_size = simple_write_to_buffer(dbgfs->dbgfs_buf, sizeof(dbgfs->dbgfs_buf),
-+	dbgfs->buf_size = simple_write_to_buffer(dbgfs->dbgfs_buf,
-+						 sizeof(dbgfs->dbgfs_buf) - 1,
- 						 ppos, ubuf, count);
-+	if (dbgfs->buf_size > 0)
-+		dbgfs->dbgfs_buf[*ppos] = '\0';
- 	mutex_unlock(&dbgfs->dbgfs_lock);
- 	if (dbgfs->buf_size > 0)
- 		return count;
--- 
-2.34.1
+On a production 5.15 PREEMPT_NONE node, long-running overlayfs
+getdents64() calls prevented ksoftirqd from running.  RPS IPIs
+continued to arrive, but NET_RX processing on that CPU stalled for
+up to about 3 seconds.  Over 15 days, the node logged about 1,000
+bonding ARP monitor failovers, with no link-state changes recorded
+during that period.  The failovers stopped after the workload was
+removed.
 
+On a 5.15.27 PREEMPT_NONE test node, we used a livepatch to make
+ksoftirqd_running() always return false.  This removes the same
+softirq deferral checks as the revert on this build.  Under the same
+load, we measured three 10-minute windows: before patching, with the
+livepatch active, and after removing it.  The number of HTTP requests
+taking more than 200 ms was 17, 0 and 11, respectively.  TCPTimeouts
+increased by 25, 1 and 21.
+
+We verified with patch --dry-run that the revert applies cleanly
+to v6.1.190 and v5.15.223.  Both already contain the related RCU
+fix 1dd1eff161bd.  6.6.y and later already contain the revert.
+
+The original commit was intended to prevent user-task starvation
+under a softirq flood.  The revert's changelog points to threaded
+NAPI as an alternative, but it is disabled by default.
+
+The revert was merged in v6.5 without a Cc: stable tag.
+Syzbot has also reported bisections to this revert [1].
+Paolo, Thomas, Eric: I would appreciate your thoughts on whether
+this revert is suitable for 6.1.y and 5.15.y.
+
+[1] https://lore.kernel.org/all/000000000000a249880603717c15@google.com/
+
+Thanks,
+Gyutae Bae
