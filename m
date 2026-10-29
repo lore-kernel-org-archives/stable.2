@@ -1,71 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271538;
-	b=IqxQrk3sc0w9Ti3qcJuvUk2uFo3Jpr45s7jxvTGfTv0Sp1eR/UELAuSNrABB9keAkRx3
-	 nLITKGIpcu2V3d6erUkWlmPk1v2VXsU6KKdXeFkufUPfHBcYWDNVxo9MXr85/2q1+EtSz
-	 mhBfKEZycqQebozUFDW6iX8jRDTg6GyffYK6QPAjTLRUTFrrcgFHy+eNakUfztLuYuhzS
-	 ojm2EaBVZaJyXqZQ3/oONuSViH288pyx2exWtYbx0OL6IsIXyLypfUxrvbFLxOnqY4tyr
-	 7TtX52yLBHh4QocGTy5Vpwa4M18vtx0Vdfzua4iSq1lvhtNAFwm1qW2j78qeYTNDg6w==
+	t=1793271683;
+	b=C6xKF2wSa0phDAHARqpdHeQK+oAzXBa5zUZH5WRWKQCWnubggz8LrWGMYETjL3gwS61D
+	 /P+crmZLHuf6KLfv+70PLfFiVQLDgrwaXxR1+tNJmbRhHKbTWKXI555QKyCRjmCjXoqir
+	 MZ1zrIEC2kqPxbxZM8NG3wgiC7Rgwz8G3P+da6JKku5v9na5xt85dxAoGkrCEMqHXeodb
+	 G5CrssNqm5Uv75720MNELUYSddFi+P84tQE0SrsHH/vSsesbJEfoltPbAh3QSFU4PJVYI
+	 3WL1o4eb8SaAqdP7UlvGZnjYAKs514JfCylCmfFfX6jXCYRtK0loyXlY1gaFJD2FdXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271538;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=wqIKNGVdfkrptWgaeVqfIbbOwYH/8dZpAy0/6WAuLr0=;
-	b=Ys71h8GBVzEFHXhUE1ueNDtn/VqzOGC5PN5HS43BJxvQh5ealyL7TJ0P9HDGw0La6+vc
-	 Gj1uappE9oIvcUUW2ikdJtlZrMHi07pd4t1G/bHVx9vJpfYmrFo7sfDd0W6sj5fKm7dTC
-	 56xv5eqze/1FRHWTSjQAHCfVY9Br2lOCNH0nGk2ZbSInemSBbaJNLhXNPuKpmd4auLxCj
-	 hMkYL23jRtOlLR2cqjEuWFzlurTPvcg4HSpr+F907ztBKnpoFHKHgTxSOl0DKmkhX7/ic
-	 /unJuhamdVUldrCymbNcJUSm4BmIg4TK2v3Qh590GWGg27Tgjjeul2x7iyQEjkY94jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271683;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=RZsGw/LCRpH/RPxirEbcHzQUjgbaZAdI2sY41posDLk=;
+	b=jpkE+axF4pGRefZ+umJGZvqFXztm8ZqkIt9KWN1N5228dUjFRBHG4nV6kN6tqkzn1tjp
+	 CnkVMtpgskCnxpYMX3zzutblVBA/JKUm/O+f1VXtcnWKnzy+ynbyWGRvotvubgNUdvi+T
+	 Mbk+FXh0VB36Fe6T8dzotBcDIveoNXSPeQF1oX4ICeR2Jn/bhJEizpnm8+RLFC4O5PiH8
+	 JtFdgJgKRtCdltCZcDXUxOFBe+Nnn0CB42SVHU699vIP0n0M36qghQGpOCFAqRb08sO/Z
+	 /8P1mb7ZTdfoBqI4IeknCh3NDjrr02LGdkoWLE171vnkcCMBjKP8LUVj/VcIlD7oziA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbfAITP4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9098606A31A;
-	Thu, 29 Oct 2026 10:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DbfAITP4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA561F01825;
-	Thu, 29 Oct 2026 10:58:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793271537;
-	bh=wqIKNGVdfkrptWgaeVqfIbbOwYH/8dZpAy0/6WAuLr0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DbfAITP43mnXujBkidMw1VXT0oNbo+tpg3tR7bOzuB780AUdvqY+4em7GNuqMVOI+
-	 /9vGGFvYxJY5nv19x76EiMaaU1pupbb1TeKxwBv+eDDJBW+lowrvUiosMqB0muLJDW
-	 oZQWE3axBw/T5ZXch13QlCuLU7/TDES9r0SttwBTwdbHbLtVwP1u/mOQkPRVt4XU2z
-	 ka6PUf3+V44mkBpgZSLH4FKh4jweRumvj5WYSzqCEr+yd0ypovmx2zsWCiiiS0+I+3
-	 IEv383ypRf+4xMjQmzXKY5eYg5em8s4etsSqBuns5rZdxDKxvWmld57KIgVwGY9V0n
-	 RdjEAQ+sCyDtA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xMNqR-00000008VQy-0rgy;
-	Thu, 29 Oct 2026 10:58:55 +0000
-Date: Thu, 29 Oct 2026 10:58:54 +0000
-Message-ID: <86ld7gydqp.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
-In-Reply-To: <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
-References: <20261029090522.64662-1-oupton@kernel.org>
-	<CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7BF606A31C;
+	Thu, 29 Oct 2026 11:01:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A7BF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jFh9p1hWwz5BNS0;
+	Thu, 29 Oct 2026 19:01:18 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 69TB18El056090;
+	Thu, 29 Oct 2026 19:01:08 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 29 Oct 2026 19:01:11 +0800 (CST)
+X-Zmail-TransId: 2af96ae32777b95-21d18
+X-Mailer: Zmail v1.0
+Message-ID: <20261029190111138tS0yRo0lL1zJZ_IutobE1@zte.com.cn>
+Date: Thu, 29 Oct 2026 19:01:11 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,55 +56,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, weilin.chang@arm.com, seiden@linux.ibm.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <hansg@kernel.org>,
+        <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBhdGE6IGxpYmFoY2lfcGxhdGZvcm06IHJlamVjdCBpbnZhbGlkIHBvcnQgbnVtYmVycw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 69TB18El056090
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 29 Oct 2026 19:01:18 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE3277E.000/4jFh9p1hWwz5BNS0
 
-On Thu, 29 Oct 2026 10:05:19 +0000,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> Hi Oliver,
-> 
-> On Thu, 29 Oct 2026 09:05:22 +0000, Oliver Upton <oupton@kernel.org> wrote:
-> [...]
-> > diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> [...]
-> > @@ -29,7 +29,8 @@ static inline u64 translate_tcr_el2_to_tcr_el1(u64 tcr)
-> >                (tcr & TCR_EL2_TG0_MASK) |
-> >                (tcr & TCR_EL2_ORGN0_MASK) |
-> >                (tcr & TCR_EL2_IRGN0_MASK) |
-> > -              (tcr & TCR_EL2_T0SZ_MASK);
-> > +              (tcr & TCR_EL2_T0SZ_MASK) |
-> > +              ((tcr & TCR_EL2_HA) ? TCR_HA : 0);
-> >  }
-> 
-> Should you forward SH0 in this patch as well? It's missing here, so
-> the walks are Non-shareable, and looking at the ARM ARM, this would
-> make every hardware Access flag update CONSTRAINED UNPREDICTABLE
-> (R_WLTNL, and the IsWBShareable() check in AArch64_S1Translate()). An
-> L1 that programmed SH0 as Inner Shareable could then take an
-> unsupported atomic update fault.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-That's a good point. However, my reading of the ARM ARM indicates that
-as long as S2 shareability is Inner-Shareable, the resulting
-shareability is Inner-Shareable (see R_ZNLRJ), so we're actually safe.
-This should be fixed though.
+ahci_platform_get_firmware() reads the "reg" property of every child
+node of the AHCI controller and uses the value as an index into
+hpriv->saved_port_cap[], which has AHCI_MAX_PORTS (32) entries, without
+checking it first.
 
-> HPD isn't forwarded either, although at.c reads it from TCR_EL2 for an
-> E2H=0 guest. Was that intentional?
+ahci_platform_get_resources() checks the same property against
+hpriv->nports, but only in its own loop, and hpriv->nports is itself
+clamped to AHCI_MAX_PORTS.  A device tree describing a port with a
+"reg" value of 32 or more therefore reaches
+ahci_platform_get_firmware(), where the "hba-port-cap" property is then
+written past the end of the array.  Values just above the end corrupt
+the following fields of struct ahci_host_priv, larger ones write outside
+of the devres allocation.
 
-Another bug (E2H==0 really doesn't see much love). This needs fixing,
-but also relies on sanitising TCR_EL2. Thankfully, there is [1] which
-requires some reviewing... ;-)
+Apply the same validity check as the resource loop and skip such child
+nodes.
 
-Thanks,
+Fixes: 18ee7c49f75b ("ata: ahci: Introduce firmware-specific caps initialization")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
+index ae342080556a..d7106ab9ff3d 100644
+--- a/drivers/ata/libahci_platform.c
++++ b/drivers/ata/libahci_platform.c
+@@ -434,6 +434,11 @@ static int ahci_platform_get_firmware(struct ahci_host_priv *hpriv,
+ 		if (of_property_read_u32(child, "reg", &port))
+ 			return -EINVAL;
 
-	M.
-
-[1] https://lore.kernel.org/r/20260917214215.74135-1-weilin.chang@arm.com
-
--- 
-Without deviation from the norm, progress is not possible.
++		if (port >= hpriv->nports) {
++			dev_warn(dev, "invalid port number %d\n", port);
++			continue;
++		}
++
+ 		if (!of_property_read_u32(child, "hba-port-cap", &hpriv->saved_port_cap[port]))
+ 			hpriv->saved_port_cap[port] &= PORT_CMD_CAP;
+ 	}
