@@ -1,103 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306073;
-	b=R0vx945hauOmFhryllIFHoYNJpNpK1AnLIUz9DtovN5hJ4j3mljLeelCoJtwWsI+Q9GS
-	 mDVphPA8Pxyr6d5y10Lif4Av8LMjQVynFYyXh1WzHiqgt1X15hGvP2Pkv3MD+m97//80/
-	 3EvSf2enla8AwIcztM5RHmP+fzTC7vFAuJjOTyuoaXhlk6HJgHFCQi5frzFY5tUdL4CP3
-	 rI2SmngYO9b2EvgAhPZFhk11CHJI8mG6oMiIZiFbZiEVXFtR0jeIjnktZO2XUmdALI45Z
-	 IyVMGk09MyrrKTZgPCtMyixgFSFyfR+jR75fcuyvJz7YS7AJ3TE5Ce1lzcqCge6l0iw==
+	t=1793306069;
+	b=UBn5UCc/Y9CYEgD/XPOt3C4+FsdgdwsjmETSt7NErYi44Ri+ljReXntowTRDHgZyFQG4
+	 zx/3dWo/5u53MOGhLnG7R1fSHcxjjDB9Eui0Rfhwfwk/gCEjSOt/DFKzFdtolrkiKvjKD
+	 qZS1BIKzGix0erK7x2AEk2ihrdeC9R4P1Cn+i5TT1FkqxASD4AEkyfUuAl8iZezeiW86v
+	 Pn8U6AgPbnJ4KZ7RH4hHABXGXTIjsBbV/i/N2CgfYO6j0XeFgf12tmh1EEfTb6aCC835q
+	 rRS60HCvEmgQ93+RWhqP7PzIq1Lbq1z1i/ez0ixt6jmXVqiRYFPV6ZCahoX5iNozuMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306073;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/HNWmbLbU9YGzVySC0e6zjCVGZ8obHwQYm+NFMxIopA=;
-	b=K65f+Aq3UpYnHdPo83XEthO/2Hp5uSExA/zSeXllBsqfSzbc4shPik/xIOv/mulxiW5f
-	 kIJlIbb7AbfSXnb7IZJTgseL1R6+fQIUIWo6++DYnA8bBidumk4fqv3evHSUsui4Dq6NA
-	 z0fxLTJmv9WVVRSkdQseN3Zx3fOqmidRH8JHCsq9gG73mdn0LGrRuM5sbeWCioSA5OFeg
-	 i9rcsR81QxvGzbOFIsvDDhky4IZ4KB3kgY2fIt4hNTRGWXd1d8eSIZKAlPwiManw6jf8K
-	 f37DIg5zJ5qmJ4ZLN9iARFYLBZFX2a+EysR7ofwWqFUY5oxXZaihl/+FS9b8vNRyrdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306069;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=oT+YqEtlQbND2mfRTH9TILHjv0P3Fo80cSp1PCr5wUg=;
+	b=gPTThOmp0ds5puFQTXB77m+sHfRIXdX72fiRjWhoTvtZqYFI3lzVVc51MN1kXVvxEQ1R
+	 m6ASkYellBOFmxqShHO+2TtqF05xfMP5RI43SiYd6Rb0tpPu9TjiXuYhGdt900OLuQpmp
+	 u7pXQygWKVosWg9Zgy1KDKakz7XxUAzsrQSYFx3Qc4hDO7qCEN/PcS2WJOzcby2vrehhV
+	 mcFzotms1+YSnd1d30Caud4vcN7h0lYx9iCPbhptB+HXwB9z338WG3ePitAlfhE0QdOeo
+	 /o02vIQwZUuMi/5oT9m5JYFChcEZ7zdva5pzeABm04rG32PT6lUHDkyOSDoyONJxtfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=gdo2XNjz;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjSyyyt2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E358060A2605
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 20:34:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E358060A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBF2606A31D;
+	Thu, 29 Oct 2026 20:34:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=gdo2XNjz
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso5746a91.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 13:34:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793306071; x=1793910871; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/HNWmbLbU9YGzVySC0e6zjCVGZ8obHwQYm+NFMxIopA=;
-        b=gdo2XNjzL4/5BzwDFUUC/Ra4XhpQKBj5FSdrj4mH9lqT3IHVTPbZu4r8062FsLPFj3
-         jwqoN6N4pIDBBtOf0OKkqvaTA7JqFKW0gkoJlYij+YCU3pZ+9PDtF+xEctwvL205jLPW
-         FiTBgc5OSTwQc98C/LLLk5GL/8snG3VEMPzwSxJBFqpeqqBqhzeyDZsXOvk+XL7OESv1
-         mNuZ+N0vZ4xvDcyGf0EqbyuafLLpXdX8wlxFysggm3wVorYfuN/0Lrpe12/K/oXa0ubE
-         CuyPCEuwyV6gJ1JIyxxdx3bkA2f535KAJiS5jFQc+n4iQ1V9HGS6QNOoTHiWoY+ITfjh
-         +Sew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793306071; x=1793910871;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/HNWmbLbU9YGzVySC0e6zjCVGZ8obHwQYm+NFMxIopA=;
-        b=JBDMW3tNVls26hj0gAVMdAVQr0+5+5k3OzKWY1sUXkNb8cI2ZSd7pPSSjSeEenrtqc
-         ud0Tk6+DC+dNAQH209qmxJzDS6dzmevz8RKRBYFMg7psEWIb+YElcTxu1JFmVAHisCEh
-         ZdK1WfsunMPsJyMM3c9Yz9oESbmqqAqNzpf5NVGAvELqeJ2gzTXg3bs7E917oMnpwBpQ
-         qIhSyWBERLk200IThZvATSV1aqwDpxFRZk7oCUMJMd70/P2lXLhruJH//pKo5P/QEt3/
-         49lmb5ZVR8TSGempZ2qcGfud0Ik5SUzYkvjqoDGqB9QZPDosBbkpUAOI+Ds/5sNqU+94
-         yfyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFeniFvKtkeBCELwpMkZeGeOOX3kb/uImNuay64qnOu3FL5POb1lNCpkiqXz+dhyIo2wFfDoU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlm9Q5GQitN06fw5D1V1X7nP83LxgO9lEZvtsk88umnzdxl0CQ
-	0tUfSVxReYJU4y2M6zF1uffAh+WW2oOg/s/DOQeU/D8e76XHULYRzmzalsBXGmmK0rYK2Njbl1p
-	L/U1hRXIXtGltvCaZa6SpZ6zw0duiL/qXq805LlKIWhiJXpw7ucu+
-X-Gm-Gg: AYBFou3qOWqD7uiGdRvZ1Vu+LuIJZz3qG1qjCQvgYHF/HmU0Sr/zqEJtmPPRiPOfOgJ
-	aHLXTdu0Ykwbw3CeyKW+mblIN7EYNlc8gCDC4VkzTgFfBwy0/G/4EA0WfZcKslpOqEn+QojSRoz
-	kC+r3R9Yq+ErzT+60pbLSNT9Ff35HSfvmB1vzTvwHh9tAw4sdA+WugZioyqAJXqojQAmusGqWfz
-	DYVC/XETb1uLKQLj8WVrN6LhSqPh+7OOu+V4ybIH1v8aKDNy96NGCGKGhmydaMh7LRvxshzcpwf
-	i1HfazBJDcOLH/d7hR0CyAWHt4+HWlxgQpkBBw6lhOegOVpfbPw8T00mlcJHOVgJ8z6+tPQVPHu
-	Flei2NqJJmfVIstsjRRmr
-X-Received: by 2002:a17:90b:2d84:b0:3ac:b867:81df with SMTP id 98e67ed59e1d1-3ae8983517dmr81373a91.39.1793306071165;
-        Thu, 29 Oct 2026 13:34:31 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae85eb5999sm112711a91.1.2026.10.29.13.34.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:34:31 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 20F5840202;
-	Thu, 29 Oct 2026 14:34:30 -0600 (MDT)
-Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
-	id 1BAACDCE139; Thu, 29 Oct 2026 14:34:30 -0600 (MDT)
-From: Rishikesh Jethwani <rjethwani@purestorage.com>
-To: netdev@vger.kernel.org
-Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
-	stable@vger.kernel.org,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v4] kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
-Date: Thu, 29 Oct 2026 14:34:27 -0600
-Message-ID: <20261029203428.3057054-1-rjethwani@purestorage.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjSyyyt2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341E61F01816;
+	Thu, 29 Oct 2026 20:34:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793306069;
+	bh=oT+YqEtlQbND2mfRTH9TILHjv0P3Fo80cSp1PCr5wUg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=SjSyyyt23NhzYdLUJQzjyOqLwA8+XnmlLC5njjzlYt6G5ocTnXx44lnZTPI/B7exG
+	 Tpqip0IMnoVAS6p/71GtzFblSHA6svKrTkHsAq9WcnMlGJUdiQBwr4XlMyXh12ZqvM
+	 PMICUX0jeBtzxG34zNZAKpfGD12ftE+vqPHD+fywpcJnjaLgQt+vpN4uGZcLThOK8u
+	 D1jTUIEWcxMJjlyTBTqH9cb9voaIk3GpZ5mh8GmYLQdLgkQJ6rmEWMxh6gdHx15QIA
+	 Ie2Q4Jtu03dezRZ2IiU2gLRK/y+6l0H5VxNnAzVZG2SouSugNYWL5yMEENxKvREYzJ
+	 LvERDYWVFwK4Q==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 21:32:59 +0100
+Subject: [PATCH v2 04/47] mm/memfd: make f_pos accesses atomic
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,150 +52,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_core-v2-4-a64ce7f83abb@kernel.org>
+References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2770; i=david@kernel.org;
+ h=from:subject:message-id; bh=nYtl8pReTocJvpHuEkN/fjyaxBPiNA2Y0oMG8lh8AYY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer22xkX+5Wkk7rWjRXY2Wt0+XTo3qWFSprqoufvySW
+ 8BivVlHOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiI701GhvMcKwXqeEUK1hzV
+ juE376/hNWV5cNDRsyVF2ofV0GlGGCPDGvUzvfqV+ta/o6LsdG0TzrptVd5fecV8r1nh2W27GjU
+ ZAQ==
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-KCM and kTLS RX do not work together, in either order.
+From: Josef Bacik <josef@toxicpanda.com>
 
-KCM's psock_data_ready() is the lower socket's data_ready callback. It
-can run in softirq context under read_lock_bh(&sk->sk_callback_lock),
-and calls strp_data_ready(), which invokes sock->ops->read_sock()
-inline. With kTLS RX, that is tls_sw_read_sock(), which can sleep: it
-allocates with sk->sk_allocation, waits for async crypto, flushes the
-socket backlog, and may wait in tls_rx_reader_acquire().
+Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
+read(), write() and lseek() on a shared open file description of a regular
+file serialize on ->f_pos_lock.  The flag that asks for it,
+FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
+too, but its struct file comes from alloc_file_pseudo() and never passes
+through do_dentry_open(), so it does not get the flag:
 
-Found by code review. On an unmodified kernel with
-CONFIG_DEBUG_ATOMIC_SLEEP, sending TLS records over loopback to a socket
-with software kTLS RX attached to a KCM mux reports:
+  CPU0                                CPU1
+  write(memfd, "a", 1)                write(memfd, "b", 1)
+    pos = file->f_pos  (= 0)
+                                        pos = file->f_pos  (= 0)
+    vfs_write(..., &pos)
+                                        vfs_write(..., &pos)
+    file->f_pos = pos  (= 1)
+                                        file->f_pos = pos  (= 1)
 
-  BUG: sleeping function called from invalid context at include/linux/sched/mm.h:321
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 189, name: ksoftirqd/34
-  Call Trace:
-   __might_resched
-   kmem_cache_alloc_node_noprof
-   __alloc_skb
-   alloc_skb_with_frags
-   tls_rx_one_record
-   tls_sw_read_sock
-   strp_read_sock
-   strp_data_ready
-   psock_data_ready [kcm]
+One of the two bytes is overwritten.  Two threads writing 100000 bytes
+each, one at a time, to a memfd end up with a file that is far shorter than
+200000 bytes, while the same program on a tmpfs file never loses a byte.
 
-Before commit 662fbcec32f4 ("net/tls: implement ->read_sock()"), TLS
-inherited tcp_read_sock(), so KCM parsed the ciphertext in the TCP
-receive queue as messages. HW TLS RX uses the same proto_ops as SW
-RX, so it is affected the same way.
+Set the flag when the memfd is created.  As for any other regular file the
+lock is only taken if the file is reachable in more than one way, and
+nothing a memfd does in read or write waits for another operation on the
+same file.  This cannot be done for all alloc_file_pseudo() files: anon
+inode files such as eventfd are S_IFREG as well, and a blocked read holding
+->f_pos_lock would lock out the write that is supposed to wake it.
 
-The two also stack socket callbacks and neither restores the other's:
-with TLS RX configured after the attach, kcm_unattach() overwrites
-tls_data_ready(), and releasing TLS RX later reinstalls
-psock_data_ready() on a socket no longer attached to KCM. On TX,
-kcm_unattach() restores its saved sk_write_space, dropping
-tls_write_space().
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-There is no known user of this combination, so reject it, as was done
-for sockmap in commit 460e6486617c ("tls: reject the combination of TLS
-and sockmap"). KCM takes over read_sock() and the socket callbacks like
-a ULP does, so treat it as one:
-
- - kcm_attach() refuses sockets that already have any ULP, not only
-   TLS, as sk_psock_init() does for sockmap, with -EOPNOTSUPP like its
-   other refusals;
- - kcm_attach() then sets icsk_ulp_ops to a dummy, unregistered ULP, so
-   tcp_set_ulp() refuses TLS on an attached socket with -EEXIST and
-   nothing is needed on the TLS side. kcm_unattach() clears it.
-
-The dummy is not registered, so TCP_ULP cannot select it by name. Both
-sides run under the lower socket's lock (tcp_set_ulp() asserts this), so
-the check is made at ULP install rather than at key configuration.
-
-Holding a ULP also has visible side effects: getsockopt(TCP_ULP) and
-inet_diag report "kcm" on an attached socket, sk_has_decrypt_user() is
-true so PSP RX association is refused after the attach, and adding an
-attached socket to a sockmap fails with -EINVAL rather than -EBUSY.
-
-This is a user-visible change that will also reach stable kernels:
-attaching a socket with a ULP now fails with -EOPNOTSUPP, and installing
-a ULP on an attached socket fails with -EEXIST (espintcp previously
-failed with -EBUSY). Every refused TLS setup was already broken as
-described above, except one where only kTLS TX is configured. Such a
-socket still passes data, because read_sock() stays tcp_read_sock()
-until kTLS RX is configured, and KCM transmits with sock_sendmsg(), so
-records reach TLS's sendmsg(). It is still wrong: if TLS was armed
-before the attach, psock_write_space() shadows tls_write_space() and
-does not chain to it, so a record deferred on a full send buffer waits
-for the next send; if TLS was armed after the attach, the chain works
-until kcm_unattach() drops tls_write_space(), as above. The direction is
-not known at ULP install, so refusing it keeps one rule for both orders
-and matches sk_psock_init().
-
-Tested with CONFIG_DEBUG_ATOMIC_SLEEP: both orders are now rejected,
-plain KCM still delivers messages, and the TLS ULP can be installed
-after SIOCKCMUNATTACH.
-
-Fixes: 662fbcec32f4 ("net/tls: implement ->read_sock()")
+Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
 Cc: stable@vger.kernel.org
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
-Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: minor description tweaks ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- net/kcm/kcmsock.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ mm/memfd.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-index a7f94d42036f..e0d6536306f4 100644
---- a/net/kcm/kcmsock.c
-+++ b/net/kcm/kcmsock.c
-@@ -30,11 +30,19 @@
- #include <net/kcm.h>
- #include <net/netns/generic.h>
- #include <net/sock.h>
-+#include <net/tcp.h>
- #include <uapi/linux/kcm.h>
- #include <trace/events/sock.h>
- 
- unsigned int kcm_net_id;
- 
-+/* Not registered, so TCP_ULP can't select it. It only holds
-+ * icsk_ulp_ops so tcp_set_ulp() refuses other ULPs like kTLS.
-+ */
-+static const struct tcp_ulp_ops kcm_ulp_ops = {
-+	.name = "kcm",
-+};
-+
- static struct kmem_cache *kcm_psockp __read_mostly;
- static struct kmem_cache *kcm_muxp __read_mostly;
- static struct workqueue_struct *kcm_wq;
-@@ -1272,6 +1280,14 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
- 		goto out;
+diff --git a/mm/memfd.c b/mm/memfd.c
+index 507c00ce0fda..131fb772ad65 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -484,6 +484,8 @@ struct file *memfd_alloc_file(const char *name, unsigned int flags)
  	}
  
-+	/* KCM takes over read_sock() and the socket callbacks like a ULP
-+	 * does, the two can't stack.
-+	 */
-+	if (inet_csk_has_ulp(csk)) {
-+		err = -EOPNOTSUPP;
-+		goto out;
-+	}
-+
- 	psock = kmem_cache_zalloc(kcm_psockp, GFP_KERNEL);
- 	if (!psock) {
- 		err = -ENOMEM;
-@@ -1305,6 +1321,7 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
- 	psock->save_write_space = csk->sk_write_space;
- 	psock->save_state_change = csk->sk_state_change;
- 	csk->sk_user_data = psock;
-+	inet_csk(csk)->icsk_ulp_ops = &kcm_ulp_ops;
- 	WRITE_ONCE(csk->sk_data_ready, psock_data_ready);
- 	WRITE_ONCE(csk->sk_write_space, psock_write_space);
- 	csk->sk_state_change = psock_state_change;
-@@ -1382,6 +1399,7 @@ static void kcm_unattach(struct kcm_psock *psock)
- 	 */
- 	write_lock_bh(&csk->sk_callback_lock);
- 	csk->sk_user_data = NULL;
-+	inet_csk(csk)->icsk_ulp_ops = NULL;
- 	WRITE_ONCE(csk->sk_data_ready, psock->save_data_ready);
- 	WRITE_ONCE(csk->sk_write_space, psock->save_write_space);
- 	csk->sk_state_change = psock->save_state_change;
+ 	file->f_mode |= FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE;
++	/* a regular file like any other: POSIX.1-2008/SUSv4 Section XSI 2.9.7 */
++	file->f_mode |= FMODE_ATOMIC_POS;
+ 	file->f_flags |= O_LARGEFILE;
+ 
+ 	if (flags & MFD_NOEXEC_SEAL) {
+
 -- 
-2.50.1
+2.43.0
 
