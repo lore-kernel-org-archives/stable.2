@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306069;
-	b=UBn5UCc/Y9CYEgD/XPOt3C4+FsdgdwsjmETSt7NErYi44Ri+ljReXntowTRDHgZyFQG4
-	 zx/3dWo/5u53MOGhLnG7R1fSHcxjjDB9Eui0Rfhwfwk/gCEjSOt/DFKzFdtolrkiKvjKD
-	 qZS1BIKzGix0erK7x2AEk2ihrdeC9R4P1Cn+i5TT1FkqxASD4AEkyfUuAl8iZezeiW86v
-	 Pn8U6AgPbnJ4KZ7RH4hHABXGXTIjsBbV/i/N2CgfYO6j0XeFgf12tmh1EEfTb6aCC835q
-	 rRS60HCvEmgQ93+RWhqP7PzIq1Lbq1z1i/ez0ixt6jmXVqiRYFPV6ZCahoX5iNozuMw==
+	t=1793306084;
+	b=18gMC1ELkEjJjFKk3eVbLW/IkzWvZPMrOJ43t9gEIwH0ujkSC62ybln+t/EaJbG9PZ+g
+	 P8IGCaj1ctf90/FH9Xm6i7YW2/5bNjUrCM/V3ghoGFkaG30KMtyGZvGNkZ4Cmqxh62ELB
+	 A58zL92OvR6PjzjzXPw4ZcCHuPWOLeHiWZqnUpU7okgXt9d40I8dlbrnVEgZhiPF6UuHg
+	 EwJlNoRby4lO+DlHH2fsIA3i6T7h8Uy5+SBVFy3qUXb1P5cMYq74ur9P/6k+4KiJXCl1/
+	 k48bJtJLPk5S9u26V8sQrWm2Hwy8438ulbJmPQasq74ps7BAT7iEt5h17FgqPhaEG6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306084;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=oT+YqEtlQbND2mfRTH9TILHjv0P3Fo80cSp1PCr5wUg=;
-	b=gPTThOmp0ds5puFQTXB77m+sHfRIXdX72fiRjWhoTvtZqYFI3lzVVc51MN1kXVvxEQ1R
-	 m6ASkYellBOFmxqShHO+2TtqF05xfMP5RI43SiYd6Rb0tpPu9TjiXuYhGdt900OLuQpmp
-	 u7pXQygWKVosWg9Zgy1KDKakz7XxUAzsrQSYFx3Qc4hDO7qCEN/PcS2WJOzcby2vrehhV
-	 mcFzotms1+YSnd1d30Caud4vcN7h0lYx9iCPbhptB+HXwB9z338WG3ePitAlfhE0QdOeo
-	 /o02vIQwZUuMi/5oT9m5JYFChcEZ7zdva5pzeABm04rG32PT6lUHDkyOSDoyONJxtfA==
+	bh=8NeWgKC8rFJYZ7CY//H5MJ8mlDLPVUlB7WRXqG52bhs=;
+	b=NgTxJugN77F+mtgm6HDqm1r3LMhNeCGtjJYKMcyjDU1gsqy9nn4if4PQPJUcMlKPbw1v
+	 cbjLYwxh//r78v8/FSydd5ooVgZEJKnRGpB2NpnZT6QC/j9kkzk5L/GM7HsDhg6dShMAN
+	 weYRHzJn8K/clNr03qJhNtA5rcF68hZmTOBaDrSzSCdVkczTVMHK8XlvaIvKKX8QaUDrx
+	 n97afPQwTG7Hs4moUF/VYXYGTL4OFAgsk5m08YgrvetZyMPNaVDgj6nZ2vZB41ecy9/cP
+	 3lN+lFXPEaI9iTC+H2AvJPlSdz5TVb503K1UGyFl00+8dhiGFwiVN3Vnl0E5pfwDP/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjSyyyt2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5YlBqSR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBF2606A31D;
-	Thu, 29 Oct 2026 20:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13339606A31D;
+	Thu, 29 Oct 2026 20:34:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjSyyyt2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341E61F01816;
-	Thu, 29 Oct 2026 20:34:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5YlBqSR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1371F01825;
+	Thu, 29 Oct 2026 20:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306069;
-	bh=oT+YqEtlQbND2mfRTH9TILHjv0P3Fo80cSp1PCr5wUg=;
+	s=k20260515; t=1793306083;
+	bh=8NeWgKC8rFJYZ7CY//H5MJ8mlDLPVUlB7WRXqG52bhs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SjSyyyt23NhzYdLUJQzjyOqLwA8+XnmlLC5njjzlYt6G5ocTnXx44lnZTPI/B7exG
-	 Tpqip0IMnoVAS6p/71GtzFblSHA6svKrTkHsAq9WcnMlGJUdiQBwr4XlMyXh12ZqvM
-	 PMICUX0jeBtzxG34zNZAKpfGD12ftE+vqPHD+fywpcJnjaLgQt+vpN4uGZcLThOK8u
-	 D1jTUIEWcxMJjlyTBTqH9cb9voaIk3GpZ5mh8GmYLQdLgkQJ6rmEWMxh6gdHx15QIA
-	 Ie2Q4Jtu03dezRZ2IiU2gLRK/y+6l0H5VxNnAzVZG2SouSugNYWL5yMEENxKvREYzJ
-	 LvERDYWVFwK4Q==
+	b=h5YlBqSRsRQCrhmhb7220/BdTpbl1XOfJ22+z1dVZFlRKfbL+drAxRpvK5BSKbiqk
+	 z4Yx0Re+/RHynvRBIbM1ppOnJLhfWmgi513P3ua5Wr9IbSLQ8emJZl3Yi/oNEiOcR3
+	 hej0anVMIrPJH6EUcTvHJWuxdJ+OMBQE2DpDrm0QmaVdek3+JEirmytsKmT42UjcWp
+	 Cto2aIPZHz2WPdzD6lBNoM479P0R+mPiBjCn083hWSKlAH1IBn8toFkmcHR4qEDSMq
+	 3x7FIDUx5x9Hf7AdMTO6otEaq/aNaHmVondhDFgT3OpBGeXkzBP5HUf1Z1lrXn1/5Z
+	 r2urf3Jip4tiA==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:32:59 +0100
-Subject: [PATCH v2 04/47] mm/memfd: make f_pos accesses atomic
+Date: Thu, 29 Oct 2026 21:33:00 +0100
+Subject: [PATCH v2 05/47] mm/truncate: look again if a folio left the
+ mapping
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-4-a64ce7f83abb@kernel.org>
+Message-Id: <20261029-fixes_core-v2-5-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,80 +93,103 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2770; i=david@kernel.org;
- h=from:subject:message-id; bh=nYtl8pReTocJvpHuEkN/fjyaxBPiNA2Y0oMG8lh8AYY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer22xkX+5Wkk7rWjRXY2Wt0+XTo3qWFSprqoufvySW
- 8BivVlHOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiI701GhvMcKwXqeEUK1hzV
- juE376/hNWV5cNDRsyVF2ofV0GlGGCPDGvUzvfqV+ta/o6LsdG0TzrptVd5fecV8r1nh2W27GjU
- ZAQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3335; i=david@kernel.org;
+ h=from:subject:message-id; bh=8zVtiTIPHUHGhLtYGmDF+TjVfOwqhbOhyrdIJGBJe/g=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer22p+/bitVtd6s75Z3g2zq/IlNg9X5CvRELkVamsm
+ V7AxoMfOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjI36uMDHfMu/aWOrHVagjM
+ 981Tuuth9qL13rEDrMmT/086Jvnv+ytGhh02l8sV7tQmRFyczcXj1TZlj9uXvw4ej0XnNipX1fN
+ acwIA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Josef Bacik <josef@toxicpanda.com>
+invalidate_inode_pages2_range() skips a folio which no longer belongs to
+the mapping by the time it has got the folio lock, on the assumption
+that somebody else has removed it from the page cache. But the folio may
+have been replaced, and then there is a new folio with the same data at
+that index.
 
-Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
-read(), write() and lseek() on a shared open file description of a regular
-file serialize on ->f_pos_lock.  The flag that asks for it,
-FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
-too, but its struct file comes from alloc_file_pseudo() and never passes
-through do_dentry_open(), so it does not get the flag:
+For most cases, like folio migration, that is impossible. However,
+collapse_file() only checks the refcount of the old folios, under the
+i_pages lock, and relies on their folio locks from there on. That works for
+users which repeat the lookup when they find folio->mapping changed.
+The following scenario is, however, possible:
 
-  CPU0                                CPU1
-  write(memfd, "a", 1)                write(memfd, "b", 1)
-    pos = file->f_pos  (= 0)
-                                        pos = file->f_pos  (= 0)
-    vfs_write(..., &pos)
-                                        vfs_write(..., &pos)
-    file->f_pos = pos  (= 1)
-                                        file->f_pos = pos  (= 1)
+  CPU0 pwrite(O_DIRECT)               CPU1 collapse_file()
+  kiocb_invalidate_pages()
+                                      read the folio (old data), lock it
+                                      refcount check
+  the write completes                 copy to new_folio
+  kiocb_invalidate_post_direct_write()
+    find_get_entries() -> old folio
+                                      xas_store(new_folio)
+                                      folio->mapping = NULL
+                                      folio_unlock(folio)
+    folio_lock()
+    folio->mapping != mapping
+      -> continue
 
-One of the two bytes is overwritten.  Two threads writing 100000 bytes
-each, one at a time, to a memfd end up with a file that is far shorter than
-200000 bytes, while the same program on a tmpfs file never loses a byte.
+In that scenario, the collapsed folio with the data from before the write
+stays in the page cache after the write has returned.
 
-Set the flag when the memfd is created.  As for any other regular file the
-lock is only taken if the file is reachable in more than one way, and
-nothing a memfd does in read or write waits for another operation on the
-same file.  This cannot be done for all alloc_file_pseudo() files: anon
-inode files such as eventfd are S_IFREG as well, and a blocked read holding
-->f_pos_lock would lock out the write that is supposed to wake it.
+This used to be impossible, as khugepaged only collapsed files that nobody
+had open for writing.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+Restart the lookup at that index, like shmem_undo_range() does. The same
+problem seems to exist in truncate_inode_pages_range() as well when
+truncate_inode_folio() fails, so handle it there as well, but slightly
+differently: simply check once more through find_get_entries().
 
-Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
+Fixes: 1b6444331beb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: minor description tweaks ]
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/memfd.c | 2 ++
- 1 file changed, 2 insertions(+)
+ mm/truncate.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/mm/memfd.c b/mm/memfd.c
-index 507c00ce0fda..131fb772ad65 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -484,6 +484,8 @@ struct file *memfd_alloc_file(const char *name, unsigned int flags)
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 733d2713a875..9e9bf029635c 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -475,8 +475,11 @@ void truncate_inode_pages_range(struct address_space *mapping,
+ 		}
  	}
  
- 	file->f_mode |= FMODE_LSEEK | FMODE_PREAD | FMODE_PWRITE;
-+	/* a regular file like any other: POSIX.1-2008/SUSv4 Section XSI 2.9.7 */
-+	file->f_mode |= FMODE_ATOMIC_POS;
- 	file->f_flags |= O_LARGEFILE;
- 
- 	if (flags & MFD_NOEXEC_SEAL) {
++	if (start >= end)
++		return;
++
+ 	index = start;
+-	while (index < end) {
++	while (true) {
+ 		cond_resched();
+ 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
+ 				indices)) {
+@@ -499,6 +502,7 @@ void truncate_inode_pages_range(struct address_space *mapping,
+ 			folio_lock(folio);
+ 			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
+ 			folio_wait_writeback(folio);
++			/* Do not handle errors, we'll do another lookup */
+ 			truncate_inode_folio(mapping, folio);
+ 			folio_unlock(folio);
+ 		}
+@@ -760,7 +764,12 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 			folio_lock(folio);
+ 			if (unlikely(folio->mapping != mapping)) {
+ 				folio_unlock(folio);
+-				continue;
++				/*
++				 * Folio might have been replaced: look up
++				 * again.
++				 */
++				index = indices[i];
++				break;
+ 			}
+ 			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
+ 			folio_wait_writeback(folio);
 
 -- 
 2.43.0
