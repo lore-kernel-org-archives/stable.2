@@ -1,61 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793284284;
-	b=xeV997osUGbeSiS6eduiehkkL5gmbkjWcu725JxCjFTNqaA+GBsIORpVPDYVhtv+W9m3
-	 NWaOZTtrgKi9dqFHI+be9EzFO3DBcXwjox/ikADU07/lhgSeODQozO9PxrXDPvVZBC8Er
-	 cm3Yyxxm2HxMhPm94+gr5uQCAxWsUQyOSUG02lrkx4tzGwDtDoADrmq//Ei6tUq/CK5VH
-	 U2koJv2wiZjNN8QUN8mVhwfbmr+dQ6RjCHYw9GilGLMXPgOly1X4zJZa2hB5Uy9nV23Vy
-	 k0x8F5PkcrHIUzGXs9KVyhw5y+nKPphgQPNK/7PkkKTrRUG7JbCZGtc+zKAM+gC1HRA==
+	t=1793284290;
+	b=RNVeEvasIHoY+SpcgLnZ/YIqUDGuYiA6rAbx5hsqTUA+QdBO8cVtr94Hymogu2sHE20B
+	 ENd7FPoy2FCg4Mf9YN20Py1HbEsVgE7vxTJh6WHydIb3aupuCf2Ngcvc+UNp2iPZgP10b
+	 O2zblC+GTuTyqggnfG+u5ja375CUgfNXzQwUCLrcICMnFruGCKObhw3VTFOQXHILDtddp
+	 ZKY26dDBLD/lVI1hLvtRQG3muzB88gBJnYrhqlZsfQM1N7D5c5gN6nHaUTryrC7UQ3l+A
+	 Z99nNfW5vJRvwWT/JNLRbJf6OX75REsOl2Dqs1cm+Oe/d+DcM1/4K7i8OysWxlgS2oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284284;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=01nmAsoYPJKA+BrrlSiNtDfrv6z2N8+l8YqH7IDGRcI=;
-	b=3LYuNBpEqKJ55LoIWcl9E5G/T7jwnbenRG1faKQq6vp9Gce4nXGTVyrRrjXCDKD5xQ23
-	 Ieva0c0cWpM1LEvHit+cE+1WpJuHhDvvJwVCHXZRsr2b1KqkbVvIthRXTUmH9W/Tq9yMG
-	 4HvdtkgzYaFE/GHj+G6998bcmzSMbekX5pD5YFdnksq7I592GkoVs2y3Pu3MJmqe95Wdf
-	 dWuxt9ZI4AcctWUWjeLlUWDS+9qIT282eNA3pEm1cGyDDsW12TXX+CpCx6zKLE5nLdY6h
-	 VJDXHaLZiuA98SeUSf1B7OkG7tl0BGKC7tU/Hi8fHN8+F2Lm3293yHEhWdvjLuBMsAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284290;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=mqXY1OcC5ARgzPi+R8XxHlz09YM9rQmQCBQ/7d/aXCU=;
+	b=4IPrk3U6c85toq97lxDzV82in1vhenyd7EwynPGojvc9nAUdoM8x44uRW83G/YmDqxG3
+	 P9uDoVjJ9QB3lOzaLMYmXrY2qgeiClqlM00/mqBjsn+fM/PABGhhdgnC5LhgniIgJpJiZ
+	 YUMf7kN4Yt9r1WRWE0BgHM2zyduIa+TSFMuc2JQuTiot3fQ+iW+K6dIEDDbEGnffPcnae
+	 klWDuvTKiT/1d1kZ5bRE5WxHlmTFgAbBhzQLEOrGxnzPPevt6yBbI6OuzMui2QatgF7SU
+	 hkLH8T10pbQQsQkPsirIJ6D+4UlmW+G2SdaX5mqu8+3xPDMLP+3XWiyxsC26XFHlnTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=yLW1Gt9u;
-	arc=none smtp.remote-ip=216.40.44.16
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+7+kNzI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FDF606A31E;
-	Thu, 29 Oct 2026 14:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00FDF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59895606A326;
+	Thu, 29 Oct 2026 14:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=yLW1Gt9u
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 7759BC0404;
-	Thu, 29 Oct 2026 14:31:21 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id EADE02002E;
-	Thu, 29 Oct 2026 14:31:18 +0000 (UTC)
-Date: Thu, 29 Oct 2026 10:31:17 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Anvik Loitongbam <permissiontogallop@gmail.com>, Pavel Begunkov
- <asml.silence@gmail.com>, Olivier Langlois <olivier@trillion01.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/napi: fix list use-after-free on PREEMPT_RT
-Message-ID: <20261029103117.50aae919@gandalf.local.home>
-In-Reply-To: <3fa26fac-5317-4c09-a181-c9c15e124972@kernel.dk>
-References: <20261029102244.141621-1-permissiontogallop@gmail.com>
-	<502f31ed-dd70-469c-b433-577ccee36c3f@kernel.dk>
-	<20261029094842.58dc252d@gandalf.local.home>
-	<3fa26fac-5317-4c09-a181-c9c15e124972@kernel.dk>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+7+kNzI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB091F01829;
+	Thu, 29 Oct 2026 14:31:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793284290;
+	bh=mqXY1OcC5ARgzPi+R8XxHlz09YM9rQmQCBQ/7d/aXCU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S+7+kNzIX2ZMdfMr/hr6l4bhKncW3jvATRjUZNWSosKkVDp+gfFYQ4kqjyiXjyyAK
+	 gs5kPXW8xG/0KT+HvaTk4xQTZL9v3hHSNBHmZpL8Pp7wWOJucUIy6ZbUAV4KXBR9x1
+	 WYtze+u+asK21+yj3mqxwfp+1brn7eF/wYYE4dYb/mAQp0dP7jvSdnFY4f35xAZv1W
+	 1wJ5WknxozTNNR3uE3WCHiS9+iQbSjFlGEJv0CzUW305T8TDzosH2HSKrlhpFrYV0d
+	 IFR/sChwTcpkPvhDuq0AUrOOuXSZfwDloqRcMjT2PK3CjH1QEgeNOgtYdTI1xnrx0/
+	 Ylgvn4jx6UkMQ==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id D7CDE198003A;
+	Thu, 29 Oct 2026 10:31:14 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Thu, 29 Oct 2026 10:31:24 -0400
+X-ME-Sender: <xms:sljjasqqEYG9A6MGaYyB4phrmTc2UR4CNo6cGE6o9_kIYPTyiUFFXw>
+    <xme:sljjamQukc3mBiYHzNxlKORPPuNOLZVFK_EljO4aa-UFfATXcXfDpFeOOR5ySp5e3
+    2W3oY_IYOPYN4_89WjzZLcMZHSh89B7LCmJxyMw7LqTGE41QgnPebOe>
+X-ME-Received: <xmr:sljjaocHgpSsSPKdmipnZxJV5PxaUcKSr06Kl253C0MMkKvw-vVhmbCWn5g>
+X-ME-Proxy-Cause: dmFkZTEZfGskmN/KIALm0CJB+7YSa6+/0z6TYSZsJYszNysoKl9ha19QRgLMFtDXR5YTJU
+    /ZtSllXOANZXHyFMLUtTazs3TqL4wn789TDCt9Clg6UWb/6TcorYCgPnRO1yG/d+ASCNki
+    ef8dq7SubLCazhJOigTaPhJlXCh+AauxneJX30NAaSC9cSSvOTgd/RYPeHFhgwmIxxm9Yd
+    XUnA7opn8M6R0HNovJsW3EeF88ulEUJFLh9pAaky7aJDjYSiN5BtFPOV7TerL4btsXoEPq
+    cp6ZV2vmAclzI+C8mBPXQk99548l2lhaunvBg1pEEnk0CURYD04FMA3h2gwijrqVLBamEX
+    +KoxpWN36HbdMDBokyDgZcydhpS1f9KgI8PaFAed8ADm5abJnc6vuHwnggI8aO9IAtffDI
+    ipCbDbz1M0bdaXw7zTOgeTBkOyOY6iObnEFXJnh8OiD+rhFLRxfOgjlS5bLqPRuXOEA7dc
+    zuovqc0yO0PHGX5SV5M+OqtwEuHlLIRmba3XmtKAmvZQn97ay5w+2tiMYysvPf4WcLEm0y
+    mClz5VTCDYXL6iInsVZEfxH8cbr6DpXm1B3a05NNC7Hkc4aI3diZhsPjvb2EocdX3sTJRy
+    rSmOHFVblnqwyUxgB9IIfYCWAnZ7TnDQAP2A4F7kC+UwttipX8k4t0q/Ks7w
+X-ME-Proxy: <xmx:sljjao3Ii9-U-1biFjXoSLWZyLnxsgW96gQbMsquBxpP-XHQC1zwiA>
+    <xmx:sljjag3mwxkldqLKpz1tkxq02ICrVtXAsM5jokWmrb5wmUqUqwkszA>
+    <xmx:sljjahBJ84sMoOzMrfPwa0DHewrgQa8hcJrYxzjtmbxK_1HTl4OrnA>
+    <xmx:sljjan8zr5rDWNd6RB2AB-_VoITYIhzyaD_PXTriegZPBPyEHpV1SA>
+    <xmx:sljjag5aYtzxuNskXd_FD4Xl48JUUUMw0e1pRDrBF8NHnpEZV_hBWtA3>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 10:31:11 -0400 (EDT)
+Date: Thu, 29 Oct 2026 14:31:10 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 42/46] mm/huge_memory: split huge PUDs when adjusting VMA
+ boundaries
+Message-ID: <auNYPPlCnLdN88t_@thinkstation>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-42-6f74bec9a5bb@kernel.org>
+ <auMxQPze5cOvGbCe@thinkstation>
+ <9f4128a4-85fc-4f4b-ac41-b9d348f56e37@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,50 +114,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 4imy6fuq1gw3qz839ne4ra8f87xkf4j7
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: EADE02002E
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+JjW6nO4iATk1vhHY5G07RHKR/Uknq/JM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=01nmAsoYPJKA+BrrlSiNtDfrv6z2N8+l8YqH7IDGRcI=; b=yLW1Gt9uOF9d3jofjHLXly8TvL4ePv/Or19oXbgLrLm2x7i/OEkGz2BZbM2VwgAApsiRS+GjidI1dAlVxtBaEBVDGXS5npYDFdAwA5ZT4d6RMzCKGErIQxIo2gZxh7la6j2Z+DvUsKxt8yUFrj22gMDHR0p+exPFf+y6ucH3i4I=
-X-HE-Tag: 1793284278-788853
-X-HE-Meta: U2FsdGVkX18tlO22/dU+v0bLBcjGy/MNd1iHM0GJf4s1P3ZPPyejYm/PybPM6Oo2EzDV+CzfKqwapgcI3dLKaGXlOIzMKsMciDOociJfLK9gjrD6PflnPBas0alvblkhG4Y7QS5Xcn8fJN9uv+8fKYPDNkUSgUs6Tp9CylhQlzi1dMbSXSq3iOsg3DD9vRUAEeeRm6y7PLbIk8Lh3YTaWTJbIyJXFhF8rSprdP6H6m+yMqmHR5g/wX1O1Fp70a7ioQqgvAWC7NeHlepL/U81ZUYz50eR0PUJDfFQzL6UDaFRCnoO7xuQB3WYICDIWtp/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9f4128a4-85fc-4f4b-ac41-b9d348f56e37@kernel.org>
 
-On Thu, 29 Oct 2026 08:28:13 -0600
-Jens Axboe <axboe@kernel.dk> wrote:
-
-> On 10/29/26 7:48 AM, Steven Rostedt wrote:
-> > On Thu, 29 Oct 2026 07:42:09 -0600
-> > Jens Axboe <axboe@kernel.dk> wrote:
-> >   
-> >> I don't think your analysis is fully correct. On PREEMPT_RT, spin_lock()
-> >> should still be an RCU read side critical section. __rt_spin_lock()
-> >> calls rcu_read_lock() after taking the rtmutex, and then
-> >> rt_spin_unlock() drops it at the end. There's even a comment on
-> >> kfree_rcu() callbacks in there too, it should not be able to run until
-> >> napi_lock is released, which is post the loop.  
+On Thu, Oct 29, 2026 at 03:24:29PM +0100, David Hildenbrand (Arm) wrote:
+> On 10/29/26 12:45, Kiryl Shutsemau wrote:
+> > On Tue, Oct 27, 2026 at 12:18:02AM +0100, David Hildenbrand (Arm) wrote:
+> >> PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
+> >> allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
+> >> only handles PMDs.
+> >>
+> >> After faulting a writable PUD-sized VFIO BAR mapping, changing its first
+> >> page to read-only with mprotect() makes the PMD walk treat the PUD leaf
+> >> as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
+> >> the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
+> >>
+> >> Walk the page tables once at each adjusted boundary and split a huge
+> >> PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
+> >> PMD-aligned.
+> >>
+> >> Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> >> ---
+> >>  mm/huge_memory.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++++--------
+> >>  1 file changed, 60 insertions(+), 10 deletions(-)
+> >>
+> >> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> >> index 08e58cda7d37d..d090642ac8c2b 100644
+> >> --- a/mm/huge_memory.c
+> >> +++ b/mm/huge_memory.c
+> >> @@ -3503,16 +3503,66 @@ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
+> >>  	__split_huge_pmd(vma, pmd, address, freeze);
+> >>  }
+> >>  
+> >> -static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
+> >> +static bool pud_split_required(const struct vm_area_struct *vma,
+> >> +		unsigned long address)
+> >>  {
+> >> +	if (!IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
+> >> +		return false;
+> >> +	if (IS_ALIGNED(address, HPAGE_PUD_SIZE))
+> >> +		return false;
+> >>  	/*
+> >> -	 * If the new address isn't hpage aligned and it could previously
+> >> -	 * contain an hugepage: check if we need to split an huge pmd.
+> >> +	 * Only selected VMAs support mapping PUDs for now. Lift the
+> >> +	 * restriction once this changes.
+> >>  	 */
+> >> -	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
+> >> -	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
+> >> -			 ALIGN(address, HPAGE_PMD_SIZE)))
+> >> -		split_huge_pmd_address(vma, address, false);
+> >> +	if (!vma_is_dax(vma) && !vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT))
+> >> +		return false;
+> >> +	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PUD_SIZE),
+> >> +			    ALIGN(address, HPAGE_PUD_SIZE));
+> >> +}
+> >> +
+> >> +static bool pmd_split_required(const struct vm_area_struct *vma,
+> >> +		unsigned long address)
+> >> +{
+> >> +	if (IS_ALIGNED(address, HPAGE_PMD_SIZE))
+> >> +		return false;
+> >> +
+> >> +	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
+> >> +			    ALIGN(address, HPAGE_PMD_SIZE));
+> >> +}
+> >> +
+> >> +static void split_huge_leaf(struct vm_area_struct *vma,
+> >> +		unsigned long address)
+> >> +{
+> >> +	const bool split_pud = pud_split_required(vma, address);
+> >> +	const bool split_pmd = pmd_split_required(vma, address);
+> >> +	pgd_t *pgd;
+> >> +	p4d_t *p4d;
+> >> +	pud_t *pud;
+> >> +	pmd_t *pmd;
+> >> +
+> >> +	/*
+> >> +	 * mmap, VMA and rmap write locks protect the walk; the split helpers
+> >> +	 * take the page table locks.
+> >> +	 */
+> >> +	if (!split_pud && !split_pmd)
+> >> +		return;
+> >> +
+> >> +	pgd = pgd_offset(vma->vm_mm, address);
+> >> +	if (!pgd_present(*pgd))
+> >> +		return;
+> >> +
+> >> +	p4d = p4d_offset(pgd, address);
+> >> +	if (!p4d_present(*p4d))
+> >> +		return;
+> >> +
+> >> +	pud = pud_offset(p4d, address);
+> >> +	if (split_pud && pud_leaf(*pud))
+> >> +		__split_huge_pud(vma, pud, address);
+> >> +	if (!split_pmd || !pud_present(*pud))
+> >> +		return;
 > > 
-> > Good point.  
-> 
-> If even the preempt rt people can't get this right, that's a little
-> worrying :)
-
-I really didn't even take a deep look at how preempt-rt was involved. I
-just didn't like the assumption about the RCU internals in general ;-)
-
-> 
-> >> IOW, I think this patch is unnecessary - there's no bug there. The list
-> >> safe change could be done as a cleanup, but it's not a fix.  
+> > This looks wrong.
 > > 
-> > I agree, it should still be applied, but as a clean up and not a fix.  
+> > We should bail out here if PUD is was a leaf and wasn't split.
 > 
-> Sure, like I said, as a cleanup. But would need a resend as the
-> analysis in the commit message is entirely wrong.
-> 
+> __split_huge_pud() must split a leave. Either by zapping it (what we do right
+> now) or by populating page tables (as in Usama's PoC).
 
-Totally agree.
+No, meant the situation when pud_leaf() is true, but split_pud is false,
+so __split_huge_pud() is never hit. pud_present() is true so we proceed
+to pmd_offset()
 
--- Steve
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
