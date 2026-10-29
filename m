@@ -1,86 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271124;
-	b=V6GWKMuo1U2CgmO7UHb/qwitQ3ojXpLyB3B4rTb0DUxaLEXXoCA4yyIFWcf9Ftmr+1e6
-	 4e5talTrx0ys8csPk3OY+3TjdN+FKR6zlzIr209Ntc/mr73hcrYkphJTBziYHqU04Ndem
-	 zPiOEUWccB8EAVeBYpBYEVWrHTWiGUusG7qHwp3qVxtWMaKphXu/qB7tdUBp6G9qHp4FZ
-	 Mf8IVh+EJCqHHswNdvNqY7uATNl6aqeD9lQlZQ0iMd35vV+7VrC3okAj2mgS93W+CL4Yp
-	 086u0VnYwQ+OEFHLEUN0XcurmDkN1nCkGbMJNCY2uWx7gAuhvv2wg8PzsxkUeevvpdA==
+	t=1793271130;
+	b=I+0NqX0mnUVfRfNYMIrMQ+FmOQuNZeDKJdko0lR4K+vI7XTF/r74NHCnPTUuw7zPZzJb
+	 kVyJnHrfUbuVB5L4J0+wVi7xQaEFwFTZ2QNz07rRHAr7TOOmhOOcLYwwujoU0kRd6Ftf0
+	 r6exmglcz42tS8tLQW0AR5/GfXdumaY/ahXnpyzxofYL99UYselOpCiH4rzJzG6xFpiIJ
+	 Jkf1zOBghliqXwtBgk7/rq2MgK97QJSXy/NyPeWLV9Ig8+gVPX1f21M7DOPZhkjxTntL6
+	 Cwe7mHZUb5JXJgN8fS2VrJpjVrhnYF5QIXKHpy8CGMrojaD7ZEDvFYNMeewl9zc6Ewg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271130;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iymo6yWih1u6JSkjazwtYJq1W+j31tigL1sbJo3i2bo=;
-	b=F/hqZGigPq9iZHrJB7eRGy7/3eORfJs4skYP6YwabxOCvsdecWVmDIL11x/j2SDq1jc8
-	 lM4Dn2Dg9n07fULcwbWT8KuSUr5Jfej3W+YBvBWonvt15pDHqzbXpYqu01P2SxxF0a6KN
-	 cww7xrIt+hjCTTTcCjvPvzdVgAtHrgb7WWklFuCSVdGJA3Vhgy4om6mZmpqiSAILjUfXh
-	 tK4SYZdyUQfJSIkugwh2HOKRVn14Q1w53hM6mzE5BDHriTjmHSWOoUGWXVSYb9ZwYOP0g
-	 8diS3PdWXqdY3YBfxelg5qZDF/CTt7jwtcE45y5zwcrmBGTCbcR2aGM63zsP1SXbJhw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YJGyVP59UIBEumPiJG+nyeTNgoOkuxJ2PfWkUy2HMTM=;
+	b=c63I+eJrtrFkNVUYX6htRJ9s3UJ9ftuaFCjyUiws17wtbskFZh0u2mUxboi/0TNgCsMi
+	 MLXlevk9Rw8XxOtvx6uEevrS1NJDor1hNalSXyY68mE4jZAdXU+MOb25EPqJlSqCJsP4d
+	 DLNA10ubKk85Q+/8G8vg7I8TmyU3QfHDf4XGxiPxSPsPEWnl8IarrEjPxu5mik7rifhQU
+	 ZRHBt9GURvyERhm5cz3KhuqvzYvqY8+QGkSjQuGKFZMyve1AFw+anjnuZGFt3tbmyyJf3
+	 /JultyqJSpQh/yjQ1bs2b+zQJZT9qyz1XZx5DIQJVqWMH2ScjJcJDk3VI6pblMm65XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TSZB30aS;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XW1nzIQi;
 	arc=none smtp.remote-ip=74.125.82.45
 Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF098606A31F
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:52:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF098606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8CD606A337
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:52:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D8CD606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TSZB30aS
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so2916250c88.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:52:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XW1nzIQi
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14fc585291cso1762912c88.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:52:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793271123; x=1793875923; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iymo6yWih1u6JSkjazwtYJq1W+j31tigL1sbJo3i2bo=;
-        b=TSZB30aSZew/Y5iJpxyPAdCHSaUlGuRX0vGPWMGscUtyNdl4Gfru7VebT+uqAfmp6z
-         QuRNmBliNwyit8/AV+JZGMrzS05uBUZyaJBYwcrM6V4CAEnFVG1H07Yh8XF6guXXqq/R
-         0K6G6cvVOv6UxRt55KGii+YttWs6XbRYn3Y8tJ0JSK/FGkHwvCu2ElRB76I+w9muGUO+
-         ehdbGY7CFuQhqr3Ct5KWUxe2bQqDJtvarrPkhglzBJlDKwFze5DOofXjDSx9NBRX5hSL
-         ja5G7My3fhuw5URGr6Ba/QVGC9gd8w3GL/SZKX1gX5+fgnfevpEj7+FyT+7DRLu+RlLX
-         hbjA==
+        d=gmail.com; s=20260707; t=1793271129; x=1793875929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YJGyVP59UIBEumPiJG+nyeTNgoOkuxJ2PfWkUy2HMTM=;
+        b=XW1nzIQi4H3OuoU9THImPRKoMX39uKEa2/UmpkhhWUjm7EAeJ3Adb5D6ulc47NdL9y
+         PBfxdvqQykobWATR78jKBnTxW2BoqtbN2mlkcu/98Eym8KoX9Hz9i+9GPgdgUdvRx7nh
+         Df8q5C3sHVHkDmxTFfIgn/QjWjPSfh098Ib56d6Jt5QRw/nxfTdRBiuaG7Z56rNy7qdV
+         /K5qnV+0RaS2HCFdHzNMmxg52y3rkcTCndb9slcH/OoGh/hfK6G/ishCVpFATqOTLX6Z
+         T1Bwrs38pdoI/4HR185QyfFDn2AdJQjx8WjZd4396IhKTqfMY05x07rkO2m8F/jHBF/U
+         6n2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793271123; x=1793875923;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iymo6yWih1u6JSkjazwtYJq1W+j31tigL1sbJo3i2bo=;
-        b=KxNzYQPBDcEcMOb+GNjO3RJuZSNmEs2Clul/HWCu5IQ8NgPnGqCUgk32ZM24GAsL5U
-         poP3EimRf+P0+Hqcluar/YI5IrKWNZPzImFVbCi8keJ4/hJvpBbFeVD8nuo6801F/lG3
-         uhVegTDnTwzpjnKKQDhAZHI7MbQX5vYtnuzByA336a+u1R+/soffBYCN32ALuUtv13ZP
-         PmIIdc9Z7xY5ZHbSxLy/0b3XBwXaWUxtDEspzmGRSRm6vukx+NWUZ9VZQ/Manawngi0N
-         XiUVJlCrk9dV2dZjtHJmGYIlzuP6pXsquZcgHQpb2LxKrToF01gF9YiOSapahtXTj+Y0
-         HFlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzSfnhgcZZODt3BNg1rPfS1nm9Ul8RplcQSvuzvm3u1TIsHfkgizQwzsDuCmKFNIznLzXSGIus=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDSLI6aaJisHQKc+J+dTuZ9vdXq9no7+WYpThwYxNL0Wd1gjNv
-	vb1GEo4/8tCGm8fH+aHTd0XZFtORZf4sbE8A6t4hO5RShj0qWhqsioF+
-X-Gm-Gg: AYBFou1d4/3gFSdgTnWOuatTn/L8/zYGf0xIK3Y2M1OUVHOoO1J7f9n/JTRIB5HUFSu
-	Y2HekBYbuHKsTRf/rIYBKcu8QdQOTLtXr+CSN4g1OWGycFDT2TZv6gXdmgIScDHxJgSFMDis5A1
-	JOxihArvOBZqTcBVZAMdyj0obS3XpQm4Il3xd+YqOAxao664Z5+Jhg8q4dVTzSgBpyqcvkZjv85
-	d9TBa5v9fnSKyRNI26bXoyFLw2pA7+2pU6gAe7vzwMnULNJlCevNL1IcRFYkQvgsW5Z6rC9r2mb
-	AAsJqOdXKkIQP89LaJJj05F8OgFI/cM6hwL15IXm9Q4gC4HP/vq0Zpek3CVjG/5AdOiBtSlht2x
-	mDDzBqBC8yhDrMIMuM4/1ZPpaNkd4T3hculdLcQjDS7bPcTu2c5mkCrarWYYYgZ1417Rc+oHgDo
-	AK2WjhVKxMwpRrBY3jFJwqOYhoDwdrFrNdCymwfUjWL3n6vvBe795Z7E0Y6CReWI3lPnvi8vgyO
-	4v4T3gjIbiESuZPvGxU1Uj3QUaiw4LXGMaXOaK6wgCPIJEwfndWE95QIrGbPf0upMI1iDV0PCm4
-	v4gEW5LP8QWE8nY3yAss1AI5q4UOpXvrofKmjT4pTZX2
-X-Received: by 2002:a05:7023:c081:b0:14f:8e70:fad0 with SMTP id a92af1059eb24-1a6cfb045camr6418261c88.33.1793271122885;
-        Thu, 29 Oct 2026 03:52:02 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793271129; x=1793875929;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YJGyVP59UIBEumPiJG+nyeTNgoOkuxJ2PfWkUy2HMTM=;
+        b=iRZhUdNgH6ljogi1owjkAm2G2mIEC3hSw1QXLGeNwYaHSqkJS7TQ16M+YbFooOaDLq
+         57nOEcuv3W2Y81WJTxbFB8G3hDpPj1X+gYqgifpmrjd5dENa/4s47gDYPWVtXK6SUumR
+         eNktl/z24bO/+l3jzRiHWshkefwgoKX0x4uw8+RKpDi9tvE9iQeuXe7FXx54G+e85SXC
+         v0d2HTOljiPR8EBCrlcwtmuOXhsXQyim31inMaUclDk3QHiGLfFeA6CLgnct9aEEpaa7
+         L5wZR45/huCGdiDvrmxqAJGAdmRkPjgsqlNUSZwWIQl0fmR4LqRAQFnsHVFrQgrWvXh6
+         mb9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwvWP5TZu0/qn2h5iKXHI8cTXrUio26MIn8Av3DxOPcRZP9ovWc584gmL0XoCR98vMlgtlfaiA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzNOn62N0J36EMD0Snujg8uyaOp3ZyePYIYehmTPbXK4gP6Xlu
+	FLvKvmCmXxGRuddz8NGaP6RKTE3rvdiqgdtpsWF24m+HmRrQ0d2ndOpl
+X-Gm-Gg: AYBFou1RqR6McP1lemPX/sPQrKn7506kilXyqzBqtuuPmVeo4kOeIbF8l43qXFEmzmc
+	WbboH5ziTP7jPtu30OAnVxNqkZtueF0l7KAYw89Fu5I1RwSruykZFNDFksC9fsSKh1j7Fq/aSqQ
+	vrKxvJoICxfgtLvA1Y4ozB1HFNnrOOaHPa7vhQOjs3bsqLfEmhioyP8f69UmQjgr5HYOfJqyAbl
+	AbiiLm1RiGi2BFdAme4jANGl1gXEidBr3pMMWqfGqOLCChVyyBRFcyhQx4AxpTUhB8MDA9LA6S6
+	VAewiASJCwRY9u2EtZOw1kdcwriPNN52gOpEn/7F390LUkLdHGdQNp+aUc1YOpKfA+HJH9IgIFt
+	jIxJtHLfy5a/wrwWeexp/KDJRJ8ixl8RjtZVz/uhkT+VkLWwni8lNEbpjMFseUWYN1N8eaXwbhh
+	uXyiQcwv9jHe7YZ7OSzPEKpl8SBMj74tFgAyjgg+DVJraVipobPYndoL2zKfLDkUkkxisu906GQ
+	qycmjOoGUV7KIvEyPQ6vgjm3GpL5ElkDAPDj6ylTEIToNwtGwCAh+kGTxfWPy9w9Ob5lBahwNpa
+	9UmN1ujxdreE5XWuMd6P4eVhaPtW90m/KhRYMKm88sR2PMYG8jDx2Pyqn4PkKW5AjQ==
+X-Received: by 2002:a05:7022:622:b0:14f:8d59:edcc with SMTP id a92af1059eb24-1a6cd3a116cmr8983973c88.12.1793271129261;
+        Thu, 29 Oct 2026 03:52:09 -0700 (PDT)
 Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75c9fd2b4sm14692245c88.6.2026.10.29.03.51.58
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75fdc1031sm14304398c88.19.2026.10.29.03.52.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:52:01 -0700 (PDT)
+        Thu, 29 Oct 2026 03:52:08 -0700 (PDT)
 From: Joonhoe Kim <26rote@gmail.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: davem@davemloft.net,
+To: netdev-bot+sashiko@kernel.org
+Cc: mani@kernel.org,
+	davem@davemloft.net,
 	edumazet@kernel.org,
 	kuba@kernel.org,
 	pabeni@redhat.com,
@@ -89,18 +91,17 @@ Cc: davem@davemloft.net,
 	deepak.singh@oss.qualcomm.com,
 	pranav.phansalkar@oss.qualcomm.com,
 	andersson@kernel.org,
-	effeffe99@gmail.com,
 	linux-arm-msm@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	regressions@lists.linux.dev,
 	stable@vger.kernel.org
 Subject: Re: [PATCH net v2] net: qrtr: announce local services again once our HELLO is sent
-Date: Thu, 29 Oct 2026 19:51:57 +0900
-Message-ID: <20261029105157.2553-1-26rote@gmail.com>
+Date: Thu, 29 Oct 2026 19:52:04 +0900
+Message-ID: <20261029105204.2577-1-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <at9mFUv1flg-6aMB@debian>
-References: <20261022163116.1042-1-26rote@gmail.com> <at9mFUv1flg-6aMB@debian>
+In-Reply-To: <179303637610.3134.6464335759134048296@kernel.org>
+References: <20261022163116.1042-1-26rote@gmail.com> <179303637610.3134.6464335759134048296@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,55 +111,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 08:11:56PM +0530, Manivannan Sadhasivam wrote:
-> > +	if (cb->type == QRTR_TYPE_HELLO) {
-> > +		/* Pairs with smp_load_acquire() in qrtr_hello_work() */
-> > +		smp_store_release(&node->hello_rcvd, true);
->
-> smp_store_{release/acquire}() accessors are only needed if there is an ordering
-> requirement. But I don't see that exist with this 'hello_rcvd' bool flag.
-> Wouldn't {READ/WRITE}_ONCE() suffice?
+On Mon, 26 Oct 2026 17:39:36 +0000, Sashiko AI review wrote:
+> - [Medium] In net/qrtr/af_qrtr.c, qrtr_hello_work() replays the HELLO
+>   once and never retries, so a failed replay is lost for good.
 
-The flag is ordered against node->nid. qrtr_endpoint_post() assigns the
-node id with qrtr_node_assign() before it sets hello_rcvd, and the
-replay reads node->nid after it sees the flag. For an endpoint
-registered with QRTR_EP_NID_AUTO, the id is only assigned when the first
-packet from the remote arrives. With READ_ONCE()/WRITE_ONCE() the replay
-could see the flag and still read QRTR_EP_NID_AUTO, which has the same
-value as QRTR_NODE_BCAST, and the name service would then send its
-announcements to every node.
+Agreed. In v3 qrtr_hello_work() reschedules itself when the allocation
+or qrtr_local_enqueue() fails. Once hello_sent is set it skips our HELLO
+and only retries the replay.
 
-The flag cannot be set under ep_lock instead, as qrtr_endpoint_post()
-can be called in atomic context.
+> - [Low] In net/qrtr/af_qrtr.c, the new HELLO replay in qrtr_hello_work()
+>   is not serialized against qrtr_endpoint_unregister(), so the replayed…
 
-> > +		to.sq_node = READ_ONCE(node->nid);
->
-> There is no READ_ONCE() in the earlier read. So please justify why you added it.
-
-node->nid is read again here because the earlier read can come before
-the remote's first packet and still be QRTR_EP_NID_AUTO. That is fine
-for our HELLO, as qrtr_node_enqueue() takes the destination of a control
-packet from node->nid itself, but the replay needs the assigned id.
-
-The READ_ONCE() is there because qrtr_node_assign() writes node->nid
-with WRITE_ONCE() and the other lockless readers, qrtr_node_enqueue()
-and qrtr_bcast_enqueue(), use READ_ONCE(). After the acquire the id no
-longer changes, so a plain read would also be correct. I kept it in v3
-to match the other readers, but I can drop it if you prefer.
-
-> > +		qrtr_local_enqueue(NULL, skb, QRTR_TYPE_HELLO, &to, &from);
->
-> What happens to the return value?
-
-It was ignored, and a failed replay was lost for good, as the Sashiko
-review of v2 also points out. In v3 the replay is retried 100 ms later
-if the allocation or qrtr_local_enqueue() fails, without sending our
-HELLO again, and it is queued under ep_lock only while the endpoint is
-still registered:
+Agreed. v3 queues the replay under ep_lock and only while node->ep is
+set. qrtr_endpoint_unregister() clears node->ep under ep_lock before it
+queues the BYE, so the replay either comes before the BYE or is not
+sent.
 
 https://lore.kernel.org/all/20261029105142.2503-1-26rote@gmail.com/
 
-Thanks,
-Joonhoe Kim
+pw-bot: cr
