@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258775;
-	b=IvRulzcegqFvB625JPUpKIN1YOw0XKuHD/+DQ7aGvR5VlSNsxZOP+EpXc5IFAW0q13MD
-	 XvKKSz8PFQbJZ3c7U3tbaaI7LdQ8tbql6096SYwuFCJ+LpwQ5EUCbq2Rs4EvDjT9TMzlC
-	 Sv7wtER3pzXiukfZyfxY+khUENjkeN11WaHfFI9/M6ieL9IheGFeUgkjdtOKbiXO2bS6V
-	 Bh9eAvauhV0GBxrz3lnnbfMECx4+K84abIplSMPKaLvOVREBObt5YONv3rm799sF50Ya9
-	 7dbSIzitbqcMvEXp/ZrZUIexjurkEtPy2NEM513E8RuL9HAxZeB/P6B4Ww6+xHp26Hw==
+	t=1793258780;
+	b=x8c6nusyd/QC5jnALBREWzAdEpU6YUy7VGycp6Fp0z8H3x5Qv5SJ76SkSNtAaIyPAOQQ
+	 Cvv36870zvRp9S+daZhHQxZ/X3pU6aWSbFKw7AT9ReUIweDmOPLvB/+yQ/qDnQoKhrYJ6
+	 mMtgAwFfpgBXLD28wwX3J1ANbyl/3zNpIYYMuGNWxbp4+yl4rJ+cgHrio569qb2g8BG8G
+	 kD6Ojz8H/9foqRdpIdDOEdP8QmQdDNgKpm/zVKPP4KEBeSCqsl3M2RAu0VbKB/lYhCbW1
+	 XF9zoCwYt/lfKbqSU8fzrdgV+tLD2iurel6TaDRo79e4biJ/wGHWO2u+ItXChYzxcxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258780;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fR3gUo6gbt+rTe6quZfvAkmemOu+thOKC6uqOWBnj50=;
-	b=1hHnUmLkSyG5sMfs4d6sTN06XE2jHFi4sGEfcIcfnaDzBhxewJOmff7kK3lu9N8QiRqe
-	 /PrwZjCrn9FsHjhgC5ruz0Mj90BRzAJwQqxzuvNMxaQs2u19mHQFaLz8ITNsKW1EodmKy
-	 RqRlCEfxur+Q6XXrJabQrnzwqnjWGMkDxnPRA679BMiOeZG9+G7YIC6zAiz9XdVAUdK5R
-	 WWkgkoOwI9051g+LtkKsFIZ8TMOouaDySnikmrkt2A0NR7UQ8fmX44O0YcrIZJ3J1IpJT
-	 Xn3rTjcGVlUVopArzr/H+Ki0jySVOPIx7oiU8COTeBXzn0QKhZw1eeSgZ85gTyMnVcA==
+	bh=pqGf7TzgONNCw8lKYpkLElcBFjt1PPT5AcI9ojNr/dM=;
+	b=Fe0PGVff6A/61FHNhWx6bf2EbIbamKmIYI45pl1LigVg94uhY4+KZrdOHoFQP6defdPG
+	 ba5GdOXJI1oTisMg/SRtjp28EKtaNBmN/xA8A4O/60Yw83+hSJKcqzJhrcLxpfK2b0TzA
+	 0HU9V5RvF8Zm8OzSR+l6vXCLgyw3GZYZIb62t9Jt36siNKQmxoFOrTIm/5QcDKjpNQVdk
+	 f4kqNUv1HRv1Dc1Y9zRJ8EHNIZ5j3bak7xIFtXmR7nSI01i1ffzR0sQX3djXJr9iHbIEF
+	 o0N/kjD3ParmVVgGj0lwxAFaOUR2YnjwGPs9L7rg+LC1AYJmDrCL98SKZSJJa0o3ptw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="vO//suvr";
-	arc=none smtp.remote-ip=115.124.28.77
-Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QG227V7o;
+	arc=none smtp.remote-ip=115.124.28.97
+Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5A7606A31A;
-	Thu, 29 Oct 2026 07:26:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED5A7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3D5606A325;
+	Thu, 29 Oct 2026 07:26:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD3D5606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=vO//suvr
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QG227V7o
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793258765; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=fR3gUo6gbt+rTe6quZfvAkmemOu+thOKC6uqOWBnj50=;
-	b=vO//suvrL4MfcDjNo3xxAmaDaIBt3DGkO/FF+Aua8pA3u0JsTBmqgz1ixNAsO01xfoH3kKmOQtv5XBzFjveDP+0/da+R/x1o5ypH++dgRz8Ftu+JJKyRHOodkocFR5LURcrTOtPLRLatBKMZxXwTLnmorlCRXkQs0n89w+5gH1o=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2440847|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00326124-0.000502231-0.996237;FP=14374540439058058531|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.js2f3ue_1793258764;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.js2f3ue_1793258764 cluster:ay29)
+	t=1793258771; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=pqGf7TzgONNCw8lKYpkLElcBFjt1PPT5AcI9ojNr/dM=;
+	b=QG227V7o2c25yrTryCoG8WQARTry6FfR7SQLc1CeNxBFFGSctw3ZygYz527KwOnpH1MI2IARF5RmU0EWQiRSIdEoZz9MdaR8JKSHA52uzqK/ZuzB2BFNgxcHPhGSsimZ43c/G25TWctgpt9gZmMYqxRk918RvdiVtdAe82aZwpk=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07550469|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.068659-0.00107601-0.930265;FP=12679159466549576950|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032065030;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=4;RT=4;SR=0;TI=SMTPD_---.jsBQt5q_1793258770;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jsBQt5q_1793258770 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 15:26:05 +0800
+          Thu, 29 Oct 2026 15:26:10 +0800
 From: Guo Zihao <guozh23@xiaopeng.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: "Igor M . Liplianin" <liplianin@me.by>,
-	linux-media@vger.kernel.org,
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-frontends: si21xx: validate fec_inner before coderates[] lookup
-Date: Thu, 29 Oct 2026 15:26:04 +0800
-Message-ID: <20261029072604.4135019-1-guozh23@xiaopeng.com>
+Subject: [PATCH] media: dvb-frontends: mt312: reject negative values in SEC callbacks
+Date: Thu, 29 Oct 2026 15:26:10 +0800
+Message-ID: <20261029072610.4135820-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,49 +62,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-si21xx_setacquire() indexes the 10-element coderates[] array with the
-crate argument, which comes from the user-controlled DTV_INNER_FEC
-property.  dvb_frontend_check_parameters() only validates frequency
-and symbol_rate, so the value reaches the array lookup unchecked:
+mt312_send_burst(), mt312_set_tone() and mt312_set_voltage() validate
+their enum argument with an upper bound check only:
 
-        coderate_ptr = coderates[crate];
+        if (c > SEC_MINI_B)
+                return -EINVAL;
 
-The enum fe_code_rate range however goes well beyond the table: the
-uapi header defines values up to FEC_11_15 = 18, so even a perfectly
-legal code rate request such as FEC_9_10 (11), set through the
-DTV_INNER_FEC property or a legacy FE_SET_FRONTEND ioctl, indexes
-past the end of the array, and arbitrary u32 values overflow it
-outright.  The byte read out of bounds is then programmed into the
-VIT_SRCH_CTRL_REG_1 register.
+The arguments arrive from userspace ioctls, and the DVB core does not
+sanitize them: FE_DISEQC_SEND_BURST, FE_SET_TONE and FE_SET_VOLTAGE
+cast the ioctl argument straight to the enum type, so any negative
+value passes the check and indexes the on-stack lookup tables
+(mini_tab[2], tone_tab[2], volt_tab[3]) out of bounds, reading
+adjacent kernel stack memory which is then programmed into the
+DISEQC_MODE hardware register.
 
-Verified with a userspace copy of the function under AddressSanitizer:
-crate = 12 (FEC_11_15) reports "stack-buffer-overflow READ of size 1
-... 'coderates'".
+A negative index reads below the tables; e.g. tone_tab[-1] lands on
+whatever precedes it on the stack.  Verified with a userspace copy of
+the three functions under AddressSanitizer: passing -1 reports
+"stack-buffer-underflow READ of size 1 ... underflows 'tone_tab'".
 
-Reject code rates beyond the table so the Viterbi search is only fed
-defined values.
+Switch the three checks to explicit whitelists so only the values the
+tables are defined for get through.
 
-Fixes: 04ad28c9916d ("V4L/DVB (9017): Add support for Silicon Laboratories SI2109/2110 demodulators.")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
- drivers/media/dvb-frontends/si21xx.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/media/dvb-frontends/mt312.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/dvb-frontends/si21xx.c b/drivers/media/dvb-frontends/si21xx.c
-index e64ced2d6..67d644b7a 100644
---- a/drivers/media/dvb-frontends/si21xx.c
-+++ b/drivers/media/dvb-frontends/si21xx.c
-@@ -651,6 +651,9 @@ static int si21xx_setacquire(struct dvb_frontend *fe, int symbrate,
- 	dprintk("%s\n", __func__);
+diff --git a/drivers/media/dvb-frontends/mt312.c b/drivers/media/dvb-frontends/mt312.c
+index 8fe850a8d..0c91b20cb 100644
+--- a/drivers/media/dvb-frontends/mt312.c
++++ b/drivers/media/dvb-frontends/mt312.c
+@@ -374,7 +374,7 @@ static int mt312_send_burst(struct dvb_frontend *fe,
+ 	int ret;
+ 	u8 diseqc_mode;
  
- 	status = PASS;
-+	if (crate < FEC_NONE || crate > FEC_AUTO)
-+		return -EINVAL;
-+
- 	coderate_ptr = coderates[crate];
+-	if (c > SEC_MINI_B)
++	if (c != SEC_MINI_A && c != SEC_MINI_B)
+ 		return -EINVAL;
  
- 	si21xx_set_symbolrate(fe, symbrate);
+ 	ret = mt312_readreg(state, DISEQC_MODE, &diseqc_mode);
+@@ -398,7 +398,7 @@ static int mt312_set_tone(struct dvb_frontend *fe,
+ 	int ret;
+ 	u8 diseqc_mode;
+ 
+-	if (t > SEC_TONE_OFF)
++	if (t != SEC_TONE_ON && t != SEC_TONE_OFF)
+ 		return -EINVAL;
+ 
+ 	ret = mt312_readreg(state, DISEQC_MODE, &diseqc_mode);
+@@ -420,7 +420,7 @@ static int mt312_set_voltage(struct dvb_frontend *fe,
+ 	const u8 volt_tab[3] = { 0x00, 0x40, 0x00 };
+ 	u8 val;
+ 
+-	if (v > SEC_VOLTAGE_OFF)
++	if (v != SEC_VOLTAGE_13 && v != SEC_VOLTAGE_18 && v != SEC_VOLTAGE_OFF)
+ 		return -EINVAL;
+ 
+ 	val = volt_tab[v];
 -- 
 2.50.1
 
