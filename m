@@ -1,58 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280936;
-	b=mWxNliTp0wrZ9VzIFZ2oCKKTDB0joe9BH18ACHVfayxD/bgwZjklNG6sJLkg++MEOfOA
-	 5bTSpxxGaGIFuSK2JjwXGmwWi8hpffMjy9jMLWKYTNjz5RP3R9dfAxefrZkMkW5V/Cl73
-	 rq3Bm7mz1oQ0+vGbCEakFxDP1MyZgV3L7moh3lvJqx5sMJcMuhWRRC+mR1fnleSROHwcH
-	 ABwjNuj2XACt3WdX7etZppZ+5wC1Y0XaCnHK665iB0cWhkUEEWfyaTmHLkAv3IhuaDG5b
-	 oM52wTk9LxmTUpWIxhEgz9YRQczMc+7OcShKADgaUxdz19sFgPCp1ps0Jt1HtjsbPsA==
+	t=1793281031;
+	b=xC6ltpA+Pqib0/ZVJBMIm9OiyACbhVqsc2+wZB/8us2D0kX9RMKJlbp8WAcZCijOX5IJ
+	 8GQP0Co3ZfVDMblX2SpqM9fhu9blxS9kGfMdEz2uvPTQdhh/adAhx7WoJsWTYiWsOOpH6
+	 AXSVCk9X1RqzCwAw4quywxNq/Y0woehEYERv6if7K2ie5M87gw5DxPA2bJs+DhY9MZu5i
+	 VtW49UKY5MCsdHoGyKnJZXCO8xGZcXqAqSCmfgGRDE2It0j9KOl36EmCXh1WQiwB5fu1N
+	 E/PWPJ9bHVt+u1mnd6DZ5b7Mmrg/gvk1lQ9LaWRPWePQJoswkfLuw+UJT3cGNUzABhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280936;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=cpfF8iBPA4nr7a3PiDLkAoIOARyOru5ZKTKo03tTteg=;
-	b=bF8RiYqkWITOjB0j07dAGmHMdIKGuw5niq9ZIRK6jMbev7Hu44ZMWZLMRdpH0lDlqtif
-	 88DE02DY/ixo1R3LvO5mlLKdHfvNyHdd+Jyi4MLTVO4cyKPLPD7B2VQEapNh2029DDjEy
-	 kB2xkaYASsxQEmW807kYyHEYF+Vj0jgkfs1F7Qx8SPCAuohYksH1guNK8uG2eerSTecL5
-	 bwm0LeWYOTqSBGDEQoTg7MDZ45wguOpkrDsjO/mIJVhA9iXTCUPKAxOetu6wP7tUkqEg7
-	 avWSXLIqsMNj9h+Xclhw2DqogpZycjt4sPDQzaHvxdVBMYFygpeB7mVv2uWtDt3UBpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281031;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=yusQ/gNp1al5ffFyiPFxovqkMkBkDvq1/V1A+G8KNP8=;
+	b=tLdJAOrx50SwXPyaXfUlimDvpD/uxyU5zCFBt/onJNmK+Lhkl4cMSAAJWGokDMmARxm4
+	 Fem5dE+im9awOvat4s1ooi4ay2eZmWhwxYY/fibccaiqpC0g1Hz0pguosmixT2ccl6xzG
+	 SAfdCmRiyQdRCVBAagN3XnbIa5P8PPCkDHg+97sittPV8E3JAz8LodGMG5kuNmWendDNm
+	 Nh0zVi7OogDmfK+8M77OwFcdzhLHsj+jGWiy0utAqXLkryjxXNmXnkndv4QMSIGQk334M
+	 dOwk+iRyNcbMEdFAWjwR+IZTzKbOfSjBgIK0CZzevk7LkGqoHzOOp5AbAZHlFWDmKdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="Mk1gkUE/";
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIXuH3oP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70801606A31C;
-	Thu, 29 Oct 2026 13:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70801606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE24960A382A;
+	Thu, 29 Oct 2026 13:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Mk1gkUE/
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 95D15A03FD;
-	Thu, 29 Oct 2026 13:35:33 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 61B7320016;
-	Thu, 29 Oct 2026 13:35:31 +0000 (UTC)
-Date: Thu, 29 Oct 2026 09:35:30 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Anvik Loitongbam <permissiontogallop@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>,
- Olivier Langlois <olivier@trillion01.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/napi: fix list use-after-free on PREEMPT_RT
-Message-ID: <20261029093530.78de06dd@gandalf.local.home>
-In-Reply-To: <20261029102244.141621-1-permissiontogallop@gmail.com>
-References: <20261029102244.141621-1-permissiontogallop@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIXuH3oP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2692A1F031EC;
+	Thu, 29 Oct 2026 13:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793281030;
+	bh=yusQ/gNp1al5ffFyiPFxovqkMkBkDvq1/V1A+G8KNP8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fIXuH3oPbKOQqHa+sb82A1lqdGEE0KcOgjF+PatDaFm43q0tXh6aZfgHVTPVkzhK8
+	 jR0yOowvlHMK1RAA3Gh8EHvmNFZ190IgWKCan6bh89OQ1KHejC1cxKJrwPjErgz80o
+	 GtZ2nO9DmLB3ry90DZ0LhmjrKBrm9bdOrPRHbKa5tH3YviCk87S5bMVhZiS13bbaTE
+	 diYUiyFFeavhUjIW73ix4dDOFSqJsVIrEM0rBfDWS9QMA8oCUgO6HMKrQk71Ol0HKC
+	 t7wrO2vnOAMFY65gPgYkcD9GNDNEe1748kh2kCS7PeaNEk3VFGgZjLQKCOwc3IihDq
+	 15/bp4/cVuzDg==
+Message-ID: <68fd8182-cdfb-4f11-95de-1472e6c92d33@kernel.org>
+Date: Thu, 29 Oct 2026 14:37:03 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,94 +51,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/8] mm/page_alloc: reset can_retry_reserves when the
+ slowpath restarts
+Content-Language: en-US
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20261028211930.3504634-1-gourry@gourry.net>
+ <20261028211930.3504634-2-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028211930.3504634-2-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: z3o9sp9xj5pat4efzsx4pkcn6wc7amb8
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 61B7320016
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+tgncKmmzR1u6rusjOetrrCY/NV7JPxUA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cpfF8iBPA4nr7a3PiDLkAoIOARyOru5ZKTKo03tTteg=; b=Mk1gkUE/B7a0e7zTlK/5P25Vln+QhIjz3k7tKgwH96qdvgjCT+dqH+wSNxvcPiFKuiEkcHvK8sGNnTsBd1NWKznXeFobHnWk7kY+zgC5rtlMqrIWts1/V2LlvGzawsEJ5nhXHX4qJJhgutwCu1vFkKbuETk8MAhhC7dp2pkz1dU=
-X-HE-Tag: 1793280931-685578
-X-HE-Meta: U2FsdGVkX1/0LCuIv5h0CVc6QDc99JixsO5iV5r8bFdhvFOiaM+YSUt4xiguwAk/1yK0YY5JiTtSR2fnO9YhEITi7P48a9zmv4m3UavIJKv7TLcC4awwaSovBgcQn7w/+iBL4P6P6xKvcIxxi7Rc/I0laSkA5nXJozK/tSUM21EsIj/Qh1QXCE95XjmFUOEKLlouldTJFAgpjDv6MZv3uni2tuqC1laM/c34bEp5jZMIFwd8R+r4QPZvyduaEuI704Qmit9CBKZKX5gifeCwau3mt5Hfi/62gSAOmko9Xyj/ViU1GsCPM4SxkVpNx4eeRXEmwLYBAwTQOGzohSmIknpKjWs2KzfhQu0mFI8cRg4rLCu6iJt72IKmmCbu9k3CtC04Ig3yW17gWou3qwtK00+kXFCpieZp0BkgV51aNz4=
 
-On Thu, 29 Oct 2026 15:52:44 +0530
-Anvik Loitongbam <permissiontogallop@gmail.com> wrote:
-
-> Commit 45b3941d09d1 ("io_uring/napi: fix io_napi_entry RCU accesses")
-> converted the NAPI list teardown to list_for_each_entry() and
-> kfree_rcu(), with a comment claiming that list_for_each_entry_safe()
-> is not necessary because kfree_rcu() defers the free to the next
-> quiescent state.
-
-Not to mention, depending on the internals of list_del_rcu() and
-kfree_rcu() is just not good design, regardless that it only breaks under
-PREEMPT_RT.
-
+On 10/28/26 22:19, Gregory Price (Meta) wrote:
+> Commit 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath()
+> flow") retries an allocation once with reserve_flags when the caller
+> becomes eligible for reserves, guarded by can_retry_reserves.  The flag
+> is set at its declaration and never reset.
 > 
-> This assumption only holds while the surrounding spinlock section is
-> non-preemptible. On PREEMPT_RT, spinlock_t is an rtmutex and the task
-> can be preempted while holding ctx->napi_lock. The raw lock inside
-> kfree_rcu() only defers the preemption until it is released, and the
-> release still happens before the iterator advances. Once the task is
-> switched out, the context switch is an RCU quiescent state, if the
-> preemption lasts long enough for the batch to be flushed and a grace
-> period to complete, the callback frees the entry, and the iterator
-> then reads e->list.next from freed memory. The same pattern exists
-> in io_napi_free(). I did try to produce a uaf on an rt kernel
-> build, but it did not work.
+> A restart after a cpuset update or a zonelist rebuild drops
+> reserve_flags
+
+I don't follow, nothing "drops reserve_flags"? after the restart,
+there will still be a get_page_from_freelist() without them followed by
+get_page_from_freelist() with them, right?
+
+> and comes back with can_retry_reserves already false, so a
+> caller that cannot reclaim, such as GFP_NOWAIT | __GFP_MEMALLOC, fails
+> without trying the reserves again.
+
+The "goto retry" triggered by can_retry_reserves actually drops nodemask and
+recalculates preferred zones. Perhaps "can_retry_reserves" wasn't the best name.
+
+> Reset can_retry_reserves at restart.  Only a cpuset or zonelist change
+> restarts the slowpath, so the retry still runs at most once per change.
 > 
-> All list mutators are serialized by ctx->napi_lock, so the entry after
-> the current one cannot be freed before its own iteration. Caching it
-> first with list_for_each_entry_safe() in both loops might be a more
-> safer and correct approach.
-> 
-> Fixes: 45b3941d09d1 ("io_uring/napi: fix io_napi_entry RCU accesses")
+> With kprobes failing every attempt without reserves and the first with
+> them, and a memory block onlined during the walk, the allocation
+> returned NULL in 3 of 3 runs, and a page in 3 of 3 with this change.
+
+So IIUC the allocation was racing with a memory online in a way that it
+would fail if the online happened fully after the allocation. So this just
+turns part of the race window into the allocation's favor?
+
+> Fixes: 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath() flow")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Anvik Loitongbam <permissiontogallop@gmail.com>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
-
--- Steve
+I mean it's not wrong and if patch 5 depends on it (unless it also only
+fixes a racy window in the same way I think is happening here) then so be
+it. But the commit log would need correcting.
 
 > ---
->  io_uring/napi.c | 14 ++++----------
->  1 file changed, 4 insertions(+), 10 deletions(-)
+>  mm/page_alloc.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/io_uring/napi.c b/io_uring/napi.c
-> index 7e698720cd51..d299c89cfc3d 100644
-> --- a/io_uring/napi.c
-> +++ b/io_uring/napi.c
-> @@ -110,16 +110,10 @@ static int __io_napi_del_id(struct io_ring_ctx *ctx, unsigned int napi_id)
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 2daf358269ae..78569ac6f2d9 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -4783,7 +4783,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>  	unsigned int zonelist_iter_cookie;
+>  	int reserve_flags;
+>  	bool compact_first = false;
+> -	bool can_retry_reserves = true;
+> +	bool can_retry_reserves;
+>  	unsigned long alloc_start_time = jiffies;
 >  
->  static void __io_napi_remove_stale(struct io_ring_ctx *ctx)
->  {
-> -	struct io_napi_entry *e;
-> +	struct io_napi_entry *e, *next;
+>  	/*
+> @@ -4817,6 +4817,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>  	no_progress_loops = 0;
+>  	compact_result = COMPACT_SKIPPED;
+>  	compact_priority = DEF_COMPACT_PRIORITY;
+> +	can_retry_reserves = true;
+>  	cpuset_mems_cookie = read_mems_allowed_begin();
+>  	zonelist_iter_cookie = zonelist_iter_begin();
 >  
->  	guard(spinlock)(&ctx->napi_lock);
-> -	/*
-> -	 * list_for_each_entry_safe() is not required as long as:
-> -	 * 1. list_del_rcu() does not reset the deleted node next pointer
-> -	 * 2. kfree_rcu() delays the memory freeing until the next quiescent
-> -	 *    state
-> -	 */
-> -	list_for_each_entry(e, &ctx->napi_list, list) {
-> +	list_for_each_entry_safe(e, next, &ctx->napi_list, list) {
->  		if (time_after(jiffies, READ_ONCE(e->timeout))) {
->  			list_del_rcu(&e->list);
->  			hash_del_rcu(&e->node);
-> @@ -264,10 +258,10 @@ void io_napi_init(struct io_ring_ctx *ctx)
->   */
->  void io_napi_free(struct io_ring_ctx *ctx)
->  {
-> -	struct io_napi_entry *e;
-> +	struct io_napi_entry *e, *next;
->  
->  	guard(spinlock)(&ctx->napi_lock);
-> -	list_for_each_entry(e, &ctx->napi_list, list) {
-> +	list_for_each_entry_safe(e, next, &ctx->napi_list, list) {
->  		hash_del_rcu(&e->node);
->  		kfree_rcu(e, rcu);
->  	}
 
