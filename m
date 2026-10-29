@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268663;
-	b=3qYJuCgPpzh6nWq+56dVimF1/w/feIB7K4fTAMTtbKKFGZmGcjl25ammom29yVOXdzKQ
-	 JF1iM6VmraqgO4qBpka0nlDUsa5+3SK6j1YpQGP3jWn0WGUXa5342hAAqa9Wh5vlrqUgN
-	 VbX4q0zrxgFI82+yy1t03yUnAPHsChim2acEmPpBfJineHKpzFt5OApoyfp1GtcubplKD
-	 rPICv4fc9fI5Km1n6hqSUfk2/Elq3OOiptkKvfiKKM+Ha8EVCgtb3vPDTGyVzEL7JZJ9D
-	 7LaIvdJSHfnvB870f8dxugQYi/fc5IFi6DzE8v339HLgY6fPhtd8HfBT5QSSw1cFiuA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268663;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=5/xKdXGvf0SwURHrf4BSTCHgQstFbzFxNucWmaiO7EQ=;
-	b=TjWsZS6fPX5eOvEGpIsRc/dOYhJy75/NM9vLw3so21AnT5gjuIPB/F+GCXk2keDiP5/j
-	 WL2NgW1md5Tir0KPFjUpJdDlvdZy1OOM+NTgshGVys3V9cml1ssIntA/2kc5Hbzp0uRr7
-	 BspNyPQXdlzA/gKfrtVvmtvLADFrevLYzqy2C9ygU+L9JsZIUTUalVvz7V+J2n8e5Q052
-	 7ViA3h1dCTSo9S7wnfqgfHG2H8JRFXYg1CzGU8dNgM0nTSFydGu9ylSseT3ajqN+blsha
-	 dHvsYbpa6brXYYztR3v9LFvYsIFVTyVIKhwTXDC2ZksBzKSQowHuKmAvZLZ+BVr6P+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gECj2Zuh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RZmCdxqd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gECj2Zuh;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RZmCdxqd;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793268694;
+	b=qJqZQbpkd2MkO+S5kE2EtqyQMXGHb1yV+LCwf+LiobKsORkcxA11K6NXL48a+M9+us+j
+	 rI/hJtA/rl4cFoa2plcamUN7wq076xeb7j4vAgwPO44ubG4BiisavTdPkMYSLMddstkz5
+	 C010a+FG48ZJxU0I9awFi+TijoFADmaifG1pjm4LRImQBnUGhfaWbV/fGipzoZcsRYlUx
+	 egTWaVCQg4axGovBiZkXzl2+ODcatkPy05U8XAOIePSOexMqtQvoPW0DciGo0AcrQC4wa
+	 J+NsZsFJlZYlAmpc5GhPhrMiaZRI2AtqOn/pBgXHx6YHhiPO9lB62U26SOVFEUyxkQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268694;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jgkJopx5kExqkUv6b/vCU6btPQBGSF/P3vuAWpTWJb4=;
+	b=jX0nJ///LVXjEtg/QCmWC1s2VY73Zf91y77FLuZqrbLGWss7DvuO66XnmbmBOugWqYHQ
+	 c+0Q/tLsRDZK4d17uSkwjPKsY5S9j0R5H8AvyBs8HtBBFEuFmofcfcioMueOja/n3eJXV
+	 lIi+jwWKEZI7RZPKt2KXFjysAlobK8MlU7tsyS1nlWAlVhLFkCmteQQ6I+/qtY44YXeiO
+	 3MkiS4F0aoQ/MeSHLBFJxyzVIhEe1yXvw8AIFPx6oh6qwLB3GscB2Q/OnaWr3R7TpjxZR
+	 4KK7O0Emwr5gWIbaSsx6nCDW2bRDYt5dbp3101BP0ZAIrWC0AJNGmAo4qVh0hgAH+lg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m+uDtHfY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BE3606A31C;
-	Thu, 29 Oct 2026 10:11:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09BE3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CECA606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:11:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CECA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gECj2Zuh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RZmCdxqd;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gECj2Zuh;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RZmCdxqd
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 212F61F800;
-	Thu, 29 Oct 2026 10:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793268661; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5/xKdXGvf0SwURHrf4BSTCHgQstFbzFxNucWmaiO7EQ=;
-	b=gECj2Zuh2who74CABEKV+lSoEFUKJWj+JxBrxdAGG4eoLrTIA7IYKpJ4xLGH95f21Cjp4R
-	Zpp/XkFdDFKYLo5YtJhNlSNY4EDufiNdHhVs3ImAGq3IJWZGExxl/PXvxjbwNkUWKf7+hG
-	zbern4Hxyp3vMC8hdDSOhNGeNfVIQtE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793268661;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5/xKdXGvf0SwURHrf4BSTCHgQstFbzFxNucWmaiO7EQ=;
-	b=RZmCdxqdL7AOMYJmFik9wSNRauroZfGCWu6c98A7PbQai2vNMqtjx/qUM58voyKtbvALoT
-	75TfhZeQUmNMMODw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793268661; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5/xKdXGvf0SwURHrf4BSTCHgQstFbzFxNucWmaiO7EQ=;
-	b=gECj2Zuh2who74CABEKV+lSoEFUKJWj+JxBrxdAGG4eoLrTIA7IYKpJ4xLGH95f21Cjp4R
-	Zpp/XkFdDFKYLo5YtJhNlSNY4EDufiNdHhVs3ImAGq3IJWZGExxl/PXvxjbwNkUWKf7+hG
-	zbern4Hxyp3vMC8hdDSOhNGeNfVIQtE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793268661;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5/xKdXGvf0SwURHrf4BSTCHgQstFbzFxNucWmaiO7EQ=;
-	b=RZmCdxqdL7AOMYJmFik9wSNRauroZfGCWu6c98A7PbQai2vNMqtjx/qUM58voyKtbvALoT
-	75TfhZeQUmNMMODw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D823C13419;
-	Thu, 29 Oct 2026 10:11:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9IQZK7Qb42rZMAAAD6G6ig
-	(envelope-from <hare@suse.de>); Thu, 29 Oct 2026 10:11:00 +0000
-Message-ID: <67168d7a-4df5-4851-8df5-8b8a03097aeb@suse.de>
-Date: Thu, 29 Oct 2026 11:11:00 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m+uDtHfY
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36a18fc7a38so3919256eec.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:11:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793268693; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rbU/petxxH4kj3OvsJ1ezDvTKXMH/3ti+7keD2ODoNiH+7ThiL3jeLIDJzjroVdRpI
+         cvrV1Xqx27TDHzjHdMpFCOhTOB0ALw9AqqX3FO4GMj22yQ1UmyRDMFjUHEV1vrY7sIYH
+         ivqcJ1TcTFFFvditW+dKzMk3RmgZKNg01dbXo0O6D1OtkjLgtkeoydfIWGZUK4b9eHNy
+         hGX8UiMwbsZdxjZ8+d7ZOtZkJht10yKshKA8A7f6/EqbTMYJAToRE7wzXLWkx/m0QLPT
+         ou+J2AI9zKequMlijX+proG/pvfJunmsAR/u92vIL920sFbI73hmAjxWqxTmbAv0svc9
+         tblA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jgkJopx5kExqkUv6b/vCU6btPQBGSF/P3vuAWpTWJb4=;
+        fh=3DwsCSTw00cAnRe5ml2Odqxf9KGhcMEf6l5VcS8wT7Y=;
+        b=UDyehWGXoM+D0AL2Ukuy69IawGnZBSryDfarC4wRFx/Rv9Fs4zm0/HXbY8O9ktribE
+         cqXfnp3q3q3mRhqutuzURq+QhHR/kCBlWNrJGhBxKE6l0PYs8flfdf3WzJ3lojBtm2t2
+         ZtgVSswxJTFAYlWB0SDJQWUGipxk5pAlI+i99tXsywViFRtmzAMj8YDgD7OMzSyEJ3KL
+         nDAWuIxHdb3pI5MF6h6fWWWuQMLuK2aOwgCu3kIi+5jmN+bF/rh4FymUT/MA+Et32bNK
+         XKdmBLzVsqOQmWvTfXuHX7P26QNyZS1i+q5qhRhQttAtPpKhnvE9fGON+y/bAp5Isilf
+         Rf2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793268693; x=1793873493; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jgkJopx5kExqkUv6b/vCU6btPQBGSF/P3vuAWpTWJb4=;
+        b=m+uDtHfYNrebraUeNO71Kwkxzuqpdu3zCHQC48XO/a+1chRZiH7mHXPDqLP8HQ2yiH
+         Tr0GNTkJJBfuOJDO/AX4VaktcSnRFMWJDv5mItb9Db77+hvYsFIxDorsRWc563PDbMSC
+         WFf/XcMi0JTg23ul4cIHTqnY3lIIPwrFyN6/bltmGyVtwoQ6kqzgzklFux4nuOjGKS+i
+         tPeerm8onxx4BYHYLafWUxDHX2QG6ZEOT640AX6ke/L3iW4tOH5g27ApyIfQllKU9Y6G
+         y8HuQZBr1vP3B3fbPuvMufo+5KSREll/cupagNW82ra5HvG1N466DCf/4msA6IkJseEM
+         2HBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268693; x=1793873493;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jgkJopx5kExqkUv6b/vCU6btPQBGSF/P3vuAWpTWJb4=;
+        b=DNxoUZNEEcQaWEQQB6PtzAcMPInHWjf2R0sNRiANi/vY0mjaQG5lPzToCofsOrQ8Kl
+         FznFLjS3M4fGGhXik/Pl899bJ3slPaQ3yFpw0kIyM87iDIhzDJnnyLQG5HEY9nxMPwCH
+         F6A2DAEqMhLpbuKjh02dWdPMxl7TPEOh0+vBJmgdFDBRQYhOh+VyDP2diLJTh8qEkGhN
+         66LbsC5GqA2CoiMvFqcnFZegxqZi/upc82jVJDol4IaKjAgeBhSOHumXIlHn7715AXGJ
+         aqH76UI91+yLA6dcwNAsVNi5fEvnj29XKX6euPZ+9SFiP+u+NJlwtV5/jgnQq87Fk1hs
+         9AWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwuur20PzmM0XMwjdWbOSxJKTWesk1PgkmpI3MRQUuXCZxVsBu6r/jKJRfZZza8d54E0r7wjG8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjvfRuGwUFNhoovMCsE6feBd9uOCwpKJjB0dH7nbHqyASJcryY
+	trvgh2kzA/7uknBAbqhMHTr3QmDsq9jKAJaLTpnJ99i9lQ9RU7NbA+qeCEnTftPDTn56NyfcWKX
+	6nySN2PBNj2m/Ro+8C816fsTv8U8J4kw=
+X-Gm-Gg: AYBFou3mNaTw4jB1jDMNZfI+HAK2VuFP0R1gkZDClIJ9IjgEEEBh5VUvcTPy9WJQ2A4
+	7Wlf9U7Wi8fDdpytryeSuZQMRb1hgGLtajzjTnro/dYuNJMQIVuSBleHRPpMarmt10aR2+sjTSj
+	qZ+6Iy1JuWOxYDcCO3DI9Ptmks+21fkPIevGcfbft2xxtj14C4NTpyfL+zdpbfw7DWlWY8O9RCK
+	2yeI7aTxOUGwwCqqVZ/LKBvmxxglDzNEbm3em673tJtk35dWar0x+4rGPuVrvKlPNA/7ZjGGSLs
+	yb8vrfUrJJiNTRxg/6ceRCF5Cx1j5Nc+7bYAJeCDIe5Q8Vjq7bXSNj6X862wlIwUGfd+ysDtP8P
+	oZGFicDppg0EFhzdKt3myenO3DjEcdilBDuF10IsAQuYqHDFvXEChZoUCI/0iJtHcgfs3pQ==
+X-Received: by 2002:a05:7301:618b:20b0:366:83dd:46f3 with SMTP id
+ 5a478bee46e88-36a20434490mr7778201eec.14.1793268693130; Thu, 29 Oct 2026
+ 03:11:33 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,106 +104,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 93/98] nvmet-fc: only send read data for successful
- commands
-To: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org
-Cc: Andrea Parri <parri.andrea@gmail.com>, stable@vger.kernel.org,
- Justin Tee <justin.tee@broadcom.com>,
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
- Paul Ely <paul.ely@broadcom.com>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>
-References: <20261028164415.1262013-1-axboe@kernel.dk>
- <20261028164415.1262013-94-axboe@kernel.dk>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261028164415.1262013-94-axboe@kernel.dk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,broadcom.com,lst.de,grimberg.me,nvidia.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kernel.dk:email,lst.de:email,nvidia.com:email,suse.de:email,grimberg.me:email]
-X-Spam-Score: -11.79
+References: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
+ <20261029-upstream-speedo-t114-v1-1-81457cc9d94c@tsv-stahl-riesa.de>
+In-Reply-To: <20261029-upstream-speedo-t114-v1-1-81457cc9d94c@tsv-stahl-riesa.de>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 29 Oct 2026 12:11:20 +0200
+X-Gm-Features: AclHuK8_mii-vqm8jDLm-mNdMkH2Er6-ZHBho7KaLFga9WcAe3FyT06Xlc5Ki2w
+Message-ID: <CAPVz0n3tFvEycAAhjA5ZqoBrx8MsJwDuBssAzLMrFnicSQ+eMg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] soc/tegra: fuse: Fix Tegra114 speedo fuse offsets
+To: admin@tsv-stahl-riesa.de
+Cc: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Prashant Gaikwad <pgaikwad@nvidia.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/28/26 5:42 PM, Jens Axboe wrote:
-> From: Andrea Parri <parri.andrea@gmail.com>
-> 
-> __nvmet_fc_fcp_nvme_cmd_done() pushes the whole data buffer of a read
-> to the host even when the command failed. The buffer comes from
-> sgl_alloc() without __GFP_ZERO, and a command rejected by
-> nvmet_check_transfer_len() never touches it, so the host receives stale
-> target memory, as much as it asked for.
-> 
-> The tcp and rdma targets only send data when cqe->status is zero. Do
-> the same for fc. The ERSP then reports fod->offset, which is 0, as the
-> transferred length, matching what the host checks.
-> 
-> Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+=D1=87=D1=82, 29 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:3=
+3 Patrick Fischer via B4 Relay
+<devnull+admin.tsv-stahl-riesa.de@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>
+> tegra_fuse_read_early() takes offsets relative to the start of the fuse
+> words at FUSE_BEGIN (0x100). When the fuse driver moved out of
+> mach-tegra, the Tegra30 speedo code was converted to such offsets
+> (FUSE_SPEEDO_CALIB_0 0x114 became 0x14), and the Tegra124 code uses
+> them as well. The Tegra114 code kept the absolute offsets from the
+> vendor kernel, so since then it reads the CPU and SoC speedo values and
+> the A01 CPU2/3 fuses 0x100 bytes too far.
+>
+> On a Tegra Note 7 (Tegra114 A02, SKU 5) the fuses at the correct
+> offsets 0x2c and 0x34 read 718 and 1156. That gives CPU speedo 1742 and
+> SoC speedo 1156, which is exactly what the vendor kernel prints for this
+> device. The current code reads 172094 and 0, and so reports SoC process
+> 0 instead of 1.
+>
+> Today only the reported process IDs depend on these values, since the
+> Tegra114 core OPPs are selected by the SoC speedo ID and the CPU DVFS
+> tables apply to all process IDs. The CPU speedo value is needed,
+> however, to compute correct CPU DFLL voltages, which the next patch
+> fixes.
+>
+> Fixes: 783c8f4c8445 ("soc/tegra: Add efuse driver for Tegra")
 > Cc: stable@vger.kernel.org
-> Cc: Justin Tee <justin.tee@broadcom.com>
-> Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>
-> Cc: Paul Ely <paul.ely@broadcom.com>
-> Cc: Christoph Hellwig <hch@lst.de>
-> Cc: Sagi Grimberg <sagi@grimberg.me>
-> Cc: Chaitanya Kulkarni <kch@nvidia.com>
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: Jens Axboe <axboe@kernel.dk>
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
 > ---
->   drivers/nvme/target/fc.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-> index eecdffefa24f..b95893adae36 100644
-> --- a/drivers/nvme/target/fc.c
-> +++ b/drivers/nvme/target/fc.c
-> @@ -2487,11 +2487,11 @@ __nvmet_fc_fcp_nvme_cmd_done(struct nvmet_fc_tgtport *tgtport,
->   	} else {
->   
->   		/*
-> -		 * try to push the data even if the SQE status is non-zero.
-> -		 * There may be a status where data still was intended to
-> -		 * be moved
-> +		 * A failed command may not have filled its read buffer, so
-> +		 * only push data for success, as the tcp and rdma targets do.
->   		 */
-> -		if ((fod->io_dir == NVMET_FCP_READ) && (fod->data_sg_cnt)) {
-> +		if (fod->io_dir == NVMET_FCP_READ && fod->data_sg_cnt &&
-> +		    !cqe->status) {
->   			/* push the data over before sending rsp */
->   			nvmet_fc_transfer_fcp_data(tgtport, fod,
->   						NVMET_FCOP_READDATA);
+>  drivers/soc/tegra/fuse/speedo-tegra114.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/soc/tegra/fuse/speedo-tegra114.c b/drivers/soc/tegra=
+/fuse/speedo-tegra114.c
+> index 6695702bdb4c..1e6c2b5be759 100644
+> --- a/drivers/soc/tegra/fuse/speedo-tegra114.c
+> +++ b/drivers/soc/tegra/fuse/speedo-tegra114.c
+> @@ -14,6 +14,11 @@
+>  #define SOC_PROCESS_CORNERS    2
+>  #define CPU_PROCESS_CORNERS    2
+>
+> +#define FUSE_CPU_SPEEDO_1      0x2c
+> +#define FUSE_SOC_SPEEDO_0      0x34
+> +#define FUSE_OPT_CPU23_DISABLE 0x16c
+> +#define FUSE_OPT_CPU23_REENABLE        0x170
+> +
+>  enum {
+>         THRESHOLD_INDEX_0,
+>         THRESHOLD_INDEX_1,
+> @@ -63,8 +68,8 @@ static void __init rev_sku_to_speedo_ids(struct tegra_s=
+ku_info *sku_info,
+>         }
+>
+>         if (rev =3D=3D TEGRA_REVISION_A01) {
+> -               tmp =3D tegra_fuse_read_early(0x270) << 1;
+> -               tmp |=3D tegra_fuse_read_early(0x26c);
+> +               tmp =3D tegra_fuse_read_early(FUSE_OPT_CPU23_REENABLE) <<=
+ 1;
+> +               tmp |=3D tegra_fuse_read_early(FUSE_OPT_CPU23_DISABLE);
+>                 if (!tmp)
+>                         sku_info->cpu_speedo_id =3D 0;
+>         }
+> @@ -84,8 +89,8 @@ void __init tegra114_init_speedo_data(struct tegra_sku_=
+info *sku_info)
+>
+>         rev_sku_to_speedo_ids(sku_info, &threshold);
+>
+> -       cpu_speedo_val =3D tegra_fuse_read_early(0x12c) + 1024;
+> -       soc_speedo_val =3D tegra_fuse_read_early(0x134);
+> +       cpu_speedo_val =3D tegra_fuse_read_early(FUSE_CPU_SPEEDO_1) + 102=
+4;
+> +       soc_speedo_val =3D tegra_fuse_read_early(FUSE_SOC_SPEEDO_0);
+>
+>         for (i =3D 0; i < CPU_PROCESS_CORNERS; i++)
+>                 if (cpu_speedo_val < cpu_process_speedos[threshold][i])
+>
+> --
+> 2.56.0
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Thanks!
 
-Cheers,
-
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # Tegratab (P1988)
+and ASUS TF701T
+Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com>
