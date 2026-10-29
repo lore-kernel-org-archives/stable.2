@@ -1,108 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291038;
-	b=K3gRRe5KRNvbDHNMDb94ffQQeVZJsOm7/r9YKsMI2htLo5QpHXkljBoMkyxXz8MG+Oqh
-	 NDjKHea0dx0QQdgS1KPUJwhchMdu1uhr3CEfEO7UnG6JPuCeCs+UK5TKDHrz5MgzV9+c/
-	 iOoBFrjE3Kncedwxd8FCdbRU20UQd62BnD5Ry9qC2h+/7rhmnzKmX8d1JpQQCafNc5Nbu
-	 qfaxGC8uX5vFyICR/rha2bgSL3VnetJ71CBBbRGPy7R75bqjeC0/fgDwyAKmR3Qj6er+a
-	 IwGCCikVCHR4J4bp+sKPMXLjeeU6Pv4x4KDzaAhoa+o95/in9lQDRGc9HRoA+WIdLWQ==
+	t=1793291067;
+	b=lNnp8UPltRx1ex75MnZo3CYYmBnyIMOorTJk3PfJ+C45T59mzlyPfV+v1k1Fn7mnO944
+	 3wCkOXdFuOCm/ML5QXpEX4Su2n5uxV2n1oLzNlRgK7UQce65UF9lJVB8a2im9OEz050mn
+	 VPuh0cda7mnuM8Kn2Z8nog3D+XCrrOeRyzE8wxQ/DfGywWvyb+u7WX0lCzpbvfjbFqtRI
+	 qI8BoAqcNF51LO1+lYR16kVYYkUE2ERwVkpLh0N2feFql4OWCrFMCDcfZhJtn3oHkTs0y
+	 s1/9Kwz6+C0ZqKFmH/G9zgHpgrW/O1/E8KkOwMFc2GN8bVYdQ+ES9/Q+wCG5C+GKZtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291067;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=p7BExmyMwiDR5UEEieV2XRoxDfKEo1NhnCavqA/tY9Y=;
-	b=Vu8jdi/wlTGolS95HxcWsfTlE4/TFQsdVQOejO53yG099FiRynLNf5AWOU0AD7zZv7B0
-	 khgVFn1+j85/S9kJY+3gFxM0Vv6UcA5Ma3zyIg4yfZHOVM7lbsci/drJW90QirYAZ1U2J
-	 D4BSPf3KWDqoUCHblp+dEBtEz8CvQeZ1HyXwMDG0Ej6HJZ7DxJ2i9Ka0xbuco54etiyH3
-	 NTe67hBFc/0BeRJ6oxEESduD3F/wDpcefuL4IbRGP4EW3lYZW/IZxl2BDdIo+UoIFVeDz
-	 gVrDhySFJl5AYjD0ye9iBV8NhIP3yQqUV7PrlAnDTcOBPsUmahkdzl7XiiO8zUeV4zA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oNt+k5hd6gK3JHgbJpiRSUaj/zK/QDMMxaVigJ+IVv8=;
+	b=hKDSsytbsh3nUrOrHULV28jqhV7uOw9eafb4DNOndhmJKD2gv02Ve54ivJAeFKRI7LFu
+	 zbQHgtc57dTp6dL42Sa4+qPHcTLQhbfM98r12Kybr8Es2vUZJfrto8Kpia+vIFXODkpei
+	 BgynNOEklM2iO6+tIUGKCzIT0OVCNqO3M3X3TUwUa06bN7AruOQngaUrMvye59phKLdR/
+	 4UcSrK0CsMzh06OFEsuh8K09BQW2JClfGtz1tpdfrkc+xLwtgB+03uCV+QkExayGcZhIZ
+	 a95duaDPUf23I4rV+fKrlVEo8MJkPZD5rIqMDRPBYUPmfu2Cyu7FMWUJ1q8skdplfGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I5v0dbac;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EGgcrtXQ;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D24606A31E
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:23:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D24606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5A9606A31F
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A5A9606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I5v0dbac
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so22256755e9.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:23:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EGgcrtXQ
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1911396f8f.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:24:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793291036; x=1793895836; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p7BExmyMwiDR5UEEieV2XRoxDfKEo1NhnCavqA/tY9Y=;
-        b=I5v0dbacQ4WP0S/nvP67diDEkx+Vv6y4Vjt08cxXyOXPUgCwobUt63/XJTKiQCkeWk
-         tNluPM75qr/BN9xemD4XGZO2jsPx1WVjuYnfdUtrK3NsxN8PPZI5MpFNWjEKcF8n3shg
-         0pVhoqq1m3uk/bsX5bpmUoeBd/ey5Ixjnxvb1K/MpUjTM5LLGhw96k9A0d8zjCcRqBrQ
-         oAznT5mDL+wan+lDbK+hPt0BeO7CVqKDr7yFPUdCzozcckXOqKegEPLmSNI2PQ8bbiWk
-         dMMUiyPg2vwginbUlo2u08eK+9QNSL7/hACAdzJibVqS/AbeQYPUktcNujs5tzy6Nf6q
-         8KPA==
+        d=gmail.com; s=20260707; t=1793291064; x=1793895864; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oNt+k5hd6gK3JHgbJpiRSUaj/zK/QDMMxaVigJ+IVv8=;
+        b=EGgcrtXQdOXQe8Wg0+y8mCFeBHdwKIWFWLS/tzXhFxzxnqxJrzHwwWiZtPoBhrGyJ5
+         MJMiCdAOXmfo0PFLF8Gw6XXBHnFLiZx1RPVgWgOIayKgr5ex+ji6RJACXHIRA2UMfkUp
+         K94IctlgigFoTiFGSgNvWkZJwURBoPJ8ZOAXPv7ziW7TPFNd0rY8zBP8/sFl6i6HaLu9
+         TGAUU8LJZhRX+gcJnKV2J+GUnwrH/f8+XehiIAOGPRgYE/VmO2/uvWCsMyyDFz5kHlf/
+         kwp16+H7ZDGxYyLza2o5TJWPDlOpw3LGog5MqLTr0MGnczBNMJQ1jAlV2E+vyAkVSNmj
+         avbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793291036; x=1793895836;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p7BExmyMwiDR5UEEieV2XRoxDfKEo1NhnCavqA/tY9Y=;
-        b=vjZCoRWrihDL96bwR7VHb0TL1BglW9L7cx0YWFb+Wab37PkM9WZnqu+IxyOY+UcSop
-         T4yKyfGgo8cPzES0RmRoOiqJMEFYoPdiLy089U2qpCPgCwUv3qGGR7TreLtwUIz6cHI2
-         cu6vgyAs3T4EO26j5X0niwrs/8gu+UDtBC3teSnQzh8gXxN/hUS+RxoU+Qi6Xpd7Hw9X
-         F0OkPJD9RNt8eWgQvLJVCXLSko5PZJqoQl1LnSw3K3STJkY4cCHfdy3Ig0Yy2HsX5Ws9
-         bFuLrJ8JCSl3v97Hl/ng6VN/9vQfIDrhbsKUBnbDhKQgOwGUfDCR50suqmRH7X7gOLgu
-         j9jA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/eVx90her32Fb576TySwtXWuZY3YunaUGUUTogn9N5ltl4S1UAhchJlKsGb8odeMlzbFY0ls=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaABHWeYS0IOAkidwAPZgPUGM8K/TX5hTTuJTfm/gwOBQO/kIf
-	5VP8C9Qe/NRgK0mnFhlkcmuVCtIaVCacrqJkvjNyoaapvObKoHsJpGGTsohjizQrIMc=
-X-Gm-Gg: AYBFou1E8Q+W5YZtJDGODNM8bcoACv9wqLfYeFjYJY4D/knc2HGDEtHiwbgtXQ7YURC
-	dUdf9u5XC8ZuOF8kVZUamYCZx0jCUDD2xjElHPraPwc8gwe6/BJKyfTnwnQ6zyj2MMeCdeOUylL
-	9m/ur1y2tnSLJRA+WP8oHHxYvQhzLR8GQ5gWsRSvNj5Q9XPYiY9ql7VRMkA6tUeZLYUaR8IFnWw
-	uTl0KEe1ZyLOyBuEUx1AuM96lXSmCY2spwFUELArMiyObkL6ebDVX1Ey/c0571F6yug30j+euKA
-	jEK+mkWVzw0NbzzwcOnapDQT0PwTOISPwLji1DBig6DY/IPq8ySI9s7of4IogG+DCZouXyuO+i9
-	fPLSdw7UvuyucwjAoGwYzsGqjfOQpkr+uqlinPvhShuxdUG5mwNLPK6TgS92l/VaE2A0FRkvCJo
-	YtANv2y6xVNXH06p3nErSHDIsV5SAQubrS6vZILcwc6naMkDVUIVa0y53K9tipKchZEWETnBppf
-	w858XyX+MN9KXA68wyrfaKjvg9e8ZnLLfp6pjOsvTxD8uPNi9FP8K/qpu3g/p3bAhVpiAhGd2c/
-	RXpFgWaEKfD9+hS0giiqogBQC50/2SOP+XvqkOOO0G0=
-X-Received: by 2002:a05:600c:34d3:b0:4a1:e0db:8cf8 with SMTP id 5b1f17b1804b1-4a9643d37f7mr138287835e9.3.1793291036011;
-        Thu, 29 Oct 2026 09:23:56 -0700 (PDT)
-Received: from localhost (109-81-92-234.rct.o2.cz. [109.81.92.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7ee575e2sm75886455e9.1.2026.10.29.09.23.55
+        d=1e100.net; s=20260707; t=1793291064; x=1793895864;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oNt+k5hd6gK3JHgbJpiRSUaj/zK/QDMMxaVigJ+IVv8=;
+        b=gZZO7CQdQNnTZE9nlPse+r7H3MK9ELGSKRMuMpsSlWgXxgECcqX8b/OOxyvhNr9Gwy
+         NFLFD0iCPIWBCwweyqogpXx3cSF7uCVxG+c+6dFWM+2BzodrR258CGmRft/D5EKtdeUi
+         kx5ZRqhv9XfRbTjfuPP+Nlx9iw5UvYDl+2rrK/fHA2RoNavCpQhBoU395OGQtM/HXf8c
+         AFJfUcHb27Zn9rramKGIznAztGAMJCWxE7h40pinZYeYWHmlwAK9q8oMVpO1LHssX7Vt
+         73UoGgPV6MIBWrYh1vuRIgEHWjhl7AVCkLGOPjY5Eluj6MX4mWcN/PIEmxBtDf5ArWpD
+         tTkA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ5XJcwXv0GQe18a2979GbnMai0KMCAYjcTNkf+JWH7OeWd8bb/Rq9gtOwKljg8Oy7FRdIYAw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcoeYbUVvz5xPGzzJta0i0hLRT9iFZj5nye8Z2QVbrh/ZUFC9w
+	SxGexspV0frRbT859XyE0h7S/Tj5mwslfDr6CU4OKDaHlGBmnr4gJBw=
+X-Gm-Gg: AYBFou0MWp6j88a1UhptxZ9iuDw+HqneE6PqmHrKA1iWR1nC+omVUWaa3a0QLP06eUh
+	L7SKK9CxWq9t4f7YDuK1bZnjjuMaVmRiMFEqID5drxoLgkr4EU2YpuiBd52/CClyA0lq6KvltVa
+	8vidG4lAOhbggM4fPYrk4dFqKy+/GamqN+kgUAp8aNggfXHUPOt+9GfkCh15rJ39NJLDPReSvO5
+	c6NM/TPtcXGUcC33Vyg2Qpkpd+s9Oc0U9OEmZuSAtxXaUkpqilcbl3fjAmbfNym7voqhOSBf6M8
+	RnAGaimjXoWNfiGnREccnSp5sLM4cVOq4V2K75k5Ms5FTQPfkp0eXNGxOv/gcdSZALaiz+jyLCm
+	mekiTM5x5zpUGO9y9E6xwNE5DUdpK5SUoyHyDd9/tXGVRStZUOcJG99u6BuGfsWDFbhNZgGrQKt
+	6BLJNNtYAkp16YSiEm37m9ZQe9gL906JsnCX7WoT7rpfOWSgfpnPghCxUseGJNagT49RPRmDKlh
+	2FAsuETv+hQ9fZ/9VATBTrtWJMW+fYfT8uzRP+Td8buyL2D6V1lKApNLPKl5SrWl6PlseJ5/Q==
+X-Received: by 2002:a05:6000:603:b0:48e:389:d2d5 with SMTP id ffacd0b85a97d-48e5d5b4a5emr14665720f8f.51.1793291064450;
+        Thu, 29 Oct 2026 09:24:24 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6dfaa4ccsm135494f8f.39.2026.10.29.09.24.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:23:55 -0700 (PDT)
-Date: Thu, 29 Oct 2026 17:23:54 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: "Liam R. Howlett (Google)" <liam@infradead.org>
-Cc: Uladzislau Rezki <urezki@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <auNzGgj3OqLTG0Cl@tiehlicka>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
- <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+        Thu, 29 Oct 2026 09:24:21 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 net] nfc: llcp: use disable_work_sync and timer_shutdown_sync in local_cleanup
+Date: Thu, 29 Oct 2026 16:24:19 +0000
+Message-ID: <20261029162419.2420980-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,80 +103,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+Content-Transfer-Encoding: 8bit
 
-On Thu 29-10-26 10:53:56, Liam R. Howlett (Google) wrote:
-> 
-> Sorry for missing the ML in my initial email, I missed it from
-> get_maintainers.  I should have really clued in with such a small cc
-> list ;)
-> 
-> On 26/10/29 11:08AM, Uladzislau Rezki wrote:
-> > On Thu, Oct 29, 2026 at 10:16:36AM +0800, Herbert Xu wrote:
-> > > On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
-> > > >
-> > > > Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
-> > > > while another CPU is inside vmalloc() or vfree():
-> > > > 
-> > > >     RTM_NEWNEIGH                      vmalloc() or vfree()
-> > > >     ============                      ====================
-> > > >     spin_lock_bh(&br->hash_lock)
-> > > >                                       spin_lock(&vn->busy.lock)
-> > > >     rhashtable_insert_rehash()
-> > > >       kvmalloc(GFP_ATOMIC)
-> > > >         vmalloc()
-> > > >           spin_lock(&vn->busy.lock)
-> > > >             waits for the other CPU
-> > > >                                       softirq: a frame for the bridge
-> > > >                                         spin_lock(&br->hash_lock)
-> > > >                                           waits for RTM_NEWNEIGH
-> > > 
-> > > I think this is a fundamental bug in the kvmalloc non-blocking
-> > > support patch.  How can it be used at all if it is susceptible
-> > > to such dead-locks?
-> > > 
-> > > And if you can't use it safely why don't we just get rid of the
-> > > broken kvmalloc non-block path and have it always go to kmalloc
-> > > like it did before?
-> > >  
-> > If we have a look at this as we did not have vmalloc() here:
-> > 
-> > 
-> >      RTM_NEWNEIGH                      foo() or ...
-> >      ============                      ====================
-> >      lock_bh(&br->hash_lock)
-> >                                        foo()
-> >                                         lock(B)
-> >      rhashtable_insert_rehash()
-> >          foo()
-> >            lock(B)
-> >              waits for the other CPU
-> >                                        softirq: a frame for the bridge
-> >                                          lock(&br->hash_lock)
-> >                                            waits for RTM_NEWNEIGH
-> > 
-> > Same issue?
-> 
-> Looks like it to me.
-> 
-> > 
-> > I have a question:
-> > 
-> > GFP_ATOMIC/GFP_NOWAIT guarantee they do not sleep. Do they guarantee
-> > not hitting ABBA dead-locks or they are not interrupted?
-> 
-> GFP_ATOMIC and GFP_NOWAIT can be interrupted.  It's more about not
-> waiting for reclaim (kswapd might still run) and GFP_ATOMIC might dip
-> into reserves.
-> 
-> The issue is that kvmalloc() now falls back to vmalloc() for
-> non-blocking flags (I am restating this to make sure I'm not missing
-> something here, please correct me).
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Isn't the real problem that vmalloc should use irqsave version of the
-spinlock to preserve the locking constrains of the caller?
+local_cleanup() tears down timers and work items before
+local_release_work() frees the nfc_llcp_local structure.  The current
+code has two ordering problems:
+
+1) timer_delete_sync() does not prevent timer callbacks from re-arming
+   the timer via mod_timer().  nfc_llcp_tx_work() unconditionally
+   re-arms link_timer, and nfc_llcp_sdreq_timeout_work() conditionally
+   re-arms sdreq_timer.  A work callback that runs during
+   cancel_work_sync() and calls mod_timer() causes the timer to fire
+   after the structure is freed.
+
+2) cancel_work_sync() does not prevent work items from being
+   re-queued.  nfc_llcp_rx_work() queues tx_work via
+   schedule_work(), and the timer callbacks queue their associated
+   work items.  Since tx_work is cancelled before rx_work, a
+   running rx_work instance can re-queue tx_work after its
+   cancel_work_sync() has returned.  The re-queued tx_work then
+   runs on the freed structure.
+
+Switch the timers to timer_shutdown_sync() which rejects subsequent
+mod_timer() calls.  Switch the work items to disable_work_sync()
+which rejects subsequent schedule_work() calls.
+
+Reorder the teardown sequence so that both timers are shut down
+first (their callbacks queue work items), rx_work is disabled
+before tx_work (rx_work queues tx_work), and data structures are
+freed only after all asynchronous callbacks are quiesced.
+
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+v2:
+  - Switch work items from cancel_work_sync() to disable_work_sync()
+    to prevent re-queuing after cancellation, as identified by the
+    automated review and confirmed by Simon Horman
+  - Reorder teardown: shut down both timers first (their callbacks
+    queue work items), then disable rx_work before tx_work (rx_work
+    queues tx_work), then disable remaining work items
+  - Move data structure cleanup (skb_queue_purge, kfree_skb) after
+    all asynchronous callbacks are quiesced
+ net/nfc/llcp_core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index 74bf817007cf2..984e7088288f0 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -173,15 +173,15 @@ static struct nfc_llcp_local *nfc_llcp_local_get(struct nfc_llcp_local *local)
+ static void local_cleanup(struct nfc_llcp_local *local)
+ {
+ 	nfc_llcp_socket_release(local, false, ENXIO);
+-	timer_delete_sync(&local->link_timer);
++	timer_shutdown_sync(&local->link_timer);
++	timer_shutdown_sync(&local->sdreq_timer);
++	disable_work_sync(&local->rx_work);
++	disable_work_sync(&local->tx_work);
++	disable_work_sync(&local->timeout_work);
++	disable_work_sync(&local->sdreq_timeout_work);
+ 	skb_queue_purge(&local->tx_queue);
+-	cancel_work_sync(&local->tx_work);
+-	cancel_work_sync(&local->rx_work);
+-	cancel_work_sync(&local->timeout_work);
+ 	kfree_skb(local->rx_pending);
+ 	local->rx_pending = NULL;
+-	timer_delete_sync(&local->sdreq_timer);
+-	cancel_work_sync(&local->sdreq_timeout_work);
+ 	nfc_llcp_free_sdp_tlv_list(&local->pending_sdreqs);
+ }
+ 
 -- 
-Michal Hocko
-SUSE Labs
+2.47.3
+
