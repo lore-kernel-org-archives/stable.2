@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306025;
-	b=LeP87kisgwnMADIBr9tMVgQK7VJRYuUYN1ILfrqXG5lNMrFEnBGWxAeR4SxOlnPl72Xg
-	 G65qDibyVuiE3xoIe2iqafMi+C9K778PvHvXmcXyWKH6Gzn8qWbU1JS4fDQvDnL1QFSai
-	 o6dDV7GN/SyMOChKn8HMgVSb9PxFj+BNetCcHQIol1qFpAXpp669uiq+F/d1k3a/UkI5o
-	 J2yes1z+FwFtn+MeozbclOY1XXCC7EcfgXSIqH/rw6y5W2i5NCJgZxA/1g1VoshL4ULap
-	 LeHle55+Kf1OvXkrWx8zDAko/hEF7qTZMaREEZ9ijHkk7S+R5OMoyFuWroh0JZIk7cw==
+	t=1793306054;
+	b=gsXT6BHyZKGlwXbqiaWShy5Sv4mI/ImA/rEKYH8sy2Pc5+1YBs2/+Qk0k7nbN0AilJjt
+	 PL9tbR5ryJkpgZiESib42DyZQIiU51tF9nQSuKBo0S5JNoMXP+/GwVjCP1MoD+jg+CLYT
+	 hP739jBLiw1VinbRfAPqCGih79a1oz5PeFQrPK3HRnVeih2mMJ4/TDAOzHm4ycz+R9di9
+	 GNyGiEhMQhsErT+6hHx4axHUy4DK/C3iunn688+PvI49dEV6dUft/58A9aMgG9C6drbRv
+	 5lsG8PFIzSrlLK+Blzp6oOi8hi/P8sEYUtR/7kiXd2qegNPoWUzzWqiJfi6uN3YGCvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306054;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Hl8Hja7261+PqX6A1yngTbcTCPox77BGspRqPrmbmIw=;
-	b=LPBn4KWDn+E3jPrv0b1EgRkW36mmOqY42Kzpr37SuRSb1vMvzMoqY82UOXEyvVYElg/8
-	 /bDAXwh4i1mKZbxUbqC17tmnPYNFgraFXjrQBZKfdRGtCPlWybohjXAG2/7mZA1Zfud/J
-	 fizrjk3MSKUixGlTFqoRQ3V0ItLjDnlekGs0ApLCMv7wFJs9k71mdVcZLb+LSjiQb+Raw
-	 C+tW8BO9AX2Gi8WSRyw98kRNZat1zlzpWxp9N3U+0KpeaJ3PMVImXQIMxvKP2QT81RIZs
-	 6Ubh4YEak8b8F/BBYr64+KHww1rsbhv2TYO+gXhuZbTIw69D2VnY6darqfG8J972E/g==
+	bh=IUH+yaBKom46Q63QM7iBm+f59t3sGZ4mQyL9p/SX3S4=;
+	b=V5SeLI6SjYh55ovDZ/37FEa8Q6gPrSVh3svpWKcVQMw+hIcp7Y5KU7EANKHlXow04+xZ
+	 bvu1ZAbj7yKsHcdczgUJvYVCr/T5y64qrypnDcJ5hbkhc3XrP+sJSaSItu/2GpA0Rnrdm
+	 lgNN7fLgljezueff+lhEK6wFEbp8TjEVjHWR//C+TnKCLrg7k9LgjC+HDO0fVsrm1iZLx
+	 vATyZUcdgvfGJfuEyScQ4S+teuC/6/pcmeL/TX7c7Zz9tZ5crxTaE3Mj2xo+VKpMeVk1j
+	 G0A/F5Ght4oPV79jUJ+PZVB2Z24QIbQNyIM7cVbz2shYHm2urOEWpqMDzypVZ/C0a+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtblEQni;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQKsyj+q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15907606A31C;
-	Thu, 29 Oct 2026 20:33:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28512606A31D;
+	Thu, 29 Oct 2026 20:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtblEQni
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E1B1F031E2;
-	Thu, 29 Oct 2026 20:33:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQKsyj+q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26F31F01828;
+	Thu, 29 Oct 2026 20:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306024;
-	bh=Hl8Hja7261+PqX6A1yngTbcTCPox77BGspRqPrmbmIw=;
+	s=k20260515; t=1793306053;
+	bh=IUH+yaBKom46Q63QM7iBm+f59t3sGZ4mQyL9p/SX3S4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BtblEQni/tV7KmG4ZsM9UPfe8T47hGMbbRdFSbdDMyagtA6eYkZbhluhI9z5BurdL
-	 1e78U6Dqg2OUvWYcFR0R5N87ly5LSuFRTWMfolODfDF1YuUhHuMAr0b1iHsc7D3Zok
-	 WWXgLFaB/7lS8DNFBPkUEV5jhF93hksYscJQ72sXQp+mQe59teJ8lUli9p5tFfB4A9
-	 Wz6e9K2qIY/jLVAnShYPw0I9kE8fFZ2d73v1Bo2z6zzKA/PIuyGuoriHgYP9CxUnrd
-	 fa/lB7eBUKMmE00K0RofgBKFQ5hGuNr17dEBDn3gMz8NHlng/llC5yjiUWyFxZr+iQ
-	 1NGfRY7z8HfBQ==
+	b=AQKsyj+qR4bxZGp8hAtyoQ1xOy4UZyL47FxstML+FqQX7G/y7pZ8l9SOf+5ou7WnS
+	 AZ/MIxoJhVWJNFDauvFzu5zXAw5inOOKbVVHKcdXEUzqJPeX7wQfcuJQKHYfLV7cgT
+	 DBS0xvxyeqIDcCB94oXE/FoCz/yzahtQW9be2ViknnFuUwiLNKNChtzZica7dWmXmI
+	 rxJu6FqHy+hS0KRyeLYDs7SF6JTjHzt3/Fnx/dmoxM+iCSbUu0aeKsMfsauzJgHrdB
+	 M2PNJNfSKISDgyTRDXYcWYfP+czRJ+zkR1pNBo2whDOaHlVJSA2riVVk0BtrRZThlu
+	 TWT19hXESofoQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:32:56 +0100
-Subject: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
- PUD and PMD tables
+Date: Thu, 29 Oct 2026 21:32:58 +0100
+Subject: [PATCH v2 03/47] mm/memfd: check for real shmem inodes before
+ accessing shmem state
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-1-a64ce7f83abb@kernel.org>
+Message-Id: <20261029-fixes_core-v2-3-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,85 +93,113 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2764; i=david@kernel.org;
- h=from:subject:message-id; bh=kEXlYNiQWeqMYPtO5Vb4nXU0nymzCVHXtW6ux1YnkxM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer2256v+r64KNwb7oXRXbchL8DsTsVdVJFHuRImHuO
- 1Xm9q1ZHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzESYvhD9/mT2dFj7Wqffct
- nXRd8fk7gdkPyxdo7bD4kys6+eDSXysZ/lc7b9U16thV9e2thKX+9d0xK38eTp3Zs4hT2P0qxyT
- NN9wA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3516; i=david@kernel.org;
+ h=from:subject:message-id; bh=llGJ6NdJiWik0yJaZwx3srvBERv6b9fGHgw5NUViur8=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer21Ju85syDihqpSx8kZevq/BZ7vdCS+E9j8/nxLpZ
+ /XE2Ia3o5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgImo6DP8j8p2PfZIeerUF4kK
+ Hjnn3G2C5wiVWez72jNt+fOvrBv2ejH84b6byOPtzq2/yLfz8kkfNWWZyr3pRUYsIhJrNjtK6AX
+ xAQA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Josef Bacik <josef@toxicpanda.com>
+shmem_file() only checks a file's backing mapping. That mapping can belong
+to another file, as with a Coda file backed by a tmpfs container after
+mmap(). It does not establish that file_inode(file) is a shmem inode.
 
-MGLRU passes stack copies of page-table entries in walk_pud_range() and
-walk_pmd_range() when walking to the next level. These copies can become
-stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
-table concurrently.
+Seal handling and memfd preservation use this check before accessing
+shmem inode state, so they can access an inode of the wrong type.
 
-This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
-support page table walks"). Likely, earlier locking masked the latent
-bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
-retract_page_tables() without mmap or vma lock") allowed concurrent
-retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
-for MGLRU") dropped the walker's outer RCU protection.
+Add file_inode_is_shmem() to check the inode's file operations in both
+paths. This identifies regular shmem inodes, including those used by
+memfds and ordinary tmpfs files, independently of wrapper file operations.
 
-The fix is simple, so just fix the original commit so we don't have to
-speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
-RCU-protected lookup and validation against the live PMD. Note that the PUD
-handling is required as well to handle folded page tables correctly in all
-cases.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-[ david: handle walk_pud_range() as well, clarify+simplify description,
-         adjust Fixes: ]
-
-Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reported-by: Chris Mason <mason@kernel.org>
 Reviewed-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/vmscan.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/shmem_fs.h | 6 ++++++
+ mm/memfd.c               | 8 +++++---
+ mm/memfd_luo.c           | 2 +-
+ mm/shmem.c               | 5 +++++
+ 4 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 9959ca158ce8..6a1af9b92349 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3911,7 +3911,7 @@ static void walk_pmd_range(pud_t *pud, unsigned long start, unsigned long end,
+diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+index a7c7a96a7cbf..4996420cfe60 100644
+--- a/include/linux/shmem_fs.h
++++ b/include/linux/shmem_fs.h
+@@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+ extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+ #ifdef CONFIG_SHMEM
++bool inode_is_shmem(const struct inode *inode);
+ bool shmem_mapping(const struct address_space *mapping);
+ #else
++static inline bool inode_is_shmem(const struct inode *inode)
++{
++	return false;
++}
++
+ static inline bool shmem_mapping(const struct address_space *mapping)
+ {
+ 	return false;
+diff --git a/mm/memfd.c b/mm/memfd.c
+index 0f6fff004f5e..507c00ce0fda 100644
+--- a/mm/memfd.c
++++ b/mm/memfd.c
+@@ -211,12 +211,14 @@ static int memfd_wait_for_pins(struct address_space *mapping)
  
- 		walk->mm_stats[MM_NONLEAF_FOUND]++;
+ static unsigned int *memfd_file_seals_ptr(struct file *file)
+ {
+-	if (shmem_file(file))
+-		return &SHMEM_I(file_inode(file))->seals;
++	struct inode *inode = file_inode(file);
++
++	if (inode_is_shmem(inode))
++		return &SHMEM_I(inode)->seals;
  
--		if (!walk_pte_range(&val, addr, next, args))
-+		if (!walk_pte_range(pmd + i, addr, next, args))
- 			continue;
+ #ifdef CONFIG_HUGETLBFS
+ 	if (is_file_hugepages(file))
+-		return &HUGETLBFS_I(file_inode(file))->seals;
++		return &HUGETLBFS_I(inode)->seals;
+ #endif
  
- 		walk->mm_stats[MM_NONLEAF_ADDED]++;
-@@ -3947,7 +3947,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long start, unsigned long end,
- 		if (!pud_present(val) || WARN_ON_ONCE(pud_leaf(val)))
- 			continue;
+ 	return NULL;
+diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+index 6b68220275eb..adaab98c8b63 100644
+--- a/mm/memfd_luo.c
++++ b/mm/memfd_luo.c
+@@ -581,7 +581,7 @@ static bool memfd_luo_can_preserve(struct liveupdate_file_handler *handler,
+ {
+ 	struct inode *inode = file_inode(file);
  
--		walk_pmd_range(&val, addr, next, args);
-+		walk_pmd_range(pud + i, addr, next, args);
+-	return shmem_file(file) && !inode->i_nlink;
++	return inode_is_shmem(inode) && !inode->i_nlink;
+ }
  
- 		if (need_resched() || walk->batched >= MAX_LRU_BATCH) {
- 			end = (addr | ~PUD_MASK) + 1;
+ static unsigned long memfd_luo_get_id(struct file *file)
+diff --git a/mm/shmem.c b/mm/shmem.c
+index af21a89abb0f..0ca5b7f7a517 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -275,6 +275,11 @@ static const struct vm_operations_struct shmem_vm_ops;
+ static const struct vm_operations_struct shmem_anon_vm_ops;
+ static struct file_system_type shmem_fs_type;
+ 
++bool inode_is_shmem(const struct inode *inode)
++{
++	return inode->i_fop == &shmem_file_operations;
++}
++
+ bool shmem_mapping(const struct address_space *mapping)
+ {
+ 	return mapping->a_ops == &shmem_aops;
 
 -- 
 2.43.0
