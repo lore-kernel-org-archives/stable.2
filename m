@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793304120;
-	b=iGV3npxy7LfdPAXq5XHb1m3sqDbep9/zjoy6J7amSbTPofbi2dFDua9dETT42kO3It0b
-	 +/5qmM7sG6cqY3vcRKiqUJaeGBKMHVscm6Z3hCzMrmvgNVs6BZ0sU8bAgPc0CFZqiLB0v
-	 sjtC4ycfilDl8sA1aTPnIjsbuPPay8bv13TMOoNpdJA2WEPx6eKYK70coux1LpxQ31M0O
-	 alhSV0eCAdoS4mcVPqKrWeVUdbrkziJLxESyZBlRpzTSGaq+grRXxjm6QfrcxHp9Y64x/
-	 Hgzbc3kfbus2qcoNCkYwEBghv3OY26hye2iBKYaQtbVjQ5kaoYN30033WyjAv3NUTWw==
+	t=1793304157;
+	b=TQ8s+QWWxO9u4QBm+s/gW0plWW/IKMdfd2BLRf9wyJSKgbW+yApiWbmAHUrLgD/6N5K0
+	 9dMehuVzC/Dq+ngyy/k7PF4SFZ2cGBuG2zSzfKmyCI0jnR4Q2oqnUjW8g9CXDe2fLQsHl
+	 8CcfolNtFo0LMX06RPxZKIb3MZEMiTOtczACNc4l/oWo4jmo2Xi+B9JbqhaxO/7P+p80m
+	 +ZR9OPqqBtHWDpE104pfINOXf20VYnUQFSri18shp9wF4+nXYWxyfH6+SipSQX0Iy03cJ
+	 gwSbPu7Mb9XkK+ClOU+HKUmhHyDeD/qkUVO1CMmlUTR5eK+SZauf+YKL4QsKauP+bLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793304120;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KWw4RyYICR/RfZi8mqYAl1NLHPBDm5L4/g2llgJ6ExA=;
-	b=pFCx/ey0cKKk1epJqGVOJlZluIW/NyyphxlNqwuyxgZ3j4wGI0t4G9X7vYPd1QL9KYhK
-	 lSkK5CAjerMP/Mgl8NA7KM/D0D1jvd8K7zlJfMEJ6Sr9t2lyBrjw5lAJNRrZBOOp3laMQ
-	 Fz3LEgWFZszkZzmc5M8CBsVEHhvqa7hZjd+2hxhSI0z1yIH6UOcH/cU0gOuWRduWosQw1
-	 E4Okp1xLu2JVH97yV6ORr5yO3tKoo0B7hAPnzIUveJXe+cHD+r0bYZQTykXqkaMg82DUb
-	 rsvgZ2T/6hoqKHbkQzw90tAk9zlVeFq93hqDHcXrX42VQHc3Ba8qJfnCpmHMmeuoySg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793304157;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=zKBj/4/nslR1aXuIkz63N04FOxASl+KN0QZ/uCoAH4A=;
+	b=hyjEGd93xb5kkyP3qfjG4L6uajp32+fkIETsxwbu1PQS8TF9I+PToDAywO91716PlLaQ
+	 yJFSc+/DnG14MQ45/TpB7ttKCsFhH8gW/dxUEqAu9z48aHqefsKJ3oel8M+FXKomscOyv
+	 m0B6pJ6yocETI2fn6Hg9urT79ozi+Yta45Gh4+TA/G1CNmlhqhG13zAScql13Hdj+XAmP
+	 Y2F8aYC4XuPP3NfUhHqXt2KUnP0OS4IW/3nKbRw0+oTZ8D7q4TR6U54D8kiXBMFIeVuY4
+	 XlQXuwfX+HaTgGmTVDkLJ3LbUJL7SI0Jd5u50bHpvv/2PcZMaDbt8+846e/3j5RKm5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xvr4zru6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="vdi5/0Zd";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C34606A31A;
-	Thu, 29 Oct 2026 20:02:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCE1606A31C;
+	Thu, 29 Oct 2026 20:02:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DCE1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xvr4zru6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7301F01816;
-	Thu, 29 Oct 2026 20:01:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793304120;
-	bh=KWw4RyYICR/RfZi8mqYAl1NLHPBDm5L4/g2llgJ6ExA=;
-	h=From:To:Cc:Subject:Date;
-	b=Xvr4zru6MwItKPIQtOYOiN/oPHO90VhfEwROykZ3Ykrr0ti7haVdFHjUhJwTYs5m+
-	 1d0sNHoScqZ0dhC1Ic6VCs/YLwtPd3UQfHsjLb4DryaqNUhuK91GhPIsiwvsubZp7C
-	 MVRAw0XzD9iPnUCPkjI1Zv5tkqscRWwNVr5ulDrfj4U1gRNC0vOKL/QdkTDH4WG59C
-	 upndLTmQxWV0J5pXF1U4aOZpJ8W4s01AgRIlV4Qqz/xEoB00SbCM3oGTUIjVSIIoio
-	 h9c9STVd9vpo/36F3neSfwK2z67VFQX6iVIDGGFjHZNiTIG/b5HbXEo3Xp1i6JF91M
-	 XCrcTHkB1qQaw==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-block@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Christoph Hellwig <hch@infradead.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	stable@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH v2] blk-mq: end the request if getting a keyslot fails
-Date: Thu, 29 Oct 2026 20:01:10 +0000
-Message-ID: <20261029200110.1328103-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=vdi5/0Zd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zKBj/4/nslR1aXuIkz63N04FOxASl+KN0QZ/uCoAH4A=; b=vdi5/0Zd/6Xz6Rp5HRC/mveyI3
+	4PI5bZgyL7DpIZESI385vlS1aDjzpPHdHKr7jzWQcXtFsr95tO9srXq+1SgTUmlFOj/tWhJQmDW0i
+	FxJi7u26tzbINCzg9qdzAh3Q6+dvF10rGd28LSuLLKO7GyEJqFu3OMkb+Pm7BBtaY573EtGmxzVo8
+	WkAB6JrFiv95j5scLqaAOPgc8+fCUDhlS1/RK4G9t7pKEp51QcjGc7uoE52v0TLYQsln5hO5AhWtz
+	ThWjNUm7ukcilSgqnTpFvcpa/QsJ6WR4BTVMl70JrtcN4gHBjzdFOa54C1gl0wgblNhFj6WvNeUIN
+	7urNr9NA==;
+Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMWKX-0000000H1uP-09fx;
+	Thu, 29 Oct 2026 20:02:33 +0000
+Date: Thu, 29 Oct 2026 20:02:32 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>,
+	Herbert Xu <herbert@gondor.apana.org.au>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auOmWM5uiQC9LPwx@casper.infradead.org>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,68 +69,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028154218.1668182-5-liam@infradead.org>
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
+> Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
+> while another CPU is inside vmalloc() or vfree():
+> 
+>     RTM_NEWNEIGH                      vmalloc() or vfree()
+>     ============                      ====================
+>     spin_lock_bh(&br->hash_lock)
+>                                       spin_lock(&vn->busy.lock)
+>     rhashtable_insert_rehash()
+>       kvmalloc(GFP_ATOMIC)
+>         vmalloc()
+>           spin_lock(&vn->busy.lock)
+>             waits for the other CPU
+>                                       softirq: a frame for the bridge
+>                                         spin_lock(&br->hash_lock)
+>                                           waits for RTM_NEWNEIGH
 
-When blk_crypto_rq_get_keyslot() fails, blk_mq_submit_bio() ends the bio
-by hand and frees the request. By then blk_mq_bio_to_request() has done
-the IO accounting, which blk_mq_free_request() doesn't undo, so the
-in_flight counter never drops and iostat shows a device that is 100%
-busy. If the bio went through zone write plugging the zone stays plugged
-as well, and every later write to it waits forever.
-
-Use blk_mq_end_request() like the dispatch path does for a request the
-driver rejected, after marking it for zone write plugging.
-
-Move the call to blk_zone_write_plug_init_request() before
-blk_crypto_rq_get_keyslot() so that it doesn't need to be duplicated.
-It doesn't depend on the keyslot.
-
-Fixes: 99dc422335d8 ("block: support to account io_ticks precisely")
-Fixes: dd291d77cc90 ("block: Introduce zone write plugging")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
-
-v2:
-  - Moved the call to blk_zone_write_plug_init_request()
-  - Updated Fixes to list the commits that actually introduced the bugs
-  - Added Cc stable
-  - Sent as standalone patch
-
- block/blk-mq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 8d687b338d6d7..379c679b04138 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3199,16 +3199,15 @@ void blk_mq_submit_bio(struct bio *bio)
- 
- 	blk_mq_bio_to_request(rq, bio, nr_segs);
- 
-+	if (bio_zone_write_plugging(bio))
-+		blk_zone_write_plug_init_request(rq);
-+
- 	ret = blk_crypto_rq_get_keyslot(rq);
- 	if (ret != BLK_STS_OK) {
--		bio_endio_status(bio, ret);
--		blk_mq_free_request(rq);
-+		blk_mq_end_request(rq, ret);
- 		return;
- 	}
- 
--	if (bio_zone_write_plugging(bio))
--		blk_zone_write_plug_init_request(rq);
--
- 	if (op_is_flush(bio->bi_opf) && blk_insert_flush(rq))
- 		return;
- 
-
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
--- 
-2.56.0.317.g454f8302e1-goog
+This seems like the kind of deadlock that lockdep can catch.  Why
+hasn't it?  Do we need to add a fake lock for RTM_NEWNEIGH?
 
