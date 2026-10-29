@@ -1,93 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793234987;
-	b=WmzwdGDs750gp9IdlixMQS5c8WoFM3/lVaXpjLKJdV1QlYtc8MSoMlaFJsHQvY999klZ
-	 XuKGNYXzyqPCLdcpAxp8w9yGObqJvA043N3SxoWaEz6Qfk4TIc6EircqFOLnfZnhDENiS
-	 d1Fx4Gavu/lM+ean5yDK/LkBSmPMUuysLTeTkoXw1UZ3TA1vU7Al8H9fazCod5fG+3vfO
-	 5L8NvfqSq9RFP7U/g2HOY27da4g9iMhbN8aoE9eI2RpHTZtiJKgqqJi+/5PkOM/8ICVhc
-	 4incfA5GXFl69ADXViNmOsd5T1+8Ft0Hl+kzXSYVAYjyn/cSuTWAk5aEvQpwlhmgJNg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793234987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793235086;
+	b=Pzxm0mwi8F3QVZ8SI82LNAGrBeWJhizKNOJo6uCrVEDnQrUptx5NZlFU519lwhJPN7CX
+	 duc7k80nOuP5crXUyA8qCPFtWokfOLybpwB/zYxPswdtN1o/0P6uGvZpaT2w/Tn5QhRmC
+	 0RfxY+4aBKyWWSZcfJnaKtcAIv1jlgughbTRd2yxcK0WzJnZGwYOnmoaMbRG5+ackSeE5
+	 +nLsjCkeFklFwzu8LYqPqfy0fQhHTFvXYcBIO1jQYhdRz1cZAlTwaids5y5OXJKSayaLD
+	 Xo41urGP7XIam0FCCVo0Wv/2fBKA/4iF6YMNINHO7ZMYT9Dh9lvCVE2NtAcqhLB9U9Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793235086;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OQxAwIFM4Dy+JaXQReRXxUOmCNsUI1oyyY7VMdV3wqE=;
+	b=NNzFY/Emz9dn/duNTgjpSW9tl5ZcZewigTYkhs3doKHUVSERIzldRAjEw5r4abvFD7zi
+	 IZOF4OHic6YTias6GxCO7m27k6MEXzAYOriu/bd57k3JStNSFT/8vys7Zmop5qM56sPq4
+	 Yw0nMME2B3ai+4F7xcJZiGwIXGtsYUr70tWeIM6l9Eqt4Z5CF5ydh1RCToO2i/vkYZl/G
+	 VIHOE/culq+Ci+HAyaDzJ/3q5WVM96mi1gOfNriMt49GXcv5D6BIo6UhxzQBC4G+G8wkG
+	 2GMQPJFToDUfku+AoajIr6ggh3VCDJRavgVmiC59lwY8JohQrAR/2QYBNeBmkqiOcAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehAA92vF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA3F606A31A;
+	Thu, 29 Oct 2026 00:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehAA92vF
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793235085;
+	b=SD+DQfKq7ALdlYwqFyRnn057+CYW7hTxO6psAajBz+Eju2WPVu6C7MbELcdlB/6B8/ig
+	 mpyH0Rf33cRwcyRpuVFn/fPwcIS+bdAmgWIKkoepgdcWe9/fFdhatvmcTaf6KFldLNOHh
+	 Wew9qQKoFp0C4k+wi+QsdFewutF3l9F58xMV3bQqMSVZHGe2lMv1ACDahRDXgf+RIL20W
+	 UtkBY5IOM4HeUTrU7KMfI26AXaUhVi2Xf52WP3/PxIQsU27QnxM7xNTw3Z1T23luPe1pI
+	 4T5QBqLNdwmA2s2x9Uzsvx6nE4h4ifd/DIf0srdY/mINyyR8eb7q3QbeTp+GT1HDU0w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793235085;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=ln037Pf3YbKMICLinA76e7sVprd2bC8Oq7bCHhU7/t4=;
-	b=A73Pap+BNwWuKGY/mJuhpM5ODTJBi10vKD4T3tykTHz4pOPfHhv3H5cbhsh9tsuZVeoh
-	 lsP+Z1GypXfage37JZtrQ/9EJvECIJVlNHYE0zfEZkhsPL79tN8oXOaUsL82nRryXD7Hr
-	 uXKSZuHy1YpyTuKYMhdTni3MM8mGodwJKYKxRB/72bjiXsVJ6wGnoZwcOL1QayWo4lwiQ
-	 bEAI/dNFVFt7t3XJ82AU8RRa+YcJ80er53muJaLtXQ2cKnbu02VmLfYZxfRvOmPUiTFb8
-	 nnf1wdGajp12/2OECTeDP3Jy+yt++0ZY5sf7ht0JZ4EedarGaE4e1DAARCEQw1GpDTQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNxVS+EB;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=OQxAwIFM4Dy+JaXQReRXxUOmCNsUI1oyyY7VMdV3wqE=;
+	b=H4e8dVczWMD12G9Q+4Gcy0loLSytfnctwKtgb8faycrQx2GMZqB9AXXJT3jSNw+0efkX
+	 TgQsuLx+Vl1CKRXAl/rhs76DPzOJDCvv5stcExVjiCRqZF8cCglGRlUQQ4SfFpLIfbJcu
+	 66kkwCgyyJ7Bk7irZdiH+IX8L531jmRzT9Y6VO/FQG3l9m4qVswxCjM2fIyBDxoEbUHqm
+	 x9Cj2MPuTkcsBsiB40xkZTBVxn4COHWvYk55DuO1g+OM51NmOg1v7r29grJH2F0hzB1l4
+	 OMPR+XxXUZbJ2qj2yvE6FSnmXTi2dA7Rv3xJIxioHUVSXZ0ABYZ8KRMqze6y+aZySpg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6CC606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 00:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B6CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oNxVS+EB
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-36888ae05e7so485460eec.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 17:49:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793234986; x=1793839786; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ln037Pf3YbKMICLinA76e7sVprd2bC8Oq7bCHhU7/t4=;
-        b=oNxVS+EBLQTXgN9ZgA9vhh/UjS0dd/L1o2EJbRCC6paxeQ1iJpTs7nACX0fUu5MJBB
-         CcT5+ty6Viq2+DD1q51ZxYnAWGCRTpVMo/cfWF9TMjBy7xlYAQ2xE+oqlnkh0PHiyDfu
-         UpbnY25WeXn8awtDp6O2fY8hp8vEwv+sfckLii7jjTw5sqTQdUW84iK2Posnxr3pXgMn
-         BjTJX450ZUXQVfO1JEn+MiYalrtfc6BXBEYsthV7S0QGrtP8aUgkXfi9CIvuLQwtcQkS
-         0p5Sw91IuSnqvKlawWbKVhNz9nWgvdY831aucFWtQ0/yyKG8EuzMr1xRxC817atMmMKo
-         JBxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793234986; x=1793839786;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ln037Pf3YbKMICLinA76e7sVprd2bC8Oq7bCHhU7/t4=;
-        b=evafapRqUECV4FHcGzSTtkS7LpvYpJuDyUCthYulyHqTz/u8icXgxwOAna+hBbApA1
-         T3DtfxiKxI20T2bECuhPnu0Q4YBCA8iv4iFhX7tZfJUGFjLIEuzQ6ahrbcdE3p2lAW34
-         PB82190obEOeXr0TTFopWmhvQF6Ef/7LcM5s/LkGB6bqhBAbJJPFCy8Jk83ggoznw3Wn
-         Ok6jlIPeZYr2zXhEX55s0pMYX8Frq7UQOnHphGd9UIxYOegX0MZyAzKs7GLQabAHNo/m
-         g5jZU0DC8HF7t6hl5r0iycGFUYbq1apCV5jF7lYvzkl7eBx1z2amSEVkZKRpwfavoJx+
-         4Utg==
-X-Forwarded-Encrypted: i=1; AKwUvBxHaYv9SQan25e0BBLpPO4OtOWjp6PxziGtDr3wSDT22b6xHVa23RvhO3uhwMKsCtZsJEZkhbk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHafLlyDRgSN9oRcqbCtmj+WnfDPhCWXt5dR4E5c42MKoiB9No
-	pla1o4BP12Ufo3bq6Zo4ifzBdKsusFFDwmYVE3ycPRrKwsPF4xR2jyYa5Q2R+mma
-X-Gm-Gg: AYBFou3DNbkTmKjSNDfH38nRnIYnvHljnbR2TsBQoBLVxbhw6PCVMojB0qn7/2oEIe0
-	91VtgKE+89ljcAHwKF7gqZcyTM6piHqTqpzyXDJHOgTfw5PU7buYH11zwGF7Ms0TFrbx+/Z+ece
-	VVA7LoI3rbzY9B2Yy9YQeOHBkoHcgDQWK+aychDvzeoA4EIFVi36zP6jklp1Fhyyr+CuhYD4/Yv
-	/IGRAfHNHqvz5HbZsw+ArDbXfswkzyVXmQWLJHuVtk7WCZaMFifnjRLMnVAsjKJwf1P7Y0iFRd0
-	uFYrdXjZoZ8xkEwOiwjXCbYLOkditbecrd6ks/f8XgI/b+sQDB9aLqrbus+b2iv9x1bhb4mW8/G
-	l5ZsxrOJ6ggjqaMYydPWSLXjrf3d1gjkVvi6mkosZSKcP+LtdvM76rVYUkHaKo3WTh7RwRVF1A+
-	GXTusdzg+zMUfNPkbVJkm2eg+VzhADCDnScObQyQ8gA3XDtplK8Sd88iwsQIvv3d0qfANaVIIxF
-	co7PYveQHQxs+lClq8d2o3DbuwQBkHCbAHvX1rJ5Qg+a71Wf4lup20sBefCsNNGSRutj8lP8c98
-	OaLeJc/d+zXv+wbwCvS9IBxeBPenjsBjDkmUl7q0o6Do+btmEfASatXG
-X-Received: by 2002:a05:7300:d101:b0:369:5583:bf4c with SMTP id 5a478bee46e88-36a200c8c63mr4761503eec.28.1793234986083;
-        Wed, 28 Oct 2026 17:49:46 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2399b05dsm11195789eec.25.2026.10.28.17.49.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 17:49:44 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: jack@suse.cz
-Cc: sortie@maxsi.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] isofs: handle Rock Ridge long-form dates before 1900
-Date: Thu, 29 Oct 2026 00:49:02 +0000
-Message-ID: <20261029004902.76944-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 61A701F01825;
+	Thu, 29 Oct 2026 00:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793235085;
+	bh=OQxAwIFM4Dy+JaXQReRXxUOmCNsUI1oyyY7VMdV3wqE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ehAA92vFic4byXSAkIPVnwwQYthQyBg9jUpQuOVp86pu3KZP55+xTc/9+JQFKdhoM
+	 Eq8pfnLrmt3oUb0ot+OM2JSYoTPgZ69dBvrHYNCvRvN7V+DQbqi7xvCTovrNU/nUEk
+	 lvfKNt+xWneyh+xvEkG05VcB/TJBqGuJSxAW0cy0h3302Y/xHlfk51fvfeTa+JzBLi
+	 8ZcvKa0qRQteSHa+KGVQPkVZfvN85xAVTZeB7Oww83g9tdv6l7aykp7MkM9SjDcUNr
+	 19CVdeskgEMQtWlHJMuK8sjOgwhgsVxHSLHRwNLuvnprgaUku0uXyydO4rEDXidQG9
+	 mY4EBEa77cjIA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C5F6C45646;
+	Thu, 29 Oct 2026 00:51:23 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Thu, 29 Oct 2026 09:51:24 +0900
+Subject: [PATCH] nvme: unregister when pr_register() is given a zero new
+ key
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,61 +83,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-nvme-pr-unreg-v1-1-b4657ad4e98e@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAIuY4moC/x3MQQqAIBBA0avErBtQC4muEi3ExppFJiNJEN49a
+ fkW/7+QSZgyzN0LQoUzX7FB9x34w8WdkLdmMMpYrcyEsZyESfCOQjuaMTirQqDBD9CaJBT4+X/
+ LWusH5YuPwl8AAAA=
+To: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+ Sagi Grimberg <sagi@grimberg.me>
+Cc: Jens Axboe <axboe@kernel.dk>, 
+ Mike Christie <michael.christie@oracle.com>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793235083; l=1781;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=mAU8OTdvinewhOZxDTmeXGacEZAsamAJlbTQrV18Lu8=;
+ b=c5q4qcV2O2rZi5rHmmEktc3SJVT8gpMB9op5eXzH9YJ52W2Cn/7S9he5kMvOjX8OuAtFmyTey
+ Qn9UwWPeegeBs9CcwDecacqBZ51x/r2eHAnpLrCK7rJ69hmU4Jj9jw9
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-iso_date() stores the year relative to 1900 and rejects negative values.
-Rock Ridge LONG_FORM timestamps encode calendar years from 1 to 9999,
-so valid years before 1900 are returned as seconds since the Unix epoch
-equal to zero instead of their recorded dates. For example, an 1899
-timestamp on an image produced by xorriso is reported as 1970 by stat,
-and cp -p preserves that incorrect time.
+From: Daejun Park <daejun7.park@samsung.com>
 
-Use the calendar year for both timestamp formats and pass it directly
-to mktime64(). Keep the epoch fallback for year zero, while allowing
-valid long-form years before 1900. Short-form dates are unchanged.
+The block layer PR API defines a zero new_key in pr_register() as
+unregistering old_key. nvme_pr_register() sends Replace Reservation
+Key with a zero NRKEY instead. The host stays registered with key 0,
+and its next registration with another key fails with Reservation
+Conflict.
 
-Fixes: 5ea45f54c8d6 ("isofs: fix Y2038 and Y2156 issues in Rock Ridge TF entry")
+The pNFS SCSI layout client unregisters this way at umount. A later
+mount cannot register and sends all I/O through the metadata server.
+
+Send Unregister Reservation Key when new_key is zero.
+
+Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
- fs/isofs/util.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Tested with IOC_PR_REGISTER on an nvmet nvme-loop namespace and on
+dm-linear over it. Registering a new key after unregister now works.
+A wrong old_key still gets Reservation Conflict.
+---
+ drivers/nvme/host/pr.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/fs/isofs/util.c b/fs/isofs/util.c
-index 42f479da0b28..6f9a90e58a89 100644
---- a/fs/isofs/util.c
-+++ b/fs/isofs/util.c
-@@ -25,7 +25,7 @@ struct timespec64 iso_date(u8 *p, int flags)
- 		year = (p[0] - '0') * 1000 +
- 		       (p[1] - '0') * 100 +
- 		       (p[2] - '0') * 10 +
--		       (p[3] - '0') - 1900;
-+		       (p[3] - '0');
- 		month = ((p[4] - '0') * 10 + (p[5] - '0'));
- 		day = ((p[6] - '0') * 10 + (p[7] - '0'));
- 		hour = ((p[8] - '0') * 10 + (p[9] - '0'));
-@@ -34,7 +34,7 @@ struct timespec64 iso_date(u8 *p, int flags)
- 		ts.tv_nsec = ((p[14] - '0') * 10 + (p[15] - '0')) * 10000000;
- 		tz = p[16];
- 	} else {
--		year = p[0];
-+		year = p[0] + 1900;
- 		month = p[1];
- 		day = p[2];
- 		hour = p[3];
-@@ -45,10 +45,10 @@ struct timespec64 iso_date(u8 *p, int flags)
- 		tz = flags & ISO_DATE_HIGH_SIERRA ? 0 : p[6];
- 	}
+diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
+index fe7dbe2648..d8b6ac4d83 100644
+--- a/drivers/nvme/host/pr.c
++++ b/drivers/nvme/host/pr.c
+@@ -128,8 +128,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old_key, u64 new_key,
+ 	data.crkey = cpu_to_le64(old_key);
+ 	data.nrkey = cpu_to_le64(new_key);
  
--	if (year < 0) {
-+	if (year < 1) {
- 		ts.tv_sec = 0;
- 	} else {
--		ts.tv_sec = mktime64(year+1900, month, day, hour, minute, second);
-+		ts.tv_sec = mktime64(year, month, day, hour, minute, second);
+-	cdw10 = old_key ? NVME_PR_REGISTER_ACT_REPLACE :
+-		NVME_PR_REGISTER_ACT_REG;
++	if (!new_key)
++		cdw10 = NVME_PR_REGISTER_ACT_UNREG;
++	else if (old_key)
++		cdw10 = NVME_PR_REGISTER_ACT_REPLACE;
++	else
++		cdw10 = NVME_PR_REGISTER_ACT_REG;
+ 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? NVME_PR_IGNORE_KEY : 0;
+ 	cdw10 |= NVME_PR_CPTPL_PERSIST;
  
- 		/* sign extend */
- 		if (tz & 0x80)
+
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261028-nvme-pr-unreg-24fa60ffe3c3
+
+Best regards,
 -- 
-2.43.0
+Daejun Park <daejun7.park@samsung.com>
+
 
