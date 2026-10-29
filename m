@@ -1,93 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267283;
-	b=RiL3rFO3onLYKkosmVrvNtvnKZ+NXzIS42PFzmwC5u6aj+Mr604XqvKBtHNPItfcTHSL
-	 syr8jm+Jc2HuPZpGOPo4c6IRRof8loslQps1pDaqGPUVV+p8uTWi7xJOr1p2M1dWD/QTR
-	 qUDCfxqxiTZCfhOZQL3p8fZhsB39rpO5k03fQXVOOHcPcYdqSupf2/ZLFdrK7MurVm1/O
-	 ac99Rfmz0nudbFUE6spZm4hoeZLjtg3tSUUk3q/LnwlEW9eTuhRMkGwN+i6fLE56yM4Tv
-	 4va6hfbacchPyoob6e7Kk5JVrwpCmqRTjOq1f47jD0C2E5O9Cg47P4PlKHaBNVwWE8g==
+	t=1793267400;
+	b=QRkImSWF40rvQ4hdKXOCkO4/IV6Q0L9IaIu9jX0nc08eRsCgH0/MleLwFDZC08Om06To
+	 ox4mVGiWgeaKhSF3Qs2gk7xyYs4BJ6LQ/31g2GPMof/VXVeTcJaU66ekEESvL3qAT4P3D
+	 MaATI6Bkyzo5jKzB4hD3sdCO0CxAs1Hw3N/P0h2NnQPwaSdESUlPRkB5YoIT1bh/fANz3
+	 EF3sM8R7JjTv3NGgcAdy2YFqAbPo40hLJqevlBr34AODLHUhoGjBP/iQ3j7aKmiON4oc7
+	 8pC52agP8RlZhUyNs7f6yJy8q8Qgche3oO/JqDxfNNJI78aUkSZJmGu7YMjuCD3+Ufg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aA4dQ1HDNVp6PloZLXeJ1kd3NLKw0188KeBSwOCLWMY=;
-	b=K6mPZMsRQzTjQ1mGfMAojhp9Qv0XpnlruEG9dR03v6YlsgRB8CuQz6ed5yxElWvKdh7V
-	 GIdE7Nklw+adnH4kRtHO6oOEpn3Kg12nGkXbrTLOl1xcK6ll/lAy9NcI4saSd6krx37mM
-	 p5/AXdZDsT3vLGzAWpDoiM2MIucYEALPIOcq6Wh8NQIsUZgZcJQhmEgD8Np6fqjMBSwsA
-	 utMht8BYjLeJ9AGytVAJhWb3XHpNfFMhZM2XU+QMi/ZwMdon1CKqEBCm0DBDoU+z/NzIi
-	 bZN/9Re8nCPLqxYRXDM11pqTtRetWR69wXKQI9043gv6aNE5BxdtpEB8Na4q1HmmIJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267400;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Ia0Mtm3zy/9bRYGZBaX24d9DjUyjcJwGOTQAf9z14P8=;
+	b=Dj8zMl6X6CTg7NuCXQtFEt+dUqCInx8CkxFUAkr0DW9RIrfcpZm/bVH1yMPnYvELzLyk
+	 wa07y5shlvZwnCFWFJldHvivZGxhj4Gy4SD+nPqmhcrKwXkWnVEX+bEUfMdRGcEoaZd7+
+	 qE0QY6gutu4owUyldVDDzOTUPzfRQOkqeHl/ssAPUHpnxEgEA/c96yafbiWB37RQK4l3f
+	 P8tki2x95ZNKiTJzFZPqWbR3kx5u/tLXPH3AgBveVGb48h7iSoQTCLZle6Z8tIsB3rl2X
+	 tfTqK6DNfWd4LyZF9F0aUjU8ry2NvdzkoE9tdtcH7aR0TT366BkdcaFRyb3b/JE435Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AVw43DXB;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l6l6g97f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6AE606A329
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6AE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640BC606A31F;
+	Thu, 29 Oct 2026 09:50:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AVw43DXB
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso1017485b3a.3
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:48:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793267283; x=1793872083; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aA4dQ1HDNVp6PloZLXeJ1kd3NLKw0188KeBSwOCLWMY=;
-        b=AVw43DXBiUII8K4oi4Y9CYkVK44ibUTbT/35PQgwdH65QJHiKCdQnkdxjFOqDKpppt
-         cXK9SDiuD1mh7L/uyLS8yunJYr/FFn5c//YgdwMFHjfS12T/bWYdHDqj+XXHNo8i57L3
-         4IO6z14DdxtLa6OJnl8l9IunM3Q33qRmOPPPgy8IWF6RXN1wscg6XNPlGzG2iqf5WBYO
-         EEc1TpAPwDt8IDhhPziHZgZBSWTdxK6ZMMtv9FvTnHschxj0ZVHaUi0Y8t1uJJQJq40C
-         H5XuCNNnaHRiP6ltJDemWOJ6pNw/JLVsrXLqraekWZfYD45xmdBiGYvuFh8IciISJwdr
-         aJeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267283; x=1793872083;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aA4dQ1HDNVp6PloZLXeJ1kd3NLKw0188KeBSwOCLWMY=;
-        b=RhAD25MRYCy3Lf49iZvcx/FnFW5rbi5ndet8gixdb/+OxxDKPpAUUXIK4VijZBF0pG
-         RL4N7xW4d59aRJ/BKtT1Mj8ebZ9d+v1haeTmk4kcKV6ZoOVkwLlmEmoQrSlmezy8d7+o
-         35K+/QWbPtw3TV6AGKR9IPt+YgmnsAYLisjAS8kKj/8Sg4fzFR+6Qpk/kyO/Avfz/7xS
-         30ACYELx22dXgwgW3usRjG7zU7PERYy9wj33cnr14aKHqlTkqnDXVjkbm7qN2qWLBdq1
-         BoiHGt5kEHkcr7qHUPkqate0BMvmYWHKq3rEZNKgFQzElElMQywOEsQgwqYwYxtcFo2c
-         ZHpg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5CIBKPZsUjVIRfRebO5o+2xIpjbVWDg7KL4MaEFsgETSdAzz/VeZ7IyJ6zI6Ty+sPgtJogYw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhXL9z5KjRrHwBrjFRa3IRRbCYvSPqTxNs2ve0hNjr47qf8Dhb
-	rzDY+0nakoVcUb7e9ehHNejNrepBqSD7KQH3Z8kE392eR1i/qdsSvkt0
-X-Gm-Gg: AYBFou2hntyn9DkNN47ZTpUHFo73bO3ChwhsmzK5VEIEJh4I70P3ZfSLfm6+6lrn4+I
-	MCDK8zWP/Kae7GzBFkgjeyvSnVJhkHmP6Js7MUIyAYRbNpqojmAhpQryPQWvQLVQ5AncvFRqTpz
-	QSHtffmOuVmyBwV/666vdyM7Zwma7SjJurDdTSBVtv59tp1yLxnwDDA7BCbmg2zkMDL/9pJ8IPQ
-	rn2BmR4QeHU55iwQYwpXU8bSwnccHu8wc/wTBwrxtziB2B4oOHHAuIN+PE6aNKIXiaCJW55V2bn
-	2nNdLoaws5MzzVPOOi07I3CwOPFhGzjG2lheOQ9/stt8X83gQ3XOuE4ptjZztY63cxsmbFJng6O
-	bnrTpLpEB12o4Gjw8sgz2k9+baF3dZVSFE7ViGih1Wy9RbFar2lN0BZ4VPAbliaMabSKhpwWCKT
-	D8wdcJvXu4xOjsSTxp/A3cV3YiGxbHgOPGQGWMG1uZw4yKqs/WtnUrkQ3V+N3QvkGsZb4av1EzD
-	7nlTm0otHQwfOmVuCaQg+anW+vOVv3wUjr3bKCuGGAmIHnuxK0q/bRsrlAxjJQHJUADFWrwgKVE
-	WnszrgMwnJaxDnjyb5bwJUm+sF4ON2YW5dQAhGO/fc+cYqHSfnUGaEOBDcqQ1sJf0SxRs27YqP+
-	8cIQGuk3qiw==
-X-Received: by 2002:a05:6a00:854:b0:89e:ba55:119a with SMTP id d2e1a72fcca58-8a6e83aa99amr3590208b3a.47.1793267282263;
-        Thu, 29 Oct 2026 02:48:02 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662b9f5sm2187143b3a.21.2026.10.29.02.47.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 02:48:01 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Wey-Yi Guy <wey-yi.w.guy@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2] wifi: iwlegacy: unregister the LED if 3945 hardware registration fails
-Date: Thu, 29 Oct 2026 17:47:42 +0800
-Message-ID: <20261029094741.21162-2-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l6l6g97f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36DA1F031E1;
+	Thu, 29 Oct 2026 09:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793267400;
+	bh=Ia0Mtm3zy/9bRYGZBaX24d9DjUyjcJwGOTQAf9z14P8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=l6l6g97ftKGETwe9W+MgWjB7StxSM/rVyuw87s1BGU7VPUbP4jpcnKr+cLkBw1ym4
+	 2fFxA8DyzSMtnmtuppQVDmKr2v60BVjWnZ9wwNmhttPQfkgNceKO6BjypqhXsEkHwe
+	 x5s/RRZgYbPhDo/ygFvmqmqWAP7Lmv1wVCBrtn4LDqBFKPRsGdZFBM5rB1Q1ztxo9f
+	 LSUvmic9nHXt8/ZyZG4fdyAy1iqul0fJd4do3I3sPN0C92jftCAGhHw0gXpglGLLJF
+	 7f6jS0ePCDTOhaVGFBvmoBRhtmZHHfoNPyo//JqpZCvvSutgP5vz5wYWa2JKdIf+NB
+	 YMfPInhXkqAEA==
+Message-ID: <3126db67-8ac8-4913-bd4a-4008de730148@kernel.org>
+Date: Thu, 29 Oct 2026 10:49:54 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,56 +51,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests
+ reserve access
+Content-Language: en-US
+To: Johannes Weiner <hannes@cmpxchg.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Matthew Wilcox <willy@infradead.org>,
+ Salvatore Dipietro <dipiets@amazon.it>, Christoph Hellwig <hch@lst.de>,
+ Dave Chinner <dgc@kernel.org>, Matt Fleming <matt@readmodwrite.com>,
+ Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@suse.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261028171719.2043421-1-hannes@cmpxchg.org>
+ <20261028171719.2043421-2-hannes@cmpxchg.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028171719.2043421-2-hannes@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-If ieee80211_register_hw() fails during 3945 probe, the LED class device
-stays registered after probe frees the il_priv that embeds it. The next
-LED trigger registration, or a write to the LED's sysfs brightness file,
-then uses freed memory.
+On 10/28/26 18:15, Johannes Weiner wrote:
+> 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+> highatomic reserves") accidentally gave all non-blocking allocation
+> requests access to highatomic reserves, which includes GFP_NOWAIT and
+> other sites clearing __GFP_DIRECT_RECLAIM.
+> 
+> While this improved atomic request success rate, it's unintentionally
+> broad and can actually worsen highatomic requests by squandering the
+> reserves on requests that don't need it.
+> 
+> There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+> for costly order __GFP_NORETRY requests, which would then also fall
+> into this exemption and deplete reserves even faster.
+> 
+> What GFP_ATOMIC has over the others is __GFP_HIGH, which
+> alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+> 
+> Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+> ALLOC_MIN_RESERVE.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+> Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
 
-il3945_setup_mac() registers the LED before the mac80211 hardware, and
-il3945_pci_probe() unwinds a registration failure without calling
-il_leds_exit(). 4965 already performs this cleanup: when
-il4965_mac_setup_register() fails, il4965_ucode_callback() calls
-device_release_driver(), and il4965_pci_remove() then calls
-il_leds_exit().
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Unregister the 3945 LED before unwinding a failed hardware registration.
-
-LLM assistance was used to find the bug and review.
-
-Fixes: 5ed540aecc2a ("iwlwifi: use mac80211 throughput trigger")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
----
-Changes in v2:
-- Explain how 4965 already performs this cleanup (Stanislaw)
-- Describe the use-after-free concretely
-- No code change
-
-v1: https://lore.kernel.org/r/20261028142328.18560-1-enderaoelyther@gmail.com
-
-Validation: A W=1 module build with MODPOST passed. Not
-reproduced; 3945 hardware was unavailable.
-Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
-
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index f7ca182d1494..5e11f0597255 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -3529,6 +3529,7 @@ il3945_setup_mac(struct il_priv *il)
- 	ret = ieee80211_register_hw(il->hw);
- 	if (ret) {
- 		IL_ERR("Failed to register hw (error %d)\n", ret);
-+		il_leds_exit(il);
- 		return ret;
- 	}
- 	il->mac80211_registered = 1;
-
-base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
--- 
-2.56.0
+> ---
+>  mm/page_alloc.c | 4 +++-
+>  mm/page_alloc.h | 3 +++
+>  2 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index a8cac5e01066..8ac2e2bf14fc 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -3238,7 +3238,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+>  			 * reserves as failing now is worse than failing a
+>  			 * high-order atomic allocation in the future.
+>  			 */
+> -			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
+> +			if (!page &&
+> +			    ((alloc_flags & ALLOC_OOM) ||
+> +			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+>  				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+>  
+>  			if (!page) {
+> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+> index e238ee91ed24..9c3c2830acb0 100644
+> --- a/mm/page_alloc.h
+> +++ b/mm/page_alloc.h
+> @@ -60,6 +60,9 @@
+>  /* Flags that allow allocations below the min watermark. */
+>  #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+>  
+> +/* Flags that mean GFP_ATOMIC */
+> +#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+> +
+>  /*
+>   * Structure for holding the mostly immutable allocation parameters passed
+>   * between functions involved in allocations, including the alloc_pages*
 
