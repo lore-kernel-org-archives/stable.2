@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.201
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297287;
-	b=lsZHv/5fAM6yVEb92rNMh711SDa3OXtJ3GjGqyrE5M7UCnfA8vF2Tn1529KeMPRTRjeB
-	 ftMBhH48FSoprFK3xMnZUllCNguxk6MvvIeqn8dQ8l6ZMUghuJhwWOI5wKEtVyrZlmnYz
-	 KnV0wcEubsWqvKka7TCaH58fXzL8+yrCUxjTzLDbmjayoDFgnutoGrkiXCvAg2Q00bBhF
-	 8J1T5vUeclJIZSY6A9au2nQbM7kJ0ZKa0IiJMhzyGwjH2++wR3PMu7pyiE7FgBUJwomdh
-	 q9LwfQ6GNlq6pt6IJhS6/0YQ3HoRXPyym5QD8ZmAZmMfd0ZvwI2QEJefJHIv3h74RqA==
+	t=1793297401;
+	b=f9lyEVVRw8LhILJR62GWv8V+PXXaA2Dk3c9nkyzMt2g5AXzygVkZRoTV4yd143UfxPp7
+	 3LlLmZ5aJfeeoFDc6SBImWLJ9/6IWp9ro5bkPdVgEni9y+EGeg2KFYuzBoTjCIluJ7GOD
+	 IpNzHtcWGJ6za721VKRV/awYMM5QpF3RfR6uCRSgid7Dxj8l7e5bECPf5gjMTV9T9Q91b
+	 J+ItRD4FwPUNLoZzZuWgh2K4P8y+w5CTI7/9mgXlzCsbuTKEyFOT4h6tywMRO0ZG77Zip
+	 VYISHWpoyy9l2UE19qE6aKjx14G+JGQQ1YziZ4oSdI8/22GJ8NXElieelsFlf98koiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297287;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Dzqh+wdXVDD6rZ18+/BTNNGOJs3aTGYsg31/1TNDADw=;
-	b=Jh6EtwIUJZPxhVmbRT7Z7EbR4+CV+KPZ6XpXfDfFMJYXysIvbsbKTQZFzT7Tj6MxApvS
-	 ci3g4U6CswDvnwVz0dn+J0kIhXkmPZPGnNEF5p0Uz+32ayVVc7fBoX+BGVKJ17QQTrAZz
-	 CeoDaqx/VQuLtD0U2yuH/tRJnJEbCl3zgotWBwCMteFzCKJqjM19SpNzU+fuPcH83ZG4e
-	 P5E/pjlkzCqpW8uLxfm0a173sw1Vc+72UswUnmwWrYpmkZIhlP+B5pEptQwLSlGmQDOLQ
-	 davbNfZBWCGO5IEC5QfWrKVCexuL9yvhjstjioslv2UqspR+K0mEQzlwDWwdttZ8hRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297401;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RlQUuYiz1FCtWrnI0FR4amz6PP3ZtOjRWsNP3c3RScw=;
+	b=AHziYIx9/IuBWtnemuZhf2lVLRC+w7IBsIH03Nf9gnLpLFAUZI1QCjlxEdmAbM8/kH4G
+	 O2uWvKWnhV9hl5RX88VCsd7DllrlfwO3VUDDFcIK3qIV2QV1/AoGJVn/sueeP+XjEu1p3
+	 UoDpi+Cr9KClLm74PJX5uk5XBeVM1shD8ZTuqiEo9/gdEkfiu19Yy2tLhCaVPQByzZ5rI
+	 WhcQ9BHqNp3yzzwQ9w2MkKzmLPHTp8rMjmQDF/kUYkhsjpeHNvXzb2U9wAUK3nIEOnef4
+	 +9z25gz82it6C3n16nON9uz+GB1sx0dRvsM3NLD1SYRutYDUEOuYyfqL1985LhjesJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1Y6buIo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=Xg4K3yuf;
+	arc=none smtp.remote-ip=74.125.230.201
+Received: from mail-qk2-f9.google.com (mail-qk2-f9.google.com [74.125.230.201])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707BA606A31A;
-	Thu, 29 Oct 2026 18:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526BD606A33D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:10:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 526BD606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1Y6buIo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02EF91F01816;
-	Thu, 29 Oct 2026 18:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793297287;
-	bh=Dzqh+wdXVDD6rZ18+/BTNNGOJs3aTGYsg31/1TNDADw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f1Y6buIomjd8NiYiwC6+L/N/2gFzxBK/PTis/OryQtGQXon5fydlVHG395evTsZmx
-	 N4jboM2OkA3ya5OrYrllwnpe+kG+jOmUDYRXK+DGcBEX2/nOkOV31x/bMvQpJnopvG
-	 7Z2lG945Ov3nX576VROmqMDKZlqUQsOyo/B/ZYq9LrxDRAW/aKhZxuW9lFRx9c45px
-	 Jwf5vHxk0COCrcMoKMqnZT6qZ/tzhUODUrW0/2m7r3BcT5voMK8LY5N4HrDYwvdg71
-	 kjfdi6qj4h8ApblSoT1kLHdK8Ti//IC5Ulk/kEtn5KhYMcS0OaoA3PtDBj0a38iVEH
-	 buw6b2not2y5Q==
-Message-ID: <fe658b1b-4011-4197-b228-fd4bb6c412bc@kernel.org>
-Date: Thu, 29 Oct 2026 19:08:01 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=Xg4K3yuf
+Received: by mail-qk2-f9.google.com with SMTP id af79cd13be357-93f53f29dbfso108483385a.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:10:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1793297400; x=1793902200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RlQUuYiz1FCtWrnI0FR4amz6PP3ZtOjRWsNP3c3RScw=;
+        b=Xg4K3yufJiDKy1nLDLDolUzOXCylFf4dVPixfUWzJM314JVKpNGNgsDXm9hRXOwgtg
+         zcTePD+4YKcudndMWVHz7cYAc6e+Qa5LMgRlZpZToTAAW4paAre25wbbrngIJuDwxzHs
+         Qce7jr+X5ZqZQWvavz4EzAePVpaRs8uVIjzCpV8jbKD5ge5+eiPq8VEAvddnI7PJHZfu
+         9tgB2zK00oTffZsleRejkG0eIT0Zc7lpzsDTG+DPN00zDNIvECvIkYpdlgWemf4yJrN3
+         Fm615h+K5RkaZg9p8NU10M4PP+NrwPAVwSKSwiIENJ9OYkHxTtdqbnztIiALdubjE6Yt
+         dpIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793297400; x=1793902200;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RlQUuYiz1FCtWrnI0FR4amz6PP3ZtOjRWsNP3c3RScw=;
+        b=Bc8jSBIVxefrjQZaq+ioyYfJo6MrrvOY37uYsJ3Lg1tjKaeKVI8nTN2VxS2XsYd/6i
+         qo3NwH+/79pnOCKVOgoUJ26lpZpcRBQZTmEElwBYH5g2VWfymNDjZk9l5kj3+0ecQA39
+         GZS6ipGnvLIwnW0v95t0Bf7lODgbQoVQOaizRJ/73xQxMoiZujpmtQSYq1YIXq0ZRz5z
+         szPhWO+gc2daD9VWuiuF09VLHNLUUDK+Wx60mvwy9UGuf/2zYmhNZxbbNo2Ymr7XF2PT
+         awZt4CDMAPfn3pzJ/MV3QzZTvQ5EL8aNtWUODUs4gJ12Nj5QzXHAshmu3eXhEY/rgBlk
+         cqRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNcy0AF0ZQDJ+aqEX+jnsO95RrGWFFhgo3Ki+VBkzBfM0elNBTA0akm28hEBA/0evErUCslkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIm3fQ2HhUZ72pS6NGoCbEb8pF2e4AfMH1OUemVkzqSdrDLWegG
+	VmM03hclOGnVafu+bkMb0LKaBOFKhBR8bQkkWoFeW2mtpRyiPdpcDBl4FqejoALDY0s=
+X-Gm-Gg: AYBFou1HSWCrodXbBVZgX3lo1m3tk0xE63J1E1jPMMYDcH7rRmA5c0QbsdVI4/+cfJF
+	pKgvvPR88HN88Gwum0cj2evMMUjsat+g1HuvpGSjPT9/kfhis8112umYjzbTctbL96yC96L3DJ6
+	QlGtOOXhZfcGnnUeWz2Oca6iuRxAfunAQiQoazftO4AH81Iy8Q6GvF1YRtKUHA9y6URkcL/a182
+	1t2fFG+/Yh62Bo1D5NyZzt7DfuwDmg5Ii51YtuuM6MFWlXupNLcOXwl1oS+BCE+8dNr+PhVv2oO
+	JozNdKUjW5zNWr7EDPgmPIyGx26T3nf/eKXKwYigwz6bTyBoKpgMh7NVN+Mo/Y/CgqdCvBFuDvC
+	HjSmpgLV0qNB/eGRvbNmaxE6/AA3EF6ezLr8bOKpp0WxLQsGW8+83NbxTAWF5mZdN92jgZL6Aqf
+	bXgqN1IhljEJq0dJ6JDKw/t0GqiEc9vbRxT/N6IDnU9ieBtUVMXHYDpz06oC70O7hTcjlLyYvdB
+	MZ5I0Su164mozV7ZtS2U7K9qMMjK5luQERNSH3bZPBrzSNeoa+Fz8kFJRZBuJNO+Y0Vw/By++V9
+	/Si+x1HXi96C/WT+Ixo6U+04nCwWIedmJ+aelhEHoNKgaHOkR3pSK12aLl93a2vCdcInq1Qk57X
+	fZVWXatcqzvlrsPdZYeoYCz9lh8B0XjkXFrPx
+X-Received: by 2002:a05:620a:a0cd:20b0:944:12d5:fd45 with SMTP id af79cd13be357-94412d5fd66mr399408385a.70.1793297400257;
+        Thu, 29 Oct 2026 11:10:00 -0700 (PDT)
+Received: from localhost ([2600:4040:2047:3600:64c0:68e:df43:40e2])
+        by smtp.gmail.com with UTF8SMTPSA id af79cd13be357-9442120c8d6sm6925185a.21.2026.10.29.11.09.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 11:09:59 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: David Lee <david.lee@trailofbits.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net/sched: sch_qfq: prevent aggregate self-replacement
+Date: Thu, 29 Oct 2026 14:09:57 -0400
+Message-ID: <20261029180957.43015-1-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,183 +105,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/8] mm/hugetlb: retry the pool walk when the zonelist
- is rebuilt
-Content-Language: en-US
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, ying.huang@linux.alibaba.com, ljs@kernel.org,
- liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <20261028211930.3504634-1-gourry@gourry.net>
- <20261028211930.3504634-7-gourry@gourry.net>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261028211930.3504634-7-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/28/26 22:19, Gregory Price (Meta) wrote:
-> Onlining the first block of a zone rebuilds every zonelist in place,
-> shifting the slots after the new zone.  dequeue_hugetlb_folio_nodemask()
-> approves a slot by its node, then loads the zone from it, so a hugetlb
-> fault bound to one node can take a pool page from another:
-> 
->   CPU 0                             CPU 1
->   dequeue_hugetlb_folio_nodemask(nodemask {2})
->     slot 3 (NORMAL2) approved
->                                     online_pages()
->                                       build_all_zonelists()
->                                         [.., NORMAL1, NORMAL2]
->                                         -> [.., MOVABLE1, NORMAL1, ...]
->     zone = zonelist_zone(slot 3)    /* NORMAL1 */
->     dequeue_hugetlb_folio_node_exact(h, 1)
-> 
-> Check zonelist_update_seq before using each zone, and on the way out
-> with nothing found, and restart the walk if it changed.  Checking before
-> the dequeue leaves nothing to put back.  Reset the last-tried node on
-> restart, so it is not skipped.
-> 
-> With kprobes holding the walk across the online, a fault bound to node 2
-> took a node 1 page in 3 of 3 runs, and a node 2 page in 3 of 3 with this
-> change.
-> 
-> Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+From: Kyle Zeng <kylebot@openai.com>
 
-LGTM, but...
+qfq_change_class() snapshots the current aggregate settings while
+holding the qdisc tree lock, but drops the lock before selecting the
+destination aggregate. During that gap, qfq_enqueue() can move the
+class to an aggregate matching the requested settings.
 
-> ---
->  mm/hugetlb.c    | 13 ++++++++++---
->  mm/page_alloc.c |  4 ++--
->  mm/page_alloc.h |  3 +++
->  3 files changed, 15 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index b37d7d0db7fc..8edf323baf0f 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -1293,11 +1293,11 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
->  static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_mask,
->  							int nid, nodemask_t *nmask)
->  {
-> -	unsigned int cpuset_mems_cookie;
-> +	unsigned int cpuset_mems_cookie, zonelist_cookie;
->  	struct zonelist *zonelist;
->  	struct zone *zone;
->  	struct zoneref *z;
-> -	int node = NUMA_NO_NODE;
-> +	int node;
->  
->  	/* 'nid' should not be NUMA_NO_NODE. Try to catch any misuse of it and rectifiy. */
->  	if (nid == NUMA_NO_NODE)
-> @@ -1306,10 +1306,16 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
->  	zonelist = node_zonelist(nid, gfp_mask);
->  
->  retry_cpuset:
-> +	node = NUMA_NO_NODE;
->  	cpuset_mems_cookie = read_mems_allowed_begin();
-> +	zonelist_cookie = zonelist_iter_begin();
->  	for_each_zone_zonelist_nodemask(zone, z, zonelist, gfp_zone(gfp_mask), nmask) {
->  		struct folio *folio;
->  
-> +		/* A rebuild may have shifted a node outside @nmask into this slot. */
-> +		if (unlikely(check_retry_zonelist(zonelist_cookie)))
-> +			goto retry_cpuset;
-> +
->  		if (!cpuset_zone_allowed(zone, gfp_mask))
->  			continue;
->  		/*
-> @@ -1324,7 +1330,8 @@ static struct folio *dequeue_hugetlb_folio_nodemask(struct hstate *h, gfp_t gfp_
->  		if (folio)
->  			return folio;
->  	}
-> -	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-> +	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie) ||
-> +		     check_retry_zonelist(zonelist_cookie)))
->  		goto retry_cpuset;
->  
->  	return NULL;
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 33aab9deaaa1..70830689048a 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -4411,7 +4411,7 @@ EXPORT_SYMBOL_GPL(fs_reclaim_release);
->   */
->  static DEFINE_SEQLOCK(zonelist_update_seq);
->  
-> -static unsigned int zonelist_iter_begin(void)
-> +unsigned int zonelist_iter_begin(void)
->  {
->  	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
->  		return read_seqbegin(&zonelist_update_seq);
-> @@ -4432,7 +4432,7 @@ static unsigned int zonelist_iter_sample(void)
->  	return 0;
->  }
->  
-> -static unsigned int check_retry_zonelist(unsigned int seq)
-> +unsigned int check_retry_zonelist(unsigned int seq)
->  {
->  	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
->  		return read_seqretry(&zonelist_update_seq, seq);
-> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-> index 2b1017a91928..53df6b8a0c00 100644
-> --- a/mm/page_alloc.h
-> +++ b/mm/page_alloc.h
-> @@ -265,6 +265,9 @@ extern void zone_pcp_disable(struct zone *zone);
->  extern void zone_pcp_enable(struct zone *zone);
->  extern void zone_pcp_init(struct zone *zone);
->  
-> +unsigned int zonelist_iter_begin(void);
-> +unsigned int check_retry_zonelist(unsigned int seq);
+When qfq_change_class() resumes, qfq_find_agg() then returns cl->agg.
+If it is a singleton, qfq_deact_rm_from_agg() frees the aggregate
+before qfq_add_to_agg() immediately accesses the same pointer, causing
+a use-after-free.
 
-... is it possible to inline these here instead?
+While holding the tree lock, skip the replacement when the destination
+is already the current aggregate. Any estimator replacement has already
+completed, so the class change can finish normally.
 
-> +
->  enum fallback_result {
->  	/* Found suitable migratetype, *mt_out is valid. */
->  	FALLBACK_FOUND,
+Fixes: 462dbc9101ac ("pkt_sched: QFQ Plus: fair-queueing service at DRR cost")
+Link: https://lore.kernel.org/netdev/20260731140533.566493-1-david.lee@trailofbits.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+---
+Changes in v2:
+- Add the net tree prefix to the subject.
+- Restore attribution.
+- Remove Assisted-by and add stable to Cc.
 
+v1: https://lore.kernel.org/netdev/20260731140533.566493-1-david.lee@trailofbits.com/
+
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
+
+ net/sched/sch_qfq.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+index 6f3b7273c..e900890e9 100644
+--- a/net/sched/sch_qfq.c
++++ b/net/sched/sch_qfq.c
+@@ -517,11 +517,14 @@ static int qfq_change_class(struct Qdisc *sch, u32 classid, u32 parentid,
+ 		sch_tree_lock(sch);
+ 		qfq_init_agg(q, new_agg, lmax, weight);
+ 	}
++	if (existing && new_agg == cl->agg)
++		goto unlock;
+ 	if (existing)
+ 		qfq_deact_rm_from_agg(q, cl);
+ 	else
+ 		qdisc_class_hash_insert(&q->clhash, &cl->common);
+ 	qfq_add_to_agg(q, new_agg, cl);
++unlock:
+ 	sch_tree_unlock(sch);
+ 	qdisc_class_hash_grow(sch, &q->clhash);
+ 
+-- 
+2.53.0
