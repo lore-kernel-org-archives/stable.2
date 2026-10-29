@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306600;
-	b=Fb8iwdoL5p6t0/FlX+ZBwWJfBOZ5UodRwh3UCuo4V8uhkkC0DC2kj5y1DWQs6bRU6Uw4
-	 pNKHnQZwXmr6Nap7FM9mMt+5l/t8p0Kada9MYFTdDSeemqknYCbQjnP/F8RYvgzCWZuJ8
-	 M3FDiuUTOyIWBYEk56tgSv7B7yLFFp8ptPmtV2iXGkqUxMoZZyESpD7ZvcsCPsvVlRbAk
-	 xou2lKeecwyfrDXI5W/uJqTfrp5jT4ipC9nXrc6e+rsXfnCYk3b5aCUXf9ClZY3Vw4SpI
-	 9oFb7I8DD2Zjs6SpdAKTnt8qsQwRklccdVqi4UDly531/frIB1h8dRD4FHq4ixtYUbQ==
+	t=1793306615;
+	b=Z3gerjrBXQ+hCCQSItdBAJ4+0C8w52QYFO71YqDzhYbIyEPwqiBP3AGG6KHsaaQ8UOZj
+	 bohMTNQ0lKqw4Qr7t/zVs48iUCJ6XxfJXPdkp0czR9kxNDOmx4O8q1xWbRkrRTZsk7RgZ
+	 XnQhxezcO0ZoJqHQS0Y+vZQQzkCklr4Y4ockCiMSh0UnsVjSb27rfykQsw2xgSNsXERd7
+	 nVkASdGRHXigmcwg5WEmpRQOxZ5H5jnnQic047LD5FEKEOTIGSamVqcpxFPn0kEVh+Lse
+	 iYVBuPwV5xxBuo5VTvSKoRnRi0sWJqq0hQb9e7SK5ic4RTsbjizWKTuR4DNICxMfzrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306615;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yQnqLaEhsJZDZQiQXLxV9X+lF54eRYn7Ww6geWf1QZw=;
-	b=SFMDzBNaSbK7IZuPqEZtDoapLXdwuyGsIFLMSH94FUhr64zIwCnWZusoYSvfrblyCzKJ
-	 CutEOI/EeEuspRpi5oaeETeZRVaYPA9QdssuJmKfV023GUau5zq/kGJhr/HT+kVyJHAiX
-	 3yBOmJ9XNq9lN5HhBtzgwOQXrDfjJEbaGh/keKcORepQdZysC4xaLdwvksLedFWUai9Ma
-	 RIggGmuEL+BUEVdNsiVfwDCc/+P+5SX6xypPNf/nZIY73UnhzZwiUfv7i80ukCWPLLUFD
-	 +wpemhovvRH7OAivtUbDtCQq5G90NuSXNtDiE+KDw/1x+pBHpOXzrkd/UNgeAIW4/qA==
+	bh=JCGDeBNuzR12866Js92jwOMlnJeTWdD3ulZ1D1a102s=;
+	b=dvhKewe/hYDFxuN1pnwF+LtLI/mcOkIXAaIrsGliZ7DSAI4IZFkCeQQmZGvt8hp5LW96
+	 hUdkgLDimLFdLZEcoqbV3/dRhq50Ui972pSPRey59OIXgstD0uElEd2Jrz+fRSuZTa4u1
+	 2oiVn5XsSatpK+9O0JHuYzNeF6pyaA/L/PfLYaE4EtCiuvfODNu2RolLRYSeabH3vqhJQ
+	 gvmqVdP2q9QiePJPi9eCh4hF7zCNnf5X6TotGIrR9ZRcWm1lNMcjy153AXJlv/Wd5EYqB
+	 sP6kxJTsUuTOy/2pH555IPGbqJX6Aoj6amT8sSHQ497r/88QnyEflfOQoorooLfYPaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lxeF63YQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEPz6EZy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A6A606A31F;
-	Thu, 29 Oct 2026 20:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED726606A31F;
+	Thu, 29 Oct 2026 20:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lxeF63YQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243251F01816;
-	Thu, 29 Oct 2026 20:43:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEPz6EZy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E291F01824;
+	Thu, 29 Oct 2026 20:43:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306599;
-	bh=yQnqLaEhsJZDZQiQXLxV9X+lF54eRYn7Ww6geWf1QZw=;
+	s=k20260515; t=1793306614;
+	bh=JCGDeBNuzR12866Js92jwOMlnJeTWdD3ulZ1D1a102s=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lxeF63YQFJJ/+XQ1nKhqIj0w0bilMMDyUEqz6TAJmSfD4k1gY2szSiICglDwDHga6
-	 VIiOBv00CLMPJJ+o6rva1soNmT+ykIjzUf577nQbaOGc9An7nSRhke1U4NTx+4scdq
-	 b8sKytj+/S3XoeL/oRoAEBIa5MHsZaSbq5G0FBLZecxAdpTkhTMGik1bT6p0rr2KEP
-	 04HE5nXsIqQ0tw+lwb7wjhObeN2E7nsrhgYUwr9xbYZwtD7RoCjxHJCezR+jdFTgbw
-	 eu7TE8Q3HQh25zZ+90tK5nrxcqL8piZpV5vwZvHzg4lcE8Fo09OIMp7yCBjVLt1wkq
-	 xzz859cxecnXA==
+	b=lEPz6EZyPvflT7DSH8GG2dOmnZWSALDbGJEfW9oIQ0Ja1whAgdew/+Flp07TBzswS
+	 aTxzf7ZIJXBdhN5o4JY2owZeoTmxrPJC//nEIdFF/LaYSjJI7ND0BTH/kTLvwE5ndg
+	 ijmZrHFv5CST1RhXa/UxR/KGhTDHZcJgF0G73sisjJg6UwDjgBy1gKzgwChEHWR2Qn
+	 9m8/Boa8fgXAnzMeIqCsoXa5qGL+PmbC9GaKcAxUU6Ed2X0HM9L23XfZBAGNV0qNkT
+	 6DAXo4j2+y1qkCST4xGODzSUdp8ILrRBenThllhaK2yb1QaIbzrPuHjNprhtcSohcD
+	 aKYpIC9+HOBQQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:35 +0100
-Subject: [PATCH v2 40/47] mm/ksm: fix use of a freed anon_vma at swap-in
+Date: Thu, 29 Oct 2026 21:33:36 +0100
+Subject: [PATCH v2 41/47] mm/ksm: check large swap-cache folios before
+ mapping them
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,8 +54,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261029-fixes_core-v2-40-a64ce7f83abb@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_core-v2-41-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,181 +93,163 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5952; i=david@kernel.org;
- h=from:subject:message-id; bh=kkxSpuAzd3ayVbIamzbiuyVrNHFCuPg3p8/sm8anyic=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+1kabPS4ml+lj7Zefdyh2rD4jurrQobvDpzfjOce
- zTXZM6UjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACZyfSrDPzMRQzGRA8u8ZjF/
- WmbRKPdcT/fU73K5m+dnqBxiMnPo2svwV8zj5YI7hxvPbIu5XXrqyp0FW9y4VzGltzLsX+5l9ly
- UkQUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5751; i=david@kernel.org;
+ h=from:subject:message-id; bh=fs7fiwhPYFrwtM3uOP0Y88aK1IYwtFxH3G5oC54R2BM=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+1UX8SRonjcV+LD1LNtqxbVqIZMD8pbrDbFoaGvM
+ U949xaLjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACZy3pmRoXvCt13CJkq/Xxmm
+ 1Ais6J864ZOk+NM5BYGxDXdcF3zr+szwP+jKw2N7VW6+EhL4pHjx/OK0ffwzO+QPOh0+cZbnqfv
+ JO0wA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-A folio read from a swap slot previously shared by KSM can remain in the
-swap cache after the process that first mapped it exits. Its anon_vma
-can then be freed, so ksm_might_need_to_copy() must not dereference it
-to compare roots.
+From: Chris Mason <mason@kernel.org>
 
-Doing so can result in some false-positives, resulting in the reverse
-mapping missing the new folio mapping, preventing migration and reclaim.
+KSM folios are always small, but their shared swap slots can be read
+back as part of a large folio in the swap cache. ksm_might_need_to_copy()
+skips large folios, so another process can map a page with an incompatible
+anon_vma or page index. Reverse mapping then cannot find the new
+mapping, preventing migration or reclaim.
 
-SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-immediately after freeing. A stale pointer can then refer to another
-anon_vma whose root matches, even though the target VMA is not linked
-to that anon_vma.
+Apply the same compatibility checks to large folios as to small ones.
+Pass the page corresponding to the swap entry and copy only that page
+when necessary. In do_swap_page()'s copy path, decrement only that slot's
+swap count, because the source swap-cache folio can now be large.
 
-Move the anonymous rmap compatibility checks into
-folio_anon_rmap_compatible(). Keep the page-index check and compare the
-folio's anon_vma pointer against the VMA's own anon_vma and root first.
+Fix generated by an LLM and sent by Chris Mason in private.
 
-If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-The VMA keeps these anon_vmas alive, and finding a match guarantees that
-reverse mapping can find the new mapping.
-
-Lorenzo Stoakes says in a private discussion:
-
-  "This isn't quite equivalent to the existing check.
-
-  Every anon_vma in an anon_vma_chain shares the same root, but if you
-  split a VMA then fork both of them like this:
-
-                  VMA A
-               /        \         <split>
-            VMA B      VMA C
-               \        /
-        root <- anon_vma 1
-               ----^ ^----        <fork>
-              /   parent  \
-        anon_vma 2   anon_vma 3
-             |            |
-           VMA D        VMA E
-
-  VMA's D and E both get their own new
-  anon_vma's such that:
-
-  VMA D: anon_vma 2 -> anon_vma 1 -> root
-  VMA E: anon_vma 3 -> anon_vma 1 -> root
-
-  And if you found a folio referencing anon_vma 2, the existing check:
-
-	anon_vma->root == vma->anon-vma->root
-
-  Would be true for VMA's B, C, D & E.
-
-  However after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain.
-
-  Whether or not that could actually happen in practice... 🙂 I don't
-  know.
-
-  [...] after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
-  you are making the test stricter but more correct.
-"
-
-If this affects performance when KSM was never even involved, we could
-just track whether KSM ever merged anything and just skip these checks.
-
-There isn't really a lot we can do otherwise: for mapped folios we might
-be able to use folio_get_anon_vma(), but for unmapped folios there really
-is no easy way to see if the anon_vma is still valid.
-
-Document the (confusing) lifetime requirements of folio_anon_vma().
-
-Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
+Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
- mm/util.c | 13 +++++++++++++
- 2 files changed, 44 insertions(+), 5 deletions(-)
+ include/linux/ksm.h |  6 +++---
+ mm/ksm.c            | 22 ++++++++++++----------
+ mm/memory.c         |  5 +++--
+ mm/swapfile.c       |  3 ++-
+ 4 files changed, 20 insertions(+), 16 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 9c51925825cb..e050b1bdf810 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -3137,11 +3137,40 @@ void __ksm_exit(struct mm_struct *mm)
- 	trace_ksm_exit(mm);
+diff --git a/include/linux/ksm.h b/include/linux/ksm.h
+index d39d0d5483a2..a0d358a1feb6 100644
+--- a/include/linux/ksm.h
++++ b/include/linux/ksm.h
+@@ -91,8 +91,8 @@ static inline void ksm_exit(struct mm_struct *mm)
+  * We'd like to make this conditional on vma->vm_flags & VM_MERGEABLE,
+  * but what if the vma was unmerged while the page was swapped out?
+  */
+-struct folio *ksm_might_need_to_copy(struct folio *folio,
+-			struct vm_area_struct *vma, unsigned long addr);
++struct folio *ksm_might_need_to_copy(struct folio *folio, struct page *page,
++		struct vm_area_struct *vma, unsigned long addr);
+ 
+ void rmap_walk_ksm(struct folio *folio, struct rmap_walk_control *rwc);
+ void folio_migrate_ksm(struct folio *newfolio, struct folio *folio);
+@@ -145,7 +145,7 @@ static inline int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
  }
  
-+static bool folio_anon_rmap_compatible(const struct folio *folio,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+	const struct anon_vma *anon_vma = folio_anon_vma(folio);
-+	struct anon_vma_chain *avc;
-+
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
-+	vma_assert_stabilised(vma);
-+
-+	if (!anon_vma)
-+		return true;
-+	if (folio->index != linear_anon_page_index(vma, addr))
-+		return false;
-+
-+	/*
-+	 * Careful: anon_vma might have been freed, so we cannot safely
-+	 * dereference it. Add a fast path before we walk the anon_vma chain.
-+	 */
-+	if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
-+		return true;
-+
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+		if (avc->anon_vma == anon_vma)
-+			return true;
-+	}
-+	return false;
-+}
-+
- struct folio *ksm_might_need_to_copy(struct folio *folio,
- 			struct vm_area_struct *vma, unsigned long addr)
+ static inline struct folio *ksm_might_need_to_copy(struct folio *folio,
+-			struct vm_area_struct *vma, unsigned long addr)
++		struct page *page, struct vm_area_struct *vma, unsigned long addr)
  {
- 	struct page *page = folio_page(folio, 0);
--	struct anon_vma *anon_vma = folio_anon_vma(folio);
+ 	return folio;
+ }
+diff --git a/mm/ksm.c b/mm/ksm.c
+index e050b1bdf810..e95f6b672360 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -3138,19 +3138,20 @@ void __ksm_exit(struct mm_struct *mm)
+ }
+ 
+ static bool folio_anon_rmap_compatible(const struct folio *folio,
+-		struct vm_area_struct *vma, unsigned long addr)
++		const struct page *page, struct vm_area_struct *vma,
++		unsigned long addr)
+ {
+ 	const struct anon_vma *anon_vma = folio_anon_vma(folio);
+ 	struct anon_vma_chain *avc;
+ 
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+-	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
++	VM_WARN_ON_ONCE_FOLIO(page_folio(page) != folio, folio);
+ 	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
+ 	vma_assert_stabilised(vma);
+ 
+ 	if (!anon_vma)
+ 		return true;
+-	if (folio->index != linear_anon_page_index(vma, addr))
++	if (page_pgoff(folio, page) != linear_anon_page_index(vma, addr))
+ 		return false;
+ 
+ 	/*
+@@ -3167,20 +3168,21 @@ static bool folio_anon_rmap_compatible(const struct folio *folio,
+ 	return false;
+ }
+ 
+-struct folio *ksm_might_need_to_copy(struct folio *folio,
+-			struct vm_area_struct *vma, unsigned long addr)
++struct folio *ksm_might_need_to_copy(struct folio *folio, struct page *page,
++		struct vm_area_struct *vma, unsigned long addr)
+ {
+-	struct page *page = folio_page(folio, 0);
  	struct folio *new_folio;
  
- 	if (folio_test_large(folio))
-@@ -3151,10 +3180,7 @@ struct folio *ksm_might_need_to_copy(struct folio *folio,
+-	if (folio_test_large(folio))
+-		return folio;
+-
++	/*
++	 * A KSM folio is small, but the slot that it left behind can be swapped
++	 * in as a part of a large folio by one of the processes that shared it.
++	 * So test, and copy, the page of the slot.
++	 */
+ 	if (folio_test_ksm(folio)) {
  		if (folio_stable_node(folio) &&
  		    !(ksm_run & KSM_RUN_UNMERGE))
  			return folio;	/* no need to copy it */
--	} else if (!anon_vma) {
--		return folio;		/* no need to copy it */
--	} else if (folio->index == linear_anon_page_index(vma, addr) &&
--			anon_vma->root == vma->anon_vma->root) {
-+	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
+-	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
++	} else if (folio_anon_rmap_compatible(folio, page, vma, addr)) {
  		return folio;		/* still no need to copy it */
  	}
  	if (PageHWPoison(page))
-diff --git a/mm/util.c b/mm/util.c
-index 8acfe2148ba5..80f6c714844f 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -697,6 +697,19 @@ void *vcalloc_noprof(size_t n, size_t size)
- }
- EXPORT_SYMBOL(vcalloc_noprof);
+diff --git a/mm/memory.c b/mm/memory.c
+index 77d4bbf444bc..91836d217d25 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5096,7 +5096,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	 * folio->index of non-ksm folios would be nonlinear inside the
+ 	 * anon VMA -- the ksm flag is lost on actual swapout.
+ 	 */
+-	folio = ksm_might_need_to_copy(folio, vma, vmf->address);
++	folio = ksm_might_need_to_copy(folio, page, vma, vmf->address);
+ 	if (unlikely(!folio)) {
+ 		ret = VM_FAULT_OOM;
+ 		folio = swapcache;
+@@ -5278,7 +5278,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	if (unlikely(folio != swapcache)) {
+ 		folio_add_new_anon_rmap(folio, vma, address, RMAP_EXCLUSIVE);
+ 		folio_add_lru_vma(folio, vma);
+-		folio_put_swap(swapcache, NULL);
++		folio_put_swap(swapcache,
++			       folio_file_page(swapcache, swp_offset(entry)));
+ 	} else if (!folio_test_anon(folio)) {
+ 		/*
+ 		 * We currently only expect !anon folios that are fully
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 254ce86fa923..71ef9e2efb3a 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2514,7 +2514,8 @@ static int unuse_pte(struct vm_area_struct *vma, pmd_t *pmd,
+ 		return 0;
  
-+/**
-+ * folio_anon_vma - Get a folio's raw anon_vma pointer.
-+ * @folio: The folio.
-+ *
-+ * The returned pointer may be stale for an unmapped folio. The caller
-+ * must ensure the anon_vma stays alive before dereferencing it. A folio
-+ * reference or lock alone is insufficient; use folio_get_anon_vma() when
-+ * the anon_vma's lifetime is not otherwise protected. Note that
-+ * folio_get_anon_vma() is only useful for folios that are still mapped.
-+ *
-+ * Return: The raw anon_vma pointer for an anonymous, non-KSM folio, or
-+ * %NULL otherwise.
-+ */
- struct anon_vma *folio_anon_vma(const struct folio *folio)
- {
- 	unsigned long mapping = (unsigned long)folio->mapping;
+ 	swapcache = folio;
+-	folio = ksm_might_need_to_copy(folio, vma, addr);
++	folio = ksm_might_need_to_copy(folio,
++				       folio_file_page(folio, swp_offset(entry)), vma, addr);
+ 	if (unlikely(!folio))
+ 		return -ENOMEM;
+ 	else if (unlikely(folio == ERR_PTR(-EHWPOISON))) {
 
 -- 
 2.43.0
