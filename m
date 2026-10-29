@@ -1,47 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267474;
-	b=wRy7ZdZpod4HUkFU+xQ8ovxNqdcGo4z/+Z8ZiVgAHU3Pgks/XAuMtkLqoRJt2O+IFVo4
-	 cFcv9GJSAjFit+qxEnXlJCJj+2HYmtYpl+ThmKjuzNCcgUoru+Ln21y+5VFwt0TnXGi07
-	 cEl7Cj8dw14dn+jaeBoS64oDtWiITj5H2em064AhjRr3c5i+HAIoAGY/JVrEhb4ZJFnrm
-	 kRdYWTSR0Sa+fM8RkzLm/Gl9b5txS9U9g24oZLZNrFU3lg+o2rMu5pQeCfM3Ay1EX2Vl5
-	 Tc9zvNsunMHGApTPWKNo8N1QhxbZFmjfPSDFKyxxZCWuRlhP4Y5iPkQzt5XXQEFi1UA==
+	t=1793267760;
+	b=nYI6IOssnSPTLC5ntTQ0/d5jAHT3Culi3cCRiooOJgFke9HfU8gFZY+DvbOvfvAVx+j9
+	 0j2Z8pHpmfautpEIREbDN5F0Tg1xT+kw4PhWdlfAOm1jv4e/BloB3ceMUZsvaVxToISDz
+	 SNX5QKKFPp1Tsv5nmARUUS3tpn4i1SyBCKcPZFVoqj5ENlxURcNA2xzXNDaMfKU9rViJX
+	 GuUiFd5WoOUctHJJx+tYKWXjils28M1W8eeILTrfFJsqGW/HHQmSYhx1aRN3vmqXJAcbx
+	 ko28a34ijf68m3sbkf5JoIz+sbkL8GH3klmqs8laoQ7RyW/3VOZsATZ3lhYYjaR6FPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267474;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1D22SNiqa1UrbTEMSaPprbApV03u/ZanKGMk7KtF224=;
-	b=kVgqDrCtySgCEmhIyPjxB3WRgtvtqjbXIQfO0lvMPWpN/vof44M+trrAzir7gCGE60Jx
-	 GoqoppmbE7U/ESXEcBoTP/7qljq/MJ4FseODf1Zk+DbShbwj80ozj0s9ITh2JHI+3+LX5
-	 3BGUwNuOZAEgIkJ9fBIHgrUDmlwM8MKSdwNwJDtaXkBB+I0xzAleH0FoP6lZzZtchVdpj
-	 Gf5T9oijoOpTSVIh0jOnXi/y/sMIlPsWG/LUu4/HMiSrvznshvfJY6mZR1idss6WPxkXs
-	 OZ9qRnf2n07fYHhZmC6nUdGU9E3VsGtyM616hHPPz0RDdq+nU5yIMAgwof+ZreU5zlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267760;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=dWwinrMGwUDykZ7hC59tjMQpoDgfX6I4YnFKofnefH8=;
+	b=1xbUNVeOmYjJ/KwKyUeWrjIHhBY0w16Ty4odCAh1tIsgNuTM8ApNfn2XiANVSQOHh98o
+	 Z6a51Hp1vJaq+FoeN1AMLf/P4Y/lrXZN9ORZeo/hMVG8lMtO2gi4SGxJB3gJ+QaKVqGIT
+	 dzfQY8pw2MfwiV1H2EB+iEbUgupPVx9Srrn++3jT+K6YItqPG9IdodWgra+3krujYmi9p
+	 lCgPX+iO3DVqGemfBHcfgsEtq/wpAA4/MtPQo+qc78zAFgfuR6fo17epd55ryofan5T0B
+	 KiEdU+B/zqx4jDvIfEqinBCO5FnZ9VMHGPAQS1Vwk+WujycoA3CmYBN9fHY3nAmwqeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EOyp7y/K";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UmEh678b;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="BGI/peog";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEA6606A31A;
-	Thu, 29 Oct 2026 09:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEC460A381A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:55:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AEC460A381A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOyp7y/K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B5F1F01825;
-	Thu, 29 Oct 2026 09:51:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793267473;
-	bh=1D22SNiqa1UrbTEMSaPprbApV03u/ZanKGMk7KtF224=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EOyp7y/KQ28jNwvMBe17X8JocvZojLzsh4FbzrqXockmjLe7Jme2XXnp3gbWwiWZe
-	 laDyyVTBheueGI71ovv2woMgR727qgvuJPLBTtp7uFvu+OH9Uu/sXD7p7JSS/9Xj3x
-	 O+z2Dfe166i/lVoLbFMjxdwAahvXk5LL/Fr0Iu+UBtVMm4+l0+p/QVVhKBkD1iRYNp
-	 3dyA7B1dRKSiWatmXumWdeYbDmgOTdPAu6KfZjoHITIiDQeopMTbx00Lo8TXw/6kbu
-	 ue/fnbOAR+t/BFpeBcs/MblQoGdXM0EUZD6Ik9K0iLtH5mAOIAoSDJ6Gai8efjPWkJ
-	 B3zoQo7u53SrA==
-Message-ID: <9c35b2f5-ab90-468f-98af-3763b557e439@kernel.org>
-Date: Thu, 29 Oct 2026 10:51:09 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UmEh678b;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BGI/peog
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vVXH179464
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:55:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=dWwinrMGwUDykZ7hC59tjMQpoDgfX6I4YnF
+	KofnefH8=; b=UmEh678bDp5OX9wnxKYvIjKO6xg6Fja0ARclWaNfIzt+w4kO5RO
+	ci1vF4q5cdKDTRCGLueIM4YkJE7KVvhIgcpE1Q8oF4AXRcADrvCdA5poCucRcDNi
+	17LgEQPARmNmgBF/hF+1t2GYGpcPVBzGC0gELGEhEl+Bh6bn6fmlCqoLNC9boXha
+	sGfZL+gkC5dRP225gwfWdqBV1J0EaQ4ktcrFrHefKS9jEeT0XrZzLiCmysDMEpyR
+	ilCA/BKRMmZ2TIcwEPYgBvqIipbke/coiZx8bNhVy3KgjBR49FRyg1u9HkIU46iW
+	lniF97MpMOcPsRffAfM3YCSrPGvWJiYwWVg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkpmc2ycp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:55:58 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad91787a1aso1457213a91.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793267757; x=1793872557; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dWwinrMGwUDykZ7hC59tjMQpoDgfX6I4YnFKofnefH8=;
+        b=BGI/peogyJgcx8K3G1yIFrJh6ASsEGv2GalMA5s7dh2/s/O9IV3JkWDd5UzfgUtZMp
+         VOVCDE6PbXhOdkejj6u9IuBtPrsoO52CGIabbEgAdPqorKV5RVrTKDKR57i6i+1fgeu/
+         4O4oVtAg0F8M0y91Uq4AUEz7CfnkzW3+eApMzkFLbYoJyhqBWKjvqBSDeqVQw7KVtGaY
+         4yhTwOp/XezpU18No7Y4YRr/T/ViNEo1XQLPAtRHDN37EjA2mp0cAgajqQzdM8sy8FjA
+         WdNXANslP1BCC7yjxpJVmF6N1MqtY0QmRz4HfzD3Krbg7ztajl8CKo1ns+HgW2zOYvoj
+         6oKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793267757; x=1793872557;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dWwinrMGwUDykZ7hC59tjMQpoDgfX6I4YnFKofnefH8=;
+        b=AgNvyoh3WXhPSItrm6Z+LPV3UlPWgJUQkzknpy+hipDkl2djXkdUlctgy1bWMBmz5u
+         gJXepNBEmz35TFLWPTibukctjgHbwvHHc/YCm1xQO3bywhMYU+JwBtGZYhgnxNFPvCTL
+         7WW+Ict4wDA+jdzl1l9B+ziTGtPxZZgcXjSHR8d2TxQFm1GRkK5K7dY3UI/1hLsif7ol
+         gkhOLPTVRk649czZbercrDbCe4GLueV4LbMUjQMVvqoAub9ReJ8ve2ZmouMNLkkLiWND
+         v5S7Nwnux/kiAgrvWUbhHmoO0wpKLI5rUopwB6Tq9eUsyWnKGPqWjEdLeemkwFsVqw4b
+         tXjQ==
+X-Gm-Message-State: AFq9FYJgNYITQkFZcEkU9PDPhO8yoKQWVP0yjyfKv+CEWTeP31n0LLvY
+	WspF9FjGv269PK3gDhN+bck+FPTVbPGBAKjTTVr252QXGWSWS9AZAFZwC/0Y+5NeYhBnYDUPs5S
+	DvA4fhBYLfaZLhLc6DbJakMrtHu6bV5cp/CibveNk9njHdSwzm6cQXt4EWseSI1Kd8X5S8A==
+X-Gm-Gg: AYBFou0dTWznxSxvfZI7+FChbym7K83MBdP26IYm23Ci/R6vMk0XhuTpv7KybEveikf
+	P091EzFVNXZelS7g6XIJt4fy4toYHyJJGNwwZTEjTdFo1zfS1BaDHxQBF/70ACr8+bdA6BlWpPr
+	ktPbHCgFO3UyRSI9SMkG7knCP5M4BAEbFQH7f+7IOqGsxcsH3CdsUWfqZVkaktFx4mgjY7UrW5x
+	jDoh9udalGXVx28O0bBaJ8lSxwLJErJeUJ1xj0NoRFoqcKyiS4ycEax3zvXIBOdTxoC7ZMQCUF7
+	H2zl4X42tHT1TOZsgiLOLmqjxrA/zeco2OCefGevIHs/3I+v6A/FAyJhxAihP3QBCJxe1RuE2Ao
+	lD8V0bto74JvETW4vMkBWtpTPfHptvlhNR3EzOKmcBsnx1bhE5IU0X4ypJH5qyXm/fDyxYssB6C
+	V+g+3EcyOoq+yoCq6M8R1jR+l5e8m6nVeB
+X-Received: by 2002:a17:90b:4a8d:b0:3aa:6b5d:9fe4 with SMTP id 98e67ed59e1d1-3ae57f9a498mr3842307a91.12.1793267757002;
+        Thu, 29 Oct 2026 02:55:57 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a8d:b0:3aa:6b5d:9fe4 with SMTP id 98e67ed59e1d1-3ae57f9a498mr3842279a91.12.1793267756496;
+        Thu, 29 Oct 2026 02:55:56 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e874bebsm3641564a91.14.2026.10.29.02.55.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:55:56 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sasha Levin <sashal@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+        Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+        Yingying Tang <yingying.tang@oss.qualcomm.com>,
+        Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>, ath12k@lists.infradead.org,
+        linux-wireless@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>,
+        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 7.3.y] wifi: ath12k: Increase RXDMA buffer ring size for default memory profile
+Date: Thu, 29 Oct 2026 17:55:41 +0800
+Message-ID: <20261029095541.685879-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,151 +125,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] mm: page_alloc: remove ALLOC_NON_BLOCK from
- ALLOC_RESERVES
-Content-Language: en-US
-To: Johannes Weiner <hannes@cmpxchg.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthew Wilcox <willy@infradead.org>,
- Salvatore Dipietro <dipiets@amazon.it>, Christoph Hellwig <hch@lst.de>,
- Dave Chinner <dgc@kernel.org>, Matt Fleming <matt@readmodwrite.com>,
- Mel Gorman <mgorman@techsingularity.net>, Michal Hocko <mhocko@suse.com>,
- Suren Baghdasaryan <surenb@google.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261028171719.2043421-1-hannes@cmpxchg.org>
- <20261028171719.2043421-3-hannes@cmpxchg.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261028171719.2043421-3-hannes@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=X4nHu2Te c=1 sm=1 tr=0 ts=6ae3182e cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=-8uvzrCIQl3F6d3rFMcA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: 4oDkrYl0szRHd6TaRG963zG5XDXf6zDB
+X-Proofpoint-ORIG-GUID: 4oDkrYl0szRHd6TaRG963zG5XDXf6zDB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzOCBTYWx0ZWRfX0LaMFac2Hpcf
+ P8an5GPhOanboTr2jzfMSXneQqjkvwHpZ4CfSImmsAd6lwNCeWiV89n94Hs5b78c+PsGQjWsnbr
+ 1jDPx56X/F4VhiuybyvUSEI9Dq7MDCMI5i18502p5Hl78X0PruyQ2msoUrfPdWCaSLuEW0XzpG2
+ GQVKwmxaGXfxXKubYlgphuwJftxt26TF0HuOwUe4x1agDVbzdFTUr8TQEmfVSxGXiUuKL0NMahP
+ iiLMj3dLAK2oAA7gqw4gOSHqxBs0xl46AohSqXVGyF8RRDa2H/bNC9jI8MuadUtgrq7Wt75unB7
+ NrIzddzAdQ0qBevDEkcjE5W8EXXajmjQpIypyH6AEuhAMiknHlkoiLG4PC6tl0Jq3zDLclBas8H
+ Js7scp+W7vPtj9rq7WVeoDNM3urJ3eL89cCnhMpINEmYxhcSS5dkVahnzlXalPAp9Km3wrpHk2G
+ UiiMuocz3zPRs12fcVw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzOCBTYWx0ZWRfX6GzRsHbWQcl2
+ B+AHCrW3kWxZlQ+5P0GO3bwSSaacUkdX0skhIqtvk4aPdnYJ3qoYahHeywCayU0SoQY8vus5FFU
+ g6Esc0O51frJzwd2rqbmyvZMHmFgKp8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015
+ adultscore=0 suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290038
 
-On 10/28/26 18:15, Johannes Weiner wrote:
-> 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-> non-blocking allocations accesses reserves") stopped handing out
-> reserve access for ALLOC_NON_BLOCK on its own: the extra 25% below the
-> min watermark is now only granted on top of ALLOC_MIN_RESERVE. But the
-> flag was left in ALLOC_RESERVES, which produces something odd:
-> 
-> With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-> subtract the free highatomic pages for them. So in the slowpath, they
-> get to consume regular blocks below the min watermark by the number of
-> free highatomic pages. The highatomic reserve is capped at 1% of the
-> zone, which on any decently sized machine is a multiple of the min
-> watermark: GFP_NOWAIT can drain regular memory to zero.
-> 
-> The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-> allocations under memory pressure. This was found in review and
-> reproduced with a synthetic burst, not observed in production, but the
-> sequence of events is a realistic one: On a 32G box with an anonymous
-> working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-> burst drove regular free memory in the 28G Normal zone (min=60M) to
-> 28M, 0.8M and 0.6M in three runs. Swapout failed to allocate its swap
-> table, reclaim scanned 13M pages to reclaim 200k, page faults stalled
-> for tens to hundreds of milliseconds. The machine survives it, but not
-> by design: direct reclaimers eventually fail and start unreserving
-> highatomic blocks, until the allocation succeeds or the reserve is
-> gone and the OOM killer runs. That reserve exists for high-order
-> atomic allocations; here it is destroyed to bail out a GFP_NOWAIT
-> consumer that was never entitled to the memory.
-> 
-> Remove ALLOC_NON_BLOCK from ALLOC_RESERVES. With that, the GFP_NOWAIT
-> burst is stopped short at the min watermark. No direct reclaim, no
-> stalls, no failed allocations, and the highatomic reserve stays intact
-> for the requests it exists for.
-> 
-> __zone_watermark_ok() is unaffected, since everything it keys on
-> ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE. Update the
-> flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-> block; the reserve math belongs with ALLOC_MIN_RESERVE.
-> 
-> GFP_ATOMIC order-0 requests have a milder version of the same problem.
-> Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-> their watermark check, but rmqueue_buddy() serves them regular pages
-> first and only falls back to the reserve once those are gone. They can
-> still push regular free memory to 37.5% of min minus the free
-> highatomic pages before the reserve is touched. Unlike GFP_NOWAIT they
-> are entitled to the reserve, so this needs the watermark check and the
-> freelist order reworked together, and is left to a separate patch.
-> 
-> Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+From: Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+commit 15f7603b69a83a0acc7fcc8992ecbea6110f9424 upstream.
+commit 643f0bf936176c114d5631da7547e991b5d99f10 upstream.
 
-> ---
->  mm/page_alloc.h | 11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-> index 9c3c2830acb0..7097ea1805f6 100644
-> --- a/mm/page_alloc.h
-> +++ b/mm/page_alloc.h
-> @@ -32,12 +32,11 @@
->  #define ALLOC_OOM		ALLOC_NO_WATERMARKS
->  #endif
->  
-> -#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
-> -				       * to 25% of the min watermark or
-> -				       * 62.5% if __GFP_HIGH is set.
-> -				       */
-> +#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
->  #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
-> -				       * of the min watermark.
-> +				       * of the min watermark, or 62.5% if
-> +				       * the caller cannot block either
-> +				       * (ALLOC_NON_BLOCK).
->  				       */
->  #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
->  #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-> @@ -58,7 +57,7 @@
->  #define ALLOC_NO_CODETAG       0x1000
->  
->  /* Flags that allow allocations below the min watermark. */
-> -#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-> +#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
->  
->  /* Flags that mean GFP_ATOMIC */
->  #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+The default RXDMA buffer ring size of 4096 entries can become a
+bottleneck under high RX traffic load, resulting in reduced receive
+throughput due to limited buffer availability.
+
+Increase the RXDMA buffer ring size to 8192 entries for the default
+memory profile to provide additional RX buffering and improve RX packet
+processing efficiency.
+
+This increases memory consumption by approximately 9-10 MiB and improves
+RX throughput by ~20% with the default memory profile
+(ATH12K_QMI_MEMORY_MODE_DEFAULT).
+
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
+
+Signed-off-by: Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>
+Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261007-mpp_ws-v1-2-739b1fb87d24@oss.qualcomm.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+
+Backport rationale:
+
+v7.3 contains 58aeb412495a ("wifi: ath12k: change MAC buffer ring size
+to 4096"), which sets DP_RX_MAC_BUF_RING_SIZE to 4096 while the RXDMA
+buffer ring is also 4096 entries. With WCN7850 hw2.0 and the older
+firmware WLAN.HMT.1.0.c5-00481-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3 (still
+shipped by Debian trixie, firmware-atheros 20250410-2), every WMI
+command then times out once the interface is brought up:
+
+  ath12k_wifi7_pci 0004:01:00.0: wmi command 16387 timeout
+  ath12k_wifi7_pci 0004:01:00.0: failed to send WMI_PDEV_SET_PARAM cmd
+  ath12k_wifi7_pci 0004:01:00.0: failed to enable PMF QOS: -11
+  ath12k_wifi7_pci 0004:01:00.0: fail to start mac operations in pdev idx 0 ret -11
+
+so WiFi does not work at all on affected systems. With the RXDMA buffer
+ring at 8192 entries, v7.3 works with the same firmware. Per Baochen
+Qiang, the RXDMA buffer ring needs to be at least twice
+DP_RX_MAC_BUF_RING_SIZE (four times also works): WCN7850 has two
+hardware MACs, the firmware sets up an rx_mac_buf ring for each, and
+both fill themselves from the single RXDMA buffer ring. Newer firmware
+(WLAN.HMT.1.1.c5-00302 and later) is not affected.
+
+Reverting 58aeb412495a is not preferable, as that gives up the
+throughput improvement it provides for newer firmware.
+
+Adapted for 7.3: 643f0bf93617 ("wifi: ath12k: Make RXDMA buffer ring
+size configurable per memory profile"), on which this commit depends,
+is not in 7.3 and does not apply because the profile parameters
+structure lives in core.h here. Fold its rxdma_buf_ring_size field
+and DP_RXDMA_BUF_RING_SIZE(ab) accessor into this backport. Values are
+as upstream after both commits: 8192 for the default profile and 4096
+for the low-512M profile.
+
+Fixes: 58aeb412495a ("wifi: ath12k: change MAC buffer ring size to 4096")
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ drivers/net/wireless/ath/ath12k/core.c  | 2 ++
+ drivers/net/wireless/ath/ath12k/core.h  | 1 +
+ drivers/net/wireless/ath/ath12k/dp.h    | 3 ++-
+ drivers/net/wireless/ath/ath12k/dp_rx.c | 2 +-
+ 4 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
+index b0107cde99ff..b25202effb00 100644
+--- a/drivers/net/wireless/ath/ath12k/core.c
++++ b/drivers/net/wireless/ath/ath12k/core.c
+@@ -54,6 +54,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
+ 			.num_pool_tx_desc = 32768,
+ 			.rx_desc_count = 12288,
+ 			.rx_release_ring_size = 16384,
++			.rxdma_buf_ring_size = 8192,
+ 		},
+ 	},
+ [ATH12K_QMI_MEMORY_MODE_LOW_512_M] = {
+@@ -68,6 +69,7 @@ ath12k_mem_profile_based_param ath12k_mem_profile_based_param[] = {
+ 			.num_pool_tx_desc = 16384,
+ 			.rx_desc_count = 6144,
+ 			.rx_release_ring_size = 8192,
++			.rxdma_buf_ring_size = 4096,
+ 		},
+ 	},
+ };
+diff --git a/drivers/net/wireless/ath/ath12k/core.h b/drivers/net/wireless/ath/ath12k/core.h
+index 93fd227b4d19..6941cd41551d 100644
+--- a/drivers/net/wireless/ath/ath12k/core.h
++++ b/drivers/net/wireless/ath/ath12k/core.h
+@@ -934,6 +934,7 @@ struct ath12k_dp_profile_params {
+ 	u32 num_pool_tx_desc;
+ 	u32 rx_desc_count;
+ 	u32 rx_release_ring_size;
++	u32 rxdma_buf_ring_size;
+ };
+ 
+ struct ath12k_mem_profile_based_param {
+diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
+index bef0f2ba0560..53f7cd990892 100644
+--- a/drivers/net/wireless/ath/ath12k/dp.h
++++ b/drivers/net/wireless/ath/ath12k/dp.h
+@@ -202,10 +202,11 @@ struct ath12k_pdev_dp {
+ #define DP_REO_REINJECT_RING_SIZE	32
+ #define DP_RX_RELEASE_RING_SIZE(ab) \
+ 	((ab)->profile_param->dp_params.rx_release_ring_size)
++#define DP_RXDMA_BUF_RING_SIZE(ab) \
++	((ab)->profile_param->dp_params.rxdma_buf_ring_size)
+ #define DP_REO_EXCEPTION_RING_SIZE	128
+ #define DP_REO_CMD_RING_SIZE		256
+ #define DP_REO_STATUS_RING_SIZE		2048
+-#define DP_RXDMA_BUF_RING_SIZE		4096
+ #define DP_RX_MAC_BUF_RING_SIZE		4096
+ #define DP_RXDMA_REFILL_RING_SIZE	2048
+ #define DP_RXDMA_ERR_DST_RING_SIZE	1024
+diff --git a/drivers/net/wireless/ath/ath12k/dp_rx.c b/drivers/net/wireless/ath/ath12k/dp_rx.c
+index 8fa0e90b4531..d1f0ac152dd4 100644
+--- a/drivers/net/wireless/ath/ath12k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath12k/dp_rx.c
+@@ -1702,7 +1702,7 @@ int ath12k_dp_rx_alloc(struct ath12k_base *ab)
+ 	ret = ath12k_dp_srng_setup(ab,
+ 				   &dp->rx_refill_buf_ring.refill_buf_ring,
+ 				   HAL_RXDMA_BUF, 0, 0,
+-				   DP_RXDMA_BUF_RING_SIZE);
++				   DP_RXDMA_BUF_RING_SIZE(ab));
+ 	if (ret) {
+ 		ath12k_warn(ab, "failed to setup rx_refill_buf_ring\n");
+ 		return ret;
+-- 
+2.47.3
 
