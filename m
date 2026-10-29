@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282353;
-	b=ZQEmSne6nTwifXPe68UMP9wTxA2xk3qPvsz5RXycSor8j+ILQRPRx/L0yLhC2widwb+F
-	 mA+sXhCDnzsyp4k7lWDW+jR3+ikYLN+zjRkU2JVwOBwZUViYb21bX5yEBkTBYX1Vt9A3k
-	 J6xfEN9qPsqYKx/1FNZFXODr8XvvKPQNQR7UFsaejwXVqY3hfohZNI/kznygEg5BFQ8Ma
-	 qLZT7P2CvVKICY2Ny0ndl6iV/VsOds7I2OagfDbkClcjMzAwbWCl0MQjW4UuJV1vbKZCE
-	 3Sy8FgoXgLEIkY8Wwa1At5YZNdS1kzGao10eOIACPrMuT7fWphUNqUy9N9DSukbN7Ow==
+	t=1793282433;
+	b=snM3iVugO5ztAbOq2IEgqb6B3GvxT+xtqnIeJKrrle5xK6kUEatnluKCZAC01SldI3IH
+	 VU6Ag53i7KhE32mn7He8oWSG82lxwozFWauMGM3LPog1b94xadQ3ttf6qx8NGKJ+a8Hyk
+	 wGHw63DlXm4DLbYSM9GTodUVMiXVxoeNKIbHB7kwj3C6Yh3mKpqD4fA8Hg9+A/sfR1aYN
+	 gIf/xydoMrwi45AIbc1d7YpnIEFD1WTyeTK0dENTp7U+MKZUFABg2tUxz+NKhnge7tofk
+	 62d9xd765k6eZszDgcYPB7T1Ht17pLqPvPItR4tNR/vKA7/O/ZhnbANbC+VpEoeargQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282353;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=uMHXUOFE7AZZDX+LsX6dXeRhGFEiwL4Q1GknxPdY3Lk=;
-	b=IGhmYWV6U3pM+qNLSCXoITj9MUf3DbmVzGtoYyJntAtsWecG1mozFiaU2RHO79NxI9Ic
-	 BVX+fMpAoXxoKCKnzKEncm/3q3hQyTnKraD/vuOTysLXCYdGecBRu5QALwM5+/5QwCImF
-	 ua98r6bq6clBZZuPBucjnbi1BScsiwoQRM4G1jWMQv4CE/DNhw2f6B61qJHn1IgZm2n0o
-	 oadGnGGTNrTiBypu/po2Q58bI00siAT2njSMxaPAAbIElkb6fpw5X1YdDAwSe6sYsF6ck
-	 ppYXkUC46ND5BIPO1O/D0dAxJmjpeRBjX0BhHoCtPc47427SUtltFp+2cH/MjYNvhWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282433;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YxekygzBxsNDcLoi4D5NHM3izgiL6ovqXJCr0LnyaUI=;
+	b=P6S+x0R2X/3YI7XWBOKLlqv0e0FVq7bck4H0HWfHR+ftuaVq2YVx0gEzmoYpsBAKJ5d4
+	 wm2mxj0U+x7QBELjWlaBe9VKNpAelIAcAJpbN5QeHlfoB7Dg+mc3VffMpZ1ARVlRiSxd7
+	 foVpZnUsXnNzre2WriiywfP7WKchO4wVcBXTxOwnDfPjlX1WjtBvUQEKkyMyHpBHMR4QL
+	 hStNyjVjQe2GCDZIWxmTq5lufBTajjiGUhOqyfoxBjGe38RSFI42qjGocvl1dZHkfwWnl
+	 z2rgGbQFy4d1fJYL6ZQE3JJIJBU76AT42VJZdwFrsdkJTwLimMJLZGsijLNH5CGCvbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O4kuHfCw;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgM5p73t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852AD606A31A;
-	Thu, 29 Oct 2026 13:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852AD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78818606A31D;
+	Thu, 29 Oct 2026 14:00:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O4kuHfCw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793282353; x=1824818353;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6y2zegGNR4BIjDGrQ4yACT78u9RtDlzbO8PSVZOswc8=;
-  b=O4kuHfCwDvlgac2o+0ut3PGOaowvaFp7HdaeRBoTAhhkyahK+rhxgnGH
-   4SV7QkKEzB62Q6KXEKyxlEHGJ6Mvecb2VufP9UtyRa6vdKc9yNxF3cvRd
-   3zjq9x7dQPyqlnhmIvtJCd/nB6aOTg8pcdnzFIHD/6UZasLJeEN1uLMAn
-   6ZJM7m1H2WtUeZ0m/VLTStaf5RIrhkpFpiZ/9FO7YHKnFaxQKSj76RKkv
-   FjFV+CP+PxFoVdO8jbQpiPnW8P4TuCnemLvp9lqBkSM/z6dNPaCo+MNvt
-   YiQwpWQGfV+lqeYyR0KscK0GyuhuPcf+2cqnWNLpEi5XrJCKbbHv+sOiF
-   g==;
-X-CSE-ConnectionGUID: 7fvV+HqRSvS1VS+uZySmWA==
-X-CSE-MsgGUID: 62snd5jeQlKakbvIWCNgjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1938066"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1938066"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:59:12 -0700
-X-CSE-ConnectionGUID: G42LKDdkS2ezAcmcJfP6Hg==
-X-CSE-MsgGUID: DBMiwUJ8R8qCvmWT+sAADw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5115670"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:59:09 -0700
-Date: Thu, 29 Oct 2026 15:59:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
-	djrscally@gmail.com, dmanresa@gmail.com,
-	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/9] media: i2c: ov7251: Report the pixel array rate
- for both link frequencies
-Message-ID: <auNRKsUghekdXM_q@ashevche-desk.local>
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-4-antoine.pichot@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgM5p73t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C6211F01828;
+	Thu, 29 Oct 2026 14:00:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793282432;
+	bh=YxekygzBxsNDcLoi4D5NHM3izgiL6ovqXJCr0LnyaUI=;
+	h=From:Subject:Date:To:Cc;
+	b=JgM5p73tZ0XDa9iy3MbCsU+BHR2NvteXXvx27W4hlENX4vHHrPK3ALLagnO4+ZJ3K
+	 KO33bL4EJfEKQYgvT/WnnQ2BuaEQEcdErCdbZj0v0sGQjqyNG+C9kakaYkApZSq5oP
+	 /IlVYZpxYbLhlHNqKdOXBDLXktcbhS8I/3IS/BzIwnXq2VpKw7olrnkC2BHfyjgjiv
+	 pu7TTutlI8PI1n3tKbaiSHJMGRQy+C6mzuQg6ieTP97PaJLI70mDOYHm/xf56ekV9G
+	 7znGrV4wOo+Hq6V/2gxI2vfSQ2U7PTUCuQXv6M4o0GhLpynKKgCP5Xhr00mwBOjnVn
+	 NcfcLhbs/K+CA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/3] fs: fixes for aio rings, backing files and
+ iov_iter_alignment()
+Date: Thu, 29 Oct 2026 15:00:19 +0100
+Message-Id: <20261029-work-fs-ai-fixes-v1-0-88f22792f6f7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,52 +54,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028112154.855185-4-antoine.pichot@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMTQ7CIBBGr9LM2iHAwlivYlwMdLCjCTWM1SZN7
+ 17QuHzfz1tBuQgrnLsVCr9FZcoV3KGDOFK+McpQGbz1R2d9j5+pPDApkmCShRVtsK53bqATEdT
+ bs/C3qK/L9cc6hzvHV/O0RSBlDIVyHFvUjCap+RtN62Hbdmvt6QCcAAAA
+X-Change-ID: 20261029-work-fs-ai-fixes-0b01911da8aa
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+ Amir Goldstein <amir73il@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
+ linux-aio@kvack.org, linux-unionfs@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2700; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=36jg5gwmg7BOgPkta04SwpDslnorY2za+ZK4iofOV74=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9DqwOeuRwYIFyxXbW7c0uTZ98pr3v3OH+60zAQxPvl
+ Jlxja51HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNxPsHwh09i9Y87qdU96+v6
+ v0/5EHDe24h/oat6efw0de/p//55sjD8T5S59CSvRjFDLcs81vKro9L/5NfuC3TTp9xfxtgxJ+U
+ ANwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Wed, Oct 28, 2026 at 08:21:48PM +0900, Antoine Pichot wrote:
-> pixel_rates[] gives V4L2_CID_PIXEL_RATE 48 MHz for the 240 MHz link and
-> 63.84 MHz for the 319.2 MHz link, which is the CSI-2 bus rate of each
-> link (one lane, 10 bits per pixel). The control is the pixel array rate,
-> and Documentation/driver-api/media/tx-rx.rst says the bus rate "is not
-> the same thing as the pixel rate on the camera sensor's pixel array
-> which is indicated by the V4L2_CID_PIXEL_RATE control".
-> 
-> The pixel array runs from PLL2's 48 MHz system clock at both link
-> frequencies: the PLL2 registers are the same in both tables, and the
-> measured frame rate is 48000000 / (928 x VTS) with either link. On a
-> Surface Book 2 at 319.2 MHz, VTS 1724 gives 30.0 fps; 63.84 MHz would
-> give 39.9 fps. A Surface Pro 7+ measures 30.01, 60.16 and 90.45 fps at
-> VTS 1724, 860 and 572, the same 48 MHz. Dave Stevenson saw the same on
-> a Raspberry Pi with a 24 MHz clock, where libcamera asked for 100 fps
-> and got 75, the ratio of the two rates.
-> 
-> Report 48 MHz for both link frequencies and drop the table.
+The aio bug fixed here is the third way this year to fault on an aio
+ring after its file was truncated. The ring file has no ->read_folio
+because all of its folios are supposed to be in the page cache so we
+jump to NULL. This time vm_munmap() gets interrupted by a fatal signal
+in io_destroy() and leaves the ring mapped. I didn't want to plug yet
+another route so the ring now gets a ->read_folio that fails and the
+fault gets SIGBUS. Making the munmap unkillable would only cover this
+one route.
 
-...
+I rewrote the backing-file one. FUSE passthrough opens the backing file
+with the flags of the user's open but never runs the may_open() checks
+against the backing inode. So a passthrough file backed by an
+append-only file can be overwritten anywhere and one backed by an
+immutable file can be written to. Chris' version only checked the write
+paths. That left shared mappings and S_IMMUTABLE open and it failed
+writes on file descriptors opened before chattr +a which can keep
+writing on any other filesystem. So the checks are now done at open and
+mmap time like may_open() and do_mmap() do and writes only fail if
+append mode was taken away from the user file.
 
-> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
+FUSE reports EIO instead of EPERM for a refused open because it turns
+every error from opening the backing file into EIO. I left that alone.
+Miklos, if you'd rather pass the error through I can do that on top.
+Amir, for overlayfs this only changes something if the upper inode is
+changed behind its back.
 
-Same comment about Link tag.
+The iov_iter one is a NULL deref that any user can trigger on btrfs with
+a single zero-length IORING_OP_READ_FIXED on an O_DIRECT file.
+io_import_fixed() hands out an empty bvec iterator without an array for
+that and iov_iter_alignment() looks at the first segment before it
+checks the count. Other places build such iterators as well so I fixed
+iov_iter_alignment() instead of io_uring.
 
-...
+All three are tested in a KASAN VM. Without the patches the aio and
+iov_iter reproducers oops and the backing-file one overwrites both an
+append-only and an immutable file through FUSE passthrough. With them
+none of that happens.
 
-> +/* PLL2 sys_clk: the pixel array clock at both link frequencies */
-> +#define OV7251_PIXEL_CLOCK 48000000
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Chris Mason (2):
+      aio: fix NULL deref when a fault races ring truncation
+      iov_iter: fix NULL deref in iov_iter_alignment()
 
-Perhaps
+Christian Brauner (1):
+      backing-file: enforce append-only and immutable backing inodes
 
-#define OV7251_PIXEL_CLOCK_Hz (48 * HZ_PER_MHZ)
-
-(will require units.h to be included)?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+ fs/aio.c          | 11 +++++++++++
+ fs/backing-file.c | 28 ++++++++++++++++++++++++++++
+ lib/iov_iter.c    |  4 ++++
+ 3 files changed, 43 insertions(+)
+---
+base-commit: 02a336a831f02a18047bacbd49018a237af8a172
+change-id: 20261029-work-fs-ai-fixes-0b01911da8aa
 
