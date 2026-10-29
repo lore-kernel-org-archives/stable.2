@@ -1,128 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793273449;
-	b=aJjlW32qP4DRJFT8rQ7IzScl5XIEU2EKduwMoHHGCYmKokdFZgyV3nlhe0Na+I9INfM8
-	 diSbqhjmRmAXcWjFNc/+QH8RxWjgje4S2nVcJpx2I4Tz6x6gWEtxz5wrgr1J0PrQ8ukfI
-	 1HduQ0+rVYvAeRDX0cFpf9RoKzJXQCoMmZ+eIo6d+kiKQUwFJPQrbS26QNjNqqvgrrIM4
-	 HD7pUd90sTBDPBWk28fIYGImGiPVUtM4mYQPf06SvHdPC0jo48hXjTOZOrrXlCsHeGDEN
-	 eDsMdE7jBzEruGCGClZd//wmBWnvjmj0I1++c0TLFZl/8QaHnLDBRnq50dneZT9U62w==
+	t=1793273583;
+	b=3V0hcS5lC1t9JzWXIIu00NciUm+BVQoknwwvo14h3PVHwPg8RmzsUFUadvNtOhlwqDhd
+	 NyYOSA9hexFdijsg8z3indqBhu6Fc6Nz2PkrVH1LKDcsMKFqM3Qme78tjH1LE69iLvznF
+	 jXra5SMQFbtWqyPcXt/GfdA5yIOg7GPfTxLqw+VzGoAlQytTZSd3UMAzCQePBEHt5k/Ir
+	 MNIBwAkFdxLzNYj9NnmtP3cmFjQ/c76YMUpoikAUMbLBuICfKHGV2JAjaUs1qVV7oW06W
+	 Y9VPUen98PIhnAeUEoIZMP8x5M/+PDUI9Y1UnXNTfG/V9ccXPNzKMSO+lnbtHuqFe1A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273449;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:Organization:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=guIqd9G5Y+N2zLlcXHVZoLvBf8v/FzgGzij5POha8xw=;
-	b=s+oF+U7uF69ZotN2rFAVX7ZP23f1S6v8NSp3OPJs8lSZZkdOUOFHxdvzvdWdx8sn1od4
-	 k/ntOJniRbSXTetODdQ+zUqjsBbwsuaEqDRbtPwiJS7mhcIN9GnVBDkReWhm4v9qyojkX
-	 RGRN16ERNDFY1QjAV/PolMHdow3c3qlIkC47mRNIOtKZ5+D/w5BpnHdVLKAi2uoaiXrF7
-	 kLhdSr1OUvy4qVGNe8OIxDsTUueGZQBZvNto9a/cRcBWYY8Mm72iZcPhtFP7ILz23OW4J
-	 pCDUDPdSbe+qI4XSLTKpAhhSUJk5lJNsblLNGMrn7Q4FKu3CgMlgFdSJbBeL9zODeKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273583;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+	b=DVd7M8lhLff9CVLrz3oxy9U84owHsKFTFcRfmf6W1bu2POIO/+x9ytTVsbVff2TebcM4
+	 jdbG9q9vkWDAXceGTNmreDaY+T+K44KZE2990IfzjgsO/47SvUgdI+MdfyEy70BShpGxx
+	 IunQoHEOYIaWhV84j2Tjhwj0STv1fH4ITajunB0OCWVh+hL5AMXMcC3ee41+/4dx2ej0t
+	 wwrg4x3byOChJNKjjV+ym7keCaiCR90gVD+o/xl6ae6ZwwuI/kuS6fI5pjxND8J2/I33S
+	 EZYkr0fw1o4TOGX9I4fICxu/7V2B+WZi9LEKbZKfKtXXKXN8soUOa4bKsnBQd7dVWhg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jxOi4Wyp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KFEbraKV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.42
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBB0606A322
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:30:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEBB0606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10ED606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10ED606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jxOi4Wyp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793273448; x=1824809448;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=N1D95aU9dGA4eWgsRp0A3ncKTjiAYbTSBAHyYMznx8o=;
-  b=jxOi4WypIMplDpuj4MkU8cQnpQOn7weCDhPq8+l7jagfeBn1X9iRVx/g
-   3Ho5gyGidP+l27kDj9L/HzUVHPfEXVsy3i/PPwCYqM0z+TKZcLhLkMk8e
-   jkJwlNH5yLamyfFDufuWEvUapgoepMLJLS3qaAyjuE3wb/73qDCt8QRgr
-   hBwb62/kNxFOnz79axiqe36UJGBgJc0Frzs9QoxiUfQ53U41ZDV6mAl0y
-   8tlRTz+trZCiMsFoJy+SCfNX32vLpl+nAY1TfuXEFi3pX0mrvXlOnXp3d
-   7sKev8G716GH9r5BAFsqzIJW8vx2ZrW0eu11kLUN/UnDFFfhkUS8dKZqG
-   Q==;
-X-CSE-ConnectionGUID: j3Nm+qv9TJmZCBZqY8yP/A==
-X-CSE-MsgGUID: nJW+yqQUROeMJnNk3osXmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2018067"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2018067"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:30:48 -0700
-X-CSE-ConnectionGUID: OUCU+r6HRr2hOnsznhAWgA==
-X-CSE-MsgGUID: A3XTsHCCQ6SFbIMC9/HSdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5130216"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:30:47 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 04:30:46 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 04:30:46 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.49) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 04:30:46 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C3ZZjHWPRUpAWpj9tQVf+32UFC9NYIlxkhenvr26kAPFu5a2JPskgsHIhjxxcMxErKPEOZyEBVEu3GJOi7RtiC6OcepNWHzs1f9AeBkcNwnH17YrMCQJH6AD4FDVaAG8PQwtKS4MEjwx8BrgA8kWwjJEKY0d3zsPUHn+UdUPW9qR4toea/22u+EQqkgjsPc81WLPPZCC8ioA33OsfqHQQgx3lDetZEVogFMBzJKb05DeHG25bmYqz3jLr/VGUJ7wMWTHtet2YolEAY4n7zOqNBXvz4vwbyK5VHJTsVweknuV85n9Z18dx2TuyifIVE+TUdBV+z0oPmxIZhSbE+sA1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=guIqd9G5Y+N2zLlcXHVZoLvBf8v/FzgGzij5POha8xw=;
- b=rYuuB/Iw+k+3u5IWe016oL/pyKaSE5mp8ZgsX9A5KdSRn7FYOJTGo2uY26ytJVkktM0L47FW/Rq2QkkGudQrWCM+5AaQsYulYsLzuf1oslE0FfgtINvL4NVwsJB9k8D/1IKQDbufbirryi4grDjwZ9n+dU5AfCj9dVxhjfC5V03WfBFMUUVIvimQ272VlJe41H8krvh0KF9tG3hr90grDUBaeh2Ux5ZhtnKvjZOtsTqLKmwrqWMouPonJ0r5fKMlr/Ez9Nu5fkh8JilBaAKPnsH1JxGNsSRnib+pDvCaHdxD6FTMZzNsVXDO8R1ANwGvRjB0qAgzD27+zTPK0ZWyzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
- by DSWPR11MB9823.namprd11.prod.outlook.com (2603:10b6:8:4e1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 11:30:32 +0000
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 11:30:32 +0000
-From: Imre Deak <imre.deak@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: <stable@vger.kernel.org>
-Subject: [PATCH 5/6] drm/i915/mtl+: Use PHY type to identify TypeC ports in PLL ID lookup
-Date: Thu, 29 Oct 2026 13:30:16 +0200
-Message-ID: <20261029113017.618286-6-imre.deak@intel.com>
-X-Mailer: git-send-email 2.49.1
-In-Reply-To: <20261029113017.618286-1-imre.deak@intel.com>
-References: <20261029113017.618286-1-imre.deak@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: GV3PEPF0001DC22.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::119) To IA3PR11MB9273.namprd11.prod.outlook.com
- (2603:10b6:208:573::17)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KFEbraKV
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6df5e315bd1so1457637eaf.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:33:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793273581; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FbU4iUIpqiYO2kY5cfabhK5FWrg0CK+zgzcxcCit665O4f6DZtoYR3v3TnGI/uahdg
+         fQU8DvM9p8CcCOa9qpg5ZkDgIKjoV1UW1B016+J/fE0oe+RVVRl7vewLyCBN5QtGBGRY
+         x4AKNZFML/afO4ZX5Hw/WKjEVwrTYlbIwuz8fUMHfIzuj3XphdF+TC8eCf6Ds1aEkxzJ
+         CCbeJzxMIcxzCfEhc5LA4k1jWynquoAbaGYmGzcEgdS2micnuIKHoRH7lJLvyrsVyIPJ
+         /4vNH9bJTaIMs2m3Sz7Es/XsoS3v3KGgKtc7+n4xhzylvs64Lni7L9qTiibDFPzyBlY4
+         Utug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+        fh=Sm3a2evjSpaxISZu9cufn3wsB8YRWdBypiV/pi8BMYw=;
+        b=hHGX/Ew0R6hW1PxgYK0C9cXE5U1DMSlQ0X3dO0XiRjAYEf288hp14WzPhyUYfxv6wG
+         z+bPADoySj6WdPI3ar88oW55y7/oKoAtjvxw9PEWMuHtz+p5Rxxp+E5CEiQtvUYUq8qA
+         8TYN58WKJtjIgkp1NtX0vRCgw1gTTfGryq9IHeqhqp83nJ4HpZ8hs7zRoXoJz/+iiV8y
+         4FA8HmuybfOKmMNXRV1ZRyLCsn+Qt24FbrfJ1mUkHh3Z14DLRYOc/JDkKi8F3vhXFvoo
+         pFjfCzl/bikeZmJuW4rgIJCvEWFuqmGJ6b8m4iu4kL4MaMbCP7UCrXFM403qP6enIt/i
+         Y6Pw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1793273581; x=1793878381; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+        b=KFEbraKVW7fUuXQBFvZ81tX96XlEJi0iIFiLju8j9dPNKY1JXR0eLkVvhemyA1zkj9
+         mGQ4qzIQPPXAilrHQd8MqBvXNLA0KxA5V7rKjQcVuhuOXLzjxHGR5HBUKPSJNTp5lyCJ
+         Npz89BtdA+dipigKTToxV/R0/XuDWsAnAc+wkmviz41aJlIPrXyZ6rTcEWdHgdNq9X0x
+         +sDrXbnfovYgwzIgtzaXiBPEiPs3MCOOkbXXKlLW181JY1lpLRNGxJYr0f+1qt6wMO3d
+         HL3RU3zn/o8aLyJuC8pHDhosV3DSZB68aOotBR3N8oXTc3NfrERtm9nFVAXugK6ILtu/
+         vPqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793273581; x=1793878381;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+        b=PJPKfKm8pwal9fPdCPiZfYEPgXfHXbVBpIrxuearasAauZCAoaeuNwjX1fety+y+ip
+         YHcEP6vKyJNUajCoQf91MRF6I9dbT+WqTiUWg1bZlVtOtjRPE3Wx2cAIcywTK0oE3wX1
+         IN+UBPqHzGMY55TYU24Vx42GE/Q1yUoivglsE0hGhxGXTpjZp8BftrlE1cnMakolP6fn
+         +tE0hFwHKEHhTJpuUGvDKX+aAU8Oc2hCCNP2HiaFpQvY75/epn/tEwvzAiHea05G9GdI
+         +ghfc4zn1dmAsuRuDZSiGMd9Yl1QbKjiYXefo9vxmGvx6jiSKzz7l5tiilvVFA+WyVs8
+         KgXA==
+X-Forwarded-Encrypted: i=1; AKwUvBx900OxcWeJmipUI8GsXO637PKOw1zN8QzhlMBpBydVQ+I8cS6SIEXo4FAyt970PdJ9NggD0RA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWmgmKwqGgCvDgY3RK9exLYaYkrNtr8TirVMc1AGvF/Wyi2ALO
+	Cxe6DmfEQiuXOoPtrjZsHdIbH+W007TUENM4gqxpqvx5OS92qWll5AMEtyZ3wBl4OcCSi/e5gQQ
+	P+7/VAQ6kWXQPKzsA+jMncZgPYHTeT/Vk0newcACuLA==
+X-Gm-Gg: AYBFou2KHa+THP3DFiO3WRTNqjH/nIK77CJqXpZYCaqQK8NEaCqDCn+B1IZqVBP52kF
+	rdxsVK9VGUaYpbjHYmBHdPh9RTN7//pilLdvrwH5dGIGqYsrSTta+DQRh8dqPkNP3tQQPHEm3ty
+	4x6MI66hW47UAysjkF4iVDGFjYIXphDL5UTZdySoNT8kXpKF4euA6xuxKMi5cDNPBDSjupj7bpe
+	MlwiwK768ntAi65+Mxt9x1lfR42i/vXYydAqRz7IpCtEZo+NWJ5EGhnN91aINFmWNIwg4Psvm8H
+	2MUQyFnBxECraEogl9sIfURGcmWLZV1yFisIHw0bJrZn0kvPHaJF+rLp4wasYZXOQ778UqZcJJO
+	tzyFDO2jaPk6piyEpYBUcLNaxtqmTaV98k1+mBVpeZNhs3jFDIOHvVdimxNXp+VAN3HX4tHQ=
+X-Received: by 2002:a05:6820:a514:10b0:70e:2d38:4b70 with SMTP id
+ 006d021491bc7-713eef43a73mr2044037eaf.7.1793273580795; Thu, 29 Oct 2026
+ 04:33:00 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,82 +104,219 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|DSWPR11MB9823:EE_
-X-MS-Office365-Filtering-Correlation-Id: 301c65ab-eb84-4a72-4329-08df35b00a7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|56012099006|11063799006|261009223027099003|261021123027099003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: i7LDaK3Gx7s8sKuQT3+p1bA7wgnJsiDNhwlg2L2xpVMRTJKcNPmNUi7KQGQzmktLdJVMSQCLHupVC5dFKHpV5dvXyoSjUJ/Blyi+XKcFptL6rOTn9AXanCP75KkBOhGS594faym1u0lNJkEO0/gG7sIzbRfB94S0n1AGUx8fcGc1wEGULO3/NyZ3qDL8pgMUIhxwQT6pjQuEuRB85b0+2y1tvlK502kVkQskrEUjRx4CdL9vyXwlKZp/tHR0atcbjJwn3BPW+aH35qql2D31LkgcqNhduD0q58gjE1Q8C9O55QbwSa8aSgeetM9BKePTI/jALw+VCHpQrsty/B7kDPBtr+vRC4J6DW5BZ/kBD4kp/qQM7jLQuc4sMedrsUvO4bwZsM9UhoBVbeAHoazyJe2/VqlLmlOeBR/GF7/CZCnapj6y9GaybA6Rksb55xB0AK2DDa0Nh+y89fBNP8/lK2hYL2eZg6VSIncSq1M7F9/29dQjzgfEaVgT3ozH+WWWeH2FaiyMVS+YXTGn0tceIa1gWOQDiakkoejdocewXE/IpzTTHY/7xWZr+zE12f+lX7UG2J14fSkb5LKf0sYsJ4bCpkew4D+Ycs6QasLZkzb94I2LG9ap4nKYYCt9YGlW+CbMK2pWtfYeDTkUd8azoagINj70QnzB2F38IF57iG4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9273.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(11063799006)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MnYKP4T6ByznX+pzk3p5KnDb1X6cRTcfHDg/1vLVR99gJXaruLjuf4QK/I8p?=
- =?us-ascii?Q?MaEVlWV4ChZPydwiZ83zk74+C8TLyDbMAfvTJpL97c/V3+44S3ANXXXPUX2n?=
- =?us-ascii?Q?PkAXAyAutKN8Bn41SA76VGlAXJv8K2gOuKhcOyV9hLMYc/eWXsKfwOG6z4KE?=
- =?us-ascii?Q?Gg6sBJ1sXbwZBIJ2GldgYRgBGmE+vN5B1uo+1yRkATLAr0J2v4B7njs4MLDA?=
- =?us-ascii?Q?UR93/KOPEVyO8JgxYVZf9RsvEyXBhWwqcb3mLcljQ25douc2SjbaWijOxH3K?=
- =?us-ascii?Q?qmTqqpbIa2zEvxzIMv30s5e7Tpa7AMdMmuIPd0S2q/sCleJYjFyFWAO7iXNg?=
- =?us-ascii?Q?7nuQ5PEk2Q3pg+P1D55GJXYfCUqfAnQeaCylp40DAfKH6jkxgMGaU2Qm/lUY?=
- =?us-ascii?Q?GKDzj/U0w9Ab4D8UCXFA3li2TgGCTMOh+xBVlBbRG1ioEqhUj2FxMqNv0tyb?=
- =?us-ascii?Q?2mWfAPaBz6LT7HeUx3nad6AYAEM+/OL8O2zFjV9HQ5VYrxVFJm3bukpCEmJ0?=
- =?us-ascii?Q?HW35iARnYjlYxigiEMhxoOAbZ4AsnhKGEZ3kBkF4miNAH91z240LO8cnV4P/?=
- =?us-ascii?Q?5SzUl0NUPLaW4IWzr4cnqn981+DGwRj3ve/TmIhn8797hNk9jFCXXvbxdN+p?=
- =?us-ascii?Q?KesQv6DDPpWq1LIAyZp//nXJ3V7x3Fzfneg2eahlEJso2dC7FqM+q+17Yl4K?=
- =?us-ascii?Q?SUaw78F8xT3NcPlmOyigy5OU7Tahbmg+LBH5bJyBBCksOB8G/JcurAKXR20v?=
- =?us-ascii?Q?uBeFDl/zh/jzbDG/Gi+NJviNOV3Ks4GVJc6xc0nlPHxaTgixJDr9LViQmdE+?=
- =?us-ascii?Q?7b6mUfUc2kZlY6vnqu9t1vuju3wA8W8/Th9J0FqsuG+5Szzj4z18A+9AfWcX?=
- =?us-ascii?Q?wB7/04r/Bhz0Cb5j9qTe5rGTCHVFRyhKRdi8BJdyZgJmEm24jD65CAQnyDhk?=
- =?us-ascii?Q?x1CL3A5H72bAIjK8jyLVznPfIs4b1qHLxFayif/HGf8xtaZSufYNTbPcOplF?=
- =?us-ascii?Q?xJnUWliR3PYxme/lSjf5ZW124V+7ONqmfOs2FmJMv+9PMjBtnSn6yhOQ/uuc?=
- =?us-ascii?Q?bTHSRdZrIROfjNZvCirtmZdSmfYYChbqDVKVuneOJfWcJ3+qVVUeZRy317DB?=
- =?us-ascii?Q?FaIaSzEbGO5APnnrcsi3fXRtEMdLyaJdQc1q53ViSqnKmbv4shEWDrAJtFp/?=
- =?us-ascii?Q?cbmCsiEkxJ5gAg0Dv3vsY4P/DHMx1ArPAuVS0iuvk0i+BvlWxekd/UFU+RYb?=
- =?us-ascii?Q?cIbKsRBe/q1XXhxvIivglwxPHAbPVfW2D/Yaa8d0h9u2jovOuHdphAHDk8p6?=
- =?us-ascii?Q?wBBDmempzGpRvD/W/tinUrU5HJd20ZqpMPbqzD+j3jHAl2PiTO+bd//tX6gk?=
- =?us-ascii?Q?ABJ5nRBDRcvXZFUhktCNYU2bwQs4SsyOespqCje7WcHNoB7GDBQsXGyNxx0y?=
- =?us-ascii?Q?twIZfcQrDGiP2geoHaqePGegP2fonT3Epd+52HRLI0an5KMg97zgq3crwoAQ?=
- =?us-ascii?Q?o6iclDZZnlbePbkGINs9iCPsXidYuMpXyqFQDEjvlBhipNUIfAjzK4M1CO2C?=
- =?us-ascii?Q?H5FQDic9k1Bt9SDAQGuvNlLboO2A+Rv2R2p2sHOz8LFzeXxOP0ltcwi6B0jx?=
- =?us-ascii?Q?RlNAHkmQILxwQfUjDGYxV947rb9L1TGuTNqcBnOwPwq6i+JZsJHOkWlV4QQB?=
- =?us-ascii?Q?mRwf9ybIfVkhs+j8Tf1JRwO196IXK1r19YoWP8X0yfVVQxmMhLz3r/xZYtg4?=
- =?us-ascii?Q?ernJK6qWeg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: MRZKd9mYf5tMZKphJELvIbwAG+kjpw5orO1GpeJTql+2YpsDRQ/WPG0LTJxm/BfRbiNEPt4DPJnIZi7Xr9nelobjvNyHNdbaE3LZHl7mzCCnI0UXmYI5zmlMXPZUQH3etzu8gAMjhcbPMW4jM6luap7dY9U/e4hy554/NvHLHTz6y5ZTudUl0fS4Bhk+Kngf7e8nbi0F3rmVpGKs7wSlEA2J+fCLjJLGBJFwxci5e+4upnj9G9ub86+noD16wg/g+CxkE0875Ar2DXSV/QMvcxSqcHMi0LGrmoyY+me+EJ3Gq3zTBjjcSUQ4T2XC610zFw5vgBk00hb4xRJEgP1psQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 301c65ab-eb84-4a72-4329-08df35b00a7c
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 11:30:31.9555
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: URem+hi1YuA7OkaoTZlLUAMNLR5nm7doA+qRuFhzjNRo6R0agl+m20jHFcH+cXQHrZeHELF7BTWEkWTRxYd55A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9823
-X-OriginatorOrg: intel.com
+References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
+ <anQyoZgi5Urnvvjw@lucifer> <919b804b-6f1d-417e-9c0c-d06f50d765d8@kernel.org>
+ <anSar_i8UjniSbML@lucifer> <a6a9e0cc-e6cf-4f83-b6be-7d64058b8fa6@kernel.org>
+ <anSqbW1w2bDDHpAx@lucifer> <CAEEQ3wmJoUF5TDQDfMU_dUHnY+gg7MYG=OmmdB3Ynpdu9gJ7-g@mail.gmail.com>
+ <3882e553-4be3-4b2d-b884-4443032e7853@kernel.org>
+In-Reply-To: <3882e553-4be3-4b2d-b884-4443032e7853@kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Thu, 29 Oct 2026 19:32:49 +0800
+X-Gm-Features: AclHuK-NsCthzCzymfm9IrdjWCbL02wiGiuXLxLhRNRDCgpTPiA9M8Ic3D1KQcI
+Message-ID: <CAEEQ3w=t4fCXZSqDUZ+XQCJ7UhtrKz+TSM=H8y=JvdAoJG9NXQ@mail.gmail.com>
+Subject: Re: [External] Re: [PATCH v2] mm/madvise: avoid skipping pages after
+ splitting large folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, akpm@linux-foundation.org, liam@infradead.org, 
+	vbabka@kernel.org, jannh@google.com, 00moses.alexander00@gmail.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Use the PHY type to identify TypeC ports in the PLL ID lookup function.
-This ensures that port B takes the TypeC path when an upcoming change
-sets its PHY type to TypeC on PTL+ platforms with an eDP panel connected
-to a TypeC PHY.
+Hi David,
 
-CC: stable@vger.kernel.org # 6.14+
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Tue, Aug 11, 2026 at 10:49=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 8/11/26 04:31, yunhui cui wrote:
+> > Hi Andrew, David, Lorenzo,
+> >
+> > On Thu, Aug 6, 2026 at 11:40=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kern=
+el.org> wrote:
+> >>
+> >> On Thu, Aug 06, 2026 at 04:46:10PM +0200, David Hildenbrand (Arm) wrot=
+e:
+> >>>
+> >>> We GUP'ed a single page and now try to be smart about which other pag=
+es we'd GUP
+> >>> next.
+> >>>
+> >>> That's just wrong, and hugetlb special-casing is just ugly.
+> >>>
+> >>> The problem here is that, if we GUP'ed a page and poisoned it, the GU=
+P'ing the
+> >>> next page might fail and we'd return an error.
+> >>>
+> >>> But maybe that error can simply be handled? We have FOLL_HWPOISON.
+> >>>
+> >>> So maybe we can just use FOLL_HWPOISON and skip over the entries that=
+ already
+> >>> return -EHWPOISON?
+> >>
+> >> Yup this is ugly debug code so that works for me.
+> >
+> > Thank you for the review. Based on your feedback, I went back through t=
+he
+> > madvise, GUP, soft-offline, and memory-failure paths and outlined the
+> > changes I plan to make for the next revision.
+> >
+> > The issue is that using a page obtained for one address to infer how fa=
+r
+> > the range walker can advance is the wrong abstraction.
+> >
+> > For an anonymous large folio, soft_offline_page() splits the folio to
+> > order-0 and handles only the supplied base-page PFN. Advancing by the
+> > pre-split folio size can therefore skip the remaining base pages while
+> > madvise() still returns success.
+> >
+> > Lorenzo also raised the semantics of a range that covers only part of a
+> > hugetlb page. Looking at a range that crosses a hugetlb boundary expose=
+s
+> > another problem. For example, with two 2 MiB hugepages:
+> >
+> > hugepage A: [0, 2 MiB)
+> > hugepage B: [2 MiB, 4 MiB)
+> > requested range: [2 MiB - 4 KiB, 2 MiB + 4 KiB)
+> >
+> > The first GUP resolves the last base page in hugepage A. Adding the ful=
+l
+> > 2 MiB hugepage size to that unaligned address produces the next address
+> > at 4 MiB - 4 KiB. That is already beyond the requested end at
+> > 2 MiB + 4 KiB, so the loop terminates without ever visiting hugepage B.
+> >
+> > For MADV_SOFT_OFFLINE:
+> >
+> > - ordinary pages and large folios advance by PAGE_SIZE because
+> >   soft_offline_page() handles the supplied base-page PFN after any spli=
+t;
+> >
+> > - hugetlb advances to the end of the current hugepage because successfu=
+l
+> >   soft-offline migrates the complete hugepage and leaves a healthy
+> >   replacement mapped. If the walker advanced by PAGE_SIZE, its next GUP
+> >   would resolve that healthy replacement and soft-offline the same virt=
+ual
+> >   hugepage again;
+> >
+> > - ZONE_DEVICE does not need a stride case because soft_offline_page()
+> >   rejects it.
+> >
+> > Advancing to the current hugepage boundary, rather than adding the huge=
+page
+> > size to the original unaligned address, lets the next iteration start
+> > exactly at hugepage B.
+> >
+> > For MADV_HWPOISON, I plan to follow David's suggestion and walk at
+> > PAGE_SIZE using:
+> >
+> > get_user_pages_unlocked(start, 1, &page,
+> > FOLL_GET | FOLL_HWPOISON)
+> >
+> > get_user_pages_unlocked() is the appropriate interface here because the
+> > current gup_fast_fallback() flag mask rejects FOLL_HWPOISON, while the
+> > memory-failure madvise path enters madvise_inject_error() without
+> > mmap_lock held. get_user_pages_unlocked() acquires and releases mmap_lo=
+ck
+> > internally, handles fault retries, and propagates -EHWPOISON from the
+> > fault path. FOLL_GET makes the page-reference ownership consumed by
+> > MF_COUNT_INCREASED explicit.
+> >
+> > A successful GUP is followed by memory_failure(). If GUP returns
+> > -EHWPOISON, the address was already covered by an earlier larger-granul=
+arity
+> > injection, so the walker continues with the next base-page address. Oth=
+er
+> > errors are returned. This avoids hugetlb, DAX, and folio-size inference=
+ in
+> > the MADV_HWPOISON caller.
+> >
+> > Device DAX is relevant only to MADV_HWPOISON because
+> > MADV_SOFT_OFFLINE rejects ZONE_DEVICE pages. Since the proposed
+> > MADV_HWPOISON walker advances by PAGE_SIZE and uses each GUP result as
+> > feedback rather than inferring the handled range from folio_size(), it
+> > should also avoid the same granularity problem for Device DAX. A
+> > successful GUP is passed to memory_failure(), while -EHWPOISON indicate=
+s
+> > that the address was already covered by an earlier injection. Advancing
+> > by PAGE_SIZE should therefore also work for Device DAX in principle. I =
+do
+> > not currently have a suitable Device DAX setup, so this remains unteste=
+d
+> > at runtime.
+> >
+> > Because MADV_SOFT_OFFLINE must advance past a hugetlb replacement while
+> > MADV_HWPOISON can use FOLL_HWPOISON feedback during a PAGE_SIZE walk, I
+> > plan to use separate walking models for the two operations.
+> >
+> > Before posting another revision, I plan to split the work into:
+> >
+> > 1. the MADV_SOFT_OFFLINE range-walk fix;
+> > 2. MADV_SOFT_OFFLINE large-folio and hugetlb selftests;
+> > 3. the PAGE_SIZE + FOLL_HWPOISON MADV_HWPOISON walker;
+> > 4. MADV_HWPOISON large-folio and hugetlb selftests.
+> >
+> > Does this separation of the SOFT_OFFLINE and HWPOISON walking models lo=
+ok
+> > reasonable?
+> As Lorenzo says, this reads AI generated.
+>
+> I assume what you mean is:
+>
+> MADV_HWPOISON will actually hwpoison the pages. We can just use FOLL_HWPO=
+ISON +
+> -EHWPOISON and should be good. So far the theory.
+>
+> MADV_SOFT_OFFLINE will migrate pages instead. So if we don't skip multipl=
+e
+> pages, we could end up migrating multiple times (and setting hwpoison mul=
+tiple
+> times).
+>
+> Well, for large folios (except hugetlb) that's not a problem, because we =
+try
+> splitting to order-0 either way, and if that fails, we bail out.
+>
+> So what remains is hugetlb, which is nasty.
+>
+> I don't really enjoy having any special-casing here, because the moment w=
+e e.g.,
+> change how soft-offlining deals with splitting, we would be in trouble.
+>
+> Assume we start support splitting to min-order at some point, we'd also w=
+ant o
+> skip over min-order. Gah.
+>
+>
+> Can we just make our life easier and disallow specifying ranges for
+> MADV_HWPOISON/MADV_SOFT_OFFLINE?
+>
+> It's a pure testing interface IIRC. tools/testing/selftests/mm/memory-fai=
+lure.c
+> seems to always call it with PAGE_SIZE. Similarly
+> tools/testing/selftests/mm/hugetlb-read-hwpoison.c
+>
+> There is one catch I think: an existing LTP test case issues MADV_SOFT_OF=
+FLINE
+> on a larger range. But it respects -EINVAL at least :)
+>
+> So we could return -EINVAL and fixup the test case to issue multiple madv=
+ise().
+>
+> [1]
+> https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/sy=
+scalls/move_pages/move_pages12.c
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index bfd6f0a197253..563db12cf2ef3 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -207,7 +207,7 @@ enum intel_dpll_id icl_tc_port_to_pll_id(enum tc_port tc_port)
- 
- enum intel_dpll_id mtl_port_to_pll_id(struct intel_display *display, enum port port)
- {
--	if (port >= PORT_TC1)
-+	if (intel_phy_is_tc(display, intel_port_to_phy(display, port)))
- 		return icl_tc_port_to_pll_id(intel_port_to_tc(display, port));
- 
- 	switch (port) {
--- 
-2.49.1
+Sorry for the late reply, and thanks for the feedback.
 
+This turned out to be more involved than I expected. I am not an
+expert in the memory-failure/hugetlb area, so if someone is interested in
+taking it over, that would be appreciated.
+
+Thanks,
+Yunhui
+
+>
+> --
+> Cheers,
+>
+> David
