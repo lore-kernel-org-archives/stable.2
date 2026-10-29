@@ -1,61 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281944;
-	b=VGbTDO9pHYqvWt63CLClVBrap5uYbokvVmDRHvynAj4lXolV5xD3F3Weabj+Mdl9YhO7
-	 0QX2jk0yepP2jUAQgyODPQXeyMqVrBLIq7aKG7ImfmEs4Qmbhl6cgaU1f1tksHGRzyY71
-	 WB32q8OXvj/TGNbH7nH67wI+saXhjX8v8e8krnAimCf1VPQQfm0s13a1AdkSUQE85rBic
-	 wnUXcmd/5F/poPuvWqzEJpuNMcPhqArVtCXeFoKkgJ1YvMnJ8C8xnCAF2VsdEEnmMnPge
-	 Es/E87CedkIF9Y705ThDXn7E+gRChxUOBvnzNwnGHzvwxs6XwsSFOL5fGkx2r3tKNOQ==
+	t=1793282027;
+	b=qG4EIr6Sw7AZXUm64TfIHxYOEQIw5Oogl+Ltl4Q4DhMJkyCpA9kNkr6wtpiH1fg+j6AH
+	 23QbxbG1E0XVaqw/7l7sap+Mj8CJGKG7azA6+G4D5HHmIsAiHeBx7bU9Qm7rAPzwK8exd
+	 XvUdhBdKM3O9ned1u6giOhVZKfLm0fXM/J5VusUT8plneP60C1iT6PUrRGnExS9N31sI0
+	 pSrJHKSAeblzD0DR3pJnvJfsOhSYhsJXG0Jk9QZygyTdM84ppzu5qWMxhqG9ek/UrVlIv
+	 MaI7F/ET/Peyc+anTbRelBEqqxTdSKl5Amd6acjShucRe+NCKw/j0sRYIB2YEvSiPtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281944;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bk+il3Feo1SWvFpZ0KT9JIrHLDIGMsjtf+8THiuKb8E=;
-	b=YK7GDvnSck3Vsxb2inpKIzDDO05+LDfgf+Ws5VzAKhaDMNsS4wDGQ1kGpoEe61Fgpq/1
-	 UJ2DUeeDwIhGW3XYrFzJ5u6nhNOi4gGn3Qu9/3o6liY0puDBT6U1tv6xoDxKIWXLgM0ck
-	 y0ty1GkEX/0GM5FfHgWCwWxc5lgtYqQ6pa48fAeDr6pkQok/cqPdA9vzmg/ukr7L3y4Jo
-	 Uu3hrDS9aZyjE7ZZx0xS8dUgGRy/eU6Gye/9bGzIvzN/Sxd8U4wLE88b5MUlF8Dnyu0wH
-	 rY6mnuDRDBHHxMaFHSv16mDH2v1puiJbSXS8pedu+u4VmxnczcvY8KUMQ6rIAzt4jwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282027;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=A1JPThoaFRXYN+lhR6CpD36ITWtrzEepS8ewM6gTiKA=;
+	b=VAUJllt+p7wDr19XeixvEPYE4gpK0kSGR1fpu0ZON0uD7fyghDyivcegvHG7dM2OLXPT
+	 yS8t+zSa7Z14g1o39Jrq7lfnVgApErJfwrbDKKABykJwJxYzWnRlF5ut4DUgOQpdGSej3
+	 W6NOkXx8OBRo8w16Tqzl/Yik9obE0JTWSTlk24oG5MYglP7bZV+750H9pMKugQcP4XdDj
+	 4aN2tTNAMQlAcSkZmLe2Moa5bkXVuP265EThdirsQ4edeh2W4VCGL2kypcpbjhK/3rCdw
+	 2Mb/0G7b8WlcKptxGe55XYCZaklDkPYQMWmVuYRh4YG272+iBVDaZXZiG46WXsZlFwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XTA7nR2h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGlEB+bI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E259606A31A;
-	Thu, 29 Oct 2026 13:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DF9606A833;
+	Thu, 29 Oct 2026 13:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XTA7nR2h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BFD1F01829;
-	Thu, 29 Oct 2026 13:52:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793281944;
-	bh=bk+il3Feo1SWvFpZ0KT9JIrHLDIGMsjtf+8THiuKb8E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XTA7nR2hdQh8w8rEnNFwH8GARaUn/BIkTeQuYaTVHeSPh7LNzoW/xsAl3EJyAuwD1
-	 PSQqvFhyKQhs3HT/7gYYgnMGw6TLfnQETZlMga3TUyQ3dV5uWTeZqpTCGAt4RetGzS
-	 ooIJY+5ZhU82G00DmiKiUeWnSqaPvMmRLD8vpYqA=
-Date: Thu, 29 Oct 2026 14:52:21 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Yingying Tang <yingying.tang@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>, ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGlEB+bI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2256E1F0128E;
+	Thu, 29 Oct 2026 13:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793282026;
+	bh=A1JPThoaFRXYN+lhR6CpD36ITWtrzEepS8ewM6gTiKA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IGlEB+bInYDNUFZ5BPyYHJwBZk+JnTp3oFH64wis6M9/cAiIcKtXz+fjllv/kWxcj
+	 jratDm0UVC60iNCRtwEeWF4FyR1zYyy/+ebgI3wIWDFzD+vU6TTVkrNveCx/cgBAlS
+	 dGFzq/X66Ce1UVFyfipHy321LZdF6NzhJccCjaqE90CpY5oictsJtoVOqppMUER/bx
+	 g9hDsRvudMFuC99SZZv4nG1bXunBktxy5k90fQb5mJwk7ksXxQlmMV0nsnwoGs6bHG
+	 Uqdfs6Q5kFjSNfuMNJ/+SgJqe/TRXh+/iWio672HxtCs1ZdTc95FdQ00vQtvQwT/H2
+	 cKP3uKf1zSzaQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
 	linux-kernel@vger.kernel.org,
-	Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>,
-	Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Subject: Re: [PATCH 7.3.y] wifi: ath12k: Increase RXDMA buffer ring size for
- default memory profile
-Message-ID: <2026102907-ruse-tricycle-be1c@gregkh>
-References: <20261029095541.685879-1-shengchao.guo@oss.qualcomm.com>
- <2026102919-confound-remnant-f133@gregkh>
- <auNKJ88kK1_QTPTi@QCOM-aGQu4IUr3Y>
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 7.3 00/38] 7.3.1-rc1 review
+Date: Thu, 29 Oct 2026 14:53:36 +0100
+Message-ID: <20261029135336.27808-1-ojeda@kernel.org>
+In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
+References: <20261028165940.394092994@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,34 +75,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auNKJ88kK1_QTPTi@QCOM-aGQu4IUr3Y>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 09:29:11PM +0800, Shawn Guo wrote:
-> On Thu, Oct 29, 2026 at 11:14:27AM +0100, Greg Kroah-Hartman wrote:
-> > On Thu, Oct 29, 2026 at 05:55:41PM +0800, Shawn Guo wrote:
-> > > From: Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>
-> > > 
-> > > commit 15f7603b69a83a0acc7fcc8992ecbea6110f9424 upstream.
-> > > commit 643f0bf936176c114d5631da7547e991b5d99f10 upstream.
-> > 
-> > Huh?
+On Wed, 28 Oct 2026 17:59:47 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.3.1 release.
+> There are 38 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Hi Greg,
-> 
-> These two commits landed on upstream as a series [1], which doesn't
-> apply to 7.3.y, due to missing prerequisite changes below.
-> 
->   wifi: ath12k: convert DP_RX_RELEASE_RING_SIZE to inline helper
->   wifi: ath12k: convert ATH12K_RX_DESC_COUNT to inline helper
->   wifi: ath12k: convert ATH12K_NUM_POOL_TX_DESC to inline helper
->   wifi: ath12k: convert DP_RXDMA_MONITOR_DST_RING_SIZE to inline helper
->   wifi: ath12k: convert DP_RXDMA_MONITOR_BUF_RING_SIZE to inline helper
->   wifi: ath12k: convert DP_TX_COMP_RING_SIZE to inline helper
->   wifi: ath12k: move dp_profile_params to dp.h
-> 
-> So I adapted them into one backporting commit. I'm open to suggestions
-> how this should be handled.
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
 
-Backport them all please.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
+
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
+
+Thanks!
+
+Cheers,
+Miguel
