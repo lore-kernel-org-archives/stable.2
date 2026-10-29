@@ -1,97 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793300819;
-	b=u5+TS6Wwc1/UvhdWb3MuZXWUPJH1u/wKzrwADMKfb0npodj72h3iXW3cES0s7QbmuUNx
-	 r9KCNlx4EEu0LucdzU73PWs73OUANKYkFqXXXB2Vw2Zv8rhJM1LhuzBJLTi+C4B1hsdB5
-	 3P6dtYZ3GEUbqWhZBtnlxp/WXUZPjWyOCrrAKL8yUglQpq/VPjHrF/uSCfv6qDa0QsSRp
-	 qbcw/OiAaqgNLm+9g5U+8kjn9IwBGlYmYZtAtEZtiLIiIJy7kdCnl9P+qRTYRl4EQZekO
-	 2G933d5tc9Jj9JOohYQGeIF6xpL/KQUcr0DRJW65D78fBxmz9veV6ScPe8Fd2z/iEvQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300819;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
-	b=vjPZuydFT6JK0xFsN1YavPeflJsXjscthwyUmI2xWunZTzw2qz0RnVXwdymmrQrf52dN
-	 C/H4yqGSoOCEss+BsN2ed/iDZaOHbtooM2s0h/OsacPk+8LteD9x85/HVIdjgNtel8nlc
-	 GY8FKN4f57QZjeUbGsINA8jCZdLxT/8ay3WP9q29j1KfZoQX1g1dARMOjxtAUJgS6x8CM
-	 ibinikJWNSqEKW8YibwWDn2FZSNqtWtX7/t80Hb8ZoS7G16S2uudeNk/s05utKV1MGHCG
-	 rqVkoBSnGJtqYW64vBi9dV8HuzwHdxCz0Aw+a61HuSh+CoT14S8TfVOuHLosDkx41qg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.237
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793301125;
+	b=Cea7Tp57h5KI8YgL0jDoT5Gde9vvtisldIa1n25Gj/cY3mLH28Fljo9NtdbWdnLqBs65
+	 41F2WvROeih5xkn6wVuenXP90/LvQPl8OJctwELF/gK9wO1Q2dVrLHDPVciIGMpoTAUD+
+	 1YbE+DVORwiT5b7x/i9GsyhzEmd1ZMRaX6dQqBzUHbe0MJJMKFH7GBYkk46SXiCLq4ykt
+	 UcrMkbZVAYYF5S2CQz2+qx+N5/1/P1U2u9pECHIt9qT9TtPX9e0+9MVKNR+D2kJOk+cbm
+	 y0eqv5trM56a30A8qLQ9qxWeJjjYPYIkoxZITuH80AqX1VcbrqBzEKfV0mWz6HU3NbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793301125;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=dhVNqyPxm3jM+00wO9DouSQBRFyH0+S1340RWBDvsr0=;
+	b=Fisa3QMiN2h+lNQodKL/IHlxittPajwygIpPnEoC8XurEFiCuh0JBF+USkOI3u24RIQE
+	 3tv6kkqOmX9NqGsmz4l7KuPTn42jdEYebvO729yB639Em2Edrme5U2JC5tRYKKCkKxrwb
+	 EyLdHE1UTMQFq+DaYdKsoAQ+4oGVpnQ6s7fu1CjJLjzP8MRgKcpThZ/UyuJtkUY1BASH0
+	 FbOE1PQcyu5Nh5QJJVtn1Wb0Ojn4WlV0XD4dDM+AgTOPhWGW48L0JVJ74WLustIKj4ciH
+	 cTiMT9GqOxhncaAc5op43x0XLNhcgd15Wj/gzPDUZ1d4bcyEGfjdIiEnam1hT1kjRcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d01jpjsA;
+	arc=none smtp.remote-ip=91.218.175.237
+Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C05E606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:06:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C05E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93a40a9a01aso130980685a.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 12:06:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793300808; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nGGJ510pG5cEaO2hVNnTHjPBwWrgDLDUezDe+HqaaXyNwyq3YqRwnctoadjvbE74Sp
-         OTN3kfViGW50wtXM5Lnt1ftuhPXGZ8CJ7hq2xLZGvlczTm634OkQoA3H1JfNAe3wYVNN
-         F6Yx842ltGkobGEWRU2X77oUpuu3njF8NnKi7sXnii+lxSLhGi/G3JzEP2rldROifFvU
-         KyK84ahLvgejgsKvwWS4ZL/aTthu4FGJICyHr6NUYgdUrv6+RlapuwwlJg7DWZSwBBRV
-         7fctmRd+VrDObmXQJuxdUn2nkitrn2ZFHE0CuewPlagnBamZSPnYP3hJslHhg+GfrAeP
-         MwYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
-        fh=7HjWocFcn3Ejbki0YkUUOlEysNkDycnGQ/VxJb2XK5Q=;
-        b=m4YmB3zbFV2dvjBM82vBUsJsvzaWFHb0yhnVjPwpHfG2pA3RMhp8gJdrN4G7YCf9pK
-         PJvPLBIjKA3zoQPePJtFgvqjXOmgsNI+SacTZb5fnrFSG849lKGiJcbkrpbdYMSSberq
-         hUE78s9uWX5++mWxEHth/gErVJOdu8IelSlVMOykRo0NszxKDXAiND1Vs51A5fdspQJI
-         wZvcrngXRV3PI5ZJWYRYvPVlmTTFzGmWBh1ptXL498dB5H4fISIEHsY+KvIIJiqeqKSq
-         1zjzSEmY6cS4wo6I0YqQBPUHEeVqeQyOoelPqo+97dZ/ooLeRx+w5YBkCONt0gnPKvw6
-         qFgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793300808; x=1793905608; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
-        b=fq3P/m36lKgYONgkNlKcJ2n9q0rQ0cY5YBE2kgtoKPzSV52E2ZypteL0Z0QDoMPJDy
-         MqKYMU7nlRPyMwaBc/K4f63oDt7/GI+zLotT2jdIqr/cn8LWVvuM5S3NB16IEWb50Pzx
-         szMF1kAongd8ARPufQSofgIaIR9PWT/MTiHGTkaaQbRddlhNy7GlPdAGkm4RAWEycbhX
-         QJhWQIf+HMbAuwyqCmZMQPYm89pOlKwV3HFOJ+XMI0+QJZfITDfaTys8G1Ibtw0xQq8s
-         1vl7SKsV6+wyBk9JEIELtxaZyuCIfxnbr8H2iSAVdFHO7TBOnR78aXvzviLBRpQcjY8x
-         RFRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793300808; x=1793905608;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
-        b=Y66zH4LQhPvMHizoBiYnDz7qJebXvYIflHwavNPoTj6H9SWAONbNiruNJ+zeYj661I
-         ZRnCefs1oqCW3s6tm1qGktoJlzrqgpL/r/MUB9axCoYt2aH8IUhkUv8QOKue++/YhHsO
-         FrMoPI5VEs/eSoKHM6/uaTLZXLerVd7sqAnFDLE0+yomcrkUMuTnjIOeAX/NSYnaC0TE
-         AIGeGTCTXi8avWyyu+I45YzpSPT42yrsD7ihqGr2Z2L2nrQZ/yTsCIv01spkjQKbjFdJ
-         kubF4o8rK0tnpsdvNXl0mcamFbJkdHm1/tXLeGTmDtqmtHNs6yXESy8h9NWGX1N7dTvP
-         Skwg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4Bx9HbL7nEihrPQ+Br0UFVHfN8X9RSftgggeM/bgSq47qf/tsNVDpTHe8ay6cAzMaVn86ArA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcH8CXRkZVCC5Lpngjv1CN6Ne0v74wXkVAyhKtp1aAQCYiN272
-	ZfLYQ2u1CC+D5W8l+MkcwZhPbGZW3GOyQj5AcCO50BpvU4Da//w5oLGjUdXDB1bLi/CSr37o3wg
-	ppkm9fahW3OXhz0Hc8L7II5aXnqkSSBdubjQ4m0/7pQ==
-X-Gm-Gg: AYBFou20aJskrb0eno0iSniDVN5gZ8bnrdFJzB3+t5LkEQPojVN9zv80KxycD3ggDqN
-	YvreRLQhhWDpqioubcQtUSIwCw7SEsi4NBu46zwj1uk6mzWztaj3iOc4ggP59BBo4r8iSz/La2g
-	I53457xmfby7Cjmn+cVGyQJ/DgUHAIVg33I5zhUKbhOOK0D6jY/zFI4R6Eb5iN7QHOGL7QbkE4b
-	3O24lCv925zfb1YjTxc1Z1FGk5o9Sk/8px8zytvvBPWiBtq4WuJqLWBhlhdp+/W0zFwC7dRdHFE
-	s6eUL6eS9VquF0Uv2vn0+N98EyTPerJXK7onAF5BZJrVgULcfjwlPcRuZe5WNY09gA+ezssbtpD
-	Obpw79nspAZ33S+Vi4oYxQwFlt/mMpKJFHghUZeH5WSdcjImP71dOxjvZfEeFVmiOHL1r+Dutr2
-	MOEO02FElbSaxCcGkmpOnsUNRaT8vLPu/jO9Yl2r084gw4F8hAZNsWfg==
-X-Received: by 2002:a05:620a:2815:b0:944:6ad:1b7f with SMTP id
- af79cd13be357-944133c303emr496752985a.32.1793300808018; Thu, 29 Oct 2026
- 12:06:48 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E75C606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:12:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E75C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d01jpjsA
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dhVNqyPxm3jM+00wO9DouSQBRFyH0+S1340RWBDvsr0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793301122; v=1; x=1793905922;
+ b=d01jpjsAjhMuOHE0Rt+t1FBknfO9gKlbuquLkonLxnbuHOCNyEfiWZPUuc/kgXJhIPTYLpU/
+ yFNeN2+SDwXekjbXQBm4ZFFRNgqHaqL2zmjs7tFsdA/Gi1WIXJghrnjFIcyeTTUg9IPnoDkB1OU
+ 0hTZ9ZBn0sm8P8ePWKUrHRX8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c34306586687ba84;
+	Thu, 29 Oct 2026 19:12:02 +0000
+X-Mizu-Trace-ID: c34306586687ba84
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so1983e87.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 12:11:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx5zZbiDuIS+5td9GxJYVsq/V6X5O3cOnm7Z4ilSc/DnZ3ciNF5RZnNhihYVPp3Rq6T9XMSxUo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKq2usxe/XN1cA7MYYjsJtqpY8M4X6864um8fj9kAMAu9YoBipx
+	D0Vb7RVPbqsjXIxdAVB6wSxD/TT7RA6k7Y3jTshWG5WAr9wjVDHyCTOsnapGamAKr5XZ9HSN7sQ
+	3vSOUxgwRHPjdZJ0QqX5w2TymIymeMMoe4OVTGp8Y
+X-Received: by 2002:a05:6512:10c1:b0:5bf:c3e1:532b with SMTP id
+ 2adb3069b0e04-5bfd13f5375mr256926e87.5.1793301116286; Thu, 29 Oct 2026
+ 12:11:56 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,96 +66,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028112154.855185-1-antoine.pichot@gmail.com> <20261028112154.855185-2-antoine.pichot@gmail.com>
-In-Reply-To: <20261028112154.855185-2-antoine.pichot@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 19:06:31 +0000
-X-Gm-Features: AclHuK_Jd1_q7feVJfoLbgxqQ5EoRwMls_1DdxR9BDGkGVOV5XFZSQbDS8rlPb0
-Message-ID: <CAPY8ntArdj338V8bcSxrmwKQecy-pAcCXMbkWy=qLckX=hawNQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for
- the 319.2 MHz link
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	mchehab@kernel.org, hansg@kernel.org, andriy.shevchenko@linux.intel.com, 
-	dan.scally@ideasonboard.com, djrscally@gmail.com, dmanresa@gmail.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029090522.64662-1-oupton@kernel.org> <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
+ <86ld7gydqp.wl-maz@kernel.org> <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
+ <auOSYE97K5y19DAy@kernel.org>
+In-Reply-To: <auOSYE97K5y19DAy@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 29 Oct 2026 19:11:20 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTw0vSqbP3mbg+Sy=VFcXByM6p=Z2BbMHXpQEamZu8Evxg@mail.gmail.com>
+X-Gm-Features: AclHuK9KN3ZShpCMVtHDwjAltyq7vN_HmIZYhtTuwLuiqVNd0XSq_WHTMUo5iCo
+Message-ID: <CA+EHjTw0vSqbP3mbg+Sy=VFcXByM6p=Z2BbMHXpQEamZu8Evxg@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
+To: Oliver Upton <oupton@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Antoine
-
-On Wed, 28 Oct 2026 at 11:22, Antoine Pichot <antoine.pichot@gmail.com> wrote:
+On Thu, 29 Oct 2026 at 18:37, Oliver Upton <oupton@kernel.org> wrote:
+[...]
 >
-> The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
-> pre-divider of 1 before the multiplier of 133 and a divider of 4 after
-> it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
-> 2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
-> datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
+> This is definitely helpful but my understanding is that the pseudocode
+> is *not* authoritative. I think the line "If a translation table hardware
+> update is not atomic as observed by other agents ..." in R_NNNMB gives
+> an implementation enough freedom to decide something Non-Shareable at S1
+> is actually atomic after the result of S2 translation (e.g. S2FWB).
+
+I was under the impression that the pseudocode was more authoritative
+than the textual description (bugs aside, which the text can also
+have). Maybe someone at ARM could help settle this? :)
+
+> So if the implementation decides it is atomic, no MMU fault is generated
+> and the update happens like normal. Now, with that being IMP DEF there's
+> a good chance the behavior can vary, like we saw on the output of
+> translation on N3 [*].
 >
-> Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
-> 0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
-> range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
-> not change. The Windows driver programs these values for the Surface
-> Book 2's Windows Hello mode.
->
-> On ACPI systems this table has been unreachable since it was added,
-> because ov7251_check_hwcfg() selects the wrong index. The next patch
-> fixes the index, so the two must go in together. With the index fix
-> alone, a Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10 150-frame
-> runs, 3 of them stalls; with this change 0 of 13. A Surface Book 2
-> (IPU3) streams clean with either table. Dave Stevenson measured on a
-> 24 MHz Raspberry Pi board that the out-of-range tables miss their
-> nominal frequency and proposed the same values. The 24 MHz tables are
-> left alone because nobody in the thread can test a change to them.
+> I'll add another patch to propagate SH0 and HPD, thanks Fuad.
 
-I have a 24MHz module and had tested with it, which you'd acknowledged
-in the previous sentence.
-
-You've got me sidetracked into doing the cleanups, and that has
-included validating the link frequencies on a 24MHz module.
-I've pushed where I am to
-https://github.com/6by9/linux/tree/rpi-7.3.y-ov7251. Patch "media:
-ov7251: Add support for a 400MHz link freq" fixes up all the 24MHz PLL
-settings. I've also done the conversion to use the V4L2 CCI library.
-
-The cleanups do raise the question of what registers 0x3016-0x301c do,
-and which of the 2 variants is preferable (60 and 90fps both use the
-same values). The datasheet SC_CLKRSTx naming isn't exactly
-descriptive. I don't suppose you have any information?
-It would be lovely to ditch those tables / merge them into
-global_init_settings, retaining ov7251_mode_info_data only to provide
-backwards compatibility with those clients that use
-set_frame_interval.
-
-Feel free to pick up any or all of those patches, otherwise I'll come
-along behind you and submit them.
-
-  Dave
-
-> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
-> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
-> Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
-> ---
->  drivers/media/i2c/ov7251.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-> index fce6344b5120..f429de5f1f7c 100644
-> --- a/drivers/media/i2c/ov7251.c
-> +++ b/drivers/media/i2c/ov7251.c
-> @@ -174,9 +174,9 @@ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_240_mhz = {
->  };
->
->  static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
-> -       .pre_div = 0x01,
-> +       .pre_div = 0x04,
->         .mult = 0x85,
-> -       .div = 0x04,
-> +       .div = 0x01,
->         .pix_div = 0x0a,
->         .mipi_div = 0x05,
->  };
-> --
-> 2.56.0
->
+Thanks!
+/fuad
