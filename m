@@ -1,66 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.81.56.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793247083;
-	b=HaoQiSawsPyppTi/Lf8+Za0JvvVuMW4mhTBoZ7/qhQLMGgGwtVjPzDCvdu2hV+JM+CWD
-	 mARYz2kf3WrntHxg+7yOmtQfMKHu+DXpQOzF8HnJiEUHU0+Q419kwyxouyqa/DYn27AxO
-	 TdnbjCL1ej4rbsg8tDBmEtma2vCTv/yE71KL15B6sDX4RuxW4MOXMwblkQv2hG2J6SuAw
-	 8Ca850OCvxnzKRFXU9F0ksgPxeMtA9zbIWqvrZZYcXu2xPF8G9rWiec4XVCgAviec7bT2
-	 Ggn9tEqETCevXsdOsULcBq894/Ifj6F084VZCb3BHU5VOEc0Xuufs5oIXqrIU2d03hw==
+	t=1793247511;
+	b=v0FWuH2gmXE2rUMLYjO2xnBdo1nsu1zQZZnylMLL20yVMVQzFTMFWJ/KAZVokpZnvwp+
+	 ENNgtPOCEp1b8B2ZyjGOjJo8ikWDyhqYuy5myN203fbqmO4+dKuP9bhEKdpbIcoQK0kA5
+	 KxVaKtjjdbP4NGv6OA1+63aRdCpKhAFmCnv+KzXq/JtpYbSUkcytuTvIG0LYODLPf9lhp
+	 h1LIKkDw1ljbrGzFPmUl4/ryjSmv00h4iYYNFONH5zxtMUl8JczJ0CzoTvcv/fnD6tciP
+	 bHmTNoEPIteRF/kZInXv1JFM7FkZpli8tdjXVjR15WyqN1ddjYYxAjNGKqBc3yqOSGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793247083;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=DOqKVI6/U3QL5LYFpBxo025cnPh8REghaHnxKILgPgU=;
-	b=N7PkM3bLrAUodp56C0/rML49YA/UdFIOJINRgTHGkYlVgBz4T3KvIllPGxuDHovL21st
-	 GIo7rYGXkZ2jVU67ZZmAGVi/7dNneoJAfx5sx49FNATJbsOR36hWc2eNEShZYwiVZUcxl
-	 6Hx0pHRVJqjOEjyDAEH4PRqkBmCxu4UuqQNqX5zsXeBLfKD+G64x+QyoHHpjRYuPtkzOO
-	 k5s5GMp+yGwUPzCVyeedauGssHie+uPbiJM173Jlaz7Vk4jweL+qKJeVEZxKeKaCfhZG3
-	 P+5oRcbEAP5EuxnqYh3h+BY6GjCOflZ/NcLCrzbPwbKEiOJgoqWeI9w0pxfgrl2wAMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793247511;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=aoUcE4jW4bQxv/LnDQVtD+YTMRbVscoTT0kJbYmugLA=;
+	b=c181B7pYK01hwAw/rFjWLnKBE3R5RxK7cJguPR7cxQQisiZ/bQGKGPDoHsnQNdjmiRgU
+	 +CCudRJjax6twnsKnIH8DCukDDP+e8T7XqR8fEl2974MdqKsyl6Lp6/QwIhGdcLhu9glT
+	 ur9FYaknAkajfABcCxOXPg2+xQNIDo0XhnDQvq296nAJrfCFy2sshANsv2DS1dLMjbb6U
+	 iFZUB8SrGn917gaoN2XrS3h6ziJo8ideDd3ro97VSquwa9BmSXVMFdBKb399v5IkfIkls
+	 DPyiRJYVtfJtAemgn8X66XJylHVOiTLN4VpPJ0bYIXMaD2Cm90iK1WK51jksMecEtXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bren.win;
-	spf=pass smtp.mailfrom=bren.win;
-	dkim=pass header.d=bren.win header.i=@bren.win header.a=ed25519-sha256 header.s=v1-ed25519-20260901 header.b=Kjo8Smie;
-	dkim=pass header.d=bren.win header.i=@bren.win header.a=rsa-sha256 header.s=v1-rsa-20260901 header.b=iLm4m1DP;
-	arc=none smtp.remote-ip=51.81.56.14
-Received: from mx1.bren.win (mx1.bren.win [51.81.56.14])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HvoSMLF5;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28254606A31A;
-	Thu, 29 Oct 2026 04:11:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28254606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bren.win
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bren.win
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0460B606A31C;
+	Thu, 29 Oct 2026 04:18:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0460B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=bren.win header.i=@bren.win header.a=ed25519-sha256 header.s=v1-ed25519-20260901 header.b=Kjo8Smie;
-	dkim=pass (2048-bit key, unprotected) header.d=bren.win header.i=@bren.win header.a=rsa-sha256 header.s=v1-rsa-20260901 header.b=iLm4m1DP
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=bren.win; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1793247075; bh=DOqKVI6/U3QL5LYFpBxo025
-	cnPh8REghaHnxKILgPgU=; b=Kjo8Smiet/vmG/GU93JVZHHKS1Nghkqacjw6RU4aSLTOyvBbyE
-	0HBb41hbIk5zDsnPb9zqw3+wmZpm3iRm6eAg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=bren.win; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From; t=1793247075; bh=DOqKVI6/U3QL5LYFpBxo025
-	cnPh8REghaHnxKILgPgU=; b=iLm4m1DPX21ijS0LWg9yNs3/tfHMUJMqjF8IQFJqbGYWnGeUuK
-	xBF4tBoZb3EfWfFOx4591BKM+H9oqkyXiTrhx2mOu9COhyx4eB9fYKthfQn+MQwSS8xfb5vYrQL
-	QXHoHiyMCqEoSTWSsdvPhIpdobuRyJPSMBscVNrTd/tTsXeqkMxD0qjUAIsgkz/knwK2eDfVcZk
-	Dfju5GWQO1dfodlBX6YLo8vhGhT1PAdLnptIaClsYrVwEw5JYV8g9W3OKRUFyCzC4OErQHPOKp4
-	MnWMYzUI6s6rnG/tadThRZwG6y3rRVAE3zY0jgO1cTpDCvF8ws9B/zpvFy/+PzmTnWw==;
-From: "Brendon C." <bren@bren.win>
-To: linux-clk@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Shiji Yang <yangshiji66@outlook.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] clk: mediatek: mt7981: swap MSDC and MSDC_HCK gate parents
-Date: Wed, 28 Oct 2026 23:10:41 -0500
-Message-ID: <20261029041041.3367084-1-bren@bren.win>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HvoSMLF5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ao
+	UcE4jW4bQxv/LnDQVtD+YTMRbVscoTT0kJbYmugLA=; b=HvoSMLF5H/ii/Ogrfl
+	ess8utIJ11YAdLMZ6IPLfQqCo5WT0z9HA75N4RJYQ+wHj8C94KILE1A0QNjLTZYf
+	r888hqCUjsk5GtChyHTRgDW88TWUTuxUXYNLNkzX1/H/XLM3s8HZl4Akmr0yP0IH
+	jSRSn8vVMm4qIaH6ahVuZ0R5I=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nzIDyeJqQW5fDg--.62716S7;
+	Thu, 29 Oct 2026 12:18:14 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 5/5] wifi: ath12k: validate service-ready capability TLV lengths
+Date: Thu, 29 Oct 2026 12:18:11 +0800
+Message-Id: <20261029041811.2379878-6-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261029041811.2379878-1-yaojiale02@163.com>
+References: <20261029041811.2379878-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,71 +66,45 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3nzIDyeJqQW5fDg--.62716S7
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WrW5Zr45Zw4fKr4rWF48Zwb_yoW8Wry7pF
+	47Ww12va4kur47Jwn3Xa1xZa4Ykan5W347KFyxK3Z3Wr4fCr1FqFyY9FWYqF15tF45tF1a
+	9ayqgrWfAFn8J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URrW7UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wfGAWriyQfuEwAA3U
 
-The MT7981B datasheet specifies the storage interface as "eMMC v4.5 @52
-MHz 3.3V". MediaTek's SDK and U-Boot device trees give the MSDC
-controller CK_TOP_EMMC_208M as its "source" clock (max-frequency 52 MHz
-= 208/4) and CK_TOP_EMMC_400M as its "hclk", taken from topckgen
-directly, with the infracfg gate only as "source_cg". The mainline
-device tree takes both from the infracfg gates instead, and their
-parents are the other way round: CLK_INFRA_MSDC_CK from emmc_400m,
-CLK_INFRA_MSDC_HCK_CK from emmc_208m.
+The service-ready parsers consume hardware mode, DMA ring, and extended
+MAC/PHY capability TLVs as complete structures without validating their
+firmware-declared payload lengths.  Short TLVs can therefore cause
+out-of-bounds reads while the capability arrays are parsed.
 
-mtk-sd derives its divider, the reported actual_clock and its data
-timeouts from the source rate, so with a device tree asking for 26 MHz
-it programs CKDIV=4 and believes the bus runs at 25 MHz while the real
-bus clock is 13 MHz, and every clock-derived timeout is sized for a bus
-twice as fast as the real one.
+Add minimum-length policies for all three capability TLV types.
 
-On a GL.iNet GL-X3000 (Samsung 8GTF4R eMMC, 8-bit, 3.3 V, HS) this shows
-up as msdc_track_cmd_data write data errors (host->error=0x4) on
-roughly every 40 MB written, escalating under sustained multi-segment
-writes to exhausted retries, "I/O error, dev mmcblk0", lost page writes
-and a stopped f2fs overlay. Raw direct reads top out at 11 MB/s where
-the vendor kernel reaches 23 MB/s on the same card.
-
-Swap the two parents to match the vendor device trees. With the same
-device tree the bus then runs at a real 26 MHz, reads reach 23 MB/s,
-and four rounds of a 1.4 GB mixed direct/buffered write stress complete
-with zero retries and zero I/O errors, matching the vendor firmware.
-hclk's rate is only read for the CQE idle timer, which no MT7981 device
-tree enables.
-
-Fixes: 813c3b53b55b ("clk: mediatek: add MT7981 clock support")
+Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
+Fixes: 1476014fadb6 ("wifi: ath12k: WMI support to process EHT capabilities")
 Cc: stable@vger.kernel.org
-Suggested-by: Shiji Yang <yangshiji66@outlook.com>
-Signed-off-by: Brendon C. <bren@bren.win>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-v3:
-- also move CLK_INFRA_MSDC_HCK_CK to emmc_400m, matching the vendor
-  device trees' hclk (suggested by Shiji Yang)
-- correct the claim that the SDK kernel parents the gate from emmc_208m:
-  its gate has mainline's parents, and its device tree takes the rates
-  from topckgen directly
-- v2: https://lore.kernel.org/all/20261017194308.1541507-1-bren@bren.win/
+ drivers/net/wireless/ath/ath12k/wmi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-v2:
-- add Fixes: and Cc: stable so the fix reaches 6.12
-- v1: https://lore.kernel.org/all/20261017190729.1369302-1-bren@bren.win/
-
- drivers/clk/mediatek/clk-mt7981-infracfg.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/mediatek/clk-mt7981-infracfg.c b/drivers/clk/mediatek/clk-mt7981-infracfg.c
---- a/drivers/clk/mediatek/clk-mt7981-infracfg.c
-+++ b/drivers/clk/mediatek/clk-mt7981-infracfg.c
-@@ -157,8 +157,8 @@ static const struct mtk_gate infra_clks[] = {
- 	GATE_INFRA1(CLK_INFRA_SPI1_HCK_CK, "infra_spi1_hck", "infra_66m_mck",
- 		    14),
- 	GATE_INFRA1(CLK_INFRA_FRTC_CK, "infra_frtc", "cb_rtc_32k", 15),
--	GATE_INFRA1(CLK_INFRA_MSDC_CK, "infra_msdc", "emmc_400m", 16),
--	GATE_INFRA1(CLK_INFRA_MSDC_HCK_CK, "infra_msdc_hck", "emmc_208m", 17),
-+	GATE_INFRA1(CLK_INFRA_MSDC_CK, "infra_msdc", "emmc_208m", 16),
-+	GATE_INFRA1(CLK_INFRA_MSDC_HCK_CK, "infra_msdc_hck", "emmc_400m", 17),
- 	GATE_INFRA1(CLK_INFRA_MSDC_133M_CK, "infra_msdc_133m", "sysaxi", 18),
- 	GATE_INFRA1(CLK_INFRA_MSDC_66M_CK, "infra_msdc_66m", "sysaxi", 19),
- 	GATE_INFRA1(CLK_INFRA_ADC_26M_CK, "infra_adc_26m", "infra_adc_frc", 20),
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+diff --git a/drivers/net/wireless/ath/ath12k/wmi.c b/drivers/net/wireless/ath/ath12k/wmi.c
+index 0109f56fd429..2e72159d20f2 100644
+--- a/drivers/net/wireless/ath/ath12k/wmi.c
++++ b/drivers/net/wireless/ath/ath12k/wmi.c
+@@ -217,6 +217,12 @@ static const struct ath12k_wmi_tlv_policy ath12k_wmi_tlv_policies[] = {
+ 	[WMI_TAG_DMA_BUF_RELEASE_SPECTRAL_META_DATA] = {
+ 		.min_len = sizeof(struct ath12k_wmi_dma_buf_release_meta_data_params) -
+ 			   TLV_HDR_SIZE },
++	[WMI_TAG_HW_MODE_CAPABILITIES] = {
++		.min_len = sizeof(struct ath12k_wmi_hw_mode_cap_params) - TLV_HDR_SIZE },
++	[WMI_TAG_DMA_RING_CAPABILITIES] = {
++		.min_len = sizeof(struct ath12k_wmi_dma_ring_caps_params) - TLV_HDR_SIZE },
++	[WMI_TAG_MAC_PHY_CAPABILITIES_EXT] = {
++		.min_len = sizeof(struct ath12k_wmi_caps_ext_params) },
+ };
+ 
+ __le32 ath12k_wmi_tlv_hdr(u32 cmd, u32 len)
 -- 
-2.55.0
+2.34.1
+
