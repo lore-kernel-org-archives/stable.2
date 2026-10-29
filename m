@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793312991;
-	b=V5hIGopz5ysC+wUPbryUDnYdGQ2FleV5mc89EdzrWntaZGnoKqMYKGcXC371yS+NBHRV
-	 XJfVXo+0oHCppGlah9wwDH8zhyEgROreUyQV2NMEHNmU9aoN77wIBMTWSC6sZ9yLYP7Ty
-	 5WitemzEce6V10W38cLJcwl3jFKfyELqnOvkn8GK9rCfU/bVRiT8pupg4RWjXmBO+KxfY
-	 P4L2s+TKdteVFKJzoa0J8b5pkNIFkdag/Yjw2cmhK0W0M1iFpD+8VbyXXXWFe3+mROXOZ
-	 WLJcwL/witjbJUtrm+RqEImjvVO6zS/3RLwKeil/GpIyZ1f4pKUk9f9bxpGQK4Eo6+w==
+	t=1793312994;
+	b=DPO+4I7SILHQms8GpwSyofKgWnmhxnusFFCr6MMMBT+Ui15FkvkAylojmK8VT+bHVPCE
+	 4EoWFoFLBaL+yjQ/VgjhAxeWvabWL07av4XUxYi5+tNm6NsXVyBfqXZWAUDT598TFtpsy
+	 vjR+QXgV1KEGzsL9DtAgxoJ6CCg3fOhIVnNmF9OtBpPOf1yamKl3BV+Dwb1ynKJHNZjEa
+	 Y5qELllaQusjYFT0ZqIHg32540SkP3KXtVl0PtRBVx5w7PPVR/khGKCr0yUJD6Z1p4ILa
+	 7RGLh2PTs8Tt2dZh2YBBC0g01zZwzwohMGTIleCtUTZ2ahAjzNyb+Ref+8gRZgL9X4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793312991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793312994;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=WfY8c5mvIozvo8fZqoEeqzCcOy78ENTaP61rU6ASEDE=;
-	b=yxJZHqC2YugdOXByTKNA3NU8DLUYyJ2Wz1Kf9glDv5WJ59P0ntfLZHwwBXOCfve8T1wk
-	 D2+ngSOMLSFl6u6sIDV9gpapOV9RuOHQ0yD19SRL/R1I8iZL0B8g4m4qMtR36uDn0p1tG
-	 iKw1NpUCc3KP5Xvt6kVsQxw+H4svwH7Uq1LpoxDaIMbWprHFnPuEPF9OapbCtpFK3rLAq
-	 5kAKWjeLh8S28qo5w2Gl7KtSnKIJTJ5+6CKNNvmaXAEMXnBGi1ngfilpZtPUkONQeA4tL
-	 4iTuY4fDcwOQGK3f/rYJzxkp+PdNc/REmgrB/3HlpkqW/5o/XgoZHVf75gNF0nUzx0g==
+	bh=94WZMClHJfI/hK5hnDLaJYjY1fIJ24YVjNi0D7Blgz4=;
+	b=QOcX/mTCybLphHw2k6y33gDP6jwlvabpepbittih/LaVG3ZN2AuLIVlrXacMsmLBuLcq
+	 LDfIUOlWDL1iM19zM2RLaglb3LjfwfK4sJC/eUo11vzIm2jpp4nSp4DkpsJi1xaBf1y1S
+	 j9VHLjrXqPhEClMCfR+CeOP2eDrRpjpJHbnE9ubSMWFh3N8OUgZZn7zUQgl1w3hofV7tq
+	 Dh+xyXusj1hRdPxAh0H4cua/qCAHR/vPNd3AZgRI3Jt3ZKSlFKqjVCa7zH4DAfiHKhXLO
+	 WCMTTcI5KzCogjGeCKuqsaPLzFByxWGiopaoiTxNOjIvS3t99YfuZuwyZCG+hgBvBrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WCKII17x;
-	arc=none smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JcfI8QcX;
+	arc=none smtp.remote-ip=209.85.210.44
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600A5606A32D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 600A5606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9317B60A2604
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9317B60A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WCKII17x
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6df5e315bd1so60347eaf.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:29:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JcfI8QcX
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-847ac7ccd85so103112a34.3
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793312990; x=1793917790; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793312993; x=1793917793; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WfY8c5mvIozvo8fZqoEeqzCcOy78ENTaP61rU6ASEDE=;
-        b=WCKII17x6k3IcI+BdpSh5/L0F4hXyUAX01UzKcgwftNpct61Eqdm9jgKeNlCrYcSVc
-         +yr75ydP2Sr67TGzDUdc8rUUsA6F2LUsru1XeaXZw9klt6XiRTwbqxg536IH5gEpp9WZ
-         ePa1u/d5DZnoN9NtxkDpnBokS4AJ+2WOrekc+DoaHTORwdFb2OvMl4DzlMaEQGgZFFqI
-         lnTY0qL+2ONhBtO/XbAF6Y2zjzkJ+T3iIbceA0DBVf27DlzmV+3HFaxE5faRTNSmnHIw
-         RleIb/7vKJ7E4nGSUSWo1UpCni6cG75JxbCr5U2SOcMmJD76jpEyxxSE3exstuS5B1yA
-         mNJQ==
+        bh=94WZMClHJfI/hK5hnDLaJYjY1fIJ24YVjNi0D7Blgz4=;
+        b=JcfI8QcX0MkbuJpYSDzzNklIPIfn0nH7EJu8TYdFgebu+YQVrQhDw+mvk1wGbaKMGq
+         xXY8+WzzD737OMw3GX0zgsKKqQ9YH4TuqEoT1YoDbARN6o1chKnJcJoPFErnm+vJ+FSm
+         mZ9oUf/MyGxkQ7u9HVFZdxFYzHEVrB9+L31XZQKFeX/f1nZAj+yXbzHI+oWBCQBke45s
+         ceFmyKnZfwWgN3YGJP+6huiuqz8HgijQwNUpOeyOEvATYJyRFxub0h0P59AjByjU3Sxg
+         /sfcdJ/FPTo+xawFPEj749PiJlPbsg9E3yRB4iGMhZpW/uN7xGBhaqqoCq4yVJUqjKXs
+         hntw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793312990; x=1793917790;
+        d=1e100.net; s=20260707; t=1793312993; x=1793917793;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WfY8c5mvIozvo8fZqoEeqzCcOy78ENTaP61rU6ASEDE=;
-        b=WKWPJ/xAK3Fha/z1h/X7QMYDbRnbsXRlm5dNhip8C8fYDOQqIaQ2sFE+ayw5AMlJLp
-         owIeRwkgP+WXw9W3XCL0wKeXC14DWOt8BWztDU8oCj4d/qvHfguIxicOY6TbC9cx0pzC
-         /jl6ridRUf6gltwbtAJQesFUWf2BTQieqO46kekEGPk/dyssp1JnlFAznztD5+gJKRuI
-         LwFMr9IWg8OpXcOLR2XL7q1XgyPZDRoGXaken1hWpSfNNuyyhHnZwCe3yGSWf9Ilwolw
-         zUSm5kQ2hyqx/udmnN3gbcpDlOuvwDrYXwXd2ybzPRXGDal8O0oEJd9rBwe3Z2REBiJG
-         1h/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxp2yaPK0jBB45WktbYKR0nfACkd4eeRwnn3O83df5AUA6FRP2Vs/9te+m0MPPzmf628z0+9QY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK90dP0EGdErRIAVsgKnFoay0nqS/GFsRQiPs68iHjn82pBINid
-	Sqns813j9zSRHaqNP5Ndtm+k5MuA156yStYwTcYnw5NmEGt7X2p46cyj
-X-Gm-Gg: AYBFou0E7729GfK4q+nER4guDU+N6GohKKz077i9sUI7ioGt8WaAykqJpi/BRwmXCnK
-	fHm7GP+Xcjbh64eyqunQBQCbqb15kOsWaRIzKnUDv4iZc3O7e4oJ+TAUuXzZb6gjRREJ++y0/09
-	QwpWXkF5yibJeN7sJtvVemMhmKcre+KeZ69AGEpl2cKB2fJpzLVlJeyf6fPbOM9Et5N7HbjFh2B
-	n2aPCoAjHrdwwyv0CT/9k0M8bssB1OWh6+vzxFcoYhreBnIhp+UxAn3l+/PDbRZ9yAXhs+obBNO
-	yR6VejqhCvMIucQRWrKdSZ5H5QBr/PWcoDZPnVxw0Ksu+/KYtfSu4DDcopqXzYkO9mEVL9E9CXl
-	L7zSA/HHUEOLtjmpLQ33sBoLmaDgtckalCYE/Y+hLZBbPxRqUp5Jlwok6Tag3VKqppfX/POqFzq
-	ztI2UJ7n4TGXc410nHig8k5nAzAxqPryJ91oRTY7ACoiropJHrxoIwfMDCQw+t9VxoiW7HJWHXz
-	3tl5csQrshEPJ/7wQ+vdSG+gPYCBHoTolR3lAb5nd8LGjQ5u6vafFDC6pRsVr8f5F3JkLPq9KAe
-	LRGdtOeSNYjSOpt2QyyIfNjcCzA8bEOq+zcP4D93i77FtvBqDpOd3/GthSRT3WhiyI20K/weF7n
-	9CtdxQ1MLkMPDq+SLtWmWTab6X1LMIRQHeOLaPmVmtzywDhrkU7uP4a66a/gLmVgALIMgfW1gto
-	lKY580RCGr2hC6dHFNuQTyXoyZqtQAAta2QozEa12wnApDOFKBCV3lYa0Q4/dj9j0Tog8t8xYtq
-	A==
-X-Received: by 2002:a05:6808:c40a:b0:4f6:243:cb9d with SMTP id 5614622812f47-5640e048f30mr442523b6e.61.1793312990244;
-        Thu, 29 Oct 2026 15:29:50 -0700 (PDT)
+        bh=94WZMClHJfI/hK5hnDLaJYjY1fIJ24YVjNi0D7Blgz4=;
+        b=IEyzAuq3brnuzhWIivQGiaPz6BGPHHpI9+S2E1w5kB9FW+W0ouzn69VU0rMBSwRi/P
+         J0MXCJo0jmubytn5fRX9Xk4W710yzL+1dASXmPGwE0pvmOZflVfNAnyi6OA70ux/vSdw
+         3OQda+M/uZVHxJdtHu6ZKektN/s1r3tDO7HyGmMz/nZIrFDkOR6b4+4AK8pmYZfkgr8F
+         nI6jRDL0TxlOWqUxD8W+uqHfQtzboxtzRoPU7yLO3TC1yFxn6RISZFgH0qa8PAoHbbsL
+         Sj8efx37qMcQnmjkbVgGcINRbUeBpc6M0FQg5WjOM3EZlzwmsfzncFfhTbnXFvCyPTbx
+         bWEw==
+X-Forwarded-Encrypted: i=1; AKwUvBz8Jz9/WloZQXQxAtl4RJ570HQPzyUWZxceT94wXeUmBSAL7aD48cfDt5HbaeevH6yVHA2xasE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLs89pTlThdKfR6g9gj2ieU8kCadQZXaXge+RDKBxndAmqaqn9J
+	XoS8A0kWhAeZZ3B5BntOp0JgfcvfYbC2y7DYvVqTU6EP1i8OmRyVQ3bP
+X-Gm-Gg: AYBFou1+hn10l9AdCIlYQ8fkgsh2jBleuP25io/bnP4NJDnfH59JqYXhqOqm7WeHydI
+	PA5n+rDRAOkYE0nih/0uX5hYXPrh1dwisYQQfnHvPdyjqWQraQLskcWkDINOejCeinCi88y8CSL
+	ECM4zkBTHZg17K0LeLrKJclDndxXjA1p8sZ5Qo2WGViQakY7YgM534EYdOA838w6uAvpF8nX+tj
+	wYOSMbMHGn329gOK8/wqT/3lxymMvOHRUVNECsl5oVCUHBpdNfJLcqjFDgqpQZoq4HpDUhBP8zO
+	3JtAqMi1Wk8l/ejb1VEguzFA/A8VJU7DXkKkHlvwXSCXzUWCDGYrPpbOAzIJi2jQaSjojnXp0dT
+	aV+zaDpIHRDICo6OuWaFwp5lTzQO4uythx55cjw22cy9shmr8tmR5C62e4b7Ya1tkxXQFVWTjqZ
+	qNDJn9qiljDBP9nybx9Oc71B+maj0bVxUTUcPP5xBABgQqmzJO10Wl/tZS94Ik3YydAGq0wGJ7d
+	TSrrwRnXQ5IylFR3Ut/bXKbvfZ1nwQj9JC4xYx+69JyRqg5vVm4Ep0P4MjOwP37C4sHjfp9l9Xd
+	alB/p11MeQmMPYtGMmBoZIQOdYo7rhN9kIFc/wTgQKlYETKzVJqIs4t04bkyn9ZaFlENGaPiW13
+	6rzQxLdttwqNR7XUvuSxsvKu76NEFDjei0IgFdLbkR4aiXq6nUvAA6svHlq3f1y9fOl5ltfaeBn
+	3P1zDNcb6S8XCFIBw75MDfDJeOGX6AHYfZG8TWOQ9sINgJyeotLPOL
+X-Received: by 2002:a05:6808:1244:b0:510:7dc8:5ff7 with SMTP id 5614622812f47-5640deea651mr505285b6e.19.1793312993474;
+        Thu, 29 Oct 2026 15:29:53 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fc49880sm236130b6e.2.2026.10.29.15.29.49
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fc49880sm236130b6e.2.2026.10.29.15.29.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:29:49 -0700 (PDT)
+        Thu, 29 Oct 2026 15:29:53 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 29 Oct 2026 16:29:36 -0600
-Subject: [PATCH v4 2/7] dmaengine: dw: serialize error recovery with
- channel termination
+Date: Thu, 29 Oct 2026 16:29:39 -0600
+Subject: [PATCH v4 5/7] dmaengine: dw: drain the tasklet before releasing
+ channel resources
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-submit-dw-dma-synchronize-v1-v4-2-fea447d9f285@gmail.com>
+Message-Id: <20261029-submit-dw-dma-synchronize-v1-v4-5-fea447d9f285@gmail.com>
 References: <20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com>
 In-Reply-To: <20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com>
 To: Viresh Kumar <vireshk@kernel.org>, 
@@ -111,87 +110,59 @@ Cc: Serge Semin <fancer.lancer@gmail.com>,
  dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
  Lars-Peter Clausen <lars@metafoo.de>, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org, 
- Frank Li <Frank.Li@nxp.com>
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The tasklet samples RAW.ERROR before taking the channel lock. A
-concurrent termination can empty the active list before dwc_handle_error()
-uses that cached error to select a descriptor. The list head is then
-interpreted as a descriptor. Even with an active descriptor, moving
-queue.next unconditionally can put an empty queue's head on the active
-list and pass it to dwc_dostart().
+The controller tasklet invokes callbacks after dropping the channel lock.
+Releasing a channel can therefore clear its configuration and disable the
+controller while that tasklet run is still using them.
 
-Recheck the error status under the channel lock and stop the channel
-before selecting its failed descriptor. Only one transaction is issued
-at a time, so take that descriptor directly instead of scanning for
-completions first. The scan can otherwise complete it and start queued
-work before the error handler has identified the failed transaction.
-
-Detach the failed descriptor under the same lock and use the queued-start
-helper, which leaves an empty queue alone. Clear the software-LLP flag
-before restarting so a failed multiblock transfer does not prevent the
-next transaction from starting. Keep the completion callback outside the
-lock, with the detached descriptor owned by the tasklet.
+Disable the tasklet before clearing channel resources and re-enable it
+after updating the controller's in-use mask. This waits for an executing
+run while preserving pending schedules for the other channels. Have a
+pending run return before accessing registers when the last channel has
+already been released.
 
 Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-Fixes: f336e42f73d9 ("dw_dmac: Move single descriptor from dwc->queue to dwc->active_list in dwc_complete_all")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/dma/dw/core.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/dma/dw/core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 07a5f5105787..51c5460b4670 100644
+index 1d6419e1cd3c..3bda85adbeee 100644
 --- a/drivers/dma/dw/core.c
 +++ b/drivers/dma/dw/core.c
-@@ -408,10 +408,17 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 	struct dw_desc *child;
- 	unsigned long flags;
+@@ -398,6 +398,10 @@ static void dw_dma_tasklet(struct tasklet_struct *t)
+ 	u32 status_err;
+ 	unsigned int i;
  
--	dwc_scan_descriptors(dw, dwc);
--
- 	spin_lock_irqsave(&dwc->lock, flags);
- 
-+	/* Termination may have cleared the error since the tasklet sampled it. */
-+	if (!(dma_readl(dw, RAW.ERROR) & dwc->mask))
-+		goto unlock;
++	/* Channel release may have drained a polled completion before this run. */
++	if (!dw->in_use)
++		return;
 +
-+	dwc_chan_disable(dw, dwc);
-+	clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
-+	if (list_empty(&dwc->active_list))
-+		goto unlock;
-+
- 	/*
- 	 * The descriptor currently at the head of the active list is
- 	 * borked. Since we don't have any way to report errors, we'll
-@@ -419,12 +426,7 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 	 */
- 	bad_desc = dwc_first_active(dwc);
- 	list_del_init(&bad_desc->desc_node);
--	list_move(dwc->queue.next, dwc->active_list.prev);
--
--	/* Clear the error flag and try to restart the controller */
--	dma_writel(dw, CLEAR.ERROR, dwc->mask);
--	if (!list_empty(&dwc->active_list))
--		dwc_dostart(dwc, dwc_first_active(dwc));
-+	dwc_dostart_first_queued(dwc);
+ 	status_xfer = dma_readl(dw, RAW.XFER);
+ 	status_err = dma_readl(dw, RAW.ERROR);
  
- 	/*
- 	 * WARN may seem harsh, but since this only happens
-@@ -443,6 +445,10 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
+@@ -1067,6 +1071,8 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
+ 	struct dw_dma		*dw = to_dw_dma(chan->device);
+ 	unsigned long		flags;
  
- 	/* Pretend the descriptor completed successfully */
- 	dwc_descriptor_complete(dwc, bad_desc, true);
-+	return;
++	tasklet_disable(&dw->tasklet);
 +
-+unlock:
-+	spin_unlock_irqrestore(&dwc->lock, flags);
+ 	dev_dbg(chan2dev(chan), "%s: descs allocated=%u\n", __func__,
+ 			dwc->descs_allocated);
+ 
+@@ -1092,6 +1098,8 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
+ 	if (!dw->in_use)
+ 		do_dw_dma_off(dw);
+ 
++	tasklet_enable(&dw->tasklet);
++
+ 	dev_vdbg(chan2dev(chan), "%s: done\n", __func__);
  }
  
- static void dw_dma_tasklet(struct tasklet_struct *t)
 
 -- 
 2.53.0
