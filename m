@@ -1,51 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793302566;
-	b=ecDuTzavMGXmGQ8W7GSrbYKuGVhVXz0Rpy+2duHaHKbhbRqkSsVzRLpyrtjEEMGxmsij
-	 HHZGE21xvHmyx2YXfAkR52AC25Eet/8yL+UB5AvvKEC23VlsEgj6vlWZNywGbbwIE5sUR
-	 ptthUUxWurV6jSTzACsFMJ2ItvXsedRogpqg+xt1uNHllOVG96x5Bxdm5fKpFX9r0zwhc
-	 MbTKFvkw1xjEfjqDUmB6ocry8eCwjwePMYIjfhp3zzMhgPRgtr7rrQCf1aCxiGaXJmcYH
-	 Hrys0XEFIGwsNX3UeJ8c/imkTCyfsCoyhAKijkYGVCF7GwSfHA0koMvoWkuBFoIWUtQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793302566;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q4H5t+eODJaHqBUAWhEmblQLDww9KM17vWg0h8HbPP8=;
-	b=Uv352I4Thnl42Np+reQmMXMQSxoQb+k/2B0pyZhXjtBvg5vvvVWUlohiXJN512ery8pn
-	 Bg1NACFiI7xlnmRqg3/2CFPqiDQCPhXneDl9WoTgnBE1u/q3clgPnMmE+7Dc5lN1GlVK3
-	 gvGL6ci/9ysIk26ICt9O471QpcrrPkXttAAW6fq2+1/br/fVl7XOaDKyHn9PSkMLusfN9
-	 4KfpwMDR9xHfpFEB2T6If+QmoDK1Hfc9teLdu8CMYnVLPpzlE8alK8JLUJjUjPDEv9Yu5
-	 AgVb/V5Hdv+/PsHyN8HTEeW9c+wIzXxKYgY4XX6th5gwbHkY3izR+46wQ/pZvNdlIRA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=I7Fv9Qde;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793302849;
+	b=yOMM4HFiqEfV5i093cJsKWNp0gAa0xCanij05ClUaXsajDR09HC/Ep//GWv8A2a3IV9h
+	 bT8IU1APzufXFI7pj4O7EDsNmmMQ3dGIlV8taQsGtn6dKMFSA0A56g3d5Dwgp6LrIiw2K
+	 O/lnylykOCO/qlCRd8IUqWCOrve8tRPVMl+4ztONFJ8oQTgizBu/ofNFjVWhY0TCKqexm
+	 0uPYL6BOgHs+sXsF6wrFuqFH9OUJIk04q0rlC6WgS2+bLN5RiN3dXKoFfFa+ia0ryIJtx
+	 hjMPsMeGy8nkx3va7lraAKtLbbTZaopsd2oqkXMa5c63MNIPGsnWG/d5XrD+XxC5Iyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793302849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+	b=nPBt2e3UhkxUJsVDa1xweRBIGgLA8NEDv2NFewwFzsQru3phN8vmyvo1JfgV4aWzCI2N
+	 /0+vgIIWp4PPYfVgqXHStb3td1kmJQ227OPai6bs7Cl+LIyZ5Gtc0WJV7AOxDA979+NEq
+	 NKSBmgvth7GejZMVuLooPiLfnX139uLk35/pytqYXKeV6Qm2BT/Yuizq81x2Tf6G2TPls
+	 GioGbYp6u2RG954PbDgYTtbhj8QWfs7/bhWubctPn0ieYJJKABddm3JNMKauEAHm2OvGU
+	 c2yBQvQpN3ewA9m0kdxvzcbyeDdJ4F5RFp/yd0ccbg9rIooOUdK3lyZrS1UU+/ODzyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oy04HEx4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A151E606A320;
-	Thu, 29 Oct 2026 19:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A151E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE97606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AE97606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=I7Fv9Qde
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1793302559;
-	bh=IF87MDnSXrW+lYPzzhk7yjJ+lXPArYF61Deoz9hSDnc=;
-	h=From:Date:Subject:To:Cc:From;
-	b=I7Fv9QdeVydbmcUPByzLLR5JuTPgdyloTvDuidZeaGUAmRKJmzmIT5Se8W1V39mfS
-	 /OtKPpfvoRR3W9hNqPfrAlvrpqyvaOiFM0FU3XmKqEKMCrz7xnEzE8+5AwIxBtykPm
-	 sqpACwYIt+f4bu2qm/iCavcCKE3mwxdao0LQaQRw=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id C9E3D40112;
-	Thu, 29 Oct 2026 12:35:58 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Thu, 29 Oct 2026 12:35:50 -0700
-Subject: [PATCH v3] ipc/msg: fix msg_qbytes truncation in IPC_SET
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oy04HEx4
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-845f3fa7f38so18574a34.3
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 12:40:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793302848; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZtA6FzLCTRtgAkgi/ty2q4jxWJFxao5P8cLJ9K/+jENb1Rcw5UXHxmcLy0c7N2iEIZ
+         4CtSFA+hEjVlP+P7OKfYzdCUuQxvs7tu+VvZ1XucltLTgsqlt4LXYsqn3U7LaDNYyToJ
+         aMyuRhKIQT+TvpWKiykDmJPR1hLouE1GDkw4a9yuqemsRPudKKYLDO5ydX6ZVuOzs0x5
+         97o+Dsxum+SNRM/DaxLWAbM/b14v7pfAZJWHXoKZHx4SXpeIBS2HjQYZ1Iar0Fa21S8q
+         PF8WV1gDp/B6xn+RE4eHrOJFxSH6i+Yf1O7x80EguSlstvoWw9OFS4kieOuLWaR4MKJg
+         hqfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+        fh=BJbWC1tFJclVOgqW0rz5pp1K3x7njhf2QuoS1l+pMYw=;
+        b=XUPww8nSN00x0lGcgTdpUuIdAJGNecngnTfyutwxWWJJTopRCTIOCVWPyagOBPrUnI
+         bGdfMbJIn14A1FQqEUKkZBvjwNG4GbF0l8l4lm8pv+T2vd2FyTziivOwebjPYEBFM8yE
+         CkOhTBqYw/85ylb6x40WAf0GXLYR3VXg1caOz5W98bpzp91nZOzTcSybi3tBQmuQmHw9
+         0oPOZUi2kCPacHZ+qp7jQ60v6oKMI1WLXmRezeVNtis9DtVlw5bZ4/xHP/X6eO9L8PCS
+         4kmSgW+1wmXd4v7G6yLAkrawM7SdNziDM4PvQsr+hUidshO6gKiczB8/0wmQoW77jOCq
+         /Hmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793302848; x=1793907648; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+        b=Oy04HEx4VXsy7bnK+jxK7wLwJKJgZjMD+ok02/ElUmFMcCdqOEpl4CNxdWoxJzIhzn
+         U9RRGRt6Otan88a2NMxx9hAn+vJiyjDSutvbDnQ4fcfybjPlhxmIxNbVjs5s10zwcK92
+         qYY1ODXDGpBmd69+yoWLRWbNxPvInfpeDY8XkeJeCFG0nCIscbu6LhWZlJFfvgNakjJP
+         ggb9DU+L4K0N5slxw86nSUklX444AEIO8JnQXaH1vGuPc4coVKJTwqNt10udSvszwDnM
+         Mh0X5ZLVObaRXY/xgb7VXOmvBk9Hv7hm3jm15v6zxqOE4mkNYW3VpvNXXZHhE1kT1t1/
+         7jsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793302848; x=1793907648;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+        b=N/kOxDo7CISULVq28eDrmV9MiPDMXODMcE38jdtBe216DFT8lmDDJ08Np3zgO6oaBP
+         aQv+8eF2bYBgQmydXaKuf7p99hM5GX82H/E8ybMb9wKZS7huR5V7Y8EXALveAeXsgvhr
+         3aWfjIrd/Csa2XpS2nTxuo05kkzAT/P8LaCWUt8ttvqmLNnx0dOd9zxqvWBMjB0rMZZR
+         IP3D05mmNBOCj6In5C7elk1/0GZd5Hq4gNpWcCPf2dq8Fop3HUgju+uWErQKeyM70nj+
+         CeKvVGCu45Ok57ak6D9vrVi8f9UH5Jaj/jfSd4oiwok1itvZsYpqaB+1FEjKjge/NhXB
+         X9yA==
+X-Forwarded-Encrypted: i=1; AKwUvBwko9kxfzt+HSW5o97zpBv5YcTM02cgwt4WYA8jGxTlUn11nO6Aw95eldAFzP/CfuiEYYGo+Yc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP+oVeEDJ1WAlIuLkreI4u7pA+IXu8GfoRgWXTaDPXPUGKEIG9
+	FqIxdjqz7BL8jmjIOaNv+RGZ8e16JnolanWvqeEH5gF5qHHN3nCPcnKNuJvDtVlu39V46rmJM8w
+	GUAMxGIUvDy0RiruLEcdMwZh5bQZuE3g=
+X-Gm-Gg: AYBFou1sbiLqtmJdMpHn8Tcurp3F5RHg1doK7hoL0KyySfpMEbEsY3iiMNWuVCDsGud
+	o2TS01OJCH6yjeKT8kEvoRvjMsPb+Fli8FAmyQkfr7vrrT3aL1L1U2YjF2OJKyOx0p80M5jzmdp
+	gI1FUaK+e9V9RM+apt+FoZlCdxxQuUEI8mcs7clIYKV1oQtANfqq2kEUG/UX0PppDF22XJrpazW
+	6pMUYNRb86aurt8T/rHK1U7BPqOvCiAN0E4NX1ckkCGcEHnZHmxJs39sCytWqLMhpm7MzJZvGrz
+	fZuwJCN9HlDANJHrxt1H8sQg5aOjkmsUMkjQFBsQWi83Go9RzQlsa7uC7p0NqNObxNCOKJJcCrw
+	zRNTWr83SKBrTydWfjPdcuCPt4rDN92FHlWu/CQ==
+X-Received: by 2002:a05:6830:4391:b0:822:95ff:43f3 with SMTP id
+ 46e09a7af769-85d3664ca3dmr142180a34.24.1793302848352; Thu, 29 Oct 2026
+ 12:40:48 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,228 +103,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ipc-msg-qbytes-v3-1-fc3f4307c85b@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIABWg42oC/32MSw6CMBQAr0Le2hpe+bWuvIdxYaEtbyGFllQJ4
- e4Wdi50OZPMrBC0Jx3gkq3gdaRAbkhQnDJo+8dgNaMuMfCc15jzhtHYsmewbFLLrAMrpcJKFth
- WqoYUjV4beh/D2z1xT2F2fjn+EXf7cxWRIRNC1p0q8waNvFo9zC93dt7C/or8f89TX4pOmIYbL
- Krvftu2D33uOl/tAAAA
-X-Change-ID: 20261027-ipc-msg-qbytes-49b15931c5b6
-To: Shuah Khan <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christopher Lameter (Ampere)" <cl@gentwo.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- Manfred Spraul <manfred@colorfullife.com>, 
- Jan Koester <jan.koester@tuxist.de>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- stable@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793302558; l=7105;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=IF87MDnSXrW+lYPzzhk7yjJ+lXPArYF61Deoz9hSDnc=;
- b=lboZtgg0Qa3KJETmsvMvZGd0acv/vsc/TuhfKLs3dWxW4e9vSPbwJYzDsQVBCHXtQNJEaIxNf
- OCpvK2Uz1jhCk7HmpdxPOtLtY4NT19WMjlv47bxAnzC33882DnCy/rq
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+References: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
+ <179303675173.3134.11217955296529787762@kernel.org> <CADvbK_dTUCUFn+sLY+zuN5_9+YC-axzM9FVr-yBKJ4jxwebkkg@mail.gmail.com>
+In-Reply-To: <CADvbK_dTUCUFn+sLY+zuN5_9+YC-axzM9FVr-yBKJ4jxwebkkg@mail.gmail.com>
+From: =?UTF-8?B?0JDQvdC00YDQtdC5INCc0LjRgdGO0YDQvtCy?= <andrey.misyrov@gmail.com>
+Date: Thu, 29 Oct 2026 22:40:37 +0300
+X-Gm-Features: AclHuK9ZvCDg2n35I76iYH83HI7jntHSzE-MkCUSpArWzEKyyvJVxDkcplmhCjw
+Message-ID: <CAC=piAqJCtKEn=jLaoaBCr5yAgF5dibhPYcrZGWPytYN=Ct8cQ@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: fix ASCONF address change on single-homed hosts
+To: Xin Long <lucien.xin@gmail.com>
+Cc: netdev-bot+sashiko@kernel.org, marcelo.leitner@gmail.com, 
+	junvyyang@tencent.com, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The msg_qbytes field in the struct msqid64_ds userspace ABI is an
-unsigned long. Commit 889b331724c82 ("ipc/msg.c: consolidate all
-xxxctl_down() functions") passes that value to msgctl_down() as an int.
+On Mon, Oct 27, 2026 at 01:38, Xin Long <lucien.xin@gmail.com> wrote:
+> This looks like a legit issue. Either way above works for me.
+>
+> Thanks.
 
-On ABIs where unsigned long is wider than unsigned int, this narrows
-msg_qbytes before validation and assignment. For example, an
-unprivileged queue owner can request msg_qbytes = 0x100000000. The
-conversion to int changes this value to zero, which passes the
-msg_ctlmnb check. IPC_SET then succeeds and sets q_qbytes to zero
-instead of rejecting the requested value with EPERM.
+Thanks, Xin. I've prepared v2 and posted it as a separate thread:
 
-For callers with CAP_SYS_RESOURCE, values with bit 31 set are also
-incorrectly sign-extended when assigned to q_qbytes. In particular,
-UINT_MAX becomes ULONG_MAX rather than the requested UINT_MAX.
+  https://lore.kernel.org/all/20261029193454.1028626-1-andrey.misyrov@gmail.com/
 
-Keep msg_qbytes as unsigned long through validation and assignment.
-Also preserve its type in ipcctl_obtain_check(), which passes it to the
-unsigned-long audit field.
-
-Add a regression test which drops CAP_SYS_RESOURCE and verifies that
-IPC_SET with a value above UINT_MAX fails with EPERM where unsigned long
-is wider than unsigned int. Skip the test when it is not, capabilities
-are unavailable, or System V message queues are unavailable.
-
-Fixes: 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down() functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
----
-Changes in v3:
-  - Correct the analysis: msg_ctlmnb is unsigned int, so UINT_MAX is
-    already rejected for unprivileged callers on the unfixed kernel.
-  - Test an unprivileged 64-bit msg_qbytes value above UINT_MAX, which
-    truncates to zero on the unfixed kernel.
-  - Skip the test on 32-bit, where unsigned long cannot represent the
-    regression value.
-  - Remove the incorrect queue-limit-bypass and memory-exhaustion claims.
-
-Link to v2: https://lore.kernel.org/r/20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org
----
- ipc/msg.c                                   |  2 +-
- ipc/util.c                                  |  3 +-
- ipc/util.h                                  |  3 +-
- tools/testing/selftests/ipc/Makefile        |  2 +-
- tools/testing/selftests/ipc/msgctl_qbytes.c | 84 +++++++++++++++++++++++++++++
- 5 files changed, 90 insertions(+), 4 deletions(-)
-
-diff --git a/ipc/msg.c b/ipc/msg.c
-index 62996b97f0ac2137dfc2fa109394d6db1fcb4a0f..116126f1235cd6ce9b819cfd317ef039071b95ca 100644
---- a/ipc/msg.c
-+++ b/ipc/msg.c
-@@ -399,7 +399,7 @@ copy_msqid_from_user(struct msqid64_ds *out, void __user *buf, int version)
-  * NOTE: no locks must be held, the rwsem is taken inside this function.
-  */
- static int msgctl_down(struct ipc_namespace *ns, int msqid, int cmd,
--			struct ipc64_perm *perm, int msg_qbytes)
-+			struct ipc64_perm *perm, unsigned long msg_qbytes)
- {
- 	struct kern_ipc_perm *ipcp;
- 	struct msg_queue *msq;
-diff --git a/ipc/util.c b/ipc/util.c
-index 1737d776bc089e27495e810569bf302069db3712..c435b2d93a12e92e930358a8bc53a06314d065f5 100644
---- a/ipc/util.c
-+++ b/ipc/util.c
-@@ -718,7 +718,8 @@ int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out)
-  */
- struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
- 					struct ipc_ids *ids, int id, int cmd,
--					struct ipc64_perm *perm, int extra_perm)
-+					struct ipc64_perm *perm,
-+					unsigned long extra_perm)
- {
- 	kuid_t euid;
- 	int err = -EPERM;
-diff --git a/ipc/util.h b/ipc/util.h
-index a55d6cebe6d3b0974548a497fcb889248aed0f87..55a76f94667cd4bb248fbcea26323db8d2778a44 100644
---- a/ipc/util.h
-+++ b/ipc/util.h
-@@ -180,7 +180,8 @@ void ipc64_perm_to_ipc_perm(struct ipc64_perm *in, struct ipc_perm *out);
- int ipc_update_perm(struct ipc64_perm *in, struct kern_ipc_perm *out);
- struct kern_ipc_perm *ipcctl_obtain_check(struct ipc_namespace *ns,
- 					     struct ipc_ids *ids, int id, int cmd,
--					     struct ipc64_perm *perm, int extra_perm);
-+					     struct ipc64_perm *perm,
-+					     unsigned long extra_perm);
- 
- static inline void ipc_update_pid(struct pid **pos, struct pid *pid)
- {
-diff --git a/tools/testing/selftests/ipc/Makefile b/tools/testing/selftests/ipc/Makefile
-index fad10f2bb57b0f06f0c741fa89f0489f6952eba6..930a334747a6353c86bebe1f4a521aeee3fe8228 100644
---- a/tools/testing/selftests/ipc/Makefile
-+++ b/tools/testing/selftests/ipc/Makefile
-@@ -12,7 +12,7 @@ endif
- 
- CFLAGS += $(KHDR_INCLUDES)
- 
--TEST_GEN_PROGS := msgque
-+TEST_GEN_PROGS := msgctl_qbytes msgque
- 
- include ../lib.mk
- 
-diff --git a/tools/testing/selftests/ipc/msgctl_qbytes.c b/tools/testing/selftests/ipc/msgctl_qbytes.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..5549229a25eb6852898fdb6cd8e89f9db78444dd
---- /dev/null
-+++ b/tools/testing/selftests/ipc/msgctl_qbytes.c
-@@ -0,0 +1,84 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <errno.h>
-+#include <limits.h>
-+#include <linux/capability.h>
-+#include <stdio.h>
-+#include <sys/msg.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+#include "kselftest.h"
-+
-+static int drop_cap_sys_resource(void)
-+{
-+	struct __user_cap_header_struct hdr = {
-+		.version = _LINUX_CAPABILITY_VERSION_3,
-+	};
-+	struct __user_cap_data_struct data[_LINUX_CAPABILITY_U32S_3];
-+	unsigned int index = CAP_SYS_RESOURCE / 32;
-+	__u32 mask = 1U << (CAP_SYS_RESOURCE % 32);
-+
-+	if (syscall(SYS_capget, &hdr, data))
-+		return -1;
-+
-+	data[index].effective &= ~mask;
-+	data[index].permitted &= ~mask;
-+
-+	return syscall(SYS_capset, &hdr, data);
-+}
-+
-+int main(void)
-+{
-+	struct msqid_ds ds;
-+	int msqid;
-+	int ret;
-+
-+	ksft_print_header();
-+	ksft_set_plan(1);
-+
-+#if ULONG_MAX <= UINT_MAX
-+	ksft_exit_skip("requires unsigned long wider than unsigned int\n");
-+#endif
-+
-+	if (drop_cap_sys_resource()) {
-+		if (errno == ENOSYS)
-+			ksft_exit_skip("capabilities are unavailable\n");
-+		ksft_exit_fail_perror("drop CAP_SYS_RESOURCE");
-+	}
-+
-+	msqid = msgget(IPC_PRIVATE, 0600);
-+	if (msqid == -1) {
-+		if (errno == ENOSYS)
-+			ksft_exit_skip("System V message queues are unavailable\n");
-+		ksft_exit_fail_perror("msgget");
-+	}
-+
-+	ret = msgctl(msqid, IPC_STAT, &ds);
-+	if (ret == -1) {
-+		ksft_perror("msgctl(IPC_STAT)");
-+		goto out_fail;
-+	}
-+
-+	/*
-+	 * Without CAP_SYS_RESOURCE, a value above UINT_MAX must be rejected
-+	 * rather than truncated to zero.
-+	 */
-+	ds.msg_qbytes = (unsigned long)UINT_MAX + 1;
-+	errno = 0;
-+	ret = msgctl(msqid, IPC_SET, &ds);
-+	if (ret == -1 && errno == EPERM) {
-+		ksft_test_result_pass("IPC_SET rejects oversized msg_qbytes\n");
-+		msgctl(msqid, IPC_RMID, NULL);
-+		ksft_exit_pass();
-+	}
-+
-+	if (ret == -1)
-+		ksft_perror("msgctl(IPC_SET)");
-+	else
-+		ksft_print_msg("msgctl(IPC_SET) unexpectedly succeeded\n");
-+
-+out_fail:
-+	msgctl(msqid, IPC_RMID, NULL);
-+	ksft_test_result_fail("IPC_SET accepted oversized msg_qbytes\n");
-+	ksft_exit_fail();
-+}
-
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261027-ipc-msg-qbytes-49b15931c5b6
-
-Best regards,
--- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
-
+pw-bot: cr
