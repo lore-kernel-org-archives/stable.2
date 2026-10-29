@@ -1,67 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257042;
-	b=GFJCwkt1pYSyFzElIo433s7yOZdcy/r7KARmPqyB4KjZDraBVPfCiU1d3cg6gWvQ3BBx
-	 3be9GtLrjjxgbm5+rr5dDgflAE+EDW4XxHjb6ZQ3zN2lXJ9r+R3qvRAG0ymAORo7xcb/F
-	 Nx7DI4vpRTSZtBND5rYe8g/JyOPNVhmhXfmLvBdk5gNuv1oSwC8zFwJM8lKOR7SZqPwwe
-	 /qBKqEQ8kMEU6aRPmvxn40r7Z9tW0rpNBQWFd+H+gncnsxyRYzmwmi94muq26rN98LxBB
-	 DA6lFyLRkBv6Y22qtV8h96oHqeL0FVlCXHAaqPEzSKQzAb9+Cd6NM1unEm0uuGzE5hA==
+	t=1793257063;
+	b=3Qk/weOBMifUbSDNAa+lMbHc5PgJaUSZ6LdnkzYbllMUyt8kFVGrhEkrMVY8IOUpfn3h
+	 rE7xDdx8eTFl+u95teMmhkv1foWPiNTMhpIfVcZAQVy1Shv0kErwr27fFVXEOWd8XeJbt
+	 kdT//EkosN1NSrFJyGnGknfYKKzh2aVg0YAyHJWXHHCu7y7IxknOdMkFa5ZPtZqHzbrra
+	 ncFBJbgUBhkUXaOnWiW7WawX3rUpNTJzAMpqNgIEHklxuaadFOXcacBWWMBfiqgVRELm3
+	 SHk9hrPAReQryj5IIMOV2eFzFmmw3ZqXK5M2QsRRbUyejn5gtWydpDbBY7ZceGDMuPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257042;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=2BR2wSy5joZ/Mpe7EJC50aJ2E6Aa1XiDqjOTNWWpSlc=;
-	b=WBNe6LIwy9/Bkz3Hq0papZq45R0Na/nsWe8PVPW6LmERXDe8ceo8Zkq51vOeLZ4goZCS
-	 89m2MMzj7iNQVFS6mdFmOPi09Xz3OCfd9NhrhbMf5PYKICrm+H3P4RnHDWnAx5eboOIlP
-	 eijATZ8D4C8YjsGFoaLhM7E1nXvr0H8RbWzuJ/lcH40tt5HHyUERO4T8BOsNZrA0vegzM
-	 +bofuy5O1XGFLjn1Px/8hmJjmfKxfO00sTWpgaljraiPvA2AAGrGCOdsunsUL7mJ/fb7d
-	 7Z6wA2i9qiWVHeIp5w4czDFEBMlAtcledS5p+lO/5kf0P20V6fFRFcqJ+Pyb7oDdaXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257063;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9IaSUVC3Bhn3N2zjTnRy6nvIgW0G052wvFunojoXXog=;
+	b=onbTV5Zs+ochtZU9ht1Lms2lOoj7NlFMXgpdYWiVIUJDYMeNgtisLHM7LyaAG31dFytH
+	 FLquWGjHIiDX1AOrrf5tdsYatrnXHADGU89s2ZBtTUdnHqdjCiNJ7sL4iUYgxRHb9I4i4
+	 n9cvRAYNf0MYH4LQtHwE+IuFy4C/jLe5/vxcKmUsc7VPc5Qq7JeunVonJEJr4UYtl2nl2
+	 7Qbv0aDMfoc4UoDtbuf0RnD6ZMdRchjFs8geSjsQvMnxNA9h3OwPbW5r5nWRh4IYaz6TD
+	 mOObAuTYCGN4TkpOgnHfoS/VxlVfFfC1SdkTfOsfjLLF6yCyvpQKJj+T8KICMPxDP5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kr19EuUW;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0dE+O4nG;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619DB606A31A;
-	Thu, 29 Oct 2026 06:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 619DB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C499606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:57:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C499606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kr19EuUW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2B
-	R2wSy5joZ/Mpe7EJC50aJ2E6Aa1XiDqjOTNWWpSlc=; b=Kr19EuUWqtR3JHj0jo
-	tsp2PXpBHPcDFB94Mb+07tkLCXukrZHcUlEYi9NaFkGIrD/pZiEORmXyM0r9ZdiQ
-	J1Gk/9Mkh4IbYv6ivEFgJ14EYypT8mZVTRXVHRn5yEJUIYP5PbULzmNmr7uusLeB
-	qe65BpCmJMHigKZFIPu2kNgMM=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3318h7uJqLmdrDQ--.46914S2;
-	Thu, 29 Oct 2026 14:56:35 +0800 (CST)
-From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>
-Cc: linux-cxl@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0dE+O4nG
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso87371a91.2
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 23:57:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793257063; x=1793861863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9IaSUVC3Bhn3N2zjTnRy6nvIgW0G052wvFunojoXXog=;
+        b=0dE+O4nGgl4AUGC+hG1hvy/oc///guMnIMSlfoAeziHFtsYgsDypMGSJEv8C2PHTnM
+         OACt5rBARu19YNGrD4XrfzoR8Bdu0vOmNWcIvk0t4JPLMXmbQnRfrUkOs7/mKOzBar2P
+         vs0IYMMgvQfX32Yw3CnFM+7DVhImVtmV3dgtBwLgJZspumzuIkkCHevTXsFpZcS9KvMn
+         IsueXaVMRy18wY3OEK4dzuTmYBms4emvSvhIvT7qMKOuqiS9TEBouHwwew/uc9Gb8n5e
+         1o4RiZF25SYZ1O48PzSQlK5ud5+dzg9i7bnxzkjO4RFTkbEE4g4l4RC1+I8ReES58+l5
+         5dbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793257063; x=1793861863;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9IaSUVC3Bhn3N2zjTnRy6nvIgW0G052wvFunojoXXog=;
+        b=zjcFXubOFYpAEfITagITlS3ts1ypsmmdo6EJVttesixclcAJBJNxEPWxsW4LL0bxgm
+         NSbSPbvIE3YJDdbsi7ce54mhBamG2aNsGsu9BJn6Sg7PvhRGnpyXO4ANCdpk+h+UnRKa
+         0Sn38U3AGtJnccVozUco80kcBUu2jADdWWInRqOa+D9yQIOg44fQStSuUuyriuTsGVa/
+         9Z4QXyXR4F7yJvp34/+tOAU2qH4K+qNz2fdlxh5uq9nXq+8mFk57853B/IXnM8es0pdn
+         D01mQ8i66vGqY5Q5PIV9i8PaEhMMLNTvyDdJ4GuOa2B9pLC0RRTdgdfVGd3GWp0zoaRa
+         07sw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXsCSx7oZwrOJs16RvTSuHy0t6xDvGC6dEqEIQ1Fb6gNZrMJ6X02lkYDOpJO2t+6TVhURu+fc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjfVSgBTf+2+cbbbbtJdz6bx0kNVa2eP3EkdGvK404eaU/VTM4
+	zowrhZc3Z7ZqKtvhPWCLPQw2rqTlvkz6V86dwm1OG1le3NzYgQhI7axQ
+X-Gm-Gg: AYBFou1IejEdByWbEItl1FHW6l/Tkr123BEsK4sYJKSrnA3tp77y/svI1b19eYeosON
+	ph03PYZ1ran0pMtdyCDgOC9A8Z/N4fYCQD3hZzUYSmXojN+XX170Nl5i/JvdIZQ/9fmVhz0XphF
+	eZlK87SYXwmTcCoCx2XGPprHTjyeQdqh8vhV3s5/kSphVhbzvzexNyEIBOlpawTLbh25DtNMXu1
+	VirJXOpCQyJgeepGUsr87G61VRGvapeTiRQbjm7Qvc+M9u4oQwuRACvMaTvuk7g1Y6RzT78i5l4
+	wwcYo2G1ps/BpzNf68hBdhvukPbTdmuqLAut99aiw5/7mOsRCwEUcfshRDf4usAnVTeW6n+I73C
+	gq86O80tOBB/1JhtZ6DxF+ws+zx33MQVlsoWNfjpO+UxH4uX2zGif7Mh8otJxlSmkfa6YCVCeN1
+	sU4wAPO4j/eT1SHnI/5u9AixUJXapflIyGua/NJe2iibu06OemAy1LWk2JTZ771PXVniSxd1AkN
+	gzXibXaLmvHVDhPNMAOp5pn+LPUkK2Utv4eixGGUVUhJrnDmNLq+fO3N+5UpkxbI2mqFobK+2BO
+	xPQCKebaEZjB3+8V30D6QBrCSlEJ1qtY0PeaebNE0lFgUg==
+X-Received: by 2002:a17:90b:1dd0:b0:3ab:33b6:2c27 with SMTP id 98e67ed59e1d1-3ae57f9c1eamr3604405a91.23.1793257062419;
+        Wed, 28 Oct 2026 23:57:42 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579db47fsm3020022a91.3.2026.10.28.23.57.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 23:57:41 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Ben Cheatham <benjamin.cheatham@amd.com>,
-	Yang Yongxin <yangyongxin@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] cxl/core: Create einj_types when EINJ becomes available
-Date: Thu, 29 Oct 2026 14:56:29 +0800
-Message-Id: <20261029065629.333949-1-yangyongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
-References: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ocfs2: stop recovery before shutting down local allocators
+Date: Thu, 29 Oct 2026 14:57:35 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0019-v8-574dd69fd3f47f56348b@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,182 +102,231 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3318h7uJqLmdrDQ--.46914S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Wr4rArWxurWrAF1fWFW5trb_yoWxCF1rpa
-	98Gr4rCrWkAayxAr43A34UZ34rWw4kW3srCrykW34aya1Dur15JFyDAayY9ayDWFW8Jr10
-	q3WYyFyUG340yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UgNV9UUUUU=
-Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-wMXtGri7iNUqgAA3k
 
-From: Yang Yongxin <yangyongxin@kylinos.cn>
+Recovery completion needs the local allocators until it has finished
+reclaiming a failed node's allocation window and truncate log. During
+unmount, quota recovery is stopped first, but that leaves recovery_state
+at OCFS2_REC_QUOTA_DISABLED. New non-quota recovery can still start.
 
-The einj_types file under the CXL debugfs directory is never created.
+ocfs2_truncate_log_shutdown() drains existing completion work and releases
+osb_tl_bh before ocfs2_recovery_exit() closes that publication path:
 
-cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
-from einj_init() at device_initcall level. When cxl_core_init() evaluates
-einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
-yet, so the value is always false and the debugfs_create_file("einj_types")
-call below it is never reached. Users have no way to discover which CXL
-error types the platform supports from debugfs.
+  Unmount                             Recovery
+  -------                             --------
+  stop quota recovery; disable quotas
+  truncate_log_shutdown()
+    flush existing completion work
+                                      recover another failed node
+                                        queue completion
+    flush local log; release buffer
+                                      complete_truncate_log_recovery()
+                                        use released osb_tl_bh
+  recovery_exit(): disable and drain
 
-Create the file from every point that can tell EINJ is up: cxl_core_init()
-covers cxl_core being a module loaded after EINJ has been initialized;
-cxl_acpi_probe() covers the same case for cxl_acpi and also systems where
-the CEDT is parsed but no dport is ever added; and the dport probe path
-covers the built-in case, where the dport added from the memdev probe is
-the only hook reached after einj_init().
+An extra buffer reference alone would still let completion append new
+records after the final truncate-log flush.
 
-The dport probe path can run concurrently for different parent ports, each
-holding only its own device lock, so serialize the check and the create to
-avoid a duplicate debugfs_create_file() attempt that would only fail with
--EEXIST. Reset the cached dentry in cxl_core_exit() so that reloading
-cxl_core starts from a clean state.
+Split stopping and draining recovery from freeing its state. Stop all
+recovery producers and drain completion work before shutting down either
+local allocator. Keep recovery-state release at its existing later point,
+so its lifetime relative to other teardown users stays unchanged. The
+second stop at recovery_exit() is harmless once recovery is disabled.
 
-Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
-Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in ocfs2_truncate_log_needs_flush+0x23d/0x360
+    Read of size 8 at addr ffff8881093711e8 by task kworker/u16:3/53
+    
+    CPU: 0 UID: 0 PID: 53 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: ocfs2_wq ocfs2_complete_recovery
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
+     kasan_report+0xe0/0x110
+     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
+     ocfs2_truncate_log_needs_flush+0x23d/0x360
+     ? __pfx_ocfs2_truncate_log_needs_flush+0x10/0x10
+     ? __pfx_down_write+0x10/0x10
+     ocfs2_complete_truncate_log_recovery+0x315/0x780
+     ? trace_hardirqs_on+0x18/0x160
+     ? __pfx_ocfs2_complete_truncate_log_recovery+0x10/0x10
+     ? ocfs2_complete_recovery+0x666/0x11b0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? kfree+0x308/0x580
+     ocfs2_complete_recovery+0x676/0x11b0
+     ? __pfx_ocfs2_complete_recovery+0x10/0x10
+     ? reacquire_held_locks+0xdd/0x200
+     ? process_one_work+0x7c8/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_acquire+0x190/0x300
+     ? __pfx_autoremove_wake_function+0x10/0x10
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    
+    Allocated by task 538:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_slab_alloc+0x89/0x90
+     kmem_cache_alloc_noprof+0x20b/0x5c0
+     alloc_buffer_head+0x26/0x120
+     folio_alloc_buffers+0x122/0x1d0
+     bdev_getblk+0x299/0x4f0
+     ocfs2_read_blocks_sync+0x513/0xbc0
+     ocfs2_iget+0x9cd/0x1a00
+     ocfs2_get_system_file_inode+0x25e/0x7a0
+     ocfs2_fill_super+0x1b05/0x3930
+     get_tree_bdev_flags+0x35d/0x5f0
+     vfs_get_tree+0x93/0x320
+     fc_mount+0x1d/0x200
+     path_mount+0x592/0x1e00
+     __x64_sys_mount+0x24b/0x2d0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    
+    Freed by task 553:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kmem_cache_free+0x242/0x580
+     free_buffer_head+0x4b/0xc0
+     try_to_free_buffers+0x1dc/0x330
+     ocfs2_truncate_log_shutdown+0x789/0x1290
+     ocfs2_dismount_volume+0x1da/0x940
+     generic_shutdown_super+0x15f/0x490
+     kill_block_super+0x40/0xa0
+     deactivate_locked_super+0xae/0x120
+     deactivate_super+0xa2/0xc0
+     cleanup_mnt+0x217/0x450
+     task_work_run+0x144/0x230
+     exit_to_user_mode_loop+0x17d/0x570
+     do_syscall_64+0x4d1/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    
+    The buggy address belongs to the object at ffff8881093711c0
+     which belongs to the cache buffer_head of size 160
+    The buggy address is located 40 bytes inside of
+     freed 160-byte region [ffff8881093711c0, ffff888109371260)
+    
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x109371
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000000 ffff8881008883c0 dead000000000100 dead000000000122
+    raw: 0000000000000000 0000000000120012 00000000f5000000 0000000000000000
+    page dumped because: kasan: bad access detected
+    
+    Memory state around the buggy address:
+     ffff888109371080: 00 00 00 00 fc fc fc fc fc fc fc fc 00 00 00 00
+     ffff888109371100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    >ffff888109371180: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+                                                              ^
+     ffff888109371200: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+     ffff888109371280: fc fc fc fc 00 00 00 00 00 00 00 00 00 00 00 00
+    ==================================================================
+
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
 ---
-Changes in v3:
-- Take the review from Ben: the helper is now cxl_debugfs_einj_add_types(),
-  non-static, declared in cxl.h and exported to cxl_acpi only, so that the
-  cxl_acpi hook can call it.
-- Add the cxl_acpi_probe() hook, before cxl_bus_rescan(), so the file is
-  created once the CXL topology exists instead of waiting for a dport.
-- Keep the dport path as a retry point. With EINJ built in, cxl_core_init()
-  and cxl_acpi_probe() both run before einj_init(), so dropping it would
-  still leave the file uncreated there.
-- Drop the "RCH is out of scope" paragraph. RCH does add a dport, from
-  add_host_bridge_dport(); the file is still not created there when EINJ is
-  built in, so do not claim the acpi hook fixes RCH.
-- Reset einj_types_dentry and cxl_debugfs in cxl_core_exit(), so that a
-  reloaded cxl_core does not keep a stale pointer and lose the file.
-- Use guard(mutex) instead of mutex_lock()/mutex_unlock().
+Changes in v2:
+- Keep the vol_state ordering comment, naming VOLUME_DISMOUNTED and the
+  recovery-completion mount wait.
 
- drivers/cxl/acpi.c      |  9 +++++++++
- drivers/cxl/core/port.c | 41 +++++++++++++++++++++++++++++++++++------
- drivers/cxl/cxl.h       |  2 ++
- 3 files changed, 46 insertions(+), 6 deletions(-)
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0019-v6-7241e0b915991218f315@gmail.com
 
-diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-index 3b818adbd38b..0584245b30f2 100644
---- a/drivers/cxl/acpi.c
-+++ b/drivers/cxl/acpi.c
-@@ -958,6 +958,15 @@ static int cxl_acpi_probe(struct platform_device *pdev)
- 	if (rc < 0)
- 		return rc;
- 
-+	/*
-+	 * Create einj_types from here as well, so the file also shows up when
-+	 * cxl_acpi is a module loaded after EINJ, and on systems where the
-+	 * CEDT is parsed but no dport is ever added (no CHBS for the host
-+	 * bridge, or a CHBS without a valid component register base), which
-+	 * leaves the dport probe path untouched.
-+	 */
-+	cxl_debugfs_einj_add_types();
-+
- 	/* In case PCI is scanned before ACPI re-trigger memdev attach */
- 	cxl_bus_rescan();
- 	return 0;
-diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 625e4aa427db..76ac612b514c 100644
---- a/drivers/cxl/core/port.c
-+++ b/drivers/cxl/core/port.c
-@@ -802,6 +802,35 @@ static int cxl_dport_setup_regs(struct device *host, struct cxl_dport *dport,
- 
- DEFINE_SHOW_ATTRIBUTE(einj_cxl_available_error_type);
- 
-+static struct dentry *cxl_debugfs;
-+static struct dentry *einj_types_dentry;
-+
-+/*
-+ * einj_types can only be created once EINJ is up, and no single hook is
-+ * reached after that point in every configuration:
-+ *
-+ *  - cxl_core_init() runs at subsys_initcall level and cxl_acpi_probe() at
-+ *    subsys_initcall_sync level, so both create the file when cxl_core and
-+ *    cxl_acpi are modules loaded after EINJ has been initialized;
-+ *  - when EINJ is built in, einj_init() runs at device_initcall level, so
-+ *    both of them are too early and the only hook left is the dport added
-+ *    from the memdev probe.
-+ *
-+ * The dport probe path can run concurrently for different parent ports, each
-+ * holding only its own device lock, so the check and the create need to be
-+ * serialized to avoid a duplicate debugfs_create_file() attempt.
-+ */
-+static DEFINE_MUTEX(einj_types_lock);
-+void cxl_debugfs_einj_add_types(void)
-+{
-+	guard(mutex)(&einj_types_lock);
-+	if (cxl_debugfs && !einj_types_dentry && einj_cxl_is_initialized())
-+		einj_types_dentry = debugfs_create_file("einj_types", 0400,
-+							cxl_debugfs, NULL,
-+							&einj_cxl_available_error_type_fops);
-+}
-+EXPORT_SYMBOL_FOR_MODULES(cxl_debugfs_einj_add_types, "cxl_acpi");
-+
- static int cxl_einj_inject(void *data, u64 type)
- {
- 	struct cxl_dport *dport = data;
-@@ -822,6 +851,8 @@ static void cxl_debugfs_create_dport_dir(struct cxl_dport *dport)
- 	if (!einj_cxl_is_initialized())
- 		return;
- 
-+	cxl_debugfs_einj_add_types();
-+
- 	/*
- 	 * Protocol error injection is only available for CXL 2.0+ root ports
- 	 * and CXL 1.1 downstream ports
-@@ -2501,8 +2532,6 @@ const struct bus_type cxl_bus_type = {
- };
- EXPORT_SYMBOL_NS_GPL(cxl_bus_type, "CXL");
- 
--static struct dentry *cxl_debugfs;
--
- struct dentry *cxl_debugfs_create_dir(const char *dir)
- {
- 	return debugfs_create_dir(dir, cxl_debugfs);
-@@ -2515,10 +2544,6 @@ static __init int cxl_core_init(void)
- 
- 	cxl_debugfs = debugfs_create_dir("cxl", NULL);
- 
--	if (einj_cxl_is_initialized())
--		debugfs_create_file("einj_types", 0400, cxl_debugfs, NULL,
--				    &einj_cxl_available_error_type_fops);
--
- 	cxl_mbox_init();
- 
- 	rc = cxl_memdev_init();
-@@ -2541,6 +2566,8 @@ static __init int cxl_core_init(void)
- 
- 	cxl_ras_init();
- 
-+	cxl_debugfs_einj_add_types();
-+
- 	return 0;
- 
- err_region:
-@@ -2560,6 +2587,8 @@ static void cxl_core_exit(void)
- 	destroy_workqueue(cxl_bus_wq);
- 	cxl_memdev_exit();
- 	debugfs_remove_recursive(cxl_debugfs);
-+	cxl_debugfs = NULL;
-+	einj_types_dentry = NULL;
+ fs/ocfs2/journal.c | 15 ++++++++++++---
+ fs/ocfs2/journal.h |  1 +
+ fs/ocfs2/super.c   |  3 +++
+ 3 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
+index a3938a03e93b..674e70dfbb5c 100644
+--- a/fs/ocfs2/journal.c
++++ b/fs/ocfs2/journal.c
+@@ -227,13 +227,22 @@ void ocfs2_recovery_disable_quota(struct ocfs2_super *osb)
+ 	ocfs2_recovery_disable(osb, OCFS2_REC_QUOTA_WANT_DISABLE);
  }
  
- subsys_initcall(cxl_core_init);
-diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-index cab8ce39f465..b9245261ee39 100644
---- a/drivers/cxl/cxl.h
-+++ b/drivers/cxl/cxl.h
-@@ -926,4 +926,6 @@ struct cxl_dport *devm_cxl_add_dport_by_dev(struct cxl_port *port,
- 
- u16 cxl_gpf_get_dvsec(struct device *dev);
- 
-+void cxl_debugfs_einj_add_types(void);
++/* Stop producers and drain completion work without freeing recovery state. */
++void ocfs2_recovery_stop(struct ocfs2_super *osb)
++{
++	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
++}
 +
- #endif /* __CXL_H__ */
+ void ocfs2_recovery_exit(struct ocfs2_super *osb)
+ {
+ 	struct ocfs2_recovery_map *rm;
+ 
+-	/* disable any new recovery threads and wait for any currently
+-	 * running ones to exit. Do this before setting the vol_state. */
+-	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
++	/*
++	 * Disable producers and drain work before freeing recovery state.
++	 * Do this before setting vol_state to VOLUME_DISMOUNTED: completion
++	 * work may still be waiting in __ocfs2_wait_on_mount().
++	 */
++	ocfs2_recovery_stop(osb);
+ 
+ 	/*
+ 	 * Now that recovery is shut down, and the osb is about to be
+diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
+index 19fc920d26b1..4b52bf7b0938 100644
+--- a/fs/ocfs2/journal.h
++++ b/fs/ocfs2/journal.h
+@@ -147,6 +147,7 @@ void ocfs2_complete_recovery(struct work_struct *work);
+ void ocfs2_wait_for_recovery(struct ocfs2_super *osb);
+ 
+ int ocfs2_recovery_init(struct ocfs2_super *osb);
++void ocfs2_recovery_stop(struct ocfs2_super *osb);
+ void ocfs2_recovery_exit(struct ocfs2_super *osb);
+ void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
+ 
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index 0af2245ae303..3072b0386db8 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -1831,6 +1831,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
+ 	/* Wait for worker to be done with the work structure in osb */
+ 	cancel_work_sync(&osb->dquot_drop_work);
+ 
++	/* Stop recovery producers before releasing their local allocators. */
++	ocfs2_recovery_stop(osb);
++
+ 	ocfs2_shutdown_local_alloc(osb);
+ 
+ 	ocfs2_truncate_log_shutdown(osb);
 -- 
-2.25.1
+2.43.0
 
