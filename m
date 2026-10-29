@@ -1,53 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250205;
-	b=0Jdxk3Lxc46ESLcTTlHewtER3G/w5K4GJXYYd+Qx9fah1bnyxegelorhbSVy+NHDSHkW
-	 H8TRGC62aaZoOxu7G/Q32o1RKDrJmk6RbNMRGOfgmnzS47/hCpgfdxJH28rIxTOF9gTZm
-	 8UDDSmI+z8fdo25NK+zeo9SmJTLCf/oGelawAkU/6QW1awDnhZyBrRFMhB3YmRRvldozR
-	 z2oTf4D2YdIYVqPByColXEfQ7i6ZVyVTxwla1uTC1gPa6gI/eki/Lbx2EFzf/sAGW278g
-	 e5ES2tLtnCLiWXmPeyoL6F/vYUUpCi3v3Mse7NoRHh3TJTjnG01nkbYuU7y4uT/c7tw==
+	t=1793250263;
+	b=0Wh00hbc0t5p/HCHie0jkhIxzrxS7YaelDdlwxcysSSncHtykTV4W1TWw5utLgFPWCf9
+	 r191kilLvwWKokmlees8J41JIgy5721drPLvGdVrc3qpNDzoqbYDigdgfI9sTHV1uVByN
+	 nihyWAyCTklAy3RZOd/Twdq26aXvqic+A0WrAVKDWnYqF4npqQwefMmc/EvWRFb/OITui
+	 BJkTJu5/sKOl9zl2SY1TIdaiRQK437sU0f1cZXwn5Nr7F9VUTh6aqlPvnukVqIG+VAEJk
+	 zxOA7FJFL/52h0qOGf/9686Fl8zC5h/D+ZwdkseE+Pdz7Z82jyheKMPtu+gfbaJo0Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250205;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=zx1cwdgOGsU5VOvrhxIe3lTZUynbysLzmn2YWTYIoE8=;
-	b=ZXJAuvos+M2on5dAvKMTdul4gYBlnVQ44ZMaRRd8wW0NLbU3JueDYy5eec3eQpoc5b3K
-	 y06/SuoXNSLy4dGmAVdRGJKRHndApYZeMIqTp9YhpVJmMEh1FG8tJK+GyAdXApIysg9G/
-	 KLrkCHduKjt4Ec19swMcGNf3kXLT8gQpVigjGV+WpO53XdAyfTwMB+dF6wqOLOGsHO4uZ
-	 5STEsTLifZ17yhCsv2MYxi84abc9vc1L7cZsD0Yk6uIPFnTmcFYSxDpkkd4jKBP9GW3hy
-	 lkCFOYNn3jAsfcw5QtS0C6+5bRksLjyGTSQv/uWPw0GOONOrckx0c/OGrZELvi4zlLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250263;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3qAG2o3ko8PoWBmrG3Va0eNZxNccB7JjZx7iVudfhMo=;
+	b=oYL+w81qqCPbkMWMmQjlUQiIA8GjGJrJ4JU8Bb+gRbhs+fjttNq4BN/PxCS0NIlfAQqH
+	 iB3Sc/YrUbvYPVF4x4Qmq1sKBcOez6+vVFdH31I5/xGQPe6PLpSKel6gevSRwJrfiGlhY
+	 1diSKUXF8lQE9i0B9QguOtugTJTHBlE6JavhX5J8ffv14HS7uksz+5Lh0cWdBzJGvULFg
+	 XSKZNJBRexeFrPUioSxG3I84Vl6+svgFbAjmcoaNR0/036MYTEacAt9ygzW6gEn+Sm12a
+	 JPmChaj8rjr8nh3z4KzJeNF8cStOayGrmndpD1umSOc+NdJM61HTUPHts/EnuI7DGUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2580C606A31A;
-	Thu, 29 Oct 2026 05:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2580C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=zx1cwdgOGs
-	U5VOvrhxIe3lTZUynbysLzmn2YWTYIoE8=; b=AwjYRD8J7N+VP6sGzJ8AhOc2kl
-	bOjZL7g1foVF7v+YVFJqf0MyNW8aCBRma0uGhR98MsxPOLPtLxlwpu4Cd5nGgXUs
-	JvYIeLCT3Mm1tn16W2XN+EB22GZXSdtffK4JnDOF3+yrgDyyDjJr770wVjhiOzXI
-	w3Tml+tTqfd/Ofyuo=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2vQCE0+JqAIH6AA--.62518S2;
-	Thu, 29 Oct 2026 13:03:02 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: dvb-core: release the net slot when adding an interface fails
-Date: Thu, 29 Oct 2026 13:02:59 +0800
-Message-Id: <20261029050259.8915-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=none header.from=mupuf.org;
+	spf=pass smtp.mailfrom=mupuf.org;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13E0606A31A;
+	Thu, 29 Oct 2026 05:04:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B13E0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mupuf.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mupuf.org
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <martin.roukala@mupuf.org>)
+	id 1xMIJ6-00GDZn-Rh; Thu, 29 Oct 2026 06:04:08 +0100
+Received: from [10.9.9.73] (helo=submission02.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <martin.roukala@mupuf.org>)
+	id 1xMIJ5-0002Xo-Jg; Thu, 29 Oct 2026 06:04:07 +0100
+Received: by submission02.runbox with esmtpsa  [Authenticated ID (1057822)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xMIIs-00Gwma-JZ;
+	Thu, 29 Oct 2026 06:03:54 +0100
+Message-ID: <1c76eb81-feac-419c-bcb8-bb505788e549@mupuf.org>
+Date: Thu, 29 Oct 2026 07:03:54 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,77 +54,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkC2vQCE0+JqAIH6AA--.62518S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFyxWr1DKr4kWr45Kry8Zrb_yoW8ZF1kpa
-	98CFyjkrWkWr4xCrsrJw4jv3s5Ja1ayFy7Gry7Kw1DZF45WF12kFy0ka42vF17ArZ5Ar1f
-	XF1UtFWq93y8Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxU4CD7UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUAD2riD9MOGgADsI
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/nouveau/therm: mask the update bit when reading back
+ the fan PWM duty
+To: Alex <xnderv@yandex.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261025101640.49779-1-xnderv@yandex.com>
+Content-Language: en-US
+From: Martin Roukala <martin.roukala@mupuf.org>
+In-Reply-To: <20261025101640.49779-1-xnderv@yandex.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-dvb_net_add_if() reserves a slot with get_if(), which sets
-dvbnet->state[if_num] before the netdev exists.  If alloc_netdev() or
-register_netdev() then fails, the slot keeps state set while
-dvbnet->device[if_num] is cleared, and the interface is never announced
-as created.
+Hi Alex,
 
-A later NET_GET_IF or __NET_GET_IF_OLD request for that slot passes the
-state check in dvb_net_do_ioctl() and dereferences the NULL netdev
-through netdev_priv(), which raises a general protection fault:
+On 25/10/2026 12:16, Alex wrote:
+> nv50_fan_pwm_set() and gf119_fan_pwm_set() write the fan duty cycle to
+> 0xe118 with bit 31 set.  Normally the bit reads back clear, but when
+> the register is read back shortly after such a write it can still be
+> set, and nv50_fan_pwm_get() and gf119_fan_pwm_get() return it as part
+> of the duty cycle.  nvkm_fanpwm_get() then takes divs = max(divs, duty),
+> so divs becomes 0x8000xxxx too, and duty * 100 wraps around in u32
+> (0x80000000 * 100 == 0 mod 2^32): the fan speed reads as 0%.
+> nvkm_fan_update() uses that as the current speed and steps up from it,
+> so it writes 3% to the fan and then ramps it back by 3% per bump
+> period.
 
-  KASAN: null-ptr-deref in range [0x0000000000000980-0x0000000000000987]
-  RIP: dvb_net_do_ioctl+0x4f8/0x710
+Ooops, I never saw the update bit being sticky! I thought this was a 
+write-only bit :s Anyway, the code is:
 
-Return the slot to the free pool on both failure paths so that state and
-device can no longer disagree.
+    Acked-by: Martin Roukala <martin.roukala@mupuf.org>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/dvb-core/dvb_net.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Now, let's talk about the commit message: LLMs love to talk don't 
+they?Let's trim the commit message to the just the above as it provides 
+everything anyone bisecting to this change could ever want to know.
 
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc176..912841f7cd55 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -1358,8 +1358,10 @@ static int dvb_net_add_if(struct dvb_net *dvbnet, u16 pid, u8 feedtype)
- 
- 	net = alloc_netdev(sizeof(struct dvb_net_priv), "dvb",
- 			   NET_NAME_UNKNOWN, dvb_net_setup);
--	if (!net)
-+	if (!net) {
-+		dvbnet->state[if_num] = 0;
- 		return -ENOMEM;
-+	}
- 
- 	if (dvbnet->dvbdev->id)
- 		snprintf(net->name, IFNAMSIZ, "dvb%d%u%d",
-@@ -1392,6 +1394,7 @@ static int dvb_net_add_if(struct dvb_net *dvbnet, u16 pid, u8 feedtype)
- 
- 	if ((result = register_netdev(net)) < 0) {
- 		dvbnet->device[if_num] = NULL;
-+		dvbnet->state[if_num] = 0;
- 		free_netdev(net);
- 		return result;
- 	}
--- 
-2.34.1
+Whatever comes after (but not including the `Fixes:` and `Cc:` trailers) 
+could be sent outside of the commit message, just as part of the email. 
+It is valuable to the reviewer, as it allows us to see how you found the 
+issue, figured out how to fix it, and how you tested it.
+
+Anyway, thanks for your contribution. I am happy that you are taking 
+over this old project of mine (back when I was contributing as Martin 
+Peres, before I took my now-wife's name) :)
+
+Thanks,
+Martin Roukala
+> 
+> The reads that hit this come from the two therm timers.
+> nvkm_therm_alarm() (the 1 s poll) and nvkm_fan_alarm() (the bump
+> alarm) both call nvkm_fan_update(), which reads the duty cycle before
+> it writes a new one.  When the two alarms fire within microseconds of
+> each other, the second one reads 0xe118 right after the first one
+> wrote it.  On the board below the bump period is 500 ms, so this
+> happens again and again while the temperature target keeps moving.
+> 
+> Seen on a GeForce GTX 560 Ti (GF114, nv50 PWM path) while the
+> temperature changed quickly under load: a bpftrace probe on
+> nv50_fan_pwm_get() saw 7 of 239 reads in two minutes come 7-25 us after
+> the other timer's write with bit 31 still set (e.g. 0x800001e1 with
+> divs 0x21c), and each of them was followed by a drop to 3%.
+> 
+> gm107_fan_pwm_get() and the PTHERM path of gf119_fan_pwm_get() already
+> mask their duty reads; do the same for 0xe118.
+> 
+> Testing: with this change the same workload and probe gave no such
+> reads in 155 and no fan drops.  The board was running out-of-tree
+> reclocking patches; the therm and fan code was unmodified.  The gf119
+> hunk changes the same register in the same way but was not tested on
+> GF119 or later hardware.  Both files build without warnings.
+> 
+> The problem was found and analysed, the bpftrace probes were written,
+> and this fix and changelog were drafted with an AI assistant (Claude
+> Opus 5.5 by Anthropic) during an interactive debugging session.  I
+> reviewed the change and ran the tests on my card.
+> 
+> Fixes: cb9fa62671ac ("drm/nv50/pm: add support for pwm fan control")
+> Fixes: bc79202f4c8f ("nvd0/therm: implement more appropriate pwm fan control functions")
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c | 6 +++++-
+>   drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c  | 6 +++++-
+>   2 files changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
+> index 684aff7..f56e763 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
+> @@ -74,7 +74,11 @@ gf119_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
+>   	else if (indx < 2) {
+>   		if (nvkm_rd32(device, 0x00d610 + (line * 0x04)) & 0x00000040) {
+>   			*divs = nvkm_rd32(device, 0x00e114 + (indx * 8));
+> -			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8));
+> +			/*
+> +			 * Bit 31 is the update trigger set by pwm_set();
+> +			 * it can still read back as set after a write.
+> +			 */
+> +			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8)) & 0x7fffffff;
+>   			return 0;
+>   		}
+>   	} else if (indx == 2) {
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
+> index 9cf16a7..9272256 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
+> @@ -72,7 +72,11 @@ nv50_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
+>   
+>   	if (nvkm_rd32(device, ctrl) & (1 << line)) {
+>   		*divs = nvkm_rd32(device, 0x00e114 + (id * 8));
+> -		*duty = nvkm_rd32(device, 0x00e118 + (id * 8));
+> +		/*
+> +		 * Bit 31 is the update trigger set by pwm_set();
+> +		 * it can still read back as set after a write.
+> +		 */
+> +		*duty = nvkm_rd32(device, 0x00e118 + (id * 8)) & 0x7fffffff;
+>   		return 0;
+>   	}
+>   
 
