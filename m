@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258780;
-	b=x8c6nusyd/QC5jnALBREWzAdEpU6YUy7VGycp6Fp0z8H3x5Qv5SJ76SkSNtAaIyPAOQQ
-	 Cvv36870zvRp9S+daZhHQxZ/X3pU6aWSbFKw7AT9ReUIweDmOPLvB/+yQ/qDnQoKhrYJ6
-	 mMtgAwFfpgBXLD28wwX3J1ANbyl/3zNpIYYMuGNWxbp4+yl4rJ+cgHrio569qb2g8BG8G
-	 kD6Ojz8H/9foqRdpIdDOEdP8QmQdDNgKpm/zVKPP4KEBeSCqsl3M2RAu0VbKB/lYhCbW1
-	 XF9zoCwYt/lfKbqSU8fzrdgV+tLD2iurel6TaDRo79e4biJ/wGHWO2u+ItXChYzxcxg==
+	t=1793258790;
+	b=p9cXEvrakWtUhiZ3KbYX7tQ4l45fgqiS+mMOkYD16LeT92WqLmQQcy1lmyciqW3zZLuv
+	 6hhM6IH7nZX/TAqLNHRwmfre1hwkF15OaJZYIfagCzbgG0TsZLiRXBRTiEAdn4hFUlMAa
+	 /8xaETQ2D/KIOODUasx4edCQ2s3eKBVwVQiE3+4eHkf5GMqRs7G/qFa4Kk0/BvydyV8jS
+	 84824TpAwMaEAztj7Bt1H6p59kDNFfolanL3St9AIYllORIFfEBXfgOnwicV9D4y24mtt
+	 KyAR3tjPSQic3hbPmjMnuxfJ0GI4oTu3HzOyTAn3O6vViioPzzYuEIji8MCoyCDnrig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258790;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=pqGf7TzgONNCw8lKYpkLElcBFjt1PPT5AcI9ojNr/dM=;
-	b=Fe0PGVff6A/61FHNhWx6bf2EbIbamKmIYI45pl1LigVg94uhY4+KZrdOHoFQP6defdPG
-	 ba5GdOXJI1oTisMg/SRtjp28EKtaNBmN/xA8A4O/60Yw83+hSJKcqzJhrcLxpfK2b0TzA
-	 0HU9V5RvF8Zm8OzSR+l6vXCLgyw3GZYZIb62t9Jt36siNKQmxoFOrTIm/5QcDKjpNQVdk
-	 f4kqNUv1HRv1Dc1Y9zRJ8EHNIZ5j3bak7xIFtXmR7nSI01i1ffzR0sQX3djXJr9iHbIEF
-	 o0N/kjD3ParmVVgGj0lwxAFaOUR2YnjwGPs9L7rg+LC1AYJmDrCL98SKZSJJa0o3ptw==
+	bh=xS03boMxCcllpwzg5bPDKCyxLreVZX2lgaA32onDXs8=;
+	b=GcCXXhuYO1hit7PdPmPLtPHHpd6+TF75syd+uhb3L/1YZ/AfACfcMG5824GWVm/+Mbzk
+	 YR9ZlhhLAT2MCZvB+tstR8eDmA2AD7etAunyaxB9anqT8fs+KrTWeoTbgH5WAQcj8Uo+j
+	 IYJEZHhNhdvs18P8qWYhBTo+81lhXjtdivZ0fiKT/lmuEhUqFQTGSe9yEBLQ0UDC6aTeV
+	 QNF9qOH/C2fkjSV0g9XynWPt2oOC/5yV2iHhwh8K5i11mb6AfVVgajNcYJeoOmcdYGW5a
+	 bp1VneqV/qhgc7EnBiAnh9NlQ3RZEiaJ8AXZKpGBnDgoDgdMzl64lQSSOw6yFqeYJAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QG227V7o;
-	arc=none smtp.remote-ip=115.124.28.97
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="IiHW/MJ5";
+	arc=none smtp.remote-ip=115.124.28.124
+Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com [115.124.28.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3D5606A325;
-	Thu, 29 Oct 2026 07:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD3D5606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E60606A31A;
+	Thu, 29 Oct 2026 07:26:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02E60606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=QG227V7o
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IiHW/MJ5
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793258771; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=pqGf7TzgONNCw8lKYpkLElcBFjt1PPT5AcI9ojNr/dM=;
-	b=QG227V7o2c25yrTryCoG8WQARTry6FfR7SQLc1CeNxBFFGSctw3ZygYz527KwOnpH1MI2IARF5RmU0EWQiRSIdEoZz9MdaR8JKSHA52uzqK/ZuzB2BFNgxcHPhGSsimZ43c/G25TWctgpt9gZmMYqxRk918RvdiVtdAe82aZwpk=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07550469|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.068659-0.00107601-0.930265;FP=12679159466549576950|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032065030;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=4;RT=4;SR=0;TI=SMTPD_---.jsBQt5q_1793258770;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jsBQt5q_1793258770 cluster:ay29)
+	t=1793258780; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=xS03boMxCcllpwzg5bPDKCyxLreVZX2lgaA32onDXs8=;
+	b=IiHW/MJ5bbZGdwPnArtWv+lBz617dqVw7CdpRiifqpe0fPBdlt+qtzxwUMweE2otfcZ9thRCz//E6uY9Lpmyv7UlQHvsKTwtZblGke9G+gguTzXZYyRBaDQSIPje/DkPbdo9wSgcRtsZt1sYdkVZW8KEP87sdhshI+iLCyBeG5g=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09175418|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00504625-0.00099433-0.993959;FP=14400804172128161412|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032065030;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jsBbwDV_1793258779;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jsBbwDV_1793258779 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 15:26:10 +0800
+          Thu, 29 Oct 2026 15:26:20 +0800
 From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Umang Jain <uajain@igalia.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-frontends: mt312: reject negative values in SEC callbacks
-Date: Thu, 29 Oct 2026 15:26:10 +0800
-Message-ID: <20261029072610.4135820-1-guozh23@xiaopeng.com>
+Subject: [PATCH] media: i2c: imx283: reject unsupported mbus codes in set_fmt/set_ctrl
+Date: Thu, 29 Oct 2026 15:26:19 +0800
+Message-ID: <20261029072619.4136911-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,66 +66,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mt312_send_burst(), mt312_set_tone() and mt312_set_voltage() validate
-their enum argument with an upper bound check only:
+imx283_set_ctrl() and imx283_set_pad_format() call get_mode_table()
+with an mbus code that userspace controls.  For codes outside the
+supported 12-bit/10-bit list get_mode_table() leaves mode_list NULL
+and num_modes 0, and v4l2_find_nearest_size() returns NULL for an
+empty list, so the immediate dereference of mode->width oopses:
 
-        if (c > SEC_MINI_B)
-                return -EINVAL;
+        get_mode_table(fmt->format.code, &mode_list, &num_modes);
+        mode = v4l2_find_nearest_size(mode_list, num_modes, ...);
+        fmt->format.width = mode->width;      /* NULL deref */
 
-The arguments arrive from userspace ioctls, and the DVB core does not
-sanitize them: FE_DISEQC_SEND_BURST, FE_SET_TONE and FE_SET_VOLTAGE
-cast the ioctl argument straight to the enum type, so any negative
-value passes the check and indexes the on-stack lookup tables
-(mini_tab[2], tone_tab[2], volt_tab[3]) out of bounds, reading
-adjacent kernel stack memory which is then programmed into the
-DISEQC_MODE hardware register.
+imx283_set_pad_format() is reachable with an arbitrary code through
+VIDIOC_SUBDEV_S_FMT on /dev/v4l-subdevX, making the crash triggerable
+by any local user with access to the media device node.  The same
+pattern exists in imx283_set_ctrl() via the format stored in the
+subdev state.
 
-A negative index reads below the tables; e.g. tone_tab[-1] lands on
-whatever precedes it on the stack.  Verified with a userspace copy of
-the three functions under AddressSanitizer: passing -1 reports
-"stack-buffer-underflow READ of size 1 ... underflows 'tone_tab'".
+Bail out with -EINVAL when get_mode_table() yields no modes, matching
+the upfront code validation other imx drivers perform.
 
-Switch the three checks to explicit whitelists so only the values the
-tables are defined for get through.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: ccb4eb4496fa ("media: i2c: Add imx283 camera sensor driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
- drivers/media/dvb-frontends/mt312.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/i2c/imx283.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/media/dvb-frontends/mt312.c b/drivers/media/dvb-frontends/mt312.c
-index 8fe850a8d..0c91b20cb 100644
---- a/drivers/media/dvb-frontends/mt312.c
-+++ b/drivers/media/dvb-frontends/mt312.c
-@@ -374,7 +374,7 @@ static int mt312_send_burst(struct dvb_frontend *fe,
- 	int ret;
- 	u8 diseqc_mode;
+diff --git a/drivers/media/i2c/imx283.c b/drivers/media/i2c/imx283.c
+index 38ea1902f..2c9af6e13 100644
+--- a/drivers/media/i2c/imx283.c
++++ b/drivers/media/i2c/imx283.c
+@@ -767,6 +767,9 @@ static int imx283_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	fmt = v4l2_subdev_state_get_format(state, 0);
  
--	if (c > SEC_MINI_B)
-+	if (c != SEC_MINI_A && c != SEC_MINI_B)
- 		return -EINVAL;
+ 	get_mode_table(fmt->code, &mode_list, &num_modes);
++	if (!num_modes || !mode_list)
++		return -EINVAL;
++
+ 	mode = v4l2_find_nearest_size(mode_list, num_modes, width, height,
+ 				      fmt->width, fmt->height);
  
- 	ret = mt312_readreg(state, DISEQC_MODE, &diseqc_mode);
-@@ -398,7 +398,7 @@ static int mt312_set_tone(struct dvb_frontend *fe,
- 	int ret;
- 	u8 diseqc_mode;
+@@ -968,6 +971,8 @@ static int imx283_set_pad_format(struct v4l2_subdev *sd,
+ 	unsigned int num_modes;
  
--	if (t > SEC_TONE_OFF)
-+	if (t != SEC_TONE_ON && t != SEC_TONE_OFF)
- 		return -EINVAL;
+ 	get_mode_table(fmt->format.code, &mode_list, &num_modes);
++	if (!num_modes || !mode_list)
++		return -EINVAL;
  
- 	ret = mt312_readreg(state, DISEQC_MODE, &diseqc_mode);
-@@ -420,7 +420,7 @@ static int mt312_set_voltage(struct dvb_frontend *fe,
- 	const u8 volt_tab[3] = { 0x00, 0x40, 0x00 };
- 	u8 val;
- 
--	if (v > SEC_VOLTAGE_OFF)
-+	if (v != SEC_VOLTAGE_13 && v != SEC_VOLTAGE_18 && v != SEC_VOLTAGE_OFF)
- 		return -EINVAL;
- 
- 	val = volt_tab[v];
+ 	mode = v4l2_find_nearest_size(mode_list, num_modes, width, height,
+ 				      fmt->format.width, fmt->format.height);
 -- 
 2.50.1
 
