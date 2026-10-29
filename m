@@ -1,59 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313260;
-	b=e4ut5+YHl0QLuS4A8TKEajO9mJVlZm6Mm3Z/OBWFsMtI+J1nlh0Cg6cQ9zFJavFkI6Ng
-	 7p5Zm/aOULKEmQZZMChSL9eU5SIdLYX+lXM8MJHbTV46/6JCjbP83mSKo+0kAVsDHs/Tv
-	 nQlvkhOAHe/QG3I0ntvFvyHTRD25tsKrnCxcWWU6ca5kqh1YUUcjRHp7Ci3agYIXn128n
-	 d8WEH+gI0JK6JyaImN51yJ4sjXx/CkJx32j76cBBmcIh64wC3D8zgtEWQrpHX0gH64+/Y
-	 XKxkSJpxWyWlPEEa90g/mvr/b2gHAnRrJVqGvycwplAz8wpGP0Ue2uzm71Yt1Q3b2dQ==
+	t=1793313384;
+	b=UUw58/1+JhUejSmjN/kW+rb4trBjh4kQah8xGsJDrM80HjUKciX/XmUhPQ0+KwREek0E
+	 /3KX45jN8vvYJNlOnTFU48WF9zLldY89ACILcumkm8j8EOEBU2zUkenAY0Y6hicp9xzI3
+	 F0LEzm5qdpjYLXMqpkH3M0FAXO6qF10NcWAg/Q97yj3GaI+ty9zmK4zrsNC2umieB3a0V
+	 jGFxhS5xbE0PSiOqC9v6wcUCY2mEnHzSMXcOtN7tUUsRNvsvERMus5VndNR8+bC7ajL69
+	 lpG5UmXN6CZMq9U3FlkHT0Bjib3/jK+/7SFLV2mmlF5VG3z7l6lBSz2XjWUr46Qs7mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313384;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
 	 X-Cookie;
-	bh=DbjQhRihY0/EvUWOyAElnilJ/pb6pFkDI5TA04aRSNw=;
-	b=wnhDkdGpLaxno0E90EweehgGVhZcxxqPPeMq0gL5S2DJmFGcg7AVAEVZFiCBO32s1d8M
-	 2kOhltNn50uO6e753xPekPrnHwbzdYhd5dYQrbQoViwjFyPmt78jCd0v4257x9wO1Gumq
-	 P0hy93rZFpolsVJ5fgw1tOcGLH1JcMtvOGu+dMeKYGj8A8Y2N4tWme6+IzbOjNxgNihgB
-	 449OzA9Jb79Ys5+pQ/OqX33uRUutCmOAf+xuitj8tU2Kam2T96/bkRBk0zNMFA7DEeyK+
-	 j/XL9apC23H27MbOb3vRqSdCi9HJlEte3z8k16l0E048b5woIHOOH9TAjTxH7WtdOCg==
+	bh=OruVHMwaVYca+pt7spuiusVmVidIFTPZ1qPgeij7xYw=;
+	b=G/8m8GCBq93ubkXySqDmmjSgdixwAShpc1jzrACdSlL5GVB1h51SMum4qKwQ0BP0Esld
+	 7uGzy4QGyP2G438xckTseKx/yYurEn4ZtOkYIdkBXJ7Zc6c/E7rjfmRWnZDLSz2ddxCpN
+	 6ILXEOCwLpSBnyQohm6O9SH/gxAuxha/p2P6jneoFL/vOuhrqz7h8YR1TPOsZoDU9EhzR
+	 +kC7Z2Yq0+pXRQ8e+glnT+4YRdbbWcVHogV3dQmOcM5rcE8i9Ebpvr14/vryll2TAuPTN
+	 RgsgCZeDlmgUX4sS/QG5y0UXV3JY3hKuX7AClqRqih1RVq1ZUdA2DcqUwS4XBTmnNxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSt6xROw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQh3D98n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B914606A31A;
-	Thu, 29 Oct 2026 22:34:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3338606A31A;
+	Thu, 29 Oct 2026 22:36:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSt6xROw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9EE1F01816;
-	Thu, 29 Oct 2026 22:34:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQh3D98n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0901F01824;
+	Thu, 29 Oct 2026 22:36:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793313260;
-	bh=DbjQhRihY0/EvUWOyAElnilJ/pb6pFkDI5TA04aRSNw=;
+	s=k20260515; t=1793313384;
+	bh=OruVHMwaVYca+pt7spuiusVmVidIFTPZ1qPgeij7xYw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hSt6xROwXhJ8UU85BerNgerdc82Ard7jEKvRQqugSSjlmOtbxLsFb918f/avPIg6g
-	 OHmgldJYA6NDKrkPbZrUFFb8pGgauoQxTCiML7R5I6wzyJtG5LU23EmPjGxOadbXmu
-	 qu3EDzkD8tQzyqzaGewrBUgqf+sCeounMj1RY9T9ZY9CcC7XkwRHL/r9RodsOeKj26
-	 B7GeMViGD+mb2vEwvS4ok7E913/EH4Fmor8WE1lqBONQWljUuxxHaCK98LARyJVILF
-	 wGSyWpjBdAcKOSS1EUVqkPS4Umgkv6di3RdKqKY8RW3n9UoLoR0GHLzPEXDU2Wpx4R
-	 EXiAwpnYXZYdQ==
-Date: Thu, 29 Oct 2026 22:34:15 +0000
+	b=UQh3D98n2z0QrJMhUs8LDSx06tdIV+9WJNQ+utaqCcBNoc4roNiFGATOk5K+bo7Y0
+	 EI6PX+xS7pZxQ1bLrse2E3AAciLkjGkcZHMd4rDrqeoVrRlGOytlvryol1bALpvuCm
+	 bT/5qdbXFQKS7PBKHfK0XMc+dFmvjPSNzAT5dCTXZ19esJVmxhKf9uaJVy3YT3f4Td
+	 YYArgjWsdE7xFbwDYG2+G87WjV7p9zkv/aNDRnY1Ldl7L7RbSgSZ4VIachMzUxiNYg
+	 s+pDqETZeW1oJpgjtzaiSsLZcZdIDQEvgGk+m53Dr4OGpaDVYHjXnhIvRZaKefh5Cp
+	 Zn3IWMp2PMAHg==
+Date: Thu, 29 Oct 2026 22:36:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Bard Liao <bardliao@realtek.com>,
-	Misael Lopez Cruz <misael.lopez@ti.com>,
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>,
+	Will Deacon <will@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Deepak Gupta <debug@rivosinc.com>, Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>, Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] ASoC: cancel pending delayed works on codec
- removal
-Message-ID: <6a9d3179-3706-438a-bd08-fad20cf047b8@sirena.org.uk>
-References: <20261029212504.2997364-1-tristmd@gmail.com>
+Subject: Re: [PATCH v3 1/4] arm64/gcs: release GCS on failed fork
+Message-ID: <94f6e809-2a89-41b8-80b7-5f580c154858@sirena.org.uk>
+References: <20261028154315.1272705-1-ivanrwcm25@gmail.com>
+ <20261028154315.1272705-2-ivanrwcm25@gmail.com>
+ <auOtXvGD1RHsU-dy@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,39 +78,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IThJ0mShSvwYwnai"
+	protocol="application/pgp-signature"; boundary="zwt295GGKfUega3/"
 Content-Disposition: inline
-In-Reply-To: <20261029212504.2997364-1-tristmd@gmail.com>
+In-Reply-To: <auOtXvGD1RHsU-dy@arm.com>
 X-Cookie: I have a TINY BOWL in my HEAD
 
 
---IThJ0mShSvwYwnai
-Content-Type: text/plain; charset=us-ascii
+--zwt295GGKfUega3/
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 09:25:00PM +0000, Tristan Madani wrote:
+On Thu, Oct 29, 2026 at 08:32:30PM +0000, Catalin Marinas wrote:
+> On Wed, Oct 28, 2026 at 12:43:12PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
 
-> Changes in v2:
-> - Resend as unified series per Mark Brown request (previously sent as
->   individual patches with inflated version numbers)
+> > x86 already does this via exit_thread() -> shstk_free(). The separate
+> > x86 TLS leak is different: copy_thread() itself fails after the
+> > alloc, so copy_process() skips exit_thread().
 
-I asked you to send a v10 (just prior to you sending v10 of one of the
-patches) because my tools have seen that randomly higher version...
-I'll fix things up, please don't resend for this.
+> Is the x86 TLS leak relevant to arm64?
 
---IThJ0mShSvwYwnai
+That was in response to me querying if they were affected on prior
+versions I think.
+
+--zwt295GGKfUega3/
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjyeYACgkQJNaLcl1U
-h9C8FQf+Oc/I7vohrB13bYcP9dodVO2a3syVAGp1kgI1Bk9JOdJKzKeg0NDb/3Bc
-0uehOKbexQ3kP+2xkF8DBFHsC6c9Hx6+ed830MZfkHymm+A5NwUIegCoQbx9FjXE
-pvLRpU1tUJOKYnGgxkOqaETo+9opWviYHJPEO5NTvEmYsnlX8hCgJ0dGe+XgO7Hh
-r7aDsI6vrRR016A0uq2qTEd9i1n7bcrkT3DoGKJXz9cksPMeHS4kvg8WmiDiC05a
-CQj0khl1EwyAZyGMhpjjHdKAxWtr/JF7mraUTf0dfHT0Q90o+DXLugqQACvfH+u8
-Et6iGiBcw84zNUuFR/3Dl03pb+hSQQ==
-=nfd8
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjymAACgkQJNaLcl1U
+h9BBOgf/VWlnK4mad4KibAkY4/so13xBR4n7xrgeGHR8thlB1Mr/L+Scb+2iQkTF
+g0qbnACHD3kfNuyiV+7rwrdLUBZQZ9ZnpUrXDepYI4uzbxXtCT16hivhz29nkUPj
+1ZGIL1PspxrSro0U3+Jjrmfns/UIkk3AAjYyLTs4V5CPiBZ/k7UEuHjDhdm2qx8B
+q/izPRgrgPzLJSiHiBtOJDnSmP61hTLL2y4NAc5e3BCirC/FkHzkF2drdCXb1wGD
+X3iGddlphek6yNTYi8s4K84ArSD70/VNMzdf6vvNvPQwxvronfxBwc74HLk5O+zt
+AMWfKkXv0N3FIhsJEKZKiJ6czwP6Nw==
+=rBVK
 -----END PGP SIGNATURE-----
 
---IThJ0mShSvwYwnai--
+--zwt295GGKfUega3/--
