@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.110
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.3
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793293244;
-	b=ZaYS8Sx+Z55Bn6ww55Co3KtfWnPk8y8Qqb7QksRNXmotiytZxO4KK0+RrBh7m/dx9pH7
-	 l62I2z7BissMjwGoUYlNsXQmhFe+mplooiEZUwGYHA8ZqX+EV2GBSfK/BAQLpakxb+DsD
-	 8FDDWEbQRhx6S/C7bPmVoP8WwAkMQ1YkFZTcZu/p4oo7ZPgVzibkWVDrgFK4bdjjB24Rd
-	 xDHaInJ19V68ks3BJBx5cjdZL5OHDEGUsemplLgnK5QRuB7uhdKrB38ICvJqJ3znXyJVS
-	 6DmFALqNgIGDy4S1lSDzV3LM6FBIOB/lzkT8UDeCg27xrQO6wxhFQC5OdDOXBd+EYZA==
+	t=1793293610;
+	b=MmvVS6IXdvqu6Q20VFn5h+QSHuqj14wAD+cnuP169cF3D/yfliFMsEyxv/kwPHPmBPy1
+	 ZXvZOGyjZnfBYA6M5Aboz+FQRUsSEKEVU/l/6UGbUlr5xTcCXIlIcryNIuNwmUY6Dw0Mq
+	 PZnuqfY+FlfUw/Ds8q5WevMbQoLzT+w4vE98DXQpW5LIWkz0UJfLrDJICyTHGMn7xkbBw
+	 qF9H179zxBnidwzOGLeIHY5W5g136/yzb7qcj62Gwcna1M9g4S8GevfKlVOT8mErnXX1e
+	 C21WKzpvv5TWeXvP0ebf8tV/TfyUoXKXMNzkB7OY2ZMTvz2jWui/Os8n6Z+sSE2Yi1w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293244;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293610;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sABFBOw1+sgzvxOAwrbaIekZJ+wjNbWPOUKsqEq346s=;
-	b=N+l2yDKVEDD2vUKi1sTOrgroY6ziyOD7p4phis9i0D5kOuCnkWNkvHFOSTCOcc3+QczS
-	 pznyXwWBJuc+2UQTit64TkP7av+/v8AcvykE+VCBKwAWoFfXceNgIgUPUejD6ozLJB/Oe
-	 dznzojMMr3vX3+/5qtjeyKskrVVuOeDr6Cy9eTDMG4885BsXBNM2gfaYp7ughTqvHGz2y
-	 BDHe9JP7anPNfTF8oq3Zf9HD77FrDbMMxb627iR0omFP27dgxf2IvDkevtQNRZqecG5rQ
-	 33U9lngJaWKKHI4u3vaCFZT6CjZm8VGHItBTgLVwcX/Q9Et+xvFM7X6oWfjtI+uGlWw==
+	bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
+	b=h1J021jeb26SMcs8/gSycGETzsQACsR4oCp8mELXGkgFfMjtAkkDCrQybv7Iyfo2S+s/
+	 QysoqCk8NzxSCnr9rOAkI5jYtSBUOBGwPWb+CgrrlhxYUx9LdeIrFHlGiIXuSRYXieW00
+	 978k43SWwZ0j7UTqguZvao9D/n9JDHeo2s02QKmOgzxZ3X8aytEQyS+M2v/MqyYo/ab5q
+	 byi2Do2NRdsNvglvi/bI6TxKlk1k7r5jeyHMVmwpFiXP3vyVBkDA6a+sqaGBxFAoLhmwd
+	 gMejbqN0fKj4NCrIf7TTFjRcqA3vZXbxcgG0OAB1oqexMGdULcd5Iy61BoWTw0Ab2JQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=smu.edu.sg;
-	spf=pass smtp.mailfrom=smu.edu.sg;
-	dkim=pass header.d=smu.edu.sg header.i=@smu.edu.sg header.a=rsa-sha256 header.s=selector1 header.b=lrYjIp9u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.110
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023110.outbound.protection.outlook.com [52.101.127.110])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="1Ke6N5/M";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.3
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9F0606A31A;
-	Thu, 29 Oct 2026 17:00:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC9F0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smu.edu.sg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smu.edu.sg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC96606A31C;
+	Thu, 29 Oct 2026 17:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AC96606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=smu.edu.sg header.i=@smu.edu.sg header.a=rsa-sha256 header.s=selector1 header.b=lrYjIp9u
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1Ke6N5/M
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uW3NYKoKiZv/IMOEDQnBPDtVyAyLXjOtYCZe5uG4h5dLCxLewhdgqn3In/U4q+LCkovtqRw27rJUnP5MmnzxRqqYiBEewqwZMjeMz+2o6xy6MKJBZxKEGcLi7/QcVRQ3qyI1FrUpQPkYkyJ7HmjTpJ5gJyCDAGhf+d4VRJbGvyygd8qzk8/R5t1fb9Ajq9tcFVei2cGb2BjW7p2Sx9JImer3L4uZ8ln9sm3nzMrJxDa0FOuz25nKZF/0ovDmJsEdAQaEEs7/2dScdenwDNdV6C2/PVOyaSS3h0sU4ERW/PJSQBfMKXdAj+mho30K2T8QKiOC4E+WnWvslIwzsK/kLg==
+ b=yQlNVhRTzT4HnQYmV1VWQBcG5wWwYC9G1jYlINV94dFE2S6ysmsxABsohmuMAO0r7Wq/Y4InK8AeNHcOkrpohy3eCdyiy6XBZt+0bwtBwnK3ftnrbRmqA4ZjnxWrbwIoDycgSJYbjx4M/l5obYiPYp6+cOPVJvEiYbMkTXiuAWU9iuusjR2RDXr3pKUkwCjTTpC3eJrQIaeHjP4i/oKhO+b7zM3wiQ5pFL6xccIHeorw6QUEy5lPwcbCZs7w2+flxRaytb7/yENf9+gKmE+cin1ankDCk2JeGYC+SLhD3pkl5ckfTDyolaG4lhhyb+PBegIBhypJJVAHncj2h2fG1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sABFBOw1+sgzvxOAwrbaIekZJ+wjNbWPOUKsqEq346s=;
- b=TO546/I2dvN9fOXpEcrY51eZtKF3uUwEEO9lgDzbYmJGyuqQys2bqmm3a3a0P2sxFeR1EVMNI1T5eRMaAQyuMvcygiRJ+t9ec/Q49NrProhH5/ksFOGIDFR4lCrQF+7X0nfXorVe31yuafApx6pmazblohKzQ/cvJUTJ0n6qbJ6k1B0yIiJvwXUL7IMXRbn1GKK9NjUcykRoZHgUxQ0DaBdXhUd93JOWOhoN3iDjAULYl3NrQLaxfv2KsLVAJa/3yUWG7cIgy/LEiijIMhxCFO+gElgw9yjTi/e0JQH0t7nLNX4p1SnPqHi94ECLYrMXwQIf46SPBGm1w1pk+indoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=smu.edu.sg; dmarc=pass action=none header.from=smu.edu.sg;
- dkim=pass header.d=smu.edu.sg; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smu.edu.sg;
- s=selector1;
+ bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
+ b=a+UuTKsdcHjLsNrMTjrVY7nboph3yHl5fluTSOiTV6m0r3eQIlgr1rvvyDSQoMd6qPXXlfF+KWQuDdDW0+6JU5uBlPPGwMeWyjgWUCLU8gZmdF9rfSmqf502NjPU0flBgvq7uox0k2nsuUBhymRQsGRyUtzT8WU+gBoDpDNaygumjMj8zdUQkCxX0MRtQvaqeDFRPaj2aEvALNCDmjCyXuISERTcGvXsUYZN9l//vEN5HLjEuvIE80O0lDesdrMuJwjJjGr3kXdUhP5C+aC5ZaC/SbMxlU5VA2QD94xlG8MRxs6GqCwyD4kkelr+o+3mCStYel/wyzVWJcnpAwKibA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kylinos.cn smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sABFBOw1+sgzvxOAwrbaIekZJ+wjNbWPOUKsqEq346s=;
- b=lrYjIp9uqC+td/6niwi0uIpFg1YtKZwxluW4Ue13wjM92VEejq62OCyP9xVg8HyYsSjW73O0UUqZhdFdVHCO3ehbqDca2rfLx5SyjCNwQZc6/IG1s6iqhDegdfvLDvqwyZzqPS7Qp7TlqCjKiVOtQJ1KGhcEIh7yfgupl3tIhA7xZD6xPK0wnggVS8EbsIm+ULafvq8ela75sUStesEHP40s0f94+fGC65J8esCfiabmH1dQHtPbYn4nVK8gh0nSPtVB94sSbZZW8HMHbh+jBFl0EzFBiR2Fxd9435Mei5yefik7Z2uw+azr/n6NOkcrG3JJv35HatgdTLISckUL8Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=smu.edu.sg;
-Received: from TY0PR0101MB4264.apcprd01.prod.exchangelabs.com
- (2603:1096:400:1b3::11) by TYNPR01MB8294.apcprd01.prod.exchangelabs.com
- (2603:1096:405:3c6::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
- 2026 17:00:37 +0000
-Received: from TY0PR0101MB4264.apcprd01.prod.exchangelabs.com
- ([fe80::9272:a3a2:eb34:7382]) by
- TY0PR0101MB4264.apcprd01.prod.exchangelabs.com
- ([fe80::9272:a3a2:eb34:7382%5]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 17:00:35 +0000
-From: Huihui Huang <hhhuang@smu.edu.sg>
-To: linux-wireless@vger.kernel.org
-Cc: Huihui Huang <hhhuang@smu.edu.sg>,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	stable@vger.kernel.org
-Subject: [PATCH rtw-next] wifi: rtw88: drop C2H packets shorter than the C2H header
-Date: Fri, 30 Oct 2026 01:00:17 +0800
-Message-ID: <20261029170017.832708-1-hhhuang@smu.edu.sg>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI3PR02CA0006.apcprd02.prod.outlook.com
- (2603:1096:4:295::13) To TY0PR0101MB4264.apcprd01.prod.exchangelabs.com
- (2603:1096:400:1b3::11)
+ bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
+ b=1Ke6N5/MD0ih37BuUhYt5nyjEEPoELvBSUbOpD8j0+sYOg4oCuP2E1Q16v3JWvOWEzbHEsSyCi4p+ttstAtBoHWnIOG0FBWn9FRbwncRhT3cHBsrq2p5EkfDbutMLOUkyMmHaDlvw/jv4saAsm1kPeaXMy6ayayRWu7xI1xesh8=
+Received: from BLAPR03CA0021.namprd03.prod.outlook.com (2603:10b6:208:32b::26)
+ by MW6PR12MB8707.namprd12.prod.outlook.com (2603:10b6:303:241::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 17:06:44 +0000
+Received: from BN7PEPF000000A1.namprd04.prod.outlook.com
+ (2603:10b6:208:32b:cafe::23) by BLAPR03CA0021.outlook.office365.com
+ (2603:10b6:208:32b::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 29
+ Oct 2026 17:06:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF000000A1.mail.protection.outlook.com (10.167.248.153) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 17:06:41 +0000
+Received: from [10.236.178.151] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 12:06:40 -0500
+Message-ID: <7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com>
+Date: Thu, 29 Oct 2026 12:06:40 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,160 +99,148 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] cxl/core: Create einj_types when EINJ becomes
+ available
+To: Yongxin Yang <yangyongxin@kylinos.cn>, Davidlohr Bueso
+	<dave@stgolabs.net>, Jonathan Cameron <jonathan.cameron@huawei.com>, Dave
+ Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, Dan
+ Williams <dan.j.williams@intel.com>
+CC: <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
+ <20261029065629.333949-1-yangyongxin@kylinos.cn>
+Content-Language: en-US
+From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
+In-Reply-To: <20261029065629.333949-1-yangyongxin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY0PR0101MB4264:EE_|TYNPR01MB8294:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0be678b9-3816-42dd-0732-08df35de2619
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A1:EE_|MW6PR12MB8707:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6a8a6a1-1d13-401a-aeff-08df35df00c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|786006|23010399003|52116014|376014|366016|1800799024|18002099003|3023799007|261028144727099003|56012099006|11063799006|10067099003|261022075727099003|261022105027099003|261009223027099003|261021121427099003|261026140227099003|261026121527099003|38350700014;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|11063799006|261026121527099003|4143699003|56012099006|261021123027099003|261009223027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|22082099003|18002099003|261028144727099003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
-	RY/F7MbYjvxZgT8r7z8Dstj/M1MVoAlltTGg2KzbBYvmnDhX5FdElne171jK6wz4ZaxEcgQHnu+50eaR1jGxr4B20ZWYrHMJ7if8CA0QrDMCVCoVlo2+KvxRm4Q0FSJ1RCMrpkcHwDUdt1hPNrFe//cPua/Rs/JxU/k7pRf113pqFik7cf4sVNnDh++cM40yam/v55IxaYPp7nN1rJmBnDEHJq3mmGAKs2/Aj24gkBnx+GmwToKesusLCLj7elr2WZNFV0x4Ch76bskFZEsryVDyoksG4Er60yGBCLmzmnOUwJQocpcCOwvHZcab9AjkFfiCo1xxCjELq0FuGPagaWFDjNE6UyyDpUGWTWGpuColrG5+8Wb8bdZUHtyZZxOsmszewy9xepDvqqj7jmTZvgoMlg6yNCvSQX5bTtTt/7fCwk5+cSYQYfEmf4FsIaQDfFvHuwABsRtgVVbX5/DdFZnn9+VmKTNC0Rjb88gKV+aOhDM1k9DHhBKtXUKbTS6CYNsZcfBNzm9vNFzljYgVtmMUoAmY3TvlFrvv7YkiSbxTdESuJl9SNElxOQKOmqFwqxom6vBMpEcP+N5XsFbXS6srfZvoEkYrfF4BZV3T9oKCHc8NG6YHLybdlAXofNV0gy2otkc94v824cZ2zm47dsIwvnC23V4tY26WPzmGFXRTc+4TVKaC3D03yVJAQPYW8VJOShUg0bNo8Z1dUYZWUa5CDzgW2aqshextWnnKzcs=
+	wNXLHHZn/1VIBC2DZEF9FjupGzIB2gNq2NZYguLHK+zUO9SoppqA9VMJRjRyLot8n7gg3CjfDymg61XutSswhweppQgXeTsoAHCA/VTpK5ugTBuP9hp/kK00U33CBmJ459+oj+ictXCo/ZaU3DDlrcgh5H5rzsvHQ1jW43rMTvbunV39DAgCOYhKwmV0TwygcRdqIhmQihUpyGcmxcSp2nP3wTwDbmXMoKxbYMO17FsyYaZ7x03Wkj1DJgyTure5ycjLyo3uADZmLdV4aJzCze6AtqSyE4RQ4cpE36VU+i6teOoLE+HFzZ7y5Y2Ki3npEFpjWyYqbrnoUHmk4RBr9m4eSyA2M/MBgMfdu2MKbHPuQYiJyeCoC+AFAPezqowHKhYMczzY0T52ltQEYORaPY5BppRJhNOBIAyJVXv4kl/rlBl9s9jHcqLFq85WcslwXF4WQNuvMbi6V8ICwqRTX5bLhdk63BFPpQFQVTgOp4oSFSqVgsBOZYH8NzLekZzZK8/WcnMLjULC/YmL9sx2lWIXjZgs69/7E/HvtdxRD87UI7FfHbreMA1VaCqZpsz7lM7T79DmG6DOVJ/Z3/HHWWY+1ekTt8LdI3T0Ngf2zLqD5q/8PBSZ97ngTK+nucdtxECG57Wcw53X1eov+mbXefxm6vkVKaq9Q/LBxb1G/D8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR0101MB4264.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(786006)(23010399003)(52116014)(376014)(366016)(1800799024)(18002099003)(3023799007)(261028144727099003)(56012099006)(11063799006)(10067099003)(261022075727099003)(261022105027099003)(261009223027099003)(261021121427099003)(261026140227099003)(261026121527099003)(38350700014);DIR:OUT;SFP:1102;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(11063799006)(261026121527099003)(4143699003)(56012099006)(261021123027099003)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?v9g5fTOr3ilL6WWqMDl3HZI1/h1Aag63bHN2kn758B8WrzCI0n8mP+hCsKQC?=
- =?us-ascii?Q?mZpef5RH6nypPVSnf+/MiH1Twq62ABvLFxZcoeRIAD5nNilKOsEdYl5nwH5M?=
- =?us-ascii?Q?v6aAEnFDNTc8milGo1If5U3BBh7Hz5E18gZmWb/XzNRWuXaPVAzeOgYMghSw?=
- =?us-ascii?Q?qCrFVjJGUzuh3R/jGxubOOfj24p8HGu/pBn0RBRZ0X6BOn6023XdogtEBAEB?=
- =?us-ascii?Q?S5yP9kYySinuxIzVVguYq4Qk0yUBrDq+3OxhsmbeASrRUkGhpnrGHWi4aLvs?=
- =?us-ascii?Q?okSk83PTNd2qsiUlaOBp4YJgmFs7ROSJ6WH+23iw6mDsA1vYP0oVfi86QpVN?=
- =?us-ascii?Q?2kGeR1qef9hXbNCZOyd4B9BwI6+Jc0sYtctPMVdiggiZZgNTEE67l4d9k/0S?=
- =?us-ascii?Q?3VdAULMeqBlaZ4ilBzwa5nOtMAkxDD2xoFDQOjPHTq3w6mf62vEBd/UF7dOl?=
- =?us-ascii?Q?88hCN29ucSWWRHTQR8YoT1L3LkKv/9Rn6Qgbly8B47zWuAgMX4MZd5N/U0Nt?=
- =?us-ascii?Q?6sJzluQ+a36ZHWUoUqWVAuDXk6bv0hd1OIUz26hT5y6zn9Q/WoD0/cX2OUju?=
- =?us-ascii?Q?ZgP2c3zH044+MUf9huqVwVlX4wpBZIsZKTdf1c+sL3tSai3iQgZ0m5QO5qfy?=
- =?us-ascii?Q?JetcEa1gD+Ct8ujYS/1QQ2M8WFfuSPo/Ru0HSwV34cjrn17K8IwNRsvmc8mQ?=
- =?us-ascii?Q?f1E2F3PN4NxtO3Q8MaZ3Tec3c0+Xa7kE01MNW5EcD/LD8+RG/NzZlUvGzw/W?=
- =?us-ascii?Q?PdYhRzW1cV3UsShWJgxH6rHdiT8GXhSB/t+4H4VzXU/mGaxwNlrZxr9e4R8Z?=
- =?us-ascii?Q?q25AJ9fGqn2GatqTKWPfaSCh2rJ3aiNMNkwthqS8Y3hMBWWH5GXEWv6R+TX8?=
- =?us-ascii?Q?ITUX6MY6o8YoKyDlfZBtXhyHBSFS2Ie93QY6188DEf8i2mpfAdBFbfLxeLK/?=
- =?us-ascii?Q?oLFc+Hi4tPXMOR9bAfc/gHJIpMXeNUODPMdqZ8z7ABU8juPngmynmGCgmzpB?=
- =?us-ascii?Q?0HW3yHPksDKWPZru6iKYSDQEmn70irSSGYiNMVQy3j5KDTAnMhXrfYC4PeAv?=
- =?us-ascii?Q?O96rJFz3vGF1wUe+Pk6L5F3sKv4VVrD3RhPUilNXaZf8pA95Kds5/sJAIVfU?=
- =?us-ascii?Q?n1rR2gCgY71ZkounRhqALMWxsXIN39oWvhe4Sj0PnFGMlbkJLjfZGYmcZW9f?=
- =?us-ascii?Q?OTL1Kie6O/tWeWKAHwx6Qk7ZaB99f5yqkbe6NqOSM7lS/kP9y6uDXJ8hzuUT?=
- =?us-ascii?Q?zBrO2w/+fFayuwIrhQnq0k2x0y23hEewgcHb83GeTtkQOD7RKTiHttgpd8J1?=
- =?us-ascii?Q?LijmrZUm24D8orzbjJJmqlD4DnwQuSIMNTrKjLirjrJwIrgbYOhSMFc1pO58?=
- =?us-ascii?Q?OwIBa84q7/nI6rZOjFLFacNA74q4bpsfyLnHp7RNIQj/OSLroVYYExivhaVp?=
- =?us-ascii?Q?fwfVt1Vf3PjtjqBrDE1mDdYux5/wQyNokhsL5yqEwaHCxiyUwYO4nNw4imI/?=
- =?us-ascii?Q?v1OWWcpuw9zazNdXQlK1j8czuQKB8VpHnaybtAfiWNnPb9HDZc+ed+RVfnte?=
- =?us-ascii?Q?J1jtovDUHTua4zVvgUdPU/ObL22THQ+q2hTWnnlC6PcQHcKwWIKSP3B+MfTo?=
- =?us-ascii?Q?xgqMm/VM6kF3Bn77WmeZfxP2j6bxhfFFVr0JGp/BC0lr6EP1At5kBOhv0jVI?=
- =?us-ascii?Q?4MJhCRuzM2dY+yqh64LuIfkFofKuEQm15kkSTS/YHiivIzVGf2RNVL8BzOi1?=
- =?us-ascii?Q?V3sJsYnBZg=3D=3D?=
-X-OriginatorOrg: smu.edu.sg
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0be678b9-3816-42dd-0732-08df35de2619
-X-MS-Exchange-CrossTenant-AuthSource: TY0PR0101MB4264.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 17:00:34.9661
+	w4JHNCUkla17pDAzWjHUZcZrYJiQyatLG1j6+qNE+L0laxMLk2Npw8popixP2jZId7dXj6MjjxMg8P76Z5iLmXkIA8mFqW7a61Nj7YZqBD003O1cseBqsSnSx7ZqtmcxXG7MrqoJlDAD+wZ1+JXIboa6hzjoBzqUPjkX1v3LMKaS1MdXb6jNca5F3rMxEi+KaGyZR0RtpSlv1I+5QoNPR03dvqJAR4L2tbwDqG0J5kD1nmE0e3dOqHIwFzFrpeZGaUeY+DlvnoGFSeAd+vQUIVTUVYs00zNj8TwHm7QQmLheqVLmM0mclqVEs0uTkrMgX1vZAq1bYulE6Q2bGf9idGNrYmUVg6LArxr69DT+Jttlk7r1tU6euMKoppAgCzqdL8hbszzab7RwRE2fp76nd1lKAQei3Ajk72IzUrS7tKSWE6lXl6Y8YkYYw5CAqKLo
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 17:06:41.6205
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: c98a79ca-5a9a-4791-a243-f06afd67464d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bjqPCmOC+Uyb0k5JmxKfV8hUcNcPm4bWCcVllE2mdwVokbNhRnnaOYwjP7UMvqvVcj5gSLV7StgWGWLxPZPFeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR01MB8294
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6a8a6a1-1d13-401a-aeff-08df35df00c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8707
 
-rtw_fw_c2h_cmd_rx_irqsafe() and rtw_fw_c2h_cmd_handle() compute the C2H
-payload length as
+Hi Yang, thanks for walking through your reasoning in the last revision. It made looking through
+the changes here much easier!
 
-	len = skb->len - pkt_offset - 2;
+Nit-picky comments in line :)
 
-where len is a u8, without checking that the skb holds the 2-byte C2H
-header (id and seq).
+On 10/29/2026 1:56 AM, Yongxin Yang wrote:
+> [You don't often get email from yangyongxin@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> From: Yang Yongxin <yangyongxin@kylinos.cn>
+> 
+> The einj_types file under the CXL debugfs directory is never created.
+> 
 
-If the header is incomplete, the C2H payload length underflows. With no
-byte left after pkt_offset, c2h->id is read beyond skb->len and len
-becomes 254; with one byte left, c2h->seq is beyond skb->len and len
-becomes 255. The wrapped len defeats the minimum-length checks in
-rtw_fw_ra_report_handle() and rtw_coex_wl_fwdbginfo_notify(), which then
-read their fixed-size reports beyond the valid packet data.
+I think this should be "The einj_types file under the CXL debugfs directory
+is never created when cxl_core is built-in", but I haven't looked in a while.
 
-skb->len is pkt_offset plus pkt_len from the RX descriptor, and
-rtw_rx_query_rx_desc() returns for C2H packets before its
-"pkt_len <= FCS_LEN" check, so a short C2H packet is not rejected there.
+I remember you saying something about subsys_initcall() being downgraded to a
+module_init() when cxl_core is built-in, and it looks like that's the case
+after a quick look at the macro definition. So module dependencies should
+cause the file creation to happen post EINJ init when both cxl_core and einj_cxl
+are modules, in which case the file will be there.
 
-Drop C2H packets that are too short to hold the C2H header. Since
-rtw_fw_c2h_cmd_handle() only sees skbs queued by
-rtw_fw_c2h_cmd_rx_irqsafe(), this covers both computations.
+That's probably why I never noticed this either, I (like most people) almost always
+set everything CXL related to 'm' when compiling a kernel...
+> cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
+> from einj_init() at device_initcall level. When cxl_core_init() evaluates
+> einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
+> yet, so the value is always false and the debugfs_create_file("einj_types")
+> call below it is never reached. Users have no way to discover which CXL
+> error types the platform supports from debugfs.
+> 
+> Create the file from every point that can tell EINJ is up: cxl_core_init()
+> covers cxl_core being a module loaded after EINJ has been initialized;
+> cxl_acpi_probe() covers the same case for cxl_acpi and also systems where
+> the CEDT is parsed but no dport is ever added; and the dport probe path
 
-Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Huihui Huang <hhhuang@smu.edu.sg>
----
- drivers/net/wireless/realtek/rtw88/fw.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+I would rather this not mention the case where no dport is ever added and
+instead talk about the RCH/RCD case. If there's no dport ever added then
+error injection isn't possible and this file is useless, so there's not
+really a point in bringing it up.
+> covers the built-in case, where the dport added from the memdev probe is
+> the only hook reached after einj_init().
+> 
+> The dport probe path can run concurrently for different parent ports, each
+> holding only its own device lock, so serialize the check and the create to
+> avoid a duplicate debugfs_create_file() attempt that would only fail with
+> -EEXIST. Reset the cached dentry in cxl_core_exit() so that reloading
+> cxl_core starts from a clean state.
+> 
+> Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+> Cc: <stable@vger.kernel.org>
+> Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
+> Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
+> ---
 
-Tested on rtw-next (9b0be45d4d52) with a temporary handler-level KUnit
-regression test (UML). Each case allocates a 64-byte skb, writes a C2H
-at offset 24 (pkt_offset), and skb_put()s only part of it:
+The contents of the patch look good to me, so with the changes to the description
+and comment below:
 
-  1. skb->len == pkt_offset (no C2H byte), C2H_SCAN_RESULT, payload 0xab
-  2. skb->len == pkt_offset + 1 (id only), same C2H
-  3. skb->len == pkt_offset + 3 (valid C2H, one payload byte)
-  4. C2H_WLAN_INFO passed directly to rtw_fw_c2h_cmd_handle(), as the
-     c2h work does for queued skbs: first with skb->len == pkt_offset + 5
-     (len 3), then with skb->len == pkt_offset + 1 (id only)
+Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
 
-Cases 1-3 go through rtw_fw_c2h_cmd_rx_irqsafe(). Verbatim KUnit output:
+> Changes in v3:
+> - Take the review from Ben: the helper is now cxl_debugfs_einj_add_types(),
+>   non-static, declared in cxl.h and exported to cxl_acpi only, so that the
+>   cxl_acpi hook can call it.
+> - Add the cxl_acpi_probe() hook, before cxl_bus_rescan(), so the file is
+>   created once the CXL topology exists instead of waiting for a dport.
+> - Keep the dport path as a retry point. With EINJ built in, cxl_core_init()
+>   and cxl_acpi_probe() both run before einj_init(), so dropping it would
+>   still leave the file uncreated there.
+> - Drop the "RCH is out of scope" paragraph. RCH does add a dport, from
+>   add_host_bridge_dport(); the file is still not created there when EINJ is
+>   built in, so do not claim the acpi hook fixes RCH.
+> - Reset einj_types_dentry and cxl_debugfs in cxl_core_exit(), so that a
+>   reloaded cxl_core does not keep a stale pointer and lose the file.
+> - Use guard(mutex) instead of mutex_lock()/mutex_unlock().
+> 
+>  drivers/cxl/acpi.c      |  9 +++++++++
+>  drivers/cxl/core/port.c | 41 +++++++++++++++++++++++++++++++++++------
+>  drivers/cxl/cxl.h       |  2 ++
+>  3 files changed, 46 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
+> index 3b818adbd38b..0584245b30f2 100644
+> --- a/drivers/cxl/acpi.c
+> +++ b/drivers/cxl/acpi.c
+> @@ -958,6 +958,15 @@ static int cxl_acpi_probe(struct platform_device *pdev)
+>         if (rc < 0)
+>                 return rc;
+> 
+> +       /*
+> +        * Create einj_types from here as well, so the file also shows up when
+> +        * cxl_acpi is a module loaded after EINJ, and on systems where the
+> +        * CEDT is parsed but no dport is ever added (no CHBS for the host
+> +        * bridge, or a CHBS without a valid component register base), which
 
-  before this change:
-    # rtw_c2h_short_packet_test: skb->len=pkt_offset scan_density=0xab (want 0x00)
-    not ok 1 rtw_c2h_short_packet_test
-    # rtw_c2h_one_byte_packet_test: skb->len=pkt_offset+1 scan_density=0xab (want 0x00)
-    not ok 2 rtw_c2h_one_byte_packet_test
-    # rtw_c2h_min_valid_packet_test: skb->len=pkt_offset+3 scan_density=0xab (want 0xab)
-    ok 3 rtw_c2h_min_valid_packet_test
-    # rtw_c2h_wl_info_len_check_test: skb->len=pkt_offset+5 fw_notify_cnt=0 (handler accepted no)
-    # rtw_c2h_wl_info_len_check_test: skb->len=pkt_offset+1 fw_notify_cnt=1 wl_fw_dbg_info[7]=0x17 (handler accepted yes)
-  after this change:
-    # rtw_c2h_short_packet_test: skb->len=pkt_offset scan_density=0x00 (want 0x00)
-    ok 1 rtw_c2h_short_packet_test
-    # rtw_c2h_one_byte_packet_test: skb->len=pkt_offset+1 scan_density=0x00 (want 0x00)
-    ok 2 rtw_c2h_one_byte_packet_test
-    # rtw_c2h_min_valid_packet_test: skb->len=pkt_offset+3 scan_density=0xab (want 0xab)
-    ok 3 rtw_c2h_min_valid_packet_test
+Same thing as in the commit description, just mention the RCH/RCD case here instead.
 
-Cases 1 and 2 show that incomplete C2H packets are processed and update
-scan_density using bytes beyond skb->len before this change, and are
-dropped after it; case 3 shows a valid C2H is still handled.
-
-Case 4 bypasses the RX entry point to demonstrate the downstream
-length-check bypass; it is not a before/after regression test. With
-len 3 the "invalid wl info c2h length" WARN rejects the report, while
-with the header cut after the id the wrapped len (255) passes the check
-and wl_fw_dbg_info[] is filled from bytes beyond skb->len (0x17 is the
-byte placed there). After this change such a packet is dropped in
-rtw_fw_c2h_cmd_rx_irqsafe() and is not queued for
-rtw_fw_c2h_cmd_handle(). The RA report path was not exercised.
-
-Not tested on real hardware, and I have not observed such a short C2H
-from a device; this hardens the driver against a malformed RX
-descriptor.
-
-
-base-commit: 9b0be45d4d52fd223994e151f169743a97abd290
-
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
-index 945fedcd375b..2e37c304cde0 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.c
-+++ b/drivers/net/wireless/realtek/rtw88/fw.c
-@@ -353,6 +353,12 @@ void rtw_fw_c2h_cmd_rx_irqsafe(struct rtw_dev *rtwdev, u32 pkt_offset,
- 	struct rtw_c2h_cmd *c2h;
- 	u8 len;
- 
-+	if (unlikely(skb->len < pkt_offset + sizeof(*c2h))) {
-+		rtw_dbg(rtwdev, RTW_DBG_FW, "C2H too short: %u\n", skb->len);
-+		dev_kfree_skb_any(skb);
-+		return;
-+	}
-+
- 	c2h = (struct rtw_c2h_cmd *)(skb->data + pkt_offset);
- 	len = skb->len - pkt_offset - 2;
- 	*((u32 *)skb->cb) = pkt_offset;
-
--- 
-2.43.0
-
+Thanks,
+Ben
