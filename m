@@ -1,85 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291514;
-	b=n8giBttvdkLV69joFdqViCGwLiRBsDoUOVAmI8S+7xNqJkKkysvEdNtQ5dUdmChqZoCU
-	 GGHNrUAFNZAXAjyEqAxEDu30Y+vHlbwD/o+l1AyZx64gn4iEBTI7lWqTbokididOR0JT+
-	 uSI7S8QcllCtirSWJ0yJD9JQR2BxZZ3IEOEsEXAZ2Hdg3zznZ6yd9+5R2isaWcFAu2Z/p
-	 +QuO1/Kbzou6PIh/I0EFX7+ZijgyWFTVDon2wWkSeSr0lrUm6LJdrPtif9dByxwLob3V3
-	 ll/5OiPr9brUS+00NF5kZJAOwkjq3s0dfI6qR6vCH0O3BDBUPS9nzRutgGusgNaHuXQ==
+	t=1793291730;
+	b=4vf+/h9a3BGXA+Y/ZbjFxvImJWKkvEtWoypbUH6Ao0dLLVoYv12kojCMVM7NboaOa4BI
+	 Jd6widonETAMrSfjQCm3p/SjolFy1cMwppDsjafAX3+SXO0dcleFf7a1xFWVWydEJrFV1
+	 cRF5y+K/ezBsXryIDta/GGdEbuJa13vuZOzpF9Q+iJ7cUkSI220XsGdhP9igFHsmV1wwz
+	 6EmjQxpvI6OxjDhDSl4xTCvtcB1Y5oPOURG71WN5VtTFh2NTHRV9zJkRIsYbkX8ePu91a
+	 wv87UGPNX4t6hGyd3U4cCQ1/4Io4AZDY5CYMfZHUMCTxxX52Wg271ngf9iycUK5RsVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291514;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291730;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=alj3tH3ZvQk6KSugbPj+OZJPkIUe62frupKKgUNXdQQ=;
-	b=gHp6nzxyfKMGSt07gEoL/hjiOmFL47cJEeapKkniK9YT0HUnqYUe64FSO0cCuATojabj
-	 Y+B8u1bjZnqMctMha3IuIaVabwtKcBjsR+8O1U+SCsEc/hIzupWLHXJB1zNkpRJJfudNe
-	 ahUTgjtFUILaldxHcEam2aV3Ezb11h/DcYYFB2Zk4u/dSoo68Omxbc48Jq+hpP5S0RyMs
-	 rv3cSxn9goZ1ZOQ4kdbcU09HV+sDK3mSS0wewwATDCc+wsSiHoOaS0R0r3v+sVebwkQQM
-	 UjKjjlidUB1ydYqDzmEO7oOy7Dl+g4d5Q7ZGdEKXZrG4qdAf4gGOrSE1vQhscoxmnCA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LjpmfPa02oFewXlsIf8j68q6+knr6ZZYk1Rx2rngfoc=;
+	b=s0LEnpAusqBHyLx5JhMWhC60Icp03fGTBtFHLauZe3ysI7nnzg6Y3ZBoSOTgYR9CdP1O
+	 bkLV/uSFeTgTamHewzGdl8xDJAQTuU8KWAWMI5bdL5R5iGo8RR+hZgSq+BqDs3BdSgr6K
+	 gAta/xHY1bYpRux/yRc6jRy09/sEaA7qEhKqLuqHsUSW1btYchhawT37R7Y0tw4L1/zAr
+	 PKySgaca/+TrKKmRmEPOxW0x1SDTNxADl/EjJvbl34/mzxmYEWWorPPqYk3yOF5b35ZRQ
+	 9S3MxsYFT92sXtUZqoUk/63lyUTi9fnYgp+FCm1SyhzMKoLy3P+WnbkErLNVEBzQ4zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="IlRv/HB4";
-	arc=none smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a+HrVonC;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E569A606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E569A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917B4606A31C
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:35:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 917B4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=IlRv/HB4
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53381e53b80so27479941cf.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:31:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a+HrVonC
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so3311962eec.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:35:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793291513; x=1793896313; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=alj3tH3ZvQk6KSugbPj+OZJPkIUe62frupKKgUNXdQQ=;
-        b=IlRv/HB4pmk2+NxDwLfzjqCWH3uxCqOqqAYfjoJrsB6PHzPrgpOVmjoBbbHu0kUXsb
-         PmW035eG/8UmGcDM424KwPgIj46Uwvl7/rkF7JXc4/YhX4FR14YSKjJkOW6U7bjgF28V
-         0+3bqPsqxEXdwAtmgf1gIKhfH6yGdmXha5H7QYRjbT5RpWx4pHkOSQrs/Kj3lM5DxV43
-         IWn7oGS9HKBkwd7T3+x9jFb69pxrdDF0u5Tk9LLDRqSuhwCZ4toGXMb19InDBaA8ucy/
-         R/f9hQKU69V6OkYk1V+Hcs5iyUuPdS7SACfis+Ldliq0DOqg8D5ttsu1WrxHB3mdMTqe
-         q+oA==
+        d=gmail.com; s=20260707; t=1793291729; x=1793896529; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LjpmfPa02oFewXlsIf8j68q6+knr6ZZYk1Rx2rngfoc=;
+        b=a+HrVonC+ueltPtJX/RKfwzScxcTZsAOlTxYT6UHflrSCP1NyNoO608Z9cAAmJ4MKJ
+         3iJQc7XG7LEWHVTphTHdhRKs86nCQP9iu4f4JEYSC1rNVaPvnt3TcdVWLK0qrwZpQkY+
+         i/kR5dw2uW9UIq9DBKZyypbpUo3BBj726Lueo011Jn8dxajGWG3YsJeV0od1tVekZLdS
+         qTB1w08YCDsugrAAOxwi2kMPpxHWGzrJZxeQ6D11aVGh7vLNOBrgGPfbtbehX9bDSuTN
+         U0aTLeC289yZgfShVodZcXDybakZasyKqGeMjvDlwPMKj5YV6KFKgAhRqDyMqZL3wq+d
+         SHig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793291513; x=1793896313;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=alj3tH3ZvQk6KSugbPj+OZJPkIUe62frupKKgUNXdQQ=;
-        b=mun9TBW3iKb54cf17lHJY2ZSg0AX9vO4+zhgnxW89BQ8GXiiMKzPhlTteKwAHDYFVu
-         OOOtgNd4fmIDosKE8NIVakb3vaZhCdffNYXMr1qr/EVEVdkdAWNVqmgzIkx8ICIHA4OI
-         2JEAKKzwpFYu8jeBKxZmbbilbbInosI+ozo352u4OlcvJBHqRlZeALQs8Ye/jYLGP1hs
-         qMFbYLRBxP+Ny+Sd3CmIV6IG3MG6PP8H8PpBNrCAsMmEbnlIgVw3I17kjkeG7TIu2AiH
-         jz8AYnI5uhDuoBt4ClcaK9d5j4P5jH+NkFN9NrY3s9NuQws20lJluktQ6dPJGB9fVVAQ
-         881A==
-X-Forwarded-Encrypted: i=1; AKwUvBzIB3j04rJe0IhOQ08XRaJ25OgUvrm/Ikp3SVy/nPVuLM2DfGr/YcuCRTkWJAHsMXAEXZZ6+PI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwTD/NMWRzhxvcDAkaE/Eidxt8dfFWGzlwd91p2QYVFYHfbfOF
-	K+F+cpfMsmJQEWBqV9Dgt0U4kSQEnx2f9YNkOOcRf1tWmLiRsiKuf51secIxr6XG33g=
-X-Gm-Gg: AYBFou1RHytlDjhWngQK+VxRR0vR+prBAeTbPqkVXbcsiJbYBotvI/Axf0xoQwLrC5K
-	okc4CIaSUC6wazTHhAFX8OYVgkbaIFXdttl/6BYxx8JoM7JNOuc+/iTrL2TGft30atdXAkthDCs
-	raOAD97k66pubdhpYqFcuL9Dczsov2kuMjniIkVMqdcA5sh0Rd27WKE1wsfsSJeJgGKbcd01GZz
-	9BTDj7fmRKXnsUEy6nd2Rq7DFqs9keTu9JsIOTLWsRrjNTcBW9G11TaOae4AlIxKmFTTN+Usst2
-	aRL+EJ4kP7E/dk6gMrWfT5zNGIIYmeUrM95JV7pTHPTyDXDAc3TGC4otHvWocLsrSr6LlgY8e5V
-	hxuULtaXhdWhjA3/7Cvtmqp/GKPBb3DCp1D27yfSKtAhMI9QhgY9q6+0eL+5Kr9ThVsAFwIlPdm
-	JrP1FHqWMH5Ue4u9hmOJm2Zatel98/MMD9tvcZ+tsv313zAQRvifAZNiHTvIsvo5kqUK+nzQWdr
-	fp6NRCM89x26YVeaw/6k+AelOVUYLp8nn60CXb3u/JRuH7K0bCMQULTGRkZZXq+l40dSa21u4M5
-	pdteej4AnMlJ+bSOyvPAF0nfUwfdVUORhzTw2Ys9s15KREAWlDFldNWhJVj/b7NIiH31wEZpQaI
-	C
-X-Received: by 2002:a05:622a:888f:b0:535:a5fc:3b58 with SMTP id d75a77b69052e-53fcd191600mr104371091cf.68.1793291512757;
-        Thu, 29 Oct 2026 09:31:52 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5428cccee9asm45321cf.13.2026.10.29.09.31.51
+        d=1e100.net; s=20260707; t=1793291729; x=1793896529;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LjpmfPa02oFewXlsIf8j68q6+knr6ZZYk1Rx2rngfoc=;
+        b=DZqaJhr7+6C4OTiddGXv2xp7bwibvLl5yjiLJ8i4AtN1C180mcYD8GLfD7SiFpxLjp
+         Rn/lg8juWuF4Xp9F5WtOrCg+XJ3JkWRNmV4B3rih/jtzzMCYGvldSRqQZ4CWR29GG2AD
+         LbtZ2zoaE9cNjcGOL5ah0zqBY98pFa/4Eyg0irmY3oj/QG1oY/VeFUXBW8HGcPmQQXoY
+         HJOfY57tcIEar2MdYlmqsbfa97b+hIGoYnCcE80kUIFSTiVJ5EAIJMgwvSTYQIegEBrv
+         hf1sg8AXEhPijUMK/L432XRK/DagIljG6cRQIAMGGWYvgSVOqS+klXG/8T3k1URHvgwc
+         z36A==
+X-Forwarded-Encrypted: i=1; AKwUvBwhpnfupzSN3/IrlGwPnuvj1YsTa/ZlxZEWJt/WUCzsILZvSwdENHi49ll+/FpYmZnYz2EZwjc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQwpR8KN4cr6OTMsERzIZeGy0rXDAo4PjgkiDJhOjwxAKXqubM
+	aFz6pwQs0p0wH4jkLJANW2QLck+DzXGrlLb/WR7w4QpIl48Vu3joSUXa
+X-Gm-Gg: AYBFou1SZl03w6jp4gjF13zKm85+/F33bIlKSydsGqa1kFclR8F8WwC0hOCU0DFjrxd
+	5PS00WgjisGdLrUSlGyTUGWZOmyt4MX9hp+Lnbdd+SXK8yMcZg2KW9pEVBBXuiEJ/2j0GNo3sHE
+	NoRV5J2fKjTmT0Q25GLluNwlLCb1z5RE6s78wDExmuSahl/ZsoTDu4IwaVxoX6vSOib4tpVfT7I
+	MRtOR+D+W815INGS4ofIxBzdBo3ej+0ZUgcnZSGhizugExEBo4Y0NWE2IR/OmKKiEkY3/DLrxak
+	1GxYRgMDzhDRogWc53i4OU6wY0SGjuxKTHmRyCVHBrQofnHhOMNHJ55FJSskcoLvOI9hb1+2nqw
+	H82SpYkhfTPaTsOSwBI24/Y/WyNfVnh809pc8kTiza6DDMEtNeaVE4als1FNOWp/EN/xY1DyVcd
+	uvYFVnrJKnLI42etmarGRCEr6d2oK7zpgyHTVQbaO+p/Axs4Yk7SG7zmLmmT7NL6EacTo3pKef/
+	aRyq3xmbCYEEbcaGdlpI+FHQXukqRekezb9u5bg3DXMzo6BbbVZM6XdNyAQzjuQtVsiYRKobEGc
+	JZn2D6xbe7ozyneZrduNgD3plP9nM4tlEegu0znnISjSlJkg
+X-Received: by 2002:a05:693c:2510:b0:34b:4b99:24ab with SMTP id 5a478bee46e88-36a203d426amr7788717eec.22.1793291728260;
+        Thu, 29 Oct 2026 09:35:28 -0700 (PDT)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a40fff7d9sm302071eec.6.2026.10.29.09.35.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:31:52 -0700 (PDT)
+        Thu, 29 Oct 2026 09:35:27 -0700 (PDT)
+From: hyunjungg <hj351016@gmail.com>
+To: jhs@mojatatu.com,
+	jiri@resnulli.us
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net/sched: em_ipt: reject hook values >= NF_INET_NUMHOOKS
+Date: Fri, 30 Oct 2026 01:35:16 +0900
+Message-ID: <20261029163516.2476127-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,81 +102,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 1/8] mm/page_alloc: reset can_retry_reserves when
- the slowpath restarts
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, muchun.song@linux.dev, 
- osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org, 
- ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
- ying.huang@linux.alibaba.com, ljs@kernel.org, liam@infradead.org, 
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
- brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net, 
- anshuman.khandual@arm.com, stable@vger.kernel.org
-In-Reply-To: <68fd8182-cdfb-4f11-95de-1472e6c92d33@kernel.org>
-References: <20261028211930.3504634-1-gourry@gourry.net>
- <20261028211930.3504634-2-gourry@gourry.net>
- <68fd8182-cdfb-4f11-95de-1472e6c92d33@kernel.org>
-Date: Thu, 29 Oct 2026 12:31:48 -0400
-Message-Id: <179329150807.2127828.16376500334625424120.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-29 14:37 +0100, Vlastimil Babka (SUSE) wrote:
-> On 10/28/26 22:19, Gregory Price (Meta) wrote:
-> > Commit 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath()
-> > flow") retries an allocation once with reserve_flags when the caller
-> > becomes eligible for reserves, guarded by can_retry_reserves.  The flag
-> > is set at its declaration and never reset.
-> > 
-> > A restart after a cpuset update or a zonelist rebuild drops
-> > reserve_flags
-> 
-> I don't follow, nothing "drops reserve_flags"? after the restart,
-> there will still be a get_page_from_freelist() without them followed by
-> get_page_from_freelist() with them, right?
-> 
+From: Hyunjung Ko <hj351016@gmail.com>
 
-"Drops" is the wrong word, sorry.
+em_ipt_change() reads the TCA_EM_IPT_HOOK netlink attribute into im->hook
+as an unbounded u32, and check_match() later uses it as a shift amount:
 
-After a restart the reserve bits are recomputed, but can_retry_reserves
-is already false.  As a result no-reclaim/PF_MEMALLOC callers don't
-get a reserve-retry attempt (we just exit w/ nopage).
+	im->hook = nla_get_u32(tb[TCA_EM_IPT_HOOK]);
+	...
+	mtpar.hook_mask = 1 << im->hook;
 
-Reclaim callers are fine.
+TCA_EM_IPT_HOOK has no nla_policy range (it is a bare NLA_U32), and the
+only range check on the hook lives in policy_validate_match_data(), which
+rejects hook != NF_INET_PRE_ROUTING. That validator runs only for the
+"policy" match; the "addrtype" match added by commit 0c4231c784b4 ("net:
+sched: em_ipt: add support for addrtype matching") has its own validator
+which does not look at the hook at all. A filter using match_name
+"addrtype" can therefore carry an arbitrary hook value.
 
-This problem exists regardless of the rest of the series.
+For hook >= 32 the "1 << im->hook" in check_match() is a shift that is
+out of range for the 32-bit int, i.e. undefined behaviour; im->hook is
+also passed unchecked to nf_hook_state_init() on the match path. Valid
+hooks are only NF_INET_PRE_ROUTING..NF_INET_POST_ROUTING, so reject
+anything >= NF_INET_NUMHOOKS when the attribute is parsed.
 
-But you're right, I will rework the commit message.
+Reproduced on v7.3-rc3 (CONFIG_UBSAN=y) by adding a "basic" classifier
+carrying an em_ipt "addrtype" ematch (match revision 1, nfproto AF_INET)
+with TCA_EM_IPT_HOOK = 32:
 
+  UBSAN: shift-out-of-bounds in net/sched/em_ipt.c:52:17
+  shift exponent 32 is too large for 32-bit type 'int'
 
-> > Reset can_retry_reserves at restart.  Only a cpuset or zonelist change
-> > restarts the slowpath, so the retry still runs at most once per change.
-> > 
-> > With kprobes failing every attempt without reserves and the first with
-> > them, and a memory block onlined during the walk, the allocation
-> > returned NULL in 3 of 3 runs, and a page in 3 of 3 with this change.
-> 
-> So IIUC the allocation was racing with a memory online in a way that it
-> would fail if the online happened fully after the allocation. So this just
-> turns part of the race window into the allocation's favor?
->
-> I mean it's not wrong and if patch 5 depends on it (unless it also only
-> fixes a racy window in the same way I think is happening here) then so be
-> it. But the commit log would need correcting.
->
+It requires CAP_NET_ADMIN (a tc filter add in a netns the caller controls).
 
-Not quite - without the online it would have succeeded.  The zonelist
-rebuild rewrites the lists in-place, so a concurrent walk can miss valid
-zones or pick the wrong zone.  The rest of the series detects more of
-these restart scenarios.
+Fixes: 0c4231c784b4 ("net: sched: em_ipt: add support for addrtype matching")
+Cc: stable@vger.kernel.org # v5.3+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ net/sched/em_ipt.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Those restarts then exacerbate the issue this patch resolves.  For
-example, patch 5 would free a reserve allocation that succeeded - and
-then fail because can_retry_reserves is already false.
-
+diff --git a/net/sched/em_ipt.c b/net/sched/em_ipt.c
+index 3650117da47f..c16469fb3e92 100644
+--- a/net/sched/em_ipt.c
++++ b/net/sched/em_ipt.c
+@@ -165,6 +165,11 @@ static int em_ipt_change(struct net *net, void *data, int data_len,
+ 
+ 	im->match = match;
+ 	im->hook = nla_get_u32(tb[TCA_EM_IPT_HOOK]);
++	if (im->hook >= NF_INET_NUMHOOKS) {
++		ret = -EINVAL;
++		goto err;
++	}
++
+ 	im->nfproto = nfproto;
+ 	nla_memcpy(im->match_data, tb[TCA_EM_IPT_MATCH_DATA], mdata_len);
+ 
 -- 
-~Gregory
+2.43.0
 
