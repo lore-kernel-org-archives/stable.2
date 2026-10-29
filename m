@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237951;
-	b=F83HucNX8iGS3KAG8gbUv/N8ssiE4+rfmGn1C564Q/4gC2cnYbhOCIgVKr5xabsOHUtJ
-	 iAurvCY4jVTz2nvxYGf+ilZ1HTlcWgPBK1PJRvvMVC5l0evVWiPbceDZuiL+HSMudfOB9
-	 LgKZHY4zEOg3l9FRF9hPSDtLoJux0aid1Zn4ZCEIrLQgwkWLLMgO1McmKZbS0QhkCmZNJ
-	 Fu/lG+mRnVPjxKNwYfclyC7SQZ6TlyOr6K5SpP+rz6zX+KhZlFSnqzpvW0Ys0Zzl74YEZ
-	 dtWR1YxYWAY7oJqfEZx5IJmlv0j+XyTLcgR+WrQz9jVRjR4kGac/ohff0OxIeV8DbfQ==
+	t=1793238146;
+	b=Uv6g49EYMSMIC78ZDo08PQIEn3fYLcrUuf4FZkgmK/0XeI1dLEM9yFVTEky+3ZJTHbrQ
+	 j+9RiD+nsG3mu+9jipNCB4DG6tDr/XQzVk8wLMqI1kOqgBfRctqKbFwVb5TLEawv2lN40
+	 9yc2HGTv4At+Wt44jchzBmKEt1DeAlhCinNClRjKQDMk0KvcasVPDtlQ5gwGQyUSTnnvF
+	 U5Npj/YHMEfBuMK37ACsTu5yss25OBBWtEPH6ASDHKPRgw3REuwRs3RLZmGhvXQ6rFxJb
+	 Ad82FY6FiymYNCw4sbx/WpHrWnoPbFJtzRhUXwASVG1XO2VZBBxCjtLS91TS8a8TXyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237951;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AWuorey2+GfC4KvscU51WE6b6XQx7DkkDB7vjHu7z9Y=;
-	b=qW5W2XuXp0Qy+uyEJXznu5OjXQyn+uj/akKQa+G/B0KhtiWieyWdwiD/Zw2I3lJ8Jw8Z
-	 5Q/EXHh9b+JJWIzZyufugBTpEbvP4Mu0j9fsJYXSTA04pPHuPVbJLLuaVACdrpKpPUR45
-	 oitzHP3Ya3veEAFh36x1nRIREOY87C2wZ32frHeBoMEJYAIk9m9OFhzR54TxvYKcsN5kI
-	 sLFI32t9K9IncofRizPMnnkduRqPZxwV9yQbY3Eg8c4n+VzpKc0VNp5bydXu1nuhXgvAA
-	 iNvEEx3B7riAGQ/sgOFtUzKaMKYmHQXyL9YzbkZTYhiEV66enK+OJCPfZgEpW90MTmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793238146;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=cSGJzZiXCj798GkI10LTKETldsERRDK+xDXKBEXm4a0=;
+	b=yIQeNDwPS4m8uCvPxsBecnUrTgYjtn1BzhXBYyMfPeeyqgMh2Urmp7AliEn4cdGtCyF4
+	 m+KrrSW0KQSUnCJo9gdcvJw2Aqn9Au7IQwKjduO3ONAWHllwFXgEvHVSbrYirX+B08ZSv
+	 BHH4Bxgfg3PfwaUDw0yN1GSAW/EYQR8mzrzTzraUAZ3DFdqE41iaX2TwyFGH++J2PeU6n
+	 NMWFkbERNPWBoD/i9N4153ROlzzz4lNu2Bcx0VdPdYhGj7B84v9ytEi4GJFeM66eiuSfN
+	 80CFB6COVHto7FscjJ9aJU4WAYdmZSWeai2WdNJP/mG9db+0Sxr9LCodKfWQk/OIO2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GS1VH+Yp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZY6ccAh3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79CD606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 01:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1201D606A31E;
+	Thu, 29 Oct 2026 01:42:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GS1VH+Yp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F7B1F031E4
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 01:39:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZY6ccAh3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61EC31F01825;
+	Thu, 29 Oct 2026 01:42:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793237950;
-	bh=AWuorey2+GfC4KvscU51WE6b6XQx7DkkDB7vjHu7z9Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GS1VH+YpNnneD+WG5YL0tcbWXKRgYjo4dqxms9kuQExUuGDSuWdA57VmVr61+virc
-	 CRov31ZQQem2KOcVKZO4gplufU5lBTjU2ysBDvb9Xy2Y2s0bSpJWtclB7CDAKG2nEi
-	 D8pc0LOr0HmqNW7Bcum+7SDK1TLQ0KvV3hY/TEOs8yhiPThXTUjsPKmRlhfYWE8yJp
-	 YgWqZiOHJU6/BJ55zukizvmKqqr35NU9ek6/YpIq/oF26oNbiAan8VDJ1suFndkOni
-	 fln7bMkPK5NP4ier8BD3j68HT6e05lzY0rMyJ4+H7UszGbBACdEUkjW92h5JXyHBm+
-	 1D5CcPt9pk4sQ==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so251186766b.3
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 18:39:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz93Rs+30Gl2SIGu8xPL9t5OdRlrVKtDTq7CKHgh4zy6DuRbYulUWkIaCvcOrWtpXlD8wEPXmw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4SBbybmTX3T4f2euP9DR9P3VNhqBlJVa9bp4+5axPVEkS4xDh
-	8rPkcXSR5axjQFi9rsTOQ4c+oQMbJhmFaZ89QddpYrYztYsn8j/qzgz478lS/uzMk8U+EUoIOyx
-	CYG67urkmCI31jOO/uQOLZ/XixG24xSo=
-X-Received: by 2002:a17:906:24c2:b0:c49:c76f:dad3 with SMTP id
- a640c23a62f3a-c49c76fdf1dmr180329666b.34.1793237949192; Wed, 28 Oct 2026
- 18:39:09 -0700 (PDT)
+	s=k20260515; t=1793238145;
+	bh=cSGJzZiXCj798GkI10LTKETldsERRDK+xDXKBEXm4a0=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=ZY6ccAh3ZhtgL7SqJxAlpVRWXzarAV9lXOZKzhhRP0Q+qeDkGKrdpJ1jfat6br3K3
+	 0RXk5s991sRoJN6RbinnCx+VdW5vHpir2s/YA+j5jXFw+5RjwRO8/e/FZ57bckxzoe
+	 80PGCN3gizm0YFfPyZC3y+Uv/vx+mxKOwKPJRTW8g4BW/D9qzE9ya6mJlEI35ebZKi
+	 N05ED56bPm/G9O092tSFEglYG5tj8sod3hTA/NawwZqRYfttnGw5OxdJgApocMg1cq
+	 A/Iq9aQakOesS+9HOuUeC9rN24RX6QVkE/0Q1lhObol5UpE6ZF0FypMJ8dOmFvNInX
+	 gDX+1cILmqZQw==
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+  linux-scsi@vger.kernel.org,  target-devel@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Mike Christie
+ <michael.christie@oracle.com>,  Dmitry Bogdanov <d.bogdanov@yadro.com>,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v2] scsi: target: fix demo-mode dynamic ACL dev-entry
+ UAF vs LUN teardown
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261014013746.46705-1-yuz08559@gmail.com>
+Message-ID: <yq1a4nx470r.fsf@mail.kernel.org>
+References: <20261013120528.37749-1-yuz08559@gmail.com>
+	<20261014013746.46705-1-yuz08559@gmail.com>
+Date: Wed, 28 Oct 2026 21:42:24 -0400
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,59 +62,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028153441.184701-1-icb@fastmail.org>
-In-Reply-To: <20261028153441.184701-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 29 Oct 2026 10:38:56 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8PwT4aaFgUg82NYZUB=pFNasL2QN7TGGpJVaZjFXCuSg@mail.gmail.com>
-X-Gm-Features: AclHuK9zbE7gF0pHaTPVpFsWzwKV08SqtKyYeZaWBxaTFlMoIWOSnmjrajDfLFo
-Message-ID: <CAKYAXd8PwT4aaFgUg82NYZUB=pFNasL2QN7TGGpJVaZjFXCuSg@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: enforce the DACL permission check on
- delete-on-close opens
-To: Ian Bridges <icb@fastmail.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu, Oct 29, 2026 at 12:35=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
-te:
->
-> smb2_open() runs the NT ACL permission check, smb_check_perm_dacl(), for
-> an existing file only when FILE_DELETE_ON_CLOSE is not requested.
->
-> On an acl_xattr share the stored security descriptor is the authoritative
-> permission model. set_info_sec() maps a descriptor into POSIX ACLs and
-> mode, so its read and write restrictions are also checked by
-> inode_permission() when smb2_open() opens the file. A file's DELETE right
-> cannot be expressed in a POSIX ACL, because Unix delete is governed by th=
-e
-> parent directory's write permission and not by the file's own ACL. So
-> only smb_check_perm_dacl() can check it.
->
-> Because delete-on-close opens skip that call, a client can open an
-> existing file with DesiredAccess FILE_READ_ATTRIBUTES | DELETE and
-> CreateOptions FILE_DELETE_ON_CLOSE and have the file unlinked on close,
-> even when the descriptor grants the caller no access at all. Only the
-> POSIX checks remain, read on the file and write on its parent directory.
-> The normal open-for-DELETE path is denied by smb_check_perm_dacl(), so
-> this lets a user delete files that a normal delete request could not.
->
-> Run the DACL check for every existing-file open, so a delete-on-close
-> open gets the same DACL check as any other open of an existing file. A
-> caller the descriptor does not grant access to is denied. An authorized
-> caller is unaffected, and shares without a stored descriptor are
-> unchanged.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-This patch causes smb2.acls.INHERITANCE failure in smbtorture test.
-Can you check it ?
 
-failure: INHERITANCE [
-(../../source4/torture/smb2/acls.c:1054) Incorrect status
-NT_STATUS_OBJECT_NAME_COLLISION - should be NT_STATUS_OK
-]
+Yu,
+
+> A demo-mode (generate_node_acls=1) login that allocates a dynamic
+> NodeACL populates that ACL's per-LUN dev entries in
+> core_tpg_add_node_to_devs() *before* the ACL is linked onto
+> tpg->acl_node_list by target_add_node_acl():
+
+Applied to 7.4/scsi-staging, thanks!
+
+-- 
+Martin K. Petersen
