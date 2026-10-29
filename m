@@ -1,62 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.237
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793301125;
-	b=Cea7Tp57h5KI8YgL0jDoT5Gde9vvtisldIa1n25Gj/cY3mLH28Fljo9NtdbWdnLqBs65
-	 41F2WvROeih5xkn6wVuenXP90/LvQPl8OJctwELF/gK9wO1Q2dVrLHDPVciIGMpoTAUD+
-	 1YbE+DVORwiT5b7x/i9GsyhzEmd1ZMRaX6dQqBzUHbe0MJJMKFH7GBYkk46SXiCLq4ykt
-	 UcrMkbZVAYYF5S2CQz2+qx+N5/1/P1U2u9pECHIt9qT9TtPX9e0+9MVKNR+D2kJOk+cbm
-	 y0eqv5trM56a30A8qLQ9qxWeJjjYPYIkoxZITuH80AqX1VcbrqBzEKfV0mWz6HU3NbA==
+	t=1793301234;
+	b=mxypMv5XUCOPFNvf49sA4FEF+SfPfDZkiPrXYRZysgm7NN9A4cu1oeL2/p1YJVv52rAX
+	 YigHBhZ51ZphBuJf4bcOLs6KE/6o9S8sK+rCAKIL3istBFkbHA3TVddtGymnDLwDkuLV+
+	 H85bTo0mfigxVpgeKh0llt7vv8HB8bYldkBFqnbLk2GMY9R//AFClAx80ug7aQ8ZQGtYU
+	 JEiLkFDf6LubgDP7aaHDtWQrfwK6A1fdlIKJ3ro6ntJpF0oDnCn3fq92wO9JIVOQ+Uon3
+	 uByNT1IszUaWwWdVh4a6/n/CC/xWYDShlIwqt+fF+9KOVpK5oXnCVEsE1sriwGL7kjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793301125;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=dhVNqyPxm3jM+00wO9DouSQBRFyH0+S1340RWBDvsr0=;
-	b=Fisa3QMiN2h+lNQodKL/IHlxittPajwygIpPnEoC8XurEFiCuh0JBF+USkOI3u24RIQE
-	 3tv6kkqOmX9NqGsmz4l7KuPTn42jdEYebvO729yB639Em2Edrme5U2JC5tRYKKCkKxrwb
-	 EyLdHE1UTMQFq+DaYdKsoAQ+4oGVpnQ6s7fu1CjJLjzP8MRgKcpThZ/UyuJtkUY1BASH0
-	 FbOE1PQcyu5Nh5QJJVtn1Wb0Ojn4WlV0XD4dDM+AgTOPhWGW48L0JVJ74WLustIKj4ciH
-	 cTiMT9GqOxhncaAc5op43x0XLNhcgd15Wj/gzPDUZ1d4bcyEGfjdIiEnam1hT1kjRcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793301234;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=2MGMyIg1qXUEqxfKy2C47xzQFj9yzlBNV/lcmrxbsQk=;
+	b=2s4UI/6rNMTgRF9PkgTMWYFpBeEHbmQLaf0/nxu7BzCps1WSmjrJ8RinR4KZab1nI7yp
+	 Al22K4ZPRevNtOcGaO7T97RCdoZ1olRF0HfiBgpRP2AxaHcLZ8RBUhWiA7JaJABfP8QJB
+	 7oNhy0sZLs+Wm1OWOh1uBxpA9SCvJqc9/152BKmEx6hcnrpWqKgwENTkGjm2yBZoToEyj
+	 EpG2twhRcL3UYy4a+WMGF/vIVq6eWxDF3HZnCKjNFi7tQOxm25Yce9sxJ8Vhq3JByRVlA
+	 ag/+Yw9QFzzEdPnSjegT23504qgH5Zd9i/JiyZpl14qamGtFjNszcBvM1+MEPBnlowQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d01jpjsA;
-	arc=none smtp.remote-ip=91.218.175.237
-Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uwyapzsh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E75C606A31E
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:12:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E75C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C077606A31A;
+	Thu, 29 Oct 2026 19:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d01jpjsA
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dhVNqyPxm3jM+00wO9DouSQBRFyH0+S1340RWBDvsr0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793301122; v=1; x=1793905922;
- b=d01jpjsAjhMuOHE0Rt+t1FBknfO9gKlbuquLkonLxnbuHOCNyEfiWZPUuc/kgXJhIPTYLpU/
- yFNeN2+SDwXekjbXQBm4ZFFRNgqHaqL2zmjs7tFsdA/Gi1WIXJghrnjFIcyeTTUg9IPnoDkB1OU
- 0hTZ9ZBn0sm8P8ePWKUrHRX8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c34306586687ba84;
-	Thu, 29 Oct 2026 19:12:02 +0000
-X-Mizu-Trace-ID: c34306586687ba84
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so1983e87.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 12:11:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx5zZbiDuIS+5td9GxJYVsq/V6X5O3cOnm7Z4ilSc/DnZ3ciNF5RZnNhihYVPp3Rq6T9XMSxUo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKq2usxe/XN1cA7MYYjsJtqpY8M4X6864um8fj9kAMAu9YoBipx
-	D0Vb7RVPbqsjXIxdAVB6wSxD/TT7RA6k7Y3jTshWG5WAr9wjVDHyCTOsnapGamAKr5XZ9HSN7sQ
-	3vSOUxgwRHPjdZJ0QqX5w2TymIymeMMoe4OVTGp8Y
-X-Received: by 2002:a05:6512:10c1:b0:5bf:c3e1:532b with SMTP id
- 2adb3069b0e04-5bfd13f5375mr256926e87.5.1793301116286; Thu, 29 Oct 2026
- 12:11:56 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uwyapzsh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443E11F01816;
+	Thu, 29 Oct 2026 19:13:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793301233;
+	bh=2MGMyIg1qXUEqxfKy2C47xzQFj9yzlBNV/lcmrxbsQk=;
+	h=Date:To:From:Subject;
+	b=uwyapzshJbWk6MagV1A7kt1LXPVaVCEEMiBTr9RWLxTUyatUODIx+Aa6n8rulc2ks
+	 udv2Ign5OfIzaX5lt61utP/GV3tR3+obYhAdZUbRZFgiPByVeBguVll011bgKBGg/v
+	 6QT0Sfyh2j5lvvAfafrexCAclZT5R9VX5EUx7Z2U=
+Date: Thu, 29 Oct 2026 12:13:52 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
+	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
+	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch added to mm-nonmm-hotfixes-unstable branch
+Message-Id: <20261029191353.443E11F01816@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,42 +51,160 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261029090522.64662-1-oupton@kernel.org> <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
- <86ld7gydqp.wl-maz@kernel.org> <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
- <auOSYE97K5y19DAy@kernel.org>
-In-Reply-To: <auOSYE97K5y19DAy@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 29 Oct 2026 19:11:20 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTw0vSqbP3mbg+Sy=VFcXByM6p=Z2BbMHXpQEamZu8Evxg@mail.gmail.com>
-X-Gm-Features: AclHuK9KN3ZShpCMVtHDwjAltyq7vN_HmIZYhtTuwLuiqVNd0XSq_WHTMUo5iCo
-Message-ID: <CA+EHjTw0vSqbP3mbg+Sy=VFcXByM6p=Z2BbMHXpQEamZu8Evxg@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
-To: Oliver Upton <oupton@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 29 Oct 2026 at 18:37, Oliver Upton <oupton@kernel.org> wrote:
-[...]
->
-> This is definitely helpful but my understanding is that the pseudocode
-> is *not* authoritative. I think the line "If a translation table hardware
-> update is not atomic as observed by other agents ..." in R_NNNMB gives
-> an implementation enough freedom to decide something Non-Shareable at S1
-> is actually atomic after the result of S2 translation (e.g. S2FWB).
 
-I was under the impression that the pseudocode was more authoritative
-than the textual description (bugs aside, which the text can also
-have). Maybe someone at ARM could help settle this? :)
+The patch titled
+     Subject: ocfs2: keep locking_state within the cluster connection lifetime
+has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
+     ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch
 
-> So if the implementation decides it is atomic, no MMU fault is generated
-> and the update happens like normal. Now, with that being IMP DEF there's
-> a good chance the behavior can vary, like we saw on the output of
-> translation on N3 [*].
->
-> I'll add another patch to propagate SH0 and HPD, thanks Fuad.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch
 
-Thanks!
-/fuad
+This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2: keep locking_state within the cluster connection lifetime
+Date: Tue, 27 Oct 2026 12:31:44 +0800
+
+The locking_state reader calls ocfs2_dlm_lvb() through the selected
+cluster stack.  Its debug-object reference keeps the tracking list alive,
+but does not keep that stack selected without a cluster connection.
+
+DLM initialization publishes the file before establishing its connection,
+and DLM shutdown drops the connection while the file still exists.  Both
+the mount error unwind in ocfs2_mount_volume() and ocfs2_dismount_volume()
+remove the debugfs subtree only after ocfs2_dlm_shutdown() has returned. 
+Whenever the disconnect releases the last stack reference, which is the
+case for a failed mount and for any unmount without a pending hangup, a
+concurrent reader dereferences a NULL active_stack:
+
+  Mount error unwind                  Debugfs reader
+  ------------------                  --------------
+  ocfs2_mount_volume(): out_dlm
+    ocfs2_dlm_shutdown()
+      disconnect last cluster
+        clear active_stack
+                                      read locking_state
+                                        ocfs2_dlm_seq_show()
+                                          ocfs2_dlm_lvb()
+                                            dereference active_stack
+  fill_super(): out_debugfs
+    remove debugfs subtree
+
+Publish the debug files only after the connection and the mount lock
+resources are initialized, so a failed DLM initialization has no debug
+reference to drop.  Remove them again in the common DLM shutdown helper
+before the connection is dropped: debugfs removal waits for readers that
+are inside the file operations, and the parent directory is still present
+at that point in every caller.  This covers the mount error unwind, the
+ocfs2_fill_super() failures after a successful mount that dismount with
+mnt_err set, and unmounts whose disconnect releases the stack directly.
+
+Only the relevant frames of the report are kept:
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+RIP: 0010:ocfs2_dlm_lvb+0x38/0xf0
+Call Trace:
+ <TASK>
+ ocfs2_dlm_seq_show+0x36a/0xb70
+ seq_read_iter+0x480/0x1110
+ seq_read+0x362/0x5a0
+ full_proxy_read+0x11f/0x180
+ vfs_read+0x1a0/0xc20
+ ksys_read+0x111/0x200
+ </TASK>
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0011-v7-61e3ef8b1ad44ac2e817@gmail.com
+Fixes: 286eaa95c5c5 ("ocfs2: Break out stackglue into modules.")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/dlmglue.c |   18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+--- a/fs/ocfs2/dlmglue.c~ocfs2-keep-locking_state-within-the-cluster-connection-lifetime
++++ a/fs/ocfs2/dlmglue.c
+@@ -3356,6 +3356,14 @@ static void ocfs2_dlm_shutdown_debug(str
+ {
+ 	struct ocfs2_dlm_debug *dlm_debug = osb->osb_dlm_debug;
+ 
++	/*
++	 * Drain the readers before the cluster stack goes away: the
++	 * locking_state reader resolves ocfs2_dlm_lvb() through the
++	 * stack. Every caller removes the parent directory later.
++	 */
++	debugfs_lookup_and_remove("locking_state", osb->osb_debug_root);
++	debugfs_lookup_and_remove("locking_filter", osb->osb_debug_root);
++
+ 	if (dlm_debug)
+ 		ocfs2_put_dlm_debug(dlm_debug);
+ }
+@@ -3370,8 +3378,6 @@ int ocfs2_dlm_init(struct ocfs2_super *o
+ 		goto local;
+ 	}
+ 
+-	ocfs2_dlm_init_debug(osb);
+-
+ 	/* launch downconvert thread */
+ 	osb->dc_task = kthread_run(ocfs2_downconvert_thread, osb, "ocfs2dc-%s",
+ 			osb->uuid_str);
+@@ -3411,9 +3417,10 @@ local:
+ 	ocfs2_orphan_scan_lock_res_init(&osb->osb_orphan_scan.os_lockres, osb);
+ 
+ 	osb->cconn = conn;
++	if (conn)
++		ocfs2_dlm_init_debug(osb);
+ bail:
+ 	if (status < 0) {
+-		ocfs2_dlm_shutdown_debug(osb);
+ 		if (osb->dc_task)
+ 			kthread_stop(osb->dc_task);
+ 	}
+@@ -3443,10 +3450,11 @@ void ocfs2_dlm_shutdown(struct ocfs2_sup
+ 	ocfs2_lock_res_free(&osb->osb_orphan_scan.os_lockres);
+ 
+ 	if (osb->cconn) {
++		/* The disconnect below may release the selected stack. */
++		ocfs2_dlm_shutdown_debug(osb);
++
+ 		ocfs2_cluster_disconnect(osb->cconn, hangup_pending);
+ 		osb->cconn = NULL;
+-
+-		ocfs2_dlm_shutdown_debug(osb);
+ 	}
+ }
+ 
+_
+
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-validate-move-extents-against-a-stable-eof.patch
+ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch
+ocfs2-wait-for-filecheck-kobject-release-after-a-failed-add.patch
+ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch
+
