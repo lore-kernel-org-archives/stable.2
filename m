@@ -1,49 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793272207;
-	b=QdnLBLBZ4wlFEMDBvGNeJ/NR3N5/jyIg4pbAmjHNSr3qrD2zbwZ1yLobNVCn2lf6kdyw
-	 yK7hqlk7G226m5Qy9eP6KlfWf8BO2rlsH1BUPFO+DxNiJC4mcxW0BeY/J4uv7o+AY/i5V
-	 DGaAUXkyPyT6Pf12ZWT7sCKW4A/6b4zd5hh0bC9Cw3vEK61aYXR9Dw3xhR5r/Q879TN+N
-	 FuMO4a5oIsr/MogmYzrIV2f5C0lNJ0142HT7W8tTZljSM0wuCwXtbi/NRFEEqCZEkQKwL
-	 Uoeg6NkIroVjXf2ZslFNenMQBmem1gfezWtzH3UeZPNkGNIHLk4MrO8S7MecmgYbfzg==
+	t=1793272215;
+	b=PWVtxP/hZrIVqTSbc0ug+pG7dJRIa0A1ak08PirmxaY1Un9mbF2E0Xr2WpbENhpJCLIV
+	 lvRKkG5woNYKiwM9aPnt2Tw9518b2l5e8OuYqhhPZ8ZSKJuq62iz46CYPYIMacW96Qm8h
+	 8q+S7ZJG4TKj4+ZstRKY7CWKiyc1I8wv2jP8aX8cf9aOO7U/gE7Y7WOX7FWuyMTfynvp2
+	 YAzQIiT+D7AXmZaojh2KbS58o6KiQma9x4azxvQnYfF0HlOAFxXehrU1BExHUvDOCnJx1
+	 l09cxAUEVfVwXAJRv+OhGT7gX3mVkD9xa7nkZUu6ssEKBmcABwJo0rB7l6fNwt9n9EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793272207;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=kczBu1gg7dLToH9eOyELlascBJYNLluBdMh7coHIHKk=;
-	b=uQ253PUGAgYfvMM0RywmrpnE3Fg0HjP0e7Mv3+hQx7RC58qB6DZi6FenfD29KltZA86O
-	 aazkEGdg30A997vAeaSGoCjkAmp1izHNGyNQ69gqjrBfP7o+GrflM+lKKcxZ9SuIMGRQk
-	 r4Dpy5N6sAbb9dQ/DvswshIRh78KUWmsOtLGTuf4M0nRbNQtusmrPrfcBgbHmCFw5WwxD
-	 mINNFFkPGjr2RcywCqbBJJMmLrvNgey8YmIlr1P6aaE7shYvH8maJFea+E/9bPQrzukVb
-	 ihApY6S7cb7o8qKU0XK+hT/nNVyDnqBvR3szyz+Ke5yCES4SaqvHvHf7L7kaLlWCFIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793272215;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=DSxkRxPFsRck2A0J6inq6nAKEzhTB+HmFXLAFrUIAgg=;
+	b=RRlyjq3IjzJzNzCDmq7nSIPG5QtZEV9eQmABSCYPDpZm7lEwPo5YMmVLVc5+OsAVcp3I
+	 dsS5cKhS5XPd8SqzKyJ+oaQ2LOKp+/GmWUPiRS2kyy+zHDLxJo+S4PM3bOgpiFrla5xEn
+	 mHtQIqBs8jF6/FpYHvRZPRG5vRk8nM0tRsuwoNPoVizUQdQ/LAlXGs+7hZcFOhmUUtTqe
+	 y7p8q03FuVIGsuv60QYgci3L1H8xGJ64WqODuBYJXSvrD5dLaHn7GybahU+HjU7KuucMW
+	 xALN2mwYhLjQBKpfxlOJphgowWXQe3651tZk3prqibGLHEZirh+Trr+bsCsqUQrUYPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCdfpV5C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlQRtSUS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D308B606A31A;
-	Thu, 29 Oct 2026 11:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F121B606A321;
+	Thu, 29 Oct 2026 11:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCdfpV5C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCD81F01825;
-	Thu, 29 Oct 2026 11:10:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlQRtSUS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9926C1F031E1;
+	Thu, 29 Oct 2026 11:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793272206;
-	bh=kczBu1gg7dLToH9eOyELlascBJYNLluBdMh7coHIHKk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HCdfpV5CBctFOiKFERljtg6mYIBC6YY+B2REc/1/np4cVLOxuBpUhOfdXRLDljWha
-	 AE/shxfYt5JEUkWhECM4sgdUEg1b+0K1jnlCnieyIlUncbKR1XH8t0FIXrCriYfsbu
-	 4bvz3adDyD3clbGRctdd01ByUXL6bmsrXDg4FJ+ngIfeajghalWSndcTLVSqy1Y1zl
-	 IgQOCJdGDawmaZvo6xcUwhnnM0/UZZzxtIWWXJ9x2OT43V9gZ22/ZlLuUcc3zqpFvp
-	 y7EkQzR1onw0LKzhIEQ8wmGDwRQpEjMUG3cnUVTYqo8DPYPdsmJ9nrVe40TJ2NAPVZ
-	 x7WF/h5tmcSGA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 445D93ABD290;
-	Thu, 29 Oct 2026 11:10:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793272214;
+	bh=DSxkRxPFsRck2A0J6inq6nAKEzhTB+HmFXLAFrUIAgg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MlQRtSUSoSiqLjihdmNQM49gHfTsSMr4L8C67SIk8pg5v2odSHKzWkqpdakTo8uUE
+	 xpjNAg5Qq8haPtGfmcdN0/WMKACUMmUOhsA9T2S+53fDTP7wXvNV4QcN8JrChNhC0U
+	 ic96xjslyH/kvFkFA0476aNioQ9Guj8jxR0ppGbm3ksUfYOVOqVDbOzHqDscerVIIY
+	 pAmTWfPPBPlgBFfyskAOacWrYzkI8RfjdRvs49VSRQED8/wARpd2iROT1ZlMLWgmDH
+	 9AyDnFm2J0HJhQxXKJolLp+xi9Nj0iEjl9ajHXJSqWRYiNw7kF9ZdFpv2e74axtxgU
+	 YKflLo0uNKZzg==
+Date: Thu, 29 Oct 2026 11:10:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v9] ASoC: wm8994: drain delayed works on remove and probe
+ error
+Message-ID: <a6254119-bdca-4ae7-910a-f50aaf07c472@sirena.org.uk>
+References: <20261026112212.2519775-1-tristmd@gmail.com>
+ <20261029102515.3417777-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,43 +62,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] r8152: Use BMSR to detect the link state
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179327220507.1762735.7924167128121822178.git-patchwork-notify@kernel.org>
-Date: Thu, 29 Oct 2026 11:10:05 +0000
-References: <20261026012345.1902285-1-lilinmao@kylinos.cn>
-In-Reply-To: <20261026012345.1902285-1-lilinmao@kylinos.cn>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, hayeswang@realtek.com,
- nic_swsd@realtek.com, hsu.chih.kai@realtek.com, mail@birger-koblitz.de,
- zhangxiangqian@kylinos.cn, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Mon, 26 Oct 2026 09:23:45 +0800 you wrote:
-> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
-> BMSR_LSTATUS can remain latched low after link up. Since
-> commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
-> cable is not connected"), the first speed query can then report
-> SPEED_UNKNOWN, which applications such as NetworkManager may cache
-> until the next carrier change.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,v3] r8152: Use BMSR to detect the link state
-    https://git.kernel.org/netdev/net/c/85b4bc79dde7
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BWQ7re8b1Km3keh9"
+Content-Disposition: inline
+In-Reply-To: <20261029102515.3417777-1-tristmd@gmail.com>
+X-Cookie: I have a TINY BOWL in my HEAD
 
 
+--BWQ7re8b1Km3keh9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Oct 29, 2026 at 10:25:15AM +0000, Tristan Madani wrote:
+> From: Tristan Madani <tristan@talencesecurity.com>
+>=20
+> wm8994_component_probe() schedules several delayed works to handle jack
+> detection and microphone status polling.  If the component is removed or
+> probe fails after these works are scheduled, they can execute after
+> resources are freed.
+
+You've taken what was previously a series of 4 patches with only v1
+posted, resent only two of the patches individually and for some reason
+incremented the version to v9.  This all makes things really confusing
+to track for both me and my tooling.  Please resend the full series as a
+single series, with all of the patches.
+
+--BWQ7re8b1Km3keh9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjKZEACgkQJNaLcl1U
+h9DO9gf+Nekk+pY1MkbO3rZ5b63q+jms2bcqkUuCRhJL5Wg/G+cF6acyWD2gCbrG
+VrBqyaEscB+R9WMGwBuis7lA1Iwppas6SLZayXmjEinmUekFimHzEwEO9KdQaVfD
+dH5veWPfo5To8z4FhrXUFcdPhpA9MhsLBLQ8T5+7H7ZLCNnOL6mx2CcXZCoKNeJ0
+/2Rf5TLmQsh1wFMe/8XyATWsTDa5cSYMRtUGPLEm43lY5riXxRFaUq0X8GHRoRBz
+jf0s80xeGv40c9QzC19pwHsafroM4XHIALbSdzhu0bUEd+JBXzhlnDhYubsNKOsc
+2HUVKONujgKa+Xfb8eTtoeSZdk+swA==
+=pHaf
+-----END PGP SIGNATURE-----
+
+--BWQ7re8b1Km3keh9--
