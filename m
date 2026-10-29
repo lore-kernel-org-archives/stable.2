@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246033;
-	b=ymIojDoSLSbRzzY1tWvEWj4FXjYWjoA9iqj+vc2ofLEmg9sCXrcHXMb5wOvHED52QoZd
-	 WT5uUdYnbIeqmFVa2lrWitA+aVZuhSrZ0Q3by2HPJDGxHgR6lKfC4o1OCd+SWwp8glVgu
-	 +DUp+e2TNe3d10zSiRhEoF5HgCx/DzCDN3Nklufe8VMDUcbs9RznydN6bVqaKiVPzdqm0
-	 x9/YCN+5OhgWSudPP45GmnhaeI0XS7qAmutajB74zX+Ii1WYrPSZFNpOep1L58ZJiJAfM
-	 YrVdIyIKQRawdQvcU9lIw546wfDnHVlzI0CnqXmmdyIe70T0eRI6r0uC8AcKsbmrgLQ==
+	t=1793246039;
+	b=YUQVwbn8jsiymDWHk/C0Go/wL+D91GD6RJ0AoHt/b8rLtTTZd00IXaFFHM0uq+rDSje4
+	 hY84HTGR8tGltPTGUI9ZBIGS7nhLqhECPWN5NY9EKWauGCMb7Tm6LTxUhEgxBHkDKIxDS
+	 ZBYxPJX5L/UFUN4cOxqVjTTRv05QbinkpQCqF81Wj/ewO9rhaAbKguOTuauPIgbYJmDYb
+	 X0NG7ycKqBcEoR+ccsuAn7uS1TSdCmOU4fcgz32vf+9qy35szOLAAkYV8Vlc0rgxbLmZt
+	 CfPJxbkBZatn1zIaE8aOg4HDvF/2+OwXut20k+dJ8fIObUjsBPUMHJgAHAykG7vCbrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246039;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=mw9T2EB/SxtZoCtzyHz1gLKbCKIVEvLwZOs7MyBa88c=;
-	b=3p8Pe2catO+lq+ufUF56HOhBEQXqzpy3aZvclQhfJ2imRkMpG8DybgljO+UzgDqVBp+2
-	 otR3yC8BqdFRLxZs2+AJyMfvlNeo9jvKYWy22RmppjWEOzKl/729GFK1xMDbxFZmla8QC
-	 Tsy23bYab6mTLA81i3eA0XLlD6mIVonzfCT1THubmyffhCVVPMZsEEmYghhlVJCNpLN+x
-	 uuqZhgETBUA0d7w0EpIBbnEUNme8sXn1dg75pcp1t+zWv4pgf24hw9o5D2d7dBWlTDyvW
-	 mRZ/8HlQZYJrGdzCZsZTJo8s6z2vY0l17lAK2re0zl8RlrIIBFodnOno0nAKKotPA3w==
+	bh=otVPgR69rapmEguUIGNpGUBHey5Mb7pxmVbkoiOMICE=;
+	b=rfQfz+W18alUF5d158St/EfylAkISwIu9RfXF8mCHir6BwkyYnS3KouLc2y8IzaGGl5z
+	 cvXq7g0cU41odfuaU1VIIx7rrfcG33x/1mEWJWFkkbywpnWHyajx0J0fIigFaHbVk1RJY
+	 TY4dvlq49qvXORvHE4+SkPj//O3rExRDuMGxpSRLO8p4/0CComVPBcz0gXP7WjE4+EGZd
+	 10+H89lPE1sJvfhmevvw71rBs71xxA7f+r2HQ0nVGGItUQcXZNnla/Z3yRlRRTO2eW5jb
+	 ERg79OPmBfiVYb3iw8cVU6xkx6S0xlITC4PJRsgFUzqkoDZ9f3dlQNToCYx71c+cTHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EdUHF6SF;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aMZcUyuG;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D11606A327;
-	Thu, 29 Oct 2026 03:53:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0D11606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E67606A31D;
+	Thu, 29 Oct 2026 03:53:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5E67606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EdUHF6SF
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=aMZcUyuG
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mw
-	9T2EB/SxtZoCtzyHz1gLKbCKIVEvLwZOs7MyBa88c=; b=EdUHF6SFQgaDHU7kPY
-	lrnp6kWbhdX7xlB2Hxfnx3rsaYe64ZC7WOGZWuTDY60FpDZX128O30xyHLTBiFfT
-	KB6d/Ca5rdiCX7zqwJQC4PNpynWqaEBdQ9F4J5YqMs/dHaH0D7LlA/3QeZZti5Ff
-	q92g+3D6Jn40UAgNcDWo7NwA0=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ot
+	VPgR69rapmEguUIGNpGUBHey5Mb7pxmVbkoiOMICE=; b=aMZcUyuG4d6BwZBsb7
+	Aq41lFcTAGiw//e96sgwFF9tfftGb1CH77SJ7aNoJbJdFDzhPW/pZVQYYUm7Tnep
+	PslkNujfz8JEceDdYqViwuU3+sSKreECE1fjYsLAXRCGV3w4RMVM1YoQpLIdRku4
+	x21M5frhsj5BrLe8F8cWWc7zE=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S5;
-	Thu, 29 Oct 2026 11:53:00 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S9;
+	Thu, 29 Oct 2026 11:53:04 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Tomasz Nowicki <tn@semihalf.com>,
-	Christoffer Dall <christoffer.dall@linaro.org>,
-	Julien Grall <julien.grall@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andrew Jones <andrew.jones@linux.dev>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sunil V L <sunilvl@ventanamicro.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 03/20] irqchip/gic-v3: validate MADT records before use
-Date: Thu, 29 Oct 2026 11:52:34 +0800
-Message-Id: <20261029035253.2333852-4-yaojiale02@163.com>
+Subject: [PATCH v2 07/20] riscv: validate RINTC entries before use
+Date: Thu, 29 Oct 2026 11:52:38 +0800
+Message-Id: <20261029035253.2333852-8-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261029035253.2333852-1-yaojiale02@163.com>
 References: <20261029035253.2333852-1-yaojiale02@163.com>
@@ -70,87 +71,51 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGryxXF43ZF48XrW7Ary7Wrg_yoW5ZryDpF
-	4UK3s0yw43tr4agws8Jw4UZFW5Ars2yFZFqFWxCa43Kw4rKryjvFWIvFyYgF1xJF4ruw42
-	vr4FqFyUCFW8ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jw9N3UUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRxLhWriwxzjNwAA3c
+X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S9
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr43Zr4fWFWfZry3ZF1kZrb_yoW8XrykpF
+	4DKr98Wrs5GanFg347tr4kuay5ArsrGa1aqrWjka4UtF47Gr1UXasa93WY9F98tF10gay0
+	9F1Yv3W0va4UA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPWrAUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQBMhmriwyDjuAAA33
 
-The GICv3 ACPI paths cast generic MADT headers to distributor,
-redistributor, and CPU interface records before confirming that the
-required fields are present. Truncated records can therefore cause
-out-of-bounds field reads while probing or setting up virtualization data.
+The RINTC parser reads the flags field before checking that the MADT
+entry contains a complete RINTC structure. A truncated firmware record
+can therefore trigger an out-of-bounds read during early CPU discovery.
 
-Validate fixed-size distributor and redistributor records before their
-first field access. Use the version-aware GICC minimum size for CPU
-interface records so valid entries from older ACPI revisions remain
-accepted. Validate the distributor in the version callback, which runs
-before the probe callback uses the same record.
+Move the existing BAD_MADT_ENTRY() check ahead of the first typed field
+access.
 
-Fixes: ffa7d6166a96 ("irqchip/gic-v3: Add ACPI support for GICv3/4 initialization")
-Fixes: b70fb7af6715 ("irqchip/gic-v3: ACPI: Add redistributor support via GICC structures")
-Fixes: 1839e576968f ("irqchip/gic-v3: Parse and export virtual GIC information")
+Fixes: ce92546cd637 ("RISC-V: smpboot: Add ACPI support in setup_smp()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/irqchip/irq-gic-v3.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/riscv/kernel/smpboot.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 94873646d46f..3d10818593df 100644
---- a/drivers/irqchip/irq-gic-v3.c
-+++ b/drivers/irqchip/irq-gic-v3.c
-@@ -2301,6 +2301,9 @@ gic_acpi_parse_madt_redist(union acpi_subtable_headers *header,
- 			(struct acpi_madt_generic_redistributor *)header;
- 	void __iomem *redist_base;
+diff --git a/arch/riscv/kernel/smpboot.c b/arch/riscv/kernel/smpboot.c
+index a9de2dae804c..9c341398058c 100644
+--- a/arch/riscv/kernel/smpboot.c
++++ b/arch/riscv/kernel/smpboot.c
+@@ -76,6 +76,9 @@ static int __init acpi_parse_rintc(union acpi_subtable_headers *header, const un
+ 	static bool found_boot_cpu;
+ 	struct acpi_madt_rintc *processor = (struct acpi_madt_rintc *)header;
  
-+	if (BAD_MADT_ENTRY(redist, end))
-+		return -EINVAL;
-+
- 	redist_base = ioremap(redist->base_address, redist->length);
- 	if (!redist_base) {
- 		pr_err("Couldn't map GICR region @%llx\n", redist->base_address);
-@@ -2327,6 +2330,9 @@ gic_acpi_parse_madt_gicc(union acpi_subtable_headers *header,
- 	u32 size = reg == GIC_PIDR2_ARCH_GICv4 ? SZ_64K * 4 : SZ_64K * 2;
- 	void __iomem *redist_base;
- 
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
-+		return -EINVAL;
-+
- 	/* Neither enabled or online capable means it doesn't exist, skip it */
- 	if (!(gicc->flags & (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
- 		return 0;
-@@ -2404,6 +2410,9 @@ static int __init gic_acpi_match_gicc(union acpi_subtable_headers *header,
- 	struct acpi_madt_generic_interrupt *gicc =
- 				(struct acpi_madt_generic_interrupt *)header;
- 
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
++	if (BAD_MADT_ENTRY(processor, end))
 +		return -EINVAL;
 +
  	/*
- 	 * If GICC is enabled and has valid gicr base address, then it means
- 	 * GICR base is presented via GICC. The redistributor is only known to
-@@ -2450,6 +2459,9 @@ static bool __init acpi_validate_gic_table(struct acpi_subtable_header *header,
- 	int count;
- 
- 	dist = (struct acpi_madt_generic_distributor *)header;
-+	if (BAD_MADT_ENTRY(dist, (unsigned long)header + header->length))
-+		return false;
-+
- 	if (dist->version != ape->driver_data)
- 		return false;
- 
-@@ -2469,6 +2481,9 @@ static int __init gic_acpi_parse_virt_madt_gicc(union acpi_subtable_headers *hea
- 		(struct acpi_madt_generic_interrupt *)header;
- 	static int first_madt = true;
- 
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
-+		return -EINVAL;
-+
- 	if (!(gicc->flags &
- 	      (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
+ 	 * Each RINTC structure in MADT will have a flag. If ACPI_MADT_ENABLED
+ 	 * bit in the flag is not enabled, it means OS should not try to enable
+@@ -84,9 +87,6 @@ static int __init acpi_parse_rintc(union acpi_subtable_headers *header, const un
+ 	if (!(processor->flags & ACPI_MADT_ENABLED))
  		return 0;
+ 
+-	if (BAD_MADT_ENTRY(processor, end))
+-		return -EINVAL;
+-
+ 	acpi_table_print_madt_entry(&header->common);
+ 
+ 	hart = processor->hart_id;
 -- 
 2.34.1
 
