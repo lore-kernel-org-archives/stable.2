@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793308018;
-	b=DxJxU+QBHs6bbwHKRv1bI9nWXYGgbY8RJ3s/2PJeAaWfSIbIxfutujoeX08g+EIO2O6M
-	 vgoo5uuVFysg7iwX6vWaCk4dkivnNOz2ZljO93lpj5hfC1Pa4fgrJGHWGz6Ol24w1weqx
-	 hBdppazw3Iyoyol6/NM1kJMltjcNhJSmobufR8pKgHK5PRX9DM12aXjsc+/2lPnLwPY1F
-	 Zc1/DXaD1jDNW1CByGZXEG4FKfewtYS96jWlB6epCyC6CvAU0dKZAIpHE+IgUfNo7aV3R
-	 +f8w4W/l/XqCBZUDCy40OC1wDR4C7OjA6AJj1MJWtUNQZl5/F2GPA4aLhILA39lEhhg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-	b=hiTRYFC/dKCK442UeOW5mcCf2a62IlRRQ4gliU6R04/hZ6Qui5cFJjL39SeRBWoqw7wE
-	 beOqsMqNLlOnfACdO1hye80Gd6oDIGh9kVnrFw9l78j6ys+1TW53kx+5YM7zQM4ueoWUK
-	 xLPorxGlm6/7fdbGe9fW3h9HR66XrBwRaJyL+V26XdV8nqvav6/YddD+h8JuCoYJeUDhu
-	 pQVGkFdVzQOW67tvQXxmMZrkrjyot6E7ARCtMRX/b52YTVrlWR6c5SSHwy8h0mh3Rhls+
-	 RO1I1Z4cBxh5hFBgN+mT6tVIIhrbYt8S5RPtnRIpTOkPCl2wDLrrL9IEt85beH214zg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVnsFrct;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793308570;
+	b=mh+xXA84/kbDWcDXND7n5G337MXOyOl5dGzmbjwVmjcHHjSZvuuOC4jMp8KFjrPGOUUi
+	 YVmXlNSCiWB9J9OHIZbvLd5q02iUgE+cgJwehW8/F18+x6cN/g5eco92No8BJOi0lNX03
+	 BtApTJZ9SvbWN2Ja4zxYM7y/rGEYl25TxFQWpXT8D1xvc0d6dpJFZPhbL8lK1lITmulFK
+	 iMhLTpIOQCVRdj6VWRmFDl42J/Z/k0lmWD8hzQUXOEhqni5uHRA2nSV0DKi27XpimtkH8
+	 QsCPsrUGP/lO2HCeb2qAxlusBtL2Jo0Ek2SShuFXSX45KXLqzCZOKNfEq2L4sfHIXrw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308570;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7HPc+rMGPZrFziNDFBiRAZO+y0q2SHxYTSQY6vu6qns=;
+	b=5Lk8ylOrRa7UpO1xa3XdvgaEVnC7sTUDD5nFqeZGHTcIPPFRpu6KT1+G/pJQzXsfos1H
+	 x7R5SRrmZ5Kojlx5P7VElz1vBNt3X5HFOl9mcWogI+lojQOnGwSeeUIjP2UFUarS4LYno
+	 t4AtzxZnBLBXhCr1YShgcorp6qcr6f5SmWju91DJTUPYANXH/zUHRKuuSNoQZtpLTaPlE
+	 yoPTAkNV+ngE0/MBDtDLvpFiVd1AsGFVS+ZMV3LSkvCHzswHRi+k8jfOEkmCW96YeKfwu
+	 vYAlKBUyWqcVE23yJ3iLbG3renPSFbK1rkWITlLtczB0QV5Y168ctbs32292ElKY5NQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjDnZcPZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60EF6606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:06:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60EF6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD3E606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVnsFrct
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e00eee27dso33502f8f.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:06:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793308017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=K9PzuB8xWIQOb0ZQXWBMR78PXl1W2pvTJAF1RJBF3378iGukTLQ3OVX2bDxm315MxC
-         uFF3QQuNB8TYwaALHPea76aP9viWUCm1Eo/IkHt7NM1S5ULcFn/mriMj+6FzqEd6trLB
-         d8/Zx9N2jJngHUvmvdeWD/jSBoz1FL8V5OWHxxX2FRd18gMghOfkApIhT+t5zhgPbk0S
-         vT/mlYCpZxMlEKM4diC1EYZujfluCBdROWxMCycu3CS4jN21B7IHOXzeMyiH1uTPqiAk
-         LkNUSBce98NOnuph+bi3D18rgUAWERqGNWsMojEPqiA0mm17CSBVz3vaSrhVfkKRgV2i
-         AzRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-        fh=GyjPX95ROExekuhE9gcGMmHKufl5kQrcjF3pgOl5jTs=;
-        b=GjQCDSOjO7V/rofKcpXYalGJVIQHU+ZPCv8zqb9zbfbHfK9dKsZeZSrafsG1k6S9F/
-         0PadMDoXeELUYhLhN/hi53cMFQAGyG5wJDkv8qBL64+dBGx8jsArAqXsUv0BUEeQww5G
-         oeylVij03/PHn9c3uzN4oikHdhfEmKM2JBckDu8hVOEwKcnM207S4cBfNlezF4dL/z2B
-         xuNbXoq60S+EOLiOaJHRLc0cDrthJmVgUgTmBXnM/5WkI2D6bQU3s9X5hd2iOT+e+dqb
-         +YOhtTbekOiKetJekOkwnUfnHhOAagUFrplrIUnWehJdIKyknwxFHQ6WReuGsaO237t9
-         m+xg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793308017; x=1793912817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-        b=gVnsFrct4ag32Tfd0wM6BzECVlaMPUl7QlKyvnZFQLzgLo2y+RIKRdlB6hHI/B21lh
-         FWKGmAsmQIdiep13arb6kjNrtTtU9TqmXsw62d2qtaIaKt5deOFZ8bZBJ6Tz7utT4PB+
-         ajnp7e6INqXwKe3MDpMZUlV40KK482LSDVhpShkMhWiHdp1XLLuBdqEc/e+TyQ7WXLlg
-         W6/q85L0HxAeNTjHsbYUn7xKPS/9PDxF7/bUsOcAXqlaXONqboLv6v/RsG1smha9ZSI/
-         97rK0sXDrQcEFDzZp10lpiJKtaApjAce+ozMcxooujHHAIg16obCz4sWaS7i3rTCJs3r
-         GC9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793308017; x=1793912817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-        b=06enIPyv8WN/UsRRwm0NZqoRyK1a+yWq+BQ5S6CE8H1cqJpTwEMYf27ULbJQ4xjgSY
-         +ZGTwySLKT80NVDKdO/E+powl+QH6SQVhCRmwOLKKpJv8NDZ8si6BBpocMMIABOKn84a
-         Nv7biaqh4o4eTye0CcOIMp6tHAdAIWOkhtZzKYb1wo0zkwd98VsOqgw/Cx+/mUU7/SUx
-         hO2llbrWirN0J33NmdBL9T6LdP0pDom2aEnAj3jNr+cd5hs+oIXNtLEFtM6bnwLQXy9S
-         EnTJcBQ/oQwVz6v0dhMxwCaoKQ3LTS3Sp5YPcPpMDDWtXzJTUz9yzroAerLlMwRm7uhT
-         PL9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzi46++6y7ghS3NOE1QkjfHoRbq0ixdAnw0/kl7fG/IvQzwM6xRYrHRrHLivZNvklfmtQJuJ3A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZQSelA2RmPL1WKF+KMD5RGFCsrbDhuak3LHWBSf4EY9YTL5qV
-	ZZGsPvDhUX57FP1kwuzjhEc1sW+UWz0BBmBvMHRgljtQc40ebgjsPQ2xcUHxywS+eMvgN0ft7Kp
-	McEIsPzlnLHZfTbA7D2OhH7tUfjUJolw=
-X-Gm-Gg: AYBFou0EzQq0LB8oK8nh8xfC5Q/toEJ4Jg2I4o6CjX+zqqTDP/mhM+KiSW/OfB+R9IS
-	Z7eqdqw9EgrqpNF71hzw2lxjO8S27xewtnGbVHCHFmya0LvX4B/R/mBkOO7jOHvWtRxjdXvHOzX
-	KonuHAntqQ3XeNMvEAH1YbNXhrZMVjnvc9AaPZtS2y5HEYWlIlSamW0DtZAOmD2Voaxx7cUf+m1
-	5hMScWXjJreBfKrHqHhQV2im6NbvkWKRp6/x8YNAt0+vWglsaNJdx/FZEF7I1g5/xuNxXJ1rdwC
-	RGxwv1wvsu5BuvGKpcqZ8qQawxwhHx6jOFnTpBydMbyHH00WFO2qJPPKfz977TajyutdL+aBxgQ
-	kA2bYjxHpgU8YqmZV8N+cL75mPKUZniqPBZMDeMr8BEaTSLyYfl2H+Zo3H9W9/x+CyCE+Mk7mco
-	dvJVDmMdSkYBPuKF4nwd314ua3einLK0rL0/sVpfat4upF8EB73XAG
-X-Received: by 2002:a05:6000:4b18:b0:48e:6092:deb9 with SMTP id
- ffacd0b85a97d-48e6e2fa4e1mr1121429f8f.14.1793308016538; Thu, 29 Oct 2026
- 14:06:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjDnZcPZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3601F01824
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793308569;
+	bh=7HPc+rMGPZrFziNDFBiRAZO+y0q2SHxYTSQY6vu6qns=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PjDnZcPZxZwSTafleHkQ33qoE1Iuzoz2P4Lz8aFvP1ktGboBUmwwCpmJod7gkifqi
+	 UPVZRyMr1VAJqQMrSBjmm/PpoYC95+h2DT0sPQseKt9K2skglmTtJIeHDZrDqYsFql
+	 DJi6xLqFr6KOzLghr4zOFoVaTFJw4WKbB5tEiITuISFC5NPqCFMEUZTBWlmzEvTY2L
+	 zOKT9TJS9GCHwlzdz3OQ/FM2PwUfSAPwjB3tMt2V13N7Usm7MWLdriZyz1+KphdaYf
+	 WZ5Y2Q+Dth22arg1Sm1R0bs6PBrf7xW4y2619gL8G46/b6ycZKMSA9b+eZvuqbcRDA
+	 KthZ/+i63KBGg==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so14483a12.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:16:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByMJ1eYuoothkv+J++p9QlVEe0zTAFefuazThVBmT6NG4bCYRPLVPzg9ybHI4ZroeWUv2x7P6k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDsxPE3IMHWLs/1b7nALlSvE9dtwYcE8O4q0+eTrYbup6GShke
+	5arWu04z4FFy2AbRVcwxz/CvsgLN4oHGJcOoPcp4Y3nksADCwoKf9EZYjATwdMOmJeXqkxcnI6/
+	QnZVZJqpxmN3WJcYVrC2+srrVaxjYpCI=
+X-Received: by 2002:a17:907:3d89:b0:c46:645f:cedf with SMTP id
+ a640c23a62f3a-c4ca7a0708amr27430266b.15.1793308568498; Thu, 29 Oct 2026
+ 14:16:08 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,21 +61,22 @@ Precedence: list
 MIME-Version: 1.0
 References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com> <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
 In-Reply-To: <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Thu, 29 Oct 2026 14:06:43 -0700
-X-Gm-Features: AclHuK92wLeJ9w3J3At4Pw7sJv5ao2rkIqVVn5ak-RXKnx5xxdpjvkaqxTwN9aw
-Message-ID: <CAKEwX=O+j5d874gW=ENZc7s4y2CGVKheQSK8VrfD1_eVK=6U=g@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 29 Oct 2026 14:15:56 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOwqiCzqGP_eh0Po+0cHSCLC-T1xoFqEo9bC0A2z9V-yw@mail.gmail.com>
+X-Gm-Features: AclHuK_UcWeTFbGNfIrkG08As9JrhrqrnG737h-qpITyGjdoPDrLwmIQ1HgUGbk
+Message-ID: <CAO9r8zOwqiCzqGP_eh0Po+0cHSCLC-T1xoFqEo9bC0A2z9V-yw@mail.gmail.com>
 Subject: Re: [PATCH 1/3] mm/zswap: drop the stale zswap entry of a zero folio
 To: kasong@tencent.com
 Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
 	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Usama Arif <usamaarif642@gmail.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Usama Arif <usamaarif642@gmail.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Chuanhua Han <hanchuanhua@oppo.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
 	Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -173,4 +128,4 @@ On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
 > [kasong@tencent.com: fix zswap_invalidate() arguments]
 > Signed-off-by: Kairui Song <kasong@tencent.com>
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
