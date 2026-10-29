@@ -1,75 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793308614;
-	b=rIar03Dq3AdHhJ2VnJEo5Vy/oPZUjDb7G4gbUkx6aASU/qSs1ldVLpmr8kmit635jE/r
-	 ufBK7QwCcMZ5xwsb3tefRWlEGA4N0c+5B++FLEIo3rEpEcDub3MP59fN4TK2NiN56ANHF
-	 XMoyG9Me9zjMP400nVqv8rI9LPzcTJTJqELd52QOGNAKGtuD1YbiIpA/cL5c1MEuuby5C
-	 5e16yjmcvzf+8m9aTTeyYk74O1u4EDYqbtGvgGeP1L0GngDQsEHzRccH9jg+q4lSQT3wE
-	 +2cqHMOlnV3FVrJ/jdWNPoqIjc60SpkIQ0iyB8BBjxuyPInIWbwghy9LerENN0d3/NA==
+	t=1793308722;
+	b=Y3YUyAptW5S8MTmhmkwbIbsARW9M3wOVd08DB+uFD0mYEVnZ14LiCluAjF2iBDH2sr7S
+	 2l0R2keEyi4iKfMdoUSU74DNYrWse+iLNRrex9kDVNtiJ9xYEmAFbewvEXtQJAu29x+vV
+	 gfGsy0nRMHc868y//vND8aHBk1nlcmaRPFxsk2jqN+lyRjwHD6JfdWynS0ashp7LSRVxB
+	 WITGA+hLu5jAbJa3looxfWbtC1tLKVy9E5fXROY4c4YDgIucF3GNkIi5ee92sunAoxqAL
+	 INIy6+kMX2yv+AMU/0+cdkvBHoEojTi8Bj1wjmmeJu8BGjS0yuQmG3IRj74jXgFmaNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308614;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=c4c2nOdbkSKpVO12N7+ZMENm5FqMe9Q2TS5BEIMNko4=;
-	b=dByKZ6fdz+n3ibjQ9+lxqmWJ01IQ/rjInh+EfiQ/CNvDBRCBG8KoaSEOQu1ypsM9KBu1
-	 /QlGnE2O3sNp9MbnAAntXvkwecG+oZ8TYta77+Yuj5gZ763S/cYL2QGF07Avd4+ZEGm4E
-	 EZoyr6kh+2PxAOzrnsJis1+hN5kAVEEfopqnTftmo0JeR+CYn4vZh9iNCir6NcRU/Rrk2
-	 M0tbPA0U33sWmIe1GrvFENOb6wjVZIVHM8twALmK0Fy2yvWJVrr8wAn68gL+QG8Fl8xk8
-	 Yo6Wsslh3uycZeBIOS7twMJiuI8vb/UBM0EPGYJ96y+tMlnuiRjX9S/rEdq0NK5mdGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308722;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Feedback-ID;
+	bh=I5X+ZmPO3CQba0esVboJm4mky7PH5KkFaOsJl1sLn5g=;
+	b=roDZGOoEY5IudY79+dLWoX3exXZZOqMkdDFoOk8ir1tnUg3yeAcG3F0VjPF4z9+i5Zux
+	 PdsumNgu4rOaUy8jYusSa6LLrm0P5+AcR0espPYOGR+NjlwQjz35GM6SfOp8i6QTGmooq
+	 BIjixUB7v5w7ZItfE/fSWg57uCEEUdSf30Dr471TRrAltaPPNI97R728XgaK26p09R51h
+	 9a6WI1amq16sIOz8V3AKToiplzjVBjx2y/lHrTHFy5jHD9id/3WNCzHwOvWd4Emxz38dt
+	 rNeMqM1zFnc+XEfIsz9DtvliuW0ng0FABP1gEYsxsX7Q/Oy9cvmkLxAR+QnjvZewZgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hPKpqtQi;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=tuta.io;
+	spf=pass smtp.mailfrom=tuta.io;
+	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=utQ9KhMm;
+	arc=none smtp.remote-ip=185.205.69.214
+Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD7560A260E
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:16:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BD7560A260E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF98D606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:18:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF98D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hPKpqtQi
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ada8bc8575so50963a91.3
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:16:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793308600; x=1793913400; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c4c2nOdbkSKpVO12N7+ZMENm5FqMe9Q2TS5BEIMNko4=;
-        b=hPKpqtQiQr5Mndc+Bml/2/+JkqvFNN0XrBEl+OVgvsuwxoSCXZ/O70tKIMCXItsVeM
-         f6wdWbFIEi6ymWbt1mM7JryfJCcJ5hrPQCoK3QU9NLAoHkHPIdjXiSvJz6n+DF5wj/aP
-         jikn4DWnD72yN7JsmZtE2ooZfk2THCrgwlp0u6LqODFD03HjpqUhXoofBlgsUVkbjkaG
-         DRSPd/GsM931N8kQ69Haa199TeD6eBYr6EWEV7MAAXgGnc+qpdA7QFiRwEX4MpxFHV0R
-         5yrT+IuMiR6B0CiVk6F1Qe6LTIh7DyYKfyzomhwTX/3lHy6SBKyrLXGaJ6QWziCVysEY
-         S9Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793308600; x=1793913400;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c4c2nOdbkSKpVO12N7+ZMENm5FqMe9Q2TS5BEIMNko4=;
-        b=j1huybUbRnGE/ITCqnQc9VvsOgtODiFLAJCB7S1pQ8BdwuJmimm7C8swZ/RgaWWlTz
-         0FiTRjM9kE8LFogTcdz/kA//lv0DprBqlnLQ+Kae0ezO6yt1Cl6oNvihRz7AVSk4DUKY
-         ycnUvWLAWoYzycRpdS3c+fVq655GJnRC4N2mrVAtNyyCeXAj+Ocf6qaxmoWgNF/RwZQa
-         0ab8suqvtaGLvVbRezsvT7UqOAIq+2gDWV+rOPtpJhfESE7RCmHuCrhlmCciQl4ClwSZ
-         qH3q/BiIE9DBInewjBHxTTIcVDAbqpEYSQAVPDLAtTTFCuWYedqs1EJYCUpgnkdgDksU
-         uXPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAQiYIQVBoJXF56fzeH9qQiq6DsWTLO5GMoPN0vlGc2KK4kGe6mT1MMrHE2eCj/rN5rJVGkRM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLE703M50ymr+7s4W9ba4JCeFnPIagC12w7vYO6BudHFUkaBLXh
-	W7VbpyGJ/MjBk4VJH7g2kWhUzTmMPnOiWaVJcluJbHOGIEIQm/86mNtkD/R8BZbMIx6covMzqpm
-	UhgZ1v3CvS7o1cZzxqpROAPhw5A==
-X-Received: from pgly20.prod.google.com ([2002:a63:1814:0:b0:cd8:4bbf:f9e0])
- (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:180d:b0:3ac:a204:aa27 with SMTP id 98e67ed59e1d1-3ae8985edbfmr146770a91.66.1793308600149;
- Thu, 29 Oct 2026 14:16:40 -0700 (PDT)
-Date: Thu, 29 Oct 2026 21:16:34 +0000
-In-Reply-To: <20261029211634.2232784-1-hramamurthy@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=utQ9KhMm
+Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
+	by mail.w14.tutanota.de (Postfix) with ESMTP id 7142719EEEF86
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:18:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793308720;
+	s=s1; d=tuta.io;
+	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:Sender;
+	bh=I5X+ZmPO3CQba0esVboJm4mky7PH5KkFaOsJl1sLn5g=;
+	b=utQ9KhMmUiayjU7ShO6AXmX5GpP/0UNEEvpiSsWJQYWaqVmXR1ymstTjp4VPlWDG
+	szoBccsqPpfHzCBZBt8cR3RfuN4OEVGnBc1gAekVq4e6p4e8OVoWISfwNx3F/h2HkQN
+	NYMIvkt3n1hMQ8YCnkBsB5k6w8I0ZQiNscLpIQJ2A0CWONm1pEx8UCFa41DUkZ0EMsK
+	OLHOytO85DZLF6GqypfCDBMBPh//J8v1Rg4b+FB3fjrshYxDC1wF5KqpwieHAoGNlA1
+	jElNYjM3AMnHov5L0S6vENoAIUK8A2BzHtwMucp+e7VUO+ovL+nP1eBznUt97DPjAxM
+	Vtyec9edBg==
+Date: Thu, 29 Oct 2026 22:18:40 +0100 (CET)
+From: Edvard Conrad <edvard@tuta.io>
+To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Edvard Conrad <edvard@tuta.io>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Message-ID: <P58Wrer--F-9@tuta.io>
+Subject: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from the
+ user file
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,180 +68,139 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029211634.2232784-1-hramamurthy@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029211634.2232784-5-hramamurthy@google.com>
-Subject: [PATCH net v4 4/4] gve: Fix link flap after ethtool ops
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-To: netdev@vger.kernel.org
-Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com, 
-	nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com, 
-	pkaligineedi@google.com, yangchun@google.com, patricion@google.com, 
-	awogbemila@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Pin-yen Lin <treapking@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Feedback-ID: 0127f977f5e13e8051b46c6e7f57d0f95a0470d24b79d7c31d07fdf611cc427ab823e0f4692a810119c92d8768973a9281:TurnOnPrivacy!:tutamail
 
-From: Pin-yen Lin <treapking@google.com>
+When fanotify reports a permission event, copy_event_to_user() creates
+the event fd with dentry_open_nonotify(), so that the listener's use of
+that fd does not generate further events. If the event's path is on a
+stacked filesystem, the stacked filesystem's ->open() opens the real
+file with backing_file_open(). Since commit ebe559609d78 ("fs: get rid
+of __FMODE_NONOTIFY kludge"), FMODE_NONOTIFY lives in f_mode only and
+the backing file does not inherit it: it is allocated with the default
+fsnotify mode, and fsnotify_open_perm_and_set_mode() raises FS_OPEN_PERM
+on the real path if the backing filesystem has permission event
+watchers.
 
-When modifying device features via ethtool, GVE causes a short link-down
-after the ethtool command completes, which can break scripts that use
-the network interface right after the ethtool command.
+Before that commit __FMODE_NONOTIFY travelled in f_flags, and overlayfs
+copies the user file's f_flags into the backing open
+(ovl_open_realfile()), so the backing file was exempt implicitly. Commit
+bc2473c90fca ("ovl: enable fsnotify events on underlying real files")
+relied on that when it dropped FMODE_NONOTIFY from OVL_OPEN_FLAGS.
 
-This issue was discovered and actually triggered by the
-drivers/net/ping.py selftest. Modifying checksum offload features via
-ethtool caused a transient carrier drop ("Lost carrier", DHCP lease lost),
-causing the immediate ping invocation to fail.
+The nested event is queued to the same group, from inside the
+listener's read(2), and can only be answered by another reader thread
+of that group. A listener holding filesystem marks on both the stacked
+and the backing filesystem therefore deadlocks as soon as all of its
+reader threads are inside such a read(2) at the same time, and every
+other task that touches a marked filesystem queues up behind it.
 
-Fix it by calling gve_turnup_and_check_status() in gve_queues_start()
-instead of deferring the link status update to the service task, so the
-carrier status is updated synchronously before returning to userspace.
+Observed with a commercial anti-malware agent (16 reader threads) on an
+ostree/composefs host: / is an overlayfs whose data layer is the ostree
+object store on the same btrfs that holds /etc and /home, and a
+systemd-sysext overlay sits on /usr. Every on-demand scan of /usr wedged
+the whole machine until the group was killed. Stack of a blocked reader
+thread on 7.2.7:
 
-Take netdev_lock() around the link status update in gve_service_task(),
-so that it is serialized with the synchronous update. All other callers
-of gve_handle_link_status() already hold the instance lock.
+  fanotify_get_response
+  fanotify_handle_event
+  send_to_group
+  fsnotify
+  __fsnotify_parent
+  do_dentry_open
+  vfs_open
+  backing_file_open
+  ovl_open_realfile [overlay]
+  ovl_open [overlay]
+  do_dentry_open
+  vfs_open
+  backing_file_open
+  ovl_open_realfile [overlay]
+  ovl_open [overlay]
+  do_dentry_open
+  vfs_open
+  dentry_open_nonotify
+  copy_event_to_user
+  fanotify_read
+  vfs_read
+  ksys_read
 
-This change was tested using the DQO RDA queue format.
+Userspace cannot avoid this: the backing open happens while the kernel
+builds the fd, before the event is reported, and fid reporting is not
+available for permission event classes.
 
+Make a backing file inherit FMODE_NONOTIFY when the user file it is
+opened for must not generate events. This restores the pre-6.14
+behaviour for the fds that fanotify creates (and for any other
+FMODE_NONOTIFY file), while ordinary opens through a stacked filesystem
+keep generating events on the real path, as intended by bc2473c90fca.
+
+Verified with a self-contained reproducer (private tmpfs lower layers, an
+overlayfs over them, FAN_OPEN_PERM filesystem marks on the overlay and on
+one lower layer, a child opening a file through the overlay) in a qemu
+VM on this tree built with defconfig plus OVERLAY_FS, FANOTIFY and
+FANOTIFY_ACCESS_PERMISSIONS: without this patch the listener's read(2)
+never returns and the child's open is released only by the listener's
+death; with it read(2) returns, the event is answered and the open
+completes.
+
+backing_tmpfile_open() is left alone: its only caller is
+ovl_create_tmpfile(), whose user file is a regular overlayfs file.
+
+Fixes: ebe559609d78 ("fs: get rid of __FMODE_NONOTIFY kludge")
 Cc: stable@vger.kernel.org
-Fixes: 3b7cc73628ff ("gve: Use link status register to report link status")
-Signed-off-by: Pin-yen Lin <treapking@google.com>
-Reviewed-by: Joshua Washington <joshwash@google.com>
-Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
 ---
+v3:
+- Back to the v1 change in backing_file_open(). The init_file()
+  variant posted as v2 was larger without being more general; Amir
+  withdrew that suggestion and reviewed v1 instead.
+- Add Amir's Reviewed-by. Drop the Assisted-by and Suggested-by
+  trailers and the blank line in the trailer block, as asked.
+- Keep the subject line from v2, which is the prefix used for
+  fs/backing-file.c.
+- The reproducer posted inline with v1 is now an LTP test, under
+  review as syscalls/fanotify26:
+  https://lore.kernel.org/ltp/P50G-yE--F-9@tuta.io/
 
-Changes in v4:
-- Take netdev_lock() around the link status update in
-  gve_service_task() to serialize it with gve_queues_start() (Sashiko)
+v2: https://lore.kernel.org/all/P4wV1J9--F-9@tuta.io/
+v1: https://lore.kernel.org/all/P4sl5iz--F-9@tuta.io/
 
-Changes in v3:
-- Retitled from "gve: Make ethtool config changes synchronous"
-- Fix the Fixes tag
-- Refined the commit message
+Tool disclosure (Documentation/process/generated-content.rst): the
+stack analysis, the git-history search for the regressing commit, the
+patch text, the commit message and the reproducer were produced with
+an AI coding assistant (Anthropic Claude Code) under my direction over
+interactive sessions; I reviewed, built and tested the result. No
+static analysis tools beyond checkpatch were used.
 
- drivers/net/ethernet/google/gve/gve_main.c | 70 ++++++++++++----------
- 1 file changed, 39 insertions(+), 31 deletions(-)
+ fs/backing-file.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index b5e2f39a903c..bc7d7c41948c 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -17,6 +17,7 @@
- #include <linux/sched.h>
- #include <linux/timer.h>
- #include <linux/workqueue.h>
-+#include <net/netdev_lock.h>
- #include <net/netdev_queues.h>
- #include <net/sch_generic.h>
- #include <net/xdp_sock_drv.h>
-@@ -1431,6 +1432,37 @@ static void gve_queues_stop(struct gve_priv *priv)
- 	gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
- }
+diff --git a/fs/backing-file.c b/fs/backing-file.c
+index 5614cb7801e..24357bf9328 100644
+--- a/fs/backing-file.c
++++ b/fs/backing-file.c
+@@ -43,6 +43,17 @@ struct file *backing_file_open(const struct file *user_file, int flags,
+ 	if (IS_ERR(f))
+ 		return f;
  
-+static void gve_handle_link_status(struct gve_priv *priv)
-+{
-+	bool link_up;
-+
-+	netdev_assert_locked(priv->dev);
-+
-+	if (!gve_get_napi_enabled(priv))
-+		return;
-+
-+	link_up = READ_ONCE(priv->link_up);
-+	if (link_up == netif_carrier_ok(priv->dev))
-+		return;
-+
-+	if (link_up) {
-+		netdev_info(priv->dev, "Device link is up.\n");
-+		netif_carrier_on(priv->dev);
-+	} else {
-+		netdev_info(priv->dev, "Device link is down.\n");
-+		netif_carrier_off(priv->dev);
-+	}
-+}
-+
-+static void gve_turnup_and_check_status(struct gve_priv *priv)
-+{
-+	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
-+
-+	gve_turnup(priv);
-+	ops->report_link_status(priv);
-+	gve_handle_link_status(priv);
-+}
-+
- /* The passed-in queue memory is stored into priv and the queues are made live.
-  * No memory is allocated. Passed-in memory is freed on errors.
-  */
-@@ -1494,8 +1526,7 @@ static int gve_queues_start(struct gve_priv *priv,
- 			  round_jiffies(jiffies +
- 				msecs_to_jiffies(priv->stats_report_timer_period)));
- 
--	gve_turnup(priv);
--	queue_work(priv->gve_wq, &priv->service_task);
-+	gve_turnup_and_check_status(priv);
- 	priv->interface_up_cnt++;
- 	return 0;
- 
-@@ -1570,26 +1601,6 @@ static int gve_close(struct net_device *dev)
- 	return err;
- }
- 
--static void gve_handle_link_status(struct gve_priv *priv)
--{
--	bool link_up;
--
--	if (!gve_get_napi_enabled(priv))
--		return;
--
--	link_up = READ_ONCE(priv->link_up);
--	if (link_up == netif_carrier_ok(priv->dev))
--		return;
--
--	if (link_up) {
--		netdev_info(priv->dev, "Device link is up.\n");
--		netif_carrier_on(priv->dev);
--	} else {
--		netdev_info(priv->dev, "Device link is down.\n");
--		netif_carrier_off(priv->dev);
--	}
--}
--
- static int gve_configure_rings_xdp(struct gve_priv *priv,
- 				   u16 num_xdp_rings)
- {
-@@ -2064,15 +2075,6 @@ static void gve_turnup(struct gve_priv *priv)
- 	gve_set_napi_enabled(priv);
- }
- 
--static void gve_turnup_and_check_status(struct gve_priv *priv)
--{
--	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
--
--	gve_turnup(priv);
--	ops->report_link_status(priv);
--	gve_handle_link_status(priv);
--}
--
- static struct gve_notify_block *gve_get_tx_notify_block(struct gve_priv *priv,
- 							unsigned int txqueue)
- {
-@@ -2406,8 +2408,14 @@ static void gve_service_task(struct work_struct *work)
- 	gve_handle_status(priv, status);
- 
- 	gve_handle_reset(priv);
-+
-+	/* Serialize with the synchronous link status updates, which all run
-+	 * under the netdev instance lock.
++	/*
++	 * A user file that must not generate fsnotify events (e.g. the fd
++	 * that fanotify creates for a permission event with
++	 * dentry_open_nonotify()) must not generate them through its backing
++	 * file either. Otherwise a listener watching the backing filesystem
++	 * gets a nested permission event from its own read(2), which only
++	 * another reader of the same group can answer.
 +	 */
-+	netdev_lock(priv->dev);
- 	ops->report_link_status(priv);
- 	gve_handle_link_status(priv);
-+	netdev_unlock(priv->dev);
- }
- 
- static void gve_set_netdev_xdp_features(struct gve_priv *priv)
++	if (FMODE_FSNOTIFY_NONE(user_file->f_mode))
++		file_set_fsnotify_mode(f, FMODE_NONOTIFY);
++
+ 	path_get(user_path);
+ 	backing_file_set_user_path(f, user_path);
+ 	error = vfs_open(real_path, f);
 -- 
-2.56.0.313.g2479322e68-goog
+2.56.0
 
