@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793274410;
-	b=vqqn19V8w5QKFMnvcjNGbkpl0hwCPheLK48jIk3mGhenA9Nc1K/cmKC14Q44NDTHes5V
-	 um16QC+/ZDEDmaTZ9j4dWHsCZGvhk0KSX3ot0JZ81zI2vge4G4B70nhdH+8DlsIH0h74i
-	 OvC+sMSkuVh6rFAz9VFGliTgbUlWons9RVOMzBb/pwm+MGx9QDyM8rIZ9W6ErqeVmuJTg
-	 +GSIFkUyUm8XeMf/lu22myMZfEfSYjyNAEjeCSnSfNxIi7R7f3ABHHTfwouWdomIiA7ce
-	 ThXh8Sz/zRHNglykCPVav5L9AhbColOYsmfO8DDkvv+pAaege3rLOTakNnqk+bGZAVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274410;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793274496;
+	b=Hjs6nPZRlyBrwtxPGDQ8SLpQ1EpzPiZX1DvomOG0eFLlGMUAhN3LUA3kF6K+A0jGhZpu
+	 pvTVe5pg1q7Cj40AiMlP0n7WQOVVzRD64KLWl3hRgtFgFp4IVBj0UigvDZbrLDB90VECE
+	 9Von/y8C4d30aihuA5gHwuJB8q3iAzQ64yFMDtrvMHYUDtpDMb3RIvFjoBcOBa3v1PNqG
+	 Uzq/w+uGb5g5WFgGOtCfJsXnFsOLBmtpY0+ZOB92O2WfzOUc/xGj47HGW/I0YWCqVWvd3
+	 q1Gkv5N1gdos0VSdsoB681jttMSdBYCatbXyZDY9EyCg7aJIGyK/3HraLf1ekKb33aQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274496;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=riFBiDySsld/0Y1PSfvBfA5dP3L6lbgdUG897qeFids=;
-	b=JbQ7epiOCDUm8zoJYrnte57FmbqQ2DbKOMlH8UzMCJoF0b1hhdkjBmE7UhbfZ0roNa+R
-	 RpR8dKSaOzU2U4zIif79xLpxdYYk6IXQV162Z1YhtwIAKwZIBzTRQvtMh0U/ESXd8Oe/V
-	 YPOESlmGp7eNngV3kdqnvEws21OjWUt+bJzulvvslcKYynQns9wuHDT56CM+0Y04EGAkt
-	 yUXA/f6r82ds9EEvVBACQDdkj9d06vdGZGC5Js5LvQUBqbrecWCOei8hVaQaeJK+lG2VF
-	 KArF54jox+GGNbg/rrTP5SglstPx39DXTGI64hcx4FLiByfHCVp0YRxmuviIqRxhBsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=neat.no;
-	spf=pass smtp.mailfrom=neat.no;
-	dkim=pass header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=UNGBejL3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gBO3tNs4xZSFfJsp71E9vsflV/DM+3aq9qA/XCCsF90=;
+	b=0AOyH+U7YUqD8iKt9y1QTt5dwjRpqEo9OSnZKYr7VFSVV8GQ4wXHjcXg0dGxYAJPo01+
+	 nDbNrEkxYHZPp+U1SDZrU+t13VG32K7vqG+wUH9EOioJwLPkr5B9sbD05Mi2Or45jltY1
+	 aCh88W/MsP1FSfwLfAjSTWhZyK/FKI/q/ClD+iRwq0Mm8oelpd1jXu3jTOiHgAOE3An1x
+	 JlrfXLEZzTCKe3wlrTLtKSU78YdhxYRT4K/b21XydVyEOcOMxKk76m4MCk4gtj5vDgt1H
+	 dBEnRwUY4z8/pHYsFm8RO2GMJYjPMOSU+DpahAkBuxmdszwoyO5JIvsPwDfwKiRJ/mQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=banifaK0;
+	arc=none smtp.remote-ip=209.85.167.43
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35690606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:46:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35690606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=neat.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=neat.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F47606A32C
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:48:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F47606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=UNGBejL3
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b056d58f2aso19191507b3.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:46:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793274408; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rsQ4BaZdM+nzR+okK0Mnc2mLrqQDZK4nk4oagjCHlzAqGJhbGY7RZBDbg2MlPZi08r
-         bQCUgsT7JWk3S6i2CgD/u0EuHLPH5NY4oNOhzuSVUFhVyvWX+tjA67e2gmJ+Ob71v3zM
-         0IW0DVjk3kvMlc7n3Q8HWomnnfBJndEYqDplkAlovrK3yB/I0g0F00Fc7S0W80FuzqYH
-         B5LlNhZGjtNRHjns1j85v8poJHUMno1Za34WhuFMBE7D6Mkc1aZLUGYdf3BuPvRKWMXr
-         ksoWpL5XyZtLZT2v9DngSgrHfv1EsrIkkwC3cRRfiP5azVwpGUO3O/X/tAqAw37PdieQ
-         hCBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=riFBiDySsld/0Y1PSfvBfA5dP3L6lbgdUG897qeFids=;
-        fh=WWCoTjjtnOUWcJcj07X2dSwuNvyJD4jbdtVIVvgaKoo=;
-        b=sooLbTaEX8qlof/MT4EcT/CfUCvQWPnTV6p+R7/jCvpQd8sF9AIojRsitcTLqwDtEu
-         dz/Ef02X00+YCO4yEtenu5yIBTmHmygv6QAaXQzulF6H7AnQ3Tpo9Vx3Yi/gHDcaDlbL
-         yHvF9MVaS0iDp9UJ0U8PM8oSzjrPPWZiVLiIQxN3u7kCBCdFtnICoVOOiPY4W3uvKtLB
-         b//5iIv88/joB1Wtzio4uCFqbGlhp4gCrbB01CeEKWuupOxlDHaptU4swngvuDDSA8iW
-         LekTmv+gzuE2BPJCpUFhlIv2vCVhvrblIzqa/C33Bu4QJ39Sx31FTHQY5zz1n8AI1OvZ
-         Z70w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=banifaK0
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bfa686881fso1714614e87.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:48:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=neat.no; s=google; t=1793274408; x=1793879208; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=riFBiDySsld/0Y1PSfvBfA5dP3L6lbgdUG897qeFids=;
-        b=UNGBejL3/YdG8ePaXjDTiRKcTUKWi6gcMpckNIKbBO53r1O6756+iqg09scmbh68p8
-         FJfbJvLxT8Nk18ak4tH4o82K5MOHt8IL65zSsCkYq842OkU0VujUDGJTy9SkBB3zroOL
-         5uy/W4Qn4WRSvLUDttkxpibfwfvUX8h9ozDpHh/rjTSGB9e1XXNNWpeGak86YFGXNCwj
-         iCb6/B8h0rWWorD/5YBlifT1kvYyEcUtKuCWzwxbLix9Z12uxEc9fb2Uhgv2H6dmltv9
-         HccQCX9VSIMwg3j7awqtcHpHOk71EZfCTeP7IanPnMs7zS4WJm+ziAJ0n3J2slJw95Kc
-         771g==
+        d=gmail.com; s=20260707; t=1793274494; x=1793879294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gBO3tNs4xZSFfJsp71E9vsflV/DM+3aq9qA/XCCsF90=;
+        b=banifaK0UFfcrUjrBbyfYtcH1M62FJc3B7U3lonNdqtbMRiWEu14G06UtrHq0WP8zZ
+         cyqoaLkXbVlJIrWv/7faWMtAfWmsNaOic5nUQ3pvRuEsYUPouLMlBSIKYJS9xv8w9jcK
+         YVbw2CyJo77JqycvfM0j8GkWrdPCqw5hjaJitlHPdqaZARbw0Rj9DSAGNWOeBj2jKL3g
+         bmqKUxDSJkyqrAqQr7RE1MB/SOnVQ+01O0GF5X/jP5ZmyaiVcD9kQTlHNtOgz5wL7RUY
+         rP2Bimr4tZOtsaHMfegFjYjeq4kQLkhC//gWF9CFX3X8rw+b94JsO3qsgTkI6pZiHR5x
+         IUpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793274408; x=1793879208;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=riFBiDySsld/0Y1PSfvBfA5dP3L6lbgdUG897qeFids=;
-        b=Og8kR7UIluT8iMFveJO/p3HTlpUOuLSIXfxX7RSM0TYQ+EzAcGY+uGM3kRQvTQQ0WC
-         6ARvq4NWBmg5K/deno9NV9vFwvg3fHywlUSKeJEy6gjeGhhGUpB0B0DSBKUoFNzs8Dix
-         Sbz3nj4Jh+OBWFyP7+iwyxZ47kw4aXY52qkM/z1fc81zO1MHvSNaQJySFydjB0KBtkCE
-         fOcp3MubXNe9dKFUQIydzo9j8D7E85pnQXrPi27p0KePUQJvovKGVAo0n/maFG05V4sR
-         zrvaxOodaPFtk806wbYhEQ4bcyEmPM012ICDW2Wm9YLAOfeIw0y7jBwA9PAGJlT4mWtl
-         0oaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwJdVZnYA7g5AzYPLju032mURSZ4s1wj1qsiWRxvhdQ7xVjXrhV1CxVuuDh1gao+uqkSYR6JY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDK6VA5RYHRX+A2ioWOidFWWuYHIAuap4GyvjtoG+usVL/bBSn
-	iciGyufN2Uwqx+xrnnh/bgjWbFA2x0wipO1z/l7fyLqqObHDXfKtem27E0GAgkldRua2Ks6nvcX
-	62hWvnFvP4+RRH8ehP1bk3DT6pCrboQQloBkdxyun7fOOCTWwXN7QVKS7O03kzMGhXTRYDRM2AW
-	uaZIy56ZDbiAxtXzWp2rtKE93ynx+akFGJDS82bgFhJuxlARr6rEqIyXWqngMxwUQiVwWwRaXmg
-	JqZnJS4YMPcpU+meo9+rADByDPFczEHENPPzwk6hCpXCauXe++C+A==
-X-Gm-Gg: AYBFou39psIzaXomj0d2up5jJBwkg9iwtks4K0KXZDNen/W728ynwrP3WNVyd5Dm8IQ
-	L6BmIpI/aWVybFjxwRw5ntz8FG8e/9WSZQ6D63JVTdLljmfBwI6FHE5/nAC7pfp7T4/PBOQoU2S
-	zb7AXSCIYSbLfR5qaHUHTS6jg86Q173ft9KYBOlZu1kk26pJeAaI2GHlGI0CZX9/a/bdN8IcULY
-	XePogGYiqq7YpLw53wdRw51Xry+UIWxLJMAaBDoqF/V9yA+4nVMsqZEOQ6m8C6w9A8Mqzm369I+
-	HZ9WUbDdLzrUOvAlDfoPxEdJrMjmDAiI7ZwBVqJDzCyEsvFMYdDgPzaDudllNm3gTpgMhPZquCD
-	q6+mqc08G8ii7OroxVk/vTo8QDGLBMrQyWhdOLSwpWZWUQInxrMUha/Ky
-X-Received: by 2002:a05:690c:ec3:b0:8b1:9c2:87d2 with SMTP id
- 00721157ae682-8b1b5c83536mr37789387b3.73.1793274407861; Thu, 29 Oct 2026
- 04:46:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793274494; x=1793879294;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gBO3tNs4xZSFfJsp71E9vsflV/DM+3aq9qA/XCCsF90=;
+        b=GpdIz8jW3oNZQB6LVzTVCYZPNMTrC2sLF/UunANRsVgN3w1C7233+6PrB3MKYAHTGM
+         fyjLiqkRU/ky0dli7a6cJ/R9SgU9xEuigKfA5mM1Sg9r8FFyTet+whRIl0PKwuUcI6i/
+         Ub61LrooXW5mdPKHCROBN6T+4ATBsNlIMEdQWIFYdyf1pSLP+XISJf/JXI9z+Qmo+R9D
+         YBaolnJ3ATkbJm1ppVQJDzcooaLmAjDudp3s/gZ6OkZkw9c//KLDwe5zB3tGnh1hlATv
+         NfyXTEz8YP1SLklKp5uw4J5EDyPWrSGkXJoznhhLEIFWLTCwo8HoDCXCYHfJdEVHUhUG
+         cbIw==
+X-Forwarded-Encrypted: i=1; AKwUvByqJpY7841A9sFe9Jdo+E31Zxdj732eiMWcYOWqCWc3QdnUHE6h50Yt1osguds5IYxVEa2174c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDs+UGzJzUA/EpZZDTX2XG3milI2aFCSKMwJD0r199LOQTfzn0
+	02/j6T+gYG+yic6OqvAoL7KdbTmkeGP3eCUnSunooibL0SG7LN1D0bBp
+X-Gm-Gg: AYBFou3UbLd60mTTbMQi8s9q1Wu7+lKueLaKV0vwmhmpujaxw9eDkndv4+lFY2bQKzo
+	URPaCS0OtfEAcAOo2ZNkqb4bgsJ1LihSgdUTn3SRTSMDOmO3WKeH9lVBiM93DxE51348A+u4JUr
+	cn6bhklonG53S3iju9XhoPs6f8qll0F8YmHmbiK08lhS1tr9omNOwXhlwtDmEbAZEX0f+ZM78+B
+	HRon58g2Z76z2x7r3tFmEKIP0nNWaLZzilixQYF0GN4rv5sVa2WtbV9UowjTmH/EsMU/ZGDvvzf
+	+evE5MR2x2PugHbH4Eijc9NLL8v8BoQKaMQpz3AdcQSMMnEVPyh5/iLNH/mRQt1h6BcXNWJ++78
+	s6ehF15BPKJdoogVw5pScOEw/jKWfXUknMlnjAsaFwB+DkcTy9Y6Na0D43ZFaHiLor7u8Jr8RrM
+	6i8NesWaVCGDu1UrEn/Wrx+2B2p/cGKeOZNnmmHuaBxkdR0ROQjyUeYD3u1ko+G6HY/SNcF7OXC
+	CHGNczEem43xo5CX0XOUc+6qlP1I7CqQDYb2xewZYDNj+wPJ5A6nB3znwDyuJp+rHaq4fwx7/YP
+	A459pOsm6N1njJSqO4y/rPwS1P9x9Ed0/8vOqzmB0D1d3iFM7+aZEEN3+v/cqqkz396VY3lgjaz
+	Pmgwds2ls0VmvlrPin5/D4J+mtp4xkCsDKw==
+X-Received: by 2002:a05:6512:3402:b0:5b8:f417:dbef with SMTP id 2adb3069b0e04-5bfcad3a1e6mr1998269e87.60.1793274494203;
+        Thu, 29 Oct 2026 04:48:14 -0700 (PDT)
+Received: from x870steellegend.lan (95-25-165-240.broadband.corbina.ru. [95.25.165.240])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca5c9ebdsm1144138e87.84.2026.10.29.04.48.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 04:48:12 -0700 (PDT)
+From: Igor Putko <igorpetindev@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Tejun Heo <tj@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com,
+	Igor Putko <igorpetindev@gmail.com>
+Subject: [PATCH v4] usb: core: hcd: flush giveback work on stop
+Date: Thu, 29 Oct 2026 14:47:33 +0300
+Message-ID: <20261029114733.2688-1-igorpetindev@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261024155614.2732-1-igorpetindev@gmail.com>
+References: <20261024155614.2732-1-igorpetindev@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,186 +105,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026164028.78792-1-lucas.tanure@neat.no> <at_4EgWZFghkRHzH@collabws.localdomain>
- <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com> <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
- <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com> <f534555a-b62f-4bf9-96cf-ebd74b4b30f0@collabora.com>
-In-Reply-To: <f534555a-b62f-4bf9-96cf-ebd74b4b30f0@collabora.com>
-From: Lucas Tanure <lucas.tanure@neat.no>
-Date: Thu, 29 Oct 2026 11:46:35 +0000
-X-Gm-Features: AclHuK8RskCuC8Hdfkuek5FOUrJUlV6Oh_eeADhyjfk2iiUYXH6Ab5jF-a3wR7k
-Message-ID: <CALt7t=GBa=9G-qGfTLohrcJaNApE_=Pc3TMD0jjTOiDevOP-kQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
- clock starts
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
-	Maxime Ripard <mripard@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Dom Cobley <popcornmix@gmail.com>, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 8:19=E2=80=AFPM Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
->
-> Hi Ma=C3=ADra, Lucas,
->
-> On 10/27/26 3:58 PM, Ma=C3=ADra Canal wrote:
-> > Hi Lucas,
-> >
-> > On 27/10/26 10:53, Lucas Tanure wrote:
-> >> On Tue, Oct 27, 2026 at 1:07=E2=80=AFPM Ma=C3=ADra Canal <mcanal@igali=
-a.com> wrote:
-> >>>
-> >>> Hi Cristian,
-> >>>
-> >>> On 26/10/26 22:23, Cristian Ciocaltea wrote:
-> >>>> Hi Lucas,
-> >>>>
-> >>>> On 2026/10/26, Lucas Tanure wrote:
-> >>>>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink wh=
-ile
-> >>>>> the TMDS clock is stopped and to start the clock at least 1 ms late=
-r.
-> >>>>> vc4 writes the bit, and enables the scrambler, at the end of the en=
-able
-> >>>>> sequence, long after the PHY has started, and clears it before the =
-PHY
-> >>>>> stops. A sink that samples the bit when the clock appears never loc=
-ks
-> >>>>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
-> >>>>> order work on the same sink.
-> >>>>>
-> >>>>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable=
-()
-> >>>>> was an empty stub upstream, so the PHY kept running after disable; =
-the
-> >>>>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
-> >>>>> pre-existing race in the scrambling work cancel that the fix would
-> >>>>> otherwise make easier to hit.
-> >>>>>
-> >>>>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 ker=
-nel
-> >>>>> with the same change applied, against the sink that showed the
-> >>>>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sin=
-k
-> >>>>> reset and a sink power cycle all lock with zero character errors. v=
-2
-> >>>>> and v3 carry the same code; the hardware test of the final form is
-> >>>>> still pending and will be reported in this thread. Mainline was not
-> >>>>> booted on the Pi 5. The BCM2711 path is unchanged except for the
-> >>>>> enable order; I have no Pi 4 at hand.
-> >>>>
-> >>>> While converting vc4 to the common HDMI 2.0 scrambling infrastructur=
-e, I
-> >>>> ran several tests on the Raspberry Pi 5 and didn't notice any (obvio=
-us)
-> >>>> issues.
-> >>>>
-> >>>> Hence, could you please verify whether your problem reproduces with =
-a
-> >>>> recent mainline kernel?  If it does, could you also give [1] a try a=
-nd
-> >>>> report back the actual behavior?
-> >>>>
-> >>>
-> >>> I suspect you didn't hit this on mainline because vc6_hdmi_phy_disabl=
-e()
-> >>> is a stub, so the TMDS clock never stops between disable and enable.
-> >>>
-> >>> Best regards,
-> >>> - Ma=C3=ADra
-> >>>
-> >>>> [1] https://protect.checkpoint.com/v2/r02/___https://lore.kernel.org=
-/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/___.YzJlOm=
-5lYXQ6YzpnOmQ1ODUyMWJlOGIwNzJjNjNmOWRiMDk3ZmFmYWFkNDliOjc6YTM1MTpiMzBiNzY3O=
-DAyMzBkOGM2M2U0ZjRjMTY2MzE5ZjVhZWZjY2QxYmRjZDBlOWI4MzI0MGYxMjkyNjQ1Y2NkNzJi=
-OnA6VDpG
-> >>>>
-> >>>> Regards,
-> >>>> Cristian
-> >>>
-> >>>
-> >> Hi Cristian, Ma=C3=ADra,
-> >>
-> >> Tested on a Raspberry Pi 5 with the Raspberry Pi 7.3 tree [1] as base
-> >> (pure mainline panics at boot on this board).
->
-> I recall encountering this issue a while ago and spent significant time
-> bisecting.  The faulty commit was d87773de9efe1
-> ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when r=
-unning
-> VHE"), introduced in v7.2-rc1.  Reverting it restored the normal boot.
->
-> Note this was later addressed via commit 94f39e4c017e
-> ("clocksource/drivers/arm_arch_timer: Workaround bcm2712 broken EL2 virtu=
-al
-> timer"), part of the v7.2 kernel release.
->
-> Which is the mainline version you've tried?
+When an HCD is stopped/removed (either during module unload, driver
+unbind, or an error path in probe), pending URBs are unlinked and
+completed. However, for root hubs or HCDs with giveback done in BH
+context, the work function usb_giveback_urb_bh() may still be executing
+on another CPU after __usb_hcd_giveback_urb() drops the URB use_count
+and wakes up waiters in usb_kill_urb().
 
-Master at 6b4b543fa187 ("Merge tag 'parisc-for-7.4-rc1'",
-v7.3-16411-g6b4b543fa187), so 94f39e4c017e is already in. The panic is
-something else. I had no serial console on that boot, so I have no logs.
+Since the caller may immediately free the struct usb_hcd via usb_put_hcd()
+after usb_stop_hcd() or usb_remove_hcd(), the running worker accesses
+the embedded giveback_urb_bh structure in its epilogue (e.g. clearing
+completing_ep or clearing the running flag) after the memory has been
+freed, triggering a slab-use-after-free write detected by KASAN.
 
->
-> >> That tree carries
-> >> vc6_hdmi_phy_disable() implemented, so the clock does stop on disable.
-> >>
-> >> 1. plain rpi-7.3.y: 4K60 never locks.
-> >> 2. 7.3 + my patches: all lock.
-> >> 3. 7.3 + the 7.4 scrambling infrastructure + Cristian's 9 patches: sam=
-e
-> >>     failures as in 1.
-> >> 4. same as 3 + drm_connector_hdmi_enable_scrambling() moved before
-> >>     phy_init() and drm_connector_hdmi_disable_scrambling() after
-> >>     phy_disable(): all lock, zero errors, picture on the panel.
->
-> Thanks for testing all this.
->
-> >> Ma=C3=ADra, I also tried 3 with vc6_hdmi_phy_disable() emptied again, =
-as on
-> >> mainline: same failures as in 1. So the stub is not what hides this.
-> >> Cristian did not see it because his sink re-evaluates
-> >> TMDS_Bit_Clock_Ratio after the clock is running and forgives the late
-> >> write, as most TVs do. Ours samples the bit when the clock first
-> >> appears and never again. So to reproduce the issue you need a strict
-> >> HDMI input.
->
-> Yeah, that's probably why this issue went unnoticed - most displays are p=
-retty
-> tolerant and don't require 100% spec conformance.
->
-> >>
-> >> Happy to send a v4 on top of Cristian's series, with the two helper
-> >> calls moved and patch 2 dropped since the common helper already cancel=
-s
-> >> synchronously, if that is the preferred order.
-> >>
-> >
-> > As your patches are fixes, I'd prefer to push them to drm-misc-fixes an=
-d
-> > then Cristian's would rebase on top of your patches, as their patches
-> > will go to drm-misc-next.
-> >
-> > Are you okay with this plan, Cristian?
->
-> Yes, but sadly I will not be able to reproduce the issue and confirm my r=
-ebase
-> will not regress.  Hence I'd appreciate if Lucas could recheck this after=
- I send
-> that series out.
+Ensure all giveback work has fully completed in usb_stop_hcd() by calling
+flush_work() on both high and low priority BHs before deallocating.
+Also remove the misleading comment in usb_remove_hcd() claiming
+flush_work() is unneeded, and document the queue emptiness in the
+usb_stop_hcd() kerneldoc.
 
-Sure, CC me.
->
-> Also, Ma=C3=ADra, could you please let me know when you apply the fixes?
->
-> I guess I then need to wait for drm-misc-fixes to get merged into drm-mis=
-c-next
-> before I can proceed with the rebase.
->
-> Kind regards,
-> Cristian
-Lucas
+Fixes: 8fea0c8fda30 ("usb: core: hcd: Convert from tasklet to BH workqueue")
+Reported-by: syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a5b220cacb0618384d5a
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+---
+v3 -> v4:
+- Fix domain typo in Closes: tag URL (appspotmail.com -> appspot.com).
+v2 -> v3:
+- Remove obsolete comment in usb_remove_hcd() regarding flush_work().
+- Add comment in usb_stop_hcd() explaining why flush_work() is needed.
+- Update kerneldoc for usb_stop_hcd() to state giveback queues are empty.
+v1 -> v2:
+- Use flush_work() instead of cancel_work_sync() as suggested by Alan Stern.
+---
+ drivers/usb/core/hcd.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
+index 8e8a5f59b319..f403795b17ba 100644
+--- a/drivers/usb/core/hcd.c
++++ b/drivers/usb/core/hcd.c
+@@ -2773,6 +2773,8 @@ static void usb_put_invalidate_rhdev(struct usb_hcd *hcd)
+  * usb_stop_hcd - Halt the HCD
+  * @hcd: the usb_hcd that has to be halted
+  *
++ * The two giveback queues should be entirely empty when this runs.
++ *
+  * Stop the root-hub polling timer and invoke the HCD's ->stop callback.
+  */
+ static void usb_stop_hcd(struct usb_hcd *hcd)
+@@ -2787,6 +2789,13 @@ static void usb_stop_hcd(struct usb_hcd *hcd)
+ 	/* In case the HCD restarted the timer, stop it again. */
+ 	clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
+ 	timer_delete_sync(&hcd->rh_timer);
++
++	/*
++	 * Even though all URBs have been given back, the work routine itself
++	 * may still be finishing up and accessing the usb_hcd structure.
++	 */
++	flush_work(&hcd->high_prio_bh.bh);
++	flush_work(&hcd->low_prio_bh.bh);
+ }
+ 
+ /**
+@@ -3059,16 +3068,6 @@ void usb_remove_hcd(struct usb_hcd *hcd)
+ 		usb_disconnect(&rhdev);		/* Sets rhdev to NULL */
+ 	mutex_unlock(&usb_bus_idr_lock);
+ 
+-	/*
+-	 * flush_work() isn't needed here because:
+-	 * - driver's disconnect() called from usb_disconnect() should
+-	 *   make sure its URBs are completed during the disconnect()
+-	 *   callback
+-	 *
+-	 * - it is too late to run complete() here since driver may have
+-	 *   been removed already now
+-	 */
+-
+ 	/* Prevent any more root-hub status calls from the timer.
+ 	 * The HCD might still restart the timer (if a port status change
+ 	 * interrupt occurs), but usb_hcd_poll_rh_status() won't invoke
+-- 
+2.47.3
+
