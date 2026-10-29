@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306173;
-	b=e2zU+/CYL1OuAsrlwEH4aEeevGh0NEhKawToL4jdDu0L1QYepDFRnWa7egCDDfHMfJ2G
-	 RPa9DEowDiS5kIGoEXeQmsY2vOTka/x/jerLiBumsgDyTyWG7MC8byImhg1ouerrzsEiB
-	 I545X6RzJIFrNdjPmBFL8XBdWk1Y0wK+DNMe9IGQdbDo5cmCqaZ9m4QKeEzlRzWxh8LMY
-	 WuFNDo+JV1oZnyeQu/7TqPQf6O0py16+m/xKWy4VkU8a38j3gOekM64Qpoh/y0M9VZvfV
-	 VsufMS+KOyJXV3KHLtBNs9Lql375JbIIX9LobW4/X3fhEaDWXyiUQ+VeftE2cefN5nA==
+	t=1793306197;
+	b=auPolqrCecUhc71KK3xTrWLhUG18LyFi33x2uflUB4YQ+g6mISs2c7y2Reg5mL2VwYIX
+	 sMaLl18JDTXUvU4jQorQdywOHhfl5ZoymqbSZVHWn+UQhdWwpqtuX/31ksizZbQ4vOYuU
+	 /7xXRvjTBZl/SvfFOwx823/s8pdNoAVvoExc+zxGJbyzHY0MtoOgyr1tNm7U8Wkq6mFGS
+	 cjfX4e4Y3Ifyj1v3ztzPbm1C6I1oQvMc6oOu8JDoRFLPr+GihS7psoilGMzaSTswGYUgg
+	 QlZ2YWJmPq4xXJbwFXLjrbHVoBqI+oE7dp2aRYiajYgkE0IZvwzDf3xjsXO0bI0T1ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306173;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=8FhHny9mHzITD4CyW6Cx5He8UZdbQ/QXgTkMZkuawzE=;
-	b=tGk6clP2LIA8phHL1SQfHQ2p7chjBin71Zo+w6YP/QRbU/GjvKCYR41Hwr16q6cOaDjX
-	 HU3G2KwaaeoxNudWANK8h2qwPXdCBU/PIHlH9eYxDFnqFmfPm4jo6h4G7rpDaZBW72Zu/
-	 V89SrcgIB4PJ+NsL3ZPO2q670xVUCg31JpqfryyE0m5ly5nsP9WcLKoRvCDnOjLH49Dmm
-	 /4/7GtDmulyF5fXhjBAXdnvQNxqG+t0lkQnzeI8r/BIF8MqaUeNp6YtgmsIBmG4/rlIWo
-	 UNBUKufItfYJ5kgC/EZPM/+YH2UT0g0ZXhnPNacmQmiPCEtQEdoZAvb20WvXfcf80LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306197;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AuIb6GGgaOQAFc0N/8ej5YAVB0d0El1YMXuRgdGto0M=;
+	b=VHH8LS+yP644mrHl3DXlbfo1ds1hBGBugXY/Zj0eGltYfOf0Uisk6Ugvv52ogbeOoF98
+	 GakeLcYzMKuErdkOFVvqHDvynIx1hj8wYT+7khGgA8is9vApVsxwa97w74nq3ET7ZWQaN
+	 W8avk2z9DHenv2haPxwvMPWQMI9x4qx/d1oLtnaLLc+TI18GlFMENtG+Fn4P/5C8jCTMo
+	 hoMbEvKtYVQlB44bu3laHOzB9/ZLKZTzfsZKORNgdqMWSQm1bf4onklDJHST8pwtJ8Z1a
+	 TYWfXXmL5NGKpb84t1X3qGsYHGf/onVMsF5lOu1f1fOrR1ULrSn+Ny0yO4oDGEnxoZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccajB90x;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b="EN/712Yl";
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F45606A325;
-	Thu, 29 Oct 2026 20:36:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E6B606A31F
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 20:36:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29E6B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccajB90x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241201F031E0;
-	Thu, 29 Oct 2026 20:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306172;
-	bh=8FhHny9mHzITD4CyW6Cx5He8UZdbQ/QXgTkMZkuawzE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ccajB90xcKYAJCG+pfTeSfTQgjX/IGEu5IjSG5+Pjf3i6QHQbNF5DXftMaJFL6HVu
-	 /5+C09DE+AnR3J0PzYmM64letPIG7IW7jp2VxHhPVYsO1JYzLZGMyx3TgxYn+mTvXr
-	 p8xeUBk5TFgRSbPLFEUwrqVA2cHXP0EM5NyVUnDQjpsdjAsOCHovHoLpu9i/boW5oK
-	 9GGuAoMMCHI5Rx065d5OV5gaX1z11Po9mfCcEkr2eKbTHlSvJUubujMoX+E1fhzo1y
-	 47li6wryfeTWOH5R1QNgs2QcsRkR30gorcsJRsx5oWXrcZCkesEr7cPVm+WYu7sVTV
-	 wUHHbmk+/tizg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:06 +0100
-Subject: [PATCH v2 11/47] mm/huge_memory: properly handle refcounted PUD
- mappings on fork
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=EN/712Yl
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93ead211f14so4911085a.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 13:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1793306195; x=1793910995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AuIb6GGgaOQAFc0N/8ej5YAVB0d0El1YMXuRgdGto0M=;
+        b=EN/712YlYzEuqQTvmZJ4l04bhee3YnJGuwjWPYDUw6xPXyJS3SRBSqG4V6suH3+ovD
+         ld293FIamD2CdgivfhfmZOd52DIF2cJ/v7uP+4zYkiHOc83qFopwzfEgg79kDZdHVHFi
+         P1Y+sct78IU+zQH+kyOhZLfiYTY4rZnMC8uwY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793306195; x=1793910995;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AuIb6GGgaOQAFc0N/8ej5YAVB0d0El1YMXuRgdGto0M=;
+        b=ZThV92YfibiAGhHD6umIkgt62lppnn6mx+VBk3dmSs2q4wvqfTWkByPN7TJqN3BfnF
+         qF+O1XJJu7qiK1/s6+2CULPF3I6qbzSXT/K5zFon9gpdgysnwRkRV/eM0gIMKxzD1brn
+         WXbYzg8DUT3pLXdMeyC6KYyUdzSqw09jwBnWsbihu8JSmfFSsU9WY6UCImcyD4+E/ERX
+         lJuhDQJN/nMfRvrVpT+ToN2F0wKDqUqy2984hOgx/Jky90V4xIM9cBCarksCSsJDPjpa
+         mVrI4r13pcoK61Yjyak7eGnwCE0tYWpF8qavLs661I3aBqb2J5V4KFh74cd9pbRJ8ERa
+         tnGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxayraJRg7utv6sBCPoJpjvUGASU3qb7CJG1aKriZUL7TzyQ8jXZiSoAFlTZRo0YiB9tU1QNco=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIc+NYkyMDNqBUOfWmQfs6Q31BYprxQ54tXQrc7Q/jo5wDLcQtK
+	ec8NcKc/xEDGWidn6MYICBz5BKSz6rOpPqoCI6/LWZYWZdNN4xEsbwmuI7fQe9HzHA==
+X-Gm-Gg: AYBFou2o6dNOlfbgE4XzcVMoY7fctZYv62/Fw3tAMi0S1JsTS8sgONyiWiSh9YKqjqO
+	o5+s2ZOeXS4bLrO8tBqMwSxc8gB61qlUTZFhhmCbYWrUx0C1RObODBhKyFHzWfx6w9fe5Smn0kv
+	Y8HJNDUp5PFXLmO1fsNE5UVVxSukq+eHhNeezINfHX8eV59XP01ojjPp5CENx5oAdIA7o3zWPp8
+	BC1LU/Mwq65EZ6AlZIOHRlVod0too8yIgTGFdMqsXBMGhGRdGEr9VjdMoO8jog8p05Oz6untH+v
+	Pi+Tf3zxcUl2wzkkGcCHHi/RW1bqzvjfYXDPmLpTQ6GuwFN7bvY6GFDBz3DM8y9XK/+IMOlzLgC
+	jcrxCgblTZE6hC3cnGCMp83LPC95OYn9bVlbRROvGYN6HEgw7/ZZo4fY9Q8+SnIgeoF0whFytsU
+	EhbxNWkPFwy+pf0CBraeNcKgl4aEHRT+BRczKM0T6itf0crOjbiipGrDscKMOZjMDCB04mz5F02
+	eAvlPyJmd1dxKJ8V9G50+IiqVPJjN8i5AhVT0ck8DoyKSOstddT1hIZTgP+n2AhSBzKGYbQErQb
+	dBuqJ5o93bynR4/FEvYqQbkzww5NiAcnQmGCBfuis7xX82u5m++I5lEKo7GaVhzOJK6hcpuvPNU
+	=
+X-Received: by 2002:a05:620a:46a8:b0:943:7e61:fd9f with SMTP id af79cd13be357-94413267f0amr567415385a.1.1793306194969;
+        Thu, 29 Oct 2026 13:36:34 -0700 (PDT)
+Received: from mbili.waya ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-944211e2b4asm34696885a.12.2026.10.29.13.36.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 13:36:34 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Simon Horman <horms@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v6] net/sched: clamp skb->queue_mapping before indexing the tx queue
+Date: Thu, 29 Oct 2026 16:36:31 -0400
+Message-Id: <QDISC-MD1X.v6.r0.20261029162633-1@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,168 +104,257 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-11-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4463; i=david@kernel.org;
- h=from:subject:message-id; bh=ziCtV5F1IAav4zC3aLs97NPTL1M7KSjISagzm3G8GUM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer231ehEbUXtgUrZPiXR+i9qhrnuRX7zX+C11mGzxY
- mHX826XjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACai8oiRoelaWFaAxWKDlINn
- 1p2TPMcSULDb4rmTwC6PhZ0821oesjP8Fd36sWvXfC9JTqmgSbwbUpYvrVbv+qZ465tMtvHWGwV
- hXAA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-copy_huge_pud() copies device-DAX entries without taking a folio reference
-or updating mapcounts and the child's RSS.
+This issue was caught by Sashiko (nipa). A producer-side path cap is
+already merged (ea4d4b5dddb5); this patch adds the matching consumer-side
+caps.
 
-For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
-forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
-huge PUDs are then copied without accounting for the new mappings.
-Unmapping them in the child decrements accounting that was never added.
+The issue:
+The tx queue is picked and capped in netdev_core_pick_tx() before the
+__dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside an
+egress qdisc (not clsact) can then change __sk_buff->queue_mapping; that
+store is never re-checked. bpf_convert_ctx_access() bounds it only by
+NO_QUEUE_MAPPING, not by the device's queue count.
 
-Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
-reference and add the child's PUD rmap and RSS accounting before installing
-the copied entry. Pass src and dst VMAs consistently instead of src and
-dst MM. Move the TODO.
+Two consumers read the stale value:
 
-Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
+  - On dequeue, qdisc_restart() calls netdev_get_tx_queue(), which
+    indexes dev->_tx[]. netdev_get_tx_queue() guards it with just a
+    DEBUG_NET_WARN_ON_ONCE, so sch_direct_xmit() takes the out-of-bounds
+    txq->_xmit_lock and writes txq->xmit_lock_owner past the end of the
+    allocation on non-lltx devices such as ifb. Drivers that index their
+    rings from skb_get_queue_mapping() (ex: ifb) go out of range the same
+    way.
+
+  - On enqueue, taprio_enqueue() indexes q->qdiscs[] with the same value;
+    the array is sized dev->num_tx_queues. A duplicating netem on a child
+    qdisc clones the skb and re-enqueues the clone at the taprio root
+    (qdisc_root_bh()) through a direct rootq->enqueue() call, so the value
+    reaches taprio_enqueue() before any dequeue cap runs.
+
+The Fix:
+Cap the mapping at the consumers and write the capped value back, so the
+qdisc's _tx[] lookup, the taprio q->qdiscs[] lookup and any later driver
+read stay in range.
+
+On the dequeue side the cap folds into the dequeue path instead of a
+separate walk over the returned list: dequeue_skb() caps the head, and
+each bulk helper caps the element it appends. For a qdisc that is not
+TCQ_F_ONETXQUEUE, netdev_cap_txqueue() logs a ratelimited notice and
+selects queue 0.
+
+A TCQ_F_ONETXQUEUE qdisc is bound to a single tx queue: dequeue_skb() uses
+q->dev_queue for the frozen check, the BQL limit and the trace point, while
+qdisc_restart() transmits on the skb's queue. Capping an out-of-range
+mapping to queue 0 would therefore send a per-queue child's skb through a
+different queue than the one it was dequeued for. On mq, mqprio, taprio and
+htb offload children, a stopped queue 0 could then park the list in
+q->gso_skb, and the later wake would schedule queue 0's own child instead
+of this qdisc. Pin a TCQ_F_ONETXQUEUE mapping to the qdisc's own queue to
+keep the documented invariant.
+
+The pin covers every mapping, not only an out-of-range one: an in-range
+mapping that a filter sets on one of those per-queue children is rewritten
+to the child's own queue, and this path does not call netdev_cap_txqueue(),
+so it logs no notice. On a single-queue device qdisc_create() sets
+TCQ_F_ONETXQUEUE, so the one-queue trigger described below also takes this
+branch and is corrected without a notice.
+
+That also keeps a bulk list on one queue by construction: every element of
+a TCQ_F_ONETXQUEUE qdisc, including a follower changed by a filter, is
+pinned to q->dev_queue before it is appended. The fast bulk helper
+therefore needs no head comparison and no skb_bad_txq requeue; the slow
+helper, used only by non-ONETXQUEUE qdiscs, still compares and requeues a
+mismatched follower, where a wake on any queue reschedules q.
+
+On the enqueue side taprio_enqueue() caps the mapping against
+real_num_tx_queues and writes it back before selecting q->qdiscs[queue], so
+a duplicating child cannot steer the clone out of the array.
+
+Conditions to recreate the bug:
+The dequeue path: load a SCHED_CLS or SCHED_ACT program that stores
+__sk_buff->queue_mapping (a tc BPF action is enough), attach it to a
+transmit qdisc (for example a matchall filter on a prio root), and send a
+packet. With a 1-queue device a store of 1 indexes one past dev->_tx[].
+Under KASAN with panic_on_warn=1 the unfixed kernel faults with "BUG:
+KASAN: slab-out-of-bounds in sch_direct_xmit". Loading the program needs
+CAP_BPF/CAP_SYS_ADMIN, so the trigger is root.
+
+The enqueue path: on a multi-queue device, install a software taprio root,
+graft a prio child with a duplicating netem on every class, and store an
+out-of-range queue_mapping from a matchall+bpf filter on the prio. The
+duplicate is re-enqueued at the taprio root and indexes q->qdiscs[] past
+dev->num_tx_queues; the unfixed kernel faults in taprio_enqueue_one().
+Same CAP_BPF/CAP_SYS_ADMIN requirement.
+
+Fixes: 74e31ca850c1 ("bpf: add skb->queue_mapping write access from tc clsact")
+Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
+Link: https://lore.kernel.org/netdev/179329777513.3134.12135506558709584471@kernel.org/
+Link: https://lore.kernel.org/netdev/179293123940.3134.1149128679923234677@kernel.org/
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v4.r0.20261021042722-1%40mojatatu.com
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v3.r0.20261015165943-1%40mojatatu.com
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
+Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
 Cc: stable@vger.kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- include/linux/huge_mm.h |  5 ++---
- mm/huge_memory.c        | 27 +++++++++++++++++++--------
- mm/memory.c             |  4 +---
- 3 files changed, 22 insertions(+), 14 deletions(-)
+v5 -> v6:
+- Describe the TCQ_F_ONETXQUEUE pin for stable readers: it rewrites every
+  mapping, including an in-range mapping set by a filter on a per-queue
+  child, and that path does not call netdev_cap_txqueue() and logs no
+  notice. Scope the ratelimited-notice sentence to the other qdiscs.
+  Reported by Sashiko (nipa).
 
-diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-index c745f7ad2298..fac05120ab77 100644
---- a/include/linux/huge_mm.h
-+++ b/include/linux/huge_mm.h
-@@ -12,9 +12,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		  pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
- 		  struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma);
- bool huge_pmd_set_accessed(struct vm_fault *vmf);
--int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
--		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
--		  struct vm_area_struct *vma);
-+int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-+		pud_t *dst_pud, pud_t *src_pud, unsigned long addr);
+v4 -> v5:
+- Fold in the enqueue-side consumer: taprio_enqueue() indexes q->qdiscs[]
+  with skb_get_queue_mapping(), and a duplicating netem re-enqueues the
+  clone at the taprio root before any dequeue cap can run. Cap the mapping
+  against real_num_tx_queues before the lookup. Reported by Sashiko (nipa).
+- Call out the TCQ_F_ONETXQUEUE steering change for stable users: an
+  in-range mapping set by a filter on a per-queue child is pinned to the
+  child's own queue, restoring the documented invariant. Reported by
+  Sashiko (nipa).
+
+v3 -> v4:
+- Cap a TCQ_F_ONETXQUEUE mapping to the qdisc's own tx queue instead of
+  queue 0, so a per-queue child of mq, mqprio, taprio or htb offload keeps
+  the documented invariant between q->dev_queue and the transmitted queue.
+  Reported by Sashiko (nipa).
+- With every element pinned to q->dev_queue, the fast bulk helper no longer
+  needs a head comparison or a skb_bad_txq requeue; a mismatched follower
+  there could otherwise be stranded behind a stopped queue that cannot
+  reschedule this qdisc. Reported by Sashiko (nipa).
+
+v2 -> v3:
+- Considered Comments from Simon Horman (hunk counts did not match the
+  diff content; patch did not apply):
+  https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
+
+v1 -> v2:
+- try_bulk_dequeue_skb(): the fast bulk helper (TCQ_F_ONETXQUEUE) capped
+  each follower but appended it without comparing it against the head, so
+  a mismatched follower was still sent under the head's txq lock. Compare
+  the capped follower with the head and requeue a mismatch to skb_bad_txq,
+  matching try_bulk_dequeue_skb_slow(). Reported by Sashiko (nipa).
+---
+ net/sched/sch_generic.c | 41 ++++++++++++++++++++++++++++++++++++-----
+ net/sched/sch_taprio.c  |  5 +++++
+ 2 files changed, 41 insertions(+), 5 deletions(-)
+
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index 6f6a6f0d5eb0..5dc1d47f811a 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -96,9 +96,34 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
  
- #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
- void huge_pud_set_accessed(struct vm_fault *vmf, pud_t orig_pud);
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 4c0194af9016..283c4bc8b927 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2072,11 +2072,13 @@ void touch_pud(struct vm_area_struct *vma, unsigned long addr,
- 		update_mmu_cache_pud(vma, addr, pud);
- }
+ #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
  
--int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
--		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
--		  struct vm_area_struct *vma)
-+int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-+		pud_t *dst_pud, pud_t *src_pud, unsigned long addr)
- {
-+	struct mm_struct *dst_mm = dst_vma->vm_mm;
-+	struct mm_struct *src_mm = src_vma->vm_mm;
- 	spinlock_t *dst_ptl, *src_ptl;
-+	struct page *page;
- 	pud_t pud;
- 	int ret;
- 
-@@ -2089,11 +2091,20 @@ int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	if (unlikely(!pud_trans_huge(pud)))
- 		goto out_unlock;
- 
--	/*
--	 * TODO: once we support anonymous pages, use
--	 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
--	 */
--	if (vma_is_cow_mapping(vma) && pud_write(pud)) {
-+	page = vm_normal_page_pud(src_vma, addr, pud);
-+	if (page) {
-+		struct folio *folio = page_folio(page);
++/* Re-cap a stale queue_mapping; an ONETXQUEUE qdisc pins q->dev_queue. */
++static u16 qdisc_cap_skb_tx_queue(struct Qdisc *q, struct sk_buff *skb)
++{
++	u16 queue = skb_get_queue_mapping(skb);
++	struct net_device *dev = qdisc_dev(q);
++	u16 capped;
 +
-+		folio_get(folio);
-+		/*
-+		 * TODO: once we support anonymous pages, use
-+		 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
-+		 */
-+		folio_add_file_rmap_pud(folio, page, dst_vma);
-+		add_mm_counter(dst_mm, mm_counter_file(folio), HPAGE_PUD_NR);
++	if (q->flags & TCQ_F_ONETXQUEUE)
++		capped = q->dev_queue - netdev_get_tx_queue(dev, 0);
++	else
++		capped = netdev_cap_txqueue(dev, queue);
++
++	if (unlikely(capped != queue))
++		skb_set_queue_mapping(skb, capped);
++
++	return capped;
++}
++
++static struct netdev_queue *skb_cap_tx_queue(struct Qdisc *q,
++					     struct sk_buff *skb)
++{
++	return netdev_get_tx_queue(qdisc_dev(q),
++				   qdisc_cap_skb_tx_queue(q, skb));
++}
++
+ static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+ {
+-	const struct netdev_queue *txq = q->dev_queue;
++	const struct netdev_queue *txq;
+ 	spinlock_t *lock = NULL;
+ 	struct sk_buff *skb;
+ 
+@@ -110,7 +135,8 @@ static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+ 	skb = skb_peek(&q->skb_bad_txq);
+ 	if (skb) {
+ 		/* check the reason of requeuing without tx lock first */
+-		txq = skb_get_tx_queue(txq->dev, skb);
++		/* re-cap: real_num_tx_queues may have shrunk */
++		txq = skb_cap_tx_queue(q, skb);
+ 		if (!netif_xmit_frozen_or_stopped(txq)) {
+ 			skb = __skb_dequeue(&q->skb_bad_txq);
+ 			if (qdisc_is_percpu_stats(q)) {
+@@ -216,6 +242,8 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
+ 		if (!nskb)
+ 			break;
+ 
++		/* Every element of an ONETXQUEUE qdisc is pinned to q->dev_queue. */
++		qdisc_cap_skb_tx_queue(q, nskb);
+ 		bytelimit -= nskb->len; /* covers GSO len */
+ 		skb->next = nskb;
+ 		skb = nskb;
+@@ -233,7 +261,6 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
+ 				      struct sk_buff *skb,
+ 				      int *packets)
+ {
+-	int mapping = skb_get_queue_mapping(skb);
+ 	struct sk_buff *nskb;
+ 	int cnt = 0;
+ 
+@@ -241,7 +268,9 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
+ 		nskb = q->dequeue(q);
+ 		if (!nskb)
+ 			break;
+-		if (unlikely(skb_get_queue_mapping(nskb) != mapping)) {
++		/* A tc BPF store may have changed the mapping; cap it. */
++		if (unlikely(qdisc_cap_skb_tx_queue(q, nskb) !=
++			     skb_get_queue_mapping(skb))) {
+ 			qdisc_enqueue_skb_bad_txq(q, nskb);
+ 			break;
+ 		}
+@@ -286,7 +315,7 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
+ 		if (xfrm_offload(skb))
+ 			*validate = true;
+ 		/* check the reason of requeuing without tx lock first */
+-		txq = skb_get_tx_queue(txq->dev, skb);
++		txq = skb_cap_tx_queue(q, skb);
+ 		if (!netif_xmit_frozen_or_stopped(txq)) {
+ 			skb = __skb_dequeue(&q->gso_skb);
+ 			if (qdisc_is_percpu_stats(q)) {
+@@ -322,6 +351,8 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
+ 	skb = q->dequeue(q);
+ 	if (skb) {
+ bulk:
++		/* cap the head; the bulk helpers cap every appended element */
++		qdisc_cap_skb_tx_queue(q, skb);
+ 		if (qdisc_may_bulk(q))
+ 			try_bulk_dequeue_skb(q, skb, txq, packets, budget);
+ 		else
+diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
+index 39ac5b97aa3a..0eb0803047a1 100644
+--- a/net/sched/sch_taprio.c
++++ b/net/sched/sch_taprio.c
+@@ -632,6 +632,11 @@ static int taprio_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 	int queue;
+ 
+ 	queue = skb_get_queue_mapping(skb);
++	if (unlikely(queue >= qdisc_dev(sch)->real_num_tx_queues)) {
++		/* A tc BPF program may have stored an out-of-range mapping. */
++		queue = netdev_cap_txqueue(qdisc_dev(sch), queue);
++		skb_set_queue_mapping(skb, queue);
 +	}
-+
-+	if (vma_is_cow_mapping(src_vma) && pud_write(pud)) {
- 		pudp_set_wrprotect(src_mm, addr, src_pud);
- 		pud = pud_wrprotect(pud);
- 	}
-diff --git a/mm/memory.c b/mm/memory.c
-index 0fb676dd2bd6..5392bcb1d24d 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1463,7 +1463,6 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
- 	       unsigned long end)
- {
- 	struct mm_struct *dst_mm = dst_vma->vm_mm;
--	struct mm_struct *src_mm = src_vma->vm_mm;
- 	pud_t *src_pud, *dst_pud;
- 	unsigned long next;
  
-@@ -1477,8 +1476,7 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
- 			int err;
- 
- 			VM_BUG_ON_VMA(next-addr != HPAGE_PUD_SIZE, src_vma);
--			err = copy_huge_pud(dst_mm, src_mm,
--					    dst_pud, src_pud, addr, src_vma);
-+			err = copy_huge_pud(dst_vma, src_vma, dst_pud, src_pud, addr);
- 			if (err == -ENOMEM)
- 				return -ENOMEM;
- 			if (!err)
-
+ 	child = q->qdiscs[queue];
+ 	if (unlikely(child == &noop_qdisc))
 -- 
 2.43.0
 
