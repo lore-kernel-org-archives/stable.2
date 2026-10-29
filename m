@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287091;
-	b=QQKbCwZdkmdMH8Kbu3D32rKs0MDvhl66pndNidZ+WwBoJZyZmnlGpnazk4v+m+YeTlwH
-	 m+jfxqSvqCD4ACS47GTkAwlwwpVDgkES1OJngcwXvDmmLpvSDNbpL23BnfMiR/+WydCYq
-	 CBveCKZR9mhD+pVLuhLFNS825b+h2qfGa2ylPKak9Yad+Vs1CU6/HdmyX8Bi+TUip/nXZ
-	 xZnFnl/E66rPpoY0zjA+NzxCPNcyZEL0vEGZ7Aw6iGnOZEhm/jsmGg1mG0KGH9r7dlPP8
-	 M74ER7/jB9hu7nOt3OSjIQcZPZ0HezvckOaX5DUO8wvll2f6fdMKgujVga79thwwdUw==
+	t=1793287202;
+	b=LFdo1IwxeCBcUj9O1GxQASC/L5DdVf64HM1ZLJzknenY8twGfZ80Ad9RA+6dg19k4GJf
+	 krlfwZSj3Gjg0rRYc/+Kc1ufdyvAp+QKafSPlNFwPZV0qajPjZ9C0ENfD8PFH95InyhrT
+	 zZ+znW8AFIu3FvMuSwtd7nUW+Y5mjSuUDIR7BpmuP5KUF840Tk2uO6Aofo+Kp5WjXGpjV
+	 /a0JSmkMoMeaZHPIhfzG6yoUd/F/AF1+BFjJ0gMN0dlYtXfswgqIZibhxesG9T2L88IEe
+	 Dpxu+FQi5g6X/tPvSFxW5CkRtm2s9hJTWwp8Gk7mPWB4v1y/YmnwI6xYkOZOB4p4usQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287202;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=XKclWe9kzl34mf7ikCBlpHKdvGAXpEly40KTRKr1ZNY=;
-	b=CgLETmmF1+eqG+IRduqAzdwh0KecJx2HEgz4P+skIyYhg63BwZ/4B1aBVuvm16nEhrMl
-	 zv+rU7PafjI8Ley6/HoC83UbkhM8F3Br/PgbEBdie6XpR3xG/qhXMAXWXB2IXLQkurgmQ
-	 IHmGSkk/FsnmHt0yK6qy9d0jgVuCvJzdmYEXEOswVUBCQ1kLvJWcB6d0DSoyTei7O1wr4
-	 jNNC2PWeyvZFaugyYG+GH10iakIIXKum/ialqWXArQFoMt8ie/aWZ6/kmj/geQCZr5fuZ
-	 NjB+VWeJOARjuXs0gazIlO/yXnyCDlehJ0WLbD1c6um3NoXYT4z3yjMvQjv6vZkW9tQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=x473ufmcJ5W3DLAFHIuNnT5Lpmdr63e0NBlGNs5sk3o=;
+	b=TlDsh5caxnK28Oe8hH7J33ypiPSK+7XolybiTszFWsMMKfUYY41tYNBg0bvA517pb/Sx
+	 kTVQxtNcP/okDPE5UDpC89MNA/3L4+G4bZjeGA3K7Of+3x2Nf/x9EY/xvHLoFYk3jBjag
+	 tbf9t14X3nTiv/F6ZvtJ2lONt2rP7KcZ0XEcE6WdQqZOJuOThoROQpsjP2UqjVF6lp/8W
+	 WywIabSZ6WkOCx7r8vq5Q/ipUMqlGP6vSR4Eb2TiWCekwL/Dj8LQMhXZGKhzcfJtgVAdc
+	 ZAfHoHZZPE4b+Dma3bL1GzEMY+P/HZSjzI0oXRPsTUbGORJv1V2jNVtIr59Ppx1NhoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lkHYRBLy;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=dMbfqC92;
+	arc=none smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E146606A31D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:18:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E146606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6E3606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:20:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B6E3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lkHYRBLy
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a215e64962so24339065e9.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:18:11 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=dMbfqC92
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-702fd86d674so1565212eaf.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:20:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793287090; x=1793891890; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XKclWe9kzl34mf7ikCBlpHKdvGAXpEly40KTRKr1ZNY=;
-        b=lkHYRBLy5VLy9lkQOcJ3o9qdIPz574Rme6P63ZH03Ucpos0khXntA7NZejBhJZX79p
-         tv+/DlEor90Vx6TmKdPFWRQavGmI+kWGcRMLu12S7rAWJrrVooTEi9wbmyeeaIrB8Ar5
-         K6WDEWHUor7AlFuZ2JFi7fCfTGjrochFSL7XZYTtz70J+DxtLHnNTrylhyH+PLbhShyI
-         2yUzyM903mFa9I1fRobJG0bJwYPxx0KNP0tslpoJlx3yINr08LeQuCrPBiLzej1j8twf
-         +iAraxXQ+RrJpZgI9tvry9uEGvyxTqDdfnAEoKAjYMsP/cFGH60OM6KdBUNSEs7lTYaL
-         h2Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287090; x=1793891890;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1793287199; x=1793891999; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XKclWe9kzl34mf7ikCBlpHKdvGAXpEly40KTRKr1ZNY=;
-        b=V0XHSGRp8aGchqkHXPWyzahmALfg7biXV2HghkwVyiV9YyHdbJuqQDPGZJUkT23Tx1
-         JJHu3uJL/rwgO2wExXC4WzHK/xcYjbDX0spzAKP+kNIFmUCUycFGRVFYIc1jO2m63L+D
-         Ossa8+vUPvo5wU2jZmrrXJa3YfwX86/Ii/V8SpEkuxXggceB7DgkZ6JuVkt5QqXsdYa0
-         Iy+V/yFRSikbyRtwaWHV8Py4sXZi8aCaxe0oXP8h+XkDHUmfY02LZTsggKtuAJLAcI1f
-         9yepXqysUbpxilCcy39kHCeUkz5gO388wj5D6QTXbJp+uA1KYEvFn7CInayebTh5m76I
-         lk3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzuuQkUrMtFWELLBTkBTiGgwnrqk9bxsU5S0ySr3zOqxa2R9rlwEAmgINRW9NxZK+Lr5ySxb24=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4U5wY/Ji392BFQJsjL5snoXHikhSE8QybFKHrLWoinNPqnFK8
-	XxmoWT7+p5I5L0ukoS6ZgdpORM5UOwsztaesXtNvcr5F7eUzmSWJuuXI
-X-Gm-Gg: AYBFou09IrPlXCbeKmy1rwRk8pOWfGXUKBsrHCz9X5cb/ilQW2kVxK2zCFeJTl2oyqS
-	3D0YOFixEvjngd9sdvufLpBtf5bsSHHjVGGV+sgqCPP8B2hk4ynq8w1Ywo+i6Mj6q6I+lX6tLUO
-	jihVaR9UyruFrEaC/CWvp7ZYiU8/ukBsOn4/G3NdfIWCxYMHtnHSzkFxkYCnJBmdDYEXrqpdxW5
-	w7I9wud27N2P+O+iIAqQYT0ZBti2ei1ezsp9nedTwqPZBe8hXtbJpb7RleQCxeTrEwHakmk13lu
-	BdMgfyocCxb1gCNid9VWDYOPkzZU2DRPb6KsY4m0zJ5y6hYmV99QGzHhrrnx20EnLpNTesL3AHo
-	TmvQHVpetx+ZQUm9rv9fiemKOTgJAkN4XieIBW/+2xEdbVye//xgLXO8E8lbWkP8Hsi6xc1Pyyc
-	F8sCCyswxRZk9zEdIvmjVrtOwZrbzNXB3EHM7AWNDltCzHbdYCsbyDV+OROEbT3PERR0e8O69m5
-	MJfybtJJrjoZHIyNPsOYH5g0s1PiG4OAoKUz/l9OxSTCVBmwQZ9MKD673YBfKJUlbUJz0Ua5HhC
-	ckAuRtUdTNgoGWoIQXCzcfPeWLo5UusSCN2xPvIZOWS/RYHIMxDEJfSH4xKcI0w+OrOG4j5xph3
-	2Eo0ncjWyXMO3qX/Dp5ADVzmScOpHNd1lGYB9nwwfJuaP2J4ZQKpt+2PsCMzincdtq6g=
-X-Received: by 2002:a05:600c:4f89:b0:4a1:c6fd:4db0 with SMTP id 5b1f17b1804b1-4a966c41836mr142852995e9.19.1793287089736;
-        Thu, 29 Oct 2026 08:18:09 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05e4e4sm87571055e9.3.2026.10.29.08.18.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:18:09 -0700 (PDT)
-Date: Thu, 29 Oct 2026 18:18:05 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>, akpm@linux-foundation.org,
-	david@kernel.org, ljs@kernel.org, damon@lists.linux.dev,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/damon/tests/sysfs-kunit: fix leaked pid reference
- in add_targets test
-Message-ID: <auNjrR4FyTf4WbgI@stanley.mountain>
-References: <20261029075609.35661-1-xiaoleiwangxiaolei@gmail.com>
- <20261029141040.148392-1-sj@kernel.org>
+        bh=x473ufmcJ5W3DLAFHIuNnT5Lpmdr63e0NBlGNs5sk3o=;
+        b=dMbfqC92YyXt2EJ6qqq0TeQI8ZcYJlvA+L4HQAfALpXt1DoG/dV4NajcMHZzAVNyNF
+         tHvT3fbft+VzXRNllk1ys4eBCzRkDEoQATRbvjimQuyLpmAM6nUR+OnPZ4gPTvGlOMGu
+         PrTiS8M1ccbzeZb/RmtdKVELL8JeIG1GVcmtY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793287199; x=1793891999;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x473ufmcJ5W3DLAFHIuNnT5Lpmdr63e0NBlGNs5sk3o=;
+        b=UieeCpBmarc2lndSzV3nrgf8L10GZnp8/lYdx2GgmR/uPaVEikG4ZLPzyy2/nrsI8K
+         tc/2R2a3WGPjlAqjg793kpTcIhsXD3E8SigPipSJzhaA7RfYK1wn3QLmoSqnUwkEwB/a
+         IuVJfOuAQUl2ch12FPIOi1n5BXnBoL6YVcdEEnbcVYqxHcx3CRPtAyAf6DriErtqcxKG
+         8Yd1HDLmRRGmw9eKuLaNAL1fEMxlzfvkvUP4nj1IQHriyJOPNAi0KhqTID71tj0C0U2T
+         sOLmRJwSB3mqPfAygw8T7ilsc9Vkc1Q1YRwxupecCrX3ig7CyxLPpmu94KFtOmVZjq6P
+         OInw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVCyeji4xTVNSiDm7HahXw9c1Tfht+JFptgWIBKYAnG5B2XeEsgxdGxWdzuMFN6BPtNt/32zw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfM+mNQWrmjmirsm3M1NjEKaWyNlfYLQhzTIfnhyzd0Z4cQFgc
+	LlwxzeW3HfcHtdZmRrTGR0g3CpUkdKOTusfz6/Bthz0pqtk2S8AdzdZ9O+G9yGqQhfo=
+X-Gm-Gg: AYBFou1CCMYiIzf0EQ8aetaRStm1G7oUATfDsasRt8caBe2igNyJErF3Dh2UtapVXuh
+	sB5sKaZcN29KLFaz6EjRKgVdUoqSyQqcyiZ9cH3oFEt7hnQygXCPbhimPkFQNba5mYyaM2WhTFC
+	j+pgmJCI8I1rRGX/25MO6IDxGXMw9SERplH97fqHsDtTMwUnzwrugZyA78zXan07F05Wdtk32CN
+	8EWLQgtze209ZFeV4ET6jycbmgH2JJ7yZnQQfmU1PSSrjzvgy3DZgctjyz1JLsQE8QhAIzNUfT6
+	osIIeardUczVJHNh3BZ3OJ7Mo+Tw/b/LnaEk477Qglq31D9ON43URVnHvJTX46vtbvfi8EOiEpZ
+	EXFRNO20cDRypE2JNN1mIWyt3gw6tpx7bBUxNjeN69fYkrjYDCHpQnhWHhhAn76C9OE4pZTQWug
+	nqtp4KjxVDFWjQjmFk9jSfRIjDnxOPKMrzWMlRNjWj6QTzolBkZ9P5iwlMJsCnmoksaTIO4uEOl
+	HsLBunxqn0elYCnzPUjHiUQTpw84LMPwIkPEPrx89dQrg9YyalURVKOP4DEbP70rBzWq5o4QOQ2
+	fIDItTW7TGMgIqTN4xT1MD8WbLE7bbWYlkJDWA==
+X-Received: by 2002:a05:6820:1c96:b0:6de:d2c1:e95d with SMTP id 006d021491bc7-713f01f0633mr3625060eaf.72.1793287199393;
+        Thu, 29 Oct 2026 08:19:59 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b793fe7csm4994076fac.15.2026.10.29.08.19.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 08:19:58 -0700 (PDT)
+Message-ID: <d6d7f806-c771-4b8b-aeb5-c3e1308780f8@linuxfoundation.org>
+Date: Thu, 29 Oct 2026 09:19:55 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,54 +89,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029141040.148392-1-sj@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261028165942.107695352@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 07:10:40AM -0700, SJ Park wrote:
-> Hello Xiaolei,
+On 10/28/26 10:59, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.14 release.
+> There are 88 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> On Thu, 29 Oct 2026 15:56:09 +0800 Xiaolei Wang <xiaoleiwangxiaolei@gmail.com> wrote:
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
 > 
-> > From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-> > 
-> > damon_sysfs_test_add_targets() creates its monitoring context with
-> > damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
-> > DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
-> > context, and damon_sysfs_add_targets() therefore calls
-> > damon_set_target_pid() for each target it adds.  That function grabs a
-> > reference to the target's struct pid via find_get_pid().
-> > 
-> > The test then tears the context down with damon_destroy_ctx(), which
-> > releases such a reference from ctx->ops.cleanup_target().  For the vaddr
-> > operations set that callback is damon_va_cleanup_target(), and it is the
-> > only place where the reference is put.  The test never selects an
-> > operations set, though, so cleanup_target is NULL and both references --
-> > one for each of the two damon_sysfs_add_targets() calls -- are leaked on
-> > every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
-> > enabled reports the leaked struct pid objects as unreferenced.
-> > 
-> > Fix this by selecting the vaddr operations set for the context before
-> > adding the targets, mirroring what the sysfs interface does.
-> > damon_select_ops() fails if the vaddr operations set is not registered,
-> > in which case the test cannot exercise the pid handling and skips
-> > itself.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
 > 
-> Makes sense.  Thank you for finding and fixing this.
+> thanks,
 > 
-> > 
-> > Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
+> greg k-h
 > 
-> The impact is leak.  I think we should add Cc: stable@.
 
-I wouldn't bother Cc stable for unit tests.  It's not something
-which affects production or real life at all.
+Compiled and booted on my test system. No dmesg regressions.
 
-I used to be a be more involved in testing and the rule was that you
-pulled the tests from the latest kernel and ran them against the stable
-kernels.  It feels like that can't make a lot of sense for unit testing
-so maybe for unit testing we didn't do that.  I can't remember...
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-regards,
-dan carpenter
-
+thanks,
+-- Shuah
