@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793240581;
-	b=YOOZ1LO0EdnvlC/i8FavxrfDdrKxbtfQuti2jztnLExtasRVwWXP93JZS+DwJAULqFMT
-	 zfHcBcwJ1W+qhX+AqRdLA9FSD98guYkvc4kOIdYAny02mBkXKnzq5k4WtJDsb6wvrfn1V
-	 sr9AzgJEziTXraLTHDHHyu+r/Gj4Ms63TnbaA94uygaclIOYjz+NVHLkbED/6L96dzogj
-	 Kk3Iai/+IfoxTbd2tMnRU7HVWiF/dk6yxG2D3cdaYZYPWb2Nk5W5CdpMRrqhdjM8Gjccw
-	 Ed6hoFMRLdus9sEclyiLQu+l11VGj3qmq8ChUXMUi8atmC9aMGbmZl+4HtYMgxzRaRg==
+	t=1793240582;
+	b=RJTIlNrvhgCBpBhTHKbOZ6XJcll+CKS7EmOy4AU5gABzJGJPGy3pjn6VlIqAicw0guyc
+	 ajjYSaV+/eJOxZUMHBlr8EPCml/jOehWRkYBFyx5En+cumG7/k7VCd/fVfzMvU8tuYL7h
+	 5A31IEWECTjy9ljjecwBcxcHTZNFFZDWhMZU4x6L4vZszWPzag9fx6hDrVwoHqdiWWmUm
+	 u4AMetrNzZdCXErUsOJ213OGnNapKbc437B9gx5pRFMdICGgJQD+a5gGVjdZiol0NBpK8
+	 1USLCTiW5XMyel6h1x+o6HCqiYxG5uPTYyMa7P5zsRTGNaF9wrq2UAPNxPZdknx1c+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240581;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240582;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iB/5vspO3sp8JRzyk7tb/1N/Hks7Oqawak5tEov9F3I=;
-	b=ztslT6w+xFCqsb6NyjxQx3pEI09csfy5lDHJxnAL78aBjHTql1q/z9VO4on43Pc+oyBm
-	 gjBKjn2NGV7no+fOfqsVEOXE5Sqs3khlF7dSxD43Vo3OdF24Ob3+Csj50W0Vx/vS2FEeC
-	 fIJkpjQ+v912lEaeZgJ5XHLYl/BaELuL7lItuKTDVUPrFnJRFo/KBRcfR5EtZ/h06aV+o
-	 UbsVOYpVJWDGXKXSDAd7S1xEAGyar12zLEyNiqcNBRlS7AtSetUPGbt3vmnboEf1nsGWh
-	 ONCErT9/E1/BN+nJnytlZuvXLDvCwxZULu9MSxQ+suvLPt8pCIwWbR5nvixQxOUFsCA==
+	bh=CB3KmtfAX1J8Xsyo0jCvf395wsYSppG6ixqV19DGLMg=;
+	b=K2THoVNEKvQj36Axk6bKSIzoNpuFHPg+idOz6A40XrQ3LlWvkMq1zRfVjhcMmhOjkJjb
+	 C9GDX4elX72Ji8IVHz+gyWSmyaO3AHVFQGUVERMspTTPtkTOi8YiHUXakDAXu5Nj7/3C8
+	 PhuIElYGtdRb/2BRFBZ6RoYjIbeXbEnC6nSgG2ICX2bdyl33N0MwpjvPzrnL2QseAJyCh
+	 CrU8mUyZ9vxvrAfU1Trzg0E7ue2Uv9a5fhKn5bsRQrxse5eRMSx4BVr0HkBLVfs+oKMsx
+	 fnFurVQuSxExOndaafHQeaklWSa2I73Jx8G2bgIAtn+mW5TEHk8kJ/Wkptc14/8f11Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A657IAng;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+CLy3XD;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD96606A334;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C451260A2600;
 	Thu, 29 Oct 2026 02:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A657IAng
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+CLy3XD
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793240581;
-	b=KUe4ScWmEfV2zfEvQUyYWds5jwR/KBI6urE0ZE/kkHahEKtqZLPzaWu1OX9I5JDSQuiJ
-	 Vypnt8l/W2E9zmajP9ZCpw7OS2p3HqdMCLpXolNjXJP6jEBsURZT3ypEj9gyzdtiwOqhh
-	 7G6uFEEv5QE/NELb03MVa0nV1twBgi3Vz/0FkfPmfahuTQvmEeSbUZpKjH04L7ijangTn
-	 VmPa/AFFmvIBt7UbXsX5VfM/7marJkgg8Dgsa/vCDZSkLLHOB7pl5D44hXywRCqIm75Qf
-	 J5q1hFXvfc8zCfsmdrF5Z+Zz9VoW8iEefMZDh8bO8zLcn2H4eFLvn8Rh3ZC6kJbhVcA==
+	b=cH4JavDVRdzwhX99nwQN3usQZ/ero3juDdJw48bdAA1tA8uXyJirGtKWASBNJwS2QElI
+	 +bignKvWbjcmPvahn4vsfQCYqRTbwRKKM/o8L/E9sEg5UECsb7czYdN/sJ9JGUYIEHLfL
+	 C9G2rFKcKFUnHaOH0M8vGXpcFosuX2LiwwrfbvmYbLCcKhLDvzLekHDVnrwOdXNuKWIek
+	 hVl03qOENvwNAaJzWuZiv7AxDEOH0+FSgFe1FfrAYysOTdhN6x/0488498qbMXvhjqJP2
+	 KUF5GLOppD8ueJLkMZ/Xcs4dYvfSKnaHO8GAe8mtlma604IyoY3LwjMG3DaKE7AXXIQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793240581;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iB/5vspO3sp8JRzyk7tb/1N/Hks7Oqawak5tEov9F3I=;
-	b=3t51+9q8i2ZwMIZrGmoxen97knggIB9sQ1mzPh88FFbApMLlr82OIbDOrM584+UU5xIH
-	 EDh5rEcPihAe1Qhd44l63pc86BJAHyZqcz7cTWxWdv/61548TTVEolypN0HJoySlvETA/
-	 Q6LdisXMm5XOdRlX4pXgOOmT3zgbPHrWfKlWnjpIPl+cys2SFd+WctpjquYpInotSnRHP
-	 B7Oc2FD5ScDU029YHxvzu2SSLzTFVXZgflDtupciaIBrvK8XiAn7hQ9wpXzxhLRMAOp67
-	 Wyhzhr3EvIkmYHTwXjqIO34oycQIm/Yg/Vx1EnmXreFEL6QQ0PnWw0V8drjX3GdgeMw==
+	bh=CB3KmtfAX1J8Xsyo0jCvf395wsYSppG6ixqV19DGLMg=;
+	b=b7DHPR3XJP3oedpIMcZJb5DSiIel+wwSh/XmTUepO1fQik3ugSUiYAEoKLygMJmwmUL+
+	 wayawliZ6IGw+73lMHrXQeSU7zxfm5e24VfNuzJXRu02s5XU1wu8uvIhEBxWMmXvz8VQk
+	 Mh8BoPNRnjVrQFe9q1aRpQDVNiQn9hAW8JK4n880tqc9C5137DMj/3ZzkH5sLnAnT/54/
+	 N9cdeoUj+Z2AI6y3VVohSHUb7WLrwERhMj9ogmEXXNylA5iujp1FWi519wuayFM5NK/gN
+	 53QOrXulszQvPqUHSHzXZg9wO362H/yKDYqv24eAm5etmmAybiJhHOjSyR747uaei2Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 86B1B1F031E0;
-	Thu, 29 Oct 2026 02:23:00 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5769A1F031E4;
+	Thu, 29 Oct 2026 02:22:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793240581;
-	bh=iB/5vspO3sp8JRzyk7tb/1N/Hks7Oqawak5tEov9F3I=;
+	bh=CB3KmtfAX1J8Xsyo0jCvf395wsYSppG6ixqV19DGLMg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=A657IAng0B+s8L/dY1cD+hzuFSTavToo/Jpc83l5PoC0vD6IsJ3KUcMTeM9gIALc4
-	 +DpNZLXdHhJW3K1bVpDLQNZSjNhbPJnSqzHwG6H3kpJDUAWJEX98oKjS3OxRBy/HpR
-	 J3FblUaOwM43nbOscbOgUEmC5zscQ1IC9rFJ3H769IZihUT9PFbEacUm2ob1pjJF5s
-	 KS/bk0tsvdIvt3yerRsGX2pjRp5lGbEhuOf+8G5/1RENBal5N4UyuAyugO6cX4Vkw+
-	 Dbe5D4qnX4422oJkcGUqCvVGmlIT2VsZwFeqzzBWIrihfPv1iFIUkPtcVD5yvcBEOA
-	 ODiG3rlAfGLqQ==
+	b=h+CLy3XDZRIY/GU/rlJC8fg5o6AsiEAXmXbNHWhiPnsv86X41jDubs9SkHFRkuYoC
+	 EaW7Y2Z4RTS/VJQDFId4CGYMvYjWqSBpHAtzQefH4xCfQtodi0xdOBIItAGbEYp/E6
+	 ff8KSQuL2XaBRDM5vrxqjC+4zdPwS0fplqUBy0B0Qo3SZ7KOT1cUR5Hfq9zI6BVwYw
+	 hKe9TjqxkPdkgGF0ZZTuZ56oqPBdzXd9pbKRp20Q7GqEujZOoyb0FBjS5u6HPF5TFQ
+	 LdbeMlngZFu+LETWvC5QerEYU8uJFCp5vwqQrrJmGmhkWFTXGRxRNoBNvjtDhdg1W8
+	 E9TgN90Yf34NA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EF92F4569A;
+	by lkml.kernel.org (Postfix) with ESMTP id D06B34568E;
 	Thu, 29 Oct 2026 02:22:58 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Thu, 29 Oct 2026 11:23:03 +0900
-Subject: [PATCH v5 6/9] xfs: clamp the pNFS layout range to the maximum
- file size
+Date: Thu, 29 Oct 2026 11:23:00 +0900
+Subject: [PATCH v5 3/9] xfs: refuse a pNFS LAYOUTCOMMIT of a range without
+ blocks
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-xfs-pnfs-batch-v5-6-ef8d2eafb7fa@samsung.com>
+Message-Id: <20261029-xfs-pnfs-batch-v5-3-ef8d2eafb7fa@samsung.com>
 References: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
 In-Reply-To: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
 To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
@@ -96,11 +96,11 @@ Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793240577; l=1638;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793240577; l=4550;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=h3kDaDnSxaNkNdPO5+D/zdTOiMO3KGReZaK/sxBg6HU=;
- b=uOl7x45gv53m81qbrJ0oDxFz+LsIxylNyceMlMW2fSZU24CH2e2/QD56YN0rj0bXAC6/XhULZ
- 4Aql/hKSOmpDc28/tm+s5lHCoek6y0M5hB7iP/S19PzBKm8hPQyWx2F
+ bh=q73bMSn/98VB2qO8zqoT8A6x6YaJckKSChsJxjXxqQ0=;
+ b=UhVAfIE9WPR18xBe8YRDG0saY/M9Ai2xia06MoOMVT2k9H9eYkatW87o9f89pUJYfzpDPNugZ
+ JTOBIRgXpViCIbJW/zkI69huVRh1xR7U268WjZhGczdMMdQJUljy7sq
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -111,48 +111,127 @@ Content-Transfer-Encoding: 7bit
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-xfs_fs_map_blocks() lets two bad layout ranges through. An offset of
-2^63 or more is negative and passes "offset > limit". A length above
-the limit, such as NFS4_UINT64_MAX, wraps "offset > limit - length"
-and stays unclamped. With NFS4_UINT64_MAX, a read layout is built from
-an uninitialized mapping.
+A client can commit a hole in a LAYOUTCOMMIT, because nfsd does not
+check the extents against its layouts. xfs_iomap_write_unwritten() then
+allocates written blocks there. A large hole overruns the block
+reservation and shuts XFS down. A small one exposes stale data.
 
-Reject a negative offset and one at the limit, and clamp the length.
-This needs "xfs: cap the block count of xfs_iomap_write_direct() at one
-extent".
+Refuse such a range with -EIO, using XFS_BMAPI_CONVERT_ONLY.
 
+Link: https://lore.kernel.org/r/20261014130834.GB15773@lst.de
 Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 ---
-Tested with pynfs: a READ LAYOUTGET for NFS4_UINT64_MAX bytes at
-offset 0 and one for 4 KiB at 2^63 got NFS4ERR_IO before, and get
-NFS4ERR_INVAL after. The first fails when nfsd asks again at 2^63,
-after the last extent.
+Tested with pynfs: committing a 64 KiB hole shut XFS down, and a 4 KiB
+hole got NFS4_OK and a new block. Both now get NFS4ERR_IO, no block.
 ---
- fs/xfs/xfs_pnfs.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ fs/xfs/xfs_file.c  |  2 +-
+ fs/xfs/xfs_ioend.c |  2 +-
+ fs/xfs/xfs_iomap.c | 20 +++++++++++++++++---
+ fs/xfs/xfs_iomap.h |  3 ++-
+ fs/xfs/xfs_pnfs.c  |  9 ++++++++-
+ 5 files changed, 29 insertions(+), 7 deletions(-)
 
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index 7d0c8a1975..720f4a9b40 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -666,7 +666,7 @@ xfs_dio_write_end_io(
+ 	 * they are converted.
+ 	 */
+ 	if (flags & IOMAP_DIO_UNWRITTEN) {
+-		error = xfs_iomap_write_unwritten(ip, offset, size, true);
++		error = xfs_iomap_write_unwritten(ip, offset, size, true, 0);
+ 		goto out;
+ 	}
+ 
+diff --git a/fs/xfs/xfs_ioend.c b/fs/xfs/xfs_ioend.c
+index 48becc3bf6..7f4a4a95af 100644
+--- a/fs/xfs/xfs_ioend.c
++++ b/fs/xfs/xfs_ioend.c
+@@ -237,7 +237,7 @@ xfs_end_ioend_write(
+ 	if (ioend->io_flags & IOMAP_IOEND_SHARED)
+ 		error = xfs_reflink_end_cow(ip, offset, size);
+ 	else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
+-		error = xfs_iomap_write_unwritten(ip, offset, size, false);
++		error = xfs_iomap_write_unwritten(ip, offset, size, false, 0);
+ 
+ 	if (!error &&
+ 	    !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index 329c745e31..99d48081c5 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -614,7 +614,8 @@ xfs_iomap_write_unwritten(
+ 	xfs_inode_t	*ip,
+ 	xfs_off_t	offset,
+ 	xfs_off_t	count,
+-	bool		update_isize)
++	bool		update_isize,
++	uint32_t	bmapi_flags)
+ {
+ 	xfs_mount_t	*mp = ip->i_mount;
+ 	xfs_fileoff_t	offset_fsb;
+@@ -676,8 +677,21 @@ xfs_iomap_write_unwritten(
+ 		 */
+ 		nimaps = 1;
+ 		error = xfs_bmapi_write(tp, ip, offset_fsb, count_fsb,
+-					XFS_BMAPI_CONVERT, resblks, &imap,
+-					&nimaps);
++					XFS_BMAPI_CONVERT | bmapi_flags,
++					resblks, &imap, &nimaps);
++		if (error == -ENOSR && (bmapi_flags & XFS_BMAPI_CONVERT_ONLY)) {
++			/*
++			 * Nothing was mapped: the rest of the range starts
++			 * with a hole or a delalloc extent. Nothing was
++			 * changed either, but xfs_iext_count_extend() may
++			 * have logged the inode, and cancelling a dirty
++			 * transaction shuts the filesystem down. Commit it,
++			 * as xfs_alloc_file_space() does on -ENOSR.
++			 */
++			error = xfs_trans_commit(tp);
++			xfs_iunlock(ip, XFS_ILOCK_EXCL);
++			return error ? error : -EIO;
++		}
+ 		if (error)
+ 			goto error_on_bmapi_transaction;
+ 
+diff --git a/fs/xfs/xfs_iomap.h b/fs/xfs/xfs_iomap.h
+index f2520a9b3a..8fc0c6fc8b 100644
+--- a/fs/xfs/xfs_iomap.h
++++ b/fs/xfs/xfs_iomap.h
+@@ -15,7 +15,8 @@ struct xfs_zone_alloc_ctx;
+ int xfs_iomap_write_direct(struct xfs_inode *ip, xfs_fileoff_t offset_fsb,
+ 		xfs_fileoff_t count_fsb, unsigned int flags,
+ 		struct xfs_bmbt_irec *imap, u64 *sequence);
+-int xfs_iomap_write_unwritten(struct xfs_inode *, xfs_off_t, xfs_off_t, bool);
++int xfs_iomap_write_unwritten(struct xfs_inode *ip, xfs_off_t offset,
++		xfs_off_t count, bool update_isize, uint32_t bmapi_flags);
+ xfs_fileoff_t xfs_iomap_eof_align_last_fsb(struct xfs_inode *ip,
+ 		xfs_fileoff_t end_fsb);
+ 
 diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index 19eb18e129..7153e7a1e1 100644
+index a9f0b472f3..7ff83274a5 100644
 --- a/fs/xfs/xfs_pnfs.c
 +++ b/fs/xfs/xfs_pnfs.c
-@@ -176,10 +176,9 @@ xfs_fs_map_blocks(
- 	if (!write)
- 		limit = max(limit, round_up(i_size_read(inode),
- 				     inode->i_sb->s_blocksize));
--	if (offset > limit)
-+	if (offset < 0 || offset >= limit)
- 		goto out_unlock;
--	if (offset > limit - length)
--		length = limit - offset;
-+	length = min_t(u64, length, limit - offset);
+@@ -344,7 +344,14 @@ xfs_fs_commit_blocks(
+ 					(end - 1) >> PAGE_SHIFT);
+ 		WARN_ON_ONCE(error);
  
- 	error = filemap_write_and_wait(inode->i_mapping);
- 	if (error)
+-		error = xfs_iomap_write_unwritten(ip, start, length, false);
++		/*
++		 * A client may only write to blocks that a layout handed out,
++		 * and xfs_fs_map_blocks() allocates blocks for any hole in a
++		 * write layout, so refuse to allocate blocks for a hole or a
++		 * delalloc extent in the committed range.
++		 */
++		error = xfs_iomap_write_unwritten(ip, start, length, false,
++				XFS_BMAPI_CONVERT_ONLY);
+ 		if (error)
+ 			goto out_drop_iolock;
+ 	}
 
 -- 
 2.43.0
