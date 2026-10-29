@@ -1,59 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281729;
-	b=jY2v9ZJfbrVLWS2f8lb9F/QBzSyqIQ/2f6vFl1AqJ/Ho/PQ49Ki4hgKre2XLqZkVmIsU
-	 JxFGtOvwZea9bzEqmUZ1NtaCzYAd+wylgMg3EOF6x/ftaLYRJjK8UkDuiBVi1HH473S1I
-	 RpX8d0BNs+Kv8whuUMV52iejTSubbYS/OEQ33ApUM97mg84QIGZjS6h9Ty1T8zobleryt
-	 dy7AXGtZILpnxi7A4V5mjEoYx870cMXcl4cH28ocSh6jUD/EAhtj8IrMEIEO5NtXlJXnB
-	 PSn1kvK14Zm59El7XAI/BFrc5CTcv/hq7m0+DCsJyXfi9h5bjS/cLumMYLsK55jQ1bw==
+	t=1793281798;
+	b=paBsyc5jRCRlgkXeMv6IK0JZgg1DSZksk9vl9Mke5vLNeTeZl/WRHiLrSD21ZlSpg5Kl
+	 npJsMAlGoCV7RhiJSM25j8lxoG+tW2X+pJBdeAxTduxT4avaXPIyAuQB/J5ICHOltfTUY
+	 FZxBxFWpVo0RHQNdwFqSmVw5G2jvNtppKygNEg2J5gXHsQ78LEvqZ3FxgmnF0kt5LO7W6
+	 nikJTjp7qMFfPIjplvY84uMbAqYkpaX3bOKa+Dsm4DmlBo8hlsEwLDN6p8xuBjOQjb6C8
+	 HsrPmCse0C7Cf+NIrF9m5Nj5D3jZaEP+rR8ZBUd8BhBn474IROZxFu+b7UM1fvdTdVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281729;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=N6vcUb6SJzRTcfauxbDiejxYjIsBkLgqIhSS3kXkYQo=;
-	b=EjOg2V+ZPrsDHNvogeGLRDoRgEbgbSq9JA5KgohiY1T38KWO+RdtbKaJC4BGg3qgKgGY
-	 pntuEfGXwqoZ40kglBhIjeNreYVkv0NZWqC7LqZ6fSpML+C2WzoWt1uN6Qwc6XqY2qJS4
-	 Hao2eZGbMSDnRLgQ6QTl+D+/I6qVCQfnPp0H2QhiBmR3jZkuSQDneYb675Qn1e0Xtg058
-	 Ml+2Rjq3Xl4g3TembteDT1QyJZ2ipHQeUKzg02hWuL39erPpN5O7ezEwtufw+JQlUMKhB
-	 qzvhj4KNE13rXcrquP/SdOPb+ieEqEIlgIBYAot+9qmuN8mPrUSSHPFuoSMoikEqCdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281798;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8BRCU/3014dl6w8JH2vJu0UFBqarJhZ9vlp53baQPS8=;
+	b=keKwPMeH6ME+aTx4AAkhMkdEJpQo6X2NmRQbU06F1NgOuDX1K9jVnmVuXrK0O7Wn8IiE
+	 tJ6h3VT83YXSjUXavmpmohkP9o65Y5rWBRx42tVKrVgtnVHyoRmavgEC6T/KRMDNCV2Da
+	 APIWfj9vvCbByNf312ih6BR8olKwRxirRXZYDaa0XhKNQ4tgdtcz+OZMd81s28z6YOBKT
+	 gFBIj9AK66MQEwaYjxIIiPwYjXA3iR+v1OpK6u9Wz4rIzuwBxfM6V8pnJQ1PRNBopdPOn
+	 7xQojO7nGYzb6RtU26HOzidsuAWxNbs2yTb2LyAS8alcPiTWFci19ZsDIplTSblKRjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=h0khfuiX;
-	arc=none smtp.remote-ip=216.40.44.16
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4tgxKFX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F73F60A5BD5;
-	Thu, 29 Oct 2026 13:48:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F73F60A5BD5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6569606A31E;
+	Thu, 29 Oct 2026 13:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=h0khfuiX
-Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 63C87C03D9;
-	Thu, 29 Oct 2026 13:48:46 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id 33E4920026;
-	Thu, 29 Oct 2026 13:48:44 +0000 (UTC)
-Date: Thu, 29 Oct 2026 09:48:42 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Anvik Loitongbam <permissiontogallop@gmail.com>, Pavel Begunkov
- <asml.silence@gmail.com>, Olivier Langlois <olivier@trillion01.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/napi: fix list use-after-free on PREEMPT_RT
-Message-ID: <20261029094842.58dc252d@gandalf.local.home>
-In-Reply-To: <502f31ed-dd70-469c-b433-577ccee36c3f@kernel.dk>
-References: <20261029102244.141621-1-permissiontogallop@gmail.com>
-	<502f31ed-dd70-469c-b433-577ccee36c3f@kernel.dk>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4tgxKFX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435DD1F01829;
+	Thu, 29 Oct 2026 13:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793281797;
+	bh=8BRCU/3014dl6w8JH2vJu0UFBqarJhZ9vlp53baQPS8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N4tgxKFXlkC757ihmsVrWJYvsXO3q6E63bqrSZ/+Pgxz3ndHZ1qGBjQPuJ4WUjKdY
+	 n4mXJQQIkazPndLVo0Wqgn+c6BtvGJ/XrTpNix2B1HnX04yFGIoIr3uhP2za5wYe3G
+	 7VaqUwP1stJLe7CSSMGg1aG0MzgG7A+Vd6GxT0MQst1qQturcyrIoc0k+1pwr+fYCI
+	 Iuxw2CZDvWt5tePWVefg2tED79uNoRi3Gj+Fa3cVo65BzlrEEdsYuBVD3XEO+G1KaS
+	 f7t1dVpTuBoSHYViVW1EbBLi9NszbAYCILMXay3eZCgM4og9x/l5feFUD2NwnO0h7E
+	 yfJXy3pjawVNg==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
+Date: Thu, 29 Oct 2026 14:49:47 +0100
+Message-ID: <20261029134947.26915-1-ojeda@kernel.org>
+In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
+References: <20261028165942.107695352@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,33 +75,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: 33E4920026
-X-Stat-Signature: i4wa8zmaz8efohxc8xwyt1ps7bp73wox
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/n6TvaN0U32J07q2RORdP1mOlBY1nJQIo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=N6vcUb6SJzRTcfauxbDiejxYjIsBkLgqIhSS3kXkYQo=; b=h0khfuiXO5ayJH1jQjBMv+Rg+qX+wvggPKXB+6xczdNfQjHWuHTBILhsb+UvURDzkAkrBUUbjFAFhUDnSBfxqTahJXde13xQs4PWZ9E0ag1OKJWgdhn2Z/yKUS8NTe6mgKPk33GosRzE9472jsdqmQHidvlidDlpSOIRXY+ptxE=
-X-HE-Tag: 1793281724-722511
-X-HE-Meta: U2FsdGVkX1/tbr3Ieis1YJltcvmKNmAuEETMJT2+weDKtNQ4wcmVF9jqePB91f/lRSAVykrGmGhbdm3Upc63qLsEs5JHxaiDBNLkf9FC8VTE0VnmKVI4MIJAY0gMGclIHfMc8Dy27XYrEnOtpS370FkTJWM54Degv8zL0XLCH5mS9wU7C1cX2JfM2Tm6Ck6c7gD5EdRYtOv8O1jXuhMIU87C2ULW56pGQqM+OjbZyRq2wmdCQQuQZDwnwOtGIiBLJkMeIM3/eZKDptlFoatoqiuFq8hKtdcONcUz4ynfTZMitOrcZ3peIHvDpBaQ2LUw
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026 07:42:09 -0600
-Jens Axboe <axboe@kernel.dk> wrote:
-
-> I don't think your analysis is fully correct. On PREEMPT_RT, spin_lock()
-> should still be an RCU read side critical section. __rt_spin_lock()
-> calls rcu_read_lock() after taking the rtmutex, and then
-> rt_spin_unlock() drops it at the end. There's even a comment on
-> kfree_rcu() callbacks in there too, it should not be able to run until
-> napi_lock is released, which is post the loop.
-
-Good point.
-
+On Wed, 28 Oct 2026 17:59:08 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.14 release.
+> There are 88 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> IOW, I think this patch is unnecessary - there's no bug there. The list
-> safe change could be done as a cleanup, but it's not a fix.
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
 
-I agree, it should still be applied, but as a clean up and not a fix.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
--- Steve
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
+
+Thanks!
+
+Cheers,
+Miguel
