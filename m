@@ -1,49 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306119;
-	b=Z7dyLwzZRtmPrLIe5p/nyFTOisIWwUP+kMVag4/7Ug23SSnUtk/M1amZpXl++c2RPvYx
-	 JJvFtDyFcTrGM2YvnhO3JvxQRo5ocnh72iW6Ze7zr7O4vCwmyu1CYnySH5P0ikN8Tegb8
-	 L9aWeWWbZyZckOAI88eh7kFovuNyGIHlPDBk4PKcca+1zYXAmQAiKMfP9n9Xgxo/wzkmV
-	 wt2xdZh2td4tOtF7TGecTQPDPZHwwKChiAykmiwBJN3ECRbiBSf7j4WHu3yKcDqMHae8r
-	 7zXCNUOLy88bF6U1oWCWJf1tFoPhJlLjxAoRtR7Y9fLf0Ql8Tk7GC9UFaD+80wLCGdw==
+	t=1793306130;
+	b=3FvMOWs1lRFzHIE7OfIutG8R7kvpVw/thX4CLcOmWFjaoEz+07Nps0zMOhiNW+xVBt79
+	 p0vVx3ZzUjyMsbQOd0KNZXrBYk2FmKgb2+v57P0MNKfEmGzIIDrwqGvxMz8K+JXi6oOpx
+	 mNYUzvS3oUpQ5g4LcH3nLNGKLgg2pKf4HpgALW7QQg4TgSPkKrqDKQXEf5Xbz9eQ5xhFP
+	 tOFe42QKSd1AQ+Y8WV7LLe6F6zmOuJveyIknaXSp7F1tqX1NnJk4ppSxIOvnX3QmsNg1U
+	 HwFxd7bPdFLS+fMahn3GmcBtQXJWwcKdLNUGL61Z8+K5yFq79bDzvqAqIfzjlBrSYYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306119;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=kFAjWqVlFrIH7aRNsfEXW0cTwDAw9D8sfuZWY6alCX0=;
-	b=YIsgluetqXDw+nU3n3fA4dcpLIoE1O14ffelW+qYWjZL1oIJ8A+RCDyt2Gnt5gWO1D+T
-	 KFShtjYQPYs5wrJs3cOWcnxNmfXUY5n5jm0XVRta+kzq5TkY8ZumDMN4Jtx/BEbYYlclG
-	 48+mqPawA5vk8h2dlNvbJTKYXMVc/KqhlMcZvVv09kjaC7cpkxuIwjQacSbomDUIOLSn2
-	 5vqjCHZYbd4RO4kYo2I+wcfhzEZo6bq+Gpr//v9wt/LbGsbTbhGP2/ngnvXFOWar5V2QM
-	 b2v4zM48qQEg9K69o379gMERl3kL0IRUaxfvwT3/WSqFeritTQ8IZxXrIVYN0J84irw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306130;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QcJgrIbiHATKK/40hSI/RITxVRqGHCvmwYIWBjFMRA4=;
+	b=IB/R6vBxJWW2BDpSGizPGeeXrML+2Ck60d2zONve0+9mwSKN2GOCLJ24311qHGTNslo5
+	 +WCLKgET2aUNQI1QZsUDtt0kXFnO9DP06jsJKfX38ruNAabAK6lJohgPqSMFZF4O5hXDt
+	 eEGCg4i66Izg7UOwxOEFvCtxhICLsXLtnNfN4lX9KykJFNZ/mvSMqFG6wPQt5pinridaO
+	 GXEpSg1OoIxEgkpc/p4VKBzpjcygXXLNGVQuWsvY4RmcWk7MhuUy/j7fIPmqQkRy8FOJl
+	 rNeRZjhEAVvmQ7MamadH95ncciKr+z20sp9k76/ZKLHl0KYoklP9adLEz+dD0hY2oxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XzOcSZ0/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zfElnprs;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41783606A31C;
-	Thu, 29 Oct 2026 20:35:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB44960A2617
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 20:35:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB44960A2617
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzOcSZ0/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A761F01828;
-	Thu, 29 Oct 2026 20:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306113;
-	bh=kFAjWqVlFrIH7aRNsfEXW0cTwDAw9D8sfuZWY6alCX0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XzOcSZ0/8EjfLSpO8K/HcuZSOJbmmXQkIY53mzRn59GBRxsAtfiTFEDVrcM1yLKl3
-	 oBTrNqK7TdiI9gM7WJtE7zLxyjhZPpzV0WsUkCfYL/Zq7ZgrFgNEGdSxyxupO/nLIR
-	 Fs81prGpuyNkh4h18yqjW9N0cMlbxwMV3ALHT/84WBDoVJ05WlcrWo0o5AIcoX8Ql7
-	 0AhvnXbjkE3P/WuPhUNmmNp4c7S4pWbHzyrQPQDz0y4hQDrEGq2WCt9sVPsDVsy6e6
-	 zuX6cUOkjI5zZKKMpRFrRsGcZ9emk6B2GcItEG2PBmoGgzccnuLwaPMBL3pmdnj64+
-	 bnSOphJYGh87A==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:02 +0100
-Subject: [PATCH v2 07/47] mm/filemap: don't lose a folio lock wakeup to a
- signal
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zfElnprs
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so37015eec.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 13:35:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793306129; x=1793910929; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QcJgrIbiHATKK/40hSI/RITxVRqGHCvmwYIWBjFMRA4=;
+        b=zfElnprs3bd8FJhhaiq9y++DLA1RQ7UXviuuuoo6gneNaTe5X1ECba6IhjI91/y9fr
+         SI5F/bLYM6xs/u+ranyBHtEL/Y02GuyqZ1NDX5DnozaJmIKv8u0OBMtjIKq4sRLkfYqf
+         12iei9PUsCF9KpCjXoM1ATY94bdG5xBns6Zi4673UvqnJBCPZQUnkKRbQaVcecqQSPM3
+         WkDN3m8FI2Wn8+LwOdMhpeUup8rnMzTMBAe0+27yRNKgQV13RS0bSmPW1MZCFKmbSz3f
+         nNNHBiy9eus2WfiQrWNdeyu9Vy6IyRrhr79ZAGLxtD/3MtAdd5oI+YQCkPajibZNocIz
+         EwNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793306129; x=1793910929;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QcJgrIbiHATKK/40hSI/RITxVRqGHCvmwYIWBjFMRA4=;
+        b=DSqhBYOrLyN+YaEy7Dp0x7ANBLMFZ03RInADrqaZ3+MEyx0NSjz7H+2t+yMFjnb/Cp
+         R/cRIvAg+oNgS/TW2vMEFuOwjDOLgeIwydU+Pqd4xPLjJhAbrt0+cUrAV+g4D4jcPNma
+         WWA7ROvKa6fybWT0CJvi4gpEjniME6dIpruV0w+jP8NpFNjwUpoKQT+MPCq/pEqNUvQz
+         LLPlgh5ceQXc7dfrAmBpKpIOkpVOBAF7SftSnkEZ4IyRah2lWUA6wrnqBsJGUQaXgr4U
+         v2DSL/fHDGFj+Q3pnKG4TyRhHMAde8ntqGVEzzLQv5/6kXzTT6xgVtizXAVvLz0AB3XP
+         kzrA==
+X-Forwarded-Encrypted: i=1; AKwUvBytkzAQnyIMYaqlTeMWPe/0PWD9fMXUm4eabkVoYCFaaIFUistCsnrHi5f8N5UMMxgJaR1bvRE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIllrSal2QigihW+RX4/nw1RvMXRUpNWb1UFGUSlaYzYq61vwmN
+	Bg6MRAGRQ0xAzMdK2+hKJcU96yntaGgd37V8LqE3K84/QJH92itUSrld
+X-Gm-Gg: AYBFou2R4lEo6T0bHVyApNsSM0CWE6jbHJ6gHjq5es37+U4mJvD73b9lJ+Lcy98DArE
+	sSb0tY4+V26jk2Ayntemd80AcrqkvzNjdffjeZUPJuojyimul4dr8wbiKsUc1rfsJnZdwR25Uga
+	uxyUNHOBLBzevS9UNGgD1geXxgzuLDEtTnIPLuCvXSmruIFiYCFNvPnXH1vYBFiqDnHDpuOfpxu
+	KLi53YrPmVkSBqsYUoPS+AJmeIv+ZJG8dNH93wu1Bfmx2WQIL/th9rjAVGl3um6ezJMH0eByyzH
+	rMJoolk2jlMHtN4GV0x2hYhf2edexzGd/5HZAm/Xgp1m3r+s9lh5NFqezl3vgJUd8parZ/xchBu
+	9iDQJrsTFAsmxSw6YIDaPB/rhOhcmfwPEnx/3hpbYuLuoQ0WauimGUNnspqP5AvpDV4PvGtaDX0
+	7Z2POh2XXnEPJRsN02d5Rgjc89rb0HWNcZdsT3MMGosYKflyad1LUNR9PaTLXJl2LoPSX9hEYDF
+	38hGlC0X+FXPDWPtp7MxQQM12GelPXdzjQCE/2hKp3+/hyiUB6tZ2uDrue9mIsRgHk+IkoR0u+2
+	1upwA6zOApgWFyd2EcFjBR1MZlht8xrSBds53q+CWZxFpyXyqSo4JUat7ZgHCkijlOk3qsjMM6d
+	DRA==
+X-Received: by 2002:a05:693c:41c9:20b0:36a:15ee:c20e with SMTP id 5a478bee46e88-36a42430362mr654438eec.33.1793306128640;
+        Thu, 29 Oct 2026 13:35:28 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm982137eec.18.2026.10.29.13.35.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 13:35:28 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] fs/ntfs3: preserve colons in symlink targets
+Date: Thu, 29 Oct 2026 20:34:57 +0000
+Message-ID: <20261029203457.59990-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,118 +98,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-7-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2263; i=david@kernel.org;
- h=from:subject:message-id; bh=7u0AsrX18I9QfeKreay7tXsWSgpaxn4U+CWR4qcEsEM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer2291MuXbnXaLNMw/uX1tOZXcYnK+9aeVL/nlaF4h
- qdaO96jo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIkcF2P4X16RdGbNIbGQ9tV/
- VrRe9lk932Zp6z6/K2/elLFvtlF9HcjIcMTwqNbp+EmRTVN1f3YYHTcs7L35TMld5fmhDd/PyCm
- e4gcA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+ntfs_nls_to_utf16() parses colon-delimited ADS names when the ads mount
+option is enabled. ntfs_create_reparse_buffer() also uses it to convert
+the complete symlink target, so "ln -s foo:bar link" succeeds but stores
+"foo" as the target. Following a link to a named data stream can then
+access the unnamed stream instead.
 
-An exclusive waiter in folio_wait_bit_common() can leave the wait loop
-because of a fatal signal, then be woken by folio_unlock() before
-finish_wait(). If the waker did not hand over the lock, the waiter returns
--EINTR without trying to acquire it.
+Add a parse_ads argument and disable parsing when converting symlink
+targets. Keep parsing enabled for the other callers to preserve their
+existing behavior.
 
-folio_wake_bit() stops after waking the first exclusive waiter, so this
-loses the wakeup and can leave other waiters asleep indefinitely on an
-unlocked folio.
-
-After finish_wait(), let a waiter woken without a lock handoff try once
-more to acquire the lock. If successful, return success so the caller's
-eventual unlock wakes the next waiter. Otherwise, the current lock owner
-will do so.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
+Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: clarify and simplify comment + description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- mm/filemap.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ fs/ntfs3/dir.c     |  5 +++--
+ fs/ntfs3/fsntfs.c  |  2 +-
+ fs/ntfs3/inode.c   |  2 +-
+ fs/ntfs3/namei.c   | 10 +++++-----
+ fs/ntfs3/ntfs_fs.h |  2 +-
+ 5 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 906b013c11eb..6b5e1d866a9e 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -1373,10 +1373,22 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
- 	 * return value based on that state without races.
- 	 *
- 	 * Also note that WQ_FLAG_WOKEN is sufficient for a non-exclusive
--	 * waiter, but an exclusive one requires WQ_FLAG_DONE.
-+	 * waiter, but an exclusive one must also acquire the bit.
- 	 */
--	if (behavior == EXCLUSIVE)
--		return wait->flags & WQ_FLAG_DONE ? 0 : -EINTR;
-+	if (behavior == EXCLUSIVE) {
-+		if (wait->flags & WQ_FLAG_DONE)
-+			return 0;
-+		/*
-+		 * We might have just been woken up and the waker will not
-+		 * wake up anybody else. If we ignore that now, the remaining
-+		 * waiters may not get woken up: take the bit now if it is
-+		 * still free.
-+		 */
-+		if ((wait->flags & WQ_FLAG_WOKEN) &&
-+		    !test_and_set_bit(bit_nr, folio_flags(folio, 0)))
-+			return 0;
-+		return -EINTR;
-+	}
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index 14ca54e54578..be3c6a7fc57a 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -173,6 +173,7 @@ static int _utf8s_to_utf16s(const u8 *s, int inlen, enum utf16_endian endian,
+  * @uni:	Destination memory.
+  * @max_ulen:	Destination memory.
+  * @endian:	Endian of target UTF-16 string.
++ * @parse_ads:	Whether to parse an ADS delimiter.
+  *
+  * This function is called:
+  * - to create NTFS name
+@@ -182,7 +183,7 @@ static int _utf8s_to_utf16s(const u8 *s, int inlen, enum utf16_endian endian,
+  */
+ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
+ 		      struct cpu_str *uni, u32 max_ulen,
+-		      enum utf16_endian endian)
++		      enum utf16_endian endian, bool parse_ads)
+ {
+ 	int ret, slen, i;
+ 	const u8 *end;
+@@ -239,7 +240,7 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
  
- 	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
- }
-
+ 	uni->len = ret;
+ 	uni->ads_len = 0;
+-	if (ret > 0 && ads) {
++	if (ret > 0 && ads && parse_ads) {
+ 		uname = uni->name;
+ 		/* Find delimiter in range [1 : ret-2). */
+ 		for (i = 1; i + 1 < ret; i++) {
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index 97c04ab2763a..b06de8566a72 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -2668,7 +2668,7 @@ int ntfs_set_label(struct ntfs_sb_info *sbi, u8 *label, int len)
+ 		return -ENOMEM;
+ 
+ 	err = ntfs_nls_to_utf16(sbi, label, len, uni, (PATH_MAX - 2) / 2,
+-				UTF16_LITTLE_ENDIAN);
++				UTF16_LITTLE_ENDIAN, true);
+ 	if (err < 0)
+ 		goto out;
+ 
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 5a8d362155ac..d883c4b47e83 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1315,7 +1315,7 @@ ntfs_create_reparse_buffer(struct ntfs_sb_info *sbi, const char *symname,
+ 	/* Convert link name to UTF-16. */
+ 	err = ntfs_nls_to_utf16(sbi, symname, size,
+ 				(struct cpu_str *)(rp_name - 1), 2 * size,
+-				UTF16_LITTLE_ENDIAN);
++				UTF16_LITTLE_ENDIAN, false);
+ 	if (err < 0)
+ 		goto out;
+ 
+diff --git a/fs/ntfs3/namei.c b/fs/ntfs3/namei.c
+index ae88cb66fb7e..ab9da0faa104 100644
+--- a/fs/ntfs3/namei.c
++++ b/fs/ntfs3/namei.c
+@@ -45,7 +45,7 @@ int fill_name_de(struct ntfs_sb_info *sbi, void *buf, const struct qstr *name,
+ 		/* Convert input string to unicode. */
+ 		err = ntfs_nls_to_utf16(sbi, name->name, name->len,
+ 					(struct cpu_str *)&fname->name_len,
+-					NTFS_NAME_LEN, UTF16_LITTLE_ENDIAN);
++					NTFS_NAME_LEN, UTF16_LITTLE_ENDIAN, true);
+ 		if (err < 0)
+ 			return err;
+ 	}
+@@ -82,7 +82,7 @@ static struct dentry *ntfs_lookup(struct inode *dir, struct dentry *dentry,
+ 
+ 	err = ntfs_nls_to_utf16(ni->mi.sbi, dentry->d_name.name,
+ 				dentry->d_name.len, uni, NTFS_NAME_LEN,
+-				UTF16_HOST_ENDIAN);
++				UTF16_HOST_ENDIAN, true);
+ 
+ 	if (err < 0) {
+ 		kfree(uni);
+@@ -437,7 +437,7 @@ static int ntfs_d_hash(const struct dentry *dentry, struct qstr *name)
+ 	sbi = dentry->d_sb->s_fs_info;
+ 
+ 	err = ntfs_nls_to_utf16(sbi, name->name, name->len, uni, NTFS_NAME_LEN,
+-				UTF16_HOST_ENDIAN);
++				UTF16_HOST_ENDIAN, true);
+ 	if (err < 0)
+ 		goto out;
+ 
+@@ -496,7 +496,7 @@ static int ntfs_d_compare(const struct dentry *dentry, unsigned int len1,
+ 		return -ENOMEM;
+ 
+ 	ret = ntfs_nls_to_utf16(sbi, str, len1, uni1, NTFS_NAME_LEN,
+-				UTF16_HOST_ENDIAN);
++				UTF16_HOST_ENDIAN, true);
+ 	if (ret < 0)
+ 		goto out;
+ 
+@@ -509,7 +509,7 @@ static int ntfs_d_compare(const struct dentry *dentry, unsigned int len1,
+ 
+ 	ret = ntfs_nls_to_utf16(sbi, name->name, name->len,
+ 				(struct cpu_str *)uni2, NTFS_NAME_LEN,
+-				UTF16_LITTLE_ENDIAN);
++				UTF16_LITTLE_ENDIAN, true);
+ 	if (ret < 0)
+ 		goto out;
+ 
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 689151fcf993..5475eaeb49fe 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -540,7 +540,7 @@ int ntfs_utf16_to_nls(struct ntfs_sb_info *sbi, const __le16 *name, u32 len,
+ 		      u8 *buf, int buf_len);
+ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
+ 		      struct cpu_str *uni, u32 max_ulen,
+-		      enum utf16_endian endian);
++		      enum utf16_endian endian, bool parse_ads);
+ struct inode *dir_search_flags(struct inode *dir, const struct cpu_str *uni,
+ 			       struct ntfs_fnd *fnd, u32 flags);
+ static inline struct inode *dir_search(struct inode *dir,
 -- 
 2.43.0
 
