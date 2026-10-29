@@ -1,101 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793296283;
-	b=vnei8m5SFiw4INSmUGotpmiTIdt593Le534Poc6kiWjPXFbja3hUuVRriol5S+trels5
-	 nOx19EP5D7Am07G5quz6VfsEr6VaUE8KQnRliLNxcwhOePKjH6vjoU2KSiE3016cBdNsV
-	 MCRVHTtaS60KSEfZ1fTWFO0Sj6xkfL3jcpactKIlXecmtJzHIHcE6UkI2SABXDEd+S8qr
-	 8a3RMat6Gd3QOwTN9AHkjyyYTnxjwuaQDQS5M2m7vGTtKZGb12bBuVIwOqS9TFOxp3U1J
-	 etArtpYA2mb1kiVuL4hMct869JSiZQSXKxTIf8EScetJcpPWVEKdGSZwz+QYV7oLlwQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4yz5ABXPNYwfCJWPGT7FU0b1CFUvEbyvO334M8WGBcc=;
-	b=fAeq/0+B48hl4+bLg3mj7pJzWwdMaXA491gOBwlhA9OASFi47mr9fqjj59TlclmaOQHb
-	 HQYO6pR8sdTkNvwMA3emz3yXZCOmJz7o6SbgroAhldrY3OAv3NL0Vo8BVyD1pXIxXTKYf
-	 W5phbg8wdOjnp9X1H0AZl7ZKjF46rhDbmdm0CrJk0fBfOR/VR2BPZIjtmIBD4WuqAj5HF
-	 CPB4gybdpGK2DrPNk5XiB9buBLXLTGSp/hAKq8VAd2TPv2sePU40FgcW7OxorAbeG5veB
-	 NTDAtkjz2StvaL+aDQeDYBgM3hf2qsyX0X1Y1gPNpY0ys72b/UaAdQAM7UVomsP0HRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dsUMIjZr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDEE606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 17:51:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FDEE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793296379;
+	b=n6X0w85jVxWg3F6usn/UK+Kq+yutNvGT7AEXFix3atmMG9G/NzD8F5uFJyhXbAAXwLGY
+	 Me55hdVn2L/H/+9fG8S+FeUjgQPb7TSxYRBYRVjYxyAwjc0TvKMhvMDDsuuXw+4zW8J5W
+	 MelkL+8Rm6WxCPuCKCBtpgn6y5VadkyztryAZV0hxf1tgPk5LXrWEchnAtiCTK9iAgTNm
+	 TI490lpD5OCZn+f77uglNdraKi7N7vH+SdwyyQ/lzIVVWmLvU+XbL1FtG8ECVusMfZi8+
+	 vfnW/KprmER0J8l5zwbzLh3qYt7lW/FE5B3A85gmtBglt0kWC1GJ70GvzEKUdl9cZGw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296379;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=S5U2Nx4uu0l5UY+vpx3TvB7FV+qMp+ahvwvUvYtuJ00=;
+	b=eiV70QpppVvWckMkaC/ehXfZhcjEI0LII5hrJ0alfeyPlkJr/NKo1rq+4r/bahTHNmgh
+	 3cNbs2qmuE2pDhPx2eE+CZ76FAgbMHE2dOzlBwkx5fbPrk1wuytsc3gEsZ6HVAZQy4gjo
+	 rjLB1+P/Sd80KQahcWod4VqJYq0B3FVMBTiNZDTqk93NfwAU5SJhyVsMmJsyo8kepFbqQ
+	 7tkA8F8U4ElnHOcP1RFcobb/Pda/EK5jqkxS9yMyNXA8C0Vm1b7ELFA9z6m6ew0G6N5Hx
+	 drXu47c1HcerRrMGdOx8rTDwYUHQq+0P68xxk87hgVtiuKDCrlkIy+rWMiR03KgmDmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NV2zPwOw;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 622D6606A326;
+	Thu, 29 Oct 2026 17:52:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 622D6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dsUMIjZr
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so19296335e9.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:51:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793296282; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rjALRDbeVxKj3M9MLv2XPhwO6JoIoYfQ5wSjPja3463cpcRQDiVYptdQMxMhu09gJT
-         QYLU77JJgu0OiWP4N1OBn7HBIqTeU0FHz3F+m704Rhu3i1yBe+i4nTS7dFRB3/toS9h0
-         bXZC2pDi60gfZVmM1yjx/ZBjOOVtdtSfy/rVyAcmXXIISYi2ZIjEtjjaW3dtyosxIyOC
-         671Zc/dMuPYsaVitZyzWhMU5eVmdSZXuPiX9HXNMDOtVS/wx+DDTZcOhThDPdpcoDre7
-         4G78RhNZl/pC5O6Jm55QpiO/2Bt/THOSN5Itm7neNWT+bhtwVxH95fzOJHYrHph5niZL
-         EQJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4yz5ABXPNYwfCJWPGT7FU0b1CFUvEbyvO334M8WGBcc=;
-        fh=f5m0zK75eTl4baubv0utkaDtZ2s9erelpFA6Gd84eyo=;
-        b=YBLrtgi6eGGx9qPgVz0do4OaKV19cEaBB8tVTMYxz8ydPj5Lc3Bptsyi61dYZuX9ve
-         MjjS+QppdFacyUU8+rGlErINA91eEH/x61F8a3t7AP56tR9Q/G9AEl0XkgMptVh8qkPz
-         yaO4p36r9EYMbMQtzi7Hd6oWVClzPf+D1tf8llFyJmtO9I04iU4TSsT4pf3hJqzAH20f
-         ilVmd+zDlGPlh0I0qrgVqBuE36GBrLXTPs7cMDEw6JJ4PDXaZDCa8H/cU7l+1m0HEzef
-         WByryDdYZ6JbdefHYqIAbbdR4vCsr1SKlRSrDdJ/XG87mgTwcw2MPHy4P40U5m6r2b+l
-         jLmw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793296282; x=1793901082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4yz5ABXPNYwfCJWPGT7FU0b1CFUvEbyvO334M8WGBcc=;
-        b=dsUMIjZrl7C+D72ks+mMd6uVvuKH6tmCREMXGG111TaB7HyXv6AQbiQNUFzIwXinn2
-         DGAjeSUGTzceE2KWNIs7Xk2nGxv+fXrGAurSgVGDmYbLbguOJyh8mqVh5Fx3qQ8qxbiv
-         4e0tqMrrQFcmAcys65CZKuOSnnwH8V2nAAQ3p27d+dHoFzbSSN2e3M/u7FYQJRqQACK/
-         TSxHvs4CtD81JhMWF2+xQJ4oYZ9z1zgx41kQSCh3DYyhhlrCEPtaBEs3dBHrPl2HF/mQ
-         kpw4/IbPYVK4bydt0cFFlc81eBiRmR49ngFCQAJHw2gakaZm7YpZ+L6AQCDKKRF0+s6S
-         TVlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793296282; x=1793901082;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4yz5ABXPNYwfCJWPGT7FU0b1CFUvEbyvO334M8WGBcc=;
-        b=tZld0zuxYLXKz7ioskkJvaekfUe+D5WkQ/WgHXCOap+/Hdbw0zAGxiNesXfdMHO9Fo
-         KuqhNzHq7gdgV7Pt7UQpZFkPoa0Q4RdctDUVXJwhpSByMILZMPNSn9ESosurbvWwTwhz
-         NQwusTLzxNDqOAJsYRIkA9tWjgQ8QP6JJZ8soA/OzzfoZ8pg6EEKv8ozs6u15uC0cuHn
-         ZppdHBDiebZvNlIMdkQMcnMn/yeuxtdV0jJwQVNDoEUxFPb4IQB1TrOAUb3Kchn/oqPB
-         8aj8qd/bf4CHdDaFYXF/DQ5IVBNQjrThOXm13H1myGWEYWzqwv+go/3wJcRHZRTFKW7Y
-         9fRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzUGU2E5iwpmFmg+VLSEktvqpUdElZLKU+pQpltswy84+BbQGAKqehWEJl5rvcNyO+mGkB3Yzg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkDdvffGKTh7lQGoPHlKCwLl+P/Tn40egvP+wCE3iye8y5lKGe
-	bcYCxnwqsn4DPmkb7Yimb6e3H6Pd14mJ98gQVFE/UhXDixlnrJAu6Z4JYC2mBRdlq1Z+VWi6u0W
-	znTEkBpZFBb+sFhs0018Y9mA5gQKFM9E=
-X-Gm-Gg: AYBFou36PjADCiDhbLGSsYVr47zgbqPDaNJmdtvAqeBeE+pKIPm2MPn173WuOCEsz/F
-	i2BcyF/ycJQsobAbapIisinuvU0ExiV5inxM3JhneDS/8CEg4J3NG74xK97PFxjUJlZOcPJSXRt
-	JNyohZUWN7FQw95cLU1sZsZEcx5vpCdP0cvj5ux5QCFeHfHJbJ0igajsc9vIwr0z8sg62oh6lqS
-	DGNpQYqvbc0jgaEUvRMclAOYSfeVohLxzsdbCci1YTMNHnvn7GswafsfikKZA4d+vqd1PV6VdSp
-	mLbGRS5Da8x60QFPsm5mXRTKoqhmL7ppdJTxXpwfj4Nk2D5ZZaeaZ8C3pI1JIGJeO7y5ztGy1P2
-	A2eyq+FSnaIEaQNDCQvWddbERCoGfqIXRvx2yELNC+9RLGc4TLtFMzN7dcD80+U9GjMzfBhECQQ
-	+uJm9X6NzyqQkvyRHE
-X-Received: by 2002:a05:600c:46cd:b0:4a1:ddaa:571e with SMTP id
- 5b1f17b1804b1-4a96695ec9cmr127938455e9.15.1793296281562; Thu, 29 Oct 2026
- 10:51:21 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NV2zPwOw
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D5B6D169E;
+	Thu, 29 Oct 2026 10:52:54 -0700 (PDT)
+Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6E2693F59E;
+	Thu, 29 Oct 2026 10:52:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793296377; bh=xrY9NPZLAByOeK2cryjztDk7I9iH/vElRi5/N8juw04=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NV2zPwOwPWucx2y+IgN5JcV+z1JRay0Ov2VIsmtxTY03FiQHkZQqvAxIyIcL8iW6l
+	 +RujiVAVn1IE7J1lE2FTIrozzsEEdzbVcPnQ3bcqiR1b9hiO6+Bo5XivlYaAJ9GqVN
+	 8LiXkpR+86e+iXVe0B0BawRRkJlG1vBaLzR5psiI=
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] KVM: arm64: Fix dirty logging detection in ring-only mode
+Date: Thu, 29 Oct 2026 17:52:37 +0000
+Message-ID: <20261029175238.3214788-2-weilin.chang@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029175238.3214788-1-weilin.chang@arm.com>
+References: <20261029175238.3214788-1-weilin.chang@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,92 +75,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com>
- <willemdebruijn.kernel.26e1d6a9b487@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.26e1d6a9b487@gmail.com>
-From: Ahmad AG <ahmadag1001@gmail.com>
-Date: Thu, 29 Oct 2026 20:51:09 +0300
-X-Gm-Features: AclHuK_BDFig-sbWsCR5OlIR4qFenHDi679NHRbcj2yJJ_-aS7hAWsW_5ci89gg
-Message-ID: <CAASqGyYuJCObsoPsifvbksJqjtyx4sPZKNzCb4eo8HG_CjW+=A@mail.gmail.com>
-Subject: Re: [PATCH net] net/packet: charge fanout groups to the memory cgroup
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: kuba@kernel.org, davem@davemloft.net, edumazet@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thanks. I will scan all allocations in net/packet/ and send a v2
-covering them in one patch, using a mail setup that keeps the patch
-intact.
+When checking whether a memslot has dirty logging enabled, the
+KVM_MEM_LOG_DIRTY_PAGES flag is the source of truth. Previously in
+memslot_is_logging() we were testing the dirty bitmap only and did not
+consider dirty ring.
 
-On Thu, Oct 29, 2026 at 7:10=E2=80=AFPM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
->
-> Ahmad AG wrote:
-> > fanout_add() allocates a new group with room for max_num_members
-> > socket pointers. Since commit 9c661b0b8544 ("net/packet: make
-> > packet_fanout.arr size configurable up to 64K") that is up to 64K
-> > pointers, 512 KB per group, from a single PACKET_FANOUT setsockopt().
-> > The allocation uses GFP_KERNEL, so it is not charged to the caller's
-> > memory cgroup.
-> >
-> > Each packet socket can create its own group, so a process with
-> > CAP_NET_RAW in its own user and network namespace holds about 512 KB
-> > of kernel memory per open socket that its memory cgroup never sees.
-> > In a cgroup with memory.max set to 16M, 256 sockets each creating a
-> > group with max_num_members =3D 65536 took 264 MB of system memory while
-> > memory.current grew by 380 KB.
-> >
-> > Allocate the group with GFP_KERNEL_ACCOUNT, as other allocations a
->
-> This is not the only such allocation in packet sockets that does not
-> account. If addressing that, probably scan all such allocations and
-> update them in one go.
->
-> > user can make on demand in the networking stack already do. With the
-> > change the same test in the 16M cgroup is stopped by the cgroup's OOM
-> > killer, and with memory.max at 512M the 256 groups charge 262656 KB
-> > for 264640 KB of system memory used.
-> >
-> > The missing charge was found by code inspection of net/packet/ with
-> > the help of an LLM and then triggered with a small test program that
-> > creates the sockets and groups and reads memory.current; the numbers
-> > above are from that run. Tested in a QEMU/KVM guest on this tree
-> > (x86_64_defconfig plus kvm_guest.config, KASAN, MEMCG, PACKET),
-> > running the test as uid 1000 in a cgroup v2 memory cgroup.
-> > tools/testing/selftests/net/psock_fanout passes before and after.
-> >
-> > Fixes: 9c661b0b8544 ("net/packet: make packet_fanout.arr size
-> > configurable up to 64K")
->
-> Your email client corrupted the patch.
->
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude Code
-> > Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
-> > ---
-> >  net/packet/af_packet.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> > index 823e0911c91..406397acc5c 100644
-> > --- a/net/packet/af_packet.c
-> > +++ b/net/packet/af_packet.c
-> > @@ -1778,7 +1778,8 @@ static int fanout_add(struct sock *sk, struct
-> > fanout_args *args)
-> >   /* legacy PACKET_FANOUT_MAX */
-> >   args->max_num_members =3D 256;
-> >   err =3D -ENOMEM;
-> > - match =3D kvzalloc_flex(*match, arr, args->max_num_members);
-> > + match =3D kvzalloc_flex(*match, arr, args->max_num_members,
-> > +      GFP_KERNEL_ACCOUNT);
-> >   if (!match)
-> >   goto out;
-> >   write_pnet(&match->net, sock_net(sk));
-> >
-> > base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> > --
-> > 2.43.0
->
->
+With the ring and no bitmap, a logged memslot can still get block
+mappings, so guest writes to most of a block are never logged and a
+migration can copy stale memory.
+
+Fix this by using kvm_slot_dirty_track_enabled() instead which checks
+KVM_MEM_LOG_DIRTY_PAGES, within memslot_is_logging().
+
+Fixes: 9cb1096f8590 ("KVM: arm64: Enable ring-based dirty memory tracking")
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: stable@vger.kernel.org
+---
+ arch/arm64/kvm/mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 705f6d84770e..c7df646af79f 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -176,7 +176,7 @@ static int kvm_mmu_split_huge_pages(struct kvm *kvm, phys_addr_t addr,
+ 
+ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
+ {
+-	return memslot->dirty_bitmap && !(memslot->flags & KVM_MEM_READONLY);
++	return kvm_slot_dirty_track_enabled(memslot) && !(memslot->flags & KVM_MEM_READONLY);
+ }
+ 
+ static int pkvm_flush_remote_tlbs(struct kvm *kvm)
+-- 
+2.43.0
+
