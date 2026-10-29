@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793285942;
-	b=zfatgftwlp/cZFSqtYTrbE/+3bY+/EEAtwlghKu8gDKnxAwcI6771La+8qNjf0F6vHK+
-	 ++e00SnUfUMUjIpW7LxgVjY+4mkxjy3iMyRsdoNn2wVKVQDAH6OZP7mIMLSdwlQoBRhyG
-	 /sNyMaXz7zVV9KKrvpS3OiQtLDFrgkJQh3alg08xl3xzWQ948M+dQsIq+oEdVS/r2gRRj
-	 th+vH/JS0vrfP4uGC5SuoM0N5ujt5SznvQF9KoIRha9kugG2u1NhO9vNmrQXc9hJ0IX6s
-	 hHlgMxhBoj2p5yn9E2sLkkmzYsAVPK2FPzAFV+W/bMMYN0ltCofJ5Go/CeyR2y5xLJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285942;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793286167;
+	b=pueZebAN7sfEgEe3sfjYa+6kJgpCVuKu57xw7wxBEizdPmhkSPMHDy+TxFMnzrMAJkTC
+	 tfCg2ueGVhvu0KmXuWMaWKd3E/jI9g7d6SgBuwqeffoHcQOU+bXoC62WkKCMyF7k4Fqy4
+	 qFWOvy2XuPuoLKSrGbjGD/9bkAsZxnJMalcT7Ab9+U+UzXNpOi1NsTbbI1qVTmSm0OEEw
+	 4DYhsOtamrJY28UYdVkEeQE6SsG3/EyGfWgsC63OhQMaMC7JzDSqNOLZb6RYuyJFY6bs+
+	 w2/EWT/40pUagsaYD+IEOx8iL3MgaHVQ12+KFmJKzTnaVItD8SGsfxteFdcQyLOV/SA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286167;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=W1NlihvaJXejrTDGGOl3Hof38A7ldhULq/AQA3ZMnok=;
-	b=h+GS97XnoYAIkl7DAsaf1VJ7SU7+2f2Eed+7/ww0gRkBcKVgqeW+EyjJ5tKWMC2Eksnh
-	 C/umOXqJFvB2xvwnBo8q7zJkdIxaeY7vlmkqyRVp41PYXNusmqHTUXflkTJpyy5m2rziU
-	 gYgvjuQ53avgqW7twd4qmP47tl+feRpR9WB6oyrgtCcJOomSRUw04sbumswDAAL1bRGw0
-	 OyjdG5Bm4LJFwoZAJErd4gCDtmE4Pivlugqv9ER+eZbOrZGQatcT07NJPMCjjQgNLC6c4
-	 kb7//s036j8GJYOEdHQ6gXgTKit+yx3WwloUNWPOvgKyyAg6XHspmBWbLDyi7wWCvNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uEkVXSPm;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
+	b=TH1ToeZcmsHDeeNEx7vawd4f2e/LXpci9RAQhgCWfLj7G5x53284OPph+5DyfDsOYW1/
+	 XoXHLiSA9oHUvKwUrNJ3NdWglvTKciLod6WaAXWtOUWtn/uus++UrBJ7Z9i5TPGVAM9SO
+	 C9MKwzgYRz+6pDyC7baLgQr8XycjtJP4W6lD2pP6X7A8S7C4vOOEA2/5dnb0FcYSXn6Xx
+	 DOhzbtLuOV5Cue3GiMRq4+AzE9U0SPHbc+MRCkXwr27gt6GFnhvmfpO446T2RpEpj09NL
+	 KO3ES6QJJj7j3OckLm26+DmlHfQnztkN82eZsI9w+lMI33c5PQ0Gj6n2quPfVHCGJOQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=kUptFaBE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.50
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4E3606A323
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE4E3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DDD606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:02:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54DDD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uEkVXSPm
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so20046655e9.3
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:59:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=kUptFaBE
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-49de8ea072cso872184fac.3
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:02:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793286165; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SOkCgq3vvLxe4YGLfyF70+r2cLAohrNmp/cnkkEqU+QKviKXoX+ggrx+THEtJhvQPD
+         +jBIvOG2p1ZfYP2UnP7ab1wpvPT4cVqUaDsZLovw3Ax10QTTu2YOyFrPmeVF8rAfNaEa
+         dBwVX3If+64SRgnuQQ5cM+NW8JQCcX2eYZ3SvUflrO30DKx6RY7Yav6i0nmPWLaf3MMO
+         K7T/4PCOjo/FuTM1oMb2HepudspI4kzrl/DSGao6qAQdVY6sz13YC32xgG8Qp+xB/TII
+         t0rfX0XXePwXHe1+7exhIQgy9QBEYB5hgJrdkpTND8ErdGbq3rsBnUP/z4pv1kXXDt7+
+         3cgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
+        fh=v7LU7pAh3BuTDFKjN8ZE/+O/V3h6+Fqo6aqeBACbPu0=;
+        b=h4C8CUykGOB9jrEOEj5Z8NnOo9gkdqxgRd4uI98P17iDFrO+b0oJcV3n1RB1hrwROF
+         URP9bpHzrxy/5eXQbddXQXLzN/TqJkqxfywogduFg+XZbQ2l1NQQO1HgqZ8LDvscv5y5
+         fsU4rybIdmZi64w1nHw2Ose+y7K2vInEVYSXUbl6QkroURr3oXbw+QztK84gO2BVITHl
+         N48CPZlGEaBrFZY3wBdI9fvsvzqrPkuQO+wLnlUI24j150tj2K6py7jygOi9jxKnxhX0
+         YniMlEPwTGJiv/zHTXIqqzvvf8sk8QDeRwOI7jlds9W5ZNiCUmzN1oM4DLyEi6sty0dc
+         vGTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793285940; x=1793890740; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1793286165; x=1793890965; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=W1NlihvaJXejrTDGGOl3Hof38A7ldhULq/AQA3ZMnok=;
-        b=uEkVXSPmhnvCFI1L4+2+0k0KbwiX2lUGRnEl5UdcX5B5WerVThw0gKpk+7OXuT4NsS
-         dagdzhqNEWgvTbQ88qQwx1SFzHT0gt/cznkFBxFJ05P78rx8TYrq019QxvsbwxyYb3fS
-         R5Wo7p08Z4QA4sPa4k9vTNir8pltgp5IQJ5EaXkKWwRy2xkq/xZ76ZWJWmKrUvyUVMFh
-         0hR92+Cn5TK7Ve9V7To7Swd3LDWmeMwVhKlYHwatOhuixMjkxa1rVwdc45hwH/HLqTc3
-         xpHJHo/LS7XWKaeeX0zcVtSL0Y4fNEDBpUaVBuVz1tuZ8Hmtxp0Y+z60Urhdkpup+q1k
-         NXNQ==
+        bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
+        b=kUptFaBExjtmignbdxt1LEDnztQBGVfbv/M45YWor7b4iidSbjXJeQadLYQ+Rs6f13
+         UahaoMLT+piO8QQ+ypRM1Tr3MsYpi6glJ5p9YaSaFON4VaZRkpObl4vmnv7sns98U3rp
+         XdolxfrwbkCywumJd+8B6mnNC5KkPOG4uNPhMCtxZF9yuFsQ0J32qEtj2PgmKqO9/Ydk
+         osv5fWFDUjfHsooz1uYRX8gTTGCqePBInTcQk+peDAOWkvkjz8S2Xig+lZK0SNdFIEQs
+         Zwdt9xNANFYfHMyYnK50RyMfvkGUj9bdJLJdu0KgD2KcY+D5SBI7hxUT6p2xUkZo0Y4S
+         bo8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793285940; x=1793890740;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W1NlihvaJXejrTDGGOl3Hof38A7ldhULq/AQA3ZMnok=;
-        b=vWpLnzJ5TIkvbBxIsH/fmoOjZobQaOrf4OL1KQdmhOgcaNzuaYpjEMVvRhD02Gwqx8
-         Cz5vb8sdWIC+eVwzc1f899eM9rrTchP/o9hY0p9gAl+DwQaRlqy/SFiBnX4gQv5QUeGn
-         LWmQA3bBXqeDPtyV+uV2EreKDWgsT+FxMgW2G1wm9ioUPSJeEHMhFSTU8N2FRsILBCrh
-         CB/4j0A+Vp6p/wDAEyULiKOTBhxOTORSOE3M6jSOnd6Q7M+egn9TpwEcSHIu6G02YFN4
-         sBpmTRi/XBatc1yhIoXVrYnFE4k1FkraEXfU7JwWtqeII3GtbCrK789E28EIaH0Aqu3J
-         O4Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQayAZX+svllZ3K/784ekfO54XzrmwbCCDEhHB7n482coAXeI3ucvWy4+4gFdmHpb5412Vtbk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsRCodTcQoN7K1KvzkzqPA+pCVMgdB/PY8rb13zhx6tKCb5AMH
-	LUbZxjz31qVkRRCayJIbFLGMDzEZJ/5SdWqUWMk/Iso366ofvY0QD36l
-X-Gm-Gg: AYBFou2Elra+tZC83qRXMDqKbhlzefkWXpPp8qIvjItKbu/bl9Kbdm/tSTodkvIzbJw
-	BBcbisijTbHB0hErPzYq75ZjMzr2bvnXhLVrPww5x3xoRPfshLw+4vPP+f2wcezBXZ444AWMvTQ
-	gu2VNXgL6bXexHHPexkK0u8EUTnWQPP6ck0SCIUfQgD8cSvvJ2QZuMNHiZ8bhiIUDc5YKQlNUmQ
-	bp/AZdnjQKJZhjD42q+qi/dTtMaXbMvi60Kp0D6YKeV45HTdpV86tiPdygWFNvfXoMY7ZBzEASG
-	URQIGh4W1bvJUvolAjEIUWe3CBknvmnhjfB4bBnIsRXRXKnDQNruG+B7ljkIXK0edQuPi8ruV5C
-	Sj1tUz+XLfxF3ENtGN8Ayb9Qt6/GoIQk82pk/u/klX9j30R4/hLZdk+80iVFiSGaGRvAmhQA+tR
-	sn2mOoCVmPhBUUhEwj5cNYf2X3kjTnwj3Z1298WUT+Z6gO+DV9R0Mok/WrvuRnBH6XNfzK5HJeI
-	hUhHGouCtNIaFPPxQEWLJm/CGvsRvKzqDm3RxtqEdkmhGmAfF6FGxrA3o/gUwHK58BEwgEtqTuY
-	n7OdTmhBOLNt2AMqgWAwGPBa4jA=
-X-Received: by 2002:a05:600c:37c3:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4a9674e63d7mr123124135e9.26.1793285939996;
-        Thu, 29 Oct 2026 07:58:59 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm70941745e9.14.2026.10.29.07.58.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:58:59 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abini <pabeni@redhat.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	syzbot+88435e204734072bf39a@syzkaller.appspotmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netdevsim: reject port addition and clean up ports after a failed reload
-Date: Thu, 29 Oct 2026 17:58:34 +0300
-Message-ID: <20261029145844.231018-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1793286165; x=1793890965;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
+        b=yTt6DvkzZNUNOYzQRW8kuPmKN5ldlXS7Z0gew/q6kRjCVD4Rv1XJ7XTackca8qQvlW
+         r2WDobjFjUEXJRf2SDNM6Jp3nf06BeOgvbtUG1lm978UvvkFTKX9dFMGAKAsnkQk0Hzt
+         M4RTXxxx+iCJAvuN9+KQNE5qqlvAKHOnWEbRpSVkrWe79JMJsVZHRS1dhqLMhLUxERW/
+         ZQoDWofx1mlWL4oMcl9f5STCBJGWnraWimIKD9+iN4XUr63pm6H36bKp8i8XF1TcJ7AW
+         LLGCq18rhZPWGPn6GlEr5kJf0q6+7dmznokeuJc+BXqvsp6rVxB7l9uXmAvRYDtYNsXT
+         2gBg==
+X-Forwarded-Encrypted: i=1; AKwUvByR75iFKhOdA1Kn9IOuFNykt+JUj6pid/A0zlsCL22vQEZHImWr8LKwvTSHNQEW5nnDBi9DuEQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyHdOm/hCb2e+hC6LdAAQkk39vqgCLHnhQRZld8kcW66sqp0fX
+	qIQB+smde1UK+qoZzztrIOqfPucGhWDYEA5PHYi4UdV7R/Hf4lkWoIaWb9Iu+TPWJIFkZfXglFX
+	D7CmocY5ELr6ahqC9otcPDhf8kdYKF/2DxUeruPcelw==
+X-Gm-Gg: AYBFou1h4sYc46BbZf1USjU2uvvKCqiSikIyo2uSRD1Bqf2RV4g6I3ujtISEMtlUnuo
+	ZcNejPQh6a2a57EQ3Z/wm3n180DNovMDNUTZz9tFvaJf7658wr3NcRaeJRZAFWgfMgz6lbaQdxb
+	ZJDI303l7shYAAbtZKrAJJrjUXSYEp1C6atSVU8c6gy2C5Udb0MJjMFvzk3JPo/79AbfZey4eB5
+	0Jt/TIzsJVc1xK+RGhvvH+mIT7cvIFLNPrIxsZYU+DDP+T+Hv3vMOrFk2xoPwiYe4Vu/5vFhC8G
+	EE9VL5RfwjT2KjMIL0gOnayy1G2Zx2lrxpdHVekP5EvaK340x1/gnb2dbNmgibfA3n3nJku7E36
+	OG3c//7mjWoUSA+drMDoncsGf1hF7zCUxeURnStRYoT3+8EYdUxMQ/4WMoPB7mSe/r3ZFcKghlM
+	kA79q4KlneU28MjpFkABKwySgJhXWmXB2y0Pkn7xeo0YK2JiZGy94qApcry8TVoUrvGEOmULE1t
+	F8=
+X-Received: by 2002:a05:6871:2102:b0:486:a82a:a204 with SMTP id
+ 586e51a60fabf-4a8bb21dc71mr4339383fac.5.1793286164997; Thu, 29 Oct 2026
+ 08:02:44 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,54 +105,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-5-3bb376d8b1a9@linux.dev>
+In-Reply-To: <20261014-ov9282-fixes-v2-5-3bb376d8b1a9@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 15:02:28 +0000
+X-Gm-Features: AclHuK8voSOcP2Yc93--NhJD3VRIP_1eHNKLU2iJ4Kl10Q7R5Gjav4eSoB_tiWQ
+Message-ID: <CAPY8ntDPj06a_fa+fJRUmn_8z2jxBXgFtf-PyHw7n34Qy9zeig@mail.gmail.com>
+Subject: Re: [PATCH v2 5/8] media: i2c: ov9282: add refresh of additional
+ ranges on a mode change
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-nsim_drv_port_add() does not check devlink_is_reload_failed(), so ports
-can be added via new_port after a failed reload.  nsim_dev_reload_destroy()
-returns early in that state, leaving them behind.  nsim_drv_remove() then
-hits WARN_ON in bpf_offload_dev_destroy() and a subsequent use-after-free.
+On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
+>
+> ov9282_update_controls() updates the pixel rate, hblank and vblank, but
+> currently misses the exposure range and flash_duration, which are
+> dependent on the frame height and therefore vblank.
 
-Block port creation with -EIO when reload has failed, and delete any
-leftover ports on the early-return path as a safety net.
+This ends up being the opposite of my comment on v1 which claimed
+"Both are dependent on the line time and therefore the pixel format."
 
-Fixes: 75ba029f3c07 ("netdevsim: implement proper devlink reload")
-Reported-by: syzbot+88435e204734072bf39a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=88435e204734072bf39a
-Cc: stable@vger.kernel.org
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
-Tested with syzbot C reproducer.
- drivers/net/netdevsim/dev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+exposure control range is dependent on height and vblank.
+flash_duration control range is dependent on width and hblank.
 
-diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
-index feb88ccbbced..61f0824ce4d3 100644
---- a/drivers/net/netdevsim/dev.c
-+++ b/drivers/net/netdevsim/dev.c
-@@ -1697,8 +1697,10 @@ static void nsim_dev_reload_destroy(struct nsim_dev *nsim_dev)
- {
- 	struct devlink *devlink = priv_to_devlink(nsim_dev);
+Just omit the dependency comment.
 
--	if (devlink_is_reload_failed(devlink))
-+	if (devlink_is_reload_failed(devlink)) {
-+		nsim_dev_port_del_all(nsim_dev);
- 		return;
-+	}
- 	debugfs_remove(nsim_dev->take_snapshot);
+With that:
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
- 	if (nsim_dev_get_vfs(nsim_dev)) {
-@@ -1758,7 +1760,9 @@ int nsim_drv_port_add(struct nsim_bus_dev *nsim_bus_dev, enum nsim_dev_port_type
- 	int err;
-
- 	devl_lock(priv_to_devlink(nsim_dev));
--	if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
-+	if (devlink_is_reload_failed(priv_to_devlink(nsim_dev)))
-+		err = -EIO;
-+	else if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
- 		err = -EEXIST;
- 	else
- 		err = __nsim_dev_port_add(nsim_dev, type, port_index, perm_addr);
---
-2.56.0
-
+> Refresh both, and commit cur_mode and code in ov9282_set_pad_format()
+> before the call so the refresh and any nested s_ctrl see the incoming
+> format.
+>
+> Fixes: 14ea315bbeb75 ("media: i2c: Add ov9282 camera sensor driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> ---
+>  drivers/media/i2c/ov9282.c | 36 +++++++++++++++++++++++++++++++-----
+>  1 file changed, 31 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index e6920e18b7818..b48c959b9c908 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -548,6 +548,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+>  {
+>         u32 hblank_min;
+>         s64 pixel_rate;
+> +       u32 lpfr;
+>         int ret;
+>
+>         ret = __v4l2_ctrl_s_ctrl(ov9282->link_freq_ctrl, mode->link_freq_idx);
+> @@ -568,8 +569,20 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+>         if (ret)
+>                 return ret;
+>
+> -       return __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
+> -                                       mode->vblank_max, 1, mode->vblank);
+> +       ret = __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
+> +                                      mode->vblank_max, 1, mode->vblank);
+> +       if (ret)
+> +               return ret;
+> +
+> +       lpfr = ov9282->vblank_ctrl->val + mode->height;
+> +       ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl, OV9282_EXPOSURE_MIN,
+> +                                      lpfr - OV9282_EXPOSURE_OFFSET,
+> +                                      OV9282_EXPOSURE_STEP,
+> +                                      OV9282_EXPOSURE_DEFAULT);
+> +       if (ret)
+> +               return ret;
+> +
+> +       return ov9282_update_ctrl_flash_duration(ov9282);
+>  }
+>
+>  /**
+> @@ -832,10 +845,23 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
+>                 framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+>                 *framefmt = fmt->format;
+>         } else {
+> +               const struct ov9282_mode *old_mode = ov9282->cur_mode;
+> +               u32 old_code = ov9282->code;
+> +
+> +               /*
+> +                * Commit before refreshing the ranges. ov9282_update_controls()
+> +                * and the nested ov9282_set_ctrl() calls it triggers derive the
+> +                * frame length and the line time from cur_mode and code, so
+> +                * they have to describe the incoming format, not the outgoing
+> +                * one.
+> +                */
+> +               ov9282->cur_mode = mode;
+> +               ov9282->code = code;
+> +
+>                 ret = ov9282_update_controls(ov9282, mode, fmt);
+> -               if (!ret) {
+> -                       ov9282->cur_mode = mode;
+> -                       ov9282->code = code;
+> +               if (ret) {
+> +                       ov9282->cur_mode = old_mode;
+> +                       ov9282->code = old_code;
+>                 }
+>         }
+>
+>
+> --
+> 2.53.0
+>
+>
