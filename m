@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289751;
-	b=FCvHpQIOs/7J+90RHODnM3EMFXqz6mClyauZ3BXqpg6il70n5iFuRgcaE/hWx1nzTAUL
-	 kAMQZ075Iwl+iSUu7Jn4Rch46gAsgVsTEkMwCgWzetzrA/uQRcDEh7r2Q2L+h3Vba8QZp
-	 EhlyfcT/1Crex2Alj5EdqkVZIxl59kpEQkR5K40BvEBP4bkVlSOqMd2rrz5TBnPLztE9x
-	 9TpdQlXm6xu5swJ1ecW96lf7GwSztB/bGo5Sm7dkeOcYGLW9q9lPBMOY17+ks4mngtSM/
-	 DSNRgLo5SAI9dUXMZaKV7JgChQMUz8FWB9e5a/BHuEUCNcR4f1GVRbGuyWPHFR9vINA==
+	t=1793290045;
+	b=rOiNZHOhAbjQqZa+5VPtITKoCb5bBeBewJYRhmHkNEr9C1T9ZKbQ8w+evfqRk6j8i+2l
+	 eJNkSwNCh8vZtHfHTNMc6VlMXGB0XZrzbybZLjVSIT+YzpWlTtlYZ5kfpdiht5X8nPoDz
+	 LWh2OXwzsv13MSNW9RlK9A11QgIIl3A6POHJNWmeJPQWGHjMz3OU1yppnrdukEzCicbij
+	 q7Kp9/NYQx/eaxGW8us5ltX2WS0RtD0Ch4PG24BLIw6zjSAoCj1C80raGHRPs2XTrYOXk
+	 Xveve5Rp2eX3wiOhUVVoJ3hKcDxAJH9JOk8kth/bh21bGjZeFPC+gvc4Ai19FnldFnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289751;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=pI00oraJcj1gbywxrmhhYEBArK86LZYRPpd6Xl7nY4g=;
-	b=ylBiAxe9jLRoc/Hmz5hFglWpMk5xYJOOtHuLsexq2Rg1e663bqXKxaVwgOErx7GCF39e
-	 NdPAW0xP2b5wylojnaG4K+lk3vxy/xMqdyt6Kw8am3HStsx34DrtBBG+Y2q+fR5qxLx0s
-	 2gRjImNi1JNPypH/tUiIX/q9mnCo6IfjN10RR5jjaTisfa8VJN8gGwB6auNOp2f1H71vA
-	 4S7kVgLFxUXNOKzhjTV4Sl7/3uKGUJRHeFX80ecoFhLIE7L0MLHTvXR1IBc7N/deImbZM
-	 dxaRlDWSlpL8uA+NiI0MwqAR2ERrAol/a8PwOMGq37PWT8LFcCzapwiGXLLxqWNq28Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290045;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=uBzHd4puvf7PelR0/56wwfcOU7QQK1cg7vOg9biOXQ0=;
+	b=vlWwFhle4psuBeVXlvaUNOWCqyHeNI2uo74us/fRmWlt39ZuFimmJOmVIGv40W9OZ+gw
+	 cYOQcz/4Q27tw+YzF+g/TdP49vQDaovnxPQEm+/G0Od9W6VVyNa5Hrw1exqw/mJ7tBn7d
+	 G35ZsiXuW5pjRZlINDII7qyZ8dofmxdc+60P1ARK1xY/nuaUfF58sx5we4Sbhh5Zaz02u
+	 rGUSW543ZK5hrLNhGtoTH3g+vvPeOBsZuH5AfsfRt+yMJpdCeCtdPDtqnbmX59pJn++T7
+	 wv+OAaBgLPMAGB0rJ6dLlJBLamlBwmJCUsEiUTilkcuN7kmnIxrVZGfafGv+KvKKKYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B21EC606A335;
-	Thu, 29 Oct 2026 16:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B21EC606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=pI00oraJcj
-	1gbywxrmhhYEBArK86LZYRPpd6Xl7nY4g=; b=ps7AKoiNveu4MzEsQFvViVHnWn
-	JdQiO3yg3+yyHAlqHQVNmLVREJmdfOuvdC7z9GfFUM7Cs09WuPDWZlzcY6/mfqhI
-	eFCy6rhAGN8fkPclZ9Ka20fDLHZBF2sfgRqgl8VgAlAaBuk8R8Mixitfg65rEjD7
-	vBlWADMMzo/zIDsYI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.38])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkBWXgH8beNqsp8AAQ--.1728S2;
-	Fri, 30 Oct 2026 00:02:05 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com
-Cc: netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Russell King <linux@armlinux.org.uk>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH net] net: usb: lan78xx: only stop phylink if the interface is running
-Date: Fri, 30 Oct 2026 00:02:04 +0800
-Message-Id: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m9szMX/f";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9519F606A32C;
+	Thu, 29 Oct 2026 16:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m9szMX/f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22EA01F01816;
+	Thu, 29 Oct 2026 16:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793290045;
+	bh=uBzHd4puvf7PelR0/56wwfcOU7QQK1cg7vOg9biOXQ0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=m9szMX/fEVXD68Fjo3EeIkbSZWBiFCaUdnZ+VIh59ux0qGOuLrE6FOEM4OJ1WZJSQ
+	 f9sjcBIGp3cmwtR0Vr1suMoxuUz16RM22QVCXpsDoj7hgG+YtZpQhzQ+8ERPTwSOx+
+	 FENqtUXhbWb6AJt7guMCyWwmoiN2tg6DAlUgnisQ768405K+ORmRZs5e5Mai6t3IC7
+	 JCG+wlnqB5yg7zzE/v6YXROVwr2DAybfz/I3VBKz/fd7tFcRlVQ9jktvnhDRhYblg5
+	 /ZXlk9pRMGfEiSj5AyGOVRF7ifG92+RvMqsktF5VXStBqOVxXjmAQApSiLmPU3bTZN
+	 rhuPH0MlQETDw==
+From: Christian Brauner <brauner@kernel.org>
+Date: Thu, 29 Oct 2026 17:06:52 +0100
+Subject: [PATCH v2 01/34] ecryptfs: don't leak the inode when a lookup
+ can't open the lower file
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,63 +53,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkBWXgH8beNqsp8AAQ--.1728S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF13Ar1UGr1Duw1DXFy7KFg_yoW8XFyfpa
-	9xZFW7uryUtw1Du343Aw48Z3W5Za1qqryxCryj9wnYqwn8XFy7Zr92kr9xCF15AFW8AFWI
-	yFnrCFW7uFy5Aw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBmb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67AK6r1l42
-	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUfjg4UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2rjY8EGvQABsY
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-work-fs-sb_rdonly-v2-1-2f44f64f0b66@kernel.org>
+References: <20261029-work-fs-sb_rdonly-v2-0-2f44f64f0b66@kernel.org>
+In-Reply-To: <20261029-work-fs-sb_rdonly-v2-0-2f44f64f0b66@kernel.org>
+To: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
+ linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, linux-mm@kvack.org, 
+ ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, 
+ linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev, 
+ linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-xfs@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org, 
+ Farhad Alemi <farhad.alemi@berkeley.edu>, Tyler Hicks <code@tyhicks.com>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1542; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=x7sC/M8PNJXXdVBMQkSwa4kj/sguCVJ7hcSWkzP5Ueg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9ztfzU+27Xxy89YL9ydKruYr84d16Vtu6Xx3cYmlqd
+ 2qRy3v1jlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIlI8DIyHLp2+rNUvlLI3k6/
+ 3/ESRv/2vGuTuqrwxpzRw0Za2C/LgZHhgMcuQdFr2SV/T3svv3sy4ytP6qPJq7j+hG79yNS0x2Y
+ vMwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-lan78xx_disconnect() unconditionally calls phylink_stop(), but
-phylink_start() is only called from lan78xx_open(). When the device is
-unplugged before the interface has been brought up, the attached PHY is
-still in PHY_READY and phy_stop() reports:
+ecryptfs_lookup_interpose() opens the lower file of a regular file to
+read the size from the header. If that fails it marks the inode bad and
+returns, but a new inode is still I_NEW and nobody ever unlocks or puts
+it. So it leaks together with its lower inode, a concurrent lookup
+through another hard link waits for it forever and umount complains
+about busy inodes. The lower open fails e.g. with ETXTBSY while the
+lower file is executed. A cached inode is marked bad for all its other
+users instead.
 
-  called from state READY
-  WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
+Use iget_failed() for a new inode and iput() for a cached one.
 
-The same warning is emitted after an ifup/ifdown cycle, where the PHY is
-already in PHY_HALTED. Call phylink_stop() only when the network device is
-running, which is when phylink_start() has been called.
-
-Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+Fixes: 3b06b3ebf441 ("eCryptfs: Fix new inode race condition")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Closes: https://lore.kernel.org/r/CA+0ovCgYP920GT68hAJK6Trjyv1kGv2dZAuem4LEunycQ=POww@mail.gmail.com
+Acked-by: Tyler Hicks <code@tyhicks.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/net/usb/lan78xx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/ecryptfs/inode.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-index 5655941f1478..68e61004b3d7 100644
---- a/drivers/net/usb/lan78xx.c
-+++ b/drivers/net/usb/lan78xx.c
-@@ -4581,7 +4581,8 @@ static void lan78xx_disconnect(struct usb_interface *intf)
- 	net = dev->net;
- 
- 	rtnl_lock();
--	phylink_stop(dev->phylink);
-+	if (netif_running(net))
-+		phylink_stop(dev->phylink);
- 	phylink_disconnect_phy(dev->phylink);
- 	rtnl_unlock();
- 
+diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
+index 48e520960d66..3a966348a578 100644
+--- a/fs/ecryptfs/inode.c
++++ b/fs/ecryptfs/inode.c
+@@ -362,7 +362,10 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
+ 	if (S_ISREG(inode->i_mode)) {
+ 		rc = ecryptfs_i_size_read(dentry, inode);
+ 		if (rc) {
+-			make_bad_inode(inode);
++			if (inode_state_read_once(inode) & I_NEW)
++				iget_failed(inode);
++			else
++				iput(inode);
+ 			return ERR_PTR(rc);
+ 		}
+ 	}
+
 -- 
-2.34.1
+2.53.0
 
