@@ -1,123 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793312826;
-	b=Xbyg3J/xeOHI+xeltgTUlCaOxJ45ClcQV5vCOQQgqu/pW9pCpqRfcZezQO9xBnwwJado
-	 rxOALt4/x6XO6oQ6rX932IEbIQ8jdAuzRqysTjZTDgdUQQIVVZWwVK9O0NyWKOX+RZgYg
-	 B2ERYaAXB0MRYg0t/56uBvaq86SfGIlxOpqjRq7jp0rKZFQrQeQmKi7RuE1owm43QAdiZ
-	 LjoZl6qKJO3kgEcKPqEnLpZkhXsZ2K5Tf2YKBUW4mwAO/TMdrUel0NGDQKixuhMPArFDn
-	 zswF+ClmFQQOmMfoVfCke0qYxKxk+v9+z3ILx0M2SOpmYNBKlleBIIqPa/XsYVph+Zw==
+	t=1793312989;
+	b=YMa6aa0hTI15aNia8pJfYhePPlvrTG2yyoX91rRe4r74UqtV0TnlKOm4QTY0eCEEimU0
+	 yEU2V93o+IyDLNB3SB/biyqLkWfT+cu0672OonahloEatdOejaDjeWEZ0HZy3eMnNmnU7
+	 HUULOx/UNuEsSNOJcbS/uy9KBBN1idl0g3hR/r4jTcJzOjlbOjNkLidsODrRLuIcR9Eu5
+	 j73oV4c84NSkcq1qG5coG52maeSp1cePwUcGgDi6IhORyZ8Pby9CMYRI//6HBWcwr7N8e
+	 87xzoD4tn/gdtw3ydsY1THQjt/Qi6azCco/hC01OZa38bo7dd5dpWgQMT8KDrvf6bhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793312826;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=c+qvZDVoKntvP031zXBxbTK1eyYefVpFxx/OJ0wzL5U=;
-	b=DOr59tU5vfSIIvChGMARYglnM4dToyALuG/nokQ7cVHMmwqze6Hwri1qRrXPp0UrCu/K
-	 ShCdfMbBl7nQiDYDF78Vv++0QAelYhPKIpFFgQ4HaJk0CbG+2fE2Vhb3HwF5/kOJmoKmj
-	 nc7idRuuRHdUpY2VDxpdB/ol0ELxL5RLQa0VzAVMffbUhevTEjQBgCSjbU3SxLCaYef27
-	 PwMB0huo+QCRSxUYLjYJPE6TDXTD4NME5DXe66o932l2YHIWduTSVR7YGaaXkcJATzpeo
-	 DgkEEfoFjCWHO7MPN+YNhENrk/ONZPm58J22gvAfPTM+XllIFCBTXNuTJSJMuXmbqEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793312989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=l+Nd+2nznLFpAVzQLOmxyyP0XOy5YVodggakhVQWjxo=;
+	b=n5rlZrKO24N2lKKcegYVuSr2fYzatz+E59HnpzUKOmJKIwWE8OPbDDOlnXWJW0jY+Fuc
+	 2S6x1PrnuEkvSa0RMxjFVSdxoThgGR9oJIut8s++GxQiLmvUUGcW1VRvBInFRf3+2rtjt
+	 /EbhQy9iXzGuA13/6zQo/yF9BgEhuSR+VUJHFzAKLzy+MU1c062bT/+IB0YRiqG6YSQKH
+	 h1uqnoyV6ztD6uEDBbtjT3xa6y/3s1lELUvSWhb3GdTa3VPRJn6Ti7tWDfA10TWUy1zZd
+	 bRKLdE4V60+CdYWkxB+ppTbeT/ZLJexe8H1T5rslY2WzVgPqGd5r7uUffX6CePzvTZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=seanlyon.dev;
-	spf=pass smtp.mailfrom=seanlyon.dev;
-	dkim=pass header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b="RLei1BP/";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kZdMwoHV;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HZ49YWc1;
+	arc=none smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518A1606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518A1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71EF606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:29:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E71EF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=RLei1BP/;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kZdMwoHV
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9F696EC0191
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:27:05 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Thu, 29 Oct 2026 18:27:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793312825; x=1793399225; bh=c+qvZDVoKn
-	tvP031zXBxbTK1eyYefVpFxx/OJ0wzL5U=; b=RLei1BP/l/szFUnHUPMIq2KwaS
-	Di+6WNliRtMn/zcOlhE2sw1g7W+IPgwFDKwMMEeHw0iwswKyQd3AmFtoGbYZWp4c
-	WVCqhnkphsZIP/Hy3luhcQs9EwiHsF2HIZGhTN1qNq0H6WtPNjLwiTaosa4JAwxG
-	DKyRTVyJz6AHOVWT4QZNoIlbE6r6O71SvTDJIM2RIydOWO+/qPyoMxEeTv+ahI6j
-	da86/rpMObiVqy3b6rlOAx/9wXBVEh+v0Yy6aWwhD1ZKKTOLMwK+ehM6UdPVOlQS
-	SeAji8sUgksK/xhZi9xCLItZwZOv9okrMXHO3r6JHoH88I8tf6wNd5luCy+A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793312825; x=1793399225; bh=c+qvZDVoKntvP031zXBxbTK1eyYefVpFxx/
-	OJ0wzL5U=; b=kZdMwoHVTwsn0veaKmuVGLB9WSezqvpk8D4GG9S+6pa6sywB4dm
-	/2zSo8+FACUAKHg3PRkoFjWXaOkvTks6UrW3l4poh+BDRXDDE/Oa2xQM4rZa3FR+
-	Asvc1YliHSWpDky/ddREVVSzHhdMhDFWyMSaKZW5XRoTzuKJc7frSxMmpRhH0jrq
-	Ifm/MjTCL5LHUciyS7H54Rg2gryRPhEta0pNzrksrq/grDgtSAOQbFyw4Roo6lf0
-	91PMMRN3YigRW/6SByWSjoK1RLgydK8N5DujiVGqdgIVFYIIUiNWp0RRE02gC7ds
-	rkOwmO01GCdPqWnMzQzwZAbfaxneUz02iZg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=seanlyon.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793312825; d=seanlyon.dev;
-	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Q0yW73HT2k4xhZZN60wAwbWhA9KRIIDchK3je0yMZOk5kHa
-	k2cBctE4mzuWorvr9gj+TvtCu1ZLtXzD6mdIENSW7MVxO9ZOlgrtySl7enSanEkR
-	9naO/CS7VweutD/z15OKIBhF9UM0vANoYWM3z+CdFbCt9bkN82H7b9b7Bpj3Hhz/
-	DBQY7dPrbNAw3VPth2tnpdc0fXyyDCDalme+KlpQHErHZGwv6brVT2KfIPlTkdGn
-	9cY7flXr3i3t76MQrvG1168Suo26EL6u8zyDsM0kus/lkjP6vlbB8GF4f2nVrYr5
-	c700EVXN8z/RMTu5hLKP90V/4kRNzKsFZSyC7dQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:KvBfcCEepGgQCubxIEetBiWso0zJricPoQ92z5Q5vEY=:lbADKVHdEahGZKvvXkqmKVF9EHRzpIvUPrlJlpRUdJU=;
-X-ME-Sender: <xms:OcjjavXoYbRC5ReY17VGGF0BO1sz3F1hlY9fjTANsxJ9-KD_3Jacww>
-    <xme:Ocjjajed29hfF-9WSxvkT-SgiOI3JZvG4Ju5WOS6JkAwFW1sIkqsbo9_-dRWPcoSw
-    W3fzvQ5aLBaVXuckmWFwVUGUrKG9NUrZTyRPR2FFXzfG__6Dx4K9Vc>
-X-ME-Received: <xmr:Ocjjam5BiU51VdPCCUeoVLIzIbKfz-H5cjtsr46v_8hH-Gq-RHLRvLWdg-ckEkQVuwn_55pyjrHpviZknA_ReSz-UB4>
-X-ME-Proxy-Cause: dmFkZTF5//9darI5cdAP9cgOMZ9g5DzAEkTMytA9leshKDo+hCJHoq5xa0eca5YBSLUe2D
-    booja4g9cXkeaxOSVMy7rVqCAzQ6dCku7PUvgrp5uQymaKYXBYIx1AUNs9rIptHDQVlEmv
-    Ip0JmzyHuGvc2wiAN69PNfDc9kCjf6A+1v04h4hA3sMt4t7qR+FGl3iVJCJls2orKWb7kV
-    6sD3te5KHHQxh/TypaHsyYZu9+pHHeuDjxhYtOvvtKCZdcGxgcS2ngFzCDuttiMl4JyfEz
-    1W2B5qY98cJESz2ByAENSn35XqVnBmI//It5PdG/W/T5dq9pPu6FY0Rb2B69pI5miZOYkW
-    bSdZ3cI2yCCwlqySo+0JHNTI+teP06l7UhwE6jiDiN6spqsWMiyfCN6GWDd22NBfPg1ViY
-    PltAom86eH1qbiRpOkR9VKsA9VPv1OGVWubZxstfflohr3fvfg1AVj/zMqcbT7VRP1Ialw
-    CEJaUlvblfGoXJeS2UP2N212P06J3e6hqASolf777lC16rYnY6PMOCYGCofSdg9IN6MIC4
-    pyTQSuyypSzebGljCGWXwz81TWOplrcXCRsG7r0hM8i5QSniQoQARGp+CSEbjCZZEPqfJQ
-    C28twK7DYpHpMPimjl07Ww5eSXaRhK55S1Nu5PjVKHjvqM/FfOlfzMr0FVMQ
-X-ME-Proxy: <xmx:OcjjauSZFMpaZMyB-bfMcdCjFR9e2sPcENRi5aWkFx3Zw700rhhycA>
-    <xmx:OcjjahcXpJ4cM4Zy6HbvFeHn4-71fv1o-CJvUx58GOkqkDOcvedZuw>
-    <xmx:OcjjamQVLPT7MjokE_rQbeY3onPm9-6JEyP-j788g1NozR-g_qOWog>
-    <xmx:OcjjaiMV9wtx5OoFIDuA1_mwcn1iDYnyQZZCoonMJUug_OEQ2oeWuA>
-    <xmx:OcjjajodCIYB15_t8wd0nJE_Iak_l0D45qipZXCmLyZFT9s48Ycv4IFy>
-Feedback-ID: i07c64b5b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 18:27:03 -0400 (EDT)
-Date: Thu, 29 Oct 2026 18:27:03 -0400
-From: Sean Lyon <sean@seanlyon.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
-Message-ID: <auPINwnKN3lNnh8J@ncase>
-References: <20261028165942.107695352@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HZ49YWc1
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1afdf5196so20507eaf.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:29:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793312988; x=1793917788; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=l+Nd+2nznLFpAVzQLOmxyyP0XOy5YVodggakhVQWjxo=;
+        b=HZ49YWc122jtmUgRFpQogXEHF6w5RZ2gntHef3yrssXUttq1Z9ksdhU/Gy1NT5AkWC
+         IhNquALQrI5sQjMu4GQ64LyIeg9+JCxlO19Ikt55Mi9aDc0OecuYI/JuyQNlrDhcbOwU
+         wfXXMmRahf5Bp4VBE0IhBGnDOolKp/SPNyYB5Y4Zv8MmkxW6IL7b6TpmGxLXyt5GEGPr
+         w+qbNCjVBH+yAFUzj2ddwqdK0bVetrJZ8wYXB29ZXP3x/G1jYVYejrLC74F1Cjqm9XF2
+         d81fDnBxGNWhm3M0ktWqzHOKkF6gyUVKJsaa6Y23oBI43w09ve4Wdgl0ATI4tvq6P7Sl
+         VTpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793312988; x=1793917788;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l+Nd+2nznLFpAVzQLOmxyyP0XOy5YVodggakhVQWjxo=;
+        b=sQwZZlVKRaoDEQtFMry9cwfr+lkVcMWM+y6exX5AwryfvyjnGIl94eBRxfXWHF1Kgi
+         J9/ziJ0z/kIjmRNacVsF4DoaMb7ky3pDwNfW7e0C/OFd8nSqnrT+5RGe3XHG2/LteFig
+         7BffPu2av6eJ2LjsUOCmd335G8BEqKXaHGF2bqiZ1zOrdQfZ4bquaWVLE0sqg6Pl7a6l
+         9ntK+RpCRZ0YehyyIZG5E70dSlHdq6ys05z3I4IDpobK5df8qFcZGeQdzvEJsI7Wxkq9
+         9Zwqmn6PoNE9kyrAbl5QTcvQVhfTxHeiD/yQFbWMsRwL7ru+QZy8O7dA/Uv72coU05ly
+         +70g==
+X-Forwarded-Encrypted: i=1; AKwUvBw2i5xGCoC1ZU8EbK6o90zQ9K+/Oxnk0/BnPpnLwDKngn3TSzI+pNUZFUJ2KHDQGyvRFAm5EIE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeupPSvtxRJnuXfS7AXd4ghwNxTZfZ0eRbzqnEWQQVFhabK93t
+	PneFed6LZMPwhCb0ypzcorTv5rrSxlAoDCXAlHyJD6u9x8e909pT6d1A
+X-Gm-Gg: AYBFou3vWm/MjjA1kbXjCvgdbC7LTeWw13A4tZ+pshX/0z9nfULZ4sWCRTI4va/G9So
+	eBHOL59B/IKDh3y2Gn7OvE9wQi4JelHxZ/jAjD4ozHezTdkaayyZvNi6/t09S+vLgB81AozS9sA
+	dX1VDeEvgUyZWDDBIT99FvhczmiE2v5sUa/9/orV1zIwy3mn/30fjWK+1eAJsquGXrmSy6Q1UBW
+	0jD8Uxf9dHLQAZXpJHOq1eQYEQh6legxuWM0BWAt89J3pzJMe3hCirtjO0uhXlIlA+ETk2rg/Ci
+	Suxtftc7/msjYzc7GWXAem7GugfAPlHs9Rg9axsSpmMVmxxTHQyJ3bhUd4+KjZwj15wFF4Dz6zv
+	dGtiRt2L1yjMlfp32hksSTAUhrzRyUHdmYyXj19Q/4ZAJyAqIq3Iya2mfb5jADzXXdpW6bWCZCb
+	JOmlUo2sQudmdCeSzRerPyKbz0PLgSXw3T6lhwN+SVQiQcKG5rckkksgnPRMwZMplSL5Lo9Z7TV
+	124EcyGQNS6C31tkUUTCdZe3LA75rcG0Eza2Yx/Mqfegm3xHCLILBTXhTS8DGoFm6jcAQpWamAG
+	QMm2E3poOqbvlhxG5S5osZcxlnxKiXfF6cJPl14doh600ydwLSOeTgML2YsVVoi91C8YpqZZGgU
+	3neoUbcqhjwH6DCxIsFPBk+M6e16kkUdiGHuOs8qpqbcW6nBLANPBFyT5miJiEH8YBECJcEEomC
+	KifQUEvIl91g8BemfYBOlS2piU9qYJGI1zGFwPkNi/VQpLeQBjaxdZk/7y1aZdL4UruPo5aMY2Z
+	w==
+X-Received: by 2002:a05:6808:199a:b0:4f7:a3f2:d8b4 with SMTP id 5614622812f47-5640de44246mr458040b6e.65.1793312987766;
+        Thu, 29 Oct 2026 15:29:47 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fc49880sm236130b6e.2.2026.10.29.15.29.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 15:29:47 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v4 0/7] dmaengine: dw: serialize completion and termination
+Date: Thu, 29 Oct 2026 16:29:34 -0600
+Message-Id: <20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,23 +94,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwW7DIAwG4FepOM8bEGBpT3uPaQcCJvG0kAqyb
+ G2Vdy+0l2iXTvLlt+xP/4VlTISZHXYXlnChTFMsQT3tmBts7BHIl8wkl0ZwKSB/dyPN4H/Ajxb
+ yKbohTZHOCIsA1JoH9Rq88JYV4pgw0O+Nf/+45/L/iW6uZr3obEboki1MXRUTY08RX+5/5WKgP
+ E/pdGu4iCr9s0wZAcaGVjvpTTD7t3609PXsppHVMovcYvIBJoGDlkrhXnlnW/cXa7ZY8wBrCua
+ M7AJXbdAOt9i6rle5PqIClgEAAA==
+X-Change-ID: 20261021-submit-dw-dma-synchronize-v1-e550f47fd1da
+To: Viresh Kumar <vireshk@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Dan Williams <djbw@kernel.org>
+Cc: Serge Semin <fancer.lancer@gmail.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
 
-On Wed, Oct 28, 2026 at 05:59:08PM +0100, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.14 release.
-> There are 88 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Keep client callbacks in the controller tasklet while preserving polled
+completion. Serialize descriptor ownership across completion, error
+recovery and termination, and wait for callbacks before a client reuses
+its resources.
 
-Built, booted, and tested on hardware for x86_64:
+The first two patches serialize channel-completion and error-recovery
+handling with termination. The next two complete cookies under the channel
+lock and separate residue calculation from completion processing. Channel
+release and device_synchronize then gain tasklet draining before the final
+patch adds the deferred completion list and tasklet-only notification.
 
-- AMD Ryzen 9 5900X, Nvidia RTX 3080 (nouveau)
+The series adapts Serge Semin's channel-restart and callback fixes [0-2].
+Polling continues to advance cookies and software-LLP blocks, while client
+notifications run from the controller tasklet. Synchronization preserves
+pending tasklet runs from other channels.
 
-No regressions found.
+[0] https://lore.kernel.org/r/20240911184710.4207-1-fancer.lancer@gmail.com
+[1] https://lore.kernel.org/r/20240911184710.4207-2-fancer.lancer@gmail.com
+[2] https://lore.kernel.org/r/20240911184710.4207-3-fancer.lancer@gmail.com
 
-Tested-by: Sean Lyon <sean@seanlyon.dev>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-Thanks!
-Sean
+---
+Changes in v4:
+- Split v3's callback-deferral patch into cookie accounting, residue
+  calculation, channel-release draining and callback-deferral patches,
+  following Frank's review. The resulting seven-patch series preserves
+  v3's final implementation.
+- Place device_synchronize before callback deferral so clients can drain
+  deferred notifications when the completion list is introduced.
+- Carry Frank's Reviewed-by tags on the unchanged channel-completion,
+  error-recovery and device_synchronize patches.
+- Link to v3: https://patch.msgid.link/20261023-submit-dw-dma-synchronize-v1-v3-0-c62bf048f5ce@gmail.com
+
+Changes in v3:
+- Order channel-completion and error-recovery locking before callback
+  deferral, retaining four patches.
+- Require a locked RAW.XFER event before retiring a transfer; zero source
+  residue alone cannot establish destination completion.
+- Preserve polled completion and software-LLP progress in tx_status(),
+  queuing client notifications for the controller tasklet.
+- Serialize cookie updates with termination and report queued residue.
+- Drain deferred notifications on channel release and let a pending
+  tasklet return without MMIO after the last channel is released.
+- Adapt Serge's two patches and retain his authorship and revision notes.
+  Drop the Tested-by tags that covered their earlier implementations.
+- Identify the introduction of the synchronization API in the final
+  patch's Fixes tag.
+- Link to v2: https://patch.msgid.link/20261022-submit-dw-dma-synchronize-v1-v2-0-5244e94dca8c@gmail.com
+
+Changes in v2:
+- Carry Serge Semin's two posted fixes before the synchronization change,
+  preserving his authorship and revision notes. Add the requested stable
+  Cc trailers and Andy Shevchenko's Tested-by tags to those unchanged fixes.
+- Add a separate error-recovery fix for stale error status, empty channel
+  lists and software-LLP state when terminating or restarting a channel.
+- Use tasklet_disable()/tasklet_enable() instead of tasklet_kill() so
+  synchronization preserves scheduling requests from other channels.
+- Explain descriptor ownership during termination and acknowledge the
+  shared-tasklet scheduling race reported by Sashiko.
+- Link to v1: https://patch.msgid.link/20261021-submit-dw-dma-synchronize-v1-v1-1-6af85c2d6f69@gmail.com
+
+Revision history from Serge's series:
+
+Link: https://lore.kernel.org/dmaengine/20240802080756.7415-1-fancer.lancer@gmail.com/
+Changelog RFC:
+- Add a new patch:
+  [PATCH 2/2] dmaengine: dw: Fix XFER bit set, but channel not idle error
+  fixing the "XFER bit set, but channel not idle" error.
+- Instead of just dropping the dwc_scan_descriptors() method invocation
+  calculate the residue in the Tx-status getter.
+
+---
+James Hilliard (4):
+      dmaengine: dw: serialize error recovery with channel termination
+      dmaengine: dw: complete cookies before releasing the channel lock
+      dmaengine: dw: drain the tasklet before releasing channel resources
+      dmaengine: dw: synchronize completion callbacks
+
+Serge Semin (3):
+      dmaengine: dw: Fix XFER bit set, but channel not idle error
+      dmaengine: dw: calculate residue separately from completion
+      dmaengine: dw: Prevent tx-status calling DMA-desc callback
+
+ drivers/dma/dw/core.c | 307 ++++++++++++++++++++++++++------------------------
+ drivers/dma/dw/regs.h |   1 +
+ 2 files changed, 160 insertions(+), 148 deletions(-)
+---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+change-id: 20261021-submit-dw-dma-synchronize-v1-e550f47fd1da
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
