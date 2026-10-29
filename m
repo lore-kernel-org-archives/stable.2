@@ -1,58 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793272722;
-	b=t6EBtCp6HhFlqYTTtZDWuZWi9mTWawV7PU3Aqgg+3quPWEhPZ8Td2QB+Phi9u2sPpUWn
-	 +uj1LARlmzumnJuFtDKhb+WBJQkmrWkYa8FwxL3sRatmUH7jbUGxrfcN39WuwK7DQFE81
-	 JcZogpr5PDyZ7f1JkwjvxNNviNUecgllLT2VLbZtSZGAw8lfWRs+J0mOWOBBTcp6whYK2
-	 HJ5FGIS11rG+byRz3OezoPfeMVMb4h+MlVAXvWAPVsvafEP/BYxxGlwNQRqmJJKlI6nia
-	 5Vz5Dl/l0yjY90/9HhB781TfY4WfkqdeM0lZzjeCjZ/kJnOYJaeRPzJTKLLXdqG7P5w==
+	t=1793272849;
+	b=grKycfPA7nPkrnb+OBT2xv3gEJO7OUaZykTnvRMaru53PkQJs4DeAQMBejy4lNmRWYcp
+	 CBn0yC1nkT63dSx5l7FF9Efvzy6VgkpCghNEEpEwtXjmffs0pIuvmZwiathcB+Ho85mvX
+	 0qJYRzn3SOYvUqV7Y2oM3YeaLQvJpk1E8jnXfvpXITboJeV+RksDMcVDUArFFVh/P2VED
+	 pMrL6Z6JNr/x/gNJfCgXLxAdcpjEt1avavYE3E55fljRk8Q70k4dURYuDwoRlhNC3yznb
+	 JhNoC/3LELnMKCdQL5Hpmj97/hKZC/f3+gNLD4gpV8NbROsS5kbaIN/6UZqlWAPIAFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793272722;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=oRzZK2TV472kZHxDJFt7NKBBHWBp2CpJHIed8kBiKzw=;
-	b=vhD80Her69TN2KwiaKsGtF0wqId1PUVpYQOVfIQOK1Gl9ptLIdGdSQTh2kF2CkWJP3fa
-	 GBSkKRc0J+C5KL5OcemG9D4cbRTwJEjGu1j/G2WRBN8FuddEI7geQqCw53vEg8y/Vl/wC
-	 /iziTy52+HOrb1EJS6XR/M+gtSWjrNkWAEJauUIjBZzAlcSKJJYGukcvCn9lO17+SUhww
-	 zttRZZRCGTJifwpVfLOjnirffcYX0Vjet1+IggpPPUCew2yyAgPQhBBmFuU2WV00zhvKC
-	 A3vcYhfjnECEQ6SmnNWmWCPqIzo/S8CQLNH6oflbljQLcxg7sskLE1i4btKImej3CiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793272849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=j8Zt37GO6hvBK/VWxNoOISHBNExAaLWjWwQPv4izgSk=;
+	b=yKAyGr+gN9xVjz/2cqj2iBGrJ0a89DwlpIRgaQOzemxS5s8aYpfab3C+yzB1kKShAow+
+	 EN3T4cxNzMdN7BwG4lLIT7knfzy5HOI7SawedzYEQ0mPs8S46doFF6JHhxrZ/sGMt2Prx
+	 f4/lYSbpVP7szJ+GVFMVPUpL0mW6PVTGH2z9+xpSD8Kt8bL129mv4pR8PEhqfZEDft8IB
+	 PrwlkLVVV+BPlVBUZQ6irvP4xS8r9et3sQXfLZFQrh/ICemhGH1H89jUpS4PZafI0cIOh
+	 UH35KeAAKzZs5Se8ihxWOI6aWjqScLifGSw1TvTzzxiyKaNBO0yHxlt+6Wq6DJx+7Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY68Gxyg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qk8g6IaN;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF7E606A31A;
-	Thu, 29 Oct 2026 11:18:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26094606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:20:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26094606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY68Gxyg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C561F01825;
-	Thu, 29 Oct 2026 11:18:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793272722;
-	bh=oRzZK2TV472kZHxDJFt7NKBBHWBp2CpJHIed8kBiKzw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IY68GxygSLUt+GAqqR5oqUaK5quHUhxyMViLgDu58VfNFFBHH0J4bpp6Io9yoouTy
-	 uqdfeJGUVnwpbFzI8HJ/jJXwaV9sHQnflXzCDU3Bim7HAMXFVRlph8FXnHAvmHqXhz
-	 A3FkSnrANIOsBRX4g9bFh/ZHVutwl/vQ0QAT3fLHIgkqRk64ka/QUUgYNdI0vPlDGE
-	 2+tDYlTVde8B5HFbsW5bK1g7soB2RQJ2Lr0dlx1XWW3hcGCu3CKT8FD0tzoTJrnWzN
-	 HKKWAOn04g/Lx15U2In1IxkcYhgNkjuJzvytsBPxzTCskBevAKCQPiqNN89qeqfUP0
-	 NRxbd+bg+Okvw==
-Date: Thu, 29 Oct 2026 11:18:37 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v10] ASoC: wm8994: drain delayed works on remove and
- probe error
-Message-ID: <58d8942a-16a1-46c5-87d5-486ae4e756e5@sirena.org.uk>
-References: <20261029102515.3417777-1-tristmd@gmail.com>
- <20261029105749.3732334-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qk8g6IaN
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so1650959f8f.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793272847; x=1793877647; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j8Zt37GO6hvBK/VWxNoOISHBNExAaLWjWwQPv4izgSk=;
+        b=Qk8g6IaNzLRC96s45UVqwO7Akh0xDEgB2oB6ShZ3S3dAYnMFYwSN6XIQ868uHVjD3w
+         xlEevPfhiO1ASAnLxtEQGJJgjbpXJ5AxBnKiBeurM8yl/wFHElO2uSuaAtHqzLvf+h+D
+         zd15rVtpEmpuYzm0wON0ynBdThtALn54vYy15737THserh8ttgQtYd/xsNDfCfYNqV2S
+         fgzwTmB3aphkX0C6kAHV/D+5UC8LVvM2pPQtp3K+7IlBziBJS4eEeLcBBW11fzWbOlI3
+         sWewwss36PTuCr7WyM0SVmIhkVQJ6EVNkkaKWrzk1Kdy8xbACOcCZ1VHGMxPR0D6LB4L
+         AyHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793272847; x=1793877647;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j8Zt37GO6hvBK/VWxNoOISHBNExAaLWjWwQPv4izgSk=;
+        b=iLCPpZ9IHZOknwSJ/Er98vld5UuGnkUI8ikvMiV5XPJVK/wfhvlTgC8ng0tegvWdV2
+         hA95WVl6VnF7BzSLcy94hTcUekK6+Al9mQ2Y+eE1fvmWguK9FlBovTu+Qw7u100hdFOR
+         E4s1Osx8qjCwUC9DQxZg4vK5CGrYgqoCAjBQ8BcLiIEaqcRKrS3suJhubAe7vly7PHCY
+         IBlHUwP9f7sAHPmHO6Ut+JZfKjkTUQWZyWFPOb778kNbwuGY7jvRXGu2hGkormBvtpqx
+         i57h0wSCZrdxH3V12wvQfflFNUP2bTmQLTL1AbZG2LE/0xxskTZCaKJEi7paZmTT0QyL
+         B5YA==
+X-Forwarded-Encrypted: i=1; AKwUvByk7a07wCKKp+/2mMNoLj0RmLNKX2jrNzQ+ii/qsr18UA93J74rGcTAg0OTFz1Cbhn4KHnmLps=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkpQfg6ll6gHdwSiHb/N4+rFF059z5D2lIidJoeRqYaWw5csW7
+	T+5lIoTCZWU8TnXwfW31QrrdIGzSd0AFdBHhhsm9cDwa+xg/n3pqd2up
+X-Gm-Gg: AYBFou0B1GD4FFehxreXNEXx28LF6pcJhJSwnly5BWcwvfNa/uQJc3BPW4kc5a/XRbW
+	zfRR+yPTojE4roHl1EMoy8DlHxoyzj11fpMYkQmNDZoJ6Lq5FIhHM25CwSqYUj2dS2GWkseh8Ha
+	aVo1gKBjyXCy6qmUJjy13Dd72/wTmdrd8moicIsWJ4QdVh4n1pLNTCXIlJfKMjGf/24N/yK2xpu
+	rcJk1BB976VCKO+kcyAImCzkfKf0euvyAi0QvRa1P3E85tEoixCA1WlPwCYTH46gPlLm24Ow9rT
+	jdcjRluagFbxrGOEk5IDvroIU6g0kdaY6UKGnFmvD1BuDAgpAuRnbZFuagACU54/epN+3Z60fU7
+	Lkt4w4n9wSFrawMQMD3OweQLihJR4hAn3EKF0v4WyQJhBdWZv4enLDPRfGw1b3FfEDTsGmSUgp6
+	4b+6V+egp2y/lwm74mqeflVyXEitiOJW+JuLtKrmkPuf16vEhxMK2paiyXSA3Qla6jSLFXvPB9e
+	pWhYt6WgnV2Yws0TE0xY70GiJeQ+/BJbALSRF2V9sxhrwyXLZZutSaTQCRWxq6W6phIcdcorcuj
+	ynv9qUUDmMwzwxlnVvqp7zHQmNbqkbudlTQ4eNe6sr/msewq2sjwbCXEBv8/8rNihlY=
+X-Received: by 2002:a05:600c:8184:b0:4a1:d087:f6ab with SMTP id 5b1f17b1804b1-4a967016ae6mr109930585e9.18.1793272847111;
+        Thu, 29 Oct 2026 04:20:47 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6419e05dsm5345525f8f.19.2026.10.29.04.20.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 04:20:46 -0700 (PDT)
+Date: Thu, 29 Oct 2026 11:20:45 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Esko Mobius <echoowall@gmail.com>
+Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, Simon Horman
+ <horms@kernel.org>, David Ahern <dsahern@kernel.org>, Ido Schimmel
+ <idosch@nvidia.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, Shuah Khan
+ <shuah@kernel.org>, Thorsten Leemhuis <regressions@leemhuis.info>,
+ regressions@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Eric Dumazet
+ <edumazet@kernel.org>
+Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
+ configured MTU, not the learned PMTU"
+Message-ID: <20261029112045.5e7d4317@pumpkin>
+In-Reply-To: <22077B76-12B0-4DD6-813E-A3968003575F@gmail.com>
+References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
+	<20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
+	<20261029101859.6893f1a0@pumpkin>
+	<22077B76-12B0-4DD6-813E-A3968003575F@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,44 +108,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DGKWooc7RhOjjnxM"
-Content-Disposition: inline
-In-Reply-To: <20261029105749.3732334-1-tristmd@gmail.com>
-X-Cookie: I have a TINY BOWL in my HEAD
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 29 Oct 2026 18:21:22 +0800
+Esko Mobius <echoowall@gmail.com> wrote:
 
---DGKWooc7RhOjjnxM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Thu, 29 Oct 2026, David Laight wrote:
+> > If it isn't a silly question, how to connections in the other direction
+> > work?
+> >
+> > I'd have thought they'd need that ICMP message to get through.  
+> 
+> Not silly at all. The frag-needed always goes back to whoever sent the
+> oversized packet, and only the client side filters inbound ICMP.
+> 
+> Server -> client (downloads): the server's full-size segment hits the
+> 1456 hop, the router there sends frag-needed back to the server, which
+> accepts it, learns the PMTU and resends smaller segments. The server's
+> send side was never changed by 2640e6419594 (tcp_current_mss() still
+> uses the learned PMTU), so downloads always worked.
+> 
+> Client -> server (uploads): the client's full-size segment hits the same
+> hop, the frag-needed goes back towards the client (via the relay's
+> conntrack), and the client-side firewall drops it. The client never
+> learns to send smaller segments, so the upload stalls. Here the only
+> thing that kept segments small was the smaller MSS the server
+> advertised in its SYN-ACK, which is what the reverted commit removed.
 
-On Thu, Oct 29, 2026 at 10:57:49AM +0000, Tristan Madani wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
->=20
-> wm8994_component_probe() schedules several delayed works to handle jack
-> detection and microphone status polling.  If the component is removed or
-> probe fails after these works are scheduled, they can execute after
-> resources are freed.
+But that relies on something having gone the other way first.
+In general that won't be true.
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+It is almost worth implement something that retries with the shorter mtu
+to detect the PPPoE mtu blackhole at the sending end.
+Or even just use the shorter mtu for long RTT connections.
+It won't make much difference to throughput (maybe about 0.3%).
 
---DGKWooc7RhOjjnxM
-Content-Type: application/pgp-signature; name="signature.asc"
+David
 
------BEGIN PGP SIGNATURE-----
+> 
+> Thanks,
+> Yongjian
+> 
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjK4wACgkQJNaLcl1U
-h9Df9Qf9EAczEeBJjK/kzZxvH6thCAVJENf6HuUVW4uilNUrApgiqav9st/SQU08
-3/bDkzNO11+tUJV8qTVjyoxQI0zNmTf+/d2i4xnNSxY1FbXx59AybbQRVJX0w8aO
-H+Sr192DgJQ55HQ/jNw2ZmF8dA28AJIi82w6pTr1txNWAVQK1gPKF8Wm7aADxvyG
-I3YfxyU6MD4mzU4dggcARzR3KlnufBSPJpV/Fa2xJ+vA1YgPyF9yNW8W2uUtPPv+
-LTCDqpC6b8ATjdpLtikSqxWzeMtW4cSSdgaEuVjDvsqeW7+ZndroFJL8eaKGfmka
-QwKgIJAGg8U632Gm5NnQwR/68amUng==
-=7xco
------END PGP SIGNATURE-----
-
---DGKWooc7RhOjjnxM--
