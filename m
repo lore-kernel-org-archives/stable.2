@@ -1,48 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793251740;
-	b=hz1n2yz3ibCIY5Bc0SQGuwOGHQv5VUmCAY6r9XrLzOPEz6LVQ220mvpPUC3qet+zwAEJ
-	 ogb8egHiuvNTkywbq/0pd3/QukKOGY61Z507GSYzzLx5WbbHwCZ2Z1CNb81c8cz9JsKlo
-	 Hmh73KloYQce7HO5v7/j9WWtWG4O3BNFQVVvWrvj9OUd04b7U4d6SgsUmsPX2f/aIOdr8
-	 TOJ5gBDvfooOixMlKA67+hCuJVi8asxU03dmpS+tA+1alPQg/NxBx4bwXh8/ZH1trhcpY
-	 An+RvY2tucBIM8XoKGdWIMMAruJOB/evKBIQa9tazDVgYsnUe8OqnDKZsZHTmwahwHg==
+	t=1793251845;
+	b=loRGaQZA3zQMG+LFOT5wZn0Pb+xRSx1Bs7bx0bgASezqM3Hl8DRAvxExD61oj4t1pXUN
+	 vZMO8UiLpVdf0HG+49NYbCZalywzzGA0uw8fSihHV+lKBFi76P3/DrbXRdMZOZrMyWhuy
+	 Jpjmm3IX2hJXx2AK6s8eN8zW7qFZ6u78P6sJHa0dNKTBfsEGDSrgS8SXzB5IbWSWugE5B
+	 sxhbarP8wwLBxDxs8XBPRgocoOkFwDMkmxVJgnVH34P/6cKY/jYTgP5wzh6oMYKZMwfNf
+	 hG35GMhmrxDO1Kfuhv4yQ9A1L/OvN5d+N20sNnpIw+WRGc2+I2U0pTekuyCJ3TKnbOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793251740;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=iUGbBhgVuegGEwbJwljheDN/HF6FIDtwgtvq8E6IK30=;
-	b=ydUXFV0Bfb6pVlaQ/J6uLT334pSB9CVBf4cyUTZOKsbupFMhGZcw84PptTi488lceClu
-	 W9g33ogBKNXOJ0cE6D2dOAETUKL4C8i3FaDxCcXPKZKiFlHdsGvUmk/h3oymNoyRCZC3b
-	 zo+ja8RPqBF4s81hgfT3cOiG2H0qrDlByfpiqoKE1zYw8VKzfmG/B4cdPnnuDuxBtmhfd
-	 mKVgCD6seUBER7F7m6fduuKflpkKEVmUtA87hiPhxFcTJPEIgbhwybIy5SuTViWa0Tja8
-	 GEaWwIA0lEaNWXja305173B9A6uwgPPs/pgYSMc5eBGhUTgl+r8mJtZo9gYDK48Yqhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793251845;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=aaGFXjlWznnwtHjFBVxR5yr0lhNmkbRMpFW9Kta8BMc=;
+	b=OEyCAwfs3gkzkrwgClOwlPzNzyMDBd3jU5JKdYsT7TgSXkqoVAeBefAZzQPeEyYX0CRQ
+	 BfPbVwurRV+/YMOe9SzgPJTZ1pQoAGYTQgo4abnnf42VfoUob8QQdCpi6KmOifofL1bBC
+	 wJ3OudOwSh//aUTnpSuvDAqQxJh5xFW9mRzErcSe3gNWXyMlDVKBgvR0exaffJWdkE2my
+	 JJI3Qp4I/t/XNvBCucksThLTsxmJbdmvatwOAO+ArqjyxwWwKNzV6aVgjqZU3KMTgDAkK
+	 jQDczAPCHmMJ2pbiOZNaJMqLBvKHb9nfw/2oFRm2fXG/aa8jO1MFJOuO8MHzFJABQUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EPkBbjYu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BBkRLJ9t;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED96606A31A;
-	Thu, 29 Oct 2026 05:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F618606A31C;
+	Thu, 29 Oct 2026 05:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F618606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EPkBbjYu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538981F01825;
-	Thu, 29 Oct 2026 05:28:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793251739;
-	bh=iUGbBhgVuegGEwbJwljheDN/HF6FIDtwgtvq8E6IK30=;
-	h=Date:To:From:Subject;
-	b=EPkBbjYuutoajV49M+qFHeRh/il6RQG42yIKMbtHeU1mOUweMHIm+RV4jd9cZ+h7e
-	 uPXB2dhEwHE/YKQo2SPPZEvsStF9ggzFJ81PDPeOjnyIJnhbB8NmQrlqROKD69eTmj
-	 xj0FAguPlM/jYP1U4r8meOZ8BiFZt/JtsNdCOVDo=
-Date: Wed, 28 Oct 2026 22:28:58 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,osalvador@suse.de,
-	muchun.song@linux.dev,mawupeng1@huawei.com,kmehltretter@gmail.com,
-	david@kernel.org,ackerleytng@google.com,enderaoelyther@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [to-be-updated] mm-hugetlb-fix-max-only-subpool-accounting-on-alloc_hugetlb_folio-failure.patch removed from -mm tree
-Message-Id: <20261029052859.538981F01825@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BBkRLJ9t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=aa
+	GFXjlWznnwtHjFBVxR5yr0lhNmkbRMpFW9Kta8BMc=; b=BBkRLJ9tZR6uSVjOgB
+	rAHBRSnc0ILF+NcxLsofyApktFj6JdH8fa7L1+4FJiW36BbnGWZKJ9bIw+WERW3F
+	saaYHTbm/Uti6cZUWA22V/XYm+RrxeN6spJ/L5ZxXHOpzbh0BV0lID9/tgb0JMQd
+	ikEl+EGcFMviyI91CJW1UUTLQ=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3P2nN2eJq1iVeDg--.22839S2;
+	Thu, 29 Oct 2026 13:29:50 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] powerpc/eeh: NUL-terminate force recovery input
+Date: Thu, 29 Oct 2026 13:29:48 +0800
+Message-Id: <20261029052948.2525048-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,107 +66,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P2nN2eJq1iVeDg--.22839S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWrtF1xtF4xWw1rAF1kZFy7Jrb_yoW8Jr15pr
+	n0kFZxtw48JFn3J3WqkF43Z34jgrs7Zryaga1kW393Zr12vryq9ryUuFyaqr48tryIgF40
+	qrs0kFyUKwnrGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjhFsUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQ78N2ri2c7tOAAA3C
 
+eeh_force_recover_write() can fill its entire stack buffer from userspace
+and then pass the unterminated data to strncmp() and sscanf(). This can
+make the string helpers read beyond the buffer.
 
-The quilt patch titled
-     Subject: mm/hugetlb: fix max-only subpool accounting on alloc_hugetlb_folio failure
-has been removed from the -mm tree.  Its filename was
-     mm-hugetlb-fix-max-only-subpool-accounting-on-alloc_hugetlb_folio-failure.patch
+Reserve the last byte and initialize the buffer so every accepted input is
+NUL-terminated. Propagate copy errors before parsing as well.
 
-This patch was dropped because an updated version will be issued
-
-------------------------------------------------------
-From: Zhao Li <enderaoelyther@gmail.com>
-Subject: mm/hugetlb: fix max-only subpool accounting on alloc_hugetlb_folio failure
-Date: Tue, 28 Apr 2026 19:30:38 +0800
-
-Failed hugetlbfs page allocations can permanently consume the mount's
-size= quota without allocating a huge page.  Repeated failures can make
-the filesystem appear full and cause later huge-page faults or allocations
-to fail with SIGBUS/allocation failure despite available huge pages and
-unused real filesystem capacity.
-
-alloc_hugetlb_folio() calls hugepage_subpool_get_pages() when map_chg is
-set.  For a subpool with max_hpages != -1, that bumps used_hpages
-regardless of whether it returns gbl_chg = 0 (rsv slot consumed) or
-gbl_chg > 0 (used_hpages slot only).  If the allocation later fails before
-a folio is returned, the unwind must undo the used_hpages bump.  The old
-cleanup only ran for !gbl_chg, leaking used_hpages on the gbl_chg > 0
-path.
-
-For gbl_chg > 0 on max-only subpools (max_hpages != -1, min_hpages == -1),
-hugepage_subpool_get_pages() took only a speculative used_hpages slot. 
-Drop that slot directly under spool->lock.  In that configuration
-hugepage_subpool_put_pages() cannot restore rsv_hpages, so the direct
-decrement is the exact inverse and is race-free against concurrent puts. 
-This matches the used_hpages-only part of hugetlb_reserve_pages()'s
-out_put_pages cleanup, but restricts it to the max-only case where no
-rsv_hpages restoration is possible.
-
-Mounts with min_hpages != -1 are left unchanged for now.  v2's approach
-(hugepage_subpool_put_pages() + h->resv_huge_pages++ to back a restored
-rsv_hpages slot) double-counts global backing under concurrent
-free_huge_folio() and creates phantom reservations under concurrent
-hugetlb_unreserve_pages().  Safe cleanup of that quadrant needs a
-coordinated fix across multiple call sites.
-
-Reproduced on size=20M hugetlbfs with the faulting task in a hugetlb
-cgroup whose limit is exceeded.  Vanilla leaks 6/8 hugepages of subpool
-quota; this patch leaks 0/8.  Verified under QEMU.
-
-Link: https://lore.kernel.org/20260428113037.88766-2-enderaoelyther@gmail.com
-Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Tested-by: Ackerley Tng <ackerleytng@google.com>
-Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
-  Link: https://lore.kernel.org/20260923065714.20781-1-kmehltretter@gmail.com
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Ma Wupeng <mawupeng1@huawei.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: <stable@vger.kernel.org> # v6.15+
+Fixes: 954bd99435b8 ("powerpc/eeh: Add eeh_force_recover to debugfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
+ arch/powerpc/kernel/eeh.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- mm/hugetlb.c |   25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
-
---- a/mm/hugetlb.c~mm-hugetlb-fix-max-only-subpool-accounting-on-alloc_hugetlb_folio-failure
-+++ a/mm/hugetlb.c
-@@ -3121,13 +3121,24 @@ struct folio *alloc_hugetlb_folio(struct
- 	return folio;
+diff --git a/arch/powerpc/kernel/eeh.c b/arch/powerpc/kernel/eeh.c
+index bb836f02101c..2d7898ef6b8c 100644
+--- a/arch/powerpc/kernel/eeh.c
++++ b/arch/powerpc/kernel/eeh.c
+@@ -1728,10 +1728,12 @@ static ssize_t eeh_force_recover_write(struct file *filp,
+ 	struct pci_controller *hose;
+ 	uint32_t phbid, pe_no;
+ 	struct eeh_pe *pe;
+-	char buf[20];
++	char buf[20] = {};
+ 	int ret;
  
- out_subpool_put:
--	/*
--	 * put page to subpool iff the quota of subpool's rsv_hpages is used
--	 * during hugepage_subpool_get_pages.
--	 */
--	if (map_chg && !gbl_chg) {
--		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
--		hugetlb_acct_memory(h, -gbl_reserve);
-+	if (map_chg) {
-+		if (!gbl_chg) {
-+			/* Full inverse when subpool_get_pages() consumed rsv_hpages. */
-+			gbl_reserve = hugepage_subpool_put_pages(spool, 1);
-+			hugetlb_acct_memory(h, -gbl_reserve);
-+		} else if (gbl_chg > 0 && spool && spool->min_hpages == -1 &&
-+			   spool->max_hpages != -1) {
-+			unsigned long flags;
-+
-+			/*
-+			 * For max-only subpools, subpool_get_pages() took only a
-+			 * speculative used_hpages slot. Drop that slot directly.
-+			 */
-+			spin_lock_irqsave(&spool->lock, flags);
-+			if (spool->used_hpages > 0)
-+				spool->used_hpages--;
-+			unlock_or_release_subpool(spool, flags);
-+		}
- 	}
+-	ret = simple_write_to_buffer(buf, sizeof(buf), ppos, user_buf, count);
++	ret = simple_write_to_buffer(buf, sizeof(buf) - 1, ppos, user_buf, count);
++	if (ret < 0)
++		return ret;
+ 	if (!ret)
+ 		return -EFAULT;
  
- out_end_reservation:
-_
-
-Patches currently in -mm which might be from enderaoelyther@gmail.com are
-
+-- 
+2.34.1
 
