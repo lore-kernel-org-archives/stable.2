@@ -1,99 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793253953;
-	b=p1OM7DpEVisIrcls/Zgo/z/uOH2992O0t5ZL39kZpluwJmtpXzqMQSPHyFGVJh5nO11Y
-	 AqHztAWqI0aIQ9Fa7KmHhHKjKIYCn78+bUbnaBMFcL8X2M7Y7qZQpsrIPxU2JhcNhz8YT
-	 ZFivtUsgkzkqTf99bgRGOKdPsnicPPqk7DWgvSZC8l2dPhEKWXqnDq7i6vk320m2sqJeW
-	 rrXKoqSqQ9w8DBWaZHwrAPJEgLq4wwHjvM0NryDJX9Ye7qDQJc5GqdinzOzb8tGxoCO2u
-	 IfZOrc8dCzonnydhCiEjHp5zm0Y3RLV1yqBkfYRg/Z8Pgx3Dia1FWcvQ5y2safpsvKA==
+	t=1793254481;
+	b=iJelNIckr72KaWPmnl2qutIa7VqxAGuxQG16MtzWGYCYVxApW+OSSLt5wFEpgbGtKzpk
+	 rw5gw/vDroSoc5e+6pZlhZ/jQc32ALFislF/zh180F4WdsEcuMsp+ATo1G/qVqcvujG2P
+	 HWiEklXMdaRNbxaqQCV7FvlDVMe9Nua1+PGUAwoTMBvfPhkYvOtZ+5yzo5LaZgO78oYA1
+	 zl3SiHCAXSEM6hOFnH4sTtetQ/6xCCGyVEHlr0BHHGJ2wVn8z3V696wVgKjM3ocW3OQPv
+	 lPvOuO2XB5hUP704YBeJJPBZMd1L9aB3ssO3bwJ+FTz5qg9/UqrQSKs4S7IAH278h0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793253953;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254481;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ve4P/af0YMON2eW8s3CRyy2aQgdBXU6q9ZyvIcIdYyI=;
-	b=KwmA1+8Ars4TXicRux8Ti/mgfov6Co7zK+CAkmsHcmX76ZiQv5qiEOIw1+bYmz1ZDFZg
-	 O3yj9r3Wq2Swg0w3SCbPZPthxOPM6W+Ih8jNOaV6zDxruNWvFOEBgDnPkI5J4VPhZxZA9
-	 JBWNdOg+5Bd8Nsh2XZwzoB5iYTMjwBmSQKQqXWCRDuHx1obPICj23Lgq8+VPzSn5pMHEs
-	 UcgUL/5sJgyYZlJbBsDZiBZ7O+kBIvvIYcyDxqjBKBSbgnHWBNhnEp+6koNe+L+CJ/TyD
-	 RhGEc4/0cXSD4lsINWWsh6afgZF5k8Eer14qcdHOA2bcj98YKTkMb4BIZ/eRiqKusnw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ivEqINlh7ZkJrAoGIP7Qk/ck2w+8V1ulipYhp9Ae/DE=;
+	b=1U8FbHwDa8cDhFqtlKfYQ9H/U2rtV6gyGAGKrb0ek+azVJRC/Kj033n5l9/Ip6H3vMwX
+	 45HGduIHCeA9eYhfwx0wTCzo8uDPLeM0Uc4Mzp3F0jtZXVcOqCbSPIIpB79q370aroXBk
+	 SiqliG05WIq2690MKcosBjcMeoaXb9m7DFteu+2keELW0JlYMViyLqzmPichEo5ddV5fx
+	 5Fe0o5pkyDXAz4KO/wQtNEOwF9KNtSm8p92C8yAcUSUwLmgQ9fJB+CroRAECiX731mcAs
+	 qVxbVrDLZAxGsmlYKmu0fOL+Yn7SCxsnPVBBU6pCGIlfvWLAMMM9Eh63wzJeB+rEJKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z66VK0C0;
-	arc=none smtp.remote-ip=209.85.221.180
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LwY+C7Rw;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F04606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:05:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32F04606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1368B606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1368B606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z66VK0C0
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eadf48fb2dso658385e0c.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 23:05:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LwY+C7Rw
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so15123685e9.0
+        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 23:14:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793253952; x=1793858752; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793254479; x=1793859279; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ve4P/af0YMON2eW8s3CRyy2aQgdBXU6q9ZyvIcIdYyI=;
-        b=z66VK0C0HWf264jDUwlCBYeaaFVfhK90ht+1E8fX2sss76ORC5RyQ6rFHWRKj01p4f
-         6l/1dxN7WSjeytE3l9HzhYnxQ1Bghsxj9TZA/eLcO5fp5r9Xc5gvDsTPuSmTEyNT680S
-         TaryncxCNquKE9+QYvCXUFX8WXho3DsElu3o9l3aIJvq6YkoC8kVrdBj1HqTsAgJ3W19
-         DgKq14NgcAamdh2bwwI+RN97VmWFthn6a9I5hkF20FcnMhCgquqZU8xisfpEtEDL+YzW
-         1ljaB+w1AjJQO5Je/9IOOuVUkFRlNnbSoUzQRGGaAcl1vbH1r0D4uNLUsAjkE1t0hGs5
-         ECeQ==
+        bh=ivEqINlh7ZkJrAoGIP7Qk/ck2w+8V1ulipYhp9Ae/DE=;
+        b=LwY+C7RwjoAzSYAQqJJgoj7sJsD3GVBFQOiYIFCE69SQJxXZDaHHi37eO1pT6YYceZ
+         vZxTMok1DXPfg10dfo33wGjKI7pivZrg89y17+t08DgkvDVShpi05v4gkmKk14fkA9oJ
+         oeQIB/1RHXZP979uSUjNX6IPjavD33d/9VzVW5Yh4jh7gOvyJw1qkcVlj7ABAl74DCJJ
+         kNoeyfQdp+3kieiHvy6oYTJYbhkW/XLJYATNI40WiHmm5fc3pVAgsy1wwBSIS2COhmk/
+         aC77OBQ0ZARdYK+gR8n/QBScxxVuRDZViItMPooS9pdl4YQYsxWp+7DuINUVGmFUrsIK
+         67cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793253952; x=1793858752;
+        d=1e100.net; s=20260707; t=1793254479; x=1793859279;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ve4P/af0YMON2eW8s3CRyy2aQgdBXU6q9ZyvIcIdYyI=;
-        b=NLMCjiyWHhOl65fdQYThbWhSEHtia8xI+R5YRKbPOQzy/+Zl2cxwAXxHXEXWnPg796
-         0zoX9yw2Zh3UZNux01GMktyEdaa16xtg8rKjfMImPWywJQ7R+tlm0UahdzJt1a53PtQM
-         Hw9spacreLXvFyWscKK5GBgPhjLG+bnjgslSblcUmVDf2l9/RM9xDP7Gh9af5LWoljhM
-         40khEt9DDtwZ6qLGa5Or0GSABWeCrwjgRVChPlLjjifv2aI1ZKsJoMU/kF2ozU0H9ER6
-         b8+//q1/SSCumUd9x4dDtlLq9NWkEB8brZESAsb08AFb0/lEBp2RVnL34cwj8+yeQ7jr
-         Dm6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxCDXvGV9WG1RRpI4NTDYbd4e/4Z/0dttIzsfSMlPqYBrNoJpmidMU0U/+wYCuUsyM09ST4BnY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpO6JBNtSPi/8FlzMs3qq4ijnl0E/aEafrwo8EX51zokcWOGEN
-	kuzUARCajGu90JMUdvaMa26xdCTdJcKYn6qtMe26/UeZTDxyKdpWRDJi
-X-Gm-Gg: AYBFou30h1SNWUIuxbrZxKRJzcEOahanJOUCBdPHYYs3NOqvKl2dtJdC0mDThIRL1Sv
-	MDFrAfik/yVHru47CpHIAtkpE5TUumiRarNcclrzcczgH1P4LP3Ubx1kDUbkP6IQLdnQlWIR7He
-	0PIBgfUlLMWfu61G+MLwd7kzYASKEU3LxT613JO2ESSedenkw2mB441E+tgAPCWA7ChO7Mc9d2W
-	0QTPFbnH5/V34XQBXsJAGLdR17u888jg1bxgzZPgLciYWh8Ku3q9a00tAmW9t25Loe9pvwgFXpn
-	1MnHdCVeHaHrppiBFXx0aWKyC2QVWWaCT5ecmbQqgGC1plLQYKCNv9vX9zbjtZc76lPg2tCq0Xh
-	lsElkdN/bGKW0YXtd3H4l1pf4f4Wx90kW+VbgrgpQnQaqH9IxLTBhkwnqGVnS6wLEKMYtO2lgsj
-	XEAG4ldUR4dCcE64WY3JKzUWF2u09vBk7V18dXFi/d6mEHDB2uBBJLztJhFEKU3PJKBAQS+tzQF
-	Vdpi9VXWetFipKJKR3zWawcoYeIcYgeb2XUGeWUKQ7/f0TwnlEnjNQ92fUhDpSvuWBa62IGkr5l
-	j9j+puIKWrGFDWpzckm1sCFuvZWKshsyx1h5U2k=
-X-Received: by 2002:a05:6122:4286:b0:5e9:6d96:aa38 with SMTP id 71dfb90a1353d-5ec4cbfd1c0mr2200118e0c.9.1793253952022;
-        Wed, 28 Oct 2026 23:05:52 -0700 (PDT)
-Received: from bridge.. ([2804:14d:ba6b:8339:8b5e:397a:cdcb:e1d9])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec57d219f0sm2276999e0c.4.2026.10.28.23.05.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 23:05:50 -0700 (PDT)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	nilay@linux.ibm.com,
-	wagi@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme-rdma: fix NULL queue->ctrl dereference on reconnect
-Date: Thu, 29 Oct 2026 03:05:21 -0300
-Message-ID: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=ivEqINlh7ZkJrAoGIP7Qk/ck2w+8V1ulipYhp9Ae/DE=;
+        b=iHT/5wIQ2iWOKOesCJhZ4r0Bj2wsJRedCXP72gPrM7ikVNa8BQjOkH36kXGPVqS98V
+         uzXBnMveNoUnYWKi23gWj+pKNmvgoWFIjigO/FqEW6rbfeEKB/dy4AfLFejCZvR0DY1r
+         oAgMgbCM8shCu1cUgkQuUqY/tU/uGUSFgVmp3DY35VeJjbFK91sgfAy8hQpcCs8jjUg/
+         N+RUva9fyjh+Fv61QuW5/tushCV/DIJ/E9wIrgLQ3zTNfUYPPF+D74BL/rXSJxp2XlOn
+         UoVYZr4pyWeXNtGVD3mbMIHfOQkGCBeCYWZk14n+u7ujnr2Xh0LPSaiSzH1rT/OVPx71
+         WUSQ==
+X-Gm-Message-State: AFq9FYKXfOjK7HNKajT1O7KA8qOWUnUvAXpiDs5u/a6g2EZ/PPcHZ861
+	DgKfcHwBfHI3AkBEHFrdeE1HOgcM0i4RU075HO/F3ijpBJwBiXdiyaILAc+BA90iCW0=
+X-Gm-Gg: AYBFou3kng8vkC3a7adR8LlhUBCZb2XNXVszj/DafAul0i7elucSXn0h0CZLyYSS/9q
+	nduWhs+KBQKQ3pFcy5RCgOCeSllLTD44Yo48QlWlpGUrWhNn38E4zHp+Mx2qkiCb45KYjkYWi7F
+	CnBWjhSC+Q6IfLPuY9KeE9a9AQNPgcd+Ll9M1sVvj15QrAg1GcgVuiuJ/4iy3jkIBpe4tSDj6Mx
+	8AuCUN6tW8OuwuiP60R/SmkIvvTd8JIJCvnDpkmYZyDjgbPZwR4Xq0SFZ/KNMwi9vJZeNpUdo8J
+	I4IHNlU251czyUrDy75HgaePm27DvK9pUd7Nrd1sUCQiAkzmbIggi8jtkjJGYQa/l4hoH75/svy
+	dxSH9RARu711L32IqYgW5yqvo/MGUeSwsiCblLWBeDc6NMCHE8HC5Dzd3jRZYJKFVjvKKkOvLWw
+	oX5Bt7VX7PNMFq6EN61MdbOLsnjZ2JbdrbpL1bfoGQRDoTDoECv8md4hynZA00q8hSEc5N0ZHMC
+	TSQFGQD17zW8dqtBvb16NuXHZ9wSKYozBaBTxLvEfEgZ4qDf6FJ432lLhpuIBc6hscMXnfEgl/V
+	lDpIMbY64vvXVkN5W9bTKF3yRMVp/otQTmXgxygbxjjTECI3B07vivnt4NeGBrMnsQ0s/LbtexJ
+	RDkonSr+Q+lOjHLilgCcj1iujDNPilAHwx3XVWdV8FavZctwwx+wMVPHWExFrvS5/xaziJ117JS
+	8J0rOsnsOb0pRPB5peXL53REEY8tqRQWgloITMhRkB6WUleG382/um
+X-Received: by 2002:a05:6000:160e:b0:48e:888:36b4 with SMTP id ffacd0b85a97d-48e5d5c3867mr7911286f8f.9.1793254479252;
+        Wed, 28 Oct 2026 23:14:39 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-aead-eb01-e474-b637-02f8-0d63.310.pool.telefonica.de. [2a02:3100:aead:eb01:e474:b637:2f8:d63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm32614741f8f.25.2026.10.28.23.14.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 28 Oct 2026 23:14:38 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: stable@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Yi Yang <yiyang13@huawei.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	linux-serial@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH 5.10.y] serial: tegra: Add missing clk_disable_unprepare() in tegra_uart_hw_init()
+Date: Thu, 29 Oct 2026 07:14:27 +0100
+Message-Id: <20261029061427.27973-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,177 +103,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
-and startup"), a reconnect that gets more I/O queues than before grows
-the tag set before the new queues are set up. queue->ctrl is only set
-by nvme_rdma_setup_io_queues(), so I/O submitted in between reaches
-nvme_rdma_queue_rq() on a queue that was never allocated and
-dereferences a NULL queue->ctrl:
+From: Yi Yang <yiyang13@huawei.com>
 
-  BUG: kernel NULL pointer dereference, address: 000000000000034c
-  RIP: 0010:nvme_rdma_queue_rq+0x52/0xb90
+commit 38f28cfe9d08e3a47ef008798b275fef8118fc20 upstream.
 
-Add nvme_rdma_init_queue() for the queue fields that do not depend on
-the connection and call it for every queue when allocating the
-controller. Such requests are then requeued like on any other queue
-that is not live. queue_lock moves there as well, and
-nvme_rdma_exit_queue() destroys it when the controller is freed.
+Add the missing clk_disable_unprepare() before return from
+tegra_uart_hw_init() in the error handling path.
+When request_irq() fails in tegra_uart_startup(), 'tup->uart_clk'
+has been enabled, fix it by adding clk_disable_unprepare().
 
-Fixes: 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation and startup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Fixes: cc9ca4d95846 ("serial: tegra: Only print FIFO error message when an error occurs")
+Fixes: d781ec21bae6 ("serial: tegra: report clk rate errors")
+Signed-off-by: Yi Yang <yiyang13@huawei.com>
+Link: https://lore.kernel.org/r/20221126020852.113378-1-yiyang13@huawei.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Based on nvme-7.4 (89480d137bf0), also applies to mainline and v7.3.
-Same approach as "nvme-tcp: fix NULL queue->ctrl dereference on
-reconnect" in nvme-7.4.
+This fix is already in 5.15.y and newer stable trees, and applies cleanly
+to 5.10.y.
 
-pi_support, cmnd_capsule_len, queue_size and cm_done are still set on
-each connect, as they depend on the RDMA device or on the connect.
+Tested on the 5.10.273 review queue (6aa0165f18f12) in arm64 Tegra210
+QEMU across the FIFO timeout, baud-rate tolerance, and request_irq()
+error paths. Without the fix, each failed open() leaks +1 on the UART
+clock's clk_enable_count and clk_prepare_count. With the fix, both
+counts return to 0.
 
-Reproduced in QEMU with nvmet-rdma over rxe and
-CONFIG_NVME_MULTIPATH=n: connect with attr_qid_max=2, keep direct reads
-running on the CPUs that map to the new hw queues, then raise
-attr_qid_max to 4. The window is short, so the readers run at
-SCHED_FIFO with nvme-wq pinned to their CPUs. Without the patch the
-host oopses within two tries in all six boots. With it, 64 of 64 tries
-go live and 30 resets under I/O pass, with and without lockdep.
+ drivers/tty/serial/serial-tegra.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- drivers/nvme/host/rdma.c | 36 +++++++++++++++++++++++++-----------
- 1 file changed, 25 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 07216890f75c..79ef8927d3f0 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -90,6 +90,9 @@ enum nvme_rdma_queue_flags {
- 	NVME_RDMA_Q_TR_READY		= 2,
- };
- 
-+#define NVME_RDMA_OPT_NR_QUEUES(opts) ((opts)->nr_io_queues + \
-+	(opts)->nr_write_queues + (opts)->nr_poll_queues + 1)
-+
- struct nvme_rdma_queue {
- 	struct nvme_rdma_qe	*rsp_ring;
- 	int			queue_size;
-@@ -576,6 +579,19 @@ static int nvme_rdma_create_queue_ib(struct nvme_rdma_queue *queue)
- 	return ret;
- }
- 
-+static void nvme_rdma_init_queue(struct nvme_rdma_ctrl *ctrl, int idx)
-+{
-+	struct nvme_rdma_queue *queue = &ctrl->queues[idx];
-+
-+	queue->ctrl = ctrl;
-+	mutex_init(&queue->queue_lock);
-+}
-+
-+static void nvme_rdma_exit_queue(struct nvme_rdma_ctrl *ctrl, int idx)
-+{
-+	mutex_destroy(&ctrl->queues[idx].queue_lock);
-+}
-+
- static int nvme_rdma_alloc_queue(struct nvme_rdma_queue *queue)
- {
- 	struct nvme_rdma_ctrl *ctrl = queue->ctrl;
-@@ -583,7 +599,6 @@ static int nvme_rdma_alloc_queue(struct nvme_rdma_queue *queue)
- 	struct sockaddr *src_addr = NULL;
- 	int ret;
- 
--	mutex_init(&queue->queue_lock);
- 	if (idx && ctrl->ctrl.max_integrity_segments)
- 		queue->pi_support = true;
- 	else
-@@ -600,8 +615,7 @@ static int nvme_rdma_alloc_queue(struct nvme_rdma_queue *queue)
- 	if (IS_ERR(queue->cm_id)) {
- 		dev_info(ctrl->ctrl.device,
- 			"failed to create CM ID: %ld\n", PTR_ERR(queue->cm_id));
--		ret = PTR_ERR(queue->cm_id);
--		goto out_destroy_mutex;
-+		return PTR_ERR(queue->cm_id);
+diff --git a/drivers/tty/serial/serial-tegra.c b/drivers/tty/serial/serial-tegra.c
+index ccc6106a5a253..3b86272cdf390 100644
+--- a/drivers/tty/serial/serial-tegra.c
++++ b/drivers/tty/serial/serial-tegra.c
+@@ -1060,6 +1060,7 @@ static int tegra_uart_hw_init(struct tegra_uart_port *tup)
+ 	if (tup->cdata->fifo_mode_enable_status) {
+ 		ret = tegra_uart_wait_fifo_mode_enabled(tup);
+ 		if (ret < 0) {
++			clk_disable_unprepare(tup->uart_clk);
+ 			dev_err(tup->uport.dev,
+ 				"Failed to enable FIFO mode: %d\n", ret);
+ 			return ret;
+@@ -1081,6 +1082,7 @@ static int tegra_uart_hw_init(struct tegra_uart_port *tup)
+ 	 */
+ 	ret = tegra_set_baudrate(tup, TEGRA_UART_DEFAULT_BAUD);
+ 	if (ret < 0) {
++		clk_disable_unprepare(tup->uart_clk);
+ 		dev_err(tup->uport.dev, "Failed to set baud rate\n");
+ 		return ret;
  	}
+@@ -1240,10 +1242,13 @@ static int tegra_uart_startup(struct uart_port *u)
+ 				dev_name(u->dev), tup);
+ 	if (ret < 0) {
+ 		dev_err(u->dev, "Failed to register ISR for IRQ %d\n", u->irq);
+-		goto fail_hw_init;
++		goto fail_request_irq;
+ 	}
+ 	return 0;
  
- 	if (ctrl->ctrl.opts->mask & NVMF_OPT_HOST_TRADDR)
-@@ -631,8 +645,6 @@ static int nvme_rdma_alloc_queue(struct nvme_rdma_queue *queue)
- out_destroy_cm_id:
- 	rdma_destroy_id(queue->cm_id);
- 	nvme_rdma_destroy_queue_ib(queue);
--out_destroy_mutex:
--	mutex_destroy(&queue->queue_lock);
- 	return ret;
- }
- 
-@@ -660,7 +672,6 @@ static void nvme_rdma_free_queue(struct nvme_rdma_queue *queue)
- 
- 	rdma_destroy_id(queue->cm_id);
- 	nvme_rdma_destroy_queue_ib(queue);
--	mutex_destroy(&queue->queue_lock);
- }
- 
- static void nvme_rdma_free_io_queues(struct nvme_rdma_ctrl *ctrl)
-@@ -735,7 +746,6 @@ static int nvme_rdma_setup_io_queues(struct nvme_rdma_ctrl *ctrl,
- 	for (i = 0; i < nr_queues; i++) {
- 		struct nvme_rdma_queue *queue = &ctrl->queues[first + i];
- 
--		queue->ctrl = ctrl;
- 		queue->queue_size = queue_size;
- 
- 		ctxs[i].queue = queue;
-@@ -798,7 +808,6 @@ static int nvme_rdma_configure_admin_queue(struct nvme_rdma_ctrl *ctrl,
- 	bool pi_capable = false;
- 	int error;
- 
--	ctrl->queues[0].ctrl = ctrl;
- 	ctrl->queues[0].queue_size = NVME_AQ_DEPTH;
- 	error = nvme_rdma_alloc_queue(&ctrl->queues[0]);
- 	if (error)
-@@ -1001,6 +1010,7 @@ static void nvme_rdma_stop_ctrl(struct nvme_ctrl *nctrl)
- static void nvme_rdma_free_ctrl(struct nvme_ctrl *nctrl)
- {
- 	struct nvme_rdma_ctrl *ctrl = to_rdma_ctrl(nctrl);
-+	int i, nr_queues = NVME_RDMA_OPT_NR_QUEUES(nctrl->opts);
- 
- 	if (list_empty_careful(&ctrl->list))
- 		goto free_ctrl;
-@@ -1011,6 +1021,8 @@ static void nvme_rdma_free_ctrl(struct nvme_ctrl *nctrl)
- 
- 	nvmf_free_options(nctrl->opts);
- free_ctrl:
-+	for (i = 0; i < nr_queues; i++)
-+		nvme_rdma_exit_queue(ctrl, i);
- 	kfree(ctrl->queues);
- 	kfree(ctrl);
- }
-@@ -2284,7 +2296,7 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
- 		struct nvmf_ctrl_options *opts)
- {
- 	struct nvme_rdma_ctrl *ctrl;
--	int ret;
-+	int ret, i;
- 
- 	ctrl = kzalloc_obj(*ctrl);
- 	if (!ctrl)
-@@ -2333,8 +2345,7 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
- 	INIT_WORK(&ctrl->err_work, nvme_rdma_error_recovery_work);
- 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_rdma_reset_ctrl_work);
- 
--	ctrl->ctrl.queue_count = opts->nr_io_queues + opts->nr_write_queues +
--				opts->nr_poll_queues + 1;
-+	ctrl->ctrl.queue_count = NVME_RDMA_OPT_NR_QUEUES(opts);
- 	ctrl->ctrl.sqsize = opts->queue_size - 1;
- 	ctrl->ctrl.kato = opts->kato;
- 
-@@ -2343,6 +2354,9 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
- 	if (!ctrl->queues)
- 		goto out_free_ctrl;
- 
-+	for (i = 0; i < ctrl->ctrl.queue_count; i++)
-+		nvme_rdma_init_queue(ctrl, i);
-+
- 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_rdma_ctrl_ops,
- 				0 /* no quirks, we're perfect! */);
- 	if (ret)
-
-base-commit: 89480d137bf0d943a82c64f86ae2407a15276b5e
++fail_request_irq:
++	/* tup->uart_clk is already enabled in tegra_uart_hw_init */
++	clk_disable_unprepare(tup->uart_clk);
+ fail_hw_init:
+ 	if (!tup->use_rx_pio)
+ 		tegra_uart_dma_channel_free(tup, true);
 -- 
-2.43.0
-
+2.50.1
