@@ -1,52 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=99.33.87.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793317853;
-	b=Vsf6CwQaSkeYCtumzKdTn1kZdCbCrSu6Px4LHTDhGetuLnP+oaTLQZWNOheSI029LDwT
-	 vkLzBaZpoN5uyEZYbT3aRDpydxjYt0Zec83EtdJBsWZq5+5ZL3vZJFlHNGs+ic0g/6FT+
-	 KdjF62DSdNN/Iijc9BXguzGQmEy1a8nivdppBzdGtPQ1c/4kROujrsqv25NXyihYQL03I
-	 nsd0wx2nkRs8SZk3WoeF3QVMiiFKNIuFBuLwLfHTxRgrOibmDmvh4dF28BJLp2MHAL5iR
-	 rab7WbkM8tbNAjqMlrw6wwyt0H6ki4Ge9DoGOYBlFA8291dw26j32L4eOilwjxILwKw==
+	t=1793318385;
+	b=dB9fp2c9b8+Hwcqe0UqR8Mtd8rlRAxU7ArWMoXRHdheyec2ERVXFHbgfUqwbbZDGRb8W
+	 S38394T53CNrgba1vEeEcTqCrn4gbXLyIUuE1SmFo5dURVnFxYweozR1FcI4Nw8UwOD1g
+	 madQRl6jJL3lROCGmUYKBCsamJfwPwsuYpHcR2vB5ky1+EiKAgH55R4eJA6NIEODLI/cU
+	 zYHGAlN/44U3ju0P+bqz1vmOBnOl5161AQpTKUESem137xHpLMInN+mwb+779412vUO78
+	 ciuRx60bl1WtT/nlgkKetmEaoAtqTdji8fFY32mATBhT+sjD1jFlSk8b3otH/Tw7noA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793317853;
-	h=DMARC-Filter:Received:Date:From:X-X-Sender:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:MIME-Version:Content-Type;
-	bh=1eLdkJnMzIEbO62c9IAvfj06Rwm36zqoWEIVBGBlwoU=;
-	b=Do15NDz8Uf9AI4+nBNgXEmA5aknd0VvDpJf5Xd1EwVMl4Ifmwl88HJd4H/XHZZ7flYnf
-	 t5+Agx7TndrZH0+gdFVxAQXUlu0WNdxQzbROPiq/nuz3rZtIC/TvyxtnAVWBjJeEZmkCi
-	 vCibQxe7JVd1k9tDXW4caHAHTSsp6tywUCC67d749LBwJ4WaG30OeIRnbJArWcUgjMBkZ
-	 zzgScJ53UJAyYb6DjfOj44y2JPRGRmSDJD97EtkTSQPeD3z5iYPBX49YY4kgOt4oM6qcn
-	 fzPZOiBOi3O0xAOFPUkZ89cW77KN0sf1Mgx6eDJ6J6gLEVu3wqFTEAfN8MSoaTutVtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318385;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tFic7+OA7yuwo4OpmGmF7T3kX5OjgTEpe3NWwdEUm40=;
+	b=u0uBCxZn6wWq8XPaBHm6c+BtMapiEalYHsKXntUmUTj/u5Kphld+OlgBpMLq1c15B76q
+	 bURm3NF+hRxGgmHD3UlXWAsF+dit3KF68PT9BnWPepuMuTjCSK+slBYc5cy5mK70gdzvl
+	 tqmh+Ez7eG4alBYU15uhsh8hjxON4rz0TtZqptRlSGiPejcChAA6gqFTTeXFF5CpEIEkr
+	 O+mtuVSJWMgf3j4/ujNGWN7OqPV2AJA+oIVDctioBEUV04dlKi7QlFRR3eoybx5POYfDk
+	 ae5ocpx8oXbTW5LOtmqHNNO+bKbw2i18+CVKJk7s5LGrYwSygRh2VjhFQnpR5pQ2Aig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=aaazen.com;
-	spf=pass smtp.mailfrom=aaazen.com;
-	arc=none smtp.remote-ip=99.33.87.210
-Received: from mail.aaazen.com (99-33-87-210.lightspeed.sntcca.sbcglobal.net [99.33.87.210])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJzJHzjA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216A6606A329;
-	Thu, 29 Oct 2026 23:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 216A6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aaazen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aaazen.com
-Received: from localhost (localhost [127.0.0.1])
-	by thursday.test (OpenSMTPD) with ESMTP id 14ccf7fe;
-	Thu, 29 Oct 2026 16:50:41 -0700 (PDT)
-Date: Thu, 29 Oct 2026 16:50:41 -0700 (PDT)
-From: Richard Narron <richard@aaazen.com>
-X-X-Sender: richard@thursday.test
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-    akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-    patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-    jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-    rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-    achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-Message-ID: <d5121766-60dc-028-f7eb-dbaafcfb7ca@aaazen.com>
-References: <20261028165947.349197979@linuxfoundation.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AB0606A31C;
+	Thu, 29 Oct 2026 23:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJzJHzjA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A49C1F000C1;
+	Thu, 29 Oct 2026 23:59:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793318384;
+	bh=tFic7+OA7yuwo4OpmGmF7T3kX5OjgTEpe3NWwdEUm40=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nJzJHzjAuk/RG0xk+On6GTS7jqkBbr5JT4t6aHdkKp+iujdCTfutV+/jilz2wwFlS
+	 RNzruAggUnJaiG7StNzk1HIDnwRwOWNqgXLcvEpk6poF3yKFyoigvSED2kd7heLAsB
+	 4Z1dLgZuCJQK892ubzWHZqdMjB+vZv2Z/hfxaIR/bDu9ZR7uaKauUfFM7zI4RS3pW9
+	 a4SD+VIShOjgg3arnWdEETvG1fZJloUEGaqf/MeTHVjdThQNRcvdNN3Ex6ubWG62aY
+	 kvt6w0f0FI5T1WP1n3iqlspeNkbaGMfKhfqnDEnNh0cWNu+//293X836C2wlIzvxyk
+	 T407X7zoPCpzA==
+Date: Thu, 29 Oct 2026 16:59:43 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shaos <shawnq1@163.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Jiri Pirko
+ <jiri@resnulli.us>, Paolo Abeni <pabeni@redhat.com>, Victor Nogueira
+ <victor@mojatatu.com>, Sashiko <sashiko-bot@kernel.org>, Vega
+ <vega@nebusec.ai>
+Subject: Re: [PATCH net 0/3] net/sched: fix short-skb metadata and namespace
+ boundaries
+Message-ID: <20261029165943.41fc74c0@kernel.org>
+In-Reply-To: <SER-NSBD.v1.r0.20261029191634@mojatatu.com>
+References: <SER-NSBD.v1.r0.20261029191634@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,26 +64,13 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, 28 Oct 2026, Greg Kroah-Hartman wrote:
+On Thu, 29 Oct 2026 19:27:36 -0400 Jamal Hadi Salim wrote:
+> Subject: [PATCH net 0/3] net/sched: fix short-skb metadata and namespace boundaries
 
-> This is the start of the stable review cycle for the 6.12.115 release.
-> There are 247 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.115-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
->
-> -------------
-Tested on AMD   amd64 12-core and 4-core systems
-and    on Intel x86-64 4-core and x86 1-core systems
+Please fix your setup, Jamal, all your recent postings have patches
+posted in reply to the previous patch:
 
-Tested-by: Richard Narron <richard@aaazen.com>
-
+Patch 2 is in-reply-to patch 1, patch 3 replying to patch 2.
+They should all be in-reply-to the cover letter.
