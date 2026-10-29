@@ -1,48 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270666;
-	b=yR9AX6DRIpkGu5/OA3BIsUdLIqKUWKu9UfAAWOXuUAZF4F9w/C13GTEnuOxUakVgQyXr
-	 8KyDg5TAtWr/qHPirq7nIjpZ2DFP3DhztBqXnDVKbY9Cvd3Oqb5MC+CxBKUfpBS9rcW63
-	 0rl/0GorY0w/GhYXMSsGaI7q6uPvgysUllQDnMcsq2O9bXZopW9s3ZhUuiOSUAvzdkSMp
-	 zKj5dNg0EnaqBAB4I1ozAdmrKDbyQl5zo7H4NjyR96N3v+8JJDtVFZzRNBGw1jm9+Hrcu
-	 rmbvRhUlN49hPzl0PA+qgYGVgaE1wH6nKE0/LoIf6o8Mps6ILAeH1QtPbRNnNMZ+/kA==
+	t=1793270668;
+	b=X5Q4/G0cNmFjFuZ9NHtn2IFvhdXT6NksdfZeck0CKXT4BK0bsDreJYerL9CabuGRT2Tw
+	 +P9YhffCBGgSWzRx1/nZOB77GSRvLtaiPnKIUxvPdd/u6uNNm1WLiyjD9HfIRwpt9QzPi
+	 RvlBHM688PulU/IpGVIOeam1Wl4Tubckx5mCsu4+KL9XUUjAwhmkSWzULvNUzs7L3rDlX
+	 dLIeI+JbDueK7Oi4UJazC+klvsRde1WN1c7levDJdlMC1eVMaC9/4nhswnD0zOczZIr92
+	 G+CK4WgHj4eK5AceICI9CWAjczWfZeiRouQzJ0oejLYM3oagOd8gR0TWGrNv7YwjT8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270666;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=VOPqNjFIyNMjGQIVaFLnlrMyaON98XJ7uGf9Dl7Z5m8=;
-	b=NMzQueQuh6Sb47/rcp145EdgyIuR3VpKgukzU6sQVnBpkjv52F5MG+jHoMXj8b+lZ58Z
-	 qu1pK7u35WbYnSsbR87nbG7ssmxQ6dxxwo0vVNt5BkAh9MRXiWrB6Kt5hVHyC1OdpIU/d
-	 DeTg8t2QBGs0rG/vS0fDNwAljOfUp3DLXj6+2QBOZvtwhgRoxp/u7FoKx3dtEQYm+2cDn
-	 ZgvQPMohDJSAnVN1Vz7Cmszh8Kmt9XkUoHehIL9YQa8mVTjkL72qGj/QLNGnxSXLelYBe
-	 VOAN/56n+f7oVGyzAkGIecxsfMVzVdceFq0fejfebPVB/+Ik1GObOUje5+kUzV3VmHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270668;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=uMxg2j2ArABS94uWcydZWkjTN2mWanzLIsJic7WNb3Y=;
+	b=gaHOXPkQA8/YjXJ6DZHgs0kuqx8lJC1NT4R3zHaL1keCIGEZ5GRIWDAbq6irsTqsM3Pw
+	 HSw5XQad5tCQKxgLBJWmmaAxAeDUuC5V6xLolVl5BjbXyKT1MvGSqYFhvdQDFG4O9lfWo
+	 7ADsUmLLPYWz8EVg74TGdEB4Wa7xTcZZhbkY/FesVQhCGl807/hUoqxLbVBQXBFq42D7M
+	 H/kdqCRQIYu2N4m/fECskn7vdsAZmt+QOT9pTUVvljejfXSijgnArTYfxM/e9gAL7FvFW
+	 zKCV/6A0Lqv/R5o4oNZFcVbClfwPvv6jA8+nlnDrwetNr/r6DtD9JqJOWeZLAo3rZFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Woa2OEJW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=04ifj2We;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2544E606A31C;
-	Thu, 29 Oct 2026 10:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738D6606A327
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 738D6606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Woa2OEJW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE52D1F031E2;
-	Thu, 29 Oct 2026 10:44:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793270665;
-	bh=VOPqNjFIyNMjGQIVaFLnlrMyaON98XJ7uGf9Dl7Z5m8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Woa2OEJWUIPj/92KA5rqxXr9SGac0Zt5MiPs89BmEf5bQ+4UXzu9ad1/4l5qTW6Bt
-	 45qhW6DRWDlZx12I4KR+YUVabee3R54XORAoZkdgDCO3YCuFyBXQSWED8bZv9Q47uj
-	 zqXjMYExLeGPXqm3iJeKhYSrLCTaXmgR7uyZ1jFWqcjTnD30shJy819wtM0tsuyBGi
-	 XbsX2I0yFQHnrvPvBrUjUkwa/WrGkoEjfBzFFiUyTHl5Hu4POWMiH4mISZS+o7acpr
-	 RCF3n8cJetkg0HYUIyyGu5prUbjUdDae2laimJX1w+VbfJ6kt7qEVIjSyrGwVx562n
-	 SHCmJv7qpQDuA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 11:43:25 +0100
-Subject: [PATCH v4 04/15] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=04ifj2We
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso1247332f8f.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:44:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793270667; x=1793875467; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uMxg2j2ArABS94uWcydZWkjTN2mWanzLIsJic7WNb3Y=;
+        b=04ifj2WeyAAOGlbfGZESAOhUycbW9j4QbHFFNujZ5tSmSmuJOXM5dHuCNLyc7ojP/u
+         FmjatzrJrM8c5B61zA2LgYjDPi7B5bDxKPvP4GiHp/4YF4xxpuUsSDj5nrepjRcDNwd5
+         uHkFjqZE/NBRWhjykCjpSEnFW4VCYJuYkak2Y8XZz4WPiXUUDCVt+0Z9rMxplabU6oDW
+         258K89rMmvrwjCfyY6RExMHK9T1w4EXjvuqaC7Ft1DxmPAhME9NPQO/waRki9IQecuZl
+         2J00O99Vit+RAvb1By+wEPo0VN9k5/bWb14gwkDglMMpok7ZorOl8whIHFF3FhOP7Kkp
+         kt5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793270667; x=1793875467;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uMxg2j2ArABS94uWcydZWkjTN2mWanzLIsJic7WNb3Y=;
+        b=CUW3U7UTroNsIgXWWvZJ4QDzRZAaOToJkiKJIowSDwQuTq7H5rwrMHrqlgqTpfQEwq
+         50Sp2otHsNryzzmQR2kF4sYVHC+qo51+hAEECdSkf/Io8HOBFeQFKNOk0ghWpYdbonxc
+         m0PHkEvWCO/aVzwsaGqLBQ/M1ScpuLTTiDzQihOj6fidWF2If8bmpDo+Dlwj5zjGuxq8
+         /AR5z+Io0WOjJfvze8F/TMcnJ1/D/1bwGb0n+Z+LzBAUX5bPY7bk1n6WuNxrr23l3EAK
+         LBnlOEORMf6NmF40gyII0qUBnGKlf9TCPGam5Ai15FeULmZqezyFrtdGCsiC0BVg5mFY
+         zcsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxn/49tTM7g9ychTQZofED4SZiTzUYcPFUxK2zhAI7wVcQ8KubU/0RAH8luO+FrnbgEYIo1q9U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrdisXaqVuEoi1YzlFolk55sBQWjYAwB0gmO80PSAlB0nZp5zn
+	K8OxMFPyYTVVyTMHoJo+9ookwQEctXo1SWZLwettb4GmsckS8dGYyMz7
+X-Gm-Gg: AYBFou2CXGJd7GfRg4YhZD9qm8y1XGBDAyRRGUfml9gYPHknV944aUzz1Y1DRFppDgG
+	zivt8+DWQNPZq/NCZNxlB+v2K5z9/vnFb/GwTHQUgEMYz+GKc1o9qWf0LY5xGXu/imfvGCLbFKE
+	4ve6HlJg4AjLsmKnYyTi9gbulPkwW/sYK19dVMyH+Y1peb8URV3PcavMmvr/sY4vqpWRhkkeGMq
+	tNn1mFAkRk44o8FSRYwBmTsBnGX52xyeB0kmpw+RNNqnVN6ezxVxYncg+VvibiNCXhFyVhjfn8d
+	tZcNlBLy82X4HENZHSxnM6jeEHy/ch5hYOzkpmqlRNQrVWh4xXUbRDpLD7PAFjaOXmJKuYhuWcV
+	Knjtmlz8l4qOFHt9R1RFUX/ssMfdEd/IS8rM74TeMriyjumD+CqSPe7hFF4EQaKmaUINJkF+v99
+	lYfh9hTW4n8HeuKA4D5iNQsIRjLg0An7bVPVhdpbCDz1iIeFz2avQeUwiyZhw/cx2KRMRKeV23U
+	kUW2fch6HdtL/jBVeZyC7WWozfN3RoNxK24CCKILceAIAmAw2/Bh1qGsTcGjmFP829jYLpy8E6I
+	uRT2nsItkSz+F7CDMm/XDw+VuSdHoLrtMBszDQ==
+X-Received: by 2002:a05:6000:1a8c:b0:48d:eec6:308b with SMTP id ffacd0b85a97d-48e5d2ecf6fmr11893654f8f.21.1793270666746;
+        Thu, 29 Oct 2026 03:44:26 -0700 (PDT)
+Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm32900670f8f.59.2026.10.29.03.44.25
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 29 Oct 2026 03:44:26 -0700 (PDT)
+Date: Thu, 29 Oct 2026 11:44:22 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: IgorpetinDev <igorpetindev@gmail.com>, Alan Stern
+ <stern@rowland.harvard.edu>, Tejun Heo <tj@kernel.org>, Oliver Neukum
+ <oneukum@suse.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
+Message-ID: <20261029114422.2ba64d53.michal.pecio@gmail.com>
+In-Reply-To: <2026102924-flashily-myspace-60a8@gregkh>
+References: <20261023174015.54793-1-igorpetindev@gmail.com>
+	<20261024155614.2732-1-igorpetindev@gmail.com>
+	<20261025000643.425c57ca.michal.pecio@gmail.com>
+	<CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
+	<2026102924-flashily-myspace-60a8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,164 +104,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org>
-References: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
-In-Reply-To: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Stevens <stevensd@chromium.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
- "Pratyush Yadav (Google)" <pratyush@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3914; i=david@kernel.org;
- h=from:subject:message-id; bh=UUa1z/yS1KDRKZLH0HFcy68dBr6sHCzKQLNyG+9aTfg=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4c5eU05eGOz4elDa27Mbdz0jLfg5YULz547ObGka
- 6w59Xr7g45SFgYxDgZZMUWWoOD7Bi9frqutduNjhpnDygQyhIGLUwAmYl7ByHBE42TAlZo7R0o+
- rllrG1/t1O3z6M3OyZ91pJn1jqvX71FlZDgtNataqFDoUq6M4RbjKw1KD+Zmhs61VAlZPjlaR+P
- lBEYA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+On Thu, 29 Oct 2026 10:42:35 +0100, Greg Kroah-Hartman wrote:
+> On Sun, Oct 25, 2026 at 10:54:57AM +0300, IgorpetinDev wrote:
+> > Hi Michal,
+> >   
+> > > No such domain?
+> > > Looks like you trusted an LLM ;)  
+> > 
+> > good catch, that was just a clumsy typo on my part: I accidentally typed
+> > appspotmail.com instead of appspot.com in the closes tag, anyway - the syzbot ID
+> > itself is valid. If Greg or Alan prefer a v4 to fix the URL typo, I'll
+> > gladly resend it, or it can be fixed up when applying.  
+> 
+> Please fix up and send a new version.
+> 
+> thanks,
+> 
+> greg k-h
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+Hi Greg,
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+This race had been reported by syzbot previously and a patch
+has been hanging on linux-usb since August.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+https://lore.kernel.org/linux-usb/20260823125831.6ea35650.michal.pecio@gmail.com/
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+There is only a bit of controversy over flushing vs cancelling the
+work. I think that cancelling (and leaking stray completions as opposed
+to letting them run, likely UAF things and maybe corrupt memory) is the
+right choice, as a courtesy to anyone who might create such bugs and
+need to deal with them.
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index c159e40e3f34..272479317cf1 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,10 +2,19 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
- #define MEMFD_ANON_NAME "[memfd]"
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index af21a89abb0f..6df0237832c0 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1546,10 +1547,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
- 	}
- 
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5404,12 +5406,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
-+	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
-
--- 
-2.43.0
-
+Regards,
+Michal
