@@ -1,62 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274126;
-	b=iAY38cooPoo4VKdgpX7uC09VDXTdxHweP+iahuwdQa+hv+Jcfl1e1hhVtKR7nV0pfCDC
-	 GATfWEO6dsczmLvtfkycc1qYQMN3uqQvZnyI6ZLXOdg990hlEy0sRZBoXzu1T8aUIu3NN
-	 nd0FboWr6GB5B7fp7CWVz0kD3oA5/hFcuPchtZEwJSD1ZZo5M/z3qanbZXrVowldHwDYg
-	 H8a8CHpjuKJyKpFfJs8MPIySntQ3h2CCMP9VpwVETRbkuoPB2V7RsT6parwZ/jFbSgt0U
-	 D87gPFns53BndCX9fraldtl5X5nwp6s8c/9QJbiR/t/JSseKAQjVi7atNs8jOl5eGig==
+	t=1793274167;
+	b=EL4qA2oAMKkNQIeybvX6f/lQ/OR6YxQW91Z65J0h9bwnKkHHgB56lAasb93KMMt1p5RD
+	 d9MvQ2qwuQp8+6V/p2GPILq3uvOeYTZAZnFqW3aQYQOIUUdxfJbhlcYlXdPrWFIN/MC+U
+	 c4RqyG0S8Uys00zslJTuTL4M0WdqtVTp2MqD2bVTCaM23GrV8mQUxom3IuxUDkEYXOIWz
+	 VtoJwqZ/A4l1yXaKKjNwx/uaWz4Zn6WHlGr9pwOqd1HaQF9HsifUghBKwykzBIbOjDxby
+	 aTofn88aqNlXkktvkHJDGvrBtL8BUrnFCPgITFHuuiqwhhCiUts14JUkKet7zlKFHtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274126;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=lNKnDSm6DWP7OhUxWQd4mOe7im/nMYs8Ki0YFs7PQN8=;
-	b=AjW1ziuy/YNAw2k7dJLflt+yoXzhsykOY/Sah8vXZmoHwHdf8vlCM7nCRcgF0/DNxXnz
-	 sGqlMphUKvITyI2kZLkYOzCWL3vAttk7TId9d1xQCHQIutvc2xnkiV6mZhnbesTKqHr2P
-	 e9WCZwkI/0ZgxoH6w5NgT/SW0UUSJ1LVr6/i+lG/V6LReBTd1Vdb/2RPmtZ+4JAJ8QQYF
-	 R8Fv9XXFlrd1ZXR2mmxuF1hjQE1VygZ0QcgOVCzg9InaaGgsGwKGUoiSo77UfhYs2NodJ
-	 D3UY7KiArsnBcYHQF/IL+f4kBjBF3MdaSAutxyhhR7jWuomFfjxiQKRKjSuuhOp4v0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274167;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=pI00oraJcj1gbywxrmhhYEBArK86LZYRPpd6Xl7nY4g=;
+	b=5cduaLbLVuUglHjjXSjb+ROJVUZmf1IV7ELVVrTWRpfGRQJ8LlIP8z9kBodViz1KLRA6
+	 IV1bjnxChlQvKvDpUMMH3CGPggQIbL+LwtFMYKQTdFXk+hwMoSvAo3ayMfuOSu+LJzV4/
+	 nmgKcR19rivTu+WrgBi0f+g4Y4FZz+vetE6AZ/XCozdfJpjSFKy8ItwU6rK+i0SqMmsIg
+	 b57DKvXi8Od7vyHI4Xr9P1TjxwlPIQPEHEctT7KREbwuSz+sZqFBQYYS2kjaLQdqoAxe6
+	 9uDqCpxRsLoYlzEGS0mVNDSrnpwd87HPdmT7YfsQ3vr5eaUSMP8H4NJlhDPjM39SKig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ViYcAhwX;
-	arc=none smtp.remote-ip=95.215.58.22
-Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434E5606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:42:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 434E5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ViYcAhwX
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PnHgOuaW7I0Mn/MofV12U5YliQliS5wKeUNRMOs0Mn4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793274121; v=1; x=1793878921;
- b=ViYcAhwX4aOh+SjcV/ahUSCk9rLCWxY2AaRMspXtdN+GAmLTvlXudu+iZwbCjk8+YBmhCnzJ
- 1rOZbWQwxK1uVMfKHMDVbRMiLfSOeR/FE7KB7c2NgVKzyRTAQpRA8qOa8JMWKfjDeEY3bIcEhIQ
- 9BQ0QjWgyxGijD9IYB4tBzMA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 779e1a2d9eb53962;
-	Thu, 29 Oct 2026 11:42:01 +0000
-X-Mizu-Trace-ID: 779e1a2d9eb53962
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so7936e87.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:42:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwXKbtyAvVTwgAICIuEp8WXNOIPUe4wkfJKJEQDUxsVqZtRkQqYRTG2GfnLVz8M8A9W3sMFBt0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvScTuK6xWSrJsCPTUdnMpAeZCGhAxSusci0bMJOH3Hpzoz9Mr
-	Mu5Pxz2AuMUYg+0tjzQrFPBU7ioZc6WobuKMWgd7NpLarj0dHbjGd5wo2oSAMPlCobMoQrVZp0J
-	gopJBfOyTtU+4iRNxksccyhSYhzuVzROdmuF3sKcu
-X-Received: by 2002:a05:6512:1052:b0:5bf:b994:6598 with SMTP id
- 2adb3069b0e04-5bfd142a3a5mr145865e87.6.1793274118982; Thu, 29 Oct 2026
- 04:41:58 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E5A4606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:42:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E5A4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=pI00oraJcj
+	1gbywxrmhhYEBArK86LZYRPpd6Xl7nY4g=; b=06zu+tJmM0REmTN/dpOzxcTI7Y
+	y5leIPKkgHik+1rSZUpy4OHczZ9GOQOoMoR1iDTtsnXxcsUiB4NaJvUIUYCVLsXW
+	IhtVtCy6AcnjRWJOW8ySkaC3OleyE8RlvdIaFhVaoLXWcNA8Ke+8EYctnvtZeHaj
+	WVoRogEs62+G0R5ds=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkAWWwApMeNqI5P+AA--.64933S2;
+	Thu, 29 Oct 2026 19:42:34 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: 2726988870@qq.com
+Cc: stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH net] net: usb: lan78xx: only stop phylink if the interface is running
+Date: Thu, 29 Oct 2026 19:42:32 +0800
+Message-Id: <20261029114232.12629-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,56 +55,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029090522.64662-1-oupton@kernel.org> <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
- <86ld7gydqp.wl-maz@kernel.org>
-In-Reply-To: <86ld7gydqp.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 29 Oct 2026 11:41:22 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
-X-Gm-Features: AclHuK_Z0kHPbYh0i1HryGJaOSIwXE6_zjBe1WXl1ax6QBriG_I6vIJcW96TN10
-Message-ID: <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkAWWwApMeNqI5P+AA--.64933S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF13Ar1UGr1Duw1DXFy7KFg_yoW8XFyfpa
+	9xZFW7uryUtw1Du343Aw48Z3W5Za1qqryxCryj9wnYqwn8XFy7Zr92kr9xCF15AFW8AFWI
+	yFnrCFW7uFy5Aw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF
+	1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
+	rwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE14v_Gw4l42xK82IYc2Ij64vIr41l4I8I3I
+	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
+	GVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
+	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJbIYCTnIWIevJa73UjIFyTuYvjxUfw0eUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2riEkGzyQAAso
 
-Hi Marc,
+lan78xx_disconnect() unconditionally calls phylink_stop(), but
+phylink_start() is only called from lan78xx_open(). When the device is
+unplugged before the interface has been brought up, the attached PHY is
+still in PHY_READY and phy_stop() reports:
 
-On Thu, 29 Oct 2026 10:58:54 +0000, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> That's a good point. However, my reading of the ARM ARM indicates that
-> as long as S2 shareability is Inner-Shareable, the resulting
-> shareability is Inner-Shareable (see R_ZNLRJ), so we're actually safe.
-> This should be fixed though.
+  called from state READY
+  WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
 
-If my reading is correct, I don't think R_ZNLRJ is enough here.
-AArch64_S1Translate() (J1.2.4.57 in M.d) checks the walk attributes
-before it translates the update through stage 2:
+The same warning is emitted after an ifup/ifdown cycle, where the PHY is
+already in PHY_HALTED. Call phylink_stop() only when the network device is
+running, which is when phylink_start() has been called.
 
-    // Either the access flag was clear or AP[2]/nDirty was set
-    if new_desc != descriptor then
-        if (!IsWBShareable(descipaddr.memattrs) &&
-            ConstrainUnpredictableBool(
-                Unpredictable_Unsupported_Atomic_HW_Update)) then
-            fault.statuscode = Fault_UnsupportedAtomicHWUpdate;
-            return (fault, ARBITRARY : AddressDescriptor);
-        end;
-        ...
-        if regime == Regime_EL10 && EL2Enabled() then
-            ...
-            (s2fault, descpaddr) = AArch64_S2Translate(fault,
-                    descipaddr, s1aarch64, s2aligned, descaccess);
+Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/net/usb/lan78xx.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-descipaddr is what AArch64_S1Walk() returns, and it holds the stage 1
-walk attributes (walkaddress.memattrs = walkstate.memattrs, with SH0
-from TCR_EL1), never combined with stage 2. R_VSXXT also covers an
-update "not supported in the stage 1 translation due to the defined
-memory type": that one is a stage 1 abort, taken to EL1.
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index 5655941f1478..68e61004b3d7 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -4581,7 +4581,8 @@ static void lan78xx_disconnect(struct usb_interface *intf)
+ 	net = dev->net;
+ 
+ 	rtnl_lock();
+-	phylink_stop(dev->phylink);
++	if (netif_running(net))
++		phylink_stop(dev->phylink);
+ 	phylink_disconnect_phy(dev->phylink);
+ 	rtnl_unlock();
+ 
+-- 
+2.34.1
 
-But it's not like the ARM ARM is an easy read :P
-
-Cheers,
-/fuad
