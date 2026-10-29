@@ -1,100 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793309465;
-	b=hHNvYkASfgNM6HMynozWeWIjuoxux20dRZvH+06qMI7qioNa/ymqGUa+63UkV2Gb8JVt
-	 yh/z5lqYE5qtQprxX61BQX2jsHzmEl6i81H0ysUgZHdb7hpvEjOGEWZtKGQbnxyE3pn9N
-	 ehPYWGO6d6zsr0Om+mu5fNFVRo1EXyKgc2HLphGzHWxlckTyQaV/UqTmD1LTbBglbDziJ
-	 c3gpWryGBMV2RpI+GldIRFNylQrmKx0RNsz6w5MXMsKYpaqqFuA8qNRBP92BCZR77rjvR
-	 G/SAIE1aX3iO2KLZtLnvrZ+pg4N4pJ70ZMHCEkthzR+6ZZ0C59GNeGVsz88KSF231ug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793309465;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
-	b=jiqtvgPpFi8s7KUSan/Ym6CnHs2nr+6SweZY5DNI4tXZM5IlQtihdQofCzIg7Z8/MnVO
-	 jpxHW6MjC5CxvwDMLou/0yqk7czeGI390QbgC7hU9bssyoInIx07yQpqFWWyN0tu0RZF0
-	 T9itXezsbpUdMLKl4QOlimwSHqevy/9AqfI5p/rGvnbrSfLb6DWkQawXnHMfJ3B09ZGgf
-	 DpKRBsFaT4hLqLPpTF7k4QllfIbfuGm6bYiBEGhxT+Tyfj61AKwLGPcbX6RdMLvSdYFNY
-	 zvGzppyIKJbrdwrVA/9guXsbdSJoi67EcAKJG0erBpTHwJ/fB2FrDYHz9tKMyVClAfA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d0IwzWfv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793309986;
+	b=5RPtP3mlUiw7EI0FsMEU1iE3BSgaGazVo4fD2XXsvPQKfYXUZfER/OnKYTamm+q2Nxvg
+	 x7g5MQL5ZxUYuwUGKXhDwB5CdYJf0NjlbwOZdoAkdzwVekSkqg4x9W+3n+IGTWgpXPD4s
+	 Y1Ec/4Ayp1p+WKJy3EmybQn8bbL7RK2/fIW02szpRy1JHhLpiEIuhMcivFq8yUAcFUMZx
+	 RGQAdANL63e9k76TO8pMZ8woJjoWaKZ9sBKAIszLKNYCm1TTefmJDMSQLDJXnXt3xs6Mg
+	 69J35CEfBDRCesp0hQ0OVWsOKO7N+zyRKTm7WEkqi28DsSjLCY8b/fRfQ8D6mwOoIcw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793309986;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=j9KYDPaLwgGzcFmGHYC+/nqBss75U3jx1877gfQHD6Q=;
+	b=jMZp4c5Tc9wRj+oX9oFNgII5/urxiac1zFmBasoH/ZJ1yedTOVYkNvHneJQ0gzQkmgfM
+	 ecEvPxLjCHYjWBMa9kwBBKbC4Rpm21srxE6WD/sKM6MlWJP2VoaTQcc9HKfmacCO7B+8n
+	 4PCnjmrkuHJrg0xDm1qzDcJQyKy4eb64eawfxZrqyMI+mJuK0MCoG6Sh1UgpyPcp6iQ0Y
+	 fHi6buuGWWZsEksebiE9CT+XfYC/Tmn69TwKVV0G4P81SB0oPueMPI/MSCqsUiztDVZJl
+	 SPQJp9WsXbN6I4cXJlBw61TTUnS36LpMcn6lQMO3sUm2le5LQyCa8svjEp2t4S9Ysjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IrG8nAF/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B666606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:31:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B666606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCBA606A31A;
+	Thu, 29 Oct 2026 21:39:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d0IwzWfv
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1492a12.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:31:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793309464; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nbd9ggvxpB9fMYCbVMzcJU5+XU3XONzbqtYUJWDjMiQae/fFQgebhdCPGPP++YbIF7
-         eRbVWcj9So2dtyGVxbNP/t5FPxtAgpaIhUIcNHzDLRWP5meMzZVymTkAop7Sm7JMCMlS
-         C6CFUZURRJz1+lC2Lip2JAUjg5NYVjMeT2J9x2EE6hl/3gk0OshV85XjJnIy5QM8Y9QU
-         Ad+L6UfzrSNbXIg7Iro1u/FhHcG17T1G4SSviovowb6OxLq8AVL6D3h9KjfwrtwtPPx6
-         MQcbYKEXwPhZ4YbiY9VPRjxCKB9najR2mEJlVAmUX9CjE98N4wOJ5tWmfuXmG26QWZZt
-         fNkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
-        fh=z8C0bJPXptTQFZ5b7u9oTozbBmp9VE01l+vGyWcmexM=;
-        b=UtK75Wj5g8oUhzxyY94PTUtZuFVwbtzK+VpmW3AaGrotBSJ2ACwLH3PvXz2uVsXXvV
-         cgiE0NyYSq0MS8FIb1DZ/EENSo5XyCdGycz0Y4djWVSeLWSQL98hKeSQTzHChJGD4yWN
-         lRvYOzYeSdtyt4jcdqq6b2uiWB54h1Pjz8S5TaY2xjxUXoQwtHAYx+IvlBxZQ3v2mY/x
-         oL5j5+YXge9Jz3L+04pIAsdOm62Ir3juBW6P/WV58bES1rixljUpsEhNB5mgVyXJcurj
-         i2EmNf+qn74EL7mFjJ8oKxrh4G5I30zyA9M0uzK8IVw0UBTTPv8GvcOH2Jxbjuq5StVT
-         Nrcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793309464; x=1793914264; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
-        b=d0IwzWfvXP4d3zE2Zq+7oXnlNdI8Mv0zAp505O9nyaJgZXdanqRMuWEgS+guwgbMcK
-         qjGNhXfRKgan5hb7y4zOFTHMbH6Tcw3jeHDOG18EY4UXb7VtigK19BYMH97KsqxkYmDL
-         l+GLMbO2+BxjqzfRAywwHjEruqTIDPw7dgM4MUwiBjoIheOs8REvzs0/Y6Q6PrAFlEql
-         mPWcnZ3c/XUAO1dBalQNFecjxiVLLF20SFKMC5/zsiqUBSZ/MpfhfGS8dyRM7P6QeqVU
-         3ZwGSnmVJC4rb6zK5WQwPFg9MDKOMBjjRYWiRwylNoW9y9e2g6YpPOTipBjLSvUVdMlF
-         6WyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793309464; x=1793914264;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
-        b=EYmb68g9wizzNcDqSIgOuvESHPdj06XtwU3dSgOBDmtqHsMQZlJsU4j/xBzicRxF2R
-         2CnaQRUk4dr3X8r1n/8ijseKocbF/RoeZJl1nBiupYcKBYHzSeP2vU4gm/Bwm1rc5vG3
-         cQahxav5GMuZY1axoN0uIAWP8EwpJlRKq3tKE1neHQ++sc19aLDRQestPRiO65h92ptq
-         9KA8YQg3suzCY0Y1abOTfgl4JkZBGCybdjQUrWMYLG6JI33aMsr9rygMmkL0DCOBz5fW
-         aLW0knoleCsFBDZ8LaNhodgX62XWBJ9DFniT5CDbUAMP5HH/M31L1gcsYj6U4DnL5bED
-         deug==
-X-Forwarded-Encrypted: i=1; AKwUvBxUOr7KPwSkvVI8nt7qa67Xo569jCfbpgb7xjkcKnireAH/TLImQ3pXFWH8RnI+uzN16MeSKT4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+dqx6fI9opURh4rT1XpLHOjSKEmw0OvkRtST1O+btOMpRCcXq
-	vsve5kA4jW4jTWcULQl/jtQ14lWmbS7ywgdl7IiWY32yGdPJiLj5iH9mA02CO3CmPs3p8lYZpTs
-	9nUOR1Md723/wb5QSZIWMWnnh1u+BtLUIvjo6Qf1y
-X-Gm-Gg: AYBFou23ofJC9nFjFihgNaaMxyiFMAhvFS3MecxxOlopz9YyFlNcBbXNmdVivsVDzZz
-	wS+4LxkSL0ZzWZmw3DWETsGN+BlsK6jmJxOKZxd4PjRHI2mGY2Q3zlk4OOV+yU9z1gI5ub807c+
-	coePj2ti+1Thw2zFnW4nclR2rS3yKiMAazjhj/2aYpafFRU0NWod2Lz5RyJNwOPMN7q1w0ChVbm
-	JTecGuq+gqlY2vZyS7NpIxW5Q045wXihPmW5qDq+HIUfBUd0UWsXyUW4ZG2KZ28TnNnKqO1mnf9
-	xXCZoFlPhD4ZSFKktOaw2fHzkqz3bLPA1Mi6C6c+4qnGlCeBjwnjLnfHZO7Kd5biqXhuBLNEPxv
-	5gBomWrU8Ec1XP4jBkYVs8FwMxLdNlhO0NoL6l7JxVAMx6X+hdK7/eFH69jym5cKaEOs=
-X-Received: by 2002:aa7:dd17:0:b0:6b1:d80d:396b with SMTP id
- 4fb4d7f45d1cf-6b4b40b8186mr104372a12.14.1793309463143; Thu, 29 Oct 2026
- 14:31:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrG8nAF/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2221F01816;
+	Thu, 29 Oct 2026 21:39:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793309986;
+	bh=j9KYDPaLwgGzcFmGHYC+/nqBss75U3jx1877gfQHD6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IrG8nAF/5mE1YFkaR2uNq+pi4QwHtS6fkK+szSdD9oRz/ZIWnY4CmnIJEiq9zC5kT
+	 ka56WPJGeDJztdVWZhmB0iIngELcZWr0Z/RbrjqFCEakqfghge7DcnoktmbE9uL19r
+	 SAPCF5PeFP8NglOe7u9aMSJT9X43b8nTU0xZFZGfYkBYV86jSQWod4vLNiPNbDUr2c
+	 D/eXspXNXJykomd10/IyFQT9QZtNX1mU08y/KNduk6jtGyuC5hf/I7yWNCraeNEeOm
+	 0Th411SO4FYi+lYvDLdQWZbeW2W7guv/ZMpCUVH6Z0CTFI2Fi0WuBGU6OvKSPktiUs
+	 ZNBa5py53bm4Q==
+Date: Fri, 30 Oct 2026 08:39:34 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Hildenbrand <david@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Kairui Song <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>,
+	Rafal Ostrowski <rafal.ostrowski@amd.com>,
+	Likun Gao <Likun.Gao@amd.com>, James Clark <james.clark@linaro.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
+ numrecs during log recovery
+Message-ID: <auO9Fk2IzecDWGtG@dread>
+References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
+ <auJ2jgIIh8e_JJwn@dread>
+ <87cxsto38m.fsf@trenco.lwn.net>
+ <auKGlGJwOSZpioMd@dread>
+ <auKuGGDHTxhCDJSY@mit.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,84 +73,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029145844.231018-1-omermetekaya0@gmail.com>
-In-Reply-To: <20261029145844.231018-1-omermetekaya0@gmail.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Thu, 29 Oct 2026 14:30:51 -0700
-X-Gm-Features: AclHuK9vwMToW08OTMztQpW3bR5sve3bLoPc_H7WIharriRZuH5COTSWDbQX4kE
-Message-ID: <CAHS8izORg8OR8TyWBHmZsgFBtM3+qh7gXCJxifk1QGs13Q=ygw@mail.gmail.com>
-Subject: Re: [PATCH net] netdevsim: reject port addition and clean up ports
- after a failed reload
-To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abini <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>, 
-	syzbot+88435e204734072bf39a@syzkaller.appspotmail.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auKuGGDHTxhCDJSY@mit.edu>
 
-On Thu, Oct 29, 2026 at 8:02=E2=80=AFAM =C3=96mer Mete Kaya <omermetekaya0@=
-gmail.com> wrote:
->
-> nsim_drv_port_add() does not check devlink_is_reload_failed(), so ports
-> can be added via new_port after a failed reload.  nsim_dev_reload_destroy=
-()
-> returns early in that state, leaving them behind.  nsim_drv_remove() then
-> hits WARN_ON in bpf_offload_dev_destroy() and a subsequent use-after-free=
-.
->
-> Block port creation with -EIO when reload has failed, and delete any
-> leftover ports on the early-return path as a safety net.
->
-> Fixes: 75ba029f3c07 ("netdevsim: implement proper devlink reload")
-> Reported-by: syzbot+88435e204734072bf39a@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D88435e204734072bf39a
-> Cc: stable@vger.kernel.org
-> Signed-off-by: =C3=96mer Mete Kaya <omermetekaya0@gmail.com>
-> ---
-> Tested with syzbot C reproducer.
->  drivers/net/netdevsim/dev.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
-> index feb88ccbbced..61f0824ce4d3 100644
-> --- a/drivers/net/netdevsim/dev.c
-> +++ b/drivers/net/netdevsim/dev.c
-> @@ -1697,8 +1697,10 @@ static void nsim_dev_reload_destroy(struct nsim_de=
-v *nsim_dev)
->  {
->         struct devlink *devlink =3D priv_to_devlink(nsim_dev);
->
-> -       if (devlink_is_reload_failed(devlink))
-> +       if (devlink_is_reload_failed(devlink)) {
-> +               nsim_dev_port_del_all(nsim_dev);
->                 return;
-> +       }
->         debugfs_remove(nsim_dev->take_snapshot);
->
->         if (nsim_dev_get_vfs(nsim_dev)) {
-> @@ -1758,7 +1760,9 @@ int nsim_drv_port_add(struct nsim_bus_dev *nsim_bus=
-_dev, enum nsim_dev_port_type
->         int err;
->
->         devl_lock(priv_to_devlink(nsim_dev));
-> -       if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
-> +       if (devlink_is_reload_failed(priv_to_devlink(nsim_dev)))
-> +               err =3D -EIO;
-> +       else if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
->                 err =3D -EEXIST;
->         else
->                 err =3D __nsim_dev_port_add(nsim_dev, type, port_index, p=
-erm_addr);
-> --
-> 2.56.0
->
->
+On Wed, Oct 28, 2026 at 10:35:03PM -0400, Theodore Tso wrote:
+> On Thu, Oct 29, 2026 at 10:34:44AM -0500, Dave Chinner wrote:
+> > These aren't security bugs. Bugs that result from maliciously
+> > corrupted filesystem images (i.e. fuzzed) are explicitly stated as
+> > not covered by the kernel security threat models. IOWs, they are
+> > just -bugs-, and bugs that just don't ever happen in the real world.
+> 
+> Well, there are people/companies who might be silly/stupid enough to
+> think that containers are a real security isolation layer[1], and who
+> think that they can let random users mount untrusted file systems in a
+> container, and not have to worry about one company gaining access to
+> PII belonging to another company because both companies are using a
+> particular cloud hosting provider which uses containers and allows
+> their customers to mount file systems as (container) root, with
+> multiple customers sharing the some physical host.
 
-net and CC stable for a netdev sim bug is extremely overkill. move to
-net-next with the AI-review comments fixed, if any. Thanks!
+As long as they use a filesystem that is proven to be safe for
+untrusted user mounts, I have no problems with that model...
 
---=20
-Thanks,
-Mina
+> As Dave has said, *all* of the file system maintainers have explicitly
+> disclaimed this security model; from our perspective the block device
+> is inside the trusted computing base (TCB),
+
+Right, kernel-implemented block device based filesystems ain't those
+filesystem...
+
+> and if someone wants to
+> dedicaste one or more full-time engineers to be file system developers
+> who have contributed a large number of improvements to the file
+> system, and who understand the context that they can competently drive
+> LLM's to create architecturally sound patches,
+
+You mean like I've been doing for XFS journal structure verification
+that I've already pointed to in this thread? i.e. this patchset:
+
+https://lore.kernel.org/linux-xfs/20261013060204.3138690-1-dgc@kernel.org/
+
+is almost entirely LLM generated code that I've directed and
+reviewed. I'm just about ready to post the second version, of which
+the only external reviews I've got are from an LLM (sashiko). 
+
+So, yeah, I'm already capable of using LLMs to write complex XFS
+code, and to write it -fast-. With this level of complexity, I'm
+generally only seeing LLMs review the code (i.e. sashiko). None of
+the work I've done like this has had a human actually provide review
+comments.
+
+If no humans have the time/bandwidth to review what are increasingly
+necessary changes (e.g. to stem the flow of shitty LLM fuzzer
+generated bug fixes), then we've got a major problem with our merge
+processes....
+
+> I *might* be willing to
+> change my stance for ext4.  But those hosting providers' engineers
+> would have do most of the work to try to make this security model work
+> --- and it might be that using fuse2fs, and running that fuse server
+> in a sandbox (e.g. seccomp-bpf, etc.) might be a much simpler /
+> cheaper solution in the end.
+
+Yeah, I think that for untrusted filesystem images, the only sane
+solution is to get them out of the kernel altogether.
+
+-Dave.
+-- 
+Dave Chinner
+dgc@kernel.org
