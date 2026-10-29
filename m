@@ -1,59 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237316;
-	b=Mj9PFeW60Xx/egNaoGtsDlL1dmXnp75KAZ8ZNCQIujKhVqELytGm/0qv3OHS0o2oa7JI
-	 JassDsLD/6PKRZdpRtZkv6MJu0EnaD8xfP9b3Zhzl3juh6bhaLgreiJGCxL0nFHjn+SDZ
-	 hWuao7PQGrEnw5p8e5SNFQqz4VHjTkQEG93XKyms1ZxTLql6ddkj4RI0Ifta76m/iMFtg
-	 Du4N50DbnWYrxZdKIElZHX9uBcd8PL6cpLJ4/I8pTEBewFpPLRsyS0bTJaYLfi2542sc7
-	 I41gBH51Y4epAdg+hCVXaoFI4R83HDoOAY9LjDWkRTTTGQNoQhECdOU7dsBzHrYpqRw==
+	t=1793237330;
+	b=02m1FvWI8F7EaPxKGWBQJsesS/WTd5PjrmZqzv80wS8JVWT1ta+FsKGLqvk0O60p2eKb
+	 rfIteCOBYamFKiD0R/g2XCrKwpgoe4Rn+fzmkW4pCxf84xoKgueH1yUe+RDg8qhLCasFz
+	 Rog3ixGGEBsx+FhFYHgJN1vVtucdOmqD49VXCa/HJZr5rBHHdhYq0r2yIL/f40CX3yZyD
+	 zWGDwjZS1C6zGyZx7gVDVKZwiF4UK96kVT3K7gNSN65s/MUopvqZlLTUngn+hmc3wEWaf
+	 PoxNe2eJ/7Odi+qZYPfg95LPYRz7Zw/KNfFKWifu4sxMagOaqhf3tHfYZcWCw9BRvBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237316;
-	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
-	 References:Date:MIME-Version:Content-Type;
-	bh=D0bcWDtBiSC9G7p3sTH868ZySBSNWw7tmJ+S91FtIWs=;
-	b=lqcokY/b0mIYFBDAP1kLOzXJlhcwB9iotVzVk8u3+cK+C4n/x+oOOC80uHDT5BdiL2Cn
-	 Y4ocaSxXnLtpUEk6j4Zkmh7/dajYOd4ESvxffSIVAs83Wq1RfWIC9wkEP3O+UFfRdpdHW
-	 ZrbS/TjxDjJ+We40VnHKG3vi0kLlJTMH5E73fuLbTdSiCXbMpte523mvnECxHiaP2y3Z3
-	 C/HUW1uLkZhkFWrKf3mnfak5hH3ItL07XYFjT6kcDuqtKORN8zOpzLKzSAu+tHqnoSMzQ
-	 R24bsE1KRmIv+OPz+J+IMmar9ursn1IFID74ObxrXL4OwpL8cP16sdOGPdYLmtL6AcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793237330;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/0NO8aBEarmfo6YKVDc+DD/Z8X1yyrLW/Smi80ixpHg=;
+	b=N7nNVu/gWCcjoI6ZQSNz7kCPzZbxDrcAC7KhP340Abx+hdBvN2D4MVImU8MckSPRxXcu
+	 nlPNBYTFZH8n+xwPHZLz9QDKP2kQ6JD1d70UnFU5EvKcx8i6QKQNIBkkH5KAsRs924URl
+	 oFABIvnA0XK2hiJhQ5j2/IpuQs1sEqEBK2iKb+QD4XrVclbE4nGqm6QtvAfIUC/5CF+qP
+	 gsnzBr8uovtcXrtVnPON0u7RdTa6cgpU8guGccvc5hbQ1H1iLdEz3KMmgCfDzPgxUUnNV
+	 BP5q4rL/sd/LgxzUSJ14W/N/YRVbHvaQdRatk6Khn4iS3KBsZbMGI2BAHhRHG2tVWWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFiahoOw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=SC3wafVD;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=amyGc4gH;
+	arc=none smtp.remote-ip=202.12.124.157
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F99606A31A;
-	Thu, 29 Oct 2026 01:28:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF611606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 01:28:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF611606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFiahoOw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607431F01828;
-	Thu, 29 Oct 2026 01:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793237315;
-	bh=D0bcWDtBiSC9G7p3sTH868ZySBSNWw7tmJ+S91FtIWs=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=hFiahoOw+yTvzSdWbA/Ilkc9NNZDe4fkDxRkbB9SsxzJJQdub+nXyVLS8nlfFgefy
-	 0PyuviXBKzDyHHv1IeIqrs7vmKEyZr6u65M+xRdiVBDFjSJFYZ/IAY6logCooQ9thM
-	 tT8DpYHlhFl1a3Fp4bRjTIkVYwobU7ebw3BBLhvfU+TKEmellhdfeIh7s06fKER3jI
-	 BNK5iBzgqgahWn2KfpxudUuRckuSojqeou0D6Bco/u/aS/kwKvjRE6bghjcHOV1Ut0
-	 KCgCN9p6fhlv/l5vLto3Ft/THw3WWZmTAxDDFHtIgLQPUezyisyDOJ5tCkELqMPlcv
-	 IHvC4xGmL4tWg==
-To: HOYOUNG SEO <hy50.seo@samsung.com>
-Cc: linux-scsi@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  alim.akhtar@samsung.com,  avri.altman@wdc.com,  jejb@linux.ibm.com,
-  martin.petersen@oracle.com,  bvanassche@acm.org,
-  kwangwon.min@samsung.com,  kwmad.kim@samsung.com,  cpgs@samsung.com,
-  h10.kim@samsung.com,  stable@vger.kernel.org,  Stanley Jhu
- <stanleyjhu@google.com>
-Subject: Re: [PATCH v6] scsi: ufs: Change the error check sequence for auto
- hibern8
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261027110357.3649301-1-hy50.seo@samsung.com>
-Message-ID: <yq1qzh947ny.fsf@mail.kernel.org>
-References: <CGME20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb@epcas2p4.samsung.com>
-	<20261027110357.3649301-1-hy50.seo@samsung.com>
-Date: Wed, 28 Oct 2026 21:28:34 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=SC3wafVD;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=amyGc4gH
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 6A20B7A00A7
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:28:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 28 Oct 2026 21:28:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793237328; x=1793323728; bh=/0NO8aBEarmfo6YKVDc+D
+	D/Z8X1yyrLW/Smi80ixpHg=; b=SC3wafVDXxz1ON7vmELrqfzSeZWhzb8WK0sLE
+	mI4Da+p6Mu2uMz/eqV3wtE/ACfiHPzopC7AVQ9/rhuSZK4LYKZqNIbjKVk/Ei6RI
+	XDNHLh/GPgYV4VTTxi0VvAo/CFdf0IrPkg2zne6ILz9Y3AUikTwzEcFm9SpWwJLk
+	Y35Fvcd8s/tZZHbVvH8ZcXXwphEEyAFFw8O1EdCFXTj//zerwCoDjL7H+rY5qNZG
+	eRgFpE9i0q6dZaf+LM/T3l6vpy7LkUup7ISCl1733WL3JhXM8Ybh+ZuP0od9ZzoZ
+	A+vezepoCfXKiMwXSvxgTkDq6rqSbXBRCb2N2jLZB+WUcyxOg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793237328; x=1793323728; bh=/0NO8aBEarmfo6YKVDc+DD/Z8X1yyrLW/Sm
+	i80ixpHg=; b=amyGc4gHY34rfVgd+TVzLOQA2vWehbonZ25su7vCc8XyU0rp+9y
+	GjRKUJqhq3qzyifH+MTVCz0ujurLOa+P2LG/AHXMBrrwVuc9S/7QqVv62IZsD1BP
+	zoL6/r0Qn4KkN+BMelui10BdH/nUX1wWq5uCl8qETUhctyEhJWffPkJEDI2wP7Fo
+	qXSpdkHedyTSaotajRTttV3LRq1AYzxrlQ0N+mniNIVJ9tJaUN3Gsl8JVVlgLjzG
+	avDjb8DIfgh7nPHJKJleBTbAW6O7zF6k10guETmM5JfPd4ox/6i4jwH+drdJXqlW
+	mBwwH9w128S/Hkq6i4LByp0cCOiAcU2dQKQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793237328; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:PUyGtUvLA4Ea3ROPFhPIzxq7MYLwlsnWD5dfM08Vyj0tthn
+	Qv42IBTzbFMFfvophrsUM/O0A3Ai8Hg06PX9uBCiV/8eZ+92QP25xA46m7UVme/X
+	VRtnWAbTzo1Klnk2jOYX8TbECW3TRg6wR+ST68zYqtd/SdDK8COE14WNE7cSaJ5i
+	atRc8m74ZOz9mXH8OSiAn5jJjXP9n6vR/CnSNSafevg8l2K8AW0/5/DUfsgAmfN4
+	o142vkCK/QcBytjnxDNbwB0Mk0pLLEm103zHlcbp6+xXfKtskNYMvUdBJoHNUDzp
+	WgT0GsdmNkJG2Y/rIRrtdkbiJbC7tDkmtBivB7A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:SX2XU/0Pct/2E7vKSdKGIRy9eTJvWb39Quc6weRqn9c=:2vP9M2cTY6YL8ggJBCOc8L8ZIPPy8ZBGxSu2IQbym78=;
+X-ME-Sender: <xms:UKHianUpyjaG2lezwKYj1ew-R403A_IgC_oUEZ5jzcLWDzqnx0WHdA>
+    <xme:UKHiarnC5oMFrUXLZvcTHmGVcsF3iXWtrzo-Qvk40p1NtE6kC62XdxlUwse9OTUPA
+    RnWS7sSLWBDf5BGVkPcLF8Ghmr1XMnYXOU5Ay1vHdGSbT5hyPbGD7Wi>
+X-ME-Received: <xmr:UKHiallvgu9o1ZG0QIWwwcQyJRNmsbgPOmtqSEeByqxrMOjgac1sUVeyXab7yve0>
+X-ME-Proxy-Cause: dmFkZTFzWc3qmEIlBasXPa5sMOcSxC7y9KOy7H0gXrq4ENBBx6T9939ohqk8PgiFZbTTuL
+    /Cq4fZepR/J87gfk2j9+F9/0EQy000f0lgrN0PtIjVfUK30PhfBBkie4bB4DIeoXuRTpOH
+    7yzjBjwYRGVxUYzx40vWiZQIgn0jRydQq0DO1EiI1Lf678uXLm7G8/7nTj+xC0BCwxdlkE
+    FyV0UoNOdLEjetXinPPy2uVbiiIKdsuzFMylz32RM0cCnlZvc+mkI6KQlkwBmEWy054IE1
+    Uf0dhj+FxIbvMETbktjrQQMuDSNK04NUOJuDJMFNPapk0iLkZOUTGFWav3ZHCdqnfLbfs7
+    uH93Qa8do/tCWyOf1ZuNKiQgT5g5Xm6Wb5iY9xHAc9y+rAUZvDsf0kc0nMtNNIt3TKSviM
+    TnrAq0fHCVs/IvhqgwsR4hVdDwW7ouK5jrKJtuiPg5/K5hAkJ/I2caHyq4tB69o5zWAD0m
+    4p6uT7yuF9UEg+2NiJpNGjhcsiY9n9pP/EFxYOXkgbh1MSrpPQwg1wREbqUpWOpn2gchLJ
+    hANvdbQg3dQQwBgfqfRb/7m0X4CdPJYUNBgAw2NfnRKWz07h0HvHwosoZte3l2O/XOz+Iu
+    m0YHTVhZWPZwecLmz0gP22Lf2LKfR7hzXcMXFFwEZ2AUwnBwu9ANCYzMACrw
+X-ME-Proxy: <xmx:UKHiajY_UzGQY1d9wZvaP8zsbrAqTiY8DK_-qz4XjeT4bf55wQFO2A>
+    <xmx:UKHiavRCImz5InWJ8pQVbTnKvSQcpbgheE2Wtw7Hn71BegKneeoOjA>
+    <xmx:UKHialtvOjFYW7ZYQHyEGunsVWy3Oxl-uNP7_1lJPXkeXzEcoW2iIQ>
+    <xmx:UKHiapFbUYn2X-4WUgSCQiVRPlF1pF-NDflYhnm_AZozi22csxNfBA>
+    <xmx:UKHiapcRvNvosLZgElGcoenUTzJNgrnnsKlJSxmp4l3CQ_c7Wk5yGR0N>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 21:28:47 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: revert fsids on durable reconnect and replay failure
+Date: Wed, 28 Oct 2026 20:28:03 -0500
+Message-ID: <20261029012803.222197-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,18 +126,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
+On a durable handle reconnect or a request replay, smb2_open() switches
+to the SMB user's fsids before calling ksmbd_vfs_getattr(). If that call
+fails, the code jumps to err_out2 and skips ksmbd_revert_fsids() at
+err_out1. The user's credentials then stay installed on the shared ksmbd
+worker. Later work on that worker, including other users' requests, runs
+with the first user's fsuid, fsgid and supplementary groups.
+ksmbd_free_work_struct() also warns, because work->saved_cred is still
+set.
 
-Hoyoung,
+Jump to err_out1 instead. No path is held at this point, so skipping the
+path_put() at err_out is correct.
 
-> Auto-hibern8 enter and exit are performed by the host controller
-> without a UIC command, and the auto-hibern8 idle timer only runs while
-> no UIC command is outstanding. An auto-hibern8 error (IS.UHES or
-> IS.UHXS) is therefore usually reported while hba->active_uic_cmd is
-> NULL.
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
 
-Applied to 7.4/scsi-staging, thanks!
+Notes:
+    Reachable with "durable handles = yes" or through request replay when
+    ksmbd_vfs_getattr() fails, for example when an LSM denies it or the
+    filesystem returns ESTALE. Later work on that worker runs as the wrong
+    user. The leaked credential is ksmbd's own override for that user, so it
+    is not a privilege escalation.
+    
+    Tested on ksmbd-for-next bd24b89645c5 with the getattr failure forced by
+    a debug hook on both paths. Before this change, each failure trips the
+    WARN_ON() in ksmbd_free_work_struct(). The worker then serves another
+    user with the first user's fsuid. With this change there is no warning,
+    and each user's requests run with their own credentials. An ordinary
+    durable reconnect still works. The natural triggers were not tested.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance.
 
+ fs/smb/server/smb2pdu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f3cd6ff7eb09..b126eda48318 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -4526,7 +4526,7 @@ int smb2_open(struct ksmbd_work *work)
+ 			file_info = FILE_OPENED;
+ 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
+ 			if (rc)
+-				goto err_out2;
++				goto err_out1;
+ 
+ 			goto reconnected_fp;
+ 		}
+@@ -4556,7 +4556,7 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
+ 			if (rc)
+-				goto err_out2;
++				goto err_out1;
+ 
+ 			goto reconnected_fp;
+ 		}
+
+base-commit: bd24b89645c5fa8283aceda78dbe53aa234e6bf9
 -- 
-Martin K. Petersen
+2.47.3
+
