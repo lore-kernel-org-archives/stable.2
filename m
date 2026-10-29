@@ -1,100 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270668;
-	b=X5Q4/G0cNmFjFuZ9NHtn2IFvhdXT6NksdfZeck0CKXT4BK0bsDreJYerL9CabuGRT2Tw
-	 +P9YhffCBGgSWzRx1/nZOB77GSRvLtaiPnKIUxvPdd/u6uNNm1WLiyjD9HfIRwpt9QzPi
-	 RvlBHM688PulU/IpGVIOeam1Wl4Tubckx5mCsu4+KL9XUUjAwhmkSWzULvNUzs7L3rDlX
-	 dLIeI+JbDueK7Oi4UJazC+klvsRde1WN1c7levDJdlMC1eVMaC9/4nhswnD0zOczZIr92
-	 G+CK4WgHj4eK5AceICI9CWAjczWfZeiRouQzJ0oejLYM3oagOd8gR0TWGrNv7YwjT8w==
+	t=1793270674;
+	b=HfdiCUTnpijQRZ9cIuwOc5hRtsFuSkgINXMedZZPoqLn3SOPn/8mrs82STVBS8QmATP3
+	 NsLqPuVK8bwfLLDBGRM+HYIi+TA4dW5ZC9yGPiS0bFdCraB5S6W2QDrmPHMjZYXMiapXt
+	 dMgRbXDezZaHQZsQMJ6MpkQgI8RYb6QRabvR7688WvQoKc1j7A46rJ7lBTNtKCTW7BO8s
+	 jU4LUlvW6wdX4bjAQ3ALEEdh9u6D3YSJBq3nzhGSoBO/DAxI2wDBamyTGSNTX+/Ks7IHd
+	 dMXvwjLN6/hRhkKrO+1p0Pxj7onYOM7dSdYpDuNhCAQUDWc9BeJG9eYxgYPvhZ08TRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270668;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uMxg2j2ArABS94uWcydZWkjTN2mWanzLIsJic7WNb3Y=;
-	b=gaHOXPkQA8/YjXJ6DZHgs0kuqx8lJC1NT4R3zHaL1keCIGEZ5GRIWDAbq6irsTqsM3Pw
-	 HSw5XQad5tCQKxgLBJWmmaAxAeDUuC5V6xLolVl5BjbXyKT1MvGSqYFhvdQDFG4O9lfWo
-	 7ADsUmLLPYWz8EVg74TGdEB4Wa7xTcZZhbkY/FesVQhCGl807/hUoqxLbVBQXBFq42D7M
-	 H/kdqCRQIYu2N4m/fECskn7vdsAZmt+QOT9pTUVvljejfXSijgnArTYfxM/e9gAL7FvFW
-	 zKCV/6A0Lqv/R5o4oNZFcVbClfwPvv6jA8+nlnDrwetNr/r6DtD9JqJOWeZLAo3rZFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270674;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=CIildARgeqLV5Iv54/CNVDjST3eNjwaUwngHh+RJ76o=;
+	b=VN45YeDfHvmz9vUu12UIEBk+dMK81Li3sYot1I7wy2W6Zp6Ouz49hki/vL7wJj0QkpTK
+	 LyyYbWtMX+V0ulM5oM0kZCUUl3fldtGceaHj5q83JveU+NZpJBwL+/ZpIr+7ciLN5f9e6
+	 bjbj6sBNK6TPr3nSAApuqYCy7J158uHtSAHSiNZD5UIcQrhi3laBgYxra+Ic18y19cveX
+	 Cx41ryfyA7BVLuIzl2BlQkOrPNpMYo9hRZhHC145kYePMXmMWwgkg8w8ugpwwbmqeohtQ
+	 XqJH1G4qbRu1K943zF3T2pUR5zSIzplYmpOprxdoCt8cFpbM9tqCdtIt2hvWodCPoCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=04ifj2We;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AymbEKu/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738D6606A327
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 738D6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669EF606A327;
+	Thu, 29 Oct 2026 10:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=04ifj2We
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso1247332f8f.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:44:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793270667; x=1793875467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uMxg2j2ArABS94uWcydZWkjTN2mWanzLIsJic7WNb3Y=;
-        b=04ifj2WeyAAOGlbfGZESAOhUycbW9j4QbHFFNujZ5tSmSmuJOXM5dHuCNLyc7ojP/u
-         FmjatzrJrM8c5B61zA2LgYjDPi7B5bDxKPvP4GiHp/4YF4xxpuUsSDj5nrepjRcDNwd5
-         uHkFjqZE/NBRWhjykCjpSEnFW4VCYJuYkak2Y8XZz4WPiXUUDCVt+0Z9rMxplabU6oDW
-         258K89rMmvrwjCfyY6RExMHK9T1w4EXjvuqaC7Ft1DxmPAhME9NPQO/waRki9IQecuZl
-         2J00O99Vit+RAvb1By+wEPo0VN9k5/bWb14gwkDglMMpok7ZorOl8whIHFF3FhOP7Kkp
-         kt5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793270667; x=1793875467;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uMxg2j2ArABS94uWcydZWkjTN2mWanzLIsJic7WNb3Y=;
-        b=CUW3U7UTroNsIgXWWvZJ4QDzRZAaOToJkiKJIowSDwQuTq7H5rwrMHrqlgqTpfQEwq
-         50Sp2otHsNryzzmQR2kF4sYVHC+qo51+hAEECdSkf/Io8HOBFeQFKNOk0ghWpYdbonxc
-         m0PHkEvWCO/aVzwsaGqLBQ/M1ScpuLTTiDzQihOj6fidWF2If8bmpDo+Dlwj5zjGuxq8
-         /AR5z+Io0WOjJfvze8F/TMcnJ1/D/1bwGb0n+Z+LzBAUX5bPY7bk1n6WuNxrr23l3EAK
-         LBnlOEORMf6NmF40gyII0qUBnGKlf9TCPGam5Ai15FeULmZqezyFrtdGCsiC0BVg5mFY
-         zcsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxn/49tTM7g9ychTQZofED4SZiTzUYcPFUxK2zhAI7wVcQ8KubU/0RAH8luO+FrnbgEYIo1q9U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrdisXaqVuEoi1YzlFolk55sBQWjYAwB0gmO80PSAlB0nZp5zn
-	K8OxMFPyYTVVyTMHoJo+9ookwQEctXo1SWZLwettb4GmsckS8dGYyMz7
-X-Gm-Gg: AYBFou2CXGJd7GfRg4YhZD9qm8y1XGBDAyRRGUfml9gYPHknV944aUzz1Y1DRFppDgG
-	zivt8+DWQNPZq/NCZNxlB+v2K5z9/vnFb/GwTHQUgEMYz+GKc1o9qWf0LY5xGXu/imfvGCLbFKE
-	4ve6HlJg4AjLsmKnYyTi9gbulPkwW/sYK19dVMyH+Y1peb8URV3PcavMmvr/sY4vqpWRhkkeGMq
-	tNn1mFAkRk44o8FSRYwBmTsBnGX52xyeB0kmpw+RNNqnVN6ezxVxYncg+VvibiNCXhFyVhjfn8d
-	tZcNlBLy82X4HENZHSxnM6jeEHy/ch5hYOzkpmqlRNQrVWh4xXUbRDpLD7PAFjaOXmJKuYhuWcV
-	Knjtmlz8l4qOFHt9R1RFUX/ssMfdEd/IS8rM74TeMriyjumD+CqSPe7hFF4EQaKmaUINJkF+v99
-	lYfh9hTW4n8HeuKA4D5iNQsIRjLg0An7bVPVhdpbCDz1iIeFz2avQeUwiyZhw/cx2KRMRKeV23U
-	kUW2fch6HdtL/jBVeZyC7WWozfN3RoNxK24CCKILceAIAmAw2/Bh1qGsTcGjmFP829jYLpy8E6I
-	uRT2nsItkSz+F7CDMm/XDw+VuSdHoLrtMBszDQ==
-X-Received: by 2002:a05:6000:1a8c:b0:48d:eec6:308b with SMTP id ffacd0b85a97d-48e5d2ecf6fmr11893654f8f.21.1793270666746;
-        Thu, 29 Oct 2026 03:44:26 -0700 (PDT)
-Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm32900670f8f.59.2026.10.29.03.44.25
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 29 Oct 2026 03:44:26 -0700 (PDT)
-Date: Thu, 29 Oct 2026 11:44:22 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: IgorpetinDev <igorpetindev@gmail.com>, Alan Stern
- <stern@rowland.harvard.edu>, Tejun Heo <tj@kernel.org>, Oliver Neukum
- <oneukum@suse.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
-Message-ID: <20261029114422.2ba64d53.michal.pecio@gmail.com>
-In-Reply-To: <2026102924-flashily-myspace-60a8@gregkh>
-References: <20261023174015.54793-1-igorpetindev@gmail.com>
-	<20261024155614.2732-1-igorpetindev@gmail.com>
-	<20261025000643.425c57ca.michal.pecio@gmail.com>
-	<CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
-	<2026102924-flashily-myspace-60a8@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AymbEKu/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389FA1F01829;
+	Thu, 29 Oct 2026 10:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793270674;
+	bh=CIildARgeqLV5Iv54/CNVDjST3eNjwaUwngHh+RJ76o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=AymbEKu/+O141aUXpFJESQYbVO4wuogMwXREBpJyzaJheRuB65aNLVGtrzRJi/VzO
+	 bE12Z6UlB10PYRTAOQsztIYgWy1igjPI8jnJkQUFqkhfNjcGkRLc/D4M0E/19WjV6n
+	 tVVXtBWvT4dkmpHXwnASIfsL00nzHR4ibLjuHCsaVNf0altwI4qCEsWJiI/JQKl33B
+	 RAsvjWT5rIZbdLkRtMRjQjxHfpsffbTpfSX3msFksDMdn73OqZU5ASa81krExVd19G
+	 e8OOgox3sShxjxE5XSQ/H+Cm6KVp3M8+YK+FkxzAFtIfzRe9oPkJ2d6wTM9ftD0mY2
+	 rr2XyAwxhd6Fw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 11:43:26 +0100
+Subject: [PATCH v4 05/15] hugetlbfs: enforce F_SEAL_EXEC in setattr
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,39 +52,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org>
+References: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
+In-Reply-To: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>, stable@vger.kernel.org, 
+ Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1864; i=david@kernel.org;
+ h=from:subject:message-id; bh=VibnqfVc/i5QlUy5RzJlhfYS1+yzH9kwQCXwNrw3dIY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4d5XZxZu/ixY/Xmvrs8OkxhqziUz4at10y7P+Xxy
+ n+LpjSd6ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAit9gZ/mdfrP6WfvHudJHq
+ LZmZi3s3NnV+WfV3wd3MQ5IXF17O+KfA8E836l/mJq3fSrmVGa+ay46uFNuunXbjprXDt0f5JVv
+ /L2MHAA==
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Thu, 29 Oct 2026 10:42:35 +0100, Greg Kroah-Hartman wrote:
-> On Sun, Oct 25, 2026 at 10:54:57AM +0300, IgorpetinDev wrote:
-> > Hi Michal,
-> >   
-> > > No such domain?
-> > > Looks like you trusted an LLM ;)  
-> > 
-> > good catch, that was just a clumsy typo on my part: I accidentally typed
-> > appspotmail.com instead of appspot.com in the closes tag, anyway - the syzbot ID
-> > itself is valid. If Greg or Alan prefer a v4 to fix the URL typo, I'll
-> > gladly resend it, or it can be fixed up when applying.  
-> 
-> Please fix up and send a new version.
-> 
-> thanks,
-> 
-> greg k-h
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 
-Hi Greg,
+F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
+not check it. As a result, fchmod() can change the execute bits of a
+sealed hugetlbfs memfd.
 
-This race had been reported by syzbot previously and a patch
-has been hanging on linux-usb since August.
+Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+to execute bits when F_SEAL_EXEC is set.
 
-https://lore.kernel.org/linux-usb/20260823125831.6ea35650.michal.pecio@gmail.com/
+This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
 
-There is only a bit of controversy over flushing vs cancelling the
-work. I think that cancelling (and leaking stray completions as opposed
-to letting them run, likely UAF things and maybe corrupt memory) is the
-right choice, as a courtesy to anyone who might create such bugs and
-need to deal with them.
+Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+[ david: use common helper; fixup Fixes:; check only regular files ]
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ fs/hugetlbfs/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Regards,
-Michal
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe..02e0a65d596d 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -28,6 +28,7 @@
+ #include <linux/folio_batch.h>
+ #include <linux/fs_parser.h>
+ #include <linux/mman.h>
++#include <linux/memfd.h>
+ #include <linux/slab.h>
+ #include <linux/dnotify.h>
+ #include <linux/statfs.h>
+@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+ 	if (error)
+ 		return error;
+ 
++	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
++		error = memfd_check_seals_mode(info->seals, inode->i_mode,
++					       attr->ia_mode);
++		if (error)
++			return error;
++	}
++
+ 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
+
+-- 
+2.43.0
+
