@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305303;
-	b=ITzZp7BBjafGVvbaX8eTOvlmWLXMXpEgBKDwUF7YoDqoZmbBsrlYUTKwoej6sTh8B+En
-	 2d6a1CONB+qQhStIwRp00Iq0nvAiMl2zIiBWdOxlJlk8wj2BpHwE8uiAOlNtjC73J0TiD
-	 +pTw2xDLuaUy3DfAIzSZic6Fgge2uxl3c+LMSKqkes6k/h1XlKpl9VycQDUmb27byjt/C
-	 JP8HGs+j0+ABUhvFh1n8nnBwGEnAtXXqk/nwZUokhKi7Xjr9j+yaufJ3YqEYJSPuKEsy2
-	 Rcdt99Ijow9EyYxiKmk0PdVG8Rh/RK8PJQy2+jdrmZ5d5WfGagtBhY6MGBSpjV2N/Bg==
+	t=1793305309;
+	b=qvo+q+FPFbgHsZCmtCYyelpukjmcqR2Hmxk4Tiav6sGJ91ysELsA+4LLblI7pgoA0v6B
+	 cxYy3pvtQSXg+IfdpOl6YJ8ZdzIPxCmrWiyGaT2aS3i23L3tS7vWEnhpVRzCtSz+6apPN
+	 ilL7wp1rk/zTvGWDkuGI295AoZt4dqZ3rLPE8/oWIaTpdu1MP/VHF5H6EszxxFG/F9AE1
+	 otAUOlU0b+SRX156hRhxu2hAGx3GYmyamXUmSOjdkBDqqjt8MIXlUqykk2JfQDYTK9v9+
+	 Tl4oe+tq26XwLEKnfnt6E7jwqGD5r8EVcHnJpc/eADU8/L/dVsdJ0gHGWRNZYfrsSTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305303;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sxeoRDyZbXsp21/9MeO6A2aaiq2+hlIXpRLxI4zLeDQ=;
-	b=yORUkZlINeAK7iSlFV6ihk8ymp49NXofKGmYE59xf4LY76Fy4q++AeyQ5cqg9x8xq12J
-	 a5NyCzQdr+Gqn7IVWA9l+Sqcy/njFzSdQEScNi7dTuuOf0eEJZl+YHyJXZTsUvf9jmsgU
-	 EbhGFloX3NB3tnEc5ZnmdvnGy9AWHaozrwsnOGbz8hWdfbpT1oed0qP4utpquP3Xw7OIS
-	 TqNLq3BnQ6478pBgnevbzoy+AxA+5MSyuGj5RVUccfYhwX93Prtd4+Aj3Ex1aLi3HYKz4
-	 3pVmMlsdZlwzIAwHScwyF5HYkxvUTP2adBK+YYNLN/r9CgrZpngEOlv8D1QEzco2Dnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305309;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NG0rcom/ENkoFyoDk/mPLZtYS0KiuQXHp5StsiKbwa0=;
+	b=OYB6sVr7wD4k163w2DFCBSszgAoSpVGIhdi+NMyZqu2goVtD2mRGQOcX1fF5s99v502d
+	 qbmRl1xwWiHQOpBpcvWjMkiBv/0P9rO8K/UqHLeLNBmjLNzFXLc8P9LOzP95S4qQwNxNN
+	 BH7mr2fQ/kOrTrRs4Eu2Qj8V5x4gDiFwuSMUH8NTw19qmJxXbdACEE143ZcicrZ+9U8Dl
+	 wPPPimJHh0F5vrXI+7F66pnkqQBAAEmSTn9qNxasXnzwotjoNN96tPK3IPYESA2TvYrC3
+	 ZomGJ9ssd3h2eQDMIaAv5hjwM4wKB4V0ylNGR9buBEj3u3HNjXRHoj5ydYTCeg8AI6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.239
-Received: from mta1.migadu.com (out-239.mta1.migadu.com [95.215.58.239])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMAEgbat;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4ADC606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 20:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4ADC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FJhtU1xpH0NBjch92Ltx/yhaAPmDS8a/U1CLjsXM7/s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793305295; v=1; x=1793910095;
- b=ssV03S9kgAXb1E4HdWgJ7iMY4bFad++jClMYusrwwCiIQZZwu1OZSPegc/+GZFjjT51I99hy
- 5DykCLZbFWFB6zCieW/Tsqa1l0XzkJZdHiBSJvOFFSKA4h8FgRFCCoeFDNehFl5mbDfu3e+WGmC
- ytkXA9qhujcR0xzsY4ZSF4vw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ce485be16b92af5;
-	Thu, 29 Oct 2026 20:21:34 +0000
-X-Mizu-Trace-ID: 6ce485be16b92af5
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 29 Oct 2026 13:21:32 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	muchun.song@linux.dev, zhengqi.arch@bytedance.com, jp.kobryn@linux.dev, 
-	akpm@linux-foundation.org, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm: memcontrol: fix NULL pointer deref and UAF from
- high_work_func() on dying memcg
-Message-ID: <auOqqI6SxvpzUNI7@linux.dev>
-References: <20261029201858.2932905-1-tjmercier@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B891606A31A;
+	Thu, 29 Oct 2026 20:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMAEgbat
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A651F01824;
+	Thu, 29 Oct 2026 20:21:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793305308;
+	bh=NG0rcom/ENkoFyoDk/mPLZtYS0KiuQXHp5StsiKbwa0=;
+	h=From:To:Cc:Subject:Date;
+	b=aMAEgbatqidp4Sh9pQm3Be0xzXLa4NYSh5zhsmHTEj9++DmK19Zy8f+y0832Dga/9
+	 3+pwUw2wCOa8N1e5akRA74BEpKuztAXuQ5dRWuhm3A5YdqH2UGQclLe1hKR78Oexld
+	 HfpfQ/VNX+Tkmk1tucZWf90ZF+rTpPPfNILM3Dtr4fGKp8sP1zizaIsO0z51XmuSex
+	 xKcBgka54K10/GK6kOMzWWs9UD7rj867JSG84V0x99lSSY+4p06gT2JyToX7tDtWF4
+	 pylNw2x8mbQwcJaED82syZ9wqZgqZYCEeTd3hxHv0BoK+eGkou/VHLiewS19azN+51
+	 J0B2nhA/WLG4g==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-crypto@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 6.12,6.6,6.1,5.15,5.10] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
+Date: Thu, 29 Oct 2026 13:20:14 -0700
+Message-ID: <20261029202014.51014-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,122 +58,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029201858.2932905-1-tjmercier@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 01:18:58PM -0700, T.J. Mercier wrote:
-> When memory.high is exceeded in non-task context, try_charge_memcg()
-> schedules memcg->high_work without taking a reference on the memcg, and
-> high_work_func() invokes reclaim_high() without pinning the memcg.
-> 
-> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
-> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
-> reparented to its parent in mem_cgroup_css_offline() instead of holding
-> a reference on the child until uncharged. Subsequent uncharges of those
-> objects go to the parent, which can leave the child's memory use
-> permanently above its high limit, so any later charge on the offlined
-> memcg in non-task context schedules high_work. This was later widened
-> from kernel memory to LRU folios when commit f1cf8d2f36dc ("mm:
-> memcontrol: eliminate the problem of dying memory cgroup for LRU
-> folios") converted LRU folios to use obj_cgroup reparenting.
-> 
-> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
-> mem_cgroup_css_free(), so high_work_func() can start or still be running
-> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
-> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
-> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
-> NULL pprev pointer. This issue is specific to MGLRU and was introduced
-> with the memcg LRU in commit e4dde56cd208 ("mm: multi-gen LRU: per-node
-> lru_gen_folio lists").
-> 
-> With either traditional LRU or MGLRU, css_free_rwork_fn() calls
-> css_rstat_exit() which frees per-CPU rstat data before calling
-> mem_cgroup_css_free(). If reclaim_high() is still running, rstat updates
-> via mod_lruvec_state() -> __css_rstat_updated() cause a use-after-free
-> on the per-CPU rstat data. This was introduced when commit 5da3bfa029d6
-> ("cgroup: use separate rstat trees for each subsystem") moved
-> css_rstat_exit() ahead of ss->css_free().
-> 
-> Fix both problems by acquiring a reference with css_tryget_online() in
-> high_work_func() before calling reclaim_high(), and by resetting
-> memory.high and swap.high to PAGE_COUNTER_MAX in
-> mem_cgroup_css_offline() so that charges via references on an offlined
-> memcg do not trigger high_work on the dead child and skip checking live
-> ancestors in try_charge_memcg().
-> 
-> Acquiring the reference in high_work_func() rather than before
-> scheduling high_work is safe because mem_cgroup_css_free() calls
-> irq_work_sync() and cancel_work_sync() which cancels pending work and
-> waits for an already running high_work_func() to complete before
-> mem_cgroup_free() frees the memcg. css_tryget_online() uses
-> percpu_ref_tryget_live() and is safe to call after percpu_ref_exit()
-> before the cgroup is freed unlike css_tryget().
-> 
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
-> Tainted: [B]=BAD_PAGE, [W]=WARN  <-- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> Workqueue: events high_work_func
-> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
-> Call Trace:
->  <TASK>
->  ? read_ctrl_pos+0x22f/0x3f0
->  shrink_lruvec+0x16cb/0x1b80
->  ? ret_from_fork_asm+0x1a/0x30
->  ? lapic_next_event+0x15/0x20
->  ? clockevents_program_event+0x2bb/0x6f0
->  ? lapic_next_event+0x15/0x20
->  ? __pfx_shrink_lruvec+0x10/0x10
->  ? __pfx_clockevents_program_event+0x10/0x10
->  ? _raw_spin_lock+0x84/0xe0
->  ? __pfx__raw_spin_lock+0x10/0x10
->  ? kasan_save_stack+0x30/0x50
->  ? psi_group_change+0x381/0x740
->  ? __pfx_sched_clock_cpu+0x10/0x10
->  ? save_fpregs_to_fpstate+0xc4/0x2c0
->  ? finish_task_switch.isra.0+0x1de/0xac0
->  ? __schedule+0xf62/0x42c0
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx___irq_work_queue_local+0x10/0x10
->  ? shrink_node+0x626/0x31e0
->  shrink_node+0x626/0x31e0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? kswapd_clear_hopeless+0xa0/0x150
->  ? __pfx_shrink_node+0x10/0x10
->  ? 0xffffffffc0000095
->  do_try_to_free_pages+0x255/0x13b0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? reclaim_high+0x10a/0x1b0
->  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
->  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
->  ? irqentry_exit+0xc6/0x670
->  reclaim_high+0x10a/0x1b0
->  ? __pfx_reclaim_high+0x10/0x10
->  ? process_one_work+0x5ff/0x1030
->  ? __pfx_high_work_func+0x10/0x10
->  process_one_work+0x6e2/0x1030
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx_process_one_work+0x10/0x10
->  worker_thread+0x422/0xbb0
->  ? __pfx_worker_thread+0x10/0x10
->  kthread+0x2cd/0x3a0
->  ? recalc_sigpending+0x15c/0x200
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x368/0x590
->  ? __pfx_ret_from_fork+0x10/0x10
->  ? __switch_to+0x588/0xf50
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Fixes: 5da3bfa029d6 ("cgroup: use separate rstat trees for each subsystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+commit 24f07e8c07a0c0dd275331cbb41c79a78741eef9 upstream.
+
+When poly1305_blocks_neon() resumes from a base 2^26 accumulator and the
+next update contains an odd number of full 16-byte blocks, it processes
+one leading block through poly1305_mult() so that the remaining NEON
+work has an even block count.  That requires converting the accumulator
+to the base 2^64 form used by poly1305_mult().  The final ADC of that
+conversion stores the carry into d2, but the following accumulation and
+poly1305_mult() use h2.  If the conversion carries across bit 128, the
+carry is dropped and the emitted tag is wrong.
+
+This was introduced by Cryptogams commit 03dc4adf91c8
+("arm/poly1305-armv*.pl: optimize branches."), which removed the
+reduction that consumed d2 shortly before Linux imported the code.
+OpenSSL's copy did not take that change.
+
+The carry is possible because the NEON code stores the accumulator [h0,
+h1, h2, h3, h4] in a lazily reduced, redundant base 2^26 form: its final
+carry chain leaves h0, h2, h3 < 2^26, but h1 and h4 may slightly exceed
+2^26 - 1.  For example, the reachable state
+
+  h0 = 4
+  h1 = 2^26
+  h2 = 2^26 - 1
+  h3 = 2^26 - 1
+  h4 = 2^24 - 1
+
+represents 4 + 2^26*2^26 + (2^26-1)*2^52 + (2^26-1)*2^78 +
+(2^24-1)*2^104 = 2^128 + 4, despite the bit representing the 2^128 term
+(bit 24 of h4) not being set; the extra comes from the h1 limb being
+above the normal base 2^26 range.  When this value is converted into the
+non-redundant base 2^64 form, a carry into the new 2^128 bit (in bit 0
+of h2) is necessary to preserve the value.
+
+Given the above bounds, a carry into bit 128 happens exactly when
+h1 >= 2^26, h2 = h3 = 2^26 - 1, and h4 mod 2^24 = 2^24 - 1.
+
+Store the carry into h2, matching the other base 2^26 to base 2^64
+conversions in poly1305_blocks() and poly1305_emit().
+
+This bug causes an incorrect tag to be emitted.  However, this is
+unlikely to happen in practice where Poly1305 is used with a random key,
+since the random key tends to distribute the accumulator values
+throughout their valid range.  There isn't an obvious way for an
+attacker without knowledge of the r_key to cause [h0, h1, h2, h3, h4] to
+land on the precise values where this bug occurs.
+
+[EB: Rewrote the commit message to more clearly describe the bug and
+ its impact, and simplified explanation about why there's a carry bit.]
+
+Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Reviewed-by: Jason A. Donenfeld <Jason@zx2c4.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Link: https://patch.msgid.link/20261009125354.315476-2-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ arch/arm64/crypto/poly1305-armv8.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/crypto/poly1305-armv8.pl b/arch/arm64/crypto/poly1305-armv8.pl
+index 22c9069c06505..e69419b0ca01e 100644
+--- a/arch/arm64/crypto/poly1305-armv8.pl
++++ b/arch/arm64/crypto/poly1305-armv8.pl
+@@ -372,7 +372,7 @@ poly1305_blocks_neon:
+ 	adc	$h1,$h1,xzr
+ 	lsr	$h2,x14,#24
+ 	adds	$h1,$h1,x14,lsl#40
+-	adc	$d2,$h2,xzr		// can be partially reduced...
++	adc	$h2,$h2,xzr		// preserve carry into top limb
+ 
+ 	ldp	$d0,$d1,[$inp],#16	// load input
+ 	sub	$len,$len,#16
+
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+-- 
+2.56.0
 
