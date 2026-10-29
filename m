@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257063;
-	b=3Qk/weOBMifUbSDNAa+lMbHc5PgJaUSZ6LdnkzYbllMUyt8kFVGrhEkrMVY8IOUpfn3h
-	 rE7xDdx8eTFl+u95teMmhkv1foWPiNTMhpIfVcZAQVy1Shv0kErwr27fFVXEOWd8XeJbt
-	 kdT//EkosN1NSrFJyGnGknfYKKzh2aVg0YAyHJWXHHCu7y7IxknOdMkFa5ZPtZqHzbrra
-	 ncFBJbgUBhkUXaOnWiW7WawX3rUpNTJzAMpqNgIEHklxuaadFOXcacBWWMBfiqgVRELm3
-	 SHk9hrPAReQryj5IIMOV2eFzFmmw3ZqXK5M2QsRRbUyejn5gtWydpDbBY7ZceGDMuPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257063;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9IaSUVC3Bhn3N2zjTnRy6nvIgW0G052wvFunojoXXog=;
-	b=onbTV5Zs+ochtZU9ht1Lms2lOoj7NlFMXgpdYWiVIUJDYMeNgtisLHM7LyaAG31dFytH
-	 FLquWGjHIiDX1AOrrf5tdsYatrnXHADGU89s2ZBtTUdnHqdjCiNJ7sL4iUYgxRHb9I4i4
-	 n9cvRAYNf0MYH4LQtHwE+IuFy4C/jLe5/vxcKmUsc7VPc5Qq7JeunVonJEJr4UYtl2nl2
-	 7Qbv0aDMfoc4UoDtbuf0RnD6ZMdRchjFs8geSjsQvMnxNA9h3OwPbW5r5nWRh4IYaz6TD
-	 mOObAuTYCGN4TkpOgnHfoS/VxlVfFfC1SdkTfOsfjLLF6yCyvpQKJj+T8KICMPxDP5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0dE+O4nG;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793257213;
+	b=mjRkm5X6qS1QA4zRNJYSvXbRRStuHo94paOHCEzpV3YJQPEcx4xuydzRbc5YOHJXzHxc
+	 81Acmo5WgoDxoKfQmC5mxK0BjUmiZI/bQT3EpLexcJf7T9cLwGYAQ90dR4En4+rOl5WJb
+	 jFvgEzDFkKYDBuYFkUjvCw7l+OkizQHksdDWjJ0ql1oOQhcnnu6lvCiz5vHkweLGXCuL4
+	 4tieNPrVHvrVLy6CnSYWUdkPIHVze7FgYJZ2pemwXTzpxJp4p4iK8/xlPGCZcPdiuFShH
+	 fSSVoOtl2RYnUE3YnatYl1AnpcZAaEMb6j7l/5gRv9FT9TiDXsU/a9C0dYc0BN0PlhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257213;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tVhqBPiJdhGZuhd6jFROAK3ZvAO17Z4FadtOewBUeq8=;
+	b=CfMv8YYYNLwF3DWmdnNsz/ptej5/Qrn07t2SXv+kXBm/vl1LbsS2VYyyvnsACiB847Tq
+	 A6yT92auj6/tQ+z2z9KhoCJ83sC39srqe7MFbCUQgGpL2IKixs+0/AgbVxN9+KaimbWrZ
+	 bu1+/M9VI/eZQJcssZ4iNPtQ28DhMTK4A06up3h/Z+1Wsuc+QZ6d2Vnw19HYybycPmvse
+	 SlP7HyAtCw8idM9CQvyOdddJTwCN00dxiPG5ner1K+iJjh23+Q6ZCyP6Pqww/SRetVs3M
+	 Vpz9C75tDiKiEkIVKo3LRagqKFiLwP4ysDtfd9J9e+DWT55g8k4ek31Ln6avxnHn7+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gYYlVPX2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.2
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012002.outbound.protection.outlook.com [40.107.200.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C499606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:57:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C499606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBED606A31C;
+	Thu, 29 Oct 2026 07:00:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EBED606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0dE+O4nG
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso87371a91.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 23:57:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793257063; x=1793861863; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9IaSUVC3Bhn3N2zjTnRy6nvIgW0G052wvFunojoXXog=;
-        b=0dE+O4nGgl4AUGC+hG1hvy/oc///guMnIMSlfoAeziHFtsYgsDypMGSJEv8C2PHTnM
-         OACt5rBARu19YNGrD4XrfzoR8Bdu0vOmNWcIvk0t4JPLMXmbQnRfrUkOs7/mKOzBar2P
-         vs0IYMMgvQfX32Yw3CnFM+7DVhImVtmV3dgtBwLgJZspumzuIkkCHevTXsFpZcS9KvMn
-         IsueXaVMRy18wY3OEK4dzuTmYBms4emvSvhIvT7qMKOuqiS9TEBouHwwew/uc9Gb8n5e
-         1o4RiZF25SYZ1O48PzSQlK5ud5+dzg9i7bnxzkjO4RFTkbEE4g4l4RC1+I8ReES58+l5
-         5dbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257063; x=1793861863;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9IaSUVC3Bhn3N2zjTnRy6nvIgW0G052wvFunojoXXog=;
-        b=zjcFXubOFYpAEfITagITlS3ts1ypsmmdo6EJVttesixclcAJBJNxEPWxsW4LL0bxgm
-         NSbSPbvIE3YJDdbsi7ce54mhBamG2aNsGsu9BJn6Sg7PvhRGnpyXO4ANCdpk+h+UnRKa
-         0Sn38U3AGtJnccVozUco80kcBUu2jADdWWInRqOa+D9yQIOg44fQStSuUuyriuTsGVa/
-         9Z4QXyXR4F7yJvp34/+tOAU2qH4K+qNz2fdlxh5uq9nXq+8mFk57853B/IXnM8es0pdn
-         D01mQ8i66vGqY5Q5PIV9i8PaEhMMLNTvyDdJ4GuOa2B9pLC0RRTdgdfVGd3GWp0zoaRa
-         07sw==
-X-Forwarded-Encrypted: i=1; AKwUvBxXsCSx7oZwrOJs16RvTSuHy0t6xDvGC6dEqEIQ1Fb6gNZrMJ6X02lkYDOpJO2t+6TVhURu+fc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjfVSgBTf+2+cbbbbtJdz6bx0kNVa2eP3EkdGvK404eaU/VTM4
-	zowrhZc3Z7ZqKtvhPWCLPQw2rqTlvkz6V86dwm1OG1le3NzYgQhI7axQ
-X-Gm-Gg: AYBFou1IejEdByWbEItl1FHW6l/Tkr123BEsK4sYJKSrnA3tp77y/svI1b19eYeosON
-	ph03PYZ1ran0pMtdyCDgOC9A8Z/N4fYCQD3hZzUYSmXojN+XX170Nl5i/JvdIZQ/9fmVhz0XphF
-	eZlK87SYXwmTcCoCx2XGPprHTjyeQdqh8vhV3s5/kSphVhbzvzexNyEIBOlpawTLbh25DtNMXu1
-	VirJXOpCQyJgeepGUsr87G61VRGvapeTiRQbjm7Qvc+M9u4oQwuRACvMaTvuk7g1Y6RzT78i5l4
-	wwcYo2G1ps/BpzNf68hBdhvukPbTdmuqLAut99aiw5/7mOsRCwEUcfshRDf4usAnVTeW6n+I73C
-	gq86O80tOBB/1JhtZ6DxF+ws+zx33MQVlsoWNfjpO+UxH4uX2zGif7Mh8otJxlSmkfa6YCVCeN1
-	sU4wAPO4j/eT1SHnI/5u9AixUJXapflIyGua/NJe2iibu06OemAy1LWk2JTZ771PXVniSxd1AkN
-	gzXibXaLmvHVDhPNMAOp5pn+LPUkK2Utv4eixGGUVUhJrnDmNLq+fO3N+5UpkxbI2mqFobK+2BO
-	xPQCKebaEZjB3+8V30D6QBrCSlEJ1qtY0PeaebNE0lFgUg==
-X-Received: by 2002:a17:90b:1dd0:b0:3ab:33b6:2c27 with SMTP id 98e67ed59e1d1-3ae57f9c1eamr3604405a91.23.1793257062419;
-        Wed, 28 Oct 2026 23:57:42 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579db47fsm3020022a91.3.2026.10.28.23.57.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 23:57:41 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: stop recovery before shutting down local allocators
-Date: Thu, 29 Oct 2026 14:57:35 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0019-v8-574dd69fd3f47f56348b@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gYYlVPX2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xnC9oJxUD9SfEppyJSTm1X+soZH5P+Daw9AjfK2L8G0jAThgh5rlTyO8Xo5boXirD3n3zzQ6onzcGZoTAPd8UbhQzRAo1hrK3cInT4xNy9Lb40j1bJs1OY+qJckdDDL3pFoo/K7H4juT/3YoCPZ3cvSVUlEONYDNI6TWen2yvryPTxtgje2KeYWQA8hbTgC2vI7a8WTJtjiITkgDSgS/PtTHOw1Rt9r/jNYyc8mxWSrJfET/M/LvwvSqAAoEFJML11Dtn8U/dX0ObVZNYsjsdZMqIRSHZfJqvmseB+wywngNLbpLLFvNfHW6+18VyfEaM7S8XQAXfL3KZxhrWE2o2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tVhqBPiJdhGZuhd6jFROAK3ZvAO17Z4FadtOewBUeq8=;
+ b=A4VVpKIQ/MV7MCzotV9AcumXG5dxTbUD4zdqbaY3RCRWIHrvT97ZsMeQF4RXYlpJjEBEEZyC93T92DUKtF6AiYob1UcLlZcRGjUtysXrxE9vO3D7SrbCiO932BzlpMwsX6um5eB4anWkD5/5L4f6FzSO8lQdkG6TkgoUH60U9Ij+q3TdvmknAPqLEH3EM6hoJnb0MOKSWTE8/XOahpP2hM8QJ5+ZRCdQCNWeWFYmZbVMIYbTNzb1MAMzYiyMVVxLHIX2bzP/FZnEq/3nU0Dl3166Xqk0Sr01rUZeol4K8+TLc/q41OIkuctEAig1rC4it0AUYbr8OlqVfbXNC9jgLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tVhqBPiJdhGZuhd6jFROAK3ZvAO17Z4FadtOewBUeq8=;
+ b=gYYlVPX2YOpSlLGOYORJkLRveGbHlwsaLWy+QsoGBjPTC2vFeD4iM/McqYSR7OuDLpU9ZPXZa4thwD0qXSEV6l79OY/MhjQV5Df6mREbuzFxtg7sCa888L7w+i+v9YBnDEcOQVTvmHMcIXN5lkcp6DpEKtnChqs3PgIN8Rp09oBwELPoWFmiWjiw7qg0ho/2yE1Ei4jHpgwR+SR/A4mKIZdjKKlnHT/R94UIHX/RGXFPZ2CpQR39ab/ACa1ZjSKJbS2M1QzynHE5NcbTz5jbk2vB/poAlhq3TodVh2rMgxwZY4DQ9xnc9lvcNCxrggOnEwv4jbe+8HLuFGgRKdq36A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by MW4PR12MB7309.namprd12.prod.outlook.com (2603:10b6:303:22f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 06:59:59 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 06:59:58 +0000
+Date: Thu, 29 Oct 2026 17:59:53 +1100
+From: Balbir Singh <balbirs@nvidia.com>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
+	Christoph Hellwig <hch@lst.de>, Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking
+ requests reserve access
+Message-ID: <auLu6XEMZabza7aL@parvat>
+References: <20261028171719.2043421-1-hannes@cmpxchg.org>
+ <20261028171719.2043421-2-hannes@cmpxchg.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028171719.2043421-2-hannes@cmpxchg.org>
+X-ClientProxiedBy: ME0PR01CA0021.ausprd01.prod.outlook.com
+ (2603:10c6:220:212::16) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,232 +108,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|MW4PR12MB7309:EE_
+X-MS-Office365-Filtering-Correlation-Id: bffc8209-4e4c-4a3f-8df1-08df358a3ef0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	8yB81I9H+mheCx+n026tQAKVzH1awtznP+w3P4xoFtUYUWwpT0wKNGB66n5B/6YbXP3opG7ZH+FtAr9zW0w9t0twxBHoo/hezd7G2M2hcpCHBO/IfUaNssxyFu8eAiHlF1+f9fdKa+5oXXHGWg5WTRgY327s+Ui+Rctf6wi5D5meHJz0Woz7Bpw9PxTpcx/JA9EmPUv/dFfbhPgOLbdW9A02ETPu89+6dwSSfnly0mNrec1stk8rs+u3qCcVymu4jcgQooGFba3NyiesWbxweAyzl/TN8yggx7+R6tvhaIikfcMONpCA/NsL4zvrxc5wjMIkGlgrS/CeaqRYtpPzfLMsVsQZ2WqyNFQsGBg9HZXFAwqrLj8DBc7aTLobqOfwbnUc9O08+I8Fqb9Kf2crUJkjICFJNW2xvGcU8G6XbOskFFUNsqlIJaEdm5kzEs/clyERLRfvouY6gx1XgGzbxaYK27fH5/sqmpyO7bigZIbX1MbmCCKY0YfulNFYXyh4c5cexR0EU8srpXHzHYQFbM7YqesgHCkpXRKNFzpM7mw6KPl0xQrbhTN1bnZxnFnMuZw6cdsKtJ5dDHUL8xn+FOScfuVESNulN8D0//qsY3MHEb4XNPVyk5ueKg6V8y2RNnecPfHVsmFYQtajguo/VgvVj49CjZ/jeQDK9tjhYyU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rvmIIs8CuH+795ySnHIXkMF8XZ/KuDc4sV5FwmvlSwGmrdoxIvialUGeZ+rV?=
+ =?us-ascii?Q?ttmHXzNANm7YXgX2PCLUj3lDfIUiB8kCugaD2UZUjmEjH26398/UeWSUP2//?=
+ =?us-ascii?Q?zOygx0/K/aFhbMs2U6aQy9wL5571YJp2OIwIbvpTQ+XxVyOZFiVHRzgqKwe7?=
+ =?us-ascii?Q?NpPtpQTCsRerWTgR8KJPrsJoG7QfRi/6IixzY7Q4iPbTNFXW8vf57E3+FZ0Q?=
+ =?us-ascii?Q?7dg0lta8XAKQAPpksqNST0Kmyq23W7daZaZpUg7vo4NQXuwqS2Y3iqEL6l58?=
+ =?us-ascii?Q?7uvwlPQHkxYFyoBmB6chwOGMgC3rS4V3sNjDEPvw2tTvor5Tk4XgB0g3PtSo?=
+ =?us-ascii?Q?WwNupxVD1+XnrAFMOSUXgnC4z+7M8uZu2lIM2Op1E0O4PoBR9MG2PjnZyJeT?=
+ =?us-ascii?Q?1M4FPRwhjmIf/XfgRowgIWJX7NrdDhL5Jgi1Eu29XPAi0BaAeMerx6e2yWhm?=
+ =?us-ascii?Q?DFLBowwvE4AhJjfE1gKhgItRqvm06KFnYDb6fqDf/9ckEgFajP8v2zaeJqFZ?=
+ =?us-ascii?Q?rAEnJNaz7R9+DgjzkindTEcKj5mC9CXbWD6tcKHv7257e3XcwD3orm1IPUoS?=
+ =?us-ascii?Q?TCkq+ko5MMOVtEuIh4c86xaADqut04txNQ0EGxOrZz+0E6103FyTm8/eGFkD?=
+ =?us-ascii?Q?USQC97VyGrHyOaLQTMGHI4WheZaYlbp7LzH0R/NTd7Tjmofovq3JL0/AE1UN?=
+ =?us-ascii?Q?gW0r7ckawm+UsFBkM9TNBll/OPl0vaNXKM6kvRnFnhcGyQnmpRohRCkvPZ0q?=
+ =?us-ascii?Q?IeGfLBADzPow1Ps3jqml+r2cZ7PZ/ESYeMLg1qwCffGMzib41vVd67AovMVK?=
+ =?us-ascii?Q?E8TVMu5KBCLF94OGLBW0HlDQarwAtHNeghyqOuNDd/IxzDChrnKejrXvVIDu?=
+ =?us-ascii?Q?U/02gS3O9ZtZEHHxWkRxNxwOq4Xe0J4mMB6uu9OUe3fnouicdNCFNhEpe9Xd?=
+ =?us-ascii?Q?6U7mG5Aqvfhw4qgK7qHfyPuac6cEa/tLLJA5gxdAl6F2AiCPJ2v4Kt6bdbuw?=
+ =?us-ascii?Q?KC7/ZacKny6QpINnsOrNmK58OZQehD5eYmMc6L7o9r0azajSgmyLiNfqobM1?=
+ =?us-ascii?Q?jhLoeqgLCMp1TcWuHcOdJDyJKS2AAKTtlSEZP7sTSVYHIOiUj1/Gxg/3oYK/?=
+ =?us-ascii?Q?g6TMsveyAW9nOcxtCCcsG4MOanaYSA9hlsdxMjZ9iSL0bfCkAyUGlmEzbHoi?=
+ =?us-ascii?Q?s1x+Q5p2s0R4n79tPTMhTvl/3T2oR+BPpl/q2bG5p1Q3WBO5IK15qLOdLaNS?=
+ =?us-ascii?Q?Z8lJsLv3SpLnqS1pTQ3t3dP11sPyDuBFyRBcLT7VKKTrh4ErbpAYpOz50Sl1?=
+ =?us-ascii?Q?vB7J2OUJItGDrYgfZh1Qh6U0Y62NFc3wW1FHKmNQwsFvQcMe1W8bhU5L2+Vh?=
+ =?us-ascii?Q?kXSZWnX5S1pMDF1Ye17RShAAqp7hQeHu6qQpUYUOaDsqeOTtWLcUOpwzx2Rj?=
+ =?us-ascii?Q?mQavd7KcvaoVEDbh7oGdYoyoRXzSWqhRACGRNaqZHKl+GMUD6ETw71e9WlH4?=
+ =?us-ascii?Q?pA69dlYmeH4aIWxW1SfyX0WuPhVSKPoNq3MhgUl4EDQZtpmAvFpJtaUZ7p/o?=
+ =?us-ascii?Q?z+4ZDN+ImoNVQuu8QlwxyGJwarvLx0ZqOrshwmYzgl+2F9ieFi1gjlLztMb5?=
+ =?us-ascii?Q?/VP6luHIRoUbNl9fAjfQzIz4jtbakZFy2qpsaz4iUaH5vowhoBaHEfKSD4d6?=
+ =?us-ascii?Q?ATV8wLpekCLUjPcKEzh4c/xF+8jYmH/rr9m4tKohHloMHY2j03B0APilfxAj?=
+ =?us-ascii?Q?mYBjXqYFRg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bffc8209-4e4c-4a3f-8df1-08df358a3ef0
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 06:59:58.8546
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ae4uBaVwlUOctfcsLlBOm9N+XKHhAsRMyX4+BokKF+z+NoM9FgbExZ3qqglrzsNpuPwPWzKso94+LFdyIjoOaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7309
 
-Recovery completion needs the local allocators until it has finished
-reclaiming a failed node's allocation window and truncate log. During
-unmount, quota recovery is stopped first, but that leaves recovery_state
-at OCFS2_REC_QUOTA_DISABLED. New non-quota recovery can still start.
+On Wed, Oct 28, 2026 at 01:15:53PM -0400, Johannes Weiner wrote:
+> 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+> highatomic reserves") accidentally gave all non-blocking allocation
+> requests access to highatomic reserves, which includes GFP_NOWAIT and
+> other sites clearing __GFP_DIRECT_RECLAIM.
+> 
+> While this improved atomic request success rate, it's unintentionally
+> broad and can actually worsen highatomic requests by squandering the
+> reserves on requests that don't need it.
+> 
+> There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+> for costly order __GFP_NORETRY requests, which would then also fall
+> into this exemption and deplete reserves even faster.
+> 
+> What GFP_ATOMIC has over the others is __GFP_HIGH, which
+> alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+> 
+> Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+> ALLOC_MIN_RESERVE.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+> Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+> ---
+>  mm/page_alloc.c | 4 +++-
+>  mm/page_alloc.h | 3 +++
+>  2 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index a8cac5e01066..8ac2e2bf14fc 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -3238,7 +3238,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+>  			 * reserves as failing now is worse than failing a
+>  			 * high-order atomic allocation in the future.
+>  			 */
+> -			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
+> +			if (!page &&
+> +			    ((alloc_flags & ALLOC_OOM) ||
+> +			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+>  				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+>  
+>  			if (!page) {
+> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+> index e238ee91ed24..9c3c2830acb0 100644
+> --- a/mm/page_alloc.h
+> +++ b/mm/page_alloc.h
+> @@ -60,6 +60,9 @@
+>  /* Flags that allow allocations below the min watermark. */
+>  #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+>  
+> +/* Flags that mean GFP_ATOMIC */
+> +#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+> +
+>  /*
+>   * Structure for holding the mostly immutable allocation parameters passed
+>   * between functions involved in allocations, including the alloc_pages*
 
-ocfs2_truncate_log_shutdown() drains existing completion work and releases
-osb_tl_bh before ocfs2_recovery_exit() closes that publication path:
+I feel patch 2 needs to come first, so that
+__zone_watermark_unusable_free() accounts correctly.
 
-  Unmount                             Recovery
-  -------                             --------
-  stop quota recovery; disable quotas
-  truncate_log_shutdown()
-    flush existing completion work
-                                      recover another failed node
-                                        queue completion
-    flush local log; release buffer
-                                      complete_truncate_log_recovery()
-                                        use released osb_tl_bh
-  recovery_exit(): disable and drain
-
-An extra buffer reference alone would still let completion append new
-records after the final truncate-log flush.
-
-Split stopping and draining recovery from freeing its state. Stop all
-recovery producers and drain completion work before shutting down either
-local allocator. Keep recovery-state release at its existing later point,
-so its lifetime relative to other teardown users stays unchanged. The
-second stop at recovery_exit() is harmless once recovery is disabled.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in ocfs2_truncate_log_needs_flush+0x23d/0x360
-    Read of size 8 at addr ffff8881093711e8 by task kworker/u16:3/53
-    
-    CPU: 0 UID: 0 PID: 53 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: ocfs2_wq ocfs2_complete_recovery
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     kasan_report+0xe0/0x110
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ? __pfx_ocfs2_truncate_log_needs_flush+0x10/0x10
-     ? __pfx_down_write+0x10/0x10
-     ocfs2_complete_truncate_log_recovery+0x315/0x780
-     ? trace_hardirqs_on+0x18/0x160
-     ? __pfx_ocfs2_complete_truncate_log_recovery+0x10/0x10
-     ? ocfs2_complete_recovery+0x666/0x11b0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? kfree+0x308/0x580
-     ocfs2_complete_recovery+0x676/0x11b0
-     ? __pfx_ocfs2_complete_recovery+0x10/0x10
-     ? reacquire_held_locks+0xdd/0x200
-     ? process_one_work+0x7c8/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_acquire+0x190/0x300
-     ? __pfx_autoremove_wake_function+0x10/0x10
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    
-    Allocated by task 538:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_noprof+0x20b/0x5c0
-     alloc_buffer_head+0x26/0x120
-     folio_alloc_buffers+0x122/0x1d0
-     bdev_getblk+0x299/0x4f0
-     ocfs2_read_blocks_sync+0x513/0xbc0
-     ocfs2_iget+0x9cd/0x1a00
-     ocfs2_get_system_file_inode+0x25e/0x7a0
-     ocfs2_fill_super+0x1b05/0x3930
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 553:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     free_buffer_head+0x4b/0xc0
-     try_to_free_buffers+0x1dc/0x330
-     ocfs2_truncate_log_shutdown+0x789/0x1290
-     ocfs2_dismount_volume+0x1da/0x940
-     generic_shutdown_super+0x15f/0x490
-     kill_block_super+0x40/0xa0
-     deactivate_locked_super+0xae/0x120
-     deactivate_super+0xa2/0xc0
-     cleanup_mnt+0x217/0x450
-     task_work_run+0x144/0x230
-     exit_to_user_mode_loop+0x17d/0x570
-     do_syscall_64+0x4d1/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff8881093711c0
-     which belongs to the cache buffer_head of size 160
-    The buggy address is located 40 bytes inside of
-     freed 160-byte region [ffff8881093711c0, ffff888109371260)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x109371
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff8881008883c0 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000120012 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff888109371080: 00 00 00 00 fc fc fc fc fc fc fc fc 00 00 00 00
-     ffff888109371100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-    >ffff888109371180: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
-                                                              ^
-     ffff888109371200: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff888109371280: fc fc fc fc 00 00 00 00 00 00 00 00 00 00 00 00
-    ==================================================================
-
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
----
-Changes in v2:
-- Keep the vol_state ordering comment, naming VOLUME_DISMOUNTED and the
-  recovery-completion mount wait.
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0019-v6-7241e0b915991218f315@gmail.com
-
- fs/ocfs2/journal.c | 15 ++++++++++++---
- fs/ocfs2/journal.h |  1 +
- fs/ocfs2/super.c   |  3 +++
- 3 files changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
-index a3938a03e93b..674e70dfbb5c 100644
---- a/fs/ocfs2/journal.c
-+++ b/fs/ocfs2/journal.c
-@@ -227,13 +227,22 @@ void ocfs2_recovery_disable_quota(struct ocfs2_super *osb)
- 	ocfs2_recovery_disable(osb, OCFS2_REC_QUOTA_WANT_DISABLE);
- }
- 
-+/* Stop producers and drain completion work without freeing recovery state. */
-+void ocfs2_recovery_stop(struct ocfs2_super *osb)
-+{
-+	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
-+}
-+
- void ocfs2_recovery_exit(struct ocfs2_super *osb)
- {
- 	struct ocfs2_recovery_map *rm;
- 
--	/* disable any new recovery threads and wait for any currently
--	 * running ones to exit. Do this before setting the vol_state. */
--	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
-+	/*
-+	 * Disable producers and drain work before freeing recovery state.
-+	 * Do this before setting vol_state to VOLUME_DISMOUNTED: completion
-+	 * work may still be waiting in __ocfs2_wait_on_mount().
-+	 */
-+	ocfs2_recovery_stop(osb);
- 
- 	/*
- 	 * Now that recovery is shut down, and the osb is about to be
-diff --git a/fs/ocfs2/journal.h b/fs/ocfs2/journal.h
-index 19fc920d26b1..4b52bf7b0938 100644
---- a/fs/ocfs2/journal.h
-+++ b/fs/ocfs2/journal.h
-@@ -147,6 +147,7 @@ void ocfs2_complete_recovery(struct work_struct *work);
- void ocfs2_wait_for_recovery(struct ocfs2_super *osb);
- 
- int ocfs2_recovery_init(struct ocfs2_super *osb);
-+void ocfs2_recovery_stop(struct ocfs2_super *osb);
- void ocfs2_recovery_exit(struct ocfs2_super *osb);
- void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
- 
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 0af2245ae303..3072b0386db8 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1831,6 +1831,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
- 	/* Wait for worker to be done with the work structure in osb */
- 	cancel_work_sync(&osb->dquot_drop_work);
- 
-+	/* Stop recovery producers before releasing their local allocators. */
-+	ocfs2_recovery_stop(osb);
-+
- 	ocfs2_shutdown_local_alloc(osb);
- 
- 	ocfs2_truncate_log_shutdown(osb);
--- 
-2.43.0
-
+Acked-by: Balbir Singh <balbirs@nvidia.com>
