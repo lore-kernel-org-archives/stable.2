@@ -1,79 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240934;
-	b=BZDZRUcArKfjXDSOmAAzi0m7r/O3zFTTKa0mbEpyKt2rnyC3OJpgrkCKPn1bVXzSno1V
-	 EtiZAsPk5x3D/SHypkTfDjhgNFMx0shi0EBaKSmc9d6U1/rLIccsGDI4rBWXvcwYl59Aq
-	 H+SmdzvhzM1BcAuWAeLqkT8oIdsA7sj/hG2UyEOI6JTcVv6oAmhF0ZObWlzbjWs40XGA5
-	 iicUzKsOr9lVvqO//dRno8g69UsRg5Wah4XORE+veKjEGn3bYM1vX5+K8eDq8FG3iPvFK
-	 5gncSxhnP4oVz3hH/NAz6li5rRpflbZn6LCphZE+T86UmsnvJkBlK3lW+I4Z6bYsILA==
+	t=1793241395;
+	b=lFslLGGnx9aOzwsHBm79v7X0JET/Y7f6Gx/m9/9e2KWlwbxjn//XCFSVLhkTKr5Spp4R
+	 CbMhHmtc21d96YuUSsG/h+uU8iYHdoMAOJROkhUXyJJ7Mf3mGzPqXmNlHQsoSlIHDSLDg
+	 0kEK9f63sgqhJkwf2uL00P802h5EgPgQQ8IkY+ZtwzAu8+rZrutZCkrI9nDvUOZdYHnxn
+	 R0brJPhc/XhnT9Vtl/mTjRQeYX22Bal2Nzts0DhpNWIpfYzEv2pkiV49JbJUrzRIQ8VaW
+	 BJDwO/5R8/vxIOaEJYgxvcUW+9B0o7JwNaxsPpUusHsMjPxSDZY8UoEJm2rXPIx/vjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240934;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=SEhhGsnVr1dyJancNN/85/bOvozExKeXHdbMvEDEscE=;
-	b=o6dninaw2CAkUJYePqqlyfjSD9v/TmEFwFC3wRLAfB7jSgGmyD7EIG1EUpkvLhT0poc8
-	 kdsXTYNpjTT4p4+pKPrxQpoRLvviZEBU9tpzhB9MZgxY40aSY/K1EsM2UemngiBtwS5hV
-	 GMJlnUD/ewkH24pXWIkzapsoJPySxwBQUZL283n0JW3Ng2MaHhCfg4+YfaKP/3vBT/YWA
-	 DwSurHC7RTy/p5WcROdtuUVzwtr/kAJBVzAN36IUxyIPliM69BdMBZ5gENbWmVwHbP1TZ
-	 uD1eHYgwLdOUmWSSgSz569YHR4+XkXO/QGAk60NwJ2KmjmaY/bRA0EVoMFipVUFTfeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241395;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+xhRwd9MYDt0tvkIhIFVmiSdsV4hM76bGb1xq49PgPM=;
+	b=2D+RXnlB/68lSGI2M2F+ItO9KcMEwZmbDLBYY3WVF7Ruo0UNQApouIu7iZbKECcidUdo
+	 YqFhlytqEiU6guEw9/5CRpnhISpLcMsdrqDBEiTZGzF/BbpjPdDEr95HaDRuI9QVkmJoK
+	 UiU0ADJN+lRSxpWbpiGdnXIyDyXroLV8N43WbN3GIPWtPc/qqORTDi4/giUaH4v/Y8kEc
+	 tuc9x7RHc/wV9aNtLUpwZJA1bA2hFiBtR77wDaJlDGDJUXfjCgACMokqK18cYN5L8CBpp
+	 u5VBYDDgI8gKn+YdTRtZXrwWujINZOufKz/gRbPStLSejQQo4xs0fs2Yc6ytW5hHK6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HFNHnoLQ;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=T+lWHQea;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509BB606A326
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:28:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 509BB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0E5606A324
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A0E5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HFNHnoLQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793240934; x=1824776934;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SEhhGsnVr1dyJancNN/85/bOvozExKeXHdbMvEDEscE=;
-  b=HFNHnoLQo72lQ0jPMLP2bIZw0lN4DMsai22YEoU2/X1CWz/vO65HEN8C
-   18jbQPcGzdpIhlwuVaaXqIQ1gXT9mCoUF7MXCCkas8mwgRAHzAvGP4JM1
-   d1ZEywHjQgNb8Ix7Y2+F3fjnIFOccSZRBlOw7rIWGwHP9Y2/AMTYiLnlX
-   bjNm1Op4+wVih9xkQ0+ZWEndjKmypVxR68UO1F9gfutT54vc/gY8XOrpH
-   BUUdXIIK2rGY2+MI9SKKPwnYnol346BKGORt1gCCblFmWPBgJi4zM5mEA
-   2XkpI4SBU/Goc+sh2WFgncOiupVSXoi/ZhdbosRKiXXO5LNg4Zwh822Z/
-   g==;
-X-CSE-ConnectionGUID: o4iZ4nSeR4SZJOL6AIImDw==
-X-CSE-MsgGUID: ixgpa6/DTda2Y0Kk9ZhXkA==
-X-IronPort-AV: E=Sophos;i="6.27,183,1787011200"; 
-   d="scan'208";a="32520491"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 02:28:53 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:5606]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
- id f53eed77-4e18-4961-bcef-1469191e7bb6; Thu, 29 Oct 2026 02:28:53 +0000 (UTC)
-X-Farcaster-Flow-ID: f53eed77-4e18-4961-bcef-1469191e7bb6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 29 Oct 2026 02:28:53 +0000
-Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 29 Oct 2026 02:28:53 +0000
-From: Mark Bundschuh <mkbund@amazon.com>
-To: <stable@vger.kernel.org>
-CC: Fuad Tabba <fuad.tabba@linux.dev>, Hiroyuki Katsura <hk590@cam.ac.uk>,
-	Vincent Donnefort <vdonnefort@google.com>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH 6.1.y] KVM: arm64: Transfer the hyp stack pages out of the host stage-2
-Date: Thu, 29 Oct 2026 02:26:10 +0000
-Message-ID: <20261029022610.2637061-1-mkbund@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=T+lWHQea
+Received: from macsyma.thunk.org ([12.0.67.227])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69T2Z4lO004165
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 22:35:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1793241310; bh=+xhRwd9MYDt0tvkIhIFVmiSdsV4hM76bGb1xq49PgPM=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=T+lWHQeaP1i9hnr8/s6uca+jUyjj3dYJXNKhCJwzn78rfUH5i2+M8Pbom5196uFpQ
+	 BK0u2a4IBX0n8ozAmgZn7zcNt3oZWLx/o5giEtDseaXQ5Y2viiNQ22+o0IKr518xb5
+	 6neQS2gJFgHFcctSVZxZmYNxN1uITIWTHuRhjzwmDsAiEDDPvAvELLulKtYAt5dy/W
+	 mRPuSs9SeGMSHjVpooDDE1FvBCfic5lx4cJAqLiz3an+ERShuLelFV+uRlMeHfTuVu
+	 4+0R2Fstuup6LAKFbe9TMImzozdmhzHjzq9jXWbhShRDD+z2j4pHGpFr66qzGSBVa7
+	 BIRmhFXCSz3jw==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id A253A237A5BD; Wed, 28 Oct 2026 22:35:03 -0400 (EDT)
+Date: Wed, 28 Oct 2026 22:35:03 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Dave Chinner <dgc@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Henry Martin <bsdhenrymartin@gmail.com>,
+        Carlos Maiolino <cem@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        "Darrick J . Wong" <djwong@kernel.org>,
+        Alex Deucher <alexander.deucher@amd.com>,
+        David Hildenbrand <david@kernel.org>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        Kairui Song <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>,
+        Rafal Ostrowski <rafal.ostrowski@amd.com>,
+        Likun Gao <Likun.Gao@amd.com>, James Clark <james.clark@linaro.org>,
+        Anshuman Khandual <anshuman.khandual@arm.com>,
+        Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
+ numrecs during log recovery
+Message-ID: <auKuGGDHTxhCDJSY@mit.edu>
+References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
+ <auJ2jgIIh8e_JJwn@dread>
+ <87cxsto38m.fsf@trenco.lwn.net>
+ <auKGlGJwOSZpioMd@dread>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,63 +81,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auKGlGJwOSZpioMd@dread>
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+On Thu, Oct 29, 2026 at 10:34:44AM -0500, Dave Chinner wrote:
+> These aren't security bugs. Bugs that result from maliciously
+> corrupted filesystem images (i.e. fuzzed) are explicitly stated as
+> not covered by the kernel security threat models. IOWs, they are
+> just -bugs-, and bugs that just don't ever happen in the real world.
 
-[ Upstream commit 3a8c562892b96f35bba1e00d5e455a15963bbb92 ]
+Well, there are people/companies who might be silly/stupid enough to
+think that containers are a real security isolation layer[1], and who
+think that they can let random users mount untrusted file systems in a
+container, and not have to worry about one company gaining access to
+PII belonging to another company because both companies are using a
+particular cloud hosting provider which uses containers and allows
+their customers to mount file systems as (container) root, with
+multiple customers sharing the some physical host.
 
-fix_host_ownership() walks only the linear-map alias of each memblock
-region, and the per-CPU hyp stack, mapped in the private VA range for
-its guard page, has none.
+As Dave has said, *all* of the file system maintainers have explicitly
+disclaimed this security model; from our perspective the block device
+is inside the trusted computing base (TCB), and if someone wants to
+dedicaste one or more full-time engineers to be file system developers
+who have contributed a large number of improvements to the file
+system, and who understand the context that they can competently drive
+LLM's to create architecturally sound patches, I *might* be willing to
+change my stance for ext4.  But those hosting providers' engineers
+would have do most of the work to try to make this security model work
+--- and it might be that using fuse2fs, and running that fuse server
+in a sandbox (e.g. seccomp-bpf, etc.) might be a much simpler /
+cheaper solution in the end.
 
-Walk each stack's VA range with the same walker.
+Cheers,
 
-Fixes: 1a919b17ef012 ("KVM: arm64: Add guard pages for pKVM (protected nVHE) hypervisor stack")
-Reported-by: Hiroyuki Katsura <hk590@cam.ac.uk>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Link: https://patch.msgid.link/20260908110713.1540304-2-fuad.tabba@linux.dev
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[ 38f9e4b905a0 ("arm64: kvm: Introduce nvhe stack size constants") is
-  not backported because it converts nvhe stack code in eight files to
-  NVHE_STACK_SIZE, and the hyp stack here is one page, so PAGE_SIZE
-  replaces it. ]
-Assisted-by: LLM
-Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
----
- arch/arm64/kvm/hyp/nvhe/setup.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+					- Ted
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/setup.c b/arch/arm64/kvm/hyp/nvhe/setup.c
-index e8d4ea2fcfa09..89dbe4cb8394b 100644
---- a/arch/arm64/kvm/hyp/nvhe/setup.c
-+++ b/arch/arm64/kvm/hyp/nvhe/setup.c
-@@ -255,6 +255,16 @@ static int finalize_host_mappings(void)
- 			return ret;
- 	}
- 
-+	/* The stacks sit in the private VA range, not the linear map. */
-+	for (i = 0; i < hyp_nr_cpus; i++) {
-+		struct kvm_nvhe_init_params *params = per_cpu_ptr(&kvm_init_params, i);
-+		u64 start = params->stack_hyp_va - PAGE_SIZE;
-+
-+		ret = kvm_pgtable_walk(&pkvm_pgtable, start, PAGE_SIZE, &walker);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return 0;
- }
- 
-
-base-commit: 79807e970724c1f90cee1316361d61b80db4eef6
--- 
-2.50.1
-
+[1] There's a *reason* why Google Kubernetes Engine (GKE) uses VM's
+and not containers as a security isolation layer.  :-)
