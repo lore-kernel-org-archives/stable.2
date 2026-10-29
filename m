@@ -1,72 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257745;
-	b=J32Q9h2FWa6qwpVq/vpLRyWd8QL8bwVnj4Hf4UOJS2QM5YMX+r90VfH1OPaELiQG7Qxp
-	 u7i07hDC9xKDsdpjm9/sAbkKIOSfpJ2gbjHv/zE+Use50Yvud4oyS7wBCAWvrIATKH8/T
-	 ZaktLYX7lx8YsApHCduPVU1jdWAclSDkYgMrSORdXDBN+DbuK40kh3bRdjb6xP560oqoh
-	 eWCePIh6qGZLimKjiGo49SwQKJJECOkxO68vX1moKCtt8pSXM8vc23QCGts8WelYVGI1F
-	 YK1O1yvOuor66jFm3BOfDQ4LwL32mpGUvENgkKQt98iqIxiNRUic3eKyoSTrqnjT5YA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257745;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793257943;
+	b=YIJwIAvM1bPcOu4qlMI8tBp5zXHaVExV4Ja7xWmA98wPZIAsFKori1NXnztjJ8E5btzl
+	 Uslc8UvixAhvYXfpnBpA5k8l3aSpR0xpUd4P8LO/WikLgYtqmtwAoRnJg5w9osDpaniy2
+	 KI4Yx1TuZI5h7afSwfgV/Oym3U51h2xA36yDxF8XEM3F9LxkuoFQbHgLo7wL0w3osigOB
+	 XWr/naRtG2parbLeBfwaUBmJv3cjNnmiHInsDfbbBNtTDzD3eeDrqFrGnw3xzz0DliC+5
+	 WJ0LOvyShmkZvYZFS2vnlqz217GL16Jv8OwWDm2betDsZWaN4SDcIJ8PRemUvw8XeMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257943;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=/ChzfnrguZ/H1j3NAqG6KHPxUvTJUSYvVzUQIOYG/3o=;
-	b=RSurzghA29CSx3367C21aOzExDScJtuHysReHIO9CKVG9Gu3XaD1lFgEboqVa1vRoJrX
-	 vXedhiIs2ITQVXlOXWQyx1tGQ8cR1pC/LuiwO28BYWBVlI+G7X6je5dvleOym/aKPwnl4
-	 jEyuCUtvUbRSUhf3U9V9uulYBObsgr4ZgeN7ypzqtZsyt2/tdx4KzJuSBenqgTFp93Wbq
-	 6Kzo7aMIvI7JtfUtgpwqVTpO+rEeaxAlGDUAvC3EoaLiPYzme2UDt3NWN1QfZVEDT8ZMA
-	 //VOyL5vHUdzWD2ToHvI+VtGS22VdOSatlg/iHg8tmsgzGr0JtmWoCA3xiJgOMrYyxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YVMEjrFH;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
+	b=Cfv8nrd2nRLnR1voN3O+9yUUHz1MrBnbX5mGYWQ/GwHuu9aqOzaI7nDPSsGdOMzrd2SB
+	 Vi4a9n4tYhothDDQh+HRF3Aw6x/gZVkzPmrVfKoGQkkBr2cDxFNxafi363e3AyyfQhUWm
+	 ytRAGqyXgfoqR0RL25MzSUyEEsrT9zYkxqKQsCjZoAkOiGDIM5H6jIUQhSrVwxqxRUTcI
+	 AXWcwK4yKc3rLKsfmpr8UER4t3FSU9XTrHdMqTuzcsDyre0aNORA4sO39iZ+Dhjcfu//0
+	 ySKEQ/T9VEruhOlZXiDevTs95r4hYBUOxp+ge8AZoqIVBAtWUlSpTvgjnLAFO8EI/yA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w+dn/dwg";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E69606A32A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E69606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A1B606A32D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A1B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YVMEjrFH
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a065e2933fso2276678b3a.3
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 00:09:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w+dn/dwg
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a215e64962so19042645e9.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 00:12:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793257941; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G+dDbAMVXOpoF5J9clBhAiolHFNm5Aa7KN32fqwbja9rWbDvxQ2TY70+wXr+4TJdbj
+         uJqYGpt8Qq/kSzSZwLY8TUlm++DR1jDUXpYJ2JQu3rInvpsbefPDXvqd4j71TkbkhA8/
+         Kp5Eijj9a2t4gpbq1/66qAQoEd4j+8Ju/fvfbnZqnn5u3XCte1EuamUHcK6g3M51ugjP
+         kztuF5lfBuL4HcOMHct0FAPSCILcuDalTgJSmkfppxBhmPcXhFHePk9581U//+WaliUx
+         oy9woXguRL6jjPOiJT/gWpqLP0i4dMaXaws5QjcWuKTPYAhh2ZaM2NHoZPvhZo7nMZF1
+         Nmkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
+        fh=HUCiENu8BM7nNo0odZFS+DUhMMpxHDyZNZR0mlgpqGs=;
+        b=Kzu1Nnu2h/9iZGgXtsr/s1y4vuTXRRv0WDX/FI6+7hFAXABNSL8C+Y0ZUKy8HbKji3
+         3m3tyxJuB2tDp+rt3IX6VYlnfwg3ozPOC8HBqq8p7CziIiwxFefrn7fIzgOUX1PVLK7b
+         t/6qjl3/z8mYwwFepGKCRh4PQE0ICZLS9C4sOr42ewFUjwehhWCno45psg9GbLA7ou/e
+         8hp5GxAL1+E41z9x08w8ZuiPYvnmK5tr8TyC9k07MkidAsCdAGUsgup6gAbJXMkjO9RN
+         BtS4E7zREMANZY/GEP4wC6llCudrus8/GgWuI3hWah5/5EG9zIN+v+Th0KA7exvT4YbA
+         w0lw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793257745; x=1793862545; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+        d=gmail.com; s=20260707; t=1793257941; x=1793862741; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ChzfnrguZ/H1j3NAqG6KHPxUvTJUSYvVzUQIOYG/3o=;
-        b=YVMEjrFHAnDeABDDiXtBf5RXtinjezCrspfrOtyeUGDUfV9WV+nunR/iYPaaWnfidA
-         Mk9z5qaQn4IyUvvz5LFadgaawjBaEKhX+VZZgtna4g7EFhEmyxoM1VENB+ZPaqxF1opq
-         axURJtSkQidWe9ft56a8xAdQyrXKboPwZvbaEkhyS2NHUBiCrS8S0r7cRMsaB8fJ27MW
-         oUOWOqYoRd6FASaZ7hXldIuFUWI99J4PVgb65ymY1usilmick8I+Xl4ZxuY+dsG53PYp
-         MWDW9SXWKuaTNpORrtkZSjsdpGXpZUFQUBLmiLo8DsRMsgKuw/cf+udBio/UWOwVj3/F
-         NuAQ==
+        bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
+        b=w+dn/dwgtbrysHaAXv9ETJPfMsaFELE4gakBZpylLTZ5oGcJrz5KSTONKHRlOdE2I4
+         IWwoXJjpxNpfxrVO2kDMbcup7bpMDblzyW+qq7XJI/IJFjCe4wqkAHp8PB9Cy7oyNhOF
+         unwwH+zFYGfXrW7pOQHwxSYLXWpKmpbcLrGKBqh8OKO+bLeAU3dxFPBtGnFChn/8keYi
+         XVVkXjIP6SzJ3dv01NteeWbX91ClybUiHZT7/g/Ua9i9YO1VAI1S8Xd8/InCgNtdg0yv
+         rdsozN/MTriCUneq8he1ytUB8+ohVVoULeuVXz8xwsAMHAHhQXQo1AsAI4pQCorBJX27
+         KESA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257745; x=1793862545;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ChzfnrguZ/H1j3NAqG6KHPxUvTJUSYvVzUQIOYG/3o=;
-        b=c93zYX91pxVuTcQ270JB2IAPDT2eX1NgYhZ0mnB2C9kDHK27Ji8xhRNoqkVDjtEkM4
-         fkzwhxBDkLpQWBHcgJrRd6rMW+zkSiLsLZzzqtBn0H7OxSiP0KyxNgPpYcgEHyGqSQRG
-         IIEaUC331lNVIdxNo15d7IY0cr6LxiDx18qaC65cOq9pMUTR6iCGa/ptMOOOY47AtG2Z
-         bqjnBkjoJzRQ4OFpYDS7Zl0NLHETx+0mSKLG2yJNkPCvkc752xR3M8HRXyqWjWQtq+Bf
-         m5CqHlCYlYnSSio9pyIZoUKdnuSVci+ETJNdTmHbc1/9FvkaOUylVS1vevM6PwOlVSCu
-         S+TA==
-X-Forwarded-Encrypted: i=1; AKwUvBwBIlYl7G1AWC5tcLtAOZGbAbJ/XjDyDsvA61AxLZ/j6NBgbLRe7TBNqPcLnyOJjN3seFmv31I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzAgwX4H1b83xyt97hDlyYvNRXPvkfYPlcgkixCfFxaf+zeIq9
-	01BSHpIrOCZ2+zrI6AGEmVm5QrFlnmeJ/ytAXFd+pjgDEOS6qjmtXOHmiNJV6z1ENsd8HmDNnGK
-	xqTvZeTX+NA16o/cFnILN8w==
-X-Received: from pffl11-n1.prod.google.com ([2002:a05:6a00:c34b:10b0:89e:78fd:6ab9])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:230a:b0:883:71f6:5fb with SMTP id d2e1a72fcca58-8a6e6348be0mr4187982b3a.13.1793257744383;
- Thu, 29 Oct 2026 00:09:04 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:09:02 +0800
+        d=1e100.net; s=20260707; t=1793257941; x=1793862741;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
+        b=OSrod8j8DZCRDbbCEYh13zZkfv3VdQgwkBpMW248zxhdyLYOhs7akZV/D52iMfmIJ6
+         nSdjA4wlZasO0wlMzpghLsML1DkCw0Axe9s6sCETZOt6ybhKwYAr0Rd7DyzvfWHxFmtI
+         Y3DgiLCT5jRayMKmoq7WKhqzoevTDmVGf9wo1lComDGuAMBjkvOGW4UBrrbM1l5Nigqo
+         Up+QkNw1dDoGOwXxTOy4g0W3mnsXG7kPvUOV0YBTwsjKFos2wHki9oe1wQz0LFao2TBM
+         nfLj8oWMyR45xbZ5VaJHoZ0WRALPPjQfDJDo6xnx9chivXWROLBB2syDQl8Qil8rUtZH
+         V6Kw==
+X-Forwarded-Encrypted: i=1; AKwUvBww6vwMtDy64NKqZt6uPoqkUwdF0e+IiYfjCYOtSpqT8lkhLzl46nkEp85A/u9juhz9kPCS7qg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhxRTWIM2WZ31Tb7P3iCrPiSDDL3T9XmBcAMGIk+M8DZam50Dw
+	vtfXyZSK+Q6/prw1F5gDza8pzJJ/s4RSQrH8lBZuePI6Uw3W3JKi6M1g1m5ksCh5VMyroN+0jpY
+	ULMsokzy6Wgl0bUIt1R+D3xULl9NR+zM=
+X-Gm-Gg: AYBFou3zmYby1h+d9hdOYOXdzvl/leXOK5TdSvcfltQPmOb+82N3cFcelITVAaJZkpb
+	MbmZjKl+pD+379Moq57n2d/UKwy0TQPv0VXSLYiGk3mPaRBIZJDF0XnTVz0S741GpHPvQhDPNvA
+	s0lxIrhlOLXDJ1yTCIHRQGirLFnmCrt5GI5I5KCHq509vrCaW1+PcPZwrqxhKcnQ7ztJiBLfnW9
+	/G3mlkM2M/er5/7rynE42SZZxrEolmmOfr9s/darfN6Y6IciwtbllQFkMSs6hdZSrdaDeFjkaxU
+	5aaM0JAyjwyKQbwR46BPT/aVMpMza06JPirNEBn2WGYvHO/YzmvI6ksnk4MahX9wJvOlG+JBrjc
+	940HXmLiENsMcOQWH6QfKcsjbdctL6JSAoTbXFpMFoZHE+QVzyTaiOGiXlEqBlB6Sa/affLSj56
+	qIsPc+hFT/NPgvuLGNFg==
+X-Received: by 2002:a05:600c:1f94:b0:49f:fdca:c361 with SMTP id
+ 5b1f17b1804b1-4a9663995a8mr105499305e9.12.1793257941322; Thu, 29 Oct 2026
+ 00:12:21 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,90 +101,71 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261029040004.2100004-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: ufs: core: Skip completion of SCSI commands owned by
- the SCSI EH
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>
-Cc: Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	John Garry <john.garry@linux.dev>, "Bao D . Nguyen" <quic_nguyenb@quicinc.com>, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>, stable@vger.kernel.org
+MIME-Version: 1.0
+From: Ahmad AG <ahmadag1001@gmail.com>
+Date: Thu, 29 Oct 2026 10:12:08 +0300
+X-Gm-Features: AclHuK8oIQAbFPj51xALKq0pQMpaX8tYjUogaYqwbvGOzn7JupmqQ2AXYVRoUe8
+Message-ID: <CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com>
+Subject: [PATCH net] net/packet: charge fanout groups to the memory cgroup
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: kuba@kernel.org, davem@davemloft.net, edumazet@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-1. A SCSI command times out. scsi_timeout() sets SCMD_STATE_COMPLETE
-   and hands the command to the SCSI error handler.
-2. The abort fails, so the error handler resets the LU and
-   ufshcd_clear_lu_cmds() completes the cleared command.
-3. ufshcd_compl_one_cqe() overwrites cmd->result with DID_REQUEUE.
-4. scsi_eh_flush_done_q() only sets DID_TIME_OUT when cmd->result is
-   zero. A command that may not be retried, such as an SG_IO
-   command, is finished with DID_REQUEUE instead of DID_TIME_OUT.
-5. If a retried command times out again, the DID_TIME_OUT set by
-   scsi_timeout() is overwritten as well. sd_eh_action() then does not
-   count the medium access timeout, so the disk is not taken
-   offline, and a REQ_FAILFAST_DEV command is retried instead of
-   failed fast.
+fanout_add() allocates a new group with room for max_num_members
+socket pointers. Since commit 9c661b0b8544 ("net/packet: make
+packet_fanout.arr size configurable up to 64K") that is up to 64K
+pointers, 512 KB per group, from a single PACKET_FANOUT setsockopt().
+The allocation uses GFP_KERNEL, so it is not charged to the caller's
+memory cgroup.
 
-Only release the LLD resources of such a command, since the SCSI error
-handler owns it. Commands sent by scsi_send_eh_cmnd() reuse the
-timed-out scsi_cmnd with SCMD_STATE_COMPLETE set and still complete
-normally. Completions that arrive after the command was resubmitted
-are not handled here.
+Each packet socket can create its own group, so a process with
+CAP_NET_RAW in its own user and network namespace holds about 512 KB
+of kernel memory per open socket that its memory cgroup never sees.
+In a cgroup with memory.max set to 16M, 256 sockets each creating a
+group with max_num_members = 65536 took 264 MB of system memory while
+memory.current grew by 380 KB.
 
-Fixes: 7a3e97b0dc4b ("[SCSI] ufshcd: UFS Host controller driver")
-Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
+Allocate the group with GFP_KERNEL_ACCOUNT, as other allocations a
+user can make on demand in the networking stack already do. With the
+change the same test in the 16M cgroup is stopped by the cgroup's OOM
+killer, and with memory.max at 512M the 256 groups charge 262656 KB
+for 264640 KB of system memory used.
+
+The missing charge was found by code inspection of net/packet/ with
+the help of an LLM and then triggered with a small test program that
+creates the sockets and groups and reads memory.current; the numbers
+above are from that run. Tested in a QEMU/KVM guest on this tree
+(x86_64_defconfig plus kvm_guest.config, KASAN, MEMCG, PACKET),
+running the test as uid 1000 in a cgroup v2 memory cgroup.
+tools/testing/selftests/net/psock_fanout passes before and after.
+
+Fixes: 9c661b0b8544 ("net/packet: make packet_fanout.arr size
+configurable up to 64K")
 Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Assisted-by: Claude Code
+Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
 ---
- drivers/ufs/core/ufshcd.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ net/packet/af_packet.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index fd52deb72d21..710d57bb4dbc 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5987,6 +5987,22 @@ void ufshcd_release_scsi_cmd(struct ufs_hba *hba, struct scsi_cmnd *cmd)
- 	ufshcd_clk_scaling_update_busy(hba);
- }
- 
-+/**
-+ * ufshcd_cmd_owned_by_scsi_eh - Check if the SCSI EH owns @cmd
-+ * @cmd: SCSI command pointer
-+ *
-+ * scsi_timeout() sets SCMD_STATE_COMPLETE before it hands a block-layer
-+ * command to the SCSI EH. Commands from scsi_send_eh_cmnd() reuse such a
-+ * scsi_cmnd with the bit still set and must still reach scsi_done().
-+ *
-+ * Return: true if the SCSI EH owns @cmd.
-+ */
-+static inline bool ufshcd_cmd_owned_by_scsi_eh(struct scsi_cmnd *cmd)
-+{
-+	return cmd->submitter == SUBMITTED_BY_BLOCK_LAYER &&
-+	       test_bit(SCMD_STATE_COMPLETE, &cmd->state);
-+}
-+
- /**
-  * ufshcd_compl_one_cqe - handle a completion queue entry
-  * @hba: per adapter instance
-@@ -6009,6 +6025,10 @@ void ufshcd_compl_one_cqe(struct ufs_hba *hba, int task_tag,
- 		lrbp->compl_time_stamp_local_clock = local_clock();
- 	}
- 	if (ufshcd_is_scsi_cmd(cmd)) {
-+		if (unlikely(ufshcd_cmd_owned_by_scsi_eh(cmd))) {
-+			ufshcd_release_scsi_cmd(hba, cmd);
-+			return;
-+		}
- 		if (unlikely(ufshcd_should_inform_monitor(hba, cmd)))
- 			ufshcd_update_monitor(hba, cmd);
- 		ufshcd_add_command_trace(hba, cmd, UFS_CMD_COMP);
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 823e0911c91..406397acc5c 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1778,7 +1778,8 @@ static int fanout_add(struct sock *sk, struct
+fanout_args *args)
+  /* legacy PACKET_FANOUT_MAX */
+  args->max_num_members = 256;
+  err = -ENOMEM;
+- match = kvzalloc_flex(*match, arr, args->max_num_members);
++ match = kvzalloc_flex(*match, arr, args->max_num_members,
++      GFP_KERNEL_ACCOUNT);
+  if (!match)
+  goto out;
+  write_pnet(&match->net, sock_net(sk));
 
-base-commit: 503e6172fa74da6b4944ece458f5534681e51d21
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
-2.56.0.313.g2479322e68-goog
-
+2.43.0
