@@ -1,101 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793248060;
-	b=QVdGwH4uElnFM6TAU1+eOIeuoP9rNGLCYcFf+V+DVqwxAQZAK5d2xINW5JN90XsqFefX
-	 JzBQ2lEyiGlEqdZQkwy75mSd6qD7Vhb1436odFNWXv9fdIOEXSIUrOJ341OZxCQf19CQr
-	 dkz4GXAc23gaifK3OvIiTNWZyEwvZ1A5SfE+Va6OIMlxvYIO1khUWVOqORl5uKXIJDWZl
-	 A26ALwPhWzLF03cwrhQ7ZGqDV2dct4imxROsgQQvOe1YILt/HEzW0Sv/yjdyqBi0VVBAw
-	 vkJvdj5HBUNGflllN0sYTSnViqRoXs6dce0Z1AKooMv78dGseUScAIMppsH9nxSFpbQ==
+	t=1793248659;
+	b=O9c+Zvl2K9gLLvPb/GpUJfV53uj1dU8Xl28J2IcFoadvT/6x8g9vrIgFf1I2BcWa9L/i
+	 VeUOso3FzpxZCXAS5J1zO/Y1a6UDzwU8oDYjxk0eUHza6jXcyZuvd/7kwfxsv+qsW7//N
+	 tWCGLMjFfRO3Uq949NIstGjEtMOSwmx2k9nw6cDPhJ7ftPws2amStf3y84T7Q/opSUCdu
+	 2yA98r1t1U3tV95xZ5Xyhe/sf1W4dIVrKcNTcUA6OU56n5NcYrpYK/57ryydXeO/UBJbX
+	 +yCUjX2tc4mkq+0ua3GvpQRoYF3VIlRSA6zSOboP0yNCbZEHTXMweCT3qjRcIh5tLGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793248060;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=92Ry8Npagaq/z8a8VQiLsTt0Bsh/v/B89EOMNxNHR6w=;
-	b=xgwDLiovT7KkYXCMULSot0Fv1ATRKXmSbKDnn1lysN26X1OQj1kvAclav0jE8rt1S5na
-	 N2h5oXUluWy9g0Y0fSBI6hyToVRJLKANVBRKKluWcFvO79NDoSs9JMD3qecdHuyDjR2+Q
-	 Xbn1zClZgQmyjHBbQg9Zs7K+1k+k47H96FX7YdYIFRVy29H6xVu/ssTvTSI10aCeDArnU
-	 wuisQyYrmxM1GLMRqwgFLx+cN+dkFn1EUkFsTWVR/B/Zi42HosgD3j7RwNC5Ec5N0ykui
-	 xA/Sc5TQtQUvr2bg3MODFVGS36lPWju9wOc0f5xHjqgXz5KO3YeWP6W0s2Zcp1Y96iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793248659;
+	h=DMARC-Filter:DKIM-Signature:User-Agent:Message-Id:X-Original-From:
+	 Content-Type:X-Lms-Return-Path:Cc:From:Subject:In-Reply-To:To:Date:
+	 References:Mime-Version:Content-Transfer-Encoding;
+	bh=pxx2va2K2g7IdMw0G+rSebc/KMLdkp6PwljQLQMAqII=;
+	b=sC5WXg7qRkJJnq880/V91sO+y1XnL2nLYGill8xJ1fMRhHwlQmIPVnO4ZdVByKLLfbXz
+	 iuQ5lGP/Eg0uAPLoP9QquMAa8gxAeDqiLZD4ibYfNCmlJhKfNffy3Jty0Zy0nfsO/j4iK
+	 14toUiD0sUxWCFsOfNKWy50z7xRxk7aYnHLHon1WBub1ROaFZrPwQeSGuBuRfshYNrCbb
+	 Tex1BOfWtqdwW3RAc08kVJPDpsv7zapEacIgxfBbUYjQA5lZG+gqZ3oSi5x0m/P9QwBZR
+	 Qr9bBTm97f7z61aEbJhzwefjXEYfLgM85g21JVoHDYIaZMrEThqeLNL/9D8tNNdq6Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmrIkzsF;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="oT3z1/88";
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE1C606A337
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE1C606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E75606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:37:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E75606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmrIkzsF
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so162489a91.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 21:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793248059; x=1793852859; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=92Ry8Npagaq/z8a8VQiLsTt0Bsh/v/B89EOMNxNHR6w=;
-        b=PmrIkzsF3KWnP0i6mMndM6dmhR3o55JdfGB0tKABw5xOAMyEwvboHP936D2DTSd7yi
-         HsM3FXRiVwQr/fKIEPvhektnia9sU2G4HOSXZlnRsDBW/zTlfaKjVO9omxl649aBln3Q
-         Gf5CYIqV+U+q+aVU2MsQTjNkBgrUutudp8NJsImyalHlZujeME9ABU1C+PiDotVLpLrZ
-         FySJryJUdt3JLLZAmdCX8VzgS1G09ewoclj+1OQkznyFJY7832qOBBCEPFSaavjYbuLo
-         mqfDNEEQGBHNnhBDG4BIApB8j6ug75eez0IFzQ/GzKQrcepcY19gu91AKaSo3n6IxaQU
-         0W0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793248059; x=1793852859;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=92Ry8Npagaq/z8a8VQiLsTt0Bsh/v/B89EOMNxNHR6w=;
-        b=DyXbmYUSB7f4QZo2FWJoki4pN1UaIBIw2tMxvRbl5Ir1Yw6QPPiOikOwOiKmgEJpxh
-         CXWubTcUcC5/uzbEmBu7gQfVgeoYobX7cnE7AxOa7QjYlgAXKzfQOv7jR6sP1FOSluAG
-         vgntkqy9lr+J5EvMiniS3V4GytyvsDND2rEgBMxuKg6OkZciVGdCaQi7xCZwmxAlAL5Y
-         gmEkAdRMxB1K7fgpnd/4T5rpxqTuUhFzBnN4RhoSZtgP+m73RGf3FwpRgdvz5XrHn4Qh
-         dipOWjHMtlmqb5p34o6wJrizoitVG0p46wgfndXcuU0LiVwcqM5xdV1EQPMnTCF6OYoN
-         lpGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwugC7MJT4lHBiRJhnhZC0B8BNnCvyI6qHXRWL2uRbeACHVEZlMFSK15QQf6VlNmoCClnw3//k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+iWOPWkzE7GK42BZc58sVtWhTr+4Tll2YFtqDlXLOnD+grklO
-	g6LOlwDczyFo8lGnHsb1vvCH9vQO9dWmQX6lNkAB1LxGWS6MfywrDZkKV7NqpDPDsmY=
-X-Gm-Gg: AYBFou3//nb5t+2FP49YGuefc1aJevqbXcegWMzgZ9o6jTOow88GaBPt6gzcs404dxR
-	CGriWQ+CskdX0kMAxqOL47/7t0i1e11CwmQwKZ1XEjwMZF4PnDNv7UopoDaOO41pw3sR6IuFnel
-	7f9DHzJyfX/ZnmK8HvOj5oQoIp1Qs5ZzIIxImAQlk4m1YpiOHKp1iAbc23FN19sO7s1Xc2UPwbB
-	N4bmHYCC0VWebKQgihFW4f3mDtzH6pShtBySl6Yobz3twhs/iMxAmAovMJCF5dZhFX1Z+/Wyofv
-	TCesIa4hIb3wikICsXa2guZjEnlsXjlqXJwH3K5hXAcvAZzAOrSZoVAB1rw8+l7uwmbpD3puVKc
-	ZZqz1SMEzRPfs5nep0fFwVf/BfG/xUFcH0vxNEyZa6XsPRCdIWaVlJAZF9EARKYpVCy1/8+wZvZ
-	dR1YPjy+Do2SveEGzAujSgqg5n2xp/Cwai3X/LjQyRZDbM64SOXCuH4WJFFT0lldnlva3gMV9lM
-	n2miZ6AY7M3yjbs21ZOWcv+b0NcqdVNNBltkdeWY/1z7naRusZWBztt+TSdb2rAF7zlD7tSPtdP
-	UXx2bZt57HBqd9OOscbs99itxjuTS8fzI3gel4EibLBQf4Bk450gbk8=
-X-Received: by 2002:a17:90b:57e6:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3ae6ed88ed6mr887736a91.37.1793248059222;
-        Wed, 28 Oct 2026 21:27:39 -0700 (PDT)
-Received: from localhost.localdomain ([155.69.168.11])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e898317sm2010846a91.16.2026.10.28.21.27.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 21:27:38 -0700 (PDT)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: haris.iqbal@ionos.com,
-	jinpu.wang@ionos.com
-Cc: jgg@ziepe.ca,
-	leon@kernel.org,
-	guoqing.jiang@linux.dev,
-	gi-oh.kim@ionos.com,
-	aleksei.marov@ionos.com,
-	lgs201920130244@gmail.com,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] RDMA/rtrs-srv: Reject an empty pathname
-Date: Thu, 29 Oct 2026 12:27:19 +0800
-Message-ID: <20261029042719.75868-4-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261029042719.75868-1-izaiahsun@gmail.com>
-References: <20261029042719.75868-1-izaiahsun@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=oT3z1/88
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793248652; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=pxx2va2K2g7IdMw0G+rSebc/KMLdkp6PwljQLQMAqII=;
+ b=oT3z1/88/GKVKEFm+hzibl3+panUZQfdrGd2+tnFYXthn4d8TkUDCWK4edOVPCUOch6pKH
+ wTTPdtUJjkcFPYFjaofOe6n6c9m6YMfzYl1SmzWJwCVv6ZnCeyZWmtPIWTj42qGswMGZc1
+ 82hUy8kSTAoueW0mb+teYd6jcQR1JPFMYcvED9qN8okyLOjJraC5p7VzLR+W7UDa1hvzUS
+ I/ORUgLWfkH5Q1O5uTcjwEp35OxiFydoOZVjNLW9L+G4BnWMzg5u9zUsRlgazbfOIqEIIa
+ o9KRqK3i72PbHoNcg5r9uwZ13UoBDlpX0euvznJuDDE1j19wmV4DnFLwPEowPQ==
+User-Agent: Mozilla Thunderbird
+Message-Id: <36648b88-c295-4acb-8b6e-25d742d50946@bytedance.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26ae2cd8a+b99e4a+vger.kernel.org+zhaogongyi@bytedance.com>
+Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: Re: [PATCH v2] ata: libata-scsi: reject data-in commands with a data-out buffer
+In-Reply-To: <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
+To: "Damien Le Moal" <dlemoal@kernel.org>, 
+	"Niklas Cassel" <cassel@kernel.org>
+Date: Thu, 29 Oct 2026 12:37:16 +0800
+References: <20261027090809.94126-1-zhaogongyi@bytedance.com> <20261028113903.19569-1-zhaogongyi@bytedance.com> <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,46 +65,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-process_info_req() uses the pathname sent by the client as the name of
-the session device and rejects names containing '/' or '.', but it
-accepts an empty one.  dev_set_name() succeeds for it, and device_add()
-then fails in kobject_add_internal(), which warns about the empty name.
+Hi Damien,
 
-Reject an empty pathname together with the other invalid ones.
+Thanks for the review.
 
-Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-warnings.  Run-tested under KVM with KASAN, lockdep and kmemleak, using
-a small user-space rtrs client that sends an empty pathname: the server
-now rejects it at the check above, nothing is reported, and an ordinary
-rnbd map, I/O and unmap afterwards still work.  Not tested on RDMA
-hardware.
+On 10/28/26 9:59 PM, Damien Le Moal wrote:
+> On 2026/10/28 18:39, Zhao Gongyi wrote:
+> 
+> No they cannot, as long as the kernel is correct for internally issued commands.
+> But t is not clear here if you are still talking about commands passed through
+> SG_IO.
+> 
 
-Fixes: dea7bb3ad3e0 ("RDMA/rtrs: Do not allow sessname to contain special symbols / and .")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5 kbound
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
----
- drivers/infiniband/ulp/rtrs/rtrs-srv.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Yes, by "translated commands" I meant commands submitted through SG_IO
+and subsequently translated by libata, not commands issued internally
+by the kernel. I will make that explicit and narrow the description to
+the affected ZBC IN and GET PHYSICAL ELEMENT STATUS paths.
 
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-index 56f0ab5a7619..d34a177f7ba2 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-@@ -823,6 +823,10 @@ static int process_info_req(struct rtrs_srv_con *con,
- 		return err;
- 	}
- 
-+	if (!msg->pathname[0]) {
-+		rtrs_err(s, "pathname cannot be empty\n");
-+		return -EINVAL;
-+	}
- 	if (strchr(msg->pathname, '/') || strchr(msg->pathname, '.')) {
- 		rtrs_err(s, "pathname cannot contain / and .\n");
- 		return -EINVAL;
--- 
-2.53.0
+> 
+> Why is this being checked here and not in the SCSI layer (sg driver and bsg)? It
+> seems sensible to check this there.
+> 
 
+I checked the SG and BSG submission paths. For data-direction purposes,
+they derive the request direction from the SG_IO descriptor and otherwise
+treat the CDB as opaque. I could not find a generic helper that derives
+the transfer direction of arbitrary standard, service-action, ATA
+pass-through, and vendor-specific CDBs.
+
+For simulated commands, libata itself performs the CPU-side write. For
+the ZBC IN and GET PHYSICAL ELEMENT STATUS translation paths, the actual
+ATA data direction is known after xlat_func() has built qc->tf, and their
+completion handlers may modify the receive buffer.
+
+This is why I currently think that checking these paths in libata is the
+smallest fix suitable for stable. A broader SG/BSG direction-validation
+policy may also be useful, but would likely be a separate change.
+
+> 
+> Test details are not needed in the commit message.
+> 
+
+Agreed. I will remove the detailed validation results from the commit
+message and keep them below the --- separator.
+
+> 
+> The CDB may be perfectly correct. The error is in the SG_IO descriptor setup,
+> NOT in the CDB. So returning invalid field in CDB seems very misleading.
+> This is not something that SAT defines as far as I know, so we need to find a
+> sense code that is more informative. Please have a loo at
+> include/scsi/scsi_sense.h to see if something better exist.
+> 
+
+Agreed. INVALID FIELD IN CDB is misleading here. I propose returning
+ABORTED COMMAND / DATA PHASE ERROR (4b/00) instead.
+
+Would this approach be acceptable? If so, I will send a v3 with the
+clarified description, the shorter commit message, and the updated sense
+data.
+
+Thanks,
+Gongyi
