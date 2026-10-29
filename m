@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254690;
-	b=DfvCSdqOFauYU90W/421z0Y3L+3eR5UWrVOwX7MxtDebhzUK7fKqPr9aVqPIl5FyZPHy
-	 5cBaGOJGytEZzDPHHQhCZJ76qKFQI+wilz3oL1Sfj5tmTBgXLWUCfFqQ8igmAv0IduPDJ
-	 b6Y5xSoRWZI3xXgwZmhPzOyUazrLd49e1ApPux0dPLihEjDj0hUVfmPud1DhX1KzuU+zc
-	 IC83d71QiGQNfQVxkM9S1eKYAQkNp24mTGCo/JkGscGKSi/PVT+vGs4DyMjpPvKFCJODX
-	 4tcrw1JHTx+q+6vV5qiFd/TMZZUtUY1nbtYS+ZDejb91GnItkhWvUJWQnbXl4Fs6trw==
+	t=1793255703;
+	b=QcUOKUlvudUmHAeFBX5EgAx2IijouPfd0mr0xrWEK/YpUwTxpUCmYQH4f8Z6lXMC63Xw
+	 e7MDwVE/UlYOQ0WbQ/CJUU+a/IX83dR+ttHtDYs8aKw40P5gKHQjCE2oAbmN5CBY55Y5l
+	 /ELqRfTVl8rZzj5INSpDANqNGAyTft2WIC29SGX10c6FqoHYDxbfna+ZJT5RTz1oaUgV1
+	 IAyeQ8XImpWsnVwiF39ouPkmblXi/Sxokkv0mkXDyJqb8zv31BIq8RWDl4Wk6w266KXzH
+	 laeBQadan7Fgw9eWChn6JeWfyw0TLnJApSTd1vUHd/EkPZXW4Xqe0gAD3f0y1xpqRIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254690;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:Message-Id:Content-Type:
-	 Content-Disposition:Received:Content-Transfer-Encoding:References:To:
-	 Mime-Version:X-Lms-Return-Path:Cc:Date:In-Reply-To:From:Subject;
-	bh=zDDCyxrxLeYzToiYXpVHw73TexT2G2AmhqqhhCFLUjw=;
-	b=LaYaPgazxnLW68RlE5lzFDioZspipJtx0hT2APKeHodp2kLEkOUOisNqohnRxmLYN1zH
-	 b+UcUA+F3Nl5Qs2njozjJR99jeu/9aP0AJeTNOz6xGaJK+OyC6wxTmD9/mt8paT/eqLKq
-	 N2JQ9AADG2HTmApAI1cuN1EA9QL43VFijlddtYTQ5jKVSvJl5EYtT7HdjehsQwSC/t1bJ
-	 kuruIRSIY2xQXPx07/OC0hO8RbGhMOq3WxY86Xu319ncLJu5eidTRuOQUc0YQaZUmIER5
-	 z5wlzVyHLzO6yA86UawiMOoHoPjUqRhKusqSIxxgUQ2mDnOzK3BW4WXJoXs3QdBXYXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793255703;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=x5INpC/TW9P8TybwCRkB3lmN+6UMVRc6sZVh2qTFmfw=;
+	b=Qh5w4UUXdWj7+QFFTNSw8Bbsa5HYEx9zqd1rf4W5cZIBqjYNsCFpKXxUKCmZp7HDEFbL
+	 h4Yf1AqZ6w/x2zwWJSpd20yobFE538zVDd6CKgd3846FVygApCAByK4kSGApRuPmc0C+6
+	 SB8setN7/mXDnq0Rqwp2nZ9HRdHMxHusRjrW/DyvQc4E1jidW0G+TAUqbf96OPH6EctWo
+	 drBRINCaICJvA+8bU3ntVSPPngwb0S2K1z60oXo8l4j0BNXhEEry9l5s+3C0cviGBqoc9
+	 VsS9PFOagc7wU27ltWCsGaa/oKQYIV3TPrWPrx6YadnGtRctUv+16196Lva55C+oRJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=ibi9k6dn;
-	arc=none smtp.remote-ip=71.18.227.5
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=KGxVOloO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B241A606A31F
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B241A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BF9606A31C;
+	Thu, 29 Oct 2026 06:35:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=ibi9k6dn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793254682; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=zDDCyxrxLeYzToiYXpVHw73TexT2G2AmhqqhhCFLUjw=;
- b=ibi9k6dnbnBh964q0wYidTx9D3rjTK0wJbJUnCVmUZh7x8J8+T70dVtjQdrv9JVY+o3p/T
- OtThO2UGHkg3MOoRmgxKmikvQSyHguVKqSTrqZYFjw3fu1aZyq/IvKVf1IsYwZWxN1i6y1
- e/n/hdxkdsKSxEMrE1OupgmB7PF4K0D2jFoPBojb2XMOwnzBVOr+lNgdmtzrXK5jhQGeFF
- aD4fpzXFQkEy7XgZtGoKKP7E67clpIWIAu3dSdqNc1ZCyo78Joy4vI5cGPmRmFc3TnhF2U
- xk9OmbyXnTmokCMVwzjNeF6WcCH2z7f5ENUqEcnhSgpFMVtIrW/dCuxiSx7CQw==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Message-Id: <auLlFEHMZvANXUvU@kernel>
-Content-Type: text/plain; charset=UTF-8
-Content-Disposition: inline
-Received: from kernel ([111.42.148.100]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 14:17:59 +0800
-Content-Transfer-Encoding: quoted-printable
-References: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc> <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com>
-To: "liubaolin" <liubaolin12138@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=KGxVOloO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62AD21F01825;
+	Thu, 29 Oct 2026 06:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793255702;
+	bh=x5INpC/TW9P8TybwCRkB3lmN+6UMVRc6sZVh2qTFmfw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KGxVOloO7JeP6Nf+hZubrikFHsg77bBepl/ODWvzb7WWnFALT/o+YU5xCXawfZzP+
+	 hVG5o8WzkjvP3D0fV/7rJeoXHUmpr9eu8JP8hmm4m755B3AZ9dgD8FdrcrtJVRfVnk
+	 RMGU/OmoaT5AnL4POn4xd/Uy455Fg70FPpRYpJFQ=
+Date: Wed, 28 Oct 2026 23:35:02 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Shuah Khan <shuah@kernel.org>, Lu Shuaibing <shuaibinglu@126.com>,
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+ "Christopher Lameter (Ampere)" <cl@gentwo.org>, Davidlohr Bueso
+ <dave@stgolabs.net>, Manfred Spraul <manfred@colorfullife.com>, Jan Koester
+ <jan.koester@tuxist.de>, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ipc/msg: prevent msg_qbytes limit bypass in IPC_SET
+Message-Id: <20261028233502.e7ab1c2ba951d2015d8a1fa9@linux-foundation.org>
+In-Reply-To: <20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org>
+References: <20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,78 +60,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ae2e518+83deb8+vger.kernel.org+me@cherr.cc>
-Cc: "Shengzhuo Wei" <me@cherr.cc>, "Namjae Jeon" <linkinjeon@kernel.org>, 
-	"Hyunchul Lee" <hyc.lee@gmail.com>, <ntfs@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Date: Thu, 29 Oct 2026 14:17:56 +0800
-In-Reply-To: <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: Re: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-29 10:07, liubaolin wrote:
-=20
-> Hi Shengzhuo,
->    Could this deadlock during MFT bitmap
-> expansion=EF=BC=9Fntfs_mft_bitmap_extend_allocation_nolock() can recurse =
-into MFT
-> record allocation while holding mftbmp_ni->runlist.lock.
->=20
->   With L being that lock, could we get the following interleaving?
-> A and B are $MFT::$BITMAP folios; B is outside the cached iomap.
-> Time flows downwards.
->=20
->   Writeback                        Bitmap expansion
->   ---------                        ----------------
->   lock A
->   set PG_writeback(A)
->   map A (take/release L)
->   add A to wpc->wb_ctx
->   unlock A
->   [BIO still unsubmitted]
->                                    take L
->                                    extend bitmap mapping pairs
->                                    need another extent record
->                                    ntfs_mft_record_alloc()
->                                      mft_bitmap_alloc_free_rec()
->                                        lock A
->                                        folio_wait_writeback(A)
->                                    [wait for A's I/O, holding L]
->=20
->   lock B
->   set PG_writeback(B)
->   ntfs_writeback_range(B)
->     __ntfs_write_iomap_begin()
->       down_write(L)
->       [blocked on L]
->=20
->   Cannot reach iomap_add_to_ioend()
->   to submit A's pending BIO.        Cannot release L until
->                                    A's writeback completes.
->=20
->    ntfs_writeback_range() obtains the next mapping before
-> iomap_add_to_ioend() can submit the pending BIO.
->    Would we need to submit that BIO before taking the mapping locks?
->=20
-> Thanks,
-> Baolin.
->=20
+On Tue, 27 Oct 2026 23:42:51 -0700 "Shubhang Kaushik (Ampere)" <sh@gentwo.org> wrote:
 
-Hi Baolin,
+> The msg_qbytes field in the msqid64_ds userspace ABI is an unsigned
+> long. Commit 889b331724c82 ("ipc/msg.c: consolidate all xxxctl_down()
+> functions") passed that value to msgctl_down() as an int.
+> 
+> An unprivileged owner can set msg_qbytes to UINT_MAX. The narrowing
+> conversion produces -1 on supported Linux targets, so the check against
+> the int-valued msg_ctlmnb sysctl does not reject the request:
+> 
+> 	if (msg_qbytes > ns->msg_ctlmnb &&
+> 	    !capable(CAP_SYS_RESOURCE))
+> 
+> The value is then assigned to the unsigned long q_qbytes field, setting
+> it to ULONG_MAX. This bypasses the CAP_SYS_RESOURCE requirement for
+> increasing a queue above MSGMNB.
+> 
+> It also bypasses the effective per-queue message-count limit: zero-length
+> messages consume kernel memory but not queue bytes. An unprivileged queue
+> owner can therefore cause memory pressure or exhaustion beyond the
+> configured per-queue allowance, subject to other resource limits.
+> 
+> Keep msg_qbytes as unsigned long through validation and assignment.
+> Also preserve its type in ipcctl_obtain_check(), which supplies it to
+> the unsigned-long audit field.
+> 
+> Add a regression test which drops CAP_SYS_RESOURCE and verifies that
+> IPC_SET with UINT_MAX fails with EPERM. Skip the test when capabilities
+> or System V message queues are unavailable.
 
-Thanks for the analysis. I checked the paths and agree with you.
+Thanks.  Sashiko AI review asked a thing:
 
-Following your suggestion, I prepared a change to submit the pending
-ioend before obtaining a new mapping in ntfs_writeback_range(), clearing
-wpc->wb_ctx even on error to avoid resubmission. I plan to make this a
-prerequisite for v2, retaining all six waits.
-
-One concern is that submitting at mapping boundaries may reduce BIO
-aggregation, including for ordinary file writeback. The change has
-passed object builds, but has not been runtime- or performance-tested.
-
-Does this approach look reasonable to you?
-
-Thanks,
-Shengzhuo
+https://sashiko.dev/#/patchset/20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org
