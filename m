@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355902;
-	b=1GEtxCw/ZAjaSpT4Fmcuda+C1PETU4Ee5EjbmaJGkhgAKB6ebkon/33kMRzcSKnBZ/x/
-	 CKviZu4CUzidWOKbNGk4/WmbA+H4iasE2DdamYq/fmOI42PKv2I1/KUU/G0hlEKb8f55I
-	 IejJOEJKU9WbDT6kAGty3kr0mn1qxkGnXU8noQSK0rcbYAR5lyKbap7tmhC6V7XXy0Oia
-	 L1XOiDacBpojorO6Gvxj0nfgERNylQUpQNcsJwkdV/eVzfGvrp55Bti3fIPKJVR/XUBCp
-	 ZBT+YymJXJWfODigTpBT/y4EFMfvf7panCNJao9TksljWF89Lwq5S1gRDvdZ0ZCPRiQ==
+	t=1793356007;
+	b=zeTl5hHdBkUanMykh2fMu9yY+yB11veTcVNU/5LOh+r/3Il1VgIFsa58NQDYe2fFNCqp
+	 F35CH12jcFlp5PUfIAi1cMJs4ICQnOukylHqHvK+UQeuaXCW+RPZ9FrelFTVrwMYuu24P
+	 /LEXMrrvhS/Tf9YasmsQyltMjI34SxuAFITr4EDIAn78ZeMIxVSoU8QjCQf8zO7gYs8Nd
+	 Th+YWM2Jl3YxHsoiXJcwAM9jj4ebaj9rsqUbzHpkFfd1vknL22lzcZ74PM11Xcmftehyj
+	 zLOuH1zhJJJqgqIY8Bd8MGMikGLtYDuOdIVu1XCi5mhyshJkW/23pfxkA38tSPVfqrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355902;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=B1hqtT8eKBTLj/QcI6rH3VmrUCTtV1HZS2iOUhxOQ1Q=;
-	b=gTMn575vivrxLeaGtUz88m1zaEJyNnkITZH5PLbBoV9cnNfoak639xn5G2+kDzqQRITc
-	 QIEqwlmyl8lQvzfJVnoclHIG0j/ZvOzluX3ryUYh7Ym93Gw4H4dt7flTSqQpG9Vvl+1R/
-	 C5KndovPXJ0pzaLc/KVKUWl/mJqO1uuFd9Jq4wuQNKiVJuJCPoYAUy+VJLpAc+atl5VpU
-	 IMesLs7z4bMX7aGwypKf28zexVwnJguLvabwg24yFWPy5scpdFZwfuc1OvOdAp6CvUuyZ
-	 7OeT12a8HCUGJocJLzB+GZtT8wD+Q1R3rk7flUryoTw57iu31KtuMzMnCJRdYVCsMHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356007;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details:X-Proofpoint-Reinject:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=59Ozb7vPHHK8a62sFDWgZOfWdnPHAJYeNCW/LcPyMCk=;
+	b=dOXUW8fgoINGGz6zYqsvVmxVWn4nkZhJbGtH8uvmAtVoTMmBwiE9OTK4YS2Bixckeo7l
+	 aspMMczQj24KXlVjT+cOKG76YqTJ2pz4VW3q7QdWstkzLFFRK59SJoIQA/+6nGdgbvwem
+	 rAITf16xFeLcrkG0PTUEab/+UvICHwBM0PoXZFWKe/o/apwkJSRMCsZDpmzts9ZJUmz71
+	 LexzE9W+Z83k5rNDio6YxqMWR3VunNE4EaCZUafJLtFP0rj/ZAxZXWwh0fWBj/ZszVhgC
+	 A7rj0bL6SVJfbWqiUE6FXvnzx84tLYqBxUMtYFoGvq3xzWCSx1z+x76+Drd7Mb8zsNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zdsBaEyO;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=nhc+FC4v;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=fg1w8IDQ;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BC1606A31E
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:25:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7BC1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716DC606A320
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:26:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 716DC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zdsBaEyO
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so4671505e9.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 03:25:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=nhc+FC4v;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=fg1w8IDQ
+Received: from pps.filterd (m0167067.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UALTSW916889
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 06:26:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=59Ozb7vPHHK8a62sFDWgZOfWdn
+	PHAJYeNCW/LcPyMCk=; b=nhc+FC4vA/6tt68a/uzpF45cTcNXjM9fomuaWnrk24
+	GABlqMOB9FLLM0zL5xBDE+JeCUGsR4Q45Fh+p9fwzb8tvmKPZSH2gHwxqVrUfiHB
+	mB3q668KCodAp2WUS/FTAsEvwy1iiQpiW3Ud0EcPvjYzvT6k/sr55xc1pRoNVVZy
+	4K532A7jwMz1QmmStaCC3S7eleunbLZy5Z+rEu/HF7AsxJQv1W7lALu/o/yWO3Sm
+	U+ah4zasDjPtVlc9eHERw190gxz9xQBQMcgZzrI69th0Usr1Zfep0z58g4R3PwlI
+	wM5TdxmR80vWQ43A3iNpAEi6VX3BxlsoBSjWCHXF7JlA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hm64518j3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:51:45 -0400 (EDT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb71b1443so463889785a.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:51:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793355900; x=1793960700; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B1hqtT8eKBTLj/QcI6rH3VmrUCTtV1HZS2iOUhxOQ1Q=;
-        b=zdsBaEyOCjb10altnH7e89JJDpKcj+5QNV20HaGnijPicGf9wengOHafV4jjC1j4cf
-         31t/BTZIcdx67nAjV15lfSKsUjv7Fp7EJMShnaHOg30NO/Gz9D0LpUqLd3skcIWXAGkT
-         FCXA2G8vVWd9LFQAxJbgpKpiLE7ErtfY51USIFBJKwBK/LZhezFSgtxJ6fx09gbz55n8
-         ayQXmvXbf8344+nX/C0meEJmjnpl86X5YnXUwVzFs6z6ZbW9tgaxikZ3VRmtTmBNyXyb
-         D0tOZfyhKKCaKrpn6P5DvnczIFnkQMcqnGn5j/ktsnuKewWHG74mcJqHp+i/HDbXF/1L
-         0XuQ==
+        d=columbia.edu; s=lionmail; t=1793285504; x=1793890304; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=59Ozb7vPHHK8a62sFDWgZOfWdnPHAJYeNCW/LcPyMCk=;
+        b=fg1w8IDQ9+SJUbO83Mg7uf4Qt6w2CMkC+YvBcfdjroqkcUsWkeNGhn147q/okC4yiC
+         oWZiPAO2E/q8H/k1aEkCegh2KEU8z3tMUGln1yV+O5Aj8HlEZCB91ln+MCb84R+IlANU
+         b1yCc4Z0sJ1abN8i77hqcHAhZEB9Hw40eWRoAdD7I/HcIjzxQbMTjz6iMcF7gWeA+wQL
+         SfUjQqE5qfBW4L1EPsaGd4RY1+9di4hGM/nbg/AyBHEOijTlUTv7P/f2lYZwTHMHRQ2Q
+         cII1Rv04z5DsB6vAQ9ZjQRy2l/x83ljUs41MXbm9ab6iB5RZ0XxMDKqqSihwBfrBDKfB
+         /PYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793355900; x=1793960700;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B1hqtT8eKBTLj/QcI6rH3VmrUCTtV1HZS2iOUhxOQ1Q=;
-        b=Dbd/vZT+pqPWhcBH0ED7QUal6T4MhiewoGf0pPHKNyL/5iZnJrYtD0xKfKxXVsfypl
-         RZJ0onSyzcrTSmE+3Q8xMlcX74K+yGO62Wk8v0dOzylE4/FWqvPYuyayhgcyGmFMVfkS
-         66vIltCgTzwHQeq6srUgAiSb1IBBJMsANJc9kP2umm7jw40wAlVuwfLAU2WeqNu4ZLPT
-         zwsDxk6BOkEw+ITIdm1MpUIbY8YeH/8flJKaU1zNBGIRGxBAARZYRpxo08/jWDQwYoU9
-         BRNs9eNLLjdSFrvSx4kuDOjqb2tcGtYCisZZfhVJczj9Ud5dui0dydxDDmF527fqRmtC
-         mkIA==
-X-Forwarded-Encrypted: i=1; AKwUvBwM7m65jEzehntbMnFMbvemWjWEVQdMRt05mTG8ofGd8mHY3qyI4AEqyAjuOBmNO51cDE8Rqtw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhjFCe0fCOgvhAi2zh7A6om2XqPzRtxwpkAb++pzNFEvbHZApr
-	5lKOloe1MpcSm+KeD9PyEPUUqUL9wLinBTiJ9xHbEoo+ohLPzWKkN5xR
-X-Gm-Gg: AYBFou0Txvo/nQUOmzo4msAIgCUyo/IVoI2KY7/zGjbgLZ0h4h6dCM82v/Ri75EBxCT
-	s7p4ds+jewet0/UFyu3nvnJwoW8d0Pw7ghh8LRM9+PJWUDLh9RyWQe3hQalDUHqNxVeOQ6mq+mV
-	44B5yJPhMsyPpWwvad8WLnNnB5D8AldQ0D3+tfOW/TeeB731xm6sNG0n1Kycg20ONWv8Ppk/oDP
-	XaEyMFWvanww2oquWGZIMptN981yC2pnKv1W5tXCE0q+44cC40snAVUksKRFp/t+irCGyJfwcBp
-	pZyS6GOUooomwbAary6et6O/qyMT3nm4uWAVQ2Tzf372MusL1mRi0Lb7UD5B3BErWLc0NGbQn/n
-	Wwr/8rSr4cLIhBw6Taan+4rMJvHgAPidCT/cvGcbiCTIjU4QuyrgQsamrWLtmfVUtDSCWqUbOy/
-	pGPUn1pw/x5QA8S+YxkvfL7srHknhgTX3GAseyI88mwdJiUymyqDqlQYEIAMsf1mWG2J931sOLI
-	8dVn+T/RlWBexFfgDiDf1rKQ0+gGJgGCtbtAzOm17PN1SM8FonUA61pPJvR680+xveOj0MyYuuA
-	rPj1IUmTS9glBFKDReqeOC/faFsFz+VEHAnDw6D8gIwl6NQTP6fIyw==
-X-Received: by 2002:a05:600c:848c:b0:4a3:5da2:38ae with SMTP id 5b1f17b1804b1-4ac17a3628emr38043095e9.14.1793355900196;
-        Fri, 30 Oct 2026 03:25:00 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm66892605e9.12.2026.10.30.03.24.59
+        d=1e100.net; s=20260707; t=1793285504; x=1793890304;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=59Ozb7vPHHK8a62sFDWgZOfWdnPHAJYeNCW/LcPyMCk=;
+        b=UaV8Zl0uEBkxX/GGgMRbgsYUqd8FBVWBmc4GMKEtXgZ+mOD8D04VS4/mEQOv8jaQHV
+         f+L1QXcBcm2eHIGtZbH7iVSIPESNLA+lT82ikFpxF6P/qzsBAte7W9lypfelYyak/NBP
+         Pgf2VO9z1+NR6F5huQUrZV1TLPR/kuhl+HFp1musSXm/B8CWqIY1cSf3FdxCYEGiLGpU
+         BMYQkL5Ii+ONhLvMMV0Ehy7LBXQx/9ej11zzYnA+afeuLgUT6XgcyuwT7XZEkqYSvZg/
+         3A/KPyX964qPwLHqnu4a6i8rn9QGUiFlO/1Whs1bv/ABa07eMaJujd5pklByZNgc41km
+         JwKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzwmKdPZGp/1GMJEovYUNi7rcieYafV0UwGKEm4CHpzN66Sn9TAeJf+aEmF+f6Za9LSLavLjZ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn7e6LzJPZJLjTR5hyv+k5dLrkrMHHehQe4+o2oHsJm8ELACcQ
+	tpR3rKNRQJTS+IztoM6lYp19YJUecNDJUkY29ag6+bY3uZkaE954pPviBPyEzVEEM84Rk+XQ8nz
+	UI1ayNRtcQeCER9SKUwXZo3v/6IDFpWcERtk+OI1V4y/3N8XY/Ruqnw==
+X-Gm-Gg: AYBFou372blPhFWyIdR+Xkv5TUk7NAdLXSEzgfA0ct+7sMBSdUPxwI4ox5B36PmWLvz
+	epoGyZcIv0Pm0ELDwxbsIWIBXofehUKBBU64FeSVbTbsQUZXeEi8voJ4SZ/++eGgApTkaEsRTag
+	MZZtk6GU5Wsebl/mSLieDAA0qXwYNpLsj5OR/PARWJqSWwTWDiGp7fI7EzLXXB/Syv7JIzsz8xh
+	X1zOA52YfUJlglYEHLXbiyLZXkt/nFj+UreAQRcKx+bA0r3QK5KIHTLORG3TeqyB0BeNAj4Qp7/
+	wKlP7m32RTPUfE08nTFjGPICbWCRfpG9BnQEIZIJxM21z5ehdrdx/fsrND6C9WWAg6MwrIyGH3S
+	tlRFnzxTYiH8zIBbcLAh8nS2iAeEry9RGNcwS8pnChLvnN78eUm72WEF/UBewPlJEaB4FjuFOk9
+	Q/WqtTOwCnTlU/69A=
+X-Received: by 2002:a05:620a:4107:b0:93e:f0b9:505a with SMTP id af79cd13be357-94408ceb986mr911547485a.58.1793285504531;
+        Thu, 29 Oct 2026 07:51:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:4107:b0:93e:f0b9:505a with SMTP id af79cd13be357-94408ceb986mr911542785a.58.1793285504013;
+        Thu, 29 Oct 2026 07:51:44 -0700 (PDT)
+Received: from [127.0.1.1] (bzq-79-179-7-133.red.bezeqint.net. [79.179.7.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04723sm78153515e9.5.2026.10.29.07.51.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 03:24:59 -0700 (PDT)
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Cc: linux-security-module@vger.kernel.org,
-	Dwi Siswanto <me@dw1.io>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
-	stable@vger.kernel.org,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] landlock: Fix layer composition of LANDLOCK_ACCESS_FS_REFER
-Date: Fri, 30 Oct 2026 11:24:08 +0100
-Message-ID: <20261030102411.12985-2-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030102411.12985-1-gnoack3000@gmail.com>
-References: <20261030102411.12985-1-gnoack3000@gmail.com>
+        Thu, 29 Oct 2026 07:51:43 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH v2 0/9] ecryptfs: remove the remaining struct page usage
+Date: Thu, 29 Oct 2026 10:51:21 -0400
+Message-Id: <20261029-ecryptfs-folio-v2-0-dc53f1d47d9c@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,60 +116,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGld42oC/3WNQQ6CMBBFr0JmbU2nECCuvIdhAcNUxiAlLTQSw
+ t0FXLt8yfvvrxDYCwe4JSt4jhLEDTuYSwLU1cOTlbQ7g9EmR42ZYvLLONmgrOvFqbzgUhMxFTa
+ FfTR6tvI5g4/qx2FuXkzTUTmMTsLk/HI+Rjy8v/GISiubZWiwLBps0zu5fn43Ul+5naHatu0LL
+ gdYgsEAAAA=
+X-Change-ID: 20261014-ecryptfs-folio-67e80ccec7f3
+To: Tyler Hicks <code@tyhicks.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793285500; l=2528;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=MHQHbr1BCeZw176BeIq+ezbLBqffStXmrVqOaMJ/nQQ=;
+ b=APpNhk/GxBuPNTA1HtPJwEIP5w1L3UgpougRu8JilBee/ZtfG3Q/Dj7aPnByh50bWA4aRaP+K
+ lDThVxwrrvIB656mxpXMe5TqSGeoZLqDZa7kmu+umjOJ9g6i/Fk6Fgw
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11949
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=10 phishscore=0 lowpriorityscore=10
+ priorityscore=1501 adultscore=0 clxscore=1015 spamscore=0 suspectscore=0
+ bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290058
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: ZtMrvRD-nqdJJujiTEi0706Dz6f2GhCf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MSBTYWx0ZWRfX+GfOuVnDLbQ3
+ T6M2tfIq0NN9tkqXT/A39469cQMHGa+ImkGzSmNKAytzpe7qkkcRzzI50aZJgVdmIYpEJAqIj8D
+ pfyPDP9tUWO5fEEMAiHeyX4imj1fDhWMasj1OlYjBJtjFtemP6ChAjIybw0r1tIoeBnr7Xsr0IV
+ 2aq6yLp+n8xWUwtAojO1dh/GwDXxSmKVK3ze2Why1Ze1UR/b4g1ubCjfrsNzRG6Dffjea5d1jN+
+ W+J3+m5O3v7E68DxSaAtPPSBGO0nBEteNSlr4rAmriS9Zvseabcn7rfxTzbTIl5QhsmzB8EPPEt
+ O66DAPlUhhD3oMt1kBWB9P3VPLgG2DJB8fE734Smtm4lXQWbfY/l8ER7ZbuRuTDMudq4JqiZJvr
+ 8EaC2d8gXJdL1WjiogpqDYh9D1zIkVz8dbyDxyPI0NoHx6hD6J08JoDL/B+iJFyOmuxLNu2LCQS
+ T7D2wAzNmWpa+wTL+Ww==
+X-Proofpoint-ORIG-GUID: nY-WXbjHKvjcNljzrRndZ3E-v-5y4NCm
+X-Authority-Analysis: v=2.4 cv=BKEmP1QG c=1 sm=1 tr=0 ts=6ae470e5 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=LRATYcvZeiQrLRB5MfbBvg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=5seVXgKEpYMQFUWKuG8B:22
+ a=bC-a23v3AAAA:8 a=yHkjf8DjpYn1_ea-2f8A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MSBTYWx0ZWRfX/r7rzNI+NpYM
+ Z1MdOviDpKCmT1R3bj2Q/wnO4YWJRN0suSBjC/NjNuahqE1X0V4255CW4G2aiaVlmslER3FUCXZ
+ 6atIeSCOOb0wHB/C0InFMsfmz5sLY/nfkUs3Ec4oSpK+1VMzZD7l
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11950
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 impostorscore=10 suspectscore=0
+ bulkscore=10 adultscore=0 phishscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=2 engine=8.22.0-2610190000
+ definitions=main-2610300041
 
-In landlock_get_fs_access_mask(), only add the
-LANDLOCK_ACCESS_FS_REFER right if any filesystem access rights are
-handled at all.  This prevents us from accidentally treating
-non-filesystem layers as if they handled LANDLOCK_ACCESS_FS_REFER.
+Convert the page cache side of the encryption path to folios, and use
+plain kernel memory for the buffers that were only pages because of the
+old interfaces: the ciphertext block, the header buffer from
+ecryptfs_get_zeroed_pages(), and the scatterlists built by
+virt_to_scatterlist(). Also make a shrinking truncate zero the tail of
+the last folio in place, as other filesystems do, instead of copying
+from the zero page through the write path. After this, fs/ecryptfs has
+no struct page usage left.
 
-landlock_get_fs_access_mask() is used when initializing the layer
-masks for doing access right checks, so this bug meant that we
-unintentionally denied "refer" (e.g., link, rename) operations in
-layered cases, where the same operation would have been accepted if
-only either one of the two layers had been enforced.  If the rulesets
-individually allow an operation, the composition of these rulesets
-should also allow it.
+Two related fixes are included: the packet parsers now reject a
+zero-length encrypted session key, which used to leave a file set up
+with an all-zero key, and ecryptfs_write() keeps the folio locked until
+it has been written to the lower file.
 
-The bug only manifests as soon as one other layer handles filesystem
-access rights.  Otherwise, Landlock filesystem path walk is guarded by
-an early exit for the case that no filesystem-enforcing layer exists.
+Ran cleanly with fsx and fsstress on ecryptfs over ext4 in the default,
+xattr, and passthrough mount options.
 
-Reported-by: Dwi Siswanto <me@dw1.io>
-Link: https://github.com/landlock-lsm/linux/issues/67
-Link: https://github.com/landlock-lsm/go-landlock/issues/66
-Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
-Cc: stable@vger.kernel.org
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- security/landlock/domain.h | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+Changes in v2:
+- Patch 1 (new): Reject zero-length encrypted session keys in the
+  tag 1 and tag 3 packet parsers, per Sashiko.
+- Patch 2 (new): Keep the folio locked in ecryptfs_write() until it
+  has been written to the lower file, per Sashiko.
+- Patch 7: Hold the folio lock while encrypting the zeroed tail and
+  mark the folio not uptodate if that fails, per Sashiko.
+- Link to v1: https://patch.msgid.link/20261014-ecryptfs-folio-v1-0-f4412187b1d3@columbia.edu
 
-diff --git a/security/landlock/domain.h b/security/landlock/domain.h
-index 428c1d9890db..693e569f5387 100644
---- a/security/landlock/domain.h
-+++ b/security/landlock/domain.h
-@@ -258,9 +258,16 @@ static inline access_mask_t
- landlock_get_fs_access_mask(const struct landlock_domain *const domain,
- 			    const u16 layer_level)
- {
--	/* Handles all initially denied by default access rights. */
--	return domain->handled_masks[layer_level].fs |
--	       _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-+	access_mask_t handled = domain->handled_masks[layer_level].fs;
-+
-+	/*
-+	 * Handles all initially denied by default access rights, but only for
-+	 * layers handling filesystem accesses.
-+	 */
-+	if (handled)
-+		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-+
-+	return handled;
- }
- 
- static inline access_mask_t
--- 
-2.56.0
+---
+Tal Zussman (9):
+      ecryptfs: reject zero-length encrypted session keys
+      ecryptfs: keep the folio locked while ecryptfs_write() writes it out
+      ecryptfs: remove struct ecryptfs_page_crypt_context
+      ecryptfs: use a folio and a buffer in crypt_extent()
+      ecryptfs: use kzalloc() for the header buffer
+      ecryptfs: use sg_init_one() instead of virt_to_scatterlist()
+      ecryptfs: zero the tail of the last folio in place on truncate
+      ecryptfs: rename functions to refer to folios
+      ecryptfs: refer to folios in comments and printk strings
+
+ fs/ecryptfs/crypto.c          | 145 ++++++++++++------------------------------
+ fs/ecryptfs/ecryptfs_kernel.h |  21 ++----
+ fs/ecryptfs/inode.c           |  51 +++++++++++----
+ fs/ecryptfs/keystore.c        | 118 ++++++++--------------------------
+ fs/ecryptfs/mmap.c            |  60 +++++++++--------
+ fs/ecryptfs/read_write.c      |  52 +++++++--------
+ 6 files changed, 164 insertions(+), 283 deletions(-)
+---
+base-commit: 8f6626bd6594a78f454d02b27b74a580c890cab9
+change-id: 20261014-ecryptfs-folio-67e80ccec7f3
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
