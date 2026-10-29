@@ -1,79 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793298769;
-	b=hnZZKxzYEDKh80o89x3lSlEqfml3S7Px5RrWvHIUErAyrx7UhIoIQgxMsHGi188wH5LA
-	 oUgSk9cRZhjw7SVyorVkfUp/6f+6c0duPIdK+NBmT1kUdBCC+kjn9CdQ+sKjLTNBqA3Q7
-	 QDqlP5FzMkIAFarmPLD95p8WaY+yxHEoyaH2+jHsYlm4hpdzp0+UJm6E6m+XajvJF+6j6
-	 j3JY5pOHH7DnoyEMyPd4HNn7/q8W3huqFaQqbgMhDJhzeFQBwk2WVq4j4cxrD150KAX8s
-	 KP5iUuC2imxlRco5x3Y+tDvPuhbm/Q1ZCZ6omaGJOx7jzuCEq85+GfMbyO6NyRkBX0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793298769;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=wp6+XwXTd4L8v9EYFAYebKPgpODdcdORb1VRJJaJilI=;
-	b=nDmUkUoT9B7ayOsFYvSL4qzlASY9ZzQ2iTmcHUd2OSlxP/7xyWBTffzyH/zNFWzll5Io
-	 9gxSECR6Uv8XyGVp8je69+XniqMkt/XMm8S44YU8AAADsDDCdlmMOo4ndfCQtLphQI/6Q
-	 vj3FkIWkeSCjCS/hrns9LGM2e4A6/zp9ND6bAUNgN5omnFtVnv3foZ0349K73FNVJVQrW
-	 ZlAprgumbQPGfWFbFoCp8HdGpORwKPOVFDklNICxpo6mdV7zzkMgqyTkqdCBQDeNVA7KG
-	 6rUHvQMevlFLQeeB4YcqfLa0KmWj9x6YkLkGl7n8KsBnFJEjEiaAxgpwLqYkgBZTJyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iIZtMquo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793299043;
+	b=Pv+rH22oz/dCrRX5IQVazSj660vYDRsLXlQXZJE1FfaJjzOfIwpPq37n+iODiWcuxks5
+	 ++jljFAwEK/Qz5i9nmFN598lbN6JGeN6cPl5+3BpsSsQmVNFUHBmA5i93HKsFEW7mM9Ch
+	 fty+mNhlbW5CbMntV5beCnX5NKEGQYfcfi/Mx1aZAT++KsemJgyrdZhyOAH/vaZjnJuR3
+	 FYeQ+VoRMPH6z7jM/e5jLhWRh4hloMmWNC429wErC+bmOL+UxEyQ+i0WKcJx97Faa8TDg
+	 kKba8pV4r3Ss/vhjZ6KezC24/q53RWqcE/uVd36fKgmiUN3RbKZ9Yj0+7RlIiIwW5tw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299043;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Gx+Pm4s/TyfImCs+tYPpk9KkdGMYfSuxFUC/3OFcAz8=;
+	b=O+0ws3uefP8ucQTm3uOwFTyKeb1PIwrFmuSIx3h1SsjgbEH/4ngrOkfymup5JR8U570A
+	 p6cMqf3wF9ZiC+zIY3OF2DAacbcPM+hEUC9Xa74gU1c3YSP4YQkyqKJuhs8m1l1GbjBNR
+	 EmHCt4y5HfDO6yK5XjykzyBiGtRqL1tBILZXAOZQjHfORvpRaLqmu82TU8vW6LeGKKwUT
+	 S8d8BVguzvoNOMHrh+OiMoa6GhDYfn3Wb3vKqJS1yVMtI+fG/iiWp2dlJvfiMMhDLCj7B
+	 jT9Bq9lY3flXqbZPsCJQCYWM/9kMPY4mjMiti9DS/bEQaxXoZGLtE0CVmZECXpr/Gew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJ7yoNmJ;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E071606A31F;
-	Thu, 29 Oct 2026 18:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A90606A31A;
+	Thu, 29 Oct 2026 18:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iIZtMquo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793298769;
-	b=UfzzSA6h3AmI8B9bwMxClevpWToSuQqbXJiBDyzHZ1QCoqfJnoLNgKs42Cqrn1KWHP/U
-	 dE0yy+hor3Hr12QGLyDx2a0EY7wu07J6zqFFKbNJ2zA7RzAGEq5njsSJ+hcvj+Jn8vHny
-	 OVLWqiCYS7NihwBsT0OakZwu4reFN8+G3xIyV5u5p0/nV6OLlMkIQNfWxof12eIsJf8Qi
-	 vWQnHXkj1kz40PjEbdsZDVWopjQ4JOxutHbu6lZptDlQMwiH9qjdgXc4TJO0IFtx1ZrhO
-	 CMNj2lmfGTuMnpEFSszwbVasAGq6kPenTkEUAcFKMKevMJEpeAkm9TWxKeUOM25Q42Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793298769;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=wp6+XwXTd4L8v9EYFAYebKPgpODdcdORb1VRJJaJilI=;
-	b=Y8zUMZn2z8FmFJs8N+UuxYwZTYatVNR9R2Nv+ZqLs5OjiorhftwN+7oRhW65fEQpt90T
-	 q15PlSPUDejYybAQcNbYb59MhPmoWAiR+shX3cDtF/rzzcIGhimzDBk3DoPP2yMVEfojx
-	 fkz1sZEdl6Mw9ub4nnZHPP0lTmYMGFRhDa0RSLgQcHpANWeQ5Sdbhh7tKrTf77AR2+JBE
-	 4GVnaxpdzdxWY3d/MExlzK+/ziucbD7ptpKWJLGDpG32v9zBrapZ4iAutjdKMqblAOL7T
-	 DZS9dmB0ByqC+rtRkHzvm0Ty4h3eYw4bVQB8w13YZRlXHOHuaEYkBC7Ya6sqIdcjwkQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A0B4C1F01816;
-	Thu, 29 Oct 2026 18:32:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJ7yoNmJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACDE1F01824;
+	Thu, 29 Oct 2026 18:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793298768;
-	bh=wp6+XwXTd4L8v9EYFAYebKPgpODdcdORb1VRJJaJilI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=iIZtMquoEj7VeVqxmdSumgtN1S18W9+BjSOSJF5yXV97GPDhTL8zBgO/7LENNde7N
-	 U5AKZDWnKkWm7KLPw/o3kP0FnRzSsIptPFCxow4dM7etrIFfC0X/4Z1+wfOCO/CFGC
-	 kBFChpWeZCL+9iULkQeP1FyvkQS4+e6Vge2WrJQ9No/SouEzCXFDhQTUv9qCfKZ81m
-	 YIkPa1tDNoHMgmnYpEy7BqQAPvU8is+bL1mKmkD+KrgUGM2vRYr03LSBtGzYobzBWV
-	 i+vviaEafPbyEuPfWjUxHSZXBgM3bHgYYhlagDsnsOj2EciJrR4tTVwuRqtOeqIzC+
-	 sty5VvQPi6kJw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F0D6645958;
-	Thu, 29 Oct 2026 18:32:46 +0000 (UTC)
-From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Subject: [PATCH 0/3] mm/swap, zswap: fix stale zswap data and swap-in bugs
-Date: Fri, 30 Oct 2026 02:31:40 +0800
-Message-Id: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com>
+	s=k20260515; t=1793299042;
+	bh=Gx+Pm4s/TyfImCs+tYPpk9KkdGMYfSuxFUC/3OFcAz8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DJ7yoNmJtyYEySMZo3xQ1qROZ8vRaKU8pyjmd56gyO2EEh/gyDZCCa5njZ/6Gg0iI
+	 eSiE/U0UkqnlBk/8lYD+j5gH3qWvpc+hujGTd34Q4XCEG7AGmqNGjlseXX1lY9zk0d
+	 LS18j8WLYkmuCSoOuH9/+u3uW5/hPTB9IoSLDTj8JIYIWidJ/MghUlgXbE3suxMoOz
+	 DUKJuCKu8xwUPor9V1+xx9ulFNyjPZPC3td7ryjUyxeuZka+e+tsQAbxZue52WNUvy
+	 p+E/LShxJDzAxC/AyiCqlvnZj0oYv0tCI56f4o+i95JYXa1+BpTbah+b610gWS6I83
+	 55337QrgZpoUg==
+Date: Thu, 29 Oct 2026 11:37:20 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
+Message-ID: <auOSYE97K5y19DAy@kernel.org>
+References: <20261029090522.64662-1-oupton@kernel.org>
+ <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
+ <86ld7gydqp.wl-maz@kernel.org>
+ <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,82 +63,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqAIBAG4KvErBPUwKirRAuzqaZFhdMLxLtnt
- fz4HwEYPSFDnQXweBLTuiSoPAM32WVEQX0yaKmNkoUUfNlNDHQjC2WtcdopLIcK0mDz+AWp37S
- /+ehmdPv7ADE+X7ruZW4AAAA=
-X-Change-ID: 20261030-swap-fixes-1aa6c2c1e7f9
-To: linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
- Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
- Chengming Zhou <chengming.zhou@linux.dev>, 
- Usama Arif <usamaarif642@gmail.com>, David Hildenbrand <david@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Chuanhua Han <hanchuanhua@oppo.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
- Kairui Song <kasong@tencent.com>, Josef Bacik <josef@toxicpanda.com>, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793298765; l=1904;
- i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=wv3cCqMTcjfUYGycGHsVPNfiqXd3kdzJNqs56uK6eQQ=;
- b=H4nxBiyeHaeYaXxggD0n6aJqOAp/dzE0sKP5vEjlbXqvHybzWiKKiK4xx6FXElidAiRXbZqgv
- vJspPul7updDHMMeyka+FAn9lnBoH3tWJNG/rm6XNfePr1wMD0atdSU
-X-Developer-Key: i=kasong@tencent.com; a=ed25519;
- pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
-X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
- with auth_id=562
-X-Original-From: Kairui Song <kasong@tencent.com>
-Reply-To: kasong@tencent.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
 
-Hi all,
+On Thu, Oct 29, 2026 at 11:41:22AM +0000, Fuad Tabba wrote:
+> Hi Marc,
+> 
+> On Thu, 29 Oct 2026 10:58:54 +0000, Marc Zyngier <maz@kernel.org> wrote:
+> [...]
+> > That's a good point. However, my reading of the ARM ARM indicates that
+> > as long as S2 shareability is Inner-Shareable, the resulting
+> > shareability is Inner-Shareable (see R_ZNLRJ), so we're actually safe.
+> > This should be fixed though.
+> 
+> If my reading is correct, I don't think R_ZNLRJ is enough here.
+> AArch64_S1Translate() (J1.2.4.57 in M.d) checks the walk attributes
+> before it translates the update through stage 2:
+> 
+>     // Either the access flag was clear or AP[2]/nDirty was set
+>     if new_desc != descriptor then
+>         if (!IsWBShareable(descipaddr.memattrs) &&
+>             ConstrainUnpredictableBool(
+>                 Unpredictable_Unsupported_Atomic_HW_Update)) then
+>             fault.statuscode = Fault_UnsupportedAtomicHWUpdate;
+>             return (fault, ARBITRARY : AddressDescriptor);
+>         end;
+>         ...
+>         if regime == Regime_EL10 && EL2Enabled() then
+>             ...
+>             (s2fault, descpaddr) = AArch64_S2Translate(fault,
+>                     descipaddr, s1aarch64, s2aligned, descaccess);
+> 
+> descipaddr is what AArch64_S1Walk() returns, and it holds the stage 1
+> walk attributes (walkaddress.memattrs = walkstate.memattrs, with SH0
+> from TCR_EL1), never combined with stage 2. R_VSXXT also covers an
+> update "not supported in the stage 1 translation due to the defined
+> memory type": that one is a stage 1 abort, taken to EL1.
+> 
+> But it's not like the ARM ARM is an easy read :P
 
-There are some bug fixes found by AI and collected by David, mostly
-originally from Anthropic.  After filtering and dropping a few that are
-already being patched up by the community [1] [2], these are the 3 we
-kept.  I've reviewed them and they all look good to me, so please help
-have a look and we can get them merged soon, they are pretty simple and
-clean bug fixes patching real issues.
+This is definitely helpful but my understanding is that the pseudocode
+is *not* authoritative. I think the line "If a translation table hardware
+update is not atomic as observed by other agents ..." in R_NNNMB gives
+an implementation enough freedom to decide something Non-Shareable at S1
+is actually atomic after the result of S2 translation (e.g. S2FWB).
 
-The zswap bug can return stale data instead of the zeroes that were
-written, so it is data corruption and seems critical.  The extent fix is
-more urgent than it might look, as it can also read in unexpected data,
-but the setup could be really rare. The accounting fix is minor.
-The zswap and extent fixes affect stable kernels (v6.12+) and are marked
-for stable. The accounting fix only affects v7.3+.
+So if the implementation decides it is atomic, no MMU fault is generated
+and the update happens like normal. Now, with that being IMP DEF there's
+a good chance the behavior can vary, like we saw on the output of
+translation on N3 [*].
 
-For the extent fix, in the long term we might actually want to detect
-extent contiguity and allow mTHP swap-in for single-extent swap files.
-We already disable mTHP allocation for swap files, so the current fix is
-trivial. It seems the most minimal and correct one for now.
-Optimization and cleanups can come later.
+I'll add another patch to propagate SH0 and HPD, thanks Fuad.
 
-Link: https://lore.kernel.org/linux-mm/20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu/ [1]
-Link: https://lore.kernel.org/linux-mm/20260811132209.2862708-3-youngjun.park@lge.com/ [2]
+[*]: c8631ea59b65 ("KVM: arm64: selftests: Explicitly set the page attrs to Inner-Shareable")
 
-Signed-off-by: Kairui Song <kasong@tencent.com>
----
-Chris Mason (1):
-      mm, swap: fix large swap-in across swap file extents
-
-Josef Bacik (2):
-      mm/zswap: drop the stale zswap entry of a zero folio
-      mm/swap: account synchronous swap reads as memory stall
-
- mm/memory.c  | 16 +++++++++++++---
- mm/page_io.c | 17 +++++++++++++++++
- 2 files changed, 30 insertions(+), 3 deletions(-)
----
-base-commit: 24d45a1475dd4c671feb1df705f67ef2fc293969
-change-id: 20261030-swap-fixes-1aa6c2c1e7f9
-
-Best regards,
---  
-Kairui Song <kasong@tencent.com>
-
-
+Best,
+Oliver
