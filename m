@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254481;
-	b=iJelNIckr72KaWPmnl2qutIa7VqxAGuxQG16MtzWGYCYVxApW+OSSLt5wFEpgbGtKzpk
-	 rw5gw/vDroSoc5e+6pZlhZ/jQc32ALFislF/zh180F4WdsEcuMsp+ATo1G/qVqcvujG2P
-	 HWiEklXMdaRNbxaqQCV7FvlDVMe9Nua1+PGUAwoTMBvfPhkYvOtZ+5yzo5LaZgO78oYA1
-	 zl3SiHCAXSEM6hOFnH4sTtetQ/6xCCGyVEHlr0BHHGJ2wVn8z3V696wVgKjM3ocW3OQPv
-	 lPvOuO2XB5hUP704YBeJJPBZMd1L9aB3ssO3bwJ+FTz5qg9/UqrQSKs4S7IAH278h0g==
+	t=1793254664;
+	b=Hje1C9VhxKBwI4kQ0gPcEuRWaDdyEBCfUbK2LoC7iCIr7P/marVmBrMSO5zNEnTpWqgv
+	 rxafNPTUUg/WqVc7zUuSVFZBZkqKGnUJvwb6ZeFRyydLCvxRbAUS0SJb4zDsljvs9IRcL
+	 yoLS9Sr6spPzougD+vMuKp5Gf+O14TGcJkyfvne5E3gNRHeo/cqqDjNelBOnklvoHXLMs
+	 5pPL7I81aNnuwRmHjJ+Cdwd5dBVMPApHoY/9NCsSgSs/gKsNrGAKxLYCaYsdqMAvx3E0V
+	 4esvGBWjDajjwS0x7+/PSVtQCoDlcR+W5QkT58MJ5QSnUlr9nji8B1qMBZUv8n6TohQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254481;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ivEqINlh7ZkJrAoGIP7Qk/ck2w+8V1ulipYhp9Ae/DE=;
-	b=1U8FbHwDa8cDhFqtlKfYQ9H/U2rtV6gyGAGKrb0ek+azVJRC/Kj033n5l9/Ip6H3vMwX
-	 45HGduIHCeA9eYhfwx0wTCzo8uDPLeM0Uc4Mzp3F0jtZXVcOqCbSPIIpB79q370aroXBk
-	 SiqliG05WIq2690MKcosBjcMeoaXb9m7DFteu+2keELW0JlYMViyLqzmPichEo5ddV5fx
-	 5Fe0o5pkyDXAz4KO/wQtNEOwF9KNtSm8p92C8yAcUSUwLmgQ9fJB+CroRAECiX731mcAs
-	 qVxbVrDLZAxGsmlYKmu0fOL+Yn7SCxsnPVBBU6pCGIlfvWLAMMM9Eh63wzJeB+rEJKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254664;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mYlcUSaYWpVPYtfz0pyW45L2HYD9vrtuExdJX7usMSg=;
+	b=rKb1g+ripQV977/kmOFzR9TPfuZSAPOLC6L6c1VszXfFeNUm71OwKaBAl7LIwu9mLt6I
+	 08Wq3bxMfmAWcemt8c5gP4mDmhYKtv7AHDnkOCh4zwZ/8E7eyS7/8/222HQA1kUonYNGi
+	 nJXQdtuIrlWdtEYpC/CKR1f61jdAH6bdtlppf+NvJjm2hl4eMEZC1JkGRnYzcCz0IxPnc
+	 y+iav/Wg+KpSW81CXs2atLC7jrk4j20NF8uMpYZHkca+4yxiMF5yzbSotzWQPKKyNVDE8
+	 BgrnC/S795ktRLLsu4HgljYQ64Jqbj/Sd14nXd1nVa/mwaNCV9croav3cSKmQo0suKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LwY+C7Rw;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DF4l3Bg9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1368B606A31D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:14:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1368B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897CB606A31C;
+	Thu, 29 Oct 2026 06:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LwY+C7Rw
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so15123685e9.0
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 23:14:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793254479; x=1793859279; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ivEqINlh7ZkJrAoGIP7Qk/ck2w+8V1ulipYhp9Ae/DE=;
-        b=LwY+C7RwjoAzSYAQqJJgoj7sJsD3GVBFQOiYIFCE69SQJxXZDaHHi37eO1pT6YYceZ
-         vZxTMok1DXPfg10dfo33wGjKI7pivZrg89y17+t08DgkvDVShpi05v4gkmKk14fkA9oJ
-         oeQIB/1RHXZP979uSUjNX6IPjavD33d/9VzVW5Yh4jh7gOvyJw1qkcVlj7ABAl74DCJJ
-         kNoeyfQdp+3kieiHvy6oYTJYbhkW/XLJYATNI40WiHmm5fc3pVAgsy1wwBSIS2COhmk/
-         aC77OBQ0ZARdYK+gR8n/QBScxxVuRDZViItMPooS9pdl4YQYsxWp+7DuINUVGmFUrsIK
-         67cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793254479; x=1793859279;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ivEqINlh7ZkJrAoGIP7Qk/ck2w+8V1ulipYhp9Ae/DE=;
-        b=iHT/5wIQ2iWOKOesCJhZ4r0Bj2wsJRedCXP72gPrM7ikVNa8BQjOkH36kXGPVqS98V
-         uzXBnMveNoUnYWKi23gWj+pKNmvgoWFIjigO/FqEW6rbfeEKB/dy4AfLFejCZvR0DY1r
-         oAgMgbCM8shCu1cUgkQuUqY/tU/uGUSFgVmp3DY35VeJjbFK91sgfAy8hQpcCs8jjUg/
-         N+RUva9fyjh+Fv61QuW5/tushCV/DIJ/E9wIrgLQ3zTNfUYPPF+D74BL/rXSJxp2XlOn
-         UoVYZr4pyWeXNtGVD3mbMIHfOQkGCBeCYWZk14n+u7ujnr2Xh0LPSaiSzH1rT/OVPx71
-         WUSQ==
-X-Gm-Message-State: AFq9FYKXfOjK7HNKajT1O7KA8qOWUnUvAXpiDs5u/a6g2EZ/PPcHZ861
-	DgKfcHwBfHI3AkBEHFrdeE1HOgcM0i4RU075HO/F3ijpBJwBiXdiyaILAc+BA90iCW0=
-X-Gm-Gg: AYBFou3kng8vkC3a7adR8LlhUBCZb2XNXVszj/DafAul0i7elucSXn0h0CZLyYSS/9q
-	nduWhs+KBQKQ3pFcy5RCgOCeSllLTD44Yo48QlWlpGUrWhNn38E4zHp+Mx2qkiCb45KYjkYWi7F
-	CnBWjhSC+Q6IfLPuY9KeE9a9AQNPgcd+Ll9M1sVvj15QrAg1GcgVuiuJ/4iy3jkIBpe4tSDj6Mx
-	8AuCUN6tW8OuwuiP60R/SmkIvvTd8JIJCvnDpkmYZyDjgbPZwR4Xq0SFZ/KNMwi9vJZeNpUdo8J
-	I4IHNlU251czyUrDy75HgaePm27DvK9pUd7Nrd1sUCQiAkzmbIggi8jtkjJGYQa/l4hoH75/svy
-	dxSH9RARu711L32IqYgW5yqvo/MGUeSwsiCblLWBeDc6NMCHE8HC5Dzd3jRZYJKFVjvKKkOvLWw
-	oX5Bt7VX7PNMFq6EN61MdbOLsnjZ2JbdrbpL1bfoGQRDoTDoECv8md4hynZA00q8hSEc5N0ZHMC
-	TSQFGQD17zW8dqtBvb16NuXHZ9wSKYozBaBTxLvEfEgZ4qDf6FJ432lLhpuIBc6hscMXnfEgl/V
-	lDpIMbY64vvXVkN5W9bTKF3yRMVp/otQTmXgxygbxjjTECI3B07vivnt4NeGBrMnsQ0s/LbtexJ
-	RDkonSr+Q+lOjHLilgCcj1iujDNPilAHwx3XVWdV8FavZctwwx+wMVPHWExFrvS5/xaziJ117JS
-	8J0rOsnsOb0pRPB5peXL53REEY8tqRQWgloITMhRkB6WUleG382/um
-X-Received: by 2002:a05:6000:160e:b0:48e:888:36b4 with SMTP id ffacd0b85a97d-48e5d5c3867mr7911286f8f.9.1793254479252;
-        Wed, 28 Oct 2026 23:14:39 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-aead-eb01-e474-b637-02f8-0d63.310.pool.telefonica.de. [2a02:3100:aead:eb01:e474:b637:2f8:d63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm32614741f8f.25.2026.10.28.23.14.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 23:14:38 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Yi Yang <yiyang13@huawei.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-serial@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH 5.10.y] serial: tegra: Add missing clk_disable_unprepare() in tegra_uart_hw_init()
-Date: Thu, 29 Oct 2026 07:14:27 +0100
-Message-Id: <20261029061427.27973-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DF4l3Bg9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490971F01825;
+	Thu, 29 Oct 2026 06:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793254663;
+	bh=mYlcUSaYWpVPYtfz0pyW45L2HYD9vrtuExdJX7usMSg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DF4l3Bg9PbAdaokN5m/oQoyH75+XfyOSnr+YEjckoAbLBySSAtLTta6QO62Xgj8XW
+	 NpD+qSoEz97JS5nPpmWL3NFJcuK5BnRgrYGp/B8UU43HIHP8qSmfG0fZSnxRLwOmMv
+	 nxbsUE+zVuMnGV0SY+OA8U6ejO9UuWIiWlXNCxJc=
+Date: Thu, 29 Oct 2026 07:17:39 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Peter Schneider <pschneider1968@googlemail.com>
+Cc: Brett A C Sheffield <bacs@librecast.net>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, pavel@nabladev.com,
+	jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
+Message-ID: <2026102927-unbundle-overshot-4e48@gregkh>
+References: <20261028170459.200466217@linuxfoundation.org>
+ <auJTCcqMDEmAS7Q_@karahi.librecast.net>
+ <auJem0IIOw9Ibiw-@karahi.librecast.net>
+ <3965e950-1e5c-4b52-82f0-9fe92806654f@googlemail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,71 +63,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3965e950-1e5c-4b52-82f0-9fe92806654f@googlemail.com>
 
-From: Yi Yang <yiyang13@huawei.com>
+On Thu, Oct 29, 2026 at 01:25:45AM +0100, Peter Schneider wrote:
+> Am 28.10.2026 um 21:44 schrieb Brett A C Sheffield:
+> > On 2026-10-28 20:54, Brett A C Sheffield wrote:
+> > > On 2026-10-28 17:34, Greg Kroah-Hartman wrote:
+> > > > This is the start of the stable review cycle for the 6.1.191 release.
+> > > > There are 1887 patches in this series, all will be posted as a response
+> > > > to this one.  If anyone has any issues with these being applied, please
+> > > > let me know.
+> > > 
+> > > Build failure on amd64 with amdgpu:
+> > > 
+> > >    CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn315.o
+> > >    CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn316.o
+> > >    CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn32.o
+> > >    LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
+> > >    AR      drivers/gpu/built-in.a
+> > >    AR      drivers/built-in.a
+> > > make: *** [Makefile:2040: .] Error 2
+> > > 
+> > > No time to bisect just now but will try to have a look tomorrow.
+> > 
+> > Fortunately it was a build failure, so I just left that running:
+> > 
+> > git bisect start
+> > # status: waiting for both 'good' and 'bad' commits
+> > # bad: [adc8e434cf08c73b0f02dab2c15319315f07172f] Linux 6.12.115-rc1
+> > git bisect bad adc8e434cf08c73b0f02dab2c15319315f07172f
+> > # status: waiting for 'good' commit(s), 'bad' commit known
+> > # good: [85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e] Linux 6.12.114
+> > git bisect good 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+> > # good: [0e1dbd1409918dbd331cd9c382ce64736dcf3272] ksmbd: fill in FileSysIdentifier in FS_POSIX_INFORMATION
+> > git bisect good 0e1dbd1409918dbd331cd9c382ce64736dcf3272
+> > # good: [617f27c3fa85742e9d468a2145e3676af6b2498d] Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
+> > git bisect good 617f27c3fa85742e9d468a2145e3676af6b2498d
+> > # good: [1476a3a7d286ad7763025337f20bb841b24c72ea] io_uring: don't pass restart error codes to userspace
+> > git bisect good 1476a3a7d286ad7763025337f20bb841b24c72ea
+> > # good: [be00113e49ff42c2c007993dd05cf4bdd1c2bfeb] keys: Protect the type name while describing a key
+> > git bisect good be00113e49ff42c2c007993dd05cf4bdd1c2bfeb
+> > # good: [6270098a65994bdf26b736b2ad6614e5b9078ad6] coredump: hold RCU while releasing parked threads
+> > git bisect good 6270098a65994bdf26b736b2ad6614e5b9078ad6
+> > # good: [41af0a793777ede3f1839bcd8abae92a5c901fe4] fork: release the files of a failed fork after sched_cancel_fork()
+> > git bisect good 41af0a793777ede3f1839bcd8abae92a5c901fe4
+> > # good: [6da107042aaa43b05f4c16bee65afc2e9b5f7561] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+> > git bisect good 6da107042aaa43b05f4c16bee65afc2e9b5f7561
+> > # good: [da1419eb5d34caf39c1f3abad5b95a601a35114f] fanotify: Fix crash in fanotify_init(2)
+> > git bisect good da1419eb5d34caf39c1f3abad5b95a601a35114f
+> > # first 'bad' commit: [adc8e434cf08c73b0f02dab2c15319315f07172f] Linux 6.12.115-rc1
+> 
+> 
+> Brett, you are reporting against 6.1.191-rc1. Are you on the wrong branch?
 
-commit 38f28cfe9d08e3a47ef008798b275fef8118fc20 upstream.
-
-Add the missing clk_disable_unprepare() before return from
-tegra_uart_hw_init() in the error handling path.
-When request_irq() fails in tegra_uart_startup(), 'tup->uart_clk'
-has been enabled, fix it by adding clk_disable_unprepare().
-
-Fixes: cc9ca4d95846 ("serial: tegra: Only print FIFO error message when an error occurs")
-Fixes: d781ec21bae6 ("serial: tegra: report clk rate errors")
-Signed-off-by: Yi Yang <yiyang13@huawei.com>
-Link: https://lore.kernel.org/r/20221126020852.113378-1-yiyang13@huawei.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-This fix is already in 5.15.y and newer stable trees, and applies cleanly
-to 5.10.y.
-
-Tested on the 5.10.273 review queue (6aa0165f18f12) in arm64 Tegra210
-QEMU across the FIFO timeout, baud-rate tolerance, and request_irq()
-error paths. Without the fix, each failed open() leaks +1 on the UART
-clock's clk_enable_count and clk_prepare_count. With the fix, both
-counts return to 0.
-
- drivers/tty/serial/serial-tegra.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/serial-tegra.c b/drivers/tty/serial/serial-tegra.c
-index ccc6106a5a253..3b86272cdf390 100644
---- a/drivers/tty/serial/serial-tegra.c
-+++ b/drivers/tty/serial/serial-tegra.c
-@@ -1060,6 +1060,7 @@ static int tegra_uart_hw_init(struct tegra_uart_port *tup)
- 	if (tup->cdata->fifo_mode_enable_status) {
- 		ret = tegra_uart_wait_fifo_mode_enabled(tup);
- 		if (ret < 0) {
-+			clk_disable_unprepare(tup->uart_clk);
- 			dev_err(tup->uport.dev,
- 				"Failed to enable FIFO mode: %d\n", ret);
- 			return ret;
-@@ -1081,6 +1082,7 @@ static int tegra_uart_hw_init(struct tegra_uart_port *tup)
- 	 */
- 	ret = tegra_set_baudrate(tup, TEGRA_UART_DEFAULT_BAUD);
- 	if (ret < 0) {
-+		clk_disable_unprepare(tup->uart_clk);
- 		dev_err(tup->uport.dev, "Failed to set baud rate\n");
- 		return ret;
- 	}
-@@ -1240,10 +1242,13 @@ static int tegra_uart_startup(struct uart_port *u)
- 				dev_name(u->dev), tup);
- 	if (ret < 0) {
- 		dev_err(u->dev, "Failed to register ISR for IRQ %d\n", u->irq);
--		goto fail_hw_init;
-+		goto fail_request_irq;
- 	}
- 	return 0;
- 
-+fail_request_irq:
-+	/* tup->uart_clk is already enabled in tegra_uart_hw_init */
-+	clk_disable_unprepare(tup->uart_clk);
- fail_hw_init:
- 	if (!tup->use_rx_pio)
- 		tegra_uart_dma_channel_free(tup, true);
--- 
-2.50.1
+Yeah, somthing looks wrong here :)
