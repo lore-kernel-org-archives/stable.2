@@ -1,50 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.237
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239680;
-	b=K1Pwj4r2c25We2yDkRpMxIQXcXgi/5PBgpWzpC68oiiQ/1YnbWdcLgK719ZoZ4tWstiu
-	 Fg7bha1hpaLoKahGmTm5fp62bE1Jw3nrGV/3spZIc3sPSQmV1jMfvLiayyvVrh+IV2wQV
-	 igzBUuKh4QnrW2aXjJPHrypYJUnZpffZrkIY4FPV/JTovtwMm7cfnnBXtlCGLPr5daORN
-	 pTfWLGfEK0UygAx5TzA7jBCwBiUwoNrotoWoQ3v19Hcix3HMiuyOLPHIZWEbxFpAOZzyS
-	 wgLm6KMCLd0qHPlQh4xvHOpJYsTnDV9AcBpFPzM/qoTSXXP5bDJsGtUTvGF4FHN2Wvg==
+	t=1793239910;
+	b=jenupNi4tjmTTdxh41A/wxIeuCgGGfJe0q3shSCmOT1/CQ1RtTfrf9P7fRPmK90HrcWq
+	 58PtbTMbHFlzm1L6QVo1zhlIhlf2fa3FPVj1kTZBUvvhAxXKcZqAUKMBHFeg6uhOP5sx2
+	 xy/Y2//VUEGmifX2UVefKP3ldXUxQ9ma7OXxjwd+etocNcr4SmcvMiNQj183GnKhHjZ+T
+	 BH2AQXWT1AQ5CdF0lzcPY4ddwSa+ZZzYquN6MQ1xySdcsVqXGgQY+8+A66KvUIiSwqPQs
+	 aHs9g8cF3nvnTonvUkeBGatPk4EMoP3g93IkHkZpPr54Nd/S/l+ZNTHKYrbh8TPcOmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239680;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=6QMc3NFnEfSTWgB2JhsFHrcWT+FuLKz27ZY2NpBD2Gw=;
-	b=0jX/mejMvS/M2VI5VwR5rCzAOZLIZrZfBZN+TbDUP4iBpMQbvtab10NjplYiYq9OAGGV
-	 qzSgIEPpR4edOWwRpfRIhGFiJAMl8jNHy/rp0IYVh4HRhOJLCQSlQqrGzy0qbKwPvmjrP
-	 OLyaG6QpJ/cljf88GniCKL7u5QPFNIz2y04Bb1Ohnlz7uJnw4LdUQK4hXqjEDvIRTUFQp
-	 b3t0EpzuL6njuyQypiQpO3J3xQ27aDkAV1TC+gDAyvjR3PZaPYM8im9sm+eKx6aFeIfBd
-	 MQkOO1ab5uvaCxCXuBZNN72NlFrcMhh5bqwHbNIbSoLBFVRHyo04atY02tDtwC6+OkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239910;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=mVKxjTQ6UG8yet0iVDC28m2Sx/BGphnHT3RcdUiLOnw=;
+	b=Egj0Gv5oJN00qNYRE0HrLVEuqR81sbNOgy+9VxDXYhql+Z6njN7N32j2f6vhqp1VGF0a
+	 b03CsqaOaZPb7SPgpi8RPV125HINa/UF4zLitgNUpFINTfFDTFCodRHjIp5kEs/lnPoUs
+	 aTAsr0GC+0PeV57uQGPiWmyBKwkfWxS5cMFb4YfyEBDxLj/WdFBNSK8Wd44ZEYCfsoh0R
+	 acvFW9iphW9CtMqhToEDGhyknynxDCfldKRw4TOPvFihciywHXFqhD7LH+GvpSlPHsf8O
+	 Qp+TUNemclJdLxyhO2IzdoTA6JKQ0ejOx8maotPK8jYBL8QWtxOW7zcIRDXmafasF/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ogP3hA3b;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KcoVZ9Ki;
+	arc=none smtp.remote-ip=91.218.175.237
+Received: from mta0.migadu.com (out-237.mta0.migadu.com [91.218.175.237])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0805606A325;
-	Thu, 29 Oct 2026 02:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0805606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD025606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:11:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD025606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ogP3hA3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=6QMc3NFnEfSTWgB2JhsFHrcWT+FuLKz27ZY2NpBD2Gw=;
-	b=ogP3hA3b7zRXk/8DUJ67TVjNSi81Yb9XREZ6BBCHg66xoWTkjBgubmGQa8F0+7
-	GUPl2qR1juznGkYSlLy3U7bJ3xVdx+d5JteK4Iih1T0d3IcFzTR1lEfy/YjUmSNY
-	1IigwFZCVvKZ0dZQYraHxM70bemylkJwLxLTJA0dkhXYA=
-Received: from [IPV6:2409:8900:1fd1:c0be:78be:cbf2:dfd7:c36a] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3l0VhquJq285TDw--.39462S2;
-	Thu, 29 Oct 2026 10:07:31 +0800 (CST)
-Message-ID: <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com>
-Date: Thu, 29 Oct 2026 10:07:29 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KcoVZ9Ki
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZQDzLzCYKeslFW51nWI96JVuF6FVhrDvErS7kuNB0xE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793239907; v=1; x=1793844707;
+ b=KcoVZ9KiO7ifplBtH9vusLY0AzPaM1tqGMNzq0Y6J3apzT4pko9SLT/o6KFyMzGTB/qi5ZID
+ Zi48Jpe34rZ644v4xEFbdD6xlpj537RTcNftZtjfP6IIzx2eiQ7UPGWr7iKOoLwsujDy9miu+e3
+ zCnO04cDP4696Lg8o1cXz9rg=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 252b47a0223e58b7;
+	Thu, 29 Oct 2026 02:11:47 +0000
+X-Mizu-Trace-ID: 252b47a0223e58b7
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,176 +57,140 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
-To: Shengzhuo Wei <me@cherr.cc>, Namjae Jeon <linkinjeon@kernel.org>,
- Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3l0VhquJq285TDw--.39462S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw17Zw15Ar1xtFykXF15twb_yoW7XFyfpr
-	ZIkFnxtFW5XF12qrnFgFWjq3W0k3s8WF47JFWxWw42vF98ZwnxKFy5K3W0qF1rtrZxJrWx
-	Xrs5uFWxZa4jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UStCcUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gMW4GriqmOWjgAA3G
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v2] mm: memcontrol: fix NULL pointer deref from
+ high_work_func() on dying memcg
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261028183537.605854-1-tjmercier@google.com>
+Date: Thu, 29 Oct 2026 10:11:26 +0800
+Cc: hannes@cmpxchg.org,
+ mhocko@kernel.org,
+ roman.gushchin@linux.dev,
+ shakeel.butt@linux.dev,
+ zhengqi.arch@bytedance.com,
+ akpm@linux-foundation.org,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <13AA7E01-2DAD-49CE-8C59-A99BBA917B99@linux.dev>
+References: <20261028183537.605854-1-tjmercier@google.com>
+To: "T.J. Mercier" <tjmercier@google.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
 
-在 2026/10/29 04:09, Shengzhuo Wei 写道:
-> The bitmap update paths lock their page cache folios before modifying
-> them, but the folio lock does not wait for an earlier writeback to
-> finish.  Writeback can release the lock while its BIO still references
-> the folio memory, allowing bitmap changes to race with that I/O and
-> expose partially updated contents to it.
-> 
-> Wait for existing writeback after locking each folio and before
-> modifying it in ntfs_attr_set(), both bitmap setter loops, the cluster
-> allocator, and the two MFT bitmap allocation paths.  This follows the
-> lock-then-wait sequence already used for attribute and raw MFT updates.
-> 
+> On Oct 29, 2026, at 02:35, T.J. Mercier <tjmercier@google.com> wrote:
+>=20
+> When memory.high is exceeded in non-task context, try_charge_memcg()
+> schedules memcg->high_work without taking a reference on the memcg, =
+and
+> high_work_func() invokes reclaim_high() without pinning the memcg.
+>=20
+> cancel_work_sync(&memcg->high_work) only runs at the end of teardown =
+in
+> mem_cgroup_css_free(), so high_work_func() can start or still be =
+running
+> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
+> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
+> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences =
+a
+> NULL pprev pointer.
+>=20
+> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
+> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
+> reparented to its parent in mem_cgroup_css_offline() instead of =
+holding
+> a reference on the child until uncharged. Subsequent uncharges of =
+those
+> objects go to the parent, which can leave the child's memory use
+> permanently above its high limit, so any later charge on the offlined
+> memcg in non-task context schedules high_work.
+>=20
+> This problem was first exposed when commit e4dde56cd208 ("mm: =
+multi-gen
+> LRU: per-node lru_gen_folio lists") introduced the memcg LRU, and was
+> later widened from kernel memory to LRU folios when
+> commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying
+> memory cgroup for LRU folios") converted LRU folios to use obj_cgroup
+> reparenting.
+>=20
+> Fix this by acquiring a reference with css_tryget_online() in
+> high_work_func() before calling reclaim_high(), and by resetting
+> memory.high and swap.high to PAGE_COUNTER_MAX in
+> mem_cgroup_css_offline() so that charges via references on an offlined
+> memcg do not trigger high_work on the dead child or skip checking live
+> ancestors in try_charge_memcg().
+>=20
+> Oops: general protection fault, probably for non-canonical address =
+0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           =
+7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
+> Tainted: [B]=3DBAD_PAGE, [W]=3DWARN <- Taint from =
+lru_gen_rotate_memcg() VM_WARN_ON_ONCE
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS =
+1.17.0-debian-1.17.0-1 04/01/2014
+> Workqueue: events high_work_func
+> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
+> Call Trace:
+> <TASK>
+> ? read_ctrl_pos+0x22f/0x3f0
+> shrink_lruvec+0x16cb/0x1b80
+> ? ret_from_fork_asm+0x1a/0x30
+> ? lapic_next_event+0x15/0x20
+> ? clockevents_program_event+0x2bb/0x6f0
+> ? lapic_next_event+0x15/0x20
+> ? __pfx_shrink_lruvec+0x10/0x10
+> ? __pfx_clockevents_program_event+0x10/0x10
+> ? _raw_spin_lock+0x84/0xe0
+> ? __pfx__raw_spin_lock+0x10/0x10
+> ? kasan_save_stack+0x30/0x50
+> ? psi_group_change+0x381/0x740
+> ? __pfx_sched_clock_cpu+0x10/0x10
+> ? save_fpregs_to_fpstate+0xc4/0x2c0
+> ? finish_task_switch.isra.0+0x1de/0xac0
+> ? __schedule+0xf62/0x42c0
+> ? __pfx___schedule+0x10/0x10
+> ? __pfx___irq_work_queue_local+0x10/0x10
+> ? shrink_node+0x626/0x31e0
+> shrink_node+0x626/0x31e0
+> ? ring_buffer_unlock_commit+0x11d/0x5c0
+> ? kswapd_clear_hopeless+0xa0/0x150
+> ? __pfx_shrink_node+0x10/0x10
+> ? 0xffffffffc0000095
+> do_try_to_free_pages+0x255/0x13b0
+> ? ring_buffer_unlock_commit+0x11d/0x5c0
+> ? reclaim_high+0x10a/0x1b0
+> try_to_free_mem_cgroup_pages+0x1f9/0x5a0
+> ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
+> ? irqentry_exit+0xc6/0x670
+> reclaim_high+0x10a/0x1b0
+> ? __pfx_reclaim_high+0x10/0x10
+> ? process_one_work+0x5ff/0x1030
+> ? __pfx_high_work_func+0x10/0x10
+> process_one_work+0x6e2/0x1030
+> ? __pfx___schedule+0x10/0x10
+> ? __pfx_process_one_work+0x10/0x10
+> worker_thread+0x422/0xbb0
+> ? __pfx_worker_thread+0x10/0x10
+> kthread+0x2cd/0x3a0
+> ? recalc_sigpending+0x15c/0x200
+> ? __pfx_kthread+0x10/0x10
+> ret_from_fork+0x368/0x590
+> ? __pfx_ret_from_fork+0x10/0x10
+> ? __switch_to+0x588/0xf50
+> ? __pfx_kthread+0x10/0x10
+> ret_from_fork_asm+0x1a/0x30
+> </TASK>
+>=20
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio =
+lists")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-> ---
-> The change was checked against the existing attribute/MFT waits and
-> the iomap completion path.  Existing base and patched NTFS object
-> builds with W=1 and CONFIG_WERROR=y complete without warnings.  No
-> runtime reproduction or filesystem stress test was performed.
-> ---
->   fs/ntfs/attrib.c   | 2 ++
->   fs/ntfs/bitmap.c   | 4 ++++
->   fs/ntfs/lcnalloc.c | 2 ++
->   fs/ntfs/mft.c      | 4 ++++
->   4 files changed, 12 insertions(+)
-> 
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index fce7144d7bef..b460d2223314 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -2332,6 +2332,8 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
->   		attr_len = min_t(size_t, (size_t)cnt, folio_size(folio) - offset);
->   
->   		folio_lock(folio);
-> +		if (folio_test_writeback(folio))
-> +			folio_wait_writeback(folio);
->   		addr = kmap_local_folio(folio, offset);
->   		memset(addr, val, attr_len);
->   		kunmap_local(addr);
-> diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
-> index af86fb1c199b..057b315789ec 100644
-> --- a/fs/ntfs/bitmap.c
-> +++ b/fs/ntfs/bitmap.c
-> @@ -213,6 +213,8 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
->   	}
->   
->   	folio_lock(folio);
-> +	if (folio_test_writeback(folio))
-> +		folio_wait_writeback(folio);
->   	kaddr = kmap_local_folio(folio, 0);
->   
->   	/* Set @pos to the position of the byte containing @start_bit. */
-> @@ -277,6 +279,8 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
->   		}
->   
->   		folio_lock(folio);
-> +		if (folio_test_writeback(folio))
-> +			folio_wait_writeback(folio);
->   		kaddr = kmap_local_folio(folio, 0);
->   		/*
->   		 * Depending on @value, modify all remaining whole bytes in the
-> diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-> index 3ebcac4c2864..aac8627a9283 100644
-> --- a/fs/ntfs/lcnalloc.c
-> +++ b/fs/ntfs/lcnalloc.c
-> @@ -348,6 +348,8 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
->   		}
->   
->   		folio_lock(folio);
-> +		if (folio_test_writeback(folio))
-> +			folio_wait_writeback(folio);
->   		buf = kmap_local_folio(folio, 0) + pg_off;
->   		ntfs_debug("Before inner while loop: buf_size %i, lcn 0x%llx, bmp_pos 0x%llx, need_writeback %i.",
->   				buf_size, lcn, bmp_pos, need_writeback);
-> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-> index 89288b794348..b8aa8b0891dc 100644
-> --- a/fs/ntfs/mft.c
-> +++ b/fs/ntfs/mft.c
-> @@ -1206,6 +1206,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
->   				return PTR_ERR(folio);
->   			}
->   			folio_lock(folio);
-> +			if (folio_test_writeback(folio))
-> +				folio_wait_writeback(folio);
+> Signed-off-by: T.J. Mercier <tjmercier@google.com>
 
-Hi Shengzhuo,
-    Could this deadlock during MFT bitmap 
-expansion？ntfs_mft_bitmap_extend_allocation_nolock() can recurse into MFT
-record allocation while holding mftbmp_ni->runlist.lock.
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-   With L being that lock, could we get the following interleaving?
-A and B are $MFT::$BITMAP folios; B is outside the cached iomap.
-Time flows downwards.
-
-   Writeback                        Bitmap expansion
-   ---------                        ----------------
-   lock A
-   set PG_writeback(A)
-   map A (take/release L)
-   add A to wpc->wb_ctx
-   unlock A
-   [BIO still unsubmitted]
-                                    take L
-                                    extend bitmap mapping pairs
-                                    need another extent record
-                                    ntfs_mft_record_alloc()
-                                      mft_bitmap_alloc_free_rec()
-                                        lock A
-                                        folio_wait_writeback(A)
-                                    [wait for A's I/O, holding L]
-
-   lock B
-   set PG_writeback(B)
-   ntfs_writeback_range(B)
-     __ntfs_write_iomap_begin()
-       down_write(L)
-       [blocked on L]
-
-   Cannot reach iomap_add_to_ioend()
-   to submit A's pending BIO.        Cannot release L until
-                                    A's writeback completes.
-
-    ntfs_writeback_range() obtains the next mapping before 
-iomap_add_to_ioend() can submit the pending BIO.
-    Would we need to submit that BIO before taking the mapping locks?
-
-Thanks,
-Baolin.
-
-
->   			buf = (u8 *)kmap_local_folio(folio, 0) + folio_ofs;
->   			bit = data_pos & 7;
->   			data_pos &= ~7ull;
-> @@ -1402,6 +1404,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
->   
->   	down_write(&vol->lcnbmp_lock);
->   	folio_lock(folio);
-> +	if (folio_test_writeback(folio))
-> +		folio_wait_writeback(folio);
->   	b = (u8 *)kmap_local_folio(folio, 0) + (ll & ~PAGE_MASK);
->   	tb = 1 << (lcn & 7ull);
->   	/*
-> 
-> ---
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> change-id: 20261029-b4-ntfs-bitmap-writeback-wait-d4561fa54c97
-> 
-> Best regards,
-> --
-> Shengzhuo Wei <me@cherr.cc>
+Thanks.
 
