@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793314175;
-	b=OFE6xb1NbasWmdFv0N5WBVqBP/PXDRREKIe/mTcioAwhmrKi3rJl0uNef1wHQvtGC/I3
-	 njUlUSy1Ansd1eKHB8rrJzzGZiarWvK46Xy2nwtU4ZC2TJWKxz3Wus3PP11RtDWi7IPxM
-	 E9OslzNjhjoOp43TXxYypj6dqadtuNSaKb3XYhKSfyAw0+qUFigCb57tphzmRADgwRTtn
-	 ajrP4EfQkDbbnE1BknxmIqgpTv8G8zqAZ/CmZfo9oa9H2grzo2Zuc2qVE5M2KJARm1il5
-	 dCN5iLBVtAzRWwC3aNrO/RpxjBwf/jCrFI7AEz/6qF5jwEh7COg3gmJ9DXnEX45E1cg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793314175;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=k5BZLzJDz2RGBNaVPb9sM/jFYK8WtC4TVtwFR3UNCHo=;
-	b=eyCWJwwDoM7RNup0Hv+8WziQKMZ82ST89aNbhyNjHaxtRfZ1KjB46Nzi6sfUOYwmzYgC
-	 /7kTIXLWpCDCtnZretpzOlz2D/EhPafaXsgkOezDrxevytDhT5zYSIufv5y9nL5reAjoe
-	 a3kuzVqRiz9VSoGgf9WIpm6KtGgYfsPLr25UEFq2NoKxczZC5jHOoCX/h5VPCQVPcGYlc
-	 aaYTDrOpkUVIpwR6vSNbzd5GH8XUW46cr5EGio+svc4YAhFG/KFu077VUndVGyjrsA9L+
-	 rh0fgv/eiifhu0dhsdbXHl0PYRpbFCUIigVnJ1eK2KY3baNx09ysgL+nyVyeM/M5xzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjOSsmqR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24400606A31A;
-	Thu, 29 Oct 2026 22:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjOSsmqR
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793314174;
-	b=tPi0LeN28P8XxijCxecgWQeCdyFV7S+q52cBW7QvAzdeEkg66713F6iwStmKDaiaYZhu
-	 u1Zi7zVyZuNOi40leFDrWZm2U8Plw9SBkkaHk3L1oCKDaWDjTxm8c0SDerwKGbzMB2OqV
-	 R644nYy+WHzO3sa+oKSegrCxfDTC9+f+MJDG9z0+hezGzGj39XoXpZnT49SQLQZPeP3RG
-	 q6asYWMC/kpQiI3zpSxNeBS1MhXygr9QWa7BorKIw/N/nffe133Iqlu4V2bGbhQ/p4OEJ
-	 HOBToKZoD1ht4csn/H2SwntneDjwGugrTxJ+k2aOTvQASfqXLyOYK5+XjfFaLCiqvSA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793314174;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=k5BZLzJDz2RGBNaVPb9sM/jFYK8WtC4TVtwFR3UNCHo=;
-	b=AFbXdXsyfhU3LQbWauQ2qn2nqbJdyxQK7lM8q9ecWT6vNYkWTacq8TtrstLYSwai20BR
-	 XEaxY1AXqPU03UNBrZFvKObKRN+BeLCS6gHWHHdmT+hAs14+NVOD/X0XPJfVr32agpRFy
-	 MdjcARpKz3bxf93oa/T+ACW7BpRvFeEjnW3B7ng1OchKB8xgBCoeA/ZzGt7tyjvcHoQGH
-	 OW2fnMb4TWTMxMcihJ641ly1QVANr9cyCvPSFms/J+VMLCdoQeB1MHS7R0yt6wCOkZU7z
-	 +F0uYYT/JvrSg2XcPsQ87s/qwmb31z23I54lObGyVJ2AJinv4OHW7M2R3umJUxNr44w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793314762;
+	b=gCScleaf1/wrlh3VdHM/zwdbk5tIxRTUjU3a8acMQC5DUZKwwegVoS7/QFCueAKNowts
+	 Wm21S8NnkIx0RoYGjv1sC4BlAUxf8oaQkZjNqEp1hg1hbCqXWE94A1r7lq+2EysaMP9TO
+	 8UAS8KtX3M4b51RW8lCvuhCytjIW/08T/vH/ndbSQfBtOyIaSranNN4iURBdmCaVupHhD
+	 cUM28ue/xBrrlv/6M0BKhu+HCqpkOuzN6pZV4xsYnNDT0qHb5az/fe97KsR+Qj0uCZXVD
+	 5eL9UFJecGG3AThIKb7a2gRT4fb2G9yRPRA5zSMNCj2sCdmTd0XvMlkRZ6wBhHe7wUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793314762;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
+	b=EPCvrncQmRtRPWiidCE7F9beXIHiMhS6vrwT/GHQ9l9CZ+hXdcVjYJDPU4/pxCXz1j7h
+	 7H/O4Y67PV7SBXfpbaObUc5FG1DglCF4pcLbd3zezGTXwrCRhxVqqIf5OL6SfyEDR3PvL
+	 dynyAkfTzoRejTUrGQClC2cMn3dfGOtR5xuyt+OtdG8IGPJRoUVj2300wS9rbAEVRWcOT
+	 HpUOtYcltt9v3lbLr7jZHawLa+3+mXh+BtWSwt7bPbQWvjG8z1tdc+kEKL3sNyLCYeiwM
+	 juZQR6+ZyFqykYTdy860/QdxFSMxKMpt/cCUrMpESUzWn1nYEjT/5VJGz86HyeaF32Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G7NsA0p5;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 256B41F01816;
-	Thu, 29 Oct 2026 22:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793314174;
-	bh=k5BZLzJDz2RGBNaVPb9sM/jFYK8WtC4TVtwFR3UNCHo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=cjOSsmqRnl9NdR6fEn3AHaUpst4e98h00BSH/T3gJo9KLSFpGpymm9d7+jlh7QseW
-	 1P/11JA10l8aASih2uD57Vqatz5PrDrbfXb/w95LEZToGiJdmumY6pmYHnax/Ma5ij
-	 0lPHx4MZRG30Z0wb/0PEUbGGLGnfjCbS3/WKFGRJhKW2vK+SmC2nMmd9IZ+B47RP2k
-	 4CBH1XzgYdfM6CncuazBm32RgmCoCVJVTb9P7ds6dMpHK8crikNsxMyCwz0mdiSJVw
-	 M8cIYnu3SVo9ablk4kx2P/svGvFfIa1ocdRzKRdUKLz3xY8e5tnDOXgVVMl1qt8dEn
-	 JYOVHGuLtHI5g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7742A45A04;
-	Thu, 29 Oct 2026 22:49:33 +0000 (UTC)
-From: Chris Simpson via B4 Relay <devnull+chris.nilk.net@kernel.org>
-Date: Thu, 29 Oct 2026 16:49:10 -0600
-Subject: [PATCH] ALSA: hda/realtek: Enable bass speakers on Alienware m17
- R3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D511606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D511606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G7NsA0p5
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-368c26de2e0so34170eec.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:59:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793314760; x=1793919560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
+        b=G7NsA0p5fd/KLkSMaNXs1QyoEcDtA7SSuLtzJRGLXleyUbtLCL0K8yUcVeAlGuTf+X
+         6zc9IQMYX5xptgxuLEDlmexa8j4dwiS9UfUsVJYn+Ql0WSpFr9f5zfPE2HGhMC9vcAIw
+         znsrhkQ81XEzh1Fa1VKJEJSH6pfraJ8zeSz1g3O4M4Yogk6ytIIbOqqUIHNpFDJvA6+N
+         xejnIxBz8NgbRRLhV9ZJmadxoCa1o7v+ktEIgOfg+HQdgPEvlNt1Lk0a6Lqaz0Krjq4Q
+         cs8H2bXMD/N+PTImO+AzRLW4/9lxa85vHoL6o8lvJUcvwbwEHX7ggbdaxOdMt2lan3xo
+         z+wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793314760; x=1793919560;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
+        b=WmoLBX/kcEONpFwdNAXkoa8WKBhjZt40+pB6DNkhOw1olUGQtxyvl6r3Qn4nFRT/dA
+         tpiyDqbwev7Ro0TjCVxJbIAw1dnDU+euUOVf31x5e8r0TfG6UzQVeufJ7hzTHX7HCdSe
+         Fu2ndzh22D5D+tUBwEI04ifCKL66yWcPgc2EhIdpsozfZIBGJwKtdk2Ni8VixwQanVyz
+         xM7jICVBzc4YyLcQW/XHwRnWQTBNfpyhzBWHALLYtfUA6LMGjv1R0wYbf+1hMssQjtwf
+         MuOCmAQ4gzryYPz7xGs7l2wcLpxFbh0SwwYXLgV16IC+I2SGKHa+9O2TwN952VYFpxgC
+         KRlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJZjUbzw6WyfiLDt0JaVJXFuV1G5L+HiGHPF+OLsaXAwehfKI5dOjVaCf4lnH3sRVhTL2hu9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqMl7GxPa7AbYiPnQePS9deCw57MZiiGU2kczM6qC+WwTQvLv8
+	L+yi5KjOOf+eATZB2CYfKKApAMe2dYQFM74X1v3qOk/XqFDYe3PPcbFi
+X-Gm-Gg: AYBFou1t6JEHWQzYu2lW5pgtC3C0yhWkPoROlEOTggT2Gkgig6BYTq4Vr6kHWYKOHy0
+	Ot0MF/juV0KEBreZhl76AZ4i19ky0yBD5e6V+DEPauNVQY7wHm2MsBHPb0MbTDw8T8dfDUa4qfd
+	cPZZi9r7JtmH3mn2XYHxpRrMmKfu971aiJuhhGrcLQZ6lF7P/0XpwmfW03kLgLoXb/zxJw/TjDx
+	7E70YBQmR29CI74sAmpUD1bCRQ0+nfTLNid3S62tXwJBOHp6QkqqunH8M9HLF9jHIhYFI8QuOWd
+	kQg7B3fXYZ5CeQcoIBbMsSUpQUm9MrbJOzqtWadtsak72vgwnVppmmfrO5tXonN6LvKHuorgaDy
+	Z0Xq5pMnwaJuX+mNB5ANwRFt9hPDmvce0J19jJ+CMhaAoclGmNKvs6VXXdqJk+KMo4vjqNnvUKM
+	QKx7S/MRyWUFmQtTa6GrMyBeaCM5qxiEoYARMG4Nt18+1u9d9xvVCdlZRbFNn9sRFStt37rN+m/
+	1JFBqJoNDcyVqiaj6Al1epNA7Jm+mpGTGRAr5qwEHNG9H/4gWp+b7wYIUNwCDyEHFhdFpZOBXKF
+	xCiOYogAU+4JBTlEazpDISVMR27E9f6BXcVw8v552p4ehmRBXSL5DJIn
+X-Received: by 2002:a05:7023:a89:b0:1a8:9857:2102 with SMTP id a92af1059eb24-1ac5f183841mr660166c88.30.1793314760261;
+        Thu, 29 Oct 2026 15:59:20 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm2009723c88.10.2026.10.29.15.59.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 15:59:19 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	xfcyhuang@gmail.com,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] fs/ntfs3: preserve colons in volume labels
+Date: Thu, 29 Oct 2026 22:58:56 +0000
+Message-ID: <20261029225856.1173-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,80 +99,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-alc289-m17r3-v1-1-5d3eac605e7a@nilk.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyNL3cScZCMLS91cQ/MiY10DM4OUNFNTo9QUs2QloJaCotS0zAqwcdG
- xtbUAunRM9F4AAAA=
-X-Change-ID: 20261029-alc289-m17r3-060df552ed6c
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Chris Simpson <chris@nilk.net>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793314173; l=2233;
- i=chris@nilk.net; s=20261017; h=from:subject:message-id;
- bh=ycvtrC06Uil7aW797VPCQ/Tcavwuyu8NiwvTlrPUnEY=;
- b=bsPkcmM+rMoWnu0/mTFOhvR034Ln0vgNgWzFV/cvfosNMVxuSmLvL3HBnVCuiYw7lmbs5BMM1
- LkhMTOXutN2ArQEomfa7LREKeAOZ87ZYaKrlp1qHVmYI3PdAsqIst9M
-X-Developer-Key: i=chris@nilk.net; a=ed25519;
- pk=bwNSTJdm8iKtfcCRqyaQFQFlAxLuiAxLw4pMXey4Z+o=
-X-Endpoint-Received: by B4 Relay for chris@nilk.net/20261017 with
- auth_id=1225
-X-Original-From: Chris Simpson <chris@nilk.net>
-Reply-To: chris@nilk.net
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Chris Simpson <chris@nilk.net>
+With the ads mount option enabled, ntfs_nls_to_utf16() replaces an
+interior colon with NUL. ntfs_set_label() restores the full length, but
+does not restore the overwritten character before writing ATTR_LABEL.
 
-The Alienware m17 R3 (ALC289, PCI SSID 1028:09d1) has a second speaker
-pair, the bass speakers, on pin 0x17, which the BIOS leaves unconnected
-(0x411111f0). No PCI SSID quirk matches the machine, so it gets
-ALC269_FIXUP_DELL4_MIC_NO_PRESENCE from the fallback pin quirk table,
-and only the speakers on pin 0x14 play.
+For example, xfs_io -c 'label -s Backup:2026' succeeds on an NTFS3 mount,
+but the label becomes "Backup" after unmounting and mounting it again.
+The same-mount cached label still contains the original input, hiding
+the on-disk corruption.
 
-Use ALC289_FIXUP_DUAL_SPK, as on the Alienware x16 R2 and Dell XPS 15
-9510/9520: it sets pin 0x17 up as a speaker on DAC 0x02, so one volume
-control covers both pairs, and chains to
-ALC269_FIXUP_DELL4_MIC_NO_PRESENCE, so the headset mic setup is
-unchanged.
+Disable ADS parsing when converting a volume label and remove the
+incomplete attempt to undo the split. Volume labels are not stream
+pathnames and should retain their complete contents.
 
-Tested on an Alienware m17 R3 (BIOS 1.38.0), Linux 7.3 with this change
-applied: the bass speakers play, and volume and mute cover both pairs,
-also after suspend and resume. Headphones and a headset mic were not
-tested.
-
-I used Claude Code (Claude Opus 5.5) to find the unused pin, pick the
-existing fixup and write this patch and changelog; I did the listening
-tests myself.
-
+Reported-by: 晓风残月 <xfcyhuang@gmail.com>
+Link: https://lore.kernel.org/ntfs3/CAC_Ok8x21q=Fy4n7V5j78G3rn5ByHpLVRiM4FrYGaJnmdFiP_w@mail.gmail.com/
+Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Chris Simpson <chris@nilk.net>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
-ALSA: hda/realtek: Enable bass speakers on Alienware m17 R3
----
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+This applies on top of:
+  [PATCH] fs/ntfs3: preserve colons in symlink targets
+  https://lore.kernel.org/ntfs3/20261029203457.59990-1-dennylin0707@gmail.com/
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 23329d588..145db479f 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7594,6 +7594,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1028, 0x097e, "Dell Precision", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x098d, "Dell Precision", ALC233_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1028, 0x09bf, "Dell Precision", ALC233_FIXUP_ASUS_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1028, 0x09d1, "Alienware m17 R3", ALC289_FIXUP_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1028, 0x0a2e, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1028, 0x0a38, "Dell Latitude 7520", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET),
+ fs/ntfs3/fsntfs.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
----
-base-commit: a4311e9447bbb219044db38897f95be112f46a8a
-change-id: 20261029-alc289-m17r3-060df552ed6c
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index b06de8566a72..df939ee18904 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -2668,16 +2668,10 @@ int ntfs_set_label(struct ntfs_sb_info *sbi, u8 *label, int len)
+ 		return -ENOMEM;
+ 
+ 	err = ntfs_nls_to_utf16(sbi, label, len, uni, (PATH_MAX - 2) / 2,
+-				UTF16_LITTLE_ENDIAN, true);
++				UTF16_LITTLE_ENDIAN, false);
+ 	if (err < 0)
+ 		goto out;
+ 
+-	if (uni->ads_len) {
+-		/* Undo delimiter parse */
+-		uni->len += uni->ads_len + 1;
+-		uni->ads_len = 0;
+-	}
+-
+ 	uni_bytes = uni->len * sizeof(u16);
+ 	if (uni_bytes > NTFS_LABEL_MAX_LENGTH * sizeof(u16)) {
+ 		ntfs_warn(sbi->sb, "new label is too long");
 
-Best regards,
+base-commit: 4a77fa820d937fae9fe0bd6a6795c2d749fd4df7
 -- 
-Chris Simpson <chris@nilk.net>
-
+2.43.0
 
