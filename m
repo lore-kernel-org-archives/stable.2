@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297422;
-	b=fkWF63RwihspLJ42DGjd8aisYrWPYA8f92mWezm2VwcGFhJwU2dklu4QSgYSwkI7c0Ay
-	 VYH1qHcr3CtoJH0CqBay/Y5StYNTuRH7P82h5rB2hpRSA4cZtGGpE+V1xsY96nKrBcI4m
-	 EwnpAbhKe+FAuHO2rw2gn6aaP6cwV3FtMME0DnB/e0njxzBsUWIWV9jN96rsebOqBsV1Y
-	 PT96qB7sj2lX55h38DOLEwMC2rMiLv3YBWYxNMMGLvZZwJu1v3yhcpJL9u95Qc/BX07Z4
-	 Gl6/7W4fYnvHqzzgCesGqo3YVT0q9POG8IpWsNrlyvgGTGbUmOOha5l99wS7QdkL3Jg==
+	t=1793297426;
+	b=5slQhSaEHzrED5QWduhjB3bVtnzAlVzLm/B4CUoOiTab5NWLJKC2KtjY/4rE65BOKXBk
+	 dsaww3Fxc0N1TKjP2/lMdolfmp/A1Ehu5T9TuGglc46meBi54TMb00tNPWu9occXAjj5c
+	 dYH/1b0QfeO2ZkgbNMbVOYFzUtHTKYWKZjrjKngegdphCm3JqvzfYyT50i7RNSG6YquKi
+	 lINLI6bMS7A4KjOqNaX0dQ+MRv8ChC+Y5GaNdgzkJmf2xLy1iNcjZChg9nYXvWhKZEcNg
+	 CNLMI5n/W2g3s2Ts8labKDRuvlCKeIoPc5aiilTyjW8sIh8iwLdYuwVf51bCX28gKUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EGTY/uQ+UTmLe+oR99zarlRNM/ZZQqy4vu68uMqnYps=;
-	b=Syckc+x28jnX9/XL33KNbDCppJ7kmEWLUU7Mgu2dXQwQEPQApDYVCBqtx1CfSl4vxwon
-	 r1jMzZGMNPifrUnzwz22TJlqsJDTPUkajqA1nI/oChLkZM2VnVk4dFP4+TrAmg8fDGJFJ
-	 8+QSAJYOfEA2eg0UyNuQfygqkV/UTtrJHhzkIg6NppdOUcBQB3Yhspi6DnZDxt032O/Kv
-	 tll9AZr/5tQNgqDwMTEBpFsSSpDM+9T3qtw/UOWfWMFEymS2tP/+5GxXqjv9ruA1HEZCf
-	 ereLXVJJT0i5gl0MkVer0x9WzPOmYwW6cD+2clgKt3IsWa3tkpOwcioW6DIWogpht3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297426;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YhtoC8abtd12mu+rBuvcv/XkTwddyXJZrrtv2/voX0Y=;
+	b=ur6KMa7QZbV2j0KZ/Efj13V4PxUjVupW8FCNeyQaMWa2yNw4A6H9YXEeEOFi7lBkCoko
+	 7XQt4lFV20FDTG0ktiF0mdt4PGTQKindHlY/TLucZ71wxKFqKgAdcNqJgWO4Ll/DbAN4v
+	 v3assSQVmu9NRw6XVClm+oHS4vnmw1APLzKgckdn6uzNzw6VnNuKvXGU7sJOUepiD9pGl
+	 aCZJXNJu6JXu0FbjJESpd/SCXNJuT0SNqNG4dOIMhUIbjkFnq++56x3/EjALWfINVWWHc
+	 AMEFQ2XfyQvlLPeKFbThWJQBdnxqIi/XP83cMxB2S4Xs/95xls+MjYZK0GhBq9qRBRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HEyzv5yK;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtievZEi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4223606AB75
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4223606AB75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CEF60A380E;
+	Thu, 29 Oct 2026 18:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HEyzv5yK
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f20c3aaa5so223184785a.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:10:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793297421; x=1793902221; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EGTY/uQ+UTmLe+oR99zarlRNM/ZZQqy4vu68uMqnYps=;
-        b=HEyzv5yKUc+ILSupxzbFPXWI0K0JGjBSo21KDgxT33fJKSQHZCPzVyYksLSTP81YHL
-         7sdyBlhCkN0yNt+7zRGjklaq7bn8Hmca4w+ynjGlnG051d7a7YqkX222TPb80hTI6gNT
-         Nx6Miy9BMFxw1b/yOEII62+mlbPE9uuz9cBo+79MNeOkG/duCE80Ztxcw341G5k1muBm
-         8Z4lM5L7HVtf8vP6QqvCKhk7NeuH+Cs0aIFOyyk+OnwqpUW/2HFzgNg/9fbzpRjz6NUT
-         uplwc+8OwTTyYLHUOWxlFjWwlDIkvjNvfsykkyNf1tUIvBWncMVRT7qIYlVzWagew2xl
-         dx9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297421; x=1793902221;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EGTY/uQ+UTmLe+oR99zarlRNM/ZZQqy4vu68uMqnYps=;
-        b=0p/MGcBZ6w1V/PkjApSNO1HF5roo8RaK+HEZ6lgK6nBC6lTDp+WfgO7g9UFInI9LH6
-         rf1cyfBhnn1Cf9fMXYdIfSpwwhMc95u6F3FG9ahyDbqeGGFI2c02bCQ2BG4bF6x6l8oI
-         7XkBev66bYs9VRKBch0fs7QKc3tQTsZZGtyXSvwfTnvspi+9iRd1nptkkW0xG1s0ZybD
-         WowzbtqdQBb0CzYB0ykR7VhSQzth2Pk0jg64lrjGQQyHZyLj9WbljR3Y8k1JloNd9csq
-         S52Ag5HT1Y2fGXzLdxAOPBfMj7oONauD+2AHFhNDRh9iWsGS561w2rwgsPf6AoGEioR3
-         kuVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzREAXC/EfPa3//Wd/uOA+fM/ZO+lAlsnj+gnsZ/x8p2O2ATR9vSIwPmmZFOAMj/FQ5LQBcjmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLijm0pOgOUckgejssIv8b/StUQhi2B0aOSb4gz4TMU/F3JzCrC
-	W46uxLFbXhvidU9hawxlix15U/8E4qg3ePlxpD/jHIyA6Kz2ah/K4kmg
-X-Gm-Gg: AYBFou345GdhYyZHtigWW+PKcqcJvzloEjDxIE1AbN4JuSez7ZBuJRZ7vWAC9VO/M2M
-	0wH7B0oxl1dbio8h/MTGZklH/flepwtMeQS1Y8xn4sQ6TxcabFqWjKXk7KVv8u6phzfgTjCY7hf
-	ynrhUAhClACzVZ//272onUKIcPLkG7WFLBwResFp5gqDRTeo+pDQwRcFeBkuMoCXFqBXvQlscpW
-	L2AuM3zonZw2/bhUvg/HoPkFoZ1Lw5koO4w9lR5fNYxw1b6wwsJ9dGm5MjLIzhzNfKKhA7TihXt
-	8IfcIGlWPvDokUYQJBKjTjFFKR/yMOI9iYBc9q8Bv8IWZJxMDW70q1FqAOIjgLorYJpar9O1s7o
-	FaQJBHG8tbt46VCUmYwylJOumBwv0Ag5M6twmQRpb2NPCGNmPqhqg/EJuNnWvSqo3sJUt/ZfdNg
-	CPt+qMkkt1c9dp0t0s+LAgRcuxTGtfz+TpS9DOwXuL7L4SAjb+jxIAyV5oMM6027OmwrnCOoCPn
-	VYq9O2wi+WQq4Yibhisy1eAZAl+iXdcDD8+16Kiabrsp3PwDo5DueG2dqWBzU9TukaIu8YrzlFQ
-	i2DpSB4WA4+Fa8u2NrSeTmqj8U2qUB6cWO52zYnUO3cCaRkkHvwF6irWvdg=
-X-Received: by 2002:a05:620a:6886:b0:93e:60e8:c9ad with SMTP id af79cd13be357-94421588089mr2508085a.12.1793297420516;
-        Thu, 29 Oct 2026 11:10:20 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94421252364sm6295285a.28.2026.10.29.11.10.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:10:19 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nfsd: pin the module while a server exists
-Date: Thu, 29 Oct 2026 14:10:05 -0400
-Message-ID: <20261029181006.1305530-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026235626.649844-1-shuangpeng.kernel@gmail.com>
-References: <20261026235626.649844-1-shuangpeng.kernel@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtievZEi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565281F01176;
+	Thu, 29 Oct 2026 18:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793297425;
+	bh=YhtoC8abtd12mu+rBuvcv/XkTwddyXJZrrtv2/voX0Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VtievZEidSVJKJ8wgbiTyLqG2cFPhE5Pkzw8ITYYjhGHuopw91uKJ9JtJJdRSMp7F
+	 M2UqZkhfBFg1lLeA8FWkN2BhW/bw5tRWjEgKb5mCzZHqQhOKiRyb5dBXGRNKduN/C/
+	 HdJX54ceYFkIb/lIpcSEH7JL9BNLd2+wXtYeqxBfrzz35lBQkZFDs2sMw+rNalIzlZ
+	 H/Yz0Rg0YFmSD1A+4EfXPNMfRbhHRh9eLrQyrr6++JrV5sREhUgg9l3wqbVMCRXPBU
+	 116/V5xj5GH0fxIc/woLjEPZOKHPaBaWmzSg1SSYfwsx5cyHxvemiTdvhRWAnXNXkI
+	 z1GGNTHz/rJGg==
+Message-ID: <7a1807d0-4f3b-4094-b73b-b6950040e3ab@kernel.org>
+Date: Thu, 29 Oct 2026 19:10:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,153 +51,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/8] mm/page_alloc: retry alloc_contig_pages() when the
+ zonelist is rebuilt
+Content-Language: en-US
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20261028211930.3504634-1-gourry@gourry.net>
+ <20261028211930.3504634-8-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028211930.3504634-8-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Since commit 924f4fb003ba ("NFSD: convert write_threads to netlink
-command") the server can be started over netlink without mounting the
-nfsd filesystem. But that mount was the only thing pinning the module
-while a server exists (commit f49169c97fce ("NFSD: Remove
-svc_serv_ops::svo_module") removed the per-thread reference).
+On 10/28/26 22:19, Gregory Price (Meta) wrote:
+> Onlining the first block of a zone rebuilds every zonelist in place,
+> shifting the slots after the new zone.
+> alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
+> and nodemask, then loads the zone from it:
+> 
+>   CPU 0                             CPU 1
+>   alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
+>     slot 0 (NORMAL1) approved
+>                                     online_pages()
+>                                       build_all_zonelists()
+>                                         [NORMAL1]
+>                                         -> [MOVABLE1, NORMAL1]
+>     zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+>     alloc_contig_frozen_range(MOVABLE1 pfns)
+> 
+> A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
+> caller can get a range from another node.  Gigantic pages are kept out
+> of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
+> non-migrateable gigantic pages from movable zones").
+> 
+> Check zonelist_update_seq before using each zone, and restart the walk
+> if it changed, as the hugetlb pool walk does.  Check again before
+> escalating to the pass that may migrate hugetlb pages, so a pass a
+> rebuild cut short is redone rather than escalated.
+> 
+> With kprobes holding the walk across the online, the base kernel put the
+> 1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
+> ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
+> {2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
+> and neither with this change.
+> 
+> Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-So when the server has been started via netlink, a plain "rmmod nfsd"
-succeeds while the threads are still running. exit_nfsd() then frees
-struct nfsd_net in unregister_pernet_subsys(), destroys the DRC slab
-and finally unmaps the module text underneath the running threads:
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-  BUG: KASAN: slab-use-after-free in nfsd_file_net_dispose (fs/nfsd/filecache.c:483) nfsd
-  Read of size 8 at addr ffff888109fe92d0 by task nfsd/300
-  Call Trace:
-   nfsd_file_net_dispose (fs/nfsd/filecache.c:483) nfsd
-   nfsd (fs/nfsd/nfssvc.c:957) nfsd
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-  Freed by task 311:
-   kfree (mm/slub.c:6802)
-   ops_undo_list (net/core/net_namespace.c:257)
-   unregister_pernet_operations (net/core/net_namespace.c:1412)
-   unregister_pernet_subsys (net/core/net_namespace.c:1459)
-   cleanup_module nfsd
-   __se_sys_delete_module (kernel/module/main.c:804)
-
-followed by a general protection fault in nfsd_cache_lookup() as soon
-as a thread allocates from the destroyed drc_slab.
-
-Take a module reference in nfsd_create_serv() and drop it in
-nfsd_destroy_serv(), so that "rmmod nfsd" fails with EBUSY while a
-server exists, just as it does while the nfsd filesystem is mounted.
-
-Use try_module_get() rather than __module_get(): a netlink command
-runs without a reference on the nfsd module, and exit_nfsd() only
-waits for it in genl_unregister_family(). A THREADS_SET or
-LISTENER_SET request that is already running when "rmmod nfsd" starts
-would otherwise still create a server after module unload has begun.
-With try_module_get() that request fails with ENODEV instead.
-
-Pinning the module also keeps the assumption behind the
-__module_get() calls in fs/locks.c (via lm_mod_owner) and in
-nfs_common/nfslocalio.c valid: they rely on an active server keeping
-the module alive.
-
-To reproduce: start the server with nfsdctl (or any other netlink
-client) without mounting the nfsd filesystem, then run "rmmod nfsd".
-
-Fixes: 924f4fb003ba ("NFSD: convert write_threads to netlink command")
-Cc: stable@vger.kernel.org # v6.10+
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
-Changes since v1:
-- Pin the module while a server exists instead of shutting the server
-  down in nfsd_net_exit(). As the sashiko review pointed out, shutting
-  it down from exit_nfsd() still lets every __module_get(THIS_MODULE)
-  taken during module exit (fs/locks.c via lm_mod_owner, nfslocalio)
-  outlive free_module(). With the reference held, exit_nfsd() never
-  runs while a server exists, so the laundry_wq / cld notifier ordering
-  changes from v1 are not needed either.
-- Take the reference with try_module_get(). A netlink command holds no
-  reference on nfsd, so with __module_get() a LISTENER_SET/THREADS_SET
-  that was already running when "rmmod nfsd" started could still bring
-  up a server, and its threads then ran on the freed module text.
-- Not changed: an exiting nfsd thread still executes a few instructions
-  of module code after svc_stop_kthreads() has been woken up. That
-  window exists on the umount path as well and is independent of this
-  fix.
-
-v1: https://lore.kernel.org/linux-nfs/20261026235626.649844-1-shuangpeng.kernel@gmail.com/
-
-Tested on top of 7.3-rc7 with KASAN: with the server started over
-netlink, "rmmod nfsd" now fails with EBUSY, also while a request is in
-flight and with only a listener configured; after setting the thread
-count to 0 the module unloads cleanly; starting and stopping the server
-through the nfsd filesystem is unchanged. With a delay injected at the
-top of nfsd_create_serv() to hold a netlink start open across "rmmod
-nfsd", the start now fails with ENODEV and the module unloads cleanly
-(with __module_get() the threads came up and oopsed in freed module
-text).
- fs/nfsd/nfssvc.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
-index 067543da3ca0..6ae040c50987 100644
---- a/fs/nfsd/nfssvc.c
-+++ b/fs/nfsd/nfssvc.c
-@@ -579,6 +579,7 @@ void nfsd_destroy_serv(struct net *net)
- 	svc_xprt_destroy_all(serv, net, true);
- 	nfsd_shutdown_net(net);
- 	svc_destroy(&serv);
-+	module_put(THIS_MODULE);
- }
- 
- void nfsd_reset_versions(struct nfsd_net *nn)
-@@ -662,10 +663,18 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
- 	if (nn->nfsd_serv)
- 		return 0;
- 
-+	/*
-+	 * Keep the module loaded while the server exists, as a mounted
-+	 * nfsd filesystem does. A netlink caller holds no module
-+	 * reference, so this fails if module unload has already begun.
-+	 */
-+	if (!try_module_get(THIS_MODULE))
-+		return -ENODEV;
-+
- 	error = percpu_ref_init(&nn->nfsd_net_ref, nfsd_net_free,
- 				0, GFP_KERNEL);
- 	if (error)
--		return error;
-+		goto out_put;
- 	init_completion(&nn->nfsd_net_free_done);
- 	init_completion(&nn->nfsd_net_confirm_done);
- 
-@@ -677,7 +686,8 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
- 				 nn->max_blksize, nfsd);
- 	if (serv == NULL) {
- 		percpu_ref_exit(&nn->nfsd_net_ref);
--		return -ENOMEM;
-+		error = -ENOMEM;
-+		goto out_put;
- 	}
- 	serv->sv_tls = true;
- 
-@@ -688,7 +698,7 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
- 	if (error < 0) {
- 		svc_destroy(&serv);
- 		percpu_ref_exit(&nn->nfsd_net_ref);
--		return error;
-+		goto out_put;
- 	}
- 	/*
- 	 * Register before publishing nn->nfsd_serv.  Namespaces are only
-@@ -704,6 +714,10 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
- 
- 	nfsd_reset_write_verifier(nn);
- 	return 0;
-+
-+out_put:
-+	module_put(THIS_MODULE);
-+	return error;
- }
- 
- int nfsd_nrpools(struct net *net)
--- 
-2.43.0
+> ---
+>  mm/page_alloc.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 70830689048a..7d06c6c4011a 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -7593,6 +7593,7 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+>  		gfp_t gfp_mask, int nid, nodemask_t *nodemask)
+>  {
+>  	unsigned long ret, pfn, flags;
+> +	unsigned int zonelist_cookie;
+>  	struct zonelist *zonelist;
+>  	struct zone *zone;
+>  	struct zoneref *z;
+> @@ -7601,8 +7602,13 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+>  
+>  retry:
+>  	zonelist = node_zonelist(nid, gfp_mask);
+> +	zonelist_cookie = zonelist_iter_begin();
+>  	for_each_zone_zonelist_nodemask(zone, z, zonelist,
+>  					gfp_zone(gfp_mask), nodemask) {
+> +		/* A rebuild may have shifted an ineligible zone into this slot. */
+> +		if (unlikely(check_retry_zonelist(zonelist_cookie)))
+> +			goto retry;
+> +
+>  		spin_lock_irqsave(&zone->lock, flags);
+>  
+>  		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
+> @@ -7637,6 +7643,9 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+>  	 * second pass, we will try moving HugeTLB pages when those pages are
+>  	 * smaller than the requested contiguous region size.
+>  	 */
+> +	/* Redo a pass that a rebuild cut short before escalating. */
+> +	if (unlikely(check_retry_zonelist(zonelist_cookie)))
+> +		goto retry;
+>  	if (skip_hugetlb && skipped_hugetlb) {
+>  		skip_hugetlb = false;
+>  		goto retry;
 
