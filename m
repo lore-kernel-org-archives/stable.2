@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282234;
-	b=g3jsXI7bxLXGcpOkrsvTJc9LVlMZBX+3BQK0uuQHipsBox8uagnuzagvoF4XE1SIss3f
-	 gUiF2NzkcHyuo64LlpIh+a1L7h/R0WrpOh1TmTAVIpOt3LkihYL1VTHH4+LaIgOLOprg6
-	 zh0HrfNLcVxgjCz7i42rKI3JrkqkaVjmEMltlzvTPHbcQlLBL0in5IuFtd2GhBWV0N4CO
-	 gE5WMzrp3Pc2NlmxKomPok7ywAIFPJfJRsMijPCz6fkoRXRIfyDIkGKy8C25bMCQwk0Sf
-	 dTqL5keDlGBnFIeb8c2qGsPn/x2q1LnIzFXDSHIvcP9FsU4et0bVVTjl9HSfr6709LA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282234;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=NiX/cLR+QfDZhplLTlVQLvgD5zI9h5feELCeYcvxbYE=;
-	b=bd3p42THB85veCNrslDVTvkp5B5WrVs5X5POMRLEzfdcamD2U9BgmS4uDkc+d70Wn5MT
-	 Lu2bLjjYd5HZsHri+bJ4//dVaqhtgtw43iq2KxY+sy0+WfP33kjp/olJnkEogPmpupfGC
-	 c1S6f5JIxkvtLdNz4jNtPCmH4e3kiKFpqbNAkg8AB66HSKhNTtj9JIQcqeoE9pVk/J2j4
-	 EduQ6A1nXdUl4DBLfpX4LT3MNYrsWSMWUsKZuTumXeKbK5hyFv1v/Iy8GgauhVRtOo8v9
-	 oc7/d8CeW09STLGXpFK8P3Sd/3NopATLZo+qd0E3TJVsfbUe1HZ90fAZAxEKlWFJ64Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWh1OtRI;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793282317;
+	b=jya799OEgbveRQ/c2ZvuTWh4vqiE5Pvju2IFX42nurAiMDeTqygAKXnvTahNnvvzsSxt
+	 Wi1A6cojskFg4vSqHtXKUjBN/E4w0vCvFDF0nn70gY28SZir8kdysKZxLw9zx99dYEbSE
+	 TdCOUahzMUsO2r+AiXVOJdLkzvE7RNFd1LQB7CzAfTDm6mbxcnZxMIUS8tnFcXwDxxURE
+	 ryZ3k1+AjV95vClcGR+dhp1yIIpyllXrMXDA9eO1xsVygL4QVsMOTrse4sa0+GJv2V8U8
+	 bHAX70TdsB/PLALA5y3pNzdEzZt5ks+kH/IUyOJo9vynXknkIaIYhQ86jlbEkjpy5JQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282317;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
+	b=iu7+ptZd3w740/8xZMVOZMyIk3TlxcJJNJhsRAChfj5qBu77Uki2yfePK3XPiuyQQX68
+	 xK8E4Mx23XVDyAFoeR03qCFh2SPXNmZM2lNJOaNw0ItkoYVJ2cxPVwThLXNkKx+Q3WrC/
+	 KKeNNrARI8p70lzY8uLlMPIXy5yqjZZ+OS13P6Zw0CcUB9vXIUQLT1JQHFrygQ0yiPoMF
+	 3QbXA4VOyQuGg6KhydFyFkhyAEsF7F7LPZO/3/fulFJoPwaLeJOsf+IRlwfsujxT4y75l
+	 jbboJjVpu/1Wwuhb9GIXGPTwiMXA2GrUAzlUFRx+R9qaHO3MIB8LxKKyD9RrgP5vJyQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJT1d2UY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D0D606A31D;
-	Thu, 29 Oct 2026 13:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D0D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0BA606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 13:58:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E0BA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWh1OtRI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793282233; x=1824818233;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UTwuOZzBKT+oSeIKRBmbdLB4Bl52OeZiXuXEIQeBCAY=;
-  b=LWh1OtRIVDdxnDPmaIBw8RNClw1ZA44Tt9nPL2FPVvaifGdZ6/TeO92Y
-   WXdGhy/o/C2Id1deckQW+YTEAOa5bsyLi8yoSzhbKCm1/Kcvrw+sBfD60
-   7+dATvjj8o/LvMazBjR6ivr4vek16MtpLZBD+PRD4E2Pct/oYJrhfkdRY
-   Mi2A/234pABT7nwP4R8vn7QK44pyxDIogvbRoXEVhxaYu+fTCvFwygdNu
-   fn4WXUse0Q0NyPz0YLHSLWGG98i26dEPeJyntLSg7lrKe2CDW2sihxJMs
-   1oZSlCnv1VzZV5AA+RAa31XV9/md88GP15nP6guVCClzZsQMaOfPlkhJK
-   g==;
-X-CSE-ConnectionGUID: uNtvhw8+QGqlkW5EPqFotg==
-X-CSE-MsgGUID: 1IRrpUrYQRGsPvrkFz4ZiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2022198"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2022198"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:57:13 -0700
-X-CSE-ConnectionGUID: 3L6qMBxPQHGxrz9O4tQEmQ==
-X-CSE-MsgGUID: 3h8p5xRmSp6MI0Cr4QH+iA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5050203"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:57:10 -0700
-Date: Thu, 29 Oct 2026 15:57:07 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
-	djrscally@gmail.com, dmanresa@gmail.com,
-	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers
- for the 319.2 MHz link
-Message-ID: <auNQs08xnsmvr8bI@ashevche-desk.local>
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-2-antoine.pichot@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJT1d2UY
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso3216186a12.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:58:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793282316; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GWcxUlodgnlimtZ3DWixkgZ6erkERG+cDbp4vFQMuyw8RDUvP8q0AznoWTgZ0EVaQz
+         LZOPobFUaNpHzBA9LtjmlZHhRP/6cyuFKHsFvBBWpKxAhniZWc1i5oeoXD2Gg2wQcdwy
+         ExANh55XVPbeQ9XGDZdnDk8LCsQl5ZuFxZCOIxfvzvvcVjJT3i+5O7WgmdIg7t1+D1yw
+         3nLt8erwLEvXtC2IxxaFlhB/XzWaYhuP+BEU4K6G8nhUWYpqyZkIRx4tesXR2BrR0k2i
+         rvOet6bR42TjKRtIkMkM5aY47qiTKmOxirpN7C4EeghzHfJOtRmCAjpOvdsLJADTKHdI
+         BVsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
+        fh=zZgjTjG4Ct+x36NJpp/4w11qxf/bm1SVx2vmrLVfItM=;
+        b=rnAOoDmZBSLjTMTGKgIqjS7tW1PvUGAXX6VNAAFCvdirPFxHyshTa1MrcCgppYZ9T3
+         jV59ewyiXSGtZRV3VRk1BTkwmmj2/clmK63CYwJOQZNRt8zHq1FwemU/w+TMN6ER7nTm
+         /ww6jwRaWdy0ICYQPc5vbSsIZGsU9rPSRCMSlTF94rf5Gzc1+HXGXf5AhUoLJP/G5O7T
+         mVw8lkbugkuHJE+cNTzp3d6B9e5o87tWqREqWmJx6PAuDM0kQGwLRPhLBkIKMx5cLZ5R
+         nV/dI5o8d36nVJ4rFTkYn5Gwv7HJwBnBYOpuv64hocu2aimQK7wfw3Lt51d/bnnBEOFR
+         9/ow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793282316; x=1793887116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
+        b=QJT1d2UYEQriYuUW8735rNQI7Kxphg9w4E0o+RGF/kDVGLDQFuU/jYic3i8KCiwg1E
+         9CfETBF3zvvJP02YEwh4ijalEzaGBqdm1YheiioDRc4nG90iE9PRzY7MoQ5vWiinolFP
+         GQBfPxT7lQTnFE0Q+oMEn5/mUUQvWaIeyUAC1FpKDh9ICBl/KT6q/D5LOoKrKA144n0q
+         ujlPp32k8bwbaIBy4xdM+B+fVD8ArY0OYZOaBD0qWZnYG379pS/PeNRbD3P9K0IBYUJS
+         S0n7iYugWmlG64W8iEam8AHMRX3i4+geBI3LBQ5JjPWyiDBf1T2Wew7OxtsH4I9+PvWz
+         KdiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793282316; x=1793887116;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
+        b=GDA+N8NUGPbyR/oCe8wB/k54r9hayayqvjiYc1os+rvfs3p3dIV+j73UFe5Fvv4whk
+         Y5iJELKV01GyDzXkftF94nlejpvIyQz/zCf9cEfZqlG2j3PJ4R8M/0Jv/4U/BGg6AIE6
+         2Ur+/f++2vikePQyA7qHa9x1jbdj82yIIDkJ/Yh/ya88auNQ7ibe4zGkeEcc7Jxj//g8
+         PuzQ8xLrHa0pDMzbFk/jtmz5eX12AZvom8v1qQT1jKWOs4U1Rr/iyRgyMVqsE6i83aWI
+         gSMlIJjktd6yv1q2iamX+8N+jUNxo56g3kBIEx/LdNxiqUrM6ngRZ4XBQDAZu3bH7BuT
+         ha8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwOO4bperBJGd8Pn6SEyiHbyj0MauKtuPcUu0q9dhVuDx8/Ea/4byxK63PGfD/wYvcENB38b3I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITkuRsfH8NhjwAl3s88pzhnjMDGtKq/3ER56cu3DOYNI3JiMyj
+	JcbcOb4ypdeXqdR7Q2ffxk/KJP70/3T2oEDvJ/iVfuhp2W/UCvCSMmVykByufp5QSEDZqSCfOrv
+	BBCfMkp5D4Hqd8xnUgXpxtBJ+BkWjDqY=
+X-Gm-Gg: AYBFou1p02QrYNE6I3rAujU8BXOBZtCunRc5I65ZyEMj9U+Ei4ufnz6xKnnkW5Sv1VA
+	iitSwFS+r1XT2CjigyCUQL8CNBr6+EQpZbOrnbNF08fLnY9OvWEzkXSE/0L/iMHH8z7Oo4jS29k
+	hB3/4rzaJDpcaij+XlGqLw2e68N9c94tXCAeL9G+oihntKSVvm8RuXmXmbDeDCbwQwAL/W+wUBy
+	ol7HjJbTmLcjBVNXq5nlFaJNm6YVGbOrnulPZnf74JrTUf7XdRUUmyCS3SVMOrWGhUOhd7odfzF
+	CS7488bsGIOs0BBeCE6/TkB3MaEgPSLBMV7QnDkG4oD5BctIlY0zRmtLm7O4C6WEtcNahzTw5rY
+	JBapAl8i/zNLa9xFEVoa/wlzxiv51KwrKaSMRQYR7hu0jD1V1zcdmOg/hnIpvVNxeJoZEpw==
+X-Received: by 2002:a17:907:d649:b0:c40:d762:feaf with SMTP id
+ a640c23a62f3a-c49bdf380c3mr490800566b.21.1793282315466; Thu, 29 Oct 2026
+ 06:58:35 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,50 +104,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028112154.855185-2-antoine.pichot@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu>
+In-Reply-To: <20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 29 Oct 2026 21:57:58 +0800
+X-Gm-Features: AclHuK_WpVrYhoxFjt0fFzoVltcEmX0dIv3cEJlmPJMkDPc9YKVqxhVZUIteE9Q
+Message-ID: <CAMgjq7AxShdVC6Ax+5USBSCb3c92MC3UVGLucxN47W_EmVcwDw@mail.gmail.com>
+Subject: Re: [PATCH] mm, swap: stop cluster list scans once swapoff clears SWP_WRITEOK
+To: mt4022@columbia.edu
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 08:21:46PM +0900, Antoine Pichot wrote:
-> The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
-> pre-divider of 1 before the multiplier of 133 and a divider of 4 after
-> it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
-> 2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
-> datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
-> 
-> Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
-> 0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
-> range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
-> not change. The Windows driver programs these values for the Surface
-> Book 2's Windows Hello mode.
-> 
-> On ACPI systems this table has been unreachable since it was added,
-> because ov7251_check_hwcfg() selects the wrong index. The next patch
-> fixes the index, so the two must go in together. With the index fix
-> alone, a Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10 150-frame
-> runs, 3 of them stalls; with this change 0 of 13. A Surface Book 2
-> (IPU3) streams clean with either table. Dave Stevenson measured on a
-> 24 MHz Raspberry Pi board that the out-of-range tables miss their
-> nominal frequency and proposed the same values. The 24 MHz tables are
-> left alone because nobody in the thread can test a change to them.
-
-> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+On Mon, Oct 26, 2026 at 11:21=E2=80=AFPM Mani Tofigh via B4 Relay
+<devnull+mt4022.columbia.edu@kernel.org> wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> SWP_WRITEOK is cleared under si->lock when swapoff starts so that no
+> new swap entries are allocated from the device, and try_to_unuse()
+> then waits for writeback of the folios that still use the device.
+>
+> However, an order-0 allocation that chose the device can race with
+> swapoff clearing the flag and then loop forever.  It takes a cluster
+> from the fragment cluster list of a higher order with
+> isolate_lock_cluster(), the allocation from that cluster fails because
+> SWP_WRITEOK is clear, and relocate_cluster() puts the cluster back on
+> the same list, so the loop keeps finding clusters on it.
+>
+> The looping task is in reclaim, and it may have set writeback on a
+> folio whose write has been queued but not yet submitted.  swapoff then
+> waits for that folio, while the reclaiming task, stuck in the loop,
+> never reaches the point where it submits the write:
+>
+>   CPU0 (reclaim)                          CPU1 (swapoff)
+>   --------------                          --------------
+>   shrink_folio_list()
+>     pageout(F)
+>       /* F under writeback,
+>          write not submitted */
+>     folio_alloc_swap(G)  /* order 0 */
+>       swap_alloc_slow()
+>                                           del_from_avail_list(si, true)
+>                                             si->flags &=3D ~SWP_WRITEOK
+>                                           try_to_unuse()
+>                                             folio_wait_writeback(F)
+>         cluster_alloc_swap_entry()
+>           isolate_lock_cluster()
+>           /* allocation fails:
+>              !SWP_WRITEOK */
+>           relocate_cluster()
+>           /* repeats forever */
+>     swap_write_submit()
+>     /* never reached */
+>
+> This results in a soft lockup on CPU0 and a swapoff that never returns.
+>
+> isolate_lock_cluster() used to check SWP_WRITEOK under si->lock until
+> commit 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap
+> table") removed that check.  Restore the check.  Since swapoff clears
+> the flag under the same lock, isolate_lock_cluster() then returns NULL,
+> which ends the scan; the swap slot allocation for G fails, and reclaim
+> goes on to submit the write of F.
+>
+> Given that this is a race, its reproducibility is non-deterministic.
+> We reproduce it by using a non-rotational swap device that is not
+> synchronous, with 64K mTHP enabled, where one CPU repeatedly pages out
+> two 64K folios and a 4K page with madvise(MADV_PAGEOUT), while other
+> CPUs run swapoff and swapon on the same device.  In my tests it
+> triggers within 20s in each run, and with the fix applied, it runs for
+> 300s without any hang/kernel report.  This bug was found and
+> reproduced deterministically using a deterministic hypervisor that is
+> currently under development.
+>
+> Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap tabl=
+e")
 > Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
-> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Before commit dda8fb68b590 ("mm/swap: also use struct swap_iocb for
+> block I/O"), reclaim submitted the swap write right away, so on 6.18
+> to 7.2 the loop most likely ends once swapoff frees the slots instead
+> of hanging.
+>
+> Reproducer: https://github.com/manitofigh/swapoff-repro/blob/main/swapoff=
+.c
+> ---
+>  mm/swapfile.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 601979b97f95..2b03d14b5f52 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -627,6 +627,10 @@ static struct swap_cluster_info *isolate_lock_cluste=
+r(
+>         u8 flags =3D CLUSTER_FLAG_NONE;
+>
+>         spin_lock(&si->lock);
+> +
+> +       if (unlikely(!(si->flags & SWP_WRITEOK)))
+> +               goto out;
 
-These Links are not referred in the text above, make sure they are being
-referred, otherwise Linus T. becomes grumpy on this. On top, consider
-using Reported-by and Closes tags if applicable.
+Nice catch!
 
-...
+>         list_for_each_entry(ci, list, list) {
+>                 if (!spin_trylock(&ci->lock))
+>                         continue;
+> @@ -642,6 +646,7 @@ static struct swap_cluster_info *isolate_lock_cluster=
+(
+>                 found =3D ci;
+>                 break;
+>         }
+> +out:
+>         spin_unlock(&si->lock);
+>
+>         /* Cluster's table is freed when and only when it's on the free l=
+ist. */
 
-Code wise LGTM (I followed the discussion).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Acked-by: Kairui Song <kasong@tencent.com>
