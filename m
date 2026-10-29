@@ -1,100 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793286627;
-	b=qBlgvgT3TJxvXaBGSSMhwkmu5eH1irnoQPqoO8gm+k4zIrbJC6zMiVLw0V/mv4qWLkJh
-	 W90YE8r4V0ohXy30cOvVUap4aJXzCEksk+bzSjJdT4SnUpSCUna1V31Trrc9imiOuqA71
-	 vKClHWGBTMDvDyoCF2ndZP6FmWyYD8vwCvTA/77TXhL6xeUsNxsVroWxq47YL1bJ3x2Ld
-	 QtS2mt60JmZcVqmTlq8Z1t3x+jPiS1jpD+LIP1nviPoRGS32+BAHQMn32giHyxI/2PpU/
-	 rWfUQ2eWZPGadS1DULtfwnpkEcXOqKLX2O9/IGipYsbN7Nls1gdGuznoAaufnpIwJ3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286627;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-	b=Y62PGWcnuKGpPiUq9ByV93HWR4ZKwT+O2a5uAwzcfs2+nTsdsEPpy9WbBax2eRuksUv3
-	 geNdn8MOwnUVDOur6ZIdsIzQGJPdvadnQyW3NZegQGmQOmr8nIU213e56y2VXppu1R/Z9
-	 O/6lUIk1QwCdp4rSRcoq4BQt1PGyzXXI1kaJ+EAXyt2MSkeRG1S6EJPcT8039+YGkceuV
-	 wfSXWNACqZ+TKXBfyGUIJ46iaf0pMxv0rO6yKYHjpaKt415TjMXVSpwM4nBVplEuT93ww
-	 vGQIUxkmoGaVqfZ4dede4CouGy1NC/DkYQor92tr9TltKikhGJPc9HyCAtJHjWtEs9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793286720;
+	b=YBN/NZ8J13jerzKLoz2tiCgnFdgZ66E6X+BOn8kIumb/wVlZnNOdinX2fySMaLlHBQ6g
+	 SUF8M9hNMeIrMo5WLVgMHjFTBE+msYnDQifnGamyfKCKzbMScSfKk2xou/svVpyNQv10E
+	 l+oVF7l62o8o84FZI/2sAayfAqOB411edPfIDf62d2y+4VZU6+IwDjvzcx5gt4M3ds0oj
+	 S+D897UeZ6Yz3myu2JdYrB4B/99fw06FzbOxbS0bickpdHB/2nTTOnJG5CbaQavBc+77s
+	 f3dtzgC/bfiaENQHjtONLYSbGXnxKSX0oKCBg8cmOKUnyEjD54kzhETe0Yyv8uDHNbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286720;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=6OivFj7eK/2o7S42fglb8hJK44S7C9v5KM3KhCAq8U0=;
+	b=gZOb1azpnthM0xIeKvOrhGhGxIlMeysUIHoSYAFW7xlW6qWYfMe646OTV0omefNxDBAE
+	 Cpe3kJkpPkwNm51NBvSSU0qAvCaBDSSgCQ4aaHaZ1i/vc9rcL4HZtkBPecByuSlZ/EPUn
+	 8Uq4XG2I61FUJfgo2Rle8FulKOGf9vtzWXF1V5Ke1F8pQbYUGylaKQMXONKUPIMj7da44
+	 gc+/9rO/TVGF77SAPakkVZJLctFUbnYSQWJZnZhxtF5/Ch4Uit9LNN9xs6qhfzSogIdH9
+	 50wqlj9nHJ/p7hyflCsMxrex2HRudEB+WhUY0SfGLF6QS+7QOEVfZoNMUyENSzszEOw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=kjyUxfdf;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7F7606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7F7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0A1606A31A;
+	Thu, 29 Oct 2026 15:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B0A1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4a755bbe158so541623fac.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:10:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793286625; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ej2a6YEKVYIPvjdVwn6TXRUs1GxBzmnFY2ZSIuz5T/Fx7zAj1cCwHTYr7LAnRoFE6D
-         v/0Bt6Cgf7/0HseeH8CmkAnJeBYhStQZPAxz+qL9h8uA1gpDuOg8dvliqxiyZHTENuTD
-         1/zsaJrfMlPaDAyCkd8rtRsnMVmVmVrUhCDioZ952kZYnoFy0Aw5lnIDlIiXl5kmkSGI
-         O0AQijjBgjJE7oD0akHZ2JBd86dwoXlwD+Kv85p4unRNJrjrzIKuL5ZC3t8kd5bWlsKq
-         8AKBlpPuB80Zr7fpDWMQRjxs40NvqkEujkP3GBYet75AL9GeUvB+4pdNOB6NLgMA1p3m
-         B8Sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-        fh=MxKuxcjp5zxcHuaL8mxsFc5x4QOAZ8rI0s1skq+Cpp8=;
-        b=VJ0SCJ4ulzIGB9YKTstB3OpQfVjjLr0KZXxprIXYXEn7oTeoDShvWyMEc1oZbXIJwy
-         nBbFv778WhpBs7ekNwl/pEeWight/G6lnT9nxEz+aA6fma20jzYZNZe0nePn2WFxHGW8
-         fBQb6lk88x1i1/AuQ4zvkpge/c2qIJNKnexJ2hpVrSH/+xB1u+V5sSN35+1OZaR2451Z
-         Qe9WLjY90ro0mRfCoJTZ/5Sb3XLomWJ1buiP+FaLyX5hgiuku0jwg4woI6jO8aFbDDN4
-         IXRZB22nAq9G7hY2BwbUODiQQrzNY/oadGSSoGOZH2jWDSJnKda9JuZSicd+F42yrs57
-         pqHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793286625; x=1793891425; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-        b=t0HEKi3JEuYusOJQ2BlME+lteEzd9dpBkx0PYrvDTF6m0Gk0Q+n2i1EUE9nTUzuobE
-         jgmDRB3BuFqDIcfk3pKSMf2ZVBNUYhnBJi4AQOlRU1v3BE8YfrL4dMUtUtwXzB/LkkKh
-         W7hTXlaauGp2j3cYctzuHfnaObEhfhmydvxsoNvTEELOKG/xAuPZi8zu3cSrRxrthG9T
-         avMlZ8RsvJk4iVIODKrTJFIFU/7bXBHJevI9/zHVtmfcpFhc6TuQMMeYsurZ/VZCOEbo
-         gau2V+U2q/NGCK5o+dlwIHFTFBtIjsuOXnSt/D3Csq8dhKQoq2F4U0glozDN4haqHNSm
-         PwoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286625; x=1793891425;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-        b=rTPZ/gegWH4ybeQExEMOTnwOVvY6hn1P+sTRarkwxjqF31rRkgUsaguYx1+Yk/Gbnl
-         L0DduPrkahg0ZlMRwINcYVfb01NtKGiNlzUyzEsP/jQAYcIv0uggIujuQ8svjdSgsbc+
-         alzQOBni3JvU4LLh8wLW5ueyMB4jxPxecA1IfoN8qKTGB3lk9tu+mjVIQrLyjDhWq2x8
-         +yH1qiOh+c0O+I2r6NElAqHPYXqxpfbsjtfxCDKieJVe3z6cfp0EMkPLwgOOAQfPK3xj
-         cQnW05r00t37AvnhrcyG0jRdiar4bMR6bm+7hRFoHKnRhN9FleY6oIhLXteuP6uOufaE
-         sDVw==
-X-Forwarded-Encrypted: i=1; AKwUvByaTXZqKiGK0Npt1Cb8dbefnfpMcYeLgsrPthEIURzKeZj5xqNfcCSQ4aiHNz8OnFcTiVa+STM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdCVSFm7ZVIxzStPj88qSUjIDx2syr2NtSCeAn0eLbEDP3Szla
-	ajNFsTe1Ml+IvEfNdEW9Yfasz5Zsv5AzLsSXv1XqzvqbktWbg9Wt8GmB7f3gZReKeKOfLcqsVNn
-	olIAM1EQSy5FHglmlGkCaRcqS6ekxFVj4uMMKMWYnOw==
-X-Gm-Gg: AYBFou36mFXf3R0Gv653i8CsovVjKbf4uaVwfQ5dizlgfInnOV3mr9+QtM9zMchAJfH
-	ZXd/0Uk1v1G7PvN4sle64p/AXka1EWWE554HkdA/D18Wv+pPuZfadA2nWwFDI7nqhGeh5N03kA6
-	ntbhXuI/OBUKCrXh4tsIRAzy5DEw5NAnH5O+Ib7he71YScouZ1xyRAtzgpYI3aTzuBA5LWQpQbD
-	eJUfZp5jvi6EwFyiim3odbRszPD11TGpdipjOFUmyvmHMn+69NdlZRcJeB8ybiCa6iup/iVGpVp
-	Aw2+R8kmlADlITGvTm5VvH+e541B0//lcZo9P7C5jbkkYCleQ1UVetwq10QjNDWc5xmdKFspG8c
-	A4zcqB2wINBnS6WvDtBXYhO8yREAwAqvmNdSdLJR/rQtgWlyO6uheVu/pxXigyjQnWBnjlx2/hr
-	79TDkvQsMqClGlQq8BJzkV78y8TpQEUOa8gLbdrA2m0zl4+waxGIb7kA==
-X-Received: by 2002:a05:6871:2102:b0:49e:33ff:6bda with SMTP id
- 586e51a60fabf-4a8e06a7791mr1577014fac.16.1793286625298; Thu, 29 Oct 2026
- 08:10:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=kjyUxfdf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793286708;
+	bh=8Oepbe9O9yB6V1/MpLPmhshtyjQFBga0hDC5FctDDeI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=kjyUxfdfrR0wq3hxAnOaHGgsa5WnkMO4Ko3UUBrKB3GkZ9ssZJ3Ae7eRD2vOw54vw
+	 nnszICRL9jLkk56uEquTGnPIc+HbSMzHvh0Q8SBarqjGaGNiCywhM7PXR0oSpBtkd5
+	 VGXi04CbPRzmVo9ExQZZN1+oI5DledTcv0506gTge3rzCWxghLnYGd4phd9D0IzO42
+	 /aIPghJ7/wep61G1QyMA8+vMqm/LD9dLU53iJiElxawmZzVTGkums6rIva+FpxLoD/
+	 a8MX3Opx0MdM/DwnIvSLuXZVdy28zQrmz7qRgr5sg9fERl/WoODI+YU3rDIFtuaiME
+	 MxtsXKb8yO3ZQ==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 99B0A25C98;
+	Thu, 29 Oct 2026 18:11:48 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 29 Oct 2026 18:11:47 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.28.100])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jFnkq2dccz1NyJ;
+	Thu, 29 Oct 2026 18:11:47 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	David Lee <david.lee@trailofbits.com>,
+	Qu Wenruo <wqu@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] btrfs: lzo: reject inline extents without valid headers
+Date: Thu, 29 Oct 2026 18:10:26 +0300
+Message-ID: <20261029151028.780-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,82 +85,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 15:10:09 +0000
-X-Gm-Features: AclHuK-NCoRP1AFBwcEcpT9lZOpueGQS9GFk1YygW8gcMAFUBjXyhMvfoBBBJz0
-Message-ID: <CAPY8ntC1G0Q=MFGkLNSC+bCq-iJh+estq1FeDgE7aV4UksyuyQ@mail.gmail.com>
-Subject: Re: [PATCH v2 6/8] media: i2c: ov9282: recalculate strobe span on
- HBLANK change
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
-	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207109 [Oct 29 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/29 07:40:00 #28758333
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
->
-> When HBLANK changes the line time changes. This means the time base for
-> the strobe duration calculation changed. This results in the v4l2
-> strobe_duration control value and the strobe_span register value being
-> out of sync.
->
-> Fix this by recalculating the strobe_span register value on HBLANK
-> writes using the currently configured strobe_duration. This results in
-> the strobe_duration configured by userspace being kept, but the
-> underlying register value being changed. To ensure the values are
-> applied on the same frame guard the writes with OV9282_REG_HOLD.
+From: David Lee <david.lee@trailofbits.com>
 
-Group hold will do what is intended, but if control updates from
-userspace for eg gain and exposure generally get too widely spread
-then, we've got much bigger problems.
+commit 0fa78ef637deb5dbe341582f88553a4bce496de0 upstream.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+[BUG]
+For a crafted btrfs image, the following KASAN can be triggered when
+reading an inline lzo compressed file extent:
 
-> Fixes: 84ec7597ae1af ("media: i2c: ov9282: add strobe_duration v4l2 control")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> ---
->  drivers/media/i2c/ov9282.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index b48c959b9c908..5114fbf28a26c 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -625,6 +625,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->         u32 exposure;
->         u32 lpfr;
->         int ret;
-> +       int ret_hold;
->
->         switch (ctrl->id) {
->         case V4L2_CID_VBLANK:
-> @@ -677,8 +678,14 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->                                       OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
->                 break;
->         case V4L2_CID_HBLANK:
-> -               ret = cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
-> -                               (ctrl->val + ov9282->cur_mode->width) >> 1, NULL);
-> +               ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
-> +               cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
-> +                         (ctrl->val + ov9282->cur_mode->width) >> 1, &ret);
-> +               cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
-> +                         ov9282_us_to_lines(ov9282, ov9282->flash_duration->cur.val),
-> +                         &ret);
-> +               ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
-> +               ret = ret ? ret : ret_hold;
->                 break;
->         case V4L2_CID_FLASH_STROBE_OE:
->                 ret = cci_update_bits(ov9282->regmap, OV9282_REG_OUTPUT_ENABLE6,
->
-> --
-> 2.53.0
->
->
+  BUG: KASAN: slab-out-of-bounds in lzo_decompress+0x57d/0x700
+  Read of size 4 at addr ffff888006f2e644 by task btrfs_lzo_inlin/77
+
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5b/0x70
+   print_report+0xd1/0x610
+   kasan_report+0xe0/0x110
+   __asan_report_load_n_noabort+0x13/0x20
+   lzo_decompress+0x57d/0x700
+   btrfs_decompress+0x140/0x1c0
+   uncompress_inline+0x147/0x1b0
+   btrfs_get_extent+0xb23/0x10a0
+   btrfs_do_readpage.constprop.0+0x538/0x1ac0
+   btrfs_readahead+0x32f/0x5f0
+   read_pages+0x16f/0x850
+   page_cache_ra_unbounded+0x296/0x490
+   do_page_cache_ra+0xd9/0x130
+   page_cache_sync_ra+0x3ee/0x6f0
+   filemap_get_pages+0x306/0x15c0
+   filemap_read+0x329/0xd00
+   btrfs_file_read_iter+0x1f8/0x2b0
+   vfs_read+0x4ef/0x720
+   ksys_read+0xf8/0x1d0
+   __x64_sys_read+0x71/0xb0
+   x64_sys_call+0x1ab0/0x1b70
+   do_syscall_64+0x61/0x470
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+   </TASK>
+
+[CAUSE]
+For an inline lzo compressed file extent, there should always be one lzo
+header, recording the total length of the compressed data, followed by
+one segment header, recording the compressed lzo payload.
+
+But if a crafted inline lzo compressed file extent contains only an lzo
+header, without the segment header or payload, lzo_decompress() will
+still try to read the segment header, causing a read beyond the item
+boundary.
+
+Furthermore if the inline lzo compressed file extent is the first item
+of the leaf, it will be at the extent buffer boundary. The above
+out-of-boundary read will go beyond the extent buffer boundary,
+triggering the above KASAN report.
+
+[FIX]
+Validate the total length of the inlined lzo compressed file extent, to
+make sure there is at least one LZO header and one segment header, and a
+non-zero payload.
+
+Fixes: a6fa6fae40ec ("btrfs: Add lzo compression support")
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+[ Rework the commit message to remove slop ]
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ mdmitrichenko: Update the existing srclen check, which returns
+  -EUCLEAN directly in this version of lzo_decompress(). ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-74723
+
+ fs/btrfs/lzo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/btrfs/lzo.c b/fs/btrfs/lzo.c
+index aa9cd11f4b78..40647a5cab6b 100644
+--- a/fs/btrfs/lzo.c
++++ b/fs/btrfs/lzo.c
+@@ -432,7 +432,7 @@ int lzo_decompress(struct list_head *ws, unsigned char *data_in,
+ 	char *kaddr;
+ 	unsigned long bytes;
+ 
+-	if (srclen < LZO_LEN || srclen > max_segment_len + LZO_LEN * 2)
++	if (srclen <= LZO_LEN * 2 || srclen > max_segment_len + LZO_LEN * 2)
+ 		return -EUCLEAN;
+ 
+ 	in_len = read_compress_length(data_in);
+-- 
+2.43.0
+
