@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793299422;
-	b=Ga0nngADIMeKuqYXCEfOxQusmiJxEaNSqOAXvqPjMqbkA7lREWYkBKGvibKJp+F1jsuI
-	 BkosqturR+YyUkk+c5tjUBDF92La8CT2N+UJm58BJY9cns20ngDvTm0iQcbH1kjzCfkj7
-	 I26xYBT9aLp4WSYzsv6dQvEvqIelRB4BEo/p4T0eRdgCJmWkxy12kI8KQ4nInSFse/+O/
-	 9GhxX7dJLldfrPI9D8HYG3re0HnENYYH3ZFLrCFTYH2YDsjet18xEM61VkLojlRLkHyNW
-	 TsqtgSp/CHoByJkqHnuGp7gw8NkiMRWJ2YqcHYGvvTsk3g2JLj+gWtzRIK3SMaj7GNQ==
+	t=1793299424;
+	b=xKDDFpA0dNpRS8ZN3k2zkFKMgkVwaxpNDYPFyqgWCx1awINlyHDSp+GTatsMFovHUT5d
+	 wIP8iLW+MB/Uc9zEu6PH5fzbI459xwCRKd6GCvo2Z0D17XthURctFBCRBC2KJXJ+e+JEW
+	 JD5cLpJ4YJmR+bNzgz2geNdSqE4ejr5GrPGP18SL3kOQOwMUBrz9lNY1U1BU4eSlJpS1y
+	 cYOsNnDTZVpEX8xopka5WGeLhCUTXD81FHtcLNV7pu92fh0pyebulePbo3XyTZR+Eb/P0
+	 LRc69Z27kC5Y039OBiseRPCvV7aBSAMZTUx0d10TX5gUQhiRT20cfljpiFyttWkyd3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793299422;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299424;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5tPa97UU58+P4GX8mvJe24s8i2nxa2TwTM2LMFiU0pg=;
-	b=ks6FtrAGJnOvhOqw2IG/oF84DA/12GpAelVoIo+XqxDdvl1CpnDWlYHrScd1dgM+n4Bk
-	 Do62Lg/1yp3ll32UJ031sV/mjLJlFvbCPnmS2oRE4l1UgMtBrE/7rLcn6RhwYWLAUGaZn
-	 KWdoGZKTuUPahuw8UbvG6GSODkzjJ+ZuW3a8ORDOQYKKz1bNQyl2mVMnp+M7jfGCgghGG
-	 j22biJOplQzwVjQpKvw4dBj6Fx1JfJmr42L962j9p3pItidmEPXqoffbSrlxqbe5TVOAE
-	 o3q1YtSA32CslJcuywUriG6kUtpJRKaryEV+17QzDghS7mCZsU/GPVAp3yXlHtoXRqg==
+	bh=uLzVJR5PrBW5MdCzTrQMsebCxLgQeSL1BGznK1Dto88=;
+	b=lwoadBEvMrLvyhKQ230NR2ZtEihkQaMROPbEFqICUCM27PdTJToyJuof926aq8M9OIZr
+	 4DDkz/Yw3823vqvbcYHl+3k1kd09S6LlJ3SYSKUuyQ94XhcMvEIfi+hKeBAhrdZyLm6Nb
+	 JY1eetnToSGTyll4t7OqlUhNInSTzslucc9ZQ1/Cx9fbcvjgzJqnNba3WDvbhc4+QfWx3
+	 qsbG9PJ7ozoH7DAHNO4ZHjLtXtL/ETEX6UVV+1IlRoNOTiRsavVftp4/AnWids7IKuNCl
+	 yQ1CuldKJBJvJs9MPLxHn3ru+/EUdrKe6zjp+nujRMKE0WW8xHgtxmHyl5uyyHRWvAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BE2GiH8S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0XFcrXl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D32606A321
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:43:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE7D606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:43:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BE2GiH8S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBC91F01824;
-	Thu, 29 Oct 2026 18:43:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0XFcrXl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FD01F01829;
+	Thu, 29 Oct 2026 18:43:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793299422;
-	bh=5tPa97UU58+P4GX8mvJe24s8i2nxa2TwTM2LMFiU0pg=;
+	s=k20260515; t=1793299423;
+	bh=uLzVJR5PrBW5MdCzTrQMsebCxLgQeSL1BGznK1Dto88=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BE2GiH8S62K+stwBdI4iQQetdsiEdlOsuNy9l8Py5DniXn9BPVySMYG8ZPXJpt3F7
-	 5H3wTPPHIaPTdgSRx8ZeA3Q6zAco3U9qCtzvcPZUw4TU7ZyJhDkCCFssenpIoE9RcB
-	 meASMV2IXrmXzp8+wG7u0ldhCeHjYBQpuSLaI4j6+Hwro/vwZmbum/Ny2Sw93VQF/H
-	 P40+bGyHlJaF3mKn4Uu5Wgg45uEHbiTyyXk9pfONOHnn/6hcPjh5hI3P0ODtnuxdJF
-	 gA1J4EGCtwexe0DbIpeq8Q5YK0mYqRWtAWzIK2Oze2XOY+Cs2YTsfXxEaRPcFIHX5z
-	 PK0hqxAvuPE5g==
+	b=V0XFcrXlhdYX8OEiVLZ4HN8qKP5TYiBN8S4KbkEyhnjh3lrV/6VsQQcSu8S4l17or
+	 KbdvyPhhUHvR7ntEusY9ztvmw4jpPO8w21D1X28Fg3QyxplZZle/5LOVuRmyo7qd8+
+	 7EU4gkhjEXmH03TDcXooBvlSI0vk0n2h3+0QRntTJ16C4AVLuHB2sBWSwobnp4PoyX
+	 d4Hk6ujULN+gKgMG57pcTCJ5u/XAS57ANkvX7/XIABBBxvTS5cS1lpX0hMxH2MAOXf
+	 vtkbSKv1yGaD6VwmYdYpma3E/O7J9zUWLeHiMdLV202F0+G2I8dmJ8hdbiOplUeA4b
+	 DqrmfjDB0GlOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -48,12 +48,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
 	Mark Bundschuh <mkbund@amazon.com>
-Subject: Re: [PATCH 6.6.y] KVM: arm64: Transfer the hyp stack pages out of the host stage-2
-Date: Thu, 29 Oct 2026 14:43:15 -0400
-Message-ID: <2026-10-29-1-daily-reply-0008-kvm-arm64-hyp-stack-6-6@kernel.org>
+Subject: Re: [PATCH 6.1.y] KVM: arm64: Transfer the hyp stack pages out of the host stage-2
+Date: Thu, 29 Oct 2026 14:43:16 -0400
+Message-ID: <2026-10-29-1-daily-reply-0009-kvm-arm64-hyp-stack-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261029022509.2631522-1-mkbund@amazon.com>
-References: <20261029022509.2631522-1-mkbund@amazon.com>
+In-Reply-To: <20261029022610.2637061-1-mkbund@amazon.com>
+References: <20261029022610.2637061-1-mkbund@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,7 +70,7 @@ Content-Transfer-Encoding: 8bit
 >   NVHE_STACK_SIZE, and the hyp stack here is one page, so PAGE_SIZE
 >   replaces it. ]
 
-Queued for 6.6, thanks.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
